@@ -128,4 +128,63 @@ theorem dft_jacobiChar (d : ℕ) [NeZero d] (hsq : Squarefree d) (hodd : Odd d) 
     have : (2 : ℂ) * ZMod.dft (⇑(jacobiChar d)) k = 0 := by linear_combination -h
     simpa using this
 
+
+/-! ### The level-32 form at `a/d − 1/(32 d² τ)` -/
+
+theorem etaQuot32_smul_of_mem {γ : SL(2, ℤ)} (hγ : γ ∈ Gamma0 32) (τ : ℍ) :
+    etaQuot32 (γ • τ) = ((γ 1 0 : ℂ) * τ + γ 1 1) ^ 2 * etaQuot32 τ := by
+  have h := congrFun (etaQuot32_slash_eq hγ) τ
+  rw [SL_slash_apply] at h
+  have hD : (γ 1 0 : ℂ) * τ + γ 1 1 ≠ 0 := mobius_denom_ne_zero (det_SL γ) τ.im_pos
+  have hden : denom γ τ = (γ 1 0 : ℂ) * τ + γ 1 1 := by simp [ModularGroup.denom_apply]
+  rw [hden, zpow_neg, zpow_two] at h
+  field_simp at h
+  linear_combination h
+
+/-- For integers `a, b` with `d ∣ 32ab + 1`:
+`f₁(a/d − 1/(32 d² τ)) = −32 d² τ² f₁(τ + b/d)`. -/
+theorem F₁_shift_fricke {d : ℕ} (hd : 0 < d) {a b : ℤ} (hab : (d : ℤ) ∣ 32 * a * b + 1)
+    (τ : ℍ) :
+    F₁ ((a : ℂ) / d - 1 / (32 * (d : ℂ) ^ 2 * τ)) =
+      -32 * (d : ℂ) ^ 2 * (τ : ℂ) ^ 2 * F₁ ((τ : ℂ) + (b : ℂ) / d) := by
+  obtain ⟨δ, hδ⟩ := hab
+  have hdC : (d : ℂ) ≠ 0 := by exact_mod_cast hd.ne'
+  have hτ0 : (τ : ℂ) ≠ 0 := τ.ne_zero
+  -- `X = (d, −b; −32a, δ)`
+  have hdet : (d : ℤ) * δ - (-b) * (-32 * a) = 1 := by linear_combination -hδ
+  let X : SL(2, ℤ) := ⟨!![(d : ℤ), -b; -32 * a, δ], by rw [Matrix.det_fin_two_of]; exact hdet⟩
+  have hX : X ∈ Gamma0 32 := by
+    rw [Gamma0_mem]
+    show (((-32 * a : ℤ)) : ZMod 32) = 0
+    rw [ZMod.intCast_zmod_eq_zero_iff_dvd]
+    exact ⟨-a, by push_cast; ring⟩
+  set τ' : ℍ := ⟨(τ : ℂ) + (b : ℂ) / d, by
+    simp only [add_im, div_natCast_im, intCast_im, zero_div, add_zero]; exact τ.im_pos⟩ with hτ'
+  have hw := etaQuot32_smul_of_mem hX τ'
+  have hcoeX : ((X • τ' : ℍ) : ℂ) = ((d : ℂ) * τ' + (-b : ℤ)) / ((-32 * a : ℤ) * τ' + δ) := by
+    rw [coe_smul_SL]; simp [X]
+  have hdenX : ((-32 * a : ℤ) : ℂ) * τ' + δ ≠ 0 := mobius_denom_ne_zero hdet τ'.im_pos
+  have hnum : (d : ℂ) * τ' + ((-b : ℤ) : ℂ) = (d : ℂ) * τ := by
+    simp only [hτ', UpperHalfPlane.coe_mk]; push_cast; field_simp; ring
+  -- the point
+  have hpt : (a : ℂ) / d - 1 / (32 * (d : ℂ) ^ 2 * τ) = -1 / (32 * ((X • τ' : ℍ) : ℂ)) := by
+    rw [hcoeX, hnum]
+    have hδC : (d : ℂ) * δ = 32 * a * b + 1 := by exact_mod_cast hδ.symm
+    simp only [hτ', UpperHalfPlane.coe_mk]
+    push_cast
+    field_simp
+    linear_combination hδC
+  rw [hpt, F₁_fricke (X • τ').im_pos]
+  have e1 : F₁ ((X • τ' : ℍ) : ℂ) = etaQuot32 (X • τ') := rfl
+  have e2 : F₁ ((τ : ℂ) + (b : ℂ) / d) = etaQuot32 τ' := rfl
+  rw [e1, e2, hw]
+  have hX10 : ((X 1 0 : ℤ) : ℂ) = ((-32 * a : ℤ) : ℂ) := by simp [X]
+  have hX11 : ((X 1 1 : ℤ) : ℂ) = (δ : ℂ) := by simp [X]
+  rw [hX10, hX11]
+  have hprod : ((X • τ' : ℍ) : ℂ) * (((-32 * a : ℤ) : ℂ) * τ' + δ) = (d : ℂ) * τ := by
+    rw [hcoeX, div_mul_cancel₀ _ hdenX, hnum]
+  have : ((X • τ' : ℍ) : ℂ) ^ 2 * (((-32 * a : ℤ) : ℂ) * τ' + δ) ^ 2 = ((d : ℂ) * τ) ^ 2 := by
+    rw [← hprod]; ring
+  linear_combination (-32 : ℂ) * etaQuot32 τ' * this
+
 end ZInQ.GZTheta
