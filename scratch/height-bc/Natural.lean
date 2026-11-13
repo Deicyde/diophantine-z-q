@@ -271,6 +271,134 @@ theorem bcHodge_wedge (he : IsMonBC 𝒢 𝒢' e) {g : ℕ}
   rw [bcHodge_tmul, map_one, bcExt_ιMulti]
   rfl
 
+/-! ### Complex points and Jacobians along `π` -/
+
+omit [NumberField L] [NumberField L'] in
+/-- (copied from `scratch/h5-glue/BaseChangePts.lean`, proved there) -/
+theorem ptC_hom_comp_bO (τ' : L' →+* ℂ) :
+    (GroupModel.ptC (L := L') τ').hom ≫ bO L L' =
+      (GroupModel.ptC (L := L) (τ'.comp (algebraMap L L'))).hom := by
+  simp only [GroupModel.ptC, Over.mk_hom]
+  rw [← Spec.map_comp, ← CommRingCat.ofHom_comp]
+  congr 2
+
+/-- (copied from `scratch/h5-glue/H5Final.lean`, proved there) Restriction does not change values
+at points that land in the smaller open. -/
+theorem evalAt_res {L : Type} [Field L] [NumberField L] [Algebra K L] (𝒢 : GroupModel A L)
+    {τ : L →+* ℂ} (p : 𝒢.Pts τ) {U W : 𝒢.G.left.Opens}
+    (i : W ⟶ U) (hp : ⊤ ≤ p.left ⁻¹ᵁ W) (s : Γ(𝒢.G.left, U)) :
+    𝒢.evalAt p U s = 𝒢.evalAt p W (𝒢.G.left.presheaf.map i.op s) := by
+  unfold GroupModel.evalAt
+  have hU : ⊤ ≤ p.left ⁻¹ᵁ U := hp.trans ((TopologicalSpace.Opens.map p.left.base).map i).le
+  rw [dif_pos hU, dif_pos hp]
+  congr 1
+  rw [← CommRingCat.comp_apply, Scheme.Hom.map_appLE]
+
+/-- (copied from `scratch/h5-glue/H5Final.lean`, proved there) -/
+theorem ptC_hom_apply {L : Type} [Field L] [NumberField L] (τ : L →+* ℂ) (x : PrimeSpectrum ℂ) :
+    (GroupModel.ptC (L := L) τ).hom x = genericPt L := by
+  change PrimeSpectrum.comap (τ.comp (algebraMap (𝓞 L) L)) x = _
+  haveI := x.isPrime
+  have hx : x.asIdeal = ⊥ := Ideal.eq_bot_of_prime _
+  refine PrimeSpectrum.ext (Ideal.ext fun a => ?_)
+  show τ (algebraMap (𝓞 L) L a) ∈ x.asIdeal ↔ a ∈ (⊥ : Ideal (𝓞 L))
+  rw [hx, Ideal.mem_bot, Ideal.mem_bot, map_eq_zero_iff _ τ.injective]
+  exact map_eq_zero_iff _ (IsFractionRing.injective (𝓞 L) L)
+
+/-- (copied from `scratch/h5-glue/H5Final.lean`, proved there) -/
+theorem one_mem_dom {L : Type} [Field L] [NumberField L] [Algebra K L] (𝒢 : GroupModel A L)
+    (τ : L →+* ℂ) {W : 𝒢.G.left.Opens}
+    (hW : 𝒢.genericUnit ∈ W) : ⊤ ≤ (1 : 𝒢.Pts τ).left ⁻¹ᵁ W := by
+  intro x _
+  show (toUnit (GroupModel.ptC τ) ≫ η[𝒢.G]).left x ∈ W
+  rw [Over.comp_left, Scheme.Hom.comp_apply]
+  show (η[𝒢.G] : 𝟙_ _ ⟶ 𝒢.G).left ((GroupModel.ptC τ).hom x) ∈ W
+  have hx : (GroupModel.ptC (L := L) τ).hom x = genericPt L := ptC_hom_apply τ x
+  rw [hx]
+  exact hW
+
+/-- (copied from `scratch/h5-glue/H5Final.lean`, proved there) -/
+theorem map_zero_of_hom {G : Type*} [Group G] {g : ℕ} (Φ : (Fin g → ℂ) → G)
+    (h : ∀ z w, Φ (z + w) = Φ z * Φ w) : Φ 0 = 1 := by
+  have := h 0 0
+  rw [add_zero] at this
+  exact (mul_eq_left.mp this.symm)
+
+variable (e) in
+/-- **Complex points along the base change**: `β : 𝒢'(ℂ)_{τ'} → 𝒢(ℂ)_σ`, `p' ↦ π ∘ p'`, for
+`σ = τ'|_L`. -/
+noncomputable def bcPts (σ : L →+* ℂ) (τ' : L' →+* ℂ) (hστ : τ'.comp (algebraMap L L') = σ)
+    (p : 𝒢'.Pts τ') : 𝒢.Pts σ :=
+  Over.homMk (p.left ≫ bcProj 𝒢 𝒢' e) (by
+    subst hστ
+    refine (Category.assoc _ _ _).trans ?_
+    rw [bcProj_w]
+    refine (Category.assoc _ _ _).symm.trans ?_
+    exact (congrArg (· ≫ bO L L') (Over.w p)).trans (ptC_hom_comp_bO τ'))
+
+theorem evalAt_bcPts (σ : L →+* ℂ) (τ' : L' →+* ℂ) (hστ : τ'.comp (algebraMap L L') = σ)
+    (p : 𝒢'.Pts τ') (U : 𝒢.G.left.Opens) (s : Γ(𝒢.G.left, U)) :
+    𝒢.evalAt (bcPts e σ τ' hστ p) U s =
+      𝒢'.evalAt p (bcProj 𝒢 𝒢' e ⁻¹ᵁ U) ((bcProj 𝒢 𝒢' e).app U s) := by
+  unfold GroupModel.evalAt
+  by_cases h : ⊤ ≤ p.left ⁻¹ᵁ (bcProj 𝒢 𝒢' e ⁻¹ᵁ U)
+  · have h' : ⊤ ≤ (bcPts e σ τ' hστ p).left ⁻¹ᵁ U := h
+    rw [dif_pos h', dif_pos h]
+    congr 1
+  · have h' : ¬ ⊤ ≤ (bcPts e σ τ' hστ p).left ⁻¹ᵁ U := h
+    rw [dif_neg h', dif_neg h]
+
+theorem dom_bcPts (σ : L →+* ℂ) (τ' : L' →+* ℂ) (hστ : τ'.comp (algebraMap L L') = σ) {g : ℕ}
+    (Φ' : (Fin g → ℂ) → 𝒢'.Pts τ') (U : 𝒢.G.left.Opens) :
+    𝒢.dom (fun z => bcPts e σ τ' hστ (Φ' z)) U = 𝒢'.dom Φ' (bcProj 𝒢 𝒢' e ⁻¹ᵁ U) := rfl
+
+/-- **The germ along `β ∘ Φ'` of `t` agrees near `0` with the germ along `Φ'` of `π^* t`.** -/
+theorem germAlong_bcPts_eventuallyEq (he : IsMonBC 𝒢 𝒢' e) (σ : L →+* ℂ) (τ' : L' →+* ℂ)
+    (hστ : τ'.comp (algebraMap L L') = σ) {g : ℕ} (Λ : Submodule ℤ (Fin g → ℂ))
+    (Φ' : (Fin g → ℂ) → 𝒢'.Pts τ') (hΦ : 𝒢'.IsAnalyticUniformization τ' Λ Φ')
+    (t : 𝒢.genStalk) :
+    𝒢.germAlong (fun z => bcPts e σ τ' hστ (Φ' z)) t =ᶠ[nhds 0] 𝒢'.germAlong Φ' (bcMap he t) := by
+  obtain ⟨hmul, -, -, hopen, -⟩ := hΦ
+  set U := (𝒢.exists_rep t).choose
+  set m := (𝒢.exists_rep t).choose_spec.choose
+  set s := (𝒢.exists_rep t).choose_spec.choose_spec.choose
+  have hs : 𝒢.G.left.presheaf.germ U 𝒢.genericUnit m s = t :=
+    (𝒢.exists_rep t).choose_spec.choose_spec.choose_spec
+  have hx' : 𝒢'.genericUnit ∈ bcProj 𝒢 𝒢' e ⁻¹ᵁ U := by
+    show bcProj 𝒢 𝒢' e 𝒢'.genericUnit ∈ U
+    rw [bcProj_genericUnit he]; exact m
+  set U' := (𝒢'.exists_rep (bcMap he t)).choose
+  set m' := (𝒢'.exists_rep (bcMap he t)).choose_spec.choose
+  set s' := (𝒢'.exists_rep (bcMap he t)).choose_spec.choose_spec.choose
+  have hs' : 𝒢'.G.left.presheaf.germ U' 𝒢'.genericUnit m' s' = bcMap he t :=
+    (𝒢'.exists_rep (bcMap he t)).choose_spec.choose_spec.choose_spec
+  have heq : 𝒢'.G.left.presheaf.germ (bcProj 𝒢 𝒢' e ⁻¹ᵁ U) 𝒢'.genericUnit hx'
+      ((bcProj 𝒢 𝒢' e).app U s) = 𝒢'.G.left.presheaf.germ U' 𝒢'.genericUnit m' s' := by
+    rw [hs', ← hs, bcMap_germ he U m hx' s]
+  obtain ⟨W, mW, iU, iV, hW⟩ := TopCat.Presheaf.germ_eq _ _ hx' m' _ _ heq
+  have hnhds : 𝒢'.dom Φ' W ∈ nhds (0 : Fin g → ℂ) := by
+    refine (hopen W).mem_nhds ?_
+    show ⊤ ≤ (Φ' 0).left ⁻¹ᵁ W
+    rw [map_zero_of_hom Φ' hmul]
+    exact one_mem_dom 𝒢' τ' mW
+  filter_upwards [hnhds] with z hz
+  show 𝒢.evalAt (bcPts e σ τ' hστ (Φ' z)) U s = 𝒢'.evalAt (Φ' z) U' s'
+  rw [evalAt_bcPts, evalAt_res 𝒢' (Φ' z) iU hz, hW, ← evalAt_res 𝒢' (Φ' z) iV hz]
+
+/-- **Jacobian determinants along the base change**:
+`jacDet (β ∘ Φ') f = jacDet' Φ' (π^* f)`. -/
+theorem jacDet_bcPts (he : IsMonBC 𝒢 𝒢' e) (σ : L →+* ℂ) (τ' : L' →+* ℂ)
+    (hστ : τ'.comp (algebraMap L L') = σ) {g : ℕ} (Λ : Submodule ℤ (Fin g → ℂ))
+    (Φ' : (Fin g → ℂ) → 𝒢'.Pts τ') (hΦ : 𝒢'.IsAnalyticUniformization τ' Λ Φ')
+    (f : Fin g → IsLocalRing.maximalIdeal 𝒢.genStalk) :
+    𝒢.jacDet (fun z => bcPts e σ τ' hστ (Φ' z)) f =
+      𝒢'.jacDet Φ' (fun i => ⟨bcMap he (f i), bcMap_mem_maximalIdeal he _ (f i).2⟩) := by
+  unfold GroupModel.jacDet
+  congr 1
+  ext i j
+  simp only [Matrix.of_apply]
+  rw [(germAlong_bcPts_eventuallyEq he σ τ' hστ Λ Φ' hΦ (f i)).fderiv_eq]
+
 end Construction
 
 end ZInQ.HeightBC
