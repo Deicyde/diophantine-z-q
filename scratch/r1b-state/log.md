@@ -77,3 +77,7 @@
   automorphism `conjO` of 𝒪, homomorphisms from `T11aHom`, inverse and equivariant by
   uniqueness); `fibreQMPeriod_of_r1b_orbits`. `μ` is a token under the opens (renamed). 0 errors,
   no `sorry`; axioms standard (VERIFIED).
+- Independent model review of R1b.part (subagent, read-only): FAITHFUL WITH CAVEATS (inherited
+  R1fp/PEL and Lemma P caveats; UNVERIFIED locators; GAGA/Chow and Eichler class number one used
+  without locators). No concrete defect.
+- final run: R1b.lean 0 errors, no `sorry`, all audited theorems standard axioms (VERIFIED).

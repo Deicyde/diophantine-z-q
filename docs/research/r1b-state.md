@@ -109,6 +109,23 @@ Lemma P as a folded-in published input, like every leaf over the Shimura curve.
   are consistent on the torus side (§3). Without that consistency the leaf would be *false*, not
   vacuous.
 
+*Independent model review (one subagent, read-only, no Lean).* Verdict: **FAITHFUL WITH
+CAVEATS**, no concrete defect found. What it checked:
+- the orientation of the `ι`-compatibility: `endPt`/`qmAct` and `ι(a)` are both left actions;
+- `qmLattice = ι(𝒪)(τ, 1)ᵀ`, by matching `ofInt` against `oBasis`;
+- the level convention against `Level3`;
+- clause (c), whose encoding is `ToP1.val`'s recipe;
+- the meaning of `A.Pt ℂ` (`ℂ`-points over `ℂ`).
+
+It also noted that `IsQMUnifLevel` pins the class of `P_τ` (GAGA/Chow), so (c) is a genuine
+statement. The caveats are:
+- (i) R1fp's inherited PEL-specialization audit caveat and Lemma P's uncompiled steps;
+- (ii) the UNVERIFIED locators;
+- (iii) the argument for (a)-(c) uses GAGA/Chow uniqueness and Eichler's class number one,
+  which are standard but not cited with locators.
+
+This is a model review, not a human one.
+
 ## 3. Consistency probes (VERIFIED, compiled)
 
 - `iotaC_mem`: for `a ∈ 𝒪`, `ι(a)Λ_τ ⊆ Λ_τ`, so `ι(a)` acts on `ℂ²/Λ_τ`. Supporting lemmas:
