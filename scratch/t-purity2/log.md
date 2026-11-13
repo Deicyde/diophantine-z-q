@@ -40,3 +40,13 @@ Base 883c4ddf. Continues t-brauer-purity (T2 already proved there: T2Full.lean, 
   BrauerHasse2Fin`, `brauerReciprocity2C_iff_fin : BrauerReciprocity2C ↔ BrauerReciprocity2Fin`
   (all three T14/T15 Props restated with "inflated from G/N, N open normal" in place of
   continuity).
+- `T1Finite.lean` (Mathlib only; `PkgI2.PurityBranchLocus` copied verbatim): COMPILES, no sorry,
+  standard axioms. `TPurity2.PurityBranchLocusFinite` (the leaf with `[Module.Finite R S]` in place
+  of `[Algebra.FiniteType R S]` and no quasi-finiteness hypothesis) and
+  `TPurity2.purityBranchLocus_of_finite : PurityBranchLocusFinite → PkgI2.PurityBranchLocus`.
+  Proof: Mathlib's Zariski Main Theorem
+  (`Algebra.QuasiFiniteAt.exists_fg_and_exists_notMem_and_awayMap_bijective`: module-finite
+  `S' ⊆ S`, `r ∈ S' ∖ q`, `S'[1/r] ≅ S[1/r]`); `exists_pow_mul_mem`, `isLocalization_atPrime_of_pow`,
+  `locEquiv : S'_{P∩S'} ≃ₐ[R] S_P` (r ∉ P); primes `q'' ≤ q ∩ S'` of `S'` lifted to `S` as
+  `comap ψ 𝔪` with `ψ : S → S[1/r] ≅ S'[1/r] → S'_{q''}`; heights, unramifiedness, regularity,
+  normality, dimension transported along `locEquiv`.
