@@ -26,3 +26,17 @@ Base: fork main 57a7fa26 + merge of origin/wip/kf-glue.
   `PartMain.lean` (`td_hom_inv`: conjAction trivial on G_L ⇒ k∘φ = φ∘k; `td_construct`:
   E = φ_L ≫ c_τ, φ_L a homomorphism by `G0FibreSimple.rigidityHom`; `twistDescent`).
 - `#print axioms G0ModField.KernelField.twistDescent`: [propext, Classical.choice, Quot.sound].
+
+## Step 3. Single-file check — VERIFIED (compiled)
+- `scratch/twist-descent/assemble.sh` → `scratch/twist-descent/TwistDescent.lean` (7882 lines):
+  `scratch/kf-glue/KfGlue.lean` verbatim (one import line added:
+  `ZInQKernel.Contrib.TwistDescent.GaloisDescent`) + PartXC + PartHFD + PartMain + PartFinal.
+- `lake env lean scratch/twist-descent/TwistDescent.lean`: rc=0, no error, no sorry, 1m19s wall
+  (`build1.txt`). All 13 new `#print axioms`: [propext, Classical.choice, Quot.sound].
+- Verbatim (`verbatim_check.py`, output `verbatim_check_out.txt`): KfGlue body verbatim; New.lean
+  verbatim in KfGlue; `TwistDescent`, `SemilinearTwistAt`, `bcEnd` blocks equal to the owner text
+  in New.lean, each defined once.
+- Corollaries (PartFinal): `conjIsogMaps_of_mulIsogeny : MulIsogeny → ConjIsogMaps`,
+  `conjIsogMaps_of_kerUnitOpen'`, `conjIsogMaps_of_cotangent'`,
+  `kernelFieldExists_of_kerUnitOpen'` (T6, NOS, Raynaud, TorsionStructure, T27, FS5, KerUnitOpen),
+  `kernelFieldExists_of_mulIsogeny`.
