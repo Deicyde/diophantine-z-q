@@ -85,7 +85,8 @@ import ZInQKernel.HDecomp.Descent.B2Glue
 theory (assembled by `scratch/hecke-rest/assemble.py`)
 
 Verbatim copies: `scratch/ts-hecke/TSHecke.lean` lines 6-889 (prop-ts prefix, with
-`NormalizationModel`) and 6444-6455 (`CurveNormChart`, the target, inside `namespace TSHecke`);
+`NormalizationModel`) 6444-6455 (`CurveNormChart`) and 6526-6551 (`NormalizationModelInf`, `CurveChartInf`), the
+targets, inside `namespace TSHecke`;
 `scratch/image-plane/AlgDepProof.lean` lines 15-171 and 277-322 (the value calculus `ptOf`, `ev`,
 `ev_res`, `ev_comp`, `ev_spec_top`, `val_of_mem`, ...). New work below the last banner.
 No `sorry`, no `axiom`.
@@ -101,7 +102,7 @@ open LeafQM LeafQM.AV LeafQM.AV.Pin G0ModField PropTSRed PkgI3
 """
 parts3 = [HEADER3, rng(6, 889), "", irng(15, 171), "", irng(277, 322), "",
           "end ImagePlane", "", "end Pin", "", "end AV", "", "end LeafQM", "", "end", "",
-          TSH2, rng(6444, 6455), "", "end TSHecke", "", "end", ""]
+          TSH2, rng(6444, 6455), "", rng(6526, 6551), "", "end TSHecke", "", "end", ""]
 main3 = open("scratch/hecke-rest/CurveChartMain.lean.part", encoding="utf-8").read()
 out3 = "\n".join(parts3) + "\n" + main3
 open("scratch/hecke-rest/CurveChart.lean", "w", encoding="utf-8").write(out3)
