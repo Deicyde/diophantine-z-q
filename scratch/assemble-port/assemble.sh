@@ -7,7 +7,8 @@
 # olean/TailB = "import TailA" + PRE + parts a10-a44; TailC = a45-a99; TailE = b*-c*; TailF = d*-y*; TailD = z*
 #   (after TailA each part is wrapped in its own `section G0A3_<name> … end G0A3_<name>`)
 # PRE = `namespace HDec`, Leaves.lean's `set_option maxHeartbeats 1000000` and its TauCeti `attribute [-instance]` line
-# AssemblePort.lean (flat) = LeavesP.lean minus its last line `end HDec`, imports_extra.txt after its first 3 lines,
+# imports_tailD.txt: extra kernel imports needed only by the z* parts (TailD header; flat file header)
+# AssemblePort.lean (flat) = LeavesP.lean minus its last line `end HDec`, imports_extra.txt + imports_tailD.txt after its first 3 lines,
 #   + all parts in the same order + `end HDec`
 cd "$(dirname "$0")"
 python3 -I mk/mk_prefix.py >/dev/null || exit 1
@@ -28,6 +29,6 @@ N=$(wc -l < LeavesP.lean); [ "$(tail -1 LeavesP.lean)" = "end HDec" ] || { echo 
 { echo "import TailB"; echo; echo "$PRE"; wrap $C; echo "end HDec"; } > olean/TailC.lean
 { echo "import TailC"; echo; echo "$PRE"; wrap $E; echo "end HDec"; } > olean/TailE.lean
 { echo "import TailE"; echo; echo "$PRE"; wrap $F; echo "end HDec"; } > olean/TailF.lean
-{ echo "import TailF"; echo; echo "$PRE"; wrap $D; echo "end HDec"; } > olean/TailD.lean
-{ sed -n 1,3p LeavesP.lean; cat imports_extra.txt; sed -n "4,$((N-1))p" LeavesP.lean; echo; for p in parts/[0-9]*.lean; do cat $p; echo; done; wrap $B $C $E $F $D; echo "end HDec"; } > AssemblePort.lean
+{ echo "import TailF"; cat imports_tailD.txt; echo; echo "$PRE"; wrap $D; echo "end HDec"; } > olean/TailD.lean
+{ sed -n 1,3p LeavesP.lean; cat imports_extra.txt imports_tailD.txt; sed -n "4,$((N-1))p" LeavesP.lean; echo; for p in parts/[0-9]*.lean; do cat $p; echo; done; wrap $B $C $E $F $D; echo "end HDec"; } > AssemblePort.lean
 wc -l olean/TailA.lean olean/TailB.lean olean/TailC.lean olean/TailE.lean olean/TailF.lean olean/TailD.lean AssemblePort.lean

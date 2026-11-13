@@ -21,13 +21,14 @@ theorem researchLeaves4_of_open2 (r : OpenResearchLeaves2) : ResearchLeaves4 :=
     r13 := r.r13, r14 := eigenformRepExists_of_r14Det r.r14, r15 := r.r15, r16 := r.r16, r18 := r.r18,
     r19 := r.r19, r20 := r.r20, r21 := r.r21, r22 := r.r22, h5fin := r.h5fin }
 
-/-- **The named Props left after assemble-port** (27 fields). g0-assemble3's `GluePieces4` (46 fields) without the 28
+/-- **The named Props left after assemble-port** (30 fields). g0-assemble3's `GluePieces4` (46 fields) without the 29
 fields proved or moved since (table: docs/research/assemble-port.md §2), plus linked-ram's `upperBreakBound` (LEAF?) and
 `betaTrivialAtTwo` (GLUE), which replace `kernelFieldBreaks`, and linked-ram's corrected `tateRamAtThreeD` (GLUE), which
 replaces `tateRamAtThree` (not quantified over `G7Data`, so without `[L:ℚ] ≤ D`; likely false as stated, linked-ram F1),
 period-glue's leaves `gammaStarGen` (LEAF?) and `t11aRiemannHom` (LEAF), which replace `s8WeightExact` and
 `qmTwistLattice`, and ts-hecke's `y3Connected` (LEAF), `curveNormChart`, `curveChartInf`, `heckeFibreSizes` (GLUE), which
-replace `heckeIrreducible`, `heckeNormalizationIrr`, `heckeDegree` (proved from T5) and `heckeBranch`. -/
+replace `heckeIrreducible`, `heckeNormalizationIrr`, `heckeDegree` (proved from T5) and `heckeBranch`, and
+linked-frob's `abVarSpreadsOut` (GLUE), `properSmoothGenConnected` (LEAF?), T4, T3 (LEAF), which replace `linkedFrob`. -/
 structure GluePieces5 : Prop where
   -- FibreSimple: FS5 (NoCM on the fibre)
   /-- fs5-nocm, LEAF (N1b′: CM points via optimal embeddings; Shimura 1967, Jordan, González–Rotger). -/
@@ -75,8 +76,6 @@ structure GluePieces5 : Prop where
   divisiblePoints : WeilPairing.DivisiblePoints
   -- ModularConstituent: G13-G16
   -- ModularConstituent: joint glue on G7's data (linked-tate)
-  /-- linked-tate, GLUE (g14-trace's Frobenius link for the canonical operators). -/
-  linkedFrob : UnramTate.LinkedFrob
   /-- linked-ram, LEAF? (textbook composite: the absolute upper-break bound `4a²` for a degree-`a` extension of `ℚ_p`;
   Glazer L796-811 from Serre, *Local Fields*, III §6 and IV §1-§3). With `BetaTrivialAtTwo` it gives linked-tate's
   `KernelFieldBreaks` (`UnramTate.kernelFieldBreaks_of'`). -/
@@ -105,6 +104,18 @@ structure GluePieces5 : Prop where
   /-- ts-hecke, GLUE (twist-fibre sizes 144/36/24/72 of `Y₃ → P¹`, from Shimura's uniformization and Baba–Granath §3.1).
   With `curveChartInf`, T5, `R1R2fp` and the proved `RamOfFibreCount` it gives `HeckeBranch` (`heckeBranch_of'`). -/
   heckeFibreSizes : TSHecke.HeckeFibreSizes
+  /-- linked-frob / neron-lg, GLUE (N1-g1: an abelian variety over a number field spreads out to an abelian scheme over
+  `𝓞_L[1/f]`; EGA IV₃ 8.8.2, 8.10.5 (xii), IV₄ 17.7.8 (ii); spread-out reduces it to these three EGA IV statements, not
+  folded). With the next three fields it gives linked-tate's `LinkedFrob` (`LinkedFrobRed.linkedFrob_of_neron_nmp`). -/
+  abVarSpreadsOut : FrobPiecesNeron.AbVarSpreadsOut
+  /-- frob-pieces, LEAF? (Zariski's connectedness theorem in the form used: a smooth proper `𝓞_L[1/f]`-scheme with
+  geometrically connected generic fibre is geometrically connected; EGA III₁ 4.3). -/
+  properSmoothGenConnected : FrobPiecesNeron.ProperSmoothGenConnected
+  /-- textbook LEAF I2-Red (T4; `TextbookLeaves.t4`, deleted by leaf-fold2 as unused and used again here): reduction is
+  bijective on prime-to-`p` torsion at good reduction. -/
+  reductionTorsionBijective : PkgI2.ReductionTorsionBijective.{0}
+  /-- textbook LEAF I2-NMP (T3; `TextbookLeaves.t3`, likewise): the Néron mapping property of abelian schemes. -/
+  neronMappingAbelianScheme : PkgI2.NeronMappingAbelianScheme.{0}
 
 /-- **`GluePieces` from `GluePieces5` and leaf-fold2's open leaf bundles.** g0-assemble3's `gluePieces_of_gluePieces4`
 (part z95), with every field proved since replaced by its proof: `analyticUniformizationOfDim` by T35's transport,
@@ -185,7 +196,9 @@ theorem gluePieces_of_gluePieces5 (r : OpenResearchLeaves2) (t : OpenTextbookLea
         (LinkedTate.modelG3G6_of hFS hG3)
         (LinkedTate.linkedTateData_of_frobRam t.t7 t.t26 hFS
           (LTGoodRed.QM.qmEndRank_of_leaves t.t6 t.t27)
-          (UnramTate.linkedFrobRam_of gp.linkedFrob
+          (UnramTate.linkedFrobRam_of
+              (LinkedFrobRed.linkedFrob_of_neron_nmp gp.abVarSpreadsOut gp.properSmoothGenConnected
+                gp.reductionTorsionBijective gp.neronMappingAbelianScheme)
             (UnramTate.linkedRam_of' hG3
               (UnramTate.kernelFieldBreaks_of' gp.upperBreakBound gp.betaTrivialAtTwo)
               UnramTate.localInertiaGlobal UnramTate.upperAbsInertia
@@ -193,7 +206,7 @@ theorem gluePieces_of_gluePieces5 (r : OpenResearchLeaves2) (t : OpenTextbookLea
     heightCopies := G0HeightCopies.heightCopiesAgree }
 
 /-- **G0 after assemble-port** (no `sorry`, standard axioms): leaf-fold2's open research leaves (`OpenResearchLeaves2`,
-26 fields), its open textbook leaves (`OpenTextbookLeaves2`, 18 fields) and `GluePieces5` (27 fields: 12 LEAF, 5 LEAF?,
+26 fields), its open textbook leaves (`OpenTextbookLeaves2`, 18 fields) and `GluePieces5` (30 fields: 14 LEAF, 6 LEAF?,
 10 GLUE; table in docs/research/assemble-port.md §2) imply `ZInQ.SixContactMin`. -/
 theorem sixContactMin_of_leaves5 (r : OpenResearchLeaves2) (t : OpenTextbookLeaves2) (gp : GluePieces5) :
     ZInQ.SixContactMin :=
@@ -232,6 +245,7 @@ end
 #print axioms UnramTate.linkedRam_of'
 #print axioms UnramTate.kernelFieldBreaksHigh
 #print axioms G0ModField.KernelField.twistDescent
+#print axioms LinkedFrobRed.linkedFrob_of_neron_nmp
 #print axioms TSHecke.heckeIrreducible_of_connected
 #print axioms TSHecke.heckeNormalizationIrr_of
 #print axioms TSHecke.heckeDegree_of_torsion

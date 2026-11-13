@@ -111,3 +111,12 @@
   TSHeckeMain. GluePieces5: − heckeIrreducible (⇐ new LEAF y3Connected), − heckeDegree (proved from T5),
   − heckeNormalizationIrr (⇐ new GLUE curveNormChart + T5), − heckeBranch (⇐ new GLUE curveChartInf, heckeFibreSizes +
   T5 + R1R2fp): 27 fields (12 LEAF, 5 LEAF?, 10 GLUE). TailF 147 s, TailD 33 s: VERIFIED exit 0, 0 errors, no sorryAx.
+- Merged origin/wip/linked-frob (report). Part z93 (mk/mk_z93.py) = linked-frob's AFR block (frob-trace part_bridge_src,
+  part_frob; alg-frob-red part_red; afr-absfrob AbsFrobDef minus `def AbsFrob`, part_fext; frob-pieces part_good/neron/
+  final/full) + its 10_linkedfrob.lean + 20_bundle4.lean L1-37. Kernel import ZInQKernel.Contrib.FrobPieces.
+  SmoothGeomConnIntegral added for TailD and the flat file only (imports_tailD.txt; lake build OK, 3021 jobs).
+  Run 1: 5 errors, mul-rigidity's Rigidity.lean already in part a15 → omitted. Run 2: `linkedFrob_of_neron_nmp` is in
+  20_bundle4 → its theorems copied (not `linkedFrob_of_textbook`, which uses the deleted t3/t4).
+- GluePieces5: − linkedFrob (SPECULATIVE GLUE) ⇐ abVarSpreadsOut (GLUE N1-g1), properSmoothGenConnected (LEAF?),
+  reductionTorsionBijective (T4 I2-Red, LEAF), neronMappingAbelianScheme (T3 I2-NMP, LEAF): 30 fields (14 LEAF, 6 LEAF?,
+  10 GLUE). TailD: VERIFIED exit 0, 78 s, no sorryAx, all axiom reports standard.

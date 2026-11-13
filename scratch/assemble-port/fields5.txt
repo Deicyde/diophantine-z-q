@@ -15,7 +15,6 @@ finiteImageHT
 t09SymmIsogenyExists
 isogenyQuasiInverse
 divisiblePoints
-linkedFrob
 upperBreakBound
 betaTrivialAtTwo
 tateRamAtThreeD
@@ -25,3 +24,7 @@ y3Connected
 curveNormChart
 curveChartInf
 heckeFibreSizes
+abVarSpreadsOut
+properSmoothGenConnected
+reductionTorsionBijective
+neronMappingAbelianScheme
