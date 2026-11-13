@@ -77,3 +77,14 @@
   all standard (VERIFIED).
 - Added algFrobRed_of_main / tateBridge35_of_main (pieces: GoodRedCofinite, SmoothGeomConnIntegral, RedRelMul,
   RedTorsionQbar, FExtend, FrobMorph); compile check in the next run.
+
+## Run 19-22: RedRelMul proved
+- pb_symm_mul (inverse of the Over.map ⊣ Over.pullback bijection is multiplicative; as unram-tate's homEquiv_mul),
+  pb_symm_mul' (for the group law of (Over.pullback g).mapGrp.obj G), redRelMul : RedRelMul (product of lifts; the
+  generic and special-fibre passages to 𝒜 are the adjunction bijection; e.inv a homomorphism).
+- Run 22: exit 0, 36 prints, all standard (VERIFIED).
+- Pitfalls: inside `open scoped CategoryTheory.Obj`, IsMonHom e.inv.hom.hom is not found (instance on
+  (Over.pullback g).obj 𝒜.X is Functor.monObjObj, not the mapGrp one); `rw [hmul]` gave an ill-typed motive; fixed with
+  congrArg/trans chains and a `show` at the mapGrp type.
+- Added algFrobRed_of_five / tateBridge35_of_five (pieces: GoodRedCofinite, SmoothGeomConnIntegral, RedTorsionQbar,
+  FExtend, FrobMorph); compile check in the next run.

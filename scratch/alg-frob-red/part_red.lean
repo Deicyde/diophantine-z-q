@@ -839,6 +839,116 @@ theorem residueAlgClosure_of (h1 : ResidueAlgClosed) (h2 : ResidueAlgebraic) :
   show e (IsLocalRing.residue v (PkgI2.toW (Ow L v) v rfl a)) = _
   rw [h3, AlgEquiv.commutes]
 
+/-! ## 7. `RedRelMul` from the adjunction `Over.map ⊣ Over.pullback` -/
+
+section RedMul
+
+open scoped CategoryTheory.Obj
+
+/-- The adjunction bijection `Hom(T, g^* M) ≃ Hom(g_! T, M)` is multiplicative (as in
+unram-tate's `homEquiv_mul`), here for the inverse map. -/
+theorem pb_symm_mul {S S' : Scheme} (g : S' ⟶ S) (M : Over S) [MonObj M] (T : Over S')
+    (u w : T ⟶ (Over.pullback g).obj M) :
+    ((Over.mapPullbackAdj g).homEquiv T M).symm (u * w) =
+      ((Over.mapPullbackAdj g).homEquiv T M).symm u *
+        ((Over.mapPullbackAdj g).homEquiv T M).symm w := by
+  obtain ⟨p, rfl⟩ := ((Over.mapPullbackAdj g).homEquiv T M).surjective u
+  obtain ⟨q, rfl⟩ := ((Over.mapPullbackAdj g).homEquiv T M).surjective w
+  have hm : (Over.mapPullbackAdj g).homEquiv T M (p * q) =
+      (Over.mapPullbackAdj g).homEquiv T M p * (Over.mapPullbackAdj g).homEquiv T M q := by
+    rw [Adjunction.homEquiv_unit, Adjunction.homEquiv_unit, Adjunction.homEquiv_unit,
+      Functor.map_mul, MonObj.comp_mul]
+  rw [← hm, Equiv.symm_apply_apply, Equiv.symm_apply_apply, Equiv.symm_apply_apply]
+
+end RedMul
+
+/-- `pb_symm_mul` for the group law of `(Over.pullback g).mapGrp.obj G` (the one of `sf 𝒜` and of
+`𝒜_L`). -/
+theorem pb_symm_mul' {S S' : Scheme} (g : S' ⟶ S) (G : Grp (Over S)) (T : Over S')
+    (u w : T ⟶ ((Over.pullback g).mapGrp.obj G).X) :
+    ((Over.mapPullbackAdj g).homEquiv T G.X).symm (u * w) =
+      ((Over.mapPullbackAdj g).homEquiv T G.X).symm u *
+        ((Over.mapPullbackAdj g).homEquiv T G.X).symm w :=
+  pb_symm_mul g G.X T u w
+
+set_option synthInstance.maxHeartbeats 400000 in
+/-- **`RedRelMul` holds (proved):** the product of the lifts lifts the sum, and on both the
+generic point and the special fibre the passage to `𝒜` is the adjunction bijection, which is
+multiplicative (`pb_symm_mul'`); `e.inv` is a homomorphism. -/
+theorem redRelMul : RedRelMul := by
+  intro L _ A v 𝒜 _ e j x₁ x₂ y₁ y₂ ⟨x'₁, g₁, c₁⟩ ⟨x'₂, g₂, c₂⟩
+  refine ⟨x'₁ * x'₂, ?_, ?_⟩
+  · have hw : Spec.map (CommRingCat.ofHom v.subtype) ≫
+        (Over.mk (Spec.map (CommRingCat.ofHom (PkgI2.toW (Ow L v) v rfl)))).hom =
+        ((Over.map (Spec.map (CommRingCat.ofHom (algebraMap (Ow L v) L)))).obj
+          (PkgI3.AbVar.ptObj (K := L) PkgI4.Qbar)).hom := by
+      simp only [Over.mk_hom, Over.map_obj_hom, PkgI3.AbVar.ptObj]
+      rw [← Spec.map_comp, ← Spec.map_comp, ← CommRingCat.ofHom_comp, ← CommRingCat.ofHom_comp]
+      rfl
+    let ι0 : (Over.map (Spec.map (CommRingCat.ofHom (algebraMap (Ow L v) L)))).obj
+        (PkgI3.AbVar.ptObj (K := L) PkgI4.Qbar) ⟶
+        Over.mk (Spec.map (CommRingCat.ofHom (PkgI2.toW (Ow L v) v rfl))) :=
+      Over.homMk (Spec.map (CommRingCat.ofHom v.subtype)) hw
+    let u : PtQ L A → (PkgI3.AbVar.ptObj (K := L) PkgI4.Qbar ⟶
+        ((Over.pullback (Spec.map (CommRingCat.ofHom (algebraMap (Ow L v) L)))).mapGrp.obj
+          𝒜).X) := fun x => genPt v 𝒜 e x
+    have hs : ∀ (x : PtQ L A)
+        (x' : Over.mk (Spec.map (CommRingCat.ofHom (PkgI2.toW (Ow L v) v rfl))) ⟶ 𝒜.X),
+        genMap v 𝒜 e x = Spec.map (CommRingCat.ofHom v.subtype) ≫ x'.left →
+        ((Over.mapPullbackAdj (Spec.map (CommRingCat.ofHom (algebraMap (Ow L v) L)))).homEquiv
+          _ 𝒜.X).symm (u x) = ι0 ≫ x' := fun x x' h => Over.OverMorphism.ext h
+    have hmul : u (x₁ + x₂) = u x₁ * u x₂ := by
+      show (Additive.toMul x₁ * Additive.toMul x₂) ≫ e.inv.hom.hom =
+        (Additive.toMul x₁ ≫ e.inv.hom.hom) * (Additive.toMul x₂ ≫ e.inv.hom.hom)
+      exact MonObj.mul_comp _ _ _
+    have key : ((Over.mapPullbackAdj (Spec.map (CommRingCat.ofHom
+        (algebraMap (Ow L v) L)))).homEquiv _ 𝒜.X).symm (u (x₁ + x₂)) = ι0 ≫ (x'₁ * x'₂) :=
+      (congrArg ((Over.mapPullbackAdj (Spec.map (CommRingCat.ofHom
+        (algebraMap (Ow L v) L)))).homEquiv _ 𝒜.X).symm hmul).trans
+        ((pb_symm_mul' _ 𝒜 _ (u x₁) (u x₂)).trans
+          (by rw [hs x₁ x'₁ g₁, hs x₂ x'₂ g₂, MonObj.comp_mul]))
+    exact congrArg Over.Hom.left key
+  · have keyc : ∀ (T' : Scheme) (u : T' ⟶ pullback 𝒜.X.hom
+        (Spec.map (CommRingCat.ofHom (IsLocalRing.residue (Ow L v))))),
+        (u ≫ pullback.fst _ _) ≫ 𝒜.X.hom = (u ≫ pullback.snd _ _) ≫
+          Spec.map (CommRingCat.ofHom (IsLocalRing.residue (Ow L v))) := fun T' u => by
+      rw [Category.assoc, pullback.condition, Category.assoc]
+    have h2 := (keyc _ y₁.left).trans (congrArg (· ≫ Spec.map (CommRingCat.ofHom
+      (IsLocalRing.residue (Ow L v)))) (Over.w y₁))
+    have h1 := congrArg (· ≫ 𝒜.X.hom) c₁
+    have h3 : (Spec.map (CommRingCat.ofHom j) ≫ Spec.map (CommRingCat.ofHom
+        (IsLocalRing.residue v)) ≫ x'₁.left) ≫ 𝒜.X.hom =
+        (Spec.map (CommRingCat.ofHom j) ≫ Spec.map (CommRingCat.ofHom
+          (IsLocalRing.residue v))) ≫
+          (Over.mk (Spec.map (CommRingCat.ofHom (PkgI2.toW (Ow L v) v rfl)))).hom := by
+      rw [Category.assoc, Category.assoc, Category.assoc, Over.w x'₁]
+    have hw' : (Spec.map (CommRingCat.ofHom j) ≫ Spec.map (CommRingCat.ofHom
+          (IsLocalRing.residue v))) ≫
+          (Over.mk (Spec.map (CommRingCat.ofHom (PkgI2.toW (Ow L v) v rfl)))).hom =
+        ((Over.map (Spec.map (CommRingCat.ofHom (IsLocalRing.residue (Ow L v))))).obj
+          (PkgI2.specOver (kw L v) (AlgebraicClosure (kw L v)))).hom :=
+      h3.symm.trans (h1.symm.trans h2)
+    let ι1 : (Over.map (Spec.map (CommRingCat.ofHom (IsLocalRing.residue (Ow L v))))).obj
+        (PkgI2.specOver (kw L v) (AlgebraicClosure (kw L v))) ⟶
+        Over.mk (Spec.map (CommRingCat.ofHom (PkgI2.toW (Ow L v) v rfl))) :=
+      Over.homMk (Spec.map (CommRingCat.ofHom j) ≫
+        Spec.map (CommRingCat.ofHom (IsLocalRing.residue v))) hw'
+    have hs : ∀ (y : PkgI2.Pts (sf 𝒜) (AlgebraicClosure (kw L v)))
+        (x' : Over.mk (Spec.map (CommRingCat.ofHom (PkgI2.toW (Ow L v) v rfl))) ⟶ 𝒜.X),
+        y.left ≫ pullback.fst 𝒜.X.hom
+            (Spec.map (CommRingCat.ofHom (IsLocalRing.residue (Ow L v)))) =
+          Spec.map (CommRingCat.ofHom j) ≫ Spec.map (CommRingCat.ofHom (IsLocalRing.residue v)) ≫
+            x'.left →
+        ((Over.mapPullbackAdj (Spec.map (CommRingCat.ofHom
+          (IsLocalRing.residue (Ow L v))))).homEquiv _ 𝒜.X).symm y = ι1 ≫ x' :=
+      fun y x' h => Over.OverMorphism.ext (h.trans (Category.assoc _ _ _).symm)
+    have key : ((Over.mapPullbackAdj (Spec.map (CommRingCat.ofHom
+          (IsLocalRing.residue (Ow L v))))).homEquiv _ 𝒜.X).symm (y₁ * y₂) =
+        ι1 ≫ (x'₁ * x'₂) :=
+      (pb_symm_mul' _ 𝒜 _ y₁ y₂).trans (by rw [hs y₁ x'₁ c₁, hs y₂ x'₂ c₂, MonObj.comp_mul])
+    exact (congrArg Over.Hom.left key).trans (Category.assoc _ _ _)
+
+
 /-- **Main result, finest form: `AlgFrobRed` from the leaf candidates `GoodRedCofinite`,
 `SmoothGeomConnIntegral` and the glue `ResidueAlgClosure`, `RedRelMul`, `RedTorsionQbar`,
 `FExtend`, `FrobMorph` (proved).** -/
@@ -891,6 +1001,23 @@ theorem tateBridge35_of_main (hT : PkgI3.TateModuleFree) (hG : GoodRedCofinite)
     (hFr : FrobMorph) : G14Bridge.TateBridge35 :=
   FrobTrace.tateBridge35_of_algFrobRed hT (algFrobRed_of_main hG hS hM h2 hE hFr)
 
+/-- **Main result: `FrobTrace.AlgFrobRed` from the leaf candidates `GoodRedCofinite` and
+`SmoothGeomConnIntegral` and the glue `RedTorsionQbar`, `FExtend`, `FrobMorph` (proved).**
+Proved here (or in Mathlib / mul-rigidity): conjugating the place, isolating the finite set, the
+special fibre as an abelian variety (from `SmoothGeomConnIntegral`), the residue characteristic and
+the units `ℓⁿ`, the valuative criterion (existence and uniqueness of lifts), `κ(v) ≅ κ(w)‾`
+(`residueAlgClosed`, `residueAlgebraic`), the reduction map as a homomorphism (`redRelMul`),
+`σ = Frob` on `κ(v)`, rigidity. -/
+theorem algFrobRed_of_five (hG : GoodRedCofinite) (hS : SmoothGeomConnIntegral)
+    (h2 : RedTorsionQbar) (hE : FExtend) (hFr : FrobMorph) : FrobTrace.AlgFrobRed :=
+  algFrobRed_of_main hG hS redRelMul h2 hE hFr
+
+/-- **`TateBridge35` from I3.M0 and the five pieces (proved).** -/
+theorem tateBridge35_of_five (hT : PkgI3.TateModuleFree) (hG : GoodRedCofinite)
+    (hS : SmoothGeomConnIntegral) (h2 : RedTorsionQbar) (hE : FExtend) (hFr : FrobMorph) :
+    G14Bridge.TateBridge35 :=
+  FrobTrace.tateBridge35_of_algFrobRed hT (algFrobRed_of_five hG hS h2 hE hFr)
+
 end AlgFrobRedRed
 
 end
@@ -920,6 +1047,9 @@ end
 #print axioms AlgFrobRedRed.residueAlgClosure_of
 #print axioms AlgFrobRedRed.residueAlgClosed
 #print axioms AlgFrobRedRed.residueAlgebraic
+#print axioms AlgFrobRedRed.pb_symm_mul
+#print axioms AlgFrobRedRed.pb_symm_mul'
+#print axioms AlgFrobRedRed.redRelMul
 #print axioms AlgFrobRedRed.algFrobRed_of_fine
 #print axioms AlgFrobRedRed.tateBridge35_of_fine
 #print axioms AlgFrobRedRed.algFrobRed_of_finest
@@ -927,3 +1057,5 @@ end
 #print axioms AlgFrobRedRed.tateBridge35_of_final
 #print axioms AlgFrobRedRed.algFrobRed_of_main
 #print axioms AlgFrobRedRed.tateBridge35_of_main
+#print axioms AlgFrobRedRed.algFrobRed_of_five
+#print axioms AlgFrobRedRed.tateBridge35_of_five
