@@ -1,0 +1,260 @@
+/-! # infra-hodge, part 1: cotangent maps of group models
+
+* `cotMapAt f h`: the map `𝔪_y/𝔪_y² → 𝔪_x/𝔪_x²` induced by a morphism of schemes `f` with
+  `f x = y`; functorial (`cotMapAt_comp`, `cotMapAt_id`); zero when it factors through a point
+  whose local ring is a field (`cotMapAt_comp_eq_zero`).
+* The `L`-structure `cotL` on `ω_{A_L} = 𝔪_ξ/𝔪_ξ²` (copied from hodge-bc2's `hbc_proof.lean.part`,
+  with the infra-stalks/height-bc lemmas it uses).
+* For a morphism of group models over `𝓞_L` the cotangent map is `𝓞_L`- and `L`-linear
+  (`cotMapAt_smul_ring`, `cotMapAt_smulL`). -/
+
+namespace ZInQ.InfraHodge
+
+open CategoryTheory AlgebraicGeometry Limits MonoidalCategory CartesianMonoidalCategory MonObj
+open NumberField ZInQ.DefFaltings
+open scoped TensorProduct
+
+section CotMap
+
+theorem le_comap_stalkMapAt {X Y : Scheme.{0}} (f : X ⟶ Y) {x : X} {y : Y} (h : f x = y) :
+    IsLocalRing.maximalIdeal (Y.presheaf.stalk y) ≤
+      (IsLocalRing.maximalIdeal (X.presheaf.stalk x)).comap (f.stalkMapAt h).hom.toIntAlgHom :=
+  fun t ht => map_nonunit (f.stalkMapAt h).hom t ht
+
+/-- The cotangent map of `f : X ⟶ Y` between named points (`f x = y`). -/
+noncomputable def cotMapAt {X Y : Scheme.{0}} (f : X ⟶ Y) {x : X} {y : Y} (h : f x = y) :
+    IsLocalRing.CotangentSpace (Y.presheaf.stalk y) →ₗ[ℤ]
+      IsLocalRing.CotangentSpace (X.presheaf.stalk x) :=
+  Ideal.mapCotangent (IsLocalRing.maximalIdeal _) (IsLocalRing.maximalIdeal _)
+    (f.stalkMapAt h).hom.toIntAlgHom (le_comap_stalkMapAt f h)
+
+theorem cotMapAt_toCotangent {X Y : Scheme.{0}} (f : X ⟶ Y) {x : X} {y : Y} (h : f x = y)
+    (t : IsLocalRing.maximalIdeal (Y.presheaf.stalk y)) :
+    cotMapAt f h ((IsLocalRing.maximalIdeal _).toCotangent t) =
+      (IsLocalRing.maximalIdeal _).toCotangent
+        ⟨(f.stalkMapAt h).hom t, map_nonunit (f.stalkMapAt h).hom _ t.2⟩ := by
+  unfold cotMapAt
+  rw [Ideal.mapCotangent_toCotangent]
+  rfl
+
+theorem cotMapAt_smul {X Y : Scheme.{0}} (f : X ⟶ Y) {x : X} {y : Y} (h : f x = y)
+    (r : Y.presheaf.stalk y) (v : IsLocalRing.CotangentSpace (Y.presheaf.stalk y)) :
+    cotMapAt f h (r • v) = (f.stalkMapAt h).hom r • cotMapAt f h v := by
+  obtain ⟨m, rfl⟩ := (IsLocalRing.maximalIdeal _).toCotangent_surjective v
+  rw [← map_smul, cotMapAt_toCotangent, cotMapAt_toCotangent, ← map_smul]
+  congr 1
+  apply Subtype.ext
+  simp only [SetLike.val_smul, smul_eq_mul, map_mul]
+
+theorem cotMapAt_comp {X Y Z : Scheme.{0}} (f : X ⟶ Y) (g : Y ⟶ Z) {x : X} {y : Y} {z : Z}
+    (hf : f x = y) (hg : g y = z) (hfg : (f ≫ g) x = z)
+    (v : IsLocalRing.CotangentSpace (Z.presheaf.stalk z)) :
+    cotMapAt (f ≫ g) hfg v = cotMapAt f hf (cotMapAt g hg v) := by
+  obtain ⟨m, rfl⟩ := (IsLocalRing.maximalIdeal _).toCotangent_surjective v
+  rw [cotMapAt_toCotangent, cotMapAt_toCotangent, cotMapAt_toCotangent]
+  congr 2
+  rw [Scheme.Hom.stalkMapAt_comp f g hf hg hfg]
+  rfl
+
+theorem cotMapAt_congr {X Y : Scheme.{0}} {f g : X ⟶ Y} (e : f = g) {x : X} {y : Y}
+    (hf : f x = y) (hg : g x = y) (v : IsLocalRing.CotangentSpace (Y.presheaf.stalk y)) :
+    cotMapAt f hf v = cotMapAt g hg v := by
+  subst e; rfl
+
+theorem cotMapAt_id {X : Scheme.{0}} (x : X) (h : (𝟙 X) x = x)
+    (v : IsLocalRing.CotangentSpace (X.presheaf.stalk x)) : cotMapAt (𝟙 X) h v = v := by
+  obtain ⟨m, rfl⟩ := (IsLocalRing.maximalIdeal _).toCotangent_surjective v
+  rw [cotMapAt_toCotangent]
+  congr 2
+  rw [Scheme.Hom.stalkMapAt_id]
+  rfl
+
+/-- A cotangent map through a point whose local ring is a field vanishes. -/
+theorem cotMapAt_comp_eq_zero {X Y Z : Scheme.{0}} (f : X ⟶ Y) (g : Y ⟶ Z) {x : X} {y : Y}
+    {z : Z} (hf : f x = y) (hg : g y = z) (hfg : (f ≫ g) x = z)
+    (hy : IsLocalRing.maximalIdeal (Y.presheaf.stalk y) = ⊥)
+    (v : IsLocalRing.CotangentSpace (Z.presheaf.stalk z)) : cotMapAt (f ≫ g) hfg v = 0 := by
+  rw [cotMapAt_comp f g hf hg hfg]
+  obtain ⟨m, hm'⟩ := (IsLocalRing.maximalIdeal _).toCotangent_surjective (cotMapAt g hg v)
+  rw [← hm']
+  have hm : (m : Y.presheaf.stalk y) = 0 := by
+    have h2 : (m : Y.presheaf.stalk y) ∈ (⊥ : Ideal (Y.presheaf.stalk y)) := hy ▸ m.2
+    exact (Ideal.mem_bot).mp h2
+  have : m = 0 := Subtype.ext hm
+  rw [this, map_zero, map_zero]
+
+end CotMap
+
+section Basics
+
+variable {K : Type} [Field K] {A : AbVar K}
+
+/-! Copied from height-bc/infra-stalks (via hodge-bc2's `HBCPrefix.lean`, section `InfraStalks`)
+and hodge-bc2's `hbc_proof.lean.part`, unchanged except for the namespace. -/
+
+theorem unitSection_comp_hom {L : Type} [Field L] [NumberField L] [Algebra K L]
+    (𝒢 : GroupModel A L) : 𝒢.unitSection ≫ 𝒢.G.hom = 𝟙 _ := by
+  unfold GroupModel.unitSection
+  simp
+
+theorem hom_genericUnit {L : Type} [Field L] [NumberField L] [Algebra K L]
+    (𝒢 : GroupModel A L) : 𝒢.G.hom 𝒢.genericUnit = genericPt L := by
+  unfold GroupModel.genericUnit
+  rw [← Scheme.Hom.comp_apply, unitSection_comp_hom]
+  rfl
+
+theorem genericPt_eq_genericPoint (L : Type) [Field L] [NumberField L] :
+    genericPt L = genericPoint (Spec (CommRingCat.of (𝓞 L))) := by
+  rw [genericPoint_eq_bot_of_affine]; rfl
+
+theorem isField_stalk_genericPt (L : Type) [Field L] [NumberField L]
+    (y : Spec (CommRingCat.of (𝓞 L))) (hy : y = genericPt L) :
+    IsField ((Spec (CommRingCat.of (𝓞 L))).presheaf.stalk y) := by
+  rw [hy, genericPt_eq_genericPoint]
+  exact Field.toIsField (Spec (CommRingCat.of (𝓞 L))).functionField
+
+theorem maximalIdeal_stalk_genericPt (L : Type) [Field L] [NumberField L]
+    (y : Spec (CommRingCat.of (𝓞 L))) (hy : y = genericPt L) :
+    IsLocalRing.maximalIdeal ((Spec (CommRingCat.of (𝓞 L))).presheaf.stalk y) = ⊥ :=
+  (IsLocalRing.isField_iff_maximalIdeal_eq).mp (isField_stalk_genericPt L y hy)
+
+theorem structMap_eq_stalkMap {L : Type} [Field L] [NumberField L] [Algebra K L]
+    (𝒢 : GroupModel A L) (a : 𝓞 L) :
+    𝒢.structMap a = 𝒢.G.hom.stalkMap 𝒢.genericUnit
+      ((Spec (CommRingCat.of (𝓞 L))).presheaf.germ ⊤ (𝒢.G.hom 𝒢.genericUnit) trivial
+        ((Scheme.ΓSpecIso (CommRingCat.of (𝓞 L))).inv a)) := by
+  erw [Scheme.Hom.germ_stalkMap_apply 𝒢.G.hom ⊤ 𝒢.genericUnit (by trivial)]
+  rfl
+
+/-- The stalk map at named points on germs. -/
+theorem stalkMapAt_germ' {X Y : Scheme.{0}} (f : X ⟶ Y) {x : X} {y : Y} (h : f x = y)
+    (U : Y.Opens) (hy : y ∈ U) (hy' : f x ∈ U) (s : Γ(Y, U)) :
+    f.stalkMapAt h (Y.presheaf.germ U y hy s) = f.stalkMap x (Y.presheaf.germ U (f x) hy' s) := by
+  subst h; rw [Scheme.Hom.stalkMapAt_rfl]
+
+/-- The function field of `Spec 𝓞_L`. -/
+noncomputable abbrev FF (L : Type) [Field L] [NumberField L] : CommRingCat :=
+  (Spec (CommRingCat.of (𝓞 L))).functionField
+
+noncomputable instance (L : Type) [Field L] [NumberField L] : Algebra (𝓞 L) (FF L) :=
+  ((Scheme.ΓSpecIso (CommRingCat.of (𝓞 L))).inv ≫ (Spec (CommRingCat.of (𝓞 L))).presheaf.germ ⊤
+      (genericPoint (Spec (CommRingCat.of (𝓞 L)))) trivial).hom.toAlgebra
+
+instance (L : Type) [Field L] [NumberField L] : IsFractionRing (𝓞 L) (FF L) := by
+  have := functionField_isFractionRing_of_affine (CommRingCat.of (𝓞 L))
+  exact this
+
+theorem algebraMap_FF (L : Type) [Field L] [NumberField L] (a : 𝓞 L) :
+    algebraMap (𝓞 L) (FF L) a = (Spec (CommRingCat.of (𝓞 L))).presheaf.germ ⊤
+      (genericPoint (Spec (CommRingCat.of (𝓞 L)))) trivial
+      ((Scheme.ΓSpecIso (CommRingCat.of (𝓞 L))).inv a) := rfl
+
+/-- `L ≅ κ(η)`. -/
+noncomputable def σFF (L : Type) [Field L] [NumberField L] : L ≃ₐ[𝓞 L] FF L :=
+  IsLocalization.algEquiv (nonZeroDivisors (𝓞 L)) L (FF L)
+
+theorem hom_genericUnit' {L : Type} [Field L] [NumberField L] [Algebra K L]
+    (𝒢 : GroupModel A L) :
+    𝒢.G.hom 𝒢.genericUnit = genericPoint (Spec (CommRingCat.of (𝓞 L))) :=
+  (hom_genericUnit 𝒢).trans (genericPt_eq_genericPoint L)
+
+/-- `φ : L → 𝒪_{𝒢,ξ}` (through `κ(η)`). -/
+noncomputable def φL {L : Type} [Field L] [NumberField L] [Algebra K L] (𝒢 : GroupModel A L) :
+    L →+* 𝒢.genStalk :=
+  (𝒢.G.hom.stalkMapAt (hom_genericUnit' 𝒢)).hom.comp (σFF L).toRingEquiv.toRingHom
+
+theorem φL_algebraMap {L : Type} [Field L] [NumberField L] [Algebra K L] (𝒢 : GroupModel A L)
+    (a : 𝓞 L) : φL 𝒢 (algebraMap (𝓞 L) L a) = 𝒢.structMap a := by
+  unfold φL
+  rw [RingHom.comp_apply]
+  change (𝒢.G.hom.stalkMapAt (hom_genericUnit' 𝒢)).hom ((σFF L) (algebraMap (𝓞 L) L a)) = _
+  rw [AlgEquiv.commutes, algebraMap_FF, structMap_eq_stalkMap]
+  exact stalkMapAt_germ' _ _ ⊤ trivial trivial _
+
+/-- **The `L`-vector space structure on `ω_{A_L}`.** -/
+noncomputable abbrev cotL {L : Type} [Field L] [NumberField L] [Algebra K L]
+    (𝒢 : GroupModel A L) : Module L 𝒢.cotangent :=
+  Module.compHom _ (φL 𝒢)
+
+theorem cotL_smul {L : Type} [Field L] [NumberField L] [Algebra K L] (𝒢 : GroupModel A L)
+    (c : L) (v : 𝒢.cotangent) :
+    (letI := cotL 𝒢; c • v) = φL 𝒢 c • v := rfl
+
+theorem cotL_isScalarTower {L : Type} [Field L] [NumberField L] [Algebra K L]
+    (𝒢 : GroupModel A L) : letI := cotL 𝒢; IsScalarTower (𝓞 L) L 𝒢.cotangent := by
+  letI := cotL 𝒢
+  refine ⟨fun r c v => ?_⟩
+  rw [cotL_smul, cotL_smul, Algebra.smul_def, map_mul, φL_algebraMap, mul_smul]
+  rfl
+
+end Basics
+
+section GroupModelMaps
+
+variable {K : Type} [Field K] {A B : AbVar K} {L : Type} [Field L] [NumberField L] [Algebra K L]
+
+/-- For a morphism `φ` of schemes over `𝓞_L` with `φ ξ = ξ'`, the stalk map at `ξ` commutes
+with the structure stalk maps. -/
+theorem stalkMapAt_hom_comp (𝒢 : GroupModel A L) (ℋ : GroupModel B L) (φ : 𝒢.G ⟶ ℋ.G)
+    (h : φ.left 𝒢.genericUnit = ℋ.genericUnit) {y : Spec (CommRingCat.of (𝓞 L))}
+    (hy : ℋ.G.hom ℋ.genericUnit = y) (hy' : 𝒢.G.hom 𝒢.genericUnit = y)
+    (t : (Spec (CommRingCat.of (𝓞 L))).presheaf.stalk y) :
+    (φ.left.stalkMapAt h).hom ((ℋ.G.hom.stalkMapAt hy).hom t) = (𝒢.G.hom.stalkMapAt hy').hom t := by
+  have hw : φ.left ≫ ℋ.G.hom = 𝒢.G.hom := Over.w φ
+  have hpt : (φ.left ≫ ℋ.G.hom) 𝒢.genericUnit = y := by rw [hw]; exact hy'
+  have := Scheme.Hom.stalkMapAt_comp φ.left ℋ.G.hom h hy hpt
+  rw [Scheme.Hom.stalkMapAt_congr hw hpt hy'] at this
+  rw [this]
+  rfl
+
+theorem stalkMapAt_structMap (𝒢 : GroupModel A L) (ℋ : GroupModel B L) (φ : 𝒢.G ⟶ ℋ.G)
+    (h : φ.left 𝒢.genericUnit = ℋ.genericUnit) (a : 𝓞 L) :
+    (φ.left.stalkMapAt h).hom (ℋ.structMap a) = 𝒢.structMap a := by
+  rw [structMap_eq_stalkMap, structMap_eq_stalkMap,
+    ← stalkMapAt_germ' ℋ.G.hom (hom_genericUnit ℋ) ⊤ trivial trivial,
+    ← stalkMapAt_germ' 𝒢.G.hom (hom_genericUnit 𝒢) ⊤ trivial trivial]
+  exact stalkMapAt_hom_comp 𝒢 ℋ φ h _ _ _
+
+theorem stalkMapAt_φL (𝒢 : GroupModel A L) (ℋ : GroupModel B L) (φ : 𝒢.G ⟶ ℋ.G)
+    (h : φ.left 𝒢.genericUnit = ℋ.genericUnit) (c : L) :
+    (φ.left.stalkMapAt h).hom (φL ℋ c) = φL 𝒢 c := by
+  unfold φL
+  simp only [RingHom.comp_apply]
+  exact stalkMapAt_hom_comp 𝒢 ℋ φ h _ _ _
+
+/-- The cotangent map of a morphism of group models (at the generic units). -/
+noncomputable abbrev cotG {𝒢 : GroupModel A L} {ℋ : GroupModel B L} (φ : 𝒢.G ⟶ ℋ.G)
+    (h : φ.left 𝒢.genericUnit = ℋ.genericUnit) : ℋ.cotangent →ₗ[ℤ] 𝒢.cotangent :=
+  cotMapAt φ.left h
+
+theorem cotG_smul_ring {𝒢 : GroupModel A L} {ℋ : GroupModel B L} (φ : 𝒢.G ⟶ ℋ.G)
+    (h : φ.left 𝒢.genericUnit = ℋ.genericUnit) (a : 𝓞 L) (v : ℋ.cotangent) :
+    cotG φ h (a • v) = a • cotG φ h v := by
+  have := cotMapAt_smul φ.left h (ℋ.structMap a) v
+  rw [stalkMapAt_structMap] at this
+  exact this
+
+theorem cotG_smulL {𝒢 : GroupModel A L} {ℋ : GroupModel B L} (φ : 𝒢.G ⟶ ℋ.G)
+    (h : φ.left 𝒢.genericUnit = ℋ.genericUnit) (c : L) (v : ℋ.cotangent) :
+    cotG φ h (letI := cotL ℋ; c • v) = (letI := cotL 𝒢; c • cotG φ h v) := by
+  rw [cotL_smul, cotL_smul]
+  have := cotMapAt_smul φ.left h (φL ℋ c) v
+  rw [stalkMapAt_φL] at this
+  exact this
+
+/-- The cotangent map as an `L`-linear map. -/
+noncomputable def cotGL {𝒢 : GroupModel A L} {ℋ : GroupModel B L} (φ : 𝒢.G ⟶ ℋ.G)
+    (h : φ.left 𝒢.genericUnit = ℋ.genericUnit) :
+    letI := cotL 𝒢; letI := cotL ℋ; ℋ.cotangent →ₗ[L] 𝒢.cotangent :=
+  letI := cotL 𝒢; letI := cotL ℋ
+  { toFun := cotG φ h
+    map_add' := map_add _
+    map_smul' := fun c v => cotG_smulL φ h c v }
+
+theorem cotGL_apply {𝒢 : GroupModel A L} {ℋ : GroupModel B L} (φ : 𝒢.G ⟶ ℋ.G)
+    (h : φ.left 𝒢.genericUnit = ℋ.genericUnit) (v : ℋ.cotangent) :
+    (letI := cotL 𝒢; letI := cotL ℋ; cotGL φ h v) = cotG φ h v := rfl
+
+end GroupModelMaps
+
+end ZInQ.InfraHodge
