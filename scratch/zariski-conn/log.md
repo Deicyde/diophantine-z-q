@@ -61,3 +61,23 @@ Target: `FrobPiecesNeron.ProperSmoothGenConnected` (scratch/frob-pieces/part_ner
   - #print axioms (scratch/zariski-conn/axioms.lean): all four [propext, Classical.choice, Quot.sound].
 - Pitfalls: `IsIso φ` for a `TopCat.Sheaf` morphism is not seen through `sheafToPresheaf`; use
   `TopCat.Sheaf.forget`. `Sheaf` morphism from `f.c`: `⟨f.c⟩`.
+
+## Single-file check (VERIFIED, 12:45)
+- build.sh → ZariskiConnFull.lean = src_FrobPiecesFull.lean (cmp-identical to
+  scratch/frob-pieces/FrobPiecesFull.lean; that file is up to date with frob-pieces' build_full.sh
+  inputs, cmp) + `import ZInQKernel.Contrib.ZariskiConn.Basic` after its 21 import lines + part_zc.lean.
+- part_zc: `ZariskiConnGlue.properSmoothGenConnected : ZariskiConnectedness.{0} →
+  FrobPiecesNeron.ProperSmoothGenConnected` (the Contrib copy is definitionally the same def),
+  `goodRedCofinite_of_neron_zariski`, `algFrobRed_of_neron_zariski_nmp`,
+  `tateBridge35_of_neron_zariski_nmp`.
+- Prerequisite: `lake build` of the 21 imported ZInQKernel modules (builds lean/ ZInQ helpers;
+  otherwise "unknown module prefix 'ZInQ'").
+- Run 1: `lake env lean scratch/zariski-conn/ZariskiConnFull.lean` exit 0, 2 min 49 s, 122 axiom
+  prints all [propext, Classical.choice, Quot.sound], 0 sorryAx (run1.txt).
+- py/verbatim_check.py: ALL VERBATIM (Contrib copy and assembled file).
+- NOTICE entry for the 11 vendored modules; diffcheck2: NOTE-ONLY 0, MOD-UNNOTED 0.
+
+## Further split of the leaf: not done (assessment)
+- 4.3.4 from 4.3.1 needs étale neighbourhoods with prescribed residue field + flat base change of
+  f_*𝒪 (Mathlib has the latter) and "connected over k_sep ⇒ geometrically connected" (EGA IV₂ 4.5,
+  missing in Mathlib). 4.3.1 from 4.1.5 needs formal completions and lim H⁰(X_n): missing.
