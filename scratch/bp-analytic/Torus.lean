@@ -1338,4 +1338,97 @@ theorem IsUniformization.exists_realLinear_endo {g : ℕ} {Λ : Submodule ℤ (F
   rw [← hT v]
   simp [ptMap]
 
+/-- **Endomorphisms of `A` act on `ℂ^g` by `ℂ`-linear maps preserving the period lattice.**
+The real lift of `exists_realLinear_endo` is holomorphic: in the coordinates of clause (ii) it is
+`(local inverse of F) ∘ G` with `F, G` given by regular functions (clause (i)). This is the analytic
+representation `End(A) → M_g(ℂ)` used by R1an and T11. -/
+theorem IsUniformization.exists_complexLinear_endo {g : ℕ} {Λ : Submodule ℤ (Fin g → ℂ)}
+    [DiscreteTopology Λ] {φ : Torus Λ ≃+ Additive (A.Pt ℂ)} (hφ : IsUniformization A Λ φ)
+    (α : A.X ⟶ A.X) [IsMonHom α] :
+    ∃ T : (Fin g → ℂ) →L[ℂ] (Fin g → ℂ), (∀ v ∈ Λ, T v ∈ Λ) ∧
+      ∀ v, Additive.toMul (φ (proj Λ (T v))) = Additive.toMul (φ (proj Λ v)) ≫ α := by
+  obtain ⟨T, hTΛ, hT⟩ := hφ.exists_realLinear_endo α
+  -- coordinates at `T 0`
+  obtain ⟨U, f, e, hU, hF⟩ := hφ.coords (T 0)
+  set F : (Fin g → ℂ) → (Fin g → ℂ) :=
+    fun v i => evalAt A U (f i) (Additive.toMul (φ (proj Λ v))) with hFdef
+  set G : (Fin g → ℂ) → (Fin g → ℂ) := fun v i =>
+    evalAt A (α.left ⁻¹ᵁ U) (α.left.app U (f i)) (Additive.toMul (φ (proj Λ v))) with hGdef
+  have hFT : ∀ v, F (T v) = G v := by
+    intro v; funext i
+    simp only [hFdef, hGdef, hT v, evalAt_comp]
+  have hFan : AnalyticAt ℂ F (T 0) :=
+    AnalyticAt.pi fun i => (hφ.holo U (f i)).2 (T 0) hU
+  have hU0 : PtIn A (Additive.toMul (φ (proj Λ 0))) (α.left ⁻¹ᵁ U) := by
+    have : PtIn A (Additive.toMul (φ (proj Λ (T 0)))) U := hU
+    rwa [hT 0] at this
+  have hGan : AnalyticAt ℂ G 0 :=
+    AnalyticAt.pi fun i => (hφ.holo (α.left ⁻¹ᵁ U) (α.left.app U (f i))).2 0 hU0
+  have hstrict : HasStrictFDerivAt F (e : (Fin g → ℂ) →L[ℂ] (Fin g → ℂ)) (T 0) := by
+    have h := hFan.hasStrictFDerivAt
+    rwa [hF.fderiv] at h
+  -- `T = (local inverse of F) ∘ G` near `0`
+  have hev : ∀ᶠ v in 𝓝 (0 : Fin g → ℂ), hstrict.localInverse F e (T 0) (G v) = T v := by
+    have hcont : Filter.Tendsto (T : (Fin g → ℂ) → (Fin g → ℂ)) (𝓝 0) (𝓝 (T 0)) :=
+      T.continuous.tendsto 0
+    filter_upwards [hcont.eventually hstrict.eventually_left_inverse] with v hv
+    rw [← hFT v]; exact hv
+  have hdiffL : DifferentiableAt ℂ (hstrict.localInverse F e (T 0)) (G 0) := by
+    have h := hstrict.to_localInverse.differentiableAt
+    rwa [hFT 0] at h
+  have hTdiff : DifferentiableAt ℂ (T : (Fin g → ℂ) → (Fin g → ℂ)) 0 :=
+    (hdiffL.comp 0 hGan.differentiableAt).congr_of_eventuallyEq
+      (hev.mono fun v hv => hv.symm)
+  set D := fderiv ℂ (T : (Fin g → ℂ) → (Fin g → ℂ)) 0
+  have hD : (D.restrictScalars ℝ : (Fin g → ℂ) →L[ℝ] (Fin g → ℂ)) = T :=
+    (hTdiff.hasFDerivAt.restrictScalars ℝ).unique T.hasFDerivAt
+  have hDT : ∀ v, D v = T v := fun v => congrArg (fun L : (Fin g → ℂ) →L[ℝ] _ => L v) hD
+  exact ⟨D, fun v hv => by rw [hDT]; exact hTΛ v hv, fun v => by rw [hDT]; exact hT v⟩
+
+/-- **Uniqueness of the uniformization up to a `ℂ`-linear map**: two uniformizations of the same
+`A` differ by a `ℂ`-linear map carrying `Λ` into `Λ'`. With the symmetric statement this makes the
+period lattice of `A`, and every quantity computed from it (the Faltings metric, the period matrix
+up to `GL`), independent of the choice of `(Λ, φ)`. -/
+theorem IsUniformization.exists_complexLinear {g g' : ℕ} {Λ : Submodule ℤ (Fin g → ℂ)}
+    {Λ' : Submodule ℤ (Fin g' → ℂ)} [DiscreteTopology Λ] [DiscreteTopology Λ']
+    {φ : Torus Λ ≃+ Additive (A.Pt ℂ)} {φ' : Torus Λ' ≃+ Additive (A.Pt ℂ)}
+    (hφ : IsUniformization A Λ φ) (hφ' : IsUniformization A Λ' φ') :
+    ∃ T : (Fin g → ℂ) →L[ℂ] (Fin g' → ℂ), (∀ v ∈ Λ, T v ∈ Λ') ∧
+      ∀ v, φ' (proj Λ' (T v)) = φ (proj Λ v) := by
+  obtain ⟨T, hTΛ, hT⟩ := hφ.exists_realLinear hφ'
+  obtain ⟨U, f, e, hU, hF⟩ := hφ'.coords (T 0)
+  set F : (Fin g' → ℂ) → (Fin g' → ℂ) :=
+    fun v i => evalAt A U (f i) (Additive.toMul (φ' (proj Λ' v))) with hFdef
+  set G : (Fin g → ℂ) → (Fin g' → ℂ) :=
+    fun v i => evalAt A U (f i) (Additive.toMul (φ (proj Λ v))) with hGdef
+  have hFT : ∀ v, F (T v) = G v := by
+    intro v; funext i
+    simp only [hFdef, hGdef, hT v]
+  have hFan : AnalyticAt ℂ F (T 0) :=
+    AnalyticAt.pi fun i => (hφ'.holo U (f i)).2 (T 0) hU
+  have hU0 : PtIn A (Additive.toMul (φ (proj Λ 0))) U := by
+    have : PtIn A (Additive.toMul (φ' (proj Λ' (T 0)))) U := hU
+    rwa [hT 0] at this
+  have hGan : AnalyticAt ℂ G 0 :=
+    AnalyticAt.pi fun i => (hφ.holo U (f i)).2 0 hU0
+  have hstrict : HasStrictFDerivAt F (e : (Fin g' → ℂ) →L[ℂ] (Fin g' → ℂ)) (T 0) := by
+    have h := hFan.hasStrictFDerivAt
+    rwa [hF.fderiv] at h
+  have hev : ∀ᶠ v in 𝓝 (0 : Fin g → ℂ), hstrict.localInverse F e (T 0) (G v) = T v := by
+    have hcont : Filter.Tendsto (T : (Fin g → ℂ) → (Fin g' → ℂ)) (𝓝 0) (𝓝 (T 0)) :=
+      T.continuous.tendsto 0
+    filter_upwards [hcont.eventually hstrict.eventually_left_inverse] with v hv
+    rw [← hFT v]; exact hv
+  have hdiffL : DifferentiableAt ℂ (hstrict.localInverse F e (T 0)) (G 0) := by
+    have h := hstrict.to_localInverse.differentiableAt
+    rwa [hFT 0] at h
+  have hTdiff : DifferentiableAt ℂ (T : (Fin g → ℂ) → (Fin g' → ℂ)) 0 :=
+    (hdiffL.comp 0 hGan.differentiableAt).congr_of_eventuallyEq
+      (hev.mono fun v hv => hv.symm)
+  set D := fderiv ℂ (T : (Fin g → ℂ) → (Fin g' → ℂ)) 0
+  have hD : (D.restrictScalars ℝ : (Fin g → ℂ) →L[ℝ] (Fin g' → ℂ)) = T :=
+    (hTdiff.hasFDerivAt.restrictScalars ℝ).unique T.hasFDerivAt
+  have hDT : ∀ v, D v = T v := fun v => congrArg (fun L : (Fin g → ℂ) →L[ℝ] _ => L v) hD
+  exact ⟨D, fun v hv => by rw [hDT]; exact hTΛ v hv, fun v => by rw [hDT]; exact hT v⟩
+
 end BPAnalytic.Uniformization

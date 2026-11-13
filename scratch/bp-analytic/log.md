@@ -71,3 +71,7 @@
   `evalAt_comp` (f(P ≫ α) = (α^*f)(P), via `Scheme.Hom.comp_appLE`), `IsUniformization.continuous_endo`
   (φ⁻¹∘α∘φ continuous), `IsUniformization.exists_realLinear_endo` (α acts on ℂ^g by an ℝ-linear T with
   TΛ ⊆ Λ: the rational representation). COMPILED; axioms standard.
+- Torus.lean §10 glue (holomorphic): `IsUniformization.exists_complexLinear_endo` (End action is ℂ-linear:
+  T = (local inverse of the clause-(ii) coordinates) ∘ (pulled-back coordinates), Mathlib
+  `HasStrictFDerivAt.localInverse`, `AnalyticAt.hasStrictFDerivAt`), `IsUniformization.exists_complexLinear`
+  (two uniformizations differ by a ℂ-linear map with TΛ ⊆ Λ'). COMPILED; axioms standard.
