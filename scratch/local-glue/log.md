@@ -1,6 +1,6 @@
 # local-glue results log
 
-## Step 1 (2026-11-13 06:53-07:15 PST): setup and statements
+## Step 1 (2026-11-13 06:53-07:00 PST): setup and statements
 - Merged origin/wip/local-data (fast-forward of its commits onto 322303a2).
 - Target: `G15Ram.LocalGlue p Tm a β L` (scratch/local-data/part_local.lean l.933), with
   `TorsionFieldWild`, `TateWildTrivialL`, `TateWildTrivial`, `BetaUpper`, `Lv`, `G7Clauses`, `U0`.
@@ -19,7 +19,7 @@
   `G_L` inside `G_K` (β is tame there), and the abelian-variety content is on `A/K` only.
 - `lake build` of the 11 imported kernel modules started (HDecomp not prebuilt here).
 
-## Step 2 (07:02-07:12 PST): reduction compiled
+## Step 2 (07:00-07:03 PST): reduction compiled
 - `lake build` of the 11 imported modules: ok (9075 jobs, fast: shared artifacts).
 - `scratch/local-glue/LocalGlue.lean` (build.sh: verbatim LocalData.lean + part_glue.lean).
   `lake env lean scratch/local-glue/LocalGlue.lean`: exit 0, 0 errors, no sorry, ~20 s;
@@ -38,7 +38,7 @@
 - New named Props (glue): `KerWild`, `TateWildK`, `TateWildKE`, `TorsFixWild`, `TorsFixWildE`.
 - Pitfall: after `open CategoryTheory`, `ι` is a token (rcases pattern fails); renamed.
 
-## Step 3 (07:12-07:20 PST): packs
+## Step 3 (07:03-07:07 PST): packs
 - §7: `G0ModNewform.G8LocalPack` copied verbatim from scratch/local-data/tail_part.lean;
   new `G7LocalPackK ℓ r P` (G7Out, G8Out, G7Clauses, KerWild, and at p ∈ P: TorsFixWild for
   p ≥ 7, TorsFixWildE for p ≤ 5, BetaUpper for p = 2).
@@ -47,7 +47,7 @@
   (· = 5) → G11Out T D.r5 → G11Out T D.r3 → G15RamG D u`.
 - Compile: exit 0, 0 errors, no sorry, 9 printed declarations all standard axioms.
 
-## Step 4 (07:20-07:40 PST): TorsFixWild at p ≥ 7 from I2-Tors and R6 at the place
+## Step 4 (07:07-07:12 PST): TorsFixWild at p ≥ 7 from I2-Tors and R6 at the place
 - §8 of part_glue.lean. Proved (VERIFIED, compiled, axioms standard):
   * `iterate_card_GL_fix`: φ : G →* G injective, S mult.-closed, φ(S) ⊆ S, S ≅ (ℤ/q)ⁿ as groups
     ⇒ φ^[|GLₙ(𝔽_q)|] = id on S (via `Matrix.GeneralLinearGroup.toLin`, `pow_card_eq_one'`).
