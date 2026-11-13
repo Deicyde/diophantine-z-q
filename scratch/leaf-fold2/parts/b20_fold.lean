@@ -121,6 +121,21 @@ theorem uniformizationLiftAnalytic_proved : ZInQ.HeightBC.UniformizationLiftAnal
 theorem productUnifSplits_proved : ZInQ.ProductHeight.ProductUnifSplits :=
   ZInQ.ProductUnif.productUnifSplits
 
+/-- This file's def-faltings `AbVar` as the kernel's `PkgI3.AbVar` (`ZInQKernel/HDecomp/Objects.lean`),
+field by field. -/
+def toAbVarK {L : Type} [Field L] (B : ZInQ.DefFaltings.AbVar L) : _root_.PkgI3.AbVar L := ⟨B.X⟩
+
+/-- **`TangentDimAtOrigin` proved** (infra-smooth-dim, module `LF2SmoothDim`; transferred through
+`toAbVarK`). -/
+theorem tangentDimAtOrigin_proved : ZInQ.DefFaltings.HodgeLattice.TangentDimAtOrigin :=
+  fun L _ B g hg => _root_.LF2.HodgeLattice.tangentDimAtOrigin L (toAbVarK B) g hg
+
+/-- **`ProductMetrizationOfProductUnif` from the textbook leaf T35** (unif-dims, part b09, with
+`TangentDimAtOrigin` proved). -/
+theorem productMetrizationOfProductUnif_of_t35 (h35 : ZInQ.LeafPush2.UniformizationExists) :
+    ZInQ.ProductHeight.ProductMetrizationOfProductUnif :=
+  ZInQ.UnifDims.productMetrizationOfProductUnif_of_tangentDim h35 tangentDimAtOrigin_proved
+
 /-! ### The open statements -/
 
 /-- **The research-level leaves still open** (leaf-fold2). `ResearchLeaves3` (g0-assemble2: no
@@ -226,11 +241,11 @@ structure OpenAddedLeaves2 : Prop where
 
 /-- **The glue still open** (leaf-fold2): g0-assemble2's `GluePieces3` fields of kind GLUE, minus
 the eight now proved (`smoothStalkDimOne`, `ratFactorAlgClosed`, `g9AbVarBaseChange`, `oMaximal`,
-`endTransport`, `cotangentSpanBC`, `uniformizationLiftAnalytic`, `productUnifSplits`) and the two no longer used (`artinTorsionSurj`, `conjUniformization`: conj-twist's
+`endTransport`, `cotangentSpanBC`, `uniformizationLiftAnalytic`, `productUnifSplits`) and the one now
+following from the leaf T35 (`productMetrizationOfProductUnif`) and the two no longer used (`artinTorsionSurj`, `conjUniformization`: conj-twist's
 final theorem needs neither). -/
 structure OpenGlue2 : Prop where
   x6KummerFibre : FS5NoCM.X6KummerFibre
-  productMetrizationOfProductUnif : ZInQ.ProductHeight.ProductMetrizationOfProductUnif
   hodgeBCInjective : ZInQ.HeightBC.HodgeBCInjective
   omegaBaseChange : ZInQ.HeightBC.OmegaBaseChange
   periodMapGlue : ∀ h : LeafAdopt.R1R2fpRep,
@@ -327,7 +342,7 @@ theorem gluePieces_of_open2 (r : OpenResearchLeaves2) (t : OpenTextbookLeaves2)
     dimBaseChange := G0Split.dimBaseChange
     fibreSimple := hFS
     productModelHeight := ZInQ.ProductHeight.productModelHeight_of_splits productUnifSplits_proved
-      g.productMetrizationOfProductUnif
+      (productMetrizationOfProductUnif_of_t35 t.t35)
     stableHeightBaseChange := G0StableBC.stableHeightBaseChange_of_hodgeLine
       (ZInQ.HeightBC.g0_hodgeLine_iff.mpr (ZInQ.HeightBC.hodgeLineBaseChange_of_glue4
         g.hodgeBCInjective cotangentSpanBC_proved g.omegaBaseChange
@@ -367,7 +382,7 @@ theorem gluePieces_of_open2 (r : OpenResearchLeaves2) (t : OpenTextbookLeaves2)
   form; no `opaque` placeholder);
 * `OpenTextbookLeaves2`: 18 textbook fields;
 * `OpenAddedLeaves2`: 12 leaves (9 LEAF, 3 LEAF?) introduced by the wave 26-27 reductions;
-* `OpenGlue2`: 12 glue Props.
+* `OpenGlue2`: 11 glue Props.
 The table of every field, its kind and source is `docs/research/leaf-fold2.md`. -/
 theorem sixContactMin_of_open2 (r : OpenResearchLeaves2) (t : OpenTextbookLeaves2)
     (l : OpenAddedLeaves2) (g : OpenGlue2) : ZInQ.SixContactMin :=
@@ -398,6 +413,8 @@ end
 #print axioms HSyn.cotangentSpanBC_proved
 #print axioms HSyn.uniformizationLiftAnalytic_proved
 #print axioms HSyn.productUnifSplits_proved
+#print axioms HSyn.tangentDimAtOrigin_proved
+#print axioms HSyn.productMetrizationOfProductUnif_of_t35
 #print axioms HSyn.researchLeaves3_of_open2
 #print axioms HSyn.textbookLeaves_of_open2
 #print axioms HSyn.gluePieces_of_open2
