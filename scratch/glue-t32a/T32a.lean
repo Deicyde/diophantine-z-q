@@ -1,5 +1,11 @@
 /-
-glue-b3b: this file is scratch/glue-conj/UnramConj.lean (glue-b3-unram + glue-conj) verbatim up
+glue-t32a: this file is scratch/glue-b3b/B3b.lean verbatim (except for this prepended paragraph),
+followed by the glue-t32a sections (from the comment "# glue-t32a" on): the proof `GlueB3Unram.t32a :
+LeafPush.T32a_TameQuadratic` (leaf T32(a) of the synthesis bundle, statement unchanged), the
+corollary `GlueB3Unram.leafB3a : LeafB3a`, and `GlueB3Unram.unramified_outside_noLeaf`
+(B3 (v) with no hypothesis beyond those on `L`, `β`, `χ`).
+
+glue-b3b's header: this file is scratch/glue-conj/UnramConj.lean (glue-b3-unram + glue-conj) verbatim up
 to `end Conj`, followed by the glue-b3b sections `B3b`, `B3bMain`, `B3bGauss` (the proof
 `leafB3b : LeafB3b`), glue-conj's `unramified_outside_final` unchanged, the new
 `unramified_outside_b3a` (takes only `LeafB3a`), and, after `end GlueB3Unram`, verbatim copies of
