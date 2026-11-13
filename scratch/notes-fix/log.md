@@ -13,3 +13,6 @@
   def-faltings (16th #print axioms verified), rv-jac-ext, rv-qm-polar, leaf-qm-fp, leaf-push2 (72 theorems,
   15 print lines verified), rv-blueprints, bp-analytic (section Hom 994-1087 verified), leaf-modcurves,
   glue-t32a (2266 lines, verbatim range diffed SAME), bp-qmmoduli, bp-hecke-fe.
+- 01:55 `lake build ZInQKernel`: exit 0, 9991 jobs, 7m37s, 0 errors (build1.txt). VERIFIED.
+- 01:57 `lake env lean scripts/print_axioms.lean`: exit 0, 399/399 lists exactly
+  [propext, Classical.choice, Quot.sound] (python check; 42 lists are line-wrapped). VERIFIED.

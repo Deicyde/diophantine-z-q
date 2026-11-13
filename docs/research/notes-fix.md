@@ -79,4 +79,11 @@ leaf-adopt3's file.
 
 ## 4. Build
 
-BUILD_RESULT_PLACEHOLDER
+VERIFIED (2026-11-13, 01:55 PST, after the last Lean change):
+- `lake build ZInQKernel` exits 0: "Build completed successfully (9991 jobs)", 7m37s from a cold
+  worktree, 0 errors. The QM modules took QM.Structures 21s, QM.Polar 11s and QM.Leaves 6.1s. Output:
+  `scratch/notes-fix/build1.txt`.
+- `lake env lean scripts/print_axioms.lean` exits 0 and prints 399 axiom lists for 399
+  `#print axioms` lines. A Python check of the joined output finds every one exactly
+  `[propext, Classical.choice, Quot.sound]`, including `LeafQM.AV.fibre_conjugates_isomorphic`.
+  Output: `scratch/notes-fix/axioms.txt`.
