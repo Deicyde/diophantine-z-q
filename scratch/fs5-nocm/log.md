@@ -21,6 +21,6 @@
 - 05:46 §G (partG.lean): N1a split. Proved `com_int_of_end0_quat` (End⁰ ≅ B ⇒ com ⊆ ℤ, from T6 = PkgI3.HomFreeFinite),
   `B6_central_eq` (centre of ℍ[ℚ,2,-3] is ℚ), `tmul_one_injective`; named N1a-CM `ComOfMatrixEnd0`; proved
   `comIntOrQuadOrder_of (t27) (t6) (hCM) : ComIntOrQuadOrder` and `fibreComTrivialFull_of_leaves`.
-  Tail.lean L40-121 (B6_isUnit … qm_embeds_end0) copied verbatim (VERIFIED by string inclusion).
+  Tail.lean L40-116 (B6_isUnit … qm_embeds_end0) copied verbatim (VERIFIED by string inclusion).
   FS5NoCM.lean: exit 0, 11.4 s, 11 axioms lines standard (run1.txt). FS5Curves.lean: exit 0, 14.4 s,
   `fibreComTrivialFull_of_curves_leaves` standard (run2.txt). VERIFIED.

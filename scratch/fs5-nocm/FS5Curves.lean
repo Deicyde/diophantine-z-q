@@ -1840,7 +1840,7 @@ end FS5NoCM
 /-! ## §G N1a split: the case `End⁰(A) ≅ B` proved from T6; the CM case named
 
 The block from `B6_isUnit` to `qm_embeds_end0` is copied verbatim from
-`scratch/g0-fibresimple/olean/Tail.lean` (lines 40-121, proved there). -/
+`scratch/g0-fibresimple/olean/Tail.lean` (lines 40-116, proved there). -/
 
 namespace FS5NoCM
 
