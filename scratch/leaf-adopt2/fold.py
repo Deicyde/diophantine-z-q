@@ -292,6 +292,18 @@ t = rep1(t,
     "theorem isComplexConj_leafPush2_iff (c : Field.absoluteGaloisGroup ℚ) :\n"
     "    ZInQ.LeafPush2.IsComplexConj c ↔ PkgI4.IsComplexConj c :=\n"
     "  Iff.rfl\n\n"
+    "/-- **Glue target (leaf-adopt2, unproved): the two copies of the stable Faltings height agree.**\n"
+    "R18 and R22 (leaf-push2) are stated over `ZInQ.LeafPush2.stableFaltingsHeight` on `PkgI3.AbVar`;\n"
+    "R19-R21 and H5 (def-faltings) over `ZInQ.DefFaltings.stableFaltingsHeight` on def-faltings' copy\n"
+    "of the structure. The two definitions are textual copies (leaf-push2 Part I = def-faltings §§1-18\n"
+    "with `AbVar` replaced), so this is pure transport along `LeafAdopt.abVarEquiv` (every structure of\n"
+    "the Arakelov layer is duplicated, so the proof needs an equivalence of `GroupModel`, `HodgeData`\n"
+    "and `MetrizedModel` and equality of model heights). It is what lets the glue apply H5 to R18 and\n"
+    "R22. Not a leaf. -/\n"
+    "def HeightCopiesAgree : Prop :=\n"
+    "  ∀ (K : Type) [Field K] (A : PkgI3.AbVar K),\n"
+    "    ZInQ.LeafPush2.stableFaltingsHeight A =\n"
+    "      ZInQ.DefFaltings.stableFaltingsHeight ((LeafAdopt.abVarEquiv K).symm A)\n\n"
     "/-- **B3(v) with no leaf** (glue-t32a): `LeafB3a` of glue-b3-unram is proved. -/",
     "isComplexConj glue")
 

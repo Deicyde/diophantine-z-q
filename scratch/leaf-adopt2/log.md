@@ -18,3 +18,9 @@
 
 ## Step 3. Own check (docstring correction)
 - R1(b) docstring: "part (a) is T35 + lattice computation" was too strong; now "would follow from T35 with T11a, class number one of 𝒪 and the QM lattice computation; reduction not carried out". fold.py updated; re-running fold.py on the base 01267822 reproduces Leaves.lean byte for byte (VERIFIED, diff -q).
+- Added glue target `HSyn.HeightCopiesAgree` (def : Prop; LeafPush2.stableFaltingsHeight A = DefFaltings.stableFaltingsHeight ((abVarEquiv K).symm A)); via fold.py (re-run from base 01267822).
+- Compile 3 (194s): exit 0, 0 errors, one `sorry` warning (L21540, glueOutputs_of_leaves); 131 `#print axioms` lines, 129 standard, 2 = `HSyn.sixContactMin_of_leaves` (+sorryAx). 3 opaque, 0 axiom, 21705 lines.
+
+## Step 4. Independent model review (subagent, read-only, no Lean, not told my conclusions)
+- Verdict: no DEFECT. R18 OK (needs H5 upper half: empty MetrizedModel => h = ⊤ => leaf false). R22 RISK: Pazuki Def. 2.6 coordinates = classical θ[a;b](0,Ω) unverified; NEW: R22 takes h = x as hypothesis, so it needs both halves of H5 (an infimum below the published h_F would make it stronger) — added to h-decomposition R22 paragraph. R3 RISK low (J-convention only via hdec-elementary; Lemma P locators). T35 OK (true for every K, σ; g = 0 fine). T11a OK, T11b OK (char 0 superfluous: weaker), T12 glue target true.
+- Reviewer confirmed: IsPeriodMatrix with ℂ-linear T + IsSiegel = principal polarization (ℝ-linear T would have been a defect); weak IsUniformization forces Φ = π∘L, L ℂ-linear invertible; 𝒪 = ℤ⟨1,i,(1+j)/2,(i+k)/2⟩ maximal (reduced disc 6); IC normalizations /48 /72 /12; tuple gives I₆ = 4608 j(5j+4).

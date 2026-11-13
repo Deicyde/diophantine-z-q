@@ -390,7 +390,9 @@ VERIFIED: `lake env lean scratch/h-decomposition/Leaves.lean` exits 0 (about 4 m
   complex-conjugation predicate with pkg-I4's. Proved glue now in the file: `R22_plus3`,
   `R18_real`, `linYangTuple_onQMLocus`, `onQMLocus_of_linYangTuple`, `linYang_j_eq`,
   `R03_of_algClosed`, `exists_isComplexConj`, `isSiegel_I`, `javanpeykarBound_pos`, `_mono`. New
-  glue targets (unproved): `T12_ComplexConjEigen`, `R03_LinYang_algClosed` (Lefschetz).
+  glue targets (unproved): `T12_ComplexConjEigen`, `R03_LinYang_algClosed` (Lefschetz), and
+  `HSyn.HeightCopiesAgree` (leaf-push2's and def-faltings' copies of the stable height agree, so H5
+  applies to R18 and R22; pure transport along `LeafAdopt.abVarEquiv`).
 - **Counts**: concrete 48 → **53 of 56** (plus R1 in part); placeholders 7 → **2** (R17, T10)
   plus R1(b); bundle fields 63 → 64 (61 concrete, 3 `opaque`).
 
@@ -808,7 +810,7 @@ change to `ℚ̄`; `deg_B ≤ d`; either Faltings' or Deligne's normalization). 
 `h < ⊤`, so the leaf is also "correctness of the definition" (H5's finiteness half), and it is
 over leaf-push2's copy of the height on `PkgI3.AbVar`, while the bundle's H5 is over
 def-faltings' copy (same text, `AbVar` replaced; identifying the two heights through
-`LeafAdopt.abVarEquiv` is unproved glue, WP1). `R18_real` (the real-valued form) is proved.
+`LeafAdopt.abVarEquiv` is the unproved glue target `HSyn.HeightCopiesAgree`, WP1). `R18_real` (the real-valued form) is proved.
 
 **R19. Gaudron–Rémond.** Isogeny of degree `≤ ((14g)^{64g²}[K:ℚ]max(h_F(A), log[K:ℚ], 1)²)^{1024g³}`.
 Ref: Duke Math. J. 163 (2014), Thm 1.4 (p. 2060), with `κ` and `α(g) = 1024g³` (p. 2058) and the
@@ -877,8 +879,10 @@ analytic uniformization `Φ : ℂ² → A(ℂ)_σ` with kernel `Λ` (`IsUniformi
 with `IsPeriodMatrix Λ Ω` (all principal polarizations with a symplectic basis; no polarization
 object), and every representative `z ∈ L¹⁶` of `[θ[a;b](0, Ω)]` over a number field `L`:
 `absLogHeight z ≤ X/2 + C₂ log(X + 2)` (sup norms, `≤` Pazuki's Euclidean `h_Θ`). The hardened
-form `R22_plus3` (`X = max(1, x + 3)`) is proved. Inputs disclosed: H5 (same remark on the two
-height copies as for R18), algebraicity of analytic principal polarizations (T11-type), and the
+form `R22_plus3` (`X = max(1, x + 3)`) is proved. Inputs disclosed: H5, **both halves** (the height
+enters as a hypothesis `= x`, so an infimum below the published `h_F` would make the leaf stronger;
+R18 needs only the upper half), for leaf-push2's copy of the height (`HSyn.HeightCopiesAgree`,
+unproved glue target, transports the bundle's H5), algebraicity of analytic principal polarizations (T11-type), and the
 identification of Pazuki's level-2 coordinates (Def. 2.6) with `θ[a;b](0, Ω)`, UNVERIFIED (the
 main risk of this leaf; open check: read Def. 2.6).
 
@@ -1124,7 +1128,8 @@ G15), both new (hdec-elementary §2.2), verified as arguments by one adversarial
    becomes a separate hypothesis once polarizations exist, WP4); AN3's three Props and
    `HodgeLatticeTheorem` (non-vacuity of R18-R22, H5); Pazuki's Def. 2.6 coordinates (R22);
    Lin–Yang's printed (13)-(14) against `LinYangTuple` (R3).
-3. Glue targets: `T12_ComplexConjEigen`, `R03_LinYang_algClosed` (leaf-push2); `X1ModelExists`,
+3. Glue targets: `T12_ComplexConjEigen`, `R03_LinYang_algClosed` (leaf-push2), `HSyn.HeightCopiesAgree`
+   (leaf-adopt2); `X1ModelExists`,
    `BelyiX1`, `VSurjOfSurjective` (leaf-modcurves); the four glue pieces of leaf-qm-fp §4.
 4. Unification (WP1): leaf-push2's Part I is a second copy of def-faltings' height over
    `PkgI3.AbVar` (R18, R22) beside `ZInQ.DefFaltings` (R19-R21, H5); identify them through
