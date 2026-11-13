@@ -107,5 +107,5 @@ HeckeFibreSizes, HeckeNoVertRam.
   QMAutCard → SerreRigidity3 → ALFixedPoints → ChartProper → ChartQuasiFinite → ChartDominant →
   InfFnField → HeckeVertWitness → CoverModelOfHecke.
 - `HeckeRestAll.propTSAll_of_heckeRest` (same, through propTSAll_of_tsHecke').
-- All 14 HeckeRest* `#print axioms` lines: [propext, Classical.choice, Quot.sound]. No `sorry`
-  token in any scratch/hecke-rest Lean file.
+- All 14 HeckeRest* `#print axioms` lines: [propext, Classical.choice, Quot.sound]. The token `sorry`
+  occurs only in comments.
