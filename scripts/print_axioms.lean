@@ -504,3 +504,11 @@ are hypotheses of these theorems. -/
 #print axioms E1Sub.rhoF_semisimple_of_surj
 #print axioms X1Belyi.modCurveLeaves_of
 #print axioms ZInQ.DefFaltings.HodgeLattice.tangentDimAtOrigin_of
+-- h5-neron part F and glue H4b, proved here (`HDecomp.Faltings.H5BaseChange`).
+#print axioms ZInQ.H5Neron.isMonHom_pbCompHom
+#print axioms ZInQ.H5Neron.isMonHom_pbCompInv
+#print axioms ZInQ.H5Neron.isMonHom_pbEq
+#print axioms ZInQ.H5Neron.bcGen
+#print axioms ZInQ.H5Neron.bcGen'_hom
+#print axioms ZInQ.H5Neron.bcGen'_isMonHom
+#print axioms ZInQ.H5Neron.groupModelBaseChangeExists
