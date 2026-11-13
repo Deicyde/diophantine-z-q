@@ -16,3 +16,12 @@
     N ≤ omegaAt s' and omegaAt s' ⊆ loc_{s'} N for s' ∈ D(a).
   - `omegaFG_of_omegaLocal`, `omegaSpans_of_omegaLocal`,
     `hodgeLatticeTheorem_of_local : OmegaLocal → CotangentRank → HodgeLatticeTheorem`; axioms standard.
+- 23:50 scratch/hodge-lattice/Local.lean compiles, 0 errors (linter warnings only). VERIFIED.
+  `omegaLocal : OmegaLocal` PROVED, axioms [propext, Classical.choice, Quot.sound].
+  Ingredients: affine chart U ∋ e(s) (isBasis_affineOpens), basic open D(a) ⊆ e⁻¹U,
+  Γ(U) noetherian (LocallyOfFiniteType.isLocallyNoetherian, component_noetherian),
+  I = ker(e.app U) f.g., N = 𝓞_L-span{d(germ_ξ i) : i ∈ gens I}; stalks on U are fractions
+  (IsAffineOpen.isLocalization_stalk); germ_injective_of_isIntegral on Spec 𝓞_L;
+  residue lemma (stalk of Spec 𝓞_L at s' is a localization; stalkSpecializes_stalkMap).
+  Fullness of N from (C) at the generic point plus `omegaAt_genericPt`.
+  ClaimA.lean: dCls_mem_omegaAt alone (also inside Local.lean).
