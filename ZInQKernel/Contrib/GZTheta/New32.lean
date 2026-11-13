@@ -418,4 +418,85 @@ theorem false_of_newform_dvd_16 {M : ℕ} [NeZero M] (hM16 : M ∣ 16) (hM2 : 2 
   have := tendsto_nhds_unique hL hR
   norm_num at this
 
+
+/-! ### `f₁` is new at level 32 -/
+
+theorem false_of_newform_level_one (g : Newform 1 2) : False := by
+  have h : 𝒮ℒ ≤ (Gamma1 1).map (mapGL ℝ) := le_of_eq TauCeti.Gamma1_one_map_eq_SL.symm
+  set G : CuspForm 𝒮ℒ 2 := CuspForm.restrict h g.toCuspForm
+  have hG : G = 0 :=
+    rank_zero_iff_forall_zero.mp (CuspForm.rank_eq_zero_of_weight_lt_twelve (by norm_num)) G
+  apply g.ne_zero
+  ext τ
+  have := congrArg (fun F : CuspForm 𝒮ℒ 2 => (⇑F) τ) hG
+  simpa [G] using this
+
+/-- **`η(4τ)² η(8τ)²` is new at level 32** (the conductor of `y² = x³ − x` is 32). -/
+theorem newAt32 : NewAt32 := by
+  intro F hF
+  have hc : ∀ n, (qExpansion 1 (restrict32 etaForm32)).coeff n = heckeCoeff 1 n := fun n => by
+    rw [qExpansion_restrict32, qExpansion_etaForm32_coeff]
+  have hFeq : F = restrict32 etaForm32 := by
+    apply CuspForm.qExpansion_injective one_pos (TauCeti.one_mem_strictPeriods_Gamma1_map 32)
+    ext n
+    show (qExpansion 1 F).coeff n = (qExpansion 1 (restrict32 etaForm32)).coeff n
+    rw [hF, hc]
+  rw [hFeq]
+  obtain ⟨E, hE, hEχ⟩ := exists_eigenformAway32
+  obtain ⟨M, hM0, hMN, g, hgχ, hgev⟩ :=
+    Newform.exists_newform_comp_unitsMap_eq_and_eigenvalue_eq_of_forall_heckeTCuspNat_eq_smul
+      E.mem_charSpace E.ne_zero (a := fun p hp hpN => E.eigenvalue ⟨p, hp.pos⟩ hpN)
+      (fun p hp hpN => E.heckeTCuspNat_eq_eigenvalue_smul hp hpN)
+  have hg1 : g.χ = 1 := by
+    rw [hEχ] at hgχ
+    ext u
+    obtain ⟨v, rfl⟩ := ZMod.unitsMap_surjective hMN u
+    have := congrArg (fun φ => ((φ v : ℂˣ) : ℂ)) hgχ
+    simpa using this
+  have hE1 : (qExpansion 1 E.toCuspForm).coeff 1 = 1 := by rw [hE, hc 1, heckeCoeff_one]
+  have hgood : ∀ p : ℕ, p.Prime → p ≠ 2 → coeff g p = heckeCoeff 1 p := by
+    intro p hp hp2
+    have hpN : Nat.Coprime p 32 := by
+      have : Nat.Coprime p (2 ^ 5) := Nat.Coprime.pow_right 5
+        ((Nat.coprime_primes hp Nat.prime_two).mpr hp2)
+      simpa using this
+    have e1 := g.qExpansion_coeff_eq_eigenvalue g.isNorm ⟨p, hp.pos⟩ (hpN.coprime_dvd_right hMN)
+    have e2 := E.qExpansion_coeff_eq_eigenvalue hE1 ⟨p, hp.pos⟩ hpN
+    rw [hE, hc] at e2
+    change coeff g p = _ at e1
+    rw [e1, hgev p hp hpN]
+    exact e2.symm
+  have hMd : M ∈ Nat.divisors 32 := Nat.mem_divisors.mpr ⟨hMN, by norm_num⟩
+  have hdiv : Nat.divisors 32 = {1, 2, 4, 8, 16, 32} := by decide
+  rw [hdiv] at hMd
+  simp only [Finset.mem_insert, Finset.mem_singleton] at hMd
+  rcases hMd with rfl | rfl | rfl | rfl | rfl | rfl
+  · exact (false_of_newform_level_one g).elim
+  · exact (false_of_newform_dvd_16 (by norm_num) (by norm_num) g hg1 hgood).elim
+  · exact (false_of_newform_dvd_16 (by norm_num) (by norm_num) g hg1 hgood).elim
+  · exact (false_of_newform_dvd_16 (by norm_num) (by norm_num) g hg1 hgood).elim
+  · exact (false_of_newform_dvd_16 (by norm_num) (by norm_num) g hg1 hgood).elim
+  · -- level 32: `f₁ = g`
+    have hmem : restrict32 etaForm32 ∈ cuspFormCharSpace 2 g.χ := by
+      rw [hg1, ← hEχ, ← hE]; exact E.mem_charSpace
+    have hfg := g.eq_qExpansion_coeff_one_smul_of_forall_prime_heckeTCuspNat_eq_smul hmem
+      (fun p hp hpN => by
+        have := E.heckeTCuspNat_eq_eigenvalue_smul hp hpN
+        rw [hE] at this
+        rw [this, ← hgev p hp hpN])
+    rw [hfg, hc 1, heckeCoeff_one, one_smul]
+    exact g.isNew
+
+/-- **The leaf from Atkin–Li alone.** -/
+theorem heckeThetaNewform_of_atkinLi (hAL : AtkinLiTwistNew) : ZInQ.GZDecomp.HeckeThetaNewform :=
+  heckeThetaNewform_of_newAt32_atkinLi newAt32 hAL
+
+/-- **The headline with gz-decomp's leaves, L1 reduced to Atkin–Li.** -/
+theorem frozenTarget_of_sixContactMin_tyzThm35ReadingA_atkinLi_gzLeaves (hH : ZInQ.SixContactMin)
+    (hA : ZInQ.Literature.TYZThm35ReadingA) (hAL : AtkinLiTwistNew)
+    (hL2 : ZInQ.GZDecomp.FHNonvanishing) (hL3 : ZInQ.GZDecomp.GrossZagierHeegner) :
+    ZInQ.FrozenTarget :=
+  ZInQ.GZDecomp.frozenTarget_of_sixContactMin_tyzThm35ReadingA_gzLeaves hH hA
+    (heckeThetaNewform_of_atkinLi hAL) hL2 hL3
+
 end ZInQ.GZTheta
