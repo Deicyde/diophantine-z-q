@@ -1,5 +1,7 @@
 import Mathlib.NumberTheory.LSeries.HurwitzZetaEven
 import Mathlib.NumberTheory.LSeries.HurwitzZetaOdd
+import Mathlib.NumberTheory.LSeries.MellinEqDirichlet
+import Mathlib.Analysis.SpecialFunctions.Elliptic.Weierstrass
 
 /-!
 # Weight-two theta kernels over shifted copies of `ℤ[i]`
@@ -158,5 +160,105 @@ theorem gaussLambda_two_sub (a b : UnitAddCircle) (s : ℂ) :
   have h := (gaussFEPair a b).functional_equation s
   rw [(isStrong_gaussFEPair a b).Λ_eq, (isStrong_gaussFEPair a b).symm.Λ_eq] at h
   simpa [gaussFEPair, gaussLambda, gaussLambdaDual, WeakFEPair.symm] using h
+
+
+/-! ### The Mellin transform as a lattice Dirichlet series -/
+
+/-- The lattice point `(m + a) + i (n + b)`. -/
+noncomputable def gz (a b : ℝ) (p : ℤ × ℤ) : ℂ := ((p.1 : ℂ) + a) + ((p.2 : ℂ) + b) * I
+
+/-- Its norm `(m + a)² + (n + b)²`. -/
+noncomputable def gq (a b : ℝ) (p : ℤ × ℤ) : ℝ := ((p.1 : ℝ) + a) ^ 2 + ((p.2 : ℝ) + b) ^ 2
+
+theorem gq_eq_norm_sq (a b : ℝ) (p : ℤ × ℤ) : gq a b p = ‖gz a b p‖ ^ 2 := by
+  rw [Complex.sq_norm, Complex.normSq_apply]
+  simp [gz, gq]; ring
+
+theorem hasSum_gaussTheta (a b : ℝ) {t : ℝ} (ht : 0 < t) :
+    HasSum (fun p : ℤ × ℤ => gz a b p * rexp (-π * gq a b p * t)) (gaussTheta a b t) := by
+  set fo : ℝ → ℤ → ℝ := fun c n => ((n : ℝ) + c) * rexp (-π * ((n : ℝ) + c) ^ 2 * t)
+  set fe : ℝ → ℤ → ℝ := fun c n => rexp (-π * ((n : ℝ) + c) ^ 2 * t)
+  have ho : ∀ c : ℝ, HasSum (fo c) (oddKernel c t) := fun c => hasSum_int_oddKernel c ht
+  have he : ∀ c : ℝ, HasSum (fe c) (evenKernel c t) := fun c => hasSum_int_evenKernel c ht
+  have hon : ∀ c : ℝ, Summable fun n => ‖fo c n‖ := fun c =>
+    (summable_abs_iff.mpr (ho c).summable).congr fun n => (Real.norm_eq_abs _).symm
+  have hen : ∀ c : ℝ, Summable fun n => ‖fe c n‖ := fun c =>
+    (summable_abs_iff.mpr (he c).summable).congr fun n => (Real.norm_eq_abs _).symm
+  have P1 : HasSum (fun p : ℤ × ℤ => fo a p.1 * fe b p.2) (oddKernel a t * evenKernel b t) :=
+    (ho a).mul (he b) (summable_mul_of_summable_norm (hon a) (hen b))
+  have P2 : HasSum (fun p : ℤ × ℤ => fe a p.1 * fo b p.2) (evenKernel a t * oddKernel b t) :=
+    (he a).mul (ho b) (summable_mul_of_summable_norm (hen a) (hon b))
+  have P : HasSum (fun p : ℤ × ℤ => ((fo a p.1 * fe b p.2 : ℝ) : ℂ) +
+      I * ((fe a p.1 * fo b p.2 : ℝ) : ℂ))
+      (((oddKernel a t * evenKernel b t : ℝ) : ℂ) + I * ((evenKernel a t * oddKernel b t : ℝ) : ℂ)) :=
+    (Complex.hasSum_ofReal.mpr P1).add ((Complex.hasSum_ofReal.mpr P2).mul_left I)
+  have hval : gaussTheta a b t =
+      ((oddKernel a t * evenKernel b t : ℝ) : ℂ) + I * ((evenKernel a t * oddKernel b t : ℝ) : ℂ) := by
+    simp only [gaussTheta]; push_cast; ring
+  rw [hval]
+  convert P using 1
+  funext p
+  have h1 : rexp (-π * gq a b p * t) =
+      rexp (-π * ((p.1 : ℝ) + a) ^ 2 * t) * rexp (-π * ((p.2 : ℝ) + b) ^ 2 * t) := by
+    rw [← Real.exp_add]; simp only [gq]; ring_nf
+  simp only [gz, fo, fe, h1]
+  push_cast
+  ring
+
+/-- The standard `ℤ`-lattice `ℤ + ℤ i` in `ℂ`, as a Mathlib `PeriodPair`. -/
+noncomputable def gaussPeriodPair : PeriodPair where
+  ω₁ := 1
+  ω₂ := I
+  indep := by
+    have := Complex.basisOneI.linearIndependent
+    rwa [Complex.coe_basisOneI] at this
+
+theorem summable_norm_gz_rpow (a b : ℝ) {r : ℝ} (hr : r < -2) :
+    Summable fun p : ℤ × ℤ => ‖gz a b p‖ ^ r := by
+  set L := gaussPeriodPair
+  have h := ZLattice.summable_norm_sub_rpow L.lattice r (by simpa using hr) (-(a + b * I))
+  have h2 := (L.latticeEquivProd.symm.toEquiv.summable_iff).mpr h
+  refine h2.congr fun p => ?_
+  simp only [Function.comp_apply, LinearEquiv.coe_toEquiv, PeriodPair.latticeEquiv_symm_apply]
+  congr 2
+  simp [gz, L, gaussPeriodPair]; ring
+
+/-- **Mellin transform = lattice Dirichlet series**, for `Re s > 3/2`. -/
+theorem hasSum_gaussLambda (a b : ℝ) {s : ℂ} (hs : 3 / 2 < s.re) :
+    HasSum (fun p : ℤ × ℤ => π ^ (-s) * Gamma s * gz a b p / (gq a b p : ℂ) ^ s)
+      (gaussLambda a b s) := by
+  refine hasSum_mellin_pi_mul (fun p => ?_) (by linarith) (fun t ht => hasSum_gaussTheta a b ht)
+    ?_
+  · by_cases h : gz a b p = 0
+    · exact Or.inl h
+    · right; rw [gq_eq_norm_sq]; positivity
+  · refine (summable_norm_gz_rpow a b (r := 1 - 2 * s.re) (by linarith)).congr fun p => ?_
+    rw [gq_eq_norm_sq]
+    rcases eq_or_ne ‖gz a b p‖ 0 with h | h
+    · rw [h, Real.zero_rpow (by linarith), zero_div]
+    · rw [← Real.rpow_natCast, ← Real.rpow_mul (norm_nonneg _), div_eq_mul_inv,
+        ← Real.rpow_neg (norm_nonneg _), ← Real.rpow_one_add' (norm_nonneg _)]
+      · push_cast; ring_nf
+      · push_cast; linarith
+
+/-- The lattice Dirichlet series `Σ_{(m,n)} ((m+a) + i(n+b)) / ((m+a)² + (n+b)²)^s`. -/
+noncomputable def gaussL (a b : ℝ) (s : ℂ) : ℂ := ∑' p : ℤ × ℤ, gz a b p / (gq a b p : ℂ) ^ s
+
+/-- **Entire continuation of the lattice Dirichlet series** (Hecke). -/
+theorem gaussL_continuation (a b : ℝ) : ∃ F : ℂ → ℂ, Differentiable ℂ F ∧
+    ∀ s : ℂ, 3 / 2 < s.re → F s = gaussL a b s := by
+  refine ⟨fun s => (π : ℂ) ^ s * (Gamma s)⁻¹ * gaussLambda a b s, ?_, fun s hs => ?_⟩
+  · have hpi : (π : ℂ) ≠ 0 := ofReal_ne_zero.mpr pi_ne_zero
+    have : NeZero (π : ℂ) := ⟨hpi⟩
+    exact ((differentiable_const_cpow_of_neZero (π : ℂ)).mul differentiable_one_div_Gamma).mul
+      (differentiable_gaussLambda a b)
+  · have hG : Gamma s ≠ 0 := Gamma_ne_zero_of_re_pos (by linarith)
+    have hpi : (π : ℂ) ^ s ≠ 0 := (cpow_ne_zero_iff_of_exponent_ne_zero
+      (by rintro rfl; norm_num at hs)).mpr (ofReal_ne_zero.mpr pi_ne_zero)
+    show (π : ℂ) ^ s * (Gamma s)⁻¹ * gaussLambda a b s = gaussL a b s
+    rw [← (hasSum_gaussLambda a b hs).tsum_eq, gaussL]
+    simp_rw [mul_div_assoc]
+    rw [tsum_mul_left, cpow_neg]
+    field_simp
 
 end BpHeckeFE
