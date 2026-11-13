@@ -299,4 +299,99 @@ theorem mem_lowerRam_iff {ϖ : Kbar p} (hϖ : IsUnif F ϖ) (i : ℕ) (s : F ≃�
 
 end Filtration
 
+section Card
+
+attribute [local instance] algZpF
+
+variable {F : Fld p} [FiniteDimensional ℚ_[p] F] [IsGalois ℚ_[p] F]
+
+theorem mem_ramSet_iff {ϖ : Kbar p} (hϖ : IsUnif F ϖ) (i : ℕ) (σ : GQp p) :
+    haveI := isLocalRing_OF F
+    σ ∈ ramSet F i ↔ galRestrict ℤ_[p] ℚ_[p] F (OF F) (AlgEquiv.restrictNormalHom F σ) ∈
+      PkgI6.lowerRam ℤ_[p] (OF F) i := by
+  haveI := isLocalRing_OF F
+  rw [mem_lowerRam_iff hϖ]
+  constructor
+  · rintro ⟨ϖ', hϖ', h⟩ x hx
+    rw [AlgEquiv.restrictNormalHom_apply, ← IsUnif.norm_eq hϖ hϖ']
+    exact h x x.2 hx
+  · intro h
+    refine ⟨ϖ, hϖ, fun x hx hx1 => ?_⟩
+    have := h ⟨x, hx⟩ hx1
+    rwa [AlgEquiv.restrictNormalHom_apply] at this
+
+theorem card_lowerRam (i : ℕ) :
+    haveI := isLocalRing_OF F
+    Nat.card (PkgI6.lowerRam ℤ_[p] (OF F) i) = ramCard F i := by
+  haveI := isLocalRing_OF F
+  obtain ⟨ϖ, hϖ⟩ := exists_isUnif (inferInstance : FiniteDimensional ℚ_[p] F)
+  set G := galRestrict ℤ_[p] ℚ_[p] F (OF F) with hG
+  set K : Set (F ≃ₐ[ℚ_[p]] F) := {s | G s ∈ PkgI6.lowerRam ℤ_[p] (OF F) i} with hKdef
+  have h1 : Nat.card (PkgI6.lowerRam ℤ_[p] (OF F) i) = Nat.card K :=
+    (Nat.card_congr (G.toEquiv.subtypeEquiv (fun s => Iff.rfl))).symm
+  have hK : K = AlgEquiv.restrictNormalHom F '' ramSet F i := by
+    ext s
+    constructor
+    · intro hs
+      obtain ⟨σ, rfl⟩ := AlgEquiv.restrictNormalHom_surjective (Kbar p) s
+      exact ⟨σ, (mem_ramSet_iff hϖ i σ).mpr hs, rfl⟩
+    · rintro ⟨σ, hσ, rfl⟩
+      exact (mem_ramSet_iff hϖ i σ).mp hσ
+  set φ : (F ≃ₐ[ℚ_[p]] F) → (F → Kbar p) := fun s x => ((s x : F) : Kbar p) with hφ
+  have hφinj : Function.Injective φ := by
+    intro s t h
+    ext x
+    exact congrFun h x
+  have himg : restr F '' ramSet F i = φ '' (AlgEquiv.restrictNormalHom F '' ramSet F i) := by
+    rw [Set.image_image]
+    refine Set.image_congr fun σ _ => ?_
+    funext x
+    exact (AlgEquiv.restrictNormalHom_apply F σ x).symm
+  unfold ramCard
+  rw [himg, Nat.card_image_of_injective hφinj, ← hK, h1]
+
+theorem fix_of_lowerRam_bot (i : ℕ) :
+    haveI := isLocalRing_OF F
+    PkgI6.lowerRam ℤ_[p] (OF F) i = ⊥ → ramSet F i ⊆ fixSet F := by
+  haveI := isLocalRing_OF F
+  intro hbot σ hσ
+  obtain ⟨ϖ, hϖ⟩ := exists_isUnif (inferInstance : FiniteDimensional ℚ_[p] F)
+  have h := (mem_ramSet_iff hϖ i σ).mp hσ
+  rw [hbot, Subgroup.mem_bot, ← map_one (galRestrict ℤ_[p] ℚ_[p] F (OF F))] at h
+  have h1 := (galRestrict ℤ_[p] ℚ_[p] F (OF F)).injective h
+  intro x hx
+  exact (AlgEquiv.restrictNormal_eq_one_iff F σ).mp h1 x hx
+
+end Card
+
+section Final
+
+attribute [local instance] FractionRing.liftAlgebra FractionRing.isScalarTower_liftAlgebra
+
+/-- Copy of `G15Ram.LadicDVRModelZp` (for the development file). -/
+def LadicDVRModelZp (p : ℕ) [Fact p.Prime] : Prop :=
+  ∀ F : Fld p, IsFinGal F →
+    ∃ (B : Type) (_ : CommRing B) (_ : IsDomain B) (_ : IsDiscreteValuationRing B)
+      (_ : Algebra ℤ_[p] B) (_ : Module.Finite ℤ_[p] B) (_ : Module.IsTorsionFree ℤ_[p] B)
+      (_ : Algebra.IsSeparable (FractionRing ℤ_[p]) (FractionRing B))
+      (_ : IsGalois (FractionRing ℤ_[p]) (FractionRing B)),
+      (∀ i, Nat.card (PkgI6.lowerRam ℤ_[p] B i) = ramCard F i) ∧
+      (∀ i, PkgI6.lowerRam ℤ_[p] B i = ⊥ → ramSet F i ⊆ fixSet F)
+
+/-- **`LadicDVRModelZp` (GLUE, proved).** `B = 𝓞_F = integralClosure ℤ_p F`. -/
+theorem ladicDVRModelZp : LadicDVRModelZp p := by
+  intro F hF
+  haveI : FiniteDimensional ℚ_[p] F := hF.1
+  haveI : IsGalois ℚ_[p] F := hF.2
+  letI := algZpF F
+  haveI := torsionFree_OF F
+  haveI := faithful_OF F
+  haveI := dvr_OF F
+  exact ⟨OF F, inferInstance, inferInstance, dvr_OF F, inferInstance, finite_OF F,
+    torsionFree_OF F, isSeparable_frac F, isGalois_frac F, card_lowerRam, fix_of_lowerRam_bot⟩
+
+end Final
+
 end G15RamDev
+
+#print axioms G15RamDev.ladicDVRModelZp
