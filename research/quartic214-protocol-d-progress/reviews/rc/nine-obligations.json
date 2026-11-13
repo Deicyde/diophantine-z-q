@@ -1,0 +1,804 @@
+{
+  "reviewer": "/root/d214_rc_source_closure",
+  "head": "e3626cac202cdbcdfedc2bff1978dcd3ea3fd3ab",
+  "controller_eligibility": "NOT ATTESTED",
+  "applications": [
+    {
+      "id": "KATO-CONTROL",
+      "decision": "accepted_within_scope",
+      "basis": "fresh construction/application/consumer comparison plus exact unchanged native prerequisites at their accepted scope",
+      "obligations": {
+        "source_hypotheses": {
+          "required_input": "Kato1999 §§0.1,0.6,0.7,0.8: irreducible weight-minus-one representation, abelian-kernel unipotent, n(V,2)=1 and non-torsion actual class; away2 prime.",
+          "constructed_input": "Fixed T2(E) quadratic constituent, non-CM openSL2 over Qab, both real symbol signs, smoothed nonvanishing retained class.",
+          "justification": "The constructed representation meets rational hypotheses, including the location of the unipotent; the stronger residual-at2 theorem is not invoked.",
+          "sources": [
+            "Kato1999 §§0.1,0.4–0.8",
+            "Kato2004 §§5.1–5.2,6.6,8.1–8.12,9.7,12.2,13.1–13.7",
+            "Nekovar/Milne/Stacks inspected statements listed in REVIEW.md"
+          ],
+          "evidence": [
+            {
+              "path": "manuscripts/quartic_v16.tex",
+              "sha256": "aeb2b6a42a03943d7f8c46682389c8da693d2903ba92ccc164bbbd236451de74",
+              "start_line": 13339,
+              "end_line": 14428,
+              "excerpt_sha256": "b9fe79fa63c10745221a82753fe88f9c04aa127f0615d4f6bc7866890c987513"
+            },
+            {
+              "path": "manuscripts/quartic_v16.tex",
+              "sha256": "aeb2b6a42a03943d7f8c46682389c8da693d2903ba92ccc164bbbd236451de74",
+              "start_line": 3652,
+              "end_line": 6727,
+              "excerpt_sha256": "8cb23123daa9aafd548a5c444e1c1820dc5539d9337b91b59360d95b00f80b72"
+            }
+          ]
+        },
+        "constructed_objects": {
+          "required_input": "Integral continuous finite free lattice and Euler-system cohomology on the required open schemes.",
+          "constructed_input": "Original modular lattice pushed to fixed elliptic lattice with one fixed2-power, retained c,d_s smoothing and j_* classes y_m.",
+          "justification": "The lattice factor is independent of m and is a unit at every localization used; inertia/Leray and Mackey precede the open-scheme map.",
+          "sources": [
+            "Kato1999 §§0.1,0.4–0.8",
+            "Kato2004 §§5.1–5.2,6.6,8.1–8.12,9.7,12.2,13.1–13.7",
+            "Nekovar/Milne/Stacks inspected statements listed in REVIEW.md"
+          ],
+          "evidence": [
+            {
+              "path": "manuscripts/quartic_v16.tex",
+              "sha256": "aeb2b6a42a03943d7f8c46682389c8da693d2903ba92ccc164bbbd236451de74",
+              "start_line": 13339,
+              "end_line": 14428,
+              "excerpt_sha256": "b9fe79fa63c10745221a82753fe88f9c04aa127f0615d4f6bc7866890c987513"
+            },
+            {
+              "path": "manuscripts/quartic_v16.tex",
+              "sha256": "aeb2b6a42a03943d7f8c46682389c8da693d2903ba92ccc164bbbd236451de74",
+              "start_line": 3652,
+              "end_line": 6727,
+              "excerpt_sha256": "8cb23123daa9aafd548a5c444e1c1820dc5539d9337b91b59360d95b00f80b72"
+            }
+          ]
+        },
+        "index_domain_coverage": {
+          "required_input": "Every m divisible by source N and coprime to Nprime, not just the smaller2004§13.1 set.",
+          "constructed_input": "y_m exists for every (m,c d_s)=1; N_K=2Nd and Nprime_K=c d_s are coprime.",
+          "justification": "Restriction to N_K|m covers the full quantified domain; D=2^a d remains in the upstairs conductor.",
+          "sources": [
+            "Kato1999 §§0.1,0.4–0.8",
+            "Kato2004 §§5.1–5.2,6.6,8.1–8.12,9.7,12.2,13.1–13.7",
+            "Nekovar/Milne/Stacks inspected statements listed in REVIEW.md"
+          ],
+          "evidence": [
+            {
+              "path": "manuscripts/quartic_v16.tex",
+              "sha256": "aeb2b6a42a03943d7f8c46682389c8da693d2903ba92ccc164bbbd236451de74",
+              "start_line": 13339,
+              "end_line": 14428,
+              "excerpt_sha256": "b9fe79fa63c10745221a82753fe88f9c04aa127f0615d4f6bc7866890c987513"
+            },
+            {
+              "path": "manuscripts/quartic_v16.tex",
+              "sha256": "aeb2b6a42a03943d7f8c46682389c8da693d2903ba92ccc164bbbd236451de74",
+              "start_line": 3652,
+              "end_line": 6727,
+              "excerpt_sha256": "8cb23123daa9aafd548a5c444e1c1820dc5539d9337b91b59360d95b00f80b72"
+            }
+          ]
+        },
+        "transition_maps": {
+          "required_input": "Corestriction factor1 for q|m, otherwise P_q(q^-1 sigma_q^-1).",
+          "constructed_input": "Support-preserving norms and twisted good-prime norms from2004Prop8.12.",
+          "justification": "Repeated primes give an empty support-difference product; new primes are outside2Nd and unramified for the constituent. No degree factor is inserted.",
+          "sources": [
+            "Kato1999 §§0.1,0.4–0.8",
+            "Kato2004 §§5.1–5.2,6.6,8.1–8.12,9.7,12.2,13.1–13.7",
+            "Nekovar/Milne/Stacks inspected statements listed in REVIEW.md"
+          ],
+          "evidence": [
+            {
+              "path": "manuscripts/quartic_v16.tex",
+              "sha256": "aeb2b6a42a03943d7f8c46682389c8da693d2903ba92ccc164bbbd236451de74",
+              "start_line": 13339,
+              "end_line": 14428,
+              "excerpt_sha256": "b9fe79fa63c10745221a82753fe88f9c04aa127f0615d4f6bc7866890c987513"
+            },
+            {
+              "path": "manuscripts/quartic_v16.tex",
+              "sha256": "aeb2b6a42a03943d7f8c46682389c8da693d2903ba92ccc164bbbd236451de74",
+              "start_line": 3652,
+              "end_line": 6727,
+              "excerpt_sha256": "8cb23123daa9aafd548a5c444e1c1820dc5539d9337b91b59360d95b00f80b72"
+            }
+          ]
+        },
+        "limiting_object_identity": {
+          "required_input": "The divisor bound controls J of the actual§0.7 norm-limit class.",
+          "constructed_input": "Common-upper-field corestriction identifies norm y_(N_K2^n) with y_(2^n), on the cofinal dyadic tower.",
+          "justification": "Transitivity commutes with the transition maps, and the only lattice scalar is an away2 unit. The full/j_* comparison preserves H1 and this very class, not only its rank-one span.",
+          "sources": [
+            "Kato1999 §§0.1,0.4–0.8",
+            "Kato2004 §§5.1–5.2,6.6,8.1–8.12,9.7,12.2,13.1–13.7",
+            "Nekovar/Milne/Stacks inspected statements listed in REVIEW.md"
+          ],
+          "evidence": [
+            {
+              "path": "manuscripts/quartic_v16.tex",
+              "sha256": "aeb2b6a42a03943d7f8c46682389c8da693d2903ba92ccc164bbbd236451de74",
+              "start_line": 13339,
+              "end_line": 14428,
+              "excerpt_sha256": "b9fe79fa63c10745221a82753fe88f9c04aa127f0615d4f6bc7866890c987513"
+            },
+            {
+              "path": "manuscripts/quartic_v16.tex",
+              "sha256": "aeb2b6a42a03943d7f8c46682389c8da693d2903ba92ccc164bbbd236451de74",
+              "start_line": 3652,
+              "end_line": 6727,
+              "excerpt_sha256": "8cb23123daa9aafd548a5c444e1c1820dc5539d9337b91b59360d95b00f80b72"
+            }
+          ]
+        },
+        "coefficient_conventions": {
+          "required_input": "Arithmetic Frobenius, inverse deck substitution, original lattice and exact reciprocity normalization.",
+          "constructed_input": "P_q(X)=1-a_q chi(q)X+qX²; unnormalized character sums; fixed symbol signs; retained smoothing.",
+          "justification": "No second dualization, Gauss/group-order denominator or division by smoothing is introduced. Central basis and odd-part normalization are retained.",
+          "sources": [
+            "Kato1999 §§0.1,0.4–0.8",
+            "Kato2004 §§5.1–5.2,6.6,8.1–8.12,9.7,12.2,13.1–13.7",
+            "Nekovar/Milne/Stacks inspected statements listed in REVIEW.md"
+          ],
+          "evidence": [
+            {
+              "path": "manuscripts/quartic_v16.tex",
+              "sha256": "aeb2b6a42a03943d7f8c46682389c8da693d2903ba92ccc164bbbd236451de74",
+              "start_line": 13339,
+              "end_line": 14428,
+              "excerpt_sha256": "b9fe79fa63c10745221a82753fe88f9c04aa127f0615d4f6bc7866890c987513"
+            },
+            {
+              "path": "manuscripts/quartic_v16.tex",
+              "sha256": "aeb2b6a42a03943d7f8c46682389c8da693d2903ba92ccc164bbbd236451de74",
+              "start_line": 3652,
+              "end_line": 6727,
+              "excerpt_sha256": "8cb23123daa9aafd548a5c444e1c1820dc5539d9337b91b59360d95b00f80b72"
+            }
+          ]
+        },
+        "local_conditions": {
+          "required_input": "j_* cohomology plus subscript-zero H2 bound; later fullH2 must pay its local cone.",
+          "constructed_input": "Inertia/Leray finite-precision classes; cone on H1(I,Vchi); fixed old factors, active/unused distinction.",
+          "justification": "The support comparison keeps the same H1/class and adds exact H2 lengths. Height-one injectivity and central nonvanishing are checked separately; real two-primary terms are retained.",
+          "sources": [
+            "Kato1999 §§0.1,0.4–0.8",
+            "Kato2004 §§5.1–5.2,6.6,8.1–8.12,9.7,12.2,13.1–13.7",
+            "Nekovar/Milne/Stacks inspected statements listed in REVIEW.md"
+          ],
+          "evidence": [
+            {
+              "path": "manuscripts/quartic_v16.tex",
+              "sha256": "aeb2b6a42a03943d7f8c46682389c8da693d2903ba92ccc164bbbd236451de74",
+              "start_line": 13339,
+              "end_line": 14428,
+              "excerpt_sha256": "b9fe79fa63c10745221a82753fe88f9c04aa127f0615d4f6bc7866890c987513"
+            },
+            {
+              "path": "manuscripts/quartic_v16.tex",
+              "sha256": "aeb2b6a42a03943d7f8c46682389c8da693d2903ba92ccc164bbbd236451de74",
+              "start_line": 3652,
+              "end_line": 6727,
+              "excerpt_sha256": "8cb23123daa9aafd548a5c444e1c1820dc5539d9337b91b59360d95b00f80b72"
+            }
+          ]
+        },
+        "exceptional_cases": {
+          "required_input": "Prime2, ramified primitive conductor, repeated primes, central specialization and possible torsion.",
+          "constructed_input": "Source theorem used only away2; complete conductor upstairs; cofinal dyadic restriction; saturation and torsion in E6–E9.",
+          "justification": "All occur in actual inspected derivations. No residual irreducibility at2, normalized-average descent or uniform finiteSha assertion is used.",
+          "sources": [
+            "Kato1999 §§0.1,0.4–0.8",
+            "Kato2004 §§5.1–5.2,6.6,8.1–8.12,9.7,12.2,13.1–13.7",
+            "Nekovar/Milne/Stacks inspected statements listed in REVIEW.md"
+          ],
+          "evidence": [
+            {
+              "path": "manuscripts/quartic_v16.tex",
+              "sha256": "aeb2b6a42a03943d7f8c46682389c8da693d2903ba92ccc164bbbd236451de74",
+              "start_line": 13339,
+              "end_line": 14428,
+              "excerpt_sha256": "b9fe79fa63c10745221a82753fe88f9c04aa127f0615d4f6bc7866890c987513"
+            },
+            {
+              "path": "manuscripts/quartic_v16.tex",
+              "sha256": "aeb2b6a42a03943d7f8c46682389c8da693d2903ba92ccc164bbbd236451de74",
+              "start_line": 3652,
+              "end_line": 6727,
+              "excerpt_sha256": "8cb23123daa9aafd548a5c444e1c1820dc5539d9337b91b59360d95b00f80b72"
+            }
+          ]
+        },
+        "downstream_consumption": {
+          "required_input": "Same-class ideal must bound the H2 used by positive-complex determinant and central valuation.",
+          "constructed_input": "K15→K2→E4a/E6–E9→common coordinate/final transfer.",
+          "justification": "The evaluated class is fixed before characters; an integral O[G] determinant supplies the uniform scalar. Other odd/theta prerequisites retain exact native scope.",
+          "sources": [
+            "Kato1999 §§0.1,0.4–0.8",
+            "Kato2004 §§5.1–5.2,6.6,8.1–8.12,9.7,12.2,13.1–13.7",
+            "Nekovar/Milne/Stacks inspected statements listed in REVIEW.md"
+          ],
+          "evidence": [
+            {
+              "path": "manuscripts/quartic_v16.tex",
+              "sha256": "aeb2b6a42a03943d7f8c46682389c8da693d2903ba92ccc164bbbd236451de74",
+              "start_line": 13339,
+              "end_line": 14428,
+              "excerpt_sha256": "b9fe79fa63c10745221a82753fe88f9c04aa127f0615d4f6bc7866890c987513"
+            },
+            {
+              "path": "manuscripts/quartic_v16.tex",
+              "sha256": "aeb2b6a42a03943d7f8c46682389c8da693d2903ba92ccc164bbbd236451de74",
+              "start_line": 3652,
+              "end_line": 6727,
+              "excerpt_sha256": "8cb23123daa9aafd548a5c444e1c1820dc5539d9337b91b59360d95b00f80b72"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "RC-TO-214-POLE",
+      "decision": "accepted_within_scope",
+      "basis": "fresh construction/application/consumer comparison plus exact unchanged native prerequisites at their accepted scope",
+      "obligations": {
+        "source_hypotheses": {
+          "required_input": "Psi0 converse: nonzero rational b, square reduced denominator,0<b<17,local squares at2,3,17 and depths>=3,1,2. RC:positive squarefree l=11mod12 with full Selmer corank1.",
+          "constructed_input": "Each actual fresh comparison b has depths4,2,2 and all global conditions; descent constructs n,n theta in RC domain.",
+          "justification": "Fresh factor residues and parity establish these conditions before invocation; no identification of CM index curve with RC curve occurs.",
+          "sources": [
+            "Exact native V16 accepted RC/descent/forward/pole derivations",
+            "Poonen–Stoll corrected2014 Cor4,7,Thm8",
+            "Actual fresh214 P05,P06,P13–P20"
+          ],
+          "evidence": [
+            {
+              "path": "research/quartic214/proofs/uniform-existence.md",
+              "sha256": "d13cc2b846dc72a3f5b5cce8dcf11d3f11b33c45ebc3883263840afb8d82f3bc",
+              "start_line": 18,
+              "end_line": 28,
+              "excerpt_sha256": "ec809d646b7f349ce454b20157469fe2c00819d69c898a0d02e71ac83966517a"
+            },
+            {
+              "path": "research/quartic214/proofs/uniform-existence.md",
+              "sha256": "d13cc2b846dc72a3f5b5cce8dcf11d3f11b33c45ebc3883263840afb8d82f3bc",
+              "start_line": 60,
+              "end_line": 84,
+              "excerpt_sha256": "e7e5ab6f72942bb14249f89693639e1fc9c61077f9ed3180faa337b924b58eb8"
+            },
+            {
+              "path": "research/quartic214/proofs/source-carry.md",
+              "sha256": "f7f4e550a4dcfbbd3b5ffcf783b11411f7888c821dbab7febb5132b7b2b891ed",
+              "start_line": 11,
+              "end_line": 28,
+              "excerpt_sha256": "d8ef93330fa69d32c2209dd4a02b680e9c87a85f88617d75510f407cdd080a14"
+            },
+            {
+              "path": "manuscripts/quartic_v16.tex",
+              "sha256": "aeb2b6a42a03943d7f8c46682389c8da693d2903ba92ccc164bbbd236451de74",
+              "start_line": 1815,
+              "end_line": 1898,
+              "excerpt_sha256": "9e55b33bf1f50c9a1739ce3b9485333b9dd3ed64d8d1c960cd45ad20509fd100"
+            },
+            {
+              "path": "manuscripts/quartic_v16.tex",
+              "sha256": "aeb2b6a42a03943d7f8c46682389c8da693d2903ba92ccc164bbbd236451de74",
+              "start_line": 8826,
+              "end_line": 8990,
+              "excerpt_sha256": "c9cce78e7cde7960f639d9e18a44491ee787710fa71aeed1534619abf6d5358c"
+            },
+            {
+              "path": "manuscripts/quartic_v16.tex",
+              "sha256": "aeb2b6a42a03943d7f8c46682389c8da693d2903ba92ccc164bbbd236451de74",
+              "start_line": 11657,
+              "end_line": 11739,
+              "excerpt_sha256": "c870a4836607eb4249a908cff74a0a75cf9634a96c2844e9aee2953b3e1ad048"
+            },
+            {
+              "path": "manuscripts/quartic_v16.tex",
+              "sha256": "aeb2b6a42a03943d7f8c46682389c8da693d2903ba92ccc164bbbd236451de74",
+              "start_line": 32300,
+              "end_line": 32373,
+              "excerpt_sha256": "adb7ee2b36a932cc570a1c5c1f93d70bca56cea540cc9b313fefd5f6b44e8fdf"
+            }
+          ]
+        },
+        "constructed_objects": {
+          "required_input": "Actual source pole equations with h=e(17b-b²), no extra free h or nonvanishing guards.",
+          "constructed_input": "b=gamma²R/Tr(W^-1)²; two rational points subsequently rescaled to e,p,q,s.",
+          "justification": "The point rescaling gives the literal two equations and the prescribed h. Distinct detectors have separate structural coordinates.",
+          "sources": [
+            "Exact native V16 accepted RC/descent/forward/pole derivations",
+            "Poonen–Stoll corrected2014 Cor4,7,Thm8",
+            "Actual fresh214 P05,P06,P13–P20"
+          ],
+          "evidence": [
+            {
+              "path": "research/quartic214/proofs/uniform-existence.md",
+              "sha256": "d13cc2b846dc72a3f5b5cce8dcf11d3f11b33c45ebc3883263840afb8d82f3bc",
+              "start_line": 18,
+              "end_line": 28,
+              "excerpt_sha256": "ec809d646b7f349ce454b20157469fe2c00819d69c898a0d02e71ac83966517a"
+            },
+            {
+              "path": "research/quartic214/proofs/uniform-existence.md",
+              "sha256": "d13cc2b846dc72a3f5b5cce8dcf11d3f11b33c45ebc3883263840afb8d82f3bc",
+              "start_line": 60,
+              "end_line": 84,
+              "excerpt_sha256": "e7e5ab6f72942bb14249f89693639e1fc9c61077f9ed3180faa337b924b58eb8"
+            },
+            {
+              "path": "research/quartic214/proofs/source-carry.md",
+              "sha256": "f7f4e550a4dcfbbd3b5ffcf783b11411f7888c821dbab7febb5132b7b2b891ed",
+              "start_line": 11,
+              "end_line": 28,
+              "excerpt_sha256": "d8ef93330fa69d32c2209dd4a02b680e9c87a85f88617d75510f407cdd080a14"
+            },
+            {
+              "path": "manuscripts/quartic_v16.tex",
+              "sha256": "aeb2b6a42a03943d7f8c46682389c8da693d2903ba92ccc164bbbd236451de74",
+              "start_line": 1815,
+              "end_line": 1898,
+              "excerpt_sha256": "9e55b33bf1f50c9a1739ce3b9485333b9dd3ed64d8d1c960cd45ad20509fd100"
+            },
+            {
+              "path": "manuscripts/quartic_v16.tex",
+              "sha256": "aeb2b6a42a03943d7f8c46682389c8da693d2903ba92ccc164bbbd236451de74",
+              "start_line": 8826,
+              "end_line": 8990,
+              "excerpt_sha256": "c9cce78e7cde7960f639d9e18a44491ee787710fa71aeed1534619abf6d5358c"
+            },
+            {
+              "path": "manuscripts/quartic_v16.tex",
+              "sha256": "aeb2b6a42a03943d7f8c46682389c8da693d2903ba92ccc164bbbd236451de74",
+              "start_line": 11657,
+              "end_line": 11739,
+              "excerpt_sha256": "c870a4836607eb4249a908cff74a0a75cf9634a96c2844e9aee2953b3e1ad048"
+            },
+            {
+              "path": "manuscripts/quartic_v16.tex",
+              "sha256": "aeb2b6a42a03943d7f8c46682389c8da693d2903ba92ccc164bbbd236451de74",
+              "start_line": 32300,
+              "end_line": 32373,
+              "excerpt_sha256": "adb7ee2b36a932cc570a1c5c1f93d70bca56cea540cc9b313fefd5f6b44e8fdf"
+            }
+          ]
+        },
+        "index_domain_coverage": {
+          "required_input": "Every needed detector and all admitted branches; RC universal in each such l.",
+          "constructed_input": "Two physical detectors plus retained scalar certificate, each input fixed before its certificate; theta=1 included.",
+          "justification": "RC is instantiated separately on the two parameters arising per pole input. No uniform-in-l constant or additional family-parameter threshold is consumed.",
+          "sources": [
+            "Exact native V16 accepted RC/descent/forward/pole derivations",
+            "Poonen–Stoll corrected2014 Cor4,7,Thm8",
+            "Actual fresh214 P05,P06,P13–P20"
+          ],
+          "evidence": [
+            {
+              "path": "research/quartic214/proofs/uniform-existence.md",
+              "sha256": "d13cc2b846dc72a3f5b5cce8dcf11d3f11b33c45ebc3883263840afb8d82f3bc",
+              "start_line": 18,
+              "end_line": 28,
+              "excerpt_sha256": "ec809d646b7f349ce454b20157469fe2c00819d69c898a0d02e71ac83966517a"
+            },
+            {
+              "path": "research/quartic214/proofs/uniform-existence.md",
+              "sha256": "d13cc2b846dc72a3f5b5cce8dcf11d3f11b33c45ebc3883263840afb8d82f3bc",
+              "start_line": 60,
+              "end_line": 84,
+              "excerpt_sha256": "e7e5ab6f72942bb14249f89693639e1fc9c61077f9ed3180faa337b924b58eb8"
+            },
+            {
+              "path": "research/quartic214/proofs/source-carry.md",
+              "sha256": "f7f4e550a4dcfbbd3b5ffcf783b11411f7888c821dbab7febb5132b7b2b891ed",
+              "start_line": 11,
+              "end_line": 28,
+              "excerpt_sha256": "d8ef93330fa69d32c2209dd4a02b680e9c87a85f88617d75510f407cdd080a14"
+            },
+            {
+              "path": "manuscripts/quartic_v16.tex",
+              "sha256": "aeb2b6a42a03943d7f8c46682389c8da693d2903ba92ccc164bbbd236451de74",
+              "start_line": 1815,
+              "end_line": 1898,
+              "excerpt_sha256": "9e55b33bf1f50c9a1739ce3b9485333b9dd3ed64d8d1c960cd45ad20509fd100"
+            },
+            {
+              "path": "manuscripts/quartic_v16.tex",
+              "sha256": "aeb2b6a42a03943d7f8c46682389c8da693d2903ba92ccc164bbbd236451de74",
+              "start_line": 8826,
+              "end_line": 8990,
+              "excerpt_sha256": "c9cce78e7cde7960f639d9e18a44491ee787710fa71aeed1534619abf6d5358c"
+            },
+            {
+              "path": "manuscripts/quartic_v16.tex",
+              "sha256": "aeb2b6a42a03943d7f8c46682389c8da693d2903ba92ccc164bbbd236451de74",
+              "start_line": 11657,
+              "end_line": 11739,
+              "excerpt_sha256": "c870a4836607eb4249a908cff74a0a75cf9634a96c2844e9aee2953b3e1ad048"
+            },
+            {
+              "path": "manuscripts/quartic_v16.tex",
+              "sha256": "aeb2b6a42a03943d7f8c46682389c8da693d2903ba92ccc164bbbd236451de74",
+              "start_line": 32300,
+              "end_line": 32373,
+              "excerpt_sha256": "adb7ee2b36a932cc570a1c5c1f93d70bca56cea540cc9b313fefd5f6b44e8fdf"
+            }
+          ]
+        },
+        "transition_maps": {
+          "required_input": "Point/squareclass scaling must preserve the required rational certificate; source support compatibility before descent.",
+          "constructed_input": "V=theta c², second point scaled to E_(nV), both parameters divided by a²; x-coordinates become B and Bs².",
+          "justification": "With e=e0/B,p=y1/B,q=y2/(B²s), substitution recovers Psi0. All divisions in constructing the certificate are nonzero. No norm/limit maps are needed in this finite application.",
+          "sources": [
+            "Exact native V16 accepted RC/descent/forward/pole derivations",
+            "Poonen–Stoll corrected2014 Cor4,7,Thm8",
+            "Actual fresh214 P05,P06,P13–P20"
+          ],
+          "evidence": [
+            {
+              "path": "research/quartic214/proofs/uniform-existence.md",
+              "sha256": "d13cc2b846dc72a3f5b5cce8dcf11d3f11b33c45ebc3883263840afb8d82f3bc",
+              "start_line": 18,
+              "end_line": 28,
+              "excerpt_sha256": "ec809d646b7f349ce454b20157469fe2c00819d69c898a0d02e71ac83966517a"
+            },
+            {
+              "path": "research/quartic214/proofs/uniform-existence.md",
+              "sha256": "d13cc2b846dc72a3f5b5cce8dcf11d3f11b33c45ebc3883263840afb8d82f3bc",
+              "start_line": 60,
+              "end_line": 84,
+              "excerpt_sha256": "e7e5ab6f72942bb14249f89693639e1fc9c61077f9ed3180faa337b924b58eb8"
+            },
+            {
+              "path": "research/quartic214/proofs/source-carry.md",
+              "sha256": "f7f4e550a4dcfbbd3b5ffcf783b11411f7888c821dbab7febb5132b7b2b891ed",
+              "start_line": 11,
+              "end_line": 28,
+              "excerpt_sha256": "d8ef93330fa69d32c2209dd4a02b680e9c87a85f88617d75510f407cdd080a14"
+            },
+            {
+              "path": "manuscripts/quartic_v16.tex",
+              "sha256": "aeb2b6a42a03943d7f8c46682389c8da693d2903ba92ccc164bbbd236451de74",
+              "start_line": 1815,
+              "end_line": 1898,
+              "excerpt_sha256": "9e55b33bf1f50c9a1739ce3b9485333b9dd3ed64d8d1c960cd45ad20509fd100"
+            },
+            {
+              "path": "manuscripts/quartic_v16.tex",
+              "sha256": "aeb2b6a42a03943d7f8c46682389c8da693d2903ba92ccc164bbbd236451de74",
+              "start_line": 8826,
+              "end_line": 8990,
+              "excerpt_sha256": "c9cce78e7cde7960f639d9e18a44491ee787710fa71aeed1534619abf6d5358c"
+            },
+            {
+              "path": "manuscripts/quartic_v16.tex",
+              "sha256": "aeb2b6a42a03943d7f8c46682389c8da693d2903ba92ccc164bbbd236451de74",
+              "start_line": 11657,
+              "end_line": 11739,
+              "excerpt_sha256": "c870a4836607eb4249a908cff74a0a75cf9634a96c2844e9aee2953b3e1ad048"
+            },
+            {
+              "path": "manuscripts/quartic_v16.tex",
+              "sha256": "aeb2b6a42a03943d7f8c46682389c8da693d2903ba92ccc164bbbd236451de74",
+              "start_line": 32300,
+              "end_line": 32373,
+              "excerpt_sha256": "adb7ee2b36a932cc570a1c5c1f93d70bca56cea540cc9b313fefd5f6b44e8fdf"
+            }
+          ]
+        },
+        "limiting_object_identity": {
+          "required_input": "Output must concern this new b, not a previous factor system or merely an isomorphic curve.",
+          "constructed_input": "P17 reevaluates changed order-three factors; P18 fixes the actual b; P19 applies pole realization to it.",
+          "justification": "The entire rescaling retains B=17b and V=B²(1-b/17); the resulting equations are the ones consumed by the new214 rows.",
+          "sources": [
+            "Exact native V16 accepted RC/descent/forward/pole derivations",
+            "Poonen–Stoll corrected2014 Cor4,7,Thm8",
+            "Actual fresh214 P05,P06,P13–P20"
+          ],
+          "evidence": [
+            {
+              "path": "research/quartic214/proofs/uniform-existence.md",
+              "sha256": "d13cc2b846dc72a3f5b5cce8dcf11d3f11b33c45ebc3883263840afb8d82f3bc",
+              "start_line": 18,
+              "end_line": 28,
+              "excerpt_sha256": "ec809d646b7f349ce454b20157469fe2c00819d69c898a0d02e71ac83966517a"
+            },
+            {
+              "path": "research/quartic214/proofs/uniform-existence.md",
+              "sha256": "d13cc2b846dc72a3f5b5cce8dcf11d3f11b33c45ebc3883263840afb8d82f3bc",
+              "start_line": 60,
+              "end_line": 84,
+              "excerpt_sha256": "e7e5ab6f72942bb14249f89693639e1fc9c61077f9ed3180faa337b924b58eb8"
+            },
+            {
+              "path": "research/quartic214/proofs/source-carry.md",
+              "sha256": "f7f4e550a4dcfbbd3b5ffcf783b11411f7888c821dbab7febb5132b7b2b891ed",
+              "start_line": 11,
+              "end_line": 28,
+              "excerpt_sha256": "d8ef93330fa69d32c2209dd4a02b680e9c87a85f88617d75510f407cdd080a14"
+            },
+            {
+              "path": "manuscripts/quartic_v16.tex",
+              "sha256": "aeb2b6a42a03943d7f8c46682389c8da693d2903ba92ccc164bbbd236451de74",
+              "start_line": 1815,
+              "end_line": 1898,
+              "excerpt_sha256": "9e55b33bf1f50c9a1739ce3b9485333b9dd3ed64d8d1c960cd45ad20509fd100"
+            },
+            {
+              "path": "manuscripts/quartic_v16.tex",
+              "sha256": "aeb2b6a42a03943d7f8c46682389c8da693d2903ba92ccc164bbbd236451de74",
+              "start_line": 8826,
+              "end_line": 8990,
+              "excerpt_sha256": "c9cce78e7cde7960f639d9e18a44491ee787710fa71aeed1534619abf6d5358c"
+            },
+            {
+              "path": "manuscripts/quartic_v16.tex",
+              "sha256": "aeb2b6a42a03943d7f8c46682389c8da693d2903ba92ccc164bbbd236451de74",
+              "start_line": 11657,
+              "end_line": 11739,
+              "excerpt_sha256": "c870a4836607eb4249a908cff74a0a75cf9634a96c2844e9aee2953b3e1ad048"
+            },
+            {
+              "path": "manuscripts/quartic_v16.tex",
+              "sha256": "aeb2b6a42a03943d7f8c46682389c8da693d2903ba92ccc164bbbd236451de74",
+              "start_line": 32300,
+              "end_line": 32373,
+              "excerpt_sha256": "adb7ee2b36a932cc570a1c5c1f93d70bca56cea540cc9b313fefd5f6b44e8fdf"
+            }
+          ]
+        },
+        "coefficient_conventions": {
+          "required_input": "Ordinary rational squareclasses, normalized prime valuations v_p(p)=1, full Selmer corank and prescribed curve model.",
+          "constructed_input": "mu/theta positive squarefree representatives, j=35152/9, rational2-torsion, full Selmer including divisibleSha.",
+          "justification": "Nondegenerate alternating pairing is on the finite quotient, not presumed on its2-torsion. FiniteSha enters only after RC and the forward theorem.",
+          "sources": [
+            "Exact native V16 accepted RC/descent/forward/pole derivations",
+            "Poonen–Stoll corrected2014 Cor4,7,Thm8",
+            "Actual fresh214 P05,P06,P13–P20"
+          ],
+          "evidence": [
+            {
+              "path": "research/quartic214/proofs/uniform-existence.md",
+              "sha256": "d13cc2b846dc72a3f5b5cce8dcf11d3f11b33c45ebc3883263840afb8d82f3bc",
+              "start_line": 18,
+              "end_line": 28,
+              "excerpt_sha256": "ec809d646b7f349ce454b20157469fe2c00819d69c898a0d02e71ac83966517a"
+            },
+            {
+              "path": "research/quartic214/proofs/uniform-existence.md",
+              "sha256": "d13cc2b846dc72a3f5b5cce8dcf11d3f11b33c45ebc3883263840afb8d82f3bc",
+              "start_line": 60,
+              "end_line": 84,
+              "excerpt_sha256": "e7e5ab6f72942bb14249f89693639e1fc9c61077f9ed3180faa337b924b58eb8"
+            },
+            {
+              "path": "research/quartic214/proofs/source-carry.md",
+              "sha256": "f7f4e550a4dcfbbd3b5ffcf783b11411f7888c821dbab7febb5132b7b2b891ed",
+              "start_line": 11,
+              "end_line": 28,
+              "excerpt_sha256": "d8ef93330fa69d32c2209dd4a02b680e9c87a85f88617d75510f407cdd080a14"
+            },
+            {
+              "path": "manuscripts/quartic_v16.tex",
+              "sha256": "aeb2b6a42a03943d7f8c46682389c8da693d2903ba92ccc164bbbd236451de74",
+              "start_line": 1815,
+              "end_line": 1898,
+              "excerpt_sha256": "9e55b33bf1f50c9a1739ce3b9485333b9dd3ed64d8d1c960cd45ad20509fd100"
+            },
+            {
+              "path": "manuscripts/quartic_v16.tex",
+              "sha256": "aeb2b6a42a03943d7f8c46682389c8da693d2903ba92ccc164bbbd236451de74",
+              "start_line": 8826,
+              "end_line": 8990,
+              "excerpt_sha256": "c9cce78e7cde7960f639d9e18a44491ee787710fa71aeed1534619abf6d5358c"
+            },
+            {
+              "path": "manuscripts/quartic_v16.tex",
+              "sha256": "aeb2b6a42a03943d7f8c46682389c8da693d2903ba92ccc164bbbd236451de74",
+              "start_line": 11657,
+              "end_line": 11739,
+              "excerpt_sha256": "c870a4836607eb4249a908cff74a0a75cf9634a96c2844e9aee2953b3e1ad048"
+            },
+            {
+              "path": "manuscripts/quartic_v16.tex",
+              "sha256": "aeb2b6a42a03943d7f8c46682389c8da693d2903ba92ccc164bbbd236451de74",
+              "start_line": 32300,
+              "end_line": 32373,
+              "excerpt_sha256": "adb7ee2b36a932cc570a1c5c1f93d70bca56cea540cc9b313fefd5f6b44e8fdf"
+            }
+          ]
+        },
+        "local_conditions": {
+          "required_input": "Mutual local squareness of mu/theta; local Selmer sufficiency of the particular extra class; pole depths.",
+          "constructed_input": "P18 supplies squares/depths; source proves disjoint supports and mutual squareness and checks(mu,1) at2,3,infinity and support primes.",
+          "justification": "At a prime of mu outside exceptions, positive odd valuation gives1-b/17 square; at a prime of theta, cancellation gives B congruent17². The displayed descent equations and actual extra local class give dimSel2=3.",
+          "sources": [
+            "Exact native V16 accepted RC/descent/forward/pole derivations",
+            "Poonen–Stoll corrected2014 Cor4,7,Thm8",
+            "Actual fresh214 P05,P06,P13–P20"
+          ],
+          "evidence": [
+            {
+              "path": "research/quartic214/proofs/uniform-existence.md",
+              "sha256": "d13cc2b846dc72a3f5b5cce8dcf11d3f11b33c45ebc3883263840afb8d82f3bc",
+              "start_line": 18,
+              "end_line": 28,
+              "excerpt_sha256": "ec809d646b7f349ce454b20157469fe2c00819d69c898a0d02e71ac83966517a"
+            },
+            {
+              "path": "research/quartic214/proofs/uniform-existence.md",
+              "sha256": "d13cc2b846dc72a3f5b5cce8dcf11d3f11b33c45ebc3883263840afb8d82f3bc",
+              "start_line": 60,
+              "end_line": 84,
+              "excerpt_sha256": "e7e5ab6f72942bb14249f89693639e1fc9c61077f9ed3180faa337b924b58eb8"
+            },
+            {
+              "path": "research/quartic214/proofs/source-carry.md",
+              "sha256": "f7f4e550a4dcfbbd3b5ffcf783b11411f7888c821dbab7febb5132b7b2b891ed",
+              "start_line": 11,
+              "end_line": 28,
+              "excerpt_sha256": "d8ef93330fa69d32c2209dd4a02b680e9c87a85f88617d75510f407cdd080a14"
+            },
+            {
+              "path": "manuscripts/quartic_v16.tex",
+              "sha256": "aeb2b6a42a03943d7f8c46682389c8da693d2903ba92ccc164bbbd236451de74",
+              "start_line": 1815,
+              "end_line": 1898,
+              "excerpt_sha256": "9e55b33bf1f50c9a1739ce3b9485333b9dd3ed64d8d1c960cd45ad20509fd100"
+            },
+            {
+              "path": "manuscripts/quartic_v16.tex",
+              "sha256": "aeb2b6a42a03943d7f8c46682389c8da693d2903ba92ccc164bbbd236451de74",
+              "start_line": 8826,
+              "end_line": 8990,
+              "excerpt_sha256": "c9cce78e7cde7960f639d9e18a44491ee787710fa71aeed1534619abf6d5358c"
+            },
+            {
+              "path": "manuscripts/quartic_v16.tex",
+              "sha256": "aeb2b6a42a03943d7f8c46682389c8da693d2903ba92ccc164bbbd236451de74",
+              "start_line": 11657,
+              "end_line": 11739,
+              "excerpt_sha256": "c870a4836607eb4249a908cff74a0a75cf9634a96c2844e9aee2953b3e1ad048"
+            },
+            {
+              "path": "manuscripts/quartic_v16.tex",
+              "sha256": "aeb2b6a42a03943d7f8c46682389c8da693d2903ba92ccc164bbbd236451de74",
+              "start_line": 32300,
+              "end_line": 32373,
+              "excerpt_sha256": "adb7ee2b36a932cc570a1c5c1f93d70bca56cea540cc9b313fefd5f6b44e8fdf"
+            }
+          ]
+        },
+        "exceptional_cases": {
+          "required_input": "theta=1; singleton mu support; degenerate conic witnesses; arbitrary-witness soundness.",
+          "constructed_input": "Determinant argument includes d=1 and empty theta support; conic charts include e=1 and-1/3; zero auxiliary roots allowed.",
+          "justification": "These branches are in the source proof. Soundness invokes only the no-negative-odd-valuation direction; it does not require converse hypotheses of arbitrary polynomial witnesses.",
+          "sources": [
+            "Exact native V16 accepted RC/descent/forward/pole derivations",
+            "Poonen–Stoll corrected2014 Cor4,7,Thm8",
+            "Actual fresh214 P05,P06,P13–P20"
+          ],
+          "evidence": [
+            {
+              "path": "research/quartic214/proofs/uniform-existence.md",
+              "sha256": "d13cc2b846dc72a3f5b5cce8dcf11d3f11b33c45ebc3883263840afb8d82f3bc",
+              "start_line": 18,
+              "end_line": 28,
+              "excerpt_sha256": "ec809d646b7f349ce454b20157469fe2c00819d69c898a0d02e71ac83966517a"
+            },
+            {
+              "path": "research/quartic214/proofs/uniform-existence.md",
+              "sha256": "d13cc2b846dc72a3f5b5cce8dcf11d3f11b33c45ebc3883263840afb8d82f3bc",
+              "start_line": 60,
+              "end_line": 84,
+              "excerpt_sha256": "e7e5ab6f72942bb14249f89693639e1fc9c61077f9ed3180faa337b924b58eb8"
+            },
+            {
+              "path": "research/quartic214/proofs/source-carry.md",
+              "sha256": "f7f4e550a4dcfbbd3b5ffcf783b11411f7888c821dbab7febb5132b7b2b891ed",
+              "start_line": 11,
+              "end_line": 28,
+              "excerpt_sha256": "d8ef93330fa69d32c2209dd4a02b680e9c87a85f88617d75510f407cdd080a14"
+            },
+            {
+              "path": "manuscripts/quartic_v16.tex",
+              "sha256": "aeb2b6a42a03943d7f8c46682389c8da693d2903ba92ccc164bbbd236451de74",
+              "start_line": 1815,
+              "end_line": 1898,
+              "excerpt_sha256": "9e55b33bf1f50c9a1739ce3b9485333b9dd3ed64d8d1c960cd45ad20509fd100"
+            },
+            {
+              "path": "manuscripts/quartic_v16.tex",
+              "sha256": "aeb2b6a42a03943d7f8c46682389c8da693d2903ba92ccc164bbbd236451de74",
+              "start_line": 8826,
+              "end_line": 8990,
+              "excerpt_sha256": "c9cce78e7cde7960f639d9e18a44491ee787710fa71aeed1534619abf6d5358c"
+            },
+            {
+              "path": "manuscripts/quartic_v16.tex",
+              "sha256": "aeb2b6a42a03943d7f8c46682389c8da693d2903ba92ccc164bbbd236451de74",
+              "start_line": 11657,
+              "end_line": 11739,
+              "excerpt_sha256": "c870a4836607eb4249a908cff74a0a75cf9634a96c2844e9aee2953b3e1ad048"
+            },
+            {
+              "path": "manuscripts/quartic_v16.tex",
+              "sha256": "aeb2b6a42a03943d7f8c46682389c8da693d2903ba92ccc164bbbd236451de74",
+              "start_line": 32300,
+              "end_line": 32373,
+              "excerpt_sha256": "adb7ee2b36a932cc570a1c5c1f93d70bca56cea540cc9b313fefd5f6b44e8fdf"
+            }
+          ]
+        },
+        "downstream_consumption": {
+          "required_input": "Fresh certificates must feed P20 without revisiting previous primes/CRT or imposing N dependent on input.",
+          "constructed_input": "Independent certificates selected after P14–P18 fixed both inputs; raw algebra receives the literal physical witnesses.",
+          "justification": "Existential RC/pole realization has no numerical lower-bound output; all constants are internal to each fixed l. P20 retains one N_C from scalar preparation; full algebra and other lanes remain separately reviewed.",
+          "sources": [
+            "Exact native V16 accepted RC/descent/forward/pole derivations",
+            "Poonen–Stoll corrected2014 Cor4,7,Thm8",
+            "Actual fresh214 P05,P06,P13–P20"
+          ],
+          "evidence": [
+            {
+              "path": "research/quartic214/proofs/uniform-existence.md",
+              "sha256": "d13cc2b846dc72a3f5b5cce8dcf11d3f11b33c45ebc3883263840afb8d82f3bc",
+              "start_line": 18,
+              "end_line": 28,
+              "excerpt_sha256": "ec809d646b7f349ce454b20157469fe2c00819d69c898a0d02e71ac83966517a"
+            },
+            {
+              "path": "research/quartic214/proofs/uniform-existence.md",
+              "sha256": "d13cc2b846dc72a3f5b5cce8dcf11d3f11b33c45ebc3883263840afb8d82f3bc",
+              "start_line": 60,
+              "end_line": 84,
+              "excerpt_sha256": "e7e5ab6f72942bb14249f89693639e1fc9c61077f9ed3180faa337b924b58eb8"
+            },
+            {
+              "path": "research/quartic214/proofs/source-carry.md",
+              "sha256": "f7f4e550a4dcfbbd3b5ffcf783b11411f7888c821dbab7febb5132b7b2b891ed",
+              "start_line": 11,
+              "end_line": 28,
+              "excerpt_sha256": "d8ef93330fa69d32c2209dd4a02b680e9c87a85f88617d75510f407cdd080a14"
+            },
+            {
+              "path": "manuscripts/quartic_v16.tex",
+              "sha256": "aeb2b6a42a03943d7f8c46682389c8da693d2903ba92ccc164bbbd236451de74",
+              "start_line": 1815,
+              "end_line": 1898,
+              "excerpt_sha256": "9e55b33bf1f50c9a1739ce3b9485333b9dd3ed64d8d1c960cd45ad20509fd100"
+            },
+            {
+              "path": "manuscripts/quartic_v16.tex",
+              "sha256": "aeb2b6a42a03943d7f8c46682389c8da693d2903ba92ccc164bbbd236451de74",
+              "start_line": 8826,
+              "end_line": 8990,
+              "excerpt_sha256": "c9cce78e7cde7960f639d9e18a44491ee787710fa71aeed1534619abf6d5358c"
+            },
+            {
+              "path": "manuscripts/quartic_v16.tex",
+              "sha256": "aeb2b6a42a03943d7f8c46682389c8da693d2903ba92ccc164bbbd236451de74",
+              "start_line": 11657,
+              "end_line": 11739,
+              "excerpt_sha256": "c870a4836607eb4249a908cff74a0a75cf9634a96c2844e9aee2953b3e1ad048"
+            },
+            {
+              "path": "manuscripts/quartic_v16.tex",
+              "sha256": "aeb2b6a42a03943d7f8c46682389c8da693d2903ba92ccc164bbbd236451de74",
+              "start_line": 32300,
+              "end_line": 32373,
+              "excerpt_sha256": "adb7ee2b36a932cc570a1c5c1f93d70bca56cea540cc9b313fefd5f6b44e8fdf"
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

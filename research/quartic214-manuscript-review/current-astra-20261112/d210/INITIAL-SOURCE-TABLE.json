@@ -1,0 +1,55 @@
+{
+  "status": "frozen initial source-first reconstruction; no declared inventories or earlier favorable review decisions read",
+  "prior_exposure": "Read actual author proof geometry-carry/provider-scope-carry/modularity including their embedded source/acceptance descriptions; no independence from that source guidance claimed. Read V16 geometry 7700\u20138070.",
+  "rows": [
+    {
+      "id": "D01",
+      "consumer": "geometry-carry G2; V16 7737\u20138020",
+      "required": "Entire marked D210 canonical cover; 72 stack/36 coarse; rational all-component normalizer action; Gamma=576",
+      "supplier": "Yuan maximal stack; Milne PEL/canonical; Buzzard polarization; Voight lattice; Stacks scheme/projectivity; Deligne action",
+      "state": "Primary inputs not yet reacquired"
+    },
+    {
+      "id": "D02",
+      "consumer": "geometry-carry G2\u2013G3",
+      "required": "Same L degree divides576, all Hom over L, conjugate B-linear quasi-isogenies, non-CM End=B, all five contact cases",
+      "supplier": "D01; torsion congruence argument; rational Hodge classification; tame model",
+      "state": "Inline reconstruction underway"
+    },
+    {
+      "id": "D03",
+      "consumer": "modularity M1\u2013M2",
+      "required": "Normalized genuine rho=r+r, same restriction over L prime, finite minimal character lift",
+      "supplier": "quasi-isogeny degree; local/global reciprocity/Brauer; Faltings",
+      "state": "Inline reconstruction underway"
+    },
+    {
+      "id": "D04",
+      "consumer": "modularity M2\u2013M3",
+      "required": "Original r5 de Rham, odd, irreducible; primitive weight2 finite twist realization",
+      "supplier": "Scholze/corrigendum; Fontaine; Kato; Calegari; Deligne\u2013Serre; Shimura twist; reciprocity",
+      "state": "Primary inputs not yet reacquired"
+    },
+    {
+      "id": "D05",
+      "consumer": "modularity M4\u2013M5",
+      "required": "Same final primitive f realizes original r3; full local isomorphism; level conductor at every prime",
+      "supplier": "relative p-Frobenius endomorphism; Milne12.9; Serre density; Carayol4",
+      "state": "Inline reconstruction underway"
+    },
+    {
+      "id": "D06",
+      "consumer": "modularity M5",
+      "required": "Wild exponents70,18,18,6 and tame exponent2; actual level N bound",
+      "supplier": "normal11-torsion extension via prime-to11 conjugate maps; Silverberg\u2013Zarhin; division torus; different/upper numbering",
+      "state": "Exact historical supplier needed"
+    },
+    {
+      "id": "D07",
+      "consumer": "modularity M6",
+      "required": "All coefficient conjugates, e=2r, B0 inside J_H over same L prime",
+      "supplier": "Li Fricke; Shimura quotient; Faltings/Poincare; density and rationality of traces; norm/pullback",
+      "state": "Primary inputs not yet reacquired"
+    }
+  ]
+}

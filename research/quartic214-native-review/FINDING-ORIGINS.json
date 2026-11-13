@@ -1,0 +1,1091 @@
+[
+  {
+    "id": "F1",
+    "native_body_convention": "First listed complete original GitHub body; every additional complete body remains preserved and bound here.",
+    "native_body_sha256": "88181adcc225fdc04adecc34d75141ea6825d28967d58eee9641a5c35c8b660d",
+    "original_bodies": [
+      {
+        "kind": "comments",
+        "id": 6813866051,
+        "node_id": "IC_kwDOVjIShs8AAAABliNYQw",
+        "url": "https://github.com/elliotglazer/diophantine-z-q/pull/30#issuecomment-6813866051",
+        "author_login": "cameronfreer",
+        "author_github_id": 2009342,
+        "state": null,
+        "commit_id": null,
+        "created_at": "2026-11-12T03:50:50Z",
+        "updated_at": "2026-11-12T03:50:50Z",
+        "submitted_at": null,
+        "body_sha256": "88181adcc225fdc04adecc34d75141ea6825d28967d58eee9641a5c35c8b660d",
+        "body_bytes": 4741,
+        "body_encoding": "UTF-8 of exact decoded body string, no whitespace or Unicode normalization",
+        "json_pointer": "/comments/0/body",
+        "semantic_role": "adverse scoped independent report with F1/F2 and incomplete coverage",
+        "prior_public_material_body_match": true
+      },
+      {
+        "kind": "comments",
+        "id": 6827027005,
+        "node_id": "IC_kwDOVjIShs8AAAABluwqPQ",
+        "url": "https://github.com/elliotglazer/diophantine-z-q/pull/30#issuecomment-6827027005",
+        "author_login": "cameronfreer",
+        "author_github_id": 2009342,
+        "state": null,
+        "commit_id": null,
+        "created_at": "2026-11-12T14:55:11Z",
+        "updated_at": "2026-11-12T14:55:11Z",
+        "submitted_at": null,
+        "body_sha256": "a160c64eae9f583d5d80c2f15df9b8f700a3f8548bada3a65e3d8b82513c5514",
+        "body_bytes": 51485,
+        "body_encoding": "UTF-8 of exact decoded body string, no whitespace or Unicode normalization",
+        "json_pointer": "/comments/1/body",
+        "semantic_role": "bounded independent repair report plus complete component reports; historical coverage remains incomplete",
+        "prior_public_material_body_match": true
+      }
+    ],
+    "aliases": [
+      "PR30-F1"
+    ],
+    "pending": "Verified actual resolution-author run mapping required before native finalization."
+  },
+  {
+    "id": "F2",
+    "native_body_convention": "First listed complete original GitHub body; every additional complete body remains preserved and bound here.",
+    "native_body_sha256": "88181adcc225fdc04adecc34d75141ea6825d28967d58eee9641a5c35c8b660d",
+    "original_bodies": [
+      {
+        "kind": "comments",
+        "id": 6813866051,
+        "node_id": "IC_kwDOVjIShs8AAAABliNYQw",
+        "url": "https://github.com/elliotglazer/diophantine-z-q/pull/30#issuecomment-6813866051",
+        "author_login": "cameronfreer",
+        "author_github_id": 2009342,
+        "state": null,
+        "commit_id": null,
+        "created_at": "2026-11-12T03:50:50Z",
+        "updated_at": "2026-11-12T03:50:50Z",
+        "submitted_at": null,
+        "body_sha256": "88181adcc225fdc04adecc34d75141ea6825d28967d58eee9641a5c35c8b660d",
+        "body_bytes": 4741,
+        "body_encoding": "UTF-8 of exact decoded body string, no whitespace or Unicode normalization",
+        "json_pointer": "/comments/0/body",
+        "semantic_role": "adverse scoped independent report with F1/F2 and incomplete coverage",
+        "prior_public_material_body_match": true
+      },
+      {
+        "kind": "comments",
+        "id": 6827027005,
+        "node_id": "IC_kwDOVjIShs8AAAABluwqPQ",
+        "url": "https://github.com/elliotglazer/diophantine-z-q/pull/30#issuecomment-6827027005",
+        "author_login": "cameronfreer",
+        "author_github_id": 2009342,
+        "state": null,
+        "commit_id": null,
+        "created_at": "2026-11-12T14:55:11Z",
+        "updated_at": "2026-11-12T14:55:11Z",
+        "submitted_at": null,
+        "body_sha256": "a160c64eae9f583d5d80c2f15df9b8f700a3f8548bada3a65e3d8b82513c5514",
+        "body_bytes": 51485,
+        "body_encoding": "UTF-8 of exact decoded body string, no whitespace or Unicode normalization",
+        "json_pointer": "/comments/1/body",
+        "semantic_role": "bounded independent repair report plus complete component reports; historical coverage remains incomplete",
+        "prior_public_material_body_match": true
+      }
+    ],
+    "aliases": [
+      "PR30-F2"
+    ],
+    "pending": "Verified actual resolution-author run mapping required before native finalization."
+  },
+  {
+    "id": "F3",
+    "native_body_convention": "First listed complete original GitHub body; every additional complete body remains preserved and bound here.",
+    "native_body_sha256": "a160c64eae9f583d5d80c2f15df9b8f700a3f8548bada3a65e3d8b82513c5514",
+    "original_bodies": [
+      {
+        "kind": "comments",
+        "id": 6827027005,
+        "node_id": "IC_kwDOVjIShs8AAAABluwqPQ",
+        "url": "https://github.com/elliotglazer/diophantine-z-q/pull/30#issuecomment-6827027005",
+        "author_login": "cameronfreer",
+        "author_github_id": 2009342,
+        "state": null,
+        "commit_id": null,
+        "created_at": "2026-11-12T14:55:11Z",
+        "updated_at": "2026-11-12T14:55:11Z",
+        "submitted_at": null,
+        "body_sha256": "a160c64eae9f583d5d80c2f15df9b8f700a3f8548bada3a65e3d8b82513c5514",
+        "body_bytes": 51485,
+        "body_encoding": "UTF-8 of exact decoded body string, no whitespace or Unicode normalization",
+        "json_pointer": "/comments/1/body",
+        "semantic_role": "bounded independent repair report plus complete component reports; historical coverage remains incomplete",
+        "prior_public_material_body_match": true
+      }
+    ],
+    "aliases": [
+      "PR30-F3"
+    ],
+    "pending": "Verified actual resolution-author run mapping required before native finalization."
+  },
+  {
+    "id": "F4",
+    "native_body_convention": "First listed complete original GitHub body; every additional complete body remains preserved and bound here.",
+    "native_body_sha256": "a160c64eae9f583d5d80c2f15df9b8f700a3f8548bada3a65e3d8b82513c5514",
+    "original_bodies": [
+      {
+        "kind": "comments",
+        "id": 6827027005,
+        "node_id": "IC_kwDOVjIShs8AAAABluwqPQ",
+        "url": "https://github.com/elliotglazer/diophantine-z-q/pull/30#issuecomment-6827027005",
+        "author_login": "cameronfreer",
+        "author_github_id": 2009342,
+        "state": null,
+        "commit_id": null,
+        "created_at": "2026-11-12T14:55:11Z",
+        "updated_at": "2026-11-12T14:55:11Z",
+        "submitted_at": null,
+        "body_sha256": "a160c64eae9f583d5d80c2f15df9b8f700a3f8548bada3a65e3d8b82513c5514",
+        "body_bytes": 51485,
+        "body_encoding": "UTF-8 of exact decoded body string, no whitespace or Unicode normalization",
+        "json_pointer": "/comments/1/body",
+        "semantic_role": "bounded independent repair report plus complete component reports; historical coverage remains incomplete",
+        "prior_public_material_body_match": true
+      }
+    ],
+    "aliases": [
+      "PR30-F4"
+    ],
+    "pending": "Verified actual resolution-author run mapping required before native finalization."
+  },
+  {
+    "id": "F5",
+    "native_body_convention": "First listed complete original GitHub body; every additional complete body remains preserved and bound here.",
+    "native_body_sha256": "a160c64eae9f583d5d80c2f15df9b8f700a3f8548bada3a65e3d8b82513c5514",
+    "original_bodies": [
+      {
+        "kind": "comments",
+        "id": 6827027005,
+        "node_id": "IC_kwDOVjIShs8AAAABluwqPQ",
+        "url": "https://github.com/elliotglazer/diophantine-z-q/pull/30#issuecomment-6827027005",
+        "author_login": "cameronfreer",
+        "author_github_id": 2009342,
+        "state": null,
+        "commit_id": null,
+        "created_at": "2026-11-12T14:55:11Z",
+        "updated_at": "2026-11-12T14:55:11Z",
+        "submitted_at": null,
+        "body_sha256": "a160c64eae9f583d5d80c2f15df9b8f700a3f8548bada3a65e3d8b82513c5514",
+        "body_bytes": 51485,
+        "body_encoding": "UTF-8 of exact decoded body string, no whitespace or Unicode normalization",
+        "json_pointer": "/comments/1/body",
+        "semantic_role": "bounded independent repair report plus complete component reports; historical coverage remains incomplete",
+        "prior_public_material_body_match": true
+      }
+    ],
+    "aliases": [
+      "PR30-F5"
+    ],
+    "pending": "Verified actual resolution-author run mapping required before native finalization."
+  },
+  {
+    "id": "F6",
+    "native_body_convention": "First listed complete original GitHub body; every additional complete body remains preserved and bound here.",
+    "native_body_sha256": "84df4863c1fedce893013854bfa367c4b1daa68d04b8f436d6af21d372e91976",
+    "original_bodies": [
+      {
+        "kind": "comments",
+        "id": 6829377844,
+        "node_id": "IC_kwDOVjIShs8AAAABlxAJNA",
+        "url": "https://github.com/elliotglazer/diophantine-z-q/pull/30#issuecomment-6829377844",
+        "author_login": "cameronfreer",
+        "author_github_id": 2009342,
+        "state": null,
+        "commit_id": null,
+        "created_at": "2026-11-12T16:26:06Z",
+        "updated_at": "2026-11-12T16:26:06Z",
+        "submitted_at": null,
+        "body_sha256": "84df4863c1fedce893013854bfa367c4b1daa68d04b8f436d6af21d372e91976",
+        "body_bytes": 12015,
+        "body_encoding": "UTF-8 of exact decoded body string, no whitespace or Unicode normalization",
+        "json_pointer": "/comments/2/body",
+        "semantic_role": "later independent mathematical assembly/coverage report; empty receiving queue superseded by current concrete omissions",
+        "prior_public_material_body_match": true
+      }
+    ],
+    "aliases": [],
+    "pending": "Verified actual resolution-author run mapping required before native finalization."
+  },
+  {
+    "id": "F7",
+    "native_body_convention": "First listed complete original GitHub body; every additional complete body remains preserved and bound here.",
+    "native_body_sha256": "84df4863c1fedce893013854bfa367c4b1daa68d04b8f436d6af21d372e91976",
+    "original_bodies": [
+      {
+        "kind": "comments",
+        "id": 6829377844,
+        "node_id": "IC_kwDOVjIShs8AAAABlxAJNA",
+        "url": "https://github.com/elliotglazer/diophantine-z-q/pull/30#issuecomment-6829377844",
+        "author_login": "cameronfreer",
+        "author_github_id": 2009342,
+        "state": null,
+        "commit_id": null,
+        "created_at": "2026-11-12T16:26:06Z",
+        "updated_at": "2026-11-12T16:26:06Z",
+        "submitted_at": null,
+        "body_sha256": "84df4863c1fedce893013854bfa367c4b1daa68d04b8f436d6af21d372e91976",
+        "body_bytes": 12015,
+        "body_encoding": "UTF-8 of exact decoded body string, no whitespace or Unicode normalization",
+        "json_pointer": "/comments/2/body",
+        "semantic_role": "later independent mathematical assembly/coverage report; empty receiving queue superseded by current concrete omissions",
+        "prior_public_material_body_match": true
+      }
+    ],
+    "aliases": [],
+    "pending": "Verified actual resolution-author run mapping required before native finalization."
+  },
+  {
+    "id": "F8",
+    "native_body_convention": "First listed complete original GitHub body; every additional complete body remains preserved and bound here.",
+    "native_body_sha256": "84df4863c1fedce893013854bfa367c4b1daa68d04b8f436d6af21d372e91976",
+    "original_bodies": [
+      {
+        "kind": "comments",
+        "id": 6829377844,
+        "node_id": "IC_kwDOVjIShs8AAAABlxAJNA",
+        "url": "https://github.com/elliotglazer/diophantine-z-q/pull/30#issuecomment-6829377844",
+        "author_login": "cameronfreer",
+        "author_github_id": 2009342,
+        "state": null,
+        "commit_id": null,
+        "created_at": "2026-11-12T16:26:06Z",
+        "updated_at": "2026-11-12T16:26:06Z",
+        "submitted_at": null,
+        "body_sha256": "84df4863c1fedce893013854bfa367c4b1daa68d04b8f436d6af21d372e91976",
+        "body_bytes": 12015,
+        "body_encoding": "UTF-8 of exact decoded body string, no whitespace or Unicode normalization",
+        "json_pointer": "/comments/2/body",
+        "semantic_role": "later independent mathematical assembly/coverage report; empty receiving queue superseded by current concrete omissions",
+        "prior_public_material_body_match": true
+      }
+    ],
+    "aliases": [],
+    "pending": "Verified actual resolution-author run mapping required before native finalization."
+  },
+  {
+    "id": "F9",
+    "native_body_convention": "First listed complete original GitHub body; every additional complete body remains preserved and bound here.",
+    "native_body_sha256": "84df4863c1fedce893013854bfa367c4b1daa68d04b8f436d6af21d372e91976",
+    "original_bodies": [
+      {
+        "kind": "comments",
+        "id": 6829377844,
+        "node_id": "IC_kwDOVjIShs8AAAABlxAJNA",
+        "url": "https://github.com/elliotglazer/diophantine-z-q/pull/30#issuecomment-6829377844",
+        "author_login": "cameronfreer",
+        "author_github_id": 2009342,
+        "state": null,
+        "commit_id": null,
+        "created_at": "2026-11-12T16:26:06Z",
+        "updated_at": "2026-11-12T16:26:06Z",
+        "submitted_at": null,
+        "body_sha256": "84df4863c1fedce893013854bfa367c4b1daa68d04b8f436d6af21d372e91976",
+        "body_bytes": 12015,
+        "body_encoding": "UTF-8 of exact decoded body string, no whitespace or Unicode normalization",
+        "json_pointer": "/comments/2/body",
+        "semantic_role": "later independent mathematical assembly/coverage report; empty receiving queue superseded by current concrete omissions",
+        "prior_public_material_body_match": true
+      }
+    ],
+    "aliases": [],
+    "pending": "Verified actual resolution-author run mapping required before native finalization."
+  },
+  {
+    "id": "F10",
+    "native_body_convention": "First listed complete original GitHub body; every additional complete body remains preserved and bound here.",
+    "native_body_sha256": "84df4863c1fedce893013854bfa367c4b1daa68d04b8f436d6af21d372e91976",
+    "original_bodies": [
+      {
+        "kind": "comments",
+        "id": 6829377844,
+        "node_id": "IC_kwDOVjIShs8AAAABlxAJNA",
+        "url": "https://github.com/elliotglazer/diophantine-z-q/pull/30#issuecomment-6829377844",
+        "author_login": "cameronfreer",
+        "author_github_id": 2009342,
+        "state": null,
+        "commit_id": null,
+        "created_at": "2026-11-12T16:26:06Z",
+        "updated_at": "2026-11-12T16:26:06Z",
+        "submitted_at": null,
+        "body_sha256": "84df4863c1fedce893013854bfa367c4b1daa68d04b8f436d6af21d372e91976",
+        "body_bytes": 12015,
+        "body_encoding": "UTF-8 of exact decoded body string, no whitespace or Unicode normalization",
+        "json_pointer": "/comments/2/body",
+        "semantic_role": "later independent mathematical assembly/coverage report; empty receiving queue superseded by current concrete omissions",
+        "prior_public_material_body_match": true
+      }
+    ],
+    "aliases": [],
+    "pending": "Verified actual resolution-author run mapping required before native finalization."
+  },
+  {
+    "id": "F11",
+    "native_body_convention": "First listed complete original GitHub body; every additional complete body remains preserved and bound here.",
+    "native_body_sha256": "84df4863c1fedce893013854bfa367c4b1daa68d04b8f436d6af21d372e91976",
+    "original_bodies": [
+      {
+        "kind": "comments",
+        "id": 6829377844,
+        "node_id": "IC_kwDOVjIShs8AAAABlxAJNA",
+        "url": "https://github.com/elliotglazer/diophantine-z-q/pull/30#issuecomment-6829377844",
+        "author_login": "cameronfreer",
+        "author_github_id": 2009342,
+        "state": null,
+        "commit_id": null,
+        "created_at": "2026-11-12T16:26:06Z",
+        "updated_at": "2026-11-12T16:26:06Z",
+        "submitted_at": null,
+        "body_sha256": "84df4863c1fedce893013854bfa367c4b1daa68d04b8f436d6af21d372e91976",
+        "body_bytes": 12015,
+        "body_encoding": "UTF-8 of exact decoded body string, no whitespace or Unicode normalization",
+        "json_pointer": "/comments/2/body",
+        "semantic_role": "later independent mathematical assembly/coverage report; empty receiving queue superseded by current concrete omissions",
+        "prior_public_material_body_match": true
+      }
+    ],
+    "aliases": [],
+    "pending": "Verified actual resolution-author run mapping required before native finalization."
+  },
+  {
+    "id": "TEX-F01",
+    "native_body_convention": "First listed complete original GitHub body; every additional complete body remains preserved and bound here.",
+    "native_body_sha256": "a160c64eae9f583d5d80c2f15df9b8f700a3f8548bada3a65e3d8b82513c5514",
+    "original_bodies": [
+      {
+        "kind": "comments",
+        "id": 6827027005,
+        "node_id": "IC_kwDOVjIShs8AAAABluwqPQ",
+        "url": "https://github.com/elliotglazer/diophantine-z-q/pull/30#issuecomment-6827027005",
+        "author_login": "cameronfreer",
+        "author_github_id": 2009342,
+        "state": null,
+        "commit_id": null,
+        "created_at": "2026-11-12T14:55:11Z",
+        "updated_at": "2026-11-12T14:55:11Z",
+        "submitted_at": null,
+        "body_sha256": "a160c64eae9f583d5d80c2f15df9b8f700a3f8548bada3a65e3d8b82513c5514",
+        "body_bytes": 51485,
+        "body_encoding": "UTF-8 of exact decoded body string, no whitespace or Unicode normalization",
+        "json_pointer": "/comments/1/body",
+        "semantic_role": "bounded independent repair report plus complete component reports; historical coverage remains incomplete",
+        "prior_public_material_body_match": true
+      }
+    ],
+    "aliases": [],
+    "pending": "Verified actual resolution-author run mapping required before native finalization."
+  },
+  {
+    "id": "TEX-F02",
+    "native_body_convention": "First listed complete original GitHub body; every additional complete body remains preserved and bound here.",
+    "native_body_sha256": "a160c64eae9f583d5d80c2f15df9b8f700a3f8548bada3a65e3d8b82513c5514",
+    "original_bodies": [
+      {
+        "kind": "comments",
+        "id": 6827027005,
+        "node_id": "IC_kwDOVjIShs8AAAABluwqPQ",
+        "url": "https://github.com/elliotglazer/diophantine-z-q/pull/30#issuecomment-6827027005",
+        "author_login": "cameronfreer",
+        "author_github_id": 2009342,
+        "state": null,
+        "commit_id": null,
+        "created_at": "2026-11-12T14:55:11Z",
+        "updated_at": "2026-11-12T14:55:11Z",
+        "submitted_at": null,
+        "body_sha256": "a160c64eae9f583d5d80c2f15df9b8f700a3f8548bada3a65e3d8b82513c5514",
+        "body_bytes": 51485,
+        "body_encoding": "UTF-8 of exact decoded body string, no whitespace or Unicode normalization",
+        "json_pointer": "/comments/1/body",
+        "semantic_role": "bounded independent repair report plus complete component reports; historical coverage remains incomplete",
+        "prior_public_material_body_match": true
+      }
+    ],
+    "aliases": [],
+    "pending": "Verified actual resolution-author run mapping required before native finalization."
+  },
+  {
+    "id": "TEX-F03",
+    "native_body_convention": "First listed complete original GitHub body; every additional complete body remains preserved and bound here.",
+    "native_body_sha256": "a160c64eae9f583d5d80c2f15df9b8f700a3f8548bada3a65e3d8b82513c5514",
+    "original_bodies": [
+      {
+        "kind": "comments",
+        "id": 6827027005,
+        "node_id": "IC_kwDOVjIShs8AAAABluwqPQ",
+        "url": "https://github.com/elliotglazer/diophantine-z-q/pull/30#issuecomment-6827027005",
+        "author_login": "cameronfreer",
+        "author_github_id": 2009342,
+        "state": null,
+        "commit_id": null,
+        "created_at": "2026-11-12T14:55:11Z",
+        "updated_at": "2026-11-12T14:55:11Z",
+        "submitted_at": null,
+        "body_sha256": "a160c64eae9f583d5d80c2f15df9b8f700a3f8548bada3a65e3d8b82513c5514",
+        "body_bytes": 51485,
+        "body_encoding": "UTF-8 of exact decoded body string, no whitespace or Unicode normalization",
+        "json_pointer": "/comments/1/body",
+        "semantic_role": "bounded independent repair report plus complete component reports; historical coverage remains incomplete",
+        "prior_public_material_body_match": true
+      }
+    ],
+    "aliases": [],
+    "pending": "Verified actual resolution-author run mapping required before native finalization."
+  },
+  {
+    "id": "TEX-F04",
+    "native_body_convention": "First listed complete original GitHub body; every additional complete body remains preserved and bound here.",
+    "native_body_sha256": "a160c64eae9f583d5d80c2f15df9b8f700a3f8548bada3a65e3d8b82513c5514",
+    "original_bodies": [
+      {
+        "kind": "comments",
+        "id": 6827027005,
+        "node_id": "IC_kwDOVjIShs8AAAABluwqPQ",
+        "url": "https://github.com/elliotglazer/diophantine-z-q/pull/30#issuecomment-6827027005",
+        "author_login": "cameronfreer",
+        "author_github_id": 2009342,
+        "state": null,
+        "commit_id": null,
+        "created_at": "2026-11-12T14:55:11Z",
+        "updated_at": "2026-11-12T14:55:11Z",
+        "submitted_at": null,
+        "body_sha256": "a160c64eae9f583d5d80c2f15df9b8f700a3f8548bada3a65e3d8b82513c5514",
+        "body_bytes": 51485,
+        "body_encoding": "UTF-8 of exact decoded body string, no whitespace or Unicode normalization",
+        "json_pointer": "/comments/1/body",
+        "semantic_role": "bounded independent repair report plus complete component reports; historical coverage remains incomplete",
+        "prior_public_material_body_match": true
+      }
+    ],
+    "aliases": [],
+    "pending": "Verified actual resolution-author run mapping required before native finalization."
+  },
+  {
+    "id": "I1",
+    "native_body_convention": "First listed complete original GitHub body; every additional complete body remains preserved and bound here.",
+    "native_body_sha256": "8e573c4ba20249fe3ac44710bf538debaa424883e53b5477bf376f17e3996654",
+    "original_bodies": [
+      {
+        "kind": "comments",
+        "id": 6844596173,
+        "node_id": "IC_kwDOVjIShs8AAAABl_g_zQ",
+        "url": "https://github.com/elliotglazer/diophantine-z-q/pull/30#issuecomment-6844596173",
+        "author_login": "cameronfreer",
+        "author_github_id": 2009342,
+        "state": null,
+        "commit_id": null,
+        "created_at": "2026-11-13T05:00:42Z",
+        "updated_at": "2026-11-13T05:00:42Z",
+        "submitted_at": null,
+        "body_sha256": "8e573c4ba20249fe3ac44710bf538debaa424883e53b5477bf376f17e3996654",
+        "body_bytes": 6727,
+        "body_encoding": "UTF-8 of exact decoded body string, no whitespace or Unicode normalization",
+        "json_pointer": "/comments/3/body",
+        "semantic_role": "scoped independent integration review; historical objections compared at existing routes",
+        "prior_public_material_body_match": null
+      }
+    ],
+    "aliases": [],
+    "pending": "Verified actual resolution-author run mapping required before native finalization."
+  },
+  {
+    "id": "INCOMING-C8",
+    "native_body_convention": "First listed complete original GitHub body; every additional complete body remains preserved and bound here.",
+    "native_body_sha256": "8e573c4ba20249fe3ac44710bf538debaa424883e53b5477bf376f17e3996654",
+    "original_bodies": [
+      {
+        "kind": "comments",
+        "id": 6844596173,
+        "node_id": "IC_kwDOVjIShs8AAAABl_g_zQ",
+        "url": "https://github.com/elliotglazer/diophantine-z-q/pull/30#issuecomment-6844596173",
+        "author_login": "cameronfreer",
+        "author_github_id": 2009342,
+        "state": null,
+        "commit_id": null,
+        "created_at": "2026-11-13T05:00:42Z",
+        "updated_at": "2026-11-13T05:00:42Z",
+        "submitted_at": null,
+        "body_sha256": "8e573c4ba20249fe3ac44710bf538debaa424883e53b5477bf376f17e3996654",
+        "body_bytes": 6727,
+        "body_encoding": "UTF-8 of exact decoded body string, no whitespace or Unicode normalization",
+        "json_pointer": "/comments/3/body",
+        "semantic_role": "scoped independent integration review; historical objections compared at existing routes",
+        "prior_public_material_body_match": null
+      }
+    ],
+    "aliases": [],
+    "pending": "Verified actual resolution-author run mapping required before native finalization."
+  },
+  {
+    "id": "INCOMING-C9",
+    "native_body_convention": "First listed complete original GitHub body; every additional complete body remains preserved and bound here.",
+    "native_body_sha256": "8e573c4ba20249fe3ac44710bf538debaa424883e53b5477bf376f17e3996654",
+    "original_bodies": [
+      {
+        "kind": "comments",
+        "id": 6844596173,
+        "node_id": "IC_kwDOVjIShs8AAAABl_g_zQ",
+        "url": "https://github.com/elliotglazer/diophantine-z-q/pull/30#issuecomment-6844596173",
+        "author_login": "cameronfreer",
+        "author_github_id": 2009342,
+        "state": null,
+        "commit_id": null,
+        "created_at": "2026-11-13T05:00:42Z",
+        "updated_at": "2026-11-13T05:00:42Z",
+        "submitted_at": null,
+        "body_sha256": "8e573c4ba20249fe3ac44710bf538debaa424883e53b5477bf376f17e3996654",
+        "body_bytes": 6727,
+        "body_encoding": "UTF-8 of exact decoded body string, no whitespace or Unicode normalization",
+        "json_pointer": "/comments/3/body",
+        "semantic_role": "scoped independent integration review; historical objections compared at existing routes",
+        "prior_public_material_body_match": null
+      }
+    ],
+    "aliases": [],
+    "pending": "Verified actual resolution-author run mapping required before native finalization."
+  },
+  {
+    "id": "INCOMING-VERTICAL",
+    "native_body_convention": "First listed complete original GitHub body; every additional complete body remains preserved and bound here.",
+    "native_body_sha256": "8e573c4ba20249fe3ac44710bf538debaa424883e53b5477bf376f17e3996654",
+    "original_bodies": [
+      {
+        "kind": "comments",
+        "id": 6844596173,
+        "node_id": "IC_kwDOVjIShs8AAAABl_g_zQ",
+        "url": "https://github.com/elliotglazer/diophantine-z-q/pull/30#issuecomment-6844596173",
+        "author_login": "cameronfreer",
+        "author_github_id": 2009342,
+        "state": null,
+        "commit_id": null,
+        "created_at": "2026-11-13T05:00:42Z",
+        "updated_at": "2026-11-13T05:00:42Z",
+        "submitted_at": null,
+        "body_sha256": "8e573c4ba20249fe3ac44710bf538debaa424883e53b5477bf376f17e3996654",
+        "body_bytes": 6727,
+        "body_encoding": "UTF-8 of exact decoded body string, no whitespace or Unicode normalization",
+        "json_pointer": "/comments/3/body",
+        "semantic_role": "scoped independent integration review; historical objections compared at existing routes",
+        "prior_public_material_body_match": null
+      }
+    ],
+    "aliases": [],
+    "pending": "Verified actual resolution-author run mapping required before native finalization."
+  },
+  {
+    "id": "INCOMING-LATTICE",
+    "native_body_convention": "First listed complete original GitHub body; every additional complete body remains preserved and bound here.",
+    "native_body_sha256": "8e573c4ba20249fe3ac44710bf538debaa424883e53b5477bf376f17e3996654",
+    "original_bodies": [
+      {
+        "kind": "comments",
+        "id": 6844596173,
+        "node_id": "IC_kwDOVjIShs8AAAABl_g_zQ",
+        "url": "https://github.com/elliotglazer/diophantine-z-q/pull/30#issuecomment-6844596173",
+        "author_login": "cameronfreer",
+        "author_github_id": 2009342,
+        "state": null,
+        "commit_id": null,
+        "created_at": "2026-11-13T05:00:42Z",
+        "updated_at": "2026-11-13T05:00:42Z",
+        "submitted_at": null,
+        "body_sha256": "8e573c4ba20249fe3ac44710bf538debaa424883e53b5477bf376f17e3996654",
+        "body_bytes": 6727,
+        "body_encoding": "UTF-8 of exact decoded body string, no whitespace or Unicode normalization",
+        "json_pointer": "/comments/3/body",
+        "semantic_role": "scoped independent integration review; historical objections compared at existing routes",
+        "prior_public_material_body_match": null
+      }
+    ],
+    "aliases": [],
+    "pending": "Verified actual resolution-author run mapping required before native finalization."
+  },
+  {
+    "id": "INCOMING-CM-BG",
+    "native_body_convention": "First listed complete original GitHub body; every additional complete body remains preserved and bound here.",
+    "native_body_sha256": "8e573c4ba20249fe3ac44710bf538debaa424883e53b5477bf376f17e3996654",
+    "original_bodies": [
+      {
+        "kind": "comments",
+        "id": 6844596173,
+        "node_id": "IC_kwDOVjIShs8AAAABl_g_zQ",
+        "url": "https://github.com/elliotglazer/diophantine-z-q/pull/30#issuecomment-6844596173",
+        "author_login": "cameronfreer",
+        "author_github_id": 2009342,
+        "state": null,
+        "commit_id": null,
+        "created_at": "2026-11-13T05:00:42Z",
+        "updated_at": "2026-11-13T05:00:42Z",
+        "submitted_at": null,
+        "body_sha256": "8e573c4ba20249fe3ac44710bf538debaa424883e53b5477bf376f17e3996654",
+        "body_bytes": 6727,
+        "body_encoding": "UTF-8 of exact decoded body string, no whitespace or Unicode normalization",
+        "json_pointer": "/comments/3/body",
+        "semantic_role": "scoped independent integration review; historical objections compared at existing routes",
+        "prior_public_material_body_match": null
+      }
+    ],
+    "aliases": [],
+    "pending": "Verified actual resolution-author run mapping required before native finalization."
+  },
+  {
+    "id": "INCOMING-TYZ-ROUTE-K",
+    "native_body_convention": "First listed complete original GitHub body; every additional complete body remains preserved and bound here.",
+    "native_body_sha256": "8e573c4ba20249fe3ac44710bf538debaa424883e53b5477bf376f17e3996654",
+    "original_bodies": [
+      {
+        "kind": "comments",
+        "id": 6844596173,
+        "node_id": "IC_kwDOVjIShs8AAAABl_g_zQ",
+        "url": "https://github.com/elliotglazer/diophantine-z-q/pull/30#issuecomment-6844596173",
+        "author_login": "cameronfreer",
+        "author_github_id": 2009342,
+        "state": null,
+        "commit_id": null,
+        "created_at": "2026-11-13T05:00:42Z",
+        "updated_at": "2026-11-13T05:00:42Z",
+        "submitted_at": null,
+        "body_sha256": "8e573c4ba20249fe3ac44710bf538debaa424883e53b5477bf376f17e3996654",
+        "body_bytes": 6727,
+        "body_encoding": "UTF-8 of exact decoded body string, no whitespace or Unicode normalization",
+        "json_pointer": "/comments/3/body",
+        "semantic_role": "scoped independent integration review; historical objections compared at existing routes",
+        "prior_public_material_body_match": null
+      }
+    ],
+    "aliases": [],
+    "pending": "Verified actual resolution-author run mapping required before native finalization."
+  },
+  {
+    "id": "INCOMING-FORWARD",
+    "native_body_convention": "First listed complete original GitHub body; every additional complete body remains preserved and bound here.",
+    "native_body_sha256": "8e573c4ba20249fe3ac44710bf538debaa424883e53b5477bf376f17e3996654",
+    "original_bodies": [
+      {
+        "kind": "comments",
+        "id": 6844596173,
+        "node_id": "IC_kwDOVjIShs8AAAABl_g_zQ",
+        "url": "https://github.com/elliotglazer/diophantine-z-q/pull/30#issuecomment-6844596173",
+        "author_login": "cameronfreer",
+        "author_github_id": 2009342,
+        "state": null,
+        "commit_id": null,
+        "created_at": "2026-11-13T05:00:42Z",
+        "updated_at": "2026-11-13T05:00:42Z",
+        "submitted_at": null,
+        "body_sha256": "8e573c4ba20249fe3ac44710bf538debaa424883e53b5477bf376f17e3996654",
+        "body_bytes": 6727,
+        "body_encoding": "UTF-8 of exact decoded body string, no whitespace or Unicode normalization",
+        "json_pointer": "/comments/3/body",
+        "semantic_role": "scoped independent integration review; historical objections compared at existing routes",
+        "prior_public_material_body_match": null
+      }
+    ],
+    "aliases": [],
+    "pending": "Verified actual resolution-author run mapping required before native finalization."
+  },
+  {
+    "id": "INCOMING-NATIVE-LOCAL",
+    "native_body_convention": "First listed complete original GitHub body; every additional complete body remains preserved and bound here.",
+    "native_body_sha256": "8e573c4ba20249fe3ac44710bf538debaa424883e53b5477bf376f17e3996654",
+    "original_bodies": [
+      {
+        "kind": "comments",
+        "id": 6844596173,
+        "node_id": "IC_kwDOVjIShs8AAAABl_g_zQ",
+        "url": "https://github.com/elliotglazer/diophantine-z-q/pull/30#issuecomment-6844596173",
+        "author_login": "cameronfreer",
+        "author_github_id": 2009342,
+        "state": null,
+        "commit_id": null,
+        "created_at": "2026-11-13T05:00:42Z",
+        "updated_at": "2026-11-13T05:00:42Z",
+        "submitted_at": null,
+        "body_sha256": "8e573c4ba20249fe3ac44710bf538debaa424883e53b5477bf376f17e3996654",
+        "body_bytes": 6727,
+        "body_encoding": "UTF-8 of exact decoded body string, no whitespace or Unicode normalization",
+        "json_pointer": "/comments/3/body",
+        "semantic_role": "scoped independent integration review; historical objections compared at existing routes",
+        "prior_public_material_body_match": null
+      }
+    ],
+    "aliases": [],
+    "pending": "Verified actual resolution-author run mapping required before native finalization."
+  },
+  {
+    "id": "INCOMING-ALTERNATIVE-FORMAL",
+    "native_body_convention": "First listed complete original GitHub body; every additional complete body remains preserved and bound here.",
+    "native_body_sha256": "8e573c4ba20249fe3ac44710bf538debaa424883e53b5477bf376f17e3996654",
+    "original_bodies": [
+      {
+        "kind": "comments",
+        "id": 6844596173,
+        "node_id": "IC_kwDOVjIShs8AAAABl_g_zQ",
+        "url": "https://github.com/elliotglazer/diophantine-z-q/pull/30#issuecomment-6844596173",
+        "author_login": "cameronfreer",
+        "author_github_id": 2009342,
+        "state": null,
+        "commit_id": null,
+        "created_at": "2026-11-13T05:00:42Z",
+        "updated_at": "2026-11-13T05:00:42Z",
+        "submitted_at": null,
+        "body_sha256": "8e573c4ba20249fe3ac44710bf538debaa424883e53b5477bf376f17e3996654",
+        "body_bytes": 6727,
+        "body_encoding": "UTF-8 of exact decoded body string, no whitespace or Unicode normalization",
+        "json_pointer": "/comments/3/body",
+        "semantic_role": "scoped independent integration review; historical objections compared at existing routes",
+        "prior_public_material_body_match": null
+      }
+    ],
+    "aliases": [],
+    "pending": "Verified actual resolution-author run mapping required before native finalization."
+  },
+  {
+    "id": "CURRENT-RECEIVING-L3",
+    "native_body_convention": "First listed complete original GitHub body; every additional complete body remains preserved and bound here.",
+    "native_body_sha256": "8cd93d6686e7a73b10c22092ab1316fda2ed003a7ebfa2282732372c3a089244",
+    "original_bodies": [
+      {
+        "kind": "reviews",
+        "id": 5886678788,
+        "node_id": "PRR_kwDOVjIShs8AAAABXt-XBA",
+        "url": "https://github.com/elliotglazer/diophantine-z-q/pull/30#pullrequestreview-5886678788",
+        "author_login": "elliotglazer",
+        "author_github_id": 172087137,
+        "state": "COMMENTED",
+        "commit_id": "e5fbd694e72a5babfb0e711bc93bd8fb5c961841",
+        "created_at": null,
+        "updated_at": null,
+        "submitted_at": "2026-11-13T05:37:23Z",
+        "body_sha256": "8cd93d6686e7a73b10c22092ab1316fda2ed003a7ebfa2282732372c3a089244",
+        "body_bytes": 2241,
+        "body_encoding": "UTF-8 of exact decoded body string, no whitespace or Unicode normalization",
+        "json_pointer": "/reviews/0/body",
+        "semantic_role": "maintainer audit handoff of two actual receiving defects and repair request",
+        "prior_public_material_body_match": null
+      },
+      {
+        "kind": "reviews",
+        "id": 5886833385,
+        "node_id": "PRR_kwDOVjIShs8AAAABXuHy6Q",
+        "url": "https://github.com/elliotglazer/diophantine-z-q/pull/30#pullrequestreview-5886833385",
+        "author_login": "elliotglazer",
+        "author_github_id": 172087137,
+        "state": "COMMENTED",
+        "commit_id": "e5fbd694e72a5babfb0e711bc93bd8fb5c961841",
+        "created_at": null,
+        "updated_at": null,
+        "submitted_at": "2026-11-13T05:59:02Z",
+        "body_sha256": "2d4da30e0a5041f0529363721cf26c2515978b5fcd90dd189f1923cdeb953a4c",
+        "body_bytes": 1607,
+        "body_encoding": "UTF-8 of exact decoded body string, no whitespace or Unicode normalization",
+        "json_pointer": "/reviews/1/body",
+        "semantic_role": "maintainer receiving-review completion, confirms both defects and adds U01 wording correction",
+        "prior_public_material_body_match": null
+      }
+    ],
+    "aliases": [],
+    "pending": "Verified actual resolution-author run mapping required before native finalization."
+  },
+  {
+    "id": "CURRENT-RECEIVING-T0",
+    "native_body_convention": "First listed complete original GitHub body; every additional complete body remains preserved and bound here.",
+    "native_body_sha256": "8cd93d6686e7a73b10c22092ab1316fda2ed003a7ebfa2282732372c3a089244",
+    "original_bodies": [
+      {
+        "kind": "reviews",
+        "id": 5886678788,
+        "node_id": "PRR_kwDOVjIShs8AAAABXt-XBA",
+        "url": "https://github.com/elliotglazer/diophantine-z-q/pull/30#pullrequestreview-5886678788",
+        "author_login": "elliotglazer",
+        "author_github_id": 172087137,
+        "state": "COMMENTED",
+        "commit_id": "e5fbd694e72a5babfb0e711bc93bd8fb5c961841",
+        "created_at": null,
+        "updated_at": null,
+        "submitted_at": "2026-11-13T05:37:23Z",
+        "body_sha256": "8cd93d6686e7a73b10c22092ab1316fda2ed003a7ebfa2282732372c3a089244",
+        "body_bytes": 2241,
+        "body_encoding": "UTF-8 of exact decoded body string, no whitespace or Unicode normalization",
+        "json_pointer": "/reviews/0/body",
+        "semantic_role": "maintainer audit handoff of two actual receiving defects and repair request",
+        "prior_public_material_body_match": null
+      },
+      {
+        "kind": "reviews",
+        "id": 5886833385,
+        "node_id": "PRR_kwDOVjIShs8AAAABXuHy6Q",
+        "url": "https://github.com/elliotglazer/diophantine-z-q/pull/30#pullrequestreview-5886833385",
+        "author_login": "elliotglazer",
+        "author_github_id": 172087137,
+        "state": "COMMENTED",
+        "commit_id": "e5fbd694e72a5babfb0e711bc93bd8fb5c961841",
+        "created_at": null,
+        "updated_at": null,
+        "submitted_at": "2026-11-13T05:59:02Z",
+        "body_sha256": "2d4da30e0a5041f0529363721cf26c2515978b5fcd90dd189f1923cdeb953a4c",
+        "body_bytes": 1607,
+        "body_encoding": "UTF-8 of exact decoded body string, no whitespace or Unicode normalization",
+        "json_pointer": "/reviews/1/body",
+        "semantic_role": "maintainer receiving-review completion, confirms both defects and adds U01 wording correction",
+        "prior_public_material_body_match": null
+      }
+    ],
+    "aliases": [],
+    "pending": "Verified actual resolution-author run mapping required before native finalization."
+  },
+  {
+    "id": "CURRENT-INVENTORY-U01",
+    "native_body_convention": "First listed complete original GitHub body; every additional complete body remains preserved and bound here.",
+    "native_body_sha256": "2d4da30e0a5041f0529363721cf26c2515978b5fcd90dd189f1923cdeb953a4c",
+    "original_bodies": [
+      {
+        "kind": "reviews",
+        "id": 5886833385,
+        "node_id": "PRR_kwDOVjIShs8AAAABXuHy6Q",
+        "url": "https://github.com/elliotglazer/diophantine-z-q/pull/30#pullrequestreview-5886833385",
+        "author_login": "elliotglazer",
+        "author_github_id": 172087137,
+        "state": "COMMENTED",
+        "commit_id": "e5fbd694e72a5babfb0e711bc93bd8fb5c961841",
+        "created_at": null,
+        "updated_at": null,
+        "submitted_at": "2026-11-13T05:59:02Z",
+        "body_sha256": "2d4da30e0a5041f0529363721cf26c2515978b5fcd90dd189f1923cdeb953a4c",
+        "body_bytes": 1607,
+        "body_encoding": "UTF-8 of exact decoded body string, no whitespace or Unicode normalization",
+        "json_pointer": "/reviews/1/body",
+        "semantic_role": "maintainer receiving-review completion, confirms both defects and adds U01 wording correction",
+        "prior_public_material_body_match": null
+      }
+    ],
+    "aliases": [
+      "CURRENT-RECEIVING-U01"
+    ],
+    "pending": "Verified actual resolution-author run mapping required before native finalization."
+  },
+  {
+    "id": "COVERAGE-LIMITS",
+    "native_body_convention": "First listed complete original GitHub body; every additional complete body remains preserved and bound here.",
+    "native_body_sha256": "88181adcc225fdc04adecc34d75141ea6825d28967d58eee9641a5c35c8b660d",
+    "original_bodies": [
+      {
+        "kind": "comments",
+        "id": 6813866051,
+        "node_id": "IC_kwDOVjIShs8AAAABliNYQw",
+        "url": "https://github.com/elliotglazer/diophantine-z-q/pull/30#issuecomment-6813866051",
+        "author_login": "cameronfreer",
+        "author_github_id": 2009342,
+        "state": null,
+        "commit_id": null,
+        "created_at": "2026-11-12T03:50:50Z",
+        "updated_at": "2026-11-12T03:50:50Z",
+        "submitted_at": null,
+        "body_sha256": "88181adcc225fdc04adecc34d75141ea6825d28967d58eee9641a5c35c8b660d",
+        "body_bytes": 4741,
+        "body_encoding": "UTF-8 of exact decoded body string, no whitespace or Unicode normalization",
+        "json_pointer": "/comments/0/body",
+        "semantic_role": "adverse scoped independent report with F1/F2 and incomplete coverage",
+        "prior_public_material_body_match": true
+      },
+      {
+        "kind": "comments",
+        "id": 6827027005,
+        "node_id": "IC_kwDOVjIShs8AAAABluwqPQ",
+        "url": "https://github.com/elliotglazer/diophantine-z-q/pull/30#issuecomment-6827027005",
+        "author_login": "cameronfreer",
+        "author_github_id": 2009342,
+        "state": null,
+        "commit_id": null,
+        "created_at": "2026-11-12T14:55:11Z",
+        "updated_at": "2026-11-12T14:55:11Z",
+        "submitted_at": null,
+        "body_sha256": "a160c64eae9f583d5d80c2f15df9b8f700a3f8548bada3a65e3d8b82513c5514",
+        "body_bytes": 51485,
+        "body_encoding": "UTF-8 of exact decoded body string, no whitespace or Unicode normalization",
+        "json_pointer": "/comments/1/body",
+        "semantic_role": "bounded independent repair report plus complete component reports; historical coverage remains incomplete",
+        "prior_public_material_body_match": true
+      }
+    ],
+    "aliases": [],
+    "pending": "Verified actual resolution-author run mapping required before native finalization."
+  },
+  {
+    "id": "RECEIVING-EMPTY-QUEUE-SUPERSEDED",
+    "native_body_convention": "First listed complete original GitHub body; every additional complete body remains preserved and bound here.",
+    "native_body_sha256": "84df4863c1fedce893013854bfa367c4b1daa68d04b8f436d6af21d372e91976",
+    "original_bodies": [
+      {
+        "kind": "comments",
+        "id": 6829377844,
+        "node_id": "IC_kwDOVjIShs8AAAABlxAJNA",
+        "url": "https://github.com/elliotglazer/diophantine-z-q/pull/30#issuecomment-6829377844",
+        "author_login": "cameronfreer",
+        "author_github_id": 2009342,
+        "state": null,
+        "commit_id": null,
+        "created_at": "2026-11-12T16:26:06Z",
+        "updated_at": "2026-11-12T16:26:06Z",
+        "submitted_at": null,
+        "body_sha256": "84df4863c1fedce893013854bfa367c4b1daa68d04b8f436d6af21d372e91976",
+        "body_bytes": 12015,
+        "body_encoding": "UTF-8 of exact decoded body string, no whitespace or Unicode normalization",
+        "json_pointer": "/comments/2/body",
+        "semantic_role": "later independent mathematical assembly/coverage report; empty receiving queue superseded by current concrete omissions",
+        "prior_public_material_body_match": true
+      },
+      {
+        "kind": "reviews",
+        "id": 5886678788,
+        "node_id": "PRR_kwDOVjIShs8AAAABXt-XBA",
+        "url": "https://github.com/elliotglazer/diophantine-z-q/pull/30#pullrequestreview-5886678788",
+        "author_login": "elliotglazer",
+        "author_github_id": 172087137,
+        "state": "COMMENTED",
+        "commit_id": "e5fbd694e72a5babfb0e711bc93bd8fb5c961841",
+        "created_at": null,
+        "updated_at": null,
+        "submitted_at": "2026-11-13T05:37:23Z",
+        "body_sha256": "8cd93d6686e7a73b10c22092ab1316fda2ed003a7ebfa2282732372c3a089244",
+        "body_bytes": 2241,
+        "body_encoding": "UTF-8 of exact decoded body string, no whitespace or Unicode normalization",
+        "json_pointer": "/reviews/0/body",
+        "semantic_role": "maintainer audit handoff of two actual receiving defects and repair request",
+        "prior_public_material_body_match": null
+      },
+      {
+        "kind": "reviews",
+        "id": 5886833385,
+        "node_id": "PRR_kwDOVjIShs8AAAABXuHy6Q",
+        "url": "https://github.com/elliotglazer/diophantine-z-q/pull/30#pullrequestreview-5886833385",
+        "author_login": "elliotglazer",
+        "author_github_id": 172087137,
+        "state": "COMMENTED",
+        "commit_id": "e5fbd694e72a5babfb0e711bc93bd8fb5c961841",
+        "created_at": null,
+        "updated_at": null,
+        "submitted_at": "2026-11-13T05:59:02Z",
+        "body_sha256": "2d4da30e0a5041f0529363721cf26c2515978b5fcd90dd189f1923cdeb953a4c",
+        "body_bytes": 1607,
+        "body_encoding": "UTF-8 of exact decoded body string, no whitespace or Unicode normalization",
+        "json_pointer": "/reviews/1/body",
+        "semantic_role": "maintainer receiving-review completion, confirms both defects and adds U01 wording correction",
+        "prior_public_material_body_match": null
+      }
+    ],
+    "aliases": [],
+    "pending": "Verified actual resolution-author run mapping required before native finalization."
+  },
+  {
+    "id": "PROTECTED-ACCEPTANCE-PENDING",
+    "native_body_convention": "First listed complete original GitHub body; every additional complete body remains preserved and bound here.",
+    "native_body_sha256": "84df4863c1fedce893013854bfa367c4b1daa68d04b8f436d6af21d372e91976",
+    "original_bodies": [
+      {
+        "kind": "comments",
+        "id": 6829377844,
+        "node_id": "IC_kwDOVjIShs8AAAABlxAJNA",
+        "url": "https://github.com/elliotglazer/diophantine-z-q/pull/30#issuecomment-6829377844",
+        "author_login": "cameronfreer",
+        "author_github_id": 2009342,
+        "state": null,
+        "commit_id": null,
+        "created_at": "2026-11-12T16:26:06Z",
+        "updated_at": "2026-11-12T16:26:06Z",
+        "submitted_at": null,
+        "body_sha256": "84df4863c1fedce893013854bfa367c4b1daa68d04b8f436d6af21d372e91976",
+        "body_bytes": 12015,
+        "body_encoding": "UTF-8 of exact decoded body string, no whitespace or Unicode normalization",
+        "json_pointer": "/comments/2/body",
+        "semantic_role": "later independent mathematical assembly/coverage report; empty receiving queue superseded by current concrete omissions",
+        "prior_public_material_body_match": true
+      },
+      {
+        "kind": "comments",
+        "id": 6844596173,
+        "node_id": "IC_kwDOVjIShs8AAAABl_g_zQ",
+        "url": "https://github.com/elliotglazer/diophantine-z-q/pull/30#issuecomment-6844596173",
+        "author_login": "cameronfreer",
+        "author_github_id": 2009342,
+        "state": null,
+        "commit_id": null,
+        "created_at": "2026-11-13T05:00:42Z",
+        "updated_at": "2026-11-13T05:00:42Z",
+        "submitted_at": null,
+        "body_sha256": "8e573c4ba20249fe3ac44710bf538debaa424883e53b5477bf376f17e3996654",
+        "body_bytes": 6727,
+        "body_encoding": "UTF-8 of exact decoded body string, no whitespace or Unicode normalization",
+        "json_pointer": "/comments/3/body",
+        "semantic_role": "scoped independent integration review; historical objections compared at existing routes",
+        "prior_public_material_body_match": null
+      },
+      {
+        "kind": "comments",
+        "id": 6844661484,
+        "node_id": "IC_kwDOVjIShs8AAAABl_k-7A",
+        "url": "https://github.com/elliotglazer/diophantine-z-q/pull/30#issuecomment-6844661484",
+        "author_login": "cameronfreer",
+        "author_github_id": 2009342,
+        "state": null,
+        "commit_id": null,
+        "created_at": "2026-11-13T05:04:09Z",
+        "updated_at": "2026-11-13T05:04:09Z",
+        "submitted_at": null,
+        "body_sha256": "236948ae327471e739afc35a8782d3ffd20c2da79486048686de7554f1381512",
+        "body_bytes": 2337,
+        "body_encoding": "UTF-8 of exact decoded body string, no whitespace or Unicode normalization",
+        "json_pointer": "/comments/4/body",
+        "semantic_role": "author/integrator operational status and request for controller action, not independent acceptance",
+        "prior_public_material_body_match": null
+      },
+      {
+        "kind": "reviews",
+        "id": 5886678788,
+        "node_id": "PRR_kwDOVjIShs8AAAABXt-XBA",
+        "url": "https://github.com/elliotglazer/diophantine-z-q/pull/30#pullrequestreview-5886678788",
+        "author_login": "elliotglazer",
+        "author_github_id": 172087137,
+        "state": "COMMENTED",
+        "commit_id": "e5fbd694e72a5babfb0e711bc93bd8fb5c961841",
+        "created_at": null,
+        "updated_at": null,
+        "submitted_at": "2026-11-13T05:37:23Z",
+        "body_sha256": "8cd93d6686e7a73b10c22092ab1316fda2ed003a7ebfa2282732372c3a089244",
+        "body_bytes": 2241,
+        "body_encoding": "UTF-8 of exact decoded body string, no whitespace or Unicode normalization",
+        "json_pointer": "/reviews/0/body",
+        "semantic_role": "maintainer audit handoff of two actual receiving defects and repair request",
+        "prior_public_material_body_match": null
+      },
+      {
+        "kind": "reviews",
+        "id": 5886833385,
+        "node_id": "PRR_kwDOVjIShs8AAAABXuHy6Q",
+        "url": "https://github.com/elliotglazer/diophantine-z-q/pull/30#pullrequestreview-5886833385",
+        "author_login": "elliotglazer",
+        "author_github_id": 172087137,
+        "state": "COMMENTED",
+        "commit_id": "e5fbd694e72a5babfb0e711bc93bd8fb5c961841",
+        "created_at": null,
+        "updated_at": null,
+        "submitted_at": "2026-11-13T05:59:02Z",
+        "body_sha256": "2d4da30e0a5041f0529363721cf26c2515978b5fcd90dd189f1923cdeb953a4c",
+        "body_bytes": 1607,
+        "body_encoding": "UTF-8 of exact decoded body string, no whitespace or Unicode normalization",
+        "json_pointer": "/reviews/1/body",
+        "semantic_role": "maintainer receiving-review completion, confirms both defects and adds U01 wording correction",
+        "prior_public_material_body_match": null
+      }
+    ],
+    "aliases": [],
+    "pending": "Verified actual resolution-author run mapping required before native finalization."
+  }
+]

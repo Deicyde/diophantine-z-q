@@ -1,0 +1,30 @@
+{
+  "schema": "independent-current-native-primitive-review/v1",
+  "reviewer_task": "/root/d214_current_closure_review",
+  "requested_model": "gpt-6-astra",
+  "eligibility": "Session-supplied identity; authenticated controller eligibility not attested by this authored record.",
+  "decision": "accept exact source replacement and current-native occurrence binding, at mathematical application scope",
+  "contract": {
+    "path": "research/quartic214-protocol-d-progress/CURRENT_NATIVE_PRIMITIVE_APPLICATION.json",
+    "sha256": "f48bd1e36bb3c39eab9e217a3b76907748bdc067f4f8040df4564353829ffd87",
+    "bytes": 15265
+  },
+  "all_nine_obligations": "accepted after reading required inputs, actual constructions and each named source/consumer; not inferred from field presence",
+  "checked_pins": [
+    "M3-EXTRACTION",
+    "NATIVE-EXISTENCE",
+    "RECEIVING-NATIVE-EXISTENCE",
+    "RECEIVING-M3",
+    "H0-H2",
+    "RECEIVING-H0-H2",
+    "M4-M6",
+    "research/quartic214-manuscript/quartic214.tex",
+    "research/quartic214-manuscript/quartic214.pdf",
+    "research/quartic214/contracts/modularity-2.json",
+    "research/quartic214/PRIMARY_SOURCES.json"
+  ],
+  "argument": "Published DS \u00a7\u00a71.6\u20131.9 provides direct oldform decomposition in arbitrary positive integral weight and character. At good primes the degeneracy maps commute with Hecke; uniqueness of the decomposition transfers the eigenvalues to a nonzero normalized primitive constituent. Applies both before weight determination and after the finite twist. Native V16:658\u2013693 explicitly takes a primitive character with r its conductor. The additive record selects that same available minimal-conductor convention for the Milne-derived eta; it leaves eta/delta/r5/Lprime unchanged. Shimura \u00a74(4.1) then has its primitive-character hypothesis and nonzero Gauss sum, including the trivial conductor case. The old Li citation is no longer the sole existence supplier for the explicit native V16:687/receiving5770 occurrence. Good-prime comparison with irreducible r5 gives the full actual representation by composition length one.",
+  "source_reading": "Fresh primary DS published509\u2013510,513\u2013514,525\u2013526 via Numdam; fresh Milne ADT I.1.3/I.1.6 and exact finite-unit inversion reconstruction; fresh Shimura published \u00a74(4.1) and native generic argument. No new proof of those published theorems claimed.",
+  "consumer_scope": "Current M3 two extractions and native generic qm-modularity-descent existence occurrence, with H0\u2013H2 and M4\u2013M6 exact downstream form identity; Li uniqueness and Fricke are separate.",
+  "open": "Receiving TeX2554 unit-group-star serialization defect remains open; this decision does not accept that notation, complete manuscript, entire history/inventory, or protected controller approval."
+}

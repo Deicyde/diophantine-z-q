@@ -1,0 +1,135 @@
+{
+  "forms": [
+    {
+      "label": "v",
+      "u": 0,
+      "v": 1
+    },
+    {
+      "label": "u",
+      "u": 1,
+      "v": 0
+    },
+    {
+      "label": "u-v",
+      "u": 1,
+      "v": -1
+    },
+    {
+      "label": "u-2401v",
+      "u": 1,
+      "v": -2401
+    },
+    {
+      "label": "32u+343v",
+      "u": 32,
+      "v": 343
+    }
+  ],
+  "pairs": [
+    {
+      "forms": [
+        "v",
+        "u"
+      ],
+      "determinant": -1,
+      "factorization": {}
+    },
+    {
+      "forms": [
+        "v",
+        "u-v"
+      ],
+      "determinant": -1,
+      "factorization": {}
+    },
+    {
+      "forms": [
+        "v",
+        "u-2401v"
+      ],
+      "determinant": -1,
+      "factorization": {}
+    },
+    {
+      "forms": [
+        "v",
+        "32u+343v"
+      ],
+      "determinant": -32,
+      "factorization": {
+        "2": 5
+      }
+    },
+    {
+      "forms": [
+        "u",
+        "u-v"
+      ],
+      "determinant": -1,
+      "factorization": {}
+    },
+    {
+      "forms": [
+        "u",
+        "u-2401v"
+      ],
+      "determinant": -2401,
+      "factorization": {
+        "7": 4
+      }
+    },
+    {
+      "forms": [
+        "u",
+        "32u+343v"
+      ],
+      "determinant": 343,
+      "factorization": {
+        "7": 3
+      }
+    },
+    {
+      "forms": [
+        "u-v",
+        "u-2401v"
+      ],
+      "determinant": -2400,
+      "factorization": {
+        "2": 5,
+        "3": 1,
+        "5": 2
+      }
+    },
+    {
+      "forms": [
+        "u-v",
+        "32u+343v"
+      ],
+      "determinant": 375,
+      "factorization": {
+        "3": 1,
+        "5": 3
+      }
+    },
+    {
+      "forms": [
+        "u-2401v",
+        "32u+343v"
+      ],
+      "determinant": 77175,
+      "factorization": {
+        "3": 2,
+        "5": 2,
+        "7": 3
+      }
+    }
+  ],
+  "union_prime_support": [
+    2,
+    3,
+    5,
+    7
+  ],
+  "claim": "Finite arithmetic only; tame geometry proof in GEOMETRY_CARRY.md is separate."
+}

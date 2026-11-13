@@ -1,0 +1,509 @@
+{
+  "schema": "public214-source-carry-comparison-v1",
+  "original_source": "author-supplement/2026-11-11/existence/carry/SOURCE_MATCHES.json",
+  "original_sha256": "c210dbe195f66c5b1c694c6864dcc4cc6b4bdc946b0ed3c5048f48f965636fc2",
+  "role": "Author source/domain/map comparisons; no review decision",
+  "matches": [
+    {
+      "id": "CARRY-RANK",
+      "kind": "unchanged_source_application_to_new214_consumer",
+      "public_application_ids": [
+        "V15-FOUNDATION",
+        "V15-BASE248"
+      ],
+      "object_domain_map_comparison": "The pointed epsilon-power isomorphism maps exactly d_old and P0 to the normalized d,P. It preserves 2E and finite nonidentity root charts. SF27 corrected model transport and normalized height statement match the actual constructed labels.",
+      "historical_classification": "Prior actual justification found and read; qualification and acceptance scopes preserved",
+      "new_acceptance_status": "Author proposed; eligible non-author carry decision pending",
+      "new_consumer": {
+        "path": "research/quartic214/proofs/source-carry.md",
+        "sha256": "f7f4e550a4dcfbbd3b5ffcf783b11411f7888c821dbab7febb5132b7b2b891ed",
+        "bytes": 15185
+      },
+      "actual_proof_sources": [
+        {
+          "path": "research/version15/snapshots/v15-222-004/manuscript/quartic_v15.tex",
+          "sha256": "44ba3a8ec8521c29b81b26cfb9981cd6d5f3c76d54e7782438614842edb52c74",
+          "bytes": 1924438,
+          "lines": [
+            347,
+            443
+          ],
+          "passage_sha256": "35468ff72ec0b563cfa858b221b5492a98773885c5ee61e525b65fc24ba08f18",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/version15/snapshots/v15-222-004/manuscript/quartic_v15.tex",
+          "sha256": "44ba3a8ec8521c29b81b26cfb9981cd6d5f3c76d54e7782438614842edb52c74",
+          "bytes": 1924438,
+          "lines": [
+            9078,
+            9119
+          ],
+          "passage_sha256": "dd3d2377e63d38be8c659b695c38ab55d2ca866fd3803ef748c36c43d145fa7f",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/version15/snapshots/v15-222-004/manuscript/quartic_v15.tex",
+          "sha256": "44ba3a8ec8521c29b81b26cfb9981cd6d5f3c76d54e7782438614842edb52c74",
+          "bytes": 1924438,
+          "lines": [
+            32343,
+            32412
+          ],
+          "passage_sha256": "4621bd20e068356a5a4dd7668a353c45711cf8d8bd229e41bd2c005f36303596",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        }
+      ],
+      "source_receipts": [
+        {
+          "path": "research/version15/evidence/222-sourcefirst/final-006/applications/V15-FOUNDATION.json",
+          "sha256": "9464ce1c5411a408cb8bfbad626a780429afce75dd78dddc62ece8735a81cc0f",
+          "bytes": 10145
+        },
+        {
+          "path": "research/version15/evidence/222-sourcefirst/final-006/applications/V15-BASE248.json",
+          "sha256": "e41f727ae496d18d57c278fe19beae08a9c67c216eba78a700e40d306671f452",
+          "bytes": 8529
+        }
+      ]
+    },
+    {
+      "id": "CARRY-RC-POLE",
+      "kind": "unchanged_source_application_to_new214_consumer",
+      "public_application_ids": [
+        "V15-FOUNDATION",
+        "V15-BASE248"
+      ],
+      "object_domain_map_comparison": "The actual two positive squarefree11mod12 pole parameters lie in the same universal RC statement. Full Selmer corank precedes finite Sha; the non-CM rational curve is distinct from the CM index curve. No uniform RC constants are consumed.",
+      "historical_classification": "Prior actual justification found and read; qualification and acceptance scopes preserved",
+      "new_acceptance_status": "Author proposed; eligible non-author carry decision pending",
+      "new_consumer": {
+        "path": "research/quartic214/proofs/source-carry.md",
+        "sha256": "f7f4e550a4dcfbbd3b5ffcf783b11411f7888c821dbab7febb5132b7b2b891ed",
+        "bytes": 15185
+      },
+      "actual_proof_sources": [
+        {
+          "path": "research/version15/snapshots/v15-222-004/manuscript/quartic_v15.tex",
+          "sha256": "44ba3a8ec8521c29b81b26cfb9981cd6d5f3c76d54e7782438614842edb52c74",
+          "bytes": 1924438,
+          "lines": [
+            1736,
+            1759
+          ],
+          "passage_sha256": "0b8b75f3bb4d333bbaa929b07e8aa934fb1e8e99f9b31e058dc8b6ed3af2c524",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/version15/snapshots/v15-222-004/manuscript/quartic_v15.tex",
+          "sha256": "44ba3a8ec8521c29b81b26cfb9981cd6d5f3c76d54e7782438614842edb52c74",
+          "bytes": 1924438,
+          "lines": [
+            2569,
+            2715
+          ],
+          "passage_sha256": "e7b01ba5d25997d7f11fa4b30e7056bf44999dcedfd46e546642fbf0410a1ea2",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/version15/snapshots/v15-222-004/manuscript/quartic_v15.tex",
+          "sha256": "44ba3a8ec8521c29b81b26cfb9981cd6d5f3c76d54e7782438614842edb52c74",
+          "bytes": 1924438,
+          "lines": [
+            8870,
+            8973
+          ],
+          "passage_sha256": "e594db87806a7a4d33b6615686b799d391810a26fbb5854ad50cc501ae0746c1",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/version15/snapshots/v15-222-004/manuscript/quartic_v15.tex",
+          "sha256": "44ba3a8ec8521c29b81b26cfb9981cd6d5f3c76d54e7782438614842edb52c74",
+          "bytes": 1924438,
+          "lines": [
+            11656,
+            11739
+          ],
+          "passage_sha256": "ebfce30cd0a3cf4a2dd3c2bd6eed71312b401390bcbd7346189ece46170662aa",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/version15/snapshots/v15-222-004/manuscript/quartic_v15.tex",
+          "sha256": "44ba3a8ec8521c29b81b26cfb9981cd6d5f3c76d54e7782438614842edb52c74",
+          "bytes": 1924438,
+          "lines": [
+            6650,
+            6721
+          ],
+          "passage_sha256": "2f92ec99cd9a029c35b669384ce61c0f9ae8e675eb0c2d8c5c9a37ba4eff54bd",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        }
+      ],
+      "source_receipts": [
+        {
+          "path": "research/version15/evidence/222-sourcefirst/final-006/applications/V15-FOUNDATION.json",
+          "sha256": "9464ce1c5411a408cb8bfbad626a780429afce75dd78dddc62ece8735a81cc0f",
+          "bytes": 10145
+        },
+        {
+          "path": "research/version15/evidence/222-sourcefirst/final-006/applications/V15-BASE248.json",
+          "sha256": "e41f727ae496d18d57c278fe19beae08a9c67c216eba78a700e40d306671f452",
+          "bytes": 8529
+        }
+      ]
+    },
+    {
+      "id": "CARRY-KATO",
+      "kind": "unchanged_source_application_to_new214_consumer",
+      "public_application_ids": [
+        "KATO-1999-INDEX-AND-CLASS",
+        "V15-FOUNDATION"
+      ],
+      "object_domain_map_comparison": "All required1999 indices are explicitly defined from retained2004 classes; repeated/new support norms have factors1/exact Euler polynomial. Cofinal dyadic corestrictions identify the same y-limit and coordinate ideal, preserving full/j-star comparison and fixed lattice scale.",
+      "historical_classification": "Prior actual justification found and read; qualification and acceptance scopes preserved",
+      "new_acceptance_status": "Author proposed; eligible non-author carry decision pending",
+      "new_consumer": {
+        "path": "research/quartic214/proofs/source-carry.md",
+        "sha256": "f7f4e550a4dcfbbd3b5ffcf783b11411f7888c821dbab7febb5132b7b2b891ed",
+        "bytes": 15185
+      },
+      "actual_proof_sources": [
+        {
+          "path": "research/version15/snapshots/v15-222-004/manuscript/quartic_v15.tex",
+          "sha256": "44ba3a8ec8521c29b81b26cfb9981cd6d5f3c76d54e7782438614842edb52c74",
+          "bytes": 1924438,
+          "lines": [
+            13347,
+            13556
+          ],
+          "passage_sha256": "e4c9ec4de7bea4c9c4d988df828781ada3eb6426c37cc14147d49a958cfa8c6a",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/version15/snapshots/v15-222-004/manuscript/quartic_v15.tex",
+          "sha256": "44ba3a8ec8521c29b81b26cfb9981cd6d5f3c76d54e7782438614842edb52c74",
+          "bytes": 1924438,
+          "lines": [
+            13729,
+            13946
+          ],
+          "passage_sha256": "84863a94b44f5bcb01ce66403b5b656e65a8e2bf0c63f98d914f82d04bb0560c",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "docs/manuscript-revisions/version11/evidence/norms.md",
+          "sha256": "7bdb086e077af429f1d71bade31b233b672929f78e2aa790eb4985a78a837f3e",
+          "bytes": 8540
+        },
+        {
+          "path": "docs/manuscript-revisions/version11/evidence/interface.md",
+          "sha256": "8cb644f5f20090f3e47de412b62942b3e93a6c2e674dc7924678137c8d188774",
+          "bytes": 7951
+        },
+        {
+          "path": "docs/manuscript-revisions/version14/resume003/kato-1999-index-and-class-application.json",
+          "sha256": "379ab1c7a6cae2663e1396bf492f8d7d640eace09ff43f897b77704619964451",
+          "bytes": 9516
+        }
+      ],
+      "source_receipts": [
+        {
+          "path": "research/version15/evidence/222-sourcefirst/final-006/applications/V15-FOUNDATION.json",
+          "sha256": "9464ce1c5411a408cb8bfbad626a780429afce75dd78dddc62ece8735a81cc0f",
+          "bytes": 10145
+        }
+      ]
+    },
+    {
+      "id": "CARRY-GI",
+      "kind": "unchanged_source_application_to_new214_consumer",
+      "public_application_ids": [
+        "GI-00-ASSEMBLY",
+        "V15-PROJECT-CLOSURE"
+      ],
+      "object_domain_map_comparison": "The finite-family same-step linear GI target and represented full-limit vertical invariants are unchanged. The relative inverse input uses actual normalized indicator factors, r>=4 and a slow pseudorandom cutoff; no unbounded prime weight is misclassified as one-bounded.",
+      "historical_classification": "Prior actual justification found and read; qualification and acceptance scopes preserved",
+      "new_acceptance_status": "Author proposed; eligible non-author carry decision pending",
+      "new_consumer": {
+        "path": "research/quartic214/proofs/source-carry.md",
+        "sha256": "f7f4e550a4dcfbbd3b5ffcf783b11411f7888c821dbab7febb5132b7b2b891ed",
+        "bytes": 15185
+      },
+      "actual_proof_sources": [
+        {
+          "path": "research/version15/snapshots/v15-222-004/manuscript/quartic_v15.tex",
+          "sha256": "44ba3a8ec8521c29b81b26cfb9981cd6d5f3c76d54e7782438614842edb52c74",
+          "bytes": 1924438,
+          "lines": [
+            23826,
+            24110
+          ],
+          "passage_sha256": "d71fb029c95c8381512794abd128d8b3849adc07310268b97baf701a99728561",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/version15/snapshots/v15-222-004/manuscript/quartic_v15.tex",
+          "sha256": "44ba3a8ec8521c29b81b26cfb9981cd6d5f3c76d54e7782438614842edb52c74",
+          "bytes": 1924438,
+          "lines": [
+            24430,
+            24525
+          ],
+          "passage_sha256": "0534e0af845c7bca2d7a7252255e75b84b7415cd4a34aecedb2d0611d877e728",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/version15/snapshots/v15-222-004/manuscript/quartic_v15.tex",
+          "sha256": "44ba3a8ec8521c29b81b26cfb9981cd6d5f3c76d54e7782438614842edb52c74",
+          "bytes": 1924438,
+          "lines": [
+            19660,
+            19746
+          ],
+          "passage_sha256": "730b921f03bc4aa1bb913bca49c8c686fe722eac2ba9e9db50255153dad619c2",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/version14/proofs/local-gi-v1/proof/modules/00-assembly/assembly.tex",
+          "sha256": "97faa088856a29ca1c569d7c1d8641a2399f48a093625fc535b9c95d7fe19489",
+          "bytes": 36521
+        }
+      ],
+      "source_receipts": [
+        {
+          "path": "research/version15/evidence/222-sourcefirst/final-006/applications/V15-PROJECT-CLOSURE.json",
+          "sha256": "59d58fea64d6c2091b54900c93899aa2c0809125fb1617f3f7370af3f34ee287",
+          "bytes": 11309
+        }
+      ]
+    },
+    {
+      "id": "CARRY-GAUSSIAN",
+      "kind": "unchanged_source_application_to_new214_consumer",
+      "public_application_ids": [
+        "V15-GAUSSIAN",
+        "V15-PROJECT-CLOSURE"
+      ],
+      "object_domain_map_comparison": "All coefficients/moduli are fixed before each asymptotic; full obstruction tail, not finite exclusions alone, leaves mass. The actual normalized curve reductions give unordered adjacent norms and d/4 kills its double P.",
+      "historical_classification": "Prior actual justification found and read; qualification and acceptance scopes preserved",
+      "new_acceptance_status": "Author proposed; eligible non-author carry decision pending",
+      "new_consumer": {
+        "path": "research/quartic214/proofs/source-carry.md",
+        "sha256": "f7f4e550a4dcfbbd3b5ffcf783b11411f7888c821dbab7febb5132b7b2b891ed",
+        "bytes": 15185
+      },
+      "actual_proof_sources": [
+        {
+          "path": "research/version15/snapshots/v15-222-004/manuscript/quartic_v15.tex",
+          "sha256": "44ba3a8ec8521c29b81b26cfb9981cd6d5f3c76d54e7782438614842edb52c74",
+          "bytes": 1924438,
+          "lines": [
+            17545,
+            17606
+          ],
+          "passage_sha256": "4b4120f173ba3de87f712ec79532063f669363b298000a5487edce2ba1ac39c7",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/version15/snapshots/v15-222-004/manuscript/quartic_v15.tex",
+          "sha256": "44ba3a8ec8521c29b81b26cfb9981cd6d5f3c76d54e7782438614842edb52c74",
+          "bytes": 1924438,
+          "lines": [
+            17612,
+            17984
+          ],
+          "passage_sha256": "9364515c0514e3509f9c0f87759b52f8f0a5033955536af8a528f0d0260c40c3",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/version15/snapshots/v15-222-004/manuscript/quartic_v15.tex",
+          "sha256": "44ba3a8ec8521c29b81b26cfb9981cd6d5f3c76d54e7782438614842edb52c74",
+          "bytes": 1924438,
+          "lines": [
+            17987,
+            18225
+          ],
+          "passage_sha256": "e0ca4f5daeac7d7602a351e5e1878d3a5222e5ede2df96f47368cb8cd31db005",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/version15/snapshots/v15-222-004/manuscript/quartic_v15.tex",
+          "sha256": "44ba3a8ec8521c29b81b26cfb9981cd6d5f3c76d54e7782438614842edb52c74",
+          "bytes": 1924438,
+          "lines": [
+            20009,
+            20180
+          ],
+          "passage_sha256": "0cdfee936a0d747d198a20dd715ccf5e06a3afab7326d4350a60487aba26830f",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/version15/snapshots/v15-222-004/manuscript/quartic_v15.tex",
+          "sha256": "44ba3a8ec8521c29b81b26cfb9981cd6d5f3c76d54e7782438614842edb52c74",
+          "bytes": 1924438,
+          "lines": [
+            20212,
+            20359
+          ],
+          "passage_sha256": "ff0dbfd067a17ec3ea3752a532ad6b766bf6b23c107901e2d02d9d186082f90c",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/version15/snapshots/v15-222-004/manuscript/quartic_v15.tex",
+          "sha256": "44ba3a8ec8521c29b81b26cfb9981cd6d5f3c76d54e7782438614842edb52c74",
+          "bytes": 1924438,
+          "lines": [
+            12239,
+            12268
+          ],
+          "passage_sha256": "2efa7bb9aae8ea7f847ffa15a4a140edfc42add1e16ca798952783e97280e2ea",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        }
+      ],
+      "source_receipts": [
+        {
+          "path": "research/version15/evidence/222-sourcefirst/final-006/applications/V15-GAUSSIAN.json",
+          "sha256": "7aa9725b34cea45136534ec86d2dcc96d83cfab4333b577284be7980f80270a1",
+          "bytes": 9181
+        },
+        {
+          "path": "research/version15/evidence/222-sourcefirst/final-006/applications/V15-PROJECT-CLOSURE.json",
+          "sha256": "59d58fea64d6c2091b54900c93899aa2c0809125fb1617f3f7370af3f34ee287",
+          "bytes": 11309
+        }
+      ]
+    },
+    {
+      "id": "CARRY-SCALAR-MAPS",
+      "kind": "unchanged_source_application_to_new214_consumer",
+      "public_application_ids": [
+        "V15-SCALAR245",
+        "V15-ROOT240",
+        "V15-SCALE239",
+        "V15-RESCALE238",
+        "V15-TYPING238",
+        "V15-PARITY237",
+        "V15-REFERENCE235",
+        "V15-SQUARE233",
+        "V15-FOUR-CONTACT232",
+        "V15-SHARED-ALT226",
+        "V15-SHARED-T224"
+      ],
+      "object_domain_map_comparison": "The actual unshifted c=|a|, parity9/4 bound, four-contact L_N, positive normalizer and guarded reference/shared-ratio maps match214. Algebra transports unchanged rows and reconstructs deleted powers. Baseline shifted c and order-four consumer conclusions are not carried to changed214 by verdict.",
+      "historical_classification": "Prior actual justification found and read; qualification and acceptance scopes preserved",
+      "new_acceptance_status": "Author proposed; eligible non-author carry decision pending",
+      "new_consumer": {
+        "path": "research/quartic214/proofs/source-carry.md",
+        "sha256": "f7f4e550a4dcfbbd3b5ffcf783b11411f7888c821dbab7febb5132b7b2b891ed",
+        "bytes": 15185
+      },
+      "actual_proof_sources": [
+        {
+          "path": "research/version15/snapshots/v15-222-004/manuscript/quartic_v15.tex",
+          "sha256": "44ba3a8ec8521c29b81b26cfb9981cd6d5f3c76d54e7782438614842edb52c74",
+          "bytes": 1924438,
+          "lines": [
+            33140,
+            33250
+          ],
+          "passage_sha256": "10232c29a324f7681a1c3d0d64b4aaa6da39a5548bedaeea35ffd94768e10b27",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/version15/snapshots/v15-222-004/manuscript/quartic_v15.tex",
+          "sha256": "44ba3a8ec8521c29b81b26cfb9981cd6d5f3c76d54e7782438614842edb52c74",
+          "bytes": 1924438,
+          "lines": [
+            35060,
+            35162
+          ],
+          "passage_sha256": "9e6f6841ec8c2c79292ef8d3042706f56a822be66b855d8e97346d5e697a5cca",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/version15/snapshots/v15-222-004/manuscript/quartic_v15.tex",
+          "sha256": "44ba3a8ec8521c29b81b26cfb9981cd6d5f3c76d54e7782438614842edb52c74",
+          "bytes": 1924438,
+          "lines": [
+            37081,
+            37335
+          ],
+          "passage_sha256": "5843f88736e2b179cdb7a426c39d8c3c20a16966a7acffd3d9553c7b4ccd227d",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        }
+      ],
+      "source_receipts": [
+        {
+          "path": "research/version15/evidence/222-sourcefirst/final-006/applications/V15-SCALAR245.json",
+          "sha256": "7ce9c8e374cebe5639e0dd2d81358f09d45538078c2ebfb11c5e23fdbd4cfe48",
+          "bytes": 8126
+        },
+        {
+          "path": "research/version15/evidence/222-sourcefirst/final-006/applications/V15-ROOT240.json",
+          "sha256": "aaa1e4c471f33550a09ab58b15b1580b3c4450b30362da3bc16bb7e4a09b2ba6",
+          "bytes": 7739
+        },
+        {
+          "path": "research/version15/evidence/222-sourcefirst/final-006/applications/V15-SCALE239.json",
+          "sha256": "d98bf59c1a46c6548665bcd1e8bedd849b0c0d7925a432e7f561e89774529865",
+          "bytes": 7253
+        },
+        {
+          "path": "research/version15/evidence/222-sourcefirst/final-006/applications/V15-RESCALE238.json",
+          "sha256": "7f0d7ea36bba0d44ad0f07e934d7065262f5830a15456f535599469712b322d9",
+          "bytes": 7614
+        },
+        {
+          "path": "research/version15/evidence/222-sourcefirst/final-006/applications/V15-TYPING238.json",
+          "sha256": "00c05509707408ce0311934d28ea30325dcad444b57b932a51ae1853f4b2e428",
+          "bytes": 8763
+        },
+        {
+          "path": "research/version15/evidence/222-sourcefirst/final-006/applications/V15-PARITY237.json",
+          "sha256": "82419e649c0a1df337e9aa13fda247488c8ce0855315c982444b930ea28fc21a",
+          "bytes": 8210
+        },
+        {
+          "path": "research/version15/evidence/222-sourcefirst/final-006/applications/V15-REFERENCE235.json",
+          "sha256": "1bbce4fe8fb31c541d6b16af1bbd7592b64c2d3f8da41df1abc35815487f4ee3",
+          "bytes": 8021
+        },
+        {
+          "path": "research/version15/evidence/222-sourcefirst/final-006/applications/V15-SQUARE233.json",
+          "sha256": "0e0ea16c12928b1884e1f7c6395bcc73fde575040715cdd606bf439c3048f57e",
+          "bytes": 8542
+        },
+        {
+          "path": "research/version15/evidence/222-sourcefirst/final-006/applications/V15-FOUR-CONTACT232.json",
+          "sha256": "2a98a636a65cfd9b89ebfdd7e0c1460eb6c9f0ddd37110118b3e465b505c12d8",
+          "bytes": 14559
+        },
+        {
+          "path": "research/version15/evidence/222-sourcefirst/final-006/applications/V15-SHARED-ALT226.json",
+          "sha256": "697502a7767cd8b6591770f4d208f1353b42249ea77167b7c86cea1ef2e485b0",
+          "bytes": 7381
+        },
+        {
+          "path": "research/version15/evidence/222-sourcefirst/final-006/applications/V15-SHARED-T224.json",
+          "sha256": "b06ace52d44d38ca0b4913d91df10bf993de75b5c32f33eab2942adbe133dedb",
+          "bytes": 9573
+        }
+      ]
+    },
+    {
+      "id": "FRESH-214-BOUNDARIES",
+      "kind": "new_application_requires_fresh_acceptance",
+      "public_application_ids": [],
+      "object_domain_map_comparison": "Changed order-three extraction, stronger7/6 height transfer, exact Delta/J consumers, uniform threshold and fresh actual pole values are the frozen existence supplement, requiring fresh acceptance rather than historical conclusion carry.",
+      "historical_classification": "Prior actual justification found and read; qualification and acceptance scopes preserved",
+      "new_acceptance_status": "Author proposed; eligible non-author carry decision pending",
+      "new_consumer": {
+        "path": "research/quartic214/proofs/source-carry.md",
+        "sha256": "f7f4e550a4dcfbbd3b5ffcf783b11411f7888c821dbab7febb5132b7b2b891ed",
+        "bytes": 15185
+      },
+      "actual_proof_sources": [],
+      "source_receipts": []
+    }
+  ]
+}

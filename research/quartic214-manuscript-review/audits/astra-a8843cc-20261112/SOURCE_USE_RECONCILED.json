@@ -1,0 +1,94 @@
+{
+  "reviewed_commit": "a8843cca75ff29d51aa7b288c80b8bdc3a1ca3bb",
+  "initial_sha256": "c3a181c23436d2d1bf929deacdeee5e370f2b9e1c531bfce7e1a9af346d7cd34",
+  "coverage_decision": "incomplete; grouped assembly/local reconstruction only",
+  "reconciliation": [
+    {
+      "source_use": "R1",
+      "matching_records": [
+        "construction/check_exact.py",
+        "manuscript/assemble.py"
+      ],
+      "decision": "scoped comparison; full recursive supplier acceptance not supplied"
+    },
+    {
+      "source_use": "R2",
+      "matching_records": [
+        "uniform-existence.json P04",
+        "source-carry.json C03/C11"
+      ],
+      "decision": "scoped comparison; full recursive supplier acceptance not supplied"
+    },
+    {
+      "source_use": "R3",
+      "matching_records": [
+        "uniform-existence.json P05/P06"
+      ],
+      "decision": "scoped comparison; full recursive supplier acceptance not supplied"
+    },
+    {
+      "source_use": "R4",
+      "matching_records": [
+        "uniform-existence.json P07",
+        "source-carry.json C03/C11"
+      ],
+      "decision": "scoped comparison; full recursive supplier acceptance not supplied"
+    },
+    {
+      "source_use": "R5",
+      "matching_records": [
+        "H4-reflection.json",
+        "height-averaging.json",
+        "height-assembly.json"
+      ],
+      "decision": "scoped comparison; full recursive supplier acceptance not supplied"
+    },
+    {
+      "source_use": "R6",
+      "matching_records": [
+        "uniform-existence.json P08-P12"
+      ],
+      "decision": "scoped comparison; full recursive supplier acceptance not supplied"
+    },
+    {
+      "source_use": "R7",
+      "matching_records": [
+        "uniform-existence.json P13-P20",
+        "source-carry.json C04/C10/C11"
+      ],
+      "decision": "scoped comparison; full recursive supplier acceptance not supplied"
+    },
+    {
+      "source_use": "R8",
+      "matching_records": [
+        "source-carry.json",
+        "research/quartic214-manuscript-review/FOUNDATION_TRANSITION.md"
+      ],
+      "decision": "scoped comparison; full recursive supplier acceptance not supplied"
+    }
+  ],
+  "additional_reconstructed_uses": [
+    {
+      "id": "R9",
+      "supplier": "quartic214.tex 13919-13942",
+      "consumer": "factor-source 4152-4191",
+      "assertion": "zero-preparation pole has no negative odd valuation outside 2,3,17",
+      "decision": "direct valuation proof checked, including degenerate witnesses"
+    },
+    {
+      "id": "R10",
+      "supplier": "quartic214.tex 36812-36930",
+      "consumer": "factor-source 4193-4232",
+      "assertion": "relative formal-log unit congruence of order four at p>76176",
+      "decision": "derived from explicit coefficient valuation bounds; integral-ratio prerequisite checked"
+    }
+  ],
+  "discrepancies": [
+    "Packet contracts bind Markdown; separate output semantic comparison remains necessary (F1,F2).",
+    "Complete recursive dependency/inventory coverage not achieved; no acceptance inferred from existing contract statuses."
+  ],
+  "delegate_reconciliations": [
+    "height/RECONCILIATION.json",
+    "existence/SOURCE_USE_RECONCILED.json"
+  ]
+}

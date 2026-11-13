@@ -1,11 +1,13 @@
 # Manuscripts
 
-The current manuscript is **Version 16**, dated November 11, 2026:
+The current manuscript is **Version 17**, dated November 13, 2026:
 
-- [PDF: quartic_v16.pdf](quartic_v16.pdf)
-- [TeX: quartic_v16.tex](quartic_v16.tex)
-- [Correction inventory and review scope](../research/version16/README.md)
-- [Research handoff](../research/version16/CUMULATIVE-HANDOFF.md)
+- [PDF: quartic_v17.pdf](quartic_v17.pdf)
+- [TeX: quartic_v17.tex](quartic_v17.tex)
+- [Source inventory and review scope](../research/version17/README.md)
+- [Cumulative research handoff](../research/version17/CUMULATIVE-HANDOFF.md)
+
+The [Version 16 PDF](quartic_v16.pdf), [TeX](quartic_v16.tex) and [correction records](../research/version16/README.md) remain unchanged. PR30's earlier unnumbered receiving editions remain in their original research directories, with their original review scopes.
 
 The [Version 15 PDF](../research/version15/snapshots/v15-222-004/manuscript/quartic_v15.pdf), [TeX](../research/version15/snapshots/v15-222-004/manuscript/quartic_v15.tex) and [research records](../research/version15/README.md) remain unchanged.
 

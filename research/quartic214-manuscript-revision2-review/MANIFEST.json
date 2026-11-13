@@ -1,0 +1,139 @@
+{
+  "schema": "q214-independent-serialization-review-file-manifest-v1",
+  "reviewer": "/root/d214_geometry_source_closure",
+  "decision": "accepted-at-stated-scope; exact RECEIVING_REVIEW.json governs",
+  "files": [
+    {
+      "path": "INITIAL_TRANSFORMS.json",
+      "sha256": "39c96432a9c4f14a1429447023b50a870f5c04600fbbe6c1a2339067e4c038c9",
+      "bytes": 8574,
+      "repository_copy_target": "research/quartic214-manuscript-revision2-review/INITIAL_TRANSFORMS.json"
+    },
+    {
+      "path": "FINDINGS_F8_F11.json",
+      "sha256": "b9dfd12e052df760c9a46d235098dcc299611870bbaaace26a9785a58754e653",
+      "bytes": 27297,
+      "repository_copy_target": "research/quartic214-manuscript-revision2-review/FINDINGS_F8_F11.json"
+    },
+    {
+      "path": "LEXICAL_COMPARISON.json",
+      "sha256": "5cfa28ea9def1f91b80072bf524d7551db2f7ced191636884015e7a46f675999",
+      "bytes": 250532,
+      "repository_copy_target": "research/quartic214-manuscript-revision2-review/LEXICAL_COMPARISON.json"
+    },
+    {
+      "path": "LEXICAL_CANDIDATE_DISPOSITIONS.json",
+      "sha256": "6026decc806e03d39bf06ca86ce7f92f7a644c95a94118a317a3f285d3459c8b",
+      "bytes": 18222,
+      "repository_copy_target": "research/quartic214-manuscript-revision2-review/LEXICAL_CANDIDATE_DISPOSITIONS.json"
+    },
+    {
+      "path": "ALL_TARGET_SCRIPTS.json",
+      "sha256": "38a0a33669ca2186209f480fab13ba558c59dcd1b3961226f806514c26cf9c39",
+      "bytes": 44432,
+      "repository_copy_target": "research/quartic214-manuscript-revision2-review/ALL_TARGET_SCRIPTS.json"
+    },
+    {
+      "path": "TRANSPORT_CHECKS_a3ab.json",
+      "sha256": "785933b6cd0c6efec1ae794db7aca85485f7881ed518080c68aa375675f63c15",
+      "bytes": 5792,
+      "repository_copy_target": "research/quartic214-manuscript-revision2-review/TRANSPORT_CHECKS_a3ab.json"
+    },
+    {
+      "path": "TRANSPORT_CHECKS.json",
+      "sha256": "a834bb4b0f9221ce519de913d47076ac75e2b090d198e49df18988f622daf3ef",
+      "bytes": 5792,
+      "repository_copy_target": "research/quartic214-manuscript-revision2-review/TRANSPORT_CHECKS.json"
+    },
+    {
+      "path": "METADATA_CHECKS.json",
+      "sha256": "cc6cf143868429caa84fe5fd208ded3396545bf2cba46eb4843ba4c373a95316",
+      "bytes": 536,
+      "repository_copy_target": "research/quartic214-manuscript-revision2-review/METADATA_CHECKS.json"
+    },
+    {
+      "path": "FINAL_WHOLE_TEX_DIFF.json",
+      "sha256": "cb36dac8d91f6d6a05c7e4db3efc1529b3deaac796567c5ddbd3fe985c439414",
+      "bytes": 28063,
+      "repository_copy_target": "research/quartic214-manuscript-revision2-review/FINAL_WHOLE_TEX_DIFF.json"
+    },
+    {
+      "path": "SEMANTIC_COVERAGE.json",
+      "sha256": "7482ca88213d563be7045a6d80ea4f678715c87392526daf44e629952e072923",
+      "bytes": 11327,
+      "repository_copy_target": "research/quartic214-manuscript-revision2-review/SEMANTIC_COVERAGE.json"
+    },
+    {
+      "path": "CATALOGUE_REVIEW.json",
+      "sha256": "9f951c759db030876cbd1ea9bd3bccb400225352e619074ee67c39a01f93cf69",
+      "bytes": 4139,
+      "repository_copy_target": "research/quartic214-manuscript-revision2-review/CATALOGUE_REVIEW.json"
+    },
+    {
+      "path": "PDF_REVIEW.json",
+      "sha256": "877d123a004be1416291e2fca55e5681e1f351d7a65e293974789625180d7f3a",
+      "bytes": 3598,
+      "repository_copy_target": "research/quartic214-manuscript-revision2-review/PDF_REVIEW.json"
+    },
+    {
+      "path": "FINAL_PIN_CHECKS.json",
+      "sha256": "9065b1181216b43714d0bf17b82408c37c060130bd8b7f87eab60a6cbd263b05",
+      "bytes": 1418,
+      "repository_copy_target": "research/quartic214-manuscript-revision2-review/FINAL_PIN_CHECKS.json"
+    },
+    {
+      "path": "REVIEW_INPUT_BINDINGS.json",
+      "sha256": "1b3f35b1d9a03b06779d26e4b007a7aca4c68246cf94adc049319e27f8d50530",
+      "bytes": 7274,
+      "repository_copy_target": "research/quartic214-manuscript-revision2-review/REVIEW_INPUT_BINDINGS.json"
+    },
+    {
+      "path": "REPORT.md",
+      "sha256": "113ab5c7092bd1490bb002027b9cb59cbed7aae094a350d5bb4e7b277d446485",
+      "bytes": 6738,
+      "repository_copy_target": "research/quartic214-manuscript-revision2-review/REPORT.md"
+    },
+    {
+      "path": "lexical_compare.py",
+      "sha256": "6b12c8aa24b68f76a2b3ba7f510fd5702f2e1a99f556ca88644237259b8d3ed1",
+      "bytes": 5427,
+      "repository_copy_target": "research/quartic214-manuscript-revision2-review/lexical_compare.py"
+    },
+    {
+      "path": "check_transport.py",
+      "sha256": "16378f35463ffbb39050b57478c72cc4b64fac0fce329c3c2162a5b0e036e55c",
+      "bytes": 4131,
+      "repository_copy_target": "research/quartic214-manuscript-revision2-review/check_transport.py"
+    },
+    {
+      "path": "check_metadata.py",
+      "sha256": "1cdb399ac4e0ac58c1d99aa6993a79842f442e182ba289bd6370d7b8e8467588",
+      "bytes": 2238,
+      "repository_copy_target": "research/quartic214-manuscript-revision2-review/check_metadata.py"
+    },
+    {
+      "path": "freeze_findings.py",
+      "sha256": "e1daa48bf5ef0a653e6e85b23507a95c7be3b93804aa9c95579ea61db8cafa63",
+      "bytes": 4978,
+      "repository_copy_target": "research/quartic214-manuscript-revision2-review/freeze_findings.py"
+    },
+    {
+      "path": "finalize_review.py",
+      "sha256": "6ceb175e7417517d625de0057d5207dd9276b8640297eda7bbfa6f419ab09aa8",
+      "bytes": 7649,
+      "repository_copy_target": "research/quartic214-manuscript-revision2-review/finalize_review.py"
+    },
+    {
+      "path": "RECEIVING_REVIEW.json",
+      "sha256": "a5000876a7c8480ed54e1e71f93b8ef49b357877403f852a5a48426900c235a4",
+      "bytes": 7590,
+      "repository_copy_target": "research/quartic214-protocol-d-review/RECEIVING_REVIEW.json"
+    }
+  ],
+  "excluded_local_material": [
+    "final-pdf.txt",
+    "pdf-pages/*.png"
+  ],
+  "visual_evidence": "PDF_REVIEW.json records exactPDF,pageindices,rastermethod and imagehashes; screenshots/full extractedtext neednotbecommitted. No thirdpartypublicationbodies included.",
+  "immutability": "All listed reviewerfiles frozen; copyverbatim. Do not change priorgeometry/historyreports or originalsource/reviewbytes."
+}

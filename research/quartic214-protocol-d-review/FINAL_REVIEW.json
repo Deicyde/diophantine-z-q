@@ -1,0 +1,348 @@
+{
+  "schema": "q214-independent-final-composition-review/v1",
+  "reviewer_task": "/root/d214_current_closure_review",
+  "requested_model": "gpt-6-astra",
+  "source_commit": "e3626cac202cdbcdfedc2bff1978dcd3ea3fd3ab",
+  "review_conditions": {
+    "automated": true,
+    "nonauthor_of_proofs_and_revisions": true,
+    "no_human_supplied_verdict_observed": true,
+    "prior_exposure": "Parent disclosed earlier incomplete scopes/findings and author/component proposals. Actual current proofs were read and initial table frozen before inventories/prior report bodies. Subsequent reviews were exposed continuations, not blind.",
+    "independence_limit": "Separate tasks and requested model metadata do not guarantee independent reasoning or provide controller-authenticated eligibility.",
+    "work_performed": "Review reports/evidence only, bounded checks and source/rendered-page inspection; no proof/contract editing, TeX build, polynomial build, commit, push or public comment by this reviewer."
+  },
+  "decisions": {
+    "current_mathematical_applications": "accepted at exact source and current-consumer scopes in bound reports",
+    "complete_current_mathematical_assembly": "accepted as informal source/application/receiving composition at final bound revision2; exact accepted native derivations reused",
+    "current_source_and_semantic_inventory_coverage": "accepted at complete current converted-source, retained foundation/fragment, row and declared-consumer scopes; not inferred from coarse partition counts",
+    "identified_public_historical_corpus_and_related_uses": "accepted at exact inherited native and inspected Issue2/Fable/PR30 scopes, with current receiving findings resolved",
+    "progress_packet_artifact_integration": "accepted at manifest392d81fc scope",
+    "operative_receiving_artifacts": "accepted at manifest899edad and receivingreceipta5000876 scopes",
+    "controller_eligibility": "not attested",
+    "protected_current_pr_approval": "not supplied",
+    "full_protocol_d_closure": "not established without exact public readback and authenticated controller decision",
+    "release_or_merge_authorization": "not supplied"
+  },
+  "subjects": [
+    {
+      "path": "research/quartic214-protocol-d-progress/PACKET_MANIFEST.json",
+      "sha256": "392d81fca5b286b2a19b63ecf992ae9d343b84fd238e2eac45783151518322bc",
+      "bytes": 17530
+    },
+    {
+      "path": "research/quartic214-protocol-d-progress/reviews/closure-review/MATHEMATICAL_MANIFEST.json",
+      "sha256": "e31c67ad5c36417dd3a245d3b3712d2450d69f311c4fd08d3e7622a3451839d9",
+      "bytes": 2340
+    },
+    {
+      "path": "research/quartic214-protocol-d-progress/reviews/closure-review/COVERAGE_LINK_MANIFEST.json",
+      "sha256": "32f9ed7719ef200b879d2bc5fdddd83b04ea2822d66c2b98386c5f0220670169",
+      "bytes": 594
+    },
+    {
+      "path": "research/quartic214-protocol-d-progress/DECLARED_CURRENT_GRAPH.json",
+      "sha256": "81742644266ae1deaacd4e23fa06f45e768ee510f8c175cf19ba3f6f4b87f0c8",
+      "bytes": 62696
+    },
+    {
+      "path": "research/quartic214-manuscript-revision2/MANIFEST.json",
+      "sha256": "899edad018881cb161d7b3e329d46f636dcefd8dbb343d096e6bb57b49c47d01",
+      "bytes": 5363
+    },
+    {
+      "path": "research/quartic214-manuscript-revision2/quartic214.tex",
+      "sha256": "b03b39d2e0f5593be29d3d2838cd33e7449b4b5b1ccb0b7dee8a9a6d2af4767f",
+      "bytes": 2339106
+    },
+    {
+      "path": "research/quartic214-manuscript-revision2/quartic214.pdf",
+      "sha256": "77e6e30515e317ad8bb4fee6ba111037be64a4c325f2a683e5c8edf03884ea88",
+      "bytes": 3943008
+    },
+    {
+      "path": "research/quartic214-manuscript-revision2/SOURCE_SPANS.json",
+      "sha256": "e1b6f466573269008f10e06db106b15841545663a1de8b3ebe5203a8f188de55",
+      "bytes": 439656
+    },
+    {
+      "path": "research/quartic214-protocol-d-review/RECEIVING_REVIEW.json",
+      "sha256": "a5000876a7c8480ed54e1e71f93b8ef49b357877403f852a5a48426900c235a4",
+      "bytes": 7590
+    },
+    {
+      "path": "research/quartic214-manuscript-revision2-review/MANIFEST.json",
+      "sha256": "921b6476fa2ee2f9e5c40f2a5556b8b1f6d726fb4c6dc3449cd8e5c6f701b759",
+      "bytes": 6108
+    },
+    {
+      "path": "CURRENT_214_REVIEW.md",
+      "sha256": "1eef297805266a83d37503d383320e0bf2f4972754ab9993633426bebf2f0c09",
+      "bytes": 1339
+    },
+    {
+      "path": ".github/workflows/quartic214-protocol-d-progress.yml",
+      "sha256": "8d48007c5fd74c1d2ab9f4253c0ea3c64a69011c71a59fdb19d1210b8a2a7376",
+      "bytes": 971
+    },
+    {
+      "path": ".github/workflows/quartic214-manuscript-revision2.yml",
+      "sha256": "55ff3e5952a9344f185fa0d8b58a0f5047c7150c9b4ad2fbb3041a3be69725b1",
+      "bytes": 1818
+    },
+    {
+      "path": "docs/research-review/ASTRA-REVIEW-POLICY.md",
+      "sha256": "7ab22a753f25450eb955ff8b315a814cfaaa784cc0855d929e2d68442663ec4b",
+      "bytes": 3718
+    }
+  ],
+  "composition_basis": [
+    "SOURCE_USE_INITIAL is preserved and reconciled; all118 current-source sections have manually reviewed input associations or explicit nonoperative reasons,233 section-use edges and25direct consumption edges. Seven supplementary whole-source bindings complete all19converted inputs, both retainedTeX fragments and authored introduction. These indices organize actual argument review.",
+    "Exact native V16 mathematical source and final record-repair coverage/assembly scopes are reused at matching accepted/current identities; oldV15 receive claims are superseded by actual FOUNDATION_TRANSITION. Fresh RC/analytic/geometry reviews and current M1/M3-M6 applications match actual214 consumers; published-source boundaries and indirect-access limits remain explicit.",
+    "The full input graph closes source-level soundness and completeness with one ineffective threshold. Product height averaging uses ractualsame-field occurrences; normalized modularity uses actual original representations and every residue prime. No mathematical theorem is inferred from numerical/algebraic checks.",
+    "Final receiving reviewer checked all19converted source bodies and789nonblank spans semantically, all49diagnostics, target group/index/normalization structures, exact188rows1008terms214coordinate IDs, all39873native lines and578retained fragment lines, all11catalogue descriptions and696metadata entries. Twenty new source-local sites plusF6/F7 and the operative primitive note are explicitly bound. No semantic queue remains within that complete source-transformation scope.",
+    "I read the final receiving report, source note and actual adjacent M3/native consumers, verified all21copied reviewer files and every receiving subject/evidence pin, and directly viewed final PDFpages88and174. The receiving reviewer inspected21selectedpages. Neither of us claims703pagevisualinspection.",
+    "Current navigation clearly designates the complete revision2pair and marks oldREADME links historical. Underlying arithmetic sources,14contracts, oldmanuscript/review and nativefoundation remain byteunchanged; readonlygitdiff againste362passed. The new checker requires the final combinedF8_F11contract, allapplication pins and separate receivingreceipt. The first reviewed-mode run correctly rejected absentreceipt beforeparentcopy; finalrun passes.",
+    "Earlier adverse and incomplete decisions are preserved. F1\u2013F5 remain scoped prior repairs; F6\u2013F11 demonstrate additional failures beyond earlier bounded scans, now repaired and independently checked at finalreceiving revision. No earlier narrow review is retroactively represented as exhaustive."
+  ],
+  "checks": [
+    {
+      "path": "FINAL_PACKET_CHECK.json",
+      "sha256": "a2520712b10dd91ec552370247b11ea17c36bfd8d9e0c58e7de701d7b8b06511",
+      "result": {
+        "status": "PASS",
+        "scope": "artifact hashes, bounded deterministic gzip decoding, preserved reviewer-record bytes, frozen external files, direct edge/consumer/excerpt/obligation presence; not mathematical validity or approval",
+        "entries": 88,
+        "negative_controls": [
+          {
+            "control": "stale-proof",
+            "rejected": true,
+            "reason": "stale-proof-or-record"
+          },
+          {
+            "control": "missing-direct-edge",
+            "rejected": true,
+            "reason": "missing-direct-edge"
+          },
+          {
+            "control": "missing-consumer",
+            "rejected": true,
+            "reason": "missing-consumer-passage"
+          },
+          {
+            "control": "missing-native-record-binding",
+            "rejected": true,
+            "reason": "missing-record-binding"
+          },
+          {
+            "control": "malformed-compression",
+            "rejected": true,
+            "reason": "malformed-compression-payload"
+          },
+          {
+            "control": "changed-uncompressed-evidence",
+            "rejected": true,
+            "reason": "logical-bytes-binding"
+          },
+          {
+            "control": "missing-obligation",
+            "rejected": true,
+            "reason": "missing-obligation"
+          },
+          {
+            "control": "stale-declared-repair-record",
+            "rejected": true,
+            "reason": "stale-proof-or-record"
+          },
+          {
+            "control": "missing-original-contract-record",
+            "rejected": true,
+            "reason": "missing-original-contract-binding"
+          },
+          {
+            "control": "stale-reviewed-rc-analytic-source",
+            "rejected": true,
+            "reason": "stale-reviewed-proof-or-contract"
+          },
+          {
+            "control": "stale-current-geometry-binding",
+            "rejected": true,
+            "reason": "stale-current-geometry-contract"
+          },
+          {
+            "control": "duplicate-external-binding",
+            "rejected": true,
+            "reason": "duplicate-external-binding"
+          },
+          {
+            "control": "missing-native-primitive-edge",
+            "rejected": true,
+            "reason": "missing-native-primitive-edge"
+          },
+          {
+            "control": "missing-native-primitive-obligation",
+            "rejected": true,
+            "reason": "missing-native-primitive-obligation"
+          },
+          {
+            "control": "stale-native-primitive-excerpt",
+            "rejected": true,
+            "reason": "stale-reviewed-excerpt"
+          },
+          {
+            "control": "stale-reviewed-height-proof",
+            "rejected": true,
+            "reason": "stale-reviewed-proof-or-contract"
+          },
+          {
+            "control": "missing-mathematical-review",
+            "rejected": true,
+            "reason": "missing-review-record"
+          },
+          {
+            "control": "missing-named-theorem-edge",
+            "rejected": true,
+            "reason": "missing-declared-application-edge"
+          },
+          {
+            "control": "missing-section-only-edge",
+            "rejected": true,
+            "reason": "missing-declared-application-edge"
+          },
+          {
+            "control": "missing-unnamed-estimate-edge",
+            "rejected": true,
+            "reason": "missing-declared-application-edge"
+          },
+          {
+            "control": "missing-coverage-source-use",
+            "rejected": true,
+            "reason": "missing-source-use"
+          },
+          {
+            "control": "missing-declared-section-edge",
+            "rejected": true,
+            "reason": "missing-declared-section-edge"
+          },
+          {
+            "control": "changed-supplier-contract-without-renewed-review",
+            "rejected": true,
+            "reason": "stale-proof-or-record"
+          }
+        ],
+        "maximum_rss_kib": 61812,
+        "address_space_limit_bytes": 536870912
+      }
+    },
+    {
+      "path": "FINAL_RECEIVING_CHECK.json",
+      "sha256": "dd2c329a401425ee42c7d16f1b6018b8190dcfcd3f3bb46fd0ea8c08ded30d18",
+      "result": {
+        "status": "PASS",
+        "scope": "exact declared complete-receiving transformation, source/span/application/artifact byte bindings, explicit notation guards and intended-reason corruption controls; not mathematical validity, independent review, complete semantic coverage or ProtocolD acceptance",
+        "PDF_scope": "matching source/PDF/build byte binding checked",
+        "negative_controls": [
+          {
+            "name": "lost-unit-group",
+            "rejected": true,
+            "reason": "lost-unit-group-markers"
+          },
+          {
+            "name": "lost-positive-real-index",
+            "rejected": true,
+            "reason": "lost-positive-real-index"
+          },
+          {
+            "name": "omitted-minimal-conductor",
+            "rejected": true,
+            "reason": "missing-minimal-conductor"
+          },
+          {
+            "name": "missing-operative-note",
+            "rejected": true,
+            "reason": "missing-operative-native-note"
+          },
+          {
+            "name": "stale-catalogue",
+            "rejected": true,
+            "reason": "stale-catalogue-description"
+          },
+          {
+            "name": "stale-mapped-output",
+            "rejected": true,
+            "reason": "stale-source-map-output"
+          },
+          {
+            "name": "missing-operative-span",
+            "rejected": true,
+            "reason": "missing-operative-map-span"
+          },
+          {
+            "name": "stale-application",
+            "rejected": true,
+            "reason": "stale-application-binding"
+          },
+          {
+            "name": "missing-obligation",
+            "rejected": true,
+            "reason": "missing-obligation"
+          },
+          {
+            "name": "stale-PDF-source",
+            "rejected": true,
+            "reason": "stale-build-source-binding"
+          },
+          {
+            "name": "lost-field-prime",
+            "rejected": true,
+            "reason": "lost-field-prime-scope"
+          },
+          {
+            "name": "lost-group-index",
+            "rejected": true,
+            "reason": "lost-evaluated-group-index"
+          },
+          {
+            "name": "lost-projective-index",
+            "rejected": true,
+            "reason": "lost-projective-index"
+          },
+          {
+            "name": "lost-form-index",
+            "rejected": true,
+            "reason": "lost-form-index"
+          },
+          {
+            "name": "lost-conjugation",
+            "rejected": true,
+            "reason": "lost-conjugation-inverse-scope"
+          },
+          {
+            "name": "lost-composition",
+            "rejected": true,
+            "reason": "lost-composition-map"
+          }
+        ],
+        "maximum_rss_kib": 50496,
+        "address_space_limit_bytes": 536870912
+      }
+    },
+    {
+      "path": "COVERAGE_LINK_CHECK.json",
+      "sha256": "2a01674d03f34bead445051f41a36741b9d3b465d75d2aa18cfb15c2eefb5102",
+      "result": {
+        "status": "PASS",
+        "scope": "Exact unchanged source hashes,118 excerpt pins,118 section links,233 edges,21 input IDs and25 direct consumption references; not mathematical proof or receiving typography",
+        "source_files": 15,
+        "sections": 118,
+        "section_edges": 233,
+        "direct_edges": 25,
+        "original_mathematical_manifest_sha256": "e31c67ad5c36417dd3a245d3b3712d2450d69f311c4fd08d3e7622a3451839d9",
+        "coverage_link_manifest_sha256": "32f9ed7719ef200b879d2bc5fdddd83b04ea2822d66c2b98386c5f0220670169"
+      }
+    }
+  ],
+  "supplementary_coverage_sha256": "64cf40e7b100d10f413b0f07aafa1fc3cdcb09d8348c3e8b00af5a6f93cf7f74",
+  "progress_artifact_review_sha256": "e41f6e3f1d848986b506e20c381970402bc354d9a280feebfc5b28da86c94dd7",
+  "open_queue_sha256": "9654fd03ed9876d8c8bd0a0c1ced8cbf77f665479f48195f95616561883d8cec",
+  "public_status": "Artifact-bound prepublication review. Parent performs normal commit/push, exact public readback and verbatim comment posting separately. This record does not assert those actions already happened."
+}

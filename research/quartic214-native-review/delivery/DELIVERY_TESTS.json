@@ -1,0 +1,60 @@
+[
+  {
+    "cwd": "/review/computation",
+    "command": [
+      "python3",
+      "-B",
+      "research/quartic214/construction/build.py"
+    ],
+    "exit_code": 0,
+    "stdout": "{\n \"mode\": \"brox\",\n \"variables\": 214,\n \"quadraticRows\": 188,\n \"degree\": 4,\n \"content\": 1,\n \"coordinateMonomials\": 2919,\n \"parameterTerms\": 2920,\n \"multiParameterProfiles\": [\n  {\n   \"0\": \"1\",\n   \"2\": \"1\"\n  }\n ],\n \"constantCoefficientMaximumBits\": 1520,\n \"linearParameterMaximum\": \"44402\",\n \"coefficientHeightForNAtLeast\": 53,\n \"coefficientHeight\": \"149^(4N+2)+1\",\n \"removedParent224Coordinates\": [\n  23,\n  24,\n  29,\n  30,\n  33,\n  34,\n  37,\n  38,\n  133,\n  134\n ],\n \"removedParent224Rows\": [\n  1,\n  2,\n  3,\n  4,\n  5,\n  6,\n  7,\n  8,\n  78,\n  79\n ],\n \"unchangedRows\": 162,\n \"parentSha256\": \"6b961988414509ff6619fb674b696c745b098d00ad2af326df43e4db5aa5d39f\",\n \"thresholdStatus\": \"Existence assertion has a fixed ineffective N0; N>=53 is coefficient-only; public review pending.\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "cwd": "/review/computation",
+    "command": [
+      "python3",
+      "-B",
+      "research/quartic214/construction/check_exact.py"
+    ],
+    "exit_code": 0,
+    "stdout": "[{\"mode\": \"brox\", \"variables\": 214, \"rows\": 188, \"unchanged_rows\": 162, \"full_sos\": true, \"all_variables_occur\": true, \"coefficient_height_N_at_least\": 53, \"coefficient_height\": \"149^(4N+2)+1\", \"deliberate_corruptions_rejected\": 21, \"scope\": \"exact algebra only;214 changes factor exponents and requires arithmetic proof\"}]\n",
+    "stderr": ""
+  },
+  {
+    "cwd": "/review/computation",
+    "command": [
+      "python3",
+      "-B",
+      "research/quartic214/height/numeric_certificate.py",
+      "--self-test"
+    ],
+    "exit_code": 0,
+    "stdout": "{\n  \"status\": \"PASS\",\n  \"scope\": \"H0\\u2013H4 exact finite rational logarithm and conductor arithmetic only; no arithmetic theorem or independent acceptance.\",\n  \"B\": 1857890364330,\n  \"CN\": 4654703371689472135696220160000000000000000,\n  \"conductorExponents\": [\n    70,\n    18,\n    18,\n    6\n  ],\n  \"kUpper\": \"9339/1000\",\n  \"coefficient_c\": \"74712001/1000000\",\n  \"C2Log2StrictUpper\": \"7557/32\",\n  \"alpha\": \"2103/1024\",\n  \"arithmeticAccepted\": false,\n  \"negativeControlsRefused\": [\n    \"false C2bits\",\n    \"false k bound\",\n    \"wrong alpha\",\n    \"missing support prime\"\n  ]\n}\n",
+    "stderr": ""
+  },
+  {
+    "cwd": "/work",
+    "command": [
+      "python3",
+      "-B",
+      "research/quartic214/check_port.py"
+    ],
+    "exit_code": 0,
+    "stdout": "{\n  \"status\": \"PASS\",\n  \"sourceBindings\": 26,\n  \"manifestFiles\": 51,\n  \"authorContracts\": 14,\n  \"variables\": 214,\n  \"rows\": 188,\n  \"scope\": \"Portable paths, exact source and author-file bindings, table metadata only; no mathematical or independent acceptance.\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "cwd": "/work",
+    "command": [
+      "python3",
+      "-B",
+      "research/quartic214-main-integration/check_historical_records.py",
+      "--self-test",
+      "--reviewed-artifacts"
+    ],
+    "exit_code": 1,
+    "stdout": "",
+    "stderr": "Traceback (most recent call last):\n  File \"/work/research/quartic214-main-integration/check_historical_records.py\", line 127, in <module>\n    if __name__=='__main__':main()\n                            ^^^^^^\n  File \"/work/research/quartic214-main-integration/check_historical_records.py\", line 119, in main\n    archives=exact_archives();current={k:safe(ROOT,k).read_bytes()for k in ARCHIVES};check_current(archives,current);check_override_domain(archives);record=continuation_record();m=original_checker();application=json.loads((m.HERE/'ADAPTATION.json').read_text())\n                                                                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/work/research/quartic214-main-integration/check_historical_records.py\", line 44, in check_current\n    require(current[WORKFLOW]==expected_workflow(archives[WORKFLOW]),'unexpected-current-workflow-delta')\n  File \"/work/research/quartic214-main-integration/check_historical_records.py\", line 28, in require\n    if not ok:raise ValueError(reason)\n              ^^^^^^^^^^^^^^^^^^^^^^^^\nValueError: unexpected-current-workflow-delta\n"
+  }
+]

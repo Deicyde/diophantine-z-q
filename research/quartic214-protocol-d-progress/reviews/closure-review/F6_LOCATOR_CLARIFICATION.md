@@ -1,0 +1,1 @@
+The exact frozen receiving unit-group paragraph is TeX line2552, not2554 as early task messages and NATIVE_PRIMITIVE_REVIEW.json said. The containing receiving passage2542–2557 is pinned correctly. The affected source is modularity.md line57. This corrects a locator only; the observed missing stars and open status are unchanged. Prior frozen records remain verbatim.

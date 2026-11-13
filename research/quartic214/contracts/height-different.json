@@ -1,0 +1,1621 @@
+{
+  "schema": "quartic214-public-application-contract-v1",
+  "application_id": "H04-DIFFERENT-MODULAR-20261110",
+  "authors": [
+    "/root/d214_different_bounds"
+  ],
+  "public_port_author": "/root/d214_public_port",
+  "status": "author_proposed_pending_eligible_independent_public_review",
+  "original_author_contract": {
+    "path": "private-diophantine/research/quartic214-height-closure/different/CONTRACT.json",
+    "sha256": "e5a6dd689f70fb4d565b70f461c2aeb9425ee47277a8377b1c0ab4bdcfb7a506",
+    "bytes": 11062,
+    "application_id": "H04-DIFFERENT-MODULAR-20261110"
+  },
+  "serialization": "Public whole-file and freshly located passage pins replace original private pins; no old approval is transferred.",
+  "manuscript": {
+    "path": "research/quartic214/PROOF.md",
+    "sha256": "0feb164c3ed33543136b89aa87b27bc890f4aadef2d082d465263f55dc26d165",
+    "bytes": 10582
+  },
+  "proof": {
+    "path": "research/quartic214/proofs/height-different.md",
+    "sha256": "025885f763a9a72e9750ed10ec0bbfec4e8834ed85557acccda92a766c0ebcfa",
+    "bytes": 18529
+  },
+  "construction_passages": [
+    {
+      "path": "research/quartic214/proofs/height-different.md",
+      "sha256": "025885f763a9a72e9750ed10ec0bbfec4e8834ed85557acccda92a766c0ebcfa",
+      "bytes": 18529,
+      "section": "## 1. Fixed objects and the trace-discriminant identity",
+      "lines": [
+        11,
+        26
+      ],
+      "passage_sha256": "77cba9e0a293291607ed31a49bf1330727c8fa280b2ed7728395990fc1b327f6",
+      "line_convention": "1-based inclusive raw splitlines with endings retained"
+    },
+    {
+      "path": "research/quartic214/proofs/height-different.md",
+      "sha256": "025885f763a9a72e9750ed10ec0bbfec4e8834ed85557acccda92a766c0ebcfa",
+      "bytes": 18529,
+      "section": "## 2. Lenstra's estimate really covers the vertical DVR",
+      "lines": [
+        27,
+        56
+      ],
+      "passage_sha256": "57f2bd0a37f3d61345b3a1052c30119fb0636119be51c4443bce0ea061a15043",
+      "line_convention": "1-based inclusive raw splitlines with endings retained"
+    },
+    {
+      "path": "research/quartic214/proofs/height-different.md",
+      "sha256": "025885f763a9a72e9750ed10ec0bbfec4e8834ed85557acccda92a766c0ebcfa",
+      "bytes": 18529,
+      "section": "## 3. Torsion different as an identity of fractional ideals",
+      "lines": [
+        57,
+        86
+      ],
+      "passage_sha256": "0ea22f7ba6ecff82fb4d010ac1c9641bb41c57d22a1fee853eac614e193c5ae1",
+      "line_convention": "1-based inclusive raw splitlines with endings retained"
+    },
+    {
+      "path": "research/quartic214/proofs/height-different.md",
+      "sha256": "025885f763a9a72e9750ed10ec0bbfec4e8834ed85557acccda92a766c0ebcfa",
+      "bytes": 18529,
+      "section": "## 4. The actual primitive torsion quotient",
+      "lines": [
+        87,
+        108
+      ],
+      "passage_sha256": "1401e680c0ee9f3c000547f451aaaeb54f1b670de9fee3c1d4d73b5441bf90aa",
+      "line_convention": "1-based inclusive raw splitlines with endings retained"
+    },
+    {
+      "path": "research/quartic214/proofs/height-different.md",
+      "sha256": "025885f763a9a72e9750ed10ec0bbfec4e8834ed85557acccda92a766c0ebcfa",
+      "bytes": 18529,
+      "section": "## 5. Same constant at every prime",
+      "lines": [
+        109,
+        126
+      ],
+      "passage_sha256": "6578cd19517c3f0f781ff641d8fea0794e77c98f9db4e1b82a3c6349554c8cca",
+      "line_convention": "1-based inclusive raw splitlines with endings retained"
+    },
+    {
+      "path": "research/quartic214/proofs/height-different.md",
+      "sha256": "025885f763a9a72e9750ed10ec0bbfec4e8834ed85557acccda92a766c0ebcfa",
+      "bytes": 18529,
+      "section": "## 6. History, incorporation and limits",
+      "lines": [
+        127,
+        131
+      ],
+      "passage_sha256": "e9b5351a18f865568e8ee46c4abccda54fe32b09dbf4bc7677df10d5e009870b",
+      "line_convention": "1-based inclusive raw splitlines with endings retained"
+    }
+  ],
+  "application_passages": [
+    {
+      "path": "research/quartic214/proofs/height-different.md",
+      "sha256": "025885f763a9a72e9750ed10ec0bbfec4e8834ed85557acccda92a766c0ebcfa",
+      "bytes": 18529,
+      "section": "## 1. Fixed objects and the trace-discriminant identity",
+      "lines": [
+        11,
+        26
+      ],
+      "passage_sha256": "77cba9e0a293291607ed31a49bf1330727c8fa280b2ed7728395990fc1b327f6",
+      "line_convention": "1-based inclusive raw splitlines with endings retained"
+    },
+    {
+      "path": "research/quartic214/proofs/height-different.md",
+      "sha256": "025885f763a9a72e9750ed10ec0bbfec4e8834ed85557acccda92a766c0ebcfa",
+      "bytes": 18529,
+      "section": "## 2. Lenstra's estimate really covers the vertical DVR",
+      "lines": [
+        27,
+        56
+      ],
+      "passage_sha256": "57f2bd0a37f3d61345b3a1052c30119fb0636119be51c4443bce0ea061a15043",
+      "line_convention": "1-based inclusive raw splitlines with endings retained"
+    },
+    {
+      "path": "research/quartic214/proofs/height-different.md",
+      "sha256": "025885f763a9a72e9750ed10ec0bbfec4e8834ed85557acccda92a766c0ebcfa",
+      "bytes": 18529,
+      "section": "## 3. Torsion different as an identity of fractional ideals",
+      "lines": [
+        57,
+        86
+      ],
+      "passage_sha256": "0ea22f7ba6ecff82fb4d010ac1c9641bb41c57d22a1fee853eac614e193c5ae1",
+      "line_convention": "1-based inclusive raw splitlines with endings retained"
+    },
+    {
+      "path": "research/quartic214/proofs/height-different.md",
+      "sha256": "025885f763a9a72e9750ed10ec0bbfec4e8834ed85557acccda92a766c0ebcfa",
+      "bytes": 18529,
+      "section": "## 4. The actual primitive torsion quotient",
+      "lines": [
+        87,
+        108
+      ],
+      "passage_sha256": "1401e680c0ee9f3c000547f451aaaeb54f1b670de9fee3c1d4d73b5441bf90aa",
+      "line_convention": "1-based inclusive raw splitlines with endings retained"
+    },
+    {
+      "path": "research/quartic214/proofs/height-different.md",
+      "sha256": "025885f763a9a72e9750ed10ec0bbfec4e8834ed85557acccda92a766c0ebcfa",
+      "bytes": 18529,
+      "section": "## 5. Same constant at every prime",
+      "lines": [
+        109,
+        126
+      ],
+      "passage_sha256": "6578cd19517c3f0f781ff641d8fea0794e77c98f9db4e1b82a3c6349554c8cca",
+      "line_convention": "1-based inclusive raw splitlines with endings retained"
+    },
+    {
+      "path": "research/quartic214/proofs/height-different.md",
+      "sha256": "025885f763a9a72e9750ed10ec0bbfec4e8834ed85557acccda92a766c0ebcfa",
+      "bytes": 18529,
+      "section": "## 6. History, incorporation and limits",
+      "lines": [
+        127,
+        131
+      ],
+      "passage_sha256": "e9b5351a18f865568e8ee46c4abccda54fe32b09dbf4bc7677df10d5e009870b",
+      "line_convention": "1-based inclusive raw splitlines with endings retained"
+    }
+  ],
+  "consumer_passages": [
+    {
+      "path": "research/quartic214/proofs/height-supplier.md",
+      "sha256": "4974b167ab415159e0ff996b341528008c2ba8ae8e2a1ebf69bab5bc9a9b9c12",
+      "bytes": 15498,
+      "section": "## H0.",
+      "lines": [
+        7,
+        32
+      ],
+      "passage_sha256": "3c61de9b62e636063cf74beddc40dd6b10ce7bada0c182b8a10432bd6bc34850",
+      "line_convention": "1-based inclusive raw splitlines with endings retained"
+    },
+    {
+      "path": "research/quartic214/proofs/height-supplier.md",
+      "sha256": "4974b167ab415159e0ff996b341528008c2ba8ae8e2a1ebf69bab5bc9a9b9c12",
+      "bytes": 15498,
+      "section": "## H4.",
+      "lines": [
+        97,
+        134
+      ],
+      "passage_sha256": "c79afa0e08a65898a762e6f24ed869f4a35f3c741dacbf82eaee1f9b7d4a0753",
+      "line_convention": "1-based inclusive raw splitlines with endings retained"
+    }
+  ],
+  "required_sources": [
+    {
+      "path": "research/quartic214/PROOF.md",
+      "sha256": "0feb164c3ed33543136b89aa87b27bc890f4aadef2d082d465263f55dc26d165",
+      "bytes": 10582
+    },
+    {
+      "path": "research/quartic214/proofs/height-supplier.md",
+      "sha256": "4974b167ab415159e0ff996b341528008c2ba8ae8e2a1ebf69bab5bc9a9b9c12",
+      "bytes": 15498
+    },
+    {
+      "path": "research/quartic214/proofs/height-averaging.md",
+      "sha256": "bb87f61d7134c09d695f9bbff2c26b12b8c9ce5fe74a4ec598b2e4410f100192",
+      "bytes": 8145
+    },
+    {
+      "path": "research/quartic214/PRIMARY_SOURCES.json",
+      "sha256": "cfa7597432cd98c7184c0f9332c6d56f8ea53b208613aab0d855f5ffd1181161",
+      "bytes": 48789
+    },
+    {
+      "path": "research/version15/snapshots/v15-222-004/manuscript/quartic_v15.tex",
+      "sha256": "44ba3a8ec8521c29b81b26cfb9981cd6d5f3c76d54e7782438614842edb52c74",
+      "bytes": 1924438
+    },
+    {
+      "path": "research/quartic214/proofs/height-different.md",
+      "sha256": "025885f763a9a72e9750ed10ec0bbfec4e8834ed85557acccda92a766c0ebcfa",
+      "bytes": 18529
+    },
+    {
+      "path": "research/quartic214/sources/evaluation-sections1-4.tex",
+      "sha256": "70919ebd13613f7c9f7317995b285348398c6895808a61463be0aac139b8511c",
+      "bytes": 17465
+    },
+    {
+      "path": "research/quartic214/proofs/height-assembly.md",
+      "sha256": "1866f9452526b2c243f5f05267f74caa2a4532dfc23891a9b0e95abed2d00fe5",
+      "bytes": 7020
+    }
+  ],
+  "obligations": {
+    "Source hypotheses": {
+      "required_input": "Every characteristic-zero DVR; finite separable field extension; finiteflatLCI for equality of differents; N invertible only for \u00e9tale model.",
+      "constructed_input": "V=O_K[t]_(pfrak) excellent char0 with imperfect residue, all finite normal components; E/V smooth, [N] finiteflatLCI.",
+      "justification": "\u00a7\u00a71\u20133 verify all hypotheses and separate [N] finiteflat from N-invertible \u00e9taleness.",
+      "original_author_obligation_sha256": "1a4a084bce724a40c14ee2f131df73652eb9abeb356b778c8713ec2e7fdfbb5b",
+      "original_author_source_ids": [
+        "D01",
+        "D03",
+        "D04",
+        "D05"
+      ],
+      "status": "author_proposed_pending_eligible_independent_public_review",
+      "source_references": [
+        {
+          "path": "research/quartic214/PROOF.md",
+          "sha256": "0feb164c3ed33543136b89aa87b27bc890f4aadef2d082d465263f55dc26d165",
+          "bytes": 10582
+        },
+        {
+          "path": "research/quartic214/proofs/height-supplier.md",
+          "sha256": "4974b167ab415159e0ff996b341528008c2ba8ae8e2a1ebf69bab5bc9a9b9c12",
+          "bytes": 15498
+        },
+        {
+          "path": "research/quartic214/proofs/height-averaging.md",
+          "sha256": "bb87f61d7134c09d695f9bbff2c26b12b8c9ce5fe74a4ec598b2e4410f100192",
+          "bytes": 8145
+        },
+        {
+          "path": "research/quartic214/PRIMARY_SOURCES.json",
+          "sha256": "cfa7597432cd98c7184c0f9332c6d56f8ea53b208613aab0d855f5ffd1181161",
+          "bytes": 48789
+        },
+        {
+          "path": "research/version15/snapshots/v15-222-004/manuscript/quartic_v15.tex",
+          "sha256": "44ba3a8ec8521c29b81b26cfb9981cd6d5f3c76d54e7782438614842edb52c74",
+          "bytes": 1924438
+        },
+        {
+          "path": "research/quartic214/proofs/height-different.md",
+          "sha256": "025885f763a9a72e9750ed10ec0bbfec4e8834ed85557acccda92a766c0ebcfa",
+          "bytes": 18529
+        },
+        {
+          "path": "research/quartic214/sources/evaluation-sections1-4.tex",
+          "sha256": "70919ebd13613f7c9f7317995b285348398c6895808a61463be0aac139b8511c",
+          "bytes": 17465
+        },
+        {
+          "path": "research/quartic214/proofs/height-assembly.md",
+          "sha256": "1866f9452526b2c243f5f05267f74caa2a4532dfc23891a9b0e95abed2d00fe5",
+          "bytes": 7020
+        }
+      ],
+      "evidence": [
+        {
+          "path": "research/quartic214/proofs/height-different.md",
+          "sha256": "025885f763a9a72e9750ed10ec0bbfec4e8834ed85557acccda92a766c0ebcfa",
+          "bytes": 18529,
+          "section": "## 1. Fixed objects and the trace-discriminant identity",
+          "lines": [
+            11,
+            26
+          ],
+          "passage_sha256": "77cba9e0a293291607ed31a49bf1330727c8fa280b2ed7728395990fc1b327f6",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/proofs/height-different.md",
+          "sha256": "025885f763a9a72e9750ed10ec0bbfec4e8834ed85557acccda92a766c0ebcfa",
+          "bytes": 18529,
+          "section": "## 2. Lenstra's estimate really covers the vertical DVR",
+          "lines": [
+            27,
+            56
+          ],
+          "passage_sha256": "57f2bd0a37f3d61345b3a1052c30119fb0636119be51c4443bce0ea061a15043",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/proofs/height-different.md",
+          "sha256": "025885f763a9a72e9750ed10ec0bbfec4e8834ed85557acccda92a766c0ebcfa",
+          "bytes": 18529,
+          "section": "## 3. Torsion different as an identity of fractional ideals",
+          "lines": [
+            57,
+            86
+          ],
+          "passage_sha256": "0ea22f7ba6ecff82fb4d010ac1c9641bb41c57d22a1fee853eac614e193c5ae1",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/proofs/height-different.md",
+          "sha256": "025885f763a9a72e9750ed10ec0bbfec4e8834ed85557acccda92a766c0ebcfa",
+          "bytes": 18529,
+          "section": "## 4. The actual primitive torsion quotient",
+          "lines": [
+            87,
+            108
+          ],
+          "passage_sha256": "1401e680c0ee9f3c000547f451aaaeb54f1b670de9fee3c1d4d73b5441bf90aa",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/proofs/height-different.md",
+          "sha256": "025885f763a9a72e9750ed10ec0bbfec4e8834ed85557acccda92a766c0ebcfa",
+          "bytes": 18529,
+          "section": "## 5. Same constant at every prime",
+          "lines": [
+            109,
+            126
+          ],
+          "passage_sha256": "6578cd19517c3f0f781ff641d8fea0794e77c98f9db4e1b82a3c6349554c8cca",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/proofs/height-different.md",
+          "sha256": "025885f763a9a72e9750ed10ec0bbfec4e8834ed85557acccda92a766c0ebcfa",
+          "bytes": 18529,
+          "section": "## 6. History, incorporation and limits",
+          "lines": [
+            127,
+            131
+          ],
+          "passage_sha256": "e9b5351a18f865568e8ee46c4abccda54fe32b09dbf4bc7677df10d5e009870b",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/proofs/height-supplier.md",
+          "sha256": "4974b167ab415159e0ff996b341528008c2ba8ae8e2a1ebf69bab5bc9a9b9c12",
+          "bytes": 15498,
+          "section": "## H0.",
+          "lines": [
+            7,
+            32
+          ],
+          "passage_sha256": "3c61de9b62e636063cf74beddc40dd6b10ce7bada0c182b8a10432bd6bc34850",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/proofs/height-supplier.md",
+          "sha256": "4974b167ab415159e0ff996b341528008c2ba8ae8e2a1ebf69bab5bc9a9b9c12",
+          "bytes": 15498,
+          "section": "## H4.",
+          "lines": [
+            97,
+            134
+          ],
+          "passage_sha256": "c79afa0e08a65898a762e6f24ed869f4a35f3c741dacbf82eaee1f9b7d4a0753",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        }
+      ]
+    },
+    "Constructed objects": {
+      "required_input": "Actual finite normal B and unsaturated fibre order C; primitive-point quotient, not full torsion splitting field.",
+      "constructed_input": "B=normalization O_K[t] in K(X_H), C=B/(t\u22122)B; E_t[N] and primitive/H generic subfields.",
+      "justification": "\u00a7\u00a71,4 identify every algebra and preserve integral order; evaluation lane confirms same B/C.",
+      "original_author_obligation_sha256": "ec5d3b176d08cc46f664a8461b9b53a8f1b13081673235a99b0dd2f8c6f1c983",
+      "original_author_source_ids": [
+        "D02",
+        "D07",
+        "D10"
+      ],
+      "status": "author_proposed_pending_eligible_independent_public_review",
+      "source_references": [
+        {
+          "path": "research/quartic214/PROOF.md",
+          "sha256": "0feb164c3ed33543136b89aa87b27bc890f4aadef2d082d465263f55dc26d165",
+          "bytes": 10582
+        },
+        {
+          "path": "research/quartic214/proofs/height-supplier.md",
+          "sha256": "4974b167ab415159e0ff996b341528008c2ba8ae8e2a1ebf69bab5bc9a9b9c12",
+          "bytes": 15498
+        },
+        {
+          "path": "research/quartic214/proofs/height-averaging.md",
+          "sha256": "bb87f61d7134c09d695f9bbff2c26b12b8c9ce5fe74a4ec598b2e4410f100192",
+          "bytes": 8145
+        },
+        {
+          "path": "research/quartic214/PRIMARY_SOURCES.json",
+          "sha256": "cfa7597432cd98c7184c0f9332c6d56f8ea53b208613aab0d855f5ffd1181161",
+          "bytes": 48789
+        },
+        {
+          "path": "research/version15/snapshots/v15-222-004/manuscript/quartic_v15.tex",
+          "sha256": "44ba3a8ec8521c29b81b26cfb9981cd6d5f3c76d54e7782438614842edb52c74",
+          "bytes": 1924438
+        },
+        {
+          "path": "research/quartic214/proofs/height-different.md",
+          "sha256": "025885f763a9a72e9750ed10ec0bbfec4e8834ed85557acccda92a766c0ebcfa",
+          "bytes": 18529
+        },
+        {
+          "path": "research/quartic214/sources/evaluation-sections1-4.tex",
+          "sha256": "70919ebd13613f7c9f7317995b285348398c6895808a61463be0aac139b8511c",
+          "bytes": 17465
+        },
+        {
+          "path": "research/quartic214/proofs/height-assembly.md",
+          "sha256": "1866f9452526b2c243f5f05267f74caa2a4532dfc23891a9b0e95abed2d00fe5",
+          "bytes": 7020
+        }
+      ],
+      "evidence": [
+        {
+          "path": "research/quartic214/proofs/height-different.md",
+          "sha256": "025885f763a9a72e9750ed10ec0bbfec4e8834ed85557acccda92a766c0ebcfa",
+          "bytes": 18529,
+          "section": "## 1. Fixed objects and the trace-discriminant identity",
+          "lines": [
+            11,
+            26
+          ],
+          "passage_sha256": "77cba9e0a293291607ed31a49bf1330727c8fa280b2ed7728395990fc1b327f6",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/proofs/height-different.md",
+          "sha256": "025885f763a9a72e9750ed10ec0bbfec4e8834ed85557acccda92a766c0ebcfa",
+          "bytes": 18529,
+          "section": "## 2. Lenstra's estimate really covers the vertical DVR",
+          "lines": [
+            27,
+            56
+          ],
+          "passage_sha256": "57f2bd0a37f3d61345b3a1052c30119fb0636119be51c4443bce0ea061a15043",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/proofs/height-different.md",
+          "sha256": "025885f763a9a72e9750ed10ec0bbfec4e8834ed85557acccda92a766c0ebcfa",
+          "bytes": 18529,
+          "section": "## 3. Torsion different as an identity of fractional ideals",
+          "lines": [
+            57,
+            86
+          ],
+          "passage_sha256": "0ea22f7ba6ecff82fb4d010ac1c9641bb41c57d22a1fee853eac614e193c5ae1",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/proofs/height-different.md",
+          "sha256": "025885f763a9a72e9750ed10ec0bbfec4e8834ed85557acccda92a766c0ebcfa",
+          "bytes": 18529,
+          "section": "## 4. The actual primitive torsion quotient",
+          "lines": [
+            87,
+            108
+          ],
+          "passage_sha256": "1401e680c0ee9f3c000547f451aaaeb54f1b670de9fee3c1d4d73b5441bf90aa",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/proofs/height-different.md",
+          "sha256": "025885f763a9a72e9750ed10ec0bbfec4e8834ed85557acccda92a766c0ebcfa",
+          "bytes": 18529,
+          "section": "## 5. Same constant at every prime",
+          "lines": [
+            109,
+            126
+          ],
+          "passage_sha256": "6578cd19517c3f0f781ff641d8fea0794e77c98f9db4e1b82a3c6349554c8cca",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/proofs/height-different.md",
+          "sha256": "025885f763a9a72e9750ed10ec0bbfec4e8834ed85557acccda92a766c0ebcfa",
+          "bytes": 18529,
+          "section": "## 6. History, incorporation and limits",
+          "lines": [
+            127,
+            131
+          ],
+          "passage_sha256": "e9b5351a18f865568e8ee46c4abccda54fe32b09dbf4bc7677df10d5e009870b",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/proofs/height-supplier.md",
+          "sha256": "4974b167ab415159e0ff996b341528008c2ba8ae8e2a1ebf69bab5bc9a9b9c12",
+          "bytes": 15498,
+          "section": "## H0.",
+          "lines": [
+            7,
+            32
+          ],
+          "passage_sha256": "3c61de9b62e636063cf74beddc40dd6b10ce7bada0c182b8a10432bd6bc34850",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/proofs/height-supplier.md",
+          "sha256": "4974b167ab415159e0ff996b341528008c2ba8ae8e2a1ebf69bab5bc9a9b9c12",
+          "bytes": 15498,
+          "section": "## H4.",
+          "lines": [
+            97,
+            134
+          ],
+          "passage_sha256": "c79afa0e08a65898a762e6f24ed869f4a35f3c741dacbf82eaee1f9b7d4a0753",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        }
+      ]
+    },
+    "Domain and index coverage": {
+      "required_input": "Every codim1 point and every component, every finite auxiliaryK, all N\u22651 and H\u2283\u22121; all primes, not just p|N.",
+      "constructed_input": "Complete decomposition of B above every q; p>3 handled at all p including p|N, p2/3 handled separately; all H-orbit fields.",
+      "justification": "\u00a71 rank \u03a3ef=d is over all components; \u00a72 has no perfect-residue restriction; \u00a74\u20135 cover all primes and levels.",
+      "original_author_obligation_sha256": "ae1dcaab173d1c4fec1e3ecf6448bdb00ba613c1c17fd5121b5b2c2edee91de3",
+      "original_author_source_ids": [
+        "D01",
+        "D02",
+        "D06",
+        "D07",
+        "D08",
+        "D09"
+      ],
+      "status": "author_proposed_pending_eligible_independent_public_review",
+      "source_references": [
+        {
+          "path": "research/quartic214/PROOF.md",
+          "sha256": "0feb164c3ed33543136b89aa87b27bc890f4aadef2d082d465263f55dc26d165",
+          "bytes": 10582
+        },
+        {
+          "path": "research/quartic214/proofs/height-supplier.md",
+          "sha256": "4974b167ab415159e0ff996b341528008c2ba8ae8e2a1ebf69bab5bc9a9b9c12",
+          "bytes": 15498
+        },
+        {
+          "path": "research/quartic214/proofs/height-averaging.md",
+          "sha256": "bb87f61d7134c09d695f9bbff2c26b12b8c9ce5fe74a4ec598b2e4410f100192",
+          "bytes": 8145
+        },
+        {
+          "path": "research/quartic214/PRIMARY_SOURCES.json",
+          "sha256": "cfa7597432cd98c7184c0f9332c6d56f8ea53b208613aab0d855f5ffd1181161",
+          "bytes": 48789
+        },
+        {
+          "path": "research/version15/snapshots/v15-222-004/manuscript/quartic_v15.tex",
+          "sha256": "44ba3a8ec8521c29b81b26cfb9981cd6d5f3c76d54e7782438614842edb52c74",
+          "bytes": 1924438
+        },
+        {
+          "path": "research/quartic214/proofs/height-different.md",
+          "sha256": "025885f763a9a72e9750ed10ec0bbfec4e8834ed85557acccda92a766c0ebcfa",
+          "bytes": 18529
+        },
+        {
+          "path": "research/quartic214/sources/evaluation-sections1-4.tex",
+          "sha256": "70919ebd13613f7c9f7317995b285348398c6895808a61463be0aac139b8511c",
+          "bytes": 17465
+        },
+        {
+          "path": "research/quartic214/proofs/height-assembly.md",
+          "sha256": "1866f9452526b2c243f5f05267f74caa2a4532dfc23891a9b0e95abed2d00fe5",
+          "bytes": 7020
+        }
+      ],
+      "evidence": [
+        {
+          "path": "research/quartic214/proofs/height-different.md",
+          "sha256": "025885f763a9a72e9750ed10ec0bbfec4e8834ed85557acccda92a766c0ebcfa",
+          "bytes": 18529,
+          "section": "## 1. Fixed objects and the trace-discriminant identity",
+          "lines": [
+            11,
+            26
+          ],
+          "passage_sha256": "77cba9e0a293291607ed31a49bf1330727c8fa280b2ed7728395990fc1b327f6",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/proofs/height-different.md",
+          "sha256": "025885f763a9a72e9750ed10ec0bbfec4e8834ed85557acccda92a766c0ebcfa",
+          "bytes": 18529,
+          "section": "## 2. Lenstra's estimate really covers the vertical DVR",
+          "lines": [
+            27,
+            56
+          ],
+          "passage_sha256": "57f2bd0a37f3d61345b3a1052c30119fb0636119be51c4443bce0ea061a15043",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/proofs/height-different.md",
+          "sha256": "025885f763a9a72e9750ed10ec0bbfec4e8834ed85557acccda92a766c0ebcfa",
+          "bytes": 18529,
+          "section": "## 3. Torsion different as an identity of fractional ideals",
+          "lines": [
+            57,
+            86
+          ],
+          "passage_sha256": "0ea22f7ba6ecff82fb4d010ac1c9641bb41c57d22a1fee853eac614e193c5ae1",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/proofs/height-different.md",
+          "sha256": "025885f763a9a72e9750ed10ec0bbfec4e8834ed85557acccda92a766c0ebcfa",
+          "bytes": 18529,
+          "section": "## 4. The actual primitive torsion quotient",
+          "lines": [
+            87,
+            108
+          ],
+          "passage_sha256": "1401e680c0ee9f3c000547f451aaaeb54f1b670de9fee3c1d4d73b5441bf90aa",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/proofs/height-different.md",
+          "sha256": "025885f763a9a72e9750ed10ec0bbfec4e8834ed85557acccda92a766c0ebcfa",
+          "bytes": 18529,
+          "section": "## 5. Same constant at every prime",
+          "lines": [
+            109,
+            126
+          ],
+          "passage_sha256": "6578cd19517c3f0f781ff641d8fea0794e77c98f9db4e1b82a3c6349554c8cca",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/proofs/height-different.md",
+          "sha256": "025885f763a9a72e9750ed10ec0bbfec4e8834ed85557acccda92a766c0ebcfa",
+          "bytes": 18529,
+          "section": "## 6. History, incorporation and limits",
+          "lines": [
+            127,
+            131
+          ],
+          "passage_sha256": "e9b5351a18f865568e8ee46c4abccda54fe32b09dbf4bc7677df10d5e009870b",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/proofs/height-supplier.md",
+          "sha256": "4974b167ab415159e0ff996b341528008c2ba8ae8e2a1ebf69bab5bc9a9b9c12",
+          "bytes": 15498,
+          "section": "## H0.",
+          "lines": [
+            7,
+            32
+          ],
+          "passage_sha256": "3c61de9b62e636063cf74beddc40dd6b10ce7bada0c182b8a10432bd6bc34850",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/proofs/height-supplier.md",
+          "sha256": "4974b167ab415159e0ff996b341528008c2ba8ae8e2a1ebf69bab5bc9a9b9c12",
+          "bytes": 15498,
+          "section": "## H4.",
+          "lines": [
+            97,
+            134
+          ],
+          "passage_sha256": "c79afa0e08a65898a762e6f24ed869f4a35f3c741dacbf82eaee1f9b7d4a0753",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        }
+      ]
+    },
+    "Transition and comparison maps": {
+      "required_input": "Correct trace normalization, specialization, reversed dual inclusion, tower direction and quotient Galois map.",
+      "constructed_input": "B\u2192B^vee trace; base t\u21a62; A\u2282Atilde =>Atilde^vee\u2282A^vee; orbit stabilizer contains point stabilizer.",
+      "justification": "\u00a7\u00a71,3\u20134 compute determinant, scalar n, fractional dual equality and field-inclusion direction; no degreeN\u00b2 substitutes for n.",
+      "original_author_obligation_sha256": "331af9641816b4430a8c9ace3b68d77a1601b3991d6313ef61355ff0026e2bed",
+      "original_author_source_ids": [
+        "D02",
+        "D05",
+        "D06",
+        "D07"
+      ],
+      "status": "author_proposed_pending_eligible_independent_public_review",
+      "source_references": [
+        {
+          "path": "research/quartic214/PROOF.md",
+          "sha256": "0feb164c3ed33543136b89aa87b27bc890f4aadef2d082d465263f55dc26d165",
+          "bytes": 10582
+        },
+        {
+          "path": "research/quartic214/proofs/height-supplier.md",
+          "sha256": "4974b167ab415159e0ff996b341528008c2ba8ae8e2a1ebf69bab5bc9a9b9c12",
+          "bytes": 15498
+        },
+        {
+          "path": "research/quartic214/proofs/height-averaging.md",
+          "sha256": "bb87f61d7134c09d695f9bbff2c26b12b8c9ce5fe74a4ec598b2e4410f100192",
+          "bytes": 8145
+        },
+        {
+          "path": "research/quartic214/PRIMARY_SOURCES.json",
+          "sha256": "cfa7597432cd98c7184c0f9332c6d56f8ea53b208613aab0d855f5ffd1181161",
+          "bytes": 48789
+        },
+        {
+          "path": "research/version15/snapshots/v15-222-004/manuscript/quartic_v15.tex",
+          "sha256": "44ba3a8ec8521c29b81b26cfb9981cd6d5f3c76d54e7782438614842edb52c74",
+          "bytes": 1924438
+        },
+        {
+          "path": "research/quartic214/proofs/height-different.md",
+          "sha256": "025885f763a9a72e9750ed10ec0bbfec4e8834ed85557acccda92a766c0ebcfa",
+          "bytes": 18529
+        },
+        {
+          "path": "research/quartic214/sources/evaluation-sections1-4.tex",
+          "sha256": "70919ebd13613f7c9f7317995b285348398c6895808a61463be0aac139b8511c",
+          "bytes": 17465
+        },
+        {
+          "path": "research/quartic214/proofs/height-assembly.md",
+          "sha256": "1866f9452526b2c243f5f05267f74caa2a4532dfc23891a9b0e95abed2d00fe5",
+          "bytes": 7020
+        }
+      ],
+      "evidence": [
+        {
+          "path": "research/quartic214/proofs/height-different.md",
+          "sha256": "025885f763a9a72e9750ed10ec0bbfec4e8834ed85557acccda92a766c0ebcfa",
+          "bytes": 18529,
+          "section": "## 1. Fixed objects and the trace-discriminant identity",
+          "lines": [
+            11,
+            26
+          ],
+          "passage_sha256": "77cba9e0a293291607ed31a49bf1330727c8fa280b2ed7728395990fc1b327f6",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/proofs/height-different.md",
+          "sha256": "025885f763a9a72e9750ed10ec0bbfec4e8834ed85557acccda92a766c0ebcfa",
+          "bytes": 18529,
+          "section": "## 2. Lenstra's estimate really covers the vertical DVR",
+          "lines": [
+            27,
+            56
+          ],
+          "passage_sha256": "57f2bd0a37f3d61345b3a1052c30119fb0636119be51c4443bce0ea061a15043",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/proofs/height-different.md",
+          "sha256": "025885f763a9a72e9750ed10ec0bbfec4e8834ed85557acccda92a766c0ebcfa",
+          "bytes": 18529,
+          "section": "## 3. Torsion different as an identity of fractional ideals",
+          "lines": [
+            57,
+            86
+          ],
+          "passage_sha256": "0ea22f7ba6ecff82fb4d010ac1c9641bb41c57d22a1fee853eac614e193c5ae1",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/proofs/height-different.md",
+          "sha256": "025885f763a9a72e9750ed10ec0bbfec4e8834ed85557acccda92a766c0ebcfa",
+          "bytes": 18529,
+          "section": "## 4. The actual primitive torsion quotient",
+          "lines": [
+            87,
+            108
+          ],
+          "passage_sha256": "1401e680c0ee9f3c000547f451aaaeb54f1b670de9fee3c1d4d73b5441bf90aa",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/proofs/height-different.md",
+          "sha256": "025885f763a9a72e9750ed10ec0bbfec4e8834ed85557acccda92a766c0ebcfa",
+          "bytes": 18529,
+          "section": "## 5. Same constant at every prime",
+          "lines": [
+            109,
+            126
+          ],
+          "passage_sha256": "6578cd19517c3f0f781ff641d8fea0794e77c98f9db4e1b82a3c6349554c8cca",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/proofs/height-different.md",
+          "sha256": "025885f763a9a72e9750ed10ec0bbfec4e8834ed85557acccda92a766c0ebcfa",
+          "bytes": 18529,
+          "section": "## 6. History, incorporation and limits",
+          "lines": [
+            127,
+            131
+          ],
+          "passage_sha256": "e9b5351a18f865568e8ee46c4abccda54fe32b09dbf4bc7677df10d5e009870b",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/proofs/height-supplier.md",
+          "sha256": "4974b167ab415159e0ff996b341528008c2ba8ae8e2a1ebf69bab5bc9a9b9c12",
+          "bytes": 15498,
+          "section": "## H0.",
+          "lines": [
+            7,
+            32
+          ],
+          "passage_sha256": "3c61de9b62e636063cf74beddc40dd6b10ce7bada0c182b8a10432bd6bc34850",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/proofs/height-supplier.md",
+          "sha256": "4974b167ab415159e0ff996b341528008c2ba8ae8e2a1ebf69bab5bc9a9b9c12",
+          "bytes": 15498,
+          "section": "## H4.",
+          "lines": [
+            97,
+            134
+          ],
+          "passage_sha256": "c79afa0e08a65898a762e6f24ed869f4a35f3c741dacbf82eaee1f9b7d4a0753",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        }
+      ]
+    },
+    "Identity of the consumed object": {
+      "required_input": "Discriminant of same C that receives evaluated differentials, local field of actual X_H.",
+      "constructed_input": "Unsaturated C and X_H finite \u00e9tale generic algebra identified by Galois-compatible moduli map.",
+      "justification": "Finite projective trace specializes exactly to C; quotient field sits in a single-point field, then normalizations supply the correct local ideals.",
+      "original_author_obligation_sha256": "a4290b0c07994ef961e36e1bfb29abb7ae815e8245007c839f3ad95f3e611ccb",
+      "original_author_source_ids": [
+        "D02",
+        "D07",
+        "D10"
+      ],
+      "status": "author_proposed_pending_eligible_independent_public_review",
+      "source_references": [
+        {
+          "path": "research/quartic214/PROOF.md",
+          "sha256": "0feb164c3ed33543136b89aa87b27bc890f4aadef2d082d465263f55dc26d165",
+          "bytes": 10582
+        },
+        {
+          "path": "research/quartic214/proofs/height-supplier.md",
+          "sha256": "4974b167ab415159e0ff996b341528008c2ba8ae8e2a1ebf69bab5bc9a9b9c12",
+          "bytes": 15498
+        },
+        {
+          "path": "research/quartic214/proofs/height-averaging.md",
+          "sha256": "bb87f61d7134c09d695f9bbff2c26b12b8c9ce5fe74a4ec598b2e4410f100192",
+          "bytes": 8145
+        },
+        {
+          "path": "research/quartic214/PRIMARY_SOURCES.json",
+          "sha256": "cfa7597432cd98c7184c0f9332c6d56f8ea53b208613aab0d855f5ffd1181161",
+          "bytes": 48789
+        },
+        {
+          "path": "research/version15/snapshots/v15-222-004/manuscript/quartic_v15.tex",
+          "sha256": "44ba3a8ec8521c29b81b26cfb9981cd6d5f3c76d54e7782438614842edb52c74",
+          "bytes": 1924438
+        },
+        {
+          "path": "research/quartic214/proofs/height-different.md",
+          "sha256": "025885f763a9a72e9750ed10ec0bbfec4e8834ed85557acccda92a766c0ebcfa",
+          "bytes": 18529
+        },
+        {
+          "path": "research/quartic214/sources/evaluation-sections1-4.tex",
+          "sha256": "70919ebd13613f7c9f7317995b285348398c6895808a61463be0aac139b8511c",
+          "bytes": 17465
+        },
+        {
+          "path": "research/quartic214/proofs/height-assembly.md",
+          "sha256": "1866f9452526b2c243f5f05267f74caa2a4532dfc23891a9b0e95abed2d00fe5",
+          "bytes": 7020
+        }
+      ],
+      "evidence": [
+        {
+          "path": "research/quartic214/proofs/height-different.md",
+          "sha256": "025885f763a9a72e9750ed10ec0bbfec4e8834ed85557acccda92a766c0ebcfa",
+          "bytes": 18529,
+          "section": "## 1. Fixed objects and the trace-discriminant identity",
+          "lines": [
+            11,
+            26
+          ],
+          "passage_sha256": "77cba9e0a293291607ed31a49bf1330727c8fa280b2ed7728395990fc1b327f6",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/proofs/height-different.md",
+          "sha256": "025885f763a9a72e9750ed10ec0bbfec4e8834ed85557acccda92a766c0ebcfa",
+          "bytes": 18529,
+          "section": "## 2. Lenstra's estimate really covers the vertical DVR",
+          "lines": [
+            27,
+            56
+          ],
+          "passage_sha256": "57f2bd0a37f3d61345b3a1052c30119fb0636119be51c4443bce0ea061a15043",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/proofs/height-different.md",
+          "sha256": "025885f763a9a72e9750ed10ec0bbfec4e8834ed85557acccda92a766c0ebcfa",
+          "bytes": 18529,
+          "section": "## 3. Torsion different as an identity of fractional ideals",
+          "lines": [
+            57,
+            86
+          ],
+          "passage_sha256": "0ea22f7ba6ecff82fb4d010ac1c9641bb41c57d22a1fee853eac614e193c5ae1",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/proofs/height-different.md",
+          "sha256": "025885f763a9a72e9750ed10ec0bbfec4e8834ed85557acccda92a766c0ebcfa",
+          "bytes": 18529,
+          "section": "## 4. The actual primitive torsion quotient",
+          "lines": [
+            87,
+            108
+          ],
+          "passage_sha256": "1401e680c0ee9f3c000547f451aaaeb54f1b670de9fee3c1d4d73b5441bf90aa",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/proofs/height-different.md",
+          "sha256": "025885f763a9a72e9750ed10ec0bbfec4e8834ed85557acccda92a766c0ebcfa",
+          "bytes": 18529,
+          "section": "## 5. Same constant at every prime",
+          "lines": [
+            109,
+            126
+          ],
+          "passage_sha256": "6578cd19517c3f0f781ff641d8fea0794e77c98f9db4e1b82a3c6349554c8cca",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/proofs/height-different.md",
+          "sha256": "025885f763a9a72e9750ed10ec0bbfec4e8834ed85557acccda92a766c0ebcfa",
+          "bytes": 18529,
+          "section": "## 6. History, incorporation and limits",
+          "lines": [
+            127,
+            131
+          ],
+          "passage_sha256": "e9b5351a18f865568e8ee46c4abccda54fe32b09dbf4bc7677df10d5e009870b",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/proofs/height-supplier.md",
+          "sha256": "4974b167ab415159e0ff996b341528008c2ba8ae8e2a1ebf69bab5bc9a9b9c12",
+          "bytes": 15498,
+          "section": "## H0.",
+          "lines": [
+            7,
+            32
+          ],
+          "passage_sha256": "3c61de9b62e636063cf74beddc40dd6b10ce7bada0c182b8a10432bd6bc34850",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/proofs/height-supplier.md",
+          "sha256": "4974b167ab415159e0ff996b341528008c2ba8ae8e2a1ebf69bab5bc9a9b9c12",
+          "bytes": 15498,
+          "section": "## H4.",
+          "lines": [
+            97,
+            134
+          ],
+          "passage_sha256": "c79afa0e08a65898a762e6f24ed869f4a35f3c741dacbf82eaee1f9b7d4a0753",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        }
+      ]
+    },
+    "Coefficient and normalization conventions": {
+      "required_input": "Integral trace dual, normalized DVR valuations v_U(\u03c0_U)=1; full residue degrees; natural logarithms and absolute norm.",
+      "constructed_input": "A^vee\u2282Frac(A), defined by generic trace; v_U|V=e v_V, f includes inseparable part; \u03a3e_pfrak f_pfrak=[K:Q].",
+      "justification": "\u00a7\u00a71\u20133 fix these conventions and \u00a75 cancels [K:Q]; no Faltings metric assertion beyond separate evaluation interface.",
+      "original_author_obligation_sha256": "bfe72b04d7c16b8f699efb3bd075c7d0f065af8b29a7233134cc5203ef8f159b",
+      "original_author_source_ids": [
+        "D01",
+        "D02",
+        "D05",
+        "D08"
+      ],
+      "status": "author_proposed_pending_eligible_independent_public_review",
+      "source_references": [
+        {
+          "path": "research/quartic214/PROOF.md",
+          "sha256": "0feb164c3ed33543136b89aa87b27bc890f4aadef2d082d465263f55dc26d165",
+          "bytes": 10582
+        },
+        {
+          "path": "research/quartic214/proofs/height-supplier.md",
+          "sha256": "4974b167ab415159e0ff996b341528008c2ba8ae8e2a1ebf69bab5bc9a9b9c12",
+          "bytes": 15498
+        },
+        {
+          "path": "research/quartic214/proofs/height-averaging.md",
+          "sha256": "bb87f61d7134c09d695f9bbff2c26b12b8c9ce5fe74a4ec598b2e4410f100192",
+          "bytes": 8145
+        },
+        {
+          "path": "research/quartic214/PRIMARY_SOURCES.json",
+          "sha256": "cfa7597432cd98c7184c0f9332c6d56f8ea53b208613aab0d855f5ffd1181161",
+          "bytes": 48789
+        },
+        {
+          "path": "research/version15/snapshots/v15-222-004/manuscript/quartic_v15.tex",
+          "sha256": "44ba3a8ec8521c29b81b26cfb9981cd6d5f3c76d54e7782438614842edb52c74",
+          "bytes": 1924438
+        },
+        {
+          "path": "research/quartic214/proofs/height-different.md",
+          "sha256": "025885f763a9a72e9750ed10ec0bbfec4e8834ed85557acccda92a766c0ebcfa",
+          "bytes": 18529
+        },
+        {
+          "path": "research/quartic214/sources/evaluation-sections1-4.tex",
+          "sha256": "70919ebd13613f7c9f7317995b285348398c6895808a61463be0aac139b8511c",
+          "bytes": 17465
+        },
+        {
+          "path": "research/quartic214/proofs/height-assembly.md",
+          "sha256": "1866f9452526b2c243f5f05267f74caa2a4532dfc23891a9b0e95abed2d00fe5",
+          "bytes": 7020
+        }
+      ],
+      "evidence": [
+        {
+          "path": "research/quartic214/proofs/height-different.md",
+          "sha256": "025885f763a9a72e9750ed10ec0bbfec4e8834ed85557acccda92a766c0ebcfa",
+          "bytes": 18529,
+          "section": "## 1. Fixed objects and the trace-discriminant identity",
+          "lines": [
+            11,
+            26
+          ],
+          "passage_sha256": "77cba9e0a293291607ed31a49bf1330727c8fa280b2ed7728395990fc1b327f6",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/proofs/height-different.md",
+          "sha256": "025885f763a9a72e9750ed10ec0bbfec4e8834ed85557acccda92a766c0ebcfa",
+          "bytes": 18529,
+          "section": "## 2. Lenstra's estimate really covers the vertical DVR",
+          "lines": [
+            27,
+            56
+          ],
+          "passage_sha256": "57f2bd0a37f3d61345b3a1052c30119fb0636119be51c4443bce0ea061a15043",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/proofs/height-different.md",
+          "sha256": "025885f763a9a72e9750ed10ec0bbfec4e8834ed85557acccda92a766c0ebcfa",
+          "bytes": 18529,
+          "section": "## 3. Torsion different as an identity of fractional ideals",
+          "lines": [
+            57,
+            86
+          ],
+          "passage_sha256": "0ea22f7ba6ecff82fb4d010ac1c9641bb41c57d22a1fee853eac614e193c5ae1",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/proofs/height-different.md",
+          "sha256": "025885f763a9a72e9750ed10ec0bbfec4e8834ed85557acccda92a766c0ebcfa",
+          "bytes": 18529,
+          "section": "## 4. The actual primitive torsion quotient",
+          "lines": [
+            87,
+            108
+          ],
+          "passage_sha256": "1401e680c0ee9f3c000547f451aaaeb54f1b670de9fee3c1d4d73b5441bf90aa",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/proofs/height-different.md",
+          "sha256": "025885f763a9a72e9750ed10ec0bbfec4e8834ed85557acccda92a766c0ebcfa",
+          "bytes": 18529,
+          "section": "## 5. Same constant at every prime",
+          "lines": [
+            109,
+            126
+          ],
+          "passage_sha256": "6578cd19517c3f0f781ff641d8fea0794e77c98f9db4e1b82a3c6349554c8cca",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/proofs/height-different.md",
+          "sha256": "025885f763a9a72e9750ed10ec0bbfec4e8834ed85557acccda92a766c0ebcfa",
+          "bytes": 18529,
+          "section": "## 6. History, incorporation and limits",
+          "lines": [
+            127,
+            131
+          ],
+          "passage_sha256": "e9b5351a18f865568e8ee46c4abccda54fe32b09dbf4bc7677df10d5e009870b",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/proofs/height-supplier.md",
+          "sha256": "4974b167ab415159e0ff996b341528008c2ba8ae8e2a1ebf69bab5bc9a9b9c12",
+          "bytes": 15498,
+          "section": "## H0.",
+          "lines": [
+            7,
+            32
+          ],
+          "passage_sha256": "3c61de9b62e636063cf74beddc40dd6b10ce7bada0c182b8a10432bd6bc34850",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/proofs/height-supplier.md",
+          "sha256": "4974b167ab415159e0ff996b341528008c2ba8ae8e2a1ebf69bab5bc9a9b9c12",
+          "bytes": 15498,
+          "section": "## H4.",
+          "lines": [
+            97,
+            134
+          ],
+          "passage_sha256": "c79afa0e08a65898a762e6f24ed869f4a35f3c741dacbf82eaee1f9b7d4a0753",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        }
+      ]
+    },
+    "Local conditions": {
+      "required_input": "Unit discriminant at every p>3 generic vertical point; good-open support after field extension; finite normalization.",
+      "constructed_input": "t,t\u22121 units in V;1728 unit iff p>3; V excellent; finite\u00e9tale base change normal on goodopen.",
+      "justification": "\u00a7\u00a72,5 establish local hypotheses; p|N uses finiteflat torsion instead of applying \u00e9tale U outside its domain.",
+      "original_author_obligation_sha256": "76fdeb5d06e48bca3c862731ffd127c26fa5dee5f9fede18e2537ad8bdbc0a23",
+      "original_author_source_ids": [
+        "D01",
+        "D03",
+        "D08",
+        "D09"
+      ],
+      "status": "author_proposed_pending_eligible_independent_public_review",
+      "source_references": [
+        {
+          "path": "research/quartic214/PROOF.md",
+          "sha256": "0feb164c3ed33543136b89aa87b27bc890f4aadef2d082d465263f55dc26d165",
+          "bytes": 10582
+        },
+        {
+          "path": "research/quartic214/proofs/height-supplier.md",
+          "sha256": "4974b167ab415159e0ff996b341528008c2ba8ae8e2a1ebf69bab5bc9a9b9c12",
+          "bytes": 15498
+        },
+        {
+          "path": "research/quartic214/proofs/height-averaging.md",
+          "sha256": "bb87f61d7134c09d695f9bbff2c26b12b8c9ce5fe74a4ec598b2e4410f100192",
+          "bytes": 8145
+        },
+        {
+          "path": "research/quartic214/PRIMARY_SOURCES.json",
+          "sha256": "cfa7597432cd98c7184c0f9332c6d56f8ea53b208613aab0d855f5ffd1181161",
+          "bytes": 48789
+        },
+        {
+          "path": "research/version15/snapshots/v15-222-004/manuscript/quartic_v15.tex",
+          "sha256": "44ba3a8ec8521c29b81b26cfb9981cd6d5f3c76d54e7782438614842edb52c74",
+          "bytes": 1924438
+        },
+        {
+          "path": "research/quartic214/proofs/height-different.md",
+          "sha256": "025885f763a9a72e9750ed10ec0bbfec4e8834ed85557acccda92a766c0ebcfa",
+          "bytes": 18529
+        },
+        {
+          "path": "research/quartic214/sources/evaluation-sections1-4.tex",
+          "sha256": "70919ebd13613f7c9f7317995b285348398c6895808a61463be0aac139b8511c",
+          "bytes": 17465
+        },
+        {
+          "path": "research/quartic214/proofs/height-assembly.md",
+          "sha256": "1866f9452526b2c243f5f05267f74caa2a4532dfc23891a9b0e95abed2d00fe5",
+          "bytes": 7020
+        }
+      ],
+      "evidence": [
+        {
+          "path": "research/quartic214/proofs/height-different.md",
+          "sha256": "025885f763a9a72e9750ed10ec0bbfec4e8834ed85557acccda92a766c0ebcfa",
+          "bytes": 18529,
+          "section": "## 1. Fixed objects and the trace-discriminant identity",
+          "lines": [
+            11,
+            26
+          ],
+          "passage_sha256": "77cba9e0a293291607ed31a49bf1330727c8fa280b2ed7728395990fc1b327f6",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/proofs/height-different.md",
+          "sha256": "025885f763a9a72e9750ed10ec0bbfec4e8834ed85557acccda92a766c0ebcfa",
+          "bytes": 18529,
+          "section": "## 2. Lenstra's estimate really covers the vertical DVR",
+          "lines": [
+            27,
+            56
+          ],
+          "passage_sha256": "57f2bd0a37f3d61345b3a1052c30119fb0636119be51c4443bce0ea061a15043",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/proofs/height-different.md",
+          "sha256": "025885f763a9a72e9750ed10ec0bbfec4e8834ed85557acccda92a766c0ebcfa",
+          "bytes": 18529,
+          "section": "## 3. Torsion different as an identity of fractional ideals",
+          "lines": [
+            57,
+            86
+          ],
+          "passage_sha256": "0ea22f7ba6ecff82fb4d010ac1c9641bb41c57d22a1fee853eac614e193c5ae1",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/proofs/height-different.md",
+          "sha256": "025885f763a9a72e9750ed10ec0bbfec4e8834ed85557acccda92a766c0ebcfa",
+          "bytes": 18529,
+          "section": "## 4. The actual primitive torsion quotient",
+          "lines": [
+            87,
+            108
+          ],
+          "passage_sha256": "1401e680c0ee9f3c000547f451aaaeb54f1b670de9fee3c1d4d73b5441bf90aa",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/proofs/height-different.md",
+          "sha256": "025885f763a9a72e9750ed10ec0bbfec4e8834ed85557acccda92a766c0ebcfa",
+          "bytes": 18529,
+          "section": "## 5. Same constant at every prime",
+          "lines": [
+            109,
+            126
+          ],
+          "passage_sha256": "6578cd19517c3f0f781ff641d8fea0794e77c98f9db4e1b82a3c6349554c8cca",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/proofs/height-different.md",
+          "sha256": "025885f763a9a72e9750ed10ec0bbfec4e8834ed85557acccda92a766c0ebcfa",
+          "bytes": 18529,
+          "section": "## 6. History, incorporation and limits",
+          "lines": [
+            127,
+            131
+          ],
+          "passage_sha256": "e9b5351a18f865568e8ee46c4abccda54fe32b09dbf4bc7677df10d5e009870b",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/proofs/height-supplier.md",
+          "sha256": "4974b167ab415159e0ff996b341528008c2ba8ae8e2a1ebf69bab5bc9a9b9c12",
+          "bytes": 15498,
+          "section": "## H0.",
+          "lines": [
+            7,
+            32
+          ],
+          "passage_sha256": "3c61de9b62e636063cf74beddc40dd6b10ce7bada0c182b8a10432bd6bc34850",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/proofs/height-supplier.md",
+          "sha256": "4974b167ab415159e0ff996b341528008c2ba8ae8e2a1ebf69bab5bc9a9b9c12",
+          "bytes": 15498,
+          "section": "## H4.",
+          "lines": [
+            97,
+            134
+          ],
+          "passage_sha256": "c79afa0e08a65898a762e6f24ed869f4a35f3c741dacbf82eaee1f9b7d4a0753",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        }
+      ]
+    },
+    "Exceptional cases": {
+      "required_input": "p2/3, p|N, p>d, inseparable residue, n=1, N1/2, residuechar dividing |H|, possible multiple places/components.",
+      "constructed_input": "Separate Lenstra at2/3; floors may vanish; trace proof imperfection-independent; quotient via permutation algebras; N1 convention explicit.",
+      "justification": "\u00a7\u00a72\u20135 treat each named case. Positivegenus only restricts height consumer; it is not used to evade local torsion cases.",
+      "original_author_obligation_sha256": "7882184322b7c21ac4e2fc1642192140b7f77ba705f99b32bb740820a4803e10",
+      "original_author_source_ids": [
+        "D01",
+        "D04",
+        "D06",
+        "D07",
+        "D08"
+      ],
+      "status": "author_proposed_pending_eligible_independent_public_review",
+      "source_references": [
+        {
+          "path": "research/quartic214/PROOF.md",
+          "sha256": "0feb164c3ed33543136b89aa87b27bc890f4aadef2d082d465263f55dc26d165",
+          "bytes": 10582
+        },
+        {
+          "path": "research/quartic214/proofs/height-supplier.md",
+          "sha256": "4974b167ab415159e0ff996b341528008c2ba8ae8e2a1ebf69bab5bc9a9b9c12",
+          "bytes": 15498
+        },
+        {
+          "path": "research/quartic214/proofs/height-averaging.md",
+          "sha256": "bb87f61d7134c09d695f9bbff2c26b12b8c9ce5fe74a4ec598b2e4410f100192",
+          "bytes": 8145
+        },
+        {
+          "path": "research/quartic214/PRIMARY_SOURCES.json",
+          "sha256": "cfa7597432cd98c7184c0f9332c6d56f8ea53b208613aab0d855f5ffd1181161",
+          "bytes": 48789
+        },
+        {
+          "path": "research/version15/snapshots/v15-222-004/manuscript/quartic_v15.tex",
+          "sha256": "44ba3a8ec8521c29b81b26cfb9981cd6d5f3c76d54e7782438614842edb52c74",
+          "bytes": 1924438
+        },
+        {
+          "path": "research/quartic214/proofs/height-different.md",
+          "sha256": "025885f763a9a72e9750ed10ec0bbfec4e8834ed85557acccda92a766c0ebcfa",
+          "bytes": 18529
+        },
+        {
+          "path": "research/quartic214/sources/evaluation-sections1-4.tex",
+          "sha256": "70919ebd13613f7c9f7317995b285348398c6895808a61463be0aac139b8511c",
+          "bytes": 17465
+        },
+        {
+          "path": "research/quartic214/proofs/height-assembly.md",
+          "sha256": "1866f9452526b2c243f5f05267f74caa2a4532dfc23891a9b0e95abed2d00fe5",
+          "bytes": 7020
+        }
+      ],
+      "evidence": [
+        {
+          "path": "research/quartic214/proofs/height-different.md",
+          "sha256": "025885f763a9a72e9750ed10ec0bbfec4e8834ed85557acccda92a766c0ebcfa",
+          "bytes": 18529,
+          "section": "## 1. Fixed objects and the trace-discriminant identity",
+          "lines": [
+            11,
+            26
+          ],
+          "passage_sha256": "77cba9e0a293291607ed31a49bf1330727c8fa280b2ed7728395990fc1b327f6",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/proofs/height-different.md",
+          "sha256": "025885f763a9a72e9750ed10ec0bbfec4e8834ed85557acccda92a766c0ebcfa",
+          "bytes": 18529,
+          "section": "## 2. Lenstra's estimate really covers the vertical DVR",
+          "lines": [
+            27,
+            56
+          ],
+          "passage_sha256": "57f2bd0a37f3d61345b3a1052c30119fb0636119be51c4443bce0ea061a15043",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/proofs/height-different.md",
+          "sha256": "025885f763a9a72e9750ed10ec0bbfec4e8834ed85557acccda92a766c0ebcfa",
+          "bytes": 18529,
+          "section": "## 3. Torsion different as an identity of fractional ideals",
+          "lines": [
+            57,
+            86
+          ],
+          "passage_sha256": "0ea22f7ba6ecff82fb4d010ac1c9641bb41c57d22a1fee853eac614e193c5ae1",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/proofs/height-different.md",
+          "sha256": "025885f763a9a72e9750ed10ec0bbfec4e8834ed85557acccda92a766c0ebcfa",
+          "bytes": 18529,
+          "section": "## 4. The actual primitive torsion quotient",
+          "lines": [
+            87,
+            108
+          ],
+          "passage_sha256": "1401e680c0ee9f3c000547f451aaaeb54f1b670de9fee3c1d4d73b5441bf90aa",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/proofs/height-different.md",
+          "sha256": "025885f763a9a72e9750ed10ec0bbfec4e8834ed85557acccda92a766c0ebcfa",
+          "bytes": 18529,
+          "section": "## 5. Same constant at every prime",
+          "lines": [
+            109,
+            126
+          ],
+          "passage_sha256": "6578cd19517c3f0f781ff641d8fea0794e77c98f9db4e1b82a3c6349554c8cca",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/proofs/height-different.md",
+          "sha256": "025885f763a9a72e9750ed10ec0bbfec4e8834ed85557acccda92a766c0ebcfa",
+          "bytes": 18529,
+          "section": "## 6. History, incorporation and limits",
+          "lines": [
+            127,
+            131
+          ],
+          "passage_sha256": "e9b5351a18f865568e8ee46c4abccda54fe32b09dbf4bc7677df10d5e009870b",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/proofs/height-supplier.md",
+          "sha256": "4974b167ab415159e0ff996b341528008c2ba8ae8e2a1ebf69bab5bc9a9b9c12",
+          "bytes": 15498,
+          "section": "## H0.",
+          "lines": [
+            7,
+            32
+          ],
+          "passage_sha256": "3c61de9b62e636063cf74beddc40dd6b10ce7bada0c182b8a10432bd6bc34850",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/proofs/height-supplier.md",
+          "sha256": "4974b167ab415159e0ff996b341528008c2ba8ae8e2a1ebf69bab5bc9a9b9c12",
+          "bytes": 15498,
+          "section": "## H4.",
+          "lines": [
+            97,
+            134
+          ],
+          "passage_sha256": "c79afa0e08a65898a762e6f24ed869f4a35f3c741dacbf82eaee1f9b7d4a0753",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        }
+      ]
+    },
+    "Downstream consumption": {
+      "required_input": "Exactly d_H(log12+logN+2logd_H) then one-half evaluation and genus term; arbitrary modular levels in full rationalparameter family.",
+      "constructed_input": "Same bound in v17cor:modularheight feeding heightPROOFH0.3,H4 and existence/global consumers of214 and256.",
+      "justification": "\u00a75 derives unchanged constant; dependent metric/integralevaluation and later geometric/modularity/heighttransfer conclusions remain separate. No beta-only restriction imposed.",
+      "original_author_obligation_sha256": "97b5e8d38b5131ed224753dcff5747ded74c0e3a8819599893efe9fa742be8f7",
+      "original_author_source_ids": [
+        "D08",
+        "D10"
+      ],
+      "status": "author_proposed_pending_eligible_independent_public_review",
+      "source_references": [
+        {
+          "path": "research/quartic214/PROOF.md",
+          "sha256": "0feb164c3ed33543136b89aa87b27bc890f4aadef2d082d465263f55dc26d165",
+          "bytes": 10582
+        },
+        {
+          "path": "research/quartic214/proofs/height-supplier.md",
+          "sha256": "4974b167ab415159e0ff996b341528008c2ba8ae8e2a1ebf69bab5bc9a9b9c12",
+          "bytes": 15498
+        },
+        {
+          "path": "research/quartic214/proofs/height-averaging.md",
+          "sha256": "bb87f61d7134c09d695f9bbff2c26b12b8c9ce5fe74a4ec598b2e4410f100192",
+          "bytes": 8145
+        },
+        {
+          "path": "research/quartic214/PRIMARY_SOURCES.json",
+          "sha256": "cfa7597432cd98c7184c0f9332c6d56f8ea53b208613aab0d855f5ffd1181161",
+          "bytes": 48789
+        },
+        {
+          "path": "research/version15/snapshots/v15-222-004/manuscript/quartic_v15.tex",
+          "sha256": "44ba3a8ec8521c29b81b26cfb9981cd6d5f3c76d54e7782438614842edb52c74",
+          "bytes": 1924438
+        },
+        {
+          "path": "research/quartic214/proofs/height-different.md",
+          "sha256": "025885f763a9a72e9750ed10ec0bbfec4e8834ed85557acccda92a766c0ebcfa",
+          "bytes": 18529
+        },
+        {
+          "path": "research/quartic214/sources/evaluation-sections1-4.tex",
+          "sha256": "70919ebd13613f7c9f7317995b285348398c6895808a61463be0aac139b8511c",
+          "bytes": 17465
+        },
+        {
+          "path": "research/quartic214/proofs/height-assembly.md",
+          "sha256": "1866f9452526b2c243f5f05267f74caa2a4532dfc23891a9b0e95abed2d00fe5",
+          "bytes": 7020
+        }
+      ],
+      "evidence": [
+        {
+          "path": "research/quartic214/proofs/height-different.md",
+          "sha256": "025885f763a9a72e9750ed10ec0bbfec4e8834ed85557acccda92a766c0ebcfa",
+          "bytes": 18529,
+          "section": "## 1. Fixed objects and the trace-discriminant identity",
+          "lines": [
+            11,
+            26
+          ],
+          "passage_sha256": "77cba9e0a293291607ed31a49bf1330727c8fa280b2ed7728395990fc1b327f6",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/proofs/height-different.md",
+          "sha256": "025885f763a9a72e9750ed10ec0bbfec4e8834ed85557acccda92a766c0ebcfa",
+          "bytes": 18529,
+          "section": "## 2. Lenstra's estimate really covers the vertical DVR",
+          "lines": [
+            27,
+            56
+          ],
+          "passage_sha256": "57f2bd0a37f3d61345b3a1052c30119fb0636119be51c4443bce0ea061a15043",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/proofs/height-different.md",
+          "sha256": "025885f763a9a72e9750ed10ec0bbfec4e8834ed85557acccda92a766c0ebcfa",
+          "bytes": 18529,
+          "section": "## 3. Torsion different as an identity of fractional ideals",
+          "lines": [
+            57,
+            86
+          ],
+          "passage_sha256": "0ea22f7ba6ecff82fb4d010ac1c9641bb41c57d22a1fee853eac614e193c5ae1",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/proofs/height-different.md",
+          "sha256": "025885f763a9a72e9750ed10ec0bbfec4e8834ed85557acccda92a766c0ebcfa",
+          "bytes": 18529,
+          "section": "## 4. The actual primitive torsion quotient",
+          "lines": [
+            87,
+            108
+          ],
+          "passage_sha256": "1401e680c0ee9f3c000547f451aaaeb54f1b670de9fee3c1d4d73b5441bf90aa",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/proofs/height-different.md",
+          "sha256": "025885f763a9a72e9750ed10ec0bbfec4e8834ed85557acccda92a766c0ebcfa",
+          "bytes": 18529,
+          "section": "## 5. Same constant at every prime",
+          "lines": [
+            109,
+            126
+          ],
+          "passage_sha256": "6578cd19517c3f0f781ff641d8fea0794e77c98f9db4e1b82a3c6349554c8cca",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/proofs/height-different.md",
+          "sha256": "025885f763a9a72e9750ed10ec0bbfec4e8834ed85557acccda92a766c0ebcfa",
+          "bytes": 18529,
+          "section": "## 6. History, incorporation and limits",
+          "lines": [
+            127,
+            131
+          ],
+          "passage_sha256": "e9b5351a18f865568e8ee46c4abccda54fe32b09dbf4bc7677df10d5e009870b",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/proofs/height-supplier.md",
+          "sha256": "4974b167ab415159e0ff996b341528008c2ba8ae8e2a1ebf69bab5bc9a9b9c12",
+          "bytes": 15498,
+          "section": "## H0.",
+          "lines": [
+            7,
+            32
+          ],
+          "passage_sha256": "3c61de9b62e636063cf74beddc40dd6b10ce7bada0c182b8a10432bd6bc34850",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/proofs/height-supplier.md",
+          "sha256": "4974b167ab415159e0ff996b341528008c2ba8ae8e2a1ebf69bab5bc9a9b9c12",
+          "bytes": 15498,
+          "section": "## H4.",
+          "lines": [
+            97,
+            134
+          ],
+          "passage_sha256": "c79afa0e08a65898a762e6f24ed869f4a35f3c741dacbf82eaee1f9b7d4a0753",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        }
+      ]
+    }
+  },
+  "independent_acceptance": null
+}

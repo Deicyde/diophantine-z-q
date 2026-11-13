@@ -1,0 +1,4328 @@
+{
+  "schema": "quartic214-tex-editorial-application-v1",
+  "application_id": "Q214-FULL-TEX-INCORPORATION-20261112",
+  "role": "author_editorial_application_no_independent_acceptance",
+  "authors": [
+    "/root/q214_sol_formula_repairs",
+    "/root/q214_tex_coverage",
+    "/root/q214_sol_repair_records",
+    "/root/q214_tex_author"
+  ],
+  "source_commit": "110cf72565be326fd567cd1a64a3b2e00213dcd1",
+  "manuscript": {
+    "path": "research/quartic214-manuscript/quartic214.tex",
+    "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+    "bytes": 2337533
+  },
+  "source_map": {
+    "path": "research/quartic214-manuscript/SOURCE_SPANS.json",
+    "sha256": "c98fc0d5860fb1d17a1d1ec7f23e266015f26e37d72443b796a782006c371391",
+    "bytes": 399870
+  },
+  "assembler": {
+    "path": "research/quartic214-manuscript/assemble.py",
+    "sha256": "c82053474d9ce627640862ce309bb1cd931d615276920fd4df2186eb3ae2f549",
+    "bytes": 47054
+  },
+  "initial_source_uses": {
+    "path": "research/quartic214-manuscript-review/INITIAL_SOURCE_USES.json",
+    "sha256": "ceccab2693a80ab72becd49b7e84248bc95a15ae5cd72e83dd02a2e6c21ac300",
+    "bytes": 9184
+  },
+  "findings": {
+    "path": "research/quartic214-manuscript-review/FINDINGS.json",
+    "sha256": "26e633790c4a5d5a5f48cc584896dcd79b1da67e334c6e6ffc3b430c7cff72d5",
+    "bytes": 28227
+  },
+  "original_contract_index": {
+    "path": "research/quartic214/contracts/INDEX.json",
+    "sha256": "c3205657eaebcf4b40f6a92087856d6fa3a9c8a730ef36befed62ef5fb984b37",
+    "bytes": 3588
+  },
+  "obligations": {
+    "source_hypotheses": {
+      "required_input": "The fourteen frozen applications require their exact statements, sources and scope qualifications.",
+      "constructed_input": "The complete packet proofs, selected mathematical sources, primary-source catalogue and entire current V16 body are present.",
+      "justification": "Each original construction, application and consumer is mapped below. The introduction retains the conditional source boundary and makes no new source theorem or approval.",
+      "source_references": [
+        {
+          "path": "research/quartic214/contracts/INDEX.json",
+          "sha256": "c3205657eaebcf4b40f6a92087856d6fa3a9c8a730ef36befed62ef5fb984b37",
+          "bytes": 3588
+        },
+        {
+          "path": "research/quartic214/PROOF.md",
+          "sha256": "0feb164c3ed33543136b89aa87b27bc890f4aadef2d082d465263f55dc26d165",
+          "bytes": 10582
+        }
+      ],
+      "evidence": [
+        "source_coverage",
+        "applications",
+        "FINDINGS.json"
+      ],
+      "status": "author_addressed_pending_separately_authored_review"
+    },
+    "constructed_objects": {
+      "required_input": "The source family has214 coordinates and188 primitive integral quadratic residuals, input1 and fixed A_N.",
+      "constructed_input": "The TeX prints the214-coordinate dictionary and188 residuals directly from the exact public IR, then defines their sum of squares.",
+      "justification": "This is an unexpanded exact row specification, not a full monomial quartic expansion. The actual K,E,P, labels, quarter-trace and fields are those of the frozen source; no222 row weights or extra reductions are counted.",
+      "source_references": [
+        {
+          "path": "research/quartic214/contracts/INDEX.json",
+          "sha256": "c3205657eaebcf4b40f6a92087856d6fa3a9c8a730ef36befed62ef5fb984b37",
+          "bytes": 3588
+        },
+        {
+          "path": "research/quartic214/PROOF.md",
+          "sha256": "0feb164c3ed33543136b89aa87b27bc890f4aadef2d082d465263f55dc26d165",
+          "bytes": 10582
+        }
+      ],
+      "evidence": [
+        "source_coverage",
+        "applications",
+        "FINDINGS.json"
+      ],
+      "status": "author_addressed_pending_separately_authored_review"
+    },
+    "domain_index_coverage": {
+      "required_input": "Every required proof passage and every indexed mathematical domain of the original applications must survive serialization.",
+      "constructed_input": "The map covers all source lines of the13 proof files, PROOF.md and five selected mathematical fragments; every original14 application passage maps to current TeX.",
+      "justification": "All214 coordinates and188 rows are printed. Full rational S10 parameters, every coefficient conjugate, all residue primes via3/5, r repeated factors, and the all-N/all-input quantifiers remain explicit. Coverage of recorded text does not establish inventory completeness or mathematical truth.",
+      "source_references": [
+        {
+          "path": "research/quartic214/contracts/INDEX.json",
+          "sha256": "c3205657eaebcf4b40f6a92087856d6fa3a9c8a730ef36befed62ef5fb984b37",
+          "bytes": 3588
+        },
+        {
+          "path": "research/quartic214/PROOF.md",
+          "sha256": "0feb164c3ed33543136b89aa87b27bc890f4aadef2d082d465263f55dc26d165",
+          "bytes": 10582
+        }
+      ],
+      "evidence": [
+        "source_coverage",
+        "applications",
+        "FINDINGS.json"
+      ],
+      "status": "author_addressed_pending_separately_authored_review"
+    },
+    "transition_comparison_maps": {
+      "required_input": "Changes in notation must preserve signs, scalars, roots, exponents, trace maps and the original downstream identities.",
+      "constructed_input": "The renderer changes Markdown presentation, local selected-source labels and bibliography aliases, and line endings; the retained current foundation body is exact modulo LF.",
+      "justification": "TEX-F01 records actual transcription failures and demands correction of their related occurrences. Exact row transport, source-span comparison and a separate non-author reading must establish fidelity before release; compilation alone is insufficient.",
+      "source_references": [
+        {
+          "path": "research/quartic214/contracts/INDEX.json",
+          "sha256": "c3205657eaebcf4b40f6a92087856d6fa3a9c8a730ef36befed62ef5fb984b37",
+          "bytes": 3588
+        },
+        {
+          "path": "research/quartic214/PROOF.md",
+          "sha256": "0feb164c3ed33543136b89aa87b27bc890f4aadef2d082d465263f55dc26d165",
+          "bytes": 10582
+        }
+      ],
+      "evidence": [
+        "source_coverage",
+        "applications",
+        "FINDINGS.json"
+      ],
+      "status": "author_addressed_pending_separately_authored_review"
+    },
+    "identity_consumed_object": {
+      "required_input": "The consumed polynomial, physical labels, radicals, original representations and H3.1 must be the exact source objects.",
+      "constructed_input": "The main theorem consumes the actual188-row P_N with213 witnesses; the operative H3 is the product route for the actual A_a over Lprime.",
+      "justification": "The selected r separate factors replace superseded quotient auxiliaries only at the exact H3.1 interface. The auxiliary evaluation field is not Lprime. All original consumers are bound individually, rather than inferred from a nearby heading.",
+      "source_references": [
+        {
+          "path": "research/quartic214/contracts/INDEX.json",
+          "sha256": "c3205657eaebcf4b40f6a92087856d6fa3a9c8a730ef36befed62ef5fb984b37",
+          "bytes": 3588
+        },
+        {
+          "path": "research/quartic214/PROOF.md",
+          "sha256": "0feb164c3ed33543136b89aa87b27bc890f4aadef2d082d465263f55dc26d165",
+          "bytes": 10582
+        }
+      ],
+      "evidence": [
+        "source_coverage",
+        "applications",
+        "FINDINGS.json"
+      ],
+      "status": "author_addressed_pending_separately_authored_review"
+    },
+    "coefficient_normalization": {
+      "required_input": "Original stable Faltings height, rational/integral lattices, arithmetic Frobenius, valuations and exact coefficients must be retained.",
+      "constructed_input": "The TeX retains the original conventions, unsaturated specialization C and trace dual, all embeddings and dimension-two isogeny direction.",
+      "justification": "Long integral coefficients are exact base10 block sums. LF conversion changes no mathematical body text. New notation grouping must preserve each source expression; TEX-F01 and the independent serialization comparison assess that obligation.",
+      "source_references": [
+        {
+          "path": "research/quartic214/contracts/INDEX.json",
+          "sha256": "c3205657eaebcf4b40f6a92087856d6fa3a9c8a730ef36befed62ef5fb984b37",
+          "bytes": 3588
+        },
+        {
+          "path": "research/quartic214/PROOF.md",
+          "sha256": "0feb164c3ed33543136b89aa87b27bc890f4aadef2d082d465263f55dc26d165",
+          "bytes": 10582
+        }
+      ],
+      "evidence": [
+        "source_coverage",
+        "applications",
+        "FINDINGS.json"
+      ],
+      "status": "author_addressed_pending_separately_authored_review"
+    },
+    "local_conditions": {
+      "required_input": "The original split/inert, support, ramification, integrality and pole-preparation hypotheses remain attached to the actual constructed inputs.",
+      "constructed_input": "Local extraction, complete S10 contact argument, all-prime conductor comparison and fresh pole witnesses are printed in their actual source order.",
+      "justification": "No new local theorem is applied by typesetting. Source q!=0 guards and reciprocal positivity precede logarithmic integrality; local hypotheses are not inferred from the finite row checker. These remain the original mathematical application obligations.",
+      "source_references": [
+        {
+          "path": "research/quartic214/contracts/INDEX.json",
+          "sha256": "c3205657eaebcf4b40f6a92087856d6fa3a9c8a730ef36befed62ef5fb984b37",
+          "bytes": 3588
+        },
+        {
+          "path": "research/quartic214/PROOF.md",
+          "sha256": "0feb164c3ed33543136b89aa87b27bc890f4aadef2d082d465263f55dc26d165",
+          "bytes": 10582
+        }
+      ],
+      "evidence": [
+        "source_coverage",
+        "applications",
+        "FINDINGS.json"
+      ],
+      "status": "author_addressed_pending_separately_authored_review"
+    },
+    "exceptional_cases": {
+      "required_input": "The assembly must retain every zero/degenerate branch, CM case, radical-one case and historical supersession.",
+      "constructed_input": "The TeX includes zero tests/numerators, delta=0, q!=0 witness restriction, M=1, infinity/deep even contacts, genus/CM restrictions, and the ineffective threshold statements.",
+      "justification": "Introductory and supplier notices identify historical quotient H3 and coarse conductor text as superseded for214. Full V15 results retain their own counts and scope. N>=53 is explicitly coefficient-only, and no full sample witness tuple or effective N0 is asserted.",
+      "source_references": [
+        {
+          "path": "research/quartic214/contracts/INDEX.json",
+          "sha256": "c3205657eaebcf4b40f6a92087856d6fa3a9c8a730ef36befed62ef5fb984b37",
+          "bytes": 3588
+        },
+        {
+          "path": "research/quartic214/PROOF.md",
+          "sha256": "0feb164c3ed33543136b89aa87b27bc890f4aadef2d082d465263f55dc26d165",
+          "bytes": 10582
+        }
+      ],
+      "evidence": [
+        "source_coverage",
+        "applications",
+        "FINDINGS.json"
+      ],
+      "status": "author_addressed_pending_separately_authored_review"
+    },
+    "downstream_consumption": {
+      "required_input": "The final214 theorem needs the exact source joins, uniform N0 and a current reviewed TeX/PDF release binding.",
+      "constructed_input": "The manuscript connects M_j^3|Delta and M_j|J separately, full-family reflected exponent7/6, the actual aggregate SUM bound and N0=max(N_S,N_C).",
+      "justification": "The mapped original14 construction/application/consumer passages preserve the exact suppliers of those joins. Historical acceptance does not accept this editorial adaptation. Actual PDF/build and separately authored decisions are required for release; this author supplies none of those decisions.",
+      "source_references": [
+        {
+          "path": "research/quartic214/contracts/INDEX.json",
+          "sha256": "c3205657eaebcf4b40f6a92087856d6fa3a9c8a730ef36befed62ef5fb984b37",
+          "bytes": 3588
+        },
+        {
+          "path": "research/quartic214/PROOF.md",
+          "sha256": "0feb164c3ed33543136b89aa87b27bc890f4aadef2d082d465263f55dc26d165",
+          "bytes": 10582
+        }
+      ],
+      "evidence": [
+        "source_coverage",
+        "applications",
+        "FINDINGS.json"
+      ],
+      "status": "author_addressed_pending_separately_authored_review"
+    }
+  },
+  "source_coverage": [
+    {
+      "source": {
+        "path": "research/quartic214/PROOF.md",
+        "sha256": "0feb164c3ed33543136b89aa87b27bc890f4aadef2d082d465263f55dc26d165",
+        "bytes": 10582
+      },
+      "tex": {
+        "path": "research/quartic214-manuscript/quartic214.tex",
+        "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+        "bytes": 2337533,
+        "lines": [
+          2045,
+          2101
+        ],
+        "passage_sha256": "78e301c0a2d6449b2c42f65c4dc73e0b6e2885fafffd949369f4cdc417e85b1e",
+        "line_convention": "1-based inclusive raw splitlines with endings retained"
+      },
+      "map_source": "research/quartic214/PROOF.md",
+      "status": "author compared; separately authored current decision required"
+    },
+    {
+      "source": {
+        "path": "research/quartic214/proofs/existence.md",
+        "sha256": "37ab929ed3f4b4dee2b91d2e39408e7070e8a9176b981bcc9c352d17b9cc2332",
+        "bytes": 15072
+      },
+      "tex": {
+        "path": "research/quartic214-manuscript/quartic214.tex",
+        "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+        "bytes": 2337533,
+        "lines": [
+          2104,
+          2208
+        ],
+        "passage_sha256": "1e33f3572914b0d2cd82147bce02799cc8428dab6c817d43263f6fc6d79227f7",
+        "line_convention": "1-based inclusive raw splitlines with endings retained"
+      },
+      "map_source": "research/quartic214/proofs/existence.md",
+      "status": "author compared; separately authored current decision required"
+    },
+    {
+      "source": {
+        "path": "research/quartic214/proofs/uniform-existence.md",
+        "sha256": "d13cc2b846dc72a3f5b5cce8dcf11d3f11b33c45ebc3883263840afb8d82f3bc",
+        "bytes": 22294
+      },
+      "tex": {
+        "path": "research/quartic214-manuscript/quartic214.tex",
+        "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+        "bytes": 2337533,
+        "lines": [
+          2211,
+          2312
+        ],
+        "passage_sha256": "aad5f5a959747fee66ee104851e77fd2e3fa9d0d24077e5aecc4bf9207d4d73c",
+        "line_convention": "1-based inclusive raw splitlines with endings retained"
+      },
+      "map_source": "research/quartic214/proofs/uniform-existence.md",
+      "status": "author compared; separately authored current decision required"
+    },
+    {
+      "source": {
+        "path": "research/quartic214/proofs/geometry-carry.md",
+        "sha256": "b3cb8201de84f733b0518ad68a9c0d0bc1e78534ffd39aca5d8c70f1bae69e76",
+        "bytes": 13337
+      },
+      "tex": {
+        "path": "research/quartic214-manuscript/quartic214.tex",
+        "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+        "bytes": 2337533,
+        "lines": [
+          2315,
+          2408
+        ],
+        "passage_sha256": "67b94134ccca6a7235c280de5fe760f70e1f211351e4f325b45ca16065ac97f8",
+        "line_convention": "1-based inclusive raw splitlines with endings retained"
+      },
+      "map_source": "research/quartic214/proofs/geometry-carry.md",
+      "status": "author compared; separately authored current decision required"
+    },
+    {
+      "source": {
+        "path": "research/quartic214/proofs/provider-scope-carry.md",
+        "sha256": "368774d2b96a606df4dd5e81a3c4fecaf22f09f33f27e49e0a80e37b02157154",
+        "bytes": 16324
+      },
+      "tex": {
+        "path": "research/quartic214-manuscript/quartic214.tex",
+        "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+        "bytes": 2337533,
+        "lines": [
+          2411,
+          2488
+        ],
+        "passage_sha256": "8c745689780645c314698b922fafe17fbb4b8e577847fabe657850f33bfa478c",
+        "line_convention": "1-based inclusive raw splitlines with endings retained"
+      },
+      "map_source": "research/quartic214/proofs/provider-scope-carry.md",
+      "status": "author compared; separately authored current decision required"
+    },
+    {
+      "source": {
+        "path": "research/quartic214/proofs/modularity.md",
+        "sha256": "814676050b389793d196346f45e2797f39e2c5be0f3fee8457bb709b2607606e",
+        "bytes": 25777
+      },
+      "tex": {
+        "path": "research/quartic214-manuscript/quartic214.tex",
+        "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+        "bytes": 2337533,
+        "lines": [
+          2491,
+          2634
+        ],
+        "passage_sha256": "af118270eca8a341bf9eebbe7fdf4dc4f76c5ce46d31385b0fadd1e023f4ff71",
+        "line_convention": "1-based inclusive raw splitlines with endings retained"
+      },
+      "map_source": "research/quartic214/proofs/modularity.md",
+      "status": "author compared; separately authored current decision required"
+    },
+    {
+      "source": {
+        "path": "research/quartic214/proofs/height-evaluation.md",
+        "sha256": "d691da0a6827d9b45c6c68294405163f679a2d57f08e2ecda56fd071b3579502",
+        "bytes": 14511
+      },
+      "tex": {
+        "path": "research/quartic214-manuscript/quartic214.tex",
+        "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+        "bytes": 2337533,
+        "lines": [
+          2637,
+          2766
+        ],
+        "passage_sha256": "2debfc5be0c8e66f336d40d0db835cda1485ce00a657b573bd28b82b352f49ca",
+        "line_convention": "1-based inclusive raw splitlines with endings retained"
+      },
+      "map_source": "research/quartic214/proofs/height-evaluation.md",
+      "status": "author compared; separately authored current decision required"
+    },
+    {
+      "source": {
+        "path": "research/quartic214/proofs/height-different.md",
+        "sha256": "025885f763a9a72e9750ed10ec0bbfec4e8834ed85557acccda92a766c0ebcfa",
+        "bytes": 18529
+      },
+      "tex": {
+        "path": "research/quartic214-manuscript/quartic214.tex",
+        "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+        "bytes": 2337533,
+        "lines": [
+          2769,
+          2900
+        ],
+        "passage_sha256": "077714ee828ef6be8910d2fac1523ce2ce8f9511b3affa4056b21ed6ee16cf4e",
+        "line_convention": "1-based inclusive raw splitlines with endings retained"
+      },
+      "map_source": "research/quartic214/proofs/height-different.md",
+      "status": "author compared; separately authored current decision required"
+    },
+    {
+      "source": {
+        "path": "research/quartic214/proofs/height-metric.md",
+        "sha256": "ea61f4ce58481b8ffb3a2000189fbbc84a8ded3c91d7c447ffe98ae98f30ad8e",
+        "bytes": 9224
+      },
+      "tex": {
+        "path": "research/quartic214-manuscript/quartic214.tex",
+        "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+        "bytes": 2337533,
+        "lines": [
+          2903,
+          2962
+        ],
+        "passage_sha256": "4b96901bea50a77c35240c8011b081b84ae94cb3ca265844c8fc9eb5e720909a",
+        "line_convention": "1-based inclusive raw splitlines with endings retained"
+      },
+      "map_source": "research/quartic214/proofs/height-metric.md",
+      "status": "author compared; separately authored current decision required"
+    },
+    {
+      "source": {
+        "path": "research/quartic214/proofs/height-assembly.md",
+        "sha256": "1866f9452526b2c243f5f05267f74caa2a4532dfc23891a9b0e95abed2d00fe5",
+        "bytes": 7020
+      },
+      "tex": {
+        "path": "research/quartic214-manuscript/quartic214.tex",
+        "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+        "bytes": 2337533,
+        "lines": [
+          2965,
+          3022
+        ],
+        "passage_sha256": "b29c9fdc4395b635b635cbeeda036392f056c812cde1c7bc70df7febf7522181",
+        "line_convention": "1-based inclusive raw splitlines with endings retained"
+      },
+      "map_source": "research/quartic214/proofs/height-assembly.md",
+      "status": "author compared; separately authored current decision required"
+    },
+    {
+      "source": {
+        "path": "research/quartic214/proofs/height-supplier.md",
+        "sha256": "4974b167ab415159e0ff996b341528008c2ba8ae8e2a1ebf69bab5bc9a9b9c12",
+        "bytes": 15498
+      },
+      "tex": {
+        "path": "research/quartic214-manuscript/quartic214.tex",
+        "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+        "bytes": 2337533,
+        "lines": [
+          3025,
+          3164
+        ],
+        "passage_sha256": "192ceab740607be583370b6b4ddaa6be87b36385eb2f32d03a2641b28d6acfb6",
+        "line_convention": "1-based inclusive raw splitlines with endings retained"
+      },
+      "map_source": "research/quartic214/proofs/height-supplier.md",
+      "status": "author compared; separately authored current decision required"
+    },
+    {
+      "source": {
+        "path": "research/quartic214/proofs/height-averaging.md",
+        "sha256": "bb87f61d7134c09d695f9bbff2c26b12b8c9ce5fe74a4ec598b2e4410f100192",
+        "bytes": 8145
+      },
+      "tex": {
+        "path": "research/quartic214-manuscript/quartic214.tex",
+        "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+        "bytes": 2337533,
+        "lines": [
+          3167,
+          3237
+        ],
+        "passage_sha256": "cb1cc9840f49d385104db78630ac10e774b751182a21c80b141296b573772043",
+        "line_convention": "1-based inclusive raw splitlines with endings retained"
+      },
+      "map_source": "research/quartic214/proofs/height-averaging.md",
+      "status": "author compared; separately authored current decision required"
+    },
+    {
+      "source": {
+        "path": "research/quartic214/proofs/primary-source-bridges.md",
+        "sha256": "2c95d02a13ffa972eb6cb8d956b9063e970e33fd960e282c6d53ae8bb655c43c",
+        "bytes": 12939
+      },
+      "tex": {
+        "path": "research/quartic214-manuscript/quartic214.tex",
+        "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+        "bytes": 2337533,
+        "lines": [
+          3240,
+          3300
+        ],
+        "passage_sha256": "b30b017bfb3656de0b8aa2bb843b2400402224b90ff770e345ea59f9cdb809d4",
+        "line_convention": "1-based inclusive raw splitlines with endings retained"
+      },
+      "map_source": "research/quartic214/proofs/primary-source-bridges.md",
+      "status": "author compared; separately authored current decision required"
+    },
+    {
+      "source": {
+        "path": "research/quartic214/proofs/source-carry.md",
+        "sha256": "f7f4e550a4dcfbbd3b5ffcf783b11411f7888c821dbab7febb5132b7b2b891ed",
+        "bytes": 15185
+      },
+      "tex": {
+        "path": "research/quartic214-manuscript/quartic214.tex",
+        "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+        "bytes": 2337533,
+        "lines": [
+          3303,
+          3348
+        ],
+        "passage_sha256": "05799fd3eb4d012ee8abf9cd2af941a4a5a1fc0d60a8dbedbf77e44a66e19bed",
+        "line_convention": "1-based inclusive raw splitlines with endings retained"
+      },
+      "map_source": "research/quartic214/proofs/source-carry.md",
+      "status": "author compared; separately authored current decision required"
+    },
+    {
+      "source": {
+        "path": "research/quartic214/sources/aggregate-bridge.md",
+        "sha256": "668e84f5864b5961b67599ef9c3ffd1b44c66c93679cef9853ef596fce4267f5",
+        "bytes": 7628
+      },
+      "tex": {
+        "path": "research/quartic214-manuscript/quartic214.tex",
+        "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+        "bytes": 2337533,
+        "lines": [
+          3629,
+          3650
+        ],
+        "passage_sha256": "202274495d065b06d6cf8294126e4c03b6b285a7923595e77db37cfa348a31c7",
+        "line_convention": "1-based inclusive raw splitlines with endings retained"
+      },
+      "map_source": "research/quartic214/sources/aggregate-bridge.md",
+      "status": "author compared; separately authored current decision required"
+    },
+    {
+      "source": {
+        "path": "research/quartic214/sources/support-section1.md",
+        "sha256": "bb3e2cc7a102ba317ed984f463762cddc52576b3d7416e7a981093243cb16940",
+        "bytes": 3128
+      },
+      "tex": {
+        "path": "research/quartic214-manuscript/quartic214.tex",
+        "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+        "bytes": 2337533,
+        "lines": [
+          3353,
+          3416
+        ],
+        "passage_sha256": "9778d988d0badd481a02a0e9b9e52e4c77f37486ee75e2423712c1fefa7e7607",
+        "line_convention": "1-based inclusive raw splitlines with endings retained"
+      },
+      "map_source": "research/quartic214/sources/support-section1.md",
+      "status": "author compared; separately authored current decision required"
+    },
+    {
+      "source": {
+        "path": "research/quartic214/sources/conductor-sections1-3.md",
+        "sha256": "c2e04a42dd82e244b1872b4a9a7298f1a9e45ca49ffcc436ff7c5149d6ee5d88",
+        "bytes": 9028
+      },
+      "tex": {
+        "path": "research/quartic214-manuscript/quartic214.tex",
+        "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+        "bytes": 2337533,
+        "lines": [
+          3419,
+          3626
+        ],
+        "passage_sha256": "f150c5ffd22fd7300934c5eb9f5c8eaffd8d8e02caff3f8f48cbc0c2f93466bf",
+        "line_convention": "1-based inclusive raw splitlines with endings retained"
+      },
+      "map_source": "research/quartic214/sources/conductor-sections1-3.md",
+      "status": "author compared; separately authored current decision required"
+    },
+    {
+      "source": {
+        "path": "research/quartic214/sources/factor-extraction.tex",
+        "sha256": "38236daca2811087e08e7f26eb79504dc25171dc78019a557d99966471edb109",
+        "bytes": 5809
+      },
+      "tex": {
+        "path": "research/quartic214-manuscript/quartic214.tex",
+        "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+        "bytes": 2337533,
+        "lines": [
+          4095,
+          4230
+        ],
+        "passage_sha256": "aa423ddbc1a372dee1be9f27376b09c8e16d164ebfb6867a5f1b8e1d3c4ce462",
+        "line_convention": "1-based inclusive raw splitlines with endings retained"
+      },
+      "map_source": "research/quartic214/sources/factor-extraction.tex",
+      "status": "author compared; separately authored current decision required"
+    },
+    {
+      "source": {
+        "path": "research/quartic214/sources/evaluation-sections1-4.tex",
+        "sha256": "70919ebd13613f7c9f7317995b285348398c6895808a61463be0aac139b8511c",
+        "bytes": 17465
+      },
+      "tex": {
+        "path": "research/quartic214-manuscript/quartic214.tex",
+        "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+        "bytes": 2337533,
+        "lines": [
+          3652,
+          4093
+        ],
+        "passage_sha256": "0f10fa49a8177158a52e9c35fa743ecab3d5dc442e437686d05606630f34b4b2",
+        "line_convention": "1-based inclusive raw splitlines with endings retained"
+      },
+      "map_source": "research/quartic214/sources/evaluation-sections1-4.tex",
+      "status": "author compared; separately authored current decision required"
+    },
+    {
+      "source": {
+        "path": "manuscripts/quartic_v16.tex",
+        "sha256": "aeb2b6a42a03943d7f8c46682389c8da693d2903ba92ccc164bbbd236451de74",
+        "bytes": 1926498
+      },
+      "tex": {
+        "path": "research/quartic214-manuscript/quartic214.tex",
+        "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+        "bytes": 2337533,
+        "lines": [
+          2,
+          45018
+        ],
+        "passage_sha256": "41ccdc68d922eaeed340aa0b1ec6dc756cba8baf7d9dc84391b89c4cfc0f5687",
+        "line_convention": "1-based inclusive raw splitlines with endings retained"
+      },
+      "map_source": "manuscripts/quartic_v16.tex",
+      "status": "author compared; separately authored current decision required"
+    },
+    {
+      "source": {
+        "path": "research/quartic214-manuscript-review/FOUNDATION_TRANSITION.md",
+        "sha256": "9a3a081bfb6c3e5c0893065ab1c1ea19f36c91b997999064371886e270c3d936",
+        "bytes": 13149
+      },
+      "tex": {
+        "path": "research/quartic214-manuscript/quartic214.tex",
+        "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+        "bytes": 2337533,
+        "lines": [
+          1995,
+          2042
+        ],
+        "passage_sha256": "acee1f986028626622949b9a5ee41bc408ee611beff1775e83ff38daea10e9fe",
+        "line_convention": "1-based inclusive raw splitlines with endings retained"
+      },
+      "map_source": "research/quartic214-manuscript-review/FOUNDATION_TRANSITION.md",
+      "status": "author compared; separately authored current decision required"
+    },
+    {
+      "source": {
+        "path": "research/version15/quartics/quartic-222/provenance/shared-T-redundancy224-006/PROOF.md",
+        "sha256": "7b39db664ba3884897eda4e4e6550ec552ee8ef916509681e69b04b7990e0732",
+        "bytes": 2817
+      },
+      "tex": {
+        "path": "research/quartic214-manuscript/quartic214.tex",
+        "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+        "bytes": 2337533,
+        "lines": [
+          4233,
+          4249
+        ],
+        "passage_sha256": "26cb5eb566b27e3f6d40b2dab951e8c7a066fe9f3690ccce620d8136d141305a",
+        "line_convention": "1-based inclusive raw splitlines with endings retained"
+      },
+      "map_source": "research/version15/quartics/quartic-222/provenance/shared-T-redundancy224-006/PROOF.md",
+      "status": "author compared; separately authored current decision required"
+    }
+  ],
+  "applications": [
+    {
+      "application_id": "D214-UNIFORM-EXISTENCE-20261111",
+      "original_contract": {
+        "path": "research/quartic214/contracts/uniform-existence.json",
+        "sha256": "832900c2f480bce3eb77bef6c8b408a7ca16229b8414104e3938849a3b3bc011",
+        "application_id": "D214-UNIFORM-EXISTENCE-20261111",
+        "obligations": 9
+      },
+      "adaptation": "Editorial serialization only. Original mathematical application and source statuses remain attached to the frozen original; new TeX incorporation requires separate review.",
+      "construction_passages": [
+        {
+          "source": {
+            "path": "research/quartic214/proofs/uniform-existence.md",
+            "sha256": "d13cc2b846dc72a3f5b5cce8dcf11d3f11b33c45ebc3883263840afb8d82f3bc",
+            "bytes": 22294,
+            "section": "[P01:",
+            "lines": [
+              5,
+              11
+            ],
+            "passage_sha256": "cac4ef0c21ba83314e59ffa0579adf0f51a8c2e818f4cec623a185f5a3dd7687",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          },
+          "tex": {
+            "path": "research/quartic214-manuscript/quartic214.tex",
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
+            "lines": [
+              2217,
+              2225
+            ],
+            "passage_sha256": "afdc429b6fb7425c858187297a5ceca1beee4a0658360e60a844387e8d8628de",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          }
+        },
+        {
+          "source": {
+            "path": "research/quartic214/proofs/uniform-existence.md",
+            "sha256": "d13cc2b846dc72a3f5b5cce8dcf11d3f11b33c45ebc3883263840afb8d82f3bc",
+            "bytes": 22294,
+            "section": "[P05:",
+            "lines": [
+              18,
+              27
+            ],
+            "passage_sha256": "b70bd6cb7d0d2097d023c5bea0d360109ee7aa687300ed1848e20bbfa6c0f67f",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          },
+          "tex": {
+            "path": "research/quartic214-manuscript/quartic214.tex",
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
+            "lines": [
+              2232,
+              2243
+            ],
+            "passage_sha256": "12263d8298610cb015d1d24bf08adf3d9d34d9175c30ce98e8857dcee6086347",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          }
+        },
+        {
+          "source": {
+            "path": "research/quartic214/proofs/uniform-existence.md",
+            "sha256": "d13cc2b846dc72a3f5b5cce8dcf11d3f11b33c45ebc3883263840afb8d82f3bc",
+            "bytes": 22294,
+            "section": "[P08:",
+            "lines": [
+              36,
+              37
+            ],
+            "passage_sha256": "6f01da126da1b4379ae0ee4b20ad0db063dff200d7dd07ee1209e033392b025f",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          },
+          "tex": {
+            "path": "research/quartic214-manuscript/quartic214.tex",
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
+            "lines": [
+              2254,
+              2255
+            ],
+            "passage_sha256": "776ab6357826e0aa4e0e88270d33bc892a70fba36f8aea3715be13a3d5bc5bcd",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          }
+        },
+        {
+          "source": {
+            "path": "research/quartic214/proofs/uniform-existence.md",
+            "sha256": "d13cc2b846dc72a3f5b5cce8dcf11d3f11b33c45ebc3883263840afb8d82f3bc",
+            "bytes": 22294,
+            "section": "[P10:",
+            "lines": [
+              40,
+              45
+            ],
+            "passage_sha256": "ec1d73015e71b840bad438043a2423d88398b870efcb51117d5f185b5674c451",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          },
+          "tex": {
+            "path": "research/quartic214-manuscript/quartic214.tex",
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
+            "lines": [
+              2258,
+              2265
+            ],
+            "passage_sha256": "531cd664445ca6626483cdd3e60efb69176d51181a25390e4dff6617c2151259",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          }
+        },
+        {
+          "source": {
+            "path": "research/quartic214/proofs/uniform-existence.md",
+            "sha256": "d13cc2b846dc72a3f5b5cce8dcf11d3f11b33c45ebc3883263840afb8d82f3bc",
+            "bytes": 22294,
+            "section": "[P11:",
+            "lines": [
+              46,
+              47
+            ],
+            "passage_sha256": "0f25cf01d2440fd92863219bf273040a1d8142237f021c0991966f67f9787d66",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          },
+          "tex": {
+            "path": "research/quartic214-manuscript/quartic214.tex",
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
+            "lines": [
+              2266,
+              2267
+            ],
+            "passage_sha256": "29d3d914b865f795816fee26b2682ecf85f7c5d4c43f7134c3540b3479b945aa",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          }
+        },
+        {
+          "source": {
+            "path": "research/quartic214/proofs/uniform-existence.md",
+            "sha256": "d13cc2b846dc72a3f5b5cce8dcf11d3f11b33c45ebc3883263840afb8d82f3bc",
+            "bytes": 22294,
+            "section": "[P14:",
+            "lines": [
+              67,
+              68
+            ],
+            "passage_sha256": "75309fb18a5de7c52de87fbf2d0902c9f9352c380feb5431afeeae624417718b",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          },
+          "tex": {
+            "path": "research/quartic214-manuscript/quartic214.tex",
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
+            "lines": [
+              2293,
+              2294
+            ],
+            "passage_sha256": "bfef7e4ee105cf1cce96f04848df27a09bb8b5639f93c143dbab7b58da458175",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          }
+        },
+        {
+          "source": {
+            "path": "research/quartic214/proofs/uniform-existence.md",
+            "sha256": "d13cc2b846dc72a3f5b5cce8dcf11d3f11b33c45ebc3883263840afb8d82f3bc",
+            "bytes": 22294,
+            "section": "[P15:",
+            "lines": [
+              69,
+              70
+            ],
+            "passage_sha256": "493a36c877e53621aa3542fa8a48f824eda6177d5889bb0dd60963a2c86146e3",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          },
+          "tex": {
+            "path": "research/quartic214-manuscript/quartic214.tex",
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
+            "lines": [
+              2295,
+              2296
+            ],
+            "passage_sha256": "5566500fc1c22668f3c0e9ae1154cf5ee82fecf9da2de08df9e0d5d7bede5cb3",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          }
+        },
+        {
+          "source": {
+            "path": "research/quartic214/proofs/uniform-existence.md",
+            "sha256": "d13cc2b846dc72a3f5b5cce8dcf11d3f11b33c45ebc3883263840afb8d82f3bc",
+            "bytes": 22294,
+            "section": "[P19:",
+            "lines": [
+              82,
+              83
+            ],
+            "passage_sha256": "d6a8bdbdff3744b70becebf04dc13868154836f381b6ca5e339886dc9d2deef3",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          },
+          "tex": {
+            "path": "research/quartic214-manuscript/quartic214.tex",
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
+            "lines": [
+              2310,
+              2311
+            ],
+            "passage_sha256": "043e5471afb89e6551a5694d41c7dda61fd36bc61f1a062075867f2ceb49d498",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          }
+        },
+        {
+          "source": {
+            "path": "research/quartic214/proofs/uniform-existence.md",
+            "sha256": "d13cc2b846dc72a3f5b5cce8dcf11d3f11b33c45ebc3883263840afb8d82f3bc",
+            "bytes": 22294,
+            "section": "[P20:",
+            "lines": [
+              84,
+              84
+            ],
+            "passage_sha256": "2ef064324d6b4998acb95450946310eefab309878bc9b742fb6473a4dbc78e98",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          },
+          "tex": {
+            "path": "research/quartic214-manuscript/quartic214.tex",
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
+            "lines": [
+              2312,
+              2312
+            ],
+            "passage_sha256": "a075091131704ebd04f48ac7157dab2bd095f2a1ea1c40f0a2023a9aeeef7ac9",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          }
+        }
+      ],
+      "application_passages": [
+        {
+          "source": {
+            "path": "research/quartic214/proofs/uniform-existence.md",
+            "sha256": "d13cc2b846dc72a3f5b5cce8dcf11d3f11b33c45ebc3883263840afb8d82f3bc",
+            "bytes": 22294,
+            "section": "[P01:",
+            "lines": [
+              5,
+              11
+            ],
+            "passage_sha256": "cac4ef0c21ba83314e59ffa0579adf0f51a8c2e818f4cec623a185f5a3dd7687",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          },
+          "tex": {
+            "path": "research/quartic214-manuscript/quartic214.tex",
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
+            "lines": [
+              2217,
+              2225
+            ],
+            "passage_sha256": "afdc429b6fb7425c858187297a5ceca1beee4a0658360e60a844387e8d8628de",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          }
+        },
+        {
+          "source": {
+            "path": "research/quartic214/proofs/uniform-existence.md",
+            "sha256": "d13cc2b846dc72a3f5b5cce8dcf11d3f11b33c45ebc3883263840afb8d82f3bc",
+            "bytes": 22294,
+            "section": "[P05:",
+            "lines": [
+              18,
+              27
+            ],
+            "passage_sha256": "b70bd6cb7d0d2097d023c5bea0d360109ee7aa687300ed1848e20bbfa6c0f67f",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          },
+          "tex": {
+            "path": "research/quartic214-manuscript/quartic214.tex",
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
+            "lines": [
+              2232,
+              2243
+            ],
+            "passage_sha256": "12263d8298610cb015d1d24bf08adf3d9d34d9175c30ce98e8857dcee6086347",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          }
+        },
+        {
+          "source": {
+            "path": "research/quartic214/proofs/uniform-existence.md",
+            "sha256": "d13cc2b846dc72a3f5b5cce8dcf11d3f11b33c45ebc3883263840afb8d82f3bc",
+            "bytes": 22294,
+            "section": "[P08:",
+            "lines": [
+              36,
+              37
+            ],
+            "passage_sha256": "6f01da126da1b4379ae0ee4b20ad0db063dff200d7dd07ee1209e033392b025f",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          },
+          "tex": {
+            "path": "research/quartic214-manuscript/quartic214.tex",
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
+            "lines": [
+              2254,
+              2255
+            ],
+            "passage_sha256": "776ab6357826e0aa4e0e88270d33bc892a70fba36f8aea3715be13a3d5bc5bcd",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          }
+        },
+        {
+          "source": {
+            "path": "research/quartic214/proofs/uniform-existence.md",
+            "sha256": "d13cc2b846dc72a3f5b5cce8dcf11d3f11b33c45ebc3883263840afb8d82f3bc",
+            "bytes": 22294,
+            "section": "[P10:",
+            "lines": [
+              40,
+              45
+            ],
+            "passage_sha256": "ec1d73015e71b840bad438043a2423d88398b870efcb51117d5f185b5674c451",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          },
+          "tex": {
+            "path": "research/quartic214-manuscript/quartic214.tex",
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
+            "lines": [
+              2258,
+              2265
+            ],
+            "passage_sha256": "531cd664445ca6626483cdd3e60efb69176d51181a25390e4dff6617c2151259",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          }
+        },
+        {
+          "source": {
+            "path": "research/quartic214/proofs/uniform-existence.md",
+            "sha256": "d13cc2b846dc72a3f5b5cce8dcf11d3f11b33c45ebc3883263840afb8d82f3bc",
+            "bytes": 22294,
+            "section": "[P11:",
+            "lines": [
+              46,
+              47
+            ],
+            "passage_sha256": "0f25cf01d2440fd92863219bf273040a1d8142237f021c0991966f67f9787d66",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          },
+          "tex": {
+            "path": "research/quartic214-manuscript/quartic214.tex",
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
+            "lines": [
+              2266,
+              2267
+            ],
+            "passage_sha256": "29d3d914b865f795816fee26b2682ecf85f7c5d4c43f7134c3540b3479b945aa",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          }
+        },
+        {
+          "source": {
+            "path": "research/quartic214/proofs/uniform-existence.md",
+            "sha256": "d13cc2b846dc72a3f5b5cce8dcf11d3f11b33c45ebc3883263840afb8d82f3bc",
+            "bytes": 22294,
+            "section": "[P14:",
+            "lines": [
+              67,
+              68
+            ],
+            "passage_sha256": "75309fb18a5de7c52de87fbf2d0902c9f9352c380feb5431afeeae624417718b",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          },
+          "tex": {
+            "path": "research/quartic214-manuscript/quartic214.tex",
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
+            "lines": [
+              2293,
+              2294
+            ],
+            "passage_sha256": "bfef7e4ee105cf1cce96f04848df27a09bb8b5639f93c143dbab7b58da458175",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          }
+        },
+        {
+          "source": {
+            "path": "research/quartic214/proofs/uniform-existence.md",
+            "sha256": "d13cc2b846dc72a3f5b5cce8dcf11d3f11b33c45ebc3883263840afb8d82f3bc",
+            "bytes": 22294,
+            "section": "[P15:",
+            "lines": [
+              69,
+              70
+            ],
+            "passage_sha256": "493a36c877e53621aa3542fa8a48f824eda6177d5889bb0dd60963a2c86146e3",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          },
+          "tex": {
+            "path": "research/quartic214-manuscript/quartic214.tex",
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
+            "lines": [
+              2295,
+              2296
+            ],
+            "passage_sha256": "5566500fc1c22668f3c0e9ae1154cf5ee82fecf9da2de08df9e0d5d7bede5cb3",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          }
+        },
+        {
+          "source": {
+            "path": "research/quartic214/proofs/uniform-existence.md",
+            "sha256": "d13cc2b846dc72a3f5b5cce8dcf11d3f11b33c45ebc3883263840afb8d82f3bc",
+            "bytes": 22294,
+            "section": "[P19:",
+            "lines": [
+              82,
+              83
+            ],
+            "passage_sha256": "d6a8bdbdff3744b70becebf04dc13868154836f381b6ca5e339886dc9d2deef3",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          },
+          "tex": {
+            "path": "research/quartic214-manuscript/quartic214.tex",
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
+            "lines": [
+              2310,
+              2311
+            ],
+            "passage_sha256": "043e5471afb89e6551a5694d41c7dda61fd36bc61f1a062075867f2ceb49d498",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          }
+        },
+        {
+          "source": {
+            "path": "research/quartic214/proofs/uniform-existence.md",
+            "sha256": "d13cc2b846dc72a3f5b5cce8dcf11d3f11b33c45ebc3883263840afb8d82f3bc",
+            "bytes": 22294,
+            "section": "[P20:",
+            "lines": [
+              84,
+              84
+            ],
+            "passage_sha256": "2ef064324d6b4998acb95450946310eefab309878bc9b742fb6473a4dbc78e98",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          },
+          "tex": {
+            "path": "research/quartic214-manuscript/quartic214.tex",
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
+            "lines": [
+              2312,
+              2312
+            ],
+            "passage_sha256": "a075091131704ebd04f48ac7157dab2bd095f2a1ea1c40f0a2023a9aeeef7ac9",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          }
+        }
+      ],
+      "consumer_passages": [
+        {
+          "source": {
+            "path": "research/quartic214/PROOF.md",
+            "sha256": "0feb164c3ed33543136b89aa87b27bc890f4aadef2d082d465263f55dc26d165",
+            "bytes": 10582,
+            "section": "Soundness with one fixed threshold",
+            "lines": [
+              29,
+              38
+            ],
+            "passage_sha256": "6e65dfeb73c7a0681090c423f84d31cb78944693d02f52287d77d87b7d0afe34",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          },
+          "tex": {
+            "path": "research/quartic214-manuscript/quartic214.tex",
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
+            "lines": [
+              2079,
+              2090
+            ],
+            "passage_sha256": "4578068ca7101c0476baabc955b34e6d7e8d138f4ab78db52fd5d4e35c2f6ab8",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          }
+        },
+        {
+          "source": {
+            "path": "research/quartic214/PROOF.md",
+            "sha256": "0feb164c3ed33543136b89aa87b27bc890f4aadef2d082d465263f55dc26d165",
+            "bytes": 10582,
+            "section": "Completeness and quantifiers",
+            "lines": [
+              39,
+              44
+            ],
+            "passage_sha256": "54c2502fc15a033bc5182a97f2ee7a348f20732ffe372a8c2eedb4891588d3f2",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          },
+          "tex": {
+            "path": "research/quartic214-manuscript/quartic214.tex",
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
+            "lines": [
+              2091,
+              2096
+            ],
+            "passage_sha256": "c8927c1e8d5cd4df5af9818797fce37f35cd46d00a9ed3c30e5d2d944f068a83",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          }
+        }
+      ]
+    },
+    {
+      "application_id": "D214-INHERITED-ANALYTIC-RC-CARRY",
+      "original_contract": {
+        "path": "research/quartic214/contracts/source-carry.json",
+        "sha256": "0ccb359a72c0c0215ab2d4bad7a5a2a49ca2a2cddaa9254eb698a6e69c39688e",
+        "application_id": "D214-INHERITED-ANALYTIC-RC-CARRY",
+        "obligations": 9
+      },
+      "adaptation": "Editorial serialization only. Original mathematical application and source statuses remain attached to the frozen original; new TeX incorporation requires separate review.",
+      "construction_passages": [
+        {
+          "source": {
+            "path": "research/quartic214/proofs/source-carry.md",
+            "sha256": "f7f4e550a4dcfbbd3b5ffcf783b11411f7888c821dbab7febb5132b7b2b891ed",
+            "bytes": 15185,
+            "section": "[C01:",
+            "lines": [
+              5,
+              6
+            ],
+            "passage_sha256": "cb95d0dfbbc8bf046314587c75994f5969b958887c28d316d6f05dc6e5b76455",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          },
+          "tex": {
+            "path": "research/quartic214-manuscript/quartic214.tex",
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
+            "lines": [
+              3309,
+              3310
+            ],
+            "passage_sha256": "3829591e5ba34c59cc898c6eb71ebe7e3c3f307d4fd0d6c324e711e5f25208e4",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          }
+        },
+        {
+          "source": {
+            "path": "research/quartic214/proofs/source-carry.md",
+            "sha256": "f7f4e550a4dcfbbd3b5ffcf783b11411f7888c821dbab7febb5132b7b2b891ed",
+            "bytes": 15185,
+            "section": "[C03:",
+            "lines": [
+              9,
+              10
+            ],
+            "passage_sha256": "716612557070707ca5ebb7de644913a0582fd9c35bc013543f80b941efd3a9ac",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          },
+          "tex": {
+            "path": "research/quartic214-manuscript/quartic214.tex",
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
+            "lines": [
+              3313,
+              3314
+            ],
+            "passage_sha256": "b149e680953601b2e4ad4c50bf0c4e6f896b28ee9b8cd3aaabbffabfa24bb8c5",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          }
+        },
+        {
+          "source": {
+            "path": "research/quartic214/proofs/source-carry.md",
+            "sha256": "f7f4e550a4dcfbbd3b5ffcf783b11411f7888c821dbab7febb5132b7b2b891ed",
+            "bytes": 15185,
+            "section": "[C04:",
+            "lines": [
+              11,
+              18
+            ],
+            "passage_sha256": "ac1ec2f28004645eca77b3d586e13b900418ebf6274ddaec60b8aa0030356169",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          },
+          "tex": {
+            "path": "research/quartic214-manuscript/quartic214.tex",
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
+            "lines": [
+              3315,
+              3324
+            ],
+            "passage_sha256": "6e8b222f249556802bfc85c8efbbf627601ade892bde361a2134f57e5599afef",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          }
+        },
+        {
+          "source": {
+            "path": "research/quartic214/proofs/source-carry.md",
+            "sha256": "f7f4e550a4dcfbbd3b5ffcf783b11411f7888c821dbab7febb5132b7b2b891ed",
+            "bytes": 15185,
+            "section": "[C05:",
+            "lines": [
+              19,
+              20
+            ],
+            "passage_sha256": "60ef262a10629deba2b35a6e5c249162d2e7f4e2add7d0b3be63452aa5e9434d",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          },
+          "tex": {
+            "path": "research/quartic214-manuscript/quartic214.tex",
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
+            "lines": [
+              3325,
+              3326
+            ],
+            "passage_sha256": "b3c9cd960de439da99f1d6b06e0f3407c4ff11780783bfe6ba784f904cc52911",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          }
+        },
+        {
+          "source": {
+            "path": "research/quartic214/proofs/source-carry.md",
+            "sha256": "f7f4e550a4dcfbbd3b5ffcf783b11411f7888c821dbab7febb5132b7b2b891ed",
+            "bytes": 15185,
+            "section": "[C06:",
+            "lines": [
+              21,
+              27
+            ],
+            "passage_sha256": "2062604cfbac11e34bd3713ca14e770060dd5280b9ded21c6fe4765378da7d8a",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          },
+          "tex": {
+            "path": "research/quartic214-manuscript/quartic214.tex",
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
+            "lines": [
+              3327,
+              3335
+            ],
+            "passage_sha256": "e8d198541b151ab4aecce3658a7a4620c54861da06dc1bf0ba89a5839fdd7974",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          }
+        },
+        {
+          "source": {
+            "path": "research/quartic214/proofs/source-carry.md",
+            "sha256": "f7f4e550a4dcfbbd3b5ffcf783b11411f7888c821dbab7febb5132b7b2b891ed",
+            "bytes": 15185,
+            "section": "[C08:",
+            "lines": [
+              30,
+              31
+            ],
+            "passage_sha256": "a116615b618f66eb105aafef17452c7133df8b24b05c9360ff2258b60de05fda",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          },
+          "tex": {
+            "path": "research/quartic214-manuscript/quartic214.tex",
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
+            "lines": [
+              3338,
+              3339
+            ],
+            "passage_sha256": "b68855a6aff07dac7e44ed31e29c37b110e52ea0e1616f54958b527101198315",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          }
+        },
+        {
+          "source": {
+            "path": "research/quartic214/proofs/source-carry.md",
+            "sha256": "f7f4e550a4dcfbbd3b5ffcf783b11411f7888c821dbab7febb5132b7b2b891ed",
+            "bytes": 15185,
+            "section": "[C09:",
+            "lines": [
+              32,
+              33
+            ],
+            "passage_sha256": "e49b24b87eb8d9d14e2fa674df64c3ff3a96446613c2f3e52fa9c1e8076d8a3a",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          },
+          "tex": {
+            "path": "research/quartic214-manuscript/quartic214.tex",
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
+            "lines": [
+              3340,
+              3341
+            ],
+            "passage_sha256": "aff1676b9d2d5d012d18cccb69b2b6b677caacaaee47b41c2441587dfc56b084",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          }
+        },
+        {
+          "source": {
+            "path": "research/quartic214/proofs/source-carry.md",
+            "sha256": "f7f4e550a4dcfbbd3b5ffcf783b11411f7888c821dbab7febb5132b7b2b891ed",
+            "bytes": 15185,
+            "section": "[C10:",
+            "lines": [
+              34,
+              35
+            ],
+            "passage_sha256": "754e26d4fd45715a3c998346fd1bbdfdecc076fe2e772ab9cce6dbc65b5e0a26",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          },
+          "tex": {
+            "path": "research/quartic214-manuscript/quartic214.tex",
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
+            "lines": [
+              3342,
+              3343
+            ],
+            "passage_sha256": "af4cde3729038649a803d488751ab8dbac8a15157d53448fdda34898f46643b0",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          }
+        },
+        {
+          "source": {
+            "path": "research/quartic214/proofs/source-carry.md",
+            "sha256": "f7f4e550a4dcfbbd3b5ffcf783b11411f7888c821dbab7febb5132b7b2b891ed",
+            "bytes": 15185,
+            "section": "[C12:",
+            "lines": [
+              38,
+              39
+            ],
+            "passage_sha256": "d5d733ec7bd727190b56cd954760cee691e4ae1dd64a4246158db57757809940",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          },
+          "tex": {
+            "path": "research/quartic214-manuscript/quartic214.tex",
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
+            "lines": [
+              3346,
+              3347
+            ],
+            "passage_sha256": "b2b4e0c66b23ce3a9b5aec494ec81146522761a5c7101012228043dc4098ff0b",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          }
+        }
+      ],
+      "application_passages": [
+        {
+          "source": {
+            "path": "research/quartic214/proofs/source-carry.md",
+            "sha256": "f7f4e550a4dcfbbd3b5ffcf783b11411f7888c821dbab7febb5132b7b2b891ed",
+            "bytes": 15185,
+            "section": "[C01:",
+            "lines": [
+              5,
+              6
+            ],
+            "passage_sha256": "cb95d0dfbbc8bf046314587c75994f5969b958887c28d316d6f05dc6e5b76455",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          },
+          "tex": {
+            "path": "research/quartic214-manuscript/quartic214.tex",
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
+            "lines": [
+              3309,
+              3310
+            ],
+            "passage_sha256": "3829591e5ba34c59cc898c6eb71ebe7e3c3f307d4fd0d6c324e711e5f25208e4",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          }
+        },
+        {
+          "source": {
+            "path": "research/quartic214/proofs/source-carry.md",
+            "sha256": "f7f4e550a4dcfbbd3b5ffcf783b11411f7888c821dbab7febb5132b7b2b891ed",
+            "bytes": 15185,
+            "section": "[C03:",
+            "lines": [
+              9,
+              10
+            ],
+            "passage_sha256": "716612557070707ca5ebb7de644913a0582fd9c35bc013543f80b941efd3a9ac",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          },
+          "tex": {
+            "path": "research/quartic214-manuscript/quartic214.tex",
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
+            "lines": [
+              3313,
+              3314
+            ],
+            "passage_sha256": "b149e680953601b2e4ad4c50bf0c4e6f896b28ee9b8cd3aaabbffabfa24bb8c5",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          }
+        },
+        {
+          "source": {
+            "path": "research/quartic214/proofs/source-carry.md",
+            "sha256": "f7f4e550a4dcfbbd3b5ffcf783b11411f7888c821dbab7febb5132b7b2b891ed",
+            "bytes": 15185,
+            "section": "[C04:",
+            "lines": [
+              11,
+              18
+            ],
+            "passage_sha256": "ac1ec2f28004645eca77b3d586e13b900418ebf6274ddaec60b8aa0030356169",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          },
+          "tex": {
+            "path": "research/quartic214-manuscript/quartic214.tex",
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
+            "lines": [
+              3315,
+              3324
+            ],
+            "passage_sha256": "6e8b222f249556802bfc85c8efbbf627601ade892bde361a2134f57e5599afef",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          }
+        },
+        {
+          "source": {
+            "path": "research/quartic214/proofs/source-carry.md",
+            "sha256": "f7f4e550a4dcfbbd3b5ffcf783b11411f7888c821dbab7febb5132b7b2b891ed",
+            "bytes": 15185,
+            "section": "[C05:",
+            "lines": [
+              19,
+              20
+            ],
+            "passage_sha256": "60ef262a10629deba2b35a6e5c249162d2e7f4e2add7d0b3be63452aa5e9434d",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          },
+          "tex": {
+            "path": "research/quartic214-manuscript/quartic214.tex",
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
+            "lines": [
+              3325,
+              3326
+            ],
+            "passage_sha256": "b3c9cd960de439da99f1d6b06e0f3407c4ff11780783bfe6ba784f904cc52911",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          }
+        },
+        {
+          "source": {
+            "path": "research/quartic214/proofs/source-carry.md",
+            "sha256": "f7f4e550a4dcfbbd3b5ffcf783b11411f7888c821dbab7febb5132b7b2b891ed",
+            "bytes": 15185,
+            "section": "[C06:",
+            "lines": [
+              21,
+              27
+            ],
+            "passage_sha256": "2062604cfbac11e34bd3713ca14e770060dd5280b9ded21c6fe4765378da7d8a",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          },
+          "tex": {
+            "path": "research/quartic214-manuscript/quartic214.tex",
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
+            "lines": [
+              3327,
+              3335
+            ],
+            "passage_sha256": "e8d198541b151ab4aecce3658a7a4620c54861da06dc1bf0ba89a5839fdd7974",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          }
+        },
+        {
+          "source": {
+            "path": "research/quartic214/proofs/source-carry.md",
+            "sha256": "f7f4e550a4dcfbbd3b5ffcf783b11411f7888c821dbab7febb5132b7b2b891ed",
+            "bytes": 15185,
+            "section": "[C08:",
+            "lines": [
+              30,
+              31
+            ],
+            "passage_sha256": "a116615b618f66eb105aafef17452c7133df8b24b05c9360ff2258b60de05fda",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          },
+          "tex": {
+            "path": "research/quartic214-manuscript/quartic214.tex",
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
+            "lines": [
+              3338,
+              3339
+            ],
+            "passage_sha256": "b68855a6aff07dac7e44ed31e29c37b110e52ea0e1616f54958b527101198315",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          }
+        },
+        {
+          "source": {
+            "path": "research/quartic214/proofs/source-carry.md",
+            "sha256": "f7f4e550a4dcfbbd3b5ffcf783b11411f7888c821dbab7febb5132b7b2b891ed",
+            "bytes": 15185,
+            "section": "[C09:",
+            "lines": [
+              32,
+              33
+            ],
+            "passage_sha256": "e49b24b87eb8d9d14e2fa674df64c3ff3a96446613c2f3e52fa9c1e8076d8a3a",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          },
+          "tex": {
+            "path": "research/quartic214-manuscript/quartic214.tex",
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
+            "lines": [
+              3340,
+              3341
+            ],
+            "passage_sha256": "aff1676b9d2d5d012d18cccb69b2b6b677caacaaee47b41c2441587dfc56b084",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          }
+        },
+        {
+          "source": {
+            "path": "research/quartic214/proofs/source-carry.md",
+            "sha256": "f7f4e550a4dcfbbd3b5ffcf783b11411f7888c821dbab7febb5132b7b2b891ed",
+            "bytes": 15185,
+            "section": "[C10:",
+            "lines": [
+              34,
+              35
+            ],
+            "passage_sha256": "754e26d4fd45715a3c998346fd1bbdfdecc076fe2e772ab9cce6dbc65b5e0a26",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          },
+          "tex": {
+            "path": "research/quartic214-manuscript/quartic214.tex",
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
+            "lines": [
+              3342,
+              3343
+            ],
+            "passage_sha256": "af4cde3729038649a803d488751ab8dbac8a15157d53448fdda34898f46643b0",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          }
+        },
+        {
+          "source": {
+            "path": "research/quartic214/proofs/source-carry.md",
+            "sha256": "f7f4e550a4dcfbbd3b5ffcf783b11411f7888c821dbab7febb5132b7b2b891ed",
+            "bytes": 15185,
+            "section": "[C12:",
+            "lines": [
+              38,
+              39
+            ],
+            "passage_sha256": "d5d733ec7bd727190b56cd954760cee691e4ae1dd64a4246158db57757809940",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          },
+          "tex": {
+            "path": "research/quartic214-manuscript/quartic214.tex",
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
+            "lines": [
+              3346,
+              3347
+            ],
+            "passage_sha256": "b2b4e0c66b23ce3a9b5aec494ec81146522761a5c7101012228043dc4098ff0b",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          }
+        }
+      ],
+      "consumer_passages": [
+        {
+          "source": {
+            "path": "research/quartic214/PROOF.md",
+            "sha256": "0feb164c3ed33543136b89aa87b27bc890f4aadef2d082d465263f55dc26d165",
+            "bytes": 10582,
+            "section": "Soundness with one fixed threshold",
+            "lines": [
+              29,
+              38
+            ],
+            "passage_sha256": "6e65dfeb73c7a0681090c423f84d31cb78944693d02f52287d77d87b7d0afe34",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          },
+          "tex": {
+            "path": "research/quartic214-manuscript/quartic214.tex",
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
+            "lines": [
+              2079,
+              2090
+            ],
+            "passage_sha256": "4578068ca7101c0476baabc955b34e6d7e8d138f4ab78db52fd5d4e35c2f6ab8",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          }
+        },
+        {
+          "source": {
+            "path": "research/quartic214/PROOF.md",
+            "sha256": "0feb164c3ed33543136b89aa87b27bc890f4aadef2d082d465263f55dc26d165",
+            "bytes": 10582,
+            "section": "Completeness and quantifiers",
+            "lines": [
+              39,
+              44
+            ],
+            "passage_sha256": "54c2502fc15a033bc5182a97f2ee7a348f20732ffe372a8c2eedb4891588d3f2",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          },
+          "tex": {
+            "path": "research/quartic214-manuscript/quartic214.tex",
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
+            "lines": [
+              2091,
+              2096
+            ],
+            "passage_sha256": "c8927c1e8d5cd4df5af9818797fce37f35cd46d00a9ed3c30e5d2d944f068a83",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          }
+        }
+      ]
+    },
+    {
+      "application_id": "M1-CHANGED-MINIMAL-CHARACTER",
+      "original_contract": {
+        "path": "research/quartic214/contracts/modularity-1.json",
+        "sha256": "677d87aa2fdd08d4025a8fcdf2be03ec9b0185faf408ae82f463b8910797ab88",
+        "application_id": "M1-CHANGED-MINIMAL-CHARACTER",
+        "obligations": 9
+      },
+      "adaptation": "Editorial serialization only. Original mathematical application and source statuses remain attached to the frozen original; new TeX incorporation requires separate review.",
+      "construction_passages": [
+        {
+          "source": {
+            "path": "research/quartic214/proofs/modularity.md",
+            "sha256": "814676050b389793d196346f45e2797f39e2c5be0f3fee8457bb709b2607606e",
+            "bytes": 25777,
+            "section": "## M1.",
+            "lines": [
+              13,
+              34
+            ],
+            "passage_sha256": "1fbb7e7b322d7ff98ffafe33cd15773b4e99f3eaaf323465c84f83bfb8cf95ae",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          },
+          "tex": {
+            "path": "research/quartic214-manuscript/quartic214.tex",
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
+            "lines": [
+              2504,
+              2529
+            ],
+            "passage_sha256": "16117a7b8d49ea35e8b796a57c43c6dac04dd5e5bf0e8fa01ab91007c606ac7d",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          }
+        }
+      ],
+      "application_passages": [
+        {
+          "source": {
+            "path": "research/quartic214/proofs/modularity.md",
+            "sha256": "814676050b389793d196346f45e2797f39e2c5be0f3fee8457bb709b2607606e",
+            "bytes": 25777,
+            "section": "## M1.",
+            "lines": [
+              13,
+              34
+            ],
+            "passage_sha256": "1fbb7e7b322d7ff98ffafe33cd15773b4e99f3eaaf323465c84f83bfb8cf95ae",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          },
+          "tex": {
+            "path": "research/quartic214-manuscript/quartic214.tex",
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
+            "lines": [
+              2504,
+              2529
+            ],
+            "passage_sha256": "16117a7b8d49ea35e8b796a57c43c6dac04dd5e5bf0e8fa01ab91007c606ac7d",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          }
+        }
+      ],
+      "consumer_passages": [
+        {
+          "source": {
+            "path": "research/quartic214/proofs/height-supplier.md",
+            "sha256": "4974b167ab415159e0ff996b341528008c2ba8ae8e2a1ebf69bab5bc9a9b9c12",
+            "bytes": 15498,
+            "section": "## H0.",
+            "lines": [
+              7,
+              32
+            ],
+            "passage_sha256": "3c61de9b62e636063cf74beddc40dd6b10ce7bada0c182b8a10432bd6bc34850",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          },
+          "tex": {
+            "path": "research/quartic214-manuscript/quartic214.tex",
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
+            "lines": [
+              3033,
+              3058
+            ],
+            "passage_sha256": "93bd3d51ba4188f9d34db58d15b29098e09e8e6822ef3202619567bf50a6bac6",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          }
+        },
+        {
+          "source": {
+            "path": "research/quartic214/proofs/height-supplier.md",
+            "sha256": "4974b167ab415159e0ff996b341528008c2ba8ae8e2a1ebf69bab5bc9a9b9c12",
+            "bytes": 15498,
+            "section": "## H1.",
+            "lines": [
+              33,
+              61
+            ],
+            "passage_sha256": "6d034b817da3428e7d8eb8df1414f41e2616ae6b4726f8b3c9c18efaa6c2b4ea",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          },
+          "tex": {
+            "path": "research/quartic214-manuscript/quartic214.tex",
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
+            "lines": [
+              3059,
+              3089
+            ],
+            "passage_sha256": "dc938e71f50d44e279fa03aeea764f5fcffbbd29a99dd31e21d1735824d95238",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          }
+        },
+        {
+          "source": {
+            "path": "research/quartic214/proofs/height-supplier.md",
+            "sha256": "4974b167ab415159e0ff996b341528008c2ba8ae8e2a1ebf69bab5bc9a9b9c12",
+            "bytes": 15498,
+            "section": "## H2.",
+            "lines": [
+              62,
+              77
+            ],
+            "passage_sha256": "ec32f7e76b18652e57d4b1c8df302975d23b58dd28d6113bccad3c05aad9053f",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          },
+          "tex": {
+            "path": "research/quartic214-manuscript/quartic214.tex",
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
+            "lines": [
+              3090,
+              3105
+            ],
+            "passage_sha256": "4e46729bb4782e22f6118f20f34170b3083181826bbe9ed5b6c1bafd793ca014",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          }
+        }
+      ]
+    },
+    {
+      "application_id": "M2-M3-ORIGINAL-R5-MODULARITY",
+      "original_contract": {
+        "path": "research/quartic214/contracts/modularity-2.json",
+        "sha256": "bf0032fd58169d79f84fe6587a1902ad0fda12da895147eed4bc0bf01e08809e",
+        "application_id": "M2-M3-ORIGINAL-R5-MODULARITY",
+        "obligations": 9
+      },
+      "adaptation": "Editorial serialization only. Original mathematical application and source statuses remain attached to the frozen original; new TeX incorporation requires separate review.",
+      "construction_passages": [
+        {
+          "source": {
+            "path": "research/quartic214/proofs/modularity.md",
+            "sha256": "814676050b389793d196346f45e2797f39e2c5be0f3fee8457bb709b2607606e",
+            "bytes": 25777,
+            "section": "## M2.",
+            "lines": [
+              35,
+              46
+            ],
+            "passage_sha256": "51339241dd0f243dde66dde9cd9a50bd70dc2ec70f0099b136bd6c903dfceda2",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          },
+          "tex": {
+            "path": "research/quartic214-manuscript/quartic214.tex",
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
+            "lines": [
+              2530,
+              2541
+            ],
+            "passage_sha256": "41ee754f4071032995ab4d665cdfda930e0bee342fe102ee10a10a4ee1b456ff",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          }
+        },
+        {
+          "source": {
+            "path": "research/quartic214/proofs/modularity.md",
+            "sha256": "814676050b389793d196346f45e2797f39e2c5be0f3fee8457bb709b2607606e",
+            "bytes": 25777,
+            "section": "## M3.",
+            "lines": [
+              47,
+              62
+            ],
+            "passage_sha256": "431fb576c5f3ddc2111464d36970e02d618dcb2ef9de2b0f5c0bec9b0567ca1e",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          },
+          "tex": {
+            "path": "research/quartic214-manuscript/quartic214.tex",
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
+            "lines": [
+              2542,
+              2557
+            ],
+            "passage_sha256": "24e76460ff80f700ceeded99a3a7dd6e9a6a2244716b463c03413bb571ee2680",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          }
+        }
+      ],
+      "application_passages": [
+        {
+          "source": {
+            "path": "research/quartic214/proofs/modularity.md",
+            "sha256": "814676050b389793d196346f45e2797f39e2c5be0f3fee8457bb709b2607606e",
+            "bytes": 25777,
+            "section": "## M2.",
+            "lines": [
+              35,
+              46
+            ],
+            "passage_sha256": "51339241dd0f243dde66dde9cd9a50bd70dc2ec70f0099b136bd6c903dfceda2",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          },
+          "tex": {
+            "path": "research/quartic214-manuscript/quartic214.tex",
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
+            "lines": [
+              2530,
+              2541
+            ],
+            "passage_sha256": "41ee754f4071032995ab4d665cdfda930e0bee342fe102ee10a10a4ee1b456ff",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          }
+        },
+        {
+          "source": {
+            "path": "research/quartic214/proofs/modularity.md",
+            "sha256": "814676050b389793d196346f45e2797f39e2c5be0f3fee8457bb709b2607606e",
+            "bytes": 25777,
+            "section": "## M3.",
+            "lines": [
+              47,
+              62
+            ],
+            "passage_sha256": "431fb576c5f3ddc2111464d36970e02d618dcb2ef9de2b0f5c0bec9b0567ca1e",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          },
+          "tex": {
+            "path": "research/quartic214-manuscript/quartic214.tex",
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
+            "lines": [
+              2542,
+              2557
+            ],
+            "passage_sha256": "24e76460ff80f700ceeded99a3a7dd6e9a6a2244716b463c03413bb571ee2680",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          }
+        }
+      ],
+      "consumer_passages": [
+        {
+          "source": {
+            "path": "research/quartic214/proofs/height-supplier.md",
+            "sha256": "4974b167ab415159e0ff996b341528008c2ba8ae8e2a1ebf69bab5bc9a9b9c12",
+            "bytes": 15498,
+            "section": "## H0.",
+            "lines": [
+              7,
+              32
+            ],
+            "passage_sha256": "3c61de9b62e636063cf74beddc40dd6b10ce7bada0c182b8a10432bd6bc34850",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          },
+          "tex": {
+            "path": "research/quartic214-manuscript/quartic214.tex",
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
+            "lines": [
+              3033,
+              3058
+            ],
+            "passage_sha256": "93bd3d51ba4188f9d34db58d15b29098e09e8e6822ef3202619567bf50a6bac6",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          }
+        },
+        {
+          "source": {
+            "path": "research/quartic214/proofs/height-supplier.md",
+            "sha256": "4974b167ab415159e0ff996b341528008c2ba8ae8e2a1ebf69bab5bc9a9b9c12",
+            "bytes": 15498,
+            "section": "## H1.",
+            "lines": [
+              33,
+              61
+            ],
+            "passage_sha256": "6d034b817da3428e7d8eb8df1414f41e2616ae6b4726f8b3c9c18efaa6c2b4ea",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          },
+          "tex": {
+            "path": "research/quartic214-manuscript/quartic214.tex",
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
+            "lines": [
+              3059,
+              3089
+            ],
+            "passage_sha256": "dc938e71f50d44e279fa03aeea764f5fcffbbd29a99dd31e21d1735824d95238",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          }
+        },
+        {
+          "source": {
+            "path": "research/quartic214/proofs/height-supplier.md",
+            "sha256": "4974b167ab415159e0ff996b341528008c2ba8ae8e2a1ebf69bab5bc9a9b9c12",
+            "bytes": 15498,
+            "section": "## H2.",
+            "lines": [
+              62,
+              77
+            ],
+            "passage_sha256": "ec32f7e76b18652e57d4b1c8df302975d23b58dd28d6113bccad3c05aad9053f",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          },
+          "tex": {
+            "path": "research/quartic214-manuscript/quartic214.tex",
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
+            "lines": [
+              3090,
+              3105
+            ],
+            "passage_sha256": "4e46729bb4782e22f6118f20f34170b3083181826bbe9ed5b6c1bafd793ca014",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          }
+        }
+      ]
+    },
+    {
+      "application_id": "M4-SAME-FORM-COMPANION",
+      "original_contract": {
+        "path": "research/quartic214/contracts/modularity-3.json",
+        "sha256": "3852c1fcb2d79e2a14a271c010d5dbf57665699187cfb0b22cca069f09096195",
+        "application_id": "M4-SAME-FORM-COMPANION",
+        "obligations": 9
+      },
+      "adaptation": "Editorial serialization only. Original mathematical application and source statuses remain attached to the frozen original; new TeX incorporation requires separate review.",
+      "construction_passages": [
+        {
+          "source": {
+            "path": "research/quartic214/proofs/modularity.md",
+            "sha256": "814676050b389793d196346f45e2797f39e2c5be0f3fee8457bb709b2607606e",
+            "bytes": 25777,
+            "section": "## M4.",
+            "lines": [
+              63,
+              78
+            ],
+            "passage_sha256": "a01c7d071bbbfccacfba052ee4385a8e6d760eb3e2c4db13d75f83a8d4f1b20c",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          },
+          "tex": {
+            "path": "research/quartic214-manuscript/quartic214.tex",
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
+            "lines": [
+              2558,
+              2577
+            ],
+            "passage_sha256": "d2e76605e1ee6eb1a810d5528e99ecfd8c4b23b1cf86617f9864655148fbc5c5",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          }
+        }
+      ],
+      "application_passages": [
+        {
+          "source": {
+            "path": "research/quartic214/proofs/modularity.md",
+            "sha256": "814676050b389793d196346f45e2797f39e2c5be0f3fee8457bb709b2607606e",
+            "bytes": 25777,
+            "section": "## M4.",
+            "lines": [
+              63,
+              78
+            ],
+            "passage_sha256": "a01c7d071bbbfccacfba052ee4385a8e6d760eb3e2c4db13d75f83a8d4f1b20c",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          },
+          "tex": {
+            "path": "research/quartic214-manuscript/quartic214.tex",
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
+            "lines": [
+              2558,
+              2577
+            ],
+            "passage_sha256": "d2e76605e1ee6eb1a810d5528e99ecfd8c4b23b1cf86617f9864655148fbc5c5",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          }
+        }
+      ],
+      "consumer_passages": [
+        {
+          "source": {
+            "path": "research/quartic214/proofs/height-supplier.md",
+            "sha256": "4974b167ab415159e0ff996b341528008c2ba8ae8e2a1ebf69bab5bc9a9b9c12",
+            "bytes": 15498,
+            "section": "## H0.",
+            "lines": [
+              7,
+              32
+            ],
+            "passage_sha256": "3c61de9b62e636063cf74beddc40dd6b10ce7bada0c182b8a10432bd6bc34850",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          },
+          "tex": {
+            "path": "research/quartic214-manuscript/quartic214.tex",
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
+            "lines": [
+              3033,
+              3058
+            ],
+            "passage_sha256": "93bd3d51ba4188f9d34db58d15b29098e09e8e6822ef3202619567bf50a6bac6",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          }
+        },
+        {
+          "source": {
+            "path": "research/quartic214/proofs/height-supplier.md",
+            "sha256": "4974b167ab415159e0ff996b341528008c2ba8ae8e2a1ebf69bab5bc9a9b9c12",
+            "bytes": 15498,
+            "section": "## H1.",
+            "lines": [
+              33,
+              61
+            ],
+            "passage_sha256": "6d034b817da3428e7d8eb8df1414f41e2616ae6b4726f8b3c9c18efaa6c2b4ea",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          },
+          "tex": {
+            "path": "research/quartic214-manuscript/quartic214.tex",
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
+            "lines": [
+              3059,
+              3089
+            ],
+            "passage_sha256": "dc938e71f50d44e279fa03aeea764f5fcffbbd29a99dd31e21d1735824d95238",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          }
+        },
+        {
+          "source": {
+            "path": "research/quartic214/proofs/height-supplier.md",
+            "sha256": "4974b167ab415159e0ff996b341528008c2ba8ae8e2a1ebf69bab5bc9a9b9c12",
+            "bytes": 15498,
+            "section": "## H2.",
+            "lines": [
+              62,
+              77
+            ],
+            "passage_sha256": "ec32f7e76b18652e57d4b1c8df302975d23b58dd28d6113bccad3c05aad9053f",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          },
+          "tex": {
+            "path": "research/quartic214-manuscript/quartic214.tex",
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
+            "lines": [
+              3090,
+              3105
+            ],
+            "passage_sha256": "4e46729bb4782e22f6118f20f34170b3083181826bbe9ed5b6c1bafd793ca014",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          }
+        }
+      ]
+    },
+    {
+      "application_id": "M5-DIRECT-CONDUCTOR-AND-NEW-LIFT",
+      "original_contract": {
+        "path": "research/quartic214/contracts/modularity-4.json",
+        "sha256": "8634c90335f48b12c74f8612fd6b67e5da085f6beb6e3ca56235eaf4d90c4392",
+        "application_id": "M5-DIRECT-CONDUCTOR-AND-NEW-LIFT",
+        "obligations": 9
+      },
+      "adaptation": "Editorial serialization only. Original mathematical application and source statuses remain attached to the frozen original; new TeX incorporation requires separate review.",
+      "construction_passages": [
+        {
+          "source": {
+            "path": "research/quartic214/proofs/modularity.md",
+            "sha256": "814676050b389793d196346f45e2797f39e2c5be0f3fee8457bb709b2607606e",
+            "bytes": 25777,
+            "section": "## M5.",
+            "lines": [
+              79,
+              98
+            ],
+            "passage_sha256": "f46b2da7ac1a8d80bc47d8c041d02854a7a4fde9259b17f08543e522be91120d",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          },
+          "tex": {
+            "path": "research/quartic214-manuscript/quartic214.tex",
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
+            "lines": [
+              2578,
+              2603
+            ],
+            "passage_sha256": "bacc45273541c4b9281ad8bdc6da7e64212fa8d4b5820b443fb70e0181c39cdc",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          }
+        }
+      ],
+      "application_passages": [
+        {
+          "source": {
+            "path": "research/quartic214/proofs/modularity.md",
+            "sha256": "814676050b389793d196346f45e2797f39e2c5be0f3fee8457bb709b2607606e",
+            "bytes": 25777,
+            "section": "## M5.",
+            "lines": [
+              79,
+              98
+            ],
+            "passage_sha256": "f46b2da7ac1a8d80bc47d8c041d02854a7a4fde9259b17f08543e522be91120d",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          },
+          "tex": {
+            "path": "research/quartic214-manuscript/quartic214.tex",
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
+            "lines": [
+              2578,
+              2603
+            ],
+            "passage_sha256": "bacc45273541c4b9281ad8bdc6da7e64212fa8d4b5820b443fb70e0181c39cdc",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          }
+        }
+      ],
+      "consumer_passages": [
+        {
+          "source": {
+            "path": "research/quartic214/proofs/height-supplier.md",
+            "sha256": "4974b167ab415159e0ff996b341528008c2ba8ae8e2a1ebf69bab5bc9a9b9c12",
+            "bytes": 15498,
+            "section": "## H0.",
+            "lines": [
+              7,
+              32
+            ],
+            "passage_sha256": "3c61de9b62e636063cf74beddc40dd6b10ce7bada0c182b8a10432bd6bc34850",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          },
+          "tex": {
+            "path": "research/quartic214-manuscript/quartic214.tex",
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
+            "lines": [
+              3033,
+              3058
+            ],
+            "passage_sha256": "93bd3d51ba4188f9d34db58d15b29098e09e8e6822ef3202619567bf50a6bac6",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          }
+        },
+        {
+          "source": {
+            "path": "research/quartic214/proofs/height-supplier.md",
+            "sha256": "4974b167ab415159e0ff996b341528008c2ba8ae8e2a1ebf69bab5bc9a9b9c12",
+            "bytes": 15498,
+            "section": "## H1.",
+            "lines": [
+              33,
+              61
+            ],
+            "passage_sha256": "6d034b817da3428e7d8eb8df1414f41e2616ae6b4726f8b3c9c18efaa6c2b4ea",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          },
+          "tex": {
+            "path": "research/quartic214-manuscript/quartic214.tex",
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
+            "lines": [
+              3059,
+              3089
+            ],
+            "passage_sha256": "dc938e71f50d44e279fa03aeea764f5fcffbbd29a99dd31e21d1735824d95238",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          }
+        },
+        {
+          "source": {
+            "path": "research/quartic214/proofs/height-supplier.md",
+            "sha256": "4974b167ab415159e0ff996b341528008c2ba8ae8e2a1ebf69bab5bc9a9b9c12",
+            "bytes": 15498,
+            "section": "## H2.",
+            "lines": [
+              62,
+              77
+            ],
+            "passage_sha256": "ec32f7e76b18652e57d4b1c8df302975d23b58dd28d6113bccad3c05aad9053f",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          },
+          "tex": {
+            "path": "research/quartic214-manuscript/quartic214.tex",
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
+            "lines": [
+              3090,
+              3105
+            ],
+            "passage_sha256": "4e46729bb4782e22f6118f20f34170b3083181826bbe9ed5b6c1bafd793ca014",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          }
+        }
+      ]
+    },
+    {
+      "application_id": "M6-DETERMINANT-MULTIPLICITY-QUOTIENT",
+      "original_contract": {
+        "path": "research/quartic214/contracts/modularity-5.json",
+        "sha256": "a908b6093393a4e13dd3fd57f33b2f3ab30f1619dbbaf4d99971ffe66f4f68f2",
+        "application_id": "M6-DETERMINANT-MULTIPLICITY-QUOTIENT",
+        "obligations": 9
+      },
+      "adaptation": "Editorial serialization only. Original mathematical application and source statuses remain attached to the frozen original; new TeX incorporation requires separate review.",
+      "construction_passages": [
+        {
+          "source": {
+            "path": "research/quartic214/proofs/modularity.md",
+            "sha256": "814676050b389793d196346f45e2797f39e2c5be0f3fee8457bb709b2607606e",
+            "bytes": 25777,
+            "section": "## M6.",
+            "lines": [
+              99,
+              120
+            ],
+            "passage_sha256": "651952496261b576100089654ea265a22ecfddf8e9e0f174bfa21d4f9eca1c7e",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          },
+          "tex": {
+            "path": "research/quartic214-manuscript/quartic214.tex",
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
+            "lines": [
+              2604,
+              2629
+            ],
+            "passage_sha256": "ae0e00ec18f95effe34d6383fc11096e64f9938e93785eeb2acd7aafeb1c4d79",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          }
+        }
+      ],
+      "application_passages": [
+        {
+          "source": {
+            "path": "research/quartic214/proofs/modularity.md",
+            "sha256": "814676050b389793d196346f45e2797f39e2c5be0f3fee8457bb709b2607606e",
+            "bytes": 25777,
+            "section": "## M6.",
+            "lines": [
+              99,
+              120
+            ],
+            "passage_sha256": "651952496261b576100089654ea265a22ecfddf8e9e0f174bfa21d4f9eca1c7e",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          },
+          "tex": {
+            "path": "research/quartic214-manuscript/quartic214.tex",
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
+            "lines": [
+              2604,
+              2629
+            ],
+            "passage_sha256": "ae0e00ec18f95effe34d6383fc11096e64f9938e93785eeb2acd7aafeb1c4d79",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          }
+        }
+      ],
+      "consumer_passages": [
+        {
+          "source": {
+            "path": "research/quartic214/proofs/height-supplier.md",
+            "sha256": "4974b167ab415159e0ff996b341528008c2ba8ae8e2a1ebf69bab5bc9a9b9c12",
+            "bytes": 15498,
+            "section": "## H0.",
+            "lines": [
+              7,
+              32
+            ],
+            "passage_sha256": "3c61de9b62e636063cf74beddc40dd6b10ce7bada0c182b8a10432bd6bc34850",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          },
+          "tex": {
+            "path": "research/quartic214-manuscript/quartic214.tex",
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
+            "lines": [
+              3033,
+              3058
+            ],
+            "passage_sha256": "93bd3d51ba4188f9d34db58d15b29098e09e8e6822ef3202619567bf50a6bac6",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          }
+        },
+        {
+          "source": {
+            "path": "research/quartic214/proofs/height-supplier.md",
+            "sha256": "4974b167ab415159e0ff996b341528008c2ba8ae8e2a1ebf69bab5bc9a9b9c12",
+            "bytes": 15498,
+            "section": "## H1.",
+            "lines": [
+              33,
+              61
+            ],
+            "passage_sha256": "6d034b817da3428e7d8eb8df1414f41e2616ae6b4726f8b3c9c18efaa6c2b4ea",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          },
+          "tex": {
+            "path": "research/quartic214-manuscript/quartic214.tex",
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
+            "lines": [
+              3059,
+              3089
+            ],
+            "passage_sha256": "dc938e71f50d44e279fa03aeea764f5fcffbbd29a99dd31e21d1735824d95238",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          }
+        },
+        {
+          "source": {
+            "path": "research/quartic214/proofs/height-supplier.md",
+            "sha256": "4974b167ab415159e0ff996b341528008c2ba8ae8e2a1ebf69bab5bc9a9b9c12",
+            "bytes": 15498,
+            "section": "## H2.",
+            "lines": [
+              62,
+              77
+            ],
+            "passage_sha256": "ec32f7e76b18652e57d4b1c8df302975d23b58dd28d6113bccad3c05aad9053f",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          },
+          "tex": {
+            "path": "research/quartic214-manuscript/quartic214.tex",
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
+            "lines": [
+              3090,
+              3105
+            ],
+            "passage_sha256": "4e46729bb4782e22f6118f20f34170b3083181826bbe9ed5b6c1bafd793ca014",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          }
+        }
+      ]
+    },
+    {
+      "application_id": "G-P-D210-GEOMETRY-AND-S10-CARRY",
+      "original_contract": {
+        "path": "research/quartic214/contracts/modularity-6.json",
+        "sha256": "3b61613f34a5f8746804ab2e6aa24aa787cc5fb6485ac2c5aa2a1a1cc4da9ab9",
+        "application_id": "G-P-D210-GEOMETRY-AND-S10-CARRY",
+        "obligations": 9
+      },
+      "adaptation": "Editorial serialization only. Original mathematical application and source statuses remain attached to the frozen original; new TeX incorporation requires separate review.",
+      "construction_passages": [
+        {
+          "source": {
+            "path": "research/quartic214/proofs/geometry-carry.md",
+            "sha256": "b3cb8201de84f733b0518ad68a9c0d0bc1e78534ffd39aca5d8c70f1bae69e76",
+            "bytes": 13337,
+            "section": "## G0. Locator correction and exact scope",
+            "lines": [
+              5,
+              12
+            ],
+            "passage_sha256": "6c1d1ad538daaa4e7abfc28582ec607812034b7ae134b77657002490b8258b48",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          },
+          "tex": {
+            "path": "research/quartic214-manuscript/quartic214.tex",
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
+            "lines": [
+              2320,
+              2327
+            ],
+            "passage_sha256": "a688ac158182da98aff7e9976cbebec9526f014ba655f76e043eeccebe74ab06",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          }
+        },
+        {
+          "source": {
+            "path": "research/quartic214/proofs/geometry-carry.md",
+            "sha256": "b3cb8201de84f733b0518ad68a9c0d0bc1e78534ffd39aca5d8c70f1bae69e76",
+            "bytes": 13337,
+            "section": "## G1. Exact text and retained public scopes",
+            "lines": [
+              13,
+              24
+            ],
+            "passage_sha256": "3bc4f9a1dc06937c1274e8afc597e32f03da554b2d1f9b1c2f42a741b521fe62",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          },
+          "tex": {
+            "path": "research/quartic214-manuscript/quartic214.tex",
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
+            "lines": [
+              2328,
+              2339
+            ],
+            "passage_sha256": "6483f63ebc571c74637a3d720c80825217b6ea44ae9359eb91be2d1eb08de9f8",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          }
+        },
+        {
+          "source": {
+            "path": "research/quartic214/proofs/geometry-carry.md",
+            "sha256": "b3cb8201de84f733b0518ad68a9c0d0bc1e78534ffd39aca5d8c70f1bae69e76",
+            "bytes": 13337,
+            "section": "## G2. Same cover, field, Hom and surface for every allowed a",
+            "lines": [
+              25,
+              32
+            ],
+            "passage_sha256": "fc03d911267a4dd2863908aaba7a1839aa8493b335c82e5e6ef6d021221b71c9",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          },
+          "tex": {
+            "path": "research/quartic214-manuscript/quartic214.tex",
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
+            "lines": [
+              2340,
+              2347
+            ],
+            "passage_sha256": "0d0a8a4e503dee094462a8911f776adcbd670d22d0a1e25e962b214de73a7764",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          }
+        },
+        {
+          "source": {
+            "path": "research/quartic214/proofs/geometry-carry.md",
+            "sha256": "b3cb8201de84f733b0518ad68a9c0d0bc1e78534ffd39aca5d8c70f1bae69e76",
+            "bytes": 13337,
+            "section": "## G3. Fresh support extension to S10, with all contact cases",
+            "lines": [
+              33,
+              56
+            ],
+            "passage_sha256": "a8f7e15152e5e83bbb14e961dc310ea25ec066228f5cf20798c62dff686cd290",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          },
+          "tex": {
+            "path": "research/quartic214-manuscript/quartic214.tex",
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
+            "lines": [
+              2348,
+              2377
+            ],
+            "passage_sha256": "9b800764edd82ffb4a83d8a5ef6576dcdb8ef938fdc7ce47fc1bdf43385b513c",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          }
+        },
+        {
+          "source": {
+            "path": "research/quartic214/proofs/geometry-carry.md",
+            "sha256": "b3cb8201de84f733b0518ad68a9c0d0bc1e78534ffd39aca5d8c70f1bae69e76",
+            "bytes": 13337,
+            "section": "## G4. Metric and CM consumers of that exact field",
+            "lines": [
+              57,
+              76
+            ],
+            "passage_sha256": "95792554b943c51321553925093703ff4bacbddfcd46f875bd9ede0331deeaa1",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          },
+          "tex": {
+            "path": "research/quartic214-manuscript/quartic214.tex",
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
+            "lines": [
+              2378,
+              2403
+            ],
+            "passage_sha256": "57ed8385d11ed41e8cce1255ff742891f883026a857193faef7fb9f09982a85e",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          }
+        },
+        {
+          "source": {
+            "path": "research/quartic214/proofs/geometry-carry.md",
+            "sha256": "b3cb8201de84f733b0518ad68a9c0d0bc1e78534ffd39aca5d8c70f1bae69e76",
+            "bytes": 13337,
+            "section": "## G5. Dispositions and acceptance boundary",
+            "lines": [
+              77,
+              81
+            ],
+            "passage_sha256": "8085c0dc62cca48abf6c118113f447262b7b0bfcd26dd428ddf5015bcc10f7ac",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          },
+          "tex": {
+            "path": "research/quartic214-manuscript/quartic214.tex",
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
+            "lines": [
+              2404,
+              2408
+            ],
+            "passage_sha256": "c352537f005cab643abd0e1b790033373174fa3be46816d4a388fea7d58bb968",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          }
+        }
+      ],
+      "application_passages": [
+        {
+          "source": {
+            "path": "research/quartic214/proofs/geometry-carry.md",
+            "sha256": "b3cb8201de84f733b0518ad68a9c0d0bc1e78534ffd39aca5d8c70f1bae69e76",
+            "bytes": 13337,
+            "section": "## G0. Locator correction and exact scope",
+            "lines": [
+              5,
+              12
+            ],
+            "passage_sha256": "6c1d1ad538daaa4e7abfc28582ec607812034b7ae134b77657002490b8258b48",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          },
+          "tex": {
+            "path": "research/quartic214-manuscript/quartic214.tex",
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
+            "lines": [
+              2320,
+              2327
+            ],
+            "passage_sha256": "a688ac158182da98aff7e9976cbebec9526f014ba655f76e043eeccebe74ab06",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          }
+        },
+        {
+          "source": {
+            "path": "research/quartic214/proofs/geometry-carry.md",
+            "sha256": "b3cb8201de84f733b0518ad68a9c0d0bc1e78534ffd39aca5d8c70f1bae69e76",
+            "bytes": 13337,
+            "section": "## G1. Exact text and retained public scopes",
+            "lines": [
+              13,
+              24
+            ],
+            "passage_sha256": "3bc4f9a1dc06937c1274e8afc597e32f03da554b2d1f9b1c2f42a741b521fe62",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          },
+          "tex": {
+            "path": "research/quartic214-manuscript/quartic214.tex",
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
+            "lines": [
+              2328,
+              2339
+            ],
+            "passage_sha256": "6483f63ebc571c74637a3d720c80825217b6ea44ae9359eb91be2d1eb08de9f8",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          }
+        },
+        {
+          "source": {
+            "path": "research/quartic214/proofs/geometry-carry.md",
+            "sha256": "b3cb8201de84f733b0518ad68a9c0d0bc1e78534ffd39aca5d8c70f1bae69e76",
+            "bytes": 13337,
+            "section": "## G2. Same cover, field, Hom and surface for every allowed a",
+            "lines": [
+              25,
+              32
+            ],
+            "passage_sha256": "fc03d911267a4dd2863908aaba7a1839aa8493b335c82e5e6ef6d021221b71c9",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          },
+          "tex": {
+            "path": "research/quartic214-manuscript/quartic214.tex",
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
+            "lines": [
+              2340,
+              2347
+            ],
+            "passage_sha256": "0d0a8a4e503dee094462a8911f776adcbd670d22d0a1e25e962b214de73a7764",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          }
+        },
+        {
+          "source": {
+            "path": "research/quartic214/proofs/geometry-carry.md",
+            "sha256": "b3cb8201de84f733b0518ad68a9c0d0bc1e78534ffd39aca5d8c70f1bae69e76",
+            "bytes": 13337,
+            "section": "## G3. Fresh support extension to S10, with all contact cases",
+            "lines": [
+              33,
+              56
+            ],
+            "passage_sha256": "a8f7e15152e5e83bbb14e961dc310ea25ec066228f5cf20798c62dff686cd290",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          },
+          "tex": {
+            "path": "research/quartic214-manuscript/quartic214.tex",
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
+            "lines": [
+              2348,
+              2377
+            ],
+            "passage_sha256": "9b800764edd82ffb4a83d8a5ef6576dcdb8ef938fdc7ce47fc1bdf43385b513c",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          }
+        },
+        {
+          "source": {
+            "path": "research/quartic214/proofs/geometry-carry.md",
+            "sha256": "b3cb8201de84f733b0518ad68a9c0d0bc1e78534ffd39aca5d8c70f1bae69e76",
+            "bytes": 13337,
+            "section": "## G4. Metric and CM consumers of that exact field",
+            "lines": [
+              57,
+              76
+            ],
+            "passage_sha256": "95792554b943c51321553925093703ff4bacbddfcd46f875bd9ede0331deeaa1",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          },
+          "tex": {
+            "path": "research/quartic214-manuscript/quartic214.tex",
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
+            "lines": [
+              2378,
+              2403
+            ],
+            "passage_sha256": "57ed8385d11ed41e8cce1255ff742891f883026a857193faef7fb9f09982a85e",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          }
+        },
+        {
+          "source": {
+            "path": "research/quartic214/proofs/geometry-carry.md",
+            "sha256": "b3cb8201de84f733b0518ad68a9c0d0bc1e78534ffd39aca5d8c70f1bae69e76",
+            "bytes": 13337,
+            "section": "## G5. Dispositions and acceptance boundary",
+            "lines": [
+              77,
+              81
+            ],
+            "passage_sha256": "8085c0dc62cca48abf6c118113f447262b7b0bfcd26dd428ddf5015bcc10f7ac",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          },
+          "tex": {
+            "path": "research/quartic214-manuscript/quartic214.tex",
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
+            "lines": [
+              2404,
+              2408
+            ],
+            "passage_sha256": "c352537f005cab643abd0e1b790033373174fa3be46816d4a388fea7d58bb968",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          }
+        }
+      ],
+      "consumer_passages": [
+        {
+          "source": {
+            "path": "research/quartic214/proofs/height-supplier.md",
+            "sha256": "4974b167ab415159e0ff996b341528008c2ba8ae8e2a1ebf69bab5bc9a9b9c12",
+            "bytes": 15498,
+            "section": "## H0.",
+            "lines": [
+              7,
+              32
+            ],
+            "passage_sha256": "3c61de9b62e636063cf74beddc40dd6b10ce7bada0c182b8a10432bd6bc34850",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          },
+          "tex": {
+            "path": "research/quartic214-manuscript/quartic214.tex",
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
+            "lines": [
+              3033,
+              3058
+            ],
+            "passage_sha256": "93bd3d51ba4188f9d34db58d15b29098e09e8e6822ef3202619567bf50a6bac6",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          }
+        },
+        {
+          "source": {
+            "path": "research/quartic214/proofs/height-supplier.md",
+            "sha256": "4974b167ab415159e0ff996b341528008c2ba8ae8e2a1ebf69bab5bc9a9b9c12",
+            "bytes": 15498,
+            "section": "## H1.",
+            "lines": [
+              33,
+              61
+            ],
+            "passage_sha256": "6d034b817da3428e7d8eb8df1414f41e2616ae6b4726f8b3c9c18efaa6c2b4ea",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          },
+          "tex": {
+            "path": "research/quartic214-manuscript/quartic214.tex",
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
+            "lines": [
+              3059,
+              3089
+            ],
+            "passage_sha256": "dc938e71f50d44e279fa03aeea764f5fcffbbd29a99dd31e21d1735824d95238",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          }
+        },
+        {
+          "source": {
+            "path": "research/quartic214/proofs/height-supplier.md",
+            "sha256": "4974b167ab415159e0ff996b341528008c2ba8ae8e2a1ebf69bab5bc9a9b9c12",
+            "bytes": 15498,
+            "section": "## H2.",
+            "lines": [
+              62,
+              77
+            ],
+            "passage_sha256": "ec32f7e76b18652e57d4b1c8df302975d23b58dd28d6113bccad3c05aad9053f",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          },
+          "tex": {
+            "path": "research/quartic214-manuscript/quartic214.tex",
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
+            "lines": [
+              3090,
+              3105
+            ],
+            "passage_sha256": "4e46729bb4782e22f6118f20f34170b3083181826bbe9ed5b6c1bafd793ca014",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          }
+        }
+      ]
+    },
+    {
+      "application_id": "H04-integral-evaluation-and-trace-lattice",
+      "original_contract": {
+        "path": "research/quartic214/contracts/height-evaluation.json",
+        "sha256": "0f524e806c2b3d3fa62fa3479a561ab069d84ab1be6f24c46ddaa5095a117474",
+        "application_id": "H04-integral-evaluation-and-trace-lattice",
+        "obligations": 9
+      },
+      "adaptation": "Editorial serialization only. Original mathematical application and source statuses remain attached to the frozen original; new TeX incorporation requires separate review.",
+      "construction_passages": [
+        {
+          "source": {
+            "path": "research/quartic214/proofs/height-evaluation.md",
+            "sha256": "d691da0a6827d9b45c6c68294405163f679a2d57f08e2ecda56fd071b3579502",
+            "bytes": 14511,
+            "section": "## 1. Objects and finite flatness",
+            "lines": [
+              16,
+              31
+            ],
+            "passage_sha256": "5895b02911992e7bd7df54219234f84d0d003a66d74d89b307321dcca59c3950",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          },
+          "tex": {
+            "path": "research/quartic214-manuscript/quartic214.tex",
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
+            "lines": [
+              2653,
+              2668
+            ],
+            "passage_sha256": "e7c2548ffa5a5a89837214024eab88eec6824caa0b6a9bde8b0929145acde764",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          }
+        },
+        {
+          "source": {
+            "path": "research/quartic214/proofs/height-evaluation.md",
+            "sha256": "d691da0a6827d9b45c6c68294405163f679a2d57f08e2ecda56fd071b3579502",
+            "bytes": 14511,
+            "section": "## 2. A common regular model with the required direction",
+            "lines": [
+              32,
+              51
+            ],
+            "passage_sha256": "28f943b84c5eb7eb86876ad68ec86f9e856a21fba948ee054c9d0187a8d4ca12",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          },
+          "tex": {
+            "path": "research/quartic214-manuscript/quartic214.tex",
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
+            "lines": [
+              2669,
+              2688
+            ],
+            "passage_sha256": "53fcc61096fcd175ed80c4d69513be36fadbcc6120bf493613e13e715b9eb6ec",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          }
+        },
+        {
+          "source": {
+            "path": "research/quartic214/proofs/height-evaluation.md",
+            "sha256": "d691da0a6827d9b45c6c68294405163f679a2d57f08e2ecda56fd071b3579502",
+            "bytes": 14511,
+            "section": "## 3. The canonical module and its extension",
+            "lines": [
+              52,
+              72
+            ],
+            "passage_sha256": "df805dea8337211dfba4f46a83cc7861f20bdb6e75a3c8e4601b718d6aa5f648",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          },
+          "tex": {
+            "path": "research/quartic214-manuscript/quartic214.tex",
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
+            "lines": [
+              2689,
+              2709
+            ],
+            "passage_sha256": "2da0fe0941d251a1bdf297f9a59137cfcbe416b0cbfb53d20655605d92d3a4e9",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          }
+        },
+        {
+          "source": {
+            "path": "research/quartic214/proofs/height-evaluation.md",
+            "sha256": "d691da0a6827d9b45c6c68294405163f679a2d57f08e2ecda56fd071b3579502",
+            "bytes": 14511,
+            "section": "## 4. Trace normalization and specialization are the actual evaluation",
+            "lines": [
+              73,
+              104
+            ],
+            "passage_sha256": "e663066549e3b005c91f7adeac2cafa88c7d6c1e4b334ed5d47e68a867b48083",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          },
+          "tex": {
+            "path": "research/quartic214-manuscript/quartic214.tex",
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
+            "lines": [
+              2710,
+              2741
+            ],
+            "passage_sha256": "6add9870e193950b6aeaf63f030d43c4f817def9a1091606417e71c1d24975e0",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          }
+        },
+        {
+          "source": {
+            "path": "research/quartic214/proofs/height-evaluation.md",
+            "sha256": "d691da0a6827d9b45c6c68294405163f679a2d57f08e2ecda56fd071b3579502",
+            "bytes": 14511,
+            "section": "## 5. Trace-dual projection and arithmetic degree",
+            "lines": [
+              105,
+              124
+            ],
+            "passage_sha256": "c13784f0fe855e8f6ba77e433db65cf94fb07fb27da8d49f032e39323ab57a89",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          },
+          "tex": {
+            "path": "research/quartic214-manuscript/quartic214.tex",
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
+            "lines": [
+              2742,
+              2761
+            ],
+            "passage_sha256": "6511942f5510f45c3b1812ea3064a1ce53e10dd1a380cb1399f38778a3aad7bc",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          }
+        },
+        {
+          "source": {
+            "path": "research/quartic214/proofs/height-evaluation.md",
+            "sha256": "d691da0a6827d9b45c6c68294405163f679a2d57f08e2ecda56fd071b3579502",
+            "bytes": 14511,
+            "section": "## 6. Exact consumer and bounded status",
+            "lines": [
+              125,
+              129
+            ],
+            "passage_sha256": "778c466de496c18fa24efbc804286dcdd75f8981b71eca8e8b244f4df1da3174",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          },
+          "tex": {
+            "path": "research/quartic214-manuscript/quartic214.tex",
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
+            "lines": [
+              2762,
+              2766
+            ],
+            "passage_sha256": "9f55b8c7c0c1aedb882d55e3d70ddb1db32c04b84ab414a3f815bb1680b1fa59",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          }
+        }
+      ],
+      "application_passages": [
+        {
+          "source": {
+            "path": "research/quartic214/proofs/height-evaluation.md",
+            "sha256": "d691da0a6827d9b45c6c68294405163f679a2d57f08e2ecda56fd071b3579502",
+            "bytes": 14511,
+            "section": "## 1. Objects and finite flatness",
+            "lines": [
+              16,
+              31
+            ],
+            "passage_sha256": "5895b02911992e7bd7df54219234f84d0d003a66d74d89b307321dcca59c3950",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          },
+          "tex": {
+            "path": "research/quartic214-manuscript/quartic214.tex",
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
+            "lines": [
+              2653,
+              2668
+            ],
+            "passage_sha256": "e7c2548ffa5a5a89837214024eab88eec6824caa0b6a9bde8b0929145acde764",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          }
+        },
+        {
+          "source": {
+            "path": "research/quartic214/proofs/height-evaluation.md",
+            "sha256": "d691da0a6827d9b45c6c68294405163f679a2d57f08e2ecda56fd071b3579502",
+            "bytes": 14511,
+            "section": "## 2. A common regular model with the required direction",
+            "lines": [
+              32,
+              51
+            ],
+            "passage_sha256": "28f943b84c5eb7eb86876ad68ec86f9e856a21fba948ee054c9d0187a8d4ca12",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          },
+          "tex": {
+            "path": "research/quartic214-manuscript/quartic214.tex",
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
+            "lines": [
+              2669,
+              2688
+            ],
+            "passage_sha256": "53fcc61096fcd175ed80c4d69513be36fadbcc6120bf493613e13e715b9eb6ec",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          }
+        },
+        {
+          "source": {
+            "path": "research/quartic214/proofs/height-evaluation.md",
+            "sha256": "d691da0a6827d9b45c6c68294405163f679a2d57f08e2ecda56fd071b3579502",
+            "bytes": 14511,
+            "section": "## 3. The canonical module and its extension",
+            "lines": [
+              52,
+              72
+            ],
+            "passage_sha256": "df805dea8337211dfba4f46a83cc7861f20bdb6e75a3c8e4601b718d6aa5f648",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          },
+          "tex": {
+            "path": "research/quartic214-manuscript/quartic214.tex",
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
+            "lines": [
+              2689,
+              2709
+            ],
+            "passage_sha256": "2da0fe0941d251a1bdf297f9a59137cfcbe416b0cbfb53d20655605d92d3a4e9",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          }
+        },
+        {
+          "source": {
+            "path": "research/quartic214/proofs/height-evaluation.md",
+            "sha256": "d691da0a6827d9b45c6c68294405163f679a2d57f08e2ecda56fd071b3579502",
+            "bytes": 14511,
+            "section": "## 4. Trace normalization and specialization are the actual evaluation",
+            "lines": [
+              73,
+              104
+            ],
+            "passage_sha256": "e663066549e3b005c91f7adeac2cafa88c7d6c1e4b334ed5d47e68a867b48083",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          },
+          "tex": {
+            "path": "research/quartic214-manuscript/quartic214.tex",
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
+            "lines": [
+              2710,
+              2741
+            ],
+            "passage_sha256": "6add9870e193950b6aeaf63f030d43c4f817def9a1091606417e71c1d24975e0",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          }
+        },
+        {
+          "source": {
+            "path": "research/quartic214/proofs/height-evaluation.md",
+            "sha256": "d691da0a6827d9b45c6c68294405163f679a2d57f08e2ecda56fd071b3579502",
+            "bytes": 14511,
+            "section": "## 5. Trace-dual projection and arithmetic degree",
+            "lines": [
+              105,
+              124
+            ],
+            "passage_sha256": "c13784f0fe855e8f6ba77e433db65cf94fb07fb27da8d49f032e39323ab57a89",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          },
+          "tex": {
+            "path": "research/quartic214-manuscript/quartic214.tex",
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
+            "lines": [
+              2742,
+              2761
+            ],
+            "passage_sha256": "6511942f5510f45c3b1812ea3064a1ce53e10dd1a380cb1399f38778a3aad7bc",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          }
+        },
+        {
+          "source": {
+            "path": "research/quartic214/proofs/height-evaluation.md",
+            "sha256": "d691da0a6827d9b45c6c68294405163f679a2d57f08e2ecda56fd071b3579502",
+            "bytes": 14511,
+            "section": "## 6. Exact consumer and bounded status",
+            "lines": [
+              125,
+              129
+            ],
+            "passage_sha256": "778c466de496c18fa24efbc804286dcdd75f8981b71eca8e8b244f4df1da3174",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          },
+          "tex": {
+            "path": "research/quartic214-manuscript/quartic214.tex",
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
+            "lines": [
+              2762,
+              2766
+            ],
+            "passage_sha256": "9f55b8c7c0c1aedb882d55e3d70ddb1db32c04b84ab414a3f815bb1680b1fa59",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          }
+        }
+      ],
+      "consumer_passages": [
+        {
+          "source": {
+            "path": "research/quartic214/proofs/height-supplier.md",
+            "sha256": "4974b167ab415159e0ff996b341528008c2ba8ae8e2a1ebf69bab5bc9a9b9c12",
+            "bytes": 15498,
+            "section": "## H0.",
+            "lines": [
+              7,
+              32
+            ],
+            "passage_sha256": "3c61de9b62e636063cf74beddc40dd6b10ce7bada0c182b8a10432bd6bc34850",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          },
+          "tex": {
+            "path": "research/quartic214-manuscript/quartic214.tex",
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
+            "lines": [
+              3033,
+              3058
+            ],
+            "passage_sha256": "93bd3d51ba4188f9d34db58d15b29098e09e8e6822ef3202619567bf50a6bac6",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          }
+        },
+        {
+          "source": {
+            "path": "research/quartic214/proofs/height-supplier.md",
+            "sha256": "4974b167ab415159e0ff996b341528008c2ba8ae8e2a1ebf69bab5bc9a9b9c12",
+            "bytes": 15498,
+            "section": "## H4.",
+            "lines": [
+              97,
+              134
+            ],
+            "passage_sha256": "c79afa0e08a65898a762e6f24ed869f4a35f3c741dacbf82eaee1f9b7d4a0753",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          },
+          "tex": {
+            "path": "research/quartic214-manuscript/quartic214.tex",
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
+            "lines": [
+              3127,
+              3164
+            ],
+            "passage_sha256": "359d689a1a79101782a4f5b59a7e87f8c8e6668f43a29585858d301628d826bc",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          }
+        }
+      ]
+    },
+    {
+      "application_id": "H04-DIFFERENT-MODULAR-20261110",
+      "original_contract": {
+        "path": "research/quartic214/contracts/height-different.json",
+        "sha256": "51628e37c28208b3c62be6a4d1899d650bd7b8d0e80fe236ce7a2fe6485ef5a6",
+        "application_id": "H04-DIFFERENT-MODULAR-20261110",
+        "obligations": 9
+      },
+      "adaptation": "Editorial serialization only. Original mathematical application and source statuses remain attached to the frozen original; new TeX incorporation requires separate review.",
+      "construction_passages": [
+        {
+          "source": {
+            "path": "research/quartic214/proofs/height-different.md",
+            "sha256": "025885f763a9a72e9750ed10ec0bbfec4e8834ed85557acccda92a766c0ebcfa",
+            "bytes": 18529,
+            "section": "## 1. Fixed objects and the trace-discriminant identity",
+            "lines": [
+              11,
+              26
+            ],
+            "passage_sha256": "77cba9e0a293291607ed31a49bf1330727c8fa280b2ed7728395990fc1b327f6",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          },
+          "tex": {
+            "path": "research/quartic214-manuscript/quartic214.tex",
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
+            "lines": [
+              2780,
+              2795
+            ],
+            "passage_sha256": "52686b672d0f92f365548f210b773ded36d8255f2510a52095c3e1431a331a5a",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          }
+        },
+        {
+          "source": {
+            "path": "research/quartic214/proofs/height-different.md",
+            "sha256": "025885f763a9a72e9750ed10ec0bbfec4e8834ed85557acccda92a766c0ebcfa",
+            "bytes": 18529,
+            "section": "## 2. Lenstra's estimate really covers the vertical DVR",
+            "lines": [
+              27,
+              56
+            ],
+            "passage_sha256": "57f2bd0a37f3d61345b3a1052c30119fb0636119be51c4443bce0ea061a15043",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          },
+          "tex": {
+            "path": "research/quartic214-manuscript/quartic214.tex",
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
+            "lines": [
+              2796,
+              2825
+            ],
+            "passage_sha256": "07bbc93cfeb9c5a7702f5972230ff31f807c59a831f31662adad3ca3bfdc4fbd",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          }
+        },
+        {
+          "source": {
+            "path": "research/quartic214/proofs/height-different.md",
+            "sha256": "025885f763a9a72e9750ed10ec0bbfec4e8834ed85557acccda92a766c0ebcfa",
+            "bytes": 18529,
+            "section": "## 3. Torsion different as an identity of fractional ideals",
+            "lines": [
+              57,
+              86
+            ],
+            "passage_sha256": "0ea22f7ba6ecff82fb4d010ac1c9641bb41c57d22a1fee853eac614e193c5ae1",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          },
+          "tex": {
+            "path": "research/quartic214-manuscript/quartic214.tex",
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
+            "lines": [
+              2826,
+              2855
+            ],
+            "passage_sha256": "cdb95764609c55e14e3e036567687e5c32537b1bdb59d62960cadae63c99d3da",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          }
+        },
+        {
+          "source": {
+            "path": "research/quartic214/proofs/height-different.md",
+            "sha256": "025885f763a9a72e9750ed10ec0bbfec4e8834ed85557acccda92a766c0ebcfa",
+            "bytes": 18529,
+            "section": "## 4. The actual primitive torsion quotient",
+            "lines": [
+              87,
+              108
+            ],
+            "passage_sha256": "1401e680c0ee9f3c000547f451aaaeb54f1b670de9fee3c1d4d73b5441bf90aa",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          },
+          "tex": {
+            "path": "research/quartic214-manuscript/quartic214.tex",
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
+            "lines": [
+              2856,
+              2877
+            ],
+            "passage_sha256": "cd1dd90a09402d79eaafa238fed8a8af464f6780bc01fce74a78c679a414eced",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          }
+        },
+        {
+          "source": {
+            "path": "research/quartic214/proofs/height-different.md",
+            "sha256": "025885f763a9a72e9750ed10ec0bbfec4e8834ed85557acccda92a766c0ebcfa",
+            "bytes": 18529,
+            "section": "## 5. Same constant at every prime",
+            "lines": [
+              109,
+              126
+            ],
+            "passage_sha256": "6578cd19517c3f0f781ff641d8fea0794e77c98f9db4e1b82a3c6349554c8cca",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          },
+          "tex": {
+            "path": "research/quartic214-manuscript/quartic214.tex",
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
+            "lines": [
+              2878,
+              2895
+            ],
+            "passage_sha256": "0f1feb5bc55fa614528e84fbe494fe0ed610e66ac5bc8c273420c91e8f45d8c9",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          }
+        },
+        {
+          "source": {
+            "path": "research/quartic214/proofs/height-different.md",
+            "sha256": "025885f763a9a72e9750ed10ec0bbfec4e8834ed85557acccda92a766c0ebcfa",
+            "bytes": 18529,
+            "section": "## 6. History, incorporation and limits",
+            "lines": [
+              127,
+              131
+            ],
+            "passage_sha256": "e9b5351a18f865568e8ee46c4abccda54fe32b09dbf4bc7677df10d5e009870b",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          },
+          "tex": {
+            "path": "research/quartic214-manuscript/quartic214.tex",
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
+            "lines": [
+              2896,
+              2900
+            ],
+            "passage_sha256": "725177d8475f1cbab6064085d50a92ad4c24c3a49b53c2deb8bbd49c0e65a4e1",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          }
+        }
+      ],
+      "application_passages": [
+        {
+          "source": {
+            "path": "research/quartic214/proofs/height-different.md",
+            "sha256": "025885f763a9a72e9750ed10ec0bbfec4e8834ed85557acccda92a766c0ebcfa",
+            "bytes": 18529,
+            "section": "## 1. Fixed objects and the trace-discriminant identity",
+            "lines": [
+              11,
+              26
+            ],
+            "passage_sha256": "77cba9e0a293291607ed31a49bf1330727c8fa280b2ed7728395990fc1b327f6",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          },
+          "tex": {
+            "path": "research/quartic214-manuscript/quartic214.tex",
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
+            "lines": [
+              2780,
+              2795
+            ],
+            "passage_sha256": "52686b672d0f92f365548f210b773ded36d8255f2510a52095c3e1431a331a5a",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          }
+        },
+        {
+          "source": {
+            "path": "research/quartic214/proofs/height-different.md",
+            "sha256": "025885f763a9a72e9750ed10ec0bbfec4e8834ed85557acccda92a766c0ebcfa",
+            "bytes": 18529,
+            "section": "## 2. Lenstra's estimate really covers the vertical DVR",
+            "lines": [
+              27,
+              56
+            ],
+            "passage_sha256": "57f2bd0a37f3d61345b3a1052c30119fb0636119be51c4443bce0ea061a15043",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          },
+          "tex": {
+            "path": "research/quartic214-manuscript/quartic214.tex",
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
+            "lines": [
+              2796,
+              2825
+            ],
+            "passage_sha256": "07bbc93cfeb9c5a7702f5972230ff31f807c59a831f31662adad3ca3bfdc4fbd",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          }
+        },
+        {
+          "source": {
+            "path": "research/quartic214/proofs/height-different.md",
+            "sha256": "025885f763a9a72e9750ed10ec0bbfec4e8834ed85557acccda92a766c0ebcfa",
+            "bytes": 18529,
+            "section": "## 3. Torsion different as an identity of fractional ideals",
+            "lines": [
+              57,
+              86
+            ],
+            "passage_sha256": "0ea22f7ba6ecff82fb4d010ac1c9641bb41c57d22a1fee853eac614e193c5ae1",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          },
+          "tex": {
+            "path": "research/quartic214-manuscript/quartic214.tex",
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
+            "lines": [
+              2826,
+              2855
+            ],
+            "passage_sha256": "cdb95764609c55e14e3e036567687e5c32537b1bdb59d62960cadae63c99d3da",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          }
+        },
+        {
+          "source": {
+            "path": "research/quartic214/proofs/height-different.md",
+            "sha256": "025885f763a9a72e9750ed10ec0bbfec4e8834ed85557acccda92a766c0ebcfa",
+            "bytes": 18529,
+            "section": "## 4. The actual primitive torsion quotient",
+            "lines": [
+              87,
+              108
+            ],
+            "passage_sha256": "1401e680c0ee9f3c000547f451aaaeb54f1b670de9fee3c1d4d73b5441bf90aa",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          },
+          "tex": {
+            "path": "research/quartic214-manuscript/quartic214.tex",
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
+            "lines": [
+              2856,
+              2877
+            ],
+            "passage_sha256": "cd1dd90a09402d79eaafa238fed8a8af464f6780bc01fce74a78c679a414eced",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          }
+        },
+        {
+          "source": {
+            "path": "research/quartic214/proofs/height-different.md",
+            "sha256": "025885f763a9a72e9750ed10ec0bbfec4e8834ed85557acccda92a766c0ebcfa",
+            "bytes": 18529,
+            "section": "## 5. Same constant at every prime",
+            "lines": [
+              109,
+              126
+            ],
+            "passage_sha256": "6578cd19517c3f0f781ff641d8fea0794e77c98f9db4e1b82a3c6349554c8cca",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          },
+          "tex": {
+            "path": "research/quartic214-manuscript/quartic214.tex",
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
+            "lines": [
+              2878,
+              2895
+            ],
+            "passage_sha256": "0f1feb5bc55fa614528e84fbe494fe0ed610e66ac5bc8c273420c91e8f45d8c9",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          }
+        },
+        {
+          "source": {
+            "path": "research/quartic214/proofs/height-different.md",
+            "sha256": "025885f763a9a72e9750ed10ec0bbfec4e8834ed85557acccda92a766c0ebcfa",
+            "bytes": 18529,
+            "section": "## 6. History, incorporation and limits",
+            "lines": [
+              127,
+              131
+            ],
+            "passage_sha256": "e9b5351a18f865568e8ee46c4abccda54fe32b09dbf4bc7677df10d5e009870b",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          },
+          "tex": {
+            "path": "research/quartic214-manuscript/quartic214.tex",
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
+            "lines": [
+              2896,
+              2900
+            ],
+            "passage_sha256": "725177d8475f1cbab6064085d50a92ad4c24c3a49b53c2deb8bbd49c0e65a4e1",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          }
+        }
+      ],
+      "consumer_passages": [
+        {
+          "source": {
+            "path": "research/quartic214/proofs/height-supplier.md",
+            "sha256": "4974b167ab415159e0ff996b341528008c2ba8ae8e2a1ebf69bab5bc9a9b9c12",
+            "bytes": 15498,
+            "section": "## H0.",
+            "lines": [
+              7,
+              32
+            ],
+            "passage_sha256": "3c61de9b62e636063cf74beddc40dd6b10ce7bada0c182b8a10432bd6bc34850",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          },
+          "tex": {
+            "path": "research/quartic214-manuscript/quartic214.tex",
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
+            "lines": [
+              3033,
+              3058
+            ],
+            "passage_sha256": "93bd3d51ba4188f9d34db58d15b29098e09e8e6822ef3202619567bf50a6bac6",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          }
+        },
+        {
+          "source": {
+            "path": "research/quartic214/proofs/height-supplier.md",
+            "sha256": "4974b167ab415159e0ff996b341528008c2ba8ae8e2a1ebf69bab5bc9a9b9c12",
+            "bytes": 15498,
+            "section": "## H4.",
+            "lines": [
+              97,
+              134
+            ],
+            "passage_sha256": "c79afa0e08a65898a762e6f24ed869f4a35f3c741dacbf82eaee1f9b7d4a0753",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          },
+          "tex": {
+            "path": "research/quartic214-manuscript/quartic214.tex",
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
+            "lines": [
+              3127,
+              3164
+            ],
+            "passage_sha256": "359d689a1a79101782a4f5b59a7e87f8c8e6668f43a29585858d301628d826bc",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          }
+        }
+      ]
+    },
+    {
+      "application_id": "H04-METRIC-ARCHIMEDEAN",
+      "original_contract": {
+        "path": "research/quartic214/contracts/height-metric.json",
+        "sha256": "05edb1fa2ce8e02dfcfb0623db7b0c56a73e3e9df9e82eee0f7bc2ca4e438c1b",
+        "application_id": "H04-METRIC-ARCHIMEDEAN",
+        "obligations": 9
+      },
+      "adaptation": "Editorial serialization only. Original mathematical application and source statuses remain attached to the frozen original; new TeX incorporation requires separate review.",
+      "construction_passages": [
+        {
+          "source": {
+            "path": "research/quartic214/proofs/height-metric.md",
+            "sha256": "ea61f4ce58481b8ffb3a2000189fbbc84a8ded3c91d7c447ffe98ae98f30ad8e",
+            "bytes": 9224,
+            "section": "## 1. Published normalization and actual Jacobian",
+            "lines": [
+              5,
+              18
+            ],
+            "passage_sha256": "b89c16a8d1f9925caac788ffcc3a7bec7e042b4d3ccad9ba383b0486e6ef6f60",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          },
+          "tex": {
+            "path": "research/quartic214-manuscript/quartic214.tex",
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
+            "lines": [
+              2908,
+              2921
+            ],
+            "passage_sha256": "febaa1838b715cd14ff74c253609aa89871f764875595accda71540ea1ca469d",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          }
+        },
+        {
+          "source": {
+            "path": "research/quartic214/proofs/height-metric.md",
+            "sha256": "ea61f4ce58481b8ffb3a2000189fbbc84a8ded3c91d7c447ffe98ae98f30ad8e",
+            "bytes": 9224,
+            "section": "## 2. One global coordinate choice and its analytic bound",
+            "lines": [
+              19,
+              40
+            ],
+            "passage_sha256": "24153782b70933055ffb84bd0401f59ab4a99ec20cf4494d691564b744d706e5",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          },
+          "tex": {
+            "path": "research/quartic214-manuscript/quartic214.tex",
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
+            "lines": [
+              2922,
+              2943
+            ],
+            "passage_sha256": "1adc902fc390e0bac999f040d33ad865435ee587b985e06dc52906e4fd497fa2",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          }
+        },
+        {
+          "source": {
+            "path": "research/quartic214/proofs/height-metric.md",
+            "sha256": "ea61f4ce58481b8ffb3a2000189fbbc84a8ded3c91d7c447ffe98ae98f30ad8e",
+            "bytes": 9224,
+            "section": "## 3. Arithmetic degree, signs and consumer",
+            "lines": [
+              41,
+              56
+            ],
+            "passage_sha256": "3c242d27b828b098e42732a7271396702428ecbba8ad4c0e14ba3de168ea28b8",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          },
+          "tex": {
+            "path": "research/quartic214-manuscript/quartic214.tex",
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
+            "lines": [
+              2944,
+              2959
+            ],
+            "passage_sha256": "fb175a0a8b5973b6fe2fc792b710a41ee2640ee7566a6ad279a3c9ce05771940",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          }
+        },
+        {
+          "source": {
+            "path": "research/quartic214/proofs/height-metric.md",
+            "sha256": "ea61f4ce58481b8ffb3a2000189fbbc84a8ded3c91d7c447ffe98ae98f30ad8e",
+            "bytes": 9224,
+            "section": "## 4. Scope and incorporation",
+            "lines": [
+              57,
+              59
+            ],
+            "passage_sha256": "e3cebb4ee2fb04d14d95d970e74902ae5613cb8551216e9bfd2d7da106201d86",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          },
+          "tex": {
+            "path": "research/quartic214-manuscript/quartic214.tex",
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
+            "lines": [
+              2960,
+              2962
+            ],
+            "passage_sha256": "f84c5f42572f438051ea8915d7ed10fbf9e2811166d3acfe1d54b4a702928aea",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          }
+        }
+      ],
+      "application_passages": [
+        {
+          "source": {
+            "path": "research/quartic214/proofs/height-metric.md",
+            "sha256": "ea61f4ce58481b8ffb3a2000189fbbc84a8ded3c91d7c447ffe98ae98f30ad8e",
+            "bytes": 9224,
+            "section": "## 1. Published normalization and actual Jacobian",
+            "lines": [
+              5,
+              18
+            ],
+            "passage_sha256": "b89c16a8d1f9925caac788ffcc3a7bec7e042b4d3ccad9ba383b0486e6ef6f60",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          },
+          "tex": {
+            "path": "research/quartic214-manuscript/quartic214.tex",
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
+            "lines": [
+              2908,
+              2921
+            ],
+            "passage_sha256": "febaa1838b715cd14ff74c253609aa89871f764875595accda71540ea1ca469d",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          }
+        },
+        {
+          "source": {
+            "path": "research/quartic214/proofs/height-metric.md",
+            "sha256": "ea61f4ce58481b8ffb3a2000189fbbc84a8ded3c91d7c447ffe98ae98f30ad8e",
+            "bytes": 9224,
+            "section": "## 2. One global coordinate choice and its analytic bound",
+            "lines": [
+              19,
+              40
+            ],
+            "passage_sha256": "24153782b70933055ffb84bd0401f59ab4a99ec20cf4494d691564b744d706e5",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          },
+          "tex": {
+            "path": "research/quartic214-manuscript/quartic214.tex",
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
+            "lines": [
+              2922,
+              2943
+            ],
+            "passage_sha256": "1adc902fc390e0bac999f040d33ad865435ee587b985e06dc52906e4fd497fa2",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          }
+        },
+        {
+          "source": {
+            "path": "research/quartic214/proofs/height-metric.md",
+            "sha256": "ea61f4ce58481b8ffb3a2000189fbbc84a8ded3c91d7c447ffe98ae98f30ad8e",
+            "bytes": 9224,
+            "section": "## 3. Arithmetic degree, signs and consumer",
+            "lines": [
+              41,
+              56
+            ],
+            "passage_sha256": "3c242d27b828b098e42732a7271396702428ecbba8ad4c0e14ba3de168ea28b8",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          },
+          "tex": {
+            "path": "research/quartic214-manuscript/quartic214.tex",
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
+            "lines": [
+              2944,
+              2959
+            ],
+            "passage_sha256": "fb175a0a8b5973b6fe2fc792b710a41ee2640ee7566a6ad279a3c9ce05771940",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          }
+        },
+        {
+          "source": {
+            "path": "research/quartic214/proofs/height-metric.md",
+            "sha256": "ea61f4ce58481b8ffb3a2000189fbbc84a8ded3c91d7c447ffe98ae98f30ad8e",
+            "bytes": 9224,
+            "section": "## 4. Scope and incorporation",
+            "lines": [
+              57,
+              59
+            ],
+            "passage_sha256": "e3cebb4ee2fb04d14d95d970e74902ae5613cb8551216e9bfd2d7da106201d86",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          },
+          "tex": {
+            "path": "research/quartic214-manuscript/quartic214.tex",
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
+            "lines": [
+              2960,
+              2962
+            ],
+            "passage_sha256": "f84c5f42572f438051ea8915d7ed10fbf9e2811166d3acfe1d54b4a702928aea",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          }
+        }
+      ],
+      "consumer_passages": [
+        {
+          "source": {
+            "path": "research/quartic214/proofs/height-supplier.md",
+            "sha256": "4974b167ab415159e0ff996b341528008c2ba8ae8e2a1ebf69bab5bc9a9b9c12",
+            "bytes": 15498,
+            "section": "## H0.",
+            "lines": [
+              7,
+              32
+            ],
+            "passage_sha256": "3c61de9b62e636063cf74beddc40dd6b10ce7bada0c182b8a10432bd6bc34850",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          },
+          "tex": {
+            "path": "research/quartic214-manuscript/quartic214.tex",
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
+            "lines": [
+              3033,
+              3058
+            ],
+            "passage_sha256": "93bd3d51ba4188f9d34db58d15b29098e09e8e6822ef3202619567bf50a6bac6",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          }
+        },
+        {
+          "source": {
+            "path": "research/quartic214/proofs/height-supplier.md",
+            "sha256": "4974b167ab415159e0ff996b341528008c2ba8ae8e2a1ebf69bab5bc9a9b9c12",
+            "bytes": 15498,
+            "section": "## H4.",
+            "lines": [
+              97,
+              134
+            ],
+            "passage_sha256": "c79afa0e08a65898a762e6f24ed869f4a35f3c741dacbf82eaee1f9b7d4a0753",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          },
+          "tex": {
+            "path": "research/quartic214-manuscript/quartic214.tex",
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
+            "lines": [
+              3127,
+              3164
+            ],
+            "passage_sha256": "359d689a1a79101782a4f5b59a7e87f8c8e6668f43a29585858d301628d826bc",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          }
+        }
+      ]
+    },
+    {
+      "application_id": "H03-PUBLISHED-PRODUCT-AVERAGING",
+      "original_contract": {
+        "path": "research/quartic214/contracts/height-averaging.json",
+        "sha256": "e5c2281d8f4cc6f0a0c8234c0fad9f909021cbd95943c0c11fd94ce68441895f",
+        "application_id": "H03-PUBLISHED-PRODUCT-AVERAGING",
+        "obligations": 9
+      },
+      "adaptation": "Editorial serialization only. Original mathematical application and source statuses remain attached to the frozen original; new TeX incorporation requires separate review.",
+      "construction_passages": [
+        {
+          "source": {
+            "path": "research/quartic214/proofs/height-supplier.md",
+            "sha256": "4974b167ab415159e0ff996b341528008c2ba8ae8e2a1ebf69bab5bc9a9b9c12",
+            "bytes": 15498,
+            "section": "## H2.",
+            "lines": [
+              62,
+              77
+            ],
+            "passage_sha256": "ec32f7e76b18652e57d4b1c8df302975d23b58dd28d6113bccad3c05aad9053f",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          },
+          "tex": {
+            "path": "research/quartic214-manuscript/quartic214.tex",
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
+            "lines": [
+              3090,
+              3105
+            ],
+            "passage_sha256": "4e46729bb4782e22f6118f20f34170b3083181826bbe9ed5b6c1bafd793ca014",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          }
+        },
+        {
+          "source": {
+            "path": "research/quartic214/proofs/height-averaging.md",
+            "sha256": "bb87f61d7134c09d695f9bbff2c26b12b8c9ce5fe74a4ec598b2e4410f100192",
+            "bytes": 8145,
+            "section": "## Fixed-field product",
+            "lines": [
+              13,
+              26
+            ],
+            "passage_sha256": "e782243317084b125de842154ba63c2bb1cbab33e960ce331cf46954f5946b82",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          },
+          "tex": {
+            "path": "research/quartic214-manuscript/quartic214.tex",
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
+            "lines": [
+              3180,
+              3195
+            ],
+            "passage_sha256": "1e1a86ff889577752a811e7a505b24b7e4c6167ec781d2ea228f539202ce3d19",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          }
+        }
+      ],
+      "application_passages": [
+        {
+          "source": {
+            "path": "research/quartic214/proofs/height-averaging.md",
+            "sha256": "bb87f61d7134c09d695f9bbff2c26b12b8c9ce5fe74a4ec598b2e4410f100192",
+            "bytes": 8145,
+            "section": "## Height average",
+            "lines": [
+              27,
+              47
+            ],
+            "passage_sha256": "44886c8a265b8a765d4e2b80b9c2254b96089151358e1aac2d912b97ddc50bbb",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          },
+          "tex": {
+            "path": "research/quartic214-manuscript/quartic214.tex",
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
+            "lines": [
+              3196,
+              3222
+            ],
+            "passage_sha256": "39ca80f4c21ffbd076fe51d33b43ce246424deff2cd2c96d30c0fb02fa320c07",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          }
+        }
+      ],
+      "consumer_passages": [
+        {
+          "source": {
+            "path": "research/quartic214/proofs/height-supplier.md",
+            "sha256": "4974b167ab415159e0ff996b341528008c2ba8ae8e2a1ebf69bab5bc9a9b9c12",
+            "bytes": 15498,
+            "section": "## H4.",
+            "lines": [
+              97,
+              134
+            ],
+            "passage_sha256": "c79afa0e08a65898a762e6f24ed869f4a35f3c741dacbf82eaee1f9b7d4a0753",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          },
+          "tex": {
+            "path": "research/quartic214-manuscript/quartic214.tex",
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
+            "lines": [
+              3127,
+              3164
+            ],
+            "passage_sha256": "359d689a1a79101782a4f5b59a7e87f8c8e6668f43a29585858d301628d826bc",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          }
+        }
+      ]
+    },
+    {
+      "application_id": "H04-SAME-OBJECT-MODULAR-HEIGHT-ASSEMBLY",
+      "original_contract": {
+        "path": "research/quartic214/contracts/height-assembly.json",
+        "sha256": "a13a2c2209d28728b9f76d301bcf2c36cdf0eca8820b91ab0f2f567477972a0d",
+        "application_id": "H04-SAME-OBJECT-MODULAR-HEIGHT-ASSEMBLY",
+        "obligations": 9
+      },
+      "adaptation": "Editorial serialization only. Original mathematical application and source statuses remain attached to the frozen original; new TeX incorporation requires separate review.",
+      "construction_passages": [
+        {
+          "source": {
+            "path": "research/quartic214/proofs/height-assembly.md",
+            "sha256": "1866f9452526b2c243f5f05267f74caa2a4532dfc23891a9b0e95abed2d00fe5",
+            "bytes": 7020,
+            "section": "## A.",
+            "lines": [
+              5,
+              16
+            ],
+            "passage_sha256": "111e1cc69151e76014c3b4cb1754a68ad981907314eca5cc8c4dca2bb877e9d9",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          },
+          "tex": {
+            "path": "research/quartic214-manuscript/quartic214.tex",
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
+            "lines": [
+              2970,
+              2981
+            ],
+            "passage_sha256": "eaf9d2317f81052c49014e70b3742528a92d89b69f15434e956f99e937d6e72e",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          }
+        },
+        {
+          "source": {
+            "path": "research/quartic214/proofs/height-assembly.md",
+            "sha256": "1866f9452526b2c243f5f05267f74caa2a4532dfc23891a9b0e95abed2d00fe5",
+            "bytes": 7020,
+            "section": "## B.",
+            "lines": [
+              17,
+              36
+            ],
+            "passage_sha256": "4730d44f1dbb1b3fdfe1fc3832d41190db2361f1197819b01a73bd9fe859d3a9",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          },
+          "tex": {
+            "path": "research/quartic214-manuscript/quartic214.tex",
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
+            "lines": [
+              2982,
+              3001
+            ],
+            "passage_sha256": "dc94c4d298cee2ab9ab72910966cc0e99b43e88b6ab469d181de3602a318953d",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          }
+        }
+      ],
+      "application_passages": [
+        {
+          "source": {
+            "path": "research/quartic214/proofs/height-assembly.md",
+            "sha256": "1866f9452526b2c243f5f05267f74caa2a4532dfc23891a9b0e95abed2d00fe5",
+            "bytes": 7020,
+            "section": "## C.",
+            "lines": [
+              37,
+              44
+            ],
+            "passage_sha256": "c8e48de7744c180e1a9bd5472660e0203351aa9266a866751081dd47f9b8a575",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          },
+          "tex": {
+            "path": "research/quartic214-manuscript/quartic214.tex",
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
+            "lines": [
+              3002,
+              3009
+            ],
+            "passage_sha256": "2a180a9367333e94139306c921040adbf2f70f34daeab3aa72091a31d1b046f7",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          }
+        }
+      ],
+      "consumer_passages": [
+        {
+          "source": {
+            "path": "research/quartic214/proofs/height-assembly.md",
+            "sha256": "1866f9452526b2c243f5f05267f74caa2a4532dfc23891a9b0e95abed2d00fe5",
+            "bytes": 7020,
+            "section": "## D.",
+            "lines": [
+              45,
+              52
+            ],
+            "passage_sha256": "f16c1fa9634093fdd61cb06fcb77094afb4fabaedc12b0f5e14cc14bae5534ef",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          },
+          "tex": {
+            "path": "research/quartic214-manuscript/quartic214.tex",
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
+            "lines": [
+              3010,
+              3017
+            ],
+            "passage_sha256": "8716237a4bbe82facf40201f67f30479a65740bfaf78c0a7702c05a71765d5d8",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          }
+        },
+        {
+          "source": {
+            "path": "research/quartic214/proofs/height-supplier.md",
+            "sha256": "4974b167ab415159e0ff996b341528008c2ba8ae8e2a1ebf69bab5bc9a9b9c12",
+            "bytes": 15498,
+            "section": "## H4.",
+            "lines": [
+              97,
+              134
+            ],
+            "passage_sha256": "c79afa0e08a65898a762e6f24ed869f4a35f3c741dacbf82eaee1f9b7d4a0753",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          },
+          "tex": {
+            "path": "research/quartic214-manuscript/quartic214.tex",
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
+            "lines": [
+              3127,
+              3164
+            ],
+            "passage_sha256": "359d689a1a79101782a4f5b59a7e87f8c8e6668f43a29585858d301628d826bc",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          }
+        }
+      ]
+    },
+    {
+      "application_id": "H04-FULL-FAMILY-CONSTANT-AND-CENTER2-TRANSFER",
+      "original_contract": {
+        "path": "research/quartic214/contracts/H4-reflection.json",
+        "sha256": "350fba85a5d6820a835d4fe0e16b59b09b6e579939d0fcd23b66c8a2c4302edf",
+        "application_id": "H04-FULL-FAMILY-CONSTANT-AND-CENTER2-TRANSFER",
+        "obligations": 9
+      },
+      "adaptation": "Editorial serialization only. Original mathematical application and source statuses remain attached to the frozen original; new TeX incorporation requires separate review.",
+      "construction_passages": [
+        {
+          "source": {
+            "path": "research/quartic214/proofs/height-supplier.md",
+            "sha256": "4974b167ab415159e0ff996b341528008c2ba8ae8e2a1ebf69bab5bc9a9b9c12",
+            "bytes": 15498,
+            "section": "## H0.",
+            "lines": [
+              7,
+              32
+            ],
+            "passage_sha256": "3c61de9b62e636063cf74beddc40dd6b10ce7bada0c182b8a10432bd6bc34850",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          },
+          "tex": {
+            "path": "research/quartic214-manuscript/quartic214.tex",
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
+            "lines": [
+              3033,
+              3058
+            ],
+            "passage_sha256": "93bd3d51ba4188f9d34db58d15b29098e09e8e6822ef3202619567bf50a6bac6",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          }
+        },
+        {
+          "source": {
+            "path": "research/quartic214/proofs/height-supplier.md",
+            "sha256": "4974b167ab415159e0ff996b341528008c2ba8ae8e2a1ebf69bab5bc9a9b9c12",
+            "bytes": 15498,
+            "section": "## H4.",
+            "lines": [
+              97,
+              134
+            ],
+            "passage_sha256": "c79afa0e08a65898a762e6f24ed869f4a35f3c741dacbf82eaee1f9b7d4a0753",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          },
+          "tex": {
+            "path": "research/quartic214-manuscript/quartic214.tex",
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
+            "lines": [
+              3127,
+              3164
+            ],
+            "passage_sha256": "359d689a1a79101782a4f5b59a7e87f8c8e6668f43a29585858d301628d826bc",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          }
+        }
+      ],
+      "application_passages": [
+        {
+          "source": {
+            "path": "research/quartic214/proofs/uniform-existence.md",
+            "sha256": "d13cc2b846dc72a3f5b5cce8dcf11d3f11b33c45ebc3883263840afb8d82f3bc",
+            "bytes": 22294,
+            "section": "[P10:",
+            "lines": [
+              40,
+              45
+            ],
+            "passage_sha256": "ec1d73015e71b840bad438043a2423d88398b870efcb51117d5f185b5674c451",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          },
+          "tex": {
+            "path": "research/quartic214-manuscript/quartic214.tex",
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
+            "lines": [
+              2258,
+              2265
+            ],
+            "passage_sha256": "531cd664445ca6626483cdd3e60efb69176d51181a25390e4dff6617c2151259",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          }
+        }
+      ],
+      "consumer_passages": [
+        {
+          "source": {
+            "path": "research/quartic214/proofs/uniform-existence.md",
+            "sha256": "d13cc2b846dc72a3f5b5cce8dcf11d3f11b33c45ebc3883263840afb8d82f3bc",
+            "bytes": 22294,
+            "section": "[P11:",
+            "lines": [
+              46,
+              47
+            ],
+            "passage_sha256": "0f25cf01d2440fd92863219bf273040a1d8142237f021c0991966f67f9787d66",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          },
+          "tex": {
+            "path": "research/quartic214-manuscript/quartic214.tex",
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
+            "lines": [
+              2266,
+              2267
+            ],
+            "passage_sha256": "29d3d914b865f795816fee26b2682ecf85f7c5d4c43f7134c3540b3479b945aa",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          }
+        },
+        {
+          "source": {
+            "path": "research/quartic214/proofs/uniform-existence.md",
+            "sha256": "d13cc2b846dc72a3f5b5cce8dcf11d3f11b33c45ebc3883263840afb8d82f3bc",
+            "bytes": 22294,
+            "section": "[P12:",
+            "lines": [
+              48,
+              59
+            ],
+            "passage_sha256": "c5bc7767632a89ff1936193960863e8686d10a37488005c7b22a379cedeeadba",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          },
+          "tex": {
+            "path": "research/quartic214-manuscript/quartic214.tex",
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
+            "lines": [
+              2268,
+              2283
+            ],
+            "passage_sha256": "21b702dd79b78f48e56e7a5efedf43504ff195176355b5caa8a34503556112ee",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          }
+        }
+      ]
+    }
+  ],
+  "finding_ids": [
+    "TEX-F01",
+    "TEX-F02",
+    "TEX-F03",
+    "TEX-F04",
+    "PR30-F1",
+    "PR30-F2",
+    "PR30-F3",
+    "PR30-F4",
+    "PR30-F5"
+  ],
+  "reconciliation": {
+    "initial_table_preserved": true,
+    "comparison": "All nineteen initially reconstructed mathematical blocks are mapped. A new current-foundation application explicitly replaces the historical V15 receiving source by the complete final amended V16 and its new transition. The actual raw224 redundancy proof is additionally included. All fourteen original application contracts remain frozen with current passage links; changed source choice is governed by the separate new foundation contract.",
+    "initial_difference": "The raw224 provenance proof was not a separate initial source-block entry. Newly discovered upstream corrections require current V16, actual GI/TZ/CMH source-to214 comparison, and explicit supersession of old P02/C01 current-source claims. The initial reconstruction remains immutable; see TEX-F04 and FOUNDATION_APPLICATION.json.",
+    "separate_coverage_decision": "required from non-author reviewer"
+  },
+  "review_boundary": "Proposed F1-F5 formula incorporation and bounded source inclusion/changed joins; complete assembled proof and complete inventory not accepted; full Protocol D closure incomplete.",
+  "foundation_transition": {
+    "contract": {
+      "path": "research/quartic214-manuscript-review/FOUNDATION_APPLICATION.json",
+      "sha256": "7777952dbd0611d17338154168dc80d1169416c93f6b12a92d60d2b2f427341e",
+      "bytes": 66633
+    },
+    "historical_source": {
+      "path": "research/version15/snapshots/v15-222-004/manuscript/quartic_v15.tex",
+      "sha256": "44ba3a8ec8521c29b81b26cfb9981cd6d5f3c76d54e7782438614842edb52c74",
+      "bytes": 1924438
+    },
+    "current_source": {
+      "path": "manuscripts/quartic_v16.tex",
+      "sha256": "aeb2b6a42a03943d7f8c46682389c8da693d2903ba92ccc164bbbd236451de74",
+      "bytes": 1926498
+    },
+    "bridge": {
+      "path": "research/quartic214-manuscript-review/FOUNDATION_TRANSITION.md",
+      "sha256": "9a3a081bfb6c3e5c0893065ab1c1ea19f36c91b997999064371886e270c3d936",
+      "bytes": 13149
+    },
+    "justification": "Fresh current-source application and explicit current consumer supersession; no historical approval refresh."
+  },
+  "pdf_binding": {
+    "build": {
+      "path": "research/quartic214-manuscript/BUILD.json",
+      "sha256": "dab965bf5fd4d86fcb4ba4f8c215309b49979ccadbf41ed529cb38acb376eabd",
+      "bytes": 39529
+    },
+    "pdf": {
+      "path": "research/quartic214-manuscript/quartic214.pdf",
+      "sha256": "8c22312ce54d3f2709eddc28c1045b1785d44ce0d7d47957639c0322a9d0a498",
+      "bytes": 3940738
+    }
+  },
+  "correction_application": {
+    "path": "research/quartic214-manuscript-review/CORRECTION_APPLICATION.json",
+    "sha256": "5ac9e3407e9a893512216462b7eb9041eff1548961359136f9eb4af97ef5d192",
+    "bytes": 31894
+  },
+  "complete_protocol_D_closure": false
+}

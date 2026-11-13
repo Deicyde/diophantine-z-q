@@ -1,0 +1,90 @@
+{
+  "base": "a5937595cde3e3db00975b81e5171cdef92c801a",
+  "reviewer": "/root/pr30_final_repair_review",
+  "head": "c84bbfa4dbe8f32fd3bf29df029f7b7849d36202",
+  "files": [
+    {
+      "sha256": "5e048d9b7cb3dfac8c76955572208179dff4606c6e191d05875f7b4c1de8a8a8",
+      "path": ".github/workflows/quartic214-research.yml",
+      "bytes": 1519
+    },
+    {
+      "sha256": "591c7b8b3b99439268a88b25865f213794e6f0a523c90935592a09764d037bf0",
+      "path": ".github/workflows/quartic214-protocol-d-progress.yml",
+      "bytes": 1001
+    },
+    {
+      "sha256": "11d9566c9363cca7bb5bdf2536a77285d687a35c0f8c9accd3837d8a8af5d02c",
+      "path": ".github/workflows/quartic214-manuscript.yml",
+      "bytes": 2222
+    },
+    {
+      "sha256": "804288722de1d964e7142c8d612b401496283a5cd8220c4b613c11de53640b42",
+      "path": ".github/workflows/quartic214-manuscript-revision2.yml",
+      "bytes": 1865
+    },
+    {
+      "sha256": "7631535bb64b616b869bf71f1da392a32a7f0006ba7d07ecd5af424b8f26d158",
+      "path": ".github/workflows/quartic214-manuscript-revision3.yml",
+      "bytes": 1347
+    },
+    {
+      "sha256": "2daac2a8a2b8d2d0d9b2c32b7fcca28595d971968c615e43fba7e102129bcd7b",
+      "path": "README.md",
+      "bytes": 16623
+    },
+    {
+      "sha256": "6a4c35c56186e5dd40ead8fd78ef864d1520ad4ad85617576db8f584920e4e57",
+      "path": "CURRENT_214_REVIEW.md",
+      "bytes": 1348
+    },
+    {
+      "sha256": "afa98310c4c2e170eb6c917fd35e6ba1c707cfcaba8b007f7ca214f1bc9dad7d",
+      "path": "CURRENT_214_REVISION3.md",
+      "bytes": 1343
+    },
+    {
+      "sha256": "09eec8156ee16c4b35f99b8abcd3221ed15fec568e046f6456e8638cd9846f33",
+      "path": "docs/current-manuscript.json",
+      "bytes": 517
+    },
+    {
+      "sha256": "9597c43f719cf343d486303e4684b1f8488739c4353726c5e38d93ab15fac750",
+      "path": "docs/release-policy.md",
+      "bytes": 2877
+    },
+    {
+      "sha256": "a96f020adcfc2309c9f66228e036d3b020104bef8e4d7b5dbb079342874b993b",
+      "path": "research/quartic214-main-integration/check_historical_records.py",
+      "bytes": 11844
+    },
+    {
+      "sha256": "09d958a38e5815a03b474033d439e84fec40b8a55f4109e95adb87b179fb8c17",
+      "path": "research/quartic214/construction/build.py",
+      "bytes": 7610
+    },
+    {
+      "sha256": "07527831694fc6be9373e2dac92d292520fbb8c79128e4d51a1ae0128c96e214",
+      "path": "research/quartic214/construction/check_exact.py",
+      "bytes": 7372
+    },
+    {
+      "sha256": "2d6b1426b497b197782285280845ce4663936d4dee00f2ce3c5173bc58d39a1e",
+      "path": "research/quartic214/height/numeric_certificate.py",
+      "bytes": 3500
+    },
+    {
+      "sha256": "d62c828434ac9861bf06d1965d3de6956b47856e1eb4000dd70d49a36980a629",
+      "path": "research/quartic214/check_port.py",
+      "bytes": 3927
+    }
+  ],
+  "source_first_requirements": [
+    "Additive workflows must retain protected policy and historical sources; local receipts cannot authenticate model eligibility.",
+    "Wrapper substitution domain must be exactly archived README and one historical workflow; all mathematical bytes must remain current.",
+    "Finite reconstruction must retain 214 coordinates, 188 primitive integral quadratic rows, exact SOS quartic and coefficient bound with A fixed; no effective N0 conclusion.",
+    "Delivery must identify complete current TeX/PDF with reproducible build, separately retain historical editions and official V16 selector."
+  ],
+  "prior_exposure": "Prior native arithmetic/height/receiving reports read for earlier repair review; old wrapper review not yet read for this extension. Not blind to their reported finite results.",
+  "scope": "PR30 delivery, policy and finite computations; arithmetic semantics supplied separately"
+}

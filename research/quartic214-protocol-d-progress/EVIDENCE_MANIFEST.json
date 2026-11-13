@@ -1,0 +1,1802 @@
+{
+  "schema": "q214-progress-evidence/v1",
+  "role": "author packaging record; no approval",
+  "source_commit": "e3626cac202cdbcdfedc2bff1978dcd3ea3fd3ab",
+  "entries": [
+    {
+      "path": "inventory/CORPUS-AND-ACTION-REPORT.md",
+      "logical_path": "inventory/CORPUS-AND-ACTION-REPORT.md",
+      "sha256": "845df6266c148a82503a9d02a8b45009b2247048cd59db182473888f93b867cf",
+      "bytes": 14583,
+      "uncompressed_sha256": "845df6266c148a82503a9d02a8b45009b2247048cd59db182473888f93b867cf",
+      "uncompressed_bytes": 14583,
+      "compression": "none",
+      "source_provenance": "/tmp/q214-d-next-20261112/inventory/CORPUS-AND-ACTION-REPORT.md",
+      "copy_scope": "original bytes unchanged after decompression"
+    },
+    {
+      "path": "inventory/HISTORICAL-FINDING-QUEUE.json.gz",
+      "logical_path": "inventory/HISTORICAL-FINDING-QUEUE.json",
+      "sha256": "fc1344f7c0b0334bb3f6153e4873f0f72417db90ae88d9fc2df47596d98ff9e0",
+      "bytes": 52298,
+      "uncompressed_sha256": "e0e00e133b61249521cd7add9af6ccfbc925fbe5de5f9fd0226bb3419a8e0f58",
+      "uncompressed_bytes": 789958,
+      "compression": "gzip-mtime0-no-name",
+      "source_provenance": "/tmp/q214-d-next-20261112/inventory/HISTORICAL-FINDING-QUEUE.json",
+      "copy_scope": "original bytes unchanged after decompression"
+    },
+    {
+      "path": "inventory/INHERITED-APPLICATION-QUEUE.json.gz",
+      "logical_path": "inventory/INHERITED-APPLICATION-QUEUE.json",
+      "sha256": "1d0e41354c7f805074485894e5b8f210cb5d969b65ca607fe697be2fd7425765",
+      "bytes": 848986,
+      "uncompressed_sha256": "c34d51e84c29e8ac2187c8b483dd869b3639bd67ca3f58a1d1565b75b622c7bc",
+      "uncompressed_bytes": 10342686,
+      "compression": "gzip-mtime0-no-name",
+      "source_provenance": "/tmp/q214-d-next-20261112/inventory/INHERITED-APPLICATION-QUEUE.json",
+      "copy_scope": "original bytes unchanged after decompression"
+    },
+    {
+      "path": "inventory/INITIAL-FREEZE.sha256",
+      "logical_path": "inventory/INITIAL-FREEZE.sha256",
+      "sha256": "33ac3164be3c6911ea043954edcffa29d5b8c5bc75363d59a0c2e6b04bb1140c",
+      "bytes": 92,
+      "uncompressed_sha256": "33ac3164be3c6911ea043954edcffa29d5b8c5bc75363d59a0c2e6b04bb1140c",
+      "uncompressed_bytes": 92,
+      "compression": "none",
+      "source_provenance": "/tmp/q214-d-next-20261112/inventory/INITIAL-FREEZE.sha256",
+      "copy_scope": "original bytes unchanged after decompression"
+    },
+    {
+      "path": "inventory/INITIAL-SOURCE-FIRST.json.gz",
+      "logical_path": "inventory/INITIAL-SOURCE-FIRST.json",
+      "sha256": "d74c6b81f34b3cc734e309ac62ad177fcab930508b2ba41b81c4288fbeb81e36",
+      "bytes": 863108,
+      "uncompressed_sha256": "26416ccecc485b164b26be6584fb9d143021f9dedcf4eebd000f08dfa7e36b71",
+      "uncompressed_bytes": 4138916,
+      "compression": "gzip-mtime0-no-name",
+      "source_provenance": "/tmp/q214-d-next-20261112/inventory/INITIAL-SOURCE-FIRST.json",
+      "copy_scope": "original bytes unchanged after decompression"
+    },
+    {
+      "path": "inventory/MANIFEST.json",
+      "logical_path": "inventory/MANIFEST.json",
+      "sha256": "7115ad7d61fdc070a30d2ecfd502bb75c46ab7386217dfa15940beb074f1087a",
+      "bytes": 2527,
+      "uncompressed_sha256": "7115ad7d61fdc070a30d2ecfd502bb75c46ab7386217dfa15940beb074f1087a",
+      "uncompressed_bytes": 2527,
+      "compression": "none",
+      "source_provenance": "/tmp/q214-d-next-20261112/inventory/MANIFEST.json",
+      "copy_scope": "original bytes unchanged after decompression"
+    },
+    {
+      "path": "inventory/PASSAGE-CLOSURE-LEDGER.json.gz",
+      "logical_path": "inventory/PASSAGE-CLOSURE-LEDGER.json",
+      "sha256": "ed83742b7b76a878b7285e02ad175215d3e38022e717193988c232c29087b1cd",
+      "bytes": 1099147,
+      "uncompressed_sha256": "db2388ade78be1f63e9f87005755dd98d2b406e50f1b2ace006436d3f215debb",
+      "uncompressed_bytes": 13676263,
+      "compression": "gzip-mtime0-no-name",
+      "source_provenance": "/tmp/q214-d-next-20261112/inventory/PASSAGE-CLOSURE-LEDGER.json",
+      "copy_scope": "original bytes unchanged after decompression"
+    },
+    {
+      "path": "inventory/PR30-COMMENTS.json",
+      "logical_path": "inventory/PR30-COMMENTS.json",
+      "sha256": "d7392c98a12a54a23c57f669feefc29a238fa513de79768fd56c5fbc5dae4f67",
+      "bytes": 57207,
+      "uncompressed_sha256": "d7392c98a12a54a23c57f669feefc29a238fa513de79768fd56c5fbc5dae4f67",
+      "uncompressed_bytes": 57207,
+      "compression": "none",
+      "source_provenance": "/tmp/q214-d-next-20261112/inventory/PR30-COMMENTS.json",
+      "copy_scope": "original bytes unchanged after decompression"
+    },
+    {
+      "path": "inventory/PRIMARY-SOURCE-STATUS-RECONCILIATION.json",
+      "logical_path": "inventory/PRIMARY-SOURCE-STATUS-RECONCILIATION.json",
+      "sha256": "3b0155e001651cf914eb4194cf1e89f5aaf8648f794b171fb66d4395c2ac151a",
+      "bytes": 50597,
+      "uncompressed_sha256": "3b0155e001651cf914eb4194cf1e89f5aaf8648f794b171fb66d4395c2ac151a",
+      "uncompressed_bytes": 50597,
+      "compression": "none",
+      "source_provenance": "/tmp/q214-d-next-20261112/inventory/PRIMARY-SOURCE-STATUS-RECONCILIATION.json",
+      "copy_scope": "original bytes unchanged after decompression"
+    },
+    {
+      "path": "inventory/PUBLIC-CORPUS-PATHS.txt",
+      "logical_path": "inventory/PUBLIC-CORPUS-PATHS.txt",
+      "sha256": "852b3b85d1da2494160ed65a51e94b19ef482a49c21d7ff507a77714f1069051",
+      "bytes": 12383,
+      "uncompressed_sha256": "852b3b85d1da2494160ed65a51e94b19ef482a49c21d7ff507a77714f1069051",
+      "uncompressed_bytes": 12383,
+      "compression": "none",
+      "source_provenance": "/tmp/q214-d-next-20261112/inventory/PUBLIC-CORPUS-PATHS.txt",
+      "copy_scope": "original bytes unchanged after decompression"
+    },
+    {
+      "path": "inventory/PUBLIC-INVENTORY-CANDIDATES.txt",
+      "logical_path": "inventory/PUBLIC-INVENTORY-CANDIDATES.txt",
+      "sha256": "eb2a44eed3915936b6f3ee4621c13eaa58fe1c2b7da3ed86623f4d3f5c0d40fb",
+      "bytes": 21735,
+      "uncompressed_sha256": "eb2a44eed3915936b6f3ee4621c13eaa58fe1c2b7da3ed86623f4d3f5c0d40fb",
+      "uncompressed_bytes": 21735,
+      "compression": "none",
+      "source_provenance": "/tmp/q214-d-next-20261112/inventory/PUBLIC-INVENTORY-CANDIDATES.txt",
+      "copy_scope": "original bytes unchanged after decompression"
+    },
+    {
+      "path": "inventory/PUBLIC-OBJECTION-AND-INVENTORY-DISCOVERY.json.gz",
+      "logical_path": "inventory/PUBLIC-OBJECTION-AND-INVENTORY-DISCOVERY.json",
+      "sha256": "7d092d423f38011c0a267772148d32bbe62927b1dc6cc37c007ef180d1d34b8a",
+      "bytes": 70937,
+      "uncompressed_sha256": "357b7548cd50a3a070c38060686c67316a61ebe14bb291dba1684038b2da55c0",
+      "uncompressed_bytes": 283517,
+      "compression": "gzip-mtime0-no-name",
+      "source_provenance": "/tmp/q214-d-next-20261112/inventory/PUBLIC-OBJECTION-AND-INVENTORY-DISCOVERY.json",
+      "copy_scope": "original bytes unchanged after decompression"
+    },
+    {
+      "path": "inventory/RECONCILIATION-SUMMARY.json",
+      "logical_path": "inventory/RECONCILIATION-SUMMARY.json",
+      "sha256": "b5091d1a407288a7db9754232e0a7dcd89a0889c926b51be636f03183bd13859",
+      "bytes": 95620,
+      "uncompressed_sha256": "b5091d1a407288a7db9754232e0a7dcd89a0889c926b51be636f03183bd13859",
+      "uncompressed_bytes": 95620,
+      "compression": "none",
+      "source_provenance": "/tmp/q214-d-next-20261112/inventory/RECONCILIATION-SUMMARY.json",
+      "copy_scope": "original bytes unchanged after decompression"
+    },
+    {
+      "path": "inventory/V16-EXACT-REUSE-CANDIDATE.json",
+      "logical_path": "inventory/V16-EXACT-REUSE-CANDIDATE.json",
+      "sha256": "db4c6eb8dd2771772c3a5cb26d8530cf69899664d74964d13704cda29d51a823",
+      "bytes": 1807,
+      "uncompressed_sha256": "db4c6eb8dd2771772c3a5cb26d8530cf69899664d74964d13704cda29d51a823",
+      "uncompressed_bytes": 1807,
+      "compression": "none",
+      "source_provenance": "/tmp/q214-d-next-20261112/inventory/V16-EXACT-REUSE-CANDIDATE.json",
+      "copy_scope": "original bytes unchanged after decompression"
+    },
+    {
+      "path": "inventory/build_ledger.py",
+      "logical_path": "inventory/build_ledger.py",
+      "sha256": "3a41f4307487c30fd425766f80e1a0c197c4099a6aea5765da202d482f84222c",
+      "bytes": 9412,
+      "uncompressed_sha256": "3a41f4307487c30fd425766f80e1a0c197c4099a6aea5765da202d482f84222c",
+      "uncompressed_bytes": 9412,
+      "compression": "none",
+      "source_provenance": "/tmp/q214-d-next-20261112/inventory/build_ledger.py",
+      "copy_scope": "original bytes unchanged after decompression"
+    },
+    {
+      "path": "provenance/V16-PROTECTED-CHECK.json",
+      "logical_path": "provenance/V16-PROTECTED-CHECK.json",
+      "sha256": "7f014b5edd7859e15cdbc531e719cebc534db1dc39baab000c0dcf7a67a1498e",
+      "bytes": 655,
+      "uncompressed_sha256": "7f014b5edd7859e15cdbc531e719cebc534db1dc39baab000c0dcf7a67a1498e",
+      "uncompressed_bytes": 655,
+      "compression": "none",
+      "source_provenance": "/tmp/q214-d-next-20261112/root/V16-PROTECTED-CHECK.json",
+      "copy_scope": "original bytes unchanged after decompression"
+    },
+    {
+      "path": "provenance/V16-NATIVE-IDENTITY.json",
+      "logical_path": "provenance/V16-NATIVE-IDENTITY.json",
+      "sha256": "509ff8fcce0c26676f25a231400a1ddb4bfc8e2ec9549bdda4ecb42ae7be88d1",
+      "bytes": 2232,
+      "uncompressed_sha256": "509ff8fcce0c26676f25a231400a1ddb4bfc8e2ec9549bdda4ecb42ae7be88d1",
+      "uncompressed_bytes": 2232,
+      "compression": "none",
+      "source_provenance": "/tmp/q214-d-next-20261112/root/V16-NATIVE-IDENTITY.json",
+      "copy_scope": "original bytes unchanged after decompression"
+    },
+    {
+      "path": "provenance/V16-NATIVE-REUSE-NOTE.json",
+      "logical_path": "provenance/V16-NATIVE-REUSE-NOTE.json",
+      "sha256": "242d74128bc2684e06922b31df8558ac387fd436952743b6fe82e24e342b0577",
+      "bytes": 2684,
+      "uncompressed_sha256": "242d74128bc2684e06922b31df8558ac387fd436952743b6fe82e24e342b0577",
+      "uncompressed_bytes": 2684,
+      "compression": "none",
+      "source_provenance": "/tmp/q214-d-next-20261112/root/V16-NATIVE-REUSE-NOTE.json",
+      "copy_scope": "original bytes unchanged after decompression"
+    },
+    {
+      "path": "reviews/rc/MANIFEST.json",
+      "logical_path": "reviews/rc/MANIFEST.json",
+      "sha256": "6c74d6cc10a124a4f2294f7f8aa751a12403729a862a007e3efcdf3fa2fdd029",
+      "bytes": 1836,
+      "uncompressed_sha256": "6c74d6cc10a124a4f2294f7f8aa751a12403729a862a007e3efcdf3fa2fdd029",
+      "uncompressed_bytes": 1836,
+      "compression": "none",
+      "source_provenance": "/tmp/q214-d-next-20261112/rc/MANIFEST.json",
+      "copy_scope": "original bytes unchanged after decompression"
+    },
+    {
+      "path": "reviews/rc/REVIEW.md",
+      "logical_path": "reviews/rc/REVIEW.md",
+      "sha256": "9de91612f79c69578c1b3f589abc43b8056abdc71bae27bf17c3895cbfdd0b24",
+      "bytes": 17661,
+      "uncompressed_sha256": "9de91612f79c69578c1b3f589abc43b8056abdc71bae27bf17c3895cbfdd0b24",
+      "uncompressed_bytes": 17661,
+      "compression": "none",
+      "source_provenance": "/tmp/q214-d-next-20261112/rc/REVIEW.md",
+      "copy_scope": "original bytes unchanged after decompression"
+    },
+    {
+      "path": "reviews/rc/build_evidence.py",
+      "logical_path": "reviews/rc/build_evidence.py",
+      "sha256": "09e9f94404f53529d255bbc6b648a875424cf6ce005f36cabc4cc0e402af0d84",
+      "bytes": 17044,
+      "uncompressed_sha256": "09e9f94404f53529d255bbc6b648a875424cf6ce005f36cabc4cc0e402af0d84",
+      "uncompressed_bytes": 17044,
+      "compression": "none",
+      "source_provenance": "/tmp/q214-d-next-20261112/rc/build_evidence.py",
+      "copy_scope": "original bytes unchanged after decompression"
+    },
+    {
+      "path": "reviews/rc/findings.json",
+      "logical_path": "reviews/rc/findings.json",
+      "sha256": "d437831fd312304e1e25630f4ca1c19248aa00b5cd0d622cadee98e5e1a60bb1",
+      "bytes": 1692,
+      "uncompressed_sha256": "d437831fd312304e1e25630f4ca1c19248aa00b5cd0d622cadee98e5e1a60bb1",
+      "uncompressed_bytes": 1692,
+      "compression": "none",
+      "source_provenance": "/tmp/q214-d-next-20261112/rc/findings.json",
+      "copy_scope": "original bytes unchanged after decompression"
+    },
+    {
+      "path": "reviews/rc/inventory-relevant-uses.json.gz",
+      "logical_path": "reviews/rc/inventory-relevant-uses.json",
+      "sha256": "64b352e3848197c79604364ec6f99798b6b7b4e73df2fda31d3acf144fc8e10b",
+      "bytes": 131033,
+      "uncompressed_sha256": "bda115364a5c3fb65b953c6b5ee0c7242d36ffd0c2d50b1086a9294cf6759896",
+      "uncompressed_bytes": 782343,
+      "compression": "gzip-mtime0-no-name",
+      "source_provenance": "/tmp/q214-d-next-20261112/rc/inventory-relevant-uses.json",
+      "copy_scope": "original bytes unchanged after decompression"
+    },
+    {
+      "path": "reviews/rc/native-reuse-identity.json",
+      "logical_path": "reviews/rc/native-reuse-identity.json",
+      "sha256": "2020b0cb3dd9365907387e7a562f8fa029ff0a0763dd8d39b04d1ff9f9d62c21",
+      "bytes": 2160,
+      "uncompressed_sha256": "2020b0cb3dd9365907387e7a562f8fa029ff0a0763dd8d39b04d1ff9f9d62c21",
+      "uncompressed_bytes": 2160,
+      "compression": "none",
+      "source_provenance": "/tmp/q214-d-next-20261112/rc/native-reuse-identity.json",
+      "copy_scope": "original bytes unchanged after decompression"
+    },
+    {
+      "path": "reviews/rc/native-selected-connections.json.gz",
+      "logical_path": "reviews/rc/native-selected-connections.json",
+      "sha256": "072660f6e6a8b30b790b1708f2563506359990410009f569913d3fdaaadf7751",
+      "bytes": 15814,
+      "uncompressed_sha256": "3fc324aae1ffd74b2920cac8eabf9d7c9c911bc8edd1a86b6f081c79b0c9027b",
+      "uncompressed_bytes": 118238,
+      "compression": "gzip-mtime0-no-name",
+      "source_provenance": "/tmp/q214-d-next-20261112/rc/native-selected-connections.json",
+      "copy_scope": "original bytes unchanged after decompression"
+    },
+    {
+      "path": "reviews/rc/nine-obligations.json",
+      "logical_path": "reviews/rc/nine-obligations.json",
+      "sha256": "3382fa6fed60c077e0de7c94f5083a04cd1e6790ffa3164205761cb19e5f7120",
+      "bytes": 42253,
+      "uncompressed_sha256": "3382fa6fed60c077e0de7c94f5083a04cd1e6790ffa3164205761cb19e5f7120",
+      "uncompressed_bytes": 42253,
+      "compression": "none",
+      "source_provenance": "/tmp/q214-d-next-20261112/rc/nine-obligations.json",
+      "copy_scope": "original bytes unchanged after decompression"
+    },
+    {
+      "path": "reviews/rc/primary-sources.json",
+      "logical_path": "reviews/rc/primary-sources.json",
+      "sha256": "ce122676c4c911735bfa171d586f07c724d5929f526ad36357d4272384d501a3",
+      "bytes": 2248,
+      "uncompressed_sha256": "ce122676c4c911735bfa171d586f07c724d5929f526ad36357d4272384d501a3",
+      "uncompressed_bytes": 2248,
+      "compression": "none",
+      "source_provenance": "/tmp/q214-d-next-20261112/rc/primary-sources.json",
+      "copy_scope": "original bytes unchanged after decompression"
+    },
+    {
+      "path": "reviews/rc/source-bindings.json",
+      "logical_path": "reviews/rc/source-bindings.json",
+      "sha256": "909f79f3bec8729b0d57075db83eb394d3f2a9878fc6e1d5cdff7f45c485f742",
+      "bytes": 7848,
+      "uncompressed_sha256": "909f79f3bec8729b0d57075db83eb394d3f2a9878fc6e1d5cdff7f45c485f742",
+      "uncompressed_bytes": 7848,
+      "compression": "none",
+      "source_provenance": "/tmp/q214-d-next-20261112/rc/source-bindings.json",
+      "copy_scope": "original bytes unchanged after decompression"
+    },
+    {
+      "path": "reviews/rc/source-use-initial.json",
+      "logical_path": "reviews/rc/source-use-initial.json",
+      "sha256": "d3361545257d7bf822c50fee569872ad05ac195b41a056f73f189bb3a4023cd8",
+      "bytes": 6059,
+      "uncompressed_sha256": "d3361545257d7bf822c50fee569872ad05ac195b41a056f73f189bb3a4023cd8",
+      "uncompressed_bytes": 6059,
+      "compression": "none",
+      "source_provenance": "/tmp/q214-d-next-20261112/rc/source-use-initial.json",
+      "copy_scope": "original bytes unchanged after decompression"
+    },
+    {
+      "path": "reviews/rc/source-use-reconciled.json",
+      "logical_path": "reviews/rc/source-use-reconciled.json",
+      "sha256": "264032e9fb42aea28cf04e7d79d5007f98e6703d32e89310ed7ba9200e27d453",
+      "bytes": 18116,
+      "uncompressed_sha256": "264032e9fb42aea28cf04e7d79d5007f98e6703d32e89310ed7ba9200e27d453",
+      "uncompressed_bytes": 18116,
+      "compression": "none",
+      "source_provenance": "/tmp/q214-d-next-20261112/rc/source-use-reconciled.json",
+      "copy_scope": "original bytes unchanged after decompression"
+    },
+    {
+      "path": "reviews/analytic/BINDINGS.json",
+      "logical_path": "reviews/analytic/BINDINGS.json",
+      "sha256": "e62b76cde0eafae3596ad13e2c6b1f4ff575d1d1f5fe4f3cc1e8bea5c3edb819",
+      "bytes": 8165,
+      "uncompressed_sha256": "e62b76cde0eafae3596ad13e2c6b1f4ff575d1d1f5fe4f3cc1e8bea5c3edb819",
+      "uncompressed_bytes": 8165,
+      "compression": "none",
+      "source_provenance": "/tmp/q214-d-next-20261112/analytic/BINDINGS.json",
+      "copy_scope": "original bytes unchanged after decompression"
+    },
+    {
+      "path": "reviews/analytic/COVERAGE.md",
+      "logical_path": "reviews/analytic/COVERAGE.md",
+      "sha256": "de3466c367b39b0655d86b2abf4b79855f27a77ef84010f0cbd36842858438a2",
+      "bytes": 8356,
+      "uncompressed_sha256": "de3466c367b39b0655d86b2abf4b79855f27a77ef84010f0cbd36842858438a2",
+      "uncompressed_bytes": 8356,
+      "compression": "none",
+      "source_provenance": "/tmp/q214-d-next-20261112/analytic/COVERAGE.md",
+      "copy_scope": "original bytes unchanged after decompression"
+    },
+    {
+      "path": "reviews/analytic/DECLARED_ANALYTIC_CONNECTIONS.json.gz",
+      "logical_path": "reviews/analytic/DECLARED_ANALYTIC_CONNECTIONS.json",
+      "sha256": "fdf11cef83603bb444ba8fd8e07edfa267aeb73ab6886a569a8c8808990a3241",
+      "bytes": 58309,
+      "uncompressed_sha256": "1ac320bb1f62a60503a1c38c088be378f7e06d08f8b99b731e4856c3627887ba",
+      "uncompressed_bytes": 505224,
+      "compression": "gzip-mtime0-no-name",
+      "source_provenance": "/tmp/q214-d-next-20261112/analytic/DECLARED_ANALYTIC_CONNECTIONS.json",
+      "copy_scope": "original bytes unchanged after decompression"
+    },
+    {
+      "path": "reviews/analytic/DECLARED_ANALYTIC_USES.json.gz",
+      "logical_path": "reviews/analytic/DECLARED_ANALYTIC_USES.json",
+      "sha256": "2ad8f85bd59c0dca370c19414d265ba949664831b950fcf404cb3226445286bc",
+      "bytes": 45913,
+      "uncompressed_sha256": "03476694a13b7a702493688d3ed8865b02610c85db189c203198229d85f2cbdd",
+      "uncompressed_bytes": 278183,
+      "compression": "gzip-mtime0-no-name",
+      "source_provenance": "/tmp/q214-d-next-20261112/analytic/DECLARED_ANALYTIC_USES.json",
+      "copy_scope": "original bytes unchanged after decompression"
+    },
+    {
+      "path": "reviews/analytic/FINDINGS.json",
+      "logical_path": "reviews/analytic/FINDINGS.json",
+      "sha256": "64cb61359be238557f602f46c7b75a2048f33adc600c5d235200903f613f6a98",
+      "bytes": 1304,
+      "uncompressed_sha256": "64cb61359be238557f602f46c7b75a2048f33adc600c5d235200903f613f6a98",
+      "uncompressed_bytes": 1304,
+      "compression": "none",
+      "source_provenance": "/tmp/q214-d-next-20261112/analytic/FINDINGS.json",
+      "copy_scope": "original bytes unchanged after decompression"
+    },
+    {
+      "path": "reviews/analytic/FOUNDATION_TRANSITION_CHECKS.json",
+      "logical_path": "reviews/analytic/FOUNDATION_TRANSITION_CHECKS.json",
+      "sha256": "396f6f08483078bfe799adc962fed12af56a40903ce2dc9b30243cae255c1f12",
+      "bytes": 3279,
+      "uncompressed_sha256": "396f6f08483078bfe799adc962fed12af56a40903ce2dc9b30243cae255c1f12",
+      "uncompressed_bytes": 3279,
+      "compression": "none",
+      "source_provenance": "/tmp/q214-d-next-20261112/analytic/FOUNDATION_TRANSITION_CHECKS.json",
+      "copy_scope": "original bytes unchanged after decompression"
+    },
+    {
+      "path": "reviews/analytic/INITIAL_SOURCE_USES.json",
+      "logical_path": "reviews/analytic/INITIAL_SOURCE_USES.json",
+      "sha256": "e3950a895e06f8abb6330432fee5d807422a2bb950e3e84e340abf64f5a2f501",
+      "bytes": 11277,
+      "uncompressed_sha256": "e3950a895e06f8abb6330432fee5d807422a2bb950e3e84e340abf64f5a2f501",
+      "uncompressed_bytes": 11277,
+      "compression": "none",
+      "source_provenance": "/tmp/q214-d-next-20261112/analytic/INITIAL_SOURCE_USES.json",
+      "copy_scope": "original bytes unchanged after decompression"
+    },
+    {
+      "path": "reviews/analytic/INITIAL_SOURCE_USES.sha256",
+      "logical_path": "reviews/analytic/INITIAL_SOURCE_USES.sha256",
+      "sha256": "55ef9e95a2242939828742a98f51d727d61a4c5a901f1f9b6b5a3865a2ad9256",
+      "bytes": 91,
+      "uncompressed_sha256": "55ef9e95a2242939828742a98f51d727d61a4c5a901f1f9b6b5a3865a2ad9256",
+      "uncompressed_bytes": 91,
+      "compression": "none",
+      "source_provenance": "/tmp/q214-d-next-20261112/analytic/INITIAL_SOURCE_USES.sha256",
+      "copy_scope": "original bytes unchanged after decompression"
+    },
+    {
+      "path": "reviews/analytic/PRIMARY_SOURCE_MANIFEST.json",
+      "logical_path": "reviews/analytic/PRIMARY_SOURCE_MANIFEST.json",
+      "sha256": "28864ac2db71d941f0289d4dce68ac117c57e71895b9c3230d0987ce925ad10b",
+      "bytes": 4245,
+      "uncompressed_sha256": "28864ac2db71d941f0289d4dce68ac117c57e71895b9c3230d0987ce925ad10b",
+      "uncompressed_bytes": 4245,
+      "compression": "none",
+      "source_provenance": "/tmp/q214-d-next-20261112/analytic/PRIMARY_SOURCE_MANIFEST.json",
+      "copy_scope": "original bytes unchanged after decompression"
+    },
+    {
+      "path": "reviews/analytic/RECONCILED_SOURCE_USES.json",
+      "logical_path": "reviews/analytic/RECONCILED_SOURCE_USES.json",
+      "sha256": "0c55807ca78ba0b1de914a533b1cc34d33690022dfa949d2e11124a62d42464c",
+      "bytes": 21845,
+      "uncompressed_sha256": "0c55807ca78ba0b1de914a533b1cc34d33690022dfa949d2e11124a62d42464c",
+      "uncompressed_bytes": 21845,
+      "compression": "none",
+      "source_provenance": "/tmp/q214-d-next-20261112/analytic/RECONCILED_SOURCE_USES.json",
+      "copy_scope": "original bytes unchanged after decompression"
+    },
+    {
+      "path": "reviews/analytic/REPORT.md",
+      "logical_path": "reviews/analytic/REPORT.md",
+      "sha256": "01212186b50cd4b33bb9b708807840645e3272e289ade6769afcda36df58ec5e",
+      "bytes": 19600,
+      "uncompressed_sha256": "01212186b50cd4b33bb9b708807840645e3272e289ade6769afcda36df58ec5e",
+      "uncompressed_bytes": 19600,
+      "compression": "none",
+      "source_provenance": "/tmp/q214-d-next-20261112/analytic/REPORT.md",
+      "copy_scope": "original bytes unchanged after decompression"
+    },
+    {
+      "path": "reviews/analytic/REPORT_MANIFEST.json",
+      "logical_path": "reviews/analytic/REPORT_MANIFEST.json",
+      "sha256": "9fbba2ef7a2dffe39c97d4f49986d9f78f50ddbd5c503cf8bac124dbf1208676",
+      "bytes": 1496,
+      "uncompressed_sha256": "9fbba2ef7a2dffe39c97d4f49986d9f78f50ddbd5c503cf8bac124dbf1208676",
+      "uncompressed_bytes": 1496,
+      "compression": "none",
+      "source_provenance": "/tmp/q214-d-next-20261112/analytic/REPORT_MANIFEST.json",
+      "copy_scope": "original bytes unchanged after decompression"
+    },
+    {
+      "path": "reviews/geometry/DIRECT_EDGE_PIN_CHECKS.json",
+      "logical_path": "reviews/geometry/DIRECT_EDGE_PIN_CHECKS.json",
+      "sha256": "87741e9bf18995ea04ef3308fb540b38de61b0bfd996839dffe9385aa7e46296",
+      "bytes": 754,
+      "uncompressed_sha256": "87741e9bf18995ea04ef3308fb540b38de61b0bfd996839dffe9385aa7e46296",
+      "uncompressed_bytes": 754,
+      "compression": "none",
+      "source_provenance": "/tmp/q214-d-next-20261112/geometry/DIRECT_EDGE_PIN_CHECKS.json",
+      "copy_scope": "original bytes unchanged after decompression"
+    },
+    {
+      "path": "reviews/geometry/DIRECT_EDGE_REQUEST.json",
+      "logical_path": "reviews/geometry/DIRECT_EDGE_REQUEST.json",
+      "sha256": "f293441c5cf15b43ed7d7111a2232d09f93ed3762adca7cf47f4d6cb1e7d99d9",
+      "bytes": 2671,
+      "uncompressed_sha256": "f293441c5cf15b43ed7d7111a2232d09f93ed3762adca7cf47f4d6cb1e7d99d9",
+      "uncompressed_bytes": 2671,
+      "compression": "none",
+      "source_provenance": "/tmp/q214-d-next-20261112/geometry/DIRECT_EDGE_REQUEST.json",
+      "copy_scope": "original bytes unchanged after decompression"
+    },
+    {
+      "path": "reviews/geometry/DIRECT_EDGE_REVIEW.json",
+      "logical_path": "reviews/geometry/DIRECT_EDGE_REVIEW.json",
+      "sha256": "fa26a6f4f2d3344440113a9a865c3a6964e61d67387549ff5080d2340a5ee6b9",
+      "bytes": 9697,
+      "uncompressed_sha256": "fa26a6f4f2d3344440113a9a865c3a6964e61d67387549ff5080d2340a5ee6b9",
+      "uncompressed_bytes": 9697,
+      "compression": "none",
+      "source_provenance": "/tmp/q214-d-next-20261112/geometry/DIRECT_EDGE_REVIEW.json",
+      "copy_scope": "original bytes unchanged after decompression"
+    },
+    {
+      "path": "reviews/geometry/FINDINGS.json",
+      "logical_path": "reviews/geometry/FINDINGS.json",
+      "sha256": "184753216b938b14d47ac3c712b2d3d79dcc76a931580840a70db4482a281b38",
+      "bytes": 1781,
+      "uncompressed_sha256": "184753216b938b14d47ac3c712b2d3d79dcc76a931580840a70db4482a281b38",
+      "uncompressed_bytes": 1781,
+      "compression": "none",
+      "source_provenance": "/tmp/q214-d-next-20261112/geometry/FINDINGS.json",
+      "copy_scope": "original bytes unchanged after decompression"
+    },
+    {
+      "path": "reviews/geometry/FINITE_REPRODUCTION.json",
+      "logical_path": "reviews/geometry/FINITE_REPRODUCTION.json",
+      "sha256": "1bb44b65cdcb2298c4944bc6c745c7a35949fba4d7be00fe8bf7681d97574e75",
+      "bytes": 3573,
+      "uncompressed_sha256": "1bb44b65cdcb2298c4944bc6c745c7a35949fba4d7be00fe8bf7681d97574e75",
+      "uncompressed_bytes": 3573,
+      "compression": "none",
+      "source_provenance": "/tmp/q214-d-next-20261112/geometry/FINITE_REPRODUCTION.json",
+      "copy_scope": "original bytes unchanged after decompression"
+    },
+    {
+      "path": "reviews/geometry/G4_NATIVE_COMPARISON.json",
+      "logical_path": "reviews/geometry/G4_NATIVE_COMPARISON.json",
+      "sha256": "5dda007b92129ddbb86c947ad3dd8c2452d9d9bdece45089fc0a9ced7df2ed9f",
+      "bytes": 38738,
+      "uncompressed_sha256": "5dda007b92129ddbb86c947ad3dd8c2452d9d9bdece45089fc0a9ced7df2ed9f",
+      "uncompressed_bytes": 38738,
+      "compression": "none",
+      "source_provenance": "/tmp/q214-d-next-20261112/geometry/G4_NATIVE_COMPARISON.json",
+      "copy_scope": "original bytes unchanged after decompression"
+    },
+    {
+      "path": "reviews/geometry/G4_REUSE_ADDENDUM.md",
+      "logical_path": "reviews/geometry/G4_REUSE_ADDENDUM.md",
+      "sha256": "e8fe086e90660b8758e0b21f82739fa007214d45abc3c4617e781a359d975032",
+      "bytes": 4145,
+      "uncompressed_sha256": "e8fe086e90660b8758e0b21f82739fa007214d45abc3c4617e781a359d975032",
+      "uncompressed_bytes": 4145,
+      "compression": "none",
+      "source_provenance": "/tmp/q214-d-next-20261112/geometry/G4_REUSE_ADDENDUM.md",
+      "copy_scope": "original bytes unchanged after decompression"
+    },
+    {
+      "path": "reviews/geometry/G4_REVIEWED_PASSAGES.json",
+      "logical_path": "reviews/geometry/G4_REVIEWED_PASSAGES.json",
+      "sha256": "3bf449b88f36fa11b8a479733fbb5752ffeaa71c5d22972b5b9c3be676d223ff",
+      "bytes": 1363,
+      "uncompressed_sha256": "3bf449b88f36fa11b8a479733fbb5752ffeaa71c5d22972b5b9c3be676d223ff",
+      "uncompressed_bytes": 1363,
+      "compression": "none",
+      "source_provenance": "/tmp/q214-d-next-20261112/geometry/G4_REVIEWED_PASSAGES.json",
+      "copy_scope": "original bytes unchanged after decompression"
+    },
+    {
+      "path": "reviews/geometry/INITIAL_SOURCE_USES.json",
+      "logical_path": "reviews/geometry/INITIAL_SOURCE_USES.json",
+      "sha256": "0a8e17f069e0efbe93c5b6a4531b9559bf7e1c2e94af17243b2f482a9a0c6a4a",
+      "bytes": 6812,
+      "uncompressed_sha256": "0a8e17f069e0efbe93c5b6a4531b9559bf7e1c2e94af17243b2f482a9a0c6a4a",
+      "uncompressed_bytes": 6812,
+      "compression": "none",
+      "source_provenance": "/tmp/q214-d-next-20261112/geometry/INITIAL_SOURCE_USES.json",
+      "copy_scope": "original bytes unchanged after decompression"
+    },
+    {
+      "path": "reviews/geometry/MANIFEST.json",
+      "logical_path": "reviews/geometry/MANIFEST.json",
+      "sha256": "f7d52f3f846c7403ce90d0af2e763bc71f3ac45969f494565d27583c7f79da30",
+      "bytes": 2834,
+      "uncompressed_sha256": "f7d52f3f846c7403ce90d0af2e763bc71f3ac45969f494565d27583c7f79da30",
+      "uncompressed_bytes": 2834,
+      "compression": "none",
+      "source_provenance": "/tmp/q214-d-next-20261112/geometry/MANIFEST.json",
+      "copy_scope": "original bytes unchanged after decompression"
+    },
+    {
+      "path": "reviews/geometry/NATIVE_SELECTED_DECISIONS.json",
+      "logical_path": "reviews/geometry/NATIVE_SELECTED_DECISIONS.json",
+      "sha256": "b99b6b4cb749b76905b365aaea1e27bf62ed3663c5e739ddcad0ee79179a2ed5",
+      "bytes": 7277,
+      "uncompressed_sha256": "b99b6b4cb749b76905b365aaea1e27bf62ed3663c5e739ddcad0ee79179a2ed5",
+      "uncompressed_bytes": 7277,
+      "compression": "none",
+      "source_provenance": "/tmp/q214-d-next-20261112/geometry/NATIVE_SELECTED_DECISIONS.json",
+      "copy_scope": "original bytes unchanged after decompression"
+    },
+    {
+      "path": "reviews/geometry/NATIVE_SELECTED_USES.json",
+      "logical_path": "reviews/geometry/NATIVE_SELECTED_USES.json",
+      "sha256": "a6aee245539314e7470267ecbaba8164b1442f4e88bf18be76eb912a0d011d60",
+      "bytes": 93698,
+      "uncompressed_sha256": "a6aee245539314e7470267ecbaba8164b1442f4e88bf18be76eb912a0d011d60",
+      "uncompressed_bytes": 93698,
+      "compression": "none",
+      "source_provenance": "/tmp/q214-d-next-20261112/geometry/NATIVE_SELECTED_USES.json",
+      "copy_scope": "original bytes unchanged after decompression"
+    },
+    {
+      "path": "reviews/geometry/RECONCILIATION.json",
+      "logical_path": "reviews/geometry/RECONCILIATION.json",
+      "sha256": "4e439e01efaece94318fba983ebc1cb057e67a72d8659b9160301c4405fcb1a6",
+      "bytes": 5109,
+      "uncompressed_sha256": "4e439e01efaece94318fba983ebc1cb057e67a72d8659b9160301c4405fcb1a6",
+      "uncompressed_bytes": 5109,
+      "compression": "none",
+      "source_provenance": "/tmp/q214-d-next-20261112/geometry/RECONCILIATION.json",
+      "copy_scope": "original bytes unchanged after decompression"
+    },
+    {
+      "path": "reviews/geometry/REPORT.md",
+      "logical_path": "reviews/geometry/REPORT.md",
+      "sha256": "765356ac35530792140ce2a7a8dccbe08dc95c667a048af5e8258f14d49faa7e",
+      "bytes": 12597,
+      "uncompressed_sha256": "765356ac35530792140ce2a7a8dccbe08dc95c667a048af5e8258f14d49faa7e",
+      "uncompressed_bytes": 12597,
+      "compression": "none",
+      "source_provenance": "/tmp/q214-d-next-20261112/geometry/REPORT.md",
+      "copy_scope": "original bytes unchanged after decompression"
+    },
+    {
+      "path": "reviews/geometry/REVIEWED_FILE_PINS.json",
+      "logical_path": "reviews/geometry/REVIEWED_FILE_PINS.json",
+      "sha256": "dc4c7d49b013c09c724e1dc7ae31dec09a5198553428263307db22c38e729ed6",
+      "bytes": 2104,
+      "uncompressed_sha256": "dc4c7d49b013c09c724e1dc7ae31dec09a5198553428263307db22c38e729ed6",
+      "uncompressed_bytes": 2104,
+      "compression": "none",
+      "source_provenance": "/tmp/q214-d-next-20261112/geometry/REVIEWED_FILE_PINS.json",
+      "copy_scope": "original bytes unchanged after decompression"
+    },
+    {
+      "path": "reviews/geometry/SOURCE_READING.json",
+      "logical_path": "reviews/geometry/SOURCE_READING.json",
+      "sha256": "39532688da007cb3849987f9143aeb299db4bb21b3a124f85d15ac959825d31f",
+      "bytes": 8890,
+      "uncompressed_sha256": "39532688da007cb3849987f9143aeb299db4bb21b3a124f85d15ac959825d31f",
+      "uncompressed_bytes": 8890,
+      "compression": "none",
+      "source_provenance": "/tmp/q214-d-next-20261112/geometry/SOURCE_READING.json",
+      "copy_scope": "original bytes unchanged after decompression"
+    },
+    {
+      "path": "reviews/geometry/STATUS.json",
+      "logical_path": "reviews/geometry/STATUS.json",
+      "sha256": "34bdc5c4ff9ecf1ddf7019d6b6241b55fe0cbead13ceea6ee69e70384c47fabb",
+      "bytes": 1787,
+      "uncompressed_sha256": "34bdc5c4ff9ecf1ddf7019d6b6241b55fe0cbead13ceea6ee69e70384c47fabb",
+      "uncompressed_bytes": 1787,
+      "compression": "none",
+      "source_provenance": "/tmp/q214-d-next-20261112/geometry/STATUS.json",
+      "copy_scope": "original bytes unchanged after decompression"
+    },
+    {
+      "path": "reviews/history-review/CURRENT_REMAINING_QUEUE.json",
+      "logical_path": "reviews/history-review/CURRENT_REMAINING_QUEUE.json",
+      "sha256": "4577f1ed5665281e10fc4d20c7ee298ebf2ae4ace07f91900ac183ced93e4733",
+      "bytes": 4308,
+      "uncompressed_sha256": "4577f1ed5665281e10fc4d20c7ee298ebf2ae4ace07f91900ac183ced93e4733",
+      "uncompressed_bytes": 4308,
+      "compression": "none",
+      "source_provenance": "/tmp/q214-d-next-20261112/history-review/CURRENT_REMAINING_QUEUE.json",
+      "copy_scope": "original bytes unchanged after decompression"
+    },
+    {
+      "path": "reviews/history-review/DECISION.json",
+      "logical_path": "reviews/history-review/DECISION.json",
+      "sha256": "ea6781f939c5414bcb39a4017df1916786363c45a547da140f2a09c54718d85c",
+      "bytes": 1906,
+      "uncompressed_sha256": "ea6781f939c5414bcb39a4017df1916786363c45a547da140f2a09c54718d85c",
+      "uncompressed_bytes": 1906,
+      "compression": "none",
+      "source_provenance": "/tmp/q214-d-next-20261112/history-review/DECISION.json",
+      "copy_scope": "original bytes unchanged after decompression"
+    },
+    {
+      "path": "reviews/history-review/DISCOVERY_BOUNDARY.json.gz",
+      "logical_path": "reviews/history-review/DISCOVERY_BOUNDARY.json",
+      "sha256": "00c4d2dd4cef470354c00cb1579a5919d34e5eb5a6c9b08dd557d88c946479e9",
+      "bytes": 111218,
+      "uncompressed_sha256": "ab0ba6cafcff7025a8862d6aefd737456185fcd8c34e5bd8e5d23f770a2efd84",
+      "uncompressed_bytes": 524679,
+      "compression": "gzip-mtime0-no-name",
+      "source_provenance": "/tmp/q214-d-next-20261112/history-review/DISCOVERY_BOUNDARY.json",
+      "copy_scope": "original bytes unchanged after decompression"
+    },
+    {
+      "path": "reviews/history-review/HISTORY_RECONCILIATION.json",
+      "logical_path": "reviews/history-review/HISTORY_RECONCILIATION.json",
+      "sha256": "deaa723f5159fd6758c3b87be6b3a351d387e4a9665aa99fb8338397f0378a6c",
+      "bytes": 31007,
+      "uncompressed_sha256": "deaa723f5159fd6758c3b87be6b3a351d387e4a9665aa99fb8338397f0378a6c",
+      "uncompressed_bytes": 31007,
+      "compression": "none",
+      "source_provenance": "/tmp/q214-d-next-20261112/history-review/HISTORY_RECONCILIATION.json",
+      "copy_scope": "original bytes unchanged after decompression"
+    },
+    {
+      "path": "reviews/history-review/ISSUE2-SNAPSHOT.json",
+      "logical_path": "reviews/history-review/ISSUE2-SNAPSHOT.json",
+      "sha256": "0fac4fe87ed7eca72591628c8d7ef024e5eb75119aa356c6b0fddfcf3fd8e590",
+      "bytes": 21805,
+      "uncompressed_sha256": "0fac4fe87ed7eca72591628c8d7ef024e5eb75119aa356c6b0fddfcf3fd8e590",
+      "uncompressed_bytes": 21805,
+      "compression": "none",
+      "source_provenance": "/tmp/q214-d-next-20261112/history-review/ISSUE2-SNAPSHOT.json",
+      "copy_scope": "original bytes unchanged after decompression"
+    },
+    {
+      "path": "reviews/history-review/MANIFEST.json",
+      "logical_path": "reviews/history-review/MANIFEST.json",
+      "sha256": "cd4bd04e065345499401af0c73a509e61a0fcc2a1714d5122db38a4a2cbeb7f4",
+      "bytes": 2139,
+      "uncompressed_sha256": "cd4bd04e065345499401af0c73a509e61a0fcc2a1714d5122db38a4a2cbeb7f4",
+      "uncompressed_bytes": 2139,
+      "compression": "none",
+      "source_provenance": "/tmp/q214-d-next-20261112/history-review/MANIFEST.json",
+      "copy_scope": "original bytes unchanged after decompression"
+    },
+    {
+      "path": "reviews/history-review/NATIVE_FINDING_DECISIONS.json",
+      "logical_path": "reviews/history-review/NATIVE_FINDING_DECISIONS.json",
+      "sha256": "99d736995dc046867c917c0ae8416b980f100d3fe2bc01112f92e348af2cb285",
+      "bytes": 48909,
+      "uncompressed_sha256": "99d736995dc046867c917c0ae8416b980f100d3fe2bc01112f92e348af2cb285",
+      "uncompressed_bytes": 48909,
+      "compression": "none",
+      "source_provenance": "/tmp/q214-d-next-20261112/history-review/NATIVE_FINDING_DECISIONS.json",
+      "copy_scope": "original bytes unchanged after decompression"
+    },
+    {
+      "path": "reviews/history-review/NATIVE_FINDING_SCOPES.json.gz",
+      "logical_path": "reviews/history-review/NATIVE_FINDING_SCOPES.json",
+      "sha256": "ca486dce5f5388de58b77c9ca3fade50308b005d99cc3894f77c551187c2ef12",
+      "bytes": 26713,
+      "uncompressed_sha256": "fb5558efe2c0b23d76d606ba85633541a6d9cb51e6f433fdf6e4b4aca0cf1773",
+      "uncompressed_bytes": 319845,
+      "compression": "gzip-mtime0-no-name",
+      "source_provenance": "/tmp/q214-d-next-20261112/history-review/NATIVE_FINDING_SCOPES.json",
+      "copy_scope": "original bytes unchanged after decompression"
+    },
+    {
+      "path": "reviews/history-review/NATIVE_PRIMITIVE_RESOLUTION.json",
+      "logical_path": "reviews/history-review/NATIVE_PRIMITIVE_RESOLUTION.json",
+      "sha256": "6daa486a6e60cb41391e759f01874bd6f23a15eb269b38813c075db38b4e43d6",
+      "bytes": 1429,
+      "uncompressed_sha256": "6daa486a6e60cb41391e759f01874bd6f23a15eb269b38813c075db38b4e43d6",
+      "uncompressed_bytes": 1429,
+      "compression": "none",
+      "source_provenance": "/tmp/q214-d-next-20261112/history-review/NATIVE_PRIMITIVE_RESOLUTION.json",
+      "copy_scope": "original bytes unchanged after decompression"
+    },
+    {
+      "path": "reviews/history-review/NATIVE_RECEIVING_TRANSPORT.json.gz",
+      "logical_path": "reviews/history-review/NATIVE_RECEIVING_TRANSPORT.json",
+      "sha256": "70e2dcd4297e5bd0537a17f7c8c675da03b92d16024fc7f22b5322f19fd43cc8",
+      "bytes": 4764,
+      "uncompressed_sha256": "d12f541808125af8dc87ad0978c1d702a53f121e2b7cdfb4ba69844b2cfdf0e3",
+      "uncompressed_bytes": 144091,
+      "compression": "gzip-mtime0-no-name",
+      "source_provenance": "/tmp/q214-d-next-20261112/history-review/NATIVE_RECEIVING_TRANSPORT.json",
+      "copy_scope": "original bytes unchanged after decompression"
+    },
+    {
+      "path": "reviews/history-review/READ_PASSAGES.json",
+      "logical_path": "reviews/history-review/READ_PASSAGES.json",
+      "sha256": "738ef0ce78865908a60a70e606d0e5735ff2996e0c96e82f659ff2b43cac47cc",
+      "bytes": 1667,
+      "uncompressed_sha256": "738ef0ce78865908a60a70e606d0e5735ff2996e0c96e82f659ff2b43cac47cc",
+      "uncompressed_bytes": 1667,
+      "compression": "none",
+      "source_provenance": "/tmp/q214-d-next-20261112/history-review/READ_PASSAGES.json",
+      "copy_scope": "original bytes unchanged after decompression"
+    },
+    {
+      "path": "reviews/history-review/REPORT.md",
+      "logical_path": "reviews/history-review/REPORT.md",
+      "sha256": "debdb545155a99eb0ddf8b6ea587a34b053633aaa68b6b7697dd71a4574c1c60",
+      "bytes": 14926,
+      "uncompressed_sha256": "debdb545155a99eb0ddf8b6ea587a34b053633aaa68b6b7697dd71a4574c1c60",
+      "uncompressed_bytes": 14926,
+      "compression": "none",
+      "source_provenance": "/tmp/q214-d-next-20261112/history-review/REPORT.md",
+      "copy_scope": "original bytes unchanged after decompression"
+    },
+    {
+      "path": "reviews/history-review/SOURCE_PINS.json",
+      "logical_path": "reviews/history-review/SOURCE_PINS.json",
+      "sha256": "829ac4548ba25a9b0a60acc0ba7fc1740f8adf8d0ef0269e2bfc2b26a246c915",
+      "bytes": 5083,
+      "uncompressed_sha256": "829ac4548ba25a9b0a60acc0ba7fc1740f8adf8d0ef0269e2bfc2b26a246c915",
+      "uncompressed_bytes": 5083,
+      "compression": "none",
+      "source_provenance": "/tmp/q214-d-next-20261112/history-review/SOURCE_PINS.json",
+      "copy_scope": "original bytes unchanged after decompression"
+    },
+    {
+      "path": "reviews/closure-review/SOURCE_USE_INITIAL.json",
+      "logical_path": "reviews/closure-review/SOURCE_USE_INITIAL.json",
+      "sha256": "0c05a4d28a8e3057fd0bdc02095916a1961c1e361f9a48213f270c14e2b94179",
+      "bytes": 16096,
+      "uncompressed_sha256": "0c05a4d28a8e3057fd0bdc02095916a1961c1e361f9a48213f270c14e2b94179",
+      "uncompressed_bytes": 16096,
+      "compression": "none",
+      "source_provenance": "/tmp/q214-d-next-20261112/closure-review/SOURCE_USE_INITIAL.json",
+      "copy_scope": "original bytes unchanged after decompression"
+    },
+    {
+      "path": "reviews/closure-review/SOURCE_USE_INITIAL.sha256",
+      "logical_path": "reviews/closure-review/SOURCE_USE_INITIAL.sha256",
+      "sha256": "66c82b47c4e3861cfe6b55e95990f703336ad68b1fd3d656c91478a4b15e10c2",
+      "bytes": 90,
+      "uncompressed_sha256": "66c82b47c4e3861cfe6b55e95990f703336ad68b1fd3d656c91478a4b15e10c2",
+      "uncompressed_bytes": 90,
+      "compression": "none",
+      "source_provenance": "/tmp/q214-d-next-20261112/closure-review/SOURCE_USE_INITIAL.sha256",
+      "copy_scope": "original bytes unchanged after decompression"
+    },
+    {
+      "path": "reviews/closure-review/SOURCE_USE_RECONCILED.json",
+      "logical_path": "reviews/closure-review/SOURCE_USE_RECONCILED.json",
+      "sha256": "3fb2219efe4204ac1b1dea2ba15a3d9d7cabafb0cacc56f1c38d95de8a7bbfc2",
+      "bytes": 15776,
+      "uncompressed_sha256": "3fb2219efe4204ac1b1dea2ba15a3d9d7cabafb0cacc56f1c38d95de8a7bbfc2",
+      "uncompressed_bytes": 15776,
+      "compression": "none",
+      "source_provenance": "/tmp/q214-d-next-20261112/closure-review/SOURCE_USE_RECONCILED.json",
+      "copy_scope": "original bytes unchanged after decompression"
+    },
+    {
+      "path": "reviews/closure-review/CURRENT_SECTION_COVERAGE.json",
+      "logical_path": "reviews/closure-review/CURRENT_SECTION_COVERAGE.json",
+      "sha256": "50a620b322fde1060290fef74ceed56d7093881b759eede78251418bda11f890",
+      "bytes": 79418,
+      "uncompressed_sha256": "50a620b322fde1060290fef74ceed56d7093881b759eede78251418bda11f890",
+      "uncompressed_bytes": 79418,
+      "compression": "none",
+      "source_provenance": "/tmp/q214-d-next-20261112/closure-review/CURRENT_SECTION_COVERAGE.json",
+      "copy_scope": "original bytes unchanged after decompression"
+    },
+    {
+      "path": "reviews/closure-review/M1_REVIEW.md",
+      "logical_path": "reviews/closure-review/M1_REVIEW.md",
+      "sha256": "9c124543c1368ab6252bd136135ab20ff6df6e9b77dc4721534e767b2de5585e",
+      "bytes": 5458,
+      "uncompressed_sha256": "9c124543c1368ab6252bd136135ab20ff6df6e9b77dc4721534e767b2de5585e",
+      "uncompressed_bytes": 5458,
+      "compression": "none",
+      "source_provenance": "/tmp/q214-d-next-20261112/closure-review/M1_REVIEW.md",
+      "copy_scope": "original bytes unchanged after decompression"
+    },
+    {
+      "path": "reviews/closure-review/M1_BINDINGS.json",
+      "logical_path": "reviews/closure-review/M1_BINDINGS.json",
+      "sha256": "2781557c51bc8dd202be76b7e441fa923bc9bec0f4bbf1ef61923055942d03cc",
+      "bytes": 1604,
+      "uncompressed_sha256": "2781557c51bc8dd202be76b7e441fa923bc9bec0f4bbf1ef61923055942d03cc",
+      "uncompressed_bytes": 1604,
+      "compression": "none",
+      "source_provenance": "/tmp/q214-d-next-20261112/closure-review/M1_BINDINGS.json",
+      "copy_scope": "original bytes unchanged after decompression"
+    },
+    {
+      "path": "reviews/closure-review/NATIVE_PRIMITIVE_REVIEW.json",
+      "logical_path": "reviews/closure-review/NATIVE_PRIMITIVE_REVIEW.json",
+      "sha256": "1501c678b401bec7fcb1e7a7773b2b1e8af53c24e58a21323b29e08adb098d4d",
+      "bytes": 2827,
+      "uncompressed_sha256": "1501c678b401bec7fcb1e7a7773b2b1e8af53c24e58a21323b29e08adb098d4d",
+      "uncompressed_bytes": 2827,
+      "compression": "none",
+      "source_provenance": "/tmp/q214-d-next-20261112/closure-review/NATIVE_PRIMITIVE_REVIEW.json",
+      "copy_scope": "original bytes unchanged after decompression"
+    },
+    {
+      "path": "reviews/closure-review/F6_LOCATOR_CLARIFICATION.md",
+      "logical_path": "reviews/closure-review/F6_LOCATOR_CLARIFICATION.md",
+      "sha256": "4be980d00845e68a36f86b2ff406ff3c8c2fdec1b191f7e00c4be68e4e9b1747",
+      "bytes": 371,
+      "uncompressed_sha256": "4be980d00845e68a36f86b2ff406ff3c8c2fdec1b191f7e00c4be68e4e9b1747",
+      "uncompressed_bytes": 371,
+      "compression": "none",
+      "source_provenance": "/tmp/q214-d-next-20261112/closure-review/F6_LOCATOR_CLARIFICATION.md",
+      "copy_scope": "original bytes unchanged after decompression"
+    },
+    {
+      "path": "reviews/closure-review/M3_M6_REVIEW.md",
+      "logical_path": "reviews/closure-review/M3_M6_REVIEW.md",
+      "sha256": "98cf64a31782e9106e3608ab4cad50a62e28d2721e4f57e3b62dfff5740c807f",
+      "bytes": 14168,
+      "uncompressed_sha256": "98cf64a31782e9106e3608ab4cad50a62e28d2721e4f57e3b62dfff5740c807f",
+      "uncompressed_bytes": 14168,
+      "compression": "none",
+      "source_provenance": "/tmp/q214-d-next-20261112/closure-review/M3_M6_REVIEW.md",
+      "copy_scope": "original bytes unchanged after decompression"
+    },
+    {
+      "path": "reviews/closure-review/M3_M6_BINDINGS.json",
+      "logical_path": "reviews/closure-review/M3_M6_BINDINGS.json",
+      "sha256": "21bc863f1f358786273bbc3f3d431a39177d72ca7abef6142ac455b3a835f93a",
+      "bytes": 4105,
+      "uncompressed_sha256": "21bc863f1f358786273bbc3f3d431a39177d72ca7abef6142ac455b3a835f93a",
+      "uncompressed_bytes": 4105,
+      "compression": "none",
+      "source_provenance": "/tmp/q214-d-next-20261112/closure-review/M3_M6_BINDINGS.json",
+      "copy_scope": "original bytes unchanged after decompression"
+    },
+    {
+      "path": "reviews/closure-review/ASSEMBLY_REVIEW.md",
+      "logical_path": "reviews/closure-review/ASSEMBLY_REVIEW.md",
+      "sha256": "06e2753b0a5cf3c8b1d9a6bf3e6b43e048cefab24de029f368228ba1832b2bd1",
+      "bytes": 14265,
+      "uncompressed_sha256": "06e2753b0a5cf3c8b1d9a6bf3e6b43e048cefab24de029f368228ba1832b2bd1",
+      "uncompressed_bytes": 14265,
+      "compression": "none",
+      "source_provenance": "/tmp/q214-d-next-20261112/closure-review/ASSEMBLY_REVIEW.md",
+      "copy_scope": "original bytes unchanged after decompression"
+    },
+    {
+      "path": "reviews/closure-review/PRIMARY_READING.json",
+      "logical_path": "reviews/closure-review/PRIMARY_READING.json",
+      "sha256": "61d9ea98dc5e25f81ce9a3c338ffe652c4b6c1fae9ebdc5819b09dfe54415d69",
+      "bytes": 3053,
+      "uncompressed_sha256": "61d9ea98dc5e25f81ce9a3c338ffe652c4b6c1fae9ebdc5819b09dfe54415d69",
+      "uncompressed_bytes": 3053,
+      "compression": "none",
+      "source_provenance": "/tmp/q214-d-next-20261112/closure-review/PRIMARY_READING.json",
+      "copy_scope": "original bytes unchanged after decompression"
+    },
+    {
+      "path": "reviews/closure-review/FROZEN_ARTIFACT_IDENTITY.json",
+      "logical_path": "reviews/closure-review/FROZEN_ARTIFACT_IDENTITY.json",
+      "sha256": "2bb912ca9c194d23ef894af62eedef0f33554053dc430a397330664d0c77938c",
+      "bytes": 4229,
+      "uncompressed_sha256": "2bb912ca9c194d23ef894af62eedef0f33554053dc430a397330664d0c77938c",
+      "uncompressed_bytes": 4229,
+      "compression": "none",
+      "source_provenance": "/tmp/q214-d-next-20261112/closure-review/FROZEN_ARTIFACT_IDENTITY.json",
+      "copy_scope": "original bytes unchanged after decompression"
+    },
+    {
+      "path": "reviews/closure-review/MATHEMATICAL_MANIFEST.json",
+      "logical_path": "reviews/closure-review/MATHEMATICAL_MANIFEST.json",
+      "sha256": "e31c67ad5c36417dd3a245d3b3712d2450d69f311c4fd08d3e7622a3451839d9",
+      "bytes": 2340,
+      "uncompressed_sha256": "e31c67ad5c36417dd3a245d3b3712d2450d69f311c4fd08d3e7622a3451839d9",
+      "uncompressed_bytes": 2340,
+      "compression": "none",
+      "source_provenance": "/tmp/q214-d-next-20261112/closure-review/MATHEMATICAL_MANIFEST.json",
+      "copy_scope": "original bytes unchanged after decompression"
+    },
+    {
+      "path": "reviews/closure-review/CURRENT_SECTION_USE_LINKS.json.gz",
+      "logical_path": "reviews/closure-review/CURRENT_SECTION_USE_LINKS.json",
+      "sha256": "28442229b72fc25d9bb9651c091449753f00c7db21ead0e3e5fdaa2edde96fc6",
+      "bytes": 23152,
+      "uncompressed_sha256": "48659e36005b9942c9cf94f48c369d3a0c361aa14584f4d07df5f553a987245b",
+      "uncompressed_bytes": 184751,
+      "compression": "gzip-mtime0-no-name",
+      "source_provenance": "/tmp/q214-d-next-20261112/closure-review/CURRENT_SECTION_USE_LINKS.json",
+      "copy_scope": "original bytes unchanged after decompression"
+    },
+    {
+      "path": "reviews/closure-review/COVERAGE_LINK_MANIFEST.json",
+      "logical_path": "reviews/closure-review/COVERAGE_LINK_MANIFEST.json",
+      "sha256": "32f9ed7719ef200b879d2bc5fdddd83b04ea2822d66c2b98386c5f0220670169",
+      "bytes": 594,
+      "uncompressed_sha256": "32f9ed7719ef200b879d2bc5fdddd83b04ea2822d66c2b98386c5f0220670169",
+      "uncompressed_bytes": 594,
+      "compression": "none",
+      "source_provenance": "/tmp/q214-d-next-20261112/closure-review/COVERAGE_LINK_MANIFEST.json",
+      "copy_scope": "original bytes unchanged after decompression"
+    }
+  ],
+  "external_bindings": [
+    {
+      "path": ".github/workflows/quartic214-protocol-d-progress.yml",
+      "sha256": "8d48007c5fd74c1d2ab9f4253c0ea3c64a69011c71a59fdb19d1210b8a2a7376",
+      "bytes": 971,
+      "bundled": false,
+      "role": "existing frozen repository evidence; preserved in place"
+    },
+    {
+      "path": "AGENTS.md",
+      "sha256": "ad8253d48ba1c8091aa7c8d4410b79f99dba6bc487573721895aa6c1f35a1fee",
+      "bytes": 3194,
+      "bundled": false,
+      "role": "existing frozen repository evidence; preserved in place"
+    },
+    {
+      "path": "docs/audit-history/PROTOCOL.md",
+      "sha256": "c0b9834a75e64bfd66183b06d1e26019f957a38468ce41b10ce290f8c5c44816",
+      "bytes": 7588,
+      "bundled": false,
+      "role": "existing frozen repository evidence; preserved in place"
+    },
+    {
+      "path": "docs/audit-history/issue2/README.md",
+      "sha256": "717cffd6d2d7b0c1c4ad4bad701a508914e0885657f53e64ad6c304650265888",
+      "bytes": 5364,
+      "bundled": false,
+      "role": "existing frozen repository evidence; preserved in place"
+    },
+    {
+      "path": "docs/audit-history/issue2/evidence/corollaries.md",
+      "sha256": "eef8f273b431f12d5c9374e6db08ea4a9ad4d8acce2b9164abca199ce1936b92",
+      "bytes": 10253,
+      "bundled": false,
+      "role": "existing frozen repository evidence; preserved in place"
+    },
+    {
+      "path": "docs/audit-history/issue2/evidence/determinants.md",
+      "sha256": "648a83cfec26f3032dc75aa04be03870c1864173c60daed3ff082935db703bd5",
+      "bytes": 6272,
+      "bundled": false,
+      "role": "existing frozen repository evidence; preserved in place"
+    },
+    {
+      "path": "docs/audit-history/issue2/evidence/kato.md",
+      "sha256": "7be7e0c3d3b3a4d0796d8c7c8b856251fecd164c7b0f7f7b24191a0f0c7c3284",
+      "bytes": 10876,
+      "bundled": false,
+      "role": "existing frozen repository evidence; preserved in place"
+    },
+    {
+      "path": "docs/audit-history/issue2/evidence/off-filter.md",
+      "sha256": "a28679a3e8e9f25c5f65add0ae6b2e4117856a9570e2ca7e03a3c13cac616ce6",
+      "bytes": 2399,
+      "bundled": false,
+      "role": "existing frozen repository evidence; preserved in place"
+    },
+    {
+      "path": "docs/audit-history/issue2/evidence/rc-provenance.md",
+      "sha256": "4e27894fa661e16c6a4d8281c3f9b59e873798f8c52ff4b5884cd1fdc4adad4d",
+      "bytes": 5542,
+      "bundled": false,
+      "role": "existing frozen repository evidence; preserved in place"
+    },
+    {
+      "path": "docs/audit-history/issue2/evidence/templates.md",
+      "sha256": "b93967d44b73fed4b6fa0a8ae0cb82e4ce9e03a492acd762ef4fc31ef0a5db7f",
+      "bytes": 4356,
+      "bundled": false,
+      "role": "existing frozen repository evidence; preserved in place"
+    },
+    {
+      "path": "docs/audit-history/issue2/evidence/valuation-pin.md",
+      "sha256": "8611c6e4e6d9693f39002e624b8bd05008a2d924e9825df061de3d14c26f8939",
+      "bytes": 957,
+      "bundled": false,
+      "role": "existing frozen repository evidence; preserved in place"
+    },
+    {
+      "path": "docs/audit-history/issue2/evidence/valuation.md",
+      "sha256": "b9f620c44498b648cdaa529323a9ead32c89c46e54e81d5925fa65f60adcd118",
+      "bytes": 3904,
+      "bundled": false,
+      "role": "existing frozen repository evidence; preserved in place"
+    },
+    {
+      "path": "docs/audit-history/issue2/register.json",
+      "sha256": "d88946d4187c670eb8278a686726af21c4d6394325d0d417702dc85422e6bfd3",
+      "bytes": 12742,
+      "bundled": false,
+      "role": "existing frozen repository evidence; preserved in place"
+    },
+    {
+      "path": "docs/manuscript-revisions/version11/evidence/interface.md",
+      "sha256": "8cb644f5f20090f3e47de412b62942b3e93a6c2e674dc7924678137c8d188774",
+      "bytes": 7951,
+      "bundled": false,
+      "role": "existing frozen repository evidence; preserved in place"
+    },
+    {
+      "path": "docs/manuscript-revisions/version11/evidence/norms.md",
+      "sha256": "7bdb086e077af429f1d71bade31b233b672929f78e2aa790eb4985a78a837f3e",
+      "bytes": 8540,
+      "bundled": false,
+      "role": "existing frozen repository evidence; preserved in place"
+    },
+    {
+      "path": "docs/manuscript-revisions/version12/evidence/kato-final-review.md",
+      "sha256": "b34e8f5fb4acf4299f8a956d1b91e6d207e1bb33d96b33282f20b71b7e2dd1fa",
+      "bytes": 3219,
+      "bundled": false,
+      "role": "existing frozen repository evidence; preserved in place"
+    },
+    {
+      "path": "docs/manuscript-revisions/version14/baseline-coverage/published-version-checks/bl-bhb/RETRIEVAL-network.json",
+      "sha256": "65f0ffabb52afbba6234cc91a3ba2eaab7caacad2fec34b1cb790a822a148f50",
+      "bytes": 3723,
+      "bundled": false,
+      "role": "existing frozen repository evidence; preserved in place"
+    },
+    {
+      "path": "docs/manuscript-revisions/version14/baseline-coverage/published-version-checks/bl-bhb/REVIEW.md",
+      "sha256": "4b6b6180fdd2f4133b3ce0970e83ac02dfff9eebe70c8eaba09a15b6e61b71c6",
+      "bytes": 8043,
+      "bundled": false,
+      "role": "existing frozen repository evidence; preserved in place"
+    },
+    {
+      "path": "docs/manuscript-revisions/version14/resume003/kato-1999-index-and-class-application.json",
+      "sha256": "379ab1c7a6cae2663e1396bf492f8d7d640eace09ff43f897b77704619964451",
+      "bytes": 9516,
+      "bundled": false,
+      "role": "existing frozen repository evidence; preserved in place"
+    },
+    {
+      "path": "docs/research-review/PROTOCOL.md",
+      "sha256": "3d16c4d58d030ff745460386b081eb21c8c0d3f375cbfb06c4f9777c235a12f9",
+      "bytes": 55964,
+      "bundled": false,
+      "role": "existing frozen repository evidence; preserved in place"
+    },
+    {
+      "path": "docs/research-review/record-manuscript-policy-2026-11-11/compatibility-repair/FINDING.json",
+      "sha256": "4fdeea6fcf3eabca5540b55eacdb79f58bbb1e4fd17c2d8cfe844ffe63bf1184",
+      "bytes": 1687,
+      "bundled": false,
+      "role": "existing frozen repository evidence; preserved in place"
+    },
+    {
+      "path": "docs/research-review/record-manuscript-policy-2026-11-11/review/COMPATIBILITY-REPAIR-REVIEW.json",
+      "sha256": "931d86cdf775d5d8beee36b09930e5cdfda1fc80583dbf6a0465138445f13682",
+      "bytes": 4382,
+      "bundled": false,
+      "role": "existing frozen repository evidence; preserved in place"
+    },
+    {
+      "path": "manuscripts/quartic_v16.tex",
+      "sha256": "aeb2b6a42a03943d7f8c46682389c8da693d2903ba92ccc164bbbd236451de74",
+      "bytes": 1926498,
+      "bundled": false,
+      "role": "existing frozen repository evidence; preserved in place"
+    },
+    {
+      "path": "research/quartic214-manuscript-review/CORRECTION_ARGUMENT.md",
+      "sha256": "8a44499e5cc77fdad5fdff5a84319b46b82e16ea42628a3f4ce6a9ff60e1892d",
+      "bytes": 9755,
+      "bundled": false,
+      "role": "existing frozen repository evidence; preserved in place"
+    },
+    {
+      "path": "research/quartic214-manuscript-review/FOUNDATION_APPLICATION.json",
+      "sha256": "7777952dbd0611d17338154168dc80d1169416c93f6b12a92d60d2b2f427341e",
+      "bytes": 66633,
+      "bundled": false,
+      "role": "existing frozen repository evidence; preserved in place"
+    },
+    {
+      "path": "research/quartic214-manuscript-review/FOUNDATION_TRANSITION.md",
+      "sha256": "9a3a081bfb6c3e5c0893065ab1c1ea19f36c91b997999064371886e270c3d936",
+      "bytes": 13149,
+      "bundled": false,
+      "role": "existing frozen repository evidence; preserved in place"
+    },
+    {
+      "path": "research/quartic214-manuscript-review/current-astra-20261112/EVIDENCE.md",
+      "sha256": "40b740e6aa99eea72726ba020ebd98232b4e993e673022aaabe3caf5ade51ae8",
+      "bytes": 7332,
+      "bundled": false,
+      "role": "existing frozen repository evidence; preserved in place"
+    },
+    {
+      "path": "research/quartic214-manuscript-review/current-astra-20261112/FINDINGS.json",
+      "sha256": "1e1c54f027af7aef963e6ae7fc9981ff536793addafa91a2e647f918ac0c9999",
+      "bytes": 5141,
+      "bundled": false,
+      "role": "existing frozen repository evidence; preserved in place"
+    },
+    {
+      "path": "research/quartic214-manuscript-review/current-astra-20261112/REVIEW.md",
+      "sha256": "80002a81df557e91bf14fb5b946ac0df145be409c6dbf01aa2233f2c1c53cafb",
+      "bytes": 21041,
+      "bundled": false,
+      "role": "existing frozen repository evidence; preserved in place"
+    },
+    {
+      "path": "research/quartic214-manuscript/BUILD.json",
+      "sha256": "dab965bf5fd4d86fcb4ba4f8c215309b49979ccadbf41ed529cb38acb376eabd",
+      "bytes": 39529,
+      "bundled": false,
+      "role": "existing frozen repository evidence; preserved in place"
+    },
+    {
+      "path": "research/quartic214-manuscript/RELEASE_MANIFEST.json",
+      "sha256": "f0aa633ae5e88aa49a5966bcd6152663b723cbef11925a0c76e5f9b77701f539",
+      "bytes": 28556,
+      "bundled": false,
+      "role": "existing frozen repository evidence; preserved in place"
+    },
+    {
+      "path": "research/quartic214-manuscript/SOURCE_SPANS.json",
+      "sha256": "c98fc0d5860fb1d17a1d1ec7f23e266015f26e37d72443b796a782006c371391",
+      "bytes": 399870,
+      "bundled": false,
+      "role": "existing frozen repository evidence; preserved in place"
+    },
+    {
+      "path": "research/quartic214-manuscript/quartic214.pdf",
+      "sha256": "8c22312ce54d3f2709eddc28c1045b1785d44ce0d7d47957639c0322a9d0a498",
+      "bytes": 3940738,
+      "bundled": false,
+      "role": "existing frozen repository evidence; preserved in place"
+    },
+    {
+      "path": "research/quartic214-manuscript/quartic214.tex",
+      "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+      "bytes": 2337533,
+      "bundled": false,
+      "role": "existing frozen repository evidence; preserved in place"
+    },
+    {
+      "path": "research/quartic214-protocol-d-progress/CURRENT_NATIVE_PRIMITIVE_APPLICATION.json",
+      "sha256": "f48bd1e36bb3c39eab9e217a3b76907748bdc067f4f8040df4564353829ffd87",
+      "bytes": 15265,
+      "bundled": false,
+      "role": "existing frozen repository evidence; preserved in place"
+    },
+    {
+      "path": "research/quartic214-protocol-d-public/review/PUBLIC_ASSEMBLY_REVIEW.md",
+      "sha256": "13a6fde4ebdd345a3d15f210042a0547ef5455470b7ee4c8a0408bd8765b7ff2",
+      "bytes": 5229,
+      "bundled": false,
+      "role": "existing frozen repository evidence; preserved in place"
+    },
+    {
+      "path": "research/quartic214-protocol-d-public/review/PUBLIC_COVERAGE_REVIEW.md",
+      "sha256": "2a01f9c9f90e2fe1c54d03c3657f625140131524e0c11d3a0a1fbc040eeb946d",
+      "bytes": 7874,
+      "bundled": false,
+      "role": "existing frozen repository evidence; preserved in place"
+    },
+    {
+      "path": "research/quartic214/PRIMARY_SOURCES.json",
+      "sha256": "cfa7597432cd98c7184c0f9332c6d56f8ea53b208613aab0d855f5ffd1181161",
+      "bytes": 48789,
+      "bundled": false,
+      "role": "existing frozen repository evidence; preserved in place"
+    },
+    {
+      "path": "research/quartic214/PROOF.md",
+      "sha256": "0feb164c3ed33543136b89aa87b27bc890f4aadef2d082d465263f55dc26d165",
+      "bytes": 10582,
+      "bundled": false,
+      "role": "existing frozen repository evidence; preserved in place"
+    },
+    {
+      "path": "research/quartic214/contracts/H4-reflection.json",
+      "sha256": "350fba85a5d6820a835d4fe0e16b59b09b6e579939d0fcd23b66c8a2c4302edf",
+      "bytes": 45404,
+      "bundled": false,
+      "role": "existing frozen repository evidence; preserved in place"
+    },
+    {
+      "path": "research/quartic214/contracts/INDEX.json",
+      "sha256": "c3205657eaebcf4b40f6a92087856d6fa3a9c8a730ef36befed62ef5fb984b37",
+      "bytes": 3588,
+      "bundled": false,
+      "role": "existing frozen repository evidence; preserved in place"
+    },
+    {
+      "path": "research/quartic214/contracts/height-assembly.json",
+      "sha256": "a13a2c2209d28728b9f76d301bcf2c36cdf0eca8820b91ab0f2f567477972a0d",
+      "bytes": 43118,
+      "bundled": false,
+      "role": "existing frozen repository evidence; preserved in place"
+    },
+    {
+      "path": "research/quartic214/contracts/height-averaging.json",
+      "sha256": "e5c2281d8f4cc6f0a0c8234c0fad9f909021cbd95943c0c11fd94ce68441895f",
+      "bytes": 34671,
+      "bundled": false,
+      "role": "existing frozen repository evidence; preserved in place"
+    },
+    {
+      "path": "research/quartic214/contracts/height-different.json",
+      "sha256": "51628e37c28208b3c62be6a4d1899d650bd7b8d0e80fe236ce7a2fe6485ef5a6",
+      "bytes": 68382,
+      "bundled": false,
+      "role": "existing frozen repository evidence; preserved in place"
+    },
+    {
+      "path": "research/quartic214/contracts/height-evaluation.json",
+      "sha256": "0f524e806c2b3d3fa62fa3479a561ab069d84ab1be6f24c46ddaa5095a117474",
+      "bytes": 70016,
+      "bundled": false,
+      "role": "existing frozen repository evidence; preserved in place"
+    },
+    {
+      "path": "research/quartic214/contracts/height-metric.json",
+      "sha256": "05edb1fa2ce8e02dfcfb0623db7b0c56a73e3e9df9e82eee0f7bc2ca4e438c1b",
+      "bytes": 56810,
+      "bundled": false,
+      "role": "existing frozen repository evidence; preserved in place"
+    },
+    {
+      "path": "research/quartic214/contracts/modularity-1.json",
+      "sha256": "677d87aa2fdd08d4025a8fcdf2be03ec9b0185faf408ae82f463b8910797ab88",
+      "bytes": 44549,
+      "bundled": false,
+      "role": "existing frozen repository evidence; preserved in place"
+    },
+    {
+      "path": "research/quartic214/contracts/modularity-2.json",
+      "sha256": "bf0032fd58169d79f84fe6587a1902ad0fda12da895147eed4bc0bf01e08809e",
+      "bytes": 51288,
+      "bundled": false,
+      "role": "existing frozen repository evidence; preserved in place"
+    },
+    {
+      "path": "research/quartic214/contracts/modularity-3.json",
+      "sha256": "3852c1fcb2d79e2a14a271c010d5dbf57665699187cfb0b22cca069f09096195",
+      "bytes": 44484,
+      "bundled": false,
+      "role": "existing frozen repository evidence; preserved in place"
+    },
+    {
+      "path": "research/quartic214/contracts/modularity-4.json",
+      "sha256": "8634c90335f48b12c74f8612fd6b67e5da085f6beb6e3ca56235eaf4d90c4392",
+      "bytes": 44458,
+      "bundled": false,
+      "role": "existing frozen repository evidence; preserved in place"
+    },
+    {
+      "path": "research/quartic214/contracts/modularity-5.json",
+      "sha256": "a908b6093393a4e13dd3fd57f33b2f3ab30f1619dbbaf4d99971ffe66f4f68f2",
+      "bytes": 45056,
+      "bundled": false,
+      "role": "existing frozen repository evidence; preserved in place"
+    },
+    {
+      "path": "research/quartic214/contracts/modularity-6.json",
+      "sha256": "3b61613f34a5f8746804ab2e6aa24aa787cc5fb6485ac2c5aa2a1a1cc4da9ab9",
+      "bytes": 75345,
+      "bundled": false,
+      "role": "existing frozen repository evidence; preserved in place"
+    },
+    {
+      "path": "research/quartic214/contracts/source-carry-sources.json",
+      "sha256": "f286c8ac793e44c4f74db702afb7f8cbf3acb89f13c631a8275b7ecdec80c243",
+      "bytes": 23473,
+      "bundled": false,
+      "role": "existing frozen repository evidence; preserved in place"
+    },
+    {
+      "path": "research/quartic214/contracts/source-carry.json",
+      "sha256": "0ccb359a72c0c0215ab2d4bad7a5a2a49ca2a2cddaa9254eb698a6e69c39688e",
+      "bytes": 79000,
+      "bundled": false,
+      "role": "existing frozen repository evidence; preserved in place"
+    },
+    {
+      "path": "research/quartic214/contracts/uniform-existence.json",
+      "sha256": "832900c2f480bce3eb77bef6c8b408a7ca16229b8414104e3938849a3b3bc011",
+      "bytes": 87619,
+      "bundled": false,
+      "role": "existing frozen repository evidence; preserved in place"
+    },
+    {
+      "path": "research/quartic214/proofs/existence.md",
+      "sha256": "37ab929ed3f4b4dee2b91d2e39408e7070e8a9176b981bcc9c352d17b9cc2332",
+      "bytes": 15072,
+      "bundled": false,
+      "role": "existing frozen repository evidence; preserved in place"
+    },
+    {
+      "path": "research/quartic214/proofs/geometry-carry.md",
+      "sha256": "b3cb8201de84f733b0518ad68a9c0d0bc1e78534ffd39aca5d8c70f1bae69e76",
+      "bytes": 13337,
+      "bundled": false,
+      "role": "existing frozen repository evidence; preserved in place"
+    },
+    {
+      "path": "research/quartic214/proofs/height-assembly.md",
+      "sha256": "1866f9452526b2c243f5f05267f74caa2a4532dfc23891a9b0e95abed2d00fe5",
+      "bytes": 7020,
+      "bundled": false,
+      "role": "existing frozen repository evidence; preserved in place"
+    },
+    {
+      "path": "research/quartic214/proofs/height-averaging.md",
+      "sha256": "bb87f61d7134c09d695f9bbff2c26b12b8c9ce5fe74a4ec598b2e4410f100192",
+      "bytes": 8145,
+      "bundled": false,
+      "role": "existing frozen repository evidence; preserved in place"
+    },
+    {
+      "path": "research/quartic214/proofs/height-different.md",
+      "sha256": "025885f763a9a72e9750ed10ec0bbfec4e8834ed85557acccda92a766c0ebcfa",
+      "bytes": 18529,
+      "bundled": false,
+      "role": "existing frozen repository evidence; preserved in place"
+    },
+    {
+      "path": "research/quartic214/proofs/height-evaluation.md",
+      "sha256": "d691da0a6827d9b45c6c68294405163f679a2d57f08e2ecda56fd071b3579502",
+      "bytes": 14511,
+      "bundled": false,
+      "role": "existing frozen repository evidence; preserved in place"
+    },
+    {
+      "path": "research/quartic214/proofs/height-metric.md",
+      "sha256": "ea61f4ce58481b8ffb3a2000189fbbc84a8ded3c91d7c447ffe98ae98f30ad8e",
+      "bytes": 9224,
+      "bundled": false,
+      "role": "existing frozen repository evidence; preserved in place"
+    },
+    {
+      "path": "research/quartic214/proofs/height-supplier.md",
+      "sha256": "4974b167ab415159e0ff996b341528008c2ba8ae8e2a1ebf69bab5bc9a9b9c12",
+      "bytes": 15498,
+      "bundled": false,
+      "role": "existing frozen repository evidence; preserved in place"
+    },
+    {
+      "path": "research/quartic214/proofs/modularity.md",
+      "sha256": "814676050b389793d196346f45e2797f39e2c5be0f3fee8457bb709b2607606e",
+      "bytes": 25777,
+      "bundled": false,
+      "role": "existing frozen repository evidence; preserved in place"
+    },
+    {
+      "path": "research/quartic214/proofs/primary-source-bridges.md",
+      "sha256": "2c95d02a13ffa972eb6cb8d956b9063e970e33fd960e282c6d53ae8bb655c43c",
+      "bytes": 12939,
+      "bundled": false,
+      "role": "existing frozen repository evidence; preserved in place"
+    },
+    {
+      "path": "research/quartic214/proofs/provider-scope-carry.md",
+      "sha256": "368774d2b96a606df4dd5e81a3c4fecaf22f09f33f27e49e0a80e37b02157154",
+      "bytes": 16324,
+      "bundled": false,
+      "role": "existing frozen repository evidence; preserved in place"
+    },
+    {
+      "path": "research/quartic214/proofs/source-carry.md",
+      "sha256": "f7f4e550a4dcfbbd3b5ffcf783b11411f7888c821dbab7febb5132b7b2b891ed",
+      "bytes": 15185,
+      "bundled": false,
+      "role": "existing frozen repository evidence; preserved in place"
+    },
+    {
+      "path": "research/quartic214/proofs/uniform-existence.md",
+      "sha256": "d13cc2b846dc72a3f5b5cce8dcf11d3f11b33c45ebc3883263840afb8d82f3bc",
+      "bytes": 22294,
+      "bundled": false,
+      "role": "existing frozen repository evidence; preserved in place"
+    },
+    {
+      "path": "research/quartic214/sources/conductor-sections1-3.md",
+      "sha256": "c2e04a42dd82e244b1872b4a9a7298f1a9e45ca49ffcc436ff7c5149d6ee5d88",
+      "bytes": 9028,
+      "bundled": false,
+      "role": "existing frozen repository evidence; preserved in place"
+    },
+    {
+      "path": "research/version14/evidence/final-source-bhb/BHB-FINAL-STATEMENT-DISPOSITION.md",
+      "sha256": "6e0e3a23f929e55550460d6c8dbf5cecba592b8811ff0af94ee7ab6a97fc9643",
+      "bytes": 2792,
+      "bundled": false,
+      "role": "existing frozen repository evidence; preserved in place"
+    },
+    {
+      "path": "research/version14/evidence/final-source-bhb/FINAL-COMPARISON.md",
+      "sha256": "5d2d09134f745dffb9de0bc96c0b00a88698e37b962ddbfc1e92b8c347c2b44d",
+      "bytes": 8015,
+      "bundled": false,
+      "role": "existing frozen repository evidence; preserved in place"
+    },
+    {
+      "path": "research/version14/evidence/gaussian-external-source-cards-002/SOURCES.md",
+      "sha256": "e03d57e7b99f977de154be384560ad1fc589de7ca8e8629fdcc656c48d1b788b",
+      "bytes": 52447,
+      "bundled": false,
+      "role": "existing frozen repository evidence; preserved in place"
+    },
+    {
+      "path": "research/version14/proofs/h5-full-three-v1/GEOMETRIC-ISOGENY.md",
+      "sha256": "f889eab0b9f7880a647ebb34f10ac44a73aaf748f2041cb03dea756079d6ab9e",
+      "bytes": 5819,
+      "bundled": false,
+      "role": "existing frozen repository evidence; preserved in place"
+    },
+    {
+      "path": "research/version14/proofs/h5-full-three-v1/PROOF.md",
+      "sha256": "054ec4a656b82e1d1d17c7e9d3575afe722c42594f933256e7ea225f6a3f5e3b",
+      "bytes": 19349,
+      "bundled": false,
+      "role": "existing frozen repository evidence; preserved in place"
+    },
+    {
+      "path": "research/version16/protocol/CONNECTIONS.json",
+      "sha256": "979d6997dcb6e1f7f96a293e4a8453378939ac3e23cba5f15915478d07a7d101",
+      "bytes": 9510085,
+      "bundled": false,
+      "role": "existing frozen repository evidence; preserved in place"
+    },
+    {
+      "path": "research/version16/protocol/DOSSIER.json",
+      "sha256": "45c3864dc588d23c6c797e783c23f88c5b00473ccd7956548734380ccb04f9c5",
+      "bytes": 6201368,
+      "bundled": false,
+      "role": "existing frozen repository evidence; preserved in place"
+    },
+    {
+      "path": "research/version16/protocol/record-repair-001/REPAIR.json",
+      "sha256": "b203363489d54642041c00f94dee346dde3f6a736335255f81f88591b96eec95",
+      "bytes": 7982,
+      "bundled": false,
+      "role": "existing frozen repository evidence; preserved in place"
+    },
+    {
+      "path": "research/version16/review/coverage/REVIEW.md",
+      "sha256": "cb6c566b3802310efd66eda255850b66763519501042b8d64826b803a97665fe",
+      "bytes": 10392,
+      "bundled": false,
+      "role": "existing frozen repository evidence; preserved in place"
+    },
+    {
+      "path": "research/version16/review/coverage/record-repair-001/ASSEMBLY-REVIEW.json",
+      "sha256": "667f8007a2af8d96a845cbf505ca001bf6a04dbb69d5a0667dd2e76d12a32957",
+      "bytes": 6187,
+      "bundled": false,
+      "role": "existing frozen repository evidence; preserved in place"
+    },
+    {
+      "path": "research/version16/review/coverage/record-repair-001/PROTOCOL14-COVERAGE-REVIEW.json",
+      "sha256": "7f7e0544d324b4ba19d5cb70151c98b31ae2a2a429483df7416d07812267b497",
+      "bytes": 2096814,
+      "bundled": false,
+      "role": "existing frozen repository evidence; preserved in place"
+    },
+    {
+      "path": "research/version16/review/coverage/record-repair-001/REVIEW.json",
+      "sha256": "ba7b54afa94cf4583d9c20167b333656ae16c80c866bee82b555ae6a682b310b",
+      "bytes": 3104,
+      "bundled": false,
+      "role": "existing frozen repository evidence; preserved in place"
+    },
+    {
+      "path": "research/version16/review/coverage/record-repair-001/REVIEW.md",
+      "sha256": "52bb8ba0ada9cbdb70b2b711cd05517b9532d36927b5fb55daa1b7c4cea3dff9",
+      "bytes": 4039,
+      "bundled": false,
+      "role": "existing frozen repository evidence; preserved in place"
+    },
+    {
+      "path": "research/version16/review/current/REVIEW.md",
+      "sha256": "093e9e7e921ac9e1e24ecdb4f3568295fcf02a78115e70f7b884265efb99e9c2",
+      "bytes": 15431,
+      "bundled": false,
+      "role": "existing frozen repository evidence; preserved in place"
+    },
+    {
+      "path": "research/version16/review/current/TZ-PRECISION-ADDENDUM.md",
+      "sha256": "e2c57cc9d635289f9ddee5f51c07a2f533cc1624a5204440d25647ef2766bdd5",
+      "bytes": 2255,
+      "bundled": false,
+      "role": "existing frozen repository evidence; preserved in place"
+    },
+    {
+      "path": "/tmp/q214-d-next-20261112/analytic/sources/Bienvenu2017.pdf",
+      "sha256": "9634fad788ff65298c361d0d0b596eb89fc097bda1eaa2031ee9ea13cd4c6130",
+      "bytes": 387687,
+      "bundled": false,
+      "role": "external third-party primary source; not distributed in this additive packet"
+    },
+    {
+      "path": "/tmp/q214-d-next-20261112/analytic/sources/BrowningHeathBrown2021.pdf",
+      "sha256": "1e2a4d3d3f731c0ee67599cfa50f899fe499e51d4a452455a04f2d0a35e7191c",
+      "bytes": 405739,
+      "bundled": false,
+      "role": "external third-party primary source; not distributed in this additive packet"
+    },
+    {
+      "path": "/tmp/q214-d-next-20261112/analytic/sources/GTLinear2010.pdf",
+      "sha256": "ec126f9c9e189cc0308b83fb4f9f93c29a47d11ad875391aff4ce4c42aef1001",
+      "bytes": 1213124,
+      "bundled": false,
+      "role": "external third-party primary source; not distributed in this additive packet"
+    },
+    {
+      "path": "/tmp/q214-d-next-20261112/analytic/sources/GTMobius2012.pdf",
+      "sha256": "5259dbc9ee73df46edd765ca27c8b3c0ec466f6b78abafa5f54237b11d44a314",
+      "bytes": 502447,
+      "bundled": false,
+      "role": "external third-party primary source; not distributed in this additive packet"
+    },
+    {
+      "path": "/tmp/q214-d-next-20261112/analytic/sources/GTOrbits2012.pdf",
+      "sha256": "8c7ea5eced84dc5da97508f4eda39fa84c958d3e659a797ab402645c1c207c8f",
+      "bytes": 861456,
+      "bundled": false,
+      "role": "external third-party primary source; not distributed in this additive packet"
+    },
+    {
+      "path": "/tmp/q214-d-next-20261112/analytic/sources/GTOrbitsErratum2014.pdf",
+      "sha256": "f710f09ca6c8ecc1837e26fbdd5d331b75e6876868d018ca34c34d84ffe4d28d",
+      "bytes": 364726,
+      "bundled": false,
+      "role": "external third-party primary source; not distributed in this additive packet"
+    },
+    {
+      "path": "/tmp/q214-d-next-20261112/analytic/sources/GTZ2012.pdf",
+      "sha256": "cd320f5c1217df9bb41395e847ae2a924e70521021ca1b01c7abc20550123be1",
+      "bytes": 1300898,
+      "bundled": false,
+      "role": "external third-party primary source; not distributed in this additive packet"
+    },
+    {
+      "path": "/tmp/q214-d-next-20261112/analytic/sources/GTZErratum2024.pdf",
+      "sha256": "9d66017c15fc99bbae83726ef27bcc16d73128c13166916f00714c84c8523383",
+      "bytes": 266792,
+      "bundled": false,
+      "role": "external third-party primary source; not distributed in this additive packet"
+    },
+    {
+      "path": "/tmp/q214-d-next-20261112/analytic/sources/KoppLagarias2025.pdf",
+      "sha256": "60ea81ac86b2168031e46be0a8ce0b06eab016a58d442b1b3639a35bb86e8273",
+      "bytes": 3626641,
+      "bundled": false,
+      "role": "external third-party primary source; not distributed in this additive packet"
+    },
+    {
+      "path": "/tmp/q214-d-next-20261112/analytic/sources/Mitsui1956.pdf",
+      "sha256": "b71fbd5ae9443991479a73a4e7bde68165b0c0e90b290cd0bd94fd9da416f963",
+      "bytes": 2823723,
+      "bundled": false,
+      "role": "external third-party primary source; not distributed in this additive packet"
+    },
+    {
+      "path": "/tmp/q214-d-next-20261112/analytic/sources/TZ2018.pdf",
+      "sha256": "ba1645db9857dd621e8ea6a280927c1e4b7cef5f6df04a4f19e7ac7782220f43",
+      "bytes": 559406,
+      "bundled": false,
+      "role": "external third-party primary source; not distributed in this additive packet"
+    },
+    {
+      "path": "/tmp/q214-d-next-20261112/analytic/sources/WRONG-IMPAN-ID-Stokolos2006.pdf",
+      "sha256": "8e52aa473bb37519fcbe90add65dabbb2242571d3cd03b332f65c8c5aa73cade",
+      "bytes": 96220,
+      "bundled": false,
+      "role": "external third-party primary source; not distributed in this additive packet"
+    },
+    {
+      "path": "/tmp/q214-d-next-20261112/analytic/sources/Williams1974.pdf",
+      "sha256": "9e78492d928f8af5654388db11d9d253749fe7c1e1b627effd0f20d1baafc8c0",
+      "bytes": 218607,
+      "bundled": false,
+      "role": "external third-party primary source; not distributed in this additive packet"
+    },
+    {
+      "path": "/tmp/q214-d-next-20261112/primary/Calegari2023.pdf",
+      "sha256": "d8e9a3ec3f2a4bedd674d95cf5f1e03fe26a67745c6f1cadf39b3fbf9e004cb5",
+      "bytes": 834759,
+      "bundled": false,
+      "role": "external third-party primary source; not distributed in this additive packet"
+    },
+    {
+      "path": "/tmp/q214-d-next-20261112/primary/Carayol1987.pdf",
+      "sha256": "cc2605dd390eae903712a650e925b322472bb8831a11d6282b40030c0753944b",
+      "bytes": 1162324,
+      "bundled": false,
+      "role": "external third-party primary source; not distributed in this additive packet"
+    },
+    {
+      "path": "/tmp/q214-d-next-20261112/primary/Faltings1986.pdf",
+      "sha256": "3122011c0f12cc991fc0ff1601bb77cc1cd3e5ab2a0db023c0bf224ea576b6aa",
+      "bytes": 11049110,
+      "bundled": false,
+      "role": "external third-party primary source; not distributed in this additive packet"
+    },
+    {
+      "path": "/tmp/q214-d-next-20261112/primary/Fontaine1994.pdf",
+      "sha256": "ace926ffda578dacfe8a333c38d450235506ebe18f558ee9bfcb96dc6f70a8ec",
+      "bytes": 6497435,
+      "bundled": false,
+      "role": "external third-party primary source; not distributed in this additive packet"
+    },
+    {
+      "path": "/tmp/q214-d-next-20261112/primary/GR2006-published.pdf",
+      "sha256": "e595d1a428f20e1c6b3695bc37be658ca12c517fb6600171f531fe931b796c3a",
+      "bytes": 341235,
+      "bundled": false,
+      "role": "external third-party primary source; not distributed in this additive packet"
+    },
+    {
+      "path": "/tmp/q214-d-next-20261112/primary/Kato2004.pdf",
+      "sha256": "3c6e14b11fa60262db8aff782ce3cf4d83e9100c0be83621a7e4ce502cec605d",
+      "bytes": 18010813,
+      "bundled": false,
+      "role": "external third-party primary source; not distributed in this additive packet"
+    },
+    {
+      "path": "/tmp/q214-d-next-20261112/primary/Milne1986.pdf",
+      "sha256": "86259344a576e4ef75a9d81e9bf43143f872a72b14cf8fcc2703f3aea6349136",
+      "bytes": 3833583,
+      "bundled": false,
+      "role": "external third-party primary source; not distributed in this additive packet"
+    },
+    {
+      "path": "/tmp/q214-d-next-20261112/primary/MilneADT2006.pdf",
+      "sha256": "2c6195ec76a974f3f336c77cb71cc3845b018aad2d43136716b3477a3bc5fb31",
+      "bytes": 2136045,
+      "bundled": false,
+      "role": "external third-party primary source; not distributed in this additive packet"
+    },
+    {
+      "path": "/tmp/q214-d-next-20261112/primary/MilneShimura2005.pdf",
+      "sha256": "6336f0a23084dc0bf815a901c61a0f925dbc8dc1c395af8864c1d90bea69c4a1",
+      "bytes": 1035957,
+      "bundled": false,
+      "role": "external third-party primary source; not distributed in this additive packet"
+    },
+    {
+      "path": "/tmp/q214-d-next-20261112/primary/Nekovar2006.pdf",
+      "sha256": "61c84e5ad3252a2e520747215ac57a282addc2b58c824a3637bcd77bbe02153f",
+      "bytes": 42932456,
+      "bundled": false,
+      "role": "external third-party primary source; not distributed in this additive packet"
+    },
+    {
+      "path": "/tmp/q214-d-next-20261112/primary/Remond2021-author.pdf",
+      "sha256": "e23a019a7432e299014ead57a1ba51c3945b8351a64c96f339536786c8f79c5d",
+      "bytes": 246654,
+      "bundled": false,
+      "role": "external third-party primary source; not distributed in this additive packet"
+    },
+    {
+      "path": "/tmp/q214-d-next-20261112/primary/Scholze2013.pdf",
+      "sha256": "f47a05bbcdd1ac69deb87ce4b6af5bbbc245cbbf0e99df74e8bf73b6d89227d7",
+      "bytes": 688182,
+      "bundled": false,
+      "role": "external third-party primary source; not distributed in this additive packet"
+    },
+    {
+      "path": "/tmp/q214-d-next-20261112/primary/Scholze2016.pdf",
+      "sha256": "3caea8d89df1e7d047d4edc89a679cd1deb2a19ec350effb450305a9c8eef3d1",
+      "bytes": 166017,
+      "bundled": false,
+      "role": "external third-party primary source; not distributed in this additive packet"
+    },
+    {
+      "path": "/tmp/q214-d-next-20261112/primary/Serre1968-reprint1989.pdf",
+      "sha256": "971dbfdd4414d99ea21d7d0af63dbb790d7b1188e9aec37f422181a2b543dec4",
+      "bytes": 5563667,
+      "bundled": false,
+      "role": "external third-party primary source; not distributed in this additive packet"
+    },
+    {
+      "path": "/tmp/q214-d-next-20261112/primary/Shimura1973-published.pdf",
+      "sha256": "6a34cc46d06c0f5d4e7d380ddcbc45ec3143b19359bfebba5b1c8f00976f3308",
+      "bytes": 1646652,
+      "bundled": false,
+      "role": "external third-party primary source; not distributed in this additive packet"
+    },
+    {
+      "path": "/tmp/q214-d-next-20261112/primary/Voight2021-ch13.pdf",
+      "sha256": "8f8089860649fa19b8467fd76d0959950d01fdee977b92fced25db5078f2e9f7",
+      "bytes": 314015,
+      "bundled": false,
+      "role": "external third-party primary source; not distributed in this additive packet"
+    },
+    {
+      "path": "/tmp/q214-d-next-20261112/rc/PoonenStoll-corrected2014.pdf",
+      "sha256": "cc5860e3db126b8b4fb00e37b5db6f7accab3122759e2150889ee30474546d36",
+      "bytes": 509001,
+      "bundled": false,
+      "role": "external third-party primary source; not distributed in this additive packet"
+    },
+    {
+      "path": "/tmp/q214-d-next-20261112/rc/kato1999.pdf",
+      "sha256": "483dc18c56b2fe9cfac4e37f2e6594399625c3f0ea98a05bb69116377c67fc06",
+      "bytes": 4319206,
+      "bundled": false,
+      "role": "external third-party primary source; not distributed in this additive packet"
+    },
+    {
+      "path": "/tmp/q214-d-next-20261112/rc/kato2004.pdf",
+      "sha256": "3c6e14b11fa60262db8aff782ce3cf4d83e9100c0be83621a7e4ce502cec605d",
+      "bytes": 18010813,
+      "bundled": false,
+      "role": "external third-party primary source; not distributed in this additive packet"
+    },
+    {
+      "path": "/tmp/quartic214-manuscript-20261112/research/version16/audits/fable-5-2-audit-4.pdf",
+      "sha256": "c71530d020a9dcd7e7b62aa34b376cd5a6cc57ffa46b4032542ad050edc09116",
+      "bytes": 2262754,
+      "bundled": false,
+      "role": "external third-party primary source; not distributed in this additive packet"
+    }
+  ],
+  "exclusions": [
+    "FABLE-AUDIT-TEXT.txt and all other extracted third-party source text",
+    "third-party PDFs and images",
+    "private repositories and controller-private evidence"
+  ],
+  "limits": "Original reviewer manifests retain their original paths and source-access limitations. Compressed copies preserve exact original uncompressed bytes. Manifest itself is externally hashed by PACKET_MANIFEST.json."
+}

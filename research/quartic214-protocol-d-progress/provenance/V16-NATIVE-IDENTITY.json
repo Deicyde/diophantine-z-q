@@ -1,0 +1,56 @@
+{
+  "accepted_pr": 31,
+  "accepted_head": "78b94cdacfd872c9151fecd1093ed45e9607bd47",
+  "receiving_head": "e3626cac202cdbcdfedc2bff1978dcd3ea3fd3ab",
+  "checks": [
+    {
+      "path": "manuscripts/quartic_v16.tex",
+      "accepted_head_blob": "b703122bbe71e2c6641703d522841dc1548bb92a",
+      "current_blob": "b703122bbe71e2c6641703d522841dc1548bb92a",
+      "identical": true
+    },
+    {
+      "path": "research/version16/protocol/PROFILE.json",
+      "accepted_head_blob": "24e891f8ffe47a8ae5392d1aa358f297ec9a3b01",
+      "current_blob": "24e891f8ffe47a8ae5392d1aa358f297ec9a3b01",
+      "identical": true
+    },
+    {
+      "path": "research/version16/protocol/DOSSIER.json",
+      "accepted_head_blob": "1d5480322aa3ff5b9d34d6527f10bffac9f5eb9c",
+      "current_blob": "1d5480322aa3ff5b9d34d6527f10bffac9f5eb9c",
+      "identical": true
+    },
+    {
+      "path": "research/version16/protocol/CONNECTIONS.json",
+      "accepted_head_blob": "c88c2c7ba12b7dff637fff90665f41cab1c70d57",
+      "current_blob": "c88c2c7ba12b7dff637fff90665f41cab1c70d57",
+      "identical": true
+    },
+    {
+      "path": "research/version16/review/coverage/record-repair-001/REVIEW.json",
+      "accepted_head_blob": "58c2d2fe62c2b3f4621ef5577f95af4085330a2a",
+      "current_blob": "58c2d2fe62c2b3f4621ef5577f95af4085330a2a",
+      "identical": true
+    },
+    {
+      "path": "research/version16/review/coverage/record-repair-001/PROTOCOL14-COVERAGE-REVIEW.json",
+      "accepted_head_blob": "aa0fef37dac5abcc21a361ea5cfd87abd6844870",
+      "current_blob": "aa0fef37dac5abcc21a361ea5cfd87abd6844870",
+      "identical": true
+    },
+    {
+      "path": "research/version16/review/coverage/record-repair-001/ASSEMBLY-REVIEW.json",
+      "accepted_head_blob": "d7db90a4945da5c0335aeeb20c72c19e6e486d13",
+      "current_blob": "d7db90a4945da5c0335aeeb20c72c19e6e486d13",
+      "identical": true
+    },
+    {
+      "path": "research/version16/review/current/INSTALLED-REVIEW.json",
+      "accepted_head_blob": "52d5512c040fcb097f4c2a940591c80b65fd3bb1",
+      "current_blob": "52d5512c040fcb097f4c2a940591c80b65fd3bb1",
+      "identical": true
+    }
+  ],
+  "scope": "Exact public artifact identity only, not acceptance of changed 214 consumers."
+}

@@ -1,0 +1,811 @@
+{
+  "schema": "protocol14-review/v1",
+  "scope": "Version17 complete214 source-use and related-finding extension.",
+  "limitations": "Exact original supplier qualifications remain in force. No fresh full ancestor reproof, effective defining threshold, all-page visual inspection, authenticated receipt or protected acceptance is claimed. Final delivery package and authored application tuples are separate obligations.",
+  "decisions": [
+    {
+      "subject": "connection:SF01-rows",
+      "subject_sha256": "110cb3cf22ffa62fadafc26dee70ee6ece13b719b015a668f0950ec0ae262df8",
+      "outcome": "accepted_within_scope",
+      "review_basis": "reused_exact_derivation",
+      "prior_review": {
+        "side": "head",
+        "path": "research/quartic214-native-review/COVERAGE-REVIEW.json",
+        "sha256": "ebc98670666776bd0a4ddb78d7db7bd7ee8bace033323b703fce96d1742e21ff"
+      },
+      "scope": "Exact unchanged source-level contract and derivation from the preserved original review.",
+      "limitations": "Exact original supplier qualifications remain in force. No fresh full ancestor reproof, effective defining threshold, all-page visual inspection, authenticated receipt or protected acceptance is claimed. Final delivery package and authored application tuples are separate obligations."
+    },
+    {
+      "subject": "connection:SF02-recovery",
+      "subject_sha256": "23213a02a56104c6f4723e84be4533668cc03ac0f66988ce027dc456f68276e4",
+      "outcome": "accepted_within_scope",
+      "review_basis": "reused_exact_derivation",
+      "prior_review": {
+        "side": "head",
+        "path": "research/quartic214-native-review/COVERAGE-REVIEW.json",
+        "sha256": "ebc98670666776bd0a4ddb78d7db7bd7ee8bace033323b703fce96d1742e21ff"
+      },
+      "scope": "Exact unchanged source-level contract and derivation from the preserved original review.",
+      "limitations": "Exact original supplier qualifications remain in force. No fresh full ancestor reproof, effective defining threshold, all-page visual inspection, authenticated receipt or protected acceptance is claimed. Final delivery package and authored application tuples are separate obligations."
+    },
+    {
+      "subject": "connection:SF03-local",
+      "subject_sha256": "dfdab6fee4a933efd9917db27a9ed3993d407909442a70c7af5de2cf69cd4a8b",
+      "outcome": "accepted_within_scope",
+      "review_basis": "reused_exact_derivation",
+      "prior_review": {
+        "side": "head",
+        "path": "research/quartic214-native-review/COVERAGE-REVIEW.json",
+        "sha256": "ebc98670666776bd0a4ddb78d7db7bd7ee8bace033323b703fce96d1742e21ff"
+      },
+      "scope": "Exact unchanged source-level contract and derivation from the preserved original review.",
+      "limitations": "Exact original supplier qualifications remain in force. No fresh full ancestor reproof, effective defining threshold, all-page visual inspection, authenticated receipt or protected acceptance is claimed. Final delivery package and authored application tuples are separate obligations."
+    },
+    {
+      "subject": "connection:SF04-logs",
+      "subject_sha256": "287a177ecfdb49e1d7f10e86fe98b330a6f1ae2930cc3f14eca40e47cfe01bc2",
+      "outcome": "accepted_within_scope",
+      "review_basis": "reused_exact_derivation",
+      "prior_review": {
+        "side": "head",
+        "path": "research/quartic214-native-review/COVERAGE-REVIEW.json",
+        "sha256": "ebc98670666776bd0a4ddb78d7db7bd7ee8bace033323b703fce96d1742e21ff"
+      },
+      "scope": "Exact unchanged source-level contract and derivation from the preserved original review.",
+      "limitations": "Exact original supplier qualifications remain in force. No fresh full ancestor reproof, effective defining threshold, all-page visual inspection, authenticated receipt or protected acceptance is claimed. Final delivery package and authored application tuples are separate obligations."
+    },
+    {
+      "subject": "connection:SF05-aggregate",
+      "subject_sha256": "a0f128717237254173dfd8947a7c254a925605a975287c953277fe55c222908a",
+      "outcome": "accepted_within_scope",
+      "review_basis": "reused_exact_derivation",
+      "prior_review": {
+        "side": "head",
+        "path": "research/quartic214-native-review/COVERAGE-REVIEW.json",
+        "sha256": "ebc98670666776bd0a4ddb78d7db7bd7ee8bace033323b703fce96d1742e21ff"
+      },
+      "scope": "Exact unchanged source-level contract and derivation from the preserved original review.",
+      "limitations": "Exact original supplier qualifications remain in force. No fresh full ancestor reproof, effective defining threshold, all-page visual inspection, authenticated receipt or protected acceptance is claimed. Final delivery package and authored application tuples are separate obligations."
+    },
+    {
+      "subject": "connection:SF06-reflect",
+      "subject_sha256": "92931aefee45b271be17d019985e5ba3bbb2f5b83001a06852b80a2ca9caac90",
+      "outcome": "accepted_within_scope",
+      "review_basis": "reused_exact_derivation",
+      "prior_review": {
+        "side": "head",
+        "path": "research/quartic214-native-review/COVERAGE-REVIEW.json",
+        "sha256": "ebc98670666776bd0a4ddb78d7db7bd7ee8bace033323b703fce96d1742e21ff"
+      },
+      "scope": "Exact unchanged source-level contract and derivation from the preserved original review.",
+      "limitations": "Exact original supplier qualifications remain in force. No fresh full ancestor reproof, effective defining threshold, all-page visual inspection, authenticated receipt or protected acceptance is claimed. Final delivery package and authored application tuples are separate obligations."
+    },
+    {
+      "subject": "connection:SF07-sound",
+      "subject_sha256": "0b0343eca3abb8b2a55189ee3ea2f6d6803d7c8678830bcbca663dfa86bc4d44",
+      "outcome": "accepted_within_scope",
+      "review_basis": "reused_exact_derivation",
+      "prior_review": {
+        "side": "head",
+        "path": "research/quartic214-native-review/COVERAGE-REVIEW.json",
+        "sha256": "ebc98670666776bd0a4ddb78d7db7bd7ee8bace033323b703fce96d1742e21ff"
+      },
+      "scope": "Exact unchanged source-level contract and derivation from the preserved original review.",
+      "limitations": "Exact original supplier qualifications remain in force. No fresh full ancestor reproof, effective defining threshold, all-page visual inspection, authenticated receipt or protected acceptance is claimed. Final delivery package and authored application tuples are separate obligations."
+    },
+    {
+      "subject": "connection:SF08-scalar",
+      "subject_sha256": "44f589f182e6cbba69990b4eaf0228a9d7e9c5105729a88f7b2b10b5bac71569",
+      "outcome": "accepted_within_scope",
+      "review_basis": "reused_exact_derivation",
+      "prior_review": {
+        "side": "head",
+        "path": "research/quartic214-native-review/COVERAGE-REVIEW.json",
+        "sha256": "ebc98670666776bd0a4ddb78d7db7bd7ee8bace033323b703fce96d1742e21ff"
+      },
+      "scope": "Exact unchanged source-level contract and derivation from the preserved original review.",
+      "limitations": "Exact original supplier qualifications remain in force. No fresh full ancestor reproof, effective defining threshold, all-page visual inspection, authenticated receipt or protected acceptance is claimed. Final delivery package and authored application tuples are separate obligations."
+    },
+    {
+      "subject": "connection:SF09-selection",
+      "subject_sha256": "1ad162abb948b96c2505565991d30fb8888981e8f64c9ad3086016a13b59465a",
+      "outcome": "accepted_within_scope",
+      "review_basis": "reused_exact_derivation",
+      "prior_review": {
+        "side": "head",
+        "path": "research/quartic214-native-review/COVERAGE-REVIEW.json",
+        "sha256": "ebc98670666776bd0a4ddb78d7db7bd7ee8bace033323b703fce96d1742e21ff"
+      },
+      "scope": "Exact unchanged source-level contract and derivation from the preserved original review.",
+      "limitations": "Exact original supplier qualifications remain in force. No fresh full ancestor reproof, effective defining threshold, all-page visual inspection, authenticated receipt or protected acceptance is claimed. Final delivery package and authored application tuples are separate obligations."
+    },
+    {
+      "subject": "connection:SF10-freshpole",
+      "subject_sha256": "5d3f011acd1f1b62cb12f416ce8eaeb851e11f5704e6f2f0382a4ce28693b2f9",
+      "outcome": "accepted_within_scope",
+      "review_basis": "reused_exact_derivation",
+      "prior_review": {
+        "side": "head",
+        "path": "research/quartic214-native-review/COVERAGE-REVIEW.json",
+        "sha256": "ebc98670666776bd0a4ddb78d7db7bd7ee8bace033323b703fce96d1742e21ff"
+      },
+      "scope": "Exact unchanged source-level contract and derivation from the preserved original review.",
+      "limitations": "Exact original supplier qualifications remain in force. No fresh full ancestor reproof, effective defining threshold, all-page visual inspection, authenticated receipt or protected acceptance is claimed. Final delivery package and authored application tuples are separate obligations."
+    },
+    {
+      "subject": "connection:SF11-geometry",
+      "subject_sha256": "356c99f280b388138ddea6e0820b042816d06fe10daa4efd3ac953b5d321c8fa",
+      "outcome": "accepted_within_scope",
+      "review_basis": "reused_exact_derivation",
+      "prior_review": {
+        "side": "head",
+        "path": "research/quartic214-native-review/COVERAGE-REVIEW.json",
+        "sha256": "ebc98670666776bd0a4ddb78d7db7bd7ee8bace033323b703fce96d1742e21ff"
+      },
+      "scope": "Exact unchanged source-level contract and derivation from the preserved original review.",
+      "limitations": "Exact original supplier qualifications remain in force. No fresh full ancestor reproof, effective defining threshold, all-page visual inspection, authenticated receipt or protected acceptance is claimed. Final delivery package and authored application tuples are separate obligations."
+    },
+    {
+      "subject": "connection:SF12-tame",
+      "subject_sha256": "920da796bb1d565a099848aa14237ba3c95a23f5392f0ac323b1cd92f86373c5",
+      "outcome": "accepted_within_scope",
+      "review_basis": "reused_exact_derivation",
+      "prior_review": {
+        "side": "head",
+        "path": "research/quartic214-native-review/COVERAGE-REVIEW.json",
+        "sha256": "ebc98670666776bd0a4ddb78d7db7bd7ee8bace033323b703fce96d1742e21ff"
+      },
+      "scope": "Exact unchanged source-level contract and derivation from the preserved original review.",
+      "limitations": "Exact original supplier qualifications remain in force. No fresh full ancestor reproof, effective defining threshold, all-page visual inspection, authenticated receipt or protected acceptance is claimed. Final delivery package and authored application tuples are separate obligations."
+    },
+    {
+      "subject": "connection:SF13-geometricmetric",
+      "subject_sha256": "bf8bbeedd68b352592541e6e147703cbcb52f889d183beb513f81482eabc8def",
+      "outcome": "accepted_within_scope",
+      "review_basis": "reused_exact_derivation",
+      "prior_review": {
+        "side": "head",
+        "path": "research/quartic214-native-review/COVERAGE-REVIEW.json",
+        "sha256": "ebc98670666776bd0a4ddb78d7db7bd7ee8bace033323b703fce96d1742e21ff"
+      },
+      "scope": "Exact unchanged source-level contract and derivation from the preserved original review.",
+      "limitations": "Exact original supplier qualifications remain in force. No fresh full ancestor reproof, effective defining threshold, all-page visual inspection, authenticated receipt or protected acceptance is claimed. Final delivery package and authored application tuples are separate obligations."
+    },
+    {
+      "subject": "connection:SF14-cm",
+      "subject_sha256": "0ea813eff6f17b44d91f7c90f8665ac157c6b723660c152ae8d92f51f551bfe5",
+      "outcome": "accepted_within_scope",
+      "review_basis": "reused_exact_derivation",
+      "prior_review": {
+        "side": "head",
+        "path": "research/quartic214-native-review/COVERAGE-REVIEW.json",
+        "sha256": "ebc98670666776bd0a4ddb78d7db7bd7ee8bace033323b703fce96d1742e21ff"
+      },
+      "scope": "Exact unchanged source-level contract and derivation from the preserved original review.",
+      "limitations": "Exact original supplier qualifications remain in force. No fresh full ancestor reproof, effective defining threshold, all-page visual inspection, authenticated receipt or protected acceptance is claimed. Final delivery package and authored application tuples are separate obligations."
+    },
+    {
+      "subject": "connection:SF15-lift",
+      "subject_sha256": "19d8af4f4aa9a7350d1872db756d2eb7eca048a8a6186832b02b1ade05871ecd",
+      "outcome": "accepted_within_scope",
+      "review_basis": "reused_exact_derivation",
+      "prior_review": {
+        "side": "head",
+        "path": "research/quartic214-native-review/COVERAGE-REVIEW.json",
+        "sha256": "ebc98670666776bd0a4ddb78d7db7bd7ee8bace033323b703fce96d1742e21ff"
+      },
+      "scope": "Exact unchanged source-level contract and derivation from the preserved original review.",
+      "limitations": "Exact original supplier qualifications remain in force. No fresh full ancestor reproof, effective defining threshold, all-page visual inspection, authenticated receipt or protected acceptance is claimed. Final delivery package and authored application tuples are separate obligations."
+    },
+    {
+      "subject": "connection:SF16-modular",
+      "subject_sha256": "a812c9d1dda08562458bcb18d009f322a4f2cf6d8ea8d6b93211e638e89293ff",
+      "outcome": "accepted_within_scope",
+      "review_basis": "reused_exact_derivation",
+      "prior_review": {
+        "side": "head",
+        "path": "research/quartic214-native-review/COVERAGE-REVIEW.json",
+        "sha256": "ebc98670666776bd0a4ddb78d7db7bd7ee8bace033323b703fce96d1742e21ff"
+      },
+      "scope": "Exact unchanged source-level contract and derivation from the preserved original review.",
+      "limitations": "Exact original supplier qualifications remain in force. No fresh full ancestor reproof, effective defining threshold, all-page visual inspection, authenticated receipt or protected acceptance is claimed. Final delivery package and authored application tuples are separate obligations."
+    },
+    {
+      "subject": "connection:SF17-primitive",
+      "subject_sha256": "53b71f7b326b066f85007a9d3b90540b04eed50791bf05e40d4fa84023eac286",
+      "outcome": "accepted_within_scope",
+      "review_basis": "reused_exact_derivation",
+      "prior_review": {
+        "side": "head",
+        "path": "research/quartic214-native-review/COVERAGE-REVIEW.json",
+        "sha256": "ebc98670666776bd0a4ddb78d7db7bd7ee8bace033323b703fce96d1742e21ff"
+      },
+      "scope": "Exact unchanged source-level contract and derivation from the preserved original review.",
+      "limitations": "Exact original supplier qualifications remain in force. No fresh full ancestor reproof, effective defining threshold, all-page visual inspection, authenticated receipt or protected acceptance is claimed. Final delivery package and authored application tuples are separate obligations."
+    },
+    {
+      "subject": "connection:SF18-companion",
+      "subject_sha256": "65db26afab6acd97bc458da5a5c39e91549b8525c27fb2451889845048524a41",
+      "outcome": "accepted_within_scope",
+      "review_basis": "reused_exact_derivation",
+      "prior_review": {
+        "side": "head",
+        "path": "research/quartic214-native-review/COVERAGE-REVIEW.json",
+        "sha256": "ebc98670666776bd0a4ddb78d7db7bd7ee8bace033323b703fce96d1742e21ff"
+      },
+      "scope": "Exact unchanged source-level contract and derivation from the preserved original review.",
+      "limitations": "Exact original supplier qualifications remain in force. No fresh full ancestor reproof, effective defining threshold, all-page visual inspection, authenticated receipt or protected acceptance is claimed. Final delivery package and authored application tuples are separate obligations."
+    },
+    {
+      "subject": "connection:SF19-conductor",
+      "subject_sha256": "0c15314217b5aa88f2c5492067f409a8ca222658a7dfd224a5c8203a1cd4871b",
+      "outcome": "accepted_within_scope",
+      "review_basis": "reused_exact_derivation",
+      "prior_review": {
+        "side": "head",
+        "path": "research/quartic214-native-review/COVERAGE-REVIEW.json",
+        "sha256": "ebc98670666776bd0a4ddb78d7db7bd7ee8bace033323b703fce96d1742e21ff"
+      },
+      "scope": "Exact unchanged source-level contract and derivation from the preserved original review.",
+      "limitations": "Exact original supplier qualifications remain in force. No fresh full ancestor reproof, effective defining threshold, all-page visual inspection, authenticated receipt or protected acceptance is claimed. Final delivery package and authored application tuples are separate obligations."
+    },
+    {
+      "subject": "connection:SF20-multiplicity",
+      "subject_sha256": "81c7438b384ea2ad788fa8b80d8a09d13975ad0b856ba281e65fc6ff12595fe5",
+      "outcome": "accepted_within_scope",
+      "review_basis": "reused_exact_derivation",
+      "prior_review": {
+        "side": "head",
+        "path": "research/quartic214-native-review/COVERAGE-REVIEW.json",
+        "sha256": "ebc98670666776bd0a4ddb78d7db7bd7ee8bace033323b703fce96d1742e21ff"
+      },
+      "scope": "Exact unchanged source-level contract and derivation from the preserved original review.",
+      "limitations": "Exact original supplier qualifications remain in force. No fresh full ancestor reproof, effective defining threshold, all-page visual inspection, authenticated receipt or protected acceptance is claimed. Final delivery package and authored application tuples are separate obligations."
+    },
+    {
+      "subject": "connection:SF21-integral",
+      "subject_sha256": "dec268793ba3e716aff358d99bdc3b7bf429ada38167f4fa0f36ef14abd1b7d3",
+      "outcome": "accepted_within_scope",
+      "review_basis": "reused_exact_derivation",
+      "prior_review": {
+        "side": "head",
+        "path": "research/quartic214-native-review/COVERAGE-REVIEW.json",
+        "sha256": "ebc98670666776bd0a4ddb78d7db7bd7ee8bace033323b703fce96d1742e21ff"
+      },
+      "scope": "Exact unchanged source-level contract and derivation from the preserved original review.",
+      "limitations": "Exact original supplier qualifications remain in force. No fresh full ancestor reproof, effective defining threshold, all-page visual inspection, authenticated receipt or protected acceptance is claimed. Final delivery package and authored application tuples are separate obligations."
+    },
+    {
+      "subject": "connection:SF22-lattice",
+      "subject_sha256": "15e8c54dbfa1b1243a99747cf1be24a70f80eb32ada399108d406f86fedbe67f",
+      "outcome": "accepted_within_scope",
+      "review_basis": "reused_exact_derivation",
+      "prior_review": {
+        "side": "head",
+        "path": "research/quartic214-native-review/COVERAGE-REVIEW.json",
+        "sha256": "ebc98670666776bd0a4ddb78d7db7bd7ee8bace033323b703fce96d1742e21ff"
+      },
+      "scope": "Exact unchanged source-level contract and derivation from the preserved original review.",
+      "limitations": "Exact original supplier qualifications remain in force. No fresh full ancestor reproof, effective defining threshold, all-page visual inspection, authenticated receipt or protected acceptance is claimed. Final delivery package and authored application tuples are separate obligations."
+    },
+    {
+      "subject": "connection:SF23-different",
+      "subject_sha256": "992e6d87330e1e425b265f4c54dfc2f15da21ea83e2a05ea6b8fb2f18c68cf63",
+      "outcome": "accepted_within_scope",
+      "review_basis": "reused_exact_derivation",
+      "prior_review": {
+        "side": "head",
+        "path": "research/quartic214-native-review/COVERAGE-REVIEW.json",
+        "sha256": "ebc98670666776bd0a4ddb78d7db7bd7ee8bace033323b703fce96d1742e21ff"
+      },
+      "scope": "Exact unchanged source-level contract and derivation from the preserved original review.",
+      "limitations": "Exact original supplier qualifications remain in force. No fresh full ancestor reproof, effective defining threshold, all-page visual inspection, authenticated receipt or protected acceptance is claimed. Final delivery package and authored application tuples are separate obligations."
+    },
+    {
+      "subject": "connection:SF24-analyticmetric",
+      "subject_sha256": "9d3c169ecd246b978ecf9d5ac43da310c2a9a48c6ad9131728de1da4d03753cb",
+      "outcome": "accepted_within_scope",
+      "review_basis": "reused_exact_derivation",
+      "prior_review": {
+        "side": "head",
+        "path": "research/quartic214-native-review/COVERAGE-REVIEW.json",
+        "sha256": "ebc98670666776bd0a4ddb78d7db7bd7ee8bace033323b703fce96d1742e21ff"
+      },
+      "scope": "Exact unchanged source-level contract and derivation from the preserved original review.",
+      "limitations": "Exact original supplier qualifications remain in force. No fresh full ancestor reproof, effective defining threshold, all-page visual inspection, authenticated receipt or protected acceptance is claimed. Final delivery package and authored application tuples are separate obligations."
+    },
+    {
+      "subject": "connection:SF25-heightassembly",
+      "subject_sha256": "127fc4b50191ca8e081a184e15f17e115f95fd7ed68d404bef317b582615e5ea",
+      "outcome": "accepted_within_scope",
+      "review_basis": "reused_exact_derivation",
+      "prior_review": {
+        "side": "head",
+        "path": "research/quartic214-native-review/COVERAGE-REVIEW.json",
+        "sha256": "ebc98670666776bd0a4ddb78d7db7bd7ee8bace033323b703fce96d1742e21ff"
+      },
+      "scope": "Exact unchanged source-level contract and derivation from the preserved original review.",
+      "limitations": "Exact original supplier qualifications remain in force. No fresh full ancestor reproof, effective defining threshold, all-page visual inspection, authenticated receipt or protected acceptance is claimed. Final delivery package and authored application tuples are separate obligations."
+    },
+    {
+      "subject": "connection:SF26-average",
+      "subject_sha256": "c5357cbd73a30f9e534ffd16e0454835aeab535fd6822fcf3cf4284a13ed6926",
+      "outcome": "accepted_within_scope",
+      "review_basis": "reused_exact_derivation",
+      "prior_review": {
+        "side": "head",
+        "path": "research/quartic214-native-review/COVERAGE-REVIEW.json",
+        "sha256": "ebc98670666776bd0a4ddb78d7db7bd7ee8bace033323b703fce96d1742e21ff"
+      },
+      "scope": "Exact unchanged source-level contract and derivation from the preserved original review.",
+      "limitations": "Exact original supplier qualifications remain in force. No fresh full ancestor reproof, effective defining threshold, all-page visual inspection, authenticated receipt or protected acceptance is claimed. Final delivery package and authored application tuples are separate obligations."
+    },
+    {
+      "subject": "connection:SF27-numeric",
+      "subject_sha256": "3279a7a17bb8b20f524281923958b83e558a5560641516117fc15500b6a5363c",
+      "outcome": "accepted_within_scope",
+      "review_basis": "reused_exact_derivation",
+      "prior_review": {
+        "side": "head",
+        "path": "research/quartic214-native-review/COVERAGE-REVIEW.json",
+        "sha256": "ebc98670666776bd0a4ddb78d7db7bd7ee8bace033323b703fce96d1742e21ff"
+      },
+      "scope": "Exact unchanged source-level contract and derivation from the preserved original review.",
+      "limitations": "Exact original supplier qualifications remain in force. No fresh full ancestor reproof, effective defining threshold, all-page visual inspection, authenticated receipt or protected acceptance is claimed. Final delivery package and authored application tuples are separate obligations."
+    },
+    {
+      "subject": "connection:SF28-rc",
+      "subject_sha256": "fd7df8aa6cd89331aa7fc218654e0eda88463dfeeec6101a2d3f71a41daad820",
+      "outcome": "accepted_within_scope",
+      "review_basis": "reused_exact_derivation",
+      "prior_review": {
+        "side": "head",
+        "path": "research/quartic214-native-review/COVERAGE-REVIEW.json",
+        "sha256": "ebc98670666776bd0a4ddb78d7db7bd7ee8bace033323b703fce96d1742e21ff"
+      },
+      "scope": "Exact unchanged source-level contract and derivation from the preserved original review.",
+      "limitations": "Exact original supplier qualifications remain in force. No fresh full ancestor reproof, effective defining threshold, all-page visual inspection, authenticated receipt or protected acceptance is claimed. Final delivery package and authored application tuples are separate obligations."
+    },
+    {
+      "subject": "connection:SF29-kato",
+      "subject_sha256": "85b898cd5cf9a061782eadf621c6feed0a024654c7c5238418de416ded2cd9f4",
+      "outcome": "accepted_within_scope",
+      "review_basis": "reused_exact_derivation",
+      "prior_review": {
+        "side": "head",
+        "path": "research/quartic214-native-review/COVERAGE-REVIEW.json",
+        "sha256": "ebc98670666776bd0a4ddb78d7db7bd7ee8bace033323b703fce96d1742e21ff"
+      },
+      "scope": "Exact unchanged source-level contract and derivation from the preserved original review.",
+      "limitations": "Exact original supplier qualifications remain in force. No fresh full ancestor reproof, effective defining threshold, all-page visual inspection, authenticated receipt or protected acceptance is claimed. Final delivery package and authored application tuples are separate obligations."
+    },
+    {
+      "subject": "connection:SF30-gi",
+      "subject_sha256": "3fff65b058ebca44935c45aaf21a059146c8e27851e3885ce4765c088e14cbf2",
+      "outcome": "accepted_within_scope",
+      "review_basis": "reused_exact_derivation",
+      "prior_review": {
+        "side": "head",
+        "path": "research/quartic214-native-review/COVERAGE-REVIEW.json",
+        "sha256": "ebc98670666776bd0a4ddb78d7db7bd7ee8bace033323b703fce96d1742e21ff"
+      },
+      "scope": "Exact unchanged source-level contract and derivation from the preserved original review.",
+      "limitations": "Exact original supplier qualifications remain in force. No fresh full ancestor reproof, effective defining threshold, all-page visual inspection, authenticated receipt or protected acceptance is claimed. Final delivery package and authored application tuples are separate obligations."
+    },
+    {
+      "subject": "connection:SF31-tz",
+      "subject_sha256": "406900ce68ce2e60ef89c9696c0cd110af52caee4aaac31876d6e12551bc882d",
+      "outcome": "accepted_within_scope",
+      "review_basis": "reused_exact_derivation",
+      "prior_review": {
+        "side": "head",
+        "path": "research/quartic214-native-review/COVERAGE-REVIEW.json",
+        "sha256": "ebc98670666776bd0a4ddb78d7db7bd7ee8bace033323b703fce96d1742e21ff"
+      },
+      "scope": "Exact unchanged source-level contract and derivation from the preserved original review.",
+      "limitations": "Exact original supplier qualifications remain in force. No fresh full ancestor reproof, effective defining threshold, all-page visual inspection, authenticated receipt or protected acceptance is claimed. Final delivery package and authored application tuples are separate obligations."
+    },
+    {
+      "subject": "connection:SF32-foundation",
+      "subject_sha256": "8288281da7fe714f6e25920d988f59cdf06c547f8163f8407a7c1f7e3d54c004",
+      "outcome": "accepted_within_scope",
+      "review_basis": "reused_exact_derivation",
+      "prior_review": {
+        "side": "head",
+        "path": "research/quartic214-native-review/COVERAGE-REVIEW.json",
+        "sha256": "ebc98670666776bd0a4ddb78d7db7bd7ee8bace033323b703fce96d1742e21ff"
+      },
+      "scope": "Exact unchanged source-level contract and derivation from the preserved original review.",
+      "limitations": "Exact original supplier qualifications remain in force. No fresh full ancestor reproof, effective defining threshold, all-page visual inspection, authenticated receipt or protected acceptance is claimed. Final delivery package and authored application tuples are separate obligations."
+    },
+    {
+      "subject": "connection:SF33-receiving",
+      "subject_sha256": "1144066cf6c4fd2a1747416cd165b09719fd1c42c8c83fa5f46854654b729f3d",
+      "outcome": "accepted_within_scope",
+      "review_basis": "reused_exact_derivation",
+      "prior_review": {
+        "side": "head",
+        "path": "research/quartic214-native-review/COVERAGE-REVIEW.json",
+        "sha256": "ebc98670666776bd0a4ddb78d7db7bd7ee8bace033323b703fce96d1742e21ff"
+      },
+      "scope": "Exact unchanged source-level contract and derivation from the preserved original review.",
+      "limitations": "Exact original supplier qualifications remain in force. No fresh full ancestor reproof, effective defining threshold, all-page visual inspection, authenticated receipt or protected acceptance is claimed. Final delivery package and authored application tuples are separate obligations."
+    },
+    {
+      "subject": "connection:SF34-receiving-arithmetic",
+      "subject_sha256": "55c4b4c3226a272060a8b7ca56a7ee8dd04be6b70f3ba1c96e323e9dcfaaf150",
+      "outcome": "accepted_within_scope",
+      "review_basis": "reused_exact_derivation",
+      "prior_review": {
+        "side": "head",
+        "path": "research/quartic214-native-review/COVERAGE-REVIEW.json",
+        "sha256": "ebc98670666776bd0a4ddb78d7db7bd7ee8bace033323b703fce96d1742e21ff"
+      },
+      "scope": "Exact unchanged source-level contract and derivation from the preserved original review.",
+      "limitations": "Exact original supplier qualifications remain in force. No fresh full ancestor reproof, effective defining threshold, all-page visual inspection, authenticated receipt or protected acceptance is claimed. Final delivery package and authored application tuples are separate obligations."
+    },
+    {
+      "subject": "connection:SF35-receiving-height",
+      "subject_sha256": "58e4c27f9115242c69031e7273743b0beb369c34f253f7222e233fd45b8af69a",
+      "outcome": "accepted_within_scope",
+      "review_basis": "reused_exact_derivation",
+      "prior_review": {
+        "side": "head",
+        "path": "research/quartic214-native-review/COVERAGE-REVIEW.json",
+        "sha256": "ebc98670666776bd0a4ddb78d7db7bd7ee8bace033323b703fce96d1742e21ff"
+      },
+      "scope": "Exact unchanged source-level contract and derivation from the preserved original review.",
+      "limitations": "Exact original supplier qualifications remain in force. No fresh full ancestor reproof, effective defining threshold, all-page visual inspection, authenticated receipt or protected acceptance is claimed. Final delivery package and authored application tuples are separate obligations."
+    },
+    {
+      "subject": "connection:SF36-receiving-algebra",
+      "subject_sha256": "e17242b9ed65ade6981e9a8bab8205a0a71a3daf31d5a5b7588db64cd2a5c8b1",
+      "outcome": "accepted_within_scope",
+      "review_basis": "reused_exact_derivation",
+      "prior_review": {
+        "side": "head",
+        "path": "research/quartic214-native-review/COVERAGE-REVIEW.json",
+        "sha256": "ebc98670666776bd0a4ddb78d7db7bd7ee8bace033323b703fce96d1742e21ff"
+      },
+      "scope": "Exact unchanged source-level contract and derivation from the preserved original review.",
+      "limitations": "Exact original supplier qualifications remain in force. No fresh full ancestor reproof, effective defining threshold, all-page visual inspection, authenticated receipt or protected acceptance is claimed. Final delivery package and authored application tuples are separate obligations."
+    },
+    {
+      "subject": "connection:SF37-receiving-foundation",
+      "subject_sha256": "20e3c62ce4ef3202e76a8a0d8b989c5d3dafdf497df9813d4710046175f3f0a2",
+      "outcome": "accepted_within_scope",
+      "review_basis": "reused_exact_derivation",
+      "prior_review": {
+        "side": "head",
+        "path": "research/quartic214-native-review/COVERAGE-REVIEW.json",
+        "sha256": "ebc98670666776bd0a4ddb78d7db7bd7ee8bace033323b703fce96d1742e21ff"
+      },
+      "scope": "Exact unchanged source-level contract and derivation from the preserved original review.",
+      "limitations": "Exact original supplier qualifications remain in force. No fresh full ancestor reproof, effective defining threshold, all-page visual inspection, authenticated receipt or protected acceptance is claimed. Final delivery package and authored application tuples are separate obligations."
+    },
+    {
+      "subject": "connection:SF38-arithmetic-recovery",
+      "subject_sha256": "d7a0df51ae3992f2150a19ddca7f717aac59091cbb13db3d5e1fbf44875e2a13",
+      "outcome": "accepted_within_scope",
+      "review_basis": "reused_exact_derivation",
+      "prior_review": {
+        "side": "head",
+        "path": "research/quartic214-native-review/COVERAGE-REVIEW.json",
+        "sha256": "ebc98670666776bd0a4ddb78d7db7bd7ee8bace033323b703fce96d1742e21ff"
+      },
+      "scope": "Exact unchanged source-level contract and derivation from the preserved original review.",
+      "limitations": "Exact original supplier qualifications remain in force. No fresh full ancestor reproof, effective defining threshold, all-page visual inspection, authenticated receipt or protected acceptance is claimed. Final delivery package and authored application tuples are separate obligations."
+    },
+    {
+      "subject": "connection:SF39-retained-v16",
+      "subject_sha256": "8be47693aaa6c80a492b725a053016c3fba7a9ec09c2e3bf2f65e0d118d84124",
+      "outcome": "accepted_within_scope",
+      "review_basis": "reused_exact_derivation",
+      "prior_review": {
+        "side": "head",
+        "path": "research/quartic214-native-review/COVERAGE-REVIEW.json",
+        "sha256": "ebc98670666776bd0a4ddb78d7db7bd7ee8bace033323b703fce96d1742e21ff"
+      },
+      "scope": "Exact unchanged source-level contract and derivation from the preserved original review.",
+      "limitations": "Exact original supplier qualifications remain in force. No fresh full ancestor reproof, effective defining threshold, all-page visual inspection, authenticated receipt or protected acceptance is claimed. Final delivery package and authored application tuples are separate obligations."
+    },
+    {
+      "subject": "connection:SF40-v17-receiving-transport",
+      "subject_sha256": "8a1dd7f110ce9f01d4735da617dfa28fe310b2bbedc2d60a12273762b370a8d8",
+      "outcome": "accepted_within_scope",
+      "review_basis": "reconstructed",
+      "prior_review": null,
+      "scope": "Direct full-source and body comparison identifies the Version17 consumer with the complete reviewed revision3 argument; four metadata edits change no mathematical contract.",
+      "limitations": "Exact original supplier qualifications remain in force. No fresh full ancestor reproof, effective defining threshold, all-page visual inspection, authenticated receipt or protected acceptance is claimed. Final delivery package and authored application tuples are separate obligations."
+    },
+    {
+      "subject": "finding:F1",
+      "subject_sha256": "901c0fc5e8366019c5c865ab72cdbd65660e3182d50fd10d3faabc5025e0d03b",
+      "outcome": "accepted_within_scope",
+      "review_basis": "reconstructed",
+      "prior_review": null,
+      "scope": "Preserved original source-scoped disposition, mechanism and corrections, with independently checked identical-body Version17 receiving repetitions where applicable. No original finding is removed.",
+      "limitations": "Preserve historical resolved-at-stated-scope disposition. Current revision3 TeX delta changes only date and two other sites; it does not undo these repairs. No fresh all-formulas completeness inferred. Scope search does not refute the original counterexample or authenticate a reviewer. The original review scopes and protected-acceptance operational condition are unchanged by publication numbering."
+    },
+    {
+      "subject": "finding:F2",
+      "subject_sha256": "bd1334f5b9bd002d7f1b6bec53f605d8d1b9c1ee3a2baff5fe5ffd9441f34c95",
+      "outcome": "accepted_within_scope",
+      "review_basis": "reconstructed",
+      "prior_review": null,
+      "scope": "Preserved original source-scoped disposition, mechanism and corrections, with independently checked identical-body Version17 receiving repetitions where applicable. No original finding is removed.",
+      "limitations": "Preserve historical resolved-at-stated-scope disposition. Current revision3 TeX delta changes only date and two other sites; it does not undo these repairs. No fresh all-formulas completeness inferred. Scope search does not refute the original counterexample or authenticate a reviewer. The original review scopes and protected-acceptance operational condition are unchanged by publication numbering."
+    },
+    {
+      "subject": "finding:F3",
+      "subject_sha256": "7e282c2861a69b01d3bd567e2172a1d2b6739c52c2d5e3910eb73d4ad3b5756d",
+      "outcome": "accepted_within_scope",
+      "review_basis": "reconstructed",
+      "prior_review": null,
+      "scope": "Preserved original source-scoped disposition, mechanism and corrections, with independently checked identical-body Version17 receiving repetitions where applicable. No original finding is removed.",
+      "limitations": "Preserve historical resolved-at-stated-scope disposition. Current revision3 TeX delta changes only date and two other sites; it does not undo these repairs. No fresh all-formulas completeness inferred. Scope search does not refute the original counterexample or authenticate a reviewer. The original review scopes and protected-acceptance operational condition are unchanged by publication numbering."
+    },
+    {
+      "subject": "finding:F4",
+      "subject_sha256": "683424a23b2960c919b942c5e79f89fb4efde0453f391668d164095dfc1e27c2",
+      "outcome": "accepted_within_scope",
+      "review_basis": "reconstructed",
+      "prior_review": null,
+      "scope": "Preserved original source-scoped disposition, mechanism and corrections, with independently checked identical-body Version17 receiving repetitions where applicable. No original finding is removed.",
+      "limitations": "Preserve historical resolved-at-stated-scope disposition. Current revision3 TeX delta changes only date and two other sites; it does not undo these repairs. No fresh all-formulas completeness inferred. Scope search does not refute the original counterexample or authenticate a reviewer. The original review scopes and protected-acceptance operational condition are unchanged by publication numbering."
+    },
+    {
+      "subject": "finding:F5",
+      "subject_sha256": "0384b77d4dd7e6b80af2e4858499383e8d539c351d5ffd2f852748e639e07ef6",
+      "outcome": "accepted_within_scope",
+      "review_basis": "reconstructed",
+      "prior_review": null,
+      "scope": "Preserved original source-scoped disposition, mechanism and corrections, with independently checked identical-body Version17 receiving repetitions where applicable. No original finding is removed.",
+      "limitations": "Preserve historical resolved-at-stated-scope disposition. Current revision3 TeX delta changes only date and two other sites; it does not undo these repairs. No fresh all-formulas completeness inferred. Scope search does not refute the original counterexample or authenticate a reviewer. The original review scopes and protected-acceptance operational condition are unchanged by publication numbering."
+    },
+    {
+      "subject": "finding:F6",
+      "subject_sha256": "2a881743c7f7e5ef610e3bc85e07aeaa1f361518c8c8539bb83ee55e81cc0bab",
+      "outcome": "accepted_within_scope",
+      "review_basis": "reconstructed",
+      "prior_review": null,
+      "scope": "Preserved original source-scoped disposition, mechanism and corrections, with independently checked identical-body Version17 receiving repetitions where applicable. No original finding is removed.",
+      "limitations": "Preserve historical resolved-at-stated-scope disposition. Current revision3 TeX delta changes only date and two other sites; it does not undo these repairs. No fresh all-formulas completeness inferred. Scope search does not refute the original counterexample or authenticate a reviewer. The original review scopes and protected-acceptance operational condition are unchanged by publication numbering."
+    },
+    {
+      "subject": "finding:F7",
+      "subject_sha256": "e63dfbd61b6420ccb0aaa8f4e7f596dae0a1f8abb348e7949b6fd5be3826a197",
+      "outcome": "accepted_within_scope",
+      "review_basis": "reconstructed",
+      "prior_review": null,
+      "scope": "Preserved original source-scoped disposition, mechanism and corrections, with independently checked identical-body Version17 receiving repetitions where applicable. No original finding is removed.",
+      "limitations": "Preserve historical resolved-at-stated-scope disposition. Current revision3 TeX delta changes only date and two other sites; it does not undo these repairs. No fresh all-formulas completeness inferred. Scope search does not refute the original counterexample or authenticate a reviewer. The original review scopes and protected-acceptance operational condition are unchanged by publication numbering."
+    },
+    {
+      "subject": "finding:F8",
+      "subject_sha256": "2312832ebfb52fcf183ad23686fc396ae0951d9fd753625d4eeed19ee040ab22",
+      "outcome": "accepted_within_scope",
+      "review_basis": "reconstructed",
+      "prior_review": null,
+      "scope": "Preserved original source-scoped disposition, mechanism and corrections, with independently checked identical-body Version17 receiving repetitions where applicable. No original finding is removed.",
+      "limitations": "Preserve historical resolved-at-stated-scope disposition. Current revision3 TeX delta changes only date and two other sites; it does not undo these repairs. No fresh all-formulas completeness inferred. Scope search does not refute the original counterexample or authenticate a reviewer. The original review scopes and protected-acceptance operational condition are unchanged by publication numbering."
+    },
+    {
+      "subject": "finding:F9",
+      "subject_sha256": "d2ac7c0176aeaa37a95a4bf3f9e5b69ab06f7f8e0bfa0475cf851f9071ca6eb7",
+      "outcome": "accepted_within_scope",
+      "review_basis": "reconstructed",
+      "prior_review": null,
+      "scope": "Preserved original source-scoped disposition, mechanism and corrections, with independently checked identical-body Version17 receiving repetitions where applicable. No original finding is removed.",
+      "limitations": "Preserve historical resolved-at-stated-scope disposition. Current revision3 TeX delta changes only date and two other sites; it does not undo these repairs. No fresh all-formulas completeness inferred. Scope search does not refute the original counterexample or authenticate a reviewer. The original review scopes and protected-acceptance operational condition are unchanged by publication numbering."
+    },
+    {
+      "subject": "finding:F10",
+      "subject_sha256": "c56111cbd7a7e6b9bd12eec0cdba0827144659469e68fbeceeca7daeee04fa10",
+      "outcome": "accepted_within_scope",
+      "review_basis": "reconstructed",
+      "prior_review": null,
+      "scope": "Preserved original source-scoped disposition, mechanism and corrections, with independently checked identical-body Version17 receiving repetitions where applicable. No original finding is removed.",
+      "limitations": "Preserve historical resolved-at-stated-scope disposition. Current revision3 TeX delta changes only date and two other sites; it does not undo these repairs. No fresh all-formulas completeness inferred. Scope search does not refute the original counterexample or authenticate a reviewer. The original review scopes and protected-acceptance operational condition are unchanged by publication numbering."
+    },
+    {
+      "subject": "finding:F11",
+      "subject_sha256": "9ebb9246719e8af3ca58dcff496152297bbe7f9bb6f1e9352047cf52021d6f37",
+      "outcome": "accepted_within_scope",
+      "review_basis": "reconstructed",
+      "prior_review": null,
+      "scope": "Preserved original source-scoped disposition, mechanism and corrections, with independently checked identical-body Version17 receiving repetitions where applicable. No original finding is removed.",
+      "limitations": "Preserve historical resolved-at-stated-scope disposition. Current revision3 TeX delta changes only date and two other sites; it does not undo these repairs. No fresh all-formulas completeness inferred. Scope search does not refute the original counterexample or authenticate a reviewer. The original review scopes and protected-acceptance operational condition are unchanged by publication numbering."
+    },
+    {
+      "subject": "finding:TEX-F01",
+      "subject_sha256": "3327f8bb40fa6bb3e46c13cc04d629f11ddb1523dcf2af97338cfeca4c173d13",
+      "outcome": "accepted_within_scope",
+      "review_basis": "reconstructed",
+      "prior_review": null,
+      "scope": "Preserved original source-scoped disposition, mechanism and corrections, with independently checked identical-body Version17 receiving repetitions where applicable. No original finding is removed.",
+      "limitations": "TEX-F03 resolved at historical artifact scope; others retain scope-explained limits, particularly no blanket absence of further serialization errors. Final revision3 artifact review is separate. Scope search does not refute the original counterexample or authenticate a reviewer. The original review scopes and protected-acceptance operational condition are unchanged by publication numbering."
+    },
+    {
+      "subject": "finding:TEX-F02",
+      "subject_sha256": "accc6c7e773901490d7221e8a63985b081e2c5e1967805bfe7d75c99724d1c91",
+      "outcome": "accepted_within_scope",
+      "review_basis": "reconstructed",
+      "prior_review": null,
+      "scope": "Preserved original source-scoped disposition, mechanism and corrections, with independently checked identical-body Version17 receiving repetitions where applicable. No original finding is removed.",
+      "limitations": "TEX-F03 resolved at historical artifact scope; others retain scope-explained limits, particularly no blanket absence of further serialization errors. Final revision3 artifact review is separate. Scope search does not refute the original counterexample or authenticate a reviewer. The original review scopes and protected-acceptance operational condition are unchanged by publication numbering."
+    },
+    {
+      "subject": "finding:TEX-F03",
+      "subject_sha256": "e2f425a8dfa048137f015e84c9e18b57849640fe3de7a0f372e5946fede815b1",
+      "outcome": "accepted_within_scope",
+      "review_basis": "reconstructed",
+      "prior_review": null,
+      "scope": "Preserved original source-scoped disposition, mechanism and corrections, with independently checked identical-body Version17 receiving repetitions where applicable. No original finding is removed.",
+      "limitations": "TEX-F03 resolved at historical artifact scope; others retain scope-explained limits, particularly no blanket absence of further serialization errors. Final revision3 artifact review is separate. Scope search does not refute the original counterexample or authenticate a reviewer. The original review scopes and protected-acceptance operational condition are unchanged by publication numbering."
+    },
+    {
+      "subject": "finding:TEX-F04",
+      "subject_sha256": "da43a74f4860cdb4f6c2664cf776f97c0e0937fc1c64fa89c5f22040caff059d",
+      "outcome": "accepted_within_scope",
+      "review_basis": "reconstructed",
+      "prior_review": null,
+      "scope": "Preserved original source-scoped disposition, mechanism and corrections, with independently checked identical-body Version17 receiving repetitions where applicable. No original finding is removed.",
+      "limitations": "TEX-F03 resolved at historical artifact scope; others retain scope-explained limits, particularly no blanket absence of further serialization errors. Final revision3 artifact review is separate. Scope search does not refute the original counterexample or authenticate a reviewer. The original review scopes and protected-acceptance operational condition are unchanged by publication numbering."
+    },
+    {
+      "subject": "finding:I1",
+      "subject_sha256": "c485cc5cd5811326444d0efc62faf2af7ddc9f9f75db7809f8e115f735bc5ff4",
+      "outcome": "accepted_within_scope",
+      "review_basis": "reconstructed",
+      "prior_review": null,
+      "scope": "Preserved original source-scoped disposition, mechanism and corrections, with independently checked identical-body Version17 receiving repetitions where applicable. No original finding is removed.",
+      "limitations": "Resolved within historical-record integration scope. Exact two substitutions plus strict current-delta comparison; every other original binding stays a current read. This intake classification preserves that existing comparison; it does not dismiss the objection in its original alternative route. Scope search does not refute the original counterexample or authenticate a reviewer. The original review scopes and protected-acceptance operational condition are unchanged by publication numbering."
+    },
+    {
+      "subject": "finding:INCOMING-C8",
+      "subject_sha256": "c483ee8dfbe91bcba4048ab17f1eefc649fffa15d72ec739439effaaac639a98",
+      "outcome": "accepted_within_scope",
+      "review_basis": "reconstructed",
+      "prior_review": null,
+      "scope": "Preserved original source-scoped disposition, mechanism and corrections, with independently checked identical-body Version17 receiving repetitions where applicable. No original finding is removed.",
+      "limitations": "Existing M3 explicitly supplies weight-one exclusion, all-level Kato realization, Tate/cohomology duality, and determinant-based finiteness. Inherited exact primary-source review retained; no fresh primary-publication review claimed here. This intake classification preserves that existing comparison; it does not dismiss the objection in its original alternative route. Scope search does not refute the original counterexample or authenticate a reviewer. The original review scopes and protected-acceptance operational condition are unchanged by publication numbering."
+    },
+    {
+      "subject": "finding:INCOMING-C9",
+      "subject_sha256": "1efcc44e5c7cf560b9dd5a26886415fc82c2742ea806585405126482b30bfb13",
+      "outcome": "accepted_within_scope",
+      "review_basis": "reconstructed",
+      "prior_review": null,
+      "scope": "Preserved original source-scoped disposition, mechanism and corrections, with independently checked identical-body Version17 receiving repetitions where applicable. No original finding is removed.",
+      "limitations": "Actual M6/H2 identify the complete conjugate sum via semisimple traces, all embeddings, the same Lprime and the actual modular quotient. They do not infer constituency from pointwise polynomial divisibility. This intake classification preserves that existing comparison; it does not dismiss the objection in its original alternative route. Scope search does not refute the original counterexample or authenticate a reviewer. The original review scopes and protected-acceptance operational condition are unchanged by publication numbering."
+    },
+    {
+      "subject": "finding:INCOMING-VERTICAL",
+      "subject_sha256": "6bf4f0aaff7f898b5b4f6ce612a3e166cc5cdf6b0f7fbed4b4b7b017647d062c",
+      "outcome": "accepted_within_scope",
+      "review_basis": "reconstructed",
+      "prior_review": null,
+      "scope": "Preserved original source-scoped disposition, mechanism and corrections, with independently checked identical-body Version17 receiving repetitions where applicable. No original finding is removed.",
+      "limitations": "Actual current supplier is D210 G2/G3 with its specified integral fine cover over Z[1/210] and universal abelian scheme. The D6 twist changes the arithmetic model and is not that cover. Required even-contact, infinity, unit and normal-closure cases are explicit. This intake classification preserves that existing comparison; it does not dismiss the objection in its original alternative route. Scope search does not refute the original counterexample or authenticate a reviewer. The original review scopes and protected-acceptance operational condition are unchanged by publication numbering."
+    },
+    {
+      "subject": "finding:INCOMING-LATTICE",
+      "subject_sha256": "cfadcfc039398e17365d21f0e65c36f26498b95473102205eae812eb4ea6be9f",
+      "outcome": "accepted_within_scope",
+      "review_basis": "reconstructed",
+      "prior_review": null,
+      "scope": "Preserved original source-scoped disposition, mechanism and corrections, with independently checked identical-body Version17 receiving repetitions where applicable. No original finding is removed.",
+      "limitations": "Actual full-three proof uses rank-one B3 Tate space and minimal valuation for the full O3-stable lattice, then the multiplication-by-3 inverse limit to A[3]. The constructed module and transition are different from the invalid finite inference. This intake classification preserves that existing comparison; it does not dismiss the objection in its original alternative route. Scope search does not refute the original counterexample or authenticate a reviewer. The original review scopes and protected-acceptance operational condition are unchanged by publication numbering."
+    },
+    {
+      "subject": "finding:INCOMING-CM-BG",
+      "subject_sha256": "9a8ca0ffdf2d00aa50c50148b3a112c980727e5de7817ecf537a83902359e51e",
+      "outcome": "accepted_within_scope",
+      "review_basis": "reconstructed",
+      "prior_review": null,
+      "scope": "Preserved original source-scoped disposition, mechanism and corrections, with independently checked identical-body Version17 receiving repetitions where applicable. No original finding is removed.",
+      "limitations": "NoCM on X6 is not applied to D210. Current G4 retains its actual same-L CM argument. Native D6 normalization already derives the invariant vector from the specified Lin-Yang divisor/intersection/eta inputs and explicitly excludes BG Propositions 3.7-3.8 and the later numerical CM calculation. This is a source-route distinction, not acceptance of an alternative repair. This intake classification preserves that existing comparison; it does not dismiss the objection in its original alternative route. Scope search does not refute the original counterexample or authenticate a reviewer. The original review scopes and protected-acceptance operational condition are unchanged by publication numbering."
+    },
+    {
+      "subject": "finding:INCOMING-TYZ-ROUTE-K",
+      "subject_sha256": "1b2b6702e83a82026f982e0010c1d19e7c793ede5aa7e65c41fe6aebb44af799",
+      "outcome": "accepted_within_scope",
+      "review_basis": "reconstructed",
+      "prior_review": null,
+      "scope": "Preserved original source-scoped disposition, mechanism and corrections, with independently checked identical-body Version17 receiving repetitions where applicable. No original finding is removed.",
+      "limitations": "The native E_l=x(x-l)(x+3l), j=35152/9, uses internal RC and the simultaneous native descent. Incoming C_n=x(x-n)(x+n), j=1728, genus-sum criterion and K-exists route are not adopted. No TYZ counterexample is refuted or recomputed by this review. This intake classification preserves that existing comparison; it does not dismiss the objection in its original alternative route. Scope search does not refute the original counterexample or authenticate a reviewer. The original review scopes and protected-acceptance operational condition are unchanged by publication numbering."
+    },
+    {
+      "subject": "finding:INCOMING-FORWARD",
+      "subject_sha256": "b3e4c2c5b8a0f3e5965d78e7fee99338cd60c3a90c69ddbb02d0c1073e49c720",
+      "outcome": "accepted_within_scope",
+      "review_basis": "reconstructed",
+      "prior_review": null,
+      "scope": "Preserved original source-scoped disposition, mechanism and corrections, with independently checked identical-body Version17 receiving repetitions where applicable. No original finding is removed.",
+      "limitations": "Actual retained forward lemma already cites published Kyoto ICM Theorem1 pp430-431 and Theorems3-5, supplies modularity and the finite restriction-kernel argument; the final bibliography matches. Exact prior acceptance is retained, without claiming a fresh reading of Kolyvagin here. This intake classification preserves that existing comparison; it does not dismiss the objection in its original alternative route. Scope search does not refute the original counterexample or authenticate a reviewer. The original review scopes and protected-acceptance operational condition are unchanged by publication numbering."
+    },
+    {
+      "subject": "finding:INCOMING-NATIVE-LOCAL",
+      "subject_sha256": "aa2eb111de738a92a81d51be3bcf8397adc80bb923ae90f3dfa77e9031afceb2",
+      "outcome": "accepted_within_scope",
+      "review_basis": "reconstructed",
+      "prior_review": null,
+      "scope": "Preserved original source-scoped disposition, mechanism and corrections, with independently checked identical-body Version17 receiving repetitions where applicable. No original finding is removed.",
+      "limitations": "Reconstructed the precise particular-class implication below; no assertion that arbitrary dyadic parity conditions are sufficient. This intake classification preserves that existing comparison; it does not dismiss the objection in its original alternative route. Scope search does not refute the original counterexample or authenticate a reviewer. The original review scopes and protected-acceptance operational condition are unchanged by publication numbering."
+    },
+    {
+      "subject": "finding:INCOMING-ALTERNATIVE-FORMAL",
+      "subject_sha256": "1f58888c961c0ba1c20a63901dfe4cef29e8c1809dfd2f7e22175f687628171f",
+      "outcome": "accepted_within_scope",
+      "review_basis": "reconstructed",
+      "prior_review": null,
+      "scope": "Preserved original source-scoped disposition, mechanism and corrections, with independently checked identical-body Version17 receiving repetitions where applicable. No original finding is removed.",
+      "limitations": "The new README links the current contribution guide, which explicitly states the five remaining formal premises and distinguishes the original large target from the explicit quartic. The current214 proof does not adopt the alternate GoodPrimeAP/PropositionD or alternate pole/encoding proposals. Imported code and notes match incoming main exactly; their kernel run and protected review are separate obligations. This intake classification preserves that existing comparison; it does not dismiss the objection in its original alternative route. Scope search does not refute the original counterexample or authenticate a reviewer. The original review scopes and protected-acceptance operational condition are unchanged by publication numbering."
+    },
+    {
+      "subject": "finding:CURRENT-RECEIVING-L3",
+      "subject_sha256": "24a9cf35823c7a3ae7b4e70b72d36fc93553372a2ce3a9d0db01016d1493d18a",
+      "outcome": "accepted_within_scope",
+      "review_basis": "reconstructed",
+      "prior_review": null,
+      "scope": "Preserved original source-scoped disposition, mechanism and corrections, with independently checked identical-body Version17 receiving repetitions where applicable. No original finding is removed.",
+      "limitations": "Resolved at current narrow independent artifact-review scope, pending final native target adoption. Original adverse exact-head decision remains preserved. Scope search does not refute the original counterexample or authenticate a reviewer. The original review scopes and protected-acceptance operational condition are unchanged by publication numbering."
+    },
+    {
+      "subject": "finding:CURRENT-RECEIVING-T0",
+      "subject_sha256": "d1d6f67beab19c15f04e7e89634e52a4e434a80f13aa9553063c70d443cd051a",
+      "outcome": "accepted_within_scope",
+      "review_basis": "reconstructed",
+      "prior_review": null,
+      "scope": "Preserved original source-scoped disposition, mechanism and corrections, with independently checked identical-body Version17 receiving repetitions where applicable. No original finding is removed.",
+      "limitations": "Resolved at current narrow independent artifact-review scope, pending final native target adoption. Not a counterexample to source arithmetic. Scope search does not refute the original counterexample or authenticate a reviewer. The original review scopes and protected-acceptance operational condition are unchanged by publication numbering."
+    },
+    {
+      "subject": "finding:CURRENT-INVENTORY-U01",
+      "subject_sha256": "3a7de0c4a654e7c6ee354c529029e9d48fc4da49eb8c917af27ea15df65e0a2f",
+      "outcome": "accepted_within_scope",
+      "review_basis": "reconstructed",
+      "prior_review": null,
+      "scope": "Preserved original source-scoped disposition, mechanism and corrections, with independently checked identical-body Version17 receiving repetitions where applicable. No original finding is removed.",
+      "limitations": "Current correction addendum supplies correct count and retains historical original hash 3fb2219efe4204ac1b1dea2ba15a3d9d7cabafb0cacc56f1c38d95de8a7bbfc2; narrow independent review accepts correction. Do not edit old reviewer body. Scope search does not refute the original counterexample or authenticate a reviewer. The original review scopes and protected-acceptance operational condition are unchanged by publication numbering."
+    },
+    {
+      "subject": "finding:COVERAGE-LIMITS",
+      "subject_sha256": "99a7545077ca13bb7e1e91a28b5cc9a4f11a1c3e3697a4bdabb17f8a92a518c0",
+      "outcome": "accepted_within_scope",
+      "review_basis": "reconstructed",
+      "prior_review": null,
+      "scope": "Preserved original source-scoped disposition, mechanism and corrections, with independently checked identical-body Version17 receiving repetitions where applicable. No original finding is removed.",
+      "limitations": "Preserve original historical limits. Reuse later exact scoped closure only for unchanged supported consumers; final current gate actions remain pending. Scope search does not refute the original counterexample or authenticate a reviewer. The original review scopes and protected-acceptance operational condition are unchanged by publication numbering."
+    },
+    {
+      "subject": "finding:RECEIVING-EMPTY-QUEUE-SUPERSEDED",
+      "subject_sha256": "06eb07882fe4640e9996ee5fbf386e5f3a9081ec9848f6224f566815ce94d404",
+      "outcome": "accepted_within_scope",
+      "review_basis": "reconstructed",
+      "prior_review": null,
+      "scope": "Preserved original source-scoped disposition, mechanism and corrections, with independently checked identical-body Version17 receiving repetitions where applicable. No original finding is removed.",
+      "limitations": "Preserve original historical limits. Reuse later exact scoped closure only for unchanged supported consumers; final current gate actions remain pending. Scope search does not refute the original counterexample or authenticate a reviewer. The original review scopes and protected-acceptance operational condition are unchanged by publication numbering."
+    },
+    {
+      "subject": "finding:PROTECTED-ACCEPTANCE-PENDING",
+      "subject_sha256": "03bd3285848329d6a94cf7c73dcb07794a4a6083c3477e492313f8d3942ce420",
+      "outcome": "accepted_within_scope",
+      "review_basis": "reconstructed",
+      "prior_review": null,
+      "scope": "Preserved original source-scoped disposition, mechanism and corrections, with independently checked identical-body Version17 receiving repetitions where applicable. No original finding is removed.",
+      "limitations": "Preserve original historical limits. Reuse later exact scoped closure only for unchanged supported consumers; final current gate actions remain pending. Scope search does not refute the original counterexample or authenticate a reviewer. The original review scopes and protected-acceptance operational condition are unchanged by publication numbering."
+    },
+    {
+      "subject": "inventory",
+      "subject_sha256": "b128ae3103d446e39928091165943d69b37e3fbce8f79107e9e65710b44ac726",
+      "outcome": "accepted_within_scope",
+      "review_basis": "reconstructed",
+      "prior_review": null,
+      "scope": "25-source40-use1922-passage inventory, original source-first freeze plus independently frozen one-source extension and explicit related-finding transport.",
+      "limitations": "Exact original supplier qualifications remain in force. No fresh full ancestor reproof, effective defining threshold, all-page visual inspection, authenticated receipt or protected acceptance is claimed. Final delivery package and authored application tuples are separate obligations."
+    }
+  ]
+}

@@ -1,0 +1,158 @@
+{
+  "local_sources": [
+    {
+      "file": "/tmp/q214-d-next-20261112/primary/Milne1986.pdf",
+      "sha256": "86259344a576e4ef75a9d81e9bf43143f872a72b14cf8fcc2703f3aea6349136",
+      "bytes": 3833583,
+      "publication": "Abelian Varieties, Arithmetic Geometry (Springer1986)",
+      "read_locations": "Theorem8.2/Remark8.4 pp115\u2013116; Lemma12.2 p122; Theorem15.1(a) p129",
+      "reading_scope": "Rendered page images actually read; p130 also inspected. No chapter-wide claim."
+    },
+    {
+      "file": "/tmp/q214-d-next-20261112/primary/MilneShimura2005.pdf",
+      "sha256": "6336f0a23084dc0bf815a901c61a0f925dbc8dc1c395af8864c1d90bea69c4a1",
+      "bytes": 1035957,
+      "publication": "Introduction to Shimura Varieties, Clay Mathematics Proceedings4 (2005)",
+      "read_locations": "6.8\u20136.9 p319;7.4 with full definition pp321\u2013322;14.8 p352;13.6\u201313.7 p349;typeA/C pp354\u2013355",
+      "reading_scope": "Actual text read. Official errata pages read separately.8.6/8.7 classification described in proof but this run did not separately reread their printed statement; explicit typeC1 computation is in internal proof."
+    },
+    {
+      "file": "/tmp/q214-d-next-20261112/primary/Voight2021-ch13.pdf",
+      "sha256": "8f8089860649fa19b8467fd76d0959950d01fdee977b92fced25db5078f2e9f7",
+      "bytes": 314015,
+      "publication": "Quaternion Algebras, published2021 chapter13",
+      "read_locations": "13.3.1\u201311 pp205\u2013207",
+      "reading_scope": "Actual statement/definition text read; retained1/2 factor rather than reproducing proof typo."
+    },
+    {
+      "file": "/tmp/q214-d-next-20261112/primary/GR2006-published.pdf",
+      "sha256": "e595d1a428f20e1c6b3695bc37be658ca12c517fb6600171f531fe931b796c3a",
+      "bytes": 341235,
+      "publication": "Non-elliptic Shimura curves of genus one,JMSJ58(2006),927\u2013948",
+      "read_locations": "Section4 definition, Lemma4.1/Theorem4.2/Table2 pp937\u2013939;Proposition5.2 and W law pp940\u2013941",
+      "reading_scope": "Actual final PDF read; table coefficients compared and recomputed."
+    },
+    {
+      "file": "/tmp/q214-d-next-20261112/primary/Faltings1986.pdf",
+      "sha256": "3122011c0f12cc991fc0ff1601bb77cc1cd3e5ab2a0db023c0bf224ea576b6aa",
+      "bytes": 11049110,
+      "publication": "Rational Points,secondedition1986",
+      "read_locations": "Theorem1(a,b),printed204 and preceding field definitions",
+      "reading_scope": "Actual final text read; no complete proof rereview asserted."
+    },
+    {
+      "file": "/tmp/q214-d-next-20261112/primary/Scholze2013.pdf",
+      "sha256": "f47a05bbcdd1ac69deb87ce4b6af5bbbc245cbbf0e99df74e8bf73b6d89227d7",
+      "bytes": 688182,
+      "publication": "Forum of Mathematics Pi1(2013)e1",
+      "read_locations": "Theorem1.6/Cor1.8 pp5\u20136;Theorems9.1/9.3 pp74\u201375",
+      "reading_scope": "Actual final text read; finite coefficients and natural comparison maps checked."
+    },
+    {
+      "file": "/tmp/q214-d-next-20261112/primary/Scholze2016.pdf",
+      "sha256": "3caea8d89df1e7d047d4edc89a679cd1deb2a19ec350effb450305a9c8eef3d1",
+      "bytes": 166017,
+      "publication": "Forum of Mathematics Pi4(2016)e6",
+      "read_locations": "Complete four-page corrigendum",
+      "reading_scope": "All4pages actually read; corrected pro-etale covers and period completion preserve results."
+    },
+    {
+      "file": "/tmp/q214-d-next-20261112/primary/Fontaine1994.pdf",
+      "sha256": "ace926ffda578dacfe8a333c38d450235506ebe18f558ee9bfcb96dc6f70a8ec",
+      "bytes": 6497435,
+      "publication": "Asterisque223(1994),113\u2013184",
+      "read_locations": "Definition before3.8 and Theorem3.8,printed142",
+      "reading_scope": "Actual French final text read; exact tensor/dual/subquotient closure."
+    },
+    {
+      "file": "/tmp/q214-d-next-20261112/primary/Kato2004.pdf",
+      "sha256": "3c6e14b11fa60262db8aff782ce3cf4d83e9100c0be83621a7e4ce502cec605d",
+      "bytes": 18010813,
+      "publication": "Asterisque295(2004),117\u2013290",
+      "read_locations": "Section9.2,printed187",
+      "reading_scope": "Actual final text read; deRham definition, subquotients, finite extension descent and filtration comparison."
+    },
+    {
+      "file": "/tmp/q214-d-next-20261112/primary/Calegari2023.pdf",
+      "sha256": "d8e9a3ec3f2a4bedd674d95cf5f1e03fe26a67745c6f1cadf39b3fbf9e004cb5",
+      "bytes": 834759,
+      "publication": "ICM2022 volume2,EMS2023",
+      "read_locations": "Definitions pp611\u2013612; modularity statement p624",
+      "reading_scope": "Actual final text read. Immediate published theorem boundary; no Pan-final-body reading claim."
+    },
+    {
+      "not_freshly_read": true,
+      "publication": "Buzzard1997 DukeMathJ87,591\u2013612",
+      "read_locations": "finalpp591\u2013592 unavailable in current run",
+      "prior_pin": "ed34a072898d0e6ef6526c877159fbe627ae695265d4f5b2f2a1d6e35c9bac65",
+      "scope": "Fixed order/involution and unique principal polarization; exact native application statements read; source reuse requires accepted-native identity chain."
+    },
+    {
+      "not_freshly_read": true,
+      "publication": "Yuan2024 ActaMathSinica Chinese67(2),227\u2013249",
+      "read_locations": "finalpp230\u2013231 maximal stack and228\u2013229 metric unavailable in current run",
+      "prior_pin": "aee74126d6374c22d7907fb6682dea0df4636f38cfc4992053dafea177f1d167",
+      "scope": "MaximalN1 stack and metric/isometry/vertical applications retained at exact native scope; published metadata read; no translation finality claim. Full internal metric proof freshly read after scope extension."
+    }
+  ],
+  "web_sources": [
+    {
+      "url": "https://www.jmilne.org/math/articles/2005a.html",
+      "read": "Official8.14/8.17 Hodge-orbit correction;5.22 and11.2 Hausdorff-intermediate correction."
+    },
+    {
+      "url": "https://www.jmilne.org/math/xnotes/errata.html",
+      "read": "2017 fixes original errors; not substituted for the2005 published version."
+    },
+    {
+      "url": "https://jvoight.github.io/quat-errata.pdf",
+      "read": "Official August5,2026 errata search/read relevant7.1.5 correction and chapter13 references; no complete17page reading claim."
+    },
+    {
+      "url": "https://stacks.math.columbia.edu/tag/03YR",
+      "read": "Lemma94.13.2 statement and relevant hypotheses; official online reference read2026-11-12, no identity asserted with2026-11-08 storedHTML."
+    },
+    {
+      "url": "https://stacks.math.columbia.edu/tag/0ADD",
+      "read": "Lemma72.9.3 statement and relevant hypotheses; official online reference read2026-11-12, no identity asserted with2026-11-08 storedHTML."
+    },
+    {
+      "url": "https://stacks.math.columbia.edu/tag/0A18",
+      "read": "Theorem76.36.5/Lemma76.36.9 statement and relevant hypotheses; official online reference read2026-11-12, no identity asserted with2026-11-08 storedHTML."
+    },
+    {
+      "url": "https://stacks.math.columbia.edu/tag/0E83",
+      "read": "Lemma109.16.5 statement and relevant hypotheses; official online reference read2026-11-12, no identity asserted with2026-11-08 storedHTML."
+    },
+    {
+      "url": "https://stacks.math.columbia.edu/tag/0D3A",
+      "read": "Lemma71.15.3 statement and relevant hypotheses; official online reference read2026-11-12, no identity asserted with2026-11-08 storedHTML."
+    },
+    {
+      "url": "https://stacks.math.columbia.edu/tag/0D32",
+      "read": "Lemma71.14.2 statement and relevant hypotheses; official online reference read2026-11-12, no identity asserted with2026-11-08 storedHTML."
+    },
+    {
+      "url": "https://stacks.math.columbia.edu/tag/0B45",
+      "read": "Lemma37.50.1 statement and relevant hypotheses; official online reference read2026-11-12, no identity asserted with2026-11-08 storedHTML."
+    },
+    {
+      "url": "https://stacks.math.columbia.edu/tag/0E97",
+      "read": "Lemma109.24.2 statement and relevant hypotheses; official online reference read2026-11-12, no identity asserted with2026-11-08 storedHTML."
+    }
+  ],
+  "scope": "Primary theorem applications and internal joins, not proofs of all published theorems",
+  "retained_g4_sources": [
+    {
+      "publication": "CM height individual-embedding formula, Research in Number Theory3(2017),article13",
+      "locator": "equation6.2",
+      "prior_pdf_sha256": "f91cc2017dcc82dbc55d641d397c8b2bb5fc15205b1377cdaae8bdbbd7fc14a6",
+      "reading": "Exact native application assertions and full internal CM bridge read; no fresh primary-body inspection."
+    },
+    {
+      "publication": "Gaudron-R\u00e9mond,Nouveaux th\u00e9or\u00e8mes d\u2019isog\u00e9nie,M\u00e9moires SMF176(2023)",
+      "locator": "Section1.5 and Theorem1.9(1),pp7\u20138",
+      "reading": "Exact native general source-dependent application and full internal bridge read; no fresh primary-body inspection or new primary hash asserted."
+    }
+  ]
+}

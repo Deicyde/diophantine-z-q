@@ -1,0 +1,30 @@
+{
+  "schema": "scoped-findings-v1",
+  "commit": "e3626cac202cdbcdfedc2bff1978dcd3ea3fd3ab",
+  "mathematical_defects": [],
+  "repair_requests": [],
+  "scope_limits": [
+    {
+      "id": "L-GI",
+      "kind": "direct_read_limit_not_defect",
+      "text": "InternalGI24420\u201330095 not reread in full; exact native supplier reused, with assembly and correction26819\u201326929 directly inspected."
+    },
+    {
+      "id": "L-FINAL-PDFS",
+      "kind": "source_access_limit_not_defect",
+      "text": "BL/BHB final versions not newly opened; actual prior bounded final comparisons read and reused. BHB accepted text directly inspected."
+    },
+    {
+      "id": "L-ELIGIBILITY",
+      "kind": "controller_boundary",
+      "text": "No controller eligibility or authenticated acceptance-event attestation."
+    },
+    {
+      "id": "L-ASSEMBLY",
+      "kind": "assigned_scope",
+      "text": "CRT elliptic arithmetic, local factors/height/pole arguments and whole214 assembly require other lanes."
+    }
+  ],
+  "source_compatibility_assessment": "PublishedGTZ2012 exactGI target matches all observed consumers; no replacement route authored or silently installed.",
+  "receiving_transition": "CurrentV16 foundation explicitly adopted by pinnedFOUNDATION_TRANSITION; analytic joins accepted within scope."
+}

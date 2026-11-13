@@ -1,0 +1,1679 @@
+{
+  "schema": "q214-author-current-dependency-graph/v1",
+  "author": "/root",
+  "role": "Author integration of separately reviewed source-use/consumer reconciliation; not independent approval",
+  "frozen_mathematical_source": "e3626cac202cdbcdfedc2bff1978dcd3ea3fd3ab",
+  "reviewer_associations_sha256": "48659e36005b9942c9cf94f48c369d3a0c361aa14584f4d07df5f553a987245b",
+  "use_table_sha256": "3fb2219efe4204ac1b1dea2ba15a3d9d7cabafb0cacc56f1c38d95de8a7bbfc2",
+  "source_use_ids": [
+    "U01",
+    "U02",
+    "U03",
+    "U04",
+    "U05",
+    "U06",
+    "U07",
+    "U08",
+    "U09",
+    "U10",
+    "U11",
+    "U12",
+    "U13",
+    "U14",
+    "U15",
+    "U16",
+    "U17",
+    "U18",
+    "U19",
+    "U20",
+    "U21"
+  ],
+  "section_ids": [
+    "S000",
+    "S001",
+    "S002",
+    "S003",
+    "S004",
+    "S005",
+    "S006",
+    "S007",
+    "S008",
+    "S009",
+    "S010",
+    "S011",
+    "S012",
+    "S013",
+    "S014",
+    "S015",
+    "S016",
+    "S017",
+    "S018",
+    "S019",
+    "S020",
+    "S021",
+    "S022",
+    "S023",
+    "S024",
+    "S025",
+    "S026",
+    "S027",
+    "S028",
+    "S029",
+    "S030",
+    "S031",
+    "S032",
+    "S033",
+    "S034",
+    "S035",
+    "S036",
+    "S037",
+    "S038",
+    "S039",
+    "S040",
+    "S041",
+    "S042",
+    "S043",
+    "S044",
+    "S045",
+    "S046",
+    "S047",
+    "S048",
+    "S049",
+    "S050",
+    "S051",
+    "S052",
+    "S053",
+    "S054",
+    "S055",
+    "S056",
+    "S057",
+    "S058",
+    "S059",
+    "S060",
+    "S061",
+    "S062",
+    "S063",
+    "S064",
+    "S065",
+    "S066",
+    "S067",
+    "S068",
+    "S069",
+    "S070",
+    "S071",
+    "S072",
+    "S073",
+    "S074",
+    "S075",
+    "S076",
+    "S077",
+    "S078",
+    "S079",
+    "S080",
+    "S081",
+    "S082",
+    "S083",
+    "S084",
+    "S085",
+    "S086",
+    "S087",
+    "S088",
+    "S089",
+    "S090",
+    "S091",
+    "S092",
+    "S093",
+    "S094",
+    "S095",
+    "S096",
+    "S097",
+    "S098",
+    "S099",
+    "S100",
+    "S101",
+    "S102",
+    "S103",
+    "S104",
+    "S105",
+    "S106",
+    "S107",
+    "S108",
+    "S109",
+    "S110",
+    "S111",
+    "S112",
+    "S113",
+    "S114",
+    "S115",
+    "S116",
+    "S117"
+  ],
+  "section_edges": [
+    {
+      "from": "U01",
+      "to": "S001",
+      "relationship": "required_or_reconciled_application_at_exact_section",
+      "review_basis": "Literal raw224-to214 construction, row identities and coefficient-height domain."
+    },
+    {
+      "from": "U01",
+      "to": "S002",
+      "relationship": "required_or_reconciled_application_at_exact_section",
+      "review_basis": "Assembly overview explicitly invokes the complete current214 input graph; detailed proofs and consumers are separately reconciled, so this overview supplies no extra theorem."
+    },
+    {
+      "from": "U02",
+      "to": "S002",
+      "relationship": "required_or_reconciled_application_at_exact_section",
+      "review_basis": "Assembly overview explicitly invokes the complete current214 input graph; detailed proofs and consumers are separately reconciled, so this overview supplies no extra theorem."
+    },
+    {
+      "from": "U03",
+      "to": "S002",
+      "relationship": "required_or_reconciled_application_at_exact_section",
+      "review_basis": "Assembly overview explicitly invokes the complete current214 input graph; detailed proofs and consumers are separately reconciled, so this overview supplies no extra theorem."
+    },
+    {
+      "from": "U04",
+      "to": "S002",
+      "relationship": "required_or_reconciled_application_at_exact_section",
+      "review_basis": "Assembly overview explicitly invokes the complete current214 input graph; detailed proofs and consumers are separately reconciled, so this overview supplies no extra theorem."
+    },
+    {
+      "from": "U05",
+      "to": "S002",
+      "relationship": "required_or_reconciled_application_at_exact_section",
+      "review_basis": "Assembly overview explicitly invokes the complete current214 input graph; detailed proofs and consumers are separately reconciled, so this overview supplies no extra theorem."
+    },
+    {
+      "from": "U06",
+      "to": "S002",
+      "relationship": "required_or_reconciled_application_at_exact_section",
+      "review_basis": "Assembly overview explicitly invokes the complete current214 input graph; detailed proofs and consumers are separately reconciled, so this overview supplies no extra theorem."
+    },
+    {
+      "from": "U07",
+      "to": "S002",
+      "relationship": "required_or_reconciled_application_at_exact_section",
+      "review_basis": "Assembly overview explicitly invokes the complete current214 input graph; detailed proofs and consumers are separately reconciled, so this overview supplies no extra theorem."
+    },
+    {
+      "from": "U08",
+      "to": "S002",
+      "relationship": "required_or_reconciled_application_at_exact_section",
+      "review_basis": "Assembly overview explicitly invokes the complete current214 input graph; detailed proofs and consumers are separately reconciled, so this overview supplies no extra theorem."
+    },
+    {
+      "from": "U09",
+      "to": "S002",
+      "relationship": "required_or_reconciled_application_at_exact_section",
+      "review_basis": "Assembly overview explicitly invokes the complete current214 input graph; detailed proofs and consumers are separately reconciled, so this overview supplies no extra theorem."
+    },
+    {
+      "from": "U10",
+      "to": "S002",
+      "relationship": "required_or_reconciled_application_at_exact_section",
+      "review_basis": "Assembly overview explicitly invokes the complete current214 input graph; detailed proofs and consumers are separately reconciled, so this overview supplies no extra theorem."
+    },
+    {
+      "from": "U11",
+      "to": "S002",
+      "relationship": "required_or_reconciled_application_at_exact_section",
+      "review_basis": "Assembly overview explicitly invokes the complete current214 input graph; detailed proofs and consumers are separately reconciled, so this overview supplies no extra theorem."
+    },
+    {
+      "from": "U12",
+      "to": "S002",
+      "relationship": "required_or_reconciled_application_at_exact_section",
+      "review_basis": "Assembly overview explicitly invokes the complete current214 input graph; detailed proofs and consumers are separately reconciled, so this overview supplies no extra theorem."
+    },
+    {
+      "from": "U13",
+      "to": "S002",
+      "relationship": "required_or_reconciled_application_at_exact_section",
+      "review_basis": "Assembly overview explicitly invokes the complete current214 input graph; detailed proofs and consumers are separately reconciled, so this overview supplies no extra theorem."
+    },
+    {
+      "from": "U14",
+      "to": "S002",
+      "relationship": "required_or_reconciled_application_at_exact_section",
+      "review_basis": "Assembly overview explicitly invokes the complete current214 input graph; detailed proofs and consumers are separately reconciled, so this overview supplies no extra theorem."
+    },
+    {
+      "from": "U15",
+      "to": "S002",
+      "relationship": "required_or_reconciled_application_at_exact_section",
+      "review_basis": "Assembly overview explicitly invokes the complete current214 input graph; detailed proofs and consumers are separately reconciled, so this overview supplies no extra theorem."
+    },
+    {
+      "from": "U16",
+      "to": "S002",
+      "relationship": "required_or_reconciled_application_at_exact_section",
+      "review_basis": "Assembly overview explicitly invokes the complete current214 input graph; detailed proofs and consumers are separately reconciled, so this overview supplies no extra theorem."
+    },
+    {
+      "from": "U17",
+      "to": "S002",
+      "relationship": "required_or_reconciled_application_at_exact_section",
+      "review_basis": "Assembly overview explicitly invokes the complete current214 input graph; detailed proofs and consumers are separately reconciled, so this overview supplies no extra theorem."
+    },
+    {
+      "from": "U18",
+      "to": "S002",
+      "relationship": "required_or_reconciled_application_at_exact_section",
+      "review_basis": "Assembly overview explicitly invokes the complete current214 input graph; detailed proofs and consumers are separately reconciled, so this overview supplies no extra theorem."
+    },
+    {
+      "from": "U19",
+      "to": "S002",
+      "relationship": "required_or_reconciled_application_at_exact_section",
+      "review_basis": "Assembly overview explicitly invokes the complete current214 input graph; detailed proofs and consumers are separately reconciled, so this overview supplies no extra theorem."
+    },
+    {
+      "from": "U20",
+      "to": "S002",
+      "relationship": "required_or_reconciled_application_at_exact_section",
+      "review_basis": "Assembly overview explicitly invokes the complete current214 input graph; detailed proofs and consumers are separately reconciled, so this overview supplies no extra theorem."
+    },
+    {
+      "from": "U02",
+      "to": "S003",
+      "relationship": "required_or_reconciled_application_at_exact_section",
+      "review_basis": "Local Delta/J outputs, sum aggregate, reflected full-family height and uniform soundness quantifiers."
+    },
+    {
+      "from": "U03",
+      "to": "S003",
+      "relationship": "required_or_reconciled_application_at_exact_section",
+      "review_basis": "Local Delta/J outputs, sum aggregate, reflected full-family height and uniform soundness quantifiers."
+    },
+    {
+      "from": "U04",
+      "to": "S003",
+      "relationship": "required_or_reconciled_application_at_exact_section",
+      "review_basis": "Local Delta/J outputs, sum aggregate, reflected full-family height and uniform soundness quantifiers."
+    },
+    {
+      "from": "U18",
+      "to": "S003",
+      "relationship": "required_or_reconciled_application_at_exact_section",
+      "review_basis": "Local Delta/J outputs, sum aggregate, reflected full-family height and uniform soundness quantifiers."
+    },
+    {
+      "from": "U01",
+      "to": "S004",
+      "relationship": "required_or_reconciled_application_at_exact_section",
+      "review_basis": "Fresh fixed-data witnesses and actual pole realization feed exact row reconstruction."
+    },
+    {
+      "from": "U05",
+      "to": "S004",
+      "relationship": "required_or_reconciled_application_at_exact_section",
+      "review_basis": "Fresh fixed-data witnesses and actual pole realization feed exact row reconstruction."
+    },
+    {
+      "from": "U06",
+      "to": "S004",
+      "relationship": "required_or_reconciled_application_at_exact_section",
+      "review_basis": "Fresh fixed-data witnesses and actual pole realization feed exact row reconstruction."
+    },
+    {
+      "from": "U19",
+      "to": "S004",
+      "relationship": "required_or_reconciled_application_at_exact_section",
+      "review_basis": "Fresh fixed-data witnesses and actual pole realization feed exact row reconstruction."
+    },
+    {
+      "from": "U01",
+      "to": "S006",
+      "relationship": "required_or_reconciled_application_at_exact_section",
+      "review_basis": "Conditional214/218 route statement; exact retained interfaces and separate control are operative qualifications."
+    },
+    {
+      "from": "U20",
+      "to": "S006",
+      "relationship": "required_or_reconciled_application_at_exact_section",
+      "review_basis": "Conditional214/218 route statement; exact retained interfaces and separate control are operative qualifications."
+    },
+    {
+      "from": "U21",
+      "to": "S006",
+      "relationship": "required_or_reconciled_application_at_exact_section",
+      "review_basis": "Conditional214/218 route statement; exact retained interfaces and separate control are operative qualifications."
+    },
+    {
+      "from": "U01",
+      "to": "S007",
+      "relationship": "required_or_reconciled_application_at_exact_section",
+      "review_basis": "Exact branch/domain objects, inverse weights, field/reference and separate218 coefficient claim."
+    },
+    {
+      "from": "U02",
+      "to": "S007",
+      "relationship": "required_or_reconciled_application_at_exact_section",
+      "review_basis": "Exact branch/domain objects, inverse weights, field/reference and separate218 coefficient claim."
+    },
+    {
+      "from": "U21",
+      "to": "S007",
+      "relationship": "required_or_reconciled_application_at_exact_section",
+      "review_basis": "Exact branch/domain objects, inverse weights, field/reference and separate218 coefficient claim."
+    },
+    {
+      "from": "U01",
+      "to": "S008",
+      "relationship": "required_or_reconciled_application_at_exact_section",
+      "review_basis": "Formal Laurent transport and forced149 recovery before ratios."
+    },
+    {
+      "from": "U02",
+      "to": "S008",
+      "relationship": "required_or_reconciled_application_at_exact_section",
+      "review_basis": "Formal Laurent transport and forced149 recovery before ratios."
+    },
+    {
+      "from": "U02",
+      "to": "S009",
+      "relationship": "required_or_reconciled_application_at_exact_section",
+      "review_basis": "Changed-factor valuation extraction uses retained pole obstruction, then original formal groups."
+    },
+    {
+      "from": "U06",
+      "to": "S009",
+      "relationship": "required_or_reconciled_application_at_exact_section",
+      "review_basis": "Changed-factor valuation extraction uses retained pole obstruction, then original formal groups."
+    },
+    {
+      "from": "U02",
+      "to": "S010",
+      "relationship": "required_or_reconciled_application_at_exact_section",
+      "review_basis": "Full-family height, reflected radicals, aggregate sum and scalar/Lucas conclusion."
+    },
+    {
+      "from": "U03",
+      "to": "S010",
+      "relationship": "required_or_reconciled_application_at_exact_section",
+      "review_basis": "Full-family height, reflected radicals, aggregate sum and scalar/Lucas conclusion."
+    },
+    {
+      "from": "U04",
+      "to": "S010",
+      "relationship": "required_or_reconciled_application_at_exact_section",
+      "review_basis": "Full-family height, reflected radicals, aggregate sum and scalar/Lucas conclusion."
+    },
+    {
+      "from": "U18",
+      "to": "S010",
+      "relationship": "required_or_reconciled_application_at_exact_section",
+      "review_basis": "Full-family height, reflected radicals, aggregate sum and scalar/Lucas conclusion."
+    },
+    {
+      "from": "U01",
+      "to": "S011",
+      "relationship": "required_or_reconciled_application_at_exact_section",
+      "review_basis": "Fresh214 completeness and explicitly distinct original-exponent218 control."
+    },
+    {
+      "from": "U05",
+      "to": "S011",
+      "relationship": "required_or_reconciled_application_at_exact_section",
+      "review_basis": "Fresh214 completeness and explicitly distinct original-exponent218 control."
+    },
+    {
+      "from": "U06",
+      "to": "S011",
+      "relationship": "required_or_reconciled_application_at_exact_section",
+      "review_basis": "Fresh214 completeness and explicitly distinct original-exponent218 control."
+    },
+    {
+      "from": "U21",
+      "to": "S011",
+      "relationship": "required_or_reconciled_application_at_exact_section",
+      "review_basis": "Fresh214 completeness and explicitly distinct original-exponent218 control."
+    },
+    {
+      "from": "U07",
+      "to": "S014",
+      "relationship": "required_or_reconciled_application_at_exact_section",
+      "review_basis": "Correct D210 source locator and exclusions determine actual geometric supplier scope."
+    },
+    {
+      "from": "U07",
+      "to": "S015",
+      "relationship": "required_or_reconciled_application_at_exact_section",
+      "review_basis": "Exact accepted geometric source interface and retained scope limitations."
+    },
+    {
+      "from": "U20",
+      "to": "S015",
+      "relationship": "required_or_reconciled_application_at_exact_section",
+      "review_basis": "Exact accepted geometric source interface and retained scope limitations."
+    },
+    {
+      "from": "U07",
+      "to": "S016",
+      "relationship": "required_or_reconciled_application_at_exact_section",
+      "review_basis": "Whole-fibre field, normality, all-Hom/B-linearity and original surface."
+    },
+    {
+      "from": "U07",
+      "to": "S017",
+      "relationship": "required_or_reconciled_application_at_exact_section",
+      "review_basis": "All primitive contact cases, infinity and deep even contacts, actual S10 support."
+    },
+    {
+      "from": "U07",
+      "to": "S018",
+      "relationship": "required_or_reconciled_application_at_exact_section",
+      "review_basis": "Same original metric and full CM branch, not a coarse-metric substitute."
+    },
+    {
+      "from": "U14",
+      "to": "S021",
+      "relationship": "required_or_reconciled_application_at_exact_section",
+      "review_basis": "Scoped modular-height theorem assembles literal evaluation, all-place discriminant and metric."
+    },
+    {
+      "from": "U15",
+      "to": "S021",
+      "relationship": "required_or_reconciled_application_at_exact_section",
+      "review_basis": "Scoped modular-height theorem assembles literal evaluation, all-place discriminant and metric."
+    },
+    {
+      "from": "U16",
+      "to": "S021",
+      "relationship": "required_or_reconciled_application_at_exact_section",
+      "review_basis": "Scoped modular-height theorem assembles literal evaluation, all-place discriminant and metric."
+    },
+    {
+      "from": "U14",
+      "to": "S022",
+      "relationship": "required_or_reconciled_application_at_exact_section",
+      "review_basis": "Same curve, nonmaximal order, trace-dual lattice and determinant maps."
+    },
+    {
+      "from": "U15",
+      "to": "S022",
+      "relationship": "required_or_reconciled_application_at_exact_section",
+      "review_basis": "Same curve, nonmaximal order, trace-dual lattice and determinant maps."
+    },
+    {
+      "from": "U16",
+      "to": "S022",
+      "relationship": "required_or_reconciled_application_at_exact_section",
+      "review_basis": "Same curve, nonmaximal order, trace-dual lattice and determinant maps."
+    },
+    {
+      "from": "U15",
+      "to": "S023",
+      "relationship": "required_or_reconciled_application_at_exact_section",
+      "review_basis": "All-place discriminant and normalized determinant constants at same object."
+    },
+    {
+      "from": "U16",
+      "to": "S023",
+      "relationship": "required_or_reconciled_application_at_exact_section",
+      "review_basis": "All-place discriminant and normalized determinant constants at same object."
+    },
+    {
+      "from": "U13",
+      "to": "S024",
+      "relationship": "required_or_reconciled_application_at_exact_section",
+      "review_basis": "Actual final character quotient has positive genus; H0.3 feeds H4."
+    },
+    {
+      "from": "U16",
+      "to": "S024",
+      "relationship": "required_or_reconciled_application_at_exact_section",
+      "review_basis": "Actual final character quotient has positive genus; H0.3 feeds H4."
+    },
+    {
+      "from": "U18",
+      "to": "S024",
+      "relationship": "required_or_reconciled_application_at_exact_section",
+      "review_basis": "Actual final character quotient has positive genus; H0.3 feeds H4."
+    },
+    {
+      "from": "U17",
+      "to": "S026",
+      "relationship": "required_or_reconciled_application_at_exact_section",
+      "review_basis": "Defines operative product replacement and preserved H3.1 conclusion."
+    },
+    {
+      "from": "U17",
+      "to": "S027",
+      "relationship": "required_or_reconciled_application_at_exact_section",
+      "review_basis": "Immediate published product supplier and explicit indirect Remond/historical quotient distinction."
+    },
+    {
+      "from": "U13",
+      "to": "S028",
+      "relationship": "required_or_reconciled_application_at_exact_section",
+      "review_basis": "Actual M6 B0 over Lprime forces r separate simple product occurrences."
+    },
+    {
+      "from": "U17",
+      "to": "S028",
+      "relationship": "required_or_reconciled_application_at_exact_section",
+      "review_basis": "Actual M6 B0 over Lprime forces r separate simple product occurrences."
+    },
+    {
+      "from": "U17",
+      "to": "S029",
+      "relationship": "required_or_reconciled_application_at_exact_section",
+      "review_basis": "Original-height sum/complement and dimension2 isogeny yield exact H3.1 consumed by H4."
+    },
+    {
+      "from": "U18",
+      "to": "S029",
+      "relationship": "required_or_reconciled_application_at_exact_section",
+      "review_basis": "Original-height sum/complement and dimension2 isogeny yield exact H3.1 consumed by H4."
+    },
+    {
+      "from": "U13",
+      "to": "S030",
+      "relationship": "required_or_reconciled_application_at_exact_section",
+      "review_basis": "Nine stated application obligations cover same product and receiving H3.1, not a different source."
+    },
+    {
+      "from": "U17",
+      "to": "S030",
+      "relationship": "required_or_reconciled_application_at_exact_section",
+      "review_basis": "Nine stated application obligations cover same product and receiving H3.1, not a different source."
+    },
+    {
+      "from": "U18",
+      "to": "S030",
+      "relationship": "required_or_reconciled_application_at_exact_section",
+      "review_basis": "Nine stated application obligations cover same product and receiving H3.1, not a different source."
+    },
+    {
+      "from": "U15",
+      "to": "S031",
+      "relationship": "required_or_reconciled_application_at_exact_section",
+      "review_basis": "States same different/model theorem and retained normalized constant."
+    },
+    {
+      "from": "U14",
+      "to": "S032",
+      "relationship": "required_or_reconciled_application_at_exact_section",
+      "review_basis": "Actual fibre order and full component trace-discriminant identity."
+    },
+    {
+      "from": "U15",
+      "to": "S032",
+      "relationship": "required_or_reconciled_application_at_exact_section",
+      "review_basis": "Actual fibre order and full component trace-discriminant identity."
+    },
+    {
+      "from": "U15",
+      "to": "S033",
+      "relationship": "required_or_reconciled_application_at_exact_section",
+      "review_basis": "Imperfect-residue vertical DVR Lenstra bound with full e,f."
+    },
+    {
+      "from": "U15",
+      "to": "S034",
+      "relationship": "required_or_reconciled_application_at_exact_section",
+      "review_basis": "Finite flat LCI torsion derivative N and trace-dual/tower direction."
+    },
+    {
+      "from": "U13",
+      "to": "S035",
+      "relationship": "required_or_reconciled_application_at_exact_section",
+      "review_basis": "Primitive torsion/H quotient is actual modular curve for final character subgroup."
+    },
+    {
+      "from": "U15",
+      "to": "S035",
+      "relationship": "required_or_reconciled_application_at_exact_section",
+      "review_basis": "Primitive torsion/H quotient is actual modular curve for final character subgroup."
+    },
+    {
+      "from": "U15",
+      "to": "S036",
+      "relationship": "required_or_reconciled_application_at_exact_section",
+      "review_basis": "Every vertical/horizontal contribution gives same discriminant constant consumed by height."
+    },
+    {
+      "from": "U16",
+      "to": "S036",
+      "relationship": "required_or_reconciled_application_at_exact_section",
+      "review_basis": "Every vertical/horizontal contribution gives same discriminant constant consumed by height."
+    },
+    {
+      "from": "U14",
+      "to": "S038",
+      "relationship": "required_or_reconciled_application_at_exact_section",
+      "review_basis": "States actual integral evaluation and all-coordinate-subset lattice target."
+    },
+    {
+      "from": "U14",
+      "to": "S039",
+      "relationship": "required_or_reconciled_application_at_exact_section",
+      "review_basis": "Finite normalization/projectivity over regular2-dimensional base."
+    },
+    {
+      "from": "U14",
+      "to": "S040",
+      "relationship": "required_or_reconciled_application_at_exact_section",
+      "review_basis": "Common regular model direction and codimension-one descent."
+    },
+    {
+      "from": "U14",
+      "to": "S041",
+      "relationship": "required_or_reconciled_application_at_exact_section",
+      "review_basis": "Canonical dualizing module, normal/reflexive extension without Gorenstein assumption."
+    },
+    {
+      "from": "U14",
+      "to": "S042",
+      "relationship": "required_or_reconciled_application_at_exact_section",
+      "review_basis": "Scalar1 trace specialization equals literal evaluation at the same t=2 fibre."
+    },
+    {
+      "from": "U14",
+      "to": "S043",
+      "relationship": "required_or_reconciled_application_at_exact_section",
+      "review_basis": "Every projected trace-dual lattice and arithmetic determinant degree."
+    },
+    {
+      "from": "U16",
+      "to": "S043",
+      "relationship": "required_or_reconciled_application_at_exact_section",
+      "review_basis": "Every projected trace-dual lattice and arithmetic determinant degree."
+    },
+    {
+      "from": "U14",
+      "to": "S044",
+      "relationship": "required_or_reconciled_application_at_exact_section",
+      "review_basis": "Exact same evaluation map is consumed by metric/assembly; bounded acceptance prose is not a new premise."
+    },
+    {
+      "from": "U16",
+      "to": "S044",
+      "relationship": "required_or_reconciled_application_at_exact_section",
+      "review_basis": "Exact same evaluation map is consumed by metric/assembly; bounded acceptance prose is not a new premise."
+    },
+    {
+      "from": "U16",
+      "to": "S046",
+      "relationship": "required_or_reconciled_application_at_exact_section",
+      "review_basis": "Original stable Jacobian normalization and same semistable lattice."
+    },
+    {
+      "from": "U14",
+      "to": "S047",
+      "relationship": "required_or_reconciled_application_at_exact_section",
+      "review_basis": "Full-fibre rank chooses one global nonzero minor and analytic bound."
+    },
+    {
+      "from": "U16",
+      "to": "S047",
+      "relationship": "required_or_reconciled_application_at_exact_section",
+      "review_basis": "Full-fibre rank chooses one global nonzero minor and analytic bound."
+    },
+    {
+      "from": "U14",
+      "to": "S048",
+      "relationship": "required_or_reconciled_application_at_exact_section",
+      "review_basis": "Integral determinant and metric sign join exact same order discriminant."
+    },
+    {
+      "from": "U15",
+      "to": "S048",
+      "relationship": "required_or_reconciled_application_at_exact_section",
+      "review_basis": "Integral determinant and metric sign join exact same order discriminant."
+    },
+    {
+      "from": "U16",
+      "to": "S048",
+      "relationship": "required_or_reconciled_application_at_exact_section",
+      "review_basis": "Integral determinant and metric sign join exact same order discriminant."
+    },
+    {
+      "from": "U07",
+      "to": "S050",
+      "relationship": "required_or_reconciled_application_at_exact_section",
+      "review_basis": "Full rational S10 theorem domain and promised bound, not beta-only domain."
+    },
+    {
+      "from": "U18",
+      "to": "S050",
+      "relationship": "required_or_reconciled_application_at_exact_section",
+      "review_basis": "Full rational S10 theorem domain and promised bound, not beta-only domain."
+    },
+    {
+      "from": "U07",
+      "to": "S051",
+      "relationship": "required_or_reconciled_application_at_exact_section",
+      "review_basis": "H0 geometry/CM, actual level and modular-Jacobian height inputs."
+    },
+    {
+      "from": "U12",
+      "to": "S051",
+      "relationship": "required_or_reconciled_application_at_exact_section",
+      "review_basis": "H0 geometry/CM, actual level and modular-Jacobian height inputs."
+    },
+    {
+      "from": "U16",
+      "to": "S051",
+      "relationship": "required_or_reconciled_application_at_exact_section",
+      "review_basis": "H0 geometry/CM, actual level and modular-Jacobian height inputs."
+    },
+    {
+      "from": "U08",
+      "to": "S052",
+      "relationship": "required_or_reconciled_application_at_exact_section",
+      "review_basis": "H1 original normalized representations, controlled field, final form/level and character."
+    },
+    {
+      "from": "U09",
+      "to": "S052",
+      "relationship": "required_or_reconciled_application_at_exact_section",
+      "review_basis": "H1 original normalized representations, controlled field, final form/level and character."
+    },
+    {
+      "from": "U10",
+      "to": "S052",
+      "relationship": "required_or_reconciled_application_at_exact_section",
+      "review_basis": "H1 original normalized representations, controlled field, final form/level and character."
+    },
+    {
+      "from": "U11",
+      "to": "S052",
+      "relationship": "required_or_reconciled_application_at_exact_section",
+      "review_basis": "H1 original normalized representations, controlled field, final form/level and character."
+    },
+    {
+      "from": "U12",
+      "to": "S052",
+      "relationship": "required_or_reconciled_application_at_exact_section",
+      "review_basis": "H1 original normalized representations, controlled field, final form/level and character."
+    },
+    {
+      "from": "U13",
+      "to": "S052",
+      "relationship": "required_or_reconciled_application_at_exact_section",
+      "review_basis": "H1 original normalized representations, controlled field, final form/level and character."
+    },
+    {
+      "from": "U13",
+      "to": "S053",
+      "relationship": "required_or_reconciled_application_at_exact_section",
+      "review_basis": "All coefficient conjugates over actual Lprime, exact subvariety and multiplicity."
+    },
+    {
+      "from": "U07",
+      "to": "S055",
+      "relationship": "required_or_reconciled_application_at_exact_section",
+      "review_basis": "Combines exact level/character/product/metric/CM inputs with checked rational logarithm certificate."
+    },
+    {
+      "from": "U12",
+      "to": "S055",
+      "relationship": "required_or_reconciled_application_at_exact_section",
+      "review_basis": "Combines exact level/character/product/metric/CM inputs with checked rational logarithm certificate."
+    },
+    {
+      "from": "U13",
+      "to": "S055",
+      "relationship": "required_or_reconciled_application_at_exact_section",
+      "review_basis": "Combines exact level/character/product/metric/CM inputs with checked rational logarithm certificate."
+    },
+    {
+      "from": "U16",
+      "to": "S055",
+      "relationship": "required_or_reconciled_application_at_exact_section",
+      "review_basis": "Combines exact level/character/product/metric/CM inputs with checked rational logarithm certificate."
+    },
+    {
+      "from": "U17",
+      "to": "S055",
+      "relationship": "required_or_reconciled_application_at_exact_section",
+      "review_basis": "Combines exact level/character/product/metric/CM inputs with checked rational logarithm certificate."
+    },
+    {
+      "from": "U18",
+      "to": "S055",
+      "relationship": "required_or_reconciled_application_at_exact_section",
+      "review_basis": "Combines exact level/character/product/metric/CM inputs with checked rational logarithm certificate."
+    },
+    {
+      "from": "U07",
+      "to": "S057",
+      "relationship": "required_or_reconciled_application_at_exact_section",
+      "review_basis": "Defines exact conditional original-surface hypotheses and complete M1\u2013M6 target."
+    },
+    {
+      "from": "U08",
+      "to": "S057",
+      "relationship": "required_or_reconciled_application_at_exact_section",
+      "review_basis": "Defines exact conditional original-surface hypotheses and complete M1\u2013M6 target."
+    },
+    {
+      "from": "U09",
+      "to": "S057",
+      "relationship": "required_or_reconciled_application_at_exact_section",
+      "review_basis": "Defines exact conditional original-surface hypotheses and complete M1\u2013M6 target."
+    },
+    {
+      "from": "U10",
+      "to": "S057",
+      "relationship": "required_or_reconciled_application_at_exact_section",
+      "review_basis": "Defines exact conditional original-surface hypotheses and complete M1\u2013M6 target."
+    },
+    {
+      "from": "U11",
+      "to": "S057",
+      "relationship": "required_or_reconciled_application_at_exact_section",
+      "review_basis": "Defines exact conditional original-surface hypotheses and complete M1\u2013M6 target."
+    },
+    {
+      "from": "U12",
+      "to": "S057",
+      "relationship": "required_or_reconciled_application_at_exact_section",
+      "review_basis": "Defines exact conditional original-surface hypotheses and complete M1\u2013M6 target."
+    },
+    {
+      "from": "U13",
+      "to": "S057",
+      "relationship": "required_or_reconciled_application_at_exact_section",
+      "review_basis": "Defines exact conditional original-surface hypotheses and complete M1\u2013M6 target."
+    },
+    {
+      "from": "U07",
+      "to": "S058",
+      "relationship": "required_or_reconciled_application_at_exact_section",
+      "review_basis": "Actual geometric cocycle supplies minimal lift, restriction and support."
+    },
+    {
+      "from": "U08",
+      "to": "S058",
+      "relationship": "required_or_reconciled_application_at_exact_section",
+      "review_basis": "Actual geometric cocycle supplies minimal lift, restriction and support."
+    },
+    {
+      "from": "U07",
+      "to": "S059",
+      "relationship": "required_or_reconciled_application_at_exact_section",
+      "review_basis": "Original r5 construction and corrected published modularity hypotheses."
+    },
+    {
+      "from": "U08",
+      "to": "S059",
+      "relationship": "required_or_reconciled_application_at_exact_section",
+      "review_basis": "Original r5 construction and corrected published modularity hypotheses."
+    },
+    {
+      "from": "U09",
+      "to": "S059",
+      "relationship": "required_or_reconciled_application_at_exact_section",
+      "review_basis": "Original r5 construction and corrected published modularity hypotheses."
+    },
+    {
+      "from": "U09",
+      "to": "S060",
+      "relationship": "required_or_reconciled_application_at_exact_section",
+      "review_basis": "Weight/finite character/two primitive extractions; new minimal-conductor/native overlay applies."
+    },
+    {
+      "from": "U10",
+      "to": "S060",
+      "relationship": "required_or_reconciled_application_at_exact_section",
+      "review_basis": "Weight/finite character/two primitive extractions; new minimal-conductor/native overlay applies."
+    },
+    {
+      "from": "U09",
+      "to": "S061",
+      "relationship": "required_or_reconciled_application_at_exact_section",
+      "review_basis": "Original r3 same final form through common algebraic trace and full GQ comparison."
+    },
+    {
+      "from": "U10",
+      "to": "S061",
+      "relationship": "required_or_reconciled_application_at_exact_section",
+      "review_basis": "Original r3 same final form through common algebraic trace and full GQ comparison."
+    },
+    {
+      "from": "U11",
+      "to": "S061",
+      "relationship": "required_or_reconciled_application_at_exact_section",
+      "review_basis": "Original r3 same final form through common algebraic trace and full GQ comparison."
+    },
+    {
+      "from": "U07",
+      "to": "S062",
+      "relationship": "required_or_reconciled_application_at_exact_section",
+      "review_basis": "All-prime actual conductor; changed lift and retained full11/upper-numbering inputs."
+    },
+    {
+      "from": "U08",
+      "to": "S062",
+      "relationship": "required_or_reconciled_application_at_exact_section",
+      "review_basis": "All-prime actual conductor; changed lift and retained full11/upper-numbering inputs."
+    },
+    {
+      "from": "U11",
+      "to": "S062",
+      "relationship": "required_or_reconciled_application_at_exact_section",
+      "review_basis": "All-prime actual conductor; changed lift and retained full11/upper-numbering inputs."
+    },
+    {
+      "from": "U12",
+      "to": "S062",
+      "relationship": "required_or_reconciled_application_at_exact_section",
+      "review_basis": "All-prime actual conductor; changed lift and retained full11/upper-numbering inputs."
+    },
+    {
+      "from": "U07",
+      "to": "S063",
+      "relationship": "required_or_reconciled_application_at_exact_section",
+      "review_basis": "Determinant, full coefficient embeddings, rational Hom descent and invariant quotient."
+    },
+    {
+      "from": "U08",
+      "to": "S063",
+      "relationship": "required_or_reconciled_application_at_exact_section",
+      "review_basis": "Determinant, full coefficient embeddings, rational Hom descent and invariant quotient."
+    },
+    {
+      "from": "U09",
+      "to": "S063",
+      "relationship": "required_or_reconciled_application_at_exact_section",
+      "review_basis": "Determinant, full coefficient embeddings, rational Hom descent and invariant quotient."
+    },
+    {
+      "from": "U10",
+      "to": "S063",
+      "relationship": "required_or_reconciled_application_at_exact_section",
+      "review_basis": "Determinant, full coefficient embeddings, rational Hom descent and invariant quotient."
+    },
+    {
+      "from": "U13",
+      "to": "S063",
+      "relationship": "required_or_reconciled_application_at_exact_section",
+      "review_basis": "Determinant, full coefficient embeddings, rational Hom descent and invariant quotient."
+    },
+    {
+      "from": "U09",
+      "to": "S066",
+      "relationship": "required_or_reconciled_application_at_exact_section",
+      "review_basis": "Faltings at actual Lprime and actual Tate/Hom objects."
+    },
+    {
+      "from": "U13",
+      "to": "S066",
+      "relationship": "required_or_reconciled_application_at_exact_section",
+      "review_basis": "Faltings at actual Lprime and actual Tate/Hom objects."
+    },
+    {
+      "from": "U13",
+      "to": "S067",
+      "relationship": "required_or_reconciled_application_at_exact_section",
+      "review_basis": "Ground-field Poincare for multiplicity and product factor selection."
+    },
+    {
+      "from": "U17",
+      "to": "S067",
+      "relationship": "required_or_reconciled_application_at_exact_section",
+      "review_basis": "Ground-field Poincare for multiplicity and product factor selection."
+    },
+    {
+      "from": "U09",
+      "to": "S068",
+      "relationship": "required_or_reconciled_application_at_exact_section",
+      "review_basis": "Nine obligations for exact field/object/normalization application above."
+    },
+    {
+      "from": "U13",
+      "to": "S068",
+      "relationship": "required_or_reconciled_application_at_exact_section",
+      "review_basis": "Nine obligations for exact field/object/normalization application above."
+    },
+    {
+      "from": "U17",
+      "to": "S068",
+      "relationship": "required_or_reconciled_application_at_exact_section",
+      "review_basis": "Nine obligations for exact field/object/normalization application above."
+    },
+    {
+      "from": "U13",
+      "to": "S069",
+      "relationship": "required_or_reconciled_application_at_exact_section",
+      "review_basis": "Li Fricke condition for same final primitive form and all-conjugate Shimura span."
+    },
+    {
+      "from": "U17",
+      "to": "S070",
+      "relationship": "required_or_reconciled_application_at_exact_section",
+      "review_basis": "Original-normalization lower-height and one-sided isogeny-change constants."
+    },
+    {
+      "from": "U18",
+      "to": "S070",
+      "relationship": "required_or_reconciled_application_at_exact_section",
+      "review_basis": "Original-normalization lower-height and one-sided isogeny-change constants."
+    },
+    {
+      "from": "U07",
+      "to": "S073",
+      "relationship": "required_or_reconciled_application_at_exact_section",
+      "review_basis": "All16 retained D210 application profiles, exact provider statements and construction."
+    },
+    {
+      "from": "U07",
+      "to": "S074",
+      "relationship": "required_or_reconciled_application_at_exact_section",
+      "review_basis": "Previously pending bundle scope is retained at actual geometric supplier boundary."
+    },
+    {
+      "from": "U07",
+      "to": "S075",
+      "relationship": "required_or_reconciled_application_at_exact_section",
+      "review_basis": "Actual contact line and tame local-model composition."
+    },
+    {
+      "from": "U07",
+      "to": "S076",
+      "relationship": "required_or_reconciled_application_at_exact_section",
+      "review_basis": "Full11 semistability/toruszero and exact retained general ramification input to current M5."
+    },
+    {
+      "from": "U12",
+      "to": "S076",
+      "relationship": "required_or_reconciled_application_at_exact_section",
+      "review_basis": "Full11 semistability/toruszero and exact retained general ramification input to current M5."
+    },
+    {
+      "from": "U20",
+      "to": "S077",
+      "relationship": "required_or_reconciled_application_at_exact_section",
+      "review_basis": "Defines exact source carry rule and receiving boundary."
+    },
+    {
+      "from": "U20",
+      "to": "S078",
+      "relationship": "required_or_reconciled_application_at_exact_section",
+      "review_basis": "OldV15 byte claim is historical; current receiving V16 explicitly supersedes via transition."
+    },
+    {
+      "from": "U06",
+      "to": "S079",
+      "relationship": "required_or_reconciled_application_at_exact_section",
+      "review_basis": "Selects only exact required retained theorem outputs from broader accepted targets."
+    },
+    {
+      "from": "U19",
+      "to": "S079",
+      "relationship": "required_or_reconciled_application_at_exact_section",
+      "review_basis": "Selects only exact required retained theorem outputs from broader accepted targets."
+    },
+    {
+      "from": "U20",
+      "to": "S079",
+      "relationship": "required_or_reconciled_application_at_exact_section",
+      "review_basis": "Selects only exact required retained theorem outputs from broader accepted targets."
+    },
+    {
+      "from": "U02",
+      "to": "S080",
+      "relationship": "required_or_reconciled_application_at_exact_section",
+      "review_basis": "Original rank-one generator and pointed normalization with original labels."
+    },
+    {
+      "from": "U20",
+      "to": "S080",
+      "relationship": "required_or_reconciled_application_at_exact_section",
+      "review_basis": "Original rank-one generator and pointed normalization with original labels."
+    },
+    {
+      "from": "U06",
+      "to": "S081",
+      "relationship": "required_or_reconciled_application_at_exact_section",
+      "review_basis": "Exact nonCM RC curve and full Selmer input at actual pole consumer."
+    },
+    {
+      "from": "U06",
+      "to": "S082",
+      "relationship": "required_or_reconciled_application_at_exact_section",
+      "review_basis": "Complete required Kato index set and no excluded ramified levels."
+    },
+    {
+      "from": "U06",
+      "to": "S083",
+      "relationship": "required_or_reconciled_application_at_exact_section",
+      "review_basis": "Old/new-prime transitions, cofinal limit and identity of actual Kato class."
+    },
+    {
+      "from": "U06",
+      "to": "S084",
+      "relationship": "required_or_reconciled_application_at_exact_section",
+      "review_basis": "Same retained lattice/smoothed class/control objects enter RC assembly."
+    },
+    {
+      "from": "U19",
+      "to": "S085",
+      "relationship": "required_or_reconciled_application_at_exact_section",
+      "review_basis": "Internal GI fixed family/complexity/full-limit output at exact native scope."
+    },
+    {
+      "from": "U19",
+      "to": "S086",
+      "relationship": "required_or_reconciled_application_at_exact_section",
+      "review_basis": "GI norm order/normalization loss into Gaussian relative input."
+    },
+    {
+      "from": "U05",
+      "to": "S087",
+      "relationship": "required_or_reconciled_application_at_exact_section",
+      "review_basis": "Full Gaussian tail and fixed ray-field quantifiers feed current prime selection."
+    },
+    {
+      "from": "U19",
+      "to": "S087",
+      "relationship": "required_or_reconciled_application_at_exact_section",
+      "review_basis": "Full Gaussian tail and fixed ray-field quantifiers feed current prime selection."
+    },
+    {
+      "from": "U02",
+      "to": "S088",
+      "relationship": "required_or_reconciled_application_at_exact_section",
+      "review_basis": "Exact arithmetic source replacements selected from earlier profiles, with current object matches."
+    },
+    {
+      "from": "U05",
+      "to": "S088",
+      "relationship": "required_or_reconciled_application_at_exact_section",
+      "review_basis": "Exact arithmetic source replacements selected from earlier profiles, with current object matches."
+    },
+    {
+      "from": "U06",
+      "to": "S088",
+      "relationship": "required_or_reconciled_application_at_exact_section",
+      "review_basis": "Exact arithmetic source replacements selected from earlier profiles, with current object matches."
+    },
+    {
+      "from": "U20",
+      "to": "S088",
+      "relationship": "required_or_reconciled_application_at_exact_section",
+      "review_basis": "Exact arithmetic source replacements selected from earlier profiles, with current object matches."
+    },
+    {
+      "from": "U01",
+      "to": "S089",
+      "relationship": "required_or_reconciled_application_at_exact_section",
+      "review_basis": "Explicit boundary of changed214 exponents, reflected height and pole witnesses versus unchanged source."
+    },
+    {
+      "from": "U02",
+      "to": "S089",
+      "relationship": "required_or_reconciled_application_at_exact_section",
+      "review_basis": "Explicit boundary of changed214 exponents, reflected height and pole witnesses versus unchanged source."
+    },
+    {
+      "from": "U04",
+      "to": "S089",
+      "relationship": "required_or_reconciled_application_at_exact_section",
+      "review_basis": "Explicit boundary of changed214 exponents, reflected height and pole witnesses versus unchanged source."
+    },
+    {
+      "from": "U05",
+      "to": "S089",
+      "relationship": "required_or_reconciled_application_at_exact_section",
+      "review_basis": "Explicit boundary of changed214 exponents, reflected height and pole witnesses versus unchanged source."
+    },
+    {
+      "from": "U06",
+      "to": "S089",
+      "relationship": "required_or_reconciled_application_at_exact_section",
+      "review_basis": "Explicit boundary of changed214 exponents, reflected height and pole witnesses versus unchanged source."
+    },
+    {
+      "from": "U18",
+      "to": "S089",
+      "relationship": "required_or_reconciled_application_at_exact_section",
+      "review_basis": "Explicit boundary of changed214 exponents, reflected height and pole witnesses versus unchanged source."
+    },
+    {
+      "from": "U20",
+      "to": "S089",
+      "relationship": "required_or_reconciled_application_at_exact_section",
+      "review_basis": "Explicit boundary of changed214 exponents, reflected height and pole witnesses versus unchanged source."
+    },
+    {
+      "from": "U01",
+      "to": "S092",
+      "relationship": "required_or_reconciled_application_at_exact_section",
+      "review_basis": "Exact214 uniform theorem and distinct coefficient threshold."
+    },
+    {
+      "from": "U04",
+      "to": "S092",
+      "relationship": "required_or_reconciled_application_at_exact_section",
+      "review_basis": "Exact214 uniform theorem and distinct coefficient threshold."
+    },
+    {
+      "from": "U05",
+      "to": "S092",
+      "relationship": "required_or_reconciled_application_at_exact_section",
+      "review_basis": "Exact214 uniform theorem and distinct coefficient threshold."
+    },
+    {
+      "from": "U06",
+      "to": "S092",
+      "relationship": "required_or_reconciled_application_at_exact_section",
+      "review_basis": "Exact214 uniform theorem and distinct coefficient threshold."
+    },
+    {
+      "from": "U20",
+      "to": "S093",
+      "relationship": "required_or_reconciled_application_at_exact_section",
+      "review_basis": "HistoricalV15 carry statement replaced by operative currentV16 transition."
+    },
+    {
+      "from": "U02",
+      "to": "S094",
+      "relationship": "required_or_reconciled_application_at_exact_section",
+      "review_basis": "Actual elliptic/reference/scalar/root objects and physical normalization."
+    },
+    {
+      "from": "U20",
+      "to": "S094",
+      "relationship": "required_or_reconciled_application_at_exact_section",
+      "review_basis": "Actual elliptic/reference/scalar/root objects and physical normalization."
+    },
+    {
+      "from": "U01",
+      "to": "S095",
+      "relationship": "required_or_reconciled_application_at_exact_section",
+      "review_basis": "Reconstructed raw224 charts and forced149 recovery before any ratio."
+    },
+    {
+      "from": "U02",
+      "to": "S095",
+      "relationship": "required_or_reconciled_application_at_exact_section",
+      "review_basis": "Reconstructed raw224 charts and forced149 recovery before any ratio."
+    },
+    {
+      "from": "U02",
+      "to": "S096",
+      "relationship": "required_or_reconciled_application_at_exact_section",
+      "review_basis": "Fresh full valuation-class separation for five changed factors."
+    },
+    {
+      "from": "U02",
+      "to": "S097",
+      "relationship": "required_or_reconciled_application_at_exact_section",
+      "review_basis": "Literal trace/pole input and retained obstruction produce depths."
+    },
+    {
+      "from": "U06",
+      "to": "S097",
+      "relationship": "required_or_reconciled_application_at_exact_section",
+      "review_basis": "Literal trace/pole input and retained obstruction produce depths."
+    },
+    {
+      "from": "U02",
+      "to": "S098",
+      "relationship": "required_or_reconciled_application_at_exact_section",
+      "review_basis": "Integrality before formal error; exact separate Delta/J divisibilities."
+    },
+    {
+      "from": "U02",
+      "to": "S099",
+      "relationship": "required_or_reconciled_application_at_exact_section",
+      "review_basis": "Fixed CM blocks and no positive-dimensional translate in actual sum fibre."
+    },
+    {
+      "from": "U03",
+      "to": "S099",
+      "relationship": "required_or_reconciled_application_at_exact_section",
+      "review_basis": "Fixed CM blocks and no positive-dimensional translate in actual sum fibre."
+    },
+    {
+      "from": "U03",
+      "to": "S100",
+      "relationship": "required_or_reconciled_application_at_exact_section",
+      "review_basis": "Published family-height theorem applies to actual embedded graph and fixed finite-rank group."
+    },
+    {
+      "from": "U03",
+      "to": "S101",
+      "relationship": "required_or_reconciled_application_at_exact_section",
+      "review_basis": "Actual full-family bound on two transforms, block radical product and aggregate join."
+    },
+    {
+      "from": "U04",
+      "to": "S101",
+      "relationship": "required_or_reconciled_application_at_exact_section",
+      "review_basis": "Actual full-family bound on two transforms, block radical product and aggregate join."
+    },
+    {
+      "from": "U18",
+      "to": "S101",
+      "relationship": "required_or_reconciled_application_at_exact_section",
+      "review_basis": "Actual full-family bound on two transforms, block radical product and aggregate join."
+    },
+    {
+      "from": "U02",
+      "to": "S102",
+      "relationship": "required_or_reconciled_application_at_exact_section",
+      "review_basis": "Same scalar c=|a| and Delta degree give uniform soundness threshold."
+    },
+    {
+      "from": "U04",
+      "to": "S102",
+      "relationship": "required_or_reconciled_application_at_exact_section",
+      "review_basis": "Same scalar c=|a| and Delta degree give uniform soundness threshold."
+    },
+    {
+      "from": "U02",
+      "to": "S103",
+      "relationship": "required_or_reconciled_application_at_exact_section",
+      "review_basis": "Actual Lucas norm equation, integer lower bound, J upper bound and rational integrality."
+    },
+    {
+      "from": "U04",
+      "to": "S103",
+      "relationship": "required_or_reconciled_application_at_exact_section",
+      "review_basis": "Actual Lucas norm equation, integer lower bound, J upper bound and rational integrality."
+    },
+    {
+      "from": "U05",
+      "to": "S104",
+      "relationship": "required_or_reconciled_application_at_exact_section",
+      "review_basis": "Fixed real neighborhoods give uniform scalar completeness threshold."
+    },
+    {
+      "from": "U02",
+      "to": "S105",
+      "relationship": "required_or_reconciled_application_at_exact_section",
+      "review_basis": "Finite preparation of same scalar/pole support before labels and comparisons."
+    },
+    {
+      "from": "U05",
+      "to": "S105",
+      "relationship": "required_or_reconciled_application_at_exact_section",
+      "review_basis": "Finite preparation of same scalar/pole support before labels and comparisons."
+    },
+    {
+      "from": "U06",
+      "to": "S105",
+      "relationship": "required_or_reconciled_application_at_exact_section",
+      "review_basis": "Finite preparation of same scalar/pole support before labels and comparisons."
+    },
+    {
+      "from": "U02",
+      "to": "S106",
+      "relationship": "required_or_reconciled_application_at_exact_section",
+      "review_basis": "Nonzero Lucas labels and merged actual fixed coefficients with all incidences."
+    },
+    {
+      "from": "U05",
+      "to": "S106",
+      "relationship": "required_or_reconciled_application_at_exact_section",
+      "review_basis": "Nonzero Lucas labels and merged actual fixed coefficients with all incidences."
+    },
+    {
+      "from": "U05",
+      "to": "S107",
+      "relationship": "required_or_reconciled_application_at_exact_section",
+      "review_basis": "Fixed-data prime theorem and reduction-order CRT, every incidence preserved."
+    },
+    {
+      "from": "U19",
+      "to": "S107",
+      "relationship": "required_or_reconciled_application_at_exact_section",
+      "review_basis": "Fixed-data prime theorem and reduction-order CRT, every incidence preserved."
+    },
+    {
+      "from": "U02",
+      "to": "S108",
+      "relationship": "required_or_reconciled_application_at_exact_section",
+      "review_basis": "Fresh changed factors at actual selected witnesses, opposite trace unit."
+    },
+    {
+      "from": "U05",
+      "to": "S108",
+      "relationship": "required_or_reconciled_application_at_exact_section",
+      "review_basis": "Fresh changed factors at actual selected witnesses, opposite trace unit."
+    },
+    {
+      "from": "U05",
+      "to": "S109",
+      "relationship": "required_or_reconciled_application_at_exact_section",
+      "review_basis": "All remaining primes, denominator parity, local squareclasses and real bound."
+    },
+    {
+      "from": "U06",
+      "to": "S109",
+      "relationship": "required_or_reconciled_application_at_exact_section",
+      "review_basis": "All remaining primes, denominator parity, local squareclasses and real bound."
+    },
+    {
+      "from": "U06",
+      "to": "S110",
+      "relationship": "required_or_reconciled_application_at_exact_section",
+      "review_basis": "Same actual pole inputs and nonCM RC curves, theta1/zeroauxiliary cases."
+    },
+    {
+      "from": "U01",
+      "to": "S111",
+      "relationship": "required_or_reconciled_application_at_exact_section",
+      "review_basis": "Exact row reconstruction and max(NS,NC), with input-dependent witness thresholds outside N0."
+    },
+    {
+      "from": "U04",
+      "to": "S111",
+      "relationship": "required_or_reconciled_application_at_exact_section",
+      "review_basis": "Exact row reconstruction and max(NS,NC), with input-dependent witness thresholds outside N0."
+    },
+    {
+      "from": "U05",
+      "to": "S111",
+      "relationship": "required_or_reconciled_application_at_exact_section",
+      "review_basis": "Exact row reconstruction and max(NS,NC), with input-dependent witness thresholds outside N0."
+    },
+    {
+      "from": "U06",
+      "to": "S111",
+      "relationship": "required_or_reconciled_application_at_exact_section",
+      "review_basis": "Exact row reconstruction and max(NS,NC), with input-dependent witness thresholds outside N0."
+    },
+    {
+      "from": "U20",
+      "to": "S113",
+      "relationship": "required_or_reconciled_application_at_exact_section",
+      "review_basis": "Current entireV16 source rule supersedes old receive-source labels while preserving history."
+    },
+    {
+      "from": "U19",
+      "to": "S114",
+      "relationship": "required_or_reconciled_application_at_exact_section",
+      "review_basis": "Fixed real horizontal lifts before finite-cover division and exact current GI consumers."
+    },
+    {
+      "from": "U20",
+      "to": "S114",
+      "relationship": "required_or_reconciled_application_at_exact_section",
+      "review_basis": "Fixed real horizontal lifts before finite-cover division and exact current GI consumers."
+    },
+    {
+      "from": "U05",
+      "to": "S115",
+      "relationship": "required_or_reconciled_application_at_exact_section",
+      "review_basis": "Fixed-E proof adaptation, same uniform estimates and actual merged fixed214 data before limit."
+    },
+    {
+      "from": "U19",
+      "to": "S115",
+      "relationship": "required_or_reconciled_application_at_exact_section",
+      "review_basis": "Fixed-E proof adaptation, same uniform estimates and actual merged fixed214 data before limit."
+    },
+    {
+      "from": "U20",
+      "to": "S115",
+      "relationship": "required_or_reconciled_application_at_exact_section",
+      "review_basis": "Fixed-E proof adaptation, same uniform estimates and actual merged fixed214 data before limit."
+    },
+    {
+      "from": "U13",
+      "to": "S116",
+      "relationship": "required_or_reconciled_application_at_exact_section",
+      "review_basis": "Corrected published lower/change sources and same-field product H3.1 into H4."
+    },
+    {
+      "from": "U17",
+      "to": "S116",
+      "relationship": "required_or_reconciled_application_at_exact_section",
+      "review_basis": "Corrected published lower/change sources and same-field product H3.1 into H4."
+    },
+    {
+      "from": "U18",
+      "to": "S116",
+      "relationship": "required_or_reconciled_application_at_exact_section",
+      "review_basis": "Corrected published lower/change sources and same-field product H3.1 into H4."
+    },
+    {
+      "from": "U20",
+      "to": "S116",
+      "relationship": "required_or_reconciled_application_at_exact_section",
+      "review_basis": "Corrected published lower/change sources and same-field product H3.1 into H4."
+    },
+    {
+      "from": "U20",
+      "to": "S117",
+      "relationship": "required_or_reconciled_application_at_exact_section",
+      "review_basis": "Bounded related-use scope, withdrawn finding and current receiving acceptance obligations; no new arithmetic theorem."
+    }
+  ],
+  "direct_application_edges": [
+    {
+      "supplier": "U01",
+      "consumer": "U02",
+      "identity": "Exact inverse maps restore original objects before local analysis"
+    },
+    {
+      "supplier": "U02",
+      "consumer": "U04",
+      "identity": "Exact separate Delta/J divisibilities"
+    },
+    {
+      "supplier": "U03",
+      "consumer": "U04",
+      "identity": "Actual sum aggregate B2 bound"
+    },
+    {
+      "supplier": "U07",
+      "consumer": "U08",
+      "identity": "Actual B-linear quasi-isogenies and normal all-Hom field"
+    },
+    {
+      "supplier": "U07",
+      "consumer": "U09",
+      "identity": "Original surface and full endomorphism input"
+    },
+    {
+      "supplier": "U08",
+      "consumer": "U09",
+      "identity": "Actual normalized representation and Tate restriction"
+    },
+    {
+      "supplier": "U09",
+      "consumer": "U10",
+      "identity": "Original geometric odd irreducible r5"
+    },
+    {
+      "supplier": "U10",
+      "consumer": "U11",
+      "identity": "Same final primitive f at original embeddings"
+    },
+    {
+      "supplier": "U11",
+      "consumer": "U12",
+      "identity": "Full local r3/r5 with all residue primes"
+    },
+    {
+      "supplier": "U08",
+      "consumer": "U12",
+      "identity": "Current scalar wild support and normal controlled extension"
+    },
+    {
+      "supplier": "U10",
+      "consumer": "U13",
+      "identity": "Same final form/character/level"
+    },
+    {
+      "supplier": "U08",
+      "consumer": "U13",
+      "identity": "Top determinant and same Lprime"
+    },
+    {
+      "supplier": "U14",
+      "consumer": "U16",
+      "identity": "Literal integral evaluation into same Cdual"
+    },
+    {
+      "supplier": "U15",
+      "consumer": "U16",
+      "identity": "Full same-order discriminant"
+    },
+    {
+      "supplier": "U13",
+      "consumer": "U16",
+      "identity": "Actual positive-genus H quotient"
+    },
+    {
+      "supplier": "U13",
+      "consumer": "U17",
+      "identity": "Actual Lprime-defined A^r subobject"
+    },
+    {
+      "supplier": "U16",
+      "consumer": "U17",
+      "identity": "Height of the same J"
+    },
+    {
+      "supplier": "U17",
+      "consumer": "U18",
+      "identity": "Exact H3.1"
+    },
+    {
+      "supplier": "U12",
+      "consumer": "U18",
+      "identity": "Actual final-level C_N bound"
+    },
+    {
+      "supplier": "U13",
+      "consumer": "U18",
+      "identity": "Character/multiplicity saving"
+    },
+    {
+      "supplier": "U07",
+      "consumer": "U18",
+      "identity": "Original metric and complete CM branch"
+    },
+    {
+      "supplier": "U18",
+      "consumer": "U04",
+      "identity": "Full rational S10 bound used on both transforms"
+    },
+    {
+      "supplier": "U19",
+      "consumer": "U05",
+      "identity": "Fixed-data primes after complete tail/cutoff/field ordering"
+    },
+    {
+      "supplier": "U05",
+      "consumer": "U06",
+      "identity": "Actual freshly prepared pole inputs"
+    },
+    {
+      "supplier": "U06",
+      "consumer": "S111",
+      "identity": "Independent pole witnesses enter P20 final completeness; this is not a circular proof of the earlier formal row identities."
+    }
+  ],
+  "scope": "Current214 source graph only. Exact native Version16 graph remains retained under its frozen review and receiving comparisons. The current typeset proof requires its separate revision2 map/review."
+}

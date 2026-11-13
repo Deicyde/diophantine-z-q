@@ -1,0 +1,50 @@
+{
+  "reviewer": "/root/d214_geometry_source_closure",
+  "frozen_commit": "e3626cac202cdbcdfedc2bff1978dcd3ea3fd3ab",
+  "source_contract": "research/quartic214/contracts/modularity-6.json",
+  "source_contract_sha256": "3b61613f34a5f8746804ab2e6aa24aa787cc5fb6485ac2c5aa2a1a1cc4da9ab9",
+  "issue": "Original concrete consumer_passages omit modularity M0 and M2 although obligation prose names them. This is a direct consumer binding addition, not a mathematical repair.",
+  "passages": [
+    {
+      "path": "research/quartic214/proofs/geometry-carry.md",
+      "section": "## G2.",
+      "lines": [
+        25,
+        32
+      ],
+      "file_sha256": "b3cb8201de84f733b0518ad68a9c0d0bc1e78534ffd39aca5d8c70f1bae69e76",
+      "excerpt_sha256": "fc03d911267a4dd2863908aaba7a1839aa8493b335c82e5e6ef6d021221b71c9"
+    },
+    {
+      "path": "research/quartic214/proofs/geometry-carry.md",
+      "section": "## G3.",
+      "lines": [
+        33,
+        56
+      ],
+      "file_sha256": "b3cb8201de84f733b0518ad68a9c0d0bc1e78534ffd39aca5d8c70f1bae69e76",
+      "excerpt_sha256": "a8f7e15152e5e83bbb14e961dc310ea25ec066228f5cf20798c62dff686cd290"
+    },
+    {
+      "path": "research/quartic214/proofs/modularity.md",
+      "section": "## M0.",
+      "lines": [
+        5,
+        12
+      ],
+      "file_sha256": "814676050b389793d196346f45e2797f39e2c5be0f3fee8457bb709b2607606e",
+      "excerpt_sha256": "6b729fa5b2f7c9c9334cbe2864b04457bcf66e75aaee18f1861d38800e94707a"
+    },
+    {
+      "path": "research/quartic214/proofs/modularity.md",
+      "section": "## M2.",
+      "lines": [
+        35,
+        46
+      ],
+      "file_sha256": "814676050b389793d196346f45e2797f39e2c5be0f3fee8457bb709b2607606e",
+      "excerpt_sha256": "51339241dd0f243dde66dde9cd9a50bd70dc2ec70f0099b136bd6c903dfceda2"
+    }
+  ],
+  "join": "G2 supplies the actual full-three D210 fiber surface A/L, full geometric End=B in the nonCM branch, all conjugate Hom over the same L, and normalizer same-Hodge lattice isogenies. V16 lines8226\u20138255 specifically make these maps B-linear in direction sigma A -> A, with mu_1=1 and finite choices inflated from Gal(L/Q); F-linear Skolem-Noether maps alone are not used. G3 changes only the rational-parameter support bound: all five primitive forms, including v, give rad(D_L)|R and good reduction of that same A/L away210. Therefore M0 uses these identical A,L,B,mu objects and R=B_SM_S(a) with no extra field. M2 then invokes its separately reviewed M1 cochain to form rho and, on G_Lprime, mu=a=b=1 gives the actual V_l(A); Faltings, deRham and oddness apply to this A. This new edge does not accept M1 or all M2-M3 or the G4 height/CM supplier."
+}

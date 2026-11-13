@@ -1,0 +1,799 @@
+{
+  "task": "/root/d214_astra_sourcefirst",
+  "requested_model": "gpt-6-astra",
+  "run_limit": "Parent requested exact model. No provider-signed identity or protected-controller run receipt available. This is not public controller eligibility evidence.",
+  "role": "non-author internal model reviewer",
+  "commit": "bfeb8400982c9a169e4fdd39fb68ec053621e8ed",
+  "scope": "214 proof interfaces plus fresh modular-Jacobian height review; full214 coverage not yet established",
+  "prior_exposure": "Parent brief disclosed prior Sol component verdict and public V15 acceptance. No declared graphs/contracts/favorable reports read before freeze. Historical claims within proof text are not adopted as evidence.",
+  "files": {
+    "quadratic-ten-contact-integration/PROOF.md": "08a4991bd2266293b8221cbf29b87028c789ff6dbb56fe24163aa786c4f889cb",
+    "quadratic-ten-contact-integration/existence/PROOF.md": "2fffcdd5d647a458db073bebec3c144d7bb2166163b92811ddcb308728171c2a",
+    "quadratic-ten-contact-integration/height/PROOF.md": "25960e40419c7abea1f90ab4b35108169a5ca6ad04dccf3a3643e8d0e9bb7d7f",
+    "quartic214-height-closure/metric/PROOF.md": "ea61f4ce58481b8ffb3a2000189fbbc84a8ded3c91d7c447ffe98ae98f30ad8e",
+    "quartic214-height-closure/evaluation/PROOF.md": "d691da0a6827d9b45c6c68294405163f679a2d57f08e2ecda56fd071b3579502",
+    "quartic214-height-closure/different/PROOF.md": "025885f763a9a72e9750ed10ec0bbfec4e8834ed85557acccda92a766c0ebcfa",
+    "quartic214-height-closure/ASSEMBLY.md": "b33433634ef912c5e1a5b61c44bac0c87287f3c2fe5d6a7a687e15d065e9d3ff"
+  },
+  "passages": [
+    {
+      "file": "quadratic-ten-contact-integration/PROOF.md",
+      "lines": [
+        1,
+        4
+      ],
+      "excerpt_sha256": "96acb9edaa3faf2d59719e60ff49ef74d2bcb93b33b6d9613eddbbcdc7d2ba32",
+      "status": "reviewed for initial source-use reconstruction",
+      "source_use_ids": [
+        "1.1",
+        "1.2"
+      ]
+    },
+    {
+      "file": "quadratic-ten-contact-integration/PROOF.md",
+      "lines": [
+        5,
+        10
+      ],
+      "excerpt_sha256": "ea73a60261c3324c588f36e071c5d01e558da4180a793c7f8f48429e1dc598c5",
+      "status": "reviewed for initial source-use reconstruction",
+      "source_use_ids": [
+        "1.1",
+        "1.2"
+      ]
+    },
+    {
+      "file": "quadratic-ten-contact-integration/PROOF.md",
+      "lines": [
+        11,
+        21
+      ],
+      "excerpt_sha256": "8218a2f6ae3e0250c772cb003860afacd37920ecb9e5d003ea9afb326cf32f19",
+      "status": "reviewed for initial source-use reconstruction",
+      "source_use_ids": [
+        "1.1",
+        "1.2"
+      ]
+    },
+    {
+      "file": "quadratic-ten-contact-integration/PROOF.md",
+      "lines": [
+        22,
+        27
+      ],
+      "excerpt_sha256": "e5f2bcd3bd864d82f038a9fa683778f78b4977a3f6faef3a1684766d243f0fd8",
+      "status": "reviewed for initial source-use reconstruction",
+      "source_use_ids": [
+        "1.1",
+        "1.2"
+      ]
+    },
+    {
+      "file": "quadratic-ten-contact-integration/PROOF.md",
+      "lines": [
+        28,
+        35
+      ],
+      "excerpt_sha256": "147a86beceed450a10e44122ade8c7c110315b972dbee9e7e5af0fc303ca93fd",
+      "status": "reviewed for initial source-use reconstruction",
+      "source_use_ids": [
+        "1.1",
+        "1.2"
+      ]
+    },
+    {
+      "file": "quadratic-ten-contact-integration/PROOF.md",
+      "lines": [
+        36,
+        40
+      ],
+      "excerpt_sha256": "4fcb95c2b00a172fd26ebd6ed499399f834315a10a6f656d66d2b0e1e6b7446f",
+      "status": "reviewed for initial source-use reconstruction",
+      "source_use_ids": [
+        "1.1",
+        "1.2"
+      ]
+    },
+    {
+      "file": "quadratic-ten-contact-integration/existence/PROOF.md",
+      "lines": [
+        1,
+        4
+      ],
+      "excerpt_sha256": "1dd68fbaed75cdec37698cc9c9c5f23b130e749a22a4d6e07a07b35b26c4b3d5",
+      "status": "reviewed for initial source-use reconstruction",
+      "source_use_ids": [
+        "2.1",
+        "2.2",
+        "2.3",
+        "2.4",
+        "2.5",
+        "2.6",
+        "2.7"
+      ]
+    },
+    {
+      "file": "quadratic-ten-contact-integration/existence/PROOF.md",
+      "lines": [
+        5,
+        14
+      ],
+      "excerpt_sha256": "e94f76c0f5c6a8409012afc5704cc38e8e399fb5f2e9b38379a0b3e291aba9de",
+      "status": "reviewed for initial source-use reconstruction",
+      "source_use_ids": [
+        "2.1",
+        "2.2",
+        "2.3",
+        "2.4",
+        "2.5",
+        "2.6",
+        "2.7"
+      ]
+    },
+    {
+      "file": "quadratic-ten-contact-integration/existence/PROOF.md",
+      "lines": [
+        15,
+        26
+      ],
+      "excerpt_sha256": "c0c909fe61be1a79491b136d3f67ac72e6cebdadd4179722c6c56d8c3b4a6a85",
+      "status": "reviewed for initial source-use reconstruction",
+      "source_use_ids": [
+        "2.1",
+        "2.2",
+        "2.3",
+        "2.4",
+        "2.5",
+        "2.6",
+        "2.7"
+      ]
+    },
+    {
+      "file": "quadratic-ten-contact-integration/existence/PROOF.md",
+      "lines": [
+        27,
+        51
+      ],
+      "excerpt_sha256": "faf1c14722025af70ea113cbcae75a16e5e9e5645d4c934a53c398aedc342114",
+      "status": "reviewed for initial source-use reconstruction",
+      "source_use_ids": [
+        "2.1",
+        "2.2",
+        "2.3",
+        "2.4",
+        "2.5",
+        "2.6",
+        "2.7"
+      ]
+    },
+    {
+      "file": "quadratic-ten-contact-integration/existence/PROOF.md",
+      "lines": [
+        52,
+        79
+      ],
+      "excerpt_sha256": "021376f7a7d7bc97f3124614dea6135070f11788db66814c765a55c430dc04b9",
+      "status": "reviewed for initial source-use reconstruction",
+      "source_use_ids": [
+        "2.1",
+        "2.2",
+        "2.3",
+        "2.4",
+        "2.5",
+        "2.6",
+        "2.7"
+      ]
+    },
+    {
+      "file": "quadratic-ten-contact-integration/existence/PROOF.md",
+      "lines": [
+        80,
+        89
+      ],
+      "excerpt_sha256": "99b6913bfda6c69c606eb8ccc715772188a9beed926ed97dc1a1eafe681d148b",
+      "status": "reviewed for initial source-use reconstruction",
+      "source_use_ids": [
+        "2.1",
+        "2.2",
+        "2.3",
+        "2.4",
+        "2.5",
+        "2.6",
+        "2.7"
+      ]
+    },
+    {
+      "file": "quadratic-ten-contact-integration/existence/PROOF.md",
+      "lines": [
+        90,
+        92
+      ],
+      "excerpt_sha256": "fc0f6a2e7b8e1025c0df573b19370c3635442edb7b6a0615058ab1af42a7d950",
+      "status": "reviewed for initial source-use reconstruction",
+      "source_use_ids": [
+        "2.1",
+        "2.2",
+        "2.3",
+        "2.4",
+        "2.5",
+        "2.6",
+        "2.7"
+      ]
+    },
+    {
+      "file": "quadratic-ten-contact-integration/height/PROOF.md",
+      "lines": [
+        1,
+        6
+      ],
+      "excerpt_sha256": "9bcdb441a0e6ae95aa36ead7974979320edf88350f45ef639e461cf05e0eeeef",
+      "status": "reviewed for initial source-use reconstruction",
+      "source_use_ids": [
+        "3.1",
+        "3.2",
+        "3.3",
+        "3.4",
+        "3.5",
+        "3.6",
+        "3.7",
+        "3.8"
+      ]
+    },
+    {
+      "file": "quadratic-ten-contact-integration/height/PROOF.md",
+      "lines": [
+        7,
+        32
+      ],
+      "excerpt_sha256": "b48394fa63bb7188b806536ac1d8aa46bc78196fcccc4a9371fc66d461b7ac80",
+      "status": "reviewed for initial source-use reconstruction",
+      "source_use_ids": [
+        "3.1",
+        "3.2",
+        "3.3",
+        "3.4",
+        "3.5",
+        "3.6",
+        "3.7",
+        "3.8"
+      ]
+    },
+    {
+      "file": "quadratic-ten-contact-integration/height/PROOF.md",
+      "lines": [
+        33,
+        61
+      ],
+      "excerpt_sha256": "6d034b817da3428e7d8eb8df1414f41e2616ae6b4726f8b3c9c18efaa6c2b4ea",
+      "status": "reviewed for initial source-use reconstruction",
+      "source_use_ids": [
+        "3.1",
+        "3.2",
+        "3.3",
+        "3.4",
+        "3.5",
+        "3.6",
+        "3.7",
+        "3.8"
+      ]
+    },
+    {
+      "file": "quadratic-ten-contact-integration/height/PROOF.md",
+      "lines": [
+        62,
+        77
+      ],
+      "excerpt_sha256": "ec32f7e76b18652e57d4b1c8df302975d23b58dd28d6113bccad3c05aad9053f",
+      "status": "reviewed for initial source-use reconstruction",
+      "source_use_ids": [
+        "3.1",
+        "3.2",
+        "3.3",
+        "3.4",
+        "3.5",
+        "3.6",
+        "3.7",
+        "3.8"
+      ]
+    },
+    {
+      "file": "quadratic-ten-contact-integration/height/PROOF.md",
+      "lines": [
+        78,
+        96
+      ],
+      "excerpt_sha256": "4eccd398318a664cf07962ac361f8a3b84d0f1fcd2030284cf40b61fa5caff51",
+      "status": "reviewed for initial source-use reconstruction",
+      "source_use_ids": [
+        "3.1",
+        "3.2",
+        "3.3",
+        "3.4",
+        "3.5",
+        "3.6",
+        "3.7",
+        "3.8"
+      ]
+    },
+    {
+      "file": "quadratic-ten-contact-integration/height/PROOF.md",
+      "lines": [
+        97,
+        134
+      ],
+      "excerpt_sha256": "c79afa0e08a65898a762e6f24ed869f4a35f3c741dacbf82eaee1f9b7d4a0753",
+      "status": "reviewed for initial source-use reconstruction",
+      "source_use_ids": [
+        "3.1",
+        "3.2",
+        "3.3",
+        "3.4",
+        "3.5",
+        "3.6",
+        "3.7",
+        "3.8"
+      ]
+    },
+    {
+      "file": "quadratic-ten-contact-integration/height/PROOF.md",
+      "lines": [
+        135,
+        163
+      ],
+      "excerpt_sha256": "056a8a7c5953b062b76206525b4a3961fbf66204cef1d22d04c2a91c0c4f3d7c",
+      "status": "outside214 scope: separate256 consumer",
+      "source_use_ids": [
+        "3.1",
+        "3.2",
+        "3.3",
+        "3.4",
+        "3.5",
+        "3.6",
+        "3.7",
+        "3.8"
+      ]
+    },
+    {
+      "file": "quadratic-ten-contact-integration/height/PROOF.md",
+      "lines": [
+        164,
+        181
+      ],
+      "excerpt_sha256": "2e56b67fd9bbc52341849dbffb6a4a379db77355afcafbf7feea822921445c63",
+      "status": "outside214 scope: separate256 consumer",
+      "source_use_ids": [
+        "3.1",
+        "3.2",
+        "3.3",
+        "3.4",
+        "3.5",
+        "3.6",
+        "3.7",
+        "3.8"
+      ]
+    },
+    {
+      "file": "quadratic-ten-contact-integration/height/PROOF.md",
+      "lines": [
+        182,
+        214
+      ],
+      "excerpt_sha256": "85d885f171ba58a03bfe547af6709165c553f6a2d781cbf249a66ab171f3ae13",
+      "status": "outside214 scope: separate256 consumer",
+      "source_use_ids": [
+        "3.1",
+        "3.2",
+        "3.3",
+        "3.4",
+        "3.5",
+        "3.6",
+        "3.7",
+        "3.8"
+      ]
+    },
+    {
+      "file": "quadratic-ten-contact-integration/height/PROOF.md",
+      "lines": [
+        215,
+        219
+      ],
+      "excerpt_sha256": "2575d1697138cf891bca3f6a476c046e99059f4695bade55d755c745f6ffdd2b",
+      "status": "reviewed for initial source-use reconstruction",
+      "source_use_ids": [
+        "3.1",
+        "3.2",
+        "3.3",
+        "3.4",
+        "3.5",
+        "3.6",
+        "3.7",
+        "3.8"
+      ]
+    },
+    {
+      "file": "quartic214-height-closure/metric/PROOF.md",
+      "lines": [
+        1,
+        4
+      ],
+      "excerpt_sha256": "c4003939ec44506e2550337a71c2b8584846e6960f2e3931373ea320105b41cf",
+      "status": "reviewed for initial source-use reconstruction",
+      "source_use_ids": [
+        "4.1",
+        "4.2",
+        "4.3"
+      ]
+    },
+    {
+      "file": "quartic214-height-closure/metric/PROOF.md",
+      "lines": [
+        5,
+        18
+      ],
+      "excerpt_sha256": "b89c16a8d1f9925caac788ffcc3a7bec7e042b4d3ccad9ba383b0486e6ef6f60",
+      "status": "reviewed for initial source-use reconstruction",
+      "source_use_ids": [
+        "4.1",
+        "4.2",
+        "4.3"
+      ]
+    },
+    {
+      "file": "quartic214-height-closure/metric/PROOF.md",
+      "lines": [
+        19,
+        40
+      ],
+      "excerpt_sha256": "24153782b70933055ffb84bd0401f59ab4a99ec20cf4494d691564b744d706e5",
+      "status": "reviewed for initial source-use reconstruction",
+      "source_use_ids": [
+        "4.1",
+        "4.2",
+        "4.3"
+      ]
+    },
+    {
+      "file": "quartic214-height-closure/metric/PROOF.md",
+      "lines": [
+        41,
+        56
+      ],
+      "excerpt_sha256": "3c242d27b828b098e42732a7271396702428ecbba8ad4c0e14ba3de168ea28b8",
+      "status": "reviewed for initial source-use reconstruction",
+      "source_use_ids": [
+        "4.1",
+        "4.2",
+        "4.3"
+      ]
+    },
+    {
+      "file": "quartic214-height-closure/metric/PROOF.md",
+      "lines": [
+        57,
+        59
+      ],
+      "excerpt_sha256": "e3cebb4ee2fb04d14d95d970e74902ae5613cb8551216e9bfd2d7da106201d86",
+      "status": "reviewed for initial source-use reconstruction",
+      "source_use_ids": [
+        "4.1",
+        "4.2",
+        "4.3"
+      ]
+    },
+    {
+      "file": "quartic214-height-closure/evaluation/PROOF.md",
+      "lines": [
+        1,
+        15
+      ],
+      "excerpt_sha256": "d253defe97e64eef2a0dabcf67b67495d1c1a02fbfbe9e345a13ce51e5325c4d",
+      "status": "reviewed for initial source-use reconstruction",
+      "source_use_ids": [
+        "5.1",
+        "5.2",
+        "5.3",
+        "5.4",
+        "5.5"
+      ]
+    },
+    {
+      "file": "quartic214-height-closure/evaluation/PROOF.md",
+      "lines": [
+        16,
+        31
+      ],
+      "excerpt_sha256": "5895b02911992e7bd7df54219234f84d0d003a66d74d89b307321dcca59c3950",
+      "status": "reviewed for initial source-use reconstruction",
+      "source_use_ids": [
+        "5.1",
+        "5.2",
+        "5.3",
+        "5.4",
+        "5.5"
+      ]
+    },
+    {
+      "file": "quartic214-height-closure/evaluation/PROOF.md",
+      "lines": [
+        32,
+        51
+      ],
+      "excerpt_sha256": "28f943b84c5eb7eb86876ad68ec86f9e856a21fba948ee054c9d0187a8d4ca12",
+      "status": "reviewed for initial source-use reconstruction",
+      "source_use_ids": [
+        "5.1",
+        "5.2",
+        "5.3",
+        "5.4",
+        "5.5"
+      ]
+    },
+    {
+      "file": "quartic214-height-closure/evaluation/PROOF.md",
+      "lines": [
+        52,
+        72
+      ],
+      "excerpt_sha256": "df805dea8337211dfba4f46a83cc7861f20bdb6e75a3c8e4601b718d6aa5f648",
+      "status": "reviewed for initial source-use reconstruction",
+      "source_use_ids": [
+        "5.1",
+        "5.2",
+        "5.3",
+        "5.4",
+        "5.5"
+      ]
+    },
+    {
+      "file": "quartic214-height-closure/evaluation/PROOF.md",
+      "lines": [
+        73,
+        104
+      ],
+      "excerpt_sha256": "e663066549e3b005c91f7adeac2cafa88c7d6c1e4b334ed5d47e68a867b48083",
+      "status": "reviewed for initial source-use reconstruction",
+      "source_use_ids": [
+        "5.1",
+        "5.2",
+        "5.3",
+        "5.4",
+        "5.5"
+      ]
+    },
+    {
+      "file": "quartic214-height-closure/evaluation/PROOF.md",
+      "lines": [
+        105,
+        124
+      ],
+      "excerpt_sha256": "c13784f0fe855e8f6ba77e433db65cf94fb07fb27da8d49f032e39323ab57a89",
+      "status": "reviewed for initial source-use reconstruction",
+      "source_use_ids": [
+        "5.1",
+        "5.2",
+        "5.3",
+        "5.4",
+        "5.5"
+      ]
+    },
+    {
+      "file": "quartic214-height-closure/evaluation/PROOF.md",
+      "lines": [
+        125,
+        129
+      ],
+      "excerpt_sha256": "778c466de496c18fa24efbc804286dcdd75f8981b71eca8e8b244f4df1da3174",
+      "status": "reviewed for initial source-use reconstruction",
+      "source_use_ids": [
+        "5.1",
+        "5.2",
+        "5.3",
+        "5.4",
+        "5.5"
+      ]
+    },
+    {
+      "file": "quartic214-height-closure/different/PROOF.md",
+      "lines": [
+        1,
+        10
+      ],
+      "excerpt_sha256": "727fab4dfafea03beb77e6cc2ea28ca8722ae6a9bc819a5efccf00d949485ad7",
+      "status": "reviewed for initial source-use reconstruction",
+      "source_use_ids": [
+        "6.1",
+        "6.2",
+        "6.3",
+        "6.4",
+        "6.5"
+      ]
+    },
+    {
+      "file": "quartic214-height-closure/different/PROOF.md",
+      "lines": [
+        11,
+        26
+      ],
+      "excerpt_sha256": "77cba9e0a293291607ed31a49bf1330727c8fa280b2ed7728395990fc1b327f6",
+      "status": "reviewed for initial source-use reconstruction",
+      "source_use_ids": [
+        "6.1",
+        "6.2",
+        "6.3",
+        "6.4",
+        "6.5"
+      ]
+    },
+    {
+      "file": "quartic214-height-closure/different/PROOF.md",
+      "lines": [
+        27,
+        56
+      ],
+      "excerpt_sha256": "57f2bd0a37f3d61345b3a1052c30119fb0636119be51c4443bce0ea061a15043",
+      "status": "reviewed for initial source-use reconstruction",
+      "source_use_ids": [
+        "6.1",
+        "6.2",
+        "6.3",
+        "6.4",
+        "6.5"
+      ]
+    },
+    {
+      "file": "quartic214-height-closure/different/PROOF.md",
+      "lines": [
+        57,
+        86
+      ],
+      "excerpt_sha256": "0ea22f7ba6ecff82fb4d010ac1c9641bb41c57d22a1fee853eac614e193c5ae1",
+      "status": "reviewed for initial source-use reconstruction",
+      "source_use_ids": [
+        "6.1",
+        "6.2",
+        "6.3",
+        "6.4",
+        "6.5"
+      ]
+    },
+    {
+      "file": "quartic214-height-closure/different/PROOF.md",
+      "lines": [
+        87,
+        108
+      ],
+      "excerpt_sha256": "1401e680c0ee9f3c000547f451aaaeb54f1b670de9fee3c1d4d73b5441bf90aa",
+      "status": "reviewed for initial source-use reconstruction",
+      "source_use_ids": [
+        "6.1",
+        "6.2",
+        "6.3",
+        "6.4",
+        "6.5"
+      ]
+    },
+    {
+      "file": "quartic214-height-closure/different/PROOF.md",
+      "lines": [
+        109,
+        126
+      ],
+      "excerpt_sha256": "6578cd19517c3f0f781ff641d8fea0794e77c98f9db4e1b82a3c6349554c8cca",
+      "status": "reviewed for initial source-use reconstruction",
+      "source_use_ids": [
+        "6.1",
+        "6.2",
+        "6.3",
+        "6.4",
+        "6.5"
+      ]
+    },
+    {
+      "file": "quartic214-height-closure/different/PROOF.md",
+      "lines": [
+        127,
+        131
+      ],
+      "excerpt_sha256": "e9b5351a18f865568e8ee46c4abccda54fe32b09dbf4bc7677df10d5e009870b",
+      "status": "reviewed for initial source-use reconstruction",
+      "source_use_ids": [
+        "6.1",
+        "6.2",
+        "6.3",
+        "6.4",
+        "6.5"
+      ]
+    },
+    {
+      "file": "quartic214-height-closure/ASSEMBLY.md",
+      "lines": [
+        1,
+        4
+      ],
+      "excerpt_sha256": "472dbbe88cd5768529580c96ba08bb2731bbd3253be94dcb8b69dc4a462f9aa8",
+      "status": "reviewed for initial source-use reconstruction",
+      "source_use_ids": [
+        "7.1",
+        "7.2",
+        "7.3"
+      ]
+    },
+    {
+      "file": "quartic214-height-closure/ASSEMBLY.md",
+      "lines": [
+        5,
+        16
+      ],
+      "excerpt_sha256": "111e1cc69151e76014c3b4cb1754a68ad981907314eca5cc8c4dca2bb877e9d9",
+      "status": "reviewed for initial source-use reconstruction",
+      "source_use_ids": [
+        "7.1",
+        "7.2",
+        "7.3"
+      ]
+    },
+    {
+      "file": "quartic214-height-closure/ASSEMBLY.md",
+      "lines": [
+        17,
+        36
+      ],
+      "excerpt_sha256": "4730d44f1dbb1b3fdfe1fc3832d41190db2361f1197819b01a73bd9fe859d3a9",
+      "status": "reviewed for initial source-use reconstruction",
+      "source_use_ids": [
+        "7.1",
+        "7.2",
+        "7.3"
+      ]
+    },
+    {
+      "file": "quartic214-height-closure/ASSEMBLY.md",
+      "lines": [
+        37,
+        44
+      ],
+      "excerpt_sha256": "c8e48de7744c180e1a9bd5472660e0203351aa9266a866751081dd47f9b8a575",
+      "status": "reviewed for initial source-use reconstruction",
+      "source_use_ids": [
+        "7.1",
+        "7.2",
+        "7.3"
+      ]
+    },
+    {
+      "file": "quartic214-height-closure/ASSEMBLY.md",
+      "lines": [
+        45,
+        52
+      ],
+      "excerpt_sha256": "6ff88012d626dace8fdb192a26136ac85e2c2feff87c0fb49e2436145341dcd0",
+      "status": "reviewed for initial source-use reconstruction",
+      "source_use_ids": [
+        "7.1",
+        "7.2",
+        "7.3"
+      ]
+    },
+    {
+      "file": "quartic214-height-closure/ASSEMBLY.md",
+      "lines": [
+        53,
+        57
+      ],
+      "excerpt_sha256": "2c2c2ff372fc42ff00bbb5c31526b5522debdc39389b4be6e91c8eb28abeea81",
+      "status": "reviewed for initial source-use reconstruction",
+      "source_use_ids": [
+        "7.1",
+        "7.2",
+        "7.3"
+      ]
+    }
+  ],
+  "awaiting": [
+    "Raw224 construction proof and finite replay",
+    "V15 retained arithmetic suppliers",
+    "Primary H0/H3 sources",
+    "Primary sources of three height lanes",
+    "Final new-author assembly and release binding"
+  ]
+}

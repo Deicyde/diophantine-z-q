@@ -1,0 +1,174 @@
+{
+  "reviewer": "/root/q214_tex_independent",
+  "role": "non-author internal model reviewer",
+  "date": "2026-11-12",
+  "initial_reconstruction_sha256": "e0da8a6af394fb247e86ce463f5c77eb59ecb991085eb434c7b5e732b3446257",
+  "initial_preserved": true,
+  "comparison_status": "Source and current foundation comparison completed; final PDF and release binding recorded separately in REVIEW_REPORT.md and REVIEW_DECISION.json.",
+  "entries": [
+    {
+      "initial_id": "R01",
+      "matching_applications": [
+        "D214-UNIFORM-EXISTENCE-20261111"
+      ],
+      "relationship": "Direct application mapping from actual source inference; source and consuming objects compared, not only names."
+    },
+    {
+      "initial_id": "R02",
+      "matching_applications": [
+        "D214-UNIFORM-EXISTENCE-20261111",
+        "D214-INHERITED-ANALYTIC-RC-CARRY"
+      ],
+      "relationship": "Direct application mapping from actual source inference; source and consuming objects compared, not only names."
+    },
+    {
+      "initial_id": "R03",
+      "matching_applications": [
+        "D214-UNIFORM-EXISTENCE-20261111"
+      ],
+      "relationship": "Direct application mapping from actual source inference; source and consuming objects compared, not only names."
+    },
+    {
+      "initial_id": "R04",
+      "matching_applications": [
+        "G-P-D210-GEOMETRY-AND-S10-CARRY"
+      ],
+      "relationship": "Direct application mapping from actual source inference; source and consuming objects compared, not only names."
+    },
+    {
+      "initial_id": "R05",
+      "matching_applications": [
+        "M1-CHANGED-MINIMAL-CHARACTER",
+        "M2-M3-ORIGINAL-R5-MODULARITY",
+        "M4-SAME-FORM-COMPANION",
+        "M5-DIRECT-CONDUCTOR-AND-NEW-LIFT"
+      ],
+      "relationship": "Direct application mapping from actual source inference; source and consuming objects compared, not only names."
+    },
+    {
+      "initial_id": "R06",
+      "matching_applications": [
+        "H04-integral-evaluation-and-trace-lattice",
+        "H04-SAME-OBJECT-MODULAR-HEIGHT-ASSEMBLY"
+      ],
+      "relationship": "Direct application mapping from actual source inference; source and consuming objects compared, not only names."
+    },
+    {
+      "initial_id": "R07",
+      "matching_applications": [
+        "H04-DIFFERENT-MODULAR-20261110",
+        "H04-METRIC-ARCHIMEDEAN"
+      ],
+      "relationship": "Direct application mapping from actual source inference; source and consuming objects compared, not only names."
+    },
+    {
+      "initial_id": "R08",
+      "matching_applications": [
+        "M6-DETERMINANT-MULTIPLICITY-QUOTIENT",
+        "H03-PUBLISHED-PRODUCT-AVERAGING",
+        "Q214-V16-CURRENT-FOUNDATION-20261112"
+      ],
+      "relationship": "Direct application mapping from actual source inference; source and consuming objects compared, not only names."
+    },
+    {
+      "initial_id": "R09",
+      "matching_applications": [
+        "H04-FULL-FAMILY-CONSTANT-AND-CENTER2-TRANSFER"
+      ],
+      "relationship": "Direct application mapping from actual source inference; source and consuming objects compared, not only names."
+    },
+    {
+      "initial_id": "R10",
+      "matching_applications": [
+        "D214-UNIFORM-EXISTENCE-20261111",
+        "H04-FULL-FAMILY-CONSTANT-AND-CENTER2-TRANSFER"
+      ],
+      "relationship": "Direct application mapping from actual source inference; source and consuming objects compared, not only names."
+    },
+    {
+      "initial_id": "R11",
+      "matching_applications": [
+        "D214-UNIFORM-EXISTENCE-20261111",
+        "D214-INHERITED-ANALYTIC-RC-CARRY",
+        "Q214-V16-CURRENT-FOUNDATION-20261112"
+      ],
+      "relationship": "Direct application mapping from actual source inference; source and consuming objects compared, not only names."
+    },
+    {
+      "initial_id": "R12",
+      "matching_applications": [
+        "D214-INHERITED-ANALYTIC-RC-CARRY",
+        "Q214-V16-CURRENT-FOUNDATION-20261112"
+      ],
+      "relationship": "Direct application mapping from actual source inference; source and consuming objects compared, not only names."
+    },
+    {
+      "initial_id": "R13",
+      "matching_applications": [
+        "Q214-FULL-TEX-INCORPORATION-20261112",
+        "Q214-V16-CURRENT-FOUNDATION-20261112"
+      ],
+      "relationship": "Direct application mapping from actual source inference; source and consuming objects compared, not only names."
+    },
+    {
+      "initial_id": "R14",
+      "matching_applications": [
+        "Q214-FULL-TEX-INCORPORATION-20261112"
+      ],
+      "relationship": "Direct application mapping from actual source inference; source and consuming objects compared, not only names."
+    }
+  ],
+  "new_explicit_source_blocks": [
+    {
+      "path": "research/quartic214/sources/aggregate-bridge.md",
+      "role": "operative actual sum theorem and quarter-trace supplier",
+      "initial_obligation": "R10",
+      "disposition": "Read actual source after initial freeze; refine explicit coverage without replacing frozen initial table."
+    },
+    {
+      "path": "research/quartic214/sources/support-section1.md",
+      "role": "retained older character/conductor provenance; current support rederived in geometry-carry",
+      "initial_obligation": "R04",
+      "disposition": "Read actual source after initial freeze; refine explicit coverage without replacing frozen initial table."
+    },
+    {
+      "path": "research/quartic214/sources/conductor-sections1-3.md",
+      "role": "retained older conductor provenance; current M1/M5 govern",
+      "initial_obligation": "R05",
+      "disposition": "Read actual source after initial freeze; refine explicit coverage without replacing frozen initial table."
+    },
+    {
+      "path": "research/quartic214/sources/evaluation-sections1-4.tex",
+      "role": "retained full evaluation proof consumed with explicit three component bridges",
+      "initial_obligation": "R06/R07",
+      "disposition": "Read actual source after initial freeze; refine explicit coverage without replacing frozen initial table."
+    },
+    {
+      "path": "research/quartic214/sources/factor-extraction.tex",
+      "role": "actual changed-factor source and formal integrality",
+      "initial_obligation": "R03",
+      "disposition": "Read actual source after initial freeze; refine explicit coverage without replacing frozen initial table."
+    },
+    {
+      "path": "research/version15/quartics/quartic-222/provenance/shared-T-redundancy224-006/PROOF.md",
+      "role": "Actual guarded Q2 coefficient/reference redundancy proof",
+      "initial_obligation": "R02",
+      "disposition": "Read after initial freeze; same inverse reference argument initially read in V15."
+    },
+    {
+      "path": "research/quartic214-manuscript-review/FOUNDATION_TRANSITION.md",
+      "role": "Actual GI exact-lift, fixed-extra-factor Tao-Ziegler proof-adaptation and CMH source changes connected to current 214 consumers",
+      "initial_obligation": "R11/R12/R13",
+      "disposition": "Compared only after upstream source-first supplement was frozen; separate nine-obligation current application required."
+    }
+  ],
+  "retained_foundation": "Complete current V16 source aeb2b6a42a03943d7f8c46682389c8da693d2903ba92ccc164bbbd236451de74 replaces the initially selected V15 receiving foundation. The original V15 source and old contracts remain historical immutable evidence. Exact transport and three changed source-to-consumer connections were freshly reviewed; a renewed full recursive arithmetic audit is not claimed.",
+  "unresolved": [],
+  "upstream_reconstruction_sha256": "a7bacfd75010309376bef5188fad4e9ef99738a952181431d8b51b9330b1854b",
+  "current_foundation_application": "Q214-V16-CURRENT-FOUNDATION-20261112",
+  "remaining_boundaries": [
+    "Final decision binds actual PDF and local release files; no public readback is asserted.",
+    "Protected Protocol / independent agent audit authorization remains separate.",
+    "Exact retained arithmetic carry and identified earlier derivations do not constitute a new full recursive primary-source audit."
+  ]
+}

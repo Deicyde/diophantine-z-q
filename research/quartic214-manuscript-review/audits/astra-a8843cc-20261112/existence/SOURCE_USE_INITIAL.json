@@ -1,0 +1,107 @@
+{
+  "reviewer": "/root/astra_pr30_fresh_review/existence",
+  "prior_exposure": "No declared inventories or prior verdicts read before this freeze. Manuscript includes author provenance assertions, not relied on as acceptance.",
+  "commit": "a8843cca75ff29d51aa7b288c80b8bdc3a1ca3bb",
+  "manuscript_sha256": "f2d70e6963708f4f380f35d302896ad3c8700d22d1fd4d6d886db52bcad6c9c2",
+  "entries": [
+    {
+      "id": "E01",
+      "passage_lines": [
+        2254,
+        2256
+      ],
+      "excerpt_sha256": "72a07cb9dd8039b0a37b128d56f623a0ddb6832a3de780013073b0976ba34ddf",
+      "claim": "Aggregate sum no-translate + Von Buhren family height",
+      "supplier": "Internal sum-poles 36470-36537; graph comparison 36578-36644; independence 36646-36763. External Von Buhren 2017 Theorem 1.1.",
+      "required": "All nonzero signed/repeated labels; E0^8 graph; Gamma fixed; F+=2T; canonical sum gives B^2 <= M1 h(T)+M2."
+    },
+    {
+      "id": "E02",
+      "passage_lines": [
+        2258,
+        2264
+      ],
+      "excerpt_sha256": "38b728a7877b0bec1aac3d4a423aaadf550c755b0730161d703c22d02be3f48f",
+      "claim": "Height and radical join",
+      "supplier": "Sibling full-family height supplier plus rational inverse maps, scalar height inequalities.",
+      "required": "Accept height supplier as separate interface; two disjoint blocks within a detector, separate divisibility across detectors; no coprimality between M0,M1."
+    },
+    {
+      "id": "E03",
+      "passage_lines": [
+        2266,
+        2286
+      ],
+      "excerpt_sha256": "5f06581ec46f7fc14a2f84f1e1e815e2ad3e5a8bdfddefecc8e3b1b6ddfc494e",
+      "claim": "Uniform soundness threshold",
+      "supplier": "Scalar-S, parity and four-contact suppliers 38258-38285,40154-40249,42206-42250; integer Lucas norm equation.",
+      "required": "c=|a|>=149^L_N; eliminate Delta via exponent14/9<2; Lucas exponential bound eliminates J; constants fixed before x,N."
+    },
+    {
+      "id": "E04",
+      "passage_lines": [
+        2288,
+        2300
+      ],
+      "excerpt_sha256": "803cc0c45934d8a91f8be9d13bb8ceb84be7d61db38f60ea88f1ea37bd4ae3b9",
+      "claim": "Uniform scalar completeness preparation",
+      "supplier": "Four-contact completeness 42252-42275; scalar-S 38281-38285; real-progression 37358-37385.",
+      "required": "Rs>=A/(1+149^2), fixed compact neighborhoods before labels; W<=KW Rs^-4; b<=9793KW^2 Rs^-6; finite depths input dependent."
+    },
+    {
+      "id": "E05",
+      "passage_lines": [
+        2302,
+        2304
+      ],
+      "excerpt_sha256": "22d9af4d0d9c993fb38f9e61772131a35f146eef31b3b96a945d81373941a4d0",
+      "claim": "Lucas labels and contact list",
+      "supplier": "Integer recurrence, rational-contact denominator lemma 37154-37185 and 37336-37356.",
+      "required": "a>=3 chosen first; positive n,a,t,b, Delta=0; T positive; square denominator dilation; merge only equal coefficients preserving incidences."
+    },
+    {
+      "id": "E06",
+      "passage_lines": [
+        2306,
+        2306
+      ],
+      "excerpt_sha256": "815f29cd35fdef4c09861e78d57bdcf03ef9d6d559bee3c8fdbedf7ac1ed46d0",
+      "claim": "Prime pattern and compatible reference progression",
+      "supplier": "Internal simultaneous prime theorem; avoidance/progression 37240-37385; quantitative diagonal 37045-37152.",
+      "required": "Fixed arbitrary distinct coefficients and divisibility; no uniformity in input. Gaussian norms produce gcds; P double killed by order/4; real neighborhood preserved."
+    },
+    {
+      "id": "E07",
+      "passage_lines": [
+        2308,
+        2320
+      ],
+      "excerpt_sha256": "b88d1dd1e1520b27d5ae6af13500e8b4dec18fa9e30f79b99c26afb5b7051810",
+      "claim": "Changed factors and actual pole input",
+      "supplier": "Local reciprocal tests P04-P07; exact prime-product identity; finite/real preparation 38100-38175.",
+      "required": "Natural formal depth1, reciprocal depth2, error4; all changed factor valuations positive. Square parity away from contacts; selected odd valuation +1; local depths4,2,2; positive real limit."
+    },
+    {
+      "id": "E08",
+      "passage_lines": [
+        2322,
+        2322
+      ],
+      "excerpt_sha256": "faf44b4465b750095bd30a751538f208fb24637b1c8afb906ae370a04fd3c6a9",
+      "claim": "Fresh independent pole certificates",
+      "supplier": "Zero-preparation bridge 37387-37458 and retained RC/descent theorem.",
+      "required": "Actual new b has square denominator, 0<b<17 and local squares/depths; RC applies non-CM E_l with full Selmer corank1. Deep RC treated separate inherited interface."
+    },
+    {
+      "id": "E09",
+      "passage_lines": [
+        2324,
+        2324
+      ],
+      "excerpt_sha256": "bdc2427c16bcde4a33924ae6bc529f2922b4cf15ba5a033abe06d30a6d2f433b",
+      "claim": "Quantifier assembly and row transport",
+      "supplier": "E01-E08 and exact raw224 inverse/Laurent identities, separate row review.",
+      "required": "One NC independent x from scalar real bound; all later existential choices depend (N,x), no added N threshold; N0=max(NS,NC)."
+    }
+  ]
+}

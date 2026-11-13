@@ -1,0 +1,6 @@
+{
+  "source": "research/quartic214-manuscript/build_pdf.py",
+  "source_sha256": "9330fb6dfa4c1e4821062df9f6a5b76dacfbc4767bbd878709cba0f39ebe1e07",
+  "target": "research/version17/build_pdf.py",
+  "scope": "Reuse the serial resource-limited builder with the numbered source/output paths and flat current-manuscript build mapping. No build has been claimed by this preparation script."
+}

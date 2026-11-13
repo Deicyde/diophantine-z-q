@@ -1,0 +1,184 @@
+{
+  "schema": "independent-serialization-initial-reconstruction/v1",
+  "reviewer": "/root/d214_geometry_source_closure",
+  "frozen_at_utc": "2026-11-12T15:52:43.408270+00:00",
+  "exposure": "Prior geometry/history review and all known F1-F6 disclosed. Read actual original709-line generator, map methods/source list and exact source paragraphs (including F6) before Sol revision2 scan inventory. No blind-review claim. Previously read many actual geometry/modularity/history proofs; full fresh receiving comparison of all19 converted inputs remains to do.",
+  "baseline_commit": "e3626cac202cdbcdfedc2bff1978dcd3ea3fd3ab",
+  "baseline_tex_sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+  "generator_sha256": "c82053474d9ce627640862ce309bb1cd931d615276920fd4df2186eb3ae2f549",
+  "map_sha256": "c98fc0d5860fb1d17a1d1ec7f23e266015f26e37d72443b796a782006c371391",
+  "converted_proof_sources": [
+    {
+      "path": "research/quartic214-manuscript-review/FOUNDATION_TRANSITION.md",
+      "sha256": "9a3a081bfb6c3e5c0893065ab1c1ea19f36c91b997999064371886e270c3d936",
+      "bytes": 13149,
+      "initial_status": "pending full semantic receiving comparison"
+    },
+    {
+      "path": "research/quartic214/PROOF.md",
+      "sha256": "0feb164c3ed33543136b89aa87b27bc890f4aadef2d082d465263f55dc26d165",
+      "bytes": 10582,
+      "initial_status": "pending full semantic receiving comparison"
+    },
+    {
+      "path": "research/quartic214/proofs/existence.md",
+      "sha256": "37ab929ed3f4b4dee2b91d2e39408e7070e8a9176b981bcc9c352d17b9cc2332",
+      "bytes": 15072,
+      "initial_status": "pending full semantic receiving comparison"
+    },
+    {
+      "path": "research/quartic214/proofs/geometry-carry.md",
+      "sha256": "b3cb8201de84f733b0518ad68a9c0d0bc1e78534ffd39aca5d8c70f1bae69e76",
+      "bytes": 13337,
+      "initial_status": "pending full semantic receiving comparison"
+    },
+    {
+      "path": "research/quartic214/proofs/height-assembly.md",
+      "sha256": "1866f9452526b2c243f5f05267f74caa2a4532dfc23891a9b0e95abed2d00fe5",
+      "bytes": 7020,
+      "initial_status": "pending full semantic receiving comparison"
+    },
+    {
+      "path": "research/quartic214/proofs/height-averaging.md",
+      "sha256": "bb87f61d7134c09d695f9bbff2c26b12b8c9ce5fe74a4ec598b2e4410f100192",
+      "bytes": 8145,
+      "initial_status": "pending full semantic receiving comparison"
+    },
+    {
+      "path": "research/quartic214/proofs/height-different.md",
+      "sha256": "025885f763a9a72e9750ed10ec0bbfec4e8834ed85557acccda92a766c0ebcfa",
+      "bytes": 18529,
+      "initial_status": "pending full semantic receiving comparison"
+    },
+    {
+      "path": "research/quartic214/proofs/height-evaluation.md",
+      "sha256": "d691da0a6827d9b45c6c68294405163f679a2d57f08e2ecda56fd071b3579502",
+      "bytes": 14511,
+      "initial_status": "pending full semantic receiving comparison"
+    },
+    {
+      "path": "research/quartic214/proofs/height-metric.md",
+      "sha256": "ea61f4ce58481b8ffb3a2000189fbbc84a8ded3c91d7c447ffe98ae98f30ad8e",
+      "bytes": 9224,
+      "initial_status": "pending full semantic receiving comparison"
+    },
+    {
+      "path": "research/quartic214/proofs/height-supplier.md",
+      "sha256": "4974b167ab415159e0ff996b341528008c2ba8ae8e2a1ebf69bab5bc9a9b9c12",
+      "bytes": 15498,
+      "initial_status": "pending full semantic receiving comparison"
+    },
+    {
+      "path": "research/quartic214/proofs/modularity.md",
+      "sha256": "814676050b389793d196346f45e2797f39e2c5be0f3fee8457bb709b2607606e",
+      "bytes": 25777,
+      "initial_status": "pending full semantic receiving comparison"
+    },
+    {
+      "path": "research/quartic214/proofs/primary-source-bridges.md",
+      "sha256": "2c95d02a13ffa972eb6cb8d956b9063e970e33fd960e282c6d53ae8bb655c43c",
+      "bytes": 12939,
+      "initial_status": "pending full semantic receiving comparison"
+    },
+    {
+      "path": "research/quartic214/proofs/provider-scope-carry.md",
+      "sha256": "368774d2b96a606df4dd5e81a3c4fecaf22f09f33f27e49e0a80e37b02157154",
+      "bytes": 16324,
+      "initial_status": "pending full semantic receiving comparison"
+    },
+    {
+      "path": "research/quartic214/proofs/source-carry.md",
+      "sha256": "f7f4e550a4dcfbbd3b5ffcf783b11411f7888c821dbab7febb5132b7b2b891ed",
+      "bytes": 15185,
+      "initial_status": "pending full semantic receiving comparison"
+    },
+    {
+      "path": "research/quartic214/proofs/uniform-existence.md",
+      "sha256": "d13cc2b846dc72a3f5b5cce8dcf11d3f11b33c45ebc3883263840afb8d82f3bc",
+      "bytes": 22294,
+      "initial_status": "pending full semantic receiving comparison"
+    },
+    {
+      "path": "research/quartic214/sources/aggregate-bridge.md",
+      "sha256": "668e84f5864b5961b67599ef9c3ffd1b44c66c93679cef9853ef596fce4267f5",
+      "bytes": 7628,
+      "initial_status": "pending full semantic receiving comparison"
+    },
+    {
+      "path": "research/quartic214/sources/conductor-sections1-3.md",
+      "sha256": "c2e04a42dd82e244b1872b4a9a7298f1a9e45ca49ffcc436ff7c5149d6ee5d88",
+      "bytes": 9028,
+      "initial_status": "pending full semantic receiving comparison"
+    },
+    {
+      "path": "research/quartic214/sources/support-section1.md",
+      "sha256": "bb3e2cc7a102ba317ed984f463762cddc52576b3d7416e7a981093243cb16940",
+      "bytes": 3128,
+      "initial_status": "pending full semantic receiving comparison"
+    },
+    {
+      "path": "research/version15/quartics/quartic-222/provenance/shared-T-redundancy224-006/PROOF.md",
+      "sha256": "7b39db664ba3884897eda4e4e6550ec552ee8ef916509681e69b04b7990e0732",
+      "bytes": 2817,
+      "initial_status": "pending full semantic receiving comparison"
+    }
+  ],
+  "requirements": [
+    {
+      "id": "S01",
+      "obligation": "Every original source passage accounted for; mathematical sources distinguished from catalogue/provenance; no inference from line counts.",
+      "initial_status": "pending"
+    },
+    {
+      "id": "S02",
+      "obligation": "Numeric indices, repeated/compound subscripts, primes and full exponent operands preserve exact objects; Unicode powers cannot break numeric indices.",
+      "initial_status": "pending"
+    },
+    {
+      "id": "S03",
+      "obligation": "Radical, absolute value, parentheses/braces, division and rational exponent scope preserved; no dropped operands or integer/fraction ambiguity.",
+      "initial_status": "pending"
+    },
+    {
+      "id": "S04",
+      "obligation": "All set/group membership and units, dual/pullback/direct-image stars, tensor/exterior/direct sums, and arrow direction survive Markdown emphasis and math/prose detection.",
+      "initial_status": "pending"
+    },
+    {
+      "id": "S05",
+      "obligation": "Every quantifier, bound, sign, finite-prime exception, case distinction and fixed/variable parameter survives source-local adapters and prose tokenization.",
+      "initial_status": "pending"
+    },
+    {
+      "id": "S06",
+      "obligation": "Original arithmetic object names, normalized heights, Tate/cohomology duals and field labels retained; no semantic promotion from font or adjacency guesses.",
+      "initial_status": "pending"
+    },
+    {
+      "id": "S07",
+      "obligation": "Supplied historical/source scopes and supersession notices remain explicit; native primitive substitution/r=condeta new overlay independently inspected.",
+      "initial_status": "pending"
+    },
+    {
+      "id": "S08",
+      "obligation": "All IR214 coordinate identities and188 residual rows are independently inverse-parsed against exact integer terms; large coefficients parsed as exact base10 sums, no polynomial expansion.",
+      "initial_status": "pending"
+    },
+    {
+      "id": "S09",
+      "obligation": "Two retained TeX fragments differ only in legitimate label/citation aliases and heading demotion; all formulas preserved.",
+      "initial_status": "pending"
+    },
+    {
+      "id": "S10",
+      "obligation": "Retained complete V16 mathematical body matches exact accepted source after LF and four navigation anchors; only documented publication-wrapper exclusions.",
+      "initial_status": "pending"
+    },
+    {
+      "id": "S11",
+      "obligation": "New revision2 final output/review binds exact source/map/TeX/PDF. PDF spot inspection checks identified transformed expressions and representative pages, not a false703-page visual inspection claim.",
+      "initial_status": "pending"
+    }
+  ],
+  "initial_verdict": "incomplete; known F6 independently confirmed at frozen source57/TeX2552"
+}

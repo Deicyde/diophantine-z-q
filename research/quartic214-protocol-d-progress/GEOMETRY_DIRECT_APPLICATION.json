@@ -1,0 +1,273 @@
+{
+  "schema": "q214-additive-direct-consumer-application/v1",
+  "application_id": "Q214-D210-DIRECT-MODULARITY-CONSUMERS-20261112",
+  "authors": [
+    "/root/d214_sol_closure_ledger"
+  ],
+  "role": "author application proposal; no reviewer acceptance",
+  "frozen_commit": "e3626cac202cdbcdfedc2bff1978dcd3ea3fd3ab",
+  "original_contract": {
+    "path": "research/quartic214/contracts/modularity-6.json",
+    "sha256": "3b61613f34a5f8746804ab2e6aa24aa787cc5fb6485ac2c5aa2a1a1cc4da9ab9",
+    "bytes": 75345
+  },
+  "finding_request": {
+    "path": "reviews/geometry/DIRECT_EDGE_REQUEST.json",
+    "original_sha256": "f293441c5cf15b43ed7d7111a2232d09f93ed3762adca7cf47f4d6cb1e7d99d9"
+  },
+  "manuscript": {
+    "path": "research/quartic214-manuscript/quartic214.tex",
+    "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+    "bytes": 2337533
+  },
+  "pdf": {
+    "path": "research/quartic214-manuscript/quartic214.pdf",
+    "sha256": "8c22312ce54d3f2709eddc28c1045b1785d44ce0d7d47957639c0322a9d0a498",
+    "bytes": 3940738
+  },
+  "passages": [
+    {
+      "id": "G2",
+      "path": "research/quartic214/proofs/geometry-carry.md",
+      "sha256": "b3cb8201de84f733b0518ad68a9c0d0bc1e78534ffd39aca5d8c70f1bae69e76",
+      "bytes": 13337,
+      "lines": [
+        25,
+        32
+      ],
+      "excerpt_sha256": "fc03d911267a4dd2863908aaba7a1839aa8493b335c82e5e6ef6d021221b71c9",
+      "line_convention": "one-based inclusive original bytes with line endings retained"
+    },
+    {
+      "id": "G3",
+      "path": "research/quartic214/proofs/geometry-carry.md",
+      "sha256": "b3cb8201de84f733b0518ad68a9c0d0bc1e78534ffd39aca5d8c70f1bae69e76",
+      "bytes": 13337,
+      "lines": [
+        33,
+        56
+      ],
+      "excerpt_sha256": "a8f7e15152e5e83bbb14e961dc310ea25ec066228f5cf20798c62dff686cd290",
+      "line_convention": "one-based inclusive original bytes with line endings retained"
+    },
+    {
+      "id": "M0",
+      "path": "research/quartic214/proofs/modularity.md",
+      "sha256": "814676050b389793d196346f45e2797f39e2c5be0f3fee8457bb709b2607606e",
+      "bytes": 25777,
+      "lines": [
+        5,
+        12
+      ],
+      "excerpt_sha256": "6b729fa5b2f7c9c9334cbe2864b04457bcf66e75aaee18f1861d38800e94707a",
+      "line_convention": "one-based inclusive original bytes with line endings retained"
+    },
+    {
+      "id": "M2",
+      "path": "research/quartic214/proofs/modularity.md",
+      "sha256": "814676050b389793d196346f45e2797f39e2c5be0f3fee8457bb709b2607606e",
+      "bytes": 25777,
+      "lines": [
+        35,
+        46
+      ],
+      "excerpt_sha256": "51339241dd0f243dde66dde9cd9a50bd70dc2ec70f0099b136bd6c903dfceda2",
+      "line_convention": "one-based inclusive original bytes with line endings retained"
+    },
+    {
+      "id": "B-LINEAR",
+      "path": "manuscripts/quartic_v16.tex",
+      "sha256": "aeb2b6a42a03943d7f8c46682389c8da693d2903ba92ccc164bbbd236451de74",
+      "bytes": 1926498,
+      "lines": [
+        8226,
+        8255
+      ],
+      "excerpt_sha256": "45c2faf8a354d30db55966218b6e455e49945597ac406346e169ad6bfc7b51c4",
+      "line_convention": "one-based inclusive original bytes with line endings retained"
+    },
+    {
+      "id": "TEX-G2-G3",
+      "path": "research/quartic214-manuscript/quartic214.tex",
+      "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+      "bytes": 2337533,
+      "lines": [
+        2340,
+        2377
+      ],
+      "excerpt_sha256": "08d8fbe7463554e9019852585a8b441e721c39b4820880c0485a390dc242af97",
+      "line_convention": "one-based inclusive original bytes with line endings retained"
+    },
+    {
+      "id": "TEX-M0",
+      "path": "research/quartic214-manuscript/quartic214.tex",
+      "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+      "bytes": 2337533,
+      "lines": [
+        2496,
+        2503
+      ],
+      "excerpt_sha256": "300de5b1851da0de02f81d5092a11fad2b24bb6270ad646ad00bd701fbfb14d9",
+      "line_convention": "one-based inclusive original bytes with line endings retained"
+    },
+    {
+      "id": "TEX-M2",
+      "path": "research/quartic214-manuscript/quartic214.tex",
+      "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+      "bytes": 2337533,
+      "lines": [
+        2530,
+        2541
+      ],
+      "excerpt_sha256": "41ee754f4071032995ab4d665cdfda930e0bee342fe102ee10a10a4ee1b456ff",
+      "line_convention": "one-based inclusive original bytes with line endings retained"
+    },
+    {
+      "id": "TEX-B-LINEAR",
+      "path": "research/quartic214-manuscript/quartic214.tex",
+      "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+      "bytes": 2337533,
+      "lines": [
+        13309,
+        13338
+      ],
+      "excerpt_sha256": "3c3ad7fb1aa3dd88eb54cd9bbf03dd432329c946628b1dff1b910a20cef8d28d",
+      "line_convention": "one-based inclusive original bytes with line endings retained"
+    }
+  ],
+  "direct_edges": [
+    {
+      "supplier": "G2",
+      "consumer": "M0",
+      "connecting_argument": "existing frozen G2/G3 and B-LINEAR to M0/M2; nine obligations below"
+    },
+    {
+      "supplier": "G2",
+      "consumer": "M2",
+      "connecting_argument": "existing frozen G2/G3 and B-LINEAR to M0/M2; nine obligations below"
+    },
+    {
+      "supplier": "G3",
+      "consumer": "M0",
+      "connecting_argument": "existing frozen G2/G3 and B-LINEAR to M0/M2; nine obligations below"
+    },
+    {
+      "supplier": "G3",
+      "consumer": "M2",
+      "connecting_argument": "existing frozen G2/G3 and B-LINEAR to M0/M2; nine obligations below"
+    }
+  ],
+  "connecting_derivation": "G2 supplies the actual full-three D210 fiber surface A/L, full geometric End=B in the nonCM branch, all conjugate Hom over the same L, and normalizer same-Hodge lattice isogenies. V16 lines8226\u20138255 specifically make these maps B-linear in direction sigma A -> A, with mu_1=1 and finite choices inflated from Gal(L/Q); F-linear Skolem-Noether maps alone are not used. G3 changes only the rational-parameter support bound: all five primitive forms, including v, give rad(D_L)|R and good reduction of that same A/L away210. Therefore M0 uses these identical A,L,B,mu objects and R=B_SM_S(a) with no extra field. M2 then invokes its separately reviewed M1 cochain to form rho and, on G_Lprime, mu=a=b=1 gives the actual V_l(A); Faltings, deRham and oddness apply to this A. This new edge does not accept M1 or all M2-M3 or the G4 height/CM supplier.",
+  "obligations": [
+    {
+      "name": "source",
+      "status": "addressed by author; independent review pending",
+      "required_input": "M0 requires the exact whole-cover A/L, End^0=B, L-defined conjugate Hom, B-linear mu_sigma with mu_1=1; M2 requires this A after the separately supplied M1 scalar cochain.",
+      "constructed_input_and_derivation": "G2 supplies the same whole full-three D210 fiber and Hom descent; retained B-LINEAR supplies the actual B-linear normalizer isogenies, rather than only the earlier F-linear Skolem\u2013Noether maps.",
+      "evidence_passage_ids": [
+        "G2",
+        "B-LINEAR",
+        "M0",
+        "M2"
+      ]
+    },
+    {
+      "name": "constructed",
+      "status": "addressed by author; independent review pending",
+      "required_input": "Retain the actual A_a,L,B and mu, not an isogenous replacement or field enlarged to define Hom.",
+      "constructed_input_and_derivation": "The unbranched fiber determines L; its universal fiber is A. Full marking over L descends all conjugate Hom. The rational left-B Hodge module identity yields mu:sigma A -> A over the same L.",
+      "evidence_passage_ids": [
+        "G2",
+        "B-LINEAR",
+        "M0"
+      ]
+    },
+    {
+      "name": "domain",
+      "status": "addressed by author; independent review pending",
+      "required_input": "All rational a=u/v with coprime u,v, v>0 outside four finite branch contacts; include infinity contact at denominator primes and the non-CM branch.",
+      "constructed_input_and_derivation": "G2 fixes exactly that domain. G3 covers denominator, integral, unbranched and arbitrarily deep even contact at every p outside S10. End=B is asserted only in the non-CM branch; the CM height alternative remains separate.",
+      "evidence_passage_ids": [
+        "G2",
+        "G3",
+        "M0"
+      ]
+    },
+    {
+      "name": "maps",
+      "status": "addressed by author; independent review pending",
+      "required_input": "The conjugate isogeny must be B-linear in direction sigma A -> A and permit coherent finite choices, not merely be an F-linear isogeny.",
+      "constructed_input_and_derivation": "B-LINEAR identifies rational left-B modules and commensurable lattices. A rational scalar identity gives the stated direction, equality at11 and denominators prime to11. All Hom descend over L; choose mu_1=1 and inflate finite choices from Gal(L/Q). Their rational discrepancies are exactly the M1 input.",
+      "evidence_passage_ids": [
+        "G2",
+        "B-LINEAR",
+        "M0",
+        "M2"
+      ]
+    },
+    {
+      "name": "object",
+      "status": "addressed by author; independent review pending",
+      "required_input": "M2 must restrict to the actual covariant Tate module of the same A over L-prime.",
+      "constructed_input_and_derivation": "M0 retains A,L,B,mu. M1 separately supplies the cochain b and L-prime=kernel(b restricted to G_L). On G_L-prime, mu=a=b=1, hence rho_l=V_l(A); this edge neither proves nor accepts the independent M1 cochain construction.",
+      "evidence_passage_ids": [
+        "M0",
+        "M2",
+        "G2"
+      ]
+    },
+    {
+      "name": "normalization",
+      "status": "addressed by author; independent review pending",
+      "required_input": "Keep [L:Q] dividing576, stack72/effective36, R=B_S M_S(a), covariant Tate modules, arithmetic Frobenius and HT(Q_l(1))=-1.",
+      "constructed_input_and_derivation": "G2 uses the order576 regular torsor centralizer to obtain divisibility. G3 derives the new smaller support, not substitution in an old bound. M0 states the same R and conventions. No coefficient field or evaluation splitting field is substituted for L or L-prime.",
+      "evidence_passage_ids": [
+        "G2",
+        "G3",
+        "M0",
+        "M2"
+      ]
+    },
+    {
+      "name": "local",
+      "status": "addressed by author; independent review pending",
+      "required_input": "M0/M2 require rad(D_L)|R and good reduction of the same A away210; all residue primes must be retained.",
+      "constructed_input_and_derivation": "At p outside S10, primitive forms have at most one positive contact. When p does not divide R its depth is even, so the actual tame quadratic chart splits unramifiedly, including infinity; unramified normal closures stay unramified. Properness of the same fine cover extends its L-point and universal A at places away210. p in S10 is already in R.",
+      "evidence_passage_ids": [
+        "G3",
+        "M0",
+        "M2"
+      ]
+    },
+    {
+      "name": "exception",
+      "status": "addressed by author; independent review pending",
+      "required_input": "Retain negative a, nonintegral a, radical M=1, deep contacts, identity conjugation and every conjugate component; do not infer B-linearity from F-linearity.",
+      "constructed_input_and_derivation": "G2/G3 explicitly cover these cases. B-LINEAR acts on every component, retains full order labels, and chooses mu_1=1. Contact parameters are excluded globally; CM branch does not enter this modularity implication.",
+      "evidence_passage_ids": [
+        "G2",
+        "G3",
+        "B-LINEAR",
+        "M0"
+      ]
+    },
+    {
+      "name": "consumer",
+      "status": "addressed by author; independent review pending",
+      "required_input": "Bind the previously omitted direct G2/G3 -> M0/M2 consumers and preserve the downstream limits.",
+      "constructed_input_and_derivation": "Four direct edges explicitly bind G2 and G3 to each M0 and M2. They supply geometric premises only. M1, full M2-M3 primary applications, M5 numerical conductor, G4 metric/CM, H3 and final214 assembly need their own current decisions. The existing manuscript already prints the connecting proof; original modularity-6 remains frozen.",
+      "evidence_passage_ids": [
+        "G2",
+        "G3",
+        "M0",
+        "M2",
+        "TEX-G2-G3",
+        "TEX-M0",
+        "TEX-M2"
+      ]
+    }
+  ],
+  "history": "Earlier explicit inline argument and M0/M2 references exist. Original modularity-6 consumer_passages omit these direct sites. This additive contract makes those bindings explicit; it is not a new mathematical repair.",
+  "review_status": "pending independent geometry reviewer",
+  "limits": "No self-approval; no changed manuscript or original contract; no full geometry/modularity/214 acceptance conferred."
+}

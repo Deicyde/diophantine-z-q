@@ -1,0 +1,1622 @@
+{
+  "schema": "quartic214-public-application-contract-v1",
+  "application_id": "H04-integral-evaluation-and-trace-lattice",
+  "authors": [
+    "/root/d214_integral_evaluation"
+  ],
+  "public_port_author": "/root/d214_public_port",
+  "status": "author_proposed_pending_eligible_independent_public_review",
+  "original_author_contract": {
+    "path": "private-diophantine/research/quartic214-height-closure/evaluation/CONTRACT.json",
+    "sha256": "13a5c403aea4f67e051f8c6e05e57b112fdf9a0f569b32932398a41b22ffb7b7",
+    "bytes": 12529,
+    "application_id": "H04-integral-evaluation-and-trace-lattice"
+  },
+  "serialization": "Public whole-file and freshly located passage pins replace original private pins; no old approval is transferred.",
+  "manuscript": {
+    "path": "research/quartic214/PROOF.md",
+    "sha256": "0feb164c3ed33543136b89aa87b27bc890f4aadef2d082d465263f55dc26d165",
+    "bytes": 10582
+  },
+  "proof": {
+    "path": "research/quartic214/proofs/height-evaluation.md",
+    "sha256": "d691da0a6827d9b45c6c68294405163f679a2d57f08e2ecda56fd071b3579502",
+    "bytes": 14511
+  },
+  "construction_passages": [
+    {
+      "path": "research/quartic214/proofs/height-evaluation.md",
+      "sha256": "d691da0a6827d9b45c6c68294405163f679a2d57f08e2ecda56fd071b3579502",
+      "bytes": 14511,
+      "section": "## 1. Objects and finite flatness",
+      "lines": [
+        16,
+        31
+      ],
+      "passage_sha256": "5895b02911992e7bd7df54219234f84d0d003a66d74d89b307321dcca59c3950",
+      "line_convention": "1-based inclusive raw splitlines with endings retained"
+    },
+    {
+      "path": "research/quartic214/proofs/height-evaluation.md",
+      "sha256": "d691da0a6827d9b45c6c68294405163f679a2d57f08e2ecda56fd071b3579502",
+      "bytes": 14511,
+      "section": "## 2. A common regular model with the required direction",
+      "lines": [
+        32,
+        51
+      ],
+      "passage_sha256": "28f943b84c5eb7eb86876ad68ec86f9e856a21fba948ee054c9d0187a8d4ca12",
+      "line_convention": "1-based inclusive raw splitlines with endings retained"
+    },
+    {
+      "path": "research/quartic214/proofs/height-evaluation.md",
+      "sha256": "d691da0a6827d9b45c6c68294405163f679a2d57f08e2ecda56fd071b3579502",
+      "bytes": 14511,
+      "section": "## 3. The canonical module and its extension",
+      "lines": [
+        52,
+        72
+      ],
+      "passage_sha256": "df805dea8337211dfba4f46a83cc7861f20bdb6e75a3c8e4601b718d6aa5f648",
+      "line_convention": "1-based inclusive raw splitlines with endings retained"
+    },
+    {
+      "path": "research/quartic214/proofs/height-evaluation.md",
+      "sha256": "d691da0a6827d9b45c6c68294405163f679a2d57f08e2ecda56fd071b3579502",
+      "bytes": 14511,
+      "section": "## 4. Trace normalization and specialization are the actual evaluation",
+      "lines": [
+        73,
+        104
+      ],
+      "passage_sha256": "e663066549e3b005c91f7adeac2cafa88c7d6c1e4b334ed5d47e68a867b48083",
+      "line_convention": "1-based inclusive raw splitlines with endings retained"
+    },
+    {
+      "path": "research/quartic214/proofs/height-evaluation.md",
+      "sha256": "d691da0a6827d9b45c6c68294405163f679a2d57f08e2ecda56fd071b3579502",
+      "bytes": 14511,
+      "section": "## 5. Trace-dual projection and arithmetic degree",
+      "lines": [
+        105,
+        124
+      ],
+      "passage_sha256": "c13784f0fe855e8f6ba77e433db65cf94fb07fb27da8d49f032e39323ab57a89",
+      "line_convention": "1-based inclusive raw splitlines with endings retained"
+    },
+    {
+      "path": "research/quartic214/proofs/height-evaluation.md",
+      "sha256": "d691da0a6827d9b45c6c68294405163f679a2d57f08e2ecda56fd071b3579502",
+      "bytes": 14511,
+      "section": "## 6. Exact consumer and bounded status",
+      "lines": [
+        125,
+        129
+      ],
+      "passage_sha256": "778c466de496c18fa24efbc804286dcdd75f8981b71eca8e8b244f4df1da3174",
+      "line_convention": "1-based inclusive raw splitlines with endings retained"
+    }
+  ],
+  "application_passages": [
+    {
+      "path": "research/quartic214/proofs/height-evaluation.md",
+      "sha256": "d691da0a6827d9b45c6c68294405163f679a2d57f08e2ecda56fd071b3579502",
+      "bytes": 14511,
+      "section": "## 1. Objects and finite flatness",
+      "lines": [
+        16,
+        31
+      ],
+      "passage_sha256": "5895b02911992e7bd7df54219234f84d0d003a66d74d89b307321dcca59c3950",
+      "line_convention": "1-based inclusive raw splitlines with endings retained"
+    },
+    {
+      "path": "research/quartic214/proofs/height-evaluation.md",
+      "sha256": "d691da0a6827d9b45c6c68294405163f679a2d57f08e2ecda56fd071b3579502",
+      "bytes": 14511,
+      "section": "## 2. A common regular model with the required direction",
+      "lines": [
+        32,
+        51
+      ],
+      "passage_sha256": "28f943b84c5eb7eb86876ad68ec86f9e856a21fba948ee054c9d0187a8d4ca12",
+      "line_convention": "1-based inclusive raw splitlines with endings retained"
+    },
+    {
+      "path": "research/quartic214/proofs/height-evaluation.md",
+      "sha256": "d691da0a6827d9b45c6c68294405163f679a2d57f08e2ecda56fd071b3579502",
+      "bytes": 14511,
+      "section": "## 3. The canonical module and its extension",
+      "lines": [
+        52,
+        72
+      ],
+      "passage_sha256": "df805dea8337211dfba4f46a83cc7861f20bdb6e75a3c8e4601b718d6aa5f648",
+      "line_convention": "1-based inclusive raw splitlines with endings retained"
+    },
+    {
+      "path": "research/quartic214/proofs/height-evaluation.md",
+      "sha256": "d691da0a6827d9b45c6c68294405163f679a2d57f08e2ecda56fd071b3579502",
+      "bytes": 14511,
+      "section": "## 4. Trace normalization and specialization are the actual evaluation",
+      "lines": [
+        73,
+        104
+      ],
+      "passage_sha256": "e663066549e3b005c91f7adeac2cafa88c7d6c1e4b334ed5d47e68a867b48083",
+      "line_convention": "1-based inclusive raw splitlines with endings retained"
+    },
+    {
+      "path": "research/quartic214/proofs/height-evaluation.md",
+      "sha256": "d691da0a6827d9b45c6c68294405163f679a2d57f08e2ecda56fd071b3579502",
+      "bytes": 14511,
+      "section": "## 5. Trace-dual projection and arithmetic degree",
+      "lines": [
+        105,
+        124
+      ],
+      "passage_sha256": "c13784f0fe855e8f6ba77e433db65cf94fb07fb27da8d49f032e39323ab57a89",
+      "line_convention": "1-based inclusive raw splitlines with endings retained"
+    },
+    {
+      "path": "research/quartic214/proofs/height-evaluation.md",
+      "sha256": "d691da0a6827d9b45c6c68294405163f679a2d57f08e2ecda56fd071b3579502",
+      "bytes": 14511,
+      "section": "## 6. Exact consumer and bounded status",
+      "lines": [
+        125,
+        129
+      ],
+      "passage_sha256": "778c466de496c18fa24efbc804286dcdd75f8981b71eca8e8b244f4df1da3174",
+      "line_convention": "1-based inclusive raw splitlines with endings retained"
+    }
+  ],
+  "consumer_passages": [
+    {
+      "path": "research/quartic214/proofs/height-supplier.md",
+      "sha256": "4974b167ab415159e0ff996b341528008c2ba8ae8e2a1ebf69bab5bc9a9b9c12",
+      "bytes": 15498,
+      "section": "## H0.",
+      "lines": [
+        7,
+        32
+      ],
+      "passage_sha256": "3c61de9b62e636063cf74beddc40dd6b10ce7bada0c182b8a10432bd6bc34850",
+      "line_convention": "1-based inclusive raw splitlines with endings retained"
+    },
+    {
+      "path": "research/quartic214/proofs/height-supplier.md",
+      "sha256": "4974b167ab415159e0ff996b341528008c2ba8ae8e2a1ebf69bab5bc9a9b9c12",
+      "bytes": 15498,
+      "section": "## H4.",
+      "lines": [
+        97,
+        134
+      ],
+      "passage_sha256": "c79afa0e08a65898a762e6f24ed869f4a35f3c741dacbf82eaee1f9b7d4a0753",
+      "line_convention": "1-based inclusive raw splitlines with endings retained"
+    }
+  ],
+  "required_sources": [
+    {
+      "path": "research/quartic214/PROOF.md",
+      "sha256": "0feb164c3ed33543136b89aa87b27bc890f4aadef2d082d465263f55dc26d165",
+      "bytes": 10582
+    },
+    {
+      "path": "research/quartic214/proofs/height-supplier.md",
+      "sha256": "4974b167ab415159e0ff996b341528008c2ba8ae8e2a1ebf69bab5bc9a9b9c12",
+      "bytes": 15498
+    },
+    {
+      "path": "research/quartic214/proofs/height-averaging.md",
+      "sha256": "bb87f61d7134c09d695f9bbff2c26b12b8c9ce5fe74a4ec598b2e4410f100192",
+      "bytes": 8145
+    },
+    {
+      "path": "research/quartic214/PRIMARY_SOURCES.json",
+      "sha256": "cfa7597432cd98c7184c0f9332c6d56f8ea53b208613aab0d855f5ffd1181161",
+      "bytes": 48789
+    },
+    {
+      "path": "research/version15/snapshots/v15-222-004/manuscript/quartic_v15.tex",
+      "sha256": "44ba3a8ec8521c29b81b26cfb9981cd6d5f3c76d54e7782438614842edb52c74",
+      "bytes": 1924438
+    },
+    {
+      "path": "research/quartic214/proofs/height-evaluation.md",
+      "sha256": "d691da0a6827d9b45c6c68294405163f679a2d57f08e2ecda56fd071b3579502",
+      "bytes": 14511
+    },
+    {
+      "path": "research/quartic214/sources/evaluation-sections1-4.tex",
+      "sha256": "70919ebd13613f7c9f7317995b285348398c6895808a61463be0aac139b8511c",
+      "bytes": 17465
+    },
+    {
+      "path": "research/quartic214/proofs/height-assembly.md",
+      "sha256": "1866f9452526b2c243f5f05267f74caa2a4532dfc23891a9b0e95abed2d00fe5",
+      "bytes": 7020
+    }
+  ],
+  "obligations": {
+    "source_hypotheses": {
+      "required_input": "All local dimension, normality, CM, proper birational, regular-point blowup and finite duality hypotheses; actual statements, definitions and canonical comparison.",
+      "constructed_input": "A=O_K[t] regular dim2; B normal finite projective; M regular semistable; \u0393,Z proper birational; each centre closed regular dim2; target Y normal.",
+      "justification": "PROOF \u00a7\u00a71\u20134 proves finite projectivity including the required miracle-flatness dimension equality, constructs rather than assumes graph domination, and treats non-Gorenstein dual module and canonical trace.",
+      "original_author_obligation_sha256": "b8f38942f0aa03e3069b138bc6873edea8f5bad244b56e0191caf023489e8553",
+      "original_author_source_ids": [
+        "S-00R4",
+        "S-031S",
+        "S-00H8",
+        "S-0AHI",
+        "S-0BFP",
+        "S-JAV",
+        "S-0BUL",
+        "S-0ATX",
+        "S-0AVT"
+      ],
+      "status": "author_proposed_pending_eligible_independent_public_review",
+      "source_references": [
+        {
+          "path": "research/quartic214/PROOF.md",
+          "sha256": "0feb164c3ed33543136b89aa87b27bc890f4aadef2d082d465263f55dc26d165",
+          "bytes": 10582
+        },
+        {
+          "path": "research/quartic214/proofs/height-supplier.md",
+          "sha256": "4974b167ab415159e0ff996b341528008c2ba8ae8e2a1ebf69bab5bc9a9b9c12",
+          "bytes": 15498
+        },
+        {
+          "path": "research/quartic214/proofs/height-averaging.md",
+          "sha256": "bb87f61d7134c09d695f9bbff2c26b12b8c9ce5fe74a4ec598b2e4410f100192",
+          "bytes": 8145
+        },
+        {
+          "path": "research/quartic214/PRIMARY_SOURCES.json",
+          "sha256": "cfa7597432cd98c7184c0f9332c6d56f8ea53b208613aab0d855f5ffd1181161",
+          "bytes": 48789
+        },
+        {
+          "path": "research/version15/snapshots/v15-222-004/manuscript/quartic_v15.tex",
+          "sha256": "44ba3a8ec8521c29b81b26cfb9981cd6d5f3c76d54e7782438614842edb52c74",
+          "bytes": 1924438
+        },
+        {
+          "path": "research/quartic214/proofs/height-evaluation.md",
+          "sha256": "d691da0a6827d9b45c6c68294405163f679a2d57f08e2ecda56fd071b3579502",
+          "bytes": 14511
+        },
+        {
+          "path": "research/quartic214/sources/evaluation-sections1-4.tex",
+          "sha256": "70919ebd13613f7c9f7317995b285348398c6895808a61463be0aac139b8511c",
+          "bytes": 17465
+        },
+        {
+          "path": "research/quartic214/proofs/height-assembly.md",
+          "sha256": "1866f9452526b2c243f5f05267f74caa2a4532dfc23891a9b0e95abed2d00fe5",
+          "bytes": 7020
+        }
+      ],
+      "evidence": [
+        {
+          "path": "research/quartic214/proofs/height-evaluation.md",
+          "sha256": "d691da0a6827d9b45c6c68294405163f679a2d57f08e2ecda56fd071b3579502",
+          "bytes": 14511,
+          "section": "## 1. Objects and finite flatness",
+          "lines": [
+            16,
+            31
+          ],
+          "passage_sha256": "5895b02911992e7bd7df54219234f84d0d003a66d74d89b307321dcca59c3950",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/proofs/height-evaluation.md",
+          "sha256": "d691da0a6827d9b45c6c68294405163f679a2d57f08e2ecda56fd071b3579502",
+          "bytes": 14511,
+          "section": "## 2. A common regular model with the required direction",
+          "lines": [
+            32,
+            51
+          ],
+          "passage_sha256": "28f943b84c5eb7eb86876ad68ec86f9e856a21fba948ee054c9d0187a8d4ca12",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/proofs/height-evaluation.md",
+          "sha256": "d691da0a6827d9b45c6c68294405163f679a2d57f08e2ecda56fd071b3579502",
+          "bytes": 14511,
+          "section": "## 3. The canonical module and its extension",
+          "lines": [
+            52,
+            72
+          ],
+          "passage_sha256": "df805dea8337211dfba4f46a83cc7861f20bdb6e75a3c8e4601b718d6aa5f648",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/proofs/height-evaluation.md",
+          "sha256": "d691da0a6827d9b45c6c68294405163f679a2d57f08e2ecda56fd071b3579502",
+          "bytes": 14511,
+          "section": "## 4. Trace normalization and specialization are the actual evaluation",
+          "lines": [
+            73,
+            104
+          ],
+          "passage_sha256": "e663066549e3b005c91f7adeac2cafa88c7d6c1e4b334ed5d47e68a867b48083",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/proofs/height-evaluation.md",
+          "sha256": "d691da0a6827d9b45c6c68294405163f679a2d57f08e2ecda56fd071b3579502",
+          "bytes": 14511,
+          "section": "## 5. Trace-dual projection and arithmetic degree",
+          "lines": [
+            105,
+            124
+          ],
+          "passage_sha256": "c13784f0fe855e8f6ba77e433db65cf94fb07fb27da8d49f032e39323ab57a89",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/proofs/height-evaluation.md",
+          "sha256": "d691da0a6827d9b45c6c68294405163f679a2d57f08e2ecda56fd071b3579502",
+          "bytes": 14511,
+          "section": "## 6. Exact consumer and bounded status",
+          "lines": [
+            125,
+            129
+          ],
+          "passage_sha256": "778c466de496c18fa24efbc804286dcdd75f8981b71eca8e8b244f4df1da3174",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/proofs/height-supplier.md",
+          "sha256": "4974b167ab415159e0ff996b341528008c2ba8ae8e2a1ebf69bab5bc9a9b9c12",
+          "bytes": 15498,
+          "section": "## H0.",
+          "lines": [
+            7,
+            32
+          ],
+          "passage_sha256": "3c61de9b62e636063cf74beddc40dd6b10ce7bada0c182b8a10432bd6bc34850",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/proofs/height-supplier.md",
+          "sha256": "4974b167ab415159e0ff996b341528008c2ba8ae8e2a1ebf69bab5bc9a9b9c12",
+          "bytes": 15498,
+          "section": "## H4.",
+          "lines": [
+            97,
+            134
+          ],
+          "passage_sha256": "c79afa0e08a65898a762e6f24ed869f4a35f3c741dacbf82eaee1f9b7d4a0753",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        }
+      ]
+    },
+    "constructed_objects": {
+      "required_input": "Identify actual rings, curves, models, modules and fibre used downstream.",
+      "constructed_input": "F=K(t),L=K(X),R=O_K,A=R[t],Y=normalization P1_R in L,B=Y affine algebra,C=B/(t\u22122)B\u2282K^d,O=R^d,E=H0(M,\u03c9_M/R),F_I=pr_I(C^vee).",
+      "justification": "Generic fibre normalization equals original smooth X; C_K equals same d split unramified points. No saturated order or alternate model lattice replaces E or C.",
+      "original_author_obligation_sha256": "c590310ef9255f272c6ea2004e009eca13aa467a3f679f2cb2807dc514c9cb50",
+      "original_author_source_ids": [
+        "Brox v17:79\u201399",
+        "PROOF \u00a7\u00a71\u20135"
+      ],
+      "status": "author_proposed_pending_eligible_independent_public_review",
+      "source_references": [
+        {
+          "path": "research/quartic214/PROOF.md",
+          "sha256": "0feb164c3ed33543136b89aa87b27bc890f4aadef2d082d465263f55dc26d165",
+          "bytes": 10582
+        },
+        {
+          "path": "research/quartic214/proofs/height-supplier.md",
+          "sha256": "4974b167ab415159e0ff996b341528008c2ba8ae8e2a1ebf69bab5bc9a9b9c12",
+          "bytes": 15498
+        },
+        {
+          "path": "research/quartic214/proofs/height-averaging.md",
+          "sha256": "bb87f61d7134c09d695f9bbff2c26b12b8c9ce5fe74a4ec598b2e4410f100192",
+          "bytes": 8145
+        },
+        {
+          "path": "research/quartic214/PRIMARY_SOURCES.json",
+          "sha256": "cfa7597432cd98c7184c0f9332c6d56f8ea53b208613aab0d855f5ffd1181161",
+          "bytes": 48789
+        },
+        {
+          "path": "research/version15/snapshots/v15-222-004/manuscript/quartic_v15.tex",
+          "sha256": "44ba3a8ec8521c29b81b26cfb9981cd6d5f3c76d54e7782438614842edb52c74",
+          "bytes": 1924438
+        },
+        {
+          "path": "research/quartic214/proofs/height-evaluation.md",
+          "sha256": "d691da0a6827d9b45c6c68294405163f679a2d57f08e2ecda56fd071b3579502",
+          "bytes": 14511
+        },
+        {
+          "path": "research/quartic214/sources/evaluation-sections1-4.tex",
+          "sha256": "70919ebd13613f7c9f7317995b285348398c6895808a61463be0aac139b8511c",
+          "bytes": 17465
+        },
+        {
+          "path": "research/quartic214/proofs/height-assembly.md",
+          "sha256": "1866f9452526b2c243f5f05267f74caa2a4532dfc23891a9b0e95abed2d00fe5",
+          "bytes": 7020
+        }
+      ],
+      "evidence": [
+        {
+          "path": "research/quartic214/proofs/height-evaluation.md",
+          "sha256": "d691da0a6827d9b45c6c68294405163f679a2d57f08e2ecda56fd071b3579502",
+          "bytes": 14511,
+          "section": "## 1. Objects and finite flatness",
+          "lines": [
+            16,
+            31
+          ],
+          "passage_sha256": "5895b02911992e7bd7df54219234f84d0d003a66d74d89b307321dcca59c3950",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/proofs/height-evaluation.md",
+          "sha256": "d691da0a6827d9b45c6c68294405163f679a2d57f08e2ecda56fd071b3579502",
+          "bytes": 14511,
+          "section": "## 2. A common regular model with the required direction",
+          "lines": [
+            32,
+            51
+          ],
+          "passage_sha256": "28f943b84c5eb7eb86876ad68ec86f9e856a21fba948ee054c9d0187a8d4ca12",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/proofs/height-evaluation.md",
+          "sha256": "d691da0a6827d9b45c6c68294405163f679a2d57f08e2ecda56fd071b3579502",
+          "bytes": 14511,
+          "section": "## 3. The canonical module and its extension",
+          "lines": [
+            52,
+            72
+          ],
+          "passage_sha256": "df805dea8337211dfba4f46a83cc7861f20bdb6e75a3c8e4601b718d6aa5f648",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/proofs/height-evaluation.md",
+          "sha256": "d691da0a6827d9b45c6c68294405163f679a2d57f08e2ecda56fd071b3579502",
+          "bytes": 14511,
+          "section": "## 4. Trace normalization and specialization are the actual evaluation",
+          "lines": [
+            73,
+            104
+          ],
+          "passage_sha256": "e663066549e3b005c91f7adeac2cafa88c7d6c1e4b334ed5d47e68a867b48083",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/proofs/height-evaluation.md",
+          "sha256": "d691da0a6827d9b45c6c68294405163f679a2d57f08e2ecda56fd071b3579502",
+          "bytes": 14511,
+          "section": "## 5. Trace-dual projection and arithmetic degree",
+          "lines": [
+            105,
+            124
+          ],
+          "passage_sha256": "c13784f0fe855e8f6ba77e433db65cf94fb07fb27da8d49f032e39323ab57a89",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/proofs/height-evaluation.md",
+          "sha256": "d691da0a6827d9b45c6c68294405163f679a2d57f08e2ecda56fd071b3579502",
+          "bytes": 14511,
+          "section": "## 6. Exact consumer and bounded status",
+          "lines": [
+            125,
+            129
+          ],
+          "passage_sha256": "778c466de496c18fa24efbc804286dcdd75f8981b71eca8e8b244f4df1da3174",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/proofs/height-supplier.md",
+          "sha256": "4974b167ab415159e0ff996b341528008c2ba8ae8e2a1ebf69bab5bc9a9b9c12",
+          "bytes": 15498,
+          "section": "## H0.",
+          "lines": [
+            7,
+            32
+          ],
+          "passage_sha256": "3c61de9b62e636063cf74beddc40dd6b10ce7bada0c182b8a10432bd6bc34850",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/proofs/height-supplier.md",
+          "sha256": "4974b167ab415159e0ff996b341528008c2ba8ae8e2a1ebf69bab5bc9a9b9c12",
+          "bytes": 15498,
+          "section": "## H4.",
+          "lines": [
+            97,
+            134
+          ],
+          "passage_sha256": "c79afa0e08a65898a762e6f24ed869f4a35f3c741dacbf82eaee1f9b7d4a0753",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        }
+      ]
+    },
+    "domain_and_index_coverage": {
+      "required_input": "All number fields meeting v17 assumptions, all d fibre points, all finite primes, every coordinate subset I of sizeg.",
+      "constructed_input": "Arbitrary such K and finite degree d, d distinct rational P_i, all height-one points of Y, every finite prime of O_K, all I\u2282{1,\u2026,d}.",
+      "justification": "Normal/reflexive extension covers every omitted codim2 point; local ring and determinant arguments do not exclude small residue characteristic. Choice of injective I remains the separate rank component; lattice bound holds for all I.",
+      "original_author_obligation_sha256": "925bf851158118e0a52ec8d9d772870465a8e4972de9231a5a74ff6e73ed0fa4",
+      "original_author_source_ids": [
+        "PROOF \u00a7\u00a71\u20135",
+        "S-0AVT",
+        "S-0BFP"
+      ],
+      "status": "author_proposed_pending_eligible_independent_public_review",
+      "source_references": [
+        {
+          "path": "research/quartic214/PROOF.md",
+          "sha256": "0feb164c3ed33543136b89aa87b27bc890f4aadef2d082d465263f55dc26d165",
+          "bytes": 10582
+        },
+        {
+          "path": "research/quartic214/proofs/height-supplier.md",
+          "sha256": "4974b167ab415159e0ff996b341528008c2ba8ae8e2a1ebf69bab5bc9a9b9c12",
+          "bytes": 15498
+        },
+        {
+          "path": "research/quartic214/proofs/height-averaging.md",
+          "sha256": "bb87f61d7134c09d695f9bbff2c26b12b8c9ce5fe74a4ec598b2e4410f100192",
+          "bytes": 8145
+        },
+        {
+          "path": "research/quartic214/PRIMARY_SOURCES.json",
+          "sha256": "cfa7597432cd98c7184c0f9332c6d56f8ea53b208613aab0d855f5ffd1181161",
+          "bytes": 48789
+        },
+        {
+          "path": "research/version15/snapshots/v15-222-004/manuscript/quartic_v15.tex",
+          "sha256": "44ba3a8ec8521c29b81b26cfb9981cd6d5f3c76d54e7782438614842edb52c74",
+          "bytes": 1924438
+        },
+        {
+          "path": "research/quartic214/proofs/height-evaluation.md",
+          "sha256": "d691da0a6827d9b45c6c68294405163f679a2d57f08e2ecda56fd071b3579502",
+          "bytes": 14511
+        },
+        {
+          "path": "research/quartic214/sources/evaluation-sections1-4.tex",
+          "sha256": "70919ebd13613f7c9f7317995b285348398c6895808a61463be0aac139b8511c",
+          "bytes": 17465
+        },
+        {
+          "path": "research/quartic214/proofs/height-assembly.md",
+          "sha256": "1866f9452526b2c243f5f05267f74caa2a4532dfc23891a9b0e95abed2d00fe5",
+          "bytes": 7020
+        }
+      ],
+      "evidence": [
+        {
+          "path": "research/quartic214/proofs/height-evaluation.md",
+          "sha256": "d691da0a6827d9b45c6c68294405163f679a2d57f08e2ecda56fd071b3579502",
+          "bytes": 14511,
+          "section": "## 1. Objects and finite flatness",
+          "lines": [
+            16,
+            31
+          ],
+          "passage_sha256": "5895b02911992e7bd7df54219234f84d0d003a66d74d89b307321dcca59c3950",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/proofs/height-evaluation.md",
+          "sha256": "d691da0a6827d9b45c6c68294405163f679a2d57f08e2ecda56fd071b3579502",
+          "bytes": 14511,
+          "section": "## 2. A common regular model with the required direction",
+          "lines": [
+            32,
+            51
+          ],
+          "passage_sha256": "28f943b84c5eb7eb86876ad68ec86f9e856a21fba948ee054c9d0187a8d4ca12",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/proofs/height-evaluation.md",
+          "sha256": "d691da0a6827d9b45c6c68294405163f679a2d57f08e2ecda56fd071b3579502",
+          "bytes": 14511,
+          "section": "## 3. The canonical module and its extension",
+          "lines": [
+            52,
+            72
+          ],
+          "passage_sha256": "df805dea8337211dfba4f46a83cc7861f20bdb6e75a3c8e4601b718d6aa5f648",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/proofs/height-evaluation.md",
+          "sha256": "d691da0a6827d9b45c6c68294405163f679a2d57f08e2ecda56fd071b3579502",
+          "bytes": 14511,
+          "section": "## 4. Trace normalization and specialization are the actual evaluation",
+          "lines": [
+            73,
+            104
+          ],
+          "passage_sha256": "e663066549e3b005c91f7adeac2cafa88c7d6c1e4b334ed5d47e68a867b48083",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/proofs/height-evaluation.md",
+          "sha256": "d691da0a6827d9b45c6c68294405163f679a2d57f08e2ecda56fd071b3579502",
+          "bytes": 14511,
+          "section": "## 5. Trace-dual projection and arithmetic degree",
+          "lines": [
+            105,
+            124
+          ],
+          "passage_sha256": "c13784f0fe855e8f6ba77e433db65cf94fb07fb27da8d49f032e39323ab57a89",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/proofs/height-evaluation.md",
+          "sha256": "d691da0a6827d9b45c6c68294405163f679a2d57f08e2ecda56fd071b3579502",
+          "bytes": 14511,
+          "section": "## 6. Exact consumer and bounded status",
+          "lines": [
+            125,
+            129
+          ],
+          "passage_sha256": "778c466de496c18fa24efbc804286dcdd75f8981b71eca8e8b244f4df1da3174",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/proofs/height-supplier.md",
+          "sha256": "4974b167ab415159e0ff996b341528008c2ba8ae8e2a1ebf69bab5bc9a9b9c12",
+          "bytes": 15498,
+          "section": "## H0.",
+          "lines": [
+            7,
+            32
+          ],
+          "passage_sha256": "3c61de9b62e636063cf74beddc40dd6b10ce7bada0c182b8a10432bd6bc34850",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/proofs/height-supplier.md",
+          "sha256": "4974b167ab415159e0ff996b341528008c2ba8ae8e2a1ebf69bab5bc9a9b9c12",
+          "bytes": 15498,
+          "section": "## H4.",
+          "lines": [
+            97,
+            134
+          ],
+          "passage_sha256": "c79afa0e08a65898a762e6f24ed869f4a35f3c741dacbf82eaee1f9b7d4a0753",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        }
+      ]
+    },
+    "transition_and_comparison_maps": {
+      "required_input": "Track pullback, descent, finite duality, base change and projection, including possible scalars.",
+      "constructed_input": "E\u2192H0(Z,\u03c9_Z/R)\u2192H0(Y,\u03c9_Y/R)\u2192Hom_A(B,A)dt\u2192Hom_R(C,R)dt\u2245C^vee dt\u2192F_I dt.",
+      "justification": "Positive exceptional twist keeps literal generic differential. Product/etale calculation fixes map fdt\u21a6[b\u21a6Tr(fb)]dt with scalar1. Explicit formula for nonflat t\u21922 quotient and coordinate projection checks direction and gluing.",
+      "original_author_obligation_sha256": "cc09f0a7b54e8a351b1b6f898ea2ef237be4cb38e261b85162bb68619aead831",
+      "original_author_source_ids": [
+        "PROOF \u00a7\u00a72\u20135",
+        "S-0BUL",
+        "S-0ATX",
+        "S-0E9Z",
+        "S-0E9U",
+        "S-04HN",
+        "S-0BW2"
+      ],
+      "status": "author_proposed_pending_eligible_independent_public_review",
+      "source_references": [
+        {
+          "path": "research/quartic214/PROOF.md",
+          "sha256": "0feb164c3ed33543136b89aa87b27bc890f4aadef2d082d465263f55dc26d165",
+          "bytes": 10582
+        },
+        {
+          "path": "research/quartic214/proofs/height-supplier.md",
+          "sha256": "4974b167ab415159e0ff996b341528008c2ba8ae8e2a1ebf69bab5bc9a9b9c12",
+          "bytes": 15498
+        },
+        {
+          "path": "research/quartic214/proofs/height-averaging.md",
+          "sha256": "bb87f61d7134c09d695f9bbff2c26b12b8c9ce5fe74a4ec598b2e4410f100192",
+          "bytes": 8145
+        },
+        {
+          "path": "research/quartic214/PRIMARY_SOURCES.json",
+          "sha256": "cfa7597432cd98c7184c0f9332c6d56f8ea53b208613aab0d855f5ffd1181161",
+          "bytes": 48789
+        },
+        {
+          "path": "research/version15/snapshots/v15-222-004/manuscript/quartic_v15.tex",
+          "sha256": "44ba3a8ec8521c29b81b26cfb9981cd6d5f3c76d54e7782438614842edb52c74",
+          "bytes": 1924438
+        },
+        {
+          "path": "research/quartic214/proofs/height-evaluation.md",
+          "sha256": "d691da0a6827d9b45c6c68294405163f679a2d57f08e2ecda56fd071b3579502",
+          "bytes": 14511
+        },
+        {
+          "path": "research/quartic214/sources/evaluation-sections1-4.tex",
+          "sha256": "70919ebd13613f7c9f7317995b285348398c6895808a61463be0aac139b8511c",
+          "bytes": 17465
+        },
+        {
+          "path": "research/quartic214/proofs/height-assembly.md",
+          "sha256": "1866f9452526b2c243f5f05267f74caa2a4532dfc23891a9b0e95abed2d00fe5",
+          "bytes": 7020
+        }
+      ],
+      "evidence": [
+        {
+          "path": "research/quartic214/proofs/height-evaluation.md",
+          "sha256": "d691da0a6827d9b45c6c68294405163f679a2d57f08e2ecda56fd071b3579502",
+          "bytes": 14511,
+          "section": "## 1. Objects and finite flatness",
+          "lines": [
+            16,
+            31
+          ],
+          "passage_sha256": "5895b02911992e7bd7df54219234f84d0d003a66d74d89b307321dcca59c3950",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/proofs/height-evaluation.md",
+          "sha256": "d691da0a6827d9b45c6c68294405163f679a2d57f08e2ecda56fd071b3579502",
+          "bytes": 14511,
+          "section": "## 2. A common regular model with the required direction",
+          "lines": [
+            32,
+            51
+          ],
+          "passage_sha256": "28f943b84c5eb7eb86876ad68ec86f9e856a21fba948ee054c9d0187a8d4ca12",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/proofs/height-evaluation.md",
+          "sha256": "d691da0a6827d9b45c6c68294405163f679a2d57f08e2ecda56fd071b3579502",
+          "bytes": 14511,
+          "section": "## 3. The canonical module and its extension",
+          "lines": [
+            52,
+            72
+          ],
+          "passage_sha256": "df805dea8337211dfba4f46a83cc7861f20bdb6e75a3c8e4601b718d6aa5f648",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/proofs/height-evaluation.md",
+          "sha256": "d691da0a6827d9b45c6c68294405163f679a2d57f08e2ecda56fd071b3579502",
+          "bytes": 14511,
+          "section": "## 4. Trace normalization and specialization are the actual evaluation",
+          "lines": [
+            73,
+            104
+          ],
+          "passage_sha256": "e663066549e3b005c91f7adeac2cafa88c7d6c1e4b334ed5d47e68a867b48083",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/proofs/height-evaluation.md",
+          "sha256": "d691da0a6827d9b45c6c68294405163f679a2d57f08e2ecda56fd071b3579502",
+          "bytes": 14511,
+          "section": "## 5. Trace-dual projection and arithmetic degree",
+          "lines": [
+            105,
+            124
+          ],
+          "passage_sha256": "c13784f0fe855e8f6ba77e433db65cf94fb07fb27da8d49f032e39323ab57a89",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/proofs/height-evaluation.md",
+          "sha256": "d691da0a6827d9b45c6c68294405163f679a2d57f08e2ecda56fd071b3579502",
+          "bytes": 14511,
+          "section": "## 6. Exact consumer and bounded status",
+          "lines": [
+            125,
+            129
+          ],
+          "passage_sha256": "778c466de496c18fa24efbc804286dcdd75f8981b71eca8e8b244f4df1da3174",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/proofs/height-supplier.md",
+          "sha256": "4974b167ab415159e0ff996b341528008c2ba8ae8e2a1ebf69bab5bc9a9b9c12",
+          "bytes": 15498,
+          "section": "## H0.",
+          "lines": [
+            7,
+            32
+          ],
+          "passage_sha256": "3c61de9b62e636063cf74beddc40dd6b10ce7bada0c182b8a10432bd6bc34850",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/proofs/height-supplier.md",
+          "sha256": "4974b167ab415159e0ff996b341528008c2ba8ae8e2a1ebf69bab5bc9a9b9c12",
+          "bytes": 15498,
+          "section": "## H4.",
+          "lines": [
+            97,
+            134
+          ],
+          "passage_sha256": "c79afa0e08a65898a762e6f24ed869f4a35f3c741dacbf82eaee1f9b7d4a0753",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        }
+      ]
+    },
+    "identity_of_consumed_object": {
+      "required_input": "The output must be the coordinate evaluation lattice whose same order discriminant is consumed at v17:218\u2013225.",
+      "constructed_input": "Vector ((\u03b1/dt)(P_i)) in C^vee, projection into F_I=pr_I(C^vee), discriminant ideal of trace pairing on actual C.",
+      "justification": "The unramified generic fibre and explicit specialized functional give \u03bbbar(c)=\u03a3_i f(P_i)c(P_i). This identifies Hom(C,R) with the exact trace dual in K^d; same C supplies Gram matrix and length calculation.",
+      "original_author_obligation_sha256": "10e8de2aed1110f3b3ec13905a344cc1a55729c33b3e5bfcaa33f574689eefa3",
+      "original_author_source_ids": [
+        "PROOF \u00a7\u00a74\u20136",
+        "Brox v17:93\u201399,120\u2013127,218\u2013225"
+      ],
+      "status": "author_proposed_pending_eligible_independent_public_review",
+      "source_references": [
+        {
+          "path": "research/quartic214/PROOF.md",
+          "sha256": "0feb164c3ed33543136b89aa87b27bc890f4aadef2d082d465263f55dc26d165",
+          "bytes": 10582
+        },
+        {
+          "path": "research/quartic214/proofs/height-supplier.md",
+          "sha256": "4974b167ab415159e0ff996b341528008c2ba8ae8e2a1ebf69bab5bc9a9b9c12",
+          "bytes": 15498
+        },
+        {
+          "path": "research/quartic214/proofs/height-averaging.md",
+          "sha256": "bb87f61d7134c09d695f9bbff2c26b12b8c9ce5fe74a4ec598b2e4410f100192",
+          "bytes": 8145
+        },
+        {
+          "path": "research/quartic214/PRIMARY_SOURCES.json",
+          "sha256": "cfa7597432cd98c7184c0f9332c6d56f8ea53b208613aab0d855f5ffd1181161",
+          "bytes": 48789
+        },
+        {
+          "path": "research/version15/snapshots/v15-222-004/manuscript/quartic_v15.tex",
+          "sha256": "44ba3a8ec8521c29b81b26cfb9981cd6d5f3c76d54e7782438614842edb52c74",
+          "bytes": 1924438
+        },
+        {
+          "path": "research/quartic214/proofs/height-evaluation.md",
+          "sha256": "d691da0a6827d9b45c6c68294405163f679a2d57f08e2ecda56fd071b3579502",
+          "bytes": 14511
+        },
+        {
+          "path": "research/quartic214/sources/evaluation-sections1-4.tex",
+          "sha256": "70919ebd13613f7c9f7317995b285348398c6895808a61463be0aac139b8511c",
+          "bytes": 17465
+        },
+        {
+          "path": "research/quartic214/proofs/height-assembly.md",
+          "sha256": "1866f9452526b2c243f5f05267f74caa2a4532dfc23891a9b0e95abed2d00fe5",
+          "bytes": 7020
+        }
+      ],
+      "evidence": [
+        {
+          "path": "research/quartic214/proofs/height-evaluation.md",
+          "sha256": "d691da0a6827d9b45c6c68294405163f679a2d57f08e2ecda56fd071b3579502",
+          "bytes": 14511,
+          "section": "## 1. Objects and finite flatness",
+          "lines": [
+            16,
+            31
+          ],
+          "passage_sha256": "5895b02911992e7bd7df54219234f84d0d003a66d74d89b307321dcca59c3950",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/proofs/height-evaluation.md",
+          "sha256": "d691da0a6827d9b45c6c68294405163f679a2d57f08e2ecda56fd071b3579502",
+          "bytes": 14511,
+          "section": "## 2. A common regular model with the required direction",
+          "lines": [
+            32,
+            51
+          ],
+          "passage_sha256": "28f943b84c5eb7eb86876ad68ec86f9e856a21fba948ee054c9d0187a8d4ca12",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/proofs/height-evaluation.md",
+          "sha256": "d691da0a6827d9b45c6c68294405163f679a2d57f08e2ecda56fd071b3579502",
+          "bytes": 14511,
+          "section": "## 3. The canonical module and its extension",
+          "lines": [
+            52,
+            72
+          ],
+          "passage_sha256": "df805dea8337211dfba4f46a83cc7861f20bdb6e75a3c8e4601b718d6aa5f648",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/proofs/height-evaluation.md",
+          "sha256": "d691da0a6827d9b45c6c68294405163f679a2d57f08e2ecda56fd071b3579502",
+          "bytes": 14511,
+          "section": "## 4. Trace normalization and specialization are the actual evaluation",
+          "lines": [
+            73,
+            104
+          ],
+          "passage_sha256": "e663066549e3b005c91f7adeac2cafa88c7d6c1e4b334ed5d47e68a867b48083",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/proofs/height-evaluation.md",
+          "sha256": "d691da0a6827d9b45c6c68294405163f679a2d57f08e2ecda56fd071b3579502",
+          "bytes": 14511,
+          "section": "## 5. Trace-dual projection and arithmetic degree",
+          "lines": [
+            105,
+            124
+          ],
+          "passage_sha256": "c13784f0fe855e8f6ba77e433db65cf94fb07fb27da8d49f032e39323ab57a89",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/proofs/height-evaluation.md",
+          "sha256": "d691da0a6827d9b45c6c68294405163f679a2d57f08e2ecda56fd071b3579502",
+          "bytes": 14511,
+          "section": "## 6. Exact consumer and bounded status",
+          "lines": [
+            125,
+            129
+          ],
+          "passage_sha256": "778c466de496c18fa24efbc804286dcdd75f8981b71eca8e8b244f4df1da3174",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/proofs/height-supplier.md",
+          "sha256": "4974b167ab415159e0ff996b341528008c2ba8ae8e2a1ebf69bab5bc9a9b9c12",
+          "bytes": 15498,
+          "section": "## H0.",
+          "lines": [
+            7,
+            32
+          ],
+          "passage_sha256": "3c61de9b62e636063cf74beddc40dd6b10ce7bada0c182b8a10432bd6bc34850",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/proofs/height-supplier.md",
+          "sha256": "4974b167ab415159e0ff996b341528008c2ba8ae8e2a1ebf69bab5bc9a9b9c12",
+          "bytes": 15498,
+          "section": "## H4.",
+          "lines": [
+            97,
+            134
+          ],
+          "passage_sha256": "c79afa0e08a65898a762e6f24ed869f4a35f3c741dacbf82eaee1f9b7d4a0753",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        }
+      ]
+    },
+    "coefficients_and_normalizations": {
+      "required_input": "Integral O_K map, generic coefficient field K, coordinate dt, algebra trace, valuation and arithmetic-degree normalization.",
+      "constructed_input": "R-integral unsaturated C, standard dot-product trace on K^d; v_p uniformizer exponent, log Np weights, standard Euclidean determinant metric at every complex embedding.",
+      "justification": "No d factor enters trace duality; no inverse different multiplier is silently inserted. U^TU gives exponent2 and degree of over-lattice has positive sign; product formula handles nonintegral determinant generator.",
+      "original_author_obligation_sha256": "e8f6d67a0c1ade8068acf309e8b8552b2d641110c672dde16f9be696cca8f23e",
+      "original_author_source_ids": [
+        "PROOF \u00a7\u00a74\u20135",
+        "S-0BW2",
+        "Brox v17:49\u201360"
+      ],
+      "status": "author_proposed_pending_eligible_independent_public_review",
+      "source_references": [
+        {
+          "path": "research/quartic214/PROOF.md",
+          "sha256": "0feb164c3ed33543136b89aa87b27bc890f4aadef2d082d465263f55dc26d165",
+          "bytes": 10582
+        },
+        {
+          "path": "research/quartic214/proofs/height-supplier.md",
+          "sha256": "4974b167ab415159e0ff996b341528008c2ba8ae8e2a1ebf69bab5bc9a9b9c12",
+          "bytes": 15498
+        },
+        {
+          "path": "research/quartic214/proofs/height-averaging.md",
+          "sha256": "bb87f61d7134c09d695f9bbff2c26b12b8c9ce5fe74a4ec598b2e4410f100192",
+          "bytes": 8145
+        },
+        {
+          "path": "research/quartic214/PRIMARY_SOURCES.json",
+          "sha256": "cfa7597432cd98c7184c0f9332c6d56f8ea53b208613aab0d855f5ffd1181161",
+          "bytes": 48789
+        },
+        {
+          "path": "research/version15/snapshots/v15-222-004/manuscript/quartic_v15.tex",
+          "sha256": "44ba3a8ec8521c29b81b26cfb9981cd6d5f3c76d54e7782438614842edb52c74",
+          "bytes": 1924438
+        },
+        {
+          "path": "research/quartic214/proofs/height-evaluation.md",
+          "sha256": "d691da0a6827d9b45c6c68294405163f679a2d57f08e2ecda56fd071b3579502",
+          "bytes": 14511
+        },
+        {
+          "path": "research/quartic214/sources/evaluation-sections1-4.tex",
+          "sha256": "70919ebd13613f7c9f7317995b285348398c6895808a61463be0aac139b8511c",
+          "bytes": 17465
+        },
+        {
+          "path": "research/quartic214/proofs/height-assembly.md",
+          "sha256": "1866f9452526b2c243f5f05267f74caa2a4532dfc23891a9b0e95abed2d00fe5",
+          "bytes": 7020
+        }
+      ],
+      "evidence": [
+        {
+          "path": "research/quartic214/proofs/height-evaluation.md",
+          "sha256": "d691da0a6827d9b45c6c68294405163f679a2d57f08e2ecda56fd071b3579502",
+          "bytes": 14511,
+          "section": "## 1. Objects and finite flatness",
+          "lines": [
+            16,
+            31
+          ],
+          "passage_sha256": "5895b02911992e7bd7df54219234f84d0d003a66d74d89b307321dcca59c3950",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/proofs/height-evaluation.md",
+          "sha256": "d691da0a6827d9b45c6c68294405163f679a2d57f08e2ecda56fd071b3579502",
+          "bytes": 14511,
+          "section": "## 2. A common regular model with the required direction",
+          "lines": [
+            32,
+            51
+          ],
+          "passage_sha256": "28f943b84c5eb7eb86876ad68ec86f9e856a21fba948ee054c9d0187a8d4ca12",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/proofs/height-evaluation.md",
+          "sha256": "d691da0a6827d9b45c6c68294405163f679a2d57f08e2ecda56fd071b3579502",
+          "bytes": 14511,
+          "section": "## 3. The canonical module and its extension",
+          "lines": [
+            52,
+            72
+          ],
+          "passage_sha256": "df805dea8337211dfba4f46a83cc7861f20bdb6e75a3c8e4601b718d6aa5f648",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/proofs/height-evaluation.md",
+          "sha256": "d691da0a6827d9b45c6c68294405163f679a2d57f08e2ecda56fd071b3579502",
+          "bytes": 14511,
+          "section": "## 4. Trace normalization and specialization are the actual evaluation",
+          "lines": [
+            73,
+            104
+          ],
+          "passage_sha256": "e663066549e3b005c91f7adeac2cafa88c7d6c1e4b334ed5d47e68a867b48083",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/proofs/height-evaluation.md",
+          "sha256": "d691da0a6827d9b45c6c68294405163f679a2d57f08e2ecda56fd071b3579502",
+          "bytes": 14511,
+          "section": "## 5. Trace-dual projection and arithmetic degree",
+          "lines": [
+            105,
+            124
+          ],
+          "passage_sha256": "c13784f0fe855e8f6ba77e433db65cf94fb07fb27da8d49f032e39323ab57a89",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/proofs/height-evaluation.md",
+          "sha256": "d691da0a6827d9b45c6c68294405163f679a2d57f08e2ecda56fd071b3579502",
+          "bytes": 14511,
+          "section": "## 6. Exact consumer and bounded status",
+          "lines": [
+            125,
+            129
+          ],
+          "passage_sha256": "778c466de496c18fa24efbc804286dcdd75f8981b71eca8e8b244f4df1da3174",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/proofs/height-supplier.md",
+          "sha256": "4974b167ab415159e0ff996b341528008c2ba8ae8e2a1ebf69bab5bc9a9b9c12",
+          "bytes": 15498,
+          "section": "## H0.",
+          "lines": [
+            7,
+            32
+          ],
+          "passage_sha256": "3c61de9b62e636063cf74beddc40dd6b10ce7bada0c182b8a10432bd6bc34850",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/proofs/height-supplier.md",
+          "sha256": "4974b167ab415159e0ff996b341528008c2ba8ae8e2a1ebf69bab5bc9a9b9c12",
+          "bytes": 15498,
+          "section": "## H4.",
+          "lines": [
+            97,
+            134
+          ],
+          "passage_sha256": "c79afa0e08a65898a762e6f24ed869f4a35f3c741dacbf82eaee1f9b7d4a0753",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        }
+      ]
+    },
+    "local_conditions": {
+      "required_input": "Check every finite localization, codim1 condition, nonflat specialization and generic unramified locus.",
+      "constructed_input": "DVR codim1 local rings on normal Y, CM dimension\u22642, all finite primes of R; generic etale locus containing t2.",
+      "justification": "Graph descent and S2 extension handle codim2; projectivity handles specialization even at wildly ramified finite fibres. Etale splitting is used over characteristic-zero generic t-line, not incorrectly at all integral primes.",
+      "original_author_obligation_sha256": "9a0592497f3b3c2c95846be2ae5cc3afc16fbb08e94ed64f33ee59046850515c",
+      "original_author_source_ids": [
+        "PROOF \u00a7\u00a71\u20135",
+        "S-00R4",
+        "S-0AVT",
+        "S-0BFP",
+        "S-04HN"
+      ],
+      "status": "author_proposed_pending_eligible_independent_public_review",
+      "source_references": [
+        {
+          "path": "research/quartic214/PROOF.md",
+          "sha256": "0feb164c3ed33543136b89aa87b27bc890f4aadef2d082d465263f55dc26d165",
+          "bytes": 10582
+        },
+        {
+          "path": "research/quartic214/proofs/height-supplier.md",
+          "sha256": "4974b167ab415159e0ff996b341528008c2ba8ae8e2a1ebf69bab5bc9a9b9c12",
+          "bytes": 15498
+        },
+        {
+          "path": "research/quartic214/proofs/height-averaging.md",
+          "sha256": "bb87f61d7134c09d695f9bbff2c26b12b8c9ce5fe74a4ec598b2e4410f100192",
+          "bytes": 8145
+        },
+        {
+          "path": "research/quartic214/PRIMARY_SOURCES.json",
+          "sha256": "cfa7597432cd98c7184c0f9332c6d56f8ea53b208613aab0d855f5ffd1181161",
+          "bytes": 48789
+        },
+        {
+          "path": "research/version15/snapshots/v15-222-004/manuscript/quartic_v15.tex",
+          "sha256": "44ba3a8ec8521c29b81b26cfb9981cd6d5f3c76d54e7782438614842edb52c74",
+          "bytes": 1924438
+        },
+        {
+          "path": "research/quartic214/proofs/height-evaluation.md",
+          "sha256": "d691da0a6827d9b45c6c68294405163f679a2d57f08e2ecda56fd071b3579502",
+          "bytes": 14511
+        },
+        {
+          "path": "research/quartic214/sources/evaluation-sections1-4.tex",
+          "sha256": "70919ebd13613f7c9f7317995b285348398c6895808a61463be0aac139b8511c",
+          "bytes": 17465
+        },
+        {
+          "path": "research/quartic214/proofs/height-assembly.md",
+          "sha256": "1866f9452526b2c243f5f05267f74caa2a4532dfc23891a9b0e95abed2d00fe5",
+          "bytes": 7020
+        }
+      ],
+      "evidence": [
+        {
+          "path": "research/quartic214/proofs/height-evaluation.md",
+          "sha256": "d691da0a6827d9b45c6c68294405163f679a2d57f08e2ecda56fd071b3579502",
+          "bytes": 14511,
+          "section": "## 1. Objects and finite flatness",
+          "lines": [
+            16,
+            31
+          ],
+          "passage_sha256": "5895b02911992e7bd7df54219234f84d0d003a66d74d89b307321dcca59c3950",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/proofs/height-evaluation.md",
+          "sha256": "d691da0a6827d9b45c6c68294405163f679a2d57f08e2ecda56fd071b3579502",
+          "bytes": 14511,
+          "section": "## 2. A common regular model with the required direction",
+          "lines": [
+            32,
+            51
+          ],
+          "passage_sha256": "28f943b84c5eb7eb86876ad68ec86f9e856a21fba948ee054c9d0187a8d4ca12",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/proofs/height-evaluation.md",
+          "sha256": "d691da0a6827d9b45c6c68294405163f679a2d57f08e2ecda56fd071b3579502",
+          "bytes": 14511,
+          "section": "## 3. The canonical module and its extension",
+          "lines": [
+            52,
+            72
+          ],
+          "passage_sha256": "df805dea8337211dfba4f46a83cc7861f20bdb6e75a3c8e4601b718d6aa5f648",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/proofs/height-evaluation.md",
+          "sha256": "d691da0a6827d9b45c6c68294405163f679a2d57f08e2ecda56fd071b3579502",
+          "bytes": 14511,
+          "section": "## 4. Trace normalization and specialization are the actual evaluation",
+          "lines": [
+            73,
+            104
+          ],
+          "passage_sha256": "e663066549e3b005c91f7adeac2cafa88c7d6c1e4b334ed5d47e68a867b48083",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/proofs/height-evaluation.md",
+          "sha256": "d691da0a6827d9b45c6c68294405163f679a2d57f08e2ecda56fd071b3579502",
+          "bytes": 14511,
+          "section": "## 5. Trace-dual projection and arithmetic degree",
+          "lines": [
+            105,
+            124
+          ],
+          "passage_sha256": "c13784f0fe855e8f6ba77e433db65cf94fb07fb27da8d49f032e39323ab57a89",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/proofs/height-evaluation.md",
+          "sha256": "d691da0a6827d9b45c6c68294405163f679a2d57f08e2ecda56fd071b3579502",
+          "bytes": 14511,
+          "section": "## 6. Exact consumer and bounded status",
+          "lines": [
+            125,
+            129
+          ],
+          "passage_sha256": "778c466de496c18fa24efbc804286dcdd75f8981b71eca8e8b244f4df1da3174",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/proofs/height-supplier.md",
+          "sha256": "4974b167ab415159e0ff996b341528008c2ba8ae8e2a1ebf69bab5bc9a9b9c12",
+          "bytes": 15498,
+          "section": "## H0.",
+          "lines": [
+            7,
+            32
+          ],
+          "passage_sha256": "3c61de9b62e636063cf74beddc40dd6b10ce7bada0c182b8a10432bd6bc34850",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/proofs/height-supplier.md",
+          "sha256": "4974b167ab415159e0ff996b341528008c2ba8ae8e2a1ebf69bab5bc9a9b9c12",
+          "bytes": 15498,
+          "section": "## H4.",
+          "lines": [
+            97,
+            134
+          ],
+          "passage_sha256": "c79afa0e08a65898a762e6f24ed869f4a35f3c741dacbf82eaee1f9b7d4a0753",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        }
+      ]
+    },
+    "exceptional_cases": {
+      "required_input": "Treat singular Y, non-Gorenstein canonical module, bad finite reductions, nonfree global orders, empty graph exceptional set and ramification at selected fibre.",
+      "constructed_input": "Y may be singular/non-Gorenstein; C may be nonnormal/non-etale at bad primes; all these are allowed. T may be empty. Generic t2 fibre unramified by Belyi assumption.",
+      "justification": "Use dualizing module rather than invertible sheaf; codim2 extension and projective Hom handle singularities. If T empty use Z=M. Local bases replace global freeness. A branched t2 fibre would not satisfy the stated hypothesis and is not silently included.",
+      "original_author_obligation_sha256": "8f312a7aed34d03697338537fd4fe1c0e1a5f3f2703af273e88df7ca50846e86",
+      "original_author_source_ids": [
+        "PROOF \u00a7\u00a71\u20135",
+        "S-0AVT",
+        "S-0BUL"
+      ],
+      "status": "author_proposed_pending_eligible_independent_public_review",
+      "source_references": [
+        {
+          "path": "research/quartic214/PROOF.md",
+          "sha256": "0feb164c3ed33543136b89aa87b27bc890f4aadef2d082d465263f55dc26d165",
+          "bytes": 10582
+        },
+        {
+          "path": "research/quartic214/proofs/height-supplier.md",
+          "sha256": "4974b167ab415159e0ff996b341528008c2ba8ae8e2a1ebf69bab5bc9a9b9c12",
+          "bytes": 15498
+        },
+        {
+          "path": "research/quartic214/proofs/height-averaging.md",
+          "sha256": "bb87f61d7134c09d695f9bbff2c26b12b8c9ce5fe74a4ec598b2e4410f100192",
+          "bytes": 8145
+        },
+        {
+          "path": "research/quartic214/PRIMARY_SOURCES.json",
+          "sha256": "cfa7597432cd98c7184c0f9332c6d56f8ea53b208613aab0d855f5ffd1181161",
+          "bytes": 48789
+        },
+        {
+          "path": "research/version15/snapshots/v15-222-004/manuscript/quartic_v15.tex",
+          "sha256": "44ba3a8ec8521c29b81b26cfb9981cd6d5f3c76d54e7782438614842edb52c74",
+          "bytes": 1924438
+        },
+        {
+          "path": "research/quartic214/proofs/height-evaluation.md",
+          "sha256": "d691da0a6827d9b45c6c68294405163f679a2d57f08e2ecda56fd071b3579502",
+          "bytes": 14511
+        },
+        {
+          "path": "research/quartic214/sources/evaluation-sections1-4.tex",
+          "sha256": "70919ebd13613f7c9f7317995b285348398c6895808a61463be0aac139b8511c",
+          "bytes": 17465
+        },
+        {
+          "path": "research/quartic214/proofs/height-assembly.md",
+          "sha256": "1866f9452526b2c243f5f05267f74caa2a4532dfc23891a9b0e95abed2d00fe5",
+          "bytes": 7020
+        }
+      ],
+      "evidence": [
+        {
+          "path": "research/quartic214/proofs/height-evaluation.md",
+          "sha256": "d691da0a6827d9b45c6c68294405163f679a2d57f08e2ecda56fd071b3579502",
+          "bytes": 14511,
+          "section": "## 1. Objects and finite flatness",
+          "lines": [
+            16,
+            31
+          ],
+          "passage_sha256": "5895b02911992e7bd7df54219234f84d0d003a66d74d89b307321dcca59c3950",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/proofs/height-evaluation.md",
+          "sha256": "d691da0a6827d9b45c6c68294405163f679a2d57f08e2ecda56fd071b3579502",
+          "bytes": 14511,
+          "section": "## 2. A common regular model with the required direction",
+          "lines": [
+            32,
+            51
+          ],
+          "passage_sha256": "28f943b84c5eb7eb86876ad68ec86f9e856a21fba948ee054c9d0187a8d4ca12",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/proofs/height-evaluation.md",
+          "sha256": "d691da0a6827d9b45c6c68294405163f679a2d57f08e2ecda56fd071b3579502",
+          "bytes": 14511,
+          "section": "## 3. The canonical module and its extension",
+          "lines": [
+            52,
+            72
+          ],
+          "passage_sha256": "df805dea8337211dfba4f46a83cc7861f20bdb6e75a3c8e4601b718d6aa5f648",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/proofs/height-evaluation.md",
+          "sha256": "d691da0a6827d9b45c6c68294405163f679a2d57f08e2ecda56fd071b3579502",
+          "bytes": 14511,
+          "section": "## 4. Trace normalization and specialization are the actual evaluation",
+          "lines": [
+            73,
+            104
+          ],
+          "passage_sha256": "e663066549e3b005c91f7adeac2cafa88c7d6c1e4b334ed5d47e68a867b48083",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/proofs/height-evaluation.md",
+          "sha256": "d691da0a6827d9b45c6c68294405163f679a2d57f08e2ecda56fd071b3579502",
+          "bytes": 14511,
+          "section": "## 5. Trace-dual projection and arithmetic degree",
+          "lines": [
+            105,
+            124
+          ],
+          "passage_sha256": "c13784f0fe855e8f6ba77e433db65cf94fb07fb27da8d49f032e39323ab57a89",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/proofs/height-evaluation.md",
+          "sha256": "d691da0a6827d9b45c6c68294405163f679a2d57f08e2ecda56fd071b3579502",
+          "bytes": 14511,
+          "section": "## 6. Exact consumer and bounded status",
+          "lines": [
+            125,
+            129
+          ],
+          "passage_sha256": "778c466de496c18fa24efbc804286dcdd75f8981b71eca8e8b244f4df1da3174",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/proofs/height-supplier.md",
+          "sha256": "4974b167ab415159e0ff996b341528008c2ba8ae8e2a1ebf69bab5bc9a9b9c12",
+          "bytes": 15498,
+          "section": "## H0.",
+          "lines": [
+            7,
+            32
+          ],
+          "passage_sha256": "3c61de9b62e636063cf74beddc40dd6b10ce7bada0c182b8a10432bd6bc34850",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/proofs/height-supplier.md",
+          "sha256": "4974b167ab415159e0ff996b341528008c2ba8ae8e2a1ebf69bab5bc9a9b9c12",
+          "bytes": 15498,
+          "section": "## H4.",
+          "lines": [
+            97,
+            134
+          ],
+          "passage_sha256": "c79afa0e08a65898a762e6f24ed869f4a35f3c741dacbf82eaee1f9b7d4a0753",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        }
+      ]
+    },
+    "downstream_consumption": {
+      "required_input": "Identify all changed-application consumers and preserve exact strength without whole-theorem overclaim.",
+      "constructed_input": "Brox v17:218\u2013225 E\u2192F_I; then evaluation theorem210\u2013251, modular corollary; height/PROOF H0.3(25\u201331),H4(101\u2013115), existence/global height and downstream256.",
+      "justification": "Output precisely supplies integral map and degree bound. Rank, metrics and different estimates remain separate; integrating this source bridge changes neither constants nor family. Historical project argument remains prior justification and all fresh acceptance awaits non-author review.",
+      "original_author_obligation_sha256": "7ba155ef0a915d844ebcd795fc92002e97e7faa1d13f15fa2b9227dba0176709",
+      "original_author_source_ids": [
+        "PROOF \u00a76",
+        "SOURCE_USES.json manuscript/history bindings"
+      ],
+      "status": "author_proposed_pending_eligible_independent_public_review",
+      "source_references": [
+        {
+          "path": "research/quartic214/PROOF.md",
+          "sha256": "0feb164c3ed33543136b89aa87b27bc890f4aadef2d082d465263f55dc26d165",
+          "bytes": 10582
+        },
+        {
+          "path": "research/quartic214/proofs/height-supplier.md",
+          "sha256": "4974b167ab415159e0ff996b341528008c2ba8ae8e2a1ebf69bab5bc9a9b9c12",
+          "bytes": 15498
+        },
+        {
+          "path": "research/quartic214/proofs/height-averaging.md",
+          "sha256": "bb87f61d7134c09d695f9bbff2c26b12b8c9ce5fe74a4ec598b2e4410f100192",
+          "bytes": 8145
+        },
+        {
+          "path": "research/quartic214/PRIMARY_SOURCES.json",
+          "sha256": "cfa7597432cd98c7184c0f9332c6d56f8ea53b208613aab0d855f5ffd1181161",
+          "bytes": 48789
+        },
+        {
+          "path": "research/version15/snapshots/v15-222-004/manuscript/quartic_v15.tex",
+          "sha256": "44ba3a8ec8521c29b81b26cfb9981cd6d5f3c76d54e7782438614842edb52c74",
+          "bytes": 1924438
+        },
+        {
+          "path": "research/quartic214/proofs/height-evaluation.md",
+          "sha256": "d691da0a6827d9b45c6c68294405163f679a2d57f08e2ecda56fd071b3579502",
+          "bytes": 14511
+        },
+        {
+          "path": "research/quartic214/sources/evaluation-sections1-4.tex",
+          "sha256": "70919ebd13613f7c9f7317995b285348398c6895808a61463be0aac139b8511c",
+          "bytes": 17465
+        },
+        {
+          "path": "research/quartic214/proofs/height-assembly.md",
+          "sha256": "1866f9452526b2c243f5f05267f74caa2a4532dfc23891a9b0e95abed2d00fe5",
+          "bytes": 7020
+        }
+      ],
+      "evidence": [
+        {
+          "path": "research/quartic214/proofs/height-evaluation.md",
+          "sha256": "d691da0a6827d9b45c6c68294405163f679a2d57f08e2ecda56fd071b3579502",
+          "bytes": 14511,
+          "section": "## 1. Objects and finite flatness",
+          "lines": [
+            16,
+            31
+          ],
+          "passage_sha256": "5895b02911992e7bd7df54219234f84d0d003a66d74d89b307321dcca59c3950",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/proofs/height-evaluation.md",
+          "sha256": "d691da0a6827d9b45c6c68294405163f679a2d57f08e2ecda56fd071b3579502",
+          "bytes": 14511,
+          "section": "## 2. A common regular model with the required direction",
+          "lines": [
+            32,
+            51
+          ],
+          "passage_sha256": "28f943b84c5eb7eb86876ad68ec86f9e856a21fba948ee054c9d0187a8d4ca12",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/proofs/height-evaluation.md",
+          "sha256": "d691da0a6827d9b45c6c68294405163f679a2d57f08e2ecda56fd071b3579502",
+          "bytes": 14511,
+          "section": "## 3. The canonical module and its extension",
+          "lines": [
+            52,
+            72
+          ],
+          "passage_sha256": "df805dea8337211dfba4f46a83cc7861f20bdb6e75a3c8e4601b718d6aa5f648",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/proofs/height-evaluation.md",
+          "sha256": "d691da0a6827d9b45c6c68294405163f679a2d57f08e2ecda56fd071b3579502",
+          "bytes": 14511,
+          "section": "## 4. Trace normalization and specialization are the actual evaluation",
+          "lines": [
+            73,
+            104
+          ],
+          "passage_sha256": "e663066549e3b005c91f7adeac2cafa88c7d6c1e4b334ed5d47e68a867b48083",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/proofs/height-evaluation.md",
+          "sha256": "d691da0a6827d9b45c6c68294405163f679a2d57f08e2ecda56fd071b3579502",
+          "bytes": 14511,
+          "section": "## 5. Trace-dual projection and arithmetic degree",
+          "lines": [
+            105,
+            124
+          ],
+          "passage_sha256": "c13784f0fe855e8f6ba77e433db65cf94fb07fb27da8d49f032e39323ab57a89",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/proofs/height-evaluation.md",
+          "sha256": "d691da0a6827d9b45c6c68294405163f679a2d57f08e2ecda56fd071b3579502",
+          "bytes": 14511,
+          "section": "## 6. Exact consumer and bounded status",
+          "lines": [
+            125,
+            129
+          ],
+          "passage_sha256": "778c466de496c18fa24efbc804286dcdd75f8981b71eca8e8b244f4df1da3174",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/proofs/height-supplier.md",
+          "sha256": "4974b167ab415159e0ff996b341528008c2ba8ae8e2a1ebf69bab5bc9a9b9c12",
+          "bytes": 15498,
+          "section": "## H0.",
+          "lines": [
+            7,
+            32
+          ],
+          "passage_sha256": "3c61de9b62e636063cf74beddc40dd6b10ce7bada0c182b8a10432bd6bc34850",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/proofs/height-supplier.md",
+          "sha256": "4974b167ab415159e0ff996b341528008c2ba8ae8e2a1ebf69bab5bc9a9b9c12",
+          "bytes": 15498,
+          "section": "## H4.",
+          "lines": [
+            97,
+            134
+          ],
+          "passage_sha256": "c79afa0e08a65898a762e6f24ed869f4a35f3c741dacbf82eaee1f9b7d4a0753",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        }
+      ]
+    }
+  },
+  "independent_acceptance": null
+}

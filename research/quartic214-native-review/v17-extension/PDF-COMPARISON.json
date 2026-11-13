@@ -1,0 +1,25 @@
+{
+  "schema": "pr30-v17-pdf-comparison/v1",
+  "checked_at": "2026-11-13T10:50:15.211657+00:00",
+  "source_sha256": "f6bf186008d33270dadbba6bd490f22116c66168975c3f84ad5bc6f281726e12",
+  "pdf_sha256": "20ee7ebabdbba1e15406af72d31854206beaaa257e1c52fca2abd113243ea7ea",
+  "old_pdf_sha256": "a73d90e445dc8ee12fdf96476da2320a61d96b23dbc2c9b5107d5af0c2a745a4",
+  "pages": 703,
+  "changed_text_pages": [
+    1
+  ],
+  "repo_inputs": [
+    {
+      "name": "repository/manuscripts/quartic_v17.tex",
+      "sha256": "f6bf186008d33270dadbba6bd490f22116c66168975c3f84ad5bc6f281726e12",
+      "bytes": 2338864
+    }
+  ],
+  "visual_pages": [
+    1,
+    2
+  ],
+  "visual_result": "Title, Version17, blank displayed author, date, abstract and first two contents pages are legible without clipping or overlap.",
+  "tool_fallback": "PATH pdftotext selected an uninitialized MiKTeX installation; bundled Poppler lacks pdftotext. No setup changes made. Bundled pypdf used for page text comparison; Poppler pdftoppm used for visual inspection.",
+  "limitations": "Text equality is not a visual inspection of all pages. Unchanged mathematical source and exact prior source/receiving review are reused; no fresh complete ancestor reproof or protected acceptance."
+}

@@ -1,0 +1,132 @@
+{
+  "revision": "a8843cca75ff29d51aa7b288c80b8bdc3a1ca3bb",
+  "scope": "Historical exact records, not current acceptance. Original manuscript and PDF remain at the named immutable public commit. Replay bound paths at that revision, not against current files.",
+  "files": [
+    {
+      "original_path": "research/quartic214-manuscript-review/ADAPTATION.json",
+      "archived_path": "records/quartic214-manuscript-review/ADAPTATION.json",
+      "sha256": "ffbdad72e4c70285a563807352641f9eca177df142919dbfa0997bfe3148f3f8",
+      "bytes": 180519
+    },
+    {
+      "original_path": "research/quartic214-manuscript-review/FINDINGS.json",
+      "archived_path": "records/quartic214-manuscript-review/FINDINGS.json",
+      "sha256": "e5bdfddfa88c0d743d70eab73ad2118cb21dea8a77e69d4d2fbf2b9d58097b47",
+      "bytes": 20002
+    },
+    {
+      "original_path": "research/quartic214-manuscript-review/FOUNDATION_APPLICATION.json",
+      "archived_path": "records/quartic214-manuscript-review/FOUNDATION_APPLICATION.json",
+      "sha256": "95ce2dac856bbfac8bd473d72b59b47cf4f13dba673cb61da7636c6336fa3170",
+      "bytes": 66431
+    },
+    {
+      "original_path": "research/quartic214-manuscript-review/FOUNDATION_TRANSITION.md",
+      "archived_path": "records/quartic214-manuscript-review/FOUNDATION_TRANSITION.md",
+      "sha256": "9a3a081bfb6c3e5c0893065ab1c1ea19f36c91b997999064371886e270c3d936",
+      "bytes": 13149
+    },
+    {
+      "original_path": "research/quartic214-manuscript-review/INITIAL_SOURCE_RECONSTRUCTION.json",
+      "archived_path": "records/quartic214-manuscript-review/INITIAL_SOURCE_RECONSTRUCTION.json",
+      "sha256": "e0da8a6af394fb247e86ce463f5c77eb59ecb991085eb434c7b5e732b3446257",
+      "bytes": 7465
+    },
+    {
+      "original_path": "research/quartic214-manuscript-review/INITIAL_SOURCE_USES.json",
+      "archived_path": "records/quartic214-manuscript-review/INITIAL_SOURCE_USES.json",
+      "sha256": "ceccab2693a80ab72becd49b7e84248bc95a15ae5cd72e83dd02a2e6c21ac300",
+      "bytes": 9184
+    },
+    {
+      "original_path": "research/quartic214-manuscript-review/PDF_INSPECTION.json",
+      "archived_path": "records/quartic214-manuscript-review/PDF_INSPECTION.json",
+      "sha256": "2b606ae9cfeb869b80cafbd3f6aa76378689b5509ecaf97e2c5e20b653876dd8",
+      "bytes": 2992
+    },
+    {
+      "original_path": "research/quartic214-manuscript-review/README.md",
+      "archived_path": "records/quartic214-manuscript-review/README.md",
+      "sha256": "d6ed1bdd2093fdd2b31032285fc80db18518a92b895dc68aea9b8fce6b07aa4f",
+      "bytes": 2521
+    },
+    {
+      "original_path": "research/quartic214-manuscript-review/RECONCILIATION.json",
+      "archived_path": "records/quartic214-manuscript-review/RECONCILIATION.json",
+      "sha256": "3af026f34c2b001fde011cca0e95bc5f238d05c36e049c345cad9ab77a9a55f2",
+      "bytes": 8096
+    },
+    {
+      "original_path": "research/quartic214-manuscript-review/REVIEW_DECISION.json",
+      "archived_path": "records/quartic214-manuscript-review/REVIEW_DECISION.json",
+      "sha256": "1af03ae4b8672fbd41404431341cf2f70e70cc8b6588e7fa2eadc87b129152e2",
+      "bytes": 14789
+    },
+    {
+      "original_path": "research/quartic214-manuscript-review/REVIEW_REPORT.md",
+      "archived_path": "records/quartic214-manuscript-review/REVIEW_REPORT.md",
+      "sha256": "877fb630f1a8cce5295444a579b852e16336c52baaccb427164a46150dd83345",
+      "bytes": 13576
+    },
+    {
+      "original_path": "research/quartic214-manuscript-review/SERIALIZATION_CHECK.json",
+      "archived_path": "records/quartic214-manuscript-review/SERIALIZATION_CHECK.json",
+      "sha256": "779fa65adb84d380fd9b936a86ad7716a2c63b6edeee1b0ead7f42a45e0b53ba",
+      "bytes": 380
+    },
+    {
+      "original_path": "research/quartic214-manuscript-review/UPSTREAM_SOURCE_RECONSTRUCTION.json",
+      "archived_path": "records/quartic214-manuscript-review/UPSTREAM_SOURCE_RECONSTRUCTION.json",
+      "sha256": "a7bacfd75010309376bef5188fad4e9ef99738a952181431d8b51b9330b1854b",
+      "bytes": 4113
+    },
+    {
+      "original_path": "research/quartic214-manuscript-review/check_records.py",
+      "archived_path": "records/quartic214-manuscript-review/check_records.py",
+      "sha256": "28f08f8594a0514db8c829410b62ffaa48effc19d9066592c9eea9dcc9813851",
+      "bytes": 19280
+    },
+    {
+      "original_path": "research/quartic214-manuscript-review/check_serialization.py",
+      "archived_path": "records/quartic214-manuscript-review/check_serialization.py",
+      "sha256": "6f018270aa05e4afd68419b52e2edb0e517817627bb3074d359835bbfe28f4b6",
+      "bytes": 2724
+    },
+    {
+      "original_path": "research/quartic214-manuscript/BUILD.json",
+      "archived_path": "records/quartic214-manuscript/BUILD.json",
+      "sha256": "43cca247b6861bd9f756f3d30f643260bb8f55da6094c9fdcb9610083ea70143",
+      "bytes": 39529
+    },
+    {
+      "original_path": "research/quartic214-manuscript/RELEASE_MANIFEST.json",
+      "archived_path": "records/quartic214-manuscript/RELEASE_MANIFEST.json",
+      "sha256": "b7341fad17f74e5707b452d4ec67a31113343866c00ecf68d08fd65ab1554401",
+      "bytes": 16721
+    },
+    {
+      "original_path": "research/quartic214-manuscript/RELEASE_PROFILE.json",
+      "archived_path": "records/quartic214-manuscript/RELEASE_PROFILE.json",
+      "sha256": "4a5af4a9d68d49e29100bf2cd772baab7375123d5b3019600d7fa5ad17ad88f2",
+      "bytes": 2870
+    },
+    {
+      "original_path": "research/quartic214-manuscript/SOURCE_SPANS.json",
+      "archived_path": "records/quartic214-manuscript/SOURCE_SPANS.json",
+      "sha256": "a79b6787e9aa80207b25492296fa730425941528ba5ea8ca0fdd06c090b844d7",
+      "bytes": 390155
+    },
+    {
+      "original_path": "research/quartic214-manuscript/assemble.py",
+      "archived_path": "records/quartic214-manuscript/assemble.py",
+      "sha256": "faed4ba2e07933677b2a52d9a6811b378d1ab5028d54bc62bb1b64de83fcef94",
+      "bytes": 45940
+    },
+    {
+      "original_path": "research/quartic214-manuscript/AUTHOR_NOTES.md",
+      "archived_path": "records/quartic214-manuscript/AUTHOR_NOTES.md",
+      "sha256": "8d4faf3c005a2d5568a5df9ece8e86051aca3f3ad934e62563c037d1d9878a98",
+      "bytes": 4270
+    }
+  ]
+}

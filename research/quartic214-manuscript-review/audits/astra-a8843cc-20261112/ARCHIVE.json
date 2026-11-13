@@ -1,0 +1,112 @@
+{
+  "reviewed_revision": "a8843cca75ff29d51aa7b288c80b8bdc3a1ca3bb",
+  "public_comment": "https://github.com/elliotglazer/diophantine-z-q/pull/30#issuecomment-6813866051",
+  "scope": "Unchanged automated reviewer records and publication receipt, including adverse findings and incomplete-coverage limits. No acceptance added by integrator.",
+  "files": [
+    {
+      "path": "DECLARED_CONTRACTS_READ_INDEX.json",
+      "sha256": "485b5f59ea1b90e386c73a95243f9e160c2ea07030b94cdd1aac9b09f3ff6a85",
+      "bytes": 4044
+    },
+    {
+      "path": "EVIDENCE_MANIFEST.json",
+      "sha256": "a8674c682576ff2eb78ececa51be299310e00d2722c04e68d9576ce95c286636",
+      "bytes": 4049
+    },
+    {
+      "path": "EXACT-CHECKS-rerun.json",
+      "sha256": "0a160c8a7d0519621b4ebc27fb6e8cb2b8df2a9d25191b8daa2170db461a12b0",
+      "bytes": 3113
+    },
+    {
+      "path": "FINDINGS.json",
+      "sha256": "5f4822d6acda79c3fc74a19a0c5a4b815b65e47977ed79f7b61a880407e18740",
+      "bytes": 2070
+    },
+    {
+      "path": "NUMERIC_CERTIFICATE_H4-rerun.json",
+      "sha256": "cd4afb85267aad1a22c0e6a765f86551d2c83a94fcece93939547fe7c06d0962",
+      "bytes": 573
+    },
+    {
+      "path": "PDF-M1-extract.json",
+      "sha256": "82f7d16ded6d90382480816b622812c7a12aaf3059cb289ef5640c1ffa7f57ea",
+      "bytes": 4163
+    },
+    {
+      "path": "PR_COMMENT.md",
+      "sha256": "88181adcc225fdc04adecc34d75141ea6825d28967d58eee9641a5c35c8b660d",
+      "bytes": 4741
+    },
+    {
+      "path": "PUBLICATION.json",
+      "sha256": "e0008053cba6adf540bff601943086152757821e6aa4663f396058beda5a500a",
+      "bytes": 444
+    },
+    {
+      "path": "REVIEW.md",
+      "sha256": "75662ff34d6714ee605b6516c7bcf36a5a6eb95b6db9c52a6b654bc882e40a00",
+      "bytes": 14636
+    },
+    {
+      "path": "SOURCE_USE_INITIAL.json",
+      "sha256": "c3a181c23436d2d1bf929deacdeee5e370f2b9e1c531bfce7e1a9af346d7cd34",
+      "bytes": 3351
+    },
+    {
+      "path": "SOURCE_USE_RECONCILED.json",
+      "sha256": "a44543d9afe880989a2bdab41c614ecaa445898721f4380577868c49c581d49a",
+      "bytes": 3167
+    },
+    {
+      "path": "existence/MANIFEST.json",
+      "sha256": "99ff773097ed8e7f0c641233abc76c3a7f64b77111a632f541404cecaa9d5a46",
+      "bytes": 374
+    },
+    {
+      "path": "existence/PRIMARY_SOURCE.md",
+      "sha256": "d26edd4e6775e31b05939fb33d00db9acf99b52eb74df6b3a040173d0134ea2f",
+      "bytes": 980
+    },
+    {
+      "path": "existence/REVIEW.md",
+      "sha256": "33629d44a90337edad0887c9c93986eae42c1f0a0c0fb01b09488ccda4cf3f00",
+      "bytes": 11295
+    },
+    {
+      "path": "existence/SOURCE_USE_INITIAL.json",
+      "sha256": "c9600eea5c6bd94a389aa43f2f2cbd84657c0a217cda6a0a8dc205f35b8b903d",
+      "bytes": 5072
+    },
+    {
+      "path": "existence/SOURCE_USE_RECONCILED.json",
+      "sha256": "e9b1c210b5cbd0308274187d1f6cd04a6c0a1364c2350ca2885b961b8cd37d59",
+      "bytes": 8431
+    },
+    {
+      "path": "height/PRIMARY_EVIDENCE.md",
+      "sha256": "0f3269234c0c89fb48a814fb90bd9b34f09e1291c30471c0580090630cb9ee75",
+      "bytes": 1890
+    },
+    {
+      "path": "height/RECONCILIATION.json",
+      "sha256": "8998443e61cc0aeb0f69f223ac013f0ee4504a9144d5f7cac2eb4fea1c9e5a7e",
+      "bytes": 1334
+    },
+    {
+      "path": "height/REVIEW.md",
+      "sha256": "4f55a114e967d3c60b6d426fa2542f760318dcf9ce3a2b26c8336ff8894e2bdf",
+      "bytes": 9664
+    },
+    {
+      "path": "height/SOURCE_USE_INITIAL.json",
+      "sha256": "549b4576bbeb923a2d06c35cf1132fa9976fe0439c66d98fac41ec57bce838c4",
+      "bytes": 4271
+    },
+    {
+      "path": "height/SOURCE_USE_INITIAL.sha256",
+      "sha256": "b18bc61cc619bb36a58cc8684d58bf3cd693414f67048d4c1b1fbbd94c1827ae",
+      "bytes": 65
+    }
+  ]
+}

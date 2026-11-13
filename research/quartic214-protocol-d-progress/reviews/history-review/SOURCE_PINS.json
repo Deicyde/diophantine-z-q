@@ -1,0 +1,142 @@
+[
+  {
+    "path": "docs/audit-history/issue2/README.md",
+    "sha256": "717cffd6d2d7b0c1c4ad4bad701a508914e0885657f53e64ad6c304650265888",
+    "bytes": 5364
+  },
+  {
+    "path": "docs/audit-history/issue2/register.json",
+    "sha256": "d88946d4187c670eb8278a686726af21c4d6394325d0d417702dc85422e6bfd3",
+    "bytes": 12742
+  },
+  {
+    "path": "research/version16/protocol/CONNECTIONS.json",
+    "sha256": "979d6997dcb6e1f7f96a293e4a8453378939ac3e23cba5f15915478d07a7d101",
+    "bytes": 9510085
+  },
+  {
+    "path": "research/version16/protocol/DOSSIER.json",
+    "sha256": "45c3864dc588d23c6c797e783c23f88c5b00473ccd7956548734380ccb04f9c5",
+    "bytes": 6201368
+  },
+  {
+    "path": "research/version16/review/coverage/REVIEW.md",
+    "sha256": "cb6c566b3802310efd66eda255850b66763519501042b8d64826b803a97665fe",
+    "bytes": 10392
+  },
+  {
+    "path": "research/version16/review/coverage/record-repair-001/REVIEW.md",
+    "sha256": "52bb8ba0ada9cbdb70b2b711cd05517b9532d36927b5fb55daa1b7c4cea3dff9",
+    "bytes": 4039
+  },
+  {
+    "path": "research/version16/review/coverage/record-repair-001/PROTOCOL14-COVERAGE-REVIEW.json",
+    "sha256": "7f7e0544d324b4ba19d5cb70151c98b31ae2a2a429483df7416d07812267b497",
+    "bytes": 2096814
+  },
+  {
+    "path": "research/quartic214-manuscript-review/current-astra-20261112/EVIDENCE.md",
+    "sha256": "40b740e6aa99eea72726ba020ebd98232b4e993e673022aaabe3caf5ade51ae8",
+    "bytes": 7332
+  },
+  {
+    "path": "research/quartic214-manuscript-review/current-astra-20261112/FINDINGS.json",
+    "sha256": "1e1c54f027af7aef963e6ae7fc9981ff536793addafa91a2e647f918ac0c9999",
+    "bytes": 5141
+  },
+  {
+    "path": "research/quartic214-manuscript-review/current-astra-20261112/REVIEW.md",
+    "sha256": "80002a81df557e91bf14fb5b946ac0df145be409c6dbf01aa2233f2c1c53cafb",
+    "bytes": 21041
+  },
+  {
+    "path": "research/quartic214-manuscript-review/CORRECTION_ARGUMENT.md",
+    "sha256": "8a44499e5cc77fdad5fdff5a84319b46b82e16ea42628a3f4ce6a9ff60e1892d",
+    "bytes": 9755
+  },
+  {
+    "path": "research/quartic214-manuscript-review/FOUNDATION_TRANSITION.md",
+    "sha256": "9a3a081bfb6c3e5c0893065ab1c1ea19f36c91b997999064371886e270c3d936",
+    "bytes": 13149
+  },
+  {
+    "path": "research/quartic214-manuscript/SOURCE_SPANS.json",
+    "sha256": "c98fc0d5860fb1d17a1d1ec7f23e266015f26e37d72443b796a782006c371391",
+    "bytes": 399870
+  },
+  {
+    "path": "research/quartic214/proofs/modularity.md",
+    "sha256": "814676050b389793d196346f45e2797f39e2c5be0f3fee8457bb709b2607606e",
+    "bytes": 25777
+  },
+  {
+    "path": "research/quartic214-manuscript/quartic214.tex",
+    "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+    "bytes": 2337533
+  },
+  {
+    "path": "manuscripts/quartic_v16.tex",
+    "sha256": "aeb2b6a42a03943d7f8c46682389c8da693d2903ba92ccc164bbbd236451de74",
+    "bytes": 1926498
+  },
+  {
+    "path": "research/quartic214-protocol-d-public/review/PUBLIC_COVERAGE_REVIEW.md",
+    "sha256": "2a01f9c9f90e2fe1c54d03c3657f625140131524e0c11d3a0a1fbc040eeb946d",
+    "bytes": 7874
+  },
+  {
+    "path": "research/quartic214-protocol-d-public/review/PUBLIC_ASSEMBLY_REVIEW.md",
+    "sha256": "13a6fde4ebdd345a3d15f210042a0547ef5455470b7ee4c8a0408bd8765b7ff2",
+    "bytes": 5229
+  },
+  {
+    "path": "docs/research-review/record-manuscript-policy-2026-11-11/compatibility-repair/FINDING.json",
+    "sha256": "4fdeea6fcf3eabca5540b55eacdb79f58bbb1e4fd17c2d8cfe844ffe63bf1184",
+    "bytes": 1687
+  },
+  {
+    "path": "docs/research-review/record-manuscript-policy-2026-11-11/review/COMPATIBILITY-REPAIR-REVIEW.json",
+    "sha256": "931d86cdf775d5d8beee36b09930e5cdfda1fc80583dbf6a0465138445f13682",
+    "bytes": 4382
+  },
+  {
+    "path": "docs/audit-history/issue2/evidence/corollaries.md",
+    "sha256": "eef8f273b431f12d5c9374e6db08ea4a9ad4d8acce2b9164abca199ce1936b92",
+    "bytes": 10253
+  },
+  {
+    "path": "docs/audit-history/issue2/evidence/off-filter.md",
+    "sha256": "a28679a3e8e9f25c5f65add0ae6b2e4117856a9570e2ca7e03a3c13cac616ce6",
+    "bytes": 2399
+  },
+  {
+    "path": "docs/audit-history/issue2/evidence/kato.md",
+    "sha256": "7be7e0c3d3b3a4d0796d8c7c8b856251fecd164c7b0f7f7b24191a0f0c7c3284",
+    "bytes": 10876
+  },
+  {
+    "path": "docs/audit-history/issue2/evidence/templates.md",
+    "sha256": "b93967d44b73fed4b6fa0a8ae0cb82e4ce9e03a492acd762ef4fc31ef0a5db7f",
+    "bytes": 4356
+  },
+  {
+    "path": "docs/audit-history/issue2/evidence/rc-provenance.md",
+    "sha256": "4e27894fa661e16c6a4d8281c3f9b59e873798f8c52ff4b5884cd1fdc4adad4d",
+    "bytes": 5542
+  },
+  {
+    "path": "docs/audit-history/issue2/evidence/determinants.md",
+    "sha256": "648a83cfec26f3032dc75aa04be03870c1864173c60daed3ff082935db703bd5",
+    "bytes": 6272
+  },
+  {
+    "path": "docs/audit-history/issue2/evidence/valuation.md",
+    "sha256": "b9f620c44498b648cdaa529323a9ead32c89c46e54e81d5925fa65f60adcd118",
+    "bytes": 3904
+  },
+  {
+    "path": "docs/audit-history/issue2/evidence/valuation-pin.md",
+    "sha256": "8611c6e4e6d9693f39002e624b8bd05008a2d924e9825df061de3d14c26f8939",
+    "bytes": 957
+  }
+]

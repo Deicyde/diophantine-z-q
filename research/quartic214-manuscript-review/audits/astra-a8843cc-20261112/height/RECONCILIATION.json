@@ -1,0 +1,46 @@
+{
+  "initial_sha256": "549b4576bbeb923a2d06c35cf1132fa9976fe0439c66d98fac41ec57bce838c4",
+  "reconciliation_stage": "after initial freeze",
+  "index_path": "research/quartic214/contracts/INDEX.json",
+  "index_sha256": "c3205657eaebcf4b40f6a92087856d6fa3a9c8a730ef36befed62ef5fb984b37",
+  "mapping": {
+    "H01": [
+      "modularity-6"
+    ],
+    "M1": [
+      "modularity-1"
+    ],
+    "M23": [
+      "modularity-2"
+    ],
+    "M45": [
+      "modularity-3",
+      "modularity-4"
+    ],
+    "M6H2": [
+      "modularity-5"
+    ],
+    "EVAL": [
+      "height-evaluation"
+    ],
+    "DIFF": [
+      "height-different"
+    ],
+    "METRIC": [
+      "height-metric",
+      "height-assembly"
+    ],
+    "AVG": [
+      "height-averaging"
+    ],
+    "H4": [
+      "H4-reflection"
+    ]
+  },
+  "differences": [
+    "Contract inventory binds markdown source proof and PROOF.md; assembled TeX needs separate binding and serialization review. HGT-1 shows why byte-bound input is insufficient for output semantics.",
+    "Grouped initial table is not exhaustive per-theorem coverage; no full coverage acceptance.",
+    "Historical H3 quotient route is explicitly superseded; current AVG maps to product construction, not quotient filtration."
+  ],
+  "decision": "Reconciled at component-index level only; complete source-use coverage unaccepted."
+}

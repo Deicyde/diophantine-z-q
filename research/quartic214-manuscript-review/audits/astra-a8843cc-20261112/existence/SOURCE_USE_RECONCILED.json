@@ -1,0 +1,132 @@
+{
+  "reviewer": "/root/astra_pr30_fresh_review/existence",
+  "prior_exposure": "No declared inventories or prior verdicts read before this freeze. Manuscript includes author provenance assertions, not relied on as acceptance.",
+  "commit": "a8843cca75ff29d51aa7b288c80b8bdc3a1ca3bb",
+  "manuscript_sha256": "f2d70e6963708f4f380f35d302896ad3c8700d22d1fd4d6d886db52bcad6c9c2",
+  "entries": [
+    {
+      "id": "E01",
+      "passage_lines": [
+        2254,
+        2256
+      ],
+      "excerpt_sha256": "72a07cb9dd8039b0a37b128d56f623a0ddb6832a3de780013073b0976ba34ddf",
+      "claim": "Aggregate sum no-translate + Von Buhren family height",
+      "supplier": "Internal sum-poles 36470-36537; graph comparison 36578-36644; independence 36646-36763. External Von Buhren 2017 Theorem 1.1.",
+      "required": "All nonzero signed/repeated labels; E0^8 graph; Gamma fixed; F+=2T; canonical sum gives B^2 <= M1 h(T)+M2.",
+      "declared_contract": "D214-UNIFORM-EXISTENCE-20261111",
+      "reconciliation": "Matching direct input and consumer in uniform-existence contract; source-carry C10/C11 for prime/scalar, C04 for pole, fresh boundary C12. No unmatched use found within this scoped reconstruction."
+    },
+    {
+      "id": "E02",
+      "passage_lines": [
+        2258,
+        2264
+      ],
+      "excerpt_sha256": "38b728a7877b0bec1aac3d4a423aaadf550c755b0730161d703c22d02be3f48f",
+      "claim": "Height and radical join",
+      "supplier": "Sibling full-family height supplier plus rational inverse maps, scalar height inequalities.",
+      "required": "Accept height supplier as separate interface; two disjoint blocks within a detector, separate divisibility across detectors; no coprimality between M0,M1.",
+      "declared_contract": "D214-UNIFORM-EXISTENCE-20261111",
+      "reconciliation": "Matching direct input and consumer in uniform-existence contract; source-carry C10/C11 for prime/scalar, C04 for pole, fresh boundary C12. No unmatched use found within this scoped reconstruction."
+    },
+    {
+      "id": "E03",
+      "passage_lines": [
+        2266,
+        2282
+      ],
+      "excerpt_sha256": "d6bb37448adf13ae89300585def3f789ca65805901d1cb38463411b0e0737f53",
+      "claim": "Uniform soundness threshold",
+      "supplier": "Scalar-S, parity and four-contact suppliers 38258-38285,40154-40249,42206-42250; integer Lucas norm equation.",
+      "required": "c=|a|>=149^L_N; eliminate Delta via exponent14/9<2; Lucas exponential bound eliminates J; constants fixed before x,N.",
+      "declared_contract": "D214-UNIFORM-EXISTENCE-20261111",
+      "reconciliation": "Matching direct input and consumer in uniform-existence contract; source-carry C10/C11 for prime/scalar, C04 for pole, fresh boundary C12. No unmatched use found within this scoped reconstruction."
+    },
+    {
+      "id": "E04",
+      "passage_lines": [
+        2284,
+        2293
+      ],
+      "excerpt_sha256": "8a0874e1cf7aba4598aadf6c179409e252f9e3ad68ca2932e0affb821b09066a",
+      "claim": "Uniform scalar completeness preparation",
+      "supplier": "Four-contact completeness 42252-42275; scalar-S 38281-38285; real-progression 37358-37385.",
+      "required": "Rs>=A/(1+149^2), fixed compact neighborhoods before labels; W<=KW Rs^-4; b<=9793KW^2 Rs^-6; finite depths input dependent.",
+      "declared_contract": "D214-UNIFORM-EXISTENCE-20261111",
+      "reconciliation": "Matching direct input and consumer in uniform-existence contract; source-carry C10/C11 for prime/scalar, C04 for pole, fresh boundary C12. No unmatched use found within this scoped reconstruction."
+    },
+    {
+      "id": "E05",
+      "passage_lines": [
+        2295,
+        2295
+      ],
+      "excerpt_sha256": "d6cc5e6026f55c355a7884316e3e62afa31b0aa754161b9aa6c96febafcb251f",
+      "claim": "Lucas labels and contact list",
+      "supplier": "Integer recurrence, rational-contact denominator lemma 37154-37185 and 37336-37356.",
+      "required": "a>=3 chosen first; positive n,a,t,b, Delta=0; T positive; square denominator dilation; merge only equal coefficients preserving incidences.",
+      "declared_contract": "D214-UNIFORM-EXISTENCE-20261111",
+      "reconciliation": "Matching direct input and consumer in uniform-existence contract; source-carry C10/C11 for prime/scalar, C04 for pole, fresh boundary C12. No unmatched use found within this scoped reconstruction."
+    },
+    {
+      "id": "E06",
+      "passage_lines": [
+        2297,
+        2297
+      ],
+      "excerpt_sha256": "2c299eec786eba1404f60c436e2e08755d71af2ebcca7d1dd049ee70dcf9bc69",
+      "claim": "Prime pattern and compatible reference progression",
+      "supplier": "Internal simultaneous prime theorem; avoidance/progression 37240-37385; quantitative diagonal 37045-37152.",
+      "required": "Fixed arbitrary distinct coefficients and divisibility; no uniformity in input. Gaussian norms produce gcds; P double killed by order/4; real neighborhood preserved.",
+      "declared_contract": "D214-UNIFORM-EXISTENCE-20261111",
+      "reconciliation": "Matching direct input and consumer in uniform-existence contract; source-carry C10/C11 for prime/scalar, C04 for pole, fresh boundary C12. No unmatched use found within this scoped reconstruction."
+    },
+    {
+      "id": "E07",
+      "passage_lines": [
+        2299,
+        2308
+      ],
+      "excerpt_sha256": "1f8a35da72e627e3b9d73114314f96808e9b8e084497bcdeff90d3649d35bce0",
+      "claim": "Changed factors and actual pole input",
+      "supplier": "Local reciprocal tests P04-P07; exact prime-product identity; finite/real preparation 38100-38175.",
+      "required": "Natural formal depth1, reciprocal depth2, error4; all changed factor valuations positive. Square parity away from contacts; selected odd valuation +1; local depths4,2,2; positive real limit.",
+      "declared_contract": "D214-UNIFORM-EXISTENCE-20261111",
+      "reconciliation": "Matching direct input and consumer in uniform-existence contract; source-carry C10/C11 for prime/scalar, C04 for pole, fresh boundary C12. No unmatched use found within this scoped reconstruction."
+    },
+    {
+      "id": "E08",
+      "passage_lines": [
+        2310,
+        2310
+      ],
+      "excerpt_sha256": "9cf28a015e98afacdbffad24104e2be31d054d53f2f2e44fd0a8379aecc46128",
+      "claim": "Fresh independent pole certificates",
+      "supplier": "Zero-preparation bridge 37387-37458 and retained RC/descent theorem.",
+      "required": "Actual new b has square denominator, 0<b<17 and local squares/depths; RC applies non-CM E_l with full Selmer corank1. Deep RC treated separate inherited interface.",
+      "declared_contract": "D214-UNIFORM-EXISTENCE-20261111",
+      "reconciliation": "Matching direct input and consumer in uniform-existence contract; source-carry C10/C11 for prime/scalar, C04 for pole, fresh boundary C12. No unmatched use found within this scoped reconstruction."
+    },
+    {
+      "id": "E09",
+      "passage_lines": [
+        2312,
+        2312
+      ],
+      "excerpt_sha256": "a075091131704ebd04f48ac7157dab2bd095f2a1ea1c40f0a2023a9aeeef7ac9",
+      "claim": "Quantifier assembly and row transport",
+      "supplier": "E01-E08 and exact raw224 inverse/Laurent identities, separate row review.",
+      "required": "One NC independent x from scalar real bound; all later existential choices depend (N,x), no added N threshold; N0=max(NS,NC).",
+      "declared_contract": "D214-UNIFORM-EXISTENCE-20261111",
+      "reconciliation": "Matching direct input and consumer in uniform-existence contract; source-carry C10/C11 for prime/scalar, C04 for pole, fresh boundary C12. No unmatched use found within this scoped reconstruction."
+    }
+  ],
+  "locator_correction": "Initial table inferred several line numbers incorrectly from displayed snippets. Initial bytes preserved; corrected ranges here follow exact P labels. This correction changes no mathematical entry or supplier and does not conceal the initial reconstruction.",
+  "initial_sha256": "c9600eea5c6bd94a389aa43f2f2cbd84657c0a217cda6a0a8dc205f35b8b903d",
+  "inventory_bindings": {
+    "research/quartic214/contracts/uniform-existence.json": "832900c2f480bce3eb77bef6c8b408a7ca16229b8414104e3938849a3b3bc011",
+    "research/quartic214/contracts/source-carry.json": "0ccb359a72c0c0215ab2d4bad7a5a2a49ca2a2cddaa9254eb698a6e69c39688e",
+    "research/quartic214/contracts/source-carry-sources.json": "f286c8ac793e44c4f74db702afb7f8cbf3acb89f13c631a8275b7ecdec80c243"
+  }
+}

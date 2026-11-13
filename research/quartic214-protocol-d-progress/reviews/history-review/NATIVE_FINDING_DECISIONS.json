@@ -1,0 +1,531 @@
+[
+  {
+    "subject": "finding:component-typing-1",
+    "subject_sha256": "7318b607517f3e51c49dcabfb56389d51436776449ce609b3536ff8fef79f6df",
+    "outcome": "accepted_within_scope",
+    "review_basis": "reused_exact_derivation",
+    "prior_review": {
+      "side": "head",
+      "path": "research/version16/review/coverage/PROTOCOL14-COVERAGE-REVIEW.json",
+      "sha256": "5f2b89458628c91a6c7614749b33799c71b411559c222cb715eed7a9abe629c8"
+    },
+    "scope": "This complete related-finding record and its disposition are unchanged. I reuse the same prior finding derivation at its unchanged scope. Reuse the exact accepted Version 15 finding disposition and its bounded related-use review. Current source mapping preserves its mathematical assertion and consumer scope; later Version 16 corrections are separately recorded and do not rewrite the historical judgment.",
+    "limitations": "This decision covers the named finding and recorded occurrences. It does not claim that every historical reviewer read every source, enlarge a bounded review into an unrelated audit, or discard an earlier adverse observation."
+  },
+  {
+    "subject": "finding:component-typing-2",
+    "subject_sha256": "b8264982c5cab37dfdf53271b2d9a8e9065203797b41d6b74010ff06443f5341",
+    "outcome": "accepted_within_scope",
+    "review_basis": "reused_exact_derivation",
+    "prior_review": {
+      "side": "head",
+      "path": "research/version16/review/coverage/PROTOCOL14-COVERAGE-REVIEW.json",
+      "sha256": "5f2b89458628c91a6c7614749b33799c71b411559c222cb715eed7a9abe629c8"
+    },
+    "scope": "This complete related-finding record and its disposition are unchanged. I reuse the same prior finding derivation at its unchanged scope. Reuse the exact accepted Version 15 finding disposition and its bounded related-use review. Current source mapping preserves its mathematical assertion and consumer scope; later Version 16 corrections are separately recorded and do not rewrite the historical judgment.",
+    "limitations": "This decision covers the named finding and recorded occurrences. It does not claim that every historical reviewer read every source, enlarge a bounded review into an unrelated audit, or discard an earlier adverse observation."
+  },
+  {
+    "subject": "finding:component-typing-3",
+    "subject_sha256": "54019f445c46abc0fd8d61d37ea1af5452c8f829b46a1fe82467838133e5063e",
+    "outcome": "accepted_within_scope",
+    "review_basis": "reused_exact_derivation",
+    "prior_review": {
+      "side": "head",
+      "path": "research/version16/review/coverage/PROTOCOL14-COVERAGE-REVIEW.json",
+      "sha256": "5f2b89458628c91a6c7614749b33799c71b411559c222cb715eed7a9abe629c8"
+    },
+    "scope": "This complete related-finding record and its disposition are unchanged. I reuse the same prior finding derivation at its unchanged scope. Reuse the exact accepted Version 15 finding disposition and its bounded related-use review. Current source mapping preserves its mathematical assertion and consumer scope; later Version 16 corrections are separately recorded and do not rewrite the historical judgment.",
+    "limitations": "This decision covers the named finding and recorded occurrences. It does not claim that every historical reviewer read every source, enlarge a bounded review into an unrelated audit, or discard an earlier adverse observation."
+  },
+  {
+    "subject": "finding:component-typing-4",
+    "subject_sha256": "48133099299ab71b0eaf20f4e609d1f278547b38c732fa502d066bf6dbd4957b",
+    "outcome": "accepted_within_scope",
+    "review_basis": "reused_exact_derivation",
+    "prior_review": {
+      "side": "head",
+      "path": "research/version16/review/coverage/PROTOCOL14-COVERAGE-REVIEW.json",
+      "sha256": "5f2b89458628c91a6c7614749b33799c71b411559c222cb715eed7a9abe629c8"
+    },
+    "scope": "This complete related-finding record and its disposition are unchanged. I reuse the same prior finding derivation at its unchanged scope. Reuse the exact accepted Version 15 finding disposition and its bounded related-use review. Current source mapping preserves its mathematical assertion and consumer scope; later Version 16 corrections are separately recorded and do not rewrite the historical judgment.",
+    "limitations": "This decision covers the named finding and recorded occurrences. It does not claim that every historical reviewer read every source, enlarge a bounded review into an unrelated audit, or discard an earlier adverse observation."
+  },
+  {
+    "subject": "finding:component-typing-5",
+    "subject_sha256": "d61bf21f53c01145e662ca5a4df279c3f1c4e51eaca8b6953a11e010ebc4adaf",
+    "outcome": "accepted_within_scope",
+    "review_basis": "reused_exact_derivation",
+    "prior_review": {
+      "side": "head",
+      "path": "research/version16/review/coverage/PROTOCOL14-COVERAGE-REVIEW.json",
+      "sha256": "5f2b89458628c91a6c7614749b33799c71b411559c222cb715eed7a9abe629c8"
+    },
+    "scope": "This complete related-finding record and its disposition are unchanged. I reuse the same prior finding derivation at its unchanged scope. Reuse the exact accepted Version 15 finding disposition and its bounded related-use review. Current source mapping preserves its mathematical assertion and consumer scope; later Version 16 corrections are separately recorded and do not rewrite the historical judgment.",
+    "limitations": "This decision covers the named finding and recorded occurrences. It does not claim that every historical reviewer read every source, enlarge a bounded review into an unrelated audit, or discard an earlier adverse observation."
+  },
+  {
+    "subject": "finding:233-domain/index-1",
+    "subject_sha256": "a7be25c311d0410dc81391df96490298dd3033f373d13dc873a6edeca1bd1311",
+    "outcome": "accepted_within_scope",
+    "review_basis": "reused_exact_derivation",
+    "prior_review": {
+      "side": "head",
+      "path": "research/version16/review/coverage/PROTOCOL14-COVERAGE-REVIEW.json",
+      "sha256": "5f2b89458628c91a6c7614749b33799c71b411559c222cb715eed7a9abe629c8"
+    },
+    "scope": "This complete related-finding record and its disposition are unchanged. I reuse the same prior finding derivation at its unchanged scope. Reuse the exact accepted Version 15 finding disposition and its bounded related-use review. Current source mapping preserves its mathematical assertion and consumer scope; later Version 16 corrections are separately recorded and do not rewrite the historical judgment.",
+    "limitations": "This decision covers the named finding and recorded occurrences. It does not claim that every historical reviewer read every source, enlarge a bounded review into an unrelated audit, or discard an earlier adverse observation."
+  },
+  {
+    "subject": "finding:unpublished-foundation-closure-1",
+    "subject_sha256": "fcf214a75bc6fb608cd1040818162ff0b27c8e588402ed361ce5c9a96d9e3894",
+    "outcome": "accepted_within_scope",
+    "review_basis": "reused_exact_derivation",
+    "prior_review": {
+      "side": "head",
+      "path": "research/version16/review/coverage/PROTOCOL14-COVERAGE-REVIEW.json",
+      "sha256": "5f2b89458628c91a6c7614749b33799c71b411559c222cb715eed7a9abe629c8"
+    },
+    "scope": "This complete related-finding record and its disposition are unchanged. I reuse the same prior finding derivation at its unchanged scope. Reuse the exact accepted Version 15 finding disposition and its bounded related-use review. Current source mapping preserves its mathematical assertion and consumer scope; later Version 16 corrections are separately recorded and do not rewrite the historical judgment.",
+    "limitations": "This decision covers the named finding and recorded occurrences. It does not claim that every historical reviewer read every source, enlarge a bounded review into an unrelated audit, or discard an earlier adverse observation."
+  },
+  {
+    "subject": "finding:unpublished-foundation-closure-2",
+    "subject_sha256": "599560f77ac2fce5cc41f92ea8007cb8ff5b04235b49e17de1e6b3298a4a5789",
+    "outcome": "accepted_within_scope",
+    "review_basis": "reused_exact_derivation",
+    "prior_review": {
+      "side": "head",
+      "path": "research/version16/review/coverage/PROTOCOL14-COVERAGE-REVIEW.json",
+      "sha256": "5f2b89458628c91a6c7614749b33799c71b411559c222cb715eed7a9abe629c8"
+    },
+    "scope": "This complete related-finding record and its disposition are unchanged. I reuse the same prior finding derivation at its unchanged scope. Reuse the exact accepted Version 15 finding disposition and its bounded related-use review. Current source mapping preserves its mathematical assertion and consumer scope; later Version 16 corrections are separately recorded and do not rewrite the historical judgment.",
+    "limitations": "This decision covers the named finding and recorded occurrences. It does not claim that every historical reviewer read every source, enlarge a bounded review into an unrelated audit, or discard an earlier adverse observation."
+  },
+  {
+    "subject": "finding:unpublished-foundation-closure-3",
+    "subject_sha256": "f2a352bc675899e338d91456e842ab60da965d746aea871e8e8bab230a78aed0",
+    "outcome": "accepted_within_scope",
+    "review_basis": "reused_exact_derivation",
+    "prior_review": {
+      "side": "head",
+      "path": "research/version16/review/coverage/PROTOCOL14-COVERAGE-REVIEW.json",
+      "sha256": "5f2b89458628c91a6c7614749b33799c71b411559c222cb715eed7a9abe629c8"
+    },
+    "scope": "This complete related-finding record and its disposition are unchanged. I reuse the same prior finding derivation at its unchanged scope. Reuse the exact accepted Version 15 finding disposition and its bounded related-use review. Current source mapping preserves its mathematical assertion and consumer scope; later Version 16 corrections are separately recorded and do not rewrite the historical judgment.",
+    "limitations": "This decision covers the named finding and recorded occurrences. It does not claim that every historical reviewer read every source, enlarge a bounded review into an unrelated audit, or discard an earlier adverse observation."
+  },
+  {
+    "subject": "finding:unpublished-foundation-closure-4",
+    "subject_sha256": "f6ab9790ef6af93f358140bca7fc70cba847ba59a5bdad0df3560a0b8f9512a8",
+    "outcome": "accepted_within_scope",
+    "review_basis": "reused_exact_derivation",
+    "prior_review": {
+      "side": "head",
+      "path": "research/version16/review/coverage/PROTOCOL14-COVERAGE-REVIEW.json",
+      "sha256": "5f2b89458628c91a6c7614749b33799c71b411559c222cb715eed7a9abe629c8"
+    },
+    "scope": "This complete related-finding record and its disposition are unchanged. I reuse the same prior finding derivation at its unchanged scope. Reuse the exact accepted Version 15 finding disposition and its bounded related-use review. Current source mapping preserves its mathematical assertion and consumer scope; later Version 16 corrections are separately recorded and do not rewrite the historical judgment.",
+    "limitations": "This decision covers the named finding and recorded occurrences. It does not claim that every historical reviewer read every source, enlarge a bounded review into an unrelated audit, or discard an earlier adverse observation."
+  },
+  {
+    "subject": "finding:unpublished-foundation-closure-5",
+    "subject_sha256": "11bef3bfaeec859fdd0e4e2777d070e4cafdae16cc0d7c8fb95706c735255bcf",
+    "outcome": "accepted_within_scope",
+    "review_basis": "reused_exact_derivation",
+    "prior_review": {
+      "side": "head",
+      "path": "research/version16/review/coverage/PROTOCOL14-COVERAGE-REVIEW.json",
+      "sha256": "5f2b89458628c91a6c7614749b33799c71b411559c222cb715eed7a9abe629c8"
+    },
+    "scope": "This complete related-finding record and its disposition are unchanged. I reuse the same prior finding derivation at its unchanged scope. Reuse the exact accepted Version 15 finding disposition and its bounded related-use review. Current source mapping preserves its mathematical assertion and consumer scope; later Version 16 corrections are separately recorded and do not rewrite the historical judgment.",
+    "limitations": "This decision covers the named finding and recorded occurrences. It does not claim that every historical reviewer read every source, enlarge a bounded review into an unrelated audit, or discard an earlier adverse observation."
+  },
+  {
+    "subject": "finding:SF34-typed-baseline",
+    "subject_sha256": "32f80ac10b28cb679b3b04b54784d4e7a7e63bd66f39d0ce0f38441b30143184",
+    "outcome": "accepted_within_scope",
+    "review_basis": "reused_exact_derivation",
+    "prior_review": {
+      "side": "head",
+      "path": "research/version16/review/coverage/PROTOCOL14-COVERAGE-REVIEW.json",
+      "sha256": "5f2b89458628c91a6c7614749b33799c71b411559c222cb715eed7a9abe629c8"
+    },
+    "scope": "This complete related-finding record and its disposition are unchanged. I reuse the same prior finding derivation at its unchanged scope. Reuse the exact accepted Version 15 finding disposition and its bounded related-use review. Current source mapping preserves its mathematical assertion and consumer scope; later Version 16 corrections are separately recorded and do not rewrite the historical judgment.",
+    "limitations": "This decision covers the named finding and recorded occurrences. It does not claim that every historical reviewer read every source, enlarge a bounded review into an unrelated audit, or discard an earlier adverse observation."
+  },
+  {
+    "subject": "finding:adoption036-named-corrections",
+    "subject_sha256": "1b2a08487ce2e6970fb9b68ad5a33bfccd3d530e74e0732364cd22a04b729730",
+    "outcome": "accepted_within_scope",
+    "review_basis": "reused_exact_derivation",
+    "prior_review": {
+      "side": "head",
+      "path": "research/version16/review/coverage/PROTOCOL14-COVERAGE-REVIEW.json",
+      "sha256": "5f2b89458628c91a6c7614749b33799c71b411559c222cb715eed7a9abe629c8"
+    },
+    "scope": "This complete related-finding record and its disposition are unchanged. I reuse the same prior finding derivation at its unchanged scope. Reuse the exact accepted Version 15 finding disposition and its bounded related-use review. Current source mapping preserves its mathematical assertion and consumer scope; later Version 16 corrections are separately recorded and do not rewrite the historical judgment.",
+    "limitations": "This decision covers the named finding and recorded occurrences. It does not claim that every historical reviewer read every source, enlarge a bounded review into an unrelated audit, or discard an earlier adverse observation."
+  },
+  {
+    "subject": "finding:SOURCE-MAPPING-SCALAR245-TO-PARITY237",
+    "subject_sha256": "2b4ae0cea00d3e9ba9c2abf238ea1ee2aac690268a238a1379f3a11a686f3ab2",
+    "outcome": "accepted_within_scope",
+    "review_basis": "reused_exact_derivation",
+    "prior_review": {
+      "side": "head",
+      "path": "research/version16/review/coverage/PROTOCOL14-COVERAGE-REVIEW.json",
+      "sha256": "5f2b89458628c91a6c7614749b33799c71b411559c222cb715eed7a9abe629c8"
+    },
+    "scope": "This complete related-finding record and its disposition are unchanged. I reuse the same prior finding derivation at its unchanged scope. Reuse the exact accepted Version 15 finding disposition and its bounded related-use review. Current source mapping preserves its mathematical assertion and consumer scope; later Version 16 corrections are separately recorded and do not rewrite the historical judgment.",
+    "limitations": "This decision covers the named finding and recorded occurrences. It does not claim that every historical reviewer read every source, enlarge a bounded review into an unrelated audit, or discard an earlier adverse observation."
+  },
+  {
+    "subject": "finding:SOURCE-MAPPING-SF16",
+    "subject_sha256": "5f8cf6730327525e1828e9cb644e2256256d4ca9280b0963e3b8553d70fcd3e2",
+    "outcome": "accepted_within_scope",
+    "review_basis": "reused_exact_derivation",
+    "prior_review": {
+      "side": "head",
+      "path": "research/version16/review/coverage/PROTOCOL14-COVERAGE-REVIEW.json",
+      "sha256": "5f2b89458628c91a6c7614749b33799c71b411559c222cb715eed7a9abe629c8"
+    },
+    "scope": "This complete related-finding record and its disposition are unchanged. I reuse the same prior finding derivation at its unchanged scope. Reuse the exact accepted Version 15 finding disposition and its bounded related-use review. Current source mapping preserves its mathematical assertion and consumer scope; later Version 16 corrections are separately recorded and do not rewrite the historical judgment.",
+    "limitations": "This decision covers the named finding and recorded occurrences. It does not claim that every historical reviewer read every source, enlarge a bounded review into an unrelated audit, or discard an earlier adverse observation."
+  },
+  {
+    "subject": "finding:SOURCE-MAPPING-SF20",
+    "subject_sha256": "92db6be4795b0ae50c647300ce774e727d041286d599cd07dca51c0096df655f",
+    "outcome": "accepted_within_scope",
+    "review_basis": "reused_exact_derivation",
+    "prior_review": {
+      "side": "head",
+      "path": "research/version16/review/coverage/PROTOCOL14-COVERAGE-REVIEW.json",
+      "sha256": "5f2b89458628c91a6c7614749b33799c71b411559c222cb715eed7a9abe629c8"
+    },
+    "scope": "This complete related-finding record and its disposition are unchanged. I reuse the same prior finding derivation at its unchanged scope. Reuse the exact accepted Version 15 finding disposition and its bounded related-use review. Current source mapping preserves its mathematical assertion and consumer scope; later Version 16 corrections are separately recorded and do not rewrite the historical judgment.",
+    "limitations": "This decision covers the named finding and recorded occurrences. It does not claim that every historical reviewer read every source, enlarge a bounded review into an unrelated audit, or discard an earlier adverse observation."
+  },
+  {
+    "subject": "finding:SOURCE-MAPPING-SF23",
+    "subject_sha256": "a0078df3f568fadba7fd46e359705272e0d6be9c06eb515d02cba2df2d1bdd4d",
+    "outcome": "accepted_within_scope",
+    "review_basis": "reused_exact_derivation",
+    "prior_review": {
+      "side": "head",
+      "path": "research/version16/review/coverage/PROTOCOL14-COVERAGE-REVIEW.json",
+      "sha256": "5f2b89458628c91a6c7614749b33799c71b411559c222cb715eed7a9abe629c8"
+    },
+    "scope": "This complete related-finding record and its disposition are unchanged. I reuse the same prior finding derivation at its unchanged scope. Reuse the exact accepted Version 15 finding disposition and its bounded related-use review. Current source mapping preserves its mathematical assertion and consumer scope; later Version 16 corrections are separately recorded and do not rewrite the historical judgment.",
+    "limitations": "This decision covers the named finding and recorded occurrences. It does not claim that every historical reviewer read every source, enlarge a bounded review into an unrelated audit, or discard an earlier adverse observation."
+  },
+  {
+    "subject": "finding:SOURCE-MAPPING-SF24",
+    "subject_sha256": "962dd26e87761f60533a0f74b4d4e24eedc0017554d01d49e8f8ccdb109976b0",
+    "outcome": "accepted_within_scope",
+    "review_basis": "reused_exact_derivation",
+    "prior_review": {
+      "side": "head",
+      "path": "research/version16/review/coverage/PROTOCOL14-COVERAGE-REVIEW.json",
+      "sha256": "5f2b89458628c91a6c7614749b33799c71b411559c222cb715eed7a9abe629c8"
+    },
+    "scope": "This complete related-finding record and its disposition are unchanged. I reuse the same prior finding derivation at its unchanged scope. Reuse the exact accepted Version 15 finding disposition and its bounded related-use review. Current source mapping preserves its mathematical assertion and consumer scope; later Version 16 corrections are separately recorded and do not rewrite the historical judgment.",
+    "limitations": "This decision covers the named finding and recorded occurrences. It does not claim that every historical reviewer read every source, enlarge a bounded review into an unrelated audit, or discard an earlier adverse observation."
+  },
+  {
+    "subject": "finding:SOURCE-MAPPING-SF45",
+    "subject_sha256": "785ba78e6a88ffd0f866df7f1b85f3ffbf902baa657f4dfcaef5e1cb06fe043f",
+    "outcome": "accepted_within_scope",
+    "review_basis": "reused_exact_derivation",
+    "prior_review": {
+      "side": "head",
+      "path": "research/version16/review/coverage/PROTOCOL14-COVERAGE-REVIEW.json",
+      "sha256": "5f2b89458628c91a6c7614749b33799c71b411559c222cb715eed7a9abe629c8"
+    },
+    "scope": "This complete related-finding record and its disposition are unchanged. I reuse the same prior finding derivation at its unchanged scope. Reuse the exact accepted Version 15 finding disposition and its bounded related-use review. Current source mapping preserves its mathematical assertion and consumer scope; later Version 16 corrections are separately recorded and do not rewrite the historical judgment.",
+    "limitations": "This decision covers the named finding and recorded occurrences. It does not claim that every historical reviewer read every source, enlarge a bounded review into an unrelated audit, or discard an earlier adverse observation."
+  },
+  {
+    "subject": "finding:INVERSE-ORDER-029",
+    "subject_sha256": "11744d96670100a83b7acd867dfa63c36f382662a9bffdee5e25e59527e65f61",
+    "outcome": "accepted_within_scope",
+    "review_basis": "reused_exact_derivation",
+    "prior_review": {
+      "side": "head",
+      "path": "research/version16/review/coverage/PROTOCOL14-COVERAGE-REVIEW.json",
+      "sha256": "5f2b89458628c91a6c7614749b33799c71b411559c222cb715eed7a9abe629c8"
+    },
+    "scope": "This complete related-finding record and its disposition are unchanged. I reuse the same prior finding derivation at its unchanged scope. Reuse the exact accepted Version 15 finding disposition and its bounded related-use review. Current source mapping preserves its mathematical assertion and consumer scope; later Version 16 corrections are separately recorded and do not rewrite the historical judgment.",
+    "limitations": "This decision covers the named finding and recorded occurrences. It does not claim that every historical reviewer read every source, enlarge a bounded review into an unrelated audit, or discard an earlier adverse observation."
+  },
+  {
+    "subject": "finding:SF46-LATER-DISCOVERY",
+    "subject_sha256": "c8ea0a3cf6d0032d3bb3889d1a032009bd60a5c52f005f72c7a89616fc986f97",
+    "outcome": "accepted_within_scope",
+    "review_basis": "reused_exact_derivation",
+    "prior_review": {
+      "side": "head",
+      "path": "research/version16/review/coverage/PROTOCOL14-COVERAGE-REVIEW.json",
+      "sha256": "5f2b89458628c91a6c7614749b33799c71b411559c222cb715eed7a9abe629c8"
+    },
+    "scope": "This complete related-finding record and its disposition are unchanged. I reuse the same prior finding derivation at its unchanged scope. Reuse the exact accepted Version 15 finding disposition and its bounded related-use review. Current source mapping preserves its mathematical assertion and consumer scope; later Version 16 corrections are separately recorded and do not rewrite the historical judgment.",
+    "limitations": "This decision covers the named finding and recorded occurrences. It does not claim that every historical reviewer read every source, enlarge a bounded review into an unrelated audit, or discard an earlier adverse observation."
+  },
+  {
+    "subject": "finding:SF11-SOURCE-ROUTE",
+    "subject_sha256": "02974163e378b477cab125263d6f90438d8a8e311081db227ab6ad5bbf04512d",
+    "outcome": "accepted_within_scope",
+    "review_basis": "reused_exact_derivation",
+    "prior_review": {
+      "side": "head",
+      "path": "research/version16/review/coverage/PROTOCOL14-COVERAGE-REVIEW.json",
+      "sha256": "5f2b89458628c91a6c7614749b33799c71b411559c222cb715eed7a9abe629c8"
+    },
+    "scope": "This complete related-finding record and its disposition are unchanged. I reuse the same prior finding derivation at its unchanged scope. Reuse the exact accepted Version 15 finding disposition and its bounded related-use review. Current source mapping preserves its mathematical assertion and consumer scope; later Version 16 corrections are separately recorded and do not rewrite the historical judgment.",
+    "limitations": "This decision covers the named finding and recorded occurrences. It does not claim that every historical reviewer read every source, enlarge a bounded review into an unrelated audit, or discard an earlier adverse observation."
+  },
+  {
+    "subject": "finding:GRAPH-missing-route-endpoints",
+    "subject_sha256": "c8b4322f1a819d072598438c9db1a5717e0e8a697d4e4671b41cab2f08ee6869",
+    "outcome": "accepted_within_scope",
+    "review_basis": "reused_exact_derivation",
+    "prior_review": {
+      "side": "head",
+      "path": "research/version16/review/coverage/PROTOCOL14-COVERAGE-REVIEW.json",
+      "sha256": "5f2b89458628c91a6c7614749b33799c71b411559c222cb715eed7a9abe629c8"
+    },
+    "scope": "This complete related-finding record and its disposition are unchanged. I reuse the same prior finding derivation at its unchanged scope. Reuse the exact accepted Version 15 finding disposition and its bounded related-use review. Current source mapping preserves its mathematical assertion and consumer scope; later Version 16 corrections are separately recorded and do not rewrite the historical judgment.",
+    "limitations": "This decision covers the named finding and recorded occurrences. It does not claim that every historical reviewer read every source, enlarge a bounded review into an unrelated audit, or discard an earlier adverse observation."
+  },
+  {
+    "subject": "finding:GRAPH-retained-supplier-join",
+    "subject_sha256": "b43a880ce337e55e3f0506e77752560609e9a464c02f1f97a7d704ca1fe9f74d",
+    "outcome": "accepted_within_scope",
+    "review_basis": "reused_exact_derivation",
+    "prior_review": {
+      "side": "head",
+      "path": "research/version16/review/coverage/PROTOCOL14-COVERAGE-REVIEW.json",
+      "sha256": "5f2b89458628c91a6c7614749b33799c71b411559c222cb715eed7a9abe629c8"
+    },
+    "scope": "This complete related-finding record and its disposition are unchanged. I reuse the same prior finding derivation at its unchanged scope. Reuse the exact accepted Version 15 finding disposition and its bounded related-use review. Current source mapping preserves its mathematical assertion and consumer scope; later Version 16 corrections are separately recorded and do not rewrite the historical judgment.",
+    "limitations": "This decision covers the named finding and recorded occurrences. It does not claim that every historical reviewer read every source, enlarge a bounded review into an unrelated audit, or discard an earlier adverse observation."
+  },
+  {
+    "subject": "finding:GRAPH-SF46-consumer-edge",
+    "subject_sha256": "abb6ea40fdf1bd44ea1a42c40e215efaf8ae610201f37be5d7bf52dc320a2d53",
+    "outcome": "accepted_within_scope",
+    "review_basis": "reused_exact_derivation",
+    "prior_review": {
+      "side": "head",
+      "path": "research/version16/review/coverage/PROTOCOL14-COVERAGE-REVIEW.json",
+      "sha256": "5f2b89458628c91a6c7614749b33799c71b411559c222cb715eed7a9abe629c8"
+    },
+    "scope": "This complete related-finding record and its disposition are unchanged. I reuse the same prior finding derivation at its unchanged scope. Reuse the exact accepted Version 15 finding disposition and its bounded related-use review. Current source mapping preserves its mathematical assertion and consumer scope; later Version 16 corrections are separately recorded and do not rewrite the historical judgment.",
+    "limitations": "This decision covers the named finding and recorded occurrences. It does not claim that every historical reviewer read every source, enlarge a bounded review into an unrelated audit, or discard an earlier adverse observation."
+  },
+  {
+    "subject": "finding:GRAPH-current-window-transport",
+    "subject_sha256": "6bbd17f88c8c09d129722294091248f2d6060d0494ee3b0ae9125fee4e2058ad",
+    "outcome": "accepted_within_scope",
+    "review_basis": "reused_exact_derivation",
+    "prior_review": {
+      "side": "head",
+      "path": "research/version16/review/coverage/PROTOCOL14-COVERAGE-REVIEW.json",
+      "sha256": "5f2b89458628c91a6c7614749b33799c71b411559c222cb715eed7a9abe629c8"
+    },
+    "scope": "This complete related-finding record and its disposition are unchanged. I reuse the same prior finding derivation at its unchanged scope. Reuse the exact accepted Version 15 finding disposition and its bounded related-use review. Current source mapping preserves its mathematical assertion and consumer scope; later Version 16 corrections are separately recorded and do not rewrite the historical judgment.",
+    "limitations": "This decision covers the named finding and recorded occurrences. It does not claim that every historical reviewer read every source, enlarge a bounded review into an unrelated audit, or discard an earlier adverse observation."
+  },
+  {
+    "subject": "finding:NORMALIZATION-DIMENSIONS-001",
+    "subject_sha256": "141acb0d292a45ee556ffad8769acdcf39cab33c162b20bd01a77e341f9c7a7c",
+    "outcome": "accepted_within_scope",
+    "review_basis": "reused_exact_derivation",
+    "prior_review": {
+      "side": "head",
+      "path": "research/version16/review/coverage/PROTOCOL14-COVERAGE-REVIEW.json",
+      "sha256": "5f2b89458628c91a6c7614749b33799c71b411559c222cb715eed7a9abe629c8"
+    },
+    "scope": "This complete related-finding record and its disposition are unchanged. I reuse the same prior finding derivation at its unchanged scope. Reuse the exact accepted Version 15 finding disposition and its bounded related-use review. Current source mapping preserves its mathematical assertion and consumer scope; later Version 16 corrections are separately recorded and do not rewrite the historical judgment.",
+    "limitations": "This decision covers the named finding and recorded occurrences. It does not claim that every historical reviewer read every source, enlarge a bounded review into an unrelated audit, or discard an earlier adverse observation."
+  },
+  {
+    "subject": "finding:HEIGHT-MODULAR-CLAUSE6",
+    "subject_sha256": "6c64606b53932f9ce700ae9cbf70ae3da1b0fe314a96d90d76f1049cbe7a1154",
+    "outcome": "accepted_within_scope",
+    "review_basis": "reused_exact_derivation",
+    "prior_review": {
+      "side": "head",
+      "path": "research/version16/review/coverage/PROTOCOL14-COVERAGE-REVIEW.json",
+      "sha256": "5f2b89458628c91a6c7614749b33799c71b411559c222cb715eed7a9abe629c8"
+    },
+    "scope": "This complete related-finding record and its disposition are unchanged. I reuse the same prior finding derivation at its unchanged scope. Reuse the exact accepted Version 15 finding disposition and its bounded related-use review. Current source mapping preserves its mathematical assertion and consumer scope; later Version 16 corrections are separately recorded and do not rewrite the historical judgment.",
+    "limitations": "This decision covers the named finding and recorded occurrences. It does not claim that every historical reviewer read every source, enlarge a bounded review into an unrelated audit, or discard an earlier adverse observation."
+  },
+  {
+    "subject": "finding:PKG-01",
+    "subject_sha256": "011b405cc0b282e53ec7ed4aec2dc5a802ae32e8a5b7fd4fa42820b9aa992ffc",
+    "outcome": "accepted_within_scope",
+    "review_basis": "reused_exact_derivation",
+    "prior_review": {
+      "side": "head",
+      "path": "research/version16/review/coverage/PROTOCOL14-COVERAGE-REVIEW.json",
+      "sha256": "5f2b89458628c91a6c7614749b33799c71b411559c222cb715eed7a9abe629c8"
+    },
+    "scope": "This complete related-finding record and its disposition are unchanged. I reuse the same prior finding derivation at its unchanged scope. Reuse the exact accepted Version 15 finding disposition and its bounded related-use review. Current source mapping preserves its mathematical assertion and consumer scope; later Version 16 corrections are separately recorded and do not rewrite the historical judgment.",
+    "limitations": "This decision covers the named finding and recorded occurrences. It does not claim that every historical reviewer read every source, enlarge a bounded review into an unrelated audit, or discard an earlier adverse observation."
+  },
+  {
+    "subject": "finding:PKG-02",
+    "subject_sha256": "c3e487f10bd5d29abdca130ac7524e28e8374705b0250a8d0c90d9deb166d318",
+    "outcome": "accepted_within_scope",
+    "review_basis": "reused_exact_derivation",
+    "prior_review": {
+      "side": "head",
+      "path": "research/version16/review/coverage/PROTOCOL14-COVERAGE-REVIEW.json",
+      "sha256": "5f2b89458628c91a6c7614749b33799c71b411559c222cb715eed7a9abe629c8"
+    },
+    "scope": "This complete related-finding record and its disposition are unchanged. I reuse the same prior finding derivation at its unchanged scope. Reuse the exact accepted Version 15 finding disposition and its bounded related-use review. Current source mapping preserves its mathematical assertion and consumer scope; later Version 16 corrections are separately recorded and do not rewrite the historical judgment.",
+    "limitations": "This decision covers the named finding and recorded occurrences. It does not claim that every historical reviewer read every source, enlarge a bounded review into an unrelated audit, or discard an earlier adverse observation."
+  },
+  {
+    "subject": "finding:COROLLARY-REVIEW-AUTHOR-CONFLICT",
+    "subject_sha256": "1736166f3b11b43469034f2df17e177d62ea5424945795626d1761ade1be53b2",
+    "outcome": "accepted_within_scope",
+    "review_basis": "reused_exact_derivation",
+    "prior_review": {
+      "side": "head",
+      "path": "research/version16/review/coverage/PROTOCOL14-COVERAGE-REVIEW.json",
+      "sha256": "5f2b89458628c91a6c7614749b33799c71b411559c222cb715eed7a9abe629c8"
+    },
+    "scope": "This complete related-finding record and its disposition are unchanged. I reuse the same prior finding derivation at its unchanged scope. Reuse the exact accepted Version 15 finding disposition and its bounded related-use review. Current source mapping preserves its mathematical assertion and consumer scope; later Version 16 corrections are separately recorded and do not rewrite the historical judgment.",
+    "limitations": "This decision covers the named finding and recorded occurrences. It does not claim that every historical reviewer read every source, enlarge a bounded review into an unrelated audit, or discard an earlier adverse observation."
+  },
+  {
+    "subject": "finding:V222-REF-01",
+    "subject_sha256": "32c14ef1fb53eae62fa6ab96a150583eb64873f2a77d5316470824415b7ef890",
+    "outcome": "accepted_within_scope",
+    "review_basis": "reused_exact_derivation",
+    "prior_review": {
+      "side": "head",
+      "path": "research/version16/review/coverage/PROTOCOL14-COVERAGE-REVIEW.json",
+      "sha256": "5f2b89458628c91a6c7614749b33799c71b411559c222cb715eed7a9abe629c8"
+    },
+    "scope": "This complete related-finding record and its disposition are unchanged. I reuse the same prior finding derivation at its unchanged scope. Reuse the exact accepted Version 15 finding disposition and its bounded related-use review. Current source mapping preserves its mathematical assertion and consumer scope; later Version 16 corrections are separately recorded and do not rewrite the historical judgment.",
+    "limitations": "This decision covers the named finding and recorded occurrences. It does not claim that every historical reviewer read every source, enlarge a bounded review into an unrelated audit, or discard an earlier adverse observation."
+  },
+  {
+    "subject": "finding:V16-HORIZONTAL-OMISSION",
+    "subject_sha256": "ee6459fe3b2958c87f25c63967eddb32ceba2790196a4db361aac0cf45f0563f",
+    "outcome": "accepted_within_scope",
+    "review_basis": "reused_exact_derivation",
+    "prior_review": {
+      "side": "head",
+      "path": "research/version16/review/coverage/PROTOCOL14-COVERAGE-REVIEW.json",
+      "sha256": "5f2b89458628c91a6c7614749b33799c71b411559c222cb715eed7a9abe629c8"
+    },
+    "scope": "I independently checked that this record differs only by removal of exact repeated search_scope locations; its set and order of distinct searched passages, occurrences, exclusions, correction representations and disposition remain identical. I reuse the same prior finding derivation at its unchanged scope. Accept this exact current finding classification, bounded related-use scope and correction representation, using the current mathematical review and direct source/consumer comparison. Historical audit limits and source qualifications remain limits on the named audit, with exact inherited argument coverage separately preserved.",
+    "limitations": "This decision covers the named finding and recorded occurrences. It does not claim that every historical reviewer read every source, enlarge a bounded review into an unrelated audit, or discard an earlier adverse observation."
+  },
+  {
+    "subject": "finding:V16-GR-WRONG-PAPER",
+    "subject_sha256": "5502646aa93350ab03c7a90901b3113b3865567cf9de56cc285fd8672404935c",
+    "outcome": "accepted_within_scope",
+    "review_basis": "reused_exact_derivation",
+    "prior_review": {
+      "side": "head",
+      "path": "research/version16/review/coverage/PROTOCOL14-COVERAGE-REVIEW.json",
+      "sha256": "5f2b89458628c91a6c7614749b33799c71b411559c222cb715eed7a9abe629c8"
+    },
+    "scope": "I independently checked that this record differs only by removal of exact repeated search_scope locations; its set and order of distinct searched passages, occurrences, exclusions, correction representations and disposition remain identical. I reuse the same prior finding derivation at its unchanged scope. Accept this exact current finding classification, bounded related-use scope and correction representation, using the current mathematical review and direct source/consumer comparison. Historical audit limits and source qualifications remain limits on the named audit, with exact inherited argument coverage separately preserved.",
+    "limitations": "This decision covers the named finding and recorded occurrences. It does not claim that every historical reviewer read every source, enlarge a bounded review into an unrelated audit, or discard an earlier adverse observation."
+  },
+  {
+    "subject": "finding:V16-TZ-DIRECT-APPLICATION-WORDING",
+    "subject_sha256": "120006a0e899c4288abb53d8a2e9cc2f5dd0498aedd931b95f0644866c5e5af4",
+    "outcome": "accepted_within_scope",
+    "review_basis": "reused_exact_derivation",
+    "prior_review": {
+      "side": "head",
+      "path": "research/version16/review/coverage/PROTOCOL14-COVERAGE-REVIEW.json",
+      "sha256": "5f2b89458628c91a6c7614749b33799c71b411559c222cb715eed7a9abe629c8"
+    },
+    "scope": "I independently checked that this record differs only by removal of exact repeated search_scope locations; its set and order of distinct searched passages, occurrences, exclusions, correction representations and disposition remain identical. I reuse the same prior finding derivation at its unchanged scope. Accept this exact current finding classification, bounded related-use scope and correction representation, using the current mathematical review and direct source/consumer comparison. Historical audit limits and source qualifications remain limits on the named audit, with exact inherited argument coverage separately preserved.",
+    "limitations": "This decision covers the named finding and recorded occurrences. It does not claim that every historical reviewer read every source, enlarge a bounded review into an unrelated audit, or discard an earlier adverse observation."
+  },
+  {
+    "subject": "finding:V16-BOGOLYUBOV-NUMBER",
+    "subject_sha256": "44a452764205d3e6da88fd2afc366e8eeb863e4cfb23c6660f5d02a3fdfce689",
+    "outcome": "accepted_within_scope",
+    "review_basis": "reused_exact_derivation",
+    "prior_review": {
+      "side": "head",
+      "path": "research/version16/review/coverage/PROTOCOL14-COVERAGE-REVIEW.json",
+      "sha256": "5f2b89458628c91a6c7614749b33799c71b411559c222cb715eed7a9abe629c8"
+    },
+    "scope": "I independently checked that this record differs only by removal of exact repeated search_scope locations; its set and order of distinct searched passages, occurrences, exclusions, correction representations and disposition remain identical. I reuse the same prior finding derivation at its unchanged scope. Accept this exact current finding classification, bounded related-use scope and correction representation, using the current mathematical review and direct source/consumer comparison. Historical audit limits and source qualifications remain limits on the named audit, with exact inherited argument coverage separately preserved.",
+    "limitations": "This decision covers the named finding and recorded occurrences. It does not claim that every historical reviewer read every source, enlarge a bounded review into an unrelated audit, or discard an earlier adverse observation."
+  },
+  {
+    "subject": "finding:V16-FABLE-KATO-RIBET-UNREAD",
+    "subject_sha256": "85ae3daef909cb00f61ccc2fa77db07017c522281ea315b59c3aeba0633d6e3e",
+    "outcome": "accepted_within_scope",
+    "review_basis": "reused_exact_derivation",
+    "prior_review": {
+      "side": "head",
+      "path": "research/version16/review/coverage/PROTOCOL14-COVERAGE-REVIEW.json",
+      "sha256": "5f2b89458628c91a6c7614749b33799c71b411559c222cb715eed7a9abe629c8"
+    },
+    "scope": "This complete related-finding record and its disposition are unchanged. I reuse the same prior finding derivation at its unchanged scope. Accept this exact current finding classification, bounded related-use scope and correction representation, using the current mathematical review and direct source/consumer comparison. Historical audit limits and source qualifications remain limits on the named audit, with exact inherited argument coverage separately preserved.",
+    "limitations": "This decision covers the named finding and recorded occurrences. It does not claim that every historical reviewer read every source, enlarge a bounded review into an unrelated audit, or discard an earlier adverse observation."
+  },
+  {
+    "subject": "finding:V16-OTHER-SOURCE-QUALIFICATIONS",
+    "subject_sha256": "9f2f89624e8421766c9d0a4c246f2d323de2640af6221b32d86217203b59812c",
+    "outcome": "accepted_within_scope",
+    "review_basis": "reused_exact_derivation",
+    "prior_review": {
+      "side": "head",
+      "path": "research/version16/review/coverage/PROTOCOL14-COVERAGE-REVIEW.json",
+      "sha256": "5f2b89458628c91a6c7614749b33799c71b411559c222cb715eed7a9abe629c8"
+    },
+    "scope": "I independently checked that this record differs only by removal of exact repeated search_scope locations; its set and order of distinct searched passages, occurrences, exclusions, correction representations and disposition remain identical. I reuse the same prior finding derivation at its unchanged scope. Accept this exact current finding classification, bounded related-use scope and correction representation, using the current mathematical review and direct source/consumer comparison. Historical audit limits and source qualifications remain limits on the named audit, with exact inherited argument coverage separately preserved.",
+    "limitations": "This decision covers the named finding and recorded occurrences. It does not claim that every historical reviewer read every source, enlarge a bounded review into an unrelated audit, or discard an earlier adverse observation."
+  },
+  {
+    "subject": "finding:V16-PACKET-LOCAL-FACTOR-WORDING",
+    "subject_sha256": "f7b8b440b89f2d0f4ef41d189d98960aeeedac3d811694f678f8604d37bb93d2",
+    "outcome": "accepted_within_scope",
+    "review_basis": "reused_exact_derivation",
+    "prior_review": {
+      "side": "head",
+      "path": "research/version16/review/coverage/PROTOCOL14-COVERAGE-REVIEW.json",
+      "sha256": "5f2b89458628c91a6c7614749b33799c71b411559c222cb715eed7a9abe629c8"
+    },
+    "scope": "This complete related-finding record and its disposition are unchanged. I reuse the same prior finding derivation at its unchanged scope. I identified the mismatch between the local-factor wording and the accepted estimate argument, reviewed the installed two-line correction as a non-author, and checked that the manuscript, current source-use contracts and current correction representations now state uniform estimates. Numerical equality is unnecessary. The full polynomial-pattern and boundary consumers retain their original conclusions. Historical packet-only diagnosis remains preserved.",
+    "limitations": "This decision covers the named finding and recorded occurrences. It does not claim that every historical reviewer read every source, enlarge a bounded review into an unrelated audit, or discard an earlier adverse observation."
+  },
+  {
+    "subject": "finding:V16-TZ-LOCAL-FACTOR-PRECISION",
+    "subject_sha256": "291bd2a0eff7507cb738bb0f66214e5970421ff336c8081df22fa3f19f57b5b1",
+    "outcome": "accepted_within_scope",
+    "review_basis": "reused_exact_derivation",
+    "prior_review": {
+      "side": "head",
+      "path": "research/version16/review/coverage/PROTOCOL14-COVERAGE-REVIEW.json",
+      "sha256": "5f2b89458628c91a6c7614749b33799c71b411559c222cb715eed7a9abe629c8"
+    },
+    "scope": "I independently checked that this record differs only by removal of exact repeated search_scope locations; its set and order of distinct searched passages, occurrences, exclusions, correction representations and disposition remain identical. I reuse the same prior finding derivation at its unchanged scope. I identified the mismatch between the local-factor wording and the accepted estimate argument, reviewed the installed two-line correction as a non-author, and checked that the manuscript, current source-use contracts and current correction representations now state uniform estimates. Numerical equality is unnecessary. The full polynomial-pattern and boundary consumers retain their original conclusions. Historical packet-only diagnosis remains preserved.",
+    "limitations": "This decision covers the named finding and recorded occurrences. It does not claim that every historical reviewer read every source, enlarge a bounded review into an unrelated audit, or discard an earlier adverse observation."
+  },
+  {
+    "subject": "inventory",
+    "subject_sha256": "17c253598c632619c3b3b06b7a9d6bb804e6d205fc6474a5e529a45e4fe5f047",
+    "outcome": "accepted_within_scope",
+    "review_basis": "reconstructed",
+    "prior_review": null,
+    "scope": "I independently accept current coverage and finding dispositions for connection record 979d6997dcb6e1f7f96a293e4a8453378939ac3e23cba5f15915478d07a7d101 (canonical 17c253598c632619c3b3b06b7a9d6bb804e6d205fc6474a5e529a45e4fe5f047) and dossier 45c3864dc588d23c6c797e783c23f88c5b00473ccd7956548734380ccb04f9c5. The manuscript remains aeb2b6a42a03943d7f8c46682389c8da693d2903ba92ccc164bbbd236451de74. Exact comparison establishes stable removal of eleven duplicate search-scope locations in six finding records, with every distinct searched location retained and no change to mathematical assertions, source uses, connections, dispositions or downstream consumers. The dossier changes only the connection pin and my truthful same-agent continuation records. I reuse the exact unchanged mathematical reasoning and current composition identified in the prior pinned reports; this new decision is based on that comparison and the checked current bindings, not on substituting hashes into a historical acceptance. The complete 126-row source index, 1190 source uses and 1170 required connections are preserved. All40 finding dispositions are accounted for. My independent current check validated8286 location occurrences across205 pinned file versions; it does not infer completeness from those counts alone. Completeness follows from the preserved exact initial reconstruction, prior accepted source-coverage comparison and absence of any new or removed distinct proof use.",
+    "limitations": "This is a new scoped informal review of the exact offside records, with unchanged mathematical derivations reused from the pinned prior reports. Historical source qualifications, audit limitations, ineffective defining threshold and coefficient-only N>=53 distinction remain. No new blind source-first pass, fresh reproof of every external theorem, final Git-bound acknowledgment, authenticated gate result or release authorization is claimed."
+  }
+]

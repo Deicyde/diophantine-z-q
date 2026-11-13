@@ -1,0 +1,10 @@
+{
+  "schema": "pr30-v17-installed-builder-check/v1",
+  "reviewer": "/root/pr30_final_coverage",
+  "run_id": "01a1d47d-d45d-7ce1-9e38-96ed10c3b735",
+  "command": "python -X utf8 -B scripts/check_application_reviews.py --self-test",
+  "working_directory": "work/pr30-completion-20261113/repository",
+  "actual_exit_code": 0,
+  "stdout": "PASS: 29 application-review negative controls rejected.\nPASS: 8 application contracts, revision and follow-up records for manuscripts/quartic_v14.tex. Build selector checked separately; historical acceptance is not current-manuscript approval. Not a proof check.\n",
+  "scope": "Independently executed after root installed the exact builder review and Version17 builder binding. This validates historical V14 records plus the separate current builder selection. It is not a new mathematical or protected native acceptance."
+}

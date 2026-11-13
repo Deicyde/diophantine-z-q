@@ -1,0 +1,850 @@
+{
+  "schema": "quartic214-public-application-contract-v1",
+  "application_id": "H03-PUBLISHED-PRODUCT-AVERAGING",
+  "authors": [
+    "/root/d214_public_port"
+  ],
+  "status": "author_proposed_pending_eligible_independent_public_review",
+  "scope": "Public assembly contract; mathematical source arguments retain their attributed original authors.",
+  "manuscript": {
+    "path": "research/quartic214/PROOF.md",
+    "sha256": "0feb164c3ed33543136b89aa87b27bc890f4aadef2d082d465263f55dc26d165",
+    "bytes": 10582
+  },
+  "proof": {
+    "path": "research/quartic214/proofs/height-averaging.md",
+    "sha256": "bb87f61d7134c09d695f9bbff2c26b12b8c9ce5fe74a4ec598b2e4410f100192",
+    "bytes": 8145
+  },
+  "construction_passages": [
+    {
+      "path": "research/quartic214/proofs/height-supplier.md",
+      "sha256": "4974b167ab415159e0ff996b341528008c2ba8ae8e2a1ebf69bab5bc9a9b9c12",
+      "bytes": 15498,
+      "section": "## H2.",
+      "lines": [
+        62,
+        77
+      ],
+      "passage_sha256": "ec32f7e76b18652e57d4b1c8df302975d23b58dd28d6113bccad3c05aad9053f",
+      "line_convention": "1-based inclusive raw splitlines with endings retained"
+    },
+    {
+      "path": "research/quartic214/proofs/height-averaging.md",
+      "sha256": "bb87f61d7134c09d695f9bbff2c26b12b8c9ce5fe74a4ec598b2e4410f100192",
+      "bytes": 8145,
+      "section": "## Fixed-field product",
+      "lines": [
+        13,
+        26
+      ],
+      "passage_sha256": "e782243317084b125de842154ba63c2bb1cbab33e960ce331cf46954f5946b82",
+      "line_convention": "1-based inclusive raw splitlines with endings retained"
+    }
+  ],
+  "application_passages": [
+    {
+      "path": "research/quartic214/proofs/height-averaging.md",
+      "sha256": "bb87f61d7134c09d695f9bbff2c26b12b8c9ce5fe74a4ec598b2e4410f100192",
+      "bytes": 8145,
+      "section": "## Height average",
+      "lines": [
+        27,
+        47
+      ],
+      "passage_sha256": "44886c8a265b8a765d4e2b80b9c2254b96089151358e1aac2d912b97ddc50bbb",
+      "line_convention": "1-based inclusive raw splitlines with endings retained"
+    }
+  ],
+  "consumer_passages": [
+    {
+      "path": "research/quartic214/proofs/height-supplier.md",
+      "sha256": "4974b167ab415159e0ff996b341528008c2ba8ae8e2a1ebf69bab5bc9a9b9c12",
+      "bytes": 15498,
+      "section": "## H4.",
+      "lines": [
+        97,
+        134
+      ],
+      "passage_sha256": "c79afa0e08a65898a762e6f24ed869f4a35f3c741dacbf82eaee1f9b7d4a0753",
+      "line_convention": "1-based inclusive raw splitlines with endings retained"
+    }
+  ],
+  "required_sources": [
+    {
+      "path": "research/quartic214/proofs/height-averaging.md",
+      "sha256": "bb87f61d7134c09d695f9bbff2c26b12b8c9ce5fe74a4ec598b2e4410f100192",
+      "bytes": 8145
+    },
+    {
+      "path": "research/quartic214/proofs/height-supplier.md",
+      "sha256": "4974b167ab415159e0ff996b341528008c2ba8ae8e2a1ebf69bab5bc9a9b9c12",
+      "bytes": 15498
+    },
+    {
+      "path": "research/quartic214/proofs/primary-source-bridges.md",
+      "sha256": "2c95d02a13ffa972eb6cb8d956b9063e970e33fd960e282c6d53ae8bb655c43c",
+      "bytes": 12939
+    },
+    {
+      "path": "research/quartic214/proofs/modularity.md",
+      "sha256": "814676050b389793d196346f45e2797f39e2c5be0f3fee8457bb709b2607606e",
+      "bytes": 25777
+    },
+    {
+      "path": "research/quartic214/PRIMARY_SOURCES.json",
+      "sha256": "cfa7597432cd98c7184c0f9332c6d56f8ea53b208613aab0d855f5ffd1181161",
+      "bytes": 48789
+    }
+  ],
+  "obligations": {
+    "source_hypotheses": {
+      "required_input": "GR2023 Lemma16.2(1) construction over a number field; GR Theorem1.9(1) for same-field isogenous dimension-two varieties.",
+      "constructed_input": "Lprime,J and actual absolutely simple A_a from H2; actual C_i over Lprime.",
+      "justification": "The same-field product construction supplies J0 with no larger original stable height; the later isogeny uses dimension2.",
+      "source_references": [
+        {
+          "path": "research/quartic214/proofs/height-averaging.md",
+          "sha256": "bb87f61d7134c09d695f9bbff2c26b12b8c9ce5fe74a4ec598b2e4410f100192",
+          "bytes": 8145
+        },
+        {
+          "path": "research/quartic214/proofs/height-supplier.md",
+          "sha256": "4974b167ab415159e0ff996b341528008c2ba8ae8e2a1ebf69bab5bc9a9b9c12",
+          "bytes": 15498
+        },
+        {
+          "path": "research/quartic214/proofs/primary-source-bridges.md",
+          "sha256": "2c95d02a13ffa972eb6cb8d956b9063e970e33fd960e282c6d53ae8bb655c43c",
+          "bytes": 12939
+        },
+        {
+          "path": "research/quartic214/proofs/modularity.md",
+          "sha256": "814676050b389793d196346f45e2797f39e2c5be0f3fee8457bb709b2607606e",
+          "bytes": 25777
+        },
+        {
+          "path": "research/quartic214/PRIMARY_SOURCES.json",
+          "sha256": "cfa7597432cd98c7184c0f9332c6d56f8ea53b208613aab0d855f5ffd1181161",
+          "bytes": 48789
+        }
+      ],
+      "evidence": [
+        {
+          "path": "research/quartic214/proofs/height-supplier.md",
+          "sha256": "4974b167ab415159e0ff996b341528008c2ba8ae8e2a1ebf69bab5bc9a9b9c12",
+          "bytes": 15498,
+          "section": "## H2.",
+          "lines": [
+            62,
+            77
+          ],
+          "passage_sha256": "ec32f7e76b18652e57d4b1c8df302975d23b58dd28d6113bccad3c05aad9053f",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/proofs/height-averaging.md",
+          "sha256": "bb87f61d7134c09d695f9bbff2c26b12b8c9ce5fe74a4ec598b2e4410f100192",
+          "bytes": 8145,
+          "section": "## Fixed-field product",
+          "lines": [
+            13,
+            26
+          ],
+          "passage_sha256": "e782243317084b125de842154ba63c2bb1cbab33e960ce331cf46954f5946b82",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/proofs/height-averaging.md",
+          "sha256": "bb87f61d7134c09d695f9bbff2c26b12b8c9ce5fe74a4ec598b2e4410f100192",
+          "bytes": 8145,
+          "section": "## Height average",
+          "lines": [
+            27,
+            47
+          ],
+          "passage_sha256": "44886c8a265b8a765d4e2b80b9c2254b96089151358e1aac2d912b97ddc50bbb",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/proofs/height-supplier.md",
+          "sha256": "4974b167ab415159e0ff996b341528008c2ba8ae8e2a1ebf69bab5bc9a9b9c12",
+          "bytes": 15498,
+          "section": "## H4.",
+          "lines": [
+            97,
+            134
+          ],
+          "passage_sha256": "c79afa0e08a65898a762e6f24ed869f4a35f3c741dacbf82eaee1f9b7d4a0753",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        }
+      ],
+      "status": "author_proposed_pending_eligible_independent_public_review"
+    },
+    "constructed_objects": {
+      "required_input": "Actual product and actual A-isogeny factors, not arbitrary isogenous substitutions.",
+      "constructed_input": "J0=product D_j over Lprime; r separate factors C_i in the A-class.",
+      "justification": "Poincare reducibility and multiplicity in the semisimple Lprime-isogeny category select r occurrences.",
+      "source_references": [
+        {
+          "path": "research/quartic214/proofs/height-averaging.md",
+          "sha256": "bb87f61d7134c09d695f9bbff2c26b12b8c9ce5fe74a4ec598b2e4410f100192",
+          "bytes": 8145
+        },
+        {
+          "path": "research/quartic214/proofs/height-supplier.md",
+          "sha256": "4974b167ab415159e0ff996b341528008c2ba8ae8e2a1ebf69bab5bc9a9b9c12",
+          "bytes": 15498
+        },
+        {
+          "path": "research/quartic214/proofs/primary-source-bridges.md",
+          "sha256": "2c95d02a13ffa972eb6cb8d956b9063e970e33fd960e282c6d53ae8bb655c43c",
+          "bytes": 12939
+        },
+        {
+          "path": "research/quartic214/proofs/modularity.md",
+          "sha256": "814676050b389793d196346f45e2797f39e2c5be0f3fee8457bb709b2607606e",
+          "bytes": 25777
+        },
+        {
+          "path": "research/quartic214/PRIMARY_SOURCES.json",
+          "sha256": "cfa7597432cd98c7184c0f9332c6d56f8ea53b208613aab0d855f5ffd1181161",
+          "bytes": 48789
+        }
+      ],
+      "evidence": [
+        {
+          "path": "research/quartic214/proofs/height-supplier.md",
+          "sha256": "4974b167ab415159e0ff996b341528008c2ba8ae8e2a1ebf69bab5bc9a9b9c12",
+          "bytes": 15498,
+          "section": "## H2.",
+          "lines": [
+            62,
+            77
+          ],
+          "passage_sha256": "ec32f7e76b18652e57d4b1c8df302975d23b58dd28d6113bccad3c05aad9053f",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/proofs/height-averaging.md",
+          "sha256": "bb87f61d7134c09d695f9bbff2c26b12b8c9ce5fe74a4ec598b2e4410f100192",
+          "bytes": 8145,
+          "section": "## Fixed-field product",
+          "lines": [
+            13,
+            26
+          ],
+          "passage_sha256": "e782243317084b125de842154ba63c2bb1cbab33e960ce331cf46954f5946b82",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/proofs/height-averaging.md",
+          "sha256": "bb87f61d7134c09d695f9bbff2c26b12b8c9ce5fe74a4ec598b2e4410f100192",
+          "bytes": 8145,
+          "section": "## Height average",
+          "lines": [
+            27,
+            47
+          ],
+          "passage_sha256": "44886c8a265b8a765d4e2b80b9c2254b96089151358e1aac2d912b97ddc50bbb",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/proofs/height-supplier.md",
+          "sha256": "4974b167ab415159e0ff996b341528008c2ba8ae8e2a1ebf69bab5bc9a9b9c12",
+          "bytes": 15498,
+          "section": "## H4.",
+          "lines": [
+            97,
+            134
+          ],
+          "passage_sha256": "c79afa0e08a65898a762e6f24ed869f4a35f3c741dacbf82eaee1f9b7d4a0753",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        }
+      ],
+      "status": "author_proposed_pending_eligible_independent_public_review"
+    },
+    "domain_index_coverage": {
+      "required_input": "Every index i=1,...,r, allowing repetitions of simple isogeny class and growing r.",
+      "constructed_input": "Select r distinct occurrences, with complement E of dimension g-2r.",
+      "justification": "Height additivity uses the full product, rather than the set of distinct isogeny classes.",
+      "source_references": [
+        {
+          "path": "research/quartic214/proofs/height-averaging.md",
+          "sha256": "bb87f61d7134c09d695f9bbff2c26b12b8c9ce5fe74a4ec598b2e4410f100192",
+          "bytes": 8145
+        },
+        {
+          "path": "research/quartic214/proofs/height-supplier.md",
+          "sha256": "4974b167ab415159e0ff996b341528008c2ba8ae8e2a1ebf69bab5bc9a9b9c12",
+          "bytes": 15498
+        },
+        {
+          "path": "research/quartic214/proofs/primary-source-bridges.md",
+          "sha256": "2c95d02a13ffa972eb6cb8d956b9063e970e33fd960e282c6d53ae8bb655c43c",
+          "bytes": 12939
+        },
+        {
+          "path": "research/quartic214/proofs/modularity.md",
+          "sha256": "814676050b389793d196346f45e2797f39e2c5be0f3fee8457bb709b2607606e",
+          "bytes": 25777
+        },
+        {
+          "path": "research/quartic214/PRIMARY_SOURCES.json",
+          "sha256": "cfa7597432cd98c7184c0f9332c6d56f8ea53b208613aab0d855f5ffd1181161",
+          "bytes": 48789
+        }
+      ],
+      "evidence": [
+        {
+          "path": "research/quartic214/proofs/height-supplier.md",
+          "sha256": "4974b167ab415159e0ff996b341528008c2ba8ae8e2a1ebf69bab5bc9a9b9c12",
+          "bytes": 15498,
+          "section": "## H2.",
+          "lines": [
+            62,
+            77
+          ],
+          "passage_sha256": "ec32f7e76b18652e57d4b1c8df302975d23b58dd28d6113bccad3c05aad9053f",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/proofs/height-averaging.md",
+          "sha256": "bb87f61d7134c09d695f9bbff2c26b12b8c9ce5fe74a4ec598b2e4410f100192",
+          "bytes": 8145,
+          "section": "## Fixed-field product",
+          "lines": [
+            13,
+            26
+          ],
+          "passage_sha256": "e782243317084b125de842154ba63c2bb1cbab33e960ce331cf46954f5946b82",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/proofs/height-averaging.md",
+          "sha256": "bb87f61d7134c09d695f9bbff2c26b12b8c9ce5fe74a4ec598b2e4410f100192",
+          "bytes": 8145,
+          "section": "## Height average",
+          "lines": [
+            27,
+            47
+          ],
+          "passage_sha256": "44886c8a265b8a765d4e2b80b9c2254b96089151358e1aac2d912b97ddc50bbb",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/proofs/height-supplier.md",
+          "sha256": "4974b167ab415159e0ff996b341528008c2ba8ae8e2a1ebf69bab5bc9a9b9c12",
+          "bytes": 15498,
+          "section": "## H4.",
+          "lines": [
+            97,
+            134
+          ],
+          "passage_sha256": "c79afa0e08a65898a762e6f24ed869f4a35f3c741dacbf82eaee1f9b7d4a0753",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        }
+      ],
+      "status": "author_proposed_pending_eligible_independent_public_review"
+    },
+    "transition_comparison_maps": {
+      "required_input": "Maps over Lprime, product isomorphism for heights, final isogeny in direction C_i to A.",
+      "constructed_input": "Use J0~J only to count constituents; actual product for sum; degree cost half logarithm.",
+      "justification": "Original source and target match GR1.9(1); no arbitrary isogeny-invariance is asserted.",
+      "source_references": [
+        {
+          "path": "research/quartic214/proofs/height-averaging.md",
+          "sha256": "bb87f61d7134c09d695f9bbff2c26b12b8c9ce5fe74a4ec598b2e4410f100192",
+          "bytes": 8145
+        },
+        {
+          "path": "research/quartic214/proofs/height-supplier.md",
+          "sha256": "4974b167ab415159e0ff996b341528008c2ba8ae8e2a1ebf69bab5bc9a9b9c12",
+          "bytes": 15498
+        },
+        {
+          "path": "research/quartic214/proofs/primary-source-bridges.md",
+          "sha256": "2c95d02a13ffa972eb6cb8d956b9063e970e33fd960e282c6d53ae8bb655c43c",
+          "bytes": 12939
+        },
+        {
+          "path": "research/quartic214/proofs/modularity.md",
+          "sha256": "814676050b389793d196346f45e2797f39e2c5be0f3fee8457bb709b2607606e",
+          "bytes": 25777
+        },
+        {
+          "path": "research/quartic214/PRIMARY_SOURCES.json",
+          "sha256": "cfa7597432cd98c7184c0f9332c6d56f8ea53b208613aab0d855f5ffd1181161",
+          "bytes": 48789
+        }
+      ],
+      "evidence": [
+        {
+          "path": "research/quartic214/proofs/height-supplier.md",
+          "sha256": "4974b167ab415159e0ff996b341528008c2ba8ae8e2a1ebf69bab5bc9a9b9c12",
+          "bytes": 15498,
+          "section": "## H2.",
+          "lines": [
+            62,
+            77
+          ],
+          "passage_sha256": "ec32f7e76b18652e57d4b1c8df302975d23b58dd28d6113bccad3c05aad9053f",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/proofs/height-averaging.md",
+          "sha256": "bb87f61d7134c09d695f9bbff2c26b12b8c9ce5fe74a4ec598b2e4410f100192",
+          "bytes": 8145,
+          "section": "## Fixed-field product",
+          "lines": [
+            13,
+            26
+          ],
+          "passage_sha256": "e782243317084b125de842154ba63c2bb1cbab33e960ce331cf46954f5946b82",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/proofs/height-averaging.md",
+          "sha256": "bb87f61d7134c09d695f9bbff2c26b12b8c9ce5fe74a4ec598b2e4410f100192",
+          "bytes": 8145,
+          "section": "## Height average",
+          "lines": [
+            27,
+            47
+          ],
+          "passage_sha256": "44886c8a265b8a765d4e2b80b9c2254b96089151358e1aac2d912b97ddc50bbb",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/proofs/height-supplier.md",
+          "sha256": "4974b167ab415159e0ff996b341528008c2ba8ae8e2a1ebf69bab5bc9a9b9c12",
+          "bytes": 15498,
+          "section": "## H4.",
+          "lines": [
+            97,
+            134
+          ],
+          "passage_sha256": "c79afa0e08a65898a762e6f24ed869f4a35f3c741dacbf82eaee1f9b7d4a0753",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        }
+      ],
+      "status": "author_proposed_pending_eligible_independent_public_review"
+    },
+    "identity_consumed_object": {
+      "required_input": "H3.1 for the same original surface A_a.",
+      "constructed_input": "hF(A)<=X+8(32log14+logdprime+logmax(1,logdprime,X)).",
+      "justification": "New simple factors replace auxiliary quotient surfaces; only their dimension, isogeny class and height bound were consumed by H4.",
+      "source_references": [
+        {
+          "path": "research/quartic214/proofs/height-averaging.md",
+          "sha256": "bb87f61d7134c09d695f9bbff2c26b12b8c9ce5fe74a4ec598b2e4410f100192",
+          "bytes": 8145
+        },
+        {
+          "path": "research/quartic214/proofs/height-supplier.md",
+          "sha256": "4974b167ab415159e0ff996b341528008c2ba8ae8e2a1ebf69bab5bc9a9b9c12",
+          "bytes": 15498
+        },
+        {
+          "path": "research/quartic214/proofs/primary-source-bridges.md",
+          "sha256": "2c95d02a13ffa972eb6cb8d956b9063e970e33fd960e282c6d53ae8bb655c43c",
+          "bytes": 12939
+        },
+        {
+          "path": "research/quartic214/proofs/modularity.md",
+          "sha256": "814676050b389793d196346f45e2797f39e2c5be0f3fee8457bb709b2607606e",
+          "bytes": 25777
+        },
+        {
+          "path": "research/quartic214/PRIMARY_SOURCES.json",
+          "sha256": "cfa7597432cd98c7184c0f9332c6d56f8ea53b208613aab0d855f5ffd1181161",
+          "bytes": 48789
+        }
+      ],
+      "evidence": [
+        {
+          "path": "research/quartic214/proofs/height-supplier.md",
+          "sha256": "4974b167ab415159e0ff996b341528008c2ba8ae8e2a1ebf69bab5bc9a9b9c12",
+          "bytes": 15498,
+          "section": "## H2.",
+          "lines": [
+            62,
+            77
+          ],
+          "passage_sha256": "ec32f7e76b18652e57d4b1c8df302975d23b58dd28d6113bccad3c05aad9053f",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/proofs/height-averaging.md",
+          "sha256": "bb87f61d7134c09d695f9bbff2c26b12b8c9ce5fe74a4ec598b2e4410f100192",
+          "bytes": 8145,
+          "section": "## Fixed-field product",
+          "lines": [
+            13,
+            26
+          ],
+          "passage_sha256": "e782243317084b125de842154ba63c2bb1cbab33e960ce331cf46954f5946b82",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/proofs/height-averaging.md",
+          "sha256": "bb87f61d7134c09d695f9bbff2c26b12b8c9ce5fe74a4ec598b2e4410f100192",
+          "bytes": 8145,
+          "section": "## Height average",
+          "lines": [
+            27,
+            47
+          ],
+          "passage_sha256": "44886c8a265b8a765d4e2b80b9c2254b96089151358e1aac2d912b97ddc50bbb",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/proofs/height-supplier.md",
+          "sha256": "4974b167ab415159e0ff996b341528008c2ba8ae8e2a1ebf69bab5bc9a9b9c12",
+          "bytes": 15498,
+          "section": "## H4.",
+          "lines": [
+            97,
+            134
+          ],
+          "passage_sha256": "c79afa0e08a65898a762e6f24ed869f4a35f3c741dacbf82eaee1f9b7d4a0753",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        }
+      ],
+      "status": "author_proposed_pending_eligible_independent_public_review"
+    },
+    "coefficient_normalization": {
+      "required_input": "Original stable Faltings normalization and dprime of Lprime.",
+      "constructed_input": "hF additive; lower bound -3dim/2; dprime=[Lprime:Q].",
+      "justification": "GR2014 normalization bridge supplies the lower bound; no evaluation splitting field replaces Lprime.",
+      "source_references": [
+        {
+          "path": "research/quartic214/proofs/height-averaging.md",
+          "sha256": "bb87f61d7134c09d695f9bbff2c26b12b8c9ce5fe74a4ec598b2e4410f100192",
+          "bytes": 8145
+        },
+        {
+          "path": "research/quartic214/proofs/height-supplier.md",
+          "sha256": "4974b167ab415159e0ff996b341528008c2ba8ae8e2a1ebf69bab5bc9a9b9c12",
+          "bytes": 15498
+        },
+        {
+          "path": "research/quartic214/proofs/primary-source-bridges.md",
+          "sha256": "2c95d02a13ffa972eb6cb8d956b9063e970e33fd960e282c6d53ae8bb655c43c",
+          "bytes": 12939
+        },
+        {
+          "path": "research/quartic214/proofs/modularity.md",
+          "sha256": "814676050b389793d196346f45e2797f39e2c5be0f3fee8457bb709b2607606e",
+          "bytes": 25777
+        },
+        {
+          "path": "research/quartic214/PRIMARY_SOURCES.json",
+          "sha256": "cfa7597432cd98c7184c0f9332c6d56f8ea53b208613aab0d855f5ffd1181161",
+          "bytes": 48789
+        }
+      ],
+      "evidence": [
+        {
+          "path": "research/quartic214/proofs/height-supplier.md",
+          "sha256": "4974b167ab415159e0ff996b341528008c2ba8ae8e2a1ebf69bab5bc9a9b9c12",
+          "bytes": 15498,
+          "section": "## H2.",
+          "lines": [
+            62,
+            77
+          ],
+          "passage_sha256": "ec32f7e76b18652e57d4b1c8df302975d23b58dd28d6113bccad3c05aad9053f",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/proofs/height-averaging.md",
+          "sha256": "bb87f61d7134c09d695f9bbff2c26b12b8c9ce5fe74a4ec598b2e4410f100192",
+          "bytes": 8145,
+          "section": "## Fixed-field product",
+          "lines": [
+            13,
+            26
+          ],
+          "passage_sha256": "e782243317084b125de842154ba63c2bb1cbab33e960ce331cf46954f5946b82",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/proofs/height-averaging.md",
+          "sha256": "bb87f61d7134c09d695f9bbff2c26b12b8c9ce5fe74a4ec598b2e4410f100192",
+          "bytes": 8145,
+          "section": "## Height average",
+          "lines": [
+            27,
+            47
+          ],
+          "passage_sha256": "44886c8a265b8a765d4e2b80b9c2254b96089151358e1aac2d912b97ddc50bbb",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/proofs/height-supplier.md",
+          "sha256": "4974b167ab415159e0ff996b341528008c2ba8ae8e2a1ebf69bab5bc9a9b9c12",
+          "bytes": 15498,
+          "section": "## H4.",
+          "lines": [
+            97,
+            134
+          ],
+          "passage_sha256": "c79afa0e08a65898a762e6f24ed869f4a35f3c741dacbf82eaee1f9b7d4a0753",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        }
+      ],
+      "status": "author_proposed_pending_eligible_independent_public_review"
+    },
+    "local_conditions": {
+      "required_input": "No hidden new good-reduction, conductor or polarization hypothesis.",
+      "constructed_input": "Height/product/isogeny statements are applied over actual Lprime.",
+      "justification": "Upstream geometry/modularity local hypotheses stay separate; no field enlargement or polarization constraint is added.",
+      "source_references": [
+        {
+          "path": "research/quartic214/proofs/height-averaging.md",
+          "sha256": "bb87f61d7134c09d695f9bbff2c26b12b8c9ce5fe74a4ec598b2e4410f100192",
+          "bytes": 8145
+        },
+        {
+          "path": "research/quartic214/proofs/height-supplier.md",
+          "sha256": "4974b167ab415159e0ff996b341528008c2ba8ae8e2a1ebf69bab5bc9a9b9c12",
+          "bytes": 15498
+        },
+        {
+          "path": "research/quartic214/proofs/primary-source-bridges.md",
+          "sha256": "2c95d02a13ffa972eb6cb8d956b9063e970e33fd960e282c6d53ae8bb655c43c",
+          "bytes": 12939
+        },
+        {
+          "path": "research/quartic214/proofs/modularity.md",
+          "sha256": "814676050b389793d196346f45e2797f39e2c5be0f3fee8457bb709b2607606e",
+          "bytes": 25777
+        },
+        {
+          "path": "research/quartic214/PRIMARY_SOURCES.json",
+          "sha256": "cfa7597432cd98c7184c0f9332c6d56f8ea53b208613aab0d855f5ffd1181161",
+          "bytes": 48789
+        }
+      ],
+      "evidence": [
+        {
+          "path": "research/quartic214/proofs/height-supplier.md",
+          "sha256": "4974b167ab415159e0ff996b341528008c2ba8ae8e2a1ebf69bab5bc9a9b9c12",
+          "bytes": 15498,
+          "section": "## H2.",
+          "lines": [
+            62,
+            77
+          ],
+          "passage_sha256": "ec32f7e76b18652e57d4b1c8df302975d23b58dd28d6113bccad3c05aad9053f",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/proofs/height-averaging.md",
+          "sha256": "bb87f61d7134c09d695f9bbff2c26b12b8c9ce5fe74a4ec598b2e4410f100192",
+          "bytes": 8145,
+          "section": "## Fixed-field product",
+          "lines": [
+            13,
+            26
+          ],
+          "passage_sha256": "e782243317084b125de842154ba63c2bb1cbab33e960ce331cf46954f5946b82",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/proofs/height-averaging.md",
+          "sha256": "bb87f61d7134c09d695f9bbff2c26b12b8c9ce5fe74a4ec598b2e4410f100192",
+          "bytes": 8145,
+          "section": "## Height average",
+          "lines": [
+            27,
+            47
+          ],
+          "passage_sha256": "44886c8a265b8a765d4e2b80b9c2254b96089151358e1aac2d912b97ddc50bbb",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/proofs/height-supplier.md",
+          "sha256": "4974b167ab415159e0ff996b341528008c2ba8ae8e2a1ebf69bab5bc9a9b9c12",
+          "bytes": 15498,
+          "section": "## H4.",
+          "lines": [
+            97,
+            134
+          ],
+          "passage_sha256": "c79afa0e08a65898a762e6f24ed869f4a35f3c741dacbf82eaee1f9b7d4a0753",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        }
+      ],
+      "status": "author_proposed_pending_eligible_independent_public_review"
+    },
+    "exceptional_cases": {
+      "required_input": "r>=1, g>=2r, non-CM absolute simplicity; complement can be dimension0.",
+      "constructed_input": "E dimension g-2r, hF(E)=0 when empty; CM bound remains separate.",
+      "justification": "max(1,HJ/r) handles negative individual height and positive isogeny-bound inputs.",
+      "source_references": [
+        {
+          "path": "research/quartic214/proofs/height-averaging.md",
+          "sha256": "bb87f61d7134c09d695f9bbff2c26b12b8c9ce5fe74a4ec598b2e4410f100192",
+          "bytes": 8145
+        },
+        {
+          "path": "research/quartic214/proofs/height-supplier.md",
+          "sha256": "4974b167ab415159e0ff996b341528008c2ba8ae8e2a1ebf69bab5bc9a9b9c12",
+          "bytes": 15498
+        },
+        {
+          "path": "research/quartic214/proofs/primary-source-bridges.md",
+          "sha256": "2c95d02a13ffa972eb6cb8d956b9063e970e33fd960e282c6d53ae8bb655c43c",
+          "bytes": 12939
+        },
+        {
+          "path": "research/quartic214/proofs/modularity.md",
+          "sha256": "814676050b389793d196346f45e2797f39e2c5be0f3fee8457bb709b2607606e",
+          "bytes": 25777
+        },
+        {
+          "path": "research/quartic214/PRIMARY_SOURCES.json",
+          "sha256": "cfa7597432cd98c7184c0f9332c6d56f8ea53b208613aab0d855f5ffd1181161",
+          "bytes": 48789
+        }
+      ],
+      "evidence": [
+        {
+          "path": "research/quartic214/proofs/height-supplier.md",
+          "sha256": "4974b167ab415159e0ff996b341528008c2ba8ae8e2a1ebf69bab5bc9a9b9c12",
+          "bytes": 15498,
+          "section": "## H2.",
+          "lines": [
+            62,
+            77
+          ],
+          "passage_sha256": "ec32f7e76b18652e57d4b1c8df302975d23b58dd28d6113bccad3c05aad9053f",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/proofs/height-averaging.md",
+          "sha256": "bb87f61d7134c09d695f9bbff2c26b12b8c9ce5fe74a4ec598b2e4410f100192",
+          "bytes": 8145,
+          "section": "## Fixed-field product",
+          "lines": [
+            13,
+            26
+          ],
+          "passage_sha256": "e782243317084b125de842154ba63c2bb1cbab33e960ce331cf46954f5946b82",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/proofs/height-averaging.md",
+          "sha256": "bb87f61d7134c09d695f9bbff2c26b12b8c9ce5fe74a4ec598b2e4410f100192",
+          "bytes": 8145,
+          "section": "## Height average",
+          "lines": [
+            27,
+            47
+          ],
+          "passage_sha256": "44886c8a265b8a765d4e2b80b9c2254b96089151358e1aac2d912b97ddc50bbb",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/proofs/height-supplier.md",
+          "sha256": "4974b167ab415159e0ff996b341528008c2ba8ae8e2a1ebf69bab5bc9a9b9c12",
+          "bytes": 15498,
+          "section": "## H4.",
+          "lines": [
+            97,
+            134
+          ],
+          "passage_sha256": "c79afa0e08a65898a762e6f24ed869f4a35f3c741dacbf82eaee1f9b7d4a0753",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        }
+      ],
+      "status": "author_proposed_pending_eligible_independent_public_review"
+    },
+    "downstream_consumption": {
+      "required_input": "Exact H3.1 consumed by full-family H4, with no changed constants.",
+      "constructed_input": "HJ/r average and s/r<=4 supply H4 X.",
+      "justification": "H4 uses only H3.1, not identity with old filtration quotients; indirect Remond dependencies and access limitation remain recorded.",
+      "source_references": [
+        {
+          "path": "research/quartic214/proofs/height-averaging.md",
+          "sha256": "bb87f61d7134c09d695f9bbff2c26b12b8c9ce5fe74a4ec598b2e4410f100192",
+          "bytes": 8145
+        },
+        {
+          "path": "research/quartic214/proofs/height-supplier.md",
+          "sha256": "4974b167ab415159e0ff996b341528008c2ba8ae8e2a1ebf69bab5bc9a9b9c12",
+          "bytes": 15498
+        },
+        {
+          "path": "research/quartic214/proofs/primary-source-bridges.md",
+          "sha256": "2c95d02a13ffa972eb6cb8d956b9063e970e33fd960e282c6d53ae8bb655c43c",
+          "bytes": 12939
+        },
+        {
+          "path": "research/quartic214/proofs/modularity.md",
+          "sha256": "814676050b389793d196346f45e2797f39e2c5be0f3fee8457bb709b2607606e",
+          "bytes": 25777
+        },
+        {
+          "path": "research/quartic214/PRIMARY_SOURCES.json",
+          "sha256": "cfa7597432cd98c7184c0f9332c6d56f8ea53b208613aab0d855f5ffd1181161",
+          "bytes": 48789
+        }
+      ],
+      "evidence": [
+        {
+          "path": "research/quartic214/proofs/height-supplier.md",
+          "sha256": "4974b167ab415159e0ff996b341528008c2ba8ae8e2a1ebf69bab5bc9a9b9c12",
+          "bytes": 15498,
+          "section": "## H2.",
+          "lines": [
+            62,
+            77
+          ],
+          "passage_sha256": "ec32f7e76b18652e57d4b1c8df302975d23b58dd28d6113bccad3c05aad9053f",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/proofs/height-averaging.md",
+          "sha256": "bb87f61d7134c09d695f9bbff2c26b12b8c9ce5fe74a4ec598b2e4410f100192",
+          "bytes": 8145,
+          "section": "## Fixed-field product",
+          "lines": [
+            13,
+            26
+          ],
+          "passage_sha256": "e782243317084b125de842154ba63c2bb1cbab33e960ce331cf46954f5946b82",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/proofs/height-averaging.md",
+          "sha256": "bb87f61d7134c09d695f9bbff2c26b12b8c9ce5fe74a4ec598b2e4410f100192",
+          "bytes": 8145,
+          "section": "## Height average",
+          "lines": [
+            27,
+            47
+          ],
+          "passage_sha256": "44886c8a265b8a765d4e2b80b9c2254b96089151358e1aac2d912b97ddc50bbb",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/proofs/height-supplier.md",
+          "sha256": "4974b167ab415159e0ff996b341528008c2ba8ae8e2a1ebf69bab5bc9a9b9c12",
+          "bytes": 15498,
+          "section": "## H4.",
+          "lines": [
+            97,
+            134
+          ],
+          "passage_sha256": "c79afa0e08a65898a762e6f24ed869f4a35f3c741dacbf82eaee1f9b7d4a0753",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        }
+      ],
+      "status": "author_proposed_pending_eligible_independent_public_review"
+    }
+  },
+  "independent_acceptance": null
+}

@@ -1,0 +1,1447 @@
+{
+  "schema": "protocol-source-first/v1",
+  "sources": [
+    {
+      "side": "head",
+      "path": "research/quartic214-manuscript-review/FOUNDATION_TRANSITION.md",
+      "sha256": "9a3a081bfb6c3e5c0893065ab1c1ea19f36c91b997999064371886e270c3d936"
+    },
+    {
+      "side": "head",
+      "path": "research/quartic214/PROOF.md",
+      "sha256": "0feb164c3ed33543136b89aa87b27bc890f4aadef2d082d465263f55dc26d165"
+    },
+    {
+      "side": "head",
+      "path": "research/quartic214/proofs/existence.md",
+      "sha256": "37ab929ed3f4b4dee2b91d2e39408e7070e8a9176b981bcc9c352d17b9cc2332"
+    },
+    {
+      "side": "head",
+      "path": "research/quartic214/proofs/geometry-carry.md",
+      "sha256": "b3cb8201de84f733b0518ad68a9c0d0bc1e78534ffd39aca5d8c70f1bae69e76"
+    },
+    {
+      "side": "head",
+      "path": "research/quartic214/proofs/height-assembly.md",
+      "sha256": "1866f9452526b2c243f5f05267f74caa2a4532dfc23891a9b0e95abed2d00fe5"
+    },
+    {
+      "side": "head",
+      "path": "research/quartic214/proofs/height-averaging.md",
+      "sha256": "bb87f61d7134c09d695f9bbff2c26b12b8c9ce5fe74a4ec598b2e4410f100192"
+    },
+    {
+      "side": "head",
+      "path": "research/quartic214/proofs/height-different.md",
+      "sha256": "025885f763a9a72e9750ed10ec0bbfec4e8834ed85557acccda92a766c0ebcfa"
+    },
+    {
+      "side": "head",
+      "path": "research/quartic214/proofs/height-evaluation.md",
+      "sha256": "d691da0a6827d9b45c6c68294405163f679a2d57f08e2ecda56fd071b3579502"
+    },
+    {
+      "side": "head",
+      "path": "research/quartic214/proofs/height-metric.md",
+      "sha256": "ea61f4ce58481b8ffb3a2000189fbbc84a8ded3c91d7c447ffe98ae98f30ad8e"
+    },
+    {
+      "side": "head",
+      "path": "research/quartic214/proofs/height-supplier.md",
+      "sha256": "4974b167ab415159e0ff996b341528008c2ba8ae8e2a1ebf69bab5bc9a9b9c12"
+    },
+    {
+      "side": "head",
+      "path": "research/quartic214/proofs/modularity.md",
+      "sha256": "814676050b389793d196346f45e2797f39e2c5be0f3fee8457bb709b2607606e"
+    },
+    {
+      "side": "head",
+      "path": "research/quartic214/proofs/primary-source-bridges.md",
+      "sha256": "2c95d02a13ffa972eb6cb8d956b9063e970e33fd960e282c6d53ae8bb655c43c"
+    },
+    {
+      "side": "head",
+      "path": "research/quartic214/proofs/provider-scope-carry.md",
+      "sha256": "368774d2b96a606df4dd5e81a3c4fecaf22f09f33f27e49e0a80e37b02157154"
+    },
+    {
+      "side": "head",
+      "path": "research/quartic214/proofs/source-carry.md",
+      "sha256": "f7f4e550a4dcfbbd3b5ffcf783b11411f7888c821dbab7febb5132b7b2b891ed"
+    },
+    {
+      "side": "head",
+      "path": "research/quartic214/proofs/uniform-existence.md",
+      "sha256": "d13cc2b846dc72a3f5b5cce8dcf11d3f11b33c45ebc3883263840afb8d82f3bc"
+    },
+    {
+      "side": "head",
+      "path": "research/quartic214/sources/aggregate-bridge.md",
+      "sha256": "668e84f5864b5961b67599ef9c3ffd1b44c66c93679cef9853ef596fce4267f5"
+    },
+    {
+      "side": "head",
+      "path": "research/quartic214/sources/conductor-sections1-3.md",
+      "sha256": "c2e04a42dd82e244b1872b4a9a7298f1a9e45ca49ffcc436ff7c5149d6ee5d88"
+    },
+    {
+      "side": "head",
+      "path": "research/quartic214/sources/support-section1.md",
+      "sha256": "bb3e2cc7a102ba317ed984f463762cddc52576b3d7416e7a981093243cb16940"
+    },
+    {
+      "side": "head",
+      "path": "research/quartic214/sources/evaluation-sections1-4.tex",
+      "sha256": "70919ebd13613f7c9f7317995b285348398c6895808a61463be0aac139b8511c"
+    },
+    {
+      "side": "head",
+      "path": "research/quartic214/sources/factor-extraction.tex",
+      "sha256": "38236daca2811087e08e7f26eb79504dc25171dc78019a557d99966471edb109"
+    },
+    {
+      "side": "head",
+      "path": "research/version15/quartics/quartic-222/provenance/shared-T-redundancy224-006/PROOF.md",
+      "sha256": "7b39db664ba3884897eda4e4e6550ec552ee8ef916509681e69b04b7990e0732"
+    },
+    {
+      "side": "head",
+      "path": "research/quartic214-manuscript/introduction.tex",
+      "sha256": "d700aba170fa697c737ee4a9dc7b05fe959fe78c9bff1650c9a4228ce5d261d3"
+    },
+    {
+      "side": "head",
+      "path": "manuscripts/quartic_v16.tex",
+      "sha256": "aeb2b6a42a03943d7f8c46682389c8da693d2903ba92ccc164bbbd236451de74"
+    },
+    {
+      "side": "head",
+      "path": "research/quartic214-manuscript-revision3/quartic214.tex",
+      "sha256": "938d96e6d310b2b551f610e2a23b662f147bd2eb4b05ec222d274b0b8be55d6b"
+    }
+  ],
+  "uses": [
+    {
+      "id": "SF01-rows",
+      "consumer": "Exact polynomial",
+      "passages": [
+        "P-SF01-rows"
+      ],
+      "assertion": {
+        "statement": "188 primitive integral quadratic rows in 214 coordinates give a quartic SOS, content one, all coordinates occurring and coefficient maximum 149^(4N+2)+1 for N>=53.",
+        "objects": "Exact polynomial; The coefficient threshold 53 does not imply a defining threshold; reciprocal equations impose q0*q1!=0.",
+        "hypotheses": "All 188 rows and 214 coordinates; N fixed, not quantified as a coordinate.",
+        "quantifiers": "All 188 rows and 214 coordinates; N fixed, not quantified as a coordinate.",
+        "parameter_range": "All 188 rows and 214 coordinates; N fixed, not quantified as a coordinate.",
+        "uniformity": "The coefficient threshold 53 does not imply a defining threshold; reciprocal equations impose q0*q1!=0.",
+        "constants": "The coefficient threshold 53 does not imply a defining threshold; reciprocal equations impose q0*q1!=0.",
+        "normalizations": "The coefficient threshold 53 does not imply a defining threshold; reciprocal equations impose q0*q1!=0.",
+        "exceptional_cases": "All 188 rows and 214 coordinates; N fixed, not quantified as a coordinate.",
+        "limit_order": "The coefficient threshold 53 does not imply a defining threshold; reciprocal equations impose q0*q1!=0."
+      },
+      "classification": "dependency",
+      "reason": "Required by the source argument: 188 primitive integral quadratic rows in 214 coordinates give a quartic SOS, content one, all coordinates occurring and coefficient maximum 149^(4N+2)+1 for N>=53.",
+      "shared_contract_justification": null,
+      "supplier": {
+        "kind": "internal",
+        "application_id": null,
+        "location": {
+          "pin": {
+            "side": "head",
+            "path": "research/quartic214/PROOF.md",
+            "sha256": "0feb164c3ed33543136b89aa87b27bc890f4aadef2d082d465263f55dc26d165"
+          },
+          "start_line": 1,
+          "end_line": 49,
+          "excerpt_sha256": "0feb164c3ed33543136b89aa87b27bc890f4aadef2d082d465263f55dc26d165"
+        },
+        "statement": "build.py and check_exact.py, literal raw224 IR and candidate214 tables",
+        "publication": null
+      },
+      "application_id": null,
+      "inline_argument": null
+    },
+    {
+      "id": "SF02-recovery",
+      "consumer": "Physical recovery",
+      "passages": [
+        "P-SF02-recovery"
+      ],
+      "assertion": {
+        "statement": "Recover the reference curve, f nonzero, w=g^4/f^2 and the common alternate ratio before interpreting logarithmic tests.",
+        "objects": "Physical recovery; Recover f,S,g from Q0,Q1,Q3 first; forced149 makes the Q2 coefficient nonzero; never divide by a tested numerator or component.",
+        "hypotheses": "Every rational solution, both detectors and all four labels.",
+        "quantifiers": "Every rational solution, both detectors and all four labels.",
+        "parameter_range": "Every rational solution, both detectors and all four labels.",
+        "uniformity": "Recover f,S,g from Q0,Q1,Q3 first; forced149 makes the Q2 coefficient nonzero; never divide by a tested numerator or component.",
+        "constants": "Recover f,S,g from Q0,Q1,Q3 first; forced149 makes the Q2 coefficient nonzero; never divide by a tested numerator or component.",
+        "normalizations": "Recover f,S,g from Q0,Q1,Q3 first; forced149 makes the Q2 coefficient nonzero; never divide by a tested numerator or component.",
+        "exceptional_cases": "Every rational solution, both detectors and all four labels.",
+        "limit_order": "Recover f,S,g from Q0,Q1,Q3 first; forced149 makes the Q2 coefficient nonzero; never divide by a tested numerator or component."
+      },
+      "classification": "dependency",
+      "reason": "Required by the source argument: Recover the reference curve, f nonzero, w=g^4/f^2 and the common alternate ratio before interpreting logarithmic tests.",
+      "shared_contract_justification": null,
+      "supplier": {
+        "kind": "internal",
+        "application_id": null,
+        "location": {
+          "pin": {
+            "side": "head",
+            "path": "research/quartic214/proofs/existence.md",
+            "sha256": "37ab929ed3f4b4dee2b91d2e39408e7070e8a9176b981bcc9c352d17b9cc2332"
+          },
+          "start_line": 1,
+          "end_line": 92,
+          "excerpt_sha256": "37ab929ed3f4b4dee2b91d2e39408e7070e8a9176b981bcc9c352d17b9cc2332"
+        },
+        "statement": "V16 v222:reference and v222:ratio; raw224 predecessor proof; exact Laurent identities",
+        "publication": null
+      },
+      "application_id": null,
+      "inline_argument": null
+    },
+    {
+      "id": "SF03-local",
+      "consumer": "Changed local extraction",
+      "passages": [
+        "P-SF03-local"
+      ],
+      "assertion": {
+        "statement": "The five changed factors are nonzero; their unique minimal valuations and the literal trace/pole equation force every required reciprocal depth and test congruence.",
+        "objects": "Changed local extraction; Use exponents (5,2,4), special 3; max place valuation ell; gamma=408/409; no old exponent-four conclusion supplies this.",
+        "hypotheses": "Every positive odd contact outside Sigma; split and inert places, zero and arbitrary negative test valuations.",
+        "quantifiers": "Every positive odd contact outside Sigma; split and inert places, zero and arbitrary negative test valuations.",
+        "parameter_range": "Every positive odd contact outside Sigma; split and inert places, zero and arbitrary negative test valuations.",
+        "uniformity": "Use exponents (5,2,4), special 3; max place valuation ell; gamma=408/409; no old exponent-four conclusion supplies this.",
+        "constants": "Use exponents (5,2,4), special 3; max place valuation ell; gamma=408/409; no old exponent-four conclusion supplies this.",
+        "normalizations": "Use exponents (5,2,4), special 3; max place valuation ell; gamma=408/409; no old exponent-four conclusion supplies this.",
+        "exceptional_cases": "Every positive odd contact outside Sigma; split and inert places, zero and arbitrary negative test valuations.",
+        "limit_order": "Use exponents (5,2,4), special 3; max place valuation ell; gamma=408/409; no old exponent-four conclusion supplies this."
+      },
+      "classification": "dependency",
+      "reason": "Required by the source argument: The five changed factors are nonzero; their unique minimal valuations and the literal trace/pole equation force every required reciprocal depth and test congruence.",
+      "shared_contract_justification": null,
+      "supplier": {
+        "kind": "internal",
+        "application_id": null,
+        "location": {
+          "pin": {
+            "side": "head",
+            "path": "research/quartic214/proofs/uniform-existence.md",
+            "sha256": "d13cc2b846dc72a3f5b5cce8dcf11d3f11b33c45ebc3883263840afb8d82f3bc"
+          },
+          "start_line": 1,
+          "end_line": 84,
+          "excerpt_sha256": "d13cc2b846dc72a3f5b5cce8dcf11d3f11b33c45ebc3883263840afb8d82f3bc"
+        },
+        "statement": "P05-P06 and factor-extraction.tex lem:residues/prop:extract",
+        "publication": null
+      },
+      "application_id": null,
+      "inline_argument": null
+    },
+    {
+      "id": "SF04-logs",
+      "consumer": "Integer residuals",
+      "passages": [
+        "P-SF04-logs"
+      ],
+      "assertion": {
+        "statement": "After proving integrality of both logarithmic ratios, obtain M_j^3|Delta and M_j|J with no extra c factor.",
+        "objects": "Integer residuals; At least one of h,h-1 is a p-unit; relative precision becomes absolute only after integrality.",
+        "hypotheses": "j=0,1 separately, all labels; numerator points may be identity and h half-integral.",
+        "quantifiers": "j=0,1 separately, all labels; numerator points may be identity and h half-integral.",
+        "parameter_range": "j=0,1 separately, all labels; numerator points may be identity and h half-integral.",
+        "uniformity": "At least one of h,h-1 is a p-unit; relative precision becomes absolute only after integrality.",
+        "constants": "At least one of h,h-1 is a p-unit; relative precision becomes absolute only after integrality.",
+        "normalizations": "At least one of h,h-1 is a p-unit; relative precision becomes absolute only after integrality.",
+        "exceptional_cases": "j=0,1 separately, all labels; numerator points may be identity and h half-integral.",
+        "limit_order": "At least one of h,h-1 is a p-unit; relative precision becomes absolute only after integrality."
+      },
+      "classification": "dependency",
+      "reason": "Required by the source argument: After proving integrality of both logarithmic ratios, obtain M_j^3|Delta and M_j|J with no extra c factor.",
+      "shared_contract_justification": null,
+      "supplier": {
+        "kind": "internal",
+        "application_id": null,
+        "location": {
+          "pin": {
+            "side": "head",
+            "path": "research/quartic214/proofs/uniform-existence.md",
+            "sha256": "d13cc2b846dc72a3f5b5cce8dcf11d3f11b33c45ebc3883263840afb8d82f3bc"
+          },
+          "start_line": 1,
+          "end_line": 84,
+          "excerpt_sha256": "d13cc2b846dc72a3f5b5cce8dcf11d3f11b33c45ebc3883263840afb8d82f3bc"
+        },
+        "statement": "P07; V16 v15:logs and integral group identities",
+        "publication": null
+      },
+      "application_id": null,
+      "inline_argument": null
+    },
+    {
+      "id": "SF05-aggregate",
+      "consumer": "Sum height",
+      "passages": [
+        "P-SF05-aggregate"
+      ],
+      "assertion": {
+        "statement": "B^2<=M1 h(T)+M2 for the actual positive quarter-trace T of the sum of four abscissae.",
+        "objects": "Sum height; Fixed graph closure in E0^8, independent blocks, positive same-block pole sums, O(3O)/Segre embedding; F+=2T; M2 fixed ineffective.",
+        "hypotheses": "All nonzero signed labels, including repeated and noncoprime labels.",
+        "quantifiers": "All nonzero signed labels, including repeated and noncoprime labels.",
+        "parameter_range": "All nonzero signed labels, including repeated and noncoprime labels.",
+        "uniformity": "Fixed graph closure in E0^8, independent blocks, positive same-block pole sums, O(3O)/Segre embedding; F+=2T; M2 fixed ineffective.",
+        "constants": "Fixed graph closure in E0^8, independent blocks, positive same-block pole sums, O(3O)/Segre embedding; F+=2T; M2 fixed ineffective.",
+        "normalizations": "Fixed graph closure in E0^8, independent blocks, positive same-block pole sums, O(3O)/Segre embedding; F+=2T; M2 fixed ineffective.",
+        "exceptional_cases": "All nonzero signed labels, including repeated and noncoprime labels.",
+        "limit_order": "Fixed graph closure in E0^8, independent blocks, positive same-block pole sums, O(3O)/Segre embedding; F+=2T; M2 fixed ineffective."
+      },
+      "classification": "dependency",
+      "reason": "Required by the source argument: B^2<=M1 h(T)+M2 for the actual positive quarter-trace T of the sum of four abscissae.",
+      "shared_contract_justification": null,
+      "supplier": {
+        "kind": "internal",
+        "application_id": null,
+        "location": {
+          "pin": {
+            "side": "head",
+            "path": "research/quartic214/proofs/uniform-existence.md",
+            "sha256": "d13cc2b846dc72a3f5b5cce8dcf11d3f11b33c45ebc3883263840afb8d82f3bc"
+          },
+          "start_line": 1,
+          "end_line": 84,
+          "excerpt_sha256": "d13cc2b846dc72a3f5b5cce8dcf11d3f11b33c45ebc3883263840afb8d82f3bc"
+        },
+        "statement": "P08-P09; aggregate-bridge.md; V16 aggregate sum proof; published Von Buhren Theorem1.1",
+        "publication": null
+      },
+      "application_id": null,
+      "inline_argument": null
+    },
+    {
+      "id": "SF06-reflect",
+      "consumer": "Reflected radical height",
+      "passages": [
+        "P-SF06-reflect"
+      ],
+      "assertion": {
+        "statement": "h(t_j)<=H2 M_j^(7/6), and B^2<=C |J0|^(7/(6k))+M2 for separate divisibilities M_j^k|J0.",
+        "objects": "Reflected radical height; Maps 2+1/t and 2+1/(2-t), inverse row norms3,7; finite Sigma loss and disjoint blocks within each scale; no coprimality between scales.",
+        "hypotheses": "Every rational t_j excluding ten contacts, including t_j=1 and radical one.",
+        "quantifiers": "Every rational t_j excluding ten contacts, including t_j=1 and radical one.",
+        "parameter_range": "Every rational t_j excluding ten contacts, including t_j=1 and radical one.",
+        "uniformity": "Maps 2+1/t and 2+1/(2-t), inverse row norms3,7; finite Sigma loss and disjoint blocks within each scale; no coprimality between scales.",
+        "constants": "Maps 2+1/t and 2+1/(2-t), inverse row norms3,7; finite Sigma loss and disjoint blocks within each scale; no coprimality between scales.",
+        "normalizations": "Maps 2+1/t and 2+1/(2-t), inverse row norms3,7; finite Sigma loss and disjoint blocks within each scale; no coprimality between scales.",
+        "exceptional_cases": "Every rational t_j excluding ten contacts, including t_j=1 and radical one.",
+        "limit_order": "Maps 2+1/t and 2+1/(2-t), inverse row norms3,7; finite Sigma loss and disjoint blocks within each scale; no coprimality between scales."
+      },
+      "classification": "dependency",
+      "reason": "Required by the source argument: h(t_j)<=H2 M_j^(7/6), and B^2<=C |J0|^(7/(6k))+M2 for separate divisibilities M_j^k|J0.",
+      "shared_contract_justification": null,
+      "supplier": {
+        "kind": "internal",
+        "application_id": null,
+        "location": {
+          "pin": {
+            "side": "head",
+            "path": "research/quartic214/proofs/uniform-existence.md",
+            "sha256": "d13cc2b846dc72a3f5b5cce8dcf11d3f11b33c45ebc3883263840afb8d82f3bc"
+          },
+          "start_line": 1,
+          "end_line": 84,
+          "excerpt_sha256": "d13cc2b846dc72a3f5b5cce8dcf11d3f11b33c45ebc3883263840afb8d82f3bc"
+        },
+        "statement": "P10; H4.3 full-family supplier",
+        "publication": null
+      },
+      "application_id": null,
+      "inline_argument": null
+    },
+    {
+      "id": "SF07-sound",
+      "consumer": "Uniform soundness",
+      "passages": [
+        "P-SF07-sound"
+      ],
+      "assertion": {
+        "statement": "One fixed N_S excludes nonzero Delta and J, hence beta integral and x integral.",
+        "objects": "Uniform soundness; c=|a|>=149^L_N, L_N=floor(9(2N-1)/4)+1; exponent14/9<2; v^2|51 forces v=1.",
+        "hypotheses": "All rational inputs and all solutions for every N>=N_S.",
+        "quantifiers": "All rational inputs and all solutions for every N>=N_S.",
+        "parameter_range": "All rational inputs and all solutions for every N>=N_S.",
+        "uniformity": "c=|a|>=149^L_N, L_N=floor(9(2N-1)/4)+1; exponent14/9<2; v^2|51 forces v=1.",
+        "constants": "c=|a|>=149^L_N, L_N=floor(9(2N-1)/4)+1; exponent14/9<2; v^2|51 forces v=1.",
+        "normalizations": "c=|a|>=149^L_N, L_N=floor(9(2N-1)/4)+1; exponent14/9<2; v^2|51 forces v=1.",
+        "exceptional_cases": "All rational inputs and all solutions for every N>=N_S.",
+        "limit_order": "c=|a|>=149^L_N, L_N=floor(9(2N-1)/4)+1; exponent14/9<2; v^2|51 forces v=1."
+      },
+      "classification": "dependency",
+      "reason": "Required by the source argument: One fixed N_S excludes nonzero Delta and J, hence beta integral and x integral.",
+      "shared_contract_justification": null,
+      "supplier": {
+        "kind": "internal",
+        "application_id": null,
+        "location": {
+          "pin": {
+            "side": "head",
+            "path": "research/quartic214/proofs/uniform-existence.md",
+            "sha256": "d13cc2b846dc72a3f5b5cce8dcf11d3f11b33c45ebc3883263840afb8d82f3bc"
+          },
+          "start_line": 1,
+          "end_line": 84,
+          "excerpt_sha256": "d13cc2b846dc72a3f5b5cce8dcf11d3f11b33c45ebc3883263840afb8d82f3bc"
+        },
+        "statement": "P11-P12; scalar-S/four-contact source and Lucas recurrence",
+        "publication": null
+      },
+      "application_id": null,
+      "inline_argument": null
+    },
+    {
+      "id": "SF08-scalar",
+      "consumer": "Uniform scalar preparation",
+      "passages": [
+        "P-SF08-scalar"
+      ],
+      "assertion": {
+        "statement": "A fixed N_C works for scalar preparation for every integer input.",
+        "objects": "Uniform scalar preparation; Fix real neighborhoods before progression moduli; W_s=O(R_s^-4), b_s=O(R_s^-6); local squareclasses at2,3,17.",
+        "hypotheses": "All integer x, N>=N_C; later moduli and labels may depend on x,N.",
+        "quantifiers": "All integer x, N>=N_C; later moduli and labels may depend on x,N.",
+        "parameter_range": "All integer x, N>=N_C; later moduli and labels may depend on x,N.",
+        "uniformity": "Fix real neighborhoods before progression moduli; W_s=O(R_s^-4), b_s=O(R_s^-6); local squareclasses at2,3,17.",
+        "constants": "Fix real neighborhoods before progression moduli; W_s=O(R_s^-4), b_s=O(R_s^-6); local squareclasses at2,3,17.",
+        "normalizations": "Fix real neighborhoods before progression moduli; W_s=O(R_s^-4), b_s=O(R_s^-6); local squareclasses at2,3,17.",
+        "exceptional_cases": "All integer x, N>=N_C; later moduli and labels may depend on x,N.",
+        "limit_order": "Fix real neighborhoods before progression moduli; W_s=O(R_s^-4), b_s=O(R_s^-6); local squareclasses at2,3,17."
+      },
+      "classification": "dependency",
+      "reason": "Required by the source argument: A fixed N_C works for scalar preparation for every integer input.",
+      "shared_contract_justification": null,
+      "supplier": {
+        "kind": "internal",
+        "application_id": null,
+        "location": {
+          "pin": {
+            "side": "head",
+            "path": "research/quartic214/proofs/uniform-existence.md",
+            "sha256": "d13cc2b846dc72a3f5b5cce8dcf11d3f11b33c45ebc3883263840afb8d82f3bc"
+          },
+          "start_line": 1,
+          "end_line": 84,
+          "excerpt_sha256": "d13cc2b846dc72a3f5b5cce8dcf11d3f11b33c45ebc3883263840afb8d82f3bc"
+        },
+        "statement": "P13-P14; V16 scalar-S/four-contact and compact real recurrence",
+        "publication": null
+      },
+      "application_id": null,
+      "inline_argument": null
+    },
+    {
+      "id": "SF09-selection",
+      "consumer": "Fixed-data primes and CRT",
+      "passages": [
+        "P-SF09-selection"
+      ],
+      "assertion": {
+        "statement": "Construct root labels, merged distinct integer coefficients and a common h giving primary/opposite depth while retaining scalar conditions.",
+        "objects": "Fixed-data primes and CRT; Fix (N,x),labels,T,D,L before analytic size; U,V,L CRT compatibility uses two-torsion and norm valuations6,2.",
+        "hypotheses": "All incidences of merged coefficients; arbitrary required prime/slope lower bounds and q|w.",
+        "quantifiers": "All incidences of merged coefficients; arbitrary required prime/slope lower bounds and q|w.",
+        "parameter_range": "All incidences of merged coefficients; arbitrary required prime/slope lower bounds and q|w.",
+        "uniformity": "Fix (N,x),labels,T,D,L before analytic size; U,V,L CRT compatibility uses two-torsion and norm valuations6,2.",
+        "constants": "Fix (N,x),labels,T,D,L before analytic size; U,V,L CRT compatibility uses two-torsion and norm valuations6,2.",
+        "normalizations": "Fix (N,x),labels,T,D,L before analytic size; U,V,L CRT compatibility uses two-torsion and norm valuations6,2.",
+        "exceptional_cases": "All incidences of merged coefficients; arbitrary required prime/slope lower bounds and q|w.",
+        "limit_order": "Fix (N,x),labels,T,D,L before analytic size; U,V,L CRT compatibility uses two-torsion and norm valuations6,2."
+      },
+      "classification": "dependency",
+      "reason": "Required by the source argument: Construct root labels, merged distinct integer coefficients and a common h giving primary/opposite depth while retaining scalar conditions.",
+      "shared_contract_justification": null,
+      "supplier": {
+        "kind": "internal",
+        "application_id": null,
+        "location": {
+          "pin": {
+            "side": "head",
+            "path": "research/quartic214/proofs/uniform-existence.md",
+            "sha256": "d13cc2b846dc72a3f5b5cce8dcf11d3f11b33c45ebc3883263840afb8d82f3bc"
+          },
+          "start_line": 1,
+          "end_line": 84,
+          "excerpt_sha256": "d13cc2b846dc72a3f5b5cce8dcf11d3f11b33c45ebc3883263840afb8d82f3bc"
+        },
+        "statement": "P15-P16; V16 thm:v5-simultaneous-primes, reduction-order and real progression",
+        "publication": null
+      },
+      "application_id": null,
+      "inline_argument": null
+    },
+    {
+      "id": "SF10-freshpole",
+      "consumer": "Fresh pole witnesses",
+      "passages": [
+        "P-SF10-freshpole"
+      ],
+      "assertion": {
+        "statement": "Actual new detector inputs satisfy Psi0 and possess independent pole certificates, giving all reciprocal weights and a rational zero.",
+        "objects": "Fresh pole witnesses; Selected depth1, trace residue1 or2; remaining valuations even; depths4,2,2; q>0; no old pole witnesses reused.",
+        "hypotheses": "Both detectors; selected, opposite, prepared and all remaining primes, both real embeddings.",
+        "quantifiers": "Both detectors; selected, opposite, prepared and all remaining primes, both real embeddings.",
+        "parameter_range": "Both detectors; selected, opposite, prepared and all remaining primes, both real embeddings.",
+        "uniformity": "Selected depth1, trace residue1 or2; remaining valuations even; depths4,2,2; q>0; no old pole witnesses reused.",
+        "constants": "Selected depth1, trace residue1 or2; remaining valuations even; depths4,2,2; q>0; no old pole witnesses reused.",
+        "normalizations": "Selected depth1, trace residue1 or2; remaining valuations even; depths4,2,2; q>0; no old pole witnesses reused.",
+        "exceptional_cases": "Both detectors; selected, opposite, prepared and all remaining primes, both real embeddings.",
+        "limit_order": "Selected depth1, trace residue1 or2; remaining valuations even; depths4,2,2; q>0; no old pole witnesses reused."
+      },
+      "classification": "dependency",
+      "reason": "Required by the source argument: Actual new detector inputs satisfy Psi0 and possess independent pole certificates, giving all reciprocal weights and a rational zero.",
+      "shared_contract_justification": null,
+      "supplier": {
+        "kind": "internal",
+        "application_id": null,
+        "location": {
+          "pin": {
+            "side": "head",
+            "path": "research/quartic214/proofs/uniform-existence.md",
+            "sha256": "d13cc2b846dc72a3f5b5cce8dcf11d3f11b33c45ebc3883263840afb8d82f3bc"
+          },
+          "start_line": 1,
+          "end_line": 84,
+          "excerpt_sha256": "d13cc2b846dc72a3f5b5cce8dcf11d3f11b33c45ebc3883263840afb8d82f3bc"
+        },
+        "statement": "P17-P20; V16 v5:preparation-zero-bridge and simultaneous realization",
+        "publication": null
+      },
+      "application_id": null,
+      "inline_argument": null
+    },
+    {
+      "id": "SF11-geometry",
+      "consumer": "Actual D210 object",
+      "passages": [
+        "P-SF11-geometry"
+      ],
+      "assertion": {
+        "statement": "The full canonical D210 cover has normal fiber field degree dividing576, all geometric Hom over L and actual conjugate isogenies.",
+        "objects": "Actual D210 object; Use full3 division lattice, all components/multipliers and canonical model; D6/full5 and modular Jacobian covers are different objects.",
+        "hypotheses": "All rational a outside four finite contacts; non-CM and CM alternatives.",
+        "quantifiers": "All rational a outside four finite contacts; non-CM and CM alternatives.",
+        "parameter_range": "All rational a outside four finite contacts; non-CM and CM alternatives.",
+        "uniformity": "Use full3 division lattice, all components/multipliers and canonical model; D6/full5 and modular Jacobian covers are different objects.",
+        "constants": "Use full3 division lattice, all components/multipliers and canonical model; D6/full5 and modular Jacobian covers are different objects.",
+        "normalizations": "Use full3 division lattice, all components/multipliers and canonical model; D6/full5 and modular Jacobian covers are different objects.",
+        "exceptional_cases": "All rational a outside four finite contacts; non-CM and CM alternatives.",
+        "limit_order": "Use full3 division lattice, all components/multipliers and canonical model; D6/full5 and modular Jacobian covers are different objects."
+      },
+      "classification": "dependency",
+      "reason": "Required by the source argument: The full canonical D210 cover has normal fiber field degree dividing576, all geometric Hom over L and actual conjugate isogenies.",
+      "shared_contract_justification": null,
+      "supplier": {
+        "kind": "internal",
+        "application_id": null,
+        "location": {
+          "pin": {
+            "side": "head",
+            "path": "research/quartic214/proofs/geometry-carry.md",
+            "sha256": "b3cb8201de84f733b0518ad68a9c0d0bc1e78534ffd39aca5d8c70f1bae69e76"
+          },
+          "start_line": 1,
+          "end_line": 81,
+          "excerpt_sha256": "b3cb8201de84f733b0518ad68a9c0d0bc1e78534ffd39aca5d8c70f1bae69e76"
+        },
+        "statement": "G1-G2; provider-scope-carry P1-P2; exact V16 D210 supplier",
+        "publication": null
+      },
+      "application_id": null,
+      "inline_argument": null
+    },
+    {
+      "id": "SF12-tame",
+      "consumer": "S10 support",
+      "passages": [
+        "P-SF12-tame"
+      ],
+      "assertion": {
+        "statement": "rad(D_L)|B_S M_S(a) for the five primitive forms, including infinity and even deep contacts.",
+        "objects": "S10 support; Ten determinants support only2,3,5,7; actual tame w=z^2 charts, not determinants alone, imply unramified fibers.",
+        "hypotheses": "Every primitive (u,v), v>0; no bounded-depth or integer-only restriction.",
+        "quantifiers": "Every primitive (u,v), v>0; no bounded-depth or integer-only restriction.",
+        "parameter_range": "Every primitive (u,v), v>0; no bounded-depth or integer-only restriction.",
+        "uniformity": "Ten determinants support only2,3,5,7; actual tame w=z^2 charts, not determinants alone, imply unramified fibers.",
+        "constants": "Ten determinants support only2,3,5,7; actual tame w=z^2 charts, not determinants alone, imply unramified fibers.",
+        "normalizations": "Ten determinants support only2,3,5,7; actual tame w=z^2 charts, not determinants alone, imply unramified fibers.",
+        "exceptional_cases": "Every primitive (u,v), v>0; no bounded-depth or integer-only restriction.",
+        "limit_order": "Ten determinants support only2,3,5,7; actual tame w=z^2 charts, not determinants alone, imply unramified fibers."
+      },
+      "classification": "dependency",
+      "reason": "Required by the source argument: rad(D_L)|B_S M_S(a) for the five primitive forms, including infinity and even deep contacts.",
+      "shared_contract_justification": null,
+      "supplier": {
+        "kind": "internal",
+        "application_id": null,
+        "location": {
+          "pin": {
+            "side": "head",
+            "path": "research/quartic214/proofs/geometry-carry.md",
+            "sha256": "b3cb8201de84f733b0518ad68a9c0d0bc1e78534ffd39aca5d8c70f1bae69e76"
+          },
+          "start_line": 1,
+          "end_line": 81,
+          "excerpt_sha256": "b3cb8201de84f733b0518ad68a9c0d0bc1e78534ffd39aca5d8c70f1bae69e76"
+        },
+        "statement": "G3; provider-scope-carry P3; small-support and contact-line certificates",
+        "publication": null
+      },
+      "application_id": null,
+      "inline_argument": null
+    },
+    {
+      "id": "SF13-geometricmetric",
+      "consumer": "Surface metric",
+      "passages": [
+        "P-SF13-geometricmetric"
+      ],
+      "assertion": {
+        "statement": "h(a)<=2max(0,hF(A_a))+128 for the same universal surface.",
+        "objects": "Surface metric; Original stable normalization; positive log210; maximal stack at bad primes, no coarse smooth-model substitution.",
+        "hypotheses": "Every admitted a, independent of S.",
+        "quantifiers": "Every admitted a, independent of S.",
+        "parameter_range": "Every admitted a, independent of S.",
+        "uniformity": "Original stable normalization; positive log210; maximal stack at bad primes, no coarse smooth-model substitution.",
+        "constants": "Original stable normalization; positive log210; maximal stack at bad primes, no coarse smooth-model substitution.",
+        "normalizations": "Original stable normalization; positive log210; maximal stack at bad primes, no coarse smooth-model substitution.",
+        "exceptional_cases": "Every admitted a, independent of S.",
+        "limit_order": "Original stable normalization; positive log210; maximal stack at bad primes, no coarse smooth-model substitution."
+      },
+      "classification": "dependency",
+      "reason": "Required by the source argument: h(a)<=2max(0,hF(A_a))+128 for the same universal surface.",
+      "shared_contract_justification": null,
+      "supplier": {
+        "kind": "internal",
+        "application_id": null,
+        "location": {
+          "pin": {
+            "side": "head",
+            "path": "research/quartic214/proofs/geometry-carry.md",
+            "sha256": "b3cb8201de84f733b0518ad68a9c0d0bc1e78534ffd39aca5d8c70f1bae69e76"
+          },
+          "start_line": 1,
+          "end_line": 81,
+          "excerpt_sha256": "b3cb8201de84f733b0518ad68a9c0d0bc1e78534ffd39aca5d8c70f1bae69e76"
+        },
+        "statement": "G4; exact V16 maximal-stack Yuan metric proof",
+        "publication": null
+      },
+      "application_id": null,
+      "inline_argument": null
+    },
+    {
+      "id": "SF14-cm",
+      "consumer": "CM branch",
+      "passages": [
+        "P-SF14-cm"
+      ],
+      "assertion": {
+        "statement": "hF(A_a)<854R on the same L with [L:Q]<=576 and support R.",
+        "objects": "CM branch; L-defined idempotents and maximal-order elliptic quotient; discriminant<=4R; dimension-two same-field isogeny.",
+        "hypotheses": "All CM a and R>=1, including M=1.",
+        "quantifiers": "All CM a and R>=1, including M=1.",
+        "parameter_range": "All CM a and R>=1, including M=1.",
+        "uniformity": "L-defined idempotents and maximal-order elliptic quotient; discriminant<=4R; dimension-two same-field isogeny.",
+        "constants": "L-defined idempotents and maximal-order elliptic quotient; discriminant<=4R; dimension-two same-field isogeny.",
+        "normalizations": "L-defined idempotents and maximal-order elliptic quotient; discriminant<=4R; dimension-two same-field isogeny.",
+        "exceptional_cases": "All CM a and R>=1, including M=1.",
+        "limit_order": "L-defined idempotents and maximal-order elliptic quotient; discriminant<=4R; dimension-two same-field isogeny."
+      },
+      "classification": "dependency",
+      "reason": "Required by the source argument: hF(A_a)<854R on the same L with [L:Q]<=576 and support R.",
+      "shared_contract_justification": null,
+      "supplier": {
+        "kind": "internal",
+        "application_id": null,
+        "location": {
+          "pin": {
+            "side": "head",
+            "path": "research/quartic214/proofs/geometry-carry.md",
+            "sha256": "b3cb8201de84f733b0518ad68a9c0d0bc1e78534ffd39aca5d8c70f1bae69e76"
+          },
+          "start_line": 1,
+          "end_line": 81,
+          "excerpt_sha256": "b3cb8201de84f733b0518ad68a9c0d0bc1e78534ffd39aca5d8c70f1bae69e76"
+        },
+        "statement": "G4; exact V16 CM854R proof",
+        "publication": null
+      },
+      "application_id": null,
+      "inline_argument": null
+    },
+    {
+      "id": "SF15-lift",
+      "consumer": "Controlled cochain",
+      "passages": [
+        "P-SF15-lift"
+      ],
+      "assertion": {
+        "statement": "b^2=chi and delta b=epsilon_sign give genuine rho=r+r, actual Tate restriction over normal L-prime and degree<=2304 phi(R).",
+        "objects": "Controlled cochain; Positive fourth-root degree normalization; chi order divides U; kill unwanted quadratic inertia; coefficient fields do not replace L-prime.",
+        "hypotheses": "All boundary patterns, m=1 included, all rational a in non-CM branch.",
+        "quantifiers": "All boundary patterns, m=1 included, all rational a in non-CM branch.",
+        "parameter_range": "All boundary patterns, m=1 included, all rational a in non-CM branch.",
+        "uniformity": "Positive fourth-root degree normalization; chi order divides U; kill unwanted quadratic inertia; coefficient fields do not replace L-prime.",
+        "constants": "Positive fourth-root degree normalization; chi order divides U; kill unwanted quadratic inertia; coefficient fields do not replace L-prime.",
+        "normalizations": "Positive fourth-root degree normalization; chi order divides U; kill unwanted quadratic inertia; coefficient fields do not replace L-prime.",
+        "exceptional_cases": "All boundary patterns, m=1 included, all rational a in non-CM branch.",
+        "limit_order": "Positive fourth-root degree normalization; chi order divides U; kill unwanted quadratic inertia; coefficient fields do not replace L-prime."
+      },
+      "classification": "dependency",
+      "reason": "Required by the source argument: b^2=chi and delta b=epsilon_sign give genuine rho=r+r, actual Tate restriction over normal L-prime and degree<=2304 phi(R).",
+      "shared_contract_justification": null,
+      "supplier": {
+        "kind": "internal",
+        "application_id": null,
+        "location": {
+          "pin": {
+            "side": "head",
+            "path": "research/quartic214/proofs/modularity.md",
+            "sha256": "814676050b389793d196346f45e2797f39e2c5be0f3fee8457bb709b2607606e"
+          },
+          "start_line": 1,
+          "end_line": 125,
+          "excerpt_sha256": "814676050b389793d196346f45e2797f39e2c5be0f3fee8457bb709b2607606e"
+        },
+        "statement": "M1-M2; H1; local/global reciprocity and Brauer boundary",
+        "publication": null
+      },
+      "application_id": null,
+      "inline_argument": null
+    },
+    {
+      "id": "SF16-modular",
+      "consumer": "Original modular realization",
+      "passages": [
+        "P-SF16-modular"
+      ],
+      "assertion": {
+        "statement": "The original r5 is continuous, absolutely irreducible, geometric, odd with weights0,-1, so published modularity applies.",
+        "objects": "Original modular realization; Covariant Tate modules and arithmetic Frobenius; no residual hypothesis or unavailable final Pan text substituted.",
+        "hypotheses": "p=5, even when A lacks good reduction at5.",
+        "quantifiers": "p=5, even when A lacks good reduction at5.",
+        "parameter_range": "p=5, even when A lacks good reduction at5.",
+        "uniformity": "Covariant Tate modules and arithmetic Frobenius; no residual hypothesis or unavailable final Pan text substituted.",
+        "constants": "Covariant Tate modules and arithmetic Frobenius; no residual hypothesis or unavailable final Pan text substituted.",
+        "normalizations": "Covariant Tate modules and arithmetic Frobenius; no residual hypothesis or unavailable final Pan text substituted.",
+        "exceptional_cases": "p=5, even when A lacks good reduction at5.",
+        "limit_order": "Covariant Tate modules and arithmetic Frobenius; no residual hypothesis or unavailable final Pan text substituted."
+      },
+      "classification": "dependency",
+      "reason": "Required by the source argument: The original r5 is continuous, absolutely irreducible, geometric, odd with weights0,-1, so published modularity applies.",
+      "shared_contract_justification": null,
+      "supplier": {
+        "kind": "internal",
+        "application_id": null,
+        "location": {
+          "pin": {
+            "side": "head",
+            "path": "research/quartic214/proofs/modularity.md",
+            "sha256": "814676050b389793d196346f45e2797f39e2c5be0f3fee8457bb709b2607606e"
+          },
+          "start_line": 1,
+          "end_line": 125,
+          "excerpt_sha256": "814676050b389793d196346f45e2797f39e2c5be0f3fee8457bb709b2607606e"
+        },
+        "statement": "M2; Faltings, Scholze plus corrigendum, Fontaine/Kato descent, Calegari final statement",
+        "publication": null
+      },
+      "application_id": null,
+      "inline_argument": null
+    },
+    {
+      "id": "SF17-primitive",
+      "consumer": "Final primitive weight two form",
+      "passages": [
+        "P-SF17-primitive"
+      ],
+      "assertion": {
+        "statement": "Absorb the finite twist and select a normalized primitive weight-two f realizing original r5.",
+        "objects": "Final primitive weight two form; Li Theorem5 is uniqueness only; inverse finite-unit character matches arithmetic Frobenius; no change to controlled L-prime.",
+        "hypotheses": "k=1 ruled out; arbitrary finite nebentypus; primitive eta of conductor r.",
+        "quantifiers": "k=1 ruled out; arbitrary finite nebentypus; primitive eta of conductor r.",
+        "parameter_range": "k=1 ruled out; arbitrary finite nebentypus; primitive eta of conductor r.",
+        "uniformity": "Li Theorem5 is uniqueness only; inverse finite-unit character matches arithmetic Frobenius; no change to controlled L-prime.",
+        "constants": "Li Theorem5 is uniqueness only; inverse finite-unit character matches arithmetic Frobenius; no change to controlled L-prime.",
+        "normalizations": "Li Theorem5 is uniqueness only; inverse finite-unit character matches arithmetic Frobenius; no change to controlled L-prime.",
+        "exceptional_cases": "k=1 ruled out; arbitrary finite nebentypus; primitive eta of conductor r.",
+        "limit_order": "Li Theorem5 is uniqueness only; inverse finite-unit character matches arithmetic Frobenius; no change to controlled L-prime."
+      },
+      "classification": "dependency",
+      "reason": "Required by the source argument: Absorb the finite twist and select a normalized primitive weight-two f realizing original r5.",
+      "shared_contract_justification": null,
+      "supplier": {
+        "kind": "internal",
+        "application_id": null,
+        "location": {
+          "pin": {
+            "side": "head",
+            "path": "research/quartic214/proofs/modularity.md",
+            "sha256": "814676050b389793d196346f45e2797f39e2c5be0f3fee8457bb709b2607606e"
+          },
+          "start_line": 1,
+          "end_line": 125,
+          "excerpt_sha256": "814676050b389793d196346f45e2797f39e2c5be0f3fee8457bb709b2607606e"
+        },
+        "statement": "M3; Deligne-Serre1.6-1.9, Kato realization, Milne reciprocity, Shimura twist; revision2 least-modulus overlay",
+        "publication": null
+      },
+      "application_id": null,
+      "inline_argument": null
+    },
+    {
+      "id": "SF18-companion",
+      "consumer": "Same-form companion",
+      "passages": [
+        "P-SF18-companion"
+      ],
+      "assertion": {
+        "statement": "Original r3 equals the full three-adic realization of the same final f.",
+        "objects": "Same-form companion; Divide by denominator n and by2; trace equality in common number field; actual global isomorphism preserves local object.",
+        "hypotheses": "All good comparison primes; pair3,5 covers every residue prime.",
+        "quantifiers": "All good comparison primes; pair3,5 covers every residue prime.",
+        "parameter_range": "All good comparison primes; pair3,5 covers every residue prime.",
+        "uniformity": "Divide by denominator n and by2; trace equality in common number field; actual global isomorphism preserves local object.",
+        "constants": "Divide by denominator n and by2; trace equality in common number field; actual global isomorphism preserves local object.",
+        "normalizations": "Divide by denominator n and by2; trace equality in common number field; actual global isomorphism preserves local object.",
+        "exceptional_cases": "All good comparison primes; pair3,5 covers every residue prime.",
+        "limit_order": "Divide by denominator n and by2; trace equality in common number field; actual global isomorphism preserves local object."
+      },
+      "classification": "dependency",
+      "reason": "Required by the source argument: Original r3 equals the full three-adic realization of the same final f.",
+      "shared_contract_justification": null,
+      "supplier": {
+        "kind": "internal",
+        "application_id": null,
+        "location": {
+          "pin": {
+            "side": "head",
+            "path": "research/quartic214/proofs/modularity.md",
+            "sha256": "814676050b389793d196346f45e2797f39e2c5be0f3fee8457bb709b2607606e"
+          },
+          "start_line": 1,
+          "end_line": 125,
+          "excerpt_sha256": "814676050b389793d196346f45e2797f39e2c5be0f3fee8457bb709b2607606e"
+        },
+        "statement": "M4 relative Frobenius/quasi-isogeny trace and semisimple uniqueness",
+        "publication": null
+      },
+      "application_id": null,
+      "inline_argument": null
+    },
+    {
+      "id": "SF19-conductor",
+      "consumer": "Final level",
+      "passages": [
+        "P-SF19-conductor"
+      ],
+      "assertion": {
+        "statement": "N<=2^68 3^16 5^16 7^4 R^2 and rad(N)|R for that f.",
+        "objects": "Final level; Full11 only at2,3,5,7; wild valuations17,4,4,1; tame term retained; no monodromy loss.",
+        "hypotheses": "All primes; r5 at p!=5, r3 at5; dyadic cases included.",
+        "quantifiers": "All primes; r5 at p!=5, r3 at5; dyadic cases included.",
+        "parameter_range": "All primes; r5 at p!=5, r3 at5; dyadic cases included.",
+        "uniformity": "Full11 only at2,3,5,7; wild valuations17,4,4,1; tame term retained; no monodromy loss.",
+        "constants": "Full11 only at2,3,5,7; wild valuations17,4,4,1; tame term retained; no monodromy loss.",
+        "normalizations": "Full11 only at2,3,5,7; wild valuations17,4,4,1; tame term retained; no monodromy loss.",
+        "exceptional_cases": "All primes; r5 at p!=5, r3 at5; dyadic cases included.",
+        "limit_order": "Full11 only at2,3,5,7; wild valuations17,4,4,1; tame term retained; no monodromy loss."
+      },
+      "classification": "dependency",
+      "reason": "Required by the source argument: N<=2^68 3^16 5^16 7^4 R^2 and rad(N)|R for that f.",
+      "shared_contract_justification": null,
+      "supplier": {
+        "kind": "internal",
+        "application_id": null,
+        "location": {
+          "pin": {
+            "side": "head",
+            "path": "research/quartic214/proofs/modularity.md",
+            "sha256": "814676050b389793d196346f45e2797f39e2c5be0f3fee8457bb709b2607606e"
+          },
+          "start_line": 1,
+          "end_line": 125,
+          "excerpt_sha256": "814676050b389793d196346f45e2797f39e2c5be0f3fee8457bb709b2607606e"
+        },
+        "statement": "M5; provider-scope-carry P4; Carayol full theorem; retained Serre1967 ramification",
+        "publication": null
+      },
+      "application_id": null,
+      "inline_argument": null
+    },
+    {
+      "id": "SF20-multiplicity",
+      "consumer": "All conjugates over L-prime",
+      "passages": [
+        "P-SF20-multiplicity"
+      ],
+      "assertion": {
+        "statement": "An L-prime-defined B0 in J is isogenous to A_a^r with e=2r and s/r<=4.",
+        "objects": "All conjugates over L-prime; Same final f and ker epsilon; rational Frobenius traces, Hom descent, Fricke-stable span and invariant Jacobian; growing r not isogeny dimension.",
+        "hypotheses": "Every coefficient embedding; r>=1 and s=1,2 exceptions included.",
+        "quantifiers": "Every coefficient embedding; r>=1 and s=1,2 exceptions included.",
+        "parameter_range": "Every coefficient embedding; r>=1 and s=1,2 exceptions included.",
+        "uniformity": "Same final f and ker epsilon; rational Frobenius traces, Hom descent, Fricke-stable span and invariant Jacobian; growing r not isogeny dimension.",
+        "constants": "Same final f and ker epsilon; rational Frobenius traces, Hom descent, Fricke-stable span and invariant Jacobian; growing r not isogeny dimension.",
+        "normalizations": "Same final f and ker epsilon; rational Frobenius traces, Hom descent, Fricke-stable span and invariant Jacobian; growing r not isogeny dimension.",
+        "exceptional_cases": "Every coefficient embedding; r>=1 and s=1,2 exceptions included.",
+        "limit_order": "Same final f and ker epsilon; rational Frobenius traces, Hom descent, Fricke-stable span and invariant Jacobian; growing r not isogeny dimension."
+      },
+      "classification": "dependency",
+      "reason": "Required by the source argument: An L-prime-defined B0 in J is isogenous to A_a^r with e=2r and s/r<=4.",
+      "shared_contract_justification": null,
+      "supplier": {
+        "kind": "internal",
+        "application_id": null,
+        "location": {
+          "pin": {
+            "side": "head",
+            "path": "research/quartic214/proofs/modularity.md",
+            "sha256": "814676050b389793d196346f45e2797f39e2c5be0f3fee8457bb709b2607606e"
+          },
+          "start_line": 1,
+          "end_line": 125,
+          "excerpt_sha256": "814676050b389793d196346f45e2797f39e2c5be0f3fee8457bb709b2607606e"
+        },
+        "statement": "M6; H2; primary-source-bridges Faltings/Poincare/Li",
+        "publication": null
+      },
+      "application_id": null,
+      "inline_argument": null
+    },
+    {
+      "id": "SF21-integral",
+      "consumer": "Trace-dual evaluation",
+      "passages": [
+        "P-SF21-integral"
+      ],
+      "assertion": {
+        "statement": "E=H0(minimal regular semistable model,omega) maps literally to C-dual through omega/dt at every fiber point.",
+        "objects": "Trace-dual evaluation; Generic trace fixes scalar; finite-projective dual commutes with nonflat t=2 specialization; same generic differential throughout.",
+        "hypotheses": "All finite places; singular non-Gorenstein normalization allowed; C may be nonmaximal.",
+        "quantifiers": "All finite places; singular non-Gorenstein normalization allowed; C may be nonmaximal.",
+        "parameter_range": "All finite places; singular non-Gorenstein normalization allowed; C may be nonmaximal.",
+        "uniformity": "Generic trace fixes scalar; finite-projective dual commutes with nonflat t=2 specialization; same generic differential throughout.",
+        "constants": "Generic trace fixes scalar; finite-projective dual commutes with nonflat t=2 specialization; same generic differential throughout.",
+        "normalizations": "Generic trace fixes scalar; finite-projective dual commutes with nonflat t=2 specialization; same generic differential throughout.",
+        "exceptional_cases": "All finite places; singular non-Gorenstein normalization allowed; C may be nonmaximal.",
+        "limit_order": "Generic trace fixes scalar; finite-projective dual commutes with nonflat t=2 specialization; same generic differential throughout."
+      },
+      "classification": "dependency",
+      "reason": "Required by the source argument: E=H0(minimal regular semistable model,omega) maps literally to C-dual through omega/dt at every fiber point.",
+      "shared_contract_justification": null,
+      "supplier": {
+        "kind": "internal",
+        "application_id": null,
+        "location": {
+          "pin": {
+            "side": "head",
+            "path": "research/quartic214/proofs/height-evaluation.md",
+            "sha256": "d691da0a6827d9b45c6c68294405163f679a2d57f08e2ecda56fd071b3579502"
+          },
+          "start_line": 1,
+          "end_line": 129,
+          "excerpt_sha256": "d691da0a6827d9b45c6c68294405163f679a2d57f08e2ecda56fd071b3579502"
+        },
+        "statement": "Sections1-4 finite projectivity, common regular model, reflexive canonical module, finite duality and specialization",
+        "publication": null
+      },
+      "application_id": null,
+      "inline_argument": null
+    },
+    {
+      "id": "SF22-lattice",
+      "consumer": "Projected lattice degree",
+      "passages": [
+        "P-SF22-lattice"
+      ],
+      "assertion": {
+        "statement": "Ardeg(pr_I C-dual)<=1/2 log Norm disc(C).",
+        "objects": "Projected lattice degree; Dot-product trace on K^d; overlattice degree positive; no replacement by maximal order.",
+        "hypotheses": "Every coordinate subset I of size g, nonfree global modules and residue2.",
+        "quantifiers": "Every coordinate subset I of size g, nonfree global modules and residue2.",
+        "parameter_range": "Every coordinate subset I of size g, nonfree global modules and residue2.",
+        "uniformity": "Dot-product trace on K^d; overlattice degree positive; no replacement by maximal order.",
+        "constants": "Dot-product trace on K^d; overlattice degree positive; no replacement by maximal order.",
+        "normalizations": "Dot-product trace on K^d; overlattice degree positive; no replacement by maximal order.",
+        "exceptional_cases": "Every coordinate subset I of size g, nonfree global modules and residue2.",
+        "limit_order": "Dot-product trace on K^d; overlattice degree positive; no replacement by maximal order."
+      },
+      "classification": "dependency",
+      "reason": "Required by the source argument: Ardeg(pr_I C-dual)<=1/2 log Norm disc(C).",
+      "shared_contract_justification": null,
+      "supplier": {
+        "kind": "internal",
+        "application_id": null,
+        "location": {
+          "pin": {
+            "side": "head",
+            "path": "research/quartic214/proofs/height-evaluation.md",
+            "sha256": "d691da0a6827d9b45c6c68294405163f679a2d57f08e2ecda56fd071b3579502"
+          },
+          "start_line": 1,
+          "end_line": 129,
+          "excerpt_sha256": "d691da0a6827d9b45c6c68294405163f679a2d57f08e2ecda56fd071b3579502"
+        },
+        "statement": "Section5 local Gram matrix and projection quotient",
+        "publication": null
+      },
+      "application_id": null,
+      "inline_argument": null
+    },
+    {
+      "id": "SF23-different",
+      "consumer": "Complete fiber discriminant",
+      "passages": [
+        "P-SF23-different"
+      ],
+      "assertion": {
+        "statement": "log Norm disc(C)/[K:Q]<=d(log12+logN+2logd).",
+        "objects": "Complete fiber discriminant; Full residue degrees; sum e_j f_j=d; field splitting fiber cancels; elliptic scheme at p>3 uses finite flat torsion.",
+        "hypotheses": "Every vertical component and place, p|N, p=2,3, all positive-genus levels.",
+        "quantifiers": "Every vertical component and place, p|N, p=2,3, all positive-genus levels.",
+        "parameter_range": "Every vertical component and place, p|N, p=2,3, all positive-genus levels.",
+        "uniformity": "Full residue degrees; sum e_j f_j=d; field splitting fiber cancels; elliptic scheme at p>3 uses finite flat torsion.",
+        "constants": "Full residue degrees; sum e_j f_j=d; field splitting fiber cancels; elliptic scheme at p>3 uses finite flat torsion.",
+        "normalizations": "Full residue degrees; sum e_j f_j=d; field splitting fiber cancels; elliptic scheme at p>3 uses finite flat torsion.",
+        "exceptional_cases": "Every vertical component and place, p|N, p=2,3, all positive-genus levels.",
+        "limit_order": "Full residue degrees; sum e_j f_j=d; field splitting fiber cancels; elliptic scheme at p>3 uses finite flat torsion."
+      },
+      "classification": "dependency",
+      "reason": "Required by the source argument: log Norm disc(C)/[K:Q]<=d(log12+logN+2logd).",
+      "shared_contract_justification": null,
+      "supplier": {
+        "kind": "internal",
+        "application_id": null,
+        "location": {
+          "pin": {
+            "side": "head",
+            "path": "research/quartic214/proofs/height-different.md",
+            "sha256": "025885f763a9a72e9750ed10ec0bbfec4e8834ed85557acccda92a766c0ebcfa"
+          },
+          "start_line": 1,
+          "end_line": 131,
+          "excerpt_sha256": "025885f763a9a72e9750ed10ec0bbfec4e8834ed85557acccda92a766c0ebcfa"
+        },
+        "statement": "Sections1-5; torsion derivative n, reversed dual, intermediate fields, imperfect-residue bound",
+        "publication": null
+      },
+      "application_id": null,
+      "inline_argument": null
+    },
+    {
+      "id": "SF24-analyticmetric",
+      "consumer": "Global evaluation determinant",
+      "passages": [
+        "P-SF24-analyticmetric"
+      ],
+      "assertion": {
+        "statement": "One K-defined minor and determinant norm<=(2/sqrt(pi))^g give original stable Jacobian height.",
+        "objects": "Global evaluation determinant; Both complex embeddings counted; no factorial or pi shift; same E,F,C; choose I once over K.",
+        "hypotheses": "All embeddings and fiber points, genus1 allowed; g>0.",
+        "quantifiers": "All embeddings and fiber points, genus1 allowed; g>0.",
+        "parameter_range": "All embeddings and fiber points, genus1 allowed; g>0.",
+        "uniformity": "Both complex embeddings counted; no factorial or pi shift; same E,F,C; choose I once over K.",
+        "constants": "Both complex embeddings counted; no factorial or pi shift; same E,F,C; choose I once over K.",
+        "normalizations": "Both complex embeddings counted; no factorial or pi shift; same E,F,C; choose I once over K.",
+        "exceptional_cases": "All embeddings and fiber points, genus1 allowed; g>0.",
+        "limit_order": "Both complex embeddings counted; no factorial or pi shift; same E,F,C; choose I once over K."
+      },
+      "classification": "dependency",
+      "reason": "Required by the source argument: One K-defined minor and determinant norm<=(2/sqrt(pi))^g give original stable Jacobian height.",
+      "shared_contract_justification": null,
+      "supplier": {
+        "kind": "internal",
+        "application_id": null,
+        "location": {
+          "pin": {
+            "side": "head",
+            "path": "research/quartic214/proofs/height-metric.md",
+            "sha256": "ea61f4ce58481b8ffb3a2000189fbbc84a8ded3c91d7c447ffe98ae98f30ad8e"
+          },
+          "start_line": 1,
+          "end_line": 59,
+          "excerpt_sha256": "ea61f4ce58481b8ffb3a2000189fbbc84a8ded3c91d7c447ffe98ae98f30ad8e"
+        },
+        "statement": "Sections1-3; Javanpeykar/von Kanel normalization, RH, disc mean value and Hadamard",
+        "publication": null
+      },
+      "application_id": null,
+      "inline_argument": null
+    },
+    {
+      "id": "SF25-heightassembly",
+      "consumer": "Actual Jacobian supplier",
+      "passages": [
+        "P-SF25-heightassembly"
+      ],
+      "assertion": {
+        "statement": "H0.3 holds for J=Jac(X1(N)/ker epsilon) used in multiplicity and H4.",
+        "objects": "Actual Jacobian supplier; Same curve/order/lattice/trace/metric; auxiliary K not L-prime; g<=d.",
+        "hypotheses": "Every non-CM admitted parameter; epsilon(-1)=1 and g>=2 from actual factor.",
+        "quantifiers": "Every non-CM admitted parameter; epsilon(-1)=1 and g>=2 from actual factor.",
+        "parameter_range": "Every non-CM admitted parameter; epsilon(-1)=1 and g>=2 from actual factor.",
+        "uniformity": "Same curve/order/lattice/trace/metric; auxiliary K not L-prime; g<=d.",
+        "constants": "Same curve/order/lattice/trace/metric; auxiliary K not L-prime; g<=d.",
+        "normalizations": "Same curve/order/lattice/trace/metric; auxiliary K not L-prime; g<=d.",
+        "exceptional_cases": "Every non-CM admitted parameter; epsilon(-1)=1 and g>=2 from actual factor.",
+        "limit_order": "Same curve/order/lattice/trace/metric; auxiliary K not L-prime; g<=d."
+      },
+      "classification": "dependency",
+      "reason": "Required by the source argument: H0.3 holds for J=Jac(X1(N)/ker epsilon) used in multiplicity and H4.",
+      "shared_contract_justification": null,
+      "supplier": {
+        "kind": "internal",
+        "application_id": null,
+        "location": {
+          "pin": {
+            "side": "head",
+            "path": "research/quartic214/proofs/height-assembly.md",
+            "sha256": "1866f9452526b2c243f5f05267f74caa2a4532dfc23891a9b0e95abed2d00fe5"
+          },
+          "start_line": 1,
+          "end_line": 57,
+          "excerpt_sha256": "1866f9452526b2c243f5f05267f74caa2a4532dfc23891a9b0e95abed2d00fe5"
+        },
+        "statement": "A-D joining evaluation,different,metric and M6",
+        "publication": null
+      },
+      "application_id": null,
+      "inline_argument": null
+    },
+    {
+      "id": "SF26-average",
+      "consumer": "Multiplicity saving",
+      "passages": [
+        "P-SF26-average"
+      ],
+      "assertion": {
+        "statement": "H3.1 bounds original A from an actual C_i of height<=H_J/r.",
+        "objects": "Multiplicity saving; Product isomorphism for additivity; isogeny category only for counts; C_i->A over L-prime; historical quotient route superseded.",
+        "hypotheses": "All r separate occurrences; complement dimension0 allowed; non-CM absolute simplicity.",
+        "quantifiers": "All r separate occurrences; complement dimension0 allowed; non-CM absolute simplicity.",
+        "parameter_range": "All r separate occurrences; complement dimension0 allowed; non-CM absolute simplicity.",
+        "uniformity": "Product isomorphism for additivity; isogeny category only for counts; C_i->A over L-prime; historical quotient route superseded.",
+        "constants": "Product isomorphism for additivity; isogeny category only for counts; C_i->A over L-prime; historical quotient route superseded.",
+        "normalizations": "Product isomorphism for additivity; isogeny category only for counts; C_i->A over L-prime; historical quotient route superseded.",
+        "exceptional_cases": "All r separate occurrences; complement dimension0 allowed; non-CM absolute simplicity.",
+        "limit_order": "Product isomorphism for additivity; isogeny category only for counts; C_i->A over L-prime; historical quotient route superseded."
+      },
+      "classification": "dependency",
+      "reason": "Required by the source argument: H3.1 bounds original A from an actual C_i of height<=H_J/r.",
+      "shared_contract_justification": null,
+      "supplier": {
+        "kind": "internal",
+        "application_id": null,
+        "location": {
+          "pin": {
+            "side": "head",
+            "path": "research/quartic214/proofs/height-averaging.md",
+            "sha256": "bb87f61d7134c09d695f9bbff2c26b12b8c9ce5fe74a4ec598b2e4410f100192"
+          },
+          "start_line": 1,
+          "end_line": 60,
+          "excerpt_sha256": "bb87f61d7134c09d695f9bbff2c26b12b8c9ce5fe74a4ec598b2e4410f100192"
+        },
+        "statement": "Published GR2023 Lemma16.2(1) product construction, same-field simple multiplicity, lower bound, Theorem1.9(1)",
+        "publication": null
+      },
+      "application_id": null,
+      "inline_argument": null
+    },
+    {
+      "id": "SF27-numeric",
+      "consumer": "Full-family H4",
+      "passages": [
+        "P-SF27-numeric"
+      ],
+      "assertion": {
+        "statement": "h(a)<C2 M^(2103/1024), C2<2^(7557/32), including CM and M=1.",
+        "objects": "Full-family H4; B_S=1857890364330; k=9339/1000; no false large-primorial shortcut; exponent<7/3.",
+        "hypotheses": "All admitted rational a and every squarefree M coprime B_S.",
+        "quantifiers": "All admitted rational a and every squarefree M coprime B_S.",
+        "parameter_range": "All admitted rational a and every squarefree M coprime B_S.",
+        "uniformity": "B_S=1857890364330; k=9339/1000; no false large-primorial shortcut; exponent<7/3.",
+        "constants": "B_S=1857890364330; k=9339/1000; no false large-primorial shortcut; exponent<7/3.",
+        "normalizations": "B_S=1857890364330; k=9339/1000; no false large-primorial shortcut; exponent<7/3.",
+        "exceptional_cases": "All admitted rational a and every squarefree M coprime B_S.",
+        "limit_order": "B_S=1857890364330; k=9339/1000; no false large-primorial shortcut; exponent<7/3."
+      },
+      "classification": "dependency",
+      "reason": "Required by the source argument: h(a)<C2 M^(2103/1024), C2<2^(7557/32), including CM and M=1.",
+      "shared_contract_justification": null,
+      "supplier": {
+        "kind": "internal",
+        "application_id": null,
+        "location": {
+          "pin": {
+            "side": "head",
+            "path": "research/quartic214/proofs/height-supplier.md",
+            "sha256": "4974b167ab415159e0ff996b341528008c2ba8ae8e2a1ebf69bab5bc9a9b9c12"
+          },
+          "start_line": 1,
+          "end_line": 134,
+          "excerpt_sha256": "4974b167ab415159e0ff996b341528008c2ba8ae8e2a1ebf69bab5bc9a9b9c12"
+        },
+        "statement": "H4 with current H3.1; rational logarithm certificate",
+        "publication": null
+      },
+      "application_id": null,
+      "inline_argument": null
+    },
+    {
+      "id": "SF28-rc",
+      "consumer": "Restricted converse and pole domain",
+      "passages": [
+        "P-SF28-rc"
+      ],
+      "assertion": {
+        "statement": "Full Selmer-corank-one implies analytic rank one for both exact squarefree l=11 mod12 pole curves.",
+        "objects": "Restricted converse and pole domain; j=35152/9 non-CM; distinct CM index curve; full Selmer includes divisible Sha before finiteness.",
+        "hypotheses": "Each input-dependent curve separately; theta=1 allowed; no uniform constants needed.",
+        "quantifiers": "Each input-dependent curve separately; theta=1 allowed; no uniform constants needed.",
+        "parameter_range": "Each input-dependent curve separately; theta=1 allowed; no uniform constants needed.",
+        "uniformity": "j=35152/9 non-CM; distinct CM index curve; full Selmer includes divisible Sha before finiteness.",
+        "constants": "j=35152/9 non-CM; distinct CM index curve; full Selmer includes divisible Sha before finiteness.",
+        "normalizations": "j=35152/9 non-CM; distinct CM index curve; full Selmer includes divisible Sha before finiteness.",
+        "exceptional_cases": "Each input-dependent curve separately; theta=1 allowed; no uniform constants needed.",
+        "limit_order": "j=35152/9 non-CM; distinct CM index curve; full Selmer includes divisible Sha before finiteness."
+      },
+      "classification": "dependency",
+      "reason": "Required by the source argument: Full Selmer-corank-one implies analytic rank one for both exact squarefree l=11 mod12 pole curves.",
+      "shared_contract_justification": null,
+      "supplier": {
+        "kind": "internal",
+        "application_id": null,
+        "location": {
+          "pin": {
+            "side": "head",
+            "path": "research/quartic214/proofs/source-carry.md",
+            "sha256": "f7f4e550a4dcfbbd3b5ffcf783b11411f7888c821dbab7febb5132b7b2b891ed"
+          },
+          "start_line": 1,
+          "end_line": 40,
+          "excerpt_sha256": "f7f4e550a4dcfbbd3b5ffcf783b11411f7888c821dbab7febb5132b7b2b891ed"
+        },
+        "statement": "C04,C07; current V16 RC theorem and simultaneous descent",
+        "publication": null
+      },
+      "application_id": null,
+      "inline_argument": null
+    },
+    {
+      "id": "SF29-kato",
+      "consumer": "Kato exact index and class",
+      "passages": [
+        "P-SF29-kato"
+      ],
+      "assertion": {
+        "statement": "The retained Kato supplier covers every required index and the literal dyadic limiting class/coordinate ideal.",
+        "objects": "Kato exact index and class; Corestriction transitivity has no Euler or degree factor on equal support; fixed2-power clearing; inverse deck action and arithmetic Frobenius.",
+        "hypotheses": "All m divisible by N_K, coprime N-prime; every q and dyadic stage.",
+        "quantifiers": "All m divisible by N_K, coprime N-prime; every q and dyadic stage.",
+        "parameter_range": "All m divisible by N_K, coprime N-prime; every q and dyadic stage.",
+        "uniformity": "Corestriction transitivity has no Euler or degree factor on equal support; fixed2-power clearing; inverse deck action and arithmetic Frobenius.",
+        "constants": "Corestriction transitivity has no Euler or degree factor on equal support; fixed2-power clearing; inverse deck action and arithmetic Frobenius.",
+        "normalizations": "Corestriction transitivity has no Euler or degree factor on equal support; fixed2-power clearing; inverse deck action and arithmetic Frobenius.",
+        "exceptional_cases": "All m divisible by N_K, coprime N-prime; every q and dyadic stage.",
+        "limit_order": "Corestriction transitivity has no Euler or degree factor on equal support; fixed2-power clearing; inverse deck action and arithmetic Frobenius."
+      },
+      "classification": "dependency",
+      "reason": "Required by the source argument: The retained Kato supplier covers every required index and the literal dyadic limiting class/coordinate ideal.",
+      "shared_contract_justification": null,
+      "supplier": {
+        "kind": "internal",
+        "application_id": null,
+        "location": {
+          "pin": {
+            "side": "head",
+            "path": "research/quartic214/proofs/source-carry.md",
+            "sha256": "f7f4e550a4dcfbbd3b5ffcf783b11411f7888c821dbab7febb5132b7b2b891ed"
+          },
+          "start_line": 1,
+          "end_line": 40,
+          "excerpt_sha256": "f7f4e550a4dcfbbd3b5ffcf783b11411f7888c821dbab7febb5132b7b2b891ed"
+        },
+        "statement": "C05-C06; exact V16 Kato index/class argument",
+        "publication": null
+      },
+      "application_id": null,
+      "inline_argument": null
+    },
+    {
+      "id": "SF30-gi",
+      "consumer": "Current GI supplier",
+      "passages": [
+        "P-SF30-gi"
+      ],
+      "assertion": {
+        "statement": "GI fixed finite-family linear conclusion is available with exact horizontal identities before the smaller-lattice cover.",
+        "objects": "Current GI supplier; Choose real lifts, remove lattice discrepancies, divide same lifts by M; global unit vectors and exact vertical laws retained.",
+        "hypotheses": "Each fixed k>=3,delta; all retained family members, horizontal weights and full-limit points.",
+        "quantifiers": "Each fixed k>=3,delta; all retained family members, horizontal weights and full-limit points.",
+        "parameter_range": "Each fixed k>=3,delta; all retained family members, horizontal weights and full-limit points.",
+        "uniformity": "Choose real lifts, remove lattice discrepancies, divide same lifts by M; global unit vectors and exact vertical laws retained.",
+        "constants": "Choose real lifts, remove lattice discrepancies, divide same lifts by M; global unit vectors and exact vertical laws retained.",
+        "normalizations": "Choose real lifts, remove lattice discrepancies, divide same lifts by M; global unit vectors and exact vertical laws retained.",
+        "exceptional_cases": "Each fixed k>=3,delta; all retained family members, horizontal weights and full-limit points.",
+        "limit_order": "Choose real lifts, remove lattice discrepancies, divide same lifts by M; global unit vectors and exact vertical laws retained."
+      },
+      "classification": "dependency",
+      "reason": "Required by the source argument: GI fixed finite-family linear conclusion is available with exact horizontal identities before the smaller-lattice cover.",
+      "shared_contract_justification": null,
+      "supplier": {
+        "kind": "internal",
+        "application_id": null,
+        "location": {
+          "pin": {
+            "side": "head",
+            "path": "research/quartic214-manuscript-review/FOUNDATION_TRANSITION.md",
+            "sha256": "9a3a081bfb6c3e5c0893065ab1c1ea19f36c91b997999064371886e270c3d936"
+          },
+          "start_line": 1,
+          "end_line": 47,
+          "excerpt_sha256": "9a3a081bfb6c3e5c0893065ab1c1ea19f36c91b997999064371886e270c3d936"
+        },
+        "statement": "Current V16 GI target and26819-26929; source-carry C08-C09",
+        "publication": null
+      },
+      "application_id": null,
+      "inline_argument": null
+    },
+    {
+      "id": "SF31-tz",
+      "consumer": "Current fixed-modulus adaptation",
+      "passages": [
+        "P-SF31-tz"
+      ],
+      "assertion": {
+        "statement": "The prime majorant and dense-model chain permits W=E times primorial with E fixed.",
+        "objects": "Current fixed-modulus adaptation; Proof adaptation, not literal modulus-dependent theorem; same uniform estimates, not numerical equality of local factors; slow cutoff.",
+        "hypotheses": "Fixed arithmetic data before analytic limit; all required moment patterns and unit residues.",
+        "quantifiers": "Fixed arithmetic data before analytic limit; all required moment patterns and unit residues.",
+        "parameter_range": "Fixed arithmetic data before analytic limit; all required moment patterns and unit residues.",
+        "uniformity": "Proof adaptation, not literal modulus-dependent theorem; same uniform estimates, not numerical equality of local factors; slow cutoff.",
+        "constants": "Proof adaptation, not literal modulus-dependent theorem; same uniform estimates, not numerical equality of local factors; slow cutoff.",
+        "normalizations": "Proof adaptation, not literal modulus-dependent theorem; same uniform estimates, not numerical equality of local factors; slow cutoff.",
+        "exceptional_cases": "Fixed arithmetic data before analytic limit; all required moment patterns and unit residues.",
+        "limit_order": "Proof adaptation, not literal modulus-dependent theorem; same uniform estimates, not numerical equality of local factors; slow cutoff."
+      },
+      "classification": "dependency",
+      "reason": "Required by the source argument: The prime majorant and dense-model chain permits W=E times primorial with E fixed.",
+      "shared_contract_justification": null,
+      "supplier": {
+        "kind": "internal",
+        "application_id": null,
+        "location": {
+          "pin": {
+            "side": "head",
+            "path": "research/quartic214-manuscript-review/FOUNDATION_TRANSITION.md",
+            "sha256": "9a3a081bfb6c3e5c0893065ab1c1ea19f36c91b997999064371886e270c3d936"
+          },
+          "start_line": 1,
+          "end_line": 47,
+          "excerpt_sha256": "9a3a081bfb6c3e5c0893065ab1c1ea19f36c91b997999064371886e270c3d936"
+        },
+        "statement": "Current V16 19989-20169 and19660-19746",
+        "publication": null
+      },
+      "application_id": null,
+      "inline_argument": null
+    },
+    {
+      "id": "SF32-foundation",
+      "consumer": "Unchanged source joins",
+      "passages": [
+        "P-SF32-foundation"
+      ],
+      "assertion": {
+        "statement": "Current V16 rank/scalar/prime/pole conclusions supply the same normalized objects in P03-P20.",
+        "objects": "Unchanged source joins; V15 byte equality is historical; V16 current corrections operative; no paired-root/trace-quotient reduction imported.",
+        "hypotheses": "Raw224 branch only, all needed scalar/prime/pole applications.",
+        "quantifiers": "Raw224 branch only, all needed scalar/prime/pole applications.",
+        "parameter_range": "Raw224 branch only, all needed scalar/prime/pole applications.",
+        "uniformity": "V15 byte equality is historical; V16 current corrections operative; no paired-root/trace-quotient reduction imported.",
+        "constants": "V15 byte equality is historical; V16 current corrections operative; no paired-root/trace-quotient reduction imported.",
+        "normalizations": "V15 byte equality is historical; V16 current corrections operative; no paired-root/trace-quotient reduction imported.",
+        "exceptional_cases": "Raw224 branch only, all needed scalar/prime/pole applications.",
+        "limit_order": "V15 byte equality is historical; V16 current corrections operative; no paired-root/trace-quotient reduction imported."
+      },
+      "classification": "dependency",
+      "reason": "Required by the source argument: Current V16 rank/scalar/prime/pole conclusions supply the same normalized objects in P03-P20.",
+      "shared_contract_justification": null,
+      "supplier": {
+        "kind": "internal",
+        "application_id": null,
+        "location": {
+          "pin": {
+            "side": "head",
+            "path": "research/quartic214/proofs/source-carry.md",
+            "sha256": "f7f4e550a4dcfbbd3b5ffcf783b11411f7888c821dbab7febb5132b7b2b891ed"
+          },
+          "start_line": 1,
+          "end_line": 40,
+          "excerpt_sha256": "f7f4e550a4dcfbbd3b5ffcf783b11411f7888c821dbab7febb5132b7b2b891ed"
+        },
+        "statement": "C03,C08-C12 and current transition; exact V16 statements read",
+        "publication": null
+      },
+      "application_id": null,
+      "inline_argument": null
+    },
+    {
+      "id": "SF33-receiving",
+      "consumer": "Complete current receiving",
+      "passages": [
+        "P-SF33-receiving"
+      ],
+      "assertion": {
+        "statement": "The complete source transports current V16 and selected new proofs, all188 rows and214 coordinates with operative replacement notes.",
+        "objects": "Complete current receiving; Revision3 corrects L_3 L_4 and T t_0; least modulus and primitive extraction operative; two certificate types distinct; no final acceptance inferred from map.",
+        "hypotheses": "Entire receiving source; theorem, PartI proofs, PartII inherited body, bibliography and all repeated formulas.",
+        "quantifiers": "Entire receiving source; theorem, PartI proofs, PartII inherited body, bibliography and all repeated formulas.",
+        "parameter_range": "Entire receiving source; theorem, PartI proofs, PartII inherited body, bibliography and all repeated formulas.",
+        "uniformity": "Revision3 corrects L_3 L_4 and T t_0; least modulus and primitive extraction operative; two certificate types distinct; no final acceptance inferred from map.",
+        "constants": "Revision3 corrects L_3 L_4 and T t_0; least modulus and primitive extraction operative; two certificate types distinct; no final acceptance inferred from map.",
+        "normalizations": "Revision3 corrects L_3 L_4 and T t_0; least modulus and primitive extraction operative; two certificate types distinct; no final acceptance inferred from map.",
+        "exceptional_cases": "Entire receiving source; theorem, PartI proofs, PartII inherited body, bibliography and all repeated formulas.",
+        "limit_order": "Revision3 corrects L_3 L_4 and T t_0; least modulus and primitive extraction operative; two certificate types distinct; no final acceptance inferred from map."
+      },
+      "classification": "dependency",
+      "reason": "Required by the source argument: The complete source transports current V16 and selected new proofs, all188 rows and214 coordinates with operative replacement notes.",
+      "shared_contract_justification": null,
+      "supplier": {
+        "kind": "internal",
+        "application_id": null,
+        "location": {
+          "pin": {
+            "side": "head",
+            "path": "research/quartic214-manuscript-revision3/quartic214.tex",
+            "sha256": "938d96e6d310b2b551f610e2a23b662f147bd2eb4b05ec222d274b0b8be55d6b"
+          },
+          "start_line": 1,
+          "end_line": 45035,
+          "excerpt_sha256": "938d96e6d310b2b551f610e2a23b662f147bd2eb4b05ec222d274b0b8be55d6b"
+        },
+        "statement": "SOURCE_SPANS.json, original and revision2/3 generators and overlays",
+        "publication": null
+      },
+      "application_id": null,
+      "inline_argument": null
+    }
+  ]
+}

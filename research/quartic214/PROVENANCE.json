@@ -1,0 +1,14 @@
+{
+  "schema": "quartic214-public-port-provenance-v1",
+  "author": "/root/d214_public_port",
+  "date": "2026-11-11",
+  "upstream_main": "511529bbe9d635194f0c9d925709e77a5d3afa64",
+  "private_source_commit": "bfeb8400982c9a169e4fdd39fb68ec053621e8ed",
+  "authorization": "Owner explicitly authorized this public214 proposal and permitted private/public older PR references as provenance.",
+  "private_pr_provenance": "https://github.com/elliotglazer/private-diophantine/pull/12",
+  "selected_assertion": "There exists a fixed ineffective N0 such that every N>=N0 defines Z over Q by the displayed 214-coordinate quartic family.",
+  "coefficient_condition": "For N>=53 the coefficient height is 149^(4N+2)+1. This does not assert that N=53 defines Z.",
+  "review_status": "Author adaptation only. Prior scoped records do not accept this adaptation. Public final acceptance requires an eligible independent Astra review and protected controller decision for the exact public revision.",
+  "source_map": "SOURCE_PATH_MAP.json",
+  "excluded": "No payload from deferred candidate directions, no effective construction tables, no third-party full published works."
+}

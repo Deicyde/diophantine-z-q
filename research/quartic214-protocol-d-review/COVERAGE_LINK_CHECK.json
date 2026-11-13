@@ -1,0 +1,10 @@
+{
+  "status": "PASS",
+  "scope": "Exact unchanged source hashes,118 excerpt pins,118 section links,233 edges,21 input IDs and25 direct consumption references; not mathematical proof or receiving typography",
+  "source_files": 15,
+  "sections": 118,
+  "section_edges": 233,
+  "direct_edges": 25,
+  "original_mathematical_manifest_sha256": "e31c67ad5c36417dd3a245d3b3712d2450d69f311c4fd08d3e7622a3451839d9",
+  "coverage_link_manifest_sha256": "32f9ed7719ef200b879d2bc5fdddd83b04ea2822d66c2b98386c5f0220670169"
+}

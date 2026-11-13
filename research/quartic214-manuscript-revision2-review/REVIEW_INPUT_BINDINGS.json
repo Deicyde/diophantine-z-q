@@ -1,0 +1,190 @@
+{
+  "old_receiving": {
+    "path": "research/quartic214-manuscript/quartic214.tex",
+    "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+    "bytes": 2337533
+  },
+  "reviewed_initial_revised_tex_sha256": "a3ab6168f9081efa07bd9839151ed44b39fd05bf0eab474319d5c5f8b7c0eb79",
+  "initial_revised_map_sha256": "ba09daedc6244b7c3495af89abacab9732e9947b812b266fa43d42759a1769ac",
+  "diagnostics_at_initial_revised_pair": [
+    "LEXICAL_COMPARISON.json",
+    "LEXICAL_CANDIDATE_DISPOSITIONS.json",
+    "ALL_TARGET_SCRIPTS.json",
+    "TRANSPORT_CHECKS_a3ab.json",
+    "FINDINGS_F8_F11.json"
+  ],
+  "final_transport": "b03b39d2e0f5593be29d3d2838cd33e7449b4b5b1ccb0b7dee8a9a6d2af4767f",
+  "all_original_proof_inputs": [
+    {
+      "path": "research/quartic214-manuscript-review/FOUNDATION_TRANSITION.md",
+      "sha256": "9a3a081bfb6c3e5c0893065ab1c1ea19f36c91b997999064371886e270c3d936",
+      "source_lines": 47,
+      "all_lines_mapped_exactly_once": true
+    },
+    {
+      "path": "research/quartic214/PROOF.md",
+      "sha256": "0feb164c3ed33543136b89aa87b27bc890f4aadef2d082d465263f55dc26d165",
+      "source_lines": 49,
+      "all_lines_mapped_exactly_once": true
+    },
+    {
+      "path": "research/quartic214/proofs/existence.md",
+      "sha256": "37ab929ed3f4b4dee2b91d2e39408e7070e8a9176b981bcc9c352d17b9cc2332",
+      "source_lines": 92,
+      "all_lines_mapped_exactly_once": true
+    },
+    {
+      "path": "research/quartic214/proofs/geometry-carry.md",
+      "sha256": "b3cb8201de84f733b0518ad68a9c0d0bc1e78534ffd39aca5d8c70f1bae69e76",
+      "source_lines": 81,
+      "all_lines_mapped_exactly_once": true
+    },
+    {
+      "path": "research/quartic214/proofs/height-assembly.md",
+      "sha256": "1866f9452526b2c243f5f05267f74caa2a4532dfc23891a9b0e95abed2d00fe5",
+      "source_lines": 57,
+      "all_lines_mapped_exactly_once": true
+    },
+    {
+      "path": "research/quartic214/proofs/height-averaging.md",
+      "sha256": "bb87f61d7134c09d695f9bbff2c26b12b8c9ce5fe74a4ec598b2e4410f100192",
+      "source_lines": 60,
+      "all_lines_mapped_exactly_once": true
+    },
+    {
+      "path": "research/quartic214/proofs/height-different.md",
+      "sha256": "025885f763a9a72e9750ed10ec0bbfec4e8834ed85557acccda92a766c0ebcfa",
+      "source_lines": 131,
+      "all_lines_mapped_exactly_once": true
+    },
+    {
+      "path": "research/quartic214/proofs/height-evaluation.md",
+      "sha256": "d691da0a6827d9b45c6c68294405163f679a2d57f08e2ecda56fd071b3579502",
+      "source_lines": 129,
+      "all_lines_mapped_exactly_once": true
+    },
+    {
+      "path": "research/quartic214/proofs/height-metric.md",
+      "sha256": "ea61f4ce58481b8ffb3a2000189fbbc84a8ded3c91d7c447ffe98ae98f30ad8e",
+      "source_lines": 59,
+      "all_lines_mapped_exactly_once": true
+    },
+    {
+      "path": "research/quartic214/proofs/height-supplier.md",
+      "sha256": "4974b167ab415159e0ff996b341528008c2ba8ae8e2a1ebf69bab5bc9a9b9c12",
+      "source_lines": 134,
+      "all_lines_mapped_exactly_once": true
+    },
+    {
+      "path": "research/quartic214/proofs/modularity.md",
+      "sha256": "814676050b389793d196346f45e2797f39e2c5be0f3fee8457bb709b2607606e",
+      "source_lines": 125,
+      "all_lines_mapped_exactly_once": true
+    },
+    {
+      "path": "research/quartic214/proofs/primary-source-bridges.md",
+      "sha256": "2c95d02a13ffa972eb6cb8d956b9063e970e33fd960e282c6d53ae8bb655c43c",
+      "source_lines": 55,
+      "all_lines_mapped_exactly_once": true
+    },
+    {
+      "path": "research/quartic214/proofs/provider-scope-carry.md",
+      "sha256": "368774d2b96a606df4dd5e81a3c4fecaf22f09f33f27e49e0a80e37b02157154",
+      "source_lines": 68,
+      "all_lines_mapped_exactly_once": true
+    },
+    {
+      "path": "research/quartic214/proofs/source-carry.md",
+      "sha256": "f7f4e550a4dcfbbd3b5ffcf783b11411f7888c821dbab7febb5132b7b2b891ed",
+      "source_lines": 40,
+      "all_lines_mapped_exactly_once": true
+    },
+    {
+      "path": "research/quartic214/proofs/uniform-existence.md",
+      "sha256": "d13cc2b846dc72a3f5b5cce8dcf11d3f11b33c45ebc3883263840afb8d82f3bc",
+      "source_lines": 84,
+      "all_lines_mapped_exactly_once": true
+    },
+    {
+      "path": "research/quartic214/sources/aggregate-bridge.md",
+      "sha256": "668e84f5864b5961b67599ef9c3ffd1b44c66c93679cef9853ef596fce4267f5",
+      "source_lines": 19,
+      "all_lines_mapped_exactly_once": true
+    },
+    {
+      "path": "research/quartic214/sources/conductor-sections1-3.md",
+      "sha256": "c2e04a42dd82e244b1872b4a9a7298f1a9e45ca49ffcc436ff7c5149d6ee5d88",
+      "source_lines": 182,
+      "all_lines_mapped_exactly_once": true
+    },
+    {
+      "path": "research/quartic214/sources/support-section1.md",
+      "sha256": "bb3e2cc7a102ba317ed984f463762cddc52576b3d7416e7a981093243cb16940",
+      "source_lines": 58,
+      "all_lines_mapped_exactly_once": true
+    },
+    {
+      "path": "research/version15/quartics/quartic-222/provenance/shared-T-redundancy224-006/PROOF.md",
+      "sha256": "7b39db664ba3884897eda4e4e6550ec552ee8ef916509681e69b04b7990e0732",
+      "source_lines": 16,
+      "all_lines_mapped_exactly_once": true
+    }
+  ],
+  "additional_sources": [
+    {
+      "path": "research/quartic214-manuscript/assemble.py",
+      "sha256": "c82053474d9ce627640862ce309bb1cd931d615276920fd4df2186eb3ae2f549",
+      "bytes": 47054
+    },
+    {
+      "path": "research/quartic214-manuscript/SOURCE_CORRECTIONS_V1.json",
+      "sha256": "e6ab282776e1181d5095930ba640dc1109d2f5f067483614c6f6485869ca6c0b",
+      "bytes": 17111
+    },
+    {
+      "path": "research/quartic214-manuscript/introduction.tex",
+      "sha256": "d700aba170fa697c737ee4a9dc7b05fe959fe78c9bff1650c9a4228ce5d261d3",
+      "bytes": 7563
+    },
+    {
+      "path": "research/quartic214-manuscript-review/check_serialization.py",
+      "sha256": "6f018270aa05e4afd68419b52e2edb0e517817627bb3074d359835bbfe28f4b6",
+      "bytes": 2724
+    },
+    {
+      "path": "manuscripts/quartic_v16.tex",
+      "sha256": "aeb2b6a42a03943d7f8c46682389c8da693d2903ba92ccc164bbbd236451de74",
+      "bytes": 1926498
+    },
+    {
+      "path": "research/quartic214/sources/evaluation-sections1-4.tex",
+      "sha256": "70919ebd13613f7c9f7317995b285348398c6895808a61463be0aac139b8511c",
+      "bytes": 17465
+    },
+    {
+      "path": "research/quartic214/sources/factor-extraction.tex",
+      "sha256": "38236daca2811087e08e7f26eb79504dc25171dc78019a557d99966471edb109",
+      "bytes": 5809
+    },
+    {
+      "path": "research/quartic214/construction/artifacts/candidate214-brox/candidate214-ir.json",
+      "sha256": "b15d6477439c3e4be1e98723b69053244debce59e8715683c28fee82aa847ca4",
+      "bytes": 163242
+    },
+    {
+      "path": "research/quartic214/PRIMARY_SOURCES.json",
+      "sha256": "cfa7597432cd98c7184c0f9332c6d56f8ea53b208613aab0d855f5ffd1181161",
+      "bytes": 48789
+    },
+    {
+      "path": "research/quartic214/SOURCE_PATH_MAP.json",
+      "sha256": "f19a65e9dda39ac41d29fcb5332222d73e5e1b12a503bb97131fa09f90c9eb43",
+      "bytes": 20316
+    },
+    {
+      "path": "research/quartic214-protocol-d-progress/CURRENT_NATIVE_PRIMITIVE_APPLICATION.json",
+      "sha256": "f48bd1e36bb3c39eab9e217a3b76907748bdc067f4f8040df4564353829ffd87",
+      "bytes": 15265
+    }
+  ]
+}

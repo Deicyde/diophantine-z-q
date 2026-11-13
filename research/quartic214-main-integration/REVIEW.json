@@ -1,0 +1,94 @@
+{
+  "schema": "q214-historical-record-continuation-review/v1",
+  "decision": "accepted-within-stated-scope",
+  "date": "2026-11-13",
+  "author_tasks": [
+    "/root/d214_sol_closure_ledger",
+    "/root/pr30_integration_author_recovery"
+  ],
+  "reviewer_task": "/root/pr30_integration_review_recovery",
+  "requested_model": "gpt-6-astra",
+  "review_type": "non-author internal model scoped integration review; exposed continuation",
+  "controller_eligibility_attested": false,
+  "scope": {
+    "historical_substitutions": [
+      ".github/workflows/quartic214-manuscript.yml",
+      "README.md"
+    ],
+    "all_other_bindings_current": true,
+    "readme_delta": "exact-four-line-lean-guide-insertion",
+    "workflow_delta": "wrapper-command-and-trigger-only",
+    "mathematical_acceptance_renewed": false
+  },
+  "limitations": [
+    "No new whole-proof or Lean acceptance; exact previous mathematical and receiving scopes retained after the bounded dependency comparison.",
+    "Exposed continuation with parent proposals and interrupted-review records; no blind-review claim.",
+    "Primary-publication reading performed by exact unchanged earlier reviews is reused only at its stated scope.",
+    "CI structural success cannot prove mathematical truth or authenticated reviewer eligibility.",
+    "Required public readback, CI and the designated protected GitHub App decision remain outstanding separately."
+  ],
+  "report": "research/quartic214-main-integration/INTEGRATION_REVIEW.md",
+  "comparison": "research/quartic214-main-integration/COMPARISON.json",
+  "subjects": [
+    {
+      "path": "README.md",
+      "sha256": "2daac2a8a2b8d2d0d9b2c32b7fcca28595d971968c615e43fba7e102129bcd7b",
+      "bytes": 16623
+    },
+    {
+      "path": ".github/workflows/quartic214-manuscript.yml",
+      "sha256": "b59d6b302643cf39424be7df482eef717275467837c6588368a6730dd5e0f8c1",
+      "bytes": 2168
+    },
+    {
+      "path": "research/quartic214-manuscript-review/check_records.py",
+      "sha256": "d7cbb73da766903e3b1419e5c9501e69ce9c36f51666597ace5240da3a3bea9c",
+      "bytes": 27581
+    },
+    {
+      "path": "research/quartic214-manuscript/RELEASE_MANIFEST.json",
+      "sha256": "f0aa633ae5e88aa49a5966bcd6152663b723cbef11925a0c76e5f9b77701f539",
+      "bytes": 28556
+    },
+    {
+      "path": "research/quartic214-manuscript-review/REVIEW_DECISION.json",
+      "sha256": "8eb7a8969ab80598b5841d07a67327a7d8552fca8c4ee5e73522d9d42d0ac3ab",
+      "bytes": 25706
+    },
+    {
+      "path": "research/quartic214-main-integration/historical/README.md",
+      "sha256": "761aa1e86ea71bdc9e9b8e6bd7b7318ee9e8d49f9d40c1496a66cd8e7cbd9dde",
+      "bytes": 16393
+    },
+    {
+      "path": "research/quartic214-main-integration/historical/quartic214-manuscript.yml",
+      "sha256": "44213c08614752640e03167ac0a94bddca0a4a5d4527a5df587a54783eb32317",
+      "bytes": 2108
+    },
+    {
+      "path": "research/quartic214-main-integration/check_historical_records.py",
+      "sha256": "a96f020adcfc2309c9f66228e036d3b020104bef8e4d7b5dbb079342874b993b",
+      "bytes": 11844
+    },
+    {
+      "path": "research/quartic214-main-integration/README.md",
+      "sha256": "0e1d8339a5d171606891462d93340ace1cfc1ec240637768293314b11d81bfea",
+      "bytes": 1862
+    },
+    {
+      "path": "research/quartic214-main-integration/CONTINUATION.json",
+      "sha256": "7a16cc6c480bc4ab306a5c9548e94f6af1ce3e5ce993feee9a5fd26e56b1a5f3",
+      "bytes": 2956
+    },
+    {
+      "path": "research/quartic214-main-integration/COMPARISON.json",
+      "sha256": "80fe79e58762a4f9b74c4f89ecfada7154a5478a1c6f10d73069c6e23b19ad67",
+      "bytes": 18822
+    },
+    {
+      "path": "research/quartic214-main-integration/INTEGRATION_REVIEW.md",
+      "sha256": "8e573c4ba20249fe3ac44710bf538debaa424883e53b5477bf376f17e3996654",
+      "bytes": 6727
+    }
+  ]
+}

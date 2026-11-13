@@ -1,0 +1,36 @@
+# Reviewer evidence and reconstructed joins
+
+Reviewer `/root/q214_astra_repair_review`, nonauthor model review, 2026-11-12. Candidate TeX held at SHA256 7af3b505b27bc2798b3bd4322e92c8c181291f01b779edf2abb8f37abbdde1bb; final PDF/records pending at the time of these notes.
+
+## F1
+
+Read original modularity.md M0–M2/M6 and height-supplier H1, before reading the corrective argument. Degree multiplicativity on rational quasi-isogenies gives D(mu_sigma)D(mu_tau)=c(sigma,tau)^4D(mu_sigma_tau). Positivity of D and the positive fourth root therefore give a_sigma a_tau/a_sigma_tau=1/abs(c). The identity case gives a_1=1. Dividing by the b cochain with coboundary c/abs(c) gives t_sigma t_tau c=t_sigma_tau, hence the actual representation. On G_Lprime all three mu,a,b are 1; determinant is b^-4 kappa² because a^4D(mu)=1. The repaired TeX line2506 has the entire -1/4 in the exponent, unlike baseline. This is an independently reconstructed elementary connection, not new proof authorship. Geometric input and global modularity remain separate.
+
+## F2
+
+Read height-different sections1–5 in full. For each complete component U_j, the uniformizer filtration of U_j/pi_VU_j has e_j graded pieces each of dimension f_j over the base residue field, including inseparable f_j. Therefore rank(U_j)=e_jf_j and all-component ranks sum to d. The trace-dual cokernel has length sum f_jr_j. Multiplying r_j<=e_j-1+e_jA by f_j gives sum f_jr_j<=d(1+A)-sum f_j<=d(1+A). This is precisely what corrected line2812 consumes. No preferred prime, residue separability, maximal fibre order or coefficient-field substitution enters.
+
+## Expanded integral/model/metric review
+
+Read height-evaluation.md1–6, height-different.md1–6, height-metric.md1–4 and height-assembly.mdA–E completely. Reconstructed finite normalization via trace lattice; finite flatness from normal surface Cohen–Macaulayness and dimension equality; codimension-one descent from a dominating regular blowup; trace dual and specialization at t=2; projected overlattice length and determinant sign. The map is literal differential evaluation into the dual of C=B/(t-2)B, not into the maximal order. The sheaf normalization is fixed by split étale sheets, where the duality functional is sum f_i b_i. Finite-projective Hom base change remains valid though t=2 is not flat.
+
+Direct Stacks source statement/proof checks on 2026-11-12: [00R4](https://stacks.math.columbia.edu/tag/00R4), [0BFP](https://stacks.math.columbia.edu/tag/0BFP), [0AHI](https://stacks.math.columbia.edu/tag/0AHI), [0BUL](https://stacks.math.columbia.edu/tag/0BUL), [0ATX](https://stacks.math.columbia.edu/tag/0ATX), [0AVT](https://stacks.math.columbia.edu/tag/0AVT), [0BW2](https://stacks.math.columbia.edu/tag/0BW2), [0BW3](https://stacks.math.columbia.edu/tag/0BW3), [0BWE](https://stacks.math.columbia.edu/tag/0BWE), [0BWF](https://stacks.math.columbia.edu/tag/0BWF), [0BWG](https://stacks.math.columbia.edu/tag/0BWG), [0BWJ](https://stacks.math.columbia.edu/tag/0BWJ). These check current tag content, not a local cryptographic copy or every recursive lemma. Source HTML was accessed through web tool; shell retrieval failed DNS.
+
+[Javanpeykar, ANT8 (2014), final publisher](https://msp.org/ant/2014/8-1/ant-v8-n1-p04-s.pdf): directly read §§2.1/2.3 (metric/height), proof of Lemma2.3.1 (blowup exceptional twist +E), and §4.1 Propositions4.1.1/4.1.3 and Remark4.1.2 (imperfect-residue different). The arithmetic surface here is regular projective semistable, genus positive. The normalized degree equals original stable Jacobian height. For the different, the trace of 1/(n pi) excludes that element from the trace dual; the ideal ordering gives r<=e-1+e v(n). Completion applies component by component. This is a comparison of published statements and explicit project derivations, not reproof of the entire paper.
+
+Reconstructed the torsion calculation: derivative of [N] on invariant differentials is N, so the finite flat LCI torsion algebra has different (N); trace normalization identifies its dual with N^-1A. Enlarging to the integral closure reverses dual inclusion. Trace transitivity proves the intermediate-field bound. Primitive torsion quotient by H containing -1 has degree N[units:H]prod(1+1/p); the action is free on exact-order points even when residue characteristic divides |H|. At p>3 the elliptic model is good at the vertical generic DVR even when p divides N, where the finite flat argument (not the open model inverting N) is used. Summing all vertical and horizontal contributions gives the same nonmaximal C discriminant.
+
+Reconstructed archimedean determinant bound: Belyi degree exceeds 2g-2, so evaluation at all d distinct unramified points has rank g. One K-defined minor works at every embedding. Mean value on radius1/2 disc gives each evaluation functional norm<=2/sqrt(pi), hence determinant bound by Hadamard. Integral determinant section and arithmetic degree give the upper bound with correct sign. The auxiliary field cancels; it never enters d-prime of the later surface-isogeny theorem. Genus1 and d<p included; genus0 is outside actual positive-dimensional surface consumer.
+
+## Product averaging
+
+Read height-averaging and H0–H4, and checked [GR2023 final publisher](https://smf.emath.fr/system/files/filepdf/smf_mem_176_0.pdf), proof of Lemma16.2(1), printed98, and Theorem1.9(1)/definition Xi, printed7–8. The published proof constructs a product of simple factors over the fixed field with no larger original stable height, allowing repetitions. The separate H2 subobject A^r forces at least r occurrences in its simple isogeny class. Choose those r surfaces; use additivity and the complement lower bound, then an isogeny from the small surface to A with dimension2 and the same L-prime. The specialization gives exponent16 and half-log-degree cost8. Final Rémond2022 body remains an indirect source-access limit; it is not substituted for the directly checked published GR product construction. Full geometric premise is separate.
+
+## Executed finite checks
+
+2026-11-12: assemble.py --check PASS. check_serialization.py PASS: 39873 retained V16 source lines match, all188 displayed rows inverse-parsed (1008 terms), all402 coordinate/row names preserved. These are reproducibility/serialization checks only.
+
+
+Additional direct Stacks statement checks: 0E9Z supplies the LCI conormal/exterior canonical morphism and its agreement on the smooth locus; 0B6U supplies the tensor formula for perfect maps; 0E9U supplies flat base change in the finite-type separated Noetherian category specified by 0F42. The actual generic curve is quasi-projective and embeds in a smooth projective ambient space; the finite cover is flat, and split étale sheets fix the trace normalization. These statement checks support this particular connecting map. They do not constitute recursive proofs of the Stacks dependencies.
+
+Completed D210 component: d210/REPORT.md, INITIAL-SOURCE-TABLE.json, RECONCILED-SOURCE-TABLE.json, FINDINGS.md and BINDINGS.json. Its initial source-first table SHA256 b07654a16f0e74097eefc2c80d58dea4a4f9ee65c3c794d9c3e77380ef87db3d was frozen before declared inventories. The report identifies exact actual V16 ranges and primary sources inspected, and retains unread prerequisites. Component scope excludes final receiving TeX.

@@ -1,0 +1,168 @@
+{
+  "schema": "q214-revision2-application/v1",
+  "authors": [
+    "/root/d214_sol_closure_ledger"
+  ],
+  "role": "author proposal; no independent approval",
+  "source_commit": "e3626cac202cdbcdfedc2bff1978dcd3ea3fd3ab",
+  "manuscript": {
+    "path": "research/quartic214-manuscript-revision2/quartic214.tex",
+    "sha256": "b03b39d2e0f5593be29d3d2838cd33e7449b4b5b1ccb0b7dee8a9a6d2af4767f",
+    "bytes": 2339106
+  },
+  "old_manuscript": {
+    "path": "research/quartic214-manuscript/quartic214.tex",
+    "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+    "bytes": 2337533
+  },
+  "source_map": {
+    "path": "research/quartic214-manuscript-revision2/SOURCE_SPANS.json",
+    "sha256": "e1b6f466573269008f10e06db106b15841545663a1de8b3ebe5203a8f188de55",
+    "bytes": 439656
+  },
+  "overlay": {
+    "path": "research/quartic214-manuscript-revision2/RECEIVING_OVERLAY.json",
+    "sha256": "006f032f2935ee0d73ecaa1a5e992329a114a434bd1c2a173223150e81625468",
+    "bytes": 40170
+  },
+  "whole_pdf_status": "The final matching PDF/build are pinned below; all earlier pre-F7 and pre-F8–F11 candidate builds are superseded. Separate final receiving review remains required.",
+  "review_status": "pending independent receiving revision review",
+  "source_reading_limit": "Author read actual original generator and source maps, M3 argument and native paragraph, exact accepted primitive application, all11catalogueinterfaces and bounded star mechanism. Complete independent semantic comparison of all19proofinputs is delegated, not claimed by author.",
+  "pdf": {
+    "path": "research/quartic214-manuscript-revision2/quartic214.pdf",
+    "sha256": "77e6e30515e317ad8bb4fee6ba111037be64a4c325f2a683e5c8edf03884ea88",
+    "bytes": 3943008
+  },
+  "build": {
+    "path": "research/quartic214-manuscript-revision2/BUILD.json",
+    "sha256": "ab232da2e66d0a7bcaaf02f7fc23b1e5a7f7b829ce996332e0a730afd0ab9482",
+    "bytes": 39446
+  },
+  "application_id": "Q214-RECEIVING-REVISION2-F6-NATIVE-20261112",
+  "source_application": {
+    "path": "research/quartic214-protocol-d-progress/CURRENT_NATIVE_PRIMITIVE_APPLICATION.json",
+    "sha256": "f48bd1e36bb3c39eab9e217a3b76907748bdc067f4f8040df4564353829ffd87",
+    "bytes": 15265
+  },
+  "passages": [
+    {
+      "id": "M3-SOURCE",
+      "path": "research/quartic214/proofs/modularity.md",
+      "sha256": "814676050b389793d196346f45e2797f39e2c5be0f3fee8457bb709b2607606e",
+      "bytes": 25777,
+      "lines": [
+        47,
+        61
+      ],
+      "excerpt_sha256": "fd0ef97abd15b38b7ec2843e6a0efd18c000499555505ce0b60cc9bb99d2845e"
+    },
+    {
+      "id": "NATIVE-SOURCE",
+      "path": "manuscripts/quartic_v16.tex",
+      "sha256": "aeb2b6a42a03943d7f8c46682389c8da693d2903ba92ccc164bbbd236451de74",
+      "bytes": 1926498,
+      "lines": [
+        658,
+        693
+      ],
+      "excerpt_sha256": "d35abadd854438aa8a0eea93b990831281faf999a6b55178629fa719bc931871"
+    },
+    {
+      "id": "NEW-M3",
+      "path": "research/quartic214-manuscript-revision2/quartic214.tex",
+      "sha256": "b03b39d2e0f5593be29d3d2838cd33e7449b4b5b1ccb0b7dee8a9a6d2af4767f",
+      "bytes": 2339106,
+      "lines": [
+        2542,
+        2557
+      ],
+      "excerpt_sha256": "7663faa00334976eb78849f6ffbd1d868f90bcd28d4864f801efd08f981b776b"
+    },
+    {
+      "id": "NEW-NATIVE",
+      "path": "research/quartic214-manuscript-revision2/quartic214.tex",
+      "sha256": "b03b39d2e0f5593be29d3d2838cd33e7449b4b5b1ccb0b7dee8a9a6d2af4767f",
+      "bytes": 2339106,
+      "lines": [
+        5741,
+        5792
+      ],
+      "excerpt_sha256": "dfb3a7a61f2172afd0d1abfc5c57dc89c56a897526e48d92a4a26dd8c975c3df"
+    },
+    {
+      "id": "H0-H2",
+      "path": "research/quartic214/proofs/height-supplier.md",
+      "sha256": "4974b167ab415159e0ff996b341528008c2ba8ae8e2a1ebf69bab5bc9a9b9c12",
+      "bytes": 15498,
+      "lines": [
+        7,
+        77
+      ],
+      "excerpt_sha256": "b73de8ac495d7ec4a04cfc6b1f46d65d10d8bb4f91e581d8f0f8e171b39b98cf"
+    }
+  ],
+  "obligations": [
+    {
+      "name": "source",
+      "status": "author addressed; independent decision pending",
+      "required_input": "F6 must preserve the idele-unit groups and positive-real component actually supplied by M3; native extraction must have an applicable source.",
+      "constructed_input_and_derivation": "M3 original line57 and its Milne-derived argument explicitly use product Z_p* and (Z/rZ)*. The exact preexisting DS primitive extraction and accepted current-native application f48bd1e... supply existence; no Li uniqueness statement is promoted into existence."
+    },
+    {
+      "name": "constructed",
+      "status": "author addressed; independent decision pending",
+      "required_input": "Retain the same finite delta, its reciprocity character lambda and inverse finite-unit character eta, with actual whole manuscript.",
+      "constructed_input_and_derivation": "The complete TeX is derived from the frozen receiving TeX. Only the declared F6, F7, F8–F11 source-local sites, operative native note and receiving date differ. L-prime,delta and the polynomial remain identical."
+    },
+    {
+      "name": "domain",
+      "status": "author addressed; independent decision pending",
+      "required_input": "Protect all four unit-group occurrences in M3 and all positive real units; preserve all rational-parameter and finalform domains.",
+      "constructed_input_and_derivation": "Both product Z_p* occurrences and both (Z/rZ)* occurrences are protected as code-math; C_Q=R_{>0} is grouped. The rest of every source line remains in its actual domain."
+    },
+    {
+      "name": "maps",
+      "status": "author addressed; independent decision pending",
+      "required_input": "A finite character factorization must lead to the same primitive twist; source/TeX maps must identify changed current consumers.",
+      "constructed_input_and_derivation": "Take r to be the least modulus of the finite unit character, so eta is primitive of conductor r. This changes neither its Galois character nor L-prime and ensures the cited Gauss sum is nonzero. Map spans retain oldlocators and split the exact native span around the16-line operative note."
+    },
+    {
+      "name": "object",
+      "status": "author addressed; independent decision pending",
+      "required_input": "M3 and the native retained occurrence must consume the same original r5, not a changed normalization.",
+      "constructed_input_and_derivation": "The operative note applies DS extraction at actual native Li existence passage. It supplies a normalized primitive constituent with the same good-prime eigenvalues; the separately reviewed semisimple/irreducible comparison gives the original representation. No new form normalization or controlledfield is introduced."
+    },
+    {
+      "name": "normalization",
+      "status": "author addressed; independent decision pending",
+      "required_input": "Unit stars, positive-real domain and primitiveconductor must be explicit without changing Frobenius or height conventions.",
+      "constructed_input_and_derivation": "The new line prints Z_p^{*},(Z/rZ)^{*},R_{>0}, retains the inverse lambda-to-eta convention, and chooses the least r. All prior Kato/Tate/Faltings conventions and coefficient parameters remain untouched."
+    },
+    {
+      "name": "local",
+      "status": "author addressed; independent decision pending",
+      "required_input": "Do not change local support, actual level bounds or index coverage while choosing conductor.",
+      "constructed_input_and_derivation": "Least modulus is the conductor of the same finite character; it does not twist again or enlarge L-prime. Local Artin-conductor/companion arguments are the unchanged M4–M6 inputs. No new conductor bound is inferred from primitive extraction alone."
+    },
+    {
+      "name": "exception",
+      "status": "author addressed; independent decision pending",
+      "required_input": "Include trivial character, arbitrary classical positive integral weight before weightdetermination, both unitproducts and all direct old/new occurrences.",
+      "constructed_input_and_derivation": "Conductor1 and nonzero Gauss sum are included. DS applies before and after finite twisting; native/currentM3 occurrences are explicitly linked. The original Li Fricke/uniqueness uses remain distinct."
+    },
+    {
+      "name": "consumer",
+      "status": "author addressed; independent decision pending",
+      "required_input": "The operative full receiving manuscript must qualify the stillprinted native Li-only existence attribution and preserve review limits.",
+      "constructed_input_and_derivation": "A16-line operative paragraph immediately precedes that historical attribution, cites DS and the accepted source/application contract, and states Li Theorem5 alone is not the existence supplier. Every outputline outside the explicitly declared receiving changes is reversibly identical to the frozen complete receiving source. New receiving and PDFreview remain independent."
+    }
+  ],
+  "related_use_review": {
+    "star_source_lines": 134,
+    "mapped_star_spans": 115,
+    "single_emphasis_parser_candidates_before_mode_classification": 16,
+    "scope": "All PartI convertedMarkdown star occurrences inventoried; prose-vs-display/list modes distinguished; every applicable literal-star retention count compared. Only M3line57 has the identified illegitimate unit-star emphasis; full general semantic fidelity separate.",
+    "evidence": "author-evidence/ALL-PART-I-STAR-OCCURRENCES.json and STAR-RETENTION-CHECKS.json"
+  },
+  "history": "Earlier F1–F5 repairs and receivingreview remain historical at their exact bytes. F6 repeats the Markdown-star failure class at a new uncorrected line; actual intended unit-group argument was already present. The early2554locator is corrected to actual2552 by the source map. No arithmetic counterexample established."
+}

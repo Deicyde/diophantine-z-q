@@ -1,0 +1,197 @@
+{
+  "whole_files": [
+    {
+      "path": "manuscripts/quartic_v16.tex",
+      "sha256": "aeb2b6a42a03943d7f8c46682389c8da693d2903ba92ccc164bbbd236451de74"
+    },
+    {
+      "path": "research/quartic214/proofs/uniform-existence.md",
+      "sha256": "d13cc2b846dc72a3f5b5cce8dcf11d3f11b33c45ebc3883263840afb8d82f3bc"
+    },
+    {
+      "path": "research/quartic214/proofs/source-carry.md",
+      "sha256": "f7f4e550a4dcfbbd3b5ffcf783b11411f7888c821dbab7febb5132b7b2b891ed"
+    },
+    {
+      "path": "research/quartic214/proofs/existence.md",
+      "sha256": "37ab929ed3f4b4dee2b91d2e39408e7070e8a9176b981bcc9c352d17b9cc2332"
+    },
+    {
+      "path": "research/quartic214-manuscript/quartic214.tex",
+      "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58"
+    },
+    {
+      "path": "research/quartic214-manuscript/SOURCE_SPANS.json",
+      "sha256": "c98fc0d5860fb1d17a1d1ec7f23e266015f26e37d72443b796a782006c371391"
+    },
+    {
+      "path": "docs/audit-history/PROTOCOL.md",
+      "sha256": "c0b9834a75e64bfd66183b06d1e26019f957a38468ce41b10ce290f8c5c44816"
+    },
+    {
+      "path": "docs/research-review/PROTOCOL.md",
+      "sha256": "3d16c4d58d030ff745460386b081eb21c8c0d3f375cbfb06c4f9777c235a12f9"
+    },
+    {
+      "path": "AGENTS.md",
+      "sha256": "ad8253d48ba1c8091aa7c8d4410b79f99dba6bc487573721895aa6c1f35a1fee"
+    },
+    {
+      "path": "research/version16/protocol/DOSSIER.json",
+      "sha256": "45c3864dc588d23c6c797e783c23f88c5b00473ccd7956548734380ccb04f9c5"
+    },
+    {
+      "path": "research/version16/protocol/CONNECTIONS.json",
+      "sha256": "979d6997dcb6e1f7f96a293e4a8453378939ac3e23cba5f15915478d07a7d101"
+    },
+    {
+      "path": "research/version16/review/coverage/REVIEW.md",
+      "sha256": "cb6c566b3802310efd66eda255850b66763519501042b8d64826b803a97665fe"
+    },
+    {
+      "path": "research/version16/review/coverage/record-repair-001/REVIEW.md",
+      "sha256": "52bb8ba0ada9cbdb70b2b711cd05517b9532d36927b5fb55daa1b7c4cea3dff9"
+    },
+    {
+      "path": "research/version16/review/coverage/record-repair-001/REVIEW.json",
+      "sha256": "ba7b54afa94cf4583d9c20167b333656ae16c80c866bee82b555ae6a682b310b"
+    },
+    {
+      "path": "research/version16/review/coverage/record-repair-001/PROTOCOL14-COVERAGE-REVIEW.json",
+      "sha256": "7f7e0544d324b4ba19d5cb70151c98b31ae2a2a429483df7416d07812267b497"
+    },
+    {
+      "path": "research/version16/review/coverage/record-repair-001/ASSEMBLY-REVIEW.json",
+      "sha256": "667f8007a2af8d96a845cbf505ca001bf6a04dbb69d5a0667dd2e76d12a32957"
+    },
+    {
+      "path": "docs/audit-history/issue2/evidence/kato.md",
+      "sha256": "7be7e0c3d3b3a4d0796d8c7c8b856251fecd164c7b0f7f7b24191a0f0c7c3284"
+    },
+    {
+      "path": "docs/manuscript-revisions/version11/evidence/norms.md",
+      "sha256": "7bdb086e077af429f1d71bade31b233b672929f78e2aa790eb4985a78a837f3e"
+    },
+    {
+      "path": "docs/manuscript-revisions/version11/evidence/interface.md",
+      "sha256": "8cb644f5f20090f3e47de412b62942b3e93a6c2e674dc7924678137c8d188774"
+    },
+    {
+      "path": "docs/manuscript-revisions/version12/evidence/kato-final-review.md",
+      "sha256": "b34e8f5fb4acf4299f8a956d1b91e6d207e1bb33d96b33282f20b71b7e2dd1fa"
+    },
+    {
+      "path": "docs/manuscript-revisions/version14/resume003/kato-1999-index-and-class-application.json",
+      "sha256": "379ab1c7a6cae2663e1396bf492f8d7d640eace09ff43f897b77704619964451"
+    }
+  ],
+  "fresh_source_passages": [
+    {
+      "path": "manuscripts/quartic_v16.tex",
+      "sha256": "aeb2b6a42a03943d7f8c46682389c8da693d2903ba92ccc164bbbd236451de74",
+      "start_line": 1705,
+      "end_line": 1898,
+      "excerpt_sha256": "622c3890ea3fdc72c9feaf315a9baeea6d488fa42578e0b1fcbe15e4f301b3d9"
+    },
+    {
+      "path": "manuscripts/quartic_v16.tex",
+      "sha256": "aeb2b6a42a03943d7f8c46682389c8da693d2903ba92ccc164bbbd236451de74",
+      "start_line": 2570,
+      "end_line": 2900,
+      "excerpt_sha256": "394f5075b073db4c2b1e5df4e035c611d2dc1434e23c19d8c6c72a6eee192462"
+    },
+    {
+      "path": "manuscripts/quartic_v16.tex",
+      "sha256": "aeb2b6a42a03943d7f8c46682389c8da693d2903ba92ccc164bbbd236451de74",
+      "start_line": 3302,
+      "end_line": 3384,
+      "excerpt_sha256": "54c05cc6dfff192817a6b51107ce4cdef915a88141b6f04dd9c74b68567b47b1"
+    },
+    {
+      "path": "manuscripts/quartic_v16.tex",
+      "sha256": "aeb2b6a42a03943d7f8c46682389c8da693d2903ba92ccc164bbbd236451de74",
+      "start_line": 3479,
+      "end_line": 6727,
+      "excerpt_sha256": "e75dcc1f9b9e2002830b80b0ab439c43ba2829d39d1b75ec2e7105b90c766c3a"
+    },
+    {
+      "path": "manuscripts/quartic_v16.tex",
+      "sha256": "aeb2b6a42a03943d7f8c46682389c8da693d2903ba92ccc164bbbd236451de74",
+      "start_line": 8803,
+      "end_line": 9076,
+      "excerpt_sha256": "148334e4e9e363b43e037da409da60faa7927ab85c6a9802a97795c51dae9c6b"
+    },
+    {
+      "path": "manuscripts/quartic_v16.tex",
+      "sha256": "aeb2b6a42a03943d7f8c46682389c8da693d2903ba92ccc164bbbd236451de74",
+      "start_line": 11590,
+      "end_line": 11765,
+      "excerpt_sha256": "fde5a06f40c1275f3ae5e5386f890a03cdc6338805264e283c48f2a23acfa4d0"
+    },
+    {
+      "path": "manuscripts/quartic_v16.tex",
+      "sha256": "aeb2b6a42a03943d7f8c46682389c8da693d2903ba92ccc164bbbd236451de74",
+      "start_line": 13339,
+      "end_line": 14428,
+      "excerpt_sha256": "b9fe79fa63c10745221a82753fe88f9c04aa127f0615d4f6bc7866890c987513"
+    },
+    {
+      "path": "manuscripts/quartic_v16.tex",
+      "sha256": "aeb2b6a42a03943d7f8c46682389c8da693d2903ba92ccc164bbbd236451de74",
+      "start_line": 17465,
+      "end_line": 17543,
+      "excerpt_sha256": "4246bb2b6d22a084c72806fb43247b67b743d0122f93cbc030ffa25e15fe79d6"
+    },
+    {
+      "path": "manuscripts/quartic_v16.tex",
+      "sha256": "aeb2b6a42a03943d7f8c46682389c8da693d2903ba92ccc164bbbd236451de74",
+      "start_line": 32300,
+      "end_line": 32373,
+      "excerpt_sha256": "adb7ee2b36a932cc570a1c5c1f93d70bca56cea540cc9b313fefd5f6b44e8fdf"
+    }
+  ],
+  "receiving_passages": [
+    {
+      "path": "research/quartic214/proofs/uniform-existence.md",
+      "sha256": "d13cc2b846dc72a3f5b5cce8dcf11d3f11b33c45ebc3883263840afb8d82f3bc",
+      "start_line": 1,
+      "end_line": 84,
+      "excerpt_sha256": "d13cc2b846dc72a3f5b5cce8dcf11d3f11b33c45ebc3883263840afb8d82f3bc"
+    },
+    {
+      "path": "research/quartic214/proofs/source-carry.md",
+      "sha256": "f7f4e550a4dcfbbd3b5ffcf783b11411f7888c821dbab7febb5132b7b2b891ed",
+      "start_line": 1,
+      "end_line": 40,
+      "excerpt_sha256": "f7f4e550a4dcfbbd3b5ffcf783b11411f7888c821dbab7febb5132b7b2b891ed"
+    },
+    {
+      "path": "research/quartic214/proofs/existence.md",
+      "sha256": "37ab929ed3f4b4dee2b91d2e39408e7070e8a9176b981bcc9c352d17b9cc2332",
+      "start_line": 31,
+      "end_line": 45,
+      "excerpt_sha256": "4577f7d8d2b1a5e470d39c0b17204e2a1f86f34287680cc955f1851d78a688c1"
+    },
+    {
+      "path": "research/quartic214/proofs/existence.md",
+      "sha256": "37ab929ed3f4b4dee2b91d2e39408e7070e8a9176b981bcc9c352d17b9cc2332",
+      "start_line": 82,
+      "end_line": 88,
+      "excerpt_sha256": "98b9c539f6373f4057cbf3e839dbe8d1bf3099b5b50b5d49a370b106e7243204"
+    },
+    {
+      "path": "research/quartic214-manuscript/quartic214.tex",
+      "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+      "start_line": 2293,
+      "end_line": 2312,
+      "excerpt_sha256": "b8e62874c33c23754dcbc6bba5b8b6dc7370b378b1c77b5f2b143d6a2adda65d"
+    },
+    {
+      "path": "research/quartic214-manuscript/quartic214.tex",
+      "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+      "start_line": 3315,
+      "end_line": 3336,
+      "excerpt_sha256": "14163338618ac5667c97e6e87f6eabf76c620343ef3151c13d74c1907e8b4086"
+    }
+  ]
+}

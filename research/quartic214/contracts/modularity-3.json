@@ -1,0 +1,1123 @@
+{
+  "schema": "quartic214-public-application-contract-v1",
+  "application_id": "M4-SAME-FORM-COMPANION",
+  "authors": [
+    "/root/d214_modularity_closure"
+  ],
+  "public_port_author": "/root/d214_public_port",
+  "status": "author_proposed_pending_eligible_independent_public_review",
+  "original_author_contract": {
+    "path": "author-supplement/2026-11-11/modularity/CONTRACT_FINAL.json",
+    "sha256": "09bd97dd14c250d6b23b1c81c59b7e87543d9e6ca2b79d1ded248e42c37bcb90",
+    "bytes": 35152,
+    "application_id": "M4-SAME-FORM-COMPANION"
+  },
+  "serialization": "Public whole-file and freshly located passage pins replace original private pins; no old approval is transferred.",
+  "manuscript": {
+    "path": "research/quartic214/PROOF.md",
+    "sha256": "0feb164c3ed33543136b89aa87b27bc890f4aadef2d082d465263f55dc26d165",
+    "bytes": 10582
+  },
+  "proof": {
+    "path": "research/quartic214/proofs/modularity.md",
+    "sha256": "814676050b389793d196346f45e2797f39e2c5be0f3fee8457bb709b2607606e",
+    "bytes": 25777
+  },
+  "construction_passages": [
+    {
+      "path": "research/quartic214/proofs/modularity.md",
+      "sha256": "814676050b389793d196346f45e2797f39e2c5be0f3fee8457bb709b2607606e",
+      "bytes": 25777,
+      "section": "## M4.",
+      "lines": [
+        63,
+        78
+      ],
+      "passage_sha256": "a01c7d071bbbfccacfba052ee4385a8e6d760eb3e2c4db13d75f83a8d4f1b20c",
+      "line_convention": "1-based inclusive raw splitlines with endings retained"
+    }
+  ],
+  "application_passages": [
+    {
+      "path": "research/quartic214/proofs/modularity.md",
+      "sha256": "814676050b389793d196346f45e2797f39e2c5be0f3fee8457bb709b2607606e",
+      "bytes": 25777,
+      "section": "## M4.",
+      "lines": [
+        63,
+        78
+      ],
+      "passage_sha256": "a01c7d071bbbfccacfba052ee4385a8e6d760eb3e2c4db13d75f83a8d4f1b20c",
+      "line_convention": "1-based inclusive raw splitlines with endings retained"
+    }
+  ],
+  "consumer_passages": [
+    {
+      "path": "research/quartic214/proofs/height-supplier.md",
+      "sha256": "4974b167ab415159e0ff996b341528008c2ba8ae8e2a1ebf69bab5bc9a9b9c12",
+      "bytes": 15498,
+      "section": "## H0.",
+      "lines": [
+        7,
+        32
+      ],
+      "passage_sha256": "3c61de9b62e636063cf74beddc40dd6b10ce7bada0c182b8a10432bd6bc34850",
+      "line_convention": "1-based inclusive raw splitlines with endings retained"
+    },
+    {
+      "path": "research/quartic214/proofs/height-supplier.md",
+      "sha256": "4974b167ab415159e0ff996b341528008c2ba8ae8e2a1ebf69bab5bc9a9b9c12",
+      "bytes": 15498,
+      "section": "## H1.",
+      "lines": [
+        33,
+        61
+      ],
+      "passage_sha256": "6d034b817da3428e7d8eb8df1414f41e2616ae6b4726f8b3c9c18efaa6c2b4ea",
+      "line_convention": "1-based inclusive raw splitlines with endings retained"
+    },
+    {
+      "path": "research/quartic214/proofs/height-supplier.md",
+      "sha256": "4974b167ab415159e0ff996b341528008c2ba8ae8e2a1ebf69bab5bc9a9b9c12",
+      "bytes": 15498,
+      "section": "## H2.",
+      "lines": [
+        62,
+        77
+      ],
+      "passage_sha256": "ec32f7e76b18652e57d4b1c8df302975d23b58dd28d6113bccad3c05aad9053f",
+      "line_convention": "1-based inclusive raw splitlines with endings retained"
+    }
+  ],
+  "required_sources": [
+    {
+      "path": "research/quartic214/PROOF.md",
+      "sha256": "0feb164c3ed33543136b89aa87b27bc890f4aadef2d082d465263f55dc26d165",
+      "bytes": 10582
+    },
+    {
+      "path": "research/quartic214/proofs/height-supplier.md",
+      "sha256": "4974b167ab415159e0ff996b341528008c2ba8ae8e2a1ebf69bab5bc9a9b9c12",
+      "bytes": 15498
+    },
+    {
+      "path": "research/quartic214/proofs/height-averaging.md",
+      "sha256": "bb87f61d7134c09d695f9bbff2c26b12b8c9ce5fe74a4ec598b2e4410f100192",
+      "bytes": 8145
+    },
+    {
+      "path": "research/quartic214/PRIMARY_SOURCES.json",
+      "sha256": "cfa7597432cd98c7184c0f9332c6d56f8ea53b208613aab0d855f5ffd1181161",
+      "bytes": 48789
+    },
+    {
+      "path": "research/version15/snapshots/v15-222-004/manuscript/quartic_v15.tex",
+      "sha256": "44ba3a8ec8521c29b81b26cfb9981cd6d5f3c76d54e7782438614842edb52c74",
+      "bytes": 1924438
+    },
+    {
+      "path": "research/quartic214/proofs/modularity.md",
+      "sha256": "814676050b389793d196346f45e2797f39e2c5be0f3fee8457bb709b2607606e",
+      "bytes": 25777
+    },
+    {
+      "path": "research/quartic214/proofs/geometry-carry.md",
+      "sha256": "b3cb8201de84f733b0518ad68a9c0d0bc1e78534ffd39aca5d8c70f1bae69e76",
+      "bytes": 13337
+    },
+    {
+      "path": "research/quartic214/proofs/provider-scope-carry.md",
+      "sha256": "368774d2b96a606df4dd5e81a3c4fecaf22f09f33f27e49e0a80e37b02157154",
+      "bytes": 16324
+    },
+    {
+      "path": "research/quartic214/sources/conductor-sections1-3.md",
+      "sha256": "c2e04a42dd82e244b1872b4a9a7298f1a9e45ca49ffcc436ff7c5149d6ee5d88",
+      "bytes": 9028
+    }
+  ],
+  "obligations": {
+    "source_hypotheses": {
+      "required_input": "Rationaldegreepolynomial on everyprime-to-pTate module",
+      "constructed_input": "Actualreducedendomorphisme_p",
+      "justification": "Milne12.9appliesinresiduecharacteristicp; denominatornretained.",
+      "original_author_obligation_sha256": "30cffa27a8de244caa71e8c580ed32bdb5abf52833af0d247152d0023ca4a073",
+      "original_author_source_ids": [
+        "Milne1986",
+        "Serre1968-reprint1989",
+        "private-v14-source"
+      ],
+      "status": "author_proposed_pending_eligible_independent_public_review",
+      "source_references": [
+        {
+          "path": "research/quartic214/PROOF.md",
+          "sha256": "0feb164c3ed33543136b89aa87b27bc890f4aadef2d082d465263f55dc26d165",
+          "bytes": 10582
+        },
+        {
+          "path": "research/quartic214/proofs/height-supplier.md",
+          "sha256": "4974b167ab415159e0ff996b341528008c2ba8ae8e2a1ebf69bab5bc9a9b9c12",
+          "bytes": 15498
+        },
+        {
+          "path": "research/quartic214/proofs/height-averaging.md",
+          "sha256": "bb87f61d7134c09d695f9bbff2c26b12b8c9ce5fe74a4ec598b2e4410f100192",
+          "bytes": 8145
+        },
+        {
+          "path": "research/quartic214/PRIMARY_SOURCES.json",
+          "sha256": "cfa7597432cd98c7184c0f9332c6d56f8ea53b208613aab0d855f5ffd1181161",
+          "bytes": 48789
+        },
+        {
+          "path": "research/version15/snapshots/v15-222-004/manuscript/quartic_v15.tex",
+          "sha256": "44ba3a8ec8521c29b81b26cfb9981cd6d5f3c76d54e7782438614842edb52c74",
+          "bytes": 1924438
+        },
+        {
+          "path": "research/quartic214/proofs/modularity.md",
+          "sha256": "814676050b389793d196346f45e2797f39e2c5be0f3fee8457bb709b2607606e",
+          "bytes": 25777
+        },
+        {
+          "path": "research/quartic214/proofs/geometry-carry.md",
+          "sha256": "b3cb8201de84f733b0518ad68a9c0d0bc1e78534ffd39aca5d8c70f1bae69e76",
+          "bytes": 13337
+        },
+        {
+          "path": "research/quartic214/proofs/provider-scope-carry.md",
+          "sha256": "368774d2b96a606df4dd5e81a3c4fecaf22f09f33f27e49e0a80e37b02157154",
+          "bytes": 16324
+        },
+        {
+          "path": "research/quartic214/sources/conductor-sections1-3.md",
+          "sha256": "c2e04a42dd82e244b1872b4a9a7298f1a9e45ca49ffcc436ff7c5149d6ee5d88",
+          "bytes": 9028
+        }
+      ],
+      "evidence": [
+        {
+          "path": "research/quartic214/proofs/modularity.md",
+          "sha256": "814676050b389793d196346f45e2797f39e2c5be0f3fee8457bb709b2607606e",
+          "bytes": 25777,
+          "section": "## M4.",
+          "lines": [
+            63,
+            78
+          ],
+          "passage_sha256": "a01c7d071bbbfccacfba052ee4385a8e6d760eb3e2c4db13d75f83a8d4f1b20c",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/proofs/height-supplier.md",
+          "sha256": "4974b167ab415159e0ff996b341528008c2ba8ae8e2a1ebf69bab5bc9a9b9c12",
+          "bytes": 15498,
+          "section": "## H0.",
+          "lines": [
+            7,
+            32
+          ],
+          "passage_sha256": "3c61de9b62e636063cf74beddc40dd6b10ce7bada0c182b8a10432bd6bc34850",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/proofs/height-supplier.md",
+          "sha256": "4974b167ab415159e0ff996b341528008c2ba8ae8e2a1ebf69bab5bc9a9b9c12",
+          "bytes": 15498,
+          "section": "## H1.",
+          "lines": [
+            33,
+            61
+          ],
+          "passage_sha256": "6d034b817da3428e7d8eb8df1414f41e2616ae6b4726f8b3c9c18efaa6c2b4ea",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/proofs/height-supplier.md",
+          "sha256": "4974b167ab415159e0ff996b341528008c2ba8ae8e2a1ebf69bab5bc9a9b9c12",
+          "bytes": 15498,
+          "section": "## H2.",
+          "lines": [
+            62,
+            77
+          ],
+          "passage_sha256": "ec32f7e76b18652e57d4b1c8df302975d23b58dd28d6113bccad3c05aad9053f",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        }
+      ]
+    },
+    "constructed_objects": {
+      "required_input": "Samequasiisogeniesandcommoncoefficientfield",
+      "constructed_input": "nmu_sigma_p composedwithrelativepFrob",
+      "justification": "Source/target sigmaA->A gives endomorphism; nclearsallfinitelymanydenominators.",
+      "original_author_obligation_sha256": "e8593dc0774d19aa7bccb1399913777ba8eb9334f57d2eca42b7ae3efb0d1740",
+      "original_author_source_ids": [
+        "Milne1986",
+        "Serre1968-reprint1989",
+        "private-v14-source"
+      ],
+      "status": "author_proposed_pending_eligible_independent_public_review",
+      "source_references": [
+        {
+          "path": "research/quartic214/PROOF.md",
+          "sha256": "0feb164c3ed33543136b89aa87b27bc890f4aadef2d082d465263f55dc26d165",
+          "bytes": 10582
+        },
+        {
+          "path": "research/quartic214/proofs/height-supplier.md",
+          "sha256": "4974b167ab415159e0ff996b341528008c2ba8ae8e2a1ebf69bab5bc9a9b9c12",
+          "bytes": 15498
+        },
+        {
+          "path": "research/quartic214/proofs/height-averaging.md",
+          "sha256": "bb87f61d7134c09d695f9bbff2c26b12b8c9ce5fe74a4ec598b2e4410f100192",
+          "bytes": 8145
+        },
+        {
+          "path": "research/quartic214/PRIMARY_SOURCES.json",
+          "sha256": "cfa7597432cd98c7184c0f9332c6d56f8ea53b208613aab0d855f5ffd1181161",
+          "bytes": 48789
+        },
+        {
+          "path": "research/version15/snapshots/v15-222-004/manuscript/quartic_v15.tex",
+          "sha256": "44ba3a8ec8521c29b81b26cfb9981cd6d5f3c76d54e7782438614842edb52c74",
+          "bytes": 1924438
+        },
+        {
+          "path": "research/quartic214/proofs/modularity.md",
+          "sha256": "814676050b389793d196346f45e2797f39e2c5be0f3fee8457bb709b2607606e",
+          "bytes": 25777
+        },
+        {
+          "path": "research/quartic214/proofs/geometry-carry.md",
+          "sha256": "b3cb8201de84f733b0518ad68a9c0d0bc1e78534ffd39aca5d8c70f1bae69e76",
+          "bytes": 13337
+        },
+        {
+          "path": "research/quartic214/proofs/provider-scope-carry.md",
+          "sha256": "368774d2b96a606df4dd5e81a3c4fecaf22f09f33f27e49e0a80e37b02157154",
+          "bytes": 16324
+        },
+        {
+          "path": "research/quartic214/sources/conductor-sections1-3.md",
+          "sha256": "c2e04a42dd82e244b1872b4a9a7298f1a9e45ca49ffcc436ff7c5149d6ee5d88",
+          "bytes": 9028
+        }
+      ],
+      "evidence": [
+        {
+          "path": "research/quartic214/proofs/modularity.md",
+          "sha256": "814676050b389793d196346f45e2797f39e2c5be0f3fee8457bb709b2607606e",
+          "bytes": 25777,
+          "section": "## M4.",
+          "lines": [
+            63,
+            78
+          ],
+          "passage_sha256": "a01c7d071bbbfccacfba052ee4385a8e6d760eb3e2c4db13d75f83a8d4f1b20c",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/proofs/height-supplier.md",
+          "sha256": "4974b167ab415159e0ff996b341528008c2ba8ae8e2a1ebf69bab5bc9a9b9c12",
+          "bytes": 15498,
+          "section": "## H0.",
+          "lines": [
+            7,
+            32
+          ],
+          "passage_sha256": "3c61de9b62e636063cf74beddc40dd6b10ce7bada0c182b8a10432bd6bc34850",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/proofs/height-supplier.md",
+          "sha256": "4974b167ab415159e0ff996b341528008c2ba8ae8e2a1ebf69bab5bc9a9b9c12",
+          "bytes": 15498,
+          "section": "## H1.",
+          "lines": [
+            33,
+            61
+          ],
+          "passage_sha256": "6d034b817da3428e7d8eb8df1414f41e2616ae6b4726f8b3c9c18efaa6c2b4ea",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/proofs/height-supplier.md",
+          "sha256": "4974b167ab415159e0ff996b341528008c2ba8ae8e2a1ebf69bab5bc9a9b9c12",
+          "bytes": 15498,
+          "section": "## H2.",
+          "lines": [
+            62,
+            77
+          ],
+          "passage_sha256": "ec32f7e76b18652e57d4b1c8df302975d23b58dd28d6113bccad3c05aad9053f",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        }
+      ]
+    },
+    "domain_index_coverage": {
+      "required_input": "Allgoodprimesoutsidefiniteset; everyresidueprimeconsumer",
+      "constructed_input": "Tracecomparisonat5and3; p!=5uses5,p=5uses3",
+      "justification": "Finitecomparisonexclusions sufficefordensity and do not exclude localcomparisonat5.",
+      "original_author_obligation_sha256": "edce3b80a1d0e8330200bcce79c9b8db77b5dd1723fc21d7c1abeba32bc997d3",
+      "original_author_source_ids": [
+        "Milne1986",
+        "Serre1968-reprint1989",
+        "private-v14-source"
+      ],
+      "status": "author_proposed_pending_eligible_independent_public_review",
+      "source_references": [
+        {
+          "path": "research/quartic214/PROOF.md",
+          "sha256": "0feb164c3ed33543136b89aa87b27bc890f4aadef2d082d465263f55dc26d165",
+          "bytes": 10582
+        },
+        {
+          "path": "research/quartic214/proofs/height-supplier.md",
+          "sha256": "4974b167ab415159e0ff996b341528008c2ba8ae8e2a1ebf69bab5bc9a9b9c12",
+          "bytes": 15498
+        },
+        {
+          "path": "research/quartic214/proofs/height-averaging.md",
+          "sha256": "bb87f61d7134c09d695f9bbff2c26b12b8c9ce5fe74a4ec598b2e4410f100192",
+          "bytes": 8145
+        },
+        {
+          "path": "research/quartic214/PRIMARY_SOURCES.json",
+          "sha256": "cfa7597432cd98c7184c0f9332c6d56f8ea53b208613aab0d855f5ffd1181161",
+          "bytes": 48789
+        },
+        {
+          "path": "research/version15/snapshots/v15-222-004/manuscript/quartic_v15.tex",
+          "sha256": "44ba3a8ec8521c29b81b26cfb9981cd6d5f3c76d54e7782438614842edb52c74",
+          "bytes": 1924438
+        },
+        {
+          "path": "research/quartic214/proofs/modularity.md",
+          "sha256": "814676050b389793d196346f45e2797f39e2c5be0f3fee8457bb709b2607606e",
+          "bytes": 25777
+        },
+        {
+          "path": "research/quartic214/proofs/geometry-carry.md",
+          "sha256": "b3cb8201de84f733b0518ad68a9c0d0bc1e78534ffd39aca5d8c70f1bae69e76",
+          "bytes": 13337
+        },
+        {
+          "path": "research/quartic214/proofs/provider-scope-carry.md",
+          "sha256": "368774d2b96a606df4dd5e81a3c4fecaf22f09f33f27e49e0a80e37b02157154",
+          "bytes": 16324
+        },
+        {
+          "path": "research/quartic214/sources/conductor-sections1-3.md",
+          "sha256": "c2e04a42dd82e244b1872b4a9a7298f1a9e45ca49ffcc436ff7c5149d6ee5d88",
+          "bytes": 9028
+        }
+      ],
+      "evidence": [
+        {
+          "path": "research/quartic214/proofs/modularity.md",
+          "sha256": "814676050b389793d196346f45e2797f39e2c5be0f3fee8457bb709b2607606e",
+          "bytes": 25777,
+          "section": "## M4.",
+          "lines": [
+            63,
+            78
+          ],
+          "passage_sha256": "a01c7d071bbbfccacfba052ee4385a8e6d760eb3e2c4db13d75f83a8d4f1b20c",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/proofs/height-supplier.md",
+          "sha256": "4974b167ab415159e0ff996b341528008c2ba8ae8e2a1ebf69bab5bc9a9b9c12",
+          "bytes": 15498,
+          "section": "## H0.",
+          "lines": [
+            7,
+            32
+          ],
+          "passage_sha256": "3c61de9b62e636063cf74beddc40dd6b10ce7bada0c182b8a10432bd6bc34850",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/proofs/height-supplier.md",
+          "sha256": "4974b167ab415159e0ff996b341528008c2ba8ae8e2a1ebf69bab5bc9a9b9c12",
+          "bytes": 15498,
+          "section": "## H1.",
+          "lines": [
+            33,
+            61
+          ],
+          "passage_sha256": "6d034b817da3428e7d8eb8df1414f41e2616ae6b4726f8b3c9c18efaa6c2b4ea",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/proofs/height-supplier.md",
+          "sha256": "4974b167ab415159e0ff996b341528008c2ba8ae8e2a1ebf69bab5bc9a9b9c12",
+          "bytes": 15498,
+          "section": "## H2.",
+          "lines": [
+            62,
+            77
+          ],
+          "passage_sha256": "ec32f7e76b18652e57d4b1c8df302975d23b58dd28d6113bccad3c05aad9053f",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        }
+      ]
+    },
+    "transition_comparison_maps": {
+      "required_input": "Torsionspecializationandallcoeffembeddings",
+      "constructed_input": "ell^j torsionfiniteetale; transitionmultiplicationell",
+      "justification": "Reductioncompatible with maps and limits; trace=(a/b)*Tr(e)/2n.",
+      "original_author_obligation_sha256": "d5b97fea9f615e0d62332e22853f9abc2f35c127f08d72d96392d7a3e7dc1041",
+      "original_author_source_ids": [
+        "Milne1986",
+        "Serre1968-reprint1989",
+        "private-v14-source"
+      ],
+      "status": "author_proposed_pending_eligible_independent_public_review",
+      "source_references": [
+        {
+          "path": "research/quartic214/PROOF.md",
+          "sha256": "0feb164c3ed33543136b89aa87b27bc890f4aadef2d082d465263f55dc26d165",
+          "bytes": 10582
+        },
+        {
+          "path": "research/quartic214/proofs/height-supplier.md",
+          "sha256": "4974b167ab415159e0ff996b341528008c2ba8ae8e2a1ebf69bab5bc9a9b9c12",
+          "bytes": 15498
+        },
+        {
+          "path": "research/quartic214/proofs/height-averaging.md",
+          "sha256": "bb87f61d7134c09d695f9bbff2c26b12b8c9ce5fe74a4ec598b2e4410f100192",
+          "bytes": 8145
+        },
+        {
+          "path": "research/quartic214/PRIMARY_SOURCES.json",
+          "sha256": "cfa7597432cd98c7184c0f9332c6d56f8ea53b208613aab0d855f5ffd1181161",
+          "bytes": 48789
+        },
+        {
+          "path": "research/version15/snapshots/v15-222-004/manuscript/quartic_v15.tex",
+          "sha256": "44ba3a8ec8521c29b81b26cfb9981cd6d5f3c76d54e7782438614842edb52c74",
+          "bytes": 1924438
+        },
+        {
+          "path": "research/quartic214/proofs/modularity.md",
+          "sha256": "814676050b389793d196346f45e2797f39e2c5be0f3fee8457bb709b2607606e",
+          "bytes": 25777
+        },
+        {
+          "path": "research/quartic214/proofs/geometry-carry.md",
+          "sha256": "b3cb8201de84f733b0518ad68a9c0d0bc1e78534ffd39aca5d8c70f1bae69e76",
+          "bytes": 13337
+        },
+        {
+          "path": "research/quartic214/proofs/provider-scope-carry.md",
+          "sha256": "368774d2b96a606df4dd5e81a3c4fecaf22f09f33f27e49e0a80e37b02157154",
+          "bytes": 16324
+        },
+        {
+          "path": "research/quartic214/sources/conductor-sections1-3.md",
+          "sha256": "c2e04a42dd82e244b1872b4a9a7298f1a9e45ca49ffcc436ff7c5149d6ee5d88",
+          "bytes": 9028
+        }
+      ],
+      "evidence": [
+        {
+          "path": "research/quartic214/proofs/modularity.md",
+          "sha256": "814676050b389793d196346f45e2797f39e2c5be0f3fee8457bb709b2607606e",
+          "bytes": 25777,
+          "section": "## M4.",
+          "lines": [
+            63,
+            78
+          ],
+          "passage_sha256": "a01c7d071bbbfccacfba052ee4385a8e6d760eb3e2c4db13d75f83a8d4f1b20c",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/proofs/height-supplier.md",
+          "sha256": "4974b167ab415159e0ff996b341528008c2ba8ae8e2a1ebf69bab5bc9a9b9c12",
+          "bytes": 15498,
+          "section": "## H0.",
+          "lines": [
+            7,
+            32
+          ],
+          "passage_sha256": "3c61de9b62e636063cf74beddc40dd6b10ce7bada0c182b8a10432bd6bc34850",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/proofs/height-supplier.md",
+          "sha256": "4974b167ab415159e0ff996b341528008c2ba8ae8e2a1ebf69bab5bc9a9b9c12",
+          "bytes": 15498,
+          "section": "## H1.",
+          "lines": [
+            33,
+            61
+          ],
+          "passage_sha256": "6d034b817da3428e7d8eb8df1414f41e2616ae6b4726f8b3c9c18efaa6c2b4ea",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/proofs/height-supplier.md",
+          "sha256": "4974b167ab415159e0ff996b341528008c2ba8ae8e2a1ebf69bab5bc9a9b9c12",
+          "bytes": 15498,
+          "section": "## H2.",
+          "lines": [
+            62,
+            77
+          ],
+          "passage_sha256": "ec32f7e76b18652e57d4b1c8df302975d23b58dd28d6113bccad3c05aad9053f",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        }
+      ]
+    },
+    "identity_consumed_object": {
+      "required_input": "Originalr3mustrealizeexactsamefinalf",
+      "constructed_input": "tau_p incommonfield equalsa_p(f)viafixed5embedding",
+      "justification": "Injectiveembedding transfers equalitybeforeapplyingoriginal3embedding.",
+      "original_author_obligation_sha256": "95e67036fb5a0b0d6b4fab039d4f2d83dca8e08a72fdb83437fbf87d79b29c85",
+      "original_author_source_ids": [
+        "Milne1986",
+        "Serre1968-reprint1989",
+        "private-v14-source"
+      ],
+      "status": "author_proposed_pending_eligible_independent_public_review",
+      "source_references": [
+        {
+          "path": "research/quartic214/PROOF.md",
+          "sha256": "0feb164c3ed33543136b89aa87b27bc890f4aadef2d082d465263f55dc26d165",
+          "bytes": 10582
+        },
+        {
+          "path": "research/quartic214/proofs/height-supplier.md",
+          "sha256": "4974b167ab415159e0ff996b341528008c2ba8ae8e2a1ebf69bab5bc9a9b9c12",
+          "bytes": 15498
+        },
+        {
+          "path": "research/quartic214/proofs/height-averaging.md",
+          "sha256": "bb87f61d7134c09d695f9bbff2c26b12b8c9ce5fe74a4ec598b2e4410f100192",
+          "bytes": 8145
+        },
+        {
+          "path": "research/quartic214/PRIMARY_SOURCES.json",
+          "sha256": "cfa7597432cd98c7184c0f9332c6d56f8ea53b208613aab0d855f5ffd1181161",
+          "bytes": 48789
+        },
+        {
+          "path": "research/version15/snapshots/v15-222-004/manuscript/quartic_v15.tex",
+          "sha256": "44ba3a8ec8521c29b81b26cfb9981cd6d5f3c76d54e7782438614842edb52c74",
+          "bytes": 1924438
+        },
+        {
+          "path": "research/quartic214/proofs/modularity.md",
+          "sha256": "814676050b389793d196346f45e2797f39e2c5be0f3fee8457bb709b2607606e",
+          "bytes": 25777
+        },
+        {
+          "path": "research/quartic214/proofs/geometry-carry.md",
+          "sha256": "b3cb8201de84f733b0518ad68a9c0d0bc1e78534ffd39aca5d8c70f1bae69e76",
+          "bytes": 13337
+        },
+        {
+          "path": "research/quartic214/proofs/provider-scope-carry.md",
+          "sha256": "368774d2b96a606df4dd5e81a3c4fecaf22f09f33f27e49e0a80e37b02157154",
+          "bytes": 16324
+        },
+        {
+          "path": "research/quartic214/sources/conductor-sections1-3.md",
+          "sha256": "c2e04a42dd82e244b1872b4a9a7298f1a9e45ca49ffcc436ff7c5149d6ee5d88",
+          "bytes": 9028
+        }
+      ],
+      "evidence": [
+        {
+          "path": "research/quartic214/proofs/modularity.md",
+          "sha256": "814676050b389793d196346f45e2797f39e2c5be0f3fee8457bb709b2607606e",
+          "bytes": 25777,
+          "section": "## M4.",
+          "lines": [
+            63,
+            78
+          ],
+          "passage_sha256": "a01c7d071bbbfccacfba052ee4385a8e6d760eb3e2c4db13d75f83a8d4f1b20c",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/proofs/height-supplier.md",
+          "sha256": "4974b167ab415159e0ff996b341528008c2ba8ae8e2a1ebf69bab5bc9a9b9c12",
+          "bytes": 15498,
+          "section": "## H0.",
+          "lines": [
+            7,
+            32
+          ],
+          "passage_sha256": "3c61de9b62e636063cf74beddc40dd6b10ce7bada0c182b8a10432bd6bc34850",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/proofs/height-supplier.md",
+          "sha256": "4974b167ab415159e0ff996b341528008c2ba8ae8e2a1ebf69bab5bc9a9b9c12",
+          "bytes": 15498,
+          "section": "## H1.",
+          "lines": [
+            33,
+            61
+          ],
+          "passage_sha256": "6d034b817da3428e7d8eb8df1414f41e2616ae6b4726f8b3c9c18efaa6c2b4ea",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/proofs/height-supplier.md",
+          "sha256": "4974b167ab415159e0ff996b341528008c2ba8ae8e2a1ebf69bab5bc9a9b9c12",
+          "bytes": 15498,
+          "section": "## H2.",
+          "lines": [
+            62,
+            77
+          ],
+          "passage_sha256": "ec32f7e76b18652e57d4b1c8df302975d23b58dd28d6113bccad3c05aad9053f",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        }
+      ]
+    },
+    "coefficient_normalization": {
+      "required_input": "ArithmeticpFrob; rationaltraceandtwo-copyfactor",
+      "constructed_input": "relativepFrobnotqFrob; factor1/2and1/n",
+      "justification": "Allscalarsretained; coefficientextensions compatiblewithoriginalembeddings.",
+      "original_author_obligation_sha256": "5a563637a1e81d677808b5e068f37e5c2f8912add65b10bfc4703030ccc7eccb",
+      "original_author_source_ids": [
+        "Milne1986",
+        "Serre1968-reprint1989",
+        "private-v14-source"
+      ],
+      "status": "author_proposed_pending_eligible_independent_public_review",
+      "source_references": [
+        {
+          "path": "research/quartic214/PROOF.md",
+          "sha256": "0feb164c3ed33543136b89aa87b27bc890f4aadef2d082d465263f55dc26d165",
+          "bytes": 10582
+        },
+        {
+          "path": "research/quartic214/proofs/height-supplier.md",
+          "sha256": "4974b167ab415159e0ff996b341528008c2ba8ae8e2a1ebf69bab5bc9a9b9c12",
+          "bytes": 15498
+        },
+        {
+          "path": "research/quartic214/proofs/height-averaging.md",
+          "sha256": "bb87f61d7134c09d695f9bbff2c26b12b8c9ce5fe74a4ec598b2e4410f100192",
+          "bytes": 8145
+        },
+        {
+          "path": "research/quartic214/PRIMARY_SOURCES.json",
+          "sha256": "cfa7597432cd98c7184c0f9332c6d56f8ea53b208613aab0d855f5ffd1181161",
+          "bytes": 48789
+        },
+        {
+          "path": "research/version15/snapshots/v15-222-004/manuscript/quartic_v15.tex",
+          "sha256": "44ba3a8ec8521c29b81b26cfb9981cd6d5f3c76d54e7782438614842edb52c74",
+          "bytes": 1924438
+        },
+        {
+          "path": "research/quartic214/proofs/modularity.md",
+          "sha256": "814676050b389793d196346f45e2797f39e2c5be0f3fee8457bb709b2607606e",
+          "bytes": 25777
+        },
+        {
+          "path": "research/quartic214/proofs/geometry-carry.md",
+          "sha256": "b3cb8201de84f733b0518ad68a9c0d0bc1e78534ffd39aca5d8c70f1bae69e76",
+          "bytes": 13337
+        },
+        {
+          "path": "research/quartic214/proofs/provider-scope-carry.md",
+          "sha256": "368774d2b96a606df4dd5e81a3c4fecaf22f09f33f27e49e0a80e37b02157154",
+          "bytes": 16324
+        },
+        {
+          "path": "research/quartic214/sources/conductor-sections1-3.md",
+          "sha256": "c2e04a42dd82e244b1872b4a9a7298f1a9e45ca49ffcc436ff7c5149d6ee5d88",
+          "bytes": 9028
+        }
+      ],
+      "evidence": [
+        {
+          "path": "research/quartic214/proofs/modularity.md",
+          "sha256": "814676050b389793d196346f45e2797f39e2c5be0f3fee8457bb709b2607606e",
+          "bytes": 25777,
+          "section": "## M4.",
+          "lines": [
+            63,
+            78
+          ],
+          "passage_sha256": "a01c7d071bbbfccacfba052ee4385a8e6d760eb3e2c4db13d75f83a8d4f1b20c",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/proofs/height-supplier.md",
+          "sha256": "4974b167ab415159e0ff996b341528008c2ba8ae8e2a1ebf69bab5bc9a9b9c12",
+          "bytes": 15498,
+          "section": "## H0.",
+          "lines": [
+            7,
+            32
+          ],
+          "passage_sha256": "3c61de9b62e636063cf74beddc40dd6b10ce7bada0c182b8a10432bd6bc34850",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/proofs/height-supplier.md",
+          "sha256": "4974b167ab415159e0ff996b341528008c2ba8ae8e2a1ebf69bab5bc9a9b9c12",
+          "bytes": 15498,
+          "section": "## H1.",
+          "lines": [
+            33,
+            61
+          ],
+          "passage_sha256": "6d034b817da3428e7d8eb8df1414f41e2616ae6b4726f8b3c9c18efaa6c2b4ea",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/proofs/height-supplier.md",
+          "sha256": "4974b167ab415159e0ff996b341528008c2ba8ae8e2a1ebf69bab5bc9a9b9c12",
+          "bytes": 15498,
+          "section": "## H2.",
+          "lines": [
+            62,
+            77
+          ],
+          "passage_sha256": "ec32f7e76b18652e57d4b1c8df302975d23b58dd28d6113bccad3c05aad9053f",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        }
+      ]
+    },
+    "local_conditions": {
+      "required_input": "FullGQisomorphism then localrestriction",
+      "constructed_input": "r3=Uf3,notmerelysemisimplifiedlocaltraces",
+      "justification": "Density gives semisimplifications; absoluteirreducibility forces compositionlength1.",
+      "original_author_obligation_sha256": "1bfdd8f97174446528d1a0781c99bb0f9b24c0dc0a3434ad1bf7fe5d323cd393",
+      "original_author_source_ids": [
+        "Milne1986",
+        "Serre1968-reprint1989",
+        "private-v14-source"
+      ],
+      "status": "author_proposed_pending_eligible_independent_public_review",
+      "source_references": [
+        {
+          "path": "research/quartic214/PROOF.md",
+          "sha256": "0feb164c3ed33543136b89aa87b27bc890f4aadef2d082d465263f55dc26d165",
+          "bytes": 10582
+        },
+        {
+          "path": "research/quartic214/proofs/height-supplier.md",
+          "sha256": "4974b167ab415159e0ff996b341528008c2ba8ae8e2a1ebf69bab5bc9a9b9c12",
+          "bytes": 15498
+        },
+        {
+          "path": "research/quartic214/proofs/height-averaging.md",
+          "sha256": "bb87f61d7134c09d695f9bbff2c26b12b8c9ce5fe74a4ec598b2e4410f100192",
+          "bytes": 8145
+        },
+        {
+          "path": "research/quartic214/PRIMARY_SOURCES.json",
+          "sha256": "cfa7597432cd98c7184c0f9332c6d56f8ea53b208613aab0d855f5ffd1181161",
+          "bytes": 48789
+        },
+        {
+          "path": "research/version15/snapshots/v15-222-004/manuscript/quartic_v15.tex",
+          "sha256": "44ba3a8ec8521c29b81b26cfb9981cd6d5f3c76d54e7782438614842edb52c74",
+          "bytes": 1924438
+        },
+        {
+          "path": "research/quartic214/proofs/modularity.md",
+          "sha256": "814676050b389793d196346f45e2797f39e2c5be0f3fee8457bb709b2607606e",
+          "bytes": 25777
+        },
+        {
+          "path": "research/quartic214/proofs/geometry-carry.md",
+          "sha256": "b3cb8201de84f733b0518ad68a9c0d0bc1e78534ffd39aca5d8c70f1bae69e76",
+          "bytes": 13337
+        },
+        {
+          "path": "research/quartic214/proofs/provider-scope-carry.md",
+          "sha256": "368774d2b96a606df4dd5e81a3c4fecaf22f09f33f27e49e0a80e37b02157154",
+          "bytes": 16324
+        },
+        {
+          "path": "research/quartic214/sources/conductor-sections1-3.md",
+          "sha256": "c2e04a42dd82e244b1872b4a9a7298f1a9e45ca49ffcc436ff7c5149d6ee5d88",
+          "bytes": 9028
+        }
+      ],
+      "evidence": [
+        {
+          "path": "research/quartic214/proofs/modularity.md",
+          "sha256": "814676050b389793d196346f45e2797f39e2c5be0f3fee8457bb709b2607606e",
+          "bytes": 25777,
+          "section": "## M4.",
+          "lines": [
+            63,
+            78
+          ],
+          "passage_sha256": "a01c7d071bbbfccacfba052ee4385a8e6d760eb3e2c4db13d75f83a8d4f1b20c",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/proofs/height-supplier.md",
+          "sha256": "4974b167ab415159e0ff996b341528008c2ba8ae8e2a1ebf69bab5bc9a9b9c12",
+          "bytes": 15498,
+          "section": "## H0.",
+          "lines": [
+            7,
+            32
+          ],
+          "passage_sha256": "3c61de9b62e636063cf74beddc40dd6b10ce7bada0c182b8a10432bd6bc34850",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/proofs/height-supplier.md",
+          "sha256": "4974b167ab415159e0ff996b341528008c2ba8ae8e2a1ebf69bab5bc9a9b9c12",
+          "bytes": 15498,
+          "section": "## H1.",
+          "lines": [
+            33,
+            61
+          ],
+          "passage_sha256": "6d034b817da3428e7d8eb8df1414f41e2616ae6b4726f8b3c9c18efaa6c2b4ea",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/proofs/height-supplier.md",
+          "sha256": "4974b167ab415159e0ff996b341528008c2ba8ae8e2a1ebf69bab5bc9a9b9c12",
+          "bytes": 15498,
+          "section": "## H2.",
+          "lines": [
+            62,
+            77
+          ],
+          "passage_sha256": "ec32f7e76b18652e57d4b1c8df302975d23b58dd28d6113bccad3c05aad9053f",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        }
+      ]
+    },
+    "exceptional_cases": {
+      "required_input": "p=3or5excludedonlyduringtracecomparison",
+      "constructed_input": "p=5localusesr3; p=3localusesr5",
+      "justification": "No primethree modularitytheorem or p=ellcompatibilityinvoked.",
+      "original_author_obligation_sha256": "82739e62826af72276b0df1d67dab8ca0ae6d9cb3309a5d96fff998f0955cd60",
+      "original_author_source_ids": [
+        "Milne1986",
+        "Serre1968-reprint1989",
+        "private-v14-source"
+      ],
+      "status": "author_proposed_pending_eligible_independent_public_review",
+      "source_references": [
+        {
+          "path": "research/quartic214/PROOF.md",
+          "sha256": "0feb164c3ed33543136b89aa87b27bc890f4aadef2d082d465263f55dc26d165",
+          "bytes": 10582
+        },
+        {
+          "path": "research/quartic214/proofs/height-supplier.md",
+          "sha256": "4974b167ab415159e0ff996b341528008c2ba8ae8e2a1ebf69bab5bc9a9b9c12",
+          "bytes": 15498
+        },
+        {
+          "path": "research/quartic214/proofs/height-averaging.md",
+          "sha256": "bb87f61d7134c09d695f9bbff2c26b12b8c9ce5fe74a4ec598b2e4410f100192",
+          "bytes": 8145
+        },
+        {
+          "path": "research/quartic214/PRIMARY_SOURCES.json",
+          "sha256": "cfa7597432cd98c7184c0f9332c6d56f8ea53b208613aab0d855f5ffd1181161",
+          "bytes": 48789
+        },
+        {
+          "path": "research/version15/snapshots/v15-222-004/manuscript/quartic_v15.tex",
+          "sha256": "44ba3a8ec8521c29b81b26cfb9981cd6d5f3c76d54e7782438614842edb52c74",
+          "bytes": 1924438
+        },
+        {
+          "path": "research/quartic214/proofs/modularity.md",
+          "sha256": "814676050b389793d196346f45e2797f39e2c5be0f3fee8457bb709b2607606e",
+          "bytes": 25777
+        },
+        {
+          "path": "research/quartic214/proofs/geometry-carry.md",
+          "sha256": "b3cb8201de84f733b0518ad68a9c0d0bc1e78534ffd39aca5d8c70f1bae69e76",
+          "bytes": 13337
+        },
+        {
+          "path": "research/quartic214/proofs/provider-scope-carry.md",
+          "sha256": "368774d2b96a606df4dd5e81a3c4fecaf22f09f33f27e49e0a80e37b02157154",
+          "bytes": 16324
+        },
+        {
+          "path": "research/quartic214/sources/conductor-sections1-3.md",
+          "sha256": "c2e04a42dd82e244b1872b4a9a7298f1a9e45ca49ffcc436ff7c5149d6ee5d88",
+          "bytes": 9028
+        }
+      ],
+      "evidence": [
+        {
+          "path": "research/quartic214/proofs/modularity.md",
+          "sha256": "814676050b389793d196346f45e2797f39e2c5be0f3fee8457bb709b2607606e",
+          "bytes": 25777,
+          "section": "## M4.",
+          "lines": [
+            63,
+            78
+          ],
+          "passage_sha256": "a01c7d071bbbfccacfba052ee4385a8e6d760eb3e2c4db13d75f83a8d4f1b20c",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/proofs/height-supplier.md",
+          "sha256": "4974b167ab415159e0ff996b341528008c2ba8ae8e2a1ebf69bab5bc9a9b9c12",
+          "bytes": 15498,
+          "section": "## H0.",
+          "lines": [
+            7,
+            32
+          ],
+          "passage_sha256": "3c61de9b62e636063cf74beddc40dd6b10ce7bada0c182b8a10432bd6bc34850",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/proofs/height-supplier.md",
+          "sha256": "4974b167ab415159e0ff996b341528008c2ba8ae8e2a1ebf69bab5bc9a9b9c12",
+          "bytes": 15498,
+          "section": "## H1.",
+          "lines": [
+            33,
+            61
+          ],
+          "passage_sha256": "6d034b817da3428e7d8eb8df1414f41e2616ae6b4726f8b3c9c18efaa6c2b4ea",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/proofs/height-supplier.md",
+          "sha256": "4974b167ab415159e0ff996b341528008c2ba8ae8e2a1ebf69bab5bc9a9b9c12",
+          "bytes": 15498,
+          "section": "## H2.",
+          "lines": [
+            62,
+            77
+          ],
+          "passage_sha256": "ec32f7e76b18652e57d4b1c8df302975d23b58dd28d6113bccad3c05aad9053f",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        }
+      ]
+    },
+    "downstream_consumption": {
+      "required_input": "H0.2finallevelatallprimes",
+      "constructed_input": "Actualglobalr3/r5isomorphisms",
+      "justification": "FeedsM5without changingcontrolledfieldsor ramificationT.",
+      "original_author_obligation_sha256": "71df45ca32973889968266f614ca69a43d3e19052d8ebb1c7298438c50e32376",
+      "original_author_source_ids": [
+        "Milne1986",
+        "Serre1968-reprint1989",
+        "private-v14-source"
+      ],
+      "status": "author_proposed_pending_eligible_independent_public_review",
+      "source_references": [
+        {
+          "path": "research/quartic214/PROOF.md",
+          "sha256": "0feb164c3ed33543136b89aa87b27bc890f4aadef2d082d465263f55dc26d165",
+          "bytes": 10582
+        },
+        {
+          "path": "research/quartic214/proofs/height-supplier.md",
+          "sha256": "4974b167ab415159e0ff996b341528008c2ba8ae8e2a1ebf69bab5bc9a9b9c12",
+          "bytes": 15498
+        },
+        {
+          "path": "research/quartic214/proofs/height-averaging.md",
+          "sha256": "bb87f61d7134c09d695f9bbff2c26b12b8c9ce5fe74a4ec598b2e4410f100192",
+          "bytes": 8145
+        },
+        {
+          "path": "research/quartic214/PRIMARY_SOURCES.json",
+          "sha256": "cfa7597432cd98c7184c0f9332c6d56f8ea53b208613aab0d855f5ffd1181161",
+          "bytes": 48789
+        },
+        {
+          "path": "research/version15/snapshots/v15-222-004/manuscript/quartic_v15.tex",
+          "sha256": "44ba3a8ec8521c29b81b26cfb9981cd6d5f3c76d54e7782438614842edb52c74",
+          "bytes": 1924438
+        },
+        {
+          "path": "research/quartic214/proofs/modularity.md",
+          "sha256": "814676050b389793d196346f45e2797f39e2c5be0f3fee8457bb709b2607606e",
+          "bytes": 25777
+        },
+        {
+          "path": "research/quartic214/proofs/geometry-carry.md",
+          "sha256": "b3cb8201de84f733b0518ad68a9c0d0bc1e78534ffd39aca5d8c70f1bae69e76",
+          "bytes": 13337
+        },
+        {
+          "path": "research/quartic214/proofs/provider-scope-carry.md",
+          "sha256": "368774d2b96a606df4dd5e81a3c4fecaf22f09f33f27e49e0a80e37b02157154",
+          "bytes": 16324
+        },
+        {
+          "path": "research/quartic214/sources/conductor-sections1-3.md",
+          "sha256": "c2e04a42dd82e244b1872b4a9a7298f1a9e45ca49ffcc436ff7c5149d6ee5d88",
+          "bytes": 9028
+        }
+      ],
+      "evidence": [
+        {
+          "path": "research/quartic214/proofs/modularity.md",
+          "sha256": "814676050b389793d196346f45e2797f39e2c5be0f3fee8457bb709b2607606e",
+          "bytes": 25777,
+          "section": "## M4.",
+          "lines": [
+            63,
+            78
+          ],
+          "passage_sha256": "a01c7d071bbbfccacfba052ee4385a8e6d760eb3e2c4db13d75f83a8d4f1b20c",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/proofs/height-supplier.md",
+          "sha256": "4974b167ab415159e0ff996b341528008c2ba8ae8e2a1ebf69bab5bc9a9b9c12",
+          "bytes": 15498,
+          "section": "## H0.",
+          "lines": [
+            7,
+            32
+          ],
+          "passage_sha256": "3c61de9b62e636063cf74beddc40dd6b10ce7bada0c182b8a10432bd6bc34850",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/proofs/height-supplier.md",
+          "sha256": "4974b167ab415159e0ff996b341528008c2ba8ae8e2a1ebf69bab5bc9a9b9c12",
+          "bytes": 15498,
+          "section": "## H1.",
+          "lines": [
+            33,
+            61
+          ],
+          "passage_sha256": "6d034b817da3428e7d8eb8df1414f41e2616ae6b4726f8b3c9c18efaa6c2b4ea",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/proofs/height-supplier.md",
+          "sha256": "4974b167ab415159e0ff996b341528008c2ba8ae8e2a1ebf69bab5bc9a9b9c12",
+          "bytes": 15498,
+          "section": "## H2.",
+          "lines": [
+            62,
+            77
+          ],
+          "passage_sha256": "ec32f7e76b18652e57d4b1c8df302975d23b58dd28d6113bccad3c05aad9053f",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        }
+      ]
+    }
+  },
+  "independent_acceptance": null
+}

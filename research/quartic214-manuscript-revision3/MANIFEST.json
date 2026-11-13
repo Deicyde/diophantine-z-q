@@ -1,0 +1,89 @@
+{
+  "schema": "quartic214-revision3-artifact-manifest/v1",
+  "author": "/root",
+  "role": "exact artifact binding, not independent acceptance",
+  "files": [
+    {
+      "path": "research/quartic214-manuscript-revision3/assemble.py",
+      "sha256": "a05f5e7b0a1f744522d223bd867a118a66d8c34c4361a5a6a35756664bd5e408",
+      "bytes": 2816
+    },
+    {
+      "path": "research/quartic214-manuscript-revision3/BUILD.json",
+      "sha256": "29be3e16178faa673bd06be2beeacb70c10a6f6b8cfc28255d067d6a46c80e45",
+      "bytes": 39268
+    },
+    {
+      "path": "research/quartic214-manuscript-revision3/build_pdf.py",
+      "sha256": "ccad99e43c1f62a9eaa50397473bbf6684d01ca69473b3f327462fa04c04c7ea",
+      "bytes": 500
+    },
+    {
+      "path": "research/quartic214-manuscript-revision3/check_records.py",
+      "sha256": "2146cf8e211bc0823fe0746bafbe77b07cb8b38d8b3b4b29bee0fb35d60e4189",
+      "bytes": 6676
+    },
+    {
+      "path": "research/quartic214-manuscript-revision3/CORRECTIONS.json",
+      "sha256": "59eac7bf89978860d17906abf5f389f0aae8332ca829f498deede38db78ccfd9",
+      "bytes": 6471
+    },
+    {
+      "path": "research/quartic214-manuscript-revision3/quartic214.pdf",
+      "sha256": "a73d90e445dc8ee12fdf96476da2320a61d96b23dbc2c9b5107d5af0c2a745a4",
+      "bytes": 3943342
+    },
+    {
+      "path": "research/quartic214-manuscript-revision3/quartic214.tex",
+      "sha256": "938d96e6d310b2b551f610e2a23b662f147bd2eb4b05ec222d274b0b8be55d6b",
+      "bytes": 2339112
+    },
+    {
+      "path": "research/quartic214-manuscript-revision3/README.md",
+      "sha256": "44da1c86ed49a821bff1e601e18e93952648a25bf8b82cd62e9ff63b69bb8e89",
+      "bytes": 2225
+    },
+    {
+      "path": "research/quartic214-manuscript-revision3/SOURCE_SPANS.json",
+      "sha256": "b34f97f1d58d64f1f49a707e1397d5930fb9054da8e36878a5cd801e77076068",
+      "bytes": 450708
+    }
+  ],
+  "external_bindings": [
+    {
+      "path": "CURRENT_214_REVISION3.md",
+      "sha256": "afa98310c4c2e170eb6c917fd35e6ba1c707cfcaba8b007f7ca214f1bc9dad7d",
+      "bytes": 1343
+    },
+    {
+      "path": ".github/workflows/quartic214-manuscript-revision3.yml",
+      "sha256": "7631535bb64b616b869bf71f1da392a32a7f0006ba7d07ecd5af424b8f26d158",
+      "bytes": 1347
+    },
+    {
+      "path": "research/quartic214-manuscript/build_pdf.py",
+      "sha256": "9330fb6dfa4c1e4821062df9f6a5b76dacfbc4767bbd878709cba0f39ebe1e07",
+      "bytes": 9382
+    },
+    {
+      "path": "research/quartic214-manuscript-revision2/quartic214.tex",
+      "sha256": "b03b39d2e0f5593be29d3d2838cd33e7449b4b5b1ccb0b7dee8a9a6d2af4767f",
+      "bytes": 2339106
+    },
+    {
+      "path": "research/quartic214-manuscript-revision2/SOURCE_SPANS.json",
+      "sha256": "e1b6f466573269008f10e06db106b15841545663a1de8b3ebe5203a8f188de55",
+      "bytes": 439656
+    },
+    {
+      "path": "research/quartic214/proofs/uniform-existence.md",
+      "sha256": "d13cc2b846dc72a3f5b5cce8dcf11d3f11b33c45ebc3883263840afb8d82f3bc",
+      "bytes": 22294
+    },
+    {
+      "path": "research/quartic214-protocol-d-progress/reviews/closure-review/SOURCE_USE_RECONCILED.json",
+      "sha256": "3fb2219efe4204ac1b1dea2ba15a3d9d7cabafb0cacc56f1c38d95de8a7bbfc2",
+      "bytes": 15776
+    }
+  ]
+}

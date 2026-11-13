@@ -1,0 +1,10 @@
+{
+  "protocol_coverage": "1.4-substantive-records-reviewed",
+  "connection_record_sha256": "c17a7e21f45921de51fbfd5fe14a8f2b15c803aa1c67e6ca5944d8feae10c189",
+  "connection_count": 40,
+  "related_finding_count": 31,
+  "protocol14_limitation": "Checks exact declared relationships, evidence bytes and reviewer bindings only. Does not establish mathematical truth, inventory/search completeness, honest review or independence of thought. No release or publication authorization.",
+  "actual_review_run": "01a1d4a0-bf87-7e92-8ae9-c4d26efba54f",
+  "source_extension_structure": "PASS",
+  "scope": "Isolated exact hash/schema/continuation check with permissive in-memory application files and observed identity labels. It does not authenticate identities or replace actual application-file closure, receipts or protected acceptance."
+}

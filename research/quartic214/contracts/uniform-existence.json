@@ -1,0 +1,2138 @@
+{
+  "schema": "quartic214-public-application-contract-v1",
+  "application_id": "D214-UNIFORM-EXISTENCE-20261111",
+  "authors": [
+    "/root/d214_uniform_existence"
+  ],
+  "public_port_author": "/root/d214_public_port",
+  "status": "author_proposed_pending_eligible_independent_public_review",
+  "original_author_contract": {
+    "path": "author-supplement/2026-11-11/existence/CONTRACT.json",
+    "sha256": "b77e0a527346c7525c510c59a46ca7d18e908084c4817bed42696945cb5a07ec",
+    "bytes": 184376,
+    "application_id": "D214-UNIFORM-EXISTENCE-20261111"
+  },
+  "serialization": "Public whole-file and freshly located passage pins replace original private pins; no old approval is transferred.",
+  "manuscript": {
+    "path": "research/quartic214/PROOF.md",
+    "sha256": "0feb164c3ed33543136b89aa87b27bc890f4aadef2d082d465263f55dc26d165",
+    "bytes": 10582
+  },
+  "proof": {
+    "path": "research/quartic214/proofs/uniform-existence.md",
+    "sha256": "d13cc2b846dc72a3f5b5cce8dcf11d3f11b33c45ebc3883263840afb8d82f3bc",
+    "bytes": 22294
+  },
+  "construction_passages": [
+    {
+      "path": "research/quartic214/proofs/uniform-existence.md",
+      "sha256": "d13cc2b846dc72a3f5b5cce8dcf11d3f11b33c45ebc3883263840afb8d82f3bc",
+      "bytes": 22294,
+      "section": "[P01:",
+      "lines": [
+        5,
+        11
+      ],
+      "passage_sha256": "cac4ef0c21ba83314e59ffa0579adf0f51a8c2e818f4cec623a185f5a3dd7687",
+      "line_convention": "1-based inclusive raw splitlines with endings retained"
+    },
+    {
+      "path": "research/quartic214/proofs/uniform-existence.md",
+      "sha256": "d13cc2b846dc72a3f5b5cce8dcf11d3f11b33c45ebc3883263840afb8d82f3bc",
+      "bytes": 22294,
+      "section": "[P05:",
+      "lines": [
+        18,
+        27
+      ],
+      "passage_sha256": "b70bd6cb7d0d2097d023c5bea0d360109ee7aa687300ed1848e20bbfa6c0f67f",
+      "line_convention": "1-based inclusive raw splitlines with endings retained"
+    },
+    {
+      "path": "research/quartic214/proofs/uniform-existence.md",
+      "sha256": "d13cc2b846dc72a3f5b5cce8dcf11d3f11b33c45ebc3883263840afb8d82f3bc",
+      "bytes": 22294,
+      "section": "[P08:",
+      "lines": [
+        36,
+        37
+      ],
+      "passage_sha256": "6f01da126da1b4379ae0ee4b20ad0db063dff200d7dd07ee1209e033392b025f",
+      "line_convention": "1-based inclusive raw splitlines with endings retained"
+    },
+    {
+      "path": "research/quartic214/proofs/uniform-existence.md",
+      "sha256": "d13cc2b846dc72a3f5b5cce8dcf11d3f11b33c45ebc3883263840afb8d82f3bc",
+      "bytes": 22294,
+      "section": "[P10:",
+      "lines": [
+        40,
+        45
+      ],
+      "passage_sha256": "ec1d73015e71b840bad438043a2423d88398b870efcb51117d5f185b5674c451",
+      "line_convention": "1-based inclusive raw splitlines with endings retained"
+    },
+    {
+      "path": "research/quartic214/proofs/uniform-existence.md",
+      "sha256": "d13cc2b846dc72a3f5b5cce8dcf11d3f11b33c45ebc3883263840afb8d82f3bc",
+      "bytes": 22294,
+      "section": "[P11:",
+      "lines": [
+        46,
+        47
+      ],
+      "passage_sha256": "0f25cf01d2440fd92863219bf273040a1d8142237f021c0991966f67f9787d66",
+      "line_convention": "1-based inclusive raw splitlines with endings retained"
+    },
+    {
+      "path": "research/quartic214/proofs/uniform-existence.md",
+      "sha256": "d13cc2b846dc72a3f5b5cce8dcf11d3f11b33c45ebc3883263840afb8d82f3bc",
+      "bytes": 22294,
+      "section": "[P14:",
+      "lines": [
+        67,
+        68
+      ],
+      "passage_sha256": "75309fb18a5de7c52de87fbf2d0902c9f9352c380feb5431afeeae624417718b",
+      "line_convention": "1-based inclusive raw splitlines with endings retained"
+    },
+    {
+      "path": "research/quartic214/proofs/uniform-existence.md",
+      "sha256": "d13cc2b846dc72a3f5b5cce8dcf11d3f11b33c45ebc3883263840afb8d82f3bc",
+      "bytes": 22294,
+      "section": "[P15:",
+      "lines": [
+        69,
+        70
+      ],
+      "passage_sha256": "493a36c877e53621aa3542fa8a48f824eda6177d5889bb0dd60963a2c86146e3",
+      "line_convention": "1-based inclusive raw splitlines with endings retained"
+    },
+    {
+      "path": "research/quartic214/proofs/uniform-existence.md",
+      "sha256": "d13cc2b846dc72a3f5b5cce8dcf11d3f11b33c45ebc3883263840afb8d82f3bc",
+      "bytes": 22294,
+      "section": "[P19:",
+      "lines": [
+        82,
+        83
+      ],
+      "passage_sha256": "d6a8bdbdff3744b70becebf04dc13868154836f381b6ca5e339886dc9d2deef3",
+      "line_convention": "1-based inclusive raw splitlines with endings retained"
+    },
+    {
+      "path": "research/quartic214/proofs/uniform-existence.md",
+      "sha256": "d13cc2b846dc72a3f5b5cce8dcf11d3f11b33c45ebc3883263840afb8d82f3bc",
+      "bytes": 22294,
+      "section": "[P20:",
+      "lines": [
+        84,
+        84
+      ],
+      "passage_sha256": "2ef064324d6b4998acb95450946310eefab309878bc9b742fb6473a4dbc78e98",
+      "line_convention": "1-based inclusive raw splitlines with endings retained"
+    }
+  ],
+  "application_passages": [
+    {
+      "path": "research/quartic214/proofs/uniform-existence.md",
+      "sha256": "d13cc2b846dc72a3f5b5cce8dcf11d3f11b33c45ebc3883263840afb8d82f3bc",
+      "bytes": 22294,
+      "section": "[P01:",
+      "lines": [
+        5,
+        11
+      ],
+      "passage_sha256": "cac4ef0c21ba83314e59ffa0579adf0f51a8c2e818f4cec623a185f5a3dd7687",
+      "line_convention": "1-based inclusive raw splitlines with endings retained"
+    },
+    {
+      "path": "research/quartic214/proofs/uniform-existence.md",
+      "sha256": "d13cc2b846dc72a3f5b5cce8dcf11d3f11b33c45ebc3883263840afb8d82f3bc",
+      "bytes": 22294,
+      "section": "[P05:",
+      "lines": [
+        18,
+        27
+      ],
+      "passage_sha256": "b70bd6cb7d0d2097d023c5bea0d360109ee7aa687300ed1848e20bbfa6c0f67f",
+      "line_convention": "1-based inclusive raw splitlines with endings retained"
+    },
+    {
+      "path": "research/quartic214/proofs/uniform-existence.md",
+      "sha256": "d13cc2b846dc72a3f5b5cce8dcf11d3f11b33c45ebc3883263840afb8d82f3bc",
+      "bytes": 22294,
+      "section": "[P08:",
+      "lines": [
+        36,
+        37
+      ],
+      "passage_sha256": "6f01da126da1b4379ae0ee4b20ad0db063dff200d7dd07ee1209e033392b025f",
+      "line_convention": "1-based inclusive raw splitlines with endings retained"
+    },
+    {
+      "path": "research/quartic214/proofs/uniform-existence.md",
+      "sha256": "d13cc2b846dc72a3f5b5cce8dcf11d3f11b33c45ebc3883263840afb8d82f3bc",
+      "bytes": 22294,
+      "section": "[P10:",
+      "lines": [
+        40,
+        45
+      ],
+      "passage_sha256": "ec1d73015e71b840bad438043a2423d88398b870efcb51117d5f185b5674c451",
+      "line_convention": "1-based inclusive raw splitlines with endings retained"
+    },
+    {
+      "path": "research/quartic214/proofs/uniform-existence.md",
+      "sha256": "d13cc2b846dc72a3f5b5cce8dcf11d3f11b33c45ebc3883263840afb8d82f3bc",
+      "bytes": 22294,
+      "section": "[P11:",
+      "lines": [
+        46,
+        47
+      ],
+      "passage_sha256": "0f25cf01d2440fd92863219bf273040a1d8142237f021c0991966f67f9787d66",
+      "line_convention": "1-based inclusive raw splitlines with endings retained"
+    },
+    {
+      "path": "research/quartic214/proofs/uniform-existence.md",
+      "sha256": "d13cc2b846dc72a3f5b5cce8dcf11d3f11b33c45ebc3883263840afb8d82f3bc",
+      "bytes": 22294,
+      "section": "[P14:",
+      "lines": [
+        67,
+        68
+      ],
+      "passage_sha256": "75309fb18a5de7c52de87fbf2d0902c9f9352c380feb5431afeeae624417718b",
+      "line_convention": "1-based inclusive raw splitlines with endings retained"
+    },
+    {
+      "path": "research/quartic214/proofs/uniform-existence.md",
+      "sha256": "d13cc2b846dc72a3f5b5cce8dcf11d3f11b33c45ebc3883263840afb8d82f3bc",
+      "bytes": 22294,
+      "section": "[P15:",
+      "lines": [
+        69,
+        70
+      ],
+      "passage_sha256": "493a36c877e53621aa3542fa8a48f824eda6177d5889bb0dd60963a2c86146e3",
+      "line_convention": "1-based inclusive raw splitlines with endings retained"
+    },
+    {
+      "path": "research/quartic214/proofs/uniform-existence.md",
+      "sha256": "d13cc2b846dc72a3f5b5cce8dcf11d3f11b33c45ebc3883263840afb8d82f3bc",
+      "bytes": 22294,
+      "section": "[P19:",
+      "lines": [
+        82,
+        83
+      ],
+      "passage_sha256": "d6a8bdbdff3744b70becebf04dc13868154836f381b6ca5e339886dc9d2deef3",
+      "line_convention": "1-based inclusive raw splitlines with endings retained"
+    },
+    {
+      "path": "research/quartic214/proofs/uniform-existence.md",
+      "sha256": "d13cc2b846dc72a3f5b5cce8dcf11d3f11b33c45ebc3883263840afb8d82f3bc",
+      "bytes": 22294,
+      "section": "[P20:",
+      "lines": [
+        84,
+        84
+      ],
+      "passage_sha256": "2ef064324d6b4998acb95450946310eefab309878bc9b742fb6473a4dbc78e98",
+      "line_convention": "1-based inclusive raw splitlines with endings retained"
+    }
+  ],
+  "consumer_passages": [
+    {
+      "path": "research/quartic214/PROOF.md",
+      "sha256": "0feb164c3ed33543136b89aa87b27bc890f4aadef2d082d465263f55dc26d165",
+      "bytes": 10582,
+      "section": "Soundness with one fixed threshold",
+      "lines": [
+        29,
+        38
+      ],
+      "passage_sha256": "6e65dfeb73c7a0681090c423f84d31cb78944693d02f52287d77d87b7d0afe34",
+      "line_convention": "1-based inclusive raw splitlines with endings retained"
+    },
+    {
+      "path": "research/quartic214/PROOF.md",
+      "sha256": "0feb164c3ed33543136b89aa87b27bc890f4aadef2d082d465263f55dc26d165",
+      "bytes": 10582,
+      "section": "Completeness and quantifiers",
+      "lines": [
+        39,
+        44
+      ],
+      "passage_sha256": "54c2502fc15a033bc5182a97f2ee7a348f20732ffe372a8c2eedb4891588d3f2",
+      "line_convention": "1-based inclusive raw splitlines with endings retained"
+    }
+  ],
+  "required_sources": [
+    {
+      "path": "research/quartic214/PROOF.md",
+      "sha256": "0feb164c3ed33543136b89aa87b27bc890f4aadef2d082d465263f55dc26d165",
+      "bytes": 10582
+    },
+    {
+      "path": "research/quartic214/proofs/height-supplier.md",
+      "sha256": "4974b167ab415159e0ff996b341528008c2ba8ae8e2a1ebf69bab5bc9a9b9c12",
+      "bytes": 15498
+    },
+    {
+      "path": "research/quartic214/proofs/height-averaging.md",
+      "sha256": "bb87f61d7134c09d695f9bbff2c26b12b8c9ce5fe74a4ec598b2e4410f100192",
+      "bytes": 8145
+    },
+    {
+      "path": "research/quartic214/PRIMARY_SOURCES.json",
+      "sha256": "cfa7597432cd98c7184c0f9332c6d56f8ea53b208613aab0d855f5ffd1181161",
+      "bytes": 48789
+    },
+    {
+      "path": "research/version15/snapshots/v15-222-004/manuscript/quartic_v15.tex",
+      "sha256": "44ba3a8ec8521c29b81b26cfb9981cd6d5f3c76d54e7782438614842edb52c74",
+      "bytes": 1924438
+    },
+    {
+      "path": "research/quartic214/proofs/uniform-existence.md",
+      "sha256": "d13cc2b846dc72a3f5b5cce8dcf11d3f11b33c45ebc3883263840afb8d82f3bc",
+      "bytes": 22294
+    },
+    {
+      "path": "research/quartic214/construction/check_exact.py",
+      "sha256": "07527831694fc6be9373e2dac92d292520fbb8c79128e4d51a1ae0128c96e214",
+      "bytes": 7372
+    },
+    {
+      "path": "research/quartic214/proofs/source-carry.md",
+      "sha256": "f7f4e550a4dcfbbd3b5ffcf783b11411f7888c821dbab7febb5132b7b2b891ed",
+      "bytes": 15185
+    },
+    {
+      "path": "research/quartic214/sources/aggregate-bridge.md",
+      "sha256": "668e84f5864b5961b67599ef9c3ffd1b44c66c93679cef9853ef596fce4267f5",
+      "bytes": 7628
+    },
+    {
+      "path": "research/quartic214/sources/factor-extraction.tex",
+      "sha256": "38236daca2811087e08e7f26eb79504dc25171dc78019a557d99966471edb109",
+      "bytes": 5809
+    }
+  ],
+  "obligations": {
+    "source_hypotheses": {
+      "required_input": "The fixed 214 family; Von Buhren Theorem 1.1 with its embedding, finite-rank and exceptional-translate hypotheses; the fixed-data prime theorem; the exact zero-preparation and RC domains; the full-family contact-height premise.",
+      "constructed_input": "The same 188 residuals and fixed A_N; the E0^8 sum graph and fixed Gamma; fixed prime coefficients after scales; fresh actual pole inputs; positive squarefree parameters congruent to 11 modulo 12 on the non-CM RC curve.",
+      "justification": "P08\u2013P10 check the actual embedding, translates and physical normalization. P15\u2013P19 check the fixed-data selection and pole/RC hypotheses. The recursive foundation review boundary is explicit in P02.",
+      "original_author_obligation_sha256": "64e0aca5f5603d710b89fe4d03fb11d062fa9f95fc0cbd7c2e94f4996c4dd231",
+      "original_author_source_ids": [
+        "U01",
+        "U03",
+        "U04",
+        "U07",
+        "U09"
+      ],
+      "status": "author_proposed_pending_eligible_independent_public_review",
+      "source_references": [
+        {
+          "path": "research/quartic214/PROOF.md",
+          "sha256": "0feb164c3ed33543136b89aa87b27bc890f4aadef2d082d465263f55dc26d165",
+          "bytes": 10582
+        },
+        {
+          "path": "research/quartic214/proofs/height-supplier.md",
+          "sha256": "4974b167ab415159e0ff996b341528008c2ba8ae8e2a1ebf69bab5bc9a9b9c12",
+          "bytes": 15498
+        },
+        {
+          "path": "research/quartic214/proofs/height-averaging.md",
+          "sha256": "bb87f61d7134c09d695f9bbff2c26b12b8c9ce5fe74a4ec598b2e4410f100192",
+          "bytes": 8145
+        },
+        {
+          "path": "research/quartic214/PRIMARY_SOURCES.json",
+          "sha256": "cfa7597432cd98c7184c0f9332c6d56f8ea53b208613aab0d855f5ffd1181161",
+          "bytes": 48789
+        },
+        {
+          "path": "research/version15/snapshots/v15-222-004/manuscript/quartic_v15.tex",
+          "sha256": "44ba3a8ec8521c29b81b26cfb9981cd6d5f3c76d54e7782438614842edb52c74",
+          "bytes": 1924438
+        },
+        {
+          "path": "research/quartic214/proofs/uniform-existence.md",
+          "sha256": "d13cc2b846dc72a3f5b5cce8dcf11d3f11b33c45ebc3883263840afb8d82f3bc",
+          "bytes": 22294
+        },
+        {
+          "path": "research/quartic214/construction/check_exact.py",
+          "sha256": "07527831694fc6be9373e2dac92d292520fbb8c79128e4d51a1ae0128c96e214",
+          "bytes": 7372
+        },
+        {
+          "path": "research/quartic214/proofs/source-carry.md",
+          "sha256": "f7f4e550a4dcfbbd3b5ffcf783b11411f7888c821dbab7febb5132b7b2b891ed",
+          "bytes": 15185
+        },
+        {
+          "path": "research/quartic214/sources/aggregate-bridge.md",
+          "sha256": "668e84f5864b5961b67599ef9c3ffd1b44c66c93679cef9853ef596fce4267f5",
+          "bytes": 7628
+        },
+        {
+          "path": "research/quartic214/sources/factor-extraction.tex",
+          "sha256": "38236daca2811087e08e7f26eb79504dc25171dc78019a557d99966471edb109",
+          "bytes": 5809
+        }
+      ],
+      "evidence": [
+        {
+          "path": "research/quartic214/proofs/uniform-existence.md",
+          "sha256": "d13cc2b846dc72a3f5b5cce8dcf11d3f11b33c45ebc3883263840afb8d82f3bc",
+          "bytes": 22294,
+          "section": "[P01:",
+          "lines": [
+            5,
+            11
+          ],
+          "passage_sha256": "cac4ef0c21ba83314e59ffa0579adf0f51a8c2e818f4cec623a185f5a3dd7687",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/proofs/uniform-existence.md",
+          "sha256": "d13cc2b846dc72a3f5b5cce8dcf11d3f11b33c45ebc3883263840afb8d82f3bc",
+          "bytes": 22294,
+          "section": "[P05:",
+          "lines": [
+            18,
+            27
+          ],
+          "passage_sha256": "b70bd6cb7d0d2097d023c5bea0d360109ee7aa687300ed1848e20bbfa6c0f67f",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/proofs/uniform-existence.md",
+          "sha256": "d13cc2b846dc72a3f5b5cce8dcf11d3f11b33c45ebc3883263840afb8d82f3bc",
+          "bytes": 22294,
+          "section": "[P08:",
+          "lines": [
+            36,
+            37
+          ],
+          "passage_sha256": "6f01da126da1b4379ae0ee4b20ad0db063dff200d7dd07ee1209e033392b025f",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/proofs/uniform-existence.md",
+          "sha256": "d13cc2b846dc72a3f5b5cce8dcf11d3f11b33c45ebc3883263840afb8d82f3bc",
+          "bytes": 22294,
+          "section": "[P10:",
+          "lines": [
+            40,
+            45
+          ],
+          "passage_sha256": "ec1d73015e71b840bad438043a2423d88398b870efcb51117d5f185b5674c451",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/proofs/uniform-existence.md",
+          "sha256": "d13cc2b846dc72a3f5b5cce8dcf11d3f11b33c45ebc3883263840afb8d82f3bc",
+          "bytes": 22294,
+          "section": "[P11:",
+          "lines": [
+            46,
+            47
+          ],
+          "passage_sha256": "0f25cf01d2440fd92863219bf273040a1d8142237f021c0991966f67f9787d66",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/proofs/uniform-existence.md",
+          "sha256": "d13cc2b846dc72a3f5b5cce8dcf11d3f11b33c45ebc3883263840afb8d82f3bc",
+          "bytes": 22294,
+          "section": "[P14:",
+          "lines": [
+            67,
+            68
+          ],
+          "passage_sha256": "75309fb18a5de7c52de87fbf2d0902c9f9352c380feb5431afeeae624417718b",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/proofs/uniform-existence.md",
+          "sha256": "d13cc2b846dc72a3f5b5cce8dcf11d3f11b33c45ebc3883263840afb8d82f3bc",
+          "bytes": 22294,
+          "section": "[P15:",
+          "lines": [
+            69,
+            70
+          ],
+          "passage_sha256": "493a36c877e53621aa3542fa8a48f824eda6177d5889bb0dd60963a2c86146e3",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/proofs/uniform-existence.md",
+          "sha256": "d13cc2b846dc72a3f5b5cce8dcf11d3f11b33c45ebc3883263840afb8d82f3bc",
+          "bytes": 22294,
+          "section": "[P19:",
+          "lines": [
+            82,
+            83
+          ],
+          "passage_sha256": "d6a8bdbdff3744b70becebf04dc13868154836f381b6ca5e339886dc9d2deef3",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/proofs/uniform-existence.md",
+          "sha256": "d13cc2b846dc72a3f5b5cce8dcf11d3f11b33c45ebc3883263840afb8d82f3bc",
+          "bytes": 22294,
+          "section": "[P20:",
+          "lines": [
+            84,
+            84
+          ],
+          "passage_sha256": "2ef064324d6b4998acb95450946310eefab309878bc9b742fb6473a4dbc78e98",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/PROOF.md",
+          "sha256": "0feb164c3ed33543136b89aa87b27bc890f4aadef2d082d465263f55dc26d165",
+          "bytes": 10582,
+          "section": "Soundness with one fixed threshold",
+          "lines": [
+            29,
+            38
+          ],
+          "passage_sha256": "6e65dfeb73c7a0681090c423f84d31cb78944693d02f52287d77d87b7d0afe34",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/PROOF.md",
+          "sha256": "0feb164c3ed33543136b89aa87b27bc890f4aadef2d082d465263f55dc26d165",
+          "bytes": 10582,
+          "section": "Completeness and quantifiers",
+          "lines": [
+            39,
+            44
+          ],
+          "passage_sha256": "54c2502fc15a033bc5182a97f2ee7a348f20732ffe372a8c2eedb4891588d3f2",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        }
+      ]
+    },
+    "constructed_objects": {
+      "required_input": "The actual raw224 reference, scalar and root objects, physical scales, changed factors and integer residuals consumed downstream.",
+      "constructed_input": "The K curve restored before ratios; quarter-trace T and physical lambda,T*lambda; exponents 5,2,4 and special exponent 3; actual Delta and reduced numerator J; actual new pole input gamma^2*R/Tr(W^-1)^2.",
+      "justification": "P03\u2013P07 and P19 identify these objects without substituting a product trace, sibling scale, old pole certificate or scalar multiple of a residual. Existing inverse maps restore deleted powers with their original guards.",
+      "original_author_obligation_sha256": "38664ad082aa56b31e9315635634975cfc3577a3c52c4a8f2f398f5f19f5d819",
+      "original_author_source_ids": [
+        "U01",
+        "U02",
+        "U03",
+        "U08",
+        "U09"
+      ],
+      "status": "author_proposed_pending_eligible_independent_public_review",
+      "source_references": [
+        {
+          "path": "research/quartic214/PROOF.md",
+          "sha256": "0feb164c3ed33543136b89aa87b27bc890f4aadef2d082d465263f55dc26d165",
+          "bytes": 10582
+        },
+        {
+          "path": "research/quartic214/proofs/height-supplier.md",
+          "sha256": "4974b167ab415159e0ff996b341528008c2ba8ae8e2a1ebf69bab5bc9a9b9c12",
+          "bytes": 15498
+        },
+        {
+          "path": "research/quartic214/proofs/height-averaging.md",
+          "sha256": "bb87f61d7134c09d695f9bbff2c26b12b8c9ce5fe74a4ec598b2e4410f100192",
+          "bytes": 8145
+        },
+        {
+          "path": "research/quartic214/PRIMARY_SOURCES.json",
+          "sha256": "cfa7597432cd98c7184c0f9332c6d56f8ea53b208613aab0d855f5ffd1181161",
+          "bytes": 48789
+        },
+        {
+          "path": "research/version15/snapshots/v15-222-004/manuscript/quartic_v15.tex",
+          "sha256": "44ba3a8ec8521c29b81b26cfb9981cd6d5f3c76d54e7782438614842edb52c74",
+          "bytes": 1924438
+        },
+        {
+          "path": "research/quartic214/proofs/uniform-existence.md",
+          "sha256": "d13cc2b846dc72a3f5b5cce8dcf11d3f11b33c45ebc3883263840afb8d82f3bc",
+          "bytes": 22294
+        },
+        {
+          "path": "research/quartic214/construction/check_exact.py",
+          "sha256": "07527831694fc6be9373e2dac92d292520fbb8c79128e4d51a1ae0128c96e214",
+          "bytes": 7372
+        },
+        {
+          "path": "research/quartic214/proofs/source-carry.md",
+          "sha256": "f7f4e550a4dcfbbd3b5ffcf783b11411f7888c821dbab7febb5132b7b2b891ed",
+          "bytes": 15185
+        },
+        {
+          "path": "research/quartic214/sources/aggregate-bridge.md",
+          "sha256": "668e84f5864b5961b67599ef9c3ffd1b44c66c93679cef9853ef596fce4267f5",
+          "bytes": 7628
+        },
+        {
+          "path": "research/quartic214/sources/factor-extraction.tex",
+          "sha256": "38236daca2811087e08e7f26eb79504dc25171dc78019a557d99966471edb109",
+          "bytes": 5809
+        }
+      ],
+      "evidence": [
+        {
+          "path": "research/quartic214/proofs/uniform-existence.md",
+          "sha256": "d13cc2b846dc72a3f5b5cce8dcf11d3f11b33c45ebc3883263840afb8d82f3bc",
+          "bytes": 22294,
+          "section": "[P01:",
+          "lines": [
+            5,
+            11
+          ],
+          "passage_sha256": "cac4ef0c21ba83314e59ffa0579adf0f51a8c2e818f4cec623a185f5a3dd7687",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/proofs/uniform-existence.md",
+          "sha256": "d13cc2b846dc72a3f5b5cce8dcf11d3f11b33c45ebc3883263840afb8d82f3bc",
+          "bytes": 22294,
+          "section": "[P05:",
+          "lines": [
+            18,
+            27
+          ],
+          "passage_sha256": "b70bd6cb7d0d2097d023c5bea0d360109ee7aa687300ed1848e20bbfa6c0f67f",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/proofs/uniform-existence.md",
+          "sha256": "d13cc2b846dc72a3f5b5cce8dcf11d3f11b33c45ebc3883263840afb8d82f3bc",
+          "bytes": 22294,
+          "section": "[P08:",
+          "lines": [
+            36,
+            37
+          ],
+          "passage_sha256": "6f01da126da1b4379ae0ee4b20ad0db063dff200d7dd07ee1209e033392b025f",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/proofs/uniform-existence.md",
+          "sha256": "d13cc2b846dc72a3f5b5cce8dcf11d3f11b33c45ebc3883263840afb8d82f3bc",
+          "bytes": 22294,
+          "section": "[P10:",
+          "lines": [
+            40,
+            45
+          ],
+          "passage_sha256": "ec1d73015e71b840bad438043a2423d88398b870efcb51117d5f185b5674c451",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/proofs/uniform-existence.md",
+          "sha256": "d13cc2b846dc72a3f5b5cce8dcf11d3f11b33c45ebc3883263840afb8d82f3bc",
+          "bytes": 22294,
+          "section": "[P11:",
+          "lines": [
+            46,
+            47
+          ],
+          "passage_sha256": "0f25cf01d2440fd92863219bf273040a1d8142237f021c0991966f67f9787d66",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/proofs/uniform-existence.md",
+          "sha256": "d13cc2b846dc72a3f5b5cce8dcf11d3f11b33c45ebc3883263840afb8d82f3bc",
+          "bytes": 22294,
+          "section": "[P14:",
+          "lines": [
+            67,
+            68
+          ],
+          "passage_sha256": "75309fb18a5de7c52de87fbf2d0902c9f9352c380feb5431afeeae624417718b",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/proofs/uniform-existence.md",
+          "sha256": "d13cc2b846dc72a3f5b5cce8dcf11d3f11b33c45ebc3883263840afb8d82f3bc",
+          "bytes": 22294,
+          "section": "[P15:",
+          "lines": [
+            69,
+            70
+          ],
+          "passage_sha256": "493a36c877e53621aa3542fa8a48f824eda6177d5889bb0dd60963a2c86146e3",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/proofs/uniform-existence.md",
+          "sha256": "d13cc2b846dc72a3f5b5cce8dcf11d3f11b33c45ebc3883263840afb8d82f3bc",
+          "bytes": 22294,
+          "section": "[P19:",
+          "lines": [
+            82,
+            83
+          ],
+          "passage_sha256": "d6a8bdbdff3744b70becebf04dc13868154836f381b6ca5e339886dc9d2deef3",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/proofs/uniform-existence.md",
+          "sha256": "d13cc2b846dc72a3f5b5cce8dcf11d3f11b33c45ebc3883263840afb8d82f3bc",
+          "bytes": 22294,
+          "section": "[P20:",
+          "lines": [
+            84,
+            84
+          ],
+          "passage_sha256": "2ef064324d6b4998acb95450946310eefab309878bc9b742fb6473a4dbc78e98",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/PROOF.md",
+          "sha256": "0feb164c3ed33543136b89aa87b27bc890f4aadef2d082d465263f55dc26d165",
+          "bytes": 10582,
+          "section": "Soundness with one fixed threshold",
+          "lines": [
+            29,
+            38
+          ],
+          "passage_sha256": "6e65dfeb73c7a0681090c423f84d31cb78944693d02f52287d77d87b7d0afe34",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/PROOF.md",
+          "sha256": "0feb164c3ed33543136b89aa87b27bc890f4aadef2d082d465263f55dc26d165",
+          "bytes": 10582,
+          "section": "Completeness and quantifiers",
+          "lines": [
+            39,
+            44
+          ],
+          "passage_sha256": "54c2502fc15a033bc5182a97f2ee7a348f20732ffe372a8c2eedb4891588d3f2",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        }
+      ]
+    },
+    "index_domain_coverage": {
+      "required_input": "All rational inputs and rational 214 solutions for soundness; all nonzero integer labels, including repeated and negative labels; both radicals; every integer input for completeness; one N0 for every larger N.",
+      "constructed_input": "Soundness includes deep odd contacts, split and inert places, zero tested numerators and radical-one strata. The sum aggregate permits arbitrary nonzero labels. Completeness makes input-dependent fixed choices after a uniform scalar threshold N_C.",
+      "justification": "P11\u2013P12 construct N_S from fixed constants; P13\u2013P14 construct N_C uniformly in integer x; P20 takes their maximum. Repeated coefficients are merged while every incidence is retained.",
+      "original_author_obligation_sha256": "6a534eee78320d5e5f309f27a74798d37aa709afd440ba5bf917ce36cdd5e0b0",
+      "original_author_source_ids": [
+        "U01",
+        "U02",
+        "U03",
+        "U05",
+        "U06",
+        "U07",
+        "U08"
+      ],
+      "status": "author_proposed_pending_eligible_independent_public_review",
+      "source_references": [
+        {
+          "path": "research/quartic214/PROOF.md",
+          "sha256": "0feb164c3ed33543136b89aa87b27bc890f4aadef2d082d465263f55dc26d165",
+          "bytes": 10582
+        },
+        {
+          "path": "research/quartic214/proofs/height-supplier.md",
+          "sha256": "4974b167ab415159e0ff996b341528008c2ba8ae8e2a1ebf69bab5bc9a9b9c12",
+          "bytes": 15498
+        },
+        {
+          "path": "research/quartic214/proofs/height-averaging.md",
+          "sha256": "bb87f61d7134c09d695f9bbff2c26b12b8c9ce5fe74a4ec598b2e4410f100192",
+          "bytes": 8145
+        },
+        {
+          "path": "research/quartic214/PRIMARY_SOURCES.json",
+          "sha256": "cfa7597432cd98c7184c0f9332c6d56f8ea53b208613aab0d855f5ffd1181161",
+          "bytes": 48789
+        },
+        {
+          "path": "research/version15/snapshots/v15-222-004/manuscript/quartic_v15.tex",
+          "sha256": "44ba3a8ec8521c29b81b26cfb9981cd6d5f3c76d54e7782438614842edb52c74",
+          "bytes": 1924438
+        },
+        {
+          "path": "research/quartic214/proofs/uniform-existence.md",
+          "sha256": "d13cc2b846dc72a3f5b5cce8dcf11d3f11b33c45ebc3883263840afb8d82f3bc",
+          "bytes": 22294
+        },
+        {
+          "path": "research/quartic214/construction/check_exact.py",
+          "sha256": "07527831694fc6be9373e2dac92d292520fbb8c79128e4d51a1ae0128c96e214",
+          "bytes": 7372
+        },
+        {
+          "path": "research/quartic214/proofs/source-carry.md",
+          "sha256": "f7f4e550a4dcfbbd3b5ffcf783b11411f7888c821dbab7febb5132b7b2b891ed",
+          "bytes": 15185
+        },
+        {
+          "path": "research/quartic214/sources/aggregate-bridge.md",
+          "sha256": "668e84f5864b5961b67599ef9c3ffd1b44c66c93679cef9853ef596fce4267f5",
+          "bytes": 7628
+        },
+        {
+          "path": "research/quartic214/sources/factor-extraction.tex",
+          "sha256": "38236daca2811087e08e7f26eb79504dc25171dc78019a557d99966471edb109",
+          "bytes": 5809
+        }
+      ],
+      "evidence": [
+        {
+          "path": "research/quartic214/proofs/uniform-existence.md",
+          "sha256": "d13cc2b846dc72a3f5b5cce8dcf11d3f11b33c45ebc3883263840afb8d82f3bc",
+          "bytes": 22294,
+          "section": "[P01:",
+          "lines": [
+            5,
+            11
+          ],
+          "passage_sha256": "cac4ef0c21ba83314e59ffa0579adf0f51a8c2e818f4cec623a185f5a3dd7687",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/proofs/uniform-existence.md",
+          "sha256": "d13cc2b846dc72a3f5b5cce8dcf11d3f11b33c45ebc3883263840afb8d82f3bc",
+          "bytes": 22294,
+          "section": "[P05:",
+          "lines": [
+            18,
+            27
+          ],
+          "passage_sha256": "b70bd6cb7d0d2097d023c5bea0d360109ee7aa687300ed1848e20bbfa6c0f67f",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/proofs/uniform-existence.md",
+          "sha256": "d13cc2b846dc72a3f5b5cce8dcf11d3f11b33c45ebc3883263840afb8d82f3bc",
+          "bytes": 22294,
+          "section": "[P08:",
+          "lines": [
+            36,
+            37
+          ],
+          "passage_sha256": "6f01da126da1b4379ae0ee4b20ad0db063dff200d7dd07ee1209e033392b025f",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/proofs/uniform-existence.md",
+          "sha256": "d13cc2b846dc72a3f5b5cce8dcf11d3f11b33c45ebc3883263840afb8d82f3bc",
+          "bytes": 22294,
+          "section": "[P10:",
+          "lines": [
+            40,
+            45
+          ],
+          "passage_sha256": "ec1d73015e71b840bad438043a2423d88398b870efcb51117d5f185b5674c451",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/proofs/uniform-existence.md",
+          "sha256": "d13cc2b846dc72a3f5b5cce8dcf11d3f11b33c45ebc3883263840afb8d82f3bc",
+          "bytes": 22294,
+          "section": "[P11:",
+          "lines": [
+            46,
+            47
+          ],
+          "passage_sha256": "0f25cf01d2440fd92863219bf273040a1d8142237f021c0991966f67f9787d66",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/proofs/uniform-existence.md",
+          "sha256": "d13cc2b846dc72a3f5b5cce8dcf11d3f11b33c45ebc3883263840afb8d82f3bc",
+          "bytes": 22294,
+          "section": "[P14:",
+          "lines": [
+            67,
+            68
+          ],
+          "passage_sha256": "75309fb18a5de7c52de87fbf2d0902c9f9352c380feb5431afeeae624417718b",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/proofs/uniform-existence.md",
+          "sha256": "d13cc2b846dc72a3f5b5cce8dcf11d3f11b33c45ebc3883263840afb8d82f3bc",
+          "bytes": 22294,
+          "section": "[P15:",
+          "lines": [
+            69,
+            70
+          ],
+          "passage_sha256": "493a36c877e53621aa3542fa8a48f824eda6177d5889bb0dd60963a2c86146e3",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/proofs/uniform-existence.md",
+          "sha256": "d13cc2b846dc72a3f5b5cce8dcf11d3f11b33c45ebc3883263840afb8d82f3bc",
+          "bytes": 22294,
+          "section": "[P19:",
+          "lines": [
+            82,
+            83
+          ],
+          "passage_sha256": "d6a8bdbdff3744b70becebf04dc13868154836f381b6ca5e339886dc9d2deef3",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/proofs/uniform-existence.md",
+          "sha256": "d13cc2b846dc72a3f5b5cce8dcf11d3f11b33c45ebc3883263840afb8d82f3bc",
+          "bytes": 22294,
+          "section": "[P20:",
+          "lines": [
+            84,
+            84
+          ],
+          "passage_sha256": "2ef064324d6b4998acb95450946310eefab309878bc9b742fb6473a4dbc78e98",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/PROOF.md",
+          "sha256": "0feb164c3ed33543136b89aa87b27bc890f4aadef2d082d465263f55dc26d165",
+          "bytes": 10582,
+          "section": "Soundness with one fixed threshold",
+          "lines": [
+            29,
+            38
+          ],
+          "passage_sha256": "6e65dfeb73c7a0681090c423f84d31cb78944693d02f52287d77d87b7d0afe34",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/PROOF.md",
+          "sha256": "0feb164c3ed33543136b89aa87b27bc890f4aadef2d082d465263f55dc26d165",
+          "bytes": 10582,
+          "section": "Completeness and quantifiers",
+          "lines": [
+            39,
+            44
+          ],
+          "passage_sha256": "54c2502fc15a033bc5182a97f2ee7a348f20732ffe372a8c2eedb4891588d3f2",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        }
+      ]
+    },
+    "transition_maps": {
+      "required_input": "Correct directions and factors in inverse coordinate maps, trace normalization, radical transfer, logarithms, Gaussian order CRT and pole point rescaling.",
+      "constructed_input": "The raw maps restore the physical system; F+=2T costs log 2; S10-to-Sigma pays a fixed prime product; reflection inverse row norms are 3 and 7; doubled group identities kill torsion; d/4 supplies U,V; source point rescaling gives actual pole witnesses.",
+      "justification": "P04,P07,P09,P10,P16,P19 account for each map and factor. No physical scale is assumed a local unit or square, and no zero tested numerator is divided by.",
+      "original_author_obligation_sha256": "c2721ca2bee6f6f79c0af1069131a631506d40e14cbc867e3a1064a04e3b4a11",
+      "original_author_source_ids": [
+        "U01",
+        "U02",
+        "U03",
+        "U04",
+        "U08",
+        "U09"
+      ],
+      "status": "author_proposed_pending_eligible_independent_public_review",
+      "source_references": [
+        {
+          "path": "research/quartic214/PROOF.md",
+          "sha256": "0feb164c3ed33543136b89aa87b27bc890f4aadef2d082d465263f55dc26d165",
+          "bytes": 10582
+        },
+        {
+          "path": "research/quartic214/proofs/height-supplier.md",
+          "sha256": "4974b167ab415159e0ff996b341528008c2ba8ae8e2a1ebf69bab5bc9a9b9c12",
+          "bytes": 15498
+        },
+        {
+          "path": "research/quartic214/proofs/height-averaging.md",
+          "sha256": "bb87f61d7134c09d695f9bbff2c26b12b8c9ce5fe74a4ec598b2e4410f100192",
+          "bytes": 8145
+        },
+        {
+          "path": "research/quartic214/PRIMARY_SOURCES.json",
+          "sha256": "cfa7597432cd98c7184c0f9332c6d56f8ea53b208613aab0d855f5ffd1181161",
+          "bytes": 48789
+        },
+        {
+          "path": "research/version15/snapshots/v15-222-004/manuscript/quartic_v15.tex",
+          "sha256": "44ba3a8ec8521c29b81b26cfb9981cd6d5f3c76d54e7782438614842edb52c74",
+          "bytes": 1924438
+        },
+        {
+          "path": "research/quartic214/proofs/uniform-existence.md",
+          "sha256": "d13cc2b846dc72a3f5b5cce8dcf11d3f11b33c45ebc3883263840afb8d82f3bc",
+          "bytes": 22294
+        },
+        {
+          "path": "research/quartic214/construction/check_exact.py",
+          "sha256": "07527831694fc6be9373e2dac92d292520fbb8c79128e4d51a1ae0128c96e214",
+          "bytes": 7372
+        },
+        {
+          "path": "research/quartic214/proofs/source-carry.md",
+          "sha256": "f7f4e550a4dcfbbd3b5ffcf783b11411f7888c821dbab7febb5132b7b2b891ed",
+          "bytes": 15185
+        },
+        {
+          "path": "research/quartic214/sources/aggregate-bridge.md",
+          "sha256": "668e84f5864b5961b67599ef9c3ffd1b44c66c93679cef9853ef596fce4267f5",
+          "bytes": 7628
+        },
+        {
+          "path": "research/quartic214/sources/factor-extraction.tex",
+          "sha256": "38236daca2811087e08e7f26eb79504dc25171dc78019a557d99966471edb109",
+          "bytes": 5809
+        }
+      ],
+      "evidence": [
+        {
+          "path": "research/quartic214/proofs/uniform-existence.md",
+          "sha256": "d13cc2b846dc72a3f5b5cce8dcf11d3f11b33c45ebc3883263840afb8d82f3bc",
+          "bytes": 22294,
+          "section": "[P01:",
+          "lines": [
+            5,
+            11
+          ],
+          "passage_sha256": "cac4ef0c21ba83314e59ffa0579adf0f51a8c2e818f4cec623a185f5a3dd7687",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/proofs/uniform-existence.md",
+          "sha256": "d13cc2b846dc72a3f5b5cce8dcf11d3f11b33c45ebc3883263840afb8d82f3bc",
+          "bytes": 22294,
+          "section": "[P05:",
+          "lines": [
+            18,
+            27
+          ],
+          "passage_sha256": "b70bd6cb7d0d2097d023c5bea0d360109ee7aa687300ed1848e20bbfa6c0f67f",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/proofs/uniform-existence.md",
+          "sha256": "d13cc2b846dc72a3f5b5cce8dcf11d3f11b33c45ebc3883263840afb8d82f3bc",
+          "bytes": 22294,
+          "section": "[P08:",
+          "lines": [
+            36,
+            37
+          ],
+          "passage_sha256": "6f01da126da1b4379ae0ee4b20ad0db063dff200d7dd07ee1209e033392b025f",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/proofs/uniform-existence.md",
+          "sha256": "d13cc2b846dc72a3f5b5cce8dcf11d3f11b33c45ebc3883263840afb8d82f3bc",
+          "bytes": 22294,
+          "section": "[P10:",
+          "lines": [
+            40,
+            45
+          ],
+          "passage_sha256": "ec1d73015e71b840bad438043a2423d88398b870efcb51117d5f185b5674c451",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/proofs/uniform-existence.md",
+          "sha256": "d13cc2b846dc72a3f5b5cce8dcf11d3f11b33c45ebc3883263840afb8d82f3bc",
+          "bytes": 22294,
+          "section": "[P11:",
+          "lines": [
+            46,
+            47
+          ],
+          "passage_sha256": "0f25cf01d2440fd92863219bf273040a1d8142237f021c0991966f67f9787d66",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/proofs/uniform-existence.md",
+          "sha256": "d13cc2b846dc72a3f5b5cce8dcf11d3f11b33c45ebc3883263840afb8d82f3bc",
+          "bytes": 22294,
+          "section": "[P14:",
+          "lines": [
+            67,
+            68
+          ],
+          "passage_sha256": "75309fb18a5de7c52de87fbf2d0902c9f9352c380feb5431afeeae624417718b",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/proofs/uniform-existence.md",
+          "sha256": "d13cc2b846dc72a3f5b5cce8dcf11d3f11b33c45ebc3883263840afb8d82f3bc",
+          "bytes": 22294,
+          "section": "[P15:",
+          "lines": [
+            69,
+            70
+          ],
+          "passage_sha256": "493a36c877e53621aa3542fa8a48f824eda6177d5889bb0dd60963a2c86146e3",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/proofs/uniform-existence.md",
+          "sha256": "d13cc2b846dc72a3f5b5cce8dcf11d3f11b33c45ebc3883263840afb8d82f3bc",
+          "bytes": 22294,
+          "section": "[P19:",
+          "lines": [
+            82,
+            83
+          ],
+          "passage_sha256": "d6a8bdbdff3744b70becebf04dc13868154836f381b6ca5e339886dc9d2deef3",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/proofs/uniform-existence.md",
+          "sha256": "d13cc2b846dc72a3f5b5cce8dcf11d3f11b33c45ebc3883263840afb8d82f3bc",
+          "bytes": 22294,
+          "section": "[P20:",
+          "lines": [
+            84,
+            84
+          ],
+          "passage_sha256": "2ef064324d6b4998acb95450946310eefab309878bc9b742fb6473a4dbc78e98",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/PROOF.md",
+          "sha256": "0feb164c3ed33543136b89aa87b27bc890f4aadef2d082d465263f55dc26d165",
+          "bytes": 10582,
+          "section": "Soundness with one fixed threshold",
+          "lines": [
+            29,
+            38
+          ],
+          "passage_sha256": "6e65dfeb73c7a0681090c423f84d31cb78944693d02f52287d77d87b7d0afe34",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/PROOF.md",
+          "sha256": "0feb164c3ed33543136b89aa87b27bc890f4aadef2d082d465263f55dc26d165",
+          "bytes": 10582,
+          "section": "Completeness and quantifiers",
+          "lines": [
+            39,
+            44
+          ],
+          "passage_sha256": "54c2502fc15a033bc5182a97f2ee7a348f20732ffe372a8c2eedb4891588d3f2",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        }
+      ]
+    },
+    "consumed_object_identity": {
+      "required_input": "The resulting object must equal the actual object consumed by the next argument.",
+      "constructed_input": "B is the maximum of the same four labels and c=|a|; T is the actual quarter-trace sum; M_j is the center-two radical; Delta is the Lucas polynomial and J the reduced numerator of n-beta; RC uses n_pole and n_pole*theta.",
+      "justification": "P03,P07,P09\u2013P12,P19 track these equalities. The CM index curve and non-CM RC curves remain distinct. A_N is a coefficient throughout.",
+      "original_author_obligation_sha256": "ec526086bba0b3bc23f0f01e64af044b72defd9903e566884cf92476b185be38",
+      "original_author_source_ids": [
+        "U01",
+        "U02",
+        "U03",
+        "U04",
+        "U05",
+        "U06",
+        "U09"
+      ],
+      "status": "author_proposed_pending_eligible_independent_public_review",
+      "source_references": [
+        {
+          "path": "research/quartic214/PROOF.md",
+          "sha256": "0feb164c3ed33543136b89aa87b27bc890f4aadef2d082d465263f55dc26d165",
+          "bytes": 10582
+        },
+        {
+          "path": "research/quartic214/proofs/height-supplier.md",
+          "sha256": "4974b167ab415159e0ff996b341528008c2ba8ae8e2a1ebf69bab5bc9a9b9c12",
+          "bytes": 15498
+        },
+        {
+          "path": "research/quartic214/proofs/height-averaging.md",
+          "sha256": "bb87f61d7134c09d695f9bbff2c26b12b8c9ce5fe74a4ec598b2e4410f100192",
+          "bytes": 8145
+        },
+        {
+          "path": "research/quartic214/PRIMARY_SOURCES.json",
+          "sha256": "cfa7597432cd98c7184c0f9332c6d56f8ea53b208613aab0d855f5ffd1181161",
+          "bytes": 48789
+        },
+        {
+          "path": "research/version15/snapshots/v15-222-004/manuscript/quartic_v15.tex",
+          "sha256": "44ba3a8ec8521c29b81b26cfb9981cd6d5f3c76d54e7782438614842edb52c74",
+          "bytes": 1924438
+        },
+        {
+          "path": "research/quartic214/proofs/uniform-existence.md",
+          "sha256": "d13cc2b846dc72a3f5b5cce8dcf11d3f11b33c45ebc3883263840afb8d82f3bc",
+          "bytes": 22294
+        },
+        {
+          "path": "research/quartic214/construction/check_exact.py",
+          "sha256": "07527831694fc6be9373e2dac92d292520fbb8c79128e4d51a1ae0128c96e214",
+          "bytes": 7372
+        },
+        {
+          "path": "research/quartic214/proofs/source-carry.md",
+          "sha256": "f7f4e550a4dcfbbd3b5ffcf783b11411f7888c821dbab7febb5132b7b2b891ed",
+          "bytes": 15185
+        },
+        {
+          "path": "research/quartic214/sources/aggregate-bridge.md",
+          "sha256": "668e84f5864b5961b67599ef9c3ffd1b44c66c93679cef9853ef596fce4267f5",
+          "bytes": 7628
+        },
+        {
+          "path": "research/quartic214/sources/factor-extraction.tex",
+          "sha256": "38236daca2811087e08e7f26eb79504dc25171dc78019a557d99966471edb109",
+          "bytes": 5809
+        }
+      ],
+      "evidence": [
+        {
+          "path": "research/quartic214/proofs/uniform-existence.md",
+          "sha256": "d13cc2b846dc72a3f5b5cce8dcf11d3f11b33c45ebc3883263840afb8d82f3bc",
+          "bytes": 22294,
+          "section": "[P01:",
+          "lines": [
+            5,
+            11
+          ],
+          "passage_sha256": "cac4ef0c21ba83314e59ffa0579adf0f51a8c2e818f4cec623a185f5a3dd7687",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/proofs/uniform-existence.md",
+          "sha256": "d13cc2b846dc72a3f5b5cce8dcf11d3f11b33c45ebc3883263840afb8d82f3bc",
+          "bytes": 22294,
+          "section": "[P05:",
+          "lines": [
+            18,
+            27
+          ],
+          "passage_sha256": "b70bd6cb7d0d2097d023c5bea0d360109ee7aa687300ed1848e20bbfa6c0f67f",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/proofs/uniform-existence.md",
+          "sha256": "d13cc2b846dc72a3f5b5cce8dcf11d3f11b33c45ebc3883263840afb8d82f3bc",
+          "bytes": 22294,
+          "section": "[P08:",
+          "lines": [
+            36,
+            37
+          ],
+          "passage_sha256": "6f01da126da1b4379ae0ee4b20ad0db063dff200d7dd07ee1209e033392b025f",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/proofs/uniform-existence.md",
+          "sha256": "d13cc2b846dc72a3f5b5cce8dcf11d3f11b33c45ebc3883263840afb8d82f3bc",
+          "bytes": 22294,
+          "section": "[P10:",
+          "lines": [
+            40,
+            45
+          ],
+          "passage_sha256": "ec1d73015e71b840bad438043a2423d88398b870efcb51117d5f185b5674c451",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/proofs/uniform-existence.md",
+          "sha256": "d13cc2b846dc72a3f5b5cce8dcf11d3f11b33c45ebc3883263840afb8d82f3bc",
+          "bytes": 22294,
+          "section": "[P11:",
+          "lines": [
+            46,
+            47
+          ],
+          "passage_sha256": "0f25cf01d2440fd92863219bf273040a1d8142237f021c0991966f67f9787d66",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/proofs/uniform-existence.md",
+          "sha256": "d13cc2b846dc72a3f5b5cce8dcf11d3f11b33c45ebc3883263840afb8d82f3bc",
+          "bytes": 22294,
+          "section": "[P14:",
+          "lines": [
+            67,
+            68
+          ],
+          "passage_sha256": "75309fb18a5de7c52de87fbf2d0902c9f9352c380feb5431afeeae624417718b",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/proofs/uniform-existence.md",
+          "sha256": "d13cc2b846dc72a3f5b5cce8dcf11d3f11b33c45ebc3883263840afb8d82f3bc",
+          "bytes": 22294,
+          "section": "[P15:",
+          "lines": [
+            69,
+            70
+          ],
+          "passage_sha256": "493a36c877e53621aa3542fa8a48f824eda6177d5889bb0dd60963a2c86146e3",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/proofs/uniform-existence.md",
+          "sha256": "d13cc2b846dc72a3f5b5cce8dcf11d3f11b33c45ebc3883263840afb8d82f3bc",
+          "bytes": 22294,
+          "section": "[P19:",
+          "lines": [
+            82,
+            83
+          ],
+          "passage_sha256": "d6a8bdbdff3744b70becebf04dc13868154836f381b6ca5e339886dc9d2deef3",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/proofs/uniform-existence.md",
+          "sha256": "d13cc2b846dc72a3f5b5cce8dcf11d3f11b33c45ebc3883263840afb8d82f3bc",
+          "bytes": 22294,
+          "section": "[P20:",
+          "lines": [
+            84,
+            84
+          ],
+          "passage_sha256": "2ef064324d6b4998acb95450946310eefab309878bc9b742fb6473a4dbc78e98",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/PROOF.md",
+          "sha256": "0feb164c3ed33543136b89aa87b27bc890f4aadef2d082d465263f55dc26d165",
+          "bytes": 10582,
+          "section": "Soundness with one fixed threshold",
+          "lines": [
+            29,
+            38
+          ],
+          "passage_sha256": "6e65dfeb73c7a0681090c423f84d31cb78944693d02f52287d77d87b7d0afe34",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/PROOF.md",
+          "sha256": "0feb164c3ed33543136b89aa87b27bc890f4aadef2d082d465263f55dc26d165",
+          "bytes": 10582,
+          "section": "Completeness and quantifiers",
+          "lines": [
+            39,
+            44
+          ],
+          "passage_sha256": "54c2502fc15a033bc5182a97f2ee7a348f20732ffe372a8c2eedb4891588d3f2",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        }
+      ]
+    },
+    "coefficient_conventions": {
+      "required_input": "The retained rational component charts, valuation normalization, absolute logarithmic and canonical heights, arithmetic Frobenius and squarefree radical conventions.",
+      "constructed_input": "K=Q(sqrt2); v(p)=1 at the consumed odd unramified places; zero tests omit leaves; M_j is squarefree; pointed maps identify F+=2T; the prescribed Gaussian residues use arithmetic Frobenius; the entire quadratic table is unchanged.",
+      "justification": "P05\u2013P10 specify valuation and height conventions. P16 specifies ray conventions. P01,P12,P20 preserve ineffectivity and separate the coefficient threshold 53 from the defining threshold.",
+      "original_author_obligation_sha256": "2ae02a42a8968b9a2312f249f9cd0914af76990c910a8a7f19ae48d3a6bebae8",
+      "original_author_source_ids": [
+        "U01",
+        "U02",
+        "U03",
+        "U04",
+        "U07"
+      ],
+      "status": "author_proposed_pending_eligible_independent_public_review",
+      "source_references": [
+        {
+          "path": "research/quartic214/PROOF.md",
+          "sha256": "0feb164c3ed33543136b89aa87b27bc890f4aadef2d082d465263f55dc26d165",
+          "bytes": 10582
+        },
+        {
+          "path": "research/quartic214/proofs/height-supplier.md",
+          "sha256": "4974b167ab415159e0ff996b341528008c2ba8ae8e2a1ebf69bab5bc9a9b9c12",
+          "bytes": 15498
+        },
+        {
+          "path": "research/quartic214/proofs/height-averaging.md",
+          "sha256": "bb87f61d7134c09d695f9bbff2c26b12b8c9ce5fe74a4ec598b2e4410f100192",
+          "bytes": 8145
+        },
+        {
+          "path": "research/quartic214/PRIMARY_SOURCES.json",
+          "sha256": "cfa7597432cd98c7184c0f9332c6d56f8ea53b208613aab0d855f5ffd1181161",
+          "bytes": 48789
+        },
+        {
+          "path": "research/version15/snapshots/v15-222-004/manuscript/quartic_v15.tex",
+          "sha256": "44ba3a8ec8521c29b81b26cfb9981cd6d5f3c76d54e7782438614842edb52c74",
+          "bytes": 1924438
+        },
+        {
+          "path": "research/quartic214/proofs/uniform-existence.md",
+          "sha256": "d13cc2b846dc72a3f5b5cce8dcf11d3f11b33c45ebc3883263840afb8d82f3bc",
+          "bytes": 22294
+        },
+        {
+          "path": "research/quartic214/construction/check_exact.py",
+          "sha256": "07527831694fc6be9373e2dac92d292520fbb8c79128e4d51a1ae0128c96e214",
+          "bytes": 7372
+        },
+        {
+          "path": "research/quartic214/proofs/source-carry.md",
+          "sha256": "f7f4e550a4dcfbbd3b5ffcf783b11411f7888c821dbab7febb5132b7b2b891ed",
+          "bytes": 15185
+        },
+        {
+          "path": "research/quartic214/sources/aggregate-bridge.md",
+          "sha256": "668e84f5864b5961b67599ef9c3ffd1b44c66c93679cef9853ef596fce4267f5",
+          "bytes": 7628
+        },
+        {
+          "path": "research/quartic214/sources/factor-extraction.tex",
+          "sha256": "38236daca2811087e08e7f26eb79504dc25171dc78019a557d99966471edb109",
+          "bytes": 5809
+        }
+      ],
+      "evidence": [
+        {
+          "path": "research/quartic214/proofs/uniform-existence.md",
+          "sha256": "d13cc2b846dc72a3f5b5cce8dcf11d3f11b33c45ebc3883263840afb8d82f3bc",
+          "bytes": 22294,
+          "section": "[P01:",
+          "lines": [
+            5,
+            11
+          ],
+          "passage_sha256": "cac4ef0c21ba83314e59ffa0579adf0f51a8c2e818f4cec623a185f5a3dd7687",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/proofs/uniform-existence.md",
+          "sha256": "d13cc2b846dc72a3f5b5cce8dcf11d3f11b33c45ebc3883263840afb8d82f3bc",
+          "bytes": 22294,
+          "section": "[P05:",
+          "lines": [
+            18,
+            27
+          ],
+          "passage_sha256": "b70bd6cb7d0d2097d023c5bea0d360109ee7aa687300ed1848e20bbfa6c0f67f",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/proofs/uniform-existence.md",
+          "sha256": "d13cc2b846dc72a3f5b5cce8dcf11d3f11b33c45ebc3883263840afb8d82f3bc",
+          "bytes": 22294,
+          "section": "[P08:",
+          "lines": [
+            36,
+            37
+          ],
+          "passage_sha256": "6f01da126da1b4379ae0ee4b20ad0db063dff200d7dd07ee1209e033392b025f",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/proofs/uniform-existence.md",
+          "sha256": "d13cc2b846dc72a3f5b5cce8dcf11d3f11b33c45ebc3883263840afb8d82f3bc",
+          "bytes": 22294,
+          "section": "[P10:",
+          "lines": [
+            40,
+            45
+          ],
+          "passage_sha256": "ec1d73015e71b840bad438043a2423d88398b870efcb51117d5f185b5674c451",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/proofs/uniform-existence.md",
+          "sha256": "d13cc2b846dc72a3f5b5cce8dcf11d3f11b33c45ebc3883263840afb8d82f3bc",
+          "bytes": 22294,
+          "section": "[P11:",
+          "lines": [
+            46,
+            47
+          ],
+          "passage_sha256": "0f25cf01d2440fd92863219bf273040a1d8142237f021c0991966f67f9787d66",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/proofs/uniform-existence.md",
+          "sha256": "d13cc2b846dc72a3f5b5cce8dcf11d3f11b33c45ebc3883263840afb8d82f3bc",
+          "bytes": 22294,
+          "section": "[P14:",
+          "lines": [
+            67,
+            68
+          ],
+          "passage_sha256": "75309fb18a5de7c52de87fbf2d0902c9f9352c380feb5431afeeae624417718b",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/proofs/uniform-existence.md",
+          "sha256": "d13cc2b846dc72a3f5b5cce8dcf11d3f11b33c45ebc3883263840afb8d82f3bc",
+          "bytes": 22294,
+          "section": "[P15:",
+          "lines": [
+            69,
+            70
+          ],
+          "passage_sha256": "493a36c877e53621aa3542fa8a48f824eda6177d5889bb0dd60963a2c86146e3",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/proofs/uniform-existence.md",
+          "sha256": "d13cc2b846dc72a3f5b5cce8dcf11d3f11b33c45ebc3883263840afb8d82f3bc",
+          "bytes": 22294,
+          "section": "[P19:",
+          "lines": [
+            82,
+            83
+          ],
+          "passage_sha256": "d6a8bdbdff3744b70becebf04dc13868154836f381b6ca5e339886dc9d2deef3",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/proofs/uniform-existence.md",
+          "sha256": "d13cc2b846dc72a3f5b5cce8dcf11d3f11b33c45ebc3883263840afb8d82f3bc",
+          "bytes": 22294,
+          "section": "[P20:",
+          "lines": [
+            84,
+            84
+          ],
+          "passage_sha256": "2ef064324d6b4998acb95450946310eefab309878bc9b742fb6473a4dbc78e98",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/PROOF.md",
+          "sha256": "0feb164c3ed33543136b89aa87b27bc890f4aadef2d082d465263f55dc26d165",
+          "bytes": 10582,
+          "section": "Soundness with one fixed threshold",
+          "lines": [
+            29,
+            38
+          ],
+          "passage_sha256": "6e65dfeb73c7a0681090c423f84d31cb78944693d02f52287d77d87b7d0afe34",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/PROOF.md",
+          "sha256": "0feb164c3ed33543136b89aa87b27bc890f4aadef2d082d465263f55dc26d165",
+          "bytes": 10582,
+          "section": "Completeness and quantifiers",
+          "lines": [
+            39,
+            44
+          ],
+          "passage_sha256": "54c2502fc15a033bc5182a97f2ee7a348f20732ffe372a8c2eedb4891588d3f2",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        }
+      ]
+    },
+    "local_conditions": {
+      "required_input": "Noncancellation and the correct trace inequality at every consumed prime; finite scalar and comparison preparation; square pole denominators, local squares and depths; compatible common-index congruences.",
+      "constructed_input": "Unique valuation classes give one-place extraction. Scalar support is prepared before later contact primes. The exact square-times-prime identity gives denominator parity. Fresh pole inputs have depths 4,2,2 and lie in (0,17). U,V,L have the computed gcds.",
+      "justification": "P05\u2013P07,P14,P16\u2013P19 compute the conditions and their directions. Inert places are included in soundness; selected split places in completeness use the actual Gaussian orders.",
+      "original_author_obligation_sha256": "d98a8f233442e0b645e34520e8d729edfd713352f6de08f0ce03d3e5515e861e",
+      "original_author_source_ids": [
+        "U02",
+        "U05",
+        "U07",
+        "U08",
+        "U09"
+      ],
+      "status": "author_proposed_pending_eligible_independent_public_review",
+      "source_references": [
+        {
+          "path": "research/quartic214/PROOF.md",
+          "sha256": "0feb164c3ed33543136b89aa87b27bc890f4aadef2d082d465263f55dc26d165",
+          "bytes": 10582
+        },
+        {
+          "path": "research/quartic214/proofs/height-supplier.md",
+          "sha256": "4974b167ab415159e0ff996b341528008c2ba8ae8e2a1ebf69bab5bc9a9b9c12",
+          "bytes": 15498
+        },
+        {
+          "path": "research/quartic214/proofs/height-averaging.md",
+          "sha256": "bb87f61d7134c09d695f9bbff2c26b12b8c9ce5fe74a4ec598b2e4410f100192",
+          "bytes": 8145
+        },
+        {
+          "path": "research/quartic214/PRIMARY_SOURCES.json",
+          "sha256": "cfa7597432cd98c7184c0f9332c6d56f8ea53b208613aab0d855f5ffd1181161",
+          "bytes": 48789
+        },
+        {
+          "path": "research/version15/snapshots/v15-222-004/manuscript/quartic_v15.tex",
+          "sha256": "44ba3a8ec8521c29b81b26cfb9981cd6d5f3c76d54e7782438614842edb52c74",
+          "bytes": 1924438
+        },
+        {
+          "path": "research/quartic214/proofs/uniform-existence.md",
+          "sha256": "d13cc2b846dc72a3f5b5cce8dcf11d3f11b33c45ebc3883263840afb8d82f3bc",
+          "bytes": 22294
+        },
+        {
+          "path": "research/quartic214/construction/check_exact.py",
+          "sha256": "07527831694fc6be9373e2dac92d292520fbb8c79128e4d51a1ae0128c96e214",
+          "bytes": 7372
+        },
+        {
+          "path": "research/quartic214/proofs/source-carry.md",
+          "sha256": "f7f4e550a4dcfbbd3b5ffcf783b11411f7888c821dbab7febb5132b7b2b891ed",
+          "bytes": 15185
+        },
+        {
+          "path": "research/quartic214/sources/aggregate-bridge.md",
+          "sha256": "668e84f5864b5961b67599ef9c3ffd1b44c66c93679cef9853ef596fce4267f5",
+          "bytes": 7628
+        },
+        {
+          "path": "research/quartic214/sources/factor-extraction.tex",
+          "sha256": "38236daca2811087e08e7f26eb79504dc25171dc78019a557d99966471edb109",
+          "bytes": 5809
+        }
+      ],
+      "evidence": [
+        {
+          "path": "research/quartic214/proofs/uniform-existence.md",
+          "sha256": "d13cc2b846dc72a3f5b5cce8dcf11d3f11b33c45ebc3883263840afb8d82f3bc",
+          "bytes": 22294,
+          "section": "[P01:",
+          "lines": [
+            5,
+            11
+          ],
+          "passage_sha256": "cac4ef0c21ba83314e59ffa0579adf0f51a8c2e818f4cec623a185f5a3dd7687",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/proofs/uniform-existence.md",
+          "sha256": "d13cc2b846dc72a3f5b5cce8dcf11d3f11b33c45ebc3883263840afb8d82f3bc",
+          "bytes": 22294,
+          "section": "[P05:",
+          "lines": [
+            18,
+            27
+          ],
+          "passage_sha256": "b70bd6cb7d0d2097d023c5bea0d360109ee7aa687300ed1848e20bbfa6c0f67f",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/proofs/uniform-existence.md",
+          "sha256": "d13cc2b846dc72a3f5b5cce8dcf11d3f11b33c45ebc3883263840afb8d82f3bc",
+          "bytes": 22294,
+          "section": "[P08:",
+          "lines": [
+            36,
+            37
+          ],
+          "passage_sha256": "6f01da126da1b4379ae0ee4b20ad0db063dff200d7dd07ee1209e033392b025f",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/proofs/uniform-existence.md",
+          "sha256": "d13cc2b846dc72a3f5b5cce8dcf11d3f11b33c45ebc3883263840afb8d82f3bc",
+          "bytes": 22294,
+          "section": "[P10:",
+          "lines": [
+            40,
+            45
+          ],
+          "passage_sha256": "ec1d73015e71b840bad438043a2423d88398b870efcb51117d5f185b5674c451",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/proofs/uniform-existence.md",
+          "sha256": "d13cc2b846dc72a3f5b5cce8dcf11d3f11b33c45ebc3883263840afb8d82f3bc",
+          "bytes": 22294,
+          "section": "[P11:",
+          "lines": [
+            46,
+            47
+          ],
+          "passage_sha256": "0f25cf01d2440fd92863219bf273040a1d8142237f021c0991966f67f9787d66",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/proofs/uniform-existence.md",
+          "sha256": "d13cc2b846dc72a3f5b5cce8dcf11d3f11b33c45ebc3883263840afb8d82f3bc",
+          "bytes": 22294,
+          "section": "[P14:",
+          "lines": [
+            67,
+            68
+          ],
+          "passage_sha256": "75309fb18a5de7c52de87fbf2d0902c9f9352c380feb5431afeeae624417718b",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/proofs/uniform-existence.md",
+          "sha256": "d13cc2b846dc72a3f5b5cce8dcf11d3f11b33c45ebc3883263840afb8d82f3bc",
+          "bytes": 22294,
+          "section": "[P15:",
+          "lines": [
+            69,
+            70
+          ],
+          "passage_sha256": "493a36c877e53621aa3542fa8a48f824eda6177d5889bb0dd60963a2c86146e3",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/proofs/uniform-existence.md",
+          "sha256": "d13cc2b846dc72a3f5b5cce8dcf11d3f11b33c45ebc3883263840afb8d82f3bc",
+          "bytes": 22294,
+          "section": "[P19:",
+          "lines": [
+            82,
+            83
+          ],
+          "passage_sha256": "d6a8bdbdff3744b70becebf04dc13868154836f381b6ca5e339886dc9d2deef3",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/proofs/uniform-existence.md",
+          "sha256": "d13cc2b846dc72a3f5b5cce8dcf11d3f11b33c45ebc3883263840afb8d82f3bc",
+          "bytes": 22294,
+          "section": "[P20:",
+          "lines": [
+            84,
+            84
+          ],
+          "passage_sha256": "2ef064324d6b4998acb95450946310eefab309878bc9b742fb6473a4dbc78e98",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/PROOF.md",
+          "sha256": "0feb164c3ed33543136b89aa87b27bc890f4aadef2d082d465263f55dc26d165",
+          "bytes": 10582,
+          "section": "Soundness with one fixed threshold",
+          "lines": [
+            29,
+            38
+          ],
+          "passage_sha256": "6e65dfeb73c7a0681090c423f84d31cb78944693d02f52287d77d87b7d0afe34",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/PROOF.md",
+          "sha256": "0feb164c3ed33543136b89aa87b27bc890f4aadef2d082d465263f55dc26d165",
+          "bytes": 10582,
+          "section": "Completeness and quantifiers",
+          "lines": [
+            39,
+            44
+          ],
+          "passage_sha256": "54c2502fc15a033bc5182a97f2ee7a348f20732ffe372a8c2eedb4891588d3f2",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        }
+      ]
+    },
+    "exceptional_cases": {
+      "required_input": "Reference torsion and denominator branches; delta versus Delta; q=0 and zero tested or auxiliary values; arbitrary nonzero labels; nonsquare scales; theta=1 and the full Selmer convention.",
+      "constructed_input": "The forced-149 argument restores domains first. delta=0 has radical one and q=-1. q=0 is excluded by the new inverse row. Zero tests omit leaves and zero pole auxiliaries remain allowed. The aggregate has no oddness restriction; a_*^10 is a square; theta=1 is retained.",
+      "justification": "P04\u2013P09,P18\u2013P19 handle these cases. Completeness produces positive q instead of assuming an unrestricted old witness bijection. RC includes the divisible part of Sha before finiteness is obtained.",
+      "original_author_obligation_sha256": "f058aa25c6af30acb4b73718b0c4470de9ed405981ceb751602f99427d03aff3",
+      "original_author_source_ids": [
+        "U01",
+        "U02",
+        "U03",
+        "U08",
+        "U09",
+        "U10"
+      ],
+      "status": "author_proposed_pending_eligible_independent_public_review",
+      "source_references": [
+        {
+          "path": "research/quartic214/PROOF.md",
+          "sha256": "0feb164c3ed33543136b89aa87b27bc890f4aadef2d082d465263f55dc26d165",
+          "bytes": 10582
+        },
+        {
+          "path": "research/quartic214/proofs/height-supplier.md",
+          "sha256": "4974b167ab415159e0ff996b341528008c2ba8ae8e2a1ebf69bab5bc9a9b9c12",
+          "bytes": 15498
+        },
+        {
+          "path": "research/quartic214/proofs/height-averaging.md",
+          "sha256": "bb87f61d7134c09d695f9bbff2c26b12b8c9ce5fe74a4ec598b2e4410f100192",
+          "bytes": 8145
+        },
+        {
+          "path": "research/quartic214/PRIMARY_SOURCES.json",
+          "sha256": "cfa7597432cd98c7184c0f9332c6d56f8ea53b208613aab0d855f5ffd1181161",
+          "bytes": 48789
+        },
+        {
+          "path": "research/version15/snapshots/v15-222-004/manuscript/quartic_v15.tex",
+          "sha256": "44ba3a8ec8521c29b81b26cfb9981cd6d5f3c76d54e7782438614842edb52c74",
+          "bytes": 1924438
+        },
+        {
+          "path": "research/quartic214/proofs/uniform-existence.md",
+          "sha256": "d13cc2b846dc72a3f5b5cce8dcf11d3f11b33c45ebc3883263840afb8d82f3bc",
+          "bytes": 22294
+        },
+        {
+          "path": "research/quartic214/construction/check_exact.py",
+          "sha256": "07527831694fc6be9373e2dac92d292520fbb8c79128e4d51a1ae0128c96e214",
+          "bytes": 7372
+        },
+        {
+          "path": "research/quartic214/proofs/source-carry.md",
+          "sha256": "f7f4e550a4dcfbbd3b5ffcf783b11411f7888c821dbab7febb5132b7b2b891ed",
+          "bytes": 15185
+        },
+        {
+          "path": "research/quartic214/sources/aggregate-bridge.md",
+          "sha256": "668e84f5864b5961b67599ef9c3ffd1b44c66c93679cef9853ef596fce4267f5",
+          "bytes": 7628
+        },
+        {
+          "path": "research/quartic214/sources/factor-extraction.tex",
+          "sha256": "38236daca2811087e08e7f26eb79504dc25171dc78019a557d99966471edb109",
+          "bytes": 5809
+        }
+      ],
+      "evidence": [
+        {
+          "path": "research/quartic214/proofs/uniform-existence.md",
+          "sha256": "d13cc2b846dc72a3f5b5cce8dcf11d3f11b33c45ebc3883263840afb8d82f3bc",
+          "bytes": 22294,
+          "section": "[P01:",
+          "lines": [
+            5,
+            11
+          ],
+          "passage_sha256": "cac4ef0c21ba83314e59ffa0579adf0f51a8c2e818f4cec623a185f5a3dd7687",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/proofs/uniform-existence.md",
+          "sha256": "d13cc2b846dc72a3f5b5cce8dcf11d3f11b33c45ebc3883263840afb8d82f3bc",
+          "bytes": 22294,
+          "section": "[P05:",
+          "lines": [
+            18,
+            27
+          ],
+          "passage_sha256": "b70bd6cb7d0d2097d023c5bea0d360109ee7aa687300ed1848e20bbfa6c0f67f",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/proofs/uniform-existence.md",
+          "sha256": "d13cc2b846dc72a3f5b5cce8dcf11d3f11b33c45ebc3883263840afb8d82f3bc",
+          "bytes": 22294,
+          "section": "[P08:",
+          "lines": [
+            36,
+            37
+          ],
+          "passage_sha256": "6f01da126da1b4379ae0ee4b20ad0db063dff200d7dd07ee1209e033392b025f",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/proofs/uniform-existence.md",
+          "sha256": "d13cc2b846dc72a3f5b5cce8dcf11d3f11b33c45ebc3883263840afb8d82f3bc",
+          "bytes": 22294,
+          "section": "[P10:",
+          "lines": [
+            40,
+            45
+          ],
+          "passage_sha256": "ec1d73015e71b840bad438043a2423d88398b870efcb51117d5f185b5674c451",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/proofs/uniform-existence.md",
+          "sha256": "d13cc2b846dc72a3f5b5cce8dcf11d3f11b33c45ebc3883263840afb8d82f3bc",
+          "bytes": 22294,
+          "section": "[P11:",
+          "lines": [
+            46,
+            47
+          ],
+          "passage_sha256": "0f25cf01d2440fd92863219bf273040a1d8142237f021c0991966f67f9787d66",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/proofs/uniform-existence.md",
+          "sha256": "d13cc2b846dc72a3f5b5cce8dcf11d3f11b33c45ebc3883263840afb8d82f3bc",
+          "bytes": 22294,
+          "section": "[P14:",
+          "lines": [
+            67,
+            68
+          ],
+          "passage_sha256": "75309fb18a5de7c52de87fbf2d0902c9f9352c380feb5431afeeae624417718b",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/proofs/uniform-existence.md",
+          "sha256": "d13cc2b846dc72a3f5b5cce8dcf11d3f11b33c45ebc3883263840afb8d82f3bc",
+          "bytes": 22294,
+          "section": "[P15:",
+          "lines": [
+            69,
+            70
+          ],
+          "passage_sha256": "493a36c877e53621aa3542fa8a48f824eda6177d5889bb0dd60963a2c86146e3",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/proofs/uniform-existence.md",
+          "sha256": "d13cc2b846dc72a3f5b5cce8dcf11d3f11b33c45ebc3883263840afb8d82f3bc",
+          "bytes": 22294,
+          "section": "[P19:",
+          "lines": [
+            82,
+            83
+          ],
+          "passage_sha256": "d6a8bdbdff3744b70becebf04dc13868154836f381b6ca5e339886dc9d2deef3",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/proofs/uniform-existence.md",
+          "sha256": "d13cc2b846dc72a3f5b5cce8dcf11d3f11b33c45ebc3883263840afb8d82f3bc",
+          "bytes": 22294,
+          "section": "[P20:",
+          "lines": [
+            84,
+            84
+          ],
+          "passage_sha256": "2ef064324d6b4998acb95450946310eefab309878bc9b742fb6473a4dbc78e98",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/PROOF.md",
+          "sha256": "0feb164c3ed33543136b89aa87b27bc890f4aadef2d082d465263f55dc26d165",
+          "bytes": 10582,
+          "section": "Soundness with one fixed threshold",
+          "lines": [
+            29,
+            38
+          ],
+          "passage_sha256": "6e65dfeb73c7a0681090c423f84d31cb78944693d02f52287d77d87b7d0afe34",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/PROOF.md",
+          "sha256": "0feb164c3ed33543136b89aa87b27bc890f4aadef2d082d465263f55dc26d165",
+          "bytes": 10582,
+          "section": "Completeness and quantifiers",
+          "lines": [
+            39,
+            44
+          ],
+          "passage_sha256": "54c2502fc15a033bc5182a97f2ee7a348f20732ffe372a8c2eedb4891588d3f2",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        }
+      ]
+    },
+    "downstream_consumption": {
+      "required_input": "Use the actual local, height and scalar outputs to prove uniform soundness and fresh universal completeness, while preserving the limits of historical review.",
+      "constructed_input": "Separate M_j^3|Delta gives exponent 14/9<2; separate M_j|J gives the stated logarithmic upper bound; monotone L_N gives a fixed N_S. Uniform scalar O(R^-6) gives N_C. Fresh pole certificates and exact raw maps finish completeness at N0=max(N_S,N_C).",
+      "justification": "P11\u2013P20 give the quantifier argument. Input-dependent analytic size thresholds select witnesses for fixed N and do not enlarge N0. The unchanged recursive foundations need eligible carry and review. No full numerical witness was produced.",
+      "original_author_obligation_sha256": "d4bc212d0516e1a8f565c36652ff0395b49176788c6aa6a64082f4b2641893db",
+      "original_author_source_ids": [
+        "U01",
+        "U02",
+        "U03",
+        "U04",
+        "U05",
+        "U06",
+        "U07",
+        "U08",
+        "U09",
+        "U10"
+      ],
+      "status": "author_proposed_pending_eligible_independent_public_review",
+      "source_references": [
+        {
+          "path": "research/quartic214/PROOF.md",
+          "sha256": "0feb164c3ed33543136b89aa87b27bc890f4aadef2d082d465263f55dc26d165",
+          "bytes": 10582
+        },
+        {
+          "path": "research/quartic214/proofs/height-supplier.md",
+          "sha256": "4974b167ab415159e0ff996b341528008c2ba8ae8e2a1ebf69bab5bc9a9b9c12",
+          "bytes": 15498
+        },
+        {
+          "path": "research/quartic214/proofs/height-averaging.md",
+          "sha256": "bb87f61d7134c09d695f9bbff2c26b12b8c9ce5fe74a4ec598b2e4410f100192",
+          "bytes": 8145
+        },
+        {
+          "path": "research/quartic214/PRIMARY_SOURCES.json",
+          "sha256": "cfa7597432cd98c7184c0f9332c6d56f8ea53b208613aab0d855f5ffd1181161",
+          "bytes": 48789
+        },
+        {
+          "path": "research/version15/snapshots/v15-222-004/manuscript/quartic_v15.tex",
+          "sha256": "44ba3a8ec8521c29b81b26cfb9981cd6d5f3c76d54e7782438614842edb52c74",
+          "bytes": 1924438
+        },
+        {
+          "path": "research/quartic214/proofs/uniform-existence.md",
+          "sha256": "d13cc2b846dc72a3f5b5cce8dcf11d3f11b33c45ebc3883263840afb8d82f3bc",
+          "bytes": 22294
+        },
+        {
+          "path": "research/quartic214/construction/check_exact.py",
+          "sha256": "07527831694fc6be9373e2dac92d292520fbb8c79128e4d51a1ae0128c96e214",
+          "bytes": 7372
+        },
+        {
+          "path": "research/quartic214/proofs/source-carry.md",
+          "sha256": "f7f4e550a4dcfbbd3b5ffcf783b11411f7888c821dbab7febb5132b7b2b891ed",
+          "bytes": 15185
+        },
+        {
+          "path": "research/quartic214/sources/aggregate-bridge.md",
+          "sha256": "668e84f5864b5961b67599ef9c3ffd1b44c66c93679cef9853ef596fce4267f5",
+          "bytes": 7628
+        },
+        {
+          "path": "research/quartic214/sources/factor-extraction.tex",
+          "sha256": "38236daca2811087e08e7f26eb79504dc25171dc78019a557d99966471edb109",
+          "bytes": 5809
+        }
+      ],
+      "evidence": [
+        {
+          "path": "research/quartic214/proofs/uniform-existence.md",
+          "sha256": "d13cc2b846dc72a3f5b5cce8dcf11d3f11b33c45ebc3883263840afb8d82f3bc",
+          "bytes": 22294,
+          "section": "[P01:",
+          "lines": [
+            5,
+            11
+          ],
+          "passage_sha256": "cac4ef0c21ba83314e59ffa0579adf0f51a8c2e818f4cec623a185f5a3dd7687",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/proofs/uniform-existence.md",
+          "sha256": "d13cc2b846dc72a3f5b5cce8dcf11d3f11b33c45ebc3883263840afb8d82f3bc",
+          "bytes": 22294,
+          "section": "[P05:",
+          "lines": [
+            18,
+            27
+          ],
+          "passage_sha256": "b70bd6cb7d0d2097d023c5bea0d360109ee7aa687300ed1848e20bbfa6c0f67f",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/proofs/uniform-existence.md",
+          "sha256": "d13cc2b846dc72a3f5b5cce8dcf11d3f11b33c45ebc3883263840afb8d82f3bc",
+          "bytes": 22294,
+          "section": "[P08:",
+          "lines": [
+            36,
+            37
+          ],
+          "passage_sha256": "6f01da126da1b4379ae0ee4b20ad0db063dff200d7dd07ee1209e033392b025f",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/proofs/uniform-existence.md",
+          "sha256": "d13cc2b846dc72a3f5b5cce8dcf11d3f11b33c45ebc3883263840afb8d82f3bc",
+          "bytes": 22294,
+          "section": "[P10:",
+          "lines": [
+            40,
+            45
+          ],
+          "passage_sha256": "ec1d73015e71b840bad438043a2423d88398b870efcb51117d5f185b5674c451",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/proofs/uniform-existence.md",
+          "sha256": "d13cc2b846dc72a3f5b5cce8dcf11d3f11b33c45ebc3883263840afb8d82f3bc",
+          "bytes": 22294,
+          "section": "[P11:",
+          "lines": [
+            46,
+            47
+          ],
+          "passage_sha256": "0f25cf01d2440fd92863219bf273040a1d8142237f021c0991966f67f9787d66",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/proofs/uniform-existence.md",
+          "sha256": "d13cc2b846dc72a3f5b5cce8dcf11d3f11b33c45ebc3883263840afb8d82f3bc",
+          "bytes": 22294,
+          "section": "[P14:",
+          "lines": [
+            67,
+            68
+          ],
+          "passage_sha256": "75309fb18a5de7c52de87fbf2d0902c9f9352c380feb5431afeeae624417718b",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/proofs/uniform-existence.md",
+          "sha256": "d13cc2b846dc72a3f5b5cce8dcf11d3f11b33c45ebc3883263840afb8d82f3bc",
+          "bytes": 22294,
+          "section": "[P15:",
+          "lines": [
+            69,
+            70
+          ],
+          "passage_sha256": "493a36c877e53621aa3542fa8a48f824eda6177d5889bb0dd60963a2c86146e3",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/proofs/uniform-existence.md",
+          "sha256": "d13cc2b846dc72a3f5b5cce8dcf11d3f11b33c45ebc3883263840afb8d82f3bc",
+          "bytes": 22294,
+          "section": "[P19:",
+          "lines": [
+            82,
+            83
+          ],
+          "passage_sha256": "d6a8bdbdff3744b70becebf04dc13868154836f381b6ca5e339886dc9d2deef3",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/proofs/uniform-existence.md",
+          "sha256": "d13cc2b846dc72a3f5b5cce8dcf11d3f11b33c45ebc3883263840afb8d82f3bc",
+          "bytes": 22294,
+          "section": "[P20:",
+          "lines": [
+            84,
+            84
+          ],
+          "passage_sha256": "2ef064324d6b4998acb95450946310eefab309878bc9b742fb6473a4dbc78e98",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/PROOF.md",
+          "sha256": "0feb164c3ed33543136b89aa87b27bc890f4aadef2d082d465263f55dc26d165",
+          "bytes": 10582,
+          "section": "Soundness with one fixed threshold",
+          "lines": [
+            29,
+            38
+          ],
+          "passage_sha256": "6e65dfeb73c7a0681090c423f84d31cb78944693d02f52287d77d87b7d0afe34",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214/PROOF.md",
+          "sha256": "0feb164c3ed33543136b89aa87b27bc890f4aadef2d082d465263f55dc26d165",
+          "bytes": 10582,
+          "section": "Completeness and quantifiers",
+          "lines": [
+            39,
+            44
+          ],
+          "passage_sha256": "54c2502fc15a033bc5182a97f2ee7a348f20732ffe372a8c2eedb4891588d3f2",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        }
+      ]
+    }
+  },
+  "independent_acceptance": null
+}

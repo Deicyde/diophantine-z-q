@@ -1,0 +1,93 @@
+{
+  "schema": "pr30-independent-policy-computation-delivery-review/v1",
+  "reviewer": "/root/pr30_final_repair_review",
+  "role": "non-author source reviewer; author of own review evidence only",
+  "head": "c84bbfa4dbe8f32fd3bf29df029f7b7849d36202",
+  "base": "a5937595cde3e3db00975b81e5171cdef92c801a",
+  "controller_acceptance": false,
+  "backend_identity_attested": false,
+  "applications": [
+    {
+      "application_id": "PR30-INTEGRATION-POLICY",
+      "dependencies": [],
+      "decision": "accepted-at-stated-scope",
+      "scope": "Additive research workflows, protected-policy source preservation, official V16 selector preservation, exact README/history wrapper with two substitution keys. No authenticated App or model identity judgment.",
+      "basis": "Source reconstruction, exact base diff, fourteen native-wrapper source hashes matched to committed blobs, full wrapper replay with 44 negative controls.",
+      "remaining_limits": [
+        "W1 actual receipt includes comparison/report bindings although schema does not mandate them.",
+        "W2 reviewer task/model strings do not authenticate eligibility."
+      ]
+    },
+    {
+      "application_id": "PR30-COMPUTATION",
+      "dependencies": [
+        "PR30-ALGEBRA"
+      ],
+      "decision": "accepted-at-stated-scope",
+      "scope": "Exact 214-coordinate/188-row construction, independent SOS expansion and coefficient bound, Laurent identity and rational numeric certificate replay. Source-system semantics and rational projection are supplied by PR30-ALGEBRA.",
+      "basis": "Independent exact arithmetic, byte-identical builder replay, 21 Laurent/table corruption controls, four numeric corruption controls, portable source checks.",
+      "remaining_limits": [
+        "No finite execution proves universal arithmetic existence or computes the ineffective defining threshold."
+      ]
+    },
+    {
+      "application_id": "PR30-DELIVERY",
+      "dependencies": [
+        "PR30-RECEIVING",
+        "PR30-COMPUTATION",
+        "PR30-INTEGRATION-POLICY"
+      ],
+      "decision": "accepted-at-stated-scope",
+      "scope": "Complete current revision3 artifact packaging, source/PDF reproducibility and bounded delivery checks, conditional on separate receiving/source-coverage decision.",
+      "basis": "Exact current manifest and committed artifact comparison, prior unchanged read-only 703-page PDF rebuild, direct affected-page inspection, historical/public/progress/revision2 gate replays.",
+      "remaining_limits": [
+        "Does not independently approve this reviewer's own receipt provenance, transport or model eligibility. Separate coverage reviewer must assess those.",
+        "Original README links remain historical; current revision3 guide is the delivery entry point.",
+        "Final native target and protected App acceptance remain separate."
+      ]
+    }
+  ],
+  "evidence": [
+    {
+      "path": "DELIVERY_INITIAL.json",
+      "sha256": "2b695e5bf79657e30ac95322353b42c68a66c873ba4d923f3d83d2ea21a0426c",
+      "bytes": 3808
+    },
+    {
+      "path": "DELIVERY_COMMITTED_BINDINGS.json",
+      "sha256": "b8376dcb4a335c08b352d6d4f1d876992ac482d5a89ac8922af4013084287e7a",
+      "bytes": 5003
+    },
+    {
+      "path": "DELIVERY_REVIEW.md",
+      "sha256": "97f24ef31c8404516e9b6f1def04741375da456ec6a17412b58546648236f352",
+      "bytes": 10230
+    },
+    {
+      "path": "DELIVERY_TESTS.json",
+      "sha256": "9442f14c04a8436f3625b0f39ceba56ac474cc1c5303d22d7e8bfcda74d0f1a4",
+      "bytes": 4378
+    },
+    {
+      "path": "COMMITTED_DELIVERY_TESTS.json",
+      "sha256": "47bbb4c8eaa342b22b92b46e7b4e190e83080a9d8788fddc821b0a6a740f6ea8",
+      "bytes": 12814
+    },
+    {
+      "path": "COMPUTATION_INDEPENDENT.json",
+      "sha256": "e27a809a9e16944ee4f22b3cc84b5e344d7a24305305088c4f5b7f0cab579c48",
+      "bytes": 1325
+    },
+    {
+      "path": "WRAPPER_REUSE_MATCHES.json",
+      "sha256": "74944b6c0ff3d249b34b40608c8dd706e4701f6b3235693b58e338cce2ecc226",
+      "bytes": 2770
+    },
+    {
+      "path": "ARCHIVE_AUTOCRLF_FAILURE.json",
+      "sha256": "8bfd86cb0d78233fc74a4f15efe2cd933552724ec7262148524821886cbcea2f",
+      "bytes": 1453
+    }
+  ],
+  "failures_preserved": "Initial Windows checkout and default archive run failed the historical workflow byte check due to CRLF conversion. Explicit core.autocrlf=false archive matched Git blob hashes and full gates passed. No candidate edits or pin weakening."
+}

@@ -1,0 +1,235 @@
+{
+  "reviewer": "/root/d214_analytic_source_closure",
+  "type": "model internal nonauthor review; controller eligibility not attested",
+  "commit": "e3626cac202cdbcdfedc2bff1978dcd3ea3fd3ab",
+  "manuscript_sha256": "aeb2b6a42a03943d7f8c46682389c8da693d2903ba92ccc164bbbd236451de74",
+  "prior_exposure": "Parent scope assignment only; no declared inventory, contracts, or earlier verdicts opened before this freeze. Manuscript itself contains historical descriptions; not a blind review.",
+  "rows": [
+    {
+      "id": "A01",
+      "source": "manuscripts/quartic_v16.tex",
+      "start": 17544,
+      "end": 17698,
+      "excerpt_sha256": "6ced1761cafa8c24fddb426646770f4183683170f04fe92dea39d6dfe7320cc3",
+      "claim": "Simultaneous prime theorem; local finite-field counts; primitive congruence count",
+      "supplier": "Browning–Loughran Theorem 4.1; ideal primitivity Mobius inversion; explicit finite-field calculation",
+      "required": "primitive vectors, arbitrary nonzero residue subsets, squarefree m coprime to2kappa, uniform modulus error",
+      "status": "source-first read; external/application check pending"
+    },
+    {
+      "id": "A02",
+      "source": "manuscripts/quartic_v16.tex",
+      "start": 17699,
+      "end": 17798,
+      "excerpt_sha256": "669d44743d984adeed2a3f1ed31756ea5c34a98fa7a79e362ccc8e2a49a6ba78",
+      "claim": "Medium-prime sieve",
+      "supplier": "A01; Williams Theorem1; elementary Selberg weights and Chebyshev",
+      "required": "uniform cutoff L and tau main coefficient, error may depend on fixed tau",
+      "status": "source-first read; external/application check pending"
+    },
+    {
+      "id": "A03",
+      "source": "manuscripts/quartic_v16.tex",
+      "start": 17799,
+      "end": 17923,
+      "excerpt_sha256": "f9c43b4e118507ea06aa09008100ade43c8786811ae1d4b3c1c92414ebc42a61",
+      "claim": "Large-prime tail",
+      "supplier": "Browning–Heath-Brown Lemmas2.1,4.1; internal fixed-coordinate/lattice argument",
+      "required": "inhomogeneous coprime polynomials, content primes removed, rank3 good q",
+      "status": "source-first read; external/application check pending"
+    },
+    {
+      "id": "A04",
+      "source": "manuscripts/quartic_v16.tex",
+      "start": 17924,
+      "end": 17987,
+      "excerpt_sha256": "5f443b8fa5b60a93270ca4b75f6489e3c068340592f0279603cd9e12e51f5a5d",
+      "claim": "Weighted obstruction tail",
+      "supplier": "A02,A03",
+      "required": "all generators, primitive count, log weights, uniform L, fixed tau",
+      "status": "source-first read; external/application check pending"
+    },
+    {
+      "id": "A05",
+      "source": "manuscripts/quartic_v16.tex",
+      "start": 17988,
+      "end": 18149,
+      "excerpt_sha256": "b70e33aa36669744adda79a5f933793aee6865fcee4bf7e40fc7098708405ee7",
+      "claim": "Ray-character weights and SW",
+      "supplier": "Mitsui1956 Lemmas14,15; prime-power comparison",
+      "required": "fixed E,H; rho,q vary polylogarithmically; arithmetic Frobenius; split factor2",
+      "status": "source-first read; external/application check pending"
+    },
+    {
+      "id": "A06",
+      "source": "manuscripts/quartic_v16.tex",
+      "start": 18150,
+      "end": 18276,
+      "excerpt_sha256": "83067a2946bce79201c1f82e83d2f41caf875a1916e5e83b013ec48b528cd448",
+      "claim": "Progression and centered weights",
+      "supplier": "A05; character Fourier expansion, cyclotomic intersection",
+      "required": "fixed W contains abelian conductor; every progression; centering by ordinary primes",
+      "status": "source-first read; external/application check pending"
+    },
+    {
+      "id": "A07",
+      "source": "manuscripts/quartic_v16.tex",
+      "start": 18277,
+      "end": 18506,
+      "excerpt_sha256": "d7a685b593ce69675a2aa6f0cf3518fef9b219606f291904e8c7f77191d5cf29",
+      "claim": "Gaussian norm transfer",
+      "supplier": "GT Orbits Theorem2.9,Lemma6.7,AppendixA; internal quadratic extrapolation",
+      "required": "total delta distribution; norm congruences; arbitrary intervals; four generators/ideal",
+      "status": "source-first read; external/application check pending"
+    },
+    {
+      "id": "A08",
+      "source": "manuscripts/quartic_v16.tex",
+      "start": 18507,
+      "end": 18861,
+      "excerpt_sha256": "50a838241a5ede661d95256828abe08b303f9ce901eb119fb166ea5f8e0e107c",
+      "claim": "Ideal Vaughan/extraction/recombination",
+      "supplier": "A07; GT Orbits Theorem2.9,Lemma4.5; exact ideal convolutions",
+      "required": "all integer norm multiplicities, product orbit distribution not inferred from factors",
+      "status": "source-first read; external/application check pending"
+    },
+    {
+      "id": "A09",
+      "source": "manuscripts/quartic_v16.tex",
+      "start": 18862,
+      "end": 19015,
+      "excerpt_sha256": "76f16226163f1e5415f802aa2878fa5e72f53ea8b8b09944172c2df1e0ff4de9",
+      "claim": "Power-form Gaussian and ordinary minor arcs",
+      "supplier": "A07,A08; dyadic rescaling/small delta cases",
+      "required": "fixed positive exponent independent of H; all intervals and delta",
+      "status": "source-first read; external/application check pending"
+    },
+    {
+      "id": "A10",
+      "source": "manuscripts/quartic_v16.tex",
+      "start": 19016,
+      "end": 19209,
+      "excerpt_sha256": "637ade3d838aecb25ff819628b627a7111af905b0a6ea51327ab589b35107e25",
+      "claim": "Affine interpolation and W-trick",
+      "supplier": "GT Orbits Lemma6.7,Theorem2.9; A09; internal coefficient extrapolation",
+      "required": "fixed W; exact equality tilde-g(Wn+b)=g(n); whole interval distribution",
+      "status": "source-first read; external/application check pending"
+    },
+    {
+      "id": "A11",
+      "source": "manuscripts/quartic_v16.tex",
+      "start": 19210,
+      "end": 19440,
+      "excerpt_sha256": "7f31d710a45a7db8feb45201a344e116628f847619b101dc1176ae0f664a9667",
+      "claim": "Centered factorization",
+      "supplier": "GT Orbits Theorem1.19; GT Mobius p547 conjugation claim; A06,A10",
+      "required": "commensurable conjugate lattice; cells counted; B chosen before E(B)",
+      "status": "source-first read; external/application check pending"
+    },
+    {
+      "id": "A12",
+      "source": "manuscripts/quartic_v16.tex",
+      "start": 19441,
+      "end": 19700,
+      "excerpt_sha256": "04582e7f9375a1cbdb3747b7bce21caf819bb259cd43a30dce701aa37ac5b381",
+      "claim": "Majorant and relative inverse bridge",
+      "supplier": "GT Linear equations Proposition6.4,AppendixD,Proposition10.1; internal GI(k)",
+      "required": "full correlation and linear forms pseudorandomness; normalized interval norms; fixed E factor",
+      "status": "source-first read; external/application check pending"
+    },
+    {
+      "id": "A13",
+      "source": "manuscripts/quartic_v16.tex",
+      "start": 19701,
+      "end": 19889,
+      "excerpt_sha256": "4cc286a0f4f104005e12a1b2e3f282ea99f07692235b1d8b11fffe38efb1178b",
+      "claim": "Linear replacement and local cubes",
+      "supplier": "A12; GT Lemma4.4,Proposition7.1; TZ Proposition6; Bienvenu Theorem1.1",
+      "required": "bounded normalized affine constants; all subproducts; no growing admissible mass loss",
+      "status": "source-first read; external/application check pending"
+    },
+    {
+      "id": "A14",
+      "source": "manuscripts/quartic_v16.tex",
+      "start": 19890,
+      "end": 20170,
+      "excerpt_sha256": "a3ebf68c6611c54d530e084810576f717a1a2260a0cb4293bff8c2755699f299",
+      "claim": "Polynomial transference and fixed field count",
+      "supplier": "A13; TZ Theorems9,11,13,15 and Corollary3; internal fixed-E adaptation",
+      "required": "arbitrary dominated model, fixed bound; iterated v,N and moving T; boundary-strip localization",
+      "status": "source-first read; external/application check pending"
+    },
+    {
+      "id": "A15",
+      "source": "manuscripts/quartic_v16.tex",
+      "start": 20171,
+      "end": 20309,
+      "excerpt_sha256": "77747884d50cdcb1a86e23a86f421a9a8a3c31e31186e27aa9b4712555b40e88",
+      "claim": "Ray density lower bound",
+      "supplier": "Kopp–Lagarias Theorems1.1,1.3,6.5,7.2; Williams Theorem1; internal fibre count",
+      "required": "normalized unit representatives; arithmetic Frobenius; quotient commutators; degree factors",
+      "status": "source-first read; external/application check pending"
+    },
+    {
+      "id": "A16",
+      "source": "manuscripts/quartic_v16.tex",
+      "start": 20310,
+      "end": 20356,
+      "excerpt_sha256": "7cfb433b3806c11d008d9afb3b18841db6d68b5752d18ab3e724d4ed97a515d1",
+      "claim": "Final prime diagonal",
+      "supplier": "A04,A14,A15",
+      "required": "L fixed first; field fixed; tau(N) sufficiently slow; whole obstruction tail subtracted",
+      "status": "source-first read; external/application check pending"
+    },
+    {
+      "id": "G00",
+      "source": "manuscripts/quartic_v16.tex",
+      "start": 23833,
+      "end": 24419,
+      "excerpt_sha256": "6450a0f7f5910d4c7b4f09dc9e927ecc40e7fef815e511a00c1859408170fe89",
+      "claim": "GI exact target and assembly",
+      "supplier": "GI-BASE2,TAUTIFICATION,LP13,LP02-03,DF,MULTIFACTOR,SECTION9-11,LP04,SECTION12,RANK,LP05,PLAIN-QUADRUPLES,SECTION13,INCREMENT,CONVERSE,selection",
+      "required": "fixed finite same-step linear family; full limit vertical identity; all internal suppliers require review",
+      "status": "source-first read; external/application check pending"
+    },
+    {
+      "id": "G01",
+      "source": "manuscripts/quartic_v16.tex",
+      "start": 24420,
+      "end": 30095,
+      "excerpt_sha256": "912f2811f29e6ee27cf95a9bcc8cc673f03f80300f67060067f6cc27d4113a64",
+      "claim": "GI supporting internal proof modules",
+      "supplier": "published bracket/Bohr, GT quantitative orbits and corrections, rational coordinate and compact cube sources; detailed inventory awaiting proof read",
+      "required": "UNREAD supporting range at initial freeze, not accepted",
+      "status": "awaiting full review"
+    },
+    {
+      "id": "C01",
+      "source": "manuscripts/quartic_v16.tex",
+      "start": 31958,
+      "end": 32067,
+      "excerpt_sha256": "c0e7282d310f92fff00b66cc45055bd1aa9934d30565804f8334ca09eda9728b",
+      "claim": "Weighted prime-selection and thin-strip consumers",
+      "supplier": "A16 plus positive retained XT weight",
+      "required": "fixed data before X; slow diagonal may meet additional eventually valid thresholds",
+      "status": "source-first read; external/application check pending"
+    }
+  ],
+  "consumer_bindings": [
+    {
+      "path": "research/quartic214/proofs/uniform-existence.md",
+      "sha256": "d13cc2b846dc72a3f5b5cce8dcf11d3f11b33c45ebc3883263840afb8d82f3bc",
+      "scope": "prime-related P15–P18 and assembly; remainder outside lane"
+    },
+    {
+      "path": "research/quartic214/proofs/existence.md",
+      "sha256": "37ab929ed3f4b4dee2b91d2e39408e7070e8a9176b981bcc9c352d17b9cc2332",
+      "scope": "prime-related P15–P18 and assembly; remainder outside lane"
+    },
+    {
+      "path": "research/quartic214/PROOF.md",
+      "sha256": "0feb164c3ed33543136b89aa87b27bc890f4aadef2d082d465263f55dc26d165",
+      "scope": "prime-related P15–P18 and assembly; remainder outside lane"
+    }
+  ]
+}

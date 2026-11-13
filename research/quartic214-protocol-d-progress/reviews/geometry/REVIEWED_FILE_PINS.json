@@ -1,0 +1,62 @@
+[
+  {
+    "path": "manuscripts/quartic_v16.tex",
+    "sha256": "aeb2b6a42a03943d7f8c46682389c8da693d2903ba92ccc164bbbd236451de74",
+    "bytes": 1926498
+  },
+  {
+    "path": "research/quartic214/proofs/geometry-carry.md",
+    "sha256": "b3cb8201de84f733b0518ad68a9c0d0bc1e78534ffd39aca5d8c70f1bae69e76",
+    "bytes": 13337
+  },
+  {
+    "path": "research/quartic214/proofs/provider-scope-carry.md",
+    "sha256": "368774d2b96a606df4dd5e81a3c4fecaf22f09f33f27e49e0a80e37b02157154",
+    "bytes": 16324
+  },
+  {
+    "path": "research/quartic214/proofs/modularity.md",
+    "sha256": "814676050b389793d196346f45e2797f39e2c5be0f3fee8457bb709b2607606e",
+    "bytes": 25777
+  },
+  {
+    "path": "research/quartic214/proofs/height-supplier.md",
+    "sha256": "4974b167ab415159e0ff996b341528008c2ba8ae8e2a1ebf69bab5bc9a9b9c12",
+    "bytes": 15498
+  },
+  {
+    "path": "research/quartic214/contracts/modularity-2.json",
+    "sha256": "bf0032fd58169d79f84fe6587a1902ad0fda12da895147eed4bc0bf01e08809e",
+    "bytes": 51288
+  },
+  {
+    "path": "research/quartic214/contracts/modularity-6.json",
+    "sha256": "3b61613f34a5f8746804ab2e6aa24aa787cc5fb6485ac2c5aa2a1a1cc4da9ab9",
+    "bytes": 75345
+  },
+  {
+    "path": "research/version14/proofs/h5-full-three-v1/PROOF.md",
+    "sha256": "054ec4a656b82e1d1d17c7e9d3575afe722c42594f933256e7ea225f6a3f5e3b",
+    "bytes": 19349
+  },
+  {
+    "path": "research/version14/proofs/h5-full-three-v1/GEOMETRIC-ISOGENY.md",
+    "sha256": "f889eab0b9f7880a647ebb34f10ac44a73aaf748f2041cb03dea756079d6ab9e",
+    "bytes": 5819
+  },
+  {
+    "path": "research/version16/protocol/DOSSIER.json",
+    "sha256": "45c3864dc588d23c6c797e783c23f88c5b00473ccd7956548734380ccb04f9c5",
+    "bytes": 6201368
+  },
+  {
+    "path": "research/version16/protocol/CONNECTIONS.json",
+    "sha256": "979d6997dcb6e1f7f96a293e4a8453378939ac3e23cba5f15915478d07a7d101",
+    "bytes": 9510085
+  },
+  {
+    "path": "research/version16/review/coverage/record-repair-001/PROTOCOL14-COVERAGE-REVIEW.json",
+    "sha256": "7f7e0544d324b4ba19d5cb70151c98b31ae2a2a429483df7416d07812267b497",
+    "bytes": 2096814
+  }
+]

@@ -1,0 +1,69 @@
+{
+  "schema": "v17-navigation-continuation-review/v1",
+  "authors": [
+    "/root",
+    "/root/pr30_final_repair_review"
+  ],
+  "reviewer": "/root/pr30_final_coverage",
+  "reviewer_agent_id": "01a1d453-9237-7752-8e4c-628a97fa9cf7",
+  "reviewer_run_id": "01a1d4a0-bf87-7e92-8ae9-c4d26efba54f",
+  "decision": "accepted-at-stated-scope",
+  "controller_acceptance": false,
+  "mathematical_acceptance_renewed": false,
+  "historical_substitutions": [
+    ".github/workflows/quartic214-manuscript.yml",
+    "README.md",
+    "docs/current-manuscript.json",
+    "docs/release-policy.md"
+  ],
+  "record": {
+    "path": "research/version17/historical-continuation/CONTINUATION.json",
+    "sha256": "99ec3dc3f7252627ec5d283e7a5f738345b7c0389b955229ec5c3cbb74e6ceff",
+    "bytes": 4939
+  },
+  "reviewed_at": "2026-11-13T11:59:29.613280+00:00",
+  "limitations": [
+    "This receipt accepts the unchanged four-path historical-continuation adapter against its successor record. Exactly one binding changes: the current main workflow now invokes the separately reviewed fixed CI compatibility runner for two original commands. No mathematical source or old authority changes.",
+    "The original adapter domain remains exactly README.md, .github/workflows/quartic214-manuscript.yml, docs/current-manuscript.json and docs/release-policy.md. The separate CI runner has its own explicitly enumerated per-mode domains; this receipt does not silently expand the original domain.",
+    "Independent source checks verify all twenty runner bindings, exact archived Git bytes, all four fixed commands and arguments, normal and exceptional read restoration, live proof reads, and rejection of command, argument, proof-path and stale-binding substitutions.",
+    "The prior canonical full Linux execution remains evidence only for its prior record. The new source/record checks are complete; full successor workflow execution is pending and must be recorded separately before final delivery acceptance.",
+    "Current selector validation precedes historical reads. All original validators, rejection controls, source/PDF checks and current version policy remain required. This is not mathematical reacceptance, authenticated controller acceptance or permission to publish."
+  ],
+  "evidence_files": [
+    {
+      "path": "research/version17/historical-continuation/check_records.py",
+      "sha256": "c4f76a0b4b5fad013a0105390386604eaa8eacd50b308fe310599a2536c1363b",
+      "bytes": 8116
+    },
+    {
+      "path": "research/version17/historical-continuation/FROZEN.json",
+      "sha256": "505ae77aee3def1247d4829600add4e4422744a9687298d12a4a47c9776e65ed",
+      "bytes": 1186
+    },
+    {
+      "path": "scripts/check_version_increment.py",
+      "sha256": "ac6d98f3fc56e88df0e65264e820d04d621d75552c7d9a20fb8dad8975a6b2cf",
+      "bytes": 10923
+    },
+    {
+      "path": ".github/workflows/research-checks.yml",
+      "sha256": "357ad486fde5be994be1909f433abb58d5a7b7b4c24052106d1125df1d08552c",
+      "bytes": 10001
+    },
+    {
+      "path": "research/version17/ci-compatibility/run.py",
+      "sha256": "9601536405b2a39d75801055ab32771dd2cf536e82694d7f7a1c8ca7a99e370f",
+      "bytes": 6529
+    },
+    {
+      "path": "research/version17/ci-compatibility/BINDINGS.json",
+      "sha256": "62c574f7d493e2e826a0e18b93ff66fc856398f602eed573a941aab8f78fefc4",
+      "bytes": 3923
+    }
+  ],
+  "prior_review": {
+    "path": "research/quartic214-native-review/v17-extension/canonical/NAVIGATION-REVIEW.json",
+    "sha256": "c18daac135b5780c54d5d710351fadfbfe41bd6ff53759099448f68f393fac47",
+    "bytes": 3314
+  }
+}

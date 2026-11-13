@@ -1,0 +1,60 @@
+{
+  "scope": "Temporary reviewer evidence only. Does not attest eligibility or release.",
+  "files": [
+    {
+      "path": "REVIEW.md",
+      "bytes": 17661,
+      "sha256": "9de91612f79c69578c1b3f589abc43b8056abdc71bae27bf17c3895cbfdd0b24"
+    },
+    {
+      "path": "build_evidence.py",
+      "bytes": 17044,
+      "sha256": "09e9f94404f53529d255bbc6b648a875424cf6ce005f36cabc4cc0e402af0d84"
+    },
+    {
+      "path": "findings.json",
+      "bytes": 1692,
+      "sha256": "d437831fd312304e1e25630f4ca1c19248aa00b5cd0d622cadee98e5e1a60bb1"
+    },
+    {
+      "path": "inventory-relevant-uses.json",
+      "bytes": 782343,
+      "sha256": "bda115364a5c3fb65b953c6b5ee0c7242d36ffd0c2d50b1086a9294cf6759896"
+    },
+    {
+      "path": "native-reuse-identity.json",
+      "bytes": 2160,
+      "sha256": "2020b0cb3dd9365907387e7a562f8fa029ff0a0763dd8d39b04d1ff9f9d62c21"
+    },
+    {
+      "path": "native-selected-connections.json",
+      "bytes": 118238,
+      "sha256": "3fc324aae1ffd74b2920cac8eabf9d7c9c911bc8edd1a86b6f081c79b0c9027b"
+    },
+    {
+      "path": "nine-obligations.json",
+      "bytes": 42253,
+      "sha256": "3382fa6fed60c077e0de7c94f5083a04cd1e6790ffa3164205761cb19e5f7120"
+    },
+    {
+      "path": "primary-sources.json",
+      "bytes": 2248,
+      "sha256": "ce122676c4c911735bfa171d586f07c724d5929f526ad36357d4272384d501a3"
+    },
+    {
+      "path": "source-bindings.json",
+      "bytes": 7848,
+      "sha256": "909f79f3bec8729b0d57075db83eb394d3f2a9878fc6e1d5cdff7f45c485f742"
+    },
+    {
+      "path": "source-use-initial.json",
+      "bytes": 6059,
+      "sha256": "d3361545257d7bf822c50fee569872ad05ac195b41a056f73f189bb3a4023cd8"
+    },
+    {
+      "path": "source-use-reconciled.json",
+      "bytes": 18116,
+      "sha256": "264032e9fb42aea28cf04e7d79d5007f98e6703d32e89310ed7ba9200e27d453"
+    }
+  ]
+}

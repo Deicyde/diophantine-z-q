@@ -1,0 +1,75 @@
+{
+  "schema": "record-manuscript-policy-review/v1",
+  "decision": "accepted_within_scope",
+  "reviewer": "/root/pr30_final_coverage",
+  "reviewer_agent_id": "01a1d453-9237-7752-8e4c-628a97fa9cf7",
+  "reviewer_run_id": "01a1d4a0-bf87-7e92-8ae9-c4d26efba54f",
+  "author_of_policy_or_implementation": false,
+  "reviewed_at": "2026-11-13T11:25:16.429836+00:00",
+  "files": [
+    {
+      "path": "scripts/build_paper.py",
+      "sha256": "f62e565f8543b7ff44a66d3cac6aa47189d1f8d7802e169ed4f9f3864bf4f86f",
+      "bytes": 9646
+    },
+    {
+      "path": "scripts/check_current_manuscript.py",
+      "sha256": "da533c8d5a480f152b9879bde10d944b035580d77d648e80afc4329c48099154",
+      "bytes": 5527
+    },
+    {
+      "path": "docs/current-manuscript.json",
+      "sha256": "e9efcf581616cfc866263cda9e633892e399eaf6f86a63e1edd88d61b10e1890",
+      "bytes": 517
+    },
+    {
+      "path": "docs/audit-history/current.json",
+      "sha256": "2b0dd7653076633f53c1e32b43dd4c11a664b5ace5b5685ff6afc30ed4b82ca4",
+      "bytes": 372544
+    },
+    {
+      "path": "manuscripts/quartic_v17.tex",
+      "sha256": "f6bf186008d33270dadbba6bd490f22116c66168975c3f84ad5bc6f281726e12",
+      "bytes": 2338864
+    },
+    {
+      "path": "manuscripts/quartic_v17.pdf",
+      "sha256": "20ee7ebabdbba1e15406af72d31854206beaaa257e1c52fca2abd113243ea7ea",
+      "bytes": 3916929
+    },
+    {
+      "path": "research/version17/BUILD.json",
+      "sha256": "1aeb718e4101365943c4d41df8030cd4682be0a27548e164bc745c17cdbe0d73",
+      "bytes": 39404
+    },
+    {
+      "path": "research/version17/build_pdf.py",
+      "sha256": "4eefebadab14cc1ef9923ab295ca63be35c7755178960cec29b562e02ee5f01d",
+      "bytes": 9939
+    },
+    {
+      "path": "docs/current-manuscript-build.md",
+      "sha256": "6d70be0af7a8513ed91b71508e7491e29ec932e1f2d50dedddba530328eb7eb7",
+      "bytes": 2982
+    }
+  ],
+  "scope": "The unchanged profile-driven build_paper.py selects the exact Version17 profile/source and stages only its declared TeX inputs. The current PDF/build mapping is correct and the complete body is the exact reviewed revision3 body. The historical Version14 application registry and its contracts remain unchanged and are not promoted to Version17 acceptance.",
+  "checks": [
+    "Read the complete builder and selector implementation, actual Version17 source/preamble and build adaptation.",
+    "Current profile validation passed at e9efcf581616cfc866263cda9e633892e399eaf6f86a63e1edd88d61b10e1890.",
+    "Existing selector suite:15 tests,14 passed,1 Windows symlink-privilege skip.",
+    "Actual703-page PDF source/build pins verified; pages2 through703 extracted text identical to revision3, pages1 and2 visually inspected.",
+    "The builder keeps generated Tectonic outputs separate from committed release artifacts and validates the profile again after building.",
+    "Independently compared canonical Git LF selector validator with the earlier reviewed CRLF worktree: exact newline-only difference, same parsed Python source. Every current file binding now uses canonical Git bytes."
+  ],
+  "limitations": [
+    "No new Tectonic engine execution is claimed by this selector review. The committed PDF is the separately reviewed serial pdfLaTeX output; differing engine output needs its own correspondence review.",
+    "No mathematical approval is imported from the historical Version14 registry. The separate exact214 assembly review and additive transport supply mathematical scope.",
+    "This file is reviewer-authored evidence, not model authentication or protected App acceptance.",
+    "Earlier selector tests and Linux evidence ran the recorded worktree representation. This successor adds exact canonical byte transport; fresh canonical-export execution is recorded separately after installation."
+  ],
+  "prior_review": {
+    "path": "research/quartic214-native-review/v17-extension/BUILDER-REVIEW.json",
+    "sha256": "100187c73b7ebd7af056a06629cae8cb72edb97d6e9daf7a59e670311a4c3355"
+  }
+}

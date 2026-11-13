@@ -1,0 +1,56 @@
+{
+  "reviewer": "/root/d214_current_closure_review",
+  "fresh": [
+    {
+      "path": "/tmp/q214-d-next-20261112/primary/MilneADT2006.pdf",
+      "sha256": "2c6195ec76a974f3f336c77cb71cc3845b018aad2d43136716b3477a3bc5fb31",
+      "bytes": 2136045,
+      "scope": "Fresh I.1.3/I.1.5/I.1.6 and proofII.2.1 p164; exact current M1/M3 maps reconstructed."
+    },
+    {
+      "path": "/tmp/q214-d-next-20261112/primary/Kato2004.pdf",
+      "sha256": "3c6e14b11fa60262db8aff782ce3cf4d83e9100c0be83621a7e4ce502cec605d",
+      "bytes": 18010813,
+      "scope": "Fresh \u00a7\u00a75.4,6.3,8.3,9.2\u20139.4,14.10.2\u20133; printed240 image viewed. Other full-index applications belong RC reviewer."
+    },
+    {
+      "path": "/tmp/q214-d-next-20261112/primary/Milne1986.pdf",
+      "sha256": "86259344a576e4ef75a9d81e9bf43143f872a72b14cf8fcc2703f3aea6349136",
+      "bytes": 3833583,
+      "scope": "Fresh degree polynomial and Proposition12.9 p125 image; exact native general Poincare/source scope reused, not wholebook freshly read."
+    },
+    {
+      "path": "/tmp/q214-d-next-20261112/primary/Serre1968-reprint1989.pdf",
+      "sha256": "971dbfdd4414d99ea21d7d0af63dbb790d7b1188e9aec37f422181a2b543dec4",
+      "bytes": 5563667,
+      "scope": "Fresh I\u00a72.2 Cor2 and I\u00a72.3 proof/tracelemma ppI-8,I-10\u201311; general coefficient trace proof used, not a false rationality assumption."
+    },
+    {
+      "path": "/tmp/q214-d-next-20261112/primary/Carayol1987.pdf",
+      "sha256": "cc2605dd390eae903712a650e925b322472bb8831a11d6282b40030c0753944b",
+      "bytes": 1162324,
+      "scope": "Fresh \u00a7\u00a72.1/2.4/4.1 full Theorem4 and weak/full distinction, printed36/37/42."
+    },
+    {
+      "path": "/tmp/q214-d-next-20261112/primary/Li1975-printed296.jpg",
+      "sha256": "11f38136cd27108d507c7662d1ddb46d8c572874b314b69aa1ad8be16395aad3",
+      "bytes": 758672,
+      "scope": "Fresh complete page image viewed; normalizednewform Fricke/coefficient conjugation arbitrarynebentypus."
+    },
+    {
+      "path": "/tmp/q214-d-next-20261112/primary/Shimura1973-published.pdf",
+      "sha256": "6a34cc46d06c0f5d4e7d380ddcbc45ec3143b19359bfebba5b1c8f00976f3308",
+      "bytes": 1646652,
+      "scope": "Fresh definitions/Theorem1 printed526\u2013527 (526 image viewed), \u00a74(4.1) printed531; not whole proof audited."
+    },
+    {
+      "url": "https://www.numdam.org/article/ASENS_1974_4_7_4_507_0.pdf",
+      "scope": "Fresh browser reading \u00a7\u00a71.6\u20131.9 pp509\u2013510, \u00a73.1/3.2 and4.1 pp513\u2013514, \u00a7\u00a78.2/8.5/8.6 pp525\u2013526. No independently downloaded localPDF hash claimed."
+    },
+    {
+      "url": "https://www.numdam.org/item/10.5802/jtnb.981.pdf",
+      "scope": "Fresh browser reading introduction/definitions/embedding(1.1)/Theorem1.1 pp307\u2013308; actual E0^8 sum-graph application reconstructed. No wholepublishedproof audit/localhash claimed."
+    }
+  ],
+  "reuse": "Exact native and prior/current independent source applications described in reports; no recursive fresh-publication claim."
+}

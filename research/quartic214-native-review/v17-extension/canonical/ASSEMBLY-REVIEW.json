@@ -1,0 +1,16 @@
+{
+  "schema": "protocol14-review/v1",
+  "scope": "Complete214 Version17 mathematical assembly with canonical documentary references.",
+  "limitations": "Only exact CRLF-to-LF documentary/source-policy representation transport is newly reviewed. Prior mathematical qualifications, source-reading limits and open protected-acceptance condition remain. Final canonical export execution, archive and authored tuples are separate obligations.",
+  "decisions": [
+    {
+      "subject": "assembly",
+      "subject_sha256": "c17a7e21f45921de51fbfd5fe14a8f2b15c803aa1c67e6ca5944d8feae10c189",
+      "outcome": "accepted_within_scope",
+      "review_basis": "reconstructed",
+      "prior_review": null,
+      "scope": "All40 connection objects and25 mathematical sources remain exact. Complete body transport and the previously reviewed bounded assembled implication remain valid; the canonical documentary references preserve the same text and finding scopes.",
+      "limitations": "Only exact CRLF-to-LF documentary/source-policy representation transport is newly reviewed. Prior mathematical qualifications, source-reading limits and open protected-acceptance condition remain. Final canonical export execution, archive and authored tuples are separate obligations."
+    }
+  ]
+}

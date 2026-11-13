@@ -1,0 +1,47 @@
+{
+  "schema": "pr30-ci-compatibility-independent-source-check/v1",
+  "reviewer": "/root/pr30_final_coverage",
+  "run_id": "01a1d4a0-bf87-7e92-8ae9-c4d26efba54f",
+  "reviewed_at": "2026-11-13T11:55:40.367666+00:00",
+  "status": "PASS",
+  "proposal_sha256": "edb55ad28ac531e8b5f2ec05cb9028f7684529727a1d63cb515b7edeaea1ee5a",
+  "runner_sha256": "9601536405b2a39d75801055ab32771dd2cf536e82694d7f7a1c8ca7a99e370f",
+  "bindings_sha256": "62c574f7d493e2e826a0e18b93ff66fc856398f602eed573a941aab8f78fefc4",
+  "tests": [
+    "all20 exact current/old bindings pass",
+    "version16-check: exact domain, live proof, normal/exception restoration, rejects command/argument/proof expansion",
+    "main-assemble: exact domain, live proof, normal/exception restoration, rejects command/argument/proof expansion",
+    "main-corrections: exact domain, live proof, normal/exception restoration, rejects command/argument/proof expansion",
+    "revision2-check: exact domain, live proof, normal/exception restoration, rejects command/argument/proof expansion",
+    "rejects changed bound file:research/version16/check.py",
+    "rejects changed bound file:research/version17/ci-compatibility/historical/CITATION.bib",
+    "rejects changed bound file:docs/current-manuscript.json",
+    "arbitrary-command",
+    "write-mode",
+    "arbitrary-proof-substitution",
+    "missing-substitution",
+    "unknown-mode",
+    "proof-bytes-live",
+    "current-selector-restored"
+  ],
+  "workflow_diffs": {
+    ".github/workflows/version16-checks.yml": "--- \n+++ \n@@ -20,4 +20,4 @@\n         with:\n           python-version: '3.12.14'\n       - name: Check exact manuscript corrections and artifact bindings\n-        run: python -B research/version16/check.py\n+        run: python -B research/version17/ci-compatibility/run.py version16-check\n",
+    ".github/workflows/quartic214-manuscript.yml": "--- \n+++ \n@@ -37,11 +37,11 @@\n           sudo apt-get update\n           sudo apt-get install --no-install-recommends -y texlive-latex-extra texlive-fonts-recommended lmodern poppler-utils\n       - name: Verify deterministic source assembly\n-        run: python -B research/quartic214-manuscript/assemble.py --check\n+        run: python -B research/version17/ci-compatibility/run.py main-assemble\n       - name: Check corrected formulas and stale-source rejection\n         run: |\n           ulimit -v 1048576\n-          python -B research/quartic214-manuscript/check_source_corrections.py\n+          python -B research/version17/ci-compatibility/run.py main-corrections\n       - name: Rebuild the PDF serially within its resource limits\n         run: python -B research/quartic214-manuscript/build_pdf.py --check\n       - name: Check scoped correction review and artifact bindings\n",
+    ".github/workflows/quartic214-manuscript-revision2.yml": "--- \n+++ \n@@ -4,6 +4,7 @@\n   pull_request:\n     paths:\n       - 'research/quartic214-manuscript-revision2/**'\n+      - 'research/version17/**'\n       - 'research/quartic214-manuscript/**'\n       - 'research/quartic214-manuscript-review/**'\n       - 'research/quartic214-protocol-d-progress/**'\n@@ -40,7 +41,7 @@\n       - name: Check current receiving bindings and rejection controls\n         run: |\n           ulimit -v 524288\n-          python -B research/quartic214-manuscript-revision2/check_records.py --self-test --reviewed-artifacts\n+          python -B research/version17/ci-compatibility/run.py revision2-check\n       - name: Check retained audit history\n         run: python -B scripts/check_audit_history.py --self-test\n       - name: Require unchanged committed artifacts\n"
+  },
+  "continuation_delta": [
+    [
+      {
+        "path": ".github/workflows/quartic214-manuscript.yml",
+        "sha256": "7a9ae6791d7d8522dd934f4c976269b04e601d69205f69bf1e8acdf17cb9555f",
+        "bytes": 2195
+      },
+      {
+        "path": ".github/workflows/quartic214-manuscript.yml",
+        "sha256": "b4daf95ed8a941419b5c63bdbfa812dc5793fed0e75fdb6475b9ea672943a012",
+        "bytes": 2202
+      }
+    ]
+  ],
+  "scope": "Exact original Git archives and all source proposal pins checked. Four explicit read domains tested independently with proof reads live, command/argument/proof expansion rejected and restoration after exceptions. This is a native source/control check, not a full Linux workflow replay or final CI acceptance."
+}

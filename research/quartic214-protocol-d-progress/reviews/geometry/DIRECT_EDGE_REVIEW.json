@@ -1,0 +1,203 @@
+{
+  "schema": "q214-scoped-independent-geometry-review/v1",
+  "application_id": "Q214-D210-DIRECT-MODULARITY-CONSUMERS-20261112",
+  "reviewer_task": "/root/d214_geometry_source_closure",
+  "role": "nonauthor mathematical reviewer of frozen argument and additive author contract",
+  "controller_eligibility": "not attested",
+  "contract": {
+    "path": "research/quartic214-protocol-d-progress/GEOMETRY_DIRECT_APPLICATION.json",
+    "sha256": "5e20a611a004c586875300fa207e33fc28fd1cd8a2eb072bd8e79855b8374a90",
+    "bytes": 12854
+  },
+  "frozen_commit": "e3626cac202cdbcdfedc2bff1978dcd3ea3fd3ab",
+  "decision": "accept at stated direct geometric-input scope",
+  "finding": "F-GEO-01 resolved by this exact additive binding and this scoped independent review; no mathematical repair or new proof is claimed",
+  "obligations": [
+    {
+      "name": "source",
+      "decision": "satisfied within stated scope",
+      "reason": "Read G2/G3, the actual whole-cover construction and separate B-LINEAR paragraph, and M0/M2. These supply the exact geometric inputs named; the F-linear existence paragraph alone is not the supplier."
+    },
+    {
+      "name": "constructed",
+      "decision": "satisfied within stated scope",
+      "reason": "The same universal fiber A over the full-three fiber splitting field L is retained. All ordered conjugate Hom descend over L by full 3-torsion and congruence torsion-freeness; no replacement abelian variety or larger Hom field enters."
+    },
+    {
+      "name": "domain",
+      "decision": "satisfied within stated scope",
+      "reason": "All rational primitive u/v outside the finite branch contacts are covered, including denominator primes and negative parameters. Non-CM alone supplies End^0=B for this modularity implication."
+    },
+    {
+      "name": "maps",
+      "decision": "satisfied within stated scope",
+      "reason": "The rational scalar identity on the common left-B Hodge space gives sigma A -> A B-linearly; its integral lattice multiple is prime to11. Hom descent defines it over L. Choose mu_1=1 and finite representatives inflated from Gal(L/Q). The phrase coherent finite choices means these fixed representatives, not multiplicatively compatible isogenies or a trivialized 2-cocycle; their discrepancies remain the separate M1 input."
+    },
+    {
+      "name": "object",
+      "decision": "satisfied within stated scope",
+      "reason": "On the subgroup supplied by the separate M1 cochain, mu=a=b=1, so M2 consumes the actual covariant V_l(A). This direct-edge decision is conditional on M1 and does not independently accept its cochain theorem."
+    },
+    {
+      "name": "normalization",
+      "decision": "satisfied within stated scope",
+      "reason": "The whole-cover regular action has order576 and stack/effective marking degrees72/36. The splitting field degree divides576. The new support is R=B_S M_S(a); no coefficient/evaluation extension replaces L. Covariant Tate, arithmetic Frobenius and HT(Q_l(1))=-1 agree at the receiving sites."
+    },
+    {
+      "name": "local",
+      "decision": "satisfied within stated scope",
+      "reason": "Read the five primitive-form proof and actual tame quadratic chart. Outside S10 there is at most one contact, including infinity; p not dividing R forces even depth, hence an unramified local fiber. Normal closure stays unramified. Properness of the same Y and its universal A gives good reduction away210 over L."
+    },
+    {
+      "name": "exception",
+      "decision": "satisfied within stated scope",
+      "reason": "The proof retains arbitrary even contact depth, M=1, negative/nonintegral a, the identity conjugation and all components/multipliers. Contact points themselves and the CM modularity case are correctly excluded."
+    },
+    {
+      "name": "consumer",
+      "decision": "satisfied within stated scope",
+      "reason": "All four direct edges bind actual G2/G3 to M0/M2, including their printed receiving TeX excerpts. This repairs the identified inventory omission without changing the original contract or proof."
+    }
+  ],
+  "exact_passages": [
+    {
+      "id": "G2",
+      "path": "research/quartic214/proofs/geometry-carry.md",
+      "sha256": "b3cb8201de84f733b0518ad68a9c0d0bc1e78534ffd39aca5d8c70f1bae69e76",
+      "bytes": 13337,
+      "lines": [
+        25,
+        32
+      ],
+      "excerpt_sha256": "fc03d911267a4dd2863908aaba7a1839aa8493b335c82e5e6ef6d021221b71c9",
+      "line_convention": "one-based inclusive original bytes with line endings retained"
+    },
+    {
+      "id": "G3",
+      "path": "research/quartic214/proofs/geometry-carry.md",
+      "sha256": "b3cb8201de84f733b0518ad68a9c0d0bc1e78534ffd39aca5d8c70f1bae69e76",
+      "bytes": 13337,
+      "lines": [
+        33,
+        56
+      ],
+      "excerpt_sha256": "a8f7e15152e5e83bbb14e961dc310ea25ec066228f5cf20798c62dff686cd290",
+      "line_convention": "one-based inclusive original bytes with line endings retained"
+    },
+    {
+      "id": "M0",
+      "path": "research/quartic214/proofs/modularity.md",
+      "sha256": "814676050b389793d196346f45e2797f39e2c5be0f3fee8457bb709b2607606e",
+      "bytes": 25777,
+      "lines": [
+        5,
+        12
+      ],
+      "excerpt_sha256": "6b729fa5b2f7c9c9334cbe2864b04457bcf66e75aaee18f1861d38800e94707a",
+      "line_convention": "one-based inclusive original bytes with line endings retained"
+    },
+    {
+      "id": "M2",
+      "path": "research/quartic214/proofs/modularity.md",
+      "sha256": "814676050b389793d196346f45e2797f39e2c5be0f3fee8457bb709b2607606e",
+      "bytes": 25777,
+      "lines": [
+        35,
+        46
+      ],
+      "excerpt_sha256": "51339241dd0f243dde66dde9cd9a50bd70dc2ec70f0099b136bd6c903dfceda2",
+      "line_convention": "one-based inclusive original bytes with line endings retained"
+    },
+    {
+      "id": "B-LINEAR",
+      "path": "manuscripts/quartic_v16.tex",
+      "sha256": "aeb2b6a42a03943d7f8c46682389c8da693d2903ba92ccc164bbbd236451de74",
+      "bytes": 1926498,
+      "lines": [
+        8226,
+        8255
+      ],
+      "excerpt_sha256": "45c2faf8a354d30db55966218b6e455e49945597ac406346e169ad6bfc7b51c4",
+      "line_convention": "one-based inclusive original bytes with line endings retained"
+    },
+    {
+      "id": "TEX-G2-G3",
+      "path": "research/quartic214-manuscript/quartic214.tex",
+      "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+      "bytes": 2337533,
+      "lines": [
+        2340,
+        2377
+      ],
+      "excerpt_sha256": "08d8fbe7463554e9019852585a8b441e721c39b4820880c0485a390dc242af97",
+      "line_convention": "one-based inclusive original bytes with line endings retained"
+    },
+    {
+      "id": "TEX-M0",
+      "path": "research/quartic214-manuscript/quartic214.tex",
+      "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+      "bytes": 2337533,
+      "lines": [
+        2496,
+        2503
+      ],
+      "excerpt_sha256": "300de5b1851da0de02f81d5092a11fad2b24bb6270ad646ad00bd701fbfb14d9",
+      "line_convention": "one-based inclusive original bytes with line endings retained"
+    },
+    {
+      "id": "TEX-M2",
+      "path": "research/quartic214-manuscript/quartic214.tex",
+      "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+      "bytes": 2337533,
+      "lines": [
+        2530,
+        2541
+      ],
+      "excerpt_sha256": "41ee754f4071032995ab4d665cdfda930e0bee342fe102ee10a10a4ee1b456ff",
+      "line_convention": "one-based inclusive original bytes with line endings retained"
+    },
+    {
+      "id": "TEX-B-LINEAR",
+      "path": "research/quartic214-manuscript/quartic214.tex",
+      "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+      "bytes": 2337533,
+      "lines": [
+        13309,
+        13338
+      ],
+      "excerpt_sha256": "3c3ad7fb1aa3dd88eb54cd9bbf03dd432329c946628b1dff1b910a20cef8d28d",
+      "line_convention": "one-based inclusive original bytes with line endings retained"
+    }
+  ],
+  "original_contract": {
+    "path": "research/quartic214/contracts/modularity-6.json",
+    "sha256": "3b61613f34a5f8746804ab2e6aa24aa787cc5fb6485ac2c5aa2a1a1cc4da9ab9",
+    "bytes": 75345
+  },
+  "receiving_manuscript": {
+    "path": "research/quartic214-manuscript/quartic214.tex",
+    "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+    "bytes": 2337533
+  },
+  "receiving_pdf": {
+    "path": "research/quartic214-manuscript/quartic214.pdf",
+    "sha256": "8c22312ce54d3f2709eddc28c1045b1785d44ce0d7d47957639c0322a9d0a498",
+    "bytes": 3940738,
+    "inspection": "byte identity verified; this decision does not claim rendered-PDF review"
+  },
+  "evidence": [
+    "REPORT.md",
+    "DIRECT_EDGE_PIN_CHECKS.json",
+    "SOURCE_READING.json",
+    "NATIVE_SELECTED_USES.json",
+    "NATIVE_SELECTED_DECISIONS.json"
+  ],
+  "limits": [
+    "Not acceptance of all original modularity-6 or of full214 assembly.",
+    "M1 cochain, full M2-M3 theorem applications, M5 conductor and H3 require their separately scoped decisions.",
+    "G4 metric/CM is excluded from this direct-edge decision; its separate positive same-object/support comparison is in G4_REUSE_ADDENDUM.md.",
+    "Two unchanged maximal-stack/principal-polarization source inputs use exact retained native accepted scope rather than a fresh final-body read; see SOURCE_READING.json.",
+    "No claim of controller/model eligibility or independent App verification."
+  ],
+  "authoring_boundary": "This reviewer authored no frozen proof or application contract. The earlier reviewer request identified missing direct consumer bindings and an existing derivation. Sol independently authored the new additive contract."
+}

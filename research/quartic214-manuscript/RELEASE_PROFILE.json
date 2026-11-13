@@ -1,0 +1,50 @@
+{
+  "schema": "quartic214-manuscript-profile/v1",
+  "date": "2026-11-12",
+  "author": "/root",
+  "kind": "214-variable research manuscript; extension of public PR30, without changing the official numbered release",
+  "parent_commit": "a8843cca75ff29d51aa7b288c80b8bdc3a1ca3bb",
+  "public_destination": "elliotglazer/diophantine-z-q",
+  "branch": "proposal/quartic-214-protocol-d",
+  "theorem": "There is a fixed ineffective integer N0 such that every integer N>=N0 gives the displayed 214-variable quartic defining the integers over the rationals.",
+  "coefficient_statement": "For N>=53 the coefficient height is 149^(4N+2)+1; this does not certify any defining member.",
+  "manuscript": {
+    "source": "research/quartic214-manuscript/quartic214.tex",
+    "pdf": "research/quartic214-manuscript/quartic214.pdf",
+    "architecture": "The current 214 argument and required new proofs, followed by the complete Version 16 foundation, including its audit corrections. Older 222/314 statements remain identified as inherited results.",
+    "effect_on_original_sources": "Original Version 15, Version 16 and PR30 sources/tables/reviews remain immutable inputs. The manuscript incorporates Version 16 through an explicitly reviewed foundation transition; old source-carry assertions retain historical scope.",
+    "review": "Review mathematical and notational preservation, current versus superseded H3 routes, source coverage, cross references and actual generated PDF. Exact prior reviews retain their original scope and eligibility limitations."
+  },
+  "release_artifacts": [
+    "TeX manuscript and deterministic source assembly",
+    "Matching PDF, source-to-PDF build record and exact input hashes",
+    "Source-to-TeX coverage map and new adaptation contract",
+    "Current findings, independent review and release manifest",
+    "README navigation, artifact index and cumulative handoff"
+  ],
+  "resource_policy": {
+    "parallel_tex_processes": 1,
+    "child_address_space_limit_bytes": 1073741824,
+    "cpu_seconds_per_pass": 180,
+    "maximum_serial_passes": 4,
+    "no_polynomial_reexpansion_for_typesetting": true
+  },
+  "publication": "Update the existing non-draft public PR30. No private repository payload or mirror publication is part of this extension.",
+  "acceptance_boundary": "Author and internal model reports cannot issue the protected Protocol / independent agent audit check. Formal public acceptance remains contingent on that exact-revision check.",
+  "integrated_upstream": "95cb356d7cd1a5d56d10abeae60497d54d91197e",
+  "foundation": {
+    "path": "manuscripts/quartic_v16.tex",
+    "sha256": "aeb2b6a42a03943d7f8c46682389c8da693d2903ba92ccc164bbbd236451de74",
+    "historical_basis": "research/version15/snapshots/v15-222-004/manuscript/quartic_v15.tex",
+    "transition": "research/quartic214-manuscript-review/FOUNDATION_TRANSITION.md"
+  },
+  "original_proof_parent_commit": "110cf72565be326fd567cd1a64a3b2e00213dcd1",
+  "current_revision": {
+    "reason": "Formula transcription repairs following the automated Astra audit and related-use review",
+    "source_corrections": "research/quartic214-manuscript/SOURCE_CORRECTIONS_V1.json",
+    "application": "research/quartic214-manuscript-review/CORRECTION_APPLICATION.json",
+    "earlier_review_archive": "research/quartic214-manuscript-review/history/a8843cc/ARCHIVE.json",
+    "adverse_audit_archive": "research/quartic214-manuscript-review/audits/astra-a8843cc-20261112/ARCHIVE.json",
+    "scope": "No polynomial or arithmetic theorem change. Formula incorporation, related-use coverage, source inclusion/changed joins and research packaging have scoped receipts. Complete-proof/inventory review remains incomplete; no Protocol D closure or App approval is asserted."
+  }
+}

@@ -1,0 +1,59 @@
+{
+  "schema": "q214-final-independent-review-copy-manifest/v1",
+  "reviewer": "/root/d214_current_closure_review",
+  "repository_directory": "research/quartic214-protocol-d-review",
+  "instruction": "Copy these exact original bytes; preserve the separate receiving reviewer RECEIVING_REVIEW.json already at the same directory. Do not insert these files into held author manifests. Post REVIEW_COMMENT.md verbatim after final public verification.",
+  "files": [
+    {
+      "path": "FINAL_REVIEW.json",
+      "sha256": "7712219f5441378d9cb171d58267deb87faa26db423014773af7dbeb41311ec4",
+      "bytes": 16083,
+      "repository_copy_target": "research/quartic214-protocol-d-review/FINAL_REVIEW.json"
+    },
+    {
+      "path": "REVIEW_COMMENT.md",
+      "sha256": "84df4863c1fedce893013854bfa367c4b1daa68d04b8f436d6af21d372e91976",
+      "bytes": 12015,
+      "repository_copy_target": "research/quartic214-protocol-d-review/REVIEW_COMMENT.md"
+    },
+    {
+      "path": "CURRENT_OPEN_QUEUE.json",
+      "sha256": "9654fd03ed9876d8c8bd0a0c1ced8cbf77f665479f48195f95616561883d8cec",
+      "bytes": 1607,
+      "repository_copy_target": "research/quartic214-protocol-d-review/CURRENT_OPEN_QUEUE.json"
+    },
+    {
+      "path": "PROGRESS_ARTIFACT_REVIEW.json",
+      "sha256": "e41f6e3f1d848986b506e20c381970402bc354d9a280feebfc5b28da86c94dd7",
+      "bytes": 5157,
+      "repository_copy_target": "research/quartic214-protocol-d-review/PROGRESS_ARTIFACT_REVIEW.json"
+    },
+    {
+      "path": "FINAL_PACKET_CHECK.json",
+      "sha256": "a2520712b10dd91ec552370247b11ea17c36bfd8d9e0c58e7de701d7b8b06511",
+      "bytes": 3349,
+      "repository_copy_target": "research/quartic214-protocol-d-review/FINAL_PACKET_CHECK.json"
+    },
+    {
+      "path": "FINAL_RECEIVING_CHECK.json",
+      "sha256": "dd2c329a401425ee42c7d16f1b6018b8190dcfcd3f3bb46fd0ea8c08ded30d18",
+      "bytes": 2320,
+      "repository_copy_target": "research/quartic214-protocol-d-review/FINAL_RECEIVING_CHECK.json"
+    },
+    {
+      "path": "COVERAGE_LINK_CHECK.json",
+      "sha256": "2a01674d03f34bead445051f41a36741b9d3b465d75d2aa18cfb15c2eefb5102",
+      "bytes": 510,
+      "repository_copy_target": "research/quartic214-protocol-d-review/COVERAGE_LINK_CHECK.json"
+    },
+    {
+      "path": "SUPPLEMENTARY_SOURCE_COVERAGE.json",
+      "sha256": "64cf40e7b100d10f413b0f07aafa1fc3cdcb09d8348c3e8b00af5a6f93cf7f74",
+      "bytes": 6780,
+      "repository_copy_target": "research/quartic214-protocol-d-review/SUPPLEMENTARY_SOURCE_COVERAGE.json"
+    }
+  ],
+  "held_progress_manifest_sha256": "392d81fca5b286b2a19b63ecf992ae9d343b84fd238e2eac45783151518322bc",
+  "held_receiving_manifest_sha256": "899edad018881cb161d7b3e329d46f636dcefd8dbb343d096e6bb57b49c47d01",
+  "controller_approval": false
+}

@@ -1,0 +1,51 @@
+{
+  "schema": "pr30-v17-preliminary-source-delta/v1",
+  "checked_at": "2026-11-13T10:43:30.474967+00:00",
+  "role": "Actual source comparison before extension inventory comparison; not a source-first freeze or final PDF/policy acceptance",
+  "sources": [
+    {
+      "path": "research/quartic214-manuscript-revision3/quartic214.tex",
+      "sha256": "938d96e6d310b2b551f610e2a23b662f147bd2eb4b05ec222d274b0b8be55d6b"
+    },
+    {
+      "path": "manuscripts/quartic_v17.tex",
+      "sha256": "f6bf186008d33270dadbba6bd490f22116c66168975c3f84ad5bc6f281726e12"
+    }
+  ],
+  "changed_lines": [
+    41,
+    42,
+    43,
+    59
+  ],
+  "complete_document_body_identical": true,
+  "body_sha256": "6bfdeee4ec3b1bfe437bb5d5b7bec02d496efdfc946912a3de0d729787512669",
+  "total_lines": 45035,
+  "delta": [
+    "--- research/quartic214-manuscript-revision3/quartic214.tex\n",
+    "+++ manuscripts/quartic_v17.tex\n",
+    "@@ -38,9 +38,9 @@\n",
+    " \\renewcommand*\\l@subsection{\\@dottedtocline{2}{1.5em}{3.2em}}\n",
+    " \\renewcommand*\\l@section{\\@dottedtocline{1}{0em}{3em}}\n",
+    " \\makeatother\n",
+    "-\\title{A 214-variable quartic family defining the integers over the rationals\\\\[4pt]\\large Complete proposed proof with the current Version 16 foundation}\n",
+    "-\\author{Public author manuscript under the direction of Elliot Glazer}\n",
+    "-\\date{13 November 2026; operative receiving revision 3; source \\texttt{110cf72565be}}\n",
+    "+\\title{$\\mathbb{Z}$ is Diophantine in $\\mathbb{Q}$\\\\[4pt]\\large Version 17}\n",
+    "+\\author{}\n",
+    "+\\date{November 13, 2026}\n",
+    " \\providecommand{\\C}{\\mathbb C}\n",
+    " \\providecommand{\\hF}{h_{\\mathrm F}}\n",
+    " \\providecommand{\\OK}{\\mathcal O_K}\n",
+    "@@ -56,7 +56,7 @@\n",
+    " \\DeclareMathOperator{\\Nm}{Nm}\n",
+    " \\ifdefined\\pdftrailerid\\pdftrailerid{}\\fi\n",
+    " \\usepackage{graphicx}\n",
+    "-\\hypersetup{pdftitle={The proposed 214-variable quartic family: complete proof and retained foundation},pdfauthor={Elliot Glazer and attributed contributors},bookmarksnumbered=true}\n",
+    "+\\hypersetup{pdftitle={Z is Diophantine in Q, Version 17},pdfauthor={Elliot Glazer and attributed contributors},bookmarksnumbered=true}\n",
+    " \\setcounter{tocdepth}{2}\\setcounter{secnumdepth}{3}\n",
+    " \\allowdisplaybreaks[1]\n",
+    " \\makeatletter\\g@addto@macro\\UrlBreaks{\\do\\a\\do\\b\\do\\c\\do\\d\\do\\e\\do\\f\\do\\0\\do\\1\\do\\2\\do\\3\\do\\4\\do\\5\\do\\6\\do\\7\\do\\8\\do\\9}\\makeatother\n"
+  ],
+  "scope": "Only title/version, blank displayed author, date and PDF title metadata differ. All mathematical body bytes and earlier qualifications are preserved. Publisher metadata and rendered PDF remain to be checked."
+}

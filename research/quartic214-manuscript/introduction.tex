@@ -1,0 +1,134 @@
+\maketitle
+\begin{abstract}
+We present the proposed $214$-variable quartic family obtained by reciprocal
+clearing on the shared-trace $224$-coordinate predecessor.  For the fixed
+coefficient $A_N=149^{2N+1}$, the polynomial is the sum of squares of $188$
+primitive integral quadratic residuals, all printed below.  The proposed
+arithmetic conclusion is uniform for every $N$ beyond one fixed ineffective
+threshold.  The complete new local, modularity, height and existence arguments
+are followed by the full current Version~16 mathematical foundation, including
+the inherited elliptic, scalar, prime-selection, pole and aggregate arguments.
+The exact coefficient calculation gives $2919$ coordinate monomials, $2920$
+parameter terms and height $149^{4N+2}+1$ for $N\ge53$; this is only a
+coefficient threshold.  This assembled manuscript is an author proposal for
+fresh review and does not itself confer Protocol~D or release acceptance.
+\end{abstract}
+\tableofcontents
+\clearpage
+\part{The proposed 214-variable construction}
+\section{The theorem, conventions and reading order}\label{q214:main}
+\begin{theorem}[The proposed $214$-variable family]\label{q214:theorem}
+For an integer $N\ge1$ put $A_N=149^{2N+1}$.  In coordinates
+$X_1,\ldots,X_{214}$, let $r_{i,N}$ be the $188$ rows specified in
+Section~\ref{q214:rows}, and set
+\[
+ P_N=\sum_{i=1}^{188}r_{i,N}^2\in\Z[X_1,\ldots,X_{214}].
+\]
+Subject to the exact source theorems and applications developed in this
+manuscript, there exists one fixed integer $N_0\ge1$ such that
+\[
+ \forall N\ge N_0\ \forall x\in\Q,\qquad
+ x\in\Z\ \Longleftrightarrow\
+ \exists (y_2,\ldots,y_{214})\in\Q^{213}:
+ P_N(x,y_2,\ldots,y_{214})=0.
+\]
+Every $P_N$ has degree four and content one, and every one of its $214$
+coordinates occurs.  For $N\ge53$, it has $2919$ distinct coordinate
+monomials, $2920$ parameter terms, and largest absolute coefficient
+$A_N^2+1=149^{4N+2}+1$.
+\end{theorem}
+Here $N$ and $A_N$ are fixed parameters of each polynomial, rather than
+existential coordinates.  The proof gives no effective $N_0$ and no numerical
+defining member.  In particular, $N=53$ is not asserted to define $\Z$.
+The coefficient statements and formal row identities have finite exact
+certificates; those checks do not prove the arithmetic equivalence.
+
+\paragraph{Scope of this edition.}
+Part~I contains the current $214$-variable argument, with all selected proof
+and source fragments incorporated as mathematical text.  Part~II contains
+the entire current upstream Version~16 body, including its proofs and bibliography.
+Its $222$- and $314$-variable theorems and earlier constructions retain their
+own scope; they are not the polynomial of Theorem~\ref{q214:theorem}.
+The $214$ branch starts at the raw $224$-coordinate system, before the
+incompatible paired-root and trace-quotient reductions.  The complete inverse
+maps and arithmetic foundations retained in Part~II supply precisely the
+interfaces identified in Part~I.
+The transition in Section~\ref{q214:foundation-transition} identifies the
+Version~16 corrections and their current consumers.  Statements in the retained
+author packets about byte identity with Version~15 describe their earlier
+freeze; they do not assert that no later analytic correction is incorporated
+here.  Version~16 is the upstream foundation's edition, not a new numbered
+release of the proposed $214$ research manuscript.
+
+\paragraph{Navigation to current foundation passages.}
+The retained source has direct links to the
+\hyperref[q214foundation:gi-normalization]{GI horizontal normalization},
+\hyperref[q214foundation:gi-cover]{fixed-lift finite-cover comparison},
+\hyperref[q214foundation:tz-adaptation]{Tao--Ziegler proof adaptation}, and
+\hyperref[q214foundation:cmh-surface]{surface-height supplier with corrected citations}.
+The original raw-$224$ inverse maps remain in
+Sections~\ref{v222:ratio} and~\ref{v222:reference}; the formal-parameter
+supplier is Section~\ref{v15:logs}.  Historical Version~15 labels retain
+their names inside the current Version~16 text.
+
+\paragraph{Heights, fields and labels.}
+For coprime integers $u,v$ with $v>0$, write
+$h(u/v)=\log\max(|u|,v)$.  All logarithms are natural.  Use the original
+stable Faltings height throughout.  The arithmetic field and curve are
+\[
+ K=\Q(\sqrt2),\qquad d=3-\sqrt2,\qquad
+ E:y^2=x^3-d^2x,\qquad P=2(1+\sqrt2,2\sqrt2).
+\]
+The four nonzero integer labels are $(n,a,t,b)$, with $c=|a|$ and
+$B=\max(|n|,|a|,|t|,|b|)$.  The input test is $\beta=51x^2+2504$.
+The physical scale is the positive quarter-trace
+$T=\frac14\Tr(\sum_{i=1}^4 x([n_i]P))$, and the two detector arguments
+are $t_0=\lambda$, $t_1=T\lambda$.  The contact set is
+\[
+ \Theta_2=\Theta\cup(2-\Theta),\qquad
+ \Theta=\{0,-\tfrac12,-1,\tfrac1{2399},-\tfrac{32}{407}\}.
+\]
+The exceptional set $\Sigma$ consists of the primes at most $76176$ and
+$2029147$.  For each scale, $M_j$ is the squarefree product of primes
+outside $\Sigma$ at a positive odd contact of $t_j$.
+The normal surface field $L'$, the coefficient field $E_f$, and the auxiliary
+field splitting a modular evaluation fibre have distinct roles and are never
+identified.
+
+\paragraph{How the proof joins.}
+The assembly map in Section~\ref{q214:assembly} identifies each source,
+constructed object and consumer.  Reciprocal clearing reconstructs the
+physical raw-$224$ objects before logarithmic ratios are consumed.  The
+changed factors give $M_j^3\mid\Delta$ and $M_j\mid J$ with no extra scalar.
+The full-family height bound, applied to both transformed arguments, gives
+$h(t_j)\le H_2M_j^{7/6}$.  The actual aggregate \emph{sum} theorem then
+gives $B^2\le C|J_0|^{7/(6k)}+M_2$ when $M_j^k\mid J_0\ne0$ for both
+scales.  Scalar growth and the Lucas bound force $\Delta=J=0$ for one
+uniform ineffective threshold.  The completeness argument orders scalar
+preparation, labels, prime selection, CRT and fresh pole witnesses to obtain
+a single threshold valid for every integer input.
+
+\paragraph{Operative averaging and retained historical text.}
+The current averaging argument is the published product construction in
+Section~\ref{q214:height-averaging}: it chooses $r$ separate occurrences of
+$L'$-simple factors in the actual $A_a$-isogeny class, then uses a
+dimension-two isogeny $C_i\to A_a$.  The quotient-filtration H3 retained
+in Section~\ref{q214:height-supplier} is explicitly superseded for this
+application.  The coarse support and conductor source fragments are retained
+as provenance; the current character and conductor applications are M1 and
+M5 of Section~\ref{q214:modularity}.
+
+\paragraph{Attribution and review boundary.}
+This edition serializes the public $214$ proposal and its attributed internal
+model contributions under Elliot Glazer's direction.  The retained Version~16
+body records its historical authorship and acknowledgements, including
+Jos\'e Brox's starting construction and Gabriel Conant's contributions.
+The present assembly and typesetting were prepared by a Sol~6.1 author agent.
+Source statements concerning earlier inspection, pending status or historical
+acceptance remain dated evidence.  They are not new acceptance records for
+this exact TeX/PDF.  The independently authored public review overlay and
+protected controller decision govern any later adoption.  Internal model
+review is distinct from human peer review and formal verification.
+The bibliography and source catalogue identify external works without
+redistributing their full PDFs.  Exact source hashes, line coverage and
+typesetting transformations are recorded in \nolinkurl{SOURCE_SPANS.json}.

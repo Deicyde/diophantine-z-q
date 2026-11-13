@@ -1,0 +1,383 @@
+{
+  "schema": "q214-main-integration-comparison/v1",
+  "reviewer_task": "/root/pr30_integration_review_recovery",
+  "review_conditions": "Exposed nonauthor continuation after interrupted earlier review. Parent supplied candidate dispositions and exact locators. Actual passages and changed wrapper read; no claim of blind review or fresh recursive whole-proof review.",
+  "old_parent": "3cb78e121c7493a961dad4463f7b486ea9538d93",
+  "incoming_main": "a5937595cde3e3db00975b81e5171cdef92c801a",
+  "raw_merge_tree": "cc6afe314a0eed72cc5aa186c306fee151d9c899",
+  "tree_comparison": {
+    "old_files": 12048,
+    "raw_merge_files": 13761,
+    "exact_incoming_additions": 1713,
+    "old_paths_changed": [
+      ".gitattributes",
+      "README.md"
+    ],
+    "old_paths_deleted": [],
+    "other_old_blob_and_modes_identical": 12046,
+    "unstaged_tracked_change": ".github/workflows/quartic214-manuscript.yml"
+  },
+  "prior_final_review_subjects_match": true,
+  "inherited_acceptance": "Exact FINAL_REVIEW.json scope carried after dependency comparison. Its controller/publication limits remain. The old historical scoped receipt is not upgraded.",
+  "findings": [
+    {
+      "id": "I1",
+      "historical": "Prior gate failure preserved; original receipt binds historical navigation/CI bytes.",
+      "current": "Resolved within historical-record integration scope. Exact two substitutions plus strict current-delta comparison; every other original binding stays a current read.",
+      "sources": [
+        "research/quartic214-manuscript-review/check_records.py:33-39,232-301",
+        "research/quartic214-main-integration/check_historical_records.py",
+        "research/quartic214-main-integration/CONTINUATION.json"
+      ]
+    },
+    {
+      "id": "INCOMING-C8",
+      "historical": "Prior argument and objections read; no newly discovered gap is claimed.",
+      "current": "Existing M3 explicitly supplies weight-one exclusion, all-level Kato realization, Tate/cohomology duality, and determinant-based finiteness. Inherited exact primary-source review retained; no fresh primary-publication review claimed here.",
+      "sources": [
+        "docs/research/rv-h-c8.md:15-70,99-176",
+        "research/quartic214/proofs/modularity.md:47-65",
+        "research/quartic214-protocol-d-progress/reviews/closure-review/M3_M6_REVIEW.md"
+      ]
+    },
+    {
+      "id": "INCOMING-C9",
+      "historical": "The individual-characteristic-polynomial divisibility inference is false in general; incoming Klein-four example and its explanation are preserved.",
+      "current": "Actual M6/H2 identify the complete conjugate sum via semisimple traces, all embeddings, the same Lprime and the actual modular quotient. They do not infer constituency from pointwise polynomial divisibility.",
+      "sources": [
+        "docs/research/rv-h-a9c9.md:section 2.2.3",
+        "research/quartic214/proofs/modularity.md:97-119",
+        "research/quartic214/proofs/height-supplier.md:section H2"
+      ]
+    },
+    {
+      "id": "INCOMING-VERTICAL",
+      "historical": "The twist y\u00b2=p*j(27j+16) disproves an overly general specialization inference; it is not discarded or claimed newly repaired.",
+      "current": "Actual current supplier is D210 G2/G3 with its specified integral fine cover over Z[1/210] and universal abelian scheme. The D6 twist changes the arithmetic model and is not that cover. Required even-contact, infinity, unit and normal-closure cases are explicit.",
+      "sources": [
+        "docs/research/rv-h-b1.md:section 1",
+        "research/quartic214/proofs/geometry-carry.md:sections G0-G3"
+      ]
+    },
+    {
+      "id": "INCOMING-LATTICE",
+      "historical": "Finite cardinality/exponent does not imply freeness; the explicit rv-a6 counterexamples stand.",
+      "current": "Actual full-three proof uses rank-one B3 Tate space and minimal valuation for the full O3-stable lattice, then the multiplication-by-3 inverse limit to A[3]. The constructed module and transition are different from the invalid finite inference.",
+      "sources": [
+        "docs/research/rv-a6-route.md:1-55",
+        "research/version14/proofs/h5-full-three-v1/PROOF.md:19-25",
+        "research/quartic214/proofs/geometry-carry.md:section G1"
+      ]
+    },
+    {
+      "id": "INCOMING-CM-BG",
+      "historical": "Incoming D6 NoCM proposal and BG product-map defect retained at their own scope.",
+      "current": "NoCM on X6 is not applied to D210. Current G4 retains its actual same-L CM argument. Native D6 normalization already derives the invariant vector from the specified Lin-Yang divisor/intersection/eta inputs and explicitly excludes BG Propositions 3.7-3.8 and the later numerical CM calculation. This is a source-route distinction, not acceptance of an alternative repair.",
+      "sources": [
+        "docs/research/rv-h-cm.md:350-380",
+        "docs/research/rv-up.md:section 3",
+        "manuscripts/quartic_v16.tex:750-784",
+        "research/quartic214/proofs/geometry-carry.md:section G4"
+      ]
+    },
+    {
+      "id": "INCOMING-TYZ-ROUTE-K",
+      "historical": "Incoming literal-partition counterexamples, odd-factor clarification and speculative Route K descent remain preserved for the CM curve.",
+      "current": "The native E_l=x(x-l)(x+3l), j=35152/9, uses internal RC and the simultaneous native descent. Incoming C_n=x(x-n)(x+n), j=1728, genus-sum criterion and K-exists route are not adopted. No TYZ counterexample is refuted or recomputed by this review.",
+      "sources": [
+        "docs/research/nt-tyz.md:21-70,198-251",
+        "docs/research/rv-nt-tyz.md:30-93,265-312",
+        "docs/research/rv-route-k.md:132-180,334-400",
+        "docs/research/pc-audit.md:88-115",
+        "manuscripts/quartic_v16.tex:1740-1832",
+        "research/quartic214/proofs/uniform-existence.md:82"
+      ]
+    },
+    {
+      "id": "INCOMING-FORWARD",
+      "historical": "Incoming note objected to an older MPI preprint locator and explicitly had not compared ICM contents.",
+      "current": "Actual retained forward lemma already cites published Kyoto ICM Theorem1 pp430-431 and Theorems3-5, supplies modularity and the finite restriction-kernel argument; the final bibliography matches. Exact prior acceptance is retained, without claiming a fresh reading of Kolyvagin here.",
+      "sources": [
+        "docs/research/nt-tyz.md:547-573",
+        "manuscripts/quartic_v16.tex:1834-1885,39458-39463"
+      ]
+    },
+    {
+      "id": "INCOMING-NATIVE-LOCAL",
+      "historical": "The actual up-cr3 objection to prose-only particular-class sufficiency was read; it is not dismissed using an earlier verdict. Prior justification is present in native lines8928-8963.",
+      "current": "Reconstructed the precise particular-class implication below; no assertion that arbitrary dyadic parity conditions are sufficient.",
+      "sources": [
+        "docs/research/up-cr3.md:175-194",
+        "manuscripts/quartic_v16.tex:1761-1817,8928-8963",
+        "research/quartic214/proofs/uniform-existence.md:82"
+      ],
+      "derivation": [
+        "Let l>0 be squarefree, l=11 mod12, beta=17 mod24 positive with nonempty proper support B0 inside supp(l), q0 outside, K*1_B0=0. Kummer coordinates are (x+3l,x-l), rational torsion images (l,1),(3,-l).",
+        "At2 beta=1 mod8 gives identity; at infinity beta>0 gives identity. At3 beta,l are units=2 mod3, so beta/l is a square by Hensel and the class equals (l,1).",
+        "For p=q_i in B0, the K equation sums the symbols of the complement, so l/beta is a unit square and the class is (l,1). For i outside B0 it sums beta-support symbols, so beta is a unit square and the class is identity. All support primes are odd and different from3.",
+        "At every remaining odd good prime beta is a unit. For good reduction and p odd the Kummer image is unramified; reduction and invertibility of2 on the formal group identify E(Q_p)/2E(Q_p) with E(F_p)/2, of order4 because all two-torsion is rational. Unramified H1 has order4 and equals the four unit-squareclass pairs. Thus (beta,1) belongs.",
+        "Globally beta is neither1 norl because its support is nonempty proper. The two other torsion classes have second coordinate -l, a negative nonsquare. Hence the extra class is independent; with the inherited at-most-eight calculation this supplies exact Selmer dimension3 for both constructed l."
+      ]
+    },
+    {
+      "id": "INCOMING-ALTERNATIVE-FORMAL",
+      "historical": "Lean audit notes and alternate AP/density, TYZ, leaf/glue and polynomial-encoding findings remain at their dated revisions; this review does not erase them.",
+      "current": "The new README links the current contribution guide, which explicitly states the five remaining formal premises and distinguishes the original large target from the explicit quartic. The current214 proof does not adopt the alternate GoodPrimeAP/PropositionD or alternate pole/encoding proposals. Imported code and notes match incoming main exactly; their kernel run and protected review are separate obligations.",
+      "sources": [
+        "docs/lean-contributions.md:1-26",
+        "docs/research/aud-ap.md:249-282",
+        "docs/research/rv-hsyn.md:1-90",
+        "docs/research/up-rest.md:1-80",
+        ".github/workflows/kernel-lean.yml"
+      ]
+    }
+  ],
+  "source_pins": [
+    {
+      "path": ".gitattributes",
+      "sha256": "99083324d7c521a59c4f998f08d1dfeef7e092ff9e2a1137c6edb0df24c7472c",
+      "bytes": 2412
+    },
+    {
+      "path": ".github/workflows/kernel-lean.yml",
+      "sha256": "1c04351d63b2eaccbef49cfc45a13f715710771c799104388fa783dd4fb85e9a",
+      "bytes": 3156
+    },
+    {
+      "path": ".github/workflows/quartic214-manuscript-revision2.yml",
+      "sha256": "55ff3e5952a9344f185fa0d8b58a0f5047c7150c9b4ad2fbb3041a3be69725b1",
+      "bytes": 1818
+    },
+    {
+      "path": ".github/workflows/quartic214-protocol-d-progress.yml",
+      "sha256": "8d48007c5fd74c1d2ab9f4253c0ea3c64a69011c71a59fdb19d1210b8a2a7376",
+      "bytes": 971
+    },
+    {
+      "path": "CURRENT_214_REVIEW.md",
+      "sha256": "1eef297805266a83d37503d383320e0bf2f4972754ab9993633426bebf2f0c09",
+      "bytes": 1339
+    },
+    {
+      "path": "docs/lean-contributions.md",
+      "sha256": "91efcdc178b55003504f5c1c2552bae637af1c256483200470876ad72cde4dc7",
+      "bytes": 5184
+    },
+    {
+      "path": "docs/research-review/ASTRA-REVIEW-POLICY.md",
+      "sha256": "7ab22a753f25450eb955ff8b315a814cfaaa784cc0855d929e2d68442663ec4b",
+      "bytes": 3718
+    },
+    {
+      "path": "docs/research/aud-ap.md",
+      "sha256": "7778fbab4f6c486cc3b93c3764189e26895e218397535844d59677abbb2a3625",
+      "bytes": 21547
+    },
+    {
+      "path": "docs/research/nt-tyz.md",
+      "sha256": "37099e2006a61eb485105f54d94404d16e424ef1070137590ec62989d3693be1",
+      "bytes": 45264
+    },
+    {
+      "path": "docs/research/pc-audit.md",
+      "sha256": "9a2e19ff319b7c6c8769fb808250c4e192f7e29d84befc02949b068d681ea39f",
+      "bytes": 43697
+    },
+    {
+      "path": "docs/research/rv-a6-route.md",
+      "sha256": "80e43569baa59bba87aae1fdedaba266e182f5de51540d56548f6fa6e3f33945",
+      "bytes": 14221
+    },
+    {
+      "path": "docs/research/rv-h-a9c9.md",
+      "sha256": "43ce77fd28c0aa3b91b1d98dfc5a5781369598304ae8a0f1b2a9aaa36a9bd3df",
+      "bytes": 17183
+    },
+    {
+      "path": "docs/research/rv-h-b1.md",
+      "sha256": "e6f10e13959da3e79761e94de8417876cdc4323f16cb3149fb9d21e56554886e",
+      "bytes": 17271
+    },
+    {
+      "path": "docs/research/rv-h-c8.md",
+      "sha256": "4b091f94026f5ae7bc928684590205c65d85472f934d2dfb9d2d420a04fa3052",
+      "bytes": 20263
+    },
+    {
+      "path": "docs/research/rv-h-cm.md",
+      "sha256": "ebf28b64a0b5275ceea44b3fd2de5f4daa8e4a21f07de984e0f5a54ec08c3fd6",
+      "bytes": 28471
+    },
+    {
+      "path": "docs/research/rv-hsyn.md",
+      "sha256": "8076e33cd1019510afcd5caa5d2f4a423abb24ef8ea15e8f08367f31618e2653",
+      "bytes": 13993
+    },
+    {
+      "path": "docs/research/rv-nt-tyz.md",
+      "sha256": "096026d1c30fb089fb31f7485c905869faa459f584085e9b1daa7d90eb839146",
+      "bytes": 31160
+    },
+    {
+      "path": "docs/research/rv-route-k.md",
+      "sha256": "bbcef3028f0923b22ec0223585da19d5ae922cb4f4feeed678439e3ef1ac4d68",
+      "bytes": 33641
+    },
+    {
+      "path": "docs/research/rv-up.md",
+      "sha256": "df1161d568b6fc7eb0dca5f7d49af06891a360a381ffb1986e7f624cfca86268",
+      "bytes": 27023
+    },
+    {
+      "path": "docs/research/up-cr3.md",
+      "sha256": "605cab35e4e1112f2cd0fa275f5ae2458267abe86a1e60baf3e7edd99b402516",
+      "bytes": 18522
+    },
+    {
+      "path": "docs/research/up-rest.md",
+      "sha256": "7c7efb16ac209ba8e6e4ab40f73dd1ac9bcaa8657a4867e4860daeba5b8d5fa4",
+      "bytes": 14660
+    },
+    {
+      "path": "manuscripts/quartic_v16.tex",
+      "sha256": "aeb2b6a42a03943d7f8c46682389c8da693d2903ba92ccc164bbbd236451de74",
+      "bytes": 1926498
+    },
+    {
+      "path": "research/quartic214-main-integration/CONTINUATION.json",
+      "sha256": "7a16cc6c480bc4ab306a5c9548e94f6af1ce3e5ce993feee9a5fd26e56b1a5f3",
+      "bytes": 2956
+    },
+    {
+      "path": "research/quartic214-main-integration/check_historical_records.py",
+      "sha256": "a96f020adcfc2309c9f66228e036d3b020104bef8e4d7b5dbb079342874b993b",
+      "bytes": 11844
+    },
+    {
+      "path": "research/quartic214-manuscript-review/check_records.py",
+      "sha256": "d7cbb73da766903e3b1419e5c9501e69ce9c36f51666597ace5240da3a3bea9c",
+      "bytes": 27581
+    },
+    {
+      "path": "research/quartic214-manuscript-revision2-review/MANIFEST.json",
+      "sha256": "921b6476fa2ee2f9e5c40f2a5556b8b1f6d726fb4c6dc3449cd8e5c6f701b759",
+      "bytes": 6108
+    },
+    {
+      "path": "research/quartic214-manuscript-revision2/MANIFEST.json",
+      "sha256": "899edad018881cb161d7b3e329d46f636dcefd8dbb343d096e6bb57b49c47d01",
+      "bytes": 5363
+    },
+    {
+      "path": "research/quartic214-manuscript-revision2/SOURCE_SPANS.json",
+      "sha256": "e1b6f466573269008f10e06db106b15841545663a1de8b3ebe5203a8f188de55",
+      "bytes": 439656
+    },
+    {
+      "path": "research/quartic214-manuscript-revision2/quartic214.pdf",
+      "sha256": "77e6e30515e317ad8bb4fee6ba111037be64a4c325f2a683e5c8edf03884ea88",
+      "bytes": 3943008
+    },
+    {
+      "path": "research/quartic214-manuscript-revision2/quartic214.tex",
+      "sha256": "b03b39d2e0f5593be29d3d2838cd33e7449b4b5b1ccb0b7dee8a9a6d2af4767f",
+      "bytes": 2339106
+    },
+    {
+      "path": "research/quartic214-protocol-d-progress/DECLARED_CURRENT_GRAPH.json",
+      "sha256": "81742644266ae1deaacd4e23fa06f45e768ee510f8c175cf19ba3f6f4b87f0c8",
+      "bytes": 62696
+    },
+    {
+      "path": "research/quartic214-protocol-d-progress/PACKET_MANIFEST.json",
+      "sha256": "392d81fca5b286b2a19b63ecf992ae9d343b84fd238e2eac45783151518322bc",
+      "bytes": 17530
+    },
+    {
+      "path": "research/quartic214-protocol-d-progress/reviews/closure-review/COVERAGE_LINK_MANIFEST.json",
+      "sha256": "32f9ed7719ef200b879d2bc5fdddd83b04ea2822d66c2b98386c5f0220670169",
+      "bytes": 594
+    },
+    {
+      "path": "research/quartic214-protocol-d-progress/reviews/closure-review/M3_M6_REVIEW.md",
+      "sha256": "98cf64a31782e9106e3608ab4cad50a62e28d2721e4f57e3b62dfff5740c807f",
+      "bytes": 14168
+    },
+    {
+      "path": "research/quartic214-protocol-d-progress/reviews/closure-review/MATHEMATICAL_MANIFEST.json",
+      "sha256": "e31c67ad5c36417dd3a245d3b3712d2450d69f311c4fd08d3e7622a3451839d9",
+      "bytes": 2340
+    },
+    {
+      "path": "research/quartic214-protocol-d-review/FINAL_REVIEW.json",
+      "sha256": "7712219f5441378d9cb171d58267deb87faa26db423014773af7dbeb41311ec4",
+      "bytes": 16083
+    },
+    {
+      "path": "research/quartic214-protocol-d-review/RECEIVING_REVIEW.json",
+      "sha256": "a5000876a7c8480ed54e1e71f93b8ef49b357877403f852a5a48426900c235a4",
+      "bytes": 7590
+    },
+    {
+      "path": "research/quartic214/proofs/geometry-carry.md",
+      "sha256": "b3cb8201de84f733b0518ad68a9c0d0bc1e78534ffd39aca5d8c70f1bae69e76",
+      "bytes": 13337
+    },
+    {
+      "path": "research/quartic214/proofs/height-supplier.md",
+      "sha256": "4974b167ab415159e0ff996b341528008c2ba8ae8e2a1ebf69bab5bc9a9b9c12",
+      "bytes": 15498
+    },
+    {
+      "path": "research/quartic214/proofs/modularity.md",
+      "sha256": "814676050b389793d196346f45e2797f39e2c5be0f3fee8457bb709b2607606e",
+      "bytes": 25777
+    },
+    {
+      "path": "research/quartic214/proofs/uniform-existence.md",
+      "sha256": "d13cc2b846dc72a3f5b5cce8dcf11d3f11b33c45ebc3883263840afb8d82f3bc",
+      "bytes": 22294
+    },
+    {
+      "path": "research/version14/proofs/h5-full-three-v1/PROOF.md",
+      "sha256": "054ec4a656b82e1d1d17c7e9d3575afe722c42594f933256e7ea225f6a3f5e3b",
+      "bytes": 19349
+    }
+  ],
+  "historical_records": [
+    {
+      "original_record": "TREE_COMPARISON.json",
+      "sha256": "ba72ea82cc9dcac972ed31f6f9eff4dc18d1b28cd1a6821718faaab708ba84f5",
+      "bytes": 5107318,
+      "availability": "local interrupted-review packet; tree/inventory can be reconstructed from the pinned commits"
+    },
+    {
+      "original_record": "INCOMING_NOTE_INVENTORY.json",
+      "sha256": "3fb87ff432524f9b5f19de708908f8de29fdfcce0afc83167d6eb2bff922a2df",
+      "bytes": 30531,
+      "availability": "local interrupted-review packet; tree/inventory can be reconstructed from the pinned commits"
+    },
+    {
+      "original_record": "ALL_INCOMING_ADVERSE_SEARCH.json",
+      "sha256": "554fe61cc617d4d908336b7f08105c6c87106285529c10e29d63e480fe69a7b4",
+      "bytes": 74543,
+      "availability": "local interrupted-review packet; tree/inventory can be reconstructed from the pinned commits"
+    },
+    {
+      "original_record": "INITIAL_FINDING.json",
+      "sha256": "e0558a31f617a433c408dc9517b411515d2580a716d91adb36d7d8988b76fe05",
+      "bytes": 1066,
+      "availability": "local interrupted-review packet; tree/inventory can be reconstructed from the pinned commits"
+    }
+  ],
+  "limits": [
+    "No local Lean build, TeX build or polynomial expansion.",
+    "The 116-note inventory and 288-hit adverse search locate candidates; they are not a fresh complete audit of each imported note or of the new Lean development. Candidate objections relevant to retained214 consumers were compared above.",
+    "Published-source comparisons explicitly attributed to the unchanged prior review were reused at that exact scope, not represented as freshly read primary publications.",
+    "Protected GitHub App acceptance and exact public readback remain separate requirements."
+  ],
+  "author_pole_comparison": {
+    "sha256": "3b3d1e5fab9e3f9bb5baa912e29c70bc8079556dbbff043c2a32d8d837edd6a5",
+    "role": "Exposed author proposal, reviewed against actual passages above; not reviewer evidence by itself."
+  }
+}

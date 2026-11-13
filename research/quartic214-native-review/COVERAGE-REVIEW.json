@@ -1,0 +1,650 @@
+{
+  "schema": "protocol14-review/v1",
+  "scope": "Independent complete 214 source-use and related-findings coverage at the exact bound source pins.",
+  "limitations": "Acceptance is within the exact source scopes and stated retained supplier qualifications. Structural validation and mathematical review do not authenticate a reviewer or confer protected App/publication acceptance.",
+  "decisions": [
+    {
+      "subject": "connection:SF01-rows",
+      "subject_sha256": "110cb3cf22ffa62fadafc26dee70ee6ece13b719b015a668f0950ec0ae262df8",
+      "outcome": "accepted_within_scope",
+      "review_basis": "reconstructed",
+      "prior_review": null,
+      "scope": "The exact source-derived consumer/supplier interface, all indexed receiving repetitions, hypotheses and adverse cases, as reconstructed and reconciled in FINAL_REVIEW.md. Component internal derivations are reused only at the explicit exact scopes there.",
+      "limitations": "No fresh reproof of unchanged published ancestry, effective threshold, reviewer authentication or App acceptance. Exact source pins and every original supplier qualification remain mandatory."
+    },
+    {
+      "subject": "connection:SF02-recovery",
+      "subject_sha256": "23213a02a56104c6f4723e84be4533668cc03ac0f66988ce027dc456f68276e4",
+      "outcome": "accepted_within_scope",
+      "review_basis": "reconstructed",
+      "prior_review": null,
+      "scope": "The exact source-derived consumer/supplier interface, all indexed receiving repetitions, hypotheses and adverse cases, as reconstructed and reconciled in FINAL_REVIEW.md. Component internal derivations are reused only at the explicit exact scopes there.",
+      "limitations": "No fresh reproof of unchanged published ancestry, effective threshold, reviewer authentication or App acceptance. Exact source pins and every original supplier qualification remain mandatory."
+    },
+    {
+      "subject": "connection:SF03-local",
+      "subject_sha256": "dfdab6fee4a933efd9917db27a9ed3993d407909442a70c7af5de2cf69cd4a8b",
+      "outcome": "accepted_within_scope",
+      "review_basis": "reconstructed",
+      "prior_review": null,
+      "scope": "The exact source-derived consumer/supplier interface, all indexed receiving repetitions, hypotheses and adverse cases, as reconstructed and reconciled in FINAL_REVIEW.md. Component internal derivations are reused only at the explicit exact scopes there.",
+      "limitations": "No fresh reproof of unchanged published ancestry, effective threshold, reviewer authentication or App acceptance. Exact source pins and every original supplier qualification remain mandatory."
+    },
+    {
+      "subject": "connection:SF04-logs",
+      "subject_sha256": "287a177ecfdb49e1d7f10e86fe98b330a6f1ae2930cc3f14eca40e47cfe01bc2",
+      "outcome": "accepted_within_scope",
+      "review_basis": "reconstructed",
+      "prior_review": null,
+      "scope": "The exact source-derived consumer/supplier interface, all indexed receiving repetitions, hypotheses and adverse cases, as reconstructed and reconciled in FINAL_REVIEW.md. Component internal derivations are reused only at the explicit exact scopes there.",
+      "limitations": "No fresh reproof of unchanged published ancestry, effective threshold, reviewer authentication or App acceptance. Exact source pins and every original supplier qualification remain mandatory."
+    },
+    {
+      "subject": "connection:SF05-aggregate",
+      "subject_sha256": "a0f128717237254173dfd8947a7c254a925605a975287c953277fe55c222908a",
+      "outcome": "accepted_within_scope",
+      "review_basis": "reconstructed",
+      "prior_review": null,
+      "scope": "The exact source-derived consumer/supplier interface, all indexed receiving repetitions, hypotheses and adverse cases, as reconstructed and reconciled in FINAL_REVIEW.md. Component internal derivations are reused only at the explicit exact scopes there.",
+      "limitations": "No fresh reproof of unchanged published ancestry, effective threshold, reviewer authentication or App acceptance. Exact source pins and every original supplier qualification remain mandatory."
+    },
+    {
+      "subject": "connection:SF06-reflect",
+      "subject_sha256": "92931aefee45b271be17d019985e5ba3bbb2f5b83001a06852b80a2ca9caac90",
+      "outcome": "accepted_within_scope",
+      "review_basis": "reconstructed",
+      "prior_review": null,
+      "scope": "The exact source-derived consumer/supplier interface, all indexed receiving repetitions, hypotheses and adverse cases, as reconstructed and reconciled in FINAL_REVIEW.md. Component internal derivations are reused only at the explicit exact scopes there.",
+      "limitations": "No fresh reproof of unchanged published ancestry, effective threshold, reviewer authentication or App acceptance. Exact source pins and every original supplier qualification remain mandatory."
+    },
+    {
+      "subject": "connection:SF07-sound",
+      "subject_sha256": "0b0343eca3abb8b2a55189ee3ea2f6d6803d7c8678830bcbca663dfa86bc4d44",
+      "outcome": "accepted_within_scope",
+      "review_basis": "reconstructed",
+      "prior_review": null,
+      "scope": "The exact source-derived consumer/supplier interface, all indexed receiving repetitions, hypotheses and adverse cases, as reconstructed and reconciled in FINAL_REVIEW.md. Component internal derivations are reused only at the explicit exact scopes there.",
+      "limitations": "No fresh reproof of unchanged published ancestry, effective threshold, reviewer authentication or App acceptance. Exact source pins and every original supplier qualification remain mandatory."
+    },
+    {
+      "subject": "connection:SF08-scalar",
+      "subject_sha256": "44f589f182e6cbba69990b4eaf0228a9d7e9c5105729a88f7b2b10b5bac71569",
+      "outcome": "accepted_within_scope",
+      "review_basis": "reconstructed",
+      "prior_review": null,
+      "scope": "The exact source-derived consumer/supplier interface, all indexed receiving repetitions, hypotheses and adverse cases, as reconstructed and reconciled in FINAL_REVIEW.md. Component internal derivations are reused only at the explicit exact scopes there.",
+      "limitations": "No fresh reproof of unchanged published ancestry, effective threshold, reviewer authentication or App acceptance. Exact source pins and every original supplier qualification remain mandatory."
+    },
+    {
+      "subject": "connection:SF09-selection",
+      "subject_sha256": "1ad162abb948b96c2505565991d30fb8888981e8f64c9ad3086016a13b59465a",
+      "outcome": "accepted_within_scope",
+      "review_basis": "reconstructed",
+      "prior_review": null,
+      "scope": "The exact source-derived consumer/supplier interface, all indexed receiving repetitions, hypotheses and adverse cases, as reconstructed and reconciled in FINAL_REVIEW.md. Component internal derivations are reused only at the explicit exact scopes there.",
+      "limitations": "No fresh reproof of unchanged published ancestry, effective threshold, reviewer authentication or App acceptance. Exact source pins and every original supplier qualification remain mandatory."
+    },
+    {
+      "subject": "connection:SF10-freshpole",
+      "subject_sha256": "5d3f011acd1f1b62cb12f416ce8eaeb851e11f5704e6f2f0382a4ce28693b2f9",
+      "outcome": "accepted_within_scope",
+      "review_basis": "reconstructed",
+      "prior_review": null,
+      "scope": "The exact source-derived consumer/supplier interface, all indexed receiving repetitions, hypotheses and adverse cases, as reconstructed and reconciled in FINAL_REVIEW.md. Component internal derivations are reused only at the explicit exact scopes there.",
+      "limitations": "No fresh reproof of unchanged published ancestry, effective threshold, reviewer authentication or App acceptance. Exact source pins and every original supplier qualification remain mandatory."
+    },
+    {
+      "subject": "connection:SF11-geometry",
+      "subject_sha256": "356c99f280b388138ddea6e0820b042816d06fe10daa4efd3ac953b5d321c8fa",
+      "outcome": "accepted_within_scope",
+      "review_basis": "reconstructed",
+      "prior_review": null,
+      "scope": "The exact source-derived consumer/supplier interface, all indexed receiving repetitions, hypotheses and adverse cases, as reconstructed and reconciled in FINAL_REVIEW.md. Component internal derivations are reused only at the explicit exact scopes there.",
+      "limitations": "No fresh reproof of unchanged published ancestry, effective threshold, reviewer authentication or App acceptance. Exact source pins and every original supplier qualification remain mandatory."
+    },
+    {
+      "subject": "connection:SF12-tame",
+      "subject_sha256": "920da796bb1d565a099848aa14237ba3c95a23f5392f0ac323b1cd92f86373c5",
+      "outcome": "accepted_within_scope",
+      "review_basis": "reconstructed",
+      "prior_review": null,
+      "scope": "The exact source-derived consumer/supplier interface, all indexed receiving repetitions, hypotheses and adverse cases, as reconstructed and reconciled in FINAL_REVIEW.md. Component internal derivations are reused only at the explicit exact scopes there.",
+      "limitations": "No fresh reproof of unchanged published ancestry, effective threshold, reviewer authentication or App acceptance. Exact source pins and every original supplier qualification remain mandatory."
+    },
+    {
+      "subject": "connection:SF13-geometricmetric",
+      "subject_sha256": "bf8bbeedd68b352592541e6e147703cbcb52f889d183beb513f81482eabc8def",
+      "outcome": "accepted_within_scope",
+      "review_basis": "reconstructed",
+      "prior_review": null,
+      "scope": "The exact source-derived consumer/supplier interface, all indexed receiving repetitions, hypotheses and adverse cases, as reconstructed and reconciled in FINAL_REVIEW.md. Component internal derivations are reused only at the explicit exact scopes there.",
+      "limitations": "No fresh reproof of unchanged published ancestry, effective threshold, reviewer authentication or App acceptance. Exact source pins and every original supplier qualification remain mandatory."
+    },
+    {
+      "subject": "connection:SF14-cm",
+      "subject_sha256": "0ea813eff6f17b44d91f7c90f8665ac157c6b723660c152ae8d92f51f551bfe5",
+      "outcome": "accepted_within_scope",
+      "review_basis": "reconstructed",
+      "prior_review": null,
+      "scope": "The exact source-derived consumer/supplier interface, all indexed receiving repetitions, hypotheses and adverse cases, as reconstructed and reconciled in FINAL_REVIEW.md. Component internal derivations are reused only at the explicit exact scopes there.",
+      "limitations": "No fresh reproof of unchanged published ancestry, effective threshold, reviewer authentication or App acceptance. Exact source pins and every original supplier qualification remain mandatory."
+    },
+    {
+      "subject": "connection:SF15-lift",
+      "subject_sha256": "19d8af4f4aa9a7350d1872db756d2eb7eca048a8a6186832b02b1ade05871ecd",
+      "outcome": "accepted_within_scope",
+      "review_basis": "reconstructed",
+      "prior_review": null,
+      "scope": "The exact source-derived consumer/supplier interface, all indexed receiving repetitions, hypotheses and adverse cases, as reconstructed and reconciled in FINAL_REVIEW.md. Component internal derivations are reused only at the explicit exact scopes there.",
+      "limitations": "No fresh reproof of unchanged published ancestry, effective threshold, reviewer authentication or App acceptance. Exact source pins and every original supplier qualification remain mandatory."
+    },
+    {
+      "subject": "connection:SF16-modular",
+      "subject_sha256": "a812c9d1dda08562458bcb18d009f322a4f2cf6d8ea8d6b93211e638e89293ff",
+      "outcome": "accepted_within_scope",
+      "review_basis": "reconstructed",
+      "prior_review": null,
+      "scope": "The exact source-derived consumer/supplier interface, all indexed receiving repetitions, hypotheses and adverse cases, as reconstructed and reconciled in FINAL_REVIEW.md. Component internal derivations are reused only at the explicit exact scopes there.",
+      "limitations": "No fresh reproof of unchanged published ancestry, effective threshold, reviewer authentication or App acceptance. Exact source pins and every original supplier qualification remain mandatory."
+    },
+    {
+      "subject": "connection:SF17-primitive",
+      "subject_sha256": "53b71f7b326b066f85007a9d3b90540b04eed50791bf05e40d4fa84023eac286",
+      "outcome": "accepted_within_scope",
+      "review_basis": "reconstructed",
+      "prior_review": null,
+      "scope": "The exact source-derived consumer/supplier interface, all indexed receiving repetitions, hypotheses and adverse cases, as reconstructed and reconciled in FINAL_REVIEW.md. Component internal derivations are reused only at the explicit exact scopes there.",
+      "limitations": "No fresh reproof of unchanged published ancestry, effective threshold, reviewer authentication or App acceptance. Exact source pins and every original supplier qualification remain mandatory."
+    },
+    {
+      "subject": "connection:SF18-companion",
+      "subject_sha256": "65db26afab6acd97bc458da5a5c39e91549b8525c27fb2451889845048524a41",
+      "outcome": "accepted_within_scope",
+      "review_basis": "reconstructed",
+      "prior_review": null,
+      "scope": "The exact source-derived consumer/supplier interface, all indexed receiving repetitions, hypotheses and adverse cases, as reconstructed and reconciled in FINAL_REVIEW.md. Component internal derivations are reused only at the explicit exact scopes there.",
+      "limitations": "No fresh reproof of unchanged published ancestry, effective threshold, reviewer authentication or App acceptance. Exact source pins and every original supplier qualification remain mandatory."
+    },
+    {
+      "subject": "connection:SF19-conductor",
+      "subject_sha256": "0c15314217b5aa88f2c5492067f409a8ca222658a7dfd224a5c8203a1cd4871b",
+      "outcome": "accepted_within_scope",
+      "review_basis": "reconstructed",
+      "prior_review": null,
+      "scope": "The exact source-derived consumer/supplier interface, all indexed receiving repetitions, hypotheses and adverse cases, as reconstructed and reconciled in FINAL_REVIEW.md. Component internal derivations are reused only at the explicit exact scopes there.",
+      "limitations": "No fresh reproof of unchanged published ancestry, effective threshold, reviewer authentication or App acceptance. Exact source pins and every original supplier qualification remain mandatory."
+    },
+    {
+      "subject": "connection:SF20-multiplicity",
+      "subject_sha256": "81c7438b384ea2ad788fa8b80d8a09d13975ad0b856ba281e65fc6ff12595fe5",
+      "outcome": "accepted_within_scope",
+      "review_basis": "reconstructed",
+      "prior_review": null,
+      "scope": "The exact source-derived consumer/supplier interface, all indexed receiving repetitions, hypotheses and adverse cases, as reconstructed and reconciled in FINAL_REVIEW.md. Component internal derivations are reused only at the explicit exact scopes there.",
+      "limitations": "No fresh reproof of unchanged published ancestry, effective threshold, reviewer authentication or App acceptance. Exact source pins and every original supplier qualification remain mandatory."
+    },
+    {
+      "subject": "connection:SF21-integral",
+      "subject_sha256": "dec268793ba3e716aff358d99bdc3b7bf429ada38167f4fa0f36ef14abd1b7d3",
+      "outcome": "accepted_within_scope",
+      "review_basis": "reconstructed",
+      "prior_review": null,
+      "scope": "The exact source-derived consumer/supplier interface, all indexed receiving repetitions, hypotheses and adverse cases, as reconstructed and reconciled in FINAL_REVIEW.md. Component internal derivations are reused only at the explicit exact scopes there.",
+      "limitations": "No fresh reproof of unchanged published ancestry, effective threshold, reviewer authentication or App acceptance. Exact source pins and every original supplier qualification remain mandatory."
+    },
+    {
+      "subject": "connection:SF22-lattice",
+      "subject_sha256": "15e8c54dbfa1b1243a99747cf1be24a70f80eb32ada399108d406f86fedbe67f",
+      "outcome": "accepted_within_scope",
+      "review_basis": "reconstructed",
+      "prior_review": null,
+      "scope": "The exact source-derived consumer/supplier interface, all indexed receiving repetitions, hypotheses and adverse cases, as reconstructed and reconciled in FINAL_REVIEW.md. Component internal derivations are reused only at the explicit exact scopes there.",
+      "limitations": "No fresh reproof of unchanged published ancestry, effective threshold, reviewer authentication or App acceptance. Exact source pins and every original supplier qualification remain mandatory."
+    },
+    {
+      "subject": "connection:SF23-different",
+      "subject_sha256": "992e6d87330e1e425b265f4c54dfc2f15da21ea83e2a05ea6b8fb2f18c68cf63",
+      "outcome": "accepted_within_scope",
+      "review_basis": "reconstructed",
+      "prior_review": null,
+      "scope": "The exact source-derived consumer/supplier interface, all indexed receiving repetitions, hypotheses and adverse cases, as reconstructed and reconciled in FINAL_REVIEW.md. Component internal derivations are reused only at the explicit exact scopes there.",
+      "limitations": "No fresh reproof of unchanged published ancestry, effective threshold, reviewer authentication or App acceptance. Exact source pins and every original supplier qualification remain mandatory."
+    },
+    {
+      "subject": "connection:SF24-analyticmetric",
+      "subject_sha256": "9d3c169ecd246b978ecf9d5ac43da310c2a9a48c6ad9131728de1da4d03753cb",
+      "outcome": "accepted_within_scope",
+      "review_basis": "reconstructed",
+      "prior_review": null,
+      "scope": "The exact source-derived consumer/supplier interface, all indexed receiving repetitions, hypotheses and adverse cases, as reconstructed and reconciled in FINAL_REVIEW.md. Component internal derivations are reused only at the explicit exact scopes there.",
+      "limitations": "No fresh reproof of unchanged published ancestry, effective threshold, reviewer authentication or App acceptance. Exact source pins and every original supplier qualification remain mandatory."
+    },
+    {
+      "subject": "connection:SF25-heightassembly",
+      "subject_sha256": "127fc4b50191ca8e081a184e15f17e115f95fd7ed68d404bef317b582615e5ea",
+      "outcome": "accepted_within_scope",
+      "review_basis": "reconstructed",
+      "prior_review": null,
+      "scope": "The exact source-derived consumer/supplier interface, all indexed receiving repetitions, hypotheses and adverse cases, as reconstructed and reconciled in FINAL_REVIEW.md. Component internal derivations are reused only at the explicit exact scopes there.",
+      "limitations": "No fresh reproof of unchanged published ancestry, effective threshold, reviewer authentication or App acceptance. Exact source pins and every original supplier qualification remain mandatory."
+    },
+    {
+      "subject": "connection:SF26-average",
+      "subject_sha256": "c5357cbd73a30f9e534ffd16e0454835aeab535fd6822fcf3cf4284a13ed6926",
+      "outcome": "accepted_within_scope",
+      "review_basis": "reconstructed",
+      "prior_review": null,
+      "scope": "The exact source-derived consumer/supplier interface, all indexed receiving repetitions, hypotheses and adverse cases, as reconstructed and reconciled in FINAL_REVIEW.md. Component internal derivations are reused only at the explicit exact scopes there.",
+      "limitations": "No fresh reproof of unchanged published ancestry, effective threshold, reviewer authentication or App acceptance. Exact source pins and every original supplier qualification remain mandatory."
+    },
+    {
+      "subject": "connection:SF27-numeric",
+      "subject_sha256": "3279a7a17bb8b20f524281923958b83e558a5560641516117fc15500b6a5363c",
+      "outcome": "accepted_within_scope",
+      "review_basis": "reconstructed",
+      "prior_review": null,
+      "scope": "The exact source-derived consumer/supplier interface, all indexed receiving repetitions, hypotheses and adverse cases, as reconstructed and reconciled in FINAL_REVIEW.md. Component internal derivations are reused only at the explicit exact scopes there.",
+      "limitations": "No fresh reproof of unchanged published ancestry, effective threshold, reviewer authentication or App acceptance. Exact source pins and every original supplier qualification remain mandatory."
+    },
+    {
+      "subject": "connection:SF28-rc",
+      "subject_sha256": "fd7df8aa6cd89331aa7fc218654e0eda88463dfeeec6101a2d3f71a41daad820",
+      "outcome": "accepted_within_scope",
+      "review_basis": "reconstructed",
+      "prior_review": null,
+      "scope": "The exact source-derived consumer/supplier interface, all indexed receiving repetitions, hypotheses and adverse cases, as reconstructed and reconciled in FINAL_REVIEW.md. Component internal derivations are reused only at the explicit exact scopes there.",
+      "limitations": "No fresh reproof of unchanged published ancestry, effective threshold, reviewer authentication or App acceptance. Exact source pins and every original supplier qualification remain mandatory."
+    },
+    {
+      "subject": "connection:SF29-kato",
+      "subject_sha256": "85b898cd5cf9a061782eadf621c6feed0a024654c7c5238418de416ded2cd9f4",
+      "outcome": "accepted_within_scope",
+      "review_basis": "reconstructed",
+      "prior_review": null,
+      "scope": "The exact source-derived consumer/supplier interface, all indexed receiving repetitions, hypotheses and adverse cases, as reconstructed and reconciled in FINAL_REVIEW.md. Component internal derivations are reused only at the explicit exact scopes there.",
+      "limitations": "No fresh reproof of unchanged published ancestry, effective threshold, reviewer authentication or App acceptance. Exact source pins and every original supplier qualification remain mandatory."
+    },
+    {
+      "subject": "connection:SF30-gi",
+      "subject_sha256": "3fff65b058ebca44935c45aaf21a059146c8e27851e3885ce4765c088e14cbf2",
+      "outcome": "accepted_within_scope",
+      "review_basis": "reconstructed",
+      "prior_review": null,
+      "scope": "The exact source-derived consumer/supplier interface, all indexed receiving repetitions, hypotheses and adverse cases, as reconstructed and reconciled in FINAL_REVIEW.md. Component internal derivations are reused only at the explicit exact scopes there.",
+      "limitations": "No fresh reproof of unchanged published ancestry, effective threshold, reviewer authentication or App acceptance. Exact source pins and every original supplier qualification remain mandatory."
+    },
+    {
+      "subject": "connection:SF31-tz",
+      "subject_sha256": "406900ce68ce2e60ef89c9696c0cd110af52caee4aaac31876d6e12551bc882d",
+      "outcome": "accepted_within_scope",
+      "review_basis": "reconstructed",
+      "prior_review": null,
+      "scope": "The exact source-derived consumer/supplier interface, all indexed receiving repetitions, hypotheses and adverse cases, as reconstructed and reconciled in FINAL_REVIEW.md. Component internal derivations are reused only at the explicit exact scopes there.",
+      "limitations": "No fresh reproof of unchanged published ancestry, effective threshold, reviewer authentication or App acceptance. Exact source pins and every original supplier qualification remain mandatory."
+    },
+    {
+      "subject": "connection:SF32-foundation",
+      "subject_sha256": "8288281da7fe714f6e25920d988f59cdf06c547f8163f8407a7c1f7e3d54c004",
+      "outcome": "accepted_within_scope",
+      "review_basis": "reconstructed",
+      "prior_review": null,
+      "scope": "The exact source-derived consumer/supplier interface, all indexed receiving repetitions, hypotheses and adverse cases, as reconstructed and reconciled in FINAL_REVIEW.md. Component internal derivations are reused only at the explicit exact scopes there.",
+      "limitations": "No fresh reproof of unchanged published ancestry, effective threshold, reviewer authentication or App acceptance. Exact source pins and every original supplier qualification remain mandatory."
+    },
+    {
+      "subject": "connection:SF33-receiving",
+      "subject_sha256": "1144066cf6c4fd2a1747416cd165b09719fd1c42c8c83fa5f46854654b729f3d",
+      "outcome": "accepted_within_scope",
+      "review_basis": "reconstructed",
+      "prior_review": null,
+      "scope": "The exact source-derived consumer/supplier interface, all indexed receiving repetitions, hypotheses and adverse cases, as reconstructed and reconciled in FINAL_REVIEW.md. Component internal derivations are reused only at the explicit exact scopes there.",
+      "limitations": "No fresh reproof of unchanged published ancestry, effective threshold, reviewer authentication or App acceptance. Exact source pins and every original supplier qualification remain mandatory."
+    },
+    {
+      "subject": "connection:SF34-receiving-arithmetic",
+      "subject_sha256": "55c4b4c3226a272060a8b7ca56a7ee8dd04be6b70f3ba1c96e323e9dcfaaf150",
+      "outcome": "accepted_within_scope",
+      "review_basis": "reconstructed",
+      "prior_review": null,
+      "scope": "The exact source-derived consumer/supplier interface, all indexed receiving repetitions, hypotheses and adverse cases, as reconstructed and reconciled in FINAL_REVIEW.md. Component internal derivations are reused only at the explicit exact scopes there.",
+      "limitations": "No fresh reproof of unchanged published ancestry, effective threshold, reviewer authentication or App acceptance. Exact source pins and every original supplier qualification remain mandatory."
+    },
+    {
+      "subject": "connection:SF35-receiving-height",
+      "subject_sha256": "58e4c27f9115242c69031e7273743b0beb369c34f253f7222e233fd45b8af69a",
+      "outcome": "accepted_within_scope",
+      "review_basis": "reconstructed",
+      "prior_review": null,
+      "scope": "The exact source-derived consumer/supplier interface, all indexed receiving repetitions, hypotheses and adverse cases, as reconstructed and reconciled in FINAL_REVIEW.md. Component internal derivations are reused only at the explicit exact scopes there.",
+      "limitations": "No fresh reproof of unchanged published ancestry, effective threshold, reviewer authentication or App acceptance. Exact source pins and every original supplier qualification remain mandatory."
+    },
+    {
+      "subject": "connection:SF36-receiving-algebra",
+      "subject_sha256": "e17242b9ed65ade6981e9a8bab8205a0a71a3daf31d5a5b7588db64cd2a5c8b1",
+      "outcome": "accepted_within_scope",
+      "review_basis": "reconstructed",
+      "prior_review": null,
+      "scope": "The exact source-derived consumer/supplier interface, all indexed receiving repetitions, hypotheses and adverse cases, as reconstructed and reconciled in FINAL_REVIEW.md. Component internal derivations are reused only at the explicit exact scopes there.",
+      "limitations": "No fresh reproof of unchanged published ancestry, effective threshold, reviewer authentication or App acceptance. Exact source pins and every original supplier qualification remain mandatory."
+    },
+    {
+      "subject": "connection:SF37-receiving-foundation",
+      "subject_sha256": "20e3c62ce4ef3202e76a8a0d8b989c5d3dafdf497df9813d4710046175f3f0a2",
+      "outcome": "accepted_within_scope",
+      "review_basis": "reconstructed",
+      "prior_review": null,
+      "scope": "The exact source-derived consumer/supplier interface, all indexed receiving repetitions, hypotheses and adverse cases, as reconstructed and reconciled in FINAL_REVIEW.md. Component internal derivations are reused only at the explicit exact scopes there.",
+      "limitations": "No fresh reproof of unchanged published ancestry, effective threshold, reviewer authentication or App acceptance. Exact source pins and every original supplier qualification remain mandatory."
+    },
+    {
+      "subject": "connection:SF38-arithmetic-recovery",
+      "subject_sha256": "d7a0df51ae3992f2150a19ddca7f717aac59091cbb13db3d5e1fbf44875e2a13",
+      "outcome": "accepted_within_scope",
+      "review_basis": "reconstructed",
+      "prior_review": null,
+      "scope": "The exact source-derived consumer/supplier interface, all indexed receiving repetitions, hypotheses and adverse cases, as reconstructed and reconciled in FINAL_REVIEW.md. Component internal derivations are reused only at the explicit exact scopes there.",
+      "limitations": "No fresh reproof of unchanged published ancestry, effective threshold, reviewer authentication or App acceptance. Exact source pins and every original supplier qualification remain mandatory."
+    },
+    {
+      "subject": "connection:SF39-retained-v16",
+      "subject_sha256": "8be47693aaa6c80a492b725a053016c3fba7a9ec09c2e3bf2f65e0d118d84124",
+      "outcome": "accepted_within_scope",
+      "review_basis": "reused_exact_derivation",
+      "prior_review": {
+        "side": "head",
+        "path": "research/version16/review/current/REVIEW.md",
+        "sha256": "093e9e7e921ac9e1e24ecdb4f3568295fcf02a78115e70f7b884265efb99e9c2"
+      },
+      "scope": "Exact unchanged complete Version16 scope, with its coverage review, TZ precision addendum and duplicate-location repair retained as explained in FINAL_REVIEW.md.",
+      "limitations": "No fresh reproof of unchanged published ancestry, effective threshold, reviewer authentication or App acceptance. Exact source pins and every original supplier qualification remain mandatory."
+    },
+    {
+      "subject": "finding:F1",
+      "subject_sha256": "eb5a6727d91d9f97992e4dfb1204c7e264e8313f87be959cceadfd9d218abd86",
+      "outcome": "accepted_within_scope",
+      "review_basis": "reconstructed",
+      "prior_review": null,
+      "scope": "Current source/consumer and receiving search, preserved historical mechanism, exclusions and exact successor representations stated in this related-use record. Exact unchanged historical derivations are reused only at the scopes in FINAL_REVIEW.md.",
+      "limitations": "Preserve historical resolved-at-stated-scope disposition. Current revision3 TeX delta changes only date and two other sites; it does not undo these repairs. No fresh all-formulas completeness inferred. Scope search does not refute the original counterexample or authenticate a reviewer."
+    },
+    {
+      "subject": "finding:F2",
+      "subject_sha256": "ec5f53aeb47a86392cdf0a7e9b071abe9ad4214e3f97c7971d88c31de8afe5fc",
+      "outcome": "accepted_within_scope",
+      "review_basis": "reconstructed",
+      "prior_review": null,
+      "scope": "Current source/consumer and receiving search, preserved historical mechanism, exclusions and exact successor representations stated in this related-use record. Exact unchanged historical derivations are reused only at the scopes in FINAL_REVIEW.md.",
+      "limitations": "Preserve historical resolved-at-stated-scope disposition. Current revision3 TeX delta changes only date and two other sites; it does not undo these repairs. No fresh all-formulas completeness inferred. Scope search does not refute the original counterexample or authenticate a reviewer."
+    },
+    {
+      "subject": "finding:F3",
+      "subject_sha256": "a76e2cf648160547b26e193d476f5553730a3a8b551823753b8918c3afc4fd9c",
+      "outcome": "accepted_within_scope",
+      "review_basis": "reconstructed",
+      "prior_review": null,
+      "scope": "Current source/consumer and receiving search, preserved historical mechanism, exclusions and exact successor representations stated in this related-use record. Exact unchanged historical derivations are reused only at the scopes in FINAL_REVIEW.md.",
+      "limitations": "Preserve historical resolved-at-stated-scope disposition. Current revision3 TeX delta changes only date and two other sites; it does not undo these repairs. No fresh all-formulas completeness inferred. Scope search does not refute the original counterexample or authenticate a reviewer."
+    },
+    {
+      "subject": "finding:F4",
+      "subject_sha256": "3f45d577fbccd3bbeadf77283c6e3e8cca0e3d1ee6da4ab849ff28ae98126e92",
+      "outcome": "accepted_within_scope",
+      "review_basis": "reconstructed",
+      "prior_review": null,
+      "scope": "Current source/consumer and receiving search, preserved historical mechanism, exclusions and exact successor representations stated in this related-use record. Exact unchanged historical derivations are reused only at the scopes in FINAL_REVIEW.md.",
+      "limitations": "Preserve historical resolved-at-stated-scope disposition. Current revision3 TeX delta changes only date and two other sites; it does not undo these repairs. No fresh all-formulas completeness inferred. Scope search does not refute the original counterexample or authenticate a reviewer."
+    },
+    {
+      "subject": "finding:F5",
+      "subject_sha256": "9e85cdaacca9e1ae51a4f204f0e674687923da12d4ecfa2838239bfd1235c652",
+      "outcome": "accepted_within_scope",
+      "review_basis": "reconstructed",
+      "prior_review": null,
+      "scope": "Current source/consumer and receiving search, preserved historical mechanism, exclusions and exact successor representations stated in this related-use record. Exact unchanged historical derivations are reused only at the scopes in FINAL_REVIEW.md.",
+      "limitations": "Preserve historical resolved-at-stated-scope disposition. Current revision3 TeX delta changes only date and two other sites; it does not undo these repairs. No fresh all-formulas completeness inferred. Scope search does not refute the original counterexample or authenticate a reviewer."
+    },
+    {
+      "subject": "finding:F6",
+      "subject_sha256": "566137a3c5bd71b2abc85056a6e4054ce60ed71216a0d71dd2c13832e5795289",
+      "outcome": "accepted_within_scope",
+      "review_basis": "reconstructed",
+      "prior_review": null,
+      "scope": "Current source/consumer and receiving search, preserved historical mechanism, exclusions and exact successor representations stated in this related-use record. Exact unchanged historical derivations are reused only at the scopes in FINAL_REVIEW.md.",
+      "limitations": "Preserve historical resolved-at-stated-scope disposition. Current revision3 TeX delta changes only date and two other sites; it does not undo these repairs. No fresh all-formulas completeness inferred. Scope search does not refute the original counterexample or authenticate a reviewer."
+    },
+    {
+      "subject": "finding:F7",
+      "subject_sha256": "8430324f0c6ab52230006020a763cf37f86d1d12d440d37f60a85f762a723783",
+      "outcome": "accepted_within_scope",
+      "review_basis": "reconstructed",
+      "prior_review": null,
+      "scope": "Current source/consumer and receiving search, preserved historical mechanism, exclusions and exact successor representations stated in this related-use record. Exact unchanged historical derivations are reused only at the scopes in FINAL_REVIEW.md.",
+      "limitations": "Preserve historical resolved-at-stated-scope disposition. Current revision3 TeX delta changes only date and two other sites; it does not undo these repairs. No fresh all-formulas completeness inferred. Scope search does not refute the original counterexample or authenticate a reviewer."
+    },
+    {
+      "subject": "finding:F8",
+      "subject_sha256": "46de01c3b92da9c48f96d4340f607e49332ba7acef802c24bf9c337d34022be0",
+      "outcome": "accepted_within_scope",
+      "review_basis": "reconstructed",
+      "prior_review": null,
+      "scope": "Current source/consumer and receiving search, preserved historical mechanism, exclusions and exact successor representations stated in this related-use record. Exact unchanged historical derivations are reused only at the scopes in FINAL_REVIEW.md.",
+      "limitations": "Preserve historical resolved-at-stated-scope disposition. Current revision3 TeX delta changes only date and two other sites; it does not undo these repairs. No fresh all-formulas completeness inferred. Scope search does not refute the original counterexample or authenticate a reviewer."
+    },
+    {
+      "subject": "finding:F9",
+      "subject_sha256": "d0af5d931814a558f6ef7f89eb77b5cea3dfe793e9e1640bf4dd21f431764dd9",
+      "outcome": "accepted_within_scope",
+      "review_basis": "reconstructed",
+      "prior_review": null,
+      "scope": "Current source/consumer and receiving search, preserved historical mechanism, exclusions and exact successor representations stated in this related-use record. Exact unchanged historical derivations are reused only at the scopes in FINAL_REVIEW.md.",
+      "limitations": "Preserve historical resolved-at-stated-scope disposition. Current revision3 TeX delta changes only date and two other sites; it does not undo these repairs. No fresh all-formulas completeness inferred. Scope search does not refute the original counterexample or authenticate a reviewer."
+    },
+    {
+      "subject": "finding:F10",
+      "subject_sha256": "1a454e2d1c250b4dc63fe7e4c19fe470d6ef1075b786e1b616a0a819a3be092b",
+      "outcome": "accepted_within_scope",
+      "review_basis": "reconstructed",
+      "prior_review": null,
+      "scope": "Current source/consumer and receiving search, preserved historical mechanism, exclusions and exact successor representations stated in this related-use record. Exact unchanged historical derivations are reused only at the scopes in FINAL_REVIEW.md.",
+      "limitations": "Preserve historical resolved-at-stated-scope disposition. Current revision3 TeX delta changes only date and two other sites; it does not undo these repairs. No fresh all-formulas completeness inferred. Scope search does not refute the original counterexample or authenticate a reviewer."
+    },
+    {
+      "subject": "finding:F11",
+      "subject_sha256": "acced285dfdd901847d58de98e343b41a6058a98b7bc76f4dc4d8fb3aa801006",
+      "outcome": "accepted_within_scope",
+      "review_basis": "reconstructed",
+      "prior_review": null,
+      "scope": "Current source/consumer and receiving search, preserved historical mechanism, exclusions and exact successor representations stated in this related-use record. Exact unchanged historical derivations are reused only at the scopes in FINAL_REVIEW.md.",
+      "limitations": "Preserve historical resolved-at-stated-scope disposition. Current revision3 TeX delta changes only date and two other sites; it does not undo these repairs. No fresh all-formulas completeness inferred. Scope search does not refute the original counterexample or authenticate a reviewer."
+    },
+    {
+      "subject": "finding:TEX-F01",
+      "subject_sha256": "9ceccbd4b22f4f7cac0ea99abfbb6a90ac9c0f50d247ac270a9e801fb783d493",
+      "outcome": "accepted_within_scope",
+      "review_basis": "reconstructed",
+      "prior_review": null,
+      "scope": "Current source/consumer and receiving search, preserved historical mechanism, exclusions and exact successor representations stated in this related-use record. Exact unchanged historical derivations are reused only at the scopes in FINAL_REVIEW.md.",
+      "limitations": "TEX-F03 resolved at historical artifact scope; others retain scope-explained limits, particularly no blanket absence of further serialization errors. Final revision3 artifact review is separate. Scope search does not refute the original counterexample or authenticate a reviewer."
+    },
+    {
+      "subject": "finding:TEX-F02",
+      "subject_sha256": "365f9b8e2ec4dc4f5c252bd2cdf551b69dd8d7efe0ed04a8a3c5ce74ce6700ce",
+      "outcome": "accepted_within_scope",
+      "review_basis": "reconstructed",
+      "prior_review": null,
+      "scope": "Current source/consumer and receiving search, preserved historical mechanism, exclusions and exact successor representations stated in this related-use record. Exact unchanged historical derivations are reused only at the scopes in FINAL_REVIEW.md.",
+      "limitations": "TEX-F03 resolved at historical artifact scope; others retain scope-explained limits, particularly no blanket absence of further serialization errors. Final revision3 artifact review is separate. Scope search does not refute the original counterexample or authenticate a reviewer."
+    },
+    {
+      "subject": "finding:TEX-F03",
+      "subject_sha256": "ea0e2887080ba800940f5f98f7283ebe304c3078357cdc757154c15dcc587b71",
+      "outcome": "accepted_within_scope",
+      "review_basis": "reconstructed",
+      "prior_review": null,
+      "scope": "Current source/consumer and receiving search, preserved historical mechanism, exclusions and exact successor representations stated in this related-use record. Exact unchanged historical derivations are reused only at the scopes in FINAL_REVIEW.md.",
+      "limitations": "TEX-F03 resolved at historical artifact scope; others retain scope-explained limits, particularly no blanket absence of further serialization errors. Final revision3 artifact review is separate. Scope search does not refute the original counterexample or authenticate a reviewer."
+    },
+    {
+      "subject": "finding:TEX-F04",
+      "subject_sha256": "1e605967dcac9296513d891a6a85cf6b3c04894dde801b04cc674e9a4239d9d7",
+      "outcome": "accepted_within_scope",
+      "review_basis": "reconstructed",
+      "prior_review": null,
+      "scope": "Current source/consumer and receiving search, preserved historical mechanism, exclusions and exact successor representations stated in this related-use record. Exact unchanged historical derivations are reused only at the scopes in FINAL_REVIEW.md.",
+      "limitations": "TEX-F03 resolved at historical artifact scope; others retain scope-explained limits, particularly no blanket absence of further serialization errors. Final revision3 artifact review is separate. Scope search does not refute the original counterexample or authenticate a reviewer."
+    },
+    {
+      "subject": "finding:I1",
+      "subject_sha256": "6e58b608c909ea18bbf43cdf3c64ac1c5d27ebaeb42686ec22966b8ace43c43b",
+      "outcome": "accepted_within_scope",
+      "review_basis": "reconstructed",
+      "prior_review": null,
+      "scope": "Current source/consumer and receiving search, preserved historical mechanism, exclusions and exact successor representations stated in this related-use record. Exact unchanged historical derivations are reused only at the scopes in FINAL_REVIEW.md.",
+      "limitations": "Resolved within historical-record integration scope. Exact two substitutions plus strict current-delta comparison; every other original binding stays a current read. This intake classification preserves that existing comparison; it does not dismiss the objection in its original alternative route. Scope search does not refute the original counterexample or authenticate a reviewer."
+    },
+    {
+      "subject": "finding:INCOMING-C8",
+      "subject_sha256": "4459edaad44a1740def194b5a4e1b674107541da9503f973920b566e33a8cdf9",
+      "outcome": "accepted_within_scope",
+      "review_basis": "reconstructed",
+      "prior_review": null,
+      "scope": "Current source/consumer and receiving search, preserved historical mechanism, exclusions and exact successor representations stated in this related-use record. Exact unchanged historical derivations are reused only at the scopes in FINAL_REVIEW.md.",
+      "limitations": "Existing M3 explicitly supplies weight-one exclusion, all-level Kato realization, Tate/cohomology duality, and determinant-based finiteness. Inherited exact primary-source review retained; no fresh primary-publication review claimed here. This intake classification preserves that existing comparison; it does not dismiss the objection in its original alternative route. Scope search does not refute the original counterexample or authenticate a reviewer."
+    },
+    {
+      "subject": "finding:INCOMING-C9",
+      "subject_sha256": "cce12115ae10e421130321039af09d10e397870bec893258f87cf5e8221d1ca5",
+      "outcome": "accepted_within_scope",
+      "review_basis": "reconstructed",
+      "prior_review": null,
+      "scope": "Current source/consumer and receiving search, preserved historical mechanism, exclusions and exact successor representations stated in this related-use record. Exact unchanged historical derivations are reused only at the scopes in FINAL_REVIEW.md.",
+      "limitations": "Actual M6/H2 identify the complete conjugate sum via semisimple traces, all embeddings, the same Lprime and the actual modular quotient. They do not infer constituency from pointwise polynomial divisibility. This intake classification preserves that existing comparison; it does not dismiss the objection in its original alternative route. Scope search does not refute the original counterexample or authenticate a reviewer."
+    },
+    {
+      "subject": "finding:INCOMING-VERTICAL",
+      "subject_sha256": "a484c562b39d44ac89a076319645749ecb8df306eaf39258ba0718e2f553e048",
+      "outcome": "accepted_within_scope",
+      "review_basis": "reconstructed",
+      "prior_review": null,
+      "scope": "Current source/consumer and receiving search, preserved historical mechanism, exclusions and exact successor representations stated in this related-use record. Exact unchanged historical derivations are reused only at the scopes in FINAL_REVIEW.md.",
+      "limitations": "Actual current supplier is D210 G2/G3 with its specified integral fine cover over Z[1/210] and universal abelian scheme. The D6 twist changes the arithmetic model and is not that cover. Required even-contact, infinity, unit and normal-closure cases are explicit. This intake classification preserves that existing comparison; it does not dismiss the objection in its original alternative route. Scope search does not refute the original counterexample or authenticate a reviewer."
+    },
+    {
+      "subject": "finding:INCOMING-LATTICE",
+      "subject_sha256": "c501dddad8529d81dcd48a0d47cbdf0f8366972989ea92b8b1c158cf4842a637",
+      "outcome": "accepted_within_scope",
+      "review_basis": "reconstructed",
+      "prior_review": null,
+      "scope": "Current source/consumer and receiving search, preserved historical mechanism, exclusions and exact successor representations stated in this related-use record. Exact unchanged historical derivations are reused only at the scopes in FINAL_REVIEW.md.",
+      "limitations": "Actual full-three proof uses rank-one B3 Tate space and minimal valuation for the full O3-stable lattice, then the multiplication-by-3 inverse limit to A[3]. The constructed module and transition are different from the invalid finite inference. This intake classification preserves that existing comparison; it does not dismiss the objection in its original alternative route. Scope search does not refute the original counterexample or authenticate a reviewer."
+    },
+    {
+      "subject": "finding:INCOMING-CM-BG",
+      "subject_sha256": "d1fcc2905f9f56da53de58ee4c0b8ae01637f37975c65999709fa3509061c531",
+      "outcome": "accepted_within_scope",
+      "review_basis": "reconstructed",
+      "prior_review": null,
+      "scope": "Current source/consumer and receiving search, preserved historical mechanism, exclusions and exact successor representations stated in this related-use record. Exact unchanged historical derivations are reused only at the scopes in FINAL_REVIEW.md.",
+      "limitations": "NoCM on X6 is not applied to D210. Current G4 retains its actual same-L CM argument. Native D6 normalization already derives the invariant vector from the specified Lin-Yang divisor/intersection/eta inputs and explicitly excludes BG Propositions 3.7-3.8 and the later numerical CM calculation. This is a source-route distinction, not acceptance of an alternative repair. This intake classification preserves that existing comparison; it does not dismiss the objection in its original alternative route. Scope search does not refute the original counterexample or authenticate a reviewer."
+    },
+    {
+      "subject": "finding:INCOMING-TYZ-ROUTE-K",
+      "subject_sha256": "0e331f6cc70a18d9ed12269ae8baef90556d3e0381b52636e86d98229c087602",
+      "outcome": "accepted_within_scope",
+      "review_basis": "reconstructed",
+      "prior_review": null,
+      "scope": "Current source/consumer and receiving search, preserved historical mechanism, exclusions and exact successor representations stated in this related-use record. Exact unchanged historical derivations are reused only at the scopes in FINAL_REVIEW.md.",
+      "limitations": "The native E_l=x(x-l)(x+3l), j=35152/9, uses internal RC and the simultaneous native descent. Incoming C_n=x(x-n)(x+n), j=1728, genus-sum criterion and K-exists route are not adopted. No TYZ counterexample is refuted or recomputed by this review. This intake classification preserves that existing comparison; it does not dismiss the objection in its original alternative route. Scope search does not refute the original counterexample or authenticate a reviewer."
+    },
+    {
+      "subject": "finding:INCOMING-FORWARD",
+      "subject_sha256": "c4bc4c51f775f3b0bd095c24e965b005140ecae7f76a91eaad8a8a8198dc1f66",
+      "outcome": "accepted_within_scope",
+      "review_basis": "reconstructed",
+      "prior_review": null,
+      "scope": "Current source/consumer and receiving search, preserved historical mechanism, exclusions and exact successor representations stated in this related-use record. Exact unchanged historical derivations are reused only at the scopes in FINAL_REVIEW.md.",
+      "limitations": "Actual retained forward lemma already cites published Kyoto ICM Theorem1 pp430-431 and Theorems3-5, supplies modularity and the finite restriction-kernel argument; the final bibliography matches. Exact prior acceptance is retained, without claiming a fresh reading of Kolyvagin here. This intake classification preserves that existing comparison; it does not dismiss the objection in its original alternative route. Scope search does not refute the original counterexample or authenticate a reviewer."
+    },
+    {
+      "subject": "finding:INCOMING-NATIVE-LOCAL",
+      "subject_sha256": "e541177ef8dc46f36add9f53a88c68516f6ad09b7cfa1d2d7f7891081ebbd082",
+      "outcome": "accepted_within_scope",
+      "review_basis": "reconstructed",
+      "prior_review": null,
+      "scope": "Current source/consumer and receiving search, preserved historical mechanism, exclusions and exact successor representations stated in this related-use record. Exact unchanged historical derivations are reused only at the scopes in FINAL_REVIEW.md.",
+      "limitations": "Reconstructed the precise particular-class implication below; no assertion that arbitrary dyadic parity conditions are sufficient. This intake classification preserves that existing comparison; it does not dismiss the objection in its original alternative route. Scope search does not refute the original counterexample or authenticate a reviewer."
+    },
+    {
+      "subject": "finding:INCOMING-ALTERNATIVE-FORMAL",
+      "subject_sha256": "853fe0522b3984423edd1b4f46350e45420cf3659786197d35e37e58cfc4ac9b",
+      "outcome": "accepted_within_scope",
+      "review_basis": "reconstructed",
+      "prior_review": null,
+      "scope": "Current source/consumer and receiving search, preserved historical mechanism, exclusions and exact successor representations stated in this related-use record. Exact unchanged historical derivations are reused only at the scopes in FINAL_REVIEW.md.",
+      "limitations": "The new README links the current contribution guide, which explicitly states the five remaining formal premises and distinguishes the original large target from the explicit quartic. The current214 proof does not adopt the alternate GoodPrimeAP/PropositionD or alternate pole/encoding proposals. Imported code and notes match incoming main exactly; their kernel run and protected review are separate obligations. This intake classification preserves that existing comparison; it does not dismiss the objection in its original alternative route. Scope search does not refute the original counterexample or authenticate a reviewer."
+    },
+    {
+      "subject": "finding:CURRENT-RECEIVING-L3",
+      "subject_sha256": "0a6c0669ccb09d146ef3e2a678466d7dc26f1772d7e98db5c54772abacd27e77",
+      "outcome": "accepted_within_scope",
+      "review_basis": "reconstructed",
+      "prior_review": null,
+      "scope": "Current source/consumer and receiving search, preserved historical mechanism, exclusions and exact successor representations stated in this related-use record. Exact unchanged historical derivations are reused only at the scopes in FINAL_REVIEW.md.",
+      "limitations": "Resolved at current narrow independent artifact-review scope, pending final native target adoption. Original adverse exact-head decision remains preserved. Scope search does not refute the original counterexample or authenticate a reviewer."
+    },
+    {
+      "subject": "finding:CURRENT-RECEIVING-T0",
+      "subject_sha256": "5e207494dd9d722fcde029437aad249082e945cf41f643253f9aa5b1f31f12d6",
+      "outcome": "accepted_within_scope",
+      "review_basis": "reconstructed",
+      "prior_review": null,
+      "scope": "Current source/consumer and receiving search, preserved historical mechanism, exclusions and exact successor representations stated in this related-use record. Exact unchanged historical derivations are reused only at the scopes in FINAL_REVIEW.md.",
+      "limitations": "Resolved at current narrow independent artifact-review scope, pending final native target adoption. Not a counterexample to source arithmetic. Scope search does not refute the original counterexample or authenticate a reviewer."
+    },
+    {
+      "subject": "finding:CURRENT-INVENTORY-U01",
+      "subject_sha256": "7860b1eae44fc1424665854662117cb4b29d029814da4afa1271f13dfe91f5bf",
+      "outcome": "accepted_within_scope",
+      "review_basis": "reconstructed",
+      "prior_review": null,
+      "scope": "Current source/consumer and receiving search, preserved historical mechanism, exclusions and exact successor representations stated in this related-use record. Exact unchanged historical derivations are reused only at the scopes in FINAL_REVIEW.md.",
+      "limitations": "Current correction addendum supplies correct count and retains historical original hash 3fb2219efe4204ac1b1dea2ba15a3d9d7cabafb0cacc56f1c38d95de8a7bbfc2; narrow independent review accepts correction. Do not edit old reviewer body. Scope search does not refute the original counterexample or authenticate a reviewer."
+    },
+    {
+      "subject": "finding:COVERAGE-LIMITS",
+      "subject_sha256": "92da5a509e3e985b887fab1ab3fa41faabed9a0a5f1ba0ac4bb1ad142e95f1d4",
+      "outcome": "accepted_within_scope",
+      "review_basis": "reconstructed",
+      "prior_review": null,
+      "scope": "Current source/consumer and receiving search, preserved historical mechanism, exclusions and exact successor representations stated in this related-use record. Exact unchanged historical derivations are reused only at the scopes in FINAL_REVIEW.md.",
+      "limitations": "Preserve original historical limits. Reuse later exact scoped closure only for unchanged supported consumers; final current gate actions remain pending. Scope search does not refute the original counterexample or authenticate a reviewer."
+    },
+    {
+      "subject": "finding:RECEIVING-EMPTY-QUEUE-SUPERSEDED",
+      "subject_sha256": "ef07dde40d865b196745761aac14cd7fa86f4212104765d2346a1faf95e52af0",
+      "outcome": "accepted_within_scope",
+      "review_basis": "reconstructed",
+      "prior_review": null,
+      "scope": "Current source/consumer and receiving search, preserved historical mechanism, exclusions and exact successor representations stated in this related-use record. Exact unchanged historical derivations are reused only at the scopes in FINAL_REVIEW.md.",
+      "limitations": "Preserve original historical limits. Reuse later exact scoped closure only for unchanged supported consumers; final current gate actions remain pending. Scope search does not refute the original counterexample or authenticate a reviewer."
+    },
+    {
+      "subject": "finding:PROTECTED-ACCEPTANCE-PENDING",
+      "subject_sha256": "c81123bc35e86323cec022e5bce5661f18c92347c15214fae7d7f903a10276ca",
+      "outcome": "accepted_within_scope",
+      "review_basis": "reconstructed",
+      "prior_review": null,
+      "scope": "Current source/consumer and receiving search, preserved historical mechanism, exclusions and exact successor representations stated in this related-use record. Exact unchanged historical derivations are reused only at the scopes in FINAL_REVIEW.md.",
+      "limitations": "Preserve original historical limits. Reuse later exact scoped closure only for unchanged supported consumers; final current gate actions remain pending. Scope search does not refute the original counterexample or authenticate a reviewer."
+    },
+    {
+      "subject": "inventory",
+      "subject_sha256": "47e0a1b54b33d18d9122e042d00775e2ae9547a983e228853f175f7d26b7ce26",
+      "outcome": "accepted_within_scope",
+      "review_basis": "reconstructed",
+      "prior_review": null,
+      "scope": "Independent source-first reconstruction, complete 24-source coverage, 39 reconciled uses, all fresh canonical findings and explicit dependency joins. Complete unchanged Version16 ancestry remains exact scoped reuse.",
+      "limitations": "Acceptance is within the exact source scopes and stated retained supplier qualifications. Structural validation and mathematical review do not authenticate a reviewer or confer protected App/publication acceptance."
+    }
+  ]
+}

@@ -1,0 +1,84 @@
+{
+  "reviewer": "/root/q214_astra_repair_review",
+  "reviewed_tex_sha256": "7af3b505b27bc2798b3bd4322e92c8c181291f01b779edf2abb8f37abbdde1bb",
+  "reviewed_pdf_sha256": "3357fabf4c97d23d5439221e31acd911186f4a283095308623307e96ceaea7b0",
+  "status": "scoped repairs resolved; complete proof and inventory not accepted",
+  "findings": [
+    {
+      "id": "F1",
+      "origin": "prior adverse review6813866051",
+      "status": "resolved at bounded receiving-formula/consumer scope in final held TeX and PDF",
+      "evidence": "M1 line2506/PDF85; elementary degree/cocycle/determinant reconstruction EVIDENCE.md",
+      "historical_classification": "prior intended justification found in actual M1/H1 arguments"
+    },
+    {
+      "id": "F2",
+      "origin": "prior adverse review6813866051",
+      "status": "resolved at bounded receiving-formula/consumer scope in final held TeX and PDF",
+      "evidence": "line2812/PDF98; full-component finite-free filtration EVIDENCE.md",
+      "historical_classification": "prior justification found in actual height-different section1"
+    },
+    {
+      "id": "F3",
+      "severity": "low",
+      "kind": "relative-extension subscript serialization",
+      "source": "research/quartic214/proofs/height-different.md:31,65,83,85",
+      "receiving": "TeX2800ff and tower paragraph; PDF98\u201399",
+      "printed": "D_U/V, Tr_L/Frac(V), Tr_U/W, D_U/W, D_W/V, r_U/V, r_U/W, e_U/W, r_W/V with slash outside subscript",
+      "required": "The complete relative extension is the subscript; these symbols denote different/trace/ramification data of an extension, not division by a ring.",
+      "history": "Actual original source paragraphs and preserved TeX source evaluation-sections1-4.tex identify relative different and transitive trace; intended tower derivation reconstructed. No exhaustive older-history search.",
+      "historical_classification": "prior intended justification found; present notation ambiguous",
+      "status": "resolved at bounded receiving-formula/consumer scope in final held TeX and PDF",
+      "consumers": [
+        "torsion different bound for intermediate field",
+        "whole vertical discriminant estimate"
+      ]
+    },
+    {
+      "id": "F4",
+      "severity": "medium",
+      "kind": "numeric-index plus Unicode-power serialization",
+      "source": "existence.md factor equations and inverse weights; PROOF.md inverse weights; height-different.md modular elliptic invariants",
+      "receiving": "TeX2054,2123,2138\u20132142,2200,2864",
+      "printed": "C2^{2}, A3^{2}, A2^{2}, A4^{2}, C3^{2}, C4^{2}, A1^{2}, s1^{2}, s2^{2}, c4^{3}",
+      "required": "Numeric suffix remains subscript before the power (C_2 squared, etc.). Current duplicate uniform-existence formulas already render correctly.",
+      "history": "Read actual variable definitions C_i,A_i and weight equations, compared uniform-existence P05 and direct elliptic c4/j formula. The prior arithmetic identity is supplied; inconsistent typography is newly observed in this review.",
+      "historical_classification": "prior intended justification found",
+      "status": "resolved at bounded receiving-formula/consumer scope in final held TeX and PDF",
+      "consumers": [
+        "changed factor valuation minima",
+        "reciprocal inverse-weight equations",
+        "primitive torsion quotient model j-invariant"
+      ]
+    },
+    {
+      "id": "F5",
+      "severity": "medium",
+      "kind": "mathematical star consumed as Markdown emphasis and bracket index not grouped",
+      "source": "height-different.md:61",
+      "receiving": "TeX2830/PDF99",
+      "printed": "[n]^{} followed by italic omega=n omega; Omega_{[}n]",
+      "required": "Pullback star on [n] and whole [n] in differential-module subscript.",
+      "historical_classification": "prior intended justification found",
+      "history": "Actual original source61 and retained evaluation-sections1-4.tex373\u2013382 explicitly identify multiplication-map derivative n.",
+      "status": "resolved at bounded receiving-formula/consumer scope in final held TeX and PDF",
+      "related_occurrences": [
+        "height-evaluation45 a_i^*omega raw TeX preserved",
+        "height-evaluation48 alpha^*E rendered correctly at2685",
+        "conductor-sections1-3:27 Q_11^* rendered correctly at3449",
+        "height-metric7 p*omega already explicitly adapted as direct image"
+      ],
+      "candidate_tex_sha256": "bbdc13b98becb39ec88eec6e316e1d2148708f2f460a45eb8fd7779ad69adf35",
+      "candidate_pdf_sha256": "116f724117f151fd355ae05ea1c5754f0ac9030e78a74bdef85d32cccaa2bc71"
+    }
+  ],
+  "coverage_limits": [
+    "whole V16 recursive RC/Kato/Gaussian/GI proof not freshly reviewed",
+    "full D210/p-adic/modularity source closure incomplete",
+    "full historical objection corpus not exhausted",
+    "all703PDFpages not visually inspected",
+    "protected controller records inaccessible; metadata is not authenticated policy approval"
+  ],
+  "final_tex_sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+  "final_pdf_sha256": "8c22312ce54d3f2709eddc28c1045b1785d44ce0d7d47957639c0322a9d0a498"
+}

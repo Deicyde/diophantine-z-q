@@ -1,0 +1,94 @@
+{
+  "role": "author preliminary comparison; no acceptance",
+  "entries": [
+    {
+      "path": "research/quartic214/sources/contact-line-certificate.json",
+      "sha256": "64896dfbb8661e04c044a68aa8679ee5dc20c0da36cc9a57640a885b7ca46614",
+      "original_catalogue_purpose": "The ten primitive contact lines and their exact determinant support; the geometric proof, rather than these determinants, constructs the cover and its tame charts.",
+      "actual_artifact_or_code_interface_inspected": "Four m=30,42,70,105 quotient-quartic I/J/j checks and exact Legendre parameters;36candidate cross-ratio pairs with sole survivor2401,-343/32. No determinant table.",
+      "finding": "F7-description-does-not-match-supplier",
+      "review_scope": "Bounded description-to-artifact/interface comparison. No fresh numerical certificate truth, source theorem or arithmetic theorem acceptance."
+    },
+    {
+      "path": "research/quartic214/sources/small-support-certificate.json",
+      "sha256": "0e7280479d5ace418b4383c814361812863cb097f424916b801c17ddbc8eb51e",
+      "original_catalogue_purpose": "The small exceptional support and exact finite support computations used by the full-family height argument.",
+      "actual_artifact_or_code_interface_inspected": "Five primitive (u,v) forms;all10pair determinants/factorizations and exact union prime support2,3,5,7.",
+      "finding": "no-further-description-mismatch-established",
+      "review_scope": "Bounded description-to-artifact/interface comparison. No fresh numerical certificate truth, source theorem or arithmetic theorem acceptance."
+    },
+    {
+      "path": "research/quartic214/sources/public-provider-scopes.json",
+      "sha256": "4b20650915af34d33413425c17131136be22698f09a0f125b011423b87df3654",
+      "original_catalogue_purpose": "The exact public provider/source scopes used by the geometric and conductor carry arguments; this is source identification, not a fresh approval.",
+      "actual_artifact_or_code_interface_inspected": "Exact pointers to public source profiles and preserved review scopes, including sixteen full-cover providers and conductor/ramification input IDs.",
+      "finding": "no-further-description-mismatch-established",
+      "review_scope": "Bounded description-to-artifact/interface comparison. No fresh numerical certificate truth, source theorem or arithmetic theorem acceptance."
+    },
+    {
+      "path": "research/quartic214/height/NUMERIC_CERTIFICATE_H4.json",
+      "sha256": "cd4afb85267aad1a22c0e6a765f86551d2c83a94fcece93939547fe7c06d0962",
+      "original_catalogue_purpose": "The rational logarithmic enclosures and strict H4 inequalities, including the exponent 2103/1024 and the bound on C2.",
+      "actual_artifact_or_code_interface_inspected": "Finite rational bounds for B,CN,conductor exponents,kUpper,coefficient_c,C2 log2 upper7557/32,alpha2103/1024;four refused perturbations;arithmeticAccepted=false.",
+      "finding": "no-further-description-mismatch-established",
+      "review_scope": "Bounded description-to-artifact/interface comparison. No fresh numerical certificate truth, source theorem or arithmetic theorem acceptance."
+    },
+    {
+      "path": "research/quartic214/height/numeric_certificate.py",
+      "sha256": "2d6b1426b497b197782285280845ce4663936d4dee00f2ce3c5173bc58d39a1e",
+      "original_catalogue_purpose": "The atanh-series rational enclosure method with its proved geometric tail and negative controls for the isolated H4 calculation.",
+      "actual_artifact_or_code_interface_inspected": "log_interval scales positive rational input to[1,2);atanh series and explicit geometric remainder;verify and negative controls implement the isolated numeric certificate.",
+      "finding": "no-further-description-mismatch-established",
+      "review_scope": "Bounded description-to-artifact/interface comparison. No fresh numerical certificate truth, source theorem or arithmetic theorem acceptance."
+    },
+    {
+      "path": "research/quartic214/construction/EXACT-CHECKS.json",
+      "sha256": "0a160c8a7d0519621b4ebc27fb6e8cb2b8df2a9d25191b8daa2170db461a12b0",
+      "original_catalogue_purpose": "Recorded finite Laurent identities, row occurrence and polynomial-profile checks for the 214 construction.",
+      "actual_artifact_or_code_interface_inspected": "Twenty factor proportionalities with q^4/nonzero scalar,162unchanged rows,full_sos,allvariable occurrence,coefficientthreshold53,21corruption controls.",
+      "finding": "no-further-description-mismatch-established",
+      "review_scope": "Bounded description-to-artifact/interface comparison. No fresh numerical certificate truth, source theorem or arithmetic theorem acceptance."
+    },
+    {
+      "path": "research/quartic214/construction/check_exact.py",
+      "sha256": "07527831694fc6be9373e2dac92d292520fbb8c79128e4d51a1ae0128c96e214",
+      "original_catalogue_purpose": "The separate implementation reconstructing deleted coordinates and comparing every changed and untouched row; it also verifies the full quartic and coefficient profiles.",
+      "actual_artifact_or_code_interface_inspected": "Independent Laurent substitution/proportionality and fullSOS/profile comparison,including20/162 assertions and corrupted factor/table rejection; not arithmeticexistence.",
+      "finding": "no-further-description-mismatch-established",
+      "review_scope": "Bounded description-to-artifact/interface comparison. No fresh numerical certificate truth, source theorem or arithmetic theorem acceptance."
+    },
+    {
+      "path": "research/quartic214/construction/build.py",
+      "sha256": "09d958a38e5815a03b474033d439e84fec40b8a55f4109e95adb87b179fb8c17",
+      "original_catalogue_purpose": "The deterministic raw224-to214 generator.  It fixes the parameter coefficient, prints the IR and expands the finite sum of squares; the manuscript assembler itself does not run this expansion.",
+      "actual_artifact_or_code_interface_inspected": "Raw224 parent loaded;primitive rows and six inverse slots constructed;coefficient table formed as sum of row squares;IR/polynomial/statistics files emitted.",
+      "finding": "no-further-description-mismatch-established",
+      "review_scope": "Bounded description-to-artifact/interface comparison. No fresh numerical certificate truth, source theorem or arithmetic theorem acceptance."
+    },
+    {
+      "path": "research/quartic214/construction/artifacts/candidate214-brox/candidate214-ir.json",
+      "sha256": "b15d6477439c3e4be1e98723b69053244debce59e8715683c28fee82aa847ca4",
+      "original_catalogue_purpose": "The exact 214-coordinate dictionary and 188 primitive integral rows printed in Section \\ref{q214:rows}.",
+      "actual_artifact_or_code_interface_inspected": "Exactly214coordinate objects and188residual objects;fixedParameter is coefficient metadata, inputCoordinate1.",
+      "finding": "no-further-description-mismatch-established",
+      "review_scope": "Bounded description-to-artifact/interface comparison. No fresh numerical certificate truth, source theorem or arithmetic theorem acceptance."
+    },
+    {
+      "path": "research/quartic214/construction/artifacts/candidate214-brox/candidate214-polynomial.json",
+      "sha256": "9f461531df52ac73e02cf7a4ce270422715642c0d3112952cad4968d9a7e24ea",
+      "original_catalogue_purpose": "The complete symbolic quartic coefficient table: a term is \\(c A_N^a\\) times its coordinate multiset monomial, with \\(A_N\\) a coefficient and no additional coordinate.",
+      "actual_artifact_or_code_interface_inspected": "Complete symbolic terms array length2920 with parameter power and coordinate monomial/coefficient;variables214,degree4;no existential parameter coordinate.",
+      "finding": "no-further-description-mismatch-established",
+      "review_scope": "Bounded description-to-artifact/interface comparison. No fresh numerical certificate truth, source theorem or arithmetic theorem acceptance."
+    },
+    {
+      "path": "research/quartic214/construction/artifacts/candidate214-brox/STATISTICS.json",
+      "sha256": "585635dab6320049320bffd5c1652c89db760d9f4e2ef19a10119011f70b5a68",
+      "original_catalogue_purpose": "The declared finite totals 214,188,2919,2920, degree four, content one and coefficient-only threshold53.",
+      "actual_artifact_or_code_interface_inspected": "214variables,188rows,degree4,content1,2919coordinate monomials,2920parameter terms;coefficient threshold53explicitly separate ineffective existence threshold.",
+      "finding": "no-further-description-mismatch-established",
+      "review_scope": "Bounded description-to-artifact/interface comparison. No fresh numerical certificate truth, source theorem or arithmetic theorem acceptance."
+    }
+  ],
+  "scope": "All11certificate catalogue entries in frozen assembler compared, including actual JSON structures and relevant project-code interfaces. Only first description needs correction."
+}

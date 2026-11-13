@@ -1,0 +1,209 @@
+{
+  "scope": "Exact rational arithmetic only; does not prove geometry or arithmetic theorem",
+  "quartic_j": [
+    "191342053882402567201/129708022500",
+    "2179252305146449/66177562500",
+    "128031684631201/9922500",
+    "1169975873419524361/108425318400"
+  ],
+  "all36": [
+    {
+      "lambda": "-2400",
+      "mu": "-343/32",
+      "survives": false
+    },
+    {
+      "lambda": "-2400",
+      "mu": "-32/343",
+      "survives": false
+    },
+    {
+      "lambda": "-2400",
+      "mu": "32/375",
+      "survives": false
+    },
+    {
+      "lambda": "-2400",
+      "mu": "343/375",
+      "survives": false
+    },
+    {
+      "lambda": "-2400",
+      "mu": "375/343",
+      "survives": false
+    },
+    {
+      "lambda": "-2400",
+      "mu": "375/32",
+      "survives": false
+    },
+    {
+      "lambda": "-1/2400",
+      "mu": "-343/32",
+      "survives": false
+    },
+    {
+      "lambda": "-1/2400",
+      "mu": "-32/343",
+      "survives": false
+    },
+    {
+      "lambda": "-1/2400",
+      "mu": "32/375",
+      "survives": false
+    },
+    {
+      "lambda": "-1/2400",
+      "mu": "343/375",
+      "survives": false
+    },
+    {
+      "lambda": "-1/2400",
+      "mu": "375/343",
+      "survives": false
+    },
+    {
+      "lambda": "-1/2400",
+      "mu": "375/32",
+      "survives": false
+    },
+    {
+      "lambda": "1/2401",
+      "mu": "-343/32",
+      "survives": false
+    },
+    {
+      "lambda": "1/2401",
+      "mu": "-32/343",
+      "survives": false
+    },
+    {
+      "lambda": "1/2401",
+      "mu": "32/375",
+      "survives": false
+    },
+    {
+      "lambda": "1/2401",
+      "mu": "343/375",
+      "survives": false
+    },
+    {
+      "lambda": "1/2401",
+      "mu": "375/343",
+      "survives": false
+    },
+    {
+      "lambda": "1/2401",
+      "mu": "375/32",
+      "survives": false
+    },
+    {
+      "lambda": "2400/2401",
+      "mu": "-343/32",
+      "survives": false
+    },
+    {
+      "lambda": "2400/2401",
+      "mu": "-32/343",
+      "survives": false
+    },
+    {
+      "lambda": "2400/2401",
+      "mu": "32/375",
+      "survives": false
+    },
+    {
+      "lambda": "2400/2401",
+      "mu": "343/375",
+      "survives": false
+    },
+    {
+      "lambda": "2400/2401",
+      "mu": "375/343",
+      "survives": false
+    },
+    {
+      "lambda": "2400/2401",
+      "mu": "375/32",
+      "survives": false
+    },
+    {
+      "lambda": "2401/2400",
+      "mu": "-343/32",
+      "survives": false
+    },
+    {
+      "lambda": "2401/2400",
+      "mu": "-32/343",
+      "survives": false
+    },
+    {
+      "lambda": "2401/2400",
+      "mu": "32/375",
+      "survives": false
+    },
+    {
+      "lambda": "2401/2400",
+      "mu": "343/375",
+      "survives": false
+    },
+    {
+      "lambda": "2401/2400",
+      "mu": "375/343",
+      "survives": false
+    },
+    {
+      "lambda": "2401/2400",
+      "mu": "375/32",
+      "survives": false
+    },
+    {
+      "lambda": "2401",
+      "mu": "-343/32",
+      "survives": true
+    },
+    {
+      "lambda": "2401",
+      "mu": "-32/343",
+      "survives": false
+    },
+    {
+      "lambda": "2401",
+      "mu": "32/375",
+      "survives": false
+    },
+    {
+      "lambda": "2401",
+      "mu": "343/375",
+      "survives": false
+    },
+    {
+      "lambda": "2401",
+      "mu": "375/343",
+      "survives": false
+    },
+    {
+      "lambda": "2401",
+      "mu": "375/32",
+      "survives": false
+    }
+  ],
+  "survivors": [
+    [
+      "2401",
+      "-343/32"
+    ]
+  ],
+  "ten_determinants": [
+    -1,
+    -1,
+    -1,
+    -32,
+    -1,
+    -2401,
+    343,
+    -2400,
+    375,
+    77175
+  ]
+}

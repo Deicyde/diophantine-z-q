@@ -1,0 +1,33 @@
+{
+  "schema": "version17-source-promotion/v1",
+  "source": {
+    "path": "research/quartic214-manuscript-revision3/quartic214.tex",
+    "sha256": "938d96e6d310b2b551f610e2a23b662f147bd2eb4b05ec222d274b0b8be55d6b"
+  },
+  "target": {
+    "path": "manuscripts/quartic_v17.tex",
+    "sha256": "f6bf186008d33270dadbba6bd490f22116c66168975c3f84ad5bc6f281726e12"
+  },
+  "version": 17,
+  "changes": [
+    {
+      "before": "\\title{A 214-variable quartic family defining the integers over the rationals\\\\[4pt]\\large Complete proposed proof with the current Version 16 foundation}",
+      "after": "\\title{$\\mathbb{Z}$ is Diophantine in $\\mathbb{Q}$\\\\[4pt]\\large Version 17}"
+    },
+    {
+      "before": "\\author{Public author manuscript under the direction of Elliot Glazer}",
+      "after": "\\author{}"
+    },
+    {
+      "before": "\\date{13 November 2026; operative receiving revision 3; source \\texttt{110cf72565be}}",
+      "after": "\\date{November 13, 2026}"
+    },
+    {
+      "before": "pdftitle={The proposed 214-variable quartic family: complete proof and retained foundation}",
+      "after": "pdftitle={Z is Diophantine in Q, Version 17}"
+    }
+  ],
+  "complete_document_body_byte_identical": true,
+  "author_field": "Blank under the user's standing instruction; contribution/provenance statements in the body are unchanged.",
+  "scope": "Numbering, title, date and author-field metadata only. All mathematical text, tables, references, historical source and proof labels are retained. Independent incorporation and release review remain required."
+}

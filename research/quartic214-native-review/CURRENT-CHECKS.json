@@ -1,0 +1,38 @@
+{
+  "checked_at": "2026-11-13T10:00:57.843252+00:00",
+  "source_pins": 24,
+  "delta_lines": [
+    43,
+    2242,
+    2258
+  ],
+  "unchanged_v16_body_lines": 39873,
+  "markdown_sources": 19,
+  "markdown_lines": 1486,
+  "displayed_rows": 188,
+  "displayed_coordinates": 214,
+  "tex_sha256": "938d96e6d310b2b551f610e2a23b662f147bd2eb4b05ec222d274b0b8be55d6b",
+  "comparison_reports": [
+    {
+      "path": "C:\\Users\\glaze\\Documents\\Codex\\2026-11-02\\lo\\work\\automated-pr-review-20261112\\pr30\\native-arithmetic-review\\REVIEW.md",
+      "sha256": "81c62dd0f8afc6add4e3cc174dc990b593e5917fff6628a0161233476f769258"
+    },
+    {
+      "path": "C:\\Users\\glaze\\Documents\\Codex\\2026-11-02\\lo\\work\\automated-pr-review-20261112\\pr30\\native-height-review\\REVIEW.md",
+      "sha256": "506b03361b0a14a0922fddb0fc4e60f4178472d9e5b54747b544bcb85fd640b0"
+    },
+    {
+      "path": "C:\\Users\\glaze\\Documents\\Codex\\2026-11-02\\lo\\work\\automated-pr-review-20261112\\pr30\\native-receiving-review\\REVIEW.md",
+      "sha256": "9b9cda7bfb318106e8d5e55215f4261f51de2f7176fcf2c13d065140d2038a06"
+    },
+    {
+      "path": "C:\\Users\\glaze\\Documents\\Codex\\2026-11-02\\lo\\work\\automated-pr-review-20261112\\pr30\\native-wrapper-review\\REVIEW.md",
+      "sha256": "0da3a5514527821ee337597008eab458b0488f4b5a1339a354a5cdafdcc4fbba"
+    },
+    {
+      "path": "C:\\Users\\glaze\\Documents\\Codex\\2026-11-02\\lo\\work\\pr30-completion-20261113\\independent-review\\REVIEW.md",
+      "sha256": "860e443c18d1759c99115e6cdbc4af18f77ec8ed42ac813fbed5f33e5c028b4b"
+    }
+  ],
+  "scope": "Exact source/map/IR comparison. Row parser adapted from the independently read earlier receiving checker; this is an explicit reuse, not claimed as a new algorithm. No mathematical acceptance inferred from passing checks."
+}

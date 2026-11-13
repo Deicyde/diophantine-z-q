@@ -1,0 +1,54 @@
+[
+  {
+    "subject": "connection:V15-INHERITED--ACTIVE-H19-D210-FIBER-FIELD",
+    "subject_sha256": "65111d3e41f082050a9d4f297462e92bacf6ecf65e17b4ea5b308ac26a06f335",
+    "outcome": "accepted_within_scope",
+    "review_basis": "reused_exact_derivation",
+    "prior_review": {
+      "side": "head",
+      "path": "research/version16/review/coverage/PROTOCOL14-COVERAGE-REVIEW.json",
+      "sha256": "5f2b89458628c91a6c7614749b33799c71b411559c222cb715eed7a9abe629c8"
+    },
+    "scope": "The complete connection object, supplier/consumer assertions, source-use identity and exact derivation are unchanged. I reuse the prior reviewed derivation at precisely its recorded scope. Reuse the exact accepted Version 15 connection for V15-INHERITED--ACTIVE-H19-D210-FIBER-FIELD. Available: For the unbranched rational contact-line point s, the entire principal-level-three D210 fiber has a normal splitting field L/Q with [L:Q] dividing576. Its abelian surfaces and all geometric homomorphisms between them are defined over L, and rad(D_L N_bad) divides B_* M_5(s). Required: For the unbranched rational contact-line point s, the entire principal-level-three D210 fiber has a normal splitting field L/Q with [L:Q] dividing576. Its abelian surfaces and all geometric homomorphisms between them are defined over L, and rad(D_L N_bad) divides B_* M_5(s). Supplier, domain, normalization, constants, exceptions and consumer strength are unchanged. Source pins and excerpts were transported through the complete verified delta. Where an upstream correction is relevant, its reviewed output is the same interface consumed here.",
+    "limitations": "Informal mathematical review with exact reuse of identified prior derivations. No claim that this reviewer freshly reproved each unchanged external theorem or that a structural hash check proves mathematics. The independent current precision-wording review is recorded in REVIEW.md."
+  },
+  {
+    "subject": "connection:V15-INHERITED--ACTIVE-H19-D210-GEOMETRIC-ISOGENIES",
+    "subject_sha256": "b3f8c1913f7de7fac77fab3a99c2c006129a3f1c1aab35ba05912f3330492672",
+    "outcome": "accepted_within_scope",
+    "review_basis": "reused_exact_derivation",
+    "prior_review": {
+      "side": "head",
+      "path": "research/version16/review/coverage/PROTOCOL14-COVERAGE-REVIEW.json",
+      "sha256": "5f2b89458628c91a6c7614749b33799c71b411559c222cb715eed7a9abe629c8"
+    },
+    "scope": "The complete connection object, supplier/consumer assertions, source-use identity and exact derivation are unchanged. I reuse the prior reviewed derivation at precisely its recorded scope. Reuse the exact accepted Version 15 connection for V15-INHERITED--ACTIVE-H19-D210-GEOMETRIC-ISOGENIES. Available: For the actual non-CM conjugate D210 fiber surfaces A and A_sigma, the normalizer action gives a geometric isogeny; the full geometric endomorphism algebra is B. For prescribed embeddings of the same quadratic field F, an isogeny intertwining those embeddings exists over the same fiber field L. Required: For the actual non-CM conjugate D210 fiber surfaces A and A_sigma, the normalizer action gives a geometric isogeny; the full geometric endomorphism algebra is B. For prescribed embeddings of the same quadratic field F, an isogeny intertwining those embeddings exists over the same fiber field L. Supplier, domain, normalization, constants, exceptions and consumer strength are unchanged. Source pins and excerpts were transported through the complete verified delta. Where an upstream correction is relevant, its reviewed output is the same interface consumed here.",
+    "limitations": "Informal mathematical review with exact reuse of identified prior derivations. No claim that this reviewer freshly reproved each unchanged external theorem or that a structural hash check proves mathematics. The independent current precision-wording review is recorded in REVIEW.md."
+  },
+  {
+    "subject": "connection:V15-INHERITED--ACTIVE-H19-FULL-COVER-MAXIMAL-STACK",
+    "subject_sha256": "c38088290613f68f5aedc528214b08a3dc5a9b10a64a486b296edd095cbabb17",
+    "outcome": "accepted_within_scope",
+    "review_basis": "reused_exact_derivation",
+    "prior_review": {
+      "side": "head",
+      "path": "research/version16/review/coverage/PROTOCOL14-COVERAGE-REVIEW.json",
+      "sha256": "5f2b89458628c91a6c7614749b33799c71b411559c222cb715eed7a9abe629c8"
+    },
+    "scope": "The complete connection object, supplier/consumer assertions, source-use identity and exact derivation are unchanged. I reuse the prior reviewed derivation at precisely its recorded scope. Reuse the exact accepted Version 15 connection for V15-INHERITED--ACTIVE-H19-FULL-COVER-MAXIMAL-STACK. Available: The maximal N=1 moduli stack is proper smooth Deligne\u2013Mumford over Z[1/210], with its universal abelian surface and determinant condition. Required: Apply the maximal-stack assertion to the specified B210, O and positive involution; define full level by an actual isomorphism separately. Supplier, domain, normalization, constants, exceptions and consumer strength are unchanged. Source pins and excerpts were transported through the complete verified delta. Where an upstream correction is relevant, its reviewed output is the same interface consumed here.",
+    "limitations": "Informal mathematical review with exact reuse of identified prior derivations. No claim that this reviewer freshly reproved each unchanged external theorem or that a structural hash check proves mathematics. The independent current precision-wording review is recorded in REVIEW.md."
+  },
+  {
+    "subject": "connection:V15-INHERITED--ACTIVE-H19-FULL-COVER-PRINCIPAL-POLARIZATION",
+    "subject_sha256": "fdc64175a0213fc0568f6490b217b9f262ad7360e2adcc2b6505deb8802ac4df",
+    "outcome": "accepted_within_scope",
+    "review_basis": "reused_exact_derivation",
+    "prior_review": {
+      "side": "head",
+      "path": "research/version16/review/coverage/PROTOCOL14-COVERAGE-REVIEW.json",
+      "sha256": "5f2b89458628c91a6c7614749b33799c71b411559c222cb715eed7a9abe629c8"
+    },
+    "scope": "The complete connection object, supplier/consumer assertions, source-use identity and exact derivation are unchanged. I reuse the prior reviewed derivation at precisely its recorded scope. Reuse the exact accepted Version 15 connection for V15-INHERITED--ACTIVE-H19-FULL-COVER-PRINCIPAL-POLARIZATION. Available: The integral O action and fixed positive involution determine the compatible principal polarization in the maximal moduli problem. Required: After recovering the full O-stable Tate lattice, restore its unique positive perfect representative without rescaling the marking or restricting its unit multiplier. Supplier, domain, normalization, constants, exceptions and consumer strength are unchanged. Source pins and excerpts were transported through the complete verified delta. Where an upstream correction is relevant, its reviewed output is the same interface consumed here.",
+    "limitations": "Informal mathematical review with exact reuse of identified prior derivations. No claim that this reviewer freshly reproved each unchanged external theorem or that a structural hash check proves mathematics. The independent current precision-wording review is recorded in REVIEW.md."
+  }
+]

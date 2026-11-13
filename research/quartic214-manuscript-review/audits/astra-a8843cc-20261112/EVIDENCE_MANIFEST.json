@@ -1,0 +1,59 @@
+{
+  "reviewed_commit": "a8843cca75ff29d51aa7b288c80b8bdc3a1ca3bb",
+  "sha256_files": {
+    "research/quartic214-manuscript/quartic214.tex": "f2d70e6963708f4f380f35d302896ad3c8700d22d1fd4d6d886db52bcad6c9c2",
+    "research/quartic214-manuscript/quartic214.pdf": "367bd75c7f5f52d7e507a7ce203ad9121cd6511c828c2718793d43f5585dd4d1",
+    "research/quartic214-manuscript/assemble.py": "faed4ba2e07933677b2a52d9a6811b378d1ab5028d54bc62bb1b64de83fcef94",
+    "research/quartic214/proofs/existence.md": "37ab929ed3f4b4dee2b91d2e39408e7070e8a9176b981bcc9c352d17b9cc2332",
+    "research/quartic214/proofs/uniform-existence.md": "d13cc2b846dc72a3f5b5cce8dcf11d3f11b33c45ebc3883263840afb8d82f3bc",
+    "research/quartic214/sources/factor-extraction.tex": "38236daca2811087e08e7f26eb79504dc25171dc78019a557d99966471edb109",
+    "research/quartic214/construction/check_exact.py": "07527831694fc6be9373e2dac92d292520fbb8c79128e4d51a1ae0128c96e214",
+    "research/quartic214/height/numeric_certificate.py": "2d6b1426b497b197782285280845ce4663936d4dee00f2ce3c5173bc58d39a1e",
+    "research/quartic214/contracts/INDEX.json": "c3205657eaebcf4b40f6a92087856d6fa3a9c8a730ef36befed62ef5fb984b37",
+    "research/quartic214/contracts/uniform-existence.json": "832900c2f480bce3eb77bef6c8b408a7ca16229b8414104e3938849a3b3bc011",
+    "research/quartic214/contracts/H4-reflection.json": "350fba85a5d6820a835d4fe0e16b59b09b6e579939d0fcd23b66c8a2c4302edf"
+  },
+  "review_artifacts": {
+    "FINDINGS.json": "5f4822d6acda79c3fc74a19a0c5a4b815b65e47977ed79f7b61a880407e18740",
+    "NUMERIC_CERTIFICATE_H4-rerun.json": "cd4afb85267aad1a22c0e6a765f86551d2c83a94fcece93939547fe7c06d0962",
+    "PDF-M1-extract.json": "82f7d16ded6d90382480816b622812c7a12aaf3059cb289ef5640c1ffa7f57ea",
+    "DECLARED_CONTRACTS_READ_INDEX.json": "485b5f59ea1b90e386c73a95243f9e160c2ea07030b94cdd1aac9b09f3ff6a85",
+    "SOURCE_USE_RECONCILED.json": "a44543d9afe880989a2bdab41c614ecaa445898721f4380577868c49c581d49a",
+    "REVIEW.md": "75662ff34d6714ee605b6516c7bcf36a5a6eb95b6db9c52a6b654bc882e40a00",
+    "SOURCE_USE_INITIAL.json": "c3a181c23436d2d1bf929deacdeee5e370f2b9e1c531bfce7e1a9af346d7cd34",
+    "PR_COMMENT.md": "88181adcc225fdc04adecc34d75141ea6825d28967d58eee9641a5c35c8b660d",
+    "EXACT-CHECKS-rerun.json": "0a160c8a7d0519621b4ebc27fb6e8cb2b8df2a9d25191b8daa2170db461a12b0",
+    "existence/SOURCE_USE_INITIAL.json": "c9600eea5c6bd94a389aa43f2f2cbd84657c0a217cda6a0a8dc205f35b8b903d",
+    "existence/MANIFEST.json": "99ff773097ed8e7f0c641233abc76c3a7f64b77111a632f541404cecaa9d5a46",
+    "existence/PRIMARY_SOURCE.md": "d26edd4e6775e31b05939fb33d00db9acf99b52eb74df6b3a040173d0134ea2f",
+    "existence/REVIEW.md": "33629d44a90337edad0887c9c93986eae42c1f0a0c0fb01b09488ccda4cf3f00",
+    "existence/SOURCE_USE_RECONCILED.json": "e9b1c210b5cbd0308274187d1f6cd04a6c0a1364c2350ca2885b961b8cd37d59",
+    "height/SOURCE_USE_INITIAL.json": "549b4576bbeb923a2d06c35cf1132fa9976fe0439c66d98fac41ec57bce838c4",
+    "height/SOURCE_USE_INITIAL.sha256": "b18bc61cc619bb36a58cc8684d58bf3cd693414f67048d4c1b1fbbd94c1827ae",
+    "height/RECONCILIATION.json": "8998443e61cc0aeb0f69f223ac013f0ee4504a9144d5f7cac2eb4fea1c9e5a7e",
+    "height/REVIEW.md": "4f55a114e967d3c60b6d426fa2542f760318dcf9ce3a2b26c8336ff8894e2bdf",
+    "height/PRIMARY_EVIDENCE.md": "0f3269234c0c89fb48a814fb90bd9b34f09e1291c30471c0580090630cb9ee75"
+  },
+  "verdict": "changes required; full arithmetic review incomplete",
+  "computations": [
+    {
+      "name": "sparse Laurent and current SOS replay",
+      "result": "PASS;21 corruptions refused",
+      "artifact": "EXACT-CHECKS-rerun.json",
+      "write_redirected": true
+    },
+    {
+      "name": "H4 numeric certificate self-test",
+      "result": "PASS;4 corruptions refused",
+      "artifact": "NUMERIC_CERTIFICATE_H4-rerun.json"
+    },
+    {
+      "name": "assemble.py --check",
+      "result": "PASS; deterministic identity only"
+    }
+  ],
+  "resource_limit_bytes": 1073741824,
+  "checkout_mutated": false,
+  "build_reproduced": false,
+  "complete_protocol_acceptance": false
+}

@@ -1,0 +1,46 @@
+{
+  "mathematical_defects": [],
+  "review_items": [
+    {
+      "id": "RC-HISTORY-01",
+      "classification": "prior justification found; incorporated",
+      "item": "Full Kato index/norm/actual-class argument",
+      "evidence": [
+        "docs/manuscript-revisions/version11/evidence/norms.md",
+        "docs/manuscript-revisions/version11/evidence/interface.md",
+        "docs/manuscript-revisions/version14/resume003/kato-1999-index-and-class-application.json"
+      ],
+      "disposition": "Freshly checked against1999/2004 statements and current source; no new repair requested."
+    },
+    {
+      "id": "RC-COVERAGE-01",
+      "classification": "fresh-reading limitation, not mathematical defect",
+      "item": "Unmodified RC ancestors not freshly read in full",
+      "ranges": [
+        [
+          2901,
+          3301
+        ],
+        [
+          3385,
+          3478
+        ],
+        [
+          14429,
+          17464
+        ]
+      ],
+      "disposition": "Exact native acceptance reused at recorded scope after actual source/consumer comparison. No full fresh recursive rereview asserted."
+    },
+    {
+      "id": "RC-RECEIVER-01",
+      "classification": "fresh changed-consumer comparison accepted within scope",
+      "item": "Actual214 P19/P20 pole inputs and RC curve domain",
+      "disposition": "No unmatched hypothesis; new order-three-factor input checked, and independent certificates for the actual b established. Other analytic/height/raw-algebra interfaces remain outside lane."
+    }
+  ],
+  "administrative_remaining": [
+    "Controller/model eligibility not attested",
+    "Whole214 assembly and authenticated PR30 acceptance outside this lane"
+  ]
+}

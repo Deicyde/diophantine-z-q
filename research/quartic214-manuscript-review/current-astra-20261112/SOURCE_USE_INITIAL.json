@@ -1,0 +1,181 @@
+{
+  "version": "initial-source-first-v1",
+  "reviewer": "/root/q214_astra_repair_review",
+  "requested_model": "gpt-6-astra",
+  "baseline_commit": "a8843cca75ff29d51aa7b288c80b8bdc3a1ca3bb",
+  "prior_exposure": "Parent task disclosed adverse findings F1/F2, previous review paths, candidate scope, and inherited access limitations. No declared source inventory, contracts, prior favorable verdict, or adverse report body consulted before this freeze. Source prose itself contains historical verdict references and author source-use claims; those were visible and are not treated as acceptance. Worktree renderer mutable, no candidate decision.",
+  "coverage": "Initial independent coarse reconstruction from PROOF and named proof texts. Some combined tool output truncated; entries identify dependencies to inspect, not certification of exhaustive reading. Full V16 and recursive published applications not yet reconstructed.",
+  "entries": [
+    {
+      "id": "S01",
+      "path": "research/quartic214/proofs/existence.md",
+      "sha256": "37ab929ed3f4b4dee2b91d2e39408e7070e8a9176b981bcc9c352d17b9cc2332",
+      "locator": "Algebraic transport",
+      "required_supplier": "raw224 inverse maps, forced149 and Laurent identities",
+      "consumed": "214 rows reconstruct physical system on nonzero weights",
+      "status": "review-open"
+    },
+    {
+      "id": "S02",
+      "path": "research/quartic214/proofs/existence.md",
+      "sha256": "37ab929ed3f4b4dee2b91d2e39408e7070e8a9176b981bcc9c352d17b9cc2332",
+      "locator": "New local factors",
+      "required_supplier": "valuation residue classes and literal trace equation",
+      "consumed": "M_j^3 divides Delta, M_j divides J after integrality",
+      "status": "review-open"
+    },
+    {
+      "id": "S03",
+      "path": "research/quartic214/proofs/uniform-existence.md",
+      "sha256": "d13cc2b846dc72a3f5b5cce8dcf11d3f11b33c45ebc3883263840afb8d82f3bc",
+      "locator": "P08-P09",
+      "required_supplier": "E0 sum graph, noncancellation, finite-rank group and published Von Buhren 1.1",
+      "consumed": "B²<=M1 h(T)+M2",
+      "status": "review-open"
+    },
+    {
+      "id": "S04",
+      "path": "research/quartic214/proofs/uniform-existence.md",
+      "sha256": "d13cc2b846dc72a3f5b5cce8dcf11d3f11b33c45ebc3883263840afb8d82f3bc",
+      "locator": "P10",
+      "required_supplier": "full S10 height bound, two inverse projective maps and disjoint radicals",
+      "consumed": "exponent7/6 physical height",
+      "status": "review-open"
+    },
+    {
+      "id": "S05",
+      "path": "research/quartic214/proofs/uniform-existence.md",
+      "sha256": "d13cc2b846dc72a3f5b5cce8dcf11d3f11b33c45ebc3883263840afb8d82f3bc",
+      "locator": "P11-P12",
+      "required_supplier": "scalar lower growth and integer Lucas lower bound",
+      "consumed": "single uniform soundness threshold",
+      "status": "review-open"
+    },
+    {
+      "id": "S06",
+      "path": "research/quartic214/proofs/uniform-existence.md",
+      "sha256": "d13cc2b846dc72a3f5b5cce8dcf11d3f11b33c45ebc3883263840afb8d82f3bc",
+      "locator": "P13-P14",
+      "required_supplier": "parity scalar W_s and fixed compact neighborhoods",
+      "consumed": "uniform completeness threshold",
+      "status": "review-open"
+    },
+    {
+      "id": "S07",
+      "path": "research/quartic214/proofs/uniform-existence.md",
+      "sha256": "d13cc2b846dc72a3f5b5cce8dcf11d3f11b33c45ebc3883263840afb8d82f3bc",
+      "locator": "P15-P18",
+      "required_supplier": "fixed-data Gaussian prime theorem, CRT and prepared local/real inputs",
+      "consumed": "fresh changed-factor pole inputs",
+      "status": "review-open"
+    },
+    {
+      "id": "S08",
+      "path": "research/quartic214/proofs/uniform-existence.md",
+      "sha256": "d13cc2b846dc72a3f5b5cce8dcf11d3f11b33c45ebc3883263840afb8d82f3bc",
+      "locator": "P19-P20",
+      "required_supplier": "full Selmer corank descent, restricted converse and pole realization",
+      "consumed": "existential witnesses for all integer x",
+      "status": "review-open"
+    },
+    {
+      "id": "S09",
+      "path": "research/quartic214/proofs/geometry-carry.md",
+      "sha256": "b3cb8201de84f733b0518ad68a9c0d0bc1e78534ffd39aca5d8c70f1bae69e76",
+      "locator": "G1-G4",
+      "required_supplier": "D210 fine three-marked cover, integral metric and CM height",
+      "consumed": "full-family surface and S10 support",
+      "status": "review-open"
+    },
+    {
+      "id": "S10",
+      "path": "research/quartic214/proofs/modularity.md",
+      "sha256": "814676050b389793d196346f45e2797f39e2c5be0f3fee8457bb709b2607606e",
+      "locator": "M1-M3",
+      "required_supplier": "sign cocycle, published modularity at5 and finite twist extraction",
+      "consumed": "actual original r5 realized by final primitive weight2 form",
+      "status": "review-open"
+    },
+    {
+      "id": "S11",
+      "path": "research/quartic214/proofs/modularity.md",
+      "sha256": "814676050b389793d196346f45e2797f39e2c5be0f3fee8457bb709b2607606e",
+      "locator": "M4-M5",
+      "required_supplier": "same-form companion at3, Carayol, all-prime ramification",
+      "consumed": "N<=C_N R² with full residue-prime coverage",
+      "status": "review-open"
+    },
+    {
+      "id": "S12",
+      "path": "research/quartic214/proofs/modularity.md",
+      "sha256": "814676050b389793d196346f45e2797f39e2c5be0f3fee8457bb709b2607606e",
+      "locator": "M6",
+      "required_supplier": "Faltings, coefficient conjugates, Poincare, quotient invariants",
+      "consumed": "L-prime-defined A^r subvariety of exact quotient Jacobian",
+      "status": "review-open"
+    },
+    {
+      "id": "S13",
+      "path": "research/quartic214/proofs/height-evaluation.md",
+      "sha256": "d691da0a6827d9b45c6c68294405163f679a2d57f08e2ecda56fd071b3579502",
+      "locator": "1-5",
+      "required_supplier": "normalization finite flat, common regular model, duality trace and specialization",
+      "consumed": "actual integral ev:E->C dual and projected determinant lattice",
+      "status": "review-open"
+    },
+    {
+      "id": "S14",
+      "path": "research/quartic214/proofs/height-different.md",
+      "sha256": "025885f763a9a72e9750ed10ec0bbfec4e8834ed85557acccda92a766c0ebcfa",
+      "locator": "1-5",
+      "required_supplier": "complete-DVR sum e_j f_j=d, trace duality, torsion derivative N, modular quotient",
+      "consumed": "same C discriminant bound",
+      "status": "review-open"
+    },
+    {
+      "id": "S15",
+      "path": "research/quartic214/proofs/height-metric.md",
+      "sha256": "ea61f4ce58481b8ffb3a2000189fbbc84a8ded3c91d7c447ffe98ae98f30ad8e",
+      "locator": "1-3",
+      "required_supplier": "original stable metric, evaluation rank, mean value, arithmetic degree",
+      "consumed": "hF exact modular Jacobian",
+      "status": "review-open"
+    },
+    {
+      "id": "S16",
+      "path": "research/quartic214/proofs/height-averaging.md",
+      "sha256": "bb87f61d7134c09d695f9bbff2c26b12b8c9ce5fe74a4ec598b2e4410f100192",
+      "locator": "Fixed-field product; Height average",
+      "required_supplier": "published GR2023 product construction, r occurrences, lower height and dim2 isogeny",
+      "consumed": "H3.1 for same A over same L-prime",
+      "status": "review-open"
+    },
+    {
+      "id": "S17",
+      "path": "research/quartic214/proofs/height-supplier.md",
+      "sha256": "4974b167ab415159e0ff996b341528008c2ba8ae8e2a1ebf69bab5bc9a9b9c12",
+      "locator": "H4",
+      "required_supplier": "H0-H3 plus exact rational log bounds",
+      "consumed": "uniform h(a)<C2 M^(2103/1024), CM and M=1",
+      "status": "review-open"
+    },
+    {
+      "id": "S18",
+      "path": "research/quartic214/proofs/source-carry.md",
+      "sha256": "f7f4e550a4dcfbbd3b5ffcf783b11411f7888c821dbab7febb5132b7b2b891ed",
+      "locator": "C03-C11",
+      "required_supplier": "current rank, RC, Kato, GI, Gaussian, scalar and zero-preparation derivations",
+      "consumed": "retained interfaces; recursive reading incomplete",
+      "status": "review-open"
+    },
+    {
+      "id": "S19",
+      "path": "research/quartic214/PROOF.md",
+      "sha256": "0feb164c3ed33543136b89aa87b27bc890f4aadef2d082d465263f55dc26d165",
+      "locator": "Exact family",
+      "required_supplier": "188 primitive quadratic rows and exact finite checker",
+      "consumed": "214 degree4 content1 polynomial and coefficient theorem",
+      "status": "review-open"
+    }
+  ]
+}

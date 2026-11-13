@@ -1,0 +1,22 @@
+# Finite integration-record checks
+
+Run from the repository root:
+
+```sh
+python3 -B research/quartic214-protocol-d-public/check_records.py --self-test
+python3 -B research/quartic214-protocol-d-public/check_records.py --require-scoped-review
+```
+
+The first command checks author-record consistency and exercises rejection tests. It may pass while required mathematical decisions remain pending; the JSON output lists those scopes separately. The second additionally requires actual non-author decisions for `applications`, `coverage`, `public-adoption` and `assembly`, bound to the current record and source files. Neither command authenticates an Astra run or authorizes the protected GitHub App check.
+
+`RECORDS.json` preserves reconciliation of **all 33** entries in the immutable initial reconstruction. Earlier task routing called this 32; the actual table has 33 IDs. Thirty map to the selected 214 proof. IDs 1.2 and 3.8 concern the separate 256 consumer; 2.7 concerns the 218 control. Their exclusions are author scope proposals for independent review. No initial entry is deleted or relabeled as accepted.
+
+Initial-interface rows identify complete inline application derivations. Such a row may have the same supplying and consuming passage: it is a summary interface for reconciliation, not an additional circular premise. The separately named direct-transition rows expose the changed and retained joins. Each records the available assertion, assertion needed next, actual object identity, domain, normalization, supplier output token and supplier-contract fingerprint. Full application requirements and maps are in the linked fourteen contracts, each with nine named obligations. The coverage index partitions every line of the current assembly, every linked proof and every selected textual source. It links consumer and supplier uses; it leaves independent source completeness to the coverage reviewer. Exact recursively retained public source inventories are linked through `source-carry-sources.json`, rather than copied or newly accepted here.
+
+The checker validates file and passage hashes, line coverage without gaps/overlaps, all initial reconciliations, references in both directions, every declared direct supplier edge, typed output/consumer matching, the fourteen application identities, required nine-obligation fields and source pins. It rejects unresolved required reconciliation, omitted or orphan edges, missing referenced uses, stale supplier fingerprints, unsupported exclusions and author-generated finding decisions. An author-proposed response remains separate from a reviewer disposition.
+
+Reviewer-authored `review/*.json` decisions may declare `reviewer`, `role`, `decision`, `scopes` and `bound_files` (repository-relative path to SHA-256). The supported role is `non-author internal model reviewer`; decision is `accepted`, `pending` or `rejected`. Each acceptance must bind the integration record, checker semantics and every declared source/contract file. Extra evidence may use a different schema; the checker consumes only explicit decision objects. Reviewers should record requested-model metadata and its limitations. These declarations support exact scoped mathematical review; they do not establish trusted controller eligibility. An author identity cannot accept an application that lists that identity as an author.
+
+The self-test mutates in-memory copies and rejects: omitted named-theorem, section-only and unnamed-estimate edges; deletion of a use still referenced by coverage; unresolved required reconciliation; loss of a required obligation; changed proof without fresh binding; self-approval; coherent weakening of a supplier and its consuming author records with an old review binding; and changed proof with an old review. A synthetic review exists only inside the negative-control test and is never written as evidence. The coherent-weakening check establishes invalidation of an existing frozen decision. With no decision, coherent author revisions can remain structurally consistent and must still undergo source-level review; the checker cannot decide arbitrary implication strength.
+
+These are finite record properties. They do not establish mathematical truth, exhaustive source reconstruction, honest reading, reviewer epistemic independence, an effective threshold, or any particular defining member. The required public protected controller/App decision remains separate.

@@ -1,0 +1,1036 @@
+{
+  "schema": "quartic214-pdf-build/v1",
+  "source_date": "2026-11-12T00:00:00+00:00",
+  "engine": "pdfTeX 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian)",
+  "serial_passes": 3,
+  "tools": {
+    "pdfinfo": "pdfinfo version 24.02.0",
+    "pdftotext": "pdftotext version 24.02.0"
+  },
+  "command": [
+    "pdflatex",
+    "-no-shell-escape",
+    "-interaction=nonstopmode",
+    "-halt-on-error",
+    "-file-line-error",
+    "-recorder",
+    "-jobname=quartic214",
+    "-output-directory=<temporary-build-directory>",
+    "quartic214.tex"
+  ],
+  "command_working_directory": "research/quartic214-manuscript",
+  "environment": {
+    "SOURCE_DATE_EPOCH": "1794441600",
+    "FORCE_SOURCE_DATE": "1",
+    "TZ": "UTC"
+  },
+  "tex_inputs": [
+    {
+      "name": "TEXMFDIST/fonts/map/fontname/texfonts.map",
+      "sha256": "d9693993efdc7d0b9ab3df777589995d43e24eeae95f12b6a230a19caadeaa42",
+      "bytes": 3524
+    },
+    {
+      "name": "TEXMFDIST/fonts/tfm/jknappen/ec/ecrm1095.tfm",
+      "sha256": "6a3850cd71bbb2f43d98b7eb6b47f925de25626f5f4a0648c2d9d7b4b774eb2a",
+      "bytes": 3584
+    },
+    {
+      "name": "TEXMFDIST/fonts/tfm/public/amsfonts/euler/eufm10.tfm",
+      "sha256": "f0b7018ade501b4647c116a9ed1df10612cf8c173d0657ea17c5f1f6003fd1a1",
+      "bytes": 1040
+    },
+    {
+      "name": "TEXMFDIST/fonts/tfm/public/amsfonts/euler/eufm5.tfm",
+      "sha256": "a7293dbf5c5c9d6dcbe75405f1a628788e0bc23b0a00e7b289d21eae163f7285",
+      "bytes": 1040
+    },
+    {
+      "name": "TEXMFDIST/fonts/tfm/public/amsfonts/euler/eufm7.tfm",
+      "sha256": "23cdb6f111156554ea02f45f63c38a31e8e591d497b3810e7c71304f866dde74",
+      "bytes": 1040
+    },
+    {
+      "name": "TEXMFDIST/fonts/tfm/public/amsfonts/symbols/msam10.tfm",
+      "sha256": "3b54bde5cb0e0bd071eea7bc702ed3a1a284f786779ef8e75b06eba4104bb9f2",
+      "bytes": 916
+    },
+    {
+      "name": "TEXMFDIST/fonts/tfm/public/amsfonts/symbols/msam5.tfm",
+      "sha256": "c800d1dfd533040219fcc06d52e0e00c2a20fb9b0039fe9f58ccec53fd003a9f",
+      "bytes": 924
+    },
+    {
+      "name": "TEXMFDIST/fonts/tfm/public/amsfonts/symbols/msam7.tfm",
+      "sha256": "719d100c110fa1cfae9ad0b63e6c21753f4980f925fa516c1a04961e206f69d5",
+      "bytes": 928
+    },
+    {
+      "name": "TEXMFDIST/fonts/tfm/public/amsfonts/symbols/msbm10.tfm",
+      "sha256": "d9f5f519ec718e9dbccb8527c1f5d3b4a008dfb946377f97f71611b385d3d010",
+      "bytes": 908
+    },
+    {
+      "name": "TEXMFDIST/fonts/tfm/public/amsfonts/symbols/msbm5.tfm",
+      "sha256": "9e0909a297a3097e50960158d324006ddd5302db665400fa1fdf966df14e1a17",
+      "bytes": 940
+    },
+    {
+      "name": "TEXMFDIST/fonts/tfm/public/amsfonts/symbols/msbm7.tfm",
+      "sha256": "361b5530a4b410c6274e9330c11e993843c62e394323aeaa6e0aee61e8042444",
+      "bytes": 940
+    },
+    {
+      "name": "TEXMFDIST/fonts/tfm/public/cm/cmr10.tfm",
+      "sha256": "87f2d8981927644cbecaf3d639e96e348ea4e7be49d8804468bd8ba9ff3f5244",
+      "bytes": 1296
+    },
+    {
+      "name": "TEXMFDIST/fonts/type1/public/amsfonts/euler/eufm10.pfb",
+      "sha256": "0d4adc0d8d6b3fd993fe138b6863126d7122cd1ae180d0a19eca0759bf7d0975",
+      "bytes": 21098
+    },
+    {
+      "name": "TEXMFDIST/fonts/type1/public/amsfonts/euler/eufm7.pfb",
+      "sha256": "8c5202802ed024ad905ab81b34a882c9473acf9e9ab7a717bcee3f0f57e985f2",
+      "bytes": 21251
+    },
+    {
+      "name": "TEXMFDIST/fonts/type1/public/amsfonts/symbols/msam10.pfb",
+      "sha256": "f2e3b470b988a46272125e917531690d3c4d03ac7238f112b07337f972a537fa",
+      "bytes": 31764
+    },
+    {
+      "name": "TEXMFDIST/fonts/type1/public/amsfonts/symbols/msbm10.pfb",
+      "sha256": "d2121de7e7c14490a2d352e3b62e62882d6c300235464bfa577e6055696e6e62",
+      "bytes": 34694
+    },
+    {
+      "name": "TEXMFDIST/fonts/type1/public/amsfonts/symbols/msbm7.pfb",
+      "sha256": "bd86d36def0f2d226cf773a195a88f88e424759f3ddaaf654de2ae670906734e",
+      "bytes": 35309
+    },
+    {
+      "name": "TEXMFDIST/tex/context/base/mkii/supp-pdf.mkii",
+      "sha256": "5dd3675b88c7b61d3703e6bf35ed75623acc6b163dff7b1477b485cee8ad71cb",
+      "bytes": 71627
+    },
+    {
+      "name": "TEXMFDIST/tex/generic/atbegshi/atbegshi.sty",
+      "sha256": "a73003b4bb2dc8a814533ddbd31600e6626827799c2a465d03ef42e7a33fa71b",
+      "bytes": 24708
+    },
+    {
+      "name": "TEXMFDIST/tex/generic/bigintcalc/bigintcalc.sty",
+      "sha256": "050f2ad3a3671a1f4f9bcf97784836301bc751507e7ada546632379406aea103",
+      "bytes": 40635
+    },
+    {
+      "name": "TEXMFDIST/tex/generic/bitset/bitset.sty",
+      "sha256": "af5c7196c69dc9d28225189169b60c9b9039125bc1756c04d54886f0a3e1891e",
+      "bytes": 33961
+    },
+    {
+      "name": "TEXMFDIST/tex/generic/gettitlestring/gettitlestring.sty",
+      "sha256": "26ab10fd43fd5a90f98bcbed3a99978808da8878eb73835db4e0346371aee41e",
+      "bytes": 8371
+    },
+    {
+      "name": "TEXMFDIST/tex/generic/iftex/iftex.sty",
+      "sha256": "2de50639c1f27201f2b4d04e9083e0a51fc5a73b8908eea2e80d6e3205636d4a",
+      "bytes": 7237,
+      "declared_version": "2022/02/03 v1.0f TeX engine tests"
+    },
+    {
+      "name": "TEXMFDIST/tex/generic/iftex/ifvtex.sty",
+      "sha256": "1138730b9ad7d9f664b4760a4ea0ae0945afd21c006b76b67e623e863bbf3756",
+      "bytes": 1057,
+      "declared_version": "2019/10/25 v1.7 ifvtex legacy package. Use iftex instead."
+    },
+    {
+      "name": "TEXMFDIST/tex/generic/infwarerr/infwarerr.sty",
+      "sha256": "8c3e23b8bb7d940ff26cb0cf96e0151f540acf55020dc3c1aa8bcdb2eb66305c",
+      "bytes": 8356
+    },
+    {
+      "name": "TEXMFDIST/tex/generic/intcalc/intcalc.sty",
+      "sha256": "1343ba1b10b245bfd199c22947249af1d756808690c7811c90f07fe0a3772080",
+      "bytes": 31769
+    },
+    {
+      "name": "TEXMFDIST/tex/generic/kvdefinekeys/kvdefinekeys.sty",
+      "sha256": "c42f0c2628dc5fbd95b535cf8cd3cc964347653c099d38c0d416f896d84e8240",
+      "bytes": 5412
+    },
+    {
+      "name": "TEXMFDIST/tex/generic/ltxcmds/ltxcmds.sty",
+      "sha256": "8fea89995d37ba4c69137186faafc589c470edcc5026d8a31aadbe5cef47dcb4",
+      "bytes": 17865
+    },
+    {
+      "name": "TEXMFDIST/tex/generic/pdfescape/pdfescape.sty",
+      "sha256": "b3f0e56366c11b85dae521f9a48a6fd415dec1ce8c83152fde813a9f64445b49",
+      "bytes": 19007
+    },
+    {
+      "name": "TEXMFDIST/tex/generic/pdftexcmds/pdftexcmds.sty",
+      "sha256": "2df7e0bd148c99d8097352b8ac9948dccf91d61ba360dcf43f82206933b6045b",
+      "bytes": 20089
+    },
+    {
+      "name": "TEXMFDIST/tex/generic/uniquecounter/uniquecounter.sty",
+      "sha256": "9d11c81501953d689787ff14c073d2f1eda5874068db9e882b8dbbf9a9d863b0",
+      "bytes": 7008
+    },
+    {
+      "name": "TEXMFDIST/tex/latex/amscls/amsthm.sty",
+      "sha256": "8d5e2bdb117297385971927b14fe4804314133dc0027b3171249a08280894626",
+      "bytes": 12594,
+      "declared_version": "2020/05/29 v2.20.6"
+    },
+    {
+      "name": "TEXMFDIST/tex/latex/amsfonts/amsfonts.sty",
+      "sha256": "dab8b0e621267acfd89736cf97bdcc02647c545c0719c4997be8a7d1bf98f9c3",
+      "bytes": 5949,
+      "declared_version": "2013/01/14 v3.01 Basic AMSFonts support"
+    },
+    {
+      "name": "TEXMFDIST/tex/latex/amsfonts/amssymb.sty",
+      "sha256": "70838b061b56569dd3ed9f339b1bdd1c78ba185de49f27ceae331c97f48b5986",
+      "bytes": 13829,
+      "declared_version": "2013/01/14 v3.01 AMS font symbols"
+    },
+    {
+      "name": "TEXMFDIST/tex/latex/amsfonts/ueuf.fd",
+      "sha256": "97ae9b28e952c5f06675b3d55c1b08be62ccabe070b9bab99163a85628686091",
+      "bytes": 1047
+    },
+    {
+      "name": "TEXMFDIST/tex/latex/amsfonts/umsa.fd",
+      "sha256": "48355e960333be747dd7b4500e76fde7c3ef0b1fa9c74ec0f1438af0d3a661a4",
+      "bytes": 961
+    },
+    {
+      "name": "TEXMFDIST/tex/latex/amsfonts/umsb.fd",
+      "sha256": "e20f21f6ed631cbe3a627d5da5fef82367732a7d51207f8df5ee7e9c77ee342e",
+      "bytes": 961
+    },
+    {
+      "name": "TEXMFDIST/tex/latex/amsmath/amsbsy.sty",
+      "sha256": "f69355f4b0a8b650296fe2fd9471783a6940e6525efd5d7d306b5477daef494d",
+      "bytes": 2222,
+      "declared_version": "1999/11/29 v1.2d Bold Symbols"
+    },
+    {
+      "name": "TEXMFDIST/tex/latex/amsmath/amsgen.sty",
+      "sha256": "1232e78c8af6c4bc16c024fe33b9c4c3322679ad6887be22bc013ddb8d254ed9",
+      "bytes": 4173,
+      "declared_version": "1999/11/30 v2.0 generic functions"
+    },
+    {
+      "name": "TEXMFDIST/tex/latex/amsmath/amsmath.sty",
+      "sha256": "da22219a49c094141141bb29034c438d1ccba8a9afe6cdd5d15b96c15bf56901",
+      "bytes": 88371,
+      "declared_version": "2023/05/13 v2.17o AMS math features"
+    },
+    {
+      "name": "TEXMFDIST/tex/latex/amsmath/amsopn.sty",
+      "sha256": "981dbcccfc3a2449768ae5b1cb7b8b1468bb1f7842429067cd6f6ef0ade42fc2",
+      "bytes": 4474,
+      "declared_version": "2022/04/08 v2.04 operator names"
+    },
+    {
+      "name": "TEXMFDIST/tex/latex/amsmath/amstext.sty",
+      "sha256": "2bf2e4f0efe99c33bfd757e1dee1b4267742f8af3e449d6bdb4342c2917b1bce",
+      "bytes": 2444,
+      "declared_version": "2021/08/26 v2.01 AMS text"
+    },
+    {
+      "name": "TEXMFDIST/tex/latex/atveryend/atveryend.sty",
+      "sha256": "a62143db8b3bf1e52082c32e3feb7450bc90c000c6c48a38fa51cf96a6075eae",
+      "bytes": 19336
+    },
+    {
+      "name": "TEXMFDIST/tex/latex/auxhook/auxhook.sty",
+      "sha256": "1d9f36f4e9674bef594a47cac7d5781e9f7e0c7c8edf9f72769f4dc6f10d1b5f",
+      "bytes": 3935
+    },
+    {
+      "name": "TEXMFDIST/tex/latex/base/article.cls",
+      "sha256": "859217b3457cca472e5a96ef193218c87a4e62a6445cdd501ba7e1954fa32afa",
+      "bytes": 20144,
+      "declared_version": "2023/05/17 v1.4n Standard LaTeX document class"
+    },
+    {
+      "name": "TEXMFDIST/tex/latex/base/atbegshi-ltx.sty",
+      "sha256": "6720c4cf09cf91e8055b9ad4b54275cbd690be65b1f36805fa457c059d2e29a2",
+      "bytes": 3045,
+      "declared_version": "2021/01/10 v1.0c Emulation of the original atbegshi^^Jpackage with kernel methods"
+    },
+    {
+      "name": "TEXMFDIST/tex/latex/base/atveryend-ltx.sty",
+      "sha256": "95a2509f9ade1283bc842ed5c90084853892b67ab7acccfbf85b8acd38e1d7e3",
+      "bytes": 2462,
+      "declared_version": "2020/08/19 v1.0a Emulation of the original atveryend package^^Jwith kernel methods"
+    },
+    {
+      "name": "TEXMFDIST/tex/latex/base/fontenc.sty",
+      "sha256": "b17f7346c2d881bba3bde28711e53cc7d3125e5ea440672f59bbbdbbd95499ed",
+      "bytes": 5119,
+      "declared_version": "2021/04/29 v2.0v Standard LaTeX package"
+    },
+    {
+      "name": "TEXMFDIST/tex/latex/base/inputenc.sty",
+      "sha256": "d06a1d6ac38fac720ec7fbccfe6396224e1e69616e7ba5f15e37b55bc4a6c75f",
+      "bytes": 5048,
+      "declared_version": "2021/02/14 v1.3d Input encoding file"
+    },
+    {
+      "name": "TEXMFDIST/tex/latex/base/size11.clo",
+      "sha256": "9ecfd9ff838f6e15cce1dfbdde454e92f13228cd08b2fb26e11f821bf95055c7",
+      "bytes": 8464
+    },
+    {
+      "name": "TEXMFDIST/tex/latex/booktabs/booktabs.sty",
+      "sha256": "3fe694a5406f84847143e56ba1841385364277cfe7694a9f4bc0072ca8656abc",
+      "bytes": 6078,
+      "declared_version": "2020/01/12 v1.61803398 Publication quality tables"
+    },
+    {
+      "name": "TEXMFDIST/tex/latex/enumitem/enumitem.sty",
+      "sha256": "a217353d233e54e8c0944d87ea2924ec1f20d849a35b749698df03884856e5e3",
+      "bytes": 51697,
+      "declared_version": "2019/06/20 v3.9 Customized lists"
+    },
+    {
+      "name": "TEXMFDIST/tex/latex/etoolbox/etoolbox.sty",
+      "sha256": "b10381f0017ae75bd03dc9175b35ad56b93fdd24f2a47dd4aa9c6987ef35ccdb",
+      "bytes": 46845,
+      "declared_version": "2020/10/05 v2.5k e-TeX tools for LaTeX (JAW)"
+    },
+    {
+      "name": "TEXMFDIST/tex/latex/geometry/geometry.sty",
+      "sha256": "d5d36ad74051ad36288242b51438e2d9a5db2bd6c063b9b5704d0931fbc9f439",
+      "bytes": 41601,
+      "declared_version": "2020/01/02 v5.9 Page Geometry"
+    },
+    {
+      "name": "TEXMFDIST/tex/latex/graphics-cfg/graphics.cfg",
+      "sha256": "feb91e48789a21e4acced98e952c77a2e2cf4a77e01bf147b59fa56a1b3f2008",
+      "bytes": 1224
+    },
+    {
+      "name": "TEXMFDIST/tex/latex/graphics-def/pdftex.def",
+      "sha256": "6b0d3c7739f5344c3356bb0cef98bc17d8710e1e060914f42390d6503141c249",
+      "bytes": 19448,
+      "declared_version": "2022/09/22 v1.2b Graphics/color driver for pdftex"
+    },
+    {
+      "name": "TEXMFDIST/tex/latex/graphics/graphics.sty",
+      "sha256": "36e2e612e708d04785971d6bcfed324d0a0f9ce337ea73680e69dd2603d0327a",
+      "bytes": 18387,
+      "declared_version": "2022/03/10 v1.4e Standard LaTeX Graphics (DPC,SPQR)"
+    },
+    {
+      "name": "TEXMFDIST/tex/latex/graphics/graphicx.sty",
+      "sha256": "e9fe8e56401707f18a3d18716dadfd1dab999d02118c82af05691599cedec445",
+      "bytes": 8010,
+      "declared_version": "2021/09/16 v1.2d Enhanced LaTeX Graphics (DPC,SPQR)"
+    },
+    {
+      "name": "TEXMFDIST/tex/latex/graphics/keyval.sty",
+      "sha256": "8434ad08617159240fd19b4fcae8bf79a6137af413f3798c8a750e9839f8902e",
+      "bytes": 2671,
+      "declared_version": "2022/05/29 v1.15 key=value parser (DPC)"
+    },
+    {
+      "name": "TEXMFDIST/tex/latex/graphics/trig.sty",
+      "sha256": "c2a4f1d01abaf7ad739f1af03238ebb6ab35a7bbfbd5d713acceddda4fb043d5",
+      "bytes": 4023,
+      "declared_version": "2021/08/11 v1.11 sin cos tan (DPC)"
+    },
+    {
+      "name": "TEXMFDIST/tex/latex/hycolor/hycolor.sty",
+      "sha256": "8acaa03eda19a8158780356701e905e354e1dc47dc736e6e26fc860c12a15e14",
+      "bytes": 17914
+    },
+    {
+      "name": "TEXMFDIST/tex/latex/hyperref/hpdftex.def",
+      "sha256": "1189381de3bd489df7cd3547548a4888d0171c0ba1cb90cda424afae3b955b89",
+      "bytes": 48154,
+      "declared_version": "2024-01-20 v7.01h % Hyperref driver for pdfTeX"
+    },
+    {
+      "name": "TEXMFDIST/tex/latex/hyperref/hyperref.sty",
+      "sha256": "3e2bd51be23486a776165ebda8bdef7d442c0b779db14652dcc1e40429b1c1ad",
+      "bytes": 220920,
+      "declared_version": "2024-01-20 v7.01h % Hypertext links for LaTeX"
+    },
+    {
+      "name": "TEXMFDIST/tex/latex/hyperref/nameref.sty",
+      "sha256": "1bd958ef4ce46f3d15f7c77f6c2d084289e0e6d6017d5a3a341d83f0998b99a7",
+      "bytes": 11026,
+      "declared_version": "2023-11-26 v2.56 Cross-referencing by name of section"
+    },
+    {
+      "name": "TEXMFDIST/tex/latex/hyperref/pd1enc.def",
+      "sha256": "860fb14ebfbd12904aca6dff9e05fad399529d7fe8c00d9b130f02bbc892925d",
+      "bytes": 14249,
+      "declared_version": "2024-01-20 v7.01h % Hyperref: PDFDocEncoding definition (HO)"
+    },
+    {
+      "name": "TEXMFDIST/tex/latex/hyperref/puenc.def",
+      "sha256": "70942bf5c0f0725234b8677e18170952b39b5959d6b1d5f9ccfb1ec88a049bf5",
+      "bytes": 117112,
+      "declared_version": "2024-01-20 v7.01h % Hyperref: PDF Unicode definition (HO)"
+    },
+    {
+      "name": "TEXMFDIST/tex/latex/kvoptions/kvoptions.sty",
+      "sha256": "70595629ec990ba8c0b6e6a54afcff2603464e6fce380a54a98549a78d2fc74a",
+      "bytes": 22555
+    },
+    {
+      "name": "TEXMFDIST/tex/latex/kvsetkeys/kvsetkeys.sty",
+      "sha256": "e3fcf7f3372a27bb478eb9488eca1e25ed382480d02a6898f190bd955388e055",
+      "bytes": 13815
+    },
+    {
+      "name": "TEXMFDIST/tex/latex/l3backend/l3backend-pdftex.def",
+      "sha256": "f1081e3391243f0d67554da9841fec0c050d76d9865033e92d3ef82cf537d23e",
+      "bytes": 30006
+    },
+    {
+      "name": "TEXMFDIST/tex/latex/mathtools/mathtools.sty",
+      "sha256": "3bf3c7550c81c3aa1bf4d39c14fe1c31e1e1599bf709c9ba2c180ee609f18c76",
+      "bytes": 62269
+    },
+    {
+      "name": "TEXMFDIST/tex/latex/mathtools/mhsetup.sty",
+      "sha256": "c3ae1e23f43029fbfc271e3b1440a692e1cd924d1810430b99e4f2aa5b9ccf09",
+      "bytes": 5582
+    },
+    {
+      "name": "TEXMFDIST/tex/latex/microtype/microtype-pdftex.def",
+      "sha256": "fd8878fa5816e590ca1bd33610e180b25989d4778118b47caabce988bfab45de",
+      "bytes": 48246,
+      "declared_version": "2023/03/13 v3.1a Definitions specific to pdftex (RS)"
+    },
+    {
+      "name": "TEXMFDIST/tex/latex/microtype/microtype.cfg",
+      "sha256": "a4bd4486751d955ae22f96563e5306c9a45227e5ffd25d19dffda84c4d90a5d5",
+      "bytes": 26842
+    },
+    {
+      "name": "TEXMFDIST/tex/latex/microtype/microtype.sty",
+      "sha256": "1a41c71483a682e5443508d023fc2d01a3b96e8bdf914f0331a39760ef281549",
+      "bytes": 98531,
+      "declared_version": "2023/03/13 v3.1a Micro-typographical refinements (RS)"
+    },
+    {
+      "name": "TEXMFDIST/tex/latex/microtype/mt-cmr.cfg",
+      "sha256": "6a5c0877bec790f77af59d4f9d900ca649635640c8c0e65f046ffbc63bced60a",
+      "bytes": 22906
+    },
+    {
+      "name": "TEXMFDIST/tex/latex/microtype/mt-euf.cfg",
+      "sha256": "a9fbb3eef9b97c9d5f7c45755fa931701a759f8e8935170af82a7fe08f3ce62a",
+      "bytes": 3024
+    },
+    {
+      "name": "TEXMFDIST/tex/latex/microtype/mt-msa.cfg",
+      "sha256": "c4fdf8cbd49203b4086e0340de9e9566b7908e804dc8740fba361767f8472ac5",
+      "bytes": 5929
+    },
+    {
+      "name": "TEXMFDIST/tex/latex/microtype/mt-msb.cfg",
+      "sha256": "3b7fabb99479f1c970c3d18e1c46de07654d5e3a108c1554fa9ae3026aa72770",
+      "bytes": 5594
+    },
+    {
+      "name": "TEXMFDIST/tex/latex/refcount/refcount.sty",
+      "sha256": "1bd5d42025520bef74f8808af99cf3f3be7d2e3774b9931bf85c11ba81bb6cab",
+      "bytes": 9878
+    },
+    {
+      "name": "TEXMFDIST/tex/latex/rerunfilecheck/rerunfilecheck.sty",
+      "sha256": "7e22b1ca949259c61d3721bca0a56bcccf7e47cfc776027c5863941635c07aa1",
+      "bytes": 9714
+    },
+    {
+      "name": "TEXMFDIST/tex/latex/tools/array.sty",
+      "sha256": "dc2b9a0057f8455ac0f74960618e7af3de9bf08da0e7078ef8dd0570a2924427",
+      "bytes": 12667,
+      "declared_version": "2023/10/16 v2.5g Tabular extension package (FMi)"
+    },
+    {
+      "name": "TEXMFDIST/tex/latex/tools/calc.sty",
+      "sha256": "9c9da7f39469dd6ab1cb765cd5ef87dd72792c8eb9426e4619faecd00e9f2345",
+      "bytes": 10214,
+      "declared_version": "2023/07/08 v4.3 Infix arithmetic (KKT,FJ)"
+    },
+    {
+      "name": "TEXMFDIST/tex/latex/tools/longtable.sty",
+      "sha256": "83e32c4a880712340080225b239967442eb7dca5dc22bf0ca85f4ffd52506bd6",
+      "bytes": 12935,
+      "declared_version": "2023-11-01 v4.19 Multi-page Table package (DPC)"
+    },
+    {
+      "name": "TEXMFDIST/tex/latex/url/url.sty",
+      "sha256": "2373f56849ac606473e77053e5c1d14c92aba312b3f684e02a130eaf36f2de47",
+      "bytes": 12796,
+      "declared_version": "2013/09/16 \\space ver 3.4 \\space Verb mode for urls, etc."
+    },
+    {
+      "name": "TEXMFDIST/web2c/texmf.cnf",
+      "sha256": "624ed5587722dc013533b63e7ae31688751e59cd5e5bd18f35d5186e7a984ddb",
+      "bytes": 40399
+    },
+    {
+      "name": "TEXMFSYSCONFIG/web2c/texmf.cnf",
+      "sha256": "3443c7e22fbb4585732473f7e95d3cbf3e8657100f9117e711e2af5b0db85a40",
+      "bytes": 475
+    },
+    {
+      "name": "TEXMFSYSVAR/fonts/map/pdftex/updmap/pdftex_dl14.map",
+      "sha256": "5a6e422fc5550b85157e84183fda20ba1feccc659c76667e37815e89d24e806e",
+      "bytes": 5349216
+    },
+    {
+      "name": "TEXMFSYSVAR/web2c/pdftex/pdflatex.fmt",
+      "sha256": "8973c4856d176f21ebca4361616fb4e2dd71e893974a1ad6608e5f7d1c9b39eb",
+      "bytes": 6831119
+    },
+    {
+      "name": "repository/research/quartic214-manuscript/quartic214.tex",
+      "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+      "bytes": 2337533
+    },
+    {
+      "name": "system-input/ec-lmbx10.tfm/0895c940bd2e763b",
+      "sha256": "0895c940bd2e763b70dcab18ebf27fd3f93c2490f43b2a8c028fc7fc24b2e855",
+      "bytes": 12076
+    },
+    {
+      "name": "system-input/ec-lmbx12.tfm/d19c45859d453c08",
+      "sha256": "d19c45859d453c0802699d27aa2bff735574b9bc97d8791aa76e3c7de6c38a36",
+      "bytes": 12088
+    },
+    {
+      "name": "system-input/ec-lmbx9.tfm/c6cbec1d83b81845",
+      "sha256": "c6cbec1d83b81845060d8505d1172666aa270bfaaec1fa18284648f3c4fd8f63",
+      "bytes": 12080
+    },
+    {
+      "name": "system-input/ec-lmr10.tfm/cd13479f463b9a57",
+      "sha256": "cd13479f463b9a575d053dd7bf0884daa46bfdeffe4b7f537c193861652ac9e5",
+      "bytes": 12056
+    },
+    {
+      "name": "system-input/ec-lmr12.tfm/299021120f0a29ef",
+      "sha256": "299021120f0a29ef61278a2363903bd8defbb8faaade458eb79067342aecb56f",
+      "bytes": 12092
+    },
+    {
+      "name": "system-input/ec-lmr17.tfm/67fb845ec934b2d5",
+      "sha256": "67fb845ec934b2d50e788280d2c6d63ae719c9d8ac16a02d42fd346c81196c0c",
+      "bytes": 12156
+    },
+    {
+      "name": "system-input/ec-lmr6.tfm/db2ec8f82b5dd559",
+      "sha256": "db2ec8f82b5dd559b686afb9da660c397f79c819905ed2706c86b0fd3e1017c7",
+      "bytes": 12048
+    },
+    {
+      "name": "system-input/ec-lmr8.tfm/9c60dbef6aea9e10",
+      "sha256": "9c60dbef6aea9e108bd6512f10bd2855331b31ffa49bfb6161bf4ee9ac570584",
+      "bytes": 12064
+    },
+    {
+      "name": "system-input/ec-lmr9.tfm/9e5b21c43423010f",
+      "sha256": "9e5b21c43423010fb28b078b34f2c10e5c5f4f871ec51fb84dca9caf05fae31f",
+      "bytes": 12084
+    },
+    {
+      "name": "system-input/ec-lmri10.tfm/372f968b4eeb47bf",
+      "sha256": "372f968b4eeb47bf6a6c941c8793bce118d1800f12e194a351c7493ecc158f2a",
+      "bytes": 17148
+    },
+    {
+      "name": "system-input/ec-lmri7.tfm/e7807ea6471b5fc7",
+      "sha256": "e7807ea6471b5fc7a14544fd6f72bb82fbb14230d79196f68509a3589e62a678",
+      "bytes": 17168
+    },
+    {
+      "name": "system-input/ec-lmri8.tfm/1440665458738428",
+      "sha256": "1440665458738428540918b90c7a3556d6ed3118ff2e0237bd739c60f6edb889",
+      "bytes": 17152
+    },
+    {
+      "name": "system-input/ec-lmtk10.tfm/25f28595923ef8f8",
+      "sha256": "25f28595923ef8f87efac2828637e8f10751b92b7a55ca5ca2c2ecbb6bcaf142",
+      "bytes": 1368
+    },
+    {
+      "name": "system-input/ec-lmtt10.tfm/d1d413f1d0d07f65",
+      "sha256": "d1d413f1d0d07f65ff7bc3ebc09a3c104087e20eccd10ccb384da5c4f175c485",
+      "bytes": 1372
+    },
+    {
+      "name": "system-input/ec-lmtt12.tfm/4f0e668985d5c6fb",
+      "sha256": "4f0e668985d5c6fbdf92a9255675035e41a18f196ef9c050b719041d4a0de73c",
+      "bytes": 1368
+    },
+    {
+      "name": "system-input/ec-lmtt9.tfm/3deb4fafef839714",
+      "sha256": "3deb4fafef8397144ade06ce71cb76593e6e87eceb8eee46cf80ef04a2b1a04c",
+      "bytes": 1372
+    },
+    {
+      "name": "system-input/lm-ec.enc/7f9932c402d22a93",
+      "sha256": "7f9932c402d22a937b853406cfdf4166b80260e3ff21a03fe9a4c05105a2918c",
+      "bytes": 2375
+    },
+    {
+      "name": "system-input/lm-mathex.enc/7ecd3eb53329d245",
+      "sha256": "7ecd3eb53329d24551d4e125c741037a4bf94872bf545492b6fb4c7d21f381c4",
+      "bytes": 3486
+    },
+    {
+      "name": "system-input/lm-mathit.enc/0d7b9e82ad627447",
+      "sha256": "0d7b9e82ad6274470876761c22573c28db1f1b32d647b688230b3a366f0e373b",
+      "bytes": 2405
+    },
+    {
+      "name": "system-input/lm-mathsy.enc/a2980b38288ef402",
+      "sha256": "a2980b38288ef4024b8a3e170c19c9d4e2ee8b7dde97a59e8148291ffd3443db",
+      "bytes": 2840
+    },
+    {
+      "name": "system-input/lm-rm.enc/8bf8f9bd48d49aa3",
+      "sha256": "8bf8f9bd48d49aa3f3c597716908854e4d9207b009c109e6d9c5887feb856844",
+      "bytes": 2327
+    },
+    {
+      "name": "system-input/lm-ts1.enc/c6e18df2fc30431d",
+      "sha256": "c6e18df2fc30431ddebe5e4e3f7abebeef2d355bd97b81b574a685f8ded408c4",
+      "bytes": 3031
+    },
+    {
+      "name": "system-input/lmbx10.pfb/4acd67f9ece59a12",
+      "sha256": "4acd67f9ece59a12e073aa863dbb1d5cea194f7f7b88ecce4659184d8275aa42",
+      "bytes": 121021
+    },
+    {
+      "name": "system-input/lmbx12.pfb/fb9b7cf1d13a8a83",
+      "sha256": "fb9b7cf1d13a8a837c2c6b238e7255f8d6f4cd6608bf3024ee68e43d04f01a08",
+      "bytes": 116908
+    },
+    {
+      "name": "system-input/lmbx6.pfb/1651d13f175eff42",
+      "sha256": "1651d13f175eff42643f5b9e5bd7c99d0e658c1283484f00e56efb7a336d268d",
+      "bytes": 123928
+    },
+    {
+      "name": "system-input/lmbx8.pfb/95928ecf4c5fee77",
+      "sha256": "95928ecf4c5fee779ae19f949cb9bc7f27f7bf7b469339a6c2bcb55a563cdd88",
+      "bytes": 125241
+    },
+    {
+      "name": "system-input/lmbx9.pfb/ce9210e86ff32cc6",
+      "sha256": "ce9210e86ff32cc60ea84cfa672ee69e034ad41658cf281274ab6d870814deca",
+      "bytes": 126646
+    },
+    {
+      "name": "system-input/lmex10.pfb/8e12eda1d29f5527",
+      "sha256": "8e12eda1d29f55271bcef9a5022b42c8c10f8e65060dd6a8880556aa5484c052",
+      "bytes": 23055
+    },
+    {
+      "name": "system-input/lmex10.tfm/9547b25fd5257826",
+      "sha256": "9547b25fd525782610200d794a82de33037887422751fcc29c5768cfa650e626",
+      "bytes": 992
+    },
+    {
+      "name": "system-input/lmmi10.pfb/c24662506b402f3e",
+      "sha256": "c24662506b402f3e0033cc75eb746eb490a1b7477e6b3ef52053f5025ec0fc57",
+      "bytes": 30388
+    },
+    {
+      "name": "system-input/lmmi10.tfm/d9fce8963e8cb075",
+      "sha256": "d9fce8963e8cb075bf31a5715a8f4a54688f7026b3a06e882ff2eb9c0d110320",
+      "bytes": 1528
+    },
+    {
+      "name": "system-input/lmmi12.pfb/19579dda4280cea6",
+      "sha256": "19579dda4280cea64aacdd0f80b53b7f1e7930e98fe9858ab38aab33c8623836",
+      "bytes": 30696
+    },
+    {
+      "name": "system-input/lmmi12.tfm/06870b7e00300821",
+      "sha256": "06870b7e003008214eefcf9bc4215006faff9edf5d99bee75211de57620d1818",
+      "bytes": 1524
+    },
+    {
+      "name": "system-input/lmmi5.tfm/7bc98c12006eb1d7",
+      "sha256": "7bc98c12006eb1d784ce276f5dc008e0d631ee6bc659efadec24801c00d2a462",
+      "bytes": 1508
+    },
+    {
+      "name": "system-input/lmmi6.pfb/84b90db59b216d7f",
+      "sha256": "84b90db59b216d7f25f89a45c7565d7cccccc6c32961fe972b1a53558fa2035e",
+      "bytes": 31113
+    },
+    {
+      "name": "system-input/lmmi6.tfm/e7305bead3f6b2c8",
+      "sha256": "e7305bead3f6b2c8313e1234cb52376219d4283227c23295fe2f654e3ba3b551",
+      "bytes": 1512
+    },
+    {
+      "name": "system-input/lmmi7.pfb/7c646a6a841c2e99",
+      "sha256": "7c646a6a841c2e99909f7d5673d778fc104e43efad281ea0b5687636c544c639",
+      "bytes": 30789
+    },
+    {
+      "name": "system-input/lmmi7.tfm/8548d4d19fc2b367",
+      "sha256": "8548d4d19fc2b3671a5e11526f9013df8828b5b9b0f8277dc0ae7148bd1d33f5",
+      "bytes": 1528
+    },
+    {
+      "name": "system-input/lmmi8.pfb/ec3aa1701ea2dbbd",
+      "sha256": "ec3aa1701ea2dbbd9ea2b7316ffe81726a3a2ecb31442fbaf719800f2625e68d",
+      "bytes": 30635
+    },
+    {
+      "name": "system-input/lmmi8.tfm/8d8514f9b0d11e44",
+      "sha256": "8d8514f9b0d11e443d9a3cdc059622b06797c1dbcb3cee994f6ac3329c462a82",
+      "bytes": 1520
+    },
+    {
+      "name": "system-input/lmmi9.pfb/53c9f27e27bd9b64",
+      "sha256": "53c9f27e27bd9b6409a6b330eb2906a7c1ba098d26dd1012cb93da0548129d9f",
+      "bytes": 30698
+    },
+    {
+      "name": "system-input/lmmi9.tfm/270036d0f099a1bd",
+      "sha256": "270036d0f099a1bd4aea0e2bb0c58dfef4b456d029b853bd8c02473aaf578a13",
+      "bytes": 1524
+    },
+    {
+      "name": "system-input/lmodern.sty/d2877369dcb4bfe7",
+      "sha256": "d2877369dcb4bfe7b1b6bba1a3d96c46e93366459c9b46576f1b221009bbe359",
+      "bytes": 1608,
+      "declared_version": "2015/05/01 v1.6.1 Latin Modern Fonts"
+    },
+    {
+      "name": "system-input/lmr10.pfb/84eb01245abb17c0",
+      "sha256": "84eb01245abb17c0530ca3909427256d73df8bed2d7243b9f2717ca08c010ac8",
+      "bytes": 119235
+    },
+    {
+      "name": "system-input/lmr12.pfb/d5fd4fdecfdbc8f9",
+      "sha256": "d5fd4fdecfdbc8f97e955964aa2574927182303df178fe0c2e568fe9056e326c",
+      "bytes": 113634
+    },
+    {
+      "name": "system-input/lmr17.pfb/03b0f1f3e62a2866",
+      "sha256": "03b0f1f3e62a2866480f8f12edd465349a8f18afac0d5fb906dd493254d950fb",
+      "bytes": 119752
+    },
+    {
+      "name": "system-input/lmr6.pfb/0169c3fcc2685ba5",
+      "sha256": "0169c3fcc2685ba53356a09c1b96c8f71c250ba5177da7b23e7a819e583ccf88",
+      "bytes": 123394
+    },
+    {
+      "name": "system-input/lmr7.pfb/cf94a1a79a32c446",
+      "sha256": "cf94a1a79a32c446f11e585164463234a515721d509d2f2cfb0ab61f6f744ddc",
+      "bytes": 121145
+    },
+    {
+      "name": "system-input/lmr8.pfb/4a117a1dd9cf4f8b",
+      "sha256": "4a117a1dd9cf4f8b7eea4587eaa4f612be7ca329cb1d8255a2c6bb20febbfa69",
+      "bytes": 122174
+    },
+    {
+      "name": "system-input/lmr9.pfb/0a28c017128947f0",
+      "sha256": "0a28c017128947f0b23cef511dac5499bdd73b7c8f218f605b632aa9f3e2e2d4",
+      "bytes": 121065
+    },
+    {
+      "name": "system-input/lmri10.pfb/1239c71330ac8f05",
+      "sha256": "1239c71330ac8f0584e22f4d6abd0f016421fc73c545b15512ccf80b263f5c66",
+      "bytes": 112593
+    },
+    {
+      "name": "system-input/lmss10.pfb/55a4ebed5e5a9e9b",
+      "sha256": "55a4ebed5e5a9e9b8ffdee75ff27fd4c19bb65deec6de72fd23990b1e40c91ab",
+      "bytes": 97408
+    },
+    {
+      "name": "system-input/lmss8.pfb/48f972b0c6b2d320",
+      "sha256": "48f972b0c6b2d320c5590da1c549dccf6751ba039d2d114e0134a2684539d6c0",
+      "bytes": 94400
+    },
+    {
+      "name": "system-input/lmsy10.pfb/9969fd5ae5281ad4",
+      "sha256": "9969fd5ae5281ad40cdf6d8caf50084636a43ed7b7647e0e9e1195e859cec7cc",
+      "bytes": 27863
+    },
+    {
+      "name": "system-input/lmsy10.tfm/11f429b2c08f9446",
+      "sha256": "11f429b2c08f944627faa5942277297d7f8fef40edae2bae46cb238b838400ba",
+      "bytes": 1308
+    },
+    {
+      "name": "system-input/lmsy5.tfm/cac282b076edc89a",
+      "sha256": "cac282b076edc89a2bbc8cdd1bd899117cd1af05612bca2b203e8b5ebe715431",
+      "bytes": 1296
+    },
+    {
+      "name": "system-input/lmsy6.pfb/882b12a92a65c7b5",
+      "sha256": "882b12a92a65c7b5929a782ef99c9b2fca2235b70c8a3f772950a8e343259f82",
+      "bytes": 28109
+    },
+    {
+      "name": "system-input/lmsy6.tfm/8548e4b09655eb2b",
+      "sha256": "8548e4b09655eb2b166bf95df4be4f2a7ae54d5df2069bc04ef233bfd941167b",
+      "bytes": 1300
+    },
+    {
+      "name": "system-input/lmsy7.pfb/c434f5fb70bc4197",
+      "sha256": "c434f5fb70bc41978ac63c673556a2d913211f297947aa1f0d18b93da25ebe4b",
+      "bytes": 27941
+    },
+    {
+      "name": "system-input/lmsy7.tfm/3e92767469b4df54",
+      "sha256": "3e92767469b4df54c985a533b8064789df60f21ab69d381dbf01bb608e3fbff8",
+      "bytes": 1304
+    },
+    {
+      "name": "system-input/lmsy8.pfb/e23c98a5dadbaf4f",
+      "sha256": "e23c98a5dadbaf4f156082cfcfa7b3366f849ee86b0410db53a9c6fe4e67920b",
+      "bytes": 27802
+    },
+    {
+      "name": "system-input/lmsy8.tfm/b6b96268d56481a5",
+      "sha256": "b6b96268d56481a5bc7cbb34b140ca1fa5017d2767acc4e11a94b30eabd114f7",
+      "bytes": 1304
+    },
+    {
+      "name": "system-input/lmsy9.tfm/05daea5b4dd62b9f",
+      "sha256": "05daea5b4dd62b9ff70d99531e077ff11f56a5c26dfa6d6c6cfb643f42b9dc4a",
+      "bytes": 1300
+    },
+    {
+      "name": "system-input/lmtk10.pfb/fce9ae0355e326d5",
+      "sha256": "fce9ae0355e326d5998af0f88269fd4e0d7fb2e85240c13b9d4267421fa79d82",
+      "bytes": 117319
+    },
+    {
+      "name": "system-input/lmtt10.pfb/4b266a3e09581283",
+      "sha256": "4b266a3e09581283d72e31df9f240811c77e02f8debf720744cc4614f7493616",
+      "bytes": 113227
+    },
+    {
+      "name": "system-input/lmtt12.pfb/daafbb66ff0e1a31",
+      "sha256": "daafbb66ff0e1a3154f1ccef17f4621766655f8a28679c68d8d2435338e8b2d6",
+      "bytes": 110323
+    },
+    {
+      "name": "system-input/lmtt9.pfb/63ad7848d3852805",
+      "sha256": "63ad7848d3852805d793896934ffac2e77d18c4ba513b9d21955a4ffca293e04",
+      "bytes": 108480
+    },
+    {
+      "name": "system-input/omllmm.fd/0713fd8996320f03",
+      "sha256": "0713fd8996320f03e8085c8da713bdc3a238b32c7ef83f5729151450d4bebbb5",
+      "bytes": 890
+    },
+    {
+      "name": "system-input/omslmsy.fd/e1df006d08c2a73b",
+      "sha256": "e1df006d08c2a73bba6b1a1f804e96160f2f8aeb7d8518b07da455b7dd45d1ff",
+      "bytes": 807
+    },
+    {
+      "name": "system-input/omxlmex.fd/57ae2bb311d1126b",
+      "sha256": "57ae2bb311d1126b02d61b9d26de8590d831f7f9a98ca1788cb62de920a495c1",
+      "bytes": 568
+    },
+    {
+      "name": "system-input/ot1lmr.fd/51291fc1c1086c51",
+      "sha256": "51291fc1c1086c51d64f914ecc8051fe0dbe3f7601e89f2a5e18a5df5c6da1ea",
+      "bytes": 1882
+    },
+    {
+      "name": "system-input/ot1lmss.fd/2303c5155c2c5ea7",
+      "sha256": "2303c5155c2c5ea74d876ece518f95cea0e8da0530af70c01069af483de8a718",
+      "bytes": 1657
+    },
+    {
+      "name": "system-input/rm-lmbx10.tfm/2b9ed6698b37f027",
+      "sha256": "2b9ed6698b37f0276ba76fd4f1bb60f4378eac10121ebc9913eddec542ecb0a4",
+      "bytes": 11880
+    },
+    {
+      "name": "system-input/rm-lmbx12.tfm/3aa1bcc337ffbf2e",
+      "sha256": "3aa1bcc337ffbf2e92976e5484bd4212c0c14ecbd823a28ae6fdafdbffd3705b",
+      "bytes": 11880
+    },
+    {
+      "name": "system-input/rm-lmbx5.tfm/e65de5802087559e",
+      "sha256": "e65de5802087559eee7b694b6a777a976d5ee566632d92be8248155d2286bac0",
+      "bytes": 11828
+    },
+    {
+      "name": "system-input/rm-lmbx6.tfm/f41386043b050899",
+      "sha256": "f41386043b050899f4fb2dfd6d4de00df98f656c35df84c860818422b7c10db4",
+      "bytes": 11852
+    },
+    {
+      "name": "system-input/rm-lmbx7.tfm/71db3d61d53ffab4",
+      "sha256": "71db3d61d53ffab4e17d138ae43017bec4212cde1dd7a1875350b34be415fd0e",
+      "bytes": 11864
+    },
+    {
+      "name": "system-input/rm-lmbx8.tfm/0f5fef90281406ea",
+      "sha256": "0f5fef90281406ea1ff2686ed6766373c75c1a2c603c6b99727e20c027408d6f",
+      "bytes": 11868
+    },
+    {
+      "name": "system-input/rm-lmr10.tfm/50dc8240a67003c1",
+      "sha256": "50dc8240a67003c1ec5bcd55f703c87189aeab0d199c42b4dc3e141a02488998",
+      "bytes": 11868
+    },
+    {
+      "name": "system-input/rm-lmr12.tfm/9d4e3d8e39a41b93",
+      "sha256": "9d4e3d8e39a41b93d91f79c1c47d2297efb7b1af220b94860693c08361f227aa",
+      "bytes": 11888
+    },
+    {
+      "name": "system-input/rm-lmr5.tfm/420a4fc1563b171e",
+      "sha256": "420a4fc1563b171e5a791bb71211d85e6bf62fd2f2ed2a7f34f742049d6e5071",
+      "bytes": 11804
+    },
+    {
+      "name": "system-input/rm-lmr6.tfm/eb0bfdf8db3ae140",
+      "sha256": "eb0bfdf8db3ae1409639fac9c88f84923872500d882d9ff8dc37aff445c723fe",
+      "bytes": 11836
+    },
+    {
+      "name": "system-input/rm-lmr7.tfm/373a4f72b5a088f9",
+      "sha256": "373a4f72b5a088f9caee2cfd75adb2b25116e0cba3ad2bfa99b5f8a7e902a482",
+      "bytes": 11852
+    },
+    {
+      "name": "system-input/rm-lmr8.tfm/80bcbfd844d2310a",
+      "sha256": "80bcbfd844d2310ac1d3bead45aee25e91b1a4a0a60ff1771959b9a1e90ec1a2",
+      "bytes": 11864
+    },
+    {
+      "name": "system-input/rm-lmr9.tfm/ef6f318763d0052f",
+      "sha256": "ef6f318763d0052fc82dde4d73071a894ab6dfaa06890800ddd9b4a65657c0df",
+      "bytes": 11884
+    },
+    {
+      "name": "system-input/rm-lmss10.tfm/fa1bbbfbd9c0cf29",
+      "sha256": "fa1bbbfbd9c0cf29a03d63c4fd8c7f4b63f3fb35be2396ea16cfde00052f0c7c",
+      "bytes": 10976
+    },
+    {
+      "name": "system-input/rm-lmss12.tfm/f829132cdf5e2ae7",
+      "sha256": "f829132cdf5e2ae74f11cb1359979c02423d5f2619849dbdccc5577d3397d089",
+      "bytes": 11024
+    },
+    {
+      "name": "system-input/rm-lmss8.tfm/4753d3939ef7e985",
+      "sha256": "4753d3939ef7e9858b39f1d255c45dc6eb9eeb7e8c06d885e3ec43597fab4513",
+      "bytes": 10976
+    },
+    {
+      "name": "system-input/rm-lmss9.tfm/5f5d6a1ab00bcd30",
+      "sha256": "5f5d6a1ab00bcd3089c6a73459fa91bf5ee954be8d4f5489a523ccc64e8fe35d",
+      "bytes": 11004
+    },
+    {
+      "name": "system-input/t1lmr.fd/6b61abc8a6796f18",
+      "sha256": "6b61abc8a6796f1884f819afcfc4c33558564f7e5c1d47b720e50ee15dba829a",
+      "bytes": 1867
+    },
+    {
+      "name": "system-input/t1lmtt.fd/eb5aca0fcd27d1d7",
+      "sha256": "eb5aca0fcd27d1d7d97d35e7a4d01eb12ba1a054f9fe1114a779c9ae084be602",
+      "bytes": 2682
+    },
+    {
+      "name": "system-input/ts1-lmr10.tfm/080be3dc1bf1bac9",
+      "sha256": "080be3dc1bf1bac9eb612e44718ea630d2bd2ebf4d8e8e00333a78b5332ca6b3",
+      "bytes": 1556
+    },
+    {
+      "name": "system-input/ts1lmr.fd/ecda20924242346d",
+      "sha256": "ecda20924242346d91d241e19c89a9a36c7423dc76b1c94e4a3d4d8b51d235d7",
+      "bytes": 1914
+    }
+  ],
+  "maximum_child_rss_kib": 61216,
+  "limits": {
+    "parallel_tex_processes": 1,
+    "child_address_space_bytes": 1073741824,
+    "cpu_seconds_per_pass": 180,
+    "wall_seconds_per_pass": 190,
+    "shell_escape": false
+  },
+  "source_files": {
+    "research/quartic214-manuscript/introduction.tex": "d700aba170fa697c737ee4a9dc7b05fe959fe78c9bff1650c9a4228ce5d261d3",
+    "research/quartic214-manuscript/quartic214.tex": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58"
+  },
+  "pdf": {
+    "path": "research/quartic214-manuscript/quartic214.pdf",
+    "sha256": "8c22312ce54d3f2709eddc28c1045b1785d44ce0d7d47957639c0322a9d0a498",
+    "bytes": 3940738,
+    "pages": 703
+  },
+  "pdf_text_sha256": "7039c80fa73dcc2b7d12cac98b26407233772d2dcf66c0f43ec5b6ec4bb18400",
+  "layout_diagnostics": [
+    "Underfull \\hbox (badness 1292) in paragraph at lines 2069--2069",
+    "Underfull \\hbox (badness 10000) in paragraph at lines 2071--2071",
+    "Underfull \\hbox (badness 4832) in paragraph at lines 2334--2335",
+    "Underfull \\hbox (badness 2269) in paragraph at lines 2418--2419",
+    "Underfull \\hbox (badness 10000) in paragraph at lines 2422--2422",
+    "Underfull \\hbox (badness 10000) in paragraph at lines 2422--2422",
+    "Underfull \\hbox (badness 10000) in paragraph at lines 2428--2428",
+    "Underfull \\hbox (badness 10000) in paragraph at lines 2433--2433",
+    "Underfull \\hbox (badness 10000) in paragraph at lines 2434--2434",
+    "Underfull \\hbox (badness 10000) in paragraph at lines 2435--2435",
+    "Underfull \\hbox (badness 10000) in paragraph at lines 2437--2437",
+    "Underfull \\hbox (badness 1496) in paragraph at lines 2437--2438",
+    "Underfull \\hbox (badness 10000) in paragraph at lines 2438--2438",
+    "Underfull \\hbox (badness 10000) in paragraph at lines 2439--2439",
+    "Underfull \\hbox (badness 10000) in paragraph at lines 2440--2440",
+    "Underfull \\hbox (badness 1163) in paragraph at lines 2488--2489",
+    "Underfull \\hbox (badness 2245) in paragraph at lines 3272--3272",
+    "Underfull \\hbox (badness 2134) in paragraph at lines 3650--3651",
+    "Underfull \\hbox (badness 1831) in paragraph at lines 4234--4234",
+    "Underfull \\hbox (badness 1163) in paragraph at lines 4238--4240",
+    "Underfull \\hbox (badness 10000) in paragraph at lines 5117--5118",
+    "Underfull \\hbox (badness 10000) in paragraph at lines 18125--18125",
+    "Underfull \\hbox (badness 1117) in paragraph at lines 18141--18142",
+    "Underfull \\hbox (badness 10000) in paragraph at lines 18142--18143",
+    "Underfull \\hbox (badness 10000) in paragraph at lines 18143--18144",
+    "Underfull \\hbox (badness 10000) in paragraph at lines 18278--18279",
+    "Underfull \\hbox (badness 10000) in paragraph at lines 18302--18302",
+    "Overfull \\hbox (0.39992pt too wide) detected at line 27106",
+    "Overfull \\hbox (8.6191pt too wide) in paragraph at lines 42433--42445",
+    "Underfull \\hbox (badness 3375) in paragraph at lines 44481--44487",
+    "Underfull \\hbox (badness 4832) in paragraph at lines 44481--44487",
+    "Underfull \\hbox (badness 10000) in paragraph at lines 44586--44590",
+    "Underfull \\hbox (badness 10000) in paragraph at lines 44586--44590",
+    "Underfull \\hbox (badness 2990) in paragraph at lines 44681--44685",
+    "Underfull \\hbox (badness 5681) in paragraph at lines 44766--44771",
+    "Underfull \\hbox (badness 5331) in paragraph at lines 44766--44771",
+    "Underfull \\hbox (badness 1769) in paragraph at lines 44773--44778",
+    "Underfull \\hbox (badness 2334) in paragraph at lines 44773--44778"
+  ],
+  "cross_references": "auxiliary files stabilized; no unresolved-reference or duplicate-label diagnostics",
+  "scope": "Source-to-PDF build identity and finite formatting checks only; mathematical review and protected controller authorization are separate."
+}

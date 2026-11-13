@@ -1,0 +1,43 @@
+{
+  "contract_sha256": "5e20a611a004c586875300fa207e33fc28fd1cd8a2eb072bd8e79855b8374a90",
+  "passages": [
+    {
+      "id": "G2",
+      "verified": true
+    },
+    {
+      "id": "G3",
+      "verified": true
+    },
+    {
+      "id": "M0",
+      "verified": true
+    },
+    {
+      "id": "M2",
+      "verified": true
+    },
+    {
+      "id": "B-LINEAR",
+      "verified": true
+    },
+    {
+      "id": "TEX-G2-G3",
+      "verified": true
+    },
+    {
+      "id": "TEX-M0",
+      "verified": true
+    },
+    {
+      "id": "TEX-M2",
+      "verified": true
+    },
+    {
+      "id": "TEX-B-LINEAR",
+      "verified": true
+    }
+  ],
+  "original_contract_manuscript_pdf_pins": true,
+  "scope": "Byte/excerpt identity only; mathematical decision is separate"
+}

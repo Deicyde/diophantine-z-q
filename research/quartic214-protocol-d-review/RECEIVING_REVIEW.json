@@ -1,0 +1,209 @@
+{
+  "schema": "quartic214-independent-receiving-review-v1",
+  "reviewer_task": "/root/d214_geometry_source_closure",
+  "author_task": "/root/d214_sol_closure_ledger",
+  "decision": "accepted-at-stated-scope",
+  "subjects": [
+    {
+      "path": "research/quartic214-manuscript-revision2/quartic214.tex",
+      "sha256": "b03b39d2e0f5593be29d3d2838cd33e7449b4b5b1ccb0b7dee8a9a6d2af4767f",
+      "bytes": 2339106,
+      "role": "complete receiving TeX"
+    },
+    {
+      "path": "research/quartic214-manuscript-revision2/quartic214.pdf",
+      "sha256": "77e6e30515e317ad8bb4fee6ba111037be64a4c325f2a683e5c8edf03884ea88",
+      "bytes": 3943008,
+      "role": "matching complete PDF"
+    },
+    {
+      "path": "research/quartic214-manuscript-revision2/SOURCE_SPANS.json",
+      "sha256": "e1b6f466573269008f10e06db106b15841545663a1de8b3ebe5203a8f188de55",
+      "bytes": 439656,
+      "role": "source-to-receiving map"
+    },
+    {
+      "path": "research/quartic214-manuscript-revision2/RECEIVING_OVERLAY.json",
+      "sha256": "006f032f2935ee0d73ecaa1a5e992329a114a434bd1c2a173223150e81625468",
+      "bytes": 40170,
+      "role": "operative receiving overlay"
+    },
+    {
+      "path": "research/quartic214-manuscript-revision2/ADAPTATION.json",
+      "sha256": "8108c3178ff927cc090f1b43c906fd47deba53b6f52a2b6aee2211b622a83c2a",
+      "bytes": 9911,
+      "role": "F6/native primitive receiving application"
+    },
+    {
+      "path": "research/quartic214-manuscript-revision2/F7_APPLICATION.json",
+      "sha256": "7243ecdaa8f948b556840d5fc40ca6dbedb376d3980f7d67b2eb1efb5ee52359",
+      "bytes": 6921,
+      "role": "certificate catalogue application"
+    },
+    {
+      "path": "research/quartic214-manuscript-revision2/F8_F11_APPLICATION.json",
+      "sha256": "ee929a6e4f6ff0813a5203aa887db28b5fd31f29eabc9bc328c501cb22ed06cf",
+      "bytes": 43356,
+      "role": "twenty semantic notation repairs"
+    },
+    {
+      "path": "research/quartic214-manuscript-revision2/BUILD.json",
+      "sha256": "ab232da2e66d0a7bcaaf02f7fc23b1e5a7f7b829ce996332e0a730afd0ab9482",
+      "bytes": 39446,
+      "role": "serial build identity"
+    },
+    {
+      "path": "research/quartic214-manuscript-revision2/MANIFEST.json",
+      "sha256": "899edad018881cb161d7b3e329d46f636dcefd8dbb343d096e6bb57b49c47d01",
+      "bytes": 5363,
+      "role": "complete author artifact manifest"
+    }
+  ],
+  "scope": {
+    "converted_proof_sources": 19,
+    "nonblank_converted_spans": 789,
+    "all_converted_semantic_transformations_reviewed": true,
+    "ir_rows": 188,
+    "ir_terms": 1008,
+    "coordinates": 214,
+    "retained_foundation_lines": 39873,
+    "retained_fragments": 2,
+    "primary_metadata_scalar_entries": 696,
+    "certificate_catalogue_entries": 11,
+    "reading_aliases": 19,
+    "selected_pdf_pages": [
+      1,
+      18,
+      57,
+      84,
+      85,
+      86,
+      88,
+      92,
+      93,
+      94,
+      102,
+      103,
+      108,
+      109,
+      126,
+      127,
+      140,
+      174,
+      450,
+      469,
+      673
+    ],
+    "receiving_pages": 703,
+    "scope_description": "Complete semantic source-to-TeX pass for all convertedproof sources; exact full IR/native/fragment transport; current operative note and author contracts; selected actual finalPDFimages. No whole arithmetic reproof."
+  },
+  "resolved_findings": [
+    "F6",
+    "F7",
+    "F8a",
+    "F8b",
+    "F8b-related",
+    "F9a",
+    "F9b",
+    "F9c",
+    "F9d",
+    "F10",
+    "F11a",
+    "F11b"
+  ],
+  "prior_repairs_preserved": [
+    "F1",
+    "F2",
+    "F3",
+    "F4",
+    "F5"
+  ],
+  "evidence": [
+    {
+      "path": "research/quartic214-manuscript-revision2-review/INITIAL_TRANSFORMS.json",
+      "sha256": "39c96432a9c4f14a1429447023b50a870f5c04600fbbe6c1a2339067e4c038c9",
+      "bytes": 8574
+    },
+    {
+      "path": "research/quartic214-manuscript-revision2-review/FINDINGS_F8_F11.json",
+      "sha256": "b9dfd12e052df760c9a46d235098dcc299611870bbaaace26a9785a58754e653",
+      "bytes": 27297
+    },
+    {
+      "path": "research/quartic214-manuscript-revision2-review/LEXICAL_COMPARISON.json",
+      "sha256": "5cfa28ea9def1f91b80072bf524d7551db2f7ced191636884015e7a46f675999",
+      "bytes": 250532
+    },
+    {
+      "path": "research/quartic214-manuscript-revision2-review/LEXICAL_CANDIDATE_DISPOSITIONS.json",
+      "sha256": "6026decc806e03d39bf06ca86ce7f92f7a644c95a94118a317a3f285d3459c8b",
+      "bytes": 18222
+    },
+    {
+      "path": "research/quartic214-manuscript-revision2-review/ALL_TARGET_SCRIPTS.json",
+      "sha256": "38a0a33669ca2186209f480fab13ba558c59dcd1b3961226f806514c26cf9c39",
+      "bytes": 44432
+    },
+    {
+      "path": "research/quartic214-manuscript-revision2-review/TRANSPORT_CHECKS_a3ab.json",
+      "sha256": "785933b6cd0c6efec1ae794db7aca85485f7881ed518080c68aa375675f63c15",
+      "bytes": 5792
+    },
+    {
+      "path": "research/quartic214-manuscript-revision2-review/TRANSPORT_CHECKS.json",
+      "sha256": "a834bb4b0f9221ce519de913d47076ac75e2b090d198e49df18988f622daf3ef",
+      "bytes": 5792
+    },
+    {
+      "path": "research/quartic214-manuscript-revision2-review/METADATA_CHECKS.json",
+      "sha256": "cc6cf143868429caa84fe5fd208ded3396545bf2cba46eb4843ba4c373a95316",
+      "bytes": 536
+    },
+    {
+      "path": "research/quartic214-manuscript-revision2-review/FINAL_WHOLE_TEX_DIFF.json",
+      "sha256": "cb36dac8d91f6d6a05c7e4db3efc1529b3deaac796567c5ddbd3fe985c439414",
+      "bytes": 28063
+    },
+    {
+      "path": "research/quartic214-manuscript-revision2-review/SEMANTIC_COVERAGE.json",
+      "sha256": "7482ca88213d563be7045a6d80ea4f678715c87392526daf44e629952e072923",
+      "bytes": 11327
+    },
+    {
+      "path": "research/quartic214-manuscript-revision2-review/CATALOGUE_REVIEW.json",
+      "sha256": "9f951c759db030876cbd1ea9bd3bccb400225352e619074ee67c39a01f93cf69",
+      "bytes": 4139
+    },
+    {
+      "path": "research/quartic214-manuscript-revision2-review/PDF_REVIEW.json",
+      "sha256": "877d123a004be1416291e2fca55e5681e1f351d7a65e293974789625180d7f3a",
+      "bytes": 3598
+    },
+    {
+      "path": "research/quartic214-manuscript-revision2-review/FINAL_PIN_CHECKS.json",
+      "sha256": "9065b1181216b43714d0bf17b82408c37c060130bd8b7f87eab60a6cbd263b05",
+      "bytes": 1418
+    },
+    {
+      "path": "research/quartic214-manuscript-revision2-review/REVIEW_INPUT_BINDINGS.json",
+      "sha256": "1b3f35b1d9a03b06779d26e4b007a7aca4c68246cf94adc049319e27f8d50530",
+      "bytes": 7274
+    },
+    {
+      "path": "research/quartic214-manuscript-revision2-review/REPORT.md",
+      "sha256": "113ab5c7092bd1490bb002027b9cb59cbed7aae094a350d5bb4e7b277d446485",
+      "bytes": 6738
+    }
+  ],
+  "limitations": [
+    "Actual finalPDFvisualinspection is21selectedpages, notall703pages; complete semanticcoverage is based on actualsource/receiver comparison and exacttransport.",
+    "External published supplier proofs and arithmetic theorem assembly retain their separate independentreview/sourceaccess scopes; no fresh complete bibliography read is claimed here.",
+    "Metadata inspection statements remain dated claims oftheir originalauthors.",
+    "Finite computational/build checks establish their statedtransport/formatting conclusions, not arithmetic existence.",
+    "This independently authored receivingacceptance is not protectedcontrollerauthorization, reviewereligibility attestation, humanpeerreview or formalverification."
+  ],
+  "controller_eligibility_attested": false,
+  "whole_arithmetic_theorem_reproved": false,
+  "arithmetic_sources_changed_by_reviewer": false,
+  "remaining_semantic_queue": []
+}

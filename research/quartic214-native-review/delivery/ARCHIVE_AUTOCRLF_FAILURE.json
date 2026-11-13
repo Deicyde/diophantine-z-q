@@ -1,0 +1,14 @@
+[
+  {
+    "command": [
+      "python3",
+      "-B",
+      "research/quartic214-main-integration/check_historical_records.py",
+      "--self-test",
+      "--reviewed-artifacts"
+    ],
+    "exit_code": 1,
+    "stdout": "",
+    "stderr": "Traceback (most recent call last):\n  File \"/tmp/committed-review/research/quartic214-main-integration/check_historical_records.py\", line 127, in <module>\n    if __name__=='__main__':main()\n                            ^^^^^^\n  File \"/tmp/committed-review/research/quartic214-main-integration/check_historical_records.py\", line 119, in main\n    archives=exact_archives();current={k:safe(ROOT,k).read_bytes()for k in ARCHIVES};check_current(archives,current);check_override_domain(archives);record=continuation_record();m=original_checker();application=json.loads((m.HERE/'ADAPTATION.json').read_text())\n                                                                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/tmp/committed-review/research/quartic214-main-integration/check_historical_records.py\", line 44, in check_current\n    require(current[WORKFLOW]==expected_workflow(archives[WORKFLOW]),'unexpected-current-workflow-delta')\n  File \"/tmp/committed-review/research/quartic214-main-integration/check_historical_records.py\", line 28, in require\n    if not ok:raise ValueError(reason)\n              ^^^^^^^^^^^^^^^^^^^^^^^^\nValueError: unexpected-current-workflow-delta\n"
+  }
+]

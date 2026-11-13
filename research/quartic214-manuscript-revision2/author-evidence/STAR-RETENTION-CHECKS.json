@@ -1,0 +1,1727 @@
+[
+  {
+    "source": "research/quartic214-manuscript-review/FOUNDATION_TRANSITION.md",
+    "source_lines": [
+      7,
+      7
+    ],
+    "tex_lines": [
+      2002,
+      2002
+    ],
+    "expected_retained_literal_stars_after_markdown": 0,
+    "actual_literal_stars_excluding_environment_names": 0,
+    "matches": true,
+    "note": "Equality establishes literal-star retention after parsed emphasis; whether emphasis was legitimate is separately inspected."
+  },
+  {
+    "source": "research/quartic214-manuscript-review/FOUNDATION_TRANSITION.md",
+    "source_lines": [
+      15,
+      15
+    ],
+    "tex_lines": [
+      2010,
+      2010
+    ],
+    "expected_retained_literal_stars_after_markdown": 0,
+    "actual_literal_stars_excluding_environment_names": 0,
+    "matches": true,
+    "note": "Equality establishes literal-star retention after parsed emphasis; whether emphasis was legitimate is separately inspected."
+  },
+  {
+    "source": "research/quartic214-manuscript-review/FOUNDATION_TRANSITION.md",
+    "source_lines": [
+      23,
+      23
+    ],
+    "tex_lines": [
+      2018,
+      2018
+    ],
+    "expected_retained_literal_stars_after_markdown": 0,
+    "actual_literal_stars_excluding_environment_names": 0,
+    "matches": true,
+    "note": "Equality establishes literal-star retention after parsed emphasis; whether emphasis was legitimate is separately inspected."
+  },
+  {
+    "source": "research/quartic214-manuscript-review/FOUNDATION_TRANSITION.md",
+    "source_lines": [
+      25,
+      25
+    ],
+    "tex_lines": [
+      2020,
+      2020
+    ],
+    "expected_retained_literal_stars_after_markdown": 0,
+    "actual_literal_stars_excluding_environment_names": 0,
+    "matches": true,
+    "note": "Equality establishes literal-star retention after parsed emphasis; whether emphasis was legitimate is separately inspected."
+  },
+  {
+    "source": "research/quartic214-manuscript-review/FOUNDATION_TRANSITION.md",
+    "source_lines": [
+      33,
+      33
+    ],
+    "tex_lines": [
+      2028,
+      2028
+    ],
+    "expected_retained_literal_stars_after_markdown": 0,
+    "actual_literal_stars_excluding_environment_names": 0,
+    "matches": true,
+    "note": "Equality establishes literal-star retention after parsed emphasis; whether emphasis was legitimate is separately inspected."
+  },
+  {
+    "source": "research/quartic214-manuscript-review/FOUNDATION_TRANSITION.md",
+    "source_lines": [
+      37,
+      37
+    ],
+    "tex_lines": [
+      2032,
+      2032
+    ],
+    "expected_retained_literal_stars_after_markdown": 0,
+    "actual_literal_stars_excluding_environment_names": 0,
+    "matches": true,
+    "note": "Equality establishes literal-star retention after parsed emphasis; whether emphasis was legitimate is separately inspected."
+  },
+  {
+    "source": "research/quartic214/PROOF.md",
+    "source_lines": [
+      9,
+      9
+    ],
+    "tex_lines": [
+      2054,
+      2054
+    ],
+    "expected_retained_literal_stars_after_markdown": 0,
+    "actual_literal_stars_excluding_environment_names": 0,
+    "matches": true,
+    "note": "Equality establishes literal-star retention after parsed emphasis; whether emphasis was legitimate is separately inspected."
+  },
+  {
+    "source": "research/quartic214/PROOF.md",
+    "source_lines": [
+      17,
+      25
+    ],
+    "tex_lines": [
+      2062,
+      2075
+    ],
+    "expected_retained_literal_stars_after_markdown": 0,
+    "actual_literal_stars_excluding_environment_names": 0,
+    "matches": true,
+    "note": "Equality establishes literal-star retention after parsed emphasis; whether emphasis was legitimate is separately inspected."
+  },
+  {
+    "source": "research/quartic214/PROOF.md",
+    "source_lines": [
+      31,
+      31
+    ],
+    "tex_lines": [
+      2081,
+      2081
+    ],
+    "expected_retained_literal_stars_after_markdown": 0,
+    "actual_literal_stars_excluding_environment_names": 0,
+    "matches": true,
+    "note": "Equality establishes literal-star retention after parsed emphasis; whether emphasis was legitimate is separately inspected."
+  },
+  {
+    "source": "research/quartic214/PROOF.md",
+    "source_lines": [
+      41,
+      41
+    ],
+    "tex_lines": [
+      2093,
+      2093
+    ],
+    "expected_retained_literal_stars_after_markdown": 0,
+    "actual_literal_stars_excluding_environment_names": 0,
+    "matches": true,
+    "note": "Equality establishes literal-star retention after parsed emphasis; whether emphasis was legitimate is separately inspected."
+  },
+  {
+    "source": "research/quartic214/proofs/existence.md",
+    "source_lines": [
+      11,
+      11
+    ],
+    "tex_lines": [
+      2115,
+      2115
+    ],
+    "expected_retained_literal_stars_after_markdown": 1,
+    "actual_literal_stars_excluding_environment_names": 1,
+    "matches": true,
+    "note": "Equality establishes literal-star retention after parsed emphasis; whether emphasis was legitimate is separately inspected."
+  },
+  {
+    "source": "research/quartic214/proofs/existence.md",
+    "source_lines": [
+      19,
+      19
+    ],
+    "tex_lines": [
+      2123,
+      2123
+    ],
+    "expected_retained_literal_stars_after_markdown": 3,
+    "actual_literal_stars_excluding_environment_names": 3,
+    "matches": true,
+    "note": "Equality establishes literal-star retention after parsed emphasis; whether emphasis was legitimate is separately inspected."
+  },
+  {
+    "source": "research/quartic214/proofs/existence.md",
+    "source_lines": [
+      21,
+      21
+    ],
+    "tex_lines": [
+      2125,
+      2125
+    ],
+    "expected_retained_literal_stars_after_markdown": 1,
+    "actual_literal_stars_excluding_environment_names": 1,
+    "matches": true,
+    "note": "Equality establishes literal-star retention after parsed emphasis; whether emphasis was legitimate is separately inspected."
+  },
+  {
+    "source": "research/quartic214/proofs/existence.md",
+    "source_lines": [
+      25,
+      25
+    ],
+    "tex_lines": [
+      2129,
+      2129
+    ],
+    "expected_retained_literal_stars_after_markdown": 1,
+    "actual_literal_stars_excluding_environment_names": 1,
+    "matches": true,
+    "note": "Equality establishes literal-star retention after parsed emphasis; whether emphasis was legitimate is separately inspected."
+  },
+  {
+    "source": "research/quartic214/proofs/existence.md",
+    "source_lines": [
+      29,
+      29
+    ],
+    "tex_lines": [
+      2133,
+      2133
+    ],
+    "expected_retained_literal_stars_after_markdown": 1,
+    "actual_literal_stars_excluding_environment_names": 1,
+    "matches": true,
+    "note": "Equality establishes literal-star retention after parsed emphasis; whether emphasis was legitimate is separately inspected."
+  },
+  {
+    "source": "research/quartic214/proofs/existence.md",
+    "source_lines": [
+      54,
+      54
+    ],
+    "tex_lines": [
+      2162,
+      2162
+    ],
+    "expected_retained_literal_stars_after_markdown": 1,
+    "actual_literal_stars_excluding_environment_names": 1,
+    "matches": true,
+    "note": "Equality establishes literal-star retention after parsed emphasis; whether emphasis was legitimate is separately inspected."
+  },
+  {
+    "source": "research/quartic214/proofs/existence.md",
+    "source_lines": [
+      62,
+      62
+    ],
+    "tex_lines": [
+      2172,
+      2172
+    ],
+    "expected_retained_literal_stars_after_markdown": 1,
+    "actual_literal_stars_excluding_environment_names": 1,
+    "matches": true,
+    "note": "Equality establishes literal-star retention after parsed emphasis; whether emphasis was legitimate is separately inspected."
+  },
+  {
+    "source": "research/quartic214/proofs/existence.md",
+    "source_lines": [
+      64,
+      64
+    ],
+    "tex_lines": [
+      2174,
+      2176
+    ],
+    "expected_retained_literal_stars_after_markdown": 2,
+    "actual_literal_stars_excluding_environment_names": 2,
+    "matches": true,
+    "note": "Equality establishes literal-star retention after parsed emphasis; whether emphasis was legitimate is separately inspected."
+  },
+  {
+    "source": "research/quartic214/proofs/existence.md",
+    "source_lines": [
+      68,
+      68
+    ],
+    "tex_lines": [
+      2180,
+      2182
+    ],
+    "expected_retained_literal_stars_after_markdown": 3,
+    "actual_literal_stars_excluding_environment_names": 3,
+    "matches": true,
+    "note": "Equality establishes literal-star retention after parsed emphasis; whether emphasis was legitimate is separately inspected."
+  },
+  {
+    "source": "research/quartic214/proofs/existence.md",
+    "source_lines": [
+      72,
+      72
+    ],
+    "tex_lines": [
+      2186,
+      2186
+    ],
+    "expected_retained_literal_stars_after_markdown": 2,
+    "actual_literal_stars_excluding_environment_names": 2,
+    "matches": true,
+    "note": "Equality establishes literal-star retention after parsed emphasis; whether emphasis was legitimate is separately inspected."
+  },
+  {
+    "source": "research/quartic214/proofs/existence.md",
+    "source_lines": [
+      74,
+      74
+    ],
+    "tex_lines": [
+      2188,
+      2188
+    ],
+    "expected_retained_literal_stars_after_markdown": 2,
+    "actual_literal_stars_excluding_environment_names": 2,
+    "matches": true,
+    "note": "Equality establishes literal-star retention after parsed emphasis; whether emphasis was legitimate is separately inspected."
+  },
+  {
+    "source": "research/quartic214/proofs/existence.md",
+    "source_lines": [
+      78,
+      78
+    ],
+    "tex_lines": [
+      2194,
+      2194
+    ],
+    "expected_retained_literal_stars_after_markdown": 1,
+    "actual_literal_stars_excluding_environment_names": 1,
+    "matches": true,
+    "note": "Equality establishes literal-star retention after parsed emphasis; whether emphasis was legitimate is separately inspected."
+  },
+  {
+    "source": "research/quartic214/proofs/existence.md",
+    "source_lines": [
+      88,
+      88
+    ],
+    "tex_lines": [
+      2204,
+      2204
+    ],
+    "expected_retained_literal_stars_after_markdown": 1,
+    "actual_literal_stars_excluding_environment_names": 1,
+    "matches": true,
+    "note": "Equality establishes literal-star retention after parsed emphasis; whether emphasis was legitimate is separately inspected."
+  },
+  {
+    "source": "research/quartic214/proofs/uniform-existence.md",
+    "source_lines": [
+      12,
+      12
+    ],
+    "tex_lines": [
+      2226,
+      2226
+    ],
+    "expected_retained_literal_stars_after_markdown": 0,
+    "actual_literal_stars_excluding_environment_names": 0,
+    "matches": true,
+    "note": "Equality establishes literal-star retention after parsed emphasis; whether emphasis was legitimate is separately inspected."
+  },
+  {
+    "source": "research/quartic214/proofs/uniform-existence.md",
+    "source_lines": [
+      28,
+      28
+    ],
+    "tex_lines": [
+      2244,
+      2244
+    ],
+    "expected_retained_literal_stars_after_markdown": 2,
+    "actual_literal_stars_excluding_environment_names": 2,
+    "matches": true,
+    "note": "Equality establishes literal-star retention after parsed emphasis; whether emphasis was legitimate is separately inspected."
+  },
+  {
+    "source": "research/quartic214/proofs/uniform-existence.md",
+    "source_lines": [
+      32,
+      32
+    ],
+    "tex_lines": [
+      2248,
+      2250
+    ],
+    "expected_retained_literal_stars_after_markdown": 1,
+    "actual_literal_stars_excluding_environment_names": 1,
+    "matches": true,
+    "note": "Equality establishes literal-star retention after parsed emphasis; whether emphasis was legitimate is separately inspected."
+  },
+  {
+    "source": "research/quartic214/proofs/uniform-existence.md",
+    "source_lines": [
+      36,
+      36
+    ],
+    "tex_lines": [
+      2254,
+      2254
+    ],
+    "expected_retained_literal_stars_after_markdown": 0,
+    "actual_literal_stars_excluding_environment_names": 0,
+    "matches": true,
+    "note": "Equality establishes literal-star retention after parsed emphasis; whether emphasis was legitimate is separately inspected."
+  },
+  {
+    "source": "research/quartic214/proofs/uniform-existence.md",
+    "source_lines": [
+      46,
+      46
+    ],
+    "tex_lines": [
+      2266,
+      2266
+    ],
+    "expected_retained_literal_stars_after_markdown": 3,
+    "actual_literal_stars_excluding_environment_names": 3,
+    "matches": true,
+    "note": "Equality establishes literal-star retention after parsed emphasis; whether emphasis was legitimate is separately inspected."
+  },
+  {
+    "source": "research/quartic214/proofs/uniform-existence.md",
+    "source_lines": [
+      48,
+      48
+    ],
+    "tex_lines": [
+      2268,
+      2268
+    ],
+    "expected_retained_literal_stars_after_markdown": 2,
+    "actual_literal_stars_excluding_environment_names": 2,
+    "matches": true,
+    "note": "Equality establishes literal-star retention after parsed emphasis; whether emphasis was legitimate is separately inspected."
+  },
+  {
+    "source": "research/quartic214/proofs/uniform-existence.md",
+    "source_lines": [
+      50,
+      51
+    ],
+    "tex_lines": [
+      2270,
+      2273
+    ],
+    "expected_retained_literal_stars_after_markdown": 1,
+    "actual_literal_stars_excluding_environment_names": 1,
+    "matches": true,
+    "note": "Equality establishes literal-star retention after parsed emphasis; whether emphasis was legitimate is separately inspected."
+  },
+  {
+    "source": "research/quartic214/proofs/uniform-existence.md",
+    "source_lines": [
+      67,
+      67
+    ],
+    "tex_lines": [
+      2293,
+      2293
+    ],
+    "expected_retained_literal_stars_after_markdown": 2,
+    "actual_literal_stars_excluding_environment_names": 2,
+    "matches": true,
+    "note": "Equality establishes literal-star retention after parsed emphasis; whether emphasis was legitimate is separately inspected."
+  },
+  {
+    "source": "research/quartic214/proofs/uniform-existence.md",
+    "source_lines": [
+      69,
+      69
+    ],
+    "tex_lines": [
+      2295,
+      2295
+    ],
+    "expected_retained_literal_stars_after_markdown": 5,
+    "actual_literal_stars_excluding_environment_names": 5,
+    "matches": true,
+    "note": "Equality establishes literal-star retention after parsed emphasis; whether emphasis was legitimate is separately inspected."
+  },
+  {
+    "source": "research/quartic214/proofs/uniform-existence.md",
+    "source_lines": [
+      71,
+      71
+    ],
+    "tex_lines": [
+      2297,
+      2297
+    ],
+    "expected_retained_literal_stars_after_markdown": 3,
+    "actual_literal_stars_excluding_environment_names": 3,
+    "matches": true,
+    "note": "Equality establishes literal-star retention after parsed emphasis; whether emphasis was legitimate is separately inspected."
+  },
+  {
+    "source": "research/quartic214/proofs/uniform-existence.md",
+    "source_lines": [
+      75,
+      75
+    ],
+    "tex_lines": [
+      2301,
+      2301
+    ],
+    "expected_retained_literal_stars_after_markdown": 1,
+    "actual_literal_stars_excluding_environment_names": 1,
+    "matches": true,
+    "note": "Equality establishes literal-star retention after parsed emphasis; whether emphasis was legitimate is separately inspected."
+  },
+  {
+    "source": "research/quartic214/proofs/uniform-existence.md",
+    "source_lines": [
+      77,
+      78
+    ],
+    "tex_lines": [
+      2303,
+      2306
+    ],
+    "expected_retained_literal_stars_after_markdown": 2,
+    "actual_literal_stars_excluding_environment_names": 2,
+    "matches": true,
+    "note": "Equality establishes literal-star retention after parsed emphasis; whether emphasis was legitimate is separately inspected."
+  },
+  {
+    "source": "research/quartic214/proofs/uniform-existence.md",
+    "source_lines": [
+      80,
+      80
+    ],
+    "tex_lines": [
+      2308,
+      2308
+    ],
+    "expected_retained_literal_stars_after_markdown": 1,
+    "actual_literal_stars_excluding_environment_names": 1,
+    "matches": true,
+    "note": "Equality establishes literal-star retention after parsed emphasis; whether emphasis was legitimate is separately inspected."
+  },
+  {
+    "source": "research/quartic214/proofs/uniform-existence.md",
+    "source_lines": [
+      84,
+      84
+    ],
+    "tex_lines": [
+      2312,
+      2312
+    ],
+    "expected_retained_literal_stars_after_markdown": 0,
+    "actual_literal_stars_excluding_environment_names": 0,
+    "matches": true,
+    "note": "Equality establishes literal-star retention after parsed emphasis; whether emphasis was legitimate is separately inspected."
+  },
+  {
+    "source": "research/quartic214/proofs/geometry-carry.md",
+    "source_lines": [
+      7,
+      7
+    ],
+    "tex_lines": [
+      2322,
+      2322
+    ],
+    "expected_retained_literal_stars_after_markdown": 0,
+    "actual_literal_stars_excluding_environment_names": 0,
+    "matches": true,
+    "note": "Equality establishes literal-star retention after parsed emphasis; whether emphasis was legitimate is separately inspected."
+  },
+  {
+    "source": "research/quartic214/proofs/geometry-carry.md",
+    "source_lines": [
+      15,
+      15
+    ],
+    "tex_lines": [
+      2330,
+      2330
+    ],
+    "expected_retained_literal_stars_after_markdown": 0,
+    "actual_literal_stars_excluding_environment_names": 0,
+    "matches": true,
+    "note": "Equality establishes literal-star retention after parsed emphasis; whether emphasis was legitimate is separately inspected."
+  },
+  {
+    "source": "research/quartic214/proofs/geometry-carry.md",
+    "source_lines": [
+      23,
+      23
+    ],
+    "tex_lines": [
+      2338,
+      2338
+    ],
+    "expected_retained_literal_stars_after_markdown": 0,
+    "actual_literal_stars_excluding_environment_names": 0,
+    "matches": true,
+    "note": "Equality establishes literal-star retention after parsed emphasis; whether emphasis was legitimate is separately inspected."
+  },
+  {
+    "source": "research/quartic214/proofs/geometry-carry.md",
+    "source_lines": [
+      27,
+      27
+    ],
+    "tex_lines": [
+      2342,
+      2342
+    ],
+    "expected_retained_literal_stars_after_markdown": 0,
+    "actual_literal_stars_excluding_environment_names": 0,
+    "matches": true,
+    "note": "Equality establishes literal-star retention after parsed emphasis; whether emphasis was legitimate is separately inspected."
+  },
+  {
+    "source": "research/quartic214/proofs/geometry-carry.md",
+    "source_lines": [
+      31,
+      31
+    ],
+    "tex_lines": [
+      2346,
+      2346
+    ],
+    "expected_retained_literal_stars_after_markdown": 1,
+    "actual_literal_stars_excluding_environment_names": 1,
+    "matches": true,
+    "note": "Equality establishes literal-star retention after parsed emphasis; whether emphasis was legitimate is separately inspected."
+  },
+  {
+    "source": "research/quartic214/proofs/geometry-carry.md",
+    "source_lines": [
+      43,
+      43
+    ],
+    "tex_lines": [
+      2362,
+      2362
+    ],
+    "expected_retained_literal_stars_after_markdown": 5,
+    "actual_literal_stars_excluding_environment_names": 5,
+    "matches": true,
+    "note": "Equality establishes literal-star retention after parsed emphasis; whether emphasis was legitimate is separately inspected."
+  },
+  {
+    "source": "research/quartic214/proofs/geometry-carry.md",
+    "source_lines": [
+      47,
+      49
+    ],
+    "tex_lines": [
+      2366,
+      2370
+    ],
+    "expected_retained_literal_stars_after_markdown": 0,
+    "actual_literal_stars_excluding_environment_names": 0,
+    "matches": true,
+    "note": "Equality establishes literal-star retention after parsed emphasis; whether emphasis was legitimate is separately inspected."
+  },
+  {
+    "source": "research/quartic214/proofs/geometry-carry.md",
+    "source_lines": [
+      51,
+      51
+    ],
+    "tex_lines": [
+      2372,
+      2372
+    ],
+    "expected_retained_literal_stars_after_markdown": 0,
+    "actual_literal_stars_excluding_environment_names": 0,
+    "matches": true,
+    "note": "Equality establishes literal-star retention after parsed emphasis; whether emphasis was legitimate is separately inspected."
+  },
+  {
+    "source": "research/quartic214/proofs/geometry-carry.md",
+    "source_lines": [
+      55,
+      55
+    ],
+    "tex_lines": [
+      2376,
+      2376
+    ],
+    "expected_retained_literal_stars_after_markdown": 2,
+    "actual_literal_stars_excluding_environment_names": 2,
+    "matches": true,
+    "note": "Equality establishes literal-star retention after parsed emphasis; whether emphasis was legitimate is separately inspected."
+  },
+  {
+    "source": "research/quartic214/proofs/geometry-carry.md",
+    "source_lines": [
+      59,
+      59
+    ],
+    "tex_lines": [
+      2380,
+      2380
+    ],
+    "expected_retained_literal_stars_after_markdown": 3,
+    "actual_literal_stars_excluding_environment_names": 3,
+    "matches": true,
+    "note": "Equality establishes literal-star retention after parsed emphasis; whether emphasis was legitimate is separately inspected."
+  },
+  {
+    "source": "research/quartic214/proofs/provider-scope-carry.md",
+    "source_lines": [
+      7,
+      7
+    ],
+    "tex_lines": [
+      2418,
+      2418
+    ],
+    "expected_retained_literal_stars_after_markdown": 1,
+    "actual_literal_stars_excluding_environment_names": 1,
+    "matches": true,
+    "note": "Equality establishes literal-star retention after parsed emphasis; whether emphasis was legitimate is separately inspected."
+  },
+  {
+    "source": "research/quartic214/proofs/provider-scope-carry.md",
+    "source_lines": [
+      9,
+      26
+    ],
+    "tex_lines": [
+      2420,
+      2442
+    ],
+    "expected_retained_literal_stars_after_markdown": 1,
+    "actual_literal_stars_excluding_environment_names": 1,
+    "matches": true,
+    "note": "Equality establishes literal-star retention after parsed emphasis; whether emphasis was legitimate is separately inspected."
+  },
+  {
+    "source": "research/quartic214/proofs/provider-scope-carry.md",
+    "source_lines": [
+      34,
+      34
+    ],
+    "tex_lines": [
+      2450,
+      2450
+    ],
+    "expected_retained_literal_stars_after_markdown": 0,
+    "actual_literal_stars_excluding_environment_names": 0,
+    "matches": true,
+    "note": "Equality establishes literal-star retention after parsed emphasis; whether emphasis was legitimate is separately inspected."
+  },
+  {
+    "source": "research/quartic214/proofs/provider-scope-carry.md",
+    "source_lines": [
+      54,
+      54
+    ],
+    "tex_lines": [
+      2472,
+      2472
+    ],
+    "expected_retained_literal_stars_after_markdown": 0,
+    "actual_literal_stars_excluding_environment_names": 0,
+    "matches": true,
+    "note": "Equality establishes literal-star retention after parsed emphasis; whether emphasis was legitimate is separately inspected."
+  },
+  {
+    "source": "research/quartic214/proofs/provider-scope-carry.md",
+    "source_lines": [
+      58,
+      58
+    ],
+    "tex_lines": [
+      2476,
+      2476
+    ],
+    "expected_retained_literal_stars_after_markdown": 1,
+    "actual_literal_stars_excluding_environment_names": 1,
+    "matches": true,
+    "note": "Equality establishes literal-star retention after parsed emphasis; whether emphasis was legitimate is separately inspected."
+  },
+  {
+    "source": "research/quartic214/proofs/provider-scope-carry.md",
+    "source_lines": [
+      64,
+      64
+    ],
+    "tex_lines": [
+      2484,
+      2484
+    ],
+    "expected_retained_literal_stars_after_markdown": 0,
+    "actual_literal_stars_excluding_environment_names": 0,
+    "matches": true,
+    "note": "Equality establishes literal-star retention after parsed emphasis; whether emphasis was legitimate is separately inspected."
+  },
+  {
+    "source": "research/quartic214/proofs/provider-scope-carry.md",
+    "source_lines": [
+      66,
+      66
+    ],
+    "tex_lines": [
+      2486,
+      2486
+    ],
+    "expected_retained_literal_stars_after_markdown": 0,
+    "actual_literal_stars_excluding_environment_names": 0,
+    "matches": true,
+    "note": "Equality establishes literal-star retention after parsed emphasis; whether emphasis was legitimate is separately inspected."
+  },
+  {
+    "source": "research/quartic214/proofs/modularity.md",
+    "source_lines": [
+      3,
+      3
+    ],
+    "tex_lines": [
+      2494,
+      2494
+    ],
+    "expected_retained_literal_stars_after_markdown": 0,
+    "actual_literal_stars_excluding_environment_names": 0,
+    "matches": true,
+    "note": "Equality establishes literal-star retention after parsed emphasis; whether emphasis was legitimate is separately inspected."
+  },
+  {
+    "source": "research/quartic214/proofs/modularity.md",
+    "source_lines": [
+      15,
+      15
+    ],
+    "tex_lines": [
+      2506,
+      2506
+    ],
+    "expected_retained_literal_stars_after_markdown": 1,
+    "actual_literal_stars_excluding_environment_names": 1,
+    "matches": true,
+    "note": "Equality establishes literal-star retention after parsed emphasis; whether emphasis was legitimate is separately inspected."
+  },
+  {
+    "source": "research/quartic214/proofs/modularity.md",
+    "source_lines": [
+      23,
+      23
+    ],
+    "tex_lines": [
+      2516,
+      2516
+    ],
+    "expected_retained_literal_stars_after_markdown": 2,
+    "actual_literal_stars_excluding_environment_names": 2,
+    "matches": true,
+    "note": "Equality establishes literal-star retention after parsed emphasis; whether emphasis was legitimate is separately inspected."
+  },
+  {
+    "source": "research/quartic214/proofs/modularity.md",
+    "source_lines": [
+      39,
+      39
+    ],
+    "tex_lines": [
+      2534,
+      2534
+    ],
+    "expected_retained_literal_stars_after_markdown": 0,
+    "actual_literal_stars_excluding_environment_names": 0,
+    "matches": true,
+    "note": "Equality establishes literal-star retention after parsed emphasis; whether emphasis was legitimate is separately inspected."
+  },
+  {
+    "source": "research/quartic214/proofs/modularity.md",
+    "source_lines": [
+      57,
+      57
+    ],
+    "tex_lines": [
+      2552,
+      2552
+    ],
+    "expected_retained_literal_stars_after_markdown": 2,
+    "actual_literal_stars_excluding_environment_names": 2,
+    "matches": true,
+    "note": "Equality establishes literal-star retention after parsed emphasis; whether emphasis was legitimate is separately inspected."
+  },
+  {
+    "source": "research/quartic214/proofs/modularity.md",
+    "source_lines": [
+      59,
+      59
+    ],
+    "tex_lines": [
+      2554,
+      2554
+    ],
+    "expected_retained_literal_stars_after_markdown": 0,
+    "actual_literal_stars_excluding_environment_names": 0,
+    "matches": true,
+    "note": "Equality establishes literal-star retention after parsed emphasis; whether emphasis was legitimate is separately inspected."
+  },
+  {
+    "source": "research/quartic214/proofs/modularity.md",
+    "source_lines": [
+      73,
+      73
+    ],
+    "tex_lines": [
+      2570,
+      2572
+    ],
+    "expected_retained_literal_stars_after_markdown": 1,
+    "actual_literal_stars_excluding_environment_names": 1,
+    "matches": true,
+    "note": "Equality establishes literal-star retention after parsed emphasis; whether emphasis was legitimate is separately inspected."
+  },
+  {
+    "source": "research/quartic214/proofs/modularity.md",
+    "source_lines": [
+      87,
+      87
+    ],
+    "tex_lines": [
+      2588,
+      2588
+    ],
+    "expected_retained_literal_stars_after_markdown": 0,
+    "actual_literal_stars_excluding_environment_names": 0,
+    "matches": true,
+    "note": "Equality establishes literal-star retention after parsed emphasis; whether emphasis was legitimate is separately inspected."
+  },
+  {
+    "source": "research/quartic214/proofs/modularity.md",
+    "source_lines": [
+      111,
+      111
+    ],
+    "tex_lines": [
+      2620,
+      2620
+    ],
+    "expected_retained_literal_stars_after_markdown": 0,
+    "actual_literal_stars_excluding_environment_names": 0,
+    "matches": true,
+    "note": "Equality establishes literal-star retention after parsed emphasis; whether emphasis was legitimate is separately inspected."
+  },
+  {
+    "source": "research/quartic214/proofs/modularity.md",
+    "source_lines": [
+      123,
+      123
+    ],
+    "tex_lines": [
+      2632,
+      2632
+    ],
+    "expected_retained_literal_stars_after_markdown": 0,
+    "actual_literal_stars_excluding_environment_names": 0,
+    "matches": true,
+    "note": "Equality establishes literal-star retention after parsed emphasis; whether emphasis was legitimate is separately inspected."
+  },
+  {
+    "source": "research/quartic214/proofs/modularity.md",
+    "source_lines": [
+      125,
+      125
+    ],
+    "tex_lines": [
+      2634,
+      2634
+    ],
+    "expected_retained_literal_stars_after_markdown": 0,
+    "actual_literal_stars_excluding_environment_names": 0,
+    "matches": true,
+    "note": "Equality establishes literal-star retention after parsed emphasis; whether emphasis was legitimate is separately inspected."
+  },
+  {
+    "source": "research/quartic214/proofs/height-evaluation.md",
+    "source_lines": [
+      14,
+      14
+    ],
+    "tex_lines": [
+      2651,
+      2651
+    ],
+    "expected_retained_literal_stars_after_markdown": 0,
+    "actual_literal_stars_excluding_environment_names": 0,
+    "matches": true,
+    "note": "Equality establishes literal-star retention after parsed emphasis; whether emphasis was legitimate is separately inspected."
+  },
+  {
+    "source": "research/quartic214/proofs/height-evaluation.md",
+    "source_lines": [
+      30,
+      30
+    ],
+    "tex_lines": [
+      2667,
+      2667
+    ],
+    "expected_retained_literal_stars_after_markdown": 0,
+    "actual_literal_stars_excluding_environment_names": 0,
+    "matches": true,
+    "note": "Equality establishes literal-star retention after parsed emphasis; whether emphasis was legitimate is separately inspected."
+  },
+  {
+    "source": "research/quartic214/proofs/height-evaluation.md",
+    "source_lines": [
+      45,
+      45
+    ],
+    "tex_lines": [
+      2682,
+      2682
+    ],
+    "expected_retained_literal_stars_after_markdown": 1,
+    "actual_literal_stars_excluding_environment_names": 1,
+    "matches": true,
+    "note": "Equality establishes literal-star retention after parsed emphasis; whether emphasis was legitimate is separately inspected."
+  },
+  {
+    "source": "research/quartic214/proofs/height-evaluation.md",
+    "source_lines": [
+      48,
+      48
+    ],
+    "tex_lines": [
+      2685,
+      2685
+    ],
+    "expected_retained_literal_stars_after_markdown": 1,
+    "actual_literal_stars_excluding_environment_names": 1,
+    "matches": true,
+    "note": "Equality establishes literal-star retention after parsed emphasis; whether emphasis was legitimate is separately inspected."
+  },
+  {
+    "source": "research/quartic214/proofs/height-evaluation.md",
+    "source_lines": [
+      50,
+      50
+    ],
+    "tex_lines": [
+      2687,
+      2687
+    ],
+    "expected_retained_literal_stars_after_markdown": 0,
+    "actual_literal_stars_excluding_environment_names": 0,
+    "matches": true,
+    "note": "Equality establishes literal-star retention after parsed emphasis; whether emphasis was legitimate is separately inspected."
+  },
+  {
+    "source": "research/quartic214/proofs/height-evaluation.md",
+    "source_lines": [
+      60,
+      60
+    ],
+    "tex_lines": [
+      2697,
+      2697
+    ],
+    "expected_retained_literal_stars_after_markdown": 0,
+    "actual_literal_stars_excluding_environment_names": 0,
+    "matches": true,
+    "note": "Equality establishes literal-star retention after parsed emphasis; whether emphasis was legitimate is separately inspected."
+  },
+  {
+    "source": "research/quartic214/proofs/height-evaluation.md",
+    "source_lines": [
+      66,
+      66
+    ],
+    "tex_lines": [
+      2703,
+      2703
+    ],
+    "expected_retained_literal_stars_after_markdown": 1,
+    "actual_literal_stars_excluding_environment_names": 1,
+    "matches": true,
+    "note": "Equality establishes literal-star retention after parsed emphasis; whether emphasis was legitimate is separately inspected."
+  },
+  {
+    "source": "research/quartic214/proofs/height-evaluation.md",
+    "source_lines": [
+      71,
+      71
+    ],
+    "tex_lines": [
+      2708,
+      2708
+    ],
+    "expected_retained_literal_stars_after_markdown": 1,
+    "actual_literal_stars_excluding_environment_names": 1,
+    "matches": true,
+    "note": "Equality establishes literal-star retention after parsed emphasis; whether emphasis was legitimate is separately inspected."
+  },
+  {
+    "source": "research/quartic214/proofs/height-evaluation.md",
+    "source_lines": [
+      85,
+      85
+    ],
+    "tex_lines": [
+      2722,
+      2722
+    ],
+    "expected_retained_literal_stars_after_markdown": 1,
+    "actual_literal_stars_excluding_environment_names": 1,
+    "matches": true,
+    "note": "Equality establishes literal-star retention after parsed emphasis; whether emphasis was legitimate is separately inspected."
+  },
+  {
+    "source": "research/quartic214/proofs/height-evaluation.md",
+    "source_lines": [
+      92,
+      92
+    ],
+    "tex_lines": [
+      2729,
+      2729
+    ],
+    "expected_retained_literal_stars_after_markdown": 2,
+    "actual_literal_stars_excluding_environment_names": 2,
+    "matches": true,
+    "note": "Equality establishes literal-star retention after parsed emphasis; whether emphasis was legitimate is separately inspected."
+  },
+  {
+    "source": "research/quartic214/proofs/height-evaluation.md",
+    "source_lines": [
+      97,
+      97
+    ],
+    "tex_lines": [
+      2734,
+      2734
+    ],
+    "expected_retained_literal_stars_after_markdown": 2,
+    "actual_literal_stars_excluding_environment_names": 2,
+    "matches": true,
+    "note": "Equality establishes literal-star retention after parsed emphasis; whether emphasis was legitimate is separately inspected."
+  },
+  {
+    "source": "research/quartic214/proofs/height-different.md",
+    "source_lines": [
+      13,
+      13
+    ],
+    "tex_lines": [
+      2782,
+      2782
+    ],
+    "expected_retained_literal_stars_after_markdown": 0,
+    "actual_literal_stars_excluding_environment_names": 0,
+    "matches": true,
+    "note": "Equality establishes literal-star retention after parsed emphasis; whether emphasis was legitimate is separately inspected."
+  },
+  {
+    "source": "research/quartic214/proofs/height-different.md",
+    "source_lines": [
+      39,
+      39
+    ],
+    "tex_lines": [
+      2808,
+      2808
+    ],
+    "expected_retained_literal_stars_after_markdown": 0,
+    "actual_literal_stars_excluding_environment_names": 0,
+    "matches": true,
+    "note": "Equality establishes literal-star retention after parsed emphasis; whether emphasis was legitimate is separately inspected."
+  },
+  {
+    "source": "research/quartic214/proofs/height-different.md",
+    "source_lines": [
+      61,
+      61
+    ],
+    "tex_lines": [
+      2830,
+      2830
+    ],
+    "expected_retained_literal_stars_after_markdown": 1,
+    "actual_literal_stars_excluding_environment_names": 1,
+    "matches": true,
+    "note": "Equality establishes literal-star retention after parsed emphasis; whether emphasis was legitimate is separately inspected."
+  },
+  {
+    "source": "research/quartic214/proofs/height-different.md",
+    "source_lines": [
+      65,
+      65
+    ],
+    "tex_lines": [
+      2834,
+      2834
+    ],
+    "expected_retained_literal_stars_after_markdown": 0,
+    "actual_literal_stars_excluding_environment_names": 0,
+    "matches": true,
+    "note": "Equality establishes literal-star retention after parsed emphasis; whether emphasis was legitimate is separately inspected."
+  },
+  {
+    "source": "research/quartic214/proofs/height-different.md",
+    "source_lines": [
+      79,
+      79
+    ],
+    "tex_lines": [
+      2848,
+      2848
+    ],
+    "expected_retained_literal_stars_after_markdown": 0,
+    "actual_literal_stars_excluding_environment_names": 0,
+    "matches": true,
+    "note": "Equality establishes literal-star retention after parsed emphasis; whether emphasis was legitimate is separately inspected."
+  },
+  {
+    "source": "research/quartic214/proofs/height-different.md",
+    "source_lines": [
+      111,
+      111
+    ],
+    "tex_lines": [
+      2880,
+      2880
+    ],
+    "expected_retained_literal_stars_after_markdown": 0,
+    "actual_literal_stars_excluding_environment_names": 0,
+    "matches": true,
+    "note": "Equality establishes literal-star retention after parsed emphasis; whether emphasis was legitimate is separately inspected."
+  },
+  {
+    "source": "research/quartic214/proofs/height-different.md",
+    "source_lines": [
+      129,
+      129
+    ],
+    "tex_lines": [
+      2898,
+      2898
+    ],
+    "expected_retained_literal_stars_after_markdown": 0,
+    "actual_literal_stars_excluding_environment_names": 0,
+    "matches": true,
+    "note": "Equality establishes literal-star retention after parsed emphasis; whether emphasis was legitimate is separately inspected."
+  },
+  {
+    "source": "research/quartic214/proofs/height-metric.md",
+    "source_lines": [
+      7,
+      7
+    ],
+    "tex_lines": [
+      2910,
+      2910
+    ],
+    "expected_retained_literal_stars_after_markdown": 1,
+    "actual_literal_stars_excluding_environment_names": 1,
+    "matches": true,
+    "note": "Equality establishes literal-star retention after parsed emphasis; whether emphasis was legitimate is separately inspected."
+  },
+  {
+    "source": "research/quartic214/proofs/height-metric.md",
+    "source_lines": [
+      9,
+      9
+    ],
+    "tex_lines": [
+      2912,
+      2912
+    ],
+    "expected_retained_literal_stars_after_markdown": 0,
+    "actual_literal_stars_excluding_environment_names": 0,
+    "matches": true,
+    "note": "Equality establishes literal-star retention after parsed emphasis; whether emphasis was legitimate is separately inspected."
+  },
+  {
+    "source": "research/quartic214/proofs/height-metric.md",
+    "source_lines": [
+      25,
+      25
+    ],
+    "tex_lines": [
+      2928,
+      2928
+    ],
+    "expected_retained_literal_stars_after_markdown": 0,
+    "actual_literal_stars_excluding_environment_names": 0,
+    "matches": true,
+    "note": "Equality establishes literal-star retention after parsed emphasis; whether emphasis was legitimate is separately inspected."
+  },
+  {
+    "source": "research/quartic214/proofs/height-metric.md",
+    "source_lines": [
+      53,
+      53
+    ],
+    "tex_lines": [
+      2956,
+      2956
+    ],
+    "expected_retained_literal_stars_after_markdown": 0,
+    "actual_literal_stars_excluding_environment_names": 0,
+    "matches": true,
+    "note": "Equality establishes literal-star retention after parsed emphasis; whether emphasis was legitimate is separately inspected."
+  },
+  {
+    "source": "research/quartic214/proofs/height-supplier.md",
+    "source_lines": [
+      3,
+      3
+    ],
+    "tex_lines": [
+      3029,
+      3029
+    ],
+    "expected_retained_literal_stars_after_markdown": 0,
+    "actual_literal_stars_excluding_environment_names": 0,
+    "matches": true,
+    "note": "Equality establishes literal-star retention after parsed emphasis; whether emphasis was legitimate is separately inspected."
+  },
+  {
+    "source": "research/quartic214/proofs/height-supplier.md",
+    "source_lines": [
+      5,
+      5
+    ],
+    "tex_lines": [
+      3031,
+      3031
+    ],
+    "expected_retained_literal_stars_after_markdown": 1,
+    "actual_literal_stars_excluding_environment_names": 1,
+    "matches": true,
+    "note": "Equality establishes literal-star retention after parsed emphasis; whether emphasis was legitimate is separately inspected."
+  },
+  {
+    "source": "research/quartic214/proofs/height-supplier.md",
+    "source_lines": [
+      17,
+      17
+    ],
+    "tex_lines": [
+      3043,
+      3043
+    ],
+    "expected_retained_literal_stars_after_markdown": 0,
+    "actual_literal_stars_excluding_environment_names": 0,
+    "matches": true,
+    "note": "Equality establishes literal-star retention after parsed emphasis; whether emphasis was legitimate is separately inspected."
+  },
+  {
+    "source": "research/quartic214/proofs/height-supplier.md",
+    "source_lines": [
+      49,
+      49
+    ],
+    "tex_lines": [
+      3075,
+      3075
+    ],
+    "expected_retained_literal_stars_after_markdown": 0,
+    "actual_literal_stars_excluding_environment_names": 0,
+    "matches": true,
+    "note": "Equality establishes literal-star retention after parsed emphasis; whether emphasis was legitimate is separately inspected."
+  },
+  {
+    "source": "research/quartic214/proofs/height-supplier.md",
+    "source_lines": [
+      55,
+      55
+    ],
+    "tex_lines": [
+      3081,
+      3081
+    ],
+    "expected_retained_literal_stars_after_markdown": 1,
+    "actual_literal_stars_excluding_environment_names": 1,
+    "matches": true,
+    "note": "Equality establishes literal-star retention after parsed emphasis; whether emphasis was legitimate is separately inspected."
+  },
+  {
+    "source": "research/quartic214/proofs/height-supplier.md",
+    "source_lines": [
+      76,
+      76
+    ],
+    "tex_lines": [
+      3104,
+      3104
+    ],
+    "expected_retained_literal_stars_after_markdown": 0,
+    "actual_literal_stars_excluding_environment_names": 0,
+    "matches": true,
+    "note": "Equality establishes literal-star retention after parsed emphasis; whether emphasis was legitimate is separately inspected."
+  },
+  {
+    "source": "research/quartic214/proofs/height-averaging.md",
+    "source_lines": [
+      7,
+      7
+    ],
+    "tex_lines": [
+      3174,
+      3174
+    ],
+    "expected_retained_literal_stars_after_markdown": 0,
+    "actual_literal_stars_excluding_environment_names": 0,
+    "matches": true,
+    "note": "Equality establishes literal-star retention after parsed emphasis; whether emphasis was legitimate is separately inspected."
+  },
+  {
+    "source": "research/quartic214/proofs/height-averaging.md",
+    "source_lines": [
+      9,
+      9
+    ],
+    "tex_lines": [
+      3176,
+      3176
+    ],
+    "expected_retained_literal_stars_after_markdown": 0,
+    "actual_literal_stars_excluding_environment_names": 0,
+    "matches": true,
+    "note": "Equality establishes literal-star retention after parsed emphasis; whether emphasis was legitimate is separately inspected."
+  },
+  {
+    "source": "research/quartic214/proofs/height-averaging.md",
+    "source_lines": [
+      50,
+      58
+    ],
+    "tex_lines": [
+      3225,
+      3235
+    ],
+    "expected_retained_literal_stars_after_markdown": 0,
+    "actual_literal_stars_excluding_environment_names": 0,
+    "matches": true,
+    "note": "Equality establishes literal-star retention after parsed emphasis; whether emphasis was legitimate is separately inspected."
+  },
+  {
+    "source": "research/quartic214/proofs/primary-source-bridges.md",
+    "source_lines": [
+      7,
+      7
+    ],
+    "tex_lines": [
+      3247,
+      3247
+    ],
+    "expected_retained_literal_stars_after_markdown": 0,
+    "actual_literal_stars_excluding_environment_names": 0,
+    "matches": true,
+    "note": "Equality establishes literal-star retention after parsed emphasis; whether emphasis was legitimate is separately inspected."
+  },
+  {
+    "source": "research/quartic214/proofs/primary-source-bridges.md",
+    "source_lines": [
+      9,
+      9
+    ],
+    "tex_lines": [
+      3249,
+      3249
+    ],
+    "expected_retained_literal_stars_after_markdown": 0,
+    "actual_literal_stars_excluding_environment_names": 0,
+    "matches": true,
+    "note": "Equality establishes literal-star retention after parsed emphasis; whether emphasis was legitimate is separately inspected."
+  },
+  {
+    "source": "research/quartic214/proofs/primary-source-bridges.md",
+    "source_lines": [
+      17,
+      17
+    ],
+    "tex_lines": [
+      3257,
+      3257
+    ],
+    "expected_retained_literal_stars_after_markdown": 0,
+    "actual_literal_stars_excluding_environment_names": 0,
+    "matches": true,
+    "note": "Equality establishes literal-star retention after parsed emphasis; whether emphasis was legitimate is separately inspected."
+  },
+  {
+    "source": "research/quartic214/proofs/primary-source-bridges.md",
+    "source_lines": [
+      37,
+      37
+    ],
+    "tex_lines": [
+      3282,
+      3282
+    ],
+    "expected_retained_literal_stars_after_markdown": 0,
+    "actual_literal_stars_excluding_environment_names": 0,
+    "matches": true,
+    "note": "Equality establishes literal-star retention after parsed emphasis; whether emphasis was legitimate is separately inspected."
+  },
+  {
+    "source": "research/quartic214/proofs/primary-source-bridges.md",
+    "source_lines": [
+      45,
+      45
+    ],
+    "tex_lines": [
+      3290,
+      3290
+    ],
+    "expected_retained_literal_stars_after_markdown": 0,
+    "actual_literal_stars_excluding_environment_names": 0,
+    "matches": true,
+    "note": "Equality establishes literal-star retention after parsed emphasis; whether emphasis was legitimate is separately inspected."
+  },
+  {
+    "source": "research/quartic214/proofs/primary-source-bridges.md",
+    "source_lines": [
+      53,
+      53
+    ],
+    "tex_lines": [
+      3298,
+      3298
+    ],
+    "expected_retained_literal_stars_after_markdown": 0,
+    "actual_literal_stars_excluding_environment_names": 0,
+    "matches": true,
+    "note": "Equality establishes literal-star retention after parsed emphasis; whether emphasis was legitimate is separately inspected."
+  },
+  {
+    "source": "research/quartic214/proofs/source-carry.md",
+    "source_lines": [
+      9,
+      9
+    ],
+    "tex_lines": [
+      3313,
+      3313
+    ],
+    "expected_retained_literal_stars_after_markdown": 3,
+    "actual_literal_stars_excluding_environment_names": 3,
+    "matches": true,
+    "note": "Equality establishes literal-star retention after parsed emphasis; whether emphasis was legitimate is separately inspected."
+  },
+  {
+    "source": "research/quartic214/proofs/source-carry.md",
+    "source_lines": [
+      17,
+      17
+    ],
+    "tex_lines": [
+      3323,
+      3323
+    ],
+    "expected_retained_literal_stars_after_markdown": 1,
+    "actual_literal_stars_excluding_environment_names": 1,
+    "matches": true,
+    "note": "Equality establishes literal-star retention after parsed emphasis; whether emphasis was legitimate is separately inspected."
+  },
+  {
+    "source": "research/quartic214/proofs/source-carry.md",
+    "source_lines": [
+      19,
+      19
+    ],
+    "tex_lines": [
+      3325,
+      3325
+    ],
+    "expected_retained_literal_stars_after_markdown": 4,
+    "actual_literal_stars_excluding_environment_names": 4,
+    "matches": true,
+    "note": "Equality establishes literal-star retention after parsed emphasis; whether emphasis was legitimate is separately inspected."
+  },
+  {
+    "source": "research/quartic214/proofs/source-carry.md",
+    "source_lines": [
+      23,
+      24
+    ],
+    "tex_lines": [
+      3329,
+      3332
+    ],
+    "expected_retained_literal_stars_after_markdown": 8,
+    "actual_literal_stars_excluding_environment_names": 8,
+    "matches": true,
+    "note": "Equality establishes literal-star retention after parsed emphasis; whether emphasis was legitimate is separately inspected."
+  },
+  {
+    "source": "research/quartic214/proofs/source-carry.md",
+    "source_lines": [
+      26,
+      26
+    ],
+    "tex_lines": [
+      3334,
+      3334
+    ],
+    "expected_retained_literal_stars_after_markdown": 6,
+    "actual_literal_stars_excluding_environment_names": 6,
+    "matches": true,
+    "note": "Equality establishes literal-star retention after parsed emphasis; whether emphasis was legitimate is separately inspected."
+  },
+  {
+    "source": "research/quartic214/proofs/source-carry.md",
+    "source_lines": [
+      32,
+      32
+    ],
+    "tex_lines": [
+      3340,
+      3340
+    ],
+    "expected_retained_literal_stars_after_markdown": 1,
+    "actual_literal_stars_excluding_environment_names": 1,
+    "matches": true,
+    "note": "Equality establishes literal-star retention after parsed emphasis; whether emphasis was legitimate is separately inspected."
+  },
+  {
+    "source": "research/quartic214/sources/conductor-sections1-3.md",
+    "source_lines": [
+      27,
+      27
+    ],
+    "tex_lines": [
+      3449,
+      3449
+    ],
+    "expected_retained_literal_stars_after_markdown": 1,
+    "actual_literal_stars_excluding_environment_names": 1,
+    "matches": true,
+    "note": "Equality establishes literal-star retention after parsed emphasis; whether emphasis was legitimate is separately inspected."
+  },
+  {
+    "source": "research/quartic214/sources/aggregate-bridge.md",
+    "source_lines": [
+      7,
+      7
+    ],
+    "tex_lines": [
+      3636,
+      3636
+    ],
+    "expected_retained_literal_stars_after_markdown": 0,
+    "actual_literal_stars_excluding_environment_names": 0,
+    "matches": true,
+    "note": "Equality establishes literal-star retention after parsed emphasis; whether emphasis was legitimate is separately inspected."
+  },
+  {
+    "source": "research/quartic214/sources/aggregate-bridge.md",
+    "source_lines": [
+      9,
+      17
+    ],
+    "tex_lines": [
+      3638,
+      3648
+    ],
+    "expected_retained_literal_stars_after_markdown": 0,
+    "actual_literal_stars_excluding_environment_names": 0,
+    "matches": true,
+    "note": "Equality establishes literal-star retention after parsed emphasis; whether emphasis was legitimate is separately inspected."
+  },
+  {
+    "source": "research/version15/quartics/quartic-222/provenance/shared-T-redundancy224-006/PROOF.md",
+    "source_lines": [
+      5,
+      5
+    ],
+    "tex_lines": [
+      4238,
+      4238
+    ],
+    "expected_retained_literal_stars_after_markdown": 1,
+    "actual_literal_stars_excluding_environment_names": 1,
+    "matches": true,
+    "note": "Equality establishes literal-star retention after parsed emphasis; whether emphasis was legitimate is separately inspected."
+  },
+  {
+    "source": "research/version15/quartics/quartic-222/provenance/shared-T-redundancy224-006/PROOF.md",
+    "source_lines": [
+      6,
+      6
+    ],
+    "tex_lines": [
+      4239,
+      4239
+    ],
+    "expected_retained_literal_stars_after_markdown": 3,
+    "actual_literal_stars_excluding_environment_names": 3,
+    "matches": true,
+    "note": "Equality establishes literal-star retention after parsed emphasis; whether emphasis was legitimate is separately inspected."
+  },
+  {
+    "source": "research/version15/quartics/quartic-222/provenance/shared-T-redundancy224-006/PROOF.md",
+    "source_lines": [
+      10,
+      10
+    ],
+    "tex_lines": [
+      4243,
+      4243
+    ],
+    "expected_retained_literal_stars_after_markdown": 1,
+    "actual_literal_stars_excluding_environment_names": 1,
+    "matches": true,
+    "note": "Equality establishes literal-star retention after parsed emphasis; whether emphasis was legitimate is separately inspected."
+  },
+  {
+    "source": "research/version15/quartics/quartic-222/provenance/shared-T-redundancy224-006/PROOF.md",
+    "source_lines": [
+      12,
+      12
+    ],
+    "tex_lines": [
+      4245,
+      4245
+    ],
+    "expected_retained_literal_stars_after_markdown": 4,
+    "actual_literal_stars_excluding_environment_names": 4,
+    "matches": true,
+    "note": "Equality establishes literal-star retention after parsed emphasis; whether emphasis was legitimate is separately inspected."
+  }
+]

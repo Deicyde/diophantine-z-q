@@ -1,0 +1,104 @@
+[
+  {
+    "consumer": "PR30-ALGEBRA",
+    "supplier": "PR30-FOUNDATIONS",
+    "use_ids": [
+      "SF02-recovery"
+    ],
+    "reason": "Direct mathematical interface"
+  },
+  {
+    "consumer": "PR30-HEIGHT",
+    "supplier": "PR30-FOUNDATIONS",
+    "use_ids": [
+      "SF11-geometry",
+      "SF13-geometricmetric",
+      "SF14-cm"
+    ],
+    "reason": "Direct mathematical interface"
+  },
+  {
+    "consumer": "PR30-ARITHMETIC",
+    "supplier": "PR30-ALGEBRA",
+    "use_ids": [
+      "SF38-arithmetic-recovery"
+    ],
+    "reason": "Direct mathematical interface"
+  },
+  {
+    "consumer": "PR30-ARITHMETIC",
+    "supplier": "PR30-HEIGHT",
+    "use_ids": [
+      "SF06-reflect"
+    ],
+    "reason": "Direct mathematical interface"
+  },
+  {
+    "consumer": "PR30-ARITHMETIC",
+    "supplier": "PR30-FOUNDATIONS",
+    "use_ids": [
+      "SF04-logs",
+      "SF05-aggregate",
+      "SF09-selection",
+      "SF28-rc",
+      "SF32-foundation"
+    ],
+    "reason": "Direct mathematical interface"
+  },
+  {
+    "consumer": "PR30-RECEIVING",
+    "supplier": "PR30-ALGEBRA",
+    "use_ids": [
+      "SF36-receiving-algebra"
+    ],
+    "reason": "Direct mathematical interface"
+  },
+  {
+    "consumer": "PR30-RECEIVING",
+    "supplier": "PR30-ARITHMETIC",
+    "use_ids": [
+      "SF34-receiving-arithmetic"
+    ],
+    "reason": "Direct mathematical interface"
+  },
+  {
+    "consumer": "PR30-RECEIVING",
+    "supplier": "PR30-HEIGHT",
+    "use_ids": [
+      "SF35-receiving-height"
+    ],
+    "reason": "Direct mathematical interface"
+  },
+  {
+    "consumer": "PR30-RECEIVING",
+    "supplier": "PR30-FOUNDATIONS",
+    "use_ids": [
+      "SF37-receiving-foundation"
+    ],
+    "reason": "Direct mathematical interface"
+  },
+  {
+    "consumer": "PR30-COMPUTATION",
+    "supplier": "PR30-ALGEBRA",
+    "use_ids": [],
+    "reason": "Retained computation/delivery prerequisite; no additional mathematical source use is asserted."
+  },
+  {
+    "consumer": "PR30-DELIVERY",
+    "supplier": "PR30-RECEIVING",
+    "use_ids": [],
+    "reason": "Retained computation/delivery prerequisite; no additional mathematical source use is asserted."
+  },
+  {
+    "consumer": "PR30-DELIVERY",
+    "supplier": "PR30-COMPUTATION",
+    "use_ids": [],
+    "reason": "Retained computation/delivery prerequisite; no additional mathematical source use is asserted."
+  },
+  {
+    "consumer": "PR30-DELIVERY",
+    "supplier": "PR30-INTEGRATION-POLICY",
+    "use_ids": [],
+    "reason": "Retained computation/delivery prerequisite; no additional mathematical source use is asserted."
+  }
+]

@@ -1,0 +1,47 @@
+{
+  "role": "author source/provenance comparison, not independent approval",
+  "author": "/root",
+  "date": "2026-11-12",
+  "protocol_online_identity": "Current GitHub elliotglazer/protocols Protocol_D.md returned through GitHub connector exactly matched local version1.4 bytes (55952 characters).",
+  "reviewed_argument": "Read full REPAIR.json and record-repair-001/REVIEW.md; eleven duplicate search-scope location objects were removed from six findings, retaining every distinct location and all connection assertions. The successor REVIEW.json pins the current dossier, connections, coverage report and assembly report, resolving the stale earlier standalone hashes without modifying history.",
+  "public_acceptance": "GitHub check130837506357 was success from App5663093 at PR31 head78b94cdacfd872c9151fecd1093ed45e9607bd47, with exact live audit identityed2045e97a89e640100f3d0d21f6f25f092d17e267c581973515a8bb3ca7b5d0. Saved separately.",
+  "identity_comparison": "Eight relevant source/native review objects are identical Git blobs at that head and PR30 e3626ca; comparison saved separately.",
+  "limits": [
+    "Public check does not disclose all private controller observation records.",
+    "This verifies historical protected acceptance and exact source identity, not current214 consumer compatibility.",
+    "Every changed214 use requires its own actual application comparison and current acceptance.",
+    "No PR30 protected App result is supplied."
+  ],
+  "source_bindings": [
+    {
+      "path": "docs/research-review/PROTOCOL.md",
+      "sha256": "3d16c4d58d030ff745460386b081eb21c8c0d3f375cbfb06c4f9777c235a12f9",
+      "bytes": 55964
+    },
+    {
+      "path": "research/version16/protocol/record-repair-001/REPAIR.json",
+      "sha256": "b203363489d54642041c00f94dee346dde3f6a736335255f81f88591b96eec95",
+      "bytes": 7982
+    },
+    {
+      "path": "research/version16/review/coverage/record-repair-001/REVIEW.md",
+      "sha256": "52bb8ba0ada9cbdb70b2b711cd05517b9532d36927b5fb55daa1b7c4cea3dff9",
+      "bytes": 4039
+    },
+    {
+      "path": "research/version16/review/coverage/record-repair-001/REVIEW.json",
+      "sha256": "ba7b54afa94cf4583d9c20167b333656ae16c80c866bee82b555ae6a682b310b",
+      "bytes": 3104
+    },
+    {
+      "path": "research/version16/review/coverage/record-repair-001/PROTOCOL14-COVERAGE-REVIEW.json",
+      "sha256": "7f7e0544d324b4ba19d5cb70151c98b31ae2a2a429483df7416d07812267b497",
+      "bytes": 2096814
+    },
+    {
+      "path": "research/version16/review/coverage/record-repair-001/ASSEMBLY-REVIEW.json",
+      "sha256": "667f8007a2af8d96a845cbf505ca001bf6a04dbb69d5a0667dd2e76d12a32957",
+      "bytes": 6187
+    }
+  ]
+}

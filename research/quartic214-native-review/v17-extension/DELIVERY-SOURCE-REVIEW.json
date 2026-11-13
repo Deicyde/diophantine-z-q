@@ -1,0 +1,60 @@
+{
+  "schema": "pr30-v17-delivery-source-review/v1",
+  "written_at": "2026-11-13T11:09:47.671553+00:00",
+  "reviewer": "/root/pr30_final_coverage",
+  "run_id": "01a1d47d-d45d-7ce1-9e38-96ed10c3b735",
+  "decision": "accepted_within_scope",
+  "files": [
+    {
+      "path": "research/version17/pack_handoff.py",
+      "sha256": "9a611ea3f53a2e3123c679f76c4c2a74a7249acaf75f3d8fb5731015cd796551"
+    },
+    {
+      "path": "research/version17/HANDOFF-BASE.json",
+      "sha256": "e5858636674c8b6ed7fdbe7b8e6c5c91a1f32b2f75f32b2b057236080a6cc014"
+    },
+    {
+      "path": "research/version17/CUMULATIVE-HANDOFF.md",
+      "sha256": "00ce8d169cc348ef443c795c1a217c9d92ac4415212118138d2b1454e760e820"
+    },
+    {
+      "path": "research/version17/README.md",
+      "sha256": "7e7de646b2b7676d30f756fcb99626d22bec32afc8a8ff9001ef55ed63397436"
+    },
+    {
+      "path": "research/version17/ARTIFACT-INDEX.md",
+      "sha256": "52cc0bf9803d5aa2c6018e810db2ec8be7fb69af998e2009078379b8eeb8b84b"
+    },
+    {
+      "path": "research/version17/RELEASE-NOTES.md",
+      "sha256": "c94259cb636635cf7df62a23c46fafcda7417df8d81245fa9ae2238ab558f982"
+    },
+    {
+      "path": "README.md",
+      "sha256": "e84e33cc5db9585814e70df6276c036639e6e014da57a11cb88c16545c59b0aa"
+    },
+    {
+      "path": "CURRENT_VERSION17.md",
+      "sha256": "4dc5adf07389e13e23adbf35ca77e6ecfb11cd8e55a75d09ca1fddaa9066d24b"
+    },
+    {
+      "path": "manuscripts/README.md",
+      "sha256": "12ae4a1956f7d1837b14d0c65d4c3d592677bd1ef3e85bab394e1d976b342cda"
+    },
+    {
+      "path": "CITATION.bib",
+      "sha256": "8cf406db3c1d6a0f51e7277e1f6a5ad0daaba3d8cb3f64a067e15168edfd6371"
+    },
+    {
+      "path": "docs/current-manuscript-build.md",
+      "sha256": "6d70be0af7a8513ed91b71508e7491e29ec932e1f2d50dedddba530328eb7eb7"
+    },
+    {
+      "path": "docs/audit-history/builder-binding.json",
+      "sha256": "9a81b683847e071e1304d8b904443d989a905d19883e83cdcc399f550bd98a9f"
+    }
+  ],
+  "reason": "Read complete canonical Git-tree packer, effective layer selection and freeze/final-tree archive path; independently reran all23 fixture checks. Immutable object IDs and raw cat-file blobs avoid checkout conversion and export filters. Byte/mode matches alone permit historical omission, all unproven paths remain overlay entries, exact final path set and executable bits are recorded, and archive readback checks each emitted blob plus the untouched historical ZIP. Navigation explicitly supersedes old current guides, preserves historical editions and keeps the coefficient threshold distinct from the ineffective defining threshold.",
+  "checks": "PACKER-PUBLIC-CHECKS.json contains actual independent executions. The exact current builder binding matches BUILDER-REVIEW.json and the unchanged historical V14 registry.",
+  "limitations": "Acceptance covers these frozen implementation and navigation bytes. No production MANIFEST.json, final Git tree, complete production archive, live CI, authenticated native application tuple or public-release completion is accepted by this source review. Those artifacts must be checked after creation. Earlier raw-worktree PLAN.json is superseded and is not canonical publication evidence."
+}

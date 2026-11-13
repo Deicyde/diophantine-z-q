@@ -1,0 +1,76 @@
+{
+  "status": "PASS",
+  "scope": "artifact hashes, bounded deterministic gzip decoding, preserved reviewer-record bytes, frozen external files, direct edge/consumer/excerpt/obligation presence; not mathematical validity or approval",
+  "entries": 61,
+  "negative_controls": [
+    {
+      "control": "stale-proof",
+      "rejected": true,
+      "reason": "stale-proof-or-record"
+    },
+    {
+      "control": "missing-direct-edge",
+      "rejected": true,
+      "reason": "missing-direct-edge"
+    },
+    {
+      "control": "missing-consumer",
+      "rejected": true,
+      "reason": "missing-consumer-passage"
+    },
+    {
+      "control": "missing-native-record-binding",
+      "rejected": true,
+      "reason": "missing-record-binding"
+    },
+    {
+      "control": "malformed-compression",
+      "rejected": true,
+      "reason": "malformed-compression-payload"
+    },
+    {
+      "control": "changed-uncompressed-evidence",
+      "rejected": true,
+      "reason": "logical-bytes-binding"
+    },
+    {
+      "control": "missing-obligation",
+      "rejected": true,
+      "reason": "missing-obligation"
+    },
+    {
+      "control": "stale-declared-repair-record",
+      "rejected": true,
+      "reason": "stale-proof-or-record"
+    },
+    {
+      "control": "missing-original-contract-record",
+      "rejected": true,
+      "reason": "missing-original-contract-binding"
+    },
+    {
+      "control": "stale-reviewed-rc-analytic-source",
+      "rejected": true,
+      "reason": "stale-reviewed-proof-or-contract"
+    },
+    {
+      "control": "stale-current-geometry-binding",
+      "rejected": true,
+      "reason": "stale-current-geometry-contract"
+    },
+    {
+      "control": "duplicate-external-binding",
+      "rejected": true,
+      "reason": "duplicate-external-binding"
+    }
+  ],
+  "maximum_rss_kib": 58108,
+  "address_space_limit_bytes": 536870912,
+  "audit_history_self_test": {
+    "status": "PASS",
+    "historical_negative_controls": 7,
+    "application_negative_controls": 29,
+    "scope": "existing audit-history structural checker; not current manuscript mathematical acceptance"
+  },
+  "validation_binding_note": "This result predates PACKET_MANIFEST creation to avoid a hash cycle; final read-only recheck validates that manifest without editing this result."
+}

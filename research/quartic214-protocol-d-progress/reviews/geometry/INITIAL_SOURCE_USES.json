@@ -1,0 +1,132 @@
+{
+  "reviewer": "/root/d214_geometry_source_closure",
+  "type": "model nonauthor review; controller eligibility not attested",
+  "frozen_commit": "e3626cac202cdbcdfedc2bff1978dcd3ea3fd3ab",
+  "prior_exposure": "Parent task named scopes and earlier accepted version, no existing application inventory or prior verdict files read before this freeze. Author proof geometry-carry itself reports historical scopes; this exposure cannot be removed. Governing protocols/policy read.",
+  "frozen_at_utc": "2026-11-12T15:23:08.723557+00:00",
+  "proof_sources": [
+    {
+      "path": "manuscripts/quartic_v16.tex",
+      "sha256": "aeb2b6a42a03943d7f8c46682389c8da693d2903ba92ccc164bbbd236451de74",
+      "lines": [
+        7734,
+        8076
+      ],
+      "excerpt_sha256": "9e4f8433236ec1801806fd89a8ccd2f9c24168918fdac96081d26a4e4d65ce5e"
+    },
+    {
+      "path": "manuscripts/quartic_v16.tex",
+      "sha256": "aeb2b6a42a03943d7f8c46682389c8da693d2903ba92ccc164bbbd236451de74",
+      "lines": [
+        8226,
+        8260
+      ],
+      "excerpt_sha256": "b888a615e553ad7a3692dce050ba85daca688ef7e45667e9651fb8d826f8b767"
+    },
+    {
+      "path": "research/quartic214/proofs/geometry-carry.md",
+      "sha256": "b3cb8201de84f733b0518ad68a9c0d0bc1e78534ffd39aca5d8c70f1bae69e76",
+      "lines": [
+        1,
+        81
+      ],
+      "excerpt_sha256": "b3cb8201de84f733b0518ad68a9c0d0bc1e78534ffd39aca5d8c70f1bae69e76"
+    },
+    {
+      "path": "research/quartic214/proofs/modularity.md",
+      "sha256": "814676050b389793d196346f45e2797f39e2c5be0f3fee8457bb709b2607606e",
+      "lines": [
+        1,
+        46
+      ],
+      "excerpt_sha256": "e2a5c21880370ef77c0ebaa0938de97b7b7bc4f1abff073570541bfd9c9647a0"
+    }
+  ],
+  "source_uses": [
+    {
+      "id": "G01",
+      "consumer": "V16 7737\u20137748",
+      "required_assertion": "fixed maximal order, positive involution, universal regular proper semistable maximal stack smooth away from210",
+      "proposed_supplier": "Buzzard pp591\u2013592; Yuan2024 \u00a72.1",
+      "initial_state": "Published supplier statements still to read"
+    },
+    {
+      "id": "G02",
+      "consumer": "V16 7752\u20137795",
+      "required_assertion": "nonempty entire Isom_O full3 marking, degree72 over stack, division rather than split local lattice at3",
+      "proposed_supplier": "Milne1986 8.2/8.4; Voight13.3.4/11; inline lattice and finite-etale descent",
+      "initial_state": "Inline lattice/principal ideal and size81/9/72 derivations reconstructed"
+    },
+    {
+      "id": "G03",
+      "consumer": "V16 7797\u20137841",
+      "required_assertion": "trivial arbitrary-base inertia and projective same scheme with universal abelian scheme",
+      "proposed_supplier": "Milne12.2; Stacks03YR/0ADD/0A18/0E83/0D3A/0D32/0B45; genus5 source",
+      "initial_state": "Congruence torsion calculation checked; source assertions pending"
+    },
+    {
+      "id": "G04",
+      "consumer": "V16 7843\u20137961",
+      "required_assertion": "whole canonical rational U(3) model with every component/multiplier, correct order labels and comparison maps",
+      "proposed_supplier": "MilneShimura2005 7.4/8.6/8.7/14.8/13.6\u20137 pp354\u2013355 + corrections; Buzzard principal polarization",
+      "initial_state": "Hodge orbit computation checked; integral perfect-polarization and canonical descent require primary comparison"
+    },
+    {
+      "id": "G05",
+      "consumer": "V16 7968\u20137981",
+      "required_assertion": "tame integral quotient P1 with exactly five disjoint branch sections index2",
+      "proposed_supplier": "stable extension/tame fixed locus derivation; prior genus5 W construction",
+      "initial_state": "Need exact predecessor construction and supplier scope; not determinant inference"
+    },
+    {
+      "id": "G06",
+      "consumer": "V16 7983\u20138017",
+      "required_assertion": "constant normalizer action whole curve, torsor576, normal field degree dividing576, all Hom L-defined",
+      "proposed_supplier": "Deligne1979 2.2.5/2.3.1; preceding canonical model; inline regular centralizer and Hom congruence",
+      "initial_state": "Finite-group and Hom reductions reconstructed; full canonical action pending"
+    },
+    {
+      "id": "G07",
+      "consumer": "geometry-carry G3",
+      "required_assertion": "all rational contacts incl infinity, even-depth unramified splitting field, good reduction over same L",
+      "proposed_supplier": "same tame model + proper fine universal scheme; determinant computation",
+      "initial_state": "Local case derivation reconstructed conditional on same scheme"
+    },
+    {
+      "id": "G08",
+      "consumer": "V16 8029\u20138076;8230\u20138255; geometry-carry G2; modularity M0",
+      "required_assertion": "actual conjugate isogenies over L, B-linearity not just F-linearity; full geometric End=B nonCM",
+      "proposed_supplier": "rational PEL same-Hodge lattice; Hodge equivalence; Hom descent",
+      "initial_state": "Map directions and 11-prime denominator clearing reconstructed; actual B-labelled canonical moduli pending"
+    },
+    {
+      "id": "G09",
+      "consumer": "modularity M1\u2013M2",
+      "required_assertion": "cochain produces actual representation with rho restricted G_Lprime=V_l(A), multiplicity2; continuous absolutely irreducible r",
+      "proposed_supplier": "M1 sign correction; Faltings1986 Theorem1(a,b); split B commutant",
+      "initial_state": "M1 not fully assigned here; M2 identity and algebra reconstructed conditional exact inputs"
+    },
+    {
+      "id": "G10",
+      "consumer": "modularity M2 deRham paragraph",
+      "required_assertion": "H1 dual Tate without twist; proper smooth comparison incl bad5; subobjects and local descent; weights0,-1",
+      "proposed_supplier": "Scholze2013 Cor1.8 Thm9.1/9.3 +2016 erratum; Milne1986 15.1(a); Fontaine1994 3.8; Kato2004 9.2",
+      "initial_state": "Need primary statements and transitions"
+    },
+    {
+      "id": "G11",
+      "consumer": "modularity M2 oddness paragraph",
+      "required_assertion": "complex-conjugation Betti operator transfers functorially to rational Tate, trace0 then eigenvalues1,-1",
+      "proposed_supplier": "Milne2005 6.8/6.9 + explicit lattice/torsion limit comparison",
+      "initial_state": "Inline comparison reconstructed; published equivalence statement pending"
+    },
+    {
+      "id": "G12",
+      "consumer": "geometry-carry G4",
+      "required_assertion": "height metric and CM854R over same field/R",
+      "proposed_supplier": "Yuan maximal-stack isometry; CM proof V16 later; GR2023",
+      "initial_state": "Current G4 read, full supplier proofs not read in this lane; no acceptance"
+    }
+  ],
+  "initial_verdict": "Incomplete source comparison, no acceptance. Inline derivations noted separately from unchecked external assertions."
+}
