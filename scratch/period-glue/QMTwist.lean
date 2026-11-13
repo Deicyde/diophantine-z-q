@@ -305,5 +305,267 @@ theorem qmLatticeTwistAlg_mpr (τ τ' : UpperHalfPlane) (hg : ∃ g ∈ PkgI1.Ga
 
 end HSyn.G0Split.FibreQM.PeriodGlue
 
+/-! ## Extension of `α ∈ Aut 𝒪` to `B` (copied verbatim from mobius-glue,
+`scratch/mobius-glue/MobiusGlue.lean` §7, namespace `PeriodGlue.AutOExt`) -/
+
+namespace PeriodGlue.AutOExt
+
+open LeafQM
+
+/-! ### Extension of a ring automorphism of `𝒪` to `B` -/
+
+theorem mem_O_of_int (z0 z1 z2 z3 : ℤ) : (⟨z0, z1, z2, z3⟩ : B) ∈ O := by
+  refine ⟨![z0 - z2, z1 - z3, 2 * z2, 2 * z3], ?_⟩
+  ext <;> simp [ofInt]
+
+theorem nat_smul_mem (n : ℕ) {x : B} (hx : x ∈ O) : (n : ℚ) • x ∈ O := by
+  rw [Algebra.smul_def, map_natCast]
+  exact O.mul_mem (natCast_mem O n) hx
+
+theorem den_mul_int (q : ℚ) (k : ℕ) : ∃ z : ℤ, ((k * q.den : ℕ) : ℚ) * q = z :=
+  ⟨k * q.num, by push_cast; rw [mul_assoc, Rat.den_mul_eq_num]⟩
+
+/-- Every element of `B` has a positive integer multiple in `𝒪`. -/
+theorem exists_nat_smul_mem (b : B) : ∃ m : ℕ, 0 < m ∧ (m : ℚ) • b ∈ O := by
+  set m := b.re.den * b.imI.den * b.imJ.den * b.imK.den with hm
+  refine ⟨m, by positivity, ?_⟩
+  obtain ⟨z0, h0⟩ := den_mul_int b.re (b.imI.den * b.imJ.den * b.imK.den)
+  obtain ⟨z1, h1⟩ := den_mul_int b.imI (b.re.den * b.imJ.den * b.imK.den)
+  obtain ⟨z2, h2⟩ := den_mul_int b.imJ (b.re.den * b.imI.den * b.imK.den)
+  obtain ⟨z3, h3⟩ := den_mul_int b.imK (b.re.den * b.imI.den * b.imJ.den)
+  have e : (m : ℚ) • b = ⟨z0, z1, z2, z3⟩ := by
+    ext
+    · rw [QuaternionAlgebra.re_smul, ← h0, smul_eq_mul, hm]; push_cast; ring
+    · rw [QuaternionAlgebra.imI_smul, ← h1, smul_eq_mul, hm]; push_cast; ring
+    · rw [QuaternionAlgebra.imJ_smul, ← h2, smul_eq_mul, hm]; push_cast; ring
+    · rw [QuaternionAlgebra.imK_smul, ← h3, smul_eq_mul, hm]
+  rw [e]
+  exact mem_O_of_int z0 z1 z2 z3
+
+variable (α : O ≃+* O)
+
+/-- A chosen positive integer `m` with `m b ∈ 𝒪`. -/
+def extDen (b : B) : ℕ := Classical.choose (exists_nat_smul_mem b)
+
+theorem extDen_pos (b : B) : 0 < extDen b := (Classical.choose_spec (exists_nat_smul_mem b)).1
+
+theorem extDen_mem (b : B) : ((extDen b : ℕ) : ℚ) • b ∈ O :=
+  (Classical.choose_spec (exists_nat_smul_mem b)).2
+
+/-- `α̃(b) = m⁻¹ α(m b)`. -/
+def extFun (b : B) : B := ((extDen b : ℚ)⁻¹) • (α ⟨_, extDen_mem b⟩ : B)
+
+theorem natCast_mul_eq_smul (n : ℕ) (x : B) : (n : B) * x = (n : ℚ) • x := by
+  rw [Algebra.smul_def, map_natCast]
+
+theorem alpha_nat_smul (n : ℕ) (x : B) (hx : x ∈ O) (hnx : (n : ℚ) • x ∈ O) :
+    (α ⟨_, hnx⟩ : B) = (n : ℚ) • (α ⟨x, hx⟩ : B) := by
+  have : (⟨_, hnx⟩ : O) = (n : O) * ⟨x, hx⟩ := by
+    apply Subtype.ext
+    simp only [MulMemClass.coe_mul, SubringClass.coe_natCast]
+    rw [natCast_mul_eq_smul]
+  rw [this, map_mul, map_natCast, MulMemClass.coe_mul, SubringClass.coe_natCast,
+    natCast_mul_eq_smul]
+
+/-- Independence of the choice of `m`. -/
+theorem extFun_eq (b : B) (m : ℕ) (hm : 0 < m) (hb : (m : ℚ) • b ∈ O) :
+    extFun α b = ((m : ℚ)⁻¹) • (α ⟨_, hb⟩ : B) := by
+  have hd : 0 < extDen b := extDen_pos b
+  have hdm : (m : ℚ) • ((extDen b : ℚ) • b) ∈ O := nat_smul_mem m (extDen_mem b)
+  have hmd : (extDen b : ℚ) • ((m : ℚ) • b) ∈ O := nat_smul_mem (extDen b) hb
+  have e1 := alpha_nat_smul α m _ (extDen_mem b) hdm
+  have e2 := alpha_nat_smul α (extDen b) _ hb hmd
+  have e3 : (⟨_, hdm⟩ : O) = ⟨_, hmd⟩ := Subtype.ext (smul_comm _ _ _)
+  rw [e3, e2] at e1
+  -- e1 : d • α(m b) = m • α(d b)
+  unfold extFun
+  have hX : (α ⟨_, extDen_mem b⟩ : B) = ((m : ℚ)⁻¹ * extDen b) • (α ⟨_, hb⟩ : B) := by
+    rw [mul_smul, e1, smul_smul, inv_mul_cancel₀ (by exact_mod_cast hm.ne'), one_smul]
+  rw [hX, smul_smul]
+  congr 1
+  have : (extDen b : ℚ) ≠ 0 := by exact_mod_cast hd.ne'
+  field_simp
+
+theorem extFun_coe (a : O) : extFun α a = α a := by
+  have h1 : ((1 : ℕ) : ℚ) • (a : B) ∈ O := by simp
+  rw [extFun_eq α a 1 one_pos h1]
+  have : (⟨_, h1⟩ : O) = a := Subtype.ext (by simp)
+  rw [this]; simp
+
+/-- A common multiplier for two elements. -/
+theorem common_den (b c : B) : ∃ m : ℕ, 0 < m ∧ (m : ℚ) • b ∈ O ∧ (m : ℚ) • c ∈ O := by
+  refine ⟨extDen b * extDen c, Nat.mul_pos (extDen_pos b) (extDen_pos c), ?_, ?_⟩
+  · have := nat_smul_mem (extDen c) (extDen_mem b)
+    rwa [smul_smul, ← Nat.cast_mul, mul_comm] at this
+  · have := nat_smul_mem (extDen b) (extDen_mem c)
+    rwa [smul_smul, ← Nat.cast_mul] at this
+
+theorem extFun_add (b c : B) : extFun α (b + c) = extFun α b + extFun α c := by
+  obtain ⟨m, hm, hb, hc⟩ := common_den b c
+  have hbc : (m : ℚ) • (b + c) ∈ O := by rw [smul_add]; exact O.add_mem hb hc
+  rw [extFun_eq α _ m hm hbc, extFun_eq α _ m hm hb, extFun_eq α _ m hm hc, ← smul_add]
+  congr 1
+  have : (⟨_, hbc⟩ : O) = ⟨_, hb⟩ + ⟨_, hc⟩ := Subtype.ext (by simp [smul_add])
+  rw [this, map_add]; rfl
+
+theorem smul_mul_smul' (r s : ℚ) (x y : B) : (r • x) * (s • y) = (r * s) • (x * y) := by
+  rw [smul_mul_assoc, mul_smul_comm, smul_smul]
+
+theorem extFun_mul (b c : B) : extFun α (b * c) = extFun α b * extFun α c := by
+  obtain ⟨m, hm, hb, hc⟩ := common_den b c
+  have hbc0 : ((m : ℚ) * m) • (b * c) ∈ O := by
+    rw [← smul_mul_smul']; exact O.mul_mem hb hc
+  have hbc : ((m * m : ℕ) : ℚ) • (b * c) ∈ O := by rw [Nat.cast_mul]; exact hbc0
+  have hprod : (⟨_, hbc⟩ : O) = ⟨_, hb⟩ * ⟨_, hc⟩ := by
+    apply Subtype.ext
+    show ((m * m : ℕ) : ℚ) • (b * c) = ((m : ℚ) • b) * ((m : ℚ) • c)
+    rw [smul_mul_smul', Nat.cast_mul]
+  have e1 : (α ⟨_, hbc⟩ : B) = (α ⟨_, hb⟩ : B) * (α ⟨_, hc⟩ : B) := by
+    rw [hprod, map_mul, MulMemClass.coe_mul]
+  rw [extFun_eq α _ (m * m) (Nat.mul_pos hm hm) hbc, extFun_eq α _ m hm hb,
+    extFun_eq α _ m hm hc, smul_mul_smul', e1, Nat.cast_mul, mul_inv]
+
+theorem extFun_algebraMap (q : ℚ) : extFun α (algebraMap ℚ B q) = algebraMap ℚ B q := by
+  have hq : ((q.den : ℕ) : ℚ) • algebraMap ℚ B q ∈ O := by
+    rw [Algebra.smul_def, ← map_mul, Rat.den_mul_eq_num, map_intCast]
+    exact intCast_mem O q.num
+  rw [extFun_eq α _ q.den q.den_pos hq]
+  have : (⟨_, hq⟩ : O) = (q.num : O) := Subtype.ext (by
+    simp only [SubringClass.coe_intCast]
+    rw [Algebra.smul_def, ← map_mul, Rat.den_mul_eq_num, map_intCast])
+  rw [this, map_intCast, SubringClass.coe_intCast, ← map_intCast (algebraMap ℚ B),
+    Algebra.smul_def, ← map_mul]
+  congr 1
+  rw [inv_mul_eq_div, Rat.num_div_den]
+
+/-- The extension `α̃ : B → B` as a `ℚ`-algebra map. -/
+def extAlgHom : B →ₐ[ℚ] B where
+  toFun := extFun α
+  map_one' := by simpa using extFun_coe α 1
+  map_zero' := by simpa using extFun_coe α 0
+  map_add' := extFun_add α
+  map_mul' := extFun_mul α
+  commutes' := extFun_algebraMap α
+
+theorem extAlgHom_apply (b : B) : extAlgHom α b = extFun α b := rfl
+
+theorem extAlgHom_coe (a : O) : extAlgHom α a = α a := extFun_coe α a
+
+theorem extAlgHom_symm_comp : (extAlgHom α.symm).comp (extAlgHom α) = AlgHom.id ℚ B := by
+  refine AlgHom.ext fun b => ?_
+  change extAlgHom α.symm (extFun α b) = b
+  rw [extFun_eq α b (extDen b) (extDen_pos b) (extDen_mem b), map_smul, extAlgHom_coe,
+    RingEquiv.symm_apply_apply, smul_smul, inv_mul_cancel₀ (by exact_mod_cast (extDen_pos b).ne'),
+    one_smul]
+
+/-- The extension as a `ℚ`-algebra automorphism of `B`. -/
+def extAlgEquiv : B ≃ₐ[ℚ] B :=
+  AlgEquiv.ofAlgHom (extAlgHom α) (extAlgHom α.symm)
+    (by simpa using extAlgHom_symm_comp α.symm) (extAlgHom_symm_comp α)
+
+theorem extAlgEquiv_apply (b : B) : extAlgEquiv α b = extFun α b := rfl
+
+/-- **Every automorphism of `𝒪` is inner (proved from Skolem–Noether).** `LeafSkolemNoether` is
+the kernel's `GlueDescent.LeafSkolemNoether` (copied verbatim in `PGBase`), which the kernel proves
+(`TSkolemKW.leafSkolemNoether`, `ZInQKernel/HDecomp/Textbook/SkolemNoether.lean`; it cannot be
+imported next to the scratch copy). -/
+theorem autO_inner (hSN : GlueDescent.LeafSkolemNoether) (α : O ≃+* O) :
+    ∃ u : Bˣ, ∀ a : O, ((α a : O) : B) = u * a * ((u⁻¹ : Bˣ) : B) := by
+  obtain ⟨u, hu⟩ := GlueDescent.B6_inner hSN (extAlgEquiv α)
+  exact ⟨u, fun a => by rw [← extFun_coe α a]; exact hu a⟩
+
+end PeriodGlue.AutOExt
+
+namespace HSyn.G0Split.FibreQM.PeriodGlue
+
+open scoped Matrix
+open ZInQ LeafQM.AV HSyn.G0Split.FibreQM HSyn.G0Split.FibreQM.PeriodMapH
+
+theorem cM_apply (x : LeafQM.B) : cM x =
+    !![((x.re : ℝ) : ℂ) + (x.imI : ℝ) * (√2 : ℝ), -3 * ((x.imJ : ℝ) : ℂ) - 3 * (√2 : ℝ) * (x.imK : ℝ);
+       ((x.imJ : ℝ) : ℂ) - (√2 : ℝ) * (x.imK : ℝ), ((x.re : ℝ) : ℂ) - (x.imI : ℝ) * (√2 : ℝ)] := by
+  unfold cM
+  have : BPAnalytic.QM.iota x = PkgI1.iota x := rfl
+  rw [this, PeriodMap.iota_apply]
+  ext i j
+  fin_cases i <;> fin_cases j <;> simp
+
+/-- `b ↦ ι(b)(τ, 1)ᵀ` is injective on `B` for `τ ∉ ℝ`. -/
+theorem latVec_eq_zero {c : LeafQM.B} {τ : ℂ} (hτ : τ.im ≠ 0)
+    (h : BPAnalytic.QM.latVec c τ = 0) : c = 0 := by
+  rw [latVec_eq, cM_apply] at h
+  have h0 := congrFun h 0
+  have h1 := congrFun h 1
+  simp [Matrix.mulVec, dotProduct, Fin.sum_univ_two] at h0 h1
+  have h0r := congrArg Complex.re h0
+  have h0i := congrArg Complex.im h0
+  have h1r := congrArg Complex.re h1
+  have h1i := congrArg Complex.im h1
+  simp at h0r h0i h1r h1i
+  have hs : (0 : ℝ) < √2 := Real.sqrt_pos.mpr (by norm_num)
+  have a1 : (c.re : ℝ) + c.imI * √2 = 0 := by
+    rcases h0i with h | h
+    · exact h
+    · exact absurd h hτ
+  have a2 : (c.imJ : ℝ) - √2 * c.imK = 0 := by
+    rcases h1i with h | h
+    · exact h
+    · exact absurd h hτ
+  have b1 : -3 * (c.imJ : ℝ) - 3 * √2 * c.imK = 0 := by
+    have := h0r; rw [a1] at this; linarith
+  have b2 : (c.re : ℝ) - c.imI * √2 = 0 := by
+    have := h1r; rw [a2] at this; linarith
+  have e0 : (c.re : ℝ) = 0 := by linarith
+  have e1 : (c.imI : ℝ) = 0 := by
+    have : (c.imI : ℝ) * √2 = 0 := by linarith
+    exact (mul_eq_zero.mp this).resolve_right hs.ne'
+  have e3 : (c.imK : ℝ) = 0 := by
+    have : √2 * (c.imK : ℝ) = 0 := by linarith
+    exact (mul_eq_zero.mp this).resolve_left hs.ne'
+  have e2 : (c.imJ : ℝ) = 0 := by linarith
+  ext
+  · exact_mod_cast e0
+  · exact_mod_cast e1
+  · exact_mod_cast e2
+  · exact_mod_cast e3
+
+/-- A linear map commuting with `ι(i)` and `ι(j)` is a scalar. -/
+theorem scalar_of_commute (N : (Fin 2 → ℂ) →ₗ[ℂ] (Fin 2 → ℂ))
+    (hi : ∀ z, N (cM ⟨0, 1, 0, 0⟩ *ᵥ z) = cM ⟨0, 1, 0, 0⟩ *ᵥ N z)
+    (hj : ∀ z, N (cM ⟨0, 0, 1, 0⟩ *ᵥ z) = cM ⟨0, 0, 1, 0⟩ *ᵥ N z) :
+    ∃ p : ℂ, ∀ z, N z = p • z := by
+  have hs : ((√2 : ℝ) : ℂ) ≠ 0 := by
+    exact_mod_cast (Real.sqrt_pos.mpr (by norm_num : (0:ℝ) < 2)).ne'
+  set A := LinearMap.toMatrix' N with hA
+  have hN : ∀ z, N z = A *ᵥ z := fun z => by
+    rw [hA, ← Matrix.toLin'_apply, Matrix.toLin'_toMatrix']
+  have comm : ∀ x : LeafQM.B, (∀ z, N (cM x *ᵥ z) = cM x *ᵥ N z) → A * cM x = cM x * A := by
+    intro x hx
+    apply Matrix.toLin'.injective
+    refine LinearMap.ext fun z => ?_
+    rw [Matrix.toLin'_apply, Matrix.toLin'_apply, ← Matrix.mulVec_mulVec, ← Matrix.mulVec_mulVec,
+      ← hN, ← hN, hx]
+  have hAi := comm _ hi
+  have hAj := comm _ hj
+  rw [cM_apply] at hAi hAj
+  have i01 := congrFun (congrFun hAi 0) 1
+  have i10 := congrFun (congrFun hAi 1) 0
+  have j01 := congrFun (congrFun hAj 0) 1
+  simp [Matrix.mul_apply, Fin.sum_univ_two] at i01 i10 j01
+  have a01 : A 0 1 = 0 := by
+    have : 2 * ((√2 : ℝ) : ℂ) * A 0 1 = 0 := by linear_combination -i01
+    simpa [hs] using this
+  have a10 : A 1 0 = 0 := by
+    have : 2 * ((√2 : ℝ) : ℂ) * A 1 0 = 0 := by linear_combination i10
+    simpa [hs] using this
+  have a11 : A 1 1 = A 0 0 := by
+    linear_combination (-1/3 : ℂ) * j01
+  refine ⟨A 0 0, fun z => ?_⟩
+  rw [hN]
+  ext k
+  fin_cases k <;> simp [Matrix.mulVec, dotProduct, Fin.sum_univ_two, a01, a10, a11]
+
+end HSyn.G0Split.FibreQM.PeriodGlue
+
 #print axioms HSyn.G0Split.FibreQM.PeriodGlue.qmTwistLattice_of
 #print axioms HSyn.G0Split.FibreQM.PeriodGlue.qmLatticeTwistAlg_mpr
