@@ -346,4 +346,117 @@ theorem picClass_conj (σ : QNeg d ≃ₐ[ℚ] QNeg d) (hσ : σ ≠ 1)
 
 end ConjInverse
 
+section Normality
+
+open TauCeti.GlobalNumberFields.NumberFieldOrder ZInQ.RouteK.Redei ZInQ.RouteK.Rank5b
+open scoped Pointwise
+
+variable {d : ℕ} [NeZero d]
+
+/-- The image of a `K`-normal subfield under a `ℚ`-automorphism of `Kˢ` is `K`-normal. -/
+theorem normal_conjField (τ : SeparableClosure (QNeg d) ≃ₐ[ℚ] SeparableClosure (QNeg d))
+    (c : QNeg d ≃ₐ[ℚ] QNeg d)
+    (hτ : ∀ x, τ (algebraMap (QNeg d) (SeparableClosure (QNeg d)) x) =
+      algebraMap (QNeg d) (SeparableClosure (QNeg d)) (c x))
+    (E : IntermediateField (QNeg d) (SeparableClosure (QNeg d))) [Normal (QNeg d) E] :
+    Normal (QNeg d) (conjField (τ : SeparableClosure (QNeg d) →ₐ[ℚ] SeparableClosure (QNeg d))
+      c hτ E) := by
+  rw [IntermediateField.normal_iff_forall_map_le']
+  intro g
+  rintro _ ⟨y, ⟨x, hx, rfl⟩, rfl⟩
+  have hτs : ∀ k, τ.symm (algebraMap (QNeg d) (SeparableClosure (QNeg d)) (c k)) =
+      algebraMap (QNeg d) (SeparableClosure (QNeg d)) k := by
+    intro k; rw [← hτ, AlgEquiv.symm_apply_apply]
+  let g' : Gal(SeparableClosure (QNeg d)/QNeg d) :=
+    AlgEquiv.ofRingEquiv (f := τ.toRingEquiv.trans (g.toRingEquiv.trans τ.symm.toRingEquiv))
+      (fun k => by
+        simp only [RingEquiv.trans_apply, AlgEquiv.toRingEquiv_eq_coe, AlgEquiv.coe_ringEquiv]
+        rw [hτ, AlgEquiv.commutes, hτs])
+  have hg' : g' x ∈ E :=
+    (IntermediateField.normal_iff_forall_map_le'.1 inferInstance g') ⟨x, hx, rfl⟩
+  refine ⟨g' x, hg', ?_⟩
+  simp [g']
+
+/-- The subfield of `H_{d,4}` cut out by `S ≤ Pic(O_{d,4})`. -/
+abbrev ringSubfield (S : Subgroup (Pic (O4 d))) :
+    IntermediateField (QNeg d) (SeparableClosure (QNeg d)) :=
+  IntermediateField.lift (IntermediateField.fixedField (S.map (ringClassArtinEquiv (O4 d)).toMonoidHom))
+
+instance (S : Subgroup (Pic (O4 d))) : FiniteDimensional (QNeg d) (ringSubfield S) :=
+  LinearEquiv.finiteDimensional (IntermediateField.liftAlgEquiv _).toLinearEquiv
+
+instance (S : Subgroup (Pic (O4 d))) : IsGalois (QNeg d) (ringSubfield S) := by
+  have : (S.map (ringClassArtinEquiv (O4 d)).toMonoidHom).Normal := Subgroup.normal_of_comm _
+  exact IsGalois.of_algEquiv (IntermediateField.liftAlgEquiv _)
+
+theorem finite_conductor_primes :
+    {𝔭 : HeightOneSpectrum (𝓞 (QNeg d)) | (O4 d).conductor ≤ 𝔭.asIdeal}.Finite := by
+  have h := Ideal.finite_factors (R := 𝓞 (QNeg d)) (I := (O4 d).conductor)
+    (by simpa using (O4 d).conductor_ne_bot)
+  refine h.subset fun 𝔭 h𝔭 => ?_
+  exact Ideal.dvd_iff_le.2 h𝔭
+
+theorem mem_primeTo_of_not_le (𝔭 : HeightOneSpectrum (𝓞 (QNeg d)))
+    (h : ¬ (O4 d).conductor ≤ 𝔭.asIdeal) :
+    𝔭.asIdeal ∈ integralIdealsPrimeTo (O4 d).conductorModulus := by
+  rw [Modulus.mem_integralIdealsPrimeTo, Modulus.isCoprimeTo_iff_sup_eq_top,
+    conductorModulus_finitePart]
+  refine ⟨𝔭.ne_bot, ?_⟩
+  by_contra hne
+  exact h ((𝔭.isMaximal.eq_of_le hne le_sup_left).symm ▸ le_sup_right)
+
+/-- **`τ(E_S) ⊆ E_S`** for a `ℚ`-automorphism `τ` of `Kˢ` acting on `K` by the nontrivial
+automorphism `σ` (Bauer's theorem with `picClass_conj`). -/
+theorem conjField_ringSubfield_le (τ : SeparableClosure (QNeg d) ≃ₐ[ℚ] SeparableClosure (QNeg d))
+    (σ : QNeg d ≃ₐ[ℚ] QNeg d) (hσ : σ ≠ 1)
+    (hτ : ∀ x, τ (algebraMap (QNeg d) (SeparableClosure (QNeg d)) x) =
+      algebraMap (QNeg d) (SeparableClosure (QNeg d)) (σ x))
+    (S : Subgroup (Pic (O4 d))) :
+    conjField (τ : SeparableClosure (QNeg d) →ₐ[ℚ] SeparableClosure (QNeg d)) σ hτ
+      (ringSubfield S) ≤ ringSubfield S := by
+  set E := ringSubfield S
+  set E' := conjField (τ : SeparableClosure (QNeg d) →ₐ[ℚ] SeparableClosure (QNeg d)) σ hτ E
+  have hfr : Module.finrank (QNeg d) E' = Module.finrank (QNeg d) E := finrank_conjField _ _ _ _
+  have : FiniteDimensional (QNeg d) E' :=
+    Module.finite_of_finrank_pos (by rw [hfr]; exact Module.finrank_pos)
+  have : Normal (QNeg d) E' := normal_conjField τ σ hτ E
+  have : IsGalois (QNeg d) E' := IsGalois.mk
+  refine le_of_splitSet_diff_subset _ finite_conductor_primes ?_
+  rintro 𝔭 ⟨h𝔭, hT𝔭⟩
+  have hJ := mem_primeTo_of_not_le 𝔭 hT𝔭
+  have : ((⟨𝔭.asIdeal, hJ⟩ : integralIdealsPrimeTo (O4 d).conductorModulus) :
+    Ideal (𝓞 (QNeg d))).IsMaximal := 𝔭.isMaximal
+  have hS : (O4 d).picClass ⟨_, hJ⟩ ∈ S := (mem_splitSet_iff (O4 d) S ⟨_, hJ⟩ 𝔭 rfl).1 h𝔭
+  have hp := conj_mem_primeTo σ⁻¹ hJ
+  have hpS : (O4 d).picClass ⟨_, hp⟩ ∈ S := by
+    rw [picClass_conj σ⁻¹ (inv_ne_one.2 hσ) ⟨_, hJ⟩]; exact inv_mem hS
+  have : (𝔭.asIdeal.comap (cO σ⁻¹).symm).IsMaximal := Ideal.comap_isMaximal_of_equiv _
+  let 𝔮 : HeightOneSpectrum (𝓞 (QNeg d)) :=
+    ⟨𝔭.asIdeal.comap (cO σ⁻¹).symm, inferInstance, by
+      intro h
+      rw [Ideal.comap_symm, Ideal.map_eq_bot_iff_of_injective (cO σ⁻¹).injective] at h
+      exact 𝔭.ne_bot h⟩
+  have : ((⟨_, hp⟩ : integralIdealsPrimeTo (O4 d).conductorModulus) :
+    Ideal (𝓞 (QNeg d))).IsMaximal := (inferInstance : (𝔭.asIdeal.comap (cO σ⁻¹).symm).IsMaximal)
+  have h𝔮 : 𝔮 ∈ splitSet (QNeg d) E := (mem_splitSet_iff (O4 d) S ⟨_, hp⟩ 𝔮 rfl).2 hpS
+  have htr := ncard_primesOver_conjField (τ : SeparableClosure (QNeg d) →ₐ[ℚ] _) σ hτ E
+    (𝔭.asIdeal.comap (cO σ⁻¹).symm)
+  have hpp : (𝔭.asIdeal.comap (cO σ⁻¹).symm).comap
+      ((RingOfIntegers.mapRingEquiv σ.toRingEquiv).symm : 𝓞 (QNeg d) →+* 𝓞 (QNeg d)) =
+      𝔭.asIdeal := by
+    ext x
+    simp only [Ideal.mem_comap]
+    have : (cO σ⁻¹).symm ((RingOfIntegers.mapRingEquiv σ.toRingEquiv).symm x) = x := by
+      apply RingOfIntegers.ext
+      simp only [RingOfIntegers.mapRingEquiv_symm_apply]
+      rw [show σ⁻¹ = σ.symm from rfl]
+      exact σ.apply_symm_apply (x : QNeg d)
+    rw [RingHom.coe_coe, this]
+  rw [hpp] at htr
+  change (𝔭.asIdeal.primesOver (𝓞 E')).ncard = Module.finrank (QNeg d) E'
+  rw [hfr, ← htr]
+  exact h𝔮
+
+end Normality
+
 end ZInQ.Contrib.TYZGenus.RingClass
