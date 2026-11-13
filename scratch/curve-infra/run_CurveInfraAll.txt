@@ -1,0 +1,14 @@
+scratch/curve-infra/CurveInfraAll.lean:362:43: warning: Variable name `hU` is not explicitly referenced.
+
+Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+  [apply] _hU
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+'CurveInfra.dimEqTrdeg' depends on axioms: [propext, Classical.choice, Quot.sound]
+'CurveInfra.dimEqTrdegAlg' depends on axioms: [propext, Classical.choice, Quot.sound]
+'CurveInfra.algDepOfTrdegOne' depends on axioms: [propext, Classical.choice, Quot.sound]
+'CurveInfra.smoothTrdeg' depends on axioms: [propext, Classical.choice, Quot.sound]
+'CurveInfra.curveFnFieldAlgDep' depends on axioms: [propext, Classical.choice, Quot.sound]
+'CurveInfra.dimEqTrdegOver' depends on axioms: [propext, Classical.choice, Quot.sound]
+'CurveInfra.smoothTrdegOver' depends on axioms: [propext, Classical.choice, Quot.sound]
+'CurveInfra.curveAlgOverTranscendental' depends on axioms: [propext, Classical.choice, Quot.sound]
