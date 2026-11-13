@@ -67,6 +67,20 @@ def BdRContainsQbar : Prop :=
   ∀ (p : ℕ) [Fact p.Prime], ∃ ι : PadicAlgCl p →ₐ[ℚ_[p]] PkgI4.BdR p,
     ∀ (σ : PkgI4.GQp p) (x : PadicAlgCl p), PkgI4.bdrAct p σ (ι x) = ι (σ x)
 
+/-- `F' ⊆ B_dR` semilinearly, for every finite Galois `F/ℚ_p` (`F' = fieldF p F ⊆ ℚ̄_p`).
+Not a bridge: implied by `BdRContainsQbar` (`fieldEmbBdR_of_bdRContainsQbar`) and proved outright
+in `Final.lean` from the second run's `iotaDR` (`G9.lean`). -/
+def FieldEmbBdR : Prop :=
+  ∀ (p : ℕ) [Fact p.Prime] (F : Type) [Field F] [Algebra ℚ_[p] F] [FiniteDimensional ℚ_[p] F]
+    [IsGalois ℚ_[p] F], ∃ ι' : fieldF p F →ₐ[ℚ_[p]] PkgI4.BdR p,
+      ∀ (σ : PkgI4.GQp p) (x : fieldF p F), PkgI4.bdrAct p σ (ι' x) = ι' (gammaF p F σ x)
+
+theorem fieldEmbBdR_of_bdRContainsQbar (h : BdRContainsQbar) : FieldEmbBdR := by
+  intro p _ F _ _ _ _
+  obtain ⟨ι, hι⟩ := h p
+  exact ⟨ι.comp (fieldF p F).val, fun σ x => by
+    simp only [AlgHom.comp_apply, IntermediateField.coe_val, hι, gammaF_apply_coe]⟩
+
 end G9Bridge
 
 section Assembly
@@ -109,13 +123,14 @@ theorem twistPair_apply (r : GaloisRep ℓ 2) (g : PkgI4.GQ)
 
 end Assembly
 
-/-- **G9 (N5's Lemma `lem:de-rham-descent`), from the three bridges.** -/
-theorem g9Glue_of_bridges (hLM : G9Bridge.LocalModel) (hW : G9Bridge.R10Weights)
-    (hB : G9Bridge.BdRContainsQbar) : G9Glue := by
+/-- **G9 (N5's Lemma `lem:de-rham-descent`), from `LocalModel`, `R10Weights` and an
+embedding `F' ⊆ B_dR`.** -/
+theorem g9Glue_of_fieldEmb (hLM : G9Bridge.LocalModel) (hW : G9Bridge.R10Weights)
+    (hB : G9Bridge.FieldEmbBdR) : G9Glue := by
   intro hR10 _hT23 K _ _ A ℓ _ r e hdim hint
   obtain ⟨F, _, _, _, _, A', j, c, g, hdim', hc, hg⟩ := hLM K A ℓ hdim
   obtain ⟨hdR, h0, h1⟩ := hR10 ℓ F A' 2 (by rw [hdim']; rfl)
-  obtain ⟨ιB, hιB⟩ := hB ℓ
+  obtain ⟨ιB, hιB⟩ := hB ℓ F
   let cb : PadicAlgCl ℓ ⊗[ℚ_[ℓ]] A'.V ℓ ≃ₗ[PadicAlgCl ℓ] PadicAlgCl ℓ ⊗[ℚ_[ℓ]] A.V ℓ :=
     LinearEquiv.baseChange ℚ_[ℓ] (PadicAlgCl ℓ) _ _ c
   let e' := (cb.trans e).trans (twistPair r g)
@@ -145,14 +160,20 @@ theorem g9Glue_of_bridges (hLM : G9Bridge.LocalModel) (hW : G9Bridge.R10Weights)
     coef_descent ℓ F (A'.galRep ℓ) (r.restrictLocal ℓ) e' he'
   have hw : ∀ w : ℤ, w ≠ 0 → w ≠ -1 → htMultOver ℓ (A'.galRep ℓ) w = 0 :=
     fun w hw0 hw1 => hW ℓ F A' w hw0 hw1
-  exact ⟨⟨E, hE, ρE, hmap, core_dR ℓ F ιB hιB (A'.galRep ℓ) ρE eE he hdR⟩,
+  exact ⟨⟨E, hE, ρE, hmap, core_dR_F ℓ F ιB hιB (A'.galRep ℓ) ρE eE he hdR⟩,
     ⟨E, hE, ρE, hmap, core_ht ℓ F (A'.galRep ℓ) ρE eE he h0 h1 hw⟩⟩
+
+/-- **G9 from the three bridges.** -/
+theorem g9Glue_of_bridges (hLM : G9Bridge.LocalModel) (hW : G9Bridge.R10Weights)
+    (hB : G9Bridge.BdRContainsQbar) : G9Glue :=
+  g9Glue_of_fieldEmb hLM hW (G9Bridge.fieldEmbBdR_of_bdRContainsQbar hB)
 
 end
 
 end ZInQ.Contrib.G9
 
 #print axioms ZInQ.Contrib.G9.g9Glue_of_bridges
+#print axioms ZInQ.Contrib.G9.g9Glue_of_fieldEmb
 #print axioms ZInQ.Contrib.G9.core_ht
 #print axioms ZInQ.Contrib.G9.core_dR
 #print axioms ZInQ.Contrib.G9.coef_descent

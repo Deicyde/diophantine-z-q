@@ -129,3 +129,17 @@
 - Coordination: the parallel session g9-derham-c7 owns Reduction.lean (G9Glue), docs/research/g9-derham.md
   and .fleet/g9-derham.md; it will import G9.lean (`iotaDR`, `bdrAct_iotaDR`) to drop its
   BdRContainsQbar bridge. This session writes no further Lean.
+
+## 05:45 (main run) Final.lean; coordination with the second run (g9-derham-3c)
+- A second run of this task committed in the same worktree: KerTheta, HenselEmb, BdREmb, Local, G9,
+  G9Weights (its `iotaDR : fieldF p F →ₐ[ℚ_p] BdR p`, `bdrAct_iotaDR`). Agreed split: main run owns
+  the G9Glue reduction and the final docs; clashing top-level names renamed on both sides
+  (mine: `*_eq_DspMat`, `*_eq_DspRep`, `finrank_dvd_Dsp_core`).
+- LocalCore: added `core_count_F`, `core_dR_F` (embedding of F' only). Reduction: added
+  `G9Bridge.FieldEmbBdR`, `fieldEmbBdR_of_bdRContainsQbar`, `g9Glue_of_fieldEmb`.
+- `Final.lean`: `fieldEmbBdR : G9Bridge.FieldEmbBdR` (from iotaDR) and
+  `g9Glue_of_localModel : G9Bridge.LocalModel → G9Bridge.R10Weights → G9Glue`.
+  VERIFIED: `lake build ZInQKernel.Contrib.G9.Final` OK; #print axioms → [propext, Classical.choice,
+  Quot.sound] for both. Bridge F3 eliminated.
+- VERIFIED: scratch/g9-derham/AllImports.lean (imports Final and G9Weights) compiles: no name clash
+  across the G9 directory.

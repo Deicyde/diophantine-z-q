@@ -174,7 +174,7 @@ theorem overF_count_gen {C : Type*} [Field C] [Algebra K C] [FiniteDimensional K
 
 /-- If `L` acts on `B` through `ι`, commuting with `act g` for `g ∈ S`, then `[L:K]` divides
 `dim_K Dsp(S)`. -/
-theorem finrank_dvd_Dsp {B : Type*} [CommRing B] [Algebra K B] (act : G → B →ₗ[K] B)
+theorem finrank_dvd_Dsp_core {B : Type*} [CommRing B] [Algebra K B] (act : G → B →ₗ[K] B)
     {V : Type*} [AddCommGroup V] [Module K V] (ρ : G → V →ₗ[K] V) (S : Set G)
     {L : Type*} [Field L] [Algebra K L] (ι : L →ₐ[K] B)
     (h : ∀ g ∈ S, ∀ x b, act g (ι x * b) = ι x * act g b) :
@@ -216,22 +216,22 @@ theorem matRep_apply {n : ℕ} {E : IntermediateField ℚ_[p] (PadicAlgCl p)}
 
 variable {E : IntermediateField ℚ_[p] (PadicAlgCl p)} [FiniteDimensional ℚ_[p] E] {n : ℕ}
 
-theorem ddrSpace_eq_Dsp (ρE : GQp p →* GL (Fin n) E) :
+theorem ddrSpace_eq_DspMat (ρE : GQp p →* GL (Fin n) E) :
     ddrSpace p ρE = Dsp (drAct p) (matRep p ρE) Set.univ :=
   Submodule.ext fun _ => ⟨fun h σ _ v => h σ v, fun h σ v => h σ trivial v⟩
 
-theorem htSpace_eq_Dsp (ρE : GQp p →* GL (Fin n) E) (i : ℤ) :
+theorem htSpace_eq_DspMat (ρE : GQp p →* GL (Fin n) E) (i : ℤ) :
     htSpace p ρE i = Dsp (htAct p i) (matRep p ρE) Set.univ :=
   Submodule.ext fun _ => ⟨fun h σ _ v => h σ v, fun h σ v => h σ trivial v⟩
 
 variable (F : Type*) [Field F] [Algebra ℚ_[p] F] [FiniteDimensional ℚ_[p] F]
   {V : Type*} [AddCommGroup V] [Module ℚ_[p] V]
 
-theorem ddrSpaceOver_eq_Dsp (ρ : Representation ℚ_[p] (Field.absoluteGaloisGroup F) V) :
+theorem ddrSpaceOver_eq_DspRep (ρ : Representation ℚ_[p] (Field.absoluteGaloisGroup F) V) :
     ddrSpaceOver p ρ = Dsp (fun σ => drAct p (gfToGqp p F σ)) (fun σ => ρ σ) Set.univ :=
   Submodule.ext fun _ => ⟨fun h σ _ v => h σ v, fun h σ v => h σ trivial v⟩
 
-theorem htSpaceOver_eq_Dsp (ρ : Representation ℚ_[p] (Field.absoluteGaloisGroup F) V) (i : ℤ) :
+theorem htSpaceOver_eq_DspRep (ρ : Representation ℚ_[p] (Field.absoluteGaloisGroup F) V) (i : ℤ) :
     htSpaceOver p ρ i = Dsp (fun σ => htAct p i (gfToGqp p F σ)) (fun σ => ρ σ) Set.univ :=
   Submodule.ext fun _ => ⟨fun h σ _ v => h σ v, fun h σ v => h σ trivial v⟩
 
@@ -256,9 +256,31 @@ theorem Dsp_gf_eq {B : Type*} [AddCommGroup B] [Module ℚ_[p] B]
   · intro h σ _ v
     exact h _ (by rw [SetLike.mem_coe, ← range_gfToGqp]; exact ⟨σ, rfl⟩) v
 
-/-- **The count.** For an action `act` of `G_{ℚ_p}` on a `ℚ_p`-algebra `B` containing `ℚ̄_p`
-equivariantly: `[E:ℚ_p] · dim D_F(V) = 2 [F:ℚ_p] · dim D_{ℚ_p}(ρE)` and
-`[F:ℚ_p] ∣ dim D_F(V)`. -/
+/-- **The count**, for an embedding of `F' ⊆ ℚ̄_p` into `B` semilinear for the action:
+`[E:ℚ_p] · dim D_F(V) = 2 [F:ℚ_p] · dim D_{ℚ_p}(ρE)` and `[F:ℚ_p] ∣ dim D_F(V)`. -/
+theorem core_count_F {B : Type*} [CommRing B] [Algebra ℚ_[p] B]
+    (act : GQp p →* (B →ₗ[ℚ_[p]] B)) (ι' : fieldF p F →ₐ[ℚ_[p]] B)
+    (hsemi : ∀ g x b, act g (ι' x * b) = ι' (gammaF p F g x) * act g b)
+    (ρ : Representation ℚ_[p] (Field.absoluteGaloisGroup F) V) (ρE : GQp p →* GL (Fin 2) E)
+    (eE : E ⊗[ℚ_[p]] V ≃ₗ[E] (Fin 2 → E) × (Fin 2 → E))
+    (he : ∀ σ x, eE ((ρ σ).baseChange E x) =
+      ((matRep p ρE (gfToGqp p F σ)).prodMap (matRep p ρE (gfToGqp p F σ))) (eE x)) :
+    finrank ℚ_[p] E * finrank ℚ_[p] (Dsp (fun σ => act (gfToGqp p F σ)) (fun σ => ρ σ) Set.univ)
+      = 2 * (finrank ℚ_[p] F * finrank ℚ_[p] (Dsp act (matRep p ρE) Set.univ)) ∧
+    finrank ℚ_[p] F ∣
+      finrank ℚ_[p] (Dsp (fun σ => act (gfToGqp p F σ)) (fun σ => ρ σ) Set.univ) := by
+  constructor
+  · have h1 := overF_count_gen (fun σ => act (gfToGqp p F σ)) (fun σ => ρ σ)
+      (fun σ => matRep p ρE (gfToGqp p F σ)) Set.univ eE he
+    rw [h1, Dsp_gf_eq p F act (matRep p ρE),
+      descent_finrank act (matRep p ρE) ι' (gammaF p F) (gammaF_surjective p F) hsemi,
+      finrank_fieldF]
+  · rw [← finrank_fieldF p F]
+    refine finrank_dvd_Dsp_core _ _ _ ι' fun σ _ x b => ?_
+    rw [hsemi, gammaF_gfToGqp]
+    rfl
+
+/-- **The count**, for an equivariant embedding of `ℚ̄_p` into `B`. -/
 theorem core_count {B : Type*} [CommRing B] [Algebra ℚ_[p] B]
     (act : GQp p →* (B →ₗ[ℚ_[p]] B)) (ι : PadicAlgCl p →ₐ[ℚ_[p]] B)
     (hι : ∀ σ x b, act σ (ι x * b) = ι (σ x) * act σ b)
@@ -274,16 +296,7 @@ theorem core_count {B : Type*} [CommRing B] [Algebra ℚ_[p] B]
   have hsemi : ∀ g x b, act g (ι' x * b) = ι' (gammaF p F g x) * act g b := by
     intro g x b
     simp only [ι', AlgHom.comp_apply, IntermediateField.coe_val, hι, gammaF_apply_coe]
-  constructor
-  · have h1 := overF_count_gen (fun σ => act (gfToGqp p F σ)) (fun σ => ρ σ)
-      (fun σ => matRep p ρE (gfToGqp p F σ)) Set.univ eE he
-    rw [h1, Dsp_gf_eq p F act (matRep p ρE),
-      descent_finrank act (matRep p ρE) ι' (gammaF p F) (gammaF_surjective p F) hsemi,
-      finrank_fieldF]
-  · rw [← finrank_fieldF p F]
-    refine finrank_dvd_Dsp _ _ _ ι' fun σ _ x b => ?_
-    rw [hsemi, gammaF_gfToGqp]
-    rfl
+  exact core_count_F p F act ι' hsemi ρ ρE eE he
 
 /-- `ℚ̄_p → ℂ_p`. -/
 def cpEmb : PadicAlgCl p →ₐ[ℚ_[p]] ℂ_[p] := IsScalarTower.toAlgHom ℚ_[p] (PadicAlgCl p) ℂ_[p]
@@ -323,8 +336,8 @@ theorem core_ht (ρ : Representation ℚ_[p] (Field.absoluteGaloisGroup F) V)
     intro w M hM
     right
     obtain ⟨hc, hdvd⟩ := core_count p F (htAct p (-w)) (cpEmb p) (htAct_semi p (-w)) ρ ρE eE he
-    rw [htMultOver, htSpaceOver_eq_Dsp] at hM
-    rw [htSpace_eq_Dsp]
+    rw [htMultOver, htSpaceOver_eq_DspRep] at hM
+    rw [htSpace_eq_DspMat]
     obtain ⟨k, hk⟩ := hdvd
     rw [hk, Nat.mul_div_cancel_left _ hf] at hM
     subst hM
@@ -357,6 +370,30 @@ theorem core_ht (ρ : Representation ℚ_[p] (Field.absoluteGaloisGroup F) V)
   · omega
   · exact hdiv 0 (by simpa using h)
 
+/-- **G9 local core, de Rham part**, given an embedding `F' → B_dR` with
+`σ(ι x) = ι(σ|_{F'} x)` (task g9-derham's second run constructs one: `iotaDR`, `G9.lean`). -/
+theorem core_dR_F (ι' : fieldF p F →ₐ[ℚ_[p]] BdR p)
+    (hι' : ∀ (σ : GQp p) (x : fieldF p F), bdrAct p σ (ι' x) = ι' (gammaF p F σ x))
+    (ρ : Representation ℚ_[p] (Field.absoluteGaloisGroup F) V)
+    (ρE : GQp p →* GL (Fin 2) E)
+    (eE : E ⊗[ℚ_[p]] V ≃ₗ[E] (Fin 2 → E) × (Fin 2 → E))
+    (he : ∀ σ x, eE ((ρ σ).baseChange E x) =
+      ((matRep p ρE (gfToGqp p F σ)).prodMap (matRep p ρE (gfToGqp p F σ))) (eE x))
+    (hdR : IsDeRhamOver p ρ) :
+    IsDeRham p ρE := by
+  have hf : 0 < finrank ℚ_[p] F := Module.finrank_pos
+  have hsemi : ∀ σ x b, drAct p σ (ι' x * b) = ι' (gammaF p F σ x) * drAct p σ b := by
+    intro σ x b
+    rw [drAct_apply, drAct_apply, map_mul, hι']
+  obtain ⟨hc, -⟩ := core_count_F p F (drAct p) ι' hsemi ρ ρE eE he
+  rw [IsDeRhamOver, ddrSpaceOver_eq_DspRep, finrank_V_of_eE p eE] at hdR
+  rw [IsDeRham, ddrSpace_eq_DspMat]
+  rw [hdR] at hc
+  have : finrank ℚ_[p] F * (finrank ℚ_[p] (Dsp (drAct p) (matRep p ρE) Set.univ)) =
+      finrank ℚ_[p] F * (2 * finrank ℚ_[p] E) := by
+    have := hc; ring_nf at this ⊢; omega
+  exact Nat.eq_of_mul_eq_mul_left hf this
+
 /-- **G9 local core, de Rham part** (given an equivariant `ℚ̄_p → B_dR`). -/
 theorem core_dR (ιB : PadicAlgCl p →ₐ[ℚ_[p]] BdR p)
     (hιB : ∀ (σ : GQp p) (x : PadicAlgCl p), bdrAct p σ (ιB x) = ιB (σ x))
@@ -366,19 +403,11 @@ theorem core_dR (ιB : PadicAlgCl p →ₐ[ℚ_[p]] BdR p)
     (he : ∀ σ x, eE ((ρ σ).baseChange E x) =
       ((matRep p ρE (gfToGqp p F σ)).prodMap (matRep p ρE (gfToGqp p F σ))) (eE x))
     (hdR : IsDeRhamOver p ρ) :
-    IsDeRham p ρE := by
-  have hf : 0 < finrank ℚ_[p] F := Module.finrank_pos
-  have hsemi : ∀ σ x b, drAct p σ (ιB x * b) = ιB (σ x) * drAct p σ b := by
-    intro σ x b
-    rw [drAct_apply, drAct_apply, map_mul, hιB]
-  obtain ⟨hc, -⟩ := core_count p F (drAct p) ιB hsemi ρ ρE eE he
-  rw [IsDeRhamOver, ddrSpaceOver_eq_Dsp, finrank_V_of_eE p eE] at hdR
-  rw [IsDeRham, ddrSpace_eq_Dsp]
-  rw [hdR] at hc
-  have : finrank ℚ_[p] F * (finrank ℚ_[p] (Dsp (drAct p) (matRep p ρE) Set.univ)) =
-      finrank ℚ_[p] F * (2 * finrank ℚ_[p] E) := by
-    have := hc; ring_nf at this ⊢; omega
-  exact Nat.eq_of_mul_eq_mul_left hf this
+    IsDeRham p ρE :=
+  core_dR_F p F (ιB.comp (fieldF p F).val)
+    (fun σ x => by
+      simp only [AlgHom.comp_apply, IntermediateField.coe_val, hιB, gammaF_apply_coe])
+    ρ ρE eE he hdR
 
 end Local
 
