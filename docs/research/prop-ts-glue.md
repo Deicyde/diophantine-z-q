@@ -7,7 +7,7 @@ Proposition TS in prop-ts's `propTSAll_of_bundle_meet`.
 
 | File | Contents |
 |---|---|
-| `scratch/prop-ts-glue/PropTSGlue.lean` | the Lean file (3592 lines) |
+| `scratch/prop-ts-glue/PropTSGlue.lean` | the Lean file (3670 lines) |
 | `scratch/prop-ts-glue/log.md` | results log |
 | `scratch/prop-ts-glue/compile_out.txt` | compiler output |
 | `LocalData.lean`, `HorizTransfer.lean`, `VRD.lean` | development files, Mathlib-only, compiled; their results are pasted into the main file |
@@ -21,15 +21,16 @@ from memory are **UNVERIFIED** (no network).
 
 **None of the three statements is false, vacuous or inert, and none was changed. Each is reduced
 in Lean to smaller named Props.** The headline: **`SpecNonMeeting` now follows from the single
-glue Prop `SNSpecialize`** (`specNonMeeting_of_specialize`). Every other step of prop-ts §4.1 is
-proved:
+glue Prop `SNSpecializeUnram`** (`specNonMeeting_of_specialize`, `snSpecialize_of_unram`). That
+Prop is the unramifiedness of the specialized fibre. Every other step of prop-ts §4.1 is proved:
 
 - `SNLocalData`;
 - `SNHorizontalTransfer`;
 - `SNVertical`;
 - `VerticalResidueDegree` (`Σ e f = n` at the vertical primes);
 - separability from degree `< p`;
-- purity, through an inlined copy of t-purity3's proof.
+- purity, through an inlined copy of t-purity3's proof;
+- the finiteness half of `SNSpecialize` (`finiteDimensional_residue`).
 
 All of the `p`-adic and Gauss-lemma bookkeeping, for both `SpecNonMeeting` and `KummerMeet`, is
 also proved.
@@ -38,14 +39,14 @@ also proved.
 
 - `lake env lean scratch/prop-ts-glue/PropTSGlue.lean` (about 25 s) gives 0 errors. The 48
   warnings are linter warnings only.
-- All 38 new `#print axioms` lines read `[propext, Classical.choice, Quot.sound]`.
+- All 41 new `#print axioms` lines read `[propext, Classical.choice, Quot.sound]`.
 - `check_identical.py` prints `PREFIX IDENTICAL`: the first 906 lines are
   `scratch/prop-ts/PropTS.lean` byte for byte, so the three statements and their dependencies are
   verbatim.
 - It also prints `PURITY COPY CONTAINED`: t-purity3's `PurityDim2.lean` (origin/wip/t-purity3,
   7e4d4dd0) is included verbatim, minus its import and `#print` lines.
 
-**The final composite** is `PropTSGlue.propTSAll_final`. Its hypotheses are:
+**The final composite** is `PropTSGlue.propTSAll_final'`. Its hypotheses are:
 
 - **Leaves:**
   - T2 (`PkgI2.AbhyankarDVR`);
@@ -53,7 +54,7 @@ also proved.
 - **Kernel glue:**
   - `MobiusGlue`.
 - **Open glue: 13 Props in total. For `SpecNonMeeting`:**
-  - `SNSpecialize` only.
+  - `SNSpecializeUnram` only.
 - **Open glue, for `KummerMeetGlue`:**
   - `KummerCompositum`;
   - `KummerAbhyankarFinGlue`, `KummerOtherBranchFin`, `KummerVerticalFin`;
@@ -95,7 +96,8 @@ purity, and the result follows by specialization.
 | `SNVertical` | **theorem** from `VerticalResidueSeparable` (`snVertical_of_sep`) | see the steps below the table |
 | `VerticalResidueSeparable` | **theorem** from the next row (`verticalResidueSeparable_of_degree`) | `[E:ℚ(X)] < p ⇒ Algebra.HasSeparableResidueFieldsAt ℤ[X] C (pℤ[X])`. The step "degree `< p` in characteristic `p` ⇒ separable" is proved (`isSeparable_of_finrank_lt`, via `Polynomial.separable_or`) |
 | `VerticalResidueDegree` | **theorem** `verticalResidueDegree` | for `q` over `pℤ[X]` in `C`, `κ(q)/κ(pℤ[X])` is finite of degree `≤ [E:ℚ(X)]`. Proof, in four steps:<br>(1) Mathlib's `Ideal.sum_ramification_inertia_eq_finrank_fiber` for `ℤ[X] → C` at `pℤ[X]`;<br>(2) `e(q) > 0`, since `q` is minimal over `pC` by incomparability;<br>(3) the fibre `κ ⊗_{ℤ[X]} C ≅ κ ⊗_{ℤ[X]_{(p)}} C_{(p)}` (`cancelBaseChange`, `IsLocalizedModule.isBaseChange`);<br>(4) `ℤ[X]_{(p)}` is a DVR (`IsDiscreteValuationRing.TFAE`) and `C_{(p)}` is free of rank `[E:ℚ(X)]` (`IsIntegralClosure.module_free`, `.rank`) |
-| `SNSpecialize` | **open glue** (STANDARD) | `R → S` étale ⇒ every residue field `B/𝔓` over `X − s₀`, embedded in `ℚ̄`, is a number field unramified at `p`. Proof: base change along `R → R/(dX − a) = ℤ_(p)`; then étale over a DVR ⇒ unramified |
+| `SNSpecialize` | **theorem** from `SNSpecializeUnram` (`snSpecialize_of_unram`; the finiteness half is `finiteDimensional_residue`) | `R → S` étale ⇒ every residue field `B/𝔓` over `X − s₀`, embedded in `ℚ̄`, is a number field unramified at `p` |
+| `SNSpecializeUnram` | **open glue** (STANDARD) | the `UnramifiedAt` half. Proof: base change along `R → R/(dX − a) = ℤ_(p)`; then étale over a DVR ⇒ unramified |
 
 **Proof of `SNHorizontalTransfer`:**
 
@@ -178,7 +180,7 @@ Lean proofs (§2).
 
 Open glue, all STANDARD commutative algebra or curve theory; no new literature leaf:
 
-1. **`SNSpecialize`**, the only open piece under `SpecNonMeeting`. Suggested route:
+1. **`SNSpecializeUnram`**, the only open piece under `SpecNonMeeting`. Suggested route:
    - `R → S` étale implies `R/(dX − a) → S/𝔓_S` is formally unramified (quotient and
      restriction of scalars);
    - `ℤ → R/(dX − a) = ℤ_(p)` is formally unramified;
