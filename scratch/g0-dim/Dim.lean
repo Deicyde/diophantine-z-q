@@ -53,6 +53,25 @@ end AbVar
 
 end PkgI3
 
+namespace PkgI3.AbVar
+
+open CategoryTheory AlgebraicGeometry Limits
+
+variable {K : Type} [Field K]
+
+/-- (copied from `ZInQKernel/HDecomp/Objects.lean`) Base change `A_L` along a field extension
+`L/K` (Mathlib's `Over.pullback`; the group structure is transported by the monoidal functor
+`Over.pullback`). -/
+noncomputable def baseChange (A : AbVar K) (L : Type) [Field L] [Algebra K L] : AbVar L :=
+  let f := Spec.map (CommRingCat.ofHom (algebraMap K L))
+  letI : GrpObj ((Over.pullback f).obj A.X) := Functor.grpObjObj
+  haveI : IsProper ((Over.pullback f).obj A.X).hom := by dsimp; infer_instance
+  haveI : Smooth ((Over.pullback f).obj A.X).hom := by dsimp; infer_instance
+  haveI : GeometricallyIntegral ((Over.pullback f).obj A.X).hom := by dsimp; infer_instance
+  { X := (Over.pullback f).obj A.X }
+
+end PkgI3.AbVar
+
 namespace ZInQ.DefFaltings
 
 open CategoryTheory AlgebraicGeometry Limits MonoidalCategory CartesianMonoidalCategory MonObj
@@ -318,5 +337,11 @@ theorem dimFinite : DimFinite := by
 
 end HSyn.G0Split
 
+/-- `dim (A_L) = dim A` for I3's `PkgI3.AbVar.baseChange` (the same proof as `dimBaseChange`). -/
+theorem G0Dim.pkgI3_dim_baseChange {K : Type} [Field K] (L : Type) [Field L] [Algebra K L]
+    (A : PkgI3.AbVar K) : (A.baseChange L).dim = A.dim :=
+  G0Dim.dim_baseChange L A.X.left A.X.hom
+
 #print axioms HSyn.G0Split.dimBaseChange
 #print axioms HSyn.G0Split.dimFinite
+#print axioms G0Dim.pkgI3_dim_baseChange
