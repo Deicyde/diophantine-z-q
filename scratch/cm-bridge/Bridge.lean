@@ -2069,6 +2069,322 @@ theorem tyzThm35ReadingA_of_cmLeaves7' (h11 : TYZThm11Integral) (h1 : TYZLcalOne
     (lemma321Seven_of (cmFieldOfDefinition7_of hcm) h36 hb)
 
 
+
+/-! ## §14. `TYZThm36Seven` from Shimura reciprocity, the Fricke involution and algebraicity
+
+TYZ's proof of Theorem 3.6(3) (L1799–1855: Prop. 3.9, `j ϖ^5 ∈ W·U₀(32)_2`) in Gross's language:
+`Art([𝔭₂]^{−5})` sends the Heegner point of `Q = [(n+δ²)/4, δ, 1]` (class `[1]`) to that of
+`Q' = [32, δ, (n+δ²)/128]` (class `[𝔭₂]^5`), and `τ_{Q'} = W τ_{Q̄}`, `W τ = −1/(32τ)`, so
+`z_{Q'} = T − z̄_n` by the Fricke leaf. Inputs: tyz-cm's leaf `ShimuraReciprocityPic` (copied verbatim
+below), x0-32's leaf `X0.EtaModelFricke`, cm-points' leaf `CM.CMAlgebraic` (the Heegner points exist
+as algebraic points; `TYZThm36Seven` is not junk-safe) and cm-points' theorem `cmComplexConj`.
+Numerical backbone: `plan36.out`. -/
+
+namespace TyzCm
+
+open ZInQ.Contrib.TYZDecomp.CurveA ZInQ.Contrib.TYZGenus.CM ZInQ.Contrib.TYZGenus.RingClass
+  ZInQ.RouteK.Rank5b NumberField TauCeti.GlobalNumberFields TauCeti.ClassFieldTheory Complex
+
+/-! Verbatim copy of tyz-cm's leaf and its definitions (branch `wip/tyz-cm`, commit `66d92d11`,
+`ZInQKernel/Contrib/TYZGenus/ShimuraRecip.lean`, namespace `ZInQ.Contrib.TYZGenus.Shimura`). -/
+
+
+/-- The normalized complex embedding `κ : ℚ(√−m) → ℂ`, `a + b√−m ↦ a + b·i√m` (as a function). -/
+def kappa (m : ℕ) (x : QNeg m) : ℂ := (x.re : ℂ) + (x.im : ℂ) * (I * (Real.sqrt m : ℂ))
+
+/-- The set `J ∩ O ⊂ K` for an ideal `J` of `𝓞_K` and the order `O = ℤ + f𝓞_K`. -/
+def idealMeetOrder (m f : ℕ) [NeZero m] [NeZero f] (J : Ideal (𝓞 (QNeg m))) : Set (QNeg m) :=
+  {x | x ∈ (conductorOrder (QNeg m) f).toSubalgebra ∧ ∃ y ∈ J, (y : QNeg m) = x}
+
+/-- The lattice `κ(J ∩ O) ⊂ ℂ` (the `ℤ`-span of the image; `J ∩ O` is already a `ℤ`-module). -/
+def idealLat (m f : ℕ) [NeZero m] [NeZero f] (J : Ideal (𝓞 (QNeg m))) : Submodule ℤ ℂ :=
+  Submodule.span ℤ (kappa m '' idealMeetOrder m f J)
+
+/-- The discriminant `f²·d_K` of `ℤ + f𝓞_K` in `K = ℚ(√−m)`, `m` squarefree:
+`d_K = −m` for `m ≡ 3 (mod 4)` and `d_K = −4m` otherwise. -/
+def discOf (m f : ℕ) : ℤ := if m % 4 = 3 then -((f : ℤ) ^ 2 * m) else -(4 * (f : ℤ) ^ 2 * m)
+
+/-- **Leaf SHIMURA-PIC (main theorem of complex multiplication for Heegner points of `X₀(32)`,
+Gross's form).** Let `K = ℚ(√−m)` (`m` squarefree), `O = ℤ + f𝓞_K` the order of discriminant `D`,
+`H_O` its ring class field, and `e : Kˢ → ℚ̄` an embedding inducing on `K` the normalized complex
+embedding `√−m ↦ i√m` (through cm-points' `ιC : ℚ̄ → ℂ`). Let `J` be an ideal of `𝓞_K` prime to
+`f`, and `ρ ∈ Gal(ℚ̄/ℚ)` an automorphism acting on `e(H_O)` as the Artin symbol of the class of
+`J ∩ O`. Then for Heegner forms `Q, Q'` of level 32 and discriminant `D` whose pairs of lattices
+satisfy `κ(J ∩ O)·(⟨1,τ_{Q'}⟩, ⟨1/32,τ_{Q'}⟩) = c·(⟨1,τ_Q⟩, ⟨1/32,τ_Q⟩)` for one `c ∈ ℂ`
+(i.e. `(L', L'_N) = c·(J∩O)⁻¹(L, L_N)`), `ρ` maps the Heegner point of `Q` to that of `Q'`:
+`Art(𝔟)(𝒪, 𝔫, [𝔞]) = (𝒪, 𝔫, [𝔟⁻¹𝔞])`.
+
+Sources (refereed; theorem numbers UNVERIFIED, from memory, no network on this host):
+the main theorem of complex multiplication, Shimura, *Introduction to the arithmetic theory of
+automorphic functions* (1971), Thm. 5.4 (`E^{[s,K]} ≅ ℂ/s⁻¹𝔞`, with the action on torsion
+`f(t)^σ = f'(s⁻¹t)`, which gives the action on the cyclic subgroup `L_N/L`); Silverman, *Advanced
+topics in the arithmetic of elliptic curves*, GTM 151, Thm. II.8.2; Gross, *Heegner points on
+`X₀(N)`*, in *Modular forms* (Durham 1983), 1984, §3 (`σ_𝔟(𝒪, 𝔫, [𝔞]) = (𝒪, 𝔫, [𝔞𝔟⁻¹])`);
+Cox, *Primes of the form x² + ny²*, Thm. 11.1 and Cor. 11.37 (the `j`-part). Normalization: the
+idele `s` with `s_𝔭` a uniformizer has `[s, K] = ` arithmetic Frobenius (Tau Ceti's Artin map), so
+`Art(J)` corresponds to `s⁻¹𝔞 = J⁻¹𝔞`. The theorem holds for every lattice pair (Shimura's form
+needs no condition on the orders of `L` and `L_N`), so no Heegner condition `(f, 32) = 1` is
+needed. It is stated through x0-32's eta-quotient model `X0.phiC` and cm-points' `ιC`, so it is
+true because (and only if) that model is the `ℚ`-rational modular parametrization of `X₀(32)`
+(x0-32's leaves `X0.X0AnalyticModel`; Shimura 1971 Ch. 6–7 for the canonical model). -/
+def ShimuraReciprocityPic : Prop :=
+  ∀ (m f : ℕ) [NeZero m] [NeZero f], Squarefree m →
+    ∀ (e : SeparableClosure (QNeg m) →ₐ[ℚ] Qbar),
+      ιC (e (algebraMap (QNeg m) (SeparableClosure (QNeg m)) QuadraticAlgebra.omega)) =
+        I * (Real.sqrt m : ℂ) →
+    ∀ (J : integralIdealsPrimeTo (conductorOrder (QNeg m) f).conductorModulus) (ρ : GalQ),
+      (∀ x : ringClassField (conductorOrder (QNeg m) f),
+        ρ (e x) = e (ringClassArtinEquiv (conductorOrder (QNeg m) f)
+          ((conductorOrder (QNeg m) f).picClass J) x)) →
+    ∀ (D : ℤ), D = discOf m f → ∀ (Q Q' : HeegnerForm 32 D) (c : ℂ),
+      idealLat m f J * Q'.lat = Q.lat.map (LinearMap.mulLeft ℤ c) →
+      idealLat m f J * Q'.latN = Q.latN.map (LinearMap.mulLeft ℤ c) →
+      galPt ρ (heegnerPt Q) = heegnerPt Q'
+
+end TyzCm
+
+section Thm36
+
+open TyzCm Complex
+open scoped nonZeroDivisors
+
+/-! Helpers copied from tyz-cm's `ShimuraZn.lean` (same branch). -/
+
+theorem sqrt_mul_self_C (m : ℕ) : (Real.sqrt m : ℂ) * Real.sqrt m = m := by
+  rw [← Complex.ofReal_mul, Real.mul_self_sqrt (Nat.cast_nonneg m)]; simp
+
+/-- `i√m` as a root of `X² + m` in `ℂ`. -/
+def kappaRoot (m : ℕ) : {u : ℂ // u * u = (-(m : ℚ)) • (1 : ℂ) + (0 : ℚ) • u} :=
+  ⟨I * Real.sqrt m, by
+    rw [show I * (Real.sqrt m : ℂ) * (I * Real.sqrt m) = (I * I) * (Real.sqrt m * Real.sqrt m) by ring,
+      I_mul_I, sqrt_mul_self_C]
+    simp [Rat.smul_def]⟩
+
+/-- `κ` as a `ℚ`-algebra map. -/
+def kappaAlg (m : ℕ) : QNeg m →ₐ[ℚ] ℂ := QuadraticAlgebra.lift (kappaRoot m)
+
+theorem kappaAlg_apply (m : ℕ) (x : QNeg m) : kappaAlg m x = kappa m x := by
+  simp [kappaAlg, kappa, kappaRoot, Rat.smul_def]
+
+/-- `κ` as a `ℤ`-algebra map. -/
+def kappaZ (m : ℕ) : QNeg m →ₐ[ℤ] ℂ := (kappaAlg m).restrictScalars ℤ
+
+/-- `κ` as a `ℤ`-linear map. -/
+def kappaLin (m : ℕ) : QNeg m →ₗ[ℤ] ℂ := (kappaZ m).toLinearMap
+
+theorem kappaLin_apply (m : ℕ) (x : QNeg m) : kappaLin m x = kappa m x := kappaAlg_apply m x
+
+theorem kappaLin_one (m : ℕ) : kappaLin m 1 = 1 := map_one (kappaZ m)
+
+theorem map_mulLeft_span_pair (m : ℕ) (c a b : QNeg m) :
+    ((Submodule.span ℤ {a, b}).map (kappaLin m)).map (LinearMap.mulLeft ℤ (kappa m c)) =
+      (Submodule.span ℤ {c * a, c * b}).map (kappaLin m) := by
+  simp only [Submodule.map_span, Set.image_pair, LinearMap.mulLeft_apply, kappaLin_apply]
+  rw [← kappaAlg_apply, ← kappaAlg_apply, ← kappaAlg_apply, ← kappaAlg_apply, ← kappaAlg_apply,
+    map_mul, map_mul]
+
+variable {n : ℕ} [NeZero n]
+
+/-- `1/32 ∈ K`. -/
+def oneN32 (n : ℕ) : QNeg n := ⟨1 / 32, 0⟩
+
+omit [NeZero n] in
+@[simp] theorem oneN32_re : (oneN32 n).re = 1 / 32 := rfl
+omit [NeZero n] in
+@[simp] theorem oneN32_im : (oneN32 n).im = 0 := rfl
+
+theorem kappa_oneN32 : kappaLin n (oneN32 n) = 1 / ((32 : ℕ) : ℂ) := by
+  rw [kappaLin_apply, kappa]; simp
+
+theorem lat_eq_map' {D : ℤ} (Q : HeegnerForm 32 D) (t : QNeg n) (ht : Q.tau = kappa n t) :
+    Q.lat = (Submodule.span ℤ {1, t}).map (kappaLin n) := by
+  rw [HeegnerForm.lat, Submodule.map_span, Set.image_pair, kappaLin_one, kappaLin_apply, ht]
+
+theorem latN_eq_map' {D : ℤ} (Q : HeegnerForm 32 D) (t : QNeg n) (ht : Q.tau = kappa n t) :
+    Q.latN = (Submodule.span ℤ {oneN32 n, t}).map (kappaLin n) := by
+  rw [HeegnerForm.latN, Submodule.map_span, Set.image_pair, kappa_oneN32, kappaLin_apply, ht]
+
+/-- **Integer coordinates in `𝓞_K`, `n ≡ 3 (mod 4)` squarefree**: `y = (s + t√−n)/2`, `s ≡ t (2)`. -/
+theorem int_coords3 (hn : n % 4 = 3) (hsq : Squarefree n) (y : 𝓞 (QNeg n)) :
+    ∃ s t : ℤ, (y : QNeg n).re = s / 2 ∧ (y : QNeg n).im = t / 2 ∧ ∃ k : ℤ, s = t + 2 * k := by
+  obtain ⟨a, ha⟩ := exists_two_re y
+  obtain ⟨b, hb⟩ := exists_two_re (y * sqrtNeg n)
+  have hN := normZ_eq_re_im y
+  set N := Algebra.norm ℤ y
+  set r := (y : QNeg n).re
+  set s := (y : QNeg n).im
+  have hb' : 2 * (-(n : ℚ) * s) = b := by
+    rw [← hb]; simp [coe_sqrtNeg, s]
+  have hnt : (n : ℚ) * (2 * s) = -b := by linarith
+  have h4 : (a : ℚ) ^ 2 + n * (2 * s) ^ 2 = 4 * N := by
+    rw [hN, ← ha]; ring
+  have hdiv : (n : ℤ) ∣ b ^ 2 := by
+    refine ⟨a ^ 2 * 0 + (4 * N - a ^ 2), ?_⟩
+    have : (b : ℚ) ^ 2 = n * (4 * N - a ^ 2) := by
+      have : (b : ℚ) ^ 2 = (n * (2 * s)) ^ 2 := by rw [hnt]; ring
+      rw [this]; linear_combination (n : ℚ) * h4
+    exact_mod_cast (by rw [this]; ring : (b : ℚ) ^ 2 = n * (a ^ 2 * 0 + (4 * N - a ^ 2)))
+  have hsqZ : Squarefree (n : ℤ) := Int.squarefree_natCast.mpr hsq
+  obtain ⟨t, ht⟩ := (hsqZ.dvd_pow_iff_dvd two_ne_zero).1 hdiv
+  have hn0 : (n : ℚ) ≠ 0 := by exact_mod_cast NeZero.ne n
+  have hs2 : 2 * s = -t := by
+    have : (n : ℚ) * (2 * s) = n * (-t) := by rw [hnt, ht]; push_cast; ring
+    exact mul_left_cancel₀ hn0 this
+  have hZ : a ^ 2 + (n : ℤ) * t ^ 2 = 4 * N := by
+    have : (a : ℚ) ^ 2 + n * t ^ 2 = 4 * N := by rw [← h4, hs2]; ring
+    exact_mod_cast this
+  have hn' : (n : ℤ) = 4 * ((n : ℤ) / 4) + 3 := by omega
+  have hpar : 2 ∣ a + t := by
+    rw [hn'] at hZ
+    obtain ⟨k, hk | hk⟩ := Int.even_or_odd' a <;> obtain ⟨l, hl | hl⟩ := Int.even_or_odd' t <;>
+      subst hk hl
+    · exact ⟨k + l, by ring⟩
+    · exfalso; ring_nf at hZ; omega
+    · exfalso; ring_nf at hZ; omega
+    · exact ⟨k + l + 1, by ring⟩
+  obtain ⟨k, hk⟩ := hpar
+  refine ⟨a, -t, by rw [← ha]; ring, by push_cast; linarith, k, by linarith⟩
+
+end Thm36
+
+
+section Thm36b
+
+open TyzCm Complex
+open scoped nonZeroDivisors
+
+variable {n : ℕ} [NeZero n]
+
+theorem int_dvd_n_delta {n : ℕ} (hn : n % 8 = 7) : (128 : ℤ) ∣ (n : ℤ) + (tyzDelta n : ℤ) ^ 2 :=
+  tyzDelta_dvd hn
+
+theorem delta_odd {n : ℕ} (hn : n % 8 = 7) : ∃ d : ℤ, (tyzDelta n : ℤ) = 2 * d + 1 := by
+  have h := tyzDelta_dvd hn
+  obtain ⟨d, hd | hd⟩ := Int.even_or_odd' (tyzDelta n : ℤ)
+  · exfalso
+    rw [hd] at h
+    obtain ⟨c, hc⟩ := h
+    have : (n : ℤ) = 128 * c - 4 * d ^ 2 := by linear_combination hc
+    omega
+  · exact ⟨d, hd⟩
+
+/-- `Q' = [32, δ, (n+δ²)/128]` (level 32, discriminant `−n`; class `[𝔭₂]^5`, `τ_{Q'} = W τ_{Q̄}`). -/
+def tyzForm7' (n : ℕ) (hn : n % 8 = 7) : HeegnerForm 32 (-(n : ℤ)) where
+  A := 32
+  B := tyzDelta n
+  C := ((n : ℤ) + (tyzDelta n : ℤ) ^ 2) / 128
+  A_pos := by norm_num
+  N_dvd := by norm_num
+  disc := by
+    have := tyzDelta_dvd hn
+    omega
+  D_neg := by
+    have : (0 : ℤ) < n := by have : 0 < n := by omega
+                             exact_mod_cast this
+    omega
+  primitive := by
+    obtain ⟨d, hd⟩ := delta_odd hn
+    have h2 : IsCoprime (2 : ℤ) (tyzDelta n : ℤ) := ⟨-d, 1, by rw [hd]; ring⟩
+    have h32 : Int.gcd 32 (tyzDelta n : ℤ) = 1 :=
+      Int.isCoprime_iff_gcd_eq_one.1 (by simpa using h2.pow_left (m := 5))
+    rw [h32]; simp
+
+/-- `A = (n + δ²)/4 ∈ ℤ`. -/
+abbrev A7 (n : ℕ) : ℤ := ((n : ℤ) + (tyzDelta n : ℤ) ^ 2) / 4
+/-- `N₄ = (n + δ²)/128 ∈ ℤ`. -/
+abbrev N7 (n : ℕ) : ℤ := ((n : ℤ) + (tyzDelta n : ℤ) ^ 2) / 128
+
+theorem four_A7 {n : ℕ} (hn : n % 8 = 7) : 4 * A7 n = (n : ℤ) + (tyzDelta n : ℤ) ^ 2 := by
+  have := tyzDelta_dvd hn; simp only [A7]; omega
+
+theorem A7_eq {n : ℕ} (hn : n % 8 = 7) : A7 n = 32 * N7 n := by
+  have := tyzDelta_dvd hn; simp only [A7, N7]; omega
+
+theorem A7_pos {n : ℕ} (hn : n % 8 = 7) : (0 : ℚ) < A7 n := by
+  have h := four_A7 hn
+  have : (0 : ℤ) < n := by have : 0 < n := by omega
+                           exact_mod_cast this
+  have : (0 : ℤ) < A7 n := by nlinarith [sq_nonneg (tyzDelta n : ℤ)]
+  exact_mod_cast this
+
+/-! Elements of `K = ℚ(√−n)` (coordinates `⟨re, im⟩`, `ω = √−n`). -/
+
+/-- `u = (√−n − δ)/2`. -/
+def uK (n : ℕ) : QNeg n := ⟨-(tyzDelta n : ℚ) / 2, 1 / 2⟩
+/-- `ū = (−√−n − δ)/2`. -/
+def ubK (n : ℕ) : QNeg n := ⟨-(tyzDelta n : ℚ) / 2, -1 / 2⟩
+/-- `τ_Q = (−δ + √−n)/(2A)`. -/
+def tK (n : ℕ) : QNeg n := ⟨-(tyzDelta n : ℚ) / (2 * A7 n), 1 / (2 * A7 n)⟩
+/-- `τ_{Q̄} = (δ + √−n)/(2A)`. -/
+def tbK (n : ℕ) : QNeg n := ⟨(tyzDelta n : ℚ) / (2 * A7 n), 1 / (2 * A7 n)⟩
+/-- `τ_{Q'} = (−δ + √−n)/64`. -/
+def t'K (n : ℕ) : QNeg n := ⟨-(tyzDelta n : ℚ) / 64, 1 / 64⟩
+/-- `τ_{Q̄'} = (δ + √−n)/64`. -/
+def tb'K (n : ℕ) : QNeg n := ⟨(tyzDelta n : ℚ) / 64, 1 / 64⟩
+
+theorem sqrt_negn (n : ℕ) : Real.sqrt (-(((-(n : ℤ)) : ℤ) : ℝ)) = Real.sqrt n := by
+  congr 1; push_cast; ring
+
+theorem tyzForm7_tau (hn : n % 8 = 7) : (tyzForm7 n hn).tau = kappa n (tK n) := by
+  have hA : (A7 n : ℂ) ≠ 0 := by exact_mod_cast (A7_pos hn).ne'
+  simp only [HeegnerForm.tau, cmPoint, tyzForm7, kappa, tK, sqrt_negn]
+  push_cast
+  field_simp
+  try ring
+
+theorem tyzForm7_conj_tau (hn : n % 8 = 7) : (tyzForm7 n hn).conj.tau = kappa n (tbK n) := by
+  have hA : (A7 n : ℂ) ≠ 0 := by exact_mod_cast (A7_pos hn).ne'
+  simp only [HeegnerForm.tau, HeegnerForm.conj, cmPoint, tyzForm7, kappa, tbK, sqrt_negn]
+  push_cast
+  field_simp
+  try ring
+
+theorem tyzForm7'_tau (hn : n % 8 = 7) : (tyzForm7' n hn).tau = kappa n (t'K n) := by
+  simp only [HeegnerForm.tau, cmPoint, tyzForm7', kappa, t'K, sqrt_negn]
+  push_cast
+  field_simp
+  try ring
+
+theorem tyzForm7'_conj_tau (hn : n % 8 = 7) : (tyzForm7' n hn).conj.tau = kappa n (tb'K n) := by
+  simp only [HeegnerForm.tau, HeegnerForm.conj, cmPoint, tyzForm7', kappa, tb'K, sqrt_negn]
+  push_cast
+  field_simp
+  try ring
+
+/-! Relations in `K`. -/
+
+theorem ubK_mul_tK (hn : n % 8 = 7) : ubK n * tK n = 1 := by
+  have h4 : (4 : ℚ) * A7 n = n + (tyzDelta n : ℚ) ^ 2 := by exact_mod_cast four_A7 hn
+  have hA : (A7 n : ℚ) ≠ 0 := (A7_pos hn).ne'
+  ext <;> simp [ubK, tK, QuadraticAlgebra.re_one, QuadraticAlgebra.im_one] <;> field_simp <;>
+    first | linear_combination (-1 : ℚ) * h4 | linear_combination h4 | linear_combination (-1/2 : ℚ) * h4 | linear_combination (1/2 : ℚ) * h4 | ring1
+
+theorem neg_uK_mul_tbK (hn : n % 8 = 7) : -uK n * tbK n = 1 := by
+  have h4 : (4 : ℚ) * A7 n = n + (tyzDelta n : ℚ) ^ 2 := by exact_mod_cast four_A7 hn
+  have hA : (A7 n : ℚ) ≠ 0 := (A7_pos hn).ne'
+  ext <;> simp [uK, tbK, QuadraticAlgebra.re_one, QuadraticAlgebra.im_one] <;> field_simp <;>
+    first | linear_combination (-1 : ℚ) * h4 | linear_combination h4 | linear_combination (-1/2 : ℚ) * h4 | linear_combination (1/2 : ℚ) * h4 | ring1
+
+theorem thirtytwo_t'K : (32 : QNeg n) * t'K n = uK n := by
+  ext <;> simp [uK, t'K, QuadraticAlgebra.re_ofNat, QuadraticAlgebra.im_ofNat] <;> ring
+
+theorem thirtytwo_tb'K : (32 : QNeg n) * tb'K n = -ubK n := by
+  ext <;> simp [ubK, tb'K, QuadraticAlgebra.re_ofNat, QuadraticAlgebra.im_ofNat] <;> ring
+
+theorem ubK_mul_t'K (hn : n % 8 = 7) : ubK n * t'K n = (N7 n : QNeg n) := by
+  have h4 : (4 : ℚ) * A7 n = n + (tyzDelta n : ℚ) ^ 2 := by exact_mod_cast four_A7 hn
+  have hA : (A7 n : ℚ) = 32 * N7 n := by exact_mod_cast A7_eq hn
+  ext <;> simp [ubK, t'K] <;>
+    first | linear_combination (-1/128 : ℚ) * h4 + (1/32 : ℚ) * hA | linear_combination (1/128 : ℚ) * h4 - (1/32 : ℚ) * hA | linear_combination (-1/64 : ℚ) * h4 + (1/16 : ℚ) * hA | linear_combination (1/64 : ℚ) * h4 - (1/16 : ℚ) * hA | ring1
+
+theorem uK_mul_tb'K (hn : n % 8 = 7) : uK n * tb'K n = -(N7 n : QNeg n) := by
+  have h4 : (4 : ℚ) * A7 n = n + (tyzDelta n : ℚ) ^ 2 := by exact_mod_cast four_A7 hn
+  have hA : (A7 n : ℚ) = 32 * N7 n := by exact_mod_cast A7_eq hn
+  ext <;> simp [uK, tb'K] <;>
+    first | linear_combination (-1/128 : ℚ) * h4 + (1/32 : ℚ) * hA | linear_combination (1/128 : ℚ) * h4 - (1/32 : ℚ) * hA | linear_combination (-1/64 : ℚ) * h4 + (1/16 : ℚ) * hA | linear_combination (1/64 : ℚ) * h4 - (1/16 : ℚ) * hA | ring1
+
+end Thm36b
+
 open ZInQ.Contrib.TYZDecomp in
 /-- **Main theorem of cm-bridge (final leaves).** Reading A of TYZ Theorem 3.5
 (`ZInQ.Literature.TYZThm35ReadingA`) from:
