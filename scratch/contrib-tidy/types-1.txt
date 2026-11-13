@@ -1,0 +1,2 @@
+ZInQ.Contrib.heckeContinuation : ZInQ.Literature.HeckeContinuation  (type is exactly the constant)
+ZInQ.Contrib.functionalEquation5 : ZInQ.Literature.FunctionalEquation5  (type is exactly the constant)
