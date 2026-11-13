@@ -148,3 +148,11 @@
   `(hR3 : p ≠ 13 → RaynaudPlace A 3) (hR7 : p = 13 → RaynaudPlace A 7)`. Docstring of
   `RaynaudPlace` says: claimed only for `m ≥ 3` prime to `p`.
 - Compile: LocalGlue.lean exit 0, no sorry, all standard; TailK.lean exit 0, no sorry, standard.
+
+## Step 11 (07:45-07:55 PST): verbatim checks, report
+- Verbatim check (VERIFIED, python substring test): scratch/local-data/LocalData.lean occurs whole in
+  LocalGlue.lean; scratch/local-data/Tail.lean whole in TailK.lean; part_galois.lean l.40-58 in
+  LocalGlue.lean; the G8LocalPack block of part_pack.lean (between markers) occurs in
+  scratch/local-data/tail_part.lean.
+- docs/research/local-glue.md rewritten with the final state (verdict, main result, remaining
+  Props, findings G1-G7).
