@@ -14,7 +14,7 @@ from the smaller named Props that wave 26 reduced them to, bundled as `HSyn.Glue
 | `productExists` | g0-product | `G0Product.productExists` (proved, Mathlib only) |
 | `reverseIsogeny` | g0-reverseisog | `G0RevIsog.reverseIsogeny_of_leaves r dimFinite` (route B: R19 and H5 of the bundle) |
 | `thetaPoint` | g0-thetapoint | `ThetaPt.thetaPointOfFibre_of_qm_ratios` from the glue `FibreQMPeriod` (blocked on qm-pin) and the leaf candidate `ThetaRatiosAlgebraic` |
-| `modularConstituent` | g0-mod-field (G2-G7) | `modularConstituent_of_field` (above): g0-mod-field's three glue Props (`KernelFieldExists` blocked on qm-pin), the bundle's T14a, T14b, T15, T30, T31, and `AfterG7` (G8-G16, kept whole: g0-mod-galois and g0-mod-newform are not yet composed with it, see `docs/research/g0-assemble.md` §3) |
+| `modularConstituent` | g0-mod-field, g0-mod-galois, g0-mod-newform | `modularConstituent_of_field` (G2-G7: three glue Props, `KernelFieldExists` blocked on qm-pin; the bundle's T14a, T14b, T15, T30, T31) with `G0AssembleMod.afterG7_of` (G8-G16: g0-mod-galois' pieces with `R14Det`, g0-mod-newform's leaves and glue, and the joint glue Props `ModelG3G6`, `LinkedTateData`) |
 | `heightCopies` | (no wave-26 task) | kept as one field (glue, pure transport) |
 -/
 
@@ -70,9 +70,41 @@ structure GluePieces2 : Prop where
   /-- g0-mod-field, GLUE (STANDARD, Neukirch I §8, UNVERIFIED): a compositum of finite Galois
   extensions of `ℚ` unramified at `p` is unramified at `p`. -/
   unramifiedSup : G0ModField.UnramifiedSup
-  /-- G8-G16, GLUE, kept whole: for every fibre context and G7 data, a `J₁(M)` with `M ≤ Q_D·M²`
-  and a common constituent over `L'` (g0-mod-galois and g0-mod-newform reduce its two halves). -/
-  afterG7 : G0ModField.AfterG7
+  /-- g0-mod-galois, LEAF (textbook; Burnside, Lang *Algebra* XVII §3, UNVERIFIED locator). -/
+  burnsideAbsIrred : G0Galois.BurnsideAbsIrred
+  /-- g0-mod-galois, LEAF: R14 with its published determinant clause (Shimura 1971 Thm 7.14,
+  Deligne 1971; UNVERIFIED locators). Used instead of the bundle's `r14` alone, whose statement
+  omits the determinant (g0-mod-galois' finding). -/
+  r14Det : G0Galois.R14Det
+  /-- g0-mod-galois G9, GLUE (N5's de Rham descent lemma, appendix). -/
+  g9Glue : G0Galois.G9Glue
+  /-- g0-mod-galois G10, GLUE (oddness; g0-assemble replaced its two removed placeholder
+  hypotheses T11, T12 by the bundle's concrete T11a, T11b). -/
+  g10Glue : G0Galois.G10Glue
+  /-- g0-mod-galois G12, GLUE (Hodge–Tate weight comparison). -/
+  g12Weight : G0Galois.G12Weight
+  /-- g0-mod-galois, GLUE (from T9): `det V_ℓ(A) = χ_ℓ^{dim A}`. -/
+  detTate : G0Galois.DetTate
+  /-- g0-mod-galois, GLUE (Galois theory): `[G_ℚ : G_K] < ∞`. -/
+  resQFiniteIndex : G0Galois.ResQFiniteIndex
+  /-- g0-mod-newform, GLUE (from Kronecker–Weber): finite-image characters are Dirichlet
+  characters at Frobenius. -/
+  dirichletOfFinite : G0ModNewform.DirichletOfFinite
+  /-- R17 as a concrete statement (kernel `LadicCond.CarayolR17'`), LEAF (Carayol 1986,
+  Théorème (A); faithful per the locator audit). The bundle's `r17` is still an `opaque`
+  placeholder, unused on this route. -/
+  carayolR17 : LadicCond.CarayolR17'
+  /-- kernel glue (Serre–Tate §2, Herbrand): the Swan conductor does not depend on the level. -/
+  swanIndependent : ∀ (p : ℕ) [Fact p.Prime], LadicCond.SwanIndependent (p := p)
+  /-- kernel glue L8: `Sw = ∫ codim V^{G^u}`. -/
+  swanIntegral : LadicCond.SwanIntegral
+  /-- kernel glue: an adapted level exists (`ρ(P_p)` finite for `ℓ ≠ p`). -/
+  adaptedExists : ∀ (p : ℕ) [Fact p.Prime], LadicCond.AdaptedExists (p := p)
+  /-- g0-assemble, GLUE (G3 and G5-G6 on G7's model; **QM-PIN** for G6). -/
+  modelG3G6 : G0AssembleMod.ModelG3G6
+  /-- g0-assemble, GLUE: `TateBridge` at `ℓ = 5, 3` from one descent datum, with
+  `G14TraceCompat` and `G15RamG` on the resulting `r₅`, `r₃`. -/
+  linkedTateData : G0AssembleMod.LinkedTateData
   /-- leaf-adopt2's transport target, GLUE (no wave-26 task). -/
   heightCopies : HeightCopiesAgree
 
@@ -93,7 +125,11 @@ theorem gluePieces_of_gluePieces2 (r : ResearchLeaves) (t : TextbookLeaves) (gp2
   thetaPoint := G0Split.ThetaPt.thetaPointOfFibre_of_qm_ratios gp2.fibreQMPeriod
     gp2.thetaRatiosAlgebraic
   modularConstituent := modularConstituent_of_field t gp2.fibreCoverExists gp2.kernelFieldExists
-    gp2.unramifiedSup gp2.afterG7
+    gp2.unramifiedSup (G0AssembleMod.afterG7_of r t
+      ⟨gp2.burnsideAbsIrred, gp2.r14Det, gp2.g9Glue, gp2.g10Glue, gp2.g12Weight, gp2.detTate,
+        gp2.resQFiniteIndex⟩
+      gp2.dirichletOfFinite gp2.carayolR17 gp2.swanIndependent gp2.swanIntegral gp2.adaptedExists
+      gp2.modelG3G6 gp2.linkedTateData)
   heightCopies := gp2.heightCopies
 
 /-- **G0 after wave 26** (g0-assemble): the leaf bundles and `GluePieces2` imply

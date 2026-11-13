@@ -40,3 +40,4 @@
   `G0ModField.le_heightD_of_mem_S_mul` (verbatim copy; Main.lean not importable: upstream helper
   ZInQ.PoleValuation not built). TailG (74,75,70,72,77): VERIFIED 0 errors, no sorry.
 - part 87 (AfterG7 from g0-mod-galois + g0-mod-newform + ModelG3G6 + LinkedTateData): first run: missing `open CategoryTheory AlgebraicGeometry`; second run VERIFIED 0 errors, `HSyn.G0AssembleMod.afterG7_of` standard axioms.
+- Tail run (all parts, GluePieces2 with the full modular decomposition): VERIFIED 0 errors, no sorry; afterG7_of, modularConstituent_of_field, gluePieces_of_gluePieces2, sixContactMin_of_leaves2: standard axioms (04:44).

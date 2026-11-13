@@ -3153,6 +3153,1593 @@ end ZInQ.G0HeightAdd
 end
 end G0HeightAddSec
 
+
+/-! ## g0-mod-galois: glue steps G8-G12 of the H decomposition (task g0-mod-galois, 2026-11-13)
+
+`ModularConstituent` (scratch/g0-split) bundles G2, G4, G7-G16. This section takes the range
+G8-G12 (h-decomposition §3; N5 L719-768; h-trust C1-C8):
+
+* G8  `ρ_ℓ ≅ r_ℓ ⊕ r_ℓ`, the Tate action on `G_{L'}`, `r_ℓ|G_{L'}` absolutely irreducible;
+* G9  `r_ℓ` de Rham at `ℓ` with Hodge–Tate weights `{0, −1}`;
+* G10 `r_ℓ` odd;
+* G11 `r_ℓ` unramified outside `T ∪ {ℓ}`;
+* G12 Pan at `ℓ = 5`: `r₅` is attached, up to a twist `ψ` of **finite image**, to a normalized
+  eigenform of **weight 2**.
+
+Inputs are the outputs of the earlier glue steps, as `def … : Prop`: `G2Out` (the field is
+unramified outside `T`), `G3Out` (the Tate action is unramified outside `T ∪ {ℓ}`), `G7Out` (the
+scalar-descent data `T_σ = μ_σ ∘ σ`, `a`, `β`, and the matrix units of `B ⊗ ℚ̄_ℓ ≅ M₂(ℚ̄_ℓ)`).
+The coefficient field is `ℚ̄_ℓ = PadicAlgCl ℓ` throughout (Pan's coefficients). The remaining
+unproved glue is named: `G8Matrix` (linear algebra), `G9Glue`, `G10Glue`, `G12Weight`, `G12Det`.
+Proved here: G8 from `G7Out`, C2 and `G8Matrix`; G11 from `G2Out`, `G3Out` and G8's output, with
+no further glue; G12 from Pan∘Berger (R11+R12), `weight_match`, `twist_finite` and the two named
+G12 pieces. -/
+
+section G0GaloisSec
+
+noncomputable section
+
+namespace G0Galois
+
+open PkgI4 (GaloisRep GaloisChar)
+open CategoryTheory AlgebraicGeometry Limits MonoidalCategory CartesianMonoidalCategory MonObj
+
+/-! ### Objects -/
+
+/-- The restriction map `G_K → G_ℚ` for a number field `K` (Mathlib's
+`Field.absoluteGaloisGroup.map` along `ℚ → K`). Its image is `G_K` inside `G_ℚ` for the
+embedding `K ↪ ℚ̄` that the map chooses. -/
+def resQ (K : Type) [Field K] [NumberField K] : Field.absoluteGaloisGroup K →* PkgI4.GQ :=
+  (Field.absoluteGaloisGroup.map (algebraMap ℚ K) :
+    Field.absoluteGaloisGroup K →* Field.absoluteGaloisGroup ℚ)
+
+/-- The embedding `ℚ̄ → K̄` that `Field.absoluteGaloisGroup.map` chooses (`IsAlgClosed.lift`). -/
+def qEmbRing (K : Type) [Field K] [NumberField K] : AlgebraicClosure ℚ →+* AlgebraicClosure K :=
+  letI : Algebra ℚ K := (algebraMap ℚ K).toAlgebra
+  (IsAlgClosed.lift : AlgebraicClosure ℚ →ₐ[ℚ] AlgebraicClosure K).toRingHom
+
+/-- `qEmbRing` as a `ℚ`-algebra map (the `i` of g0-mod-newform's `ModData`). -/
+def qEmb (K : Type) [Field K] [NumberField K] : AlgebraicClosure ℚ →ₐ[ℚ] AlgebraicClosure K :=
+  (qEmbRing K).toRatAlgHom
+
+/-- `qEmb K ∘ resQ K τ = τ ∘ qEmb K` (Mathlib's `restrictNormal_commutes`, unfolding `map`). -/
+lemma resQ_spec (K : Type) [Field K] [NumberField K]
+    (τ : AlgebraicClosure K ≃ₐ[K] AlgebraicClosure K) (x : AlgebraicClosure ℚ) :
+    qEmbRing K (resQ K τ x) = τ (qEmbRing K x) := by
+  letI : Algebra ℚ K := (algebraMap ℚ K).toAlgebra
+  letI : Algebra (AlgebraicClosure ℚ) (AlgebraicClosure K) :=
+    (IsAlgClosed.lift : AlgebraicClosure ℚ →ₐ[ℚ] AlgebraicClosure K).toRingHom.toAlgebra
+  exact AlgEquiv.restrictNormal_commutes (τ.restrictScalars ℚ) (AlgebraicClosure ℚ) x
+
+/-- `resQ K τ` is the only `σ ∈ G_ℚ` with `qEmb K ∘ σ = τ ∘ qEmb K`. -/
+lemma eq_resQ (K : Type) [Field K] [NumberField K]
+    (τ : AlgebraicClosure K ≃ₐ[K] AlgebraicClosure K)
+    (σ : PkgI4.GQ) (h : ∀ x, qEmb K (σ x) = τ (qEmb K x)) : σ = resQ K τ := by
+  apply AlgEquiv.ext; intro x
+  exact (qEmbRing K).injective ((h x).trans (resQ_spec K τ x).symm)
+
+/-- `ℚ̄_ℓ ⊗_{ℚ_ℓ} V_ℓ(A)`. -/
+abbrev Vb {K : Type} [Field K] (A : PkgI3.AbVar K) (ℓ : ℕ) [Fact ℓ.Prime] : Type :=
+  TensorProduct ℚ_[ℓ] (PadicAlgCl ℓ) (A.V ℓ)
+
+/-- The Tate action of `G_K` on `ℚ̄_ℓ ⊗ V_ℓ(A)`. -/
+def tate {K : Type} [Field K] (A : PkgI3.AbVar K) (ℓ : ℕ) [Fact ℓ.Prime] :
+    Representation (PadicAlgCl ℓ) (Field.absoluteGaloisGroup K) (Vb A ℓ) :=
+  GlueI3.repBaseChange (PadicAlgCl ℓ) (A.galRep ℓ)
+
+/-- The restriction of a representation to an invariant subspace. -/
+def restrictRep {k G V : Type*} [Field k] [Monoid G] [AddCommGroup V] [Module k V]
+    (ρ : Representation k G V) (W : Submodule k V) (h : ∀ g, ∀ w ∈ W, ρ g w ∈ W) :
+    Representation k G W where
+  toFun g := (ρ g).restrict (h g)
+  map_one' := by ext w; simp
+  map_mul' g g' := by ext w; simp
+
+/-- `e` intertwines the operators `f g` on `V` with `r(g) ⊕ r(g)` on `ℚ̄_ℓ² × ℚ̄_ℓ²`. -/
+def Intertwines {ℓ : ℕ} [Fact ℓ.Prime] {G V : Type*} [AddCommGroup V] [Module (PadicAlgCl ℓ) V]
+    (f : G → Module.End (PadicAlgCl ℓ) V) (m : G → Matrix (Fin 2) (Fin 2) (PadicAlgCl ℓ))
+    (e : V ≃ₗ[PadicAlgCl ℓ] (Fin 2 → PadicAlgCl ℓ) × (Fin 2 → PadicAlgCl ℓ)) : Prop :=
+  ∀ g v, e (f g v) = ((m g).mulVec (e v).1, (m g).mulVec (e v).2)
+
+/-! ### Outputs of the earlier glue steps (inputs of this range) -/
+
+/-- **Output of G2 (Lemma PR(i)), the part used here.** The field `K` (= `L'`, which contains
+the fibre field and the Hom field, both unramified outside `T`, and the kernel field of `β`,
+unramified outside `T` by B3(v)) is unramified at every prime `p ∉ T`: every inertia element
+of `G_ℚ` at a place above `p` lies in (the image of) `G_K`. -/
+def G2Out (K : Type) [Field K] [NumberField K] (T : Finset ℕ) : Prop :=
+  ∀ p : ℕ, p.Prime → p ∉ T → ∀ v : ValuationSubring PkgI4.Qbar, PkgI4.LiesOver v p →
+    ∀ σ ∈ v.inertiaSubgroup ℚ, ((σ : v.decompositionSubgroup ℚ) : PkgI4.GQ) ∈ (resQ K).range
+
+/-- **Output of G3 (Lemma PR(ii)) with R7a (Néron–Ogg–Shafarevich), the part used here.** `A`
+has good reduction at the places above `p ∉ T`, so for `p ≠ ℓ` the inertia elements of `G_K`
+at those places act trivially on `V_ℓ(A)` (the instantiation of
+`PkgI2.inertiaTrivial_of_goodReduction` on the actual `A`, glue G3/G11). -/
+def G3Out {K : Type} [Field K] [NumberField K] (A : PkgI3.AbVar K) (ℓ : ℕ) [Fact ℓ.Prime]
+    (T : Finset ℕ) : Prop :=
+  ∀ p : ℕ, p.Prime → p ∉ T → p ≠ ℓ → ∀ v : ValuationSubring PkgI4.Qbar, PkgI4.LiesOver v p →
+    ∀ σ' : Field.absoluteGaloisGroup K,
+      (∃ σ ∈ v.inertiaSubgroup ℚ, ((σ : v.decompositionSubgroup ℚ) : PkgI4.GQ) = resQ K σ') →
+      tate A ℓ σ' = 1
+
+/-- **Output of G7 (scalar descent, N5 L632-716) at the coefficient prime `ℓ`**, together with
+the outputs of G4-G6 that G8 uses. `A` is the model over `K = L'` (an abelian surface with
+`End_K(A)` of rank 4, the maximal order case of `End⁰ = B`: A9's output). The data are:
+operators `Tm σ = μ_σ ∘ σ` on `ℚ̄_ℓ ⊗ V_ℓ(A)` (without `a_σ`: `GlueDescent.rho` multiplies by
+`β_σ⁻¹ a_σ`, giving N5's `ρ_ℓ(σ) = β(σ)⁻¹ a_σ μ_σ ∘ σ`) with the cocycle `c` (`Tm g Tm h = c(g,h) Tm(gh)`),
+the scalars `a` and the cochain `β` with `a_g a_h c(g,h) = ε(g,h) a_{gh}` and
+`β_g β_h = ε(g,h) β_{gh}` (`∂β = ε`, B2-B3), all trivial on `G_{L'}` where `Tm` is the Tate
+action (`L'` contains the kernel field of `β|G_L`; it is taken finite Galois over `ℚ`, as
+g0-mod-field's `G7Data` supplies, which `G10Glue` needs); a system of `2 × 2` matrix units (the image of
+`B ⊗ ℚ̄_ℓ ≅ M₂(ℚ̄_ℓ)`) commuting with every `Tm σ` (`μ_σ` is `B`-linear); and continuity of
+`σ ↦ β_σ⁻¹ a_σ Tm σ` (glue-rho-cont proved continuity on `G_K`; finite index gives the rest). -/
+def G7Out {K : Type} [Field K] [NumberField K] (A : PkgI3.AbVar K) (ℓ : ℕ) [Fact ℓ.Prime]
+    (Tm : PkgI4.GQ → Module.End (PadicAlgCl ℓ) (Vb A ℓ))
+    (c ε : PkgI4.GQ → PkgI4.GQ → PadicAlgCl ℓ) (a β : PkgI4.GQ → PadicAlgCl ℓ)
+    (u : GlueDescent.MatrixUnits2 (PadicAlgCl ℓ) (Vb A ℓ)) : Prop :=
+  A.dim = 2 ∧ Module.finrank ℤ (PkgI3.AbVar.End A) = 4 ∧
+  (∀ g h, Tm g * Tm h = c g h • Tm (g * h)) ∧
+  (∀ g h, a g * a h * c g h = ε g h * a (g * h)) ∧
+  (∀ g h, β g * β h = ε g h * β (g * h)) ∧ (∀ g, β g ≠ 0) ∧
+  (∀ σ, Tm (resQ K σ) = tate A ℓ σ ∧ a (resQ K σ) = 1 ∧ β (resQ K σ) = 1) ∧
+  (∀ g i j, Commute (Tm g) (u.e i j)) ∧
+  (∀ (f : Module.Dual (PadicAlgCl ℓ) (Vb A ℓ)) (v : Vb A ℓ),
+    Continuous fun g => f (GlueDescent.rho Tm a β g v))
+
+/-- **Output of G5-G6 (QM dichotomy and NoCM), the part used by G10:** `End_K(A)` is a division
+ring (`PkgI3.EndDivision`: every nonzero endomorphism is an isogeny) and is not commutative (so
+`End⁰_K(A) = B`, not a field). -/
+def G6Out {K : Type} [Field K] (A : PkgI3.AbVar K) : Prop :=
+  PkgI3.EndDivision A ∧ ∃ x y : PkgI3.AbVar.End A, x * y ≠ y * x
+
+/-! ### Outputs of this range -/
+
+/-- **Output of G8.** `r : G_ℚ → GL₂(ℚ̄_ℓ)` (continuous) and `e : ℚ̄_ℓ ⊗ V_ℓ(A) ≅ ℚ̄_ℓ² × ℚ̄_ℓ²`
+with: (i) `e` intertwines the descended representation `ρ` (an operator family on
+`ℚ̄_ℓ ⊗ V_ℓ(A)`, in the theorem `GlueDescent.rho Tm a β`) with `r ⊕ r` on all of `G_ℚ`;
+(ii) `ρ` is the Tate action on `G_{L'}`; (iii) `r|G_{L'}` is absolutely irreducible, in
+Burnside's form (the matrices `r(σ)`, `σ ∈ G_{L'}`, generate `M₂(ℚ̄_ℓ)`). -/
+def G8Out {K : Type} [Field K] [NumberField K] (A : PkgI3.AbVar K) (ℓ : ℕ) [Fact ℓ.Prime]
+    (ρ : PkgI4.GQ → Module.End (PadicAlgCl ℓ) (Vb A ℓ)) (r : GaloisRep ℓ 2) : Prop :=
+  (∀ σ, ρ (resQ K σ) = tate A ℓ σ) ∧
+  ∃ e : Vb A ℓ ≃ₗ[PadicAlgCl ℓ] (Fin 2 → PadicAlgCl ℓ) × (Fin 2 → PadicAlgCl ℓ),
+    Intertwines ρ r.mat e ∧
+    Algebra.adjoin (PadicAlgCl ℓ) (Set.range fun σ => r.mat (resQ K σ)) = ⊤
+
+/-- **Output of G9** (N5's appendix lemma `lem:de-rham-descent`, L10939-11000):
+`r|G_{ℚ_ℓ}` is de Rham, with Hodge–Tate weights `{0, −1}` (Tate convention, cyclotomic weight
+`−1`; pkg-I4's `LocalIsDeRham`, `HasHTWeightsAtSelf`). -/
+def G9Out {ℓ : ℕ} [Fact ℓ.Prime] (r : GaloisRep ℓ 2) : Prop :=
+  PkgI4.LocalIsDeRham ℓ 2 (r.restrictLocal ℓ) ∧ r.HasHTWeightsAtSelf ℓ {0, -1}
+
+/-- **Output of G10:** `r` is odd (`det r(c) = −1` for every complex conjugation `c`). -/
+def G10Out {ℓ : ℕ} [Fact ℓ.Prime] (r : GaloisRep ℓ 2) : Prop := r.IsOdd
+
+/-- **Output of G11:** `r` is unramified at every prime outside `T ∪ {ℓ}`. -/
+def G11Out {ℓ : ℕ} [Fact ℓ.Prime] (T : Finset ℕ) (r : GaloisRep ℓ 2) : Prop :=
+  ∀ p : ℕ, p.Prime → p ∉ T → p ≠ ℓ → r.UnramifiedAt p
+
+instance fact_five : Fact (Nat.Prime 5) := ⟨by norm_num⟩
+
+/-- **Output of G12** (at `ℓ = 5`; N5 L755-768, h-trust C7-C8): there are a level `N ≥ 1`, a
+normalized eigenform `g` of **weight 2** on `Γ₁(N)` with nebentypus `χ`, a continuous character
+`ψ : G_ℚ → ℚ̄₅^×` of **finite image**, embeddings `ιC : ℚ̄ → ℂ`, `ιL : ℚ̄ → ℚ̄₅` and a finite set
+`S` of primes, such that `r` is attached to `g` up to the twist `ψ` outside `S`:
+`tr r(Frob_q) = ψ(Frob_q) ιL(a_q(g))` for `q ∉ S` (arithmetic Frobenius). -/
+def G12Out (r : GaloisRep 5 2) : Prop :=
+  ∃ (N : ℕ) (χ : DirichletCharacter ℂ N) (g : PkgI4.CF N 2) (ψ : GaloisChar 5)
+    (ιC : PkgI4.Qbar →ₐ[ℚ] ℂ) (ιL : PkgI4.Qbar →ₐ[ℚ] PadicAlgCl 5) (S : Finset ℕ),
+    0 < N ∧ PkgI4.IsNormalizedEigenform g χ ∧ (Set.range ψ.toHom).Finite ∧
+    r.AttachedUpToTwist ψ ιC ιL g S
+
+/-! ### The remaining glue, named -/
+
+/-- **G8, linear-algebra remainder (GLUE, unproved; STANDARD).** Let `ρ` be a representation of
+`G_ℚ` on `ℚ̄_ℓ ⊗ V_ℓ(A)` commuting with a system of `2 × 2` matrix units `u`,
+weakly continuous, such that `r_W := ρ|_{W}` on `W = e₀₀(ℚ̄_ℓ ⊗ V_ℓ(A))` is absolutely irreducible
+on `G_K` (C2's conclusion: irreducible after every field extension), and
+`dim (ℚ̄_ℓ ⊗ V_ℓ(A)) = 4` (proved in `g8` from T26 and `dim A = 2`). Then a basis of `W`
+(`dim W = 2`, `GlueDescent.MatrixUnits2.finrank_W`) turns `r_W` into a
+continuous `r : G_ℚ → GL₂(ℚ̄_ℓ)`, `splitEquiv` composed with that basis intertwines `ρ` with
+`r ⊕ r`, and Burnside's theorem over the algebraically closed `ℚ̄_ℓ` (from Mathlib's
+`jacobson_density`) gives that `r(G_K)` spans `M₂(ℚ̄_ℓ)`. No arithmetic input. -/
+def G8Matrix : Prop :=
+  ∀ (K : Type) [Field K] [NumberField K] (A : PkgI3.AbVar K) (ℓ : ℕ) [Fact ℓ.Prime]
+    (ρ : Representation (PadicAlgCl ℓ) PkgI4.GQ (Vb A ℓ))
+    (u : GlueDescent.MatrixUnits2 (PadicAlgCl ℓ) (Vb A ℓ))
+    (hc : ∀ g i j, Commute (ρ g) (u.e i j)),
+    Module.finrank (PadicAlgCl ℓ) (Vb A ℓ) = 4 →
+    (∀ (f : Module.Dual (PadicAlgCl ℓ) (Vb A ℓ)) (v : Vb A ℓ), Continuous fun g => f (ρ g v)) →
+    (∀ (F : Type) [Field F] [Algebra (PadicAlgCl ℓ) F],
+      (GlueI3.repBaseChange F
+        ((restrictRep ρ u.W (fun g _ hw => u.mapsTo_W ρ hc g hw)).comp (resQ K))).IsIrreducible) →
+    ∃ (r : GaloisRep ℓ 2) (e : Vb A ℓ ≃ₗ[PadicAlgCl ℓ] (Fin 2 → PadicAlgCl ℓ) × (Fin 2 → PadicAlgCl ℓ)),
+      Intertwines (fun g => ρ g) r.mat e ∧
+      Algebra.adjoin (PadicAlgCl ℓ) (Set.range fun σ => r.mat (resQ K σ)) = ⊤
+
+/-- **G9, N5's appendix lemma (GLUE, unproved; two model reviews, h-trust C3).** From R10
+(`PkgI4.DeRhamComparison`: `V_ℓ` of an abelian variety over a finite extension `F/ℚ_ℓ` is de Rham
+with weights `0, −1` each of multiplicity `dim`) and T23 (Fontaine's closure under
+subquotients and direct sums): if `r : G_ℚ → GL₂(ℚ̄_ℓ)` and `ℚ̄_ℓ ⊗ V_ℓ(A) ≅ r|G_K ⊕ r|G_K` for an
+abelian surface `A` over a number field `K`, then `r|G_{ℚ_ℓ}` is de Rham with weights `{0, −1}`.
+Proof plan (h-trust C3, Galois choice): base change `A` to a completion `F` of a Galois closure at
+a place above `ℓ`; `r|G_F` is a summand of `V_ℓ(A_F) ⊗ ℚ̄_ℓ`, hence de Rham with weights
+`{0, −1}` (each weight of `V_ℓ(A_F)` has multiplicity 2 = twice its multiplicity in `r`); descend
+from `F` to `ℚ_ℓ` by Hilbert 90 (`B_dR^{G_F} = F`). Needs: base change of `PkgI3.AbVar` to
+local fields, the comparison of `PkgI3.AbVar` with pkg-I4's copy `PkgI4.I3.AbVar`, and a
+finite-coefficient-field reduction (a continuous `G_{ℚ_ℓ} → GL₂(ℚ̄_ℓ)` has values in a finite
+extension, Baire). True by the published inputs (R10, T23) and STANDARD descent. -/
+def G9Glue : Prop :=
+  PkgI4.DeRhamComparison → (∀ (p : ℕ) [Fact p.Prime], PkgI4.T23_FontaineClosure p) →
+  ∀ (K : Type) [Field K] [NumberField K] (A : PkgI3.AbVar K) (ℓ : ℕ) [Fact ℓ.Prime]
+    (r : GaloisRep ℓ 2)
+    (e : Vb A ℓ ≃ₗ[PadicAlgCl ℓ] (Fin 2 → PadicAlgCl ℓ) × (Fin 2 → PadicAlgCl ℓ)),
+    A.dim = 2 → Intertwines (tate A ℓ) (fun σ => r.mat (resQ K σ)) e → G9Out r
+
+/-- **G10, oddness (GLUE, unproved; h-trust C5, model reviews).** From T11 (Riemann, GAGA) and T12
+(Artin comparison) with R9b (Faltings): if `K` is Galois over `ℚ`, `A/K` an abelian surface with
+`End_K(A)` of rank 4, a division ring (`PkgI3.EndDivision`) and noncommutative (so `End⁰_K(A)`
+is a quaternion algebra over `ℚ`), and `r : G_ℚ → GL₂(ℚ̄_ℓ)` with
+`ℚ̄_ℓ ⊗ V_ℓ(A) ≅ r|G_K ⊕ r|G_K`, then `r` is odd. Argument (model review, SPECULATIVE until
+written; each step STANDARD): `r(c)² = 1`; if `r(c) = ±1` then `ρ(c)` is scalar and, `G_K` being
+normal, `c` induces a `G_K`-equivariant map `V_ℓ(cA) → V_ℓ(A)`, which by Faltings (R9b) lies in
+`Hom(cA, A) ⊗ ℚ_ℓ`; by Artin comparison (T12) it is the antiholomorphic `F_∞`, a rational map,
+contradicting holomorphy of homomorphisms (T11). So `r(c)` is not scalar, and `det r(c) = −1`.
+(g0-assemble: the hypotheses `HSyn.T11_RiemannGAGA → HSyn.T12_ArtinComparison →` of g0-mod-galois'
+text were opaque placeholders, removed from `Leaves.lean` by leaf-adopt2; they are replaced by
+leaf-push2's concrete T11 leaves `T11a_RiemannEnd`, `T11b_Rigidity` (bundle fields `t11a`, `t11b`).
+T12 is glue since leaf-adopt2, so its content is part of what this glue Prop asserts.)
+(This is N5 L742-751's Betti argument; the rank/division/noncommutativity hypotheses are not
+needed by it but are kept, being true for Glazer's `A`.) -/
+def G10Glue : Prop :=
+  ZInQ.LeafPush2.T11a_RiemannEnd → ZInQ.LeafPush2.T11b_Rigidity → PkgI3.FaltingsTate →
+  ∀ (K : Type) [Field K] [NumberField K] [IsGalois ℚ K] (A : PkgI3.AbVar K) (ℓ : ℕ)
+    [Fact ℓ.Prime] (r : GaloisRep ℓ 2)
+    (e : Vb A ℓ ≃ₗ[PadicAlgCl ℓ] (Fin 2 → PadicAlgCl ℓ) × (Fin 2 → PadicAlgCl ℓ)),
+    A.dim = 2 → Module.finrank ℤ (PkgI3.AbVar.End A) = 4 → PkgI3.EndDivision A →
+    (∃ x y : PkgI3.AbVar.End A, x * y ≠ y * x) →
+    Intertwines (tate A ℓ) (fun σ => r.mat (resQ K σ)) e → G10Out r
+
+/-- **G12, the weight comparison (GLUE, unproved; h-trust C8 "Content", rv-h-c8).** From R14
+(eigenform representations), R13 (their Hodge–Tate weights `{0, 1 − k}` for `k ≥ 2`, every
+level), R15 (Deligne–Serre for `k = 1`), T18 (Chebotarev) and T19 (Brauer–Nesbitt): if an
+irreducible `r : G_ℚ → GL₂(ℚ̄₅)` with weights `{0, −1}` at 5 is attached to a normalized eigenform
+`g` of weight `k ≥ 1` up to a continuous twist `ψ` outside a finite set, then the weights of `r`
+are `{n, n + 1 − k}` for an integer `n`. Argument: `r ≅ ρ_g ⊗ ψ` (traces agree on a dense set,
+both semisimple); the Sen weights of `ρ_g ⊗ ψ` are `{0, 1−k} + s` (`s` the Sen weight of `ψ`,
+a priori not an integer); equality with `{0, −1}` forces `s = 0`, `k = 2` for `k ≥ 2`
+(model review: `ψ` itself need not be Hodge–Tate a priori, so the argument goes through Sen
+weights); for `k = 1`, `ρ_g` has finite image, hence weights `{0, 0}`, so
+`r` would have equal weights, contradicting `{0, −1}` (so the hypotheses are inconsistent). -/
+def G12Weight : Prop :=
+  HSyn.EigenformRepExists → PkgI4.EigenformHT → HSyn.DeligneSerreConseq → HSyn.FrobeniusDense →
+  HSyn.BrauerNesbitt →
+  ∀ (r : GaloisRep 5 2) (N : ℕ) (k : ℤ) (χ : DirichletCharacter ℂ N) (g : PkgI4.CF N k)
+    (ψ : GaloisChar 5) (ιC : PkgI4.Qbar →ₐ[ℚ] ℂ) (ιL : PkgI4.Qbar →ₐ[ℚ] PadicAlgCl 5)
+    (S : Finset ℕ),
+    0 < N → 1 ≤ k → PkgI4.IsNormalizedEigenform g χ → r.IsIrreducible →
+    r.HasHTWeightsAtSelf 5 {0, -1} → r.AttachedUpToTwist ψ ιC ιL g S →
+    ∃ n : ℤ, ({n, n + 1 - k} : Multiset ℤ) = {0, -1}
+
+/-- **G12, the determinant identities (GLUE, unproved; h-trust C8 items 1-3, V16 L660-667).**
+For `r` as in G8's output on the model `A/K` and `r ≅ ρ_g ⊗ ψ` with `g` of weight 2 and
+nebentypus `χ`: there are characters `det r`, `ε` (the nebentypus as a Galois character, of
+finite image), `χ_cyc` (the 5-adic cyclotomic character) of `G_ℚ` and a finite-index subgroup
+`H` (`G_K`: a polarization exists over `K`) with `det r = ε · χ_cyc · ψ²`
+(`det ρ_g = ε χ_cyc` at `k = 2`, the determinant clause of R14 as published) and
+`(det r)² = χ_cyc²` on `H` (T9: `det V₅(A) = χ_cyc²` on `G_F`, with `V₅(A) ≅ r ⊕ r`). The
+group theory that turns this into the finiteness of `ψ` is `GlueAssembly.twist_finite`
+(proved). -/
+def G12Det : Prop :=
+  HSyn.EigenformRepExists → LeafPush.T09_WeilPairing.{0} →
+  ∀ (K : Type) [Field K] [NumberField K] (A : PkgI3.AbVar K) (r : GaloisRep 5 2)
+    (e : Vb A 5 ≃ₗ[PadicAlgCl 5] (Fin 2 → PadicAlgCl 5) × (Fin 2 → PadicAlgCl 5))
+    (N : ℕ) (χ : DirichletCharacter ℂ N) (g : PkgI4.CF N 2) (ψ : GaloisChar 5)
+    (ιC : PkgI4.Qbar →ₐ[ℚ] ℂ) (ιL : PkgI4.Qbar →ₐ[ℚ] PadicAlgCl 5) (S : Finset ℕ),
+    A.dim = 2 → Intertwines (tate A 5) (fun σ => r.mat (resQ K σ)) e →
+    0 < N → PkgI4.IsNormalizedEigenform g χ → r.AttachedUpToTwist ψ ιC ιL g S →
+    ∃ (H : Subgroup PkgI4.GQ) (_ : H.FiniteIndex) (dr εg χc : PkgI4.GQ →* (PadicAlgCl 5)ˣ),
+      (∀ x, dr x = εg x * χc x * ψ.toHom x ^ 2) ∧ (∀ h ∈ H, dr h ^ 2 = χc h ^ 2) ∧
+      (Set.range εg).Finite
+
+/-! ### Proofs -/
+
+/-- `ρ` restricted along `resQ` gives the Tate-action form of the intertwining. -/
+theorem intertwines_res {K : Type} [Field K] [NumberField K] {A : PkgI3.AbVar K} {ℓ : ℕ}
+    [Fact ℓ.Prime] {ρ : PkgI4.GQ → Module.End (PadicAlgCl ℓ) (Vb A ℓ)} {r : GaloisRep ℓ 2}
+    {e : Vb A ℓ ≃ₗ[PadicAlgCl ℓ] (Fin 2 → PadicAlgCl ℓ) × (Fin 2 → PadicAlgCl ℓ)}
+    (hres : ∀ σ, ρ (resQ K σ) = tate A ℓ σ) (h : Intertwines ρ r.mat e) :
+    Intertwines (tate A ℓ) (fun σ => r.mat (resQ K σ)) e := by
+  intro σ v
+  have := h (resQ K σ) v
+  rwa [hres σ] at this
+
+/-- **G8 (proved from `G7Out`, the leaves R9a, R9b, T6, T26, `SemisimpleBaseChange` through C2,
+and the linear-algebra remainder `G8Matrix`).** The descended operators `ρ = β⁻¹ a Tm` form a
+representation of `G_ℚ` (`GlueDescent.rho_map_mul`), commute with the matrix units
+(`rho_commute`), are the Tate action on `G_{L'}` (`rho_eq_act`); C2
+(`PkgI3.C2_absolutelyIrreducible`) applied to `splitEquiv` makes `ρ|_W` absolutely irreducible on
+`G_{L'}`. -/
+theorem g8 (hS : PkgI3.FaltingsSemisimple) (hF : PkgI3.FaltingsTate) (hT : PkgI3.TateModuleFree)
+    (hH : PkgI3.HomFreeFinite) (hSS : GlueI3.SemisimpleBaseChange) (hM : G8Matrix)
+    {K : Type} [Field K] [NumberField K] (A : PkgI3.AbVar K) (ℓ : ℕ) [Fact ℓ.Prime]
+    (Tm : PkgI4.GQ → Module.End (PadicAlgCl ℓ) (Vb A ℓ))
+    (c ε : PkgI4.GQ → PkgI4.GQ → PadicAlgCl ℓ) (a β : PkgI4.GQ → PadicAlgCl ℓ)
+    (u : GlueDescent.MatrixUnits2 (PadicAlgCl ℓ) (Vb A ℓ))
+    (h7 : G7Out A ℓ Tm c ε a β u) :
+    ∃ r : GaloisRep ℓ 2, G8Out A ℓ (GlueDescent.rho Tm a β) r := by
+  obtain ⟨hdim, hrank, hTm, ha, hβ, hβ0, hres, hcomm, hcont⟩ := h7
+  -- the descended representation
+  have h1 : GlueDescent.rho Tm a β 1 = 1 := by
+    have := hres 1
+    rw [map_one] at this
+    refine (GlueDescent.rho_eq_act Tm (fun _ => tate A ℓ 1) a β 1 this.1 this.2.1 this.2.2).trans ?_
+    exact map_one (tate A ℓ)
+  let ρ : Representation (PadicAlgCl ℓ) PkgI4.GQ (Vb A ℓ) :=
+    GlueDescent.rhoRep Tm c ε a β hTm ha hβ hβ0 h1
+  have hρ : ∀ g, ρ g = GlueDescent.rho Tm a β g := fun _ => rfl
+  have hρres : ∀ σ, ρ (resQ K σ) = tate A ℓ σ := fun σ =>
+    GlueDescent.rho_eq_act Tm (fun _ => tate A ℓ σ) a β (resQ K σ) (hres σ).1 (hres σ).2.1
+      (hres σ).2.2
+  have hc : ∀ g i j, Commute (ρ g) (u.e i j) := fun g i j =>
+    GlueDescent.rho_commute Tm a β (u.e i j) (fun g => hcomm g i j) g
+  -- finite-dimensionality of `ℚ̄_ℓ ⊗ V_ℓ(A)`
+  have hℓK : (ℓ : K) ≠ 0 := Nat.cast_ne_zero.mpr (Fact.out : ℓ.Prime).ne_zero
+  obtain ⟨hfree, hfin, hrk⟩ := hT K A ℓ hℓK
+  haveI : FiniteDimensional ℚ_[ℓ] (A.V ℓ) := inferInstance
+  haveI : FiniteDimensional (PadicAlgCl ℓ) (Vb A ℓ) := inferInstance
+  -- `dim = 4`, so `W ≠ 0`
+  have h4 : Module.finrank (PadicAlgCl ℓ) (Vb A ℓ) = 4 := by
+    rw [Module.finrank_baseChange, Module.finrank_baseChange]
+    rw [hdim] at hrk
+    have h22 : (2 : WithBot ℕ∞) * 2 = (((4 : ℕ) : ℕ∞) : WithBot ℕ∞) := by
+      norm_num
+    rw [h22] at hrk
+    exact_mod_cast hrk
+  haveI hVne : Nontrivial (Vb A ℓ) :=
+    Module.nontrivial_of_finrank_pos (R := PadicAlgCl ℓ) (by omega)
+  haveI : Nontrivial u.W := by
+    by_contra hW
+    rw [not_nontrivial_iff_subsingleton] at hW
+    haveI := hW
+    haveI : Subsingleton (u.W × u.W) := inferInstance
+    exact not_subsingleton (Vb A ℓ) u.splitEquiv.toEquiv.subsingleton
+  -- C2 on `G_K`
+  let rW : Representation (PadicAlgCl ℓ) (Field.absoluteGaloisGroup K) u.W :=
+    (restrictRep ρ u.W (fun g _ hw => u.mapsTo_W ρ hc g hw)).comp (resQ K)
+  have he : ∀ σ v, u.splitEquiv (tate A ℓ σ v) = (rW σ).prodMap (rW σ) (u.splitEquiv v) := by
+    intro σ v
+    rw [← hρres σ, u.splitEquiv_intertwines ρ hc]
+    rfl
+  have hirr := fun (F : Type) [Field F] [Algebra (PadicAlgCl ℓ) F] =>
+    PkgI3.C2_absolutelyIrreducible hS hF hT hH hSS A ℓ hrank (PadicAlgCl ℓ) rW u.splitEquiv he F
+  obtain ⟨r, e, hint, hadj⟩ := hM K A ℓ ρ u hc h4 (fun f v => by simpa [hρ] using hcont f v)
+    hirr
+  exact ⟨r, hρres, e, hint, hadj⟩
+
+/-- **G11 (proved from `G2Out`, `G3Out` and G8's intertwining, no further glue).** At `p ∉ T`,
+`p ≠ ℓ`, an inertia element `σ` above `p` lies in `G_K` (G2), acts trivially on `V_ℓ(A)` (G3 with
+R7a), hence trivially on `r ⊕ r`, hence `r(σ) = 1`. -/
+theorem g11 {K : Type} [Field K] [NumberField K] (A : PkgI3.AbVar K) (ℓ : ℕ) [Fact ℓ.Prime]
+    (T : Finset ℕ) (r : GaloisRep ℓ 2)
+    (e : Vb A ℓ ≃ₗ[PadicAlgCl ℓ] (Fin 2 → PadicAlgCl ℓ) × (Fin 2 → PadicAlgCl ℓ))
+    (h2 : G2Out K T) (h3 : G3Out A ℓ T)
+    (hint : Intertwines (tate A ℓ) (fun σ => r.mat (resQ K σ)) e) : G11Out T r := by
+  intro p hp hpT hpℓ v hv σ hσ
+  obtain ⟨σ', hσ'⟩ := MonoidHom.mem_range.mp (h2 p hp hpT v hv σ hσ)
+  have ht := h3 p hp hpT hpℓ v hv σ' ⟨σ, hσ, hσ'.symm⟩
+  have key : ∀ w : Fin 2 → PadicAlgCl ℓ, (r.mat (resQ K σ')).mulVec w = w := by
+    intro w
+    have := hint σ' (e.symm (w, 0))
+    rw [ht] at this
+    simp only [Module.End.one_apply, LinearEquiv.apply_symm_apply] at this
+    exact (congrArg Prod.fst this).symm
+  have hM : r.mat (resQ K σ') = 1 := by
+    apply Matrix.toLin'.injective
+    apply LinearMap.ext
+    intro w
+    rw [Matrix.toLin'_apply, Matrix.toLin'_apply, key, Matrix.one_mulVec]
+  rw [← hσ']
+  exact Units.ext hM
+
+/-- G11 gives Pan's "ramified at finitely many primes" (`S = T ∪ {ℓ}`). -/
+theorem finitelyRamified_of_g11 {ℓ : ℕ} [Fact ℓ.Prime] {T : Finset ℕ} {r : GaloisRep ℓ 2}
+    (h : G11Out T r) : r.FinitelyRamified :=
+  ⟨insert ℓ T, fun p hp hpS => h p hp (fun h' => hpS (Finset.mem_insert_of_mem h'))
+    (fun h' => hpS (h' ▸ Finset.mem_insert_self ℓ T))⟩
+
+/-- Absolute irreducibility on `G_K` (G8) gives Pan's irreducibility on `G_ℚ`. -/
+theorem isIrreducible_of_g8 {K : Type} [Field K] [NumberField K] {ℓ : ℕ} [Fact ℓ.Prime]
+    {r : GaloisRep ℓ 2}
+    (hadj : Algebra.adjoin (PadicAlgCl ℓ) (Set.range fun σ => r.mat (resQ K σ)) = ⊤) :
+    r.IsIrreducible := by
+  unfold PkgI4.GaloisRep.IsIrreducible
+  rw [eq_top_iff, ← hadj]
+  apply Algebra.adjoin_mono
+  rintro _ ⟨σ, rfl⟩
+  exact ⟨_, rfl⟩
+
+/-- **G12 (proved from Pan∘Berger (R11+R12), the weight comparison `PkgI4.weight_match`, the
+determinant argument `GlueAssembly.twist_finite`, and the named pieces `G12Weight`, `G12Det`).**
+The hypotheses of Pan's Theorem 1.0.4 at `p = 5` come from G8 (irreducible), G11 (finitely
+ramified), G9 (de Rham, distinct weights `0 ≠ −1`) and G10 (odd). -/
+theorem g12 (hPB : PkgI4.PanBerger) (hR14 : HSyn.EigenformRepExists) (hR13 : PkgI4.EigenformHT)
+    (hR15 : HSyn.DeligneSerreConseq) (hT18 : HSyn.FrobeniusDense) (hT19 : HSyn.BrauerNesbitt)
+    (hT9 : LeafPush.T09_WeilPairing.{0}) (hW : G12Weight) (hD : G12Det)
+    {K : Type} [Field K] [NumberField K] (A : PkgI3.AbVar K) (T : Finset ℕ) (r : GaloisRep 5 2)
+    (e : Vb A 5 ≃ₗ[PadicAlgCl 5] (Fin 2 → PadicAlgCl 5) × (Fin 2 → PadicAlgCl 5))
+    (hdim : A.dim = 2) (hint : Intertwines (tate A 5) (fun σ => r.mat (resQ K σ)) e)
+    (hirr : r.IsIrreducible) (h9 : G9Out r) (h10 : G10Out r) (h11 : G11Out T r) :
+    G12Out r := by
+  obtain ⟨N, k, χ, g, hN, hk, hg, ψ, ιC, ιL, S, hatt⟩ :=
+    hPB 5 (le_refl 5) r hirr (finitelyRamified_of_g11 h11) h9.1 h10 ⟨0, -1, by norm_num, h9.2⟩
+  obtain ⟨n, hn⟩ := hW hR14 hR13 hR15 hT18 hT19 r N k χ g ψ ιC ιL S hN hk hg hirr h9.2 hatt
+  obtain ⟨-, rfl⟩ := PkgI4.weight_match n k hk hn
+  obtain ⟨H, hH, dr, εg, χc, hdet, hHsq, hε⟩ :=
+    hD hR14 hT9 K A r e N χ g ψ ιC ιL S hdim hint hN hg hatt
+  haveI := hH
+  exact ⟨N, χ, g, ψ, ιC, ιL, S, hN, hg,
+    GlueAssembly.twist_finite H dr εg χc ψ.toHom hdet hHsq hε, hatt⟩
+
+/-- **G8-G11 at every coefficient prime `ℓ` (proved from the leaves, the outputs `G2Out`,
+`G3Out`, `G6Out`, `G7Out`, and the named glue `G8Matrix`, `G9Glue`, `G10Glue`).** -/
+theorem g8_g11 (hS : PkgI3.FaltingsSemisimple) (hF : PkgI3.FaltingsTate)
+    (hT : PkgI3.TateModuleFree) (hH : PkgI3.HomFreeFinite) (hSS : GlueI3.SemisimpleBaseChange)
+    (hR10 : PkgI4.DeRhamComparison) (hT23 : ∀ (p : ℕ) [Fact p.Prime], PkgI4.T23_FontaineClosure p)
+    (hT11 : ZInQ.LeafPush2.T11a_RiemannEnd) (hT12 : ZInQ.LeafPush2.T11b_Rigidity)
+    (hM : G8Matrix) (h9g : G9Glue) (h10g : G10Glue)
+    {K : Type} [Field K] [NumberField K] [IsGalois ℚ K] (A : PkgI3.AbVar K) (T : Finset ℕ)
+    (h2 : G2Out K T) (h6 : G6Out A) (ℓ : ℕ) [Fact ℓ.Prime] (h3 : G3Out A ℓ T)
+    (Tm : PkgI4.GQ → Module.End (PadicAlgCl ℓ) (Vb A ℓ))
+    (c ε : PkgI4.GQ → PkgI4.GQ → PadicAlgCl ℓ) (a β : PkgI4.GQ → PadicAlgCl ℓ)
+    (u : GlueDescent.MatrixUnits2 (PadicAlgCl ℓ) (Vb A ℓ))
+    (h7 : G7Out A ℓ Tm c ε a β u) :
+    ∃ r : GaloisRep ℓ 2, G8Out A ℓ (GlueDescent.rho Tm a β) r ∧ G9Out r ∧ G10Out r ∧
+      G11Out T r := by
+  have hdim := h7.1
+  have hrank := h7.2.1
+  obtain ⟨r, hres, e, hint, hadj⟩ := g8 hS hF hT hH hSS hM A ℓ Tm c ε a β u h7
+  have hintK := intertwines_res hres hint
+  exact ⟨r, ⟨hres, e, hint, hadj⟩, h9g hR10 hT23 K A ℓ r e hdim hintK,
+    h10g hT11 hT12 hF K A ℓ r e hdim hrank h6.1 h6.2 hintK, g11 A ℓ T r e h2 h3 hintK⟩
+
+/-- **G8-G12 at `ℓ = 5`: the conclusion of this range** (proved from the leaves, the outputs of
+G2, G3, G6, G7, and the five named glue pieces). It is the input of G13 (g0-mod-newform's range):
+`r₅` with `ℚ̄₅ ⊗ V₅(A) ≅ r₅|G_{L'} ⊕ r₅|G_{L'}` and `r₅` attached up to a finite twist to a
+weight-2 eigenform. -/
+theorem g8_g12 (hS : PkgI3.FaltingsSemisimple) (hF : PkgI3.FaltingsTate)
+    (hT : PkgI3.TateModuleFree) (hH : PkgI3.HomFreeFinite) (hSS : GlueI3.SemisimpleBaseChange)
+    (hR10 : PkgI4.DeRhamComparison) (hT23 : ∀ (p : ℕ) [Fact p.Prime], PkgI4.T23_FontaineClosure p)
+    (hT11 : ZInQ.LeafPush2.T11a_RiemannEnd) (hT12 : ZInQ.LeafPush2.T11b_Rigidity)
+    (hPB : PkgI4.PanBerger) (hR14 : HSyn.EigenformRepExists) (hR13 : PkgI4.EigenformHT)
+    (hR15 : HSyn.DeligneSerreConseq) (hT18 : HSyn.FrobeniusDense) (hT19 : HSyn.BrauerNesbitt)
+    (hT9 : LeafPush.T09_WeilPairing.{0})
+    (hM : G8Matrix) (h9g : G9Glue) (h10g : G10Glue) (hW : G12Weight) (hD : G12Det)
+    {K : Type} [Field K] [NumberField K] [IsGalois ℚ K] (A : PkgI3.AbVar K) (T : Finset ℕ)
+    (h2 : G2Out K T) (h6 : G6Out A) (h3 : G3Out A 5 T)
+    (Tm : PkgI4.GQ → Module.End (PadicAlgCl 5) (Vb A 5))
+    (c ε : PkgI4.GQ → PkgI4.GQ → PadicAlgCl 5) (a β : PkgI4.GQ → PadicAlgCl 5)
+    (u : GlueDescent.MatrixUnits2 (PadicAlgCl 5) (Vb A 5))
+    (h7 : G7Out A 5 Tm c ε a β u) :
+    ∃ r : GaloisRep 5 2, G8Out A 5 (GlueDescent.rho Tm a β) r ∧ G9Out r ∧ G10Out r ∧
+      G11Out T r ∧ G12Out r := by
+  obtain ⟨r, h8, h9, h10, h11⟩ :=
+    g8_g11 hS hF hT hH hSS hR10 hT23 hT11 hT12 hM h9g h10g A T h2 h6 5 h3 Tm c ε a β u h7
+  obtain ⟨hres, e, hint, hadj⟩ := h8
+  exact ⟨r, ⟨hres, e, hint, hadj⟩, h9, h10, h11,
+    g12 hPB hR14 hR13 hR15 hT18 hT19 hT9 hW hD A T r e h7.1 (intertwines_res hres hint)
+      (isIrreducible_of_g8 hadj) h9 h10 h11⟩
+
+end G0Galois
+
+end
+
+end G0GaloisSec
+
+/-! ### G8's linear-algebra remainder, reduced to Burnside's theorem -/
+
+section G0GaloisMatrixSec
+
+noncomputable section
+
+namespace G0Galois
+
+open PkgI4 (GaloisRep)
+
+/-- **Burnside's theorem, absolutely irreducible form (textbook leaf; Lang, *Algebra*, XVII §3,
+Cor. 3.4, and Curtis–Reiner §27 (Burnside, Frobenius–Schur); locators UNVERIFIED).** If a
+finite-dimensional representation `ρ` of a monoid over a field `F` stays irreducible after every
+field extension, then the matrices `ρ(g)` (in any basis) generate `M_n(F)` as an `F`-algebra.
+Mathlib has the Jacobson density theorem (`jacobson_density`), from which it follows. -/
+def BurnsideAbsIrred : Prop :=
+  ∀ (F : Type) [Field F] (G : Type) [Monoid G] (W : Type) [AddCommGroup W] [Module F W]
+    [FiniteDimensional F W] (n : ℕ) (b : Module.Basis (Fin n) F W) (ρ : Representation F G W),
+    (∀ (F' : Type) [Field F'] [Algebra F F'], (GlueI3.repBaseChange F' ρ).IsIrreducible) →
+    Algebra.adjoin F (Set.range fun g => LinearMap.toMatrix b b (ρ g)) = ⊤
+
+/-- **`G8Matrix` from Burnside (proved).** A basis of `W = e₀₀ V` (`dim W = 2`) turns `ρ|_W` into
+a continuous `r : G_ℚ → GL₂(ℚ̄_ℓ)` (continuity from the weak continuity of `ρ`, through the
+functionals `b.coord i ∘ e₀₀`); `splitEquiv` composed with the basis intertwines `ρ` with
+`r ⊕ r`; Burnside gives the generation of `M₂(ℚ̄_ℓ)` by `r(G_K)`. -/
+theorem g8Matrix_of_burnside (hB : BurnsideAbsIrred) : G8Matrix := by
+  intro K _ _ A ℓ _ ρ u hc h4 hcont hirr
+  haveI : FiniteDimensional (PadicAlgCl ℓ) (Vb A ℓ) :=
+    Module.finite_of_finrank_pos (by rw [h4]; norm_num)
+  have hW2 : Module.finrank (PadicAlgCl ℓ) u.W = 2 := u.finrank_W h4
+  let b : Module.Basis (Fin 2) (PadicAlgCl ℓ) u.W :=
+    Module.finBasisOfFinrankEq (PadicAlgCl ℓ) u.W hW2
+  let rW := restrictRep ρ u.W (fun g _ hw => u.mapsTo_W ρ hc g hw)
+  let m : PkgI4.GQ →* Matrix (Fin 2) (Fin 2) (PadicAlgCl ℓ) :=
+    (LinearMap.toMatrixAlgEquiv b).toRingEquiv.toMonoidHom.comp rW
+  have hm : ∀ g, m g = LinearMap.toMatrix b b (rW g) := by
+    intro g
+    ext i j
+    rw [LinearMap.toMatrix_apply]
+    exact LinearMap.toMatrixAlgEquiv_apply b (rW g) i j
+  have hcm : Continuous fun g => m g := by
+    refine continuous_matrix fun i j => ?_
+    let f : Module.Dual (PadicAlgCl ℓ) (Vb A ℓ) :=
+      (b.coord i).comp ((u.e 0 0).codRestrict u.W (fun v => u.mem_W_of_e0 0 v))
+    refine (hcont f (b j : Vb A ℓ)).congr fun g => ?_
+    rw [hm, LinearMap.toMatrix_apply, ← Module.Basis.coord_apply]
+    change b.coord i _ = b.coord i _
+    congr 1
+    exact Subtype.ext (u.e00_of_mem (u.mapsTo_W ρ hc g (b j).2))
+  let toHom : PkgI4.GQ →* GL (Fin 2) (PadicAlgCl ℓ) := m.toHomUnits
+  have hcont' : Continuous toHom := by
+    rw [Units.continuous_iff]
+    refine ⟨hcm, ?_⟩
+    have hinv : (fun g => (((toHom g)⁻¹ : GL (Fin 2) (PadicAlgCl ℓ)) :
+        Matrix (Fin 2) (Fin 2) (PadicAlgCl ℓ))) = fun g => m g⁻¹ := by
+      funext g
+      rw [← map_inv]
+      rfl
+    rw [hinv]
+    exact hcm.comp continuous_inv
+  let r : GaloisRep ℓ 2 := ⟨toHom, hcont'⟩
+  have hrmat : ∀ g, r.mat g = LinearMap.toMatrix b b (rW g) := hm
+  let e := u.splitEquiv.trans (b.equivFun.prodCongr b.equivFun)
+  refine ⟨r, e, ?_, ?_⟩
+  · intro g v
+    have h1 := u.splitEquiv_intertwines ρ hc g v
+    simp only [e, LinearEquiv.trans_apply, h1, LinearEquiv.prodCongr_apply,
+      Module.Basis.equivFun_apply, hrmat]
+    refine Prod.ext ?_ ?_
+    · dsimp only
+      rw [LinearMap.toMatrix_mulVec_repr]
+      rfl
+    · dsimp only
+      rw [LinearMap.toMatrix_mulVec_repr]
+      rfl
+  · have hfun : (fun σ => r.mat (resQ K σ)) =
+        fun σ => LinearMap.toMatrix b b ((rW.comp (resQ K)) σ) :=
+      funext fun σ => hrmat _
+    rw [hfun]
+    exact hB (PadicAlgCl ℓ) (Field.absoluteGaloisGroup K) u.W 2 b (rW.comp (resQ K)) hirr
+
+end G0Galois
+
+end
+
+end G0GaloisMatrixSec
+
+/-! ### G12's determinant identities (`G12Det`), split into R14's determinant clause, `DetTate`
+and `ResQFiniteIndex` -/
+
+section G0GaloisDetSec
+
+noncomputable section
+
+namespace G0Galois
+
+open PkgI4 (GaloisRep GaloisChar)
+
+/-- `σ ↦ σ` as ring automorphisms of `ℚ̄`. -/
+def toRingEquivQ : PkgI4.GQ →* (PkgI4.Qbar ≃+* PkgI4.Qbar) where
+  toFun σ := σ.toRingEquiv
+  map_one' := rfl
+  map_mul' _ _ := rfl
+
+/-- The `ℓ`-adic cyclotomic character `χ_ℓ : G_ℚ → ℤ_ℓ^× ⊆ ℚ̄_ℓ^×` (Mathlib's
+`cyclotomicCharacter` on `ℚ̄`, as `PkgI4.cyc` on `G_{ℚ_p}`). -/
+def cycQ (ℓ : ℕ) [Fact ℓ.Prime] : PkgI4.GQ →* (PadicAlgCl ℓ)ˣ :=
+  (Units.map ((algebraMap ℚ_[ℓ] (PadicAlgCl ℓ)).comp PadicInt.Coe.ringHom).toMonoidHom).comp
+    ((cyclotomicCharacter PkgI4.Qbar ℓ).comp toRingEquivQ)
+
+/-- **R14 with its published determinant clause (leaf; Shimura 1971 Thm 7.14 for `k = 2`,
+Deligne 1971 for `k ≥ 2`, Deligne–Serre 1974 for `k = 1`; locators UNVERIFIED).** For a normalized
+eigenform `g` of weight `k ≥ 1` with nebentypus, there is a semisimple `ρ_g` attached to `g` with
+`det ρ_g = ε · χ_ℓ^{k−1}`, `ε` of finite image (the nebentypus as a Galois character). This is
+`HSyn.EigenformRepExists` plus the determinant, which the published statements contain. -/
+def R14Det : Prop :=
+  ∀ (ℓ : ℕ) [Fact ℓ.Prime] (ιC : PkgI4.Qbar →ₐ[ℚ] ℂ) (ιL : PkgI4.Qbar →ₐ[ℚ] PadicAlgCl ℓ)
+    (N : ℕ) (k : ℤ) (χ : DirichletCharacter ℂ N) (g : PkgI4.CF N k),
+    0 < N → 1 ≤ k → PkgI4.IsNormalizedEigenform g χ →
+    ∃ ρ : GaloisRep ℓ 2, ρ.IsSemisimple ∧ ρ.AttachedTo ιC ιL g ∧
+      ∃ ε : PkgI4.GQ →* (PadicAlgCl ℓ)ˣ, (Set.range ε).Finite ∧
+        ∀ σ, (ρ.mat σ).det = ((ε σ * cycQ ℓ σ ^ (k - 1) : (PadicAlgCl ℓ)ˣ) : PadicAlgCl ℓ)
+
+/-- **`det V_ℓ(A) = χ_ℓ^{dim A}` (GLUE, unproved; from T9, the Weil pairing of a polarization:
+`G_K` acts on `V_ℓ(A)` through `GSp_{2g}` with multiplier `χ_ℓ`, Mumford §20, §23, STANDARD).** -/
+def DetTate : Prop :=
+  ∀ (K : Type) [Field K] [NumberField K] (A : PkgI3.AbVar K) (ℓ : ℕ) [Fact ℓ.Prime] (g : ℕ),
+    A.dim = g → ∀ σ, LinearMap.det (tate A ℓ σ) = ((cycQ ℓ (resQ K σ) : PadicAlgCl ℓ)) ^ g
+
+/-- **`G_K` has finite index in `G_ℚ` (GLUE, unproved; Galois theory: the index is `[K:ℚ]`).** -/
+def ResQFiniteIndex : Prop :=
+  ∀ (K : Type) [Field K] [NumberField K], (resQ K).range.FiniteIndex
+
+/-- **Chebotarev density, PkgI4 form** (copied verbatim from scratch/c9-rhof, where it is
+`HSyn.FrobeniusDense` with pkg-I4's `LiesOver`, `IsArithFrob`; leaf T18). -/
+def FrobeniusDenseQ : Prop :=
+  ∀ (U : Subgroup PkgI4.GQ), IsOpen (U : Set PkgI4.GQ) → ∀ (σ : PkgI4.GQ) (S : Finset ℕ),
+    ∃ p, p.Prime ∧ p ∉ S ∧ ∃ (v : ValuationSubring PkgI4.Qbar) (τ : PkgI4.GQ),
+      PkgI4.LiesOver v p ∧ PkgI4.IsArithFrob τ v p ∧ τ⁻¹ * σ ∈ U
+
+/-- The bundle's T18 is `FrobeniusDenseQ` (the two `LiesOver`, `IsArithFrob` have equal bodies). -/
+theorem frobeniusDenseQ_of (h : HSyn.FrobeniusDense) : FrobeniusDenseQ := h
+
+/-- (copied from scratch/c9-rhof, proved there from T18) Continuous functions agreeing at
+arithmetic Frobenius elements outside `S` are equal. -/
+theorem eq_of_eq_on_arithFrob (hD : FrobeniusDenseQ) {X : Type*} [TopologicalSpace X]
+    [T2Space X] (S : Finset ℕ) (f₁ f₂ : PkgI4.GQ → X) (h₁ : Continuous f₁) (h₂ : Continuous f₂)
+    (hfr : ∀ p, p.Prime → p ∉ S → ∀ (v : ValuationSubring PkgI4.Qbar) (τ : PkgI4.GQ),
+      PkgI4.LiesOver v p → PkgI4.IsArithFrob τ v p → f₁ τ = f₂ τ) : f₁ = f₂ := by
+  funext g
+  by_contra hne
+  have hopen : IsOpen {x | f₁ x ≠ f₂ x} := isOpen_ne_fun h₁ h₂
+  have hmem : (fun y => g * y) ⁻¹' {x | f₁ x ≠ f₂ x} ∈ nhds (1 : PkgI4.GQ) := by
+    apply (hopen.preimage (continuous_const.mul continuous_id)).mem_nhds
+    simpa using hne
+  obtain ⟨E, hE, hsub⟩ := (krullTopology_mem_nhds_one_iff ℚ PkgI4.Qbar _).mp hmem
+  have hU : IsOpen (E.fixingSubgroup : Set PkgI4.GQ) := IntermediateField.fixingSubgroup_isOpen E
+  obtain ⟨p, hp, hpS, v, τ, hv, hτ, hU'⟩ := hD E.fixingSubgroup hU g S
+  have hfix : g⁻¹ * τ ∈ E.fixingSubgroup := by
+    have := E.fixingSubgroup.inv_mem hU'
+    simpa using this
+  have := hsub hfix
+  simp only [Set.mem_preimage, mul_inv_cancel_left, Set.mem_ofPred_eq] at this
+  exact this (hfr p hp hpS v τ hv hτ)
+
+/-- `det M = (tr(M)² − tr(M²))/2` for `2 × 2` matrices in characteristic `0`. -/
+theorem det_fin_two_eq_trace {R : Type*} [Field R] [CharZero R] (M : Matrix (Fin 2) (Fin 2) R) :
+    M.det = ((M.trace) ^ 2 - (M * M).trace) / 2 := by
+  rw [Matrix.det_fin_two, Matrix.trace_fin_two, Matrix.trace_fin_two]
+  simp only [Matrix.mul_apply, Fin.sum_univ_two]
+  field_simp
+  ring
+
+theorem continuous_mat {ℓ : ℕ} [Fact ℓ.Prime] {n : ℕ} (r : GaloisRep ℓ n) :
+    Continuous fun x => r.mat x :=
+  Units.continuous_val.comp r.continuous_toHom
+
+/-- **`G12Det` (proved from R14Det, DetTate, ResQFiniteIndex and T18).** `det r = det(ρ_g ⊗ ψ)`
+everywhere (traces agree at Frobenius, hence everywhere by T18; then the `2 × 2` identity), and
+`(det r)² = det V₅(A) = χ₅²` on `G_K` (through `e`, `LinearMap.det_conj`, `det_prodMap`). -/
+theorem g12Det_of (hR : R14Det) (hDT : DetTate) (hFI : ResQFiniteIndex)
+    (hD : FrobeniusDenseQ) : G12Det := by
+  intro _ _ K _ _ A r e N χ g ψ ιC ιL S hdim hint hN hg hatt
+  obtain ⟨ρ, -, hρatt, ε, hεfin, hdet⟩ := hR 5 ιC ιL N 2 χ g hN (by norm_num) hg
+  -- traces of `r` and `ψ ⊗ ρ_g` agree
+  have hN5 : N * 5 ≠ 0 := by positivity
+  have htr : ∀ x, (r.mat x).trace = (ψ.toHom x : PadicAlgCl 5) * (ρ.mat x).trace := by
+    have h := eq_of_eq_on_arithFrob hD (S ∪ (N * 5).primeFactors) (fun x => (r.mat x).trace)
+      (fun x => (ψ.toHom x : PadicAlgCl 5) * (ρ.mat x).trace)
+      (continuous_mat r).matrix_trace
+      ((Units.continuous_val.comp ψ.continuous_toHom).mul (continuous_mat ρ).matrix_trace)
+      (by
+        intro p hp hpS v τ hv hτ
+        have hpS1 : p ∉ S := fun h => hpS (Finset.mem_union_left _ h)
+        have hpN : ¬ p ∣ N * 5 := fun h =>
+          hpS (Finset.mem_union_right _ (Nat.mem_primeFactors.mpr ⟨hp, h, hN5⟩))
+        obtain ⟨-, α, hα, hαt⟩ := hatt p hp hpS1
+        obtain ⟨-, α', hα', hα't⟩ := hρatt p hp hpN
+        have hαα : α = α' := ιC.toRingHom.injective (hα.trans hα'.symm)
+        rw [hαt v τ hv hτ, hα't v τ hv hτ, hαα])
+    exact fun x => congrFun h x
+  have hmul : ∀ {n : ℕ} (q : GaloisRep 5 n) x, q.mat (x * x) = q.mat x * q.mat x := by
+    intro n q x
+    simp [PkgI4.GaloisRep.mat, map_mul]
+  have hdetr : ∀ x, (r.mat x).det = (ψ.toHom x : PadicAlgCl 5) ^ 2 * (ρ.mat x).det := by
+    intro x
+    have h1 := htr x
+    have h2 := htr (x * x)
+    rw [hmul r x, hmul ρ x, map_mul, Units.val_mul] at h2
+    rw [det_fin_two_eq_trace (r.mat x), det_fin_two_eq_trace (ρ.mat x), h1, h2]
+    ring
+  haveI := hFI K
+  refine ⟨(resQ K).range, inferInstance, Matrix.GeneralLinearGroup.det.comp r.toHom, ε,
+    cycQ 5, ?_, ?_, hεfin⟩
+  · intro x
+    apply Units.ext
+    have hx := hdetr x
+    rw [hdet x] at hx
+    simp only [MonoidHom.comp_apply, Matrix.GeneralLinearGroup.val_det_apply, Units.val_mul,
+      Units.val_pow_eq_pow_val]
+    change (r.mat x).det = _
+    rw [hx]
+    norm_num
+    ring
+  · rintro _ ⟨σ, rfl⟩
+    apply Units.ext
+    have hconj : ((e : Vb A 5 →ₗ[PadicAlgCl 5] _) ∘ₗ tate A 5 σ ∘ₗ
+        (e.symm : _ →ₗ[PadicAlgCl 5] Vb A 5)) =
+        (Matrix.toLin' (r.mat (resQ K σ))).prodMap (Matrix.toLin' (r.mat (resQ K σ))) := by
+      apply LinearMap.ext
+      intro w
+      have := hint σ (e.symm w)
+      simp only [LinearEquiv.apply_symm_apply] at this
+      simp only [LinearMap.coe_comp, LinearEquiv.coe_coe, Function.comp_apply, this,
+        LinearMap.prodMap_apply, Matrix.toLin'_apply]
+    have h := LinearMap.det_conj (tate A 5 σ) e
+    rw [hconj, LinearMap.det_prodMap, LinearMap.det_toLin', hDT K A 5 2 hdim σ] at h
+    simp only [MonoidHom.comp_apply, Matrix.GeneralLinearGroup.val_det_apply,
+      Units.val_pow_eq_pow_val]
+    change (r.mat (resQ K σ)).det ^ 2 = _
+    rw [← h]
+    ring
+
+end G0Galois
+
+end
+
+end G0GaloisDetSec
+
+
+/-! ### g0-mod-galois: the range G8-G12 from the leaf bundles -/
+
+namespace G0Galois
+
+open PkgI4 (GaloisRep GaloisChar)
+
+noncomputable section
+
+/-- The pieces of the range G8-G12 that are not in the leaf bundles: Burnside (a textbook leaf;
+`G8Matrix` is proved from it, `g8Matrix_of_burnside`), R14's determinant clause (a leaf, R14 as
+published), and the named glue `G9Glue`, `G10Glue`, `G12Weight`, `DetTate`, `ResQFiniteIndex`
+(`G12Det` is proved from the last two, R14Det and T18, `g12Det_of`). -/
+structure GaloisPieces : Prop where
+  burnside : BurnsideAbsIrred
+  r14det : R14Det
+  deRham : G9Glue
+  odd : G10Glue
+  weight : G12Weight
+  detTate : DetTate
+  finIndex : ResQFiniteIndex
+
+/-- **G8-G12 from the leaf bundles** (`HSyn.ResearchLeaves`, `HSyn.TextbookLeaves`), glue-ssbc's
+proved `SemisimpleBaseChange`, the outputs of G2, G3, G6, G7 and the five named pieces. -/
+theorem g8_g12_of_leaves (r : HSyn.ResearchLeaves) (t : HSyn.TextbookLeaves) (m : GaloisPieces)
+    {K : Type} [Field K] [NumberField K] [IsGalois ℚ K] (A : PkgI3.AbVar K) (T : Finset ℕ)
+    (h2 : G2Out K T) (h6 : G6Out A) (h3 : G3Out A 5 T)
+    (Tm : PkgI4.GQ → Module.End (PadicAlgCl 5) (Vb A 5))
+    (c ε : PkgI4.GQ → PkgI4.GQ → PadicAlgCl 5) (a β : PkgI4.GQ → PadicAlgCl 5)
+    (u : GlueDescent.MatrixUnits2 (PadicAlgCl 5) (Vb A 5))
+    (h7 : G7Out A 5 Tm c ε a β u) :
+    ∃ r₅ : GaloisRep 5 2, G8Out A 5 (GlueDescent.rho Tm a β) r₅ ∧ G9Out r₅ ∧ G10Out r₅ ∧
+      G11Out T r₅ ∧ G12Out r₅ :=
+  g8_g12 r.r9a r.r9b t.t26 t.t6 HSyn.G0Split.semisimpleBaseChange r.r10 t.t23 t.t11a t.t11b
+    r.r11r12 r.r14 r.r13 r.r15 t.frobeniusDense HSyn.t19_proved t.t9 (g8Matrix_of_burnside m.burnside) m.deRham m.odd m.weight
+    (g12Det_of m.r14det m.detTate m.finIndex (frobeniusDenseQ_of t.frobeniusDense))
+    A T h2 h6 h3 Tm c ε a β u h7
+
+/-! ### How the conclusion feeds G13-G16 and `ModularConstituent` -/
+
+/-- **What G13-G16 must deliver on the `J₁(N)` side** (input of the link lemma below): an
+injective `G_K`-equivariant map from `r|G_K` (the matrices `r(σ)`, `σ ∈ G_K`, on `ℚ̄₅²`) into
+`ℚ̄₅ ⊗ V₅(J)`, for `J = J₁(N)_{L'}` (G13: `r₅ ≅ ρ_{f,5}` and `ρ_{f,5} ⊂ V₅(J₁(N))`, R16). -/
+def JSide {K : Type} [Field K] [NumberField K] (J : PkgI3.AbVar K) (r : GaloisRep 5 2) : Prop :=
+  ∃ ιJ : (Fin 2 → PadicAlgCl 5) →ₗ[PadicAlgCl 5] Vb J 5, Function.Injective ιJ ∧
+    ∀ σ w, tate J 5 σ (ιJ w) = ιJ ((r.mat (resQ K σ)).mulVec w)
+
+/-- **Link lemma (proved).** G8's output (`ℚ̄₅ ⊗ V₅(A) ≅ r|G_K ⊕ r|G_K`) and the `J`-side of
+G13-G16 (`JSide`) give `CommonConstituent A J`, the field of `ModularConstituent` that E1
+(`PkgI3.E1_exists_hom_ne_zero`) consumes, with `ℓ = 5` and `E = ℚ̄₅`. -/
+theorem commonConstituent_of_sides {K : Type} [Field K] [NumberField K] (A J : PkgI3.AbVar K)
+    (r : GaloisRep 5 2)
+    (e : Vb A 5 ≃ₗ[PadicAlgCl 5] (Fin 2 → PadicAlgCl 5) × (Fin 2 → PadicAlgCl 5))
+    (hint : Intertwines (tate A 5) (fun σ => r.mat (resQ K σ)) e) (hJ : JSide J r) :
+    HSyn.G0Split.CommonConstituent A J := by
+  obtain ⟨ιJ, hιJ, hJeq⟩ := hJ
+  let ιA : (Fin 2 → PadicAlgCl 5) →ₗ[PadicAlgCl 5] Vb A 5 :=
+    e.symm.toLinearMap ∘ₗ LinearMap.inl (PadicAlgCl 5) _ _
+  have hιA : Function.Injective ιA := e.symm.injective.comp LinearMap.inl_injective
+  have hAeq : ∀ σ w, tate A 5 σ (ιA w) = ιA ((r.mat (resQ K σ)).mulVec w) := by
+    intro σ w
+    apply e.injective
+    have h := hint σ (ιA w)
+    simp only [ιA, LinearMap.coe_comp, LinearEquiv.coe_coe, Function.comp_apply,
+      LinearMap.inl_apply, LinearEquiv.apply_symm_apply] at h ⊢
+    rw [h, Matrix.mulVec_zero]
+  let U : Subrepresentation (GlueI3.repBaseChange (PadicAlgCl 5) (A.galRep 5)) :=
+    ⟨LinearMap.range ιA, by rintro σ _ ⟨w, rfl⟩; exact ⟨_, (hAeq σ w).symm⟩⟩
+  let U' : Subrepresentation (GlueI3.repBaseChange (PadicAlgCl 5) (J.galRep 5)) :=
+    ⟨LinearMap.range ιJ, by rintro σ _ ⟨w, rfl⟩; exact ⟨_, (hJeq σ w).symm⟩⟩
+  have keyA : ∀ w (h : ιA w ∈ U.toSubmodule),
+      (LinearEquiv.ofInjective ιA hιA).symm ⟨ιA w, h⟩ = w := by
+    intro w h
+    rw [LinearEquiv.symm_apply_eq]
+    apply Subtype.ext
+    first
+      | rfl
+      | exact (LinearEquiv.ofInjective_apply (h := hιA) w).symm
+  refine ⟨5, inferInstance, PadicAlgCl 5, inferInstance, inferInstance, U, U',
+    (LinearEquiv.ofInjective ιA hιA).symm.trans (LinearEquiv.ofInjective ιJ hιJ), ?_, ?_⟩
+  · intro h
+    have h' : ιA (Pi.single 0 1) ∈ U.toSubmodule := ⟨_, rfl⟩
+    rw [h] at h'
+    have h0 : ιA (Pi.single 0 1) = 0 := h'
+    have := hιA (h0.trans (map_zero ιA).symm)
+    have := congrFun this 0
+    simp at this
+  · rintro σ ⟨_, w, rfl⟩
+    have hmem : ιA ((r.mat (resQ K σ)).mulVec w) ∈ U.toSubmodule := ⟨_, rfl⟩
+    have hx : (⟨GlueI3.repBaseChange (PadicAlgCl 5) (A.galRep 5) σ (ιA w),
+        U.apply_mem_toSubmodule σ ⟨w, rfl⟩⟩ : U.toSubmodule) = ⟨_, hmem⟩ :=
+      Subtype.ext (hAeq σ w)
+    rw [LinearEquiv.trans_apply, LinearEquiv.trans_apply, hx, keyA]
+    first
+      | (erw [keyA]; exact (hJeq σ w).symm)
+      | (simp only [keyA]; exact (hJeq σ w).symm)
+
+/-! ### Feeding g0-mod-newform's `G12Out` (G13-G16's input)
+
+The next four definitions are copied verbatim from `scratch/g0-mod-newform/part_new.lean`
+(commit 217e17f0), where they are G13's input interface. -/
+
+namespace NF
+
+/-- (copied from g0-mod-newform) `ρ` as a `Representation` on `ℚ̄_ℓⁿ`. -/
+def toRep {ℓ : ℕ} [Fact ℓ.Prime] {n : ℕ} (ρ : GaloisRep ℓ n) :
+    Representation (PadicAlgCl ℓ) PkgI4.GQ (Fin n → PadicAlgCl ℓ) where
+  toFun σ := Matrix.toLin' (ρ.mat σ)
+  map_one' := by
+    simp only [PkgI4.GaloisRep.mat, map_one, Units.val_one, Matrix.toLin'_one]; rfl
+  map_mul' σ τ := by
+    simp only [PkgI4.GaloisRep.mat, map_mul, Units.val_mul, Matrix.toLin'_mul]; rfl
+
+/-- (copied from g0-mod-newform) Pan-Berger's output on `r`, with the twist a Dirichlet
+character at arithmetic Frobenius outside `S`. -/
+def PanOutput {ℓ : ℕ} [Fact ℓ.Prime] (ιC : PkgI4.Qbar →ₐ[ℚ] ℂ)
+    (ιL : PkgI4.Qbar →ₐ[ℚ] PadicAlgCl ℓ) (r : GaloisRep ℓ 2) : Prop :=
+  ∃ (M : ℕ) (χg : DirichletCharacter ℂ M) (g : PkgI4.CF M 2) (m : ℕ)
+    (ψD : DirichletCharacter ℂ m) (ψ : GaloisChar ℓ) (S : Finset ℕ),
+    0 < M ∧ PkgI4.IsNormalizedEigenform g χg ∧ 0 < m ∧ r.AttachedUpToTwist ψ ιC ιL g S ∧
+    ∀ p : ℕ, p.Prime → p ∉ S → ∃ β : PkgI4.Qbar, ιC β = ψD (p : ZMod m) ∧
+      ∀ (v : ValuationSubring PkgI4.Qbar) (τ : PkgI4.GQ), PkgI4.LiesOver v p →
+        PkgI4.IsArithFrob τ v p → (ψ.toHom τ : PadicAlgCl ℓ) = ιL β
+
+/-- (copied from g0-mod-newform) `r|_{G_L}` is a constituent of `V_ℓ(A) ⊗ ℚ̄_ℓ`. -/
+def IsConstituentOf (ℓ : ℕ) [Fact ℓ.Prime] {L : Type} [Field L] [Algebra ℚ L]
+    (A : PkgI3.AbVar L) (i : AlgebraicClosure ℚ →ₐ[ℚ] AlgebraicClosure L)
+    (r : GaloisRep ℓ 2) : Prop :=
+  ∃ (U : Subrepresentation (GlueI3.repBaseChange (PadicAlgCl ℓ) (A.galRep ℓ)))
+    (e : U.toSubmodule ≃ₗ[PadicAlgCl ℓ] (Fin 2 → PadicAlgCl ℓ)), U ≠ ⊥ ∧
+    ∀ (τ : AlgebraicClosure L ≃ₐ[L] AlgebraicClosure L) (σ : PkgI4.GQ), (∀ x, i (σ x) = τ (i x)) →
+      ∀ u : U.toSubmodule,
+        e ⟨GlueI3.repBaseChange (PadicAlgCl ℓ) (A.galRep ℓ) τ u, U.apply_mem_toSubmodule τ u.2⟩ =
+          toRep r σ (e u)
+
+/-- (copied from g0-mod-newform) The data that G8-G12 produce for the model `A/L'`. -/
+structure ModData (L : Type) [Field L] [NumberField L] (A : PkgI3.AbVar L) where
+  i : AlgebraicClosure ℚ →ₐ[ℚ] AlgebraicClosure L
+  ιC : PkgI4.Qbar →ₐ[ℚ] ℂ
+  ι5 : PkgI4.Qbar →ₐ[ℚ] PadicAlgCl 5
+  ι3 : PkgI4.Qbar →ₐ[ℚ] PadicAlgCl 3
+  r5 : GaloisRep 5 2
+  r3 : GaloisRep 3 2
+
+instance fact_three : Fact (Nat.Prime 3) := ⟨by norm_num⟩
+
+/-- (copied from g0-mod-newform) G13's input on the data `D`. -/
+def G12Spec {L : Type} [Field L] [NumberField L] {A : PkgI3.AbVar L} (D : ModData L A) : Prop :=
+  D.r5.IsIrreducible ∧ D.r3.IsIrreducible ∧ IsConstituentOf 5 A D.i D.r5 ∧
+    IsConstituentOf 3 A D.i D.r3 ∧ PanOutput D.ιC D.ι5 D.r5
+
+/-- (copied from g0-mod-newform, there `G12Out`) some data `D` for `A` satisfy `G12Spec`. -/
+def NewformG12Out {L : Type} [Field L] [NumberField L] (A : PkgI3.AbVar L) : Prop :=
+  ∃ D : ModData L A, G12Spec D
+
+end NF
+
+/-- **Finite characters are Dirichlet characters (GLUE, unproved; h-trust C8 item 4).** From T17
+(Kronecker–Weber): a continuous `ψ : G_ℚ → ℚ̄_ℓ^×` of finite image is, at arithmetic Frobenius
+elements above `p ∉ S` (`S` the primes dividing the conductor `m`), the image under `ιL` of an
+algebraic number `β` (a root of unity) with `ιC(β) = ψD(p)` for a Dirichlet character `ψD`
+mod `m`. True: the kernel field of `ψ` is finite abelian over `ℚ`, hence inside `ℚ(ζ_m)`; the
+values are roots of unity, which lie in `ιL(ℚ̄)`. -/
+def FiniteCharDirichlet : Prop :=
+  HSyn.KroneckerWeber →
+  ∀ (ℓ : ℕ) [Fact ℓ.Prime] (ψ : GaloisChar ℓ) (ιC : PkgI4.Qbar →ₐ[ℚ] ℂ)
+    (ιL : PkgI4.Qbar →ₐ[ℚ] PadicAlgCl ℓ), (Set.range ψ.toHom).Finite →
+    ∃ (m : ℕ) (ψD : DirichletCharacter ℂ m) (S : Finset ℕ), 0 < m ∧
+      ∀ p : ℕ, p.Prime → p ∉ S → ∃ β : PkgI4.Qbar, ιC β = ψD (p : ZMod m) ∧
+        ∀ (v : ValuationSubring PkgI4.Qbar) (τ : PkgI4.GQ), PkgI4.LiesOver v p →
+          PkgI4.IsArithFrob τ v p → (ψ.toHom τ : PadicAlgCl ℓ) = ιL β
+
+/-- **G8's output gives g0-mod-newform's constituent clause (proved).** With `i = qEmb K`, the
+`σ` with `i ∘ σ = τ ∘ i` is `resQ K τ` (`eq_resQ`), so G8's intertwining is `IsConstituentOf`. -/
+theorem isConstituentOf_of_intertwines {K : Type} [Field K] [NumberField K] (A : PkgI3.AbVar K)
+    (ℓ : ℕ) [Fact ℓ.Prime] (r : GaloisRep ℓ 2)
+    (e : Vb A ℓ ≃ₗ[PadicAlgCl ℓ] (Fin 2 → PadicAlgCl ℓ) × (Fin 2 → PadicAlgCl ℓ))
+    (hint : Intertwines (tate A ℓ) (fun σ => r.mat (resQ K σ)) e) :
+    NF.IsConstituentOf ℓ A (qEmb K) r := by
+  let ιA : (Fin 2 → PadicAlgCl ℓ) →ₗ[PadicAlgCl ℓ] Vb A ℓ :=
+    e.symm.toLinearMap ∘ₗ LinearMap.inl (PadicAlgCl ℓ) _ _
+  have hιA : Function.Injective ιA := e.symm.injective.comp LinearMap.inl_injective
+  have hAeq : ∀ σ w, tate A ℓ σ (ιA w) = ιA ((r.mat (resQ K σ)).mulVec w) := by
+    intro σ w
+    apply e.injective
+    have h := hint σ (ιA w)
+    simp only [ιA, LinearMap.coe_comp, LinearEquiv.coe_coe, Function.comp_apply,
+      LinearMap.inl_apply, LinearEquiv.apply_symm_apply] at h ⊢
+    rw [h, Matrix.mulVec_zero]
+  let U : Subrepresentation (GlueI3.repBaseChange (PadicAlgCl ℓ) (A.galRep ℓ)) :=
+    ⟨LinearMap.range ιA, by rintro σ _ ⟨w, rfl⟩; exact ⟨_, (hAeq σ w).symm⟩⟩
+  have keyA : ∀ w (h : ιA w ∈ U.toSubmodule),
+      (LinearEquiv.ofInjective ιA hιA).symm ⟨ιA w, h⟩ = w := by
+    intro w h
+    rw [LinearEquiv.symm_apply_eq]
+    apply Subtype.ext
+    first
+      | rfl
+      | exact (LinearEquiv.ofInjective_apply (h := hιA) w).symm
+  refine ⟨U, (LinearEquiv.ofInjective ιA hιA).symm, ?_, ?_⟩
+  · intro h
+    have h' : ιA (Pi.single 0 1) ∈ U.toSubmodule := ⟨_, rfl⟩
+    rw [h] at h'
+    have h0 : ιA (Pi.single 0 1) = 0 := h'
+    have := hιA (h0.trans (map_zero ιA).symm)
+    have := congrFun this 0
+    simp at this
+  · rintro τ σ hσ ⟨_, w, rfl⟩
+    have hστ := eq_resQ K τ σ hσ
+    have hmem : ιA ((r.mat (resQ K τ)).mulVec w) ∈ U.toSubmodule := ⟨_, rfl⟩
+    have hx : (⟨GlueI3.repBaseChange (PadicAlgCl ℓ) (A.galRep ℓ) τ (ιA w),
+        U.apply_mem_toSubmodule τ ⟨w, rfl⟩⟩ : U.toSubmodule) = ⟨_, hmem⟩ :=
+      Subtype.ext (hAeq τ w)
+    rw [hx, keyA]
+    first
+      | (erw [keyA]; subst hστ; rfl)
+      | (simp only [keyA]; subst hστ; rfl)
+      | (erw [keyA]; subst hστ; simp [NF.toRep, Matrix.toLin'_apply])
+      | (simp only [keyA]; subst hστ; simp [NF.toRep, Matrix.toLin'_apply])
+
+/-- **G12's output gives g0-mod-newform's `PanOutput` (proved from `FiniteCharDirichlet`).** -/
+theorem panOutput_of_g12 (hKW : HSyn.KroneckerWeber) (hFD : FiniteCharDirichlet)
+    (r : GaloisRep 5 2) (h : G12Out r) : ∃ ιC ιL, NF.PanOutput ιC ιL r := by
+  obtain ⟨N, χ, g, ψ, ιC, ιL, S, hN, hg, hfin, hatt⟩ := h
+  obtain ⟨m, ψD, S', hm, hD⟩ := hFD hKW 5 ψ ιC ιL hfin
+  refine ⟨ιC, ιL, N, χ, g, m, ψD, ψ, S ∪ S', hN, hg, hm, ?_, ?_⟩
+  · intro p hp hpS
+    exact hatt p hp (fun h' => hpS (Finset.mem_union_left _ h'))
+  · intro p hp hpS
+    exact hD p hp (fun h' => hpS (Finset.mem_union_right _ h'))
+
+/-- **The range G8-G12 delivers g0-mod-newform's input `G12Out` (there; here `NF.NewformG12Out`).**
+Proved from the leaves, the outputs of G2, G3, G6, G7 at `ℓ = 3` and `ℓ = 5`, the five named
+pieces of this range and `FiniteCharDirichlet`. -/
+theorem newformG12Out_of_galois (r : HSyn.ResearchLeaves) (t : HSyn.TextbookLeaves)
+    (m : GaloisPieces) (hKW : HSyn.KroneckerWeber) (hFD : FiniteCharDirichlet)
+    {K : Type} [Field K] [NumberField K] [IsGalois ℚ K] (A : PkgI3.AbVar K) (T : Finset ℕ)
+    (h2 : G2Out K T) (h6 : G6Out A) (h3₅ : G3Out A 5 T) (h3₃ : G3Out A 3 T)
+    (Tm₅ : PkgI4.GQ → Module.End (PadicAlgCl 5) (Vb A 5))
+    (c₅ ε₅ : PkgI4.GQ → PkgI4.GQ → PadicAlgCl 5) (a₅ β₅ : PkgI4.GQ → PadicAlgCl 5)
+    (u₅ : GlueDescent.MatrixUnits2 (PadicAlgCl 5) (Vb A 5))
+    (h7₅ : G7Out A 5 Tm₅ c₅ ε₅ a₅ β₅ u₅)
+    (Tm₃ : PkgI4.GQ → Module.End (PadicAlgCl 3) (Vb A 3))
+    (c₃ ε₃ : PkgI4.GQ → PkgI4.GQ → PadicAlgCl 3) (a₃ β₃ : PkgI4.GQ → PadicAlgCl 3)
+    (u₃ : GlueDescent.MatrixUnits2 (PadicAlgCl 3) (Vb A 3))
+    (h7₃ : G7Out A 3 Tm₃ c₃ ε₃ a₃ β₃ u₃) (ι3 : PkgI4.Qbar →ₐ[ℚ] PadicAlgCl 3) :
+    NF.NewformG12Out A := by
+  obtain ⟨r₅, ⟨hres₅, e₅, hint₅, hadj₅⟩, -, -, -, h12⟩ :=
+    g8_g12_of_leaves r t m A T h2 h6 h3₅ Tm₅ c₅ ε₅ a₅ β₅ u₅ h7₅
+  obtain ⟨r₃, ⟨hres₃, e₃, hint₃, hadj₃⟩, -, -, -⟩ :=
+    g8_g11 r.r9a r.r9b t.t26 t.t6 HSyn.G0Split.semisimpleBaseChange r.r10 t.t23 t.t11a t.t11b
+      (g8Matrix_of_burnside m.burnside) m.deRham m.odd A T h2 h6 3 h3₃ Tm₃ c₃ ε₃ a₃ β₃ u₃ h7₃
+  obtain ⟨ιC, ι5, hpan⟩ := panOutput_of_g12 hKW hFD r₅ h12
+  exact ⟨⟨qEmb K, ιC, ι5, ι3, r₅, r₃⟩, isIrreducible_of_g8 hadj₅, isIrreducible_of_g8 hadj₃,
+    isConstituentOf_of_intertwines A 5 r₅ e₅ (intertwines_res hres₅ hint₅),
+    isConstituentOf_of_intertwines A 3 r₃ e₃ (intertwines_res hres₃ hint₃), hpan⟩
+
+end
+
+end G0Galois
+
+
+/-! ## Kernel copy: Part B-D of ZInQKernel/HDecomp/Conductor/LadicCond.lean (lines 180-765, verbatim; its Part A is the PkgI4 copy already above). Needed by g0-mod-newform. -/
+section LadicCondSec
+noncomputable section
+set_option linter.unusedSectionVars false
+/-! ## Part B. Inertia, ramification groups and the conductor exponent on `G_{ℚ_p}` -/
+
+namespace LadicCond
+
+open PkgI4
+
+variable {p : ℕ} [Fact p.Prime]
+
+/-- `ℚ̄_p` (Mathlib's `PadicAlgCl p`, normed by the unique extension of `|·|_p`). -/
+abbrev Kbar (p : ℕ) [Fact p.Prime] := PadicAlgCl p
+
+/-- A finite Galois extension `L/ℚ_p` inside `ℚ̄_p`. -/
+abbrev Fld (p : ℕ) [Fact p.Prime] := IntermediateField ℚ_[p] (Kbar p)
+
+/-- **Inertia** `I_p ⊂ G_{ℚ_p}`: the `σ` acting trivially on the residue field of `ℚ̄_p`,
+i.e. `|σx − x| < 1` for all `|x| ≤ 1` (Serre, *Corps locaux* I §7 / IV §1). -/
+def inertiaSet : Set (GQp p) := {σ | ∀ x : Kbar p, ‖x‖ ≤ 1 → ‖σ x - x‖ < 1}
+
+/-- **Wild inertia** `P_p ⊂ G_{ℚ_p}`: the `σ` with `σx/x ≡ 1` modulo the maximal ideal for all
+`x ≠ 0`, i.e. `|σx − x| < |x|` (Serre, *Corps locaux* IV §2, Cor. 1 of Prop. 7, at every finite
+level; UNVERIFIED numbering). -/
+def wildSet : Set (GQp p) := {σ | ∀ x : Kbar p, x ≠ 0 → ‖σ x - x‖ < ‖x‖}
+
+/-- `G_L ⊂ G_{ℚ_p}`: the `σ` fixing `L` pointwise. -/
+def fixSet (L : Fld p) : Set (GQp p) := {σ | ∀ x ∈ L, σ x = x}
+
+/-- `ϖ` is a uniformizer of `L`: an element of `L` of maximal absolute value `< 1`. -/
+def IsUnif (L : Fld p) (ϖ : Kbar p) : Prop :=
+  ϖ ∈ L ∧ ‖ϖ‖ < 1 ∧ ∀ y ∈ L, ‖y‖ < 1 → ‖y‖ ≤ ‖ϖ‖
+
+/-- **Lower ramification groups** of `L/ℚ_p` (Serre, *Corps locaux* IV §1), pulled back to
+`G_{ℚ_p}`: `σ ∈ ramSet L i` iff `v_L(σx − x) ≥ i + 1` for every `x ∈ 𝓞_L`. It contains `G_L`, and
+its image under `σ ↦ σ|_L` is `G_i(L/ℚ_p)` (for `L/ℚ_p` Galois). -/
+def ramSet (L : Fld p) (i : ℕ) : Set (GQp p) :=
+  {σ | ∃ ϖ, IsUnif L ϖ ∧ ∀ x ∈ L, ‖x‖ ≤ 1 → ‖σ x - x‖ ≤ ‖ϖ‖ ^ (i + 1)}
+
+/-- `σ ↦ σ|_L`, as a function `L → ℚ̄_p`. -/
+def restr (L : Fld p) (σ : GQp p) : L → Kbar p := fun x => σ x
+
+/-- `g_i = |G_i(L/ℚ_p)|`: the number of restrictions to `L` of elements of `ramSet L i`. -/
+def ramCard (L : Fld p) (i : ℕ) : ℕ := Nat.card (restr L '' ramSet L i)
+
+/-- `L/ℚ_p` is finite Galois. -/
+def IsFinGal (L : Fld p) : Prop := FiniteDimensional ℚ_[p] L ∧ IsGalois ℚ_[p] L
+
+variable {k : Type*} [Field k] {n : ℕ}
+
+/-- `V^S` for `V = kⁿ` and a set `S ⊆ G_{ℚ_p}` acting through `ρ`. -/
+def invariants (ρ : GQp p →* GL (Fin n) k) (S : Set (GQp p)) : Submodule k (Fin n → k) where
+  carrier := {v | ∀ σ ∈ S, (ρ σ : Matrix (Fin n) (Fin n) k).mulVec v = v}
+  zero_mem' := by intro σ _; simp
+  add_mem' := by
+    intro v w hv hw σ hσ
+    simp only [Set.mem_ofPred_eq] at hv hw
+    rw [Matrix.mulVec_add, hv σ hσ, hw σ hσ]
+  smul_mem' := by
+    intro c v hv σ hσ
+    simp only [Set.mem_ofPred_eq] at hv
+    rw [Matrix.mulVec_smul, hv σ hσ]
+
+/-- `codim V^S = n − dim V^S`. -/
+def codimInv (ρ : GQp p →* GL (Fin n) k) (S : Set (GQp p)) : ℕ :=
+  n - Module.finrank k (invariants ρ S)
+
+/-- `L` is **adapted** to `ρ`: `L/ℚ_p` is finite Galois and `ρ` is trivial on `P_p ∩ G_L`, so
+that `ρ|_{P_p}` factors through `Gal(L/ℚ_p)`. For `ρ` continuous with values in `GL_n(E)`,
+`E/ℚ_ℓ` finite, `ℓ ≠ p`, such an `L` exists, since `ρ(P_p)` is finite (`AdaptedExists`). -/
+def IsAdapted (L : Fld p) (ρ : GQp p →* GL (Fin n) k) : Prop :=
+  IsFinGal L ∧ ∀ σ ∈ wildSet ∩ fixSet L, ρ σ = 1
+
+/-- **The Swan conductor at level `L`** (Serre–Tate 1968 §2; Serre, *Corps locaux* VI §2):
+`Sw_L(ρ) = ∑_{i ≥ 1} (g_i/g_0) · codim V^{G_i ∩ P}`. For `L` adapted, `G_i ∩ P` acts through
+`G_i(L/ℚ_p)` (for `i ≥ 1`, `G_i(L/ℚ_p)` is the image of `P ∩ ramSet L i`). -/
+def swanAt (L : Fld p) (ρ : GQp p →* GL (Fin n) k) : ℚ :=
+  ∑ᶠ i : ℕ, ((ramCard L (i + 1) : ℚ) / ramCard L 0) * (codimInv ρ (ramSet L (i + 1) ∩ wildSet) : ℚ)
+
+open Classical in
+/-- **The Swan conductor** `Sw(ρ)`: `swanAt L ρ` at a chosen adapted `L` (`0` if none exists,
+which does not happen for continuous ℓ-adic `ρ`). Independent of `L`: `SwanIndependent`. -/
+def swan (ρ : GQp p →* GL (Fin n) k) : ℚ :=
+  if h : ∃ L : Fld p, IsAdapted L ρ then swanAt h.choose ρ else 0
+
+/-- **The conductor exponent** `a(ρ) = codim V^{I_p} + Sw(ρ)` (Serre–Tate 1968 §2; equal to the
+conductor of the Weil–Deligne representation, `codim (ker N)^{I}` + Swan, since
+`V^{ρ(I)} = (ker N)^{I}` by Grothendieck's monodromy theorem). -/
+def condExp (ρ : GQp p →* GL (Fin n) k) : ℚ :=
+  codimInv ρ inertiaSet + swan ρ
+
+/-- The conductor exponent computed at a level `L`. -/
+def condAt (L : Fld p) (ρ : GQp p →* GL (Fin n) k) : ℚ :=
+  codimInv ρ inertiaSet + swanAt L ρ
+
+/-- **Finite-level Artin conductor** (Serre, *Corps locaux* VI §2):
+  `∑_{i ≥ 0} (g_i/g_0) codim V^{G_i}`.
+For `ρ` trivial on `G_L` this is pkg-I6's `PkgI6.artinConductor` of the induced representation of
+`Gal(L/ℚ_p)` (same formula, with `G_i(L/ℚ_p)` = image of `ramSet L i`). -/
+def artinAt (L : Fld p) (ρ : GQp p →* GL (Fin n) k) : ℚ :=
+  ∑ᶠ i : ℕ, ((ramCard L i : ℚ) / ramCard L 0) * (codimInv ρ (ramSet L i) : ℚ)
+
+/-! ### Herbrand's function and the upper numbering (for L8) -/
+
+/-- Lower numbering for real `t`: `G_t = G_{⌈t⌉}` for `t > −1`, `G_t = G` for `t ≤ −1`. -/
+def ramSetR (L : Fld p) (t : ℝ) : Set (GQp p) :=
+  if t ≤ -1 then Set.univ else ramSet L ⌈t⌉.toNat
+
+/-- `|G_t(L/ℚ_p)|` for real `t`. -/
+def ramCardR (L : Fld p) (t : ℝ) : ℕ := Nat.card (restr L '' ramSetR L t)
+
+/-- **Herbrand's function** `φ_{L/ℚ_p}(u) = ∫₀ᵘ g_t/g_0 dt` (Serre IV §3). -/
+def phiAt (L : Fld p) (u : ℝ) : ℝ :=
+  ∫ t in (0 : ℝ)..u, (ramCardR L t : ℝ) / (ramCard L 0 : ℝ)
+
+/-- **Upper numbering** `G^v(L/ℚ_p) = G_{ψ(v)}`, `ψ = φ⁻¹` (Serre IV §3), pulled back to `G_{ℚ_p}`.
+  -/
+def upperSet (L : Fld p) (v : ℝ) : Set (GQp p) :=
+  ramSetR L (sInf {u : ℝ | -1 ≤ u ∧ v ≤ phiAt L u})
+
+/-- **The upper ramification filtration of `G_{ℚ_p}`**: `σ ∈ G^v` iff `σ|_L ∈ G^v(L/ℚ_p)` for
+every finite Galois `L` (Serre IV §3, remark after Prop. 14; well defined by Herbrand's theorem). -/
+def upperAbs (p : ℕ) [Fact p.Prime] (v : ℝ) : Set (GQp p) :=
+  {σ | ∀ L : Fld p, IsFinGal L → σ ∈ upperSet L v}
+
+/-! ## Part C. Sanity facts -/
+
+theorem wildSet_subset_inertiaSet : (wildSet : Set (GQp p)) ⊆ inertiaSet := by
+  intro σ hσ x hx
+  by_cases h0 : x = 0
+  · subst h0; simp
+  · exact lt_of_lt_of_le (hσ x h0) hx
+
+theorem invariants_eq_top {ρ : GQp p →* GL (Fin n) k} {S : Set (GQp p)}
+    (h : ∀ σ ∈ S, ρ σ = 1) : invariants ρ S = ⊤ := by
+  ext v
+  simp only [Submodule.mem_top, iff_true]
+  intro σ hσ
+  rw [h σ hσ]
+  simp
+
+theorem codimInv_eq_zero {ρ : GQp p →* GL (Fin n) k} {S : Set (GQp p)}
+    (h : ∀ σ ∈ S, ρ σ = 1) : codimInv ρ S = 0 := by
+  rw [codimInv, invariants_eq_top h, finrank_top, Module.finrank_fin_fun, Nat.sub_self]
+
+/-- **Sanity (a1).** If `ρ` is unramified (trivial on `I_p`), `Sw_L(ρ) = 0` at every level. -/
+theorem swanAt_eq_zero_of_unramified {ρ : GQp p →* GL (Fin n) k}
+    (h : ∀ σ ∈ inertiaSet, ρ σ = 1) (L : Fld p) : swanAt L ρ = 0 := by
+  rw [swanAt]
+  refine finsum_eq_zero_of_forall_eq_zero fun i => ?_
+  rw [codimInv_eq_zero (fun σ hσ => h σ (wildSet_subset_inertiaSet hσ.2))]
+  simp
+
+/-- **Sanity (a).** Unramified ⇒ conductor exponent `0` (whatever `L` the definition picks). -/
+theorem condExp_eq_zero_of_unramified {ρ : GQp p →* GL (Fin n) k}
+    (h : ∀ σ ∈ inertiaSet, ρ σ = 1) : condExp ρ = 0 := by
+  rw [condExp, codimInv_eq_zero h, swan]
+  split_ifs with hL
+  · rw [swanAt_eq_zero_of_unramified h]; simp
+  · simp
+
+theorem condAt_eq_zero_of_unramified {ρ : GQp p →* GL (Fin n) k}
+    (h : ∀ σ ∈ inertiaSet, ρ σ = 1) (L : Fld p) : condAt L ρ = 0 := by
+  rw [condAt, codimInv_eq_zero h, swanAt_eq_zero_of_unramified h]; simp
+
+/-- `V^S = V^T` when `S ⊆ T` and every element of `T` agrees on `L` with one of `S`, and `ρ` is
+trivial on `G_L`. -/
+theorem invariants_eq_of_cover {ρ : GQp p →* GL (Fin n) k} {L : Fld p} {S T : Set (GQp p)}
+    (hfix : ∀ σ ∈ fixSet L, ρ σ = 1) (hST : S ⊆ T)
+    (hcov : ∀ σ ∈ T, ∃ τ ∈ S, ∀ x ∈ L, τ x = σ x) : invariants ρ S = invariants ρ T := by
+  apply le_antisymm
+  · intro v hv σ hσ
+    obtain ⟨τ, hτ, hτσ⟩ := hcov σ hσ
+    have h1 : τ⁻¹ * σ ∈ fixSet L := by
+      intro x hx
+      change τ⁻¹ (σ x) = x
+      rw [← hτσ x hx]
+      exact τ.symm_apply_apply x
+    have h2 : ρ σ = ρ τ * ρ (τ⁻¹ * σ) := by rw [← map_mul, mul_inv_cancel_left]
+    rw [h2, hfix _ h1, mul_one]
+    exact hv τ hτ
+  · intro v hv σ hσ
+    exact hv σ (hST hσ)
+
+/-- **Restriction of inertia is onto** `G_0(L/ℚ_p)` and of wild inertia onto `G_i(L/ℚ_p)`,
+`i ≥ 1`, together with `I_p ⊆ ramSet L 0` (Serre, *Corps locaux* I §7 Prop. 21 and IV §1–2;
+UNVERIFIED numbering). STANDARD; stated, not proved here. -/
+def InertiaRestriction (L : Fld p) : Prop :=
+  inertiaSet ⊆ ramSet L 0 ∧
+  (∀ σ ∈ ramSet L 0, ∃ τ ∈ inertiaSet, ∀ x ∈ L, τ x = σ x) ∧
+  (∀ i : ℕ, ∀ σ ∈ ramSet L (i + 1), ∃ τ ∈ ramSet L (i + 1) ∩ wildSet, ∀ x ∈ L, τ x = σ x)
+
+/-- `G_i(L/ℚ_p) = 1` for `i ≥ N` (Serre IV §1; holds for every finite `L`). -/
+def EventuallyTrivial (L : Fld p) (N : ℕ) : Prop := ∀ i, N ≤ i → ramSet L i ⊆ fixSet L
+
+/-- **Sanity (b). Agreement with the Artin conductor on finite image.** If `ρ` factors through
+`Gal(L/ℚ_p)` (trivial on `G_L`), then `codim V^I + Sw_L(ρ)` equals the finite-level Artin
+conductor `∑_{i≥0} (g_i/g_0) codim V^{G_i}` (pkg-I6's `artinConductor` formula), given the
+restriction facts `InertiaRestriction L`, `G_i(L/ℚ_p) = 1` for large `i`, and `g_0 ≠ 0`. -/
+theorem condAt_eq_artinAt {ρ : GQp p →* GL (Fin n) k} {L : Fld p}
+    (hfix : ∀ σ ∈ fixSet L, ρ σ = 1) (hR : InertiaRestriction L) {N : ℕ}
+    (hN : EventuallyTrivial L N) (hg0 : ramCard L 0 ≠ 0) :
+    condAt L ρ = artinAt L ρ := by
+  obtain ⟨hI, hIc, hW⟩ := hR
+  have e0 : codimInv ρ inertiaSet = codimInv ρ (ramSet L 0) := by
+    rw [codimInv, codimInv, invariants_eq_of_cover hfix hI hIc]
+  have ei : ∀ i, codimInv ρ (ramSet L (i + 1) ∩ wildSet) = codimInv ρ (ramSet L (i + 1)) := by
+    intro i
+    rw [codimInv, codimInv, invariants_eq_of_cover hfix Set.inter_subset_left (hW i)]
+  have hz : ∀ i, N ≤ i → codimInv ρ (ramSet L i) = 0 := fun i hi =>
+    codimInv_eq_zero fun σ hσ => hfix σ (hN i hi hσ)
+  set f : ℕ → ℚ := fun i => ((ramCard L i : ℚ) / ramCard L 0) * (codimInv ρ (ramSet L i) : ℚ)
+    with hf
+  have hsupp : Function.support f ⊆ ↑(Finset.range (N + 1)) := by
+    intro i hi
+    simp only [Finset.coe_range, Set.mem_Iio]
+    by_contra hlt
+    exact hi (by simp [f, hz i (by omega)])
+  have hsupp' : Function.support (fun i => f (i + 1)) ⊆ ↑(Finset.range N) := by
+    intro i hi
+    simp only [Finset.coe_range, Set.mem_Iio]
+    by_contra hlt
+    exact hi (by simp [f, hz (i + 1) (by omega)])
+  have hA : artinAt L ρ = ∑ i ∈ Finset.range (N + 1), f i :=
+    finsum_eq_sum_of_support_subset f hsupp
+  have hS : swanAt L ρ = ∑ i ∈ Finset.range N, f (i + 1) := by
+    rw [swanAt]
+    simp_rw [ei]
+    exact finsum_eq_sum_of_support_subset (fun i => f (i + 1)) hsupp'
+  rw [condAt, hA, hS, Finset.sum_range_succ', e0, add_comm]
+  congr 1
+  simp only [f]
+  rw [div_self (by exact_mod_cast hg0), one_mul]
+
+/-- **Independence of the level** (Serre–Tate 1968 §2; a consequence of Herbrand's theorem,
+pkg-I6 leaf I6.8, and the transitivity I6.9). GLUE, not proved here. -/
+def SwanIndependent : Prop :=
+  ∀ (k : Type) [Field k] (n : ℕ) (ρ : GQp p →* GL (Fin n) k) (L L' : Fld p),
+    IsAdapted L ρ → IsAdapted L' ρ → swanAt L ρ = swanAt L' ρ
+
+/-- Under `SwanIndependent`, the conductor exponent is computed at any adapted level. -/
+theorem condExp_eq_condAt (hI : SwanIndependent (p := p)) {k : Type} [Field k]
+    {ρ : GQp p →* GL (Fin n) k} {L : Fld p} (hL : IsAdapted L ρ) : condExp ρ = condAt L ρ := by
+  have h : ∃ L : Fld p, IsAdapted L ρ := ⟨L, hL⟩
+  rw [condExp, condAt, swan, dite_cond_eq_true (eq_true h), hI k n ρ _ L h.choose_spec hL]
+
+/-- **Existence of an adapted level** (Serre–Tate 1968 §2, after Grothendieck: `ρ(P_p)` is finite
+for `ℓ ≠ p` since `P_p` is pro-`p` and the kernel of `GL_n(𝓞_E) → GL_n(𝓞_E/λ)` is pro-`ℓ`; a
+continuous `ρ` into `GL_n(ℚ̄_ℓ)` takes values in `GL_n(E)`, `E/ℚ_ℓ` finite). GLUE (elementary
+profinite group theory plus Baire), not proved here. -/
+def AdaptedExists : Prop :=
+  ∀ (ℓ : ℕ) [Fact ℓ.Prime], ℓ ≠ p → ∀ (n : ℕ) (ρ : GQp p →* GL (Fin n) (PadicAlgCl ℓ)),
+    Continuous ρ → ∃ L : Fld p, IsAdapted L ρ
+
+/-! ## Part D. The leaves -/
+
+/-- **R17 = glue-conductor's L10: Carayol, Ann. Sci. ÉNS 19 (1986), Théorème (A)** at `F = ℚ`,
+weight 2, pp. 409-411 and §0.8 p. 411 (read by the locator audit: all finite `p` and every
+`ℓ ≠ p`, including `p ∣ N` and `ℓ = 2`; the finite discrete-series hypothesis concerns only totally
+real `F` of even degree), with `a(π_p) = v_p(N)` for newforms (Casselman 1973, locator
+UNVERIFIED). Do not replace it by Théorème (B) or by the `Γ₀` elliptic-curve corollary.
+*2026-11-12 (loc-fix, applying rv-loc-leaves (f)):* this replaces "content and coverage of
+`p ∣ N` UNVERIFIED"; the Lean statement is unchanged. This form, at every adapted level, is a
+consequence of the published form `CarayolR17'` plus the glue `SwanIndependent`
+(`carayolR17_of_R17'`); it is not a separate published statement. For a newform `f` of weight 2,
+level `N`, and a semisimple `ρ` attached to
+`f` (pkg-I4's trace form), and a prime `p ≠ ℓ`, the conductor exponent of `ρ|_{G_{ℚ_p}}` is
+`v_p(N)`; stated at every adapted level (equivalent to the published form by `SwanIndependent`). -/
+def CarayolR17 : Prop :=
+  ∀ (ℓ : ℕ) [Fact ℓ.Prime] (ιC : Qbar →ₐ[ℚ] ℂ) (ιL : Qbar →ₐ[ℚ] PadicAlgCl ℓ)
+    (N : ℕ) (χ : DirichletCharacter ℂ N) (f : CF N 2) (ρ : GaloisRep ℓ 2) (p : ℕ) [Fact p.Prime],
+    0 < N → IsNewform f χ → ρ.IsSemisimple → ρ.AttachedTo ιC ιL f → p ≠ ℓ →
+    ∀ L : Fld p, IsAdapted L (ρ.restrictLocal p) →
+      condAt L (ρ.restrictLocal p) = (N.factorization p : ℚ)
+
+/-- **R17, published form**, with the canonical `condExp` (choice of level inside): Carayol,
+Théorème (A), coverage as above (every `ℓ`, including 2; every `p ≠ ℓ`, including `p ∣ N`; read by
+the locator audit, adopted 2026-11-12 by loc-fix). `condExp` is the Serre–Tate conductor, which
+does not change under duals, so the Tate normalization of `AttachedTo` is harmless. -/
+def CarayolR17' : Prop :=
+  ∀ (ℓ : ℕ) [Fact ℓ.Prime] (ιC : Qbar →ₐ[ℚ] ℂ) (ιL : Qbar →ₐ[ℚ] PadicAlgCl ℓ)
+    (N : ℕ) (χ : DirichletCharacter ℂ N) (f : CF N 2) (ρ : GaloisRep ℓ 2) (p : ℕ) [Fact p.Prime],
+    0 < N → IsNewform f χ → ρ.IsSemisimple → ρ.AttachedTo ιC ιL f → p ≠ ℓ →
+      condExp (ρ.restrictLocal p) = (N.factorization p : ℚ)
+
+/-- The two forms of R17 agree given the glue `SwanIndependent` and `AdaptedExists`. -/
+theorem carayolR17_of_R17' (hI : ∀ (p : ℕ) [Fact p.Prime], SwanIndependent (p := p))
+    (h : CarayolR17') : CarayolR17 := by
+  intro ℓ _ ιC ιL N χ f ρ p _ hN hf hs ha hp L hL
+  rw [← condExp_eq_condAt (hI p) hL]
+  exact h ℓ ιC ιL N χ f ρ p hN hf hs ha hp
+
+theorem carayolR17'_of_R17 (hE : ∀ (p : ℕ) [Fact p.Prime], AdaptedExists (p := p))
+    (hI : ∀ (p : ℕ) [Fact p.Prime], SwanIndependent (p := p))
+    (h : CarayolR17) : CarayolR17' := by
+  intro ℓ _ ιC ιL N χ f ρ p _ hN hf hs ha hp
+  obtain ⟨L, hL⟩ := hE p ℓ hp.symm 2 (ρ.restrictLocal p)
+    (ρ.continuous_toHom.comp
+      (Field.absoluteGaloisGroup.map (algebraMap ℚ ℚ_[p])).continuous_toFun)
+  rw [condExp_eq_condAt (hI p) hL]
+  exact h ℓ ιC ιL N χ f ρ p hN hf hs ha hp L hL
+
+/-- **L8 (glue-conductor): the Swan conductor is the integral of the upper filtration**,
+`Sw(ρ) = ∫₀^∞ codim V^{G^u} du` (Serre, *Corps locaux* VI §2 and IV §3 for finite image;
+Serre–Tate 1968 §2 for ℓ-adic `ρ`; UNVERIFIED numbering). With `condAt = codim V^I + swanAt`
+this is glue-conductor's `a = codim V^I + ∫₀^∞ codim V^{G^u} du`. A change of variables in
+Herbrand's `φ` plus Herbrand's theorem: provable glue over Part B. -/
+def SwanIntegral : Prop :=
+  ∀ (ℓ : ℕ) [Fact ℓ.Prime] (p : ℕ) [Fact p.Prime], p ≠ ℓ →
+    ∀ (n : ℕ) (ρ : GQp p →* GL (Fin n) (PadicAlgCl ℓ)), Continuous ρ →
+    ∀ L : Fld p, IsAdapted L ρ →
+      (swanAt L ρ : ℝ) = ∫ u in Set.Ioi (0 : ℝ), (codimInv ρ (upperAbs p u) : ℝ)
+
+/-! ### Consumer: glue-conductor's D4(i) from L8 (GLUE, proved) -/
+
+theorem codimInv_le (ρ : GQp p →* GL (Fin n) k) (S : Set (GQp p)) : codimInv ρ S ≤ n :=
+  Nat.sub_le _ _
+
+open MeasureTheory in
+/-- If `ρ` is trivial on `G^u` for every `u > U ≥ 0`, the right side of L8 is `≤ n·U`. (If the
+integrand is not integrable, Mathlib's integral is `0` and the bound is trivial.) -/
+theorem integral_codim_le (ρ : GQp p →* GL (Fin n) k) (U : ℝ) (hU : 0 ≤ U)
+    (h : ∀ u : ℝ, U < u → ∀ σ ∈ upperAbs p u, ρ σ = 1) :
+    ∫ u in Set.Ioi (0 : ℝ), (codimInv ρ (upperAbs p u) : ℝ) ≤ n * U := by
+  set f : ℝ → ℝ := fun u => (codimInv ρ (upperAbs p u) : ℝ) with hf
+  set g : ℝ → ℝ := (Set.Ioc 0 U).indicator (fun _ => (n : ℝ)) with hg
+  have hle : ∀ u ∈ Set.Ioi (0 : ℝ), f u ≤ g u := by
+    intro u hu
+    by_cases huU : u ≤ U
+    · have : u ∈ Set.Ioc 0 U := ⟨hu, huU⟩
+      simp only [hf, hg, Set.indicator_of_mem this]
+      exact_mod_cast codimInv_le ρ _
+    · have h0 : codimInv ρ (upperAbs p u) = 0 := codimInv_eq_zero (h u (lt_of_not_ge huU))
+      simp only [hf, h0, Nat.cast_zero]
+      exact Set.indicator_nonneg (fun _ _ => Nat.cast_nonneg n) u
+  have hgi : ∫ u in Set.Ioi (0 : ℝ), g u = n * U := by
+    rw [hg, setIntegral_indicator measurableSet_Ioc,
+      Set.inter_eq_right.mpr Set.Ioc_subset_Ioi_self, setIntegral_const]
+    simp [Real.volume_real_Ioc_of_le hU, mul_comm]
+  have hgint : IntegrableOn g (Set.Ioi (0 : ℝ)) := by
+    rw [IntegrableOn, hg, integrable_indicator_iff measurableSet_Ioc]
+    refine IntegrableOn.restrict ?_
+    exact integrableOn_const (by simp [Real.volume_Ioc])
+  by_cases hfi : IntegrableOn f (Set.Ioi (0 : ℝ))
+  · rw [← hgi]
+    exact setIntegral_mono_on hfi hgint measurableSet_Ioi hle
+  · rw [integral_undef hfi]
+    positivity
+
+/-- **D4(i) from L8 (GLUE, proved).** For continuous ℓ-adic `ρ`, `ℓ ≠ p`, trivial on `G^u` for
+`u > U ≥ 0`, and `L` adapted: `a(ρ) = codim V^I + Sw_L(ρ) ≤ n(1 + U)`. -/
+theorem condAt_le_of_upper (hL8 : SwanIntegral) (ℓ : ℕ) [Fact ℓ.Prime] (hp : p ≠ ℓ)
+    (ρ : GQp p →* GL (Fin n) (PadicAlgCl ℓ)) (hc : Continuous ρ) (L : Fld p)
+    (hL : IsAdapted L ρ) (U : ℝ) (hU : 0 ≤ U)
+    (h : ∀ u : ℝ, U < u → ∀ σ ∈ upperAbs p u, ρ σ = 1) :
+    (condAt L ρ : ℝ) ≤ n * (1 + U) := by
+  have h1 : ((codimInv ρ inertiaSet : ℕ) : ℝ) ≤ n := by exact_mod_cast codimInv_le ρ _
+  have h2 := integral_codim_le ρ U hU h
+  rw [← hL8 ℓ p hp n ρ hc L hL] at h2
+  rw [condAt, Rat.cast_add, Rat.cast_natCast]
+  linarith
+
+/-! ### Non-degeneracy checks -/
+
+/-- `G_L ⊆ G_i(L)` (preimage) as soon as `L` has a uniformizer. -/
+theorem fixSet_subset_ramSet {L : Fld p} {ϖ : Kbar p} (hϖ : IsUnif L ϖ) (i : ℕ) :
+    fixSet L ⊆ ramSet L i := by
+  intro σ hσ
+  refine ⟨ϖ, hϖ, fun x hx _ => ?_⟩
+  rw [hσ x hx, sub_self, norm_zero]
+  positivity
+
+/-- The trivial representation is adapted to every finite Galois `L`, and has conductor `0`. -/
+theorem isAdapted_one {L : Fld p} (hL : IsFinGal L) :
+    IsAdapted L (1 : GQp p →* GL (Fin n) k) :=
+  ⟨hL, fun _ _ => rfl⟩
+
+theorem condExp_one : condExp (1 : GQp p →* GL (Fin n) k) = 0 :=
+  condExp_eq_zero_of_unramified fun _ _ => rfl
+
+/-- Wild inertia contains `1`. -/
+theorem one_mem_wildSet : (1 : GQp p) ∈ wildSet := by
+  intro x hx
+  simp only [AlgEquiv.one_apply, sub_self, norm_zero]
+  exact norm_pos_iff.mpr hx
+
+/-- Galois conjugates of elements of a finite Galois `L ⊆ ℚ̄_p` lie in `L`. -/
+theorem apply_mem {L : Fld p} (hL : IsFinGal L) (σ : GQp p) {x : Kbar p} (hx : x ∈ L) :
+    σ x ∈ L := by
+  have : IsGalois ℚ_[p] L := hL.2
+  have hn : Normal ℚ_[p] L := inferInstance
+  exact (IntermediateField.normal_iff_forall_map_le'.1 hn σ) ⟨x, hx, rfl⟩
+
+/-- **First clause of `InertiaRestriction` (proved):** `I_p ⊆ ramSet L 0` for finite Galois `L`
+with a uniformizer. -/
+theorem inertiaSet_subset_ramSet_zero {L : Fld p} (hL : IsFinGal L) {ϖ : Kbar p}
+    (hϖ : IsUnif L ϖ) : inertiaSet ⊆ ramSet L 0 := by
+  intro σ hσ
+  refine ⟨ϖ, hϖ, fun x hx hx1 => ?_⟩
+  rw [zero_add, pow_one]
+  exact hϖ.2.2 _ (L.sub_mem (apply_mem hL σ hx) hx) (hσ x hx1)
+
+theorem norm_p_kbar : ‖(p : Kbar p)‖ = (p : ℝ)⁻¹ := by
+  have h := PadicAlgCl.norm_extends p (p : ℚ_[p])
+  have e : ((p : ℚ_[p]) : PadicAlgCl p) = (p : Kbar p) := map_natCast (algebraMap ℚ_[p] _) p
+  rw [e, Padic.norm_p] at h
+  exact h
+
+/-- **Non-vacuity of `IsUnif`:** `p` is a uniformizer of `L = ℚ_p`. -/
+theorem isUnif_bot : IsUnif (⊥ : Fld p) (p : Kbar p) := by
+  have hp1 : (1 : ℝ) < p := by exact_mod_cast (Fact.out : p.Prime).one_lt
+  refine ⟨?_, ?_, ?_⟩
+  · rw [← map_natCast (algebraMap ℚ_[p] (Kbar p)) p]
+    exact IntermediateField.algebraMap_mem _ _
+  · rw [norm_p_kbar]; exact inv_lt_one_of_one_lt₀ hp1
+  · intro y hy hy1
+    obtain ⟨q, rfl⟩ := IntermediateField.mem_bot.1 hy
+    have hq : ‖algebraMap ℚ_[p] (Kbar p) q‖ = ‖q‖ := PadicAlgCl.norm_extends p q
+    rw [hq] at hy1 ⊢
+    rw [norm_p_kbar]
+    have := (Padic.norm_le_pow_iff_norm_lt_pow_add_one q (-1)).2 (by simpa using hy1)
+    simpa [zpow_neg_one] using this
+
+/-- The restrictions to a finite `L` of elements of `G_{ℚ_p}` form a finite set. -/
+theorem finite_restr {L : Fld p} (hL : IsFinGal L) (S : Set (GQp p)) :
+    (restr L '' S).Finite := by
+  have : FiniteDimensional ℚ_[p] L := hL.1
+  refine (Set.finite_range (fun f : L →ₐ[ℚ_[p]] Kbar p => (f : L → Kbar p))).subset ?_
+  rintro _ ⟨σ, -, rfl⟩
+  exact ⟨σ.toAlgHom.comp L.val, rfl⟩
+
+/-- **`g_0 ≠ 0` (proved)** for a finite Galois `L` with a uniformizer. -/
+theorem ramCard_ne_zero {L : Fld p} (hL : IsFinGal L) {ϖ : Kbar p} (hϖ : IsUnif L ϖ) (i : ℕ) :
+    ramCard L i ≠ 0 := by
+  have hne : (restr L '' ramSet L i).Nonempty :=
+    ⟨restr L 1, 1, fixSet_subset_ramSet hϖ i (fun x _ => rfl), rfl⟩
+  have hfin := finite_restr hL (ramSet L i)
+  have : Finite (restr L '' ramSet L i) := hfin.to_subtype
+  have : Nonempty (restr L '' ramSet L i) := hne.to_subtype
+  exact Nat.card_ne_zero.2 ⟨inferInstance, inferInstance⟩
+
+/-- **Sanity (b), reduced hypotheses.** For `L` finite Galois with a uniformizer and `ρ` trivial on
+`G_L`: `codim V^I + Sw_L = ∑_{i≥0}(g_i/g_0) codim V^{G_i}`, assuming only the two surjectivity
+statements (restriction of `I_p` onto `G_0(L)`, of `P_p ∩ G_i` onto `G_i(L)` for `i ≥ 1`) and
+`G_i(L) = 1` for `i ≥ N`. -/
+theorem condAt_eq_artinAt' {ρ : GQp p →* GL (Fin n) k} {L : Fld p} (hL : IsFinGal L)
+    {ϖ : Kbar p} (hϖ : IsUnif L ϖ) (hfix : ∀ σ ∈ fixSet L, ρ σ = 1)
+    (hI : ∀ σ ∈ ramSet L 0, ∃ τ ∈ inertiaSet, ∀ x ∈ L, τ x = σ x)
+    (hW : ∀ i : ℕ, ∀ σ ∈ ramSet L (i + 1), ∃ τ ∈ ramSet L (i + 1) ∩ wildSet, ∀ x ∈ L, τ x = σ x)
+    {N : ℕ} (hN : EventuallyTrivial L N) :
+    condAt L ρ = artinAt L ρ :=
+  condAt_eq_artinAt hfix ⟨inertiaSet_subset_ramSet_zero hL hϖ, hI, hW⟩ hN
+    (ramCard_ne_zero hL hϖ 0)
+
+/-- Two uniformizers of `L` have the same absolute value. -/
+theorem IsUnif.norm_eq {L : Fld p} {ϖ ϖ' : Kbar p} (h : IsUnif L ϖ) (h' : IsUnif L ϖ') :
+    ‖ϖ'‖ = ‖ϖ‖ :=
+  le_antisymm (h.2.2 _ h'.1 h'.2.1) (h'.2.2 _ h.1 h.2.1)
+
+/-- If `σ₀` moves `L`, then for large `i` no element of `ramSet L i` restricts to `σ₀|_L`. -/
+theorem eventually_not_restr {L : Fld p} {ϖ : Kbar p} (hϖ : IsUnif L ϖ) {σ₀ : GQp p}
+    (h₀ : σ₀ ∉ fixSet L) :
+    ∃ N : ℕ, ∀ i, N ≤ i → ∀ σ ∈ ramSet L i, restr L σ ≠ restr L σ₀ := by
+  simp only [fixSet, Set.mem_setOf_eq, not_forall] at h₀
+  obtain ⟨y, hy, hσy⟩ := h₀
+  have hpn : ‖(p : Kbar p)‖ < 1 := by
+    rw [norm_p_kbar]; exact inv_lt_one_of_one_lt₀ (by exact_mod_cast (Fact.out : p.Prime).one_lt)
+  obtain ⟨k, hk⟩ := exists_pow_lt_of_lt_one (show (0 : ℝ) < 1 / (‖y‖ + 1) by positivity) hpn
+  set x₀ : Kbar p := (p : Kbar p) ^ k * y with hx₀
+  have hpk : (p : Kbar p) ^ k = algebraMap ℚ_[p] (Kbar p) ((p : ℚ_[p]) ^ k) := by simp
+  have hx₀L : x₀ ∈ L := L.mul_mem (hpk ▸ IntermediateField.algebraMap_mem _ _) hy
+  have hx₀1 : ‖x₀‖ ≤ 1 := by
+    rw [hx₀, norm_mul, norm_pow]
+    have h1 : ‖(p : Kbar p)‖ ^ k * (‖y‖ + 1) < 1 := by
+      rwa [lt_div_iff₀ (by positivity)] at hk
+    nlinarith [norm_nonneg y, pow_nonneg (norm_nonneg (p : Kbar p)) k]
+  have hσx₀ : σ₀ x₀ - x₀ = (p : Kbar p) ^ k * (σ₀ y - y) := by
+    rw [hx₀, map_mul, map_pow, map_natCast]; ring
+  have hε : 0 < ‖σ₀ x₀ - x₀‖ := by
+    rw [hσx₀, norm_pos_iff]
+    exact mul_ne_zero (pow_ne_zero _ (Nat.cast_ne_zero.2 (Fact.out : p.Prime).ne_zero))
+      (sub_ne_zero.2 hσy)
+  obtain ⟨N, hN⟩ := exists_pow_lt_of_lt_one hε hϖ.2.1
+  refine ⟨N, fun i hi σ hσ heq => ?_⟩
+  obtain ⟨ϖ', hϖ', hb⟩ := hσ
+  have e : σ x₀ = σ₀ x₀ := congrFun heq ⟨x₀, hx₀L⟩
+  have h1 := hb x₀ hx₀L hx₀1
+  rw [e, hϖ.norm_eq hϖ'] at h1
+  have h2 : ‖ϖ‖ ^ (i + 1) ≤ ‖ϖ‖ ^ N :=
+    pow_le_pow_of_le_one (norm_nonneg _) hϖ.2.1.le (by omega)
+  linarith
+
+/-- **`G_i(L/ℚ_p) = 1` for large `i` (proved)**, for finite Galois `L` with a uniformizer. -/
+theorem eventuallyTrivial {L : Fld p} (hL : IsFinGal L) {ϖ : Kbar p} (hϖ : IsUnif L ϖ) :
+    ∃ N, EventuallyTrivial L N := by
+  have key : ∀ T : Set (L → Kbar p), T.Finite → T ⊆ restr L '' (fixSet L)ᶜ →
+      ∃ N : ℕ, ∀ i, N ≤ i → ∀ σ ∈ ramSet L i, restr L σ ∉ T := by
+    intro T hT
+    induction T, hT using Set.Finite.induction_on with
+    | empty => exact fun _ => ⟨0, fun _ _ _ _ h => h⟩
+    | @insert f T' _ _ ih =>
+      intro hsub
+      obtain ⟨N₁, hN₁⟩ := ih (fun g hg => hsub (Set.mem_insert_of_mem _ hg))
+      obtain ⟨σ₀, h₀, rfl⟩ := hsub (Set.mem_insert _ _)
+      obtain ⟨N₀, hN₀⟩ := eventually_not_restr hϖ h₀
+      refine ⟨max N₀ N₁, fun i hi σ hσ hmem => ?_⟩
+      rcases hmem with h | h
+      · exact hN₀ i (le_of_max_le_left hi) σ hσ h
+      · exact hN₁ i (le_of_max_le_right hi) σ hσ h
+  obtain ⟨N, hN⟩ := key _ (finite_restr hL _) le_rfl
+  refine ⟨N, fun i hi σ hσ => ?_⟩
+  by_contra hfix
+  exact hN i hi σ hσ ⟨σ, hfix, rfl⟩
+
+/-- **Sanity (b), final form.** For `L` finite Galois with a uniformizer and `ρ` trivial on `G_L`,
+`codim V^I + Sw_L = ∑_{i≥0}(g_i/g_0) codim V^{G_i}`, given only the two surjectivity facts. -/
+theorem condAt_eq_artinAt'' {ρ : GQp p →* GL (Fin n) k} {L : Fld p} (hL : IsFinGal L)
+    {ϖ : Kbar p} (hϖ : IsUnif L ϖ) (hfix : ∀ σ ∈ fixSet L, ρ σ = 1)
+    (hI : ∀ σ ∈ ramSet L 0, ∃ τ ∈ inertiaSet, ∀ x ∈ L, τ x = σ x)
+    (hW : ∀ i : ℕ, ∀ σ ∈ ramSet L (i + 1), ∃ τ ∈ ramSet L (i + 1) ∩ wildSet, ∀ x ∈ L, τ x = σ x) :
+    condAt L ρ = artinAt L ρ :=
+  let ⟨_, hN⟩ := eventuallyTrivial hL hϖ
+  condAt_eq_artinAt' hL hϖ hfix hI hW hN
+
+/-- For `y ≠ 0` in a finite `L/ℚ_p`, `‖y‖^{[L:ℚ_p]!}` is an integral power of `p` (from Mathlib's
+`spectralNorm_eq_norm_coeff_zero_rpow`: `‖y‖ = ‖a_0‖^{1/deg}` for the minimal polynomial). -/
+theorem norm_pow_factorial {L : Fld p} (hL : FiniteDimensional ℚ_[p] L) {y : Kbar p}
+    (hy : y ∈ L) (hy0 : y ≠ 0) :
+    ∃ j : ℤ, ‖y‖ ^ (Module.finrank ℚ_[p] L).factorial = (p : ℝ) ^ j := by
+  have hint : IsIntegral ℚ_[p] y := (Algebra.IsAlgebraic.isAlgebraic y).isIntegral
+  set m := (minpoly ℚ_[p] y).natDegree with hm
+  have hm_le : m ≤ Module.finrank ℚ_[p] L := by
+    have := minpoly.natDegree_le (A := ℚ_[p]) (⟨y, hy⟩ : L)
+    rwa [IntermediateField.minpoly_eq] at this
+  have hm_pos : 0 < m := minpoly.natDegree_pos hint
+  obtain ⟨t, ht⟩ := Nat.dvd_factorial hm_pos hm_le
+  set c := (minpoly ℚ_[p] y).coeff 0 with hc
+  have hc0 : c ≠ 0 := minpoly.coeff_zero_ne_zero hint hy0
+  have hnorm : ‖y‖ = ‖c‖ ^ (1 / m : ℝ) := by
+    rw [← PadicAlgCl.spectralNorm_eq]
+    exact spectralNorm.spectralNorm_eq_norm_coeff_zero_rpow (K := ℚ_[p]) (L := Kbar p) y
+  have hym : ‖y‖ ^ m = ‖c‖ := by
+    rw [hnorm, ← Real.rpow_natCast, ← Real.rpow_mul (norm_nonneg _)]
+    have : (1 / (m : ℝ)) * (m : ℝ) = 1 := by
+      field_simp
+    rw [this, Real.rpow_one]
+  refine ⟨-c.valuation * t, ?_⟩
+  rw [ht, pow_mul, hym, Padic.norm_eq_zpow_neg_valuation hc0, ← zpow_natCast, ← zpow_mul]
+
+/-- **Every finite `L/ℚ_p` inside `ℚ̄_p` has a uniformizer (proved).** -/
+theorem exists_isUnif {L : Fld p} (hL : FiniteDimensional ℚ_[p] L) : ∃ ϖ, IsUnif L ϖ := by
+  classical
+  set D := (Module.finrank ℚ_[p] L).factorial with hDdef
+  have hD : 0 < D := Nat.factorial_pos _
+  have hp1 : (1 : ℝ) < p := by exact_mod_cast (Fact.out : p.Prime).one_lt
+  have hpL : (p : Kbar p) ∈ L := by
+    rw [← map_natCast (algebraMap ℚ_[p] (Kbar p)) p]
+    exact IntermediateField.algebraMap_mem _ _
+  have hex : ∃ n : ℕ, ∃ y ∈ L, ‖y‖ < 1 ∧ ‖y‖ ^ D = (p : ℝ) ^ (-(n : ℤ)) :=
+    ⟨D, p, hpL, isUnif_bot.2.1, by rw [norm_p_kbar, zpow_neg, zpow_natCast, inv_pow]⟩
+  obtain ⟨ϖ, hϖL, hϖ1, hϖD⟩ := Nat.find_spec hex
+  refine ⟨ϖ, hϖL, hϖ1, fun y hy hy1 => ?_⟩
+  by_cases hy0 : y = 0
+  · rw [hy0, norm_zero]; exact norm_nonneg _
+  obtain ⟨j, hj⟩ := norm_pow_factorial hL hy hy0
+  have hjneg : j < 0 := by
+    have h1 : ‖y‖ ^ D < 1 := pow_lt_one₀ (norm_nonneg _) hy1 hD.ne'
+    rw [hj] at h1
+    by_contra h
+    rw [not_lt] at h
+    exact absurd h1 (not_lt.2 (one_le_zpow₀ hp1.le h))
+  have hle : Nat.find hex ≤ (-j).toNat :=
+    Nat.find_min' hex ⟨y, hy, hy1, by rw [hj]; congr 1; omega⟩
+  have hDle : ‖y‖ ^ D ≤ ‖ϖ‖ ^ D := by
+    rw [hj, hϖD]
+    exact zpow_le_zpow_right₀ hp1.le (by omega)
+  exact (pow_le_pow_iff_left₀ (norm_nonneg _) (norm_nonneg _) hD.ne').1 hDle
+
+/-- **Sanity (b), with no structural hypotheses.** For `L/ℚ_p` finite Galois and `ρ` trivial on
+`G_L`: `codim V^I + Sw_L = ∑_{i≥0}(g_i/g_0) codim V^{G_i}`, given the two surjectivity facts. -/
+theorem condAt_eq_artinAt_of_surj {ρ : GQp p →* GL (Fin n) k} {L : Fld p} (hL : IsFinGal L)
+    (hfix : ∀ σ ∈ fixSet L, ρ σ = 1)
+    (hI : ∀ σ ∈ ramSet L 0, ∃ τ ∈ inertiaSet, ∀ x ∈ L, τ x = σ x)
+    (hW : ∀ i : ℕ, ∀ σ ∈ ramSet L (i + 1), ∃ τ ∈ ramSet L (i + 1) ∩ wildSet, ∀ x ∈ L, τ x = σ x) :
+    condAt L ρ = artinAt L ρ :=
+  let ⟨_, hϖ⟩ := exists_isUnif hL.1
+  condAt_eq_artinAt'' hL hϖ hfix hI hW
+
+end LadicCond
+end
+end LadicCondSec
+
 /-! ## Kernel copy: ZInQKernel/HDecomp/Descent/WP3.lean (verbatim minus imports). Needed by g0-mod-field (T14/T15 → LeafHasse/LeafLocalTwo). -/
 section GlueWP3Sec
 
@@ -4492,6 +6079,994 @@ def TateBridge : Prop :=
 end G0ModField
 end G0ModFieldSec
 
+/-! ## g0-mod-newform: scratch/g0-mod-newform/part_new.lean, verbatim minus `#print axioms`, with two
+changes: `LeafModCurves` is opened with `hiding` (as leaf-adopt3 did for `C9Rhof`), and
+`ZInQ.Mult.le_heightD_of_mem_S_mul` (in `ZInQKernel/Main.lean`, not imported) is replaced by
+g0-mod-field's verbatim copy `G0ModField.le_heightD_of_mem_S_mul` (same statement). -/
+section G0ModNewformSec
+/-!
+# g0-mod-newform: glue G13-G16 of `docs/research/h-decomposition.md` §3
+
+The last range of `ModularConstituent` (`scratch/g0-split/part_split.lean`, piece 10): from the
+outputs of G8-G12 (the constituent `r_ℓ` of `V_ℓ(A)` as a `G_ℚ`-representation, and Pan-Berger's
+eigenform up to a finite twist, `G12Out`) to the outputs of G16 (a newform `f` of weight 2 and
+level `1 ≤ N ≤ Q_R M²`, and for every `J₁(N)` a common constituent of `V₅(A)` and
+`V₅(J₁(N)_{L'})`, E1's hypothesis).
+
+* G13 (`g13`, proved from T24, T25, R16, Faltings' Satz 3 and 4, I3.M0, T18, T19):
+  `r₅` is attached to a newform `f` outside a finite set, and `r₅|G_{L'} ≅ ρ_{f,5}|G_{L'}` is a
+  common constituent of `V₅(A)` and `V₅(J₁(N)_{L'})`.
+* G14 (`g14`, proved from R14, T18, T19 and the named AV-side Prop `G14TraceCompat`):
+  `r₃` is attached to the same `f` outside a finite set, and `r₃`, `r₅` are isomorphic to R14's
+  semisimple representations attached to `f` (in `AttachedTo` form, unramified outside `Nℓ`).
+* G15 (`g15`, proved from R17 (`CarayolR17'`), the glue `SwanIndependent` and the named Prop
+  `G15LocalBounds`): the exponents of `N` (`r₅` at `p ≠ 5`, `r₃` at `p = 5`).
+* G16 (`g16`, proved: `GlueConductor.level_le`): `N ≤ Q_R M²`.
+
+Leaves and glue targets are hypotheses (`def … : Prop`); no `sorry`, no `axiom`.
+-/
+
+noncomputable section
+
+namespace G0ModNewform
+
+open PkgI4 (Qbar GQ LiesOver IsArithFrob CF coeff IsNewform IsNormalizedEigenform GaloisRep
+  GaloisChar)
+-- g0-assemble (as leaf-adopt3 did for C9Rhof): `LeafModCurves` opened with `hiding`, since
+-- Leaves.lean has `LeafModCurves` copies of these `PkgI4` names (the kernel has none)
+open PkgI3 PkgI3.AbVar C9Rhof
+open LeafModCurves hiding Qbar GQ LiesOver IsArithFrob CF coeff HasNebentypus IsNormalizedEigenform
+  scaleH oldSpace IsNewform
+open CategoryTheory AlgebraicGeometry
+
+instance fact_prime_five : Fact (Nat.Prime 5) := ⟨by norm_num⟩
+instance fact_prime_three : Fact (Nat.Prime 3) := ⟨by norm_num⟩
+
+/-! ## §1. Representation lemmas (proved) -/
+
+section RepLemmas
+
+variable {k G V W : Type*} [CommRing k] [Monoid G] [AddCommGroup V] [Module k V]
+  [AddCommGroup W] [Module k W]
+
+/-- An isomorphism of `k[G]`-modules `ρ.asModule ≅ σ.asModule` is a `G`-equivariant
+`k`-linear equivalence `V ≃ W`. -/
+theorem equivariant_of_asModule (ρ : Representation k G V) (σ : Representation k G W)
+    (φ : ρ.asModule ≃ₗ[MonoidAlgebra k G] σ.asModule) :
+    ∃ e : V ≃ₗ[k] W, ∀ g v, e (ρ g v) = σ g (e v) := by
+  refine ⟨{ toFun := fun v => σ.asModuleEquiv (φ (ρ.asModuleEquiv.symm v))
+            invFun := fun w => ρ.asModuleEquiv (φ.symm (σ.asModuleEquiv.symm w))
+            map_add' := fun v w => by simp
+            map_smul' := fun c v => by
+              rw [ρ.asModuleEquiv_symm_map_smul, φ.map_smul,
+                Representation.asModuleEquiv_map_smul]
+              simp
+            left_inv := fun v => by simp
+            right_inv := fun w => by simp }, fun g v => ?_⟩
+  simp only [LinearEquiv.coe_mk, LinearMap.coe_mk, AddHom.coe_mk]
+  rw [ρ.asModuleEquiv_symm_map_rho, φ.map_smul, Representation.asModuleEquiv_map_smul]
+  simp
+
+end RepLemmas
+
+/-! ## §2. The conductor exponent at a level is invariant under isomorphism (proved) -/
+
+section CondIso
+
+open LadicCond
+open PkgI4 (GQp)
+
+variable {p : ℕ} [Fact p.Prime] {k : Type*} [Field k] {n : ℕ}
+
+/-- If `e` intertwines `ρ` and `ρ'`, then `e` maps `V^{ρ(S)}` onto `V^{ρ'(S)}`. -/
+theorem invariants_eq_map (ρ ρ' : GQp p →* GL (Fin n) k) (e : (Fin n → k) ≃ₗ[k] (Fin n → k))
+    (he : ∀ σ v, (ρ' σ : Matrix (Fin n) (Fin n) k).mulVec (e v) =
+      e ((ρ σ : Matrix (Fin n) (Fin n) k).mulVec v)) (S : Set (GQp p)) :
+    invariants ρ' S = (invariants ρ S).map (e : (Fin n → k) →ₗ[k] (Fin n → k)) := by
+  ext w
+  constructor
+  · intro hw
+    refine ⟨e.symm w, ?_, by simp⟩
+    intro σ hσ
+    apply e.injective
+    rw [← he, e.apply_symm_apply]
+    exact hw σ hσ
+  · rintro ⟨v, hv, rfl⟩ σ hσ
+    change (ρ' σ : Matrix (Fin n) (Fin n) k).mulVec (e v) = e v
+    rw [he]
+    exact congrArg e (hv σ hσ)
+
+theorem codimInv_eq (ρ ρ' : GQp p →* GL (Fin n) k) (e : (Fin n → k) ≃ₗ[k] (Fin n → k))
+    (he : ∀ σ v, (ρ' σ : Matrix (Fin n) (Fin n) k).mulVec (e v) =
+      e ((ρ σ : Matrix (Fin n) (Fin n) k).mulVec v)) (S : Set (GQp p)) :
+    codimInv ρ' S = codimInv ρ S := by
+  unfold codimInv
+  rw [invariants_eq_map ρ ρ' e he S, LinearEquiv.finrank_map_eq]
+
+theorem eq_one_of_intertwine (ρ ρ' : GQp p →* GL (Fin n) k)
+    (e : (Fin n → k) ≃ₗ[k] (Fin n → k))
+    (he : ∀ σ v, (ρ' σ : Matrix (Fin n) (Fin n) k).mulVec (e v) =
+      e ((ρ σ : Matrix (Fin n) (Fin n) k).mulVec v)) (σ : GQp p) (h : ρ σ = 1) : ρ' σ = 1 := by
+  apply Units.ext
+  apply Matrix.toLin'.injective
+  apply LinearMap.ext
+  intro w
+  obtain ⟨v, rfl⟩ := e.surjective w
+  rw [Matrix.toLin'_apply, he, h]
+  simp
+
+theorem isAdapted_of_intertwine (ρ ρ' : GQp p →* GL (Fin n) k)
+    (e : (Fin n → k) ≃ₗ[k] (Fin n → k))
+    (he : ∀ σ v, (ρ' σ : Matrix (Fin n) (Fin n) k).mulVec (e v) =
+      e ((ρ σ : Matrix (Fin n) (Fin n) k).mulVec v)) (L : Fld p) (hL : IsAdapted L ρ) :
+    IsAdapted L ρ' :=
+  ⟨hL.1, fun σ hσ => eq_one_of_intertwine ρ ρ' e he σ (hL.2 σ hσ)⟩
+
+theorem condAt_eq_of_intertwine (ρ ρ' : GQp p →* GL (Fin n) k)
+    (e : (Fin n → k) ≃ₗ[k] (Fin n → k))
+    (he : ∀ σ v, (ρ' σ : Matrix (Fin n) (Fin n) k).mulVec (e v) =
+      e ((ρ σ : Matrix (Fin n) (Fin n) k).mulVec v)) (L : Fld p) :
+    condAt L ρ' = condAt L ρ := by
+  unfold condAt swanAt
+  rw [codimInv_eq ρ ρ' e he]
+  congr 1
+  exact finsum_congr fun i => by rw [codimInv_eq ρ ρ' e he]
+
+/-- An equivariant equivalence of `GaloisRep`s intertwines their restrictions to `G_{ℚ_p}`. -/
+theorem restrictLocal_intertwine {ℓ : ℕ} [Fact ℓ.Prime] (r ρ : GaloisRep ℓ n)
+    (e : (Fin n → PadicAlgCl ℓ) ≃ₗ[PadicAlgCl ℓ] (Fin n → PadicAlgCl ℓ))
+    (he : ∀ g v, e (toRep r g v) = toRep ρ g (e v)) :
+    ∀ σ v, ((ρ.restrictLocal p) σ : Matrix (Fin n) (Fin n) (PadicAlgCl ℓ)).mulVec (e v) =
+      e (((r.restrictLocal p) σ : Matrix (Fin n) (Fin n) (PadicAlgCl ℓ)).mulVec v) := by
+  intro σ v
+  have h := he (PkgI4.decomp p σ) v
+  rw [toRep_apply, toRep_apply, Matrix.toLin'_apply, Matrix.toLin'_apply] at h
+  exact h.symm
+
+end CondIso
+
+/-! ## §3. The interface: data and outputs of G8-G12 -/
+
+/-- **Pan-Berger's output on `r` (C7-C8 = G12's output, `docs/research/h-decomposition.md` §3).**
+`r` is attached, up to the twist `ψ` and outside a finite set `S`, to a normalized eigenform `g`
+of **weight 2** and level `M` (Pan's trace form, `PkgI4.GaloisRep.AttachedUpToTwist`), and `ψ` is,
+at arithmetic Frobenius outside `S`, the Dirichlet character `ψD` mod `m` (N5 L758-768: the twist
+is finite, then class field theory over `ℚ`; the weight comparison forces `k = 2`). -/
+def PanOutput {ℓ : ℕ} [Fact ℓ.Prime] (ιC : Qbar →ₐ[ℚ] ℂ) (ιL : Qbar →ₐ[ℚ] PadicAlgCl ℓ)
+    (r : GaloisRep ℓ 2) : Prop :=
+  ∃ (M : ℕ) (χg : DirichletCharacter ℂ M) (g : CF M 2) (m : ℕ) (ψD : DirichletCharacter ℂ m)
+    (ψ : GaloisChar ℓ) (S : Finset ℕ),
+    0 < M ∧ IsNormalizedEigenform g χg ∧ 0 < m ∧ r.AttachedUpToTwist ψ ιC ιL g S ∧
+    ∀ p : ℕ, p.Prime → p ∉ S → ∃ β : Qbar, ιC β = ψD (p : ZMod m) ∧
+      ∀ (v : ValuationSubring Qbar) (τ : GQ), LiesOver v p → IsArithFrob τ v p →
+        (ψ.toHom τ : PadicAlgCl ℓ) = ιL β
+
+/-- **`r|_{G_L}` is a constituent of `V_ℓ(A) ⊗ ℚ̄_ℓ`** (G8's `ρ_ℓ ≅ r_ℓ ⊕ r_ℓ` on `G_{L'}`): a
+nonzero subrepresentation `U` of `V_ℓ(A) ⊗ ℚ̄_ℓ` (`A` over `L`) with a linear isomorphism
+`U ≃ ℚ̄_ℓ²` carrying `τ ∈ G_L` to `r(σ)` for every `σ ∈ G_ℚ` with `i ∘ σ = τ ∘ i`
+(`i : ℚ̄ → L̄`; such `σ` exist and are unique, `E1Sub.exists_res`). -/
+def IsConstituentOf (ℓ : ℕ) [Fact ℓ.Prime] {L : Type} [Field L] [Algebra ℚ L] (A : AbVar L)
+    (i : AlgebraicClosure ℚ →ₐ[ℚ] AlgebraicClosure L) (r : GaloisRep ℓ 2) : Prop :=
+  ∃ (U : Subrepresentation (GlueI3.repBaseChange (PadicAlgCl ℓ) (A.galRep ℓ)))
+    (e : U.toSubmodule ≃ₗ[PadicAlgCl ℓ] (Fin 2 → PadicAlgCl ℓ)), U ≠ ⊥ ∧
+    ∀ (τ : AlgebraicClosure L ≃ₐ[L] AlgebraicClosure L) (σ : GQ), (∀ x, i (σ x) = τ (i x)) →
+      ∀ u : U.toSubmodule,
+        e ⟨GlueI3.repBaseChange (PadicAlgCl ℓ) (A.galRep ℓ) τ u, U.apply_mem_toSubmodule τ u.2⟩ =
+          toRep r σ (e u)
+
+/-- The data that G8-G12 produce for the model `A/L'`: an embedding `i : ℚ̄ → L̄'`, embeddings
+`ιC : ℚ̄ → ℂ`, `ι₅ : ℚ̄ → ℚ̄₅`, `ι₃ : ℚ̄ → ℚ̄₃`, and the two `G_ℚ`-representations `r₅`, `r₃`
+(N5 L719-734: `r_ℓ`, made a `G_ℚ`-representation by the Tate action and the descent of G7). -/
+structure ModData (L : Type) [Field L] [NumberField L] (A : AbVar L) where
+  i : AlgebraicClosure ℚ →ₐ[ℚ] AlgebraicClosure L
+  ιC : Qbar →ₐ[ℚ] ℂ
+  ι5 : Qbar →ₐ[ℚ] PadicAlgCl 5
+  ι3 : Qbar →ₐ[ℚ] PadicAlgCl 3
+  r5 : GaloisRep 5 2
+  r3 : GaloisRep 3 2
+
+/-- **G12Out: the output of G8-G12** (the range of task g0-mod-galois) on the data `D`:
+`r₅`, `r₃` irreducible (C2, Burnside form), constituents of `V₅(A)`, `V₃(A)` on `G_{L'}` (C1),
+and Pan-Berger's weight-2 eigenform up to a finite twist for `r₅` (C3-C8). -/
+def G12Spec {L : Type} [Field L] [NumberField L] {A : AbVar L} (D : ModData L A) : Prop :=
+  D.r5.IsIrreducible ∧ D.r3.IsIrreducible ∧ IsConstituentOf 5 A D.i D.r5 ∧
+    IsConstituentOf 3 A D.i D.r3 ∧ PanOutput D.ιC D.ι5 D.r5
+
+/-- `G12Out A`: some data `D` for `A` satisfy `G12Spec`. -/
+def G12Out {L : Type} [Field L] [NumberField L] (A : AbVar L) : Prop :=
+  ∃ D : ModData L A, G12Spec D
+
+/-- **Open part of G14 (glue, AV side; N5 L776-795).** At every arithmetic Frobenius `τ` above
+`p ∉ S`, the traces of `r₅` and `r₃` are the images of one algebraic number: if
+`tr r₅(τ) = ι₅(c)` then `tr r₃(τ) = ι₃(c)`. Glazer's proof: for `p ∉ T ∪ {3, 5}` a lift `σ` of
+Frobenius, the relative Frobenius of the reduction of `A` composed with `μ̄_σ` is an endomorphism
+of `Ā_v` whose characteristic polynomial on `V_ℓ` is independent of `ℓ` (T7, with T3, T4); half
+its trace times `β(σ)⁻¹a_σ` is the common value. It is a statement about the `r_ℓ` built in G8
+from the descent data of G7 (not about arbitrary constituents: a constituent determines `r_ℓ`
+only on `G_{L'}`), so it is to be proved together with that construction. -/
+def G14TraceCompat {L : Type} [Field L] [NumberField L] {A : AbVar L} (D : ModData L A) : Prop :=
+  ∃ S : Finset ℕ, ∀ p : ℕ, p.Prime → p ∉ S → ∀ (v : ValuationSubring Qbar) (τ : GQ),
+    LiesOver v p → IsArithFrob τ v p → ∀ c : Qbar,
+      (D.r5.mat τ).trace = D.ι5 c → (D.r3.mat τ).trace = D.ι3 c
+
+/-- Glazer's local bound for `r` at `p` (N5 L798-852), at a level `L_p` adapted to `r|G_{ℚ_p}`:
+the conductor exponent is `≤ E₀` if `p ≤ R` (`R = D`), `≤ 2` if `p > R`, and `0` if
+`p ∉ T = S ∪ supp M_S(u)`. -/
+def LocalBound (u : ℚ) (p : ℕ) [Fact p.Prime] {ℓ : ℕ} [Fact ℓ.Prime] (r : GaloisRep ℓ 2) :
+    Prop :=
+  ∃ Lp : LadicCond.Fld p, LadicCond.IsAdapted Lp (r.restrictLocal p) ∧
+    ((p : ℝ) ≤ (ZInQ.heightD : ℝ) →
+      LadicCond.condAt Lp (r.restrictLocal p) ≤ (ZInQ.heightE0 : ℚ)) ∧
+    ((ZInQ.heightD : ℝ) < p → LadicCond.condAt Lp (r.restrictLocal p) ≤ 2) ∧
+    (p ∉ ZInQ.Mult.S_mul → ¬ p ∣ ZInQ.contactSupport ZInQ.Mult.S_mul u →
+      LadicCond.condAt Lp (r.restrictLocal p) = 0)
+
+/-- **Open part of G15 (glue, D1-D4 on the actual `A`; N5 L796-852).** `r₅` satisfies Glazer's
+local bound at every prime `p ≠ 5` and `r₃` at `p = 5`. The cores are proved over the kernel's
+finite-level objects (D1 `GlueConductor.D1_genuine`, D2 `PkgI2.D2_fixed_of_raynaud`, D3
+`GlueConductor.fourth_pow_mem`, D4 `PkgI6.artinConductor_le_of_upper`,
+`LadicCond.condAt_le_of_upper`); what is open is their instantiation on the `r_ℓ` built in G8
+(Raynaud's semistability over `L'_v(A[3])`, wild inertia on `V_ℓ(A)`, the wild part of `β`). -/
+def G15LocalBounds {L : Type} [Field L] [NumberField L] {A : AbVar L} (D : ModData L A)
+    (u : ℚ) : Prop :=
+  ∀ p : ℕ, ∀ hp : p.Prime,
+    (p ≠ 5 → @LocalBound u p ⟨hp⟩ 5 _ D.r5) ∧ (p = 5 → @LocalBound u p ⟨hp⟩ 3 _ D.r3)
+
+/-! ## §4. G13: the newform and the common constituent -/
+
+/-- `r` is attached to `f` outside `S`: at every arithmetic Frobenius above `p ∉ S`, the trace is
+`ι_L(α)` with `ι_C(α) = a_p(f)` (`AttachedUpToTwist` with trivial twist, without the
+unramifiedness clause). -/
+def AttachedOutside {ℓ : ℕ} [Fact ℓ.Prime] (r : GaloisRep ℓ 2) (ιC : Qbar →ₐ[ℚ] ℂ)
+    (ιL : Qbar →ₐ[ℚ] PadicAlgCl ℓ) {N : ℕ} {k : ℤ} (f : CF N k) (S : Finset ℕ) : Prop :=
+  ∀ p : ℕ, p.Prime → p ∉ S → ∃ α : Qbar, ιC α = coeff f p ∧
+    ∀ (v : ValuationSubring Qbar) (τ : GQ), LiesOver v p → IsArithFrob τ v p →
+      (r.mat τ).trace = ιL α
+
+/-- E1's hypothesis (copied from `scratch/g0-split/part_split.lean`): for some prime `ℓ` and
+field `E ⊇ ℚ_ℓ`, `V_ℓ(A) ⊗ E` and `V_ℓ(J) ⊗ E` have a common nonzero constituent, as
+`G_K`-representations. -/
+def CommonConstituent {K : Type} [Field K] [NumberField K] (A J : PkgI3.AbVar K) : Prop :=
+  ∃ (ℓ : ℕ) (_ : Fact ℓ.Prime) (E : Type) (_ : Field E) (_ : Algebra ℚ_[ℓ] E)
+    (U : Subrepresentation (GlueI3.repBaseChange E (A.galRep ℓ)))
+    (U' : Subrepresentation (GlueI3.repBaseChange E (J.galRep ℓ)))
+    (e : U.toSubmodule ≃ₗ[E] U'.toSubmodule), U ≠ ⊥ ∧
+    ∀ g (u : U.toSubmodule),
+      (e ⟨GlueI3.repBaseChange E (A.galRep ℓ) g u, U.apply_mem_toSubmodule g u.2⟩ :
+        TensorProduct ℚ_[ℓ] E (J.V ℓ)) = GlueI3.repBaseChange E (J.galRep ℓ) g (e u)
+
+/-- **G13Out** on the data `D`: a newform `f` of weight 2, level `N ≥ 1` and nebentypus `χ`;
+`r₅` is attached to `f` outside a finite set; and for every `J₁(N)` `J` over `ℚ`, `V₅(A)` and
+`V₅(J_{L'})` have a common constituent (`r₅|G_{L'} ≅ ρ_{f,5}|G_{L'}`). -/
+def G13Spec {L : Type} [Field L] [NumberField L] {A : AbVar L} (D : ModData L A) (N : ℕ)
+    (χ : DirichletCharacter ℂ N) (f : CF N 2) : Prop :=
+  0 < N ∧ IsNewform f χ ∧ D.r5.IsSemisimple ∧ D.r3.IsSemisimple ∧
+    (∃ S, AttachedOutside D.r5 D.ιC D.ι5 f S) ∧
+    ∀ J : AbVar ℚ, IsJ1 N J → CommonConstituent A (J.baseChange L)
+
+/-- The `J`-side of E1 for a given Shimura quotient `π : J ↠ A_f` (the proof of
+`E1Sub.rhoF_subrep_JL`, for given `A_f`, `π`, `θ`). -/
+theorem jSide (hS : FaltingsSemisimple) (hF : FaltingsTate) (hT : TateModuleFree)
+    (J Af : AbVar ℚ) (π : Hom J Af) (hπ : Surjective π.hom.left) {F : Type} [Field F]
+    (θ : F →+* Af.End0) (ℓ : ℕ) [Fact ℓ.Prime] (emb : F →+* PadicAlgCl ℓ)
+    [FiniteDimensional (PadicAlgCl ℓ) (eigenFun ℓ Af θ emb)]
+    (L : Type) [Field L] [Algebra ℚ L] (i : AlgebraicClosure ℚ →ₐ[ℚ] AlgebraicClosure L) :
+    ∃ (U : Subrepresentation
+        (GlueI3.repBaseChange (PadicAlgCl ℓ) ((J.baseChange L).galRep ℓ)))
+      (e : U.toSubmodule ≃ₗ[PadicAlgCl ℓ] Module.Dual (PadicAlgCl ℓ) (eigenFun ℓ Af θ emb)),
+      ∀ (τ : AlgebraicClosure L ≃ₐ[L] AlgebraicClosure L) (σ : GQ),
+        (∀ x, i (σ x) = τ (i x)) → ∀ u : U.toSubmodule,
+          e ⟨GlueI3.repBaseChange (PadicAlgCl ℓ) ((J.baseChange L).galRep ℓ) τ u,
+              U.apply_mem_toSubmodule τ u.2⟩ = rhoF ℓ Af θ emb σ (e u) := by
+  obtain ⟨U0, e0, he0⟩ := E1Sub.rhoF_subrep_of_surj ℓ hS hT J Af π
+    (E1Sub.vSurjOfSurjective hS hF hT J Af π ℓ hπ) θ emb
+  let Ψ := (E1Sub.bcV ℓ J i).baseChange (PadicAlgCl ℓ)
+  have hΨ : Function.Injective Ψ := E1Sub.bcVE_injective ℓ (PadicAlgCl ℓ) J i
+  let U : Subrepresentation (GlueI3.repBaseChange (PadicAlgCl ℓ) ((J.baseChange L).galRep ℓ)) :=
+    { toSubmodule := U0.toSubmodule.map Ψ
+      apply_mem_toSubmodule := by
+        rintro τ _ ⟨u, hu, rfl⟩
+        obtain ⟨σ, hσ⟩ := E1Sub.exists_res i τ
+        refine ⟨GlueI3.repBaseChange (PadicAlgCl ℓ) (J.galRep ℓ) σ u,
+          U0.apply_mem_toSubmodule σ hu, ?_⟩
+        exact E1Sub.bcVE_equivariant ℓ (PadicAlgCl ℓ) J i τ σ hσ u }
+  let eM := Submodule.equivMapOfInjective Ψ hΨ U0.toSubmodule
+  refine ⟨U, eM.symm.trans e0, fun τ σ hσ u => ?_⟩
+  obtain ⟨u0, rfl⟩ := eM.surjective u
+  have hmap : (⟨GlueI3.repBaseChange (PadicAlgCl ℓ) ((J.baseChange L).galRep ℓ) τ (eM u0),
+      U.apply_mem_toSubmodule τ (eM u0).2⟩ : U.toSubmodule) =
+      eM ⟨GlueI3.repBaseChange (PadicAlgCl ℓ) (J.galRep ℓ) σ u0,
+        U0.apply_mem_toSubmodule σ u0.2⟩ := by
+    apply Subtype.ext
+    change GlueI3.repBaseChange (PadicAlgCl ℓ) ((J.baseChange L).galRep ℓ) τ (Ψ u0) =
+      Ψ (GlueI3.repBaseChange (PadicAlgCl ℓ) (J.galRep ℓ) σ u0)
+    exact (E1Sub.bcVE_equivariant ℓ (PadicAlgCl ℓ) J i τ σ hσ u0).symm
+  simp only [LinearEquiv.trans_apply]
+  rw [hmap, LinearEquiv.symm_apply_apply, LinearEquiv.symm_apply_apply]
+  exact he0 σ u0
+
+/-- **Twist bookkeeping (proved, from T24 and T25; the computation of `C9Rhof.c9_r5`).** From
+Pan-Berger's output, a newform `f` of weight 2 and level `N ∣ M m²` to which `r` is attached
+outside a finite set. -/
+theorem newform_of_pan (hTw : PkgI4.EigenformTwist) (hNew : PkgI4.NewformOfEigenform)
+    {ℓ : ℕ} [Fact ℓ.Prime] (ιC : Qbar →ₐ[ℚ] ℂ) (ιL : Qbar →ₐ[ℚ] PadicAlgCl ℓ)
+    (r : GaloisRep ℓ 2) (h : PanOutput ιC ιL r) :
+    ∃ (N : ℕ) (χ : DirichletCharacter ℂ N) (f : CF N 2), 0 < N ∧ IsNewform f χ ∧
+      ∃ S, AttachedOutside r ιC ιL f S := by
+  obtain ⟨M, χg, g, m, ψD, ψ, S, hM, hg, hm, hrg, hψ⟩ := h
+  obtain ⟨χ', g', hg', hcoef⟩ := hTw M m 2 χg ψD g hM hm hg
+  obtain ⟨N, χ, f, hN, hNd, hf, hcf⟩ := hNew (M * m ^ 2) 2 χ' g' (by positivity) hg'
+  refine ⟨N, χ, f, hN, hf, S ∪ (M * m).primeFactors, fun p hp hpS => ?_⟩
+  have hMm : M * m ≠ 0 := Nat.mul_ne_zero hM.ne' hm.ne'
+  have hpS1 : p ∉ S := fun h => hpS (Finset.mem_union_left _ h)
+  have hpMm : ¬ p ∣ M * m := fun h =>
+    hpS (Finset.mem_union_right _ (Nat.mem_primeFactors.mpr ⟨hp, h, hMm⟩))
+  have hpMm2 : ¬ p ∣ M * m ^ 2 := by
+    intro h
+    rcases (Nat.Prime.dvd_mul hp).mp h with h1 | h1
+    · exact hpMm (dvd_mul_of_dvd_left h1 _)
+    · exact hpMm (dvd_mul_of_dvd_right (hp.dvd_of_dvd_pow h1) _)
+  obtain ⟨-, α, hα, htrα⟩ := hrg p hp hpS1
+  obtain ⟨β, hβ, hψp⟩ := hψ p hp hpS1
+  refine ⟨β * α, ?_, fun v τ hv hτ => ?_⟩
+  · rw [map_mul, hβ, hα, hcf p hp hpMm2, hcoef p hp hpMm]
+  · rw [htrα v τ hv hτ, hψp v τ hv hτ, map_mul]
+
+/-- **E1 on `A` for a representation attached to `f` (proved from R16, Faltings' Satz 3 and 4,
+I3.M0, T18, T19).** If `r` is semisimple, attached to the newform `f` outside a finite set, and
+`r|_{G_L}` is a constituent of `V_ℓ(A)`, then for every `J₁(N)` `J`, `V_ℓ(A)` and `V_ℓ(J_L)` have
+a common constituent: `r|G_L ≅ ρ_{f,ι}|G_L` (C9, Brauer–Nesbitt), which is a sub of
+`V_ℓ(J_L) ⊗ ℚ̄_ℓ` (E1Sub). -/
+theorem commonConstituent_of_attached (hR16 : R16_EichlerShimuraJ1') (hS : FaltingsSemisimple)
+    (hF : FaltingsTate) (hT : TateModuleFree) (hBN : GlueC10.BrauerNesbittChar0)
+    (hD : FrobeniusDense) {L : Type} [Field L] [NumberField L] (A : AbVar L)
+    (i : AlgebraicClosure ℚ →ₐ[ℚ] AlgebraicClosure L) (ℓ : ℕ) [Fact ℓ.Prime]
+    (ιC : Qbar →ₐ[ℚ] ℂ) (ιL : Qbar →ₐ[ℚ] PadicAlgCl ℓ) (r : GaloisRep ℓ 2) (hr : r.IsSemisimple)
+    (hA : IsConstituentOf ℓ A i r) (N : ℕ) (hN : 0 < N) (χ : DirichletCharacter ℂ N)
+    (f : CF N 2) (hf : IsNewform f χ) (S : Finset ℕ) (hatt : AttachedOutside r ιC ιL f S)
+    (J : AbVar ℚ) (hJ : IsJ1 N J) : CommonConstituent A (J.baseChange L) := by
+  obtain ⟨hfin, Af, π, θ, hπ, -, hrest⟩ := hR16 N χ f J hN hf hJ
+  set emb := embOf ℓ ιC ιL (coeffField f) with hemb
+  obtain ⟨h2, hfr⟩ := hrest ℓ emb
+  haveI : FiniteDimensional (PadicAlgCl ℓ) (eigenFun ℓ Af θ emb) :=
+    Module.finite_of_finrank_pos (by rw [h2]; norm_num)
+  obtain ⟨-, -, ⟨φ⟩, -, -⟩ := c9_core ℓ hS hT hBN hD N hN
+    (fun p => (⟨coeff f p, coeff_mem_coeffField f p⟩ : coeffField f)) Af θ emb h2
+    (fun p hp hpN σ hσ => (hfr p hp hpN σ hσ).1 _ rfl) S (Pi.basisFun (PadicAlgCl ℓ) (Fin 2))
+    (toRep r) (toRep_continuous r) (toRep_semisimple r hr) (by
+      intro p hp hpS _ v τ hv hτ
+      obtain ⟨α, hα, hrα⟩ := hatt p hp hpS
+      rw [trace_toRep, hrα v τ hv hτ]
+      exact (embOf_spec ℓ ιC ιL (coeffField f) _ α hα).symm)
+  obtain ⟨eφ, heφ⟩ := equivariant_of_asModule _ _ φ
+  obtain ⟨U, eR, hU, heR⟩ := hA
+  obtain ⟨U', eJ, heJ⟩ := jSide hS hF hT J Af π hπ θ ℓ emb L i
+  let e : U.toSubmodule ≃ₗ[PadicAlgCl ℓ] U'.toSubmodule := (eR.trans eφ).trans eJ.symm
+  refine ⟨ℓ, inferInstance, PadicAlgCl ℓ, inferInstance, inferInstance, U, U', e, hU,
+    fun τ u => ?_⟩
+  obtain ⟨σ, hσ⟩ := E1Sub.exists_res i τ
+  have h1 : eJ ⟨GlueI3.repBaseChange (PadicAlgCl ℓ) ((J.baseChange L).galRep ℓ) τ (e u),
+      U'.apply_mem_toSubmodule τ (e u).2⟩ =
+      eJ (e ⟨GlueI3.repBaseChange (PadicAlgCl ℓ) (A.galRep ℓ) τ u,
+        U.apply_mem_toSubmodule τ u.2⟩) := by
+    rw [heJ τ σ hσ (e u)]
+    simp only [e, LinearEquiv.trans_apply, LinearEquiv.apply_symm_apply]
+    rw [heR τ σ hσ u, heφ]
+  exact congrArg Subtype.val (eJ.injective h1).symm
+
+/-- **G13 (GLUE, proved from T24, T25, R16, Faltings' Satz 3 and 4, I3.M0, T18, T19).** -/
+theorem g13 (hTw : PkgI4.EigenformTwist) (hNew : PkgI4.NewformOfEigenform)
+    (hR16 : R16_EichlerShimuraJ1') (hS : FaltingsSemisimple) (hF : FaltingsTate)
+    (hT : TateModuleFree) (hBN : GlueC10.BrauerNesbittChar0) (hD : FrobeniusDense)
+    {L : Type} [Field L] [NumberField L] {A : AbVar L} (D : ModData L A) (h12 : G12Spec D) :
+    ∃ (N : ℕ) (χ : DirichletCharacter ℂ N) (f : CF N 2), G13Spec D N χ f := by
+  obtain ⟨hirr5, hirr3, hA5, -, hpan⟩ := h12
+  obtain ⟨N, χ, f, hN, hf, S, hatt⟩ := newform_of_pan hTw hNew D.ιC D.ι5 D.r5 hpan
+  have hss5 := isSemisimple_of_isIrreducible D.r5 hirr5
+  refine ⟨N, χ, f, hN, hf, hss5, isSemisimple_of_isIrreducible D.r3 hirr3, ⟨S, hatt⟩,
+    fun J hJ => ?_⟩
+  exact commonConstituent_of_attached hR16 hS hF hT hBN hD A D.i 5 D.ιC D.ι5 D.r5 hss5 hA5 N hN
+    χ f hf S hatt J hJ
+
+/-! ## §5. G14: `r₃` and `r₅` against R14's representations of `f` -/
+
+/-- **Brauer–Nesbitt against R14 (proved from R14, T18, T19).** A semisimple `r` attached to the
+newform `f` outside a finite set is equivariantly isomorphic to R14's semisimple `ρ` attached to
+`f` (in `AttachedTo` form: unramified outside `Nℓ`, traces `a_p` at every `p ∤ Nℓ`). -/
+theorem iso_R14 (hR14 : PkgI4.EigenformRepExists) (hBN : GlueC10.BrauerNesbittChar0)
+    (hD : FrobeniusDense) {ℓ : ℕ} [Fact ℓ.Prime] (ιC : Qbar →ₐ[ℚ] ℂ)
+    (ιL : Qbar →ₐ[ℚ] PadicAlgCl ℓ) (N : ℕ) (hN : 0 < N) (χ : DirichletCharacter ℂ N)
+    (f : CF N 2) (hf : IsNewform f χ) (r : GaloisRep ℓ 2) (hr : r.IsSemisimple)
+    (S : Finset ℕ) (hatt : AttachedOutside r ιC ιL f S) :
+    ∃ ρ : GaloisRep ℓ 2, ρ.IsSemisimple ∧ ρ.AttachedTo ιC ιL f ∧
+      ∃ e : (Fin 2 → PadicAlgCl ℓ) ≃ₗ[PadicAlgCl ℓ] (Fin 2 → PadicAlgCl ℓ),
+        ∀ g v, e (toRep r g v) = toRep ρ g (e v) := by
+  obtain ⟨ρ, hss, hρ⟩ := hR14 ℓ ιC ιL N 2 χ f hN (by norm_num) hf.1
+  have hNℓ : N * ℓ ≠ 0 := Nat.mul_ne_zero hN.ne' (Fact.out : ℓ.Prime).ne_zero
+  obtain ⟨φ⟩ := iso_of_arithFrob hBN hD (S ∪ (N * ℓ).primeFactors)
+    (Pi.basisFun (PadicAlgCl ℓ) (Fin 2)) (Pi.basisFun (PadicAlgCl ℓ) (Fin 2)) (toRep r)
+    (toRep ρ) (toRep_continuous r) (toRep_continuous ρ) (toRep_semisimple r hr)
+    (toRep_semisimple ρ hss) (by
+      intro p hp hpS v τ hv hτ
+      have hpS1 : p ∉ S := fun h => hpS (Finset.mem_union_left _ h)
+      have hpN : ¬ p ∣ N * ℓ := fun h =>
+        hpS (Finset.mem_union_right _ (Nat.mem_primeFactors.mpr ⟨hp, h, hNℓ⟩))
+      obtain ⟨α, hα, hrα⟩ := hatt p hp hpS1
+      obtain ⟨-, α', hα', hρα⟩ := hρ p hp hpN
+      have : α = α' := ιC.toRingHom.injective (hα.trans hα'.symm)
+      rw [trace_toRep, trace_toRep, hrα v τ hv hτ, hρα v τ hv hτ, this])
+  obtain ⟨e, he⟩ := equivariant_of_asModule _ _ φ
+  exact ⟨ρ, hss, hρ, e, he⟩
+
+/-- **G14Out** on the data `D` and the newform `f`: both `r₅` and `r₃` are equivariantly
+isomorphic to semisimple representations attached to `f` in R14's `AttachedTo` form. -/
+def G14Spec {L : Type} [Field L] [NumberField L] {A : AbVar L} (D : ModData L A) (N : ℕ)
+    (f : CF N 2) : Prop :=
+  (∃ ρ : GaloisRep 5 2, ρ.IsSemisimple ∧ ρ.AttachedTo D.ιC D.ι5 f ∧
+      ∃ e : (Fin 2 → PadicAlgCl 5) ≃ₗ[PadicAlgCl 5] (Fin 2 → PadicAlgCl 5),
+        ∀ g v, e (toRep D.r5 g v) = toRep ρ g (e v)) ∧
+    (∃ ρ : GaloisRep 3 2, ρ.IsSemisimple ∧ ρ.AttachedTo D.ιC D.ι3 f ∧
+      ∃ e : (Fin 2 → PadicAlgCl 3) ≃ₗ[PadicAlgCl 3] (Fin 2 → PadicAlgCl 3),
+        ∀ g v, e (toRep D.r3 g v) = toRep ρ g (e v))
+
+/-- **G14 (GLUE, proved from R14, T18, T19 and the AV-side Prop `G14TraceCompat`).** -/
+theorem g14 (hR14 : PkgI4.EigenformRepExists) (hBN : GlueC10.BrauerNesbittChar0)
+    (hD : FrobeniusDense) {L : Type} [Field L] [NumberField L] {A : AbVar L} (D : ModData L A)
+    (N : ℕ) (χ : DirichletCharacter ℂ N) (f : CF N 2) (h13 : G13Spec D N χ f)
+    (hc : G14TraceCompat D) : G14Spec D N f := by
+  obtain ⟨hN, hf, hss5, hss3, ⟨S, hatt⟩, -⟩ := h13
+  obtain ⟨Sc, hSc⟩ := hc
+  have hatt3 : AttachedOutside D.r3 D.ιC D.ι3 f (S ∪ Sc) := by
+    intro p hp hpS
+    have hpS1 : p ∉ S := fun h => hpS (Finset.mem_union_left _ h)
+    have hpS2 : p ∉ Sc := fun h => hpS (Finset.mem_union_right _ h)
+    obtain ⟨α, hα, hrα⟩ := hatt p hp hpS1
+    exact ⟨α, hα, fun v τ hv hτ => hSc p hp hpS2 v τ hv hτ α (hrα v τ hv hτ)⟩
+  exact ⟨iso_R14 hR14 hBN hD D.ιC D.ι5 N hN χ f hf D.r5 hss5 S hatt,
+    iso_R14 hR14 hBN hD D.ιC D.ι3 N hN χ f hf D.r3 hss3 (S ∪ Sc) hatt3⟩
+
+/-! ## §6. G15: the exponents of `N` -/
+
+/-- **G15Out**: the exponents of the level, N5 L846-852 (`a_p = v_p(N)` by Carayol). -/
+def G15Out (N : ℕ) (u : ℚ) : Prop :=
+  (∀ p : ℕ, p.Prime → (p : ℝ) ≤ (ZInQ.heightD : ℝ) → N.factorization p ≤ ZInQ.heightE0) ∧
+    (∀ p : ℕ, p.Prime → (ZInQ.heightD : ℝ) < p → N.factorization p ≤ 2) ∧
+    (∀ p : ℕ, p.Prime → p ∣ N → p ∈ ZInQ.Mult.S_mul ∨ p ∣ ZInQ.contactSupport ZInQ.Mult.S_mul u)
+
+/-- Carayol at one prime, transported along an equivariant equivalence (proved from R17's
+adapted-level form). -/
+theorem factorization_eq_condAt (hCar : LadicCond.CarayolR17) {ℓ : ℕ} [Fact ℓ.Prime]
+    (ιC : Qbar →ₐ[ℚ] ℂ) (ιL : Qbar →ₐ[ℚ] PadicAlgCl ℓ) (N : ℕ) (hN : 0 < N)
+    (χ : DirichletCharacter ℂ N) (f : CF N 2) (hf : IsNewform f χ) (r : GaloisRep ℓ 2)
+    (ρ : GaloisRep ℓ 2) (hss : ρ.IsSemisimple) (hρ : ρ.AttachedTo ιC ιL f)
+    (e : (Fin 2 → PadicAlgCl ℓ) ≃ₗ[PadicAlgCl ℓ] (Fin 2 → PadicAlgCl ℓ))
+    (he : ∀ g v, e (toRep r g v) = toRep ρ g (e v)) (p : ℕ) [Fact p.Prime] (hpℓ : p ≠ ℓ)
+    (Lp : LadicCond.Fld p) (hL : LadicCond.IsAdapted Lp (r.restrictLocal p)) :
+    (N.factorization p : ℚ) = LadicCond.condAt Lp (r.restrictLocal p) := by
+  have hint := restrictLocal_intertwine (p := p) r ρ e he
+  rw [← hCar ℓ ιC ιL N χ f ρ p hN hf hss hρ hpℓ Lp
+    (isAdapted_of_intertwine _ _ e hint Lp hL)]
+  exact condAt_eq_of_intertwine _ _ e hint Lp
+
+/-- **G15 (GLUE, proved from R17 (`CarayolR17'`), the glue `SwanIndependent` and the open Prop
+`G15LocalBounds`).** -/
+theorem g15 (hCar : LadicCond.CarayolR17')
+    (hSw : ∀ (p : ℕ) [Fact p.Prime], LadicCond.SwanIndependent (p := p))
+    {L : Type} [Field L] [NumberField L] {A : AbVar L} (D : ModData L A) (N : ℕ)
+    (χ : DirichletCharacter ℂ N) (f : CF N 2) (h13 : G13Spec D N χ f) (h14 : G14Spec D N f)
+    (u : ℚ) (hloc : G15LocalBounds D u) : G15Out N u := by
+  have hC := LadicCond.carayolR17_of_R17' hSw hCar
+  obtain ⟨hN, hf, -⟩ := h13
+  obtain ⟨⟨ρ5, hss5, hρ5, e5, he5⟩, ⟨ρ3, hss3, hρ3, e3, he3⟩⟩ := h14
+  -- the exponent at `p` is a conductor exponent of `r₅` (`p ≠ 5`) or `r₃` (`p = 5`)
+  have key : ∀ p : ℕ, ∀ hp : p.Prime, ∃ (Lp : @LadicCond.Fld p ⟨hp⟩) (c : ℚ),
+      (N.factorization p : ℚ) = c ∧ ((p : ℝ) ≤ (ZInQ.heightD : ℝ) → c ≤ (ZInQ.heightE0 : ℚ)) ∧
+      ((ZInQ.heightD : ℝ) < p → c ≤ 2) ∧
+      (p ∉ ZInQ.Mult.S_mul → ¬ p ∣ ZInQ.contactSupport ZInQ.Mult.S_mul u → c = 0) := by
+    intro p hp
+    haveI : Fact p.Prime := ⟨hp⟩
+    by_cases h5 : p = 5
+    · obtain ⟨Lp, had, h1, h2, h3⟩ := (hloc p hp).2 h5
+      exact ⟨Lp, _, factorization_eq_condAt hC D.ιC D.ι3 N hN χ f hf D.r3 ρ3 hss3 hρ3 e3 he3 p
+        (by omega) Lp had, h1, h2, h3⟩
+    · obtain ⟨Lp, had, h1, h2, h3⟩ := (hloc p hp).1 h5
+      exact ⟨Lp, _, factorization_eq_condAt hC D.ιC D.ι5 N hN χ f hf D.r5 ρ5 hss5 hρ5 e5 he5 p
+        h5 Lp had, h1, h2, h3⟩
+  refine ⟨fun p hp hpR => ?_, fun p hp hpR => ?_, fun p hp hpN => ?_⟩
+  · obtain ⟨Lp, c, hc, h1, -, -⟩ := key p hp
+    have := h1 hpR
+    rw [← hc] at this
+    exact_mod_cast this
+  · obtain ⟨Lp, c, hc, -, h2, -⟩ := key p hp
+    have := h2 hpR
+    rw [← hc] at this
+    exact_mod_cast this
+  · by_contra hcon
+    push_neg at hcon
+    obtain ⟨Lp, c, hc, -, -, h3⟩ := key p hp
+    have h0 := h3 hcon.1 hcon.2
+    rw [h0] at hc
+    have hfac : N.factorization p = 0 := by exact_mod_cast hc
+    have hpos : 0 < N.factorization p := hp.factorization_pos_of_dvd hN.ne' hpN
+    omega
+
+/-! ## §7. G16: `N ≤ Q_R M²` -/
+
+/-- **G16 (GLUE, proved: `GlueConductor.level_le` with `R = D`, `S = S_mul`).** -/
+theorem g16 (N : ℕ) (hN : 0 < N) (u : ℚ) (h15 : G15Out N u) :
+    (N : ℝ) ≤ ZInQ.heightQ ZInQ.heightD *
+      (ZInQ.contactSupport ZInQ.Mult.S_mul u : ℝ) ^ 2 := by
+  obtain ⟨hsmall, hlarge, hout⟩ := h15
+  exact GlueConductor.level_le ZInQ.Mult.S_mul u ZInQ.heightD GlueAssembly.one_le_heightD_real
+    (fun p hp => by exact_mod_cast G0ModField.le_heightD_of_mem_S_mul hp) N hN.ne'
+    hsmall hlarge hout
+
+/-! ## §7b. G15's local bounds from ramification statements (proved from L8 and
+`AdaptedExists`) -/
+
+section LocalRamSec
+
+open LadicCond
+open PkgI4 (GQp)
+
+/-- Glazer's uniform bound for the last upper break, `U₀ = 4(DG₀)²` (N5 L826-830). -/
+def U0 : ℝ := 4 * ((ZInQ.heightD * ZInQ.heightG0 : ℕ) : ℝ) ^ 2
+
+/-- **The ramification of `r` at `p` that D1-D4 establish (N5 L819-852).** (i) for `p ≤ R`
+(`R = D`): every absolute upper ramification group `G_{ℚ_p}^t`, `t > U₀`, acts trivially;
+(ii) for `p > R`: wild inertia acts trivially (tame case); (iii) for `p ∉ T = S ∪ supp M_S(u)`:
+inertia acts trivially (G11, in local form). -/
+def LocalRam (u : ℚ) (p : ℕ) [Fact p.Prime] {ℓ : ℕ} [Fact ℓ.Prime] (r : GaloisRep ℓ 2) :
+    Prop :=
+  ((p : ℝ) ≤ (ZInQ.heightD : ℝ) →
+      ∀ t : ℝ, U0 < t → ∀ σ ∈ upperAbs p t, r.restrictLocal p σ = 1) ∧
+    ((ZInQ.heightD : ℝ) < p → ∀ σ ∈ wildSet, r.restrictLocal p σ = 1) ∧
+    (p ∉ ZInQ.Mult.S_mul → ¬ p ∣ ZInQ.contactSupport ZInQ.Mult.S_mul u →
+      ∀ σ ∈ inertiaSet, r.restrictLocal p σ = 1)
+
+/-- **Open part of G15, reduced (glue, D1-D4 on the actual `A`).** `LocalRam` for `r₅` at every
+`p ≠ 5` and for `r₃` at `p = 5`. Proved cores over the kernel's finite-level objects: D1
+(`GlueConductor.D1_genuine`, the break bound `≤ 4a²` from the different), D2
+(`PkgI2.D2_fixed_of_raynaud`: wild inertia trivial on `V_ℓ(A)` after Raynaud), D3
+(`GlueConductor.fourth_pow_mem`: the wild part of `β` at 2). Open: their instantiation on the
+`r_ℓ` built in G8, and the transport from the finite-level filtrations to `upperAbs`. -/
+def G15Ram {L : Type} [Field L] [NumberField L] {A : AbVar L} (D : ModData L A) (u : ℚ) :
+    Prop :=
+  ∀ p : ℕ, ∀ hp : p.Prime,
+    (p ≠ 5 → @LocalRam u p ⟨hp⟩ 5 _ D.r5) ∧ (p = 5 → @LocalRam u p ⟨hp⟩ 3 _ D.r3)
+
+variable {p : ℕ} [Fact p.Prime]
+
+/-- `ρ|_{G_{ℚ_p}}` is continuous (`Field.absoluteGaloisGroup.map` is a continuous hom). -/
+theorem restrictLocal_continuous {ℓ n : ℕ} [Fact ℓ.Prime] (r : GaloisRep ℓ n) :
+    Continuous (r.restrictLocal p) :=
+  r.continuous_toHom.comp (Field.absoluteGaloisGroup.map (algebraMap ℚ ℚ_[p])).continuous
+
+/-- Trivial wild inertia ⇒ `Sw_L(ρ) = 0`. -/
+theorem swanAt_eq_zero_of_wild {k : Type*} [Field k] {n : ℕ} {ρ : GQp p →* GL (Fin n) k}
+    (h : ∀ σ ∈ wildSet, ρ σ = 1) (L : Fld p) : swanAt L ρ = 0 := by
+  rw [swanAt]
+  refine finsum_eq_zero_of_forall_eq_zero fun i => ?_
+  rw [codimInv_eq_zero (fun σ hσ => h σ hσ.2)]
+  simp
+
+/-- `2(1 + U₀) ≤ E₀`. -/
+theorem two_one_add_U0_le : 2 * (1 + U0) ≤ (ZInQ.heightE0 : ℝ) := by
+  have hD : 0 < ZInQ.heightD := by
+    rw [ZInQ.Compiler.Precision.heightD_eq]
+    exact Nat.mul_pos (Nat.factorial_pos 324) (by positivity)
+  have h1 : 1 ≤ ZInQ.heightD * ZInQ.heightG0 :=
+    Nat.mul_pos hD (by unfold ZInQ.heightG0; norm_num)
+  rw [ZInQ.Compiler.Precision.heightE0_eq, U0]
+  generalize ZInQ.heightD * ZInQ.heightG0 = x at h1 ⊢
+  have hx : (1 : ℝ) ≤ (x : ℝ) := by exact_mod_cast h1
+  have hx2 : (1 : ℝ) ≤ (x : ℝ) ^ 2 := one_le_pow₀ hx
+  have hc : (((10 * x ^ 2 : ℕ)) : ℝ) = 10 * (x : ℝ) ^ 2 := by
+    rw [Nat.cast_mul, Nat.cast_pow]; rfl
+  rw [hc]
+  linarith
+
+/-- **G15's local bound from the ramification (GLUE, proved from L8 `SwanIntegral` and
+`AdaptedExists`):** `a ≤ 2(1 + U₀) ≤ E₀` for `p ≤ R` (`LadicCond.condAt_le_of_upper`), `a ≤ 2`
+for tame `p`, `a = 0` if unramified. -/
+theorem localBound_of_ram (hL8 : SwanIntegral) (hAd : AdaptedExists (p := p)) (u : ℚ)
+    {ℓ : ℕ} [Fact ℓ.Prime] (hpℓ : p ≠ ℓ) (r : GaloisRep ℓ 2) (h : LocalRam u p r) :
+    LocalBound u p r := by
+  obtain ⟨h1, h2, h3⟩ := h
+  obtain ⟨Lp, hL⟩ := hAd ℓ (Ne.symm hpℓ) 2 (r.restrictLocal p) (restrictLocal_continuous r)
+  refine ⟨Lp, hL, fun hpR => ?_, fun hpR => ?_, fun hS hM => ?_⟩
+  · have hU0 : (0 : ℝ) ≤ U0 := by unfold U0; positivity
+    have hb := condAt_le_of_upper hL8 ℓ hpℓ (r.restrictLocal p) (restrictLocal_continuous r) Lp
+      hL U0 hU0 (h1 hpR)
+    have : ((condAt Lp (r.restrictLocal p) : ℚ) : ℝ) ≤ ((ZInQ.heightE0 : ℚ) : ℝ) := by
+      push_cast at hb ⊢
+      linarith [two_one_add_U0_le]
+    exact_mod_cast this
+  · rw [condAt, swanAt_eq_zero_of_wild (h2 hpR), add_zero]
+    exact_mod_cast codimInv_le (r.restrictLocal p) inertiaSet
+  · exact condAt_eq_zero_of_unramified (h3 hS hM) Lp
+
+/-- **G15's local bounds from `G15Ram` (GLUE, proved).** -/
+theorem g15LocalBounds_of_ram (hL8 : SwanIntegral)
+    (hAd : ∀ (p : ℕ) [Fact p.Prime], AdaptedExists (p := p))
+    {L : Type} [Field L] [NumberField L] {A : AbVar L} (D : ModData L A) (u : ℚ)
+    (h : G15Ram D u) : G15LocalBounds D u := by
+  intro p hp
+  haveI : Fact p.Prime := ⟨hp⟩
+  refine ⟨fun h5 => ?_, fun h5 => ?_⟩
+  · exact localBound_of_ram hL8 (hAd p) u h5 D.r5 ((h p hp).1 h5)
+  · exact localBound_of_ram hL8 (hAd p) u (by omega) D.r3 ((h p hp).2 h5)
+
+end LocalRamSec
+
+/-! ## §8. The range G13-G16 assembled -/
+
+/-- **G16Out**: what G13-G16 deliver to `ModularConstituent`: a level `1 ≤ N ≤ Q_R M²` (with
+`R = D`, `M = M_{S_mul}(u)`) such that `V₅(A)` and `V₅(J_{L'})` have a common constituent for
+every `J₁(N)` `J` over `ℚ`. -/
+def G16Out {L : Type} [Field L] [NumberField L] (A : AbVar L) (u : ℚ) : Prop :=
+  ∃ N : ℕ, 0 < N ∧
+    (N : ℝ) ≤ ZInQ.heightQ ZInQ.heightD * (ZInQ.contactSupport ZInQ.Mult.S_mul u : ℝ) ^ 2 ∧
+    ∀ J : AbVar ℚ, IsJ1 N J → CommonConstituent A (J.baseChange L)
+
+/-- The literature leaves this range uses (all already in `Leaves.lean` / the kernel). -/
+structure NewformLeaves : Prop where
+  t24 : PkgI4.EigenformTwist
+  t25 : PkgI4.NewformOfEigenform
+  r14 : PkgI4.EigenformRepExists
+  r16 : R16_EichlerShimuraJ1'
+  r17 : LadicCond.CarayolR17'
+  r9a : FaltingsSemisimple
+  r9b : FaltingsTate
+  m0 : TateModuleFree
+  t18 : FrobeniusDense
+  t19 : GlueC10.BrauerNesbittChar0
+
+/-- **G13-G16 (GLUE, proved).** From G8-G12's output on data `D`, the two open AV-side Props
+`G14TraceCompat D` and `G15LocalBounds D u` on the same data, the leaves, and the glue Prop
+`SwanIndependent`: the level and the common constituent of `ModularConstituent`. -/
+theorem g13_g16 (lv : NewformLeaves)
+    (hSw : ∀ (p : ℕ) [Fact p.Prime], LadicCond.SwanIndependent (p := p))
+    {L : Type} [Field L] [NumberField L] {A : AbVar L} (u : ℚ) (D : ModData L A)
+    (h12 : G12Spec D) (hc : G14TraceCompat D) (hloc : G15LocalBounds D u) : G16Out A u := by
+  obtain ⟨N, χ, f, h13⟩ := g13 lv.t24 lv.t25 lv.r16 lv.r9a lv.r9b lv.m0 lv.t19 lv.t18 D h12
+  have h14 := g14 lv.r14 lv.t19 lv.t18 D N χ f h13 hc
+  have h15 := g15 lv.r17 hSw D N χ f h13 h14 u hloc
+  exact ⟨N, h13.1, g16 N h13.1 u h15, h13.2.2.2.2.2⟩
+
+/-- **G13-G16, reduced form (GLUE, proved).** As `g13_g16`, with G15's open part in the
+ramification form `G15Ram` and the conductor arithmetic proved from the glue Props L8
+(`SwanIntegral`) and `AdaptedExists` (both stated in the kernel's `LadicCond`). -/
+theorem g13_g16_ram (lv : NewformLeaves)
+    (hSw : ∀ (p : ℕ) [Fact p.Prime], LadicCond.SwanIndependent (p := p))
+    (hL8 : LadicCond.SwanIntegral) (hAd : ∀ (p : ℕ) [Fact p.Prime], LadicCond.AdaptedExists (p := p))
+    {L : Type} [Field L] [NumberField L] {A : AbVar L} (u : ℚ) (D : ModData L A)
+    (h12 : G12Spec D) (hc : G14TraceCompat D) (hram : G15Ram D u) : G16Out A u :=
+  g13_g16 lv hSw u D h12 hc (g15LocalBounds_of_ram hL8 hAd D u hram)
+
+/-- With a `J₁(N)` from T33 (`JacobianExists`) and the glue target `X1ModelExists`: the `N`
+of `G16Out` has a `J₁(N)`, as `ModularConstituent` asks. -/
+theorem g16Out_with_J1 (hJac : JacobianExists ℚ) (hX : X1ModelExists)
+    {L : Type} [Field L] [NumberField L] {A : AbVar L} (u : ℚ) (h : G16Out A u) :
+    ∃ (N : ℕ) (J : AbVar ℚ), 0 < N ∧ IsJ1 N J ∧
+      (N : ℝ) ≤ ZInQ.heightQ ZInQ.heightD * (ZInQ.contactSupport ZInQ.Mult.S_mul u : ℝ) ^ 2 ∧
+      CommonConstituent A (J.baseChange L) := by
+  obtain ⟨N, hN, hle, hcc⟩ := h
+  obtain ⟨J, hJ⟩ := exists_J1 hJac hX N hN
+  exact ⟨N, J, hN, hJ, hle, hcc J hJ⟩
+
+/-- **The G13-G16 conclusion in the shape of `ModularConstituent`'s last conjuncts** (kernel
+objects): for a model `A/L'` with G8-G12's data `D` and the two open Props on `D`, there are a level
+`N` with `0 < N ≤ Q_R M²`, a `J₁(N)` `J` over `ℚ` and a common constituent of `V_ℓ(A)` and
+`V_ℓ(J_{L'})`. -/
+theorem modularConstituent_tail (lv : NewformLeaves) (hJac : JacobianExists ℚ)
+    (hX : X1ModelExists)
+    (hSw : ∀ (p : ℕ) [Fact p.Prime], LadicCond.SwanIndependent (p := p))
+    (hL8 : LadicCond.SwanIntegral) (hAd : ∀ (p : ℕ) [Fact p.Prime], LadicCond.AdaptedExists (p := p))
+    {L : Type} [Field L] [NumberField L] (A : AbVar L) (u : ℚ)
+    (h : ∃ D : ModData L A, G12Spec D ∧ G14TraceCompat D ∧ G15Ram D u) :
+    ∃ (N : ℕ) (J : AbVar ℚ), 0 < N ∧ IsJ1 N J ∧
+      (N : ℝ) ≤ ZInQ.heightQ ZInQ.heightD * (ZInQ.contactSupport ZInQ.Mult.S_mul u : ℝ) ^ 2 ∧
+      CommonConstituent A (J.baseChange L) := by
+  obtain ⟨D, h12, hc, hram⟩ := h
+  exact g16Out_with_J1 hJac hX u (g13_g16_ram lv hSw hL8 hAd u D h12 hc hram)
+
+/-! ## §9. Bridge from g0-mod-galois's interface (draft at origin/wip/g0-mod-galois ad7f14c2)
+
+The definitions `resQ`, `Vb`, `tate`, `Intertwines`, `G8Out` (here `GalG8Out`), `G12Out` (here
+`GalG12Out`) are copied verbatim from
+`scratch/g0-mod-galois/part_galois.lean` (namespace `G0Galois` there), over the kernel's objects. -/
+
+section Bridge
+
+/-- (copied from g0-mod-galois) The restriction map `G_K → G_ℚ`. -/
+def resQ (K : Type) [Field K] [NumberField K] : Field.absoluteGaloisGroup K →* PkgI4.GQ :=
+  (Field.absoluteGaloisGroup.map (algebraMap ℚ K) :
+    Field.absoluteGaloisGroup K →* Field.absoluteGaloisGroup ℚ)
+
+/-- (copied from g0-mod-galois) `ℚ̄_ℓ ⊗_{ℚ_ℓ} V_ℓ(A)`. -/
+abbrev Vb {K : Type} [Field K] (A : PkgI3.AbVar K) (ℓ : ℕ) [Fact ℓ.Prime] : Type :=
+  TensorProduct ℚ_[ℓ] (PadicAlgCl ℓ) (A.V ℓ)
+
+/-- (copied from g0-mod-galois) The Tate action of `G_K` on `ℚ̄_ℓ ⊗ V_ℓ(A)`. -/
+def tate {K : Type} [Field K] (A : PkgI3.AbVar K) (ℓ : ℕ) [Fact ℓ.Prime] :
+    Representation (PadicAlgCl ℓ) (Field.absoluteGaloisGroup K) (Vb A ℓ) :=
+  GlueI3.repBaseChange (PadicAlgCl ℓ) (A.galRep ℓ)
+
+/-- (copied from g0-mod-galois) `e` intertwines `f g` with `r(g) ⊕ r(g)`. -/
+def Intertwines {ℓ : ℕ} [Fact ℓ.Prime] {G V : Type*} [AddCommGroup V] [Module (PadicAlgCl ℓ) V]
+    (f : G → Module.End (PadicAlgCl ℓ) V) (m : G → Matrix (Fin 2) (Fin 2) (PadicAlgCl ℓ))
+    (e : V ≃ₗ[PadicAlgCl ℓ] (Fin 2 → PadicAlgCl ℓ) × (Fin 2 → PadicAlgCl ℓ)) : Prop :=
+  ∀ g v, e (f g v) = ((m g).mulVec (e v).1, (m g).mulVec (e v).2)
+
+/-- (copied from g0-mod-galois) **Output of G8.** -/
+def GalG8Out {K : Type} [Field K] [NumberField K] (A : PkgI3.AbVar K) (ℓ : ℕ) [Fact ℓ.Prime]
+    (ρ : PkgI4.GQ → Module.End (PadicAlgCl ℓ) (Vb A ℓ)) (r : GaloisRep ℓ 2) : Prop :=
+  (∀ σ, ρ (resQ K σ) = tate A ℓ σ) ∧
+  ∃ e : Vb A ℓ ≃ₗ[PadicAlgCl ℓ] (Fin 2 → PadicAlgCl ℓ) × (Fin 2 → PadicAlgCl ℓ),
+    Intertwines ρ r.mat e ∧
+    Algebra.adjoin (PadicAlgCl ℓ) (Set.range fun σ => r.mat (resQ K σ)) = ⊤
+
+/-- (copied from g0-mod-galois) **Output of G12** at `ℓ = 5`: `ψ` of finite image. -/
+def GalG12Out (r : GaloisRep 5 2) : Prop :=
+  ∃ (N : ℕ) (χ : DirichletCharacter ℂ N) (g : PkgI4.CF N 2) (ψ : GaloisChar 5)
+    (ιC : PkgI4.Qbar →ₐ[ℚ] ℂ) (ιL : PkgI4.Qbar →ₐ[ℚ] PadicAlgCl 5) (S : Finset ℕ),
+    0 < N ∧ PkgI4.IsNormalizedEigenform g χ ∧ (Set.range ψ.toHom).Finite ∧
+    r.AttachedUpToTwist ψ ιC ιL g S
+
+/-- **Kronecker–Weber at Frobenius (GLUE, unproved; from T17 `KroneckerWeber`).** A continuous
+character `ψ : G_ℚ → ℚ̄_ℓ^×` of finite image is, at arithmetic Frobenius outside a finite set,
+a Dirichlet character `ψD mod m` through `ιC`, `ιL`: `ψ` factors through
+`Gal(ℚ(ζ_m)/ℚ) ≅ (ℤ/m)^×` (T17), arithmetic Frobenius at `p ∤ m` maps to `p`, and the values
+(roots of unity) lie in `ιL(ℚ̄)`. -/
+def DirichletOfFinite : Prop :=
+  ∀ (ℓ : ℕ) [Fact ℓ.Prime] (ψ : GaloisChar ℓ), (Set.range ψ.toHom).Finite →
+    ∀ (ιC : Qbar →ₐ[ℚ] ℂ) (ιL : Qbar →ₐ[ℚ] PadicAlgCl ℓ),
+    ∃ (m : ℕ) (ψD : DirichletCharacter ℂ m) (S : Finset ℕ), 0 < m ∧
+      ∀ p : ℕ, p.Prime → p ∉ S → ∃ β : Qbar, ιC β = ψD (p : ZMod m) ∧
+        ∀ (v : ValuationSubring Qbar) (τ : GQ), LiesOver v p → IsArithFrob τ v p →
+          (ψ.toHom τ : PadicAlgCl ℓ) = ιL β
+
+/-- **G12Out ⇒ PanOutput (GLUE, proved from `DirichletOfFinite`).** -/
+theorem panOutput_of_G12Out (hDF : DirichletOfFinite) (r : GaloisRep 5 2) (h : GalG12Out r) :
+    ∃ (ιC : Qbar →ₐ[ℚ] ℂ) (ιL : Qbar →ₐ[ℚ] PadicAlgCl 5), PanOutput ιC ιL r := by
+  obtain ⟨M, χ, g, ψ, ιC, ιL, S, hM, hg, hfin, hatt⟩ := h
+  obtain ⟨m, ψD, S', hm, hψ⟩ := hDF 5 ψ hfin ιC ιL
+  refine ⟨ιC, ιL, M, χ, g, m, ψD, ψ, S ∪ S', hM, hg, hm, fun p hp hpS => ?_,
+    fun p hp hpS => hψ p hp (fun h => hpS (Finset.mem_union_right _ h))⟩
+  exact hatt p hp (fun h => hpS (Finset.mem_union_left _ h))
+
+/-- The embedding `ℚ̄ → K̄` underlying Mathlib's `Field.absoluteGaloisGroup.map`: it intertwines
+`resQ K τ` with `τ`. -/
+theorem resQ_spec (K : Type) [Field K] [NumberField K] :
+    ∃ i : AlgebraicClosure ℚ →+* AlgebraicClosure K, ∀ (τ : AlgebraicClosure K ≃ₐ[K] AlgebraicClosure K) x,
+      i (resQ K τ x) = τ (i x) := by
+  letI : Algebra ℚ K := (algebraMap ℚ K).toAlgebra
+  letI g : AlgebraicClosure ℚ →ₐ[ℚ] AlgebraicClosure K := IsAlgClosed.lift
+  letI : Algebra (AlgebraicClosure ℚ) (AlgebraicClosure K) := g.toAlgebra
+  refine ⟨g.toRingHom, fun τ x => ?_⟩
+  exact AlgEquiv.restrictNormal_commutes ((AlgEquiv.restrictScalarsHom ℚ) τ)
+    (AlgebraicClosure ℚ) x
+
+/-- **G8Out ⇒ IsConstituentOf (GLUE, proved).** `U = ker(pr₂ ∘ e)` is the constituent. -/
+theorem isConstituentOf_of_GalG8Out {K : Type} [Field K] [NumberField K] (A : PkgI3.AbVar K)
+    (ℓ : ℕ) [Fact ℓ.Prime] (ρ : PkgI4.GQ → Module.End (PadicAlgCl ℓ) (Vb A ℓ))
+    (r : GaloisRep ℓ 2) (h : GalG8Out A ℓ ρ r)
+    (i : AlgebraicClosure ℚ →ₐ[ℚ] AlgebraicClosure K)
+    (hi : ∀ (τ : AlgebraicClosure K ≃ₐ[K] AlgebraicClosure K) x, i (resQ K τ x) = τ (i x)) :
+    IsConstituentOf ℓ A i r := by
+  obtain ⟨hres, e, he, -⟩ := h
+  let W : Submodule (PadicAlgCl ℓ) (Vb A ℓ) :=
+    LinearMap.ker ((LinearMap.snd (PadicAlgCl ℓ) _ _) ∘ₗ e.toLinearMap)
+  have hW : ∀ v, v ∈ W ↔ (e v).2 = 0 := fun v => Iff.rfl
+  have hstab : ∀ (σ : Field.absoluteGaloisGroup K) (w : Vb A ℓ), w ∈ W →
+      GlueI3.repBaseChange (PadicAlgCl ℓ) (A.galRep ℓ) σ w ∈ W := by
+    intro σ w hw
+    rw [hW] at hw ⊢
+    have h1 := he (resQ K σ) w
+    rw [hres σ] at h1
+    change (e (tate A ℓ σ w)).2 = 0
+    rw [h1, hw, Matrix.mulVec_zero]
+  let U : Subrepresentation (GlueI3.repBaseChange (PadicAlgCl ℓ) (A.galRep ℓ)) :=
+    { toSubmodule := W
+      apply_mem_toSubmodule := fun σ w hw => hstab σ w hw }
+  let f : U.toSubmodule →ₗ[PadicAlgCl ℓ] (Fin 2 → PadicAlgCl ℓ) :=
+    (LinearMap.fst (PadicAlgCl ℓ) _ _) ∘ₗ e.toLinearMap ∘ₗ W.subtype
+  have hmemW : ∀ w : Fin 2 → PadicAlgCl ℓ, e.symm (w, 0) ∈ W := fun w => by
+    rw [hW, LinearEquiv.apply_symm_apply]
+  let eU : U.toSubmodule ≃ₗ[PadicAlgCl ℓ] (Fin 2 → PadicAlgCl ℓ) :=
+    { f with
+      invFun := fun w => ⟨e.symm (w, 0), hmemW w⟩
+      left_inv := fun u => by
+        apply Subtype.ext
+        change e.symm ((e u).1, 0) = u
+        have hu : (e u).2 = 0 := (hW u).mp u.2
+        rw [← hu, Prod.mk.eta, LinearEquiv.symm_apply_apply]
+      right_inv := fun w => by
+        change (e (e.symm (w, 0))).1 = w
+        rw [LinearEquiv.apply_symm_apply] }
+  have hσ : ∀ (τ : AlgebraicClosure K ≃ₐ[K] AlgebraicClosure K) (σ : GQ), (∀ x, i (σ x) = τ (i x)) →
+      σ = resQ K τ := by
+    intro τ σ hστ
+    ext x
+    apply i.toRingHom.injective
+    change i (σ x) = i (resQ K τ x)
+    rw [hστ, hi]
+  refine ⟨U, eU, ?_, fun τ σ hστ u => ?_⟩
+  · intro hbot
+    have hmem : e.symm ((Pi.single 0 1 : Fin 2 → PadicAlgCl ℓ), 0) ∈ U.toSubmodule := hmemW _
+    rw [hbot] at hmem
+    have h0 : e.symm ((Pi.single 0 1 : Fin 2 → PadicAlgCl ℓ), 0) = 0 := hmem
+    have h1 := congrArg (fun v => (e v).1 0) h0
+    simp at h1
+  · rw [hσ τ σ hστ]
+    change (e (tate A ℓ τ u)).1 = toRep r (resQ K τ) ((e u).1)
+    have h1 := he (resQ K τ) u
+    rw [hres τ] at h1
+    rw [h1, toRep_apply, Matrix.toLin'_apply]
+
+/-- **G12Spec from g0-mod-galois's outputs (GLUE, proved from `DirichletOfFinite`).** Their
+`G8Out` at `ℓ = 5` and `ℓ = 3` and `G12Out r₅` give `i`, `ιC`, `ι₅` such that the data
+`⟨i, ιC, ι₅, ι₃, r₅, r₃⟩` satisfy `G12Spec` for **every** `ι₃` (`G12Spec` does not involve `ι₃`).
+So `ι₃` can be chosen afterwards, compatibly with `ι₅`, as `G14TraceCompat` requires. -/
+theorem g12Spec_of_galois (hDF : DirichletOfFinite) {K : Type} [Field K] [NumberField K]
+    (A : PkgI3.AbVar K) (ρ5 : PkgI4.GQ → Module.End (PadicAlgCl 5) (Vb A 5))
+    (ρ3 : PkgI4.GQ → Module.End (PadicAlgCl 3) (Vb A 3)) (r5 : GaloisRep 5 2)
+    (r3 : GaloisRep 3 2) (h5 : GalG8Out A 5 ρ5 r5) (h3 : GalG8Out A 3 ρ3 r3)
+    (h12 : GalG12Out r5) :
+    ∃ (i : AlgebraicClosure ℚ →ₐ[ℚ] AlgebraicClosure K) (ιC : Qbar →ₐ[ℚ] ℂ)
+      (ι5 : Qbar →ₐ[ℚ] PadicAlgCl 5),
+      ∀ ι3 : Qbar →ₐ[ℚ] PadicAlgCl 3, G12Spec (⟨i, ιC, ι5, ι3, r5, r3⟩ : ModData K A) := by
+  obtain ⟨i0, hi0⟩ := resQ_spec K
+  let i : AlgebraicClosure ℚ →ₐ[ℚ] AlgebraicClosure K := i0.toRatAlgHom
+  have hi : ∀ (τ : AlgebraicClosure K ≃ₐ[K] AlgebraicClosure K) x, i (resQ K τ x) = τ (i x) := hi0
+  obtain ⟨ιC, ιL, hpan⟩ := panOutput_of_G12Out hDF r5 h12
+  have hirr : ∀ {ℓ : ℕ} [Fact ℓ.Prime] (ρ : PkgI4.GQ → Module.End (PadicAlgCl ℓ) (Vb A ℓ))
+      (r : GaloisRep ℓ 2), GalG8Out A ℓ ρ r → r.IsIrreducible := by
+    intro ℓ _ ρ r h
+    obtain ⟨-, -, -, hadj⟩ := h
+    rw [PkgI4.GaloisRep.IsIrreducible, eq_top_iff, ← hadj]
+    exact Algebra.adjoin_mono (Set.range_subset_iff.mpr fun σ => ⟨resQ K σ, rfl⟩)
+  exact ⟨i, ιC, ιL, fun ι3 => ⟨hirr ρ5 r5 h5, hirr ρ3 r3 h3,
+    isConstituentOf_of_GalG8Out A 5 ρ5 r5 h5 i hi, isConstituentOf_of_GalG8Out A 3 ρ3 r3 h3 i hi,
+    hpan⟩⟩
+
+end Bridge
+
+/-! ## §10. Local unramifiedness from G11's global form (proved) -/
+
+section LocalGlobal
+
+open PkgI4 (GQp)
+open scoped Pointwise
+
+variable (p : ℕ) [Fact p.Prime]
+
+/-- The embedding `ℚ̄ → ℚ̄_p` underlying `PkgI4.decomp p` (Mathlib's
+`Field.absoluteGaloisGroup.map`): it intertwines `decomp p σ` with `σ`. -/
+theorem decomp_spec : ∃ j : Qbar →+* PadicAlgCl p,
+    ∀ (σ : PadicAlgCl p ≃ₐ[ℚ_[p]] PadicAlgCl p) x, j (PkgI4.decomp p σ x) = σ (j x) := by
+  letI : Algebra ℚ ℚ_[p] := (algebraMap ℚ ℚ_[p]).toAlgebra
+  letI g : AlgebraicClosure ℚ →ₐ[ℚ] AlgebraicClosure ℚ_[p] := IsAlgClosed.lift
+  letI : Algebra (AlgebraicClosure ℚ) (AlgebraicClosure ℚ_[p]) := g.toAlgebra
+  refine ⟨g.toRingHom, fun σ x => ?_⟩
+  exact AlgEquiv.restrictNormal_commutes ((AlgEquiv.restrictScalarsHom ℚ) σ)
+    (AlgebraicClosure ℚ) x
+
+/-- The valuation subring `{x ∈ ℚ̄ : ‖j x‖ ≤ 1}` of the place of `ℚ̄` above `p` given by `j`. -/
+def vj (j : Qbar →+* PadicAlgCl p) : ValuationSubring Qbar :=
+  (PadicAlgCl.valued p).v.valuationSubring.comap j
+
+theorem mem_vj (j : Qbar →+* PadicAlgCl p) (x : Qbar) : x ∈ vj p j ↔ ‖j x‖ ≤ 1 := by
+  rw [vj, ValuationSubring.mem_comap, Valuation.mem_valuationSubring_iff]
+  change ‖j x‖₊ ≤ 1 ↔ _
+  rw [← NNReal.coe_le_coe, coe_nnnorm, NNReal.coe_one]
+
+/-- `G_{ℚ_p}` acts isometrically on `ℚ̄_p` (spectral norm). -/
+theorem norm_aut (σ : PadicAlgCl p ≃ₐ[ℚ_[p]] PadicAlgCl p) (y : PadicAlgCl p) :
+    ‖σ y‖ = ‖y‖ := by
+  rw [← PadicAlgCl.spectralNorm_eq, ← PadicAlgCl.spectralNorm_eq]
+  exact (spectralNorm_eq_of_equiv σ y).symm
+
+theorem mem_nonunits_vj (j : Qbar →+* PadicAlgCl p) (b : Qbar) (hb : ‖j b‖ < 1) :
+    b ∈ (vj p j).nonunits := by
+  rw [ValuationSubring.mem_nonunits_iff_or]
+  by_cases h0 : b = 0
+  · exact Or.inl h0
+  · refine Or.inr fun hinv => ?_
+    rw [mem_vj, map_inv₀, norm_inv] at hinv
+    have hpos : 0 < ‖j b‖ := norm_pos_iff.mpr ((map_ne_zero j).mpr h0)
+    rw [inv_le_one₀ hpos] at hinv
+    linarith
+
+theorem liesOver_vj (j : Qbar →+* PadicAlgCl p) : LiesOver (vj p j) p := by
+  apply mem_nonunits_vj
+  rw [map_natCast, LadicCond.norm_p_kbar]
+  exact inv_lt_one_of_one_lt₀ (by exact_mod_cast (Fact.out : p.Prime).one_lt)
+
+/-- **Global unramified ⇒ local inertia acts trivially (GLUE, proved).** If `r` is unramified at
+`p` in PkgI4's global sense (every inertia group of `G_ℚ` at a place above `p` acts trivially),
+then `r|G_{ℚ_p}` is trivial on the local inertia set `LadicCond.inertiaSet`. -/
+theorem localUnram_of_unramifiedAt {ℓ n : ℕ} [Fact ℓ.Prime] (r : GaloisRep ℓ n)
+    (hr : r.UnramifiedAt p) : ∀ σ ∈ LadicCond.inertiaSet, r.restrictLocal p σ = 1 := by
+  obtain ⟨j, hj⟩ := decomp_spec p
+  intro σ hσ
+  set τ := PkgI4.decomp p σ with hτ
+  have hdec : τ ∈ (vj p j).decompositionSubgroup ℚ := by
+    rw [MulAction.mem_stabilizer_iff]
+    ext x
+    rw [ValuationSubring.mem_pointwise_smul_iff_inv_smul_mem, mem_vj, mem_vj, AlgEquiv.smul_def,
+      hτ, ← map_inv, hj, norm_aut]
+  have hin : (⟨τ, hdec⟩ : (vj p j).decompositionSubgroup ℚ) ∈
+      (vj p j).inertiaSubgroup ℚ := by
+    rw [ValuationSubring.inertiaSubgroup, MonoidHom.mem_ker]
+    ext y
+    obtain ⟨a, rfl⟩ := IsLocalRing.residue_surjective y
+    change (⟨τ, hdec⟩ : (vj p j).decompositionSubgroup ℚ) • IsLocalRing.residue _ a =
+      IsLocalRing.residue _ a
+    rw [← IsLocalRing.ResidueField.residue_smul]
+    apply Ideal.Quotient.eq.mpr
+    have hb : ((⟨τ, hdec⟩ : (vj p j).decompositionSubgroup ℚ) • a - a : vj p j) =
+        ⟨τ a - a, by
+          have := ((⟨τ, hdec⟩ : (vj p j).decompositionSubgroup ℚ) • a - a).2
+          exact this⟩ := rfl
+    have hnorm : ‖j (τ (a : Qbar) - a)‖ < 1 := by
+      rw [map_sub, hτ, hj]
+      exact hσ (j a) ((mem_vj p j a).mp a.2)
+    obtain ⟨hmem, hmax⟩ :=
+      (ValuationSubring.mem_nonunits_iff_exists_mem_maximalIdeal).mp
+        (mem_nonunits_vj p j _ hnorm)
+    rw [hb]
+    exact hmax
+  exact hr (vj p j) (liesOver_vj p j) ⟨τ, hdec⟩ hin
+
+end LocalGlobal
+
+/-- `LocalRam` with clause (iii) in G11's global form (`G0Galois.G11Out`: `r.UnramifiedAt p`). -/
+def LocalRamG (u : ℚ) (p : ℕ) [Fact p.Prime] {ℓ : ℕ} [Fact ℓ.Prime] (r : GaloisRep ℓ 2) :
+    Prop :=
+  ((p : ℝ) ≤ (ZInQ.heightD : ℝ) →
+      ∀ t : ℝ, U0 < t → ∀ σ ∈ LadicCond.upperAbs p t, r.restrictLocal p σ = 1) ∧
+    ((ZInQ.heightD : ℝ) < p → ∀ σ ∈ LadicCond.wildSet, r.restrictLocal p σ = 1) ∧
+    (p ∉ ZInQ.Mult.S_mul → ¬ p ∣ ZInQ.contactSupport ZInQ.Mult.S_mul u → r.UnramifiedAt p)
+
+/-- **Open part of G15, final form.** Clauses (i)-(ii) of `LocalRam` (D1-D4 on G8's `r_ℓ`) and
+clause (iii) as G11's output (proved by g0-mod-galois as `g11`, `G0Galois.G11Out`). -/
+def G15RamG {L : Type} [Field L] [NumberField L] {A : AbVar L} (D : ModData L A) (u : ℚ) :
+    Prop :=
+  ∀ p : ℕ, ∀ hp : p.Prime,
+    (p ≠ 5 → @LocalRamG u p ⟨hp⟩ 5 _ D.r5) ∧ (p = 5 → @LocalRamG u p ⟨hp⟩ 3 _ D.r3)
+
+theorem g15Ram_of_G {L : Type} [Field L] [NumberField L] {A : AbVar L} (D : ModData L A) (u : ℚ)
+    (h : G15RamG D u) : G15Ram D u := by
+  intro p hp
+  haveI : Fact p.Prime := ⟨hp⟩
+  refine ⟨fun h5 => ?_, fun h5 => ?_⟩
+  · obtain ⟨h1, h2, h3⟩ := (h p hp).1 h5
+    exact ⟨h1, h2, fun hS hM => localUnram_of_unramifiedAt p D.r5 (h3 hS hM)⟩
+  · obtain ⟨h1, h2, h3⟩ := (h p hp).2 h5
+    exact ⟨h1, h2, fun hS hM => localUnram_of_unramifiedAt p D.r3 (h3 hS hM)⟩
+
+/-- **G13-G16, final form (GLUE, proved).** As `modularConstituent_tail`, with G15's open part
+`G15RamG` (D1-D4's ramification statements on G8's `r_ℓ`, and G11's output). -/
+theorem modularConstituent_tail_G (lv : NewformLeaves) (hJac : JacobianExists ℚ)
+    (hX : X1ModelExists)
+    (hSw : ∀ (p : ℕ) [Fact p.Prime], LadicCond.SwanIndependent (p := p))
+    (hL8 : LadicCond.SwanIntegral) (hAd : ∀ (p : ℕ) [Fact p.Prime], LadicCond.AdaptedExists (p := p))
+    {L : Type} [Field L] [NumberField L] (A : AbVar L) (u : ℚ)
+    (h : ∃ D : ModData L A, G12Spec D ∧ G14TraceCompat D ∧ G15RamG D u) :
+    ∃ (N : ℕ) (J : AbVar ℚ), 0 < N ∧ IsJ1 N J ∧
+      (N : ℝ) ≤ ZInQ.heightQ ZInQ.heightD * (ZInQ.contactSupport ZInQ.Mult.S_mul u : ℝ) ^ 2 ∧
+      CommonConstituent A (J.baseChange L) := by
+  obtain ⟨D, h12, hc, hram⟩ := h
+  exact modularConstituent_tail lv hJac hX hSw hL8 hAd A u ⟨D, h12, hc, g15Ram_of_G D u hram⟩
+
+end G0ModNewform
+
+end
+
+end G0ModNewformSec
+
 
 /-! ## §3″. g0-thetapoint: `ThetaPointOfFibre` (missing piece 9) from smaller named Props
 
@@ -4964,6 +7539,141 @@ end G0AssembleModSec
 #print axioms HSyn.modularConstituent_of_field
 
 
+/-! ## g0-assemble: `AfterG7` (G8-G16) from g0-mod-galois and g0-mod-newform
+
+`G0ModField.AfterG7` is proved from the leaf bundles, g0-mod-galois' `GaloisPieces` (with `R14Det`,
+the published determinant clause of R14, as g0-mod-galois found), g0-mod-newform's leaves and glue,
+and two new named glue Props on the data of G7:
+
+* `ModelG3G6`: the outputs of G3 (inertia outside `T` acts trivially on `V_ℓ(A_{L'})`, `ℓ = 3, 5`)
+  and of G5-G6 (`End(A_{L'})` a noncommutative division ring) for the model `A_{L'}` that
+  g0-mod-field's `G7Data` delivers. G6 is NoCM on the fibre: **QM-PIN** (like FS5).
+* `LinkedTateData`: g0-mod-field's bridge `TateBridge` at `ℓ = 5` and `ℓ = 3` **from the same
+  descent datum** (the Tate functor applied to one family `m_σ = μ_σ ∘ σ`), together with
+  g0-mod-newform's two AV-side Props `G14TraceCompat` and `G15RamG` for every `r₅`, `r₃` that G8
+  attaches to these data. They must be stated jointly: g0-mod-newform found that `G14TraceCompat`
+  is false for unrelated constituents (a twist by a character of `Gal(L'/ℚ)` changes `r_ℓ` but
+  not its restriction to `G_{L'}`), and `TateBridge` alone (∀ ℓ ∃ data) does not link the data at
+  3 and 5. Clause (iii) of `G15RamG` is G11's output (`G0Galois.g11`), so its open content is
+  clauses (i)-(ii) (not split off here).
+
+The composition: `galoisG2Out_of_g7Data` (g0-mod-field, G2Out from G7Data) → `g8_g12_of_leaves`
+at 5 and `g8_g11` at 3 (g0-mod-galois) → `g12Spec_of_galois` (g0-mod-newform; the G8 and G12
+outputs are g0-mod-galois' definitions, copied verbatim there) → `modularConstituent_tail_G`
+(g0-mod-newform, G13-G16). -/
+
+section G0AssembleAfterG7Sec
+
+namespace HSyn.G0AssembleMod
+
+open CategoryTheory AlgebraicGeometry
+open G0ModField
+
+/-- **Glue G3 + G5-G6 on G7's model** (g0-assemble; QM-PIN for the G6 part). For every fibre
+context and G7 data of g0-mod-field: `End(A_{L'})` is a noncommutative division ring
+(`G0Galois.G6Out`; NoCM, N5 G6), and inertia at primes outside `T(u)` acts trivially on
+`ℚ̄_ℓ ⊗ V_ℓ(A_{L'})` for `ℓ = 5, 3` (`G0Galois.G3Out`; G3, good reduction of the QM model away
+from `T` with Néron–Ogg–Shafarevich R7a). -/
+def ModelG3G6 : Prop :=
+  ∀ (Y : Over (Spec (CommRingCat.of ℚ))) (Φ : LeafQM.AV.PtEquiv Y) (π : LeafQM.AV.ToP1 Y.left)
+    (u : ℚ) (P : LeafQM.AV.QML3 Qbar), FibreCtx Y Φ π u P →
+  ∀ (L : IF) [FiniteDimensional ℚ L] [IsGalois ℚ L] (A : PkgI3.AbVar L) (ε : GQ → GQ → ℂˣ)
+    (N : ℕ) [NeZero N] (χ : DirichletCharacter ℂ N) (β : GQ → ℂˣ) (L' : IF)
+    [FiniteDimensional ℚ L'] [IsGalois ℚ L'] (hLL' : L ≤ L'),
+    G7Data u P L A ε N χ β L' hLL' →
+    letI : NumberField L' := numberField_of_fd L'
+    G0Galois.G6Out (@PkgI3.AbVar.baseChange L _ A L' _ (incAlg hLL')) ∧
+    G0Galois.G3Out (@PkgI3.AbVar.baseChange L _ A L' _ (incAlg hLL')) 5 (T u) ∧
+    G0Galois.G3Out (@PkgI3.AbVar.baseChange L _ A L' _ (incAlg hLL')) 3 (T u)
+
+/-- **Glue: linked Tate data with G14-G15 on them** (g0-assemble; g0-mod-field's `TateBridge`
+at `ℓ = 5, 3` from one descent datum, with g0-mod-newform's `G14TraceCompat` and `G15RamG`).
+For every fibre context and G7 data: operator data at `ℓ = 5` and `ℓ = 3` satisfying
+g0-mod-galois' `G7Out`, such that for all `r₅`, `r₃` with G8's output on these data and all
+embeddings `i`, `ι_ℂ`, `ι₅`, some `ι₃` makes the traces compatible (`G14TraceCompat`, N5 L776-795)
+and `r₅`, `r₃` have Glazer's local ramification (`G15RamG`, N5 L819-852). -/
+def LinkedTateData : Prop :=
+  ∀ (Y : Over (Spec (CommRingCat.of ℚ))) (Φ : LeafQM.AV.PtEquiv Y) (π : LeafQM.AV.ToP1 Y.left)
+    (u : ℚ) (P : LeafQM.AV.QML3 Qbar), FibreCtx Y Φ π u P →
+  ∀ (L : IF) [FiniteDimensional ℚ L] [IsGalois ℚ L] (A : PkgI3.AbVar L) (ε : GQ → GQ → ℂˣ)
+    (N : ℕ) [NeZero N] (χ : DirichletCharacter ℂ N) (β : GQ → ℂˣ) (L' : IF)
+    [FiniteDimensional ℚ L'] [IsGalois ℚ L'] (hLL' : L ≤ L'),
+    G7Data u P L A ε N χ β L' hLL' →
+    letI : NumberField L' := numberField_of_fd L'
+    ∃ (Tm₅ : PkgI4.GQ → Module.End (PadicAlgCl 5)
+        (G0Galois.Vb (@PkgI3.AbVar.baseChange L _ A L' _ (incAlg hLL')) 5))
+      (c₅ ε₅ : PkgI4.GQ → PkgI4.GQ → PadicAlgCl 5) (a₅ β₅ : PkgI4.GQ → PadicAlgCl 5)
+      (u₅ : GlueDescent.MatrixUnits2 (PadicAlgCl 5)
+        (G0Galois.Vb (@PkgI3.AbVar.baseChange L _ A L' _ (incAlg hLL')) 5))
+      (Tm₃ : PkgI4.GQ → Module.End (PadicAlgCl 3)
+        (G0Galois.Vb (@PkgI3.AbVar.baseChange L _ A L' _ (incAlg hLL')) 3))
+      (c₃ ε₃ : PkgI4.GQ → PkgI4.GQ → PadicAlgCl 3) (a₃ β₃ : PkgI4.GQ → PadicAlgCl 3)
+      (u₃ : GlueDescent.MatrixUnits2 (PadicAlgCl 3)
+        (G0Galois.Vb (@PkgI3.AbVar.baseChange L _ A L' _ (incAlg hLL')) 3)),
+      G0Galois.G7Out (@PkgI3.AbVar.baseChange L _ A L' _ (incAlg hLL')) 5 Tm₅ c₅ ε₅ a₅ β₅ u₅ ∧
+      G0Galois.G7Out (@PkgI3.AbVar.baseChange L _ A L' _ (incAlg hLL')) 3 Tm₃ c₃ ε₃ a₃ β₃ u₃ ∧
+      ∀ (r₅ : PkgI4.GaloisRep 5 2) (r₃ : PkgI4.GaloisRep 3 2),
+        G0Galois.G8Out (@PkgI3.AbVar.baseChange L _ A L' _ (incAlg hLL')) 5
+          (GlueDescent.rho Tm₅ a₅ β₅) r₅ →
+        G0Galois.G8Out (@PkgI3.AbVar.baseChange L _ A L' _ (incAlg hLL')) 3
+          (GlueDescent.rho Tm₃ a₃ β₃) r₃ →
+        ∀ (i : AlgebraicClosure ℚ →ₐ[ℚ] AlgebraicClosure L') (ιC : PkgI4.Qbar →ₐ[ℚ] ℂ)
+          (ι5 : PkgI4.Qbar →ₐ[ℚ] PadicAlgCl 5), ∃ ι3 : PkgI4.Qbar →ₐ[ℚ] PadicAlgCl 3,
+          G0ModNewform.G14TraceCompat
+            (⟨i, ιC, ι5, ι3, r₅, r₃⟩ : G0ModNewform.ModData L'
+              (@PkgI3.AbVar.baseChange L _ A L' _ (incAlg hLL'))) ∧
+          G0ModNewform.G15RamG
+            (⟨i, ιC, ι5, ι3, r₅, r₃⟩ : G0ModNewform.ModData L'
+              (@PkgI3.AbVar.baseChange L _ A L' _ (incAlg hLL'))) u
+
+/-- g0-mod-newform's leaf bundle from the two leaf bundles and the concrete R17
+(`LadicCond.CarayolR17'`; the bundle's `r17` is still an `opaque` placeholder). -/
+theorem newformLeaves_of (r : ResearchLeaves) (t : TextbookLeaves)
+    (hCar : LadicCond.CarayolR17') : G0ModNewform.NewformLeaves :=
+  ⟨C9Rhof.eigenformTwist_of_hsyn t.t24, t.t25, C9Rhof.eigenformRepExists_of_hsyn r.r14, r.r16,
+    hCar, r.r9a, r.r9b, t.t26, C9Rhof.frobeniusDense_of_hsyn t.frobeniusDense,
+    TSkolemKW.C10.brauerNesbittChar0'⟩
+
+/-- The two textual copies of `CommonConstituent` (g0-mod-newform's, g0-mod-field's) agree. -/
+theorem commonConstituent_copy' {K : Type} [Field K] [NumberField K] (A J : PkgI3.AbVar K) :
+    G0ModNewform.CommonConstituent A J ↔ G0ModField.CommonConstituent A J := Iff.rfl
+
+/-- **`AfterG7` (G8-G16), proved** from the leaf bundles, g0-mod-galois' `GaloisPieces`,
+g0-mod-newform's `DirichletOfFinite`, the concrete R17 `CarayolR17'`, the three LadicCond glue
+Props, and the two glue Props `ModelG3G6`, `LinkedTateData`. -/
+theorem afterG7_of (r : ResearchLeaves) (t : TextbookLeaves) (m : G0Galois.GaloisPieces)
+    (hDF : G0ModNewform.DirichletOfFinite) (hCar : LadicCond.CarayolR17')
+    (hSw : ∀ (p : ℕ) [Fact p.Prime], LadicCond.SwanIndependent (p := p))
+    (hL8 : LadicCond.SwanIntegral)
+    (hAd : ∀ (p : ℕ) [Fact p.Prime], LadicCond.AdaptedExists (p := p))
+    (hG36 : ModelG3G6) (hLink : LinkedTateData) : AfterG7 := by
+  intro Y Φ π u P hctx L _ _ A ε N _ χ β L' _ _ hLL' hdata
+  letI : NumberField L' := numberField_of_fd L'
+  obtain ⟨h6, h3₅, h3₃⟩ := hG36 Y Φ π u P hctx L A ε N χ β L' hLL' hdata
+  obtain ⟨Tm₅, c₅, ε₅, a₅, β₅, u₅, Tm₃, c₃, ε₃, a₃, β₃, u₃, h7₅, h7₃, hlink⟩ :=
+    hLink Y Φ π u P hctx L A ε N χ β L' hLL' hdata
+  have h2 : G0Galois.G2Out L' (T u) :=
+    galoisG2Out_of_g7Data resQRange u P L A ε N χ β L' hLL' hdata
+  obtain ⟨r₅, h8₅, -, -, -, h12⟩ :=
+    G0Galois.g8_g12_of_leaves r t m _ (T u) h2 h6 h3₅ Tm₅ c₅ ε₅ a₅ β₅ u₅ h7₅
+  obtain ⟨r₃, h8₃, -, -, -⟩ :=
+    G0Galois.g8_g11 r.r9a r.r9b t.t26 t.t6 HSyn.G0Split.semisimpleBaseChange r.r10 t.t23 t.t11a
+      t.t11b (G0Galois.g8Matrix_of_burnside m.burnside) m.deRham m.odd _ (T u) h2 h6 3 h3₃
+      Tm₃ c₃ ε₃ a₃ β₃ u₃ h7₃
+  obtain ⟨i, ιC, ι5, hspec⟩ := G0ModNewform.g12Spec_of_galois hDF _ _ _ r₅ r₃ h8₅ h8₃ h12
+  obtain ⟨ι3, h14, h15⟩ := hlink r₅ r₃ h8₅ h8₃ i ιC ι5
+  obtain ⟨M, J, hM, hJ, hMle, hCC⟩ :=
+    G0ModNewform.modularConstituent_tail_G (newformLeaves_of r t hCar) t.t33 t.x1ModelExists
+      hSw hL8 hAd _ u ⟨_, hspec ι3, h14, h15⟩
+  exact ⟨M, J, hM, hJ, hMle, (commonConstituent_copy' _ _).1 hCC⟩
+
+end HSyn.G0AssembleMod
+
+end G0AssembleAfterG7Sec
+
+#print axioms HSyn.G0AssembleMod.afterG7_of
+
+
 /-! ## g0-assemble: wave 26 assembled — `GluePieces` from `GluePieces2`
 
 Task g0-assemble, 2026-11-13. The ten fields of `HSyn.GluePieces` (above, unchanged) are derived
@@ -4979,7 +7689,7 @@ from the smaller named Props that wave 26 reduced them to, bundled as `HSyn.Glue
 | `productExists` | g0-product | `G0Product.productExists` (proved, Mathlib only) |
 | `reverseIsogeny` | g0-reverseisog | `G0RevIsog.reverseIsogeny_of_leaves r dimFinite` (route B: R19 and H5 of the bundle) |
 | `thetaPoint` | g0-thetapoint | `ThetaPt.thetaPointOfFibre_of_qm_ratios` from the glue `FibreQMPeriod` (blocked on qm-pin) and the leaf candidate `ThetaRatiosAlgebraic` |
-| `modularConstituent` | g0-mod-field (G2-G7) | `modularConstituent_of_field` (above): g0-mod-field's three glue Props (`KernelFieldExists` blocked on qm-pin), the bundle's T14a, T14b, T15, T30, T31, and `AfterG7` (G8-G16, kept whole: g0-mod-galois and g0-mod-newform are not yet composed with it, see `docs/research/g0-assemble.md` §3) |
+| `modularConstituent` | g0-mod-field, g0-mod-galois, g0-mod-newform | `modularConstituent_of_field` (G2-G7: three glue Props, `KernelFieldExists` blocked on qm-pin; the bundle's T14a, T14b, T15, T30, T31) with `G0AssembleMod.afterG7_of` (G8-G16: g0-mod-galois' pieces with `R14Det`, g0-mod-newform's leaves and glue, and the joint glue Props `ModelG3G6`, `LinkedTateData`) |
 | `heightCopies` | (no wave-26 task) | kept as one field (glue, pure transport) |
 -/
 
@@ -5035,9 +7745,41 @@ structure GluePieces2 : Prop where
   /-- g0-mod-field, GLUE (STANDARD, Neukirch I §8, UNVERIFIED): a compositum of finite Galois
   extensions of `ℚ` unramified at `p` is unramified at `p`. -/
   unramifiedSup : G0ModField.UnramifiedSup
-  /-- G8-G16, GLUE, kept whole: for every fibre context and G7 data, a `J₁(M)` with `M ≤ Q_D·M²`
-  and a common constituent over `L'` (g0-mod-galois and g0-mod-newform reduce its two halves). -/
-  afterG7 : G0ModField.AfterG7
+  /-- g0-mod-galois, LEAF (textbook; Burnside, Lang *Algebra* XVII §3, UNVERIFIED locator). -/
+  burnsideAbsIrred : G0Galois.BurnsideAbsIrred
+  /-- g0-mod-galois, LEAF: R14 with its published determinant clause (Shimura 1971 Thm 7.14,
+  Deligne 1971; UNVERIFIED locators). Used instead of the bundle's `r14` alone, whose statement
+  omits the determinant (g0-mod-galois' finding). -/
+  r14Det : G0Galois.R14Det
+  /-- g0-mod-galois G9, GLUE (N5's de Rham descent lemma, appendix). -/
+  g9Glue : G0Galois.G9Glue
+  /-- g0-mod-galois G10, GLUE (oddness; g0-assemble replaced its two removed placeholder
+  hypotheses T11, T12 by the bundle's concrete T11a, T11b). -/
+  g10Glue : G0Galois.G10Glue
+  /-- g0-mod-galois G12, GLUE (Hodge–Tate weight comparison). -/
+  g12Weight : G0Galois.G12Weight
+  /-- g0-mod-galois, GLUE (from T9): `det V_ℓ(A) = χ_ℓ^{dim A}`. -/
+  detTate : G0Galois.DetTate
+  /-- g0-mod-galois, GLUE (Galois theory): `[G_ℚ : G_K] < ∞`. -/
+  resQFiniteIndex : G0Galois.ResQFiniteIndex
+  /-- g0-mod-newform, GLUE (from Kronecker–Weber): finite-image characters are Dirichlet
+  characters at Frobenius. -/
+  dirichletOfFinite : G0ModNewform.DirichletOfFinite
+  /-- R17 as a concrete statement (kernel `LadicCond.CarayolR17'`), LEAF (Carayol 1986,
+  Théorème (A); faithful per the locator audit). The bundle's `r17` is still an `opaque`
+  placeholder, unused on this route. -/
+  carayolR17 : LadicCond.CarayolR17'
+  /-- kernel glue (Serre–Tate §2, Herbrand): the Swan conductor does not depend on the level. -/
+  swanIndependent : ∀ (p : ℕ) [Fact p.Prime], LadicCond.SwanIndependent (p := p)
+  /-- kernel glue L8: `Sw = ∫ codim V^{G^u}`. -/
+  swanIntegral : LadicCond.SwanIntegral
+  /-- kernel glue: an adapted level exists (`ρ(P_p)` finite for `ℓ ≠ p`). -/
+  adaptedExists : ∀ (p : ℕ) [Fact p.Prime], LadicCond.AdaptedExists (p := p)
+  /-- g0-assemble, GLUE (G3 and G5-G6 on G7's model; **QM-PIN** for G6). -/
+  modelG3G6 : G0AssembleMod.ModelG3G6
+  /-- g0-assemble, GLUE: `TateBridge` at `ℓ = 5, 3` from one descent datum, with
+  `G14TraceCompat` and `G15RamG` on the resulting `r₅`, `r₃`. -/
+  linkedTateData : G0AssembleMod.LinkedTateData
   /-- leaf-adopt2's transport target, GLUE (no wave-26 task). -/
   heightCopies : HeightCopiesAgree
 
@@ -5058,7 +7800,11 @@ theorem gluePieces_of_gluePieces2 (r : ResearchLeaves) (t : TextbookLeaves) (gp2
   thetaPoint := G0Split.ThetaPt.thetaPointOfFibre_of_qm_ratios gp2.fibreQMPeriod
     gp2.thetaRatiosAlgebraic
   modularConstituent := modularConstituent_of_field t gp2.fibreCoverExists gp2.kernelFieldExists
-    gp2.unramifiedSup gp2.afterG7
+    gp2.unramifiedSup (G0AssembleMod.afterG7_of r t
+      ⟨gp2.burnsideAbsIrred, gp2.r14Det, gp2.g9Glue, gp2.g10Glue, gp2.g12Weight, gp2.detTate,
+        gp2.resQFiniteIndex⟩
+      gp2.dirichletOfFinite gp2.carayolR17 gp2.swanIndependent gp2.swanIntegral gp2.adaptedExists
+      gp2.modelG3G6 gp2.linkedTateData)
   heightCopies := gp2.heightCopies
 
 /-- **G0 after wave 26** (g0-assemble): the leaf bundles and `GluePieces2` imply
