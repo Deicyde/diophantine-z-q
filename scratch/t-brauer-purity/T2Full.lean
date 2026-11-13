@@ -485,6 +485,40 @@ theorem abhyankarDVR_main (R K L M : Type*) [CommRing R] [IsDomain R] [IsDiscret
     rwa [map_natCast] at this
   have hunr : Algebra.IsUnramifiedAt (integralClosure R L) P :=
     isUnramifiedAt_of_pow_eq (integralClosure R L) L L1 _ e he0 heA1 w2 u hw2 hgen P huP
+  -- step (c): `A₂ → A₃`
+  haveI : FiniteDimensional L1 M := FiniteDimensional.right L L1 M
+  haveI : Algebra.IsSeparable L1 M := Algebra.isSeparable_tower_top_of_isSeparable L L1 M
+  haveI : IsScalarTower (integralClosure (integralClosure R L) L1) (integralClosure R M) M :=
+    IsScalarTower.of_algebraMap_eq (fun _ => rfl)
+  haveI : IsScalarTower R (integralClosure (integralClosure R L) L1) M :=
+    IsScalarTower.of_algebraMap_eq (fun x => by
+      change algebraMap R M x = _
+      rw [IsScalarTower.algebraMap_apply R L M x]
+      rfl)
+  haveI : Algebra.IsIntegral R (integralClosure (integralClosure R L) L1) :=
+    Algebra.IsIntegral.trans (integralClosure R L)
+  haveI : IsIntegralClosure (integralClosure R M) (integralClosure (integralClosure R L) L1) M := by
+    refine ⟨Subtype.val_injective, fun {x} => ⟨fun hx => ?_, ?_⟩⟩
+    · exact ⟨⟨x, isIntegral_trans (R := R) (A := integralClosure (integralClosure R L) L1) x hx⟩,
+        rfl⟩
+    · rintro ⟨y, rfl⟩
+      exact (y.2 : IsIntegral R (y : M)).tower_top
+  haveI : Module.Finite (integralClosure (integralClosure R L) L1) (integralClosure R M) :=
+    IsIntegralClosure.finite (integralClosure (integralClosure R L) L1) L1 M _
+  haveI : Module.IsTorsionFree (integralClosure (integralClosure R L) L1) (integralClosure R M) := by
+    rw [Module.isTorsionFree_iff_algebraMap_injective]
+    intro a b hab
+    have h2 := congrArg Subtype.val hab
+    exact Subtype.ext (Subtype.ext h2)
+  have hm_le : Module.finrank L1 M ≤ m := by
+    have hc : w * ϖM ∈ L1 := L1.mul_mem (IntermediateField.mem_adjoin_simple_self L w)
+      (L1.algebraMap_mem _)
+    refine finrank_le_of_pow_eq_field (F := L1) hm0 (t := t) (c := ⟨w * ϖM, hc⟩) ?_ ?_
+    · change t ^ m = w * ϖM
+      simp only [w]
+      field_simp
+    · rw [← IntermediateField.restrictScalars_eq_top_iff (K := L),
+        IntermediateField.restrictScalars_adjoin_eq_sup, hM, sup_top_eq]
   sorry
 
 end Assembly
