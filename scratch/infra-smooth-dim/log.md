@@ -29,3 +29,9 @@ Base f90cf864 + merge origin/wip/mul-rigidity (60a480e0).
   - `ZInQ.DefFaltings.HodgeLattice.dimBaseChange : DimBaseChange`
   - `ZInQ.DefFaltings.HodgeLattice.tangentDimAtOrigin : TangentDimAtOrigin`
   - `ZInQ.DefFaltings.HodgeLattice.hodgeLatticeTheorem : ZInQ.DefFaltings.HodgeLatticeTheorem` (no hypotheses)
+- `lake build ZInQKernel.HDecomp.QM.Pairs`: success.
+- run27 CurveFactsClosed.lean (curve-facts' CurveFacts.lean verbatim minus imports/#print, then §0-§4, then curve_part): 0 errors; axioms all standard (VERIFIED):
+  - `LeafQM.AV.Pin.smoothStalkDimOne : SmoothStalkDimOne` (against curve-facts' own definition, not a copy)
+  - `LeafQM.AV.Pin.smoothCurveNoIsolatedPoint : SmoothCurveNoIsolatedPoint` (C1a)
+  - `LeafQM.AV.Pin.geomCompInfinite : GeomCompInfinite` (C1)
+  - `LeafQM.AV.Pin.curveFacts_of_C2K_C3K : ConstOrOntoAlgClosed → RatFactorAlgClosed → CurveRatFactor ∧ CurveSurj`

@@ -1,0 +1,32 @@
+
+/-! ## §6 curve-facts with C1b discharged (task infra-smooth-dim) -/
+
+namespace LeafQM.AV.Pin
+open CategoryTheory AlgebraicGeometry
+
+/-- **`SmoothStalkDimOne` (C1b) holds** (curve-facts' statement, defined above). -/
+theorem smoothStalkDimOne : SmoothStalkDimOne := by
+  intro K _ X f hf x hx
+  have := (InfraSmoothDim.stalk_dim_of_smoothOfRelativeDimension f 1 x hx).1
+  rw [this, Nat.cast_one]
+
+/-- **C1a holds**: a smooth curve over a field has no isolated point. -/
+theorem smoothCurveNoIsolatedPoint : SmoothCurveNoIsolatedPoint :=
+  smoothCurveNoIsolatedPoint_of smoothStalkDimOne
+
+/-- **C1 holds**: each geometric component of a proper smooth curve over `ℚ` has infinitely many
+`ℚ̄`-points. -/
+theorem geomCompInfinite : GeomCompInfinite :=
+  geomCompInfinite_of smoothCurveNoIsolatedPoint
+
+/-- **Both curve facts from C2K and C3K alone.** -/
+theorem curveFacts_of_C2K_C3K (h2 : ConstOrOntoAlgClosed) (h3 : RatFactorAlgClosed) :
+    CurveRatFactor ∧ CurveSurj :=
+  curveFacts_of_leaves smoothStalkDimOne h2 h3
+
+end LeafQM.AV.Pin
+
+#print axioms LeafQM.AV.Pin.smoothStalkDimOne
+#print axioms LeafQM.AV.Pin.smoothCurveNoIsolatedPoint
+#print axioms LeafQM.AV.Pin.geomCompInfinite
+#print axioms LeafQM.AV.Pin.curveFacts_of_C2K_C3K
