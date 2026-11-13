@@ -64,8 +64,8 @@ clauses. Then they agree up to a morphism `g : Y' → Y`: `Φ' = Φ ∘ g` on fi
   `L_t = L_s`.
 - For fixed `u`, only finitely many rational `s` qualify (Faltings, applied to twists of `Y₃`, whose
   geometric components have genus 4).
-- For `u` with full monodromy, the fibre over `J(u)` is never `ℚ`-isomorphic to a rational CM fibre
-  (SPECULATIVE group computation).
+- For `u` with full monodromy, the fibre over `J(u)` is never `ℚ`-isomorphic to a rational CM fibre.
+  The group fact behind this is computed; the reduction to it is argued.
 - The question is not settled. After the repair, soundness no longer depends on it.
 
 ## 2. The repaired statement
@@ -324,11 +324,11 @@ truth but not for provability (§3.3).
 
 *Question (rv-g0pieces):* are two rational fibres of `π : Y₃ → P¹`, one over `J(u)` with `u ∉ 𝒞`,
 ever isomorphic as `ℚ`-schemes? Claims are argued and SPECULATIVE unless marked otherwise.
-Nothing was computed: no explicit model of `Y₃ → P¹` is available offline.
+Only the group theory was computed: no explicit model of `Y₃ → P¹` is available offline.
 
 1. **Degrees and genus** (computed by hand).
-   - `|(𝒪/3𝒪)^×| = 72`, because `𝒪₃/3𝒪₃` is the maximal order of the ramified quaternion algebra
-     over `ℚ₃` modulo `π²`.
+   - `|(𝒪/3𝒪)^×| = 72` (VERIFIED, `deck_group.py`; `𝒪₃/3𝒪₃` is the maximal order of the ramified
+     quaternion algebra over `ℚ₃` modulo `π²`).
    - The norm-one image of `𝒪¹` has order 36, so each geometric component of `Y₃` has degree 18
      over `X₆` (`−1 ∉ Γ(3)`).
    - `X₆ = X₀(6,1)` has signature `(0; 2, 2, 3, 3)`: `e₂ = e₃ = 2` by the Eichler formulas
@@ -354,10 +354,14 @@ Nothing was computed: no explicit model of `Y₃ → P¹` is available offline.
    - There are finitely many rational CM values (Elkies' table: 24 non-elliptic and 3 elliptic).
    - All points over a CM value `s` with CM by `R ⊂ k` are CM points, so `L_s ⊆ k^{ab}` (Shimura
      reciprocity; STANDARD). Hence `Gal(L_s/ℚ)` has an abelian subgroup of index at most 2.
-   - The deck group of `Y₃ → X₆` is `(𝒪/3𝒪)^×/±1 ≅ F₉ ⋊ C₄`, with `C₄` acting faithfully by
-     multiplication by `μ₄`. It has no abelian subgroup of index at most 2 (SPECULATIVE group
-     computation).
-   - So whenever `im ρ_{J(u)}` contains it (in particular `im ρ_{J(u)} = G_Y`, which holds for `u`
+   - The deck group of `Y₃ → X₆` is `D = (𝒪/3𝒪)^×/±1`. It has no abelian subgroup of index at
+     most 2. VERIFIED by computation (`scratch/qm-pin/deck_group.py`, on the kernel's basis of `𝒪`
+     and `mulCoord`, itself checked against the quaternion product on 30 random pairs):
+     - `|(𝒪/3𝒪)^×| = 72`, the norm-one subgroup has order 36, and `nrd(1+i) = −1`;
+     - `|D| = 36`, with element orders `{1: 1, 2: 9, 3: 8, 4: 18}` (so `D ≅ F₉ ⋊ C₄` with a
+       faithful action);
+     - the centralizer of the normal Sylow-3 subgroup is that subgroup (order 9), and `Z(D) = 1`.
+   - So whenever `im ρ_{J(u)}` contains `D` (in particular `im ρ_{J(u)} = G_Y`, which holds for `u`
      outside a thin set by Hilbert irreducibility), `Y_{J(u)}` is not `ℚ`-isomorphic to any CM
      fibre.
    - The exceptional `u` form a thin set. By 4, only finitely many of them can pair with a given
