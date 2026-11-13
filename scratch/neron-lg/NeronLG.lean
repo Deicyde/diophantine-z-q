@@ -960,7 +960,93 @@ theorem genSq_fst : (genSq a b c d sq G X gen).hom.left ≫ pullback.fst X.hom d
       rw [reassoc_of% h1, reassoc_of% h2]
   rw [e, reassoc_of% e2]
 
+include sq in
+/-- Compatibility of `genSq ≪≫ e` with the projections to `G`, for any `e` whose composite with a
+map `p` is the first projection `X ×_{T₀} T₁ → X`. -/
+theorem genSq_compat {X' : Over T₁} (e : (Over.pullback d).obj X ≅ X') (p : X'.left ⟶ X.left)
+    (he : e.hom.left ≫ p = pullback.fst X.hom d) :
+    pullback.fst ((Over.pullback b).obj G).hom a ≫ pullback.fst G.hom b =
+      (genSq a b c d sq G X gen ≪≫ e).hom.left ≫ p ≫ gen.inv.left ≫ pullback.fst G.hom c := by
+  rw [Iso.trans_hom, Over.comp_left, Category.assoc, reassoc_of% he, reassoc_of% genSq_fst,
+    ← Over.comp_left_assoc, Iso.hom_inv_id, Over.id_left, Category.id_comp, pullback.lift_fst]
+
 end Pasting
+
+section BcA
+
+open ZInQ.H5Neron (pbCompInv pbEq pbCompIso pbEqIso)
+
+variable {K : Type} [Field K] (A : AbVar K) (L₀ L' : Type) [Field L₀] [Field L'] [Algebra K L₀]
+  [Algebra K L'] [Algebra L₀ L'] [IsScalarTower K L₀ L']
+
+theorem bcA_sq : Spec.map (CommRingCat.ofHom (algebraMap L₀ L')) ≫
+    Spec.map (CommRingCat.ofHom (algebraMap K L₀)) = Spec.map (CommRingCat.ofHom (algebraMap K L')) := by
+  rw [← Spec.map_comp, ← CommRingCat.ofHom_comp, ← IsScalarTower.algebraMap_eq]
+
+local notation "κ₀" => Spec.map (CommRingCat.ofHom (algebraMap K L₀))
+local notation "κ'" => Spec.map (CommRingCat.ofHom (algebraMap K L'))
+local notation "δ" => Spec.map (CommRingCat.ofHom (algebraMap L₀ L'))
+
+/-- `(A_{L₀})_{L'} ≅ A_{L'}`, at the syntactic pullback types. -/
+noncomputable def bcA' : (Over.pullback δ).obj ((Over.pullback κ₀).obj A.X) ≅
+    (Over.pullback κ').obj A.X :=
+  (pbCompIso _ _ A.X).symm ≪≫ pbEqIso (bcA_sq L₀ L') A.X
+
+/-- `(A_{L₀})_{L'} ≅ A_{L'}`. -/
+noncomputable def bcA : (Over.pullback δ).obj (A.baseChange L₀).X ≅ (A.baseChange L').X :=
+  bcA' A L₀ L'
+
+theorem bcA'_hom₁ : (bcA' A L₀ L').hom =
+    ((pbCompIso _ _ A.X).symm ≪≫ pbEqIso (bcA_sq L₀ L') A.X).hom := rfl
+
+theorem bcA'_hom : (bcA' A L₀ L').hom = pbCompInv _ _ A.X ≫ pbEq (bcA_sq L₀ L') A.X :=
+  (bcA'_hom₁ A L₀ L').trans ((Iso.trans_hom _ _).trans (congrArg₂ (· ≫ ·)
+    (ZInQ.H5Neron.pbCompIso_symm_hom _ _ _) (ZInQ.H5Neron.pbEqIso_hom _ _)))
+
+theorem isMonHom_bcA' :
+    letI : GrpObj ((Over.pullback κ₀).obj A.X) := Functor.grpObjObj
+    letI : GrpObj ((Over.pullback δ).obj ((Over.pullback κ₀).obj A.X)) := Functor.grpObjObj
+    letI : GrpObj ((Over.pullback κ').obj A.X) := Functor.grpObjObj
+    IsMonHom (bcA' A L₀ L').hom := by
+  have c1 := ZInQ.H5Neron.isMonHom_pbCompInv δ κ₀ A.X
+  have c2 := ZInQ.H5Neron.isMonHom_pbEq (bcA_sq L₀ L') A.X
+  rw [bcA'_hom]
+  infer_instance
+
+theorem isMonHom_bcA :
+    letI : GrpObj ((Over.pullback δ).obj (A.baseChange L₀).X) := Functor.grpObjObj
+    IsMonHom (bcA A L₀ L').hom :=
+  isMonHom_bcA' A L₀ L'
+
+/-- `bcProj` at the syntactic pullback types. -/
+noncomputable def bcProj' : pullback A.X.hom κ' ⟶ pullback A.X.hom κ₀ :=
+  pullback.map A.X.hom κ' A.X.hom κ₀ (𝟙 _) δ (𝟙 _) (by simp) (by
+      rw [Category.comp_id, ← Spec.map_comp, ← CommRingCat.ofHom_comp,
+        ← IsScalarTower.algebraMap_eq])
+
+theorem bcA'_proj : (bcA' A L₀ L').hom.left ≫ bcProj' A L₀ L' =
+    pullback.fst ((Over.pullback κ₀).obj A.X).hom δ := by
+  apply pullback.hom_ext
+  · rw [Category.assoc]
+    have h1 : bcProj' A L₀ L' ≫ pullback.fst A.X.hom κ₀ = pullback.fst A.X.hom κ' ≫ 𝟙 _ :=
+      pullback.lift_fst _ _ _
+    rw [h1, Category.comp_id, bcA'_hom, Over.comp_left, Category.assoc, pbEq_fst, pbCompInv_fst]
+    rfl
+  · rw [Category.assoc]
+    have h1 : bcProj' A L₀ L' ≫ pullback.snd A.X.hom κ₀ = pullback.snd A.X.hom κ' ≫ δ :=
+      pullback.lift_snd _ _ _
+    have h2 : (bcA' A L₀ L').hom.left ≫ pullback.snd A.X.hom κ' =
+        pullback.snd ((Over.pullback κ₀).obj A.X).hom δ := Over.w (bcA' A L₀ L').hom
+    have h3 : pullback.fst ((Over.pullback κ₀).obj A.X).hom δ ≫ pullback.snd A.X.hom κ₀ =
+        pullback.snd ((Over.pullback κ₀).obj A.X).hom δ ≫ δ := pullback.condition
+    rw [h1, reassoc_of% h2, h3]
+
+theorem bcA_proj : (bcA A L₀ L').hom.left ≫ bcProj A L₀ L' =
+    pullback.fst (A.baseChange L₀).X.hom δ :=
+  bcA'_proj A L₀ L'
+
+end BcA
+
 
 end ZInQ.NeronLG
 
