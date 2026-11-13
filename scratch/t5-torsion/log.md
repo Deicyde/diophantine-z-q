@@ -17,3 +17,12 @@
 ## Compile outcomes
 - GroupGlue.lean: `T5Torsion.nonempty_torsionBy_addEquiv_pi` (A abelian group, N ≠ 0, ∀ m ∣ N, #A[m] = m^r ⇒ A[N] ≃+ (Fin r → ZMod N)) and rank-r prime-power lemma. COMPILES, axioms propext/Classical.choice/Quot.sound. (VERIFIED)
 - Torus.lean: `T5Torsion.natCard_pow_eq_one` (Φ : E → P additive-to-multiplicative, surjective, kernel a full ℤ-lattice Λ of a fin-dim real normed space E ⇒ #{x : P | xⁿ = 1} = n^(dim_ℝ E)), `finrank_real_fin_complex` (dim_ℝ ℂ^g = 2g). COMPILES, standard axioms. (VERIFIED)
+- Descent.lean: `T5Torsion.exists_extPt_eq` (lift of N-torsion along κ : Ω →ₐ[K] Ω₂, Ω alg. closed, [N] finite), `natCard_torsion_eq_of_ext` (char 0: #A(Ω)[n] = #A(Ω₂)[n], via proved `mulIsogeny`). COMPILES, standard axioms. (VERIFIED)
+- T5Torsion.lean (single file = GroupGlue + Torus + Descent + assembly): COMPILES, standard axioms (VERIFIED):
+  - `torsionStructure_of_torsionCard : TorsionCard.{u} → PkgI2.TorsionStructure.{u}`
+  - `torsionStructureC_of_uniformization : ZInQ.LeafPush2.UniformizationExists → TorsionStructureC`
+    (T5 for every field K with a ring hom K →+* ℂ, from T35 alone)
+  - `torsionCard_of_uniformization` (#A(K̄)[n] = n^{2g} for K →+* ℂ, from T35)
+- T5Mobius.lean (T5Torsion + copies of Level3.onto/range_le/torsor, level3_finite, twistClassFinite_of with hT replaced by TorsionStructureC + σ): COMPILES, standard axioms (VERIFIED):
+  - `LeafQM.AV.Pin.mobiusGlue_of_T35 : ZInQ.LeafPush2.UniformizationExists → MobiusGlue`
+  (GluePiecesPin.mobius from TextbookLeaves.t35 alone; T5's only use in MobiusGlue is at K = ℚ̄, g = 2, n = 3.)
