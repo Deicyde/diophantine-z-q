@@ -2,9 +2,9 @@
 
 **Result.** Both `ConjTwistNontrivial` and `ConjTwistFromLeaves`, copied verbatim from
 scratch/g10-odd/G10Odd.lean, are proved in Lean from leaves and two smaller named glue Props.
-- `conjTwistNontrivial_of_surj : TateModuleFree → UniformizationExists → ArtinTorsionSurj →
-  HomLinearLift → ConjAntiLift → ConjTwistNontrivial`.
-- `conjTwistFromLeaves_of_surj : ArtinTorsionSurj → HomLinearLift → ConjAntiLift →
+- `conjTwistNontrivial_main : TateModuleFree → UniformizationExists → ArtinTorsionSurj →
+  HomLinearLift → ConjUniformization → ConjTwistNontrivial`.
+- `conjTwistFromLeaves_main : ArtinTorsionSurj → HomLinearLift → ConjUniformization →
   ConjTwistFromLeaves`. T26 and T35 are already hypotheses of `ConjTwistFromLeaves`.
 
 File: `scratch/conj-twist/ConjTwist.lean`. It has no `sorry`, and every `#print axioms` is
@@ -20,6 +20,7 @@ File: `scratch/conj-twist/ConjTwist.lean`. It has no `sorry`, and every `#print 
   naturality.
 - `dim A^s = dim A` (`conjVarDim`).
 - Injectivity of `A(K̄) → A(ℂ)` (`toC_injective`).
+- Injectivity of `twistC`, and the antilinear lift N3 from N2 + N3a (`conjAntiLiftLat_of`).
 - The Faltings + rationality + holomorphy contradiction on lattice matrices.
 
 **What remains.**
@@ -28,6 +29,7 @@ File: `scratch/conj-twist/ConjTwist.lean`. It has no `sorry`, and every `#print 
   End over ℂ.
 - Glue, STANDARD and true:
   - `ArtinTorsionSurj`: torsion of `A(ℂ)` comes from `A(K̄)`, from T5 over K̄ and over ℂ.
-  - `ConjAntiLift`: complex conjugation lifts to an injective antilinear map of uniformizations.
+  - `ConjUniformization`: `z ↦ twistC(Φ z̄)` is a uniformization of the conjugate `A^s`.
+- The earlier glue `ConjAntiLift` (antilinear lift) is now proved from N2 and `ConjUniformization`.
 
 Report: docs/research/conj-twist.md; log: scratch/conj-twist/log.md.

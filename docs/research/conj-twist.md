@@ -11,12 +11,12 @@ It has no `sorry`, and every `#print axioms` gives `[propext, Classical.choice, 
 compiled:
 
 ```
-G0Galois.conjTwistNontrivial_of_surj :
+G0Galois.conjTwistNontrivial_main :
   PkgI3.TateModuleFree → ZInQ.LeafPush2.UniformizationExists →
-  ArtinTorsionSurj → HomLinearLift → ConjAntiLift → ConjTwistNontrivial
+  ArtinTorsionSurj → HomLinearLift → ConjUniformization → ConjTwistNontrivial
 
-G0Galois.conjTwistFromLeaves_of_surj :
-  ArtinTorsionSurj → HomLinearLift → ConjAntiLift → ConjTwistFromLeaves
+G0Galois.conjTwistFromLeaves_main :
+  ArtinTorsionSurj → HomLinearLift → ConjUniformization → ConjTwistFromLeaves
 ```
 
 `ConjTwistNontrivial` and `ConjTwistFromLeaves` are copied verbatim from
@@ -36,7 +36,12 @@ changed. `PkgI3.FaltingsTate` is a hypothesis inside `ConjTwistNontrivial`. T26
 | `UniformizationExists` (T35) | leaf (in build) | `A(ℂ)_σ ≅ ℂ^g/Λ`, analytic, `Λ` a full lattice | Mumford §1, GAGA |
 | `HomLinearLift` (N2) | **textbook leaf** (new) | for uniformizations `Φ_A, Φ_B` of `A(ℂ)_σ, B(ℂ)_σ`, every `f ∈ Hom_K(A,B)` lifts to a `ℂ`-linear `M`: `Φ_B(Mz) = f(Φ_A z)` | Birkenhake–Lange, *Complex abelian varieties*, Prop. 1.2.1, with holomorphy of algebraic morphisms (Mumford §1). UNVERIFIED numbers. `T11a_RiemannEnd`'s second half is the case `A = B` over `ℂ`. |
 | `ArtinTorsionSurj` (N1-surj) | glue | every `n`-torsion point of `A(ℂ)_{ι∘alg}` is `toC P = P ∘ Spec ι` for some `P ∈ A(K̄)` | `toC` is injective (proved, `toC_injective`). `A(K̄)[n]` and `A(ℂ)[n]` both have `n^{2g}` elements by T5 over `K̄` and over `ℂ`. Equivalently, `A[n]` is finite étale in characteristic 0. STANDARD |
-| `ConjAntiLift` (N3) | glue | if `σ∘s = conj∘σ`, then `twistC : A(ℂ)_σ → A^s(ℂ)_σ`, `Q ↦ Q ∘ Spec(conj)`, lifts along uniformizations to an injective `ℂ`-antilinear `N` | `z ↦ twistC(Φ z̄)` is a holomorphic uniformization of `A^s(ℂ)_σ = A(ℂ)_{conj∘σ}`, and two uniformizations differ by a `ℂ`-linear isomorphism (BL 1.2.1). STANDARD |
+| `ConjUniformization` (N3a) | glue | if `σ∘s = conj∘σ` and `Φ` uniformizes `A(ℂ)_σ` with kernel `Λ`, then `z ↦ twistC(Φ z̄)` uniformizes `A^s(ℂ)_σ` with kernel `Λ̄`. Here `twistC : A(ℂ)_σ → A^s(ℂ)_σ` is `Q ↦ Q ∘ Spec(conj)` read through `A^s(ℂ)_σ = A(ℂ)_{σ∘s}` | `twistC` is a bijective homomorphism (`twistC_injective`, `twistC_one`). On affine charts it conjugates the values of regular functions, and `z ↦ conj(f(z̄))` is holomorphic when `f` is. STANDARD |
+
+N3a replaces the earlier `ConjAntiLift` (N3: `twistC` lifts to an injective antilinear `N`).
+`conjAntiLiftLat_of` proves N3 (for number fields and full lattices) from N2 and N3a. It applies
+N2 to the identity of `A^s` with the uniformizations `z ↦ twistC(Φ z̄)` and `Φ'`, sets
+`N = M ∘ conj`, and gets injectivity from `eq_zero_of_real_smul_mem`.
 
 Both glue Props are true by the arguments in the table. Both are stated over the project's
 genuine objects (`PkgI3.AbVar`, `CPts`, `IsUniformization`) and the new concrete `toC`, `conjVar`
@@ -82,6 +87,7 @@ Everything below compiles, with no `sorry` and the standard axioms.
 - **§11 `tateLatticeInj_of_artinTorsion`** (glue N4', proved from N1). `x(λ)ₙ` is the unique
   `K̄`-point with `toC(x(λ)ₙ) = Φ(ℓ⁻ⁿλ)`, and the `ℤ_ℓ`-linear extension is injective:
   `Σ (aᵢ mod ℓⁿ) bᵢ ∈ ℓⁿΛ` forces `ℓⁿ ∣ (aᵢ mod ℓⁿ)` for every `n`.
+- **§9b `conjAntiLiftLat_of`** (N3 from N2 and N3a, proved).
 - **§12 `toC_injective`** (half of N1, proved). Mathlib's `ext_of_isDominant_of_isSeparated`
   applies: `Spec ℂ → Spec K̄` is surjective, `Spec K̄` is reduced, and `A` is proper.
 - **Intermediate routes, also compiled.**
@@ -108,13 +114,13 @@ Everything below compiles, with no `sorry` and the standard axioms.
 - **F5 (next steps).**
   - N1-surj needs T5 over `ℂ`. That means base change of `A` along `σ`, an invariance-of-dimension
     statement, and `AlgebraicClosure ℂ ≅ ℂ`.
-  - N3 can be reduced to N2 (with `f = id` on `A^s`) plus a purely algebraic-geometric glue
-    statement: `z ↦ twistC(Φ z̄)` satisfies `IsUniformization` for `A^s`.
+  - N3a is a statement about regular functions of `A^s = A ×_{Spec s} Spec K` and complex
+    conjugation. No lifting or covering theory is needed.
 
 ## Integration recommendation
 
-Use `conjTwistFromLeaves_of_surj` with g10-odd's `g10GlueConcrete_of_conjTwistFromLeaves`.
+Use `conjTwistFromLeaves_main` with g10-odd's `g10GlueConcrete_of_conjTwistFromLeaves`.
 G10 then rests on:
 - the leaves Faltings, T26, T35 and the new N2 (T5, T11a and T11b are hypotheses of
   `ConjTwistFromLeaves` but are unused);
-- the glue N1-surj and N3.
+- the glue N1-surj and N3a.
