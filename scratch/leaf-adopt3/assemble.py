@@ -19,5 +19,11 @@ mode = sys.argv[1]
 if mode == 'tail':
     open(os.path.join(D, 'olean', 'Tail.lean'), 'w').write('import HDPrefix\n\n' + text)
 else:
-    pre = open(os.path.join(D, 'Leaves.orig.lean')).read().split('\n')[:21087]
-    open(os.path.join(D, '..', 'h-decomposition', 'Leaves.lean'), 'w').write('\n'.join(pre) + '\n' + text)
+    import subprocess
+    orig = subprocess.run(['git', 'show', '883c4ddf:scratch/h-decomposition/Leaves.lean'],
+                          capture_output=True, text=True, check=True, cwd=D).stdout
+    pre = orig.split('\n')[:21087]
+    out = os.path.join(D, '..', 'h-decomposition', 'Leaves.lean')
+    open(out, 'w').write('\n'.join(pre) + '\n' + text)
+    subprocess.run([sys.executable, os.path.join(D, 'header_edits.py'), out], check=True)
+    subprocess.run([sys.executable, os.path.join(D, 'apply_repairs.py'), out], check=True)
