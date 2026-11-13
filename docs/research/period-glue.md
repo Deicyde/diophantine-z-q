@@ -1,4 +1,4 @@
-# period-glue: period-map's six glue Props — two proved, four reduced
+# period-glue: period-map's six glue Props — two proved, four reduced (one of them to a textbook leaf alone)
 
 Task period-glue, 2026-11-13. Base 6f296292 (contains origin/wip/period-map). Lean:
 `scratch/period-glue/` (results log `log.md`). No file under `ZInQKernel/`, `blueprint/` or another
@@ -15,7 +15,7 @@ true and not vacuous. Every theorem below compiles with no `sorry` and only the 
 | `S8Nonzero` | **PROVED** from Mathlib alone: `Re Σθ_m⁸(Ω(√2+i)) < 0` | `S8.lean`: `s8Nonzero_proof` |
 | `BaseChangeClassUnique` | **PROVED** from Mathlib alone (with mul-rigidity's proof of rigidity, copied) | `BCU.lean`: `baseChangeClassUnique_proof` |
 | `S8WeightExact` | **REDUCED to two leaves, no glue left**: Igusa's `ThetaModularity` (pkg-I1, unchanged) and `GammaStarGen` (leaf candidate) | `W8.lean`: `s8WeightExact_of` |
-| `QMTwistLattice` | REDUCED: `T11aRiemannHom` (textbook leaf) + `QMLatticeTwistAlg` (glue, pure algebra) | `QMTwist.lean`: `qmTwistLattice_of` |
+| `QMTwistLattice` | **REDUCED to one textbook leaf**, `T11aRiemannHom`, plus Skolem–Noether, which the kernel proves; the intermediate glue `QMLatticeTwistAlg` is proved | `QMTwist.lean`: `qmTwistLattice_of'` |
 | `PiTwistC` | REDUCED: R1fp, R2fp (existing leaves) + `TwistOrbitFinite`, `FibreTransferC` (glue) | `PiTwist.lean`: `piTwistC_of` |
 | `SphereFactorAffine` | REDUCED: `HolP1OpenMap`, `HolP1FactorHol`, `SphereInjAffine` (glue, textbook complex analysis) | `SFA.lean`: `sphereFactorAffine_of` |
 
@@ -23,13 +23,45 @@ true and not vacuous. Every theorem below compiles with no `sorry` and only the 
 theorem s8Nonzero_proof : S8Nonzero
 theorem baseChangeClassUnique_proof : PeriodMapH.BaseChangeClassUnique
 theorem s8WeightExact_of (hT : PkgI1.ThetaModularity) (hG : GammaStarGen) : S8WeightExact
-theorem qmTwistLattice_of (hH : T11aRiemannHom) (hA : QMLatticeTwistAlg) : QMTwistLattice
+theorem qmTwistLattice_of' (hH : T11aRiemannHom) (hSN : GlueDescent.LeafSkolemNoether) :
+    QMTwistLattice
+theorem qmLatticeTwistAlg_of (hSN : GlueDescent.LeafSkolemNoether) : QMLatticeTwistAlg
 theorem piTwistC_of (Y Φ π) (h1 : R1fpProps Y Φ) (h2 : R2fpProps Y Φ π)
     (hT : TwistOrbitFinite Y Φ) (hF : FibreTransferC Y π) : PiTwistC Y Φ π
 theorem sphereFactorAffine_of (hA : HolP1OpenMap) (hB : HolP1FactorHol)
     (hC : SphereInjAffine) : SphereFactorAffine
 ```
-(Namespace `HSyn.G0Split.FibreQM.PeriodGlue`.)
+(Namespace `HSyn.G0Split.FibreQM.PeriodGlue`. `GlueDescent.LeafSkolemNoether` is the kernel's
+definition, copied verbatim inside the scratch base. The kernel proves it
+(`TSkolemKW.leafSkolemNoether`, `ZInQKernel/HDecomp/Textbook/SkolemNoether.lean`). The proof cannot
+be imported next to the scratch copy, because the namespaces clash; at integration the hypothesis
+is replaced by the kernel theorem.)
+
+**End to end** (`fibreQMPeriod_periodGlue`, compiled in one file, `build_all.sh`). This is
+period-map's `fibreQMPeriod_periodMap` with the six targets replaced by the results above, and
+with `T11aRiemannEnd` derived from `T11aRiemannHom`:
+
+```lean
+theorem fibreQMPeriod_periodGlue (h : R1R2fp) (hM : Pin.MobiusGlue)
+    (hH : PkgI1.QMHauptmodul) (hE : UniformizationExistsT35) (hHom : T11aRiemannHom)
+    (hCN : QMClassNumberOne) (hR : R1bFamily (ownY h) (ownΦ h) (ownπ h))
+    (hTO : TwistOrbitFinite (ownY h) (ownΦ h)) (hFT : FibreTransferC (ownY h) (ownπ h))
+    (hSN : GlueDescent.LeafSkolemNoether) (hD : CMDescends)
+    (hOM : HolP1OpenMap) (hFH : HolP1FactorHol) (hSI : SphereInjAffine)
+    (hTM : PkgI1.ThetaModularity) (hG : GammaStarGen)
+    (hV : PeriodMap.ValenceBoundGammaStar) (hCP : CPtsTransport) : ThetaPt.FibreQMPeriod
+```
+
+The hypotheses fall into three groups.
+- **Leaves:**
+  - `R1R2fp`, `QMHauptmodul`, T35, `T11aRiemannHom`, `QMClassNumberOne`, `R1bFamily`;
+  - `CMDescends`, `ThetaModularity`, `GammaStarGen`, `ValenceBoundGammaStar`;
+  - SN, proved in the kernel.
+- **Glue proved elsewhere:** `MobiusGlue` (mobius-glue).
+- **Glue still open:**
+  - `TwistOrbitFinite`, `FibreTransferC`;
+  - `HolP1OpenMap`, `HolP1FactorHol`, `SphereInjAffine`;
+  - `CPtsTransport`, inherited.
 
 **Effect on period-map's targets.**
 - `HauptmodulUnique ⇐ S8Nonzero, SphereFactorAffine`: now ⇐ the three complex-analysis glue Props.
@@ -38,7 +70,7 @@ theorem sphereFactorAffine_of (hA : HolP1OpenMap) (hB : HolP1FactorHol)
   human check, §4). There is no glue left in `QMDenZeroCM3`.
 - `PeriodMapGlue` (own triple) ⇐ `BaseChangeClassUnique` (now proved), `PiTwistC`,
   `QMTwistLattice`, `CMDescends`: now ⇐ `TwistOrbitFinite`, `FibreTransferC`, `T11aRiemannHom`,
-  `QMLatticeTwistAlg`, `CMDescends` (with R1fp, R2fp already hypotheses).
+  `CMDescends` and SN (kernel-proved). R1fp and R2fp were already hypotheses.
 
 ## 2. What was proved
 
@@ -104,13 +136,31 @@ The certificate is structural. It needs only crude bounds on `q = e^{−π/2}`.
   `py/triangle.py`: `x₂ = 2x₆x₄⁻¹ = (3/2)i + 2j + (1/2)ij` has `trd x₂ = 0`, so `g₆g₄⁻¹` has
   order 2.
 
+### 2.4 `QMLatticeTwistAlg` (the pure-algebra half of `QMTwistLattice`)
+
+- **Reduction** (`qmTwistLattice_of`). `QMTwistLattice ⇐ T11aRiemannHom + QMLatticeTwistAlg`.
+  - Isomorphisms `Q.q.twist α ≅ Q'.q` lift to linear automorphisms `M` (both directions of the
+    `Hom` leaf).
+  - `M⁻¹M = 1` holds by `lift_unique`.
+  - Equivariance holds by uniqueness of lifts.
+- **(⇐)** (`qmLatticeTwistAlg_mpr`). For `g = ι(x) ∈ Γ*`: `α = x⁻¹(·)x` and `M = (cτ+d)⁻¹ι(x)`.
+  Then `M ι(b)v_τ = ι(xbx⁻¹)v_{gτ}` (`mem_qmLattice_iff`: `Λ_τ = {ι(b)v_τ : b ∈ 𝒪}`).
+- **(⇒)** (`qmLatticeTwistAlg_mp`).
+  - `α` is inner: extend to `B` (mobius-glue's extension, copied), then Skolem–Noether.
+  - `N = M∘ι(w)` commutes with `ι(i)`, `ι(j)`, so it is a scalar `p` (`scalar_of_commute`).
+  - `(τ', 1) = pι(x)(τ, 1)` with `x = w⁻¹b₁`.
+  - `w⁻¹𝒪 ⊆ 𝒪x`, because `b ↦ ι(b)(τ,1)ᵀ` is injective (`latVec_eq_zero`).
+  - `b₁ ∈ 𝒪^×`, by `mul_eq_one_comm` on matrices and injectivity of `ι`.
+  - So `x` normalizes `𝒪`.
+  - `det ι(x) > 0` follows from `Im τ' > 0` (`moebius_im`).
+
 ## 3. The new named Props
 
 | Prop | kind | statement (informal) | argument / source | size |
 |---|---|---|---|---|
 | `GammaStarGen` | **LEAF candidate** (flagged) | every `γ ∈ Γ*` is in the subgroup generated by `ι(1+i+j)`, `ι((j−3)/2)` and `ℚ^×` | signature `(0;2,4,6)` (Takeuchi 1977; Elkies 1998 §3) + Poincaré's polygon theorem + covolume; §4.3 | — |
 | `T11aRiemannHom` | **LEAF** (textbook) | analytic representation of `Hom(A, A')` for uniformized `A, A'/ℂ`: `M` with `MΛ ⊆ Λ'` ↔ unique homomorphism | Mumford §1, Birkenhake–Lange Prop. 1.2.1, GAGA (UNVERIFIED locators); the kernel's `T11aRiemannEnd` is its case `A = A'` (`t11aRiemannEnd_of_hom`, proved) | — |
-| `QMLatticeTwistAlg` | GLUE (pure algebra) | `∃ α ∈ Aut 𝒪, M ∈ GL₂(ℂ)` with `MΛ_τ = Λ_τ'`, `M ι(α a) = ι(a) M` ⇔ `τ' ∈ Γ*τ` | (⇐) `M = (cτ+d)⁻¹ι(u)`. (⇒) Skolem–Noether (kernel `TSkolemKW`), `Mι(u)⁻¹` central, `𝒪x = 𝒪u` | medium |
+| `QMLatticeTwistAlg` | GLUE, **PROVED** from SN (kernel-proved) | `∃ α ∈ Aut 𝒪, M ∈ GL₂(ℂ)` with `MΛ_τ = Λ_τ'`, `M ι(α a) = ι(a) M` ⇔ `τ' ∈ Γ*τ` | §2.4 | done |
 | `TwistOrbitFinite Y Φ` | GLUE (moduli) | on `ℚ̄`- and `ℂ`-points, the twist relation = orbits of a finite set `G ⊆ Aut(Y)` | R1hecke automorphisms; `rightMul` through `𝒪/3𝒪`; `Aut 𝒪/Inn` finite (mobius-glue); level structures over `K̄` differ by `(𝒪/3𝒪)^×`, the image of `𝒪^×` (strong approximation, or a finite check on 72 units) | medium |
 | `FibreTransferC Y π` | GLUE (AG) | for `Y` proper smooth over `ℚ`: fibres of `π` = `G`-orbits on `ℚ̄`-points ⇒ on `ℂ`-points | `{π(p)=π(q)}` and `⋃ graph(g)` are closed in `Y×Y`; Jacobson; equal on closed points | medium |
 | `HolP1OpenMap` | GLUE (textbook) | non-constant holomorphic `ℍ → P¹` is open | open mapping theorem in charts (Mathlib `AnalyticOnNhd.is_constant_or_isOpen`) + identity theorem | small-medium |
@@ -226,8 +276,6 @@ discrete groups*, §9.8 and Thm. 10.6.x; UNVERIFIED).
 
 ## 5. What remains
 
-- **Glue, pure algebra.** `QMLatticeTwistAlg`. Skolem–Noether is in the kernel; the rest is
-  `2×2` linear algebra over `ℚ(√2)`.
 - **Glue, moduli and algebraic geometry.** `TwistOrbitFinite` and `FibreTransferC`.
 - **Glue, complex analysis.** `HolP1OpenMap`, `HolP1FactorHol`, `SphereInjAffine`.
 - **Leaves for a human check.** `ValenceBoundGammaStar`, `CMDescends`, `GammaStarGen` (§4), and the
@@ -248,11 +296,14 @@ discrete groups*, §9.8 and Thm. 10.6.x; UNVERIFIED).
 | run_s8 | `S8.lean` (PGLight) | 0 errors; `s8Nonzero_iff`, `s8Nonzero_proof` standard axioms |
 | run_w8 | `W8.lean` (PGLight) | 0 errors; `s8WeightExact_of` standard axioms |
 | run_sfa | `SFA.lean` (PGLight) | 0 errors; `sphereFactorAffine_of` standard axioms |
+| run_qmtwist (final) | `QMTwist.lean` (PGBase), with `QMLatticeTwistAlg` | 0 errors; `qmTwistLattice_of'`, `qmLatticeTwistAlg_mpr` standard axioms |
+| run_all | `build_all.sh`: `PGAll.lean` = import PGBase + all six files + `final_part.lean` | 0 errors; all seven headline theorems, among them `fibreQMPeriod_periodGlue`, standard axioms |
 
 To reproduce, from the repository root:
 1. the prereq build;
 2. `scratch/period-glue/build_base.sh` and `scratch/period-glue/build_light.sh`;
-3. `scratch/period-glue/check.sh scratch/period-glue/<File>.lean`.
+3. `scratch/period-glue/check.sh scratch/period-glue/<File>.lean`;
+4. or `scratch/period-glue/build_all.sh` for the single-file check with the end-to-end theorem.
 
 The two base files are verbatim assemblies of fibre-qm-period's and period-map's committed files.
 They are gitignored and rebuilt by the scripts.
