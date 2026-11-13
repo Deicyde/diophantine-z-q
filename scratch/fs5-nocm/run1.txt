@@ -1,0 +1,46 @@
+'FS5NoCM.two_not_prime_of_sqrt_neg_one' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FS5NoCM.finrank_adjoin_sqrt_neg_one' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FS5NoCM.elkies_sq' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FS5NoCM.nocm_on_witness' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FS5NoCM.fibreComTrivialOwn_of' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FS5NoCM.fibreComTrivialFull_of_own' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FS5NoCM.fibreComTrivialFull_of' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FS5NoCM.B6_central_eq' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FS5NoCM.com_int_of_end0_quat' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FS5NoCM.comIntOrQuadOrder_of' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FS5NoCM.fibreComTrivialFull_of_leaves' depends on axioms: [propext, Classical.choice, Quot.sound]
+scratch/fs5-nocm/FS5NoCM.lean:829:32: warning: Variable name `hI` is not explicitly referenced.
+
+Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+  [apply] _hI
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+scratch/fs5-nocm/FS5NoCM.lean:1019:2: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+'FS5NoCM.commute_quat_scalar' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FS5NoCM.adjRoot_numberField' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FS5NoCM.comOfMatrixEnd0_of_homFree' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FS5NoCM.comIntOrQuadOrder_of_leaves' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FS5NoCM.fibreComTrivialFull_of_leaves'' depends on axioms: [propext, Classical.choice, Quot.sound]
+scratch/fs5-nocm/FS5NoCM.lean:1262:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+'FS5NoCM.dvd_of_sq_dvd_Qf' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FS5NoCM.not_dvd_conductor_of_optimal' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FS5NoCM.cmConductorCoprime6_of' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FS5NoCM.fibreComTrivialFull_of_leaves''' depends on axioms: [propext, Classical.choice, Quot.sound]
+
+real	0m30.662s
+user	0m32.259s
+sys	0m2.838s
