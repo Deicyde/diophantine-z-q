@@ -26,7 +26,8 @@ $\operatorname{Re}s>3/2$.
 Two entire continuations of the same $L(E,s)$ are equal everywhere.
 
 When $E$ is an elliptic curve, the series converges absolutely on the half-plane
-$\operatorname{Re}s>3/2$, by Hasse's bound on $a_p$ (a standard fact, not proved here), so there $L(E,s)$ is the sum of the series. By the
+$\operatorname{Re}s>3/2$, by Hasse's bound on $a_p$ (a standard fact, proved here only for $C_d$ with $d$ odd and squarefree: [Hasse's bound for $C_d$](l-function-cd/hasse-bound.md), and with it
+[absolute convergence](l-function-cd/absolute-convergence.md)), so there $L(E,s)$ is the sum of the series. By the
 uniqueness, a statement about the order of vanishing of an entire continuation at $s=1$ does not
 depend on which continuation is chosen.
 

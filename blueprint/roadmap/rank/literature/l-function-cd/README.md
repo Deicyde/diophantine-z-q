@@ -24,8 +24,10 @@ reduction is good at the primes $p\nmid2d$ and additive at the primes $p\mid2d$.
 polynomial is therefore $1-a_pT+pT^2$ with $a_p=p+1-\#C_d(\mathbb F_p)$ (the point at infinity
 included) at $p\nmid2d$, and $1$ at $p\mid2d$. Since only one place lies over each prime, the
 Dirichlet coefficient of $L(C_d,s)$ at $p^k$ is the coefficient of $T^k$ in the inverse of that
-polynomial. At a prime $p\nmid2d$ the coefficient is $p$ minus the number of affine solutions of
-$y^2=x^3-d^2x$ over $\mathbb F_p$; at a prime $p\mid2d$ it is $0$. The coefficients are
+polynomial. At every prime $p$ the coefficient is $p$ minus the number of affine solutions of
+$y^2=x^3-d^2x$ over $\mathbb F_p$; at a prime $p\mid2d$ both are $0$, the affine solutions
+being the $p$ points $(t^2,t^3)$ of the cusp $y^2=x^3$ when $p\mid d$, and $(0,0)$, $(1,0)$
+when $p=2$. The coefficients are
 multiplicative, so $L(C_d,s)$ is the Dirichlet series whose coefficients are those of the formal
 Euler product $\prod_{p\nmid2d}(1-a_pp^{-s}+p^{1-2s})^{-1}$.
 
@@ -35,7 +37,21 @@ equation, Gross–Zagier, [row 5b](../tyz-row-5b.md), [reading A](../tyz-reading
 squarefree $d\equiv5\pmod8$ that the functional equation, row 5b and reading A concern, is the
 standard L-series. It says nothing about $L(C_d,s)$ for even or non-squarefree $d$, which Hecke's
 continuation also covers, nor about $L(E,s)$ for the other elliptic curves in Gross–Zagier.
-Neither the continuation of $L(C_d,s)$, nor Hasse's bound, nor the conductor is proved here.
+
+The coefficients $c_d(n)$ of the formal Euler product are studied for every $d$, even or not
+squarefree: they are multiplicative, vanish at the multiples of the primes dividing $2d$ (so at
+every even $n$), and satisfy $c_d(p^{k+2})=c_d(p)c_d(p^{k+1})-p\,c_d(p^k)$ at the primes
+$p\nmid2d$. Counting the solutions of $y^2=x^3-d^2x$ with the quadratic character $\chi$ of
+$\mathbb F_p$ writes $c_d(p)$, for $p\nmid2d$, as minus the Jacobsthal sum $\sum_x\chi\bigl(x(x^2-d^2)\bigr)$.
+Its second moment gives Hasse's bound $c_d(p)^2\le4p$; for $p\equiv3\pmod4$ the sum vanishes,
+so $c_d(p^{2k})=(-p)^k$ and $c_d(p^{2k+1})=0$. With the recursion, Hasse's bound gives
+$|c_d(n)|\le\sigma_0(n)\sqrt n$, so $\sum_nc_d(n)n^{-s}$ converges absolutely on
+$\operatorname{Re}s>3/2$; for odd squarefree $d$ this series is $L(C_d,s)$, which is
+therefore complex differentiable there. This subsection proves neither the continuation of
+$L(C_d,s)$ nor its functional equation; both are proved, the continuation for every $d\ne0$,
+in [Hecke's continuation holds](../hecke/hecke-continuation-holds.md) and
+[the functional equation holds](../hecke/functional-equation-holds.md). The conductor is not
+proved here.
 
 Throughout, $d$ is a natural number, $p$ a prime, and $v$ a finite place of $\mathbb Q$ with prime
 $p_v$, completion $\mathbb Q_v$, valuation ring $\mathcal O_v$, maximal ideal $\mathfrak m_v$ and
@@ -66,3 +82,17 @@ residue fields occur.
 - [The coefficients of $L(C_d,s)$ at primes as point counts](prime-coefficients.md)
 - [Every coefficient of $L(C_d,s)$](coefficients.md)
 - [$L(C_d,s)$ is the Dirichlet series of the standard Euler product](l-series.md)
+
+## The coefficients for every $d$
+
+- [The coefficients $c_d(n)$ for every $d$](coefficients-every-d.md)
+- [The recursion for the coefficients at a good prime](good-prime-recursion.md)
+
+## Character sums, Hasse's bound and absolute convergence
+
+- [Point counts by the quadratic character](quadratic-character-counts.md)
+- [Jacobsthal sums over a finite field and their bound](jacobsthal-sums.md)
+- [Hasse's bound for $C_d$](hasse-bound.md)
+- [The coefficients of $L(C_d,s)$ at the primes $p\equiv3\pmod4$](primes-3-mod-4.md)
+- [Bounds for the coefficients $c_d(n)$](coefficient-bounds.md)
+- [$L(C_d,s)$ converges absolutely on $\operatorname{Re}s>3/2$](absolute-convergence.md)

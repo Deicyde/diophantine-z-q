@@ -15,7 +15,9 @@ $$F(1)=0.$$
 This is what root number $-1$ gives at the centre of the functional equation: there
 $\Lambda(1)=-\Lambda(1)$, and $\Gamma(1)\ne0$.
 [The functional equation gives vanishing at the centre](root-number-vanishing-of-functional-equation.md)
-derives it from the functional equation on the critical strip. As stated here it is a hypothesis, not proved here.
+derives it from the functional equation on the critical strip, which is proved
+([the functional equation holds](hecke/functional-equation-holds.md)). As stated here it is a
+hypothesis of the theorems that use it.
 
 ## Depends on
 

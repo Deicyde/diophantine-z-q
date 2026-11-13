@@ -33,9 +33,14 @@ $p\mid2d$ is $1$, so $L(C_d,s)$ is the Dirichlet series of the formal standard E
 computation is proved; it shows that the L-series in the functional equation, row 5b and reading A,
 for squarefree $d\equiv5\pmod8$, is the standard one, and proves none of the literature statements.
 It says nothing about $L(C_d,s)$ for even or non-squarefree $d$, which Hecke's continuation also
-covers, nor about the other curves in Gross–Zagier.
+covers, nor about the other curves in Gross–Zagier. The section proving Hecke's
+continuation extends the computation to every squarefree $d$ and shows
+$L(C_{m^2d},s)=L(C_d,s)$ ([the L-series of $C_d$ for every $d\ne0$](hecke/every-d/README.md)).
 
-None of the literature statements is proved here; the reductions between them are.
+The functional equation and Hecke's continuation are proved
+([the functional equation holds](hecke/functional-equation-holds.md),
+[Hecke's continuation holds](hecke/hecke-continuation-holds.md)); the other literature statements
+are not proved here, and the reductions between them are.
 
 Throughout, $C_d$ is the curve $y^2=x^3-d^2x$ over $\mathbb Q$ for a natural number $d$, and the
 order of vanishing of an entire function at a point is its order as an analytic function, a
@@ -48,6 +53,17 @@ value in $\{0,1,2,\dots\}\cup\{\infty\}$.
 ## The L-series of $C_d$, computed
 
 - [The L-series of the congruent number curves, computed](l-function-cd/README.md)
+
+## Hecke's continuation and the functional equation, proved
+
+Two of the literature statements, Hecke's continuation of $L(C_d,s)$ for every natural number $d\ne0$ and the
+functional equation on the strip $0<\operatorname{Re}s<2$ for squarefree $d\equiv5\pmod8$, are
+proved, with no hypothesis, along Hecke's route: Deuring's identity, proved from Gauss's count of
+the points of $y^2=x^3-x$, makes $L(C_d,s)$ a periodic twist of the theta series of
+$\mathbb Z[i]$, whose Mellin transform is entire and satisfies a functional equation under
+$s\mapsto2-s$.
+
+- [Hecke's continuation and the functional equation, proved](hecke/README.md)
 
 ## The three literature statements
 

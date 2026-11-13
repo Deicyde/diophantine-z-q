@@ -58,9 +58,12 @@ CR₃^TYZ,Rk implies CR₃^Rk by Corollary 4.4 and Theorem 3.6.
 
 CR₃^TYZ_Cl,Rk follows from Tian–Yuan–Zhang's row 5b, the functional equation of $L(C_d,s)$ for
 squarefree $d\equiv5\pmod8$ with root number $-1$ on the critical strip $0<\operatorname{Re}s<2$,
-and the positive-rank half of Gross–Zagier; none of the three is proved here. Row 5b in turn
-follows from their Theorem 3.5(2) in reading A together with Hecke's continuation of $L(C_d,s)$,
-two further statements that are not proved here; reading A is printed by no refereed text
+and the positive-rank half of Gross–Zagier; of the three only the functional equation is proved
+([the functional equation holds](literature/hecke/functional-equation-holds.md)). Row 5b in turn
+follows from their Theorem 3.5(2) in reading A together with Hecke's continuation of $L(C_d,s)$.
+Hecke's continuation is proved
+([Hecke's continuation holds](literature/hecke/hecke-continuation-holds.md)) and reading A is not
+proved here; reading A is printed by no refereed text
 consulted here and rests on the unrefereed Proposition N.
 
 - [CR₃^TYZ_Cl,Rk from three literature statements](literature/README.md)

@@ -46,17 +46,26 @@ are:
   entire continuation $F$ of $L(C_d,s)$ whose order of vanishing at $s=1$ is at least $2$,
   $T^{\rm Cl}_{5a}(d)=0$ and $T^{\rm Cl}_{5b}(d)=0$ in $\mathbb Z/2$.
 
-None of the five is proved here. The Gross–Zagier statement is a textbook theorem: Gross–Zagier
+Two of the five are proved: Hecke's continuation
+([Hecke's continuation holds](../rank/literature/hecke/hecke-continuation-holds.md)) and the
+functional equation on the strip
+([the functional equation holds](../rank/literature/hecke/functional-equation-holds.md)), both
+proved outright: they follow from Gauss's count of the points of $y^2=x^3-x$ over $\mathbb F_p$ for
+primes $p\equiv1\pmod4$, which is itself proved here. The target therefore follows from the
+other three, the minimal height hypothesis, the Gross–Zagier statement and Theorem 3.5(2) in
+reading A
+([the main theorem from the minimal height hypothesis, reading A and Gross–Zagier](main-theorem-reading-a-gross-zagier.md)),
+and none of these three is proved here. The Gross–Zagier statement is a textbook theorem: Gross–Zagier
 (1986) with an auxiliary imaginary quadratic field (Bump–Friedberg–Hoffstein 1990, or
 Friedberg–Hoffstein 1995) and modularity (Breuil–Conrad–Diamond–Taylor 2001); Kolyvagin's conclusion
-that the rank is exactly one is not used. The functional equation and Hecke's continuation are
-textbook theorems: $C_d$ has complex multiplication by $\mathbb Z[i]$, so $L(C_d,s)$ is the
-L-function of a Hecke character of $\mathbb Q(i)$ (Hecke, Deuring), which is entire, with conductor
-$32d^2$ for odd squarefree $d$ and root number $-1$ for squarefree $d\equiv5\pmod8$
-(Birch–Stephens). The functional equation is stated only on the strip, where $\Gamma(s)$ and
-$\Gamma(2-s)$ are both finite, and it is used only at $s=1$. No original source of Hecke's
-continuation was read, and the original source of the conductor and the functional equation has not
-been read in full. The minimal height hypothesis is the one instance of the manuscript's six-contact
+that the rank is exactly one is not used. The functional equation and Hecke's continuation are also textbook theorems: $C_d$ has complex
+multiplication by $\mathbb Z[i]$, so $L(C_d,s)$ is the L-function of a Hecke character of
+$\mathbb Q(i)$ (Hecke, Deuring), which is entire, with conductor $32d^2$ for odd squarefree $d$ and
+root number $-1$ for squarefree $d\equiv5\pmod8$ (Birch–Stephens). The functional equation is
+stated only on the strip, where $\Gamma(s)$ and $\Gamma(2-s)$ are both finite, and it is used only
+at $s=1$. The proofs here do not rely on these sources; no original source of Hecke's continuation
+was read, and the original source of the conductor and the functional equation has not been
+read in full. The minimal height hypothesis is the one instance of the manuscript's six-contact
 height estimate (its Theorem 4.1) that the proof uses; the proof of that estimate combines refereed
 theorems and exact computations with new arguments, the manuscript's and this project's, reviewed
 only by AI models, and it is not a published theorem.
