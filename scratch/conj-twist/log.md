@@ -121,3 +121,12 @@
   ConjTwistNontrivial`**, **`conjTwistFromLeaves_of_homLinearLift : HomLinearLift →
   ConjTwistFromLeaves`**. No glue Prop remains. Whole file (2029 lines): 0 errors, 0 sorry,
   39 `#print axioms` all [propext, Classical.choice, Quot.sound]. VERIFIED (compiled).
+- 2026-11-13 06:56 §17 added (import ZInQKernel.HDecomp.I3Linalg.C2, built): verbatim copies from
+  scratch/g10-odd/G10Odd.lean of `HSyn.T11_RiemannGAGA`, `HSyn.T12_ArtinComparison`, `Vb`, `tate`,
+  `Intertwines`, `G10Out`, `G10Glue`, `det_eq_neg_one_of_sq_eq_one`, `GaloisRep.mat_mul/mat_one`,
+  `isOdd_of_not_pm_one`, `galRep_eq_of_central`, `g10Out_of_conjTwist`, `g10Glue_of_conjTwist`,
+  `G10GlueConcrete`, `g10GlueConcrete_of_conjTwistFromLeaves` (defs diffed: identical);
+  **`g10GlueConcrete_of_homLinearLift : HomLinearLift → G10GlueConcrete`**,
+  **`g10Glue_of_leaves : TorsionStructure → TateModuleFree → UniformizationExists →
+  HomLinearLift → G10Glue`**. Whole file (2226 lines): 0 errors, 0 sorry, 41 `#print axioms`
+  standard. VERIFIED (compiled).
