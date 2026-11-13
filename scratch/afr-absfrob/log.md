@@ -7,3 +7,7 @@
 ## Runs
 1. AbsFrobDef.lean (powHom, natCast_sections, frobC, frobPSh, frob_stalkMap, fr, fr_base, fr_app):
    compiles, no errors (VERIFIED, `lake env lean`, ~80 s).
+2. AbsFrobDef.lean + fr_naturality, natCast_Spec, natCast_of_hom, fr_Spec, verbatim copy of
+   `AlgFrobRedRed.AbsFrob`, `frobenius_eq_powHom`, `absFrob : AbsFrob`: compiles;
+   `#print axioms AlgFrobRedRed.absFrob` = [propext, Classical.choice, Quot.sound] (VERIFIED).
+   Copy of the `AbsFrob` def+docstring is byte-identical to part_red.lean (VERIFIED, cmp, 12 lines).
