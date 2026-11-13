@@ -1579,6 +1579,50 @@ theorem tateBridge_of_points (hP : TatePoints) (hE : EndBaseChange)
     (hT : PkgI3.TateModuleFree) : TateBridge :=
   tateBridge_of_pieces hP hE scalarTransfer (tateCont_of_tateModuleFree hT) resQEmbedding
 
+/-! ## `EndBaseChange` (proof copied from scratch/bp-qmmoduli/QMAbVar.lean L533-557, `endBC`) -/
+
+section BaseChangeEnd
+
+variable {K : Type} [Field K]
+
+open scoped CategoryTheory.Obj in
+/-- **Base change on endomorphisms** (copied verbatim from bp-qmmoduli's `endBC`):
+`End_K(A) → End_L(A_L)`, `f ↦ (Over.pullback (Spec L → Spec K)).map f`, a ring homomorphism
+(functoriality, and `Functor.map_mul` for the monoidal functor `Over.pullback`). -/
+noncomputable def endBC (A : PkgI3.AbVar K) (L : Type) [Field L] [Algebra K L] :
+    PkgI3.AbVar.End A →+* PkgI3.AbVar.End (A.baseChange L) where
+  toFun f := @PkgI3.AbVar.Hom.mk' L _ (A.baseChange L) (A.baseChange L)
+    ((Over.pullback (Spec.map (CommRingCat.ofHom (algebraMap K L)))).map f.hom)
+    (Functor.map.instIsMonHom (F := Over.pullback (Spec.map (CommRingCat.ofHom (algebraMap K L))))
+      (f := f.hom))
+  map_one' := by
+    apply PkgI3.AbVar.Hom.ext'
+    change (Over.pullback _).map (𝟙 A.X) = 𝟙 _
+    exact (Over.pullback _).map_id _
+  map_mul' f g := by
+    apply PkgI3.AbVar.Hom.ext'
+    change (Over.pullback _).map (g.hom ≫ f.hom) = _
+    rw [Functor.map_comp]; rfl
+  map_zero' := by
+    apply PkgI3.AbVar.Hom.ext'
+    change (Over.pullback _).map (1 : A.X ⟶ A.X) = 1
+    exact Functor.map_one _
+  map_add' f g := by
+    apply PkgI3.AbVar.Hom.ext'
+    change (Over.pullback _).map (f.hom * g.hom) = _
+    rw [Functor.map_mul]; rfl
+
+end BaseChangeEnd
+
+/-- **`EndBaseChange`, proved** (bp-qmmoduli's `endBC`). -/
+theorem endBaseChange : EndBaseChange := fun K L hKL A =>
+  ⟨@endBC K _ A L _ (incAlg hKL)⟩
+
+/-- **`TateBridge` from the one remaining glue piece `TatePoints` and the leaf I3.M0**
+(`PkgI3.TateModuleFree`, Mumford). -/
+theorem tateBridge_of_tatePoints (hP : TatePoints) (hT : PkgI3.TateModuleFree) : TateBridge :=
+  tateBridge_of_points hP endBaseChange hT
+
 end UnramTate
 
 #print axioms UnramTate.opVHom
@@ -1589,3 +1633,5 @@ end UnramTate
 #print axioms UnramTate.tateCont_of_tateModuleFree
 #print axioms UnramTate.scalarTransfer
 #print axioms UnramTate.tateBridge_of_points
+#print axioms UnramTate.endBaseChange
+#print axioms UnramTate.tateBridge_of_tatePoints

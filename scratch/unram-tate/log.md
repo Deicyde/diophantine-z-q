@@ -38,3 +38,6 @@
   VERIFIED compiled, axioms [propext, Classical.choice, Quot.sound] (~05:05).
 - Remaining for TateBridge: glue TatePoints (points of A_{L'} over \bar{L'} vs A(ℚ̄), Galois-compatible) and glue
   EndBaseChange (ring hom End_K(A) → End_L(A_L)); leaf I3.M0 TateModuleFree (existing, Mumford).
+- `endBaseChange : EndBaseChange` PROVED (bp-qmmoduli's `endBC` copied, marked noncomputable).
+- `tateBridge_of_tatePoints : TatePoints → PkgI3.TateModuleFree → TateBridge` PROVED. VERIFIED compiled,
+  standard axioms (~05:02). Remaining: the single glue Prop `TatePoints`.
