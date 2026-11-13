@@ -41,3 +41,7 @@ from `scratch/qm-pin/QMPin.lean` (lines 553-567).
 - runs: several fix iterations (whnf timeouts from Nat.cast defeq after rw, fixed with `show`);
   final run 0 errors, 1 deprecation warning; axioms of extAlgEquiv, autOInnerFinite_of_normalizer:
   [propext, Classical.choice, Quot.sound]. VERIFIED.
+- MobiusGlue.lean §7 = AutO.lean content (namespace LeafQM.AV.Pin.AutOExt, new import
+  ZInQKernel.HDecomp.Textbook.SkolemNoether) + `mobiusGlue_of_normalizer : CurveRatFactor → CurveSurj →
+  ObjBridge.TorsionStructure → AutOExt.NormalizerFinite → MobiusGlue`. run (04:52): 0 errors;
+  10 `#print axioms` all [propext, Classical.choice, Quot.sound]. VERIFIED.
