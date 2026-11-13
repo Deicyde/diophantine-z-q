@@ -29,3 +29,19 @@ TextbookLeaves, lines 19109-19200) after leaf-adopt. Base 01267822.
 ## Baseline compile (VERIFIED)
 - `lake env lean scratch/h-decomposition/Leaves.lean`: EXIT 0, 3m39s, 0 errors, one `sorry`
   (line 19202, `glueOutputs_of_leaves`); `sixContactMin_of_leaves` axioms include `sorryAx`.
+
+## Cluster A (agentA.md; I2, I3, T9, T27): all 17 OK
+- I2/I3/T9 leaves byte-identical to pkg-I2/pkg-I3/leaf-push sources (textual diff, agent A); only T27
+  changed (QMDichotomyYu with indefiniteness, rv-loc-leaves repair (i) applied).
+- Lead re-read (VERIFIED by reading 1335-1620, 2766-2876, 11795-11912): NOS (a)<->(b)<->(c), R7b, R8, R6
+  (m >= 3, A[m] K-rational), T4, T5 as stated are Serre-Tate / SGA 7 / Mumford consequences;
+  T8 PoincareReducibility: A = 0 makes `f ≠ 0` impossible (no vacuity issue); T27 conclusion list
+  complete for dim 2 (M2(Q) excluded since B division); T9 compatibility exponent `^m` correct
+  (e_n(mx, m·λy) = e_{mn}(x, λy)^m), nondegeneracy-up-to-d clause excludes the trivial pairing.
+## Cluster C (agentC.md; T14-T16, T20-T22, T29-T31): all 13 OK
+- Documentation only: t16b docstring "the canonical reciprocity map is one such θ" holds in the
+  arithmetic normalization only; rv-leaves-b's remark that θ ↦ θ⁻¹ preserves every clause is wrong for
+  clause 3 (leaf still true); T31 citation of cd Ẑ = 1 inconsistent (Serre GC "I §3" vs "II §3").
+- Lead re-check of t30 LeafSqrtCrit (VERIFIED by reading 8779): finite-order ψ of Q_p^x is a square iff
+  ψ(-1) = 1 (p odd: μ_{p-1} cyclic of even order; p = 2: dual of 1+4Z_2 divisible); rec(-1) acts by
+  ζ ↦ ζ^{-1} on μ_{p^k} in either normalization; k = 0 forces u = 1 (unramified χ has a sqrt): OK.
