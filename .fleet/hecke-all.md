@@ -25,7 +25,12 @@ stated over another verbatim copy of the definitions is accepted by the theorem
 (`scratch/hecke-all/ComposeTest.lean` compiles), so the gauss-proof task's result composes
 directly.
 
-**What remains.** `GaussPointCount` itself, which the gauss-proof task is proving. On integration:
-add the one-line provider `ZInQ.Contrib.heckeContinuation := heckeContinuation_of_gaussPointCount
-<gauss-proof>`, and keep a single shared copy of `HeckeFE.lean` (gauss-proof made a second copy).
+**Provider closed.** After merging origin/wip/gauss-proof (`912f839b`, which proves `GaussFE.gaussPointCount`),
+`theorem ZInQ.Contrib.heckeContinuation : ZInQ.Literature.HeckeContinuation :=
+heckeContinuation_of_gaussPointCount GaussFE.gaussPointCount` compiles with the standard axioms
+(`scratch/hecke-all/Provider.lean`, VERIFIED). It is a scratch file because HeckeAll modules may not
+import GaussFE.
+
+**What remains.** On integration: move that one line into a Contrib module allowed to import both,
+and keep a single shared copy of `HeckeFE.lean` (GaussFE and HeckeAll each have one).
 Report: `docs/research/hecke-all.md`. Log: `scratch/hecke-all/log.md`.
