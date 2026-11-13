@@ -54,3 +54,19 @@ Base f90cf864 (wip/prop-ts). Object: `G0ModField.PropTS`, `PropTSAll` from
   `kummerStep_of_meet : KummerMeet → KummerStep`, `propTSAll_of_bundle_meet`.
 - Compile: 0 errors, 0 warnings; 16 `#print axioms`, all [propext, Classical.choice, Quot.sound]
   (VERIFIED).
+
+## Step 6 (07:10): FunctionFieldModel from a normalization statement, compiled
+- New: `exists_factor_scheme`, `residueImage_specMap` (ℚ(Spec ψ) = ℚ(ψ(B))),
+  `residueImage_comp_openImmersion`, `NormalizationModel` (glue: open immersion
+  `Spec B → Y` onto the `ℚ̄`-points with finite `π`, with `π = X` along it),
+  `functionFieldModel_of_normalization`, `CoverModelN`, `coverModel_of_N`, `CoverModelOfHeckeN`,
+  `propTSAll_of_bundle_N`.
+- Compile: 0 errors, 0 warnings, 22 `#print axioms` lines all standard (VERIFIED).
+
+## Review (independent model agent, read-only, 07:10)
+- No false, vacuous or junk-value-exploitable statement found.
+- Docstring fixes requested: (1) BeckmannSIT for non-regular E: derive from the regular case over
+  the constant field k' (NoVerticalRam forces k' unramified at p); (2) NoVerticalRam docstring:
+  separability from `[E:ℚ(X)] < p`, not `p ∤ n`; (3) BeckmannSIT (a) wording ("stronger
+  hypothesis, weaker leaf"); (4) FunctionFieldModel truth needs π Γ'-invariant and non-constant on
+  components. Applied in step 7.
