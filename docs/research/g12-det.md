@@ -26,6 +26,29 @@ theorem G0Galois.g12Weight_of_senTwist (hSen : SenTwist) (hFI : FiniteImageHT) :
     G12Weight                                                            -- Weight.lean
 ```
 
+**Integration check (VERIFIED, compiled; `scratch/g12-det/Integrate.lean`, built by
+`build_int.py`).** Integrate.lean appends only the new parts of this task to g0-mod-galois's own
+`ModGalois.lean`, with none of the copied definitions. The theorems therefore discharge
+g0-mod-galois's own constants, `G12Weight`, `DetTate`, `ResQFiniteIndex` and `GaloisPieces`, and
+do not rely on copies of them. The file has 0 errors and no `sorry`, and its theorems use only the
+standard axioms:
+
+```
+theorem G0Galois.galoisPieces_of (hB : BurnsideAbsIrred) (hR : R14Det) (h9 : G9Glue)
+    (h10 : G10Glue) (hSen : SenTwist) (hFI : FiniteImageHT)
+    (hW : WeilPairing.T09_SymmIsogenyExists) (hQ : WeilPairing.IsogenyQuasiInverse)
+    (hD : WeilPairing.DivisiblePoints) (hT : PkgI3.TateModuleFree) : GaloisPieces
+theorem G0Galois.g8_g12_of_leaves' (r : HSyn.ResearchLeaves) (t : HSyn.TextbookLeaves)
+    (hB : BurnsideAbsIrred) (hR : R14Det) (h9 : G9Glue) (h10 : G10Glue)
+    (hSen : SenTwist) (hFI : FiniteImageHT) (hW : …) (hQ : …) (hD : …) … :
+    ∃ r₅, G8Out … ∧ G9Out r₅ ∧ G10Out r₅ ∧ G11Out T r₅ ∧ G12Out r₅
+```
+
+So the G8-G12 range now has only two pieces of glue left, `G9Glue` and `G10Glue`, which
+other tasks own. Its leaves are the bundles plus Burnside, R14Det, `SenTwist`, `FiniteImageHT`
+and weil-pairing's three leaves; T26 is the bundle's `t26`. The weil-pairing part also compiles
+over Split.lean's copy of `PkgI3`.
+
 **Finding (VERIFIED, compiled as `g12Weight_concl_iff`).** For `1 ≤ k`, `G12Weight`'s conclusion
 `∃ n, {n, n + 1 − k} = {0, −1}` is equivalent to `k = 2`. The statement is true and not vacuous.
 Its hypotheses hold for Glazer's `r₅`; a model review also gives the witness `V_5` of a non-CM
@@ -148,6 +171,8 @@ What remains:
   then the DetTate.lean body, then `part_leaves.lean`. It ends in `detTate_of_leaves`.
 - `scratch/g12-det/Weight.lean`, built by `build.sh`: Split.lean followed by the `part_*.lean`
   files of §4. It ends in `g12Weight_of_senTwist`.
+- `scratch/g12-det/Integrate.lean`, built by `build_int.py`: ModGalois.lean followed by the new
+  parts only and `part_integrate.lean`. It proves `galoisPieces_of` and `g8_g12_of_leaves'`.
 - `scratch/g12-det/HTFast.lean`: a faster check of `htConj_of` and `htExtend`, built from
   Split.lean L1-4727, `part_htdefs.lean`, `part_htconj.lean` and `part_htextend.lean`. One run
   takes about 1 minute.
