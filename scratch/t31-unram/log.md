@@ -29,3 +29,26 @@
   `IntermediateField.le_maximalUnramifiedExtension`, `mem_maximalUnramifiedExtension_iff`,
   `finiteIntermediateField*`, `IntermediateField.valuativeExtension`,
   `Valuation.Integers.isIntegral_iff_valuation_le_one`.
+- 04:3x Main.lean `ZInQ.Contrib.T31.leafUnramified : GlueDescent.B2Q.LeafUnramified` compiles
+  (VERIFIED, `lake build ZInQKernel.Contrib.T31.Main`, 9129 jobs). `#print axioms`:
+  [propext, Classical.choice, Quot.sound] (VERIFIED, scratch/t31-unram/Axioms.lean).
+  TC inputs: `isUnramified_unramifiedExtension`, `finrank_unramifiedExtension`,
+  `unramifiedExtension_le_of_dvd`, `isCyclic_algEquiv`, `algebraicExtensionValuativeRel`,
+  `algebraicExtension_valuativeExtension`, `Padic.irreducible_natCast_self`.
+- Namespace renamed `T31` → `ZInQ.Contrib.T31` (rebuilt, axioms re-checked: VERIFIED).
+- Leaves.lean blocks GlueDescent.B2 (8544-8737) and GlueDescent.B2Q (8749-8837) are textually
+  identical to ZInQKernel/HDecomp/Descent/B2Glue.lean (VERIFIED, diff).
+- Wired.lean: `b2_of_leaves_T31`, `b3_degree_le_QM_of_T14_T15_T31` compile, standard axioms
+  (VERIFIED).
+- Not used / not vendored: Brauer/Torsion.lean and its 7 missing modules, Brauer/Unramified.lean,
+  decompositionEquiv, the continuous-cohomology comparison. Reason: elementary route (cyclic
+  inflation lemma) suffices once ι₀(L) ⊆ K_f.
+
+## Findings
+- T31 is TRUE as stated; no extra hypothesis needed (VERIFIED by the compiled proof).
+- `Ideal.card_inertia_eq_ramificationIdxIn` instance requirements (HasSeparableResidueFieldsAt,
+  Flat ℤ (𝓞 L)) resolve automatically for `𝓞 L` over `ℤ` (VERIFIED).
+- Pitfall: in a section with `variable (K)`, a theorem whose statement mentions `K` only through
+  instances needs `include K`.
+- Pitfall: `GQp p = Field.absoluteGaloisGroup ℚ_[p]` has no `CoeFun`; use a wrapper
+  `actp σ : ℚ̄_p ≃ₐ[ℚ_p] ℚ̄_p := σ`.
