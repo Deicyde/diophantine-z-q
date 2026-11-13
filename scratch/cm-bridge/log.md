@@ -17,3 +17,8 @@
 - Plan for GenusFieldLeLni (n ≡ 7 (8)): Bauer (`le_of_splitSet_diff_subset`) with E = K_n(i, √p : p ∣ n); a prime
   𝔭 ∤ 2n split in E has −1, p squares mod 𝔭, so |O/𝔭| ≡ 1 (4) and (|O/𝔭| / p) = 1 by
   `FiniteField.isSquare_odd_prime_iff`, so every genus character χ_p([𝔭]) = 1, so [𝔭] ∈ Cl² (`picSquares_eq_iInf_ker_chi`).
+- `thm36_7.py` → `thm36_7.out` (PARI 400 digits): leaf formulation of TYZ Thm 3.6(3) (L1424–1427):
+  `conj(z_n) + ρ(z_n) = τ(1/2) = (2,−4)` with ρ|_{H_n} = Art([𝔭₂]^{−5}), 𝔭₂ = (2, (√−n − δ)/2) (TYZ's v₂;
+  σ_{ϖ^5} geometric ⇒ arithmetic Art^{−5}), ρ(z) via Shimura reciprocity in cm-numeric's VERIFIED direction.
+  Holds for all 12 squarefree n ≡ 7 (8), 7 ≤ n ≤ 103 (VERIFIED computed); wrong sign [𝔭₂]^{+5} fails in the
+  8 cases where [𝔭₂]^{10} ≠ 1 (n = 23, 31, 39, 55, 71, 87, 95; and passes only where it coincides).
