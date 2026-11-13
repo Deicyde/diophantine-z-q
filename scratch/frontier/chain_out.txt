@@ -1,0 +1,247 @@
+===== scenario A
+edge check mismatches: 0
+open nodes: 112
+  AbhyankarDVR                                  TextbookLeaves.t2
+  AnalyticUniformizationOfDim                   GluePieces5.analyticUniformizationOfDim
+  BrauerHasse2C                                 TextbookLeaves.t14a
+  BrauerReciprocity2C                           TextbookLeaves.t14b
+  CMDescends                                    GluePieces5.cmDescends
+  CMFieldOfDefinition                           -
+  CMOptimalEmbedding                            GluePieces5.cmOptimalEmbedding
+  CarayolR17'                                   GluePieces5.carayolR17
+  CharPolyIndepOfEll                            TextbookLeaves.t7
+  ChebotarevExists                              TextbookLeaves.t18
+  DeRhamComparisonHT                            ResearchLeaves4.r10
+  DeligneSerreConseq                            ResearchLeaves4.r15
+  DimJ1Genus                                    TextbookLeaves.t34
+  DivisiblePoints                               GluePieces5.divisiblePoints
+  EigenformHT                                   ResearchLeaves4.r13
+  EigenformRepExists                            ResearchLeaves4.r14
+  EigenformTwist                                TextbookLeaves.t24
+  FHNonvanishing                                -
+  FaltingsSemisimple                            ResearchLeaves4.r9a
+  FaltingsTate                                  ResearchLeaves4.r9b
+  FiniteImageHT                                 GluePieces5.finiteImageHT
+  GenusPointLeafCM                              -
+  GoodRedTorsion                                GluePieces5.goodRedTorsion
+  GrossZagierHeegner                            -
+  GrothendieckMonodromy                         ResearchLeaves4.r8  [never projected]
+  HeckeBranch                                   GluePieces5.heckeBranch
+  HeckeDegree                                   GluePieces5.heckeDegree
+  HeckeIrreducible                              GluePieces5.heckeIrreducible
+  HeckeNoVertRam                                GluePieces5.heckeNoVertRam
+  HeckeNormalizationIrr                         GluePieces5.heckeNormalizationIrr
+  HilbertDifferentFormula                       TextbookLeaves.t20  [never projected]
+  HodgeBCInjective                              GluePieces5.hodgeBCInjective
+  HomFreeFinite                                 TextbookLeaves.t6
+  HomLinearLift                                 GluePieces5.homLinearLift
+  IgusaClebschSeparation                        TextbookLeaves.t28  [never projected]
+  IsogenyQuasiInverse                           GluePieces5.isogenyQuasiInverse
+  JacobianExists                                TextbookLeaves.t33
+  KernelFieldBreaks                             GluePieces5.kernelFieldBreaks
+  KroneckerWeberCyclic                          TextbookLeaves.t17
+  KummerAbhyankarFinGlue                        GluePieces5.kummerAbhyankarFinGlue
+  KummerAbhyankarInfGlue                        GluePieces5.kummerAbhyankarInfGlue
+  KummerCompositum                              GluePieces5.kummerCompositum
+  KummerOtherBranchFin                          GluePieces5.kummerOtherBranchFin
+  KummerOtherBranchInf                          GluePieces5.kummerOtherBranchInf
+  KummerVerticalFin                             GluePieces5.kummerVerticalFin
+  KummerVerticalInf                             GluePieces5.kummerVerticalInf
+  LeafUnramified                                TextbookLeaves.t31
+  Lemma318Literal                               -
+  LinkedFrob                                    GluePieces5.linkedFrob
+  LocalH2CardC                                  TextbookLeaves.t15
+  LocalKroneckerWeber                           TextbookLeaves.t16a
+  LocalReciprocityUpper                         TextbookLeaves.t16b  [never projected]
+  NeronMappingAbelianScheme                     TextbookLeaves.t3  [never projected]
+  NeronModelExists                              TextbookLeaves.t41
+  NeronOggShafarevich                           ResearchLeaves4.r7a
+  NewformOfEigenform                            TextbookLeaves.t25
+  OmegaBaseChange                               GluePieces5.omegaBaseChange
+  PanBerger                                     ResearchLeaves4.r11r12
+  PiTwistC                                      GluePieces5.piTwistC
+  PoincareReducibility                          TextbookLeaves.t8
+  PurityBranchLocus                             TextbookLeaves.t1  [never projected]
+  QMClassNumberOne                              GluePieces5.qmClassNumberOne
+  QMDichotomyYu                                 TextbookLeaves.t27
+  QMEndRank                                     GluePieces5.qmEndRank
+  QMHauptmodul                                  GluePieces5.qmHauptmodul
+  QMTwistLattice                                GluePieces5.qmTwistLattice
+  R03_LinYang                                   ResearchLeaves4.r3  [never projected]
+  R14Det                                        GluePieces5.r14Det
+  R16_EichlerShimuraJ1'                         ResearchLeaves4.r16
+  R18_Javanpeykar                               ResearchLeaves4.r18
+  R19_GaudronRemond                             ResearchLeaves4.r19
+  R1R2fpRep                                     ResearchLeaves4.r1r2
+  R1bFamily                                     GluePieces5.r1bFamily
+  R1rec                                         ResearchLeaves4.r1rec  [never projected]
+  R20_FaltingsLemma5                            ResearchLeaves4.r20
+  R21_Bost                                      ResearchLeaves4.r21
+  R22_Pazuki                                    ResearchLeaves4.r22
+  R5fp                                          ResearchLeaves4.r5  [never projected]
+  R5fpCount                                     ResearchLeaves4.r5count
+  RaynaudCriterion                              ResearchLeaves4.r6
+  ReductionTorsionBijective                     TextbookLeaves.t4  [never projected]
+  S8Nonzero                                     GluePieces5.s8Nonzero
+  S8WeightExact                                 GluePieces5.s8WeightExact
+  SNSpecialize                                  GluePieces5.snSpecialize
+  SenTwist                                      GluePieces5.senTwist
+  SerreDifferentBound                           TextbookLeaves.t21  [never projected]
+  SerreTatePotentialGood                        ResearchLeaves4.r7b  [never projected]
+  SphereFactorAffine                            GluePieces5.sphereFactorAffine
+  StableHeightFinite                            ResearchLeaves4.h5fin
+  T09_SymmIsogenyExists                         GluePieces5.t09SymmIsogenyExists
+  T09_WeilPairing                               TextbookLeaves.t9
+  T10_TateDuality                               TextbookLeaves.t10  [never projected]
+  T11a_RiemannEnd                               TextbookLeaves.t11a
+  T11b_Rigidity                                 TextbookLeaves.t11b
+  T23_FontaineClosure                           TextbookLeaves.t23
+  T29a_DivisionNormalizer                       TextbookLeaves.t29a  [never projected]
+  T29b_SplitNormalizer                          TextbookLeaves.t29b  [never projected]
+  TYZLcalOne                                    -
+  TYZLemma29Mod2                                -
+  TYZSigmaFixesZn                               -
+  TYZThm11Integral                              -
+  TateModuleFree                                TextbookLeaves.t26
+  TateRamAtThree                                GluePieces5.tateRamAtThree
+  ThetaModularity                               ResearchLeaves4.r4  [never projected]
+  ThetaRatiosAlgebraic                          GluePieces5.thetaRatiosAlgebraic
+  TorsionStructure                              TextbookLeaves.t5
+  TwistDescent                                  GluePieces5.twistDescent
+  UniformizationExists                          TextbookLeaves.t35
+  ValenceBoundGammaStar                         GluePieces5.valenceBoundGammaStar
+  VerticalResidueSeparable                      GluePieces5.verticalResidueSeparable
+  X1Leaves                                      TextbookLeaves.x1
+  X6ConicModel                                  GluePieces5.x6ConicModel
+===== scenario F
+edge check mismatches: 0
+open nodes: 92
+  AbVarSpreadsOut                               -
+  BetaOnGenus7                                  -
+  CMDescends                                    GluePieces5.cmDescends
+  CMOptimalEmbedding                            GluePieces5.cmOptimalEmbedding
+  CarayolR17'                                   GluePieces5.carayolR17
+  CharPolyIndepOfEll                            TextbookLeaves.t7
+  CurveChartInf                                 -
+  CurveNormChart                                -
+  CurveOfFunctionFieldQ                         -
+  DeRhamComparisonHT                            ResearchLeaves4.r10
+  DeligneSerreConseq                            ResearchLeaves4.r15
+  DimJ1Genus                                    TextbookLeaves.t34
+  DivisiblePoints                               GluePieces5.divisiblePoints
+  EigenformHT                                   ResearchLeaves4.r13
+  EigenformRepExists                            ResearchLeaves4.r14
+  EigenformTwist                                TextbookLeaves.t24
+  EtaCuspGrowth                                 -
+  EtaModelFricke                                -
+  EtaModelInvariant                             -
+  FHNonvanishing                                -
+  FaltingsSemisimple                            ResearchLeaves4.r9a
+  FaltingsTate                                  ResearchLeaves4.r9b
+  FibreTransferC                                -
+  FiniteImageHT                                 GluePieces5.finiteImageHT
+  GammaStarGen                                  -
+  GrossZagierHeegner                            -
+  GrothendieckMonodromy                         ResearchLeaves4.r8  [never projected]
+  HeckeFibreSizes                               -
+  HeckeNoVertRam                                GluePieces5.heckeNoVertRam
+  HoloHomLift                                   -
+  HomFreeFinite                                 TextbookLeaves.t6
+  IgusaTransitive                               -
+  IsogenyQuasiInverse                           GluePieces5.isogenyQuasiInverse
+  JacobianExists                                TextbookLeaves.t33
+  KummerCompositum                              GluePieces5.kummerCompositum
+  Lemma318Literal                               -
+  Lemma321Five                                  -
+  LocalReciprocityUpper                         TextbookLeaves.t16b  [never projected]
+  NeronMappingAbelianScheme                     TextbookLeaves.t3
+  NeronModelExists                              TextbookLeaves.t41
+  NeronOggShafarevich                           ResearchLeaves4.r7a
+  PanBerger                                     ResearchLeaves4.r11r12
+  PoincareReducibility                          TextbookLeaves.t8
+  ProperSmoothGenConnected                      -
+  PurityBranchLocus                             TextbookLeaves.t1  [never projected]
+  QMClassNumberOne                              GluePieces5.qmClassNumberOne
+  QMDichotomyYu                                 TextbookLeaves.t27
+  QMHauptmodul                                  GluePieces5.qmHauptmodul
+  QMLatticeTwistAlg                             -
+  R03_LinYang                                   ResearchLeaves4.r3  [never projected]
+  R14Det                                        GluePieces5.r14Det
+  R16_EichlerShimuraJ1'                         ResearchLeaves4.r16
+  R18_Javanpeykar                               ResearchLeaves4.r18
+  R19_GaudronRemond                             ResearchLeaves4.r19
+  R1R2fpRep                                     ResearchLeaves4.r1r2
+  R1bFamily                                     GluePieces5.r1bFamily
+  R1rec                                         ResearchLeaves4.r1rec  [never projected]
+  R20_FaltingsLemma5                            ResearchLeaves4.r20
+  R21_Bost                                      ResearchLeaves4.r21
+  R22_Pazuki                                    ResearchLeaves4.r22
+  R5fp                                          ResearchLeaves4.r5  [never projected]
+  R5fpCount                                     ResearchLeaves4.r5count
+  RaynaudCriterion                              ResearchLeaves4.r6
+  ReductionTorsionBijective                     TextbookLeaves.t4
+  SenTwist                                      GluePieces5.senTwist
+  SerreTatePotentialGood                        ResearchLeaves4.r7b  [never projected]
+  ShimuraReciprocityModFn                       -
+  StableHeightFinite                            ResearchLeaves4.h5fin
+  T09_SymmIsogenyExists                         GluePieces5.t09SymmIsogenyExists
+  T09_WeilPairing                               TextbookLeaves.t9
+  T10_TateDuality                               TextbookLeaves.t10  [never projected]
+  T11aRiemannHom                                -
+  T11a_RiemannEnd                               TextbookLeaves.t11a
+  T11b_Rigidity                                 TextbookLeaves.t11b
+  T23_FontaineClosure                           TextbookLeaves.t23
+  T29a_DivisionNormalizer                       TextbookLeaves.t29a  [never projected]
+  T29b_SplitNormalizer                          TextbookLeaves.t29b  [never projected]
+  TYZLcalOne                                    -
+  TYZLemma29Mod2                                -
+  TYZThm11Integral                              -
+  TYZThm36Seven                                 -
+  TateModuleFree                                TextbookLeaves.t26
+  ThetaModularity                               ResearchLeaves4.r4
+  ThetaRatiosAlgebraic                          GluePieces5.thetaRatiosAlgebraic
+  Thm35First                                    -
+  TorsionStructure                              TextbookLeaves.t5
+  TwistDescent                                  GluePieces5.twistDescent
+  TwistOrbitFinite                              -
+  UniformizationExists                          TextbookLeaves.t35
+  ValenceBoundGammaStar                         GluePieces5.valenceBoundGammaStar
+  X6ConicModel                                  GluePieces5.x6ConicModel
+  Y3Connected                                   -
+def-text comparison (proved field vs g0-assemble3's def):
+  AbhyankarDVR                        identical
+  BrauerHasse2C                       identical
+  BrauerReciprocity2C                 identical
+  LocalH2CardC                        identical
+  LocalKroneckerWeber                 identical
+  KroneckerWeberCyclic                identical
+  ChebotarevExists                    identical
+  HilbertDifferentFormula             identical
+  SerreDifferentBound                 identical
+  NewformOfEigenform                  identical
+  IgusaClebschSeparation              identical
+  LeafUnramified                      identical
+  X1RationalCusp                      identical
+  HodgeBCInjective                    identical
+  OmegaBaseChange                     identical
+  S8Nonzero                           identical
+  SphereFactorAffine                  identical
+  PiTwistC                            identical
+  QMTwistLattice                      identical
+  S8WeightExact                       identical
+  VerticalResidueSeparable            identical
+  SNSpecialize                        identical
+  KummerAbhyankarFinGlue              identical
+  KummerOtherBranchFin                identical
+  KummerVerticalFin                   identical
+  KummerAbhyankarInfGlue              identical
+  KummerOtherBranchInf                identical
+  KummerVerticalInf                   identical
+  HeckeDegree                         identical
+  HeckeIrreducible                    identical
+  HeckeNormalizationIrr               identical
+  HeckeBranch                         identical
+  HomLinearLift                       identical
+  GoodRedTorsion                      identical
+  QMEndRank                           identical
+  AnalyticUniformizationOfDim         def not found in scratch/leaf-fold2/parts/b20_fold.lean

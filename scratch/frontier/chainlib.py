@@ -182,3 +182,15 @@ def def_text(text, short):
         return None
     blk = strip_comments(blk)
     return " ".join(blk.split())
+
+
+def def_texts_all(text, short):
+    """All normalized def texts named `short` in `text` (several namespaces may reuse a name)."""
+    pat = re.compile(r"^(?:@\[[^\]]*\]\s*)?(?:private |protected |noncomputable )*(?:def|abbrev|structure|opaque|irreducible_def)\s+%s(?=[\s:({\[]|$)"
+                     % re.escape(short), re.M)
+    out = []
+    for m in pat.finditer(text):
+        blk = _decl_block(text[m.start():], "def|abbrev|structure|opaque|irreducible_def", short)
+        if blk:
+            out.append(" ".join(strip_comments(blk).split()))
+    return out
