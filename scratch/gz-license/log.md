@@ -26,3 +26,5 @@
    files carry the "Backported from Tau Ceti" line; Backport/Mathlib/Polynomial.lean does not:
    it has a Tau Ceti copyright header but its comment says the proof was written for the backport
    (VERIFIED, read). Recorded in NOTICE; file not edited (rules).
+4. `lake build` of the 20 noted modules (one lake run, 1m23s): "Build completed successfully
+   (5893 jobs)", all 20 listed as Built, no `sorry` (VERIFIED, scratch/gz-license/build.out).
