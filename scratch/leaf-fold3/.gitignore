@@ -1,0 +1,6 @@
+olean/*.olean
+olean/*.ilean
+olean/*_out.txt
+olean/lakebuild.txt
+*_out.txt
+flat_out.txt
