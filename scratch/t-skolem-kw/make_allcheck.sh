@@ -17,4 +17,5 @@ D=scratch/t-skolem-kw
   echo "#print axioms TSkolemKW.hsynBrauerNesbitt"
   echo "#print axioms TSkolemKW.HS.frobeniusDense_of_chebotarev"
   echo "#print axioms TSkolemKW.KW.eq_of_agree_on_roots"
+  echo "#print axioms TSkolemKW.KW.eq_of_agree_on_roots_cyclic"
 } > $D/AllCheck.lean
