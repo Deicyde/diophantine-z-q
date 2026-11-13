@@ -11,7 +11,12 @@ Task cm-bridge (2026-11-13). Report: `docs/research/cm-bridge.md`; log: `scratch
 (`ZInQKernel/Contrib/TYZGenus/RingClassBridge.lean`, `RingClassGenus.lean`), the leaves
 `IInH4`, `HprimeNormal` (ring-class), `IInHprime` (`Lni_le_Hprimebar`), `CMFieldOfDefinition7`
 (from the general `CM.CMFieldOfDefinition ringClassFieldD`, `ringClassFieldD_neg`), and state the
-main theorem with only the remaining leaves.
+main theorem with only the remaining leaves. §11 proves cm-numeric's leaf `GenusFieldLeLni` (genus
+field of `ℚ(√−e)`, `e ≡ 7 (mod 8)`, inside `L_e(i)`; Bauer + genus characters). §12 reduces TYZ Lemma
+3.21(4) (`Lemma321Seven`) to TYZ Theorem 3.6(3) (`TYZThm36Seven`, a leaf about the pinned class-7 CM
+point) and the glue `BetaOnGenus7`; §13 proves `BetaOnGenus7` (the genus field is `K_n(√p* : p ∣ n)`,
+the Artin symbols act on `√p*` by the genus characters, `N𝔭₂ = 2`). Final theorem:
+`tyzThm35ReadingA_of_ringClassD_sigmaShiftsF0_lemma318_thm35First_lemma321Five_thm36Seven`.
 
 No `sorry`, no `axiom`.
 -/
@@ -1074,7 +1079,7 @@ def TYZThm36Seven : Prop :=
 `γ ∘ ρ` agree on the genus field `G_n = ℚ(√p* : p ∣ n)`. TYZ L2526–2531 ("the action of `β_j'` on
 `L_n(i)` is the same as that of `σ_ϖ ∘ c`") plus `σ_ϖ = σ_{ϖ^5}` on `L_n` (exponent 2). Glue: on
 `√p*` both sides act by `(2/p)·sgn(p*)` (`betaOneSign`; Art`[𝔭₂]` acts on `√p*` by the genus character
-`χ_p([𝔭₂]) = (N𝔭₂/p) = (2/p)`), and `G_n = K_n(√p* : p ∣ n)` (Gauss). Not proved here. -/
+`χ_p([𝔭₂]) = (N𝔭₂/p) = (2/p)`), and `G_n ⊆ K_n(√p* : p ∣ n)` (Gauss). Proved in §13 (`betaOnGenus7`). -/
 def BetaOnGenus7 : Prop :=
   ∀ n : ℕ, ∀ _ : NeZero n, n % 8 = 7 → Squarefree n → ∀ σ γ ρ : GalQ, IsBetaOneLift σ →
     IsComplexConj γ → ActsAsArtinO n (OK n) ρ ((p2Class n)⁻¹ ^ 5) →
