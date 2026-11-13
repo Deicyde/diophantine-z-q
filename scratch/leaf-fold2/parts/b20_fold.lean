@@ -304,9 +304,11 @@ theorem textbookLeaves_of_open2 (t : OpenTextbookLeaves2) : TextbookLeaves where
   x1 := x1Leaves_of_open2 t
   t41 := t.t41
 
-/-- `GluePieces3` from the open statements: the proved fields are filled by their proofs
-(`mulEtale` by `MulIsogeny`'s proof is not needed: see `gluePieces_of_open2`, which uses
-`mulIsogeny_proved` directly). -/
+/-- **Leaves.lean's `GluePieces` from the open statements.** g0-assemble2's
+`gluePieces_of_gluePieces3`, with every proved field replaced by its proof (`mulIsogeny_proved` for
+`mulIsogeny_of_mulEtale gp.mulEtale`, the curve facts inside `mobiusGlue_of_t5'`, `oMaximal_proved`,
+`endTransport_proved`, `cotangentSpanBC_proved`, `uniformizationLiftAnalytic_proved`, G9 from
+`r.r10`, G10 from conj-twist's `conjTwistNontrivial_of_leaves`). -/
 theorem gluePieces_of_open2 (r : OpenResearchLeaves2) (t : OpenTextbookLeaves2)
     (l : OpenAddedLeaves2) (g : OpenGlue2) : GluePieces :=
   let r3 := researchLeaves3_of_open2 r
@@ -358,7 +360,7 @@ theorem gluePieces_of_open2 (r : OpenResearchLeaves2) (t : OpenTextbookLeaves2)
 
 /-- **G0 with only the open leaves and the open glue** (leaf-fold2; no `sorry`, standard axioms).
 `ZInQ.SixContactMin` follows from
-* `OpenResearchLeaves2`: 25 research-level fields (R1(b), R10, R14, R17 in concrete or corrected
+* `OpenResearchLeaves2`: 26 research-level fields (R1(b), R10, R14, R17 in concrete or corrected
   form; no `opaque` placeholder);
 * `OpenTextbookLeaves2`: 18 textbook fields;
 * `OpenAddedLeaves2`: 12 leaves (9 LEAF, 3 LEAF?) introduced by the wave 26-27 reductions;

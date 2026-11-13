@@ -18,3 +18,32 @@ Marks: VERIFIED (compiled / read in a file), STANDARD, SPECULATIVE, UNVERIFIED.
 - Statement checks by structure: kernel Props over Mathlib-only definitions transfer by `exact`
   (leaf-fold's method). Props over file-defined structures (AbVar, ToP1) do not: AbVarBC is copied
   (part b10, mk_abvarbc.py); image-plane's C2K/C3K use `ToP1`, converted field by field (`toP1K`).
+
+## Olean chain (2026-11-13 09:05-09:50 PST), VERIFIED compiled
+- lake build of the imported kernel modules (incl. T14.Main, T28.Assemble, RLeaf.X1ConstantField, QM.Pin,
+  Textbook.SkolemNoether): ok.
+- LPrefix (Leaves.lean, ten unused TextbookLeaves fields deleted): exit 0, 0 errors, 582 s. So no
+  declaration of Leaves.lean uses t1, t2, t3, t4, t16b, t20, t21, t28, t29a, t29b.
+- TailA: first run 12 errors. (a) 8 "already declared": part 70's copies of resQ, Vb, tate, Intertwines,
+  G10Out, toRingEquivQ, cycQ, R14Det (leaf-fold put identical copies in Leaves.lean) -> deleted
+  (mk_fix_tailA.py, bodies checked identical). (b) part 77 `equivariant_of_asModule`: its `simp` calls
+  leave goals with the Contrib modules in scope -> explicit rewrites (probe olean/T1.lean, 0 errors).
+  Then exit 0, 0 errors, 69 s.
+- TailB: `G0Galois.ConjTwistNontrivial` already declared (leaf-fold copy) -> deleted from a30
+  (mk_fix_b.py). Exit 0, 0 errors, ~100 s.
+- TailC (a75 replaced by mk_a75.py with kernel-field's current New.lean): errors: FS4Copy and
+  RigidityHom duplicates of part 40 (deleted), six-clause R1fpProps projection `hR1.2.2.2` ->
+  `hR1.2.2.2.1`, an `IsDedekindFiniteMonoid` instance timeout in a95 (`ofPlus_xi'_pow_ne_zero`,
+  synthInstance.maxHeartbeats 400000). Then exit 0, 0 errors, 193-243 s.
+- TailD: exit 0, 0 errors; g0-assemble2's four theorems with standard axioms over the HDec base.
+- LF2ImagePlane (image-plane verbatim): 0 errors, 19 s. LF2Stalks (infra-stalks Part 1): 0 errors, 9 s.
+- TailE: first run errors: b07 slice missed its closing `end ZInQ.HeightBC` (fixed: lines 2955-3301);
+  `T28.igusaClebschSeparation_proved` is in root namespace `T28`; conj-twist's later commit added
+  `[NumberField K]` to `ConjUniformization` (a30's copy updated, mk_fix_b.py; rest of the copied lines
+  unchanged by diff). Then TailB-E recompiled: all exit 0, 0 errors, no sorry.
+- TailE #print axioms: all 23 theorems `[propext, Classical.choice, Quot.sound]`, including
+  HDec.HSyn.sixContactMin_of_open2, gluePieces_of_open2, and each *_proved transfer (T14a, T14b, T28,
+  T36, T37, T39<-T40, C1b, C2K, C3K, MobiusGlue<-T5, MulIsogeny, KerUnitOpen, AbVarBaseChange, G9<-R10HT,
+  OMaximal, EndTransport, ConjTwistNontrivial, CotangentSpanBC, UniformizationLiftAnalytic).
+- Kernel Props over Mathlib-only definitions were accepted by plain term proofs (T14, T28, T36, T37,
+  C1b); C2K, C3K through `toP1K` (field-by-field map of `ToP1`). VERIFIED by the compile.
