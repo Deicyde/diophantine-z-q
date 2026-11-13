@@ -7,11 +7,14 @@
 #  3. ProductUnif.lean lines 2236-2279 (section SAlg header + `ProductUnifDims`, verbatim) and
 #     lines 2561-2591 (`ProductUnifDimsEq`, `productUnifDims_of`, end SAlg), verbatim;
 #  4. Torsion.lean (this task, Mathlib only) without import / #print;
-#  5. part_main.lean (this task).
+#  5. part_main.lean (this task);
+#  6. ProductUnif.lean lines 1842-1904 (metrization's pullGerm, ProductHodgeLattice), verbatim;
+#  7. part_phl.lean (this task).
 # Prerequisite: lake build ZInQKernel.HDecomp.LeafPush2.T
 cd "$(dirname "$0")"
 PU=../product-unif/ProductUnif.lean
 { echo 'import ZInQKernel.HDecomp.LeafPush2.T'
+  echo 'import ZInQKernel.HDecomp.Faltings.HodgeLattice'
   echo 'import Mathlib'
   grep -v '^#print axioms\|^import' base/Kernel_metrization2.lean
   echo
@@ -29,4 +32,10 @@ PU=../product-unif/ProductUnif.lean
   grep -v '^import\|^#print axioms' Torsion.lean
   echo
   cat part_main.lean
+  echo
+  # metrization's pullGerm and ProductHodgeLattice, verbatim (ProductUnif.lean lines 1842-1904)
+  sed -n 1842,1904p $PU
+  echo "end ZInQ.Metrization"
+  echo
+  cat part_phl.lean
 } > UnifDims.lean
