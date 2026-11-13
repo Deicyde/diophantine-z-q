@@ -25,3 +25,5 @@
   to e ≠ 0); conjMaps_of_qm (TorsCount + End = ι(O) + ConjIsogMapsAt → ConjMaps); ConjIsogMaps, EndEqOOnHomField (Props);
   conjMapsNoCM_of; kernelFieldExists_of_split (HFF, NOS, Raynaud, TorsionStructure, FS5, ConjIsogMaps, EndEqOOnHomField)
   compiled, standard axioms (VERIFIED, build7.txt).
+- 06:1x EndEqOOnHomField split into EndEqOFibre (one QM surface over ℚ̄: com = ℤ ⟹ End = ι(O)) and EndTransport (to the Hom
+  field); endEqOOnHomField_of, kernelFieldExists_of_split' compiled, standard axioms (VERIFIED, build_final.txt).

@@ -4759,10 +4759,51 @@ theorem kernelFieldExists_of_split (hHFF : PkgI3.HomFreeFinite)
     (hG : ConjIsogMaps) (hE : EndEqOOnHomField) : KernelFieldExists :=
   kernelFieldExists_of_leaves_FS5 hHFF hNOS hRay hTors h5 (conjMapsNoCM_of hTors hG hE)
 
+/-- **Remaining glue 4a (one QM surface over `ℚ̄`): `End_𝒪 = ℤ ⟹ End = ι(𝒪)`.** For an object `P`
+(abelian surface over `ℚ̄` with QM by the maximal order `𝒪` of `(2,-3)_ℚ`) whose `𝒪`-centralizer
+is `ℤ`, every endomorphism is `ι(a)`. *Argument* (model check): T27 (Yu 2013, leaf
+`PkgI3.QMDichotomyYu`) gives `End⁰ ≅ B` or `M₂(ℚ(√d))`; FS4 (`CentralizerOfMatrixEnd0`, proved
+from T6 by g0-fibresimple) excludes the second; `B → End⁰` (g0-fibresimple's `qm_embeds_end0`) is
+injective (`B` simple) between 4-dimensional spaces, so `End⁰ = ι(B)`; `End` is an order (T6)
+of `ι(B)` containing `ι(𝒪)`, which is maximal, so `End = ι(𝒪)`. No moduli data. -/
+def EndEqOFibre : Prop :=
+  ∀ P : QML3 Qbar, (∀ φ ∈ com P.q, ∃ n : ℤ, φ = (n : PkgI3.AbVar.End P.A)) →
+    ∀ f : PkgI3.AbVar.End P.A, ∃ a : LeafQM.O, f = P.q.iota a
+
+/-- **Remaining glue 4b (transport to the Hom field).** If `End(P.A) = ι(𝒪)`, then
+`End_L(A_L) = ι_L(𝒪)`: `P ≅ (PK)_ℚ̄` as QM objects (R1's naturality applied to
+`RationalFibre`), and base change `End_L(A_L) → End_ℚ̄((A_L)_ℚ̄)` is injective and compatible
+with `ι` (`endBC`, faithful base change: bp-qmmoduli's `endBC_injective`). -/
+def EndTransport : Prop :=
+  ∀ (Y : Over (Spec (CommRingCat.of ℚ))) (Φ : PtEquiv Y) (π : ToP1 Y.left),
+    R1fpProps Y Φ → R2fpProps Y Φ π → ∀ (j₀ : ℚ) (y : fieldPt Qbar ⟶ Y) (P : QML3 Qbar),
+    Φ Qbar y = M3.mk P → π.val (K := Qbar) y.left = OnePoint.some (algebraMap ℚ Qbar j₀) →
+    (∀ f : PkgI3.AbVar.End P.A, ∃ a : LeafQM.O, f = P.q.iota a) →
+    ∀ (K : IF) [FiniteDimensional ℚ K] [IsGalois ℚ K] (PK : QML3 K), RationalFibre Y Φ P K PK →
+      ∀ (L : IF) [FiniteDimensional ℚ L] [IsGalois ℚ L] (hKL : K ≤ L),
+        (∀ σ ∈ L.fixingSubgroup, G4WeilRes.conjAction K PK.A σ = 1) →
+        ∀ f : PkgI3.AbVar.End (@PkgI3.AbVar.baseChange K _ PK.A L _ (incAlg hKL)),
+          ∃ a : LeafQM.O, f = ((@endBC K _ PK.A L _ (incAlg hKL)).comp PK.q.iota) a
+
+/-- `EndEqOOnHomField` from 4a and 4b (proved). -/
+theorem endEqOOnHomField_of (ha : EndEqOFibre) (hb : EndTransport) : EndEqOOnHomField := by
+  intro Y Φ π hR1 hR2 j₀ y P hy hπ hcom K _ _ PK hPK L _ _ hKL hfix
+  exact hb Y Φ π hR1 hR2 j₀ y P hy hπ (ha P hcom) K PK hPK L hKL hfix
+
+/-- **Headline, finest form (proved).** `KernelFieldExists` from the leaves `HomFreeFinite`,
+`NeronOggShafarevich`, `RaynaudCriterion`, `TorsionStructure` and the glue FS5
+`FibreComTrivial`, `ConjIsogMaps`, `EndEqOFibre`, `EndTransport`. -/
+theorem kernelFieldExists_of_split' (hHFF : PkgI3.HomFreeFinite)
+    (hNOS : PkgI2.NeronOggShafarevich.{0}) (hRay : PkgI2.RaynaudCriterion.{0})
+    (hTors : PkgI2.TorsionStructure.{0}) (h5 : G0FibreSimple.FibreComTrivial)
+    (hG : ConjIsogMaps) (ha : EndEqOFibre) (hb : EndTransport) : KernelFieldExists :=
+  kernelFieldExists_of_split hHFF hNOS hRay hTors h5 hG (endEqOOnHomField_of ha hb)
+
 end G0ModField.KernelField
 
 #print axioms G0ModField.KernelField.conjMaps_of_qm
 #print axioms G0ModField.KernelField.kernelFieldExists_of_split
+#print axioms G0ModField.KernelField.kernelFieldExists_of_split'
 #print axioms G0ModField.KernelField.faithful_O
 #print axioms G0ModField.KernelField.center_O
 #print axioms G0ModField.KernelField.aut_O_inner
