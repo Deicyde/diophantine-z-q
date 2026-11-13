@@ -9,13 +9,14 @@ appends them to g0-split's `scratch/g0-split/Split.lean`, giving
 ## 1. Result
 
 **The range G8-G12 is proved, with no `sorry`, from the leaves, the outputs of the earlier glue
-steps, and five named glue Props. The last of those Props, `G12Det`, also needs R14's
-determinant clause, which the stated R14 lacks (§3).** The conclusion is delivered in the exact
+steps, Burnside's theorem (a textbook leaf, which replaces the linear-algebra piece `G8Matrix`;
+`G8Matrix` itself is proved from it) and four named glue Props (`G9Glue`, `G10Glue`, `G12Weight`,
+`G12Det`). `G12Det` also needs R14's determinant clause, which the stated R14 lacks (§3).** The conclusion is delivered in the exact
 form that g0-mod-newform's range takes as input (its `G12Out`): `G0Galois.newformG12Out_of_galois`.
 VERIFIED: `lake env lean scratch/g0-mod-galois/ModGalois.lean` gives 0 errors and no
-`declaration uses sorry` (run7, 2m49s). `#print axioms` gives `[propext, Classical.choice,
+`declaration uses sorry` (run8, 2m34s). `#print axioms` gives `[propext, Classical.choice,
 Quot.sound]` for `G0Galois.g8`, `g11`, `g12`, `g8_g12`, `g8_g12_of_leaves`,
-`commonConstituent_of_sides`, `isConstituentOf_of_intertwines`, `newformG12Out_of_galois`.
+`commonConstituent_of_sides`, `isConstituentOf_of_intertwines`, `newformG12Out_of_galois`, `g8Matrix_of_burnside`.
 
 ```
 theorem G0Galois.g8_g12_of_leaves (r : HSyn.ResearchLeaves) (t : HSyn.TextbookLeaves)
@@ -30,7 +31,7 @@ theorem G0Galois.g8_g12_of_leaves (r : HSyn.ResearchLeaves) (t : HSyn.TextbookLe
       G11Out T r₅ ∧ G12Out r₅
 ```
 
-`m : GaloisPieces` bundles the five named glue Props of this range (§3). The same statement at
+`m : GaloisPieces` bundles `BurnsideAbsIrred` and the four named glue Props of this range (§3). The same statement at
 any prime `ℓ`, without G12, is `G0Galois.g8_g11` (used at `ℓ = 3` by G14-G15). The version with
 the leaves as separate hypotheses is `G0Galois.g8_g12`.
 
@@ -42,7 +43,12 @@ the leaves as separate hypotheses is `G0Galois.g8_g12`.
   Tate action on `G_{L'}`. `dim (ℚ̄_ℓ ⊗ V_ℓ(A)) = 4` comes from T26 with `dim A = 2`, so
   `W = e₀₀ V ≠ 0`. C2 (`PkgI3.C2_absolutelyIrreducible`), applied to `splitEquiv`, makes `ρ|_W`
   absolutely irreducible on `G_{L'}`. The step from there to a continuous
-  `r : G_ℚ → GL₂(ℚ̄_ℓ)` in Burnside form is the named linear-algebra piece `G8Matrix`.
+  `r : G_ℚ → GL₂(ℚ̄_ℓ)` in Burnside form is `G8Matrix`, which is **proved**
+  (`g8Matrix_of_burnside`, `part_matrix.lean`) from `BurnsideAbsIrred`. That proof takes a basis
+  of `W` (`finBasisOfFinrankEq`) and the matrix hom through `toMatrixAlgEquiv` and `toHomUnits`.
+  Continuity comes from `G7Out`'s weak continuity through the functionals `b.coord i ∘ e₀₀`
+  (`Units.continuous_iff`, `continuous_matrix`). The intertwining comes from `splitEquiv` and
+  `toMatrix_mulVec_repr`.
 - **G11** (`G0Galois.g11`). Proved from `G2Out`, `G3Out` and G8's intertwining, with no named
   glue: an inertia element above `p ∉ T ∪ {ℓ}` lies in `G_K` (G2). It acts trivially on
   `V_ℓ(A)` (G3 with R7a), so trivially on `r ⊕ r`, so `r(σ) = 1`.
@@ -90,13 +96,13 @@ The coefficient field is `ℚ̄_ℓ = PadicAlgCl ℓ` throughout (Pan's coeffici
 | `G11Out T r` | G11 | `r` unramified at every prime `p ∉ T`, `p ≠ ℓ` |
 | `G12Out r₅` | G12 | `∃ N ≥ 1, χ, g ∈ S₂(Γ₁(N))` normalized eigenform with nebentypus `χ`, `ψ` continuous of finite image, `ιC`, `ιL`, `S` finite: `r₅.AttachedUpToTwist ψ ιC ιL g S` |
 
-## 3. What remains: five named glue Props, plus one for the newform feed (none is a leaf)
+## 3. What remains: Burnside (a textbook leaf), four named glue Props, and one more for the newform feed
 
 Sizes are SPECULATIVE (small < 500 lines, medium 0.5-3k, large 3-10k).
 
 | Prop | content | inputs named in it | why true | size |
 |---|---|---|---|---|
-| `G8Matrix` | `ρ` on `ℚ̄_ℓ ⊗ V_ℓ(A)` of dimension 4 commuting with matrix units, weakly continuous, with `ρ\|_W` absolutely irreducible on `G_K` ⇒ continuous `r` with `e` intertwining `ρ` and `r ⊕ r` on `G_ℚ`, and `r(G_K)` spanning `M₂(ℚ̄_ℓ)` | none (linear algebra) | basis of `W` (`finrank_W`), `splitEquiv`, continuity from weak continuity, Burnside over the algebraically closed `ℚ̄_ℓ` (Mathlib has `jacobson_density`) (STANDARD) | small-medium |
+| `BurnsideAbsIrred` (replaces `G8Matrix`, which is proved from it) | a representation of a monoid on a finite-dimensional `F`-space that stays irreducible after every field extension has image generating `M_n(F)` (any basis) | none: a textbook leaf | Burnside (Lang, *Algebra* XVII §3; Curtis–Reiner §27; locators UNVERIFIED). Mathlib's `jacobson_density` is the route to a proof | small-medium |
 | `G9Glue` | R10 → T23 → (`ℚ̄_ℓ ⊗ V_ℓ(A) ≅ r\|G_K ⊕ r\|G_K`, `dim A = 2` ⇒ `G9Out r`) | R10 (`DeRhamComparison`), T23 | N5's appendix lemma (h-trust C3, two model reviews) with the Galois choice of the local field. Needs base change of `PkgI3.AbVar` to a completion, the identification of pkg-I3's and pkg-I4's `AbVar` copies, and the reduction to a finite coefficient field | medium-large |
 | `G10Glue` | T11 → T12 → R9b → (`K` Galois, `End_K(A)` rank 4, division, noncommutative, the same splitting ⇒ `r` odd) | T11, T12 (opaque placeholders), R9b | N5 L742-751 (h-trust C5). For any extension `r`, `φ = ρ(c)∘c⁻¹` is `B`-linear and in `Hom(A^c, A) ⊗ ℚ̄_ℓ` (Faltings), so it equals `a·μ_c`, and the Betti argument applies. SPECULATIVE as a reduction; each step STANDARD or model-reviewed | medium (needs analytification) |
 | `G12Weight` | R14 → R13 → R15 → T18 → T19 → (Pan's output for an irreducible `r` with weights `{0,−1}` ⇒ `∃ n, {n, n+1−k} = {0,−1}`) | R13, R14, R15, T18, T19 | `r ≅ ρ_g ⊗ ψ` (Chebotarev, Brauer–Nesbitt), weights of a twist shift by the weight of `ψ`. For `k = 1`, Deligne–Serre gives weights `{0,0}`, which contradicts `{0,−1}` (h-trust C8) | medium (HT weights of tensor products) |
@@ -231,11 +237,13 @@ The remaining inputs come from elsewhere:
   `Vb`, `tate`, `restrictRep`, `Intertwines`), the input and output Props, the five named glue
   Props, and the theorems `g8`, `g11`, `finitelyRamified_of_g11`, `isIrreducible_of_g8`, `g12`,
   `g8_g11`, `g8_g12`.
+- `scratch/g0-mod-galois/part_matrix.lean` (≈ 110 lines): `BurnsideAbsIrred` and
+  `g8Matrix_of_burnside`.
 - `scratch/g0-mod-galois/part_bundle.lean` (263 lines): `GaloisPieces`,
   `g8_g12_of_leaves`, `JSide`, `commonConstituent_of_sides`, the copied newform interface
   (`NF.*`), `FiniteCharDirichlet`, `isConstituentOf_of_intertwines`, `panOutput_of_g12`,
   `newformG12Out_of_galois`.
-- `ModGalois.lean` is generated (`build.sh`). It is g0-split's `Split.lean` followed by the two
+- `ModGalois.lean` is generated (`build.sh`). It is g0-split's `Split.lean` followed by the three
   parts. The leaf statements (PanBerger, DeRhamComparison, EigenformHT, T23, the bundles) exist
   only in `Split.lean` (from `Leaves.lean`), not in `ZInQKernel/HDecomp/`.
 - **Different environments.** g0-mod-field and g0-mod-newform compile over

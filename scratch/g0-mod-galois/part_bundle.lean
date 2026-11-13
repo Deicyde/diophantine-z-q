@@ -7,9 +7,10 @@ open PkgI4 (GaloisRep GaloisChar)
 
 noncomputable section
 
-/-- The five named glue pieces of the range G8-G12. -/
+/-- The five named pieces of the range G8-G12 (`G8Matrix` is proved from Burnside's theorem,
+`g8Matrix_of_burnside`, so the bundle holds Burnside, a textbook leaf, in its place). -/
 structure GaloisPieces : Prop where
-  matrix : G8Matrix
+  burnside : BurnsideAbsIrred
   deRham : G9Glue
   odd : G10Glue
   weight : G12Weight
@@ -27,7 +28,7 @@ theorem g8_g12_of_leaves (r : HSyn.ResearchLeaves) (t : HSyn.TextbookLeaves) (m 
     ∃ r₅ : GaloisRep 5 2, G8Out A 5 (GlueDescent.rho Tm a β) r₅ ∧ G9Out r₅ ∧ G10Out r₅ ∧
       G11Out T r₅ ∧ G12Out r₅ :=
   g8_g12 r.r9a r.r9b t.t26 t.t6 HSyn.G0Split.semisimpleBaseChange r.r10 t.t23 t.t11 t.t12
-    r.r11r12 r.r14 r.r13 r.r15 t.t18 t.t19 t.t9 m.matrix m.deRham m.odd m.weight m.det
+    r.r11r12 r.r14 r.r13 r.r15 t.t18 t.t19 t.t9 (g8Matrix_of_burnside m.burnside) m.deRham m.odd m.weight m.det
     A T h2 h6 h3 Tm c ε a β u h7
 
 /-! ### How the conclusion feeds G13-G16 and `ModularConstituent` -/
@@ -243,7 +244,7 @@ theorem newformG12Out_of_galois (r : HSyn.ResearchLeaves) (t : HSyn.TextbookLeav
     g8_g12_of_leaves r t m A T h2 h6 h3₅ Tm₅ c₅ ε₅ a₅ β₅ u₅ h7₅
   obtain ⟨r₃, ⟨hres₃, e₃, hint₃, hadj₃⟩, -, -, -⟩ :=
     g8_g11 r.r9a r.r9b t.t26 t.t6 HSyn.G0Split.semisimpleBaseChange r.r10 t.t23 t.t11 t.t12
-      m.matrix m.deRham m.odd A T h2 h6 3 h3₃ Tm₃ c₃ ε₃ a₃ β₃ u₃ h7₃
+      (g8Matrix_of_burnside m.burnside) m.deRham m.odd A T h2 h6 3 h3₃ Tm₃ c₃ ε₃ a₃ β₃ u₃ h7₃
   obtain ⟨ιC, ι5, hpan⟩ := panOutput_of_g12 t.t17 hFD r₅ h12
   exact ⟨⟨qEmb K, ιC, ι5, ι3, r₅, r₃⟩, isIrreducible_of_g8 hadj₅, isIrreducible_of_g8 hadj₃,
     isConstituentOf_of_intertwines A 5 r₅ e₅ (intertwines_res hres₅ hint₅),
@@ -254,6 +255,7 @@ end
 end G0Galois
 
 #print axioms G0Galois.g8
+#print axioms G0Galois.g8Matrix_of_burnside
 #print axioms G0Galois.g11
 #print axioms G0Galois.g12
 #print axioms G0Galois.g8_g12

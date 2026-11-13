@@ -20525,6 +20525,93 @@ end
 
 end G0GaloisSec
 
+/-! ### G8's linear-algebra remainder, reduced to Burnside's theorem -/
+
+section G0GaloisMatrixSec
+
+noncomputable section
+
+namespace G0Galois
+
+open PkgI4 (GaloisRep)
+
+/-- **Burnside's theorem, absolutely irreducible form (textbook leaf; Lang, *Algebra*, XVII §3,
+Cor. 3.4, and Curtis–Reiner §27 (Burnside, Frobenius–Schur); locators UNVERIFIED).** If a
+finite-dimensional representation `ρ` of a monoid over a field `F` stays irreducible after every
+field extension, then the matrices `ρ(g)` (in any basis) generate `M_n(F)` as an `F`-algebra.
+Mathlib has the Jacobson density theorem (`jacobson_density`), from which it follows. -/
+def BurnsideAbsIrred : Prop :=
+  ∀ (F : Type) [Field F] (G : Type) [Monoid G] (W : Type) [AddCommGroup W] [Module F W]
+    [FiniteDimensional F W] (n : ℕ) (b : Module.Basis (Fin n) F W) (ρ : Representation F G W),
+    (∀ (F' : Type) [Field F'] [Algebra F F'], (GlueI3.repBaseChange F' ρ).IsIrreducible) →
+    Algebra.adjoin F (Set.range fun g => LinearMap.toMatrix b b (ρ g)) = ⊤
+
+/-- **`G8Matrix` from Burnside (proved).** A basis of `W = e₀₀ V` (`dim W = 2`) turns `ρ|_W` into
+a continuous `r : G_ℚ → GL₂(ℚ̄_ℓ)` (continuity from the weak continuity of `ρ`, through the
+functionals `b.coord i ∘ e₀₀`); `splitEquiv` composed with the basis intertwines `ρ` with
+`r ⊕ r`; Burnside gives the generation of `M₂(ℚ̄_ℓ)` by `r(G_K)`. -/
+theorem g8Matrix_of_burnside (hB : BurnsideAbsIrred) : G8Matrix := by
+  intro K _ _ A ℓ _ ρ u hc h4 hcont hirr
+  haveI : FiniteDimensional (PadicAlgCl ℓ) (Vb A ℓ) :=
+    Module.finite_of_finrank_pos (by rw [h4]; norm_num)
+  have hW2 : Module.finrank (PadicAlgCl ℓ) u.W = 2 := u.finrank_W h4
+  let b : Module.Basis (Fin 2) (PadicAlgCl ℓ) u.W :=
+    Module.finBasisOfFinrankEq (PadicAlgCl ℓ) u.W hW2
+  let rW := restrictRep ρ u.W (fun g _ hw => u.mapsTo_W ρ hc g hw)
+  let m : PkgI4.GQ →* Matrix (Fin 2) (Fin 2) (PadicAlgCl ℓ) :=
+    (LinearMap.toMatrixAlgEquiv b).toRingEquiv.toMonoidHom.comp rW
+  have hm : ∀ g, m g = LinearMap.toMatrix b b (rW g) := by
+    intro g
+    ext i j
+    rw [LinearMap.toMatrix_apply]
+    exact LinearMap.toMatrixAlgEquiv_apply b (rW g) i j
+  have hcm : Continuous fun g => m g := by
+    refine continuous_matrix fun i j => ?_
+    let f : Module.Dual (PadicAlgCl ℓ) (Vb A ℓ) :=
+      (b.coord i).comp ((u.e 0 0).codRestrict u.W (fun v => u.mem_W_of_e0 0 v))
+    refine (hcont f (b j : Vb A ℓ)).congr fun g => ?_
+    rw [hm, LinearMap.toMatrix_apply, ← Module.Basis.coord_apply]
+    change b.coord i _ = b.coord i _
+    congr 1
+    exact Subtype.ext (u.e00_of_mem (u.mapsTo_W ρ hc g (b j).2))
+  let toHom : PkgI4.GQ →* GL (Fin 2) (PadicAlgCl ℓ) := m.toHomUnits
+  have hcont' : Continuous toHom := by
+    rw [Units.continuous_iff]
+    refine ⟨hcm, ?_⟩
+    have hinv : (fun g => (((toHom g)⁻¹ : GL (Fin 2) (PadicAlgCl ℓ)) :
+        Matrix (Fin 2) (Fin 2) (PadicAlgCl ℓ))) = fun g => m g⁻¹ := by
+      funext g
+      rw [← map_inv]
+      rfl
+    rw [hinv]
+    exact hcm.comp continuous_inv
+  let r : GaloisRep ℓ 2 := ⟨toHom, hcont'⟩
+  have hrmat : ∀ g, r.mat g = LinearMap.toMatrix b b (rW g) := hm
+  let e := u.splitEquiv.trans (b.equivFun.prodCongr b.equivFun)
+  refine ⟨r, e, ?_, ?_⟩
+  · intro g v
+    have h1 := u.splitEquiv_intertwines ρ hc g v
+    simp only [e, LinearEquiv.trans_apply, h1, LinearEquiv.prodCongr_apply,
+      Module.Basis.equivFun_apply, hrmat]
+    refine Prod.ext ?_ ?_
+    · dsimp only
+      rw [LinearMap.toMatrix_mulVec_repr]
+      rfl
+    · dsimp only
+      rw [LinearMap.toMatrix_mulVec_repr]
+      rfl
+  · have hfun : (fun σ => r.mat (resQ K σ)) =
+        fun σ => LinearMap.toMatrix b b ((rW.comp (resQ K)) σ) :=
+      funext fun σ => hrmat _
+    rw [hfun]
+    exact hB (PadicAlgCl ℓ) (Field.absoluteGaloisGroup K) u.W 2 b (rW.comp (resQ K)) hirr
+
+end G0Galois
+
+end
+
+end G0GaloisMatrixSec
+
 /-! ### g0-mod-galois: the range G8-G12 from the leaf bundles -/
 
 namespace G0Galois
@@ -20533,9 +20620,10 @@ open PkgI4 (GaloisRep GaloisChar)
 
 noncomputable section
 
-/-- The five named glue pieces of the range G8-G12. -/
+/-- The five named pieces of the range G8-G12 (`G8Matrix` is proved from Burnside's theorem,
+`g8Matrix_of_burnside`, so the bundle holds Burnside, a textbook leaf, in its place). -/
 structure GaloisPieces : Prop where
-  matrix : G8Matrix
+  burnside : BurnsideAbsIrred
   deRham : G9Glue
   odd : G10Glue
   weight : G12Weight
@@ -20553,7 +20641,7 @@ theorem g8_g12_of_leaves (r : HSyn.ResearchLeaves) (t : HSyn.TextbookLeaves) (m 
     ∃ r₅ : GaloisRep 5 2, G8Out A 5 (GlueDescent.rho Tm a β) r₅ ∧ G9Out r₅ ∧ G10Out r₅ ∧
       G11Out T r₅ ∧ G12Out r₅ :=
   g8_g12 r.r9a r.r9b t.t26 t.t6 HSyn.G0Split.semisimpleBaseChange r.r10 t.t23 t.t11 t.t12
-    r.r11r12 r.r14 r.r13 r.r15 t.t18 t.t19 t.t9 m.matrix m.deRham m.odd m.weight m.det
+    r.r11r12 r.r14 r.r13 r.r15 t.t18 t.t19 t.t9 (g8Matrix_of_burnside m.burnside) m.deRham m.odd m.weight m.det
     A T h2 h6 h3 Tm c ε a β u h7
 
 /-! ### How the conclusion feeds G13-G16 and `ModularConstituent` -/
@@ -20769,7 +20857,7 @@ theorem newformG12Out_of_galois (r : HSyn.ResearchLeaves) (t : HSyn.TextbookLeav
     g8_g12_of_leaves r t m A T h2 h6 h3₅ Tm₅ c₅ ε₅ a₅ β₅ u₅ h7₅
   obtain ⟨r₃, ⟨hres₃, e₃, hint₃, hadj₃⟩, -, -, -⟩ :=
     g8_g11 r.r9a r.r9b t.t26 t.t6 HSyn.G0Split.semisimpleBaseChange r.r10 t.t23 t.t11 t.t12
-      m.matrix m.deRham m.odd A T h2 h6 3 h3₃ Tm₃ c₃ ε₃ a₃ β₃ u₃ h7₃
+      (g8Matrix_of_burnside m.burnside) m.deRham m.odd A T h2 h6 3 h3₃ Tm₃ c₃ ε₃ a₃ β₃ u₃ h7₃
   obtain ⟨ιC, ι5, hpan⟩ := panOutput_of_g12 t.t17 hFD r₅ h12
   exact ⟨⟨qEmb K, ιC, ι5, ι3, r₅, r₃⟩, isIrreducible_of_g8 hadj₅, isIrreducible_of_g8 hadj₃,
     isConstituentOf_of_intertwines A 5 r₅ e₅ (intertwines_res hres₅ hint₅),
@@ -20780,6 +20868,7 @@ end
 end G0Galois
 
 #print axioms G0Galois.g8
+#print axioms G0Galois.g8Matrix_of_burnside
 #print axioms G0Galois.g11
 #print axioms G0Galois.g12
 #print axioms G0Galois.g8_g12

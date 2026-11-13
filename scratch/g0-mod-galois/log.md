@@ -45,3 +45,10 @@
 - g0-mod-field (ceada656) output `G7Data` (points-level descent datum, complex scalars, `L'` as an
   IntermediateField); the ℓ-adic realization into `G7Out` is the named step `G7Realize`, stated in
   prose only (different environment: partners import ZInQKernel/HDecomp, leaves live in Split.lean).
+- TestMatrix (prefix of Split.lean to line 7776 + objects + part_matrix.lean; 1m09s): VERIFIED
+  `g8Matrix_of_burnside : BurnsideAbsIrred → G8Matrix` compiles (after replacing `exact` by
+  `rw [LinearMap.toMatrix_mulVec_repr]; rfl` in the intertwining).
+- run8 (2m34s): full file with part_matrix.lean; `GaloisPieces.burnside : BurnsideAbsIrred` in
+  place of `G8Matrix`. VERIFIED 0 errors, 0 sorry; axioms standard for g8, g8Matrix_of_burnside,
+  g11, g12, g8_g12, g8_g12_of_leaves, commonConstituent_of_sides, isConstituentOf_of_intertwines,
+  newformG12Out_of_galois.
