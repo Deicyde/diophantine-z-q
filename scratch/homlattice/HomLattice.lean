@@ -982,6 +982,102 @@ theorem strong_id_of_leaf (HL : BPAnalytic.Uniformization.UniformizationLeafAll)
   obtain ⟨g, Λ, hd, hz, φ, hφ⟩ := HL A
   exact ⟨g, Λ, hd, hz, φ, isStrongUnif_of_bp hφ⟩
 
+/-! ### GAGA over a strong uniformization of the source -/
+
+/-- **GAGA for maps of complex abelian varieties (textbook leaf candidate; Serre, GAGA (1956);
+SGA 1 XII 4.4: `Hom(X, Y) → Hom(X^an, Y^an)` is bijective for `X` proper over `ℂ`; locators
+UNVERIFIED).** Let `φ : ℂ^g ⧸ Λ ≃ A(ℂ)` be a strong uniformization (so `φ` presents `A^an`), and
+`ψ : ℂ^g → B(ℂ)` an analytic homomorphism killing `Λ` (= a holomorphic homomorphism
+`A^an → B^an`). Then `ψ` comes from an algebraic morphism `f : A → B`. -/
+def GAGAMorphism : Prop :=
+  ∀ (A B : AbVar ℂ) (g : ℕ) (Λ : Submodule ℤ (Fin g → ℂ)) [DiscreteTopology Λ]
+    (φ : BPAnalytic.Torus Λ ≃+ Additive (CPts A (RingHom.id ℂ))),
+    IsStrongUnif A (RingHom.id ℂ) Λ φ →
+    ∀ ψ : (Fin g → ℂ) → CPts B (RingHom.id ℂ), IsAnalyticHom (RingHom.id ℂ) ψ →
+      (∀ z ∈ Λ, ψ z = 1) →
+      ∃ f : A.X ⟶ B.X, ∀ z, ψ z = Additive.toMul (φ (BPAnalytic.proj Λ z)) ≫ f
+
+/-- **`AnalyticMapAlgebraic` from `GAGAMorphism` and AN3 at `σ = id` (proved).** A weak
+uniformization `Φ_A` factors as `φ ∘ proj ∘ D` with `D` linear and onto; `ψ` factors through `D`
+because `ker D ⊆ Λ_A`. -/
+theorem analyticMapAlgebraic_of_gaga (HS : StrongUniformizationExists) (HG : GAGAMorphism) :
+    AnalyticMapAlgebraic := by
+  intro A B g ΛA ΦA _ hUA ψ hψ hker
+  obtain ⟨g', Λ', hd, -, φ, hφ⟩ := HS ℂ A (RingHom.id ℂ)
+  obtain ⟨D, hD⟩ := exists_complexLinear_of_analytic_strong hφ (isAnalyticHom_of_unif hUA)
+  have hφ0 : ∀ w ∈ Λ', Additive.toMul (φ (BPAnalytic.proj Λ' w)) = 1 := by
+    intro w hw
+    rw [show BPAnalytic.proj Λ' w = 0 from (QuotientAddGroup.eq_zero_iff w).mpr hw, map_zero]
+    rfl
+  have hsurj : Function.Surjective (D : (Fin g → ℂ) →ₗ[ℂ] (Fin g' → ℂ)) := by
+    refine surjective_of_proj_comp_surjective (Λ' := Λ') _ ?_
+    intro t
+    obtain ⟨v, hv⟩ := hUA.2.2.1 (Additive.toMul (φ t))
+    refine ⟨v, φ.injective (Additive.toMul.injective ?_)⟩
+    show Additive.toMul (φ (BPAnalytic.proj Λ' (D v))) = Additive.toMul (φ t)
+    rw [hD v, hv]
+  obtain ⟨S, hS⟩ := LinearMap.exists_rightInverse_of_surjective
+    (D : (Fin g → ℂ) →ₗ[ℂ] (Fin g' → ℂ)) (LinearMap.range_eq_top.2 hsurj)
+  have hDS : ∀ w, D (S w) = w := by
+    intro w
+    have := congrArg (fun L : (Fin g' → ℂ) →ₗ[ℂ] (Fin g' → ℂ) => L w) hS
+    simpa using this
+  have hψS : ∀ z, ψ (S (D z)) = ψ z := by
+    intro z
+    have hk : z - S (D z) ∈ ΛA := by
+      rw [← hUA.2.1, ← hD, map_sub, hDS, sub_self]
+      exact hφ0 0 (zero_mem _)
+    have := hψ.1 (S (D z)) (z - S (D z))
+    rw [add_sub_cancel, hker _ hk, _root_.mul_one] at this
+    exact this.symm
+  have hkill : ∀ w ∈ Λ', ψ (S w) = 1 := by
+    intro w hw
+    apply hker
+    rw [← hUA.2.1, ← hD, hDS]
+    exact hφ0 w hw
+  obtain ⟨f, hf⟩ := HG A B g' Λ' φ hφ (fun w => ψ (S w)) (isAnalyticHom_lin hψ S) hkill
+  exact ⟨f, fun z => by rw [← hψS z, hf (D z), hD z]⟩
+
+/-- **Main theorem (proved): `HomLatticeCorr` from two textbook statements**, AN3 at every
+embedding (`StrongUniformizationExists`) and GAGA for maps (`GAGAMorphism`). -/
+theorem homLatticeCorr_of_strong_gaga (HS : StrongUniformizationExists) (HG : GAGAMorphism) :
+    HomLatticeCorr :=
+  homLatticeCorr_of_strong_map HS (analyticMapAlgebraic_of_gaga HS HG)
+
+/-- `HomLinearLift`, `T11aHom`, `T11a_RiemannEnd` from the same two statements (proved). -/
+theorem t11a_riemannEnd_of_strong_gaga (HS : StrongUniformizationExists) (HG : GAGAMorphism) :
+    ZInQ.LeafPush2.T11a_RiemannEnd :=
+  ZInQ.HomUnify.t11a_riemannEnd_of_corr (homLatticeCorr_of_strong_gaga HS HG)
+
+theorem t11aHom_of_strong_gaga (HS : StrongUniformizationExists) (HG : GAGAMorphism) :
+    T11aHom :=
+  ZInQ.HomUnify.t11aHom_of_corr (homLatticeCorr_of_strong_gaga HS HG)
+
+/-- **(proved)** Conversely, a strong uniformization at `σ = id` is a bp-analytic one: the two
+predicates agree at `σ = id`. -/
+theorem bp_of_isStrongUnif {A : AbVar ℂ} {g : ℕ} {Λ : Submodule ℤ (Fin g → ℂ)}
+    {φ : BPAnalytic.Torus Λ ≃+ Additive (A.Pt ℂ)}
+    (hφ : IsStrongUnif A (RingHom.id ℂ) Λ φ) :
+    BPAnalytic.Uniformization.IsUniformization A Λ φ := by
+  have hev : ∀ (U : A.X.left.Opens) (s : Γ(A.X.left, U)) (P : CPts A (RingHom.id ℂ)),
+      cEvalAt P U s = BPAnalytic.Uniformization.evalAt A U s P :=
+    fun U s P => ZInQ.LeafPush2.cEvalAt_eq_evalAt A P U s
+  refine ⟨fun U f => ?_, fun v₀ => ?_, fun v₀ N hN => ?_⟩
+  · refine ⟨(hφ.holo U f).1, ?_⟩
+    have h := (hφ.holo U f).2
+    intro v hv
+    exact AnalyticAt.congr (h v hv) (Filter.Eventually.of_forall fun w => hev U f _)
+  · obtain ⟨U, fs, e, hU, hF⟩ := hφ.coords v₀
+    refine ⟨U, fs, e, hU, ?_⟩
+    refine hF.congr_of_eventuallyEq (Filter.Eventually.of_forall fun w => ?_)
+    funext i
+    exact (hev U (fs i) _).symm
+  · obtain ⟨U, k, fs, ε, hε, hU, hsep⟩ := hφ.open_map v₀ N hN
+    refine ⟨U, k, fs, ε, hε, hU,
+      fun (P : CPts A (RingHom.id ℂ)) hP hPi => hsep P hP fun i => ?_⟩
+    rw [hev, hev]
+    exact hPi i
+
 end ZInQ.HomLattice
 
 #print axioms ZInQ.HomLattice.isUniformization_iff
@@ -1020,3 +1116,8 @@ end ZInQ.HomLattice
 #print axioms ZInQ.HomLattice.homLatticeCorr_of_strong_map
 #print axioms ZInQ.HomLattice.isStrongUnif_of_bp
 #print axioms ZInQ.HomLattice.strong_id_of_leaf
+#print axioms ZInQ.HomLattice.analyticMapAlgebraic_of_gaga
+#print axioms ZInQ.HomLattice.homLatticeCorr_of_strong_gaga
+#print axioms ZInQ.HomLattice.t11a_riemannEnd_of_strong_gaga
+#print axioms ZInQ.HomLattice.t11aHom_of_strong_gaga
+#print axioms ZInQ.HomLattice.bp_of_isStrongUnif

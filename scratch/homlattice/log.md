@@ -49,3 +49,13 @@
   strong_id_of_leaf (UniformizationLeafAll ⇒ the K = ℂ, σ = id instance).
 - `lake env lean scratch/homlattice/HomLattice.lean`: exit 0; 36 `#print axioms`, all
   [propext, Classical.choice, Quot.sound]; 0 sorryAx. VERIFIED.
+
+## Step 6 (12:35 by host clock): GAGA over a strong uniformization
+- New: `GAGAMorphism` (strong unif φ of A at id, analytic hom ψ killing Λ ⇒ ∃ morphism f,
+  ψ = φ∘proj ≫ f; no dimension hypothesis).
+- Proved: analyticMapAlgebraic_of_gaga (StrongUniformizationExists ∧ GAGAMorphism ⇒
+  AnalyticMapAlgebraic), homLatticeCorr_of_strong_gaga, t11a_riemannEnd_of_strong_gaga,
+  t11aHom_of_strong_gaga, bp_of_isStrongUnif (strong at id ⇒ bp; with isStrongUnif_of_bp the two
+  predicates agree at σ = id).
+- `lake env lean scratch/homlattice/HomLattice.lean`: exit 0; 41 `#print axioms`, all
+  [propext, Classical.choice, Quot.sound]; 0 sorryAx. VERIFIED.
