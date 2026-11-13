@@ -165,8 +165,15 @@ No new literature leaf is introduced.
   (`ZInQKernel/HDecomp/Faltings/ProductHeight.lean`) unchanged, minus the §0 copy.
 - In `scratch/h-decomposition/Leaves.lean`, `GluePieces.productModelHeight` has type
   `ZInQ.H5Neron.ProductModelHeight`. That is the Leaves.lean copy, over Leaves.lean's
-  `DefFaltings.AbVar`. The proofs should paste after its H5Neron section with
-  `open PkgI3 (AbVar)` dropped, as g0-heightadd did (SPECULATIVE; not checked here).
+  `DefFaltings.AbVar`. **Integration check (VERIFIED):** `scratch/product-height/build_integrated.sh`
+  appends §1-§6 to a copy of `Leaves.lean`, with the §0 copy and `open PkgI3 (AbVar)` dropped,
+  together with
+  `example (hS : ProductUnifSplits) (hA : ProductMetrizationOfProductUnif) :
+  ZInQ.H5Neron.ProductModelHeight := productModelHeight_of_splits hS hA`.
+  - `lake env lean` on the result gives 0 errors in 8.5 min.
+  - `productModelHeight_of_splits` and `productModelHeight_of_geo` use only the standard axioms
+    there.
+  - The generated file is not committed (log).
 - Suggested replacement of glue piece 5: `productModelHeight := productModelHeight_of_splits hS hA`,
   with the two new glue Props `hS : ProductUnifSplits` and `hA : ProductMetrizationOfProductUnif`.
 - h-decomposition's remark that P2 "needs AN3" (from h5-glue §4) should be dropped.
@@ -179,7 +186,13 @@ No new literature leaf is introduced.
   - `ProductMetrizationSplit` close to a restatement of P2;
   - **the AN3-necessity claim unsound** (the argument of §2).
 
-  Acted on: §6 added and the verdict changed. A second pass on §6 is recorded in the log.
+  Acted on: §6 added and the verdict changed.
+- A second pass of the same reviewer covered §6.
+  - Both new glue Props are true exactly as formalized, for every `g` including `g = 0`.
+  - Neither is vacuous, and neither hides AN3.
+  - `gᵢ(τ) = dim 𝒢ᵢ` is derivable inside S-alg, from `finrank_eq_one` and the block Jacobian.
+  - The nonzero-wedge fact is algebraic.
+  - Its wording nits were applied.
 - Locators (Bourbaki, Mumford, Faltings 1983, Deligne 616, EGA, Stacks) are from memory:
   UNVERIFIED.
 - §2 is an argument, not Lean.

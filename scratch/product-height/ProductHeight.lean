@@ -310,7 +310,8 @@ theorem productMetrization_of_geo (h : ProductMetrizationGeo) : ProductMetrizati
   intro K _ A B C eC L _ _ _ 𝒢P 𝒢₁ 𝒢₂ hP g₁ g₂ M₁ M₂ h₁ h₂
   obtain ⟨MP, s, s₁, s₂, hMP, hs, hs0, hs₁, hs₁0, hs₂, hs₂0, hidx, hc, hcov⟩ :=
     h K A B C eC L 𝒢P 𝒢₁ 𝒢₂ hP g₁ g₂ M₁ M₂ h₁ h₂
-  exact ⟨MP, hMP, modelHeight_add_of MP.hodge M₁.hodge M₂.hodge hs hs0 hs₁ hs₁0 hs₂ hs₂0 hidx hc hcov⟩
+  exact ⟨MP, hMP,
+    modelHeight_add_of MP.hodge M₁.hodge M₂.hodge hs hs0 hs₁ hs₁0 hs₂ hs₂0 hidx hc hcov⟩
 
 /-- **`ProductModelHeight` from U, `MetrizationDimUnique`, `MetrizationExists` and
 `ProductMetrizationGeo` (proved).** -/
@@ -601,7 +602,8 @@ Why true (STANDARD, argued in the section header; no uniformization theorem is u
 ingredients are the structure of closed subgroups of `ℝⁿ` (Bourbaki, *Topologie générale* VII §1,
 UNVERIFIED; small elements of a closed subgroup lie in its identity component), the identity
 theorem in one complex variable, Baire's theorem, the fact that a `τ`-point of an affine open is
-determined by its function values, and the compatibility of `evalAt` with the projections. Then `Φᵢ = pᵢ ∘ Φ|_{Wᵢ}` with
+determined by its function values, and the compatibility of `evalAt` with the projections.
+Then `Φᵢ = pᵢ ∘ Φ|_{Wᵢ}` with
 `Wᵢ = ker(p_{3-i} ∘ Φ)⁰`, `Λᵢ = Λ ∩ Wᵢ`. Unproved. -/
 def ProductUnifSplits : Prop :=
   ∀ (K : Type) [Field K] (A B C : AbVar K) (L : Type) [Field L] [NumberField L] [Algebra K L]
