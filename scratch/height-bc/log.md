@@ -50,3 +50,8 @@
   points: "the natural map ψ" vs ∃ψ in copied Props; BC-span needs the spanning fact V' = L'·bcCot(V)
   (not part of HodgeBCInjective); BC-lift's real step is continuity of β∘Φ' + L'-defined opens;
   EGA locators (base change of Ω¹: IV 16.4.5? conormal ≅ e*Ω¹: IV 17.2.5?) UNVERIFIED; stale headers.
+- H5WithBC.lean (04:51) = scratch/h5-glue/H5Final.lean (verbatim, its #print lines dropped) + Final.lean
+  body + Part D: 0 errors, 1m10s. `h5_modelHeightBaseChange_iff : ZInQ.H5Glue.ModelHeightBaseChange ↔
+  ModelHeightBaseChange := Iff.rfl`; `stableFaltingsHeight_eq_neron_of_main` (h5-glue's H5, multi-field form,
+  from leaves N1, N2 and HodgeBCInjective, OmegaBaseChange, UniformizationLift, JacobianPullbackSpan):
+  axioms [propext, Classical.choice, Quot.sound]. VERIFIED.
