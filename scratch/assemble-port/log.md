@@ -128,3 +128,16 @@
   6 LEAF?, 9 GLUE). TailD: VERIFIED exit 0, 76 s, no sorryAx, all axiom reports standard.
 - FLAT CHECK (32-field state after spread-out): AssemblePort.lean 107 495 lines, md5 4f787394…: VERIFIED exit 0 in
   1123 s, 0 errors, no sorry, 279 axiom reports all standard (flat_summary.txt).
+- Merged origin/wip/hecke-rest (report) and linked-ram's final state (3cb898bf, report + fleet). Part e16
+  (mk/mk_heckerest.py) = hecke-rest's FibreSizesMain/NoVertMain/CurveChartMain/InfFnMain/PointsMain/ProperMain/AllMain.
+  Run 1: 9 errors: (a) `bcPt` ambiguous with curve-facts' `LeafQM.AV.Pin.bcPt` (part a56) → `LeafQM.AV.bcPt`;
+  (b) hecke-rest proved ts-hecke's `HeckeFibreSizes` as it was before ts-hecke's 8015f0d6 (one extra first clause);
+  part e14 has the current weaker text → hecke-rest's text added verbatim as `HeckeFibreSizesHR`, `heckeFibreSizes_of`
+  proves it, new `heckeFibreSizes_of'` gives the current Prop (drop the clause); AllMain uses it. Run 3: VERIFIED.
+- Part z97 regenerated from linked-ram's final Tail.lean (3cb898bf, copied to src/) L2-1668: `TateRamAtThreeD` proved
+  from R6, T5, `UpperBreakBound` (`tateRamAtThreeD_of_leaves`); `BetaTrivialAtTwo` from `UpperBreakBound` +
+  `BetaSignAtTwo` (`betaTrivialAtTwo_of_sign`). Compiles here (the σK coercion errors of the earlier WIP state are gone).
+- GluePieces5: − curveNormChart, curveChartInf (proved), − heckeFibreSizes (⇐ T5 + qmAutCard LEAF?, serreRigidity3 LEAF,
+  alFixedPoints LEAF?), − heckeNoVertRam (⇐ heckeVertWitness GLUE), − tateRamAtThreeD (proved), betaTrivialAtTwo →
+  betaSignAtTwo (GLUE): 31 fields (18 LEAF, 8 LEAF?, 5 GLUE). TailF 149 s, TailD 100 s: VERIFIED exit 0, 0 errors,
+  no sorryAx, all axiom reports standard.

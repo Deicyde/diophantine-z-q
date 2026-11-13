@@ -1,4 +1,4 @@
-/-! ## assemble-port: hecke-rest, its new parts (mk/mk_heckerest.py) -/
+/-! ## assemble-port: hecke-rest, its new parts (mk/mk_heckerest.py; two edits documented there) -/
 
 /-! ════════════════════════════════════════════════════════════════════════════════════════════
 # hecke-rest, Part 1: `HeckeFibreSizes` from three leaves on QM pairs and `TorsionStructure`
@@ -461,10 +461,10 @@ theorem push_injective (hT : ObjBridge.TorsionStructure) (hS : SerreRigidity3) (
     rw [hθ, ← Category.assoc, h1, Category.assoc, φ'.left, Category.comp_id]
   have htors : ∀ x : X.A.Pt Qbar, x ^ 3 = 1 → x ≫ θ.φ.hom = x := by
     intro x hx
-    have hx' : bcPt X.A x ^ 3 = 1 := by
-      rw [bcPt, ← MonObj.comp_pow, hx]
+    have hx' : LeafQM.AV.bcPt X.A x ^ 3 = 1 := by
+      rw [LeafQM.AV.bcPt, ← MonObj.comp_pow, hx]
       exact MonObj.comp_one _
-    obtain ⟨a, ha⟩ := Level3.onto hT X (bcPt X.A x) hx'
+    obtain ⟨a, ha⟩ := Level3.onto hT X (LeafQM.AV.bcPt X.A x) hx'
     have := bcPt_injective X.A ha
     rw [← this]
     exact hfix a
@@ -580,10 +580,20 @@ theorem sP_eq_one (P : QML3 Qbar)
         exact (h m h0 hm.2).elim
     _ = 1 := Finset.card_singleton _
 
+/-- hecke-rest's statement of `HeckeFibreSizes` (ts-hecke's text before 8015f0d6, verbatim; it has the extra first
+clause). -/
+def HeckeFibreSizesHR : Prop :=
+  ∃ M : ℕ, (∀ P : QML3 Qbar, (twistFibre P).ncard ≤ M) ∧
+    (∀ P : QML3 Qbar, ¬ HasCM4 P.q → ¬ HasCM3 P.q → ¬ HasCM24 P.q →
+      (twistFibre P).ncard = M) ∧
+    (∀ P : QML3 Qbar, HasCM4 P.q → M ∣ 4 * (twistFibre P).ncard) ∧
+    (∀ P : QML3 Qbar, HasCM3 P.q → M ∣ 6 * (twistFibre P).ncard) ∧
+    (∀ P : QML3 Qbar, HasCM24 P.q → M ∣ 2 * (twistFibre P).ncard)
+
 /-- **`HeckeFibreSizes` from the leaves** `QMAutCard`, `SerreRigidity3`, `ALFixedPoints` and the
 kernel's `TorsionStructure` (with `M = 144`). -/
 theorem heckeFibreSizes_of (hT : ObjBridge.TorsionStructure) (hA : QMAutCard)
-    (hS : SerreRigidity3) (hW : ALFixedPoints) : HeckeFibreSizes := by
+    (hS : SerreRigidity3) (hW : ALFixedPoints) : HeckeFibreSizesHR := by
   have key : ∀ P : QML3 Qbar, (twistFibre P).ncard * (sP P * aP P) = 288 ∧
       aP P = (if HasCM4 P.q then 4 else if HasCM3 P.q then 6 else 2) ∧
       ¬ (HasCM4 P.q ∧ HasCM3 P.q) ∧ ¬ (HasCM4 P.q ∧ HasCM24 P.q) ∧
@@ -653,6 +663,12 @@ theorem heckeFibreSizes_of (hT : ObjBridge.TorsionStructure) (hA : QMAutCard)
       · exact hm3 rfl)
     rw [ha] at h
     interval_cases (sP P) <;> omega
+
+/-- ts-hecke's current `HeckeFibreSizes` from hecke-rest's stronger statement (drop its first clause). -/
+theorem heckeFibreSizes_of' (hT : ObjBridge.TorsionStructure) (hA : QMAutCard)
+    (hS : SerreRigidity3) (hW : ALFixedPoints) : HeckeFibreSizes :=
+  let ⟨M, _, h1, h2, h3, h4⟩ := heckeFibreSizes_of hT hA hS hW
+  ⟨M, h1, h2, h3, h4⟩
 
 end HeckeRest
 
@@ -2458,7 +2474,7 @@ theorem coverModelOfHecke_of_heckeRest (hconn : Y3Connected) (hRR : R1R2fp)
     (hA : HeckeRest.QMAutCard) (hS : HeckeRest.SerreRigidity3) (hW : HeckeRest.ALFixedPoints)
     (hV : HeckeRestNV.HeckeVertWitness) : CoverModelOfHecke :=
   coverModelOfHecke_of_tsHecke' hconn hRR hT HeckeRestCurve.curveNormChart
-    HeckeRestCurve.curveChartInf (HeckeRest.heckeFibreSizes_of hT hA hS hW)
+    HeckeRestCurve.curveChartInf (HeckeRest.heckeFibreSizes_of' hT hA hS hW)
     (HeckeRestNV.heckeNoVertRam_of_witness hV)
 
 /-- **`CoverModelOfHecke` from hecke-rest's inputs, local-ring form** (compiled): as
@@ -2469,7 +2485,7 @@ theorem coverModelOfHecke_of_heckeRest' (hconn : Y3Connected) (hRR : R1R2fp)
     (hA : HeckeRest.QMAutCard) (hS : HeckeRest.SerreRigidity3) (hW : HeckeRest.ALFixedPoints)
     (hV : HeckeRestNV.HeckeVertLocal) : CoverModelOfHecke :=
   coverModelOfHecke_of_tsHecke' hconn hRR hT HeckeRestCurve.curveNormChart
-    HeckeRestCurve.curveChartInf (HeckeRest.heckeFibreSizes_of hT hA hS hW)
+    HeckeRestCurve.curveChartInf (HeckeRest.heckeFibreSizes_of' hT hA hS hW)
     (HeckeRestNV.heckeNoVertRam_of_local hV)
 
 /-- **`PropTSAll` from hecke-rest's inputs** (compiled; through ts-hecke's `propTSAll_of_tsHecke'`
@@ -2484,7 +2500,7 @@ theorem propTSAll_of_heckeRest (t2 : PkgI2.AbhyankarDVR.{0}) (hR : R1R2fp) (hM :
   propTSAll_of_tsHecke' t2 hR hM hSN hC hKA hO hVF hAI hOI hVI hconn hT
     HeckeRestCurve.curveNormChart
     HeckeRestCurve.curveChartInf
-    (HeckeRest.heckeFibreSizes_of hT hA hS hW) (HeckeRestNV.heckeNoVertRam_of_witness hV)
+    (HeckeRest.heckeFibreSizes_of' hT hA hS hW) (HeckeRestNV.heckeNoVertRam_of_witness hV)
 
 end HeckeRestAll
 

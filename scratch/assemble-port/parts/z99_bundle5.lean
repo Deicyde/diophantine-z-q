@@ -157,7 +157,7 @@ theorem gluePieces_of_gluePieces5 (r : OpenResearchLeaves2) (t : OpenTextbookLea
       (TSHecke.heckeNormalizationIrr_of HeckeRestAll.curveGaloisChart t.t5)
       (TSHecke.heckeDegree_of_torsion t.t5)
       (TSHecke.heckeBranch_of' (LeafAdopt.R1R2fp_of_rep r.r1r2) HeckeRestCurve.curveChartInf
-        (HeckeRest.heckeFibreSizes_of t.t5 gp.qmAutCard gp.serreRigidity3 gp.alFixedPoints) t.t5)
+        (HeckeRest.heckeFibreSizes_of' t.t5 gp.qmAutCard gp.serreRigidity3 gp.alFixedPoints) t.t5)
       (HeckeRestNV.heckeNoVertRam_of_witness gp.heckeVertWitness)
   have hPM : G0Split.FibreQM.PeriodMapGlue (G0Split.FibreQM.ownY (LeafAdopt.R1R2fp_of_rep r.r1r2))
       (G0Split.FibreQM.ownΦ (LeafAdopt.R1R2fp_of_rep r.r1r2))
