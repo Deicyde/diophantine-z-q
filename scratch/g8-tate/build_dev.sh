@@ -38,4 +38,6 @@ NIMP=$(grep -c '^import ' $SRC)
   echo "end"
   echo
   cat part_onl.lean
+  echo
+  cat part_g7d.lean
 } > Dev.lean
