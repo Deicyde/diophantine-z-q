@@ -75,3 +75,6 @@
   T = (local inverse of the clause-(ii) coordinates) ∘ (pulled-back coordinates), Mathlib
   `HasStrictFDerivAt.localInverse`, `AnalyticAt.hasStrictFDerivAt`), `IsUniformization.exists_complexLinear`
   (two uniformizations differ by a ℂ-linear map with TΛ ⊆ Λ'). COMPILED; axioms standard.
+- Torus.lean §10: `eq_of_proj_eq` (uniqueness of continuous ℝ-linear lifts), `IsUniformization.exists_equiv`
+  (two uniformizations differ by T : ℂ^g ≃L[ℂ] ℂ^{g'} with T(Λ) = Λ'), `IsUniformization.dim_eq` (g = g').
+  COMPILED; axioms standard.

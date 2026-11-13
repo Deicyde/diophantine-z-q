@@ -1431,4 +1431,58 @@ theorem IsUniformization.exists_complexLinear {g g' : ℕ} {Λ : Submodule ℤ (
   have hDT : ∀ v, D v = T v := fun v => congrArg (fun L : (Fin g → ℂ) →L[ℝ] _ => L v) hD
   exact ⟨D, fun v hv => by rw [hDT]; exact hTΛ v hv, fun v => by rw [hDT]; exact hT v⟩
 
+/-! ### Glue: the period lattice is well defined up to isomorphism -/
+
+/-- Lifts are unique: two continuous `ℝ`-linear maps inducing the same map of tori are equal. -/
+theorem eq_of_proj_eq {g g' : ℕ} {Λ' : Submodule ℤ (Fin g' → ℂ)} [DiscreteTopology Λ']
+    (T T' : (Fin g → ℂ) →L[ℝ] (Fin g' → ℂ)) (h : ∀ v, proj Λ' (T v) = proj Λ' (T' v)) :
+    T = T' := by
+  have hmem : ∀ v, T v - T' v ∈ Λ' := fun v => (proj_eq_iff Λ').mp (h v)
+  ext v : 1
+  have hconst := PreconnectedSpace.constant (inferInstance : PreconnectedSpace (Fin g → ℂ))
+    (f := fun v => (⟨_, hmem v⟩ : Λ')) ((T.continuous.sub T'.continuous).subtype_mk _)
+    (x := v) (y := 0)
+  have := congrArg Subtype.val hconst
+  simp only [map_zero, sub_zero] at this
+  exact sub_eq_zero.mp this
+
+/-- **The period lattice of `A` is well defined up to isomorphism**: two uniformizations differ
+by a `ℂ`-linear isomorphism `T` with `T(Λ) = Λ'`. -/
+theorem IsUniformization.exists_equiv {g g' : ℕ} {Λ : Submodule ℤ (Fin g → ℂ)}
+    {Λ' : Submodule ℤ (Fin g' → ℂ)} [DiscreteTopology Λ] [DiscreteTopology Λ']
+    {φ : Torus Λ ≃+ Additive (A.Pt ℂ)} {φ' : Torus Λ' ≃+ Additive (A.Pt ℂ)}
+    (hφ : IsUniformization A Λ φ) (hφ' : IsUniformization A Λ' φ') :
+    ∃ T : (Fin g → ℂ) ≃L[ℂ] (Fin g' → ℂ),
+      Λ.map (T.toLinearEquiv.toLinearMap.restrictScalars ℤ) = Λ' ∧
+      ∀ v, φ' (proj Λ' (T v)) = φ (proj Λ v) := by
+  obtain ⟨T, hTΛ, hT⟩ := hφ.exists_complexLinear hφ'
+  obtain ⟨T', hT'Λ, hT'⟩ := hφ'.exists_complexLinear hφ
+  have h1 : ∀ v, T' (T v) = v := by
+    have := eq_of_proj_eq (Λ' := Λ) ((T'.comp T).restrictScalars ℝ)
+      (ContinuousLinearMap.id ℝ _) (fun v => by
+        apply φ.injective
+        simp [hT', hT])
+    intro v; exact congrArg (fun L : (Fin g → ℂ) →L[ℝ] _ => L v) this
+  have h2 : ∀ w, T (T' w) = w := by
+    have := eq_of_proj_eq (Λ' := Λ') ((T.comp T').restrictScalars ℝ)
+      (ContinuousLinearMap.id ℝ _) (fun w => by
+        apply φ'.injective
+        simp [hT', hT])
+    intro w; exact congrArg (fun L : (Fin g' → ℂ) →L[ℝ] _ => L w) this
+  refine ⟨ContinuousLinearEquiv.equivOfInverse T T' h1 h2, ?_, fun v => hT v⟩
+  apply le_antisymm
+  · rintro _ ⟨v, hv, rfl⟩
+    exact hTΛ v hv
+  · intro w hw
+    exact ⟨T' w, hT'Λ w hw, h2 w⟩
+
+/-- **The dimension is well defined**: all uniformizations of `A` have the same `g`. -/
+theorem IsUniformization.dim_eq {g g' : ℕ} {Λ : Submodule ℤ (Fin g → ℂ)}
+    {Λ' : Submodule ℤ (Fin g' → ℂ)} [DiscreteTopology Λ] [DiscreteTopology Λ']
+    {φ : Torus Λ ≃+ Additive (A.Pt ℂ)} {φ' : Torus Λ' ≃+ Additive (A.Pt ℂ)}
+    (hφ : IsUniformization A Λ φ) (hφ' : IsUniformization A Λ' φ') : g = g' := by
+  obtain ⟨T, -, -⟩ := hφ.exists_equiv hφ'
+  have := T.toLinearEquiv.finrank_eq
+  simpa using this
+
 end BPAnalytic.Uniformization
