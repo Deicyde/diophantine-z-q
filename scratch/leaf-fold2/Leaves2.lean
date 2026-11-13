@@ -58079,7 +58079,7 @@ end G0ModField
 end G0A2_a70_fibrecover
 
 section G0A2_a75_kernelfield
--- (leaf-fold2: copied from scratch/g0-assemble2/parts/a75_kernelfield.lean; 4 HDec name-resolution edits)
+-- (leaf-fold2: g0-assemble2 part a75 with kernel-field New.lean updated; see mk_a75.py)
 /-! ## g0-assemble2: kernel-field, assembled as in scratch/kernel-field/assemble.sh: morph-descend Descend.lean
 3-401, inertia-homs InertiaHoms.lean 7-2089 (= g4-weilres G4.lean + inertia-homs), morph-descend G4Closed.lean
 1867-1897, kernel-field New.lean (its Part 4, g0-dim's Dim.lean 107-305, is part 10; its Part 5 is part 75) -/
@@ -61405,6 +61405,45 @@ theorem faithful_O (hT : TorsCount V) (ρ : O →+* AddMonoid.End V) {c : O} (hc
   obtain ⟨h1, h2, h3, h4⟩ := GlueDescent.aniso_rat _ _ _ _ hnf
   exact hc0 (Subtype.ext (QuaternionAlgebra.ext h1 h2 h3 h4))
 
+
+/-- **Skolem–Noether descent at the level of homomorphisms (proved).** A7
+(`LeafQM.AV.conj_twist_of_rational`) gives, for each `σ`, a QM isomorphism `e : (A, ι∘α) ≅ (A', ι')`
+twisted by some `α ∈ Aut 𝒪`. Writing `α = u(·)u⁻¹` (`aut_O_inner`) and `b = Nu ∈ 𝒪`
+(`exists_nat_mul_mem_O`), the homomorphism `μ = e.φ ∘ ι(b) : A → A'` is nonzero-scaled and
+`𝒪`-linear: `μ ∘ ι(a) = ι'(a) ∘ μ` for all `a ∈ 𝒪`. This is N5's `B`-linear conjugacy isogeny
+`μ_σ` (here `A = P.A`, `A' = (^σP).A`; reverse the roles for `^σA → A`). -/
+theorem blinear_of_twisted_iso {k : Type} [Field k] {A A' : PkgI3.AbVar k} (q : QMStr A)
+    (q' : QMStr A') (α : O ≃+* O) (e : QMIso (q.twist α) q') :
+    ∃ b : O, b ≠ 0 ∧ ∀ a : O,
+      (q.iota a).hom ≫ ((q.iota b).hom ≫ e.φ.hom) = ((q.iota b).hom ≫ e.φ.hom) ≫ (q'.iota a).hom := by
+  obtain ⟨u, hu⟩ := aut_O_inner α
+  obtain ⟨N, hN, hmem⟩ := exists_nat_mul_mem_O (u : B)
+  let b : O := ⟨(N : B) * u, hmem⟩
+  have hcomm : ∀ a : O, b * a = α a * b := by
+    intro a
+    apply Subtype.ext
+    rw [Subring.coe_mul, Subring.coe_mul, hu a]
+    show (N : B) * u * a = u * a * (u⁻¹ : Bˣ) * ((N : B) * u)
+    have hc : ((u⁻¹ : Bˣ) : B) * ((N : B) * u) = (N : B) := by
+      rw [← _root_.mul_assoc, (Nat.cast_commute N _).symm.eq, _root_.mul_assoc, Units.inv_mul,
+        _root_.mul_one]
+    rw [_root_.mul_assoc (u * a : B), hc, (Nat.cast_commute N ((u : B) * a)).eq.symm,
+      _root_.mul_assoc]
+  refine ⟨b, fun hb => ?_, fun a => ?_⟩
+  · have h0 := congrArg Subtype.val hb
+    change (N : B) * u = 0 at h0
+    have h1 := congrArg (· * ((u⁻¹ : Bˣ) : B)) h0
+    simp only [_root_.mul_assoc, Units.mul_inv, _root_.mul_one, zero_mul] at h1
+    have h2 := congrArg QuaternionAlgebra.re h1
+    simp at h2
+    omega
+  · have e1 : (q.iota a).hom ≫ (q.iota b).hom = (q.iota b).hom ≫ (q.iota (α a)).hom := by
+      show (q.iota b * q.iota a).hom = (q.iota (α a) * q.iota b).hom
+      rw [← map_mul, ← map_mul, hcomm]
+    rw [← Category.assoc, e1, Category.assoc, Category.assoc]
+    congr 1
+    exact e.equivariant a
+
 end G0ModField.KernelField
 
 end NoCMAlg
@@ -61671,7 +61710,368 @@ Copied verbatim from `scratch/g0-fibresimple/olean/Tail.lean`: lines 38-117 (`B6
 `division_of_algEquiv`, `qmBasis`, `qm_embeds_end0`), 152-164 (FS4 `CentralizerOfMatrixEnd0`) and
 208-282 (FS4 proved from T6, `centralizerOfMatrixEnd0_of_homFree`). -/
 
--- (g0-assemble2) section FS4Copy (verbatim copies of g0-fibresimple's §1, FS4) is not repeated: part 40 defines the same text.
+section FS4Copy
+
+noncomputable section
+
+open CategoryTheory AlgebraicGeometry Limits MonoidalCategory CartesianMonoidalCategory MonObj
+open _root_.ZInQ ZInQ ZInQ.JHeight LeafQM.AV
+open scoped Quaternion TensorProduct
+
+namespace G0FibreSimple
+
+/-! ## §1 Proved glue: `B` is a division algebra -/
+
+/-- `B = (2, -3)_ℚ` is a division algebra: every nonzero element is a unit (the norm form
+`a² - 2b² + 3c² - 6d²` is anisotropic, `GlueDescent.aniso_rat`). -/
+theorem B6_isUnit (x : ℍ[ℚ, 2, -3]) (hx : x ≠ 0) : IsUnit x := by
+  set n := x.re ^ 2 - 2 * x.imI ^ 2 + 3 * x.imJ ^ 2 - 6 * x.imK ^ 2 with hn_def
+  have hn : n ≠ 0 := fun h0 => by
+    obtain ⟨h1, h2, h3, h4⟩ := GlueDescent.aniso_rat _ _ _ _ h0
+    exact hx (QuaternionAlgebra.ext h1 h2 h3 h4)
+  have hs : star x * x = algebraMap ℚ ℍ[ℚ, 2, -3] n := GlueDescent.B6_star_mul x
+  have hs' : x * star x = algebraMap ℚ ℍ[ℚ, 2, -3] n := by
+    rw [QuaternionAlgebra.mul_star_eq_coe]
+    congr 1
+    simp [QuaternionAlgebra.re_mul]
+    ring
+  refine ⟨⟨x, n⁻¹ • star x, ?_, ?_⟩, rfl⟩
+  · rw [mul_smul_comm, hs', Algebra.smul_def, ← map_mul, inv_mul_cancel₀ hn, map_one]
+  · rw [smul_mul_assoc, hs, Algebra.smul_def, ← map_mul, inv_mul_cancel₀ hn, map_one]
+
+/-- Division transported along an algebra isomorphism. -/
+theorem division_of_algEquiv {D E : Type*} [Ring D] [Ring E] [Algebra ℚ D] [Algebra ℚ E]
+    (e : D ≃ₐ[ℚ] E) (hE : ∀ x : E, x ≠ 0 → IsUnit x) : ∀ x : D, x ≠ 0 → IsUnit x := by
+  intro x hx
+  have h1 : e x ≠ 0 := by
+    intro h; apply hx; rw [← e.symm_apply_apply x, h, map_zero]
+  have := (hE (e x) h1).map e.symm
+  rwa [e.symm_apply_apply] at this
+
+/-! ## §2 Proved glue: a QM structure gives `B →ₐ[ℚ] End⁰(A)` -/
+
+/-- `i ∈ 𝒪`. -/
+def oi : LeafQM.O := ⟨LeafQM.ofInt ![0, 1, 0, 0], ⟨_, rfl⟩⟩
+/-- `j = 2·(1+j)/2 - 1 ∈ 𝒪`. -/
+def oj : LeafQM.O := ⟨LeafQM.ofInt ![-1, 0, 2, 0], ⟨_, rfl⟩⟩
+
+theorem coe_two_O : ((2 : LeafQM.O) : LeafQM.B) = 2 := map_ofNat LeafQM.O.subtype 2
+theorem coe_three_O : ((3 : LeafQM.O) : LeafQM.B) = 3 := map_ofNat LeafQM.O.subtype 3
+
+theorem oi_mul_oi : oi * oi = 2 := by
+  apply Subtype.ext
+  rw [coe_two_O, Subring.coe_mul]
+  ext <;> simp [oi, LeafQM.ofInt] <;> rfl
+
+theorem oj_mul_oj : oj * oj = -3 := by
+  apply Subtype.ext
+  rw [Subring.coe_neg, coe_three_O, Subring.coe_mul]
+  ext <;> simp [oj, LeafQM.ofInt] <;> rfl
+
+theorem oj_mul_oi : oj * oi = -(oi * oj) := by
+  apply Subtype.ext
+  rw [Subring.coe_neg, Subring.coe_mul, Subring.coe_mul]
+  ext <;> simp [oi, oj, LeafQM.ofInt]
+
+/-- **Glue (proved): the QM structure gives `B ↪ End⁰(A)`.** For a QM structure
+`ι : 𝒪 → End_k(A)` (`LeafQM.AV.QMStr`), the elements `1 ⊗ ι(i)`, `1 ⊗ ι(j)` of
+`End⁰(A) = ℚ ⊗ End(A)` satisfy `i² = 2`, `j² = -3`, `ji = -ij`, so `B = ℍ[ℚ,2,-3]` maps to
+`End⁰(A)` (`QuaternionAlgebra.Basis.liftHom`). This is Yu's hypothesis "`B` embeds in `End⁰(A)`"
+(injectivity is automatic: `B` is simple and `End⁰(A) ≠ 0` when a QM structure exists). -/
+def qmBasis {k : Type} [Field k] {A : PkgI3.AbVar k} (q : QMStr A) :
+    QuaternionAlgebra.Basis (PkgI3.AbVar.End0 A) (2 : ℚ) 0 (-3) :=
+  let g : LeafQM.O →+* PkgI3.AbVar.End0 A :=
+    (Algebra.TensorProduct.includeRight : PkgI3.AbVar.End A →ₐ[ℤ] ℚ ⊗[ℤ] PkgI3.AbVar.End A).toRingHom.comp
+      q.iota
+  { i := g oi
+    j := g oj
+    k := g oi * g oj
+    i_mul_i := by
+      rw [← map_mul, oi_mul_oi, map_ofNat, zero_smul, add_zero, Algebra.smul_def, _root_.mul_one,
+        map_ofNat]
+    j_mul_j := by
+      rw [← map_mul, oj_mul_oj, map_neg, map_ofNat, Algebra.smul_def, _root_.mul_one, map_neg,
+        map_ofNat]
+    i_mul_j := rfl
+    j_mul_i := by
+      rw [← map_mul, oj_mul_oi, map_neg, map_mul, zero_smul, zero_sub] }
+
+theorem qm_embeds_end0 {k : Type} [Field k] {A : PkgI3.AbVar k} (q : QMStr A) :
+    Nonempty (ℍ[ℚ, 2, -3] →ₐ[ℚ] PkgI3.AbVar.End0 A) :=
+  ⟨(qmBasis q).liftHom⟩
+
+
+/-- **Glue piece FS4 (the CM case of Yu's dichotomy has a non-integral `𝒪`-centralizer).** If
+`End⁰(A) ≅ M₂(ℚ(√d))`, `d < 0`, for an abelian variety with QM by `𝒪`, then the centralizer
+`End_𝒪(A) = com q` contains a non-integer. *Why true* (STANDARD linear algebra): the image of
+`B` in `M₂(k)`, `k = ℚ(√d)`, spans `M₂(k)` over `k` (`B ⊗ k` is simple of `k`-dimension 4), so
+its centralizer is the centre `k`; `n√d` lies in the image of `End(A)` for some `n ≥ 1`, and
+commutation and non-integrality pass from `End⁰(A)` to `End(A)` because `End(A)` is torsion-free
+(Mumford §19 Thm 3). Glue. -/
+def CentralizerOfMatrixEnd0 : Prop :=
+  ∀ (k : Type) [Field k] [CharZero k] (A : PkgI3.AbVar k) (q : QMStr A) (d : ℚ), d < 0 →
+    Nonempty (PkgI3.AbVar.End0 A ≃ₐ[ℚ]
+      Matrix (Fin 2) (Fin 2) (AdjoinRoot (Polynomial.X ^ 2 - Polynomial.C d))) →
+    ∃ φ ∈ com q, ∀ n : ℤ, φ ≠ (n : PkgI3.AbVar.End A)
+
+
+/-! ## §4′ Proved: `CentralizerOfMatrixEnd0` from the leaf T6 (`PkgI3.HomFreeFinite`) -/
+
+/-- **FS4 is proved from T6** (`PkgI3.HomFreeFinite`, Mumford §19 Thm 3: `Hom(A, B)` is a free
+`ℤ`-module; `TextbookLeaves.t6`). Proof: the scalar matrix `√d` is central in `M₂(ℚ(√d))`, so
+`c' = e⁻¹(√d)` is central in `End⁰(A)` and is not a rational scalar (`(√d)² = d < 0`); `ℚ ⊗ End(A)`
+is the localization of `End(A)` at `ℤ \ {0}`, so `s • c' = 1 ⊗ φ` for some `φ ∈ End(A)`,
+`s ≠ 0`; freeness makes `m ↦ 1 ⊗ m` injective, so `φ` commutes with `ι(𝒪)` and is not an
+integer. -/
+theorem centralizerOfMatrixEnd0_of_homFree (hHF : PkgI3.HomFreeFinite) :
+    CentralizerOfMatrixEnd0 := by
+  intro k _ _ A q d hd hM
+  obtain ⟨e⟩ := hM
+  set c' : PkgI3.AbVar.End0 A :=
+    e.symm (Matrix.scalar (Fin 2) (AdjoinRoot.root (Polynomial.X ^ 2 - Polynomial.C d))) with hc'
+  have hcen : ∀ x : PkgI3.AbVar.End0 A, c' * x = x * c' := by
+    intro x
+    apply e.injective
+    rw [map_mul, map_mul, hc', e.apply_symm_apply]
+    exact (Matrix.scalar_commute _ (fun r' => Commute.all _ r') (e x)).eq
+  have hnq : ∀ t : ℚ, c' ≠ algebraMap ℚ _ t := by
+    intro t ht
+    have h1 : Matrix.scalar (Fin 2) (AdjoinRoot.root (Polynomial.X ^ 2 - Polynomial.C d)) =
+        algebraMap ℚ _ t := by
+      rw [← AlgEquiv.commutes e t, ← ht, hc', e.apply_symm_apply]
+    have h2 : AdjoinRoot.root (Polynomial.X ^ 2 - Polynomial.C d) =
+        AdjoinRoot.of (Polynomial.X ^ 2 - Polynomial.C d) t := by
+      have := congrFun (congrFun h1 0) 0
+      simpa [Matrix.scalar_apply, Matrix.algebraMap_eq_diagonal, AdjoinRoot.algebraMap_eq]
+        using this
+    have hdeg : (Polynomial.X ^ 2 - Polynomial.C d : Polynomial ℚ).degree ≠ 0 := by
+      rw [Polynomial.degree_X_pow_sub_C (by norm_num)]; norm_num
+    have h3 := AdjoinRoot.eval₂_root (Polynomial.X ^ 2 - Polynomial.C d)
+    simp only [Polynomial.eval₂_sub, Polynomial.eval₂_X_pow, Polynomial.eval₂_C] at h3
+    rw [h2, ← map_pow, ← map_sub] at h3
+    have h4 : t ^ 2 - d = 0 :=
+      (AdjoinRoot.of.injective_of_degree_ne_zero hdeg) (h3.trans (map_zero _).symm)
+    nlinarith [sq_nonneg t]
+  have hfree : Module.Free ℤ (PkgI3.AbVar.End A) := (hHF k A A).1
+  let f := TensorProduct.mk ℤ ℚ (PkgI3.AbVar.End A) 1
+  have hloc : IsLocalizedModule (nonZeroDivisors ℤ) f :=
+    (isLocalizedModule_iff_isBaseChange (nonZeroDivisors ℤ) ℚ f).mpr
+      (TensorProduct.isBaseChange (R := ℤ) (M := PkgI3.AbVar.End A) (S := ℚ))
+  obtain ⟨⟨φ, s⟩, hs⟩ := IsLocalizedModule.surj (nonZeroDivisors ℤ) f c'
+  have hs' : (1 : ℚ) ⊗ₜ[ℤ] φ = (s : ℤ) • c' := by
+    rw [Submonoid.smul_def] at hs; exact hs.symm
+  have hs0 : (s : ℤ) ≠ 0 := nonZeroDivisors.coe_ne_zero s
+  have hinj : ∀ m : PkgI3.AbVar.End A, (1 : ℚ) ⊗ₜ[ℤ] m = 0 → m = 0 := by
+    intro m hm
+    obtain ⟨s', hs'⟩ := (IsLocalizedModule.eq_zero_iff (nonZeroDivisors ℤ) f).mp hm
+    rw [Submonoid.smul_def] at hs'
+    exact (smul_eq_zero.mp hs').resolve_left (nonZeroDivisors.coe_ne_zero s')
+  refine ⟨φ, ?_, ?_⟩
+  · rw [com, Subring.mem_centralizer_iff]
+    rintro _ ⟨a, rfl⟩
+    have key : (1 : ℚ) ⊗ₜ[ℤ] (q.iota a * φ - φ * q.iota a) = 0 := by
+      have e1 : ∀ x y : PkgI3.AbVar.End A,
+          (1 : ℚ) ⊗ₜ[ℤ] (x * y) = ((1 : ℚ) ⊗ₜ[ℤ] x) * ((1 : ℚ) ⊗ₜ[ℤ] y) := by
+        intro x y; rw [Algebra.TensorProduct.tmul_mul_tmul, _root_.mul_one]
+      rw [TensorProduct.tmul_sub, e1, e1, hs', mul_smul_comm, smul_mul_assoc, ← smul_sub,
+        hcen, sub_self, smul_zero]
+    exact sub_eq_zero.mp (hinj _ key)
+  · intro n hn
+    apply hnq ((n : ℚ) / (s : ℤ))
+    have h1 : algebraMap ℚ (PkgI3.AbVar.End0 A) ((s : ℤ) : ℚ) * c' =
+        algebraMap ℚ (PkgI3.AbVar.End0 A) (n : ℚ) := by
+      rw [map_intCast, map_intCast, ← zsmul_eq_mul, ← hs', hn]
+      exact map_intCast (Algebra.TensorProduct.includeRight :
+        PkgI3.AbVar.End A →ₐ[ℤ] ℚ ⊗[ℤ] PkgI3.AbVar.End A) n
+    have hs1 : ((s : ℤ) : ℚ) ≠ 0 := Int.cast_ne_zero.mpr hs0
+    calc c' = algebraMap ℚ (PkgI3.AbVar.End0 A) (((s : ℤ) : ℚ)⁻¹) *
+          (algebraMap ℚ (PkgI3.AbVar.End0 A) ((s : ℤ) : ℚ) * c') := by
+          rw [← _root_.mul_assoc, ← map_mul, inv_mul_cancel₀ hs1, map_one, _root_.one_mul]
+      _ = algebraMap ℚ _ ((n : ℚ) / (s : ℤ)) := by
+          rw [h1, ← map_mul, div_eq_inv_mul]
+
+end G0FibreSimple
+
+end
+
+end FS4Copy
+
+
+/-! ## §6.10 `𝒪` is a maximal order (proved)
+
+An element of `B` integral over `ℤ` has integral reduced trace and norm (division by
+`X² - tX + n`, Gauss's lemma `IsIntegrallyClosed.eq_map_mul_C_of_dvd`). For `x` in an order
+`R ⊇ 𝒪`, the traces `t₁..t₄` of `x·1, x·i, x·(1+j)/2, x·(i+k)/2` and `nrd(x)` are integers;
+`24·nrd(x) = 6t₁² - 3t₂² + 2(t₁-2t₃)² - (2t₄-t₂)²`, and the congruences mod 3 and mod 8
+(`decide` on `ZMod 3`, `ZMod 8`) put `x` in `𝒪`. (Python check: of the 36 classes of `𝒪^∨/𝒪`,
+only `0` has integral norm.) -/
+
+section OMaxSec
+
+open Polynomial
+
+
+namespace G0ModField.KernelField
+
+/-- The reduced norm form of `B = (2,-3)_ℚ`. -/
+def nrdB (x : LeafQM.B) : ℚ := x.re ^ 2 - 2 * x.imI ^ 2 + 3 * x.imJ ^ 2 - 6 * x.imK ^ 2
+
+/-- **An element of `B` integral over `ℤ` has integral reduced trace and norm.** -/
+theorem int_of_integral {x : LeafQM.B} (hx : IsIntegral ℤ x) :
+    (∃ t : ℤ, 2 * x.re = t) ∧ ∃ n : ℤ, nrdB x = n := by
+  by_cases hq : x.imI = 0 ∧ x.imJ = 0 ∧ x.imK = 0
+  · -- `x ∈ ℚ`
+    obtain ⟨h1, h2, h3⟩ := hq
+    have hxr : x = algebraMap ℚ LeafQM.B x.re := by
+      ext <;> simp [QuaternionAlgebra.algebraMap_eq, h1, h2, h3]
+    have hint : IsIntegral ℤ x.re := by
+      rw [hxr] at hx
+      exact (isIntegral_algHom_iff ((Algebra.ofId ℚ LeafQM.B).restrictScalars ℤ)
+        (algebraMap ℚ LeafQM.B).injective).mp hx
+    obtain ⟨k, hk⟩ := IsIntegrallyClosed.isIntegral_iff.mp hint
+    have hk' : x.re = k := by rw [← hk]; rfl
+    refine ⟨⟨2 * k, by rw [hk']; push_cast; ring⟩, ⟨k ^ 2, ?_⟩⟩
+    simp only [nrdB, hk', h1, h2, h3]; push_cast; ring
+  · obtain ⟨p, hpm, hpx⟩ := hx
+    set t : ℚ := 2 * x.re
+    set n : ℚ := nrdB x
+    let q : ℚ[X] := X ^ 2 - C t * X + C n
+    have hqm : q.Monic := by
+      have : q = X ^ 2 + (-(C t) * X + C n) := by ring
+      rw [this]
+      refine Monic.add_of_left (monic_X_pow 2) ?_
+      refine (degree_add_le _ _).trans_lt (max_lt ?_ ?_)
+      · calc (-(C t) * X).degree ≤ 1 := by
+              rw [← C_neg]; exact degree_C_mul_X_le _
+          _ < (X ^ 2 : ℚ[X]).degree := by rw [degree_X_pow]; norm_num
+      · calc (C n).degree ≤ 0 := degree_C_le
+          _ < (X ^ 2 : ℚ[X]).degree := by rw [degree_X_pow]; norm_num
+    have hqx : aeval x q = 0 := by
+      simp only [q, map_add, map_sub, map_mul, aeval_X_pow, aeval_C, aeval_X]
+      ext <;> simp [sq, QuaternionAlgebra.algebraMap_eq, t, n, nrdB] <;> ring
+    have hpx' : aeval x (p.map (algebraMap ℤ ℚ)) = 0 := by
+      rw [aeval_map_algebraMap]; exact hpx
+    set r := p.map (algebraMap ℤ ℚ) %ₘ q with hr
+    have hrx : aeval x r = 0 := by
+      have e := modByMonic_add_div (p.map (algebraMap ℤ ℚ)) q
+      have := congrArg (aeval x) e
+      rw [map_add, map_mul, hqx, zero_mul, add_zero, hpx'] at this
+      exact this
+    have hq2 : q.natDegree = 2 := by
+      simp only [q]; compute_degree!
+    have hrdeg : r.degree ≤ 1 := by
+      have := natDegree_modByMonic_lt (p.map (algebraMap ℤ ℚ)) hqm
+        (fun h => by rw [h, natDegree_one] at hq2; exact absurd hq2 (by norm_num))
+      rw [hq2] at this
+      exact degree_le_of_natDegree_le (Nat.lt_succ_iff.mp this)
+    have hr0 : r = 0 := by
+      rw [eq_X_add_C_of_degree_le_one hrdeg] at hrx ⊢
+      simp only [map_add, map_mul, aeval_C, aeval_X] at hrx
+      have e1 := congrArg QuaternionAlgebra.imI hrx
+      have e2 := congrArg QuaternionAlgebra.imJ hrx
+      have e3 := congrArg QuaternionAlgebra.imK hrx
+      have e0 := congrArg QuaternionAlgebra.re hrx
+      simp [QuaternionAlgebra.algebraMap_eq] at e0 e1 e2 e3
+      have hc1 : r.coeff 1 = 0 := by
+        by_contra hc
+        apply hq
+        exact ⟨(e1.resolve_left hc), (e2.resolve_left hc), (e3.resolve_left hc)⟩
+      rw [hc1] at e0 ⊢
+      simp at e0
+      simp [e0]
+    have hdvd : q ∣ p.map (algebraMap ℤ ℚ) := (modByMonic_eq_zero_iff_dvd hqm).mp hr0
+    obtain ⟨g, hg⟩ := IsIntegrallyClosed.eq_map_mul_C_of_dvd ℚ hpm hdvd
+    rw [hqm.leadingCoeff, C_1, _root_.mul_one] at hg
+    have c1 := congrArg (fun f : ℚ[X] => f.coeff 1) hg
+    have c0 := congrArg (fun f : ℚ[X] => f.coeff 0) hg
+    simp [q, coeff_X, coeff_C] at c1 c0
+    refine ⟨⟨-g.coeff 1, ?_⟩, ⟨g.coeff 0, ?_⟩⟩
+    · push_cast; linarith
+    · linarith
+
+end G0ModField.KernelField
+
+namespace G0ModField.KernelField
+
+theorem zmod3_aux : ∀ u v : ZMod 3, 2 * u ^ 2 - v ^ 2 = 0 → u = 0 ∧ v = 0 := by decide
+
+theorem zmod8_aux : ∀ a b c d : ZMod 8,
+    6 * a ^ 2 - 3 * b ^ 2 + 2 * (a - 2 * c) ^ 2 - (2 * d - b) ^ 2 = 0 → 4 * b = 0 ∧ 4 * d = 0 := by
+  decide
+
+
+/-- `𝒪` is a maximal order (statement as `OMaximal` in `New.lean`). -/
+theorem oMaximal' : ∀ R : Subring LeafQM.B, LeafQM.O ≤ R → (∀ x ∈ R, IsIntegral ℤ x) →
+    R ≤ LeafQM.O := by
+  intro R hOR hint x hx
+  have hmem : ∀ v : Fin 4 → ℤ, x * LeafQM.ofInt v ∈ R := fun v =>
+    R.mul_mem hx (hOR ⟨v, rfl⟩)
+  obtain ⟨⟨t1, ht1⟩, ⟨nn, hnn⟩⟩ := int_of_integral (hint x hx)
+  obtain ⟨⟨t2, ht2⟩, -⟩ := int_of_integral (hint _ (hmem ![0, 1, 0, 0]))
+  obtain ⟨⟨t3, ht3⟩, -⟩ := int_of_integral (hint _ (hmem ![0, 0, 1, 0]))
+  obtain ⟨⟨t4, ht4⟩, -⟩ := int_of_integral (hint _ (hmem ![0, 0, 0, 1]))
+  simp [LeafQM.ofInt, QuaternionAlgebra.re_mul] at ht2 ht3 ht4
+  unfold nrdB at hnn
+  set a := x.re
+  set b := x.imI
+  set c := x.imJ
+  set d := x.imK
+  -- `a = t1/2`, `b = t2/4`, `c = (t1 - 2 t3)/6`, `d = (2 t4 - t2)/12`
+  have hQ : 6 * t1 ^ 2 - 3 * t2 ^ 2 + 2 * (t1 - 2 * t3) ^ 2 - (2 * t4 - t2) ^ 2 = 24 * nn := by
+    have : ((6 * t1 ^ 2 - 3 * t2 ^ 2 + 2 * (t1 - 2 * t3) ^ 2 - (2 * t4 - t2) ^ 2 : ℤ) : ℚ) =
+        ((24 * nn : ℤ) : ℚ) := by
+      push_cast
+      rw [← ht1, ← hnn]
+      have e2 : (t2 : ℚ) = 4 * b := by linarith
+      have e3 : (t3 : ℚ) = a - 3 * c := by linarith
+      have e4 : (t4 : ℚ) = 2 * b + 6 * d := by linarith
+      rw [e2, e3, e4]; ring
+    exact_mod_cast this
+  -- mod 3
+  set u := t1 - 2 * t3 with hu
+  set v := 2 * t4 - t2 with hv
+  have h3dvd : (3 : ℤ) ∣ 2 * u ^ 2 - v ^ 2 :=
+    ⟨8 * nn - 2 * t1 ^ 2 + t2 ^ 2, by linear_combination hQ⟩
+  have h3 := (ZMod.intCast_zmod_eq_zero_iff_dvd _ 3).mpr h3dvd
+  push_cast at h3
+  obtain ⟨hu3, hv3⟩ := zmod3_aux _ _ h3
+  obtain ⟨u', hu'⟩ := (ZMod.intCast_zmod_eq_zero_iff_dvd u 3).mp hu3
+  obtain ⟨v', hv'⟩ := (ZMod.intCast_zmod_eq_zero_iff_dvd v 3).mp hv3
+  -- mod 8
+  have h8dvd : (8 : ℤ) ∣ 6 * t1 ^ 2 - 3 * t2 ^ 2 + 2 * (t1 - 2 * t3) ^ 2 - (2 * t4 - t2) ^ 2 :=
+    ⟨3 * nn, by rw [hQ]; ring⟩
+  have h8 := (ZMod.intCast_zmod_eq_zero_iff_dvd _ 8).mpr h8dvd
+  push_cast at h8
+  obtain ⟨hb8, hd8⟩ := zmod8_aux _ _ _ _ h8
+  have hb2 : (8 : ℤ) ∣ 4 * t2 := (ZMod.intCast_zmod_eq_zero_iff_dvd _ 8).mp (by push_cast; exact hb8)
+  have hd2 : (8 : ℤ) ∣ 4 * t4 := (ZMod.intCast_zmod_eq_zero_iff_dvd _ 8).mp (by push_cast; exact hd8)
+  obtain ⟨s2, hs2⟩ : ∃ s, t2 = 2 * s := ⟨t2 / 2, by omega⟩
+  obtain ⟨s4, hs4⟩ : ∃ s, t4 = 2 * s := ⟨t4 / 2, by omega⟩
+  -- the coordinates of `x` in `𝒪`
+  have hn2 : 2 * c = u' := by
+    have : (u : ℚ) = 3 * u' := by exact_mod_cast hu'
+    rw [hu] at this; push_cast at this; linarith
+  obtain ⟨w, hw⟩ : ∃ w : ℤ, v' = 2 * w := ⟨v' / 2, by omega⟩
+  have hn3 : 2 * d = w := by
+    have : (v : ℚ) = 3 * v' := by exact_mod_cast hv'
+    rw [hv] at this; push_cast at this
+    have : (v' : ℚ) = 2 * w := by exact_mod_cast hw
+    linarith
+  have hvz : 2 * t4 - t2 = 3 * v' := by rw [← hv, hv']; norm_num
+  have hvq : (3 * v' : ℚ) = 4 * s4 - 2 * s2 := by
+    have : 3 * v' = 4 * s4 - 2 * s2 := by rw [← hvz, hs2, hs4]; ring
+    exact_mod_cast this
+  have es4 : (t4 : ℚ) = 2 * s4 := by exact_mod_cast hs4
+  refine ⟨![t3 + u', s4 - v', u', w], ?_⟩
+  have e2 : (t2 : ℚ) = 4 * b := by linarith
+  have e3 : (t3 : ℚ) = a - 3 * c := by linarith
+  have e4 : (t4 : ℚ) = 2 * b + 6 * d := by linarith
+  have es2 : (t2 : ℚ) = 2 * s2 := by exact_mod_cast hs2
+  ext <;> simp [LeafQM.ofInt] <;> linarith
+
+end G0ModField.KernelField
+
+end OMaxSec
 
 section EndEqOSec
 
@@ -61684,9 +62084,12 @@ namespace G0ModField.KernelField
 `B` containing `𝒪` whose elements are integral over `ℤ` is contained in `𝒪`. STANDARD (the
 order `𝒪 = ℤ⟨1, i, (1+j)/2, (i+k)/2⟩` has reduced discriminant `6 = disc B`; Vignéras,
 *Arithmétique des algèbres de quaternions*, III §5, UNVERIFIED locator). A finite lattice
-computation; not compiled here. -/
+computation, proved below (`oMaximal`). -/
 def OMaximal : Prop :=
   ∀ R : Subring LeafQM.B, LeafQM.O ≤ R → (∀ x ∈ R, IsIntegral ℤ x) → R ≤ LeafQM.O
+
+/-- **`OMaximal`, proved** (§6.10). -/
+theorem oMaximal : OMaximal := oMaximal'
 
 /-- **`EndEqOFibre` from T27 (Yu), T6 (Mumford §19 Thm 3) and `OMaximal` (proved).** -/
 theorem endEqOFibre_of (t27 : PkgI3.QMDichotomyYu) (hHF : PkgI3.HomFreeFinite)
@@ -61791,10 +62194,279 @@ theorem kernelFieldExists_of_split'' (hHFF : PkgI3.HomFreeFinite)
     (hG : ConjIsogMaps) : KernelFieldExists :=
   kernelFieldExists_of_split' hHFF hNOS hRay hTors h5 hG (endEqOFibre_of t27 hHFF hmax) hb
 
+/-- **Headline, final split form (proved).** `KernelFieldExists` from the leaves `HomFreeFinite`
+(T6), `NeronOggShafarevich`, `RaynaudCriterion`, `TorsionStructure`, `QMDichotomyYu` (T27) and the
+glue FS5 `FibreComTrivial`, `EndTransport`, `ConjIsogMaps`. -/
+theorem kernelFieldExists_of_final (hHFF : PkgI3.HomFreeFinite)
+    (hNOS : PkgI2.NeronOggShafarevich.{0}) (hRay : PkgI2.RaynaudCriterion.{0})
+    (hTors : PkgI2.TorsionStructure.{0}) (t27 : PkgI3.QMDichotomyYu)
+    (h5 : G0FibreSimple.FibreComTrivial) (hb : EndTransport) (hG : ConjIsogMaps) :
+    KernelFieldExists :=
+  kernelFieldExists_of_split'' hHFF hNOS hRay hTors t27 h5 oMaximal hb hG
+
+
+/-- `End = ι(𝒪)` moves along an isomorphism of `QML3` objects (proved). -/
+theorem endEqO_of_iso {k : Type} [Field k] {P Q : QML3 k} (e : QML3.Iso Q P)
+    (h : ∀ f : PkgI3.AbVar.End P.A, ∃ a : LeafQM.O, f = P.q.iota a) :
+    ∀ g : PkgI3.AbVar.End Q.A, ∃ a : LeafQM.O, g = Q.q.iota a := by
+  intro g
+  let g' : PkgI3.AbVar.End P.A := PkgI3.AbVar.Hom.mk' (e.ψ.hom ≫ g.hom ≫ e.φ.hom)
+  obtain ⟨a, ha⟩ := h g'
+  refine ⟨a, PkgI3.AbVar.Hom.ext' ?_⟩
+  have h1 : g.hom = e.φ.hom ≫ g'.hom ≫ e.ψ.hom := by
+    change g.hom = e.φ.hom ≫ (e.ψ.hom ≫ g.hom ≫ e.φ.hom) ≫ e.ψ.hom
+    simp only [Category.assoc, e.left, Category.comp_id]
+    rw [← Category.assoc, e.left, Category.id_comp]
+  rw [h1, ha, ← Category.assoc, ← e.equivariant a, Category.assoc, e.left, Category.comp_id]
+
+/-- **Remaining glue 4b′ (base change and rigidity).** For a base change `Q` of `PK` along
+`K ⊆ ℚ̄` (`IsBaseChangeOf`, a pullback square compatible with `ι` and `η`): if
+`End(Q.A) = ι_Q(𝒪)`, then `End_L(A_L) = ι_L(𝒪)` for every `L ⊇ K`. *Argument* (model check):
+`(A_L)_ℚ̄` and `Q.A` are two pullbacks of `PK.A` along `Spec ℚ̄ → Spec K` (pasting), hence
+isomorphic as `ℚ̄`-schemes; the isomorphism preserves the identity (`η(0) = 0`), so it is a
+homomorphism by rigidity (g0-fibresimple's leaf `RigidityHom`, Mumford §4 Cor. 1), and it carries
+the base change of `ι_L(a)` to `ι_Q(a)`; an `f ∈ End_L(A_L)` has base change `ι_Q(a)` for some
+`a`, so `f = ι_L(a)` because base change along `Spec ℚ̄ → Spec L` is faithful (fpqc;
+bp-qmmoduli's `endBC_injective`). `IsBaseChangeOf` records no group law, which is why rigidity
+is needed. -/
+def EndTransportBC : Prop :=
+  ∀ (K : IF) (PK : QML3 K) (Q : QML3 Qbar), IsBaseChangeOf (K.val : K →+* Qbar) PK Q →
+    (∀ g : PkgI3.AbVar.End Q.A, ∃ a : LeafQM.O, g = Q.q.iota a) →
+    ∀ (L : IF) (hKL : K ≤ L),
+      ∀ f : PkgI3.AbVar.End (@PkgI3.AbVar.baseChange K _ PK.A L _ (incAlg hKL)),
+        ∃ a : LeafQM.O, f = ((@endBC K _ PK.A L _ (incAlg hKL)).comp PK.q.iota) a
+
+/-- `EndTransport` from `EndTransportBC` (proved: R1's naturality at `K ⊆ ℚ̄` gives the base
+change `Q` of `PK` with `[Q] = [P]`, so `Q ≅ P`, and `endEqO_of_iso`). -/
+theorem endTransport_of (h : EndTransportBC) : EndTransport := by
+  intro Y Φ π hR1 hR2 j₀ y P hy hπ hEndP K _ _ PK hPK L _ _ hKL hfix f
+  obtain ⟨⟨yK, hyK, hyKP⟩, -⟩ := hPK
+  obtain ⟨Q, hQ, hbc⟩ := hR1.2.2.2 K Qbar K.val yK PK hyK
+  have hQP : M3.mk Q = M3.mk P := hQ.symm.trans hyKP
+  obtain ⟨e⟩ := Quotient.exact hQP
+  exact h K PK Q hbc (endEqO_of_iso e hEndP) L hKL f
+
+/-- **Headline, final form with `EndTransportBC` (proved).** -/
+theorem kernelFieldExists_of_final' (hHFF : PkgI3.HomFreeFinite)
+    (hNOS : PkgI2.NeronOggShafarevich.{0}) (hRay : PkgI2.RaynaudCriterion.{0})
+    (hTors : PkgI2.TorsionStructure.{0}) (t27 : PkgI3.QMDichotomyYu)
+    (h5 : G0FibreSimple.FibreComTrivial) (hbc : EndTransportBC) (hG : ConjIsogMaps) :
+    KernelFieldExists :=
+  kernelFieldExists_of_final hHFF hNOS hRay hTors t27 h5 (endTransport_of hbc) hG
+
 end G0ModField.KernelField
 
 end EndEqOSec
 
+
+/-! ## §6.11 `EndTransportBC` from rigidity (attempt)
+
+Copied verbatim: `RigidityHom` (g0-fibresimple `Tail.lean` lines 357-363) and the faithful base
+change instances and `endBC_injective` (bp-qmmoduli `QMAbVar.lean` lines 558-575, `AbVar`
+qualified). -/
+
+section RigCopy
+
+open CategoryTheory AlgebraicGeometry Limits MonoidalCategory CartesianMonoidalCategory MonObj
+open scoped CategoryTheory.Obj
+
+namespace G0FibreSimple
+
+
+/-- **Textbook leaf (rigidity; Mumford, *Abelian varieties*, §4 Cor. 1; Milne, *Abelian
+varieties* (Cornell–Silverman 1986), Cor. 2.2, over any field; locators UNVERIFIED).** A morphism
+of `k`-schemes between abelian varieties that sends the identity to the identity is a
+homomorphism. -/
+def RigidityHom : Prop :=
+  ∀ (k : Type) [Field k] (A B : PkgI3.AbVar k) (h : A.X ⟶ B.X), η[A.X] ≫ h = η[B.X] → IsMonHom h
+
+end G0FibreSimple
+
+namespace G0ModField.KernelField
+
+variable {K : Type} [Field K]
+
+/-- `Spec L → Spec K` is flat, surjective and quasi-compact, so `Over.pullback` along it is
+faithful (Mathlib, `Morphisms/FlatDescent.lean`). -/
+instance specMap_flat (L : Type) [Field L] [Algebra K L] :
+    Flat (Spec.map (CommRingCat.ofHom (algebraMap K L))) := by
+  rw [HasRingHomProperty.Spec_iff (P := @Flat)]
+  exact RingHom.flat_algebraMap_iff.mpr inferInstance
+
+instance specMap_surjective (L : Type) [Field L] [Algebra K L] :
+    Surjective (Spec.map (CommRingCat.ofHom (algebraMap K L))) :=
+  ⟨fun _ => ⟨IsLocalRing.closedPoint L, Subsingleton.elim _ _⟩⟩
+
+/-- Base change on endomorphisms is injective. -/
+theorem endBC_injective (A : PkgI3.AbVar K) (L : Type) [Field L] [Algebra K L] :
+    Function.Injective (endBC A L) := by
+  intro f g h
+  apply PkgI3.AbVar.Hom.ext'
+  exact (Over.pullback (Spec.map (CommRingCat.ofHom (algebraMap K L)))).map_injective
+    (congrArg PkgI3.AbVar.Hom.hom h)
+
+end G0ModField.KernelField
+
+end RigCopy
+
+section RigProof
+
+open CategoryTheory AlgebraicGeometry Limits MonoidalCategory CartesianMonoidalCategory MonObj
+open scoped CategoryTheory.Obj
+open LeafQM.AV
+
+namespace G0ModField.KernelField
+
+/-- **`EndTransportBC` from the textbook leaf `RigidityHom` (proved).** -/
+theorem endTransportBC_of_rigidity (hR : G0FibreSimple.RigidityHom) : EndTransportBC := by
+  intro K PK Q hbc hEndQ L hKL f
+  letI : Algebra K L := incAlg hKL
+  obtain ⟨g, hpb, hι, hη⟩ := hbc
+  let sKL := Spec.map (CommRingCat.ofHom (algebraMap K L))
+  let sLQ := Spec.map (CommRingCat.ofHom (algebraMap L Qbar))
+  let AL : PkgI3.AbVar L := PK.A.baseChange L
+  let ALQ : PkgI3.AbVar Qbar := AL.baseChange Qbar
+  have hcomp : sLQ ≫ sKL = Spec.map (CommRingCat.ofHom ((K.val : K →ₐ[ℚ] Qbar) : K →+* Qbar)) := by
+    rw [← Spec.map_comp]; congr 1
+  have hpb1 : IsPullback (pullback.fst AL.X.hom sLQ) (pullback.snd AL.X.hom sLQ) AL.X.hom sLQ :=
+    IsPullback.of_hasPullback _ _
+  have hpb2 : IsPullback (pullback.fst PK.A.X.hom sKL) (pullback.snd PK.A.X.hom sKL)
+      PK.A.X.hom sKL := IsPullback.of_hasPullback _ _
+  have hpb3 : IsPullback (pullback.fst AL.X.hom sLQ ≫ pullback.fst PK.A.X.hom sKL)
+      (pullback.snd AL.X.hom sLQ) PK.A.X.hom
+      (Spec.map (CommRingCat.ofHom ((K.val : K →ₐ[ℚ] Qbar) : K →+* Qbar))) := by
+    rw [← hcomp]; exact hpb1.paste_horiz hpb2
+  let θ : ALQ.X.left ≅ Q.A.X.left := hpb3.isoIsPullback _ _ hpb
+  have hθfst : θ.hom ≫ g =
+      (pullback.fst AL.X.hom sLQ ≫ pullback.fst PK.A.X.hom sKL : ALQ.X.left ⟶ PK.A.X.left) :=
+    hpb3.isoIsPullback_hom_fst _ _ hpb
+  have hθsnd : θ.hom ≫ Q.A.X.hom = (pullback.snd AL.X.hom sLQ : ALQ.X.left ⟶ _) :=
+    hpb3.isoIsPullback_hom_snd _ _ hpb
+  let h : ALQ.X ⟶ Q.A.X := Over.homMk θ.hom hθsnd
+  let hinv : Q.A.X ⟶ ALQ.X := Over.homMk θ.inv ((Iso.inv_comp_eq θ).mpr hθsnd.symm)
+  have hhi : h ≫ hinv = 𝟙 _ := by
+    apply Over.OverMorphism.ext; exact θ.hom_inv_id
+  have hih : hinv ≫ h = 𝟙 _ := by
+    apply Over.OverMorphism.ext; exact θ.inv_hom_id
+  -- the identity sections correspond
+  have hu : ∀ {R : Type} [Field R] {U : Over (Spec (CommRingCat.of R))},
+      (toUnit U).left = U.hom := fun {R _ U} => by
+    have := Over.w (toUnit U); simpa using this
+  have hid : ∀ (R : Type) [Field R], Spec.map (CommRingCat.ofHom (algebraMap R R)) = 𝟙 _ :=
+    fun R _ => by rw [Algebra.algebraMap_self, CommRingCat.ofHom_id, Spec.map_id]
+  have hηQ : η[Q.A.X].left ≫ g =
+      Spec.map (CommRingCat.ofHom ((K.val : K →ₐ[ℚ] Qbar) : K →+* Qbar)) ≫ η[PK.A.X].left := by
+    have := hη 0
+    have h0Q : Additive.toMul (Q.e.eta 0) = 1 := by rw [map_zero]; rfl
+    have h0P : Additive.toMul (PK.e.eta 0) = 1 := by rw [map_zero]; rfl
+    rw [h0Q, h0P] at this
+    change (toUnit (PkgI3.AbVar.ptObj (K := Qbar) Qbar) ≫ η[Q.A.X]).left ≫ g =
+      Spec.map (CommRingCat.ofHom ((K.val : K →ₐ[ℚ] Qbar) : K →+* Qbar)) ≫
+        (toUnit (PkgI3.AbVar.ptObj (K := K) K) ≫ η[PK.A.X]).left at this
+    rw [Over.comp_left, Over.comp_left, hu, hu] at this
+    simp only [PkgI3.AbVar.ptObj, Over.mk_hom, hid, Category.assoc] at this
+    erw [Category.id_comp, Category.id_comp] at this
+    exact this
+  have hηW : η[ALQ.X].left ≫ pullback.fst AL.X.hom sLQ ≫ pullback.fst PK.A.X.hom sKL =
+      Spec.map (CommRingCat.ofHom ((K.val : K →ₐ[ℚ] Qbar) : K →+* Qbar)) ≫ η[PK.A.X].left := by
+    have e1 := G4Conj.one_left_fst sLQ AL.X
+    have e2 := G4Conj.one_left_fst sKL PK.A.X
+    calc η[ALQ.X].left ≫ pullback.fst AL.X.hom sLQ ≫ pullback.fst PK.A.X.hom sKL
+        = (η[ALQ.X].left ≫ pullback.fst AL.X.hom sLQ) ≫ pullback.fst PK.A.X.hom sKL :=
+          (Category.assoc _ _ _).symm
+      _ = (sLQ ≫ η[AL.X].left) ≫ pullback.fst PK.A.X.hom sKL := by erw [e1]
+      _ = sLQ ≫ (η[AL.X].left ≫ pullback.fst PK.A.X.hom sKL) := Category.assoc _ _ _
+      _ = sLQ ≫ (sKL ≫ η[PK.A.X].left) := by erw [e2]
+      _ = _ := by rw [← Category.assoc, hcomp]
+  have hunit : η[ALQ.X] ≫ h = η[Q.A.X] := by
+    apply Over.OverMorphism.ext
+    rw [Over.comp_left]
+    apply hpb.hom_ext
+    · show η[ALQ.X].left ≫ θ.hom ≫ g = η[Q.A.X].left ≫ g
+      rw [hθfst, hηW, hηQ]
+    · rw [Category.assoc, Over.w h, Over.w η[ALQ.X], Over.w η[Q.A.X]]
+  have hunit' : η[Q.A.X] ≫ hinv = η[ALQ.X] := by
+    rw [← hunit, Category.assoc, hhi, Category.comp_id]
+  haveI hmh : IsMonHom h := hR Qbar ALQ Q.A h hunit
+  haveI hmi : IsMonHom hinv := hR Qbar Q.A ALQ hinv hunit'
+  -- transport `f` to `Q.A`
+  let g' : PkgI3.AbVar.End Q.A := PkgI3.AbVar.Hom.mk' (hinv ≫ (endBC AL Qbar f).hom ≫ h)
+  obtain ⟨a, ha⟩ := hEndQ g'
+  have hf1 : (endBC AL Qbar f).hom = h ≫ (Q.q.iota a).hom ≫ hinv := by
+    have : g'.hom = (Q.q.iota a).hom := by rw [ha]
+    change hinv ≫ (endBC AL Qbar f).hom ≫ h = _ at this
+    rw [← this]
+    simp only [← Category.assoc, hhi, Category.id_comp]
+    rw [Category.assoc, hhi, Category.comp_id]
+  have hf2 : (endBC AL Qbar (endBC PK.A L (PK.q.iota a))).hom ≫ h = h ≫ (Q.q.iota a).hom := by
+    apply Over.OverMorphism.ext
+    rw [Over.comp_left, Over.comp_left]
+    apply hpb.hom_ext
+    · change (endBC AL Qbar (endBC PK.A L (PK.q.iota a))).hom.left ≫ θ.hom ≫ g =
+        θ.hom ≫ (Q.q.iota a).hom.left ≫ g
+      have hm1 : (endBC AL Qbar (endBC PK.A L (PK.q.iota a))).hom.left ≫
+          (pullback.fst AL.X.hom sLQ : ALQ.X.left ⟶ AL.X.left) =
+          (pullback.fst AL.X.hom sLQ : ALQ.X.left ⟶ AL.X.left) ≫
+            (endBC PK.A L (PK.q.iota a)).hom.left :=
+        pullback.lift_fst _ _ _
+      have hm2 : (endBC PK.A L (PK.q.iota a)).hom.left ≫
+          (pullback.fst PK.A.X.hom sKL : AL.X.left ⟶ PK.A.X.left) =
+          (pullback.fst PK.A.X.hom sKL : AL.X.left ⟶ PK.A.X.left) ≫ (PK.q.iota a).hom.left :=
+        pullback.lift_fst _ _ _
+      rw [hι a, hθfst, ← Category.assoc θ.hom g, hθfst]
+      have key : (endBC AL Qbar (endBC PK.A L (PK.q.iota a))).hom.left ≫
+          ((pullback.fst AL.X.hom sLQ : ALQ.X.left ⟶ AL.X.left) ≫
+            (pullback.fst PK.A.X.hom sKL : AL.X.left ⟶ PK.A.X.left)) =
+          ((pullback.fst AL.X.hom sLQ : ALQ.X.left ⟶ AL.X.left) ≫
+            (pullback.fst PK.A.X.hom sKL : AL.X.left ⟶ PK.A.X.left)) ≫ (PK.q.iota a).hom.left := by
+        erw [← Category.assoc, hm1, Category.assoc, hm2, Category.assoc]
+        rfl
+      exact key
+    · rw [Category.assoc, Category.assoc, Over.w h, Over.w (Q.q.iota a).hom, Over.w h]
+      exact Over.w ((Over.pullback sLQ).map ((Over.pullback sKL).map (PK.q.iota a).hom))
+  have hf3 : (endBC AL Qbar f).hom = (endBC AL Qbar (endBC PK.A L (PK.q.iota a))).hom := by
+    rw [hf1, ← Category.assoc, ← hf2, Category.assoc, hhi, Category.comp_id]
+  refine ⟨a, endBC_injective AL Qbar (PkgI3.AbVar.Hom.ext' hf3)⟩
+
+/-- **Headline (proved): `KernelFieldExists` from six leaves and two glue Props.** Leaves:
+`HomFreeFinite` (T6), `NeronOggShafarevich`, `RaynaudCriterion`, `TorsionStructure`,
+`QMDichotomyYu` (T27), `RigidityHom` (Mumford §4 Cor. 1; g0-fibresimple's textbook leaf). Glue:
+FS5 `FibreComTrivial` (g0-fibresimple) and `ConjIsogMaps`. -/
+theorem kernelFieldExists_of_rigidity (hHFF : PkgI3.HomFreeFinite)
+    (hNOS : PkgI2.NeronOggShafarevich.{0}) (hRay : PkgI2.RaynaudCriterion.{0})
+    (hTors : PkgI2.TorsionStructure.{0}) (t27 : PkgI3.QMDichotomyYu)
+    (hRig : G0FibreSimple.RigidityHom) (h5 : G0FibreSimple.FibreComTrivial)
+    (hG : ConjIsogMaps) : KernelFieldExists :=
+  kernelFieldExists_of_final' hHFF hNOS hRay hTors t27 h5 (endTransportBC_of_rigidity hRig) hG
+
+end G0ModField.KernelField
+
+end RigProof
+
+#print axioms G0ModField.KernelField.conjMaps_of_qm
+#print axioms G0ModField.KernelField.conjIsogMapsAt_bot
+#print axioms G0ModField.KernelField.kernelFieldExists_of_split
+#print axioms G0ModField.KernelField.kernelFieldExists_of_split'
+#print axioms G0ModField.KernelField.kernelFieldExists_of_split''
+#print axioms G0ModField.KernelField.endEqOFibre_of
+#print axioms G0ModField.KernelField.oMaximal
+#print axioms G0ModField.KernelField.kernelFieldExists_of_final
+#print axioms G0ModField.KernelField.kernelFieldExists_of_final'
+#print axioms G0ModField.KernelField.endTransportBC_of_rigidity
+#print axioms G0ModField.KernelField.kernelFieldExists_of_rigidity
+#print axioms G0ModField.KernelField.faithful_O
+#print axioms G0ModField.KernelField.blinear_of_twisted_iso
+#print axioms G0ModField.KernelField.center_O
+#print axioms G0ModField.KernelField.aut_O_inner
+#print axioms G0ModField.KernelField.kernelFieldExists_of_leaves_FS5
+#print axioms G0ModField.KernelField.kernelFieldExists_of_leaves
+#print axioms G0ModField.KernelField.conjugacyData_of_maps
+#print axioms G0ModField.KernelField.kernelField_core
+#print axioms G0ModField.KernelField.kernelField_of_model
+#print axioms G0ModField.KernelField.good_of_QML3
+#print axioms G0ModField.KernelField.conj_dim
+#print axioms G0ModField.KernelField.kernelFieldExists_of_pieces
+#print axioms G0ModField.KernelField.torsionCountPts_of_leaf
 
 end G0A2_a75_kernelfield
 
@@ -76530,6 +77202,407 @@ attribute [-instance] TauCeti.FinitePadicExtension.toAlgebra
   TauCeti.FinitePadicExtension.ofInstances TauCeti.FinitePadicExtension.toModuleFinite
   TauCeti.FinitePadicExtension.toValuativeExtension
 
+section G0A2_b05_conjtwist
+/-! ## leaf-fold2: conj-twist's later sections (scratch/conj-twist/ConjTwist.lean lines 1624-2004, verbatim; commits
+3ecdd95e, 94802c43): §13 N1-surj from T5, §14-§16 N3a and `TwistCEval` proved, and
+`conjTwistNontrivial_of_leaves : T5 → T26 → T35 → HomLinearLift → ConjTwistNontrivial`. Part a30 holds
+lines 84-191, 206-1612 (g0-assemble2). The `open`s are the file's lines 41-43 and 718. -/
+noncomputable section
+
+namespace G0Galois
+
+open PkgI4 (GaloisRep GaloisChar)
+open CategoryTheory AlgebraicGeometry Limits MonoidalCategory CartesianMonoidalCategory MonObj
+open scoped TensorProduct CategoryTheory.Obj
+open ZInQ.LeafPush2 (CPts cptObj IsUniformization)
+
+/-! ## §13. N1-surj from T5 and a uniformization (proved)
+
+Given a uniformization `Φ : ℂ^g → A(ℂ)_σ` with full lattice `Λ`, `A(ℂ)[n]` injects into
+`(ℤ/n)^{2g}` (`Q = Φ(z) ↦` the coordinates of `nz ∈ Λ` mod `n`), and `A(K̄)[n] ≅ (ℤ/n)^{2g}` by T5
+(`PkgI2.TorsionStructure`). `toC` is injective, so it is a bijection on `n`-torsion. -/
+
+/-- **Torsion surjectivity from T5 (proved).** -/
+theorem torsion_surj_of_T5 (h5 : PkgI2.TorsionStructure.{0}) {K : Type} [Field K]
+    (A : PkgI3.AbVar K) (emb : AlgebraicClosure K →+* ℂ) (g : ℕ) (Λ : Submodule ℤ (Fin g → ℂ))
+    [DiscreteTopology Λ] [IsZLattice ℝ Λ]
+    (Φ : (Fin g → ℂ) → CPts A (emb.comp (algebraMap K (AlgebraicClosure K))))
+    (hΦ : IsUniformization (emb.comp (algebraMap K (AlgebraicClosure K))) Λ Φ)
+    (hd : A.dim = (g : WithBot ℕ∞)) (n : ℕ) (hn : 0 < n)
+    (Q : CPts A (emb.comp (algebraMap K (AlgebraicClosure K)))) (hQ : Q ^ n = 1) :
+    ∃ P, toC A emb P = Q := by
+  classical
+  haveI := ZLattice.module_finite ℝ Λ
+  haveI := ZLattice.module_free ℝ Λ
+  let b := Module.Free.chooseBasis ℤ Λ
+  have hnK : (n : K) ≠ 0 := by
+    intro h0
+    have := congrArg (emb.comp (algebraMap K (AlgebraicClosure K))) h0
+    rw [map_natCast, map_zero] at this
+    exact (Nat.cast_ne_zero.mpr hn.ne') this
+  obtain ⟨e, -⟩ := h5 K (ObjBridge.toGrp A) g n hd hn hnK
+  let S := {P : A.Pt (AlgebraicClosure K) // P ^ n = 1}
+  let T := {Q : CPts A (emb.comp (algebraMap K (AlgebraicClosure K))) // Q ^ n = 1}
+  let f : S → T := fun P => ⟨toC A emb P.1, by rw [← map_pow, P.2, map_one]⟩
+  have hf : Function.Injective f := fun P P' h =>
+    Subtype.ext (toC_injective A emb (congrArg Subtype.val h))
+  have hpre : ∀ Q : T, ∃ z, Φ z = Q.1 := fun Q => hΦ.2.2.1 Q.1
+  choose zz hzz using hpre
+  have hnz : ∀ Q : T, n • zz Q ∈ Λ := fun Q => by
+    rw [← hΦ.2.1, phi_nsmul A emb Φ hΦ.1, hzz, Q.2]
+  let code : T → (Module.Free.ChooseBasisIndex ℤ Λ → ZMod n) := fun Q i =>
+    ((b.repr ⟨n • zz Q, hnz Q⟩ i : ℤ) : ZMod n)
+  have hcode : Function.Injective code := by
+    intro Q Q' hQQ
+    have hdvd : ∀ i, (n : ℤ) ∣ b.repr ⟨n • zz Q', hnz Q'⟩ i - b.repr ⟨n • zz Q, hnz Q⟩ i :=
+      fun i => (ZMod.intCast_eq_intCast_iff_dvd_sub _ _ _).mp (congrFun hQQ i)
+    choose k hk using hdvd
+    let mu : Λ := ∑ i, k i • b i
+    have hmu : (⟨n • zz Q', hnz Q'⟩ : Λ) - ⟨n • zz Q, hnz Q⟩ = (n : ℤ) • mu := by
+      apply b.repr.injective
+      refine Finsupp.ext fun i => ?_
+      rw [map_sub, Finsupp.sub_apply, hk i, map_smul, Finsupp.smul_apply, smul_eq_mul]
+      congr 1
+      exact (congrFun (b.repr_sum_self k) i).symm
+    have hvec : n • zz Q' - n • zz Q = (n : ℤ) • (mu : Fin g → ℂ) := by
+      have := congrArg Subtype.val hmu
+      simpa using this
+    have e3 : (n : ℂ) • (zz Q' - zz Q) = (n : ℂ) • (mu : Fin g → ℂ) := by
+      rw [smul_sub, Nat.cast_smul_eq_nsmul, Nat.cast_smul_eq_nsmul, Nat.cast_smul_eq_nsmul, hvec,
+        natCast_zsmul]
+    have e4 : zz Q' - zz Q = mu :=
+      smul_right_injective (Fin g → ℂ) (Nat.cast_ne_zero.mpr hn.ne' : (n : ℂ) ≠ 0) e3
+    apply Subtype.ext
+    rw [← hzz Q, ← hzz Q', show zz Q' = zz Q + mu by rw [← e4]; abel, hΦ.1,
+      (hΦ.2.1 _).mpr mu.2, _root_.mul_one]
+  haveI : NeZero n := ⟨hn.ne'⟩
+  haveI : Finite T := Finite.of_injective code hcode
+  have hcardS : Nat.card S = n ^ (2 * g) := by
+    have hSe : Nat.card S = Nat.card (Fin (2 * g) → ZMod n) := Nat.card_congr e
+    rw [hSe, Nat.card_fun, Nat.card_zmod,
+      Nat.card_eq_fintype_card, Fintype.card_fin]
+  have hcardT : Nat.card T ≤ n ^ (2 * g) := by
+    have h1 := Nat.card_le_card_of_injective code hcode
+    rw [Nat.card_fun, Nat.card_zmod,
+      Nat.card_eq_fintype_card (α := Module.Free.ChooseBasisIndex ℤ Λ),
+      ← Module.finrank_eq_card_chooseBasisIndex, ZLattice.rank ℝ Λ,
+      Module.finrank_pi_fintype] at h1
+    simp only [Complex.finrank_real_complex, Finset.sum_const, Finset.card_univ,
+      Fintype.card_fin, smul_eq_mul] at h1
+    simpa [mul_comm] using h1
+  have hbij := hf.bijective_of_nat_card_le (hcardS ▸ hcardT)
+  obtain ⟨P, hP⟩ := hbij.2 ⟨Q, hQ⟩
+  exact ⟨P.1, congrArg Subtype.val hP⟩
+
+/-- **N4' from T5 (proved).** -/
+theorem tateLatticeInj_of_T5 (h5 : PkgI2.TorsionStructure.{0}) : TateLatticeInj := by
+  intro K _ A emb g Λ Φ hd _ hlat hΦ ℓ _
+  haveI := ZLattice.module_finite ℝ Λ
+  haveI := ZLattice.module_free ℝ Λ
+  have hsurj := fun n hn Q hQ => torsion_surj_of_T5 h5 A emb g Λ Φ hΦ hd n hn Q hQ
+  refine ⟨(xLin A emb Φ ℓ hΦ.1 hΦ.2.1 hsurj).liftBaseChange ℤ_[ℓ],
+    xLin_liftBaseChange_injective A emb Φ ℓ hΦ.1 hΦ.2.1 hsurj, fun lam n => ?_⟩
+  rw [LinearMap.liftBaseChange_one_tmul]
+  exact xSeq_apply A emb Φ ℓ hΦ.1 hΦ.2.1 hsurj lam n
+
+/-- **Final: `ConjTwistNontrivial` from T5, T26, T35, N2 and N3a (proved).** -/
+theorem conjTwistNontrivial_final (h5 : PkgI2.TorsionStructure.{0})
+    (hT : PkgI3.TateModuleFree) (h35 : ZInQ.LeafPush2.UniformizationExists)
+    (hN2 : HomLinearLift) (hN3a : ConjUniformization) : ConjTwistNontrivial :=
+  conjTwistNontrivial_of_latticeInj hT h35 hN2 (conjAntiLiftLat_of hN2 hN3a)
+    (tateLatticeInj_of_T5 h5)
+
+/-- **Final: `ConjTwistFromLeaves` from N2 and N3a (proved).** T5, T26 and T35 are among the
+hypotheses of `ConjTwistFromLeaves`. -/
+theorem conjTwistFromLeaves_final (hN2 : HomLinearLift) (hN3a : ConjUniformization) :
+    ConjTwistFromLeaves :=
+  fun _ _ h35 h5 hT => conjTwistNontrivial_final h5 hT h35 hN2 hN3a
+
+/-! ## §14. N3a split: group-theoretic clauses (proved) and analytic clauses (glue) -/
+
+theorem twistC_inj_aux' {K : Type} [Field K] (σ : K →+* ℂ) (s : K →+* K)
+    (h : σ.comp s = (starRingEnd ℂ).comp σ) :
+    mapPtIso σ s ≫ conjHom σ s h ≫ conjHomInv σ s h ≫ mapPtIsoInv σ s = 𝟙 _ := by
+  apply Over.OverMorphism.ext
+  change 𝟙 _ ≫ Spec.map (CommRingCat.ofHom (starRingEnd ℂ)) ≫
+    Spec.map (CommRingCat.ofHom (starRingEnd ℂ)) ≫ 𝟙 _ = 𝟙 _
+  rw [Category.id_comp, Category.comp_id, ← Spec.map_comp, ← CommRingCat.ofHom_comp]
+  rw [show (starRingEnd ℂ).comp (starRingEnd ℂ) = RingHom.id ℂ by ext x; simp,
+    CommRingCat.ofHom_id, Spec.map_id]
+
+theorem twistC_surjective {K : Type} [Field K] (A : PkgI3.AbVar K) (σ : K →+* ℂ) (s : K →+* K)
+    (h : σ.comp s = (starRingEnd ℂ).comp σ) : Function.Surjective (twistC A σ s h) := by
+  intro Q'
+  obtain ⟨X, hX⟩ := ((Over.mapPullbackAdj (specS s)).homEquiv (cptObj σ) A.X).surjective
+    (show cptObj σ ⟶ (Over.pullback (specS s)).obj A.X from Q')
+  refine ⟨conjHomInv σ s h ≫ mapPtIsoInv σ s ≫ X, ?_⟩
+  have e : mapPtIso σ s ≫ conjHom σ s h ≫ conjHomInv σ s h ≫ mapPtIsoInv σ s ≫ X = X := by
+    have := congrArg (· ≫ X) (twistC_inj_aux' σ s h)
+    simpa only [Category.assoc, Category.id_comp] using this
+  change (Over.mapPullbackAdj (specS s)).homEquiv _ _ (mapPtIso σ s ≫ conjHom σ s h ≫
+    conjHomInv σ s h ≫ mapPtIsoInv σ s ≫ X) = Q'
+  rw [e]
+  exact hX
+
+theorem twistC_mul {K : Type} [Field K] (A : PkgI3.AbVar K) (σ : K →+* ℂ) (s : K →+* K)
+    (h : σ.comp s = (starRingEnd ℂ).comp σ) (Q Q' : CPts A σ) :
+    twistC A σ s h (Q * Q') = twistC A σ s h Q * twistC A σ s h Q' := by
+  change (Over.mapPullbackAdj (specS s)).homEquiv _ _ (mapPtIso σ s ≫ conjHom σ s h ≫ (Q * Q')) =
+    (Over.mapPullbackAdj (specS s)).homEquiv _ _ (mapPtIso σ s ≫ conjHom σ s h ≫ Q) *
+    (Over.mapPullbackAdj (specS s)).homEquiv _ _ (mapPtIso σ s ≫ conjHom σ s h ≫ Q')
+  rw [MonObj.comp_mul, MonObj.comp_mul, homEquiv_mul_conj]
+
+/-- **N3a-an. The analytic clauses for the conjugate uniformization (GLUE, unproved;
+STANDARD).** With `ψ(z) = twistC(Φ(z̄))`: the preimages `ψ⁻¹(U(ℂ))` of opens `U` of `A^s` are
+open, and regular functions of `A^s` are holomorphic along `ψ`. (`A^s(ℂ)_σ = A(ℂ)_{conj∘σ}`; on
+affine charts `twistC` conjugates the values of regular functions, and `z ↦ conj(f(z̄))` is
+holomorphic when `f` is; Mumford §1, GAGA.) These are the last two clauses of
+`IsUniformization`; the first three are proved (`conjUniformization_of_analytic`). -/
+def ConjUniformizationAnalytic : Prop :=
+  ∀ (K : Type) [Field K] [NumberField K] (A : PkgI3.AbVar K) (σ : K →+* ℂ) (s : K →+* K)
+    (h : σ.comp s = (starRingEnd ℂ).comp σ) (g : ℕ) (Λ : Submodule ℤ (Fin g → ℂ))
+    (Φ : (Fin g → ℂ) → CPts A σ),
+    A.dim = (g : WithBot ℕ∞) → IsUniformization σ Λ Φ →
+    (∀ U, IsOpen (ZInQ.LeafPush2.cDom (fun z => twistC A σ s h (Φ (conjL g z))) U)) ∧
+    (∀ U (f : Γ((conjVar A s).X.left, U)), DifferentiableOn ℂ
+      (fun z => ZInQ.LeafPush2.cEvalAt (twistC A σ s h (Φ (conjL g z))) U f)
+      (ZInQ.LeafPush2.cDom (fun z => twistC A σ s h (Φ (conjL g z))) U))
+
+/-- **N3a from its analytic clauses (proved).** -/
+theorem conjUniformization_of_analytic (h : ConjUniformizationAnalytic) : ConjUniformization := by
+  intro K _ _ A σ s hs g Λ Φ hd hΦ
+  obtain ⟨h4, h5⟩ := h K A σ s hs g Λ Φ hd hΦ
+  refine ⟨fun z w => ?_, fun z => ?_, fun Q => ?_, h4, h5⟩
+  · beta_reduce
+    rw [map_add, hΦ.1, twistC_mul]
+  · beta_reduce
+    rw [Submodule.mem_comap, LinearMap.restrictScalars_apply, ← hΦ.2.1]
+    constructor
+    · intro h1
+      apply twistC_injective A σ s hs
+      rw [h1, twistC_one]
+    · intro h1
+      rw [h1, twistC_one]
+  · obtain ⟨Q₀, rfl⟩ := twistC_surjective A σ s hs Q
+    obtain ⟨z, hz⟩ := hΦ.2.2.1 Q₀
+    exact ⟨conjL g z, by simp only [conjL_conjL, hz]⟩
+
+/-- **Final: `ConjTwistNontrivial` from T5, T26, T35, N2 and N3a-an (proved).** -/
+theorem conjTwistNontrivial_final' (h5 : PkgI2.TorsionStructure.{0})
+    (hT : PkgI3.TateModuleFree) (h35 : ZInQ.LeafPush2.UniformizationExists)
+    (hN2 : HomLinearLift) (hN3 : ConjUniformizationAnalytic) : ConjTwistNontrivial :=
+  conjTwistNontrivial_final h5 hT h35 hN2 (conjUniformization_of_analytic hN3)
+
+/-- **Final: `ConjTwistFromLeaves` from N2 and N3a-an (proved).** -/
+theorem conjTwistFromLeaves_final' (hN2 : HomLinearLift) (hN3 : ConjUniformizationAnalytic) :
+    ConjTwistFromLeaves :=
+  conjTwistFromLeaves_final hN2 (conjUniformization_of_analytic hN3)
+
+/-! ## §15. N3a-an from an evaluation identity (proved reduction)
+
+The analytic clauses follow from a purely scheme-theoretic identity (`TwistCEval`): for a number
+field, every open `U` of `A^s` is the preimage of an open `V` of `A`, and the value of a section
+of `A^s` over `U` at `twistC Q` is the complex conjugate of the value of a section of `A` over `V`
+at `Q`. With it, `ψ = twistC ∘ Φ ∘ conj` has open domains `conj⁻¹(cDom Φ V)` and its coordinate
+functions are `z ↦ conj(F(z̄))` with `F` holomorphic (`differentiableOn_conj_conj`). -/
+
+theorem conjL_smul {g : ℕ} (c : ℂ) (v : Fin g → ℂ) :
+    conjL g (c • v) = starRingEnd ℂ c • conjL g v := by
+  funext i; simp [conjL]
+
+/-- **`z ↦ conj(F(z̄))` is holomorphic where `F` is (proved).** -/
+theorem differentiableOn_conj_conj {g : ℕ} {F : (Fin g → ℂ) → ℂ} {S : Set (Fin g → ℂ)}
+    (hF : DifferentiableOn ℂ F S) :
+    DifferentiableOn ℂ (fun z => starRingEnd ℂ (F (conjL g z))) (conjL g ⁻¹' S) := by
+  intro x hx
+  obtain ⟨F', hF'⟩ := hF (conjL g x) hx
+  let cV : (Fin g → ℂ) →L[ℝ] (Fin g → ℂ) := LinearMap.toContinuousLinearMap (conjL g)
+  let Gl : (Fin g → ℂ) →ₗ[ℂ] ℂ :=
+    { toFun := fun v => starRingEnd ℂ (F' (conjL g v))
+      map_add' := fun v w => by simp [map_add]
+      map_smul' := fun c v => by simp [conjL_smul, map_smul, smul_eq_mul] }
+  let G' : (Fin g → ℂ) →L[ℂ] ℂ := LinearMap.toContinuousLinearMap Gl
+  have h1 : HasFDerivWithinAt (fun z => F (conjL g z)) ((F'.restrictScalars ℝ).comp cV)
+      (conjL g ⁻¹' S) x :=
+    (hF'.restrictScalars ℝ).comp x cV.hasFDerivWithinAt (fun z hz => hz)
+  have h2 := (Complex.conjCLE : ℂ →L[ℝ] ℂ).hasFDerivAt.comp_hasFDerivWithinAt x h1
+  have h3 : HasFDerivWithinAt (fun z => starRingEnd ℂ (F (conjL g z))) G' (conjL g ⁻¹' S) x := by
+    refine h2.of_restrictScalars ℝ ?_
+    ext v
+    rfl
+  exact h3.differentiableWithinAt
+
+/-- **N3a-ev. Values of sections at twisted points (GLUE, unproved; STANDARD; no analysis).**
+For a number field `K` (so `A^s → A` is an isomorphism), every open `U` of `A^s` corresponds to an
+open `V` of `A` with `twistC Q ∈ U ↔ Q ∈ V`, and every section `f` of `A^s` over `U` to a section
+`f'` of `A` over `V` with `f(twistC Q) = conj(f'(Q))`. (`fst ∘ twistC Q = Q ∘ Spec(conj)` as maps
+`Spec ℂ → A`; take `V = fst(U)`, `f = fst^* f'`; `Spec(conj)^*` is `conj` on `Γ(Spec ℂ) = ℂ`.) -/
+def TwistCEval : Prop :=
+  ∀ (K : Type) [Field K] [NumberField K] (A : PkgI3.AbVar K) (σ : K →+* ℂ) (s : K →+* K)
+    (h : σ.comp s = (starRingEnd ℂ).comp σ) (U : (conjVar A s).X.left.Opens),
+    ∃ V : A.X.left.Opens,
+      (∀ Q : CPts A σ, (⊤ ≤ (twistC A σ s h Q).left ⁻¹ᵁ U ↔ ⊤ ≤ Q.left ⁻¹ᵁ V)) ∧
+      ∀ f : Γ((conjVar A s).X.left, U), ∃ f' : Γ(A.X.left, V), ∀ Q : CPts A σ,
+        ⊤ ≤ Q.left ⁻¹ᵁ V →
+        ZInQ.LeafPush2.cEvalAt (twistC A σ s h Q) U f =
+          starRingEnd ℂ (ZInQ.LeafPush2.cEvalAt Q V f')
+
+/-- **N3a-an (number fields) from N3a-ev (proved).** -/
+theorem conjUniformizationAnalytic_of_eval (hE : TwistCEval) : ConjUniformizationAnalytic := by
+  intro K _ _ A σ s h g Λ Φ hd hΦ
+  have hdom : ∀ U, ∃ V : A.X.left.Opens,
+      ZInQ.LeafPush2.cDom (fun z => twistC A σ s h (Φ (conjL g z))) U =
+        conjL g ⁻¹' ZInQ.LeafPush2.cDom Φ V ∧
+      ∀ f : Γ((conjVar A s).X.left, U), ∃ f' : Γ(A.X.left, V), ∀ z,
+        z ∈ conjL g ⁻¹' ZInQ.LeafPush2.cDom Φ V →
+        ZInQ.LeafPush2.cEvalAt (twistC A σ s h (Φ (conjL g z))) U f =
+          starRingEnd ℂ (ZInQ.LeafPush2.cEvalAt (Φ (conjL g z)) V f') := by
+    intro U
+    obtain ⟨V, hV, hf⟩ := hE K A σ s h U
+    refine ⟨V, ?_, fun f => ?_⟩
+    · ext z
+      exact hV (Φ (conjL g z))
+    · obtain ⟨f', hf'⟩ := hf f
+      exact ⟨f', fun z hz => hf' _ hz⟩
+  have hcont : Continuous (conjL g) :=
+    (LinearMap.toContinuousLinearMap (conjL g)).continuous
+  refine ⟨fun U => ?_, fun U f => ?_⟩
+  · obtain ⟨V, hV, -⟩ := hdom U
+    rw [hV]
+    exact (hΦ.2.2.2.1 V).preimage hcont
+  · obtain ⟨V, hV, hf⟩ := hdom U
+    obtain ⟨f', hf'⟩ := hf f
+    rw [hV]
+    exact (differentiableOn_conj_conj (hΦ.2.2.2.2 V f')).congr fun z hz => hf' z hz
+
+/-- **Final: `ConjTwistNontrivial` from T5, T26, T35, N2 and N3a-ev (proved).** -/
+theorem conjTwistNontrivial_final'' (h5 : PkgI2.TorsionStructure.{0})
+    (hT : PkgI3.TateModuleFree) (h35 : ZInQ.LeafPush2.UniformizationExists)
+    (hN2 : HomLinearLift) (hE : TwistCEval) : ConjTwistNontrivial :=
+  conjTwistNontrivial_final' h5 hT h35 hN2 (conjUniformizationAnalytic_of_eval hE)
+
+/-- **Final: `ConjTwistFromLeaves` from N2 and N3a-ev (proved).** -/
+theorem conjTwistFromLeaves_final'' (hN2 : HomLinearLift) (hE : TwistCEval) :
+    ConjTwistFromLeaves :=
+  conjTwistFromLeaves_final' hN2 (conjUniformizationAnalytic_of_eval hE)
+
+/-! ## §16. `TwistCEval` (N3a-ev) proved
+
+For a number field `Spec(s)` is an isomorphism, hence so is `fst : A^s → A`. The adjunction gives
+`(twistC Q).left ≫ fst = Spec(conj) ≫ Q.left`, so `(twistC Q).left = Spec(conj) ≫ Q.left ≫ fst⁻¹`;
+take `V = (fst⁻¹)⁻¹(U)`, `f' = (fst⁻¹)^* f`, and use `ΓSpecIso` naturality for `Spec(conj)`. -/
+
+/-- `Spec(conj) : Spec ℂ → Spec ℂ`. -/
+abbrev specConj : Spec (CommRingCat.of ℂ) ⟶ Spec (CommRingCat.of ℂ) :=
+  Spec.map (CommRingCat.ofHom (starRingEnd ℂ))
+
+theorem appLE_eq_of_eq {X Y : Scheme} {f g : X ⟶ Y} (e : f = g) (U : Y.Opens) (V : X.Opens)
+    (h : V ≤ f ⁻¹ᵁ U) : f.appLE U V h = g.appLE U V (e ▸ h) := by
+  subst e; rfl
+
+theorem top_le_specConj_preimage (W : (Spec (CommRingCat.of ℂ)).Opens) :
+    ⊤ ≤ specConj ⁻¹ᵁ W ↔ ⊤ ≤ W := by
+  constructor
+  · intro hW x _
+    have hx : x = specConj.base (IsLocalRing.closedPoint ℂ) := Subsingleton.elim _ _
+    rw [hx]
+    exact hW (Set.mem_univ (IsLocalRing.closedPoint ℂ))
+  · intro hW y _
+    exact hW (Set.mem_univ (specConj.base y))
+
+/-- Evaluation at `P ∘ Spec(conj)` is the complex conjugate of evaluation at `P` (proved). -/
+theorem eval_specConj {X : Scheme} (P : Spec (CommRingCat.of ℂ) ⟶ X) (W : X.Opens)
+    (hW : ⊤ ≤ (specConj ≫ P) ⁻¹ᵁ W) (hW' : ⊤ ≤ P ⁻¹ᵁ W) (x : Γ(X, W)) :
+    (Scheme.ΓSpecIso (CommRingCat.of ℂ)).hom ((specConj ≫ P).appLE W ⊤ hW x) =
+      starRingEnd ℂ ((Scheme.ΓSpecIso (CommRingCat.of ℂ)).hom (P.appLE W ⊤ hW' x)) := by
+  have e2 : ⊤ ≤ specConj ⁻¹ᵁ (⊤ : (Spec (CommRingCat.of ℂ)).Opens) := fun x _ => Set.mem_univ _
+  rw [← Scheme.Hom.appLE_comp_appLE specConj P W ⊤ ⊤ hW' e2]
+  have e3 : specConj.appLE ⊤ ⊤ e2 = specConj.appTop := by
+    rw [Scheme.Hom.appTop, Scheme.Hom.app_eq_appLE]
+    rfl
+  rw [e3]
+  have h := Scheme.ΓSpecIso_naturality (CommRingCat.ofHom (starRingEnd ℂ))
+  have := congrArg (fun φ => (CommRingCat.Hom.hom φ) (P.appLE W ⊤ hW' x)) h
+  exact this
+
+theorem homEquiv_left_fst {K : Type} [Field K] (s : K →+* K) (X Y : Over (Spec (CommRingCat.of K)))
+    (u : (Over.map (specS s)).obj X ⟶ Y) :
+    ((Over.mapPullbackAdj (specS s)).homEquiv X Y u).left ≫ Limits.pullback.fst Y.hom (specS s) =
+      u.left := by
+  dsimp [Over.mapPullbackAdj]
+  simp
+
+theorem fst_isIso {K : Type} [Field K] [NumberField K] (A : PkgI3.AbVar K) (s : K →+* K) :
+    IsIso (Limits.pullback.fst A.X.hom (specS s)) := by
+  have hb := ringHom_bijective_of_numberField K s
+  let e : K ≃+* K := RingEquiv.ofBijective s hb
+  haveI : IsIso (CommRingCat.ofHom s) :=
+    ⟨⟨CommRingCat.ofHom (e.symm : K →+* K), by ext x; exact e.symm_apply_apply x,
+      by ext x; exact e.apply_symm_apply x⟩⟩
+  haveI : IsIso (specS s) := by unfold specS; infer_instance
+  infer_instance
+
+/-- **N3a-ev (proved).** -/
+theorem twistCEval : TwistCEval := by
+  intro K _ _ A σ s h U
+  let fstC : (conjVar A s).X.left ⟶ A.X.left := Limits.pullback.fst A.X.hom (specS s)
+  haveI : IsIso fstC := fst_isIso A s
+  let iv : A.X.left ⟶ (conjVar A s).X.left := CategoryTheory.inv fstC
+  let QL : CPts A σ → (Spec (CommRingCat.of ℂ) ⟶ A.X.left) := fun Q => Q.left
+  let TL : CPts A σ → (Spec (CommRingCat.of ℂ) ⟶ (conjVar A s).X.left) :=
+    fun Q => (twistC A σ s h Q).left
+  have key : ∀ Q : CPts A σ, TL Q = specConj ≫ QL Q ≫ iv := by
+    intro Q
+    have e1 : TL Q ≫ fstC = specConj ≫ QL Q :=
+      (homEquiv_left_fst s (cptObj σ) A.X (mapPtIso σ s ≫ conjCs A σ s h Q)).trans
+        (Category.id_comp _)
+    calc TL Q = (TL Q ≫ fstC) ≫ iv := by
+          rw [Category.assoc, IsIso.hom_inv_id, Category.comp_id]
+      _ = specConj ≫ QL Q ≫ iv := by rw [e1, Category.assoc]
+  refine ⟨iv ⁻¹ᵁ U, fun Q => ?_, fun f => ⟨iv.app U f, fun Q hQ => ?_⟩⟩
+  · change ⊤ ≤ TL Q ⁻¹ᵁ U ↔ ⊤ ≤ QL Q ⁻¹ᵁ (iv ⁻¹ᵁ U)
+    rw [key Q]
+    change ⊤ ≤ specConj ⁻¹ᵁ ((QL Q ≫ iv) ⁻¹ᵁ U) ↔ _
+    rw [top_le_specConj_preimage]
+    rfl
+  · have hQ' : ⊤ ≤ TL Q ⁻¹ᵁ U := by
+      rw [key Q]
+      change ⊤ ≤ specConj ⁻¹ᵁ ((QL Q ≫ iv) ⁻¹ᵁ U)
+      rw [top_le_specConj_preimage]
+      exact hQ
+    unfold ZInQ.LeafPush2.cEvalAt
+    rw [dif_pos (show ⊤ ≤ (twistC A σ s h Q).left ⁻¹ᵁ U from hQ'), dif_pos hQ]
+    change (Scheme.ΓSpecIso (CommRingCat.of ℂ)).hom ((TL Q).appLE U ⊤ hQ' f) =
+      starRingEnd ℂ ((Scheme.ΓSpecIso (CommRingCat.of ℂ)).hom
+        ((QL Q).appLE (iv ⁻¹ᵁ U) ⊤ hQ (iv.app U f)))
+    rw [appLE_eq_of_eq (key Q),
+      eval_specConj (QL Q ≫ iv) U _ (show ⊤ ≤ (QL Q ≫ iv) ⁻¹ᵁ U from hQ),
+      Scheme.Hom.comp_appLE]
+    rfl
+
+/-- **Final: `ConjTwistNontrivial` from T5, T26, T35 and N2 (proved).** -/
+theorem conjTwistNontrivial_of_leaves (h5 : PkgI2.TorsionStructure.{0})
+    (hT : PkgI3.TateModuleFree) (h35 : ZInQ.LeafPush2.UniformizationExists)
+    (hN2 : HomLinearLift) : ConjTwistNontrivial :=
+  conjTwistNontrivial_final'' h5 hT h35 hN2 twistCEval
+
+/-- **Final: `ConjTwistFromLeaves` from the leaf N2 alone (proved).** -/
+theorem conjTwistFromLeaves_of_homLinearLift (hN2 : HomLinearLift) : ConjTwistFromLeaves :=
+  conjTwistFromLeaves_final'' hN2 twistCEval
+
+/-! ## §17. Corollaries for G10 (verbatim copies from `scratch/g10-odd/G10Odd.lean`)
+
+`G10Glue`, `G10GlueConcrete` and their reductions `g10Glue_of_conjTwist`,
+`g10GlueConcrete_of_conjTwistFromLeaves` are copied verbatim (with `Vb`, `tate`, `Intertwines`,
+`G10Out`, the opaque `HSyn.T11_RiemannGAGA`, `HSyn.T12_ArtinComparison` and the algebraic
+lemmas), then composed with the main results. -/
+
+end G0Galois
+
+end
+
+end G0A2_b05_conjtwist
+
 section G0A2_b10_abvarbc
 /-! ## leaf-fold2: g9-abvarbc (ZInQKernel/Contrib/AbVarBC/*.lean), copied; see mk_abvarbc.py -/
 
@@ -78934,7 +80007,7 @@ noncomputable section
 
 namespace HSyn
 
-open CategoryTheory AlgebraicGeometry
+open CategoryTheory AlgebraicGeometry G0Split
 
 /-! ### Textbook leaves closed since leaf-fold -/
 
@@ -79007,6 +80080,24 @@ theorem g9AbVarBaseChange_proved : ZInQ.Contrib.G9.G9Bridge.AbVarBaseChange :=
 theorem g9Glue_of_deRhamComparisonHT (h : PkgI4.DeRhamComparisonHT) : G0Galois.G9Glue :=
   ZInQ.Contrib.G9.g9Glue_of_abVarBaseChange g9AbVarBaseChange_proved
     (PkgI4.deRhamComparisonHT_iff.mp h).2
+
+/-! ### Kernel-field and conj-twist glue closed (their later commits; parts a75, b05) -/
+
+/-- **`OMaximal` proved** (kernel-field, `G0ModField.KernelField.oMaximal`, pure algebra). -/
+theorem oMaximal_proved : G0ModField.KernelField.OMaximal := G0ModField.KernelField.oMaximal
+
+/-- **`EndTransport` proved** (kernel-field: from `EndTransportBC`, which follows from
+`RigidityHom`, proved by mul-rigidity). -/
+theorem endTransport_proved : G0ModField.KernelField.EndTransport :=
+  G0ModField.KernelField.endTransport_of
+    (G0ModField.KernelField.endTransportBC_of_rigidity G0FibreSimple.rigidityHom)
+
+/-- **`ConjTwistNontrivial` from T5, T26, T35 and the leaf N2** (conj-twist's final theorem): the
+glue `ArtinTorsionSurj` and `ConjUniformization` of `GluePieces3` are no longer needed. -/
+theorem conjTwistNontrivial_proved (h5 : PkgI2.TorsionStructure.{0}) (hT : PkgI3.TateModuleFree)
+    (h35 : ZInQ.LeafPush2.UniformizationExists) (hN2 : G0Galois.HomLinearLift) :
+    G0Galois.ConjTwistNontrivial :=
+  G0Galois.conjTwistNontrivial_of_leaves h5 hT h35 hN2
 
 /-! ### The open statements -/
 
@@ -79112,7 +80203,9 @@ structure OpenAddedLeaves2 : Prop where
   divisiblePoints : WeilPairing.DivisiblePoints
 
 /-- **The glue still open** (leaf-fold2): g0-assemble2's `GluePieces3` fields of kind GLUE, minus
-the three now proved (`smoothStalkDimOne`, `ratFactorAlgClosed`, `g9AbVarBaseChange`). -/
+the five now proved (`smoothStalkDimOne`, `ratFactorAlgClosed`, `g9AbVarBaseChange`, `oMaximal`,
+`endTransport`) and the two no longer used (`artinTorsionSurj`, `conjUniformization`: conj-twist's
+final theorem needs neither). -/
 structure OpenGlue2 : Prop where
   x6KummerFibre : FS5NoCM.X6KummerFibre
   productUnifSplits : ZInQ.ProductHeight.ProductUnifSplits
@@ -79129,11 +80222,7 @@ structure OpenGlue2 : Prop where
   cPtsTransport : G0Split.FibreQM.CPtsTransport
   propTSAll : G0ModField.PropTSAll
   unramifiedConjugates : G0ModField.UnramifiedConjugates
-  oMaximal : G0ModField.KernelField.OMaximal
-  endTransport : G0ModField.KernelField.EndTransport
   conjIsogMaps : G0ModField.KernelField.ConjIsogMaps
-  artinTorsionSurj : G0Galois.ArtinTorsionSurj
-  conjUniformization : G0Galois.ConjUniformization
   modelG3 : G0AssembleMod.ModelG3
   linkedTateLocal : G0AssembleMod.LinkedTateLocal
 
@@ -79231,13 +80320,13 @@ theorem gluePieces_of_open2 (r : OpenResearchLeaves2) (t : OpenTextbookLeaves2)
     modularConstituent := modularConstituent_of_field t3
       (G0ModField.fibreCoverExists_of_propTSAll' t.t5 g.propTSAll g.unramifiedConjugates)
       (G0ModField.KernelField.kernelFieldExists_of_split'' t.t6 r.r7a r.r6 t.t5 t.t27
-        hFS5 g.oMaximal g.endTransport g.conjIsogMaps)
+        hFS5 G0ModField.KernelField.oMaximal endTransport_proved g.conjIsogMaps)
       UnramTate.unramifiedSup_mf
       (G0AssembleMod.afterG7_of3 r3 t3
         ⟨l.burnsideAbsIrred, r.r14,
           g9Glue_of_deRhamComparisonHT r.r10,
-          G0Galois.g10Glue_of_conjTwist (G0Galois.conjTwistNontrivial_main t.t26 t.t35
-            g.artinTorsionSurj l.homLinearLift g.conjUniformization),
+          G0Galois.g10Glue_of_conjTwist
+            (G0Galois.conjTwistNontrivial_of_leaves t.t5 t.t26 t.t35 l.homLinearLift),
           G0Galois.g12Weight_of_senTwist l.senTwist l.finiteImageHT,
           G0Galois.detTate_of_leaves l.t09SymmIsogenyExists l.isogenyQuasiInverse
             l.divisiblePoints t.t26,
@@ -79256,7 +80345,7 @@ theorem gluePieces_of_open2 (r : OpenResearchLeaves2) (t : OpenTextbookLeaves2)
   form; no `opaque` placeholder);
 * `OpenTextbookLeaves2`: 18 textbook fields;
 * `OpenAddedLeaves2`: 12 leaves (9 LEAF, 3 LEAF?) introduced by the wave 26-27 reductions;
-* `OpenGlue2`: 19 glue Props.
+* `OpenGlue2`: 15 glue Props.
 The table of every field, its kind and source is `docs/research/leaf-fold2.md`. -/
 theorem sixContactMin_of_open2 (r : OpenResearchLeaves2) (t : OpenTextbookLeaves2)
     (l : OpenAddedLeaves2) (g : OpenGlue2) : ZInQ.SixContactMin :=
@@ -79281,6 +80370,9 @@ end
 #print axioms HSyn.kerUnitOpen_proved
 #print axioms HSyn.g9AbVarBaseChange_proved
 #print axioms HSyn.g9Glue_of_deRhamComparisonHT
+#print axioms HSyn.oMaximal_proved
+#print axioms HSyn.endTransport_proved
+#print axioms HSyn.conjTwistNontrivial_proved
 #print axioms HSyn.researchLeaves3_of_open2
 #print axioms HSyn.textbookLeaves_of_open2
 #print axioms HSyn.gluePieces_of_open2

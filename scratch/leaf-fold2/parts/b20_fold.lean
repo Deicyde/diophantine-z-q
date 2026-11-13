@@ -16,7 +16,7 @@ noncomputable section
 
 namespace HSyn
 
-open CategoryTheory AlgebraicGeometry
+open CategoryTheory AlgebraicGeometry G0Split
 
 /-! ### Textbook leaves closed since leaf-fold -/
 
@@ -89,6 +89,24 @@ theorem g9AbVarBaseChange_proved : ZInQ.Contrib.G9.G9Bridge.AbVarBaseChange :=
 theorem g9Glue_of_deRhamComparisonHT (h : PkgI4.DeRhamComparisonHT) : G0Galois.G9Glue :=
   ZInQ.Contrib.G9.g9Glue_of_abVarBaseChange g9AbVarBaseChange_proved
     (PkgI4.deRhamComparisonHT_iff.mp h).2
+
+/-! ### Kernel-field and conj-twist glue closed (their later commits; parts a75, b05) -/
+
+/-- **`OMaximal` proved** (kernel-field, `G0ModField.KernelField.oMaximal`, pure algebra). -/
+theorem oMaximal_proved : G0ModField.KernelField.OMaximal := G0ModField.KernelField.oMaximal
+
+/-- **`EndTransport` proved** (kernel-field: from `EndTransportBC`, which follows from
+`RigidityHom`, proved by mul-rigidity). -/
+theorem endTransport_proved : G0ModField.KernelField.EndTransport :=
+  G0ModField.KernelField.endTransport_of
+    (G0ModField.KernelField.endTransportBC_of_rigidity G0FibreSimple.rigidityHom)
+
+/-- **`ConjTwistNontrivial` from T5, T26, T35 and the leaf N2** (conj-twist's final theorem): the
+glue `ArtinTorsionSurj` and `ConjUniformization` of `GluePieces3` are no longer needed. -/
+theorem conjTwistNontrivial_proved (h5 : PkgI2.TorsionStructure.{0}) (hT : PkgI3.TateModuleFree)
+    (h35 : ZInQ.LeafPush2.UniformizationExists) (hN2 : G0Galois.HomLinearLift) :
+    G0Galois.ConjTwistNontrivial :=
+  G0Galois.conjTwistNontrivial_of_leaves h5 hT h35 hN2
 
 /-! ### The open statements -/
 
@@ -194,7 +212,9 @@ structure OpenAddedLeaves2 : Prop where
   divisiblePoints : WeilPairing.DivisiblePoints
 
 /-- **The glue still open** (leaf-fold2): g0-assemble2's `GluePieces3` fields of kind GLUE, minus
-the three now proved (`smoothStalkDimOne`, `ratFactorAlgClosed`, `g9AbVarBaseChange`). -/
+the five now proved (`smoothStalkDimOne`, `ratFactorAlgClosed`, `g9AbVarBaseChange`, `oMaximal`,
+`endTransport`) and the two no longer used (`artinTorsionSurj`, `conjUniformization`: conj-twist's
+final theorem needs neither). -/
 structure OpenGlue2 : Prop where
   x6KummerFibre : FS5NoCM.X6KummerFibre
   productUnifSplits : ZInQ.ProductHeight.ProductUnifSplits
@@ -211,11 +231,7 @@ structure OpenGlue2 : Prop where
   cPtsTransport : G0Split.FibreQM.CPtsTransport
   propTSAll : G0ModField.PropTSAll
   unramifiedConjugates : G0ModField.UnramifiedConjugates
-  oMaximal : G0ModField.KernelField.OMaximal
-  endTransport : G0ModField.KernelField.EndTransport
   conjIsogMaps : G0ModField.KernelField.ConjIsogMaps
-  artinTorsionSurj : G0Galois.ArtinTorsionSurj
-  conjUniformization : G0Galois.ConjUniformization
   modelG3 : G0AssembleMod.ModelG3
   linkedTateLocal : G0AssembleMod.LinkedTateLocal
 
@@ -313,13 +329,13 @@ theorem gluePieces_of_open2 (r : OpenResearchLeaves2) (t : OpenTextbookLeaves2)
     modularConstituent := modularConstituent_of_field t3
       (G0ModField.fibreCoverExists_of_propTSAll' t.t5 g.propTSAll g.unramifiedConjugates)
       (G0ModField.KernelField.kernelFieldExists_of_split'' t.t6 r.r7a r.r6 t.t5 t.t27
-        hFS5 g.oMaximal g.endTransport g.conjIsogMaps)
+        hFS5 G0ModField.KernelField.oMaximal endTransport_proved g.conjIsogMaps)
       UnramTate.unramifiedSup_mf
       (G0AssembleMod.afterG7_of3 r3 t3
         ⟨l.burnsideAbsIrred, r.r14,
           g9Glue_of_deRhamComparisonHT r.r10,
-          G0Galois.g10Glue_of_conjTwist (G0Galois.conjTwistNontrivial_main t.t26 t.t35
-            g.artinTorsionSurj l.homLinearLift g.conjUniformization),
+          G0Galois.g10Glue_of_conjTwist
+            (G0Galois.conjTwistNontrivial_of_leaves t.t5 t.t26 t.t35 l.homLinearLift),
           G0Galois.g12Weight_of_senTwist l.senTwist l.finiteImageHT,
           G0Galois.detTate_of_leaves l.t09SymmIsogenyExists l.isogenyQuasiInverse
             l.divisiblePoints t.t26,
@@ -338,7 +354,7 @@ theorem gluePieces_of_open2 (r : OpenResearchLeaves2) (t : OpenTextbookLeaves2)
   form; no `opaque` placeholder);
 * `OpenTextbookLeaves2`: 18 textbook fields;
 * `OpenAddedLeaves2`: 12 leaves (9 LEAF, 3 LEAF?) introduced by the wave 26-27 reductions;
-* `OpenGlue2`: 19 glue Props.
+* `OpenGlue2`: 15 glue Props.
 The table of every field, its kind and source is `docs/research/leaf-fold2.md`. -/
 theorem sixContactMin_of_open2 (r : OpenResearchLeaves2) (t : OpenTextbookLeaves2)
     (l : OpenAddedLeaves2) (g : OpenGlue2) : ZInQ.SixContactMin :=
@@ -363,6 +379,9 @@ end
 #print axioms HSyn.kerUnitOpen_proved
 #print axioms HSyn.g9AbVarBaseChange_proved
 #print axioms HSyn.g9Glue_of_deRhamComparisonHT
+#print axioms HSyn.oMaximal_proved
+#print axioms HSyn.endTransport_proved
+#print axioms HSyn.conjTwistNontrivial_proved
 #print axioms HSyn.researchLeaves3_of_open2
 #print axioms HSyn.textbookLeaves_of_open2
 #print axioms HSyn.gluePieces_of_open2
