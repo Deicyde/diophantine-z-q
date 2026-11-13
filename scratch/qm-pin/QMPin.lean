@@ -437,6 +437,65 @@ theorem pointwise_of_witness (hU : PinUnique) {Y₀ : Over (Spec (CommRingCat.of
   fun Y Φ π h1' h2' t =>
     transfer_pointwise (hU Y₀ Y Φ₀ Φ π₀ π h1 h2 h1' h2') t (R t) (h t)
 
+/-- **Under `PinUnique`, every surviving relabeling is geometric.** If `relabel Φ τ` (with any
+`π'`) again satisfies the repaired clause list, then `τ` is `y ↦ y ≫ g` for an automorphism `g`
+of `Y`, on field points over every field, and `π'` is `π ∘ g` on `ℚ̄`-points. This is the precise
+sense in which the relabeling attack of rv-g0pieces no longer applies (given `PinUnique`). -/
+theorem relabel_geometric (hU : PinUnique) {Y : Over (Spec (CommRingCat.of ℚ))} {Φ : PtEquiv Y}
+    {π π' : ToP1 Y.left}
+    {τ : ∀ (K : Type) [Field K] [Algebra ℚ K], (fieldPt K ⟶ Y) ≃ (fieldPt K ⟶ Y)}
+    (h1 : R1fpPropsPin Y Φ) (h2 : R2fpProps Y Φ π)
+    (h1' : R1fpPropsPin Y (relabel Φ τ)) (h2' : R2fpProps Y (relabel Φ τ) π') :
+    ∃ g : Y ≅ Y, (∀ (K : Type) [Field K] [Algebra ℚ K] (y : fieldPt K ⟶ Y), τ K y = y ≫ g.hom) ∧
+      ∀ y : fieldPt Qbar ⟶ Y, π'.val (K := Qbar) y.left = π.val (K := Qbar) (y ≫ g.hom).left := by
+  obtain ⟨g, hΦ, hπ⟩ := hU Y Y Φ (relabel Φ τ) π π' h1 h2 h1' h2'
+  exact ⟨g, fun K _ _ y => (Φ K).injective (hΦ K y), hπ⟩
+
+/-- **For the old clause list the same uniqueness statement would force every R2-compatible
+natural relabeling to be geometric**, which rv-g0pieces' `relabelPt` (a bijection `s` of the
+points with residue-field isomorphisms, not continuous) contradicts as soon as it is
+R2-compatible. So `PinUniqueOld` is the statement that fails, and the family clause is what
+`PinUnique` adds. -/
+def PinUniqueOld : Prop :=
+  ∀ (Y Y' : Over (Spec (CommRingCat.of ℚ))) (Φ : PtEquiv Y) (Φ' : PtEquiv Y')
+    (π : ToP1 Y.left) (π' : ToP1 Y'.left),
+    R1fpProps Y Φ → R2fpProps Y Φ π → R1fpProps Y' Φ' → R2fpProps Y' Φ' π' →
+      SameTriple Y Y' Φ Φ' π π'
+
+theorem relabel_geometric_old (hU : PinUniqueOld) {Y : Over (Spec (CommRingCat.of ℚ))}
+    {Φ : PtEquiv Y} {π : ToP1 Y.left}
+    {τ : ∀ (K : Type) [Field K] [Algebra ℚ K], (fieldPt K ⟶ Y) ≃ (fieldPt K ⟶ Y)}
+    (h1 : R1fpProps Y Φ) (h2 : R2fpProps Y Φ π) (hτ : IsNaturalRelabel Y τ)
+    (hfib : ∀ y y' : fieldPt Qbar ⟶ Y,
+      π.val (K := Qbar) (τ Qbar y).left = π.val (K := Qbar) (τ Qbar y').left ↔
+        π.val (K := Qbar) y.left = π.val (K := Qbar) y'.left)
+    (hcm : ∀ y : fieldPt Qbar ⟶ Y,
+      (π.val (K := Qbar) (τ Qbar y).left = OnePoint.some 0 ∨
+        π.val (K := Qbar) (τ Qbar y).left = OnePoint.infty ∨
+        π.val (K := Qbar) (τ Qbar y).left = OnePoint.some (-16 / 27)) →
+      π.val (K := Qbar) y.left = π.val (K := Qbar) (τ Qbar y).left) :
+    ∃ g : Y ≅ Y, ∀ (K : Type) [Field K] [Algebra ℚ K] (y : fieldPt K ⟶ Y), τ K y = y ≫ g.hom := by
+  -- rv-g0pieces' `r1fp_relabel` and `r2fp_relabel` (re-proved): the relabeled triple satisfies
+  -- the old lists.
+  have h1' : R1fpProps Y (relabel Φ τ) := by
+    obtain ⟨hp, hs, hpt, hnat⟩ := h1
+    refine ⟨hp, hs, hpt, ?_⟩
+    intro K L _ _ _ _ f y P hP
+    obtain ⟨Q, hQ, hb⟩ := hnat K L f (τ K y) P hP
+    refine ⟨Q, ?_, hb⟩
+    show Φ L (τ L (fieldMap f ≫ y)) = _
+    rw [hτ K L f y]
+    exact hQ
+  have h2' : R2fpProps Y (relabel Φ τ) π := by
+    intro y y' P Q hP hQ
+    obtain ⟨e1, h4, h3, h24⟩ := h2 (τ Qbar y) (τ Qbar y') P Q hP hQ
+    refine ⟨(hfib y y').symm.trans e1, fun hc => ?_, fun hc => ?_, fun hc => ?_⟩
+    · have e := h4 hc; rw [hcm y (Or.inl e)]; exact e
+    · have e := h3 hc; rw [hcm y (Or.inr (Or.inl e))]; exact e
+    · have e := h24 hc; rw [hcm y (Or.inr (Or.inr e))]; exact e
+  obtain ⟨g, hΦ, -⟩ := hU Y Y Φ (relabel Φ τ) π π h1 h2 h1' h2'
+  exact ⟨g, fun K _ _ y => (Φ K).injective (hΦ K y)⟩
+
 end Pin
 
 end AV
@@ -456,3 +515,5 @@ end LeafQM
 #print axioms LeafQM.AV.Pin.transfer_exists
 #print axioms LeafQM.AV.Pin.pointwise_of_witness
 #print axioms LeafQM.AV.Pin.sameTriple_aut
+#print axioms LeafQM.AV.Pin.relabel_geometric
+#print axioms LeafQM.AV.Pin.relabel_geometric_old

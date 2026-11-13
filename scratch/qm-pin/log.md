@@ -34,3 +34,5 @@ Base: 883c4ddf + merges origin/wip/rv-g0pieces, origin/wip/g0-split (already in)
   The ten pieces' text is unchanged: they quantify over R1fpProps, which now contains the family.
 - HDecLeavesEdited.lean = scratch/h-decomposition/Leaves.lean + same edit (HDecLeaves.patch): 0 errors,
   2m41s; one `sorry` warning at the known `HSyn.glueOutputs_of_leaves` (line 21577 of the copy). VERIFIED.
+- QMPin.lean run4 (adds relabel_geometric, PinUniqueOld, relabel_geometric_old): 0 errors, 5.6 s;
+  15 `#print axioms`, all [propext, Classical.choice, Quot.sound]. VERIFIED (run4.txt).
