@@ -8,8 +8,9 @@
 from other glue steps (`hK` from G2, `hgood` from G3, `hdim`).
 
 - **File:** `scratch/inertia-homs/InertiaHoms.lean`, 2095 lines, no `sorry`, no `axiom`.
-  - Lines 1-1454 are `scratch/g4-weilres/G4.lean` verbatim, except for a new module docstring.
-  - The new part starts at `section NewConj`, line 1471.
+  - Lines 1-6 are G4.lean's imports and lines 7-28 a new module docstring.
+  - Lines 29-1476 are `scratch/g4-weilres/G4.lean` lines 7-1454 verbatim (VERIFIED by `diff`).
+  - The new part starts at `section NewConj`, line 1478.
 - **Axioms.** Every printed theorem depends only on `propext`, `Classical.choice` and
   `Quot.sound`. VERIFIED by `#print axioms` at the end of the file.
 
@@ -28,7 +29,7 @@ Headlines:
 
 ## 1. Finding: `InertiaFixesHoms` is false as stated
 
-This was VERIFIED by reading the definition (G4.lean L1318). The argument below is mathematical.
+This was VERIFIED by reading the definition (G4.lean L1318; L1340 of InertiaHoms.lean). The argument below is mathematical.
 It cannot be refuted in Lean, because no nonzero `AbVar` can be constructed there.
 
 **The flaw.** `InertiaFixesHoms` quantifies over every morphism
