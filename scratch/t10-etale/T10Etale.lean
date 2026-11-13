@@ -1,5 +1,6 @@
 import Mathlib.AlgebraicGeometry.Sites.ElladicCohomology
 import Mathlib.AlgebraicGeometry.Morphisms.WeaklyEtale
+import Mathlib.Algebra.Homology.DerivedCategory.Ext.Map
 import ZInQKernel.HDecomp.Objects
 
 /-! # t10-etale: T10 over Mathlib's `ℓ`-adic cohomology
@@ -139,6 +140,121 @@ lemma H0Equiv_smul (a : ℤ_[ℓ]) (x : X.EllAdicCohomology ℓ 0) :
 
 
 end Coh
+
+/-! ## Transport along scheme isomorphisms (for the Galois action) -/
+
+section Transport
+
+set_option backward.isDefEq.respectTransparency.types false
+
+open Scheme Opposite
+
+variable {X Y : Scheme.{u}} (ℓ : ℕ) [Fact ℓ.Prime]
+
+/-- `π_X : X.ProEt ⥤ Scheme`, `(U → X) ↦ U`. -/
+abbrev piX (X : Scheme.{u}) : X.ProEt ⥤ Scheme.{u} := Scheme.ProEt.forget X ⋙ Over.forget X
+
+/-- **Lemma A.** A sieve on `U` in the small pro-étale site of `X` covers iff its image in
+`Scheme` is a pro-étale covering sieve of `U.left`. -/
+lemma mem_topology_iff {U : X.ProEt} (S : Sieve U) :
+    S ∈ Scheme.ProEt.topology X U ↔ S.functorPushforward (piX X) ∈ proetaleTopology U.left := by
+  have h2 : Scheme.ProEt.topology X =
+      (Scheme.ProEt.forget X).restrictedTopology (proetaleTopology.over X) :=
+    MorphismProperty.toGrothendieck_comap_forget_eq_restrictedTopology (P := @WeaklyEtale) (S := X)
+      _ proetalePrecoverage_le_precoverage_weaklyEtale
+  rw [h2, Functor.mem_restrictedTopology_iff, GrothendieckTopology.mem_over_iff,
+    Sieve.functorPushforward_comp]
+  rfl
+
+
+/-- `WeaklyEtale` holds for isomorphisms. -/
+lemma weaklyEtale_hom (e : X ≅ Y) : (@WeaklyEtale : MorphismProperty Scheme.{u}) e.hom :=
+  (inferInstance : WeaklyEtale e.hom)
+
+/-- The functor `X.ProEt ⥤ Y.ProEt`, `(U → X) ↦ (U → X → Y)`, for a scheme isomorphism `e`. -/
+noncomputable def proEtMap (e : X ≅ Y) : X.ProEt ⥤ Y.ProEt :=
+  MorphismProperty.Over.map ⊤ (weaklyEtale_hom e)
+
+/-- The equivalence of small pro-étale sites induced by a scheme isomorphism. -/
+noncomputable def proEtEquiv (e : X ≅ Y) : X.ProEt ≌ Y.ProEt :=
+  CategoryTheory.Equivalence.mk (proEtMap e) (proEtMap e.symm)
+    ((MorphismProperty.Over.mapId ⊤ X).symm ≪≫
+      MorphismProperty.Over.mapComp ⊤ (weaklyEtale_hom e) (weaklyEtale_hom e.symm) (𝟙 X) (by simp))
+    ((MorphismProperty.Over.mapComp ⊤ (weaklyEtale_hom e.symm) (weaklyEtale_hom e) (𝟙 Y)
+      (by simp)).symm ≪≫ MorphismProperty.Over.mapId ⊤ Y)
+
+instance (e : X ≅ Y) : (proEtEquiv e).inverse.IsDenseSubsite (Scheme.ProEt.topology Y)
+    (Scheme.ProEt.topology X) where
+  functorPushforward_mem_iff {U S} := by
+    rw [mem_topology_iff, mem_topology_iff, ← Sieve.functorPushforward_comp]
+    rfl
+
+/-- The equivalence of categories of abelian sheaves on the pro-étale sites. -/
+noncomputable def sheafEquiv (e : X ≅ Y) :
+    Sheaf (Scheme.ProEt.topology X) Ab.{u+1} ≌ Sheaf (Scheme.ProEt.topology Y) Ab.{u+1} :=
+  (proEtEquiv e).sheafCongr _ _ _
+
+instance (e : X ≅ Y) : (sheafEquiv e).functor.Additive where
+  map_add := by intros; apply Sheaf.hom_ext; rfl
+
+
+
+/-- The sheaf equivalence carries the `ℓ`-adic coefficient sheaf of `X` to that of `Y`
+(componentwise the identity of `ULift C(U, ℤ_ℓ)`). -/
+noncomputable def ellIso (e : X ≅ Y) : (sheafEquiv e).functor.obj (F X ℓ) ≅ F Y ℓ :=
+  ObjectProperty.isoMk _ (NatIso.ofComponents (fun _ => Iso.refl _) (fun _ => rfl))
+
+/-- The sheaf equivalence carries constant sheaves to constant sheaves (uniqueness of left
+adjoints of the global-sections functor). -/
+noncomputable def constIso (e : X ≅ Y) (A : Ab.{u+1}) :
+    (sheafEquiv e).functor.obj ((constantSheaf (Scheme.ProEt.topology X) Ab.{u+1}).obj A) ≅
+      (constantSheaf (Scheme.ProEt.topology Y) Ab.{u+1}).obj A :=
+  let hT' : IsTerminal ((proEtEquiv e).functor.obj (terminalProEt X)) :=
+    (isTerminalProEt X).isTerminalObj _
+  let adj1 := (constantSheafAdj (Scheme.ProEt.topology X) Ab.{u+1} (isTerminalProEt X)).comp
+    (sheafEquiv e).toAdjunction
+  let adj2 := constantSheafAdj (Scheme.ProEt.topology Y) Ab.{u+1} hT'
+  let iso : (sheafEquiv e).inverse ⋙ (sheafSections _ _).obj (op (terminalProEt X)) ≅
+      (sheafSections _ _).obj (op ((proEtEquiv e).functor.obj (terminalProEt X))) :=
+    NatIso.ofComponents (fun _ => Iso.refl _) (fun _ => by
+      simp only [Iso.refl_hom]; rfl)
+  (Adjunction.leftAdjointUniq (adj1.ofNatIsoRight iso) adj2).app A
+
+/-- **Transport of `ℓ`-adic cohomology along a scheme isomorphism** `e : X ≅ Y`
+(`e_* = (e⁻¹)^*`). -/
+noncomputable def transport (e : X ≅ Y) (n : ℕ) :
+    X.EllAdicCohomology ℓ n →+ Y.EllAdicCohomology ℓ n :=
+  ((Abelian.Ext.mk₀ (constIso e _).inv).precomp _ (zero_add n)).comp
+    (((Abelian.Ext.mk₀ (ellIso ℓ e).hom).postcomp _ (add_zero n)).comp
+      ((sheafEquiv e).functor.mapExtAddHom _ _ n))
+
+lemma ellIso_smulEnd (e : X ≅ Y) (a : ℤ_[ℓ]) :
+    (sheafEquiv e).functor.map (smulEnd X ℓ a) ≫ (ellIso ℓ e).hom =
+      (ellIso ℓ e).hom ≫ smulEnd Y ℓ a := by
+  apply Sheaf.hom_ext; ext U : 2; rfl
+
+/-- Transport is `ℤ_ℓ`-linear. -/
+lemma transport_smul (e : X ≅ Y) (n : ℕ) (a : ℤ_[ℓ]) (x : X.EllAdicCohomology ℓ n) :
+    transport ℓ e n (a • x) = a • transport ℓ e n x := by
+  change (Abelian.Ext.mk₀ (constIso e _).inv).comp
+      ((((x : (F X ℓ).H n).comp (Abelian.Ext.mk₀ (smulEnd X ℓ a)) (add_zero n)).mapExactFunctor
+        (sheafEquiv e).functor).comp (Abelian.Ext.mk₀ (ellIso ℓ e).hom) (add_zero n)) (zero_add n) =
+    ((Abelian.Ext.mk₀ (constIso e _).inv).comp
+      (((x : (F X ℓ).H n).mapExactFunctor (sheafEquiv e).functor).comp
+        (Abelian.Ext.mk₀ (ellIso ℓ e).hom) (add_zero n)) (zero_add n)).comp
+      (Abelian.Ext.mk₀ (smulEnd Y ℓ a)) (add_zero n)
+  rw [Abelian.Ext.mapExactFunctor_comp, Abelian.Ext.mapExactFunctor_mk₀,
+    Abelian.Ext.comp_assoc_of_third_deg_zero, Abelian.Ext.mk₀_comp_mk₀, ellIso_smulEnd,
+    ← Abelian.Ext.mk₀_comp_mk₀, Abelian.Ext.comp_assoc_of_third_deg_zero,
+    Abelian.Ext.comp_assoc_of_third_deg_zero]
+
+/-- Transport as a `ℤ_ℓ`-linear map. -/
+noncomputable def transportₗ (e : X ≅ Y) (n : ℕ) :
+    X.EllAdicCohomology ℓ n →ₗ[ℤ_[ℓ]] Y.EllAdicCohomology ℓ n where
+  __ := transport ℓ e n
+  map_smul' a x := transport_smul ℓ e n a x
+
+end Transport
 
 /-! ## T10 as a `ℤ_ℓ`-linear isomorphism -/
 

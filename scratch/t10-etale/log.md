@@ -31,3 +31,5 @@
   object), `transport ℓ e n : X.EllAdicCohomology ℓ n →+ Y.EllAdicCohomology ℓ n`
   (`Ext.mapExactFunctor` + `Ext.mk₀` of the two isos). COMPILED (exactness instances of the
   equivalence found automatically).
+- Merged Transport.lean into T10Etale.lean (Transport.lean removed). + `ellIso_smulEnd`,
+  `transport_smul` (transport is ℤ_ℓ-linear), `transportₗ`. COMPILED.
