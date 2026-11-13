@@ -35,6 +35,11 @@ side of G14 is `AlgFrobRed`. Through g14-trace's `tateBridge_five_three_of_35` (
 compiled here), `TateBridge35` also gives the `ℓ = 5, 3` instances of g0-mod-field's
 `TateBridge`.
 
+**Composite (VERIFIED, §5).** In one environment with g14-trace's copies,
+`FrobTraceCompose.g12Spec_g14_of_G7Data` turns G7's data into data `D` with
+`G12Spec D ∧ G14TraceCompat D`. Its inputs are I3.M0, T7, `AlgFrobRed`, `DirichletOfFinite` and
+G8-G12 (as hypotheses).
+
 No statement was changed. `TateBridge35` and `FrobTraceLink` are copied verbatim. Neither is
 false or vacuous (see §4).
 
@@ -135,7 +140,8 @@ Notation: `σ' = gτg⁻¹` is an arithmetic Frobenius at `v' = g(v)`, and `w = 
   (VERIFIED). New declarations (namespace `FrobTrace`): `tateMapEquiv`, `conj_baseChange`,
   `AlgFrobLink`, `AlgFrobOne`, `algFrobLink_of_one`, `tateMap_bijective`, `AlgFrobRed`,
   `algFrobOne_of_red`, `frobCompare_opV_conjE`, `g7Out_rescale`, `scalarsQbar`,
-  `tateBridge35_of_algFrobLink`, `tateBridge35_of_algFrobOne`, `tateBridge35_of_algFrobRed`.
+  `tateBridge35_of_algFrobLink`, `tateBridge35_of_algFrobOne`, `tateBridge35_of_algFrobRed`;
+  namespace `FrobTraceCompose`: `g12Spec_g14_of_G7Data`.
 - Remains: the glue `AlgFrobRed`, i.e. reduction of abelian varieties on PkgI3 objects. Deriving
   it in Lean from I2-Red and I2-NMP needs several things:
   - the abelian-scheme model over `O_w` for almost all `w` (spreading out; no kernel leaf yet);
