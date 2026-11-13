@@ -22,7 +22,7 @@ namespace G0Galois
 
 open PkgI4 (GaloisRep GaloisChar)
 open CategoryTheory AlgebraicGeometry Limits MonoidalCategory CartesianMonoidalCategory MonObj
-open scoped TensorProduct
+open scoped TensorProduct CategoryTheory.Obj
 
 /-! ## §1. Verbatim copies from `scratch/g10-odd/G10Odd.lean` -/
 
@@ -504,9 +504,199 @@ theorem conjTwistNontrivial_of_conjBettiData (hT : PkgI3.TateModuleFree)
 theorem conjTwistFromLeaves_of_conjBettiData (hB : ConjBettiData) : ConjTwistFromLeaves :=
   fun _ _ _ _ hT => conjTwistNontrivial_of_conjBettiData hT hB
 
+/-! ## §5. The conjugate variety and the transport `c_*` (proved), and the Betti glue
+
+`conjVar A s = A ×_{Spec K, Spec s} Spec K` for a ring endomorphism `s` of `K` (Mathlib's
+`Over.pullback`, as `PkgI3.AbVar.baseChange`), and for an automorphism `cc` of `K̄` extending `s`,
+the transport of points `A(K̄) → A^s(K̄)`, `P ↦ P ∘ Spec(cc)` read through the adjunction
+`Over.map ⊣ Over.pullback` (the recipe of scratch/unram-tate/BCPoints.lean). It carries the
+action of `σ` to that of `τ` whenever `τ ∘ cc = cc ∘ σ`. -/
+
+open PkgI3 in
+/-- `Spec(s) : Spec K → Spec K`. -/
+abbrev specS {K : Type} [Field K] (s : K →+* K) :
+    Spec (CommRingCat.of K) ⟶ Spec (CommRingCat.of K) :=
+  Spec.map (CommRingCat.ofHom s)
+
+/-- **The conjugate abelian variety** `A^s = A ×_{Spec K, Spec s} Spec K` (pullback along
+`Spec(s)`; group structure transported by the monoidal functor `Over.pullback`). -/
+def conjVar {K : Type} [Field K] (A : PkgI3.AbVar K) (s : K →+* K) : PkgI3.AbVar K :=
+  let f := specS s
+  letI : GrpObj ((Over.pullback f).obj A.X) := Functor.grpObjObj
+  haveI : IsProper ((Over.pullback f).obj A.X).hom := by dsimp; infer_instance
+  haveI : Smooth ((Over.pullback f).obj A.X).hom := by dsimp; infer_instance
+  haveI : GeometricallyIntegral ((Over.pullback f).obj A.X).hom := by dsimp; infer_instance
+  { X := (Over.pullback f).obj A.X }
+
+section Transport
+
+variable {K : Type} [Field K] (A : PkgI3.AbVar K) (s : K →+* K)
+  (cc : AlgebraicClosure K ≃+* AlgebraicClosure K)
+  (hs : ∀ k, cc (algebraMap K _ k) = algebraMap K _ (s k))
+
+/-- The adjunction bijection for `Over.map (Spec s) ⊣ Over.pullback (Spec s)` is
+multiplicative. -/
+theorem homEquiv_mul_conj (X : Over (Spec (CommRingCat.of K)))
+    (p q : (Over.map (specS s)).obj X ⟶ A.X) :
+    (Over.mapPullbackAdj (specS s)).homEquiv X A.X (p * q) =
+      (Over.mapPullbackAdj (specS s)).homEquiv X A.X p *
+        (Over.mapPullbackAdj (specS s)).homEquiv X A.X q := by
+  rw [Adjunction.homEquiv_unit, Adjunction.homEquiv_unit, Adjunction.homEquiv_unit,
+    Functor.map_mul, MonObj.comp_mul]
+
+/-- `Spec(cc)`, as a morphism over `K` from `Spec K̄` (structure map `Spec(s) ∘ Spec(alg)`) to
+`Spec K̄`. -/
+def ccHom : (Over.map (specS s)).obj (PkgI3.AbVar.ptObj (K := K) (AlgebraicClosure K)) ⟶
+    PkgI3.AbVar.ptObj (K := K) (AlgebraicClosure K) :=
+  Over.homMk (Spec.map (CommRingCat.ofHom (cc : AlgebraicClosure K →+* AlgebraicClosure K))) (by
+    simp only [Over.map_obj_hom, PkgI3.AbVar.ptObj, Over.mk_hom, ← Spec.map_comp,
+      ← CommRingCat.ofHom_comp]
+    congr 2
+    ext x
+    exact hs x)
+
+/-- **The transport `c_*` on `K̄`-points (proved):** `A(K̄) → A^s(K̄)`, a group homomorphism. -/
+def conjPt : A.Pt (AlgebraicClosure K) →* (conjVar A s).Pt (AlgebraicClosure K) :=
+  MonoidHom.mk' (fun P => (Over.mapPullbackAdj (specS s)).homEquiv _ _ (ccHom s cc hs ≫ P))
+    (fun P Q => by
+      change (Over.mapPullbackAdj (specS s)).homEquiv _ _ (ccHom s cc hs ≫ (P * Q)) = _
+      rw [MonObj.comp_mul, homEquiv_mul_conj]
+      rfl)
+
+/-- **Twisted equivariance of `c_*` on points (proved):** if `τ ∘ cc = cc ∘ σ` then
+`c_*(σ P) = τ c_*(P)`. -/
+theorem conjPt_galAct (σ τ : Field.absoluteGaloisGroup K)
+    (h : ∀ x, gA τ (cc x) = cc (gA σ x)) (P : A.Pt (AlgebraicClosure K)) :
+    conjPt A s cc hs (A.galAct (gA σ) P) = (conjVar A s).galAct (gA τ) (conjPt A s cc hs P) := by
+  change (Over.mapPullbackAdj (specS s)).homEquiv _ _ (ccHom s cc hs ≫ PkgI3.AbVar.galHom (gA σ) ≫ P) =
+    PkgI3.AbVar.galHom (gA τ) ≫ (Over.mapPullbackAdj (specS s)).homEquiv _ _ (ccHom s cc hs ≫ P)
+  have hsq : ccHom s cc hs ≫ PkgI3.AbVar.galHom (gA σ) =
+      (Over.map (specS s)).map (PkgI3.AbVar.galHom (gA τ)) ≫ ccHom s cc hs := by
+    apply Over.OverMorphism.ext
+    change Spec.map (CommRingCat.ofHom (cc : AlgebraicClosure K →+* AlgebraicClosure K)) ≫
+        Spec.map (CommRingCat.ofHom ((gA σ : AlgebraicClosure K ≃ₐ[K] AlgebraicClosure K) :
+          AlgebraicClosure K →+* AlgebraicClosure K)) =
+      Spec.map (CommRingCat.ofHom ((gA τ : AlgebraicClosure K ≃ₐ[K] AlgebraicClosure K) :
+          AlgebraicClosure K →+* AlgebraicClosure K)) ≫
+        Spec.map (CommRingCat.ofHom (cc : AlgebraicClosure K →+* AlgebraicClosure K))
+    rw [← Spec.map_comp, ← Spec.map_comp, ← CommRingCat.ofHom_comp, ← CommRingCat.ofHom_comp]
+    congr 2
+    ext x
+    exact (h x).symm
+  rw [← Category.assoc, hsq, Category.assoc, Adjunction.homEquiv_naturality_left]
+
+variable (ℓ : ℕ) [Fact ℓ.Prime]
+
+/-- **`c_*` on Tate modules (proved):** `T_ℓ(A) → T_ℓ(A^s)`. -/
+def conjT : A.T ℓ →ₗ[ℤ_[ℓ]] (conjVar A s).T ℓ :=
+  PkgI3.Tate.map (MonoidHom.toAdditive (conjPt A s cc hs))
+
+/-- **`c_*` on `V_ℓ` (proved):** `V_ℓ(A) → V_ℓ(A^s)`. -/
+def conjV : A.V ℓ →ₗ[ℚ_[ℓ]] (conjVar A s).V ℓ :=
+  (conjT A s cc hs ℓ).baseChange ℚ_[ℓ]
+
+theorem conjT_galT (σ τ : Field.absoluteGaloisGroup K) (h : ∀ x, gA τ (cc x) = cc (gA σ x)) :
+    conjT A s cc hs ℓ ∘ₗ A.galT σ = (conjVar A s).galT τ ∘ₗ conjT A s cc hs ℓ := by
+  apply LinearMap.ext; intro x; apply Subtype.ext; funext n
+  exact congrArg Additive.ofMul (conjPt_galAct A s cc hs σ τ h (Additive.toMul (x.1 n)))
+
+/-- **Twisted equivariance of `c_*` on `V_ℓ` (proved):** `c_* ρ_A(σ) = ρ_{A^s}(τ) c_*` whenever
+`τ ∘ cc = cc ∘ σ`. -/
+theorem conjV_galRep (σ τ : Field.absoluteGaloisGroup K)
+    (h : ∀ x, gA τ (cc x) = cc (gA σ x)) :
+    conjV A s cc hs ℓ ∘ₗ A.galRep ℓ σ = (conjVar A s).galRep ℓ τ ∘ₗ conjV A s cc hs ℓ := by
+  change (conjT A s cc hs ℓ).baseChange ℚ_[ℓ] ∘ₗ (A.galT σ).baseChange ℚ_[ℓ] =
+    ((conjVar A s).galT τ).baseChange ℚ_[ℓ] ∘ₗ (conjT A s cc hs ℓ).baseChange ℚ_[ℓ]
+  rw [← LinearMap.baseChange_comp, ← LinearMap.baseChange_comp, conjT_galT A s cc hs ℓ σ τ h]
+
+end Transport
+
+/-- The function `cc|_K : K → K` for an automorphism `cc` of `K̄` mapping `K` into itself. -/
+def sFun {K : Type} [Field K] (cc : AlgebraicClosure K ≃+* AlgebraicClosure K)
+    (hK : ∀ k : K, ∃ k' : K, cc (algebraMap K _ k) = algebraMap K _ k') (k : K) : K :=
+  Classical.choose (hK k)
+
+theorem sFun_spec {K : Type} [Field K] (cc : AlgebraicClosure K ≃+* AlgebraicClosure K)
+    (hK : ∀ k : K, ∃ k' : K, cc (algebraMap K _ k) = algebraMap K _ k') (k : K) :
+    algebraMap K (AlgebraicClosure K) (sFun cc hK k) = cc (algebraMap K _ k) :=
+  (Classical.choose_spec (hK k)).symm
+
+/-- The ring endomorphism `s = cc|_K` of `K`. -/
+def restrictK {K : Type} [Field K] (cc : AlgebraicClosure K ≃+* AlgebraicClosure K)
+    (hK : ∀ k : K, ∃ k' : K, cc (algebraMap K _ k) = algebraMap K _ k') : K →+* K where
+  toFun := sFun cc hK
+  map_one' := (algebraMap K (AlgebraicClosure K)).injective (by
+    rw [sFun_spec]; simp)
+  map_mul' a b := (algebraMap K (AlgebraicClosure K)).injective (by
+    rw [map_mul, sFun_spec, sFun_spec, sFun_spec, map_mul, map_mul])
+  map_zero' := (algebraMap K (AlgebraicClosure K)).injective (by
+    rw [sFun_spec]; simp)
+  map_add' a b := (algebraMap K (AlgebraicClosure K)).injective (by
+    rw [map_add, sFun_spec, sFun_spec, sFun_spec, map_add, map_add])
+
+theorem restrictK_spec {K : Type} [Field K] (cc : AlgebraicClosure K ≃+* AlgebraicClosure K)
+    (hK : ∀ k : K, ∃ k' : K, cc (algebraMap K _ k) = algebraMap K _ k') (k : K) :
+    cc (algebraMap K _ k) = algebraMap K _ (restrictK cc hK k) :=
+  (sFun_spec cc hK k).symm
+
+/-- **G10 core, Betti input for the concrete `c_*` (GLUE, unproved; STANDARD).** For a number
+field `K`, an abelian surface `A/K`, a prime `ℓ`, a ring endomorphism `s` of `K`, an automorphism
+`cc` of `K̄` extending `s` and an embedding `ι : K̄ → ℂ` with `ι ∘ cc = conj ∘ ι`: there are
+finite-dimensional `ℚ`-spaces `H, H'`, `ℚ_ℓ`-isomorphisms `α : ℚ_ℓ ⊗ H ≅ V_ℓ(A)`,
+`β : ℚ_ℓ ⊗ H' ≅ V_ℓ(A^s)`, ℝ-linear `J, J'` on `ℝ ⊗ H, ℝ ⊗ H'` (`J'` injective) and a nonzero
+`F : H → H'`, such that `F J = −J' F`, `β⁻¹ c_* α = F ⊗ 1` for the transport
+`c_* = conjV A s cc hs ℓ` (§5), and every `f ∈ Hom_K(A, A^s)` acts as `φ ⊗ 1` with `φ J = J' φ`.
+Witness (STANDARD): `H = H₁(A(ℂ)_ι, ℚ)`, `H' = H₁(A^s(ℂ)_ι, ℚ) = H₁(A(ℂ)_{conj∘ι}, ℚ)` (lattices
+of the uniformizations T35, `ℝ ⊗ H = ℂ^g`), `J, J'` multiplication by `i`, `α, β` Artin's
+comparison through `ι` (`A(K̄)[ℓⁿ] → A(ℂ)[ℓⁿ] = ℓ⁻ⁿΛ/Λ` bijective, by T5 over `K̄` and over `ℂ`;
+SGA 4 XI 4.4), `F = F_*` for complex conjugation `A(ℂ)_ι → A(ℂ)_{conj∘ι}`, `P ↦ P ∘ Spec(conj)`,
+antiholomorphic and bijective, `H ≠ 0` as `dim A = 2`; `β⁻¹ c_* α = F ⊗ 1` because
+`P ∘ Spec(cc) ∘ Spec(ι) = P ∘ Spec(ι) ∘ Spec(conj)`; `φ = H₁(f)`, holomorphic because `f` is a
+morphism of varieties (T11(a) in Hom form: Mumford §1, Birkenhake–Lange 1.2.1, UNVERIFIED
+numbers). N5 L742-751, h-trust C5. -/
+def ConjBettiComparison : Prop :=
+  ∀ (K : Type) [Field K] [NumberField K] (A : PkgI3.AbVar K) (ℓ : ℕ) [Fact ℓ.Prime]
+    (s : K →+* K) (cc : AlgebraicClosure K ≃+* AlgebraicClosure K)
+    (hs : ∀ k, cc (algebraMap K _ k) = algebraMap K _ (s k)) (emb : AlgebraicClosure K →+* ℂ),
+    A.dim = 2 → (∀ x, emb (cc x) = starRingEnd ℂ (emb x)) →
+      ∃ (H H' : Type) (_ : AddCommGroup H) (_ : Module ℚ H) (_ : FiniteDimensional ℚ H)
+        (_ : AddCommGroup H') (_ : Module ℚ H') (_ : FiniteDimensional ℚ H')
+        (α : ℚ_[ℓ] ⊗[ℚ] H ≃ₗ[ℚ_[ℓ]] A.V ℓ) (β : ℚ_[ℓ] ⊗[ℚ] H' ≃ₗ[ℚ_[ℓ]] (conjVar A s).V ℓ)
+        (J : ℝ ⊗[ℚ] H →ₗ[ℝ] ℝ ⊗[ℚ] H) (J' : ℝ ⊗[ℚ] H' →ₗ[ℝ] ℝ ⊗[ℚ] H') (F : H →ₗ[ℚ] H'),
+        Function.Injective J' ∧ F ≠ 0 ∧
+        F.baseChange ℝ ∘ₗ J = -(J' ∘ₗ F.baseChange ℝ) ∧
+        β.symm.toLinearMap ∘ₗ conjV A s cc hs ℓ ∘ₗ α.toLinearMap = F.baseChange ℚ_[ℓ] ∧
+        ∀ f : PkgI3.AbVar.Hom A (conjVar A s), ∃ φ : H →ₗ[ℚ] H',
+          φ.baseChange ℝ ∘ₗ J = J' ∘ₗ φ.baseChange ℝ ∧
+          β.symm.toLinearMap ∘ₗ (PkgI3.AbVar.homT (ℓ := ℓ) f).baseChange ℚ_[ℓ] ∘ₗ
+            α.toLinearMap = φ.baseChange ℚ_[ℓ]
+
+/-- **`ConjBettiData` from `ConjBettiComparison` (proved):** `B = conjVar A s` with
+`s = cc|_K`, `C = conjV`, twisted equivariance by `conjV_galRep`. -/
+theorem conjBettiData_of_comparison (h : ConjBettiComparison) : ConjBettiData := by
+  intro K _ _ A ℓ _ cc emb hdim hι hK
+  obtain ⟨H, H', i1, i2, i3, i4, i5, i6, α, β, J, J', F, hrest⟩ :=
+    h K A ℓ (restrictK cc hK) cc (restrictK_spec cc hK) emb hdim hι
+  exact ⟨conjVar A (restrictK cc hK), conjV A (restrictK cc hK) cc (restrictK_spec cc hK) ℓ,
+    fun σ τ hστ => conjV_galRep A _ cc _ ℓ σ τ hστ,
+    H, H', i1, i2, i3, i4, i5, i6, α, β, J, J', F, hrest⟩
+
+/-- **`ConjTwistNontrivial` from T26 and `ConjBettiComparison` (proved).** -/
+theorem conjTwistNontrivial_of_comparison (hT : PkgI3.TateModuleFree)
+    (h : ConjBettiComparison) : ConjTwistNontrivial :=
+  conjTwistNontrivial_of_conjBettiData hT (conjBettiData_of_comparison h)
+
+/-- **`ConjTwistFromLeaves` from `ConjBettiComparison` (proved).** -/
+theorem conjTwistFromLeaves_of_comparison (h : ConjBettiComparison) : ConjTwistFromLeaves :=
+  conjTwistFromLeaves_of_conjBettiData (conjBettiData_of_comparison h)
+
 end G0Galois
 
 #print axioms G0Galois.faltingsV
 #print axioms G0Galois.conjData
 #print axioms G0Galois.conjTwistNontrivial_of_conjBettiData
 #print axioms G0Galois.conjTwistFromLeaves_of_conjBettiData
+#print axioms G0Galois.conjV_galRep
+#print axioms G0Galois.conjBettiData_of_comparison
+#print axioms G0Galois.conjTwistNontrivial_of_comparison
+#print axioms G0Galois.conjTwistFromLeaves_of_comparison

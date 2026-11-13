@@ -21,3 +21,12 @@
   - glue def `ConjBettiData` (conjugate variety + Artin comparison + holomorphy),
   - `conjTwistNontrivial_of_conjBettiData : TateModuleFree → ConjBettiData → ConjTwistNontrivial`,
   - `conjTwistFromLeaves_of_conjBettiData : ConjBettiData → ConjTwistFromLeaves`.
+- 2026-11-13 05:40 §5 added: `conjVar` (A^s = pullback of A along Spec(s), s : K →+* K),
+  `ccHom`, `conjPt` (A(K̄) →* A^s(K̄), P ↦ adjunction(Spec(cc) ≫ P)), `conjPt_galAct`
+  (τ∘cc = cc∘σ ⇒ c_*(σP) = τ c_*(P)), `conjT`, `conjV`, `conjV_galRep` (twisted equivariance on
+  V_ℓ), `restrictK` (s = cc|_K), glue def `ConjBettiComparison` (Betti data for the concrete
+  c_* = conjV), `conjBettiData_of_comparison`, `conjTwistNontrivial_of_comparison`
+  (TateModuleFree → ConjBettiComparison → ConjTwistNontrivial),
+  `conjTwistFromLeaves_of_comparison` (ConjBettiComparison → ConjTwistFromLeaves).
+  Compiles: 0 errors, 0 sorry; all 8 `#print axioms` [propext, Classical.choice, Quot.sound].
+  VERIFIED (compiled).
