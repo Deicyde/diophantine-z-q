@@ -21,3 +21,7 @@
   `subsingleton_T_zero`, `T10_linIso_zero` (at `AbVar.zero K` the leaf says
   `H¹(Spec K̄ ×_K Spec K, ℤ_ℓ) = 0`). COMPILED; axioms propext, Classical.choice, Quot.sound.
   (Needs `open MonObj` for the group structure on points.)
+- Transport.lean (Mathlib only): `mem_topology_iff` (S covers U in `X.ProEt` iff its image under
+  `X.ProEt ⥤ Scheme` is a pro-étale covering sieve of `U.left`), `proEtMap e`, `proEtEquiv e :
+  X.ProEt ≌ Y.ProEt` for a scheme iso `e` (from `MorphismProperty.Over.map/mapId/mapComp`),
+  `IsDenseSubsite` of its inverse, `sheafEquiv e` (`Equivalence.sheafCongr`), additivity. COMPILED.
