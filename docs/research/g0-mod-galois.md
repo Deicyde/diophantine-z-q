@@ -237,7 +237,7 @@ The remaining inputs come from elsewhere:
   `Vb`, `tate`, `restrictRep`, `Intertwines`), the input and output Props, the five named glue
   Props, and the theorems `g8`, `g11`, `finitelyRamified_of_g11`, `isIrreducible_of_g8`, `g12`,
   `g8_g11`, `g8_g12`.
-- `scratch/g0-mod-galois/part_matrix.lean` (≈ 110 lines): `BurnsideAbsIrred` and
+- `scratch/g0-mod-galois/part_matrix.lean` (87 lines): `BurnsideAbsIrred` and
   `g8Matrix_of_burnside`.
 - `scratch/g0-mod-galois/part_bundle.lean` (263 lines): `GaloisPieces`,
   `g8_g12_of_leaves`, `JSide`, `commonConstituent_of_sides`, the copied newform interface
