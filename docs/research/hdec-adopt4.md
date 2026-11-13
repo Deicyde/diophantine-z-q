@@ -7,15 +7,15 @@ repairs: `docfix.py`. Axiom section: `axsec.py`.
 
 ## Result
 
-VERIFIED (23:10 PST, after the last Lean change):
+VERIFIED (23:13 PST, after the last Lean change):
 
-- `lake build ZInQKernel` exits 0 (9990 jobs).
-- `lake env lean scripts/print_axioms.lean` prints 396 axiom lists, each exactly
-  `[propext, Classical.choice, Quot.sound]`. 64 of them are new here (332 before).
+- `lake build ZInQKernel` exits 0 (9991 jobs).
+- `lake env lean scripts/print_axioms.lean` prints 399 axiom lists, each exactly
+  `[propext, Classical.choice, Quot.sound]`. 67 of them are new here (332 before).
 - The list is in `scratch/hdec-adopt4/axioms.txt`.
 
-All three developments named by the task are adopted, and nothing was dropped. There are 10 new
-modules (about 3,125 lines) under `ZInQKernel/HDecomp/`, all imported from
+All three developments named by the task are adopted, and nothing was dropped. There are 11 new
+modules (about 3,210 lines) under `ZInQKernel/HDecomp/`, all imported from
 `ZInQKernel/HDecomp.lean`:
 
 - **leaf-push2** is in `HDecomp/LeafPush2/{R18,R22,R3,T}.lean`. The leaves are `def … : Prop`:
@@ -52,6 +52,13 @@ modules (about 3,125 lines) under `ZInQKernel/HDecomp/`, all imported from
     and is a period matrix of the QM lattice `ι(𝒪)(τ,1)ᵀ`. So R22's `Ω`-quantifier is non-empty
     on every QM torus;
   - `thetaConst_eq`: leaf-push2's `θ[a;b](0,Ω)` equals pkg-I1's `thetaConst`.
+- **New glue (no draft): `HDecomp/LeafPush2/UnifBridge.lean`.** It connects the two forms of the
+  analytic uniformization (node AN3):
+  - `isUniformization_of_bp`: for `A` over `ℂ`, bp-analytic's `IsUniformization A Λ φ` makes
+    `Φ = φ ∘ proj` a uniformization in leaf-push2's sense at `σ = id`. The proof uses
+    `cPts_id_eq` (`CPts A id` is `A.Pt ℂ`, by `rfl`) and `cEvalAt_eq_evalAt`;
+  - `exists_isUniformization_of_leaf`: bp-analytic's leaf `UniformizationLeafAll` gives, for
+    every complex abelian variety, some `g`, a full lattice and such a `Φ`.
 
 The adopted declarations match the drafts (`same.py`, VERIFIED). Each kept declaration has the same
 whitespace-normalized text, statement and proof, as in its draft:
@@ -114,6 +121,7 @@ Left alone:
 | `LeafPush2.R3` | R3 (Igusa invariants, Lin–Yang tuple, sextic model) | `LeafPush2.R22`, `QM.Structures` |
 | `LeafPush2.T` | T10-T12, `UniformizationExists` | `LeafPush2.R3`, `Conductor.LadicCond` |
 | `LeafPush2.Bridge` | new | `LeafPush2.R22`, `Analytic.QMLattice` |
+| `LeafPush2.UnifBridge` | new | `LeafPush2.T`, `Analytic.Uniformization` |
 | `Analytic.Torus` | bp-analytic §1-§6 | Mathlib |
 | `Analytic.QMLattice` | §7 | `Analytic.Torus` |
 | `Analytic.Hom` | §8-§9 | `Analytic.Torus` |
@@ -126,28 +134,28 @@ its split point.
 
 ## Axioms
 
-`scripts/print_axioms.lean` ends with a new section of 64 entries:
+`scripts/print_axioms.lean` ends with a new section of 67 entries:
 
 - the 14 `#print axioms` targets of leaf-push2. Its 15th target, `stableFaltingsHeight`, is already
   listed as `ZInQ.DefFaltings.stableFaltingsHeight`;
-- the 6 bridge theorems;
+- 9 theorems of the two bridges;
 - the 10 targets of rv-qm-polar;
 - 34 main theorems of bp-analytic, which had no `#print` lines.
 
-VERIFIED (23:10 PST): all 396 entries are exactly `[propext, Classical.choice, Quot.sound]`.
+VERIFIED (23:13 PST): all 399 entries are exactly `[propext, Classical.choice, Quot.sound]`.
 
 ## What remains (not done here)
 
 - `scratch/h-decomposition/Leaves.lean` (outside this task's files) still lists R3, R18, R22, T11
   and T12 as opaque. Their concrete statements are now in the build, in `ZInQ.LeafPush2`.
-- The analytic layer has two uniformization predicates, not yet identified with each other:
-  - leaf-push2's `IsUniformization σ Λ Φ` (a map `ℂ^g → A(ℂ)_σ` for `A` over any `K`), with the
-    leaf `UniformizationExists`;
-  - bp-analytic's structure `BPAnalytic.Uniformization.IsUniformization A Λ φ` (`A` over `ℂ`; an
-    isomorphism `ℂ^g/Λ ≃ A(ℂ)` with clauses (i)-(iii)), with the leaf `UniformizationLeafAll`.
+- The analytic layer still has two uniformization leaves:
+  - leaf-push2's `UniformizationExists`, for every field `K`, every `σ : K → ℂ` and
+    `g = dim A`;
+  - bp-analytic's `UniformizationLeafAll`, for `A` over `ℂ`, `σ = id` and some `g`.
 
-  A bridge (bp-analytic's form, base-changed along `σ`, implies leaf-push2's) is the natural next
-  piece of glue. One leaf would then suffice.
+  `UnifBridge` derives the second's content in the first's language at `K = ℂ`, `σ = id`. Two
+  pieces of glue are missing before one leaf suffices: `g = dim A` (dimension theory of `A`), and
+  base change along `σ` (points of `A ×_σ ℂ` are `A(ℂ)_σ`).
 - leaf-push2's `R03_LinYang` docstring still calls the polarization step "SPECULATIVE in the
   repository, under review in rv-qm-polar". The repair was asked for in `QM/` only, so the
   adopted text is verbatim. It should cite Lemma P (`QM/Polar.lean`) at the next edit.
@@ -160,5 +168,5 @@ VERIFIED (23:10 PST): all 396 entries are exactly `[propext, Classical.choice, Q
    drafts, byte-identical (VERIFIED: `git status` clean after a rerun).
 2. Run `python3 -I scratch/hdec-adopt4/docfix.py` on the hdec-adopt3 `QM` modules, then rewrap
    with `wrap.py`. This applies the docstring repairs once; the replaced text must be present.
-3. `Bridge.lean` is hand-written.
+3. `Bridge.lean` and `UnifBridge.lean` are hand-written.
 4. Run `lake build ZInQKernel`, then `lake env lean scripts/print_axioms.lean`.

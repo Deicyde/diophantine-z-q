@@ -40,3 +40,9 @@ exit 0, no output. Added to HDecomp.lean and print_axioms (6 entries).
 exactly [propext, Classical.choice, Quot.sound] (axioms.txt). VERIFIED. Rerun of adopt4.py:
 generated modules byte-identical (git status clean).
 ## 23:12 PST: report docs/research/hdec-adopt4.md.
+## 23:12 PST: new glue `LeafPush2/UnifBridge.lean` (cPts_id_eq, cEvalAt_eq_evalAt,
+isUniformization_of_bp, exists_isUniformization_of_leaf): compiled after two fixes
+(`DiscreteTopology Λ` binder for `Torus Λ`; the two `dite`s have the condition at different but
+defeq types, closed by `split <;> split` and `absurd`).
+## 23:13 PST: `lake build ZInQKernel` exit 0 (9991 jobs); print_axioms exit 0, 399 entries (332 +
+67), all exactly [propext, Classical.choice, Quot.sound] (axioms.txt). VERIFIED. Report updated.
