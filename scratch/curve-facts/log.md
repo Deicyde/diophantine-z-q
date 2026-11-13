@@ -49,3 +49,10 @@
 - PROVED: dictionary (bcSnd, bcPt_snd, ptOfSection, bcPt_ptOfSection, val_bcPt);
   geomCompConstOrOnto_of : C2K → C2; geomCompRatFactor_of : C3K → C3;
   curveFacts_of_algClosed : C1a → C2K → C3K → CurveRatFactor ∧ CurveSurj.
+
+## Step 5: C1a from C1b (compiled, EXIT 0, run7.txt; std axioms)
+- named Prop SmoothStalkDimOne (C1b): X → Spec K smooth rel. dim 1, x closed ⇒
+  ringKrullDim (X.presheaf.stalk x) = 1.
+- PROVED smoothCurveNoIsolatedPoint_of : C1b → C1a (open point closed by Jacobson;
+  IsMax in specialization order; Mathlib ringKrullDim_stalk_eq_coheight, Order.coheight_eq_zero).
+- curveFacts_of_leaves : C1b → C2K → C3K → CurveRatFactor ∧ CurveSurj.

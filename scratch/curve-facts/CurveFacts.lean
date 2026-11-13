@@ -527,6 +527,43 @@ theorem curveFacts_of_algClosed (h1 : SmoothCurveNoIsolatedPoint) (h2 : ConstOrO
     (h3 : RatFactorAlgClosed) : CurveRatFactor ∧ CurveSurj :=
   curveFacts_of_named h1 (geomCompConstOrOnto_of h2) (geomCompRatFactor_of h3)
 
+/-! ## §8 C1a from the dimension of local rings at closed points -/
+
+/-- **(C1b) Local rings of a smooth curve at closed points have dimension 1.** If `X → Spec K`
+is smooth of relative dimension 1 over a field `K` and `x` is a closed point, then
+`dim 𝒪_{X,x} = 1` (STANDARD: smooth of relative dimension `n` over a field means `dim_x X = n`
+at every point, and at a closed point of a scheme locally of finite type over a field
+`dim 𝒪_{X,x} = dim_x X`; e.g. Stacks, *Morphisms*, smooth morphisms and dimension of fibres,
+UNVERIFIED tags). Glue (dimension theory), not in Mathlib v4.35; Mathlib has
+`ringKrullDim_stalk_eq_coheight` (Stacks 02IZ), used below. -/
+def SmoothStalkDimOne : Prop :=
+  ∀ (K : Type) [Field K] (X : Scheme.{0}) (f : X ⟶ Spec (CommRingCat.of K)),
+    SmoothOfRelativeDimension 1 f → ∀ x : X, IsClosed ({x} : Set X) →
+      ringKrullDim (X.presheaf.stalk x) = 1
+
+/-- **C1a from C1b.** An open point is closed (Jacobson) and has no proper generalization, so its
+local ring has dimension `coheight x = 0`. -/
+theorem smoothCurveNoIsolatedPoint_of (h : SmoothStalkDimOne) : SmoothCurveNoIsolatedPoint := by
+  intro K _ X f hf x hx
+  have : Smooth f := hf.smooth
+  have : LocallyOfFiniteType f := inferInstance
+  have : JacobsonSpace X := LocallyOfFiniteType.jacobsonSpace f
+  have hc : IsClosed ({x} : Set X) := isClosed_singleton_of_isLocallyClosed_singleton hx.isLocallyClosed
+  have hd := h K X f hf x hc
+  rw [ringKrullDim_stalk_eq_coheight] at hd
+  have hmax : IsMax x := by
+    intro y hxy
+    have hyx : y ⤳ x := hxy
+    have : y ∈ ({x} : Set X) := hyx.mem_open hx rfl
+    rw [Set.mem_singleton_iff.mp this]
+  rw [Order.coheight_eq_zero.mpr hmax] at hd
+  exact absurd hd (by decide)
+
+/-- **Both curve facts from C1b, C2K, C3K.** -/
+theorem curveFacts_of_leaves (h1 : SmoothStalkDimOne) (h2 : ConstOrOntoAlgClosed)
+    (h3 : RatFactorAlgClosed) : CurveRatFactor ∧ CurveSurj :=
+  curveFacts_of_algClosed (smoothCurveNoIsolatedPoint_of h1) h2 h3
+
 end Pin
 
 end AV
@@ -539,3 +576,4 @@ end
 #print axioms LeafQM.AV.Pin.geomCompFinite
 #print axioms LeafQM.AV.Pin.curveFacts_of_named
 #print axioms LeafQM.AV.Pin.curveFacts_of_algClosed
+#print axioms LeafQM.AV.Pin.curveFacts_of_leaves

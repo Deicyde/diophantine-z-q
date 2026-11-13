@@ -9,19 +9,19 @@ another task's directory was edited. Model work only; no human has reviewed it.
 **Both curve facts of mobius-glue are proved in Lean from three smaller named facts, each stated
 over an arbitrary field (algebraically closed for the two curve leaves), as in Hartshorne.** One
 is a textbook leaf and two are glue. Source: `scratch/curve-facts/CurveFacts.lean`. It compiles
-with 0 errors and axioms `[propext, Classical.choice, Quot.sound]` (VERIFIED, `run6.txt`):
+with 0 errors and axioms `[propext, Classical.choice, Quot.sound]` (VERIFIED, `run7.txt`):
 
 ```lean
-theorem curveFacts_of_algClosed (h1 : SmoothCurveNoIsolatedPoint) (h2 : ConstOrOntoAlgClosed)
+theorem curveFacts_of_leaves (h1 : SmoothStalkDimOne) (h2 : ConstOrOntoAlgClosed)
     (h3 : RatFactorAlgClosed) : CurveRatFactor ∧ CurveSurj
 ```
 
-- `CurveSurj` uses only C1a and C2K.
+- `CurveSurj` uses only C1b and C2K.
 - `CurveRatFactor` uses only C2K and C3K.
 
 | name | kind | content | status |
 |---|---|---|---|
-| `SmoothCurveNoIsolatedPoint` (C1a) | glue (dimension theory) | if `X → Spec K` is smooth of relative dimension 1 over any field `K`, then no point of `X` is open | STANDARD; true (§3); not in Mathlib |
+| `SmoothStalkDimOne` (C1b) | glue (dimension theory) | if `X → Spec K` is smooth of relative dimension 1 over any field `K` and `x` is a closed point, then `ringKrullDim 𝒪_{X,x} = 1` | STANDARD; true (§3); not in Mathlib |
 | `ConstOrOntoAlgClosed` (C2K) | **textbook leaf** | `X` proper and smooth of relative dimension 1 over an algebraically closed `K`, and `σ : X → P¹`: on the `K`-points of each connected component of `X`, `σ` is constant or takes every value in `P¹(K)` | Hartshorne II.6.8 (UNVERIFIED numbering); not in Mathlib |
 | `RatFactorAlgClosed` (C3K) | glue (textbook consequence) | the same setting with `char K = 0`: on a connected component where `σ` is nonconstant, a map `ρ` constant on the `σ`-fibres is `[F : G] ∘ σ` with `F, G ∈ K[X]` coprime | STANDARD (§3); not in Mathlib |
 
@@ -29,6 +29,7 @@ The proof also uses the following intermediate statements, all proved in Lean:
 
 | name | content | proof |
 |---|---|---|
+| `SmoothCurveNoIsolatedPoint` (C1a) | for `X → Spec K` smooth of relative dimension 1, no point of `X` is open | from C1b (`smoothCurveNoIsolatedPoint_of`, §8): an open point is closed (Jacobson) and maximal for specialization, so `dim 𝒪_{X,x} = coheight x = 0` by Mathlib's `ringKrullDim_stalk_eq_coheight` |
 | `GeomCompInfinite` (C1) | each geometric component of a proper smooth curve `S/ℚ` has infinitely many `ℚ̄`-points | from C1a (`geomCompInfinite_of`) |
 | `GeomCompConstOrOnto` (C2) | C2K for `S/ℚ`, with `ℚ̄`-points and geometric components | from C2K by base change to `ℚ̄` (`geomCompConstOrOnto_of`) |
 | `GeomCompRatFactor` (C3) | C3K for `S/ℚ` | from C3K by base change (`geomCompRatFactor_of`) |
@@ -40,10 +41,11 @@ The chain is:
 - `curveSurj_of_comp : C1 → C2 → CurveSurj`;
 - `curveRatFactor_of_comp : C2 → C3 → CurveRatFactor` (with C4 and interpolation);
 - `curveFacts_of_named : C1a → C2 → C3 → …`;
-- `curveFacts_of_algClosed : C1a → C2K → C3K → …`.
+- `curveFacts_of_algClosed : C1a → C2K → C3K → …`;
+- `curveFacts_of_leaves : C1b → C2K → C3K → …`.
 
 Combined with mobius-glue's `mobiusGlue_of_curves (hRF : CurveRatFactor) (hSu : CurveSurj)
-(hT : ObjBridge.TorsionStructure)`, qm-pin's `MobiusGlue` therefore rests on C1a, C2K, C3K and
+(hT : ObjBridge.TorsionStructure)`, qm-pin's `MobiusGlue` therefore rests on C1b, C2K, C3K and
 the existing textbook leaf T5.
 
 **Verbatim copies.** `CurveRatFactor`, `CurveSurj` and `Mob.ratEval` were copied into
@@ -202,9 +204,10 @@ quantifies over an invented structure, and none is a disguised form of its conse
 
 ## 6. What remains
 
-- **C1a** is the smallest piece. It needs a dimension theory of smooth morphisms in Mathlib.
-  One route: a standard smooth algebra of relative dimension 1 over a field has Krull
-  dimension 1, and a closed point of such a scheme has a stalk of dimension 1, hence is not open.
+- **C1b** is the smallest piece. It needs a dimension theory of smooth morphisms in Mathlib:
+  a standard smooth algebra of relative dimension 1 over a field has Krull dimension 1 at every
+  maximal ideal. Mathlib's `Algebra.IsStandardSmoothOfRelativeDimension` gives a presentation
+  with invertible Jacobian, but nothing in Mathlib computes its dimension.
 - **C2** could be reduced further, argued but not compiled, to a "Liouville" fact: on a proper,
   connected, smooth scheme over an algebraically closed field, global functions are constant
   (Hartshorne Ex. II.4.5 / Stacks "proper + geometrically connected + geometrically reduced
