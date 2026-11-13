@@ -116,3 +116,17 @@
 'ZInQ.Contrib.G15.Ladic.ramCard_Lj_ne_one_iff' depends on axioms: [propext, Classical.choice, Quot.sound]
 'ZInQ.Contrib.G15.Ladic.ramCard_Lj_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
 'ZInQ.Contrib.G15.Ladic.D1_Lj' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.G15.Ladic.exists_smul_ne' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.G15.Ladic.decompFilt_antitone' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.G15.Ladic.exists_notMem_decompFilt' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.G15.Ladic.lowerIdx' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.G15.Ladic.mem_decompFilt_iff' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.G15.Ladic.tauOf_eq_one_of_mem_upperSet' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.G15.Ladic.apply_j_eq_of_mem_upperAbs' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.G15.Ladic.restrictNormal_decomp_eq_one_of_mem_upperAbs' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Contrib.G15.Ladic.finrank_Lj' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.G15.Ladic.placeBelow' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.G15.Ladic.ramCard_Lj_eq_card_localRam' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.G15.Ladic.finrank_Lj_eq_finrank_adicCompletion' depends on axioms: [propext, Classical.choice, Quot.sound]

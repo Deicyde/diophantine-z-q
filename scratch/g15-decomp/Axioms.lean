@@ -1,5 +1,6 @@
 import ZInQKernel.Contrib.G15.D1Completion
-import ZInQKernel.Contrib.G15.LadicD1
+import ZInQKernel.Contrib.G15.LadicUpper
+import ZInQKernel.Contrib.G15.Combined
 
 #print axioms ZInQ.Contrib.G15.LocalGal
 #print axioms ZInQ.Contrib.G15.localRam
@@ -119,3 +120,15 @@ import ZInQKernel.Contrib.G15.LadicD1
 #print axioms ZInQ.Contrib.G15.Ladic.ramCard_Lj_ne_one_iff
 #print axioms ZInQ.Contrib.G15.Ladic.ramCard_Lj_zero
 #print axioms ZInQ.Contrib.G15.Ladic.D1_Lj
+#print axioms ZInQ.Contrib.G15.Ladic.exists_smul_ne
+#print axioms ZInQ.Contrib.G15.Ladic.decompFilt_antitone
+#print axioms ZInQ.Contrib.G15.Ladic.exists_notMem_decompFilt
+#print axioms ZInQ.Contrib.G15.Ladic.lowerIdx
+#print axioms ZInQ.Contrib.G15.Ladic.mem_decompFilt_iff
+#print axioms ZInQ.Contrib.G15.Ladic.tauOf_eq_one_of_mem_upperSet
+#print axioms ZInQ.Contrib.G15.Ladic.apply_j_eq_of_mem_upperAbs
+#print axioms ZInQ.Contrib.G15.Ladic.restrictNormal_decomp_eq_one_of_mem_upperAbs
+#print axioms ZInQ.Contrib.G15.Ladic.finrank_Lj
+#print axioms ZInQ.Contrib.G15.Ladic.placeBelow
+#print axioms ZInQ.Contrib.G15.Ladic.ramCard_Lj_eq_card_localRam
+#print axioms ZInQ.Contrib.G15.Ladic.finrank_Lj_eq_finrank_adicCompletion
