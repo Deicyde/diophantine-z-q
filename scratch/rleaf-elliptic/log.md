@@ -61,3 +61,13 @@ Base 322303a2 (wip/integrate-w39). Start 2026-11-13 06:42 PST.
   `tateCusp_of_laurent`, `fieldX1Equiv`, `x1RationalCusp_of_igusa_tateCusp`,
   `x1RationalCusp_of_igusa_tate`, `x1ConstantField_of_igusa_tate`, `x1ModelExists_of_t38_igusa_tate`.
 - All `#print axioms`: [propext, Classical.choice, Quot.sound].
+
+## Step 7. Final check (VERIFIED)
+- `lake build` of the five RLeaf modules: Build completed successfully (9319 jobs), 0 errors, no
+  `sorryAx`; all `#print axioms` lines [propext, Classical.choice, Quot.sound]
+  (`build-final.txt`; `x1Leaves_of_t38_igusa_tate` added afterwards, same result).
+- diffcheck2: IDENT 1624, NOTE-ONLY 0, MOD-NOTED 30, MOD-UNNOTED 0.
+- Not attempted (assessed): `TateCuspLaurent` needs Tau Ceti main's Tate uniformization
+  (TateCurve/Homomorphism closure at tc-main: 69 modules, 22 main-only) and a `NormedField`
+  structure on `LaurentSeries ℚ` (absent from Mathlib, VERIFIED by grep); `IgusaTransitive` is
+  Igusa's theorem (research-level).

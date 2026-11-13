@@ -174,8 +174,14 @@ theorem x1ModelExists_of_t38_igusa_tate (hC : X1Belyi.CurveOfFunctionFieldQ)
     (hI : IgusaTransitive) (hT : TateCuspLaurent) : LeafModCurves.X1ModelExists :=
   x1ModelExists_of_t38_t40 hC (x1RationalCusp_of_igusa_tate hI hT)
 
+/-- The x1-belyi bundle from T38, Igusa transitivity and the Tate curve. -/
+theorem x1Leaves_of_t38_igusa_tate (hC : X1Belyi.CurveOfFunctionFieldQ)
+    (hI : IgusaTransitive) (hT : TateCuspLaurent) : X1Belyi.X1Leaves :=
+  x1Leaves_of_t38_t40 hC (x1RationalCusp_of_igusa_tate hI hT)
+
 end ZInQ.RLeaf
 
+#print axioms ZInQ.RLeaf.x1Leaves_of_t38_igusa_tate
 #print axioms ZInQ.RLeaf.hasRationalPlace_of_algEquiv
 #print axioms ZInQ.RLeaf.hasRationalPlace_of_laurent
 #print axioms ZInQ.RLeaf.x1RationalCusp_of_igusa_tateCusp
