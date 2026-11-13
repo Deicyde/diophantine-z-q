@@ -138,3 +138,13 @@
   `(Spec.map_comp _ _).symm.trans (congrArg Spec.map ?_)`.
 - Compile: LocalGlue.lean exit 0, no sorry, 52 printed declarations all standard axioms;
   TailK.lean exit 0, no sorry, tail_K/tail_R standard axioms.
+
+## Step 10 (07:38-07:45 PST): vacuity fix for RaynaudPlace at m = p
+- Finding G7 (logical): `G7LocalPackR` (step 7) required `RaynaudPlace A 7` at every `p ≥ 7`,
+  including `p = 7`, where `m = 7 = p` is not invertible and Raynaud's criterion does not apply
+  (the statement can fail), which could make the pack unsatisfiable. Fixed: `RaynaudPlace A 3` is
+  required only for `p ≠ 13` and `RaynaudPlace A 7` only for `p = 13`; `torsFixWild_of_raynaud`,
+  `tateWildK_of_leaves`, `tateWildK_of_leaves'`, `tateWildK_of_raynaud` now take
+  `(hR3 : p ≠ 13 → RaynaudPlace A 3) (hR7 : p = 13 → RaynaudPlace A 7)`. Docstring of
+  `RaynaudPlace` says: claimed only for `m ≥ 3` prime to `p`.
+- Compile: LocalGlue.lean exit 0, no sorry, all standard; TailK.lean exit 0, no sorry, standard.

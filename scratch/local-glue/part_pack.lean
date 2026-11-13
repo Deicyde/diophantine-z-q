@@ -60,8 +60,8 @@ theorem g15RamG_of_packK {L : Type} [Field L] [NumberField L] {A : AbVar L} (D :
   exact G15Ram.g15RamG_of_g7 D u h8₅ hC₅ hG₅ h8₃ hC₃ (hG₃ 5 (by norm_num) rfl) h11₅ h11₃
 
 /-- **G7's data for `r` with the local glue at `p ∈ P` in leaf-and-bridge form (GLUE).**
-At `p ≥ 7`: `RaynaudPlace A 3`, `RaynaudPlace A 7` (R6 at the place; `PtFinite` is proved,
-`G15Ram.ptFinite`); at
+At `p ≥ 7`: `RaynaudPlace A 3` (`p ≠ 13`), resp. `RaynaudPlace A 7` (`p = 13`) (R6 at the place,
+with `m` prime to `p`; `PtFinite` is proved, `G15Ram.ptFinite`); at
 `p ∈ {3, 5}`: `TorsFixWildOdd`; at `p = 2`: `TorsFixWildE` and `BetaTwist2` (which replaces
 `BetaUpper`, `G15Ram.betaUpper_of_twist`). With the leaf I2-Tors
 and `p ≠ ℓ` on `P`, it gives `G7LocalPackK` (`g7LocalPackK_of_R`). -/
@@ -73,7 +73,8 @@ def G7LocalPackR (ℓ : ℕ) [Fact ℓ.Prime] (r : GaloisRep ℓ 2) (P : ℕ →
     G0Galois.G7Out A ℓ Tm c ε a β u ∧ G0Galois.G8Out A ℓ (GlueDescent.rho Tm a β) r ∧
     G15Ram.G7Clauses β ε L ∧ G15Ram.KerWild K β L ∧
     ∀ (p : ℕ) (hp : p.Prime), P p →
-      (7 ≤ p → @G15Ram.RaynaudPlace p ⟨hp⟩ K _ _ A 3 ∧ @G15Ram.RaynaudPlace p ⟨hp⟩ K _ _ A 7) ∧
+      (7 ≤ p → p ≠ 13 → @G15Ram.RaynaudPlace p ⟨hp⟩ K _ _ A 3) ∧
+      (p = 13 → @G15Ram.RaynaudPlace p ⟨hp⟩ K _ _ A 7) ∧
       (3 ≤ p → p ≤ 5 → @G15Ram.TorsFixWildOdd p ⟨hp⟩ K _ _ A ℓ _ L) ∧
       (p = 2 → @G15Ram.TorsFixWildE p ⟨hp⟩ K _ _ A ℓ _ β L ∧ @G15Ram.BetaTwist2 p ⟨hp⟩ ℓ _ β L)
 
@@ -84,12 +85,11 @@ theorem g7LocalPackK_of_R (hTors : ObjBridge.TorsionStructure) {ℓ : ℕ} [Fact
   obtain ⟨K, _, _, A, Tm, c, ε, a, β, u, L, h7, h8, hC, hK, hloc⟩ := h
   refine ⟨K, _, _, A, Tm, c, ε, a, β, u, L, h7, h8, hC, hK, fun p hp hP => ?_⟩
   have : Fact p.Prime := ⟨hp⟩
-  obtain ⟨hR, hO, h2⟩ := hloc p hp hP
+  obtain ⟨hR3, hR7, hO, h2⟩ := hloc p hp hP
   refine ⟨fun h7p => ?_, fun h5 => ?_, fun h2' => G15Ram.betaUpper_of_twist hC (h2 h2').2⟩
-  · obtain ⟨hR3, hR7⟩ := hR h7p
-    exact G15Ram.torsFixWild_of_raynaud (Ne.symm (hPℓ p hP)) h7p
+  · exact G15Ram.torsFixWild_of_raynaud (Ne.symm (hPℓ p hP)) h7p
       (G15Ram.wildIter A) (G15Ram.torsGL_of_leaf hTors A h7.1 3 (by norm_num))
-      (G15Ram.torsGL_of_leaf hTors A h7.1 7 (by norm_num)) hR3 hR7
+      (G15Ram.torsGL_of_leaf hTors A h7.1 7 (by norm_num)) (hR3 h7p) hR7
   · by_cases hp2 : p = 2
     · exact (h2 hp2).1
     · have h3 : 3 ≤ p := by have := hp.two_le; omega

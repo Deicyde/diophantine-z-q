@@ -2883,10 +2883,11 @@ end G15Ram
 /-! ## §7 (local-glue). `TorsFixWild` at `p ≥ 7` from Raynaud's criterion and I2-Tors
 
 `torsFixWild_of_raynaud` (proved): `TorsFixWild` at `p ≥ 7`, `p ≠ ℓ`, follows from
-* `WildIter`: a wild `σ'` has `p`-power period on each point of `A(K̄)` (bridge glue);
+* `WildIter`: a wild `σ'` has `p`-power period on each point of `A(K̄)` (proved in §7b, `wildIter`);
 * `TorsGL A m` for `m = 3, 7`: `A(K̄)[m] ≅ (ℤ/m)⁴` as groups (the instance of the leaf I2-Tors,
   `torsGL_of_leaf`);
-* `RaynaudPlace A m` for `m = 3, 7`: a wild `σ'` fixing `A(K̄)[m]` satisfies `(σ' - 1)² = 0` on
+* `RaynaudPlace A m` for `m = 3` (`p ≠ 13`), `m = 7` (`p = 13`): a wild `σ'` fixing `A(K̄)[m]`
+  satisfies `(σ' - 1)² = 0` on
   `A(K̄)[ℓⁿ]` (the instance of the leaf R6 at the place of `embP`; bridge glue).
 The algebra in between is proved: `|GL₄(𝔽₃)| = 2⁹·3⁶·5·13` and `13 ∤ |GL₄(𝔽₇)|`, so the action of
 a wild `σ'` on `A[m]` has order prime to `p` and `p`-power, hence is trivial
@@ -3047,7 +3048,8 @@ A wild `σ' ∈ G_K` (over `decomp σ`, `σ ∈ wildSet`) that fixes `A(K̄)[m]`
 place of `embP` (a DVR) and a valuation ring `w` of `K̄` over it; `σ'` fixes `K'`, and a wild
 element is in the inertia group of `w`. What is missing is that bridge (PkgI2's setting is a
 field with a DVR and `AlgebraicClosure`; here `G_K`, `resQ`, `decomp`) and the base change of
-`A` to `K'`. Only for `ℓ ≠ p`. -/
+`A` to `K'`. Claimed only for `m ≥ 3` prime to `p` (used with `m = 3` for `p ≠ 13` and `m = 7`
+for `p = 13`; for `m = p` Raynaud's criterion does not apply and the statement can fail). -/
 def RaynaudPlace (A : PkgI3.AbVar K) (m : ℕ) : Prop :=
   ∀ σ ∈ wildSet (p := p), ∀ σ' : Field.absoluteGaloisGroup K, G0Galois.resQ K σ' = decomp p σ →
     (∀ P : A.Pt (AlgebraicClosure K), P ^ m = 1 → A.galAct σ' P = P) →
@@ -3208,7 +3210,7 @@ theorem wildIter_of_ptFinite {A : PkgI3.AbVar K} (h : PtFinite A) : WildIter (p 
 period it fixes `A[ℓⁿ]` (`fixed_of_unipSq_of_iterate'`). -/
 theorem torsFixWild_of_raynaud {A : PkgI3.AbVar K} {ℓ : ℕ} [Fact ℓ.Prime] (hℓp : ℓ ≠ p)
     (h7 : 7 ≤ p) (hI : WildIter (p := p) A) (hT3 : TorsGL A 3) (hT7 : TorsGL A 7)
-    (hR3 : RaynaudPlace (p := p) A 3) (hR7 : RaynaudPlace (p := p) A 7) :
+    (hR3 : p ≠ 13 → RaynaudPlace (p := p) A 3) (hR7 : p = 13 → RaynaudPlace (p := p) A 7) :
     TorsFixWild (p := p) A ℓ := by
   intro σ hσ σ' hσ' n x hx
   have hpp : p.Prime := Fact.out
@@ -3216,10 +3218,10 @@ theorem torsFixWild_of_raynaud {A : PkgI3.AbVar K} {ℓ : ℕ} [Fact ℓ.Prime] 
       RaynaudPlace (p := p) A m := by
     by_cases h13 : p = 13
     · haveI : Fact (Nat.Prime 7) := ⟨by norm_num⟩
-      refine ⟨7, fix_torsion_of_coprime hI 7 hT7 ?_ hσ hσ', hR7⟩
+      refine ⟨7, fix_torsion_of_coprime hI 7 hT7 ?_ hσ hσ', hR7 h13⟩
       rw [card_GL4_seven, h13]; exact coprime_card_GL4_seven
     · haveI : Fact (Nat.Prime 3) := ⟨by norm_num⟩
-      refine ⟨3, fix_torsion_of_coprime hI 3 hT3 ?_ hσ hσ', hR3⟩
+      refine ⟨3, fix_torsion_of_coprime hI 3 hT3 ?_ hσ hσ', hR3 h13⟩
       rw [card_GL4_three]; exact coprime_card_GL4_three hpp h7 h13
   obtain ⟨m, hm, hR⟩ := hfixm
   obtain ⟨a, ha⟩ := hI σ hσ σ' hσ' x
@@ -3232,8 +3234,8 @@ theorem torsFixWild_of_raynaud {A : PkgI3.AbVar K} {ℓ : ℕ} [Fact ℓ.Prime] 
 and the bridge `WildIter` (proved).** `dim A = 2` is a clause of `G7Out`. -/
 theorem tateWildK_of_leaves {A : PkgI3.AbVar K} {ℓ : ℕ} [Fact ℓ.Prime] (hℓp : ℓ ≠ p)
     (h7 : 7 ≤ p) (hTors : ObjBridge.TorsionStructure) (hdim : A.dim = 2)
-    (hI : WildIter (p := p) A) (hR3 : RaynaudPlace (p := p) A 3)
-    (hR7 : RaynaudPlace (p := p) A 7) : TateWildK (p := p) A ℓ :=
+    (hI : WildIter (p := p) A) (hR3 : p ≠ 13 → RaynaudPlace (p := p) A 3)
+    (hR7 : p = 13 → RaynaudPlace (p := p) A 7) : TateWildK (p := p) A ℓ :=
   tateWildK_of_torsFixWild (torsFixWild_of_raynaud hℓp h7 hI (torsGL_of_leaf hTors A hdim 3
     (by norm_num)) (torsGL_of_leaf hTors A hdim 7 (by norm_num)) hR3 hR7)
 
@@ -3241,8 +3243,8 @@ theorem tateWildK_of_leaves {A : PkgI3.AbVar K} {ℓ : ℕ} [Fact ℓ.Prime] (h�
 (proved).** -/
 theorem tateWildK_of_leaves' {A : PkgI3.AbVar K} {ℓ : ℕ} [Fact ℓ.Prime] (hℓp : ℓ ≠ p)
     (h7 : 7 ≤ p) (hTors : ObjBridge.TorsionStructure) (hdim : A.dim = 2)
-    (hPt : PtFinite A) (hR3 : RaynaudPlace (p := p) A 3)
-    (hR7 : RaynaudPlace (p := p) A 7) : TateWildK (p := p) A ℓ :=
+    (hPt : PtFinite A) (hR3 : p ≠ 13 → RaynaudPlace (p := p) A 3)
+    (hR7 : p = 13 → RaynaudPlace (p := p) A 7) : TateWildK (p := p) A ℓ :=
   tateWildK_of_leaves hℓp h7 hTors hdim (wildIter_of_ptFinite hPt) hR3 hR7
 
 end TorsSec
@@ -3404,8 +3406,8 @@ theorem wildIter {p : ℕ} [Fact p.Prime] {K : Type} [Field K] [NumberField K]
 of the leaf R6 alone (proved).** -/
 theorem tateWildK_of_raynaud {p : ℕ} [Fact p.Prime] {K : Type} [Field K] [NumberField K]
     {A : PkgI3.AbVar K} {ℓ : ℕ} [Fact ℓ.Prime] (hℓp : ℓ ≠ p) (h7 : 7 ≤ p)
-    (hTors : ObjBridge.TorsionStructure) (hdim : A.dim = 2) (hR3 : RaynaudPlace (p := p) A 3)
-    (hR7 : RaynaudPlace (p := p) A 7) : TateWildK (p := p) A ℓ :=
+    (hTors : ObjBridge.TorsionStructure) (hdim : A.dim = 2) (hR3 : p ≠ 13 → RaynaudPlace (p := p) A 3)
+    (hR7 : p = 13 → RaynaudPlace (p := p) A 7) : TateWildK (p := p) A ℓ :=
   tateWildK_of_leaves hℓp h7 hTors hdim (wildIter A) hR3 hR7
 
 end PtFiniteSec
@@ -3478,8 +3480,8 @@ theorem g15RamG_of_packK {L : Type} [Field L] [NumberField L] {A : AbVar L} (D :
   exact G15Ram.g15RamG_of_g7 D u h8₅ hC₅ hG₅ h8₃ hC₃ (hG₃ 5 (by norm_num) rfl) h11₅ h11₃
 
 /-- **G7's data for `r` with the local glue at `p ∈ P` in leaf-and-bridge form (GLUE).**
-At `p ≥ 7`: `RaynaudPlace A 3`, `RaynaudPlace A 7` (R6 at the place; `PtFinite` is proved,
-`G15Ram.ptFinite`); at
+At `p ≥ 7`: `RaynaudPlace A 3` (`p ≠ 13`), resp. `RaynaudPlace A 7` (`p = 13`) (R6 at the place,
+with `m` prime to `p`; `PtFinite` is proved, `G15Ram.ptFinite`); at
 `p ∈ {3, 5}`: `TorsFixWildOdd`; at `p = 2`: `TorsFixWildE` and `BetaTwist2` (which replaces
 `BetaUpper`, `G15Ram.betaUpper_of_twist`). With the leaf I2-Tors
 and `p ≠ ℓ` on `P`, it gives `G7LocalPackK` (`g7LocalPackK_of_R`). -/
@@ -3491,7 +3493,8 @@ def G7LocalPackR (ℓ : ℕ) [Fact ℓ.Prime] (r : GaloisRep ℓ 2) (P : ℕ →
     G0Galois.G7Out A ℓ Tm c ε a β u ∧ G0Galois.G8Out A ℓ (GlueDescent.rho Tm a β) r ∧
     G15Ram.G7Clauses β ε L ∧ G15Ram.KerWild K β L ∧
     ∀ (p : ℕ) (hp : p.Prime), P p →
-      (7 ≤ p → @G15Ram.RaynaudPlace p ⟨hp⟩ K _ _ A 3 ∧ @G15Ram.RaynaudPlace p ⟨hp⟩ K _ _ A 7) ∧
+      (7 ≤ p → p ≠ 13 → @G15Ram.RaynaudPlace p ⟨hp⟩ K _ _ A 3) ∧
+      (p = 13 → @G15Ram.RaynaudPlace p ⟨hp⟩ K _ _ A 7) ∧
       (3 ≤ p → p ≤ 5 → @G15Ram.TorsFixWildOdd p ⟨hp⟩ K _ _ A ℓ _ L) ∧
       (p = 2 → @G15Ram.TorsFixWildE p ⟨hp⟩ K _ _ A ℓ _ β L ∧ @G15Ram.BetaTwist2 p ⟨hp⟩ ℓ _ β L)
 
@@ -3502,12 +3505,11 @@ theorem g7LocalPackK_of_R (hTors : ObjBridge.TorsionStructure) {ℓ : ℕ} [Fact
   obtain ⟨K, _, _, A, Tm, c, ε, a, β, u, L, h7, h8, hC, hK, hloc⟩ := h
   refine ⟨K, _, _, A, Tm, c, ε, a, β, u, L, h7, h8, hC, hK, fun p hp hP => ?_⟩
   have : Fact p.Prime := ⟨hp⟩
-  obtain ⟨hR, hO, h2⟩ := hloc p hp hP
+  obtain ⟨hR3, hR7, hO, h2⟩ := hloc p hp hP
   refine ⟨fun h7p => ?_, fun h5 => ?_, fun h2' => G15Ram.betaUpper_of_twist hC (h2 h2').2⟩
-  · obtain ⟨hR3, hR7⟩ := hR h7p
-    exact G15Ram.torsFixWild_of_raynaud (Ne.symm (hPℓ p hP)) h7p
+  · exact G15Ram.torsFixWild_of_raynaud (Ne.symm (hPℓ p hP)) h7p
       (G15Ram.wildIter A) (G15Ram.torsGL_of_leaf hTors A h7.1 3 (by norm_num))
-      (G15Ram.torsGL_of_leaf hTors A h7.1 7 (by norm_num)) hR3 hR7
+      (G15Ram.torsGL_of_leaf hTors A h7.1 7 (by norm_num)) (hR3 h7p) hR7
   · by_cases hp2 : p = 2
     · exact (h2 hp2).1
     · have h3 : 3 ≤ p := by have := hp.two_le; omega

@@ -132,8 +132,8 @@ theorem wildIter {p : ℕ} [Fact p.Prime] {K : Type} [Field K] [NumberField K]
 of the leaf R6 alone (proved).** -/
 theorem tateWildK_of_raynaud {p : ℕ} [Fact p.Prime] {K : Type} [Field K] [NumberField K]
     {A : PkgI3.AbVar K} {ℓ : ℕ} [Fact ℓ.Prime] (hℓp : ℓ ≠ p) (h7 : 7 ≤ p)
-    (hTors : ObjBridge.TorsionStructure) (hdim : A.dim = 2) (hR3 : RaynaudPlace (p := p) A 3)
-    (hR7 : RaynaudPlace (p := p) A 7) : TateWildK (p := p) A ℓ :=
+    (hTors : ObjBridge.TorsionStructure) (hdim : A.dim = 2) (hR3 : p ≠ 13 → RaynaudPlace (p := p) A 3)
+    (hR7 : p = 13 → RaynaudPlace (p := p) A 7) : TateWildK (p := p) A ℓ :=
   tateWildK_of_leaves hℓp h7 hTors hdim (wildIter A) hR3 hR7
 
 end PtFiniteSec
