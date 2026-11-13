@@ -68,3 +68,13 @@
   OmegaBaseChange, UniformizationLiftAnalytic, JacobianSemilinear; 21 `#print axioms`, all standard.
 - H5WithBC.lean regenerated (04:58): `stableFaltingsHeight_eq_neron_of_glue5` (h5-glue's H5 from N1, N2 and
   the five glue Props), 0 errors, axioms standard, 1m36s.
+- G0WithBC.lean (05:05) = Final.lean body + alias `abbrev ZInQ.DefFaltings.AbVar K := PkgI3.AbVar K` +
+  scratch/g0-stablebc/Main.part VERBATIM (its #print lines dropped) + bridge: 0 errors, 21 s.
+  `g0_hodgeLine_iff : G0StableBC.HodgeLineBaseChange ↔ HodgeLineBaseChange := Iff.rfl`;
+  `stableHeightBaseChange_of_glue5` (g0-split piece 6 `StableHeightBaseChange` from the five glue Props),
+  axioms standard. FINDING: g0-stablebc's Main.part elaborates unchanged over the kernel objects.
+- Review 2 (read-only model review, no Lean run) of CotangentSpanBC, HodgeSpanBC, OmegaBaseChange,
+  UniformizationLiftAnalytic, JacobianSemilinear: all TRUE as written, none vacuous. OmegaBaseChange
+  needs only separatedness + quasi-coherence + right-exactness of the conormal under base change (not
+  smoothness). Docstring fixes: HodgeSpanBC "with HodgeBCInjective ⇒ L'⊗V ≅ V'" overclaim (only for lines);
+  BC-lift openness argument via basic opens D(h') ⊂ π⁻¹V; stale header.
