@@ -11,3 +11,12 @@ Base: wip/integrate-w38b (f90cf864) + merges of origin/wip/kernel-field, origin/
 - `kernelFieldExists_of_five`: KernelFieldExists from HomFreeFinite, NOS, Raynaud, TorsionStructure,
   QMDichotomyYu, FS5, ConjIsogMaps.
 - VERIFIED (compiled, `lake env lean`, rc=0, build1.txt): both axioms [propext, Classical.choice, Quot.sound].
+
+## Step 2. ConjIsogMaps level 1 (points bookkeeping) — VERIFIED (compiled, build2.txt, rc=0)
+- New Props (New.lean part 2): `LiftQbarPoints` (finite surjective ⇒ surjective on ℚ̄-points; glue),
+  `FiniteFibreQbarPoints` (finite ⇒ finite fibres on ℚ̄-points; glue), `SemilinearIsogAt` / `SemilinearIsogMaps`
+  (σ-semilinear finite surjective scheme endomorphisms F_σ of A_L over Spec(σ⁻¹|_L), respecting μ and ι(𝒪),
+  F_k = id on G_L and constant on G_L-cosets, F_τ ≫ F_σ ≫ [e] = F_{στ} ≫ δ, δ ∈ End_L; geometric glue).
+- `conjIsogMapsAt_of_semilinear`, `conjIsogMaps_of_semilinear : LiftQbarPoints → FiniteFibreQbarPoints →
+  SemilinearIsogMaps → ConjIsogMaps`; axioms [propext, Classical.choice, Quot.sound].
+- m_σ(x) = Spec σ ≫ x ≫ F_σ (`semHom`); additivity from the scheme-level group-law clause.
