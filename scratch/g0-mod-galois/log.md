@@ -10,8 +10,8 @@
   [propext, Classical.choice, Quot.sound] (no sorry). `commonConstituent_of_sides` had 2 errors
   (implicit arg of `ofInjective_apply`; `Subrepresentation (tate J 5)` vs
   `Subrepresentation (repBaseChange …)` mismatch). In run4 `G8Matrix` still had `A.dim = 2`;
-  changed afterwards to `finrank (ℚ̄_ℓ ⊗ V_ℓ(A)) = 4` (true without T26 is not provable from
-  `dim A = 2` alone; finrank is proved in g8 from T26).
+  changed afterwards to `finrank (ℚ̄_ℓ ⊗ V_ℓ(A)) = 4`: with `dim A = 2` alone it is true but not
+  provable without T26; the finrank is proved in g8 from T26.
 
 ## Statements (all in namespace `G0Galois`)
 
@@ -27,3 +27,21 @@
   `det ρ_g = ε_g χ^{k−1}`; G12's determinant argument needs it (`G12Det`); trace data at
   arithmetic Frobenius alone do not determine the determinant. Recommendation: add the published
   determinant clause to R14.
+- run5: link lemma: one rewrite failure left (second `keyA`, subtype membership form).
+- run6: resQ redefined as `res (qEmb K)` (copied `exists_res`, `res` from scratch/e1-sub) so that
+  `qEmb K ∘ resQ K τ = τ ∘ qEmb K` (`resQ_spec`, `eq_resQ`); added the copied g0-mod-newform
+  interface (`NF.toRep`, `NF.PanOutput`, `NF.IsConstituentOf`, `NF.ModData`, `NF.G12Spec`,
+  `NF.NewformG12Out`), `FiniteCharDirichlet`, `isConstituentOf_of_intertwines`, `panOutput_of_g12`,
+  `newformG12Out_of_galois`. Errors: `τ` not coerced (type ascription), `GaloisChar` not opened,
+  noncomputable section missing.
+- run7 (2m49s): VERIFIED 0 errors, 0 `declaration uses sorry`; axioms [propext, Classical.choice,
+  Quot.sound] for g8, g11, g12, g8_g12, g8_g12_of_leaves, commonConstituent_of_sides,
+  isConstituentOf_of_intertwines, newformG12Out_of_galois.
+
+## Partner interfaces (read from origin refs, 02:15)
+
+- g0-mod-newform (217e17f0) input `G12Out A := ∃ D : ModData L A, G12Spec D`; copied verbatim as
+  `G0Galois.NF.*`; proved by `newformG12Out_of_galois`.
+- g0-mod-field (ceada656) output `G7Data` (points-level descent datum, complex scalars, `L'` as an
+  IntermediateField); the ℓ-adic realization into `G7Out` is the named step `G7Realize`, stated in
+  prose only (different environment: partners import ZInQKernel/HDecomp, leaves live in Split.lean).
