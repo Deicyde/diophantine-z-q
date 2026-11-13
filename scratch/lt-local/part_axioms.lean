@@ -6,3 +6,6 @@
 #print axioms LTLocal.linkedTateLocal_of_D
 #print axioms LTLocal.linkedTateLocalD_of_local
 #print axioms LTLocal.modelEndRank4_of_localD
+#print axioms LTLocal.endDivision_of_fibreSimple
+#print axioms LTLocal.modelEndRank4_of_qmEndRank
+#print axioms LTLocal.linkedTateLocalD_of_tateBridge35'

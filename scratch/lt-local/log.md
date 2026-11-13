@@ -40,3 +40,16 @@
   `linkedTateLocalD_of_local`, `modelEndRank4_of_localD`.
 - Compile (VERIFIED): `mk_test.sh; ctail.sh T3.lean` (import Base + parts 1-4): exit 0, 10 s;
   8 `#print axioms` reports, all `[propext, Classical.choice, Quot.sound]`, no sorry.
+
+## Step 4 (10:45-11:10): part_rank.lean — `ModelEndRank4` reduced to existing Props
+- Verbatim copies (sed line ranges, see part header) from scratch/linked-tate/LinkedTate.lean:
+  `ZInQ.DefFaltings.AbVar`/`baseChange`, `LeafAdopt.abVarEquiv`, `HSyn.G0Split.FibreOver`,
+  `HSyn.G0Split.FibreSimple` (existing GluePieces piece; FS5 in GluePieces3),
+  `HSyn.LinkedTate.QMEndRank` (linked-tate's literature-backed glue).
+- New: `endDivision_of_fibreSimple` (linked-tate's proof; `Qbar` → `PkgI4.Qbar` because the bare
+  name became an auto-bound implicit here), **`modelEndRank4_of_qmEndRank`**:
+  `FibreSimple` + `QMEndRank` ⟹ `ModelEndRank4`; **`linkedTateLocalD_of_tateBridge35'`**:
+  R6 + I2-Tors + UnramRoots 2 5 + UnramRoots 2 3 + TateBridge35 + FibreSimple + QMEndRank ⟹
+  `LinkedTateLocalD`.
+- Compile (VERIFIED): `ctail.sh T3.lean` (import Base + parts 1-5): exit 0, 14 s; 11 axiom
+  reports, all `[propext, Classical.choice, Quot.sound]`, no sorry.
