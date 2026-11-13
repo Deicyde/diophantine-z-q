@@ -11,7 +11,7 @@
 - Compile (VERIFIED): `lake env lean -o olean/Prefix.olean Prefix.lean`: 2m10s, 0 errors, no sorry;
   133 `#print axioms` reports, all `[propext, Classical.choice, Quot.sound]`.
 
-## Step 1 (09:20-09:45 PST): tools and `LocalDataS` (part_tools.lean, part_local.lean)
+## Step 1 (09:18-09:27 PST): tools and `LocalDataS` (part_tools.lean, part_local.lean)
 - `ctail.sh F` compiles `F` against `olean/Prefix.olean` (`import Prefix`).
 - New (namespace `G8Tate`): `padic_card_le` (`#ℚ_p ≤ 𝔠`), `padicAlgCl_card` (`#ℚ̄_ℓ = 𝔠`),
   **`exists_complex_equiv`** (`Nonempty (ℂ ≃+* ℚ̄_ℓ)`, Steinitz via Mathlib's
@@ -25,7 +25,7 @@
   axioms of `exists_complex_equiv`, `exists_finGal_tame`, `g7Clauses_of_g7Data`, `descentPts_self`,
   `localDataS_of_g7Data`: `[propext, Classical.choice, Quot.sound]`.
 
-## Step 2 (09:50-10:05 PST): `LinkedTateObjS` reduced to `TateBridgeOnL` (part_link.lean)
+## Step 2 (09:27-09:30 PST): `LinkedTateObjS` reduced to `TateBridgeOnL` (part_link.lean)
 - New: `TateBridgeOnL` (def, GLUE): the text of g8-object's `LinkedTateObjS` with its two
   `LocalDataS` conjuncts deleted (produced by a python string replacement from `part_split.lean`).
 - **`linkedTateObjS_of_onL`**: R6 + I2-Tors + `UnramRoots 2 5` + `TateBridgeOnL` ⟹
@@ -35,3 +35,24 @@
   `linkedTateDataD_of_S`).
 - Compile (VERIFIED): `ctail.sh Part.lean` (= part_tools + part_local + part_link): exit 0, 60 s;
   all axiom reports `[propext, Classical.choice, Quot.sound]`, no sorry.
+
+## Step 3 (09:30-09:50 PST): Prefix2 (unram-tate's Tate-functor construction, linked-tate's linked data)
+- `build_prefix2.sh` assembles `Prefix2.lean` (`import Prefix`) = linked-tate's
+  `parts/96_unramtate.lean` (= unram-tate's `TateBridge.lean` L1038-1825 verbatim) without its copy
+  of BCPoints.lean (identical text already in Prefix as local-glue's `bc_block.lean`, namespace
+  `UnramTate`) + linked-tate's `parts/97_linkeddata.lean` L1-445 (`scalarTransferQ`, `tmOf`,
+  `LinkedFrobRam`, `LinkedFrob`, `LinkedRam`, `linkedFrobRam_of`, `linkedTateCoreDR_of`; without the
+  two Leaves-layer composites).
+- Compile (VERIFIED): `lean -o olean/Prefix2.olean Prefix2.lean`: 1m11s, 0 errors.
+  (linked-tate's Leaves-layer parts compile unchanged over the kernel-layer Prefix.)
+
+## Step 4 (09:50-10:10 PST): `OnL` for the canonical operators (part_onl.lean)
+- New: `VX`, `tateMapX_comp`, `tateMapX_id`, `opV_conjE` (`opV(Ξ f Ξ⁻¹) = V(Ξ) opV(f) V(Ξ)⁻¹`),
+  `VX_comp_symm`, `VXe`, `exists_equiv_of_quasiInv` (`f g = λ·1`, `g f = μ·1` ⟹ `f` invertible),
+  `m_one` (`m 1 = id` from `DescentDatum`'s clauses), **`onL_canon`**: for any descent datum `m`
+  (clauses of `DescentDatum`), transport `Θ`, `h`, and scalars `= 1` on `G_L`,
+  `∃ ψ, G8Object.OnL L A (tmOf hLL' A Θ h m ℓ) aℓ ψ`. `ψ⁻¹ = opV(m_x) ∘ V(Θ ∘ trPt φ₁)`,
+  `φ₁ : L̄ ≃ₐ[L] ℚ̄`, `x = h g₁⁻¹`, `g₁ = φ₁ ∘ (embedding ℚ̄ → L̄ of resQ)`.
+- Compile (VERIFIED): `ctail.sh Part2.lean` (`import Prefix2` + part_onl): exit 0; axioms of
+  `opV_conjE`, `exists_equiv_of_quasiInv`, `onL_canon`: `[propext, Classical.choice, Quot.sound]`.
+  (`set_option maxHeartbeats 1000000 in` on `onL_canon`, as linked-tate's `linkedTateCoreDR_of`.)
