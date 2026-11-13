@@ -3,11 +3,12 @@
 Status: research note (task gz-theta, 2026-11-13), branch `wip/gz-theta` (base `wip/gz-decomp`
 dcddd423, merged with `origin/wip/gz-license` 7f3880af). Lean: new files
 `ZInQKernel/Contrib/GZTheta/{Basic,BadCoeff,Eta,Eta32,EtaForm32,Main,ThetaUnique,TripleProduct,
-JacobiGauss,HeckeComb,EtaTheta,Final,Split}.lean`. Axiom
+JacobiGauss,HeckeComb,EtaTheta,Final,Split,New32}.lean`. Axiom
 check `scratch/gz-theta/Check.lean` (output `scratch/gz-theta/out_check_axioms.txt`). Log
 `scratch/gz-theta/log.md`. No existing file of the project was edited, and no Tau Ceti module
 was modified. One Tau Ceti module was vendored unmodified from tc-oct16 (5a01f5fe),
-`Newforms/BadPrime/Vanishing.lean` (list `scratch/gz-theta/tc-modules.txt`; NOTICE entry added
+`Newforms/BadPrime/Vanishing.lean` (used in `New32.lean` for `a₂ = 0` at level 16; list
+`scratch/gz-theta/tc-modules.txt`; NOTICE entry added
 after merging `wip/gz-license`; `diffcheck2.py`: IDENT, 0 MOD-UNNOTED). §2-3 are the plan written before building (step 1); §0 and §4 report
 what was built.
 
@@ -17,100 +18,111 @@ of the literature below is **UNVERIFIED**.
 
 ## 0. Main result
 
-**Hecke's theorem for `ψ₁` is proved, and the leaf `HeckeThetaNewform` is reduced to newness
-alone.** The theta series `∑ heckeCoeff 1 n qⁿ` of the Hecke character of `y² = x³ − x` is the
-cusp form `η(4τ)²η(8τ)² ∈ S₂(Γ₀(32))` (`cmForm32`). Its twists `f_d = f₁ ⊗ (·/d)` are Hecke
-eigenforms of every `T_n` on `Γ₁(32 d²)` with trivial nebentypus and `q`-expansion
-`∑ heckeCoeff d n qⁿ` (`exists_eigenform_heckeCoeff`). The only part of L1 left open is the
-newness of `f_d` at level `32 d²` (`NewCM`), equivalently the bad-prime coefficients of its
-newform (`BadCoeffCM`); `NewCM` is further reduced to newness at level 32 (`NewAt32`) and the
-Atkin–Li twist theorem (`AtkinLiTwistNew`).
+**The leaf `HeckeThetaNewform` is reduced to the Atkin–Li twist theorem; everything specific to
+`ψ_d` is proved.** Proved in Lean (standard axioms only):
 
-Every theorem below compiles, and `#print axioms` gives exactly
-`[propext, Classical.choice, Quot.sound]` for each (VERIFIED: `scratch/gz-theta/Check.lean`,
-`Check2.lean`, outputs `out_check_axioms.txt`, `out_check_axioms2.txt`).
+* **Hecke's theorem for `ψ₁` (modularity of `y² = x³ − x`)**: the theta series
+  `∑ heckeCoeff 1 n qⁿ` of the Hecke character of `y² = x³ − x` is the cusp form
+  `η(4τ)²η(8τ)² ∈ S₂(Γ₀(32))` (`cmForm32`), and it is **new at level 32** (`newAt32`).
+* **The twists**: for squarefree `d ≡ 1 (mod 4)`, `f_d = f₁ ⊗ (·/d)` is a cusp form on
+  `Γ₁(32 d²)` with trivial nebentypus, eigen for every Hecke operator `T_n`, with `q`-expansion
+  `∑ heckeCoeff d n qⁿ` (`exists_eigenform_heckeCoeff`).
+* **The leaf from Atkin–Li**: `heckeThetaNewform_of_atkinLi : AtkinLiTwistNew → HeckeThetaNewform`,
+  where `AtkinLiTwistNew` says that twisting a newform of level `M` and trivial character by the
+  primitive quadratic character `(·/r)` (`r ≡ 1 mod 4` squarefree, prime to `M`) gives a form new
+  at level `M r²` (Atkin–Li, Invent. Math. 48 (1978), Thm 3.1; Shimura 1971, Prop. 3.64;
+  UNVERIFIED locators; STANDARD). Tau Ceti has the twist and the existence of its primitive
+  associate (`Newforms/Twist.lean`) but states that "the sharp level of `g` is not determined"
+  (VERIFIED by reading tc-oct16).
+* **Headline** (with gz-decomp's leaves L2, L3):
+  `frozenTarget_of_sixContactMin_tyzThm35ReadingA_atkinLi_gzLeaves : SixContactMin →
+  TYZThm35ReadingA → AtkinLiTwistNew → FHNonvanishing → GrossZagierHeegner → FrozenTarget`.
+
+`#print axioms` gives exactly `[propext, Classical.choice, Quot.sound]` for every theorem below
+(VERIFIED: `scratch/gz-theta/Check.lean`, `Check2.lean`, `Check3.lean`; outputs
+`out_check_axioms.txt`, `out_check_axioms2.txt`, `out_check_axioms3.txt`).
 
 ```lean
--- ZInQKernel/Contrib/GZTheta/EtaTheta.lean, Final.lean, Split.lean
-theorem ZInQ.GZTheta.etaThetaIdentity : EtaThetaIdentity
-  -- ∀ τ : ℍ, HasSum (fun n => heckeCoeff 1 n * cexp (2πiτ) ^ n) (η (4τ) ^ 2 * η (8τ) ^ 2)
+-- the leaf and the headline                         (ZInQKernel/Contrib/GZTheta/New32.lean)
+theorem ZInQ.GZTheta.heckeThetaNewform_of_atkinLi :
+    AtkinLiTwistNew → ZInQ.GZDecomp.HeckeThetaNewform
+theorem ZInQ.GZTheta.frozenTarget_of_sixContactMin_tyzThm35ReadingA_atkinLi_gzLeaves :
+    ZInQ.SixContactMin → ZInQ.Literature.TYZThm35ReadingA → AtkinLiTwistNew →
+      ZInQ.GZDecomp.FHNonvanishing → ZInQ.GZDecomp.GrossZagierHeegner → ZInQ.FrozenTarget
+theorem ZInQ.GZTheta.newAt32 : NewAt32
+-- modularity, the q-series identity, the eigenforms  (EtaTheta.lean, Final.lean, Split.lean)
 theorem ZInQ.GZTheta.cmForm32 : CMForm32
-  -- ∃ F : CuspForm ((Gamma0 32).map (mapGL ℝ)) 2, ∀ n, (qExpansion 1 F).coeff n = heckeCoeff 1 n
+theorem ZInQ.GZTheta.etaThetaIdentity : EtaThetaIdentity
 theorem ZInQ.GZTheta.exists_eigenform_heckeCoeff (d : ℕ) [NeZero d] (hd4 : d % 4 = 1)
     (hsq : Squarefree d) :
     ∃ E : HeckeRing.GL2.Eigenform (32 * d ^ 2) 2, E.χ = 1 ∧
       ∀ n : ℕ, (qExpansion 1 E.toCuspForm).coeff n = heckeCoeff d n
 theorem ZInQ.GZTheta.heckeThetaNewform_of_newCM : NewCM → ZInQ.GZDecomp.HeckeThetaNewform
-theorem ZInQ.GZTheta.heckeThetaNewform_of_badCoeffCM : BadCoeffCM → ZInQ.GZDecomp.HeckeThetaNewform
+theorem ZInQ.GZTheta.heckeThetaNewform_of_badCoeffCM :
+    BadCoeffCM → ZInQ.GZDecomp.HeckeThetaNewform
 theorem ZInQ.GZTheta.newCM_of_newAt32_atkinLi : NewAt32 → AtkinLiTwistNew → NewCM
-theorem ZInQ.GZTheta.heckeThetaNewform_of_newAt32_atkinLi :
-    NewAt32 → AtkinLiTwistNew → ZInQ.GZDecomp.HeckeThetaNewform
-theorem ZInQ.GZTheta.frozenTarget_of_sixContactMin_tyzThm35ReadingA_newCM_gzLeaves :
-    ZInQ.SixContactMin → ZInQ.Literature.TYZThm35ReadingA → NewCM →
-      ZInQ.GZDecomp.FHNonvanishing → ZInQ.GZDecomp.GrossZagierHeegner → ZInQ.FrozenTarget
 -- the analytic ingredients
 theorem ZInQ.GZTheta.jacobiTheta₂_eq_jtpP {τ : ℂ} (hτ : 0 < τ.im) (z : ℂ) :
-    jacobiTheta₂ z τ = jtpP τ z                       -- Jacobi's triple product (TripleProduct.lean)
+    jacobiTheta₂ z τ = jtpP τ z                    -- Jacobi triple product (TripleProduct.lean)
+theorem ZInQ.GZTheta.eq_zero_of_theta_fe {τ : ℂ} {f : ℂ → ℂ} (hf : Differentiable ℂ f)
+    (h1 : ∀ z, f (z + 1) = f z) (hτ : ∀ z, f (z + τ) = cexp (-π * I * (τ + 2 * z)) * f z)
+    (h0 : ∫ x : ℝ in (0 : ℝ)..1, f x = 0) : f = 0    -- (ThetaUnique.lean)
 theorem ZInQ.GZTheta.hasSum_jacobi {τ : ℂ} (hτ : 0 < τ.im) :
     HasSum (fun n : ℤ => (n : ℂ) * jacobiTheta₂_term n ((1 + τ) / 2) τ) (jtpA τ ^ 3)
 theorem ZInQ.GZTheta.hasSum_gauss {τ : ℂ} (hτ : 0 < τ.im) :
     HasSum (fun n : ℤ => jacobiTheta₂_term n (1 / 2) τ)
-      (gp (qJ τ) (-1) 2 2 * gp (qJ τ) (-1) 2 1 * gp (qJ τ) (-1) 2 1)   -- (JacobiGauss.lean)
-theorem ZInQ.GZTheta.eq_zero_of_theta_fe {τ : ℂ} {f : ℂ → ℂ} (hf : Differentiable ℂ f)
-    (h1 : ∀ z, f (z + 1) = f z) (hτ : ∀ z, f (z + τ) = cexp (-π * I * (τ + 2 * z)) * f z)
-    (h0 : ∫ x : ℝ in (0 : ℝ)..1, f x = 0) : f = 0       -- (ThetaUnique.lean)
-def ZInQ.GZTheta.etaForm32 : CuspForm ((Gamma0 32).map (mapGL ℝ)) 2   -- ⇑etaForm32 = η(4τ)²η(8τ)²
+      (gp (qJ τ) (-1) 2 2 * gp (qJ τ) (-1) 2 1 * gp (qJ τ) (-1) 2 1)     -- (JacobiGauss.lean)
+def ZInQ.GZTheta.etaForm32 : CuspForm ((Gamma0 32).map (mapGL ℝ)) 2  -- ⇑etaForm32 = η(4τ)²η(8τ)²
 theorem ZInQ.GZTheta.etaQuot32_slash_eq {γ : SL(2, ℤ)} (hγ : γ ∈ Gamma0 32) :
-    etaQuot32 ∣[(2 : ℤ)] γ = etaQuot32                                   -- (Eta32.lean)
+    etaQuot32 ∣[(2 : ℤ)] γ = etaQuot32                                  -- (Eta32.lean)
 theorem ZInQ.GZTheta.eta_sq_mobius : ∀ (fuel : ℕ) (a b c d : ℤ), c.natAbs ≤ fuel →
     a * d - b * c = 1 → ∀ z : ℂ, 0 < z.im →
       η ((a * z + b) / (c * z + d)) ^ 2 = zeta12 ^ etaSqExp fuel a b c d * (c * z + d) * η z ^ 2
 ```
 
-The remaining Props (all STANDARD, none proved here):
+The one remaining Prop (STANDARD; not proved here), and the intermediate Props, all defined in
+`ZInQKernel/Contrib/GZTheta/`:
 
 ```lean
--- newness of the theta series of ψ_d at level 32 d²  (Basic.lean)
-def NewCM : Prop :=
-  ∀ (d : ℕ) [NeZero d], d % 4 = 1 → Squarefree d →
-    ∀ F : CuspForm ((Gamma1 (32 * d ^ 2)).map (mapGL ℝ)) 2,
-      (∀ n : ℕ, (qExpansion 1 F).coeff n = heckeCoeff d n) → F ∈ TauCeti.cuspFormsNew (32 * d ^ 2) 2
--- equivalent route: the bad-prime coefficients of the newform of ψ_d  (BadCoeff.lean)
-def BadCoeffCM : Prop :=
-  ∀ d : ℕ, d % 4 = 1 → Squarefree d →
-    ∀ (M : ℕ) [NeZero M] (g : Newform M 2), g.χ = 1 →
-      (∀ p : ℕ, p.Prime → ¬ p ∣ 2 * d → coeff g p = heckeCoeff d p) →
-      ∀ p : ℕ, p.Prime → p ∣ 2 * d → p ∣ M ∧ coeff g p = 0
--- NewCM ⇐ NewAt32 ∧ AtkinLiTwistNew  (Split.lean)
-def NewAt32 : Prop :=
-  ∀ F : CuspForm ((Gamma1 32).map (mapGL ℝ)) 2,
-    (∀ n : ℕ, (qExpansion 1 F).coeff n = heckeCoeff 1 n) → F ∈ TauCeti.cuspFormsNew 32 2
-def AtkinLiTwistNew : Prop :=
+def AtkinLiTwistNew : Prop :=                                                     -- Split.lean
   ∀ (M : ℕ) [NeZero M] (g : Newform M 2), g.χ = 1 →
     ∀ (r : ℕ) [NeZero r], r % 4 = 1 → Squarefree r → Nat.Coprime r M →
       CuspForm.twist (jacobiChar r) (dvd_twist_left M r) (dvd_twist_right M r) g.toCuspForm ∈
         TauCeti.cuspFormsNew (M * r ^ 2) 2
+-- proved: NewAt32, CMForm32, EtaThetaIdentity.  Implied by AtkinLiTwistNew: NewCM, BadCoeffCM-route
+def NewCM : Prop :=                                                               -- Basic.lean
+  ∀ (d : ℕ) [NeZero d], d % 4 = 1 → Squarefree d →
+    ∀ F : CuspForm ((Gamma1 (32 * d ^ 2)).map (mapGL ℝ)) 2,
+      (∀ n : ℕ, (qExpansion 1 F).coeff n = heckeCoeff d n) → F ∈ TauCeti.cuspFormsNew (32 * d ^ 2) 2
+def NewAt32 : Prop :=                                                             -- Split.lean
+  ∀ F : CuspForm ((Gamma1 32).map (mapGL ℝ)) 2,
+    (∀ n : ℕ, (qExpansion 1 F).coeff n = heckeCoeff 1 n) → F ∈ TauCeti.cuspFormsNew 32 2
+def CMForm32 : Prop :=                                                            -- Basic.lean
+  ∃ F : CuspForm ((Gamma0 32).map (mapGL ℝ)) 2, ∀ n : ℕ, (qExpansion 1 F).coeff n = heckeCoeff 1 n
+def EtaThetaIdentity : Prop :=                                                    -- Main.lean
+  ∀ τ : ℍ, HasSum (fun n : ℕ => heckeCoeff 1 n * cexp (2 * π * I * τ) ^ n)
+    (η (4 * (τ : ℂ)) ^ 2 * η (8 * (τ : ℂ)) ^ 2)
 ```
 
-So: **L1 ⇐ NewCM**, and **NewCM ⇐ NewAt32 ∧ AtkinLiTwistNew** (Atkin–Li, Invent. Math. 48
-(1978), Thm 3.1; UNVERIFIED locator). Together with gz-decomp:
-`FrozenTarget ⇐ SixContactMin ∧ TYZThm35ReadingA ∧ NewCM ∧ FHNonvanishing ∧ GrossZagierHeegner`.
-
-What is proved, informally:
-1. **Jacobi's triple product identity** for Mathlib's `jacobiTheta₂`, by a uniqueness theorem
-   for entire functions with the functional equations of `θ` (Fourier coefficients and Cauchy's
-   theorem on rectangles) and the classical `c(τ) = c(4τ)` normalization; then Jacobi's `η³`
-   identity (derivative at the zero `(1+τ)/2`) and Gauss's identity (`z = 1/2`).
-2. **The `q`-series identity** `η(4τ)²η(8τ)² = ∑_{α ≡ 1 mod (2+2i)} α q^{N α} = ∑ heckeCoeff 1 n qⁿ`
-   (product of the two identities at `8τ`, regrouped by `N = (2n+1)² + (2m)²`, and a
-   combinatorial identity for `heckeCoeff 1 N` over the four associates).
-3. **`η(4τ)²η(8τ)² ∈ S₂(Γ₀(32))`** from Mathlib's two generator laws of `η` only: the
-   multiplier of `η²` by the Euclidean algorithm, Schreier generators of `Γ₀(32)` checked by
-   `decide`, and the cusps by a Hermite decomposition (§4.2).
-4. **Twist and eigenform**: `f_d = f₁ ⊗ (·/d)` on `Γ₁(32 d²)`, trivial nebentypus, eigen for all
-   `T_n` (§4.1).
-5. **The leaf from newness** (directly, or via Tau Ceti's Diamond–Shurman 5.8.4 and the bad-prime
-   coefficients).
+What is proved, informally (details §4):
+1. **Jacobi's triple product identity** for Mathlib's `jacobiTheta₂`: a uniqueness theorem for
+   entire functions with the functional equations of `θ` (their Fourier coefficients satisfy
+   `a_n = e^{−πiτ(2n+1)} a_{n+1}` by Cauchy's theorem on rectangles; Mathlib's Fourier series of
+   continuous periodic functions; identity theorem), and the normalization `c(τ) = c(4τ)`,
+   `c(τ) → 1`. Then Jacobi's `η³` identity (derivative at the zero `(1+τ)/2`) and Gauss's
+   identity (`z = 1/2`).
+2. **The `q`-series identity** `η(4τ)²η(8τ)² = ∑_{α ≡ 1 mod (2+2i)} α q^{N α} = ∑ heckeCoeff 1 n qⁿ`.
+3. **`η(4τ)²η(8τ)² ∈ S₂(Γ₀(32))`** from Mathlib's two generator laws of `η` only: the multiplier
+   of `η²` by the Euclidean algorithm, Schreier generators of `Γ₀(32)` checked by `decide`,
+   cusps by a Hermite decomposition.
+4. **New at level 32**: the associated newform (Tau Ceti, Diamond–Shurman 5.8.4) has level
+   `M ∣ 32`; `M = 32` gives `f₁ = g` (Diamond–Shurman 5.8.2); `M = 1` is excluded by
+   `S₂(SL₂(ℤ)) = 0`; for `M ∈ {2, 4, 8, 16}`, `f₁(τ) = g(τ) − a₂(g) g(2τ)`, and the Fricke
+   involution (`f₁(−1/(32τ)) = −32τ²f₁(τ)` from `η(−1/z) = √(z/i) η(z)`, `g(−1/(Mτ)) = cτ²g(τ)`)
+   gives `−32 f₁(τ) = c(32/M)² g((32/M)τ) − a₂ c (16/M)² g((16/M)τ)`, which fails at the first
+   `q`-coefficient (`a₂(g) = 0` when `4 ∣ M`: Tau Ceti, Miyake 4.6.17).
+5. **Twist and eigenform**: `f_d = f₁ ⊗ (·/d)`, trivial nebentypus, eigen for all `T_n`.
+6. **The leaf**: from `NewCM` directly, and `NewCM ⇐ NewAt32 ∧ AtkinLiTwistNew`.
 
 ## 1. The leaf
 
@@ -161,7 +173,7 @@ Tau Ceti's `Eigenform.exists_toCuspForm_eq_and_χ_eq_of_qExpansion_coeff_mul_of_
 (`Newforms/Coefficient.lean`, Diamond–Shurman Prop. 5.8.5) makes `f_d` an eigenform of **every**
 `T_n` (bad `n` included), nonzero because `a₁ = heckeCoeff d 1 = 1` (`HeckeFE.heckeCoeff_one`).
 
-### 2.3 Newness (not proved; a remaining Prop)
+### 2.3 Newness (plan; outcome: `NewAt32` proved, Atkin–Li remains)
 
 `f_d` is new at level `32 d²` because `ψ_d` is primitive of conductor `𝔣 = (1+i)³ d` and
 `|d_K| N𝔣 = 4 · 8 d² = 32 d²` (Miyake, *Modular forms*, Thm 4.8.2; Shimura 1971 §3.6; Iwaniec,
@@ -179,7 +191,7 @@ Ceti. Two equivalent ways to leave it:
   vendored by wip/t25-newform) this gives the leaf as well; it isolates the local content at
   the bad primes.
 
-### 2.4 Modularity of `f_1` (not proved; a remaining Prop, the analytic core)
+### 2.4 Modularity of `f_1` (plan; outcome: proved, §4.2-4.3)
 
   **(CMForm32)** there is `F ∈ S_2(Γ₀(32))` with `aₙ(F) = heckeCoeff 1 n` for all `n`.
 
