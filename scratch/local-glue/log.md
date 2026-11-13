@@ -120,3 +120,21 @@
   `G7LocalPackR` now asks for `BetaTwist2` at p = 2 (g7LocalPackK_of_R uses betaUpper_of_twist).
 - Compile: LocalGlue.lean exit 0, no sorry, all printed axioms standard; TailK.lean exit 0, no
   sorry, tail_K and tail_R axioms standard.
+
+## Step 9 (07:31-07:38 PST): PtFinite proved
+- New part `part_ptfinite.lean` (§7b); build.sh/build_tail.sh prepend
+  `import Mathlib.AlgebraicGeometry.AffineTransitionLimit` (Mathlib oleans prebuilt).
+- Proved (VERIFIED, compiled, axioms standard): `FIdx K` (finite subextensions of K̄/K, directed),
+  `fRingDiag`, `fRingCocone`, `fRingCoconeIsColimit` (K̄ = colim F; adapted from
+  scratch/morph-descend's `ringCoconeIsColimit`), `fSpecDiag`, `fSpecCone`, `fSpecConeIsLimit`
+  (Spec K̄ = lim Spec F, `isLimitOfPreserves Scheme.Spec` + `IsLimit.equivOfNatIsoOfIso`),
+  **`ptFinite (A : PkgI3.AbVar K) : PtFinite A`** (Mathlib's
+  `Scheme.exists_π_app_comp_eq_of_locallyOfFinitePresentation`, Stacks 01ZC; smooth ⇒ LFP),
+  `wildIter A : WildIter A`, `tateWildK_of_raynaud (ℓ ≠ p) (7 ≤ p) : ObjBridge.TorsionStructure
+  → A.dim = 2 → RaynaudPlace A 3 → RaynaudPlace A 7 → TateWildK A ℓ`.
+- `G7LocalPackR` no longer has the `PtFinite A` clause.
+- Pitfall: `rw [← Spec.map_comp]` fails when an object is `(D).obj F` vs `Spec (of F)`; use
+  `(Category.assoc _ _ _).symm.trans (congrArg (· ≫ g) ?_)` and
+  `(Spec.map_comp _ _).symm.trans (congrArg Spec.map ?_)`.
+- Compile: LocalGlue.lean exit 0, no sorry, 52 printed declarations all standard axioms;
+  TailK.lean exit 0, no sorry, tail_K/tail_R standard axioms.

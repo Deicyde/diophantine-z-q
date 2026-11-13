@@ -60,7 +60,8 @@ theorem g15RamG_of_packK {L : Type} [Field L] [NumberField L] {A : AbVar L} (D :
   exact G15Ram.g15RamG_of_g7 D u h8₅ hC₅ hG₅ h8₃ hC₃ (hG₃ 5 (by norm_num) rfl) h11₅ h11₃
 
 /-- **G7's data for `r` with the local glue at `p ∈ P` in leaf-and-bridge form (GLUE).**
-At `p ≥ 7`: `RaynaudPlace A 3`, `RaynaudPlace A 7` (R6 at the place) and `PtFinite A`; at
+At `p ≥ 7`: `RaynaudPlace A 3`, `RaynaudPlace A 7` (R6 at the place; `PtFinite` is proved,
+`G15Ram.ptFinite`); at
 `p ∈ {3, 5}`: `TorsFixWildOdd`; at `p = 2`: `TorsFixWildE` and `BetaTwist2` (which replaces
 `BetaUpper`, `G15Ram.betaUpper_of_twist`). With the leaf I2-Tors
 and `p ≠ ℓ` on `P`, it gives `G7LocalPackK` (`g7LocalPackK_of_R`). -/
@@ -70,7 +71,7 @@ def G7LocalPackR (ℓ : ℕ) [Fact ℓ.Prime] (r : GaloisRep ℓ 2) (P : ℕ →
     (a β : GQ → PadicAlgCl ℓ) (u : GlueDescent.MatrixUnits2 (PadicAlgCl ℓ) (G0Galois.Vb A ℓ))
     (L : IntermediateField ℚ Qbar),
     G0Galois.G7Out A ℓ Tm c ε a β u ∧ G0Galois.G8Out A ℓ (GlueDescent.rho Tm a β) r ∧
-    G15Ram.G7Clauses β ε L ∧ G15Ram.KerWild K β L ∧ G15Ram.PtFinite A ∧
+    G15Ram.G7Clauses β ε L ∧ G15Ram.KerWild K β L ∧
     ∀ (p : ℕ) (hp : p.Prime), P p →
       (7 ≤ p → @G15Ram.RaynaudPlace p ⟨hp⟩ K _ _ A 3 ∧ @G15Ram.RaynaudPlace p ⟨hp⟩ K _ _ A 7) ∧
       (3 ≤ p → p ≤ 5 → @G15Ram.TorsFixWildOdd p ⟨hp⟩ K _ _ A ℓ _ L) ∧
@@ -80,14 +81,14 @@ def G7LocalPackR (ℓ : ℕ) [Fact ℓ.Prime] (r : GaloisRep ℓ 2) (P : ℕ →
 theorem g7LocalPackK_of_R (hTors : ObjBridge.TorsionStructure) {ℓ : ℕ} [Fact ℓ.Prime]
     {r : GaloisRep ℓ 2} {P : ℕ → Prop} (hPℓ : ∀ p, P p → p ≠ ℓ) (h : G7LocalPackR ℓ r P) :
     G7LocalPackK ℓ r P := by
-  obtain ⟨K, _, _, A, Tm, c, ε, a, β, u, L, h7, h8, hC, hK, hPt, hloc⟩ := h
+  obtain ⟨K, _, _, A, Tm, c, ε, a, β, u, L, h7, h8, hC, hK, hloc⟩ := h
   refine ⟨K, _, _, A, Tm, c, ε, a, β, u, L, h7, h8, hC, hK, fun p hp hP => ?_⟩
   have : Fact p.Prime := ⟨hp⟩
   obtain ⟨hR, hO, h2⟩ := hloc p hp hP
   refine ⟨fun h7p => ?_, fun h5 => ?_, fun h2' => G15Ram.betaUpper_of_twist hC (h2 h2').2⟩
   · obtain ⟨hR3, hR7⟩ := hR h7p
     exact G15Ram.torsFixWild_of_raynaud (Ne.symm (hPℓ p hP)) h7p
-      (G15Ram.wildIter_of_ptFinite hPt) (G15Ram.torsGL_of_leaf hTors A h7.1 3 (by norm_num))
+      (G15Ram.wildIter A) (G15Ram.torsGL_of_leaf hTors A h7.1 3 (by norm_num))
       (G15Ram.torsGL_of_leaf hTors A h7.1 7 (by norm_num)) hR3 hR7
   · by_cases hp2 : p = 2
     · exact (h2 hp2).1
