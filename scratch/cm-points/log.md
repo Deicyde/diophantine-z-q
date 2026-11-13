@@ -102,3 +102,9 @@ SPECULATIVE / UNVERIFIED (theorem numbers from memory).
   TYZSigmaFixesZn → TYZZnOverHprime`, and `tyzThm35ReadingA_of_cmLeaves` (finest main theorem).
 - New leaf `IInH4` (i ∈ H_{n,4}; genus theory, textbook). `TYZZnOverHprime` is now glue.
 - Axioms of `tyzZnOverHprime_of`: standard three (VERIFIED).
+
+## Final (report written)
+- Merged origin/wip/x0-32 (X0CM.lean, X0Pkg.lean duplicate CMComplexConj / Lemma318 equivalence
+  in namespace X0) and origin/wip/ring-class again; `lake build … Package X0CM X0Pkg` succeeds
+  (VERIFIED). diffcheck2: MOD-UNNOTED 0, NOTE-ONLY 0.
+- Audit: 33 declarations, all [propext, Classical.choice, Quot.sound] (audit-out.txt).
