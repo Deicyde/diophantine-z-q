@@ -28,6 +28,12 @@ def IsCocycle2 {G : Type*} [Group G] [TopologicalSpace G] (ε : G → G → ZMod
 def IsCoboundary2 {G : Type*} [Group G] [TopologicalSpace G] (ε : G → G → ZMod 2) : Prop :=
   ∃ f : G → ZMod 2, Continuous f ∧ ∀ a b, ε a b = f b - f (a * b) + f a
 
+/-- Copied verbatim from I6Base. -/
+def H2TwoClasses (G : Type*) [Group G] [TopologicalSpace G] : Prop :=
+  (∃ ε, IsCocycle2 (G := G) ε ∧ ¬ IsCoboundary2 ε) ∧
+  ∀ ε₁ ε₂, IsCocycle2 (G := G) ε₁ → IsCocycle2 ε₂ → ¬ IsCoboundary2 ε₁ → ¬ IsCoboundary2 ε₂ →
+    IsCoboundary2 (ε₁ - ε₂)
+
 end PkgI6
 
 namespace TPurity2
@@ -128,6 +134,29 @@ theorem isCoboundary2_iff {G : Type*} [Group G] [TopologicalSpace G]
   · rintro ⟨N, f, hN, he⟩
     exact ⟨f, continuous_of_invariant f N.toOpenSubgroup hN, he⟩
 
+/-- `ε` is a 2-cocycle inflated from a finite quotient `G/N` (no topology). -/
+def IsCocycle2Fin {G : Type*} [Group G] [TopologicalSpace G] (ε : G → G → ZMod 2) : Prop :=
+  (∀ a b c, ε b c - ε (a * b) c + ε a (b * c) - ε a b = 0) ∧
+    ∃ N : OpenNormalSubgroup G, ∀ x y, ∀ n ∈ N, ∀ m ∈ N, ε (x * n) (y * m) = ε x y
+
+/-- `ε` is the coboundary of a 1-cochain inflated from a finite quotient (no topology). -/
+def IsCoboundary2Fin {G : Type*} [Group G] [TopologicalSpace G] (ε : G → G → ZMod 2) : Prop :=
+  ∃ N : OpenNormalSubgroup G, ∃ f : G → ZMod 2,
+    (∀ x, ∀ n ∈ N, f (x * n) = f x) ∧ ∀ a b, ε a b = f b - f (a * b) + f a
+
+/-- `H2TwoClasses` with continuity replaced by inflation from finite quotients. -/
+def H2TwoClassesFin (G : Type*) [Group G] [TopologicalSpace G] : Prop :=
+  (∃ ε, IsCocycle2Fin (G := G) ε ∧ ¬ IsCoboundary2Fin ε) ∧
+  ∀ ε₁ ε₂, IsCocycle2Fin (G := G) ε₁ → IsCocycle2Fin ε₂ → ¬ IsCoboundary2Fin ε₁ →
+    ¬ IsCoboundary2Fin ε₂ → IsCoboundary2Fin (ε₁ - ε₂)
+
+theorem h2TwoClasses_iff_fin (G : Type*) [Group G] [TopologicalSpace G]
+    [IsTopologicalGroup G] [CompactSpace G] [ZeroDimensionalSpace G] :
+    H2TwoClasses G ↔ H2TwoClassesFin G := by
+  have e1 : ∀ ε : G → G → ZMod 2, IsCocycle2 ε ↔ IsCocycle2Fin ε := isCocycle2_iff
+  have e2 : ∀ ε : G → G → ZMod 2, IsCoboundary2 ε ↔ IsCoboundary2Fin ε := isCoboundary2_iff
+  simp only [H2TwoClasses, H2TwoClassesFin, e1, e2]
+
 /-- The absolute Galois group of a field of characteristic zero is compact and zero-dimensional
 (it is `Gal(K^al/K)` with the Krull topology). -/
 instance compactSpace_absoluteGaloisGroup (K : Type*) [Field K] [CharZero K] :
@@ -148,8 +177,18 @@ theorem isCocycle2_iff_Qp (p : ℕ) [Fact p.Prime]
         ∀ x y, ∀ n ∈ N, ∀ m ∈ N, ε (x * n) (y * m) = ε x y :=
   isCocycle2_iff ε
 
+/-- **T15's finite-place half, without topology**: `∀ p, H2TwoClasses G_{ℚ_p}` is equivalent to
+the same statement for cochains inflated from finite quotients `G_{ℚ_p}/N` (`N` open normal, i.e.
+`Gal(L/ℚ_p)` for finite Galois `L`). -/
+theorem localH2CardC_finite_iff_fin :
+    (∀ (p : ℕ) [Fact p.Prime], H2TwoClasses (Field.absoluteGaloisGroup ℚ_[p])) ↔
+      ∀ (p : ℕ) [Fact p.Prime], H2TwoClassesFin (Field.absoluteGaloisGroup ℚ_[p]) := by
+  refine forall_congr' fun p => ?_
+  exact forall_congr' fun _ => h2TwoClasses_iff_fin _
+
 end TPurity2
 
 #print axioms TPurity2.isCocycle2_iff
 #print axioms TPurity2.isCoboundary2_iff
 #print axioms TPurity2.isCocycle2_iff_Qp
+#print axioms TPurity2.localH2CardC_finite_iff_fin
