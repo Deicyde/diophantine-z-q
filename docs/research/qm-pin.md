@@ -26,7 +26,7 @@ clauses. Then they agree up to a morphism `g : Y' → Y`: `Φ' = Φ ∘ g` on fi
 `π' = π ∘ g` on `ℚ̄`-points (§3).
 
 - The `Φ`-half of this comparison is compiled from `R1univProps` (`phi_part`).
-- The `π`-half is one named piece of curve glue, `MobiusGlue` (argued in §3.4, not compiled).
+- The `π`-half is one named piece of curve glue, `MobiusGlue` (argued in §3.2, not compiled).
 - A statement `∀ u, ∀ y P, Φ y = [P] → π y = J(u) → R_u(P)` therefore transfers from the leaf's
   own triple to every triple (`pointwise_of_witness_mor`, compiled). `FibreSimple`,
   `ThetaPointOfFibre` and `ModularConstituent` all have this shape.

@@ -56,3 +56,4 @@ Base: 883c4ddf + merges origin/wip/rv-g0pieces, origin/wip/g0-split (already in)
 - deck_group.py (~/pyenv/bin/python -I): mulCoord = quaternion product on 30 random pairs; |(O/3O)^x| = 72;
   norm-one 36; nrd(1+i) = -1; D = (O/3O)^x/±1: |D| = 36, orders {1:1, 2:9, 3:8, 4:18}, centralizer of
   Syl3 = Syl3 (9), Z(D) = 1, no abelian subgroup of index <= 2. VERIFIED (computed).
+- .fleet/qm-pin.md written. Final commit.
