@@ -26,3 +26,11 @@
   isomorphic Gal(ℚ̄/ℚ)-sets (closed points with ℚ-isomorphic residue fields). For such σ, FibreSimple at
   (Y₃, Φ∘σ, π) asks a CM surface to be simple: false. So FibreSimple ⇔ NoCM ∧ "no such coincidence"; the second
   conjunct is not a published theorem and is not decided here.
+
+## FS4 proved
+- 02:25 COMPILED (exit 0, 23 s): `centralizerOfMatrixEnd0_of_homFree : PkgI3.HomFreeFinite → CentralizerOfMatrixEnd0`
+  (scalar matrix √d central; ℚ ⊗ End A = localization (isLocalizedModule_iff_isBaseChange); freeness from T6 gives
+  injectivity of m ↦ 1⊗m). `fibreSimple_of_pieces'` and `fibreSimple_of_leaves (t : TextbookLeaves)
+  (p : FibreSimplePieces)` now use T6 = `TextbookLeaves.t6`, T27 = `TextbookLeaves.t27` and four glue pieces
+  FS1 EndDivisionDescent, FS2 EndDivisionOfSchemeIso, FS3 EndDivisionOfEnd0Division, FS5 FibreComTrivial.
+  All standard axioms.
