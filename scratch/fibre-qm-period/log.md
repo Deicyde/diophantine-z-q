@@ -48,3 +48,11 @@ Base: 2dd83306 + merges of origin/wip/qm-pin, origin/wip/mobius-glue (g0-thetapo
 
 ## Report
 - `docs/research/fibre-qm-period.md` written (verdict, named Props table, checks, numerics, Lean outcomes).
+- run_dev6: errors (monoidal `mul_one` lemma picked by `rw`; `PreconnectedSpace.constant` arg names `x y`;
+  a paren; destructured `hU`). Fixed.
+- run_dev7/run_dev8 (05:58): Step 2e: verbatim copies of the kernel's textbook leaves T35
+  (`UniformizationExistsT35` = `ZInQ.LeafPush2.UniformizationExists`) and T11a (`T11aRiemannEnd`), proved
+  `uniformizationExistsC_of`, `lift_unique` (connectedness of ℝ into the discrete Λ), `unif_ring_hom`
+  (T11a's lifts form a ring hom preserving Λ), `qmComplexUnif_of_textbook : T35 → T11a → QMLatticeAlgebra →
+  QMComplexUnif`, `fibreQMPeriod_of_textbook`: 0 errors, 5.1s, 21 axioms lines standard. VERIFIED.
+  `UniformizationExistsC` and `UnifStructure` are no longer needed as hypotheses.

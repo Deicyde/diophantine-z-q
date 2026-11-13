@@ -459,6 +459,126 @@ theorem qmComplexUnif_of (hE : UniformizationExistsC) (hS : UnifStructure)
     change Φu (F.symm ((qmMat a).mulVec z)) = Φu (F.symm z) ≫ (Q.q.iota a).hom
     rw [e1, hρ]
 
+/-! ### Step 2e: `QMComplexUnif` from the decomposition's textbook leaves T35, T11a and lattice algebra
+
+`UniformizationExistsT35` and `T11aRiemannEnd` are the kernel's textbook leaves
+`ZInQ.LeafPush2.UniformizationExists` (T35) and `ZInQ.LeafPush2.T11a_RiemannEnd` (T11a)
+(`ZInQKernel/HDecomp/LeafPush2/T.lean`), copied verbatim over this file's copies of `CPts` and
+`IsUniformization` (the same text as the kernel's); both are in leaf-adopt3's `TextbookLeaves`.
+With them, `UniformizationExistsC` and `UnifStructure` are proved (`unifStructure_of`,
+`uniformizationExistsC_of`), and only `QMLatticeAlgebra` remains. -/
+
+/-- (copied from `ZInQKernel/HDecomp/LeafPush2/T.lean`, `UniformizationExists`, T35) **AN3 for
+abelian varieties (textbook leaf; the analytic half of T11/T12).** Every abelian variety over a
+field `K` and every `σ : K → ℂ`: `A(ℂ)_σ` has an analytic uniformization by `ℂ^g`, `g = dim A`, with
+kernel a full lattice (Mumford, *Abelian varieties*, §1, with GAGA, Serre 1956, for the complex Lie
+group structure; UNVERIFIED numbers). -/
+def UniformizationExistsT35 : Prop :=
+  ∀ (K : Type) [Field K] (A : PkgI3.AbVar K) (σ : K →+* ℂ) (g : ℕ), A.dim = (g : WithBot ℕ∞) →
+    ∃ (Λ : Submodule ℤ (Fin g → ℂ)) (Φ : (Fin g → ℂ) → CPts A σ),
+      ∃ _ : DiscreteTopology Λ, IsZLattice ℝ Λ ∧ IsUniformization σ Λ Φ
+
+/-- (copied from `ZInQKernel/HDecomp/LeafPush2/T.lean`, `T11a_RiemannEnd`) **T11(a), Riemann/GAGA
+for endomorphisms (textbook leaf).** For an abelian variety over `ℂ` with a uniformization `Φ`
+(kernel `Λ`) at `σ = id`, the endomorphisms of `A` are exactly the `ℂ`-linear maps of `ℂ^g`
+preserving `Λ`: each such `M` is induced by a unique endomorphism `f` (`Φ(Mz) = f ∘ Φ(z)`), and each
+`f` is induced by some `M`. (Mumford §1 and §2, Birkenhake–Lange Prop. 1.2.1 for complex tori;
+GAGA, Serre 1956, for "holomorphic ⇒ algebraic"; UNVERIFIED numbers.) -/
+def T11aRiemannEnd : Prop :=
+  ∀ (A : PkgI3.AbVar ℂ) (g : ℕ) (Λ : Submodule ℤ (Fin g → ℂ))
+    (Φ : (Fin g → ℂ) → CPts A (RingHom.id ℂ)),
+    A.dim = (g : WithBot ℕ∞) → IsUniformization (RingHom.id ℂ) Λ Φ →
+    (∀ M : (Fin g → ℂ) →ₗ[ℂ] (Fin g → ℂ), (∀ z ∈ Λ, M z ∈ Λ) →
+      ∃! f : PkgI3.AbVar.End A, ∀ z, Φ (M z) = Φ z ≫ f.hom) ∧
+    (∀ f : PkgI3.AbVar.End A, ∃ M : (Fin g → ℂ) →ₗ[ℂ] (Fin g → ℂ), ∀ z, Φ (M z) = Φ z ≫ f.hom)
+
+/-- `UniformizationExistsC` from T35 (proved). -/
+theorem uniformizationExistsC_of (h : UniformizationExistsT35) : UniformizationExistsC := by
+  intro A hA
+  obtain ⟨Λ, Φu, -, -, hU⟩ := h ℂ A (RingHom.id ℂ) 2 hA
+  exact ⟨Λ, Φu, hU⟩
+
+/-- **Lifts are unique (proved):** two `ℂ`-linear maps with the same image under a uniformization
+with discrete kernel are equal (their difference maps `ℂ^g` into the discrete `Λ`; `ℝ` is
+connected). -/
+theorem lift_unique {K : Type} [Field K] {A : PkgI3.AbVar K} {σ : K →+* ℂ} {g : ℕ}
+    {Λ : Submodule ℤ (Fin g → ℂ)} [DiscreteTopology Λ] {Φu : (Fin g → ℂ) → CPts A σ}
+    (h : IsUniformization σ Λ Φu) {M M' : (Fin g → ℂ) →ₗ[ℂ] (Fin g → ℂ)}
+    (hMM : ∀ z, Φu (M z) = Φu (M' z)) : M = M' := by
+  obtain ⟨hadd, hker, -, -, -⟩ := h
+  have hmem : ∀ z, (M - M') z ∈ Λ := by
+    intro z
+    rw [← hker, LinearMap.sub_apply]
+    have e := hadd (M z - M' z) (M' z)
+    rw [sub_add_cancel, hMM] at e
+    exact mul_right_cancel (e.symm.trans (one_mul (Φu (M' z))).symm)
+  refine LinearMap.ext fun z => ?_
+  let N := M - M'
+  have hc : Continuous (fun t : ℝ => N ((t : ℂ) • z)) :=
+    (LinearMap.continuous_of_finiteDimensional N).comp
+      (Complex.continuous_ofReal.smul continuous_const)
+  let f : ℝ → Λ := fun t => ⟨N ((t : ℂ) • z), hmem _⟩
+  have hf : Continuous f := hc.subtype_mk _
+  have h01 := PreconnectedSpace.constant inferInstance hf (x := 0) (y := 1)
+  have h2 : N (((0 : ℝ) : ℂ) • z) = N (((1 : ℝ) : ℂ) • z) := congrArg Subtype.val h01
+  simp only [Complex.ofReal_zero, zero_smul, map_zero, Complex.ofReal_one, one_smul] at h2
+  have h3 : M z - M' z = 0 := by
+    rw [h2]; rfl
+  exact sub_eq_zero.mp h3
+
+/-- **The analytic representation as a ring homomorphism, from T11a (proved).** For a
+uniformization with discrete kernel (as T35 provides), T11a's lifts `M_e` of the endomorphisms are
+unique (`lift_unique`), hence form a ring homomorphism `ρ`, and they preserve `Λ`. This is
+`UnifStructure`'s conclusion for T35's uniformizations (for an arbitrary uniformization the lattice
+clauses would follow by comparison with T35's, bp-analytic's `exists_complexLinear`, not reproved
+here; the reduction below only needs T35's). -/
+theorem unif_ring_hom (hR : T11aRiemannEnd) (A : PkgI3.AbVar ℂ) (hA : A.dim = (2 : WithBot ℕ∞))
+    (Λ : Submodule ℤ (Fin 2 → ℂ)) [DiscreteTopology Λ]
+    (Φu : (Fin 2 → ℂ) → CPts A (RingHom.id ℂ)) (hU : IsUniformization (RingHom.id ℂ) Λ Φu) :
+    ∃ ρ : PkgI3.AbVar.End A →+* Module.End ℂ (Fin 2 → ℂ),
+      (∀ e z, Φu (ρ e z) = Φu z ≫ e.hom) ∧ (∀ e, ∀ z ∈ Λ, ρ e z ∈ Λ) := by
+  have hT := (hR A 2 Λ Φu hA hU).2
+  choose ρf hρf using hT
+  have hadd := hU.1
+  have hker := hU.2.1
+  let ρ : PkgI3.AbVar.End A →+* Module.End ℂ (Fin 2 → ℂ) :=
+    { toFun := ρf
+      map_one' := lift_unique hU fun z => by
+        rw [hρf]; exact Category.comp_id _
+      map_mul' := fun e f => lift_unique hU fun z => by
+        rw [hρf, Module.End.mul_apply, hρf, hρf]
+        exact (Category.assoc _ _ _).symm
+      map_zero' := lift_unique hU fun z => by
+        rw [hρf, LinearMap.zero_apply, (hker 0).2 (zero_mem _)]
+        exact MonObj.comp_one _
+      map_add' := fun e f => lift_unique hU fun z => by
+        rw [hρf, LinearMap.add_apply, hadd, hρf, hρf]
+        exact MonObj.comp_mul _ _ _ }
+  refine ⟨ρ, hρf, fun e z hz => ?_⟩
+  rw [← hker] at hz ⊢
+  change Φu (ρf e z) = 1
+  rw [hρf, hz]
+  exact MonObj.one_comp _
+
+/-- **`QMComplexUnif` from the textbook leaves T35, T11a and `QMLatticeAlgebra` (proved).** -/
+theorem qmComplexUnif_of_textbook (hE : UniformizationExistsT35) (hR : T11aRiemannEnd)
+    (hL : QMLatticeAlgebra) : QMComplexUnif := by
+  intro Q
+  obtain ⟨Λ, Φu, hd, hlat, hΦ⟩ := hE ℂ Q.A (RingHom.id ℂ) 2 Q.surface
+  obtain ⟨ρ, hρ, hpres⟩ := unif_ring_hom hR Q.A Q.surface Λ Φu hΦ
+  obtain ⟨τ, hτ, F, hF, hFρ⟩ :=
+    hL Λ hlat (ρ.comp Q.q.iota) (fun a z hz => hpres (Q.q.iota a) z hz)
+  refine ⟨τ, hτ, fun z => Φu (F.symm z), ?_, fun a z => ?_⟩
+  · rw [← hF]
+    exact isUniformization_comp hΦ F
+  · have e1 : F.symm ((qmMat a).mulVec z) = ρ (Q.q.iota a) (F.symm z) := by
+      rw [LinearEquiv.symm_apply_eq]
+      have := hFρ a (F.symm z)
+      simp only [RingHom.comp_apply, LinearEquiv.apply_symm_apply] at this
+      exact this.symm
+    change Φu (F.symm ((qmMat a).mulVec z)) = Φu (F.symm z) ≫ (Q.q.iota a).hom
+    rw [e1, hρ]
+
 /-! ### Step 2c: the proofs -/
 
 /-- An embedding `ℚ̄ → ℂ` over `ℚ`. -/
@@ -559,6 +679,21 @@ theorem fibreQMPeriod_of_leaves_glue (h : R1R2fp) (hM : Pin.MobiusGlue)
     ThetaPt.FibreQMPeriod :=
   fibreQMPeriod_of_parts' h hM hH hE hS hL (qmPeriodMap_of _ _ _ hR hG) hHU hD hT
 
+/-- **Main result, final form (proved):** `FibreQMPeriod` from
+* leaves: `PkgI1.QMHauptmodul` (existing composite leaf), the textbook leaves T35
+  (`UniformizationExistsT35`) and T11a (`T11aRiemannEnd`), both already in leaf-adopt3's
+  `TextbookLeaves`, and R1(b) in family form at the leaf's own triple (`R1bFamily`);
+* glue: `Pin.MobiusGlue` (proved by mobius-glue), `QMLatticeAlgebra`, `PeriodMapGlue` (own triple),
+  `HauptmodulUnique`, `QMDenZeroCM3`, `UnifTransport`. -/
+theorem fibreQMPeriod_of_textbook (h : R1R2fp) (hM : Pin.MobiusGlue)
+    (hH : PkgI1.QMHauptmodul) (hE : UniformizationExistsT35) (hR11 : T11aRiemannEnd)
+    (hR : R1bFamily (ownY h) (ownΦ h) (ownπ h))
+    (hL : QMLatticeAlgebra) (hG : PeriodMapGlue (ownY h) (ownΦ h) (ownπ h))
+    (hHU : HauptmodulUnique) (hD : QMDenZeroCM3) (hT : UnifTransport) :
+    ThetaPt.FibreQMPeriod :=
+  fibreQMPeriod_of_parts h hM hH (qmComplexUnif_of_textbook hE hR11 hL)
+    (qmPeriodMap_of _ _ _ hR hG) hHU hD hT
+
 end FibreQM
 
 end G0Split
@@ -583,3 +718,8 @@ end
 #print axioms HSyn.G0Split.FibreQM.fibreQMPeriod_of_parts'
 #print axioms HSyn.G0Split.FibreQM.qmPeriodMap_of
 #print axioms HSyn.G0Split.FibreQM.fibreQMPeriod_of_leaves_glue
+#print axioms HSyn.G0Split.FibreQM.uniformizationExistsC_of
+#print axioms HSyn.G0Split.FibreQM.lift_unique
+#print axioms HSyn.G0Split.FibreQM.unif_ring_hom
+#print axioms HSyn.G0Split.FibreQM.qmComplexUnif_of_textbook
+#print axioms HSyn.G0Split.FibreQM.fibreQMPeriod_of_textbook

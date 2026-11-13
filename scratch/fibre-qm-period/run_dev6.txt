@@ -1,0 +1,233 @@
+scratch/fibre-qm-period/Dev.lean:515:10: error: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  ?X ◁ η ≫ μ
+in the target expression
+  Φu (M' z) * Φu ((M - M') z) = Φu (M' z) * 1
+
+K : Type
+inst✝¹ : Field K
+A : PkgI3.AbVar K
+σ : K →+* ℂ
+g : ℕ
+Λ : Submodule ℤ (Fin g → ℂ)
+inst✝ : DiscreteTopology ↥Λ
+Φu : (Fin g → ℂ) → CPts A σ
+M M' : (Fin g → ℂ) →ₗ[ℂ] Fin g → ℂ
+hMM : ∀ (z : Fin g → ℂ), Φu (M z) = Φu (M' z)
+hadd : ∀ (z w : Fin g → ℂ), Φu (z + w) = Φu z * Φu w
+hker : ∀ (z : Fin g → ℂ), Φu z = 1 ↔ z ∈ Λ
+z : Fin g → ℂ
+e : Φu (M' z) = Φu (M z - M' z) * Φu (M' z)
+⊢ Φu (M' z) * Φu ((M - M') z) = Φu (M' z) * 1
+scratch/fibre-qm-period/Dev.lean:526:58: error: Invalid argument name `a` for function `PreconnectedSpace.constant`
+
+Hint: Perhaps you meant one of the following parameter names:
+  • `α`: a̵α̲
+  • `Y`: a̵Y̲
+  • `hp`: a̵h̲p̲
+  • `f`: a̵f̲
+  • `hf`: a̵h̲f̲
+  • `x`: a̵x̲
+  • `y`: a̵y̲
+scratch/fibre-qm-period/Dev.lean:507:50: error: unsolved goals
+K : Type
+inst✝¹ : Field K
+A : PkgI3.AbVar K
+σ : K →+* ℂ
+g : ℕ
+Λ : Submodule ℤ (Fin g → ℂ)
+inst✝ : DiscreteTopology ↥Λ
+Φu : (Fin g → ℂ) → CPts A σ
+M M' : (Fin g → ℂ) →ₗ[ℂ] Fin g → ℂ
+hMM : ∀ (z : Fin g → ℂ), Φu (M z) = Φu (M' z)
+hadd : ∀ (z w : Fin g → ℂ), Φu (z + w) = Φu z * Φu w
+hker : ∀ (z : Fin g → ℂ), Φu z = 1 ↔ z ∈ Λ
+hmem : ∀ (z : Fin g → ℂ), (M - M') z ∈ Λ
+z : Fin g → ℂ
+N : (Fin g → ℂ) →ₗ[ℂ] Fin g → ℂ := M - M'
+hc : Continuous fun t => N (↑t • z)
+f : ℝ → ↥Λ := fun t => ⟨N (↑t • z), ⋯⟩
+hf : Continuous f
+⊢ M z = M' z
+scratch/fibre-qm-period/Dev.lean:527:31: error: unexpected token ')'; expected command
+scratch/fibre-qm-period/Dev.lean:546:52: error: Tactic `assumption` failed
+
+hR : T11aRiemannEnd
+A : PkgI3.AbVar ℂ
+hA : A.dim = 2
+Λ : Submodule ℤ (Fin 2 → ℂ)
+inst✝ : DiscreteTopology ↥Λ
+Φu : (Fin 2 → ℂ) → CPts A (RingHom.id ℂ)
+ρf : A.End → (Fin 2 → ℂ) →ₗ[ℂ] Fin 2 → ℂ
+hρf : ∀ (f : A.End) (z : Fin 2 → ℂ), Φu ((ρf f) z) = Φu z ≫ PkgI3.AbVar.Hom.hom f
+hadd : ∀ (z w : Fin 2 → ℂ), Φu (z + w) = Φu z * Φu w
+hker : ∀ (z : Fin 2 → ℂ), Φu z = 1 ↔ z ∈ Λ
+⊢ Function.Surjective Φu
+scratch/fibre-qm-period/Dev.lean:546:57: error: Tactic `assumption` failed
+
+hR : T11aRiemannEnd
+A : PkgI3.AbVar ℂ
+hA : A.dim = 2
+Λ : Submodule ℤ (Fin 2 → ℂ)
+inst✝ : DiscreteTopology ↥Λ
+Φu : (Fin 2 → ℂ) → CPts A (RingHom.id ℂ)
+ρf : A.End → (Fin 2 → ℂ) →ₗ[ℂ] Fin 2 → ℂ
+hρf : ∀ (f : A.End) (z : Fin 2 → ℂ), Φu ((ρf f) z) = Φu z ≫ PkgI3.AbVar.Hom.hom f
+hadd : ∀ (z w : Fin 2 → ℂ), Φu (z + w) = Φu z * Φu w
+hker : ∀ (z : Fin 2 → ℂ), Φu z = 1 ↔ z ∈ Λ
+⊢ ∀ (U : A.X.left.Opens), IsOpen (cDom Φu U)
+scratch/fibre-qm-period/Dev.lean:546:62: error: Tactic `assumption` failed
+
+hR : T11aRiemannEnd
+A : PkgI3.AbVar ℂ
+hA : A.dim = 2
+Λ : Submodule ℤ (Fin 2 → ℂ)
+inst✝ : DiscreteTopology ↥Λ
+Φu : (Fin 2 → ℂ) → CPts A (RingHom.id ℂ)
+ρf : A.End → (Fin 2 → ℂ) →ₗ[ℂ] Fin 2 → ℂ
+hρf : ∀ (f : A.End) (z : Fin 2 → ℂ), Φu ((ρf f) z) = Φu z ≫ PkgI3.AbVar.Hom.hom f
+hadd : ∀ (z w : Fin 2 → ℂ), Φu (z + w) = Φu z * Φu w
+hker : ∀ (z : Fin 2 → ℂ), Φu z = 1 ↔ z ∈ Λ
+⊢ ∀ (U : A.X.left.Opens) (s : ↑Γ(A.X.left, U)), DifferentiableOn ℂ (fun z => cEvalAt (Φu z) U s) (cDom Φu U)
+scratch/fibre-qm-period/Dev.lean:548:63: error: Tactic `assumption` failed
+
+hR : T11aRiemannEnd
+A : PkgI3.AbVar ℂ
+hA : A.dim = 2
+Λ : Submodule ℤ (Fin 2 → ℂ)
+inst✝ : DiscreteTopology ↥Λ
+Φu : (Fin 2 → ℂ) → CPts A (RingHom.id ℂ)
+ρf : A.End → (Fin 2 → ℂ) →ₗ[ℂ] Fin 2 → ℂ
+hρf : ∀ (f : A.End) (z : Fin 2 → ℂ), Φu ((ρf f) z) = Φu z ≫ PkgI3.AbVar.Hom.hom f
+hadd : ∀ (z w : Fin 2 → ℂ), Φu (z + w) = Φu z * Φu w
+hker : ∀ (z : Fin 2 → ℂ), Φu z = 1 ↔ z ∈ Λ
+e f : A.End
+⊢ Function.Surjective Φu
+scratch/fibre-qm-period/Dev.lean:548:68: error: Tactic `assumption` failed
+
+hR : T11aRiemannEnd
+A : PkgI3.AbVar ℂ
+hA : A.dim = 2
+Λ : Submodule ℤ (Fin 2 → ℂ)
+inst✝ : DiscreteTopology ↥Λ
+Φu : (Fin 2 → ℂ) → CPts A (RingHom.id ℂ)
+ρf : A.End → (Fin 2 → ℂ) →ₗ[ℂ] Fin 2 → ℂ
+hρf : ∀ (f : A.End) (z : Fin 2 → ℂ), Φu ((ρf f) z) = Φu z ≫ PkgI3.AbVar.Hom.hom f
+hadd : ∀ (z w : Fin 2 → ℂ), Φu (z + w) = Φu z * Φu w
+hker : ∀ (z : Fin 2 → ℂ), Φu z = 1 ↔ z ∈ Λ
+e f : A.End
+⊢ ∀ (U : A.X.left.Opens), IsOpen (cDom Φu U)
+scratch/fibre-qm-period/Dev.lean:548:73: error: Tactic `assumption` failed
+
+hR : T11aRiemannEnd
+A : PkgI3.AbVar ℂ
+hA : A.dim = 2
+Λ : Submodule ℤ (Fin 2 → ℂ)
+inst✝ : DiscreteTopology ↥Λ
+Φu : (Fin 2 → ℂ) → CPts A (RingHom.id ℂ)
+ρf : A.End → (Fin 2 → ℂ) →ₗ[ℂ] Fin 2 → ℂ
+hρf : ∀ (f : A.End) (z : Fin 2 → ℂ), Φu ((ρf f) z) = Φu z ≫ PkgI3.AbVar.Hom.hom f
+hadd : ∀ (z w : Fin 2 → ℂ), Φu (z + w) = Φu z * Φu w
+hker : ∀ (z : Fin 2 → ℂ), Φu z = 1 ↔ z ∈ Λ
+e f : A.End
+⊢ ∀ (U : A.X.left.Opens) (s : ↑Γ(A.X.left, U)), DifferentiableOn ℂ (fun z => cEvalAt (Φu z) U s) (cDom Φu U)
+scratch/fibre-qm-period/Dev.lean:551:53: error: Tactic `assumption` failed
+
+hR : T11aRiemannEnd
+A : PkgI3.AbVar ℂ
+hA : A.dim = 2
+Λ : Submodule ℤ (Fin 2 → ℂ)
+inst✝ : DiscreteTopology ↥Λ
+Φu : (Fin 2 → ℂ) → CPts A (RingHom.id ℂ)
+ρf : A.End → (Fin 2 → ℂ) →ₗ[ℂ] Fin 2 → ℂ
+hρf : ∀ (f : A.End) (z : Fin 2 → ℂ), Φu ((ρf f) z) = Φu z ≫ PkgI3.AbVar.Hom.hom f
+hadd : ∀ (z w : Fin 2 → ℂ), Φu (z + w) = Φu z * Φu w
+hker : ∀ (z : Fin 2 → ℂ), Φu z = 1 ↔ z ∈ Λ
+⊢ Function.Surjective Φu
+scratch/fibre-qm-period/Dev.lean:551:58: error: Tactic `assumption` failed
+
+hR : T11aRiemannEnd
+A : PkgI3.AbVar ℂ
+hA : A.dim = 2
+Λ : Submodule ℤ (Fin 2 → ℂ)
+inst✝ : DiscreteTopology ↥Λ
+Φu : (Fin 2 → ℂ) → CPts A (RingHom.id ℂ)
+ρf : A.End → (Fin 2 → ℂ) →ₗ[ℂ] Fin 2 → ℂ
+hρf : ∀ (f : A.End) (z : Fin 2 → ℂ), Φu ((ρf f) z) = Φu z ≫ PkgI3.AbVar.Hom.hom f
+hadd : ∀ (z w : Fin 2 → ℂ), Φu (z + w) = Φu z * Φu w
+hker : ∀ (z : Fin 2 → ℂ), Φu z = 1 ↔ z ∈ Λ
+⊢ ∀ (U : A.X.left.Opens), IsOpen (cDom Φu U)
+scratch/fibre-qm-period/Dev.lean:551:63: error: Tactic `assumption` failed
+
+hR : T11aRiemannEnd
+A : PkgI3.AbVar ℂ
+hA : A.dim = 2
+Λ : Submodule ℤ (Fin 2 → ℂ)
+inst✝ : DiscreteTopology ↥Λ
+Φu : (Fin 2 → ℂ) → CPts A (RingHom.id ℂ)
+ρf : A.End → (Fin 2 → ℂ) →ₗ[ℂ] Fin 2 → ℂ
+hρf : ∀ (f : A.End) (z : Fin 2 → ℂ), Φu ((ρf f) z) = Φu z ≫ PkgI3.AbVar.Hom.hom f
+hadd : ∀ (z w : Fin 2 → ℂ), Φu (z + w) = Φu z * Φu w
+hker : ∀ (z : Fin 2 → ℂ), Φu z = 1 ↔ z ∈ Λ
+⊢ ∀ (U : A.X.left.Opens) (s : ↑Γ(A.X.left, U)), DifferentiableOn ℂ (fun z => cEvalAt (Φu z) U s) (cDom Φu U)
+scratch/fibre-qm-period/Dev.lean:554:63: error: Tactic `assumption` failed
+
+hR : T11aRiemannEnd
+A : PkgI3.AbVar ℂ
+hA : A.dim = 2
+Λ : Submodule ℤ (Fin 2 → ℂ)
+inst✝ : DiscreteTopology ↥Λ
+Φu : (Fin 2 → ℂ) → CPts A (RingHom.id ℂ)
+ρf : A.End → (Fin 2 → ℂ) →ₗ[ℂ] Fin 2 → ℂ
+hρf : ∀ (f : A.End) (z : Fin 2 → ℂ), Φu ((ρf f) z) = Φu z ≫ PkgI3.AbVar.Hom.hom f
+hadd : ∀ (z w : Fin 2 → ℂ), Φu (z + w) = Φu z * Φu w
+hker : ∀ (z : Fin 2 → ℂ), Φu z = 1 ↔ z ∈ Λ
+e f : A.End
+⊢ Function.Surjective Φu
+scratch/fibre-qm-period/Dev.lean:554:68: error: Tactic `assumption` failed
+
+hR : T11aRiemannEnd
+A : PkgI3.AbVar ℂ
+hA : A.dim = 2
+Λ : Submodule ℤ (Fin 2 → ℂ)
+inst✝ : DiscreteTopology ↥Λ
+Φu : (Fin 2 → ℂ) → CPts A (RingHom.id ℂ)
+ρf : A.End → (Fin 2 → ℂ) →ₗ[ℂ] Fin 2 → ℂ
+hρf : ∀ (f : A.End) (z : Fin 2 → ℂ), Φu ((ρf f) z) = Φu z ≫ PkgI3.AbVar.Hom.hom f
+hadd : ∀ (z w : Fin 2 → ℂ), Φu (z + w) = Φu z * Φu w
+hker : ∀ (z : Fin 2 → ℂ), Φu z = 1 ↔ z ∈ Λ
+e f : A.End
+⊢ ∀ (U : A.X.left.Opens), IsOpen (cDom Φu U)
+scratch/fibre-qm-period/Dev.lean:554:73: error: Tactic `assumption` failed
+
+hR : T11aRiemannEnd
+A : PkgI3.AbVar ℂ
+hA : A.dim = 2
+Λ : Submodule ℤ (Fin 2 → ℂ)
+inst✝ : DiscreteTopology ↥Λ
+Φu : (Fin 2 → ℂ) → CPts A (RingHom.id ℂ)
+ρf : A.End → (Fin 2 → ℂ) →ₗ[ℂ] Fin 2 → ℂ
+hρf : ∀ (f : A.End) (z : Fin 2 → ℂ), Φu ((ρf f) z) = Φu z ≫ PkgI3.AbVar.Hom.hom f
+hadd : ∀ (z w : Fin 2 → ℂ), Φu (z + w) = Φu z * Φu w
+hker : ∀ (z : Fin 2 → ℂ), Φu z = 1 ↔ z ∈ Λ
+e f : A.End
+⊢ ∀ (U : A.X.left.Opens) (s : ↑Γ(A.X.left, U)), DifferentiableOn ℂ (fun z => cEvalAt (Φu z) U s) (cDom Φu U)
+'HSyn.G0Split.FibreQM.fibreQMPeriod_iff' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HSyn.G0Split.FibreQM.fibreQMPeriod_of_own' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HSyn.G0Split.FibreQM.own_of_fibreQMPeriod' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HSyn.G0Split.FibreQM.jRatio_of_value' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HSyn.G0Split.FibreQM.fibreQMPeriodAt_of' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HSyn.G0Split.FibreQM.fibreQMPeriodOwn_of' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HSyn.G0Split.FibreQM.fibreQMPeriod_of_named' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HSyn.G0Split.FibreQM.fibreQMPeriod_of_named_all' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HSyn.G0Split.FibreQM.fibreQMPeriod_of_named_rep' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HSyn.G0Split.FibreQM.qmPeriodValue_of' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HSyn.G0Split.FibreQM.fibreQMPeriod_of_parts' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HSyn.G0Split.FibreQM.isUniformization_comp' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HSyn.G0Split.FibreQM.qmComplexUnif_of' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HSyn.G0Split.FibreQM.fibreQMPeriod_of_parts'' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HSyn.G0Split.FibreQM.qmPeriodMap_of' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HSyn.G0Split.FibreQM.fibreQMPeriod_of_leaves_glue' depends on axioms: [propext, Classical.choice, Quot.sound]
+
+real	0m5.133s
+user	0m4.947s
+sys	0m1.863s
