@@ -4,6 +4,7 @@
 # verbatim copy of `G8LocalPack` (already in Tail.lean) + tail_glue.lean (§9).
 cd "$(dirname "$0")"
 {
+  echo "import Mathlib"
   echo "import Mathlib.AlgebraicGeometry.AffineTransitionLimit"
   echo "import Mathlib.NumberTheory.NumberField.Completion.FinitePlace"
   cat ../local-data/Tail.lean
@@ -16,6 +17,7 @@ cd "$(dirname "$0")"
   cat resq_block.lean
   grep -v '^#print axioms' part_descent.lean
   grep -v '^#print axioms' part_twist.lean
+  cat dim_block.lean
   grep -v '^#print axioms' part_bcdescent.lean
   sed '/^-- BEGIN verbatim copy/,/^-- END verbatim copy/d' part_pack.lean | grep -v '^#print axioms'
   cat tail_glue.lean

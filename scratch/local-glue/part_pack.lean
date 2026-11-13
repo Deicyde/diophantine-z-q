@@ -192,7 +192,7 @@ theorem g15RamG_of_packU (hR6 : ObjBridge.RaynaudCriterion)
   exact G15Ram.g15RamG_of_g7 D u h8₅ hC₅ hG₅ h8₃ hC₃ (hG₃ 5 (by norm_num) rfl) h11₅ h11₃
 
 /-- **G7's data for `r` in the form of g0-mod-field's construction (GLUE: the output of an
-augmented `TateBridge`).** `L ≤ L'` finite Galois in `ℚ̄`, `A₀ : AbVar L` with `dim A₀ = 2`,
+augmented `TateBridge`).** `L ≤ L'` finite Galois in `ℚ̄`, `A₀ : AbVar L`,
 G7Out and G8Out for `(A₀)_{L'}` (base change along `incAlg`), G7's clauses, the kernel-field
 clause `G_{L'} = G_L ∩ ker β_ℂ` of `G7Data`, and the transport `β = ι ∘ β_ℂ` with `ι` injective.
 No local Prop is asked at any prime (`g8LocalPack_of_BC`). -/
@@ -203,7 +203,7 @@ def G7LocalPackBC (ℓ : ℕ) [Fact ℓ.Prime] (r : GaloisRep ℓ 2) : Prop :=
     (c ε : GQ → GQ → PadicAlgCl ℓ) (a β : GQ → PadicAlgCl ℓ)
     (u : GlueDescent.MatrixUnits2 (PadicAlgCl ℓ) (G0Galois.Vb (G15Ram.bcL' hLL' A₀) ℓ))
     (βC : GQ → ℂˣ) (ιC : ℂˣ →* (PadicAlgCl ℓ)ˣ),
-    A₀.dim = 2 ∧ G0Galois.G7Out (G15Ram.bcL' hLL' A₀) ℓ Tm c ε a β u ∧
+    G0Galois.G7Out (G15Ram.bcL' hLL' A₀) ℓ Tm c ε a β u ∧
     G0Galois.G8Out (G15Ram.bcL' hLL' A₀) ℓ (GlueDescent.rho Tm a β) r ∧
     G15Ram.G7Clauses β ε L ∧
     (∀ σ : GQ, σ ∈ L'.fixingSubgroup ↔ σ ∈ L.fixingSubgroup ∧ βC σ = 1) ∧
@@ -216,12 +216,12 @@ theorem g8LocalPack_of_BC (hR6 : ObjBridge.RaynaudCriterion)
     (hU : ∀ (p : ℕ) [Fact p.Prime], G15Ram.UnramRoots p ℓ)
     {r : GaloisRep ℓ 2} {P : ℕ → Prop} (hPℓ : ∀ p, P p → p ≠ ℓ) (h : G7LocalPackBC ℓ r) :
     G8LocalPack ℓ r P := by
-  obtain ⟨L, L', _, _, _, _, hLL', A₀, Tm, c, ε, a, β, u, βC, ιC, hdim, h7, h8, hC, hker, hι,
+  obtain ⟨L, L', _, _, _, _, hLL', A₀, Tm, c, ε, a, β, u, βC, ιC, h7, h8, hC, hker, hι,
     hβ⟩ := h
   refine ⟨L', _, RQ.numberField_of_fd L', G15Ram.bcL' hLL' A₀, Tm, a, β, ε, L, h8, hC,
     fun p hp hP => ?_⟩
   have : Fact p.Prime := ⟨hp⟩
-  exact G15Ram.localGlue_of_baseChange hLL' hR6 hTors (hU p) (hPℓ p hP) A₀ hdim h7 hC βC hker ιC
+  exact G15Ram.localGlue_of_baseChange' hLL' hR6 hTors (hU p) (hPℓ p hP) A₀ h7 hC βC hker ιC
     hι hβ
 
 /-- **`G15RamG` from the packs `G7LocalPackBC` (proved).** -/

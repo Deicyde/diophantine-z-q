@@ -212,6 +212,24 @@ theorem localGlue_of_baseChange {p : ℕ} [Fact p.Prime] {ℓ : ℕ} [Fact ℓ.P
   localGlue_of_unramRoots hR6 hTors hU hpℓ h7 hC (kerWild_of_g7Data βC hker ιC hι hβ)
     (fun _ => descentPts_baseChange hLL' A₀ hdim₀)
 
+/-- **`LocalGlue` on G7's construction, with `dim A₀ = 2` derived (proved):** as
+`localGlue_of_baseChange`, where `dim A₀ = dim (A₀)_{L'} = 2` by g0-dim's
+`G0Dim.pkgI3_dim_baseChange` (field base change preserves dimension) and G7Out's `dim` clause. -/
+theorem localGlue_of_baseChange' {p : ℕ} [Fact p.Prime] {ℓ : ℕ} [Fact ℓ.Prime]
+    (hR6 : ObjBridge.RaynaudCriterion) (hTors : ObjBridge.TorsionStructure)
+    (hU : UnramRoots p ℓ) (hpℓ : p ≠ ℓ) [IsGalois ℚ L'] (A₀ : PkgI3.AbVar L)
+    {Tm : GQ → Module.End (PadicAlgCl ℓ) (G0Galois.Vb (bcL' hLL' A₀) ℓ)}
+    {c ε : GQ → GQ → PadicAlgCl ℓ} {a β : GQ → PadicAlgCl ℓ}
+    {u : GlueDescent.MatrixUnits2 (PadicAlgCl ℓ) (G0Galois.Vb (bcL' hLL' A₀) ℓ)}
+    (h7 : G0Galois.G7Out (bcL' hLL' A₀) ℓ Tm c ε a β u) (hC : G7Clauses β ε L)
+    (βC : GQ → ℂˣ) (hker : ∀ σ : GQ, σ ∈ L'.fixingSubgroup ↔ σ ∈ L.fixingSubgroup ∧ βC σ = 1)
+    (ιC : ℂˣ →* (PadicAlgCl ℓ)ˣ) (hι : Function.Injective ιC)
+    (hβ : ∀ g, β g = (ιC (βC g) : PadicAlgCl ℓ)) :
+    LocalGlue (p := p) Tm a β L :=
+  localGlue_of_baseChange hLL' hR6 hTors hU hpℓ A₀
+    ((@G0Dim.pkgI3_dim_baseChange L _ L' _ (incAlgL hLL') A₀).symm.trans h7.1) h7 hC βC hker ιC
+    hι hβ
+
 end BCDescentSec
 
 
@@ -221,3 +239,4 @@ end
 
 #print axioms G15Ram.descentPts_baseChange
 #print axioms G15Ram.localGlue_of_baseChange
+#print axioms G15Ram.localGlue_of_baseChange'
