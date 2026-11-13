@@ -21,3 +21,14 @@ Base: 883c4ddf + merges origin/wip/rv-g0pieces, origin/wip/g0-split (already in)
 - Attack re-run: r1fpPin_relabel_iff (natural τ keeps the repaired list iff a QMFamily realizes the
   relabeled classes as fibres); r1fpPin_aut, r2fp_aut (automorphism relabelings keep both lists);
   sameTriple_aut; transfer_pointwise, transfer_exists; PinUnique (def, not proved); pointwise_of_witness.
+
+## Integration edits checked (step 3)
+- QMLeavesEdited.lean = ZInQKernel/HDecomp/QM/Leaves.lean + edit (QM-Leaves.patch: QMFamily, IsFibreOf,
+  R1famProps before R1fpProps; 5th conjunct `R1famProps Y Φ`; two patterns `⟨-, -, -, hnat, -⟩`; R1fp
+  docstring). Compiled as scratch importing ZInQKernel.HDecomp.QM.Pairs: 0 errors, 6.7 s. VERIFIED.
+  Only ZInQKernel/HDecomp.lean imports QM.Leaves; no other kernel file mentions R1fpProps (grep). VERIFIED.
+- SplitEdited.lean = scratch/g0-split/Split.lean + same def block + 2 patterns (Split.patch, apply_edit.py).
+  Needed `lake build ZInQKernel.Hypotheses.JHeight ZInQKernel.Compiler.Precision.HeightConstant` (11 s).
+  `lake env lean`: 0 errors, 0 sorry, 2m28s; `HSyn.glueOutputs_of_leaves`, `sixContactMin_of_leaves`,
+  `thetaPazuki`, ... all [propext, Classical.choice, Quot.sound]. VERIFIED (run_split.txt).
+  The ten pieces' text is unchanged: they quantify over R1fpProps, which now contains the family.

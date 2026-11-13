@@ -1,0 +1,60 @@
+15121a15122,15155
+> /-- **A family of level-3 QM abelian surfaces over a scheme `S`** (qm-pin; the data of an object
+> of the moduli problem over `S`, without the group law, which rigidity recovers): a scheme
+> `𝒜 → S`, proper and smooth of relative dimension 2, with endomorphisms `ι(a)` over `S`
+> (`a ∈ 𝒪`) and sections `η(a) : S → 𝒜` (`a ∈ 𝒪`; for the universal object, the images of the
+> constant sections under the level structure `(𝒪/3𝒪)_S ≅ 𝒜[3]`). -/
+> structure QMFamily (S : Scheme.{0}) where
+>   F : Over S
+>   proper : IsProper F.hom
+>   smooth : SmoothOfRelativeDimension 2 F.hom
+>   iota : O → (F.left ⟶ F.left)
+>   iota_over : ∀ a : O, iota a ≫ F.hom = F.hom
+>   eta : O → (S ⟶ F.left)
+>   eta_sec : ∀ a : O, eta a ≫ F.hom = 𝟙 S
+> 
+> /-- **`P` is the fibre of the family `𝒜` at the field point `y : Spec K → S`** (qm-pin): a
+> morphism `g : P.A → 𝒜` making `P.A → Spec K` the pullback of `𝒜 → S` along `y`, carrying `ι_P`
+> to `ι_𝒜` and the level points `η_P(a)` to the sections `η_𝒜(a)` (the shape of
+> `IsBaseChangeOf`). -/
+> def IsFibreOf {S : Scheme.{0}} (𝒜 : QMFamily S) {K : Type} [Field K]
+>     (y : Spec (CommRingCat.of K) ⟶ S) (P : QML3 K) : Prop :=
+>   ∃ g : P.A.X.left ⟶ 𝒜.F.left,
+>     IsPullback g P.A.X.hom 𝒜.F.hom y ∧
+>     (∀ a : O, (P.q.iota a).hom.left ≫ g = g ≫ 𝒜.iota a) ∧
+>     (∀ a : O, (Additive.toMul (P.e.eta a)).left ≫ g = y ≫ 𝒜.eta a)
+> 
+> /-- **R1fam, clause** (qm-pin, repairing rv-g0pieces §4): `Φ` is induced by a family: there is a
+> family `𝒜` over `Y` (the universal object of R1(a), polarization forgotten) such that the class
+> `Φ_K(y)` of every field point is the class of the fibre `y*𝒜`. Without it, `Φ` composed with a
+> non-geometric natural relabeling of the points of `Y` satisfies every other clause
+> (rv-g0pieces `r1fp_relabel`, `r1fp_exotic`). -/
+> def R1famProps (Y : Over (Spec (CommRingCat.of ℚ))) (Φ : PtEquiv Y) : Prop :=
+>   ∃ 𝒜 : QMFamily Y.left, ∀ (K : Type) [Field K] [Algebra ℚ K] (y : fieldPt K ⟶ Y) (P : QML3 K),
+>     Φ K y = M3.mk P → IsFibreOf 𝒜 y.left P
+> 
+15124,15125c15158,15161
+< other clause would hold if `QML3` were mis-encoded as empty), and `Φ` is natural in the field: the
+< class of a point pulled back along `f : K → L` is the base change of the class. -/
+---
+> other clause would hold if `QML3` were mis-encoded as empty), `Φ` is natural in the field (the
+> class of a point pulled back along `f : K → L` is the base change of the class), and `Φ` is
+> induced by a family over `Y` (`R1famProps`, added by qm-pin: it pins `Φ` up to automorphisms of
+> `Y`). -/
+15128c15164
+<   ∀ (K L : Type) [Field K] [Field L] [Algebra ℚ K] [Algebra ℚ L] (f : K →ₐ[ℚ] L)
+---
+>   (∀ (K L : Type) [Field K] [Field L] [Algebra ℚ K] [Algebra ℚ L] (f : K →ₐ[ℚ] L)
+15130c15166,15167
+<       ∃ Q : QML3 L, Φ L (fieldMap f ≫ y) = M3.mk Q ∧ IsBaseChangeOf (f : K →+* L) P Q
+---
+>       ∃ Q : QML3 L, Φ L (fieldMap f ≫ y) = M3.mk Q ∧ IsBaseChangeOf (f : K →+* L) P Q) ∧
+>   R1famProps Y Φ
+15401c15438
+<   obtain ⟨-, -, -, hnat⟩ := h1
+---
+>   obtain ⟨-, -, -, hnat, -⟩ := h1
+15424c15461
+<   obtain ⟨-, -, -, hnat⟩ := h1
+---
+>   obtain ⟨-, -, -, hnat, -⟩ := h1
