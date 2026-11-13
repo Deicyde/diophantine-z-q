@@ -10,3 +10,10 @@
   t11aHom_of_analytic.
 - New Props: IsAnalyticHom (IsUniformization minus kernel/surjectivity), AnalyticHomLift,
   UnifLocalInverse, AnalyticHomAlgebraic.
+
+## Step 2 (12:25): pure analysis + lifting
+- Proved `eq_fderiv_of_locally_additive` (F additive on ball(0,r), ℂ-differentiable at 0 ⇒
+  F = fderiv F 0 on the ball), `analyticHomLift_of_unifLocalInverse`,
+  `homLinearLift_of_unifLocalInverse`, `homLatticeCorr_of_local`.
+- `lake env lean scratch/homlattice/HomLattice.lean`: exit 0; 13 `#print axioms` reports, all
+  [propext, Classical.choice, Quot.sound]; no sorry, no error (out_HomLattice.txt). VERIFIED.

@@ -1,0 +1,29 @@
+scratch/homlattice/HomLattice.lean:78:8: warning: `dif_pos` has been deprecated: Use `dite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  d̵i̵f̵_̵p̵o̵s̵d̲i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+scratch/homlattice/HomLattice.lean:78:19: warning: `dif_pos` has been deprecated: Use `dite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  d̵i̵f̵_̵p̵o̵s̵d̲i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+scratch/homlattice/HomLattice.lean:80:8: warning: `dif_neg` has been deprecated: Use `dite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  d̵i̵f̵_̵n̵e̵g̵d̲i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+scratch/homlattice/HomLattice.lean:80:19: warning: `dif_neg` has been deprecated: Use `dite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  d̵i̵f̵_̵n̵e̵g̵d̲i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+'ZInQ.HomLattice.isUniformization_iff' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.HomLattice.cEvalAt_comp' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.HomLattice.isAnalyticHom_comp' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.HomLattice.isAnalyticHom_lin' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.HomLattice.homLinearLift_of_analyticHomLift' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.HomLattice.homRealize_of_analyticHomAlgebraic' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.HomLattice.homLatticeCorr_of_analytic' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.HomLattice.t11a_riemannEnd_of_analytic' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.HomLattice.t11aHom_of_analytic' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.HomLattice.eq_fderiv_of_locally_additive' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.HomLattice.analyticHomLift_of_unifLocalInverse' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.HomLattice.homLinearLift_of_unifLocalInverse' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.HomLattice.homLatticeCorr_of_local' depends on axioms: [propext, Classical.choice, Quot.sound]

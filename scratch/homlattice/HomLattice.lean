@@ -172,6 +172,141 @@ theorem t11a_riemannEnd_of_analytic (H1 : AnalyticHomLift) (H2 : AnalyticHomAlge
 theorem t11aHom_of_analytic (H2 : AnalyticHomAlgebraic) : T11aHom :=
   ZInQ.HomUnify.t11aHom_of_realize (homRealize_of_analyticHomAlgebraic H2)
 
+/-! ### Pure analysis: a locally additive map differentiable at `0` is linear on a ball -/
+
+/-- **(proved)** If `F : ℂ^g → ℂ^h` is additive on the ball of radius `r` (`F(z + w) = F z + F w`
+for `‖z‖, ‖w‖ < r`) and complex differentiable at `0`, then `F = F'(0)` on that ball. -/
+theorem eq_fderiv_of_locally_additive {g h : ℕ} {F : (Fin g → ℂ) → (Fin h → ℂ)} {r : ℝ}
+    (hadd : ∀ z w : Fin g → ℂ, ‖z‖ < r → ‖w‖ < r → F (z + w) = F z + F w)
+    (hF : DifferentiableAt ℂ F 0) {z : Fin g → ℂ} (hz : ‖z‖ < r) : F z = fderiv ℂ F 0 z := by
+  have hr : 0 < r := lt_of_le_of_lt (norm_nonneg _) hz
+  have hF0 : F 0 = 0 := by
+    have := hadd 0 0 (by simpa using hr) (by simpa using hr)
+    rw [_root_.add_zero] at this
+    exact add_left_cancel (this.symm.trans (_root_.add_zero _).symm)
+  have key : ∀ n : ℕ, 0 < n → (n : ℂ) • F ((n : ℂ)⁻¹ • z) = F z := by
+    intro n hn
+    obtain ⟨u, hu⟩ : ∃ u, u = (n : ℂ)⁻¹ • z := ⟨_, rfl⟩
+    have hn' : (n : ℂ) ≠ 0 := by exact_mod_cast hn.ne'
+    have hnorm : ∀ k : ℕ, k ≤ n → ‖(k : ℂ) • u‖ ≤ ‖z‖ := by
+      intro k hk
+      rw [hu, smul_smul, norm_smul]
+      have h1 : ‖(k : ℂ) * (n : ℂ)⁻¹‖ ≤ 1 := by
+        rw [norm_mul, norm_inv, Complex.norm_natCast, Complex.norm_natCast, ← div_eq_mul_inv]
+        exact div_le_one_of_le₀ (by exact_mod_cast hk) (by positivity)
+      calc ‖(k : ℂ) * (n : ℂ)⁻¹‖ * ‖z‖ ≤ 1 * ‖z‖ := by gcongr
+        _ = ‖z‖ := _root_.one_mul _
+    have hk : ∀ k : ℕ, k ≤ n → F ((k : ℂ) • u) = (k : ℂ) • F u := by
+      intro k
+      induction k with
+      | zero => intro _; simp [hF0]
+      | succ k ih =>
+        intro hkn
+        have h1 := hnorm k (Nat.le_of_succ_le hkn)
+        have h2 := hnorm 1 (by omega)
+        rw [Nat.cast_one, one_smul] at h2
+        rw [Nat.cast_succ, add_smul, one_smul,
+          hadd _ _ (lt_of_le_of_lt h1 hz) (lt_of_le_of_lt h2 hz), ih (Nat.le_of_succ_le hkn),
+          add_smul, one_smul]
+    have hzu : (n : ℂ) • u = z := by rw [hu, smul_smul, mul_inv_cancel₀ hn', one_smul]
+    rw [← hu]
+    conv_rhs => rw [← hzu]
+    exact (hk n le_rfl).symm
+  have hlim := hF.hasFDerivAt.lim z (c := fun n : ℕ => (n : ℂ)) (l := atTop) (by
+    simpa [Complex.norm_natCast] using tendsto_natCast_atTop_atTop (R := ℝ))
+  simp only [_root_.zero_add, hF0, sub_zero] at hlim
+  have hev : (fun _ : ℕ => F z) =ᶠ[atTop] fun n : ℕ => (n : ℂ) • F ((n : ℂ)⁻¹ • z) :=
+    (eventually_gt_atTop 0).mono fun n hn => (key n hn).symm
+  exact tendsto_nhds_unique (tendsto_const_nhds.congr' hev) hlim
+
+/-- **`AnalyticHomLift` from `UnifLocalInverse` (proved).** The lifting argument of
+Birkenhake–Lange 1.2.1 / Lie theory: near `0`, `F = χ ∘ ψ` lifts `ψ` through `Φ_B`; it is
+additive there because `Λ_B ∩ W = 0`; so it is linear (`eq_fderiv_of_locally_additive`), and
+`ψ = Φ_B ∘ F'(0)` everywhere because both sides are homomorphisms. -/
+theorem analyticHomLift_of_unifLocalInverse (HL : UnifLocalInverse) : AnalyticHomLift := by
+  intro K _ B σ g h ΛB ΦB hdim hU ψ hψ
+  obtain ⟨W, hWo, hW0, χ, hχ, hloc⟩ := HL K B σ h ΛB ΦB hdim hU
+  obtain ⟨hev, hdiff⟩ := hloc g ψ hψ
+  have hΦhom := hU.1
+  have hΦ0 : ΦB 0 = 1 := (hU.2.1 0).2 (zero_mem _)
+  have hψ0 : ψ 0 = 1 := map_zero_of_hom hψ.1
+  obtain ⟨F, hFdef⟩ : ∃ F : (Fin g → ℂ) → (Fin h → ℂ), F = fun z => χ (ψ z) := ⟨_, rfl⟩
+  have hdiffF : DifferentiableAt ℂ F 0 := hFdef ▸ hdiff
+  have hF0 : F 0 = 0 := by
+    rw [hFdef]
+    show χ (ψ 0) = 0
+    rw [hψ0, ← hΦ0, hχ 0 hW0]
+  have hΛW : ∀ d ∈ W, ΦB d = 1 → d = 0 := by
+    intro d hd h1
+    rw [← hχ d hd, h1, ← hΦ0, hχ 0 hW0]
+  have hS : ∀ z, ψ z ∈ ΦB '' W → ΦB (F z) = ψ z := by
+    rintro z ⟨w, hw, hwz⟩
+    rw [hFdef]
+    show ΦB (χ (ψ z)) = ψ z
+    rw [← hwz, hχ w hw]
+  have hcont : ContinuousAt F 0 := hdiffF.continuousAt
+  have hP : ∀ᶠ p : (Fin g → ℂ) × (Fin g → ℂ) in 𝓝 (0, 0),
+      ψ (p.1 + p.2) ∈ ΦB '' W ∧ ψ p.1 ∈ ΦB '' W ∧ ψ p.2 ∈ ΦB '' W ∧
+      F (p.1 + p.2) - F p.1 - F p.2 ∈ W := by
+    have t1 : Tendsto (fun p : (Fin g → ℂ) × (Fin g → ℂ) => p.1 + p.2) (𝓝 (0, 0)) (𝓝 0) := by
+      simpa using (continuous_add.tendsto ((0 : Fin g → ℂ), (0 : Fin g → ℂ)))
+    have t2 : Tendsto (fun p : (Fin g → ℂ) × (Fin g → ℂ) => p.1) (𝓝 (0, 0)) (𝓝 0) :=
+      continuous_fst.tendsto _
+    have t3 : Tendsto (fun p : (Fin g → ℂ) × (Fin g → ℂ) => p.2) (𝓝 (0, 0)) (𝓝 0) :=
+      continuous_snd.tendsto _
+    have t4 : Tendsto (fun p : (Fin g → ℂ) × (Fin g → ℂ) => F (p.1 + p.2) - F p.1 - F p.2)
+        (𝓝 (0, 0)) (𝓝 0) := by
+      have := ((hcont.tendsto.comp t1).sub (hcont.tendsto.comp t2)).sub
+        (hcont.tendsto.comp t3)
+      simpa [hF0] using this
+    exact (t1.eventually hev).and ((t2.eventually hev).and ((t3.eventually hev).and
+      (t4.eventually (hWo.eventually_mem hW0))))
+  obtain ⟨r, hr, hrP⟩ := Metric.eventually_nhds_iff.1 hP
+  have hpair : ∀ z w : Fin g → ℂ, ‖z‖ < r → ‖w‖ < r →
+      ψ (z + w) ∈ ΦB '' W ∧ ψ z ∈ ΦB '' W ∧ ψ w ∈ ΦB '' W ∧ F (z + w) - F z - F w ∈ W := by
+    intro z w hz hw
+    have hd : dist (z, w) ((0 : Fin g → ℂ), (0 : Fin g → ℂ)) < r := by
+      simp only [Prod.dist_eq, dist_zero_right]
+      exact max_lt hz hw
+    exact hrP hd
+  have hadd : ∀ z w : Fin g → ℂ, ‖z‖ < r → ‖w‖ < r → F (z + w) = F z + F w := by
+    intro z w hz hw
+    obtain ⟨h1, h2, h3, h4⟩ := hpair z w hz hw
+    have e : ΦB (F (z + w)) = ΦB (F z + F w) := by
+      rw [hS _ h1, hΦhom, hS _ h2, hS _ h3, hψ.1]
+    have hd1 : ΦB (F (z + w) - F z - F w) = 1 := by
+      have := hΦhom (F (z + w) - F z - F w) (F z + F w)
+      rw [show F (z + w) - F z - F w + (F z + F w) = F (z + w) by abel, e] at this
+      exact mul_right_cancel (this.symm.trans (_root_.one_mul _).symm)
+    have := hΛW _ h4 hd1
+    rw [sub_sub, sub_eq_zero] at this
+    exact this
+  refine ⟨(fderiv ℂ F 0 : (Fin g → ℂ) →L[ℂ] (Fin h → ℂ)).toLinearMap, fun z => ?_⟩
+  have hsmall : ∀ u : Fin g → ℂ, ‖u‖ < r → ΦB (fderiv ℂ F 0 u) = ψ u := by
+    intro u hu
+    rw [← eq_fderiv_of_locally_additive hadd hdiffF hu]
+    exact hS u (hpair u 0 hu (by simpa using hr)).2.1
+  have ht : Tendsto (fun n : ℕ => (n : ℂ)⁻¹ • z) atTop (𝓝 0) := by
+    simpa using (tendsto_inv_atTop_nhds_zero_nat (𝕜 := ℂ)).smul_const z
+  obtain ⟨n, hn1, hn2⟩ :=
+    ((eventually_gt_atTop 0).and (ht.eventually (Metric.ball_mem_nhds 0 hr))).exists
+  obtain ⟨u, hu⟩ : ∃ u, u = (n : ℂ)⁻¹ • z := ⟨_, rfl⟩
+  have hur : ‖u‖ < r := by rw [hu]; simpa using hn2
+  have hzu : z = n • u := by
+    rw [hu, ← Nat.cast_smul_eq_nsmul ℂ, smul_smul,
+      mul_inv_cancel₀ (by exact_mod_cast hn1.ne'), one_smul]
+  change ΦB ((fderiv ℂ F 0) z) = ψ z
+  rw [hzu, map_nsmul, map_nsmul_of_hom hΦhom, map_nsmul_of_hom hψ.1, hsmall u hur]
+
+/-- **`HomLinearLift` from `UnifLocalInverse` (proved).** -/
+theorem homLinearLift_of_unifLocalInverse (HL : UnifLocalInverse) : HomLinearLift :=
+  homLinearLift_of_analyticHomLift (analyticHomLift_of_unifLocalInverse HL)
+
+/-- **`HomLatticeCorr` from `UnifLocalInverse` and `AnalyticHomAlgebraic` (proved).** -/
+theorem homLatticeCorr_of_local (HL : UnifLocalInverse) (H2 : AnalyticHomAlgebraic) :
+    HomLatticeCorr :=
+  homLatticeCorr_of_analytic (analyticHomLift_of_unifLocalInverse HL) H2
+
 end ZInQ.HomLattice
 
 #print axioms ZInQ.HomLattice.isUniformization_iff
@@ -183,3 +318,7 @@ end ZInQ.HomLattice
 #print axioms ZInQ.HomLattice.homLatticeCorr_of_analytic
 #print axioms ZInQ.HomLattice.t11a_riemannEnd_of_analytic
 #print axioms ZInQ.HomLattice.t11aHom_of_analytic
+#print axioms ZInQ.HomLattice.eq_fderiv_of_locally_additive
+#print axioms ZInQ.HomLattice.analyticHomLift_of_unifLocalInverse
+#print axioms ZInQ.HomLattice.homLinearLift_of_unifLocalInverse
+#print axioms ZInQ.HomLattice.homLatticeCorr_of_local
