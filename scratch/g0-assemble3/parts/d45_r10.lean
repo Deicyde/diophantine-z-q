@@ -1,9 +1,10 @@
 /-! ## g0-assemble3: r10-amend (ZInQKernel/Contrib/R10/Amend.lean and Glue.lean, verbatim minus imports and `#print`
-lines), then the closing theorems of Final.lean with g9-abvarbc's `abVarBaseChange` replaced by
+lines; the `open` lines name `_root_.PkgI4` and `_root_.G0Galois` in place of g9-derham's omitted layer copies, as
+for part a95), then the closing theorems of Final.lean with g9-abvarbc's `abVarBaseChange` replaced by
 `abVarBaseChange_of_mulIsogeny` applied to the `MulIsogeny` of infra-stalks (`G0FibreSimple.MulIsogeny` of part 40 and
 g9-abvarbc's namespaced copy `ZInQ.Contrib.AbVarBC.G0FibreSimple.MulIsogeny` have the same text). -/
 section G0A3file_Amend
--- (file ZInQKernel/Contrib/R10/Amend.lean, verbatim minus imports and #print lines)
+-- (file ZInQKernel/Contrib/R10/Amend.lean, verbatim minus imports and #print lines; g0-assemble3 edits listed in the part header)
 
 /-!
 # R10 amended: the de Rham comparison for abelian varieties with the full Hodge–Tate weights
@@ -35,7 +36,7 @@ every other `w`.
 
 namespace ZInQ.Contrib.R10
 
-open ZInQ.Contrib.G9 ZInQ.Contrib.G9.PkgI4
+open ZInQ.Contrib.G9 _root_.PkgI4 ZInQ.Contrib.G9.PkgI4
 
 /-- **R10, amended (I4-L0 with the full weight multiset).** For an abelian variety `A` over a
 finite extension `F` of `ℚ_p`: if `dim A = g`, then `V_p(A)` is de Rham as a `G_F`-representation,
@@ -92,7 +93,7 @@ end ZInQ.Contrib.R10
 
 end G0A3file_Amend
 section G0A3file_Glue
--- (file ZInQKernel/Contrib/R10/Glue.lean, verbatim minus imports and #print lines)
+-- (file ZInQKernel/Contrib/R10/Glue.lean, verbatim minus imports and #print lines; g0-assemble3 edits listed in the part header)
 
 /-!
 # G9 from the amended R10 (and base change of abelian varieties)
@@ -115,7 +116,7 @@ namespace ZInQ.Contrib.R10
 
 set_option linter.unusedSectionVars false
 
-open ZInQ.Contrib.G9 ZInQ.Contrib.G9.PkgI4 ZInQ.Contrib.G9.G0Galois Module
+open ZInQ.Contrib.G9 _root_.PkgI4 ZInQ.Contrib.G9.PkgI4 _root_.G0Galois Module
 open scoped TensorProduct
 
 noncomputable section
@@ -196,7 +197,7 @@ end G0A3file_Glue
 
 namespace ZInQ.Contrib.R10
 
-open ZInQ.Contrib.G9 ZInQ.Contrib.G9.G0Galois
+open ZInQ.Contrib.G9 _root_.G0Galois
 
 /-- (g0-assemble3) g9-abvarbc's `AbVarBaseChange`, from infra-stalks' `MulIsogeny`. -/
 theorem abVarBaseChange_g0a3 : ZInQ.Contrib.G9.G9Bridge.AbVarBaseChange :=

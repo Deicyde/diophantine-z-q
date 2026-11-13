@@ -1972,11 +1972,15 @@ end G0A3_d30_conjtwist
 
 section G0A3_d40_abvarbc
 /-! ## g0-assemble3: g9-abvarbc (ZInQKernel/Contrib/AbVarBC/{Dim,Points,Tate,Torsion,Mul,G9Instance,G9Mul}.lean, in
-import order, verbatim minus imports and `#print` lines; each in its own section). `KerUnit`, `Tangent` and `Main`
+import order, verbatim minus imports and `#print` lines; each in its own section). Edits (g9-derham's layer copies
+`ZInQ.Contrib.G9.{PkgI3, PkgI4.I3}.AbVar` and `G0Galois` are not in this file, as for part a95: names resolve to
+Leaves.lean's): `ZInQ.Contrib.G9.PkgI3.AbVar` → `_root_.PkgI3.AbVar`, `ZInQ.Contrib.G9.PkgI4.I3.AbVar` →
+`_root_.PkgI4.I3.AbVar`, `ZInQ.Contrib.G9.G0Galois.G9Glue` → `_root_.G0Galois.G9Glue`; an `end` is appended where a
+file leaves its `noncomputable section` open at end of file. `KerUnit`, `Tangent` and `Main`
 (its own proof of `MulIsogeny`) are not copied: `MulIsogeny` is infra-stalks' `MulRigidity.mulIsogeny` (part b10),
 applied through `G9Mul`'s `abVarBaseChange_of_mulIsogeny` in part d45. -/
 section G0A3file_Dim
--- (file ZInQKernel/Contrib/AbVarBC/Dim.lean, verbatim minus imports and #print lines)
+-- (file ZInQKernel/Contrib/AbVarBC/Dim.lean, verbatim minus imports and #print lines; g0-assemble3 edits listed in the part header)
 
 /-!
 # Base change of abelian varieties, I: the dimension
@@ -2219,7 +2223,7 @@ end PkgI3.AbVar
 end G0A3file_Dim
 
 section G0A3file_Points
--- (file ZInQKernel/Contrib/AbVarBC/Points.lean, verbatim minus imports and #print lines)
+-- (file ZInQKernel/Contrib/AbVarBC/Points.lean, verbatim minus imports and #print lines; g0-assemble3 edits listed in the part header)
 
 /-!
 # Base change of abelian varieties, II: points
@@ -2440,7 +2444,7 @@ end ZInQ.Contrib.AbVarBC
 end G0A3file_Points
 
 section G0A3file_Tate
--- (file ZInQKernel/Contrib/AbVarBC/Tate.lean, verbatim minus imports and #print lines)
+-- (file ZInQKernel/Contrib/AbVarBC/Tate.lean, verbatim minus imports and #print lines; g0-assemble3 edits listed in the part header)
 
 /-!
 # Base change of abelian varieties, III: Tate modules
@@ -2597,7 +2601,7 @@ end ZInQ.Contrib.AbVarBC
 end G0A3file_Tate
 
 section G0A3file_Torsion
--- (file ZInQKernel/Contrib/AbVarBC/Torsion.lean, verbatim minus imports and #print lines)
+-- (file ZInQKernel/Contrib/AbVarBC/Torsion.lean, verbatim minus imports and #print lines; g0-assemble3 edits listed in the part header)
 
 /-!
 # Base change of abelian varieties, V: descent of torsion points from finiteness of `[N]`
@@ -2753,7 +2757,7 @@ end ZInQ.Contrib.AbVarBC
 end G0A3file_Torsion
 
 section G0A3file_Mul
--- (file ZInQKernel/Contrib/AbVarBC/Mul.lean, verbatim minus imports and #print lines)
+-- (file ZInQKernel/Contrib/AbVarBC/Mul.lean, verbatim minus imports and #print lines; g0-assemble3 edits listed in the part header)
 
 /-!
 # mul-rigidity: the textbook leaf `MulIsogeny` reduced to smaller named Props
@@ -3163,10 +3167,12 @@ end ZInQ.Contrib.AbVarBC.MulRigidity
 
 
 
+end
+
 end G0A3file_Mul
 
 section G0A3file_G9Instance
--- (file ZInQKernel/Contrib/AbVarBC/G9Instance.lean, verbatim minus imports and #print lines)
+-- (file ZInQKernel/Contrib/AbVarBC/G9Instance.lean, verbatim minus imports and #print lines; g0-assemble3 edits listed in the part header)
 
 /-!
 # Base change of abelian varieties, IV: the instance `G9Bridge.AbVarBaseChange`
@@ -3174,8 +3180,8 @@ section G0A3file_G9Instance
 Copyright: this file is part of the fork Deicyde/diophantine-z-q (task g9-abvarbc, 2026-11-13).
 
 `G9Bridge.AbVarBaseChange` (task g9-derham, `ZInQKernel/Contrib/G9/LocalModel.lean`) is stated over
-two verbatim copies of the kernel's abelian varieties: `ZInQ.Contrib.G9.PkgI3.AbVar`
-(`Contrib/G9/I3Layer.lean`) and `ZInQ.Contrib.G9.PkgI4.I3.AbVar` (`Contrib/G9/I4Layer.lean`).
+two verbatim copies of the kernel's abelian varieties: `_root_.PkgI3.AbVar`
+(`Contrib/G9/I3Layer.lean`) and `_root_.PkgI4.I3.AbVar` (`Contrib/G9/I4Layer.lean`).
 §1 transports between the copies and the kernel's `PkgI3.AbVar` (all identities are `rfl`);
 §2 derives the instance from the general lemmas of `Contrib/AbVarBC/{Dim,Points,Tate}.lean`.
 
@@ -3198,27 +3204,27 @@ section Transport
 variable {K : Type} [Field K]
 
 /-- G9's copy of pkg-I3's abelian variety, as a kernel `PkgI3.AbVar`. -/
-def ofG9 (A : ZInQ.Contrib.G9.PkgI3.AbVar K) : _root_.PkgI3.AbVar K :=
+def ofG9 (A : _root_.PkgI3.AbVar K) : _root_.PkgI3.AbVar K :=
   @_root_.PkgI3.AbVar.mk K _ A.X A.grp A.proper A.smooth A.geomInt
 
 /-- A kernel `PkgI3.AbVar`, as pkg-I4's copy `PkgI4.I3.AbVar` (in G9's namespace). -/
-def toI4 (A : _root_.PkgI3.AbVar K) : ZInQ.Contrib.G9.PkgI4.I3.AbVar K :=
-  @ZInQ.Contrib.G9.PkgI4.I3.AbVar.mk K _ A.X A.grp A.proper A.smooth A.geomInt
+def toI4 (A : _root_.PkgI3.AbVar K) : _root_.PkgI4.I3.AbVar K :=
+  @_root_.PkgI4.I3.AbVar.mk K _ A.X A.grp A.proper A.smooth A.geomInt
 
-theorem dim_ofG9 (A : ZInQ.Contrib.G9.PkgI3.AbVar K) : (ofG9 A).dim = A.dim := rfl
+theorem dim_ofG9 (A : _root_.PkgI3.AbVar K) : (ofG9 A).dim = A.dim := rfl
 
 theorem dim_toI4 (A : _root_.PkgI3.AbVar K) : (toI4 A).dim = A.dim := rfl
 
 variable (ℓ : ℕ) [Fact ℓ.Prime]
 
 /-- `V_ℓ` of G9's copy is `V_ℓ` of the kernel's object (identity map). -/
-noncomputable def vOfG9 (A : ZInQ.Contrib.G9.PkgI3.AbVar K) : A.V ℓ ≃ₗ[ℚ_[ℓ]] (ofG9 A).V ℓ :=
+noncomputable def vOfG9 (A : _root_.PkgI3.AbVar K) : A.V ℓ ≃ₗ[ℚ_[ℓ]] (ofG9 A).V ℓ :=
   LinearEquiv.refl ℚ_[ℓ] (A.V ℓ)
 
-theorem vOfG9_galRep (A : ZInQ.Contrib.G9.PkgI3.AbVar K) (σ : Field.absoluteGaloisGroup K)
+theorem vOfG9_galRep (A : _root_.PkgI3.AbVar K) (σ : Field.absoluteGaloisGroup K)
     (v : A.V ℓ) : vOfG9 ℓ A (A.galRep ℓ σ v) = (ofG9 A).galRep ℓ σ (vOfG9 ℓ A v) := rfl
 
-theorem vOfG9_symm_galRep (A : ZInQ.Contrib.G9.PkgI3.AbVar K) (σ : Field.absoluteGaloisGroup K)
+theorem vOfG9_symm_galRep (A : _root_.PkgI3.AbVar K) (σ : Field.absoluteGaloisGroup K)
     (v : (ofG9 A).V ℓ) :
     (vOfG9 ℓ A).symm ((ofG9 A).galRep ℓ σ v) = A.galRep ℓ σ ((vOfG9 ℓ A).symm v) := rfl
 
@@ -3288,7 +3294,7 @@ theorem abVarBaseChange_of_tateModuleFree (hT : _root_.PkgI3.TateModuleFree) :
 
 /-- **G9 from T26 and the weight clause**: `TateModuleFree → R10Weights → G9Glue`. -/
 theorem g9Glue_of_tateModuleFree (hT : _root_.PkgI3.TateModuleFree)
-    (hW : ZInQ.Contrib.G9.G9Bridge.R10Weights) : ZInQ.Contrib.G9.G0Galois.G9Glue :=
+    (hW : ZInQ.Contrib.G9.G9Bridge.R10Weights) : _root_.G0Galois.G9Glue :=
   ZInQ.Contrib.G9.g9Glue_of_abVarBaseChange (abVarBaseChange_of_tateModuleFree hT) hW
 
 end ZInQ.Contrib.AbVarBC
@@ -3296,7 +3302,7 @@ end ZInQ.Contrib.AbVarBC
 end G0A3file_G9Instance
 
 section G0A3file_G9Mul
--- (file ZInQKernel/Contrib/AbVarBC/G9Mul.lean, verbatim minus imports and #print lines)
+-- (file ZInQKernel/Contrib/AbVarBC/G9Mul.lean, verbatim minus imports and #print lines; g0-assemble3 edits listed in the part header)
 
 /-!
 # Base change of abelian varieties, VI: `AbVarBaseChange` from finiteness of `[n]`
@@ -3385,13 +3391,13 @@ theorem abVarBaseChange_of_cotangent (h1 : MulRigidity.KerUnitOpenOfCotangentSur
 
 /-- `G9Glue` from `KerUnitOpen` and the weight clause. -/
 theorem g9Glue_of_kerUnitOpen (h : MulRigidity.KerUnitOpen)
-    (hW : ZInQ.Contrib.G9.G9Bridge.R10Weights) : ZInQ.Contrib.G9.G0Galois.G9Glue :=
+    (hW : ZInQ.Contrib.G9.G9Bridge.R10Weights) : _root_.G0Galois.G9Glue :=
   ZInQ.Contrib.G9.g9Glue_of_abVarBaseChange (abVarBaseChange_of_kerUnitOpen h) hW
 
 /-- `G9Glue` from the two cotangent glue statements and the weight clause. -/
 theorem g9Glue_of_cotangent (h1 : MulRigidity.KerUnitOpenOfCotangentSurj)
     (h2 : MulRigidity.CotangentMulN) (hW : ZInQ.Contrib.G9.G9Bridge.R10Weights) :
-    ZInQ.Contrib.G9.G0Galois.G9Glue :=
+    _root_.G0Galois.G9Glue :=
   ZInQ.Contrib.G9.g9Glue_of_abVarBaseChange (abVarBaseChange_of_cotangent h1 h2) hW
 
 end ZInQ.Contrib.AbVarBC
@@ -3402,11 +3408,12 @@ end G0A3_d40_abvarbc
 
 section G0A3_d45_r10
 /-! ## g0-assemble3: r10-amend (ZInQKernel/Contrib/R10/Amend.lean and Glue.lean, verbatim minus imports and `#print`
-lines), then the closing theorems of Final.lean with g9-abvarbc's `abVarBaseChange` replaced by
+lines; the `open` lines name `_root_.PkgI4` and `_root_.G0Galois` in place of g9-derham's omitted layer copies, as
+for part a95), then the closing theorems of Final.lean with g9-abvarbc's `abVarBaseChange` replaced by
 `abVarBaseChange_of_mulIsogeny` applied to the `MulIsogeny` of infra-stalks (`G0FibreSimple.MulIsogeny` of part 40 and
 g9-abvarbc's namespaced copy `ZInQ.Contrib.AbVarBC.G0FibreSimple.MulIsogeny` have the same text). -/
 section G0A3file_Amend
--- (file ZInQKernel/Contrib/R10/Amend.lean, verbatim minus imports and #print lines)
+-- (file ZInQKernel/Contrib/R10/Amend.lean, verbatim minus imports and #print lines; g0-assemble3 edits listed in the part header)
 
 /-!
 # R10 amended: the de Rham comparison for abelian varieties with the full Hodge–Tate weights
@@ -3438,7 +3445,7 @@ every other `w`.
 
 namespace ZInQ.Contrib.R10
 
-open ZInQ.Contrib.G9 ZInQ.Contrib.G9.PkgI4
+open ZInQ.Contrib.G9 _root_.PkgI4 ZInQ.Contrib.G9.PkgI4
 
 /-- **R10, amended (I4-L0 with the full weight multiset).** For an abelian variety `A` over a
 finite extension `F` of `ℚ_p`: if `dim A = g`, then `V_p(A)` is de Rham as a `G_F`-representation,
@@ -3495,7 +3502,7 @@ end ZInQ.Contrib.R10
 
 end G0A3file_Amend
 section G0A3file_Glue
--- (file ZInQKernel/Contrib/R10/Glue.lean, verbatim minus imports and #print lines)
+-- (file ZInQKernel/Contrib/R10/Glue.lean, verbatim minus imports and #print lines; g0-assemble3 edits listed in the part header)
 
 /-!
 # G9 from the amended R10 (and base change of abelian varieties)
@@ -3518,7 +3525,7 @@ namespace ZInQ.Contrib.R10
 
 set_option linter.unusedSectionVars false
 
-open ZInQ.Contrib.G9 ZInQ.Contrib.G9.PkgI4 ZInQ.Contrib.G9.G0Galois Module
+open ZInQ.Contrib.G9 _root_.PkgI4 ZInQ.Contrib.G9.PkgI4 _root_.G0Galois Module
 open scoped TensorProduct
 
 noncomputable section
@@ -3599,7 +3606,7 @@ end G0A3file_Glue
 
 namespace ZInQ.Contrib.R10
 
-open ZInQ.Contrib.G9 ZInQ.Contrib.G9.G0Galois
+open ZInQ.Contrib.G9 _root_.G0Galois
 
 /-- (g0-assemble3) g9-abvarbc's `AbVarBaseChange`, from infra-stalks' `MulIsogeny`. -/
 theorem abVarBaseChange_g0a3 : ZInQ.Contrib.G9.G9Bridge.AbVarBaseChange :=
@@ -6840,7 +6847,7 @@ end
 end G0A3_e10_propts
 
 section G0A3_e20_periodmap
-/-! ## g0-assemble3: period-map (scratch/period-map/part_{light,theta,siegel,order,heavy}.lean, verbatim minus #print lines, in build_full.sh's order after part_fqm = part a80) -/
+/-! ## g0-assemble3: period-map (scratch/period-map/part_{light,theta,siegel,order,heavy}.lean, verbatim minus #print lines, in build_full.sh's order after part_fqm = part a80; one `open ZInQ.LeafPush2 (…)` line added to part_heavy, as part a80 has) -/
 section G0A3pm_light
 
 /-! ## period-map: `HauptmodulUnique` and `QMDenZeroCM3` from strictly smaller named Props
@@ -7934,6 +7941,8 @@ end
 
 end G0A3pm_order
 section G0A3pm_heavy
+-- (g0-assemble3) as part a80 L223: leaf-push2's names, which period-map's base file imports
+open ZInQ.LeafPush2 (CPts cptObj IsUniformization IsSiegel IsPeriodMatrix Char2 thetaConst absLogHeight cDom cEvalAt)
 
 /-! ## period-map (heavy part): `PeriodMapGlue` from strictly smaller named Props
 
@@ -8412,8 +8421,8 @@ section G0A3_e30_unifdims
 /-! ## g0-assemble3: unif-dims, Leaves-world integration (generated by mk/mk_e30.py after scratch/unif-dims/build_leaves.py,
 which unif-dims compiled over the same root-namespace Leaves.lean): product-unif's ProductUnif.lean §1-§4, metrization2's
 kernel file (minus its T35 transport), unif-dims' Torsion, part_main, DetProd, part_phl, part_final, part_pc, part_pcfinal,
-part_final2 (declarations mentioning T35 dropped, `open PkgI3 (AbVar)` deleted, as build_leaves.py does). Not repeated:
-product-height §1-§6 (part a25), infra-stalks' `StalkPullback` (part b10, identical) and `CotangentProduct` (part b10 has
+part_final2 (declarations mentioning T35 dropped, `open PkgI3 (AbVar)` deleted, as build_leaves.py does). Not repeated: metrization2's
+copy of g0-dim §1-§2 (part 10), product-height §1-§6 (part a25), infra-stalks' `StalkPullback` (part b10, identical) and `CotangentProduct` (part b10 has
 infra-stalks' final version, with two local rings `O₁`, `O₂`; unif-dims' base copy is the earlier one-ring version). -/
 
 
@@ -10542,215 +10551,7 @@ end ZInQ.ProductUnif
 
 
 
-/-! ## g0-dim: `DimFinite` and `DimBaseChange` proved (task g0-dim; body of `scratch/g0-dim/Dim.lean` §1-§2) -/
-
-section G0DimSec
-
-set_option linter.style.haveILetI false
-
-open Order TensorProduct
-
-namespace G0Dim
-
-/-! ## §1. Commutative algebra -/
-
-
-/-- Integral injective extensions have the same Krull dimension (going up + incomparability;
-Stacks 00OK, Matsumura Thm 9.4 — STANDARD). -/
-theorem ringKrullDim_eq_of_isIntegral_of_injective {A B : Type*} [CommRing A] [CommRing B]
-    [Algebra A B] [Algebra.IsIntegral A B] (hinj : Function.Injective (algebraMap A B)) :
-    ringKrullDim B = ringKrullDim A := by
-  apply le_antisymm
-  · refine Order.krullDim_le_of_strictMono (PrimeSpectrum.comap (algebraMap A B)) ?_
-    intro P Q hPQ
-    have h : P.asIdeal < Q.asIdeal := hPQ
-    exact Ideal.IsIntegral.under_lt_under (R := A) h
-  · refine iSup_le fun l => ?_
-    obtain ⟨P, -, hP, hPl⟩ := Ideal.exists_ideal_over_prime_of_isIntegral (S := B)
-      l.head.asIdeal ⊥ (by
-        intro x hx
-        have : algebraMap A B x = 0 := by simpa using hx
-        have : x = 0 := hinj (by simpa using this)
-        simp [this])
-    haveI : P.LiesOver l.head.asIdeal := ⟨hPl.symm⟩
-    obtain ⟨L, hlen, -, -⟩ := Ideal.exists_ltSeries_of_hasGoingUp l P
-    rw [← hlen]
-    exact L.length_le_krullDim
-
-theorem ringKrullDim_mvPolynomial_field (k : Type*) [Field k] (s : ℕ) :
-    ringKrullDim (MvPolynomial (Fin s) k) = s := by
-  rw [MvPolynomial.ringKrullDim_of_isNoetherianRing_of_finite, ringKrullDim_eq_zero_of_field]
-  simp
-
-/-- **Stacks 00P4 (affine case), proved.** For a finitely generated algebra `R` over a field `K`
-and any field extension `L/K`, `dim (R ⊗_K L) = dim R`. Proof: Noether normalization
-`K[X_1..X_s] → R` (finite, injective) base-changes to `L[X_1..X_s] → R ⊗ L` (finite, injective
-since `L` is flat over `K`). -/
-theorem ringKrullDim_tensor_field (K : Type*) [Field K] (R : Type*) [CommRing R] [Algebra K R]
-    [Algebra.FiniteType K R] (L : Type*) [Field L] [Algebra K L] :
-    ringKrullDim (R ⊗[K] L) = ringKrullDim R := by
-  rcases subsingleton_or_nontrivial R with h | h
-  · haveI : Subsingleton (R ⊗[K] L) := by
-      have h1 : (1 : R ⊗[K] L) = 0 := by
-        rw [Algebra.TensorProduct.one_def, Subsingleton.elim (1 : R) 0, TensorProduct.zero_tmul]
-      exact subsingleton_of_zero_eq_one h1.symm
-    rw [ringKrullDim_eq_bot_of_subsingleton, ringKrullDim_eq_bot_of_subsingleton]
-  · obtain ⟨s, g, ginj, gfin⟩ := exists_finite_inj_algHom_of_fg K R
-    have hR : ringKrullDim R = s := by
-      letI := g.toRingHom.toAlgebra
-      haveI : Algebra.IsIntegral (MvPolynomial (Fin s) K) R := ⟨gfin.to_isIntegral⟩
-      rw [ringKrullDim_eq_of_isIntegral_of_injective (A := MvPolynomial (Fin s) K) ginj,
-        ringKrullDim_mvPolynomial_field]
-    let g' := Algebra.TensorProduct.map g (AlgHom.id K L)
-    have g'inj : Function.Injective g' :=
-      Module.Flat.rTensor_preserves_injective_linearMap (M := L) g.toLinearMap ginj
-    have g'fin : g'.toRingHom.Finite := RingHom.Finite.tensorProductMap gfin (by exact RingHom.Finite.id L)
-    have hP : ringKrullDim (MvPolynomial (Fin s) K ⊗[K] L) = s := by
-      rw [ringKrullDim_eq_of_ringEquiv ((Algebra.TensorProduct.comm K _ L).toRingEquiv.trans
-        (MvPolynomial.algebraTensorAlgEquiv K L).toRingEquiv), ringKrullDim_mvPolynomial_field]
-    rw [hR, ← hP]
-    letI := g'.toRingHom.toAlgebra
-    haveI : Algebra.IsIntegral (MvPolynomial (Fin s) K ⊗[K] L) (R ⊗[K] L) := ⟨g'fin.to_isIntegral⟩
-    exact ringKrullDim_eq_of_isIntegral_of_injective g'inj
-
-/-- A finitely generated algebra over a field has finite Krull dimension (or is zero). -/
-theorem ringKrullDim_le_of_finiteType (K : Type*) [Field K] (R : Type*) [CommRing R] [Algebra K R]
-    [Algebra.FiniteType K R] : ∃ n : ℕ, ringKrullDim R ≤ n := by
-  rcases subsingleton_or_nontrivial R with h | h
-  · exact ⟨0, by rw [ringKrullDim_eq_bot_of_subsingleton]; exact bot_le⟩
-  · obtain ⟨s, g, ginj, gfin⟩ := exists_finite_inj_algHom_of_fg K R
-    letI := g.toRingHom.toAlgebra
-    haveI : Algebra.IsIntegral (MvPolynomial (Fin s) K) R := ⟨gfin.to_isIntegral⟩
-    refine ⟨s, le_of_eq ?_⟩
-    rw [ringKrullDim_eq_of_isIntegral_of_injective (A := MvPolynomial (Fin s) K) ginj,
-      ringKrullDim_mvPolynomial_field]
-
-
-/-! ## §2. Topology and schemes -/
-
-open TopologicalSpace Topology
-
-
-/-- The Krull dimension of a space is the supremum of the dimensions of the members of a cover
-by open embeddings (Stacks 0055 for open covers; STANDARD). -/
-theorem topologicalKrullDim_eq_iSup_of_openEmbedding {X : Type*} [TopologicalSpace X] {ι : Type*}
-    {Y : ι → Type*} [∀ i, TopologicalSpace (Y i)] (f : ∀ i, Y i → X)
-    (hf : ∀ i, IsOpenEmbedding (f i)) (hcov : ∀ x, ∃ i, x ∈ Set.range (f i)) :
-    topologicalKrullDim X = ⨆ i, topologicalKrullDim (Y i) := by
-  apply le_antisymm
-  · refine iSup_le fun p => ?_
-    obtain ⟨x, hx⟩ := p.head.isIrreducible.nonempty
-    obtain ⟨i, y, rfl⟩ := hcov x
-    let e := IrreducibleCloseds.orderIsoOfIsOpenEmbedding (f i) (hf i)
-    have hmem : ∀ j, (f i ⁻¹' (p j : Set X)).Nonempty := fun j =>
-      ⟨y, p.monotone (Fin.zero_le j) hx⟩
-    let q : LTSeries {V : IrreducibleCloseds X | (f i ⁻¹' V).Nonempty} :=
-      { length := p.length
-        toFun := fun j => ⟨p j, hmem j⟩
-        step := fun j => p.step j }
-    calc (p.length : WithBot ℕ∞) = q.length := rfl
-      _ ≤ krullDim {V : IrreducibleCloseds X | (f i ⁻¹' V).Nonempty} := q.length_le_krullDim
-      _ = topologicalKrullDim (Y i) := (Order.krullDim_eq_of_orderIso e).symm
-      _ ≤ ⨆ i, topologicalKrullDim (Y i) := le_iSup (fun i => topologicalKrullDim (Y i)) i
-  · exact iSup_le fun i => (hf i).isInducing.topologicalKrullDim_le
-
-open AlgebraicGeometry CategoryTheory Limits
-
-theorem scheme_dim_eq_iSup_cover {X : Scheme} (𝒰 : X.OpenCover) :
-    topologicalKrullDim X = ⨆ i, topologicalKrullDim (𝒰.X i) :=
-  topologicalKrullDim_eq_iSup_of_openEmbedding (fun i => 𝒰.f i) (fun i => (𝒰.f i).isOpenEmbedding)
-    (fun x => ⟨𝒰.idx x, 𝒰.covers x⟩)
-
-theorem scheme_dim_eq_of_iso {X Y : Scheme} (e : X ≅ Y) :
-    topologicalKrullDim X = topologicalKrullDim Y :=
-  IsHomeomorph.topologicalKrullDim_eq _ (Scheme.homeoOfIso e).isHomeomorph
-
-theorem spec_dim (R : CommRingCat) : topologicalKrullDim (Spec R) = ringKrullDim R :=
-  PrimeSpectrum.topologicalKrullDim_eq_ringKrullDim R
-
-
-/-- **Stacks 00P4, affine piece over `Spec K`.** For `m : Spec R → Spec K` locally of finite
-type, `Spec R ×_K Spec L ≅ Spec (R ⊗_K L)` has the dimension of `Spec R`. -/
-theorem dim_pullback_spec {K : Type} [Field K] (L : Type) [Field L] [Algebra K L]
-    (R : CommRingCat.{0}) (m : Spec R ⟶ Spec (CommRingCat.of K)) [LocallyOfFiniteType m] :
-    topologicalKrullDim (pullback m (Spec.map (CommRingCat.ofHom (algebraMap K L))) : Scheme) =
-      topologicalKrullDim (Spec R) := by
-  obtain ⟨φ, rfl⟩ : ∃ φ, Spec.map φ = m := ⟨Spec.preimage m, Spec.map_preimage m⟩
-  have hφ : φ.hom.FiniteType :=
-    (HasRingHomProperty.Spec_iff (P := @LocallyOfFiniteType)).mp inferInstance
-  letI : Algebra K R := φ.hom.toAlgebra
-  haveI : Algebra.FiniteType K R := hφ
-  have e := scheme_dim_eq_of_iso (pullbackSpecIso K R L)
-  refine e.trans ?_
-  rw [spec_dim, spec_dim]
-  exact ringKrullDim_tensor_field K R L
-
-/-- A scheme of finite type over a field: each affine piece `Spec R → Spec K` has bounded
-dimension. -/
-theorem dim_spec_le {K : Type} [Field K] (R : CommRingCat.{0}) (m : Spec R ⟶ Spec (CommRingCat.of K))
-    [LocallyOfFiniteType m] : ∃ n : ℕ, topologicalKrullDim (Spec R) ≤ n := by
-  obtain ⟨φ, rfl⟩ : ∃ φ, Spec.map φ = m := ⟨Spec.preimage m, Spec.map_preimage m⟩
-  have hφ : φ.hom.FiniteType :=
-    (HasRingHomProperty.Spec_iff (P := @LocallyOfFiniteType)).mp inferInstance
-  letI : Algebra K R := φ.hom.toAlgebra
-  haveI : Algebra.FiniteType K R := hφ
-  rw [spec_dim]
-  exact ringKrullDim_le_of_finiteType K R
-
-/-- **Dimension is invariant under field base change** (Stacks 00P4 globalized; proved). For a
-scheme `X` locally of finite type over a field `K` and any field extension `L/K`,
-`dim (X ×_K L) = dim X`. -/
-theorem dim_baseChange {K : Type} [Field K] (L : Type) [Field L] [Algebra K L] (X : Scheme.{0})
-    (h : X ⟶ Spec (CommRingCat.of K)) [LocallyOfFiniteType h] :
-    topologicalKrullDim (pullback h (Spec.map (CommRingCat.ofHom (algebraMap K L))) : Scheme) =
-      topologicalKrullDim X := by
-  let g := Spec.map (CommRingCat.ofHom (algebraMap K L))
-  let 𝒰 := X.affineCover
-  rw [scheme_dim_eq_iSup_cover 𝒰, scheme_dim_eq_iSup_cover (𝒰.pullback₁ (pullback.fst h g))]
-  refine iSup_congr fun i => ?_
-  have e : (𝒰.pullback₁ (pullback.fst h g)).X i ≅ pullback (𝒰.f i ≫ h) g :=
-    (pullbackSymmetry _ _).trans (pullbackRightPullbackFstIso h g (𝒰.f i))
-  rw [scheme_dim_eq_of_iso e]
-  haveI : IsOpenImmersion (𝒰.f i) := 𝒰.map_prop i
-  have hc : LocallyOfFiniteType (𝒰.f i ≫ h) := locallyOfFiniteType_comp _ _
-  exact @dim_pullback_spec K _ L _ _ _ (𝒰.f i ≫ h) hc
-
-theorem exists_nat_of_le (x : WithBot ℕ∞) (h0 : x ≠ ⊥) (N : ℕ) (h : x ≤ N) :
-    ∃ n : ℕ, x = n := by
-  induction x using WithBot.recBotCoe with
-  | bot => exact absurd rfl h0
-  | coe e =>
-    induction e using ENat.recTopCoe with
-    | top =>
-      have h' : ((⊤ : ℕ∞) : WithBot ℕ∞) ≤ ((N : ℕ∞) : WithBot ℕ∞) := by exact_mod_cast h
-      exact absurd (WithBot.coe_le_coe.mp h') (by simp)
-    | coe n => exact ⟨n, rfl⟩
-
-/-- **A nonempty scheme of finite type over a field has finite dimension** (proved). -/
-theorem dim_finite {K : Type} [Field K] (X : Scheme.{0}) (h : X ⟶ Spec (CommRingCat.of K))
-    [LocallyOfFiniteType h] [QuasiCompact h] [Nonempty X] :
-    ∃ n : ℕ, topologicalKrullDim X = n := by
-  haveI : CompactSpace X := QuasiCompact.compactSpace_of_compactSpace h
-  let 𝒰 := X.affineCover.finiteSubcover
-  have hb : ∀ i, ∃ n : ℕ, topologicalKrullDim (𝒰.X i) ≤ n := fun i => by
-    haveI : IsOpenImmersion (𝒰.f i) := 𝒰.map_prop i
-    have hc : LocallyOfFiniteType (𝒰.f i ≫ h) := locallyOfFiniteType_comp _ _
-    exact @dim_spec_le K _ _ (𝒰.f i ≫ h) hc
-  choose n hn using hb
-  have hle : topologicalKrullDim X ≤ ((∑ i, n i : ℕ) : WithBot ℕ∞) := by
-    rw [scheme_dim_eq_iSup_cover 𝒰]
-    refine iSup_le fun i => (hn i).trans ?_
-    exact_mod_cast Finset.single_le_sum (fun j _ => Nat.zero_le (n j)) (Finset.mem_univ i)
-  have hne : topologicalKrullDim X ≠ ⊥ := by
-    obtain ⟨x⟩ := ‹Nonempty X›
-    haveI : Nonempty (IrreducibleCloseds X) :=
-      ⟨⟨closure {x}, isIrreducible_singleton.closure, isClosed_closure⟩⟩
-    exact Order.krullDim_ne_bot_iff.mpr inferInstance
-  exact exists_nat_of_le _ hne _ hle
-
-end G0Dim
-
-end G0DimSec
+-- (g0-assemble3) g0-dim §1-§2 copy (namespace G0Dim) omitted: part 10 has it.
 
 namespace ZInQ.Metrization
 open CategoryTheory AlgebraicGeometry Limits MonoidalCategory CartesianMonoidalCategory MonObj

@@ -1,4 +1,4 @@
-/-! ## g0-assemble3: period-map (scratch/period-map/part_{light,theta,siegel,order,heavy}.lean, verbatim minus #print lines, in build_full.sh's order after part_fqm = part a80) -/
+/-! ## g0-assemble3: period-map (scratch/period-map/part_{light,theta,siegel,order,heavy}.lean, verbatim minus #print lines, in build_full.sh's order after part_fqm = part a80; one `open ZInQ.LeafPush2 (…)` line added to part_heavy, as part a80 has) -/
 section G0A3pm_light
 
 /-! ## period-map: `HauptmodulUnique` and `QMDenZeroCM3` from strictly smaller named Props
@@ -1092,6 +1092,8 @@ end
 
 end G0A3pm_order
 section G0A3pm_heavy
+-- (g0-assemble3) as part a80 L223: leaf-push2's names, which period-map's base file imports
+open ZInQ.LeafPush2 (CPts cptObj IsUniformization IsSiegel IsPeriodMatrix Char2 thetaConst absLogHeight cDom cEvalAt)
 
 /-! ## period-map (heavy part): `PeriodMapGlue` from strictly smaller named Props
 

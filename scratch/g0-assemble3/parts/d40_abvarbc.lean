@@ -1,9 +1,13 @@
 /-! ## g0-assemble3: g9-abvarbc (ZInQKernel/Contrib/AbVarBC/{Dim,Points,Tate,Torsion,Mul,G9Instance,G9Mul}.lean, in
-import order, verbatim minus imports and `#print` lines; each in its own section). `KerUnit`, `Tangent` and `Main`
+import order, verbatim minus imports and `#print` lines; each in its own section). Edits (g9-derham's layer copies
+`ZInQ.Contrib.G9.{PkgI3, PkgI4.I3}.AbVar` and `G0Galois` are not in this file, as for part a95: names resolve to
+Leaves.lean's): `ZInQ.Contrib.G9.PkgI3.AbVar` → `_root_.PkgI3.AbVar`, `ZInQ.Contrib.G9.PkgI4.I3.AbVar` →
+`_root_.PkgI4.I3.AbVar`, `ZInQ.Contrib.G9.G0Galois.G9Glue` → `_root_.G0Galois.G9Glue`; an `end` is appended where a
+file leaves its `noncomputable section` open at end of file. `KerUnit`, `Tangent` and `Main`
 (its own proof of `MulIsogeny`) are not copied: `MulIsogeny` is infra-stalks' `MulRigidity.mulIsogeny` (part b10),
 applied through `G9Mul`'s `abVarBaseChange_of_mulIsogeny` in part d45. -/
 section G0A3file_Dim
--- (file ZInQKernel/Contrib/AbVarBC/Dim.lean, verbatim minus imports and #print lines)
+-- (file ZInQKernel/Contrib/AbVarBC/Dim.lean, verbatim minus imports and #print lines; g0-assemble3 edits listed in the part header)
 
 /-!
 # Base change of abelian varieties, I: the dimension
@@ -246,7 +250,7 @@ end PkgI3.AbVar
 end G0A3file_Dim
 
 section G0A3file_Points
--- (file ZInQKernel/Contrib/AbVarBC/Points.lean, verbatim minus imports and #print lines)
+-- (file ZInQKernel/Contrib/AbVarBC/Points.lean, verbatim minus imports and #print lines; g0-assemble3 edits listed in the part header)
 
 /-!
 # Base change of abelian varieties, II: points
@@ -467,7 +471,7 @@ end ZInQ.Contrib.AbVarBC
 end G0A3file_Points
 
 section G0A3file_Tate
--- (file ZInQKernel/Contrib/AbVarBC/Tate.lean, verbatim minus imports and #print lines)
+-- (file ZInQKernel/Contrib/AbVarBC/Tate.lean, verbatim minus imports and #print lines; g0-assemble3 edits listed in the part header)
 
 /-!
 # Base change of abelian varieties, III: Tate modules
@@ -624,7 +628,7 @@ end ZInQ.Contrib.AbVarBC
 end G0A3file_Tate
 
 section G0A3file_Torsion
--- (file ZInQKernel/Contrib/AbVarBC/Torsion.lean, verbatim minus imports and #print lines)
+-- (file ZInQKernel/Contrib/AbVarBC/Torsion.lean, verbatim minus imports and #print lines; g0-assemble3 edits listed in the part header)
 
 /-!
 # Base change of abelian varieties, V: descent of torsion points from finiteness of `[N]`
@@ -780,7 +784,7 @@ end ZInQ.Contrib.AbVarBC
 end G0A3file_Torsion
 
 section G0A3file_Mul
--- (file ZInQKernel/Contrib/AbVarBC/Mul.lean, verbatim minus imports and #print lines)
+-- (file ZInQKernel/Contrib/AbVarBC/Mul.lean, verbatim minus imports and #print lines; g0-assemble3 edits listed in the part header)
 
 /-!
 # mul-rigidity: the textbook leaf `MulIsogeny` reduced to smaller named Props
@@ -1190,10 +1194,12 @@ end ZInQ.Contrib.AbVarBC.MulRigidity
 
 
 
+end
+
 end G0A3file_Mul
 
 section G0A3file_G9Instance
--- (file ZInQKernel/Contrib/AbVarBC/G9Instance.lean, verbatim minus imports and #print lines)
+-- (file ZInQKernel/Contrib/AbVarBC/G9Instance.lean, verbatim minus imports and #print lines; g0-assemble3 edits listed in the part header)
 
 /-!
 # Base change of abelian varieties, IV: the instance `G9Bridge.AbVarBaseChange`
@@ -1201,8 +1207,8 @@ section G0A3file_G9Instance
 Copyright: this file is part of the fork Deicyde/diophantine-z-q (task g9-abvarbc, 2026-11-13).
 
 `G9Bridge.AbVarBaseChange` (task g9-derham, `ZInQKernel/Contrib/G9/LocalModel.lean`) is stated over
-two verbatim copies of the kernel's abelian varieties: `ZInQ.Contrib.G9.PkgI3.AbVar`
-(`Contrib/G9/I3Layer.lean`) and `ZInQ.Contrib.G9.PkgI4.I3.AbVar` (`Contrib/G9/I4Layer.lean`).
+two verbatim copies of the kernel's abelian varieties: `_root_.PkgI3.AbVar`
+(`Contrib/G9/I3Layer.lean`) and `_root_.PkgI4.I3.AbVar` (`Contrib/G9/I4Layer.lean`).
 §1 transports between the copies and the kernel's `PkgI3.AbVar` (all identities are `rfl`);
 §2 derives the instance from the general lemmas of `Contrib/AbVarBC/{Dim,Points,Tate}.lean`.
 
@@ -1225,27 +1231,27 @@ section Transport
 variable {K : Type} [Field K]
 
 /-- G9's copy of pkg-I3's abelian variety, as a kernel `PkgI3.AbVar`. -/
-def ofG9 (A : ZInQ.Contrib.G9.PkgI3.AbVar K) : _root_.PkgI3.AbVar K :=
+def ofG9 (A : _root_.PkgI3.AbVar K) : _root_.PkgI3.AbVar K :=
   @_root_.PkgI3.AbVar.mk K _ A.X A.grp A.proper A.smooth A.geomInt
 
 /-- A kernel `PkgI3.AbVar`, as pkg-I4's copy `PkgI4.I3.AbVar` (in G9's namespace). -/
-def toI4 (A : _root_.PkgI3.AbVar K) : ZInQ.Contrib.G9.PkgI4.I3.AbVar K :=
-  @ZInQ.Contrib.G9.PkgI4.I3.AbVar.mk K _ A.X A.grp A.proper A.smooth A.geomInt
+def toI4 (A : _root_.PkgI3.AbVar K) : _root_.PkgI4.I3.AbVar K :=
+  @_root_.PkgI4.I3.AbVar.mk K _ A.X A.grp A.proper A.smooth A.geomInt
 
-theorem dim_ofG9 (A : ZInQ.Contrib.G9.PkgI3.AbVar K) : (ofG9 A).dim = A.dim := rfl
+theorem dim_ofG9 (A : _root_.PkgI3.AbVar K) : (ofG9 A).dim = A.dim := rfl
 
 theorem dim_toI4 (A : _root_.PkgI3.AbVar K) : (toI4 A).dim = A.dim := rfl
 
 variable (ℓ : ℕ) [Fact ℓ.Prime]
 
 /-- `V_ℓ` of G9's copy is `V_ℓ` of the kernel's object (identity map). -/
-noncomputable def vOfG9 (A : ZInQ.Contrib.G9.PkgI3.AbVar K) : A.V ℓ ≃ₗ[ℚ_[ℓ]] (ofG9 A).V ℓ :=
+noncomputable def vOfG9 (A : _root_.PkgI3.AbVar K) : A.V ℓ ≃ₗ[ℚ_[ℓ]] (ofG9 A).V ℓ :=
   LinearEquiv.refl ℚ_[ℓ] (A.V ℓ)
 
-theorem vOfG9_galRep (A : ZInQ.Contrib.G9.PkgI3.AbVar K) (σ : Field.absoluteGaloisGroup K)
+theorem vOfG9_galRep (A : _root_.PkgI3.AbVar K) (σ : Field.absoluteGaloisGroup K)
     (v : A.V ℓ) : vOfG9 ℓ A (A.galRep ℓ σ v) = (ofG9 A).galRep ℓ σ (vOfG9 ℓ A v) := rfl
 
-theorem vOfG9_symm_galRep (A : ZInQ.Contrib.G9.PkgI3.AbVar K) (σ : Field.absoluteGaloisGroup K)
+theorem vOfG9_symm_galRep (A : _root_.PkgI3.AbVar K) (σ : Field.absoluteGaloisGroup K)
     (v : (ofG9 A).V ℓ) :
     (vOfG9 ℓ A).symm ((ofG9 A).galRep ℓ σ v) = A.galRep ℓ σ ((vOfG9 ℓ A).symm v) := rfl
 
@@ -1315,7 +1321,7 @@ theorem abVarBaseChange_of_tateModuleFree (hT : _root_.PkgI3.TateModuleFree) :
 
 /-- **G9 from T26 and the weight clause**: `TateModuleFree → R10Weights → G9Glue`. -/
 theorem g9Glue_of_tateModuleFree (hT : _root_.PkgI3.TateModuleFree)
-    (hW : ZInQ.Contrib.G9.G9Bridge.R10Weights) : ZInQ.Contrib.G9.G0Galois.G9Glue :=
+    (hW : ZInQ.Contrib.G9.G9Bridge.R10Weights) : _root_.G0Galois.G9Glue :=
   ZInQ.Contrib.G9.g9Glue_of_abVarBaseChange (abVarBaseChange_of_tateModuleFree hT) hW
 
 end ZInQ.Contrib.AbVarBC
@@ -1323,7 +1329,7 @@ end ZInQ.Contrib.AbVarBC
 end G0A3file_G9Instance
 
 section G0A3file_G9Mul
--- (file ZInQKernel/Contrib/AbVarBC/G9Mul.lean, verbatim minus imports and #print lines)
+-- (file ZInQKernel/Contrib/AbVarBC/G9Mul.lean, verbatim minus imports and #print lines; g0-assemble3 edits listed in the part header)
 
 /-!
 # Base change of abelian varieties, VI: `AbVarBaseChange` from finiteness of `[n]`
@@ -1412,13 +1418,13 @@ theorem abVarBaseChange_of_cotangent (h1 : MulRigidity.KerUnitOpenOfCotangentSur
 
 /-- `G9Glue` from `KerUnitOpen` and the weight clause. -/
 theorem g9Glue_of_kerUnitOpen (h : MulRigidity.KerUnitOpen)
-    (hW : ZInQ.Contrib.G9.G9Bridge.R10Weights) : ZInQ.Contrib.G9.G0Galois.G9Glue :=
+    (hW : ZInQ.Contrib.G9.G9Bridge.R10Weights) : _root_.G0Galois.G9Glue :=
   ZInQ.Contrib.G9.g9Glue_of_abVarBaseChange (abVarBaseChange_of_kerUnitOpen h) hW
 
 /-- `G9Glue` from the two cotangent glue statements and the weight clause. -/
 theorem g9Glue_of_cotangent (h1 : MulRigidity.KerUnitOpenOfCotangentSurj)
     (h2 : MulRigidity.CotangentMulN) (hW : ZInQ.Contrib.G9.G9Bridge.R10Weights) :
-    ZInQ.Contrib.G9.G0Galois.G9Glue :=
+    _root_.G0Galois.G9Glue :=
   ZInQ.Contrib.G9.g9Glue_of_abVarBaseChange (abVarBaseChange_of_cotangent h1 h2) hW
 
 end ZInQ.Contrib.AbVarBC
