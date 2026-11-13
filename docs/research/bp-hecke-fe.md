@@ -7,13 +7,14 @@ Log: `scratch/bp-hecke-fe/log.md`. Marks: VERIFIED (compiled, computed or read h
 
 ## 0. Main result
 
-**Both literature Props are proved in Lean from two elementary statements** (VERIFIED: compiled,
+**Both literature Props are proved in Lean from three elementary statements** (VERIFIED: compiled,
 no `sorry`, `#print axioms` = `propext, Classical.choice, Quot.sound`):
 
 ```lean
-theorem BpHeckeFE.literature_hecke_fe_of_heckeEuler_gaussSplit
-    (hE : ∀ d : ℕ, d % 8 = 5 → Squarefree d → HeckeEuler d)   -- Euler product of L(ψ_d, s): ℤ[i] only
-    (h1 : GaussSplit 1) :                                     -- Gauss: a_p(y² = x³ − x), p ≡ 1 (mod 4)
+theorem BpHeckeFE.literature_hecke_fe_of_mult_split_gaussPointCount
+    (hM : ∀ d : ℕ, d % 8 = 5 → Squarefree d → HeckeMult d)          -- ℤ[i]: multiplicativity
+    (hS : ∀ d : ℕ, d % 8 = 5 → Squarefree d → HeckePrimePowSplit d) -- ℤ[i]: split prime powers
+    (h1 : GaussPointCount) :                                         -- Gauss on y² = x³ − x
     HeckeContinuation5 ∧ ZInQ.Literature.FunctionalEquation5
 ```
 
@@ -22,13 +23,32 @@ theorem BpHeckeFE.literature_hecke_fe_of_heckeEuler_gaussSplit
 restricted to squarefree `d ≡ 5 (mod 8)`. That restriction is all the headline uses:
 `tyzRow5b_of_readingA_five : TYZThm35ReadingA → HeckeContinuation5 → TYZRow5b` is proved.
 
-The two remaining statements involve no L-functions, no analysis and no Fourier analysis. Both are
-concrete, over Mathlib definitions:
+The three remaining statements involve no L-functions and no analysis; all are about `ℤ[i]` and
+`𝔽_p`. Write `heckeCoeff d n = ¼ Σ_{α ∈ ℤ[i], N α = n} ψ_d(α)` with `ψ_d(α) = (Nα/d) u(α) α`, where
+`(·/d)` is the Jacobi symbol and `u(α) ∈ {±1, ±i}` makes `u(α)α ≡ 1 (mod 2+2i)`:
 
 | Prop | Statement | Status |
 | --- | --- | --- |
-| `HeckeEuler d` | `heckeCoeff d n = Π_{p^k ∥ n} [T^k] 1/(1 − heckeCoeff(d,p) T + p T²)` (factor `1` at `p ∣ 2d`), where `heckeCoeff d n = ¼ Σ_{α ∈ ℤ[i], N α = n} (Nα/d) u(α) α` | true; numerically VERIFIED (`remaining_check.py`: `d ∈ {5,13,21,29}`, `n ≤ 300`). Proof: unique factorization in `ℤ[i]`; `ψ_d` is completely multiplicative and unit-invariant (proved: `psi_mul`, `psi_units`). Tier M |
-| `GaussSplit 1` | for primes `p ≡ 1 (mod 4)`: `p − #{(x,y) ∈ 𝔽_p² : y² = x³ − x} = heckeCoeff 1 p`, that is `π + π̄` with `ππ̄ = p`, `π ≡ 1 (mod 2+2i)` | Gauss (1814); STANDARD (Ireland–Rosen, Ch. 18 §4; theorem number UNVERIFIED); numerically VERIFIED (29 primes below 300). Tier M: quartic Jacobi sums (Mathlib has `jacobiSum`, `jacobiSum_mul_jacobiSum_inv`, `exists_jacobiSum_eq_neg_one_add`), or take it as a temporary leaf |
+| `HeckeMult d` | `heckeCoeff d (mn) = heckeCoeff d m · heckeCoeff d n` for coprime `m, n` | true (implied by the numerical `HeckeEuler` check). Proof sketch below (Bezout in `ℤ[i]`). Tier S–M |
+| `HeckePrimePowSplit d` | for primes `p ≡ 1 (mod 4)`, `p ∤ d`: `heckeCoeff d (p^{k+2}) = heckeCoeff d p · heckeCoeff d (p^{k+1}) − p · heckeCoeff d (p^k)` | true (same check). Proof: the elements of norm `p^k` are `ε π^i π̄^{k−i}`; or count products `π'β` with `N π' = p` (the Hecke relation `T_p T_{p^{k+1}} = T_{p^{k+2}} + p T_{p^k}`). Tier S–M |
+| `GaussPointCount` | for primes `p ≡ 1 (mod 4)`: `p − #{(x,y) ∈ 𝔽_p² : y² = x³ − x} = ¼ Σ_{a²+b²=p} u(a+bi)(a+bi)` (that is `π + π̄`, `π` primary) | Gauss (1814); STANDARD (Ireland–Rosen, Ch. 18 §4; theorem number UNVERIFIED); numerically VERIFIED (29 primes below 300). Tier M (quartic Jacobi sums), or a temporary leaf |
+
+The inert, ramified and bad primes are done (`heckeCoeff_inert`, `heckeCoeff_two_pow`,
+`heckeCoeff_pow_of_dvd`). So is the Euler-product glue `heckeEuler_of_mult_primePow`, which gives
+`HeckeEuler d` from `HeckeMult d`, `HeckePrimePow d` and `heckeCoeff d 1 = 1`.
+
+**Proof sketch for `HeckeMult`** (for the team). Let `A_n = {α : N α = n}`, and let `m, n` be coprime.
+By `psi_mul`, `Σ_{A_m × A_n} ψ(α)ψ(β) = Σ_{A_m × A_n} ψ(αβ)`. It suffices that `(α, β) ↦ αβ` maps
+`A_m × A_n` onto `A_{mn}` with fibres of size 4. For `γ ∈ A_{mn}` put `α = gcd(γ, m)` and `β = gcd(γ, n)`
+(Euclidean domain, Bezout: `α = γx₁ + my₁`, `β = γx₂ + ny₂`). Every term of
+`αβ = γ²x₁x₂ + γnx₁y₂ + mγy₁x₂ + mn y₁y₂` is divisible by `γ` (`mn = γγ̄`), so `γ ∣ αβ`. Also `N α ∣ m`
+(`N α ∣ gcd(m², mn)`) and `N β ∣ n`. Hence `N α = m` and `N β = n`. If `α'β' = γ` with `N α' = m`, then
+`α' ∣ m` (`α'ᾱ' = m`), so `α' ∣ α`, and equal norms make `α'` an associate of `α`. So the fibre is
+`{(εα, ε⁻¹β₀)}` over the four units `ε`, and `ψ` is unit-invariant (`psi_units`).
+
+The two shorter equivalent forms are also proved: `literature_hecke_fe_of_heckeEuler_gaussPointCount`
+(`HeckeEuler` instead of `HeckeMult ∧ HeckePrimePowSplit`) and
+`literature_hecke_fe_of_heckeEuler_gaussSplit` (`GaussSplit 1`, phrased through `cdCoeff 1 p`).
 
 `GaussSplit 1` is a published, refereed, classical theorem about a single curve, so it is a
 legitimate leaf if the team wants one. `HeckeEuler` is glue (ideal counting in `ℤ[i]`).
@@ -213,8 +233,10 @@ Mathlib: Hurwitz kernels, FE-pairs, hasSum_mellin, ZLattice sums, Gauss/Jacobi s
   ├─ A5 HeckeContinuation5 ⟸ ∀d DeuringCd d                        S  DONE  heckeContinuation5_of_deuring
   │
   ├─ B1 ψ_d completely multiplicative, unit-invariant              S  DONE  psi_mul, psi_units (decide)
-  ├─ B2 HeckeEuler d: Euler product of heckeCoeff                  M  OPEN  (ℤ[i] UFD; ideals of norm n;
-  │       split / inert / ramified Euler factors; uses B1)
+  ├─ B2 HeckeEuler d ⟸ HeckeMult ∧ HeckePrimePow ∧ h(1) = 1        S  DONE  heckeEuler_of_mult_primePow
+  ├─ B2a HeckeMult d (Bezout/gcd in ℤ[i], fibres of size 4)         S–M OPEN
+  ├─ B2b HeckePrimePow at inert / ramified / bad p                   S  DONE  heckeCoeff_inert, _two_pow, _pow_of_dvd
+  ├─ B2c HeckePrimePowSplit d (p ≡ 1 (4), p ∤ d)                    S–M OPEN
   ├─ B3 GaussSplit 1: a_p(y² = x³ − x) = π + π̄, p ≡ 1 (4)          M  OPEN  (Gauss 1814; quartic Jacobi
   │       sum J(χ,χ) and its congruence mod (1+i)³; or a temporary leaf)
   ├─ B3' GaussSplit d ⟸ GaussSplit 1 (twist, reciprocity)          S  DONE  gaussSplit_of_one
@@ -229,19 +251,15 @@ Mathlib: Hurwitz kernels, FE-pairs, hasSum_mellin, ZLattice sums, Gauss/Jacobi s
   └─ C4 constants, strip, identity theorem
           FunctionalEquation5 ⟸ ∀d DeuringCd d ∧ CdFourier d       S  DONE  functionalEquation5_of_deuring_fourier'
 
-  Final: literature_hecke_fe_of_heckeEuler_gaussSplit :
-           (∀d HeckeEuler d) → GaussSplit 1 → HeckeContinuation5 ∧ FunctionalEquation5   DONE
+  Final: literature_hecke_fe_of_mult_split_gaussPointCount :
+           (∀d HeckeMult d) → (∀d HeckePrimePowSplit d) → GaussPointCount
+             → HeckeContinuation5 ∧ FunctionalEquation5                                   DONE
 ```
 
-Open nodes: B2 (pure `ℤ[i]` arithmetic) and B3 (the largest; or a temporary leaf). They are
-independent. The
+Open nodes: B2a and B2c (pure `ℤ[i]` arithmetic) and B3 (`GaussPointCount`, the largest; or a
+temporary leaf). They are independent. The
 remaining work is weeks, not months (SPECULATIVE). The analytic part, which wk-cr3 §4.3 estimated at
 "months or more", is done.
-
-Proof sketch for B2: `heckeCoeff d n = ¼ Σ_{Nα=n} ψ_d(α)` with `ψ_d` completely multiplicative
-and unit-invariant (B1). Unique factorization in `ℤ[i]` (Mathlib: `GaussianInt` is a Euclidean
-domain) gives multiplicativity in `n`. At prime powers: inert `p ≡ 3 (4)` gives `ψ(p) = −p` on
-`p^{k/2}` (`k` even); split `p = ππ̄` gives `Σ_{i+j=k} ψ(π)^i ψ(π̄)^j`; ramified `2` gives 0.
 
 ## 4. What is proved (Lean, `scratch/bp-hecke-fe/HeckeFE.lean`, namespace `BpHeckeFE`)
 
@@ -284,7 +302,11 @@ All VERIFIED: compiled with `lake env lean` against Mathlib v4.35 and the projec
 | `literature_hecke_fe_final` | the reduction to `HeckeEuler`, `GaussSplit 1`, `OddGauss p` |
 | `chiC`, `gP`, `sum_chi_psi_mul`, `sum_psi_sq`, `sum_psi_complete_sq`, `chiC_inv_eq`, `gP_sq`, `gP_ne_zero`, `gauss2D` | `Σ_{x,y∈𝔽_p} χ(x²+y²) e((xn₁+yn₂)/p) = p χ(n₁²+n₂²)` for odd primes `p` |
 | `jacobiSym_eq_chiC`, `oddGauss_prime` | `OddGauss p` for every odd prime `p` |
-| `literature_hecke_fe_of_heckeEuler_gaussSplit` | **the final reduction** (§0) |
+| `literature_hecke_fe_of_heckeEuler_gaussSplit` | reduction to `HeckeEuler`, `GaussSplit 1` |
+| `GaussPointCount`, `gaussSplit_one_of_pointCount`, `literature_hecke_fe_of_heckeEuler_gaussPointCount` | Gauss as a pure point count; reduction to `HeckeEuler`, `GaussPointCount` |
+| `HeckeMult`, `HeckePrimePow`, `normFiber_one`, `heckeCoeff_one`, `coeff_inv_quadratic`, `heckeCoeff_prime_of_dvd`, `heckeEuler_of_mult_primePow` | `HeckeEuler` from multiplicativity and the prime-power recursion |
+| `unitOf_eq_zero_of_even`, `heckeCoeff_two_pow`, `heckeCoeff_pow_of_dvd`, `dvd_of_dvd_sq_add_sq`, `normFiber_inert`, `heckeCoeff_inert`, `HeckePrimePowSplit`, `heckePrimePow_of_split` | the recursion at `p = 2`, `p ∣ d` and inert `p` |
+| `literature_hecke_fe_of_mult_split_gaussPointCount` | **the final reduction** (§0) |
 
 Faithfulness. `DeuringCd` is stated over the project's `cdCoeff` (proved equal to Mathlib's
 `L(C_d,s)` coefficients by `LFunctionCd.lean`) and over explicit sums in `ℤ²`. It involves no
@@ -306,8 +328,10 @@ For `d ≡ 3 (mod 4)` the Jacobi symbol `(n/d)` would have to be replaced by `(d
 
 ## 6. Not done / unchecked
 
-- Open (checked numerically only): `HeckeEuler d` (B2) and `GaussSplit 1` (B3). Everything else
-  in §3 is proved in Lean.
+- Open (checked numerically only): `HeckeMult d` (B2a), `HeckePrimePowSplit d` (B2c) and
+  `GaussPointCount` (B3). Everything else in §3 is proved in Lean. `HeckeMult` and
+  `HeckePrimePowSplit` follow from the numerically checked `HeckeEuler`. The check samples
+  `d ∈ {5, 13, 21, 29}`, `n ≤ 300`.
 - The scratch file imports `ZInQKernel.RouteK.Rank.LFunctionCd` and
   `ZInQKernel.Hypotheses.CR3Literature`; both were built with `lake build` in this worktree first.
 - `HeckeContinuation` for all `d ≠ 0` (as currently stated in `CR3Literature.lean`) is not proved;
