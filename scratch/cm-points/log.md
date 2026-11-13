@@ -77,3 +77,14 @@ SPECULATIVE / UNVERIFIED (theorem numbers from memory).
   `isTorsI3_mem_range` (the 8 points of A[(1+i)³] are tauG-values), `lemma318_iff_literal :
   Lemma318 Hn ↔ Lemma318Literal Hn` (literal TYZ Lemma 3.18: torsion of A(ℍ'_n) satisfies
   2(P + [i]P) = 0; no τ needed), `tyzThm35ReadingA_of_cm'`.
+
+## 09:00 Independent review (AI subagent) of the leaf statements
+- No false leaf found. Checked by hand: ShimuraReciprocity direction (Cox Cor. 11.37 / Shimura 5.4;
+  latN = ⟨1/32, τ⟩ is 𝒪_D-stable since 32 ∣ A, so one scalar moves the pair; conjPrimeLat is the ideal
+  𝔭̄), betaOneSign (Serre's formula), ptT/tauG/dictionary, tyzForm (both lattices have CM by ℤ[4√−n]).
+- Findings applied (docstrings): (1) GenusPtsDefined/Thm35First/Lemma321 have free Z — closed only
+  once Z pinned; main theorem uses bundled GenusPointLeafCM; (2) CMFieldOfDefinition's H free —
+  closed TYZ instance is CMFieldOfDefinitionTYZ; (3) CM leaves depend on X0.X0AnalyticModel.
+- Suggestion taken up: CMComplexConj is provable (η(−z̄) = conj η(z)).
+- Reviewer notes GenusPointLeafCM/Lemma321 depend on the [i]-sign in tyzZn (tyz-t1 numerics only);
+  TYZZnOverHprime does not (A(K)-membership is invariant under the sign).

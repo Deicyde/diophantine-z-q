@@ -239,7 +239,9 @@ functions*, 1971, Thm. 7.14 and §7.5, UNVERIFIED numbers; for CM curves also De
 Manin constant 1 for 32a1 (Cremona's tables; Edixhoven, UNVERIFIED locator), and CM points of
 `X₀(N)` are algebraic (Shimura 1971, Ch. 5–6, main theorem of complex multiplication; Gross,
 *Heegner points on X₀(N)*, in Modular Forms (Durham 1983), 1984, §1–3, UNVERIFIED numbers).
-Refereed (textbook). -/
+Refereed (textbook). All CM leaves are stated over x0-32's `X0.phiC`; they are true because (and only if) that eta
+model is the `ℚ`-rational modular parametrization, which is the content of x0-32's leaves
+`X0.X0AnalyticModel`. -/
 def CMAlgebraic : Prop :=
   ∀ (D : ℤ) (Q : HeegnerForm 32 D), ∃ P : PtA, toC P = X0.phiC Q.tauH
 
@@ -251,7 +253,9 @@ defined over `H D`. Source: Gross (1984) §1–3 / Shimura (1971) Thm. 5.7 and �
 parametrization over `ℚ` (UNVERIFIED numbers). Refereed (textbook). For non-maximal orders
 whose conductor shares a prime with `N` (TYZ's `D = −64n`, conductor 4, `N = 32`) this is the
 version of Shimura's reciprocity law for the full CM-point set of `X₀(N)`, which TYZ use at
-L1203–1260 (not re-read here). -/
+L1203–1260 (not re-read here). `H` is a free parameter: this is a closed leaf only for a pinned family (the ring class fields); the
+closed TYZ instance is `Package.CMFieldOfDefinitionTYZ` (via `Package.cmFieldTYZ_of`). The main
+theorem uses neither. -/
 def CMFieldOfDefinition (H : ℤ → IntermediateField ℚ Qbar) : Prop :=
   ∀ (D : ℤ) (Q : HeegnerForm 32 D), heegnerPt Q ∈ ptsOver (H D)
 

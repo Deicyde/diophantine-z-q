@@ -248,6 +248,13 @@ def IsBetaOneLift (σ : GalQ) : Prop :=
 
 /-! ## §5. The leaves (parameters: `Hn n = ℍ'_n ⊆ ℚ̄`, `Z e` = TYZ's genus point `Z(e)`) -/
 
+/-! **Soundness note (review 2026-11-13).** `GenusPtsDefined`, `Thm35First` and `Lemma321` take the
+genus points `Z` as a *free parameter*. They are closed leaves only once `Z` is pinned by a
+definition; asserted separately with their own `∃ Z` they would not be about the same points (e.g.
+`Z = 0` satisfies `GenusPtsDefined`). The glue theorems that take them (`genusPackage_of_split`,
+`genusPackage_of_ringClass`, …) are sound because one `Z` is shared, but the closed form used by the
+main theorem is the bundled `GenusPointLeafCM` (§8). -/
+
 /-- **Leaf RC-i**: `i ∈ ℍ'_n` (TYZ L1321: `ℍ'_n = L_n(i)·Π H'_{d₀}`; definitional once
 `RingClass.lean` defines `ℍ'_n`). -/
 def IContained (Hn : ℕ → IntermediateField ℚ Qbar) : Prop :=
