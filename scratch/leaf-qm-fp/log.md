@@ -87,3 +87,6 @@ Compile command: `lake env lean scratch/leaf-qm-fp/QMLeaves.lean` (one Lean proc
 - 17:2x proved `fibre_conjugates_isomorphic` (A4 + A7 from `R1R2fp` alone: for every rational j₀
   there is an object P over ℚ̄ at a point over j₀ whose Galois conjugates all have isomorphic
   abelian surfaces). COMPILES.
+- 17:2x proved `conjHom_symm_apply`, `comEquiv` (End_𝒪(A) ≃+* End_𝒪(A') for a QM-pair
+  isomorphism: the CM order is a class invariant, as R5fp/R5fpCount and NoCM's W·x ⊆ CM(R)
+  require). COMPILES.

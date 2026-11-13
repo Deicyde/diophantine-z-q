@@ -759,6 +759,23 @@ theorem HasCM24.of_iso {A A' : AbVar K} {q : QMStr A} {q' : QMStr A'} (f : QMIso
     HasCM24 q → HasCM24 q' := fun ⟨φ, hφ, h⟩ =>
   ⟨conjHom f φ, conjHom_mem_com f hφ, by rw [← map_mul, h, map_neg, map_ofNat]⟩
 
+theorem conjHom_symm_apply {A A' : AbVar K} {q : QMStr A} {q' : QMStr A'} (f : QMIso q q')
+    (g : AbVar.End A') : conjHom f (conjHom f.symm g) = g := by
+  apply AbVar.Hom.ext'
+  change f.ψ.hom ≫ (f.φ.hom ≫ g.hom ≫ f.ψ.hom) ≫ f.φ.hom = g.hom
+  simp only [Category.assoc, reassoc_of% f.right, f.right, Category.comp_id]
+
+/-- **The CM order is an isomorphism invariant** of QM pairs: `End_𝒪(A) ≅ End_𝒪(A')` (so "CM by
+`R`" in `R5fp`, `R5fpCount` depends only on the class, and `W·x ⊆ CM(R)` by `com_twist`). -/
+def comEquiv {A A' : AbVar K} {q : QMStr A} {q' : QMStr A'} (f : QMIso q q') :
+    com q ≃+* com q' where
+  toFun g := ⟨conjHom f g, conjHom_mem_com f g.2⟩
+  invFun g := ⟨conjHom f.symm g, conjHom_mem_com f.symm g.2⟩
+  left_inv g := Subtype.ext (conjHom_symm_apply f.symm g)
+  right_inv g := Subtype.ext (conjHom_symm_apply f g)
+  map_mul' g h := Subtype.ext (map_mul (conjHom f) (g : AbVar.End A) h)
+  map_add' g h := Subtype.ext (map_add (conjHom f) (g : AbVar.End A) h)
+
 theorem hasCM4_twist {A : AbVar K} (q : QMStr A) (α : O ≃+* O) :
     HasCM4 (q.twist α) ↔ HasCM4 q := by simp only [HasCM4, com_twist]
 theorem hasCM3_twist {A : AbVar K} (q : QMStr A) (α : O ≃+* O) :
@@ -1443,6 +1460,7 @@ end LeafQM
 #print axioms LeafQM.AV.residue_unramified_over_branch
 #print axioms LeafQM.AV.exists_fibre_object
 #print axioms LeafQM.AV.fibre_conjugates_isomorphic
+#print axioms LeafQM.AV.comEquiv
 #print axioms LeafQM.AV.Level3.exists_mul_of_range_le
 #print axioms LeafQM.AV.M3.rightMul_rightMul
 #print axioms LeafQM.AV.ToP1.val_comp_right
