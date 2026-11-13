@@ -103,3 +103,11 @@ KummerAbhyankarInfGlue, KummerOtherBranchInf, KummerVerticalInf), the open glue 
   Rz = `Localization.AtPrime (vertPrime p)` failed to elaborate (HasQuotient instance not found,
   Subalgebra.toSemiring vs CommRing.toCommSemiring unification); fixed by stating the lemma
   (`vertical_hL`) for an abstract `Rz` with `IsLocalization.AtPrime Rz (vertPrime p)`.
+
+## Step 6: final file with six pieces proved, compiled
+- KummerTS.lean (make_final.py; check_identical.py: PREFIX IDENTICAL, VERIFIED). New tail:
+  `TsKummer.kummerOtherBranchFin`, `kummerOtherBranchInf`, `kummerVerticalFin`,
+  `kummerVerticalInf`; `kummerMeetGlue_of_compositum : KummerCompositum → KummerMeetGlue`;
+  `propTSAll_ts` (prop-ts-glue's `propTSAll_final` without the six proved Kummer pieces).
+- `lake env lean scratch/ts-kummer/KummerTS.lean` (1 min 42 s): 0 errors; every `#print axioms`
+  line `[propext, Classical.choice, Quot.sound]` (VERIFIED, compile_out.txt).
