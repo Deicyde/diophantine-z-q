@@ -160,19 +160,134 @@ def FibreSimple : Prop :=
     ∀ (K : GlueAssembly.NF) (A : ZInQ.DefFaltings.AbVar K.K), FibreOver Y Φ π u K A →
       PkgI3.EndDivision (LeafAdopt.abVarEquiv K.K A)
 
-/-- **Missing piece 7 (glue G19: F1 and F3 on the actual `A`).** For `u ∉ 𝒞` and the fibre
-surface `A` over `J(u)` with stable height `x`, the ten even theta nulls `z` of `A` (with its
-principal polarization) lie in a number field `K'`, satisfy `Φ(z) = J(u)` (F1: Lin-Yang's Igusa
-invariants, R3, with the theta expression of R4) and Pazuki's bound (F3: R22, Cor. 1.3(2), Deligne
-metric). Proved parts: F1's algebra (`PkgI1.f1_algebra`), theta-structure independence
-(`PkgI1.thetaRatio_invariant`); F2 and F3's numerics are downstream in glue-assembly. Missing: the
-theta point of `A` (R1(b), R3, R22 are placeholders; R3, R22 concrete in scratch/leaf-push2, not
-folded in). -/
+section R22Sec
+/-! Copied from scratch/leaf-push2/LeafPush2.lean (section `R22Sec`, compiled there); `AbVar` is
+`PkgI3.AbVar`, the same declaration as there. -/
+
+open PkgI3 Complex
+
+variable {K : Type} [Field K]
+
+/-- `Spec ℂ` as a `K`-scheme via `σ : K → ℂ`. -/
+noncomputable def cptObj (σ : K →+* ℂ) : Over (Spec (CommRingCat.of K)) :=
+  Over.mk (Spec.map (CommRingCat.ofHom σ))
+
+/-- The complex points `A(ℂ)_σ` of an abelian variety over `K` at `σ : K → ℂ`, a group
+(Mathlib's group structure on morphisms into a group object). -/
+abbrev CPts (A : PkgI3.AbVar K) (σ : K →+* ℂ) : Type := cptObj σ ⟶ A.X
+
+
+/-- The value `s(p) ∈ ℂ` of a regular function `s ∈ Γ(U, 𝒪_A)` at a complex point `p ∈ U(ℂ)`
+(`0` if `p ∉ U(ℂ)`); adapted from `GroupModel.evalAt` of def-faltings §17. -/
+noncomputable def cEvalAt {A : PkgI3.AbVar K} {σ : K →+* ℂ} (p : CPts A σ) (U : A.X.left.Opens)
+    (s : Γ(A.X.left, U)) : ℂ := by
+  classical
+  exact if h : ⊤ ≤ p.left ⁻¹ᵁ U then
+    (Scheme.ΓSpecIso (CommRingCat.of ℂ)).hom (p.left.appLE U ⊤ h s) else 0
+
+/-- `Φ⁻¹(U(ℂ)) ⊆ ℂ^g`. -/
+def cDom {A : PkgI3.AbVar K} {σ : K →+* ℂ} {g : ℕ} (Φ : (Fin g → ℂ) → CPts A σ) (U : A.X.left.Opens) :
+    Set (Fin g → ℂ) := {z | ⊤ ≤ (Φ z).left ⁻¹ᵁ U}
+
+/-- **Analytic uniformization of `A(ℂ)_σ`** (def-faltings' `IsAnalyticUniformization`, with the
+abelian variety in place of a group model): `Φ : ℂ^g → A(ℂ)_σ` a surjective homomorphism with
+kernel `Λ`, with open preimages of affine-chart points and holomorphic regular functions. -/
+def IsUniformization {A : PkgI3.AbVar K} (σ : K →+* ℂ) {g : ℕ} (Λ : Submodule ℤ (Fin g → ℂ))
+    (Φ : (Fin g → ℂ) → CPts A σ) : Prop :=
+  (∀ z w, Φ (z + w) = Φ z * Φ w) ∧
+  (∀ z, Φ z = 1 ↔ z ∈ Λ) ∧
+  Function.Surjective Φ ∧
+  (∀ U, IsOpen (cDom Φ U)) ∧
+  (∀ U (s : Γ(A.X.left, U)), DifferentiableOn ℂ (fun z => cEvalAt (Φ z) U s) (cDom Φ U))
+
+/-- **Siegel upper half space** `𝔥₂`: symmetric `Ω` with `Im Ω` positive definite. -/
+def IsSiegel (Ω : Matrix (Fin 2) (Fin 2) ℂ) : Prop :=
+  Ω.transpose = Ω ∧ (Ω.map Complex.im).PosDef
+
+/-- **`Ω` is a period matrix of the lattice `Λ`**: a `ℂ`-linear automorphism `T` of `ℂ²` maps
+`Λ` onto `Ωℤ² + ℤ²`. For `Ω ∈ 𝔥₂`, `ℂ²/(Ωℤ² + ℤ²)` carries the principal polarization with
+Hermitian form `(Im Ω)⁻¹` (Birkenhake–Lange, *Complex abelian varieties*, §8.1, UNVERIFIED
+number), and every principal polarization of `ℂ²/Λ` with every symplectic basis arises this way.
+So "for all `Ω ∈ 𝔥₂` with `IsPeriodMatrix Λ Ω`" = "for all principal polarizations of `ℂ²/Λ`
+and all symplectic bases". No polarization object is needed. -/
+def IsPeriodMatrix (Λ : Submodule ℤ (Fin 2 → ℂ)) (Ω : Matrix (Fin 2) (Fin 2) ℂ) : Prop :=
+  ∃ T : (Fin 2 → ℂ) ≃ₗ[ℂ] (Fin 2 → ℂ), ∀ z, z ∈ Λ ↔
+    ∃ m n : Fin 2 → ℤ, T z = Ω.mulVec (fun i => (m i : ℂ)) + fun i => (n i : ℂ)
+
+/-- Theta characteristics of level 2: `m = (a, b)`, `a, b ∈ {0, 1}²` standing for `a/2, b/2`. -/
+abbrev Char2 : Type := (Fin 2 → Fin 2) × (Fin 2 → Fin 2)
+
+/-- **The theta constant** `θ[a;b](0, Ω) = ∑_{n ∈ ℤ²} exp(πi (n+a/2)ᵀΩ(n+a/2) + 2πi (n+a/2)ᵀ b/2)`
+(Mumford, *Tata Lectures on Theta I*, II §1, UNVERIFIED number). Absolutely convergent for
+`Ω ∈ 𝔥₂`; the `tsum` junk value `0` occurs only outside `𝔥₂`. The six odd characteristics give
+`0`, so the point has the same height as the ten even theta constants used by the project. -/
+noncomputable def thetaConst (Ω : Matrix (Fin 2) (Fin 2) ℂ) (m : Char2) : ℂ :=
+  ∑' n : Fin 2 → ℤ,
+    Complex.exp (Real.pi * I *
+        ((fun i => (n i : ℂ) + ((m.1 i : ℕ) : ℂ) / 2) ⬝ᵥ
+          Ω.mulVec (fun i => (n i : ℂ) + ((m.1 i : ℕ) : ℂ) / 2)) +
+      2 * Real.pi * I *
+        ((fun i => (n i : ℂ) + ((m.1 i : ℕ) : ℂ) / 2) ⬝ᵥ (fun i => ((m.2 i : ℕ) : ℂ) / 2)))
+
+/-- (copied from scratch/rv-loc-leaves/PazukiR22.lean) Absolute logarithmic Weil height (sup
+norms) of a point of projective space over a number field: Mathlib's `Height.logHeight` divided by
+`[K : ℚ]`. -/
+noncomputable def absLogHeight {L : Type*} [Field L] [NumberField L] {J : Type*} [Finite J]
+    (z : J → L) : ℝ :=
+  Height.logHeight z / Module.finrank ℚ L
+
+/-- (copied) Pazuki's constant `C₂(2, 2) = 1000 · 2⁴ · (log 2⁴)⁵`. -/
+noncomputable def pazukiC2 : ℝ := 1000 * 2 ^ 4 * (Real.log (2 ^ 4)) ^ 5
+
+end R22Sec
+
+/-- **R22 (Pazuki, Bull. SMF 140 (2012), Cor. 1.3(2)), concrete: leaf-push2's `R22_Pazuki`,
+transported** (same statement; the height is def-faltings' `stableFaltingsHeight` through
+`LeafAdopt.abVarEquiv`). A LEAF (the audit's upper half, a consequence with H5; leaf-push2 §1),
+replacing the placeholder `HSyn.R22_Pazuki` (`ResearchLeaves.r22`). -/
+def R22_PazukiConcrete : Prop :=
+  ∀ (K : Type) [Field K] [NumberField K] (A : PkgI3.AbVar K), A.dim = (2 : WithBot ℕ∞) →
+    ∀ x : ℝ, stableFaltingsHeight ((LeafAdopt.abVarEquiv K).symm A) = x →
+    ∀ X : ℝ, max 1 (x + Real.log Real.pi) ≤ X →
+    ∀ (σ : K →+* ℂ) (Λ : Submodule ℤ (Fin 2 → ℂ)) (Φ : (Fin 2 → ℂ) → CPts A σ),
+      IsUniformization σ Λ Φ →
+    ∀ Ω : Matrix (Fin 2) (Fin 2) ℂ, IsSiegel Ω → IsPeriodMatrix Λ Ω →
+    ∀ (L : Type) [Field L] [NumberField L] (emb : L →+* ℂ) (z : Char2 → L) (c : ℂ), c ≠ 0 →
+      (∀ m, emb (z m) = c * thetaConst Ω m) →
+      absLogHeight z ≤ X / 2 + pazukiC2 * Real.log (X + 2)
+
+/-- **Missing piece 7 (glue G19, F1 on the actual `A`).** For `u ∉ 𝒞` and the fibre surface `A`
+over `J(u)` (any number-field model): at some complex place `σ` there are an analytic
+uniformization `Φ` of `A(ℂ)_σ` with kernel `Λ`, a period matrix `Ω ∈ 𝔥₂` of `Λ` (for the principal
+polarization), and an algebraic representative `z ∈ L¹⁶` of the theta-null point `[θ_m(0, Ω)]`;
+and its ten even coordinates `z'` (in a number field `K'`) satisfy `Φ(z') = J(u)` with
+`h(z') ≤ h(z)` (the six odd theta nulls vanish). F1: Lin-Yang's Igusa invariants on the QM locus
+(R3) with the theta expressions of `ψ₄`, `χ₁₀` (R4). Proved parts: F1's algebra
+(`PkgI1.f1_algebra`), theta-structure independence (`PkgI1.thetaRatio_invariant`), leaf-push2's
+`linYangTuple_onQMLocus` (not copied). Missing: the analytic side (R1(b), uniformization:
+leaf-push2's `UniformizationExists`), R3 and R4 applied to `A`, algebraicity of the theta point,
+the odd-zero height comparison. -/
+def ThetaPointOfFibre : Prop :=
+  ∀ (Y : Over (Spec (CommRingCat.of ℚ))) (Φ : PtEquiv Y) (π : ToP1 Y.left),
+    R1fpProps Y Φ → R2fpProps Y Φ π → ∀ u : ℚ, u ∉ contactSet →
+    ∀ (K : GlueAssembly.NF) (A : ZInQ.DefFaltings.AbVar K.K), FibreOver Y Φ π u K A →
+    ∃ (σ : K.K →+* ℂ) (Λ : Submodule ℤ (Fin 2 → ℂ))
+      (Φu : (Fin 2 → ℂ) → CPts (LeafAdopt.abVarEquiv K.K A) σ), IsUniformization σ Λ Φu ∧
+    ∃ Ω : Matrix (Fin 2) (Fin 2) ℂ, IsSiegel Ω ∧ IsPeriodMatrix Λ Ω ∧
+    ∃ (L : GlueAssembly.NF) (emb : L.K →+* ℂ) (z : Char2 → L.K) (c : ℂ), c ≠ 0 ∧
+      (∀ m, emb (z m) = c * thetaConst Ω m) ∧
+    ∃ (K' : GlueAssembly.NF) (z' : Fin 10 → K'.K),
+      3779136 * (∏ i, z' i) ^ 4 / (∑ i, z' i ^ 8) ^ 5 = algebraMap ℚ K'.K (Jmap u) ∧
+      Height.logHeight z' / Module.finrank ℚ K'.K ≤ absLogHeight z
+
+/-- **G19: F1 and F3 on the actual `A` (proved below, `thetaPazuki`, from
+`R22_PazukiConcrete` and `ThetaPointOfFibre`).** For `u ∉ 𝒞` and the fibre surface `A` over
+`J(u)` with stable height `x`, a point `z ∈ K'¹⁰` with `Φ(z) = J(u)` and Pazuki's bound. -/
 def ThetaPazuki : Prop :=
   ∀ (Y : Over (Spec (CommRingCat.of ℚ))) (Φ : PtEquiv Y) (π : ToP1 Y.left),
     R1fpProps Y Φ → R2fpProps Y Φ π → ∀ u : ℚ, u ∉ contactSet →
     ∀ (K : GlueAssembly.NF) (A : ZInQ.DefFaltings.AbVar K.K), FibreOver Y Φ π u K A →
-    ∀ x : ℝ, stableFaltingsHeight A = x →
+    A.dim = 2 → ∀ x : ℝ, stableFaltingsHeight A = x →
       ∃ (K' : GlueAssembly.NF) (z : Fin 10 → K'.K),
         3779136 * (∏ i, z i) ^ 4 / (∑ i, z i ^ 8) ^ 5 = algebraMap ℚ K'.K (Jmap u) ∧
         GlueAssembly.PazukiOutput (Height.logHeight z / Module.finrank ℚ K'.K) x
@@ -214,7 +329,7 @@ structure MissingPieces : Prop where
   additivity : HeightAdditivity
   isogenousProduct : IsogenousProduct
   fibreSimple : FibreSimple
-  thetaPazuki : ThetaPazuki
+  thetaPoint : ThetaPointOfFibre
   modularConstituent : ModularConstituent
 
 /-! ### Proved connective pieces -/
@@ -256,6 +371,29 @@ theorem javanpeykarJ1 (hR18 : R18_JavanpeykarConcrete) (hB : X1BelyiOnModel)
     _ = 13 * 10 ^ 6 * (g : ℝ) * (d : ℝ) ^ 5 := rfl
     _ ≤ 13 * 10 ^ 6 * ((N : ℝ) ^ 2) * ((N : ℝ) ^ 2) ^ 5 := by gcongr
     _ = 13000000 * (N : ℝ) ^ 12 := by ring
+
+/-- **G19, F1 + F3 (proved)** from the concrete R22 at `X = max(1, h_F(A) + 3) ≥ max(1, h_F(A) +
+log π)` (the hardened form of `PazukiOutput`, rv-leaves-a) and the
+theta point of `ThetaPointOfFibre`. -/
+theorem thetaPazuki (hR22 : R22_PazukiConcrete) (hT : ThetaPointOfFibre) : ThetaPazuki := by
+  intro Y Φ π h1 h2 u hu K A hFib hA2 x hx
+  obtain ⟨σ, Λ, Φu, hΦu, Ω, hΩ, hP, L, emb, z, c, hc, hz, K', z', hF1, hle⟩ :=
+    hT Y Φ π h1 h2 u hu K A hFib
+  refine ⟨K', z', hF1, ?_⟩
+  have hx' : stableFaltingsHeight ((LeafAdopt.abVarEquiv K.K).symm
+      (LeafAdopt.abVarEquiv K.K A)) = x := by
+    rw [Equiv.symm_apply_apply]; exact hx
+  have hpi : Real.log Real.pi ≤ 3 := by
+    have h4 : Real.log Real.pi ≤ Real.log 4 :=
+      Real.log_le_log Real.pi_pos (by linarith [Real.pi_lt_four])
+    have h42 : Real.log 4 = 2 * Real.log 2 := by
+      rw [show (4 : ℝ) = 2 ^ 2 by norm_num, Real.log_pow]; norm_num
+    linarith [Real.log_two_lt_d9]
+  have h := hR22 K.K (LeafAdopt.abVarEquiv K.K A) hA2 x hx' (max 1 (x + 3))
+    (max_le_max le_rfl (by linarith)) σ Λ Φu hΦu Ω hΩ hP L.K emb z c hc hz
+  unfold GlueAssembly.PazukiOutput
+  unfold pazukiC2 at h
+  linarith
 
 /-- `log κ` of Gaudron-Rémond, computed. -/
 theorem log_grKappa (g d : ℕ) (x : ℝ) (hg : 1 ≤ g) (hd : 1 ≤ d) :
@@ -344,7 +482,7 @@ theorem glueOutputs_of_leaves (r : ResearchLeaves) (t : TextbookLeaves)
     (hR18 : R18_JavanpeykarConcrete)
     (hDim : DimBaseChange) (hBC : StableHeightBaseChange) (hBelyi : X1BelyiOnModel)
     (hAdd : HeightAdditivity) (hProd : IsogenousProduct) (hSimp : FibreSimple)
-    (hTheta : ThetaPazuki) (hMod : ModularConstituent) :
+    (hR22 : R22_PazukiConcrete) (hThetaPt : ThetaPointOfFibre) (hMod : ModularConstituent) :
     GlueAssembly.GlueOutputs ZInQ.Mult.S_mul := by
   -- A4: the moduli data and an object over every value
   obtain ⟨Y, Φ, π, h1, h2, hfib⟩ :=
@@ -360,7 +498,7 @@ theorem glueOutputs_of_leaves (r : ResearchLeaves) (t : TextbookLeaves)
   have hx : ZInQ.DefFaltings.stableFaltingsHeight A = ZInQ.DefFaltings.faltingsHeight A :=
     (ZInQ.DefFaltings.faltingsHeight_coe hfin A).symm
   -- G19 (missing piece 7): the theta point and Pazuki
-  obtain ⟨K', z, hF1, hPaz⟩ := hTheta Y Φ π h1 h2 u hu L A hFib _ hx
+  obtain ⟨K', z, hF1, hPaz⟩ := thetaPazuki hR22 hThetaPt Y Φ π h1 h2 u hu L A hFib hA2 _ hx
   refine ⟨K', z, ZInQ.DefFaltings.faltingsHeight A, hF1, hPaz, Or.inl ?_⟩
   -- E1: a nonzero homomorphism `A → J₁(N)_{L'}`
   obtain ⟨f, hf⟩ := hom_of_common r t _ _ hCC
@@ -406,10 +544,11 @@ theorem jHeightBound_copy_iff :
 
 /-- **G0. The leaves and the eight missing glue pieces imply `SixContactMin`** (no `sorry`). -/
 theorem sixContactMin_of_leaves (r : ResearchLeaves) (t : TextbookLeaves)
-    (hR18 : G0Split.R18_JavanpeykarConcrete) (m : G0Split.MissingPieces) : ZInQ.SixContactMin :=
+    (hR18 : G0Split.R18_JavanpeykarConcrete) (hR22 : G0Split.R22_PazukiConcrete)
+    (m : G0Split.MissingPieces) : ZInQ.SixContactMin :=
   sixContactMin_of_glueOutputs (glueOutputs_of_leaves r t hR18 m.dimBaseChange
     m.stableHeightBaseChange m.belyi m.additivity m.isogenousProduct m.fibreSimple
-    m.thetaPazuki m.modularConstituent)
+    hR22 m.thetaPoint m.modularConstituent)
 
 end HSyn
 
@@ -419,4 +558,5 @@ end
 #print axioms HSyn.sixContactMin_of_leaves
 #print axioms HSyn.G0Split.transfer_core
 #print axioms HSyn.G0Split.javanpeykarJ1
+#print axioms HSyn.G0Split.thetaPazuki
 #print axioms HSyn.G0Split.semisimpleBaseChange
