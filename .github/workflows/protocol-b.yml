@@ -1,0 +1,599 @@
+# Prepared but inactive. MODE is off unless the owner enables test/live.
+# No checkout, cache restore, dependency install, or candidate executable.
+name: Protocol B
+
+on:
+  pull_request_target:
+    types: [opened, synchronize, reopened, ready_for_review]
+  issue_comment:
+    types: [created]
+  workflow_dispatch:
+    inputs:
+      pull_request:
+        description: Pull request number to review
+        required: true
+        type: string
+
+permissions:
+  contents: write
+  pull-requests: write
+  issues: write
+  checks: write
+  actions: read
+
+concurrency:
+  group: protocol-b-${{ github.event.pull_request.number || github.event.issue.number || inputs.pull_request }}
+  cancel-in-progress: false
+
+jobs:
+  review:
+    if: >-
+      (vars.PROTOCOL_B_MODE == 'live' || vars.PROTOCOL_B_MODE == 'test') &&
+      (github.event_name != 'issue_comment' ||
+      (github.event.issue.pull_request && startsWith(github.event.comment.body, '/protocol-b ')))
+    runs-on: ubuntu-24.04
+    timeout-minutes: 120
+    steps:
+      - name: Review pinned sources using both approved models
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          MODE: ${{ vars.PROTOCOL_B_MODE }}
+          TEST_PR: ${{ vars.PROTOCOL_B_TEST_PR }}
+        run: |
+          python3 - <<'PROTOCOL_B_PYTHON'
+          """Embedded in the trusted default-branch workflow; never imports candidate code."""
+          import base64
+          import concurrent.futures
+          import datetime
+          import json
+          import os
+          import pathlib
+          import re
+          import time
+          import urllib.error
+          import urllib.parse
+          import urllib.request
+
+          MODELS = {"astra": "gpt-6-astra", "fable": "claude-fable-5-2"}
+          CHECK = "Protocol B / review"
+          MARKER = "<!-- protocol-b-review-v1 -->"
+          INSTRUCTIONS = ".github/protocol-b-reviewer.md"
+          REQUIRED_COMPUTATIONS = {
+              "Accepted Lean helpers and axiom audit", "Construction regeneration and finite checks",
+              "Paper build", "Reconstructed quartic and Version 5 inventory",
+              "Version 12 source and quartic replay (ubuntu-24.04)",
+              "Version 12 source and quartic replay (windows-2022)",
+              "Version 13 source and quartic replay (ubuntu-24.04)",
+              "Version 13 source and quartic replay (windows-2022)",
+              "Version 6 quartic reproduction and inventory",
+              "Version 9 odd-product replay (ubuntu-24.04)",
+              "Version 9 odd-product replay (windows-2022)",
+              "Complete kernel build and exact-target audit",
+              "Current 214-variable quartic and numerical certificate", "current-222",
+          }
+          OUT = pathlib.Path(os.environ.get("RUNNER_TEMP", ".")) / "protocol-b-reports"
+
+
+          def record(name, value):
+              OUT.mkdir(parents=True, exist_ok=True)
+              (OUT / name).write_text(json.dumps(value, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+
+
+          def log(message):
+              print(datetime.datetime.now(datetime.timezone.utc).isoformat(), message, flush=True)
+
+
+          def request(url, headers, method="GET", data=None, stream=False):
+              payload = None if data is None else json.dumps(data).encode()
+              req = urllib.request.Request(url, data=payload, method=method,
+                                           headers={"Content-Type": "application/json", **headers})
+              try:
+                  response = urllib.request.urlopen(req, timeout=180)
+              except urllib.error.HTTPError as error:
+                  # Preserve the actual server error; never print headers containing credentials.
+                  body = error.read().decode("utf-8", errors="replace")
+                  safe_headers = {k: v for k, v in error.headers.items()
+                                  if k.lower() in {"x-github-request-id", "request-id", "x-request-id",
+                                                   "retry-after", "x-ratelimit-remaining", "x-ratelimit-reset"}}
+                  detail = {"url": url, "method": method, "status": error.code,
+                            "headers": safe_headers, "body": body}
+                  for secret in (os.environ.get(k) for k in ("GH_TOKEN", "OPENAI_API_KEY", "ANTHROPIC_API_KEY")):
+                      if secret:
+                          detail = json.loads(json.dumps(detail).replace(secret, "[REDACTED]"))
+                  record("http-error-" + str(time.time_ns()) + ".json", detail)
+                  raise RuntimeError(json.dumps(detail)) from None
+              if stream:
+                  return response
+              with response:
+                  raw = response.read()
+                  return json.loads(raw) if raw else None
+
+
+          class GitHub:
+              def __init__(self, repo, token):
+                  if not re.fullmatch(r"[\w.-]+/[\w.-]+", repo):
+                      raise ValueError("Invalid repository")
+                  self.repo = repo
+                  self.headers = {"Authorization": "Bearer " + token,
+                                  "Accept": "application/vnd.github+json",
+                                  "X-GitHub-Api-Version": "2022-11-28"}
+
+              def api(self, path, method="GET", data=None):
+                  return request("https://api.github.com" + path, self.headers, method, data)
+
+              def call(self, path, method="GET", data=None):
+                  return self.api("/repos/" + self.repo + path, method, data)
+
+              def pages(self, path):
+                  result = []
+                  for page in range(1, 501):
+                      rows = self.call(path + ("&" if "?" in path else "?") + f"per_page=100&page={page}")
+                      if not isinstance(rows, list):
+                          raise ValueError("Expected a list from " + path)
+                      result.extend(rows)
+                      if len(rows) < 100:
+                          return result
+                  raise ValueError("Pagination limit reached; no partial review is allowed")
+
+              def text(self, path, ref):
+                  if not re.fullmatch(r"[0-9a-f]{40}", ref):
+                      raise ValueError("Source ref must be a commit")
+                  if path.startswith("/") or any(p in {"", ".", ".."} for p in path.split("/")):
+                      raise ValueError("Invalid repository path")
+                  value = self.call("/contents/" + urllib.parse.quote(path, safe="/") + "?ref=" + ref)
+                  if not isinstance(value, dict) or value.get("type") != "file":
+                      raise ValueError("Not a regular file")
+                  if value["size"] > 16_000_000:
+                      raise ValueError("File exceeds 16 MB; use its specification or request a smaller review")
+                  if value.get("encoding") != "base64":
+                      value = self.call("/git/blobs/" + value["sha"])
+                  return base64.b64decode(value["content"], validate=False).decode("utf-8")
+
+
+          def classify(files, declaration):
+              """Only complete Markdown trailing-whitespace diffs are editorial."""
+              if not files:
+                  raise ValueError("Empty or unavailable diff")
+              editorial = declaration and all(
+                  f["status"] == "modified" and f["filename"].endswith(".md") and
+                  not f["filename"].startswith((".github/", "docs/research-review/")) and f["filename"] != "PROJECT.md" and
+                  "patch" in f and
+                  sum(x.startswith("+") for x in f["patch"].splitlines()) == f["additions"] and
+                  sum(x.startswith("-") for x in f["patch"].splitlines()) == f["deletions"] and
+                  [x[1:].rstrip() for x in f["patch"].splitlines() if x.startswith("+")] ==
+                  [x[1:].rstrip() for x in f["patch"].splitlines() if x.startswith("-")]
+                  for f in files)
+              if editorial:
+                  return "editorial"
+              # Unavailable/binary diffs, additions, policy, dependencies and a new record
+              # all get the broader review. No author label can downgrade the rule.
+              new = re.compile(r"\b(theorem|corollary|proposition|record|route|dependency|axiom|import|cite)\b|\\(?:cite|begin\{theorem)", re.I)
+              for f in files:
+                  path = f["filename"]
+                  if (f["status"] != "modified" or "patch" not in f or
+                      path.startswith(".github/") or path in {"PROJECT.md", "lake-manifest.json", "lean-toolchain"} or
+                      path.startswith(("docs/research-review/", "docs/current-manuscript", "docs/release-policy")) or
+                      new.search("\n".join(x for x in f["patch"].splitlines() if x.startswith(("+", "-"))))):
+                      return "new result or route"
+              return "local mathematical"
+
+
+          FINISH_SCHEMA = {
+              "type": "object", "additionalProperties": False,
+              "properties": {
+                  "decision": {"type": "string", "enum": ["accept", "changes_requested"]},
+                  "report": {"type": "string", "description": "Full substantive review with source locations, scope and limitations."},
+                  "findings": {"type": "array", "items": {"type": "object", "additionalProperties": False,
+                      "properties": {"id": {"type": "string"}, "location": {"type": "string"},
+                                     "objection": {"type": "string"}}, "required": ["id", "location", "objection"]}},
+                  "prior_findings": {"type": "array", "items": {"type": "object", "additionalProperties": False,
+                      "properties": {"id": {"type": "string"}, "resolution": {"type": "string", "enum": ["resolved", "unresolved", "overridden"]},
+                                     "reason": {"type": "string"}}, "required": ["id", "resolution", "reason"]}},
+                  "sources_read": {"type": "array", "items": {"type": "string"}},
+                  "not_outside_reviewed": {"type": "array", "items": {"type": "string"}},
+              }, "required": ["decision", "report", "findings", "prior_findings", "sources_read", "not_outside_reviewed"],
+          }
+          TOOLS = [
+              {"name": "read_file", "description": "Read a pinned PR or base text file by lines; binary PDFs return a pinned public URL. Never executes content.",
+               "parameters": {"type": "object", "properties": {"path": {"type": "string"},
+                 "revision": {"type": "string", "enum": ["head", "base"]}, "start": {"type": "integer"}, "count": {"type": "integer"}},
+                 "required": ["path", "revision", "start", "count"], "additionalProperties": False}},
+              {"name": "list_files", "description": "List pinned head paths with a literal substring; results are paged, never silently truncated.",
+               "parameters": {"type": "object", "properties": {"contains": {"type": "string"}, "offset": {"type": "integer"}},
+                 "required": ["contains", "offset"], "additionalProperties": False}},
+              {"name": "read_history", "description": "After reading primary proof sources, obtain all previous PR review findings and discussion. Required before final decision.",
+               "parameters": {"type": "object", "properties": {}, "required": [], "additionalProperties": False}},
+              {"name": "finish_review", "description": "Deliver the complete final review, including disposition of every earlier finding. This does not itself approve GitHub.",
+               "parameters": FINISH_SCHEMA},
+          ]
+
+
+          def validate_review(value, prior_ids, overrides):
+              if set(value) != set(FINISH_SCHEMA["required"]):
+                  raise ValueError("Incomplete final report")
+              if value["decision"] not in {"accept", "changes_requested"} or not isinstance(value["report"], str) or len(value["report"]) < 80:
+                  raise ValueError("Invalid decision or missing substantive report")
+              for key in ("findings", "prior_findings", "sources_read", "not_outside_reviewed"):
+                  if not isinstance(value[key], list):
+                      raise ValueError("Expected report list: " + key)
+              if not value["sources_read"]:
+                  raise ValueError("No sources read")
+              ids = [x["id"] for x in value["findings"]]
+              if len(ids) != len(set(ids)) or any(not re.fullmatch(r"[A-Za-z0-9_-]{1,40}", i) for i in ids):
+                  raise ValueError("Invalid or duplicate finding IDs")
+              dispositions = value["prior_findings"]
+              if len(dispositions) != len(prior_ids) or {x["id"] for x in dispositions} != prior_ids:
+                  raise ValueError("Earlier findings were omitted or duplicated")
+              for item in dispositions:
+                  if item["resolution"] not in {"resolved", "unresolved", "overridden"} or not item["reason"].strip():
+                      raise ValueError("Missing finding disposition")
+                  if item["resolution"] == "overridden" and item["id"] not in overrides:
+                      raise ValueError("No authenticated collaborator override")
+              if any(x["resolution"] == "overridden" for x in dispositions) and not value["not_outside_reviewed"]:
+                  raise ValueError("Override must leave the affected claim not outside reviewed")
+              if value["decision"] == "accept" and (value["findings"] or any(x["resolution"] == "unresolved" for x in dispositions)):
+                  raise ValueError("Acceptance cannot contain unresolved objections")
+              if len(json.dumps(value, ensure_ascii=False).encode()) > 45_000:
+                  raise ValueError("Report exceeds permanent PR comment limit; shorten prose without omitting findings")
+              return value
+
+
+          def sse(response):
+              """Complete SSE events. Never log hidden thinking or credential-bearing requests."""
+              data = []
+              with response:
+                  for line in response:
+                      line = line.decode("utf-8").rstrip("\r\n")
+                      if not line:
+                          if data:
+                              text = "\n".join(data)
+                              data = []
+                              if text != "[DONE]":
+                                  yield json.loads(text)
+                      elif line.startswith("data:"):
+                          data.append(line[5:].lstrip())
+              if data and "\n".join(data) != "[DONE]":
+                  yield json.loads("\n".join(data))
+
+
+          def model_turn(family, system, conversation):
+              if family == "astra":
+                  body = {"model": MODELS[family], "instructions": system, "input": conversation,
+                          "reasoning": {"effort": "high"}, "max_output_tokens": 16384,
+                          "store": False, "stream": True, "include": ["reasoning.encrypted_content"],
+                          "tools": [{"type": "function", "strict": True, **t} for t in TOOLS] + [{"type": "web_search"}]}
+                  response = request("https://api.openai.com/v1/responses",
+                                     {"Authorization": "Bearer " + os.environ["OPENAI_API_KEY"]}, "POST", body, True)
+                  final = None
+                  for event in sse(response):
+                      if event.get("type") == "response.completed":
+                          final = event["response"]
+                      elif event.get("type") in {"error", "response.failed", "response.incomplete"}:
+                          raise RuntimeError(json.dumps(event))
+                  if final is None or final.get("status") != "completed":
+                      raise RuntimeError("OpenAI stream ended without a completed response")
+                  return final["output"], final.get("model"), final.get("usage"), final["id"]
+              body = {"model": MODELS[family], "system": system, "messages": conversation,
+                      "max_tokens": 16384, "stream": True, "output_config": {"effort": "high"},
+                      "tools": [{"name": t["name"], "description": t["description"], "input_schema": t["parameters"]} for t in TOOLS] + [
+                          {"type": "web_search_20260318", "name": "web_search"},
+                          {"type": "web_fetch_20260318", "name": "web_fetch"}]}
+              response = request("https://api.anthropic.com/v1/messages",
+                                 {"x-api-key": os.environ["ANTHROPIC_API_KEY"], "anthropic-version": "2023-06-01"}, "POST", body, True)
+              final, blocks, partial, stopped = {}, {}, {}, False
+              for event in sse(response):
+                  kind = event.get("type")
+                  if kind == "error":
+                      raise RuntimeError(json.dumps(event))
+                  if kind == "message_start":
+                      final = event["message"]
+                  elif kind == "content_block_start":
+                      blocks[event["index"]] = event["content_block"]
+                  elif kind == "content_block_delta":
+                      index, delta = event["index"], event["delta"]
+                      field = {"text_delta": "text", "thinking_delta": "thinking", "signature_delta": "signature"}.get(delta["type"])
+                      if field:
+                          blocks[index][field] = blocks[index].get(field, "") + delta[field]
+                      elif delta["type"] == "input_json_delta":
+                          partial[index] = partial.get(index, "") + delta["partial_json"]
+                      elif delta["type"] == "citations_delta":
+                          blocks[index].setdefault("citations", []).append(delta["citation"])
+                      else:
+                          raise RuntimeError("Unrecognized Anthropic delta: " + delta["type"])
+                  elif kind == "content_block_stop" and event["index"] in partial:
+                      blocks[event["index"]]["input"] = json.loads(partial[event["index"]])
+                  elif kind == "message_delta":
+                      final.update(event["delta"])
+                      final.setdefault("usage", {}).update(event.get("usage", {}))
+                  elif kind == "message_stop":
+                      stopped = True
+              if not stopped or final.get("stop_reason") not in {"tool_use", "end_turn", "pause_turn"}:
+                  raise RuntimeError("Anthropic stream incomplete or output limit reached")
+              return [blocks[i] for i in sorted(blocks)], final.get("model"), final.get("usage"), final.get("id")
+
+
+          class Review:
+              def __init__(self, gh, pr, files, history, prior, overrides, instructions, family, change_class):
+                  self.gh, self.pr, self.family = gh, pr, family
+                  self.history, self.prior, self.overrides = history, prior, overrides
+                  self.instructions = instructions
+                  self.history_read, self.reads, self.tree, self.chars = False, [], None, 0
+                  self.input = {"repository": gh.repo, "pull_request": pr["number"], "head": pr["head"]["sha"],
+                                "base": pr["base"]["sha"], "change_class": change_class,
+                                "untrusted_title": pr["title"], "untrusted_description": pr.get("body"), "files": files}
+
+              def tool(self, name, args):
+                  if name == "read_history":
+                      self.history_read = True
+                      return {"discussion": self.history, "earlier_findings": self.prior, "authenticated_overrides": self.overrides}
+                  if name == "read_file":
+                      if args["revision"] not in {"head", "base"}:
+                          raise ValueError("Invalid revision")
+                      ref = self.pr[args["revision"]]["sha"]
+                      path = args["path"]
+                      start, count = args["start"], args["count"]
+                      if not isinstance(start, int) or not isinstance(count, int) or start < 1 or not 1 <= count <= 1000:
+                          raise ValueError("Read 1 to 1000 lines, starting at line 1 or later")
+                      if path.lower().endswith(".pdf"):
+                          return {"pdf_url": "https://raw.githubusercontent.com/" + self.gh.repo + "/" + ref + "/" + urllib.parse.quote(path),
+                                  "instruction": "Read via web tools; an unavailable source is not verified."}
+                      text = self.gh.text(path, ref)
+                      lines = text.splitlines()
+                      result = "\n".join(f"{i+1}: {lines[i]}" for i in range(start-1, min(len(lines), start-1+count)))
+                      if len(result) > 100_000:
+                          raise ValueError("Requested lines exceed 100,000 characters; request fewer lines")
+                      self.reads.append({"path": path, "revision": ref, "start": start, "count": count})
+                      return {"total_lines": len(lines), "text": result}
+                  if name == "list_files":
+                      if self.tree is None:
+                          tree = self.gh.call("/git/trees/" + self.pr["head"]["sha"] + "?recursive=1")
+                          if tree.get("truncated"):
+                              raise ValueError("GitHub truncated the tree; cannot claim complete file discovery")
+                          self.tree = [x["path"] for x in tree["tree"] if x["type"] == "blob"]
+                      matches = [p for p in self.tree if args["contains"] in p]
+                      offset = args["offset"]
+                      if not isinstance(offset, int) or offset < 0:
+                          raise ValueError("Invalid offset")
+                      return {"total": len(matches), "paths": matches[offset:offset+200], "next_offset": offset+200 if offset+200 < len(matches) else None}
+                  raise ValueError("Unknown tool")
+
+              def run(self):
+                  conversation = [{"role": "user", "content": json.dumps(self.input)}]
+                  record(self.family + "-input.json", {"instructions": self.instructions, "input": self.input})
+                  turns = []
+                  for turn in range(50):
+                      log(f"{self.family}: model turn {turn+1}; {len(self.reads)} repository source reads")
+                      output, served, usage, response_id = model_turn(self.family, self.instructions, conversation)
+                      if served != MODELS[self.family]:
+                          raise RuntimeError(f"Requested {MODELS[self.family]}, API reported {served}; no silent substitution")
+                      # The exact provider conversation, including signed/encrypted reasoning,
+                      # stays in memory. Retain inputs, source reads, visible report and usage.
+                      visible = [{k: v for k, v in x.items() if k not in {"thinking", "signature", "encrypted_content"}}
+                                 for x in output if x.get("type") not in {"thinking", "reasoning", "redacted_thinking"}]
+                      turns.append({"response_id": response_id, "reported_model": served, "usage": usage, "visible_output": visible})
+                      record(self.family + "-turns.json", turns)
+                      # Preserve prose objections before the next model request. These are
+                      # discussion, never approval. A failed later turn cannot erase them.
+                      prose = []
+                      for item in visible:
+                          if item.get("type") == "text":
+                              prose.append(item.get("text", ""))
+                          elif item.get("type") == "message":
+                              prose.extend(c.get("text", "") for c in item.get("content", []) if c.get("type") == "output_text")
+                      text = "\n".join(prose).strip()
+                      if text:
+                          for offset in range(0, len(text), 10000):
+                              self.gh.call(f"/issues/{self.pr['number']}/comments", "POST", {"body":
+                                  f"<!-- protocol-b-working-note -->\n{self.family}, run {os.environ['GITHUB_RUN_ID']}, turn {turn+1}. "
+                                  "Partial review, not a final verdict.\n\n" + text[offset:offset+10000]})
+                      if self.family == "astra":
+                          conversation.extend(output)
+                          calls = [x for x in output if x.get("type") == "function_call"]
+                      else:
+                          conversation.append({"role": "assistant", "content": output})
+                          calls = [x for x in output if x.get("type") == "tool_use"]
+                      results = []
+                      finish = [x for x in calls if x.get("name") == "finish_review"]
+                      if finish:
+                          if len(calls) != 1 or not self.history_read or not self.reads:
+                              raise ValueError("Final review requires prior source/history reads and no concurrent tool calls")
+                          value = json.loads(finish[0]["arguments"]) if self.family == "astra" else finish[0]["input"]
+                          value = validate_review(value, set(self.prior), self.overrides)
+                          record(self.family + "-source-reads.json", self.reads)
+                          return value
+                      if not calls:
+                          # pause_turn may need another request; an ordinary prose answer is
+                          # asked to supply the explicit decision once, without changing it.
+                          conversation.append({"role": "user", "content": "Continue the review. When finished use finish_review; prose alone cannot pass the gate."})
+                      for call in calls:
+                          args = json.loads(call["arguments"]) if self.family == "astra" else call["input"]
+                          try:
+                              value = self.tool(call["name"], args)
+                          except (ValueError, UnicodeError) as error:
+                              value = {"error": str(error)}
+                          content = json.dumps(value, ensure_ascii=False)
+                          self.chars += len(content)
+                          if self.chars > 8_000_000:
+                              raise ValueError("Review context budget exhausted; split the PR, do not accept a partial review")
+                          record(self.family + f"-tool-{turn}-{len(results)}.json", {"name": call["name"], "arguments": args, "result": value})
+                          if self.family == "astra":
+                              conversation.append({"type": "function_call_output", "call_id": call["call_id"], "output": content})
+                          else:
+                              results.append({"type": "tool_result", "tool_use_id": call["id"], "content": content})
+                      if results:
+                          conversation.append({"role": "user", "content": results})
+                  raise RuntimeError("50 model turns exhausted; no acceptance")
+
+
+          def history(gh, pr):
+              comments = gh.pages(f"/issues/{pr['number']}/comments")
+              discussion = [{"id": c["id"], "author": c["user"]["login"], "created": c["created_at"], "body": c["body"]} for c in comments]
+              for endpoint in ("reviews", "comments"):
+                  discussion.extend(gh.pages(f"/pulls/{pr['number']}/" + endpoint))
+              prior, overrides = {}, {}
+              for comment in comments:
+                  body = comment["body"]
+                  if body.startswith(MARKER) and comment["user"]["login"] == "github-actions[bot]":
+                      # Earlier verdicts never count as approval of this revision. All
+                      # objections, including previously resolved ones, are shown again.
+                      match = re.search(r"```json\n(.*)\n```", body, re.S)
+                      if match is None:
+                          raise ValueError("Earlier gate report is malformed; recover it rather than discard its findings")
+                      report = json.loads(match[1])
+                      for finding in report["review"]["findings"]:
+                          prior[f"{report['run']}-{report['attempt']}-{report['reviewer']}-{finding['id']}"] = finding
+              pattern = re.compile(r"^/protocol-b override ([0-9a-f]{40}) ([A-Za-z0-9_-]+)\s+(.+)$", re.S)
+              for comment in comments:
+                  match = pattern.fullmatch(comment["body"].strip())
+                  if match and match[1] == pr["head"]["sha"] and match[2] in prior:
+                      login = comment["user"]["login"]
+                      permission = gh.call("/collaborators/" + urllib.parse.quote(login, safe="") + "/permission")
+                      if permission["permission"] in {"write", "maintain", "admin"} and comment["user"].get("type") == "User":
+                          overrides[match[2]] = {"collaborator": login, "reason": match[3], "url": comment["html_url"]}
+              if len(json.dumps(discussion)) > 1_000_000:
+                  raise ValueError("PR discussion exceeds review budget; preserve and narrow the review instead of truncating")
+              return discussion, prior, overrides
+
+
+          def main():
+              mode = os.environ.get("MODE", "off")
+              if mode not in {"test", "live"}:
+                  log("Protocol B is inactive. No model requests, reports or merges.")
+                  return
+              event = json.loads(pathlib.Path(os.environ["GITHUB_EVENT_PATH"]).read_text())
+              gh = GitHub(os.environ["GITHUB_REPOSITORY"], os.environ["GH_TOKEN"])
+              repo = gh.call("")
+              default = repo["default_branch"]
+              trusted_ref = gh.call("/commits/" + urllib.parse.quote(default, safe=""))["sha"]
+              # Prevent a dispatch of a modified workflow from another branch. For
+              # pull_request_target, GitHub runs the protected base's workflow by design.
+              if os.environ["GITHUB_REF"] != "refs/heads/" + default:
+                  raise ValueError("Gate must run from the default branch")
+              number = (event.get("pull_request") or event.get("issue") or {}).get("number") or event.get("inputs", {}).get("pull_request")
+              number = int(number)
+              if mode == "test" and number != int(os.environ.get("TEST_PR", "0")):
+                  log("Test mode: this is not the designated throwaway PR; no action.")
+                  return
+              if "comment" in event:
+                  command = event["comment"]["body"].strip()
+                  if not command.startswith(("/protocol-b review", "/protocol-b override ")):
+                      return
+                  login = event["sender"]["login"]
+                  if gh.call("/collaborators/" + urllib.parse.quote(login, safe="") + "/permission")["permission"] not in {"write", "maintain", "admin"}:
+                      return
+              pr = gh.call(f"/pulls/{number}")
+              if pr["state"] != "open" or pr["draft"] or pr["base"]["ref"] != default:
+                  return
+              # Refuse a runner executing superseded trusted code, before publishing a check.
+              if os.environ["GITHUB_SHA"] != trusted_ref:
+                  raise ValueError("Default branch changed; start a fresh run using current instructions")
+              instructions = gh.text(INSTRUCTIONS, trusted_ref)
+              name = CHECK if mode == "live" else "Protocol B / test review"
+              run_url = f"https://github.com/{gh.repo}/actions/runs/{os.environ['GITHUB_RUN_ID']}"
+              check = gh.call("/check-runs", "POST", {"name": name, "head_sha": pr["head"]["sha"],
+                              "status": "in_progress", "details_url": run_url})
+              conclusion, summary = "failure", "Review did not finish. See the workflow log."
+              try:
+                  files = gh.pages(f"/pulls/{number}/files")
+                  if len(files) != pr["changed_files"]:
+                      raise ValueError("GitHub omitted changed files; cannot review an incomplete diff")
+                  # Even missing patches remain listed so both reviewers must fetch sources.
+                  declaration = "No mathematical content changed." in (pr.get("body") or "")
+                  change_class = classify(files, declaration)
+                  discussion, prior, overrides = history(gh, pr)
+                  record("context.json", {"head": pr["head"]["sha"], "base": pr["base"]["sha"],
+                                         "trusted_workflow": trusted_ref, "class": change_class,
+                                         "prior_findings": prior, "overrides": overrides, "discussion": discussion})
+                  if change_class == "editorial" and not prior:
+                      conclusion, summary = "success", "Editorial whitespace-only Markdown change; author declared no mathematical change. No model review."
+                  else:
+                      for key in ("OPENAI_API_KEY", "ANTHROPIC_API_KEY"):
+                          if not os.environ.get(key):
+                              raise ValueError("Missing repository secret " + key)
+                      reviews, failures = {}, {}
+                      with concurrent.futures.ThreadPoolExecutor(max_workers=2) as pool:
+                          futures = {pool.submit(Review(gh, pr, files, discussion, prior, overrides, instructions, family, change_class).run): family for family in MODELS}
+                          for future in concurrent.futures.as_completed(futures):
+                              family = futures[future]
+                              try:
+                                  value = future.result()
+                                  envelope = {"reviewer": family, "model": MODELS[family], "head": pr["head"]["sha"],
+                                              "base": pr["base"]["sha"], "run": os.environ["GITHUB_RUN_ID"],
+                                              "attempt": os.environ["GITHUB_RUN_ATTEMPT"], "review": value}
+                                  record(family + "-report.json", envelope)
+                                  # Append, never edit away an objection. Each completed
+                                  # review is saved even if the other reviewer fails.
+                                  body = MARKER + "\n" + run_url + "\n```json\n" + json.dumps(envelope, ensure_ascii=False, indent=2) + "\n```"
+                                  gh.call(f"/issues/{number}/comments", "POST", {"body": body})
+                                  reviews[family] = value
+                              except Exception as error:
+                                  failures[family] = str(error)
+                                  log(f"{family}: failed: {error}")
+                                  # This is explicitly a system finding, not an invented
+                                  # reviewer verdict. The next reviewers must address it.
+                                  problem = {"reviewer": family, "model": MODELS[family], "head": pr["head"]["sha"],
+                                             "run": os.environ["GITHUB_RUN_ID"], "attempt": os.environ["GITHUB_RUN_ATTEMPT"],
+                                             "review": {"decision": "changes_requested", "report": "Infrastructure failure, not a model verdict: " + str(error),
+                                                        "findings": [{"id": "interrupted_review", "location": run_url,
+                                                        "objection": "Review did not finish. Read all preceding working notes and the run artifacts; address their objections and complete this review."}]}}
+                                  record(family + "-failure.json", problem)
+                                  gh.call(f"/issues/{number}/comments", "POST", {"body": MARKER + "\n```json\n" + json.dumps(problem, ensure_ascii=False, indent=2) + "\n```"})
+                      if failures:
+                          raise RuntimeError(json.dumps(failures))
+                      if all(v["decision"] == "accept" for v in reviews.values()) and set(reviews) == set(MODELS):
+                          conclusion = "success"
+                          summary = "Both approved reviewers accepted this revision. This is informal review, not a formal proof."
+                          if overrides:
+                              summary += "\nCollaborator overrides apply; affected claims are NOT outside reviewed:\n" + json.dumps(overrides, indent=2)
+                      else:
+                          summary = "At least one reviewer requests changes. Resolve the recorded findings; a favorable second report cannot override them."
+                  current = gh.call(f"/pulls/{number}")
+                  if current["head"]["sha"] != pr["head"]["sha"] or current["base"]["sha"] != pr["base"]["sha"] or gh.call("/commits/" + default)["sha"] != trusted_ref:
+                      raise ValueError("PR head or base changed during review; old reports are retained, but this run cannot approve")
+              except Exception as error:
+                  conclusion, summary = "failure", str(error)
+                  record("failure.json", {"message": str(error)})
+                  log("Review failed: " + str(error))
+              gh.call(f"/check-runs/{check['id']}", "PATCH", {"status": "completed", "conclusion": conclusion,
+                       "output": {"title": name, "summary": summary[:60_000]}})
+              with open(os.environ["GITHUB_STEP_SUMMARY"], "a", encoding="utf-8") as output:
+                  output.write(summary + "\n")
+              if conclusion != "success":
+                  raise RuntimeError("Protocol B review is blocked")
+              if mode == "live":
+                  # GitHub, rather than a polling service, waits for all required CI checks.
+                  rules = gh.call("/rules/branches/" + urllib.parse.quote(default, safe=""))
+                  required = {c["context"] for rule in rules if rule["type"] == "required_status_checks"
+                              for c in rule["parameters"]["required_status_checks"]}
+                  if not ({CHECK} | REQUIRED_COMPUTATIONS) <= required:
+                      raise RuntimeError("Auto-merge withheld: the reviewer check or computation protections are not required")
+                  if not any(rule["type"] == "required_status_checks" and rule["parameters"].get("strict_required_status_checks_policy") for rule in rules):
+                      raise RuntimeError("Auto-merge withheld: require an up-to-date branch so changed base dependencies cannot bypass review")
+                  if not repo.get("allow_auto_merge"):
+                      raise RuntimeError("Review passed, but repository auto-merge is disabled; complete the owner-approved activation checklist")
+                  current = gh.call(f"/pulls/{number}")
+                  if current["head"]["sha"] != pr["head"]["sha"]:
+                      raise RuntimeError("Head changed before enabling auto-merge")
+                  if not current.get("auto_merge"):
+                      result = gh.api("/graphql", "POST", {"query": "mutation($id:ID!){enablePullRequestAutoMerge(input:{pullRequestId:$id,mergeMethod:MERGE}){pullRequest{id}}}", "variables": {"id": current["node_id"]}})
+                      if result.get("errors"):
+                          raise RuntimeError(json.dumps(result["errors"]))
+                  log("Review accepted; GitHub auto-merge waits for the required computation checks.")
+              else:
+                  log("Test accepted. Auto-merge is disabled in test mode.")
+
+
+          if __name__ == "__main__":
+              main()
+          PROTOCOL_B_PYTHON
+      - name: Preserve reports and diagnostic output
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: protocol-b-${{ github.run_id }}-${{ github.run_attempt }}
+          path: ${{ runner.temp }}/protocol-b-reports/
+          if-no-files-found: ignore
+          retention-days: 90
