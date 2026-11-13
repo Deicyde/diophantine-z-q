@@ -72,3 +72,7 @@
   minus import/#check/#print, + `end` for each file's `noncomputable section`, open_zinq. GluePieces5 loses
   `cPtsTransport`, `baseChangeClassUnique` (GLUE, now `cPtsTransport_proof`, `baseChangeClassUnique_proof`): 38 fields.
   TailF VERIFIED exit 0 (112 s); TailD VERIFIED exit 0 (24 s), no sorryAx.
+- Merged origin/wip/ts-kummer (report): part e12 (mk/mk_e12.py) = KummerTS.lean L3598-end (its appendix) verbatim minus
+  #print, after PropTSGlue.lean's opens L26-27, + `end`. GluePieces5 loses the six Kummer pieces (GLUE; now
+  `TsKummer.kummer…`): 32 fields. TailF VERIFIED exit 0 (136 s); TailD VERIFIED exit 0 (41 s), no sorryAx; axioms of
+  `sixContactMin_of_leaves5` and the six `TsKummer` theorems standard.
