@@ -36,3 +36,15 @@ For every d (no hypothesis) unless noted:
 - `tyzInputs_of_readingA` : TYZThm35ReadingA → HeckeContinuation → TYZInputs.
 - Axioms (scratch/p-side/Axioms.lean, `lake env lean`): all P1/P2/P3/P5 headline theorems depend on
   [propext, Classical.choice, Quot.sound] only. VERIFIED.
+
+## P4a — ZInQKernel/Contrib/PSide/Hasse.lean (compiles, no sorry; VERIFIED 23:2x)
+Over any finite field F, ringChar F ≠ 2, χ = quadraticChar F, jac a := Σ_x χ(x(x²+a)):
+- `jac_mul_sq` : t ≠ 0 ⇒ jac(a t²) = χ(t) jac(a);  `jac_sq_mul_sq`.
+- `sum_char_mul_add` : Σ_a χ((a+u)(a+v)) = if u = v then q−1 else −1 (via Mathlib `jacobiSum_nontrivial_inv`).
+- `sum_jac_sq` : Σ_a jac(a)² = q(q−1)(1+χ(−1)).
+- `sum_sq_le_two_mul` : G ≥ 0 ⇒ Σ_t G(t²) ≤ 2 Σ_c G(c).
+- `jac_sq_le_four_mul` : a ≠ 0 ⇒ jac(a)² ≤ 4q.
+For C_d:
+- `cdCoeff_prime_eq_neg_jac` : p ∤ 2d ⇒ c_p = −jac(−d²) (any d).
+- `cdCoeff_prime_sq_le` : every prime p, every d: c_p² ≤ 4p.   [Hasse for C_d]
+- `LFunction_cd_prime_sq_le` : d odd sqfree: (Mathlib a_p)² ≤ 4p.
