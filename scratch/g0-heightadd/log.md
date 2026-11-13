@@ -41,3 +41,13 @@ origin/wip/h5-neron (b7c1dc21), neither was in the base.
   `PkgI3.AbVar.geometricallyIntegral_id_spec` from Objects.lean, `zero` marked noncomputable.
 - `metrizationExists_zero`, `metrizationDimUnique_zero`, `productMetrization_zero` for
   `A = B = C = AbVar.zero K`: all [propext, Classical.choice, Quot.sound]. VERIFIED.
+
+## Run 5: P2a split (part_prod.lean) — COMPILED (HeightAdd.lean; 0 errors; all axioms standard)
+- first attempt: parse errors, `η` is a token under `open MonObj` (η[M] notation); renamed to `s`.
+- proved `modelHeight_add_of`: Hodge data `D` (dim g₁+g₂), `D₁`, `D₂` with nonzero sections
+  `s, s₁, s₂` whose `secIndex`, `coeff σ` and `ZLattice.covolume (periods σ)` are multiplicative
+  ⇒ `D.modelHeight = D₁.modelHeight + D₂.modelHeight`. VERIFIED.
+- new glue `ProductMetrizationGeo` (P2a-geo: the product metrization with a product section);
+  proved `productMetrization_of_geo : ProductMetrizationGeo → ProductMetrization` and
+  `HSyn.G0Split.heightAdditivity_of_geo : N1 → LeafAdopt.H5 → U → DimUnique → Exists → P2a-geo →
+  HeightAdditivity`. VERIFIED.
