@@ -34,6 +34,9 @@ memory). That is the curve `CurveA.curveA` of `TYZDecomp/CurveA.lean` (`ℚ`-iso
   `A[(1+i)³] ⊆ A(ℚ(i))` of TYZ Lemma 3.16 (`lemma316_mpr`, `tyzLemma316_iff`); discriminants,
   `c₄`, `j`; `X₀(32) ≇ C₁` over `ℚ` (`not_exists_variableChange_X0_C1`) but `≅` over `ℚ(i)`
   (`isoVC_smul`); and the cusp images of §2 are `A[(1+i)³]` (`isCuspImage_toC`).
+* §11–§12 (proved) basic analytic facts: `x, y, f` are holomorphic on `ℍ`, `f` and `y` have no
+  zeros there, `phiC τ = (x(τ), y(τ))` under `EtaModelEquation`, and `x, y, f` are invariant under
+  `T = [[1,1],[0,1]] ∈ Γ₀(32)` (`xC_yC_fC_T_smul`, a piece of `EtaModelInvariant`).
 
 No `sorry`, no `axiom`.
 -/
@@ -101,11 +104,6 @@ def IsCuspImage : PtAC → Prop
   | .zero => True
   | .some x y _ => (x, y) ∈ ({(0, 0), (2, 4), (2, -4), (-2, 4 * I), (-2, -4 * I), (2 * I, 0),
       (-2 * I, 0)} : Set (ℂ × ℂ))
-
-/-- `A(ℂ) ∋ P ↦` its `x`-coordinate as a value in `ℂ` (junk `0` at `O`). -/
-def ptX : PtAC → ℂ
-  | .zero => 0
-  | .some x _ _ => x
 
 /-! ## §3 The leaves of the analytic model (`def … : Prop`; not proved here) -/
 
@@ -533,8 +531,6 @@ theorem iQ_pow5 : iQ ^ 5 = iQ := by linear_combination (iQ ^ 3 - iQ) * iQ_sq
 theorem iQ_pow6 : iQ ^ 6 = -1 := by linear_combination (iQ ^ 4 - iQ ^ 2 + 1) * iQ_sq
 theorem iQ_pow7 : iQ ^ 7 = -iQ := by linear_combination (iQ ^ 5 - iQ ^ 3 + iQ) * iQ_sq
 theorem iQ_pow8 : iQ ^ 8 = 1 := by linear_combination (iQ ^ 6 - iQ ^ 4 + iQ ^ 2 - 1) * iQ_sq
-
-theorem two_ne_zero' : (2 : Qbar) ≠ 0 := two_ne_zero
 
 open WeierstrassCurve.Affine in
 /-- **`φ` over `ℚ`**: `φ(x, y) = (y²/4x², y(x² − 4)/8x²)` for `x ≠ 0`. -/
@@ -1049,5 +1045,108 @@ theorem phiC_ne_zero (hEq : EtaModelEquation) (τ : UpperHalfPlane) : phiC τ �
   exact WeierstrassCurve.Affine.Point.some_ne_zero h
 
 end Analytic
+
+/-! ## §12 Invariance under `T = [[1,1],[0,1]] ∈ Γ₀(32)` (proved; a piece of `X0-INV`) -/
+
+section Translation
+
+open ModularForm
+
+/-- `η(z + m) = e^{2πim/24} η(z)` for `m ∈ ℕ`. -/
+theorem eta_add_nat (z : ℂ) (m : ℕ) :
+    ModularForm.eta (z + m) = cexp (2 * Real.pi * I * m / 24) * ModularForm.eta z := by
+  unfold ModularForm.eta
+  have hq : ∀ n : ℕ, eta_q n (z + m) = eta_q n z := by
+    intro n
+    rw [eta_q_eq_cexp, eta_q_eq_cexp]
+    have : 2 * Real.pi * I * (n + 1) * (z + m) =
+        2 * Real.pi * I * (n + 1) * z + ((n + 1) * m : ℕ) * (2 * Real.pi * I) := by
+      push_cast; ring
+    rw [this, Complex.exp_add, Complex.exp_nat_mul_two_pi_mul_I, mul_one]
+  simp only [hq]
+  rw [← mul_assoc]
+  congr 1
+  simp only [Function.Periodic.qParam]
+  rw [← Complex.exp_add]
+  congr 1
+  push_cast
+  ring
+
+/-- `η(d(z + 1)) = c^d η(dz)` with `c = e^{2πi/24}`. -/
+theorem etaD_add_one (d : ℕ) (z : ℂ) :
+    etaD d (z + 1) = cexp (2 * Real.pi * I / 24) ^ d * etaD d z := by
+  unfold etaD
+  rw [show (d : ℂ) * (z + 1) = d * z + (d : ℕ) by ring, eta_add_nat, ← Complex.exp_nat_mul]
+  congr 2
+  ring
+
+theorem cexp_pow_24 : cexp (2 * Real.pi * I / 24) ^ 24 = 1 := by
+  rw [← Complex.exp_nat_mul]
+  have : ((24 : ℕ) : ℂ) * (2 * Real.pi * I / 24) = ((1 : ℕ) : ℂ) * (2 * Real.pi * I) := by
+    push_cast; ring
+  rw [this, Complex.exp_nat_mul_two_pi_mul_I]
+
+/-- **`x(z + 1) = x(z)`.** -/
+theorem xC_add_one (z : ℂ) : xC (z + 1) = xC z := by
+  unfold xC
+  simp only [etaD_add_one]
+  set c := cexp (2 * Real.pi * I / 24)
+  have hc : c ≠ 0 := Complex.exp_ne_zero _
+  have h24 := cexp_pow_24
+  congr 1
+  rcases eq_or_ne (etaD 4 z * etaD 32 z ^ 2) 0 with h0 | h0
+  · have : (c ^ 4 * etaD 4 z * (c ^ 32 * etaD 32 z) ^ 2) = 0 := by
+      rcases mul_eq_zero.mp h0 with h | h
+      · rw [h]; ring
+      · rw [pow_eq_zero_iff two_ne_zero |>.mp h]; ring
+    rw [this, h0, div_zero, div_zero]
+  · have h0' : c ^ 4 * etaD 4 z * (c ^ 32 * etaD 32 z) ^ 2 ≠ 0 := by
+      have : c ^ 4 * etaD 4 z * (c ^ 32 * etaD 32 z) ^ 2 =
+        c ^ 68 * (etaD 4 z * etaD 32 z ^ 2) := by ring
+      rw [this]; exact mul_ne_zero (pow_ne_zero _ hc) h0
+    rw [div_eq_div_iff h0' h0]
+    have h68 : c ^ 68 = c ^ 20 := by
+      rw [show c ^ 68 = c ^ 20 * (c ^ 24) ^ 2 by ring, h24]; ring
+    linear_combination (-(etaD 2 z ^ 2 * etaD 16 z * etaD 4 z * etaD 32 z ^ 2)) * h68
+
+/-- **`f(z + 1) = f(z)`.** -/
+theorem fC_add_one (z : ℂ) : fC (z + 1) = fC z := by
+  unfold fC
+  simp only [etaD_add_one]
+  linear_combination (etaD 4 z ^ 2 * etaD 8 z ^ 2) * cexp_pow_24
+
+/-- **`y(z + 1) = y(z)`.** -/
+theorem yC_add_one (z : ℂ) : yC (z + 1) = yC z := by
+  unfold yC
+  simp only [etaD_add_one]
+  set c := cexp (2 * Real.pi * I / 24)
+  have hc : c ≠ 0 := Complex.exp_ne_zero _
+  have h24 := cexp_pow_24
+  congr 1
+  rcases eq_or_ne (etaD 4 z ^ 2 * etaD 32 z ^ 4) 0 with h0 | h0
+  · have : (c ^ 4 * etaD 4 z) ^ 2 * (c ^ 32 * etaD 32 z) ^ 4 = 0 := by
+      rw [show (c ^ 4 * etaD 4 z) ^ 2 * (c ^ 32 * etaD 32 z) ^ 4 =
+        c ^ 136 * (etaD 4 z ^ 2 * etaD 32 z ^ 4) by ring, h0, mul_zero]
+    rw [this, h0, div_zero, div_zero]
+  · have h0' : (c ^ 4 * etaD 4 z) ^ 2 * (c ^ 32 * etaD 32 z) ^ 4 ≠ 0 := by
+      rw [show (c ^ 4 * etaD 4 z) ^ 2 * (c ^ 32 * etaD 32 z) ^ 4 =
+        c ^ 136 * (etaD 4 z ^ 2 * etaD 32 z ^ 4) by ring]
+      exact mul_ne_zero (pow_ne_zero _ hc) h0
+    rw [div_eq_div_iff h0' h0]
+    have h136 : c ^ 136 = c ^ 64 := by
+      rw [show c ^ 136 = c ^ 64 * (c ^ 24) ^ 3 by ring, h24]; ring
+    linear_combination (-(etaD 8 z ^ 4 * etaD 16 z ^ 2 * etaD 4 z ^ 2 * etaD 32 z ^ 4)) * h136
+
+/-- **`x, y, f` are invariant under `T ∈ Γ₀(32)`** (`T • τ = τ + 1`). -/
+theorem xC_yC_fC_T_smul (τ : UpperHalfPlane) :
+    xC ↑(ModularGroup.T • τ) = xC τ ∧ yC ↑(ModularGroup.T • τ) = yC τ ∧
+      fC ↑(ModularGroup.T • τ) = fC τ := by
+  have h : ((ModularGroup.T • τ : UpperHalfPlane) : ℂ) = (τ : ℂ) + 1 := by
+    rw [UpperHalfPlane.modular_T_smul, UpperHalfPlane.coe_vadd]
+    push_cast; ring
+  rw [h]
+  exact ⟨xC_add_one _, yC_add_one _, fC_add_one _⟩
+
+end Translation
 
 end ZInQ.Contrib.TYZGenus.X0

@@ -21,3 +21,12 @@ open ZInQ.Contrib.TYZGenus.X0 ZInQ.Contrib.TYZDecomp.CurveA
 #print axioms not_exists_variableChange_X0_C1
 #print axioms isoVC_smul
 #print axioms isCuspImage_toC
+#print axioms differentiableAt_xC
+#print axioms differentiableAt_yC
+#print axioms differentiableAt_fC
+#print axioms fC_ne_zero
+#print axioms yC_ne_zero
+#print axioms phiC_eq_some
+#print axioms phiC_ne_zero
+#print axioms xC_yC_fC_T_smul
+#print axioms eta_add_nat
