@@ -48,3 +48,9 @@
 - 04:50 compiles: phiF_natCast (TDifferent.phiF Γ m = ∑_{i∈Icc 1 m} |Γ_i|/|Γ_0|), phiAt_Lj_natCast,
   ramCard_Lj_ne_one_iff, ramCard_Lj_zero (g_0 = e(P|p)), D1_Lj (g_0 ≤ a!, 1 ≤ a, g_b ≠ 1 ⇒
   LadicCond.phiAt (Lj j) b ≤ 4a²; closed). VERIFIED (compiled).
+
+## ZInQKernel/Contrib/G15/LadicUpper.lean
+- 04:58 compiles: exists_smul_ne, decompFilt_antitone, exists_notMem_decompFilt, lowerIdx,
+  mem_decompFilt_iff (s ∈ G_i ↔ i < lowerIdx s), tauOf_eq_one_of_mem_upperSet (1 ≤ a, g_0(Lj) ≤ a!,
+  4a² < v, σ ∈ upperSet (Lj j) v ⇒ σ|_{jL} = 1), apply_j_eq_of_mem_upperAbs (same for σ ∈ upperAbs p v),
+  restrictNormal_decomp_eq_one_of_mem_upperAbs (ℚ̄ form). VERIFIED (compiled).
