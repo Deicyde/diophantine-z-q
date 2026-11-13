@@ -124,3 +124,5 @@
   `literature_hecke_fe_of_gaussPointCount : GaussPointCount → HeckeContinuation5 ∧
    ZInQ.Literature.FunctionalEquation5`.  The only remaining hypothesis is Gauss's point count.
 - (VERIFIED, compiled ~19:35) `heckeEuler_of_odd`, `deuringCd_of_gaussPointCount`.
+- (VERIFIED numerically, `gauss_jacobi_check.py`, 10 primes p ≡ 1 mod 4 ≤ 89) blueprint for
+  GaussPointCount: S = Σχ₂(x³−x) = 2 Re J(χ₄, χ₂), |J|² = p, −J primary.

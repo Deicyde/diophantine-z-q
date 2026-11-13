@@ -35,10 +35,23 @@ primary. The right-hand side is written as `¼ Σ_{a² + b² = p} u(a + bi)(a + 
 *A Classical Introduction to Modern Number Theory*, Ch. 18 §4, the point count of
 `y² = x³ − Dx` with `D = 1` (STANDARD; theorem number UNVERIFIED). It is refereed and classical,
 and it mentions only `𝔽_p`, `ℤ²` and a finite table: no elliptic-curve library, no L-function.
-Numerically VERIFIED at the 29 primes `p ≡ 1 (mod 4)` below 300 (`remaining_check.py`). A Lean
-proof is tier M: quartic Jacobi sums `J(χ, χ)`, with `N J = p` from Mathlib's
-`jacobiSum_mul_jacobiSum_inv`, `J ≡ −1 mod (1−i)²` from `exists_jacobiSum_eq_neg_one_add`, plus the
-primary normalization mod `(1+i)³`. Or the team can take it as a leaf.
+Numerically VERIFIED at the 29 primes `p ≡ 1 (mod 4)` below 300 (`remaining_check.py`).
+
+Proof plan for a Lean proof (tier M; the steps are numerically VERIFIED for 10 primes in
+`gauss_jacobi_check.py`). Let `χ₄` be a quartic character of `𝔽_p^×` with values in `ℤ[i]`
+(Mathlib: `MulChar.exists_mulChar_orderOf`), and let `χ₂ = χ₄²`.
+1. `Σ_{x² = u} χ₂(x) = χ₄(u) + χ̄₄(u)` and `χ₂(−1) = 1`. Hence
+   `S := Σ_x χ₂(x³ − x) = J(χ₄, χ₂) + J(χ̄₄, χ₂) = 2 Re J`, where `J = J(χ₄, χ₂)` is the Jacobi sum.
+   The point count is then `N = p + S` (`card_cd_affine_eq` with `d = 1`).
+2. `N(J) = p` (Mathlib `jacobiSum_mul_jacobiSum_inv`), so `J ∈ U·π ∪ U·π̄`. This description of the
+   elements of norm `p` is proved inside `sum_normFiber_prime`.
+3. `−J` is primary, `J ≡ −1 (mod 2 + 2i)`. Mathlib's `exists_jacobiSum_eq_neg_one_add` gives
+   `J ≡ −1 (mod (i − 1)²) = (mod 2)`; one more factor of `(1 + i)` is needed (Ireland–Rosen Ch. 9 §9,
+   the congruence for quartic Jacobi sums; UNVERIFIED locator). Then `S = −(π + π̄)` for the primary
+   `π = −J`, which is `GaussPointCount` once `heckeCoeff 1 p = π + π̄` (from `sum_normFiber_prime` and
+   `psi_gmul_unit`).
+
+Or the team can take it as a leaf.
 
 Everything else is proved, including the `ℤ[i]` arithmetic: `heckeMult` (multiplicativity, by gcd
 and Bezout; the fibres of `(α, β) ↦ αβ` have four elements) and `heckePrimePowSplit` (the Hecke
@@ -318,6 +331,8 @@ For `d ≡ 3 (mod 4)` the Jacobi symbol `(n/d)` would have to be replaced by `(d
 - `fourier_check.py` → `out_fourier_check.txt`: the 2-part, `OddGauss d` for `d ∈ {5, 13, 21, 3, 7}`,
   and the full `CdFourier d` for `d ∈ {5, 13, 21}`, numerically.
 - `remaining_check.py` → `out_remaining_check.txt`: `GaussSplit 1` and `HeckeEuler d` numerically.
+- `gauss_jacobi_check.py` → `out_gauss_jacobi_check.txt`: the Jacobi-sum plan for `GaussPointCount`
+  (`S = 2 Re J`, `|J|² = p`, `−J` primary), at 10 primes.
 - `log.md`: results log.
 
 ## 6. Not done / unchecked
