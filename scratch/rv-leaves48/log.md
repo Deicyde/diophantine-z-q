@@ -77,3 +77,16 @@ TextbookLeaves, lines 19109-19200) after leaf-adopt. Base 01267822.
 - Glue note: HSyn.GaloisRep (r14, r15) and PkgI4.GaloisRep (r13, PanFor) are distinct structures;
   the glue must convert (no faithfulness issue).
 - Wording: T23 docstring says "Exact"; it is a matrix-form consequence (on V^∨).
+
+## Probes (VERIFIED: compiled)
+- scratch/rv-leaves48/Probes.lean = verbatim copy of Leaves.lean + probe sections A, C, D, QM, B,
+  Bundle. `lake env lean scratch/rv-leaves48/Probes.lean`: EXIT 0 (3m34s, third attempt; first two
+  fixed a numeral-projection goal in QM-P1 and the `⇑0` form in B-P3). Only `sorry`: Leaves.lean's own
+  `glueOutputs_of_leaves`. RvLeaves48D.sfh_eq_top_iff, H5_forces_metrized_model: axioms
+  [propext, Classical.choice, Quot.sound].
+- Content: D-P1 `stableFaltingsHeight A = ⊤ ↔ no MetrizedModel`; D-P2 then R21 at A trivial and the
+  R19/R20 hypothesis `h A = x` unsatisfiable; D-P3 H5 → a MetrizedModel exists for every A over a
+  number field, and R19's hypothesis is satisfiable; B-P3 the zero cusp form is not a normalized
+  eigenform; B-P1/P2 bundle field types and HSyn = PkgI4/PkgI6 duplicates (rfl); A-P1..P3, C-P1
+  notation/definition facts; QM-P1 μ = 2j + k has μ² = -6 in (2,-3); L-P1 ResearchLeaves +
+  TextbookLeaves + X1ModelExists give ModCurveLeaves and exists_J1 (X1ModelExists is the missing field).

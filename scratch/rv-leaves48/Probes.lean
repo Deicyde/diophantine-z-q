@@ -19432,7 +19432,7 @@ open LeafQM
 
 /-- QM-P1: `μ = 2j + ij` in `B = (2, −3)` satisfies `μ² = −6 = −disc B` (the type of the
 polarization fixed by Lemma P / the PEL datum). -/
-example : ((⟨0, 0, 2, 1⟩ : B) * ⟨0, 0, 2, 1⟩) = (-6 : B) := by
+example : ((⟨0, 0, 2, 1⟩ : B) * ⟨0, 0, 2, 1⟩) = (⟨-6, 0, 0, 0⟩ : B) := by
   ext <;> simp <;> norm_num
 
 /-- QM-P2: `R5fp`, `R5fpCount` exclude non-orders: a subring of infinite index has
@@ -19440,6 +19440,52 @@ example : ((⟨0, 0, 2, 1⟩ : B) * ⟨0, 0, 2, 1⟩) = (-6 : B) := by
 example : ¬ Nat.Coprime 0 6 := by decide
 
 end RvLeaves48QM
+
+section RvLeaves48B
+
+-- B-P1: bundle field types are the ones reviewed
+example (r : HSyn.ResearchLeaves) : HSyn.EigenformRepExists := r.r14
+example (r : HSyn.ResearchLeaves) : HSyn.DeligneSerreConseq := r.r15
+example (r : HSyn.ResearchLeaves) : PkgI4.EigenformHT := r.r13
+example (r : HSyn.ResearchLeaves) : PkgI4.PanBerger := r.r11r12
+example (r : HSyn.ResearchLeaves) : PkgI4.DeRhamComparison := r.r10
+example (r : HSyn.ResearchLeaves) : PkgI1.ThetaModularity := r.r4
+example (t : HSyn.TextbookLeaves) : HSyn.EigenformTwist := t.t24
+example (t : HSyn.TextbookLeaves) : HSyn.SkolemNoether := t.t13
+example (t : HSyn.TextbookLeaves) : HSyn.KroneckerWeber := t.t17
+example (t : HSyn.TextbookLeaves) : HSyn.FrobeniusDense := t.t18
+example (t : HSyn.TextbookLeaves) : HSyn.BrauerNesbitt := t.t19
+example (t : HSyn.TextbookLeaves) : PkgI4.NewformOfEigenform := t.t25
+example (t : HSyn.TextbookLeaves) : PkgI1.IgusaClebschSeparation := t.t28
+example (t : HSyn.TextbookLeaves) : ∀ (p : ℕ) [Fact p.Prime], PkgI4.T23_FontaineClosure p := t.t23
+
+-- B-P2: the duplicated statements agree definitionally
+example : HSyn.SkolemNoether = PkgI6.SkolemNoether := rfl
+example : HSyn.EigenformTwist ↔ PkgI4.EigenformTwist := Iff.rfl
+
+-- B-P3: the zero cusp form is never a normalized eigenform (a₁ = 0): the eigenform hypothesis of
+-- R13-R15, T24, T25 excludes the degenerate form.
+example (N : ℕ) (k : ℤ) (χ : DirichletCharacter ℂ N) :
+    ¬ HSyn.IsNormalizedEigenform (0 : HSyn.CF N k) χ := by
+  rintro ⟨-, h1, -⟩
+  have h0 : UpperHalfPlane.cuspFunction 1 (0 : UpperHalfPlane → ℂ) = 0 := by
+    simp only [UpperHalfPlane.cuspFunction, Pi.zero_comp, Function.Periodic.cuspFunction_zero]
+  simp [HSyn.coeff, UpperHalfPlane.qExpansion_coeff] at h1
+  rw [h0] at h1
+  simp at h1
+
+end RvLeaves48B
+
+section RvLeaves48Bundle
+-- L-P1 (finding F1): the bundles give every field of `LeafModCurves.ModCurveLeaves` except
+-- `X1ModelExists`, which is in neither bundle; with it, `exists_J1` fires.
+example (r : HSyn.ResearchLeaves) (t : HSyn.TextbookLeaves) (hX : LeafModCurves.X1ModelExists) :
+    LeafModCurves.ModCurveLeaves := ⟨t.t33, hX, r.r16, t.t34⟩
+
+example (r : HSyn.ResearchLeaves) (t : HSyn.TextbookLeaves) (hX : LeafModCurves.X1ModelExists)
+    (N : ℕ) (hN : 0 < N) : ∃ J : PkgI3.AbVar ℚ, LeafModCurves.IsJ1 N J :=
+  LeafModCurves.exists_J1 t.t33 hX N hN
+end RvLeaves48Bundle
 
 #print axioms RvLeaves48D.sfh_eq_top_iff
 #print axioms RvLeaves48D.H5_forces_metrized_model
