@@ -4,6 +4,7 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Claude, Codex
 -/
 -- Vendored from Tau Ceti (https://github.com/TauCetiProject/TauCeti, commit 5a01f5fe3621, module TauCeti.RepresentationTheory.Homological.ContCohomology.Coinduced.Discrete), Apache-2.0.
+-- Modified for the Z-in-Q kernel: explicit arguments `G A` in the `IsZeroApply`, `IsAddApply`, `IsSMulApply ℕ` instances (older Mathlib).
 module
 
 public import Mathlib.Topology.ContinuousMap.Algebra
