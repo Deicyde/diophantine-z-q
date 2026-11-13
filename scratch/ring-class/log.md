@@ -113,3 +113,6 @@
 - 08:48 (VERIFIED, build success, axioms standard): `artinPrime d : Pic (O4 d) ⧸ zpowers (sigmaClass d) ≃*
   Gal(Hprime d/QNeg d)` (Artin isomorphism for H'_d = TYZ's Cl'_d), `artinPrime_mk_apply` (restriction of
   ringClassArtinEquiv), `card_artinPrime`; instances FiniteDimensional/IsGalois for `Hprime d`.
+- 08:51 (VERIFIED, build success, axioms standard): `artin4_sq_apply_of_sq` (Artin symbols of squares in
+  Pic(O_{n,4}) fix every √q ∈ H_{n,4}, q ∈ K_n) in RingClassGenus.lean; `fixes_iQ_of_actsAsArtin4_sq`
+  (ρ acting on H_{n,4} as b² fixes iQ) in RingClassBridge.lean (now imports RingClassGenus).

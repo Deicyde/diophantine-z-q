@@ -24,3 +24,4 @@ open ZInQ.Contrib.TYZGenus.RingClass ZInQ.Contrib.TYZGenus.RingClassBridge
 #print axioms ZInQ.Contrib.TYZGenus.RingClass.ringClassFieldD_neg
 #print axioms ZInQ.Contrib.TYZGenus.RingClass.artinPrime_mk_apply
 #print axioms ZInQ.Contrib.TYZGenus.RingClass.card_artinPrime
+#print axioms ZInQ.Contrib.TYZGenus.RingClassBridge.fixes_iQ_of_actsAsArtin4_sq

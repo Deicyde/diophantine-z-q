@@ -362,4 +362,30 @@ theorem card_artinPrime : Nat.card (Pic (O4 d) ⧸ Subgroup.zpowers (sigmaClass 
 
 end ArtinPrime
 
+section SquaresFix
+
+open ZInQ.RouteK.Rank5b ZInQ.Contrib.TYZDecomp.CurveA
+
+variable {n : ℕ} [NeZero n]
+
+/-- **Squares of `Pic(O_{n,4})` fix every square root of an element of `K_n` lying in `H_{n,4}`**
+(`Gal(K(√q)/K)` has exponent 2). With `adjI_le_H4`, `adjSqrt_two_le_H4` and
+`adjSqrt_le_hilbertField`: `2Cl'_n` fixes `i`, `√2` and `√p` (`p ∣ n`), as TYZ use ("`t ∈ Φ₀ ⊂ 2Cl′_n`
+fixes `i ∈ L_n`", `rv-tyz-inputs.md` §1.5). -/
+theorem artin4_sq_apply_of_sq {x : SeparableClosure (QNeg n)} (hx : x ∈ H4 n)
+    (hsq : ∃ q : QNeg n, x ^ 2 = algebraMap (QNeg n) _ q) (b : Pic (O4 n)) :
+    ((artin4 n (b ^ 2) ⟨x, hx⟩ : H4 n) : SeparableClosure (QNeg n)) = x := by
+  obtain ⟨q, hq⟩ := hsq
+  set g := artin4 n b
+  have hy : (⟨x, hx⟩ : H4 n) ^ 2 = algebraMap (QNeg n) (H4 n) q := Subtype.ext (by simpa using hq)
+  have hg : g ⟨x, hx⟩ = ⟨x, hx⟩ ∨ g ⟨x, hx⟩ = -⟨x, hx⟩ := by
+    have : g ⟨x, hx⟩ ^ 2 = (⟨x, hx⟩ : H4 n) ^ 2 := by rw [← map_pow, hy, AlgEquiv.commutes]
+    exact sq_eq_sq_iff_eq_or_eq_neg.1 this
+  rw [map_pow, pow_two, AlgEquiv.mul_apply]
+  rcases hg with h | h
+  · rw [h, h]
+  · rw [h, map_neg, h, neg_neg]
+
+end SquaresFix
+
 end ZInQ.Contrib.TYZGenus.RingClass

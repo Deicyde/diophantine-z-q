@@ -1,5 +1,6 @@
 import ZInQKernel.Contrib.TYZGenus.Package
 import ZInQKernel.Contrib.TYZGenus.RingClassGalois
+import ZInQKernel.Contrib.TYZGenus.RingClassGenus
 
 /-!
 # ring-class → cm-points bridge (task ring-class)
@@ -59,5 +60,19 @@ theorem tyzThm35ReadingA_of_cmLeaves_ringClassD (h11 : TYZThm11Integral) (h1 : T
 
 /-- `ℍ'_n / ℚ` is normal (cm-points' `NormalFields HHprime`, now unconditional). -/
 theorem normalFields_HHprime' : NormalFields HHprime := normalFields_HHprime hprimeNormal
+
+open ZInQ.Contrib.TYZDecomp.CurveA ZInQ.RouteK.Rank5b TauCeti.GlobalNumberFields in
+/-- **`ρ` acting on `H_{n,4}` as an element of `Pic(O_{n,4})²` fixes `i`.** -/
+theorem fixes_iQ_of_actsAsArtin4_sq {n : ℕ} [NeZero n] {ρ : ZInQ.Contrib.TYZGenus.CM.GalQ} {b : Pic (O4 n)}
+    (hρ : ActsAsArtin4 ρ n (b ^ 2)) : ρ iQ = iQ := by
+  have hx : jK (QNeg n) ∈ H4 n := jK_mem_H4
+  have hfix := hρ ⟨jK (QNeg n), hx⟩
+  rw [artin4_sq_apply_of_sq hx ⟨-1, by rw [jK_sq, map_neg, map_one]⟩] at hfix
+  have hs2 : (embed n (jK (QNeg n))) ^ 2 = iQ ^ 2 := by
+    rw [← map_pow, jK_sq, map_neg, map_one, iQ_sq]
+  rcases sq_eq_sq_iff_eq_or_eq_neg.1 hs2 with h | h
+  · rw [← h]; exact hfix
+  · have : iQ = -embed n (jK (QNeg n)) := by rw [h, neg_neg]
+    rw [this, map_neg, hfix]
 
 end ZInQ.Contrib.TYZGenus.RingClassBridge
