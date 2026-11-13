@@ -84,3 +84,16 @@ Targets (copied verbatim from scratch/g0-mod-galois): `G12Weight` (part_galois.l
   TatePairingZl` and `detTate_of_leaves : … → PkgI3.TateModuleFree → DetTate`.
   run1 (04:56): 1 error (`Gal K` vs `Field.absoluteGaloisGroup K` in a rewrite); run2 (04:58):
   0 errors, 0 sorry; both on [propext, Classical.choice, Quot.sound].
+
+## TwistExists, TwistConj PROVED; G12Weight from HTConj + two leaves (VERIFIED, compiled)
+
+- part_twist.lean (appended to Weight.lean by build.sh): copies `FrobeniusDenseQ`,
+  `frobeniusDenseQ_of`, `eq_of_eq_on_arithFrob`, `continuous_mat` verbatim from part_det.lean;
+  `scalarU`, `twistHom`, `twistExists : TwistExists` (continuity via `Units.continuous_iff`);
+  `invariant_of_irreducible`, `isSemisimple_of_irreducible`, `isSemisimple_twist`,
+  `twistConj_of : HSyn.FrobeniusDense → HSyn.BrauerNesbitt → TwistConj`;
+  `g12Weight_of_HT : HTConj → SenTwist → FiniteImageHT → G12Weight` (T18, T19 are hypotheses of
+  `G12Weight` itself).
+- run (05:01): 2 errors (`bot_le` shape; a `simp only` no-op). run (05:05-05:08): 0 errors,
+  0 sorry; `g12Weight_concl_iff`, `g12Weight_of`, `twistExists`, `twistConj_of`,
+  `g12Weight_of_HT` on [propext, Classical.choice, Quot.sound].
