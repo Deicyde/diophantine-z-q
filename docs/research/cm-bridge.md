@@ -68,8 +68,9 @@ verbatim; `tyzCm_shimuraReciprocityPic_eq` checks it is `rfl`-equal to tyz-cm's)
 ## 1. Leaves of the three final theorems
 
 Headline: the three `𝓛`-leaves, `Shimura.ShimuraReciprocityModFn` (tyz-cm), `Lemma318Literal`,
-`Thm35First`, `Lemma321Five`. The intermediate theorems use the following (all derived from the
-headline's leaves except the TYZ ones):
+`Thm35First`, `Lemma321Five`. The intermediate theorems also use the CM leaves below; all of them
+except `TYZSigmaShiftsF0` (used only by the first theorem) are derived from
+`ShimuraReciprocityModFn` in §15 or by tyz-cm:
 
 | leaf | content | source | kind |
 |---|---|---|---|
@@ -200,11 +201,12 @@ theorem tyzThm35ReadingA_of_lcal_shimuraModFn_lemma318_thm35First_lemma321Five
 
 ## 3. Compile status
 
-`lake build ZInQKernel.Contrib.TYZGenus.RingClassBridge` (clean), then
+`lake build ZInQKernel.Contrib.TYZGenus.RingClassBridge` and, after the tyz-cm merge,
+`lake build ZInQKernel.Contrib.TYZGenus.ShimuraFricke` (10301 jobs, clean), then
 `lake env lean scratch/cm-bridge/Bridge.lean`: 0 errors (≈40 s; only linter style warnings), VERIFIED
 2026-11-13. `#print axioms` for 32 declarations (`audit-out.txt`), including `genusFieldLeLni`, `tyzThm36Seven_of`,
-`betaOnGenus7_of`, `sqrtPstarInHilbert`, `artinPstarChi`, `normP2`, `lemma321Seven_of'` and both main
-theorems: all `[propext, Classical.choice, Quot.sound]`. The file keeps cm-numeric's
+`betaOnGenus7_of`, `sqrtPstarInHilbert`, `artinPstarChi`, `normP2`, `lemma321Seven_of'`,
+`cmAlgebraic_of_cmValue`, `tyzThm36Seven_of_shimuraModFn` and the three final theorems: all `[propext, Classical.choice, Quot.sound]`. The file keeps cm-numeric's
 `set_option maxRecDepth 8000`. Pitfall met: `rw [restrict_ringClassArtinEquiv] at h` at `K = QNeg d`
 hits max recursion / a kernel deterministic timeout; proving the restriction identity once for a general
 `K` (`coe_artin_restrict`) and specializing avoids it.
@@ -223,6 +225,8 @@ hits max recursion / a kernel deterministic timeout; proving the restriction ide
   prime `p ≡ 3 (mod 8)` inert in the `K_{d₀}`; none of this exists in Lean today.
 * `TYZSigmaShiftsF0`, `Thm35First`, the `𝓛`-leaves and `CM.CMFieldOfDefinition ringClassFieldD` were
   not attacked (the last is task tyz-cm's; `TYZSigmaFixesZn` is tyz-cm's too).
+* Integration note: Bridge.lean §0–§9 duplicate cm-numeric's `Class7.lean` definitions (`tyzZ`, `Z7`,
+  `Phi0`, … in namespace `CMBridge` instead of `CMNumeric`); when both are integrated, keep one copy.
 * The combination with tyz-cm uses their branch as of `0ad48a7d` (merged into `wip/cm-bridge`); if
   tyz-cm changes `ShimuraReciprocityModFn` later, §15 must be rechecked.
 
@@ -235,6 +239,6 @@ and the pinned `δ` cannot make the statement false (`z_n` depends on `δ mod 64
 conjugates `z_n` and `v₂` together) — OK; (4) `τ(1/2) = tauG 1 = (2, −4)` — OK; (5) not vacuous — OK.
 **Finding (blocking, fixed):** the first `p2Ideal` was not oriented relative to `ιC`, so the leaf was
 the wrong-sign statement (numerically false) for one of the two possible `embed n`. Fixed with
-`PosOrient` (§1); `normP2`, `betaOnGenus7`, `lemma321Seven_of'` and both main theorem recompiled
+`PosOrient` (§1); `normP2`, `betaOnGenus7`, `lemma321Seven_of'` and the main theorems recompiled
 unchanged otherwise. The reviewer also judged that `thm36_7.py` tests exactly the Lean statement under
 the `+i√n` orientation (Shimura direction taken from cm-numeric's VERIFIED `shimura.out`).
