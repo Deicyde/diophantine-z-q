@@ -14,7 +14,10 @@ import ZInQKernel.HDecomp.Faltings.H5BaseChange
   `GoodPlaceAnyField`, N2-g2 `LocalSemistableMono`, N2-g3 `SemistableGlobalOfLocal`
   (`semistableLocalToGlobal_of`, `goodPlacesAnyField_of`, proved; composita `compositumFinset`).
 * §5 assembles N1 and N2 from the leaves N1-loc, N1-ab, N2-loc, NL and the six glue statements
-  (`n1_n2_of_leaves_and_glue`, proved), and shows N1-loc ⇐ N1-self + NL. -/
+  (`n1_n2_of_leaves_and_glue`, proved), and shows N1-loc ⇐ N1-self + NL.
+* §6 **proves** the glue N2-g1' (`goodPlaceAnyField`) from N1-ab (pasting lemmas for
+  `Over.pullback`, `genSq`, `bcA`), so N1 ∧ N2 rest on four leaves and five glue statements
+  (`n1_n2_of_leaves_and_glue'`). -/
 
 namespace ZInQ.NeronLG
 
@@ -1231,6 +1234,22 @@ theorem goodPlaceAnyField : GoodPlaceAnyField := by
       φ.hom).left ≫ ·) (genSq_compat _ _ _ _ sqV 𝒩₀.G (A.baseChange L₀).X 𝒩₀.gen
         (bcA A L₀ L') (bcProj A L₀ L') (bcA_proj A L₀ L'))
 
+
+/-- **`SemistableLocalToGlobal` from the leaf NL and the glue N1-g1, N2-g2, N2-g3 (proved;
+N2-g1' is now a theorem).** -/
+theorem semistableLocalToGlobal_of' (hloc : NeronLocalOnBase) (hsp : AbVarSpreadsOut)
+    (h2 : LocalSemistableMono) (h3 : SemistableGlobalOfLocal) : SemistableLocalToGlobal :=
+  semistableLocalToGlobal_of hloc hsp (goodPlacesAnyField_of goodPlaceAnyField) h2 h3
+
+/-- **N1 and N2 from the leaves N1-loc, N1-ab, N2-loc, NL and the five glue statements N1-g1,
+N1-g2, N1-g3, N2-g2, N2-g3 (proved).** -/
+theorem n1_n2_of_leaves_and_glue' (hloc1 : LocalNeronModelExists) (hab : AbelianSchemeIsNeron)
+    (hloc2 : LocalSemistableIdentityComponent) (hNL : NeronLocalOnBase)
+    (g1 : AbVarSpreadsOut) (g2 : NeronNearPoint) (g3 : NeronGlueAway)
+    (g5 : LocalSemistableMono) (g6 : SemistableGlobalOfLocal) :
+    NeronModelExists ∧ SemistableNeronIdentityComponent :=
+  n1_n2_of_leaves_and_glue hloc1 hab hloc2 hNL g1 g2 g3 goodPlaceAnyField g5 g6
+
 end ZInQ.NeronLG
 
 #print axioms ZInQ.NeronLG.neronLocalToGlobal_of
@@ -1247,3 +1266,5 @@ end ZInQ.NeronLG
 #print axioms ZInQ.NeronLG.localNeronModelsOf
 #print axioms ZInQ.NeronLG.localNeronModelExists_of_self
 #print axioms ZInQ.NeronLG.goodPlaceAnyField
+#print axioms ZInQ.NeronLG.semistableLocalToGlobal_of'
+#print axioms ZInQ.NeronLG.n1_n2_of_leaves_and_glue'

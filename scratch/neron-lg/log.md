@@ -65,3 +65,22 @@ the `IsBaseChangeOf` iso e and 𝒩₀.gen, not 𝒱.gen).
   `[propext, Classical.choice, Quot.sound]`.
 - Verbatim check (python): the 12 copied blocks of scratch/tau-n1n2/N1N2.lean (§1 and §5) occur
   unchanged in NeronLG.lean.
+
+## NeronLG.lean §6 — glue N2-g1' PROVED — COMPILED 06:58 / 07:00 (0 errors; 16 #print axioms, all standard)
+- Copied (verbatim, tau-n1n2) `isMonHom_of_reflect`, `NeronModelOver.neronProp`, `NeronModelOver.uniqueIso`.
+- Pasting lemmas: `pbCompInv_fst` (via `conjugateEquiv_counit`; `simp [pbCompInv, Over.pullbackComp,
+  conjugateIsoEquiv, Over.mapComp]` closes it), `pbCompHom_fst`, `pbEq_fst`, `pbMap_fst`.
+- `genSq` (base change of a generic-fibre identification along a commutative square; irreducible_def),
+  `genSq_hom`, `isMonHom_genSq`, `genSq_cond`, `genSq_fst`, `genSq_compat`.
+- `bcA'`/`bcA` ((A_{L₀})_{L'} ≅ A_{L'}), `isMonHom_bcA`, `bcProj'`, `bcA_proj` (bcA ≫ bcProj = fst).
+- `isProper_of_abelian` (local Néron model is proper where A has an abelian-scheme model: N1-ab +
+  uniqueness), `iso_baseChange_of_proper` (𝒩' ≅ 𝒩₀ ×_{O₀} O' compatibly with gen: N1-ab + uniqueness).
+- `goodPlaceAnyField : GoodPlaceAnyField` PROVED (U = 𝒩', i = 𝟙, j = φ).
+- `semistableLocalToGlobal_of'`, `n1_n2_of_leaves_and_glue'` (N1 ∧ N2 from 4 leaves + 5 glue) PROVED.
+- FINDING (Lean): kernel "deterministic timeout" on every declaration applying N1-ab to `genSq …`
+  while `genSq` (contains `pbEqIso` = `eqToIso`) was a plain `def`, even though elaboration
+  succeeded and an isolated `IsMonHom` check passed; making `genSq` and `bcA'` `irreducible_def`
+  fixed all of them (bisected with test lemmas).
+- FINDING (Lean): `(A.baseChange L).X.left` vs `pullback A.X.hom κ` blocks `rw` ("motive not
+  type-correct at implicit transparency"); state lemmas at the syntactic pullback types (`bcA'`,
+  `bcProj'`) and transfer by `exact`.
