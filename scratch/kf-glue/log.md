@@ -32,3 +32,14 @@ Base: wip/integrate-w38b (f90cf864) + merges of origin/wip/kernel-field, origin/
 - Finding (VERIFIED by reading Mathlib 4.35 `Sites/Fpqc.lean` L88-130): fpqc topology is subcanonical and
   qc surjective flat morphisms are `EffectiveEpi`; so Galois descent of morphisms along Spec L' → Spec L is
   Mathlib-derivable glue, not a literature leaf.
+
+## Step 4. Level 2: SemilinearIsogMaps ⇐ SemilinearTwistIsos + MulIsogeny (+ RigidityHom, proved) — VERIFIED (compiled, build4.txt, rc=0)
+- New Props: `SemilinearTwistAt` / `SemilinearTwistIsos` (σ-semilinear scheme automorphisms E_σ of A_L over
+  Spec(σ⁻¹|_L), preserving μ and η, ι(a) E_σ = E_σ ι(α_σ a) for α_σ ∈ Aut 𝒪, E = id / α = id on G_L,
+  coset-constant). `G0FibreSimple.MulIsogeny` copied verbatim (MulRigidity.lean L321-323).
+- Proved: `exists_b` (Skolem–Noether linear form: b α(a) = a b, b ≠ 0), `exists_quasi_inv` (c b = N = b c),
+  `iota_isogeny` (ι(b) finite & surjective from MulIsogeny via ι(c)ι(b) = [N]), `semilinearIsogAt_of_twist`
+  (F_σ = E_σ ≫ ι(b_σ); discrepancy δ = ι(b_σ) ι(α_σ b_ρ) D ι(c), D = E_{σρ}⁻¹ E_ρ E_σ ∈ End_L via rigidityHom),
+  `semilinearIsogMaps_of_twist`, `conjIsogMaps_of_twist : MulIsogeny → SemilinearTwistIsos → ConjIsogMaps`,
+  `kernelFieldExists_of_twist`. All axioms standard.
+- Finding: the quasi-inverse needs no leaf (Mumford §8 / IsogenyQuasiInverse not used): ι(N b⁻¹).
