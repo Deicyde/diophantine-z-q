@@ -1,0 +1,57 @@
+
+/-! # infra-stalks: `ProductLocalStructure` (metrization) proved -/
+
+namespace ZInQ.Metrization
+
+open CategoryTheory AlgebraicGeometry Limits MonoidalCategory CartesianMonoidalCategory MonObj
+open NumberField DefFaltings Topology
+
+/-- **`ProductLocalStructure` holds** (glue of metrization, statement verbatim), from
+`AlgebraicGeometry.exists_localStructure_pullback`. -/
+theorem productLocalStructure : ProductLocalStructure := by
+  intro K _ A B C L _ _ _ 𝒢P 𝒢₁ 𝒢₂ e τ U s p₁ p₂ hU
+  have hw : ∀ (p₁' : 𝒢₁.Pts τ) (p₂' : 𝒢₂.Pts τ), p₁'.left ≫ 𝒢₁.G.hom = p₂'.left ≫ 𝒢₂.G.hom := by
+    intro p₁' p₂'
+    rw [Over.w p₁', Over.w p₂']
+  have hlift : ∀ (p₁' : 𝒢₁.Pts τ) (p₂' : 𝒢₂.Pts τ),
+      (lift p₁' p₂' ≫ e.inv).left = pullback.lift p₁'.left p₂'.left (hw p₁' p₂') ≫ e.inv.left := by
+    intro p₁' p₂'
+    rw [Over.comp_left]
+    rfl
+  obtain ⟨V₁, V₂, n, a, c, b, d, h1, h2, hne, hall⟩ :=
+    exists_localStructure_pullback 𝒢₁.G.hom 𝒢₂.G.hom e.inv.left U s p₁.left p₂.left (hw p₁ p₂)
+      (by rw [hlift] at hU; exact hU)
+  refine ⟨V₁, V₂, n, a, c, b, d, h1, h2, hne, ?_⟩
+  intro p₁' p₂' h1' h2' hne'
+  have := hall p₁'.left p₂'.left (hw p₁' p₂') h1' h2' hne'
+  rw [hlift]
+  exact this
+
+/-- `ProductUniformizationAnalytic` is a theorem. -/
+theorem productUniformizationAnalytic : ProductUniformizationAnalytic :=
+  productUniformizationAnalytic_of productLocalStructure
+
+/-- `ProductMetrizationGeo` from `ProductHodgeLattice` alone. -/
+theorem productMetrizationGeo_of_hodgeLattice (hPL : ProductHodgeLattice) :
+    ZInQ.G0HeightAdd.ProductMetrizationGeo :=
+  productMetrizationGeo_of_local productLocalStructure hPL
+
+end ZInQ.Metrization
+
+namespace HSyn.G0Split
+
+/-- `HeightAdditivity` with the glue `ProductLocalStructure` discharged. -/
+theorem heightAdditivity_of_metrization_v4 (hN1 : ZInQ.H5Neron.NeronModelExists)
+    (h5 : LeafAdopt.H5) (hU : ZInQ.DefFaltings.AnalyticUniformizationUnique)
+    (hH : ZInQ.DefFaltings.HodgeLatticeTheorem)
+    (hUD : ZInQ.Metrization.AnalyticUniformizationOfDim)
+    (hN : ZInQ.Metrization.JacDetNondegenerate)
+    (hPL : ZInQ.Metrization.ProductHodgeLattice) : HeightAdditivity :=
+  heightAdditivity_of_metrization_v3 hN1 h5 hU hH hUD hN
+    ZInQ.Metrization.productLocalStructure hPL
+
+end HSyn.G0Split
+
+#print axioms ZInQ.Metrization.productLocalStructure
+#print axioms ZInQ.Metrization.productMetrizationGeo_of_hodgeLattice
+#print axioms HSyn.G0Split.heightAdditivity_of_metrization_v4

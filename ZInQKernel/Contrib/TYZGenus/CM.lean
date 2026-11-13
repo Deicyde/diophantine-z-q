@@ -28,7 +28,7 @@ genuine definitions:
 * `§4` the leaves (`def … : Prop`): algebraicity of CM values (`CMAlgebraic`), the field of
   definition of a CM point (`CMFieldOfDefinition`, over the ring class field of the order of
   discriminant `D`, a parameter until `RingClass.lean` provides it), Shimura reciprocity at split
-  primes (`ShimuraReciprocity`) and complex conjugation (`CMComplexConj`);
+  primes (`ShimuraReciprocity`) and complex conjugation (`CMComplexConj`, proved: `cmComplexConj`);
 * `§5` TYZ's points: the Heegner form `[16(n+1), −8, 1]` of discriminant `−64n` (TYZ L1203–1205 as
   quoted in `tyz-t1.md` §3.1) and the genus-point sum `Σ_{t ∈ Φ} t(z)`.
 
@@ -239,7 +239,9 @@ functions*, 1971, Thm. 7.14 and §7.5, UNVERIFIED numbers; for CM curves also De
 Manin constant 1 for 32a1 (Cremona's tables; Edixhoven, UNVERIFIED locator), and CM points of
 `X₀(N)` are algebraic (Shimura 1971, Ch. 5–6, main theorem of complex multiplication; Gross,
 *Heegner points on X₀(N)*, in Modular Forms (Durham 1983), 1984, §1–3, UNVERIFIED numbers).
-Refereed (textbook). -/
+Refereed (textbook). All CM leaves are stated over x0-32's `X0.phiC`; they are true because (and only if) that eta
+model is the `ℚ`-rational modular parametrization, which is the content of x0-32's leaves
+`X0.X0AnalyticModel`. -/
 def CMAlgebraic : Prop :=
   ∀ (D : ℤ) (Q : HeegnerForm 32 D), ∃ P : PtA, toC P = X0.phiC Q.tauH
 
@@ -251,7 +253,9 @@ defined over `H D`. Source: Gross (1984) §1–3 / Shimura (1971) Thm. 5.7 and �
 parametrization over `ℚ` (UNVERIFIED numbers). Refereed (textbook). For non-maximal orders
 whose conductor shares a prime with `N` (TYZ's `D = −64n`, conductor 4, `N = 32`) this is the
 version of Shimura's reciprocity law for the full CM-point set of `X₀(N)`, which TYZ use at
-L1203–1260 (not re-read here). -/
+L1203–1260 (not re-read here). `H` is a free parameter: this is a closed leaf only for a pinned family (the ring class fields); the
+closed TYZ instance is `Package.CMFieldOfDefinitionTYZ` (via `Package.cmFieldTYZ_of`). The main
+theorem uses neither. -/
 def CMFieldOfDefinition (H : ℤ → IntermediateField ℚ Qbar) : Prop :=
   ∀ (D : ℤ) (Q : HeegnerForm 32 D), heegnerPt Q ∈ ptsOver (H D)
 
@@ -299,7 +303,8 @@ def ShimuraReciprocity : Prop :=
       Q'.latN = (conjPrimeLat p b D * Q.latN).map (LinearMap.mulLeft ℤ c)) →
     galPt σ (heegnerPt Q) = heegnerPt Q'
 
-/-- **Leaf CM-4 (complex conjugation on Heegner points).** The automorphism `σ` of `ℚ̄` inducing
+/-- **CM-4 (complex conjugation on Heegner points); proved below as `cmComplexConj`** (from
+`η(−z̄) = conj η(z)`), so not a leaf. The automorphism `σ` of `ℚ̄` inducing
 complex conjugation through `ιC` maps the Heegner point of `[A, B, C]` to that of `[A, −B, C]`
 (`τ_{Q̄} = −conj τ_Q`; the `a_m` are real and `A`, `Λ_A`, the parametrization are defined over `ℝ`).
 STANDARD (Gross 1984 §1, UNVERIFIED locator); used by TYZ in the proof of Theorem 3.6 through
@@ -307,6 +312,115 @@ the matrix `j = [[1, 0], [8, −1]]` (rv-tyz-inputs §1.5). -/
 def CMComplexConj : Prop :=
   ∀ (σ : GalQ), (∀ x : Qbar, ιC (σ x) = starRingEnd ℂ (ιC x)) →
     ∀ (D : ℤ) (Q : HeegnerForm 32 D), galPt σ (heegnerPt Q) = heegnerPt Q.conj
+
+/-! ### `CMComplexConj` is a theorem -/
+
+section ComplexConj
+open ComplexConjugate
+
+theorem qParam_conj (h : ℝ) (z : ℂ) :
+    Function.Periodic.qParam h (-conj z) = conj (Function.Periodic.qParam h z) := by
+  simp only [Function.Periodic.qParam, ← Complex.exp_conj]
+  congr 1
+  simp only [map_div₀, map_mul, Complex.conj_ofReal, Complex.conj_I, map_ofNat]
+  ring
+
+/-- **`η(−z̄) = conj η(z)`** (real `q`-coefficients). -/
+theorem eta_conj (z : ℂ) : ModularForm.eta (-conj z) = conj (ModularForm.eta z) := by
+  unfold ModularForm.eta
+  rw [map_mul, qParam_conj]
+  congr 1
+  rw [Function.LeftInverse.map_tprod (g := starRingEnd ℂ) _ Complex.continuous_conj
+    Complex.continuous_conj (fun w => Complex.conj_conj w)]
+  congr 1
+  funext n
+  simp only [ModularForm.eta_q, map_sub, map_one, map_pow, qParam_conj]
+
+theorem etaD_conj (d : ℕ) (z : ℂ) : X0.etaD d (-conj z) = conj (X0.etaD d z) := by
+  unfold X0.etaD
+  rw [← eta_conj]
+  congr 1
+  simp
+
+theorem xC_conj (z : ℂ) : X0.xC (-conj z) = conj (X0.xC z) := by
+  unfold X0.xC
+  simp only [etaD_conj, map_add, map_div₀, map_mul, map_pow, map_ofNat]
+
+theorem yC_conj (z : ℂ) : X0.yC (-conj z) = conj (X0.yC z) := by
+  unfold X0.yC
+  simp only [etaD_conj, map_neg, map_div₀, map_mul, map_pow]
+
+/-- Complex conjugation on `A(ℂ)` (`A` is defined over `ℚ`). -/
+def conjPt : X0.PtAC →+ X0.PtAC := WeierstrassCurve.Affine.Point.map (W' := curveA) conjQ
+
+theorem conjQ_apply (z : ℂ) : conjQ z = conj z := rfl
+
+theorem conjQ_injective : Function.Injective conjQ := conjQ.injective
+
+theorem phiC_conj (τ τ' : UpperHalfPlane) (h : (τ' : ℂ) = -conj (τ : ℂ)) :
+    X0.phiC τ' = conjPt (X0.phiC τ) := by
+  unfold X0.phiC
+  have ex : X0.xC τ' = conjQ (X0.xC τ) := by rw [h, xC_conj]; rfl
+  have ey : X0.yC τ' = conjQ (X0.yC τ) := by rw [h, yC_conj]; rfl
+  by_cases hn : X0.curveAC.toAffine.Nonsingular (X0.xC τ) (X0.yC τ)
+  · have hn' : X0.curveAC.toAffine.Nonsingular (X0.xC τ') (X0.yC τ') := by
+      rw [ex, ey]
+      exact (WeierstrassCurve.Affine.baseChange_nonsingular (W := curveA) (f := conjQ)
+        conjQ_injective _ _).mpr hn
+    rw [dif_pos hn', dif_pos hn]
+    simp only [conjPt, WeierstrassCurve.Affine.Point.map_some, ex, ey]
+  · have hn' : ¬ X0.curveAC.toAffine.Nonsingular (X0.xC τ') (X0.yC τ') := by
+      rw [ex, ey]
+      exact fun h' => hn ((WeierstrassCurve.Affine.baseChange_nonsingular (W := curveA)
+        (f := conjQ) conjQ_injective _ _).mp h')
+    simp only [hn, hn', ↓reduceDIte, map_zero]
+
+theorem toC_galPt (σ : GalQ) (hσ : ∀ x : Qbar, ιC (σ x) = conj (ιC x)) (P : PtA) :
+    toC (galPt σ P) = conjPt (toC P) := by
+  rcases P with _ | ⟨x, y, h⟩
+  · rfl
+  · obtain ⟨h', e⟩ := galPt_some σ h
+    rw [e]
+    simp only [toC, conjPt, WeierstrassCurve.Affine.Point.map_some,
+      WeierstrassCurve.Affine.Point.some.injEq]
+    exact ⟨hσ x, hσ y⟩
+
+theorem conjPt_conjPt (P : X0.PtAC) : conjPt (conjPt P) = P := by
+  rcases P with _ | ⟨x, y, h⟩
+  · rfl
+  · simp only [conjPt, WeierstrassCurve.Affine.Point.map_some, conjQ_apply, Complex.conj_conj]
+
+theorem tau_conj {N : ℕ} {D : ℤ} (Q : HeegnerForm N D) :
+    ((Q.conj).tauH : ℂ) = -conj ((Q.tauH : UpperHalfPlane) : ℂ) := by
+  show cmPoint Q.A (-Q.B) D = -conj (cmPoint Q.A Q.B D)
+  simp only [cmPoint, map_div₀, map_add, map_neg, map_mul, map_intCast, Complex.conj_ofReal,
+    Complex.conj_I, map_ofNat]
+  push_cast
+  ring
+
+/-- **`CMComplexConj` holds** (proved from `η(−z̄) = conj η(z)`; no leaf needed). -/
+theorem cmComplexConj : CMComplexConj := by
+  intro σ hσ D Q
+  have hσinv : ∀ x : Qbar, ιC (σ.symm x) = conj (ιC x) := fun x => by
+    have := hσ (σ.symm x)
+    rw [AlgEquiv.apply_symm_apply] at this
+    rw [this, Complex.conj_conj]
+  by_cases h : ∃ P : PtA, toC P = X0.phiC Q.tauH
+  · obtain ⟨P, hP⟩ := h
+    rw [heegnerPt_eq Q hP]
+    symm
+    apply heegnerPt_eq
+    rw [toC_galPt σ hσ, hP, phiC_conj _ _ (tau_conj Q)]
+  · have h0 : heegnerPt Q = 0 := by simp only [heegnerPt, h, ↓reduceDIte]
+    have h1 : ¬ ∃ P : PtA, toC P = X0.phiC Q.conj.tauH := by
+      rintro ⟨P, hP⟩
+      apply h
+      refine ⟨galPt σ.symm P, ?_⟩
+      rw [toC_galPt σ.symm hσinv, hP, phiC_conj _ _ (tau_conj Q), conjPt_conjPt]
+    have h1' : heegnerPt Q.conj = 0 := by simp only [heegnerPt, h1, ↓reduceDIte]
+    rw [h0, h1', map_zero]
+
+end ComplexConj
 
 /-! ## §5. TYZ's Heegner points and genus-point sums -/
 

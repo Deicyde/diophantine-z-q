@@ -1,0 +1,20 @@
+
+/-! # infra-stalks: height-bc's H4a and `HodgeLineBaseChange` from two glue statements -/
+
+namespace ZInQ.HeightBC
+
+/-- **H4a (`ModelHeightBaseChange`, verbatim) from `HodgeBCInjective` and `OmegaBaseChange`**:
+`CotangentSpanBC` and `UniformizationLiftAnalytic` are now theorems. -/
+theorem modelHeightBaseChange_of_two (h1 : HodgeBCInjective) (hω : OmegaBaseChange) :
+    ModelHeightBaseChange :=
+  modelHeightBaseChange_of_glue4 h1 cotangentSpanBC hω uniformizationLiftAnalytic
+
+/-- **`HodgeLineBaseChange` (verbatim) from `HodgeBCInjective` and `OmegaBaseChange`.** -/
+theorem hodgeLineBaseChange_of_two (h1 : HodgeBCInjective) (hω : OmegaBaseChange) :
+    HodgeLineBaseChange :=
+  hodgeLineBaseChange_of_glue4 h1 cotangentSpanBC hω uniformizationLiftAnalytic
+
+end ZInQ.HeightBC
+
+#print axioms ZInQ.HeightBC.modelHeightBaseChange_of_two
+#print axioms ZInQ.HeightBC.hodgeLineBaseChange_of_two
