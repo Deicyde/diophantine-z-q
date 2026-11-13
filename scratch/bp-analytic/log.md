@@ -43,3 +43,8 @@
   COMPILED, no warnings; axioms [propext, Classical.choice, Quot.sound] for qmPeriodDiffeo(_add),
   det_im_Omega_ne_zero, torusDiffeo, thetaConst_eq_riemannTheta, riemannTheta_add_period, two_nsmul_proj_charPoint.
 - sympy (VERIFIED, computed): Ω(τ) symmetric; det Im Ω(x+iy) = 12y²/(((x−3)²+y²)((x+1)²+y²)) > 0 for y ≠ 0.
+- Uniformization.lean: AbVar, ptObj, Pt copied from ZInQKernel/HDecomp/Objects.lean; `PtIn`, `evalAt` (value of
+  f ∈ Γ(U, 𝒪_A) at a ℂ-point via `Scheme.Hom.appLE` and `Scheme.ΓSpecIso`), `UniformizationLeaf A` (AN3 in
+  coordinate form: ∃ g, full lattice Λ ⊂ ℂ^g, group iso φ : ℂ^g/Λ ≃+ A(ℂ) with (i) pullbacks of regular functions
+  analytic on open preimages, (ii) local holomorphic coordinates by g regular functions), `UniformizationLeafAll`.
+  COMPILED (statement only; a Prop, no sorry). `CommGroup (A.Pt ℂ)` found by inferInstance.
