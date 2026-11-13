@@ -1,6 +1,6 @@
 # g0-mod-field: glue steps G2, G4, G7 (the field half of `ModularConstituent`)
 
-Task g0-mod-field, 2026-11-13. Lean: `scratch/g0-mod-field/ModField.lean` (1040 lines; it imports
+Task g0-mod-field, 2026-11-13. Lean: `scratch/g0-mod-field/ModField.lean` (1047 lines; it imports
 `ZInQKernel/HDecomp/` modules and is not a flat copy). Log: `scratch/g0-mod-field/log.md`.
 
 ## 1. Result

@@ -1,36 +1,42 @@
 # g0-mod-field (G2, G4, G7: fibre field, Hom field, scalar descent to L')
 
-**Main result.** `scratch/g0-mod-field/ModField.lean` compiles with no `sorry`, and its main
-theorems use only `propext`, `Classical.choice` and `Quot.sound` (VERIFIED, `lake env lean`). For
-every fibre context (`FibreCtx`: R1-R2 clauses, `u ∉ 𝒞`, a `ℚ̄`-object `P` over `J(u)`),
-`fieldDescentUnr` proves G7's output `G7OutUnr u P`. Its inputs are three glue Props and four
-leaves:
-- glue: `FibreCoverExists` (G2: Prop. TS + Lemma NV), `KernelFieldExists` (G4: Weil restriction,
-  Galois image in `GL_r(ℤ)`, conjugacy isogenies `ConjugacyData`), `UnramifiedSup` (a compositum of
-  unramified fields is unramified; STANDARD);
-- leaves: T14-T15 (or glue-descent's `LeafHasse`, `LeafLocalTwo`), T30 (`LeafSqrtCrit`) and
-  T31 (`LeafUnramified`).
+**Main result.** `scratch/g0-mod-field/ModField.lean` (1047 lines; it imports `ZInQKernel/HDecomp/`)
+compiles with no `sorry`. All eleven `#print axioms` lines give `[propext, Classical.choice,
+Quot.sound]` (VERIFIED). For every fibre context, `fieldDescentUnr` proves G7's output
+`G7OutUnr u P` from three named glue Props and the B2 leaves (T14a, T14b, T15, T30, T31). The
+glue Props are:
+- `FibreCoverExists` (G2: Prop. TS + Lemma NV);
+- `KernelFieldExists` (G4: Weil restriction, the Galois image in `GL_r(ℤ)`, and the conjugacy
+  isogenies `ConjugacyData`);
+- `UnramifiedSup` (a compositum of unramified fields is unramified; STANDARD).
 
-The output `G7Data` contains: the Hom field `L` (`[L:ℚ] ≤ D`); the model `A/L` with its descent
-datum (maps `m_σ = μ_σ∘σ` on `A(ℚ̄)`, `a_σ`, sign cocycle `ε`); `χ` and `β` with `β² = χ`,
-`∂β = ε`; `L' ⊇ L` with `G_{L'} = G_L ∩ ker β`, `[L':ℚ] ≤ Q_D·M_{S_mul}(u)` and `L'` unramified
-outside `T`; and `A_{L'}` a model of `P`.
+`modularConstituent_of_ranges_T14` then proves g0-split's `ModularConstituent` (over
+`PkgI3.AbVar`) from these and `AfterG7`, which bundles G8-G16.
 
-`modularConstituent_of_ranges_T14` proves g0-split's `ModularConstituent` (over `PkgI3.AbVar`)
-from these inputs plus `AfterG7`, which bundles G8-G16 (the other two tasks).
+**The interface `G7Data`.** It contains: the Hom field `L` (`[L:ℚ] ≤ D`); a QM model `A/L`
+(the base change of a `QML3` object, so it has good reduction away from 3); its descent datum
+(maps `m_σ = μ_σ∘σ` on `A(ℚ̄)`, algebraic through scheme maps `F_σ`, with `a_σ` and the sign
+cocycle `ε`); `χ` of level `∏_{p∈T₋} lev p`; `β` with `β² = χ`, `∂β = ε`; and
+`L' ⊇ L` with `G_{L'} = G_L ∩ ker β`, `[L':ℚ] ≤ Q_D·M_{S_mul}(u)`, `L'` unramified outside `T`,
+and `A_{L'}` a model.
 
-**Proved Lean.** In order: G2's degree bookkeeping (`g2Out_of_cover`); B1's normalization
-(`descentDatum_of_conjugacy`: `a_σ = |ker m_σ|^{-1/4}`, `ε = sgn c`); G4's bookkeeping (Minkowski,
-`[E⊔K:ℚ] ≤ D`, the model by base change); B2-B3 on the actual datum, with B3(v)'s twist
-(`g7OutUnr_of_g4Out` through `b3_of_cochain` and `unramified_outside_noLeaf`); and transitivity of
-base change (`baseChangeTrans`).
+**Proved Lean.** G2's degree bookkeeping. B1's normalization (`descentDatum_of_conjugacy`). G4's
+Minkowski bound and model by base change. B2-B3 with B3(v)'s twist (`b2_of_leaves_level`,
+`b3_of_cochain`, `unramified_outside_noLeaf`). Transitivity of base change. The bridge to
+g0-mod-galois' `G2Out` (`galoisG2Out_of_g7Data`), with `ResQRange` proved: the image of
+`Field.absoluteGaloisGroup.map` for a finite Galois `L'` is `Fix(L')`. A sanity check that
+`DescentDatum` is satisfiable (`descentDatum_bot`).
 
-**Found.** The first draft did not constrain `a_σ` on `G_L`, which left it free up to a positive
-character. The fix: `a = 1` on `G_L`, inflated. The fix is now proved from kernel sizes.
+**Found and repaired (model checks).** Four problems in the interface:
+1. `KernelFieldExists` quantified over all `K`-models, which is false: a twist ramified outside
+   `T` can have bad reduction. It now quantifies over rational fibres only (`RationalFibre`).
+2. The same problem for `AfterG7`. `G7Data`'s model must now be a QM model (`IsQMModel`).
+3. The level of `χ` was unconstrained, which would break G15. It is now exposed and bounded.
+4. `a_σ` was unconstrained on `G_L`. It now has `a = 1` there, inflated.
 
-**Remains.** `FibreCoverExists`, `KernelFieldExists` and `UnramifiedSup` as above. Also a bridge
-from `G7Data` to g0-mod-galois' per-`ℓ` `G7Out`: the Tate functor on `m_σ`, coefficients into
-`ℚ̄_ℓ`, matrix units and continuity (docs/research/g0-mod-field.md §3). Every truth check of the
-Props is a model check, with no human review.
+**Remains.** `FibreCoverExists`, `KernelFieldExists`, `UnramifiedSup`, and `TateBridge`: from
+`G7Data` to g0-mod-galois' per-`ℓ` `G7Out` (Tate functor on `m_σ`, coefficients in `ℚ̄_ℓ`, matrix
+units). `TateBridge` is stated in Lean, not proved. Every truth claim about the Props is a model
+check, with no human review.
 
 Report: docs/research/g0-mod-field.md. Log: scratch/g0-mod-field/log.md.
