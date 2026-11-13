@@ -1,11 +1,12 @@
 # conj-pieces: `ArtinTorsionSurj`, `HomLinearLift`, `ConjUniformization` (G10, under `ConjTwistNontrivial`)
 
 Task conj-pieces, 2026-11-13. Lean: `scratch/conj-pieces/` (`Artin.lean`, `Holo.lean`,
-`Conj.lean`, and the assembled `ConjPieces.lean`). Log: `scratch/conj-pieces/log.md`.
+`Conj.lean`, the assembled `ConjPieces.lean`, and `G10.lean`). Log: `scratch/conj-pieces/log.md`.
 Check with `lake env lean scratch/conj-pieces/<file>.lean` after
 `lake build ZInQKernel.HDecomp.LeafPush2.T`. None of the four files has a `sorry`. Every
 `#print axioms` gives `[propext, Classical.choice, Quot.sound]` (VERIFIED, compiled 2026-11-13;
-`ConjPieces.lean` takes 35 s and has 35 `#print axioms`).
+`ConjPieces.lean` takes 35 s and has 35 `#print axioms`). `G10.lean` also needs
+`lake build ZInQKernel.HDecomp.I3Linalg.C2`; it takes 38 s and has 45 `#print axioms`.
 
 ## Result
 
@@ -29,6 +30,18 @@ G0Galois.conjTwistNontrivial_leaves :
 G0Galois.conjTwistFromLeaves_leaves :
   G0FibreSimple.MulIsogeny → HoloHomLift → ConjTwistFromLeaves
 ```
+
+For G10 itself, `G10.lean` (VERIFIED, compiled) gives:
+
+```
+G0Galois.g10GlueConcrete_of_leaves : MulIsogeny → HoloHomLift → G10GlueConcrete
+G0Galois.g10Glue_of_leaves :
+  TateModuleFree → UniformizationExists → MulIsogeny → HoloHomLift → G10Glue
+```
+
+`G10.lean` is g10-odd's `G10Odd.lean` verbatim up to its `end G0Galois` (checked with `cmp`),
+followed by `ConjPieces.lean` from conj-twist's §2 on. conj-twist's §1 is a verbatim copy of
+`G10Odd` declarations, so it is not repeated.
 
 `PkgI3.FaltingsTate` is a hypothesis inside `ConjTwistNontrivial`. Leaf status of each:
 
@@ -210,9 +223,10 @@ The file is `ConjTwist.lean` verbatim, followed by the above and these theorems:
 
 ## Integration recommendation
 
-Replace conj-twist's `conjTwistFromLeaves_main` with `conjTwistFromLeaves_leaves` (from
-`ConjPieces.lean`), followed by g10-odd's `g10GlueConcrete_of_conjTwistFromLeaves`. Then G10's
-conjugation core rests on:
+Use `g10GlueConcrete_of_leaves`, or `g10Glue_of_leaves` for g0-assemble's field 18
+`g10Glue : G0Galois.G10Glue`. Both are compiled in `G10.lean`. They replace conj-twist's
+`conjTwistFromLeaves_main` followed by g10-odd's `g10GlueConcrete_of_conjTwistFromLeaves`. Then
+G10's conjugation core rests on:
 - Faltings, T26 and T35 (in the build);
 - `MulIsogeny` (already a `GluePieces2` leaf);
 - the single new textbook leaf `HoloHomLift`.

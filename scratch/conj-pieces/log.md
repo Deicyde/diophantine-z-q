@@ -41,3 +41,10 @@ Build: `lake build ZInQKernel.HDecomp.LeafPush2.T` (2 min, cached), then `lake e
   HoloHomLift → ConjTwistFromLeaves`**, `conjTwistFromLeaves_of_pieces : MulIsogeny → HoloHomLift
   → ConjHolo → ConjTwistFromLeaves`. 0 errors, 0 sorry, 35 `#print axioms` all
   [propext, Classical.choice, Quot.sound]; 35 s. VERIFIED (compiled).
+- 2026-11-13 07:15 `scratch/conj-pieces/G10.lean` (needs also `lake build
+  ZInQKernel.HDecomp.I3Linalg.C2`): g10-odd's G10Odd.lean verbatim up to its `end G0Galois`
+  (VERIFIED with cmp), then ConjPieces.lean from conj-twist's §2 on (conj-twist's §1 is a
+  verbatim copy of G10Odd declarations), then **`g10GlueConcrete_of_leaves : MulIsogeny →
+  HoloHomLift → G10GlueConcrete`** and **`g10Glue_of_leaves : TateModuleFree →
+  UniformizationExists → MulIsogeny → HoloHomLift → G10Glue`**. 0 errors, 0 sorry, 45
+  `#print axioms` all standard; 38 s. VERIFIED (compiled).
