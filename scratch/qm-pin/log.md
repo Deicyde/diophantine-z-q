@@ -40,3 +40,6 @@ Base: 883c4ddf + merges origin/wip/rv-g0pieces, origin/wip/g0-split (already in)
   `LeafQM.AV.Pin`, without the old-list lemmas): candidate content of a new kernel module
   `QM/Pin.lean`. run 2: 0 errors, 6.6 s; 10 `#print axioms`, all standard. VERIFIED (run_pinkernel.txt).
   (run 1: 4 errors from dot notation on `R1fpProps`/`QMFamily` across namespaces; fixed.)
+- QMPin.lean run5 (adds §4: R1univProps, phi_part, R1fpPropsU, SameTripleMor, transfer_pointwise_mor,
+  MobiusGlue (def, not proved), sameTripleMor_of_mobius, pointwise_of_witness_mor, cm_objects_of_R1R2fp):
+  0 errors, 5.7 s; 20 `#print axioms`, all standard. VERIFIED (run5.txt).
