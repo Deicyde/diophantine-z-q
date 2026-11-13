@@ -36,3 +36,8 @@
   reports, all [propext, Classical.choice, Quot.sound] (incl. sixContactMin_of_leaves4, unramifiedConjugates,
   x6KummerFibre_of_conic).
 - First flat-file run (before f10/f20) killed after ~10 min to free the Lean slot (0 errors in its output so far).
+- FINAL flat file `lake env lean scratch/g0-assemble3/G0Assemble3.lean` (90 509 lines, md5 b5a4fb97…, all parts incl.
+  f10, f20, z92, z95): VERIFIED exit 0 in 966 s, 0 errors, no `sorry`, 220 `#print axioms` reports, all
+  [propext, Classical.choice, Quot.sound] (checked by script over multi-line reports); includes
+  `HSyn.sixContactMin_of_leaves4`, `HSyn.sixContactMin_of_leaves4'`, `HSyn.gluePieces_of_gluePieces4`
+  (scratch/g0-assemble3/flat_out.txt).

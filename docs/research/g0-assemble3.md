@@ -237,7 +237,13 @@ g0-assemble2). **Project side:** 29 glue Props (22 in g0-assemble2, of which 11 
   `propTSAll_of_pieces''`, `linkedTateData_of_frobRam`, `productModelHeight_of_unifOfDim`, `unramifiedConjugates`,
   `x6KummerFibre_of_conic`: all
   `[propext, Classical.choice, Quot.sound]` (VERIFIED, `olean/TailD_out.txt`, not committed; log.md).
-- **Flat file:** see §5a (filled in after the run).
+- **Flat file:** `lake env lean scratch/g0-assemble3/G0Assemble3.lean` (90 509 lines, md5 `b5a4fb97…`, every part):
+  exit 0 in 966 s, 0 errors, no `sorry`; all 220 `#print axioms` reports are `[propext, Classical.choice, Quot.sound]`,
+  including `HSyn.sixContactMin_of_leaves4`, `sixContactMin_of_leaves4'` and `gluePieces_of_gluePieces4` (VERIFIED,
+  `scratch/g0-assemble3/flat_out.txt`, `flat_md5.txt`). An earlier flat run (before parts f10, f20) was stopped after
+  10 min with 0 errors so far, to free the Lean slot.
+- **Iteration:** after the prefix and TailA-TailF oleans, a change to the bundle parts `z*` recompiles in about a minute
+  (`ctail.sh TailD.lean`).
 
 ## 6. What remains
 
