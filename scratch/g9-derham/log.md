@@ -71,3 +71,9 @@
 - `Statement.lean`: verbatim ModGalois L20049-20111, L20178-20182, L20229-20246 (`resQ` … `Intertwines`,
   `G9Out`, `G9Glue`) in namespace `ZInQ.Contrib.G9.G0Galois`. VERIFIED:
   `lake build ZInQKernel.Contrib.G9.Statement` OK (linter warnings only, from the verbatim text).
+
+## 04:15 BdRAct.lean
+- `PkgI4.bdrAct_mul`, `bdrAct_one` (functoriality of Mathlib's B_dR construction through
+  `modPMap`/`preTiltMap`/`locMap`/`adicMap`/`bdrPlusMap`/`bdrMap`), `cpAct_mul_apply`,
+  `cpAct_one_apply`, `cycPow_mul`, `cycPow_one`; monoid homs `htAct p i`, `drAct p`.
+  VERIFIED: `lake env lean` no errors.
