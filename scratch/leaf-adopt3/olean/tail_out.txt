@@ -774,7 +774,7 @@ The difference between `have` and `haveI` is that `haveI` inlines the value.
 But this is not relevant for proofs because of proof irrelevance.
 
 Note: This linter can be disabled with `set_option linter.style.haveILetI false`
-/home/jackmccarthy/dzq-wt/leaf-adopt3/scratch/leaf-adopt3/olean/Tail.lean:12310:2: warning: Try this: 
+/home/jackmccarthy/dzq-wt/leaf-adopt3/scratch/leaf-adopt3/olean/Tail.lean:12311:2: warning: Try this: 
   haveI̵
 
 The goal is a proposition, so `have` is preferred over `haveI`.
@@ -782,7 +782,7 @@ The difference between `have` and `haveI` is that `haveI` inlines the value.
 But this is not relevant for proofs because of proof irrelevance.
 
 Note: This linter can be disabled with `set_option linter.style.haveILetI false`
-/home/jackmccarthy/dzq-wt/leaf-adopt3/scratch/leaf-adopt3/olean/Tail.lean:12333:2: warning: Try this: 
+/home/jackmccarthy/dzq-wt/leaf-adopt3/scratch/leaf-adopt3/olean/Tail.lean:12334:2: warning: Try this: 
   letI̵
 
 The goal is a proposition, so `let` is preferred over `letI`.
@@ -790,12 +790,34 @@ The difference between `let` and `letI` is that `letI` inlines the value.
 But this is not relevant for proofs because of proof irrelevance.
 
 Note: This linter can be disabled with `set_option linter.style.haveILetI false`
-/home/jackmccarthy/dzq-wt/leaf-adopt3/scratch/leaf-adopt3/olean/Tail.lean:12427:46: warning: Variable name `A` is not explicitly referenced.
+/home/jackmccarthy/dzq-wt/leaf-adopt3/scratch/leaf-adopt3/olean/Tail.lean:12428:46: warning: Variable name `A` is not explicitly referenced.
 
 Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
   [apply] _A
 
 Note: This linter can be disabled with `set_option linter.unusedVariables false`
+/home/jackmccarthy/dzq-wt/leaf-adopt3/scratch/leaf-adopt3/olean/Tail.lean:12524:2: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+/home/jackmccarthy/dzq-wt/leaf-adopt3/scratch/leaf-adopt3/olean/Tail.lean:12542:24: warning: `simp` already closes the goal
+
+Hint: Use `simp` instead of `simpa`:
+  [apply] simp
+
+Note: This linter can be disabled with `set_option linter.unnecessarySimpa false`
+/home/jackmccarthy/dzq-wt/leaf-adopt3/scratch/leaf-adopt3/olean/Tail.lean:12563:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
 'HSyn.weight_match' depends on axioms: [propext, Classical.choice, Quot.sound]
 'PkgI2.inertiaTrivial_of_goodReduction' depends on axioms: [propext, Classical.choice, Quot.sound]
 'PkgI2.D2_fixed_of_raynaud' depends on axioms: [propext, Classical.choice, Quot.sound]
@@ -974,3 +996,4 @@ Note: This linter can be disabled with `set_option linter.unusedVariables false`
 'C9Rhof.c9_r5' depends on axioms: [propext, Classical.choice, Quot.sound]
 'C9Rhof.c10_via_c9' depends on axioms: [propext, Classical.choice, Quot.sound]
 'C9Rhof.c9_hsyn' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HSyn.G0Split.x1BelyiOnModel_of_belyiX1' depends on axioms: [propext, Classical.choice, Quot.sound]

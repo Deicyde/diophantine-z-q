@@ -30,9 +30,9 @@ missing glue pieces, smallest first (sizes SPECULATIVE), and `HeightCopiesAgree`
 `HSyn.GluePieces`:
 1. `DimFinite` (an abelian variety has finite dimension),
 2. `DimBaseChange` (dimension invariant under field extension),
-3. `X1BelyiOnModel` (`BelyiX1` on the model of `IsJ1`),
+3. `X1BelyiOnModel` (`BelyiX1` on the model of `IsJ1`; leaf-adopt3: proved, not in the bundle),
 4. `FibreSimple` (G5-G6 on `A`),
-5. `HeightAdditivity` (E4),
+5. `HeightAdditivity` (E4; leaf-adopt3: proved from T41, H5 and the piece `ProductModelHeight`),
 6. `StableHeightBaseChange` (stable height invariant under base change),
 7. `ProductExists` (G17: `A × Z` is an abelian variety),
 8. `ReverseIsogeny` (G17: the isogeny `J → A × Z`),
@@ -110,8 +110,9 @@ def R18_JavanpeykarConcrete : Prop :=
 Every `J₁(N)` over `ℚ` (`IsJ1 N J`) is the Jacobian of a pointed curve `X` whose function field
 carries a Belyi function `t` (`j/1728`) of degree `[ℚ(X) : ℚ(t)] ≤ N²`. From `BelyiX1` (a glue
 target of leaf-modcurves: good reduction of `E_j` away from `j = 0, 1728, ∞`, and
-`[K_N : ℚ(j)] ≤ N²`) by transport along `ℚ(X) ≅ K_N` (`IsX1Model`); the transport is not done
-here. -/
+`[K_N : ℚ(j)] ≤ N²`) by transport along `ℚ(X) ≅ K_N` (`IsX1Model`). leaf-adopt3: the transport
+is done (`x1BelyiOnModel_of_belyiX1`) and `BelyiX1` is proved from T36, T37 (x1-belyi), so this
+is no longer a glue piece. -/
 def X1BelyiOnModel : Prop :=
   ∀ (N : ℕ), 0 < N → ∀ J : PkgI3.AbVar ℚ, LeafModCurves.IsJ1 N J →
     ∃ (X : Over (Spec (CommRingCat.of ℚ))) (_ : LeafModCurves.IsCurve X) (_ : IsIntegral X.left)
@@ -429,10 +430,109 @@ theorem heightAdditivity_of_h5neron (hN1 : ZInQ.H5Neron.NeronModelExists)
   fun L _ _ P A Z ⟨p₁, p₂, h₁, h₂, h⟩ =>
     ZInQ.H5Neron.heightAdditivity_unfolded hN1 hmin hH L P A Z p₁ p₂ h₁ h₂ h
 
--- leaf-adopt3: `X1BelyiOnModel` from leaf-modcurves' `IsJ1` data is transport of `BelyiX1`
--- (x1-belyi notes); `BelyiX1` itself is now `TextbookLeaves.belyiX1` (from T36, T37). The
--- transport (about 50-100 lines: `IsBelyiFunction` along a `ℚ`-algebra isomorphism and
--- `[ℚ(X):ℚ(t)] = [K_N:ℚ(j)]`) is not done, so `X1BelyiOnModel` stays a glue piece.
+/-! #### leaf-adopt3: glue piece 3 (`X1BelyiOnModel`) proved from `BelyiX1` by transport
+along `ℚ(X) ≅ K_N` (the data of `IsJ1`): `IsBelyiFunction` moves along a `ℚ`-algebra isomorphism,
+and `ℚ(t) ⊆ ℚ(X)` is the image of `ℚ(j)`, so `[ℚ(X) : ℚ(t)] = [K_N : ℚ(j)] ≤ N²`. With
+`TextbookLeaves.belyiX1` (x1-belyi, from T36, T37) it is no longer a glue piece. -/
+
+/-- A Belyi function is carried to a Belyi function by a `k`-algebra isomorphism. -/
+theorem isBelyiFunction_map {k F F' : Type} [Field k] [Field F] [Field F'] [Algebra k F]
+    [Algebra k F'] (ψ : F ≃ₐ[k] F') {t : F} (h : LeafModCurves.IsBelyiFunction k F t) :
+    LeafModCurves.IsBelyiFunction k F' (ψ t) := by
+  obtain ⟨hT, hB⟩ := h
+  refine ⟨fun ha => hT ((isAlgebraic_algHom_iff (ψ : F →ₐ[k] F') ψ.injective).mp ha), ?_⟩
+  intro w hk ht q hqm hqi hqX hqX1 hq x hx
+  have hnu : ∀ y : F, y ∈ (w.comap (ψ : F →+* F')).nonunits ↔ ψ y ∈ w.nonunits := by
+    intro y
+    rw [ValuationSubring.mem_nonunits_iff_or, ValuationSubring.mem_nonunits_iff_or,
+      ValuationSubring.mem_comap]
+    simp [map_inv₀]
+  have haev : ∀ y : F, ψ (Polynomial.aeval y q) = Polynomial.aeval (ψ y) q :=
+    fun y => (Polynomial.aeval_algHom_apply (ψ : F →ₐ[k] F') y q).symm
+  obtain ⟨y, hy, hxy⟩ := hB (w.comap (ψ : F →+* F'))
+    (fun c => by rw [ValuationSubring.mem_comap]; simpa using hk c)
+    (by rw [ValuationSubring.mem_comap]; exact ht)
+    q hqm hqi hqX hqX1 ((hnu _).2 (by rw [haev]; exact hq)) (ψ.symm x)
+    ((hnu _).2 (by simpa using hx))
+  refine ⟨ψ y, ValuationSubring.mem_comap.1 hy, ?_⟩
+  have h2 := congrArg ψ hxy
+  rw [map_mul, haev] at h2
+  simpa using h2
+
+/-- The image of a polynomial in `ℚ(j)` under a ring hom `g` lies in `ℚ(g j)`. -/
+theorem polyImage_mem {F' : Type} [Field F'] [Algebra ℚ F'] (g : LeafModCurves.Qj →+* F')
+    (p : Polynomial ℚ) :
+    g (algebraMap (Polynomial ℚ) LeafModCurves.Qj p) ∈
+      IntermediateField.adjoin ℚ {g RatFunc.X} := by
+  have hring : g.comp (algebraMap (Polynomial ℚ) LeafModCurves.Qj) =
+      Polynomial.eval₂RingHom (algebraMap ℚ F') (g RatFunc.X) := by
+    refine Polynomial.ringHom_ext (fun a => ?_) ?_
+    · have e1 := eq_ratCast ((g.comp (algebraMap (Polynomial ℚ) LeafModCurves.Qj)).comp
+        Polynomial.C) a
+      have e2 := eq_ratCast (algebraMap ℚ F') a
+      simp only [RingHom.comp_apply] at e1
+      simp only [RingHom.comp_apply, Polynomial.coe_eval₂RingHom, Polynomial.eval₂_C]
+      rw [e1, e2]
+    · simp [RatFunc.algebraMap_X]
+  have h1 : g (algebraMap (Polynomial ℚ) LeafModCurves.Qj p) = Polynomial.aeval (g RatFunc.X) p := by
+    rw [← RingHom.comp_apply, hring, Polynomial.aeval_def]; rfl
+  rw [h1]
+  exact IntermediateField.algebra_adjoin_le_adjoin ℚ _
+    (Polynomial.aeval_mem_adjoin_singleton ℚ (g RatFunc.X))
+
+theorem image_mem {F' : Type} [Field F'] [Algebra ℚ F'] (g : LeafModCurves.Qj →+* F')
+    (x : LeafModCurves.Qj) : g x ∈ IntermediateField.adjoin ℚ {g RatFunc.X} := by
+  rw [← RatFunc.num_div_denom x, map_div₀]
+  exact div_mem (polyImage_mem g _) (polyImage_mem g _)
+
+/-- **g0-split's glue piece 3 from `BelyiX1` (proved, leaf-adopt3).** -/
+theorem x1BelyiOnModel_of_belyiX1 (hB : LeafModCurves.BelyiX1) : X1BelyiOnModel := by
+  rintro N hN J ⟨X, P₀, aj, ⟨hC, hI, P, hP, ⟨φ⟩⟩, hJac⟩
+  letI := ZInQ.LeafPush2.ffAlgebra X
+  obtain ⟨hBel, hdeg⟩ := hB N P hN hP
+  let ψ : LeafModCurves.fieldX1 P ≃ₐ[ℚ] X.left.functionField := φ.symm.toRatAlgEquiv
+  let g : LeafModCurves.Qj →+* X.left.functionField :=
+    (φ.symm : LeafModCurves.fieldX1 P →+* X.left.functionField).comp
+      (algebraMap LeafModCurves.Qj (LeafModCurves.fieldX1 P))
+  let t : X.left.functionField :=
+    ψ (algebraMap LeafModCurves.Qj (LeafModCurves.fieldX1 P) (RatFunc.X / 1728))
+  have ht : t = g (RatFunc.X / 1728) := rfl
+  have h1728 : (1728 : X.left.functionField) ≠ 0 := by
+    rw [← map_ofNat g 1728]; exact (map_ne_zero g).2 (by norm_num)
+  have hgX : g RatFunc.X = 1728 * t := by
+    rw [ht, map_div₀, map_ofNat]
+    field_simp
+  have hmem : ∀ x, g x ∈ IntermediateField.adjoin ℚ {t} := by
+    intro x
+    have h1 : IntermediateField.adjoin ℚ {g RatFunc.X} ≤ IntermediateField.adjoin ℚ {t} := by
+      rw [IntermediateField.adjoin_simple_le_iff, hgX]
+      exact mul_mem (by simpa using IntermediateField.natCast_mem _ 1728)
+        (IntermediateField.mem_adjoin_simple_self ℚ t)
+    exact h1 (image_mem g x)
+  have hsurj : ∀ y ∈ IntermediateField.adjoin ℚ {t}, ∃ x, g x = y := by
+    intro y hy
+    let S : IntermediateField ℚ X.left.functionField :=
+      g.fieldRange.toIntermediateField (fun q => ⟨(q : LeafModCurves.Qj), by simp⟩)
+    have hle : IntermediateField.adjoin ℚ {t} ≤ S := by
+      rw [IntermediateField.adjoin_simple_le_iff]
+      exact ⟨RatFunc.X / 1728, rfl⟩
+    obtain ⟨x, hx⟩ := hle hy
+    exact ⟨x, hx⟩
+  let i0 : LeafModCurves.Qj →+* IntermediateField.adjoin ℚ {t} := g.codRestrict _ hmem
+  have hi0 : Function.Bijective i0 := by
+    refine ⟨fun a b hab => g.injective (congrArg Subtype.val hab), fun y => ?_⟩
+    obtain ⟨x, hx⟩ := hsurj y.1 y.2
+    exact ⟨x, Subtype.ext hx⟩
+  let i := RingEquiv.ofBijective i0 hi0
+  have hfin : Module.finrank LeafModCurves.Qj (LeafModCurves.fieldX1 P) =
+      Module.finrank (IntermediateField.adjoin ℚ {t}) X.left.functionField :=
+    Algebra.finrank_eq_of_equiv_equiv i φ.symm (RingHom.ext fun _ => rfl)
+  haveI : FiniteDimensional LeafModCurves.Qj (LeafModCurves.fieldX1 P) :=
+    IntermediateField.adjoin.finiteDimensional
+      (Algebra.IsIntegral.isIntegral (R := LeafModCurves.Qj) (LeafModCurves.xCoord P))
+  refine ⟨X, hC, hI, P₀, aj, hJac, t, isBelyiFunction_map ψ hBel, _, hfin.symm,
+    Module.finrank_pos, hdeg⟩
+
 
 /-- g0-split's `DimBaseChange` is hodge-lattice's (same statement, binders reordered; leaf-adopt3). -/
 theorem dimBaseChange_iff_hodgeLattice :
@@ -461,16 +561,17 @@ theorem hom_of_common (r : ResearchLeaves) (t : TextbookLeaves) {K : Type} [Fiel
 
 end G0Split
 
-/-- **The glue pieces** (g0-split's ten missing pieces, smallest first, and leaf-adopt2's
-`HeightCopiesAgree`), bundled (leaf-adopt3). Each is a `def … : Prop` whose docstring names its
+/-- **The glue pieces** (g0-split's missing pieces, smallest first, without piece 3 (proved here)
+and with piece 5 narrowed to h5-neron's `ProductModelHeight`, and leaf-adopt2's
+`HeightCopiesAgree`: ten Props), bundled (leaf-adopt3). Each is a `def … : Prop` whose docstring names its
 glue step; none is a literature leaf, and each is to be proved in Lean by the project. -/
 structure GluePieces : Prop where
   /-- 1. An abelian variety has finite dimension (definition level). -/
   dimFinite : G0Split.DimFinite
   /-- 2. Dimension is invariant under field extension (Stacks 00P4). -/
   dimBaseChange : G0Split.DimBaseChange
-  /-- 3. E2, Belyi half: `BelyiX1` on the model of `IsJ1`. -/
-  belyi : G0Split.X1BelyiOnModel
+  -- 3. (leaf-adopt3) g0-split's `X1BelyiOnModel` is proved (`G0Split.x1BelyiOnModel_of_belyiX1`
+  -- with `TextbookLeaves.belyiX1`, x1-belyi), no longer a piece.
   /-- 4. G5-G6 on the fibre surface: simplicity. -/
   fibreSimple : G0Split.FibreSimple
   /-- 5. E4 at model level (h5-neron's glue P2, leaf-adopt3; replaces g0-split's
@@ -502,7 +603,8 @@ glue-assembly's interface `GlueOutputs` at `S = Mult.S_mul`. Applied proved piec
 R19-R21). The non-CM disjunct is used (G6, NoCM). -/
 theorem glueOutputs_of_leaves (r : ResearchLeaves) (t : TextbookLeaves) (gp : GluePieces) :
     GlueAssembly.GlueOutputs ZInQ.Mult.S_mul := by
-  obtain ⟨hDimF, hDim, hBelyi, hSimp, hPMH, hBC, hProdE, hRev, hThetaPt, hMod, hCopies⟩ := gp
+  obtain ⟨hDimF, hDim, hSimp, hPMH, hBC, hProdE, hRev, hThetaPt, hMod, hCopies⟩ := gp
+  have hBelyi : X1BelyiOnModel := x1BelyiOnModel_of_belyiX1 t.belyiX1
   have hAdd : HeightAdditivity := heightAdditivity_of_h5neron t.t41 r.h5.2 hPMH
   have hR18 : R18_JavanpeykarConcrete := r18Concrete_of r.r18 hCopies
   have hR22 : R22_PazukiConcrete := r22Concrete_of r.r22 hCopies

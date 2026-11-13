@@ -33,7 +33,7 @@ theorem isBelyiFunction_map {k F F' : Type} [Field k] [Field F] [Field F'] [Alge
       ValuationSubring.mem_comap]
     simp [map_inv₀]
   have haev : ∀ y : F, ψ (Polynomial.aeval y q) = Polynomial.aeval (ψ y) q :=
-    fun y => Polynomial.aeval_algHom_apply (ψ : F →ₐ[k] F') y q
+    fun y => (Polynomial.aeval_algHom_apply (ψ : F →ₐ[k] F') y q).symm
   obtain ⟨y, hy, hxy⟩ := hB (w.comap (ψ : F →+* F'))
     (fun c => by rw [ValuationSubring.mem_comap]; simpa using hk c)
     (by rw [ValuationSubring.mem_comap]; exact ht)
@@ -52,8 +52,12 @@ theorem polyImage_mem {F' : Type} [Field F'] [Algebra ℚ F'] (g : LeafModCurves
   have hring : g.comp (algebraMap (Polynomial ℚ) LeafModCurves.Qj) =
       Polynomial.eval₂RingHom (algebraMap ℚ F') (g RatFunc.X) := by
     refine Polynomial.ringHom_ext (fun a => ?_) ?_
-    · simp only [RingHom.comp_apply, Polynomial.coe_eval₂RingHom, Polynomial.eval₂_C]
-      exact RingHom.congr_fun (Subsingleton.elim _ _) a
+    · have e1 := eq_ratCast ((g.comp (algebraMap (Polynomial ℚ) LeafModCurves.Qj)).comp
+        Polynomial.C) a
+      have e2 := eq_ratCast (algebraMap ℚ F') a
+      simp only [RingHom.comp_apply] at e1
+      simp only [RingHom.comp_apply, Polynomial.coe_eval₂RingHom, Polynomial.eval₂_C]
+      rw [e1, e2]
     · simp [RatFunc.algebraMap_X]
   have h1 : g (algebraMap (Polynomial ℚ) LeafModCurves.Qj p) = Polynomial.aeval (g RatFunc.X) p := by
     rw [← RingHom.comp_apply, hring, Polynomial.aeval_def]; rfl
@@ -78,6 +82,8 @@ theorem x1BelyiOnModel_of_belyiX1 (hB : LeafModCurves.BelyiX1) : X1BelyiOnModel 
   let t : X.left.functionField :=
     ψ (algebraMap LeafModCurves.Qj (LeafModCurves.fieldX1 P) (RatFunc.X / 1728))
   have ht : t = g (RatFunc.X / 1728) := rfl
+  have h1728 : (1728 : X.left.functionField) ≠ 0 := by
+    rw [← map_ofNat g 1728]; exact (map_ne_zero g).2 (by norm_num)
   have hgX : g RatFunc.X = 1728 * t := by
     rw [ht, map_div₀, map_ofNat]
     field_simp

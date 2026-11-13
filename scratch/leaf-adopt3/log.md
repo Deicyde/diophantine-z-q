@@ -33,3 +33,7 @@
   TSkolemKW.C10.{brauerNesbittChar0', c10_of_chebotarev} (now over GlueC10's identical originals),
   T10Etale.T10_groupIso_of_linIso (now concludes ZInQ.LeafPush2.T10_groupIso, the identical original),
   E1Sub.bcPt (an `rfl` dropped).
+- 02:2x X1BelyiOnModel transport (scratch/leaf-adopt3/x1transport/T.lean, against the prefix olean): run1 3 errors
+  (aeval_algHom_apply direction; stuck `Subsingleton (ℚ →+* ?)`, replaced by `eq_ratCast`; `1728 ≠ 0` in the
+  function field, from injectivity of `g`); run2 exit 0. Folded into 70_g0 (`G0Split.x1BelyiOnModel_of_belyiX1`),
+  glue piece 3 dropped from GluePieces (now 10 fields). Tail: exit 0, 0 errors (300 s), standard axioms.

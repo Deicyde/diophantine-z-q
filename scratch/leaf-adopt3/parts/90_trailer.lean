@@ -182,3 +182,4 @@ end
 #print axioms C9Rhof.c9_r5
 #print axioms C9Rhof.c10_via_c9
 #print axioms C9Rhof.c9_hsyn
+#print axioms HSyn.G0Split.x1BelyiOnModel_of_belyiX1
