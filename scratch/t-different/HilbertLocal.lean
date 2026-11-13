@@ -13,7 +13,7 @@ Check with `lake env lean scratch/t-different/HilbertLocal.lean`.
 
 open IsLocalRing Polynomial
 
-namespace TDifferent
+namespace PkgI6
 
 /-! ### Verbatim copy of the definitions of `PkgI6` used (Leaves.lean lines 5029-5045). -/
 
@@ -28,6 +28,12 @@ lemma mem_lowerRam {i : ℕ} {σ : B ≃ₐ[A] B} :
     σ ∈ lowerRam A B i ↔ ∀ b : B, σ b - b ∈ maximalIdeal B ^ (i + 1) := Iff.rfl
 
 end Ramification
+
+end PkgI6
+
+namespace TDifferent
+
+open PkgI6
 
 /-! ### Counting: `∑_{i<N} (|G_i| - 1) = ∑_{σ ≠ 1} i_G(σ)`. -/
 
@@ -412,17 +418,16 @@ open IsLocalRing
 
 attribute [local instance] FractionRing.liftAlgebra FractionRing.isScalarTower_liftAlgebra
 
-/-- Verbatim copy of `PkgI6.HilbertDifferentFormula` (Leaves.lean line 5092), with `lowerRam`
-the verbatim copy `TDifferent.lowerRam`. -/
+/-- Verbatim copy of `PkgI6.HilbertDifferentFormula` (Leaves.lean line 5092). -/
 def HilbertDifferentFormula : Prop :=
   ∀ (A B : Type) [CommRing A] [IsDomain A] [IsDiscreteValuationRing A]
     [IsAdicComplete (maximalIdeal A) A] [PerfectField (ResidueField A)]
     [CommRing B] [IsDomain B] [IsDiscreteValuationRing B] [Algebra A B] [Module.Finite A B]
     [Module.IsTorsionFree A B] [Algebra.IsSeparable (FractionRing A) (FractionRing B)]
     [IsGalois (FractionRing A) (FractionRing B)],
-    ∃ N : ℕ, TDifferent.lowerRam A B N = ⊥ ∧
+    ∃ N : ℕ, lowerRam A B N = ⊥ ∧
       differentIdeal A B =
-        maximalIdeal B ^ (∑ i ∈ Finset.range N, (Nat.card (TDifferent.lowerRam A B i) - 1))
+        maximalIdeal B ^ (∑ i ∈ Finset.range N, (Nat.card (lowerRam A B i) - 1))
 
 /-- **Monogenicity (Serre, *Corps locaux*, III §6, Prop. 12; UNVERIFIED locator).** For a finite
 separable extension of complete discrete valuation rings whose residue field extension is
@@ -444,6 +449,21 @@ theorem hilbertDifferentFormula_of_monogenicDVR (h : MonogenicDVR) : HilbertDiff
 theorem monogenicDVR : MonogenicDVR := by
   intro A B _ _ _ _ _ _ _ _ _ _ _ _
   exact TDifferent.exists_adjoin_eq_top A B
+
+/-- **Hilbert's formula without completeness.** The proof of T20 uses neither
+`IsAdicComplete (maximalIdeal A) A` nor any property of `B` beyond being a DVR finite over `A`
+(so it applies, e.g., to the localization of `𝓞_L` at a prime of the decomposition field). -/
+theorem hilbertDifferentFormula_of_dvr
+    (A B : Type) [CommRing A] [IsDomain A] [IsDiscreteValuationRing A]
+    [PerfectField (ResidueField A)]
+    [CommRing B] [IsDomain B] [IsDiscreteValuationRing B] [Algebra A B] [Module.Finite A B]
+    [Module.IsTorsionFree A B] [Algebra.IsSeparable (FractionRing A) (FractionRing B)]
+    [IsGalois (FractionRing A) (FractionRing B)] :
+    ∃ N : ℕ, lowerRam A B N = ⊥ ∧
+      differentIdeal A B =
+        maximalIdeal B ^ (∑ i ∈ Finset.range N, (Nat.card (lowerRam A B i) - 1)) := by
+  obtain ⟨x, hx⟩ := TDifferent.exists_adjoin_eq_top A B
+  exact TDifferent.hilbertDifferentFormula_of_adjoin_eq_top A B hx
 
 /-- **T20, local form (`PkgI6.HilbertDifferentFormula`, Leaves.lean line 5092): proved.** -/
 theorem hilbertDifferentFormula : HilbertDifferentFormula :=
