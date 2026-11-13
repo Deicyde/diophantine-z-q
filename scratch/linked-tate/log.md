@@ -51,3 +51,7 @@
   (UpperAbsInertia) (TateRamAtThree) : LinkedRam`. Run 1: a `rw` failed on an unreduced beta-redex (`gam (h*g*h⁻¹)`);
   fixed with `show`. Run 2: VERIFIED 0 errors, no sorry; `linkedRam_of`, `sixContactMin_of_leaves3` standard axioms.
   GluePieces3 now has 32 fields (field `linkedRam` replaced by the four Props).
+- `LocalInertiaGlobal` PROVED: standalone over Mathlib first (scratch/linked-tate/test/LocalInertia.lean; run 1: three
+  lemma-name fixes `inv_le_one₀`, `Padic.norm_p`, `IsLocalRing.ResidueField.residue_smul`; run 2 clean), then as part
+  98c (`UnramTate.embP`, `embP_decomp`, `localInertiaGlobal_at`, `localInertiaGlobal`). Tail: VERIFIED 0 errors,
+  standard axioms; GluePieces3 field `localInertiaGlobal` removed (31 fields); `sixContactMin_of_leaves3` standard.

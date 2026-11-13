@@ -1,5 +1,5 @@
 /-! ## linked-tate: `GluePieces3`, g0-assemble's `GluePieces2` with its fields 27 (`modelG3G6`) and
-28 (`linkedTateData`) replaced by seven smaller glue Props (the fields before them are copied
+28 (`linkedTateData`) replaced by six smaller glue Props (the fields before them are copied
 verbatim, with their docstrings, from `scratch/g0-assemble/parts/90_bundle.lean`). -/
 
 section LinkedTateBundleSec
@@ -89,8 +89,6 @@ structure GluePieces3 : Prop where
   /-- linked-tate, GLUE (N5 L819-852, D1, D3; field half): the upper breaks of the kernel field
   `L'` at `p ≤ D` are `≤ U₀`, and `L'` is tame at `p > D`. -/
   kernelFieldBreaks : UnramTate.KernelFieldBreaks
-  /-- linked-tate, GLUE (definitions, Mathlib-level): local inertia lands in a global inertia group. -/
-  localInertiaGlobal : UnramTate.LocalInertiaGlobal
   /-- linked-tate, GLUE (definitions, Mathlib-level): `G_{ℚ_p}^t ⊆` inertia for `t > 0`. -/
   upperAbsInertia : UnramTate.UpperAbsInertia
   /-- linked-tate, GLUE (N5 L819-852 at `p = 3`): `G_{ℚ_3}^t`, `t > U₀`, acts trivially on
@@ -101,7 +99,8 @@ structure GluePieces3 : Prop where
 proved, `modelG3G6` from `FibreSimple` (itself from g0-fibresimple's fields, as in
 `gluePieces_of_gluePieces2`), `GoodRedTorsion` and the bundle's R6, R7a, T5, and
 `linkedTateData` from T7, T26, `FibreSimple`, `QMEndRank`, `LinkedFrob`, and `LinkedRam`
-(itself from G3 and `KernelFieldBreaks`, `LocalInertiaGlobal`, `UpperAbsInertia`, `TateRamAtThree`). -/
+(itself from G3, `KernelFieldBreaks`, `UpperAbsInertia`, `TateRamAtThree` and the proved
+`UnramTate.localInertiaGlobal`). -/
 theorem gluePieces2_of_gluePieces3 (r : ResearchLeaves) (t : TextbookLeaves) (gp3 : GluePieces3) :
     GluePieces2 where
   mulIsogeny := gp3.mulIsogeny
@@ -141,7 +140,7 @@ theorem gluePieces2_of_gluePieces3 (r : ResearchLeaves) (t : TextbookLeaves) (gp
       (UnramTate.linkedRam_of
         (LinkedTate.qmModelG3_of r.r7a r.r6 t.t5
           (LinkedTate.goodRedG3Bridge_of_torsion gp3.goodRedTorsion))
-        gp3.kernelFieldBreaks gp3.localInertiaGlobal gp3.upperAbsInertia gp3.tateRamAtThree))
+        gp3.kernelFieldBreaks UnramTate.localInertiaGlobal gp3.upperAbsInertia gp3.tateRamAtThree))
 
 /-- **G0 after linked-tate**: the leaf bundles and `GluePieces3` imply `ZInQ.SixContactMin`. -/
 theorem sixContactMin_of_leaves3 (r : ResearchLeaves) (t : TextbookLeaves) (gp3 : GluePieces3) :

@@ -10120,6 +10120,93 @@ end LinkedRamSec
 #print axioms UnramTate.tate_trivial_of_g3
 #print axioms UnramTate.linkedRam_of
 
+/-! ## linked-tate: `LocalInertiaGlobal` proved (Mathlib)
+
+The place is the comap `v` of the valuation `‖·‖` of `ℚ̄_p` along the embedding `ℚ̄ → ℚ̄_p` that
+`decomp` uses (`embP`, with `embP ∘ decomp σ = σ ∘ embP`, Mathlib's `restrictNormal_commutes`):
+`decomp σ` preserves `v` (`σ` is an isometry, `PkgI4.norm_gqp_apply`), `p ∈ v.nonunits`
+(`‖p‖ = p⁻¹`), and for `σ` in the inertia set `decomp σ` acts trivially on the residue field of
+`v` (`‖σx − x‖ < 1` for `‖x‖ ≤ 1`). First compiled standalone over Mathlib
+(`scratch/linked-tate/test/LocalInertia.lean`). -/
+
+section LocalInertiaSec
+
+noncomputable section
+
+open scoped Pointwise
+
+namespace UnramTate
+
+variable (p : ℕ) [Fact p.Prime]
+
+/-- The embedding `ℚ̄ → ℚ̄_p` that `decomp` uses. -/
+def embP : PkgI4.Qbar →+* PadicAlgCl p :=
+  letI : Algebra ℚ ℚ_[p] := (algebraMap ℚ ℚ_[p]).toAlgebra
+  (IsAlgClosed.lift : AlgebraicClosure ℚ →ₐ[ℚ] AlgebraicClosure ℚ_[p]).toRingHom
+
+theorem embP_decomp (σ : PkgI4.GQp p) (x : PkgI4.Qbar) : embP p (PkgI4.decomp p σ x) = σ (embP p x) := by
+  letI : Algebra ℚ ℚ_[p] := (algebraMap ℚ ℚ_[p]).toAlgebra
+  letI : Algebra (AlgebraicClosure ℚ) (AlgebraicClosure ℚ_[p]) :=
+    (IsAlgClosed.lift : AlgebraicClosure ℚ →ₐ[ℚ] AlgebraicClosure ℚ_[p]).toRingHom.toAlgebra
+  exact AlgEquiv.restrictNormal_commutes (σ.restrictScalars ℚ) (AlgebraicClosure ℚ) x
+
+theorem localInertiaGlobal_at (σ : PkgI4.GQp p) (hσ : σ ∈ (LadicCond.inertiaSet : Set (PkgI4.GQp p))) :
+    ∃ v : ValuationSubring PkgI4.Qbar, PkgI4.LiesOver v p ∧
+      ∃ τ ∈ v.inertiaSubgroup ℚ, ((τ : v.decompositionSubgroup ℚ) : PkgI4.GQ) = PkgI4.decomp p σ := by
+  let w : Valuation PkgI4.Qbar NNReal := (Valued.v : Valuation (PadicAlgCl p) NNReal).comap (embP p)
+  let v := w.valuationSubring
+  have hmem : ∀ x, x ∈ v ↔ ‖embP p x‖ ≤ 1 := by
+    intro x
+    show Valued.v (embP p x) ≤ 1 ↔ _
+    rw [← NNReal.coe_le_coe, PadicAlgCl.valuation_coe, NNReal.coe_one]
+  have hnorm : ∀ (g : PkgI4.GQp p) (x : PkgI4.Qbar), ‖embP p (PkgI4.decomp p g x)‖ = ‖embP p x‖ := by
+    intro g x; rw [embP_decomp, PkgI4.norm_gqp_apply]
+  have hτv : PkgI4.decomp p σ ∈ v.decompositionSubgroup ℚ := by
+    rw [MulAction.mem_stabilizer_iff]
+    ext x
+    rw [ValuationSubring.mem_pointwise_smul_iff_inv_smul_mem, hmem, hmem, ← map_inv]
+    exact iff_of_eq (congrArg (· ≤ (1 : ℝ)) (hnorm σ⁻¹ x))
+  have hnu : ∀ x : PkgI4.Qbar, ‖embP p x‖ < 1 → x ∈ v.nonunits := by
+    intro x hx
+    rw [ValuationSubring.mem_nonunits_iff_or]
+    by_cases h0 : x = 0
+    · exact Or.inl h0
+    · right
+      rw [hmem, map_inv₀, norm_inv]
+      have hpos : 0 < ‖embP p x‖ := norm_pos_iff.mpr ((map_ne_zero _).mpr h0)
+      intro h
+      have := (inv_le_one₀ hpos).mp h
+      linarith
+  refine ⟨v, ?_, ⟨⟨PkgI4.decomp p σ, hτv⟩, ?_, rfl⟩⟩
+  · apply hnu
+    rw [map_natCast]
+    have : ‖((p : ℚ_[p]) : PadicAlgCl p)‖ = ‖(p : ℚ_[p])‖ := PadicAlgCl.norm_extends p _
+    rw [map_natCast] at this
+    rw [this, Padic.norm_p]
+    exact inv_lt_one_of_one_lt₀ (by exact_mod_cast (Fact.out : p.Prime).one_lt)
+  · rw [ValuationSubring.inertiaSubgroup, MonoidHom.mem_ker]
+    ext r
+    obtain ⟨a, rfl⟩ := IsLocalRing.residue_surjective r
+    change (⟨PkgI4.decomp p σ, hτv⟩ : v.decompositionSubgroup ℚ) • IsLocalRing.residue v a =
+      IsLocalRing.residue v a
+    rw [← IsLocalRing.ResidueField.residue_smul, ← sub_eq_zero, ← map_sub,
+      IsLocalRing.residue_eq_zero_iff, ← ValuationSubring.coe_mem_nonunits_iff]
+    apply hnu
+    show ‖embP p (PkgI4.decomp p σ (a : PkgI4.Qbar) - a)‖ < 1
+    rw [map_sub, embP_decomp]
+    exact hσ _ ((hmem a).mp a.2)
+
+/-- **`LocalInertiaGlobal`, proved.** -/
+theorem localInertiaGlobal : LocalInertiaGlobal := fun p _ σ hσ => localInertiaGlobal_at p σ hσ
+
+end UnramTate
+
+end
+
+end LocalInertiaSec
+
+#print axioms UnramTate.localInertiaGlobal
+
 /-! ## linked-tate: `GoodRedG3Bridge` reduced to its torsion-point form `GoodRedTorsion`
 
 `G3Out` asks that inertia act trivially on `ℚ̄_ℓ ⊗ V_ℓ`. Triviality on every `A[ℓⁿ](K̄)` implies
@@ -10200,7 +10287,7 @@ end LinkedTateG3Sec
 #print axioms HSyn.LinkedTate.goodRedG3Bridge_of_torsion
 
 /-! ## linked-tate: `GluePieces3`, g0-assemble's `GluePieces2` with its fields 27 (`modelG3G6`) and
-28 (`linkedTateData`) replaced by seven smaller glue Props (the fields before them are copied
+28 (`linkedTateData`) replaced by six smaller glue Props (the fields before them are copied
 verbatim, with their docstrings, from `scratch/g0-assemble/parts/90_bundle.lean`). -/
 
 section LinkedTateBundleSec
@@ -10290,8 +10377,6 @@ structure GluePieces3 : Prop where
   /-- linked-tate, GLUE (N5 L819-852, D1, D3; field half): the upper breaks of the kernel field
   `L'` at `p ≤ D` are `≤ U₀`, and `L'` is tame at `p > D`. -/
   kernelFieldBreaks : UnramTate.KernelFieldBreaks
-  /-- linked-tate, GLUE (definitions, Mathlib-level): local inertia lands in a global inertia group. -/
-  localInertiaGlobal : UnramTate.LocalInertiaGlobal
   /-- linked-tate, GLUE (definitions, Mathlib-level): `G_{ℚ_p}^t ⊆` inertia for `t > 0`. -/
   upperAbsInertia : UnramTate.UpperAbsInertia
   /-- linked-tate, GLUE (N5 L819-852 at `p = 3`): `G_{ℚ_3}^t`, `t > U₀`, acts trivially on
@@ -10302,7 +10387,8 @@ structure GluePieces3 : Prop where
 proved, `modelG3G6` from `FibreSimple` (itself from g0-fibresimple's fields, as in
 `gluePieces_of_gluePieces2`), `GoodRedTorsion` and the bundle's R6, R7a, T5, and
 `linkedTateData` from T7, T26, `FibreSimple`, `QMEndRank`, `LinkedFrob`, and `LinkedRam`
-(itself from G3 and `KernelFieldBreaks`, `LocalInertiaGlobal`, `UpperAbsInertia`, `TateRamAtThree`). -/
+(itself from G3, `KernelFieldBreaks`, `UpperAbsInertia`, `TateRamAtThree` and the proved
+`UnramTate.localInertiaGlobal`). -/
 theorem gluePieces2_of_gluePieces3 (r : ResearchLeaves) (t : TextbookLeaves) (gp3 : GluePieces3) :
     GluePieces2 where
   mulIsogeny := gp3.mulIsogeny
@@ -10342,7 +10428,7 @@ theorem gluePieces2_of_gluePieces3 (r : ResearchLeaves) (t : TextbookLeaves) (gp
       (UnramTate.linkedRam_of
         (LinkedTate.qmModelG3_of r.r7a r.r6 t.t5
           (LinkedTate.goodRedG3Bridge_of_torsion gp3.goodRedTorsion))
-        gp3.kernelFieldBreaks gp3.localInertiaGlobal gp3.upperAbsInertia gp3.tateRamAtThree))
+        gp3.kernelFieldBreaks UnramTate.localInertiaGlobal gp3.upperAbsInertia gp3.tateRamAtThree))
 
 /-- **G0 after linked-tate**: the leaf bundles and `GluePieces3` imply `ZInQ.SixContactMin`. -/
 theorem sixContactMin_of_leaves3 (r : ResearchLeaves) (t : TextbookLeaves) (gp3 : GluePieces3) :
