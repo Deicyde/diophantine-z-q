@@ -337,6 +337,64 @@ theorem descentDatum_of_conjugacy (L : IF) [FiniteDimensional ℚ L] [IsGalois �
       linear_combination (-((normA m σ : ℂ) * (normA m τ : ℂ))) * h
     rw [e1, key]
 
+/-! ## Sanity check: `DescentDatum` is satisfiable (an abelian variety over `ℚ`, `ε = 1`) -/
+
+theorem mem_GQL_bot (σ : GQ) : σ ∈ GQL (⊥ : IF) := by
+  rw [mem_GQL]
+  intro x hx
+  obtain ⟨r, rfl⟩ := IntermediateField.mem_bot.mp hx
+  exact (act σ).commutes r
+
+theorem galAct_mul {L : IF} (A : PkgI3.AbVar L) (g h : Qbar ≃ₐ[L] Qbar) (P : A.Pt Qbar) :
+    A.galAct g (A.galAct h P) = A.galAct (g * h) P := by
+  show PkgI3.AbVar.galHom g ≫ PkgI3.AbVar.galHom h ≫ P = PkgI3.AbVar.galHom (g * h) ≫ P
+  rw [PkgI3.AbVar.galHom_mul, Category.assoc]
+
+/-- **Sanity check (proved).** For every abelian variety `A` over `ℚ` (here `L = ⊥ ⊆ ℚ̄`), the
+Galois action itself is a descent datum with `ε = 1`, `a = 1`, `F_σ = id`. So `DescentDatum` is
+not contradictory. -/
+theorem descentDatum_bot (A : PkgI3.AbVar (⊥ : IF)) : DescentDatum ⊥ A (fun _ _ => 1) := by
+  let m : GQ → (PtQ ⊥ A →+ PtQ ⊥ A) := fun σ =>
+    MonoidHom.toAdditive (A.galAct (toLAut σ (mem_GQL_bot σ)))
+  have hmul : ∀ σ τ : GQ, (m σ).comp (m τ) = m (σ * τ) := by
+    intro σ τ
+    refine AddMonoidHom.ext fun x => ?_
+    show Additive.ofMul (A.galAct _ (A.galAct _ (Additive.toMul x))) =
+      Additive.ofMul (A.galAct _ (Additive.toMul x))
+    rw [galAct_mul]
+    rfl
+  have hbij : ∀ σ, Function.Bijective (m σ) := fun σ => galAct_bijective A _
+  refine ⟨⟨IsLocallyConstant.const 1, fun _ _ => by simp, fun _ _ _ => by simp⟩,
+    fun _ _ _ _ _ _ => rfl, rfl, m, fun _ => 1, fun _ => one_pos, fun _ _ _ => ⟨rfl, rfl, rfl⟩,
+    ?_, ?_, ?_, ?_, ?_, ?_⟩
+  · intro σ σ' h
+    have : σ' = toLAut σ (mem_GQL_bot σ) := AlgEquiv.ext h
+    rw [this]
+  · intro σ k _
+    exact ⟨(hmul σ k).symm, (hmul k σ).symm⟩
+  · intro σ f
+    refine AddMonoidHom.ext fun x => ?_
+    show Additive.ofMul (PkgI3.AbVar.galHom _ ≫ (Additive.toMul x ≫ f.hom)) =
+      Additive.ofMul ((PkgI3.AbVar.galHom _ ≫ Additive.toMul x) ≫ f.hom)
+    rw [Category.assoc]
+  · intro σ
+    refine ⟨(hbij σ).2, ?_⟩
+    have : ((m σ).ker : Set (PtQ ⊥ A)) = {0} := by
+      ext x
+      simp only [SetLike.mem_coe, AddMonoidHom.mem_ker, Set.mem_singleton_iff]
+      constructor
+      · intro h; exact (hbij σ).1 (h.trans (map_zero _).symm)
+      · rintro rfl; exact map_zero _
+    rw [this]; exact Set.finite_singleton 0
+  · intro σ τ
+    refine ⟨1, 1, one_ne_zero, one_ne_zero, by rw [one_smul, one_smul, hmul], by simp⟩
+  · refine ⟨fun _ => 𝟙 _, fun σ => ⟨inferInstance, inferInstance, fun x => ?_⟩⟩
+    show (PkgI3.AbVar.galHom (toLAut σ (mem_GQL_bot σ)) ≫ Additive.toMul x).left =
+      Spec.map (CommRingCat.ofHom ((act σ : Qbar ≃ₐ[ℚ] Qbar) : Qbar →+* Qbar)) ≫
+        (Additive.toMul x).left ≫ 𝟙 _
+    erw [Category.comp_id]
+    rfl
+
 /-- **G4's output (N5 L532-563 and the B1 normalization L632-663).** A finite Galois `L ⊆ ℚ̄`
 (the Hom field) with `[L:ℚ] ≤ D`, unramified outside `T`, a QM model `A/L` of `P` (`IsQMModel`), and
 the descent datum `ε` of `A` (`DescentDatum`). -/
@@ -986,3 +1044,4 @@ end G0ModField
 #print axioms G0ModField.modularConstituent_of_ranges_T14
 #print axioms G0ModField.galoisG2Out_of_g7Data
 #print axioms G0ModField.resQRange
+#print axioms G0ModField.descentDatum_bot

@@ -1,6 +1,6 @@
 # g0-mod-field: glue steps G2, G4, G7 (the field half of `ModularConstituent`)
 
-Task g0-mod-field, 2026-11-13. Lean: `scratch/g0-mod-field/ModField.lean` (988 lines; it imports
+Task g0-mod-field, 2026-11-13. Lean: `scratch/g0-mod-field/ModField.lean` (1040 lines; it imports
 `ZInQKernel/HDecomp/` modules and is not a flat copy). Log: `scratch/g0-mod-field/log.md`.
 
 ## 1. Result
@@ -12,7 +12,7 @@ is proved in Lean, with no `sorry`.** Composed with the next ranges (G8-G16, bun
 gives 0 errors and no `declaration uses sorry`. `#print axioms` gives `[propext, Classical.choice,
 Quot.sound]` for `fieldDescent`, `fieldDescentUnr`, `descentDatum_of_conjugacy`, `g7Out_of_g4Out`,
 `g7OutUnr_of_g4Out`, `modularConstituent_of_ranges`, `modularConstituent_of_ranges_T14`,
-`galoisG2Out_of_g7Data` and `resQRange`.
+`galoisG2Out_of_g7Data`, `resQRange` and `descentDatum_bot`.
 
 ```
 theorem G0ModField.fieldDescentUnr (hCover : FibreCoverExists) (hKer : KernelFieldExists)
@@ -61,6 +61,7 @@ prime of `S_mul` is `≤ D`, and `10¹² ≤ D`) are proved (`admissible_S_mul`,
 | `b2_of_leaves_level` | B2 | glue-descent's `b2_of_leaves` proof, copied, exposing the level `N = chiLevel T₋` of `χ` |
 | `g7OutUnr_of_g4Out` | G7 with the twist (N5 L664-716) | `b2_of_leaves_level`, `GlueB3Unram.unramified_outside_noLeaf` (B3(v), no leaf), `b3_of_cochain`, `degree_le_QM` |
 | `galAct_bijective`, `card_ker_GL`, `IsQMModel.isModelOver` | — | the Galois action on `A(ℚ̄)` is bijective; kernel sizes on `G_L`; a QM model is a model |
+| `descentDatum_bot` | sanity | an abelian variety over `ℚ` with its Galois action is a `DescentDatum` (`ε = 1`): the definition is satisfiable |
 | `resQ_comm'`, `resQ_range`, `resQRange` | bridge | the image of `Field.absoluteGaloisGroup.map` for `L'` is `Fix(L')` |
 | `galoisG2Out_of_g7Data` | bridge | g0-mod-galois' `G2Out L' T` from `G7Data` |
 | `fieldDescent`, `fieldDescentUnr` | G2 → G4 → G7 | the above |
@@ -232,6 +233,8 @@ g0-mod-newform's theorems through the bridge of §3), then use `modularConstitue
   `Ideal.ramificationIdx`. Mathlib has `Ideal.card_inertia_eq_ramificationIdxIn`, but no
   compositum lemma.
 * `TateBridge` is stated, not proved.
-* No satisfiability check of `ConjugacyData` on a concrete `A` was compiled. Mathlib v4.35
-  constructs no nonzero abelian variety, and on the zero variety `F_σ` must be
-  `Spec(σ|_L⁻¹)`, which needs the restriction `Gal(ℚ̄/ℚ) → Gal(L/ℚ)` spelled out.
+* Satisfiability is checked only in the trivial case. `descentDatum_bot` (proved) shows that
+  for every abelian variety over `ℚ` (`L = ⊥`) the Galois action is a `DescentDatum` with
+  `ε = 1`, `a = 1`, `F_σ = id`, so the definition (with the algebraicity clause) is not
+  contradictory. No case with `L ≠ ℚ` was compiled. Mathlib v4.35 constructs no nonzero abelian
+  variety, and the semilinear `F_σ` would need the restriction `Gal(ℚ̄/ℚ) → Gal(L/ℚ)` spelled out.

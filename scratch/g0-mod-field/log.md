@@ -109,3 +109,9 @@
   `DescentDatum` and `ConjugacyData`: `∃ F : G_ℚ → (A → A)` finite surjective with
   `(m σ x).left = Spec(σ) ≫ x.left ≫ F σ`; passed through `descentDatum_of_conjugacy`.
 - VERIFIED: 0 errors; all axioms standard.
+
+## run36-38 (02:50): sanity check
+- New: `mem_GQL_bot`, `galAct_mul`, `descentDatum_bot` (for every `A : PkgI3.AbVar ⊥`, i.e. over `ℚ`,
+  the Galois action is a `DescentDatum` with `ε = 1`, `a = 1`, `F_σ = id`). So `DescentDatum`
+  (including the algebraicity clause) is not contradictory.
+- VERIFIED: 0 errors; `#print axioms descentDatum_bot`: [propext, Classical.choice, Quot.sound].
