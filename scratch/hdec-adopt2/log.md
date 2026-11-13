@@ -18,3 +18,25 @@
 - QMDichotomy: the only uses in the adopted drafts are inside the dropped pkg-I3 copy of
   glue-ssbc/C2.lean (the leaf and `I3Leaves`); after the move all I3 uses refer to Objects'
   `PkgI3.QMDichotomyYu`. VERIFIED (grep).
+
+## Compile outcomes
+- 16:51 `lake build` of the 15 new modules: 14 built; `Vigneras.Global` failed (wrap.py had
+  broken a `first | … | (exfalso; revert h3; decide)` line inside a parenthesized tactic
+  sequence: parse error). VERIFIED.
+- Fix (in adopt2.py): that line becomes `first` followed by two lines of `| …` alternatives at
+  one column (a first attempt with the `|` at a smaller column than the first `|` did not parse).
+  16:58 `lake env lean ZInQKernel/HDecomp/Vigneras/Global.lean`: no errors. VERIFIED.
+- 16:59 `lake build ZInQKernel`: exit 0 (incremental, 25 s; the full build before it took
+  5 min 20 s and failed only at `Vigneras.Global` and its importers). VERIFIED.
+- 16:59 `lake env lean scripts/print_axioms.lean`: 272 `#print axioms` lines, 272 outputs, each
+  exactly `[propext, Classical.choice, Quot.sound]` (python check of the joined output). 93 of
+  them are the new section (`scratch/hdec-adopt2/axioms_section.lean`). Output saved as
+  `scratch/hdec-adopt2/axioms.txt` (it contains no file paths). VERIFIED.
+- Checks on the new modules, `HDecomp.lean` and the new print_axioms lines: no line over 100
+  characters (python, counting characters); no `sorry`/`admit`/`axiom` declaration (grep).
+  VERIFIED.
+- Verbatim-copy checks: C2's §1-§4 = pkg-I3 `I3.lean` lines 25-694 (difflib, one block of 670
+  lines); TateBC §1 = I3.lean lines 26-123 (98 lines); WP3's PkgI6 blocks each occur in
+  `Conductor/I6Base.lean` (whitespace-normalized substring); Disj's GlueSqrtLocal block =
+  SqrtLocal lines 84-243 (160 lines); Disj's `LocalKroneckerWeber` body = I6Base's (docstring
+  differs). VERIFIED.
