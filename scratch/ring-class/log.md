@@ -57,3 +57,19 @@
   mem_lift_fixedField_zpowers, hilbertField_le_Hprime (H_d ⊆ H'_d; needs maxRecDepth 10000).
 
 (Note: earlier headings were mis-estimated clock times; corrected to `date` readings, ±5 min.)
+
+## 08:00–08:35 round 4 (VERIFIED, `lake build ZInQKernel.Contrib.TYZGenus.RingClassBridge` success)
+- Merged origin/main, origin/wip/cm-points, origin/wip/x0-32 (no conflicts); Package builds.
+- cm-points' report asks ring-class to prove `Package.HprimeNormal` and `Package.IInH4`.
+- New ZInQKernel/Contrib/TYZGenus/RingClassGalois.lean (from scratch G1/G2): splitSet, Bauer's theorem
+  `le_of_splitSet_diff_subset` (Tau Ceti Chebotarev), splitting law `mem_splitSet_iff` (via
+  `isArithFrobAt_ringClassArtinEquiv_picClass`), `picClass_conj` (conjugation inverts Pic(O_{d,4})),
+  `normal_ringSubfield` (every E_S ⊆ H_{d,4}, S ≤ Pic, normal over ℚ), `normal_Hprime`, `normal_H4`,
+  `normal_Hprimebar`, `normal_H4bar` (all d), `adjI` = K(√−1), `isUnramifiedAt_of_two_notMem`,
+  `eq_one_of_isArithFrobAt`, `mem_splitSet_adjI`, `norm_of_mem_O4` (N(a+4y) = a² + 4c),
+  `adjI_le_H4` (K_d(√−1) ⊆ H_{d,4}, every d ≥ 1), `iQ_mem_H4bar`.
+- Pitfall: a `set w := …` inside the normality proof made later uses of `τ` time out at isDefEq
+  (200000 heartbeats); splitting the two cases into separate lemmas fixed it.
+- New ZInQKernel/Contrib/TYZGenus/RingClassBridge.lean: `hprimeNormal : HprimeNormal`, `iInH4 : IInH4`,
+  `tyzThm35ReadingA_of_cmLeaves_ringClass` (cm-points' finest main theorem minus these two hypotheses).
+- #print axioms (scratch/ring-class/AuditBridge.lean): all [propext, Classical.choice, Quot.sound].
