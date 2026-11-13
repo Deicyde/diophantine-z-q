@@ -1,0 +1,70 @@
+scratch/qm-pin/QMPin.lean:326:4: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/qm-pin/QMPin.lean:330:4: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/qm-pin/QMPin.lean:350:4: error: Type mismatch: After simplification, term
+  this
+ has type
+  @IsPullback Scheme Scheme.instCategory P.A.X.left 𝒜.F.left (Spec ↧K) S g₀ P.A.X.hom (𝒜.F.hom ≫ g.inv) y
+but is expected to have type
+  @IsPullback Scheme Scheme.instCategory P.A.X.left (𝒜.transport g).F.left (Spec ↧K) S g₀ P.A.X.hom
+    (𝒜.transport g).F.hom y
+scratch/qm-pin/QMPin.lean:352:8: error: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  Over.Hom.left (Additive.toMul (P.e.eta a)) ≫ g₀
+in the target expression
+  Over.Hom.left (Additive.toMul (P.e.eta a)) ≫ g₀ = y ≫ (𝒜.transport g).eta a
+
+case refine_2
+S : Scheme
+𝒜 : QMFamily S
+g : S ≅ S
+K : Type
+inst✝ : Field K
+y : Spec ↧K ⟶ S
+P : QML3 K
+g₀ : P.A.X.left ⟶ 𝒜.F.left
+hpb : IsPullback g₀ P.A.X.hom 𝒜.F.hom (y ≫ g.hom)
+hι : ∀ (a : ↥O), Over.Hom.left (AbVar.Hom.hom (P.q.iota a)) ≫ g₀ = g₀ ≫ 𝒜.iota a
+hη : ∀ (a : ↥O), Over.Hom.left (Additive.toMul (P.e.eta a)) ≫ g₀ = (y ≫ g.hom) ≫ 𝒜.eta a
+a : ↥O
+⊢ Over.Hom.left (Additive.toMul (P.e.eta a)) ≫ g₀ = y ≫ (𝒜.transport g).eta a
+
+Note: The target expression is not type-correct under the `implicit` transparency level, which may have triggered the failure. This is usually caused by unfolding of semireducible definitions in prior tactic steps. Use `set_option linter.tacticCheckInstances true` to investigate the source of the issue.
+Full error:
+  Application type mismatch: The argument
+    g₀
+  has type
+    @Quiver.Hom Scheme catToReflQuiver.toQuiver P.A.X.left 𝒜.F.left
+  but is expected to have type
+    @Quiver.Hom Scheme Scheme.instCategory.toQuiver P.A.X.left (𝒜.transport g).F.left
+  in the application
+    Over.Hom.left (Additive.toMul (P.e.eta a)) ≫ g₀
+'LeafQM.AV.Pin.R1R2fp_of_pin' depends on axioms: [propext, Classical.choice, Quot.sound]
+'LeafQM.AV.Pin.fibre_conjugates_isomorphic_pin' depends on axioms: [propext, Classical.choice, Quot.sound]
+'LeafQM.AV.Pin.leaves_on_one_witness_pin' depends on axioms: [propext, Classical.choice, Quot.sound]
+'LeafQM.AV.Pin.unramified_over_branch_pin' depends on axioms: [propext, Classical.choice, Quot.sound]
+'LeafQM.AV.Pin.residue_unramified_over_branch_pin' depends on axioms: [propext, Classical.choice, Quot.sound]
+'LeafQM.AV.Pin.conj_iso_of_rational_pin' depends on axioms: [propext, Classical.choice, Quot.sound]
+'LeafQM.AV.Pin.r1fpPin_relabel_iff' depends on axioms: [propext, Classical.choice, Quot.sound]
+'LeafQM.AV.Pin.r1fpPin_aut' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+'LeafQM.AV.Pin.r2fp_aut' depends on axioms: [propext, Classical.choice, Quot.sound]
+'LeafQM.AV.Pin.transfer_pointwise' depends on axioms: [propext, Classical.choice, Quot.sound]
+'LeafQM.AV.Pin.transfer_exists' depends on axioms: [propext, Classical.choice, Quot.sound]
+'LeafQM.AV.Pin.pointwise_of_witness' depends on axioms: [propext, Classical.choice, Quot.sound]
+'LeafQM.AV.Pin.sameTriple_aut' depends on axioms: [propext, Classical.choice, Quot.sound]
+
+real	0m5.976s
+user	0m4.139s
+sys	0m2.364s
