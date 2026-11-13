@@ -129,8 +129,9 @@ discriminant of `ℚ(ζ_n)` with Dedekind's criterion (`not_dvd_discr_iff_isUnra
 `𝓞 = ℤ[ζ]` (`IsCyclotomicExtension.Rat.adjoin_singleton_eq_top`), the Frobenius congruence being
 checked on the generator `ζ` and propagated through `ℤ[ζ]`. So the formalized leaf (Mathlib's
 `IsArithFrobAt`, `Algebra.IsUnramifiedAt`, `Q.under ℤ = (p)`) is the intended statement where it
-can be tested; the case C10 needs (non-abelian `M`) stays open. **Open**: `ChebotarevExists` itself (Neukirch VII (13.4), UNVERIFIED
-locator). Its proof needs Chebotarev's theorem for cyclic extensions of number fields (Deuring's
+can be tested; the case C10 needs (non-abelian `M`) stays open.
+
+**Open**: `ChebotarevExists` itself (Neukirch VII (13.4), UNVERIFIED locator). Its proof needs Chebotarev's theorem for cyclic extensions of number fields (Deuring's
 reduction), i.e. L-functions or class field theory over number fields, which Mathlib v4.35.0 does
 not have (it has Dirichlet's theorem for `ℚ`). The decomposition uses it for arbitrary finite
 Galois `M` (C10: the field cut out by `r₃ ⊕ ρ_{f,3}`), so no special case suffices. Tau Ceti's
@@ -154,9 +155,10 @@ character", listed there as not written, from T17 and, for `ψ` with values in a
 of C8: `ψ` takes values in `\bar ℚ₅^×`), from the cyclic case alone.
 - `KroneckerWeberCyclic`: T17 for `L/ℚ` with cyclic Galois group;
   `kroneckerWeberCyclic_of_kroneckerWeber` shows it is a consequence of T17. **This is the form of
-  the leaf the decomposition needs**; for crowdsourcing it is no easier than T17 in practice
-  (every known proof proves the abelian case), but it is the exact use.
-- `ker_ge_of_kroneckerWeberCyclic`, `eq_of_agree_on_roots_cyclic`: as below, for `ψ : G_ℚ →* Eˣ`
+  the leaf the decomposition needs**; for crowdsourcing it is probably no easier than T17 (the
+  standard proofs treat the abelian case directly; SPECULATIVE), but it is the exact use.
+- `ker_ge_of_kroneckerWeberCyclic`, `eq_of_agree_on_roots_cyclic`: the two statements listed
+  last below, for `ψ : G_ℚ →* Eˣ`
   (`E` a field), from `KroneckerWeberCyclic`: `Gal(L/ℚ) ≅ G_ℚ / ker ψ ≅ im ψ ⊆ Eˣ` is cyclic
   (Mathlib's `isCyclic_of_injective_ringHom`).
 - **`dirichletCharacter_of_kroneckerWeberCyclic`** (the final form): for `ψ : G_ℚ →* Eˣ` with
