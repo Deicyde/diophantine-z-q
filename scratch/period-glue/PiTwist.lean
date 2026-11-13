@@ -237,6 +237,144 @@ theorem fibreTransferC_of' (Y : Over (Spec (CommRingCat.of ℚ))) (π : ToP1 Y.l
     (hG : FibreGenericC Y π) : FibreTransferC Y π :=
   fibreTransferC_of Y π (toP1AgreeC_proof Y) hG
 
+/-! ### `FibreGenericC` (proved: Jacobson on `Y ×_ℚ Y`) -/
+
+/-- Two maps to `P¹` agree at a point: same chart, same value. -/
+def Agree {X : Scheme.{0}} (σ ρ : ToP1 X) (p : X) : Prop :=
+  (p ∈ σ.U ↔ p ∈ ρ.U) ∧ ∀ (h1 : p ∈ σ.U) (h2 : p ∈ ρ.U),
+    X.evaluation σ.U p h1 σ.f = X.evaluation ρ.U p h2 ρ.f
+
+theorem agree_comm {X : Scheme.{0}} (σ ρ : ToP1 X) (p : X) : Agree σ ρ p ↔ Agree ρ σ p :=
+  ⟨fun ⟨h1, h2⟩ => ⟨h1.symm, fun a b => (h2 b a).symm⟩,
+   fun ⟨h1, h2⟩ => ⟨h1.symm, fun a b => (h2 b a).symm⟩⟩
+
+theorem val_eq_iff_agree {X : Scheme.{0}} (σ ρ : ToP1 X) {K : Type} [Field K]
+    (a : Spec (CommRingCat.of K) ⟶ X) :
+    σ.val a = ρ.val a ↔ Agree σ ρ (Scheme.SpecToEquivOfField K X a).1 := by
+  unfold ToP1.val
+  constructor
+  · intro h
+    refine ⟨⟨fun h1 => ?_, fun h2 => ?_⟩, fun h1 h2 => ?_⟩
+    · by_contra h2
+      rw [dif_pos h1, dif_neg h2] at h
+      exact OnePoint.coe_ne_infty _ h
+    · by_contra h1
+      rw [dif_neg h1, dif_pos h2] at h
+      exact OnePoint.coe_ne_infty _ h.symm
+    · rw [dif_pos h1, dif_pos h2] at h
+      exact (Scheme.SpecToEquivOfField K X a).2.hom.injective (OnePoint.coe_injective h)
+  · rintro ⟨hU, hev⟩
+    by_cases h1 : (Scheme.SpecToEquivOfField K X a).1 ∈ σ.U
+    · rw [dif_pos h1, dif_pos (hU.mp h1), hev h1 (hU.mp h1)]
+    · rw [dif_neg h1, dif_neg (fun h => h1 (hU.mpr h))]
+
+theorem eval_mul_inv_P1 {X : Scheme.{0}} (ρ : ToP1 X) (q : X) (hq : q ∈ ρ.U ⊓ ρ.V) :
+    X.evaluation ρ.U q hq.1 ρ.f * X.evaluation ρ.V q hq.2 ρ.g = 1 := by
+  have h := congrArg (X.evaluation (ρ.U ⊓ ρ.V) q hq) ρ.inv
+  rw [map_mul, map_one, eval_res, eval_res] at h
+  exact h
+
+/-- Near a point in one chart domain but not the other, the two maps disagree. -/
+theorem disagree_nhds {X : Scheme.{0}} (σ ρ : ToP1 X) (p : X) (h1 : p ∈ σ.U) (h2 : p ∉ ρ.U) :
+    ∀ᶠ q in nhds p, ¬ Agree σ ρ q := by
+  have hpV : p ∈ ρ.V := by
+    have : p ∈ ρ.U ⊔ ρ.V := by rw [ρ.cover]; trivial
+    rcases this with h | h
+    · exact absurd h h2
+    · exact h
+  set W := σ.U ⊓ ρ.V with hW
+  let hfun : Γ(X, W) := X.presheaf.map (homOfLE inf_le_left).op σ.f *
+    X.presheaf.map (homOfLE inf_le_right).op ρ.g - 1
+  have hhx : ∀ x (hx : x ∈ W), X.evaluation W x hx hfun =
+      X.evaluation σ.U x hx.1 σ.f * X.evaluation ρ.V x hx.2 ρ.g - 1 := by
+    intro x hx
+    simp only [hfun, map_sub, map_mul, map_one, eval_res]
+  have hg0 : X.evaluation ρ.V p hpV ρ.g = 0 := by
+    rw [Scheme.evaluation_eq_zero_iff_notMem_basicOpen, ρ.basicOpen_g]
+    exact fun h => h2 h.1
+  have hpb : p ∈ X.basicOpen hfun := by
+    rw [← X.evaluation_ne_zero_iff_mem_basicOpen p (show p ∈ W from ⟨h1, hpV⟩), hhx, hg0, mul_zero,
+      zero_sub]
+    exact neg_ne_zero.mpr one_ne_zero
+  filter_upwards [(X.basicOpen hfun).isOpen.mem_nhds hpb] with q hq hag
+  have hqW : q ∈ W := X.basicOpen_le hfun hq
+  have hqU : q ∈ ρ.U := hag.1.mp hqW.1
+  have hev := hag.2 hqW.1 hqU
+  have hinv := eval_mul_inv_P1 ρ q ⟨hqU, hqW.2⟩
+  have := (X.evaluation_ne_zero_iff_mem_basicOpen q hqW hfun).mpr hq
+  rw [hhx, hev, hinv, sub_self] at this
+  exact this rfl
+
+/-- The agreement locus of two maps to `P¹` is closed. -/
+theorem isClosed_agree {X : Scheme.{0}} (σ ρ : ToP1 X) : IsClosed {p | Agree σ ρ p} := by
+  rw [← isOpen_compl_iff, isOpen_iff_mem_nhds]
+  intro p hp
+  simp only [Set.mem_compl_iff, Set.mem_setOf_eq] at hp
+  show ∀ᶠ q in nhds p, ¬ Agree σ ρ q
+  by_cases h1 : p ∈ σ.U <;> by_cases h2 : p ∈ ρ.U
+  · have hne : X.evaluation σ.U p h1 σ.f ≠ X.evaluation ρ.U p h2 ρ.f := fun h =>
+      hp ⟨⟨fun _ => h2, fun _ => h1⟩, fun _ _ => h⟩
+    set W := σ.U ⊓ ρ.U with hW
+    let s : Γ(X, W) := X.presheaf.map (homOfLE inf_le_left).op σ.f -
+      X.presheaf.map (homOfLE inf_le_right).op ρ.f
+    have hsx : ∀ x (hx : x ∈ W), X.evaluation W x hx s =
+        X.evaluation σ.U x hx.1 σ.f - X.evaluation ρ.U x hx.2 ρ.f := by
+      intro x hx
+      simp only [s, map_sub, eval_res]
+    have hpb : p ∈ X.basicOpen s := by
+      rw [← X.evaluation_ne_zero_iff_mem_basicOpen p (show p ∈ W from ⟨h1, h2⟩), hsx]
+      exact sub_ne_zero.mpr hne
+    filter_upwards [(X.basicOpen s).isOpen.mem_nhds hpb] with q hq hag
+    have hqW : q ∈ W := X.basicOpen_le s hq
+    have := (X.evaluation_ne_zero_iff_mem_basicOpen q hqW s).mpr hq
+    rw [hsx, hag.2 hqW.1 hqW.2, sub_self] at this
+    exact this rfl
+  · exact disagree_nhds σ ρ p h1 h2
+  · filter_upwards [disagree_nhds ρ σ p h2 h1] with q hq hag
+    exact hq ((agree_comm σ ρ q).mp hag)
+  · exact absurd ⟨⟨fun h => absurd h h1, fun h => absurd h h2⟩, fun h => absurd h h1⟩ hp
+
+/-- Residue maps of the two projections at a point of the diagonal. -/
+theorem diag_rfm (Y : Over (Spec (CommRingCat.of ℚ))) (r : ↥(pullback Y.hom Y.hom))
+    (hr : r ∈ Set.range (fun q : Y.left => pullback.diagonal Y.hom q)) :
+    ∃ e1 : pullback.fst Y.hom Y.hom r = pullback.snd Y.hom Y.hom r,
+      (pullback.fst Y.hom Y.hom).residueFieldMap r =
+        (Y.left.residueFieldCongr e1).hom ≫ (pullback.snd Y.hom Y.hom).residueFieldMap r := by
+  obtain ⟨q, rfl⟩ := hr
+  set D := pullback.diagonal Y.hom with hD
+  have hpt : ∀ (f : pullback Y.hom Y.hom ⟶ Y.left), D ≫ f = 𝟙 _ → f (D q) = q := by
+    intro f hf
+    have := congrArg (fun h : Y.left ⟶ Y.left => h q) hf
+    simpa using this
+  have e1 : pullback.fst Y.hom Y.hom (D q) = pullback.snd Y.hom Y.hom (D q) :=
+    (hpt _ (pullback.diagonal_fst Y.hom)).trans (hpt _ (pullback.diagonal_snd Y.hom)).symm
+  refine ⟨e1, ?_⟩
+  haveI : Mono (D.residueFieldMap q) :=
+    ConcreteCategory.mono_of_injective _ (D.residueFieldMap q).hom.injective
+  rw [← cancel_mono (D.residueFieldMap q), Category.assoc]
+  have c1 := Scheme.residueFieldMap_comp D (pullback.fst Y.hom Y.hom) q
+  have c2 := Scheme.residueFieldMap_comp D (pullback.snd Y.hom Y.hom) q
+  have d1 := Scheme.Hom.residueFieldMap_congr (pullback.diagonal_fst Y.hom) q
+  have d2 := Scheme.Hom.residueFieldMap_congr (pullback.diagonal_snd Y.hom) q
+  rw [Scheme.residueFieldMap_id] at d1 d2
+  rw [← c1, ← c2, d1, d2]
+  simp only [Scheme.residueFieldCongr, eqToIso.hom]
+  erw [Category.comp_id, Category.comp_id, eqToHom_trans]
+  rfl
+
+/-- A field-valued point of `Y ×_ℚ Y` over the diagonal has equal projections. -/
+theorem diag_eq (Y : Over (Spec (CommRingCat.of ℚ))) {K : Type} [Field K]
+    (b : Spec (CommRingCat.of K) ⟶ pullback Y.hom Y.hom)
+    (hb : (Scheme.SpecToEquivOfField K _ b).1 ∈ Set.range (fun q : Y.left => pullback.diagonal Y.hom q)) :
+    b ≫ pullback.fst Y.hom Y.hom = b ≫ pullback.snd Y.hom Y.hom := by
+  apply (Scheme.SpecToEquivOfField K Y.left).injective
+  rw [specToEquivOfField_comp_right, specToEquivOfField_comp_right,
+    Scheme.SpecToEquivOfField_eq_iff]
+  obtain ⟨e1, he1⟩ := diag_rfm Y _ hb
+  refine ⟨e1, ?_⟩
+  simp only
+  rw [he1, Category.assoc]
+
 /-! ## `TwistOrbitFinite` from R1hecke, `TorsionStructure` and two algebra facts -/
 
 /-- **GLUE, proved in mobius-glue** (`scratch/mobius-glue/MobiusGlue.lean` §7, `AutOInnerFinite`;
