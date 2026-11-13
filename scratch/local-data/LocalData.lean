@@ -843,20 +843,21 @@ theorem largePrimeData_iff (r : GaloisRep ℓ 2) :
     rw [htm σ ⟨hfix, hσ⟩, Matrix.scalar_apply, Matrix.diagonal_one] at h1
     exact Units.ext h1
   · intro h
-    have hF : IsFinGal (⊥ : Fld p) := by
-      refine ⟨inferInstance, ?_⟩
-      exact IsGalois.of_algEquiv (IntermediateField.botEquiv ℚ_[p] (Kbar p)).symm
+    have hF : IsFinGal (⊥ : Fld p) := ⟨inferInstance, inferInstance⟩
     have hcard : ramCard (⊥ : Fld p) 0 = 1 := by
-      have hle : ramCard (⊥ : Fld p) 0 ≤ 1 := by
+      have h1 := one_le_ramCard hF 0
+      have h2 : ramCard (⊥ : Fld p) 0 ≤ 1 := by
         unfold ramCard
-        rw [Nat.card_le_one_iff_subsingleton]
-        constructor
-        rintro ⟨_, σ, -, rfl⟩ ⟨_, τ, -, rfl⟩
+        have hfin := (finite_restr hF (ramSet (⊥ : Fld p) 0)).to_subtype
+        refine Finite.card_le_one_iff_subsingleton.mpr ⟨fun a b => ?_⟩
         apply Subtype.ext
+        obtain ⟨σ, -, hσ⟩ := a.2
+        obtain ⟨τ, -, hτ⟩ := b.2
+        rw [← hσ, ← hτ]
         funext x
         obtain ⟨q, hq⟩ := IntermediateField.mem_bot.mp x.2
         simp only [restr, ← hq, AlgEquiv.commutes]
-      exact le_antisymm hle (one_le_ramCard hF 0)
+      omega
     refine ⟨⊥, fun _ => 1, hF, ?_, ?_, fun _ _ => rfl⟩
     · rw [hcard]; exact (Fact.out : p.Prime).not_dvd_one
     · intro σ hσ
@@ -889,10 +890,10 @@ theorem mat_eq_scalar_of_intertwines {G V : Type*} [AddCommGroup V] [Module (Pad
   apply Matrix.toLin'.injective
   apply LinearMap.ext
   intro x
-  rw [Matrix.toLin'_apply, Matrix.toLin'_apply, hv x, Matrix.scalar_apply,
-    Matrix.mulVec_diagonal]
+  rw [Matrix.toLin'_apply, Matrix.toLin'_apply, hv x, Matrix.scalar_apply]
   funext i
-  simp [mul_comm]
+  rw [Matrix.mulVec_diagonal]
+  rfl
 
 /-! ### The smaller Props on G7's data at `p` -/
 
@@ -966,7 +967,7 @@ theorem twistTame_of_betaTame {β : GQ → PadicAlgCl ℓ} {F : Fld p}
 theorem betaUpper_of_betaTame {β : GQ → PadicAlgCl ℓ} {F : Fld p} {U : ℝ} (hU : 0 ≤ U)
     (h : BetaTame β F) : BetaUpper β F U := by
   intro t ht σ hσ
-  exact h σ ⟨hσ.2, upperWild p t (lt_of_le_of_lt hU ht) hσ.1⟩
+  exact h σ ⟨hσ.2, upperWild t (lt_of_le_of_lt hU ht) hσ.1⟩
 
 /-- **`LocalData p r` for G8's `r` (proved).** For `r` as in G8's output on
 `ρ = GlueDescent.rho Tm a β`: if at `p ≤ D` there is a finite Galois `F ⊆ ℚ̄_p` with
@@ -1002,7 +1003,7 @@ theorem exists_pow_fix_of_wild {σ : GQp p} (hσ : σ ∈ wildSet) {F' : Fld p} 
   obtain ⟨a, m, hpm, hdec⟩ := Nat.exists_eq_pow_mul_and_not_dvd hm0.ne' p
     (Fact.out : p.Prime).ne_one
   refine ⟨a, ?_⟩
-  have hm0' : 0 < m := Nat.pos_of_ne_zero fun h => by simp [h] at hdec; omega
+  have hm0' : 0 < m := Nat.pos_of_ne_zero fun h => by rw [h, mul_zero] at hdec; omega
   intro x hx
   have hsm : AlgEquiv.restrictNormalHom F' ((σ ^ (p ^ a)) ^ m) = 1 := by
     rw [map_pow, map_pow, ← hs, ← pow_mul, ← hdec, pow_orderOf_eq_one]
@@ -1040,7 +1041,7 @@ theorem betaTame_of_odd (hp2 : p ≠ 2) {β : GQ → PadicAlgCl ℓ} {F : Fld p}
   have hcop : Nat.Coprime (p ^ a) 2 := by
     apply Nat.Coprime.pow_left
     exact (Nat.coprime_primes (Fact.out : p.Prime) Nat.prime_two).mpr hp2
-  have := pow_gcd_eq_one (β (decomp p σ)) hpa (hsq σ hσ)
+  have := pow_gcd_eq_one.mpr ⟨hpa, hsq σ hσ⟩
   rwa [Nat.Coprime.gcd_eq_one hcop, pow_one] at this
 
 /-- **`LocalData p r` at odd `p` for G8's `r` (proved).** At odd `p` the `β`-side reduces to
