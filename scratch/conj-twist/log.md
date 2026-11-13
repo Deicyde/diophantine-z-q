@@ -9,7 +9,7 @@
   `betti_skeleton_fd` (verbatim, proofs included). VERIFIED (diff of the defs).
 
 ## Compile outcomes
-- 2026-11-13 05:33 `lake env lean scratch/conj-twist/ConjTwist.lean`: 0 errors (warnings: letI
+- 2026-11-13 05:31 `lake env lean scratch/conj-twist/ConjTwist.lean`: 0 errors (warnings: letI
   style lints in the verbatim `resQ_spec`, deprecations). New, all with axioms
   [propext, Classical.choice, Quot.sound], VERIFIED (compiled):
   - `faltingsV` (FaltingsTate + TateModuleFree ⇒ G_K-equivariant V_ℓ(A) → V_ℓ(B) lies in the
@@ -21,7 +21,7 @@
   - glue def `ConjBettiData` (conjugate variety + Artin comparison + holomorphy),
   - `conjTwistNontrivial_of_conjBettiData : TateModuleFree → ConjBettiData → ConjTwistNontrivial`,
   - `conjTwistFromLeaves_of_conjBettiData : ConjBettiData → ConjTwistFromLeaves`.
-- 2026-11-13 05:40 §5 added: `conjVar` (A^s = pullback of A along Spec(s), s : K →+* K),
+- 2026-11-13 05:34 §5 added: `conjVar` (A^s = pullback of A along Spec(s), s : K →+* K),
   `ccHom`, `conjPt` (A(K̄) →* A^s(K̄), P ↦ adjunction(Spec(cc) ≫ P)), `conjPt_galAct`
   (τ∘cc = cc∘σ ⇒ c_*(σP) = τ c_*(P)), `conjT`, `conjV`, `conjV_galRep` (twisted equivariance on
   V_ℓ), `restrictK` (s = cc|_K), glue def `ConjBettiComparison` (Betti data for the concrete
@@ -30,16 +30,16 @@
   `conjTwistFromLeaves_of_comparison` (ConjBettiComparison → ConjTwistFromLeaves).
   Compiles: 0 errors, 0 sorry; all 8 `#print axioms` [propext, Classical.choice, Quot.sound].
   VERIFIED (compiled).
-- 2026-11-13 05:40 §6 added (next split of ConjBettiComparison): `embHom`, `toC`
+- 2026-11-13 05:38 §6 added (next split of ConjBettiComparison): `embHom`, `toC`
   (A(K̄) →* A(ℂ)_{ι∘alg}), statements N1 `ArtinTorsion` (glue), N4 `TateLattice` (glue),
   N2 `HomLinearLift` (textbook leaf, BL 1.2.1 Hom form), `conjHom`, `conjCs`, `mapPtIso`,
   `twistC`, N3 `ConjAntiLift` (glue), N5 `ConjVarDim` (glue); proved `toC_conjPt`
   (toC(c_* P) = twistC(toC P)). Compiles, 0 errors; axioms standard. VERIFIED (compiled).
-- 2026-11-13 05:47 §7 added: `lift_mem_lattice` (a lift of a homomorphism maps Λ_A into Λ_B),
+- 2026-11-13 05:40 §7 added: `lift_mem_lattice` (a lift of a homomorphism maps Λ_A into Λ_B),
   `homT_tateLattice` (N1 ⇒ T_ℓ(f) α_A(1⊗λ) = α_B(1⊗Mλ)), `conjT_tateLattice`
   (N1 + toC_conjPt ⇒ c_* α_A(1⊗λ) = α_{A^s}(1⊗Nλ)). Compiles, 0 errors, axioms standard.
   VERIFIED (compiled).
-- 2026-11-13 06:00 §8 added: `toMatrix_of_lattice`, `toLin_of_lattice`, `lattice_contradiction`,
+- 2026-11-13 05:47 §8 added: `toMatrix_of_lattice`, `toLin_of_lattice`, `lattice_contradiction`,
   `twistC_one`, **`conjTwistNontrivial_of_lattice : TateModuleFree → UniformizationExists →
   ArtinTorsion → HomLinearLift → ConjAntiLift → TateLattice → ConjVarDim → ConjTwistNontrivial`**
   and `conjTwistFromLeaves_of_lattice : ArtinTorsion → HomLinearLift → ConjAntiLift →
