@@ -1,0 +1,1 @@
+'RvGP2.dirichletOfFinite' depends on axioms: [propext, Classical.choice, Quot.sound]
