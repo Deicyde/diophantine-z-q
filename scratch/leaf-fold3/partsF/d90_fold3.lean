@@ -61,13 +61,64 @@ theorem t40_of_x0Transitive (h : _root_.ZInQ.RLeaf.X0Transitive) : X1Belyi.X1Rat
 theorem t39_of_x0Transitive (h : _root_.ZInQ.RLeaf.X0Transitive) : X1Belyi.X1ConstantField :=
   _root_.ZInQ.RLeaf.x1ConstantField_of_x0Transitive h
 
+/-- **`TangentDimAtOrigin` from the kernel's Contrib** (dim-contrib, `ZInQ.Contrib.Dim.tangentDimAtOrigin`,
+`ZInQKernel/Contrib/Dim/HodgeLattice.lean`, imported; through leaf-fold2's field map `toAbVarK`). It replaces
+leaf-fold2's use of the scratch copy `LF2SmoothDim` in the product-metrization step below. -/
+theorem tangentDimAtOrigin_proved3 : ZInQ.DefFaltings.HodgeLattice.TangentDimAtOrigin :=
+  fun L _ B g hg => _root_.ZInQ.Contrib.Dim.tangentDimAtOrigin L (toAbVarK B) g hg
+
+/-- **Proposition TS for every admissible cover** (prop-ts, prop-ts-glue 3d41b3d5, ts-kummer, kummer-comp,
+ts-hecke, hecke-rest; part c80): prop-ts's `propTSAll_of_bundle_meet` with `KummerMeetGlue` proved
+(kummer-comp), `SpecNonMeeting` proved (prop-ts-glue), T2 proved (leaf-fold), `MobiusGlue` from T5
+(image-plane), and `CoverModelOfHecke` from hecke-rest's eight inputs: the leaf candidates `Y3Connected`
+(R1conn), `QMAutCard`, `SerreRigidity3`, `ALFixedPoints`, the leaf T5, and the glue `ChartProper`,
+`ChartQuasiFinite`, `HeckeVertWitness`. -/
+theorem propTSAll_of_pieces3 (hR : LeafAdopt.R1R2fpRep) (h5 : PkgI2.TorsionStructure.{0})
+    (hconn : TSHecke.Y3Connected) (hA : HeckeRest.QMAutCard) (hS : HeckeRest.SerreRigidity3)
+    (hW : HeckeRest.ALFixedPoints) (hP : HeckeRestCurve.ChartProper)
+    (hQ : HeckeRestCurve.ChartQuasiFinite) (hV : HeckeRestNV.HeckeVertWitness) :
+    G0ModField.PropTSAll :=
+  PropTSRed.propTSAll_of_bundle_meet t2_proved (LeafAdopt.R1R2fp_of_rep hR) KummerComp.kummerMeetGlue
+    PropTSGlue.specNonMeeting (mobiusGlue_of_t5' h5)
+    (HeckeRestAll.coverModelOfHecke_of_heckeRest hconn (LeafAdopt.R1R2fp_of_rep hR)
+      (ObjBridge.torsionStructure_iff.mpr h5) hA hS hW hP hQ hV)
+
+/-- **`LinkedTateLocal` (g0-assemble2's GLUE field 39) from leaves and one glue Prop** (lt-local's
+`linkedTateLocal_of_tateBridge35` over the `G7Data` with `[L:ℚ] ≤ D`; part c85). Its inputs:
+* R6 (`RaynaudCriterion`), T5 (`TorsionStructure`, I2-Tors), T26 (I3.M0, `TateModuleFree`);
+* `UnramRoots 2 5`, `UnramRoots 2 3`: proved (unram-roots, Tau Ceti);
+* `TateBridge35` (g14-trace's data, ε = 1 on `G_L × G_L` from the descent datum, lt-local's
+  `g7Clauses_of_transport`): from frob-pieces' `tateBridge35_of_neron_nmp`, i.e. T26, neron-lg's glue
+  N1-g1 `AbVarSpreadsOut`, the leaf candidate `ProperSmoothGenConnected` (Zariski's connectedness
+  theorem) and the textbook leaves I2-Red (`ReductionTorsionBijective`) and I2-NMP
+  (`NeronMappingAbelianScheme`); `AbsFrob`, `SmoothGeomConnIntegral`, `FExtendGen` are proved there;
+* `FibreSimple` (derived below) and `QMEndRank` (lt-goodred, from T6 and T27).
+lg-kerwild's every-`ℓ` theorem `exists_localGlue_of_tateModuleFree` (rv-fast's CONCERN) is not used. -/
+theorem linkedTateLocal_of_leaves3 (hR6 : PkgI2.RaynaudCriterion.{0}) (h5 : PkgI2.TorsionStructure.{0})
+    (hT : PkgI3.TateModuleFree) (hsp : FrobPiecesNeron.AbVarSpreadsOut)
+    (hc : FrobPiecesNeron.ProperSmoothGenConnected) (hRed : PkgI2.ReductionTorsionBijective.{0})
+    (hN : PkgI2.NeronMappingAbelianScheme.{0}) (hFS : G0Split.FibreSimple)
+    (h6 : PkgI3.HomFreeFinite) (h27 : PkgI3.QMDichotomyYu) : G0AssembleMod.LinkedTateLocal :=
+  LTLocal.linkedTateLocal_of_tateBridge35 (ObjBridge.raynaudCriterion_iff.mpr hR6)
+    (ObjBridge.torsionStructure_iff.mpr h5) (@UnramRootsTask.unramRoots_all 2 _ 5 _)
+    (@UnramRootsTask.unramRoots_all 2 _ 3 _)
+    (FrobPiecesGood.tateBridge35_of_neron_nmp hT hsp hc hRed hN) hFS (qmEndRank_of_leaves3 h6 h27)
+
 /-! ### The open statements -/
 
 /-- **The textbook leaves still open** (leaf-fold3): `OpenTextbookLeaves2` with
 * `t11a` (T11(a), `T11a_RiemannEnd`) replaced by hom-unify's single leaf `HomLatticeCorr`, which
   implies it and the added leaf `HomLinearLift` (part c30);
-* `t40` (T40) replaced by `X0Transitive` (t40-tate, t40-igusa), which implies T40 and T39. -/
+* `t40` (T40) replaced by `X0Transitive` (t40-tate, t40-igusa), which implies T40 and T39;
+* `t3` (I2-NMP) and `t4` (I2-Red) back (leaf-fold2 had deleted them as unused): lt-local's route to
+  `LinkedTateLocal` uses them through frob-pieces. -/
 structure OpenTextbookLeaves3 : Prop where
+  /-- T3 = I2-NMP: Néron mapping property of abelian schemes over a DVR (BLR §1.2 Prop. 8,
+  UNVERIFIED locator; kernel `PkgI2.NeronMappingAbelianScheme`). -/
+  t3 : PkgI2.NeronMappingAbelianScheme.{0}
+  /-- T4 = I2-Red: reduction is bijective on prime-to-`p` torsion for good reduction (kernel
+  `PkgI2.ReductionTorsionBijective`). -/
+  t4 : PkgI2.ReductionTorsionBijective.{0}
   t5 : PkgI2.TorsionStructure.{0}
   t6 : PkgI3.HomFreeFinite
   t7 : PkgI3.CharPolyIndepOfEll
@@ -93,7 +144,8 @@ structure OpenTextbookLeaves3 : Prop where
   t41 : ZInQ.H5Neron.NeronModelExists
 
 /-- **The added leaves still open** (leaf-fold3): `OpenAddedLeaves2` without `burnsideAbsIrred`
-(proved, part c10) and `homLinearLift` (from `HomLatticeCorr`, part c30). -/
+(proved, part c10) and `homLinearLift` (from `HomLatticeCorr`, part c30), with the four leaves under
+Proposition TS (ts-hecke, hecke-rest). -/
 structure OpenAddedLeaves3 : Prop where
   cmOptimalEmbedding : FS5NoCM.CMOptimalEmbedding
   thetaRatiosAlgebraic : G0Split.ThetaPt.ThetaRatiosAlgebraic
@@ -106,18 +158,43 @@ structure OpenAddedLeaves3 : Prop where
   isogenyQuasiInverse : WeilPairing.IsogenyQuasiInverse
   divisiblePoints : WeilPairing.DivisiblePoints
   x6ConicModel : X6Kummer.X6ConicModel
+  /-- ts-hecke, LEAF? (R1conn: `Y₃` is connected over `ℚ`, on one witness of R1fp; Shimura, Deligne
+  Bourbaki 389 §§2-3; the component count is computed in `scratch/ts-hecke/pi0_check.py`). -/
+  y3Connected : TSHecke.Y3Connected
+  /-- hecke-rest, LEAF (automorphism groups of QM abelian surfaces: 4, 6 or 2; Shimura's
+  classification of `End⁰`, units of quadratic orders). -/
+  qmAutCard : HeckeRest.QMAutCard
+  /-- hecke-rest, LEAF (Serre's lemma: a finite-order endomorphism fixing `A[3]` is `1`). -/
+  serreRigidity3 : HeckeRest.SerreRigidity3
+  /-- hecke-rest, LEAF (fixed points of the Atkin–Lehner involutions on `X₀⁶(1)`: Ogg 1983,
+  Rotger 2004). -/
+  alFixedPoints : HeckeRest.ALFixedPoints
+  /-- frob-pieces, LEAF? (Zariski's connectedness theorem for a smooth proper scheme over
+  `𝓞_L[1/f]` with geometrically connected generic fibre; EGA III₁ 4.3, UNVERIFIED). -/
+  properSmoothGenConnected : FrobPiecesNeron.ProperSmoothGenConnected
 
 /-- **The glue still open** (leaf-fold3): `OpenGlue2` without `hodgeBCInjective`,
 `omegaBaseChange` (hodge-bc2), `cPtsTransport` (cpts-transport), `conjIsogMaps` (twist-descent)
-and `modelG3` (linked-tate's route with lt-goodred's `GoodRedTorsion`). -/
+and `modelG3` (linked-tate's route with lt-goodred's `GoodRedTorsion`), with `propTSAll` replaced by
+the three glue Props hecke-rest leaves under it (`propTSAll_of_pieces3`), and with `linkedTateLocal`
+replaced by N1-g1 `AbVarSpreadsOut` (`linkedTateLocal_of_leaves3`). -/
 structure OpenGlue3 : Prop where
   periodMapGlue : ∀ h : LeafAdopt.R1R2fpRep,
     G0Split.FibreQM.PeriodMapGlue (G0Split.FibreQM.ownY (LeafAdopt.R1R2fp_of_rep h))
       (G0Split.FibreQM.ownΦ (LeafAdopt.R1R2fp_of_rep h))
       (G0Split.FibreQM.ownπ (LeafAdopt.R1R2fp_of_rep h))
   hauptmodulUnique : G0Split.FibreQM.HauptmodulUnique
-  propTSAll : G0ModField.PropTSAll
-  linkedTateLocal : G0AssembleMod.LinkedTateLocal
+  /-- hecke-rest: the charts of `π : Y₃ → P¹` are proper (curve theory). -/
+  chartProper : HeckeRestCurve.ChartProper
+  /-- hecke-rest: the charts of `π` are quasi-finite (curve theory). -/
+  chartQuasiFinite : HeckeRestCurve.ChartQuasiFinite
+  /-- hecke-rest: one vertical prime above `p > 324` unramified in the Hecke cover (equivalent to
+  Lemma NV, `HeckeNoVertRam`). -/
+  heckeVertWitness : HeckeRestNV.HeckeVertWitness
+  /-- neron-lg's N1-g1: an abelian variety over a number field spreads out to an abelian scheme
+  over `𝓞_L[1/f]` (EGA IV₃ 8.8.2, 8.10.5, IV₄ 17.7.8; textbook, not in Mathlib). Replaces
+  `LinkedTateLocal` through lt-local's route (`linkedTateLocal_of_leaves3`). -/
+  abVarSpreadsOut : FrobPiecesNeron.AbVarSpreadsOut
 
 /-! ### Back to leaf-fold2's bundles -/
 
@@ -161,7 +238,7 @@ theorem gluePieces_of_open3 (r : OpenResearchLeaves2) (t : OpenTextbookLeaves3)
     dimBaseChange := G0Split.dimBaseChange
     fibreSimple := hFS
     productModelHeight := ZInQ.ProductHeight.productModelHeight_of_splits productUnifSplits_proved
-      (productMetrizationOfProductUnif_of_t35 t.t35)
+      (ZInQ.UnifDims.productMetrizationOfProductUnif_of_tangentDim t.t35 tangentDimAtOrigin_proved3)
     stableHeightBaseChange := G0StableBC.stableHeightBaseChange_of_hodgeLine
       (ZInQ.HeightBC.g0_hodgeLine_iff.mpr (ZInQ.HeightBC.hodgeLineBaseChange_of_glue4
         hodgeBCInjective_proved3 cotangentSpanBC_proved omegaBaseChange_proved3
@@ -174,7 +251,9 @@ theorem gluePieces_of_open3 (r : OpenResearchLeaves2) (t : OpenTextbookLeaves3)
         g.hauptmodulUnique l.qmDenZeroCM3 cPtsTransport_proved3)
       l.thetaRatiosAlgebraic
     modularConstituent := modularConstituent_of_field t3
-      (G0ModField.fibreCoverExists_of_propTSAll' t.t5 g.propTSAll unramifiedConjugates_proved)
+      (G0ModField.fibreCoverExists_of_propTSAll' t.t5
+        (propTSAll_of_pieces3 r.r1r2 t.t5 l.y3Connected l.qmAutCard l.serreRigidity3 l.alFixedPoints
+          g.chartProper g.chartQuasiFinite g.heckeVertWitness) unramifiedConjugates_proved)
       (G0ModField.KernelField.kernelFieldExists_of_split'' t.t6 r.r7a r.r6 t.t5 t.t27
         hFS5 G0ModField.KernelField.oMaximal endTransport_proved conjIsogMaps_proved3)
       UnramTate.unramifiedSup_mf
@@ -192,15 +271,18 @@ theorem gluePieces_of_open3 (r : OpenResearchLeaves2) (t : OpenTextbookLeaves3)
         Swan.swanIndependent_proved Swan.swanIntegral_proved
         Swan.adaptedExists_proved
         (modelG3G6_of_leaves3 hFS r.r7a r.r6 t.t5)
-        (G0AssembleMod.linkedTateData_of_local t.t7 g.linkedTateLocal))
+        (G0AssembleMod.linkedTateData_of_local t.t7
+          (linkedTateLocal_of_leaves3 r.r6 t.t5 t.t26 g.abVarSpreadsOut l.properSmoothGenConnected
+            t.t4 t.t3 hFS t.t6 t.t27)))
     heightCopies := G0HeightCopies.heightCopiesAgree }
 
 /-- **G0 with only the open leaves and the open glue** (leaf-fold3; no `sorry`, standard axioms).
 `ZInQ.SixContactMin` follows from
 * `OpenResearchLeaves2`: 26 research-level fields (unchanged from leaf-fold2);
-* `OpenTextbookLeaves3`: 18 textbook fields (`HomLatticeCorr` for T11(a), `X0Transitive` for T40);
-* `OpenAddedLeaves3`: 11 leaves (8 LEAF, 3 LEAF?);
-* `OpenGlue3`: 4 glue Props.
+* `OpenTextbookLeaves3`: 20 textbook fields (`HomLatticeCorr` for T11(a), `X0Transitive` for T40,
+  T3 and T4 back);
+* `OpenAddedLeaves3`: 16 leaves (11 LEAF, 5 LEAF?);
+* `OpenGlue3`: 6 glue Props.
 The table of every field is `docs/research/leaf-fold3.md` §2. -/
 theorem sixContactMin_of_open3 (r : OpenResearchLeaves2) (t : OpenTextbookLeaves3)
     (l : OpenAddedLeaves3) (g : OpenGlue3) : ZInQ.SixContactMin :=
@@ -219,6 +301,9 @@ end
 #print axioms HSyn.goodRedTorsion_proved3
 #print axioms HSyn.modelG3G6_of_leaves3
 #print axioms HSyn.qmEndRank_of_leaves3
+#print axioms HSyn.tangentDimAtOrigin_proved3
+#print axioms HSyn.propTSAll_of_pieces3
+#print axioms HSyn.linkedTateLocal_of_leaves3
 #print axioms HSyn.t40_of_x0Transitive
 #print axioms HSyn.t39_of_x0Transitive
 #print axioms HomUnify.homLinearLift_of_corr

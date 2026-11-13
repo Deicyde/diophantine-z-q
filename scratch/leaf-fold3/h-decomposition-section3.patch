@@ -1,0 +1,42 @@
+--- a/docs/research/h-decomposition.md
++++ b/docs/research/h-decomposition.md
+@@ -1208,25 +1208,27 @@
+ between the leaves and the proved end. Each conjunct is
+ what one leaf, applied to the actual varieties, must deliver.
+ 
+-**Glue pieces** (leaf-adopt3; `HSyn.GluePieces`, the third hypothesis of G0). g0-split split the
++**Glue pieces** (leaf-adopt3; `HSyn.GluePieces`, the third hypothesis of G0). Status as of leaf-fold3
++(2026-11-13, `scratch/leaf-fold3/`, `HDec.HSyn.sixContactMin_of_open3`; docs/research/leaf-fold3.md §2 lists the
++open statements that remain). g0-split split the
+ former `sorry` into named Props (docs/research/g0-split.md); each is a `def … : Prop` whose
+ docstring names its glue step. None is a literature leaf; each is to be proved by the project.
+ Sizes SPECULATIVE (g0-split).
+ 
+ | # | Lean (field) | Glue step | Status | Size |
+ | --- | --- | --- | --- | --- |
+-| 1 | `G0Split.DimFinite` (`dimFinite`) | definition level (G17) | open | small |
+-| 2 | `G0Split.DimBaseChange` (`dimBaseChange`) | definition level (E2, G17; also gives `HodgeLatticeTheorem` with two Props, hodge-lattice) | open | medium |
++| 1 | `G0Split.DimFinite` (`dimFinite`) | definition level (G17) | **proved** (g0-dim: `G0Split.dimFinite`, no hypotheses; in leaf-fold2's and leaf-fold3's assemblies, `scratch/leaf-fold3/parts/10_dim.lean`) | small |
++| 2 | `G0Split.DimBaseChange` (`dimBaseChange`) | definition level (E2, G17; also gives `HodgeLatticeTheorem` with two Props, hodge-lattice) | **proved** (g0-dim: `G0Split.dimBaseChange`, no hypotheses; `HodgeLatticeTheorem` is proved in the kernel, dim-contrib's `ZInQ.Contrib.Dim.hodgeLatticeTheorem`) | medium |
+ | (3) | `G0Split.X1BelyiOnModel` (no longer a field) | E2, Belyi half | **proved** (leaf-adopt3): `G0Split.x1BelyiOnModel_of_belyiX1` (transport along `ℚ(X) ≅ K_N`) with `BelyiX1` from T36, T37 (x1-belyi) | — |
+-| 4 | `G0Split.FibreSimple` (`fibreSimple`) | G5-G6 on `A` | open (cores proved: T27 at `(2,−3)`, `fibre_free`, `cm_of_val`); pin-apply: equivalent, given `MobiusGlue`, to `FibreSimpleAt` for any one triple satisfying the repaired `R1fpProps`, `R2fpProps` (`G0Split.fibreSimple_iff_at`) | medium |
+-| 5 | `ZInQ.H5Neron.ProductModelHeight` (`productModelHeight`) | E4 at model level | open; replaces g0-split's `HeightAdditivity`, now proved from it with T41 and H5 | medium |
+-| 6 | `G0Split.StableHeightBaseChange` (`stableHeightBaseChange`) | definition level (E3-E4) | open (h5-neron: needs a Néron-model transport glue not yet stated) | large |
+-| 7 | `G0Split.ProductExists` (`productExists`) | G17 | open | large |
+-| 8 | `G0Split.ReverseIsogeny` (`reverseIsogeny`) | G17 after Poincaré | open | large |
+-| 9 | `G0Split.ThetaPointOfFibre` (`thetaPoint`) | G19, F1 on `A` | open; pin-apply: equivalent, given `MobiusGlue`, to its one-triple form (`G0Split.thetaPointOfFibre_iff_at`) | very large |
+-| 10 | `G0Split.ModularConstituent` (`modularConstituent`) | G2, G4, G7-G16 | open (cores proved, including C9, E1's `VSurjOfSurjective`, C10, B3, D1-D5); pin-apply: equivalent, given `MobiusGlue`, to its one-triple form (`G0Split.modularConstituent_iff_at`) | very large |
+-| 11 | `HeightCopiesAgree` (`heightCopies`) | transport between the two textual copies of the stable Faltings height | open (pure transport, WP1) | medium |
+-| 12 | `LeafQM.AV.Pin.MobiusGlue` (`mobius`, only in `GluePiecesPin`) | qm-pin's curve glue: if `g : Y' → Y` compares two triples on `Φ`, then `π' = π ∘ g` on `ℚ̄`-points (Möbius map fixing `0, ∞, −16/27`) | open: argued (qm-pin §3.2); mobius-glue (not yet integrated) proves it from `CurveRatFactor`, `CurveSurj`, `AutOInnerFinite` and the leaf T5 | medium |
++| 4 | `G0Split.FibreSimple` (`fibreSimple`) | G5-G6 on `A` | **proved from leaves** (leaf-fold2, leaf-fold3: `G0FibreSimple.fibreSimple_of_leaves` with `MulIsogeny` proved (g9-abvarbc), `RigidityHom` proved (mul-rigidity), `FiniteDescends` proved, and FS5 from R1-R2, R5(i), T6, T27, `MobiusGlue` and the leaves `CMOptimalEmbedding`, `X6ConicModel`); pin-apply: equivalent, given `MobiusGlue`, to `FibreSimpleAt` for any one triple (`G0Split.fibreSimple_iff_at`) | medium |
++| 5 | `ZInQ.H5Neron.ProductModelHeight` (`productModelHeight`) | E4 at model level | **proved from the leaf T35** (product-unif's `ProductUnifSplits` proved; unif-dims' `productMetrizationOfProductUnif_of_tangentDim` with `TangentDimAtOrigin` proved, in leaf-fold3 by the kernel's `ZInQ.Contrib.Dim.tangentDimAtOrigin`); replaces g0-split's `HeightAdditivity`, proved from it with T41 and H5 | medium |
++| 6 | `G0Split.StableHeightBaseChange` (`stableHeightBaseChange`) | definition level (E3-E4) | **proved** (no hypotheses): height-bc's reduction to four glue Props, all four proved (infra-stalks: `CotangentSpanBC`, `UniformizationLiftAnalytic`; hodge-bc2: `HodgeBCInjective`, `OmegaBaseChange`); in the kernel as heightbc-contrib's `ZInQ.HeightBC.stableHeightBaseChange` (`ZInQKernel/Contrib/HeightBC/Main.lean`) | large |
++| 7 | `G0Split.ProductExists` (`productExists`) | G17 | **proved** (g0-product: `G0Product.productExists`, no hypotheses) | large |
++| 8 | `G0Split.ReverseIsogeny` (`reverseIsogeny`) | G17 after Poincaré | **proved from leaves** (g0-reverseisog, g0-assemble2: `G0RevIsog.reverseIsogeny_of_leaves3`, from R19 (Gaudron–Rémond), H5 and `DimFinite`) | large |
++| 9 | `G0Split.ThetaPointOfFibre` (`thetaPoint`) | G19, F1 on `A` | open, reduced: from the QM leaves (R1-R1(b), T11(a) via `HomLatticeCorr`, T35, `QMHauptmodul`, `QMClassNumberOne`, `QMDenZeroCM3`, `ThetaRatiosAlgebraic`), `CPtsTransport` proved (cpts-transport) and the two glue Props `PeriodMapGlue`, `HauptmodulUnique` (leaf-fold3 §2); pin-apply: equivalent, given `MobiusGlue`, to its one-triple form (`G0Split.thetaPointOfFibre_iff_at`) | very large |
++| 10 | `G0Split.ModularConstituent` (`modularConstituent`) | G2, G4, G7-G16 | open, reduced: from leaves and the glue Props `ChartProper`, `ChartQuasiFinite`, `HeckeVertWitness` (Prop. TS, hecke-rest) and `LinkedTateLocal` (leaf-fold3 §2); G3-G6 on the model, `ConjIsogMaps`, Burnside, G9, G10 proved or from leaves; pin-apply: equivalent, given `MobiusGlue`, to its one-triple form (`G0Split.modularConstituent_iff_at`) | very large |
++| 11 | `HeightCopiesAgree` (`heightCopies`) | transport between the two textual copies of the stable Faltings height | **proved** (`G0HeightCopies.heightCopiesAgree`, no hypotheses) | medium |
++| 12 | `LeafQM.AV.Pin.MobiusGlue` (`mobius`, only in `GluePiecesPin`) | qm-pin's curve glue: if `g : Y' → Y` compares two triples on `Φ`, then `π' = π ∘ g` on `ℚ̄`-points (Möbius map fixing `0, ∞, −16/27`) | **proved from the textbook leaf T5** (image-plane; in the kernel as mobius-contrib's `LeafQM.AV.CurveGlue.mobiusGlue_of_t5`, `ZInQKernel/Contrib/Mobius/ImagePlane.lean`) | medium |
+ 
+ **The QM pieces and the pin (pin-apply, 2026-11-13; VERIFIED by `lake env lean`).** Pieces 4, 9, 10
+ quantify over every triple `(Y, Φ, π)` satisfying `R1fpProps` and `R2fpProps`. Before qm-pin this
