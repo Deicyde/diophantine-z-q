@@ -17,8 +17,8 @@ assessment. There is no network, so locators given from memory are **UNVERIFIED*
 **`PropTSAll` is reduced in Lean to two leaves already in the bundles plus named glue. No new
 literature leaf is needed.** Beckmann's theorem now appears only as an optional leaf.
 
-VERIFIED: `lake env lean scratch/prop-ts/PropTS.lean` (660 lines) gives 0 errors and 0 warnings.
-All 16 `#print axioms` lines list only `[propext, Classical.choice, Quot.sound]`.
+VERIFIED: `lake env lean scratch/prop-ts/PropTS.lean` (about 900 lines) gives 0 errors and 0
+warnings. All 24 `#print axioms` lines list only `[propext, Classical.choice, Quot.sound]`.
 
 **The final form** (`PropTSRed.propTSAll_of_bundle_meet`):
 
@@ -31,6 +31,12 @@ PkgI2.AbhyankarDVR.{0}   -- bundle leaf T2 (Abhyankar's lemma, DVR form; Textboo
 → CoverModelOfHecke      -- glue: function field, branch data and Lemma NV of Y₃ → P¹_j
 → PropTSAll
 ```
+
+**The normalization variant** (`propTSAll_of_bundle_N`) has the same inputs, except that
+`CoverModelOfHeckeN` replaces `CoverModelOfHecke`. In it, `FunctionFieldModel` is replaced by the
+scheme statement `NormalizationModel`: an open immersion `Spec B → Y` onto the points with finite
+`π`, along which `π = X`. `FunctionFieldModel` is then proved
+(`functionFieldModel_of_normalization`).
 
 **The form with Beckmann as a leaf** (`propTSAll_of_leaves`):
 `BeckmannSIT → R1R2fp → MobiusGlue → CoverModelOfHecke → PropTSAll`.
@@ -64,12 +70,24 @@ What is proved on the way (all VERIFIED):
 5. **The non-meeting case of `KummerStep` is proved** (`kummerStep_of_meet`). Take `E' = E` and
    `s₀ = t`. `BranchData` puts every ramified prime over some `X − b`, and `f = X − b` is
    `p`-integral with `f(t)` a unit. Only the meeting case, `KummerMeet`, remains glue.
+6. **Residue fields of points of affine and open subschemes.**
+   - `residueImage_specMap`: the `ℚ̄`-point `Spec ψ` of `Spec B` has residue field `ℚ(ψ(B))`.
+   - `residueImage_comp_openImmersion`: open immersions preserve residue fields of
+     `ℚ̄`-points.
+   - These give `functionFieldModel_of_normalization : NormalizationModel → FunctionFieldModel`.
+7. **`PropTS` is refuted for some cover** (`not_propTS_cyclotomic`).
 
-**PropTS is a property of the cover, not a tautology (STANDARD, not compiled).** It is false for
-some `(Y₀, π₀)`. Take `Y₀ = Spec ℚ(√331)` and `π₀ ≡ 1`, with charts `U = V = ⊤` and
-`f = g = 1`. Every hypothesis then holds at `t = 1` and `p = 331`, since all three valuations
-are 0. But `ℚ(√331)` is ramified at 331. So `PropTS` has to be proved on the genuine cover,
-which is what `CoverModel` and `CoverModelOfHecke` do.
+**PropTS is a property of the cover, not a tautology (VERIFIED, `not_propTS_cyclotomic`).** It
+is false for some `(Y₀, π₀)`.
+
+- Take `Y₀ = Spec ℚ(ζ₃₃₁)` and `π₀ ≡ 1`, with charts `U = V = ⊤` and `f = g = 1`
+  (`constOne`).
+- Every hypothesis holds at `t = 1` and `p = 331`, because `v₃₃₁(1) = v₃₃₁(43/27) = 0`.
+- But 331 is totally ramified in `ℚ(ζ₃₃₁)`, with `e = 330` (Mathlib
+  `IsCyclotomicExtension.Rat.ramificationIdx_eq_of_prime`).
+
+So `PropTS` is neither inert nor vacuous. It has to be proved on the genuine cover, which is what
+`CoverModel` and `CoverModelOfHecke` do.
 
 ## 2. The named Props
 
@@ -96,6 +114,8 @@ All are `def … : Prop` in `scratch/prop-ts/PropTS.lean`, each with a docstring
 | `CoverBranchData E` | glue from leaves | `[E:ℚ(X)] ≤ 324`; `BranchData E {0, −16/27} (4, 2) 6` | h-b1 M3 (`144`), M4 (Baba–Granath elliptic orders) | open |
 | `NoVerticalRam E p` | glue (Lemma NV) | every prime of `C` over `p·ℤ[X]` has `e = 1` | h-b1 §3 (Shimura reciprocity via R1rec, Abhyankar, `W`) | open |
 | `CoverModelOfHecke` | glue | `R1fp ∧ R1hecke ∧ R2fp ⇒ CoverModel` | h-b1 M1-M10 | open |
+| `NormalizationModel Y π E` | glue (scheme theory) | an open immersion `h : Spec B → Y` whose image contains every `ℚ̄`-point with `π ≠ ∞`, with `π(Spec ψ ≫ h) = ψ(X)` | `Y` normal, proper and `ℚ`-irreducible with function field `E`, `π` finite: `π⁻¹(𝔸¹) = Spec B` | open; **implies** `FunctionFieldModel` (proved) |
+| `CoverModelN`, `CoverModelOfHeckeN` | glue | as `CoverModel`, `CoverModelOfHecke`, with `NormalizationModel` | — | open; imply the originals (proved) |
 | `MobiusGlue` | kernel glue | `π' = π ∘ g` on `ℚ̄`-points | qm-pin §3.4 | open (already named in the kernel) |
 
 ## 3. Why the statements are right
@@ -138,6 +158,34 @@ a `p`-integral `f ∈ Q ∩ ℚ[X]` with `f(s₀) ≠ 0` and `v_p(f(s₀)) = 0`.
   integral, it meets `∞` and cannot meet the integral `s₀`.
 
 **`KummerMeet` (PROVED HERE; uses T2).** See §4.2.
+
+**Independent review.** A second model agent read the file without running Lean and found no
+false, vacuous or junk-value-exploitable statement. Its checks:
+
+- `BeckmannSIT`: junk values (`padicValRat p 0 = 0`, `toNat`, `n_b = 0`, `Q = ⊥`), the `∞`
+  chart, and the vertical index on the 2-dimensional ring `C`;
+- the truth of `SpecNonMeeting` and `KummerMeet`, including the arithmetic of the Kummer
+  coordinates.
+
+It asked for four docstring fixes, all applied:
+
+1. derive the non-regular case of `BeckmannSIT` from the regular case over the constant field
+   `k'` (see below);
+2. "residue extensions separable" needs `[E:ℚ(X)] < p`, not `p ∤ n`;
+3. hypothesis (a) is the *stronger* hypothesis, so the leaf is weaker;
+4. `FunctionFieldModel` needs `π` to be `Γ'`-invariant and non-constant on components, which
+   holds for `Y₃`.
+
+**Non-regular `E` in `BeckmannSIT`** (from the review; PROVED HERE).
+
+- Restatements such as Legrand's assume `E/k(X)` regular, so the non-regular case has to be
+  derived.
+- Apply the regular theorem over the constant field `k'` to `E/k'(X)`. Its group is a subgroup
+  of `G`, and it has the same rational branch points.
+- `NoVerticalRam E p` forces `k'` to be unramified at `p`: `e` is multiplicative in
+  `ℤ[X] ⊆ 𝒪_{k'}[X] ⊆ C`.
+- The field `B/𝔓 ⊇ k'` is the specialization of `E/k'(X)` at `t`, and `(X − t)` stays prime in
+  `k'[X]`.
 
 **Remark on `CoverModelOfHecke`.** It follows h-b1 M1-M10.
 
@@ -230,6 +278,12 @@ with `lake build` (about 5 min). After that, `lake env lean` takes about 1.5 min
     `propTSAll_of_leaves`;
   - definition: `CoverModelOfHecke`.
 - **Part 6:** the sanity `example`.
+- **Part 8:** `exists_factor_scheme`, `residueImage_specMap`,
+  `residueImage_comp_openImmersion`, `NormalizationModel`,
+  `functionFieldModel_of_normalization`, `CoverModelN`, `coverModel_of_N`,
+  `CoverModelOfHeckeN`, `propTSAll_of_bundle_N`.
+- **Part 9:** `constOne`, `constOne_val`, `exists_primitive_331`, `padicValRat_43_27`,
+  `not_propTS_cyclotomic`.
 - **Part 7:**
   - definitions: `NonMeeting`, `SpecNonMeeting`, `KummerStep`, `KummerGlue`, `KummerMeet`,
     `KummerMeetGlue`, `UnramifiedMono`, `BeckmannSITTame`;
@@ -263,8 +317,9 @@ For h-decomposition G2, "Prop. TS from T1-T2 or Beckmann" becomes:
 
 - `SpecNonMeeting`: the purity argument of §4.1 in Lean. This is the largest piece.
 - `KummerMeet`: the Kummer construction of §4.2 and its use of T2.
-- `CoverModelOfHecke`:
-  - `FunctionFieldModel`: scheme-theoretic normalization and residue fields;
+- `CoverModelOfHecke` (or `CoverModelOfHeckeN`):
+  - `NormalizationModel`: `π⁻¹(𝔸¹) = Spec B` for `Y₃`. The step from it to
+    `FunctionFieldModel` is proved;
   - `CoverBranchData`: the elliptic orders and `|Γ'|`;
   - `NoVerticalRam`: h-b1's Lemma NV, which needs inertia groups of `E/ℚ(j)` and Shimura
     reciprocity at the CM points through R1rec.
