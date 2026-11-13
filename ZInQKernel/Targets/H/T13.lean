@@ -1,4 +1,5 @@
-import Mathlib
+import Mathlib.Algebra.Central.Defs
+import Mathlib.LinearAlgebra.FiniteDimensional.Defs
 
 /-!
 # First H batch: T13, Skolem–Noether

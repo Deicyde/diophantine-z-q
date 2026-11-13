@@ -1,4 +1,4 @@
-import Mathlib
+import Mathlib.NumberTheory.Cyclotomic.Basic
 
 /-!
 # First H batch: T17, Kronecker–Weber

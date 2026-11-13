@@ -1,4 +1,4 @@
-import Mathlib
+import Mathlib.LinearAlgebra.Matrix.GeneralLinearGroup.Defs
 
 /-!
 # First H batch: T19, Brauer–Nesbitt in characteristic zero
