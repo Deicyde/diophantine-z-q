@@ -104,4 +104,28 @@ theorem exists_unit_fix (d : ℕ) [NeZero d] (hsq : Squarefree d) (hodd : Odd d)
     rw [hJp, hJd]
     norm_num
 
+
+/-- **`𝓕χ_d(k) = χ_d(k) 𝓕χ_d(1)`** for squarefree odd `d`. -/
+theorem dft_jacobiChar (d : ℕ) [NeZero d] (hsq : Squarefree d) (hodd : Odd d) (k : ZMod d) :
+    ZMod.dft (⇑(jacobiChar d)) k = jacobiChar d k * ZMod.dft (⇑(jacobiChar d)) 1 := by
+  by_cases hk : IsUnit k
+  · obtain ⟨u, rfl⟩ := hk
+    have h := ZMod.dft_comp_unitMul (⇑(jacobiChar d)) u⁻¹ 1
+    have hfun : (fun j => jacobiChar d (((u⁻¹ : (ZMod d)ˣ) : ZMod d) * j)) =
+        jacobiChar d ((u⁻¹ : (ZMod d)ˣ) : ZMod d) • ⇑(jacobiChar d) := by
+      ext j; simp [map_mul]
+    rw [hfun, map_smul, inv_inv, mul_one, Pi.smul_apply, smul_eq_mul, jacobiChar_inv_unit] at h
+    exact h.symm
+  · rw [MulChar.map_nonunit _ hk, zero_mul]
+    obtain ⟨u, hu, hχu⟩ := exists_unit_fix d hsq hodd k hk
+    have h := ZMod.dft_comp_unitMul (⇑(jacobiChar d)) u k
+    have hfun : (fun j => jacobiChar d ((u : ZMod d) * j)) = (-1 : ℂ) • ⇑(jacobiChar d) := by
+      ext j; simp [map_mul, hχu]
+    have hk' : ((u⁻¹ : (ZMod d)ˣ) : ZMod d) * k = k := by
+      conv_lhs => rw [← hu]
+      rw [← mul_assoc, Units.inv_mul, one_mul]
+    rw [hfun, map_smul, hk', Pi.smul_apply, smul_eq_mul] at h
+    have : (2 : ℂ) * ZMod.dft (⇑(jacobiChar d)) k = 0 := by linear_combination -h
+    simpa using this
+
 end ZInQ.GZTheta
