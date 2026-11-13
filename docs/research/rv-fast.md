@@ -12,7 +12,7 @@ reference. **SPECULATIVE** = my judgement. Theorem numbers recalled without a so
 
 | result | verdict | one line |
 |---|---|---|
-| lg-kerwild | **CONCERN** (core results SOUND) | `TateBridgeK`, `KerWild`, `DescentPts` are right; but the every-`ℓ` LocalGlue theorem keeps a hypothesis `G7Clauses β' ε' L` about data that `TateBridgeK` hides behind `∃`, so no consumer can discharge it; and the committed file can no longer be rebuilt from the current local-glue source |
+| lg-kerwild | **CONCERN** (core results SOUND) | `TateBridgeK`, `KerWild`, `DescentPts` are right; but the every-`ℓ` LocalGlue theorem keeps a hypothesis `G7Clauses β' ε' L` about data that `TateBridgeK` hides behind `∃`, so no consumer can discharge it. For the very witness that proves `TateBridgeK` (`a' = 1`, `ε' = c = n/d`), `G7Clauses` forces `c² = 1` (compiled lemma), which fails unless every descent factor `a_σ = 1`, so the implication is vacuous for that witness. Also, the committed file can no longer be rebuilt from the current local-glue source |
 | ring-class | **SOUND** (citation note) | `hprimeNormal`, `iInH4`, `ringClassFieldD_tyz` have exactly cm-points' types; the fields are non-degenerate; the new leaf `CM.CMFieldOfDefinition ringClassFieldD` is true, but it is a consequence of Shimura's reciprocity law, not the printed statement of Gross 1984 §3 |
 | unram-roots | **SOUND** | unconditional theorem; statement byte-identical to local-glue's; no hidden leaf |
 | afr-absfrob | **SOUND** | `AbsFrob` proved from Mathlib with a genuine Frobenius; `FExtendGen` from I2-NMP only; statements byte-identical |
@@ -225,7 +225,7 @@ hypothesis (`scratch/unram-roots/UnramRoots.lean`).
 ## 6. Compile record
 
 Rules followed: one Lean process at a time, each run checked against `uptime` and `free -g`
-(load at most 17 at every start; available memory at least 70 GB). Outputs are
+(load below 30 at every start; available memory at least 50 GB). Outputs are
 `scratch/rv-fast/*.out`. Every row is VERIFIED.
 
 | run | outcome | axioms |
