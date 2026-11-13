@@ -36,7 +36,7 @@ theorem recurrence_bound (a r : ℝ) (hr : 0 ≤ r) (ha : a ^ 2 ≤ 4 * r ^ 2) (
   have hdl : dl ^ 2 = 4 * r ^ 2 - a ^ 2 := Real.sq_sqrt (by linarith)
   set α : ℂ := ⟨a / 2, dl / 2⟩
   set β : ℂ := ⟨a / 2, -dl / 2⟩
-  have hsum : α + β = (a : ℂ) := by apply Complex.ext <;> simp [α, β] <;> ring
+  have hsum : α + β = (a : ℂ) := by apply Complex.ext <;> simp [α, β]; ring
   have hprod : α * β = (r : ℂ) ^ 2 := by
     apply Complex.ext
     · simp only [α, β, Complex.mul_re, sq, Complex.ofReal_re, Complex.ofReal_im, Complex.mul_re]

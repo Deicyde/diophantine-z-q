@@ -144,7 +144,7 @@ theorem sum_jac_sq (hF : ringChar F ≠ 2) :
 theorem quadraticChar_le_one (a : F) : quadraticChar F a ≤ 1 := by
   rcases eq_or_ne a 0 with rfl | ha
   · simp
-  · rcases quadraticChar_dichotomy ha with h | h <;> rw [h] <;> norm_num
+  · rcases quadraticChar_dichotomy ha with h | h <;> rw [h]; norm_num
 
 /-- `Σ_t G(t²) ≤ 2 Σ_c G(c)` for nonnegative `G` (each `c` has at most two square roots). -/
 theorem sum_sq_le_two_mul (hF : ringChar F ≠ 2) (G : F → ℤ) (hG : ∀ c, 0 ≤ G c) :

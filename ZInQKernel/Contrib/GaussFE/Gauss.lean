@@ -80,13 +80,13 @@ theorem unit_facts {u : GaussianInt} (h : u ^ 4 = 1) :
   rcases pow_four_eq_one_cases h with rfl | rfl | rfl | rfl
   · exact ⟨by simp, ⟨0, by simp⟩⟩
   · refine ⟨by ext <;> simp [pow_succ], ⟨⟨-1, 1⟩, ?_⟩⟩
-    ext <;> simp [twoTwoI] <;> norm_num
+    ext <;> simp [twoTwoI]
   · refine ⟨?_, ⟨gI, ?_⟩⟩
     · rw [pow_succ, gI_sq]; ext <;> simp [gI]
-    · ext <;> simp [twoTwoI, gI] <;> norm_num
+    · ext <;> simp [twoTwoI, gI]
   · refine ⟨?_, ⟨-1, ?_⟩⟩
     · rw [pow_succ, neg_sq, gI_sq]; ext <;> simp [gI]
-    · ext <;> simp [twoTwoI, gI] <;> norm_num
+    · ext <;> simp [twoTwoI, gI]
 
 variable {p : ℕ} [hp : Fact p.Prime]
 
@@ -345,7 +345,7 @@ theorem two_add_two_i_dvd_jacobi_add_one (hp1 : p % 4 = 1) :
     have : p - 3 + 2 = 4 * k := by omega
     exact_mod_cast this
   rw [hJ, hsplit, hf0, hf1, hfm1, hsumX]
-  have h4 : twoTwoI ∣ (4 : GaussianInt) := ⟨⟨1, -1⟩, by ext <;> simp [twoTwoI] <;> norm_num⟩
+  have h4 : twoTwoI ∣ (4 : GaussianInt) := ⟨⟨1, -1⟩, by ext <;> simp [twoTwoI]⟩
   have : (0 : GaussianInt) + 0 + 1 + (∑ t ∈ X, (f t - 1) + ((p - 3 : ℕ) : GaussianInt)) + 1 =
       ∑ t ∈ X, (f t - 1) + 4 * (k : GaussianInt) := by
     rw [← hp']; ring
