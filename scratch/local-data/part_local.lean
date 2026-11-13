@@ -3,16 +3,20 @@
 
 The copied `LocalData p r` (§1) is a predicate on a bare `r : GaloisRep ℓ 2`. Here:
 
-* `largePrimeData_iff` (proved): for `p > D`, `LocalData p r ↔ r` is trivial on wild inertia.
-  So `LocalData` is false for any `r` wildly ramified at some `p > D` (e.g. `ψ ⊕ 1`, `ψ` a
-  Dirichlet character of conductor `p²`), and it cannot be proved for arbitrary `r`.
-* `localData_of_g8` (proved): for `r` as in G8's output (`G0Galois.G8Out`) on the descended
-  `ρ = GlueDescent.rho Tm a β` of G7's data, `LocalData p r` follows from two smaller Props on
-  G7's data at `p`: `TateWildTrivial` (on `a_σ μ_σ σ`, i.e. on the Tate module) and
-  `BetaUpper` / `BetaTame` (on the cochain `β`).
-* `betaTame_of_odd` (proved): for odd `p`, `BetaTame` follows from `β` being a character on
-  `G_F` with `β² = 1` on `G_F ∩ P_p` and `β` trivial on some open `G_{F'}`. `BetaUpper` follows
-  from `BetaTame` at every `p` (`betaUpper_of_betaTame`, via `upperWild`).
+* `largePrimeData_iff`, `localData_large_iff` (proved): for `p > D`, `LocalData p r ↔ r` is
+  trivial on wild inertia. So `LocalData` fails for any `r` wildly ramified at some `p > D`
+  (e.g. `ψ ⊕ 1`, `ψ` a Dirichlet character of conductor `p²`), and cannot be proved for
+  arbitrary `r`: it is a claim about the `r` that G8 builds.
+* **Main result** `localData_of_g7` (proved): for `r` as in G8's output (`G0Galois.G8Out`) on
+  `ρ = GlueDescent.rho Tm a β`, `LocalData p r` follows, at every prime `p`, from
+  `G7Clauses β ε L` (clauses of G4/G7) and `LocalGlue p Tm a β L` (the Tate-module glue
+  `TorsionFieldWild` at `p ≤ D`, `TateWildTrivialL` at `p > D`, and `BetaUpper` at `p = 2`).
+  `g15RamG_of_g7` composes it with g15-ram's `g15RamG_of_localData`.
+* On the way (all proved): `twistShape_of_g8` (`r` is scalar where `ρ` is), `betaTame_of_odd`,
+  `betaOpen_of_isLocallyConstant`, `wild_fix_root` (wild inertia fixes `μ_n`, `p² ∤ n`),
+  `galChar_decomp_wild`, `betaSqWild_of_chi`, `betaCharOn_of_cocycle`, `wild_fix_small_degree`
+  (wild inertia fixes every `E` with `[E:ℚ_p] < p`), `exists_finGal_ramCard_le` (Galois closure
+  with `e ≤ [E:ℚ_p]!`), `exists_local_field_le` (`[L_v:ℚ_p] ≤ [L:ℚ]`).
 -/
 
 namespace G15Ram
