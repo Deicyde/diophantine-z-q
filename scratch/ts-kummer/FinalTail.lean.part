@@ -1,0 +1,42 @@
+/-! ## ts-kummer: the Kummer pieces of `PropTSGlue`, final statements -/
+
+namespace TsKummer
+
+open Polynomial G0ModField PropTSRed PropTSGlue
+
+/-- **`KummerOtherBranchFin` is proved** (from `UnramCompositum`, which is proved). -/
+theorem kummerOtherBranchFin : KummerOtherBranchFin :=
+  kummerOtherBranchFin_of_unram unramCompositum
+
+/-- **`KummerOtherBranchInf` is proved** (from `UnramCompositum`, which is proved). -/
+theorem kummerOtherBranchInf : KummerOtherBranchInf :=
+  kummerOtherBranchInf_of_unram unramCompositum
+
+/-- **`KummerVerticalFin` is proved.** -/
+theorem kummerVerticalFin : KummerVerticalFin := kummerVerticalFin_proof
+
+/-- **`KummerVerticalInf` is proved.** -/
+theorem kummerVerticalInf : KummerVerticalInf := kummerVerticalInf_proof
+
+/-- **`KummerMeetGlue` from `KummerCompositum` alone** (the other six Kummer pieces are proved;
+the two Abhyankar pieces use T2 inside `KummerMeetGlue`'s own hypothesis). -/
+theorem kummerMeetGlue_of_compositum (hC : KummerCompositum) : KummerMeetGlue :=
+  kummerMeetGlue_of_pieces' hC kummerAbhyankarFinGlue kummerOtherBranchFin kummerVerticalFin
+    kummerAbhyankarInfGlue kummerOtherBranchInf kummerVerticalInf
+
+/-- `PropTSAll` (prop-ts-glue's `propTSAll_final`) with the six proved Kummer pieces removed. -/
+theorem propTSAll_ts (t2 : PkgI2.AbhyankarDVR.{0}) (hR : R1R2fp) (hM : Pin.MobiusGlue)
+    (hS : SNSpecialize) (hC : KummerCompositum)
+    (hI : HeckeIrreducible) (hNI : HeckeNormalizationIrr) (hD : HeckeDegree) (hB : HeckeBranch)
+    (hV : HeckeNoVertRam) : PropTSAll :=
+  propTSAll_final t2 hR hM hS hC kummerAbhyankarFinGlue kummerOtherBranchFin kummerVerticalFin
+    kummerAbhyankarInfGlue kummerOtherBranchInf kummerVerticalInf hI hNI hD hB hV
+
+end TsKummer
+
+#print axioms TsKummer.kummerOtherBranchFin
+#print axioms TsKummer.kummerOtherBranchInf
+#print axioms TsKummer.kummerVerticalFin
+#print axioms TsKummer.kummerVerticalInf
+#print axioms TsKummer.kummerMeetGlue_of_compositum
+#print axioms TsKummer.propTSAll_ts
