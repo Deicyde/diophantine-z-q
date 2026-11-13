@@ -42,6 +42,9 @@ Repository: https://github.com/TauCetiProject/TauCeti
   below.
 - Commit 5a01f5fe (as above): one module vendored unmodified by the Z-in-Q task
   gz-theta, NumberTheory/ModularForms/Newforms/BadPrime/Vanishing.lean (list in
+- Commit 5a01f5fe (as above): seven modules vendored unmodified by the Z-in-Q task
+  gz-theta: NumberTheory/ModularForms/Newforms/BadPrime/{Vanishing,AtkinLehner,Descent}.lean
+  and NumberTheory/ModularForms/AtkinLehner/{LevelRaise,NewSpace,OldSpace,Sign}.lean (list in
   scratch/gz-theta/tc-modules.txt).
 - Commit 97a5b235 (as above): the 22 further modules vendored by the Z-in-Q task
   ring-class (the closure of ClassFields.RingClass.Field, Tau Ceti's ring class
