@@ -5022,9 +5022,10 @@ end ZInQ.UnifDims
   product model is the direct sum of the factors' cotangent spaces, through the pull-backs of germs
   along the two projections, and the conormal lattice `ω` of the product is the sum of the two
   pulled-back lattices;
-* `DetLatticeProd` (new glue, pure commutative algebra over `𝓞_K`, no geometry): for a direct sum
-  of two modules with full lattices `ω₁, ω₂` of ranks `g₁, g₂`, the determinant lattice of
-  `ω₁ ⊕ ω₂` has a section whose index is the product of the factors' indices;
+* `DetLatticeProd` (new glue, pure commutative algebra over `𝓞_K`, no geometry; proved below as
+  `detLatticeProd`): for a direct sum of two modules with full lattices `ω₁, ω₂` of ranks `g₁, g₂`,
+  the determinant lattice of `ω₁ ⊕ ω₂` has particular sections `s₁, s₂, s = s₁ ∧ s₂` with
+  `[⋀ω : 𝓞s] = [⋀ω₁ : 𝓞s₁]·[⋀ω₂ : 𝓞s₂]`;
 * the kernel's `HodgeLattice.CotangentRank` (already reduced by hodge-lattice to
   `TangentDimAtOrigin`, with `DimBaseChange` proved below from g0-dim);
 * `AnalyticUniformizationOfDim` (from T35), only to know `gᵢ = dim` for the metrizations `Mᵢ`.
@@ -5078,7 +5079,8 @@ Why true (STANDARD). `K ⊗ M = (K ⊗ M₁) ⊕ (K ⊗ M₂)` and the images `�
 generalized Laplace expansion along the first `g₁` columns). Identifying the lines with `K`, the
 lattices become fractional ideals `I₁, I₂, I₁I₂`, and the indices multiply because
 `[I : 𝓞x] = |N(x)| / N(I)` (the kernel's `secIndex_mul_absNorm`) and both norms are
-multiplicative. Take `xᵢ` an `𝓞_K`-family in `ωᵢ` forming a `K`-basis and `aᵢ = 1`. Unproved. -/
+multiplicative. Take `xᵢ` an `𝓞_K`-family in `ωᵢ` forming a `K`-basis and `aᵢ = 1`. Proved:
+`detLatticeProd` (`DetProd.lean`). -/
 def DetLatticeProd : Prop :=
   ∀ (K : Type) [Field K] [NumberField K] (M₁ M₂ M : Type) [AddCommGroup M₁] [Module (𝓞 K) M₁]
     [AddCommGroup M₂] [Module (𝓞 K) M₂] [AddCommGroup M] [Module (𝓞 K) M]
