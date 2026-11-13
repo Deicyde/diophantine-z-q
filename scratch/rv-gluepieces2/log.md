@@ -77,3 +77,9 @@ Target: the 27 fields of `HSyn.GluePieces2` in scratch/g0-assemble/G0Assemble.le
   ZInQ.G0HeightAdd.MetrizationExists` (`HodgeLatticeTheorem`, leaf `AnalyticUniformizationOfDim`,
   glue `JacDetNondegenerate`), `RvGP2.productMetrizationGeo hLS hPL : ProductMetrizationGeo`
   (glue `ProductLocalStructure`, `ProductHodgeLattice`).
+- c7_heightbc: height-bc's Final.lean minus import/#print, with the single line `open PkgI3 (AbVar)`
+  removed so that `AbVar` resolves to G0Assemble's `ZInQ.DefFaltings.AbVar` copy: exit 0 in 13 s,
+  0 errors. `RvGP2.hodgeLineBaseChange h1 hc hω hl : G0StableBC.HodgeLineBaseChange` from
+  `HodgeBCInjective`, `CotangentSpanBC`, `OmegaBaseChange`, `UniformizationLiftAnalytic`, standard
+  axioms (VERIFIED). (Answers the height reviewer's transfer caveat.)
+- Sweep of all *_out.txt: 0 errors, 0 `sorry`, no non-standard axiom line.
