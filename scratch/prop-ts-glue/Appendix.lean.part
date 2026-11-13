@@ -1424,6 +1424,18 @@ theorem propTSAll_of_pieces' (t2 : PkgI2.AbhyankarDVR.{0}) (hR : R1R2fp) (hM : P
   propTSAll_of_pieces t2 hR hM purityGlobalDim2 (snVertical_of_sep hVS) snHorizontalTransfer hS hC hA
     hO hVF hAI hOI hVI hN hD hB hV
 
+/-- **The final composite**: `PropTSAll` from the bundle leaves T2 and `R1R2fp`, the kernel glue
+`MobiusGlue`, and 14 open glue Props (purity, `SNLocalData`, `SNHorizontalTransfer` and the
+reduction of `SNVertical` are proved in this file). -/
+theorem propTSAll_of_pieces'' (t2 : PkgI2.AbhyankarDVR.{0}) (hR : R1R2fp) (hM : Pin.MobiusGlue)
+    (hVS : VerticalResidueSeparable) (hS : SNSpecialize) (hC : KummerCompositum)
+    (hA : KummerAbhyankarFinGlue) (hO : KummerOtherBranchFin) (hVF : KummerVerticalFin)
+    (hAI : KummerAbhyankarInfGlue) (hOI : KummerOtherBranchInf) (hVI : KummerVerticalInf)
+    (hI : HeckeIrreducible) (hNI : HeckeNormalizationIrr) (hD : HeckeDegree) (hB : HeckeBranch)
+    (hV : HeckeNoVertRam) : PropTSAll :=
+  propTSAll_of_pieces' t2 hR hM hVS hS hC hA hO hVF hAI hOI hVI (heckeNormalization_of_irr hI hNI)
+    hD hB hV
+
 end PropTSGlue
 
 end
@@ -1456,6 +1468,7 @@ end
 #print axioms PropTSGlue.propTSAll_of_pieces
 #print axioms PropTSGlue.purityGlobalDim2
 #print axioms PropTSGlue.propTSAll_of_pieces'
+#print axioms PropTSGlue.propTSAll_of_pieces''
 #print axioms PropTSGlue.functionFieldModel_transfer
 #print axioms PropTSGlue.coverModel_transfer
 #print axioms PropTSGlue.coverModelOfHecke_of_witness

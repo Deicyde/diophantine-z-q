@@ -114,3 +114,8 @@ Task: reduce `PropTSRed.SpecNonMeeting`, `PropTSRed.KummerMeetGlue`, `PropTSRed.
 - `specNonMeeting_of_pieces4 : PurityGlobalDim2 → VerticalResidueSeparable → SNSpecialize →
   SpecNonMeeting`; `propTSAll_of_pieces'` now takes VerticalResidueSeparable, SNSpecialize.
 - Compile: 0 errors, 31 PropTSGlue axiom lines all standard; prefix IDENTICAL (VERIFIED).
+
+## Step 10 (08:45): final composite, report, fleet summary
+- `propTSAll_of_pieces''` (14 open glue Props + T2, R1R2fp, MobiusGlue). Compile: 0 errors,
+  32 PropTSGlue axiom lines all standard, 37 linter warnings (VERIFIED).
+- docs/research/prop-ts-glue.md rewritten; .fleet/prop-ts-glue.md written.
