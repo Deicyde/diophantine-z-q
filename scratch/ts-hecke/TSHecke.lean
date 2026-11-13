@@ -7131,6 +7131,10 @@ end TSHecke
 
 end
 
+#print axioms GFC.genericFibreCountAvoid
+#print axioms RamCount.ramCount
+#print axioms TSHeckeUnits.tbl_spec
+#print axioms TSHeckeUnits.exists_unit_congr
 #print axioms TSHecke.exists_surjective_of_R1fp
 #print axioms TSHecke.connectedSpace_of_R1fp
 #print axioms TSHecke.irreducibleSpace_of_R1fp

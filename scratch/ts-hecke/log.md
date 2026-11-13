@@ -68,7 +68,7 @@ Verdict: HeckeIrreducible is TRUE (not speculative any more, modulo the publishe
 - New Props: `RamOfFibreCount` (algebra glue: e(Q)·#{ψ : B → ℚ̄ | ψ X = t} = [E:ℚ(X)] for Galois
   E, plus the ∞ chart and the junk prime 0), `NormalizationModelInf` (definition: chart at ∞),
   `CurveChartInf` (curve glue: chart at 𝔸¹ ⇒ chart at ∞), `HeckeFibreSizes` (moduli input: twist
-  fibres ≤ M, = M off CM by ℤ[i], ℤ[ζ₃], ℤ[√−6], and M | 4F, 6F, 2F at those; Baba–Granath §3.1).
+  fibres ≤ M [clause removed in Step 11], = M off CM by ℤ[i], ℤ[ζ₃], ℤ[√−6], and M | 4F, 6F, 2F at those; Baba–Granath §3.1).
 - Compiled: `chart_count`, `chart_count_inf` (ℚ̄-points of the charts = π-fibres), `fibre_ncard`
   (π-fibre = twist fibre), `ker_eval_rat`, `exists_ker_eval`, `finrank_le_twistFibre`,
   `heckeBranch_of : RamOfFibreCount → CurveChartInf → HeckeFibreSizes → TorsionStructure →
@@ -132,3 +132,10 @@ ts-hecke's own Props: HeckeFibreSizes, Y3Connected).
 - `HeckeFibreSizes` lost its clause "∀ P, F(P) ≤ M": `heckeBranch_of` now gets [E:ℚ(X)] ≤ M from
   a generic value t₀ ∉ {0, −16/27} (`finrank_le_twistFibre_of`). The remaining clauses: generic
   fibres = M; M | 4F, 6F, 2F at CM by ℤ[i], ℤ[ζ₃], ℤ[√−6].
+
+## Step 12. Report cross-check (read-only agent) — fixed
+
+All names and signatures in the report match the Lean. Fixed: file length, "four reduced" wording
+(now: 1 proved, 3 reduced, 1 open), review scope (CurveNormChart unreviewed), T5 = I2-Tors naming,
+this log's Step 5. `#print axioms` added for genericFibreCountAvoid, ramCount, tbl_spec,
+exists_unit_congr (71 lines).

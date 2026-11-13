@@ -13,7 +13,7 @@ They are used unchanged, copied verbatim.
 
 | File | Contents |
 |---|---|
-| `scratch/ts-hecke/TSHecke.lean` | the Lean file (7109 lines), assembled by `assemble.py` |
+| `scratch/ts-hecke/TSHecke.lean` | the Lean file (7180 lines), assembled by `assemble.py` |
 | `scratch/ts-hecke/TSHeckeMain.lean.part` | the new part (Parts 1-5) |
 | `GenericFibre.lean`, `RamCount.lean`, `Units.lean`, `GaloisPart.lean.part` (with `GaloisDev.lean`) | development files, compiled; pasted verbatim into `TSHecke.lean` |
 | `pi0_check.py` / `pi0_check.out` | the computation behind `HeckeIrreducible` |
@@ -52,7 +52,7 @@ means an assessment. Locators from memory are **UNVERIFIED** (no network).
 
 - `lake env lean scratch/ts-hecke/TSHecke.lean` gives 0 errors (about 2.5 min). The warnings are
   linter warnings only.
-- All 67 `#print axioms` lines read `[propext, Classical.choice, Quot.sound]`; none has `sorryAx`.
+- All 71 `#print axioms` lines read `[propext, Classical.choice, Quot.sound]`; none has `sorryAx`.
 - `check_identical.py` prints `ALL OK`. Each of the following is contained verbatim:
   - all of prop-ts-glue's `PropTSGlue.lean` except its imports and trailing `#print` lines
     (lines 3-3553). This includes the prop-ts prefix (equal to `scratch/prop-ts/PropTS.lean`),
@@ -72,7 +72,7 @@ theorem TSHecke.coverModelOfHecke_of_tsHecke (hconn : Y3Connected) (hRR : R1R2fp
 | Target | Compiled reduction | Remaining hypotheses |
 |---|---|---|
 | `HeckeIrreducible` | `heckeIrreducible_of_connected : Y3Connected → HeckeIrreducible`; conversely `connected_of_heckeIrreducible : R1R2fp → HeckeIrreducible → Y3Connected` | leaf R1conn (`Y3Connected`) |
-| `HeckeDegree` | `heckeDegree_of_torsion : ObjBridge.TorsionStructure → HeckeDegree` | kernel leaf I2-Tors only |
+| `HeckeDegree` | `heckeDegree_of_torsion : ObjBridge.TorsionStructure → HeckeDegree` | kernel leaf T5 = I2-Tors (`PkgI2.TorsionStructure`) only |
 | `HeckeNormalizationIrr` | `heckeNormalizationIrr_of : CurveGaloisChart → TorsionStructure → HeckeNormalizationIrr` and `curveGaloisChart_of : CurveNormChart → CurveGaloisChart` | glue `CurveNormChart` |
 | `HeckeBranch` | `heckeBranch_of' : R1R2fp → CurveChartInf → HeckeFibreSizes → TorsionStructure → HeckeBranch` | glue `CurveChartInf`, `HeckeFibreSizes` |
 | `HeckeNoVertRam` | none | open glue (§6) |
@@ -314,7 +314,17 @@ Props reviewed:
 - `HeckeFibreSizes`, with `M = 144` and sizes 144, 36, 24, 72. CM points of discriminants `−8`
   and `−12` do not exist on `X₆`.
 
-The reductions have no hidden triviality. The reviewer's docstring improvements were applied to
+The reductions have no hidden triviality. This review came before two later steps:
+
+- **`CurveNormChart` (Step 10) was not reviewed.** It is the standard normalization chart for a
+  proper smooth irreducible curve over `ℚ` with a quasi-finite map to `P¹` (Hartshorne II.6), and
+  is assessed true here (STANDARD).
+- **`HeckeFibreSizes` was weakened (Step 11).** The reviewed version still had a clause "every
+  fibre ≤ M"; the current version follows from it.
+
+A second read-only agent cross-checked this report against the Lean sources. It found every name,
+signature and composite correct; the stale counts and wording it flagged are fixed. The reviewer's
+docstring improvements were applied to
 ts-hecke's own Props. One point is outside ts-hecke's files: prop-ts's `NormalizationModel`
 docstring (PropTSGlue.lean about line 708) still calls `ℚ`-irreducibility SPECULATIVE. It can now
 cite `Y3Connected` and §2.1. That file was not edited.

@@ -896,6 +896,10 @@ scratch/ts-hecke/TSHecke.lean:7059:15: warning: `Set.mem_setOf_eq` has been depr
 
 Hint: Replace the deprecated name:
   S̵e̵t̵.̵m̵e̵m̵_̵s̵e̵t̵O̵f̵_̵e̵q̵S̲e̲t̲.̲m̲e̲m̲_̲o̲f̲P̲r̲e̲d̲_̲e̲q̲
+'GFC.genericFibreCountAvoid' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RamCount.ramCount' depends on axioms: [propext, Classical.choice, Quot.sound]
+'TSHeckeUnits.tbl_spec' depends on axioms: [propext, Classical.choice, Quot.sound]
+'TSHeckeUnits.exists_unit_congr' depends on axioms: [propext, Classical.choice, Quot.sound]
 'TSHecke.exists_surjective_of_R1fp' depends on axioms: [propext, Classical.choice, Quot.sound]
 'TSHecke.connectedSpace_of_R1fp' depends on axioms: [propext, Classical.choice, Quot.sound]
 'TSHecke.irreducibleSpace_of_R1fp' depends on axioms: [propext, Classical.choice, Quot.sound]
