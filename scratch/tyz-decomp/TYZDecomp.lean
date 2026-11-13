@@ -15,7 +15,7 @@ read them in the source. The source is not on this host, so no locator was re-re
 Layout.
 * §1. The three readings A, B, C of TYZ Theorem 3.5(2) for `n ≡ 5 (mod 8)` in its case
   `𝓛(n) = 0`, over genuine definitions; reading A in its literal two-sum form is
-  `TYZThm35ReadingA` (`readingA_iff`). B and C are false (nt-tyz §1.4, exact computation at
+  `TYZThm35ReadingA` (`readingA_iff`). B, C (and A′) are false (nt-tyz §1.4, exact computation at
   `n = 26565`); `not_readingB_of` records the shape of the refutation.
 * §2. TYZ's `𝓛` pinned by genuine definitions: on the classes `1, 3 (mod 8)` by the value at `s = 1`
   of the continuation of `L(C_m, s)` and the explicit period `Ω_m` (TYZ L338–353), on the class
@@ -81,6 +81,12 @@ Theorem 1.4). False: nt-tyz §1.4. -/
 abbrev Thm35ReadingB : Prop := Thm35Reading S51B
 /-- Reading C (`d₁ > 1` distinguished). False: nt-tyz §1.4. -/
 abbrev Thm35ReadingC : Prop := Thm35Reading S51C
+
+/-- Reading A′ (found in this task's review, not in nt-tyz): `d₁ = 1` admitted *and* `d₁`
+distinguished, so a partition with `k` class-1 blocks is counted `k + 1` times
+(`d₁ = 1` or `d₁` one of the blocks). Its `(5, 1)` part is `T_5a + S₅₁^C`. False by the same
+computation as C (at `n = 26565`, `T_5a = 0`, `S₅₁^C = 1`). -/
+abbrev Thm35ReadingA' : Prop := Thm35Reading fun n => T5aCl n + S51C n
 
 /-- **Reading A in its literal two-sum form is the premise `TYZThm35ReadingA`.** -/
 theorem readingA_iff : Thm35ReadingA ↔ TYZThm35ReadingA := by

@@ -24,3 +24,13 @@
   tyzInputs_of_leaves, tyzThm35ReadingA_of_leaves(+'), genusData_nonempty_iff,
   genusPackage_iff_readingA (given TYZThm11Integral, TYZLcalOne, TYZLemma29Mod2:
   TYZGenusPackage <-> TYZThm35ReadingA; Hecke discharged by ZInQ.Contrib.heckeContinuation).
+- 05:45 CurveA.lean COMPILES: curveA = shortCurve 4 (y^2 = x^3 + 4x, Q-iso to TYZ's 2y^2 = x^3 + x by
+  (x,y) -> (2x,4y)), Qbar, iQ, nonsingular_iPt (proved), iPt ([i]), IsDefinedOver, Qi, leaf
+  TYZLemma316 : Prop := forall P, IsDefinedOver Qi P <-> 2 • (P + iPt P) = 0; lemma316_zero.
+  Axioms: standard three. (Mathlib's AddCommGroup on points needs DecidableEq Qbar: classical.)
+- TYZDecomp.lean: added Thm35ReadingA' (d1 = 1 admitted AND distinguished: (5,1) part T5a + S51C);
+  recompiled OK. Review finding: A' is a fourth reading, refuted at n = 26565 by nt-tyz's numbers
+  (T5a = T5b = 0, reading-C sum = 1).
+- Numeric consistency of TYZLcalOne (by hand, from LMFDB-style constants recalled, UNVERIFIED):
+  omegaInt = Gamma(1/4)^2/(2 sqrt(2 pi)) ~ 2.622, Omega_1 = 5.244, L(E_1,1) ~ 0.6555 = Omega_1/8,
+  so lcalSq 1 = 8 L / Omega_1 = 1; agrees with calL_small.py (VERIFIED there by PARI).
