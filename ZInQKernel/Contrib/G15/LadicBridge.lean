@@ -743,6 +743,88 @@ theorem mem_upperSet_iff_decomp (σ : PadicAlgCl p ≃ₐ[ℚ_[p]] PadicAlgCl p)
 
 end Qbar
 
+/-! ## §10. `Gal(Lj j/ℚ_p) ≃* D_P`, compatibly with the filtrations -/
+
+section GalLj
+
+variable [IsGalois ℚ L]
+
+/-- `ρ ∈ Gal(Lj j/ℚ_p) ↦` the `τ ∈ Gal(L/ℚ)` with `j ∘ τ = ρ ∘ j`. -/
+def galLjFun (ρ : Lj j ≃ₐ[ℚ_[p]] Lj j) : Gal(L/ℚ) :=
+  tauOf j (ρ.liftNormal (PadicAlgCl p))
+
+theorem galLjFun_spec (ρ : Lj j ≃ₐ[ℚ_[p]] Lj j) (x : L) :
+    j (galLjFun j ρ x) = (ρ ⟨j x, j_mem_Lj j x⟩ : PadicAlgCl p) := by
+  rw [galLjFun, tauOf_spec]
+  exact AlgEquiv.liftNormal_commutes ρ (PadicAlgCl p) ⟨j x, j_mem_Lj j x⟩
+
+/-- `Gal(Lj j/ℚ_p) → Gal(L/ℚ)` as a group homomorphism. -/
+def galLjHom : (Lj j ≃ₐ[ℚ_[p]] Lj j) →* Gal(L/ℚ) where
+  toFun := galLjFun j
+  map_one' := by
+    ext x
+    apply j.injective
+    rw [galLjFun_spec]
+    rfl
+  map_mul' ρ₁ ρ₂ := by
+    ext x
+    apply j.injective
+    rw [AlgEquiv.mul_apply, galLjFun_spec, galLjFun_spec, AlgEquiv.mul_apply]
+    congr 2
+    exact Subtype.ext (galLjFun_spec j ρ₂ x).symm
+
+theorem galLjHom_injective : Function.Injective (galLjHom j) := by
+  rw [injective_iff_map_eq_one]
+  intro ρ hρ
+  have h1 : tauOf j (ρ.liftNormal (PadicAlgCl p)) = tauOf j 1 := by
+    rw [show tauOf j (ρ.liftNormal (PadicAlgCl p)) = galLjHom j ρ from rfl, hρ]
+    ext x
+    apply j.injective
+    rw [tauOf_spec]
+    rfl
+  have h2 := (restr_eq_iff j _ _).mpr h1
+  ext y
+  have h3 := congrFun h2 y
+  simp only [LadicCond.restr] at h3
+  have h4 := AlgEquiv.liftNormal_commutes ρ (PadicAlgCl p) y
+  rw [show (algebraMap (Lj j) (PadicAlgCl p) y) = (y : PadicAlgCl p) from rfl, h3] at h4
+  exact (congrArg Subtype.val (Subtype.ext h4.symm : ρ y = y) :)
+
+theorem range_galLjHom :
+    (galLjHom j).range = MulAction.stabilizer Gal(L/ℚ) (primeOf j).asIdeal := by
+  have := normal_Lj j
+  ext τ
+  constructor
+  · rintro ⟨ρ, rfl⟩; exact tauOf_mem_stabilizer j _
+  · intro hτ
+    obtain ⟨σ, hσ⟩ := exists_lift j hτ
+    refine ⟨σ.restrictNormal (Lj j), ?_⟩
+    ext x
+    apply j.injective
+    show j (galLjFun j _ x) = _
+    rw [galLjFun_spec, hσ]
+    exact AlgEquiv.restrictNormal_commutes σ (Lj j) ⟨j x, j_mem_Lj j x⟩
+
+/-- **`Gal(L_P/ℚ_p) ≃* D_P` for the kernel's local field** `L_P = Lj j = ℚ_p(j L)`. -/
+def decompEquivLj :
+    (Lj j ≃ₐ[ℚ_[p]] Lj j) ≃* MulAction.stabilizer Gal(L/ℚ) (primeOf j).asIdeal :=
+  (MonoidHom.ofInjective (galLjHom_injective j)).trans (MulEquiv.subgroupCongr (range_galLjHom j))
+
+theorem decompEquivLj_spec (ρ : Lj j ≃ₐ[ℚ_[p]] Lj j) (x : L) :
+    j ((decompEquivLj j ρ : Gal(L/ℚ)) x) = (ρ ⟨j x, j_mem_Lj j x⟩ : PadicAlgCl p) :=
+  galLjFun_spec j ρ x
+
+/-- **The filtrations correspond**: `decompEquivLj ρ ∈ G_i(P)` iff a (any) lift of `ρ` to
+`G_{ℚ_p}` lies in `LadicCond.ramSet (Lj j) i`. -/
+theorem decompEquivLj_mem_ramGroup_iff (ρ : Lj j ≃ₐ[ℚ_[p]] Lj j)
+    (σ : PadicAlgCl p ≃ₐ[ℚ_[p]] PadicAlgCl p) (hσ : ∀ y : Lj j, σ y = ρ y) (i : ℕ) :
+    (decompEquivLj j ρ : Gal(L/ℚ)) ∈ GlueConductor.ramGroup L (primeOf j).asIdeal i ↔
+      σ ∈ LadicCond.ramSet (Lj j) i := by
+  refine (mem_ramSet_iff (fun x => ?_) i).symm
+  rw [decompEquivLj_spec, ← hσ]
+
+end GalLj
+
 end ZInQ.Contrib.G15.Ladic
 
 end
