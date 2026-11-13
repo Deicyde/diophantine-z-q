@@ -1,0 +1,79 @@
+# rv-fast results log
+
+Base: wip/rv-fast b7cdba8e + merges of origin/wip/{curve-infra 0eb4618a (already in base), lg-kerwild 745af133 (already in base), unram-roots b066d686, afr-absfrob 2ffcf322}.
+
+## Reproducibility of assembled files (VERIFIED, 10:25)
+Re-ran each task's assembly script with output to /tmp/rvf and `cmp` against the committed file:
+- curve-infra/CurveInfraAll.lean (mk_all.sh): identical.
+- unram-roots/UnramRoots.lean (build.sh): identical.
+- afr-absfrob/AfrAbsFrob.lean (build.sh): identical.
+- lg-kerwild/KerWild.lean (build.sh): DIFFERS. scratch/local-glue/LocalGlue.lean changed after lg-kerwild built
+  (local-glue commits b582bf03, d2f6d6d1: added a verbatim g0-dim DimBlock, `localGlue_of_baseChange'`, and dropped
+  `A₀.dim = 2` from `G7LocalPackBC`). The defs KerWild, DescentPts, LocalGlue, G7Clauses, UnramRoots are not in the
+  diff (unchanged). The committed KerWild.lean is the file that was compiled; rebuilding it today would duplicate
+  the G0Dim block (lg-kerwild also splices g0-dim's Dim.lean) -> integration conflict, not a soundness issue.
+
+## ring-class: condD differential check (VERIFIED, computed, condD_check.py)
+30 negative discriminants D ≡ 0,1 mod 4 (incl. conductors 2..8, d_K ∈ {-3,-4,-7,-8,-11,-15,-20,-24,-52,-84}, D=-64·13):
+the Lean formula (m = sqfPart|D|, d_K = -m if m≡3 (4) else -4m, f = condD D) agrees with PARI quaddisc/sqrtint
+in 30/30 cases. condD_spec (Lean) proves |D| = f²|d_K| in general; this checks it is the conductor, not just a factorization.
+Every `HeegnerForm 32 D` has D = B²-4AC < 0, D ≡ 0,1 mod 4, so `CM.CMFieldOfDefinition ringClassFieldD` never evaluates
+ringClassFieldD at a junk argument.
+
+## lg-kerwild: G7Clauses vs TateBridgeK's witness (VERIFIED by reading; formal lemmas in KerWildCheck.lean)
+- `exists_localGlue_of_tateModuleFree` concludes `∃ Tm c ε' a β' uu, G7Out … ∧ ∀ p ≠ ℓ, G7Clauses β' ε' L → LocalGlue …`.
+  `G7Clauses` is about the existentially hidden `β', ε'`; `TateBridgeK`'s output says nothing about local constancy,
+  `β'² = ι∘χ`, `ε' = 1` on `G_L×G_L` or `[L:ℚ] ≤ D`, so no consumer can discharge it.
+- Read (KerWild.lean l.6669-6672, 6705, 8729, and `refine ⟨Tm, c', c', a', β', uu, …⟩` l.8800): the witness built by
+  `tateBridgeK_of_piecesK` has `a' = fun _ => 1` and `ε' = c' = n/d` (the rational cocycle of the descent datum,
+  conjugated by h).
+- New lemma `rvf_g7Clauses_eps_sq`: `G7Clauses β ε L → ∀ g k, ε g k ^ 2 = 1` (β² = ι ∘ galChar χ is a homomorphism).
+  `rvf_c_sq_of_a_one`: `G7Out … c ε a β u`, `a ≡ 1`, `G7Clauses β ε L` ⟹ `c² = 1`.
+- DescentDatum (KerWild.lean l.5486-5526): `a_σ σ a_τ c(σ,τ) = ε(σ,τ) a_{στ}` with ε a sign cocycle and `a > 0`
+  inflated from Gal(L/ℚ) (docstring: `a_σ = (deg μ_σ)^{-1/4}`). So `c = ±1` everywhere iff `a` is a homomorphism
+  Gal(L/ℚ) → ℝ_{>0}, iff `a ≡ 1`. Hence for the witness, `G7Clauses β' ε' L` holds only when every conjugacy isogeny
+  μ_σ has `a_σ = 1`; otherwise the implication `G7Clauses → LocalGlue` is vacuously true and carries no information.
+
+## ring-class compile (VERIFIED, 11:12)
+- `lake build ZInQKernel.Contrib.TYZGenus.RingClassBridge ZInQKernel.Contrib.TYZGenus.RingClassGenus`: success,
+  10286 jobs, 50 min (built the vendored Tau Ceti closure; build_ringclass.out).
+- `lake env lean scratch/rv-fast/RingClassCheck.lean`: exit 0, no errors (RingClassCheck.out). rfl checks of
+  HprimeNormal, IInH4, CMFieldOfDefinitionTYZ, CM.CMFieldOfDefinition ringClassFieldD pass; relfinrank (Hprime 5) (H4 5) = 2,
+  Hprime 13 ≠ H4 13, H4bar 5 ≠ ⊥, ringClassFieldD (-64·13) = H4bar 13 compile. 9 axiom prints all
+  [propext, Classical.choice, Quot.sound] (hprimeNormal, iInH4, both main variants, cmFieldTYZ_of_ringClassD,
+  ringClassFieldD_tyz, condD_spec, normal_ringClassFieldD, relfinrank_Hprime).
+
+## curve-infra compile (VERIFIED, 11:14)
+- `lake build ZInQKernel.HDecomp.LeafPush2.R18` ok; `lake env lean scratch/rv-fast/CurveInfraCheck.lean`: exit 0,
+  0 errors, 1 linter warning (copied infra-smooth-dim line 362, as reported). Appended checks pass:
+  `ffAlgebra X = fnFieldAlgebra K X.left X.hom := rfl`; DimEqTrdegOver ↔ … := Iff.rfl;
+  trdeg K (FractionRing K[X]) toENat = 1 and trdeg K (FractionRing K) toENat = 0 derived from dimEqTrdegAlg.
+  8 axiom prints all [propext, Classical.choice, Quot.sound].
+
+## unram-roots compile (VERIFIED, 11:16)
+- `lake build …Unramified.Maximal` (3373 jobs, up to date); `lake env lean scratch/rv-fast/UnramRootsCheck.lean`:
+  exit 0, 0 errors, linter warnings only (deprecation `if_pos`, haveI style, unused hN). Appended checks pass:
+  `unramRoots_all` has local-glue's `hU` shape; the Frobenius lift of `UnramProcyclic` is outside inertiaSet
+  (χ φ = 1 ≠ 0 in ZMod 2). 6 axiom prints all [propext, Classical.choice, Quot.sound].
+- Statement: `def UnramRoots` byte-identical to scratch/local-glue/part_twist.lean and to the copy in KerWild.lean
+  (diff); no def of fixSet/inertiaSet/Fld/GQp in local-glue/*.lean, KerWild.lean, UnramRoots.lean (grep).
+
+## afr-absfrob compile (VERIFIED, 11:20)
+- `lake env lean scratch/rv-fast/AbsFrobCheck.lean` (Mathlib only): exit 0, 0 errors; appended checks:
+  `fr p (Spec R) _ = Spec.map (powHom p R h)`, `(fr p X hX).base x = x`. absFrob, fr_naturality, fr_Spec:
+  [propext, Classical.choice, Quot.sound].
+- `lake build` of the ZInQKernel imports of AfrAbsFrob.lean + KerWild.lean (9200 jobs, ok);
+  `lake env lean scratch/rv-fast/AfrCheck.lean`: exit 0, 0 errors, 1m30s. Appended: fExtendGen_of_nmp has type
+  `PkgI2.NeronMappingAbelianScheme.{0} → AlgFrobRedRed.FExtendGen`, absFrob : AbsFrob. Axiom prints
+  (absFrob, fExtendGen_of_nmp, fExtendCore_of_nmp, algFrobRed_of_nmp, tateBridge35_of_nmp, hom_spec_eq_of_point,
+  ringHom_eq_of_normal + the copied file's own) all standard.
+- cmp: src_AlgFrobRed.lean ≡ scratch/alg-frob-red/AlgFrobRed.lean; AbsFrob block ≡ part_red.lean's.
+
+## lg-kerwild compile (VERIFIED, 11:22)
+- `lake env lean scratch/rv-fast/KerWildCheck.lean` (copy of committed KerWild.lean + checks): exit 0, 0 errors, ~60 s.
+  Appended and compiled: `tateBridge_of_K : TateBridgeK → TateBridge`; KerWild unfolds to
+  `∀ g ∈ G_L, β' g = 1 → g ∈ L'.fixingSubgroup` (via RQ.resQ_range); KerWild with β' ≡ 1 ⟹ G_L ≤ G_{L'};
+  `rvf_g7Clauses_eps_sq : G7Clauses β ε L → ∀ g k, ε g k ^ 2 = 1`;
+  `rvf_c_sq_of_a_one : GaloisCopy.G7Out … c ε a β u → (∀ g, a g = 1) → G7Clauses β ε L → ∀ g k, c g k ^ 2 = 1`.
+  All axiom prints (incl. tateBridgeK_of_tateModuleFree, descentPts_of_g7, localGlue_of_tateBridge35,
+  exists_localGlue_of_tateModuleFree, rvf_c_sq_of_a_one) are [propext, Classical.choice, Quot.sound].
