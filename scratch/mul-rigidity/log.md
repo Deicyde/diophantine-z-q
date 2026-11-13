@@ -36,3 +36,9 @@
   So `QuasiFiniteEndSurjective` (stated as a dimension-theory leaf) is NOT a leaf: Mathlib proves it, no dimension
   theory needed. Remaining leaf for MulIsogeny: `MulUnramified` (char 0, n ≠ 0 ⇒ FormallyUnramified [n].left),
   implied by `MulEtale` (`mulUnramified_of_mulEtale`).
+- 05:40 COMPILED (exit 0): `kerUnit`, `diffKer`, `diagonal_isPullback` (Δ_f is the base change of the unit section
+  of ker f along (x,y) ↦ x⁻¹y, for any homomorphism f : A → A), `formallyUnramified_of_kerUnit`,
+  leaf `KerUnitOpen`, `mulUnramified_of_kerUnitOpen`, **`mulIsogeny_of_kerUnitOpen : KerUnitOpen → MulIsogeny`**.
+- 05:44 COMPILED (exit 0): `isOpenImmersion_of_section` (section of formally unramified lft is an open immersion),
+  **`kerUnitOpen_of_mulEtale : MulEtale → KerUnitOpen`** (so the leaf KerUnitOpen is implied by the published
+  "[n] étale for char ∤ n"). All axioms: propext, Classical.choice, Quot.sound.

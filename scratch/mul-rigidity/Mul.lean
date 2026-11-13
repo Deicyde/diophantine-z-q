@@ -270,6 +270,36 @@ def KerUnitOpen : Prop :=
   ∀ (k : Type) [Field k] [CharZero k] (A : PkgI3.AbVar k) (n : ℤ), n ≠ 0 →
     IsOpenImmersion (kerUnit A ((n : PkgI3.AbVar.End A).hom)).left
 
+/-- A section of a formally unramified morphism locally of finite type is an open immersion
+(Stacks 024T; from Mathlib's `isOpenImmersion_diagonal` and
+`MorphismProperty.hasOfPostcompProperty_iff_le_diagonal`). -/
+theorem isOpenImmersion_of_section {X Y : Scheme} (s : Y ⟶ X) (q : X ⟶ Y)
+    [FormallyUnramified q] [LocallyOfFiniteType q] (h : s ≫ q = 𝟙 _) : IsOpenImmersion s := by
+  set gr : Y ⟶ pullback (s ≫ q) q := pullback.lift (𝟙 Y) s (by simp)
+  have e : s = gr ≫ pullback.snd _ _ := by simp [gr]
+  rw [e]
+  have h1 : IsOpenImmersion gr :=
+    MorphismProperty.of_isPullback (P := @IsOpenImmersion) (pullback_lift_diagonal_isPullback s q)
+      (FormallyUnramified.isOpenImmersion_diagonal q)
+  have h2 : IsOpenImmersion (pullback.snd (s ≫ q) q) :=
+    MorphismProperty.pullback_snd (P := @IsOpenImmersion) _ _
+      (by rw [h]; exact (inferInstance : IsOpenImmersion (𝟙 Y)))
+  infer_instance
+
+/-- **`KerUnitOpen` is a consequence of `MulEtale`** (so it is implied by the published
+statement): the kernel is a base change of `[n]`, hence étale over `k`, and its unit section is a
+section of an étale morphism. -/
+theorem kerUnitOpen_of_mulEtale (h : MulEtale) : KerUnitOpen := by
+  intro k _ _ A n hn
+  have hE : Etale ((n : PkgI3.AbVar.End A).hom).left := h k A n hn
+  have hP := (Over.forget _).map_isPullback
+    (IsPullback.of_hasPullback ((n : PkgI3.AbVar.End A).hom) η[A.X])
+  have : Etale (pullback.snd ((n : PkgI3.AbVar.End A).hom) η[A.X]).left :=
+    MorphismProperty.IsStableUnderBaseChange.of_isPullback (P := @Etale) hP hE
+  refine isOpenImmersion_of_section _ (pullback.snd ((n : PkgI3.AbVar.End A).hom) η[A.X]).left ?_
+  rw [← Over.comp_left]
+  simp [kerUnit]
+
 /-- `MulUnramified` from `KerUnitOpen` (glue proved here). -/
 theorem mulUnramified_of_kerUnitOpen (h : KerUnitOpen) : MulUnramified := by
   intro k _ _ A n hn
@@ -285,3 +315,4 @@ end MulRigidity
 #print axioms MulRigidity.mulIsogeny_of_mulUnramified
 #print axioms MulRigidity.mulIsogeny_of_mulUnramified'
 #print axioms MulRigidity.mulIsogeny_of_kerUnitOpen
+#print axioms MulRigidity.kerUnitOpen_of_mulEtale
