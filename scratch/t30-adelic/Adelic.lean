@@ -981,6 +981,81 @@ theorem relIndex_K3 : ((Zhat ⊓ K0) ⊔ K3).relIndex K0 = 36 := by
 theorem gamma_order : (Zhat ⊔ K3).relIndex Nhat = 144 := by
   rw [gamma_count, relIndex_K3]
 
+/-! ### `𝔸_f^× ∩ K₀ = ℤ̂^×` -/
+
+/-- `ℤ̂^× = ∏_p ℤ_p^×`, as central scalars of `B̂^×`. -/
+noncomputable def Zint : Subgroup BAˣ where
+  carrier := {x | ∀ p : Nat.Primes, ∃ c : ℤ_[(p : ℕ)]ˣ,
+    (x : BA) p = algebraMap ℚ_[(p : ℕ)] (Bp (p : ℕ)) ((c : ℤ_[(p : ℕ)]) : ℚ_[(p : ℕ)])}
+  one_mem' := fun p => ⟨1, by simp⟩
+  mul_mem' := by
+    intro a b ha hb p
+    obtain ⟨c, hc⟩ := ha p
+    obtain ⟨d, hd⟩ := hb p
+    exact ⟨c * d, by rw [Units.val_mul, RestrictedProduct.mul_apply, hc, hd, ← map_mul]; simp⟩
+  inv_mem' := by
+    intro a ha p
+    obtain ⟨c, hc⟩ := ha p
+    refine ⟨c⁻¹, ?_⟩
+    have h1 : (a : BA) p * ((a⁻¹ : BAˣ) : BA) p = 1 := by
+      rw [← RestrictedProduct.mul_apply, Units.mul_inv]; rfl
+    rw [hc] at h1
+    have hcc : ((c : ℤ_[(p : ℕ)]) : ℚ_[(p : ℕ)]) * (((c⁻¹ : ℤ_[(p : ℕ)]ˣ) : ℤ_[(p : ℕ)]) :
+        ℚ_[(p : ℕ)]) = 1 := by
+      rw [← PadicInt.coe_mul, Units.mul_inv, PadicInt.coe_one]
+    calc ((a⁻¹ : BAˣ) : BA) p
+        = algebraMap _ _ (((c⁻¹ : ℤ_[(p : ℕ)]ˣ) : ℤ_[(p : ℕ)]) : ℚ_[(p : ℕ)]) *
+          (algebraMap _ _ ((c : ℤ_[(p : ℕ)]) : ℚ_[(p : ℕ)]) * ((a⁻¹ : BAˣ) : BA) p) := by
+          rw [← mul_assoc, ← map_mul, mul_comm, hcc, map_one, one_mul]
+      _ = _ := by rw [h1, mul_one]
+
+theorem coord_algebraMap (p : ℕ) [Fact p.Prime] (e : ℚ_[p]) :
+    coord p (algebraMap ℚ_[p] (Bp p) e) = ![e, 0, 0, 0] := by
+  funext k; fin_cases k <;> simp [coord]
+
+theorem algebraMap_mem_Op_iff (p : ℕ) [Fact p.Prime] (e : ℚ_[p]) :
+    algebraMap ℚ_[p] (Bp p) e ∈ Op p ↔ ‖e‖ ≤ 1 := by
+  rw [mem_Op_iff_coord, coord_algebraMap]
+  constructor
+  · intro h; simpa using h 0
+  · intro h k; fin_cases k <;> simp [h]
+
+/-- **`𝔸_f^× ∩ K₀ = ℤ̂^×`.** -/
+theorem Zhat_inf_K0 : Zhat ⊓ K0 = Zint := by
+  ext x
+  constructor
+  · rintro ⟨hz, hk⟩ p
+    obtain ⟨c, hc⟩ := hz p
+    obtain ⟨d, hd⟩ := (Zhat.inv_mem hz) p
+    have hc1 : ‖c‖ ≤ 1 := (algebraMap_mem_Op_iff _ c).mp (hc ▸ hk.1 p)
+    have hd1 : ‖d‖ ≤ 1 := (algebraMap_mem_Op_iff _ d).mp (hd ▸ hk.2 p)
+    have hcd : c * d = 1 := by
+      have h1 : (x : BA) p * ((x⁻¹ : BAˣ) : BA) p = 1 := by
+        rw [← RestrictedProduct.mul_apply, Units.mul_inv]; rfl
+      rw [hc, hd, ← map_mul] at h1
+      exact (algebraMap ℚ_[(p : ℕ)] (Bp (p : ℕ))).injective (by rw [h1, map_one])
+    let cu : ℤ_[(p : ℕ)]ˣ := ⟨⟨c, hc1⟩, ⟨d, hd1⟩, Subtype.ext hcd,
+      Subtype.ext (by rw [mul_comm] at hcd; exact hcd)⟩
+    exact ⟨cu, hc⟩
+  · intro hx
+    refine ⟨fun p => ?_, fun p => ?_, fun p => ?_⟩
+    · obtain ⟨c, hc⟩ := hx p
+      exact ⟨_, hc⟩
+    · obtain ⟨c, hc⟩ := hx p
+      rw [hc, algebraMap_mem_Op_iff]
+      exact PadicInt.norm_le_one _
+    · obtain ⟨c, hc⟩ := Zint.inv_mem hx p
+      rw [hc, algebraMap_mem_Op_iff]
+      exact PadicInt.norm_le_one _
+
+/-- **A3's count with `ℤ̂^×` named:** `|Γ'| = [N : 𝔸_f^× K₃] = [N : 𝔸_f^× K₀] · [K₀ : ℤ̂^× K₃]
+= 4 · 36 = 144`. -/
+theorem gamma_count_Zint :
+    (Zhat ⊔ K3).relIndex Nhat = (Zhat ⊔ K0).relIndex Nhat * (Zint ⊔ K3).relIndex K0 ∧
+      (Zhat ⊔ K0).relIndex Nhat = 4 ∧ (Zint ⊔ K3).relIndex K0 = 36 := by
+  rw [← Zhat_inf_K0, relIndex_eq_four, relIndex_K3]
+  exact ⟨gamma_order, rfl, rfl⟩
+
 end G1Adelic
 
 #print axioms G1Adelic.relIndex_eq_four
@@ -988,3 +1063,4 @@ end G1Adelic
 #print axioms G1Adelic.normalizer_component
 #print axioms G1Adelic.gamma_count
 #print axioms G1Adelic.gamma_order
+#print axioms G1Adelic.gamma_count_Zint

@@ -39,3 +39,4 @@
   (discrimination tree reduces the projection); fix: compose `PadicInt.toZMod` with
   `ZMod.ringEquivCongr (rfl : q3 = 3)` (`t3`). `R3` must stay a `def` (own Monoid), with `R3.mk` to keep
   rewrite targets well-typed.
+- Adelic.lean: `Zint` (ℤ̂^× = ∏ ℤ_p^× scalars), `Zhat_inf_K0 : Zhat ⊓ K0 = Zint`, `gamma_count_Zint` (|Γ'| = [N:𝔸_f^×K₀]·[K₀:ℤ̂^×K₃], = 4, = 36). VERIFIED, standard axioms.
