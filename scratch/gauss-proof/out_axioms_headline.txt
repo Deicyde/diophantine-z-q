@@ -1,0 +1,9 @@
+'ZInQ.Contrib.GaussFE.certifiedRankTYZClRk_of_readingA_grossZagier' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Contrib.GaussFE.frozenTarget_of_sixContactMin_tyzThm35ReadingA_grossZagier' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Contrib.GaussFE.frozenTarget_of_sixContactMin_tyzInputs_grossZagier' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
