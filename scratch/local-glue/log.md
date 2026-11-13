@@ -106,3 +106,17 @@
   in TailK.lean `modularConstituent_tail_R` (tail with I2-Tors and G7LocalPackR).
 - Compile: LocalGlue.lean exit 0, no sorry, all printed axioms standard; TailK.lean exit 0,
   no sorry, `modularConstituent_tail_R` axioms [propext, Classical.choice, Quot.sound].
+
+## Step 8 (07:25-07:31 PST): BetaUpper at p = 2 without T16
+- Finding G6 (VERIFIED, compiled): `BetaUpper β L_v U₀` follows from G7's clauses and the
+  smaller Prop `BetaTwist2 β L` (some `M ⊇ L_v`, `[M:ℚ_p] ≤ 4[L_v:ℚ_p]`, with `β = 1` on wild
+  inertia of `G_M`), using only the degree-based break bound already proved in g15-ram
+  (`UpperBreakFix` from `hilbertSerre_of_model (ladicDVRModel_of_Zp ladicDVRModelZp)`, i.e. T20 +
+  T21 via t-different) and `upperWild`. No T16, no D3 (`(U^{e+1})⁴ = U^{3e+1}`), no Herbrand ψ.
+  Math (SPECULATIVE-free, STANDARD): β⁴ = χ² is unramified at 2 (2-part of χ = character mod 4);
+  an unramified 4th root η of β⁴|G_{L_v} exists (G_{L_v}/I procyclic); M = kernel field of βη⁻¹.
+- Proved (VERIFIED): `betaUpper_of_twist : G7Clauses β ε L → BetaTwist2 β L →
+  BetaUpper β (Lv L) U0`; `localGlue_of_g7_twist` (main reduction with BetaTwist2);
+  `G7LocalPackR` now asks for `BetaTwist2` at p = 2 (g7LocalPackK_of_R uses betaUpper_of_twist).
+- Compile: LocalGlue.lean exit 0, no sorry, all printed axioms standard; TailK.lean exit 0, no
+  sorry, tail_K and tail_R axioms standard.

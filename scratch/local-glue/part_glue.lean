@@ -256,6 +256,57 @@ theorem torsFixWildE_of_odd (hp2 : p ≠ 2) {K : Type} [Field K] [NumberField K]
   exact ⟨E, hEfd, hLvE, hdeg, fun σ hσ => ⟨beta_wild_of_clauses hp2 hC hσ.2
     (decomp_fix_of_le (fun _ hx => hLvE (embP_mem_Lv hx)) hσ.1), hw σ hσ⟩⟩
 
+/-! ### `BetaUpper` at `p = 2` without T16 (proved from a degree-`4` twist field) -/
+
+/-- **Glue at `p = 2` (N5 L826-844; replaces T16 + D3 + Herbrand).** Some finite `M ⊇ L_v` with
+`[M:L_v] ≤ 4` has `β = 1` on wild inertia of `G_M`. Proof plan: on `G_{L_v}`, `β` is a character
+(`betaCharOn_of_cocycle`) and `β⁴ = χ²` is unramified at `2` (the `2`-part of `χ` is the
+character mod `4`, of order `2`; the odd parts are unramified at `2`); an unramified `η` with
+`η⁴ = β⁴` exists (`G_{L_v}/I` is procyclic and `β⁴` has finite order), and `M` is the kernel
+field of `β η⁻¹`, of order dividing `4`. On wild inertia `η = 1`. -/
+def BetaTwist2 (β : GQ → PadicAlgCl ℓ) (L : IntermediateField ℚ PkgI4.Qbar) : Prop :=
+  ∃ M : Fld p, FiniteDimensional ℚ_[p] M ∧ Lv (p := p) L ≤ M ∧
+    Module.finrank ℚ_[p] M ≤ 4 * Module.finrank ℚ_[p] (Lv (p := p) L) ∧
+    ∀ σ ∈ fixSet M ∩ wildSet, β (decomp p σ) = 1
+
+/-- **`BetaUpper` from `BetaTwist2` and G7's clauses (proved), with no class field theory.**
+`[M:ℚ_p] ≤ 4D ≤ DG₀`; its Galois closure `F` has `e(F) ≤ (DG₀)!` (`exists_finGal_ramCard_le`), so
+`G_{ℚ_p}^t ⊆ G_F ⊆ G_M` for `t > U₀ = 4(DG₀)²` (`UpperBreakFix`, proved from T20 + T21 and
+`ladicDVRModelZp`), and `G_{ℚ_p}^t` is wild (`upperWild`). -/
+theorem betaUpper_of_twist {β : GQ → PadicAlgCl ℓ} {ε : GQ → GQ → PadicAlgCl ℓ}
+    {L : IntermediateField ℚ PkgI4.Qbar} (hC : G7Clauses β ε L)
+    (h : BetaTwist2 (p := p) β L) : BetaUpper β (Lv (p := p) L) U0 := by
+  haveI : FiniteDimensional ℚ L := hC.1
+  obtain ⟨M, hMfd, hLvM, hdeg, hM⟩ := h
+  obtain ⟨-, hLv⟩ := Lv_fin (p := p) L
+  have hG0 : 4 ≤ ZInQ.heightG0 := by unfold ZInQ.heightG0; norm_num
+  have hMn : Module.finrank ℚ_[p] M ≤ ZInQ.heightD * ZInQ.heightG0 := by
+    calc Module.finrank ℚ_[p] M ≤ 4 * Module.finrank ℚ_[p] (Lv (p := p) L) := hdeg
+      _ ≤ ZInQ.heightG0 * ZInQ.heightD := Nat.mul_le_mul hG0 (hLv.trans hC.2.1)
+      _ = ZInQ.heightD * ZInQ.heightG0 := Nat.mul_comm _ _
+  obtain ⟨F, hF, hMF, he⟩ := exists_finGal_ramCard_le hMn
+  have ha : 1 ≤ ZInQ.heightD * ZInQ.heightG0 :=
+    Nat.mul_pos GlueDescent.heightD_pos (by unfold ZInQ.heightG0; norm_num)
+  have hUB : UpperBreakFix p :=
+    upperBreakFix_of_hilbertSerre (hilbertSerre_of_model (ladicDVRModel_of_Zp ladicDVRModelZp))
+  have hU0 : (0 : ℝ) ≤ U0 := by unfold U0; positivity
+  intro t ht σ hσ
+  have hfix : σ ∈ fixSet F := hUB F hF _ ha he t (by unfold U0 at ht; exact ht) hσ.1
+  have hwild : σ ∈ wildSet := upperWild (p := p) t (by linarith) hσ.1
+  exact hM σ ⟨fun x hx => hfix x (hMF hx), hwild⟩
+
+/-- **`LocalGlue` on G7's data with `BetaTwist2` at `p = 2` (proved)**: as `localGlue_of_g7`,
+with `BetaUpper` replaced by the smaller `BetaTwist2` (`betaUpper_of_twist`). -/
+theorem localGlue_of_g7_twist {K : Type} [Field K] [NumberField K] {A : PkgI3.AbVar K}
+    {Tm : GQ → Module.End (PadicAlgCl ℓ) (G0Galois.Vb A ℓ)} {c ε : GQ → GQ → PadicAlgCl ℓ}
+    {a β : GQ → PadicAlgCl ℓ} {u : GlueDescent.MatrixUnits2 (PadicAlgCl ℓ) (G0Galois.Vb A ℓ)}
+    (h7 : G0Galois.G7Out A ℓ Tm c ε a β u) {L : IntermediateField ℚ PkgI4.Qbar}
+    (hC : G7Clauses β ε L) (hK : KerWild K β L)
+    (hW : 7 ≤ p → TateWildK (p := p) A ℓ) (hE : p ≤ 5 → TateWildKE (p := p) A ℓ β L)
+    (hB : p = 2 → BetaTwist2 (p := p) β L) :
+    LocalGlue (p := p) Tm a β L :=
+  localGlue_of_g7 h7 hC hK hW hE (fun h => betaUpper_of_twist hC (hB h))
+
 end LocalGlueSec
 
 end G15Ram
@@ -649,3 +700,5 @@ end
 #print axioms G15Ram.wildIter_of_ptFinite
 #print axioms G15Ram.tateWildK_of_leaves'
 #print axioms G15Ram.torsFixWildE_of_odd
+#print axioms G15Ram.betaUpper_of_twist
+#print axioms G15Ram.localGlue_of_g7_twist

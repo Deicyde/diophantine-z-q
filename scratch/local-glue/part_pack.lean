@@ -61,7 +61,8 @@ theorem g15RamG_of_packK {L : Type} [Field L] [NumberField L] {A : AbVar L} (D :
 
 /-- **G7's data for `r` with the local glue at `p ∈ P` in leaf-and-bridge form (GLUE).**
 At `p ≥ 7`: `RaynaudPlace A 3`, `RaynaudPlace A 7` (R6 at the place) and `PtFinite A`; at
-`p ∈ {3, 5}`: `TorsFixWildOdd`; at `p = 2`: `TorsFixWildE` and `BetaUpper`. With the leaf I2-Tors
+`p ∈ {3, 5}`: `TorsFixWildOdd`; at `p = 2`: `TorsFixWildE` and `BetaTwist2` (which replaces
+`BetaUpper`, `G15Ram.betaUpper_of_twist`). With the leaf I2-Tors
 and `p ≠ ℓ` on `P`, it gives `G7LocalPackK` (`g7LocalPackK_of_R`). -/
 def G7LocalPackR (ℓ : ℕ) [Fact ℓ.Prime] (r : GaloisRep ℓ 2) (P : ℕ → Prop) : Prop :=
   ∃ (K : Type) (_ : Field K) (_ : NumberField K) (A : AbVar K)
@@ -73,8 +74,7 @@ def G7LocalPackR (ℓ : ℕ) [Fact ℓ.Prime] (r : GaloisRep ℓ 2) (P : ℕ →
     ∀ (p : ℕ) (hp : p.Prime), P p →
       (7 ≤ p → @G15Ram.RaynaudPlace p ⟨hp⟩ K _ _ A 3 ∧ @G15Ram.RaynaudPlace p ⟨hp⟩ K _ _ A 7) ∧
       (3 ≤ p → p ≤ 5 → @G15Ram.TorsFixWildOdd p ⟨hp⟩ K _ _ A ℓ _ L) ∧
-      (p = 2 → @G15Ram.TorsFixWildE p ⟨hp⟩ K _ _ A ℓ _ β L ∧
-        @G15Ram.BetaUpper p ⟨hp⟩ ℓ _ β (@G15Ram.Lv p ⟨hp⟩ L) U0)
+      (p = 2 → @G15Ram.TorsFixWildE p ⟨hp⟩ K _ _ A ℓ _ β L ∧ @G15Ram.BetaTwist2 p ⟨hp⟩ ℓ _ β L)
 
 /-- **`G7LocalPackK` from `G7LocalPackR`, the leaf I2-Tors and `p ≠ ℓ` on `P` (proved).** -/
 theorem g7LocalPackK_of_R (hTors : ObjBridge.TorsionStructure) {ℓ : ℕ} [Fact ℓ.Prime]
@@ -84,7 +84,7 @@ theorem g7LocalPackK_of_R (hTors : ObjBridge.TorsionStructure) {ℓ : ℕ} [Fact
   refine ⟨K, _, _, A, Tm, c, ε, a, β, u, L, h7, h8, hC, hK, fun p hp hP => ?_⟩
   have : Fact p.Prime := ⟨hp⟩
   obtain ⟨hR, hO, h2⟩ := hloc p hp hP
-  refine ⟨fun h7p => ?_, fun h5 => ?_, fun h2' => (h2 h2').2⟩
+  refine ⟨fun h7p => ?_, fun h5 => ?_, fun h2' => G15Ram.betaUpper_of_twist hC (h2 h2').2⟩
   · obtain ⟨hR3, hR7⟩ := hR h7p
     exact G15Ram.torsFixWild_of_raynaud (Ne.symm (hPℓ p hP)) h7p
       (G15Ram.wildIter_of_ptFinite hPt) (G15Ram.torsGL_of_leaf hTors A h7.1 3 (by norm_num))
