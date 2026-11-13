@@ -63,3 +63,9 @@ Task period-map (2026-11-13). Base 322303a2. Targets: `PeriodMapGlue`, `Hauptmod
   CPts uniformization; `HolomorphicP1On` ⇒ `IsHolP1At` + continuity; r1b-state's `q3_form_of_R1bProps` and
   `r1bProps_of_leaf` do the holomorphy and transfer steps). Not compiled across the two files (different AbVar layers:
   build modules vs the ThetaPoint scratch copy).
+- gen_check.py (gen_check_out.txt): order-4 elliptic generator 1+i+j (nrd 2, fixes √2+i) ratio 1.0 at two points;
+  PSL2 orders: μ 2, 1+i+j 4, j(1+j)/2 6. VERIFIED numerically.
+- verbatim_check.py: PkgI1 block and the 6 part_fqm defs in light_base.lean are verbatim. VERIFIED.
+- run_light_full: `lake env lean scratch/period-map/PMLight.lean` (light_base + part_light): 0 errors, 9s, 9 axioms lines
+  standard. VERIFIED.
+- Report docs/research/period-map.md written.
