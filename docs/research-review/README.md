@@ -10,6 +10,21 @@ Until then:
 - Objections and repairs follow the [audit-history protocol](../audit-history/PROTOCOL.md).
 - Lean contributions follow the [Lean contribution policy](../lean-contributions.md).
 
+## Prepared Protocol B gate
+
+The inactive gate under review is documented in the
+[setup and test checklist](protocol-b-setup.md). Once activated, only
+`Protocol B / review` issued by the designated GitHub App will satisfy the
+review requirement. A GitHub Actions job with the same name will not count.
+The App is a check-publishing identity used by this repository's workflow;
+there is no separate controller or local runner.
+
+Mathematical changes require both approved model judgments. A current
+collaborator can explicitly override a completed-review deadlock, with a reason
+and a recorded downgrade to not outside reviewed. Such a decision does not
+repair the mathematics. Tests, source-access limitations and exact commands
+are described in the checklist. This documentation does not activate the gate.
+
 ## Earlier review policy
 
 Releases through Version 17 were reviewed under the project's earlier review protocol. Its texts are retained here as historical policy: [version 1.4](PROTOCOL.md), [version 1.3](protocol-v1.3.md), [version 1.2](protocol-v1.2.md) and [version 1.1](protocol-v1.1.md), with the [Astra acceptance policy](ASTRA-REVIEW-POLICY.md) and the [version 1.4 adoption record](ADOPTION-V1.4.md). Those releases and their review records keep their original standard and scope.
