@@ -17,3 +17,16 @@ Base: 2dd83306 + merges of origin/wip/qm-pin, origin/wip/mobius-glue (g0-thetapo
 - run_base (05:30): `FQMBase.lean` (20634 lines) 0 errors, 2m52s. VERIFIED.
 - run_dev1: errors (`γ` is a token in this context; `*ᵥ` needs `open Matrix`). Fixed.
 - run_dev2 (05:37): `Dev.lean` 0 errors, 4.8s; 9 `#print axioms` all `[propext, Classical.choice, Quot.sound]`. VERIFIED.
+
+## Numerical check of `QMDenZeroCM3` (`py/psi4_zeros.py`, output `py/psi4_zeros_out.txt`, mpmath 40 digits)
+- S = Σ_{even} θ_m⁸ ∘ Ω, P = ∏_{even} θ_m² ∘ Ω. With dF(τ) = (τ−3)(τ+1) (∝ det F'(τ), QMLattice.det_Fp):
+  |S(γτ)/S(τ)| = |cτ+d|⁸ |dF(τ)/dF(γτ)|⁴ and |P(γτ)/P(τ)| = |cτ+d|²⁰ |dF(τ)/dF(γτ)|¹⁰ to ≥ 9 digits for
+  γ = ι((1+j)/2), ι(i+j), ι(3+2i) at τ = 0.3+1.1i, −0.7+0.9i. So S·dF⁴, P·dF¹⁰ have weight 8, 20 for Γ*
+  (absolute values; 6 samples). VERIFIED numerically.
+- Vanishing orders in τ: CM −3 (τ = i√3): ord S = 2, ord P = 2; CM −4 (τ = √2+i): ord S = 0, ord P = 2;
+  CM −24 (τ = 4.18154…i): both 0. VERIFIED numerically (log-ratio estimates 1.9999, 1.9987).
+- Valence formula for Γ* of signature (0; 2, 4, 6) (Baba–Granath §3.1, as quoted in the file; STANDARD formula
+  Σ ord_P/e_P = (k/2)(2g−2+Σ(1−1/e)) = k/24): weight 8 → 1/3 = 2/6, exhausted by the order-2 zero at the
+  order-6 point P₋₃; weight 20 → 5/6 = 2/6 + 2/4. Hence S∘Ω has no zero on ℍ outside the Γ*-orbit of P₋₃,
+  i.e. `QMDenZeroCM3` holds given the signature, the weight and the order 2 (argued; SPECULATIVE only in
+  that the weight and the orders are numerical, not proved).
