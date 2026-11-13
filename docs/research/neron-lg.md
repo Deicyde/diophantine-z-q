@@ -4,7 +4,7 @@ Status: research note (task neron-lg, 2026-11-13).
 
 - **Lean:** `scratch/neron-lg/NeronLG.lean` (about 1300 lines). It imports only
   `ZInQKernel.HDecomp.Faltings.H5BaseChange` and was checked with `lake env lean`. It has no `sorry`
-  and no `axiom`. All 20 `#print axioms` list only `propext`, `Classical.choice` and `Quot.sound`
+  and no `axiom`. All 22 `#print axioms` list only `propext`, `Classical.choice` and `Quot.sound`
   (VERIFIED).
 - **Results log:** `scratch/neron-lg/log.md`.
 - **Statements under study:** the two glue Props of task tau-n1n2 (`scratch/tau-n1n2/N1N2.lean`,
@@ -33,6 +33,10 @@ memory (there is no network).
    **A sixth glue piece is proved.** N2-g1' (`GoodPlaceAnyField`: at a place where `A` has an
    abelian-scheme model, no field extension is needed) is a Lean theorem from the leaf N1-ab
    (`goodPlaceAnyField`, §4).
+
+   **Alternatively** (§4b), the glue N2-g2 can be removed by stating tau-n1n2's local leaf N2-loc
+   with persistence under field extension built in (N2-loc⁺; same sources, SGA 7 IX 3.6 + 3.3).
+   That leaves four glue statements (`h5neron_n1_n2_of_leaves_and_glue_mono`).
 
    The commutative-algebra and combinatorial parts of the old glue are Lean proofs:
    - the finite subcover;
@@ -181,6 +185,28 @@ The data: the abelian scheme `𝒜` over `R = Localization.Away f`, with `R → 
    the projections to `𝒩₀`. That compatibility is `genSq_compat` with `bcA_proj`, which rest on
    `pbCompInv_fst`, `pbCompHom_fst`, `pbEq_fst` and `pbMap_fst`.
 
+## 4b. Alternative: N2-loc⁺ instead of N2-loc and N2-g2
+
+`LocalSemistableIdentityComponentMono` (N2-loc⁺) says: for `A` over `K` and a DVR `O ⊂ K` there is
+`L₀` such that `LocalSemistableWith A O L₁` holds for **every** finite `L₁ ⊇ L₀`, not only for
+`L₀`. Sources and argument:
+- SGA 7 IX Thm 3.6 gives semistable reduction over some `L₀` at the places above `O`.
+- Prop./Cor. 3.3 says semistable reduction persists under any further extension, and that the
+  identity components of the Néron models then base-change.
+- So the canonical choice `U = 𝒩'⁰ ≅ (𝒩₁⁰)_{O'}` works over every `L₁ ⊇ L₀`.
+
+Locators UNVERIFIED. Proved consequences (VERIFIED):
+- N2-loc⁺ implies tau-n1n2's N2-loc (`localSemistableIdentityComponent_of_mono`, taking
+  `L₁ = L₀`).
+- With N2-loc⁺ the compositum argument needs no N2-g2 (`semistableCommonField_mono`).
+- `h5neron_n1_n2_of_leaves_and_glue_mono` proves the build's N1 ∧ N2 from:
+  - the leaves N1-loc, N1-ab, N2-loc⁺ and NL;
+  - the four glue statements N1-g1, N1-g2 (bad primes), N1-g3 and N2-g3.
+
+Which form to adopt is the owner's choice. N2-loc⁺ is closer to how SGA 7 IX is used in practice
+("after a finite extension, A has semistable reduction"). N2-loc plus N2-g2 keeps the leaf weaker
+and moves the persistence argument into glue.
+
 ## 5. What remains
 
 - **Leaves** (literature):
@@ -203,7 +229,8 @@ The data: the abelian scheme `𝒜` over `R = Localization.Away f`, with `R → 
 **Integration suggestion.**
 1. Add `NeronLocalOnBase` to `TextbookLeaves`.
 2. Replace tau-n1n2's `NeronLocalToGlobal` and `SemistableLocalToGlobal` in `GluePieces` by the
-   five glue Props here. Then `n1_n2_of_leaves_and_glue''` supplies `t41` (N1) and N2.
+   five glue Props here. Then `h5neron_n1_n2_of_leaves_and_glue` supplies `t41` (N1) and N2.
+   Alternatively, use N2-loc⁺ and four glue Props (`h5neron_n1_n2_of_leaves_and_glue_mono`).
 3. §1, §5 and the start of §6 of `NeronLG.lean` copy tau-n1n2's statements and lemmas verbatim, so
    after adoption they can be replaced by the originals.
 4. The pasting lemmas of §6 (`pbCompInv_fst`, `genSq`, `bcA_proj`) are general and could go into
