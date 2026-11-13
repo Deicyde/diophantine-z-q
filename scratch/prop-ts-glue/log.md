@@ -52,3 +52,14 @@ Task: reduce `PropTSRed.SpecNonMeeting`, `PropTSRed.KummerMeetGlue`, `PropTSRed.
   `specNonMeeting_of_pieces'' : PurityGlobalDim2 → SNVertical → SNHorizontalTransfer →
   SNSpecialize → SpecNonMeeting`. Composite `propTSAll_of_pieces` updated.
 - Compile: 0 errors, 21 PropTSGlue axiom lines all standard; prefix IDENTICAL (VERIFIED).
+
+## Step 5 (09:00): witness form of CoverModelOfHecke; sanity examples, compiled
+- `functionFieldModel_transfer`, `coverModel_transfer` (along `Pin.SameTripleMor`, via prop-ts's
+  `residueImage_comp_eq_of_pt`), `CoverModelWitness` (glue: one triple with R1fp, R1hecke, R2fp
+  and a cover model), `coverModelOfHecke_of_witness : MobiusGlue → R1R2fp → CoverModelWitness →
+  CoverModelOfHecke`.
+- Sanity `example`s: the binders of SNSpecialize, SNVertical, SNHorizontalTransfer,
+  KummerCompositum, KummerAbhyankarFin, KummerOtherBranchFin, KummerVerticalFin accept the
+  genuine `RatFunc ℚ` (elaborates).
+- Compile: 0 errors, 24 PropTSGlue axiom lines all standard; prefix IDENTICAL (VERIFIED).
+- Independent review agent launched (read-only, no Lean) on the truth of the open Props.

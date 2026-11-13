@@ -942,6 +942,51 @@ theorem coverModelOfHecke_of_pieces (hN : HeckeNormalization) (hD : HeckeDegree)
     (hB : HeckeBranch) (hV : HeckeNoVertRam) : CoverModelOfHecke :=
   fun Y Φ π h1 hh h2 => coverModel_of_N (coverModelOfHeckeN_of_pieces hN hD hB hV Y Φ π h1 hh h2)
 
+/-! ### Only one triple needs a cover model -/
+
+/-- **`FunctionFieldModel` transfers along the comparison of triples** (`Pin.SameTripleMor`; the
+argument of prop-ts's `propTS_transfer`). -/
+theorem functionFieldModel_transfer {Y Y' : Over (Spec (CommRingCat.of ℚ))} {Φ : PtEquiv Y}
+    {Φ' : PtEquiv Y'} {π : ToP1 Y.left} {π' : ToP1 Y'.left}
+    (hS : Pin.SameTripleMor Y Y' Φ Φ' π π') (E : Type) [Field E] [Algebra ℚ[X] E]
+    (h : FunctionFieldModel Y π E) : FunctionFieldModel Y' π' E := by
+  obtain ⟨g, hΦ, hπ⟩ := hS
+  intro t y' hπ'
+  obtain ⟨𝔓, hP, hU, φ, hres⟩ := h t (y' ≫ g) ((hπ y').symm.trans hπ')
+  exact ⟨𝔓, hP, hU, φ, (residueImage_comp_eq_of_pt g hΦ y').symm.trans hres⟩
+
+/-- `CoverModel` transfers along the comparison of triples. -/
+theorem coverModel_transfer {Y Y' : Over (Spec (CommRingCat.of ℚ))} {Φ : PtEquiv Y}
+    {Φ' : PtEquiv Y'} {π : ToP1 Y.left} {π' : ToP1 Y'.left}
+    (hS : Pin.SameTripleMor Y Y' Φ Φ' π π') (h : CoverModel Y π) : CoverModel Y' π' := by
+  obtain ⟨E, i1, i2, i3, i4, i5, i6, hM, hB, hV⟩ := h
+  exact ⟨E, i1, i2, i3, i4, i5, i6, functionFieldModel_transfer hS E hM, hB, hV⟩
+
+/-- **The witness form of `CoverModelOfHecke`** (glue): some triple satisfying the leaf clause
+lists R1fp, R1hecke, R2fp has a cover model. (For the leaf's own triple from `R1R2fp_Y`.) -/
+def CoverModelWitness : Prop :=
+  ∃ (Y : Over (Spec (CommRingCat.of ℚ))) (Φ : PtEquiv Y) (π : ToP1 Y.left),
+    R1fpProps Y Φ ∧ R1heckeProps Y Φ ∧ R2fpProps Y Φ π ∧ CoverModel Y π
+
+/-- **`CoverModelOfHecke` from one witness** (compiled): with the kernel's `MobiusGlue` and the
+bundle leaf `R1R2fp`, a cover model for one triple gives one for every triple. -/
+theorem coverModelOfHecke_of_witness (hM : Pin.MobiusGlue) (hR : R1R2fp)
+    (hW : CoverModelWitness) : CoverModelOfHecke := by
+  obtain ⟨Y₀, Φ₀, π₀, h1, -, h2, hC⟩ := hW
+  exact fun _ _ _ h1' _ h2' =>
+    coverModel_transfer (Pin.sameTripleMor_of_mobius hM (Pin.cm_objects_of_R1R2fp hR) h1 h2 h1' h2')
+      hC
+
+/-! ### Sanity: the binders of the new Props are satisfiable by genuine objects -/
+
+example (h : SNSpecialize) := h (RatFunc ℚ)
+example (h : SNVertical) := h (RatFunc ℚ)
+example (h : SNHorizontalTransfer) := h (RatFunc ℚ)
+example (h : KummerCompositum) := h (RatFunc ℚ)
+example (h : KummerAbhyankarFin) := h (RatFunc ℚ) (RatFunc ℚ) (RingHom.id _)
+example (h : KummerOtherBranchFin) := h (RatFunc ℚ) (RatFunc ℚ) (RingHom.id _)
+example (h : KummerVerticalFin) := h (RatFunc ℚ) (RatFunc ℚ) (RingHom.id _)
+
 /-! ## Part D: the composite -/
 
 /-- **`PropTSAll` from the bundle leaves T2 and `R1R2fp`, the kernel glue `MobiusGlue`, purity
@@ -981,3 +1026,6 @@ end
 #print axioms PropTSGlue.coverModelOfHeckeN_of_pieces
 #print axioms PropTSGlue.coverModelOfHecke_of_pieces
 #print axioms PropTSGlue.propTSAll_of_pieces
+#print axioms PropTSGlue.functionFieldModel_transfer
+#print axioms PropTSGlue.coverModel_transfer
+#print axioms PropTSGlue.coverModelOfHecke_of_witness
