@@ -637,6 +637,44 @@ theorem sub_mem_maximalIdeal_sq_of_product (φ₁ φ₂ : O →+* R) (ψ₁ ψ�
 
 end IsLocalRing
 
+/-! ## metrization: `ProductHodgeCompat` split into an algebraic and an analytic Prop
+
+`pullGerm φ : 𝒪_{ℋ,ξ} → 𝒪_{𝒢,ξ}` (pull-back of germs along a homomorphism of group models; it
+needs `φ(ξ_𝒢) = ξ_ℋ`, proved from `IsMonHom`). `ProductHodgeLattice` (algebra: `s = p₁*s₁ ∧ p₂*s₂`
+lies in the lattice with multiplicative index) and `ProductJacobian` (analysis: block-diagonal
+Jacobian) give `ProductHodgeCompat` (with `ProductUniformization`). -/
+
+namespace ZInQ.Metrization
+
+open CategoryTheory AlgebraicGeometry Limits MonoidalCategory CartesianMonoidalCategory MonObj
+open NumberField DefFaltings
+open PkgI3 (AbVar)
+
+section Pull
+
+variable {K : Type} [Field K] {A C : AbVar K} {L : Type} [Field L] [NumberField L] [Algebra K L]
+
+/-- A homomorphism of group models maps the identity `ξ` of the generic fibre to `ξ` (proved). -/
+theorem map_genericUnit_of_isMonHom {𝒢 : GroupModel C L} {ℋ : GroupModel A L} (φ : 𝒢.G ⟶ ℋ.G)
+    [IsMonHom φ] : φ.left 𝒢.genericUnit = ℋ.genericUnit := by
+  have h1 : η[𝒢.G] ≫ φ = η[ℋ.G] := IsMonHom.one_hom φ
+  have h2 : (η[𝒢.G]).left ≫ φ.left = (η[ℋ.G]).left := by rw [← Over.comp_left, h1]
+  show φ.left ((η[𝒢.G]).left (genericPt L)) = (η[ℋ.G]).left (genericPt L)
+  rw [← h2]
+  rfl
+
+/-- Pull-back of germs at `ξ` along a homomorphism of group models: `𝒪_{ℋ,ξ} → 𝒪_{𝒢,ξ}`. -/
+noncomputable def pullGerm {𝒢 : GroupModel C L} {ℋ : GroupModel A L} (φ : 𝒢.G ⟶ ℋ.G)
+    [IsMonHom φ] : ℋ.genStalk ⟶ 𝒢.genStalk :=
+  ℋ.G.left.presheaf.stalkSpecializes
+      ((congrArg (fun x => x ⤳ ℋ.genericUnit) (map_genericUnit_of_isMonHom φ)).mpr
+        specializes_rfl) ≫
+    φ.left.stalkMap 𝒢.genericUnit
+
+end Pull
+
+end ZInQ.Metrization
+
 
 /-! # unif-dims: toward `ProductCotangent` — cotangent maps of unit-preserving morphisms -/
 
@@ -1062,3 +1100,94 @@ end ZInQ.UnifDims
 #print axioms ZInQ.UnifDims.cotMap_id
 #print axioms ZInQ.UnifDims.omega_map_le
 #print axioms ZInQ.UnifDims.cot_decomp
+
+/-! ## unif-dims: `ProductCotangent`, proved -/
+
+namespace ZInQ.UnifDims
+
+open CategoryTheory AlgebraicGeometry Limits MonoidalCategory CartesianMonoidalCategory MonObj
+open NumberField ZInQ.DefFaltings
+open PkgI3 (AbVar)
+
+/-- **`ProductCotangent`, proved** (the statement is the body of `ZInQ.UnifDims.ProductCotangent`).
+`jᵢ` is the cotangent map of the projection `pᵢ`; the retractions are the cotangent maps of
+`x ↦ (x, 1)` and `y ↦ (1, y)`; `cot_decomp` gives surjectivity, the retractions injectivity, and
+`omega_map_le` (functoriality of `ω`) the lattice. -/
+theorem productCotangent_aux :
+  ∀ (K : Type) [Field K] (A B C : AbVar K) (L : Type) [Field L] [NumberField L] [Algebra K L]
+    (𝒢P : GroupModel C L) (𝒢₁ : GroupModel A L) (𝒢₂ : GroupModel B L)
+    (e : 𝒢P.G ≅ 𝒢₁.G ⊗ 𝒢₂.G) (hfst : IsMonHom (e.hom ≫ fst _ _))
+    (hsnd : IsMonHom (e.hom ≫ snd _ _)),
+    ∃ (j₁ : 𝒢₁.cotangent →ₗ[𝓞 L] 𝒢P.cotangent) (j₂ : 𝒢₂.cotangent →ₗ[𝓞 L] 𝒢P.cotangent),
+      (∀ f : IsLocalRing.maximalIdeal 𝒢₁.genStalk,
+        ∃ h : (ZInQ.Metrization.pullGerm (e.hom ≫ fst _ _)).hom (f : 𝒢₁.genStalk) ∈
+          IsLocalRing.maximalIdeal 𝒢P.genStalk, j₁ (𝒢₁.dCls f) = 𝒢P.dCls ⟨_, h⟩) ∧
+      (∀ f : IsLocalRing.maximalIdeal 𝒢₂.genStalk,
+        ∃ h : (ZInQ.Metrization.pullGerm (e.hom ≫ snd _ _)).hom (f : 𝒢₂.genStalk) ∈
+          IsLocalRing.maximalIdeal 𝒢P.genStalk, j₂ (𝒢₂.dCls f) = 𝒢P.dCls ⟨_, h⟩) ∧
+      Function.Bijective (LinearMap.coprod j₁ j₂) ∧
+      𝒢P.omega = 𝒢₁.omega.map j₁ ⊔ 𝒢₂.omega.map j₂ := by
+  intro K _ A B C L _ _ _ 𝒢P 𝒢₁ 𝒢₂ e hfst hsnd
+  set j₁ := cotMap 𝒢P 𝒢₁ _ (hp₁ 𝒢P 𝒢₁ 𝒢₂ e) with hj₁
+  set j₂ := cotMap 𝒢P 𝒢₂ _ (hp₂ 𝒢P 𝒢₁ 𝒢₂ e) with hj₂
+  set ψ₁ := cotMap 𝒢₁ 𝒢P _ (hi₁ 𝒢P 𝒢₁ 𝒢₂ e) with hψ₁
+  set ψ₂ := cotMap 𝒢₂ 𝒢P _ (hi₂ 𝒢P 𝒢₁ 𝒢₂ e) with hψ₂
+  have r11 : ∀ a, ψ₁ (j₁ a) = a := by
+    intro a
+    obtain ⟨f, rfl⟩ := (IsLocalRing.maximalIdeal 𝒢₁.genStalk).toCotangent_surjective a
+    change ψ₁ (j₁ (𝒢₁.dCls f)) = 𝒢₁.dCls f
+    rw [hψ₁, hj₁, cotMap_dCls, cotMap_dCls]
+    congr 1
+    exact Subtype.ext (germ_retract₁ 𝒢P 𝒢₁ 𝒢₂ e f)
+  have r22 : ∀ a, ψ₂ (j₂ a) = a := by
+    intro a
+    obtain ⟨f, rfl⟩ := (IsLocalRing.maximalIdeal 𝒢₂.genStalk).toCotangent_surjective a
+    change ψ₂ (j₂ (𝒢₂.dCls f)) = 𝒢₂.dCls f
+    rw [hψ₂, hj₂, cotMap_dCls, cotMap_dCls]
+    congr 1
+    exact Subtype.ext (germ_retract₂ 𝒢P 𝒢₁ 𝒢₂ e f)
+  have r12 : ∀ c, ψ₁ (j₂ c) = 0 := by
+    intro c
+    obtain ⟨f, rfl⟩ := (IsLocalRing.maximalIdeal 𝒢₂.genStalk).toCotangent_surjective c
+    change ψ₁ (j₂ (𝒢₂.dCls f)) = 0
+    rw [hψ₁, hj₂, cotMap_dCls, cotMap_dCls]
+    have h0 : (⟨_, map_nonunit _ _ (map_nonunit _ _ f.2)⟩ :
+        IsLocalRing.maximalIdeal 𝒢₁.genStalk) = 0 :=
+      Subtype.ext (germ_cross₁₂ 𝒢P 𝒢₁ 𝒢₂ e f f.2)
+    exact (congrArg (IsLocalRing.maximalIdeal 𝒢₁.genStalk).toCotangent h0).trans (map_zero _)
+  have r21 : ∀ a, ψ₂ (j₁ a) = 0 := by
+    intro a
+    obtain ⟨f, rfl⟩ := (IsLocalRing.maximalIdeal 𝒢₁.genStalk).toCotangent_surjective a
+    change ψ₂ (j₁ (𝒢₁.dCls f)) = 0
+    rw [hψ₂, hj₁, cotMap_dCls, cotMap_dCls]
+    have h0 : (⟨_, map_nonunit _ _ (map_nonunit _ _ f.2)⟩ :
+        IsLocalRing.maximalIdeal 𝒢₂.genStalk) = 0 :=
+      Subtype.ext (germ_cross₂₁ 𝒢P 𝒢₁ 𝒢₂ e f f.2)
+    exact (congrArg (IsLocalRing.maximalIdeal 𝒢₂.genStalk).toCotangent h0).trans (map_zero _)
+  have dec : ∀ x, x = j₁ (ψ₁ x) + j₂ (ψ₂ x) := cot_decomp 𝒢P 𝒢₁ 𝒢₂ e
+  refine ⟨j₁, j₂, fun f => ⟨map_nonunit (germMap 𝒢P 𝒢₁ _ (hp₁ 𝒢P 𝒢₁ 𝒢₂ e)) _ f.2, ?_⟩,
+    fun f => ⟨map_nonunit (germMap 𝒢P 𝒢₂ _ (hp₂ 𝒢P 𝒢₁ 𝒢₂ e)) _ f.2, ?_⟩,
+    ⟨?_, ?_⟩, ?_⟩
+  · rw [hj₁, cotMap_dCls]; rfl
+  · rw [hj₂, cotMap_dCls]; rfl
+  · rintro ⟨a, c⟩ ⟨a', c'⟩ h
+    simp only [LinearMap.coprod_apply] at h
+    have h1 := congrArg ψ₁ h
+    have h2 := congrArg ψ₂ h
+    simp only [map_add, r11, r12, r21, r22, add_zero, zero_add] at h1 h2
+    rw [h1, h2]
+  · intro x
+    exact ⟨(ψ₁ x, ψ₂ x), by rw [LinearMap.coprod_apply]; exact (dec x).symm⟩
+  · refine le_antisymm (fun x hx => ?_) (sup_le ?_ ?_)
+    · rw [dec x]
+      exact Submodule.add_mem_sup
+        (Submodule.mem_map_of_mem (omega_map_le 𝒢₁ 𝒢P _ (eta_inc₁ 𝒢P 𝒢₁ 𝒢₂ e)
+          (hi₁ 𝒢P 𝒢₁ 𝒢₂ e) (Submodule.mem_map_of_mem hx)))
+        (Submodule.mem_map_of_mem (omega_map_le 𝒢₂ 𝒢P _ (eta_inc₂ 𝒢P 𝒢₁ 𝒢₂ e)
+          (hi₂ 𝒢P 𝒢₁ 𝒢₂ e) (Submodule.mem_map_of_mem hx)))
+    · exact omega_map_le 𝒢P 𝒢₁ _ (IsMonHom.one_hom _) (hp₁ 𝒢P 𝒢₁ 𝒢₂ e)
+    · exact omega_map_le 𝒢P 𝒢₂ _ (IsMonHom.one_hom _) (hp₂ 𝒢P 𝒢₁ 𝒢₂ e)
+
+end ZInQ.UnifDims
+
+#print axioms ZInQ.UnifDims.productCotangent_aux
