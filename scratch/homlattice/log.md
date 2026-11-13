@@ -39,3 +39,13 @@
   t11a_riemannEnd_of_leaf_map (UniformizationLeafAll ∧ AnalyticMapAlgebraic ⇒ T11a_RiemannEnd).
 - `lake env lean scratch/homlattice/HomLattice.lean`: exit 0; 29 `#print axioms`, all
   [propext, Classical.choice, Quot.sound]; 0 sorryAx. VERIFIED.
+
+## Step 5 (14:00): general σ from the σ-form of AN3
+- New: `IsStrongUnif A σ Λ φ` (bp-analytic's IsUniformization field by field, with cEvalAt/CPts A σ
+  and K-regular functions), `StrongUniformizationExists` (all K, all σ).
+- Proved: continuous_symm_comp_strong, exists_complexLinear_of_analytic_strong,
+  analyticHomLift_of_strong, homLinearLift_of_strong, homLatticeCorr_of_strong_map
+  (StrongUniformizationExists ∧ AnalyticMapAlgebraic ⇒ HomLatticeCorr), isStrongUnif_of_bp,
+  strong_id_of_leaf (UniformizationLeafAll ⇒ the K = ℂ, σ = id instance).
+- `lake env lean scratch/homlattice/HomLattice.lean`: exit 0; 36 `#print axioms`, all
+  [propext, Classical.choice, Quot.sound]; 0 sorryAx. VERIFIED.
