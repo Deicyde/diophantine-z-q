@@ -500,7 +500,8 @@ theorem pow_fix_mono {G X : Type*} [Group G] [MulAction G X] {g : G} {x : X} {q 
 `σ^{pᵃ}` fixes the normal closure of `ℚ_p(embP y)` (`exists_pow_fix_of_wild`), so
 `decomp(σ^{pᵃ})` fixes `y` (`decomp_spec`), and `σ'^{pᵃ} x = qEmb(decomp(σ^{pᵃ}) y) = x`
 (`resQ_spec`). -/
-theorem wild_pow_fix_elem {σ : GQp p} (hσ : σ ∈ wildSet) {σ' : Field.absoluteGaloisGroup K}
+theorem wild_pow_fix_elem {σ : GQp p} (hσ : σ ∈ wildSet)
+    {σ' : AlgebraicClosure K ≃ₐ[K] AlgebraicClosure K}
     (hσ' : G0Galois.resQ K σ' = decomp p σ) (x : AlgebraicClosure K) :
     ∃ a : ℕ, (σ' ^ (p ^ a)) x = x := by
   obtain ⟨y, rfl⟩ := qEmbRing_surjective K x
@@ -518,27 +519,31 @@ theorem wild_pow_fix_elem {σ : GQp p} (hσ : σ ∈ wildSet) {σ' : Field.absol
     apply (embP (p := p)).injective
     rw [decomp_spec]
     exact ha _ hyE
-  have h1 := G0Galois.resQ_spec K (σ' ^ (p ^ a)) y
-  rw [map_pow, hσ', ← map_pow, hdec] at h1
+  have h1 : G0Galois.qEmbRing K (G0Galois.resQ K (σ' ^ (p ^ a)) y) =
+      (σ' ^ (p ^ a)) (G0Galois.qEmbRing K y) := G0Galois.resQ_spec K _ y
+  have hpow : G0Galois.resQ K (σ' ^ (p ^ a)) = (G0Galois.resQ K σ') ^ (p ^ a) := map_pow _ _ _
+  rw [hpow, hσ', ← map_pow, hdec] at h1
   exact h1.symm
 
 /-- **A wild `σ'` has `p`-power period on each finite `F ⊆ K̄` over `K` (proved)**, from
 `wild_pow_fix_elem` on a basis. -/
-theorem wild_pow_fix_field {σ : GQp p} (hσ : σ ∈ wildSet) {σ' : Field.absoluteGaloisGroup K}
+theorem wild_pow_fix_field {σ : GQp p} (hσ : σ ∈ wildSet)
+    {σ' : AlgebraicClosure K ≃ₐ[K] AlgebraicClosure K}
     (hσ' : G0Galois.resQ K σ' = decomp p σ) (F : IntermediateField K (AlgebraicClosure K))
     [FiniteDimensional K F] : ∃ a : ℕ, ∀ x ∈ F, (σ' ^ (p ^ a)) x = x := by
   set b := Module.finBasis K F
   choose c hc using fun i => wild_pow_fix_elem hσ hσ' ((b i : F) : AlgebraicClosure K)
   refine ⟨∑ i, c i, fun x hx => ?_⟩
   have hb : ∀ i, (σ' ^ (p ^ (∑ i, c i))) ((b i : F) : AlgebraicClosure K) = b i := fun i =>
-    pow_fix_mono (G := Field.absoluteGaloisGroup K) (hc i)
+    pow_fix_mono (G := AlgebraicClosure K ≃ₐ[K] AlgebraicClosure K) (hc i)
       (Finset.single_le_sum (fun j _ => Nat.zero_le (c j)) (Finset.mem_univ i))
   have hx' : x = ∑ i, (b.repr ⟨x, hx⟩ i) • ((b i : F) : AlgebraicClosure K) := by
-    have := congrArg Subtype.val (b.sum_repr ⟨x, hx⟩).symm
-    simpa using this
+    have h := congrArg (fun z : F => (z : AlgebraicClosure K)) (b.sum_repr ⟨x, hx⟩).symm
+    simp only [IntermediateField.coe_sum, IntermediateField.coe_smul] at h
+    exact h
   rw [hx', map_sum]
   refine Finset.sum_congr rfl fun i _ => ?_
-  rw [map_smul, hb i]
+  rw [Algebra.smul_def, map_mul, AlgEquiv.commutes, hb i, ← Algebra.smul_def]
 
 /-- **Glue (Mathlib-level): `K̄`-points are defined over finite extensions.** Every
 `P ∈ A(K̄)` is fixed by `G_F` for a finite `F ⊆ K̄` over `K` (a `K̄`-point of a scheme of finite
@@ -553,8 +558,9 @@ def PtFinite (A : PkgI3.AbVar K) : Prop :=
 theorem wildIter_of_ptFinite {A : PkgI3.AbVar K} (h : PtFinite A) : WildIter (p := p) A := by
   intro σ hσ σ' hσ' P
   obtain ⟨F, hF, hP⟩ := h P
-  obtain ⟨a, ha⟩ := wild_pow_fix_field hσ hσ' F
-  exact ⟨a, by rw [galAct_iterate]; exact hP _ ha⟩
+  obtain ⟨a, ha⟩ := wild_pow_fix_field (σ' := σ') hσ hσ' F
+  have hit := galAct_iterate A σ' P (p ^ a)
+  exact ⟨a, hit.trans (hP _ ha)⟩
 
 /-- **`TorsFixWild` at `p ≥ 7`, `p ≠ ℓ`, from `WildIter`, I2-Tors and Raynaud at the place
 (proved).** `m = 3` (`m = 7` if `p = 13`): the wild `σ'` fixes `A[m]`

@@ -67,3 +67,20 @@
 - Pitfall: with `open MonObj`, `one_mul` resolves to `MonObj.one_mul`; use `_root_.one_mul`.
   `galHom_mul` rewrites need `σ : AlgebraicClosure K ≃ₐ[K] _`, not `Field.absoluteGaloisGroup K`.
 - Compile: exit 0, 0 errors, no sorry; all 14 printed declarations standard axioms.
+
+## Step 5 (07:12-07:21 PST): WildIter from PtFinite; file split
+- Files: part_glue.lean (§6 reduction, §7 torsion), part_pack.lean (§8 packs, with the verbatim
+  `G8LocalPack` between `-- BEGIN/END verbatim copy` markers), galois_block.lean (verbatim
+  part_galois.lean l.40-58: `qEmbRing`, `qEmb`, `resQ_spec`; made by mk_galois_block.sh).
+- Proved (VERIFIED, compiled, axioms standard): `galAct_galAct`, `galAct_iterate`;
+  `qEmbRing_surjective` (ℚ̄ → K̄ onto: `IsAlgClosed.ringHom_bijective_of_isIntegral`,
+  `RingHom.IsIntegral.tower_top`, `Algebra.IsIntegral.trans K`); `pow_fix_mono`;
+  `wild_pow_fix_elem` (wild σ', x ∈ K̄ ⇒ ∃ a, σ'^{p^a} x = x; via exists_pow_fix_of_wild on the
+  normal closure of ℚ_p(embP y), decomp_spec, resQ_spec); `wild_pow_fix_field` (finite F/K, basis);
+  `wildIter_of_ptFinite : PtFinite A → WildIter A`; `tateWildK_of_leaves'` (I2-Tors, dim A = 2,
+  PtFinite, RaynaudPlace A 3, RaynaudPlace A 7 ⇒ TateWildK, p ≥ 7, p ≠ ℓ).
+- New named glue: `PtFinite A` (K̄-points defined over finite extensions; Mathlib-level).
+- Compile: `lake env lean scratch/local-glue/LocalGlue.lean` exit 0, 0 errors, no sorry;
+  45 `#print axioms` lines (27 from LocalData.lean + 18 new), all [propext, Classical.choice,
+  Quot.sound].
+- `lake build` of local-data's Tail.lean imports: ok (9561 jobs).

@@ -2535,6 +2535,36 @@ end G15Ram
 #print axioms G15Ram.g7Clauses_triv
 #print axioms G15Ram.localGlue_triv
 
+
+/-! ## §5' (local-glue). Verbatim copy from scratch/g0-mod-galois/part_galois.lean lines 40-58 -/
+
+noncomputable section
+
+namespace G0Galois
+
+
+/-- The embedding `ℚ̄ → K̄` that `Field.absoluteGaloisGroup.map` chooses (`IsAlgClosed.lift`). -/
+def qEmbRing (K : Type) [Field K] [NumberField K] : AlgebraicClosure ℚ →+* AlgebraicClosure K :=
+  letI : Algebra ℚ K := (algebraMap ℚ K).toAlgebra
+  (IsAlgClosed.lift : AlgebraicClosure ℚ →ₐ[ℚ] AlgebraicClosure K).toRingHom
+
+/-- `qEmbRing` as a `ℚ`-algebra map (the `i` of g0-mod-newform's `ModData`). -/
+def qEmb (K : Type) [Field K] [NumberField K] : AlgebraicClosure ℚ →ₐ[ℚ] AlgebraicClosure K :=
+  (qEmbRing K).toRatAlgHom
+
+/-- `qEmb K ∘ resQ K τ = τ ∘ qEmb K` (Mathlib's `restrictNormal_commutes`, unfolding `map`). -/
+lemma resQ_spec (K : Type) [Field K] [NumberField K]
+    (τ : AlgebraicClosure K ≃ₐ[K] AlgebraicClosure K) (x : AlgebraicClosure ℚ) :
+    qEmbRing K (resQ K τ x) = τ (qEmbRing K x) := by
+  letI : Algebra ℚ K := (algebraMap ℚ K).toAlgebra
+  letI : Algebra (AlgebraicClosure ℚ) (AlgebraicClosure K) :=
+    (IsAlgClosed.lift : AlgebraicClosure ℚ →ₐ[ℚ] AlgebraicClosure K).toRingHom.toAlgebra
+  exact AlgEquiv.restrictNormal_commutes (τ.restrictScalars ℚ) (AlgebraicClosure ℚ) x
+
+end G0Galois
+
+end
+
 /-! ## §6 (local-glue). `LocalGlue p Tm a β L` on G7's data
 
 `LocalGlue p Tm a β L` (§4 above, copied verbatim from scratch/local-data) is a predicate on
@@ -2998,6 +3028,107 @@ theorem fix_torsion_of_coprime {A : PkgI3.AbVar K} (hI : WildIter (p := p) A) (m
   rw [Nat.Coprime.gcd_eq_one (Nat.Coprime.pow_left a hcop)] at h3
   exact h3
 
+/-! ### `WildIter` from `PtFinite` (proved) -/
+
+/-- `σ (τ P) = (στ) P` on points (proved). -/
+theorem galAct_galAct (A : PkgI3.AbVar K) (σ τ : AlgebraicClosure K ≃ₐ[K] AlgebraicClosure K)
+    (P : A.Pt (AlgebraicClosure K)) : A.galAct σ (A.galAct τ P) = A.galAct (σ * τ) P := by
+  change PkgI3.AbVar.galHom σ ≫ PkgI3.AbVar.galHom τ ≫ P = PkgI3.AbVar.galHom (σ * τ) ≫ P
+  rw [PkgI3.AbVar.galHom_mul, Category.assoc]
+
+theorem galAct_iterate (A : PkgI3.AbVar K) (σ : AlgebraicClosure K ≃ₐ[K] AlgebraicClosure K)
+    (P : A.Pt (AlgebraicClosure K)) (k : ℕ) : (A.galAct σ)^[k] P = A.galAct (σ ^ k) P := by
+  induction k with
+  | zero =>
+    change P = PkgI3.AbVar.galHom 1 ≫ P
+    rw [PkgI3.AbVar.galHom_one, Category.id_comp]
+  | succ k ih => rw [Function.iterate_succ_apply', ih, galAct_galAct, ← pow_succ']
+
+/-- `qEmb K : ℚ̄ → K̄` is onto (proved): `K̄` is integral over `ℚ` (`K` is a number field), hence
+over the algebraically closed `ℚ̄`. -/
+theorem qEmbRing_surjective (K : Type) [Field K] [NumberField K] :
+    Function.Surjective (G0Galois.qEmbRing K) := by
+  have hint : Algebra.IsIntegral ℚ (AlgebraicClosure K) := Algebra.IsIntegral.trans K
+  have h : ((G0Galois.qEmbRing K).comp (algebraMap ℚ (AlgebraicClosure ℚ))).IsIntegral := by
+    rw [Subsingleton.elim ((G0Galois.qEmbRing K).comp (algebraMap ℚ (AlgebraicClosure ℚ)))
+      (algebraMap ℚ (AlgebraicClosure K))]
+    exact hint.isIntegral
+  exact (IsAlgClosed.ringHom_bijective_of_isIntegral _ (RingHom.IsIntegral.tower_top _ _ h)).2
+
+theorem pow_fix_mono {G X : Type*} [Group G] [MulAction G X] {g : G} {x : X} {q b a : ℕ}
+    (h : g ^ (q ^ b) • x = x) (hba : b ≤ a) : g ^ (q ^ a) • x = x := by
+  have hmem : g ^ (q ^ b) ∈ MulAction.stabilizer G x := h
+  have : g ^ (q ^ a) = (g ^ (q ^ b)) ^ (q ^ (a - b)) := by
+    rw [← pow_mul, ← pow_add, Nat.add_sub_cancel' hba]
+  rw [this]
+  exact (MulAction.stabilizer G x).pow_mem hmem _
+
+/-- **A wild `σ'` has `p`-power period on each element of `K̄` (proved).** `x = qEmb y`;
+`σ^{pᵃ}` fixes the normal closure of `ℚ_p(embP y)` (`exists_pow_fix_of_wild`), so
+`decomp(σ^{pᵃ})` fixes `y` (`decomp_spec`), and `σ'^{pᵃ} x = qEmb(decomp(σ^{pᵃ}) y) = x`
+(`resQ_spec`). -/
+theorem wild_pow_fix_elem {σ : GQp p} (hσ : σ ∈ wildSet)
+    {σ' : AlgebraicClosure K ≃ₐ[K] AlgebraicClosure K}
+    (hσ' : G0Galois.resQ K σ' = decomp p σ) (x : AlgebraicClosure K) :
+    ∃ a : ℕ, (σ' ^ (p ^ a)) x = x := by
+  obtain ⟨y, rfl⟩ := qEmbRing_surjective K x
+  set E : Fld p := IntermediateField.adjoin ℚ_[p] {embP (p := p) y}
+  haveI : FiniteDimensional ℚ_[p] E :=
+    IntermediateField.adjoin.finiteDimensional (Algebra.IsIntegral.isIntegral _)
+  set F' := IntermediateField.normalClosure ℚ_[p] E (Kbar p)
+  haveI : FiniteDimensional ℚ_[p] F' := normalClosure.is_finiteDimensional ℚ_[p] E (Kbar p)
+  haveI : Normal ℚ_[p] F' := normalClosure.normal ℚ_[p] E (Kbar p)
+  obtain ⟨a, ha⟩ := exists_pow_fix_of_wild hσ (F' := F') ⟨inferInstance, IsGalois.mk⟩
+  refine ⟨a, ?_⟩
+  have hyE : embP (p := p) y ∈ F' :=
+    E.le_normalClosure (IntermediateField.mem_adjoin_simple_self ℚ_[p] _)
+  have hdec : decomp p (σ ^ (p ^ a)) y = y := by
+    apply (embP (p := p)).injective
+    rw [decomp_spec]
+    exact ha _ hyE
+  have h1 : G0Galois.qEmbRing K (G0Galois.resQ K (σ' ^ (p ^ a)) y) =
+      (σ' ^ (p ^ a)) (G0Galois.qEmbRing K y) := G0Galois.resQ_spec K _ y
+  have hpow : G0Galois.resQ K (σ' ^ (p ^ a)) = (G0Galois.resQ K σ') ^ (p ^ a) := map_pow _ _ _
+  rw [hpow, hσ', ← map_pow, hdec] at h1
+  exact h1.symm
+
+/-- **A wild `σ'` has `p`-power period on each finite `F ⊆ K̄` over `K` (proved)**, from
+`wild_pow_fix_elem` on a basis. -/
+theorem wild_pow_fix_field {σ : GQp p} (hσ : σ ∈ wildSet)
+    {σ' : AlgebraicClosure K ≃ₐ[K] AlgebraicClosure K}
+    (hσ' : G0Galois.resQ K σ' = decomp p σ) (F : IntermediateField K (AlgebraicClosure K))
+    [FiniteDimensional K F] : ∃ a : ℕ, ∀ x ∈ F, (σ' ^ (p ^ a)) x = x := by
+  set b := Module.finBasis K F
+  choose c hc using fun i => wild_pow_fix_elem hσ hσ' ((b i : F) : AlgebraicClosure K)
+  refine ⟨∑ i, c i, fun x hx => ?_⟩
+  have hb : ∀ i, (σ' ^ (p ^ (∑ i, c i))) ((b i : F) : AlgebraicClosure K) = b i := fun i =>
+    pow_fix_mono (G := AlgebraicClosure K ≃ₐ[K] AlgebraicClosure K) (hc i)
+      (Finset.single_le_sum (fun j _ => Nat.zero_le (c j)) (Finset.mem_univ i))
+  have hx' : x = ∑ i, (b.repr ⟨x, hx⟩ i) • ((b i : F) : AlgebraicClosure K) := by
+    have h := congrArg (fun z : F => (z : AlgebraicClosure K)) (b.sum_repr ⟨x, hx⟩).symm
+    simp only [IntermediateField.coe_sum, IntermediateField.coe_smul] at h
+    exact h
+  rw [hx', map_sum]
+  refine Finset.sum_congr rfl fun i _ => ?_
+  rw [Algebra.smul_def, map_mul, AlgEquiv.commutes, hb i, ← Algebra.smul_def]
+
+/-- **Glue (Mathlib-level): `K̄`-points are defined over finite extensions.** Every
+`P ∈ A(K̄)` is fixed by `G_F` for a finite `F ⊆ K̄` over `K` (a `K̄`-point of a scheme of finite
+type over `K` factors through `Spec F`, `F` generated by the images of finitely many coordinates;
+standard, e.g. EGA I/IV, locator UNVERIFIED). -/
+def PtFinite (A : PkgI3.AbVar K) : Prop :=
+  ∀ P : A.Pt (AlgebraicClosure K), ∃ F : IntermediateField K (AlgebraicClosure K),
+    FiniteDimensional K F ∧ ∀ τ : AlgebraicClosure K ≃ₐ[K] AlgebraicClosure K,
+      (∀ x ∈ F, τ x = x) → A.galAct τ P = P
+
+/-- **`WildIter` from `PtFinite` (proved).** -/
+theorem wildIter_of_ptFinite {A : PkgI3.AbVar K} (h : PtFinite A) : WildIter (p := p) A := by
+  intro σ hσ σ' hσ' P
+  obtain ⟨F, hF, hP⟩ := h P
+  obtain ⟨a, ha⟩ := wild_pow_fix_field (σ' := σ') hσ hσ' F
+  have hit := galAct_iterate A σ' P (p ^ a)
+  exact ⟨a, hit.trans (hP _ ha)⟩
+
 /-- **`TorsFixWild` at `p ≥ 7`, `p ≠ ℓ`, from `WildIter`, I2-Tors and Raynaud at the place
 (proved).** `m = 3` (`m = 7` if `p = 13`): the wild `σ'` fixes `A[m]`
 (`fix_torsion_of_coprime`), so `(σ'-1)² = 0` on `A[ℓⁿ]` (`RaynaudPlace`), and with a `p`-power
@@ -3033,6 +3164,14 @@ theorem tateWildK_of_leaves {A : PkgI3.AbVar K} {ℓ : ℕ} [Fact ℓ.Prime] (h�
   tateWildK_of_torsFixWild (torsFixWild_of_raynaud hℓp h7 hI (torsGL_of_leaf hTors A hdim 3
     (by norm_num)) (torsGL_of_leaf hTors A hdim 7 (by norm_num)) hR3 hR7)
 
+/-- **`TateWildK` at `p ≥ 7`, `p ≠ ℓ`, from the leaf I2-Tors, `PtFinite` and `RaynaudPlace`
+(proved).** -/
+theorem tateWildK_of_leaves' {A : PkgI3.AbVar K} {ℓ : ℕ} [Fact ℓ.Prime] (hℓp : ℓ ≠ p)
+    (h7 : 7 ≤ p) (hTors : ObjBridge.TorsionStructure) (hdim : A.dim = 2)
+    (hPt : PtFinite A) (hR3 : RaynaudPlace (p := p) A 3)
+    (hR7 : RaynaudPlace (p := p) A 7) : TateWildK (p := p) A ℓ :=
+  tateWildK_of_leaves hℓp h7 hTors hdim (wildIter_of_ptFinite hPt) hR3 hR7
+
 end TorsSec
 
 end G15Ram
@@ -3051,6 +3190,10 @@ end
 #print axioms G15Ram.torsGL_of_leaf
 #print axioms G15Ram.torsFixWild_of_raynaud
 #print axioms G15Ram.tateWildK_of_leaves
+#print axioms G15Ram.qEmbRing_surjective
+#print axioms G15Ram.wild_pow_fix_field
+#print axioms G15Ram.wildIter_of_ptFinite
+#print axioms G15Ram.tateWildK_of_leaves'
 
 noncomputable section
 
