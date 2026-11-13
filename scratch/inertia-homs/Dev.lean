@@ -23,6 +23,7 @@ variable {C : Type*} [Category C] [HasPullbacks C] {S T : C}
 
 attribute [local instance] Over.cartesianMonoidalCategory Over.braidedCategory
 
+
 /-- The multiplication of the base change, followed by the projection to `X`. -/
 theorem mul_left_fst (f : T ⟶ S) (X : Over S) [MonObj X] :
     (μ[(Over.pullback f).obj X]).left ≫ pullback.fst X.hom f =
@@ -301,6 +302,7 @@ variable {C : Type*} [Category C] [HasPullbacks C] {S T : C}
 
 attribute [local instance] Over.cartesianMonoidalCategory Over.braidedCategory
 
+
 section Agree
 
 variable (X Y : Over S) {f g : T ⟶ S} (s : T ⟶ T) (hf : f = s ≫ f) (hg : g = s ≫ g)
@@ -310,8 +312,9 @@ fixed by conjugation (relative to a lift `s'` of `s` on `Z`), then `σφ` and `�
 theorem conj_agree (φ : (Over.pullback f).obj X ⟶ (Over.pullback g).obj Y) {Z : C}
     (Q : Z ⟶ pullback X.hom f) (s' : Z ⟶ Z)
     (hQ : Q ≫ cmp X s hf = s' ≫ Q)
-    (hφQ : Q ≫ φ.left ≫ cmp Y s hg = s' ≫ Q ≫ φ.left) :
+    (hφQ : (Q ≫ φ.left) ≫ cmp Y s hg = s' ≫ Q ≫ φ.left) :
     Q ≫ (conj X Y s hf hg φ).left = Q ≫ φ.left := by
+  rw [Category.assoc] at hφQ
   apply pullback.hom_ext
   · have e1 : Q ≫ (conj X Y s hf hg φ).left ≫ pullback.fst Y.hom g =
         Q ≫ (conj X Y s hf hg φ).left ≫ cmp Y s hg ≫ pullback.fst Y.hom g := by
@@ -546,14 +549,54 @@ variable (K : IntermediateField ℚ Qbar)
 noncomputable abbrev specEmb (e : K →ₐ[ℚ] Qbar) :
     Spec (CommRingCat.of Qbar) ⟶ Spec (CommRingCat.of K) :=
   Spec.map (CommRingCat.ofHom (e : K →+* Qbar))
+open PkgI3 PkgI3.AbVar CategoryTheory MonObj
+theorem tateHom_injective (hHFF : HomFreeFinite) {k : Type} [Field k] (A B : AbVar k)
+    (ℓ : ℕ) [Fact ℓ.Prime] (hℓ : (ℓ : k) ≠ 0) : Function.Injective (tateHom ℓ A B) := by
+  have hinj := (hHFF k A B).2.2.2 ℓ hℓ
+  haveI : Module.Free ℤ (AbVar.Hom A B) := (hHFF k A B).1
+  let j : AbVar.Hom A B →ₗ[ℤ] TensorProduct ℤ ℤ_[ℓ] (AbVar.Hom A B) :=
+    ((Algebra.linearMap ℤ ℤ_[ℓ]).rTensor (AbVar.Hom A B)).comp
+      (TensorProduct.lid ℤ (AbVar.Hom A B)).symm.toLinearMap
+  have hj : Function.Injective j := by
+    have h1 : Function.Injective (Algebra.linearMap ℤ ℤ_[ℓ]) := by
+      intro a b hab
+      exact Int.cast_injective hab
+    exact (Module.Flat.rTensor_preserves_injective_linearMap _ h1).comp
+      (TensorProduct.lid ℤ (AbVar.Hom A B)).symm.injective
+  have hcomp : ∀ f, tateHomZl ℓ A B (j f) = tateHom ℓ A B f := by
+    intro f
+    have hjf : j f = (1 : ℤ_[ℓ]) ⊗ₜ[ℤ] f := by
+      show (Algebra.linearMap ℤ ℤ_[ℓ]).rTensor (AbVar.Hom A B)
+        ((TensorProduct.lid ℤ (AbVar.Hom A B)).symm f) = _
+      erw [TensorProduct.lid_symm_apply, LinearMap.rTensor_tmul]
+      congr 1
+    rw [hjf]
+    exact (TensorProduct.lift.tmul _ _).trans (one_smul _ _)
+  intro f g hfg
+  apply hj
+  apply hinj
+  rw [hcomp, hcomp]
+  exact hfg
+
+
+noncomputable def bcAlong {K L : Type} [Field K] [Field L] (A : AbVar K) (f : K →+* L) :
+    AbVar L :=
+  let F := CategoryTheory.Over.pullback (Spec.map (CommRingCat.ofHom f))
+  letI : GrpObj (F.obj A.X) := Functor.grpObjObj
+  haveI : IsProper (F.obj A.X).hom := by dsimp [F]; infer_instance
+  haveI : Smooth (F.obj A.X).hom := by dsimp [F]; infer_instance
+  haveI : GeometricallyIntegral (F.obj A.X).hom := by dsimp [F]; infer_instance
+  { X := F.obj A.X }
+
 end G4WeilRes
 -- END STUB
 
 namespace G4WeilRes
 
-open GlueB3Unram CategoryTheory AlgebraicGeometry Limits MonObj PkgI3 InertiaHoms
+open GlueB3Unram CategoryTheory AlgebraicGeometry Limits MonObj PkgI3 PkgI3.AbVar InertiaHoms
 
 variable (K : IntermediateField ℚ Qbar)
+
 
 theorem specMap_comp {R S U : Type} [CommRing R] [CommRing S] [CommRing U] (a : R →+* S)
     (b : S →+* U) :
@@ -630,5 +673,136 @@ theorem point_fixed (hNOS : PkgI2.NeronOggShafarevich.{0})
     simp
   rw [e1, e2] at h2
   rw [h2, CommRingCat.ofHom_id, Spec.map_id, Category.id_comp]
+
+/-- A point `P` of `X ×_{K,e} ℚ̄` with values in `L = AlgebraicClosure ℚ̄` (the points used by
+`PkgI3.AbVar.T`) factors through the section `J' ≫ P` over `Spec ℚ̄`, because `ℚ̄ → L` is an
+isomorphism. -/
+noncomputable def ptIso :
+    PkgI3.AbVar.ptObj (K := Qbar) (AlgebraicClosure Qbar) ≅
+      CategoryTheory.Over.mk (𝟙 (Spec (CommRingCat.of Qbar))) := by
+  let ie : Qbar ≃+* AlgebraicClosure Qbar := RingEquiv.ofBijective
+    (algebraMap Qbar (AlgebraicClosure Qbar))
+    (IsAlgClosed.algebraMap_bijective_of_isIntegral (k := Qbar) (K := AlgebraicClosure Qbar))
+  have h1 : (ie.symm : AlgebraicClosure Qbar →+* Qbar).comp
+      (algebraMap Qbar (AlgebraicClosure Qbar)) = RingHom.id Qbar := by
+    ext y
+    exact ie.symm_apply_apply y
+  have h2 : (algebraMap Qbar (AlgebraicClosure Qbar)).comp
+      (ie.symm : AlgebraicClosure Qbar →+* Qbar) = RingHom.id _ := by
+    ext y
+    exact ie.apply_symm_apply y
+  refine
+    { hom := CategoryTheory.Over.homMk
+        (Spec.map (CommRingCat.ofHom (algebraMap Qbar (AlgebraicClosure Qbar)))) (by simp [PkgI3.AbVar.ptObj])
+      inv := CategoryTheory.Over.homMk
+        (Spec.map (CommRingCat.ofHom (ie.symm : AlgebraicClosure Qbar →+* Qbar))) (by
+          show _ ≫ Spec.map _ = 𝟙 _
+          rw [specMap_comp, h1, CommRingCat.ofHom_id, Spec.map_id])
+      hom_inv_id := ?_
+      inv_hom_id := ?_ }
+  · apply CategoryTheory.Over.OverMorphism.ext
+    show Spec.map _ ≫ Spec.map _ = 𝟙 _
+    rw [specMap_comp, h2, CommRingCat.ofHom_id, Spec.map_id]
+  · apply CategoryTheory.Over.OverMorphism.ext
+    show Spec.map _ ≫ Spec.map _ = 𝟙 _
+    rw [specMap_comp, h1, CommRingCat.ofHom_id, Spec.map_id]
+
+/-- **The corrected input** (homomorphisms only, at a place over a prime). -/
+def InertiaFixesHomsMon : Prop :=
+  ∀ (K : IntermediateField ℚ Qbar) [FiniteDimensional ℚ K] (A B : AbVar K)
+    (e₁ e₂ : K →ₐ[ℚ] Qbar)
+    (φ : AbVar.Hom (bcAlong A (e₁ : K →+* Qbar)) (bcAlong B (e₂ : K →+* Qbar)))
+    (w : ValuationSubring Qbar) (p : ℕ), p.Prime → LiesOver w p →
+    PkgI2.HasGoodReduction (ObjBridge.toGrp A) (w.comap (e₁ : K →+* Qbar)) →
+    PkgI2.HasGoodReduction (ObjBridge.toGrp B) (w.comap (e₂ : K →+* Qbar)) →
+    ∀ s ∈ inertiaGQ w, ∀ (hf : specEmb K e₁ = specGal s ≫ specEmb K e₁)
+      (hg : specEmb K e₂ = specGal s ≫ specEmb K e₂),
+      G4Conj.conj A.X B.X (specGal s) hf hg φ.hom = φ.hom
+
+/-- **Glue Prop: valuation rings of number fields are DVRs** (standard; see `isDVR_comap`). -/
+def ComapDVR : Prop :=
+  ∀ (K : IntermediateField ℚ Qbar) [FiniteDimensional ℚ K] (f : K →+* Qbar)
+    (w : ValuationSubring Qbar) (p : ℕ), p.Prime → LiesOver w p →
+    IsDiscreteValuationRing (w.comap f)
+
+theorem fixes_of_spec (s : Gal) (e : K →ₐ[ℚ] Qbar) (h : specEmb K e = specGal s ≫ specEmb K e) :
+    ∀ x, s (e x) = e x := by
+  intro x
+  have h' := Spec.map_injective (h.trans (specMap_comp _ _))
+  have := congrArg (fun φ => (CommRingCat.Hom.hom φ) x) h'
+  exact this.symm
+
+/-- **`InertiaFixesHomsMon` from NOS and Mumford §19 Thm 3 (glue, proved).** -/
+theorem inertiaFixesHomsMon (hNOS : PkgI2.NeronOggShafarevich.{0}) (hHFF : HomFreeFinite)
+    (hDVR : ComapDVR) : InertiaFixesHomsMon := by
+  intro K _ A B e₁ e₂ φ w p hp hw hA hB s hs hf hg
+  have := hDVR K (e₁ : K →+* Qbar) w p hp hw
+  have := hDVR K (e₂ : K →+* Qbar) w p hp hw
+  -- an auxiliary prime `ℓ ≠ p`
+  obtain ⟨ℓ, hℓ, hℓp⟩ : ∃ ℓ : ℕ, ℓ.Prime ∧ ℓ ≠ p := by
+    by_cases h2 : p = 2
+    · exact ⟨3, Nat.prime_three, by omega⟩
+    · exact ⟨2, Nat.prime_two, fun h => h2 h.symm⟩
+  have : Fact ℓ.Prime := ⟨hℓ⟩
+  have hse₁ := fixes_of_spec K s e₁ hf
+  have hse₂ := fixes_of_spec K s e₂ hg
+  have hunit : ∀ (e : K →ₐ[ℚ] Qbar) (n : ℕ),
+      IsUnit (((ℓ ^ n : ℕ) : ℕ) : w.comap (e : K →+* Qbar)) := fun e n => by
+    rw [Nat.cast_pow]
+    exact (isUnit_prime_of_liesOver (e : K →+* Qbar) w p hp hw ℓ hℓ hℓp).pow n
+  let A₁ := bcAlong A (e₁ : K →+* Qbar)
+  let B₂ := bcAlong B (e₂ : K →+* Qbar)
+  let ψ : A₁.X ⟶ B₂.X := G4Conj.conj A.X B.X (specGal s) hf hg φ.hom
+  have hψ : IsMonHom ψ :=
+    G4Conj.conj_isMonHom' A.X B.X (specGal s) hf hg φ.hom (show IsMonHom φ.hom from inferInstance)
+  -- agreement on torsion sections over `Spec ℚ̄`
+  have hsec : ∀ (n : ℕ) (Q : CategoryTheory.Over.mk (𝟙 (Spec (CommRingCat.of Qbar))) ⟶ A₁.X),
+      Q ^ (ℓ ^ n) = 1 → Q.left ≫ ψ.left = Q.left ≫ φ.hom.left := by
+    intro n Q hQ
+    have hfixA : Q.left ≫ G4Conj.cmp A.X (specGal s) hf = specGal s ≫ Q.left := by
+      apply G4Conj.cmp_fixed_of_fst A.X (specGal s) hf Q.left (CategoryTheory.Over.w Q)
+      have hq : G4Conj.secFst A.X (specEmb K e₁) Q ^ (ℓ ^ n) = 1 :=
+        (G4Conj.secFst_pow A.X (specEmb K e₁) Q (ℓ ^ n)).symm.trans
+          ((congrArg (G4Conj.secFst A.X (specEmb K e₁)) hQ).trans (G4Conj.secFst_one _ _))
+      have := point_fixed K hNOS A e₁ w hA s hs hse₁ (ℓ ^ n) (pow_pos hℓ.pos n) (hunit e₁ n)
+        (G4Conj.secFst A.X (specEmb K e₁) Q) hq
+      exact this
+    have hfixB : (Q ≫ φ.hom).left ≫ G4Conj.cmp B.X (specGal s) hg =
+        specGal s ≫ (Q ≫ φ.hom).left := by
+      apply G4Conj.cmp_fixed_of_fst B.X (specGal s) hg (Q ≫ φ.hom).left (CategoryTheory.Over.w _)
+      have hQφ : (Q ≫ φ.hom) ^ (ℓ ^ n) = 1 := by
+        rw [← MonObj.pow_comp, hQ, MonObj.one_comp]
+      have hq : G4Conj.secFst B.X (specEmb K e₂) (Q ≫ φ.hom) ^ (ℓ ^ n) = 1 :=
+        (G4Conj.secFst_pow B.X (specEmb K e₂) (Q ≫ φ.hom) (ℓ ^ n)).symm.trans
+          ((congrArg (G4Conj.secFst B.X (specEmb K e₂)) hQφ).trans (G4Conj.secFst_one _ _))
+      have := point_fixed K hNOS B e₂ w hB s hs hse₂ (ℓ ^ n) (pow_pos hℓ.pos n) (hunit e₂ n)
+        (G4Conj.secFst B.X (specEmb K e₂) (Q ≫ φ.hom)) hq
+      exact this
+    exact G4Conj.conj_agree A.X B.X (specGal s) hf hg φ.hom Q.left (specGal s) hfixA
+      hfixB
+  -- conclude with Mumford's injectivity into Hom of Tate modules
+  have hne : (ℓ : Qbar) ≠ 0 := Nat.cast_ne_zero.mpr hℓ.ne_zero
+  let Ψ : AbVar.Hom A₁ B₂ := @AbVar.Hom.mk' _ _ A₁ B₂ ψ hψ
+  have key : tateHom ℓ A₁ B₂ Ψ = tateHom ℓ A₁ B₂ φ := by
+    apply LinearMap.ext
+    intro t
+    apply Subtype.ext
+    funext n
+    have htor : (Additive.toMul (t.1 n)) ^ (ℓ ^ n) = 1 :=
+      congrArg Additive.toMul (PkgI3.Tate.pow_smul_eq_zero t.2 n)
+    set P := Additive.toMul (t.1 n)
+    have hP : (ptIso.inv ≫ P) ^ (ℓ ^ n) = 1 := by
+      rw [← MonObj.comp_pow, htor, MonObj.comp_one]
+    have h1 := hsec n (ptIso.inv ≫ P) hP
+    have hPl : P.left = ptIso.hom.left ≫ (ptIso.inv ≫ P).left :=
+      congrArg CategoryTheory.Over.Hom.left (Iso.hom_inv_id_assoc ptIso P).symm
+    have h2 : P ≫ ψ = P ≫ φ.hom := by
+      apply CategoryTheory.Over.OverMorphism.ext
+      show P.left ≫ ψ.left = P.left ≫ φ.hom.left
+      rw [hPl, Category.assoc, Category.assoc, h1]
+    show Additive.ofMul (P ≫ ψ) = Additive.ofMul (P ≫ φ.hom)
+    rw [h2]
+  have := tateHom_injective hHFF A₁ B₂ ℓ hne key
+  exact congrArg AbVar.Hom.hom this
 
 end G4WeilRes
