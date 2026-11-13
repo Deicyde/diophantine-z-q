@@ -42,3 +42,8 @@
   Mathlib `IsFinite.of_comp` (g separated: `IsSeparated.of_comp` with `Over.w`) and `Surjective.of_comp`.
 - `fibreSimple_of_leaves (t : TextbookLeaves) (hMul : MulIsogeny) (p : FibreSimplePieces)`, bundle = FS1
   EndDivisionDescent, FS2 EndDivisionOfSchemeIso, FS5 FibreComTrivial. Standard axioms.
+
+## Standalone
+- 02:15 `lake env lean scratch/g0-fibresimple/FibreSimple.lean` (20474 lines = Split.lean + Tail): exit 0 in 174 s,
+  0 errors, no `sorry` warning; `#print axioms` standard three for HSyn.glueOutputs_of_leaves and all 11 new
+  theorems (full_out.txt).

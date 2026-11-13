@@ -24,9 +24,9 @@ theorem fibreSimple_of_pieces'' (t6 : PkgI3.HomFreeFinite) (t27 : PkgI3.QMDichot
     (h5 : FibreComTrivial) : FibreSimple
 ```
 
-**Verification.** VERIFIED (compiled): `Tail.lean` compiles against the prefix olean with exit 0
-and no `sorry`. `#print axioms` gives `[propext, Classical.choice, Quot.sound]` for every new
-theorem. For the standalone `FibreSimple.lean`, see §4.
+**Verification.** VERIFIED (compiled): `lake env lean scratch/g0-fibresimple/FibreSimple.lean`
+exits 0 with no `sorry`. `#print axioms` gives `[propext, Classical.choice, Quot.sound]` for
+every new theorem.
 
 **The finding (§2).** FibreSimple quantifies over every moduli datum `(Y, Φ, π)` that satisfies
 the clause lists `R1fpProps` and `R2fpProps`. These clauses do **not** determine the moduli
@@ -155,8 +155,9 @@ published theorem, so it would have to be a computation; it is not recommended.
   `centralizerOfMatrixEnd0_of_homFree`, `end0Division_of_homFree`, `fibreSimple_of_pieces`,
   `fibreSimple_of_pieces'`, `fibreSimple_of_pieces''`, `fibreSimple_of_leaves`,
   `r1fpProps_twistBy`, `r2fpProps_twistBy` and `fibreComTrivial_twisted`.
-- Standalone `scratch/g0-fibresimple/FibreSimple.lean` (Split.lean + Tail): see the log entry
-  "standalone".
+- Standalone `scratch/g0-fibresimple/FibreSimple.lean` (Split.lean + Tail, 20474 lines),
+  VERIFIED: `lake env lean` exits 0 in 174 s, with 0 errors and no `sorry`; the axioms are the
+  standard three.
 - Remains:
   - FS1 (descent) and FS2 (rigidity). Both are textbook abelian-variety facts; Mathlib has
     `IsFinite.of_comp`, but has no rigidity lemma and no fpqc descent of finiteness for this
