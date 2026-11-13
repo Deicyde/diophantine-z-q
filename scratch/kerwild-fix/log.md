@@ -63,3 +63,14 @@
   - `exists_localGlue35_of_algFrobRed` (TateBridge35E, and at ℓ = 5, 3 FrobTraceLink + LocalGlue,
     from I3.M0, AlgFrobRed, R6, I2-Tors).
 - compile0.out: the rebuild check of step 1 (lg-kerwild parts only).
+
+## Step 4 (13:10-13:35 PST): G15 corollary, compiled
+- Attempted `exists_g7LocalPackBC_of_leaves` (local-glue's `G7LocalPackBC ℓ r` for our data):
+  `(deterministic) timeout at whnf` (also at 1.6M heartbeats), located (by sorry-bisection) in
+  retyping `Tm` from `GaloisCopy.Vb (A.baseChange L' via incAlg)` to `G0Galois.Vb (bcL' hLL' A)`
+  (`incAlgL`, same text as `incAlg`). Dropped (FINDING for integration: avoid the `bcL'` retyping).
+- Instead proved (VERIFIED, compile.out: exit 0, 0 errors, ~73 s; 22 `#print axioms`, all
+  `[propext, Classical.choice, Quot.sound]`): `exists_g15RamG_of_leaves` — operator data at ℓ = 5
+  and ℓ = 3 (Glazer's normalization) and, for every `D : ModData` whose `r₅`, `r₃` satisfy G8Out for
+  these data and G11Out, `G15RamG D u` (local-glue's `g15RamG_of_g7` with G7Clauses and LocalGlue
+  discharged). Hypotheses: I3.M0, R6, I2-Tors, G7Data, `[L:ℚ] ≤ D`, `rank End A_{L'} = 4`.

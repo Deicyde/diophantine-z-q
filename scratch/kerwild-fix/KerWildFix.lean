@@ -10830,6 +10830,61 @@ theorem exists_localData_of_leaves (hT : PkgI3.TateModuleFree)
   haveI : NumberField L' := numberField_of_fd L'
   exact G15Ram.localData_of_g7 h8 hCl (hG p hp hpℓ)
 
+/-- **G15 (`G15RamG D u`) from the leaves I3.M0, R6, I2-Tors (proved), for every `D` whose `r₅`,
+`r₃` are G8's representations of these data and satisfy G11.** At `ℓ = 5` and `ℓ = 3` the
+operator data of `exists_localGlue_of_leaves'`; local-glue's `g15RamG_of_g7` with `G7Clauses`
+and `LocalGlue` discharged. (local-glue's `G7LocalPackBC` route needs the same data retyped over
+`bcL'`, whose `incAlgL` is `incAlg`'s text; the retyping timed out in a test, so `g15RamG_of_g7` is
+used directly.) -/
+theorem exists_g15RamG_of_leaves (hT : PkgI3.TateModuleFree)
+    (hR6 : ObjBridge.RaynaudCriterion) (hTors : ObjBridge.TorsionStructure)
+    (u : ℚ) (P : QML3 Qbar) (L : IF) [FiniteDimensional ℚ L] [IsGalois ℚ L] (A : PkgI3.AbVar L)
+    (ε : GQ → GQ → ℂˣ) (N : ℕ) [NeZero N] (χ : DirichletCharacter ℂ N) (β : GQ → ℂˣ) (L' : IF)
+    [FiniteDimensional ℚ L'] [IsGalois ℚ L'] (hLL' : L ≤ L')
+    (hD : G7Data u P L A ε N χ β L' hLL')
+    (hrk : Module.finrank ℤ
+      (PkgI3.AbVar.End (@PkgI3.AbVar.baseChange L _ A L' _ (incAlg hLL'))) = 4)
+    (hLD : Module.finrank ℚ L ≤ ZInQ.heightD) :
+    ∃ (Φ5 : ℂ ≃+* PadicAlgCl 5)
+      (Tm5 : PkgI4.GQ → Module.End (PadicAlgCl 5)
+        (GaloisCopy.Vb (@PkgI3.AbVar.baseChange L _ A L' _ (incAlg hLL')) 5))
+      (c5 : PkgI4.GQ → PkgI4.GQ → PadicAlgCl 5) (a5 : PkgI4.GQ → PadicAlgCl 5)
+      (u5 : GlueDescent.MatrixUnits2 (PadicAlgCl 5)
+        (GaloisCopy.Vb (@PkgI3.AbVar.baseChange L _ A L' _ (incAlg hLL')) 5))
+      (Φ3 : ℂ ≃+* PadicAlgCl 3)
+      (Tm3 : PkgI4.GQ → Module.End (PadicAlgCl 3)
+        (GaloisCopy.Vb (@PkgI3.AbVar.baseChange L _ A L' _ (incAlg hLL')) 3))
+      (c3 : PkgI4.GQ → PkgI4.GQ → PadicAlgCl 3) (a3 : PkgI4.GQ → PadicAlgCl 3)
+      (u3 : GlueDescent.MatrixUnits2 (PadicAlgCl 3)
+        (GaloisCopy.Vb (@PkgI3.AbVar.baseChange L _ A L' _ (incAlg hLL')) 3)),
+      @GaloisCopy.G7Out L' _ (numberField_of_fd L')
+        (@PkgI3.AbVar.baseChange L _ A L' _ (incAlg hLL')) 5 _ Tm5 c5
+        (fun g h => Φ5 (ε g h : ℂ)) a5 (fun g => Φ5 (β g : ℂ)) u5 ∧
+      @GaloisCopy.G7Out L' _ (numberField_of_fd L')
+        (@PkgI3.AbVar.baseChange L _ A L' _ (incAlg hLL')) 3 _ Tm3 c3
+        (fun g h => Φ3 (ε g h : ℂ)) a3 (fun g => Φ3 (β g : ℂ)) u3 ∧
+      ∀ {LM : Type} [Field LM] [NumberField LM] {AM : PkgI3.AbVar LM}
+        (D : G0ModNewform.ModData LM AM),
+        @G0Galois.G8Out L' _ (numberField_of_fd L')
+          (@PkgI3.AbVar.baseChange L _ A L' _ (incAlg hLL')) 5 _
+          (GlueDescent.rho Tm5 a5 (fun g => Φ5 (β g : ℂ))) D.r5 →
+        @G0Galois.G8Out L' _ (numberField_of_fd L')
+          (@PkgI3.AbVar.baseChange L _ A L' _ (incAlg hLL')) 3 _
+          (GlueDescent.rho Tm3 a3 (fun g => Φ3 (β g : ℂ))) D.r3 →
+        G0Galois.G11Out (GlueDescent.ramSet ZInQ.Mult.S_mul u) D.r5 →
+        G0Galois.G11Out (GlueDescent.ramSet ZInQ.Mult.S_mul u) D.r3 →
+        G0ModNewform.G15RamG D u := by
+  obtain ⟨Φ5, Tm5, c5, a5, u5, h75, hC5, -, hG5⟩ :=
+    exists_localGlue_of_leaves' hT hR6 hTors u P L A ε N χ β L' hLL' hD (dim_bc_of_g7Data hD)
+      hrk hLD 5
+  obtain ⟨Φ3, Tm3, c3, a3, u3, h73, hC3, -, hG3⟩ :=
+    exists_localGlue_of_leaves' hT hR6 hTors u P L A ε N χ β L' hLL' hD (dim_bc_of_g7Data hD)
+      hrk hLD 3
+  refine ⟨Φ5, Tm5, c5, a5, u5, Φ3, Tm3, c3, a3, u3, h75, h73, fun D h85 h83 h115 h113 => ?_⟩
+  haveI : NumberField L' := numberField_of_fd L'
+  exact G15Ram.g15RamG_of_g7 D u h85 hC5 hG5 h83 hC3 (hG3 5 (by norm_num) (by norm_num))
+    h115 h113
+
 end KWFix
 
 end
@@ -10857,3 +10912,4 @@ end KWFixFinalSec
 #print axioms KWFix.exists_localGlue35_of_algFrobRed
 #print axioms KWFix.exists_localData_of_leaves
 #print axioms KWFix.dim_bc_of_g7Data
+#print axioms KWFix.exists_g15RamG_of_leaves
