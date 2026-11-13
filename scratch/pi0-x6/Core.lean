@@ -214,8 +214,148 @@ theorem subsingleton_of_galois (π : ToP1 X.left) {S : Type*} (c : (fieldPt Qbar
     rw [hσy, ← h] at this
     rw [← hy, this]
 
+/-! ## §4 The hypotheses of the core from the bundle's clauses `R5ptProps`, `R5fpCount`
+
+The concrete facts about `ℚ(i)` and `ℚ(√−3)` (`inertCount6 = 1`, `#Pic 𝒪 = 1`, conductor 1) are
+hypotheses here (closed number-theoretic facts, glue not done). "CM by `R`" at the points over a
+branch value is the hypothesis `hexact` (`com ≅ R`; the bundle's `HasCM4` only gives `φ² = −1`
+in `com`). -/
+
+variable {Ψ : (fieldPt Qbar ⟶ X) ≃ Quotient (pairSetoid Qbar)}
+
+/-- A degree-2 subfield of `ℚ̄` receiving `k ∋ w`, `w² = d` non-square, is `ℚ⟮z⟯`, `z² = d`. -/
+theorem eq_adjoin_of_finrank_two (F : IntermediateField ℚ Qbar) (hdeg : Module.finrank ℚ F = 2)
+    (k : Type) [Field k] [Algebra ℚ k] (φ : k →ₐ[ℚ] F) (w : k) (d : ℚ) (hw : w ^ 2 = (d : k))
+    (hd : ¬ IsSquare d) :
+    ∃ z : Qbar, z ^ 2 = (d : Qbar) ∧ F = IntermediateField.adjoin ℚ {z} := by
+  have hz : ((φ w : F) : Qbar) ^ 2 = (d : Qbar) := by
+    have h1 : φ (w ^ 2) = φ (d : k) := by rw [hw]
+    rw [map_pow, map_ratCast] at h1
+    have h2 := congrArg (fun t : F => (t : Qbar)) h1
+    simpa using h2
+  refine ⟨(φ w : Qbar), hz, ?_⟩
+  have : FiniteDimensional ℚ F := Module.finite_of_finrank_pos (by rw [hdeg]; norm_num)
+  have hle : IntermediateField.adjoin ℚ {(φ w : Qbar)} ≤ F :=
+    IntermediateField.adjoin_simple_le_iff.2 (φ w).2
+  symm
+  refine IntermediateField.eq_of_le_of_finrank_le hle ?_
+  rw [hdeg]
+  have : FiniteDimensional ℚ (IntermediateField.adjoin ℚ {(φ w : Qbar)}) :=
+    IntermediateField.adjoin.finiteDimensional (Algebra.IsIntegral.isIntegral _)
+  have hpos : 0 < Module.finrank ℚ (IntermediateField.adjoin ℚ {(φ w : Qbar)}) :=
+    Module.finrank_pos
+  have hne : Module.finrank ℚ (IntermediateField.adjoin ℚ {(φ w : Qbar)}) ≠ 1 := by
+    intro h1
+    rw [IntermediateField.finrank_eq_one_iff, IntermediateField.adjoin_simple_eq_bot_iff,
+      IntermediateField.mem_bot] at h1
+    obtain ⟨q, hq⟩ := h1
+    apply hd
+    refine ⟨q, ?_⟩
+    rw [← hq, eq_ratCast] at hz
+    have : ((q * q : ℚ) : Qbar) = (d : Qbar) := by push_cast; rw [← hz]; ring
+    exact (Rat.cast_injective this).symm
+  omega
+
+/-- **Residue fields from `R5ptProps`.** If `b(k) = 1`, `#Pic R = 1` and `k = ℚ(w)` with
+`w² = d` (`d` not a square), a `ℚ̄`-point of `X₆` with `com ≅ R` has residue field `ℚ⟮z⟯`,
+`z² = d`. -/
+theorem residue_eq_adjoin_of_R5pt (h5 : R5ptProps X Ψ)
+    (k : Type) [Field k] [NumberField k] [NumberField.IsTotallyComplex k]
+    (hk : Module.finrank ℚ k = 2) (R : Subring k) (hR : R ≤ (integralClosure ℤ k).toSubring)
+    (hc : Nat.Coprime (conductor R) 6) (hb : inertCount6 k = 1)
+    (hh : Nat.card (CommRing.Pic R) = 1) (w : k) (d : ℚ) (hw : w ^ 2 = (d : k))
+    (hd : ¬ IsSquare d) (x : fieldPt Qbar ⟶ X) (P : QMPair Qbar) (hP : Ψ x = Quotient.mk _ P)
+    (hRP : Nonempty (com P.q ≃+* R)) :
+    ∃ z : Qbar, z ^ 2 = (d : Qbar) ∧
+      residueImage (X := X.left) x.left = IntermediateField.adjoin ℚ {z} := by
+  obtain ⟨hdeg, hemb⟩ := h5 k hk R hR hc x P hP hRP
+  rw [hb, hh] at hdeg
+  simp only [one_ne_zero, ite_false, mul_one] at hdeg
+  obtain ⟨φ⟩ := hemb (by rw [hb]; exact one_ne_zero)
+  exact eq_adjoin_of_finrank_two _ hdeg k φ w d hw hd
+
+/-- **At most two points over a value, from `R5fpCount`.** If every `ℚ̄`-point over `t` has
+`com ≅ R` (`hexact`) with `b(k) = 1` and `#Pic R = 1`, there are at most `2^1·1 = 2` of them. -/
+theorem fibre_le_two_of_R5count (hcnt : R5fpCount) (π : ToP1 X.left) (t : OnePoint Qbar)
+    (k : Type) [Field k] [NumberField k] [NumberField.IsTotallyComplex k]
+    (hk : Module.finrank ℚ k = 2) (R : Subring k) (hR : R ≤ (integralClosure ℤ k).toSubring)
+    (hc : Nat.Coprime (conductor R) 6) (hb : inertCount6 k = 1)
+    (hh : Nat.card (CommRing.Pic R) = 1)
+    (hexact : ∀ (x : fieldPt Qbar ⟶ X) (P : QMPair Qbar), Ψ x = Quotient.mk _ P →
+      π.val (K := Qbar) x.left = t → Nonempty (com P.q ≃+* R))
+    (x x' x'' : fieldPt Qbar ⟶ X) (h : π.val (K := Qbar) x.left = t)
+    (h' : π.val (K := Qbar) x'.left = t) (h'' : π.val (K := Qbar) x''.left = t) :
+    x = x' ∨ x = x'' ∨ x' = x'' := by
+  have hm : ∀ y : fieldPt Qbar ⟶ X, π.val (K := Qbar) y.left = t →
+      ∃ P : QMPair Qbar, Quotient.mk _ P = Ψ y ∧ Nonempty (com P.q ≃+* R) := fun y hy =>
+    ⟨(Ψ y).out, Quotient.out_eq _, hexact y _ (Quotient.out_eq _).symm hy⟩
+  have hcard := hcnt k hk R hR hc (by
+    obtain ⟨P, -, hP⟩ := hm x h
+    exact ⟨P, hP⟩)
+  rw [hb, hh] at hcard
+  norm_num at hcard
+  let T := {c : Quotient (pairSetoid Qbar) //
+    ∃ P : QMPair Qbar, Quotient.mk _ P = c ∧ Nonempty (com P.q ≃+* R)}
+  have hT : Nat.card T = 2 := hcard
+  have : Finite T := Nat.finite_of_card_ne_zero (by rw [hT]; norm_num)
+  let e := Finite.equivFin T
+  let a : T := ⟨Ψ x, hm x h⟩
+  let b : T := ⟨Ψ x', hm x' h'⟩
+  let c : T := ⟨Ψ x'', hm x'' h''⟩
+  have ha := (e a).isLt
+  have hb' := (e b).isLt
+  have hc' := (e c).isLt
+  have key : (e a).val = (e b).val ∨ (e a).val = (e c).val ∨ (e b).val = (e c).val := by omega
+  rcases key with k1 | k1 | k1
+  · exact Or.inl (Ψ.injective (congrArg Subtype.val (e.injective (Fin.ext k1))))
+  · exact Or.inr (Or.inl (Ψ.injective (congrArg Subtype.val (e.injective (Fin.ext k1)))))
+  · exact Or.inr (Or.inr (Ψ.injective (congrArg Subtype.val (e.injective (Fin.ext k1)))))
+
+/-- **`π₀`-core from the bundle's clauses (glue, compiled).** `R5ptProps` and `R5fpCount` at
+`k₄ = ℚ(i)` (`R₄ = ℤ[i]`) and `k₃ = ℚ(√−3)` (`R₃ = ℤ[ζ₃]`), with the closed facts about these
+two fields as hypotheses, and "CM exactly by `R₄` over `0`, by `R₃` over `∞`" (`hexact₄`,
+`hexact₃`): every Galois-compatible map `c` whose classes all meet the fibres over `0` and `∞`
+is constant. With `S = π₀(X_ℚ̄)` (the algebraic-geometry inputs `hc`, `h0`, `hinf`) this is
+`π₀(X₆_ℚ̄) = 1`. -/
+theorem subsingleton_of_bundle (h5 : R5ptProps X Ψ) (hcnt : R5fpCount) (π : ToP1 X.left)
+    (k₄ : Type) [Field k₄] [NumberField k₄] [NumberField.IsTotallyComplex k₄]
+    (hk₄ : Module.finrank ℚ k₄ = 2) (R₄ : Subring k₄)
+    (hR₄ : R₄ ≤ (integralClosure ℤ k₄).toSubring) (hc₄ : Nat.Coprime (conductor R₄) 6)
+    (hb₄ : inertCount6 k₄ = 1) (hh₄ : Nat.card (CommRing.Pic R₄) = 1) (i₄ : k₄)
+    (hi₄ : i₄ ^ 2 = ((-1 : ℚ) : k₄))
+    (k₃ : Type) [Field k₃] [NumberField k₃] [NumberField.IsTotallyComplex k₃]
+    (hk₃ : Module.finrank ℚ k₃ = 2) (R₃ : Subring k₃)
+    (hR₃ : R₃ ≤ (integralClosure ℤ k₃).toSubring) (hc₃ : Nat.Coprime (conductor R₃) 6)
+    (hb₃ : inertCount6 k₃ = 1) (hh₃ : Nat.card (CommRing.Pic R₃) = 1) (s₃ : k₃)
+    (hs₃ : s₃ ^ 2 = ((-3 : ℚ) : k₃))
+    (hexact₄ : ∀ (x : fieldPt Qbar ⟶ X) (P : QMPair Qbar), Ψ x = Quotient.mk _ P →
+      π.val (K := Qbar) x.left = OnePoint.some 0 → Nonempty (com P.q ≃+* R₄))
+    (hexact₃ : ∀ (x : fieldPt Qbar ⟶ X) (P : QMPair Qbar), Ψ x = Quotient.mk _ P →
+      π.val (K := Qbar) x.left = OnePoint.infty → Nonempty (com P.q ≃+* R₃))
+    {S : Type*} (c : (fieldPt Qbar ⟶ X) → S)
+    (hc : ∀ (σ : Qbar ≃ₐ[ℚ] Qbar) (x x' : fieldPt Qbar ⟶ X), c x = c x' →
+      c (galPt σ x) = c (galPt σ x'))
+    (h0 : ∀ t : S, ∃ x : fieldPt Qbar ⟶ X, c x = t ∧ π.val (K := Qbar) x.left = OnePoint.some 0)
+    (hinf : ∀ t : S, ∃ y : fieldPt Qbar ⟶ X, c y = t ∧
+      π.val (K := Qbar) y.left = OnePoint.infty) :
+    Subsingleton S := by
+  have hsq1 : ¬ IsSquare (-1 : ℚ) := by
+    rintro ⟨q, hq⟩; nlinarith [mul_self_nonneg q]
+  have hsq3 : ¬ IsSquare (-3 : ℚ) := by
+    rintro ⟨q, hq⟩; nlinarith [mul_self_nonneg q]
+  refine subsingleton_of_galois π c hc h0 hinf
+    (fun x x' x'' h h' h'' => fibre_le_two_of_R5count hcnt π _ k₄ hk₄ R₄ hR₄ hc₄ hb₄ hh₄
+      hexact₄ x x' x'' h h' h'') (fun x hx => ?_) (fun y hy => ?_)
+  · obtain ⟨z, hz, hzr⟩ := residue_eq_adjoin_of_R5pt h5 k₄ hk₄ R₄ hR₄ hc₄ hb₄ hh₄ i₄ (-1) hi₄
+      hsq1 x _ (Quotient.out_eq _).symm (hexact₄ x _ (Quotient.out_eq _).symm hx)
+    exact ⟨z, by rw [hz]; push_cast; ring, hzr⟩
+  · obtain ⟨s, hs, hsr⟩ := residue_eq_adjoin_of_R5pt h5 k₃ hk₃ R₃ hR₃ hc₃ hb₃ hh₃ s₃ (-3) hs₃
+      hsq3 y _ (Quotient.out_eq _).symm (hexact₃ y _ (Quotient.out_eq _).symm hy)
+    exact ⟨s, by rw [hs]; push_cast; ring, hsr⟩
+
 end Pi0X6
 
 #print axioms Pi0X6.exists_fix_moves
 #print axioms Pi0X6.galPt_eq_self_iff
 #print axioms Pi0X6.subsingleton_of_galois
+#print axioms Pi0X6.subsingleton_of_bundle

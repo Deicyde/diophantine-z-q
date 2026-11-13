@@ -53,3 +53,10 @@ information: Galois action on the geometric components. Inputs:
   `Pi0X6.subsingleton_of_galois` (Galois-compatible `c : X(ℚ̄) → S`, every class meets the fibres
   over 0 and ∞, ≤ 2 points over 0 with residue field ℚ⟮z⟯ (z² = −1), points over ∞ with residue
   field ℚ⟮s⟯ (s² = −3) ⇒ `Subsingleton S`).
+- L3 (VERIFIED, compiled 23:25, `Core.lean`, 0 errors, 0 warnings; axioms of
+  `subsingleton_of_bundle`: propext, Classical.choice, Quot.sound):
+  `Pi0X6.eq_adjoin_of_finrank_two`, `Pi0X6.residue_eq_adjoin_of_R5pt` (from `R5ptProps` with
+  `b(k) = 1`, `#Pic R = 1`, `k ∋ w`, `w² = d` non-square: residue field `ℚ⟮z⟯`, `z² = d`),
+  `Pi0X6.fibre_le_two_of_R5count` (from `R5fpCount` + `hexact`: ≤ 2 points over the value),
+  `Pi0X6.subsingleton_of_bundle` (R5ptProps + R5fpCount + the closed facts on ℚ(i), ℚ(√−3) as
+  hypotheses + hexact₄/hexact₃ + the AG inputs hc/h0/hinf ⇒ Subsingleton S).
