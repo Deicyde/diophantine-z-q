@@ -965,6 +965,250 @@ theorem tyzThm35ReadingA_of_cmLeaves7 (h11 : TYZThm11Integral) (h1 : TYZLcalOne)
     (h5 : Lemma321Five) (h7' : Lemma321Seven) : ZInQ.Literature.TYZThm35ReadingA :=
   tyzThm35ReadingA_of_rewired h11 h1 h29 hcm hsh h318 genusFieldLeLni h35 h5 h7'
 
+
+/-! ## §12. `Lemma321Seven` reduced to TYZ Theorem 3.6(3) and the action of `β₁` on the genus field
+
+TYZ's proof of Lemma 3.21(4) (L2547–2566): `Z(n)` is defined over the genus field `L_n`; on `L_n(i)`
+any lift `β'` of `β₁` acts as `σ_ϖ ∘ c` (`c` complex conjugation), and `σ_ϖ = σ_{ϖ^5}` on `L_n`; so
+`Z(n)^{β'} = Z(n)^{σ_{ϖ^5} ∘ c}`, and Theorem 3.6(3) (`z̄_n + z_n^{σ_{ϖ^5}} = τ(1/2)`) gives the
+result after summing over `2Cl_n`. Here `σ_{ϖ^5}` (geometric normalization, L1247–1250) acts on the
+Hilbert class field `H_n` as the arithmetic Artin symbol of `[𝔭₂]^{−5}`, `𝔭₂` TYZ's place `v₂`. -/
+
+section Seven
+
+open ZInQ.Contrib.TYZGenus.RingClassBridge
+open scoped nonZeroDivisors
+
+/-- `γ ∈ Gal(ℚ̄/ℚ)` is complex conjugation for `CM`'s fixed embedding `ιC : ℚ̄ → ℂ`. -/
+def IsComplexConj (γ : GalQ) : Prop := ∀ x : Qbar, ιC (γ x) = starRingEnd ℂ (ιC x)
+
+/-- **Complex conjugation exists in `Gal(ℚ̄/ℚ)`** (the image of `ιC` is normal over `ℚ`). -/
+theorem exists_complexConj : ∃ γ : GalQ, IsComplexConj γ := by
+  let f : Qbar →ₐ[ℚ] ℂ := ιCA
+  let e : Qbar ≃ₐ[ℚ] f.fieldRange := AlgEquiv.ofInjectiveField f
+  haveI : Normal ℚ f.fieldRange := Normal.of_algEquiv e
+  have hr : ∀ y ∈ f.fieldRange, conjQ y ∈ f.fieldRange := by
+    intro y hy
+    have h := AlgHom.fieldRange_of_normal (E := f.fieldRange) (conjQ.comp f.fieldRange.val)
+    rw [← h]
+    exact ⟨⟨y, hy⟩, rfl⟩
+  let c : f.fieldRange →ₐ[ℚ] f.fieldRange :=
+    (conjQ.comp f.fieldRange.val).codRestrict f.fieldRange.toSubalgebra fun y => hr y.1 y.2
+  have hc : Function.Involutive c := fun y => Subtype.ext (by
+    show conjQ (conjQ (y : ℂ)) = y
+    simp [conjQ_apply])
+  let c' : f.fieldRange ≃ₐ[ℚ] f.fieldRange := AlgEquiv.ofBijective c hc.bijective
+  refine ⟨e.trans (c'.trans e.symm), fun x => ?_⟩
+  have h1 : ∀ y : f.fieldRange, f (e.symm y) = y := fun y => by
+    conv_rhs => rw [← e.apply_symm_apply y]
+    rfl
+  show f (e.symm (c' (e x))) = starRingEnd ℂ (f x)
+  rw [h1]
+  rfl
+
+theorem ιC_injective : Function.Injective ιC := ιC.injective
+
+theorem IsComplexConj.mul_self {γ : GalQ} (hγ : IsComplexConj γ) (x : Qbar) : γ (γ x) = x :=
+  ιC_injective (by rw [hγ, hγ, Complex.conj_conj])
+
+theorem IsComplexConj.inv_apply {γ : GalQ} (hγ : IsComplexConj γ) (x : Qbar) : γ⁻¹ x = γ x := by
+  apply γ.injective
+  rw [hγ.mul_self]
+  exact γ.apply_symm_apply x
+
+/-- Complex conjugation moves `√−n`. -/
+theorem IsComplexConj.ne_omega {γ : GalQ} (hγ : IsComplexConj γ) (n : ℕ) [NeZero n] :
+    γ (embed n (algebraMap (QNeg n) (SeparableClosure (QNeg n)) QuadraticAlgebra.omega)) ≠
+      embed n (algebraMap (QNeg n) (SeparableClosure (QNeg n)) QuadraticAlgebra.omega) := by
+  set w := embed n (algebraMap (QNeg n) (SeparableClosure (QNeg n)) QuadraticAlgebra.omega)
+  intro h
+  have hw2 : w ^ 2 = -(n : Qbar) := by
+    simp only [w]
+    rw [← map_pow, ← map_pow]
+    simp [QuadraticAlgebra.omega_pow_two_eq_add]
+  have hc : starRingEnd ℂ (ιC w) = ιC w := by rw [← hγ, h]
+  obtain ⟨r, hr⟩ := Complex.conj_eq_iff_real.1 hc
+  have h2 : (r : ℂ) ^ 2 = -(n : ℂ) := by rw [← hr, ← map_pow, hw2]; simp
+  have h3 : r ^ 2 = -(n : ℝ) := by exact_mod_cast h2
+  have hn : (0 : ℝ) < n := by exact_mod_cast Nat.pos_of_ne_zero (NeZero.ne n)
+  nlinarith [sq_nonneg r]
+
+/-- TYZ's place `v₂` for `n ≡ 7 (mod 8)` (Theorem 3.6(3), L1424–1425: the place above 2 with
+`v₂(√−n − δ) ≥ 6`): the prime `𝔭₂ = (2, (√−n − δ)/2)` of `𝓞_{K_n}`, `δ = tyzDelta n`,
+`(√−n − δ)/2 = θ − (δ+1)/2`, `θ = (1 + √−n)/2`. (`⊤` if `n % 4 ≠ 3`.) The binary form of `[𝔭₂]` is
+`[2, δ mod 4, ·]` (used in `thm36_7.py`). -/
+def p2Ideal (n : ℕ) [NeZero n] : Ideal (𝓞 (QNeg n)) :=
+  if h : n % 4 = 3 then
+    Ideal.span {2, ZInQ.RouteK.Redei.thetaO n h - (((tyzDelta n + 1) / 2 : ℕ) : 𝓞 (QNeg n))}
+  else ⊤
+
+theorem p2Ideal_mem (n : ℕ) [NeZero n] : p2Ideal n ∈ (Ideal (𝓞 (QNeg n)))⁰ := by
+  apply mem_nonZeroDivisors_of_ne_zero
+  unfold p2Ideal
+  split_ifs with h
+  · intro h0
+    have h2 : (2 : 𝓞 (QNeg n)) ∈ Ideal.span {2, ZInQ.RouteK.Redei.thetaO n h -
+        (((tyzDelta n + 1) / 2 : ℕ) : 𝓞 (QNeg n))} := Ideal.subset_span (by simp)
+    rw [h0, Ideal.zero_eq_bot, Ideal.mem_bot] at h2
+    exact two_ne_zero h2
+  · exact top_ne_bot
+
+/-- The class `[𝔭₂] ∈ Cl(K_n) = Pic(𝓞_{K_n})`. -/
+def p2Class (n : ℕ) [NeZero n] : Pic (OK n) :=
+  (ClassGroup.mk0 ⟨p2Ideal n, p2Ideal_mem n⟩ : ClassGroup (𝓞 (QNeg n)))
+
+/-- **Leaf TYZ-3.6(3) (Galois action on TYZ's class-7 CM point)**: for squarefree `n ≡ 7 (mod 8)`,
+complex conjugation `γ` and any `ρ ∈ Gal(ℚ̄/ℚ)` acting on the Hilbert class field `H_n` as the
+(arithmetic) Artin symbol of `[𝔭₂]^{−5}`: `γ(z_n) + ρ(z_n) = τ(1/2)`. TYZ Theorem 3.6(3) (L1424–1427,
+VERIFIED read): `z̄_n + z_n^{σ_{ϖ^5}} = τ(1/2)` with `ϖ ∈ K_{n,2}`, `v₂(ϖ) = 1`, `v₂'(ϖ) = 0`, and `σ`
+the geometric Artin map (L1247–1250), so `σ_{ϖ^5}|_{H_n} = Art([𝔭₂])^{−5}`. Refereed. Numerically
+VERIFIED for the 12 squarefree `n ≡ 7 (mod 8)`, `7 ≤ n ≤ 103` (`thm36_7.out`); the opposite sign
+`[𝔭₂]^{+5}` fails for 7 of them. -/
+def TYZThm36Seven : Prop :=
+  ∀ n : ℕ, ∀ _ : NeZero n, n % 8 = 7 → Squarefree n → ∀ γ ρ : GalQ, IsComplexConj γ →
+    ActsAsArtinO n (OK n) ρ ((p2Class n)⁻¹ ^ 5) →
+      galPt γ (tyzZ7 n) + galPt ρ (tyzZ7 n) = tauG 1
+
+/-- **Glue BETA-7 (`β₁` on the genus field)**: for squarefree `n ≡ 7 (mod 8)`, a lift `σ` of
+`β₁ = r_∞(−1)r₂(−2)`, complex conjugation `γ` and `ρ` acting on `H_n` as `Art([𝔭₂]^{−5})`, `σ` and
+`γ ∘ ρ` agree on the genus field `G_n = ℚ(√p* : p ∣ n)`. TYZ L2526–2531 ("the action of `β_j'` on
+`L_n(i)` is the same as that of `σ_ϖ ∘ c`") plus `σ_ϖ = σ_{ϖ^5}` on `L_n` (exponent 2). Glue: on
+`√p*` both sides act by `(2/p)·sgn(p*)` (`betaOneSign`; Art`[𝔭₂]` acts on `√p*` by the genus character
+`χ_p([𝔭₂]) = (N𝔭₂/p) = (2/p)`), and `G_n = K_n(√p* : p ∣ n)` (Gauss). Not proved here. -/
+def BetaOnGenus7 : Prop :=
+  ∀ n : ℕ, ∀ _ : NeZero n, n % 8 = 7 → Squarefree n → ∀ σ γ ρ : GalQ, IsBetaOneLift σ →
+    IsComplexConj γ → ActsAsArtinO n (OK n) ρ ((p2Class n)⁻¹ ^ 5) →
+      ∀ x ∈ genusBar n, σ x = γ (ρ x)
+
+/-- Restriction of ring class Artin symbols to the Hilbert class field, on elements. -/
+theorem coe_artin_restrict {K : Type} [Field K] [NumberField K] (O : NumberFieldOrder K)
+    (c : Pic O) (x : ringClassField (maximalNumberFieldOrder K)) :
+    ((ringClassArtinEquiv O c (IntermediateField.inclusion (ringClassField_maximal_le O) x) :
+        ringClassField O) : SeparableClosure K) =
+      ((ringClassArtinEquiv (maximalNumberFieldOrder K) (picToMax O c) x :
+        ringClassField (maximalNumberFieldOrder K)) : SeparableClosure K) := by
+  rw [← restrict_ringClassArtinEquiv, ← IntermediateField.coe_inclusion (ringClassField_maximal_le O),
+    restrictNormalHom_inclusion_apply]
+
+variable {d : ℕ} [NeZero d]
+
+theorem hilbertBar_eq_bar : hilbertBar d = ringClassFieldBar d 1 := by
+  rw [hilbertBar_eq, ringClassFieldBar_eq, conductorOrder_one]
+
+theorem map_mem_hilbertBar (τ : GalQ) {x : Qbar} (hx : x ∈ hilbertBar d) : τ x ∈ hilbertBar d := by
+  haveI : Normal ℚ (hilbertBar d) := by rw [hilbertBar_eq_bar]; exact normal_ringClassFieldBar d 1
+  exact (IntermediateField.normal_iff_forall_map_le'.1 inferInstance τ) ⟨x, hx, rfl⟩
+
+/-- Restriction `H_{d,4} → H_d` of Artin symbols, in `ℚ̄`. -/
+theorem actsO_of_acts4 {ρ : GalQ} {c4 : Pic (O4 d)} (h : ActsAsArtin4 ρ d c4) :
+    ActsAsArtinO d (OK d) ρ (picToMax (O4 d) c4) := by
+  intro x
+  have h1 := h (IntermediateField.inclusion (ringClassField_maximal_le (O4 d)) x)
+  rw [IntermediateField.coe_inclusion] at h1
+  rw [h1, coe_artin_restrict]
+
+/-- **Complex conjugation inverts the Artin symbols of `H_d`** (from ring-class's
+`actsAsArtin4_conj` for `H_{d,4}` and restriction). -/
+theorem actsO_conj {γ ρ : GalQ} (hγ : IsComplexConj γ) {c : Pic (OK d)}
+    (hρ : ActsAsArtinO d (OK d) ρ c) : ActsAsArtinO d (OK d) (γ * ρ * γ⁻¹) c⁻¹ := by
+  obtain ⟨c4, rfl⟩ := picToMax_surjective (O4 d) c
+  obtain ⟨ρ4, h4⟩ := exists_actsAsArtin4 d c4
+  have hc := actsO_of_acts4 (actsAsArtin4_conj (hγ.ne_omega d) h4)
+  rw [map_inv] at hc
+  intro x
+  have hx : embed d (x : SeparableClosure (QNeg d)) ∈ hilbertBar d := by
+    rw [hilbertBar_eq]; exact ⟨x, x.2, rfl⟩
+  rw [← hc x]
+  simp only [AlgEquiv.mul_apply]
+  congr 1
+  exact actsO_agree hρ (actsO_of_acts4 h4) _ (map_mem_hilbertBar _ hx)
+
+theorem Z7_mem_genusBar {e : ℕ} [NeZero e] (hz : tyzZ7 e ∈ ptsOver (hilbertBar e)) :
+    Z7 e ∈ ptsOver (genusBar e) := by
+  have hZ := Z7_mem hz
+  have hfix : ∀ s ∈ picSquares (OK e), galPt (liftMax e s) (Z7 e) = Z7 e :=
+    fun s hs => galPt_Z7 hz hs
+  rw [mem_ptsOver_iff] at hZ ⊢
+  revert hZ hfix
+  rcases Z7 e with _ | ⟨x, y, h⟩
+  · intro _ _; trivial
+  · intro hZ hfix
+    have hc : ∀ s ∈ picSquares (OK e), liftMax e s x = x ∧ liftMax e s y = y := by
+      intro s hs
+      have e1 := hfix s hs
+      obtain ⟨h', e'⟩ := galPt_some (liftMax e s) h
+      rw [e', WeierstrassCurve.Affine.Point.some.injEq] at e1
+      exact e1
+    exact ⟨mem_genusBar_of_fixed hZ.1 fun s hs => (hc s hs).1,
+      mem_genusBar_of_fixed hZ.2 fun s hs => (hc s hs).2⟩
+
+theorem sum_sqClasses_inv (f : Pic (OK d) → PtA) :
+    ∑ c ∈ sqClasses d, f c⁻¹ = ∑ c ∈ sqClasses d, f c := by
+  refine Finset.sum_nbij' (fun c => c⁻¹) (fun c => c⁻¹) ?_ ?_ ?_ ?_ ?_
+  · intro c hc
+    simp only [mem_sqClasses] at hc ⊢
+    exact (picSquares (OK d)).inv_mem hc
+  · intro c hc
+    simp only [mem_sqClasses] at hc ⊢
+    exact (picSquares (OK d)).inv_mem hc
+  · intro c _; simp
+  · intro c _; simp
+  · intro c _; rfl
+
+theorem card_sqClasses : (sqClasses d).card = gNat d := by
+  rw [gNat, dif_neg (NeZero.ne d), gCl_eq_card_picSquares, sqClasses,
+    ← Nat.card_eq_card_finite_toFinset]
+  rfl
+
+/-- **`Lemma321Seven` from TYZ Theorem 3.6(3) and glue BETA-7** (plus the CM field of definition). -/
+theorem lemma321Seven_of (hcm : CMFieldOfDefinition7) (h36 : TYZThm36Seven)
+    (hb : BetaOnGenus7) : Lemma321Seven := by
+  intro e he hsq σ hσ
+  haveI : NeZero e := ⟨by omega⟩
+  obtain ⟨γ, hγ⟩ := exists_complexConj
+  obtain ⟨ρ, hρ⟩ := exists_actsAsArtinO e (OK e) ((p2Class e)⁻¹ ^ 5)
+  have hz := hcm e he hsq
+  set z := tyzZ7 e
+  have hleaf := h36 e inferInstance he hsq γ ρ hγ hρ
+  have hρz : galPt ρ z = tauG 1 - galPt γ z := by rw [← hleaf]; abel
+  have hZ := Z7_mem_genusBar hz
+  have h1 : galPt σ (Z7 e) = galPt (γ * ρ) (Z7 e) :=
+    galPt_congr (fun x hx => by rw [AlgEquiv.mul_apply]; exact hb e inferInstance he hsq σ γ ρ hσ hγ hρ x hx) hZ
+  have hτ : ∀ τ' : GalQ, galPt τ' (tauG 1) = tauG 1 := fun τ' => by
+    rw [tauG_apply, one_smul]; exact galPt_ptT τ'
+  have hterm : ∀ c ∈ sqClasses e, galPt (γ * ρ) (galPt (liftMax e c) z) =
+      tauG 1 - galPt (liftMax e c⁻¹) z := by
+    intro c _
+    -- `ρ t_c z = t_c ρ z` on `A(H_e)`
+    have hcomm : galPt ρ (galPt (liftMax e c) z) = galPt (liftMax e c) (galPt ρ z) := by
+      rw [← galPt_mul, ← galPt_mul]
+      exact galPt_congr (actsO_agree (actsO_mul hρ (liftMax_spec e c))
+        (by rw [mul_comm]; exact actsO_mul (liftMax_spec e c) hρ)) hz
+    rw [galPt_mul, hcomm, hρz, map_sub, map_sub, hτ, hτ, ← galPt_mul, ← galPt_mul]
+    congr 1
+    -- `γ t_c γ = γ t_c γ⁻¹` acts as `Art(c⁻¹)` on `H_e`
+    have hconj := actsO_conj hγ (liftMax_spec e c)
+    have hγinv : γ⁻¹ = γ := by ext x; exact hγ.inv_apply x
+    have hg : γ * liftMax e c * γ = γ * liftMax e c * γ⁻¹ := by rw [hγinv]
+    rw [hg]
+    exact galPt_congr (actsO_agree hconj (liftMax_spec e c⁻¹)) hz
+  rw [h1, Z7_eq, map_sum, Finset.sum_congr rfl hterm, Finset.sum_sub_distrib, Finset.sum_const,
+    sum_sqClasses_inv (fun c => galPt (liftMax e c) z), card_sqClasses, ← natCast_zsmul]
+  abel
+
+end Seven
+
+open ZInQ.Contrib.TYZDecomp in
+/-- **Main theorem after §10–§12** (`Lemma321Seven` replaced by TYZ Thm 3.6(3) + glue BETA-7). -/
+theorem tyzThm35ReadingA_of_cmLeaves7' (h11 : TYZThm11Integral) (h1 : TYZLcalOne)
+    (h29 : TYZLemma29Mod2) (hcm : CM.CMFieldOfDefinition ringClassFieldD)
+    (hsh : TYZSigmaShiftsF0) (h318 : Lemma318Literal HHprime)
+    (h35 : ∀ ℓ : ℕ → ℤ, IsTYZLcal ℓ → Thm35First ℓ tyzZ)
+    (h5 : Lemma321Five) (h36 : TYZThm36Seven) (hb : BetaOnGenus7) :
+    ZInQ.Literature.TYZThm35ReadingA :=
+  tyzThm35ReadingA_of_cmLeaves7 h11 h1 h29 hcm hsh h318 h35 h5
+    (lemma321Seven_of (cmFieldOfDefinition7_of hcm) h36 hb)
+
 end ZInQ.Contrib.TYZGenus.CMBridge
 
 /-! ## Axiom audit (output in `scratch/cm-bridge/audit-out.txt`) -/
@@ -1004,3 +1248,9 @@ open ZInQ.Contrib.TYZGenus.CMBridge in
 #print axioms genusFieldLeLni
 open ZInQ.Contrib.TYZGenus.CMBridge in
 #print axioms tyzThm35ReadingA_of_cmLeaves7
+open ZInQ.Contrib.TYZGenus.CMBridge in
+#print axioms exists_complexConj
+open ZInQ.Contrib.TYZGenus.CMBridge in
+#print axioms lemma321Seven_of
+open ZInQ.Contrib.TYZGenus.CMBridge in
+#print axioms tyzThm35ReadingA_of_cmLeaves7'

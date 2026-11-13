@@ -33,3 +33,11 @@
   `tyzThm35ReadingA_of_cmLeaves7` hyps: TYZThm11Integral, TYZLcalOne, TYZLemma29Mod2,
   CM.CMFieldOfDefinition ringClassFieldD, TYZSigmaShiftsF0, Lemma318Literal HHprime, Thm35First, Lemma321Five,
   Lemma321Seven.
+- `Bridge.lean` §12 COMPILED (0 errors): `exists_complexConj` (complex conjugation in Gal(ℚ̄/ℚ) via
+  `AlgHom.fieldRange_of_normal`), `p2Ideal`/`p2Class` (TYZ's v₂ = (2, θ − (δ+1)/2)), leaf `TYZThm36Seven`,
+  glue Prop `BetaOnGenus7` (unproved), `actsO_of_acts4` (restriction H_{d,4} → H_d; needed a general-K lemma
+  `coe_artin_restrict` — the direct `rw [restrict_ringClassArtinEquiv] at` at K = QNeg d hit max recursion /
+  kernel deterministic timeout), `actsO_conj` (complex conjugation inverts Art on H_d, from ring-class's
+  `actsAsArtin4_conj`), `Z7_mem_genusBar`, `card_sqClasses`, `lemma321Seven_of : CMFieldOfDefinition7 →
+  TYZThm36Seven → BetaOnGenus7 → Lemma321Seven`, `tyzThm35ReadingA_of_cmLeaves7'`. All axioms standard (VERIFIED).
+- Correction to thm36_7 entry: the wrong sign fails for 7 n (23, 31, 39, 55, 71, 87, 95), not 8.
