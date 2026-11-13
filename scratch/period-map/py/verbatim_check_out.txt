@@ -1,0 +1,7 @@
+PkgI1 block (ThetaPoint lines 77-289) verbatim in light_base: True
+QMHauptmodulFn verbatim: True
+QMDenZeroCM3 verbatim: True
+IsHolP1At verbatim: True
+GammaStarFibresCM verbatim: True
+IsGammaStarHauptmodul verbatim: True
+HauptmodulUnique verbatim: True
