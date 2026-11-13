@@ -1,22 +1,36 @@
 # g0-mod-galois: glue steps G8-G12 (the Galois side of `ModularConstituent`)
 
-Task g0-mod-galois, 2026-11-13. Lean: `scratch/g0-mod-galois/part_galois.lean` and
-`scratch/g0-mod-galois/part_bundle.lean` (namespace `G0Galois`). `scratch/g0-mod-galois/build.sh`
-appends them to g0-split's `scratch/g0-split/Split.lean`, giving
+Task g0-mod-galois, 2026-11-13. Lean: `scratch/g0-mod-galois/part_galois.lean`, `part_matrix.lean`,
+`part_det.lean` and `part_bundle.lean` (namespace `G0Galois`). `scratch/g0-mod-galois/build.sh`
+appends them, in that order, to g0-split's `scratch/g0-split/Split.lean`, giving
 `scratch/g0-mod-galois/ModGalois.lean`. Log: `scratch/g0-mod-galois/log.md`. The base merges
 `origin/wip/g0-split` (c20fa62b) for `Split.lean`.
 
 ## 1. Result
 
-**The range G8-G12 is proved, with no `sorry`, from the leaves, the outputs of the earlier glue
-steps, Burnside's theorem (a textbook leaf, which replaces the linear-algebra piece `G8Matrix`;
-`G8Matrix` itself is proved from it) and four named glue Props (`G9Glue`, `G10Glue`, `G12Weight`,
-`G12Det`). `G12Det` also needs R14's determinant clause, which the stated R14 lacks (§3).** The conclusion is delivered in the exact
-form that g0-mod-newform's range takes as input (its `G12Out`): `G0Galois.newformG12Out_of_galois`.
+**The range G8-G12 is proved, with no `sorry`, from three groups of inputs.**
+
+- **Leaves:** the leaf bundles, plus two leaves outside them: Burnside's theorem
+  (`BurnsideAbsIrred`, textbook) and R14 with its published determinant clause (`R14Det`).
+- **Earlier steps:** their outputs (`G2Out`, `G3Out`, `G6Out`, `G7Out`).
+- **Five named glue Props:** `G9Glue` (N5's de Rham descent lemma), `G10Glue` (oddness),
+  `G12Weight` (the Hodge–Tate weight comparison), `DetTate` (`det V_ℓ(A) = χ_ℓ^{dim A}`, from T9)
+  and `ResQFiniteIndex` (`[G_ℚ : G_K] < ∞`).
+
+The first-draft pieces `G8Matrix` (linear algebra) and `G12Det` (the determinant identities) are
+now proved: `g8Matrix_of_burnside` and `g12Det_of`.
+
+The conclusion is delivered in the exact form that g0-mod-newform's range takes as input (its
+`G12Out`), by `G0Galois.newformG12Out_of_galois`. That step needs one more named Prop,
+`FiniteCharDirichlet` (the Kronecker–Weber step).
+
 VERIFIED: `lake env lean scratch/g0-mod-galois/ModGalois.lean` gives 0 errors and no
-`declaration uses sorry` (run8, 2m34s). `#print axioms` gives `[propext, Classical.choice,
-Quot.sound]` for `G0Galois.g8`, `g11`, `g12`, `g8_g12`, `g8_g12_of_leaves`,
-`commonConstituent_of_sides`, `isConstituentOf_of_intertwines`, `newformG12Out_of_galois`, `g8Matrix_of_burnside`.
+`declaration uses sorry` (run11, 2m31s). `#print axioms` gives `[propext, Classical.choice,
+Quot.sound]` for these theorems:
+- `G0Galois.g8`, `g11`, `g12`;
+- `g8_g12`, `g8_g12_of_leaves`;
+- `g8Matrix_of_burnside`, `g12Det_of`;
+- `commonConstituent_of_sides`, `isConstituentOf_of_intertwines`, `newformG12Out_of_galois`.
 
 ```
 theorem G0Galois.g8_g12_of_leaves (r : HSyn.ResearchLeaves) (t : HSyn.TextbookLeaves)
@@ -31,7 +45,8 @@ theorem G0Galois.g8_g12_of_leaves (r : HSyn.ResearchLeaves) (t : HSyn.TextbookLe
       G11Out T r₅ ∧ G12Out r₅
 ```
 
-`m : GaloisPieces` bundles `BurnsideAbsIrred` and the four named glue Props of this range (§3). The same statement at
+`m : GaloisPieces` bundles the two extra leaves (`BurnsideAbsIrred`, `R14Det`) and the five named
+glue Props (§3). The same statement at
 any prime `ℓ`, without G12, is `G0Galois.g8_g11` (used at `ℓ = 3` by G14-G15). The version with
 the leaves as separate hypotheses is `G0Galois.g8_g12`.
 
@@ -62,8 +77,14 @@ the leaves as separate hypotheses is `G0Galois.g8_g12`.
 
   Pan gives an eigenform `g` of some weight `k ≥ 1` and a continuous twist `ψ`. The named piece
   `G12Weight` gives `{n, n+1−k} = {0, −1}`. The proved `PkgI4.weight_match` then gives `k = 2`
-  (and `n = 0`). The named piece `G12Det` gives the determinant identities, and the proved
-  `GlueAssembly.twist_finite` turns them into finiteness of `ψ`.
+  (and `n = 0`). `G12Det` gives the determinant identities. It is **proved** (`g12Det_of`,
+  `part_det.lean`) from four inputs: R14Det; `DetTate`; `ResQFiniteIndex`; and T18 (the bundle's
+  `FrobeniusDense`, with c9-rhof's `eq_of_eq_on_arithFrob` copied).
+
+  The proof first shows that the traces of `r` and `ψ ⊗ ρ_g` agree at Frobenius elements, hence
+  everywhere. Then `det M = (tr(M)² − tr(M²))/2` gives `det r = ψ² det ρ_g = ε χ₅ ψ²`. Finally
+  `(det r)² = det V₅(A) = χ₅²` on `G_K`, through `e`, `LinearMap.det_conj` and `det_prodMap`.
+  The proved `GlueAssembly.twist_finite` turns these identities into finiteness of `ψ`.
 - **Link to `ModularConstituent`** (`G0Galois.commonConstituent_of_sides`, proved). G8's `e`,
   together with what G13-G16 must deliver on the `J₁(N)` side (`JSide`), gives
   `HSyn.G0Split.CommonConstituent A J`, the last field of `ModularConstituent`, with `ℓ = 5` and
@@ -100,7 +121,7 @@ namespaces (`G0ModField`, `G0ModNewform`). Here they are `G0Galois.G2Out` and so
 | `G11Out T r` | G11 | `r` unramified at every prime `p ∉ T`, `p ≠ ℓ` |
 | `G12Out r₅` | G12 | `∃ N ≥ 1, χ, g ∈ S₂(Γ₁(N))` normalized eigenform with nebentypus `χ`, `ψ` continuous of finite image, `ιC`, `ιL`, `S` finite: `r₅.AttachedUpToTwist ψ ιC ιL g S` |
 
-## 3. What remains: Burnside (a textbook leaf), four named glue Props, and one more for the newform feed
+## 3. What remains: two extra leaves (Burnside, R14Det), five named glue Props, and one more for the newform feed
 
 Sizes are SPECULATIVE (small < 500 lines, medium 0.5-3k, large 3-10k).
 
@@ -110,33 +131,36 @@ Sizes are SPECULATIVE (small < 500 lines, medium 0.5-3k, large 3-10k).
 | `G9Glue` | R10 → T23 → (`ℚ̄_ℓ ⊗ V_ℓ(A) ≅ r\|G_K ⊕ r\|G_K`, `dim A = 2` ⇒ `G9Out r`) | R10 (`DeRhamComparison`), T23 | N5's appendix lemma (h-trust C3, two model reviews) with the Galois choice of the local field. Needs base change of `PkgI3.AbVar` to a completion, the identification of pkg-I3's and pkg-I4's `AbVar` copies, and the reduction to a finite coefficient field | medium-large |
 | `G10Glue` | T11 → T12 → R9b → (`K` Galois, `End_K(A)` rank 4, division, noncommutative, the same splitting ⇒ `r` odd) | T11, T12 (opaque placeholders), R9b | N5 L742-751 (h-trust C5). For any extension `r`, `φ = ρ(c)∘c⁻¹` is `B`-linear and in `Hom(A^c, A) ⊗ ℚ̄_ℓ` (Faltings), so it equals `a·μ_c`, and the Betti argument applies. SPECULATIVE as a reduction; each step STANDARD or model-reviewed | medium (needs analytification) |
 | `G12Weight` | R14 → R13 → R15 → T18 → T19 → (Pan's output for an irreducible `r` with weights `{0,−1}` ⇒ `∃ n, {n, n+1−k} = {0,−1}`) | R13, R14, R15, T18, T19 | `r ≅ ρ_g ⊗ ψ` (Chebotarev, Brauer–Nesbitt), weights of a twist shift by the weight of `ψ`. For `k = 1`, Deligne–Serre gives weights `{0,0}`, which contradicts `{0,−1}` (h-trust C8) | medium (HT weights of tensor products) |
-| `G12Det` | R14 → T9 → (`r` split on `G_K` as above, attached up to `ψ` to a weight-2 `g` ⇒ `H` of finite index, characters `dr, ε, χ_c` with `dr = εχ_cψ²`, `dr² = χ_c²` on `H`, `ε` of finite image) | R14 (determinant clause, as published), T9 | h-trust C8 items 1-3 (V16 L660-667). `dr = det r`, `ε` = the nebentypus, `χ_c` = cyclotomic, `H` = `G_K`. `det r = det(ρ_g ⊗ ψ)` everywhere (traces agree on a dense set, `det = (tr² − tr(g²))/2`); `det V₅(A) = χ_c²` (T9) and `V₅ ≅ r ⊕ r` | small-medium (plus R14's determinant clause, see below) |
+| `R14Det` (leaf, replaces the R14 clause that `G12Det` needed) | R14 with its published determinant: the semisimple `ρ_g` attached to `g` has `det ρ_g = ε·χ_ℓ^{k−1}`, `ε` of finite image | none: a leaf (Shimura 1971 Thm 7.14, Deligne 1971, Deligne–Serre 1974; locators UNVERIFIED) | the published theorems state the determinant | — |
+| `DetTate` | `det(tate A ℓ σ) = χ_ℓ(resQ σ)^{dim A}` on `G_K` | (T9) | Weil pairing of a polarization: `G_K` acts through `GSp_{2g}` with multiplier `χ_ℓ` (Mumford §20, §23; STANDARD) | medium (T9's pairing on torsion → determinant on `V_ℓ`) |
+| `ResQFiniteIndex` | `(resQ K).range` has finite index in `G_ℚ` | none | the index is `[K:ℚ]` (Galois theory of `ℚ̄/ℚ`) | small-medium |
 | `FiniteCharDirichlet` (only for the newform feed, §4.1) | T17 → (a continuous `ψ : G_ℚ → ℚ̄_ℓ^×` of finite image is, at arithmetic Frobenius above `p ∉ S`, `ιL(β)` with `ιC(β) = ψD(p)` for a Dirichlet character `ψD` mod `m`) | T17 (Kronecker–Weber) | the kernel field is finite abelian, so it lies in `ℚ(ζ_m)`; the values are roots of unity, which lie in `ιL(ℚ̄)` (h-trust C8 item 4) | small-medium |
 
-**A leaf gap found (VERIFIED by reading the statement).** `G12Det` needs `det ρ_g = ε_g χ_c`
+**A leaf gap found (VERIFIED by reading the statement), now handled by `R14Det`.** The determinant argument needs `det ρ_g = ε_g χ_c`
 (at `k = 2`). The bundle's R14 (`HSyn.EigenformRepExists`, consequence form) omits the
 determinant: its docstring says "the published statements also give the determinant". Its
 `AttachedTo` gives only traces of arithmetic Frobenius elements at `p ∤ Nℓ`. These do not fix
 `det ρ_g(Frob_p)`, since `Frob_p²` is not an arithmetic Frobenius at `p`. So either R14 is
 strengthened to the published statement with `det ρ_g = ε_g χ_c^{k−1}` (still a consequence of
 the published theorem, so still a leaf), or `G12Det` keeps this as glue from Eichler–Shimura.
-Recommendation: strengthen R14 (one clause).
+Recommendation: strengthen R14 (one clause). This file does so as the separate leaf `R14Det`
+(`part_det.lean`), so `HSyn.ResearchLeaves.r14` can be replaced by it.
 
-**Next split of `G12Det` (SPECULATIVE plan; not done for lack of time).** Let `χ_ℓ : G_ℚ → ℚ̄_ℓ^×`
-be the `ℓ`-adic cyclotomic character, defined like `PkgI4.cyc` but on `G_ℚ`. Then `G12Det`
-follows from three pieces:
+**The split of `G12Det` (done, `g12Det_of`, VERIFIED run10-11).** `cycQ ℓ : G_ℚ → ℚ̄_ℓ^×` is the
+`ℓ`-adic cyclotomic character, defined like `PkgI4.cyc` but on `G_ℚ`, from Mathlib's
+`cyclotomicCharacter`. `G12Det` follows from three pieces and T18:
 
 1. **R14Det** (leaf, R14 with its published determinant clause): the semisimple `ρ_g` attached to
    `g` has `det ρ_g = ε · χ_ℓ^{k−1}`, with `ε` of finite image.
 2. **DetTate** (glue from T9): `det(tate A ℓ σ) = χ_ℓ(resQ σ)^{dim A}` for `σ ∈ G_K`.
 3. **ResQFiniteIndex** (glue, Galois theory): `(resQ K).range` has finite index.
 
-These are combined by proved or easy steps:
+These are combined by proved steps:
 
 - `det r = det(ρ_g ⊗ ψ)`. The traces agree at Frobenius elements, so they agree everywhere:
-  c9-rhof's `eq_of_eq_on_arithFrob` from T18 does this. Then
+  c9-rhof's `eq_of_eq_on_arithFrob` from T18 does this. Then `det_fin_two_eq_trace` gives
   `det M = (tr(M)² − tr(M²))/2` for `2 × 2` matrices.
-- `det(r ⊕ r) = (det r)²` through `e`.
+- `det(r ⊕ r) = (det r)²` through `e`, with `LinearMap.det_conj`, `det_prodMap` and `det_toLin'`.
 
 ## 4. How the conclusion feeds G13-G16 and `ModularConstituent`
 
@@ -165,7 +189,7 @@ These definitions are copied verbatim into namespace `G0Galois.NF`, and
 **`G0Galois.newformG12Out_of_galois` (proved)** derives `NF.NewformG12Out A` from:
 
 - the leaf bundles;
-- `GaloisPieces` (the five named Props);
+- `GaloisPieces` (the two extra leaves and the five named glue Props);
 - `FiniteCharDirichlet`, a sixth named Prop: a finite-image character is a Dirichlet character at
   Frobenius, from T17 Kronecker–Weber (h-trust C8 item 4). It is in this theorem because
   g0-mod-newform put the Kronecker–Weber step into its `PanOutput`;
@@ -259,11 +283,14 @@ The remaining inputs come from elsewhere:
   `g8_g11`, `g8_g12`.
 - `scratch/g0-mod-galois/part_matrix.lean` (87 lines): `BurnsideAbsIrred` and
   `g8Matrix_of_burnside`.
-- `scratch/g0-mod-galois/part_bundle.lean` (263 lines): `GaloisPieces`,
+- `scratch/g0-mod-galois/part_det.lean`: `cycQ`, `R14Det`, `DetTate`, `ResQFiniteIndex`,
+  `FrobeniusDenseQ` (with `frobeniusDenseQ_of` from the bundle's T18), the copied
+  `eq_of_eq_on_arithFrob`, `det_fin_two_eq_trace` and `g12Det_of`.
+- `scratch/g0-mod-galois/part_bundle.lean`: `GaloisPieces`,
   `g8_g12_of_leaves`, `JSide`, `commonConstituent_of_sides`, the copied newform interface
   (`NF.*`), `FiniteCharDirichlet`, `isConstituentOf_of_intertwines`, `panOutput_of_g12`,
   `newformG12Out_of_galois`.
-- `ModGalois.lean` is generated (`build.sh`). It is g0-split's `Split.lean` followed by the three
+- `ModGalois.lean` is generated (`build.sh`). It is g0-split's `Split.lean` followed by the four
   parts. The leaf statements (PanBerger, DeRhamComparison, EigenformHT, T23, the bundles) exist
   only in `Split.lean` (from `Leaves.lean`), not in `ZInQKernel/HDecomp/`.
 - **Different environments.** g0-mod-field and g0-mod-newform compile over

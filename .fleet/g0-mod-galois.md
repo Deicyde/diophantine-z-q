@@ -4,12 +4,17 @@
 these inputs:
 - the leaf bundles (R9a, R9b, R10, R11+R12 = Pan∘Berger, R13, R14, R15, T6, T9, T11, T12, T17,
   T18, T19, T23, T26);
+- two leaves outside the bundles: Burnside (`BurnsideAbsIrred`, textbook) and R14 with its
+  published determinant clause (`R14Det`);
 - glue-ssbc's proved `SemisimpleBaseChange`;
 - the outputs of the earlier steps, `G2Out`, `G3Out`, `G6Out`, `G7Out` (the ℓ-adic scalar-descent
   data and the matrix units of `B ⊗ ℚ̄_ℓ`);
-- five named glue Props: `G8Matrix` (linear algebra), `G9Glue` (N5's de Rham descent lemma),
-  `G10Glue` (oddness), `G12Weight` (Hodge–Tate weight comparison), `G12Det` (the determinant
-  identities).
+- five named glue Props: `G9Glue` (N5's de Rham descent lemma), `G10Glue` (oddness),
+  `G12Weight` (Hodge–Tate weight comparison), `DetTate` (`det V_ℓ(A) = χ_ℓ^{dim A}`, from T9),
+  `ResQFiniteIndex` (`[G_ℚ:G_K] < ∞`).
+
+The first-draft pieces `G8Matrix` and `G12Det` are proved (`g8Matrix_of_burnside`,
+`g12Det_of`).
 
 The conclusion is a continuous `r₅ : G_ℚ → GL₂(ℚ̄₅)` with five properties:
 - `ℚ̄₅ ⊗ V₅(A) ≅ r₅ ⊕ r₅`, which on `G_ℚ` is the descended `ρ` and on `G_{L'}` the Tate action;
@@ -23,7 +28,8 @@ The conclusion is a continuous `r₅ : G_ℚ → GL₂(ℚ̄₅)` with five prop
 - G11, with no named glue;
 - the Pan application;
 - `k = 2` (`weight_match`);
-- finiteness of the twist (`twist_finite`);
+- finiteness of the twist (`g12Det_of`: traces agree via Chebotarev, the `2×2` determinant
+  identity, `det(r⊕r)` through the splitting; then `twist_finite`);
 - C2's application;
 - the descended representation and its splitting.
 
@@ -34,14 +40,14 @@ The conclusion is a continuous `r₅ : G_ℚ → GL₂(ℚ̄₅)` with five prop
 
 **Compiles.** `lake env lean scratch/g0-mod-galois/ModGalois.lean` (g0-split's `Split.lean` + the
 two parts, assembled by `build.sh`): 0 errors, no `sorry`. The axioms are [propext, Classical.choice,
-Quot.sound] for all eight main theorems (VERIFIED, run7).
+Quot.sound] for all ten main theorems (VERIFIED, run11).
 
 **Finding.** R14 as stated (`HSyn.EigenformRepExists`, consequence form) omits the published
-determinant `det ρ_g = ε_g χ^{k−1}`, which the determinant argument (`G12Det`) needs.
-Recommendation: add that clause to R14.
+determinant `det ρ_g = ε_g χ^{k−1}`, which the determinant argument needs. It is added here as
+the leaf `R14Det`. Recommendation: replace the bundle's R14 by it.
 
 **Remains.**
-- The five named Props, plus `FiniteCharDirichlet`; sizes and arguments are in
+- The five named glue Props, plus `FiniteCharDirichlet`; sizes and arguments are in
   docs/research/g0-mod-galois.md §3.
 - The ℓ-adic realization `G7Realize` of g0-mod-field's points-level `G7Data` (prose only; §4.3).
 - Local versus global inertia for g0-mod-newform's G15Ram (§4.1).
