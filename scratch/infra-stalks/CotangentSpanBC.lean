@@ -349,6 +349,178 @@ theorem rationalOver_of_section {X S : Scheme.{u}} (f : X ⟶ S) (e : S ⟶ X) (
   rw [map_sub, key, sub_self] at h'
   exact not_isUnit_zero h'
 
+/-! ### Sections and points with field stalks -/
+
+theorem StalkGen.symm {T X Y : Scheme.{u}} {p : T ⟶ X} {q : T ⟶ Y} {t : T}
+    (h : StalkGen p q t) : StalkGen q p t := by
+  intro r
+  obtain ⟨c, hc, w, hw, hu, h'⟩ := h r
+  rw [sup_comm] at hc hw
+  exact ⟨c, hc, w, hw, hu, h'⟩
+
+/-- A morphism with a retraction is rational at every point (it is surjective on stalks). -/
+theorem rationalOver_of_retraction {X S : Scheme.{u}} (f : X ⟶ S) (r : S ⟶ X)
+    (hr : f ≫ r = 𝟙 X) (x : X) : RationalOver f x := by
+  intro a
+  have hx : r (f x) = x := by rw [← Scheme.Hom.comp_apply, hr]; rfl
+  refine ⟨r.stalkMap (f x) ((X.presheaf.stalkCongr (.of_eq hx)).inv a), ?_⟩
+  have key : f.stalkMap x (r.stalkMap (f x) ((X.presheaf.stalkCongr (.of_eq hx)).inv a)) = a := by
+    have h3 : ∀ y, (X.presheaf.stalkCongr (.of_eq hx)).hom
+        ((X.presheaf.stalkCongr (.of_eq hx)).inv y) = y := fun y => Iso.inv_hom_id_apply _ y
+    refine (stalkMap_comp_apply' f r x _).symm.trans ?_
+    rw [Scheme.Hom.stalkMap_congr_hom (f ≫ r) (𝟙 X) hr x, Scheme.Hom.stalkMap_id]
+    exact h3 _
+  rw [key, sub_self]
+  exact Ideal.zero_mem _
+
+/-- The stalks of the spectrum of a field are fields. -/
+theorem maximalIdeal_stalk_spec_field (k : Type u) [Field k] (x : Spec (CommRingCat.of k)) :
+    IsLocalRing.maximalIdeal ((Spec (CommRingCat.of k)).presheaf.stalk x) = ⊥ := by
+  have h : x = genericPoint (Spec (CommRingCat.of k)) := Subsingleton.elim _ _
+  rw [← IsLocalRing.isField_iff_maximalIdeal_eq, h]
+  exact Field.toIsField (Spec (CommRingCat.of k)).functionField
+
+theorem mem_maximalIdeal_of_iso {R S : CommRingCat.{u}} [IsLocalRing R] [IsLocalRing S]
+    (φ : R ≅ S) {a : R} (ha : a ∈ IsLocalRing.maximalIdeal R) :
+    φ.hom a ∈ IsLocalRing.maximalIdeal S := by
+  intro hu
+  apply ha
+  have := hu.map φ.inv.hom
+  rwa [Iso.hom_inv_id_apply] at this
+
+/-- In a commutative square `p ≫ f = q ≫ g`, if the stalk of `Y` at `q t` is a field, the
+composite `𝒪_{S, f(p t)} → 𝒪_{X, p t} → 𝒪_{T, t}` kills the maximal ideal. -/
+theorem stalkMap_comp_eq_zero_of_maximalIdeal_eq_bot {T X Y S : Scheme.{u}} (p : T ⟶ X)
+    (q : T ⟶ Y) (f : X ⟶ S) (g : Y ⟶ S) (w : p ≫ f = q ≫ g) (t : T)
+    (hY : IsLocalRing.maximalIdeal (Y.presheaf.stalk (q t)) = ⊥)
+    (c : S.presheaf.stalk (f (p t))) (hc : c ∈ IsLocalRing.maximalIdeal _) :
+    p.stalkMap t (f.stalkMap (p t) c) = 0 := by
+  have hpt : (p ≫ f) t = (q ≫ g) t := by rw [w]
+  have e : p.stalkMap t (f.stalkMap (p t) c) =
+      q.stalkMap t (g.stalkMap (q t) ((S.presheaf.stalkCongr (.of_eq hpt)).hom c)) := by
+    calc p.stalkMap t (f.stalkMap (p t) c) = (p ≫ f).stalkMap t c :=
+          (stalkMap_comp_apply' p f t c).symm
+      _ = (q ≫ g).stalkMap t ((S.presheaf.stalkCongr (.of_eq hpt)).hom c) := by
+          rw [Scheme.Hom.stalkMap_congr_hom (p ≫ f) (q ≫ g) w t]; rfl
+      _ = _ := stalkMap_comp_apply' q g t _
+  have hc' := mem_maximalIdeal_of_iso (S.presheaf.stalkCongr (.of_eq hpt)) hc
+  have h0 : g.stalkMap (q t) ((S.presheaf.stalkCongr (.of_eq hpt)).hom c) ∈
+      IsLocalRing.maximalIdeal (Y.presheaf.stalk (q t)) := map_nonunit _ _ hc'
+  rw [hY, Ideal.mem_bot] at h0
+  rw [e, h0, map_zero]
+
+/-- **A section through a point with field stalk is an open immersion.** Let `q : P ⟶ Spec k` be
+locally of finite type over a field `k` and `u` a section of `q`. If the stalk of `P` at the
+point `u pt` is a field, then `u` is an open immersion. -/
+theorem isOpenImmersion_of_section_of_maximalIdeal_eq_bot {k : Type u} [Field k] {P : Scheme.{u}}
+    (q : P ⟶ Spec (CommRingCat.of k)) [LocallyOfFiniteType q] (u : Spec (CommRingCat.of k) ⟶ P)
+    (hu : u ≫ q = 𝟙 _) (pt : Spec (CommRingCat.of k))
+    (hm : IsLocalRing.maximalIdeal (P.presheaf.stalk (u pt)) = ⊥) : IsOpenImmersion u := by
+  have hcl : IsClosedImmersion u := isClosedImmersion_of_comp_eq_id q u hu
+  have hF : IsField (P.presheaf.stalk (u pt)) := IsLocalRing.isField_iff_maximalIdeal_eq.mpr hm
+  have hinj : Function.Injective (u.stalkMap pt).hom := by
+    letI := hF.toField
+    exact RingHom.injective _
+  have hsurj : Function.Surjective (u.stalkMap pt).hom := u.stalkMap_surjective pt
+  have hqs : Function.Surjective (q.stalkMap (u pt)).hom := by
+    intro y
+    have hpt : (u ≫ q) pt = (𝟙 (Spec (CommRingCat.of k))) pt := by rw [hu]
+    let c := ((Spec (CommRingCat.of k)).presheaf.stalkCongr (.of_eq hpt)).inv (u.stalkMap pt y)
+    have hc : (u ≫ q).stalkMap pt c = u.stalkMap pt y := by
+      rw [Scheme.Hom.stalkMap_congr_hom (u ≫ q) (𝟙 _) hu pt, Scheme.Hom.stalkMap_id]
+      exact Iso.inv_hom_id_apply ((Spec (CommRingCat.of k)).presheaf.stalkCongr (.of_eq hpt))
+        (u.stalkMap pt y)
+    refine ⟨c, hinj ?_⟩
+    rw [← hc]
+    exact (stalkMap_comp_apply' u q pt c).symm
+  have hqf : q.QuasiFiniteAt (u pt) :=
+    RingHom.QuasiFinite.of_finite (RingHom.Finite.of_surjective _ hqs)
+  have h1 : IsOpen {q.asFiber (u pt)} := Scheme.Hom.quasiFiniteAt_iff_isOpen_singleton_asFiber.mp hqf
+  have h2 : IsOpen ((q.fiberHomeo (q (u pt))) '' {q.asFiber (u pt)}) :=
+    (q.fiberHomeo _).isOpenMap _ h1
+  rw [Set.image_singleton, Scheme.Hom.asFiber, Homeomorph.apply_symm_apply] at h2
+  have hopen : IsOpen (q.base ⁻¹' {q (u pt)}) := by
+    convert isOpen_univ
+    ext y
+    simp only [Set.mem_preimage, Set.mem_singleton_iff, Set.mem_univ, iff_true]
+    exact Subsingleton.elim _ _
+  have h3 : IsOpen ({u pt} : Set P) := by
+    have := hopen.isOpenMap_subtype_val _ h2
+    simpa using this
+  have hrange : Set.range u = {u pt} := by
+    ext y
+    constructor
+    · rintro ⟨x, rfl⟩
+      rw [Subsingleton.elim x pt]
+      rfl
+    · rintro rfl
+      exact ⟨pt, rfl⟩
+  have hemb : Topology.IsOpenEmbedding u :=
+    ⟨u.isClosedEmbedding.isEmbedding, by rw [hrange]; exact h3⟩
+  haveI : ∀ x, IsIso (u.stalkMap x) := by
+    intro x
+    obtain rfl : x = pt := Subsingleton.elim x pt
+    exact (ConcreteCategory.isIso_iff_bijective _).mpr ⟨hinj, hsurj⟩
+  exact IsOpenImmersion.of_isIso_stalkMap u hemb
+
+theorem stalkMap_congr_point_apply {X Y : Scheme.{u}} (f : X ⟶ Y) {x x' : X} (h : x = x')
+    (z : Y.presheaf.stalk (f x)) :
+    (X.presheaf.stalkCongr (.of_eq h)).hom (f.stalkMap x z) =
+      f.stalkMap x' ((Y.presheaf.stalkCongr (.of_eq (congrArg f h))).hom z) :=
+  ConcreteCategory.congr_hom (Scheme.Hom.stalkMap_congr_point f x x' h) z
+
+/-! ### Stalk maps between given points -/
+
+/-- The stalk map of `f` from `y` to `x`, for `f x = y`. -/
+noncomputable def Scheme.Hom.stalkMapAt {X Y : Scheme.{u}} (f : X ⟶ Y) {x : X} {y : Y}
+    (h : f x = y) : Y.presheaf.stalk y ⟶ X.presheaf.stalk x :=
+  (Y.presheaf.stalkCongr (.of_eq h.symm)).hom ≫ f.stalkMap x
+
+instance {X Y : Scheme.{u}} (f : X ⟶ Y) {x : X} {y : Y} (h : f x = y) :
+    IsLocalHom (f.stalkMapAt h).hom := by
+  unfold Scheme.Hom.stalkMapAt
+  rw [CommRingCat.hom_comp]
+  infer_instance
+
+theorem Scheme.Hom.stalkMapAt_rfl {X Y : Scheme.{u}} (f : X ⟶ Y) (x : X) :
+    f.stalkMapAt (rfl : f x = f x) = f.stalkMap x := by
+  unfold Scheme.Hom.stalkMapAt
+  have : (Y.presheaf.stalkCongr (.of_eq (rfl : f x = f x).symm)).hom = 𝟙 _ :=
+    Y.presheaf.stalkSpecializes_refl _
+  rw [this, Category.id_comp]
+
+theorem Scheme.Hom.stalkMapAt_comp {X Y Z : Scheme.{u}} (f : X ⟶ Y) (g : Y ⟶ Z) {x : X} {y : Y}
+    {z : Z} (hf : f x = y) (hg : g y = z) (hfg : (f ≫ g) x = z) :
+    (f ≫ g).stalkMapAt hfg = g.stalkMapAt hg ≫ f.stalkMapAt hf := by
+  subst hf hg
+  rw [Scheme.Hom.stalkMapAt_rfl, Scheme.Hom.stalkMapAt_rfl]
+  unfold Scheme.Hom.stalkMapAt
+  have : (Z.presheaf.stalkCongr (.of_eq hfg.symm)).hom = 𝟙 _ :=
+    Z.presheaf.stalkSpecializes_refl _
+  rw [this]
+  exact (Category.id_comp _).trans (Scheme.Hom.stalkMap_comp f g x)
+
+theorem Scheme.Hom.stalkMapAt_congr {X Y : Scheme.{u}} {f g : X ⟶ Y} (e : f = g) {x : X} {y : Y}
+    (hf : f x = y) (hg : g x = y) : f.stalkMapAt hf = g.stalkMapAt hg := by
+  subst e; rfl
+
+theorem Scheme.Hom.stalkMapAt_id {X : Scheme.{u}} (x : X) (h : (𝟙 X) x = x) :
+    Scheme.Hom.stalkMapAt (𝟙 X) h = 𝟙 _ := by
+  unfold Scheme.Hom.stalkMapAt
+  rw [Scheme.Hom.stalkMap_id]
+  exact (Category.comp_id _).trans (X.presheaf.stalkSpecializes_refl _)
+
+theorem Scheme.Hom.map_stalkMapAt_maximalIdeal {X Y : Scheme.{u}} (f : X ⟶ Y) {x : X} {y : Y}
+    (h : f x = y) :
+    Ideal.map (f.stalkMapAt h).hom (IsLocalRing.maximalIdeal (Y.presheaf.stalk y)) =
+      Ideal.map (f.stalkMap x).hom (IsLocalRing.maximalIdeal (Y.presheaf.stalk (f x))) := by
+  subst h; rw [Scheme.Hom.stalkMapAt_rfl]
+
+theorem Scheme.Hom.exists_stalkMapAt_eq {X Y : Scheme.{u}} (f : X ⟶ Y) {x : X} {y : Y}
+    (h : f x = y) (b : Y.presheaf.stalk (f x)) :
+    ∃ c : Y.presheaf.stalk y, f.stalkMapAt h c = f.stalkMap x b := by
+  subst h; exact ⟨b, by rw [Scheme.Hom.stalkMapAt_rfl]⟩
+
 end AlgebraicGeometry
 
 

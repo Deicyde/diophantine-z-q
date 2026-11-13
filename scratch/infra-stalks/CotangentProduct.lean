@@ -58,19 +58,21 @@ theorem exists_sub_mem_sq_of_mem_map (φ : O →+* R) (hle : (maximalIdeal O).ma
     rw [pow_two]
     exact Ideal.mul_mem_mul hc (hle hy')
 
-/-- **Cotangent space of a product.** See the module docstring. -/
-theorem sub_mem_maximalIdeal_sq_of_product (φ₁ φ₂ : O →+* R) (ψ₁ ψ₂ : R →+* O)
-    [IsLocalHom ψ₁] [IsLocalHom ψ₂]
+/-- **Cotangent space of a product.** See the module docstring. The two factors may be different
+local rings `O₁`, `O₂`. -/
+theorem sub_mem_maximalIdeal_sq_of_product {O₁ O₂ : Type*} [CommRing O₁] [IsLocalRing O₁]
+    [CommRing O₂] [IsLocalRing O₂] (φ₁ : O₁ →+* R) (φ₂ : O₂ →+* R) (ψ₁ : R →+* O₁)
+    (ψ₂ : R →+* O₂) [IsLocalHom ψ₁] [IsLocalHom ψ₂]
     (h₁ : ∀ a, ψ₁ (φ₁ a) = a) (h₂ : ∀ a, ψ₂ (φ₂ a) = a)
-    (h₁₂ : ∀ a ∈ maximalIdeal O, ψ₁ (φ₂ a) ∈ maximalIdeal O ^ 2)
-    (h₂₁ : ∀ a ∈ maximalIdeal O, ψ₂ (φ₁ a) ∈ maximalIdeal O ^ 2)
-    (hm : maximalIdeal R = (maximalIdeal O).map φ₁ ⊔ (maximalIdeal O).map φ₂)
+    (h₁₂ : ∀ a ∈ maximalIdeal O₂, ψ₁ (φ₂ a) ∈ maximalIdeal O₁ ^ 2)
+    (h₂₁ : ∀ a ∈ maximalIdeal O₁, ψ₂ (φ₁ a) ∈ maximalIdeal O₂ ^ 2)
+    (hm : maximalIdeal R = (maximalIdeal O₁).map φ₁ ⊔ (maximalIdeal O₂).map φ₂)
     (hr₁ : ∀ r : R, ∃ c, r - φ₁ c ∈ maximalIdeal R)
     (hr₂ : ∀ r : R, ∃ c, r - φ₂ c ∈ maximalIdeal R)
     {x : R} (hx : x ∈ maximalIdeal R) :
     x - φ₁ (ψ₁ x) - φ₂ (ψ₂ x) ∈ maximalIdeal R ^ 2 := by
-  have hle₁ : (maximalIdeal O).map φ₁ ≤ maximalIdeal R := hm ▸ le_sup_left
-  have hle₂ : (maximalIdeal O).map φ₂ ≤ maximalIdeal R := hm ▸ le_sup_right
+  have hle₁ : (maximalIdeal O₁).map φ₁ ≤ maximalIdeal R := hm ▸ le_sup_left
+  have hle₂ : (maximalIdeal O₂).map φ₂ ≤ maximalIdeal R := hm ▸ le_sup_right
   rw [hm] at hx
   obtain ⟨y, hy, z, hz, rfl⟩ := Submodule.mem_sup.mp hx
   obtain ⟨a, ha, ea⟩ := exists_sub_mem_sq_of_mem_map φ₁ hle₁ hr₁ hy
@@ -84,10 +86,10 @@ theorem sub_mem_maximalIdeal_sq_of_product (φ₁ φ₂ : O →+* R) (ψ₁ ψ�
   rw [map_sub, map_sub, h₁] at hψ₁
   rw [map_sub, map_sub, h₂] at hψ₂
   -- `ψ₁ x - a ∈ 𝔪²` and `ψ₂ x - b ∈ 𝔪²`
-  have ea' : ψ₁ (y + z) - a ∈ maximalIdeal O ^ 2 := by
+  have ea' : ψ₁ (y + z) - a ∈ maximalIdeal O₁ ^ 2 := by
     have : ψ₁ (y + z) - a = (ψ₁ (y + z) - a - ψ₁ (φ₂ b)) + ψ₁ (φ₂ b) := by ring
     rw [this]; exact Ideal.add_mem _ hψ₁ (h₁₂ b hb)
-  have eb' : ψ₂ (y + z) - b ∈ maximalIdeal O ^ 2 := by
+  have eb' : ψ₂ (y + z) - b ∈ maximalIdeal O₂ ^ 2 := by
     have : ψ₂ (y + z) - b = (ψ₂ (y + z) - ψ₂ (φ₁ a) - b) + ψ₂ (φ₁ a) := by ring
     rw [this]; exact Ideal.add_mem _ hψ₂ (h₂₁ a ha)
   have fa := map_mem_sq_of_le φ₁ hle₁ ea'
