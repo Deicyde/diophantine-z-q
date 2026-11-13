@@ -70,3 +70,20 @@
   `part_pcfinal.lean`: **`productCotangent_aux`** (= body of `ProductCotangent`).
   Compile: ~12 iterations; final 0 errors, all `#print axioms` standard (VERIFIED).
   **`ProductCotangent` is proved.**
+- `UnifDims.lean` / `Combined.lean` regenerated with `part_pc`, `part_pcfinal`, `part_final2`,
+  `part_combined2`: **`productHodgeLattice_of_tangentDim : TangentDimAtOrigin → T35 →
+  ProductHodgeLattice`**, **`productMetrizationOfProductUnif_of_tangentDim`,
+  `productModelHeight_of_tangentDim : T35 → TangentDimAtOrigin → …`**. Both files: 0 errors,
+  all `#print axioms` standard (VERIFIED).
+- `LeavesIntegrated.lean` attempt 1 (`build_leaves.py`; Leaves.lean + product-height + PU +
+  metrization2 kernel file + this task, without `open PkgI3 (AbVar)`), 9 min 9 s: 23 errors, all in
+  metrization2's T35 transport section (FINDING, VERIFIED): in Leaves.lean,
+  `ZInQ.LeafPush2.UniformizationExists` (T35, `TextbookLeaves.t35`) is stated over `PkgI3.AbVar`
+  (`CPts`) and namespace `ZInQ.LeafPush2` has its own copies of `GroupModel.ptC`, `genericFibre`,
+  while def-faltings' models use the distinct structure `ZInQ.DefFaltings.AbVar`. So in Leaves.lean
+  T35 cannot be applied to def-faltings group models without an `AbVar` bridge; in the kernel the
+  two are the same `PkgI3.AbVar` and the transport compiles (Combined.lean, metrization2's
+  Kernel.lean). Everything else (DetLatticeProd, ProductCotangent, …) compiled there.
+- Attempt 2: T35 transport and this task's T35-taking theorems dropped; tail
+  `productModelHeight_of_leaves : AnalyticUniformizationOfDim → TangentDimAtOrigin →
+  ZInQ.H5Neron.ProductModelHeight` over Leaves.lean's definitions. (Outcome below.)
