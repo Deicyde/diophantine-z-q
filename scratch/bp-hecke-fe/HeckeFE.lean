@@ -2,6 +2,8 @@ import Mathlib.NumberTheory.LSeries.HurwitzZetaEven
 import Mathlib.NumberTheory.LSeries.HurwitzZetaOdd
 import Mathlib.NumberTheory.LSeries.MellinEqDirichlet
 import Mathlib.Analysis.SpecialFunctions.Elliptic.Weierstrass
+import ZInQKernel.RouteK.Rank.LFunctionCd
+import ZInQKernel.Hypotheses.CR3Literature
 
 /-!
 # Weight-two theta kernels over shifted copies of `ℤ[i]`
@@ -354,5 +356,128 @@ theorem twistedL_continuation (M : ℕ) [NeZero M] (c : ZMod M × ZMod M → ℂ
     exact (differentiable_const_cpow_of_neZero _).comp differentiable_id.neg |>.const_mul _
   · rw [twistedL_eq M c hs]
     exact Finset.sum_congr rfl fun j _ => by rw [hGeq j s hs]
+
+
+/-! ### From lattice sums to Dirichlet series: grouping by the norm -/
+
+/-- The points of `ℤ²` of norm `n`, i.e. the `α ∈ ℤ[i]` with `N(α) = n`. -/
+def normFiber (n : ℕ) : Finset (ℤ × ℤ) :=
+  ((Finset.Icc (-(n : ℤ)) n) ×ˢ (Finset.Icc (-(n : ℤ)) n)).filter
+    (fun p => p.1 ^ 2 + p.2 ^ 2 = n)
+
+theorem mem_normFiber {n : ℕ} {p : ℤ × ℤ} : p ∈ normFiber n ↔ p.1 ^ 2 + p.2 ^ 2 = n := by
+  simp only [normFiber, Finset.mem_filter, Finset.mem_product, Finset.mem_Icc]
+  constructor
+  · exact fun h => h.2
+  · intro h
+    refine ⟨⟨⟨?_, ?_⟩, ?_, ?_⟩, h⟩ <;> nlinarith [sq_nonneg p.1, sq_nonneg p.2, sq_abs p.1,
+      sq_abs p.2, abs_nonneg p.1, abs_nonneg p.2, neg_abs_le p.1, le_abs_self p.1,
+      neg_abs_le p.2, le_abs_self p.2]
+
+/-- **Grouping by the norm.** If `a n = Σ_{N(α) = n} c(α mod M) α` for `n ≠ 0`, then the Dirichlet
+series of `a` is the twisted lattice series, for `Re s > 3/2`. -/
+theorem LSeries_eq_twistedL (M : ℕ) [NeZero M] (c : ZMod M × ZMod M → ℂ) (a : ℕ → ℂ)
+    (ha : ∀ n : ℕ, n ≠ 0 →
+      a n = ∑ p ∈ normFiber n, c ((p.1 : ZMod M), (p.2 : ZMod M)) * gz 0 0 p)
+    {s : ℂ} (hs : 3 / 2 < s.re) : LSeries a s = twistedL M c s := by
+  set T := fun p : ℤ × ℤ => c ((p.1 : ZMod M), (p.2 : ZMod M)) * gz 0 0 p / (gq 0 0 p : ℂ) ^ s
+  have hT : HasSum T (twistedL M c s) := (summable_twisted M c hs).hasSum
+  set g : ℤ × ℤ → ℕ := fun p => (p.1 ^ 2 + p.2 ^ 2).toNat
+  have hfib := hT.tsum_fiberwise g
+  rw [LSeries]
+  refine HasSum.tsum_eq (hfib.congr_fun fun n => ?_)
+  symm
+  have hset : g ⁻¹' {n} = ↑(normFiber n) := by
+    ext p
+    simp only [Set.mem_preimage, Set.mem_singleton_iff, Finset.mem_coe, mem_normFiber, g]
+    have : 0 ≤ p.1 ^ 2 + p.2 ^ 2 := by positivity
+    omega
+  rw [hset, Finset.tsum_subtype' (normFiber n) T, LSeries.term_def]
+  have hq : ∀ p ∈ normFiber n, (gq 0 0 p : ℂ) = (n : ℂ) := by
+    intro p hp
+    have h := mem_normFiber.mp hp
+    have : gq 0 0 p = (n : ℝ) := by
+      simp only [gq, add_zero]; exact_mod_cast h
+    rw [this]; push_cast; rfl
+  split_ifs with hn
+  · subst hn
+    refine Finset.sum_eq_zero fun p hp => ?_
+    have h := mem_normFiber.mp hp
+    push_cast at h
+    have h1 : p.1 = 0 := (pow_eq_zero_iff two_ne_zero).mp (by nlinarith [sq_nonneg p.1, sq_nonneg p.2])
+    have h2 : p.2 = 0 := (pow_eq_zero_iff two_ne_zero).mp (by nlinarith [sq_nonneg p.1, sq_nonneg p.2])
+    simp [T, gz, h1, h2]
+  · rw [ha n hn, Finset.sum_div]
+    refine Finset.sum_congr rfl fun p hp => ?_
+    simp only [T, hq p hp]
+
+/-! ### The Hecke character of `C_d` and the reduction of `HeckeContinuation` -/
+
+/-- The unit `u ∈ {±1, ±i}` with `u α ≡ 1 (mod 2 + 2i)` ("primary"), as a function of
+`α = a + bi mod 4`; `0` if `(1 + i) ∣ α`. So `ψ₁(α) = unitOf(α) · α` is the Hecke character of
+`ℚ(i)` of conductor `(1 + i)³` attached to `y² = x³ − x`. -/
+def unitOf (t : ZMod 4 × ZMod 4) : ℂ :=
+  if t = (1, 0) ∨ t = (3, 2) then 1
+  else if t = (3, 0) ∨ t = (1, 2) then -1
+  else if t = (0, 3) ∨ t = (2, 1) then I
+  else if t = (0, 1) ∨ t = (2, 3) then -I
+  else 0
+
+/-- The finite part of the Hecke character `ψ_d = ψ₁ · (χ_d ∘ N)` of `C_d`, on `ℤ[i] / 4d`:
+`c_d(α) = (N(α) / d) · unitOf(α mod 4)` with the Jacobi symbol. -/
+noncomputable def cdChar (d : ℕ) (x : ZMod (4 * d) × ZMod (4 * d)) : ℂ :=
+  (jacobiSym ((x.1.val : ℤ) ^ 2 + (x.2.val : ℤ) ^ 2) d : ℂ) *
+    unitOf (((x.1.val : ℤ) : ZMod 4), ((x.2.val : ℤ) : ZMod 4))
+
+theorem cdChar_intCast {d : ℕ} [NeZero d] (p : ℤ × ℤ) :
+    cdChar d ((p.1 : ZMod (4 * d)), (p.2 : ZMod (4 * d))) =
+      (jacobiSym (p.1 ^ 2 + p.2 ^ 2) d : ℂ) * unitOf ((p.1 : ZMod 4), (p.2 : ZMod 4)) := by
+  have h4d : ∀ x : ℤ, ((x : ZMod (4 * d)).val : ℤ) ≡ x [ZMOD (4 * d : ℕ)] := fun x => by
+    rw [ZMod.val_intCast]; exact Int.emod_emod_of_dvd x (dvd_refl _)
+  have hd : ∀ x : ℤ, ((x : ZMod (4 * d)).val : ℤ) ≡ x [ZMOD d] := fun x => by
+    have := h4d x; push_cast at this; exact this.of_mul_left 4
+  have h4 : ∀ x : ℤ, ((x : ZMod (4 * d)).val : ℤ) ≡ x [ZMOD 4] := fun x => by
+    have := h4d x; push_cast at this; exact this.of_mul_right d
+  unfold cdChar
+  dsimp only
+  rw [jacobiSym.mod_left' (((hd p.1).pow 2).add ((hd p.2).pow 2)),
+    (ZMod.intCast_eq_intCast_iff _ _ 4).mpr (h4 p.1),
+    (ZMod.intCast_eq_intCast_iff _ _ 4).mpr (h4 p.2)]
+
+/-- `(1/4) Σ_{N(α) = n} ψ_d(α)`: the `n`-th coefficient of the Hecke L-function `L(ψ_d, s)`
+(the four units of `ℤ[i]` give each ideal four generators). -/
+noncomputable def heckeCoeff (d n : ℕ) : ℂ :=
+  (1 / 4) * ∑ p ∈ normFiber n,
+    (jacobiSym (p.1 ^ 2 + p.2 ^ 2) d : ℂ) * unitOf ((p.1 : ZMod 4), (p.2 : ZMod 4)) * gz 0 0 p
+
+/-- **Deuring's identity for `C_d`** (Gauss for `a_p`; the CM theory of `y² = x³ − d²x`):
+`L(C_d, s) = L(ψ_d, s)` coefficientwise. Stated over the coefficients `cdCoeff d` that
+`LFunctionCd.lean` proves to be those of Mathlib's `L(C_d, s)` (odd squarefree `d`).
+Numerically VERIFIED for `d ∈ {1, 5, 13, 21, 29, 37, 53, 85}`, `n ≤ 400` (`deuring_check.py`). -/
+def DeuringCd (d : ℕ) : Prop :=
+  ∀ n : ℕ, n ≠ 0 → ((ZInQ.Literature.cdCoeff d n : ℤ) : ℂ) = heckeCoeff d n
+
+/-- **`HeckeContinuation` for `C_d` from Deuring's identity**: for odd squarefree `d`, if
+`DeuringCd d` then Mathlib's `L(C_d, s)` has an entire continuation. -/
+theorem isLContinuation_of_deuring {d : ℕ} (hd : Odd d) (hsq : Squarefree d) (hD : DeuringCd d) :
+    ∃ F : ℂ → ℂ, ZInQ.Literature.IsLContinuation (ZInQ.shortCurve (-(d : ℚ) ^ 2)) F := by
+  have : NeZero d := ⟨by rintro rfl; simp at hd⟩
+  have : NeZero (4 * d) := ⟨by have := NeZero.ne d; omega⟩
+  set c : ZMod (4 * d) × ZMod (4 * d) → ℂ := fun x => (1 / 4) * cdChar d x
+  obtain ⟨G, hG, hGeq⟩ := twistedL_continuation (4 * d) c
+  refine ⟨G, hG, fun s hs => ?_⟩
+  rw [hGeq s hs, ZInQ.Literature.LSeries_cd_eq hd hsq s]
+  refine (LSeries_eq_twistedL (4 * d) c _ (fun n hn => ?_) hs).symm
+  rw [hD n hn, heckeCoeff, Finset.mul_sum]
+  refine Finset.sum_congr rfl fun p _ => ?_
+  simp only [c, cdChar_intCast]
+  ring
+
+/-- **The reduction for the CR₃ case**: Deuring's identity for every squarefree `d ≡ 5 (mod 8)`
+gives the continuation that `TYZRow5b`'s documented route (`tyzRow5b_of_readingA`) uses. -/
+theorem heckeContinuation5_of_deuring (hD : ∀ d : ℕ, d % 8 = 5 → Squarefree d → DeuringCd d) :
+    ∀ d : ℕ, d % 8 = 5 → Squarefree d →
+      ∃ F : ℂ → ℂ, ZInQ.Literature.IsLContinuation (ZInQ.shortCurve (-(d : ℚ) ^ 2)) F :=
+  fun d h5 hsq => isLContinuation_of_deuring (Nat.odd_iff.mpr (by omega)) hsq (hD d h5 hsq)
 
 end BpHeckeFE

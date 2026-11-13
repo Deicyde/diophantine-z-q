@@ -18,3 +18,19 @@
   `summable_twisted` (Re s > 3/2), `twistedL_eq` (block decomposition into M² shifted series,
   via `blockEquiv : (Fin M)² × ℤ² ≃ ℤ²`), `twistedL_continuation`: entire continuation for
   every c : (ZMod M)² → ℂ.
+- Built `ZInQKernel.RouteK.Rank.LFunctionCd` (43 s) and `ZInQKernel.Hypotheses.CR3Literature`
+  (lake build, needed for the scratch import). File renamed Theta.lean → HeckeFE.lean.
+- (VERIFIED, compiled ~17:52; `#print axioms` = propext, Classical.choice, Quot.sound)
+  `normFiber`, `mem_normFiber`, `LSeries_eq_twistedL` (grouping the lattice sum by the norm),
+  `unitOf` (primary-unit normalisation mod 4), `cdChar d` on (ZMod 4d)², `cdChar_intCast`,
+  `heckeCoeff d n = ¼ Σ_{N α = n} (Nα/d)·unitOf(α)·α`, `DeuringCd d : Prop`
+  (cdCoeff d n = heckeCoeff d n for n ≠ 0), `isLContinuation_of_deuring`
+  (odd squarefree d: DeuringCd d → ∃ F, IsLContinuation (C_d) F),
+  `heckeContinuation5_of_deuring`.
+
+## Numerical checks (VERIFIED, PARI via cypari2)
+- `deuring_check.py` → `out_deuring_check.txt`: a_n(C_d) = heckeCoeff d n for n ≤ 400,
+  d ∈ {1,5,13,21,29,37,53,85}: 0 mismatches. Conductor 32d², root number −1 (d ≡ 5 mod 8), +1 (d=1).
+- `fourier_check.py` → `out_fourier_check.txt`: finite Fourier transform of the character data:
+  2-part g₂(ν) = Σ_{j mod 4} unitOf(j) e(j·ν/4) = 4(1+i)·unitOf(ν/(1+i)) (support ν ≡ (1+i)·odd);
+  odd part Σ_{j mod d} (Nj/d) e(j·ν/d) = d·(Nν/d) for d ∈ {5,13,21,3,7} (all ν mod d).
