@@ -34,3 +34,14 @@
   ⇒ rank End(A) ≤ 4). Tail runs: 1 (ℤ division in linear_combination; `re 2` simp lemmas; `mul_one` ambiguous with
   MonObj; Nonempty destructuring; explicit args of `finrank_eq_four`), 2: VERIFIED exit 0 in 64 s, 0 errors, standard
   axioms for goodRedTorsion, quatB6_isUnit, quatEmbed, four_le_finrank, qmEndRank_of.
+- parts/50_split.lean: `LTGoodRed.QM.qmSplitCaseRank (hM1 : PkgI3.HomFreeFinite) : QMSplitCaseRank` PROVED, hence
+  `LTGoodRed.QM.qmEndRank_of_leaves (hM1 : PkgI3.HomFreeFinite) (hT27 : PkgI3.QMDichotomyYu) : HSyn.LinkedTate.QMEndRank`.
+  Pieces proved: `eq_zero_of_mul_self_eq_zero` (EndDivision + dim 2 ⇒ no nonzero square-zero endomorphism: the zero
+  endomorphism `toUnit ≫ η` factors through Spec k; surjectivity would make A.X.left subsingleton, dim ≤ 0),
+  `intCast_smul_one_tmul`, `exists_smul_eq_tmul` (n·x = 1 ⊗ m in ℚ ⊗ M), `one_tmul_injective` (M free ⇒ flat),
+  `eight_le_finrank` (B ↪ R and dim R > 4 ⇒ dim R ≥ 8: (b, b') ↦ θb + θb'·s injective), and in `qmSplitCaseRank`:
+  dim_ℚ M₂(ℚ(√d)) = 8 (`AdjoinRoot.powerBasis`, `Module.finrank_matrix`), End⁰(A) ↪ End⁰(A_Ω) (`IsLocalization.flat`,
+  `Module.Flat.lTensor_preserves_injective_linearMap`), preimage of E₁₂.
+  Tail runs: 1 (Nontrivial via finrank; `mul_assoc` ambiguous; Module.Finite of AdjoinRoot), 2 (one extra tactic),
+  3: VERIFIED exit 0 in 43 s, 0 errors; standard axioms for eq_zero_of_mul_self_eq_zero, eight_le_finrank,
+  qmSplitCaseRank, qmEndRank_of_leaves (and the earlier ones).
