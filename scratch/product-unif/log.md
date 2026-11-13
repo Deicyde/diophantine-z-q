@@ -23,3 +23,9 @@
   `_root_.mul_one` (ambiguous with `MonObj.mul_one`), `calc` for the decomposition `y = ι₁π₁y + ι₂π₂y`.
   Final: 0 errors, `#print axioms` of `pts_eq_of_evalAt`, `kerSub_facts`, `productUnifSplits`:
   `propext, Classical.choice, Quot.sound` (VERIFIED). 16 s.
+- §4 S-alg reduction added to `ProductUnif.lean`: new glue Props `ProductUnifDims` (S-alg-1),
+  `JacDetDescends` (S-alg-2), `ProductHodgeAdd` (S-alg-3) and
+  `productMetrizationOfProductUnif_of : HodgeLatticeTheorem → ProductUnifDims → JacDetDescends →
+  ProductHodgeAdd → ProductMetrizationOfProductUnif` (factor metrizations built in the proof;
+  `HodgeLatticeTheorem` is the kernel's Prop from `Models.lean`). First compile: 0 errors; 4/4
+  `#print axioms` standard (VERIFIED). 54 s.

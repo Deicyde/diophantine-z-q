@@ -819,8 +819,173 @@ theorem productUnifSplits : ProductUnifSplits := by
 
 end Splits
 
+/-! ## §4. S-alg (`ProductMetrizationOfProductUnif`): reduction to three smaller glue Props
+
+`productMetrizationOfProductUnif_of : HodgeLatticeTheorem → ProductUnifDims → JacDetDescends →
+ProductHodgeAdd → ProductMetrizationOfProductUnif` (proved). `HodgeLatticeTheorem` is the kernel's
+glue Prop (`ZInQKernel/HDecomp/Faltings/Models.lean`); the other three are new glue. -/
+
+section SAlg
+
+open CategoryTheory AlgebraicGeometry Limits MonoidalCategory CartesianMonoidalCategory MonObj
+open NumberField DefFaltings ZInQ.ProductHeight
+open PkgI3 (AbVar)
+
+/-- **Glue S-alg-1 (dimensions and nonsingularity in product form).** Let `e : MP.model ≅ 𝒢₁ ⊗ 𝒢₂`
+have homomorphic components, and at `τ` let the metrization `MP` (dimension `g`) be in product
+form: period lattice `Λ₁ × Λ₂` and coefficient map computed by `Φ₁ × Φ₂`, for full-lattice
+analytic uniformizations `Φᵢ : ℂ^{gᵢ} → 𝒢ᵢ(ℂ)_τ`, `g₁ + g₂ = g`. Then `g₁ = dim A`, `g₂ = dim B`,
+and both factor Jacobians are nonsingular on some `gᵢ`-tuple of germs.
+
+Why true (STANDARD; algebra and calculus, no AN3). Write `nᵢ` for the dimension of the cotangent
+space `𝔪/𝔪²` of `𝒢ᵢ` at the generic unit (`= dim` of the factor, a regular local ring of the
+smooth generic fibre). Via `e`, `𝔪_P/𝔪_P² = 𝔪₁/𝔪₁² ⊕ 𝔪₂/𝔪₂²` (the unit of a product), so
+`hodgeSpace_P g = L ⊗ ⋀^g(cot₁ ⊕ cot₂)` and `MP.hodge.finrank_eq_one` gives `g ∈ {0, n₁ + n₂}`.
+If `g = 0`, the `Φᵢ : ℂ⁰ → 𝒢ᵢ(ℂ)_τ` are onto, so `A_τ(ℂ)`, `B_τ(ℂ)` are trivial and `dim A = dim B
+= 0`. Otherwise `MP.hodge.coeff_ne_zero` and the coefficient formula give `f` with
+`jacDet (Φ₁ × Φ₂) f ≠ 0`; the derivative at `0` of a germ along `Φ₁ × Φ₂` depends only on its
+class in `cot₁ ⊕ cot₂` and is block-shaped, so the nonsingular `g × g` Jacobian forces `g₁ ≤ n₁`,
+`g₂ ≤ n₂`, hence equality, and nonsingular diagonal blocks. Unproved. -/
+def ProductUnifDims : Prop :=
+  ∀ (K : Type) [Field K] (A B C : AbVar K) (L : Type) [Field L] [NumberField L] [Algebra K L]
+    (𝒢₁ : GroupModel A L) (𝒢₂ : GroupModel B L) (g : ℕ) (MP : MetrizedModel C L g)
+    (e : MP.model.G ≅ 𝒢₁.G ⊗ 𝒢₂.G) [IsMonHom (e.hom ≫ fst _ _)] [IsMonHom (e.hom ≫ snd _ _)]
+    (τ : L →+* ℂ) (g₁ g₂ : ℕ) (hg : g₁ + g₂ = g) (Λ₁ : Submodule ℤ (Fin g₁ → ℂ))
+    (Λ₂ : Submodule ℤ (Fin g₂ → ℂ)) (Φ₁ : (Fin g₁ → ℂ) → 𝒢₁.Pts τ)
+    (Φ₂ : (Fin g₂ → ℂ) → 𝒢₂.Pts τ),
+    (∃ _ : DiscreteTopology Λ₁, IsZLattice ℝ Λ₁) →
+    (∃ _ : DiscreteTopology Λ₂, IsZLattice ℝ Λ₂) →
+    𝒢₁.IsAnalyticUniformization τ Λ₁ Φ₁ → 𝒢₂.IsAnalyticUniformization τ Λ₂ Φ₂ →
+    (∀ z, z ∈ MP.hodge.periods τ ↔ (fun i => z (Fin.cast hg i)) ∈ prodLattice Λ₁ Λ₂) →
+    (∀ f, MP.hodge.coeff τ (MP.model.wedge f) =
+      MP.model.jacDet (fun z => prodUnif e Φ₁ Φ₂ (fun i => z (Fin.cast hg i))) f) →
+    A.dim = g₁ ∧ B.dim = g₂ ∧ (∃ f₁, 𝒢₁.jacDet Φ₁ f₁ ≠ 0) ∧ (∃ f₂, 𝒢₂.jacDet Φ₂ f₂ ≠ 0)
+
+/-- **Glue S-alg-2 (the Jacobian determinant descends to the Hodge line).** For a group model `𝒢`
+of `A_L` with `dim A = d` and an analytic uniformization `Φ : ℂ^d → 𝒢(ℂ)_τ`, the map
+`f ↦ jacDet Φ f = det(∂(fᵢ ∘ Φ)/∂zⱼ(0))` on `d`-tuples of germs in `𝔪_ξ` is the restriction to
+wedges of a `τ`-semilinear map `hodgeSpace d → ℂ`.
+
+Why true (STANDARD; calculus). The derivative at `0` of `germAlong Φ f` does not depend on the
+representative (`dom Φ U` is open and contains `0`), is additive in `f`, satisfies
+`d(a f) = τ(a) df` for `a ∈ 𝓞_L` and `d(fh) = f(1) dh + h(1) df = 0` for `f, h ∈ 𝔪_ξ` (clause 5,
+Leibniz). So `df ↦ d(f ∘ Φ)(0)` is a `τ`-semilinear map on `𝔪/𝔪²`; the determinant is
+alternating multilinear, so it factors through `⋀^d_{𝓞_L}`, then through `L ⊗_{𝓞_L} ⋀^d`
+(`l ⊗ ω ↦ τ(l) c(ω)`). Unproved. -/
+def JacDetDescends : Prop :=
+  ∀ (K : Type) [Field K] (A : AbVar K) (L : Type) [Field L] [NumberField L] [Algebra K L]
+    (𝒢 : GroupModel A L) (d : ℕ), A.dim = d → ∀ (τ : L →+* ℂ) (Λ : Submodule ℤ (Fin d → ℂ))
+    (Φ : (Fin d → ℂ) → 𝒢.Pts τ), 𝒢.IsAnalyticUniformization τ Λ Φ →
+    ∃ c : 𝒢.hodgeSpace d →ₛₗ[τ] ℂ, ∀ f, c (𝒢.wedge f) = 𝒢.jacDet Φ f
+
+/-- **Glue S-alg-3 (additivity of the height for a product-form metrization).** Let
+`e : MP.model ≅ 𝒢₁ ⊗ 𝒢₂` have homomorphic components, `g₁ + g₂ = g`, and let `D₁`, `D₂` be Hodge
+data of the factors with the genuine lattices `⋀^{gᵢ} ω_{𝒢ᵢ}`, such that at every `τ` there are
+analytic uniformizations `Φᵢ` of the factors with kernels the periods of `Dᵢ`, computing the
+coefficients of `Dᵢ`, while `MP` has periods `D₁.periods × D₂.periods` and coefficients computed
+by `Φ₁ × Φ₂`. Then `h(D₁) + h(D₂) ≤ h(MP)`.
+
+Why true (STANDARD; equality holds). `ω_{MP} = ω₁ ⊕ ω₂` (unit of a product; this is a statement
+about the conormal lattices `omega`, not only the generic cotangent spaces), so
+`s = p₁*s₁ ∧ p₂*s₂ ∈ ⋀^g ω_{MP}` for bases `sᵢ` of `⋀^{gᵢ} ω_{𝒢ᵢ}` and
+`secIndex s = secIndex s₁ · secIndex s₂`; the Jacobian of `Φ₁ × Φ₂` on `p₁*f ∧ p₂*h` is block
+diagonal, so the coefficients multiply; `covol(Λ₁ × Λ₂) = covol Λ₁ · covol Λ₂`
+(`prodLattice_facts` of product-height, proved, plus a coordinate permutation `Fin.cast`); then
+`modelHeight_add_of` (product-height, proved). Unproved as a whole. -/
+def ProductHodgeAdd : Prop :=
+  ∀ (K : Type) [Field K] (A B C : AbVar K) (L : Type) [Field L] [NumberField L] [Algebra K L]
+    (𝒢₁ : GroupModel A L) (𝒢₂ : GroupModel B L) (g : ℕ) (MP : MetrizedModel C L g)
+    (e : MP.model.G ≅ 𝒢₁.G ⊗ 𝒢₂.G) [IsMonHom (e.hom ≫ fst _ _)] [IsMonHom (e.hom ≫ snd _ _)]
+    (g₁ g₂ : ℕ) (hg : g₁ + g₂ = g) (D₁ : HodgeData L g₁ (𝒢₁.hodgeSpace g₁))
+    (D₂ : HodgeData L g₂ (𝒢₂.hodgeSpace g₂)),
+    D₁.lattice = 𝒢₁.detLattice g₁ → D₂.lattice = 𝒢₂.detLattice g₂ →
+    (∀ τ : L →+* ℂ, ∃ (Φ₁ : (Fin g₁ → ℂ) → 𝒢₁.Pts τ) (Φ₂ : (Fin g₂ → ℂ) → 𝒢₂.Pts τ),
+      𝒢₁.IsAnalyticUniformization τ (D₁.periods τ) Φ₁ ∧
+      𝒢₂.IsAnalyticUniformization τ (D₂.periods τ) Φ₂ ∧
+      (∀ f, D₁.coeff τ (𝒢₁.wedge f) = 𝒢₁.jacDet Φ₁ f) ∧
+      (∀ f, D₂.coeff τ (𝒢₂.wedge f) = 𝒢₂.jacDet Φ₂ f) ∧
+      (∀ z, z ∈ MP.hodge.periods τ ↔
+        (fun i => z (Fin.cast hg i)) ∈ prodLattice (D₁.periods τ) (D₂.periods τ)) ∧
+      ∀ f, MP.hodge.coeff τ (MP.model.wedge f) =
+        MP.model.jacDet (fun z => prodUnif e Φ₁ Φ₂ (fun i => z (Fin.cast hg i))) f) →
+    D₁.modelHeight + D₂.modelHeight ≤ MP.hodge.modelHeight
+
+theorem natCast_eq_of_dim {K : Type} [Field K] {A : AbVar K} {m n : ℕ} (hm : A.dim = m)
+    (hn : A.dim = n) : m = n := by
+  have h : ((m : ℕ∞) : WithBot ℕ∞) = ((n : ℕ∞) : WithBot ℕ∞) := hm.symm.trans hn
+  exact_mod_cast WithBot.coe_injective h
+
+/-- **S-alg from `HodgeLatticeTheorem`, `ProductUnifDims`, `JacDetDescends`, `ProductHodgeAdd`
+(proved).** The factor metrizations are built here: dimension `dᵢ = dim` (constant in `τ` by
+`ProductUnifDims`), lattice `⋀^{dᵢ} ω_{𝒢ᵢ}` (`HodgeLatticeTheorem`), periods `Λᵢ(τ)`, coefficient
+maps from `JacDetDescends`, nonzero by the nonsingular factor Jacobians. -/
+theorem productMetrizationOfProductUnif_of (hH : HodgeLatticeTheorem) (hD : ProductUnifDims)
+    (hJ : JacDetDescends) (hP : ProductHodgeAdd) : ProductMetrizationOfProductUnif := by
+  intro K _ A B C L _ _ _ 𝒢₁ 𝒢₂ g MP e _ _ hform
+  obtain ⟨τ₀⟩ : Nonempty (L →+* ℂ) := inferInstance
+  obtain ⟨d₁, d₂, hd, Λ₁₀, Λ₂₀, Φ₁₀, Φ₂₀, hl₁₀, hl₂₀, hu₁₀, hu₂₀, hper₀, hco₀⟩ := hform τ₀
+  obtain ⟨hA, hB, -, -⟩ :=
+    hD K A B C L 𝒢₁ 𝒢₂ g MP e τ₀ d₁ d₂ hd Λ₁₀ Λ₂₀ Φ₁₀ Φ₂₀ hl₁₀ hl₂₀ hu₁₀ hu₂₀ hper₀ hco₀
+  have norm : ∀ τ : L →+* ℂ, ∃ (Λ₁ : Submodule ℤ (Fin d₁ → ℂ)) (Λ₂ : Submodule ℤ (Fin d₂ → ℂ))
+      (Φ₁ : (Fin d₁ → ℂ) → 𝒢₁.Pts τ) (Φ₂ : (Fin d₂ → ℂ) → 𝒢₂.Pts τ),
+      (∃ _ : DiscreteTopology Λ₁, IsZLattice ℝ Λ₁) ∧
+      (∃ _ : DiscreteTopology Λ₂, IsZLattice ℝ Λ₂) ∧
+      𝒢₁.IsAnalyticUniformization τ Λ₁ Φ₁ ∧ 𝒢₂.IsAnalyticUniformization τ Λ₂ Φ₂ ∧
+      (∀ z, z ∈ MP.hodge.periods τ ↔ (fun i => z (Fin.cast hd i)) ∈ prodLattice Λ₁ Λ₂) ∧
+      (∀ f, MP.hodge.coeff τ (MP.model.wedge f) =
+        MP.model.jacDet (fun z => prodUnif e Φ₁ Φ₂ (fun i => z (Fin.cast hd i))) f) ∧
+      (∃ f₁, 𝒢₁.jacDet Φ₁ f₁ ≠ 0) ∧ (∃ f₂, 𝒢₂.jacDet Φ₂ f₂ ≠ 0) := by
+    intro τ
+    obtain ⟨g₁, g₂, hg, Λ₁, Λ₂, Φ₁, Φ₂, hl₁, hl₂, hu₁, hu₂, hper, hco⟩ := hform τ
+    obtain ⟨hA', hB', hn₁, hn₂⟩ :=
+      hD K A B C L 𝒢₁ 𝒢₂ g MP e τ g₁ g₂ hg Λ₁ Λ₂ Φ₁ Φ₂ hl₁ hl₂ hu₁ hu₂ hper hco
+    obtain rfl : g₁ = d₁ := natCast_eq_of_dim hA' hA
+    obtain rfl : g₂ = d₂ := natCast_eq_of_dim hB' hB
+    exact ⟨Λ₁, Λ₂, Φ₁, Φ₂, hl₁, hl₂, hu₁, hu₂, hper, hco, hn₁, hn₂⟩
+  choose Λ₁ Λ₂ Φ₁ Φ₂ hl₁ hl₂ hu₁ hu₂ hper hco hn₁ hn₂ using norm
+  obtain ⟨hfr₁, hlat₁⟩ := hH K A L 𝒢₁ d₁ hA
+  obtain ⟨hfr₂, hlat₂⟩ := hH K B L 𝒢₂ d₂ hB
+  choose c₁ hc₁ using fun τ => hJ K A L 𝒢₁ d₁ hA τ (Λ₁ τ) (Φ₁ τ) (hu₁ τ)
+  choose c₂ hc₂ using fun τ => hJ K B L 𝒢₂ d₂ hB τ (Λ₂ τ) (Φ₂ τ) (hu₂ τ)
+  let D₁ : HodgeData L d₁ (𝒢₁.hodgeSpace d₁) :=
+    { lattice := 𝒢₁.detLattice d₁
+      finrank_eq_one := hfr₁
+      isLattice := hlat₁
+      periods := Λ₁
+      periods_discrete := fun τ => (hl₁ τ).fst
+      periods_isZLattice := fun τ => (hl₁ τ).snd
+      coeff := c₁
+      coeff_ne_zero := fun τ h => by
+        obtain ⟨f, hf⟩ := hn₁ τ
+        apply hf
+        rw [← hc₁ τ f, h]
+        rfl }
+  let D₂ : HodgeData L d₂ (𝒢₂.hodgeSpace d₂) :=
+    { lattice := 𝒢₂.detLattice d₂
+      finrank_eq_one := hfr₂
+      isLattice := hlat₂
+      periods := Λ₂
+      periods_discrete := fun τ => (hl₂ τ).fst
+      periods_isZLattice := fun τ => (hl₂ τ).snd
+      coeff := c₂
+      coeff_ne_zero := fun τ h => by
+        obtain ⟨f, hf⟩ := hn₂ τ
+        apply hf
+        rw [← hc₂ τ f, h]
+        rfl }
+  let M₁ : MetrizedModel A L d₁ :=
+    { model := 𝒢₁, hodge := D₁, lattice_eq := rfl, arch := fun τ => ⟨Φ₁ τ, hu₁ τ, hc₁ τ⟩ }
+  let M₂ : MetrizedModel B L d₂ :=
+    { model := 𝒢₂, hodge := D₂, lattice_eq := rfl, arch := fun τ => ⟨Φ₂ τ, hu₂ τ, hc₂ τ⟩ }
+  refine ⟨d₁, d₂, M₁, M₂, rfl, rfl, ?_⟩
+  exact hP K A B C L 𝒢₁ 𝒢₂ g MP e d₁ d₂ hd D₁ D₂ rfl rfl
+    (fun τ => ⟨Φ₁ τ, Φ₂ τ, hu₁ τ, hu₂ τ, hc₁ τ, hc₂ τ, hper τ, hco τ⟩)
+
+end SAlg
+
 end ZInQ.ProductUnif
 
 #print axioms ZInQ.ProductUnif.pts_eq_of_evalAt
 #print axioms ZInQ.ProductUnif.kerSub_facts
 #print axioms ZInQ.ProductUnif.productUnifSplits
+#print axioms ZInQ.ProductUnif.productMetrizationOfProductUnif_of
