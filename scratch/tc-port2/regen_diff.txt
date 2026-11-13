@@ -1,0 +1,67 @@
+identical: 1146  modified: 27  no provenance line: 39
+MODIFIED GroupTheory/GroupAction/Norm.lean 97a5b23586f9 TauCeti.GroupTheory.GroupAction.Norm +5 -32 
+MODIFIED GroupTheory/SpecificGroups/Cyclic/PowMonoidHom.lean 97a5b23586f9 TauCeti.GroupTheory.SpecificGroups.Cyclic.PowMonoidHom +2 -0 
+MODIFIED NumberTheory/ClassFieldTheory/ClassFields/KroneckerWeber.lean 97a5b23586f9 TauCeti.NumberTheory.ClassFieldTheory.ClassFields.KroneckerWeber +1 -0 
+MODIFIED NumberTheory/ClassFieldTheory/ClassFields/RaySubgroup.lean 97a5b23586f9 TauCeti.NumberTheory.ClassFieldTheory.ClassFields.RaySubgroup +1 -0 
+MODIFIED NumberTheory/ClassFieldTheory/Formation/InvariantKernel.lean 5a01f5fe3621 TauCeti.NumberTheory.ClassFieldTheory.Formation.InvariantKernel +1 -1 
+MODIFIED NumberTheory/ClassFieldTheory/Global/AdmissibleModulus/Basic.lean 97a5b23586f9 TauCeti.NumberTheory.ClassFieldTheory.Global.AdmissibleModulus.Basic +2 -0 
+MODIFIED NumberTheory/ClassFieldTheory/Global/AdmissibleModulus/Ramification.lean 97a5b23586f9 TauCeti.NumberTheory.ClassFieldTheory.Global.AdmissibleModulus.Ramification +1 -0 
+MODIFIED NumberTheory/ClassFieldTheory/Global/AdmissibleModulus/Reciprocity.lean 97a5b23586f9 TauCeti.NumberTheory.ClassFieldTheory.Global.AdmissibleModulus.Reciprocity +2 -0 
+MODIFIED NumberTheory/ClassFieldTheory/Global/ClassFormation.lean 97a5b23586f9 TauCeti.NumberTheory.ClassFieldTheory.Global.ClassFormation +4 -1 
+MODIFIED NumberTheory/ClassFieldTheory/Global/CorestrictionLocalization.lean 97a5b23586f9 TauCeti.NumberTheory.ClassFieldTheory.Global.CorestrictionLocalization +1 -0 
+MODIFIED NumberTheory/ClassFieldTheory/Global/Kummer/Index.lean 97a5b23586f9 TauCeti.NumberTheory.ClassFieldTheory.Global.Kummer.Index +4 -1 
+MODIFIED NumberTheory/ClassFieldTheory/Global/LocalArtin/Compatibility.lean 97a5b23586f9 TauCeti.NumberTheory.ClassFieldTheory.Global.LocalArtin.Compatibility +2 -0 
+MODIFIED NumberTheory/ClassFieldTheory/Global/LocalArtin/Frobenius.lean 97a5b23586f9 TauCeti.NumberTheory.ClassFieldTheory.Global.LocalArtin.Frobenius +2 -0 
+MODIFIED NumberTheory/ClassFieldTheory/Global/Reciprocity.lean 97a5b23586f9 TauCeti.NumberTheory.ClassFieldTheory.Global.Reciprocity +2 -0 
+MODIFIED NumberTheory/ClassFieldTheory/GlobalExistence/NormLimitation.lean 97a5b23586f9 TauCeti.NumberTheory.ClassFieldTheory.GlobalExistence.NormLimitation +2 -0 
+MODIFIED NumberTheory/NumberField/InfinitePlace/Completion/Real.lean 97a5b23586f9 TauCeti.NumberTheory.NumberField.InfinitePlace.Completion.Real +3 -7 
+MODIFIED RepresentationTheory/Cyclic/Norm.lean 97a5b23586f9 TauCeti.RepresentationTheory.Cyclic.Norm +2 -0 
+MODIFIED RepresentationTheory/Homological/ContCohomology/Coinduced/Discrete.lean 5a01f5fe3621 TauCeti.RepresentationTheory.Homological.ContCohomology.Coinduced.Discrete +3 -3 
+MODIFIED RepresentationTheory/Homological/ContCohomology/Corestriction/Mackey/Pullback.lean 97a5b23586f9 TauCeti.RepresentationTheory.Homological.ContCohomology.Corestriction.Mackey.Pullback +2 -0 
+MODIFIED RepresentationTheory/Homological/GroupCohomology/PrimeIndex.lean 5a01f5fe3621 TauCeti.RepresentationTheory.Homological.GroupCohomology.PrimeIndex +2 -2 
+MODIFIED RepresentationTheory/Homological/TateCohomology/TrivialityCriterion.lean 5a01f5fe3621 TauCeti.RepresentationTheory.Homological.TateCohomology.TrivialityCriterion +1 -1 
+MODIFIED RingTheory/Polynomial/Cyclotomic/PrimePow.lean 97a5b23586f9 TauCeti.RingTheory.Polynomial.Cyclotomic.PrimePow +2 -0 
+MODIFIED Topology/Algebra/Group/Profinite/Generation.lean 5a01f5fe3621 TauCeti.Topology.Algebra.Group.Profinite.Generation +1 -0 
+MODIFIED Topology/Algebra/Group/Profinite/Sylow/Basic.lean 5a01f5fe3621 TauCeti.Topology.Algebra.Group.Profinite.Sylow.Basic +1 -1 
+MODIFIED Topology/Algebra/Group/Profinite/Sylow/Containment.lean 5a01f5fe3621 TauCeti.Topology.Algebra.Group.Profinite.Sylow.Containment +1 -0 
+MODIFIED Topology/Algebra/Group/Profinite/Sylow/Existence.lean 5a01f5fe3621 TauCeti.Topology.Algebra.Group.Profinite.Sylow.Existence +1 -1 
+MODIFIED Topology/Algebra/Star/Completion.lean 97a5b23586f9 TauCeti.Topology.Algebra.Star.Completion +4 -1 
+NOPROV Backport/Algebra/BigOperators/Finset/Range.lean
+NOPROV Backport/Algebra/Group/PowMonoidHom.lean
+NOPROV Backport/FieldTheory/Galois/Abelian/Basic.lean
+NOPROV Backport/FieldTheory/Galois/Restriction.lean
+NOPROV Backport/GroupTheory/Abelianization/Basic.lean
+NOPROV Backport/GroupTheory/OrderOfElement/Basic.lean
+NOPROV Backport/GroupTheory/SpecificGroups/Cyclic/Basic.lean
+NOPROV Backport/Mathlib/Polynomial.lean
+NOPROV Backport/NumberTheory/ClassFieldTheory/Brauer/CharacterFormula.lean
+NOPROV Backport/NumberTheory/ClassFieldTheory/Formation/Layer/Inflation.lean
+NOPROV Backport/NumberTheory/ClassFieldTheory/Global/Brauer/SumFormula.lean
+NOPROV Backport/NumberTheory/ClassFieldTheory/Global/IdeleClass/SecondInequality.lean
+NOPROV Backport/NumberTheory/ClassFieldTheory/Global/IdeleLocalization.lean
+NOPROV Backport/NumberTheory/ClassFieldTheory/Global/Kummer/AuxiliaryPlaces.lean
+NOPROV Backport/NumberTheory/ClassFieldTheory/Global/Kummer/Ideles.lean
+NOPROV Backport/NumberTheory/ClassFieldTheory/Global/Kummer/Norm.lean
+NOPROV Backport/NumberTheory/ClassFieldTheory/Global/LiftingObstruction.lean
+NOPROV Backport/NumberTheory/ClassFieldTheory/Global/PrescribedInvariant.lean
+NOPROV Backport/NumberTheory/ClassFieldTheory/Global/PrimeDegreeDecomposition.lean
+NOPROV Backport/NumberTheory/ClassFieldTheory/GlobalExistence/NormSubgroup.lean
+NOPROV Backport/NumberTheory/Cyclotomic/FixingSubgroup.lean
+NOPROV Backport/NumberTheory/NumberField/Global/Ideles/FiniteIdeal.lean
+NOPROV Backport/NumberTheory/NumberField/Global/Ideles/Norm/Relative.lean
+NOPROV Backport/NumberTheory/NumberField/Global/Ideles/Ray/ClassQuotient.lean
+NOPROV Backport/NumberTheory/NumberField/Global/Ideles/Ray/OpenSubgroup.lean
+NOPROV Backport/NumberTheory/NumberField/Global/RayClass/Rat.lean
+NOPROV Backport/NumberTheory/NumberField/LocalGlobal/AbsoluteGaloisGroup.lean
+NOPROV Backport/NumberTheory/NumberField/LocalGlobal/DecompositionGroup.lean
+NOPROV Backport/NumberTheory/NumberField/LocalGlobal/Semilocal/Basic.lean
+NOPROV Backport/NumberTheory/NumberField/Units/LocalPowerClass.lean
+NOPROV Backport/RepresentationTheory/Homological/ContCohomology/CarryCocycle.lean
+NOPROV Backport/RepresentationTheory/Homological/ContCohomology/Corestriction/Mackey/Basic.lean
+NOPROV Backport/RingTheory/ClassGroup/HeightOneSpectrum.lean
+NOPROV Backport/RingTheory/DedekindDomain/AdicValuation/ValuativeRel.lean
+NOPROV Backport/RingTheory/Polynomial/Cyclotomic/Basic.lean
+NOPROV Backport/RingTheory/Polynomial/Distinguished.lean
+NOPROV Backport/Topology/Algebra/ContinuousMonoidHom/Basic.lean
+NOPROV MathlibBackport/Sylow.lean
+NOPROV Notice.lean
