@@ -128,4 +128,62 @@ theorem mem_maximalUnramifiedExtension_of_unit (j : 𝓞 L →+* Ω) (b : 𝓞 L
   have hF : IsUnramified K F := isUnramified_of_adjoin_eq_top_of_isUnit_aeval_derivative hadj hp hu
   exact F.le_maximalUnramifiedExtension (mem_adjoin_simple_self K x)
 
+/-- **Local output.** If every prime of `𝓞 L` above `p` (`v_K(p) < 1`) has ramification index `1`,
+then `ι(L)` lies in one finite unramified extension `K_f` of `K` inside `Ω`. -/
+theorem exists_unramifiedExtension [IsGalois ℚ L] (ι : L →+* Ω) {p : ℕ}
+    (hp : valuation K (p : K) < 1) (hp0 : p ≠ 0)
+    (hunr : ∀ P : Ideal (𝓞 L), P.IsPrime → (p : 𝓞 L) ∈ P → P.ramificationIdx ℤ = 1) :
+    ∃ f ≠ 0, ∀ x : L, ι x ∈ unramifiedExtension K Ω f := by
+  set j : 𝓞 L →+* Ω := ι.comp (algebraMap (𝓞 L) L) with hj
+  have hwp : (wIdeal K j).IsPrime := wIdeal_isPrime K j
+  have hpw : (p : 𝓞 L) ∈ wIdeal K j := natCast_mem_wIdeal K j hp
+  have hw0 : wIdeal K j ≠ ⊥ := by
+    intro h
+    rw [h, Ideal.mem_bot] at hpw
+    exact hp0 (by exact_mod_cast hpw)
+  have hwm : (wIdeal K j).IsMaximal := hwp.isMaximal hw0
+  have he := hunr _ hwp hpw
+  obtain ⟨b₀, hb₀⟩ := exists_base (wIdeal K j) hw0 he hpw
+  set U := maximalUnramifiedExtension K Ω
+  have hmem : ∀ y : 𝓞 L, j (b₀ + p * y) ∈ U := fun y =>
+    mem_maximalUnramifiedExtension_of_unit K j _ (hb₀ y)
+  have hpU : (p : Ω) ∈ U := IntermediateField.natCast_mem U p
+  have hpΩ : (p : Ω) ≠ 0 := by
+    rw [← map_natCast ι p]
+    exact (map_ne_zero ι).2 (by exact_mod_cast hp0)
+  have hO : ∀ y : 𝓞 L, j y ∈ U := by
+    intro y
+    have h1 := hmem y
+    have h0 := hmem 0
+    simp only [mul_zero, add_zero] at h0
+    have : j y = (j (b₀ + p * y) - j b₀) * (p : Ω)⁻¹ := by
+      rw [map_add, map_mul, map_natCast]; field_simp; ring
+    rw [this]
+    exact mul_mem (sub_mem h1 h0) (inv_mem hpU)
+  have hL : ∀ x : L, ι x ∈ U := by
+    intro x
+    obtain ⟨n, hn0, hn'⟩ := exists_integral_multiples ℤ ℚ (L := L) {x}
+    have hn := hn' x (Finset.mem_singleton_self x)
+    let y : 𝓞 L := ⟨n • x, hn⟩
+    have hy : ι x = j y * ((n : Ω))⁻¹ := by
+      have : j y = (n : Ω) * ι x := by
+        show ι (n • x) = (n : Ω) * ι x
+        rw [zsmul_eq_mul, map_mul, map_intCast]
+      have hnΩ : (n : Ω) ≠ 0 := by
+        rw [← map_intCast ι n]
+        exact (map_ne_zero ι).2 (by exact_mod_cast hn0)
+      rw [this]; field_simp
+    rw [hy]
+    exact mul_mem (hO y) (inv_mem (IntermediateField.intCast_mem U n))
+  obtain ⟨α, hα⟩ := Field.exists_primitive_element ℚ L
+  obtain ⟨f, hf0, hf⟩ := mem_maximalUnramifiedExtension_iff.1 (hL α)
+  refine ⟨f, hf0, fun x => ?_⟩
+  let S : Subfield L := (unramifiedExtension K Ω f).toSubfield.comap ι
+  let S' : IntermediateField ℚ L := S.toIntermediateField (fun q => by
+    rw [eq_ratCast]; exact SubfieldClass.ratCast_mem S q)
+  have hαS : ℚ⟮α⟯ ≤ S' := by
+    rw [adjoin_simple_le_iff]; exact hf
+  have hx : x ∈ S' := hαS (hα ▸ IntermediateField.mem_top)
+  exact hx
+
 end T31

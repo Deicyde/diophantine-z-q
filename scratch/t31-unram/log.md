@@ -18,3 +18,14 @@
    ℚ_p(ι b) unramified ⇒ ι b ∈ ℚ_p^ur (TC le_maximalUnramifiedExtension_iff) ⇒ ι(L) ⊆ K^ur ⇒
    ι(L) ⊆ K_f (TC unramifiedExtension).
 4. Assembly with ψ = restriction G_{ℚ_p} → Gal(K_{2f}/ℚ_p) (cyclic of order 2f, TC).
+
+## Compile log
+- 04:14 Cyclic.lean `T31.signCob_of_cyclic_even` compiles (VERIFIED, lake env lean).
+- 04:3x Good.lean `T31.exists_base` compiles (VERIFIED). Uses Mathlib
+  `Ideal.card_inertia_eq_ramificationIdxIn`, `Ideal.ramificationIdxIn_eq_ramificationIdx`,
+  `Splits.eval_root_derivative`, `Normal.minpoly_eq_iff_mem_orbit`.
+- 04:4x Local.lean `T31.exists_unramifiedExtension` compiles (VERIFIED). Uses TC
+  `isUnramified_of_adjoin_eq_top_of_isUnit_aeval_derivative`,
+  `IntermediateField.le_maximalUnramifiedExtension`, `mem_maximalUnramifiedExtension_iff`,
+  `finiteIntermediateField*`, `IntermediateField.valuativeExtension`,
+  `Valuation.Integers.isIntegral_iff_valuation_le_one`.
