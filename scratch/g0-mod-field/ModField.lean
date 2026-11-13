@@ -1,6 +1,9 @@
 import ZInQKernel.HDecomp.Descent.B3Assembly
 import ZInQKernel.HDecomp.QM.Leaves
 import ZInQKernel.HDecomp.Repo.Numerics
+import ZInQKernel.HDecomp.I3Linalg.C2
+import ZInQKernel.HDecomp.ModCurves.Defs
+import ZInQKernel.HDecomp.Assembly
 import ZInQKernel.HDecomp.B3Unram.T32a
 import ZInQKernel.Hypotheses.JHeight
 import ZInQKernel.HDecomp.Repo.TorsionFree
@@ -387,8 +390,84 @@ theorem fieldDescent (hCover : FibreCoverExists) (hKer : KernelFieldExists)
   exact g7Out_of_g4Out hHasse hTwo hSq hUnr u P
     (g4Out_of_kernelField u P K hK (hKer Y Φ π u P hctx K hK hramK A hA))
 
+/-- **G2 → G4 → G7 with the twist (proved)**: as `fieldDescent`, with `L'` unramified outside `T`
+and the clause list `G7Data`. -/
+theorem fieldDescentUnr (hCover : FibreCoverExists) (hKer : KernelFieldExists)
+    (hHasse : LeafHasse) (hTwo : LeafLocalTwo) (hSq : LeafSqrtCrit) (hUnr : LeafUnramified)
+    (Y : Over (Spec (CommRingCat.of ℚ))) (Φ : PtEquiv Y) (π : ToP1 Y.left) (u : ℚ)
+    (P : QML3 Qbar) (hctx : FibreCtx Y Φ π u P) : G7OutUnr u P := by
+  obtain ⟨K, hfK, hgK, hK, hramK, A, hA⟩ := g2Out_of_cover u P (hCover Y Φ π u P hctx)
+  exact g7OutUnr_of_g4Out hHasse hTwo hSq hUnr u P
+    (g4Out_of_kernelField u P K hK (hKer Y Φ π u P hctx K hK hramK A hA))
+
+/-! ## How G7's output feeds `ModularConstituent` -/
+
+/-- (copied from scratch/g0-split/part_split.lean, `G0Split.CommonConstituent`, verbatim) The
+hypotheses of E1: for some prime `ℓ` and field `E ⊇ ℚ_ℓ`, `V_ℓ(A) ⊗ E` and `V_ℓ(J) ⊗ E` have a
+common nonzero constituent, as `G_K`-representations. -/
+def CommonConstituent {K : Type} [Field K] [NumberField K] (A J : PkgI3.AbVar K) : Prop :=
+  ∃ (ℓ : ℕ) (_ : Fact ℓ.Prime) (E : Type) (_ : Field E) (_ : Algebra ℚ_[ℓ] E)
+    (U : Subrepresentation (GlueI3.repBaseChange E (A.galRep ℓ)))
+    (U' : Subrepresentation (GlueI3.repBaseChange E (J.galRep ℓ)))
+    (e : U.toSubmodule ≃ₗ[E] U'.toSubmodule), U ≠ ⊥ ∧
+    ∀ g (u : U.toSubmodule),
+      (e ⟨GlueI3.repBaseChange E (A.galRep ℓ) g u, U.apply_mem_toSubmodule g u.2⟩ :
+        TensorProduct ℚ_[ℓ] E (J.V ℓ)) = GlueI3.repBaseChange E (J.galRep ℓ) g (e u)
+
+/-- A finite-dimensional `L ⊆ ℚ̄` is a number field. -/
+theorem numberField_of_fd (L : IF) [FiniteDimensional ℚ L] : NumberField L := ⟨⟩
+
+/-- **`ModularConstituent`** (scratch/g0-split/part_split.lean, piece 10), copied with
+def-faltings' copy `ZInQ.DefFaltings.AbVar` and the bridge `LeafAdopt.abVarEquiv` (the identity on
+the underlying scheme) replaced by the kernel's `PkgI3.AbVar`, which `ZInQKernel/HDecomp/`
+already uses for both. -/
+def ModularConstituentG : Prop :=
+  ∀ (Y : Over (Spec (CommRingCat.of ℚ))) (Φ : PtEquiv Y) (π : ToP1 Y.left),
+    R1fpProps Y Φ → R2fpProps Y Φ π → ∀ u : ℚ, u ∉ contactSet →
+    ∀ (y : fieldPt Qbar ⟶ Y) (P : QML3 Qbar), Φ Qbar y = M3.mk P →
+      π.val (K := Qbar) y.left = OnePoint.some (algebraMap ℚ Qbar (ZInQ.JHeight.Jmap u)) →
+    ∃ (L : GlueAssembly.NF) (emb : L.K →+* Qbar) (A : PkgI3.AbVar L.K) (N : ℕ)
+      (J : PkgI3.AbVar ℚ),
+      (letI : Algebra L.K Qbar := emb.toAlgebra; Nonempty ((A.baseChange Qbar).X ≅ P.A.X)) ∧
+      0 < N ∧ LeafModCurves.IsJ1 N J ∧
+      (N : ℝ) ≤ heightQ heightD * (contactSupport Mult.S_mul u : ℝ) ^ 2 ∧
+      (Module.finrank ℚ L.K : ℝ) ≤ heightQ heightD * (contactSupport Mult.S_mul u : ℝ) ∧
+      CommonConstituent A (J.baseChange L.K)
+
+/-- **The remaining ranges G8-G16 (the next tasks' target), as one Prop.** For every fibre
+context and every G7 data (`G7Data`): a level `1 ≤ M ≤ Q_D·M_{S_mul}(u)²`, a `J₁(M)` over `ℚ`, and a
+common constituent of `V_ℓ(A_{L'})` and `V_ℓ(J₁(M)_{L'})` as `G_{L'}`-representations (G8: `ρ_ℓ`
+from `β`, `a_σ`, `m_σ`; G9-G12: de Rham, odd, modular; G13-G16: newform, level, Eichler-Shimura). -/
+def AfterG7 : Prop :=
+  ∀ (Y : Over (Spec (CommRingCat.of ℚ))) (Φ : PtEquiv Y) (π : ToP1 Y.left) (u : ℚ)
+    (P : QML3 Qbar), FibreCtx Y Φ π u P →
+  ∀ (L : IF) [FiniteDimensional ℚ L] [IsGalois ℚ L] (A : PkgI3.AbVar L) (ε : GQ → GQ → ℂˣ)
+    (N : ℕ) [NeZero N] (χ : DirichletCharacter ℂ N) (β : GQ → ℂˣ) (L' : IF)
+    [FiniteDimensional ℚ L'] [IsGalois ℚ L'] (hLL' : L ≤ L'),
+    G7Data u P L A ε N χ β L' hLL' →
+    ∃ (M : ℕ) (J : PkgI3.AbVar ℚ), 0 < M ∧ LeafModCurves.IsJ1 M J ∧
+      (M : ℝ) ≤ heightQ heightD * (contactSupport Mult.S_mul u : ℝ) ^ 2 ∧
+      @CommonConstituent L' _ (numberField_of_fd L')
+        (@PkgI3.AbVar.baseChange L _ A L' _ (incAlg hLL')) (J.baseChange L')
+
+/-- **`ModularConstituent` from this range and the next (proved)**: G2, G4, G7 here
+(`fieldDescentUnr`) and the ranges G8-G16 as `AfterG7`. -/
+theorem modularConstituent_of_ranges (hCover : FibreCoverExists) (hKer : KernelFieldExists)
+    (hHasse : LeafHasse) (hTwo : LeafLocalTwo) (hSq : LeafSqrtCrit) (hUnr : LeafUnramified)
+    (hRest : AfterG7) : ModularConstituentG := by
+  intro Y Φ π h1 h2 u hu y P hy hπ
+  have hctx : FibreCtx Y Φ π u P := ⟨h1, h2, hu, y, hy, hπ⟩
+  obtain ⟨L, hfd, hgal, A, ε, N, hN, χ, β, L', hfd', hgal', hle, hdata⟩ :=
+    fieldDescentUnr hCover hKer hHasse hTwo hSq hUnr Y Φ π u P hctx
+  obtain ⟨M, J, hM, hJ, hMle, hCC⟩ := hRest Y Φ π u P hctx L A ε N χ β L' hle hdata
+  haveI : NumberField L' := numberField_of_fd L'
+  exact ⟨⟨L'⟩, algebraMap L' Qbar, @PkgI3.AbVar.baseChange L _ A L' _ (incAlg hle), M, J,
+    hdata.2.2.2.2.2.2.2.2.2.2, hM, hJ, hMle, hdata.2.2.2.2.2.2.2.2.1, hCC⟩
+
 end G0ModField
 
 #print axioms G0ModField.fieldDescent
 #print axioms G0ModField.g7Out_of_g4Out
 #print axioms G0ModField.g7OutUnr_of_g4Out
+#print axioms G0ModField.fieldDescentUnr
+#print axioms G0ModField.modularConstituent_of_ranges

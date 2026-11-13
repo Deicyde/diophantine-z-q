@@ -21,3 +21,13 @@
   + B3 + `degree_le_QM`), `g7Out_of_g7OutUnr`.
 - Pitfall: `open MonObj` makes `η` a token; binder names `η` fail to parse.
 - VERIFIED: 0 errors; `#print axioms g7OutUnr_of_g4Out`: [propext, Classical.choice, Quot.sound].
+
+## run10 (02:06): feed to ModularConstituent
+- Built `ZInQKernel.HDecomp.I3Linalg.C2`, `ZInQKernel.HDecomp.ModCurves.Defs`.
+- New: `fieldDescentUnr`, `CommonConstituent` (copied verbatim from part_split.lean),
+  `ModularConstituentG` (part_split's `ModularConstituent` over `PkgI3.AbVar`), `AfterG7` (G8-G16 as
+  one Prop over `G7Data`), `modularConstituent_of_ranges` (FibreCoverExists, KernelFieldExists, four
+  B2 leaves, AfterG7 ⊢ ModularConstituentG).
+- VERIFIED: 0 errors; axioms of `modularConstituent_of_ranges`, `fieldDescentUnr`:
+  [propext, Classical.choice, Quot.sound]. The emb.toAlgebra clause closed by the G7Data clause
+  directly (defeq of `(algebraMap L' ℚ̄).toAlgebra` with the intermediate-field instance).
