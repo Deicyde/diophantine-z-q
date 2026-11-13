@@ -59,3 +59,7 @@ and state the rest as leaves.
   CurveComponentDichotomy → LeafSkolemNoether → AtkinLehnerFinite → R1R2fpRep`;
   AG-CD split: `ComponentInfinite` (AG-CD1), `ConstOrSurj` (AG-CD2),
   `curveComponentDichotomy_of`; `dif_pos` replaced by `dite_eq_left`.
+- L6 (VERIFIED, compiled 02:03 PST, `lake env lean scratch/ag-inputs/AGInputs.lean`, exit 0, no
+  errors, no warnings, 21 `#print axioms` lines all standard): `AGIn.R2X6CMExact` weakened to
+  forward directions only (`π₆ = 0 → com ≅ R4`, `π₆ = ∞ → com ≅ R3`); `r1R2fpRep_of_noPi0'`
+  (AG-CD1 + AG-CD2 form).

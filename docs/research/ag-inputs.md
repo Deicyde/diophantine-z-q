@@ -13,7 +13,8 @@ are UNVERIFIED (no network).
 1. **pi0-x6's Galois-component argument is correct** (VERIFIED as an argument, §1; its deduction
    is compiled). The adversarial review found no gap in the deduction itself. Two caveats:
    - **(c) is a real extra input.** The exact-CM clause `R2X6CMExact` (`π₆ = 0 ⇒ com ≅ ℤ[i]`,
-     `π₆ = ∞ ⇒ com ≅ ℤ[ζ₃]`) is not a clause of the bundle. It is a consequence of Baba–Granath,
+     `π₆ = ∞ ⇒ com ≅ ℤ[ζ₃]`) is not a clause of the bundle. Here it is weakened from pi0-x6's
+     biconditional to these forward directions, the only ones used. It is a consequence of Baba–Granath,
      read in its printed meaning, as pi0-x6 says. It also follows from the bundle's
      `R2X6PropsIff` together with the QM dichotomy and the maximality of `ℤ[i]` and `ℤ[ζ₃]`
      (§1.3). Neither derivation is in Lean.

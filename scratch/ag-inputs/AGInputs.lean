@@ -684,15 +684,16 @@ open CategoryTheory AlgebraicGeometry Limits NumberField LeafQM LeafQM.AV
 
 variable {X : Over (Spec (CommRingCat.of ℚ))}
 
-/-- **R2's CM clauses at `0` and `∞` with "CM by `R`" in its printed meaning** (`End_𝒪(A) ≅ R`,
-not merely `φ ∈ com` with `φ² = −1`): a `ℚ̄`-point lies over `0` iff its pair has `com ≅ ℤ[i]`,
-and over `∞` iff `com ≅ ℤ[ζ₃]`. *Published*: Baba–Granath 2008 Thm 2.1 and the §3.1 table (the
-fibres over `0`, `∞` are the CM points of discriminants `−4`, `−3`), as for `R2X6PropsIff`; a
-consequence of the same statement. Only the forward directions are used. -/
+/-- **R2's CM clauses at `0` and `∞` with "CM by `R`" in its printed meaning, forward
+direction** (`End_𝒪(A) ≅ R`, not merely `φ ∈ com` with `φ² = −1`): a `ℚ̄`-point over `0` has
+`com ≅ ℤ[i]`, one over `∞` has `com ≅ ℤ[ζ₃]`. *Published*: Baba–Granath 2008 Thm 2.1 and the
+§3.1 table (the fibres over `0`, `∞` are the CM points of discriminants `−4`, `−3`), as for
+`R2X6PropsIff`; a consequence of the same statement. (ag-inputs: weakened from pi0-x6's
+biconditional form to the forward directions, the only ones used.) -/
 def R2X6CMExact (Ψ : (fieldPt Qbar ⟶ X) ≃ Quotient (pairSetoid Qbar)) (π₆ : ToP1 X.left) : Prop :=
   ∀ (x : fieldPt Qbar ⟶ X) (P : QMPair Qbar), Ψ x = Quotient.mk _ P →
-    (π₆.val (K := Qbar) x.left = OnePoint.some 0 ↔ Nonempty (com P.q ≃+* R4)) ∧
-    (π₆.val (K := Qbar) x.left = OnePoint.infty ↔ Nonempty (com P.q ≃+* R3))
+    (π₆.val (K := Qbar) x.left = OnePoint.some 0 → Nonempty (com P.q ≃+* R4)) ∧
+    (π₆.val (K := Qbar) x.left = OnePoint.infty → Nonempty (com P.q ≃+* R3))
 
 /-- `X_ℚ̄ = X ×_ℚ Spec ℚ̄`. -/
 abbrev Xbar (X : Over (Spec (CommRingCat.of ℚ))) : Scheme :=
@@ -797,7 +798,7 @@ theorem subsingleton_components_of_bundle {Ψ : (fieldPt Qbar ⟶ X) ≃ Quotien
     inertCount6_K4 pic_R4 (IsCyclotomicExtension.zeta 4 ℚ K4) zeta4_sq'
     K3 finrank_K3 R3 le_rfl (by rw [conductor_R3]; norm_num) inertCount6_K3 pic_R3
     (2 * IsCyclotomicExtension.zeta 3 ℚ K3 + 1) sqrt3_sq
-    (fun x P hP h0 => ((hex x P hP).1).1 h0) (fun x P hP hi => ((hex x P hP).2).1 hi)
+    (fun x P hP h0 => (hex x P hP).1 h0) (fun x P hP hi => (hex x P hP).2 hi)
     compOf compOf_galois hag.over0 hag.overInf
 
 /-- Subsingleton components and a point give a connected space. -/
