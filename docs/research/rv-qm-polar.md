@@ -18,7 +18,7 @@ The premise (bp-qmmoduli §2.2), restated so that it is true:
 
 > **Lemma P.** Let `F` be a field of characteristic 0, `A/F` an abelian surface and
 > `ι : 𝒪 ↪ End_F(A)` a unital ring embedding (`𝒪` the maximal order of N5, discriminant 6). Fix
-> `μ ∈ 𝒪` with `μ² = −6` (N5: `μ = 2j + ij`). Then `A` has exactly one principal polarization
+> `μ ∈ 𝒪` with `μ² = −6` (N5: `μ = 2j + ij`; the Lean of §5 covers N5's `μ` only). Then `A` has exactly one principal polarization
 > `λ` over `F` whose Rosati involution restricts on `ι(𝒪)` to `ι(b) ↦ ι(μ⁻¹b̄μ)` (**type `μ`**).
 
 Lemma P holds whether `End(A_F̄)` equals `𝒪` or is larger (the CM points). Its conditions:
@@ -29,7 +29,8 @@ Lemma P holds whether `End(A_F̄)` equals `𝒪` or is larger (the CM points). I
     are infinitely many distinct polarizations: the `𝒪¹`-orbit of `μ` is infinite, because its
     stabilizer is `ℤ[√−6]^× = ±1`.
   - Each of them is `λ_μ ∘ ι(v)` for a unique `†`-symmetric `v ∈ 𝒪` with `nrd v = 1`.
-    **Compiled:** `type_eq_mu_mul`, and the explicit second type `ν = 2j − k` in
+    **Compiled:** `type_eq_mu_mul` (existence of `v` only; uniqueness is argued; §1.3 writes
+    `λ_μ∘ι(εv)` with the sign), and the explicit second type `ν = 2j − k` in
     `two_principal_types` and `Enu_not_rosati_mu`.
   - When `End(A) = 𝒪`, these are *all* the principal polarizations of `A`. This is Rotger's
     theorem; §1.3 explains why `A` can carry several non-isomorphic ones in general.
@@ -41,14 +42,16 @@ Lemma P holds whether `End(A_F̄)` equals `𝒪` or is larger (the CM points). I
 - **C3 (`𝒪` maximal).** The proof uses this twice:
   - `H₁(A, ℤ)` is free over `𝒪`, by class number one;
   - `E_c` is unimodular exactly when `c𝒪` is the different. For `c ∈ 𝒪` with `c² = −6` this
-    always holds; it is compiled as part of `type_eq_mu_mul`.
+    always holds. Unimodularity of `E_c` follows from `type_eq_mu_mul` and `gram_det`; the
+    "exactly when the different" direction is not compiled.
 - **C4 (isomorphisms and twists).**
   - Every `𝒪`-equivariant isomorphism `(A, ι) ≅ (A', ι')` carries `λ` to `λ'`, by uniqueness.
   - The `Aut(𝒪)`-twist `(A, ι) ↦ (A, ι∘α)` corresponds to `(A, ι, λ) ↦ (A, ι∘α, λ∘ι(εv_α))`. Here
     `v_α = μ⁻¹α(μ) ∈ 𝒪¹` is `†`-symmetric and `ε = sign trd v_α`. This is defined in families
-    (`twist_type`, compiled).
+    (`twist_type`, compiled: the algebra only; `ε` and the family statement are argued).
   - For the Atkin–Lehner generators `χ₂ = i` and `χ₃ = j + k`, `v = −1` and `λ` is unchanged:
-    `χ` anticommutes with `μ` (`dag_conj_chi2/3/mu`, compiled). These are Rotger's twisting
+    `χ` anticommutes with `μ` (`chi2_mu`, `chi3_mu`, compiled) and conjugation by `χ` commutes with
+    `†` (`dag_conj_chi2/3`, compiled). These are Rotger's twisting
     involutions.
 
 Consequences:
@@ -62,7 +65,7 @@ Consequences:
     polarizations cannot yet be stated in Lean.
 - **Glue (§3).** A4, A7, Lemma NV step 2 and h-b1 M9 are unaffected. The polarized form of A7
   (N5 L532, "the same geometric polarized moduli point") also holds. It uses the D = 6 twisting
-  fact (C4), which is compiled. rv-jac-ext N1 gets its principal polarization over `K` from Lemma
+  fact (C4), whose algebra is compiled. rv-jac-ext N1 gets its principal polarization over `K` from Lemma
   P (existence, descent).
 
 Status of Lemma P itself:
@@ -72,8 +75,10 @@ Status of Lemma P itself:
     and `type_eq_mu_mul`.
   - The sign step is **compiled** (`riemann_sign`, `lemmaP_lattice`, §5): for every complex
     structure `j`, exactly one of `±E₀` is a principal Riemann form. So Lemma P holds on every
-    QM torus `ℂ²/𝒪v`, with every step in Lean except class number one (`H₁` free) and the
-    descent from `ℂ` to `F`.
+    QM torus `ℂ²/𝒪v`, with its lattice steps in Lean for N5's `μ` on `Λ = 𝒪` (`eq_smul_E0`,
+    `eq_pm_E0_of_principal`, `lemmaP_lattice`); the `E0R`/`E₀` identification, `Λ = 𝒪v`, Riemann
+    forms ↔ polarizations, class number one (`H₁` free) and the descent from `ℂ` to `F` are not
+    (corrected by notes-fix, factcheck-w34b item 3).
 - *Published:* see §1.2. The locators are UNVERIFIED (no network). N5's v14 text cites Buzzard
   1997, p. 592, for exactly this uniqueness (h-v14 rows L699-705 and L1014; UNCHECKED there).
 
@@ -174,7 +179,8 @@ are statements about type-`μ` triples `(A, ι, λ)` (plus `η`), not about pair
   of positive involutions; SPECULATIVE only in that no source was read.)
 - **A concrete second type** (`two_principal_types`, `Enu_not_rosati_mu`, `dagNu_ne_dag`,
   `nu_conj`, compiled). Take `ν = 2j − k ∈ 𝒪`, `ν² = −6`.
-  - `E_ν` is alternating, integral and unimodular on `𝒪`, and compatible with `x ↦ ν⁻¹x̄ν`.
+  - `E_ν` is alternating, integral and unimodular on `𝒪` (`Enu_alt`, `Enu_int`, `gramNu_det`), and
+    compatible with `x ↦ ν⁻¹x̄ν` (`Enu_rosati`).
   - `E_ν` is not a rational multiple of `E₀` and is not compatible with `†`.
   - `ν = −vμv⁻¹` with `v = −1 + i`, `nrd v = −1`.
 
@@ -241,16 +247,16 @@ algebra behind conditions C1 and C4, which are the only places where a misreadin
 leaf false:
 - a leaf over pairs `(A, ι)` that asserted uniqueness of *the* principal polarization of `A`, or
   of `(A, ι)` with free type, would be false (§1.3);
-- a PEL-form twist that kept `λ` for every `α ∈ Aut(𝒪)` would be ill-typed for inner `α` (it
-  changes the type to `α(μ)`), but is correct for `W` (§1.4).
+- a PEL-form twist that kept `λ` for every `α ∈ Aut(𝒪)` would be ill-typed for inner `α`
+  (relative to `ι∘α` the kept `λ` has type `α⁻¹(μ)`), but is correct for `W` (§1.4).
 
 The one structural caveat:
 - Lemma P is folded into the leaves, which are therefore "published moduli theorem + published
   Lemma P". This cannot be split into two Lean hypotheses until `PkgI3.AbVar` has dual abelian
   varieties and polarizations (WP4).
 - If the human check of Buzzard p. 592 or Rotger 2003 finds only uniqueness printed, existence
-  becomes glue. It is proved in §1.2, with its lattice core and sign step in Lean
-  (`eq_smul_E0`, `lemmaP_lattice`).
+  becomes glue. It is proved in §1.2, with its lattice core and sign step in Lean for N5's `μ` on
+  `Λ = 𝒪` only (`eq_smul_E0`, `lemmaP_lattice`; see item 3 of factcheck-w34b for what is not).
 
 ---
 
@@ -302,7 +308,16 @@ The one structural caveat:
    `type_eq_mu_mul`), published locators UNVERIFIED. The published moduli theorems are for the
    type-`μ` PEL problem; the λ-free leaves are their consequences via Lemma P and do not depend on
    the choice of `μ`."
-3. **leaf-qm-fp.md §2.2 (`R1heckeProps`)**, the parenthesis "With `λ` in the functor ...":
+   Further locations of the same SPECULATIVE premise text (factcheck-w34b item 5): the kernel copies
+   `ZInQKernel/HDecomp/QM/Leaves.lean` (`R1fp`, `R5fp`, `R5fpCount`, `QMLeaves` docstrings) and
+   `QM/Structures.lean` (`QML3`), which carry the repaired text at 883c4ddf (notes-fix added
+   "lattice cores … for N5's `μ` on `Λ = 𝒪` only" there); leaf-qm-fp.md:189-191; and
+   h-decomposition.md:161, 259, 319-320, 480, 508, 568, 880, 998, 1021, 1030 (line numbers at
+   01267822; leaf-adopt3 handles h-decomposition.md).
+3. **The `R1R2fp` docstring (`R1heckeProps` paragraph)**, the parenthesis "With `λ` in the functor
+   ...": scratch/leaf-qm-fp/QMLeaves.lean:1184-1185, kernel ZInQKernel/HDecomp/QM/Leaves.lean:240-241
+   (applied there by notes-fix) and scratch/h-decomposition/Leaves.lean:15330-15331 (the text is not
+   in leaf-qm-fp.md §2.2; retargeted by notes-fix, factcheck-w34b item 4):
    - Replace "`λ' = ±λ∘ι(μ⁻¹μ')`, `μ'` rescaled to norm 6" by "`λ' = λ∘ι(εv)`,
      `v = μ⁻¹α(μ) ∈ 𝒪¹` `†`-symmetric (`twist_type`), `ε = sign trd v`".
    - Add: "for the Atkin–Lehner generators `i`, `j + k`, `v = −1` and `λ' = λ`."
@@ -333,7 +348,8 @@ only. `#print axioms` gives `[propext, Classical.choice, Quot.sound]` for `two_p
   - `chi2_normalizes`, `chi3_normalizes`;
   - `dag_conj_chi2`, `dag_conj_chi3`, `dag_conj_mu`, `w_eq_chi_mul`.
 - §8 (over `B_ℝ = QuaternionAlgebra ℝ 2 0 (−3)`):
-  - `pure_of_sq`: `j² = −1` gives `j` pure with `nrd j = 1`;
+  - `pure_of_sq`: `j² = −1` gives `re j = 0` and `3b² − 2a² − 6c² = 1` (the explicit form of
+    `nrd j = 1`);
   - `E0R_mul_j`: `E₀(xj, yj) = E₀(x, y)`;
   - `Qpoly_ldl` (explicit `LDLᵀ`), `Qpoly_pos`;
   - **`riemann_sign`**: `x ↦ E₀(xj, x)` is positive definite if `imJ(j) > 0` and negative
@@ -344,6 +360,9 @@ only. `#print axioms` gives `[propext, Classical.choice, Quot.sound]` for `two_p
 Not in Lean:
 - class number one of `𝒪` (`H₁(A, ℤ)` free over `𝒪`);
 - Lemma P at the level of abelian varieties, which needs polarizations (WP4);
+- the identification of `E0R` with `E₀ ⊗ ℝ`, its combination with `eq_smul_E0` (docstring prose
+  only), the transport to `Λ = 𝒪v`, and any `μ` other than N5's (so the `lemmaP_lattice` docstring's
+  "every QM torus" is argued, not compiled; the kernel copy `QM/Polar.lean` now says so);
 - `π₀(A) = 1` for `D = 6` (evidence only).
 
 ## 6. Open checks

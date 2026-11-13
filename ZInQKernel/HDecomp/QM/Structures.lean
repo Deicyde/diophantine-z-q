@@ -213,8 +213,10 @@ end Level3
 /-- **An abelian surface over `K` with QM by `𝒪` and a level-3 structure.** (No polarization:
 by Lemma P (rv-qm-polar §0): for a fixed `μ` (N5's `2j+ij`), the type-`μ` principal
 polarization of `(A, ι)` exists and is unique in characteristic 0, also at CM points;
-VERIFIED as an argument, lattice cores compiled (`RvQMPolar.eq_pm_E0_of_principal`,
-`RvQMPolar.type_eq_mu_mul`, `RvQMPolar.lemmaP_lattice` in `QM/Polar.lean`), published
+VERIFIED as an argument, lattice cores compiled for N5's `μ` on `Λ = 𝒪` only
+(`RvQMPolar.eq_pm_E0_of_principal`, `RvQMPolar.type_eq_mu_mul`, `RvQMPolar.lemmaP_lattice` in
+`QM/Polar.lean`; the passage to polarizations of `A`, `Λ = 𝒪v`, class number one and the descent
+from `ℂ` are not compiled), published
 locators UNVERIFIED. Without fixing `μ` it is
 not unique.) -/
 structure QML3 (K : Type) [Field K] where

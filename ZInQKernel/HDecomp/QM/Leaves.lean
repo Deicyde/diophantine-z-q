@@ -201,8 +201,10 @@ projective curve `Y₃/ℚ`.
 `Spec K` for fields `K`; projective implies proper. `M3 K` drops `λ` (Lemma P (rv-qm-polar §0): for
 a fixed `μ` (N5's `2j+ij`), the type-`μ` principal
 polarization of `(A, ι)` exists and is unique in characteristic 0, also at CM points;
-VERIFIED as an argument, lattice cores compiled (`RvQMPolar.eq_pm_E0_of_principal`,
-`RvQMPolar.type_eq_mu_mul`, `RvQMPolar.lemmaP_lattice` in `QM/Polar.lean`), published
+VERIFIED as an argument, lattice cores compiled for N5's `μ` on `Λ = 𝒪` only
+(`RvQMPolar.eq_pm_E0_of_principal`, `RvQMPolar.type_eq_mu_mul`, `RvQMPolar.lemmaP_lattice` in
+`QM/Polar.lean`; the passage to polarizations of `A`, `Λ = 𝒪v`, class number one and the descent
+from `ℂ` are not compiled), published
 locators UNVERIFIED;
 not needed on Buzzard's route), and puts `η` on
 `K`-points (equivalent in characteristic 0, §2 docstring). `Y` is **not** required to be
@@ -241,9 +243,11 @@ subgroup preserving the level and the datum acts). *Why faithful*: `twist α` an
 are natural automorphisms of the moduli functor (they are defined for families over any base:
 `(A, ι, η) ↦ (A, ι∘α, η∘α)` and `η ↦ η(·u)`), so by Yoneda each is induced by an automorphism of
 the representing scheme. This is a consequence of R1(a) alone; on field points it is this
-clause. (With `λ` in the functor: `(A, ι∘α, η∘α)` has Rosati type `α⁻¹(μ)`, not `μ`, unless
-`α(μ) ∈ ℚ^×μ`; a matching `λ' = ±λ∘ι(μ⁻¹μ')`, `μ'` rescaled to norm 6, is defined in families, so
-the twist is still a functor automorphism. Alternatively: `n ∈ N_B(𝒪)` normalizes `K₃`, so right
+clause. (With `λ` in the functor: relative to `ι∘α` the kept `λ` has Rosati type `α⁻¹(μ)`, not
+`μ`, unless `α(μ) ∈ ℚ^×μ`; a matching `λ' = λ∘ι(εv)`, `v = μ⁻¹α(μ) ∈ 𝒪¹` `†`-symmetric
+(`RvQMPolar.twist_type`, the algebra only), `ε = sign trd v`, is defined in families, so the
+twist is still a functor automorphism; for the Atkin–Lehner generators `i`, `j + k`, `v = −1`
+and `λ' = λ`. Alternatively: `n ∈ N_B(𝒪)` normalizes `K₃`, so right
 translation by `n_f` is an automorphism of `Y₃` over `E(G,X) = ℚ`; this is the "subgroup
 preserving level and
 datum" of the audit.) (`α = Ad n`, `n ∈ N_B(𝒪)`, by Skolem–Noether T13; `u` acts through `(𝒪/3𝒪)^×`,
@@ -426,18 +430,24 @@ theorem exists_fibre_object (h : R1R2fp) :
   rw [e, hx]
 
 /-- **Glue (compiled): A4 + A7 from the leaves alone.** From `R1R2fp`: for every rational
-`j₀`, there is an object `P` over `ℚ̄` at a point of `Y₃` over `j₀`, and every Galois conjugate of
-`P` (its base change `Q` along any `σ ∈ Aut(ℚ̄/ℚ)`) has abelian surface isomorphic to that of `P`
-(through an `Aut(𝒪)`-twisted QM isomorphism). This is pkg-I1's (I1-out)(ii) for the fibre over
-`J(u) = j₀`. -/
+`j₀`, there are `Y₃` (with `R1fpProps`), `π : Y₃ → P¹` (with `R2fpProps`), a `ℚ̄`-point `y` of
+`Y₃` over `j₀` (`π(y) = j₀`) and the object `P` at `y` (`Φ y = [P]`), such that every Galois
+conjugate of `P` (its base change `Q` along any `σ ∈ Aut(ℚ̄/ℚ)`) has abelian surface isomorphic
+to that of `P` (through an `Aut(𝒪)`-twisted QM isomorphism). This is pkg-I1's (I1-out)(ii) for
+the fibre over `J(u) = j₀`. (Strengthened by notes-fix, factcheck-w34b item 1: the earlier
+conclusion `∃ P, ∀ σ, …` did not mention `j₀`.) -/
 theorem fibre_conjugates_isomorphic (h : R1R2fp) (j₀ : ℚ) :
-    ∃ P : QML3 Qbar, ∀ σ : Qbar ≃ₐ[ℚ] Qbar, ∃ Q : QML3 Qbar,
-      IsBaseChangeOf (σ : Qbar →+* Qbar) P Q ∧
-      ∃ α : O ≃+* O, Nonempty (QMIso (P.q.twist α) Q.q) := by
+    ∃ (Y : Over (Spec (CommRingCat.of ℚ))) (Φ : PtEquiv Y) (π : ToP1 Y.left),
+      R1fpProps Y Φ ∧ R2fpProps Y Φ π ∧
+      ∃ (y : fieldPt Qbar ⟶ Y) (P : QML3 Qbar), Φ Qbar y = M3.mk P ∧
+        π.val (K := Qbar) y.left = OnePoint.some (algebraMap ℚ Qbar j₀) ∧
+        ∀ σ : Qbar ≃ₐ[ℚ] Qbar, ∃ Q : QML3 Qbar,
+          IsBaseChangeOf (σ : Qbar →+* Qbar) P Q ∧
+          ∃ α : O ≃+* O, Nonempty (QMIso (P.q.twist α) Q.q) := by
   obtain ⟨Y, Φ, π, h1, h2, hfib⟩ := exists_fibre_object h
   obtain ⟨y, P, hP, hy⟩ := hfib (OnePoint.some (algebraMap ℚ Qbar j₀))
-  exact ⟨P, fun σ => conj_twist_of_rational h1 π (fun y y' P Q hP hQ => (h2 y y' P Q hP hQ).1)
-    y P hP j₀ hy σ⟩
+  exact ⟨Y, Φ, π, h1, h2, y, P, hP, hy, fun σ => conj_twist_of_rational h1 π
+    (fun y y' P Q hP hQ => (h2 y y' P Q hP hQ).1) y P hP j₀ hy σ⟩
 
 /-- **All glue conclusions on one witness** (so that A4, A5's Lemma NV step 2, A7 and M1 use the
 same `Y₃` and `π`). -/
@@ -487,7 +497,8 @@ inert in `k` (rv-nocm §3.1, h-decomposition R5); the printed condition is
 
 *Why faithful*: the degree of the printed field; `ℚ(x)` is the field of moduli for the coarse
 space `X₆` (STANDARD); the points of `X₆` are QM pairs `(A, ι)`, which uses Lemma P
-(rv-qm-polar §0: for a fixed `μ` the type-`μ` polarization exists and is unique; see `R1fp`);
+(rv-qm-polar §0: in characteristic 0, for a fixed `μ` the type-`μ` polarization exists and is
+unique; see `R1fp`);
 "CM by `R`" is `End_𝒪(A) = com ι ≅ R`. Only points of `X₆` (no level structure, no quotient). The
 reading `D(R) = ∏_{p | 6 inert in k} p` is the audited one (checked on Elkies' 24 rows by
 rv-nocm Part B); `R5fpWeak` below drops the case split. -/
@@ -521,8 +532,8 @@ corrected count.** For an order `R` of conductor prime to 6 in an imaginary quad
 occurring as some `End_𝒪(A)` (equivalently, embedding optimally in `𝒪`, so neither 2 nor 3
 splits in `k`), the number of isomorphism classes of QM pairs over `ℚ̄` with `End_𝒪(A) ≅ R` (the
 CM points by `R` on `X₆ = X₀(6,1)`) is `2^{b(R)} h(R)`. *Why faithful*: `#CM(R) =
-2^{#{p | D(R)N(R)}} h(R)` with `N = 1`; points of `X₆(ℚ̄)` are classes of QM pairs (Lemma P,
-rv-qm-polar §0; see `R1fp`). **Not** the
+2^{#{p | D(R)N(R)}} h(R)` with `N = 1`; points of `X₆(ℚ̄)` are classes of QM pairs (Lemma P in
+characteristic 0, rv-qm-polar §0; see `R1fp`). **Not** the
 false `h(R)` (disc −19: `h = 1`, four points). -/
 def R5fpCount : Prop :=
   ∀ (k : Type) [Field k] [NumberField k] [NumberField.IsTotallyComplex k],
@@ -540,8 +551,10 @@ points of `Y₃`)
 rests on the published theorems **plus**
 Lemma P (rv-qm-polar §0): for a fixed `μ` (N5's `2j+ij`), the type-`μ` principal
 polarization of `(A, ι)` exists and is unique in characteristic 0, also at CM points;
-VERIFIED as an argument, lattice cores compiled (`RvQMPolar.eq_pm_E0_of_principal`,
-`RvQMPolar.type_eq_mu_mul`, `RvQMPolar.lemmaP_lattice` in `QM/Polar.lean`), published
+VERIFIED as an argument, lattice cores compiled for N5's `μ` on `Λ = 𝒪` only
+(`RvQMPolar.eq_pm_E0_of_principal`, `RvQMPolar.type_eq_mu_mul`, `RvQMPolar.lemmaP_lattice` in
+`QM/Polar.lean`; the passage to polarizations of `A`, `Λ = 𝒪v`, class number one and the descent
+from `ℂ` are not compiled), published
 locators UNVERIFIED, because `QML3`/`QMPair` omit `λ`. The published moduli theorems are for the
 type-`μ` PEL problem; the λ-free leaves are their consequences via Lemma P and do not depend
 on the choice of `μ`. Polarizations cannot be stated in Lean today (no dual abelian variety),
