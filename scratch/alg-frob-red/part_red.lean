@@ -1285,6 +1285,117 @@ theorem fExtend_of_core (h : FExtendCore) : FExtend := by
   obtain ⟨Ft, h1, h2, h3⟩ := h L A F hF1 hF2 p hp v σ hv hσ 𝒜 e f hf
   exact ⟨Ft, tSig σ hσ.1, h1, tSig_residue hσ, h2, h3⟩
 
+/-! ## 9. `FrobMorph` from the existence of the absolute Frobenius -/
+
+/-- **`AbsFrob` (GLUE; the absolute Frobenius of an `𝔽_p`-scheme; standard, e.g. SGA 5 XIV,
+Stacks Tag 0CC6 (locators UNVERIFIED); not in Mathlib 4.35).** For a scheme `X` over a field `k`
+of characteristic `p` there is an endomorphism `Fr_X` (the identity on the space, `f ↦ f^p` on
+sections) lying over `Fr_{Spec k} = Spec(z ↦ z^p)`, and natural for points: for every ring `R` of
+characteristic `p` and `g : Spec R → X`, `Spec(r ↦ r^p) ≫ g = g ≫ Fr_X`. -/
+def AbsFrob : Prop :=
+  ∀ (k : Type) [Field k] (p : ℕ) [Fact p.Prime] [CharP k p] (X : Over (Spec (.of k))),
+    ∃ Fr : X.left ⟶ X.left,
+      Fr ≫ X.hom = X.hom ≫ Spec.map (CommRingCat.ofHom (frobenius k p)) ∧
+      ∀ (R : Type) [CommRing R] [CharP R p] (g : Spec (.of R) ⟶ X.left),
+        Spec.map (CommRingCat.ofHom (frobenius R p)) ≫ g = g ≫ Fr
+
+/-- A ring endomorphism inducing an inverse Frobenius on the residue field is local. -/
+theorem isLocalHom_of_resPow {O : Type} [CommRing O] [IsLocalRing O] {p : ℕ} (hp : p.Prime)
+    (t : O →+* O) (hres : ∀ a, IsLocalRing.residue O (t a) ^ p = IsLocalRing.residue O a) :
+    IsLocalHom t := by
+  refine ⟨fun a ha => ?_⟩
+  by_contra hna
+  have h1 : IsLocalRing.residue O a = 0 :=
+    (IsLocalRing.residue_eq_zero_iff _).mpr ((IsLocalRing.mem_maximalIdeal _).mpr hna)
+  rw [← hres a] at h1
+  have h2 : IsLocalRing.residue O (t a) = 0 := pow_eq_zero_iff hp.ne_zero |>.mp h1
+  exact ((IsLocalRing.mem_maximalIdeal _).mp ((IsLocalRing.residue_eq_zero_iff _).mp h2)) ha
+
+/-- The unit section of the special fibre, followed by the projection to `𝒜`, is the closed
+point followed by the unit section of `𝒜` (proved). -/
+theorem sf_eta_fst {O : Type} [CommRing O] [IsLocalRing O] (𝒜 : Grp (Over (Spec (.of O)))) :
+    (η[(sf 𝒜).X]).left ≫
+        pullback.fst 𝒜.X.hom (Spec.map (CommRingCat.ofHom (IsLocalRing.residue O))) =
+      Spec.map (CommRingCat.ofHom (IsLocalRing.residue O)) ≫ (η[𝒜.X]).left := by
+  let g' := Spec.map (CommRingCat.ofHom (IsLocalRing.residue O))
+  let F := Over.pullback g'
+  have hε : (Functor.LaxMonoidal.ε F).left ≫ pullback.snd (𝟙 (Spec (.of O))) g' = 𝟙 _ :=
+    Over.w (Functor.LaxMonoidal.ε F)
+  have hε2 : (Functor.LaxMonoidal.ε F).left ≫ pullback.fst (𝟙 (Spec (.of O))) g' = g' := by
+    have hc : pullback.fst (𝟙 (Spec (.of O))) g' = pullback.snd (𝟙 (Spec (.of O))) g' ≫ g' := by
+      rw [← pullback.condition, Category.comp_id]
+    rw [hc, ← Category.assoc, hε, Category.id_comp]
+  have hmap : (F.map η[𝒜.X]).left ≫ pullback.fst 𝒜.X.hom g' =
+      pullback.fst (𝟙 (Spec (.of O))) g' ≫ (η[𝒜.X]).left := pullback.lift_fst _ _ _
+  show ((Functor.LaxMonoidal.ε F) ≫ F.map η[𝒜.X]).left ≫ pullback.fst 𝒜.X.hom g' = _
+  rw [Over.comp_left, Category.assoc, hmap, ← Category.assoc, hε2]
+
+set_option synthInstance.maxHeartbeats 400000 in
+/-- **`FrobMorph` from `AbsFrob` (proved):** `β = Fr_Ā ≫ F̄`, with `F̄ = F̃ ×_{Spec t} Spec(t̄)`
+(`pullback.map`) and `t̄` the map induced by `t` on `κ(O)` (`t̄ = Frob⁻¹`); `β` lies over
+`Spec(Frob ∘ t̄) = id`; it fixes `0` (`sf_eta_fst`, point-naturality at the unit section); the
+point formula is point-naturality at `y`. -/
+theorem frobMorph_of (hA : AbsFrob) : FrobMorph := by
+  intro O _ _ p hp hk 𝒜 _ Ft t hover hres hzero
+  haveI : Fact p.Prime := ⟨hp⟩
+  haveI := isLocalHom_of_resPow hp t hres
+  let tb := IsLocalRing.ResidueField.map t
+  have htb : ∀ z, frobenius (IsLocalRing.ResidueField O) p (tb z) = z := by
+    intro z
+    obtain ⟨a, rfl⟩ := IsLocalRing.residue_surjective z
+    exact hres a
+  let g' := Spec.map (CommRingCat.ofHom (IsLocalRing.residue O))
+  have heq2 : g' ≫ Spec.map (CommRingCat.ofHom t) = Spec.map (CommRingCat.ofHom tb) ≫ g' := by
+    rw [← Spec.map_comp, ← Spec.map_comp, ← CommRingCat.ofHom_comp, ← CommRingCat.ofHom_comp]
+    rfl
+  have hid : Spec.map (CommRingCat.ofHom (frobenius (IsLocalRing.ResidueField O) p)) ≫
+      Spec.map (CommRingCat.ofHom tb) = 𝟙 _ := by
+    rw [← Spec.map_comp, ← CommRingCat.ofHom_comp]
+    rw [show (frobenius (IsLocalRing.ResidueField O) p).comp tb = RingHom.id _ from
+      RingHom.ext htb, CommRingCat.ofHom_id, Spec.map_id]
+  let Fb : pullback 𝒜.X.hom g' ⟶ pullback 𝒜.X.hom g' :=
+    pullback.map 𝒜.X.hom g' 𝒜.X.hom g' Ft (Spec.map (CommRingCat.ofHom tb))
+      (Spec.map (CommRingCat.ofHom t)) hover.symm heq2
+  have hFb1 : Fb ≫ pullback.fst 𝒜.X.hom g' = pullback.fst 𝒜.X.hom g' ≫ Ft :=
+    pullback.lift_fst _ _ _
+  have hFb2 : Fb ≫ pullback.snd 𝒜.X.hom g' =
+      pullback.snd 𝒜.X.hom g' ≫ Spec.map (CommRingCat.ofHom tb) := pullback.lift_snd _ _ _
+  obtain ⟨Fr0, hFr1, hFr2⟩ := hA (IsLocalRing.ResidueField O) p
+    (Over.mk (pullback.snd 𝒜.X.hom g'))
+  let Fr : pullback 𝒜.X.hom g' ⟶ pullback 𝒜.X.hom g' := Fr0
+  have hFr1' : Fr ≫ pullback.snd 𝒜.X.hom g' = pullback.snd 𝒜.X.hom g' ≫
+      Spec.map (CommRingCat.ofHom (frobenius (IsLocalRing.ResidueField O) p)) := hFr1
+  have hFr2' : ∀ (R : Type) [CommRing R] [CharP R p] (g : Spec (.of R) ⟶ pullback 𝒜.X.hom g'),
+      Spec.map (CommRingCat.ofHom (frobenius R p)) ≫ g = g ≫ Fr := fun R _ _ g => hFr2 R g
+  have hw : (Fr ≫ Fb) ≫ pullback.snd 𝒜.X.hom g' = pullback.snd 𝒜.X.hom g' := by
+    rw [Category.assoc, hFb2, ← Category.assoc, hFr1', Category.assoc, hid, Category.comp_id]
+  let e0 : Spec (.of (IsLocalRing.ResidueField O)) ⟶ pullback 𝒜.X.hom g' := (η[(sf 𝒜).X]).left
+  have he0 : e0 ≫ pullback.fst 𝒜.X.hom g' = g' ≫ (η[𝒜.X]).left := sf_eta_fst 𝒜
+  have he0s : e0 ≫ pullback.snd 𝒜.X.hom g' = 𝟙 _ := Over.w η[(sf 𝒜).X]
+  refine ⟨Over.homMk (U := (sf 𝒜).X) (V := (sf 𝒜).X) (Fr ≫ Fb) hw, ?_, ?_⟩
+  · apply Over.OverMorphism.ext
+    show e0 ≫ Fr ≫ Fb = e0
+    have hn := hFr2' (IsLocalRing.ResidueField O) e0
+    rw [← Category.assoc, ← hn, Category.assoc]
+    have hη : e0 ≫ Fb = Spec.map (CommRingCat.ofHom tb) ≫ e0 := by
+      apply pullback.hom_ext
+      · rw [Category.assoc, hFb1, ← Category.assoc, he0, Category.assoc, Category.assoc, he0,
+          hzero, ← Category.assoc, heq2, Category.assoc]
+      · rw [Category.assoc, hFb2, ← Category.assoc, he0s, Category.id_comp, Category.assoc, he0s,
+          Category.comp_id]
+    rw [hη, ← Category.assoc, hid, Category.id_comp]
+  · intro y φ hφ
+    haveI : CharP (AlgebraicClosure (IsLocalRing.ResidueField O)) p :=
+      charP_of_injective_algebraMap (algebraMap (IsLocalRing.ResidueField O) _).injective p
+    have hφ' : φ = frobenius _ p := RingHom.ext hφ
+    subst hφ'
+    let yl : Spec (.of (AlgebraicClosure (IsLocalRing.ResidueField O))) ⟶ pullback 𝒜.X.hom g' :=
+      y.left
+    have hn := hFr2' (AlgebraicClosure (IsLocalRing.ResidueField O)) yl
+    show (yl ≫ Fr ≫ Fb) ≫ pullback.fst 𝒜.X.hom g' = _ ≫ yl ≫ pullback.fst 𝒜.X.hom g' ≫ Ft
+    rw [Category.assoc, Category.assoc, hFb1, ← Category.assoc, ← Category.assoc, ← hn,
+      Category.assoc, Category.assoc]
+
 /-- **Main result, finest form: `AlgFrobRed` from the leaf candidates `GoodRedCofinite`,
 `SmoothGeomConnIntegral` and the glue `ResidueAlgClosure`, `RedRelMul`, `RedTorsionQbar`,
 `FExtend`, `FrobMorph` (proved).** -/
@@ -1593,6 +1704,21 @@ theorem tateBridge35_of_core (hT : PkgI3.TateModuleFree) (hG : GoodRedCofinite)
     (hE : FExtendCore) (hFr : FrobMorph) : G14Bridge.TateBridge35 :=
   FrobTrace.tateBridge35_of_algFrobRed hT (algFrobRed_of_core hG hS hRed hE hFr)
 
+/-- **Main result with `FrobMorph` reduced: `FrobTrace.AlgFrobRed` from the leaf candidates
+`GoodRedCofinite`, `SmoothGeomConnIntegral`, the kernel leaf I2-Red, and the glue `FExtendCore` and
+`AbsFrob` (proved).** -/
+theorem algFrobRed_of_absFrob (hG : GoodRedCofinite) (hS : SmoothGeomConnIntegral)
+    (hRed : PkgI2.ReductionTorsionBijective.{0}) (hE : FExtendCore) (hA : AbsFrob) :
+    FrobTrace.AlgFrobRed :=
+  algFrobRed_of_core hG hS hRed hE (frobMorph_of hA)
+
+/-- **`TateBridge35` from I3.M0, I2-Red, `GoodRedCofinite`, `SmoothGeomConnIntegral`,
+`FExtendCore`, `AbsFrob` (proved).** -/
+theorem tateBridge35_of_absFrob (hT : PkgI3.TateModuleFree) (hG : GoodRedCofinite)
+    (hS : SmoothGeomConnIntegral) (hRed : PkgI2.ReductionTorsionBijective.{0})
+    (hE : FExtendCore) (hA : AbsFrob) : G14Bridge.TateBridge35 :=
+  FrobTrace.tateBridge35_of_algFrobRed hT (algFrobRed_of_absFrob hG hS hRed hE hA)
+
 end AlgFrobRedRed
 
 end
@@ -1649,3 +1775,8 @@ end
 #print axioms AlgFrobRedRed.fExtend_of_core
 #print axioms AlgFrobRedRed.algFrobRed_of_core
 #print axioms AlgFrobRedRed.tateBridge35_of_core
+#print axioms AlgFrobRedRed.isLocalHom_of_resPow
+#print axioms AlgFrobRedRed.sf_eta_fst
+#print axioms AlgFrobRedRed.frobMorph_of
+#print axioms AlgFrobRedRed.algFrobRed_of_absFrob
+#print axioms AlgFrobRedRed.tateBridge35_of_absFrob

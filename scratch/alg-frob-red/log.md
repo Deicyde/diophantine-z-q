@@ -112,3 +112,12 @@
   clause), fExtend_of_core : FExtendCore → FExtend, algFrobRed_of_core, tateBridge35_of_core.
 - Run 33: exit 0, no error; 79 axiom prints, all [propext, Classical.choice, Quot.sound] (VERIFIED).
 - Final layout check (cmp, VERIFIED): AlgFrobRed.lean lines after the 4 imports = FrobTrace.lean minus its import line, then Rigidity.lean minus its 4 imports, byte-identical.
+
+## Run 34-37: FrobMorph from AbsFrob
+- New Prop AbsFrob (glue: absolute Frobenius of a scheme over a field of characteristic p, over Spec(z ↦ z^p) and natural
+  for Spec R-points, R of characteristic p). Proved: isLocalHom_of_resPow, sf_eta_fst (unit of the special fibre =
+  closed point ≫ unit of 𝒜, via Functor.obj.η_def-style unfolding of ε ≫ F.map η), frobMorph_of : AbsFrob → FrobMorph
+  (β = Fr ≫ F̄ with F̄ = pullback.map Ft (Spec t̄) (Spec t)), algFrobRed_of_absFrob, tateBridge35_of_absFrob.
+- Run 37: exit 0, no error; all axiom prints standard (VERIFIED).
+- Pitfall: work at the native type `pullback 𝒜.X.hom g'` (re-typed `let Fr : pullback .. ⟶ .. := Fr0`,
+  `let e0 := η.left`, `let yl := y.left`), else Category.assoc rewrites fail on (sf 𝒜).X.left.
