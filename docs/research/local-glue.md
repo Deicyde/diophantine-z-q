@@ -7,8 +7,8 @@ Lean: `scratch/local-glue/LocalGlue.lean`, assembled by `scratch/local-glue/buil
   everything it depends on;
 - verbatim blocks of `scratch/g0-mod-galois/part_galois.lean` (`galois_block.lean`),
   `scratch/neron-lg/NeronLG.lean` (`neron_block.lean`), `scratch/unram-tate/BCPoints.lean`
-  (`bc_block.lean`) and `scratch/g0-assemble/parts/75_modfield.lean` (`resq_block.lean`:
-  `resQ_range`);
+  (`bc_block.lean`), `scratch/g0-assemble/parts/75_modfield.lean` (`resq_block.lean`:
+  `resQ_range`) and `scratch/g0-dim/Dim.lean` (`dim_block.lean`);
 - the new parts `part_glue.lean` (§6-§7), `part_ptfinite.lean` (§7b), `part_raynaud.lean` (§7c),
   `part_descent.lean` (§7d), `part_twist.lean` (§7e), `part_bcdescent.lean` (§7f) and
   `part_pack.lean` (§8).
@@ -73,7 +73,9 @@ theorem G15Ram.localGlue_of_baseChange (hLL' : L ≤ L') (hR6) (hTors) (hU : Unr
 
 Here `L ≤ L'` are finite in `ℚ̄`, `L/ℚ` is Galois, and `bcL' hLL' A₀` is `A₀.baseChange L'` along
 g0-mod-field's `incAlg`, exactly as in `TateBridge`. The data clauses:
-- `dim A₀ = 2` (G4/G5);
+- `dim A₀ = 2` (G4/G5). The primed version `localGlue_of_baseChange'` derives it from `G7Out`'s
+  `dim (A₀)_{L'} = 2`, using g0-dim's `G0Dim.pkgI3_dim_baseChange` (copied verbatim,
+  `dim_block.lean`);
 - `hker` is `G7Data`'s kernel-field clause;
 - `β = ι ∘ β_ℂ` with `ι` injective is the transport that `TateBridge` should output (G8).
 
@@ -83,7 +85,7 @@ How the glue Props are discharged:
   (finding G9) and proves `dim` invariance along `Spec γ`.
 
 Pack and tail on this form:
-- `G0ModNewform.G7LocalPackBC`: the construction's data, with no local Prop;
+- `G0ModNewform.G7LocalPackBC`: the construction's data, with no local Prop and no `dim` clause;
 - `g8LocalPack_of_BC`, `g15RamG_of_packBC`;
 - `modularConstituent_tail_BC`.
 
@@ -149,7 +151,7 @@ is `bcPt` composed with a transport along `L̄ ≅ L̄'` (`trPt`).
 ## 3. What is proved
 
 All rows are VERIFIED: `lake env lean scratch/local-glue/LocalGlue.lean` exits 0 with 0 errors and
-no `sorry`. All 77 `#print axioms` lines are `[propext, Classical.choice, Quot.sound]`. Names are
+no `sorry`. All 78 `#print axioms` lines are `[propext, Classical.choice, Quot.sound]`. Names are
 in `G15Ram` unless noted.
 
 | Lean | statement | proof idea |
@@ -172,7 +174,7 @@ in `G15Ram` unless noted.
 | `kerWild_of_g7Data` | `G_{L'} = G_L ∩ ker β_ℂ`, `β = ι ∘ β_ℂ`, `ι` injective ⟹ `KerWild L' β L` | `resQ_range` |
 | `localGlue_of_unramRoots` | main result (§1) | the above |
 | `γL`, `θL`, `θL_galois`, `conjModel`, `φL`, `φL_galAct`, `dim_conjModel`, **`descentPts_baseChange`** | `DescentPts ((A₀)_{L'}) L` for `dim A₀ = 2`, `L/ℚ` Galois | `γ = jK_L⁻¹ ∘ jL'` (both embeddings have image `L`); `φ = bcPt⁻¹ ∘ trPt θ ∘ bcPt`, `θ = qEmb_{L'} ∘ qEmb_L⁻¹`; `Scheme.Hom.homeomorph` |
-| **`localGlue_of_baseChange`** | `LocalGlue` on G7's construction (§1) | the above |
+| **`localGlue_of_baseChange`**, `localGlue_of_baseChange'` | `LocalGlue` on G7's construction (§1) | the above; `'` with `G0Dim.pkgI3_dim_baseChange` |
 | `G0ModNewform.g8LocalPack_of_BC`, `g15RamG_of_packBC`, `modularConstituent_tail_BC` | packs and tail on `G7LocalPackBC` | the above |
 | `G0ModNewform.g8LocalPack_of_{K,D,U}`, `g15RamG_of_pack{K,R,D,U}`, `g7LocalPackK_of_R` | packs | the above |
 | `G0ModNewform.modularConstituent_tail_{K,R,D,U}` (`TailK.lean`) | G13-G16 on the packs | local-data's `modularConstituent_tail_L` |
@@ -243,15 +245,12 @@ Proof of `beta4Inertia_of_clauses` (`p = 2`):
    re-checked here).
 2. Integration: `TateBridge` (g0-assemble) should also output the transport `β' = ι ∘ β`
    (`ι` injective). Then its data fills `G7LocalPackBC`, and `g15RamG_of_packBC` gives
-   `G15RamG`. `dim A₀ = 2` is a G4/G5 clause.
-
-   (`dim` of a base change along a field extension is not proved here; only along the
-   isomorphism `Spec γ`.)
+   `G15RamG`.
 
 ## 6. Compile record
 
 - `lake env lean scratch/local-glue/LocalGlue.lean`: exit 0, 0 errors, no `sorry`, about 90 s.
-  All 77 `#print axioms` lines are standard (`compile.out`).
+  All 78 `#print axioms` lines are standard (`compile.out`).
 - `lake env lean scratch/local-glue/TailK.lean`: exit 0, 0 errors, no `sorry`, about 70 s.
   `modularConstituent_tail_{G,L,K,R,D,U,BC}` have standard axioms (`tail_compile.out`).
 - Verbatim copies, VERIFIED by construction (`cat`/`sed -n` in the build scripts):
@@ -259,4 +258,7 @@ Proof of `beta4Inertia_of_clauses` (`p = 2`):
   - `part_galois.lean` l.40-58;
   - `neron_block.lean`, `bc_block.lean` (`mk_*_block.sh`);
   - `resq_block.lean` (`mk_resq_block.sh`, with namespace renames listed there);
+  - `dim_block.lean` (`mk_dim_block.sh`, g0-dim). Its 12 Mathlib imports, found by a test
+    compile, are in `dim_imports.txt`. `import Mathlib` breaks a `rfl` in local-data's verbatim
+    `Tail.lean`, so it is not used;
   - `G8LocalPack` (between the markers in `part_pack.lean`).
