@@ -32,3 +32,19 @@ docs/research/h5-neron.md.
 - `genericIso_of_openImmersion`: f : 𝒰.G ⟶ 𝒢.G with f.left an open immersion ⇒ IsIso (F.map f).
   All three: axioms [propext, Classical.choice, Quot.sound]. This is the "on generic fibres it is an
   isomorphism" clause of h5-neron's OpenSubgroupHeight docstring, now a Lean proof.
+
+## 4. Complex points — PROVED (compiled 02:15, scratch/h5-glue/Pts.lean)
+- `ptCIso`, `ptsEquiv` (𝒢.Pts τ ≃ L-points of the generic fibre, via Over.mapPullbackAdj),
+  `ptsEquiv_comp`, `pts_comp_bijective`: if F.map f is an iso, p ↦ p ≫ f is a bijection
+  𝒢.Pts τ → 𝒩.Pts τ. Axioms [propext, Classical.choice, Quot.sound].
+
+## 5. Combined file scratch/h5-glue/H5Glue.lean — COMPILED 02:17 (no errors; 12 #print axioms,
+## all [propext, Classical.choice, Quot.sound])
+- §1-§4 as above; §5: N1, N2, IsOpenSubgroupModel, ModelHeightBaseChange, OpenSubgroupHeight,
+  compositum copied verbatim from h5-neron.
+- `OpenImmersionHeightLe` (glue, STATED): open-immersion homomorphism f : 𝒰 → 𝒢 with generic iso ⇒
+  𝒰.height ≤ 𝒢.height.
+- `openSubgroupHeight_of : HeightAntitone → OpenImmersionHeightLe → OpenSubgroupHeight`.
+- `stableFaltingsHeight_eq_neron_all (hN1 hN2 hA hO hbc)`: H5 in the multi-field form R19-R21 need,
+  from leaves N1, N2 and glue HeightAntitone, OpenImmersionHeightLe, ModelHeightBaseChange only
+  (h5-neron's version needed six glue hypotheses incl. NeronModelMinimal, GroupModelBaseChangeExists).
