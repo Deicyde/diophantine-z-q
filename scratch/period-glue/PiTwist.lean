@@ -130,8 +130,9 @@ theorem fibreTransferC_of (Y : Over (Spec (CommRingCat.of ℚ))) (π : ToP1 Y.le
 
 /-! ## `TwistOrbitFinite` from R1hecke, `TorsionStructure` and two algebra facts -/
 
-/-- **GLUE, proved in mobius-glue** (`scratch/mobius-glue/MobiusGlue.lean` §7, `AutOInnerFinite`,
-from the kernel's Skolem–Noether and `N(𝒪)/ℚ^×𝒪^× = {1, i, j, ij}`; copied verbatim, it cannot be
+/-- **GLUE, proved in mobius-glue** (`scratch/mobius-glue/MobiusGlue.lean` §7, `AutOInnerFinite`;
+from the kernel's Skolem–Noether and `N(𝒪)/ℚ^×𝒪^× = {1, i, j, ij}`; copied verbatim up to writing
+`LeafQM.O` for `O`; it cannot be
 imported here). Every automorphism of `𝒪` is, up to conjugation by a unit of `𝒪`, one of finitely
 many. -/
 def AutOInnerFinite : Prop :=

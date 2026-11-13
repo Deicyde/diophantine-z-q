@@ -134,3 +134,10 @@ Targets: period-map's glue `S8Nonzero`, `S8WeightExact`, `SphereFactorAffine`,
   (⇐) via ToP1AgreeC on π∘g and π (`ToP1.val_comp_right`); (⇒) is FibreGenericC.
 - Finding: period-map's `periodMapGlue_of` uses PiTwistC's full iff (fibre clause), so the hard half
   (⇒, generic fibres) cannot be avoided.
+
+## Final checks (VERIFIED)
+- `py/verbatim_check.py`: PGBase/PGLight are exact assemblies; rigidity and AutOExt copies verbatim;
+  the eight period-map statements occur verbatim in the bases. AutOInnerFinite: mobius-glue's text
+  with `LeafQM.O` written for `O`.
+- run_all (after the FibreTransferC split): 0 errors, exit 0, all printed theorems standard axioms.
+  No `sorry` in any period-glue Lean file.
