@@ -39002,7 +39002,7 @@ from the smaller named Props that wave 26 reduced them to, bundled as `HSyn.Glue
 | `productExists` | g0-product | `G0Product.productExists` (proved, Mathlib only) |
 | `reverseIsogeny` | g0-reverseisog | `G0RevIsog.reverseIsogeny_of_leaves r dimFinite` (route B: R19 and H5 of the bundle) |
 | `thetaPoint` | g0-thetapoint | `ThetaPt.thetaPointOfFibre_of_qm_ratios` from the glue `FibreQMPeriod` (blocked on qm-pin) and the leaf candidate `ThetaRatiosAlgebraic` |
-| `modularConstituent` | g0-mod-field, g0-mod-galois, g0-mod-newform | **kept as one field**: the three ranges are not composed in one file (see `docs/research/g0-assemble.md` §3) |
+| `modularConstituent` | g0-mod-field (G2-G7) | `modularConstituent_of_field` (above): g0-mod-field's three glue Props (`KernelFieldExists` blocked on qm-pin), the bundle's T14a, T14b, T15, T30, T31, and `AfterG7` (G8-G16, kept whole: g0-mod-galois and g0-mod-newform are not yet composed with it, see `docs/research/g0-assemble.md` §3) |
 | `heightCopies` | (no wave-26 task) | kept as one field (glue, pure transport) |
 -/
 
@@ -39050,9 +39050,17 @@ structure GluePieces2 : Prop where
   II; UNVERIFIED locators): theta-constant ratios at a period matrix of an abelian surface over a
   number field are algebraic. -/
   thetaRatiosAlgebraic : G0Split.ThetaPt.ThetaRatiosAlgebraic
-  /-- G2, G4, G7-G16, GLUE, kept whole (the three wave-26 ranges are not yet composed in one file;
-  `KernelFieldExists` inside it is QM-PIN). -/
-  modularConstituent : G0Split.ModularConstituent
+  /-- g0-mod-field G2, GLUE (Prop. TS + Lemma NV on the actual fibre): a separable `f`,
+  `deg f ≤ 324`, whose splitting field is unramified outside `T` and carries a rational fibre. -/
+  fibreCoverExists : G0ModField.FibreCoverExists
+  /-- g0-mod-field G4 + B1, GLUE, **QM-PIN**: the kernel field and the conjugacy data. -/
+  kernelFieldExists : G0ModField.KernelFieldExists
+  /-- g0-mod-field, GLUE (STANDARD, Neukirch I §8, UNVERIFIED): a compositum of finite Galois
+  extensions of `ℚ` unramified at `p` is unramified at `p`. -/
+  unramifiedSup : G0ModField.UnramifiedSup
+  /-- G8-G16, GLUE, kept whole: for every fibre context and G7 data, a `J₁(M)` with `M ≤ Q_D·M²`
+  and a common constituent over `L'` (g0-mod-galois and g0-mod-newform reduce its two halves). -/
+  afterG7 : G0ModField.AfterG7
   /-- leaf-adopt2's transport target, GLUE (no wave-26 task). -/
   heightCopies : HeightCopiesAgree
 
@@ -39072,7 +39080,8 @@ theorem gluePieces_of_gluePieces2 (r : ResearchLeaves) (t : TextbookLeaves) (gp2
   reverseIsogeny := G0RevIsog.reverseIsogeny_of_leaves r G0Split.dimFinite
   thetaPoint := G0Split.ThetaPt.thetaPointOfFibre_of_qm_ratios gp2.fibreQMPeriod
     gp2.thetaRatiosAlgebraic
-  modularConstituent := gp2.modularConstituent
+  modularConstituent := modularConstituent_of_field t gp2.fibreCoverExists gp2.kernelFieldExists
+    gp2.unramifiedSup gp2.afterG7
   heightCopies := gp2.heightCopies
 
 /-- **G0 after wave 26** (g0-assemble): the leaf bundles and `GluePieces2` imply

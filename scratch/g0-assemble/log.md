@@ -27,3 +27,4 @@
   G0ModField.ModularConstituentG → G0Split.ModularConstituent` compiles (a direct `exact` of the anonymous
   constructor hit a whnf heartbeat timeout; `refine` + `rw [abVarEquiv_symm_baseChange]` works).
   `HSyn.modularConstituent_of_field t hCover hKer hSup hRest`: VERIFIED, standard axioms.
+- Tail run with parts 05-90 incl. 74/75/85 and GluePieces2 using `modularConstituent_of_field`: VERIFIED 0 errors, no sorry, standard axioms for gluePieces_of_gluePieces2, sixContactMin_of_leaves2 (04:33).
