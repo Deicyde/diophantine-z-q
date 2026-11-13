@@ -7,7 +7,7 @@ with the Mathlib library.
 
 - Upstream: since 2026-11-13 the Lean kernel is on the main branch of https://github.com/elliotglazer/diophantine-z-q
   (pull request #36 merged #24's kernel, with CI checks for contributions)
-- Development fork: https://github.com/Deicyde/diophantine-z-q (Lean state of fork main 533aa66c, which adds glue
+- Development fork: https://github.com/Deicyde/diophantine-z-q (Lean state of fork main 98ff8701, which adds glue
   proved since then)
 - Blueprint, with every statement, its dependencies and its Lean declaration: https://deicyde.github.io/diophantine-z-q/
 
@@ -19,7 +19,7 @@ with the Mathlib library.
 - **Reduced in Lean:** the positive-rank statement follows from four statements about L-functions. Three are
   published theorems or textbook consequences of them; the fourth is one reading of a theorem of Tian, Yuan and
   Zhang that no refereed text we found states explicitly (caveats below).
-- **Open, and most of the remaining work:** H. On paper it follows from 22 research-level theorems, 32 textbook
+- **Open, and most of the remaining work:** H. On paper it follows from 23 research-level theorems, 33 textbook
   theorems and 20 glue steps (the manuscript's new arguments and this project's replacements). Most of the glue
   is not yet in Lean, and it has been reviewed only by AI models, not by a human.
 
@@ -86,7 +86,9 @@ curve (`WeierstrassCurve.LSeries`):
 How they combine: the functional equation with root number −1 makes L(C_d, s) vanish at s = 1; when T5bCl(d) is
 odd, items 3 and 4 bound the order of vanishing by 1 (this is the statement `Literature.TYZRow5b`, which the Lean
 theorem `Literature.tyzRow5b_of_readingA` proves from them); so the zero is simple, and item 1 gives a point of
-infinite order.
+infinite order. A draft on the fork (`scratch/bp-hecke-fe`) proves item 2, and item 3 for squarefree d ≡ 5 (mod 8)
+(item 3 asks for every d), from one classical statement, Gauss's count of the points of C_d over finite fields
+(1814); it is not yet part of the headline.
 
 **Caveats on item 4.** No refereed text found by the project's literature search (carried out by AI agents)
 states reading A explicitly; the one statement found (Smith, arXiv:1603.08479, Theorem 2.1) is unrefereed. TYZ's
@@ -138,7 +140,9 @@ prove in Lean. On the manuscript's route H follows from 22 research-level theore
 level-3 Shimura curve of discriminant 6, Baba–Granath, Lin–Yang, Igusa, González–Rotger, Raynaud, Serre–Tate,
 Grothendieck, Faltings 1983 twice (semisimplicity and the Tate conjecture; the Faltings height under isogeny),
 de Rham comparison, Berger, Pan's Fontaine–Mazur theorem, Saito or Kato, Deligne, Deligne–Serre, Shimura on
-J₁(N), Carayol, Javanpeykar, Gaudron–Rémond, Bost, Pazuki), 32 textbook theorems in six groups, and 20 glue steps.
+J₁(N), Carayol, Javanpeykar, Gaudron–Rémond, Bost, Pazuki, and the theorem that the stable Faltings height is
+finite and attained by Néron models), 33 textbook theorems in six groups (among them the existence of Jacobians and
+the dimension of J₁(N); a further textbook statement used earlier is now proved), and 20 glue steps.
 
 - **Citations.** An audit of the citations against the primary sources by AI agents with web access
   (docs/research/locators.md) corrected several theorem and example numbers, and the corrections are applied.
@@ -150,9 +154,10 @@ J₁(N), Carayol, Javanpeykar, Gaudron–Rémond, Bost, Pazuki), 32 textbook the
   count); the Lean statement of Yu's QM dichotomy (a textbook leaf) now includes Yu's hypothesis that the
   quaternion algebra is indefinite (as first written it was stronger than published); and the branching data of
   the Atkin–Lehner quotient is reworded.
-- **Stated in Lean.** 40 of the 54 leaves are stated over genuine definitions in
-  `scratch/h-decomposition/Leaves.lean` (it compiles with `lake env lean`, no `axiom`); the other 14 are named
-  placeholders with no content until their definitions exist.
+- **Stated in Lean.** 48 of the 56 leaves are stated over genuine definitions in
+  `scratch/h-decomposition/Leaves.lean` (it compiles with `lake env lean`, no `axiom`); one more, on the Shimura
+  curve, is stated in part, and the other 7 are named placeholders with no content until their definitions exist.
+  Drafts for five of those seven are written and not yet folded in.
 - **The top theorem.** "Leaves imply H" is stated in Lean, with the leaves as hypotheses and `ZInQ.SixContactMin`
   as conclusion. Its proof has exactly one `sorry` (`HSyn.glueOutputs_of_leaves`, which does not yet use the
   leaves): it stands for most of the glue, from the leaves to a numerical interface that is itself essentially a
@@ -164,11 +169,12 @@ J₁(N), Carayol, Javanpeykar, Gaudron–Rémond, Bost, Pazuki), 32 textbook the
   homomorphism step (modulo one named algebra statement, `SemisimpleBaseChange`), the Galois side of the trace
   comparison, the degree bound of the conductor estimate in local form, two further steps of the conductor bound,
   and elementary pieces of most other steps.
-- **Not statable in any Lean library today:** the Shimura curve as a moduli scheme with its canonical model,
-  Néron models, X₁(N) and J₁(N) over Q, the stable Faltings height, and conductors of ℓ-adic representations.
-  Mathlib cannot yet construct a nonzero abelian variety. Drafts on main (under `scratch/`, not yet in the counts
-  above) now give a Lean definition of the stable Faltings height, whose non-vacuity checks are still open, and
-  concrete statements for several placeholder leaves (the Shimura-curve leaves and Eichler–Shimura in J₁(N)).
+- **Still missing from every Lean library:** the definitions behind the remaining placeholders: the moduli
+  interpretation of the Shimura curve, X₁(N) and J₁(N) over Q, conductors of ℓ-adic representations, ℓ-adic étale
+  cohomology and analytification (section 4 of the note). Mathlib cannot yet construct a nonzero abelian variety;
+  a bridge to the Jacobians of the AxiomMath/Mordell library is on a branch of the fork, waiting for a build cache.
+  The stable Faltings height now has a Lean definition, and three of the height leaves are stated over it; whether
+  that definition is non-vacuous is still open.
 - **Fallback route.** An alternative modularity route (Khare–Wintenberger with Ribet) needs 20 research-level
   theorems; one adversarial model review, and no human, found it sound subject to five repairs that are not yet
   written, and whether Ribet's 1992 proceedings paper was refereed is unchecked.
@@ -186,8 +192,8 @@ and `python3 scripts/check_target.py`.
 
 ## Verification
 
-Every Lean change is built before it reaches main. At the current Lean (fork main 533aa66c) the build completes;
-all 272 declarations listed in `scripts/print_axioms.lean` (the headline and its variants, the
+Every Lean change is built before it reaches main. At the current Lean (fork main 98ff8701) the build completes;
+all 332 declarations listed in `scripts/print_axioms.lean` (the headline and its variants, the
 reductions, the Proposition N lemmas, and the glue lemmas of the decomposition of H) depend only on the three
 standard axioms, with no `sorry`; `scripts/check_target.py` confirms the statement; and the blueprint checks pass
 (657 articles, 2,041 dependencies). An independent machine re-checked an earlier snapshot proposed for pull request
