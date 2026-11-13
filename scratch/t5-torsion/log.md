@@ -60,3 +60,8 @@
   `tate_surj_numberField` (T_ℓ A → A[ℓ^k] onto, from T5 / from T35 for number fields). COMPILES (VERIFIED).
   Consumer (VERIFIED by reading): G0Assemble3 `tatePairingZl_of_leaves` (:49582), the only main-chain use of the
   GluePieces4 leaf `divisiblePoints` (#40), at K a number field (TatePairingZl, :49484).
+
+## Files
+- T5Full.lean: the complete artifact (parts 1-11). Built as T5Mobius.lean (= T5Torsion.lean + import Mobius + mobius.part)
+  + a6.part + count.part + tate.part (= Tate.lean body + part 9) + nf.part + surj.part + surj2.part, imports merged.
+- Standalone compiling pieces: GroupGlue.lean, Torus.lean, Descent.lean, T5Torsion.lean (parts 1-4b), Tate.lean (part 8), T5Mobius.lean.
