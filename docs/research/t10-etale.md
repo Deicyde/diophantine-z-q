@@ -72,7 +72,7 @@ The ingredients are genuine definitions:
 `T10_TateDuality` keeps the name of the `opaque` placeholder in `scratch/h-decomposition/Leaves.lean`
 (field `t10`), so folding it in replaces the placeholder.
 
-## 2. New definitions and lemmas (all in `T10Etale.lean`, 530 lines)
+## 2. New definitions and lemmas (all in `T10Etale.lean`, 543 lines)
 
 | Lean name | Content | Lines | Status |
 | --- | --- | --- | --- |
