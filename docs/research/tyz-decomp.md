@@ -1,8 +1,11 @@
 # tyz-decomp: the premise `TYZThm35ReadingA` as literature leaves plus glue
 
-Task tyz-decomp, 2026-11-13. Lean: `scratch/tyz-decomp/TYZDecomp.lean`, `scratch/tyz-decomp/CurveA.lean`
-(both compile with `lake env lean`; no `sorry`, no `axiom`). Results log: `scratch/tyz-decomp/log.md`.
-No existing file was edited.
+Task tyz-decomp, 2026-11-13. Lean: the new modules `ZInQKernel/Contrib/TYZDecomp/Leaves.lean` and
+`ZInQKernel/Contrib/TYZDecomp/CurveA.lean` (both build with `lake build ZInQKernel.Contrib.TYZDecomp.Leaves
+ZInQKernel.Contrib.TYZDecomp.CurveA`), and their drafts `scratch/tyz-decomp/TYZDecomp.lean`,
+`scratch/tyz-decomp/CurveA.lean` (identical up to the `#print axioms` audit lines; compiled with
+`lake env lean`). No `sorry`, no `axiom`. Results log: `scratch/tyz-decomp/log.md`. No existing file was
+edited.
 
 Marks. **VERIFIED**: read in a source named here, computed, or compiled. **STANDARD**: a published
 theorem with its reference. **SPECULATIVE**: an assessment. **UNVERIFIED**: a locator or theorem number
@@ -448,6 +451,6 @@ normalization error would break `TYZLcalOne` and a `k`-dependent one integrality
   version of `GenusData` with `M ⊆ A(ℚ̄)` and `β` a genuine Galois element), followed by item 3 (ring class
   fields). That would make Lemmas 3.16 and 3.18 separate genuine leaves and pin `τ` and `β`; the genus
   points (item 4) would remain the one existential.
-* **Adoption:** the two scratch files can be moved to new files under `ZInQKernel/Contrib/` unchanged
-  (they import only `ZInQKernel.Contrib.PSide.TYZInputsIff`, `ZInQKernel.Contrib.HeckeAll.Provider`,
-  `ZInQKernel.Model.Field.ShortWeierstrass` and Mathlib).
+* **Adoption:** the modules are already new files under `ZInQKernel/Contrib/TYZDecomp/`; they import only
+  `ZInQKernel.Contrib.PSide.TYZInputsIff`, `ZInQKernel.Contrib.HeckeAll.Provider`,
+  `ZInQKernel.Model.Field.ShortWeierstrass` and Mathlib, and are not imported by `ZInQKernel.lean`.

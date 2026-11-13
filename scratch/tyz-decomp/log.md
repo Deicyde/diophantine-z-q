@@ -43,3 +43,6 @@
   Thm35ReadingD); TYZDecomp.lean recompiled OK.
 - 08:00 review finding 8 fixed: TYZDecomp.lean now proves omegaInt_integrable (IntegrableOn of
   1/sqrt(x^3-x) on Ioi 1) and omegaInt_pos (0 < omegaInt); recompiled OK, standard axioms.
+- 08:25 module copies ZInQKernel/Contrib/TYZDecomp/{Leaves,CurveA}.lean (scratch files minus
+  #print axioms) BUILD: `lake build ZInQKernel.Contrib.TYZDecomp.Leaves ZInQKernel.Contrib.TYZDecomp.CurveA`
+  -> Build completed successfully (9114 jobs); only "consider adding `module`" warnings.
