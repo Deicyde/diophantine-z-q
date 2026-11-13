@@ -19,9 +19,14 @@ Check with `lake env lean scratch/g10-odd/G10Odd.lean` (after
 * §3 names the remaining glue, `ConjTwistNontrivial` (complex conjugation does not normalize the
   Tate representation of `G_K` trivially), and proves `G10Glue` from it (`g10Glue_of_conjTwist`).
   The opaque `T11`/`T12` hypotheses of `G10Glue` are not used (they carry no content).
-* §4 states the corrected form `G10GlueConcrete` (the opaque placeholders replaced by the concrete
-  leaves T11a, T11b, T35 of `ZInQKernel/HDecomp/LeafPush2/T.lean`) and proves it from
-  `ConjTwistFromLeaves` (the same glue with those leaves as hypotheses).
+* §5 states the corrected form `G10GlueConcrete` (the opaque placeholders replaced by the concrete
+  leaves T11a, T11b, T35 of `ZInQKernel/HDecomp/LeafPush2/T.lean`, T5, T26) and proves it from
+  `ConjTwistFromLeaves` (the same glue with those leaves as hypotheses). §4 also splits G10 into
+  a number-field T12 (`T12K_ComplexConjEigen`, for `c ∈ G_K`) and `ConjTwistOutside`.
+* §6 proves the linear algebra of `ConjTwistNontrivial`'s proof (`betti_skeleton`,
+  `betti_skeleton_fd`); §7 proves `T12K_ComplexConjEigen → T12_ComplexConjEigen`; §8 proves that
+  `G_K` is normal in `G_ℚ` through `resQ` for `K/ℚ` Galois (`exists_resQ_conj`), so the twist
+  condition in `ConjTwistNontrivial` is not vacuous.
 -/
 
 noncomputable section

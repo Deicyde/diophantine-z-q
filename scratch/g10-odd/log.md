@@ -50,3 +50,4 @@
 - 2026-11-13 04:42 §6 extended: `matrix_mem_of_map_mem_span`, `mem_of_baseChange_mem_span`,
   `betti_skeleton_fd` (finite-dimensional, no canonical-map hypothesis): compiles; axioms
   [propext, Classical.choice, Quot.sound]. Whole file: 0 errors, 0 `sorry`. VERIFIED (compiled).
+- 2026-11-13 04:47 header updated; final compile: 0 errors, 8 `#print axioms` standard. VERIFIED.

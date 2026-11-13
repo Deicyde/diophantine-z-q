@@ -1,6 +1,6 @@
 # g10-odd: the glue Prop `G10Glue` (oddness of `r_ℓ`)
 
-Task g10-odd, 2026-11-13. Lean: `scratch/g10-odd/G10Odd.lean` (602 lines; compiles with
+Task g10-odd, 2026-11-13. Lean: `scratch/g10-odd/G10Odd.lean` (681 lines; compiles with
 `lake env lean scratch/g10-odd/G10Odd.lean` after
 `lake build ZInQKernel.HDecomp.LeafPush2.T ZInQKernel.HDecomp.I3Linalg.C2`; no `sorry`; the eight
 main theorems use only `propext`, `Classical.choice`, `Quot.sound`). Log: `scratch/g10-odd/log.md`.
