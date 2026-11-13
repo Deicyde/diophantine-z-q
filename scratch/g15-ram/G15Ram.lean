@@ -146,7 +146,8 @@ def TwistShape (r : GaloisRep ℓ 2) (F : Fld p) (β : GQp p → PadicAlgCl ℓ)
 
 /-- **Glue on G7's `β` (D3 + T16; N5 L823-844).** The local twist is trivial on
 `G_{ℚ_p}^t ∩ G_F` for `t > U`: at odd `p`, `β|_{G_F}` is trivial on wild inertia (its square is
-the tame `χ`, and a pro-`p` group has no quotient of order two; `GlueConductor.char_trivial_of_odd_pgroup`);
+the tame `χ`, and a pro-`p` group has no quotient of order two;
+`GlueConductor.char_trivial_of_odd_pgroup`);
 at `p = 2`, local reciprocity with the upper numbering theorem (T16) and `(U_F^{e+1})⁴ = U_F^{3e+1}`
 (D3, `GlueConductor.fourth_pow_mem`) bound the relative upper break of `β` by `3e`, and
 `ψ_{F/ℚ_2}(u) ≥ u` moves it to the absolute numbering; `max(4D², 3e) ≤ U₀`
@@ -580,6 +581,8 @@ theorem span_natCast_eq {B : Type} [CommRing B] [IsLocalRing B] {p : ℕ} (hp : 
   rw [hcast, ← Ideal.span_singleton_mul_span_singleton, ← Ideal.span_singleton_pow, hpB,
     Ideal.span_singleton_eq_top.mpr (hunit u hnd), Ideal.mul_top, ← pow_mul]
 
+variable {p : ℕ} [Fact p.Prime]
+
 /-- **`HilbertSerreLadic` from T20 + T21 and the DVR model (GLUE, proved).** T20 and T21 are
 the kernel's theorems `PkgI6.hilbertDifferentFormula`, `PkgI6.differentBound` (t-different). -/
 theorem hilbertSerre_of_model (hM : LadicDVRModel p) : HilbertSerreLadic p := by
@@ -592,7 +595,8 @@ theorem hilbertSerre_of_model (hM : LadicDVRModel p) : HilbertSerreLadic p := by
       ∑ i ∈ Finset.range N, (ramCard F i - 1) :=
     Finset.sum_congr rfl fun i _ => by rw [hcard i]
   rw [hsum] at hD
-  rw [he, hD, span_natCast_eq (Fact.out) (one_le_ramCard hF 0).ne' hpB hunit, ← pow_add] at hB
+  have he0 : ramCard F 0 ≠ 0 := Nat.one_le_iff_ne_zero.mp (one_le_ramCard hF 0)
+  rw [he, hD, span_natCast_eq (Fact.out) he0 hpB hunit, ← pow_add] at hB
   have hm0 : maximalIdeal B ≠ ⊥ := IsDiscreteValuationRing.not_a_field B
   have hmu : ¬ IsUnit (maximalIdeal B) := by
     rw [Ideal.isUnit_iff]
@@ -647,7 +651,7 @@ theorem g15RamG_of_pieces
     (h11₃ : G0Galois.G11Out (GlueDescent.ramSet ZInQ.Mult.S_mul u) D.r3) :
     G15RamG D u := by
   intro p hp
-  haveI : Fact p.Prime := ⟨hp⟩
+  have : Fact p.Prime := ⟨hp⟩
   refine ⟨fun h5' => localRamG_of u p h5' D.r5 (hUB p) (hUW p) (hWT p) (h5 p hp h5') h11₅,
     fun h5' => ?_⟩
   subst h5'
