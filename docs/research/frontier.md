@@ -33,6 +33,11 @@ open Props on the path to `ZInQ.FrozenTarget` are **70: 21 LEAF and 49 GLUE**:
 | H: new Props from today's reductions | 9 | 4 | 5 | §4.5 |
 | **total** | **70** | **21** | **49** | |
 
+**The 70 names** (L = LEAF; all others GLUE; details in the tables):
+- GZ: `ZInQ.GZDecomp.FHNonvanishing`; `ZInQ.GZDecomp.GrossZagierHeegner`.
+- TYZ: `ZInQ.Contrib.TYZDecomp.TYZThm11Integral` (L); `ZInQ.Contrib.TYZDecomp.TYZLcalOne` (L); `ZInQ.Contrib.TYZDecomp.TYZLemma29Mod2`; `ZInQ.Contrib.TYZGenus.Package.Lemma318Literal` (L); `ZInQ.Contrib.TYZGenus.Shimura.ShimuraReciprocityModFn`; `ZInQ.Contrib.TYZGenus.Package.Thm35First`; `ZInQ.Contrib.TYZGenus.CMBridge.Lemma321Five`.
+- H: `LeafAdopt.R1R2fpRep`; `PkgI1.ThetaModularity`; `LeafQM.AV.R5fpCount` (L); `PkgI2.RaynaudCriterion`; `PkgI2.NeronOggShafarevich` (L); `PkgI3.FaltingsSemisimple` (L); `PkgI3.FaltingsTate` (L); `ZInQ.Contrib.R10.DeRhamComparisonHT`; `PkgI4.PanBerger`; `PkgI4.EigenformHT`; `DeligneSerreConseq`; `LeafModCurves.R16_EichlerShimuraJ1'`; `ZInQ.LeafPush2.R18_Javanpeykar`; `ZInQ.DefFaltings.R19_GaudronRemond` (L); `ZInQ.DefFaltings.R20_FaltingsLemma5` (L); `ZInQ.DefFaltings.R21_Bost`; `ZInQ.LeafPush2.R22_Pazuki`; `ZInQ.DefFaltings.StableHeightFinite`; `∀ h, G0Split.FibreQM.R1bFamily …`; `LadicCond.CarayolR17'` (L); `G0Galois.R14Det`; `PkgI2.NeronMappingAbelianScheme`; `PkgI2.ReductionTorsionBijective`; `PkgI2.TorsionStructure` (L); `PkgI3.HomFreeFinite` (L); `PkgI3.CharPolyIndepOfEll` (L); `PkgI3.PoincareReducibility`; `LeafPush.T09_WeilPairing`; `ZInQ.LeafPush2.T11b_Rigidity` (L); `∀ p, PkgI4.T23_FontaineClosure p`; `EigenformTwist`; `PkgI3.QMDichotomyYu`; `LeafModCurves.JacobianExists ℚ` (L); `LeafModCurves.DimJ1Genus`; `ZInQ.LeafPush2.UniformizationExists` (L); `ZInQ.H5Neron.NeronModelExists` (L); `X1Belyi.CurveOfFunctionFieldQ`; `ZInQ.RLeaf.X0Transitive`; `FS5NoCM.CMOptimalEmbedding`; `X6Kummer.X6ConicModel`; `HSyn.G0Split.ThetaPt.ThetaRatiosAlgebraic`; `PkgI1.QMHauptmodul`; `HSyn.G0Split.FibreQM.QMClassNumberOne`; `HSyn.G0Split.FibreQM.PeriodMapH.CMDescends`; `HSyn.G0Split.FibreQM.PeriodMap.ValenceBoundGammaStar`; `HeckeRestNV.HeckeVertWitness`; `G0Galois.SenTwist`; `G0Galois.FiniteImageHT`; `WeilPairing.T09_SymmIsogenyExists`; `WeilPairing.IsogenyQuasiInverse`; `WeilPairing.DivisiblePoints`; `HSyn.G0Split.FibreQM.PeriodGlue.GammaStarGen`; `TSHecke.Y3Connected`; `QMAutCard`; `SerreRigidity3`; `ALFixedPoints`; `ZInQ.Contrib.SpreadOut.EGAIV_8_8_2_ii` (L); `ZInQ.Contrib.SpreadOut.EGAIV_8_10_5_xii` (L); `ZInQ.Contrib.SpreadOut.EGAIV_17_7_8_ii` (L); `ZariskiConn.ZariskiConnectedness` (L); `HomUnify.HomLatticeCorr`.
+
 Six more bundle fields (R1(d) reciprocity `r1rec`, R3, R5(ii), R7(b), R8, T10) are hypotheses of the compiled H
 assembly but are never projected by its proof (§4.6); they are not on the list, and removing them needs only a restated
 bundle (not done).
@@ -175,7 +180,7 @@ linked-ram, linked-frob (with frob-trace, alg-frob-red, afr-absfrob, frob-pieces
 transport. Worlds: **W-HDec** = `scratch/h-decomposition/Leaves.lean` in `namespace HDec` (assemble-port, leaf-fold,
 leaf-fold2, leaf-fold3); **W0** = g0-assemble3's root-namespace copy; **W-fqm** = period-map's files; **W-kern** = files
 that import `ZInQKernel.HDecomp.*` (prop-ts-glue/ts-*, the frob chain, lt-local, conj-pieces, zariski-conn, t5-torsion,
-the Contrib textbook proofs). Def locations below are the HDec copies in `AssemblePort.lean` @ 92a27877 (the same text
+the Contrib textbook proofs). In C4 every H name below carries the prefix `HDec.` (e.g. `HDec.PkgI3.FaltingsTate`); the tables omit it. Def locations below are the HDec copies in `AssemblePort.lean` @ 92a27877 (the same text
 as W0's `scratch/g0-assemble3/Leaves.lean` and parts); "K" gives the kernel copy under `ZInQKernel/HDecomp/`.
 
 ### 4.1 What scenario F applies on top of C4 (each VERIFIED by `chain.py`: signature, and def text identical to assemble-port's)
@@ -213,7 +218,7 @@ no running task targets one. Last task / newest form: as given; every one is a f
 | H-5 | `r7a : PkgI2.NeronOggShafarevich` | R7(a) | **LEAF** | Serre–Tate, Ann. of Math. 88 (1968), Thm 1 | UNVERIFIED | pkg-I2 |
 | H-6 | `r9a : PkgI3.FaltingsSemisimple` | R9(a) | **LEAF** | Faltings, Invent. Math. 73 (1983), Satz 3 (erratum 75 (1984)) | UNVERIFIED | pkg-I3 |
 | H-7 | `r9b : PkgI3.FaltingsTate` | R9(b) | **LEAF** | Faltings 1983, Satz 4, Kor. 1 | UNVERIFIED | pkg-I3 |
-| H-8 | `r10 : ZInQ.Contrib.R10.DeRhamComparisonHT` | R10 amended | GLUE (Tate-module form, a consequence with T10; plus the Hodge–Tate weight clause) | Scholze, Forum Math. Pi 1 (2013), Cor. 1.8, Thms 9.1, 9.3 + corrigendum; Tate 1967; Faltings 1988 | added clause UNVERIFIED | r10-amend |
+| H-8 | `r10 : ZInQ.Contrib.R10.DeRhamComparisonHT` (in C4 the copy `HDec.PkgI4.DeRhamComparisonHT`, same text) | R10 amended | GLUE (Tate-module form, a consequence with T10; plus the Hodge–Tate weight clause) | Scholze, Forum Math. Pi 1 (2013), Cor. 1.8, Thms 9.1, 9.3 + corrigendum; Tate 1967; Faltings 1988 | added clause UNVERIFIED | r10-amend |
 | H-9 | `r11r12 : PkgI4.PanBerger` | R11 + R12 | GLUE (joint consequence of two theorems) | Berger, Invent. Math. 148 (2002), Thm 0.7; Pan, JAMS 35 (2022), Thm 1.0.4 | JAMS numbering UNVERIFIED | pkg-I4 |
 | H-10 | `r13 : PkgI4.EigenformHT` | R13 | GLUE (consequence via Kato, after dualization) | Kato, Astérisque 295 (2004), §§9.2-9.4; Saito 1997 | | pkg-I4 |
 | H-12 | `r15 : DeligneSerreConseq` | R15 | GLUE (consequence, with T25, T18, T19) | Deligne–Serre, Ann. Sci. ÉNS 7 (1974), Thm 4.1, Lemma 3.2 | | hdec-faithful |
