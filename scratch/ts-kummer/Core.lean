@@ -55,7 +55,7 @@ def intClIncl (R0 Rp L : Type) [CommRing R0] [CommRing Rp] [Field L] [Algebra R0
   map_add' _ _ := rfl
 
 /-- A field is its own localization at any submonoid of nonzero elements. -/
-theorem isLocalization_field_self {A K : Type*} [CommRing A] [Field K] [Algebra A K]
+theorem isLocalization_field_self' {A K : Type*} [CommRing A] [Field K] [Algebra A K]
     (M : Submonoid A) (hM : ∀ x ∈ M, algebraMap A K x ≠ 0) :
     IsLocalization (Algebra.algebraMapSubmonoid K M) K := by
   refine ⟨?_, ?_, ?_⟩
@@ -75,7 +75,7 @@ theorem intCl_isLocalization (R0 Rp L : Type) [CommRing R0] [CommRing Rp] [Field
     IsLocalization (Algebra.algebraMapSubmonoid (integralClosure R0 L) P)
       (integralClosure Rp L) := by
   letI := (intClIncl R0 Rp L).toAlgebra
-  haveI hloc : IsLocalization (Algebra.algebraMapSubmonoid L P) L := isLocalization_field_self _ hP
+  haveI hloc : IsLocalization (Algebra.algebraMapSubmonoid L P) L := isLocalization_field_self' _ hP
   have h1 : IsScalarTower (integralClosure R0 L) (integralClosure Rp L) L :=
     IsScalarTower.of_algebraMap_eq' rfl
   have h2 : IsScalarTower R0 (integralClosure R0 L) (integralClosure Rp L) := by
@@ -83,6 +83,22 @@ theorem intCl_isLocalization (R0 Rp L : Type) [CommRing R0] [CommRing Rp] [Field
     intro x
     rfl
   exact ⟨h1, h2, IsLocalization.integralClosure P⟩
+
+/-- In residue characteristic `0`, residue field extensions over a `ℚ`-algebra are separable. -/
+theorem isSeparable_residue_of_rat {R S : Type*} [CommRing R] [CommRing S] [Algebra R S]
+    [Algebra ℚ R] (m : Ideal R) [m.IsMaximal] (Q : Ideal S) [Q.IsMaximal] [Q.LiesOver m]
+    [Algebra.IsIntegral R S] :
+    letI : Field (R ⧸ m) := Ideal.Quotient.field _
+    letI : Field (S ⧸ Q) := Ideal.Quotient.field _
+    Algebra.IsSeparable (R ⧸ m) (S ⧸ Q) := by
+  letI : Field (R ⧸ m) := Ideal.Quotient.field _
+  letI : Field (S ⧸ Q) := Ideal.Quotient.field _
+  haveI : CharZero (R ⧸ m) := by
+    have : Function.Injective ((Ideal.Quotient.mk m).comp (algebraMap ℚ R)) := RingHom.injective _
+    exact charZero_of_injective_ringHom this
+  haveI : Algebra.IsIntegral (R ⧸ m) (S ⧸ Q) := inferInstance
+  haveI : Algebra.IsAlgebraic (R ⧸ m) (S ⧸ Q) := Algebra.IsIntegral.isAlgebraic
+  exact Algebra.IsAlgebraic.isSeparable_of_perfectField
 
 /-- **Abstract Abhyankar transfer from T2.** `R0` a Dedekind `ℚ`-algebra with fraction field `K`,
 `L/K` finite separable, `ι : L → M` a field embedding, `A` a Dedekind domain with `A → M`
@@ -194,16 +210,8 @@ theorem abhyankar_core (t2 : PkgI2.AbhyankarDVR.{0})
     refine ⟨hunit _ (fun h0 => by rw [h0, zero_dvd_iff] at hdvd; omega), hdvd, ?_⟩
     haveI : Q.IsMaximal := Ideal.isMaximal_of_isIntegral_of_isMaximal_under (R := Rp) Q
       (by rw [← Ideal.LiesOver.over (P := Q) (p := maximalIdeal Rp)]; infer_instance)
-    letI : Field (Rp ⧸ maximalIdeal Rp) := Ideal.Quotient.field _
-    letI : Field (integralClosure Rp L ⧸ Q) := Ideal.Quotient.field _
-    haveI : CharZero (Rp ⧸ maximalIdeal Rp) := by
-      have : Function.Injective
-          ((Ideal.Quotient.mk (maximalIdeal Rp)).comp ((algebraMap R0 Rp).comp (algebraMap ℚ R0))) :=
-        RingHom.injective _
-      exact charZero_of_injective_ringHom this
-    haveI : Algebra.IsIntegral (Rp ⧸ maximalIdeal Rp) (integralClosure Rp L ⧸ Q) :=
-      inferInstance
-    infer_instance
+    letI : Algebra ℚ Rp := ((algebraMap R0 Rp).comp (algebraMap ℚ R0)).toAlgebra
+    exact isSeparable_residue_of_rat (maximalIdeal Rp) Q
   -- T2 applied to `M = L(s)`
   have ht : (algebraMap A M s) ^ n = algebraMap Rp M (algebraMap R0 Rp π0) := by
     rw [← IsScalarTower.algebraMap_apply R0 Rp M, IsScalarTower.algebraMap_apply R0 A M, ← map_pow]
@@ -712,20 +720,6 @@ theorem locTransfer_up (R0 F : Type) [CommRing R0] [IsDomain R0] [Field F] [Alge
     IsLocalization.AtPrime.liesOver_map_of_liesOver p _ _ P,
     IsLocalization.AtPrime.ramificationIdx_map_eq_ramificationIdx p _ _ P⟩
 
-/-- In residue characteristic `0`, residue field extensions over a `ℚ`-algebra are separable. -/
-theorem isSeparable_residue_of_rat {R S : Type*} [CommRing R] [CommRing S] [Algebra R S]
-    [Algebra ℚ R] (m : Ideal R) [m.IsMaximal] (Q : Ideal S) [Q.IsMaximal] [Q.LiesOver m]
-    [Algebra.IsIntegral R S] :
-    letI : Field (R ⧸ m) := Ideal.Quotient.field _
-    letI : Field (S ⧸ Q) := Ideal.Quotient.field _
-    Algebra.IsSeparable (R ⧸ m) (S ⧸ Q) := by
-  letI : Field (R ⧸ m) := Ideal.Quotient.field _
-  letI : Field (S ⧸ Q) := Ideal.Quotient.field _
-  haveI : CharZero (R ⧸ m) := by
-    have : Function.Injective ((Ideal.Quotient.mk m).comp (algebraMap ℚ R)) := RingHom.injective _
-    exact charZero_of_injective_ringHom this
-  haveI : Algebra.IsIntegral (R ⧸ m) (S ⧸ Q) := inferInstance
-  infer_instance
 
 /-- **Abstract compositum transfer (residue characteristic 0).** As `abhyankar_core`, with the
 Kummer step replaced by an extension `A/R0` (finite via `σ`) unramified over `p`: if every prime of
@@ -1130,7 +1124,7 @@ theorem kummerOtherBranchFin_of_unram (hU : UnramCompositum) : KummerOtherBranch
       exact eq_span_of_irreducible_mem (irreducible_X_sub_C b) h hm
     exact polyUnram _ hrdeg hint g' hg'0 (derivative_notMem b c n hn hc g' hXg')
 
-theorem sep_congr {A B : Type*} [CommRing A] [CommRing B] [Algebra A B] {p q : Ideal A}
+theorem sepCongr {A B : Type*} [CommRing A] [CommRing B] [Algebra A B] {p q : Ideal A}
     [p.IsPrime] [q.IsPrime] (h : p = q) [Algebra.HasSeparableResidueFieldsAt A B p] :
     Algebra.HasSeparableResidueFieldsAt A B q := by
   subst h
@@ -1179,7 +1173,7 @@ theorem fu_of_unram (R K L : Type) [CommRing R] [IsDomain R] [IsDiscreteValuatio
         (by rw [← Ideal.LiesOver.over (P := q') (p := maximalIdeal R)]; infer_instance)
       haveI := (h q').2
       exact Algebra.isSeparable_residueField_iff.mpr inferInstance
-    haveI : Algebra.HasSeparableResidueFieldsAt R B (q.under R) := sep_congr hu.symm
+    haveI : Algebra.HasSeparableResidueFieldsAt R B (q.under R) := sepCongr hu.symm
     exact (Ideal.ramificationIdx_eq_one_iff).mp he
 
 /-- **`UnramCompositum` is proved.** Proof: the integral closures `B`, `B'` of `R` in `L`, `L'` are

@@ -1,0 +1,30 @@
+/-! ## ts-kummer: the Kummer pieces of `PropTSGlue`, final statements -/
+
+namespace TsKummer
+
+open Polynomial G0ModField PropTSRed PropTSGlue
+
+/-- **`KummerOtherBranchFin` is proved** (from `UnramCompositum`, which is proved). -/
+theorem kummerOtherBranchFin : KummerOtherBranchFin :=
+  kummerOtherBranchFin_of_unram unramCompositum
+
+/-- `KummerMeetGlue` from the open Kummer pieces that remain. -/
+theorem kummerMeetGlue_of_remaining (hC : KummerCompositum) (hVF : KummerVerticalFin)
+    (hOI : KummerOtherBranchInf) (hVI : KummerVerticalInf) : KummerMeetGlue :=
+  kummerMeetGlue_of_pieces' hC kummerAbhyankarFinGlue kummerOtherBranchFin hVF
+    kummerAbhyankarInfGlue hOI hVI
+
+/-- `PropTSAll` (prop-ts-glue's `propTSAll_final`) with the proved Kummer pieces removed. -/
+theorem propTSAll_ts (t2 : PkgI2.AbhyankarDVR.{0}) (hR : R1R2fp) (hM : Pin.MobiusGlue)
+    (hS : SNSpecialize) (hC : KummerCompositum) (hVF : KummerVerticalFin)
+    (hOI : KummerOtherBranchInf) (hVI : KummerVerticalInf)
+    (hI : HeckeIrreducible) (hNI : HeckeNormalizationIrr) (hD : HeckeDegree) (hB : HeckeBranch)
+    (hV : HeckeNoVertRam) : PropTSAll :=
+  propTSAll_final t2 hR hM hS hC kummerAbhyankarFinGlue kummerOtherBranchFin hVF
+    kummerAbhyankarInfGlue hOI hVI hI hNI hD hB hV
+
+end TsKummer
+
+#print axioms TsKummer.kummerOtherBranchFin
+#print axioms TsKummer.kummerMeetGlue_of_remaining
+#print axioms TsKummer.propTSAll_ts
