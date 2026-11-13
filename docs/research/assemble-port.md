@@ -13,23 +13,24 @@ Marks: **VERIFIED** = compiled, or read in a file. **STANDARD** = published, wit
 ## 0. Main result
 
 ```lean
-theorem HDec.HSyn.sixContactMin_of_leaves5 (r : OpenResearchLeaves2) (t : OpenTextbookLeaves2) (gp : GluePieces5) :
+theorem HDec.HSyn.sixContactMin_of_leaves5 (r : OpenResearchLeaves2) (t : OpenTextbookLeaves5) (gp : GluePieces5) :
     ZInQ.SixContactMin
 ```
 
-- **`OpenResearchLeaves2` (26 fields) and `OpenTextbookLeaves2` (18 fields)** are leaf-fold2's open leaf bundles, copied
-  verbatim (part z98).
-- **`GluePieces5` (28 fields: 18 LEAF, 7 LEAF?, 3 GLUE)** is what remains of g0-assemble3's `GluePieces4` (46 fields:
+- **`OpenResearchLeaves2` (26 fields)** is leaf-fold2's open research bundle, copied verbatim (part z98).
+- **`OpenTextbookLeaves5` (17 fields)** is leaf-fold2's `OpenTextbookLeaves2` without `t11a`. T11(a) follows from
+  hom-unify's leaf `HomLatticeCorr` (`openTextbookLeaves2_of_5`).
+- **`GluePieces5` (27 fields: 17 LEAF, 7 LEAF?, 3 GLUE)** is what remains of g0-assemble3's `GluePieces4` (46 fields:
   14 LEAF, 3 LEAF?, 29 GLUE). §2 has the table.
 
 **VERIFIED:**
 - **Olean chain.** `LPrefix → TailA → TailB → TailC → TailE → TailF → TailD` (`runtails.sh`). Every module has exit 0,
-  0 errors and no `sorry`. All 74 `#print axioms` reports of TailD are `[propext, Classical.choice, Quot.sound]`
+  0 errors and no `sorry`. All 77 `#print axioms` reports of TailD are `[propext, Classical.choice, Quot.sound]`
   (`TailD_out.txt`, counted by `check_axioms.py`). They include `sixContactMin_of_leaves5`, `gluePieces_of_gluePieces5`
   and every theorem folded in.
-- **Flat file** (final, 116 699 lines, md5 `670e9889…`). `lake env lean scratch/assemble-port/AssemblePort.lean`:
-  - exit 0 in 1123 s, 0 errors, no `sorry`;
-  - all 290 `#print axioms` reports are `[propext, Classical.choice, Quot.sound]`, including `sixContactMin_of_leaves5`
+- **Flat file** (final, 116 813 lines, md5 `58c11648…`). `lake env lean scratch/assemble-port/AssemblePort.lean`:
+  - exit 0 in 1126 s, 0 errors, no `sorry`;
+  - all 293 `#print axioms` reports are `[propext, Classical.choice, Quot.sound]`, including `sixContactMin_of_leaves5`
     (`flat_summary.txt`, `flat_out.txt`).
 
 **The project's own work (GLUE) is down from 29 Props to 3:**
@@ -37,15 +38,15 @@ theorem HDec.HSyn.sixContactMin_of_leaves5 (r : OpenResearchLeaves2) (t : OpenTe
 - `sphereFactorAffine`;
 - `heckeVertWitness`.
 
-Everything else in the three bundles is on the literature side: 26 + 18 + 18 + 7 = **69 leaves**, 7 of them LEAF?
-composites. The total is 26 + 18 + 28 = **72 named Props**.
+Everything else in the three bundles is on the literature side: 26 + 17 + 17 + 7 = **67 leaves**, 7 of them LEAF?
+composites. The total is 26 + 17 + 27 = **70 named Props**.
 
 | statement | hypotheses | total | GLUE |
 |---|---|---|---|
 | g0-assemble3's `sixContactMin_of_leaves4` | 24 + 35 + 46 | 105 | 29 |
 | leaf-fold2's `sixContactMin_of_open2` | 26 + 18 + 12 + 10 | 66 | 10, unsplit (e.g. `propTSAll`, `linkedTateLocal`) |
 | leaf-fold3's `sixContactMin_of_open3` (parallel, 13:20) | 26 + 20 + 16 + 6 | 68 | 6 |
-| this `sixContactMin_of_leaves5` | 26 + 18 + 28 | 72 | **3** |
+| this `sixContactMin_of_leaves5` | 26 + 17 + 27 | 70 | **3** |
 
 **Base: leaf-fold2's.** origin/wip/leaf-fold2 had its report once the port onto `Leaves.lean` compiled, so the port was
 moved onto leaf-fold2's base.
@@ -71,7 +72,7 @@ moved onto leaf-fold2's base.
    - R6 and T5.
 
 **Beyond the assignment**, these results, each with its report on its branch, are folded in, each compiled at its step:
-- cpts-transport, ts-kummer, kummer-comp, hodge-bc2;
+- cpts-transport, ts-kummer, kummer-comp, hodge-bc2, hom-unify;
 - twist-descent, period-glue (S8, W8, QMTwist);
 - ts-hecke, hecke-rest;
 - lt-goodred, linked-ram (final), lt-local (with lg-kerwild, local-glue), frob-contrib's `UnramRoots`;
@@ -137,6 +138,7 @@ which forced these edits:
 | z94 | new bridge to spread-out's kernel module `ZInQKernel/Contrib/SpreadOut/NumberField.lean` | `HSyn.abVarSpreadsOut_of_ega` |
 | z96 | lt-goodred `integ/99d_proofs.lean` | `LTGoodRed.goodRedTorsion`, `QM.qmEndRank_of_leaves` |
 | z93z | lg-kerwild `KerWild.lean` + lt-local `part_{tools,g7,main,rank,gp4}`, de-duplicated | `LTLocal.linkedTateLocal_of_tateBridge35` |
+| z95b | hom-unify `H20_bundle.lean` L184-224 + `Corr.lean` L109-112's text + new `t11aRiemannHom_of_corr` | `HomUnify.HomLatticeCorr`, `homLinearLift_of_corr`, `t11a_riemannEnd_of_corr`, `t11aRiemannHom_of_corr` |
 | z94b | new bridge to frob-contrib's kernel module `ZInQKernel/Contrib/UnramRoots/Main.lean` | `HSyn.unramRoots_proved` |
 | z97 | linked-ram `olean/Tail.lean` at 3cb898bf, L2-1668 (copy in `src/`); compiled, not used by the main theorem | `kernelFieldBreaks_of'`, `betaTrivialAtTwo_of_sign`, `tateRamAtThreeD_of_leaves`, `linkedRam_of'` |
 | z98 | leaf-fold2 `b20_fold.lean` (slices) | leaf-fold2's textbook folds and bundles |
@@ -177,7 +179,7 @@ it is marked LEAF? here (SPECULATIVE judgement). "Open" means the field is a hyp
 | 9 | `r1bFamily` | LEAF | moved: `OpenResearchLeaves2.r1b` (same Prop) | leaf-fold2 (z98) |
 | 10 | `baseChangeClassUnique` | GLUE | **proved** | cpts-transport (e45) |
 | 11 | `piTwistC` | GLUE | open (period-glue reduces it to R1fp, R2fp + 2 glue; not folded) | — |
-| 12 | `qmTwistLattice` | GLUE | **reduced to a leaf**: `t11aRiemannHom` + Skolem–Noether (proved) | period-glue (e23) |
+| 12 | `qmTwistLattice` | GLUE | **reduced to a leaf**: period-glue's `T11aRiemannHom` (from `homLatticeCorr`) + Skolem–Noether (proved) | period-glue, hom-unify (e23, z95b) |
 | 13 | `cmDescends` | LEAF? | open | — |
 | 14 | `s8Nonzero` | GLUE | **proved** (Mathlib only) | period-glue (e21) |
 | 15 | `sphereFactorAffine` | GLUE | open (period-glue reduces it to 3 glue; not folded) | — |
@@ -195,7 +197,7 @@ it is marked LEAF? here (SPECULATIVE judgement). "Open" means the field is a hyp
 | 32 | `heckeNoVertRam` | GLUE | reduced to `heckeVertWitness` (GLUE, one unramified vertical prime) | hecke-rest (e16) |
 | 33 | `twistDescent` | GLUE | **proved** | twist-descent (d25) |
 | 34 | `r14Det` | LEAF | moved: `OpenResearchLeaves2.r14` | leaf-fold2 (z98) |
-| 35 | `homLinearLift` | LEAF | open | — |
+| 35 | `homLinearLift` | LEAF | **merged** into the leaf `homLatticeCorr` (its first clause) | hom-unify (z95b) |
 | 36 | `senTwist` | LEAF | open | — |
 | 37 | `finiteImageHT` | LEAF | open | — |
 | 38 | `t09SymmIsogenyExists` | LEAF | open | — |
@@ -208,11 +210,11 @@ it is marked LEAF? here (SPECULATIVE judgement). "Open" means the field is a hyp
 | 45 | `kernelFieldBreaks` | GLUE | **not needed** (same route; linked-ram's reduction is also compiled, z97) | as 44 |
 | 46 | `tateRamAtThree` | GLUE | **not needed** (same route; likely false as stated, F1) | as 44 |
 
-**New fields** (13: 8 LEAF, 4 LEAF?, 1 GLUE):
+**New fields** (13: 8 LEAF, 4 LEAF?, 1 GLUE; period-glue's `T11aRiemannHom` is not a field, it follows from `homLatticeCorr`):
 
 | field | kind | content (source report's locators, UNVERIFIED) | task |
 |---|---|---|---|
-| `t11aRiemannHom` | LEAF | T11(a) in `Hom` form (Mumford §1; Birkenhake–Lange 1.2.1; GAGA) | period-glue |
+| `homLatticeCorr` | LEAF | analytic representation of homomorphisms, both directions (Birkenhake–Lange §1.2, Prop. 1.2.1; Mumford §1, §3; GAGA); replaces T11(a), `homLinearLift` and period-glue's `T11aRiemannHom` | hom-unify |
 | `gammaStarGen` | LEAF? | `Γ*/ℚ^×` is the (2,4,6) triangle group on `ι(1+i+j)`, `ι((j−3)/2)` (Takeuchi 1977; Elkies 1998 §3; Poincaré polygon theorem) | period-glue |
 | `y3Connected` | LEAF | R1conn: `Y₃` connected over ℚ (Shimura; Deligne, Bourbaki 389, PSPM 33 §2; computation `pi0_check.py`) | ts-hecke |
 | `qmAutCard` | LEAF? | `\|Aut(A,ι)\| = 4, 6, 2` by CM type (Shimura 1963; Rotger 2003 §2, with the unit counts) | hecke-rest |
@@ -226,13 +228,13 @@ it is marked LEAF? here (SPECULATIVE judgement). "Open" means the field is a hyp
 | `reductionTorsionBijective` | LEAF | T4 I2-Red (`TextbookLeaves.t4`, deleted as unused by leaf-fold2, used again here) | kernel leaf |
 | `neronMappingAbelianScheme` | LEAF | T3 I2-NMP (`TextbookLeaves.t3`, likewise) | kernel leaf |
 
-Field arithmetic: 46 − 31 (3 moved, 1 derived, 19 proved, 3 not needed, 5 reduced) + 13 new = 28.
+Field arithmetic: 46 − 32 (3 moved, 1 derived, 1 merged, 19 proved, 3 not needed, 5 reduced) + 13 new = 27.
 
-**`GluePieces5` (28 fields).**
-- LEAF (18): `cmOptimalEmbedding`, `x6ConicModel`, `qmClassNumberOne`, `valenceBoundGammaStar`, `homLinearLift`,
-  `senTwist`, `finiteImageHT`, `t09SymmIsogenyExists`, `isogenyQuasiInverse`, `divisiblePoints`, `t11aRiemannHom`,
-  `y3Connected`, `serreRigidity3`, `egaIV_8_8_2_ii`, `egaIV_8_10_5_xii`, `egaIV_17_7_8_ii`, `reductionTorsionBijective`,
-  `neronMappingAbelianScheme`.
+**`GluePieces5` (27 fields).**
+- LEAF (17): `cmOptimalEmbedding`, `x6ConicModel`, `qmClassNumberOne`, `valenceBoundGammaStar`, `senTwist`,
+  `finiteImageHT`, `t09SymmIsogenyExists`, `isogenyQuasiInverse`, `divisiblePoints`, `y3Connected`, `serreRigidity3`,
+  `egaIV_8_8_2_ii`, `egaIV_8_10_5_xii`, `egaIV_17_7_8_ii`, `reductionTorsionBijective`, `neronMappingAbelianScheme`,
+  `homLatticeCorr`.
 - LEAF? (7): `thetaRatiosAlgebraic`, `qmHauptmodul`, `cmDescends`, `gammaStarGen`, `qmAutCard`, `alFixedPoints`,
   `properSmoothGenConnected`.
 - GLUE (3): `piTwistC`, `sphereFactorAffine`, `heckeVertWitness`.
@@ -241,10 +243,10 @@ Field arithmetic: 46 − 31 (3 moved, 1 derived, 19 proved, 3 not needed, 5 redu
 
 | kind | `GluePieces4` | `GluePieces5` | how |
 |---|---|---|---|
-| LEAF | 14 | 18 | −1 derived from T35, −3 moved to `OpenResearchLeaves2`, +8 new (`t11aRiemannHom`, `y3Connected`, `serreRigidity3`, 3 EGA IV, T3, T4) |
+| LEAF | 14 | 17 | −1 derived from T35, −3 moved to `OpenResearchLeaves2`, −1 merged (`homLinearLift`), +8 new (`homLatticeCorr`, `y3Connected`, `serreRigidity3`, 3 EGA IV, T3, T4) |
 | LEAF? | 3 | 7 | +4 new (`gammaStarGen`, `qmAutCard`, `alFixedPoints`, `properSmoothGenConnected`) |
 | GLUE | 29 | 3 | see the breakdown below |
-| total | 46 | 28 | |
+| total | 46 | 27 | |
 
 The 29 GLUE fields of `GluePieces4`:
 - **19 proved outright**, or from leaves already in the bundles: `hodgeBCInjective`, `omegaBaseChange`,
@@ -309,7 +311,7 @@ replaced by its proof term.
 - **stableHeightBaseChange**: from `hodgeBCInjective`, `omegaBaseChange`.
 - **thetaPoint**:
   - `baseChangeClassUnique_proof`;
-  - `qmTwistLattice_of' gp.t11aRiemannHom TSkolemKW.glueDescent_leafSkolemNoether`;
+  - `qmTwistLattice_of' (t11aRiemannHom_of_corr gp.homLatticeCorr) TSkolemKW.glueDescent_leafSkolemNoether`;
   - `s8Nonzero_proof`;
   - `s8WeightExact_of r.r4 gp.gammaStarGen`;
   - `cPtsTransport_proof`;
@@ -322,7 +324,7 @@ replaced by its proof term.
     gp.alFixedPoints) t.t5`;
   - `heckeNoVertRam_of_witness gp.heckeVertWitness`.
 - **G4**: `kernelFieldExists_of_descent … twistDescent`.
-- **G8-G12**: `r.r14`, `r.r10` and `r.r17`.
+- **G8-G12**: `r.r14`, `r.r10` and `r.r17`; G10 from `conjTwistNontrivial_of_leaves … (homLinearLift_of_corr gp.homLatticeCorr)`.
 - **G3**: `LTGoodRed.goodRedTorsion`.
 - **LinkedTateData**: `linkedTateData_of_local t.t7 (LTLocal.linkedTateLocal_of_tateBridge35 r.r6 t.t5
   (unramRoots_proved 2 5) (unramRoots_proved 2 3) (FrobPiecesGood.tateBridge35_of_neron_nmp t.t26 (abVarSpreadsOut_of_ega
@@ -337,7 +339,7 @@ No statement of a leaf or glue Prop was changed. The one adaptation is the versi
 ## 5. Checks (all VERIFIED)
 
 - `lake build` of every kernel module imported (`LeavesP.lean`, `imports_extra.txt`, `imports_tailD.txt`): OK.
-- **Olean chain** (final): every module exit 0, 0 errors, no `sorry`. TailD's 74 axiom reports are all standard.
+- **Olean chain** (final): every module exit 0, 0 errors, no `sorry`. TailD's 77 axiom reports are all standard.
 
 | module | time |
 |---|---|
@@ -347,7 +349,7 @@ No statement of a leaf or glue Prop was changed. The one adaptation is the versi
 | TailC | 165 s |
 | TailE | 35 s |
 | TailF | 152 s |
-| TailD | 132 s |
+| TailD | 129 s |
 
 - **Flat file**:
 
@@ -358,7 +360,8 @@ No statement of a leaf or glue Prop was changed. The one adaptation is the versi
 | 32 fields (after spread-out) | 107 495 | 4f787394… | exit 0, 1123 s, 0 errors, no `sorry`, 279 reports all standard |
 | 31 fields (linked-ram route) | 110 743 | 9bd33802… | exit 0, 1079 s, 0 errors, no `sorry`, 285 reports all standard |
 | 29 fields (lt-local route) | 116 185 | b1339ab5… | exit 0, 1092 s, 0 errors, no `sorry`, 289 reports all standard |
-| **final (28 fields)** | **116 699** | **670e9889…** | **exit 0, 1123 s, 0 errors, no `sorry`, 290 reports all standard** |
+| 28 fields | 116 699 | 670e9889… | exit 0, 1123 s, 0 errors, no `sorry`, 290 reports all standard |
+| **final (27 fields, hom-unify)** | **116 813** | **58c11648…** | **exit 0, 1126 s, 0 errors, no `sorry`, 293 reports all standard** |
 
 ## 6. What remains
 
@@ -375,14 +378,10 @@ No statement of a leaf or glue Prop was changed. The one adaptation is the versi
     `piTwistC` and `sphereFactorAffine`.
   - The two charts are theorems in hecke-rest's final parts (e16).
   - `AbVarSpreadsOut` comes from spread-out's three EGA IV leaves.
-- **leaf-fold3 does better here:** it uses hom-unify's `HomLatticeCorr` to merge T11(a) and `HomLinearLift` into one leaf.
-
-A merge of the two assemblies would take hom-unify's leaf from leaf-fold3 and the rest from here.
+- **Both use hom-unify's `HomLatticeCorr`** in place of T11(a) and `HomLinearLift`.
 
 **Not folded:**
 - period-glue's `piTwistC_of`, `sphereFactorAffine_of`, which split glue further;
-- hom-unify's `HomLatticeCorr`, one leaf that would cover T11(a), `homLinearLift` and `t11aRiemannHom`, over the kernel's
-  LeafPush2 objects;
 
 **Caveats:**
 - `r1b` and `piTwistC` are stated for the triple `Classical.choice` extracts from `R1R2fpRep`.

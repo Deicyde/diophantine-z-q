@@ -175,3 +175,6 @@
   homLatticeCorr (LEAF); new `OpenTextbookLeaves5` = OpenTextbookLeaves2 − t11a (17 fields), `openTextbookLeaves2_of_5`;
   `sixContactMin_of_leaves5 (r : OpenResearchLeaves2) (t : OpenTextbookLeaves5) (gp : GluePieces5)`. GluePieces5: 27
   fields (17 LEAF, 7 LEAF?, 3 GLUE). TailD: VERIFIED exit 0, 129 s, no sorryAx, all axiom reports standard.
+- FINAL FLAT CHECK (27-field state with hom-unify): AssemblePort.lean 116 813 lines, md5 58c11648…: VERIFIED exit 0 in
+  1126 s, 0 errors, no sorry, 293 axiom reports all [propext, Classical.choice, Quot.sound], incl.
+  `HDec.HSyn.sixContactMin_of_leaves5` (flat_summary.txt, flat_out.txt).
