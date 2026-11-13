@@ -1,5 +1,6 @@
 import ZInQKernel.Contrib.AbVarBC.Main
 import ZInQKernel.Contrib.AbVarBC.Consumers
+import ZInQKernel.Contrib.AbVarBC.E1SubBC
 
 open ZInQ.Contrib.AbVarBC
 #print axioms PkgI3.AbVar.dim_baseChange
@@ -40,3 +41,6 @@ open ZInQ.Contrib.AbVarBC
 #print axioms ZInQ.Contrib.AbVarBC.abVarBaseChangeK
 #print axioms ZInQ.Contrib.AbVarBC.abVarBaseChange
 #print axioms ZInQ.Contrib.AbVarBC.g9Glue_of_r10Weights
+#print axioms ZInQ.Contrib.AbVarBC.dim_overPullback
+#print axioms ZInQ.Contrib.AbVarBC.bcPhi_eq_ptBC
+#print axioms ZInQ.Contrib.AbVarBC.bcT_bijective_charZero

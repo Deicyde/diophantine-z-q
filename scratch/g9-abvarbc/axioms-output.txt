@@ -36,3 +36,6 @@
 'ZInQ.Contrib.AbVarBC.abVarBaseChangeK' depends on axioms: [propext, Classical.choice, Quot.sound]
 'ZInQ.Contrib.AbVarBC.abVarBaseChange' depends on axioms: [propext, Classical.choice, Quot.sound]
 'ZInQ.Contrib.AbVarBC.g9Glue_of_r10Weights' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.AbVarBC.dim_overPullback' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.AbVarBC.bcPhi_eq_ptBC' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.AbVarBC.bcT_bijective_charZero' depends on axioms: [propext, Classical.choice, Quot.sound]
