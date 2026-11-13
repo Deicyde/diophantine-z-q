@@ -1,0 +1,32 @@
+@etaQuot32_slash_eq : ∀ {γ : Matrix.SpecialLinearGroup (Fin 2) ℤ},
+  γ ∈ CongruenceSubgroup.Gamma0 32 → SlashAction.map 2 γ etaQuot32 = etaQuot32
+etaForm32 : CuspForm (Subgroup.map (Matrix.SpecialLinearGroup.mapGL ℝ) (CongruenceSubgroup.Gamma0 32)) 2
+cmForm32_of_etaThetaIdentity : EtaThetaIdentity → CMForm32
+heckeThetaNewform_of_etaThetaIdentity_newCM : EtaThetaIdentity → NewCM → ZInQ.GZDecomp.HeckeThetaNewform
+heckeThetaNewform_of_etaThetaIdentity_badCoeffCM : EtaThetaIdentity → BadCoeffCM → ZInQ.GZDecomp.HeckeThetaNewform
+heckeThetaNewform_of_cmForm32_newCM : CMForm32 → NewCM → ZInQ.GZDecomp.HeckeThetaNewform
+heckeThetaNewform_of_cmForm32_badCoeffCM : CMForm32 → BadCoeffCM → ZInQ.GZDecomp.HeckeThetaNewform
+@exists_eigenform_cmForm : ∀
+  {F : CuspForm (Subgroup.map (Matrix.SpecialLinearGroup.mapGL ℝ) (CongruenceSubgroup.Gamma0 32)) 2},
+  (∀ (n : ℕ), (PowerSeries.coeff n) (UpperHalfPlane.qExpansion 1 ⇑F) = ZInQ.Contrib.HeckeFE.heckeCoeff 1 n) →
+    ∀ (d : ℕ) [inst : NeZero d], d % 4 = 1 → Squarefree d → ∃ E, E.toCuspForm = cmForm F d ∧ E.χ = 1
+eta_sq_mobius : ∀ (fuel : ℕ) (a b c d : ℤ),
+  c.natAbs ≤ fuel →
+    a * d - b * c = 1 →
+      ∀ (z : ℂ),
+        0 < z.im →
+          ModularForm.eta ((↑a * z + ↑b) / (↑c * z + ↑d)) ^ 2 =
+            zeta12 ^ etaSqExp fuel a b c d * (↑c * z + ↑d) * ModularForm.eta z ^ 2
+'ZInQ.GZTheta.eta_sq_mobius' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.GZTheta.etaQuot32_slash_eq' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.GZTheta.etaQuot32_slash_isZeroAtImInfty' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.GZTheta.etaForm32' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.GZTheta.cmForm32_of_etaThetaIdentity' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.GZTheta.exists_eigenformAway_cmForm' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.GZTheta.exists_eigenform_cmForm' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.GZTheta.heckeThetaNewform_of_cmForm32_newCM' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.GZTheta.heckeThetaNewform_of_cmForm32_badCoeffCM' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.GZTheta.heckeThetaNewform_of_etaThetaIdentity_newCM' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.GZTheta.heckeThetaNewform_of_etaThetaIdentity_badCoeffCM' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]

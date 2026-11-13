@@ -26,3 +26,11 @@
   η(4τ)²η(8τ)² = Σ heckeCoeff 1 n qⁿ (Jacobi triple product consequences; not in Mathlib/TC).
 - 07:00 VERIFIED (compiled): Contrib/GZTheta/Eta.lean — eta_sq_add_intCast, eta_sq_neg_inv, etaSqExp (fuel),
   eta_sq_mobius: η((az+b)/(cz+d))² = ζ^{etaSqExp} (cz+d) η(z)², ζ = e^{πi/6}.
+- 06:50 VERIFIED (compiled): Contrib/GZTheta/Eta32.lean — etaQuot32_slash_eq: η(4τ)²η(8τ)² ∣[2] γ = itself for γ ∈ Γ₀(32) (Schreier lemma, transversal R32 of 48 cosets, 96 generators, decide). Numerics: E ≡ 0 mod 12 on 3000 random γ (eta_exp_check.py); q-expansion identity η(4τ)²η(8τ)² = Σ heckeCoeff 1 n qⁿ for n ≤ 400 (qexp_check.py, 0 mismatches).
+- 06:40 VERIFIED (compiled): EtaForm32.lean — exists_hermite, eta_sq_mul_smul, tendsto_eta_sq_atImInfty,
+  etaQuot32_slash_isZeroAtImInfty (every cusp), etaForm32 : CuspForm ((Gamma0 32).map (mapGL ℝ)) 2.
+  Main.lean — EtaThetaIdentity (residual q-series identity), cmForm32_of_etaThetaIdentity,
+  heckeThetaNewform_of_etaThetaIdentity_newCM / _badCoeffCM.
+- VERIFIED: #print axioms of all main theorems = [propext, Classical.choice, Quot.sound]
+  (scratch/gz-theta/Check.lean, out_check_axioms.txt).
+- (Time stamps in this log before 06:40 that read 07:00 should read 06:22.)
