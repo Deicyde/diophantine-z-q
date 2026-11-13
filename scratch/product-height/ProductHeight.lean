@@ -790,6 +790,77 @@ theorem recoordM_modelHeight {g : ℕ} (M : MetrizedModel A L g)
 
 end Recoord
 
+/-! ## §6b. Clauses 4 and 5 transport along morphisms and linear maps (pieces of S-an)
+
+In S-an the factor uniformizations are `Φᵢ = pᵢ ∘ Φ ∘ ℓᵢ` for linear embeddings `ℓᵢ`. Their
+analytic clauses (openness of `dom`, holomorphy of regular functions) follow formally from those
+of `Φ`: `analyticClauses_comp` (along any morphism of `𝓞_L`-schemes, via `evalAt_comp`) and
+`analyticClauses_precomp` (along any `ℂ`-linear map). Proved. -/
+
+section MorphComp
+
+variable {K : Type} [Field K] {A B : AbVar K} {L : Type} [Field L] [NumberField L] [Algebra K L]
+
+theorem dom_comp (𝒢 : GroupModel A L) (𝒢' : GroupModel B L) (f : 𝒢.G ⟶ 𝒢'.G) {τ : L →+* ℂ}
+    {g : ℕ} (Φ : (Fin g → ℂ) → 𝒢.Pts τ) (U : 𝒢'.G.left.Opens) :
+    𝒢'.dom (fun z => Φ z ≫ f) U = 𝒢.dom Φ (f.left ⁻¹ᵁ U) := rfl
+
+/-- **Values of regular functions along a morphism** (proved):
+`s(f ∘ p) = (f* s)(p)`. -/
+theorem evalAt_comp (𝒢 : GroupModel A L) (𝒢' : GroupModel B L) (f : 𝒢.G ⟶ 𝒢'.G)
+    {τ : L →+* ℂ} (p : 𝒢.Pts τ) (U : 𝒢'.G.left.Opens) (s : Γ(𝒢'.G.left, U)) :
+    𝒢'.evalAt (p ≫ f) U s = 𝒢.evalAt p (f.left ⁻¹ᵁ U) (f.left.app U s) := by
+  unfold GroupModel.evalAt
+  by_cases h : ⊤ ≤ p.left ⁻¹ᵁ (f.left ⁻¹ᵁ U)
+  · rw [dif_pos (show ⊤ ≤ (p ≫ f).left ⁻¹ᵁ U from h), dif_pos h]
+    congr 1
+  · rw [dif_neg (show ¬ ⊤ ≤ (p ≫ f).left ⁻¹ᵁ U from h), dif_neg h]
+
+/-- **Clauses 4 and 5 transport along a morphism of `𝓞_L`-schemes** (proved). -/
+theorem analyticClauses_comp (𝒢 : GroupModel A L) (𝒢' : GroupModel B L) (f : 𝒢.G ⟶ 𝒢'.G)
+    {τ : L →+* ℂ} {g : ℕ} {Φ : (Fin g → ℂ) → 𝒢.Pts τ} (ho : ∀ U, IsOpen (𝒢.dom Φ U))
+    (hd : ∀ U (s : Γ(𝒢.G.left, U)),
+      DifferentiableOn ℂ (fun z => 𝒢.evalAt (Φ z) U s) (𝒢.dom Φ U)) :
+    (∀ U, IsOpen (𝒢'.dom (fun z => Φ z ≫ f) U)) ∧
+    (∀ U (s : Γ(𝒢'.G.left, U)), DifferentiableOn ℂ (fun z => 𝒢'.evalAt (Φ z ≫ f) U s)
+      (𝒢'.dom (fun z => Φ z ≫ f) U)) := by
+  refine ⟨fun U => ?_, fun U s => ?_⟩
+  · rw [dom_comp]; exact ho _
+  · rw [dom_comp]
+    simp only [evalAt_comp]
+    exact hd _ _
+
+/-- **Clauses 4 and 5 transport along a `ℂ`-linear map** `ℓ : ℂ^{g'} → ℂ^g` (proved). -/
+theorem analyticClauses_precomp (𝒢 : GroupModel A L) {τ : L →+* ℂ} {g g' : ℕ}
+    {Φ : (Fin g → ℂ) → 𝒢.Pts τ} (ℓ : (Fin g' → ℂ) →ₗ[ℂ] (Fin g → ℂ))
+    (ho : ∀ U, IsOpen (𝒢.dom Φ U))
+    (hd : ∀ U (s : Γ(𝒢.G.left, U)),
+      DifferentiableOn ℂ (fun z => 𝒢.evalAt (Φ z) U s) (𝒢.dom Φ U)) :
+    (∀ U, IsOpen (𝒢.dom (fun z => Φ (ℓ z)) U)) ∧
+    (∀ U (s : Γ(𝒢.G.left, U)), DifferentiableOn ℂ (fun z => 𝒢.evalAt (Φ (ℓ z)) U s)
+      (𝒢.dom (fun z => Φ (ℓ z)) U)) := by
+  let ℓ' : (Fin g' → ℂ) →L[ℂ] (Fin g → ℂ) := LinearMap.toContinuousLinearMap ℓ
+  refine ⟨fun U => (ho U).preimage ℓ'.continuous, fun U s => ?_⟩
+  exact (hd U s).comp ℓ'.differentiableOn (fun z hz => hz)
+
+/-- **The analytic clauses of the factor uniformizations in S-an** (proved): for `e : 𝒢P ≅ 𝒢₁ ⊗ 𝒢₂`,
+an analytic uniformization `Φ` of the product and any `ℂ`-linear `ℓ : ℂ^{g₁} → ℂ^g`, the map
+`z ↦ p₁(Φ(ℓ z))` satisfies clauses 4 and 5 for `𝒢₁`. -/
+theorem proj_analyticClauses {C : AbVar K} {𝒢P : GroupModel C L} {𝒢₁ : GroupModel A L}
+    {𝒢₂ : GroupModel B L} (e : 𝒢P.G ≅ 𝒢₁.G ⊗ 𝒢₂.G) [IsMonHom (e.hom ≫ fst _ _)]
+    [IsMonHom (e.hom ≫ snd _ _)] {τ : L →+* ℂ} {g g₁ : ℕ} {Λ : Submodule ℤ (Fin g → ℂ)}
+    {Φ : (Fin g → ℂ) → 𝒢P.Pts τ} (hΦ : 𝒢P.IsAnalyticUniformization τ Λ Φ)
+    (ℓ : (Fin g₁ → ℂ) →ₗ[ℂ] (Fin g → ℂ)) :
+    (∀ U, IsOpen (𝒢₁.dom (fun z => (ptsEquiv e τ (Φ (ℓ z))).1) U)) ∧
+    (∀ U (s : Γ(𝒢₁.G.left, U)),
+      DifferentiableOn ℂ (fun z => 𝒢₁.evalAt (ptsEquiv e τ (Φ (ℓ z))).1 U s)
+        (𝒢₁.dom (fun z => (ptsEquiv e τ (Φ (ℓ z))).1) U)) := by
+  obtain ⟨-, -, -, ho, hd⟩ := hΦ
+  obtain ⟨ho', hd'⟩ := analyticClauses_precomp 𝒢P ℓ ho hd
+  exact analyticClauses_comp 𝒢P 𝒢₁ (e.hom ≫ fst _ _) ho' hd'
+
+end MorphComp
+
 /-- **Glue S-an (splitting of a uniformization of a product; elementary analysis, no AN3).**
 Let `e : 𝒢P ≅ 𝒢₁ ⊗ 𝒢₂` have homomorphic components. Every analytic uniformization `Φ` of
 `𝒢P(ℂ)_τ` with a full discrete lattice `Λ ⊂ ℂ^g` as kernel splits: for some `g₁ + g₂ = g`, full
@@ -918,3 +989,5 @@ end ZInQ.ProductHeight
 #print axioms ZInQ.ProductHeight.covolume_prod
 #print axioms ZInQ.ProductHeight.prodLattice_facts
 #print axioms ZInQ.ProductHeight.prodUnif_fullLattice
+#print axioms ZInQ.ProductHeight.evalAt_comp
+#print axioms ZInQ.ProductHeight.proj_analyticClauses

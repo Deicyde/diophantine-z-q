@@ -59,3 +59,7 @@
   21/21 `#print axioms` standard (VERIFIED).
 - Integration check re-run on the final `ProductHeight.lean` (with §5b): 0 errors, 8 min 14 s;
   `productModelHeight_of_splits`, `productModelHeight_of_geo` standard axioms (VERIFIED).
+- §6b (pieces of S-an): `dom_comp` (rfl), `evalAt_comp` (`s(f∘p) = (f* s)(p)`; closed by
+  `congr 1` after the `dif_pos` rewrites), `analyticClauses_comp`, `analyticClauses_precomp`,
+  `proj_analyticClauses` (clauses 4, 5 for `z ↦ p₁(Φ(ℓ z))`, any linear `ℓ`). Compile: 0 errors,
+  23/23 `#print axioms` standard (VERIFIED); 4 deprecation warnings (`dif_pos`/`dif_neg`).

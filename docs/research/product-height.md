@@ -4,7 +4,7 @@ Status: research note (task product-height, 2026-11-13).
 - **Lean:** `scratch/product-height/ProductHeight.lean`. It imports only the kernel module
   `ZInQKernel.HDecomp.Faltings.H5Neron` (no scratch import). It compiles with
   `lake env lean scratch/product-height/ProductHeight.lean` in about 1 min. There is no `sorry`
-  and no `axiom`, and all 21 `#print axioms` list only `propext`, `Classical.choice` and
+  and no `axiom`, and all 23 `#print axioms` list only `propext`, `Classical.choice` and
   `Quot.sound` (VERIFIED, log).
 - **Results log:** `scratch/product-height/log.md`.
 - No file under `ZInQKernel/` or `blueprint/` was edited, and no other task's notes or scratch
@@ -63,7 +63,8 @@ The target is `ZInQ.H5Neron.ProductModelHeight` (P2): `h(𝒢₁) + h(𝒢₂) �
      is the covolume clause needed by S-alg and by `ProductMetrizationGeo`;
    - `ptsEquiv` (complex points of a product are the product of the complex points, as groups);
    - `prodUnif_clauses` (the algebraic clauses of the product uniformization);
-   - `recoordM` (change of linear coordinates of a metrized model; the height is unchanged).
+   - `recoordM` (change of linear coordinates of a metrized model; the height is unchanged);
+   - `proj_analyticClauses` (the analytic clauses of the factor maps `p₁ ∘ Φ ∘ ℓ` in S-an).
 6. **Route U** (g0-heightadd's reduction, now on the kernel's types) is also compiled:
    `productModelHeight_of_geo : U → MetrizationDimUnique → MetrizationExists →
    ProductMetrizationGeo → P2`. It uses AN3 (U, and existence inside `MetrizationExists`), so the
@@ -86,6 +87,7 @@ The target is `ZInQ.H5Neron.ProductModelHeight` (P2): `h(𝒢₁) + h(𝒢₂) �
 | `covolume_prod`, `isAddFundamentalDomain_prod`, `instIsZLatticeProd`, `discreteTopology_prod` | for full lattices `Λᵢ ⊂ Eᵢ` and Haar measures, `Λ₁ × Λ₂ ⊂ E₁ × E₂` is a full lattice and `covol(Λ₁ × Λ₂, μ₁ × μ₂) = covol Λ₁ · covol Λ₂` (§5b; also standalone in `Lattice.lean`, Mathlib only) |
 | `splitCL_measurePreserving`, `prodLattice_eq_comap`, `prodLattice_facts` | `prodLattice Λ₁ Λ₂ ⊂ ℂ^{g₁+g₂}` is a full discrete lattice with `covol = covol Λ₁ · covol Λ₂` |
 | `prodUnif_fullLattice` | with `ProductUnifAnalytic`: a product of full-lattice uniformizations is one, with multiplicative covolume |
+| `evalAt_comp`, `dom_comp`, `analyticClauses_comp`, `analyticClauses_precomp`, `proj_analyticClauses` | clauses 4 and 5 of `IsAnalyticUniformization` transport along morphisms of `𝓞_L`-schemes and along `ℂ`-linear maps; in particular `z ↦ p₁(Φ(ℓ z))` satisfies them for `𝒢₁` (the "clauses restrict" step of S-an, Lean §6b) |
 | `le_of_productModelHeight` | P2 bounds every metrization of the product below |
 | `metrizable_left/right_of_productModelHeight`, `analyticUnif_left_of_productModelHeight` | P2, a metrization of the product and `h(other factor) ≠ ⊥` give a metrization, hence a full-lattice uniformization, of the factor |
 | `metrizationHeightUnique_of` | `U → MetrizationDimUnique → MetrizationHeightUnique` |
@@ -161,7 +163,9 @@ No new literature leaf is introduced.
   - the identity theorem (in Mathlib: `AnalyticOnNhd.eqOn_of_preconnected_of_eventuallyEq`,
     `Mathlib/Analysis/Analytic/Uniqueness.lean`, VERIFIED by reading);
   - Baire;
-  - `evalAt` along `pᵢ` and the Zariski-closedness of `p₁ x = 1`.
+  - the Zariski-closedness of `p₁ x = 1`.
+
+  The "clauses 4 and 5 restrict" step is **done**: `proj_analyticClauses` (Lean §6b, VERIFIED).
 - **S-alg** (`ProductMetrizationOfProductUnif`), large. It needs the stalk and cotangent space of
   a fibre product at the unit (`ω_{𝒢P} = ω₁ ⊕ ω₂`), `HodgeLatticeTheorem` for the factors,
   `⋀^{top}` of a direct sum, multiplicativity of `secIndex`, the block Jacobian, and the descent

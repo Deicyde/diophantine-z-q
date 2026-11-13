@@ -20,7 +20,7 @@ step and corrected the verdict. A second review pass confirmed that both new Pro
 formalized.
 
 **What compiles** (`scratch/product-height/ProductHeight.lean`, imports only
-`ZInQKernel.HDecomp.Faltings.H5Neron`; ~1 min; 21/21 `#print axioms` standard; no sorry or axiom):
+`ZInQKernel.HDecomp.Faltings.H5Neron`; ~1 min; 23/23 `#print axioms` standard; no sorry or axiom):
 - `copy_iff`: the verbatim copy of P2 is the kernel Prop (`Iff.rfl`).
 - `productModelHeight_of_splits`, `productMetrizationSplit_of_splits`,
   `productModelHeight_of_split`.
@@ -29,6 +29,7 @@ formalized.
 - `ptsEquiv`: `𝒢P(ℂ)_τ ≃* 𝒢₁(ℂ)_τ × 𝒢₂(ℂ)_τ`.
 - `prodUnif_clauses`: the algebraic clauses of the product uniformization, with kernel
   `Λ₁ × Λ₂`; the analytic clauses are glue `ProductUnifAnalytic`.
+- `proj_analyticClauses` (via `evalAt_comp`): the analytic clauses of `p₁ ∘ Φ ∘ ℓ`, a piece of S-an.
 - `prodLattice_facts` / `covolume_prod`: `Λ₁ × Λ₂` is a full discrete lattice with
   `covol = covol Λ₁ · covol Λ₂` (Mathlib measure theory; also standalone in `Lattice.lean`).
 - Route U (g0-heightadd's reduction, ported to the kernel's types; uses AN3):
@@ -41,7 +42,7 @@ formalized.
   Result: 0 errors (8.2 min on the final file), standard axioms (`build_integrated.sh`).
 
 **What remains.** S-an and S-alg are unproved (sizes SPECULATIVE):
-- S-an, medium: closed subgroups of `ℝⁿ`, `evalAt` along projections.
+- S-an, medium: closed subgroups of `ℝⁿ` (not in Mathlib) and the Zariski-closedness of `p₁ x = 1`.
 - S-alg, large: `ω_{𝒢P} = ω₁ ⊕ ω₂` (stalk of a fibre product), the factors' Hodge lattices, the
   descent of `jacDet` to `⋀^g`, multiplicativity of the index. The covolume part is proved.
 
