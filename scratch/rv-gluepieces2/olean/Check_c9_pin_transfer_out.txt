@@ -1,0 +1,6 @@
+'G0FibreSimple.fibreComTrivial_of_at' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HSyn.G0Split.ThetaPt.fibreQMPeriod_of_at' depends on axioms: [propext, Classical.choice, Quot.sound]
+'G0ModField.kernelFieldExists_of_at' depends on axioms: [propext, Classical.choice, Quot.sound]
+'G0ModField.fibreCoverExists_of_at' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HSyn.G0AssembleMod.modelG3G6_of_at' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HSyn.G0AssembleMod.linkedTateData_of_at' depends on axioms: [propext, Classical.choice, Quot.sound]

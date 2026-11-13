@@ -88,3 +88,16 @@ Target: the 27 fields of `HSyn.GluePieces2` in scratch/g0-assemble/G0Assemble.le
   (fibre-cover predates pin-apply: R1fpProps now has 6 clauses); with `⟨-, -, -, hnat, -, -⟩`: exit 0
   in 12 s. `RvGP2.fibreCoverExists (t) hW hTS hU : G0ModField.FibreCoverExists` from bundle `t.t5`,
   `InnerTwistCount`, `PropTSAll`, `UnramifiedConjugates`, standard axioms (VERIFIED).
+
+## Pin transfer for the six pin-dependent fields (Lean)
+
+- gen_at.py generates checks/c9_pin_transfer.lean: `…At Y₀ Φ₀ π₀` forms of fields 4, 10, 12, 13,
+  27, 28 produced mechanically from the fields' own text (binders `Y Φ π` dropped, `Y Φ π` →
+  `Y₀ Φ₀ π₀`; a regex asserts no stray `Y`, `Φ`, `π` remain), plus transfer lemmas
+  `RvGP2.Pin.fibreCtx_transfer`, `fibreCtx_mor`, `rationalFibre_transfer`.
+- First run: exit 0 in 65 s, 0 errors, no sorry. Standard axioms (VERIFIED) for
+  `G0FibreSimple.fibreComTrivial_of_at`, `HSyn.G0Split.ThetaPt.fibreQMPeriod_of_at`,
+  `G0ModField.kernelFieldExists_of_at`, `G0ModField.fibreCoverExists_of_at`,
+  `HSyn.G0AssembleMod.modelG3G6_of_at`, `HSyn.G0AssembleMod.linkedTateData_of_at`, each of shape
+  `(hM : Pin.MobiusGlue) (hQM : R1R2fp) (h1 : R1fpProps Y₀ Φ₀) (h2 : R2fpProps Y₀ Φ₀ π₀)
+   (h : FieldAt Y₀ Φ₀ π₀) : Field` — over the PINNED Leaves only (uses `R1fpProps.univ`).
