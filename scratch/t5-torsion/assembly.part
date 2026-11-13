@@ -1,0 +1,117 @@
+
+/-! ## Part 4: assembly over the kernel's objects -/
+
+namespace T5Torsion
+
+open CategoryTheory AlgebraicGeometry Limits MonoidalCategory CartesianMonoidalCategory MonObj
+open PkgI2 (IsAbelianVariety torsion Pts)
+
+universe u
+
+/-- **Leaf candidate T5-card (number of `n`-torsion points).** For an abelian variety `A` of
+dimension `g` over a field `K` and `n ≥ 1` invertible in `K`, `A(K̄)` has exactly `n^{2g}`
+points killed by `n`. Mumford, *Abelian varieties* (1970), §4, after the theorem of the cube:
+`deg [n] = n^{2g}` and `[n]` separable when `char K ∤ n`, whence `#A[n] = n^{2g}` (locators
+UNVERIFIED: the degree is §6 Application 2 in the 2nd edition, the corollary `X_n ≅ (ℤ/n)^{2g}`
+follows it). A consequence of the published statement `X_n ≅ (ℤ/n)^{2g}` (take cardinalities). -/
+def TorsionCard : Prop :=
+  ∀ (K : Type u) [Field K] (A : Grp (Over (Spec (.of K)))) [IsAbelianVariety A] (g n : ℕ),
+    topologicalKrullDim A.X.left = (g : WithBot ℕ∞) → 0 < n → (n : K) ≠ 0 →
+      Nat.card (torsion A (AlgebraicClosure K) n) = n ^ (2 * g)
+
+section Glue
+
+variable {K : Type u} [Field K] (A : Grp (Over (Spec (.of K)))) [IsAbelianVariety A]
+  (L : Type u) [CommRing L] [Algebra K L]
+
+instance isCommMonObjU : IsCommMonObj A.X :=
+  haveI := PkgI2.IsAbelianVariety.proper (A := A)
+  haveI := PkgI2.IsAbelianVariety.geomIntegral (A := A)
+  isCommMonObj_of_isProper_of_geometricallyIntegral A.X
+
+/-- The points as an additive commutative group. -/
+noncomputable instance ptsAddCommGroup : AddCommGroup (Additive (Pts A L)) :=
+  @Additive.addCommGroup _ (Hom.commGroup (G := A.X))
+
+/-- `torsion A L m` is the `m`-torsion subgroup of `Additive (A(L))`. -/
+def torsionEquiv (m : ℕ) :
+    torsion A L m ≃ AddSubgroup.torsionBy (Additive (Pts A L)) (m : ℤ) where
+  toFun x := ⟨Additive.ofMul x.1, by
+    refine (Submodule.mem_torsionBy_iff _ _).2 ?_
+    rw [natCast_zsmul]
+    exact congrArg Additive.ofMul x.2⟩
+  invFun y := ⟨Additive.toMul y.1, by
+    have h := (Submodule.mem_torsionBy_iff _ _).1 y.2
+    rw [natCast_zsmul] at h
+    exact congrArg Additive.toMul h⟩
+  left_inv _ := rfl
+  right_inv _ := rfl
+
+/-- **The structure of `A[n]` from the counts `#A[m] = m^{2g}`, `m ∣ n`** (pure algebra). -/
+theorem exists_torsion_equiv_of_counts (g n : ℕ) (hn : 0 < n)
+    (hc : ∀ m : ℕ, m ∣ n → Nat.card (torsion A L m) = m ^ (2 * g)) :
+    ∃ e : torsion A L n ≃ (Fin (2 * g) → ZMod n),
+      ∀ x y : torsion A L n, ∀ h : x.1 * y.1 ∈ torsion A L n, e ⟨x.1 * y.1, h⟩ = e x + e y := by
+  obtain ⟨E⟩ := nonempty_torsionBy_addEquiv_pi (A := Additive (Pts A L)) n (2 * g) hn.ne'
+    (fun m hm => by rw [← Nat.card_congr (torsionEquiv A L m)]; exact hc m hm)
+  refine ⟨(torsionEquiv A L n).trans E.toEquiv, fun x y h => ?_⟩
+  change E (torsionEquiv A L n ⟨x.1 * y.1, h⟩) = E (torsionEquiv A L n x) + E (torsionEquiv A L n y)
+  rw [← map_add]
+  rfl
+
+end Glue
+
+/-- **T5 from the count `TorsionCard`** (glue, proved). -/
+theorem torsionStructure_of_torsionCard (h : TorsionCard.{u}) : PkgI2.TorsionStructure.{u} := by
+  intro K _ A _ g n hg hn hnK
+  refine exists_torsion_equiv_of_counts A (AlgebraicClosure K) g n hn (fun m hm => ?_)
+  obtain ⟨k, rfl⟩ := hm
+  have hm0 : 0 < m := Nat.pos_of_mul_pos_right hn
+  refine h K A g m hg hm0 ?_
+  push_cast at hnK
+  exact left_ne_zero_of_mul hnK
+
+/-- **T5 restricted to subfields of `ℂ`**: `PkgI2.TorsionStructure` for fields `K` with a ring
+embedding `σ : K → ℂ` (so characteristic `0`). -/
+def TorsionStructureC : Prop :=
+  ∀ (K : Type) [Field K] (_ : K →+* ℂ) (A : Grp (Over (Spec (.of K)))) [IsAbelianVariety A]
+    (g n : ℕ), topologicalKrullDim A.X.left = (g : WithBot ℕ∞) → 0 < n →
+      ∃ e : torsion A (AlgebraicClosure K) n ≃ (Fin (2 * g) → ZMod n),
+        ∀ x y : torsion A (AlgebraicClosure K) n,
+          ∀ h : x.1 * y.1 ∈ torsion A (AlgebraicClosure K) n, e ⟨x.1 * y.1, h⟩ = e x + e y
+
+/-- **`#A(K̄)[n] = n^{2g}` for `K ⊆ ℂ`, from the textbook leaf T35** (`UniformizationExists`,
+already `TextbookLeaves.t35`) and Mathlib (`MulIsogeny` is proved in `Contrib/AbVarBC`). -/
+theorem natCard_torsion_of_uniformization (hU : ZInQ.LeafPush2.UniformizationExists)
+    {K : Type} [Field K] (σ : K →+* ℂ) (A : PkgI3.AbVar K) (g n : ℕ)
+    (hg : A.dim = (g : WithBot ℕ∞)) (hn : 0 < n) :
+    Nat.card {p : A.Pt (AlgebraicClosure K) // p ^ n = 1} = n ^ (2 * g) := by
+  haveI : CharZero K := RingHom.charZero σ
+  letI : Algebra K ℂ := σ.toAlgebra
+  let κ : AlgebraicClosure K →ₐ[K] ℂ := IsAlgClosed.lift
+  rw [natCard_torsion_eq_of_ext A κ n hn]
+  obtain ⟨Λ, Φ, hdisc, hlat, hadd, hker, hsurj, -, -⟩ := hU K A σ g hg
+  have h := natCard_pow_eq_one Λ Φ hadd hker hsurj n hn
+  rw [finrank_real_fin_complex] at h
+  exact h
+
+/-- **T5 for subfields of `ℂ` from T35** (no other leaf). -/
+theorem torsionStructureC_of_uniformization (hU : ZInQ.LeafPush2.UniformizationExists) :
+    TorsionStructureC := by
+  intro K _ σ A _ g n hg hn
+  refine exists_torsion_equiv_of_counts A (AlgebraicClosure K) g n hn (fun m hm => ?_)
+  have hm0 : 0 < m := Nat.pos_of_dvd_of_pos hm hn
+  exact natCard_torsion_of_uniformization hU σ (ObjBridge.ofGrp A) g m hg hm0
+
+/-- **`TorsionCard` for subfields of `ℂ` from T35.** -/
+theorem torsionCard_of_uniformization (hU : ZInQ.LeafPush2.UniformizationExists)
+    {K : Type} [Field K] (σ : K →+* ℂ) (A : Grp (Over (Spec (.of K)))) [IsAbelianVariety A]
+    (g n : ℕ) (hg : topologicalKrullDim A.X.left = (g : WithBot ℕ∞)) (hn : 0 < n) :
+    Nat.card (torsion A (AlgebraicClosure K) n) = n ^ (2 * g) :=
+  natCard_torsion_of_uniformization hU σ (ObjBridge.ofGrp A) g n hg hn
+
+end T5Torsion
+
+#print axioms T5Torsion.torsionStructure_of_torsionCard
+#print axioms T5Torsion.torsionStructureC_of_uniformization
+#print axioms T5Torsion.torsionCard_of_uniformization
