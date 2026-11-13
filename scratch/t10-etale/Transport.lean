@@ -58,4 +58,47 @@ noncomputable def sheafEquiv (e : X ≅ Y) :
 instance (e : X ≅ Y) : (sheafEquiv e).functor.Additive where
   map_add := by intros; apply Sheaf.hom_ext; rfl
 
+
+variable (ℓ : ℕ) [Fact ℓ.Prime]
+
+/-- The coefficient sheaf of `EllAdicCohomology` (after the universe lift). -/
+noncomputable abbrev Fs (X : Scheme.{u}) : Sheaf (Scheme.ProEt.topology X) AddCommGrpCat.{u+1} :=
+  (sheafCompose _ AddCommGrpCat.uliftFunctor.{u + 1}).obj (X.ellAdicSheaf ℓ)
+
+/-- The sheaf equivalence carries the `ℓ`-adic coefficient sheaf of `X` to that of `Y`
+(componentwise the identity of `ULift C(U, ℤ_ℓ)`). -/
+noncomputable def ellIso (e : X ≅ Y) : (sheafEquiv e).functor.obj (Fs ℓ X) ≅ Fs ℓ Y :=
+  ObjectProperty.isoMk _ (NatIso.ofComponents (fun _ => Iso.refl _) (fun _ => rfl))
+
+/-- `X → X`, the terminal object of `X.ProEt`. -/
+noncomputable def terminalProEt (X : Scheme.{u}) : X.ProEt :=
+  MorphismProperty.Over.mk ⊤ (𝟙 X) (MorphismProperty.id_mem _ X)
+
+noncomputable def isTerminalProEt (X : Scheme.{u}) : IsTerminal (terminalProEt X) :=
+  MorphismProperty.Over.mkIdTerminal @WeaklyEtale X
+
+/-- The sheaf equivalence carries constant sheaves to constant sheaves (uniqueness of left
+adjoints of the global-sections functor). -/
+noncomputable def constIso (e : X ≅ Y) (A : Ab.{u+1}) :
+    (sheafEquiv e).functor.obj ((constantSheaf (Scheme.ProEt.topology X) Ab.{u+1}).obj A) ≅
+      (constantSheaf (Scheme.ProEt.topology Y) Ab.{u+1}).obj A :=
+  let hT' : IsTerminal ((proEtEquiv e).functor.obj (terminalProEt X)) :=
+    (isTerminalProEt X).isTerminalObj _
+  let adj1 := (constantSheafAdj (Scheme.ProEt.topology X) Ab.{u+1} (isTerminalProEt X)).comp
+    (sheafEquiv e).toAdjunction
+  let adj2 := constantSheafAdj (Scheme.ProEt.topology Y) Ab.{u+1} hT'
+  let iso : (sheafEquiv e).inverse ⋙ (sheafSections _ _).obj (op (terminalProEt X)) ≅
+      (sheafSections _ _).obj (op ((proEtEquiv e).functor.obj (terminalProEt X))) :=
+    NatIso.ofComponents (fun _ => Iso.refl _) (fun _ => by
+      simp only [Iso.refl_hom]; rfl)
+  (Adjunction.leftAdjointUniq (adj1.ofNatIsoRight iso) adj2).app A
+
+/-- **Transport of `ℓ`-adic cohomology along a scheme isomorphism** `e : X ≅ Y`
+(`e_* = (e⁻¹)^*`). -/
+noncomputable def transport (e : X ≅ Y) (n : ℕ) :
+    X.EllAdicCohomology ℓ n →+ Y.EllAdicCohomology ℓ n :=
+  ((Abelian.Ext.mk₀ (constIso e _).inv).precomp _ (zero_add n)).comp
+    (((Abelian.Ext.mk₀ (ellIso ℓ e).hom).postcomp _ (add_zero n)).comp
+      ((sheafEquiv e).functor.mapExtAddHom _ _ n))
+
 end T10Transport

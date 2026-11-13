@@ -25,3 +25,9 @@
   `X.ProEt ⥤ Scheme` is a pro-étale covering sieve of `U.left`), `proEtMap e`, `proEtEquiv e :
   X.ProEt ≌ Y.ProEt` for a scheme iso `e` (from `MorphismProperty.Over.map/mapId/mapComp`),
   `IsDenseSubsite` of its inverse, `sheafEquiv e` (`Equivalence.sheafCongr`), additivity. COMPILED.
+- Transport.lean: + `ellIso e` (sheaf equivalence carries `Fs X` to `Fs Y`, componentwise `Iso.refl`),
+  `constIso e A` (carries constant sheaves to constant sheaves: `Adjunction.leftAdjointUniq` of
+  `constantSheafAdj ∘ sheafEquiv.toAdjunction` and `constantSheafAdj` at the image of the terminal
+  object), `transport ℓ e n : X.EllAdicCohomology ℓ n →+ Y.EllAdicCohomology ℓ n`
+  (`Ext.mapExactFunctor` + `Ext.mk₀` of the two isos). COMPILED (exactness instances of the
+  equivalence found automatically).
