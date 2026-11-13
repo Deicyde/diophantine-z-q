@@ -93,12 +93,16 @@ integration is not done here):
   `t26 := tateModuleFree_of_uniformization_of_nonC t.t35 nC`.
   - T5 and T26 are replaced by the single leaf `TorsionCardNonC`, which the H proof never uses in
     substance. The list again has one leaf fewer.
+- **(c) Rewiring T5's consumers (§3).** This makes T5 unnecessary for H. T26 is still needed in
+  full generality, because about 40 glue theorems pass it on as a hypothesis over all fields: for
+  example `continuous_galRep_of_tateModuleFree {K}` and `tateBC_bijective_of_tateModuleFree`. So
+  (c) only pays off together with (a) or (b).
 - **(d) Independently of (a)-(c): drop `GluePieces4.divisiblePoints` (item 5).** This needs one
   rewiring and adds no leaf.
-- **(c) Rewiring T5's consumers (§3).** This makes the T5 count unnecessary for H. T26 is still
-  needed in full generality, because its consumers apply it over general fields: for example
-  `continuous_galRep_of_tateModuleFree {K}` and `tateBC_bijective_of_tateModuleFree`. So (c) only
-  pays off together with (a) or (b).
+
+**Recommendation: (a) + (d).** This keeps T5, Mumford's standard statement, as the leaf to
+crowdsource, and removes T26 and `divisiblePoints` (two literature statements fewer). Note for
+formalizers: on subfields of `ℂ`, T5 is already a corollary of T35 (item 1).
 
 ## 1. What T5 demands (VERIFIED, ZInQKernel/HDecomp/Objects.lean:993, :1486)
 
