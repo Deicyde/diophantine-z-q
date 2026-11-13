@@ -186,4 +186,78 @@ theorem derivation_eq_zero [CharZero K] (hn : n ≠ 0) {W : (KerN A n).left.Open
 
 end KerDer
 
+/-! ## §2. Commutative algebra: no derivations means `P = P²` -/
+
+section Alg
+
+variable {K : Type} [Field K]
+
+/-- If every `K`-derivation `T → K` at `ev` vanishes, the kernel `P` of `ev` satisfies `P ≤ P²`
+(a functional on `P / P²` is a derivation). -/
+theorem ker_le_sq_of_derivations {T : Type} [CommRing T] (ev : T →+* K) (jK : K →+* T)
+    (hevj : ∀ c, ev (jK c) = c)
+    (hD : ∀ D : T → K, (∀ a b, D (a + b) = D a + D b) →
+      (∀ a b, D (a * b) = ev a * D b + ev b * D a) → (∀ c, D (jK c) = 0) → ∀ t, D t = 0) :
+    RingHom.ker ev ≤ (RingHom.ker ev) ^ 2 := by
+  intro a ha
+  by_contra hna
+  letI : Algebra K T := jK.toAlgebra
+  have hsmul : ∀ (c : K) (t : T), c • t = jK c * t := fun c t => Algebra.smul_def c t
+  set P := RingHom.ker ev with hP
+  let P' : Submodule K T := P.restrictScalars K
+  let N : Submodule K P' := ((P ^ 2).restrictScalars K).comap P'.subtype
+  have hmem : ∀ t, t - jK (ev t) ∈ P' := fun t => by
+    change t - jK (ev t) ∈ RingHom.ker ev
+    rw [RingHom.mem_ker, map_sub, hevj, sub_self]
+  let q : T → P' ⧸ N := fun t => N.mkQ ⟨t - jK (ev t), hmem t⟩
+  have hqa : q a ≠ 0 := by
+    intro h
+    change N.mkQ ⟨a - jK (ev a), hmem a⟩ = 0 at h
+    rw [Submodule.mkQ_apply, Submodule.Quotient.mk_eq_zero] at h
+    apply hna
+    have h' : a - jK (ev a) ∈ P ^ 2 := h
+    rwa [RingHom.mem_ker.mp ha, map_zero, sub_zero] at h'
+  obtain ⟨l, hl⟩ : ∃ l : Module.Dual K (P' ⧸ N), l (q a) ≠ 0 := by
+    by_contra h
+    push Not at h
+    exact hqa ((Module.forall_dual_apply_eq_zero_iff K _).mp h)
+  have hadd : ∀ x y, l (q (x + y)) = l (q x) + l (q y) := by
+    intro x y
+    rw [← map_add]
+    congr 1
+    change N.mkQ _ = N.mkQ _ + N.mkQ _
+    rw [← map_add]
+    congr 1
+    apply Subtype.ext
+    simp only [Submodule.coe_add, map_add]
+    ring
+  have hmul : ∀ x y, l (q (x * y)) = ev x * l (q y) + ev y * l (q x) := by
+    intro x y
+    suffices hq : q (x * y) = ev x • q y + ev y • q x by
+      rw [hq, map_add, map_smul, map_smul, smul_eq_mul, smul_eq_mul]
+    change N.mkQ _ = ev x • N.mkQ _ + ev y • N.mkQ _
+    rw [← map_smul, ← map_smul, ← map_add, Submodule.mkQ_apply, Submodule.mkQ_apply,
+      Submodule.Quotient.eq]
+    change ((⟨x * y - jK (ev (x * y)), hmem _⟩ : P') -
+      (ev x • ⟨y - jK (ev y), hmem y⟩ + ev y • ⟨x - jK (ev x), hmem x⟩) : P').1 ∈ P ^ 2
+    have e1 : ((⟨x * y - jK (ev (x * y)), hmem _⟩ : P') -
+        (ev x • ⟨y - jK (ev y), hmem y⟩ + ev y • ⟨x - jK (ev x), hmem x⟩) : P').1 =
+        (x - jK (ev x)) * (y - jK (ev y)) := by
+      simp only [Submodule.coe_sub, Submodule.coe_add, Submodule.coe_smul, hsmul, map_mul]
+      ring
+    rw [e1, pow_two]
+    exact Ideal.mul_mem_mul (hmem x) (hmem y)
+  have hj : ∀ c, l (q (jK c)) = 0 := by
+    intro c
+    have : q (jK c) = 0 := by
+      change N.mkQ _ = 0
+      have : (⟨jK c - jK (ev (jK c)), hmem _⟩ : P') = 0 := by
+        apply Subtype.ext
+        simp [hevj]
+      rw [this, map_zero]
+    rw [this, map_zero]
+  exact hl (hD (fun t => l (q t)) hadd hmul hj a)
+
+end Alg
+
 end ZInQ.Contrib.AbVarBC.Tangent
