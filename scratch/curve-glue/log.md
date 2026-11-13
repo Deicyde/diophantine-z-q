@@ -43,3 +43,22 @@
   X = P¹_K satisfies the hypotheses).
 - `ImagePlaneCurve`: TRUE without char 0, not vacuous (cases ρ ≡ ∞, ρ ≡ b (P = y − b), ρ nonconstant (D ∩ 𝔸² = V(P)));
   variable direction of `evalXY` and `leadingCoeff` checked; spot checks ρ = 1/σ (P = xy − 1), Frobenius (P = y^p − x).
+
+## 7. End-to-end files
+- `MobiusEnd.lean` (imports kernel QM.Pin + Textbook.SkolemNoether): mobius-glue §1-§5 and §7-§8 verbatim except the
+  destructuring of `h1' : R1fpProps Y' Φ'` (kernel clause order), + CurveGlueAll body + CMPoints body.
+  `mobiusGlue_of_glue (h1 : SmoothStalkDimOne) (hL) (hG) (hT : ObjBridge.TorsionStructure) : MobiusGlue` (kernel's
+  `LeafQM.AV.Pin.MobiusGlue`), `mobiusGlueNoCM_of_glue`. Compiled, standard axioms (VERIFIED, `run_MobiusEnd.txt`).
+- Merged origin/wip/infra-smooth-dim (proves `SmoothStalkDimOne`, 2b0e44f4). `MobiusFinal.lean` = `import Mathlib` +
+  infra §0-§4 verbatim (in a section) + MobiusEnd body + infra proof of `smoothStalkDimOne` + L0 block:
+  `mobiusGlue_of_L_G1_T5`, `mobiusGlue_of_L0_G1_T5 (hL0 : FiniteGlobalSections) (hG : ImagePlaneCurve)
+  (hT : ObjBridge.TorsionStructure) : MobiusGlue`, `mobiusGlueNoCM_of_L0_G1_T5 … (h : R1R2fp) : MobiusGlueNoCM`,
+  `curveFacts_of_L0_G1`. Compiled, 0 errors, standard axioms (VERIFIED, `run_MobiusFinal.txt`; warnings only in copied
+  mobius-glue/infra code: linter).
+
+## 8. (L) from (L0) FiniteGlobalSections (`L0.lean`)
+- `globalFunctionsConst_of (h : FiniteGlobalSections) : GlobalFunctionsConst` compiled, standard axioms (VERIFIED, `run_L0.txt`).
+- (L0): X → Spec K proper, W clopen ⇒ `(cstHom f W).Finite` (EGA III 3.2.1-type finiteness; no smoothness, no alg. closed).
+- Lean lemmas: `exists_nilpotent_sub_of_finite` (Artinian + trivial idempotents ⇒ unit or nilpotent via
+  `IsArtinian.exists_pow_succ_smul_dvd`; eigenvalue via `Module.End.exists_eigenvalue`);
+  `idempotent_trivial_of_isPreconnected` (germs of idempotents in local rings; `IsPreconnected.subset_or_subset`).

@@ -61,4 +61,22 @@ cg = open('scratch/curve-glue/CurveGlueAll.lean').read()
 j1 = cg.index('/-! ## §1 Geometric components (genuine definitions) -/'); je = cg.index('end Pin\n\nend AV\n\nend LeafQM\n\nend\n')
 s_ = cg[j1:je] in me; ok &= s_
 print(('IDENTICAL ' if s_ else 'DIFFERENT ') + 'MobiusEnd.lean: CurveGlueAll.lean §1 to the end verbatim')
+# L0.lean: res, cst, GlobalFunctionsConst copied from C2K.lean
+c2 = open('scratch/curve-glue/C2K.lean').read(); l0 = open('scratch/curve-glue/L0.lean').read()
+for a, b in [("/-- Restriction of sections along", "/-- The value `s(p)"), ("/-- The constant section", "theorem ev_cst"),
+             ("/-- **(L) \"Liouville\"", "section Main")]:
+    i = c2.index(a); blk = c2[i:c2.index(b, i)]; s_ = blk in l0; ok &= s_
+    print(('IDENTICAL ' if s_ else 'DIFFERENT ') + 'L0.lean copy of C2K block starting ' + a[:40])
+# MobiusFinal: infra-smooth-dim §0-§4 and the proof of smoothStalkDimOne verbatim; L0 block verbatim
+inf = open('scratch/infra-smooth-dim/SmoothDimProps.lean').read(); mf = open('scratch/curve-glue/MobiusFinal.lean').read()
+a = inf.index('open Ideal IsLocalRing\n\nnamespace InfraSmoothDim'); b = inf.index('/-! ## §5 The glue Props')
+p0 = inf.index('/-- **`SmoothStalkDimOne` holds**'); p1 = inf.index('end Pin', p0)
+blk = l0[l0.index('/-! ## The leaf (L0) and the reduction -/'):l0.index('end Pin\n\nend AV')]
+for lab, part in [('MobiusFinal: infra-smooth-dim §0-§4', inf[a:b]), ('MobiusFinal: smoothStalkDimOne proof', inf[p0:p1]),
+                  ('MobiusFinal: L0.lean reduction block', blk), ('MobiusFinal: MobiusEnd body (from first section)', None)]:
+    if part is None:
+        me = open('scratch/curve-glue/MobiusEnd.lean').read(); k = me.index('/-! (curve-glue: §0 of mobius-glue dropped'); j = me.index('/-- **The kernel\'s `MobiusGlue` from C1b')
+        part = me[k:j]
+    s_ = part in mf; ok &= s_
+    print(('IDENTICAL ' if s_ else 'DIFFERENT ') + lab)
 sys.exit(0 if ok else 1)

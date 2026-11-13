@@ -2742,6 +2742,138 @@ theorem curveFacts_of_glue (h1 : SmoothStalkDimOne) (hL : GlobalFunctionsConst)
   curveFacts_of_leaves h1 (constOrOntoAlgClosed_of hL) (ratFactorAlgClosed_of hG)
 
 
+/-! ## The leaf (L0) and the reduction -/
+
+section L0
+
+variable {K : Type} [Field K] {X : Scheme.{0}}
+
+/-- `cst f O` as a ring hom `K → Γ(X, O)` (the `K`-algebra structure of `Γ(X, O)`). -/
+def cstHom (f : X ⟶ Spec (CommRingCat.of K)) (O : X.Opens) : K →+* Γ(X, O) :=
+  (res le_top).comp ((f.appTop).hom.comp (Scheme.ΓSpecIso (CommRingCat.of K)).inv.hom)
+
+theorem cstHom_apply (f : X ⟶ Spec (CommRingCat.of K)) (O : X.Opens) (a : K) :
+    cstHom f O a = cst f O a := rfl
+
+end L0
+
+/-- **(L0) Finiteness of global sections for proper schemes over a field.** If `X → Spec K` is
+proper and `W ⊆ X` is open and closed, then `Γ(W, 𝒪_X)` is a finite `K`-module (for the
+`K`-algebra structure through `X → Spec K`).
+
+Source (textbook leaf, STANDARD; numbering UNVERIFIED): the finiteness theorem for proper
+morphisms, `f_* 𝓕` coherent for `𝓕` coherent and `f` proper (EGA III₁ 3.2.1; Stacks, *Cohomology
+of Schemes*, "coherent sheaves on proper schemes"; Hartshorne II.5.20 / III.8.8 in the projective
+case), applied to `𝓕 = 𝒪_W` (`W` is open and closed, hence a closed subscheme, so `W → Spec K` is
+proper). Not in Mathlib v4.35. -/
+def FiniteGlobalSections : Prop :=
+  ∀ (K : Type) [Field K] (X : Scheme.{0}) (f : X ⟶ Spec (CommRingCat.of K)), IsProper f →
+    ∀ W : X.Opens, IsClopen (W : Set X) → (cstHom f W).Finite
+
+/-- **Algebra (Lean-proved): a connected finite algebra over an algebraically closed field is
+`K` plus nilpotents.** In an Artinian ring with only the trivial idempotents every element is a
+unit or nilpotent (Fitting: `s^n = s^{n+1} y` makes `s^n y^n` idempotent); and `s - c` is not a
+unit for an eigenvalue `c` of multiplication by `s`. -/
+theorem exists_nilpotent_sub_of_finite {K A : Type} [Field K] [IsAlgClosed K] [CommRing A]
+    (φ : K →+* A) (hφ : φ.Finite) (hidem : ∀ e : A, IsIdempotentElem e → e = 0 ∨ e = 1)
+    (s : A) : ∃ c : K, IsNilpotent (s - φ c) := by
+  let _ := φ.toAlgebra
+  have : Module.Finite K A := hφ
+  have : IsArtinianRing A := IsArtinianRing.of_finite K A
+  -- unit or nilpotent
+  have key : ∀ x : A, IsUnit x ∨ IsNilpotent x := by
+    intro x
+    obtain ⟨n, y, hy⟩ := IsArtinian.exists_pow_succ_smul_dvd x (1 : A)
+    simp only [smul_eq_mul, mul_one] at hy
+    replace hy : x ^ (n + 1) * y = x ^ n := hy
+    have hpow : ∀ k : ℕ, x ^ n = x ^ (n + k) * y ^ k := by
+      intro k
+      induction k with
+      | zero => simp
+      | succ k ih =>
+        rw [ih]
+        calc x ^ (n + k) * y ^ k = (x ^ k * x ^ n) * y ^ k := by ring
+          _ = (x ^ k * (x ^ (n + 1) * y)) * y ^ k := by rw [hy]
+          _ = x ^ (n + (k + 1)) * y ^ (k + 1) := by ring
+    have he : IsIdempotentElem (x ^ n * y ^ n) := by
+      unfold IsIdempotentElem
+      calc x ^ n * y ^ n * (x ^ n * y ^ n) = (x ^ (n + n) * y ^ n) * y ^ n := by ring
+        _ = x ^ n * y ^ n := by rw [← hpow n]
+    rcases hidem _ he with h0 | h1
+    · right
+      refine ⟨n, ?_⟩
+      rw [hpow n]
+      calc x ^ (n + n) * y ^ n = x ^ n * (x ^ n * y ^ n) := by ring
+        _ = 0 := by rw [h0, mul_zero]
+    · left
+      rcases Nat.eq_zero_or_pos n with hn | hn
+      · subst hn
+        have : x * y = 1 := by simpa using hy
+        exact isUnit_iff_exists_inv.mpr ⟨y, this⟩
+      · refine isUnit_iff_exists_inv.mpr ⟨x ^ (n - 1) * y ^ n, ?_⟩
+        calc x * (x ^ (n - 1) * y ^ n) = x ^ (n - 1 + 1) * y ^ n := by ring
+          _ = 1 := by rw [Nat.sub_add_cancel hn, h1]
+  by_cases hA : Nontrivial A
+  · obtain ⟨c, hc⟩ := Module.End.exists_eigenvalue (LinearMap.mulLeft K s)
+    obtain ⟨v, hv⟩ := hc.exists_hasEigenvector
+    have hv0 : v ≠ 0 := hv.2
+    have hsv : s * v = φ c * v := by
+      have := hv.apply_eq_smul
+      simpa [Algebra.smul_def, RingHom.algebraMap_toAlgebra] using this
+    refine ⟨c, (key (s - φ c)).resolve_left fun hu => hv0 ?_⟩
+    have : (s - φ c) * v = 0 := by rw [sub_mul, hsv, sub_self]
+    exact (hu.mul_right_eq_zero).mp this
+  · rw [not_nontrivial_iff_subsingleton] at hA
+    exact ⟨0, ⟨1, Subsingleton.elim _ _⟩⟩
+
+/-- **Topology/sheaves (Lean-proved): idempotent sections over a preconnected open are trivial.**
+At each point the germ of an idempotent is `0` or `1` (local ring), so `W` is the disjoint union
+of the open sets `D(e)` and `D(1 - e)`. -/
+theorem idempotent_trivial_of_isPreconnected {X : Scheme.{0}} {W : X.Opens}
+    (hW : _root_.IsPreconnected (W : Set X)) (e : Γ(X, W)) (he : IsIdempotentElem e) :
+    e = 0 ∨ e = 1 := by
+  have hcover : (W : Set X) ⊆ (X.basicOpen e : Set X) ∪ (X.basicOpen (1 - e) : Set X) := by
+    intro x hx
+    have hg : IsIdempotentElem (X.presheaf.germ W x hx e) := by
+      unfold IsIdempotentElem; rw [← map_mul, he.eq]
+    rcases IsLocalRing.isUnit_or_isUnit_one_sub_self (X.presheaf.germ W x hx e) with hu | hu
+    · exact Or.inl ((X.mem_basicOpen e x hx).2 hu)
+    · right
+      refine (X.mem_basicOpen (1 - e) x hx).2 ?_
+      rwa [map_sub, map_one]
+  have hdisj : Disjoint (X.basicOpen e : Set X) (X.basicOpen (1 - e) : Set X) := by
+    rw [Set.disjoint_left]
+    intro x h1 h2
+    have hxW : x ∈ W := X.basicOpen_le e h1
+    have u1 := (X.mem_basicOpen e x hxW).1 h1
+    have u2 := (X.mem_basicOpen (1 - e) x hxW).1 h2
+    have h0 : X.presheaf.germ W x hxW e * X.presheaf.germ W x hxW (1 - e) = 0 := by
+      rw [← map_mul, mul_sub, mul_one, he.eq, sub_self, map_zero]
+    exact not_isUnit_zero (h0 ▸ u1.mul u2)
+  have hunit : ∀ a : Γ(X, W), (W : Set X) ⊆ (X.basicOpen a : Set X) → IsUnit a := by
+    intro a ha
+    refine X.toRingedSpace.isUnit_of_isUnit_germ W a fun x hx => ?_
+    exact (X.mem_basicOpen a x hx).1 (ha hx)
+  rcases hW.subset_or_subset (X.basicOpen e).isOpen (X.basicOpen (1 - e)).isOpen hdisj hcover
+    with h | h
+  · right
+    obtain ⟨u, hu⟩ := hunit e h
+    have : (u : Γ(X, W)) * u = u * 1 := by rw [mul_one, hu]; exact he.eq
+    rw [← hu]; exact u.isUnit.mul_left_cancel this
+  · left
+    obtain ⟨u, hu⟩ := hunit (1 - e) h
+    have he' : IsIdempotentElem (1 - e) := he.one_sub
+    have : (u : Γ(X, W)) * u = u * 1 := by rw [mul_one, hu]; exact he'.eq
+    have h1 : 1 - e = 1 := by rw [← hu]; exact u.isUnit.mul_left_cancel this
+    rw [sub_eq_self] at h1; exact h1
+
+/-- **(L) from (L0).** -/
+theorem globalFunctionsConst_of (h : FiniteGlobalSections) : GlobalFunctionsConst := by
+  intro K _ _ X f hP _ W hWc hWp s
+  obtain ⟨c, hc⟩ := exists_nilpotent_sub_of_finite (cstHom f W) (h K X f hP W hWc)
+    (fun e he => idempotent_trivial_of_isPreconnected hWp e he) s
+  exact ⟨c, hc⟩
+
 /-- **`SmoothStalkDimOne` holds** (task infra-smooth-dim). -/
 theorem smoothStalkDimOne : SmoothStalkDimOne := by
   intro K _ X f hf x hx
@@ -2915,6 +3047,22 @@ theorem mobiusGlueNoCM_of_L_G1_T5 (hL : GlobalFunctionsConst) (hG : ImagePlaneCu
     (hT : ObjBridge.TorsionStructure) (h : R1R2fp) : MobiusGlueNoCM :=
   mobiusGlue_noCM_of (mobiusGlue_of_L_G1_T5 hL hG hT) h
 
+/-- **The kernel's `MobiusGlue` from the finiteness theorem (L0) `FiniteGlobalSections`, the glue
+(G1) `ImagePlaneCurve` and the textbook leaf T5 `ObjBridge.TorsionStructure`.** -/
+theorem mobiusGlue_of_L0_G1_T5 (hL0 : FiniteGlobalSections) (hG : ImagePlaneCurve)
+    (hT : ObjBridge.TorsionStructure) : MobiusGlue :=
+  mobiusGlue_of_L_G1_T5 (globalFunctionsConst_of hL0) hG hT
+
+/-- **The CM-free form, with the CM objects from the leaf bundle `R1R2fp`.** -/
+theorem mobiusGlueNoCM_of_L0_G1_T5 (hL0 : FiniteGlobalSections) (hG : ImagePlaneCurve)
+    (hT : ObjBridge.TorsionStructure) (h : R1R2fp) : MobiusGlueNoCM :=
+  mobiusGlue_noCM_of (mobiusGlue_of_L0_G1_T5 hL0 hG hT) h
+
+/-- **Both curve facts from (L0) and (G1).** -/
+theorem curveFacts_of_L0_G1 (hL0 : FiniteGlobalSections) (hG : ImagePlaneCurve) :
+    CurveRatFactor ∧ CurveSurj :=
+  curveFacts_of_L_G1 (globalFunctionsConst_of hL0) hG
+
 end CurveGlue
 
 end AV
@@ -2931,3 +3079,7 @@ end
 #print axioms LeafQM.AV.Pin.curveFacts_of_L_G1
 #print axioms LeafQM.AV.CurveGlue.mobiusGlue_of_L_G1_T5
 #print axioms LeafQM.AV.CurveGlue.mobiusGlueNoCM_of_L_G1_T5
+#print axioms LeafQM.AV.Pin.globalFunctionsConst_of
+#print axioms LeafQM.AV.CurveGlue.mobiusGlue_of_L0_G1_T5
+#print axioms LeafQM.AV.CurveGlue.mobiusGlueNoCM_of_L0_G1_T5
+#print axioms LeafQM.AV.CurveGlue.curveFacts_of_L0_G1

@@ -16,3 +16,10 @@ IDENTICAL CurveGlueAll.lean contains CurveFacts.lean (header to end of §8) verb
 IDENTICAL MobiusEnd.lean: mobius-glue §1-§5 verbatim except the h1' destructuring line
 IDENTICAL MobiusEnd.lean: mobius-glue §7-§8 verbatim
 IDENTICAL MobiusEnd.lean: CurveGlueAll.lean §1 to the end verbatim
+IDENTICAL L0.lean copy of C2K block starting /-- Restriction of sections along
+IDENTICAL L0.lean copy of C2K block starting /-- The constant section
+IDENTICAL L0.lean copy of C2K block starting /-- **(L) "Liouville"
+IDENTICAL MobiusFinal: infra-smooth-dim §0-§4
+IDENTICAL MobiusFinal: smoothStalkDimOne proof
+IDENTICAL MobiusFinal: L0.lean reduction block
+IDENTICAL MobiusFinal: MobiusEnd body (from first section)
