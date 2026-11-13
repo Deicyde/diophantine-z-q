@@ -1,0 +1,99 @@
+
+/-! ## Part 7: the assembly's two torsion-count consumers from T35
+
+`TorsionBound3` (scratch/g0-assemble2/G0Assemble2.lean:56478, proved there from T5 by
+`torsionBound3_of`) and `TorsionCountPts` (G0Assemble2.lean:59755, proved there from T5 by
+`torsionCountPts_of_leaf`) are copied verbatim (with `tors`, `TorsCount`, `IF`, `PtQ`) and proved
+from T35. -/
+
+namespace T5Torsion
+
+open CategoryTheory AlgebraicGeometry Limits MonoidalCategory CartesianMonoidalCategory MonObj
+
+/-- **`#A(Ω)[n] = n^{2g}`** for `K → ℂ` and any algebraically closed field `Ω ⊇ K`, from T35. -/
+theorem natCard_torsion_algClosed (hU : ZInQ.LeafPush2.UniformizationExists)
+    {K : Type} [Field K] (σ : K →+* ℂ) (A : PkgI3.AbVar K) (g n : ℕ)
+    (hg : A.dim = (g : WithBot ℕ∞)) (hn : 0 < n)
+    (Ω : Type) [Field Ω] [IsAlgClosed Ω] [Algebra K Ω] :
+    Nat.card {p : A.Pt Ω // p ^ n = 1} = n ^ (2 * g) := by
+  haveI : CharZero K := RingHom.charZero σ
+  let κ : AlgebraicClosure K →ₐ[K] Ω := IsAlgClosed.lift
+  rw [← natCard_torsion_eq_of_ext A κ n hn]
+  exact natCard_torsion_of_uniformization hU σ A g n hg hn
+
+namespace Pin
+
+/-- An embedding `ℚ̄ → ℂ`. -/
+noncomputable def qbarToC' : AlgebraicClosure ℚ →+* ℂ :=
+  (IsAlgClosed.lift : AlgebraicClosure ℚ →ₐ[ℚ] ℂ).toRingHom
+
+end Pin
+
+namespace AssemblyCopies
+
+/-- Copy (G0Assemble2.lean:56478). -/
+def TorsionBound3 : Prop :=
+  ∀ A : PkgI3.AbVar (AlgebraicClosure ℚ), A.dim = 2 →
+    ∃ s : Finset (Additive (A.Pt (AlgebraicClosure ℚ))), s.card ≤ 81 ∧
+      ∀ x : Additive (A.Pt (AlgebraicClosure ℚ)), 3 • x = 0 → x ∈ s
+
+/-- Copy (G0Assemble2.lean:59328). -/
+abbrev tors (V : Type*) [AddCommGroup V] (n : ℕ) : AddSubgroup V := (n • AddMonoidHom.id V).ker
+
+/-- Copy (G0Assemble2.lean:59332). -/
+def TorsCount (V : Type*) [AddCommGroup V] : Prop :=
+  ∀ n : ℕ, 0 < n → Nat.card (tors V n) = n ^ 4
+
+/-- Copy (G0Assemble2.lean:39671). -/
+abbrev IF : Type := IntermediateField ℚ (AlgebraicClosure ℚ)
+
+/-- Copy (G0Assemble2.lean:39726). -/
+abbrev PtQ (L : IF) (A : PkgI3.AbVar L) : Type := Additive (A.Pt (AlgebraicClosure ℚ))
+
+/-- Copy (G0Assemble2.lean:59755). -/
+def TorsionCountPts : Prop :=
+  ∀ (L : IF) (A : PkgI3.AbVar L), A.dim = 2 → TorsCount (PtQ L A)
+
+/-- `n`-torsion of `Additive (A.Pt Ω)` as the multiplicative `n`-torsion. -/
+def torsAddEquiv {K : Type} [Field K] (A : PkgI3.AbVar K) (Ω : Type) [Field Ω] [Algebra K Ω]
+    (n : ℕ) : tors (Additive (A.Pt Ω)) n ≃ {p : A.Pt Ω // p ^ n = 1} where
+  toFun x := ⟨Additive.toMul x.1, by
+    have h : (n • AddMonoidHom.id (Additive (A.Pt Ω))) x.1 = 0 := AddMonoidHom.mem_ker.1 x.2
+    exact congrArg Additive.toMul h⟩
+  invFun p := ⟨Additive.ofMul p.1, AddMonoidHom.mem_ker.2 (congrArg Additive.ofMul p.2)⟩
+  left_inv _ := rfl
+  right_inv _ := rfl
+
+/-- **`TorsionCountPts` from T35.** -/
+theorem torsionCountPts_of_T35 (hU : ZInQ.LeafPush2.UniformizationExists) : TorsionCountPts := by
+  intro L A hA n hn
+  let σ : L →+* ℂ := (Pin.qbarToC').comp (L.val : L →+* AlgebraicClosure ℚ)
+  rw [Nat.card_congr (torsAddEquiv A (AlgebraicClosure ℚ) n)]
+  exact natCard_torsion_algClosed hU σ A 2 n (by rw [hA]; rfl) hn (AlgebraicClosure ℚ)
+
+/-- **`TorsionBound3` from T35.** -/
+theorem torsionBound3_of_T35 (hU : ZInQ.LeafPush2.UniformizationExists) : TorsionBound3 := by
+  classical
+  intro A hA
+  let σ : AlgebraicClosure ℚ →+* ℂ := Pin.qbarToC'
+  have hc : Nat.card (tors (Additive (A.Pt (AlgebraicClosure ℚ))) 3) = 81 := by
+    rw [Nat.card_congr (torsAddEquiv A (AlgebraicClosure ℚ) 3)]
+    exact natCard_torsion_algClosed hU σ A 2 3 (by rw [hA]; rfl) (by norm_num)
+      (AlgebraicClosure ℚ)
+  haveI : Finite (tors (Additive (A.Pt (AlgebraicClosure ℚ))) 3) :=
+    Nat.finite_of_card_ne_zero (by rw [hc]; norm_num)
+  have hfin : ((tors (Additive (A.Pt (AlgebraicClosure ℚ))) 3 :
+      AddSubgroup (Additive (A.Pt (AlgebraicClosure ℚ)))) :
+        Set (Additive (A.Pt (AlgebraicClosure ℚ)))).Finite :=
+    Set.toFinite _
+  refine ⟨hfin.toFinset, ?_, fun x hx => hfin.mem_toFinset.mpr ?_⟩
+  · rw [← Set.ncard_eq_toFinset_card _ hfin, ← Nat.card_coe_set_eq]
+    exact (show Nat.card (tors (Additive (A.Pt (AlgebraicClosure ℚ))) 3) ≤ 81 from hc.le)
+  · exact AddMonoidHom.mem_ker.2 hx
+
+end AssemblyCopies
+
+end T5Torsion
+
+#print axioms T5Torsion.AssemblyCopies.torsionCountPts_of_T35
+#print axioms T5Torsion.AssemblyCopies.torsionBound3_of_T35
