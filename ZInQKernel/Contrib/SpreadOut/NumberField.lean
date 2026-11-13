@@ -1,6 +1,7 @@
 import Mathlib
 import ZInQKernel.HDecomp.Objects
 import ZInQKernel.Contrib.SpreadOut.Spread
+import ZInQKernel.Contrib.SpreadOut.SmoothLocus
 
 /-!
 # Spreading out, IV: abelian varieties over a number field spread out over `𝓞_L[1/f]`
@@ -184,12 +185,11 @@ instance specDiag_compactSpace (i : ℕᵒᵖ) : CompactSpace ((specDiag L).obj 
 instance specDiag_quasiSeparatedSpace (i : ℕᵒᵖ) : QuasiSeparatedSpace ((specDiag L).obj i) :=
   show QuasiSeparatedSpace (Spec _) from inferInstance
 
-/-- **N1-g1 `AbVarSpreadsOut` from the three EGA IV leaves (unfolded statement).**  For an
-abelian variety `B` over a number field `L` there is `0 ≠ f ∈ 𝓞_L` (namely `f = n!`) such that for
-every presentation `R` of `𝓞_L[1/f]` there is a smooth proper group scheme `G` over `R` whose
-generic fibre is identified with `B` as a group scheme. -/
-theorem abVarSpreadsOut_of_ega (h882 : EGAIV_8_8_2_ii) (hpr : EGAIV_8_10_5_xii)
-    (hsm : EGAIV_17_7_8_ii) (L : Type) [Field L] [NumberField L] (B : PkgI3.AbVar L) :
+/-- **N1-g1 `AbVarSpreadsOut`, core form (unfolded statement).**  From the leaves 8.8.2 (ii),
+8.10.5 (xii) and descent of smoothness for the system `n ↦ Spec 𝓞_L[1/n!]`. -/
+theorem abVarSpreadsOut_core (h882 : EGAIV_8_8_2_ii) (hpr : EGAIV_8_10_5_xii)
+    (L : Type) [Field L] [NumberField L] (hsm : SmoothDescendsFor (specDiag L) (specCone L))
+    (B : PkgI3.AbVar L) :
     ∃ f : 𝓞 L, f ≠ 0 ∧
       ∀ (R : Type) [CommRing R] [Algebra (𝓞 L) R] [IsLocalization.Away f R] [Algebra R L]
         [IsScalarTower (𝓞 L) R L],
@@ -206,7 +206,7 @@ theorem abVarSpreadsOut_of_ega (h882 : EGAIV_8_8_2_ii) (hpr : EGAIV_8_10_5_xii)
         Functor.grpObjObj
       IsMonHom gen.hom := by
     letI : GrpObj (C := Over (specCone L).pt) B.X := B.grp
-    exact exists_grpObj_descend (specDiag L) (specCone L) (specConeIsLimit L) h882 hpr hsm B.X
+    exact exists_grpObj_descend' (specDiag L) (specCone L) (specConeIsLimit L) h882 hpr hsm B.X
   obtain ⟨k, G, hG, hGs, hGp, gen, hgen⟩ := key
   refine ⟨sf L k.unop, sf_ne_zero L _, fun R _ _ _ _ _ => ?_⟩
   let φa : Rg L k.unop →ₐ[𝓞 L] R :=
@@ -237,5 +237,61 @@ theorem abVarSpreadsOut_of_ega (h882 : EGAIV_8_8_2_ii) (hpr : EGAIV_8_10_5_xii)
     (compatU_of_isMonHom (Over.pullback (Spec.map (CommRingCat.ofHom (toL L k.unop)))) gen hgen)
   exact isMonHom_of_compat (Over.pullback (Spec.map (CommRingCat.ofHom (algebraMap R L))))
     (M' := (Over.pullback ψ).obj G) (θ.app G ≪≫ gen) hm hu
+
+/-- **N1-g1 `AbVarSpreadsOut` from the three EGA IV leaves (unfolded statement).**  For an
+abelian variety `B` over a number field `L` there is `0 ≠ f ∈ 𝓞_L` (namely `f = n!`) such that for
+every presentation `R` of `𝓞_L[1/f]` there is a smooth proper group scheme `G` over `R` whose
+generic fibre is identified with `B` as a group scheme. -/
+theorem abVarSpreadsOut_of_ega (h882 : EGAIV_8_8_2_ii) (hpr : EGAIV_8_10_5_xii)
+    (hsm : EGAIV_17_7_8_ii) (L : Type) [Field L] [NumberField L] (B : PkgI3.AbVar L) :
+    ∃ f : 𝓞 L, f ≠ 0 ∧
+      ∀ (R : Type) [CommRing R] [Algebra (𝓞 L) R] [IsLocalization.Away f R] [Algebra R L]
+        [IsScalarTower (𝓞 L) R L],
+        ∃ (G : Over (Spec (CommRingCat.of R))) (_ : GrpObj G) (_ : Smooth G.hom)
+          (_ : IsProper G.hom)
+          (gen : (Over.pullback (Spec.map (CommRingCat.ofHom (algebraMap R L)))).obj G ≅ B.X),
+          letI : GrpObj ((Over.pullback (Spec.map (CommRingCat.ofHom (algebraMap R L)))).obj G) :=
+            Functor.grpObjObj
+          IsMonHom gen.hom :=
+  abVarSpreadsOut_core h882 hpr L
+    (smoothDescendsFor_of_ega (specDiag L) (specCone L) (specConeIsLimit L) hsm) B
+
+/-- `L` is the fraction field of `𝓞_L[1/n!]` (via `toL`). -/
+theorem isFractionRing_toL (n : ℕ) :
+    letI := (toL L n).toAlgebra
+    IsFractionRing (Rg L n) L := by
+  letI := (toL L n).toAlgebra
+  haveI : IsScalarTower (𝓞 L) (Rg L n) L :=
+    IsScalarTower.of_algebraMap_eq (fun x => (toL_alg L n x).symm)
+  exact IsFractionRing.isFractionRing_of_isDomain_of_isLocalization (Submonoid.powers (sf L n))
+    (Rg L n) L
+
+/-- **Descent of smoothness for `n ↦ Spec 𝓞_L[1/n!]`, from the pointwise glue
+`SmoothAtLocalizationBaseChange`** (Mathlib's smooth locus is open; `L` is a localization of every
+`𝓞_L[1/n!]`). -/
+theorem smoothDescendsFor_specDiag (hA : SmoothAtLocalizationBaseChange) :
+    SmoothDescendsFor (specDiag L) (specCone L) := by
+  refine smoothDescendsFor_of_pointwise (specDiag L) (specCone L) (specConeIsLimit L) ?_
+  intro i Xi _ y hy
+  letI := (toL L i.unop).toAlgebra
+  haveI := isFractionRing_toL L i.unop
+  exact hA (Rg L i.unop) L (nonZeroDivisors (Rg L i.unop)) Xi.left Xi.hom y hy
+
+/-- **N1-g1 `AbVarSpreadsOut` from the EGA IV leaves 8.8.2 (ii), 8.10.5 (xii) and the pointwise
+glue `SmoothAtLocalizationBaseChange` (unfolded statement)**: the smoothness leaf 17.7.8 (ii) is not
+needed. -/
+theorem abVarSpreadsOut_of_ega_loc (h882 : EGAIV_8_8_2_ii) (hpr : EGAIV_8_10_5_xii)
+    (hA : SmoothAtLocalizationBaseChange) (L : Type) [Field L] [NumberField L]
+    (B : PkgI3.AbVar L) :
+    ∃ f : 𝓞 L, f ≠ 0 ∧
+      ∀ (R : Type) [CommRing R] [Algebra (𝓞 L) R] [IsLocalization.Away f R] [Algebra R L]
+        [IsScalarTower (𝓞 L) R L],
+        ∃ (G : Over (Spec (CommRingCat.of R))) (_ : GrpObj G) (_ : Smooth G.hom)
+          (_ : IsProper G.hom)
+          (gen : (Over.pullback (Spec.map (CommRingCat.ofHom (algebraMap R L)))).obj G ≅ B.X),
+          letI : GrpObj ((Over.pullback (Spec.map (CommRingCat.ofHom (algebraMap R L)))).obj G) :=
+            Functor.grpObjObj
+          IsMonHom gen.hom :=
+  abVarSpreadsOut_core h882 hpr L (smoothDescendsFor_specDiag L hA) B
 
 end ZInQ.Contrib.SpreadOut.NF
