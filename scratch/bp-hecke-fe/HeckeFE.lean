@@ -1614,4 +1614,91 @@ theorem literature_hecke_fe_final
   literature_hecke_fe_of_euler_gauss_oddGaussPrime hE
     (fun d h5 hsq => gaussSplit_of_one (by omega) hsq h1) hP
 
+/-! ### `OddGauss p` for odd primes `p` (node C2'') -/
+
+section OddGaussPrime
+
+variable {p : ℕ} [hpp : Fact p.Prime]
+
+/-- The quadratic character of `𝔽_p` with complex values. -/
+noncomputable abbrev chiC (p : ℕ) [Fact p.Prime] : MulChar (ZMod p) ℂ :=
+  (quadraticChar (ZMod p)).ringHomComp (Int.castRingHom ℂ)
+
+/-- The Gauss sum `g = Σ_t χ(t) e(t/p)`. -/
+noncomputable abbrev gP (p : ℕ) [Fact p.Prime] : ℂ := gaussSum (chiC p) ZMod.stdAddChar
+
+theorem chiC_isQuadratic : (chiC p).IsQuadratic :=
+  (quadraticChar_isQuadratic (ZMod p)).comp _
+
+theorem chiC_ne_one (hp2 : p ≠ 2) : chiC p ≠ 1 := by
+  exact (MulChar.ringHomComp_ne_one_iff Int.cast_injective).mpr
+    (quadraticChar_ne_one (by rw [ZMod.ringChar_zmod_n]; exact hp2))
+
+/-- `Σ_t χ(t) e(tm/p) = χ(m) g` for every `m` (including `m = 0`). -/
+theorem sum_chi_psi_mul (hp2 : p ≠ 2) (m : ZMod p) :
+    ∑ t : ZMod p, chiC p t * ZMod.stdAddChar (t * m) = chiC p m * gP p := by
+  by_cases hm : m = 0
+  · subst hm
+    simp only [mul_zero, AddChar.map_zero_eq_one, mul_one, MulChar.map_zero, zero_mul]
+    exact MulChar.sum_eq_zero_of_ne_one (chiC_ne_one hp2)
+  · have hu : IsUnit m := isUnit_iff_ne_zero.mpr hm
+    have h := gaussSum_mulShift_eq (chiC p) ZMod.stdAddChar hu.unit
+    rw [chiC_isQuadratic.inv] at h
+    simp only [IsUnit.unit_spec] at h
+    rw [← h, gaussSum]
+    refine Finset.sum_congr rfl fun t _ => ?_
+    rw [AddChar.mulShift_apply, mul_comm m t]
+
+theorem chiC_sq_of_ne_zero {t : ZMod p} (ht : t ≠ 0) : chiC p t ^ 2 = 1 := by
+  have := quadraticChar_sq_one ht
+  simp only [chiC, MulChar.ringHomComp_apply, eq_intCast]
+  exact_mod_cast this
+
+/-- `Σ_x e(tx²/p) = χ(t) g` for `t ≠ 0`. -/
+theorem sum_psi_sq (hp2 : p ≠ 2) {t : ZMod p} (ht : t ≠ 0) :
+    ∑ x : ZMod p, ZMod.stdAddChar (t * x ^ 2) = chiC p t * gP p := by
+  classical
+  have hc : ringChar (ZMod p) ≠ 2 := by rw [ZMod.ringChar_zmod_n]; exact hp2
+  have h1 : ∑ x : ZMod p, ZMod.stdAddChar (t * x ^ 2) =
+      ∑ y : ZMod p, ((quadraticChar (ZMod p) y + 1 : ℤ) : ℂ) * ZMod.stdAddChar (t * y) := by
+    rw [← Finset.sum_fiberwise Finset.univ (fun x : ZMod p => x ^ 2)
+      (fun x => ZMod.stdAddChar (t * x ^ 2))]
+    refine Finset.sum_congr rfl fun y _ => ?_
+    rw [Finset.sum_congr rfl (g := fun _ => ZMod.stdAddChar (t * y)) (fun x hx => by
+      rw [(Finset.mem_filter.mp hx).2]), Finset.sum_const, nsmul_eq_mul,
+      ← quadraticChar_card_sqrts hc y, Set.toFinset_ofPred]
+    push_cast; rfl
+  rw [h1]
+  simp only [Int.cast_add, Int.cast_one, add_mul, one_mul, Finset.sum_add_distrib]
+  have h2 : ∑ y : ZMod p, ZMod.stdAddChar (t * y) = 0 := by
+    have := AddChar.sum_mulShift (R := ZMod p) t (ZMod.isPrimitive_stdAddChar p)
+    simp only [ht, ↓reduceIte, Nat.cast_zero] at this
+    rw [← this]
+    exact Finset.sum_congr rfl fun y _ => by rw [mul_comm]
+  rw [h2, add_zero, ← sum_chi_psi_mul hp2 t]
+  refine Finset.sum_congr rfl fun y _ => ?_
+  simp only [chiC, MulChar.ringHomComp_apply, eq_intCast]
+  rw [mul_comm t y]
+
+/-- Completing the square: `Σ_x e((tx² + nx)/p) = e(−n²/(4t)/p) Σ_x e(tx²/p)` for `t ≠ 0`. -/
+theorem sum_psi_complete_sq (hp2 : p ≠ 2) {t : ZMod p} (ht : t ≠ 0) (n : ZMod p) :
+    ∑ x : ZMod p, ZMod.stdAddChar (t * x ^ 2 + n * x) =
+      ZMod.stdAddChar (-(n ^ 2 / (4 * t))) * ∑ x : ZMod p, ZMod.stdAddChar (t * x ^ 2) := by
+  have h2 : (2 : ZMod p) ≠ 0 := by
+    intro h
+    have : (p : ℕ) ∣ 2 := by exact_mod_cast (ZMod.natCast_eq_zero_iff 2 p).mp (by exact_mod_cast h)
+    exact hp2 ((Nat.prime_dvd_prime_iff_eq hpp.out Nat.prime_two).mp this)
+  have h4 : (4 : ZMod p) ≠ 0 := by
+    rw [show (4 : ZMod p) = 2 * 2 by norm_num]; exact mul_ne_zero h2 h2
+  set c : ZMod p := n / (2 * t)
+  rw [Finset.mul_sum, ← Equiv.sum_comp (Equiv.subRight c)]
+  refine Finset.sum_congr rfl fun x _ => ?_
+  rw [← AddChar.map_add_eq_mul]
+  congr 1
+  simp only [Equiv.subRight_apply, c]
+  field_simp
+  ring
+
+end OddGaussPrime
+
 end BpHeckeFE
