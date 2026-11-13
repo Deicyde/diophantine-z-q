@@ -1018,4 +1018,26 @@ theorem literature_hecke_fe_of_euler_gauss_fourier
     deuringCd_of_heckeEuler_gaussSplit (Nat.odd_iff.mpr (by omega)) hsq (hE d h5 hsq) (hS d h5 hsq)
   exact ⟨heckeContinuation5_of_deuring hD, functionalEquation5_of_deuring_fourier' hD hFo⟩
 
+/-- `HeckeContinuation` restricted to the case the headline uses. -/
+def HeckeContinuation5 : Prop :=
+  ∀ d : ℕ, d % 8 = 5 → Squarefree d →
+    ∃ F : ℂ → ℂ, ZInQ.Literature.IsLContinuation (ZInQ.shortCurve (-(d : ℚ) ^ 2)) F
+
+/-- The documented route to `TYZRow5b` (`tyzRow5b_of_readingA`) needs only `HeckeContinuation5`. -/
+theorem tyzRow5b_of_readingA_five (hA : ZInQ.Literature.TYZThm35ReadingA)
+    (hH : HeckeContinuation5) : ZInQ.Literature.TYZRow5b := by
+  intro d hd hsq h5b
+  obtain ⟨F, hF⟩ := hH d hd hsq
+  refine ⟨F, hF, ?_⟩
+  by_contra h
+  have h0 := (hA d hd hsq F hF (ZInQ.Literature.two_le_of_not_le_one h)).2
+  rw [h0] at h5b
+  exact zero_ne_one h5b
+
+theorem heckeContinuation5_of_literature
+    (hE : ∀ d : ℕ, d % 8 = 5 → Squarefree d → HeckeEuler d)
+    (hS : ∀ d : ℕ, d % 8 = 5 → Squarefree d → GaussSplit d) : HeckeContinuation5 :=
+  heckeContinuation5_of_deuring fun d h5 hsq =>
+    deuringCd_of_heckeEuler_gaussSplit (Nat.odd_iff.mpr (by omega)) hsq (hE d h5 hsq) (hS d h5 hsq)
+
 end BpHeckeFE
