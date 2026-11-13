@@ -313,9 +313,12 @@ end KummerUniformizer
 
 section Assembly
 
+attribute [local instance] FractionRing.liftAlgebra FractionRing.isScalarTower_liftAlgebra
+
 set_option linter.unusedSectionVars false
 set_option linter.style.haveILetI false
 set_option maxHeartbeats 1000000
+set_option synthInstance.maxHeartbeats 400000
 
 open IntermediateField
 
@@ -350,6 +353,39 @@ lemma exists_pow_mul_eq (R A : Type*) [CommRing R] [IsDomain R] [IsDiscreteValua
     [Q.LiesOver (IsLocalRing.maximalIdeal R)] :
     ∃ ϖ u : A, ϖ ≠ 0 ∧ algebraMap R A π = u * ϖ ^ (Q.ramificationIdx R) ∧ u ∉ Q := by
   sorry
+
+/-- Residue separability is transitive along a tower of primes. -/
+lemma isSeparable_quotient_trans {R A B : Type*} [CommRing R] [CommRing A] [CommRing B]
+    [Algebra R A] [Algebra A B] [Algebra R B] [IsScalarTower R A B]
+    (p : Ideal R) (q : Ideal A) (P : Ideal B) [p.IsMaximal] [q.IsMaximal] [P.IsMaximal]
+    [q.LiesOver p] [P.LiesOver q] [P.LiesOver p]
+    (h1 : Algebra.IsSeparable (R ⧸ p) (A ⧸ q)) (h2 : Algebra.IsSeparable (A ⧸ q) (B ⧸ P)) :
+    Algebra.IsSeparable (R ⧸ p) (B ⧸ P) := by
+  letI : Field (R ⧸ p) := Ideal.Quotient.field _
+  letI : Field (A ⧸ q) := Ideal.Quotient.field _
+  letI : Field (B ⧸ P) := Ideal.Quotient.field _
+  haveI : IsScalarTower (R ⧸ p) (A ⧸ q) (B ⧸ P) := IsScalarTower.of_algebraMap_eq <| by
+    rintro ⟨x⟩
+    change algebraMap R (B ⧸ P) x = algebraMap (A ⧸ q) (B ⧸ P) (algebraMap R (A ⧸ q) x)
+    rw [IsScalarTower.algebraMap_apply R A (B ⧸ P) x,
+      IsScalarTower.algebraMap_apply R A (A ⧸ q) x, Ideal.Quotient.algebraMap_eq,
+      Ideal.Quotient.algebraMap_mk_of_liesOver]
+    rfl
+  exact Algebra.IsSeparable.trans _ (A ⧸ q) _
+
+/-- Inertia degree one gives a (trivially) separable residue extension. -/
+lemma isSeparable_quotient_of_inertiaDeg_eq_one {A B : Type*} [CommRing A] [CommRing B]
+    [Algebra A B] (P : Ideal A) (Q : Ideal B) [P.IsMaximal] [Q.IsMaximal] [Q.LiesOver P]
+    (hF : Q.inertiaDeg A = 1) : Algebra.IsSeparable (A ⧸ P) (B ⧸ Q) := by
+  letI : Field (A ⧸ P) := Ideal.Quotient.field _
+  letI : Field (B ⧸ Q) := Ideal.Quotient.field _
+  rw [Ideal.inertiaDeg_eq_of_isMaximal P Q] at hF
+  haveI : Module.Free (A ⧸ P) (B ⧸ Q) := Module.Free.of_divisionRing _ _
+  have hbot := (Subalgebra.bot_eq_top_iff_finrank_eq_one (F := A ⧸ P) (E := B ⧸ Q)).mpr hF
+  refine ⟨fun x => ?_⟩
+  have hx : x ∈ (⊥ : Subalgebra (A ⧸ P) (B ⧸ Q)) := by rw [hbot]; trivial
+  obtain ⟨y, rfl⟩ := Algebra.mem_bot.mp hx
+  exact isSeparable_algebraMap y
 
 theorem abhyankarDVR_main (R K L M : Type*) [CommRing R] [IsDomain R] [IsDiscreteValuationRing R]
     [Field K] [Algebra R K] [IsFractionRing R K]
@@ -572,7 +608,29 @@ theorem abhyankarDVR_main (R K L M : Type*) [CommRing R] [IsDomain R] [IsDiscret
   have hE : Q'.ramificationIdx (integralClosure (integralClosure R L) L1) = m := by nlinarith
   have hF : Q'.inertiaDeg (integralClosure (integralClosure R L) L1) = 1 := by nlinarith
   refine ⟨by rw [htow1, hE, hm], ?_⟩
-  sorry
+  -- residue fields: `k → κ(Q) → κ(P) → κ(Q')`
+  haveI : Q.IsMaximal := Ideal.IsMaximal.of_liesOver_isMaximal Q (IsLocalRing.maximalIdeal R)
+  have hQ0 : Q ≠ ⊥ := by
+    intro h
+    apply hmax0
+    rw [Q.over_def (IsLocalRing.maximalIdeal R), h]
+    exact Ideal.comap_bot_of_injective _ (FaithfulSMul.algebraMap_injective R _)
+  haveI : Algebra.IsSeparable (FractionRing (integralClosure R L))
+      (FractionRing (integralClosure (integralClosure R L) L1)) := by
+    refine Algebra.IsSeparable.of_equiv_equiv
+      (FractionRing.algEquiv (integralClosure R L) L).symm.toRingEquiv
+      (FractionRing.algEquiv (integralClosure (integralClosure R L) L1) L1).symm.toRingEquiv ?_
+    ext _
+    exact IsFractionRing.algEquiv_commutes (FractionRing.algEquiv (integralClosure R L) L).symm
+      (FractionRing.algEquiv (integralClosure (integralClosure R L) L1) L1).symm _
+  have hsep12 : Algebra.IsSeparable (integralClosure R L ⧸ Q)
+      (integralClosure (integralClosure R L) L1 ⧸ P) := by
+    by_contra H
+    exact (dvd_differentIdeal_iff.mp
+      (dvd_differentIdeal_of_not_isSeparable (integralClosure R L) hQ0 P H)) hunr
+  have hsep23 := isSeparable_quotient_of_inertiaDeg_eq_one P Q' hF
+  have hsep02 := isSeparable_quotient_trans (IsLocalRing.maximalIdeal R) Q P hsepQ hsep12
+  exact isSeparable_quotient_trans (IsLocalRing.maximalIdeal R) P Q' hsep02 hsep23
 
 end Assembly
 
