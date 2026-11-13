@@ -65,8 +65,8 @@ g0-heightadd's version (`heightAdditivity_of_geo`) had `MetrizationDimUnique`,
 `MetrizationExists` and `ProductMetrizationGeo` as hypotheses. The first is now a theorem. The
 other two are replaced by `AnalyticUniformizationOfDim`, `JacDetNondegenerate`,
 `ProductLocalStructure` and `ProductHodgeLattice`. All the calculus and linear algebra in between
-is proved; each of the four remaining Props needs a piece of algebraic or complex geometry that
-Mathlib lacks (§4).
+is proved. The first of the four is a leaf (the uniformization theorem); each of the other three
+is glue that needs a piece of algebraic or complex geometry Mathlib lacks (§4).
 
 ## 1. `MetrizationDimUnique`, proved
 
