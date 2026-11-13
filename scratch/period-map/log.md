@@ -30,3 +30,14 @@ Task period-map (2026-11-13). Base 322303a2. Targets: `PeriodMapGlue`, `Hauptmod
   `gammaStar_inv`, `cm3_of_equiv`, `qmDenZeroCM3_of`.
   * `hauptmodulUnique_of : ThetaOmegaAnalytic → S8Nonzero → SphereFactorAffine → HauptmodulUnique`
   * `qmDenZeroCM3_of : ThetaOmegaAnalytic → S8Nonzero → S8Weight8 → S8OrderCM3 → ValenceBoundGammaStar → QMDenZeroCM3`
+
+## Lean: heavy part (DevHeavy.lean = import PMBase + part_light.lean + part_heavy.lean)
+- Finding: the committed `scratch/fibre-qm-period/FibreQM.lean` predates part_fqm.lean's last step (no
+  `qmSkolemNoetherC_proof`, `fibreQMPeriod_main`). `build_base.sh` now takes FibreQM.lean lines 1-20634 (through part_pin)
+  + the current part_fqm.lean. run_base2: 0 errors, 2m49s, 47 axioms lines, none with sorryAx. VERIFIED.
+- run_heavy1-3: errors (`O` → `LeafQM.O`; `one_mul` ambiguous with `MonObj.one_mul` under the heavy opens). Fixed.
+- run_heavy4: 0 errors; `periodMapGlue_of`, `periodMapGlue_own`, `fibreQMPeriod_periodMap` axioms
+  `[propext, Classical.choice, Quot.sound]` (and the 9 light ones again). VERIFIED.
+  * `periodMapGlue_of Y Φ π : R1fpProps Y Φ → BaseChangeClassUnique → PiTwistC Y Φ π → QMTwistLattice → PiCMC Y Φ π →
+    CMFixedHasCM → PeriodMapGlue Y Φ π`
+  * `fibreQMPeriod_periodMap`: `ThetaPt.FibreQMPeriod` from fibre-qm-period's leaves and the new named pieces.
