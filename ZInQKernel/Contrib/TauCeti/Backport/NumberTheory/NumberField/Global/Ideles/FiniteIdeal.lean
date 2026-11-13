@@ -14,9 +14,9 @@ public import ZInQKernel.Contrib.TauCeti.RingTheory.DedekindDomain.FiniteAdeleRi
 
 public section
 
+open IsDedekindDomain IsDedekindDomain.HeightOneSpectrum
 namespace IsDedekindDomain.HeightOneSpectrum
 
-open IsDedekindDomain IsDedekindDomain.HeightOneSpectrum
   IsDedekindDomain.FiniteAdeleRing NumberField NumberField.InfinitePlace
 open scoped NumberField
 variable {R : Type*} [CommRing R] [IsDedekindDomain R]

@@ -16,9 +16,9 @@ public import ZInQKernel.Contrib.TauCeti.RepresentationTheory.Homological.TateCo
 
 public noncomputable section
 
+open CategoryTheory TauCeti.ContCohomology
 namespace TauCeti.ClassFieldTheory
 
-open CategoryTheory TauCeti.ContCohomology
 variable (K : Type) [Field K] [NumberField K]
 variable (L : NormalLayer (AbsoluteGaloisGroup K))
 

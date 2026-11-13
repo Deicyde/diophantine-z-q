@@ -15,6 +15,8 @@ public import ZInQKernel.Contrib.TauCeti.RingTheory.Polynomial.Cyclotomic.Basic
 import Mathlib.Algebra.CharP.Lemmas
 import Mathlib.NumberTheory.Basic
 import ZInQKernel.Contrib.TauCeti.RingTheory.Polynomial.Distinguished
+import ZInQKernel.Contrib.TauCeti.Backport.RingTheory.Polynomial.Distinguished
+import ZInQKernel.Contrib.TauCeti.Backport.RingTheory.Polynomial.Cyclotomic.Basic
 
 /-!
 # The shifted prime-power cyclotomic polynomials

@@ -20,9 +20,9 @@ import ZInQKernel.Contrib.TauCeti.RepresentationTheory.Homological.ContCohomolog
 public section
 noncomputable section
 
+open _root_.IntermediateField
 namespace TauCeti.ClassFieldTheory
 
-open _root_.IntermediateField
 variable (K : Type) [Field K] [NumberField K]
 
 /-- **The Hasse principle for the Brauer group** (Albert–Brauer–Hasse–Noether). A Brauer class of
@@ -34,9 +34,9 @@ theorem brLocalization_injective : Function.Injective (brLocalization K) :=
 
 end TauCeti.ClassFieldTheory
 
+open _root_.IntermediateField
 namespace TauCeti.ClassFieldTheory
 
-open _root_.IntermediateField
 variable (K : Type) [Field K] [NumberField K]
 
 /-- **The sum formula.** The local invariants of every Brauer class of the number field `K` sum

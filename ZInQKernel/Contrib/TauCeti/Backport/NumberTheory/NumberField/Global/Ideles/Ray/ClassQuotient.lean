@@ -22,9 +22,9 @@ public import ZInQKernel.Contrib.TauCeti.NumberTheory.NumberField.Global.RayClas
 public section
 noncomputable section
 
+open IsDedekindDomain IsDedekindDomain.HeightOneSpectrum IsDedekindDomain.FiniteAdeleRing
 namespace TauCeti.GlobalNumberFields
 
-open IsDedekindDomain IsDedekindDomain.HeightOneSpectrum IsDedekindDomain.FiniteAdeleRing
   NumberField
 open scoped NumberField nonZeroDivisors
 variable {K : Type*} [Field K] [NumberField K] {𝔪 : Modulus K}
@@ -41,9 +41,9 @@ theorem raySubgroup_le_raySubgroup_iff {𝔪 𝔫 : Modulus K} (h : 𝔪 ∣ �
 
 end TauCeti.GlobalNumberFields
 
+open IsDedekindDomain IsDedekindDomain.HeightOneSpectrum IsDedekindDomain.FiniteAdeleRing
 namespace TauCeti.GlobalNumberFields
 
-open IsDedekindDomain IsDedekindDomain.HeightOneSpectrum IsDedekindDomain.FiniteAdeleRing
   NumberField
 open scoped NumberField nonZeroDivisors
 variable {K : Type*} [Field K] [NumberField K] {𝔪 : Modulus K}

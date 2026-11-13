@@ -19,9 +19,9 @@ import ZInQKernel.Contrib.TauCeti.GroupTheory.Index.Map
 
 public noncomputable section
 
+open IsDedekindDomain NumberField
 namespace TauCeti.ClassFieldTheory
 
-open IsDedekindDomain NumberField
 variable {K : Type*} [Field K] [NumberField K]
 
 /-- At exponent one, membership in the auxiliary Kummer subgroup is the unit condition outside
@@ -38,9 +38,9 @@ theorem mem_auxiliaryKummerIdeleSubgroup_one_iff_union
 
 end TauCeti.ClassFieldTheory
 
+open IsDedekindDomain NumberField
 namespace TauCeti.ClassFieldTheory
 
-open IsDedekindDomain NumberField
 variable {K : Type*} [Field K] [NumberField K]
 
 /-- The principal idele of `a` lies in the exponent-one auxiliary Kummer subgroup exactly when
@@ -54,9 +54,9 @@ theorem unitEmbedding_mem_auxiliaryKummerIdeleSubgroup_one_iff
 
 end TauCeti.ClassFieldTheory
 
+open IsDedekindDomain NumberField
 namespace TauCeti.ClassFieldTheory
 
-open IsDedekindDomain NumberField
 variable {K : Type*} [Field K] [NumberField K]
 
 /-- The principal ideles lying in the `(S ∪ T)`-ideles are precisely the principal
@@ -70,9 +70,9 @@ theorem comap_unitEmbedding_auxiliaryKummerIdeleSubgroup_one
 
 end TauCeti.ClassFieldTheory
 
+open IsDedekindDomain NumberField
 namespace TauCeti.ClassFieldTheory
 
-open IsDedekindDomain NumberField
 variable {K : Type*} [Field K] [NumberField K]
 
 /-- The auxiliary Kummer idele class subgroup is the image under the quotient by
@@ -86,9 +86,9 @@ theorem auxiliaryKummerIdeleClassSubgroup_def
 
 end TauCeti.ClassFieldTheory
 
+open IsDedekindDomain NumberField
 namespace TauCeti.ClassFieldTheory
 
-open IsDedekindDomain NumberField
 variable {K : Type*} [Field K] [NumberField K]
 
 /-- If the classes of the primes in `S ∪ T` generate the ideal class group, every idele
@@ -108,9 +108,9 @@ theorem auxiliaryKummerIdeleClassSubgroup_one_eq_top
 
 end TauCeti.ClassFieldTheory
 
+open IsDedekindDomain NumberField
 namespace TauCeti.ClassFieldTheory
 
-open IsDedekindDomain NumberField
 variable {K : Type*} [Field K] [NumberField K]
 
 /-- If the classes of `S ∪ T` generate the ideal class group, the quotient map restricted
@@ -128,9 +128,9 @@ theorem auxiliaryKummerIdeleSubgroup_one_mk_surjective
 
 end TauCeti.ClassFieldTheory
 
+open IsDedekindDomain NumberField
 namespace TauCeti.ClassFieldTheory
 
-open IsDedekindDomain NumberField
 variable {K : Type*} [Field K] [NumberField K]
 
 /-- Restricting the auxiliary Kummer subgroup to the exponent-one subgroup before taking
@@ -149,9 +149,9 @@ private theorem map_subgroupOf_auxiliaryKummerIdeleSubgroup
 
 end TauCeti.ClassFieldTheory
 
+open IsDedekindDomain NumberField
 namespace TauCeti.ClassFieldTheory
 
-open IsDedekindDomain NumberField
 variable {K : Type*} [Field K] [NumberField K]
 
 /-- **The index of the auxiliary Kummer idele classes.** If the classes of `S ∪ T` generate the

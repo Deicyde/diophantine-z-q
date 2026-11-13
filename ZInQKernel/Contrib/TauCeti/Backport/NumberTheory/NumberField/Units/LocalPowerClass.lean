@@ -19,9 +19,9 @@ import ZInQKernel.Contrib.TauCeti.RingTheory.Valuation.UnitGroup
 
 public noncomputable section
 
+open IsDedekindDomain NumberField TauCeti
 namespace Set
 
-open IsDedekindDomain NumberField TauCeti
 variable {K : Type*} [Field K] [NumberField K]
   (S T : Set (HeightOneSpectrum (𝓞 K))) (hST : Disjoint S T)
 

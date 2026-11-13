@@ -22,10 +22,10 @@ import ZInQKernel.Contrib.TauCeti.NumberTheory.NumberField.Global.RayClass.Integ
 
 public section
 
-namespace TauCeti.GlobalNumberFields
-
 open IsDedekindDomain NumberField
 open scoped nonZeroDivisors NumberField
+namespace TauCeti.GlobalNumberFields
+
 variable (n : ℕ) (hn : n ≠ 0)
 variable {n hn}
 variable (n hn)
@@ -47,10 +47,10 @@ theorem dvd_ratModulus_iff {𝔪 : Modulus ℚ} :
 
 end TauCeti.GlobalNumberFields
 
-namespace TauCeti.GlobalNumberFields
-
 open IsDedekindDomain NumberField
 open scoped nonZeroDivisors NumberField
+namespace TauCeti.GlobalNumberFields
+
 variable (n : ℕ) (hn : n ≠ 0)
 variable {n hn}
 variable (n hn)

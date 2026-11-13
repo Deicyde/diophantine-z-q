@@ -17,9 +17,9 @@ public import ZInQKernel.Contrib.TauCeti.NumberTheory.NumberField.Global.Ideles.
 
 public noncomputable section
 
+open IntermediateField NumberField
 namespace TauCeti.ClassFieldTheory
 
-open IntermediateField NumberField
 variable (K : Type) [Field K] [NumberField K]
 local notation "Ω" => FiniteGaloisIntermediateField K (SeparableClosure K)
 variable {K}
@@ -37,9 +37,9 @@ def globalGroundOrderIso :
 
 end TauCeti.ClassFieldTheory
 
+open IntermediateField NumberField
 namespace TauCeti.ClassFieldTheory
 
-open IntermediateField NumberField
 variable (K : Type) [Field K] [NumberField K]
 local notation "Ω" => FiniteGaloisIntermediateField K (SeparableClosure K)
 variable {K}
@@ -54,9 +54,9 @@ theorem mem_globalGroundOrderIso {H : Subgroup (IdeleClassGroup (𝓞 K) K)}
 
 end TauCeti.ClassFieldTheory
 
+open IntermediateField NumberField
 namespace TauCeti.ClassFieldTheory
 
-open IntermediateField NumberField
 variable (K : Type) [Field K] [NumberField K]
 local notation "Ω" => FiniteGaloisIntermediateField K (SeparableClosure K)
 variable {K}

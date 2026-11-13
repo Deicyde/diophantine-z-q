@@ -17,11 +17,11 @@ public import ZInQKernel.Contrib.TauCeti.NumberTheory.NumberField.LocalGlobal.De
 public section
 noncomputable section
 
-namespace AlgHom
-
 open IsDedekindDomain NumberField
 open scoped AdicCompletionExtension Pointwise
 open TauCeti
+namespace AlgHom
+
 variable {K F E : Type*} [Field K] [NumberField K] [Field F] [NumberField F] [Field E]
   [NumberField E] [Algebra K F] [Algebra K E] [Algebra F E] [IsScalarTower K F E]
 

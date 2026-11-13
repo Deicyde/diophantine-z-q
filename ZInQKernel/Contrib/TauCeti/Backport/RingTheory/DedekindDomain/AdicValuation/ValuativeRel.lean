@@ -18,10 +18,10 @@ public import ZInQKernel.Contrib.TauCeti.RingTheory.DedekindDomain.AdicValuation
 public section
 noncomputable section
 
-namespace IsDedekindDomain.HeightOneSpectrum
-
 open ValuativeRel Valued.integer
 open scoped WithZero
+namespace IsDedekindDomain.HeightOneSpectrum
+
 variable {R : Type*} [CommRing R] [IsDedekindDomain R]
   {K : Type*} [Field K] [Algebra R K] [IsFractionRing R K] (v : HeightOneSpectrum R)
 

@@ -12,6 +12,7 @@ public import Mathlib.GroupTheory.OrderOfElement
 
 import Mathlib.GroupTheory.GroupAction.ConjAct
 import ZInQKernel.Contrib.TauCeti.GroupTheory.SpecificGroups.Cyclic.Basic
+import ZInQKernel.Contrib.TauCeti.Backport.GroupTheory.SpecificGroups.Cyclic.Basic
 
 /-!
 # The norm of a finite group action

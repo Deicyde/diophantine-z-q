@@ -19,10 +19,10 @@ import ZInQKernel.Contrib.TauCeti.GroupTheory.QuotientGroup.Index
 public section
 noncomputable section
 
-namespace TauCeti.GlobalNumberFields
-
 open IsDedekindDomain NumberField NumberField.InfinitePlace
 open scoped AdicCompletionExtension NumberField.LiesOver
+namespace TauCeti.GlobalNumberFields
+
 variable (K L : Type*) [Field K] [NumberField K] [Field L] [NumberField L] [Algebra K L]
 
 variable {K L} in

@@ -10,6 +10,7 @@ public import ZInQKernel.Contrib.TauCeti.RepresentationTheory.Homological.ContCo
 public import ZInQKernel.Contrib.TauCeti.RepresentationTheory.Homological.ContCohomology.Corestriction.Pullback
 import ZInQKernel.Contrib.TauCeti.Algebra.Group.Subgroup.Map
 import ZInQKernel.Contrib.TauCeti.Backport.Topology.Algebra.ContinuousMonoidHom.Basic
+import ZInQKernel.Contrib.TauCeti.Backport.RepresentationTheory.Homological.ContCohomology.Corestriction.Mackey.Basic
 
 /-!
 # The Mackey formula along a continuous homomorphism

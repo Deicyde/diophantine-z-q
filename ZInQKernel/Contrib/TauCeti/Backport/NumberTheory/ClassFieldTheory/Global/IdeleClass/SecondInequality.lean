@@ -19,9 +19,9 @@ import ZInQKernel.Contrib.TauCeti.NumberTheory.ClassFieldTheory.Formation.PrimeD
 public section
 noncomputable section
 
+open IntermediateField NumberField
 namespace TauCeti.ClassFieldTheory
 
-open IntermediateField NumberField
 variable {K : Type} [Field K] [NumberField K]
   (h : ∀ (F L : Type) [Field F] [NumberField F] [Field L] [NumberField L] [Algebra F L]
     [IsGalois F L] (p : ℕ) [Fact p.Prime] [HasEnoughRootsOfUnity F p],
@@ -38,9 +38,9 @@ theorem subsingleton_h1_globalFormation
 
 end TauCeti.ClassFieldTheory
 
+open IntermediateField NumberField
 namespace TauCeti.ClassFieldTheory
 
-open IntermediateField NumberField
 variable {K : Type} [Field K] [NumberField K]
   (h : ∀ (F L : Type) [Field F] [NumberField F] [Field L] [NumberField L] [Algebra F L]
     [IsGalois F L] (p : ℕ) [Fact p.Prime] [HasEnoughRootsOfUnity F p],

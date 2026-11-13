@@ -27,10 +27,10 @@ import ZInQKernel.Contrib.TauCeti.RingTheory.DedekindDomain.PrimesAbove
 public section
 noncomputable section
 
-namespace TauCeti.ClassFieldTheory
-
 open IsDedekindDomain _root_.NumberField ContCohomology
 open scoped TensorProduct
+namespace TauCeti.ClassFieldTheory
+
 variable {K : Type} [Field K] [NumberField K] {v : HeightOneSpectrum (𝓞 K)}
 local notation "Ω" => FiniteGaloisIntermediateField K (SeparableClosure K)
 variable {w : InfinitePlace K}
@@ -65,10 +65,10 @@ theorem exists_ideleCoeffInfiniteComponent_ideleCoeffOfIntermediateField_eq
 
 end TauCeti.ClassFieldTheory
 
-namespace TauCeti.ClassFieldTheory
-
 open IsDedekindDomain _root_.NumberField ContCohomology
 open scoped TensorProduct
+namespace TauCeti.ClassFieldTheory
+
 variable {K : Type} [Field K] [NumberField K] {v : HeightOneSpectrum (𝓞 K)}
 local notation "Ω" => FiniteGaloisIntermediateField K (SeparableClosure K)
 open scoped AdicCompletionExtension
@@ -102,10 +102,10 @@ theorem exists_ideleCoeffComponent_ideleExtension_eq :
 
 end TauCeti.ClassFieldTheory
 
-namespace TauCeti.ClassFieldTheory
-
 open IsDedekindDomain _root_.NumberField ContCohomology
 open scoped TensorProduct
+namespace TauCeti.ClassFieldTheory
+
 variable {K : Type} [Field K] [NumberField K] {v : HeightOneSpectrum (𝓞 K)}
 local notation "Ω" => FiniteGaloisIntermediateField K (SeparableClosure K)
 open scoped AdicCompletionExtension

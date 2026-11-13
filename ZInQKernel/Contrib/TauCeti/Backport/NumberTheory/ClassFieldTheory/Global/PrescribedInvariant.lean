@@ -29,6 +29,13 @@ import ZInQKernel.Contrib.TauCeti.NumberTheory.NumberField.FinitePlace.Basic
 import ZInQKernel.Contrib.TauCeti.NumberTheory.NumberField.Global.Ideles.Norm.Basic
 import ZInQKernel.Contrib.TauCeti.RepresentationTheory.Homological.ContCohomology.Corestriction.Conjugation
 import ZInQKernel.Contrib.TauCeti.RingTheory.RootsOfUnity.PrimitiveRoots
+import ZInQKernel.Contrib.TauCeti.Backport.NumberTheory.ClassFieldTheory.Global.IdeleLocalization
+import ZInQKernel.Contrib.TauCeti.Backport.NumberTheory.ClassFieldTheory.Brauer.CharacterFormula
+import ZInQKernel.Contrib.TauCeti.Backport.NumberTheory.ClassFieldTheory.Formation.Layer.Inflation
+import ZInQKernel.Contrib.TauCeti.Backport.NumberTheory.NumberField.LocalGlobal.Semilocal.Basic
+import ZInQKernel.Contrib.TauCeti.Backport.NumberTheory.Cyclotomic.FixingSubgroup
+import ZInQKernel.Contrib.TauCeti.Backport.Topology.Algebra.ContinuousMonoidHom.Basic
+import ZInQKernel.Contrib.TauCeti.Backport.RepresentationTheory.Homological.ContCohomology.CarryCocycle
 
 /-!
 # Idele classes with prescribed local invariants

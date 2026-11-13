@@ -20,10 +20,10 @@ import ZInQKernel.Contrib.TauCeti.NumberTheory.NumberField.LocalGlobal.AbsoluteG
 public section
 noncomputable section
 
-namespace AlgHom
-
 open IsDedekindDomain NumberField
 open scoped AdicCompletionExtension Pointwise
+namespace AlgHom
+
 variable {K : Type} [Field K] [NumberField K]
 open TauCeti TauCeti.ClassFieldTheory
 
@@ -48,10 +48,10 @@ theorem exists_absoluteGaloisGroupMap_apply_eq_of_finrank_prime {F E : Type} [Fi
 
 end AlgHom
 
-namespace TauCeti.ClassFieldTheory.NormalLayer
-
 open IsDedekindDomain NumberField
 open scoped AdicCompletionExtension Pointwise
+namespace TauCeti.ClassFieldTheory.NormalLayer
+
 variable {K : Type} [Field K] [NumberField K]
 open TauCeti IntermediateField
 

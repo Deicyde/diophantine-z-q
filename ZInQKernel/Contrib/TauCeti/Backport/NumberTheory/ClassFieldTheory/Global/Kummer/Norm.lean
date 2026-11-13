@@ -21,10 +21,10 @@ import ZInQKernel.Contrib.TauCeti.NumberTheory.NumberField.LocalGlobal.Semilocal
 public section
 noncomputable section
 
-namespace TauCeti.ClassFieldTheory
-
 open IsDedekindDomain NumberField
 open scoped AdicCompletionExtension
+namespace TauCeti.ClassFieldTheory
+
 variable {K E : Type} [Field K] [NumberField K] [Field E] [Algebra K E]
 
 /-- **The auxiliary Kummer idele classes are norms from an intermediate Kummer field.**
