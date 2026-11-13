@@ -33,3 +33,24 @@ COMPILED 04:23 (41 s; 0 errors). `Base.lean` is byte-identical to scratch/g0-hei
   AnalyticUniformizationOfDim → JacDetDescends → JacDetNondegenerate → MetrizationExists`,
   `metrized_dim_eq` (every metrization has g = dim A, same hypotheses): all compiled,
   axioms [propext, Classical.choice, Quot.sound]. VERIFIED.
+
+## Run 4: + part_prodgeo — COMPILED 04:27 (2 min 8 s; 0 errors)
+- new: `leftBlock`, `rightBlock`, `prodLattice`, `prodPts`; Props `ProductLatticeFacts` (pure
+  Mathlib glue), `ProductUniformization` (glue), `ProductHodgeCompat` (glue).
+- `productMetrizationGeo_of : JacDetDescends → ProductUniformization → ProductLatticeFacts →
+  ProductHodgeCompat → ProductMetrizationGeo`: axioms [propext, Classical.choice, Quot.sound]. VERIFIED.
+
+## Run 5-6: ProdLattice.lean (Mathlib only) — first attempt 3 errors (Subtype.val unification,
+  membership in `prodLattice`, beta-redex before `rw [Submodule.vadd_def]`); fixed —
+  COMPILED 04:32 (7 s; 0 errors).
+- `productLatticeFacts : ProductLatticeFacts` PROVED (discreteness by injecting into `Λ₁ × Λ₂`;
+  full rank via `Fin.append x 0 + Fin.append 0 y`; covolume: fundamental domain
+  `φ⁻¹(F₁ ×ˢ F₂)`, `φ = blockLinearEquiv` volume-preserving (piCongrLeft ∘ sumPiEquivProdPi),
+  `Measure.prod_prod`). Axioms [propext, Classical.choice, Quot.sound]. VERIFIED.
+
+## Run 7: Metrization.lean with part_prodlat + part_final — COMPILED 04:34 (30 s; 0 errors)
+- `productMetrizationGeo_of' : JacDetDescends → ProductUniformization → ProductHodgeCompat →
+  ProductMetrizationGeo`; `HSyn.G0Split.heightAdditivity_of_metrization : N1 → LeafAdopt.H5 →
+  AnalyticUniformizationUnique → HodgeLatticeTheorem → AnalyticUniformizationOfDim →
+  JacDetDescends → JacDetNondegenerate → ProductUniformization → ProductHodgeCompat →
+  HeightAdditivity`. All #print axioms [propext, Classical.choice, Quot.sound]. VERIFIED.
