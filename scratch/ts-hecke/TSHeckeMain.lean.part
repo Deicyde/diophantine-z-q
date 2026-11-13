@@ -293,6 +293,149 @@ theorem genericFibreCount : GenericFibreCount := fun E _ _ _ _ _ => GFC.genericF
 theorem heckeDegree_of_torsion (hT : ObjBridge.TorsionStructure) : HeckeDegree :=
   heckeDegree_of genericFibreCount hT
 
+/-! ## Part 3: `HeckeNormalizationIrr`
+
+The moduli-theoretic input is **fibre transitivity**: two `ℚ̄`-points with the same `π`-value
+differ by an automorphism of `Y` coming from R1hecke (`twist α`, then `rightMul u`), and these
+automorphisms preserve `π`. It is proved here from R1hecke, R2fp, the kernel's leaf
+`TorsionStructure` (level torsor) and the surjectivity of `𝒪^× → (𝒪/3𝒪)^×` (`Units.lean`). What
+is left is one statement of curve theory with no moduli in it, `CurveGaloisChart`. -/
+
+/-- **Fibre transitivity on classes** (compiled). -/
+theorem fibre_transitive (hT : ObjBridge.TorsionStructure) {Y : Over (Spec (CommRingCat.of ℚ))}
+    {Φ : PtEquiv Y} {π : ToP1 Y.left} (h2 : R2fpProps Y Φ π) (y y' : fieldPt Qbar ⟶ Y)
+    (hyy : π.val (K := Qbar) y.left = π.val (K := Qbar) y'.left) :
+    ∃ α : O ≃+* O, ∃ u : Oˣ, Φ Qbar y' = M3.rightMul u (M3.twist α (Φ Qbar y)) := by
+  set P := Quotient.out (Φ Qbar y)
+  set Q := Quotient.out (Φ Qbar y')
+  have hP : Φ Qbar y = M3.mk P := (Quotient.out_eq _).symm
+  have hQ : Φ Qbar y' = M3.mk Q := (Quotient.out_eq _).symm
+  obtain ⟨α, ⟨G⟩⟩ := ((h2 y y' P Q hP hQ).1).1 hyy
+  let e₀ : Level3 (P.twist α).q := pullLevel G Q.e
+  obtain ⟨u₀, v₀, hvu, hu⟩ := Level3.torsor hT (P.twist α) e₀
+  obtain ⟨u, d, hd⟩ := TSHeckeUnits.exists_unit_congr u₀ v₀ hvu
+  refine ⟨α, u, ?_⟩
+  have he : (P.twist α).e.rightMul u = e₀ := Level3.ext' (AddMonoidHom.ext fun a => by
+    rw [hu a]
+    show (P.twist α).e.eta (a * u) = (P.twist α).e.eta (a * u₀)
+    rw [(P.twist α).e.eq_iff]
+    exact ⟨-(a * d), by rw [← _root_.mul_sub, ← neg_sub, hd]; noncomm_ring⟩)
+  rw [hQ, hP]
+  show M3.mk Q = M3.mk ((P.twist α).rightMul u)
+  have hiso : QML3.Iso ((P.twist α).rightMul u) Q := by
+    show QML3.Iso ⟨P.A, P.surface, (P.twist α).q, (P.twist α).e.rightMul u⟩ Q
+    rw [he]
+    exact pullIso P.surface Q.surface G Q.e
+  symm
+  exact Quotient.sound ⟨hiso⟩
+
+/-- **Fibre transitivity by automorphisms of `Y`** (compiled): two `ℚ̄`-points with the same
+`π`-value differ by the composite of two automorphisms supplied by R1hecke. -/
+theorem fibre_transitive_aut (hT : ObjBridge.TorsionStructure)
+    {Y : Over (Spec (CommRingCat.of ℚ))} {Φ : PtEquiv Y} {π : ToP1 Y.left}
+    (hh : R1heckeProps Y Φ) (h2 : R2fpProps Y Φ π) (y y' : fieldPt Qbar ⟶ Y)
+    (hyy : π.val (K := Qbar) y.left = π.val (K := Qbar) y'.left) :
+    ∃ (α : O ≃+* O) (u : Oˣ) (g₁ g₂ : Y ≅ Y),
+      (∀ (K : Type) [Field K] [Algebra ℚ K] (z : fieldPt K ⟶ Y),
+        Φ K (z ≫ g₁.hom) = M3.twist α (Φ K z)) ∧
+      (∀ (K : Type) [Field K] [Algebra ℚ K] (z : fieldPt K ⟶ Y),
+        Φ K (z ≫ g₂.hom) = M3.rightMul u (Φ K z)) ∧
+      y' = y ≫ g₁.hom ≫ g₂.hom := by
+  obtain ⟨α, u, hαu⟩ := fibre_transitive hT h2 y y' hyy
+  obtain ⟨g₁, hg₁⟩ := hh.1 α
+  obtain ⟨g₂, hg₂⟩ := hh.2 u
+  refine ⟨α, u, g₁, g₂, hg₁, hg₂, (Φ Qbar).injective ?_⟩
+  rw [hαu, ← Category.assoc, hg₂, hg₁]
+
+/-- **The automorphisms of R1hecke preserve `π` on `ℚ̄`-points** (compiled; R2fp's fibre clause).
+Twist case. -/
+theorem pi_invariant_twist {Y : Over (Spec (CommRingCat.of ℚ))} {Φ : PtEquiv Y}
+    {π : ToP1 Y.left} (h2 : R2fpProps Y Φ π) (α : O ≃+* O) (g : Y ≅ Y)
+    (hg : ∀ (K : Type) [Field K] [Algebra ℚ K] (z : fieldPt K ⟶ Y),
+      Φ K (z ≫ g.hom) = M3.twist α (Φ K z)) (z : fieldPt Qbar ⟶ Y) :
+    π.val (K := Qbar) (z ≫ g.hom).left = π.val (K := Qbar) z.left := by
+  set P := Quotient.out (Φ Qbar z)
+  set Q := Quotient.out (Φ Qbar (z ≫ g.hom))
+  have hP : Φ Qbar z = M3.mk P := (Quotient.out_eq _).symm
+  have hQ : Φ Qbar (z ≫ g.hom) = M3.mk Q := (Quotient.out_eq _).symm
+  have hQP : M3.mk (P.twist α) = M3.mk Q := by rw [← hQ, hg, hP]; rfl
+  obtain ⟨f⟩ := Quotient.exact hQP
+  have hf : QMIso (P.q.twist α) Q.q := ⟨f.φ, f.ψ, f.left, f.right, f.equivariant⟩
+  exact (((h2 z (z ≫ g.hom) P Q hP hQ).1).2 ⟨α, ⟨hf⟩⟩).symm
+
+/-- `rightMul` case. -/
+theorem pi_invariant_rightMul {Y : Over (Spec (CommRingCat.of ℚ))} {Φ : PtEquiv Y}
+    {π : ToP1 Y.left} (h2 : R2fpProps Y Φ π) (u : Oˣ) (g : Y ≅ Y)
+    (hg : ∀ (K : Type) [Field K] [Algebra ℚ K] (z : fieldPt K ⟶ Y),
+      Φ K (z ≫ g.hom) = M3.rightMul u (Φ K z)) (z : fieldPt Qbar ⟶ Y) :
+    π.val (K := Qbar) (z ≫ g.hom).left = π.val (K := Qbar) z.left := by
+  set P := Quotient.out (Φ Qbar z)
+  set Q := Quotient.out (Φ Qbar (z ≫ g.hom))
+  have hP : Φ Qbar z = M3.mk P := (Quotient.out_eq _).symm
+  have hQ : Φ Qbar (z ≫ g.hom) = M3.mk Q := (Quotient.out_eq _).symm
+  have hQP : M3.mk (P.rightMul u) = M3.mk Q := by rw [← hQ, hg, hP]; rfl
+  obtain ⟨f⟩ := Quotient.exact hQP
+  have hf : QMIso (P.q.twist (RingEquiv.refl O)) Q.q :=
+    ⟨f.φ, f.ψ, f.left, f.right, fun a => f.equivariant a⟩
+  exact (((h2 z (z ≫ g.hom) P Q hP hQ).1).2 ⟨RingEquiv.refl O, ⟨hf⟩⟩).symm
+
+/-- **The `π`-fibres on `ℚ̄`-points are finite** (compiled; `twistFibre_count`). -/
+theorem fibre_finite (hT : ObjBridge.TorsionStructure) {Y : Over (Spec (CommRingCat.of ℚ))}
+    {Φ : PtEquiv Y} {π : ToP1 Y.left} (h2 : R2fpProps Y Φ π) (t : OnePoint Qbar) :
+    {y : fieldPt Qbar ⟶ Y | π.val (K := Qbar) y.left = t}.Finite := by
+  rcases Set.eq_empty_or_nonempty {y : fieldPt Qbar ⟶ Y | π.val (K := Qbar) y.left = t} with
+    h | ⟨y₀, hy₀⟩
+  · rw [h]; exact Set.finite_empty
+  set P := Quotient.out (Φ Qbar y₀)
+  have hP : Φ Qbar y₀ = M3.mk P := (Quotient.out_eq _).symm
+  refine Set.Finite.of_finite_image ((twistFibre_count hT P).1.subset ?_)
+    ((Φ Qbar).injective.injOn)
+  rintro _ ⟨y, hy, rfl⟩
+  set Q := Quotient.out (Φ Qbar y)
+  have hQ : Φ Qbar y = M3.mk Q := (Quotient.out_eq _).symm
+  exact ⟨Q, hQ, ((h2 y₀ y P Q hP hQ).1).1 (hy₀.trans hy.symm)⟩
+
+/-- **Glue (curve theory; h-b1 M1, M2, M8), with no moduli in it.** Let `Y` be a proper smooth
+irreducible curve over `ℚ` and `π : Y → P¹` a morphism with finite fibres on `ℚ̄`-points, such
+that any two `ℚ̄`-points with the same `π`-value differ by an automorphism of `Y` preserving `π` on
+`ℚ̄`-points. Then there is a finite Galois `E/ℚ(X)` with `NormalizationModel Y π E`.
+*Proof* (STANDARD; Hartshorne II.6.7-6.8, II.5.20 and Ex. II.3.5; Artin's theorem): `π` is
+quasi-finite and proper, hence finite (EGA III 4.4.2 / Stacks 02OG); `Y` is normal (smooth), so
+`π⁻¹(𝔸¹) = Spec B` with `B` the integral closure of `ℚ[X]` in `E = ℚ(Y)`; the `π`-preserving
+automorphisms act on `E` over `ℚ(X)`, faithfully (`Y` integral and separated), and transitively on
+a generic geometric fibre, which has `[E : ℚ(X)]` points (generic étaleness in characteristic 0),
+so the group `G` they generate has `|G| ≥ [E : ℚ(X)] ≥ [E : E^G] = |G|`; hence `E^G = ℚ(X)` and
+`E/ℚ(X)` is Galois (Artin). Locators UNVERIFIED. Glue, not a leaf. -/
+def CurveGaloisChart : Prop :=
+  ∀ (Y : Over (Spec (CommRingCat.of ℚ))) (π : ToP1 Y.left),
+    IsProper Y.hom → SmoothOfRelativeDimension 1 Y.hom → IrreducibleSpace Y.left →
+    (∀ t : OnePoint Qbar, {y : fieldPt Qbar ⟶ Y | π.val (K := Qbar) y.left = t}.Finite) →
+    (∀ y y' : fieldPt Qbar ⟶ Y, π.val (K := Qbar) y.left = π.val (K := Qbar) y'.left →
+      ∃ g : Y ≅ Y, y' = y ≫ g.hom ∧
+        ∀ z : fieldPt Qbar ⟶ Y, π.val (K := Qbar) (z ≫ g.hom).left = π.val (K := Qbar) z.left) →
+    ∃ (E : Type) (_ : Field E) (_ : Algebra (RatFunc ℚ) E) (_ : Algebra ℚ[X] E)
+      (_ : IsScalarTower ℚ[X] (RatFunc ℚ) E) (_ : FiniteDimensional (RatFunc ℚ) E)
+      (_ : IsGalois (RatFunc ℚ) E), NormalizationModel Y π E
+
+/-- **`HeckeNormalizationIrr` from `CurveGaloisChart` and the kernel's leaf `TorsionStructure`**
+(compiled). -/
+theorem heckeNormalizationIrr_of (hC : CurveGaloisChart) (hT : ObjBridge.TorsionStructure) :
+    HeckeNormalizationIrr := by
+  intro Y Φ π h1 hh h2 hI
+  obtain ⟨hP, hS, -⟩ := h1
+  refine hC Y π hP hS hI (fibre_finite hT h2) ?_
+  intro y y' hyy
+  obtain ⟨α, u, g₁, g₂, hg₁, hg₂, hy⟩ := fibre_transitive_aut hT hh h2 y y' hyy
+  refine ⟨g₁ ≪≫ g₂, by rw [hy]; rfl, fun z => ?_⟩
+  change π.val (K := Qbar) (z ≫ g₁.hom ≫ g₂.hom).left = _
+  rw [← Category.assoc, pi_invariant_rightMul h2 u g₂ hg₂, pi_invariant_twist h2 α g₁ hg₁]
+
+/-- **`HeckeNormalization` (both parts)** from the leaf R1conn, `CurveGaloisChart` and
+`TorsionStructure` (compiled). -/
+theorem heckeNormalization_of (hconn : Y3Connected) (hC : CurveGaloisChart)
+    (hT : ObjBridge.TorsionStructure) : HeckeNormalization :=
+  heckeNormalization_of_irr (heckeIrreducible_of_connected hconn) (heckeNormalizationIrr_of hC hT)
+
 end TSHecke
 
 end
@@ -310,3 +453,10 @@ end
 #print axioms TSHecke.heckeDegree_of
 #print axioms TSHecke.genericFibreCount
 #print axioms TSHecke.heckeDegree_of_torsion
+#print axioms TSHecke.fibre_transitive
+#print axioms TSHecke.fibre_transitive_aut
+#print axioms TSHecke.pi_invariant_twist
+#print axioms TSHecke.pi_invariant_rightMul
+#print axioms TSHecke.fibre_finite
+#print axioms TSHecke.heckeNormalizationIrr_of
+#print axioms TSHecke.heckeNormalization_of

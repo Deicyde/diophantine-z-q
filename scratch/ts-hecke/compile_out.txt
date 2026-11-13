@@ -166,7 +166,7 @@ Hint: Omit it from the simp argument list.
   [apply] simp only [Polynomial.map_add, Polynomial.map_mul, Polynomial.map_C] at this
 
 Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
-scratch/ts-hecke/TSHecke.lean:2846:2: warning: Try this: 
+scratch/ts-hecke/TSHecke.lean:3054:2: warning: Try this: 
   letI̵
 
 The goal is a proposition, so `let` is preferred over `letI`.
@@ -174,7 +174,7 @@ The difference between `let` and `letI` is that `letI` inlines the value.
 But this is not relevant for proofs because of proof irrelevance.
 
 Note: This linter can be disabled with `set_option linter.style.haveILetI false`
-scratch/ts-hecke/TSHecke.lean:3050:18: warning: `dif_pos` has been deprecated: Use `dite_eq_left` instead
+scratch/ts-hecke/TSHecke.lean:3258:18: warning: `dif_pos` has been deprecated: Use `dite_eq_left` instead
 
 Hint: Replace the deprecated name:
   d̵i̵f̵_̵p̵o̵s̵d̲i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
@@ -191,3 +191,10 @@ Hint: Replace the deprecated name:
 'TSHecke.heckeDegree_of' depends on axioms: [propext, Classical.choice, Quot.sound]
 'TSHecke.genericFibreCount' depends on axioms: [propext, Classical.choice, Quot.sound]
 'TSHecke.heckeDegree_of_torsion' depends on axioms: [propext, Classical.choice, Quot.sound]
+'TSHecke.fibre_transitive' depends on axioms: [propext, Classical.choice, Quot.sound]
+'TSHecke.fibre_transitive_aut' depends on axioms: [propext, Classical.choice, Quot.sound]
+'TSHecke.pi_invariant_twist' depends on axioms: [propext, Classical.choice, Quot.sound]
+'TSHecke.pi_invariant_rightMul' depends on axioms: [propext, Classical.choice, Quot.sound]
+'TSHecke.fibre_finite' depends on axioms: [propext, Classical.choice, Quot.sound]
+'TSHecke.heckeNormalizationIrr_of' depends on axioms: [propext, Classical.choice, Quot.sound]
+'TSHecke.heckeNormalization_of' depends on axioms: [propext, Classical.choice, Quot.sound]

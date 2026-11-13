@@ -47,3 +47,18 @@ Verdict: HeckeIrreducible is TRUE (not speculative any more, modulo the publishe
   `IsAlgClosed.lift`). 0 errors, axioms standard.
 - `heckeDegree_of_torsion : ObjBridge.TorsionStructure → HeckeDegree`. So HeckeDegree rests only on
   the kernel's textbook leaf I2-Tors (Mumford §4).
+
+## Step 4. Lean, Part 3: HeckeNormalizationIrr — VERIFIED (compiled, 0 errors)
+
+- `Units.lean`: `exists_unit_congr` (𝒪^× → (𝒪/3𝒪)^× onto): table of 72 explicit units
+  (`units_table.py`), `tbl_spec` by `decide +kernel`, reduced norm `nrdC` multiplicative (ring),
+  inverse = ±conjugate. Axioms standard.
+- `fibre_transitive` / `fibre_transitive_aut`: two ℚ̄-points with the same π-value differ by
+  g₁ ≫ g₂ (R1hecke's twist α, rightMul u). Inputs: R2fp, R1hecke, TorsionStructure (torsor), units.
+- `pi_invariant_twist`, `pi_invariant_rightMul`: these automorphisms preserve π on ℚ̄-points.
+- `fibre_finite`: π-fibres on ℚ̄-points are finite (twistFibre_count).
+- `CurveGaloisChart` (new glue Prop, curve theory with no moduli: proper smooth irreducible curve,
+  finite ℚ̄-fibres, π-preserving automorphisms transitive on ℚ̄-fibres ⇒ finite Galois E with
+  NormalizationModel).
+- `heckeNormalizationIrr_of : CurveGaloisChart → TorsionStructure → HeckeNormalizationIrr`;
+  `heckeNormalization_of : Y3Connected → CurveGaloisChart → TorsionStructure → HeckeNormalization`.

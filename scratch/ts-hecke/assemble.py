@@ -79,6 +79,19 @@ section GFCopy
 ''')
 out.append('\n'.join(gf))
 out.append('\nend GFCopy\n')
+un = open('scratch/ts-hecke/Units.lean').read().split('\n')
+assert un[0].startswith('import ZInQKernel.HDecomp.QM.Structures')
+un = [l for l in un[1:] if not l.startswith('#print')]
+out.append('''
+/-! ════════════════════════════════════════════════════════════════════════════════════════════
+# `scratch/ts-hecke/Units.lean` (task ts-hecke), minus its import and `#print` lines:
+`TSHeckeUnits.exists_unit_congr` (`𝒪^× → (𝒪/3𝒪)^×` is onto).
+════════════════════════════════════════════════════════════════════════════════════════════ -/
+
+section UnitsCopy
+''')
+out.append('\n'.join(un))
+out.append('\nend UnitsCopy\n')
 with open('scratch/ts-hecke/TSHeckeMain.lean.part') as f:
     out.append(f.read())
 with open('scratch/ts-hecke/TSHecke.lean', 'w') as f:

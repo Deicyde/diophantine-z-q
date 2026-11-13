@@ -2815,6 +2815,214 @@ end GFC
 end GFCopy
 
 /-! ════════════════════════════════════════════════════════════════════════════════════════════
+# `scratch/ts-hecke/Units.lean` (task ts-hecke), minus its import and `#print` lines:
+`TSHeckeUnits.exists_unit_congr` (`𝒪^× → (𝒪/3𝒪)^×` is onto).
+════════════════════════════════════════════════════════════════════════════════════════════ -/
+
+section UnitsCopy
+
+/-! # ts-hecke: `𝒪^× → (𝒪/3𝒪)^×` is onto (development file)
+
+Table of 72 explicit units (`units_table.py`), checked by `decide`. -/
+
+noncomputable section
+
+namespace TSHeckeUnits
+
+open LeafQM LeafQM.AV
+
+/-- The reduced norm in `ofInt` coordinates:
+`nrd(n₀ + n₁ i + n₂ (1+j)/2 + n₃ (i+k)/2) = n₀² + n₀n₂ + n₂² − 2(n₁² + n₁n₃ + n₃²)`. -/
+def nrdC (n : Fin 4 → ℤ) : ℤ := n 0 ^ 2 + n 0 * n 2 + n 2 ^ 2 - 2 * (n 1 ^ 2 + n 1 * n 3 + n 3 ^ 2)
+
+/-- The conjugate in `ofInt` coordinates. -/
+def conjC (n : Fin 4 → ℤ) : Fin 4 → ℤ := ![n 0 + n 2, -n 1, -n 2, -n 3]
+
+theorem nrdC_mul (n m : Fin 4 → ℤ) : nrdC (mulCoord n m) = nrdC n * nrdC m := by
+  simp only [nrdC, mulCoord, Matrix.cons_val_zero, Matrix.cons_val_one, Matrix.cons_val_two,
+    Matrix.cons_val_three, Matrix.head_cons, Matrix.tail_cons]
+  ring
+
+theorem mulCoord_smul_conjC (n : Fin 4 → ℤ) (ε : ℤ) :
+    mulCoord n (fun i => ε * conjC n i) = ![ε * nrdC n, 0, 0, 0] := by
+  funext i
+  fin_cases i <;>
+    simp [mulCoord, conjC, nrdC] <;> ring
+
+theorem mulCoord_smul_conjC' (n : Fin 4 → ℤ) (ε : ℤ) :
+    mulCoord (fun i => ε * conjC n i) n = ![ε * nrdC n, 0, 0, 0] := by
+  funext i
+  fin_cases i <;>
+    simp [mulCoord, conjC, nrdC] <;> ring
+
+/-- A unit of `𝒪` from coordinates of reduced norm `ε = ±1`. -/
+def unitOf (n : Fin 4 → ℤ) (ε : ℤ) (hε : nrdC n = ε) (hε2 : ε * ε = 1) : Oˣ where
+  val := ⟨ofInt n, n, rfl⟩
+  inv := ⟨ofInt (fun i => ε * conjC n i), _, rfl⟩
+  val_inv := by
+    apply Subtype.ext
+    change ofInt n * ofInt (fun i => ε * conjC n i) = 1
+    rw [ofInt_mul, mulCoord_smul_conjC, hε, hε2, ofInt_one]
+  inv_val := by
+    apply Subtype.ext
+    change ofInt (fun i => ε * conjC n i) * ofInt n = 1
+    rw [ofInt_mul, mulCoord_smul_conjC', hε, hε2, ofInt_one]
+
+def unitTbl : List (Fin 4 → ℤ) :=
+  [![0, 0, 0, 0],
+   ![1, 0, 0, 0],
+   ![-1, 0, 0, 0],
+   ![-3, -2, 0, 0],
+   ![1, 1, 0, 0],
+   ![-1, 1, 0, 0],
+   ![-3, 2, 0, 0],
+   ![1, -1, 0, 0],
+   ![-1, -1, 0, 0],
+   ![0, 0, 1, 0],
+   ![0, 0, 0, 0],
+   ![-1, 0, 1, 0],
+   ![0, 1, 1, 0],
+   ![1, 1, 1, 0],
+   ![-1, 1, 1, 0],
+   ![0, -1, 1, 0],
+   ![1, -1, 1, 0],
+   ![-1, -1, 1, 0],
+   ![0, 0, -1, 0],
+   ![1, 0, -1, 0],
+   ![0, 0, 0, 0],
+   ![0, 1, -1, 0],
+   ![1, 1, -1, 0],
+   ![-1, 1, -1, 0],
+   ![0, -1, -1, 0],
+   ![1, -1, -1, 0],
+   ![-1, -1, -1, 0],
+   ![-3, 0, 0, -2],
+   ![1, 0, 0, 1],
+   ![-1, 0, 0, 1],
+   ![0, 0, 0, 0],
+   ![1, 1, -3, 1],
+   ![-1, 1, 3, 1],
+   ![-3, 2, 0, -2],
+   ![1, -1, 0, 1],
+   ![-1, -1, 0, 1],
+   ![0, 0, 1, 1],
+   ![1, 0, 1, 1],
+   ![-1, 0, 1, 1],
+   ![-3, 1, 1, 1],
+   ![0, 0, 0, 0],
+   ![-1, 1, -2, 1],
+   ![0, -1, 1, 1],
+   ![1, -1, 1, 1],
+   ![-1, -1, 1, 1],
+   ![0, 0, -1, 1],
+   ![1, 0, -1, 1],
+   ![-1, 0, -1, 1],
+   ![3, 1, -1, 1],
+   ![-2, 1, -1, 1],
+   ![0, 0, 0, 0],
+   ![0, -1, -1, 1],
+   ![1, -1, -1, 1],
+   ![-1, -1, -1, 1],
+   ![-3, 0, 0, 2],
+   ![1, 0, 0, -1],
+   ![-1, 0, 0, -1],
+   ![-3, -2, 0, 2],
+   ![1, 1, 0, -1],
+   ![-1, 1, 0, -1],
+   ![0, 0, 0, 0],
+   ![1, -1, -3, -1],
+   ![-1, -1, 3, -1],
+   ![0, 0, 1, -1],
+   ![1, 0, 1, -1],
+   ![-1, 0, 1, -1],
+   ![0, 1, 1, -1],
+   ![1, 1, 1, -1],
+   ![-1, 1, 1, -1],
+   ![-3, -1, 1, -1],
+   ![0, 0, 0, 0],
+   ![-1, -1, -2, -1],
+   ![0, 0, -1, -1],
+   ![1, 0, -1, -1],
+   ![-1, 0, -1, -1],
+   ![0, 1, -1, -1],
+   ![1, 1, -1, -1],
+   ![-1, 1, -1, -1],
+   ![3, -1, -1, -1],
+   ![-2, -1, -1, -1],
+   ![0, 0, 0, 0]]
+
+
+/-- The table entry for a residue vector. -/
+def tbl (c : Fin 4 → ZMod 3) : Fin 4 → ℤ :=
+  unitTbl.getD ((c 0).val + 3 * (c 1).val + 9 * (c 2).val + 27 * (c 3).val) 0
+
+/-- The reduced norm mod 3. -/
+def nrd3 (c : Fin 4 → ZMod 3) : ZMod 3 :=
+  c 0 ^ 2 + c 0 * c 2 + c 2 ^ 2 - 2 * (c 1 ^ 2 + c 1 * c 3 + c 3 ^ 2)
+
+/-- **The table is correct** (checked by `decide`): for every residue of nonzero reduced norm,
+the entry reduces to it and has reduced norm `±1`. -/
+theorem tbl_spec : ∀ c : Fin 4 → ZMod 3, nrd3 c ≠ 0 →
+    (∀ i, ((tbl c i : ℤ) : ZMod 3) = c i) ∧ (nrdC (tbl c) = 1 ∨ nrdC (tbl c) = -1) := by
+  decide +kernel
+
+theorem nrdC_cast (n : Fin 4 → ℤ) : ((nrdC n : ℤ) : ZMod 3) = nrd3 (fun i => (n i : ZMod 3)) := by
+  simp [nrdC, nrd3]
+
+/-- **`𝒪^× → (𝒪/3𝒪)^×` is onto** (compiled): an element `u₀` of `𝒪` invertible modulo `3𝒪` is
+congruent mod `3𝒪` to a unit. -/
+theorem exists_unit_congr (u₀ v₀ : O) (h : ∃ c : O, v₀ * u₀ - 1 = 3 * c) :
+    ∃ u : Oˣ, ∃ d : O, u₀ - (u : O) = 3 * d := by
+  obtain ⟨c, hc⟩ := h
+  obtain ⟨nu, hnu⟩ := u₀.2
+  obtain ⟨nv, hnv⟩ := v₀.2
+  obtain ⟨nc, hnc⟩ := c.2
+  have h33 : ((3 : O) : B) = 3 := map_ofNat O.subtype 3
+  have h1 : ((1 : O) : B) = ofInt ![1, 0, 0, 0] := by rw [ofInt_one]; rfl
+  have hcoord : mulCoord nv nu - ![1, 0, 0, 0] = fun i => 3 * nc i := by
+    apply ofInt_injective
+    rw [← ofInt_sub, ← ofInt_mul, ← three_mul_ofInt, ← hnu, ← hnv, ← hnc, ← h1, ← h33]
+    exact congrArg Subtype.val hc
+  -- the reduced norm of `u₀` is nonzero mod 3
+  have hn1 : ((nrdC (mulCoord nv nu) : ℤ) : ZMod 3) = 1 := by
+    have : mulCoord nv nu = fun i => ![1, 0, 0, 0] i + 3 * nc i := by
+      funext i
+      have := congrFun hcoord i
+      simp only [Pi.sub_apply] at this
+      linarith
+    rw [this, nrdC_cast]
+    simp only [nrd3]
+    simp [show (3 : ZMod 3) = 0 from rfl]
+  have hnu3 : nrd3 (fun i => (nu i : ZMod 3)) ≠ 0 := by
+    intro h0
+    rw [nrdC_mul, Int.cast_mul, nrdC_cast nu, h0, mul_zero] at hn1
+    exact zero_ne_one hn1
+  obtain ⟨hred, hε⟩ := tbl_spec _ hnu3
+  set n := tbl (fun i => (nu i : ZMod 3))
+  have hdvd : ∀ i, (3 : ℤ) ∣ nu i - n i := by
+    intro i
+    have := (ZMod.intCast_zmod_eq_zero_iff_dvd (nu i - n i) 3).1
+      (by rw [Int.cast_sub, hred i, sub_self])
+    exact_mod_cast this
+  let ε : ℤ := nrdC n
+  have hε2 : ε * ε = 1 := by rcases hε with h | h <;> simp [ε, h]
+  refine ⟨unitOf n ε rfl hε2, ⟨ofInt (fun i => (nu i - n i) / 3), _, rfl⟩, ?_⟩
+  apply Subtype.ext
+  change (u₀ : B) - ofInt n = ((3 : O) : B) * ofInt (fun i => (nu i - n i) / 3)
+  rw [hnu, h33, ofInt_sub, three_mul_ofInt]
+  congr 1
+  funext i
+  simp only [Pi.sub_apply]
+  exact (Int.mul_ediv_cancel' (hdvd i)).symm
+
+end TSHeckeUnits
+
+end
+
+
+end UnitsCopy
+
+/-! ════════════════════════════════════════════════════════════════════════════════════════════
 # ts-hecke: the five Hecke Props under `CoverModelOfHecke`, settled and reduced
 
 Everything above this line is copied verbatim (see `assemble.py` and `check_identical.py`):
@@ -3108,6 +3316,149 @@ theorem genericFibreCount : GenericFibreCount := fun E _ _ _ _ _ => GFC.genericF
 theorem heckeDegree_of_torsion (hT : ObjBridge.TorsionStructure) : HeckeDegree :=
   heckeDegree_of genericFibreCount hT
 
+/-! ## Part 3: `HeckeNormalizationIrr`
+
+The moduli-theoretic input is **fibre transitivity**: two `ℚ̄`-points with the same `π`-value
+differ by an automorphism of `Y` coming from R1hecke (`twist α`, then `rightMul u`), and these
+automorphisms preserve `π`. It is proved here from R1hecke, R2fp, the kernel's leaf
+`TorsionStructure` (level torsor) and the surjectivity of `𝒪^× → (𝒪/3𝒪)^×` (`Units.lean`). What
+is left is one statement of curve theory with no moduli in it, `CurveGaloisChart`. -/
+
+/-- **Fibre transitivity on classes** (compiled). -/
+theorem fibre_transitive (hT : ObjBridge.TorsionStructure) {Y : Over (Spec (CommRingCat.of ℚ))}
+    {Φ : PtEquiv Y} {π : ToP1 Y.left} (h2 : R2fpProps Y Φ π) (y y' : fieldPt Qbar ⟶ Y)
+    (hyy : π.val (K := Qbar) y.left = π.val (K := Qbar) y'.left) :
+    ∃ α : O ≃+* O, ∃ u : Oˣ, Φ Qbar y' = M3.rightMul u (M3.twist α (Φ Qbar y)) := by
+  set P := Quotient.out (Φ Qbar y)
+  set Q := Quotient.out (Φ Qbar y')
+  have hP : Φ Qbar y = M3.mk P := (Quotient.out_eq _).symm
+  have hQ : Φ Qbar y' = M3.mk Q := (Quotient.out_eq _).symm
+  obtain ⟨α, ⟨G⟩⟩ := ((h2 y y' P Q hP hQ).1).1 hyy
+  let e₀ : Level3 (P.twist α).q := pullLevel G Q.e
+  obtain ⟨u₀, v₀, hvu, hu⟩ := Level3.torsor hT (P.twist α) e₀
+  obtain ⟨u, d, hd⟩ := TSHeckeUnits.exists_unit_congr u₀ v₀ hvu
+  refine ⟨α, u, ?_⟩
+  have he : (P.twist α).e.rightMul u = e₀ := Level3.ext' (AddMonoidHom.ext fun a => by
+    rw [hu a]
+    show (P.twist α).e.eta (a * u) = (P.twist α).e.eta (a * u₀)
+    rw [(P.twist α).e.eq_iff]
+    exact ⟨-(a * d), by rw [← _root_.mul_sub, ← neg_sub, hd]; noncomm_ring⟩)
+  rw [hQ, hP]
+  show M3.mk Q = M3.mk ((P.twist α).rightMul u)
+  have hiso : QML3.Iso ((P.twist α).rightMul u) Q := by
+    show QML3.Iso ⟨P.A, P.surface, (P.twist α).q, (P.twist α).e.rightMul u⟩ Q
+    rw [he]
+    exact pullIso P.surface Q.surface G Q.e
+  symm
+  exact Quotient.sound ⟨hiso⟩
+
+/-- **Fibre transitivity by automorphisms of `Y`** (compiled): two `ℚ̄`-points with the same
+`π`-value differ by the composite of two automorphisms supplied by R1hecke. -/
+theorem fibre_transitive_aut (hT : ObjBridge.TorsionStructure)
+    {Y : Over (Spec (CommRingCat.of ℚ))} {Φ : PtEquiv Y} {π : ToP1 Y.left}
+    (hh : R1heckeProps Y Φ) (h2 : R2fpProps Y Φ π) (y y' : fieldPt Qbar ⟶ Y)
+    (hyy : π.val (K := Qbar) y.left = π.val (K := Qbar) y'.left) :
+    ∃ (α : O ≃+* O) (u : Oˣ) (g₁ g₂ : Y ≅ Y),
+      (∀ (K : Type) [Field K] [Algebra ℚ K] (z : fieldPt K ⟶ Y),
+        Φ K (z ≫ g₁.hom) = M3.twist α (Φ K z)) ∧
+      (∀ (K : Type) [Field K] [Algebra ℚ K] (z : fieldPt K ⟶ Y),
+        Φ K (z ≫ g₂.hom) = M3.rightMul u (Φ K z)) ∧
+      y' = y ≫ g₁.hom ≫ g₂.hom := by
+  obtain ⟨α, u, hαu⟩ := fibre_transitive hT h2 y y' hyy
+  obtain ⟨g₁, hg₁⟩ := hh.1 α
+  obtain ⟨g₂, hg₂⟩ := hh.2 u
+  refine ⟨α, u, g₁, g₂, hg₁, hg₂, (Φ Qbar).injective ?_⟩
+  rw [hαu, ← Category.assoc, hg₂, hg₁]
+
+/-- **The automorphisms of R1hecke preserve `π` on `ℚ̄`-points** (compiled; R2fp's fibre clause).
+Twist case. -/
+theorem pi_invariant_twist {Y : Over (Spec (CommRingCat.of ℚ))} {Φ : PtEquiv Y}
+    {π : ToP1 Y.left} (h2 : R2fpProps Y Φ π) (α : O ≃+* O) (g : Y ≅ Y)
+    (hg : ∀ (K : Type) [Field K] [Algebra ℚ K] (z : fieldPt K ⟶ Y),
+      Φ K (z ≫ g.hom) = M3.twist α (Φ K z)) (z : fieldPt Qbar ⟶ Y) :
+    π.val (K := Qbar) (z ≫ g.hom).left = π.val (K := Qbar) z.left := by
+  set P := Quotient.out (Φ Qbar z)
+  set Q := Quotient.out (Φ Qbar (z ≫ g.hom))
+  have hP : Φ Qbar z = M3.mk P := (Quotient.out_eq _).symm
+  have hQ : Φ Qbar (z ≫ g.hom) = M3.mk Q := (Quotient.out_eq _).symm
+  have hQP : M3.mk (P.twist α) = M3.mk Q := by rw [← hQ, hg, hP]; rfl
+  obtain ⟨f⟩ := Quotient.exact hQP
+  have hf : QMIso (P.q.twist α) Q.q := ⟨f.φ, f.ψ, f.left, f.right, f.equivariant⟩
+  exact (((h2 z (z ≫ g.hom) P Q hP hQ).1).2 ⟨α, ⟨hf⟩⟩).symm
+
+/-- `rightMul` case. -/
+theorem pi_invariant_rightMul {Y : Over (Spec (CommRingCat.of ℚ))} {Φ : PtEquiv Y}
+    {π : ToP1 Y.left} (h2 : R2fpProps Y Φ π) (u : Oˣ) (g : Y ≅ Y)
+    (hg : ∀ (K : Type) [Field K] [Algebra ℚ K] (z : fieldPt K ⟶ Y),
+      Φ K (z ≫ g.hom) = M3.rightMul u (Φ K z)) (z : fieldPt Qbar ⟶ Y) :
+    π.val (K := Qbar) (z ≫ g.hom).left = π.val (K := Qbar) z.left := by
+  set P := Quotient.out (Φ Qbar z)
+  set Q := Quotient.out (Φ Qbar (z ≫ g.hom))
+  have hP : Φ Qbar z = M3.mk P := (Quotient.out_eq _).symm
+  have hQ : Φ Qbar (z ≫ g.hom) = M3.mk Q := (Quotient.out_eq _).symm
+  have hQP : M3.mk (P.rightMul u) = M3.mk Q := by rw [← hQ, hg, hP]; rfl
+  obtain ⟨f⟩ := Quotient.exact hQP
+  have hf : QMIso (P.q.twist (RingEquiv.refl O)) Q.q :=
+    ⟨f.φ, f.ψ, f.left, f.right, fun a => f.equivariant a⟩
+  exact (((h2 z (z ≫ g.hom) P Q hP hQ).1).2 ⟨RingEquiv.refl O, ⟨hf⟩⟩).symm
+
+/-- **The `π`-fibres on `ℚ̄`-points are finite** (compiled; `twistFibre_count`). -/
+theorem fibre_finite (hT : ObjBridge.TorsionStructure) {Y : Over (Spec (CommRingCat.of ℚ))}
+    {Φ : PtEquiv Y} {π : ToP1 Y.left} (h2 : R2fpProps Y Φ π) (t : OnePoint Qbar) :
+    {y : fieldPt Qbar ⟶ Y | π.val (K := Qbar) y.left = t}.Finite := by
+  rcases Set.eq_empty_or_nonempty {y : fieldPt Qbar ⟶ Y | π.val (K := Qbar) y.left = t} with
+    h | ⟨y₀, hy₀⟩
+  · rw [h]; exact Set.finite_empty
+  set P := Quotient.out (Φ Qbar y₀)
+  have hP : Φ Qbar y₀ = M3.mk P := (Quotient.out_eq _).symm
+  refine Set.Finite.of_finite_image ((twistFibre_count hT P).1.subset ?_)
+    ((Φ Qbar).injective.injOn)
+  rintro _ ⟨y, hy, rfl⟩
+  set Q := Quotient.out (Φ Qbar y)
+  have hQ : Φ Qbar y = M3.mk Q := (Quotient.out_eq _).symm
+  exact ⟨Q, hQ, ((h2 y₀ y P Q hP hQ).1).1 (hy₀.trans hy.symm)⟩
+
+/-- **Glue (curve theory; h-b1 M1, M2, M8), with no moduli in it.** Let `Y` be a proper smooth
+irreducible curve over `ℚ` and `π : Y → P¹` a morphism with finite fibres on `ℚ̄`-points, such
+that any two `ℚ̄`-points with the same `π`-value differ by an automorphism of `Y` preserving `π` on
+`ℚ̄`-points. Then there is a finite Galois `E/ℚ(X)` with `NormalizationModel Y π E`.
+*Proof* (STANDARD; Hartshorne II.6.7-6.8, II.5.20 and Ex. II.3.5; Artin's theorem): `π` is
+quasi-finite and proper, hence finite (EGA III 4.4.2 / Stacks 02OG); `Y` is normal (smooth), so
+`π⁻¹(𝔸¹) = Spec B` with `B` the integral closure of `ℚ[X]` in `E = ℚ(Y)`; the `π`-preserving
+automorphisms act on `E` over `ℚ(X)`, faithfully (`Y` integral and separated), and transitively on
+a generic geometric fibre, which has `[E : ℚ(X)]` points (generic étaleness in characteristic 0),
+so the group `G` they generate has `|G| ≥ [E : ℚ(X)] ≥ [E : E^G] = |G|`; hence `E^G = ℚ(X)` and
+`E/ℚ(X)` is Galois (Artin). Locators UNVERIFIED. Glue, not a leaf. -/
+def CurveGaloisChart : Prop :=
+  ∀ (Y : Over (Spec (CommRingCat.of ℚ))) (π : ToP1 Y.left),
+    IsProper Y.hom → SmoothOfRelativeDimension 1 Y.hom → IrreducibleSpace Y.left →
+    (∀ t : OnePoint Qbar, {y : fieldPt Qbar ⟶ Y | π.val (K := Qbar) y.left = t}.Finite) →
+    (∀ y y' : fieldPt Qbar ⟶ Y, π.val (K := Qbar) y.left = π.val (K := Qbar) y'.left →
+      ∃ g : Y ≅ Y, y' = y ≫ g.hom ∧
+        ∀ z : fieldPt Qbar ⟶ Y, π.val (K := Qbar) (z ≫ g.hom).left = π.val (K := Qbar) z.left) →
+    ∃ (E : Type) (_ : Field E) (_ : Algebra (RatFunc ℚ) E) (_ : Algebra ℚ[X] E)
+      (_ : IsScalarTower ℚ[X] (RatFunc ℚ) E) (_ : FiniteDimensional (RatFunc ℚ) E)
+      (_ : IsGalois (RatFunc ℚ) E), NormalizationModel Y π E
+
+/-- **`HeckeNormalizationIrr` from `CurveGaloisChart` and the kernel's leaf `TorsionStructure`**
+(compiled). -/
+theorem heckeNormalizationIrr_of (hC : CurveGaloisChart) (hT : ObjBridge.TorsionStructure) :
+    HeckeNormalizationIrr := by
+  intro Y Φ π h1 hh h2 hI
+  obtain ⟨hP, hS, -⟩ := h1
+  refine hC Y π hP hS hI (fibre_finite hT h2) ?_
+  intro y y' hyy
+  obtain ⟨α, u, g₁, g₂, hg₁, hg₂, hy⟩ := fibre_transitive_aut hT hh h2 y y' hyy
+  refine ⟨g₁ ≪≫ g₂, by rw [hy]; rfl, fun z => ?_⟩
+  change π.val (K := Qbar) (z ≫ g₁.hom ≫ g₂.hom).left = _
+  rw [← Category.assoc, pi_invariant_rightMul h2 u g₂ hg₂, pi_invariant_twist h2 α g₁ hg₁]
+
+/-- **`HeckeNormalization` (both parts)** from the leaf R1conn, `CurveGaloisChart` and
+`TorsionStructure` (compiled). -/
+theorem heckeNormalization_of (hconn : Y3Connected) (hC : CurveGaloisChart)
+    (hT : ObjBridge.TorsionStructure) : HeckeNormalization :=
+  heckeNormalization_of_irr (heckeIrreducible_of_connected hconn) (heckeNormalizationIrr_of hC hT)
+
 end TSHecke
 
 end
@@ -3125,3 +3476,10 @@ end
 #print axioms TSHecke.heckeDegree_of
 #print axioms TSHecke.genericFibreCount
 #print axioms TSHecke.heckeDegree_of_torsion
+#print axioms TSHecke.fibre_transitive
+#print axioms TSHecke.fibre_transitive_aut
+#print axioms TSHecke.pi_invariant_twist
+#print axioms TSHecke.pi_invariant_rightMul
+#print axioms TSHecke.fibre_finite
+#print axioms TSHecke.heckeNormalizationIrr_of
+#print axioms TSHecke.heckeNormalization_of
