@@ -52,3 +52,14 @@
   VERIFIED exit 0 in 24 s, 0 errors, no `declaration uses sorry` (one doc-comment mention in the copied
   ProductHeight.lean header), all `#print axioms` standard. verbatim_check.py ALL OK
   (ProductMetrizationOfProductUnif identical in a25_productheight.lean and ProductHeight.lean).
+- 11:19 ps_5_analytic: metrization's germ lemmas (ptC_hom_apply, one_left_apply, zero_mem_dom, evalAt_res,
+  germAlong_eventuallyEq, germAlong_differentiableAt) copied to the kernel types; `prodUnif_eq`
+  (prodUnif z = (Φ₁ z₁, Φ₂ z₂) ≫ e⁻¹); `ProductLocalStructureK` (metrization's statement over kernel
+  types) + `productLocalStructureK` (infra-stalks' proof copied); `prodUnif_local` (metrization's
+  prodPts_local adapted); **`productUnifAnalytic : ProductUnifAnalytic`** (product-height glue, as a step);
+  `fderiv_germAlong_pull`; **`prodUnifDeriv : ProdUnifDeriv`**.
+  ps_6_final: **`productMetrizationOfProductUnif : ProductMetrizationOfProductUnif` PROVED** (statement
+  verbatim); `productModelHeight_of_unifSplits : ProductUnifSplits → ProductModelHeight`.
+  Full single-file check ProductSplit.lean: VERIFIED exit 0 in 25 s, 0 errors, no sorry warning, all 14
+  InfraHodge `#print axioms` (and every other axiom report in the file) [propext, Classical.choice,
+  Quot.sound]. verbatim_check.py ALL OK.

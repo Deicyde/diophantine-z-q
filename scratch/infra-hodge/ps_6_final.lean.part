@@ -1,0 +1,32 @@
+/-! # infra-hodge S-alg, part 6: `ProductMetrizationOfProductUnif` proved -/
+
+namespace ZInQ.InfraHodge
+
+open ZInQ.ProductHeight
+
+/-- **product-height's glue S-alg `ProductMetrizationOfProductUnif` holds** (statement verbatim). -/
+theorem productMetrizationOfProductUnif : ProductMetrizationOfProductUnif :=
+  productMetrizationOfProductUnif_of prodUnifDeriv
+
+/-- product-height's route S with S-alg discharged: `ProductModelHeight` (P2) from the single
+analytic glue Prop `ProductUnifSplits` (S-an). -/
+theorem productModelHeight_of_unifSplits (hS : ProductUnifSplits) :
+    ZInQ.H5Neron.ProductModelHeight :=
+  productModelHeight_of_splits hS productMetrizationOfProductUnif
+
+end ZInQ.InfraHodge
+
+#print axioms ZInQ.InfraHodge.cot_split
+#print axioms ZInQ.InfraHodge.cotG_omega
+#print axioms ZInQ.InfraHodge.detIdeal_prod
+#print axioms ZInQ.InfraHodge.idx_mul
+#print axioms ZInQ.InfraHodge.exists_omega_basis
+#print axioms ZInQ.InfraHodge.jacDet_prodUnif
+#print axioms ZInQ.InfraHodge.dims_le_of_jacDet_ne_zero
+#print axioms ZInQ.InfraHodge.mkMetrized
+#print axioms ZInQ.InfraHodge.productMetrizationOfProductUnif_of
+#print axioms ZInQ.InfraHodge.productLocalStructureK
+#print axioms ZInQ.InfraHodge.productUnifAnalytic
+#print axioms ZInQ.InfraHodge.prodUnifDeriv
+#print axioms ZInQ.InfraHodge.productMetrizationOfProductUnif
+#print axioms ZInQ.InfraHodge.productModelHeight_of_unifSplits

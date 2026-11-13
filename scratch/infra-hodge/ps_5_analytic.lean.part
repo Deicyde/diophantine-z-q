@@ -1,0 +1,295 @@
+/-! # infra-hodge S-alg, part 5: `ProdUnifDeriv` proved
+
+* `prodUnif_eq`: `prodUnif e Φ₁ Φ₂ z = (Φ₁ z₁, Φ₂ z₂) ≫ e⁻¹`.
+* `productLocalStructureK`: metrization's `ProductLocalStructure`, restated over the kernel's group
+  models and proved by infra-stalks' proof (`exists_localStructure_pullback`), copied.
+* `prodUnif_local` (metrization's `prodPts_local`, adapted to `prodUnif`) and
+  **`productUnifAnalytic : ProductUnifAnalytic`** (product-height's glue, as a step).
+* Germs along uniformizations (metrization's `zero_mem_dom`, `evalAt_res`, `germAlong_eventuallyEq`,
+  `germAlong_differentiableAt`, copied).
+* **`prodUnifDeriv : ProdUnifDeriv`**, hence `productMetrizationOfProductUnif`. -/
+
+namespace ZInQ.InfraHodge
+
+open CategoryTheory AlgebraicGeometry Limits MonoidalCategory CartesianMonoidalCategory MonObj
+open NumberField ZInQ.DefFaltings Module ZInQ.ProductHeight Topology
+--IH:ABVAR
+open scoped TensorProduct
+
+section Germ
+
+variable {K : Type} [Field K] {A : AbVar K} {L : Type} [Field L] [NumberField L] [Algebra K L]
+variable (𝒢 : GroupModel A L)
+
+/-! Copied from metrization's `part_jacgerm.lean` (unchanged except for the namespace). -/
+
+/-- `Spec ℂ → Spec 𝓞_L` (via `τ`) hits the generic point. -/
+theorem ptC_hom_apply (τ : L →+* ℂ) (x : Spec (CommRingCat.of ℂ)) :
+    (GroupModel.ptC (L := L) τ).hom x = genericPt L := by
+  haveI : x.asIdeal.IsPrime := x.isPrime
+  have hx : x.asIdeal = ⊥ := Ideal.eq_bot_of_prime x.asIdeal
+  apply PrimeSpectrum.ext
+  show Ideal.comap (τ.comp (algebraMap (𝓞 L) L)) x.asIdeal = ⊥
+  rw [hx]
+  exact Ideal.comap_bot_of_injective _
+    (τ.injective.comp (IsFractionRing.injective (𝓞 L) L))
+
+/-- The identity complex point lies over `ξ`. -/
+theorem one_left_apply (τ : L →+* ℂ) (x : Spec (CommRingCat.of ℂ)) :
+    (1 : 𝒢.Pts τ).left x = 𝒢.genericUnit := by
+  have hw : (toUnit (GroupModel.ptC (L := L) τ)).left = (GroupModel.ptC (L := L) τ).hom :=
+    (Category.comp_id _).symm.trans (Over.w (toUnit (GroupModel.ptC (L := L) τ)))
+  show (toUnit (GroupModel.ptC τ) ≫ η[𝒢.G]).left x = 𝒢.unitSection (genericPt L)
+  rw [Over.comp_left]
+  change (η[𝒢.G]).left ((toUnit (GroupModel.ptC (L := L) τ)).left x) = _
+  rw [hw, ptC_hom_apply]
+  rfl
+
+/-- For an analytic uniformization, `0 ∈ dom Φ U` whenever `ξ ∈ U`. -/
+theorem zero_mem_dom {τ : L →+* ℂ} {g : ℕ} {Λ : Submodule ℤ (Fin g → ℂ)}
+    {Φ : (Fin g → ℂ) → 𝒢.Pts τ} (hΦ : 𝒢.IsAnalyticUniformization τ Λ Φ)
+    (U : 𝒢.G.left.Opens) (m : 𝒢.genericUnit ∈ U) : (0 : Fin g → ℂ) ∈ 𝒢.dom Φ U := by
+  have h1 : Φ 0 = 1 := by
+    have h := hΦ.1 0 0
+    rw [add_zero] at h
+    exact mul_left_cancel (a := Φ 0) (by rw [_root_.mul_one]; exact h.symm)
+  show ⊤ ≤ (Φ 0).left ⁻¹ᵁ U
+  rw [h1]
+  intro x _
+  show (1 : 𝒢.Pts τ).left x ∈ U
+  erw [one_left_apply]
+  exact m
+
+/-- `evalAt` is compatible with restriction. -/
+theorem evalAt_res {τ : L →+* ℂ} (p : 𝒢.Pts τ) {U W : 𝒢.G.left.Opens} (i : W ⟶ U)
+    (hW : ⊤ ≤ p.left ⁻¹ᵁ W) (s : Γ(𝒢.G.left, U)) :
+    𝒢.evalAt p W (𝒢.G.left.presheaf.map i.op s) = 𝒢.evalAt p U s := by
+  have hU : ⊤ ≤ p.left ⁻¹ᵁ U := hW.trans ((TopologicalSpace.Opens.map p.left.base).map i).le
+  unfold GroupModel.evalAt
+  rw [dif_pos hW, dif_pos hU, ← Scheme.Hom.map_appLE p.left hW i.op]
+  rfl
+
+/-- **`germAlong Φ t` is, near `0`, the function of any representative of `t`.** -/
+theorem germAlong_eventuallyEq {τ : L →+* ℂ} {g : ℕ} {Λ : Submodule ℤ (Fin g → ℂ)}
+    {Φ : (Fin g → ℂ) → 𝒢.Pts τ} (hΦ : 𝒢.IsAnalyticUniformization τ Λ Φ)
+    (U : 𝒢.G.left.Opens) (m : 𝒢.genericUnit ∈ U) (s : Γ(𝒢.G.left, U)) :
+    𝒢.germAlong Φ (𝒢.G.left.presheaf.germ U 𝒢.genericUnit m s) =ᶠ[𝓝 0]
+      fun z => 𝒢.evalAt (Φ z) U s := by
+  unfold GroupModel.germAlong
+  obtain ⟨W, mW, i₁, i₂, hW⟩ := TopCat.Presheaf.germ_eq _ 𝒢.genericUnit _ m _ s
+    (𝒢.exists_rep (𝒢.G.left.presheaf.germ U 𝒢.genericUnit m s)).choose_spec.choose_spec.choose_spec
+  filter_upwards [(hΦ.2.2.2.1 W).mem_nhds (zero_mem_dom 𝒢 hΦ W mW)] with z hz
+  rw [← evalAt_res 𝒢 (Φ z) i₁ hz, ← evalAt_res 𝒢 (Φ z) i₂ hz s, hW]
+
+/-- `germAlong Φ t` is differentiable at `0`. -/
+theorem germAlong_differentiableAt {τ : L →+* ℂ} {g : ℕ} {Λ : Submodule ℤ (Fin g → ℂ)}
+    {Φ : (Fin g → ℂ) → 𝒢.Pts τ} (hΦ : 𝒢.IsAnalyticUniformization τ Λ Φ) (t : 𝒢.genStalk) :
+    DifferentiableAt ℂ (𝒢.germAlong Φ t) 0 := by
+  obtain ⟨U, m, s, rfl⟩ := 𝒢.exists_rep t
+  have hd : DifferentiableAt ℂ (fun z => 𝒢.evalAt (Φ z) U s) 0 :=
+    (hΦ.2.2.2.2 U s).differentiableAt ((hΦ.2.2.2.1 U).mem_nhds (zero_mem_dom 𝒢 hΦ U m))
+  exact hd.congr_of_eventuallyEq (germAlong_eventuallyEq 𝒢 hΦ U m s)
+
+end Germ
+
+section Local
+
+variable {K : Type} [Field K] {A B C : AbVar K} {L : Type} [Field L] [NumberField L]
+  [Algebra K L] {𝒢P : GroupModel C L} {𝒢₁ : GroupModel A L} {𝒢₂ : GroupModel B L}
+
+/-- The two blocks of coordinates of `ℂ^{g₁+g₂}`. -/
+noncomputable def blk₁ (g₁ g₂ : ℕ) : (Fin (g₁ + g₂) → ℂ) →L[ℂ] (Fin g₁ → ℂ) :=
+  ContinuousLinearMap.pi fun i => ContinuousLinearMap.proj (Fin.castAdd g₂ i)
+
+noncomputable def blk₂ (g₁ g₂ : ℕ) : (Fin (g₁ + g₂) → ℂ) →L[ℂ] (Fin g₂ → ℂ) :=
+  ContinuousLinearMap.pi fun j => ContinuousLinearMap.proj (Fin.natAdd g₁ j)
+
+theorem blk₁_apply (g₁ g₂ : ℕ) (z : Fin (g₁ + g₂) → ℂ) :
+    blk₁ g₁ g₂ z = fun i => z (Fin.castAdd g₂ i) := rfl
+
+theorem blk₂_apply (g₁ g₂ : ℕ) (z : Fin (g₁ + g₂) → ℂ) :
+    blk₂ g₁ g₂ z = fun j => z (Fin.natAdd g₁ j) := rfl
+
+theorem prodUnif_eq (e : 𝒢P.G ≅ 𝒢₁.G ⊗ 𝒢₂.G) [IsMonHom (e.hom ≫ fst _ _)]
+    [IsMonHom (e.hom ≫ snd _ _)] {τ : L →+* ℂ} {g₁ g₂ : ℕ} (Φ₁ : (Fin g₁ → ℂ) → 𝒢₁.Pts τ)
+    (Φ₂ : (Fin g₂ → ℂ) → 𝒢₂.Pts τ) (z : Fin (g₁ + g₂) → ℂ) :
+    prodUnif e Φ₁ Φ₂ z = lift (Φ₁ (blk₁ g₁ g₂ z)) (Φ₂ (blk₂ g₁ g₂ z)) ≫ e.inv := by
+  apply (ptsEquiv e τ).injective
+  rw [prodUnif, MulEquiv.apply_symm_apply]
+  show _ = ptsProj e τ _
+  simp only [ptsProj, MonoidHom.prod_apply, IsMonHom.monoidHom_apply, Category.assoc,
+    Iso.inv_hom_id_assoc, lift_fst, lift_snd]
+  rfl
+
+/-- metrization's `ProductLocalStructure`, restated verbatim over the kernel's group models. -/
+def ProductLocalStructureK : Prop :=
+  ∀ (K : Type) [Field K] (A B C : AbVar K) (L : Type) [Field L] [NumberField L] [Algebra K L]
+    (𝒢P : GroupModel C L) (𝒢₁ : GroupModel A L) (𝒢₂ : GroupModel B L)
+    (e : 𝒢P.G ≅ 𝒢₁.G ⊗ 𝒢₂.G) (τ : L →+* ℂ) (U : 𝒢P.G.left.Opens) (s : Γ(𝒢P.G.left, U))
+    (p₁ : 𝒢₁.Pts τ) (p₂ : 𝒢₂.Pts τ), ⊤ ≤ (lift p₁ p₂ ≫ e.inv).left ⁻¹ᵁ U →
+    ∃ (V₁ : 𝒢₁.G.left.Opens) (V₂ : 𝒢₂.G.left.Opens) (n : ℕ)
+      (a c : Fin n → Γ(𝒢₁.G.left, V₁)) (b d : Fin n → Γ(𝒢₂.G.left, V₂)),
+      ⊤ ≤ p₁.left ⁻¹ᵁ V₁ ∧ ⊤ ≤ p₂.left ⁻¹ᵁ V₂ ∧
+      (∑ k, 𝒢₁.evalAt p₁ V₁ (c k) * 𝒢₂.evalAt p₂ V₂ (d k)) ≠ 0 ∧
+      ∀ (p₁' : 𝒢₁.Pts τ) (p₂' : 𝒢₂.Pts τ), ⊤ ≤ p₁'.left ⁻¹ᵁ V₁ → ⊤ ≤ p₂'.left ⁻¹ᵁ V₂ →
+        (∑ k, 𝒢₁.evalAt p₁' V₁ (c k) * 𝒢₂.evalAt p₂' V₂ (d k)) ≠ 0 →
+        ⊤ ≤ (lift p₁' p₂' ≫ e.inv).left ⁻¹ᵁ U ∧
+        𝒢P.evalAt (lift p₁' p₂' ≫ e.inv) U s *
+            (∑ k, 𝒢₁.evalAt p₁' V₁ (c k) * 𝒢₂.evalAt p₂' V₂ (d k)) =
+          ∑ k, 𝒢₁.evalAt p₁' V₁ (a k) * 𝒢₂.evalAt p₂' V₂ (b k)
+
+/-- infra-stalks' proof of `ProductLocalStructure` (`pls_proof.lean.part`), copied. -/
+theorem productLocalStructureK : ProductLocalStructureK := by
+  intro K _ A B C L _ _ _ 𝒢P 𝒢₁ 𝒢₂ e τ U s p₁ p₂ hU
+  have hw : ∀ (p₁' : 𝒢₁.Pts τ) (p₂' : 𝒢₂.Pts τ), p₁'.left ≫ 𝒢₁.G.hom = p₂'.left ≫ 𝒢₂.G.hom := by
+    intro p₁' p₂'
+    rw [Over.w p₁', Over.w p₂']
+  have hlift : ∀ (p₁' : 𝒢₁.Pts τ) (p₂' : 𝒢₂.Pts τ),
+      (lift p₁' p₂' ≫ e.inv).left = pullback.lift p₁'.left p₂'.left (hw p₁' p₂') ≫ e.inv.left := by
+    intro p₁' p₂'
+    rw [Over.comp_left]
+    rfl
+  obtain ⟨V₁, V₂, n, a, c, b, d, h1, h2, hne, hall⟩ :=
+    exists_localStructure_pullback 𝒢₁.G.hom 𝒢₂.G.hom e.inv.left U s p₁.left p₂.left (hw p₁ p₂)
+      (by rw [hlift] at hU; exact hU)
+  refine ⟨V₁, V₂, n, a, c, b, d, h1, h2, hne, ?_⟩
+  intro p₁' p₂' h1' h2' hne'
+  have := hall p₁'.left p₂'.left (hw p₁' p₂') h1' h2' hne'
+  rw [hlift]
+  exact this
+
+variable (e : 𝒢P.G ≅ 𝒢₁.G ⊗ 𝒢₂.G) [IsMonHom (e.hom ≫ fst _ _)] [IsMonHom (e.hom ≫ snd _ _)]
+  {τ : L →+* ℂ} {g₁ g₂ : ℕ} {Λ₁ : Submodule ℤ (Fin g₁ → ℂ)}
+  {Λ₂ : Submodule ℤ (Fin g₂ → ℂ)} {Φ₁ : (Fin g₁ → ℂ) → 𝒢₁.Pts τ} {Φ₂ : (Fin g₂ → ℂ) → 𝒢₂.Pts τ}
+
+/-- metrization's `prodPts_local`, adapted to `prodUnif` (same proof). -/
+theorem prodUnif_local (h₁ : 𝒢₁.IsAnalyticUniformization τ Λ₁ Φ₁)
+    (h₂ : 𝒢₂.IsAnalyticUniformization τ Λ₂ Φ₂) (U : 𝒢P.G.left.Opens) (s : Γ(𝒢P.G.left, U))
+    (z₀ : Fin (g₁ + g₂) → ℂ) (hz₀ : z₀ ∈ 𝒢P.dom (prodUnif e Φ₁ Φ₂) U) :
+    ∃ N : Set (Fin (g₁ + g₂) → ℂ), IsOpen N ∧ z₀ ∈ N ∧ N ⊆ 𝒢P.dom (prodUnif e Φ₁ Φ₂) U ∧
+      DifferentiableOn ℂ (fun z => 𝒢P.evalAt (prodUnif e Φ₁ Φ₂ z) U s) N := by
+  have hz₀' : ⊤ ≤ (lift (Φ₁ (blk₁ g₁ g₂ z₀)) (Φ₂ (blk₂ g₁ g₂ z₀)) ≫ e.inv).left ⁻¹ᵁ U := by
+    have := hz₀; unfold GroupModel.dom at this; rw [Set.mem_setOf_eq, prodUnif_eq] at this
+    exact this
+  obtain ⟨V₁, V₂, n, a, c, b, d, hV₁, hV₂, hne, hall⟩ :=
+    productLocalStructureK K A B C L 𝒢P 𝒢₁ 𝒢₂ e τ U s (Φ₁ (blk₁ g₁ g₂ z₀))
+      (Φ₂ (blk₂ g₁ g₂ z₀)) hz₀'
+  let O : Set (Fin (g₁ + g₂) → ℂ) :=
+    blk₁ g₁ g₂ ⁻¹' 𝒢₁.dom Φ₁ V₁ ∩ blk₂ g₁ g₂ ⁻¹' 𝒢₂.dom Φ₂ V₂
+  have hO : IsOpen O :=
+    ((h₁.2.2.2.1 V₁).preimage (blk₁ g₁ g₂).continuous).inter
+      ((h₂.2.2.2.1 V₂).preimage (blk₂ g₁ g₂).continuous)
+  have hd1 : ∀ σ : Γ(𝒢₁.G.left, V₁),
+      DifferentiableOn ℂ (fun z => 𝒢₁.evalAt (Φ₁ (blk₁ g₁ g₂ z)) V₁ σ) O := fun σ =>
+    (h₁.2.2.2.2 V₁ σ).comp (blk₁ g₁ g₂).differentiableOn (fun z hz => hz.1)
+  have hd2 : ∀ σ : Γ(𝒢₂.G.left, V₂),
+      DifferentiableOn ℂ (fun z => 𝒢₂.evalAt (Φ₂ (blk₂ g₁ g₂ z)) V₂ σ) O := fun σ =>
+    (h₂.2.2.2.2 V₂ σ).comp (blk₂ g₁ g₂).differentiableOn (fun z hz => hz.2)
+  let H : (Fin (g₁ + g₂) → ℂ) → ℂ := fun z =>
+    ∑ k, 𝒢₁.evalAt (Φ₁ (blk₁ g₁ g₂ z)) V₁ (c k) * 𝒢₂.evalAt (Φ₂ (blk₂ g₁ g₂ z)) V₂ (d k)
+  let Afun : (Fin (g₁ + g₂) → ℂ) → ℂ := fun z =>
+    ∑ k, 𝒢₁.evalAt (Φ₁ (blk₁ g₁ g₂ z)) V₁ (a k) * 𝒢₂.evalAt (Φ₂ (blk₂ g₁ g₂ z)) V₂ (b k)
+  have hH : DifferentiableOn ℂ H O := by
+    have := DifferentiableOn.sum (u := Finset.univ)
+      (A := fun k z => 𝒢₁.evalAt (Φ₁ (blk₁ g₁ g₂ z)) V₁ (c k) *
+        𝒢₂.evalAt (Φ₂ (blk₂ g₁ g₂ z)) V₂ (d k))
+      (fun k _ => (hd1 (c k)).mul (hd2 (d k)))
+    convert this using 1
+    funext z
+    simp [H, Finset.sum_apply]
+  have hA : DifferentiableOn ℂ Afun O := by
+    have := DifferentiableOn.sum (u := Finset.univ)
+      (A := fun k z => 𝒢₁.evalAt (Φ₁ (blk₁ g₁ g₂ z)) V₁ (a k) *
+        𝒢₂.evalAt (Φ₂ (blk₂ g₁ g₂ z)) V₂ (b k))
+      (fun k _ => (hd1 (a k)).mul (hd2 (b k)))
+    convert this using 1
+    funext z
+    simp [Afun, Finset.sum_apply]
+  let N := O ∩ H ⁻¹' {0}ᶜ
+  have hN : IsOpen N := hH.continuousOn.isOpen_inter_preimage hO isOpen_compl_singleton
+  have hsub : ∀ z ∈ N, z ∈ 𝒢P.dom (prodUnif e Φ₁ Φ₂) U ∧
+      𝒢P.evalAt (prodUnif e Φ₁ Φ₂ z) U s = Afun z / H z := by
+    intro z hz
+    obtain ⟨hmem, heq⟩ := hall _ _ hz.1.1 hz.1.2 hz.2
+    refine ⟨?_, ?_⟩
+    · show ⊤ ≤ (prodUnif e Φ₁ Φ₂ z).left ⁻¹ᵁ U
+      rw [prodUnif_eq]; exact hmem
+    · rw [eq_div_iff hz.2, prodUnif_eq]
+      exact heq
+  refine ⟨N, hN, ⟨⟨hV₁, hV₂⟩, hne⟩, fun z hz => (hsub z hz).1, ?_⟩
+  have hdiv : DifferentiableOn ℂ (fun z => Afun z * (H z)⁻¹) N :=
+    (hA.mono Set.inter_subset_left).mul
+      ((hH.mono Set.inter_subset_left).inv (fun z hz => hz.2))
+  refine hdiv.congr fun z hz => ?_
+  rw [(hsub z hz).2, div_eq_mul_inv]
+
+end Local
+
+/-- **product-height's `ProductUnifAnalytic` holds** (from `productLocalStructureK`). -/
+theorem productUnifAnalytic : ProductUnifAnalytic := by
+  intro K _ A B C L _ _ _ 𝒢P 𝒢₁ 𝒢₂ e _ _ τ g₁ g₂ Λ₁ Λ₂ Φ₁ Φ₂ h₁ h₂
+  refine ⟨fun U => ?_, fun U s => ?_⟩
+  · rw [isOpen_iff_forall_mem_open]
+    intro z₀ hz₀
+    obtain ⟨N, hN, hz₀N, hsub, -⟩ := prodUnif_local e h₁ h₂ U 0 z₀ hz₀
+    exact ⟨N, hsub, hN, hz₀N⟩
+  · intro z₀ hz₀
+    obtain ⟨N, hN, hz₀N, -, hd⟩ := prodUnif_local e h₁ h₂ U s z₀ hz₀
+    exact ((hd z₀ hz₀N).differentiableAt (hN.mem_nhds hz₀N)).differentiableWithinAt
+
+section DerivProof
+
+variable {K : Type} [Field K] {A B C X : AbVar K} {L : Type} [Field L] [NumberField L]
+  [Algebra K L] {𝒢P : GroupModel C L} {𝒢₁ : GroupModel A L} {𝒢₂ : GroupModel B L}
+
+/-- The derivative of a germ pulled back along `q : 𝒢P → 𝒢` with `q ∘ prodUnif = Φ ∘ blk`. -/
+theorem fderiv_germAlong_pull (e : 𝒢P.G ≅ 𝒢₁.G ⊗ 𝒢₂.G) [IsMonHom (e.hom ≫ fst _ _)]
+    [IsMonHom (e.hom ≫ snd _ _)] {τ : L →+* ℂ} {g₁ g₂ g : ℕ} {Λ₁ : Submodule ℤ (Fin g₁ → ℂ)}
+    {Λ₂ : Submodule ℤ (Fin g₂ → ℂ)} {Φ₁ : (Fin g₁ → ℂ) → 𝒢₁.Pts τ}
+    {Φ₂ : (Fin g₂ → ℂ) → 𝒢₂.Pts τ} (h₁ : 𝒢₁.IsAnalyticUniformization τ Λ₁ Φ₁)
+    (h₂ : 𝒢₂.IsAnalyticUniformization τ Λ₂ Φ₂) {𝒢 : GroupModel X L} (q : 𝒢P.G ⟶ 𝒢.G)
+    (hq : q.left 𝒢P.genericUnit = 𝒢.genericUnit) {Λ : Submodule ℤ (Fin g → ℂ)}
+    {Φ : (Fin g → ℂ) → 𝒢.Pts τ} (hΦ : 𝒢.IsAnalyticUniformization τ Λ Φ)
+    (blk : (Fin (g₁ + g₂) → ℂ) →L[ℂ] (Fin g → ℂ))
+    (hcomp : ∀ z, prodUnif e Φ₁ Φ₂ z ≫ q = Φ (blk z)) (t : 𝒢.genStalk)
+    (v : Fin (g₁ + g₂) → ℂ) :
+    fderiv ℂ (𝒢P.germAlong (prodUnif e Φ₁ Φ₂) ((q.left.stalkMapAt hq).hom t)) 0 v =
+      fderiv ℂ (𝒢.germAlong Φ t) 0 (blk v) := by
+  have hP := prodUnif_isAnalyticUniformization productUnifAnalytic e h₁ h₂
+  obtain ⟨U, m, s, rfl⟩ := 𝒢.exists_rep t
+  have hm' : 𝒢P.genericUnit ∈ q.left ⁻¹ᵁ U := by
+    show q.left 𝒢P.genericUnit ∈ U
+    rw [hq]; exact m
+  have ht' : (q.left.stalkMapAt hq).hom (𝒢.G.left.presheaf.germ U 𝒢.genericUnit m s) =
+      𝒢P.G.left.presheaf.germ (q.left ⁻¹ᵁ U) 𝒢P.genericUnit hm' (q.left.app U s) := by
+    rw [stalkMapAt_germ' q.left hq U m hm']
+    exact Scheme.Hom.germ_stalkMap_apply q.left U 𝒢P.genericUnit hm' s
+  rw [ht']
+  have e1 := germAlong_eventuallyEq 𝒢P hP (q.left ⁻¹ᵁ U) hm' (q.left.app U s)
+  have e2 : (fun z => 𝒢P.evalAt (prodUnif e Φ₁ Φ₂ z) (q.left ⁻¹ᵁ U) (q.left.app U s)) =
+      fun z => 𝒢.evalAt (Φ (blk z)) U s := by
+    funext z
+    rw [← evalAt_comp, hcomp]
+  have e3 : (fun z => 𝒢.evalAt (Φ (blk z)) U s) =ᶠ[𝓝 0]
+      (𝒢.germAlong Φ (𝒢.G.left.presheaf.germ U 𝒢.genericUnit m s)) ∘ blk := by
+    have h3 := germAlong_eventuallyEq 𝒢 hΦ U m s
+    have ht : Filter.Tendsto blk (𝓝 0) (𝓝 0) := by
+      simpa using blk.continuous.tendsto 0
+    exact (ht.eventually h3).mono fun z hz => hz.symm
+  have hfin := e1.trans (e2 ▸ e3)
+  rw [hfin.fderiv_eq, fderiv_comp 0 (by simpa using germAlong_differentiableAt 𝒢 hΦ _)
+    blk.differentiableAt, ContinuousLinearMap.fderiv]
+  simp
+
+/-- **`ProdUnifDeriv` holds.** -/
+theorem prodUnifDeriv : ProdUnifDeriv := by
+  intro K _ A B C L _ _ _ 𝒢P 𝒢₁ 𝒢₂ e _ _ τ g₁ g₂ Λ₁ Λ₂ Φ₁ Φ₂ h₁ h₂
+  refine ⟨fun t v => ?_, fun t v => ?_⟩
+  · exact fderiv_germAlong_pull e h₁ h₂ (e.hom ≫ fst _ _) (hp1 e) h₁ (blk₁ g₁ g₂)
+      (fun z => by rw [prodUnif_eq]; simp [blk₁_apply]) t v
+  · exact fderiv_germAlong_pull e h₁ h₂ (e.hom ≫ snd _ _) (hp2 e) h₂ (blk₂ g₁ g₂)
+      (fun z => by rw [prodUnif_eq]; simp [blk₂_apply]) t v
+
+end DerivProof
+
+end ZInQ.InfraHodge
