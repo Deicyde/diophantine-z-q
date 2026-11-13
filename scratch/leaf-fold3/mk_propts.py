@@ -12,7 +12,8 @@ prop-ts-glue's appendix; their shared declarations are byte-identical (checked b
   In every source, each declaration whose full name already occurs in the chain (LPrefix, parts/,
   partsF/c1*-c7*) or earlier in this part is dropped, with the `… in` modifiers that applied to it;
   the script prints the dropped names whose text differs.
-  One name-resolution edit (REPL below): hecke-rest's `rw [bcPt, …]` becomes `rw [LeafQM.AV.bcPt, …]`.
+  Two edits (REPL below): hecke-rest's `rw [bcPt, …]` becomes `rw [LeafQM.AV.bcPt, …]`; one `simpa using h1`
+  in kummer-comp's Abhyankar core gets an explicit simp set (the flat file's simp set differs).
   Declarations whose text is identical to one already present are also dropped.
   `set_option synthInstance.maxHeartbeats 400000` (kummer-comp's compositum core times out at the default
   with this chain's larger instance set). HeckeRestAll.lean contains the whole of the ts-hecke file it was built on
@@ -76,7 +77,11 @@ for f in ['kummer-comp/KummerComp.lean', 'hecke-rest/HeckeRestAll.lean']:
     parts.append('/-! ## leaf-fold3: %s after the PropTS body, declarations already above dropped -/\n\n' % f + t)
 # one name-resolution edit: inside this chain both `LeafQM.AV.bcPt` (Leaves.lean) and `LeafQM.AV.Pin.bcPt`
 # (part a56) are open in hecke-rest's `HeckeRest` namespace; its `rw [bcPt, …]` means the former
-REPL = [('      rw [bcPt, ← MonObj.comp_pow, hx]', '      rw [LeafQM.AV.bcPt, ← MonObj.comp_pow, hx]')]
+REPL = [('      rw [bcPt, ← MonObj.comp_pow, hx]', '      rw [LeafQM.AV.bcPt, ← MonObj.comp_pow, hx]'),
+# in the flat file (not in the olean chain) a bare `simpa` turns the goal `IsUnit (k : Rp)` into
+# `¬ringChar (ResidueField Rp) ∣ k` first; the explicit simp set closes it in both
+        ('      (Ne.isUnit (by exact_mod_cast hk : (k : ℚ) ≠ 0)).map _\n    simpa using h1',
+         '      (Ne.isUnit (by exact_mod_cast hk : (k : ℚ) ≠ 0)).map _\n    simpa only [RingHom.comp_apply, map_natCast] using h1')]
 hdr0 = 'set_option synthInstance.maxHeartbeats 400000\n'
 hdr = ('-- (leaf-fold3) mk_propts.py: prop-ts PropTS.lean (lines 25-29, 64-906), prop-ts-glue PropTSGlue.lean (after the PropTS body),\n'
        '-- then ts-kummer, kummer-comp, ts-hecke, hecke-rest (after the PropTS body, already-present declarations dropped)\n')
