@@ -166,3 +166,6 @@
   (= current KummerTS.lean byte for byte, checked), after PropTSGlue's opens L26-27, + `end`. GluePieces5 loses
   kummerCompositum (GLUE, now `KummerComp.kummerCompositum_final`): 28 fields (18 LEAF, 7 LEAF?, 3 GLUE). TailF 152 s,
   TailD 132 s: VERIFIED exit 0, 0 errors, no sorryAx, all axiom reports standard.
+- FINAL FLAT CHECK (28-field state, kummer-comp folded): AssemblePort.lean 116 699 lines, md5 670e9889…: VERIFIED exit 0 in
+  1123 s, 0 errors, no sorry, 290 axiom reports all [propext, Classical.choice, Quot.sound], incl.
+  `HDec.HSyn.sixContactMin_of_leaves5` (flat_summary.txt, flat_out.txt).

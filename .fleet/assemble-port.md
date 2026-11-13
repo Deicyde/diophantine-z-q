@@ -10,9 +10,9 @@ It is g0-assemble3's assembly ported from the root-namespace Leaves copy to leaf
 **Hypotheses.**
 - `OpenResearchLeaves2`: 26 fields.
 - `OpenTextbookLeaves2`: 18 fields.
-- `GluePieces5`: 29 fields, **18 LEAF + 7 LEAF? + 4 GLUE**. g0-assemble3's `GluePieces4` had 46 fields, 14 + 3 + 29 GLUE.
+- `GluePieces5`: 28 fields, **18 LEAF + 7 LEAF? + 3 GLUE**. g0-assemble3's `GluePieces4` had 46 fields, 14 + 3 + 29 GLUE.
 
-**The 4 remaining GLUE Props**: `piTwistC`, `sphereFactorAffine`, `kummerCompositum`, `heckeVertWitness`. Everything else
+**The 3 remaining GLUE Props**: `piTwistC`, `sphereFactorAffine`, `heckeVertWitness`. Everything else
 is a literature statement (69 in all).
 
 **Folded in, each with its report.**
@@ -20,7 +20,7 @@ is a literature statement (69 in all).
 - lt-local's proof of `LinkedTateLocal`, with lg-kerwild and local-glue: ported over this file's objects by mechanical
   de-duplication, with `UnramRoots` taken from frob-contrib's kernel proof. It now supplies all of `LinkedTateData`, so
   linked-tate's `linkedFrob`, `kernelFieldBreaks` and `tateRamAtThree` are not hypotheses.
-- cpts-transport, ts-kummer, hodge-bc2, twist-descent, period-glue (S8/W8/QMTwist), ts-hecke, hecke-rest, lt-goodred.
+- cpts-transport, ts-kummer, kummer-comp, hodge-bc2, twist-descent, period-glue (S8/W8/QMTwist), ts-hecke, hecke-rest, lt-goodred.
 - frob-pieces (via linked-frob's block), spread-out (three EGA IV leaves) and leaf-fold2's T35 transport.
 - linked-ram's route is compiled too, but not used by the main theorem.
 
@@ -31,14 +31,15 @@ is a literature statement (69 in all).
   `HeckeFibreSizesHR`, with a bridge to the current Prop.
 
 **Compiles (VERIFIED).**
-- Olean chain `LPrefix → TailA-F → TailD`: 0 errors; 73 axiom reports, all standard.
-- Flat file `scratch/assemble-port/AssemblePort.lean` (116 185 lines): `lake env lean` exit 0 in 1092 s, 0 errors, no
-  `sorry`; 289 axiom reports, all standard.
+- Olean chain `LPrefix → TailA-F → TailD`: 0 errors; 74 axiom reports, all standard.
+- Flat file `scratch/assemble-port/AssemblePort.lean` (116 699 lines): `lake env lean` exit 0 in 1123 s, 0 errors, no
+  `sorry`; 290 axiom reports, all standard.
 
 **What remains.**
-- The 4 glue Props. period-glue reduces two of them further; that is not folded.
+- The 3 glue Props. period-glue reduces two of them further; that is not folded.
 - The 69 literature statements; 7 of them are LEAF? composites, which the frontier task's stricter rule would count as
   GLUE.
-- hom-unify's single leaf `HomLatticeCorr` (would merge three leaves; not folded).
+- hom-unify's single leaf `HomLatticeCorr` (would merge three leaves; not folded here, though leaf-fold3 uses it).
+- leaf-fold3, a parallel assembly, has 6 glue Props; this one has 3.
 
 Report: `docs/research/assemble-port.md`. Log: `scratch/assemble-port/log.md`.
