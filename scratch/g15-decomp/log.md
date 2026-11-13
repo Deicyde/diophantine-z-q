@@ -34,3 +34,17 @@
   unif, norm_le_unif_pow_iff (‖j y‖ ≤ ‖jπ‖^k ↔ y ∈ P^k), Lj j := adjoin ℚ_[p] (j L) : Fld p,
   isUnif_unif, norm_eq_of_isUnif, mem_ramSet_iff (σ ∈ LadicCond.ramSet (Lj j) i ↔ τ ∈ ramGroup L P i
   when j ∘ τ = σ ∘ j). VERIFIED (compiled). Density from TauCeti.exists_mem_norm_sub_lt_of_mem_adjoin.
+- 04:45 §5-10 compile: eq_of_isEquiv, norm_j_apply_of_mem_stabilizer (D_P preserves ‖j·‖), tauOf, tauOf_spec,
+  eq_tauOf, exists_lift (D_P → G_Qp, via TauCeti.exists_algEquiv_apply_eq_of_norm_apply_eq),
+  card_image_eq_of_fibres, restr_eq_iff, ramCard_Lj_eq (LadicCond.ramCard (Lj j) i = ramCard L P i),
+  exists_Lj_eq_adjoin_simple, finiteDimensional_Lj, normal_Lj, isFinGal_Lj, mem_upperSet_of_mem_upperAbs,
+  mem_stabilizer_of_spec, range_tauOf, card_restr_univ, mem_ramSetR_iff, decompFilt, card_decompFilt,
+  ramCardR_Lj_eq, phiAt_Lj_eq (= TDifferent.phiF of the D_P-filtration), mem_upperSet_iff,
+  decomp_spec, tauOf_eq_restrictNormal, mem_ramSet_iff_decomp, mem_upperSet_iff_decomp,
+  galLjHom, decompEquivLj : Gal(Lj/ℚ_p) ≃* D_P, decompEquivLj_spec, decompEquivLj_mem_ramGroup_iff.
+  VERIFIED (compiled; `lake build ZInQKernel.Contrib.G15.LadicBridge` ok).
+
+## ZInQKernel/Contrib/G15/LadicD1.lean
+- 04:50 compiles: phiF_natCast (TDifferent.phiF Γ m = ∑_{i∈Icc 1 m} |Γ_i|/|Γ_0|), phiAt_Lj_natCast,
+  ramCard_Lj_ne_one_iff, ramCard_Lj_zero (g_0 = e(P|p)), D1_Lj (g_0 ≤ a!, 1 ≤ a, g_b ≠ 1 ⇒
+  LadicCond.phiAt (Lj j) b ≤ 4a²; closed). VERIFIED (compiled).
