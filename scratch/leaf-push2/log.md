@@ -12,7 +12,7 @@ Compile command: `lake env lean scratch/leaf-push2/LeafPush2.lean` (one Lean pro
   over a number field, g = dim J ≥ 1, Belyi function t, d = [K(X):K(t)] > 0), `R18_real`,
   `javanpeykarBound_pos`, `javanpeykarBound_mono` (proved). COMPILES (exit 0, 2 min 14 s; one
   linter warning on ffAlgebra, fixed by `@[instance_reducible]`). VERIFIED.
-- 19:5x Added R22 section: `cptObj`, `CPts` (complex points of an `AbVar` at `σ`, Mathlib group
+- 19:45 Added R22 section: `cptObj`, `CPts` (complex points of an `AbVar` at `σ`, Mathlib group
   structure), `cEvalAt`, `cDom`, `IsUniformization` (def-faltings' AN3 predicate for `AbVar`),
   `IsSiegel` (𝔥₂), `IsPeriodMatrix` (∃ ℂ-linear T, T(Λ) = Ωℤ² + ℤ²: encodes every principal
   polarization + symplectic basis, no polarization object), `Char2`, `thetaConst` (θ[a;b](0,Ω) as a
@@ -32,7 +32,7 @@ Compile command: `lake env lean scratch/leaf-push2/LeafPush2.lean` (one Lean pro
   Mathlib v4.35 defines ℓ-adic cohomology `Scheme.EllAdicCohomology X ℓ n` (pro-étale, Bhatt–Scholze
   Def. 6.8.1) as an `AddCommGroup` only: no ℤ_ℓ-module structure, no pullback maps, so no Galois
   action. prereq-survey.md ("ℓ-adic étale cohomology: missing") is out of date on this point.
-- 20:0x Compile: `lake env lean scratch/leaf-push2/LeafPush2.lean`: exit 0, no errors, no warnings;
+- 19:48 Compile: `lake env lean scratch/leaf-push2/LeafPush2.lean`: exit 0, no errors, no warnings;
   every `#print axioms` = [propext, Classical.choice, Quot.sound]. VERIFIED. (Fixes on the way:
   `ι` is a reserved token under the opens of Part I, renamed `emb`; `IsComplexConj` takes the
   `AlgEquiv` type, not `Field.absoluteGaloisGroup ℚ`.)
