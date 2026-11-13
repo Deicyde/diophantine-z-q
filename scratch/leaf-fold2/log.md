@@ -80,3 +80,16 @@ Marks: VERIFIED (compiled / read in a file), STANDARD, SPECULATIVE, UNVERIFIED.
 'HDec.HSyn.gluePieces_of_open2' depends on axioms: [propext, Classical.choice, Quot.sound]
 'HDec.HSyn.sixContactMin_of_open2' depends on axioms: [propext, Classical.choice, Quot.sound]
 ```
+
+## Extra folds (10:00-10:15 PST), VERIFIED compiled (TailE)
+- product-unif §1-§3 (part b08, mk_b08.sh): `ZInQ.ProductUnif.productUnifSplits` compiles over the HDec
+  objects on the first try (TailE 242 s); `productUnifSplits` removed from OpenGlue2.
+- unif-dims + infra-smooth-dim (part b09, modules LF2UnifRoot, LF2SmoothDim; mk_unifdims.py): first run 23
+  errors, all from Leaves.lean's duplicated `ZInQ.LeafPush2`/`ZInQ.DefFaltings` declarations in
+  metrization2's transport section (`open ... ZInQ.DefFaltings ZInQ.LeafPush2`): fixed by opening only
+  `ZInQ.LeafPush2 (CPts cptObj cDom cEvalAt IsUniformization UniformizationExists)` and a local
+  `Coe (AbVar K) (PkgI3.AbVar K)` (field by field, = LeafAdopt.abVarEquiv). `tangentDimAtOrigin_proved`
+  transfers the kernel statement through `toAbVarK : ZInQ.DefFaltings.AbVar L → _root_.PkgI3.AbVar L`.
+  Then TailE: exit 0, 0 errors; 26 `#print axioms`, all standard. `productMetrizationOfProductUnif` now
+  follows from `t.t35` (`productMetrizationOfProductUnif_of_t35`).
+- Result: OpenGlue2 has 11 fields; total hypotheses 26 + 18 + 12 + 11 = 67.
