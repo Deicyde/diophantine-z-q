@@ -1,0 +1,47 @@
+/home/jackmccarthy/dzq-wt/leaf-fold2/scratch/leaf-fold2/olean/TailD.lean:131:5: warning: Ambiguous namespace `PkgI4`: it is interpreted as `_root_.HDec.PkgI4` because this `open` occurs inside `namespace HDec.G0Galois`, while `_root_.PkgI4` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.PkgI4`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+/home/jackmccarthy/dzq-wt/leaf-fold2/scratch/leaf-fold2/olean/TailD.lean:167:2: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+/home/jackmccarthy/dzq-wt/leaf-fold2/scratch/leaf-fold2/olean/TailD.lean:317:2: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+/home/jackmccarthy/dzq-wt/leaf-fold2/scratch/leaf-fold2/olean/TailD.lean:361:4: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+/home/jackmccarthy/dzq-wt/leaf-fold2/scratch/leaf-fold2/olean/TailD.lean:372:2: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+/home/jackmccarthy/dzq-wt/leaf-fold2/scratch/leaf-fold2/olean/TailD.lean:373:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+'HDec.HSyn.gluePieces_of_gluePieces3' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.HSyn.sixContactMin_of_leaves3' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.HSyn.sixContactMin_of_leaves3'' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.HSyn.researchLeaves3_of' depends on axioms: [propext, Classical.choice, Quot.sound]

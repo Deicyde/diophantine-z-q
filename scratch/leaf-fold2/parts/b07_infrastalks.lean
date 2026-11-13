@@ -1,5 +1,5 @@
-/-! ## leaf-fold2: infra-stalks (scratch/infra-stalks/HeightBCGlue.lean lines 2955-3299, its Part 3, verbatim except
-that the lines `open PkgI3 (AbVar)` are deleted, as g0-assemble2 did for part a20; Part 1 is module LF2Stalks) -/
+/-! ## leaf-fold2: infra-stalks (scratch/infra-stalks/HeightBCGlue.lean lines 2955-3301, its Part 3, verbatim except
+that the lines `open PkgI3 (AbVar)` are deleted, as g0-assemble2 did for part a20, and its two `#print` lines; Part 1 is module LF2Stalks) -/
 
 
 namespace ZInQ.HeightBC
@@ -238,7 +238,6 @@ end InfraStalks
 
 end ZInQ.HeightBC
 
-#print axioms ZInQ.HeightBC.cotangentSpanBC
 
 
 
@@ -324,8 +323,6 @@ theorem uniformizationLift : UniformizationLift :=
 
 end ZInQ.HeightBC
 
-#print axioms ZInQ.HeightBC.uniformizationLiftAnalytic
-#print axioms ZInQ.HeightBC.uniformizationLift
 
 
 
@@ -343,3 +340,5 @@ theorem modelHeightBaseChange_of_two (h1 : HodgeBCInjective) (hω : OmegaBaseCha
 theorem hodgeLineBaseChange_of_two (h1 : HodgeBCInjective) (hω : OmegaBaseChange) :
     HodgeLineBaseChange :=
   hodgeLineBaseChange_of_glue4 h1 cotangentSpanBC hω uniformizationLiftAnalytic
+
+end ZInQ.HeightBC

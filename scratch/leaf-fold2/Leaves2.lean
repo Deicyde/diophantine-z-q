@@ -48770,7 +48770,7 @@ with kernel `Λ̄ = {z | z̄ ∈ Λ}`. (`A^s(ℂ)_σ = A(ℂ)_{σ∘s} = A(ℂ)_
 compositions are holomorphic; the group-theoretic clauses follow from `twistC` being a bijective
 homomorphism.) -/
 def ConjUniformization : Prop :=
-  ∀ (K : Type) [Field K] (A : PkgI3.AbVar K) (σ : K →+* ℂ) (s : K →+* K)
+  ∀ (K : Type) [Field K] [NumberField K] (A : PkgI3.AbVar K) (σ : K →+* ℂ) (s : K →+* K)
     (h : σ.comp s = (starRingEnd ℂ).comp σ) (g : ℕ) (Λ : Submodule ℤ (Fin g → ℂ))
     (Φ : (Fin g → ℂ) → CPts A σ),
     A.dim = (g : WithBot ℕ∞) → IsUniformization σ Λ Φ →
@@ -78216,8 +78216,8 @@ end
 end G0A2_b05_conjtwist
 
 section G0A2_b07_infrastalks
-/-! ## leaf-fold2: infra-stalks (scratch/infra-stalks/HeightBCGlue.lean lines 2955-3299, its Part 3, verbatim except
-that the lines `open PkgI3 (AbVar)` are deleted, as g0-assemble2 did for part a20; Part 1 is module LF2Stalks) -/
+/-! ## leaf-fold2: infra-stalks (scratch/infra-stalks/HeightBCGlue.lean lines 2955-3301, its Part 3, verbatim except
+that the lines `open PkgI3 (AbVar)` are deleted, as g0-assemble2 did for part a20, and its two `#print` lines; Part 1 is module LF2Stalks) -/
 
 
 namespace ZInQ.HeightBC
@@ -78456,7 +78456,6 @@ end InfraStalks
 
 end ZInQ.HeightBC
 
-#print axioms ZInQ.HeightBC.cotangentSpanBC
 
 
 
@@ -78542,8 +78541,6 @@ theorem uniformizationLift : UniformizationLift :=
 
 end ZInQ.HeightBC
 
-#print axioms ZInQ.HeightBC.uniformizationLiftAnalytic
-#print axioms ZInQ.HeightBC.uniformizationLift
 
 
 
@@ -78561,6 +78558,8 @@ theorem modelHeightBaseChange_of_two (h1 : HodgeBCInjective) (hω : OmegaBaseCha
 theorem hodgeLineBaseChange_of_two (h1 : HodgeBCInjective) (hω : OmegaBaseChange) :
     HodgeLineBaseChange :=
   hodgeLineBaseChange_of_glue4 h1 cotangentSpanBC hω uniformizationLiftAnalytic
+
+end ZInQ.HeightBC
 
 end G0A2_b07_infrastalks
 
@@ -80973,27 +80972,27 @@ open CategoryTheory AlgebraicGeometry G0Split
 /-! ### Textbook leaves closed since leaf-fold -/
 
 /-- **T14(a′) proved** (task t1415-tc / `ZInQKernel/Contrib/T14/Main.lean`). -/
-theorem t14a_proved : PkgI6.BrauerHasse2C := ZInQ.Contrib.T14.brauerHasse2C
+theorem t14a_proved : PkgI6.BrauerHasse2C := _root_.ZInQ.Contrib.T14.brauerHasse2C
 
 /-- **T14(b′) proved** (`ZInQKernel/Contrib/T14/Main.lean`). -/
-theorem t14b_proved : PkgI6.BrauerReciprocity2C := ZInQ.Contrib.T14.brauerReciprocity2C
+theorem t14b_proved : PkgI6.BrauerReciprocity2C := _root_.ZInQ.Contrib.T14.brauerReciprocity2C
 
 /-- **T28 proved** (`ZInQKernel/Contrib/T28/Assemble.lean`). T28 is not used by the proof (its
 field was deleted from `TextbookLeaves`, see `mk_prefix.py`); recorded for completeness. -/
 theorem t28_proved : PkgI1.IgusaClebschSeparation :=
-  ZInQ.Contrib.T28.igusaClebschSeparation_proved
+  _root_.T28.igusaClebschSeparation_proved
 
 /-- **T36 proved** (`ZInQKernel/Contrib/RLeaf/T36Torsion.lean`). -/
-theorem t36_proved : X1Belyi.TorsionStructure := ZInQ.RLeaf.t36_torsionStructure
+theorem t36_proved : X1Belyi.TorsionStructure := _root_.ZInQ.RLeaf.t36_torsionStructure
 
 /-- **T37 proved** (`ZInQKernel/Contrib/RLeaf/T37GoodReduction.lean`). -/
 theorem t37_proved : X1Belyi.GoodReductionUnramified :=
-  ZInQ.RLeaf.T37.t37_goodReductionUnramified
+  _root_.ZInQ.RLeaf.T37.t37_goodReductionUnramified
 
 /-- **T39 from T40** (`ZInQKernel/Contrib/RLeaf/X1ConstantField.lean`): a degree-one place of
 `K_N` makes `ℚ` algebraically closed in `K_N`. -/
 theorem t39_of_t40 (h : X1Belyi.X1RationalCusp) : X1Belyi.X1ConstantField :=
-  ZInQ.RLeaf.x1ConstantField_of_x1RationalCusp h
+  _root_.ZInQ.RLeaf.x1ConstantField_of_x1RationalCusp h
 
 /-! ### Curve facts closed (infra-smooth-dim, image-plane): `MobiusGlue` from T5 alone -/
 

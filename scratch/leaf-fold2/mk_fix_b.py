@@ -15,3 +15,11 @@ for n in ['ConjTwistNontrivial']:
     assert '\n'.join(p[i:e]) in L, n
     p = p[:s] + ['-- (leaf-fold2) `G0Galois.%s` deleted: Leaves.lean (leaf-fold) declares it with the same body.' % n] + p[e:]
 open(P,'w').write('\n'.join(p)); print('ok')
+# part a30: conj-twist's later commit 3ecdd95e added `[NumberField K]` to `ConjUniformization` (N3a); the rest of
+# the copied lines 206-1612 is unchanged (diff checked). The definition is updated to the current text so that
+# the later sections (part b05) apply.
+P = 'parts/a30_g10.lean'; s = open(P).read()
+old = "def ConjUniformization : Prop :=\n  ∀ (K : Type) [Field K] (A : PkgI3.AbVar K) (σ : K →+* ℂ) (s : K →+* K)"
+new = "def ConjUniformization : Prop :=\n  ∀ (K : Type) [Field K] [NumberField K] (A : PkgI3.AbVar K) (σ : K →+* ℂ) (s : K →+* K)"
+assert s.count(old) == 1
+open(P, 'w').write(s.replace(old, new)); print('ok a30 N3a')

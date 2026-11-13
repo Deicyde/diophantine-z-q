@@ -21,27 +21,27 @@ open CategoryTheory AlgebraicGeometry G0Split
 /-! ### Textbook leaves closed since leaf-fold -/
 
 /-- **T14(a′) proved** (task t1415-tc / `ZInQKernel/Contrib/T14/Main.lean`). -/
-theorem t14a_proved : PkgI6.BrauerHasse2C := ZInQ.Contrib.T14.brauerHasse2C
+theorem t14a_proved : PkgI6.BrauerHasse2C := _root_.ZInQ.Contrib.T14.brauerHasse2C
 
 /-- **T14(b′) proved** (`ZInQKernel/Contrib/T14/Main.lean`). -/
-theorem t14b_proved : PkgI6.BrauerReciprocity2C := ZInQ.Contrib.T14.brauerReciprocity2C
+theorem t14b_proved : PkgI6.BrauerReciprocity2C := _root_.ZInQ.Contrib.T14.brauerReciprocity2C
 
 /-- **T28 proved** (`ZInQKernel/Contrib/T28/Assemble.lean`). T28 is not used by the proof (its
 field was deleted from `TextbookLeaves`, see `mk_prefix.py`); recorded for completeness. -/
 theorem t28_proved : PkgI1.IgusaClebschSeparation :=
-  ZInQ.Contrib.T28.igusaClebschSeparation_proved
+  _root_.T28.igusaClebschSeparation_proved
 
 /-- **T36 proved** (`ZInQKernel/Contrib/RLeaf/T36Torsion.lean`). -/
-theorem t36_proved : X1Belyi.TorsionStructure := ZInQ.RLeaf.t36_torsionStructure
+theorem t36_proved : X1Belyi.TorsionStructure := _root_.ZInQ.RLeaf.t36_torsionStructure
 
 /-- **T37 proved** (`ZInQKernel/Contrib/RLeaf/T37GoodReduction.lean`). -/
 theorem t37_proved : X1Belyi.GoodReductionUnramified :=
-  ZInQ.RLeaf.T37.t37_goodReductionUnramified
+  _root_.ZInQ.RLeaf.T37.t37_goodReductionUnramified
 
 /-- **T39 from T40** (`ZInQKernel/Contrib/RLeaf/X1ConstantField.lean`): a degree-one place of
 `K_N` makes `ℚ` algebraically closed in `K_N`. -/
 theorem t39_of_t40 (h : X1Belyi.X1RationalCusp) : X1Belyi.X1ConstantField :=
-  ZInQ.RLeaf.x1ConstantField_of_x1RationalCusp h
+  _root_.ZInQ.RLeaf.x1ConstantField_of_x1RationalCusp h
 
 /-! ### Curve facts closed (infra-smooth-dim, image-plane): `MobiusGlue` from T5 alone -/
 

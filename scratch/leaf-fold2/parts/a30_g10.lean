@@ -1132,7 +1132,7 @@ with kernel `Λ̄ = {z | z̄ ∈ Λ}`. (`A^s(ℂ)_σ = A(ℂ)_{σ∘s} = A(ℂ)_
 compositions are holomorphic; the group-theoretic clauses follow from `twistC` being a bijective
 homomorphism.) -/
 def ConjUniformization : Prop :=
-  ∀ (K : Type) [Field K] (A : PkgI3.AbVar K) (σ : K →+* ℂ) (s : K →+* K)
+  ∀ (K : Type) [Field K] [NumberField K] (A : PkgI3.AbVar K) (σ : K →+* ℂ) (s : K →+* K)
     (h : σ.comp s = (starRingEnd ℂ).comp σ) (g : ℕ) (Λ : Submodule ℤ (Fin g → ℂ))
     (Φ : (Fin g → ℂ) → CPts A σ),
     A.dim = (g : WithBot ℕ∞) → IsUniformization σ Λ Φ →
