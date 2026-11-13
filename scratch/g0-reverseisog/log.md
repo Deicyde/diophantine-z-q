@@ -28,3 +28,7 @@
   (11 s, replay). 01:59 `lake env lean SplitRev.lean`: exit 0, 0 errors, no `sorry`, 2m57s;
   `#print axioms` of `HSyn.G0RevIsog.reverseIsogeny`, `HSyn.G0RevIsog.reverseIsogeny_of_leaves`,
   `HSyn.glueOutputs_of_leaves_rev`, `HSyn.sixContactMin_of_leaves_rev`: standard three.
+
+## Deliverables
+
+- docs/research/g0-reverseisog.md (result first), .fleet/g0-reverseisog.md.
