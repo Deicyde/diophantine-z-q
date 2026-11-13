@@ -15,3 +15,15 @@
   Kernel pitfall found: `rfl` for `((algebraMap (muField a) (muField b) y : _) : ℚ̄_p) = y` is a
   kernel deterministic timeout (kernel compares the carriers muField a vs muField b); fix: go through
   `IntermediateField.inclusion` + `coe_inclusion`.
+
+## G1-adelic
+- G1Count.lean (VERIFIED, compiles, standard axioms): `G1Count.index_count` / `index_count_of_central`:
+  `[G : Z⊔K₃] = [G : Z⊔K₀] · [K₀ : (Z⊓K₀)⊔K₃]` for K₃ ≤ K₀, Z normal (or central), Z⊔K₃ normal; with
+  the modular law `sup_inf_eq`.
+- Adelic.lean (VERIFIED, compiles, `#print axioms` standard for `relIndex_eq_four`,
+  `mem_sup_iff_forall`, `normalizer_component`):
+  B̂ = `Πʳ p : Nat.Primes, [Bp p, OpSub p]` (restricted product of B_p w.r.t. N5's 𝒪_p),
+  `Ohat`, `Nhat` (normalizer of 𝒪̂ in B̂^×), `K0` (= 𝒪̂^×), `Zhat` (central scalars, componentwise ℚ_p^×).
+  `normalizer_component` (x ∈ N ⇒ x_p normalizes 𝒪_p), `mem_sup_iff_forall` (x ∈ Z K₀ ⇔ ∀ p, x_p ∈ ℚ_p^×𝒪_p^×),
+  `mem_sup_iff` (for x ∈ N: ⇔ at p = 2, 3 only), `Phi`, `ker_Phi`, `Phi_surjective`, `quotEquiv`
+  (N/(Z K₀) ≃* B_2^×/ℚ_2^×𝒪_2^× × B_3^×/ℚ_3^×𝒪_3^×), `relIndex_eq_four` ([N : Z K₀] = 4).

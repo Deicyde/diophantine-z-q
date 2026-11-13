@@ -320,4 +320,156 @@ theorem mem_sup_iff {x : BAˣ} (hx : x ∈ Nhat) :
     subst this; exact h3
   exact comp_mem_scal_of_unramified hx p hp2 hp3
 
+/-! ### The index `[N : Z K₀] = 4` -/
+
+theorem hP2 : ((P2 : Nat.Primes) : ℕ) = 2 ∨ ((P2 : Nat.Primes) : ℕ) = 3 := Or.inl rfl
+theorem hP3 : ((P3 : Nat.Primes) : ℕ) = 2 ∨ ((P3 : Nat.Primes) : ℕ) = 3 := Or.inr rfl
+
+/-- `ℚ_p^× 𝒪_p^×` at `p = 2, 3`. -/
+noncomputable abbrev Hloc (p : Nat.Primes) (hp : (p : ℕ) = 2 ∨ (p : ℕ) = 3) :
+    Subgroup (Bp (p : ℕ))ˣ :=
+  scalOpUnitsSubgroup (p : ℕ) hp
+
+instance Hloc_normal (p : Nat.Primes) (hp : (p : ℕ) = 2 ∨ (p : ℕ) = 3) : (Hloc p hp).Normal :=
+  Subgroup.normal_of_index_eq_two (index_scalOpUnits (p : ℕ) hp)
+
+theorem mem_Hloc {p : Nat.Primes} {hp : (p : ℕ) = 2 ∨ (p : ℕ) = 3} {g : (Bp (p : ℕ))ˣ} :
+    g ∈ Hloc p hp ↔ g ∈ scalOpUnits (p : ℕ) := Iff.rfl
+
+/-- The map `N → ∏_{p | 6} B_p^×/ℚ_p^×𝒪_p^×` (the restricted product of the local quotients,
+which are trivial at `p ∤ 6`). -/
+noncomputable def Phi : Nhat →* ((Bp 2)ˣ ⧸ Hloc P2 hP2) × ((Bp 3)ˣ ⧸ Hloc P3 hP3) :=
+  MonoidHom.prod ((QuotientGroup.mk' (Hloc P2 hP2)).comp ((comp P2).comp Nhat.subtype))
+    ((QuotientGroup.mk' (Hloc P3 hP3)).comp ((comp P3).comp Nhat.subtype))
+
+theorem ker_Phi : Phi.ker = (Zhat ⊔ K0).subgroupOf Nhat := by
+  ext x
+  rw [MonoidHom.mem_ker, Subgroup.mem_subgroupOf, mem_sup_iff x.2]
+  simp only [Phi, MonoidHom.prod_apply, MonoidHom.comp_apply, QuotientGroup.mk'_apply,
+    Prod.mk_eq_one, QuotientGroup.eq_one_iff]
+  rfl
+
+theorem not_mem_scal_of_pi {p : Nat.Primes} (hp : (p : ℕ) = 2 ∨ (p : ℕ) = 3)
+    {π : (Bp (p : ℕ))ˣ} (hπ : ‖nrd (p : ℕ) π‖ = ((p : ℕ) : ℝ)⁻¹) : π ∉ scalOpUnits (p : ℕ) := by
+  rw [mem_scalOpUnits_iff (p : ℕ) hp]
+  rintro ⟨m, hm⟩
+  have p0 : (0 : ℝ) < ((p : ℕ) : ℝ) := by exact_mod_cast p.2.pos
+  have p1 : (1 : ℝ) < ((p : ℕ) : ℝ) := by exact_mod_cast p.2.one_lt
+  rw [hπ, ← zpow_neg_one] at hm
+  have := zpow_right_injective₀ p0 p1.ne' hm
+  omega
+
+open Classical in
+/-- The element of `B̂^×` with component `g` at `p` and `1` elsewhere. -/
+noncomputable def unitSingle (p : Nat.Primes) (g : (Bp (p : ℕ))ˣ) : BAˣ where
+  val := RestrictedProduct.mulSingle (fun q : Nat.Primes => OpSub (q : ℕ)) p (g : Bp (p : ℕ))
+  inv := RestrictedProduct.mulSingle (fun q : Nat.Primes => OpSub (q : ℕ)) p
+    ((g⁻¹ : (Bp (p : ℕ))ˣ) : Bp (p : ℕ))
+  val_inv := by rw [← RestrictedProduct.mulSingle_mul, Units.mul_inv,
+    RestrictedProduct.mulSingle_one]
+  inv_val := by rw [← RestrictedProduct.mulSingle_mul, Units.inv_mul,
+    RestrictedProduct.mulSingle_one]
+
+theorem comp_unitSingle_self (p : Nat.Primes) (g : (Bp (p : ℕ))ˣ) : comp p (unitSingle p g) = g := by
+  classical
+  apply Units.ext
+  rw [comp_val]
+  simp [unitSingle]
+
+theorem comp_unitSingle_ne {p q : Nat.Primes} (h : q ≠ p) (g : (Bp (p : ℕ))ˣ) :
+    comp q (unitSingle p g) = 1 := by
+  classical
+  apply Units.ext
+  rw [comp_val]
+  simp [unitSingle, h]
+
+theorem unitSingle_mem (p : Nat.Primes) (hp : (p : ℕ) = 2 ∨ (p : ℕ) = 3) (g : (Bp (p : ℕ))ˣ) :
+    unitSingle p g ∈ Nhat := by
+  intro y
+  have key : ∀ q : Nat.Primes, y q ∈ Op (q : ℕ) ↔
+      ((unitSingle p g : BA) * y * (((unitSingle p g)⁻¹ : BAˣ) : BA)) q ∈ Op (q : ℕ) := by
+    intro q
+    rw [conj_apply]
+    by_cases h : q = p
+    · subst h
+      rw [comp_unitSingle_self]
+      have := normalizerOp_eq_univ (q : ℕ) hp
+      have hg : g ∈ normalizerOp (q : ℕ) := by rw [this]; trivial
+      exact hg (y q)
+    · rw [comp_unitSingle_ne h]
+      simp
+  exact forall_congr' key
+
+/-- Every class in the local quotient at `p = 2, 3` is the image of `1` or of a uniformizer. -/
+theorem quot_cases (p : Nat.Primes) (hp : (p : ℕ) = 2 ∨ (p : ℕ) = 3) {π : (Bp (p : ℕ))ˣ}
+    (hπ : π ∉ scalOpUnits (p : ℕ)) (a : (Bp (p : ℕ))ˣ ⧸ Hloc p hp) :
+    a = 1 ∨ a = QuotientGroup.mk π := by
+  obtain ⟨g, rfl⟩ := QuotientGroup.mk_surjective a
+  by_cases hg : g ∈ scalOpUnits (p : ℕ)
+  · left
+    exact (QuotientGroup.eq_one_iff g).mpr hg
+  · right
+    rw [QuotientGroup.eq]
+    have h2 := Subgroup.mul_mem_iff_of_index_two (index_scalOpUnits (p : ℕ) hp) (a := g⁻¹) (b := π)
+    rw [mem_Hloc, mem_Hloc] at h2
+    have hg' : g⁻¹ ∉ Hloc p hp := fun h => hg (by
+      have := (Hloc p hp).inv_mem h
+      rw [inv_inv] at this
+      exact this)
+    exact h2.mpr (iff_of_false hg' hπ)
+
+theorem Phi_surjective : Function.Surjective Phi := by
+  obtain ⟨π2, hπ2⟩ := exists_pi ((P2 : Nat.Primes) : ℕ) hP2
+  obtain ⟨π3, hπ3⟩ := exists_pi ((P3 : Nat.Primes) : ℕ) hP3
+  have hn2 := not_mem_scal_of_pi hP2 hπ2
+  have hn3 := not_mem_scal_of_pi hP3 hπ3
+  have h23 : P3 ≠ P2 := by
+    intro h; have := congrArg Subtype.val h; simp [P2, P3] at this
+  let s2 : Nhat := ⟨unitSingle P2 π2, unitSingle_mem P2 hP2 π2⟩
+  let s3 : Nhat := ⟨unitSingle P3 π3, unitSingle_mem P3 hP3 π3⟩
+  have e2 : Phi s2 = (QuotientGroup.mk π2, 1) := by
+    simp only [Phi, MonoidHom.prod_apply, MonoidHom.comp_apply, QuotientGroup.mk'_apply,
+      Subgroup.coe_subtype, s2]
+    rw [comp_unitSingle_self, comp_unitSingle_ne h23]
+    rfl
+  have e3 : Phi s3 = (1, QuotientGroup.mk π3) := by
+    simp only [Phi, MonoidHom.prod_apply, MonoidHom.comp_apply, QuotientGroup.mk'_apply,
+      Subgroup.coe_subtype, s3]
+    rw [comp_unitSingle_self, comp_unitSingle_ne h23.symm]
+    rfl
+  rintro ⟨a, b⟩
+  have ha : ∃ x : Nhat, Phi x = (a, 1) := by
+    rcases quot_cases P2 hP2 hn2 a with rfl | rfl
+    · exact ⟨1, map_one _⟩
+    · exact ⟨s2, e2⟩
+  have hb : ∃ x : Nhat, Phi x = (1, b) := by
+    rcases quot_cases P3 hP3 hn3 b with rfl | rfl
+    · exact ⟨1, map_one _⟩
+    · exact ⟨s3, e3⟩
+  obtain ⟨x, hx⟩ := ha
+  obtain ⟨y, hy⟩ := hb
+  exact ⟨x * y, by rw [map_mul, hx, hy]; exact Prod.ext (mul_one a) (one_mul b)⟩
+
+/-- **`[N : 𝔸_f^× K₀] = 4`** (A3(a), adelic form): `N/(𝔸_f^× K₀) ≅ ∏_{p | 6} B_p^×/ℚ_p^×𝒪_p^×
+≅ (ℤ/2)²`. -/
+theorem relIndex_eq_four : (Zhat ⊔ K0).relIndex Nhat = 4 := by
+  rw [Subgroup.relIndex, ← ker_Phi, Subgroup.index_ker, MonoidHom.range_eq_top.mpr Phi_surjective,
+    Subgroup.card_top, Nat.card_prod]
+  have h2 : Nat.card ((Bp 2)ˣ ⧸ Hloc P2 hP2) = 2 := index_scalOpUnits _ hP2
+  have h3 : Nat.card ((Bp 3)ˣ ⧸ Hloc P3 hP3) = 2 := index_scalOpUnits _ hP3
+  rw [h2, h3]
+
+instance sup_subgroupOf_normal : ((Zhat ⊔ K0).subgroupOf Nhat).Normal :=
+  ker_Phi ▸ Phi.normal_ker
+
+/-- `N/(𝔸_f^× K₀)` is isomorphic to the product of the two nontrivial local quotients. -/
+noncomputable def quotEquiv : Nhat ⧸ (Zhat ⊔ K0).subgroupOf Nhat ≃*
+    ((Bp 2)ˣ ⧸ Hloc P2 hP2) × ((Bp 3)ˣ ⧸ Hloc P3 hP3) :=
+  (QuotientGroup.quotientMulEquivOfEq ker_Phi.symm).trans
+    (QuotientGroup.quotientKerEquivOfSurjective Phi Phi_surjective)
+
 end G1Adelic
+
+#print axioms G1Adelic.relIndex_eq_four
+#print axioms G1Adelic.mem_sup_iff_forall
+#print axioms G1Adelic.normalizer_component
