@@ -354,6 +354,37 @@ theorem rhoF_subrep_of_surj (hS : FaltingsSemisimple) (hT : TateModuleFree) (J A
     ((A.galRep ℓ g).baseChange _ ∘ₗ (homV ℓ π).baseChange _) v
   rw [← LinearMap.baseChange_comp, ← LinearMap.baseChange_comp, homV_galRep]
 
+/-- **G13 as a subrepresentation (GLUE, proved from R16 and the I3 leaves).** For a newform `f`
+of level `N` and any `J₁(N)` `J`: Shimura's `A_f`, `π : J ↠ A_f`, `θ : K_f → End⁰(A_f)` such that
+for every prime `ℓ` and embedding `ι : K_f → ℚ̄_ℓ`, R16's `ρ_{f,ι} = rhoF ℓ A_f θ ι` is
+2-dimensional, has Frobenius traces `ι(a_p(f))` at `p ∤ Nℓ`, and is equivariantly isomorphic to a
+subrepresentation `U` of `V_ℓ(J) ⊗ ℚ̄_ℓ` (as `G_ℚ`-representations). This replaces the quotient
+of `LeafModCurves.g13_constituent` by a sub, and discharges its hypothesis `VSurjOfSurjective`. -/
+theorem rhoF_subrep_J (hR16 : R16_EichlerShimuraJ1') (hS : FaltingsSemisimple)
+    (hF : FaltingsTate) (hT : TateModuleFree) (N : ℕ) (hN : 0 < N)
+    (χ : DirichletCharacter ℂ N) (f : PkgI4.CF N 2) (hf : PkgI4.IsNewform f χ) (J : AbVar ℚ)
+    (hJ : IsJ1 N J) :
+    ∃ (A : AbVar ℚ) (π : Hom J A) (θ : coeffField f →+* A.End0), Surjective π.hom.left ∧
+      ∀ (ℓ : ℕ) [Fact ℓ.Prime] (emb : coeffField f →+* PadicAlgCl ℓ),
+        Module.finrank (PadicAlgCl ℓ) (Module.Dual (PadicAlgCl ℓ) (eigenFun ℓ A θ emb)) = 2 ∧
+        (∀ (p : ℕ), p.Prime → ¬ p ∣ N * ℓ → ∀ σ : GQ, IsFrobAt σ p →
+          ∀ a : coeffField f, (a : ℂ) = PkgI4.coeff f p →
+            LinearMap.trace (PadicAlgCl ℓ) _ (rhoF ℓ A θ emb σ) = emb a) ∧
+        ∃ (U : Subrepresentation (GlueI3.repBaseChange (PadicAlgCl ℓ) (J.galRep ℓ)))
+          (e : U.toSubmodule ≃ₗ[PadicAlgCl ℓ] Module.Dual (PadicAlgCl ℓ) (eigenFun ℓ A θ emb)),
+          ∀ g (u : U.toSubmodule),
+            e ⟨GlueI3.repBaseChange (PadicAlgCl ℓ) (J.galRep ℓ) g u,
+                U.apply_mem_toSubmodule g u.2⟩ = rhoF ℓ A θ emb g (e u) := by
+  obtain ⟨-, A, π, θ, hπ, -, hrest⟩ := hR16 N χ f J hN hf hJ
+  refine ⟨A, π, θ, hπ, fun ℓ _ emb => ?_⟩
+  obtain ⟨h2, hfr⟩ := hrest ℓ emb
+  have : FiniteDimensional (PadicAlgCl ℓ) (eigenFun ℓ A θ emb) :=
+    Module.finite_of_finrank_pos (by omega)
+  refine ⟨finrank_rhoF ℓ A θ emb h2, fun p hp hpN σ hσ a ha => ?_,
+    rhoF_subrep_of_surj ℓ hS hT J A π (vSurjOfSurjective hS hF hT J A π ℓ hπ) θ emb⟩
+  rw [trace_rhoF ℓ A θ emb h2]
+  exact (hfr p hp hpN σ hσ).1 a ha
+
 end RhoSub
 
 end E1Sub
