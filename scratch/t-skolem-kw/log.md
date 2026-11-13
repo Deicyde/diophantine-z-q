@@ -79,3 +79,16 @@
   `autEquivPow`, lift by `liftNormal`), `cycChar_spec`, `agree_of_cycChar_eq`,
   `exists_isPrimitiveRoot_qbar`.
 - AllCheck regenerated and recompiled: no errors.
+
+## Sanity check: ChebotarevExists holds for cyclotomic fields (VERIFIED, compiled 22:5x)
+- `scratch/t-skolem-kw/ChebotarevCyclotomic.lean`: `ChebotarevAt M` (the body of
+  `PkgI6.ChebotarevExists` for one `M`, so `ChebotarevExists ↔ ∀ M, ChebotarevAt M` by definition)
+  and `chebotarevAt_cyclotomic : ∀ n M [IsCyclotomicExtension {n} ℚ M], ChebotarevAt M`;
+  axioms propext, Classical.choice, Quot.sound.
+- Ingredients (all Mathlib): Dirichlet `Nat.forall_exists_prime_gt_and_eq_mod`,
+  `IsCyclotomicExtension.Rat.natAbs_discr`, `not_dvd_discr_iff_isUnramifiedIn`,
+  `IsCyclotomicExtension.Rat.adjoin_singleton_eq_top` (𝓞 = ℤ[ζ]), `exists_add_pow_prime_eq`,
+  `ZMod.pow_card`.
+- Shows the leaf as formalized is the intended statement on abelian (cyclotomic) fields; C10 needs
+  non-abelian M, so the leaf stays.
+- AllCheck regenerated with this file: no errors.

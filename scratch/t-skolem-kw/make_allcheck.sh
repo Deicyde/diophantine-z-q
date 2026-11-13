@@ -5,7 +5,7 @@ D=scratch/t-skolem-kw
   echo "import Mathlib"
   # JHeight needs the upstream ZInQ oleans (not built here); HeightConstant only
   echo "import ZInQKernel.Compiler.Precision.HeightConstant"
-  for f in SkolemNoether BrauerNesbitt FrobeniusDense KroneckerWeberUse; do
+  for f in SkolemNoether BrauerNesbitt FrobeniusDense KroneckerWeberUse ChebotarevCyclotomic; do
     echo
     echo "-- ===== $f.lean ====="
     grep -v '^import ' $D/$f.lean | grep -v '^#print'
@@ -19,4 +19,5 @@ D=scratch/t-skolem-kw
   echo "#print axioms TSkolemKW.KW.eq_of_agree_on_roots"
   echo "#print axioms TSkolemKW.KW.eq_of_agree_on_roots_cyclic"
   echo "#print axioms TSkolemKW.KW.dirichletCharacter_of_kroneckerWeberCyclic"
+  echo "#print axioms TSkolemKW.ChebCyc.chebotarevAt_cyclotomic"
 } > $D/AllCheck.lean

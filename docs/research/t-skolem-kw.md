@@ -27,6 +27,7 @@ other steps).
 | T18 | `HSyn.FrobeniusDense` | **proved from `PkgI6.ChebotarevExists`** | `FrobeniusDense.lean` |
 | T18 | `PkgI6.ChebotarevExists` | open (the remaining leaf) | — |
 | T17 | `HSyn.KroneckerWeber` | open; narrowed to `KroneckerWeberCyclic`; C8's use-form glue proved from that | `KroneckerWeberUse.lean` |
+| T18 | `ChebotarevExists` for cyclotomic `M` (sanity check) | **proved** | `ChebotarevCyclotomic.lean` |
 | (C10) | glue-c10's `GlueC10.c10` | Brauer–Nesbitt hypothesis discharged: `c10_of_chebotarev` | `C10Closed.lean` |
 
 Every proof has no `sorry`. Every `#print axioms` shows only `propext`, `Classical.choice`,
@@ -119,7 +120,16 @@ It uses glue-c10's lift of a finite-level Frobenius to `G_ℚ` at a prime of `\b
 - the Krull-topology step (an open subgroup contains `Gal(\bar ℚ/E)` for a finite `E`).
 
 So the H decomposition needs Chebotarev only in the finite form `ChebotarevExists`, which is what
-C10's glue already uses. **Open**: `ChebotarevExists` itself (Neukirch VII (13.4), UNVERIFIED
+C10's glue already uses.
+
+Sanity check of that leaf (`ChebotarevCyclotomic.lean`, VERIFIED): `chebotarevAt_cyclotomic`
+proves the body of `ChebotarevExists` for every cyclotomic field `M` (`IsCyclotomicExtension {n}
+ℚ M`), from Mathlib's Dirichlet theorem (`Nat.forall_exists_prime_gt_and_eq_mod`), the
+discriminant of `ℚ(ζ_n)` with Dedekind's criterion (`not_dvd_discr_iff_isUnramifiedIn`), and
+`𝓞 = ℤ[ζ]` (`IsCyclotomicExtension.Rat.adjoin_singleton_eq_top`), the Frobenius congruence being
+checked on the generator `ζ` and propagated through `ℤ[ζ]`. So the formalized leaf (Mathlib's
+`IsArithFrobAt`, `Algebra.IsUnramifiedAt`, `Q.under ℤ = (p)`) is the intended statement where it
+can be tested; the case C10 needs (non-abelian `M`) stays open. **Open**: `ChebotarevExists` itself (Neukirch VII (13.4), UNVERIFIED
 locator). Its proof needs Chebotarev's theorem for cyclic extensions of number fields (Deuring's
 reduction), i.e. L-functions or class field theory over number fields, which Mathlib v4.35.0 does
 not have (it has Dirichlet's theorem for `ℚ`). The decomposition uses it for arbitrary finite
