@@ -2025,6 +2025,104 @@ theorem g16 (N : ℕ) (hN : 0 < N) (u : ℚ) (h15 : G15Out N u) :
     (fun p hp => by exact_mod_cast ZInQ.Mult.le_heightD_of_mem_S_mul hp) N hN.ne'
     hsmall hlarge hout
 
+/-! ## §7b. G15's local bounds from ramification statements (proved from L8 and
+`AdaptedExists`) -/
+
+section LocalRamSec
+
+open LadicCond
+open PkgI4 (GQp)
+
+/-- Glazer's uniform bound for the last upper break, `U₀ = 4(DG₀)²` (N5 L826-830). -/
+def U0 : ℝ := 4 * ((ZInQ.heightD * ZInQ.heightG0 : ℕ) : ℝ) ^ 2
+
+/-- **The ramification of `r` at `p` that D1-D4 establish (N5 L819-852).** (i) for `p ≤ R`
+(`R = D`): every absolute upper ramification group `G_{ℚ_p}^t`, `t > U₀`, acts trivially;
+(ii) for `p > R`: wild inertia acts trivially (tame case); (iii) for `p ∉ T = S ∪ supp M_S(u)`:
+inertia acts trivially (G11, in local form). -/
+def LocalRam (u : ℚ) (p : ℕ) [Fact p.Prime] {ℓ : ℕ} [Fact ℓ.Prime] (r : GaloisRep ℓ 2) :
+    Prop :=
+  ((p : ℝ) ≤ (ZInQ.heightD : ℝ) →
+      ∀ t : ℝ, U0 < t → ∀ σ ∈ upperAbs p t, r.restrictLocal p σ = 1) ∧
+    ((ZInQ.heightD : ℝ) < p → ∀ σ ∈ wildSet, r.restrictLocal p σ = 1) ∧
+    (p ∉ ZInQ.Mult.S_mul → ¬ p ∣ ZInQ.contactSupport ZInQ.Mult.S_mul u →
+      ∀ σ ∈ inertiaSet, r.restrictLocal p σ = 1)
+
+/-- **Open part of G15, reduced (glue, D1-D4 on the actual `A`).** `LocalRam` for `r₅` at every
+`p ≠ 5` and for `r₃` at `p = 5`. Proved cores over the kernel's finite-level objects: D1
+(`GlueConductor.D1_genuine`, the break bound `≤ 4a²` from the different), D2
+(`PkgI2.D2_fixed_of_raynaud`: wild inertia trivial on `V_ℓ(A)` after Raynaud), D3
+(`GlueConductor.fourth_pow_mem`: the wild part of `β` at 2). Open: their instantiation on the
+`r_ℓ` built in G8, and the transport from the finite-level filtrations to `upperAbs`. -/
+def G15Ram {L : Type} [Field L] [NumberField L] {A : AbVar L} (D : ModData L A) (u : ℚ) :
+    Prop :=
+  ∀ p : ℕ, ∀ hp : p.Prime,
+    (p ≠ 5 → @LocalRam u p ⟨hp⟩ 5 _ D.r5) ∧ (p = 5 → @LocalRam u p ⟨hp⟩ 3 _ D.r3)
+
+variable {p : ℕ} [Fact p.Prime]
+
+/-- `ρ|_{G_{ℚ_p}}` is continuous (`Field.absoluteGaloisGroup.map` is a continuous hom). -/
+theorem restrictLocal_continuous {ℓ n : ℕ} [Fact ℓ.Prime] (r : GaloisRep ℓ n) :
+    Continuous (r.restrictLocal p) :=
+  r.continuous_toHom.comp (Field.absoluteGaloisGroup.map (algebraMap ℚ ℚ_[p])).continuous
+
+/-- Trivial wild inertia ⇒ `Sw_L(ρ) = 0`. -/
+theorem swanAt_eq_zero_of_wild {k : Type*} [Field k] {n : ℕ} {ρ : GQp p →* GL (Fin n) k}
+    (h : ∀ σ ∈ wildSet, ρ σ = 1) (L : Fld p) : swanAt L ρ = 0 := by
+  rw [swanAt]
+  refine finsum_eq_zero_of_forall_eq_zero fun i => ?_
+  rw [codimInv_eq_zero (fun σ hσ => h σ hσ.2)]
+  simp
+
+/-- `2(1 + U₀) ≤ E₀`. -/
+theorem two_one_add_U0_le : 2 * (1 + U0) ≤ (ZInQ.heightE0 : ℝ) := by
+  have hD : 0 < ZInQ.heightD := by
+    rw [ZInQ.Compiler.Precision.heightD_eq]
+    exact Nat.mul_pos (Nat.factorial_pos 324) (by positivity)
+  have h1 : 1 ≤ ZInQ.heightD * ZInQ.heightG0 :=
+    Nat.mul_pos hD (by unfold ZInQ.heightG0; norm_num)
+  rw [ZInQ.Compiler.Precision.heightE0_eq, U0]
+  generalize ZInQ.heightD * ZInQ.heightG0 = x at h1 ⊢
+  have hx : (1 : ℝ) ≤ (x : ℝ) := by exact_mod_cast h1
+  have hx2 : (1 : ℝ) ≤ (x : ℝ) ^ 2 := one_le_pow₀ hx
+  have hc : (((10 * x ^ 2 : ℕ)) : ℝ) = 10 * (x : ℝ) ^ 2 := by
+    rw [Nat.cast_mul, Nat.cast_pow]; rfl
+  rw [hc]
+  linarith
+
+/-- **G15's local bound from the ramification (GLUE, proved from L8 `SwanIntegral` and
+`AdaptedExists`):** `a ≤ 2(1 + U₀) ≤ E₀` for `p ≤ R` (`LadicCond.condAt_le_of_upper`), `a ≤ 2`
+for tame `p`, `a = 0` if unramified. -/
+theorem localBound_of_ram (hL8 : SwanIntegral) (hAd : AdaptedExists (p := p)) (u : ℚ)
+    {ℓ : ℕ} [Fact ℓ.Prime] (hpℓ : p ≠ ℓ) (r : GaloisRep ℓ 2) (h : LocalRam u p r) :
+    LocalBound u p r := by
+  obtain ⟨h1, h2, h3⟩ := h
+  obtain ⟨Lp, hL⟩ := hAd ℓ (Ne.symm hpℓ) 2 (r.restrictLocal p) (restrictLocal_continuous r)
+  refine ⟨Lp, hL, fun hpR => ?_, fun hpR => ?_, fun hS hM => ?_⟩
+  · have hU0 : (0 : ℝ) ≤ U0 := by unfold U0; positivity
+    have hb := condAt_le_of_upper hL8 ℓ hpℓ (r.restrictLocal p) (restrictLocal_continuous r) Lp
+      hL U0 hU0 (h1 hpR)
+    have : ((condAt Lp (r.restrictLocal p) : ℚ) : ℝ) ≤ ((ZInQ.heightE0 : ℚ) : ℝ) := by
+      push_cast at hb ⊢
+      linarith [two_one_add_U0_le]
+    exact_mod_cast this
+  · rw [condAt, swanAt_eq_zero_of_wild (h2 hpR), add_zero]
+    exact_mod_cast codimInv_le (r.restrictLocal p) inertiaSet
+  · exact condAt_eq_zero_of_unramified (h3 hS hM) Lp
+
+/-- **G15's local bounds from `G15Ram` (GLUE, proved).** -/
+theorem g15LocalBounds_of_ram (hL8 : SwanIntegral)
+    (hAd : ∀ (p : ℕ) [Fact p.Prime], AdaptedExists (p := p))
+    {L : Type} [Field L] [NumberField L] {A : AbVar L} (D : ModData L A) (u : ℚ)
+    (h : G15Ram D u) : G15LocalBounds D u := by
+  intro p hp
+  haveI : Fact p.Prime := ⟨hp⟩
+  refine ⟨fun h5 => ?_, fun h5 => ?_⟩
+  · exact localBound_of_ram hL8 (hAd p) u h5 D.r5 ((h p hp).1 h5)
+  · exact localBound_of_ram hL8 (hAd p) u (by omega) D.r3 ((h p hp).2 h5)
+
+end LocalRamSec
+
 /-! ## §8. The range G13-G16 assembled -/
 
 /-- **G16Out**: what G13-G16 deliver to `ModularConstituent`: a level `1 ≤ N ≤ Q_R M²` (with
@@ -2060,6 +2158,16 @@ theorem g13_g16 (lv : NewformLeaves)
   have h15 := g15 lv.r17 hSw D N χ f h13 h14 u hloc
   exact ⟨N, h13.1, g16 N h13.1 u h15, h13.2.2.2.2.2⟩
 
+/-- **G13-G16, reduced form (GLUE, proved).** As `g13_g16`, with G15's open part in the
+ramification form `G15Ram` and the conductor arithmetic proved from the glue Props L8
+(`SwanIntegral`) and `AdaptedExists` (both stated in the kernel's `LadicCond`). -/
+theorem g13_g16_ram (lv : NewformLeaves)
+    (hSw : ∀ (p : ℕ) [Fact p.Prime], LadicCond.SwanIndependent (p := p))
+    (hL8 : LadicCond.SwanIntegral) (hAd : ∀ (p : ℕ) [Fact p.Prime], LadicCond.AdaptedExists (p := p))
+    {L : Type} [Field L] [NumberField L] {A : AbVar L} (u : ℚ) (D : ModData L A)
+    (h12 : G12Spec D) (hc : G14TraceCompat D) (hram : G15Ram D u) : G16Out A u :=
+  g13_g16 lv hSw u D h12 hc (g15LocalBounds_of_ram hL8 hAd D u hram)
+
 /-- With a `J₁(N)` from T33 (`JacobianExists`) and the glue target `X1ModelExists`: the `N`
 of `G16Out` has a `J₁(N)`, as `ModularConstituent` asks. -/
 theorem g16Out_with_J1 (hJac : JacobianExists ℚ) (hX : X1ModelExists)
@@ -2070,6 +2178,22 @@ theorem g16Out_with_J1 (hJac : JacobianExists ℚ) (hX : X1ModelExists)
   obtain ⟨N, hN, hle, hcc⟩ := h
   obtain ⟨J, hJ⟩ := exists_J1 hJac hX N hN
   exact ⟨N, J, hN, hJ, hle, hcc J hJ⟩
+
+/-- **The G13-G16 conclusion in the shape of `ModularConstituent`'s last conjuncts** (kernel
+objects): for a model `A/L'` with G8-G12's data `D` and the two open Props on `D`, there are a level
+`N` with `0 < N ≤ Q_R M²`, a `J₁(N)` `J` over `ℚ` and a common constituent of `V_ℓ(A)` and
+`V_ℓ(J_{L'})`. -/
+theorem modularConstituent_tail (lv : NewformLeaves) (hJac : JacobianExists ℚ)
+    (hX : X1ModelExists)
+    (hSw : ∀ (p : ℕ) [Fact p.Prime], LadicCond.SwanIndependent (p := p))
+    (hL8 : LadicCond.SwanIntegral) (hAd : ∀ (p : ℕ) [Fact p.Prime], LadicCond.AdaptedExists (p := p))
+    {L : Type} [Field L] [NumberField L] (A : AbVar L) (u : ℚ)
+    (h : ∃ D : ModData L A, G12Spec D ∧ G14TraceCompat D ∧ G15Ram D u) :
+    ∃ (N : ℕ) (J : AbVar ℚ), 0 < N ∧ IsJ1 N J ∧
+      (N : ℝ) ≤ ZInQ.heightQ ZInQ.heightD * (ZInQ.contactSupport ZInQ.Mult.S_mul u : ℝ) ^ 2 ∧
+      CommonConstituent A (J.baseChange L) := by
+  obtain ⟨D, h12, hc, hram⟩ := h
+  exact g16Out_with_J1 hJac hX u (g13_g16_ram lv hSw hL8 hAd u D h12 hc hram)
 
 end G0ModNewform
 
@@ -2086,3 +2210,6 @@ end
 #print axioms G0ModNewform.g16
 #print axioms G0ModNewform.g13_g16
 #print axioms G0ModNewform.g16Out_with_J1
+#print axioms G0ModNewform.localBound_of_ram
+#print axioms G0ModNewform.g13_g16_ram
+#print axioms G0ModNewform.modularConstituent_tail
