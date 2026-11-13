@@ -84,3 +84,13 @@
   **`conjTwistFromLeaves_main : ArtinTorsionSurj → HomLinearLift → ConjUniformization →
   ConjTwistFromLeaves`**. Whole file: 0 errors, 0 sorry, 26 `#print axioms` standard.
   VERIFIED (compiled).
+- 2026-11-13 06:25 refactor: `toC_injective` moved before §7; naturality lemmas and the §11
+  construction use it (§11 now takes a local torsion-surjectivity hypothesis `hsurj`); main
+  theorem `conjTwistNontrivial_of_latticeInj` no longer takes N1. §13 added:
+  **`torsion_surj_of_T5`** (T5 + a uniformization with full lattice ⇒ every n-torsion complex
+  point comes from A(K̄): A(ℂ)[n] ↪ (ℤ/n)^{2g} via lattice coordinates of nz, |A(K̄)[n]| = n^{2g}
+  by T5, toC injective, Nat.card), **`tateLatticeInj_of_T5`**,
+  **`conjTwistNontrivial_final : TorsionStructure → TateModuleFree → UniformizationExists →
+  HomLinearLift → ConjUniformization → ConjTwistNontrivial`**,
+  **`conjTwistFromLeaves_final : HomLinearLift → ConjUniformization → ConjTwistFromLeaves`**.
+  Whole file: 0 errors, 0 sorry, all `#print axioms` standard. VERIFIED (compiled).

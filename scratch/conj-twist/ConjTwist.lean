@@ -1603,6 +1603,108 @@ theorem conjTwistFromLeaves_main (hS : ArtinTorsionSurj) (hN2 : HomLinearLift)
     (hN3a : ConjUniformization) : ConjTwistFromLeaves :=
   fun _ _ h35 _ hT => conjTwistNontrivial_main hT h35 hS hN2 hN3a
 
+/-! ## §13. N1-surj from T5 and a uniformization (proved)
+
+Given a uniformization `Φ : ℂ^g → A(ℂ)_σ` with full lattice `Λ`, `A(ℂ)[n]` injects into
+`(ℤ/n)^{2g}` (`Q = Φ(z) ↦` the coordinates of `nz ∈ Λ` mod `n`), and `A(K̄)[n] ≅ (ℤ/n)^{2g}` by T5
+(`PkgI2.TorsionStructure`). `toC` is injective, so it is a bijection on `n`-torsion. -/
+
+/-- **Torsion surjectivity from T5 (proved).** -/
+theorem torsion_surj_of_T5 (h5 : PkgI2.TorsionStructure.{0}) {K : Type} [Field K]
+    (A : PkgI3.AbVar K) (emb : AlgebraicClosure K →+* ℂ) (g : ℕ) (Λ : Submodule ℤ (Fin g → ℂ))
+    [DiscreteTopology Λ] [IsZLattice ℝ Λ]
+    (Φ : (Fin g → ℂ) → CPts A (emb.comp (algebraMap K (AlgebraicClosure K))))
+    (hΦ : IsUniformization (emb.comp (algebraMap K (AlgebraicClosure K))) Λ Φ)
+    (hd : A.dim = (g : WithBot ℕ∞)) (n : ℕ) (hn : 0 < n)
+    (Q : CPts A (emb.comp (algebraMap K (AlgebraicClosure K)))) (hQ : Q ^ n = 1) :
+    ∃ P, toC A emb P = Q := by
+  classical
+  haveI := ZLattice.module_finite ℝ Λ
+  haveI := ZLattice.module_free ℝ Λ
+  let b := Module.Free.chooseBasis ℤ Λ
+  have hnK : (n : K) ≠ 0 := by
+    intro h0
+    have := congrArg (emb.comp (algebraMap K (AlgebraicClosure K))) h0
+    rw [map_natCast, map_zero] at this
+    exact (Nat.cast_ne_zero.mpr hn.ne') this
+  obtain ⟨e, -⟩ := h5 K (ObjBridge.toGrp A) g n hd hn hnK
+  let S := {P : A.Pt (AlgebraicClosure K) // P ^ n = 1}
+  let T := {Q : CPts A (emb.comp (algebraMap K (AlgebraicClosure K))) // Q ^ n = 1}
+  let f : S → T := fun P => ⟨toC A emb P.1, by rw [← map_pow, P.2, map_one]⟩
+  have hf : Function.Injective f := fun P P' h =>
+    Subtype.ext (toC_injective A emb (congrArg Subtype.val h))
+  have hpre : ∀ Q : T, ∃ z, Φ z = Q.1 := fun Q => hΦ.2.2.1 Q.1
+  choose zz hzz using hpre
+  have hnz : ∀ Q : T, n • zz Q ∈ Λ := fun Q => by
+    rw [← hΦ.2.1, phi_nsmul A emb Φ hΦ.1, hzz, Q.2]
+  let code : T → (Module.Free.ChooseBasisIndex ℤ Λ → ZMod n) := fun Q i =>
+    ((b.repr ⟨n • zz Q, hnz Q⟩ i : ℤ) : ZMod n)
+  have hcode : Function.Injective code := by
+    intro Q Q' hQQ
+    have hdvd : ∀ i, (n : ℤ) ∣ b.repr ⟨n • zz Q', hnz Q'⟩ i - b.repr ⟨n • zz Q, hnz Q⟩ i :=
+      fun i => (ZMod.intCast_eq_intCast_iff_dvd_sub _ _ _).mp (congrFun hQQ i)
+    choose k hk using hdvd
+    let mu : Λ := ∑ i, k i • b i
+    have hmu : (⟨n • zz Q', hnz Q'⟩ : Λ) - ⟨n • zz Q, hnz Q⟩ = (n : ℤ) • mu := by
+      apply b.repr.injective
+      refine Finsupp.ext fun i => ?_
+      rw [map_sub, Finsupp.sub_apply, hk i, map_smul, Finsupp.smul_apply, smul_eq_mul]
+      congr 1
+      exact (congrFun (b.repr_sum_self k) i).symm
+    have hvec : n • zz Q' - n • zz Q = (n : ℤ) • (mu : Fin g → ℂ) := by
+      have := congrArg Subtype.val hmu
+      simpa using this
+    have e3 : (n : ℂ) • (zz Q' - zz Q) = (n : ℂ) • (mu : Fin g → ℂ) := by
+      rw [smul_sub, Nat.cast_smul_eq_nsmul, Nat.cast_smul_eq_nsmul, Nat.cast_smul_eq_nsmul, hvec,
+        natCast_zsmul]
+    have e4 : zz Q' - zz Q = mu :=
+      smul_right_injective (Fin g → ℂ) (Nat.cast_ne_zero.mpr hn.ne' : (n : ℂ) ≠ 0) e3
+    apply Subtype.ext
+    rw [← hzz Q, ← hzz Q', show zz Q' = zz Q + mu by rw [← e4]; abel, hΦ.1,
+      (hΦ.2.1 _).mpr mu.2, _root_.mul_one]
+  haveI : NeZero n := ⟨hn.ne'⟩
+  haveI : Finite T := Finite.of_injective code hcode
+  have hcardS : Nat.card S = n ^ (2 * g) := by
+    have hSe : Nat.card S = Nat.card (Fin (2 * g) → ZMod n) := Nat.card_congr e
+    rw [hSe, Nat.card_fun, Nat.card_zmod,
+      Nat.card_eq_fintype_card, Fintype.card_fin]
+  have hcardT : Nat.card T ≤ n ^ (2 * g) := by
+    have h1 := Nat.card_le_card_of_injective code hcode
+    rw [Nat.card_fun, Nat.card_zmod,
+      Nat.card_eq_fintype_card (α := Module.Free.ChooseBasisIndex ℤ Λ),
+      ← Module.finrank_eq_card_chooseBasisIndex, ZLattice.rank ℝ Λ,
+      Module.finrank_pi_fintype] at h1
+    simp only [Complex.finrank_real_complex, Finset.sum_const, Finset.card_univ,
+      Fintype.card_fin, smul_eq_mul] at h1
+    simpa [mul_comm] using h1
+  have hbij := hf.bijective_of_nat_card_le (hcardS ▸ hcardT)
+  obtain ⟨P, hP⟩ := hbij.2 ⟨Q, hQ⟩
+  exact ⟨P.1, congrArg Subtype.val hP⟩
+
+/-- **N4' from T5 (proved).** -/
+theorem tateLatticeInj_of_T5 (h5 : PkgI2.TorsionStructure.{0}) : TateLatticeInj := by
+  intro K _ A emb g Λ Φ hd _ hlat hΦ ℓ _
+  haveI := ZLattice.module_finite ℝ Λ
+  haveI := ZLattice.module_free ℝ Λ
+  have hsurj := fun n hn Q hQ => torsion_surj_of_T5 h5 A emb g Λ Φ hΦ hd n hn Q hQ
+  refine ⟨(xLin A emb Φ ℓ hΦ.1 hΦ.2.1 hsurj).liftBaseChange ℤ_[ℓ],
+    xLin_liftBaseChange_injective A emb Φ ℓ hΦ.1 hΦ.2.1 hsurj, fun lam n => ?_⟩
+  rw [LinearMap.liftBaseChange_one_tmul]
+  exact xSeq_apply A emb Φ ℓ hΦ.1 hΦ.2.1 hsurj lam n
+
+/-- **Final: `ConjTwistNontrivial` from T5, T26, T35, N2 and N3a (proved).** -/
+theorem conjTwistNontrivial_final (h5 : PkgI2.TorsionStructure.{0})
+    (hT : PkgI3.TateModuleFree) (h35 : ZInQ.LeafPush2.UniformizationExists)
+    (hN2 : HomLinearLift) (hN3a : ConjUniformization) : ConjTwistNontrivial :=
+  conjTwistNontrivial_of_latticeInj hT h35 hN2 (conjAntiLiftLat_of hN2 hN3a)
+    (tateLatticeInj_of_T5 h5)
+
+/-- **Final: `ConjTwistFromLeaves` from N2 and N3a (proved).** T5, T26 and T35 are among the
+hypotheses of `ConjTwistFromLeaves`. -/
+theorem conjTwistFromLeaves_final (hN2 : HomLinearLift) (hN3a : ConjUniformization) :
+    ConjTwistFromLeaves :=
+  fun _ _ h35 h5 hT => conjTwistNontrivial_final h5 hT h35 hN2 hN3a
+
 end G0Galois
 
 #print axioms G0Galois.faltingsV
@@ -1631,3 +1733,6 @@ end G0Galois
 #print axioms G0Galois.conjAntiLiftLat_of
 #print axioms G0Galois.conjTwistNontrivial_main
 #print axioms G0Galois.conjTwistFromLeaves_main
+#print axioms G0Galois.torsion_surj_of_T5
+#print axioms G0Galois.conjTwistNontrivial_final
+#print axioms G0Galois.conjTwistFromLeaves_final
