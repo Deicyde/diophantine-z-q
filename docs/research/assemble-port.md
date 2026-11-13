@@ -19,34 +19,33 @@ theorem HDec.HSyn.sixContactMin_of_leaves5 (r : OpenResearchLeaves2) (t : OpenTe
 
 - **`OpenResearchLeaves2` (26 fields) and `OpenTextbookLeaves2` (18 fields)** are leaf-fold2's open leaf bundles, copied
   verbatim (part z98).
-- **`GluePieces5` (31 fields: 18 LEAF, 8 LEAF?, 5 GLUE)** is what remains of g0-assemble3's `GluePieces4` (46 fields:
+- **`GluePieces5` (29 fields: 18 LEAF, 7 LEAF?, 4 GLUE)** is what remains of g0-assemble3's `GluePieces4` (46 fields:
   14 LEAF, 3 LEAF?, 29 GLUE). §2 has the table.
 
 **VERIFIED:**
 - **Olean chain.** `LPrefix → TailA → TailB → TailC → TailE → TailF → TailD` (`runtails.sh`). Every module has exit 0,
-  0 errors and no `sorry`. All 69 `#print axioms` reports of TailD are `[propext, Classical.choice, Quot.sound]`
+  0 errors and no `sorry`. All 73 `#print axioms` reports of TailD are `[propext, Classical.choice, Quot.sound]`
   (`TailD_out.txt`, counted by `check_axioms.py`). They include `sixContactMin_of_leaves5`, `gluePieces_of_gluePieces5`
   and every theorem folded in.
-- **Flat file** (final, 110 743 lines, md5 `9bd33802…`). `lake env lean scratch/assemble-port/AssemblePort.lean`:
-  - exit 0 in 1079 s, 0 errors, no `sorry`;
-  - all 285 `#print axioms` reports are `[propext, Classical.choice, Quot.sound]`, including `sixContactMin_of_leaves5`
-    (`flat_summary.txt`, `flat_out.txt`).
+- **Flat file** (final, 116 185 lines, md5 `b1339ab5…`). `lake env lean scratch/assemble-port/AssemblePort.lean`:
+  - exit 0 in 1092 s, 0 errors, no `sorry`;
+  - all 289 `#print axioms` reports are `[propext, Classical.choice, Quot.sound]`, including `sixContactMin_of_leaves5`
+    and `LTLocal.linkedTateLocal_of_tateBridge35` (`flat_summary.txt`, `flat_out.txt`).
 
-**The project's own work (GLUE) is down from 29 Props to 5:**
+**The project's own work (GLUE) is down from 29 Props to 4:**
 - `piTwistC`;
 - `sphereFactorAffine`;
 - `kummerCompositum`;
-- `betaSignAtTwo`;
 - `heckeVertWitness`.
 
-Everything else in the three bundles is on the literature side: 26 + 18 + 18 + 8 = **70 leaves**, 8 of them LEAF?
-composites. The total is 26 + 18 + 31 = **75 named Props**.
+Everything else in the three bundles is on the literature side: 26 + 18 + 18 + 7 = **69 leaves**, 7 of them LEAF?
+composites. The total is 26 + 18 + 29 = **73 named Props**.
 
 | statement | hypotheses | total | GLUE |
 |---|---|---|---|
 | g0-assemble3's `sixContactMin_of_leaves4` | 24 + 35 + 46 | 105 | 29 |
 | leaf-fold2's `sixContactMin_of_open2` | 26 + 18 + 12 + 10 | 66 | 10, unsplit (e.g. `propTSAll`, `linkedTateLocal`) |
-| this `sixContactMin_of_leaves5` | 26 + 18 + 31 | 75 | **5** |
+| this `sixContactMin_of_leaves5` | 26 + 18 + 29 | 73 | **4** |
 
 **Base: leaf-fold2's.** origin/wip/leaf-fold2 had its report once the port onto `Leaves.lean` compiled, so the port was
 moved onto leaf-fold2's base.
@@ -63,22 +62,31 @@ moved onto leaf-fold2's base.
 1. **`propTSAll`'s `SpecNonMeeting` branch** is `PropTSGlue.specNonMeeting` (prop-ts-glue 3d41b3d5, part e10). It
    removes `verticalResidueSeparable` and `snSpecialize`.
 2. **R14** is the research leaf with its determinant clause (`r14`, leaf-fold2's form), as are R1(b) and R17.
-3. **linkedTateLocal's pieces** (local-glue, lg-kerwild, lt-local) are recorded in §3. The route used here, linked-tate's
-   route, does not need `LinkedTateLocal`.
+3. **linkedTateLocal's pieces** are recorded in §3 (local-glue, lg-kerwild, lt-local). More than recorded: lt-local's
+   proof of `LinkedTateLocal` is folded in (part z93z, de-duplicated against this file), and it now supplies
+   `LinkedTateData`. Its inputs are:
+   - `UnramRoots`, proved (frob-contrib, part z94b);
+   - `TateBridge35`, from frob-pieces' leaves;
+   - `QMEndRank`, proved (lt-goodred);
+   - R6 and T5.
 
 **Beyond the assignment**, these results, each with its report on its branch, are folded in, each compiled at its step:
 - cpts-transport, ts-kummer, hodge-bc2;
 - twist-descent, period-glue (S8, W8, QMTwist);
 - ts-hecke, hecke-rest;
-- lt-goodred, linked-ram (final);
+- lt-goodred, linked-ram (final), lt-local (with lg-kerwild, local-glue), frob-contrib's `UnramRoots`;
 - linked-frob (with frob-trace, alg-frob-red, afr-absfrob, frob-pieces), spread-out;
 - leaf-fold2's T35 transport.
 
-**Finding (linked-ram F1, adopted).** g0-assemble3's field 46 `tateRamAtThree` is not quantified over `G7Data`, so the
+**Finding (linked-ram F1).** g0-assemble3's field 46 `tateRamAtThree` is not quantified over `G7Data`, so the
 `[L:ℚ] ≤ D` fix does not reach it. linked-ram judges it likely false as stated (SPECULATIVE). If it is false,
-`sixContactMin_of_leaves4` is vacuous. Here `LinkedRam` goes through linked-ram's `linkedRam_of'` with the corrected
-`TateRamAtThreeD`, which linked-ram proves from R6, T5 and `upperBreakBound`. `gluePieces_of_gluePieces5` therefore
-builds Leaves.lean's `GluePieces` directly (§4), not through `GluePieces4`.
+`sixContactMin_of_leaves4` is vacuous.
+
+Here `LinkedTateData` comes from lt-local's `LinkedTateLocal`, so `tateRamAtThree`, `kernelFieldBreaks` and `linkedFrob`
+are not hypotheses at all. linked-ram's corrected route (`TateRamAtThreeD` proved; `BetaSignAtTwo` left) is also compiled
+in the file (part z97), but the main theorem does not use it.
+
+`gluePieces_of_gluePieces5` builds Leaves.lean's `GluePieces` directly (§4).
 
 ## 1. What the port changed (mechanical; each edit is in a script under `mk/` or listed in `log.md`)
 
@@ -94,6 +102,11 @@ which forced these edits:
 - in folded files: mul-rigidity's `Rigidity.lean` (in part a15); the PropTSGlue, aut-o-finite and SmoothStalk copies of
   ts-hecke; the TSHecke and image-plane copies of hecke-rest; kf-glue's `GaloisDescentMor` part of twist-descent (not in
   part d20, unused).
+- lg-kerwild + lt-local (part z93z): every top-level declaration whose qualified name this file already declares is
+  removed mechanically (`mk/dedup_part.py`, `mk/decls.py`: 280 declarations). Each removed copy then resolves to this
+  file's text, e.g. g0-assemble3's fixed `G7Data`, as lt-local's LtLocal4 variant assumes. The kernel checks every
+  remaining proof against this file's definitions.
+- In z93z, `ι` (a token here) is renamed `ιq` as a bound variable.
 
 **Proof repairs** (statements unchanged):
 - part 77 `equivariant_of_asModule`: explicit `simp only`/`rw`;
@@ -122,16 +135,21 @@ which forced these edits:
 | z93 | linked-frob's AFR block (frob-trace, alg-frob-red, afr-absfrob, frob-pieces) + its parts | `LinkedFrobRed.linkedFrob_of_neron_nmp` |
 | z94 | new bridge to spread-out's kernel module `ZInQKernel/Contrib/SpreadOut/NumberField.lean` | `HSyn.abVarSpreadsOut_of_ega` |
 | z96 | lt-goodred `integ/99d_proofs.lean` | `LTGoodRed.goodRedTorsion`, `QM.qmEndRank_of_leaves` |
-| z97 | linked-ram `olean/Tail.lean` at 3cb898bf, L2-1668 (copy in `src/`) | `kernelFieldBreaks_of'`, `betaTrivialAtTwo_of_sign`, `tateRamAtThreeD_of_leaves`, `linkedRam_of'` |
+| z93z | lg-kerwild `KerWild.lean` + lt-local `part_{tools,g7,main,rank,gp4}`, de-duplicated | `LTLocal.linkedTateLocal_of_tateBridge35` |
+| z94b | new bridge to frob-contrib's kernel module `ZInQKernel/Contrib/UnramRoots/Main.lean` | `HSyn.unramRoots_proved` |
+| z97 | linked-ram `olean/Tail.lean` at 3cb898bf, L2-1668 (copy in `src/`); compiled, not used by the main theorem | `kernelFieldBreaks_of'`, `betaTrivialAtTwo_of_sign`, `tateRamAtThreeD_of_leaves`, `linkedRam_of'` |
 | z98 | leaf-fold2 `b20_fold.lean` (slices) | leaf-fold2's textbook folds and bundles |
 | z99 | new | `GluePieces5`, `researchLeaves4_of_open2`, `gluePieces_of_gluePieces5`, `sixContactMin_of_leaves5` |
 
 Extra kernel imports, for TailD and the flat file only (`imports_tailD.txt`; `lake build` OK):
 - `ZInQKernel.Contrib.FrobPieces.SmoothGeomConnIntegral` (from Tau Ceti);
-- `ZInQKernel.Contrib.SpreadOut.NumberField` (merged from spread-out).
+- `ZInQKernel.Contrib.SpreadOut.NumberField` (merged from spread-out);
+- `ZInQKernel.Contrib.UnramRoots.Main` (merged from frob-contrib).
 
-The bridge in z94 sends this file's `PkgI3.AbVar` to the kernel's by `⟨B.X⟩`. The two structures have the same five
-fields, and the conclusion is accepted by unfolding.
+Two bridges to kernel statements:
+- z94 sends this file's `PkgI3.AbVar` to the kernel's by `⟨B.X⟩`. The two structures have the same five fields, and the
+  conclusion is accepted by unfolding.
+- z94b accepts the kernel's `G15Ram.UnramRoots` for this file's copy by unfolding.
 
 Skolem–Noether is Leaves.lean's proved `TSkolemKW.glueDescent_leafSkolemNoether`.
 
@@ -184,12 +202,12 @@ it is marked LEAF? here (SPECULATIVE judgement). "Open" means the field is a hyp
 | 40 | `divisiblePoints` | LEAF | open | — |
 | 41 | `carayolR17` | LEAF | moved: `OpenResearchLeaves2.r17` | leaf-fold2 (z98) |
 | 42 | `goodRedTorsion` | GLUE | **proved** | lt-goodred (z96) |
-| 43 | `qmEndRank` | GLUE | **proved** from t6, t27 | lt-goodred (z96) |
-| 44 | `linkedFrob` | GLUE (SPECULATIVE truth) | **reduced to leaves**: the three EGA IV leaves (via N1-g1), `properSmoothGenConnected`, T4, T3 | linked-frob, spread-out (z93, z94) |
-| 45 | `kernelFieldBreaks` | GLUE | reduced: clause (ii) proved; clause (i) from `upperBreakBound` + `betaSignAtTwo` | linked-ram (z97) |
-| 46 | `tateRamAtThree` | GLUE | **replaced** by the corrected `TateRamAtThreeD`, **proved** from R6, T5, `upperBreakBound` (F1, §0) | linked-ram (z97) |
+| 43 | `qmEndRank` | GLUE | **proved** from t6, t27 (used by lt-local's route) | lt-goodred (z96) |
+| 44 | `linkedFrob` | GLUE (SPECULATIVE truth) | **not needed**: `LinkedTateData` from lt-local's `LinkedTateLocal` (inputs: R6, T5, T26, `UnramRoots` proved, `TateBridge35` from the three EGA IV leaves, `properSmoothGenConnected`, T4, T3, and `QMEndRank` proved) | lt-local, frob-pieces, spread-out, frob-contrib (z93z, z93, z94, z94b) |
+| 45 | `kernelFieldBreaks` | GLUE | **not needed** (same route; linked-ram's reduction is also compiled, z97) | as 44 |
+| 46 | `tateRamAtThree` | GLUE | **not needed** (same route; likely false as stated, F1) | as 44 |
 
-**New fields** (15: 8 LEAF, 5 LEAF?, 2 GLUE):
+**New fields** (13: 8 LEAF, 4 LEAF?, 1 GLUE):
 
 | field | kind | content (source report's locators, UNVERIFIED) | task |
 |---|---|---|---|
@@ -206,37 +224,35 @@ it is marked LEAF? here (SPECULATIVE judgement). "Open" means the field is a hyp
 | `properSmoothGenConnected` | LEAF? | Zariski connectedness in the form used (EGA III₁ 4.3) | frob-pieces |
 | `reductionTorsionBijective` | LEAF | T4 I2-Red (`TextbookLeaves.t4`, deleted as unused by leaf-fold2, used again here) | kernel leaf |
 | `neronMappingAbelianScheme` | LEAF | T3 I2-NMP (`TextbookLeaves.t3`, likewise) | kernel leaf |
-| `upperBreakBound` | LEAF? | absolute upper breaks `< 4a²` for degree-`a` extensions of ℚ_p (Serre, *Local Fields* III §6, IV §1-§3; manuscript L796-811) | linked-ram |
-| `betaSignAtTwo` | GLUE | sign of `β` on high upper groups at 2 (manuscript L826-843, local reciprocity) | linked-ram |
 
-Field arithmetic: 46 − 30 (3 moved, 1 derived, 18 proved, 8 reduced) + 15 new = 31.
+Field arithmetic: 46 − 30 (3 moved, 1 derived, 18 proved, 3 not needed, 5 reduced) + 13 new = 29.
 
-**`GluePieces5` (31 fields).**
+**`GluePieces5` (29 fields).**
 - LEAF (18): `cmOptimalEmbedding`, `x6ConicModel`, `qmClassNumberOne`, `valenceBoundGammaStar`, `homLinearLift`,
   `senTwist`, `finiteImageHT`, `t09SymmIsogenyExists`, `isogenyQuasiInverse`, `divisiblePoints`, `t11aRiemannHom`,
   `y3Connected`, `serreRigidity3`, `egaIV_8_8_2_ii`, `egaIV_8_10_5_xii`, `egaIV_17_7_8_ii`, `reductionTorsionBijective`,
   `neronMappingAbelianScheme`.
-- LEAF? (8): `thetaRatiosAlgebraic`, `qmHauptmodul`, `cmDescends`, `upperBreakBound`, `gammaStarGen`, `qmAutCard`,
-  `alFixedPoints`, `properSmoothGenConnected`.
-- GLUE (5): `piTwistC`, `sphereFactorAffine`, `kummerCompositum`, `betaSignAtTwo`, `heckeVertWitness`.
+- LEAF? (7): `thetaRatiosAlgebraic`, `qmHauptmodul`, `cmDescends`, `gammaStarGen`, `qmAutCard`, `alFixedPoints`,
+  `properSmoothGenConnected`.
+- GLUE (4): `piTwistC`, `sphereFactorAffine`, `kummerCompositum`, `heckeVertWitness`.
 
 **Counts against `GluePieces4`.**
 
 | kind | `GluePieces4` | `GluePieces5` | how |
 |---|---|---|---|
 | LEAF | 14 | 18 | −1 derived from T35, −3 moved to `OpenResearchLeaves2`, +8 new (`t11aRiemannHom`, `y3Connected`, `serreRigidity3`, 3 EGA IV, T3, T4) |
-| LEAF? | 3 | 8 | +5 new (`upperBreakBound`, `gammaStarGen`, `qmAutCard`, `alFixedPoints`, `properSmoothGenConnected`) |
-| GLUE | 29 | 5 | see the breakdown below |
-| total | 46 | 31 | |
+| LEAF? | 3 | 7 | +4 new (`gammaStarGen`, `qmAutCard`, `alFixedPoints`, `properSmoothGenConnected`) |
+| GLUE | 29 | 4 | see the breakdown below |
+| total | 46 | 29 | |
 
 The 29 GLUE fields of `GluePieces4`:
 - **18 proved outright**, or from leaves already in the bundles: `hodgeBCInjective`, `omegaBaseChange`,
   `baseChangeClassUnique`, `s8Nonzero`, `cPtsTransport`, `verticalResidueSeparable`, `snSpecialize`, six Kummer
   pieces, `heckeNormalizationIrr`, `heckeDegree`, `twistDescent`, `goodRedTorsion`, `qmEndRank`.
-- **6 reduced to leaves only**: `qmTwistLattice`, `s8WeightExact`, `heckeIrreducible`, `heckeBranch`, `linkedFrob`,
-  `tateRamAtThree`.
-- **2 reduced to a smaller glue**: `kernelFieldBreaks` → `betaSignAtTwo` (+ the leaf `upperBreakBound`);
-  `heckeNoVertRam` → `heckeVertWitness`.
+- **4 reduced to leaves only**: `qmTwistLattice`, `s8WeightExact`, `heckeIrreducible`, `heckeBranch`.
+- **3 not needed**: `linkedFrob`, `kernelFieldBreaks`, `tateRamAtThree`. lt-local's `LinkedTateLocal`, proved from
+  leaves, replaces their route.
+- **1 reduced to a smaller glue**: `heckeNoVertRam` → `heckeVertWitness`.
 - **3 unchanged**: `piTwistC`, `sphereFactorAffine`, `kummerCompositum`.
 
 **Areas with no glue left:**
@@ -246,20 +262,19 @@ The 29 GLUE fields of `GluePieces4`:
 - the Hecke cover apart from `heckeVertWitness`;
 - G3;
 - G4's kernel field;
-- the Frobenius link (`linkedFrob`), now from leaves;
-- `LinkedRam` apart from `betaSignAtTwo`.
+- all of G7-G8's linked data (`LinkedTateData`, via `LinkedTateLocal`), now from leaves.
 
 **On the classification.** The frontier task (docs/research/frontier.md on its branch) applies a stricter rule, under
 which composites of published theorems count as GLUE. Under that rule the 8 LEAF? fields here would be GLUE, and so
 would some of the LEAF fields its report flags (e.g. `x6ConicModel`, "a consequence of the published model").
 
-## 3. linkedTateLocal: which theorems prove its pieces
+## 3. linkedTateLocal: which theorems prove its pieces (and its proof, folded)
 
-`LinkedTateLocal` is g0-assemble2's GLUE field 39, the local half of G7-G8 on G7's data. `sixContactMin_of_leaves5` keeps
-g0-assemble3's choice, linked-tate's route. VERIFIED by reading:
+`LinkedTateLocal` is g0-assemble2's GLUE field 39, the local half of G7-G8 on G7's data. VERIFIED by reading, and by
+compiling the folded part z93z:
 
-**local-glue** (`scratch/local-glue/LocalGlue.lean`): `G15Ram.localGlue_of_unramRoots` gives G15's local data
-`LocalGlue p …` at `p ≠ ℓ`. Its inputs:
+**local-glue** (`scratch/local-glue/LocalGlue.lean`, inside lg-kerwild's file): `G15Ram.localGlue_of_unramRoots` gives
+G15's local data `LocalGlue p …` at `p ≠ ℓ`. Its inputs:
 - R6, I2-Tors and `UnramRoots`;
 - `G7Out` and `G7Clauses`;
 - `KerWild K β L` and `p ≤ 5 → DescentPts A L`.
@@ -270,27 +285,20 @@ g0-assemble3's choice, linked-tate's route. VERIFIED by reading:
 - `localGlue_of_tateBridge35`: `LocalGlue` at ℓ = 5, 3 from R6, I2-Tors, `UnramRoots`, `G7Clauses`;
 - `exists_localGlue_of_tateModuleFree`: the same at every ℓ, given `G7Clauses`.
 
-**lt-local** (merged; docs/research/lt-local.md) proves `LinkedTateLocal` itself, statement unchanged, over
-g0-assemble3's `G7Data`:
+**lt-local** (docs/research/lt-local.md) supplies `G7Clauses` for the transported data (`g7Clauses_of_transport`),
+`dim A_{L'} = 2` (`dim_bc_of_g7Data`) and `ModelEndRank4` (from `FibreSimple` + `QMEndRank`). It proves:
 - `LTLocal.linkedTateLocal_of_tateBridge35 : R6 → I2-Tors → UnramRoots 2 5 → UnramRoots 2 3 → TateBridge35 →
-  FibreSimple → QMEndRank → LinkedTateLocal`;
-- `linkedTateLocal_of_algFrobRed`: the same with I3.M0 + `AlgFrobRed` in place of `TateBridge35`.
+  FibreSimple → QMEndRank → LinkedTateLocal`, over g0-assemble3's `G7Data`, statement unchanged.
 
-The pieces it supplies are `G7Clauses` for the transported data (`g7Clauses_of_transport`), `dim A_{L'} = 2`
-(`dim_bc_of_g7Data`) and `ModelEndRank4`.
+**Folded here (part z93z), with the remaining inputs discharged:**
+- `UnramRoots p ℓ` is frob-contrib's kernel theorem (part z94b).
+- `TateBridge35` is `FrobPiecesGood.tateBridge35_of_neron_nmp t.t26 (abVarSpreadsOut_of_ega …)
+  gp.properSmoothGenConnected gp.reductionTorsionBijective gp.neronMappingAbelianScheme` (frob-pieces, spread-out).
+- `QMEndRank` is `LTGoodRed.QM.qmEndRank_of_leaves t.t6 t.t27`.
+- `FibreSimple` is derived.
+- R6 and T5 are `r.r6` and `t.t5`.
 
-**Not folded.** lt-local's file is lg-kerwild's world: kernel `ZInQKernel.HDecomp.*` objects, with its own copies of
-`G7Data`, `TateBridge` and g0-dim. Porting it here means de-duplicating about 9k lines.
-
-With what is folded now, the two routes compare as follows:
-- linked-tate's route, used here, costs `upperBreakBound` and `betaSignAtTwo`. The Frobenius link comes from the EGA IV
-  leaves, `properSmoothGenConnected`, T3 and T4.
-- lt-local's route would cost `UnramRoots 2 5`, `UnramRoots 2 3` (textbook; frob-contrib adopts `UnramRoots` into
-  `ZInQKernel/Contrib/`) and `TateBridge35`. `QMEndRank` is now proved, and `FibreSimple` is derived. frob-pieces reduces
-  `TateBridge35` to the same Frobenius inputs.
-
-So lt-local's route would replace `betaSignAtTwo` (GLUE) and `upperBreakBound` (LEAF?) by `UnramRoots` (SPECULATIVE
-estimate). It is the remaining integration option for that corner.
+`G0AssembleMod.linkedTateData_of_local t.t7` then gives `LinkedTateData`.
 
 ## 4. The proof of `sixContactMin_of_leaves5`
 
@@ -315,11 +323,10 @@ replaced by its proof term.
 - **G4**: `kernelFieldExists_of_descent … twistDescent`.
 - **G8-G12**: `r.r14`, `r.r10` and `r.r17`.
 - **G3**: `LTGoodRed.goodRedTorsion`.
-- **LinkedTateData**: `linkedTateData_of_frobRam t.t7 t.t26 hFS (qmEndRank_of_leaves t.t6 t.t27) (linkedFrobRam_of
-  (linkedFrob_of_neron_nmp (abVarSpreadsOut_of_ega …) gp.properSmoothGenConnected gp.reductionTorsionBijective
-  gp.neronMappingAbelianScheme) (linkedRam_of' hG3 (kernelFieldBreaks_of' gp.upperBreakBound (betaTrivialAtTwo_of_sign
-  gp.upperBreakBound gp.betaSignAtTwo)) localInertiaGlobal upperAbsInertia (tateRamAtThreeD_of_leaves r.r6 t.t5
-  gp.upperBreakBound)))`.
+- **LinkedTateData**: `linkedTateData_of_local t.t7 (LTLocal.linkedTateLocal_of_tateBridge35 r.r6 t.t5
+  (unramRoots_proved 2 5) (unramRoots_proved 2 3) (FrobPiecesGood.tateBridge35_of_neron_nmp t.t26 (abVarSpreadsOut_of_ega
+  gp.egaIV_8_8_2_ii gp.egaIV_8_10_5_xii gp.egaIV_17_7_8_ii) gp.properSmoothGenConnected gp.reductionTorsionBijective
+  gp.neronMappingAbelianScheme) hFS (qmEndRank_of_leaves t.t6 t.t27))`.
 
 `researchLeaves4_of_open2` maps leaf-fold2's research bundle to `ResearchLeaves4`. leaf-fold's `PkgI4.DeRhamComparisonHT`
 is accepted as r10-amend's `ZInQ.Contrib.R10.DeRhamComparisonHT`; they are two copies of one statement.
@@ -329,7 +336,7 @@ No statement of a leaf or glue Prop was changed. The one adaptation is the versi
 ## 5. Checks (all VERIFIED)
 
 - `lake build` of every kernel module imported (`LeavesP.lean`, `imports_extra.txt`, `imports_tailD.txt`): OK.
-- **Olean chain** (final): every module exit 0, 0 errors, no `sorry`. TailD's 69 axiom reports are all standard.
+- **Olean chain** (final): every module exit 0, 0 errors, no `sorry`. TailD's 73 axiom reports are all standard.
 
 | module | time |
 |---|---|
@@ -339,7 +346,7 @@ No statement of a leaf or glue Prop was changed. The one adaptation is the versi
 | TailC | 165 s |
 | TailE | 35 s |
 | TailF | 149 s |
-| TailD | 100 s |
+| TailD | 130 s |
 
 - **Flat file**:
 
@@ -348,26 +355,25 @@ No statement of a leaf or glue Prop was changed. The one adaptation is the versi
 | 29 fields | 99 179 | a660b0c9… | 1 error (the e12 `simpa`, then repaired) |
 | 27 fields | 101 778 | ea746d85… | exit 0, 1021 s, 0 errors, no `sorry`, 272 axiom reports all standard |
 | 32 fields (after spread-out) | 107 495 | 4f787394… | exit 0, 1123 s, 0 errors, no `sorry`, 279 reports all standard |
-| **final (31 fields)** | **110 743** | **9bd33802…** | **exit 0, 1079 s, 0 errors, no `sorry`, 285 reports all standard** |
+| 31 fields (linked-ram route) | 110 743 | 9bd33802… | exit 0, 1079 s, 0 errors, no `sorry`, 285 reports all standard |
+| **final (29 fields, lt-local route)** | **116 185** | **b1339ab5…** | **exit 0, 1092 s, 0 errors, no `sorry`, 289 reports all standard** |
 
 ## 6. What remains
 
-**GLUE (5):**
+**GLUE (4):**
 - `piTwistC`: period-glue reduces it to R1fp, R2fp, `TwistOrbitFinite` and `FibreTransferC`.
 - `sphereFactorAffine`: period-glue reduces it to three textbook complex-analysis glue Props.
 - `kummerCompositum`: ts-kummer §4 has a plan.
-- `betaSignAtTwo`: needs local CFT at 2.
 - `heckeVertWitness`: good reduction of `Y₃`, or Lemma NV.
 
 **Not folded:**
 - period-glue's `piTwistC_of`, `sphereFactorAffine_of`, which split glue further;
 - hom-unify's `HomLatticeCorr`, one leaf that would cover T11(a), `homLinearLift` and `t11aRiemannHom`, over the kernel's
   LeafPush2 objects;
-- lt-local's route (§3).
 
 **Caveats:**
 - `r1b` and `piTwistC` are stated for the triple `Classical.choice` extracts from `R1R2fpRep`.
-- The 8 LEAF? fields are composites.
+- The 7 LEAF? fields are composites.
 - Truth per the source reports: all the new statements are judged true. hecke-rest's own self-review fixed an empty-`Y`
   case in two intermediate Props, since proved.
-- T3 and T4 return as hypotheses, because linked-frob's route uses them.
+- T3 and T4 return as hypotheses, because frob-pieces' `TateBridge35` uses them.

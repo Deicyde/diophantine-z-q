@@ -159,3 +159,6 @@
   …) gp.properSmoothGenConnected gp.reductionTorsionBijective gp.neronMappingAbelianScheme) hFS (qmEndRank_of_leaves t.t6
   t.t27))`. GluePieces5 loses upperBreakBound (LEAF?), betaSignAtTwo (GLUE): 29 fields (18 LEAF, 7 LEAF?, 4 GLUE).
   TailD: VERIFIED exit 0, 130 s, no sorryAx, all axiom reports standard.
+- FINAL FLAT CHECK (29-field state, lt-local route): AssemblePort.lean 116 185 lines, md5 b1339ab5…: VERIFIED exit 0 in
+  1092 s, 0 errors, no sorry, 289 axiom reports all [propext, Classical.choice, Quot.sound], incl.
+  `HDec.HSyn.sixContactMin_of_leaves5`, `gluePieces_of_gluePieces5`, `LTLocal.linkedTateLocal_of_tateBridge35`.

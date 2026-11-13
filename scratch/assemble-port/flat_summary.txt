@@ -1,11 +1,13 @@
-FINAL flat check (31-field state: sixContactMin_of_leaves5 with GluePieces5 = 18 LEAF, 8 LEAF?, 5 GLUE)
-file: scratch/assemble-port/AssemblePort.lean, 110743 lines, md5 9bd33802ad82813f5672443ac1a083bd
+FINAL flat check (29-field state, lt-local route: sixContactMin_of_leaves5 with GluePieces5 = 18 LEAF, 7 LEAF?, 4 GLUE)
+file: scratch/assemble-port/AssemblePort.lean, 116185 lines, md5 b1339ab5aa3479ced0f497906283ebff
 command: lake env lean scratch/assemble-port/AssemblePort.lean (cflat.sh)
-exit 0 in 1079s
+exit 0 in 1092s
 errors: 0  sorry: 0
-reports: 285  no-axiom reports: 0  nonstandard: 0
+reports: 289  no-axiom reports: 0  nonstandard: 0
 HDec.HSyn.sixContactMin_of_leaves5 reported
 HDec.HSyn.gluePieces_of_gluePieces5 reported
+HDec.LTLocal.linkedTateLocal_of_tateBridge35 reported
 
+earlier: 31-field state (110743 lines, md5 9bd33802...): exit 0 in 1079 s, 0 errors, 285 reports all standard
 earlier: 32-field state (107495 lines, md5 4f787394...): exit 0 in 1123 s, 0 errors, 279 reports all standard
 earlier: 27-field state (101778 lines, md5 ea746d85...): exit 0 in 1021 s, 0 errors, 272 reports all standard
