@@ -848,6 +848,57 @@ theorem qmLatticeFree_of (hSN : QMSkolemNoetherC) (hCN : QMClassNumberOne) : QML
     exact ⟨ρ a y, hρ a y hy, by simp [hG]⟩)
   exact ⟨G, w, hw, hmap.trans hΛw, hG⟩
 
+/-! ### Step 2h: `UnifTransport` from the transport of complex points (algebraic geometry) -/
+
+/-- **GLUE (complex points of the base change).** In the situation of `UnifTransport` there is a
+group isomorphism `ψ : Q.A(ℂ) ≅ A(ℂ)_σ` (`σ = ι ∘ emb`) compatible with regular functions: for every
+open `U` of `A` and `s ∈ Γ(U, 𝒪_A)` there are an open `U'` of `Q.A` and `s' ∈ Γ(U', 𝒪)` with
+`ψ(x) ∈ U(ℂ) ↔ x ∈ U'(ℂ)` and `s(ψ x) = s'(x)` there.
+
+Why true: `A(ℂ)_σ = Hom_K(Spec ℂ, A) = Hom_ℂ(Spec ℂ, A ×_K ℂ)`, and `A ×_K ℂ ≅ P.A ×_ℚ̄ ℂ ≅ Q.A`
+as `ℂ`-schemes (pullback pasting with `FibreOver`'s isomorphism and `IsBaseChangeOf`'s square).
+The bijection `χ : Q.A(ℂ) → A(ℂ)_σ` so obtained comes from an isomorphism of `ℂ`-varieties, so by
+rigidity (Mumford, *Abelian Varieties*, §4 Cor. 1, UNVERIFIED number) `ψ(x) = χ(x)·χ(1)⁻¹` is a
+group isomorphism. For `U`, `s`: `U'` is the image in `Q.A` of `t⁻¹(U_ℂ)`, `t` the translation by
+`χ(1)⁻¹` on `A_ℂ`, and `s' = (s ⊗ 1) ∘ t` transported to `Q.A`. Not in Mathlib: pullbacks of points
+over `Over` categories are routine; rigidity is a textbook leaf. Size: medium. -/
+def CPtsTransport : Prop :=
+  ∀ (K : GlueAssembly.NF) (A : ZInQ.DefFaltings.AbVar K.K) (emb : K.K →+* Qbar) (P : QML3 Qbar),
+    (letI : Algebra K.K Qbar := emb.toAlgebra; Nonempty ((A.baseChange Qbar).X ≅ P.A.X)) →
+    ∀ (ιe : Qbar →+* ℂ) (Q : QML3 ℂ), IsBaseChangeOf ιe P Q →
+    ∃ ψ : CPts Q.A (RingHom.id ℂ) ≃* CPts (LeafAdopt.abVarEquiv K.K A) (ιe.comp emb),
+      ∀ (U : (LeafAdopt.abVarEquiv K.K A).X.left.Opens)
+        (s : Γ((LeafAdopt.abVarEquiv K.K A).X.left, U)),
+        ∃ (U' : Q.A.X.left.Opens) (s' : Γ(Q.A.X.left, U')),
+          ∀ x : CPts Q.A (RingHom.id ℂ), (⊤ ≤ (ψ x).left ⁻¹ᵁ U ↔ ⊤ ≤ x.left ⁻¹ᵁ U') ∧
+            (⊤ ≤ x.left ⁻¹ᵁ U' → cEvalAt (ψ x) U s = cEvalAt x U' s')
+
+/-- **`UnifTransport` from `CPtsTransport` (proved):** `Φ_A = ψ ∘ Φ_Q`. -/
+theorem unifTransport_of (hCP : CPtsTransport) : UnifTransport := by
+  intro K A emb P hiso ιe Q hQ Λ Φu hU
+  obtain ⟨ψ, hψ⟩ := hCP K A emb P hiso ιe Q hQ
+  obtain ⟨hadd, hker, hsurj, hopen, hhol⟩ := hU
+  have hdom : ∀ (U : (LeafAdopt.abVarEquiv K.K A).X.left.Opens)
+      (U' : Q.A.X.left.Opens) (s' : Γ(Q.A.X.left, U')),
+      (∀ x : CPts Q.A (RingHom.id ℂ), (⊤ ≤ (ψ x).left ⁻¹ᵁ U ↔ ⊤ ≤ x.left ⁻¹ᵁ U')) →
+      cDom (fun z => ψ (Φu z)) U = cDom Φu U' := by
+    intro U U' s' h
+    ext z
+    exact h (Φu z)
+  refine ⟨fun z => ψ (Φu z), fun z w => ?_, fun z => ?_, fun x => ?_, fun U => ?_, fun U s => ?_⟩
+  · simp only [hadd, map_mul]
+  · rw [← hker]
+    exact MulEquiv.map_eq_one_iff ψ
+  · obtain ⟨y, rfl⟩ := ψ.surjective x
+    obtain ⟨z, rfl⟩ := hsurj y
+    exact ⟨z, rfl⟩
+  · obtain ⟨U', s', h⟩ := hψ U 0
+    rw [hdom U U' s' (fun x => (h x).1)]
+    exact hopen U'
+  · obtain ⟨U', s', h⟩ := hψ U s
+    rw [hdom U U' s' (fun x => (h x).1)]
+    exact (hhol U' s').congr (fun z hz => (h (Φu z)).2 hz)
+
 /-! ### Step 2c: the proofs -/
 
 /-- An embedding `ℚ̄ → ℂ` over `ℚ`. -/
@@ -988,6 +1039,17 @@ theorem fibreQMPeriod_final' (h : R1R2fp) (hM : Pin.MobiusGlue)
     ThetaPt.FibreQMPeriod :=
   fibreQMPeriod_final h hM hH hE hR11 hR (qmLatticeFree_of hSN hCN) hG hHU hD hT
 
+/-- **Main result, final form (proved).** As `fibreQMPeriod_final'`, with `UnifTransport` replaced
+by `CPtsTransport` (complex points of the base change, as a group isomorphism compatible with
+regular functions). -/
+theorem fibreQMPeriod_final'' (h : R1R2fp) (hM : Pin.MobiusGlue)
+    (hH : PkgI1.QMHauptmodul) (hE : UniformizationExistsT35) (hR11 : T11aRiemannEnd)
+    (hSN : QMSkolemNoetherC) (hCN : QMClassNumberOne)
+    (hR : R1bFamily (ownY h) (ownΦ h) (ownπ h)) (hG : PeriodMapGlue (ownY h) (ownΦ h) (ownπ h))
+    (hHU : HauptmodulUnique) (hD : QMDenZeroCM3) (hCP : CPtsTransport) :
+    ThetaPt.FibreQMPeriod :=
+  fibreQMPeriod_final' h hM hH hE hR11 hSN hCN hR hG hHU hD (unifTransport_of hCP)
+
 end FibreQM
 
 end G0Split
@@ -1023,3 +1085,5 @@ end
 #print axioms HSyn.G0Split.FibreQM.fibreQMPeriod_final
 #print axioms HSyn.G0Split.FibreQM.qmLatticeFree_of
 #print axioms HSyn.G0Split.FibreQM.fibreQMPeriod_final'
+#print axioms HSyn.G0Split.FibreQM.unifTransport_of
+#print axioms HSyn.G0Split.FibreQM.fibreQMPeriod_final''
