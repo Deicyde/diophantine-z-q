@@ -1,0 +1,55 @@
+{
+  "schema": "quartic214-revision3-independent-review/v1",
+  "reviewer": "/root/pr30_final_repair_review",
+  "authors": [
+    "/root"
+  ],
+  "decision": "accepted-at-stated-scope",
+  "controller_acceptance": false,
+  "identity": {
+    "role": "distinct non-author Codex agent based on GPT-6",
+    "requested_review_role": "independent Astra acceptance",
+    "backend_model_attested_by_this_receipt": false,
+    "eligibility": "Requires separate trusted launch/controller records; this file does not authenticate a model."
+  },
+  "base_commit": "e5fbd694e72a5babfb0e711bc93bd8fb5c961841",
+  "reviewed_state": "Uncommitted additive successor artifacts at the exact manifest below; final Git target receipt is separate.",
+  "resolved_findings": [
+    "CURRENT-RECEIVING-L3",
+    "CURRENT-RECEIVING-T0",
+    "CURRENT-RECEIVING-U01"
+  ],
+  "finding_aliases": {
+    "CURRENT-RECEIVING-U01": "CURRENT-INVENTORY-U01 in the preserved historical native receiving review"
+  },
+  "manifest": {
+    "path": "research/quartic214-manuscript-revision3/MANIFEST.json",
+    "sha256": "4721d2c03733f008a70d071a4a3639ccaf8dfd18589971483723060579bb60ab",
+    "bytes": 3223
+  },
+  "scope": "Independent source-to-receiving review of two indexed-symbol repairs, the U01 188-row/214-coordinate addendum, exact complete-TeX delta, source-map preservation, guides, finite checker, CI workflow and affected PDF pages. Unchanged arithmetic/height scope is reused only as bounded prior review evidence.",
+  "limitations": "Not a new whole-proof derivation, inspection of all 703 pages, authentication of historical provenance or backend identity, final Git-target approval, or protected App acceptance. The ineffective defining threshold remains ineffective. Old adverse findings and original verdicts are preserved.",
+  "source_reasoning": [
+    "P03 t_0=lambda and t_1=T lambda, together with P10 t_0 nonzero, imply T=t_1/t_0. Correct t_0 typography preserves the required height argument without changing a hypothesis.",
+    "P05 G uses indexed L_2,L_3,L_4, and P07 substitutes labels a,t,b to obtain the same Lucas residual. Correct L_3 typography preserves the coefficient, sign, valuation and divisibility consumers.",
+    "The construction JSON contains exactly 214 coordinate entries and 188 residual entries. The U01 addendum preserves the nonzero-q chart qualification and independent N>=53 coefficient bound."
+  ],
+  "checks": {
+    "complete_tex_byte_delta": "Only lines 43, 2242 and 2258 change: date and two indexed symbols.",
+    "source_map": "Entire predecessor map retained except declared output metadata and two source-bound correction annotations.",
+    "historical_pins": "32 available entries from prior source/receiving manifests retain raw SHA-256 hashes; original U01 hash remains 3fb2219efe4204ac1b1dea2ba15a3d9d7cabafb0cacc56f1c38d95de8a7bbfc2.",
+    "independent_pdf_rebuild": "PASS, read-only candidate mount, three serial passes, 703 pages, SHA-256 a73d90e445dc8ee12fdf96476da2320a61d96b23dbc2c9b5107d5af0c2a745a4.",
+    "visual_review": "Pages 71 and 72 rendered directly from the exact PDF and inspected completely; both corrected indices visible.",
+    "assembler_and_finite_checks": "PASS including four intended rejection controls.",
+    "audit_history": "PASS: 9 historical dispositions, 7 historical controls, 29 application controls, 8 historical contracts. Not mathematical proof acceptance."
+  },
+  "review_evidence_location": "work/pr30-completion-20261113/independent-review: INITIAL.json, REVIEW.md, CHECKS.json, PRESERVED.json, verify.py and direct PDF page renders.",
+  "portability_addendum": {
+    "reviewer": "/root/pr30_final_repair_review",
+    "prior_manifest_sha256": "28ef873d441b39f2d35005a1cefcc9008db9afe282e7a6d45102b7cb49aab678",
+    "delta": "The sole checker change replaces str(path) by path.as_posix() in the stale-binding diagnostic. Reverse substitution recovers the exact previously reviewed checker SHA-256. The manifest changes only its checker hash and byte count. All mathematical source, map, PDF, build and guide bytes remain unchanged.",
+    "reasoning": "Path.as_posix preserves the same target path and file hash comparison, normalizing only the error message separators. This matches the rejection control on Windows as well as Linux.",
+    "decision": "accepted-at-stated-scope",
+    "evidence_limit": "The attempted before-copy raced with the author update and contains post-update bytes. Exact reverse-delta hashes, not that copy name, establish preservation."
+  }
+}

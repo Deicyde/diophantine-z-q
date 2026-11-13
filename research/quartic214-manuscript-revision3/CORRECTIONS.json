@@ -1,0 +1,60 @@
+{
+  "schema": "quartic214-receiving-corrections/v1",
+  "author": "/root",
+  "role": "author repair record; no independent acceptance",
+  "predecessor_commit": "e5fbd694e72a5babfb0e711bc93bd8fb5c961841",
+  "predecessor_tex": {
+    "path": "research/quartic214-manuscript-revision2/quartic214.tex",
+    "sha256": "b03b39d2e0f5593be29d3d2838cd33e7449b4b5b1ccb0b7dee8a9a6d2af4767f",
+    "bytes": 2339106
+  },
+  "predecessor_map": {
+    "path": "research/quartic214-manuscript-revision2/SOURCE_SPANS.json",
+    "sha256": "e1b6f466573269008f10e06db106b15841545663a1de8b3ebe5203a8f188de55",
+    "bytes": 439656
+  },
+  "arithmetic_source": {
+    "path": "research/quartic214/proofs/uniform-existence.md",
+    "sha256": "d13cc2b846dc72a3f5b5cce8dcf11d3f11b33c45ebc3883263840afb8d82f3bc",
+    "bytes": 22294
+  },
+  "notation": [
+    {
+      "id": "CURRENT-RECEIVING-L3",
+      "source_line": 26,
+      "original_source_line": "Here D_H=f(H), A_i=f(U_i), B_i=sigma f(V_i), C_i=L_i-L_i', I=L1-beta and G=L3^2-L2(L2-2)L3L4+(L2-2)^2L4^2-1, with f=1/x and f(O)=0. Every nonzero reciprocal abscissa has even valuation, including f(H-P) restored before this step. In the generic factors the finite nonconstant valuations lie in odd integers, 2+4Z and 4+8Z. In the third factor the first three have residues -nu, nu, 2 modulo4 and the last is4 modulo8. They are pairwise distinct and distinct from zero. Zero tests omit leaves. Thus each factor is nonzero with valuation<=0, and has residue1 whenever its valuation is zero, at both split places and at the inert place. This argument treats arbitrary negative test valuations too.",
+      "corrected_source_line": "Here D_H=f(H), A_i=f(U_i), B_i=sigma f(V_i), C_i=L_i-L_i', I=L1-beta and G=L3^2-L2(L2-2)L_3 L_4+(L2-2)^2L4^2-1, with f=1/x and f(O)=0. Every nonzero reciprocal abscissa has even valuation, including f(H-P) restored before this step. In the generic factors the finite nonconstant valuations lie in odd integers, 2+4Z and 4+8Z. In the third factor the first three have residues -nu, nu, 2 modulo4 and the last is4 modulo8. They are pairwise distinct and distinct from zero. Zero tests omit leaves. Thus each factor is nonzero with valuation<=0, and has residue1 whenever its valuation is zero, at both split places and at the inert place. This argument treats arbitrary negative test valuations too.",
+      "tex_line": 2242,
+      "old_tex": "L3L_{4}",
+      "new_tex": "L_{3}L_{4}",
+      "reason": "The cross term uses indexed Lucas quantities L_3 and L_4 as in the construction; no polynomial coefficient is changed."
+    },
+    {
+      "id": "CURRENT-RECEIVING-T0",
+      "source_line": 40,
+      "original_source_line": "[P10: height domain and maps] Retain the sibling full-family supplier h(u)<=C2 M_S10(u)^alpha, alpha=2103/1024<7/3, on every rational argument avoiding its four finite contacts; the full geometric/modular/height chain supplying it remains a separately reviewed interface. Put B_Sigma=product of primes in Sigma outside S10. Squarefreeness gives M_S10<=B_Sigma M_Sigma, even at deep contacts, so h(u)<=H M_Sigma(u)^(7/3), H=C2 B_Sigma^alpha fixed. Apply this to u=2+1/t_j and u=2+1/(2-t_j). Their excluded finite contacts correspond exactly to the ten excluded t_j contacts, and t_j=0,2 are already excluded; the inverse projective row norms are3 and7. If h(t_j)>log7, multiply the two inequalities for h(t_j)-log7. Outside Sigma the two block radicals are disjoint and their product is exactly M_j, giving h(t_j)<=H2 M_j^(7/6), H2=log7+H. If h(t_j)<=log7 it follows directly, including t_j=1 with M_j=1. Thus the argument covers the full rational solution domain, not a bounded example. Because t0!=0 and t1=Tt0, h(T)<=h(t0)+h(t1). If M_j^k divides the same nonzero integer J0 separately for both j, then",
+      "corrected_source_line": "[P10: height domain and maps] Retain the sibling full-family supplier h(u)<=C2 M_S10(u)^alpha, alpha=2103/1024<7/3, on every rational argument avoiding its four finite contacts; the full geometric/modular/height chain supplying it remains a separately reviewed interface. Put B_Sigma=product of primes in Sigma outside S10. Squarefreeness gives M_S10<=B_Sigma M_Sigma, even at deep contacts, so h(u)<=H M_Sigma(u)^(7/3), H=C2 B_Sigma^alpha fixed. Apply this to u=2+1/t_j and u=2+1/(2-t_j). Their excluded finite contacts correspond exactly to the ten excluded t_j contacts, and t_j=0,2 are already excluded; the inverse projective row norms are3 and7. If h(t_j)>log7, multiply the two inequalities for h(t_j)-log7. Outside Sigma the two block radicals are disjoint and their product is exactly M_j, giving h(t_j)<=H2 M_j^(7/6), H2=log7+H. If h(t_j)<=log7 it follows directly, including t_j=1 with M_j=1. Thus the argument covers the full rational solution domain, not a bounded example. Because t0!=0 and t1=T t_0, h(T)<=h(t0)+h(t1). If M_j^k divides the same nonzero integer J0 separately for both j, then",
+      "tex_line": 2258,
+      "old_tex": "Tt0",
+      "new_tex": "Tt_{0}",
+      "reason": "The source defines t_0=lambda and t_1=T lambda at line 14, so t_1=T t_0. The zero is an index, not a multiplicative zero."
+    }
+  ],
+  "edition": {
+    "old": "\\date{12 November 2026; operative receiving revision 2; source \\texttt{110cf72565be}}",
+    "new": "\\date{13 November 2026; operative receiving revision 3; source \\texttt{110cf72565be}}"
+  },
+  "inventory": {
+    "id": "U01",
+    "historical_source": {
+      "path": "research/quartic214-protocol-d-progress/reviews/closure-review/SOURCE_USE_RECONCILED.json",
+      "sha256": "3fb2219efe4204ac1b1dea2ba15a3d9d7cabafb0cacc56f1c38d95de8a7bbfc2",
+      "bytes": 15776
+    },
+    "json_pointer": "/uses/0/required_assertion",
+    "historical_text": "214 rows encode the changed physical system on q0*q1 != 0; no all-old-witness bijection; N>=53 coefficient bound is separate",
+    "current_text": "188 rows in 214 coordinates encode the changed physical system on q0*q1 != 0; no all-old-witness bijection; N>=53 coefficient bound is separate",
+    "reason": "The residual list has 188 quadratic rows on 214 coordinates; the original reviewer record is preserved unchanged."
+  },
+  "unchanged_scope": "The polynomial, defining threshold, arithmetic proof sources, all preceding correction records and previous reviewer statements are unchanged. Only the two indexed symbols and edition date change in the complete TeX. The U01 correction is a current addendum, not a rewritten reviewer assertion."
+}
