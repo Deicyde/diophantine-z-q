@@ -2040,6 +2040,28 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#minimal-equations-over-a-discrete-valuation-ring" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Minimal equations over a discrete valuation ring
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-l-series-of-the-congruent-number-curves" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The L-series of the congruent number curves
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#hecke-and-deuring" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2495,6 +2517,28 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#minimal-equations-over-a-discrete-valuation-ring" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Minimal equations over a discrete valuation ring
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-l-series-of-the-congruent-number-curves" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The L-series of the congruent number curves
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#hecke-and-deuring" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2612,7 +2656,8 @@ of a slot choice is reviewed in the project-authored note <code>docs/research/rv
 <code>KERNEL_PLAN.md</code>. The section deriving CR₃^TYZ_Cl,Rk from three literature statements follows the
 project-authored notes <code>docs/research/wk-cr3.md</code> (the plan and the statements) and
 <code>docs/research/rv-lit.md</code> (its model review, whose verdict is to adopt with two changes), with the
-paragraph of <code>KERNEL_PLAN.md</code> that records the result. These are notes written for this project,
+paragraph of <code>KERNEL_PLAN.md</code> that records the result. Its subsection computing <span class="arithmatex">\(L(C_d,s)\)</span>
+follows §4.2 of the project-authored note <code>docs/research/wk-cr3.md</code>. These are notes written for this project,
 not published sources. The standard
 facts on the 2-descent and on heights, and the deep theorems behind the hypotheses, are cited at
 the end.</p>
@@ -2701,7 +2746,8 @@ equation of <span class="arithmatex">\(L(C_d,s)\)</span> with conductor <span cl
 textbook theorems; the third is Tian–Yuan–Zhang's Theorem 3.5(2) in the reading that Proposition N
 proves, which no refereed text prints (KERNEL_PLAN's wording). Of the texts read for this project,
 only Smith's unrefereed preprint prints that reading (<code>docs/research/nt-tyz.md</code> Verdict 1 and §3:
-the journal version of Tian–Yuan–Zhang and Tian's two expository articles were not read).</p>
+Tian's two expository articles were not read; the journal version of Tian–Yuan–Zhang was compared
+with the arXiv version only by the locator audit, see Reading A of Tian-Yuan-Zhang).</p>
 <p><code>docs/research/rv-lit.md</code>, cited first: §0 (verdict: adopt, with the functional equation restricted
 to <span class="arithmatex">\(0&lt;\operatorname{Re}s&lt;2\)</span> and the Gross–Zagier statement renamed with its twist supplier
 corrected); §1.2 (each adopted statement is true given its cited theorem, and none is vacuous or
@@ -2728,9 +2774,10 @@ on 20 squarefree <span class="arithmatex">\(d\equiv5\pmod8\)</span> below 4000).
 reading for every residue characteristic, including split and nonsplit multiplicative reduction at
 <span class="arithmatex">\(2\)</span> and <span class="arithmatex">\(3\)</span>, and, for a transcription of that recipe (the defined series itself cannot be computed),
 against PARI's coefficients up to <span class="arithmatex">\(n=300\)</span> on 29 curves, non-minimal models among
-them, with no mismatch). No proved statement links the defined series to point counts; a mismatch
-would make the literature statements false, not vacuous (<code>docs/research/wk-cr3.md</code> §3, residual
-risk). The normalization is arithmetic, with centre <span class="arithmatex">\(s=1\)</span>; the series converges
+them, with no mismatch). <code>docs/research/wk-cr3.md</code> §3 (residual risk) records that no proved statement linked the
+defined series to point counts, and that a mismatch would make the literature statements false,
+not vacuous; for <span class="arithmatex">\(C_d\)</span> with odd squarefree <span class="arithmatex">\(d\)</span> the link is now proved (see the L-series of the
+congruent number curves below), and for other curves it is not. The normalization is arithmetic, with centre <span class="arithmatex">\(s=1\)</span>; the series converges
 absolutely for <span class="arithmatex">\(\operatorname{Re}s&gt;3/2\)</span> by Hasse's bound (STANDARD; wk-cr3 §3, rv-lit §1.1).</p>
 <h2 id="entire-continuation">Entire continuation</h2>
 <p><code>docs/research/wk-cr3.md</code> §1.2 (item "Analytic continuation"): the order of vanishing at <span class="arithmatex">\(s=1\)</span> is
@@ -2743,10 +2790,57 @@ entire continuation exists for every elliptic curve over <span class="arithmatex
 and for <span class="arithmatex">\(C_d\)</span> by Deuring and Hecke (STANDARD), so the statements that quantify over all entire
 continuations are not vacuous; and since a continuation is not identically zero, its order of
 vanishing at <span class="arithmatex">\(s=1\)</span> is finite.</p>
+<h2 id="minimal-equations-over-a-discrete-valuation-ring">Minimal equations over a discrete valuation ring</h2>
+<p>Over a discrete valuation ring with valuation <span class="arithmatex">\(v\)</span>: a change of variables <span class="arithmatex">\(x=u^2x'+r\)</span>,
+<span class="arithmatex">\(y=u^3y'+su^2x'+t\)</span> multiplies <span class="arithmatex">\(\Delta\)</span> by <span class="arithmatex">\(u^{-12}\)</span> and <span class="arithmatex">\(c_4\)</span> by <span class="arithmatex">\(u^{-4}\)</span>; an equation with
+coefficients in the ring and <span class="arithmatex">\(v(\Delta)&lt;12\)</span> is minimal; two minimal equations differ by a change of
+variables with <span class="arithmatex">\(u\)</span> a unit and <span class="arithmatex">\(r,s,t\)</span> in the ring; and for a minimal equation the reduction is good
+if <span class="arithmatex">\(v(\Delta)=0\)</span>, multiplicative if <span class="arithmatex">\(v(\Delta)&gt;0\)</span> and <span class="arithmatex">\(v(c_4)=0\)</span>, and additive if <span class="arithmatex">\(v(\Delta)&gt;0\)</span> and
+<span class="arithmatex">\(v(c_4)&gt;0\)</span>. J. H. Silverman, <em>The Arithmetic of Elliptic Curves</em>, 2nd ed., Springer (2009), §III.1
+(changes of variables, Table 3.1), §VII.1 (minimal equations: the criterion <span class="arithmatex">\(v(\Delta)&lt;12\)</span> and the
+uniqueness up to a change of variables with <span class="arithmatex">\(u\)</span> a unit) and Proposition VII.5.1 (the reduction
+types). <code>docs/research/rv-lit.md</code> §2 (an AI model review) cites Proposition VII.5.1 and checks by
+reading that the local polynomial used for <span class="arithmatex">\(L(E,s)\)</span> takes the minimal equation over the completion,
+with these reduction types and Silverman's factors; <code>docs/research/wk-cr3.md</code> (an AI-authored
+project note) §1.2 (item "The L-function") records the same check. The section numbers other than
+VII.5.1 are not cited by any project note and were not checked against the book. That the local
+polynomial at a place of good reduction, or of additive reduction with nonzero discriminant, can be
+read off any minimal equation, not only a chosen one, is proved here from minimality: for nonzero
+discriminant, a change of variables between two minimal equations has <span class="arithmatex">\(v(u)=0\)</span> (the unit half of
+Silverman's uniqueness statement). A change of variables, and an isomorphism of fields applied to
+the coefficients, preserve the number of points over a field (STANDARD).</p>
+<h2 id="the-l-series-of-the-congruent-number-curves">The L-series of the congruent number curves</h2>
+<p>For odd squarefree <span class="arithmatex">\(d\)</span>, the equation <span class="arithmatex">\(y^2=x^3-d^2x\)</span> has <span class="arithmatex">\(\Delta=64d^6=(2d)^6\)</span> and <span class="arithmatex">\(c_4=48d^2\)</span>; it is
+minimal at every prime, since <span class="arithmatex">\(p^{12}\nmid(2d)^6\)</span>; it has good reduction at the primes <span class="arithmatex">\(p\nmid2d\)</span>
+and additive reduction at <span class="arithmatex">\(2\)</span> and at the primes <span class="arithmatex">\(p\mid d\)</span>. So the local factor of <span class="arithmatex">\(L(C_d,s)\)</span> is
+<span class="arithmatex">\(1-a_pT+pT^2\)</span> with <span class="arithmatex">\(a_p=p+1-\#C_d(\mathbb F_p)=p-\#\{(x,y)\in\mathbb F_p^2:y^2=x^3-d^2x\}\)</span> at the
+primes <span class="arithmatex">\(p\nmid2d\)</span>, and <span class="arithmatex">\(1\)</span> at the primes <span class="arithmatex">\(p\mid2d\)</span>, where the coefficient <span class="arithmatex">\(a_p\)</span> is <span class="arithmatex">\(0\)</span>; the
+coefficients are multiplicative, and <span class="arithmatex">\(L(C_d,s)\)</span> is the Dirichlet series of the Euler product over
+the primes <span class="arithmatex">\(p\nmid2d\)</span>. The formula <span class="arithmatex">\(a_p=p-\#\{(x,y)\}\)</span> holds only at the primes <span class="arithmatex">\(p\nmid2d\)</span>; the
+minimality and the additive reduction are stated for odd squarefree <span class="arithmatex">\(d\)</span>, while good reduction at
+<span class="arithmatex">\(p\nmid2d\)</span> holds for every <span class="arithmatex">\(d\)</span>. The completion of <span class="arithmatex">\(\mathbb Q\)</span> at <span class="arithmatex">\(p\)</span> is <span class="arithmatex">\(\mathbb Q_p\)</span>, with valuation
+ring <span class="arithmatex">\(\mathbb Z_p\)</span>, uniformizer <span class="arithmatex">\(p\)</span> and residue field <span class="arithmatex">\(\mathbb F_p\)</span> (STANDARD).</p>
+<p><code>docs/research/wk-cr3.md</code> (an AI-authored project note) §4.2 ("Medium investment"): the plan of this
+computation, namely that the model is minimal at every prime with good reduction for <span class="arithmatex">\(p\nmid2d\)</span> and
+additive reduction for <span class="arithmatex">\(p\mid2d\)</span>, and that the coefficient at <span class="arithmatex">\(p\)</span> is <span class="arithmatex">\(p-\#\{(x,y)\in\mathbb F_p^2:
+y^2=x^3-d^2x\}\)</span> for <span class="arithmatex">\(p\nmid2d\)</span> and <span class="arithmatex">\(0\)</span> for <span class="arithmatex">\(p\mid2d\)</span>, to remove the risk that the definition of
+<span class="arithmatex">\(L(E,s)\)</span> used here differs from the textbook one. Its third item (<span class="arithmatex">\(a_p=0\)</span> for <span class="arithmatex">\(p\equiv3\pmod4\)</span>) and
+its optional Hasse's bound for <span class="arithmatex">\(C_d\)</span> are not proved here. The checks of the same facts by reading
+and by PARI (wk-cr3 §3, rv-lit §2) are recorded under the L-series of an elliptic curve; the
+residual risk named in wk-cr3 §3, that no lemma connects the definition to point counts, is what
+this computation removes, for odd squarefree <span class="arithmatex">\(d\)</span>.</p>
+<p>N. Koblitz, <em>Introduction to Elliptic Curves and Modular Forms</em>, 2nd ed., Graduate Texts in
+Mathematics 97, Springer (1993), Chapter II: the zeta function of <span class="arithmatex">\(y^2=x^3-n^2x\)</span> over <span class="arithmatex">\(\mathbb F_p\)</span>
+and its Hasse–Weil L-function. <code>docs/research/cr3-trust.md</code> item D1 cites Chapter II of this book
+for the conductor <span class="arithmatex">\(32d^2\)</span> of <span class="arithmatex">\(C_d\)</span> (odd squarefree <span class="arithmatex">\(d\)</span>), as an unverified locator; no project note
+cites it for the zeta function or the point counts of <span class="arithmatex">\(C_d\)</span>, and the chapter was not checked here.</p>
 <h2 id="hecke-and-deuring">Hecke and Deuring</h2>
 <p><span class="arithmatex">\(C_d\)</span> has complex multiplication by <span class="arithmatex">\(\mathbb Z[i]\)</span>, so <span class="arithmatex">\(L(C_d,s)\)</span> is the L-function of a Hecke
 character of <span class="arithmatex">\(\mathbb Q(i)\)</span> (Deuring; Hecke), which is entire and satisfies a functional equation
-(STANDARD; locators not checked). <code>docs/research/wk-cr3.md</code> §1.2 (item "Analytic continuation") and
+(STANDARD; locators not checked; the primary-source locator audit <code>docs/research/locators.md</code>,
+AI agents with web access, 2026-11-12, did not read an original source for it: its row for the
+functional equation is UNVERIFIED as a complete original-supplier audit).
+<code>docs/research/wk-cr3.md</code> §1.2 (item "Analytic continuation") and
 §4.3 (proving this here would need Hecke L-functions of <span class="arithmatex">\(\mathbb Q(i)\)</span> and Deuring's identification
 of <span class="arithmatex">\(L(C_d,s)\)</span>; out of reach); <code>docs/research/rv-lit.md</code> §1.1 (existence of the continuation for
 <span class="arithmatex">\(C_d\)</span>) and the row for Hecke's continuation in the table of §1.2 (true, STANDARD).</p>
@@ -2755,7 +2849,11 @@ of <span class="arithmatex">\(L(C_d,s)\)</span>; out of reach); <code>docs/resea
 <span class="arithmatex">\(\Lambda(2-s)=w\Lambda(s)\)</span>, with conductor <span class="arithmatex">\(N=32d^2\)</span> for odd squarefree <span class="arithmatex">\(d\)</span> and root number <span class="arithmatex">\(w=-1\)</span>
 for <span class="arithmatex">\(d\equiv5,6,7\pmod8\)</span>: Deuring and Hecke for the functional equation, and B. J. Birch and
 N. M. Stephens, Topology 5 (1966), for the sign, cited as <code>docs/research/cr3-trust.md</code> B9 cites it
-(title and pages not checked here). The conductor <span class="arithmatex">\(32d^2\)</span> for odd squarefree <span class="arithmatex">\(d\)</span> is standard
+(title and pages not checked here). The locator audit <code>docs/research/locators.md</code> (row
+FunctionalEquation5) did not read Birch–Stephens's theorem or page, and found that the conductor
+<span class="arithmatex">\(32d^2\)</span> and the functional equation still need a fully read original source (UNVERIFIED); the
+root number <span class="arithmatex">\(-1\)</span> for squarefree <span class="arithmatex">\(d\equiv5,6,7\pmod8\)</span> is printed in Tian–Yuan–Zhang's table
+(arXiv:1411.4728v1, p. 2 of the PDF; journal p. 722). The conductor <span class="arithmatex">\(32d^2\)</span> for odd squarefree <span class="arithmatex">\(d\)</span> is standard
 (<code>docs/research/cr3-trust.md</code> §1, D1, cites Koblitz, GTM 97, Ch. II; locator not checked); it is
 checked with PARI for 20 squarefree <span class="arithmatex">\(d\equiv5\pmod8\)</span> below 4000 (<code>docs/research/wk-cr3.md</code> §3)
 and for the first 30 such <span class="arithmatex">\(d\)</span>, from <span class="arithmatex">\(5\)</span> to <span class="arithmatex">\(285\)</span> (<code>docs/research/rv-lit.md</code> §3.2). The statement
@@ -2772,25 +2870,35 @@ suffices, since the proof uses <span class="arithmatex">\(s=1\)</span>), and its
 superseded: it calls the all-<span class="arithmatex">\(s\)</span> draft true; see rv-lit §1.2 and its repair N1.</p>
 <h2 id="reading-a-of-tian-yuan-zhang">Reading A of Tian-Yuan-Zhang</h2>
 <p>Theorem and proposition numbers are those of arXiv:1411.4728v1 (Theorem 3.5 is label <code>m3</code>), the
-only version read; the journal version (Asian J. Math. 21 (2017)) was not read and its numbering
-may differ (<code>docs/research/nt-tyz.md</code> §1.1 and the numbering warning of §3).
+version the project's notes read (<code>docs/research/nt-tyz.md</code> §1.1 and the numbering warning of §3).
+The primary-source locator audit <code>docs/research/locators.md</code> (AI agents with web access,
+2026-11-12; not a human check; rows "TYZRow5b / reading A: arXiv" and "TYZ journal comparison")
+read the author-hosted typeset journal version (Asian J. Math. 21 (2017), no. 4, 721–774): there
+Theorem 3.5(2) is on p. 740 and the proof of Proposition 3.4 on pp. 751–753; the arXiv Theorem 1.2
+is Theorem 1.4 (pp. 723–724), which keeps the restriction that every factor exceed <span class="arithmatex">\(1\)</span>, while the
+journal's Theorem 1.2 is a different result; and neither version's Theorem 3.5(2) settles the
+partition convention. The journal's proof was not assessed on Proposition 3.4.
 For <span class="arithmatex">\(n\equiv5\pmod8\)</span> the second sum of Tian–Yuan–Zhang's Theorem 3.5(2) has terms of two types,
 <span class="arithmatex">\((7,3)\)</span> and <span class="arithmatex">\((5,1)\)</span>, and the <span class="arithmatex">\((5,1)\)</span> terms admit three readings. Reading A admits <span class="arithmatex">\(d_1=1\)</span>, so the
 blocks other than the one <span class="arithmatex">\(\equiv5\)</span> form any, possibly empty, partition into blocks <span class="arithmatex">\(\equiv1\pmod8\)</span>;
 the sum is then <span class="arithmatex">\(T^{\rm Cl}_{5a}(n)\)</span>, and the theorem says that if <span class="arithmatex">\(2^{-\rho(n)}\mathcal L(n)\)</span> is
 even then <span class="arithmatex">\(T^{\rm Cl}_{5a}(n)\)</span> and <span class="arithmatex">\(T^{\rm Cl}_{5b}(n)\)</span> are both even (their sums, with
 <span class="arithmatex">\(g(d)=\#2\mathrm{Cl}(\mathbb Q(\sqrt{-d}))\)</span>; the vault's <span class="arithmatex">\(T^{\rm Cl}\)</span>). The printed Theorem 3.5(2) permits reading A, and their
-proof of Proposition 3.4 needs it; the printed Theorem 1.2, whose last sentence selects the other
-readings, is false as written (for <span class="arithmatex">\(n=26565\)</span> and <span class="arithmatex">\(33117\)</span>, which have rank <span class="arithmatex">\(3\)</span> and so <span class="arithmatex">\(\mathcal L(n)=0\)</span>, the
+proof of Proposition 3.4 needs it; the printed Theorem 1.2 (journal Theorem 1.4), whose last
+sentence selects the other readings, is false as written in both versions (for <span class="arithmatex">\(n=26565\)</span> and <span class="arithmatex">\(33117\)</span>, which have rank <span class="arithmatex">\(3\)</span> and so <span class="arithmatex">\(\mathcal L(n)=0\)</span>, the
 second sum under those readings is odd; nt-tyz §1.4) and is not cited
-(<code>docs/research/nt-tyz.md</code> §1.3–1.4). The hypothesis "<span class="arithmatex">\(2^{-\rho(n)}\mathcal L(n)\)</span> even" is
-replaced by the stronger hypothesis <span class="arithmatex">\(\mathcal L(n)=0\)</span> (so the statement is weaker than theirs), that is, order of vanishing at least two (nt-tyz §2.2, fact F6, and
-§4.1). Proposition N proves reading A in this form (its first sentence) from unambiguous statements
+(<code>docs/research/nt-tyz.md</code> §1.3–1.4). Only the case <span class="arithmatex">\(\mathcal L(n)=0\)</span>, that is, order of
+vanishing at least two, is needed. The printed hypothesis is a condition on their genus point
+<span class="arithmatex">\(P(n)\)</span>, followed by an "i.e." that restates it as "<span class="arithmatex">\(2^{-\rho(n)}\mathcal L(n)\)</span> even" and is not
+proved in the paper; when <span class="arithmatex">\(\mathcal L(n)=0\)</span> the condition on <span class="arithmatex">\(P(n)\)</span> follows from the first
+assertion of their Theorem 3.5 and their Lemma 3.18, so the "i.e." is not needed (nt-tyz §2.2,
+fact F6, and §4.1). Proposition N proves reading A in this form (its first sentence) from unambiguous statements
 of Tian–Yuan–Zhang (nt-tyz §4); it is unpublished, written for this project, with two model reviews (rv-nt-tyz,
 rv-prop-n) and no human review. The only printed statement of reading A found is
 A. Smith, arXiv:1603.08479, Theorem 2.1, with the two sums as separate rows; it is unrefereed. The
-journal version of Tian–Yuan–Zhang and Tian's expository articles (Notices of the ICCM 5 (2017);
-Proc. ICM 2022) were not read (nt-tyz §3; wk-cr3 §0).</p>
+journal version of Tian–Yuan–Zhang was compared only by the locator audit, as above, and Tian's
+expository articles (Notices of the ICCM 5 (2017); Proc. ICM 2022) were not read (nt-tyz §3;
+wk-cr3 §0).</p>
 <p><code>docs/research/wk-cr3.md</code> §1.1 (reading A is the true form; row 5a is rejected as an alternative;
 the smallest gap is Lemmas N1, N2 and fact F5 of Proposition N) and the §3 rows for row 5b and for
 reading A (where the <span class="arithmatex">\(T_{5a}\)</span> sum is called new in the draft and not reviewed; it is checked in
@@ -2827,8 +2935,10 @@ definition uses a regulator, and so presupposes the rank part of the Birch–Swi
 conjecture in analytic rank one, which they cite from Coates–Wiles, Rubin, Gross–Zagier and
 Kolyvagin (<code>docs/research/cr3-trust.md</code> B9).
 Theorem, lemma and section numbers here and in Reading A of Tian-Yuan-Zhang are those of
-arXiv:1411.4728v1; the journal version was not read and its numbering may differ
-(<code>docs/research/nt-tyz.md</code> §1.1, the numbering warning in §3, and §5.2 item 2).</p>
+arXiv:1411.4728v1 (<code>docs/research/nt-tyz.md</code> §1.1, the numbering warning in §3, and §5.2 item 2).
+The locator audit <code>docs/research/locators.md</code> (AI agents) read the journal version: Theorem 1.2
+is renumbered Theorem 1.4 there, Theorem 3.5(2) keeps its number (p. 740), and the convolution
+lemma is Lemma 2.9 in both versions; the other numbers were not compared.</p>
 <h2 id="gross-zagier">Gross-Zagier</h2>
 <p>B. Gross and D. Zagier, <em>Heegner points and derivatives of L-series</em>, Invent. Math. 84 (1986),
 225–320, applied with an auxiliary imaginary quadratic field that satisfies the Heegner hypothesis

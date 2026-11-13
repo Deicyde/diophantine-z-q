@@ -1592,29 +1592,42 @@
 an integer polynomial in 292,890,231,905 variables, of degree below <span class="arithmatex">\(2\uparrow\uparrow 7\)</span>
 and with coefficients below <span class="arithmatex">\(2\uparrow\uparrow 8\)</span>, whose rational zero projection to the
 first variable is exactly <span class="arithmatex">\(\mathbb Z\)</span>.</p>
-<p>The theorem is proved from two explicitly stated arithmetic hypotheses, the six-contact height
-estimate and a certified rank hypothesis for congruent number curves, whose proofs lie far
-outside current formal libraries. The positive-rank form of the class-number hypothesis, and so
-the certified rank hypothesis, also follows from three statements about L-series of elliptic
-curves: two textbook theorems (a functional equation on the critical strip and Gross–Zagier) and
-Tian–Yuan–Zhang's row 5b, which rests on Proposition N, an unpublished argument written for this
-project and not refereed. With that rank
-hypothesis or those three statements, the height hypothesis may also be assumed in its <span class="arithmatex">\(j\)</span>-form, a
-bound on the height of the Hauptmodul value (not a published theorem) from which the minimal form
-is proved. The manuscript's other
-inputs are proved. Pole completeness
-follows from the certified rank hypothesis for a variant of the manuscript's pole polynomial,
-and also from positive rank of the congruent number curves that hypothesis covers, or of only the
-two curves the descent constructs; the bound for the prime catalogue follows from an effective
-Dirichlet theorem; the Mordell–Weil theorem for the generator curve, first stated as a
-hypothesis, is proved; and the
-twenty-two-prime pattern is not needed: a change in the completeness proof, route AP, uses
-long arithmetic progressions of good primes instead, which come from Szemerédi's theorem in the
-primes (from a Lean proof of the Green–Tao theorem) and a density theorem for those primes.
-The passage from positive rank to points in every Selmer class rests on the complete 2-descent
-and the Mordell–Weil theorem for these curves, and Smith's row-5b identity and Rédei's formula
-let the hypothesis be stated in Tian, Yuan and Zhang's terms; all four are proved.
-Everything else is proved, with every finite computation checked by the Lean kernel.</p>
+<p>The <a href="main/index.html#main-theorem">main theorem</a> proves it from five explicitly stated hypotheses, whose
+proofs lie far outside current formal libraries: the minimal form of the six-contact height estimate
+(the one instance of the manuscript's Theorem 4.1 that the proof uses; not a published theorem, its
+proof combines refereed theorems and exact computations with new arguments, the manuscript's and
+this project's, reviewed only by AI models), and four statements about L-series of elliptic curves
+over <span class="arithmatex">\(\mathbb Q\)</span>. Three of the four are textbook theorems: the positive-rank half of Gross–Zagier,
+the functional equation of the L-series of the congruent number curves <span class="arithmatex">\(C_d\)</span> for squarefree
+<span class="arithmatex">\(d\equiv5\pmod8\)</span>, with conductor <span class="arithmatex">\(32d^2\)</span> and root number <span class="arithmatex">\(-1\)</span>, stated on the strip
+<span class="arithmatex">\(0&lt;\operatorname{Re}s&lt;2\)</span>, and Hecke's continuation of <span class="arithmatex">\(L(C_d,s)\)</span> to an entire function for every
+<span class="arithmatex">\(d\ne0\)</span>. No original source of Hecke's continuation was read, and the original source of the
+conductor and the functional equation has not been read in full. The fourth is a consequence of
+Tian–Yuan–Zhang's Theorem 3.5(2) in one reading of its genus sums, reading A: for squarefree
+<span class="arithmatex">\(d\equiv5\pmod8\)</span>, if <span class="arithmatex">\(L(C_d,s)\)</span> vanishes to order at least <span class="arithmatex">\(2\)</span> at <span class="arithmatex">\(s=1\)</span>, two genus sums of class
+numbers are even. No refereed text found by the project's literature search, which AI agents carried
+out, states reading A explicitly; Tian–Yuan–Zhang's introductory theorem with the same parity
+criteria, read literally, is false; and their proof passes through their Proposition 3.4, whose
+proof is only sketched in the arXiv version; the journal's proof was not assessed on this point. A
+new argument written for this project, Proposition N, reviewed twice by AI models and never by a
+human, derives reading A from unambiguous results of that version; its derivation from a restatement
+of those results is proved here, but no proof checks that the restatement matches the paper, and only AI models have compared it with the paper, and it is supporting evidence, not a hypothesis of the theorem. From the four statements
+the proof derives a certified rank hypothesis for congruent number curves, CR₃; the theorem holds
+under the height hypothesis and CR₃ alone, and, in the form closest to the manuscript, under those
+two and the manuscript's twenty-two-prime pattern. The height hypothesis may also be assumed in its
+<span class="arithmatex">\(j\)</span>-form, a bound on the height of the Hauptmodul value (not a published theorem) from which the
+minimal form is proved. The manuscript's other inputs are proved. Pole completeness follows from the
+certified rank hypothesis for a variant of the manuscript's pole polynomial, and also from positive
+rank of the congruent number curves that hypothesis covers, or of only the two curves the descent
+constructs; the bound for the prime catalogue follows from an effective Dirichlet theorem; the
+Mordell–Weil theorem for the generator curve, first stated as a hypothesis, is proved; and the
+twenty-two-prime pattern is not needed: a change in the completeness proof, route AP, uses long
+arithmetic progressions of good primes instead, which come from Szemerédi's theorem in the primes
+(from a Lean proof of the Green–Tao theorem) and a density theorem for those primes. The passage
+from positive rank to points in every Selmer class rests on the complete 2-descent and the
+Mordell–Weil theorem for these curves, and Smith's row-5b identity and Rédei's formula let the
+hypothesis be stated in Tian, Yuan and Zhang's terms; all four are proved. Everything else is
+proved, with every finite computation checked by the Lean kernel.</p>
 <h2 id="chapters">Chapters</h2>
 <ul>
 <li><a href="main/index.html">The main theorem and its hypotheses</a></li>
@@ -1634,6 +1647,25 @@ Everything else is proved, with every finite computation checked by the Lean ker
 <li><a href="redei/index.html">Rédei's formula for the 4-rank of class groups</a></li>
 <li><a href="rank/index.html">The rank hypothesis as positive rank</a></li>
 </ul>
+<div class="bp-body-link-validation" hidden="hidden">
+<p><a href="main/index.html#main-theorem"> </a></p>
+<p><a href="main/index.html"> </a></p>
+<p><a href="syntax/index.html"> </a></p>
+<p><a href="model/index.html"> </a></p>
+<p><a href="multiplication/index.html"> </a></p>
+<p><a href="compiler/index.html"> </a></p>
+<p><a href="assembly/index.html"> </a></p>
+<p><a href="size/index.html"> </a></p>
+<p><a href="progressions/index.html"> </a></p>
+<p><a href="route-k/index.html"> </a></p>
+<p><a href="route-ap/index.html"> </a></p>
+<p><a href="green-tao/index.html"> </a></p>
+<p><a href="density/index.html"> </a></p>
+<p><a href="selmer/index.html"> </a></p>
+<p><a href="rank-5b/index.html"> </a></p>
+<p><a href="redei/index.html"> </a></p>
+<p><a href="rank/index.html"> </a></p>
+</div>
 </div>
 <p><link rel="stylesheet" href="../stylesheets/blueprint-dag.css" data-autoform-dag-style></p>
 <div class="bp-dag-viewer" data-catalog-src="../dependencies/index.json" data-graph-src="../dependencies.json" data-page-href="index.html" data-scope-id="roadmap">
