@@ -307,6 +307,95 @@ theorem T10_linIso_zero (h : T10_linIso) (K : Type) [Field K] (ℓ : ℕ) [Fact 
   obtain ⟨e⟩ := h K (AbVar.zero K) ℓ hℓ
   exact e.toEquiv.subsingleton
 
+/-! ## The Galois action on `H¹(A_K̄, ℤ_ℓ)` and the equivariant form of T10 -/
+
+/-- `Spec K̄ → Spec K`. -/
+noncomputable abbrev specAlg (K : Type) [Field K] :
+    Spec (CommRingCat.of (AlgebraicClosure K)) ⟶ Spec (CommRingCat.of K) :=
+  Spec.map (CommRingCat.ofHom (algebraMap K (AlgebraicClosure K)))
+
+/-- `Spec(σ) : Spec K̄ → Spec K̄`. -/
+noncomputable def specAut {K : Type} [Field K] (σ : AlgebraicClosure K ≃ₐ[K] AlgebraicClosure K) :
+    Spec (CommRingCat.of (AlgebraicClosure K)) ⟶ Spec (CommRingCat.of (AlgebraicClosure K)) :=
+  Spec.map (CommRingCat.ofHom (σ : AlgebraicClosure K →+* AlgebraicClosure K))
+
+lemma specAut_comp {K : Type} [Field K] (σ : AlgebraicClosure K ≃ₐ[K] AlgebraicClosure K) :
+    specAut σ ≫ specAlg K = specAlg K := by
+  simp only [specAut, specAlg, ← Spec.map_comp, ← CommRingCat.ofHom_comp]
+  congr 2
+  ext x
+  simp
+
+lemma specAut_mul {K : Type} [Field K] (σ τ : AlgebraicClosure K ≃ₐ[K] AlgebraicClosure K) :
+    specAut (σ * τ) = specAut σ ≫ specAut τ := by
+  simp only [specAut, ← Spec.map_comp]
+  congr 1
+
+lemma specAut_one {K : Type} [Field K] :
+    specAut (1 : AlgebraicClosure K ≃ₐ[K] AlgebraicClosure K) = 𝟙 _ := by
+  rw [specAut, show CommRingCat.ofHom ((1 : AlgebraicClosure K ≃ₐ[K] AlgebraicClosure K) :
+    AlgebraicClosure K →+* AlgebraicClosure K) = 𝟙 _ from by ext; rfl]
+  exact Spec.map_id _
+
+/-- `A_K̄ = A ×_K Spec K̄` as a scheme (definitionally `(A.baseChange K̄).X.left`). -/
+noncomputable abbrev AKbar {K : Type} [Field K] (A : AbVar K) : Scheme :=
+  pullback A.X.hom (specAlg K)
+
+example {K : Type} [Field K] (A : AbVar K) : (A.baseChange (AlgebraicClosure K)).X.left = AKbar A :=
+  rfl
+
+/-- `1 × Spec(σ)` on `A_K̄ = A ×_K Spec K̄`. -/
+noncomputable def galAut {K : Type} [Field K] (A : AbVar K)
+    (σ : AlgebraicClosure K ≃ₐ[K] AlgebraicClosure K) : AKbar A ⟶ AKbar A :=
+  pullback.map A.X.hom (specAlg K) A.X.hom (specAlg K) (𝟙 _) (specAut σ) (𝟙 _)
+    (by simp) (by rw [Category.comp_id, specAut_comp])
+
+lemma galAut_mul {K : Type} [Field K] (A : AbVar K)
+    (σ τ : AlgebraicClosure K ≃ₐ[K] AlgebraicClosure K) :
+    galAut A (σ * τ) = galAut A σ ≫ galAut A τ := by
+  simp only [galAut, pullback.map_comp, specAut_mul, Category.comp_id]
+
+lemma galAut_one {K : Type} [Field K] (A : AbVar K) : galAut A 1 = 𝟙 _ := by
+  simp only [galAut, specAut_one]
+  exact pullback.map_id
+
+/-- `1 × Spec(σ)` as an automorphism of the scheme `A_K̄`. -/
+noncomputable def galIso {K : Type} [Field K] (A : AbVar K) (σ : AlgebraicClosure K ≃ₐ[K] AlgebraicClosure K) :
+    AKbar A ≅ AKbar A where
+  hom := galAut A σ
+  inv := galAut A σ⁻¹
+  hom_inv_id := by rw [← galAut_mul, mul_inv_cancel, galAut_one]
+  inv_hom_id := by rw [← galAut_mul, inv_mul_cancel, galAut_one]
+
+/-- **The Galois action on `H¹(A_K̄, ℤ_ℓ)`**, by transport of structure: `σ` acts by `s_*`,
+`s = 1 × Spec(σ⁻¹)` (`s_σ ∘ s_τ = s_{στ}`, so this is a left action once functoriality of
+`transport` is proved). -/
+noncomputable def galH {K : Type} [Field K] (A : AbVar K) (ℓ : ℕ) [Fact ℓ.Prime]
+    (σ : Field.absoluteGaloisGroup K) :
+    (A.baseChange (AlgebraicClosure K)).X.left.EllAdicCohomology ℓ 1 →ₗ[ℤ_[ℓ]]
+      (A.baseChange (AlgebraicClosure K)).X.left.EllAdicCohomology ℓ 1 :=
+  transportₗ ℓ (galIso A (σ⁻¹ : Field.absoluteGaloisGroup K)) 1
+
+/-- **T10, Galois-equivariant form (textbook leaf).** For an abelian variety `A/K` and a prime
+`ℓ ≠ char K` there is a `ℤ_ℓ`-linear isomorphism `φ : H¹(A_K̄, ℤ_ℓ) ≅ Hom_{ℤ_ℓ}(T_ℓ A, ℤ_ℓ)`
+intertwining the Galois action `galH` on `H¹` with the contragredient action
+`σ · f = f ∘ σ⁻¹` on the dual of `T_ℓ A` (`A.galT σ` acts on points by `P ↦ P ∘ Spec σ`).
+Equivalently `V_ℓ(A) ≅ H¹(A_K̄, ℚ_ℓ)^∨` as `G_K`-representations after `⊗ ℚ_ℓ`.
+A consequence of Milne 1986 (Cornell–Silverman), Thm 15.1(a) (UNVERIFIED number) and the
+pro-étale/étale comparison (Bhatt–Scholze 2015 §5.6; UNVERIFIED number), both natural in the
+scheme, hence compatible with transport along `1 × Spec(σ⁻¹)`. -/
+def T10_TateDuality : Prop :=
+  ∀ (K : Type) [Field K] (A : AbVar K) (ℓ : ℕ) [Fact ℓ.Prime], (ℓ : K) ≠ 0 →
+    ∃ φ : (A.baseChange (AlgebraicClosure K)).X.left.EllAdicCohomology ℓ 1 ≃ₗ[ℤ_[ℓ]]
+        Module.Dual ℤ_[ℓ] (A.T ℓ),
+      ∀ (σ : Field.absoluteGaloisGroup K) x,
+        φ (galH A ℓ σ x) = (A.galT (ℓ := ℓ) σ⁻¹).dualMap (φ x)
+
+theorem T10_linIso_of_tateDuality (h : T10_TateDuality) : T10_linIso := by
+  intro K _ A ℓ _ hℓ
+  obtain ⟨φ, -⟩ := h K A ℓ hℓ
+  exact ⟨φ⟩
+
 end AbVarSec
 
 end T10Etale
@@ -314,3 +403,6 @@ end T10Etale
 #print axioms T10Etale.H0Equiv
 #print axioms T10Etale.T10_groupIso_of_linIso
 #print axioms T10Etale.T10_linIso_zero
+#print axioms T10Etale.transport_smul
+#print axioms T10Etale.galIso
+#print axioms T10Etale.T10_linIso_of_tateDuality

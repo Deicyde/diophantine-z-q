@@ -33,3 +33,9 @@
   equivalence found automatically).
 - Merged Transport.lean into T10Etale.lean (Transport.lean removed). + `ellIso_smulEnd`,
   `transport_smul` (transport is ℤ_ℓ-linear), `transportₗ`. COMPILED.
+- T10Etale.lean: + `specAut σ = Spec(σ)`, `specAut_comp/mul/one`, `AKbar A := pullback A.X.hom
+  (Spec K̄ → Spec K)` (= `(A.baseChange K̄).X.left` by `rfl`), `galAut A σ = 1 × Spec(σ)`,
+  `galAut_mul` (anti-hom: `galAut (στ) = galAut σ ≫ galAut τ`), `galAut_one`, `galIso A σ`,
+  `galH A ℓ σ := transportₗ ℓ (galIso A σ⁻¹) 1` (transport of structure along `1 × Spec(σ⁻¹)`),
+  **`T10_TateDuality`** (∃ ℤ_ℓ-linear `φ : H¹ ≃ Dual(T_ℓ A)` with
+  `φ (galH σ x) = (galT σ⁻¹).dualMap (φ x)`), `T10_linIso_of_tateDuality`. COMPILED, standard axioms.
