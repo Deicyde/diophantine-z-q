@@ -1012,4 +1012,95 @@ theorem exists_complexLinear_lift (f : Torus Λ →+ Torus Λ')
 
 end Hom
 
+/-! ## §9. The covolume of `Ωℤ^g + ℤ^g` is `|det Im Ω|` (node P3)
+
+With bp-faltings' `torusMetricSq Λ c = ‖c‖²·covol(Λ)`, this gives the archimedean Faltings term
+of a torus with normalized period matrix `Ω` as `‖c‖²·det Im Ω`: the integral over `A(ℂ)` through
+the period matrix alone. -/
+
+section Covolume
+
+open MeasureTheory Matrix
+
+variable {g : ℕ}
+
+/-- `(Σ j, Fin 2) ≃ Fin g ⊕ Fin g`: `(j, 0) ↦ inr j` (real part), `(j, 1) ↦ inl j` (imaginary
+part). -/
+def sigmaEquiv (g : ℕ) : (Σ _ : Fin g, Fin 2) ≃ Fin g ⊕ Fin g where
+  toFun p := if p.2 = 0 then Sum.inr p.1 else Sum.inl p.1
+  invFun := Sum.elim (fun j => ⟨j, 1⟩) (fun j => ⟨j, 0⟩)
+  left_inv := by
+    rintro ⟨j, k⟩
+    fin_cases k <;> rfl
+  right_inv := by
+    rintro (j | j) <;> rfl
+
+/-- The standard real basis of `ℂ^g`: `inl j ↦ i·e_j`, `inr j ↦ e_j`. -/
+def stdRealBasis (g : ℕ) : Module.Basis (Fin g ⊕ Fin g) ℝ (Fin g → ℂ) :=
+  (Pi.basis fun _ : Fin g => Complex.basisOneI).reindex (sigmaEquiv g)
+
+theorem stdRealBasis_repr_inl (z : Fin g → ℂ) (j : Fin g) :
+    (stdRealBasis g).repr z (Sum.inl j) = (z j).im := by
+  simp [stdRealBasis, sigmaEquiv, Complex.coe_basisOneI_repr]
+
+theorem stdRealBasis_repr_inr (z : Fin g → ℂ) (j : Fin g) :
+    (stdRealBasis g).repr z (Sum.inr j) = (z j).re := by
+  simp [stdRealBasis, sigmaEquiv, Complex.coe_basisOneI_repr]
+
+/-- The unit square in `ℂ` has volume one. -/
+theorem volume_unitSquare :
+    volume {w : ℂ | w.re ∈ Set.Ico (0 : ℝ) 1 ∧ w.im ∈ Set.Ico (0 : ℝ) 1} = 1 := by
+  have : {w : ℂ | w.re ∈ Set.Ico (0 : ℝ) 1 ∧ w.im ∈ Set.Ico (0 : ℝ) 1} =
+      Complex.measurableEquivRealProd ⁻¹' (Set.Ico (0 : ℝ) 1 ×ˢ Set.Ico (0 : ℝ) 1) := by
+    ext w; simp [Complex.measurableEquivRealProd_apply]
+  rw [this, Complex.volume_preserving_equiv_real_prod.measure_preimage
+      (measurableSet_Ico.prod measurableSet_Ico).nullMeasurableSet,
+    Measure.volume_eq_prod, Measure.prod_prod, Real.volume_Ico]
+  simp
+
+theorem volume_fundamentalDomain_stdRealBasis :
+    volume (ZSpan.fundamentalDomain (stdRealBasis g)) = 1 := by
+  have : ZSpan.fundamentalDomain (stdRealBasis g) =
+      Set.univ.pi fun _ : Fin g => {w : ℂ | w.re ∈ Set.Ico (0 : ℝ) 1 ∧ w.im ∈ Set.Ico (0 : ℝ) 1} := by
+    ext z
+    simp only [ZSpan.mem_fundamentalDomain, Set.mem_pi, Set.mem_univ, true_imp_iff,
+      Set.mem_ofPred_eq]
+    constructor
+    · intro h j
+      exact ⟨by simpa [stdRealBasis_repr_inr] using h (Sum.inr j),
+        by simpa [stdRealBasis_repr_inl] using h (Sum.inl j)⟩
+    · rintro h (j | j)
+      · simpa [stdRealBasis_repr_inl] using (h j).2
+      · simpa [stdRealBasis_repr_inr] using (h j).1
+  rw [this, volume_pi_pi]
+  simp only [volume_unitSquare, Finset.prod_const_one]
+
+/-- The coordinate matrix of the period basis in the standard real basis is
+`[[Im Ω, 0], [Re Ω, 1]]`. -/
+theorem toMatrix_periodVec (Ω : Matrix (Fin g) (Fin g) ℂ) :
+    (stdRealBasis g).toMatrix (periodVec Ω) =
+      Matrix.fromBlocks (Ω.map Complex.im) 0 (Ω.map Complex.re) 1 := by
+  ext (r | r) (l | l) <;>
+    simp [Module.Basis.toMatrix_apply, stdRealBasis_repr_inl, stdRealBasis_repr_inr, periodVec,
+      Pi.single_apply, Matrix.one_apply] <;> split_ifs <;> simp
+
+/-- **`covol(Ωℤ^g + ℤ^g) = |det Im Ω|`** for Lebesgue measure on `ℂ^g`. -/
+theorem covolume_periodLattice (Ω : Matrix (Fin g) (Fin g) ℂ)
+    (hΩ : (Ω.map Complex.im).det ≠ 0) :
+    ZLattice.covolume (periodLattice Ω hΩ) = |(Ω.map Complex.im).det| := by
+  rw [ZLattice.covolume_eq_measure_fundamentalDomain (periodLattice Ω hΩ) volume
+      (ZSpan.isAddFundamentalDomain (periodBasis Ω hΩ) volume),
+    ZSpan.measureReal_fundamentalDomain (periodBasis Ω hΩ) volume (stdRealBasis g),
+    measureReal_def, volume_fundamentalDomain_stdRealBasis, ENNReal.toReal_one, mul_one,
+    Module.Basis.det_apply, coe_periodBasis, toMatrix_periodVec, det_fromBlocks_zero₁₂, det_one,
+    mul_one]
+
+/-- For `Ω` in the Siegel space the covolume is `det Im Ω`. -/
+theorem covolume_periodLattice_of_mem {Ω : Matrix (Fin g) (Fin g) ℂ} (h : Ω ∈ SiegelSpace g) :
+    ZLattice.covolume (periodLattice Ω (det_im_ne_zero_of_mem_siegelSpace h)) =
+      (Ω.map Complex.im).det := by
+  rw [covolume_periodLattice, abs_of_pos h.2.det_pos]
+
+end Covolume
+
 end BPAnalytic

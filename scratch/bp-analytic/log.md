@@ -56,3 +56,8 @@
   (MDifferentiable) hom ⇒ ℂ-linear T, by comparing fderiv ℂ with the ℝ-derivative). COMPILED, no warnings;
   axioms standard for exists_complexLinear_lift, exists_realLinear_lift, Omega_transpose,
   riemannTheta_Omega_add_period.
+- Torus.lean §9 (node P3): `sigmaEquiv`, `stdRealBasis` (inl j ↦ i e_j, inr j ↦ e_j; Pi.basis of Complex.basisOneI
+  reindexed), `stdRealBasis_repr_inl/inr`, `volume_unitSquare`, `volume_fundamentalDomain_stdRealBasis` (= 1),
+  `toMatrix_periodVec` (= fromBlocks (Im Ω) 0 (Re Ω) 1), `covolume_periodLattice` (covol(Ωℤ^g+ℤ^g) = |det Im Ω|
+  for Lebesgue measure on ℂ^g), `covolume_periodLattice_of_mem` (= det Im Ω on the Siegel space). COMPILED;
+  axioms standard.
