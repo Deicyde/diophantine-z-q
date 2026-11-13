@@ -1298,6 +1298,63 @@ theorem r1pi0Props_of_leaves' {X Y : CategoryTheory.Over
 
 end AGInO
 
+
+/-! ## §11 The bundle without the clause `R1pi0Props` (integration form)
+
+`R1pi0Props`, `R2X6PropsIff`, `R1R2fpRep` are verbatim copies of `LeafAdopt.R1pi0Props`,
+`LeafAdopt.R2X6PropsIff`, `LeafAdopt.R1R2fpRep` (`scratch/h-decomposition/Leaves.lean`,
+L18651, L18661, L18724; scratch files cannot import each other). `R1R2fpRepNoPi0` is
+`R1R2fpRep` with its last clause `R1pi0Props X` replaced by the exact-CM clause (c). -/
+
+namespace AGInLA
+
+open CategoryTheory AlgebraicGeometry Limits
+open LeafQM LeafQM.AV
+
+def R1pi0Props (X : Over (Spec (CommRingCat.of ℚ))) : Prop :=
+  GeometricallyConnected X.hom
+
+def R2X6PropsIff (X : Over (Spec (CommRingCat.of ℚ)))
+    (Ψ : (fieldPt Qbar ⟶ X) ≃ Quotient (pairSetoid Qbar)) (π₆ : ToP1 X.left) : Prop :=
+  ∀ (x x' : fieldPt Qbar ⟶ X) (P Q : QMPair Qbar),
+    Ψ x = Quotient.mk _ P → Ψ x' = Quotient.mk _ Q →
+      (π₆.val (K := Qbar) x.left = π₆.val (K := Qbar) x'.left ↔
+          ∃ α : O ≃+* O, Nonempty (QMIso (P.q.twist α) Q.q)) ∧
+      (HasCM4 P.q ↔ π₆.val (K := Qbar) x.left = OnePoint.some 0) ∧
+      (HasCM3 P.q ↔ π₆.val (K := Qbar) x.left = OnePoint.infty) ∧
+      (HasCM24 P.q ↔ π₆.val (K := Qbar) x.left = OnePoint.some (-16 / 27))
+
+def R1R2fpRep : Prop :=
+  ∃ (Y : Over (Spec (CommRingCat.of ℚ))) (Φ : PtEquiv Y)
+    (X : Over (Spec (CommRingCat.of ℚ))) (Ψ : (fieldPt Qbar ⟶ X) ≃ Quotient (pairSetoid Qbar))
+    (fY : Y ⟶ X) (π₆ : ToP1 X.left),
+    R1fpProps Y Φ ∧ R1heckeProps Y Φ ∧ X6Props Y Φ X Ψ fY ∧ R2X6PropsIff X Ψ π₆ ∧
+      R1recProps Y Φ ∧ X6Surj Y X fY π₆ ∧ R5ptProps X Ψ ∧ R1pi0Props X
+
+/-- **The repaired bundle with `R1pi0Props` replaced by (c) `R2X6CMExact`.** -/
+def R1R2fpRepNoPi0 : Prop :=
+  ∃ (Y : Over (Spec (CommRingCat.of ℚ))) (Φ : PtEquiv Y)
+    (X : Over (Spec (CommRingCat.of ℚ))) (Ψ : (fieldPt Qbar ⟶ X) ≃ Quotient (pairSetoid Qbar))
+    (fY : Y ⟶ X) (π₆ : ToP1 X.left),
+    R1fpProps Y Φ ∧ R1heckeProps Y Φ ∧ X6Props Y Φ X Ψ fY ∧ R2X6PropsIff X Ψ π₆ ∧
+      R1recProps Y Φ ∧ X6Surj Y X fY π₆ ∧ R5ptProps X Ψ ∧ AGIn.R2X6CMExact Ψ π₆
+
+/-- **Glue (proved): the bundle clause `R1pi0Props` is a consequence.** The repaired bundle
+without `R1pi0Props`, with (c), plus the leaf `R5fpCount` and the standard leaves AG-GC, AG-CD,
+Skolem–Noether (proved by t-skolem-kw) and AL, gives the repaired bundle `R1R2fpRep`. -/
+theorem r1R2fpRep_of_noPi0 (h : R1R2fpRepNoPi0) (hcnt : R5fpCount)
+    (hL : AGIn.ConnectedGeomConnected) (hD : AGIn.CurveComponentDichotomy)
+    (hSN : GlueDescent.LeafSkolemNoether) (hAL : AGInO.AtkinLehnerFinite) : R1R2fpRep := by
+  obtain ⟨Y, Φ, X, Ψ, fY, π₆, h1, hh, h6, h2, hr, hs, h5, hex⟩ := h
+  have h2' : R2X6Props X Ψ π₆ := by
+    intro x x' P Q hP hQ
+    obtain ⟨hf, h4, h3, h24⟩ := h2 x x' P Q hP hQ
+    exact ⟨hf, h4.1, h3.1, h24.1⟩
+  exact ⟨Y, Φ, X, Ψ, fY, π₆, h1, hh, h6, h2, hr, hs, h5,
+    AGInO.r1pi0Props_of_leaves' h6 h2' h5 hcnt hex hL hD hSN hAL⟩
+
+end AGInLA
+
 #print axioms AGIn.subsingleton_of_galois
 #print axioms AGIn.subsingleton_of_bundle
 #print axioms AGIn.inertCount6_K4
@@ -1316,3 +1373,4 @@ end AGInO
 #print axioms AGInO.extAut
 #print axioms AGInO.autModInnFinite_of
 #print axioms AGInO.r1pi0Props_of_leaves'
+#print axioms AGInLA.r1R2fpRep_of_noPi0

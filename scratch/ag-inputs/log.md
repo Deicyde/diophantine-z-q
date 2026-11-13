@@ -38,14 +38,14 @@ and state the rest as leaves.
 - F5 (VERIFIED as an argument) pi0-x6 F1 (the rv-blueprints parity sketch is incomplete) confirmed:
   two degree-2 components would each be branched over 0, ∞, −16/27, and RH allows B = 4, g = 1.
 
-- L3 (VERIFIED, compiled 02:00 PST, `lake env lean scratch/ag-inputs/T2.lean`, no errors; one
+- L3 (VERIFIED, compiled 01:46 PST, `lake env lean scratch/ag-inputs/T2.lean`, no errors; one
   deprecation warning `dif_pos`): `AGInO.extAut : (O ≃+* O) → (B ≃ₐ[ℚ] B)` with
   `extAut_coe : extAut α a = α a` (the ℚ-linear extension of a ring automorphism of 𝒪, via
   denominators `nOf`), `AtkinLehnerFinite` (leaf AL), `conjAut`, `autSet`,
   `autModInnFinite_of : GlueDescent.LeafSkolemNoether → AtkinLehnerFinite → AutModInnFinite`.
   `GlueDescent.LeafSkolemNoether` (ZInQKernel/HDecomp/Descent/B1Quat.lean) is verbatim the
   statement `TSkolemKW.LeafSkolemNoether` proved by t-skolem-kw (VERIFIED, read both).
-- L4 (VERIFIED, compiled 02:02 PST, `lake env lean scratch/ag-inputs/AGInputs.lean`, exit 0, no
+- L4 (VERIFIED, compiled 01:47 PST, `lake env lean scratch/ag-inputs/AGInputs.lean`, exit 0, no
   errors, one deprecation warning; 18 `#print axioms` lines all `[propext, Classical.choice,
   Quot.sound]`, `compile_out.txt`): T2 merged as §10 (namespace `AGInO`), plus
   `AGInO.r1pi0Props_of_leaves' : X6Props → R2X6Props → R5ptProps → R5fpCount → R2X6CMExact →

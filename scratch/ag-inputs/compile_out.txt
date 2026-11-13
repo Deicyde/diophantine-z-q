@@ -20,3 +20,4 @@ Hint: Replace the deprecated name:
 'AGInO.extAut' depends on axioms: [propext, Classical.choice, Quot.sound]
 'AGInO.autModInnFinite_of' depends on axioms: [propext, Classical.choice, Quot.sound]
 'AGInO.r1pi0Props_of_leaves'' depends on axioms: [propext, Classical.choice, Quot.sound]
+'AGInLA.r1R2fpRep_of_noPi0' depends on axioms: [propext, Classical.choice, Quot.sound]
