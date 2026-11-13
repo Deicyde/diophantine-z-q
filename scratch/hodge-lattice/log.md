@@ -55,3 +55,8 @@
   `isIso_specMap_stalkMap_localization`.
   Final: `hodgeLatticeTheorem_of_abVarFacts : RegularAtOrigin → DimAtOrigin → DimBaseChange →
   HodgeLatticeTheorem`. Whole file: 0 errors, no sorry, every #print axioms standard. VERIFIED.
+- (commit ~23:56) §11: `TangentDimAtOrigin` (finrank_{κ} CotangentSpace 𝒪_{B,0} = dim B for B : AbVar L),
+  `tangentDimAtOrigin_of : RegularAtOrigin → DimAtOrigin → TangentDimAtOrigin`,
+  `tangentDim_of_abVar` (transport along the stalk iso via spanFinrank of the maximal ideal),
+  `hodgeLatticeTheorem_of_tangent : TangentDimAtOrigin → DimBaseChange → HodgeLatticeTheorem`.
+  0 errors; axioms standard. VERIFIED.

@@ -15,10 +15,10 @@ genuine objects of `Models.lean` (`OmegaFG`, `CotangentRank`, `OmegaSpans`) and 
 (`omegaLocal`: `ω_𝒢` is a finitely generated full lattice). §6 reduces `CotangentRank` to the
 regularity and Krull dimension of `𝒪_{𝒢,ξ}`; §7 is a corollary; §8-§9 move these to statements about
 abelian varieties over a field and the local rings of a generic fibre; §10 proves the latter
-(`genericFibreStalkIso`). Final form:
+(`genericFibreStalkIso`); §11 needs only the tangent dimension at the origin. Final form:
 
-`hodgeLatticeTheorem_of_abVarFacts : RegularAtOrigin → DimAtOrigin → DimBaseChange →
-  HodgeLatticeTheorem`.
+`hodgeLatticeTheorem_of_tangent : TangentDimAtOrigin → DimBaseChange → HodgeLatticeTheorem`
+(and `tangentDimAtOrigin_of : RegularAtOrigin → DimAtOrigin → TangentDimAtOrigin`).
 
 No `sorry`, no `axiom`. -/
 
@@ -1131,6 +1131,46 @@ theorem hodgeLatticeTheorem_of_abVarFacts (h1 : RegularAtOrigin) (h2 : DimAtOrig
 end ZInQ.DefFaltings.HodgeLattice
 
 
+/-! ## 11. Two facts suffice: the tangent space at the origin, and base change of dimension
+
+`RegularAtOrigin` and `DimAtOrigin` are used only through their consequence `TangentDimAtOrigin`
+(the cotangent space at the origin has dimension `dim B`), which is itself a standard fact. -/
+
+namespace ZInQ.DefFaltings.HodgeLattice
+open NumberField CategoryTheory AlgebraicGeometry IsLocalRing
+open PkgI3 (AbVar)
+
+/-- **(V)** The tangent space of an abelian variety `B/L` at the origin has dimension `dim B`. -/
+def TangentDimAtOrigin : Prop :=
+  ∀ (L : Type) [Field L] (B : AbVar L) (g : ℕ), B.dim = g →
+    Module.finrank (ResidueField (B.X.left.presheaf.stalk (originPt B)))
+      (CotangentSpace (B.X.left.presheaf.stalk (originPt B))) = g
+
+theorem tangentDimAtOrigin_of (h1 : RegularAtOrigin) (h2 : DimAtOrigin) : TangentDimAtOrigin := by
+  intro L _ B g hg
+  haveI := h1 L B
+  have := (IsRegularLocalRing.iff_finrank_cotangentSpace _).mp this
+  rw [h2 L B g hg] at this
+  exact_mod_cast this
+
+theorem tangentDim_of_abVar (h1 : TangentDimAtOrigin) (h3 : DimBaseChange) : TangentDim := by
+  intro K _ A L _ _ _ 𝒢 g hg
+  obtain ⟨e⟩ := originStalkIso_of genericFibreStalkIso K A L 𝒢
+  have h := h1 L (A.baseChange L) g ((h3 K A L).trans hg)
+  haveI : IsLocallyNoetherian 𝒢.G.left := LocallyOfFiniteType.isLocallyNoetherian 𝒢.G.hom
+  haveI : IsLocallyNoetherian (A.baseChange L).X.left :=
+    LocallyOfFiniteType.isLocallyNoetherian (A.baseChange L).X.hom
+  rw [← spanFinrank_maximalIdeal_eq_finrank_cotangentSpace] at h ⊢
+  rw [← map_ringEquiv_maximalIdeal e, Ideal.spanFinrank_map_eq_of_ringEquiv] at h
+  exact h
+
+/-- **Main result, two-fact form.** -/
+theorem hodgeLatticeTheorem_of_tangent (h1 : TangentDimAtOrigin) (h3 : DimBaseChange) :
+    HodgeLatticeTheorem :=
+  hodgeLatticeTheorem_of_cotangentRank (cotangentRank_of_tangentDim (tangentDim_of_abVar h1 h3))
+
+end ZInQ.DefFaltings.HodgeLattice
+
 #print axioms ZInQ.DefFaltings.HodgeLattice.hodgeLattice_of_lattice
 #print axioms ZInQ.DefFaltings.HodgeLattice.hodgeLatticeTheorem_of
 #print axioms ZInQ.DefFaltings.HodgeLattice.hodgeLatticeTheorem_of_local
@@ -1143,3 +1183,4 @@ end ZInQ.DefFaltings.HodgeLattice
 #print axioms ZInQ.DefFaltings.HodgeLattice.hodgeLatticeTheorem_of_varieties
 #print axioms ZInQ.DefFaltings.HodgeLattice.genericFibreStalkIso
 #print axioms ZInQ.DefFaltings.HodgeLattice.hodgeLatticeTheorem_of_abVarFacts
+#print axioms ZInQ.DefFaltings.HodgeLattice.hodgeLatticeTheorem_of_tangent
