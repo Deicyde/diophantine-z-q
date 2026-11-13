@@ -31,7 +31,8 @@ fixes are applied.
 
 **What remains (glue, not compiled).**
 - `SpecNonMeeting`: purity (t-purity3's `purityGlobalDim2'`) at `(p, X − s₀)` plus étale
-  specialization.
+  specialization. One building block is proved: `ℤ[X]_m` is regular local of dimension 2
+  (`scratch/prop-ts/ZXRegular.lean`).
 - `KummerMeet`: the Kummer coordinate `s^n = c(X − b)` or `c/X`, with Abhyankar T2.
 - `CoverModelOfHecke(N)`: normalization `π⁻¹(𝔸¹) = Spec B`, the branch data
   (degree ≤ 324, indices 4/6/2), and Lemma NV (`NoVerticalRam`).
