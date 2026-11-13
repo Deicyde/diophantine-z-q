@@ -1,0 +1,382 @@
+scratch/frontier/TYZChain.lean:879:34: warning: `if_pos` has been deprecated: Use `ite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+scratch/frontier/TYZChain.lean:921:34: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+scratch/frontier/TYZChain.lean:939:52: warning: Unused tactic linter: `push_cast` does nothing.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+scratch/frontier/TYZChain.lean:1067:81: warning: `if_pos` has been deprecated: Use `ite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+scratch/frontier/TYZChain.lean:1512:8: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+scratch/frontier/TYZChain.lean:1512:20: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+scratch/frontier/TYZChain.lean:1815:4: warning: `push_neg` has been deprecated. Prefer using `push Not` instead.
+If you'd rather continue using `push_neg` in your project, you can implement it as follows:
+```
+open Lean.Parser.Tactic in
+macro "push_neg" cfg:optConfig loc:(location)? : tactic =>
+  `(tactic| push $cfg:optConfig Not $[$loc]?)
+```
+scratch/frontier/TYZChain.lean:1843:19: warning: This simp argument is unused:
+  Matrix.SpecialLinearGroup.coe_mk
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [γ', Matrix.of_apply, Matrix.cons_val', Matrix.cons_val_zero, Matrix.cons_val_one,
+    Matrix.empty_val', Matrix.cons_val_fin_one, algebraMap_int_eq, eq_intCast, Int.cast_id]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+scratch/frontier/TYZChain.lean:1845:37: warning: This simp argument is unused:
+  Int.cast_id
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [γ', Matrix.SpecialLinearGroup.coe_mk, Matrix.of_apply, Matrix.cons_val', Matrix.cons_val_zero,
+    Matrix.cons_val_one, Matrix.empty_val', Matrix.cons_val_fin_one, algebraMap_int_eq, eq_intCast]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+scratch/frontier/TYZChain.lean:1908:8: warning: This simp argument is unused:
+  Complex.div_re
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [Complex.mul_re, Complex.mul_im]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+scratch/frontier/TYZChain.lean:1938:13: warning: `Set.mem_setOf_eq` has been deprecated: Use `Set.mem_ofPred_eq` instead
+
+Hint: Replace the deprecated name:
+  S̵e̵t̵.̵m̵e̵m̵_̵s̵e̵t̵O̵f̵_̵e̵q̵S̲e̲t̲.̲m̲e̲m̲_̲o̲f̲P̲r̲e̲d̲_̲e̲q̲
+scratch/frontier/TYZChain.lean:2009:13: warning: `Set.mem_setOf_eq` has been deprecated: Use `Set.mem_ofPred_eq` instead
+
+Hint: Replace the deprecated name:
+  S̵e̵t̵.̵m̵e̵m̵_̵s̵e̵t̵O̵f̵_̵e̵q̵S̲e̲t̲.̲m̲e̲m̲_̲o̲f̲P̲r̲e̲d̲_̲e̲q̲
+scratch/frontier/TYZChain.lean:2339:81: warning: `if_pos` has been deprecated: Use `ite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+scratch/frontier/TYZChain.lean:3047:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/frontier/TYZChain.lean:3056:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/frontier/TYZChain.lean:3167:2: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/frontier/TYZChain.lean:3168:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/frontier/TYZChain.lean:3169:2: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/frontier/TYZChain.lean:3214:8: warning: `if_pos` has been deprecated: Use `ite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+scratch/frontier/TYZChain.lean:3336:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/frontier/TYZChain.lean:3377:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/frontier/TYZChain.lean:3487:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/frontier/TYZChain.lean:3547:12: warning: `dif_neg` has been deprecated: Use `dite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  d̵i̵f̵_̵n̵e̵g̵d̲i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+scratch/frontier/TYZChain.lean:3555:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/frontier/TYZChain.lean:3628:10: warning: `if_pos` has been deprecated: Use `ite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+scratch/frontier/TYZChain.lean:3633:10: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+scratch/frontier/TYZChain.lean:3688:2: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/frontier/TYZChain.lean:3709:2: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/frontier/TYZChain.lean:3710:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/frontier/TYZChain.lean:3711:2: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/frontier/TYZChain.lean:3729:8: warning: `if_pos` has been deprecated: Use `ite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+scratch/frontier/TYZChain.lean:3855:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/frontier/TYZChain.lean:3868:2: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/frontier/TYZChain.lean:3869:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/frontier/TYZChain.lean:3870:2: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/frontier/TYZChain.lean:3986:19: warning: `if_true` has been deprecated: Use `ite_true` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵t̵r̵u̵e̵i̲t̲e̲_̲t̲r̲u̲e̲
+scratch/frontier/TYZChain.lean:3988:21: warning: `if_false` has been deprecated: Use `ite_false` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵f̵a̵l̵s̵e̵i̲t̲e̲_̲f̲a̲l̲s̲e̲
+scratch/frontier/TYZChain.lean:3992:19: warning: `if_false` has been deprecated: Use `ite_false` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵f̵a̵l̵s̵e̵i̲t̲e̲_̲f̲a̲l̲s̲e̲
+scratch/frontier/TYZChain.lean:3994:21: warning: `if_false` has been deprecated: Use `ite_false` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵f̵a̵l̵s̵e̵i̲t̲e̲_̲f̲a̲l̲s̲e̲
+scratch/frontier/TYZChain.lean:3998:19: warning: `if_true` has been deprecated: Use `ite_true` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵t̵r̵u̵e̵i̲t̲e̲_̲t̲r̲u̲e̲
+scratch/frontier/TYZChain.lean:4000:21: warning: `if_false` has been deprecated: Use `ite_false` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵f̵a̵l̵s̵e̵i̲t̲e̲_̲f̲a̲l̲s̲e̲
+scratch/frontier/TYZChain.lean:4004:19: warning: `if_false` has been deprecated: Use `ite_false` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵f̵a̵l̵s̵e̵i̲t̲e̲_̲f̲a̲l̲s̲e̲
+scratch/frontier/TYZChain.lean:4006:21: warning: `if_false` has been deprecated: Use `ite_false` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵f̵a̵l̵s̵e̵i̲t̲e̲_̲f̲a̲l̲s̲e̲
+scratch/frontier/TYZChain.lean:4046:31: warning: `if_pos` has been deprecated: Use `ite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+scratch/frontier/TYZChain.lean:4088:6: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/frontier/TYZChain.lean:4099:10: warning: `if_pos` has been deprecated: Use `ite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+scratch/frontier/TYZChain.lean:4099:30: warning: `if_pos` has been deprecated: Use `ite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+scratch/frontier/TYZChain.lean:4101:10: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+scratch/frontier/TYZChain.lean:4101:43: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+scratch/frontier/TYZChain.lean:4042:18: warning: This simp argument is unused:
+  hlt
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [h2, h8, NeZero.ne n]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+scratch/frontier/TYZChain.lean:4075:26: warning: This simp argument is unused:
+  r
+
+Hint: Omit it from the simp argument list.
+  [apply] simp
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+scratch/frontier/TYZChain.lean:4128:68: warning: `Subgroup.normal_of_comm` has been deprecated: Use `Subgroup.normal_of_isMulCommutative` instead
+
+Hint: Replace the deprecated name:
+  S̵u̵b̵g̵r̵o̵u̵p̵.̵n̵o̵r̵m̵a̵l̵_̵o̵f̵_̵c̵o̵m̵m̵S̲u̲b̲g̲r̲o̲u̲p̲.̲n̲o̲r̲m̲a̲l̲_̲o̲f̲_̲i̲s̲M̲u̲l̲C̲o̲m̲m̲u̲t̲a̲t̲i̲v̲e̲
+scratch/frontier/TYZChain.lean:4174:2: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/frontier/TYZChain.lean:4175:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/frontier/TYZChain.lean:4176:2: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/frontier/TYZChain.lean:4259:11: warning: `if_pos` has been deprecated: Use `ite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+scratch/frontier/TYZChain.lean:4277:11: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+scratch/frontier/TYZChain.lean:4350:30: warning: This simp argument is unused:
+  RingOfIntegers.coe_eq_algebraMap
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [u, θ, map_sub, algebraMap_thetaO, theta_eq, map_natCast]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+scratch/frontier/TYZChain.lean:4353:31: warning: This simp argument is unused:
+  RingOfIntegers.coe_eq_algebraMap
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [ub, θ, map_sub, algebraMap_thetaO, theta_eq, map_natCast, map_one]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+'ZInQ.Contrib.TYZGenus.CMBridge.tyzDelta_spec' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.TYZGenus.CMBridge.exists_actsAsArtinO' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.TYZGenus.CMBridge.lemma321_of' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.TYZGenus.CMBridge.genusPointLeafCM_of_pinned' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.TYZGenus.CMBridge.genusPointLeaf_of_pinned' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.TYZGenus.CMBridge.tyzThm35ReadingA_of_pinned' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.TYZGenus.CMBridge.tyzThm35ReadingA_of_pinned'' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.TYZGenus.CMBridge.tyzSigmaFixesZn_of' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.TYZGenus.CMBridge.galPt_Z7' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.TYZGenus.CMBridge.class7GenusPtDefined_of' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.TYZGenus.CMBridge.tyzThm35ReadingA_of_pinnedLeaves' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Contrib.TYZGenus.CMBridge.Copy.genusPointLeafCM_eq' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.TYZGenus.CMBridge.phi0_spec' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.TYZGenus.CMBridge.iInHprime' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.TYZGenus.CMBridge.cmFieldOfDefinition7_of' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.TYZGenus.CMBridge.tyzThm35ReadingA_of_rewired' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.TYZGenus.CMBridge.genusFieldLeLni' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.TYZGenus.CMBridge.tyzThm35ReadingA_of_cmLeaves7' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Contrib.TYZGenus.CMBridge.exists_complexConj' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.TYZGenus.CMBridge.lemma321Seven_of' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.TYZGenus.CMBridge.tyzThm35ReadingA_of_cmLeaves7'' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Contrib.TYZGenus.CMBridge.sqrtPstarInHilbert' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.TYZGenus.CMBridge.betaOnGenus7_of' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.TYZGenus.CMBridge.artinPstarChi' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.TYZGenus.CMBridge.normP2' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.TYZGenus.CMBridge.lemma321Seven_of'' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.TYZGenus.CMBridge.tyzThm35ReadingA_of_ringClassD_sigmaShiftsF0_lemma318_thm35First_lemma321Five_thm36Seven' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Frontier.tyzThm35ReadingA_of_open' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Frontier.frozenTarget_of_open' depends on axioms: [propext, Classical.choice, Quot.sound]
