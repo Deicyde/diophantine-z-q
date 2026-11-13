@@ -26,7 +26,7 @@ gives 0 errors, no sorry, and every `#print axioms` = [propext, Classical.choice
 ProductHodgeLattice → HeightAdditivity`. Integration check (`build_integrated.sh`: all parts
 appended to the full leaf-bundle file, closed with `r.h5`): compiles, 0 errors (VERIFIED).
 
-**Remains.** Open glue: `JacDetNondegenerate` (needs the complex-manifold structure of A(ℂ)),
+**Remains.** Open glue (the leaf `AnalyticUniformizationOfDim` is cited, not glue): `JacDetNondegenerate` (needs the complex-manifold structure of A(ℂ)),
 `ProductLocalStructure` (needs affine opens of fibre products and sections on basic opens), and
 `ProductHodgeLattice` (needs stalks and differentials of fibre products). Not targets of this task:
 `AnalyticUniformizationUnique` and `HodgeLatticeTheorem` (def-faltings). Report:
