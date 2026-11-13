@@ -1,5 +1,6 @@
 import ZInQKernel.Contrib.G9.Galois
 import ZInQKernel.Contrib.G9.OverF
+import ZInQKernel.Contrib.G9.I3Layer
 
 /-!
 # G9: the local count (Hodge–Tate part, and the de Rham part modulo `ℚ̄_p ⊆ B_dR`)
@@ -28,25 +29,8 @@ open scoped TensorProduct
 
 noncomputable section
 
-/-! ### Restated: `GlueI3.repBaseChange` (scratch/h-decomposition/Leaves.lean, section `PkgI3Sec`,
-namespace `GlueI3`, about line 2151; verbatim) -/
-
-namespace GlueI3
-
-variable {k G V : Type*} [Field k] [Monoid G] [AddCommGroup V] [Module k V]
-
-/-- The base change `E ⊗_k V` of a representation (verbatim from Leaves.lean). -/
-def repBaseChange (E : Type*) [Field E] [Algebra k E] (ρ : Representation k G V) :
-    Representation E G (TensorProduct k E V) where
-  toFun g := (ρ g).baseChange E
-  map_one' := by
-    change (ρ 1).baseChange E = LinearMap.id
-    rw [map_one, Module.End.one_eq_id, LinearMap.baseChange_id]
-  map_mul' g h := by
-    change (ρ (g * h)).baseChange E = (ρ g).baseChange E ∘ₗ (ρ h).baseChange E
-    rw [map_mul, Module.End.mul_eq_comp, LinearMap.baseChange_comp]
-
-end GlueI3
+/-! `GlueI3.repBaseChange` (Leaves.lean, section `PkgI3Sec`) comes from `I3Layer.lean`, the
+verbatim restatement of that section. -/
 
 /-! ### A divisibility lemma -/
 
