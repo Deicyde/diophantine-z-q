@@ -1,4 +1,5 @@
 /-! ## g0-assemble2: g0-assemble's `ModelG3G6` split
+-- (g0-assemble3: `hD.2^11` → `hD.2^11.1` (1×), for G7Data's added last clause `[L:ℚ] ≤ D`)
 
 `ModelG3G6` (part 87) asks, on G7's model `A_{L'}`: `G6Out` (`End` a division ring, and
 noncommutative) and `G3Out` at `ℓ = 5, 3`. The division-ring half is NoCM on the model; it follows
@@ -48,7 +49,7 @@ theorem modelG3G6_of (hFS : G0Split.FibreSimple) (hNC : ModelNoncomm) (hG3 : Mod
   obtain ⟨h1, h2, hu, y, hy, hπ⟩ := hctx
   have hdiv := hFS Y Φ π h1 h2 u hu ⟨L'⟩
     ((LeafAdopt.abVarEquiv L').symm (@PkgI3.AbVar.baseChange L _ A L' _ (incAlg hLL')))
-    ⟨algebraMap L' Qbar, y, P, hy, hπ, hD.2.2.2.2.2.2.2.2.2.2.2⟩
+    ⟨algebraMap L' Qbar, y, P, hy, hπ, hD.2.2.2.2.2.2.2.2.2.2.2.1⟩
   rw [Equiv.apply_symm_apply] at hdiv
   obtain ⟨g5, g3⟩ := hG3 Y Φ π u P ⟨h1, h2, hu, y, hy, hπ⟩ L A ε N χ β L' hLL' hD
   exact ⟨⟨hdiv, hNC Y Φ π u P ⟨h1, h2, hu, y, hy, hπ⟩ L A ε N χ β L' hLL' hD⟩, g5, g3⟩

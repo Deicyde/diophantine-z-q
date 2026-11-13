@@ -1,4 +1,5 @@
 /-! ## g0-assemble2: `ModelNoncomm` proved from `MulIsogeny`
+-- (g0-assemble3: `hD.2^11` → `hD.2^11.1` (1×), for G7Data's added last clause `[L:ℚ] ≤ D`)
 
 On G7's model `A_{L'} = (PK.A)_{L'}` (`IsQMModel`), let `ψ : 𝒪 → End(A_{L'})` be `ι` followed by
 unram-tate's base-change ring maps `endBC`. If `ψ(i)` and `ψ(j)` commuted, then `ij = -ji` would give
@@ -41,7 +42,7 @@ theorem modelNoncomm_of_mulIsogeny (hMul : G0FibreSimple.MulIsogeny) : ModelNonc
   have hdim : (@PkgI3.AbVar.baseChange L _ A L' _ (incAlg hLL')).dim = 2 :=
     G0Split.model_dim G0Split.dimBaseChange (algebraMap L' Qbar)
       ((LeafAdopt.abVarEquiv L').symm (@PkgI3.AbVar.baseChange L _ A L' _ (incAlg hLL')))
-      P.A hD.2.2.2.2.2.2.2.2.2.2.2 P.surface
+      P.A hD.2.2.2.2.2.2.2.2.2.2.2.1 P.surface
   obtain ⟨K, hKL, PK, -, rfl⟩ := hD.1
   set ψ : LeafQM.O →+* PkgI3.AbVar.End (@PkgI3.AbVar.baseChange L _
       (@PkgI3.AbVar.baseChange K _ PK.A L _ (incAlg hKL)) L' _ (incAlg hLL')) :=

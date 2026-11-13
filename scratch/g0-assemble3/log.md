@@ -20,3 +20,10 @@
   d40: g9-derham's layer copies `ZInQ.Contrib.G9.{PkgI3,PkgI4.I3}.AbVar`, `…G0Galois` are not in the flat file (as for
   a95) → `_root_` names; Mul.lean's open `noncomputable section` closed; e20 heavy needed a80's leaf-push2 `open`; e30
   repeated g0-dim §1-§2 (part 10) → omitted. Run 4: VERIFIED exit 0, 0 errors, no sorry, 80 s.
+- Part z92 (unif-dims' closing theorem from build_leaves.py's tail string, verbatim, + `productModelHeight_of_unifOfDim`
+  with infra-smooth-dim's `tangentDimAtOrigin`), part z95 (`ResearchLeaves4`, `GluePieces4` (47 fields),
+  `gluePieces_of_gluePieces4`, `sixContactMin_of_leaves4`, `sixContactMin_of_leaves4'`).
+- TailD run 1: z85/z86 (g0-assemble2's ModelG3G6 split) used `hD.2^11` as IsModelOver (now a pair with the G7Data
+  bound) → `.1`. Run 2: VERIFIED exit 0, 0 errors, no sorry, 9 s; `#print axioms` of `HSyn.sixContactMin_of_leaves4`,
+  `gluePieces_of_gluePieces4`, `sixContactMin_of_leaves4'`, `ResearchLeaves4.toR3`, g0-assemble2's
+  `sixContactMin_of_leaves3` and 15 component theorems: all [propext, Classical.choice, Quot.sound].
