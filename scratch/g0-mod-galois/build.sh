@@ -4,4 +4,4 @@
 cd "$(dirname "$0")"
 S=../g0-split/Split.lean
 # (Iter.lean dropped: the part uses T09, T11, T12 from later sections)
-{ cat $S; cat part_galois.lean; cat part_matrix.lean; cat part_bundle.lean; } > ModGalois.lean
+{ cat $S; cat part_galois.lean; cat part_matrix.lean; cat part_bundle.lean; cat part_det.lean; } > ModGalois.lean
