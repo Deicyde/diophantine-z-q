@@ -847,6 +847,67 @@ isomorphism `φ : 𝒩' ≅ 𝒱` (uniqueness) is the required `j`, with `U = �
 generic-fibre equation reduces to the compatibility of the canonical identification `gen𝒱` with
 the projections (`genV_compat`). -/
 
+/-! Copied from `scratch/tau-n1n2/N1N2.lean` (§5 `isMonHom_of_reflect`, §7 uniqueness). -/
+
+section Reflect
+
+variable {C D : Type*} [Category C] [Category D] [MonoidalCategory C] [MonoidalCategory D]
+  (F : C ⥤ D) [F.Monoidal]
+
+/-- A morphism `φ : M → N` of monoid objects is a monoid morphism if, after a monoidal functor
+`F`, it is compatible with monoid morphisms `g_M : F M → A`, `g_N : F N → A`
+(`F φ ≫ g_N = g_M`) and maps `T → N` (`T = 𝟙`, `T = M ⊗ M`) are determined by `F (-) ≫ g_N`. -/
+theorem isMonHom_of_reflect {M N : C} [MonObj M] [MonObj N] {A : D} [MonObj A]
+    (φ : M ⟶ N) (gM : F.obj M ⟶ A) (gN : F.obj N ⟶ A) [IsMonHom gM] [IsMonHom gN]
+    (hφ : F.map φ ≫ gN = gM)
+    (inj1 : ∀ a b : 𝟙_ C ⟶ N, F.map a ≫ gN = F.map b ≫ gN → a = b)
+    (inj2 : ∀ a b : M ⊗ M ⟶ N, F.map a ≫ gN = F.map b ≫ gN → a = b) : IsMonHom φ := by
+  constructor
+  · apply inj1
+    rw [F.map_comp, Category.assoc, hφ]
+    have h1 : Functor.LaxMonoidal.ε F ≫ F.map η[M] ≫ gM = η[A] := by
+      rw [← Category.assoc]; exact IsMonHom.one_hom gM
+    have h2 : Functor.LaxMonoidal.ε F ≫ F.map η[N] ≫ gN = η[A] := by
+      rw [← Category.assoc]; exact IsMonHom.one_hom gN
+    exact (cancel_epi (Functor.LaxMonoidal.ε F)).mp (h1.trans h2.symm)
+  · apply inj2
+    rw [F.map_comp, Category.assoc, hφ, F.map_comp, Category.assoc]
+    have h1 : Functor.LaxMonoidal.μ F M M ≫ F.map μ[M] ≫ gM = (gM ⊗ₘ gM) ≫ μ[A] := by
+      rw [← Category.assoc]; exact IsMonHom.mul_hom gM
+    have h2 : Functor.LaxMonoidal.μ F N N ≫ F.map μ[N] ≫ gN = (gN ⊗ₘ gN) ≫ μ[A] := by
+      rw [← Category.assoc]; exact IsMonHom.mul_hom gN
+    apply (cancel_epi (Functor.LaxMonoidal.μ F M M)).mp
+    rw [h1, ← Category.assoc, ← Functor.LaxMonoidal.μ_natural, Category.assoc, h2,
+      ← Category.assoc, tensorHom_comp_tensorHom, hφ]
+
+end Reflect
+
+/-- `NeronModelOver` satisfies `NeronProp` along `Spec L → Spec R`. -/
+theorem NeronModelOver.neronProp {R : Type} [CommRing R] {L : Type} [Field L] [Algebra R L]
+    {B : AbVar L} (𝒩 : NeronModelOver R L B) :
+    NeronProp (Spec.map (CommRingCat.ofHom (algebraMap R L))) (fun Y => Smooth Y.hom) 𝒩.G B.X
+      𝒩.gen :=
+  fun Y _ => 𝒩.neron Y
+
+/-- **Uniqueness of Néron models over any base `R`**: two Néron models of `B` over `R` are
+isomorphic by a group isomorphism compatible with the identifications of the generic fibres. -/
+theorem NeronModelOver.uniqueIso {R : Type} [CommRing R] {L : Type} [Field L] [Algebra R L]
+    {B : AbVar L} (𝒩 𝒩' : NeronModelOver R L B) :
+    ∃ φ : 𝒩.G ≅ 𝒩'.G, IsMonHom φ.hom ∧
+      (Over.pullback (Spec.map (CommRingCat.ofHom (algebraMap R L)))).map φ.hom ≫ 𝒩'.gen.hom =
+        𝒩.gen.hom := by
+  obtain ⟨φ, hφ⟩ := 𝒩.neronProp.uniqueIso 𝒩'.neronProp
+    (show Smooth 𝒩.G.hom from inferInstance) (show Smooth 𝒩'.G.hom from inferInstance)
+  refine ⟨φ, ?_, hφ⟩
+  have hg : IsMonHom 𝒩.gen.hom := 𝒩.gen_hom
+  have hg' : IsMonHom 𝒩'.gen.hom := 𝒩'.gen_hom
+  haveI : Smooth (𝟙_ (Over (Spec (CommRingCat.of R)))).hom := by dsimp; infer_instance
+  haveI : Smooth (𝒩.G ⊗ 𝒩.G).hom := by
+    show Smooth (pullback.fst 𝒩.G.hom 𝒩.G.hom ≫ 𝒩.G.hom); infer_instance
+  exact isMonHom_of_reflect (Over.pullback (Spec.map (CommRingCat.ofHom (algebraMap R L))))
+    φ.hom 𝒩.gen.hom 𝒩'.gen.hom hφ (fun a b hab => (𝒩'.neron _).1 hab)
+    (fun a b hab => (𝒩'.neron _).1 hab)
+
 section Pasting
 
 open ZInQ.H5Neron (pbCompInv pbCompHom pbEq pbCompIso pbEqIso)
@@ -882,12 +943,13 @@ variable {S₀ S₁ T₀ T₁ : Scheme.{0}} (a : T₁ ⟶ S₁) (b : S₁ ⟶ S�
 /-- Base change of a generic-fibre identification along a commutative square
 `T₁ → S₁ → S₀ = T₁ → T₀ → S₀`: `(G ×_{S₀} S₁) ×_{S₁} T₁ ≅ G ×_{S₀} T₁ ≅ (G ×_{S₀} T₀) ×_{T₀} T₁ ≅
 X ×_{T₀} T₁`. -/
-noncomputable def genSq :
+noncomputable irreducible_def genSq :
     (Over.pullback a).obj ((Over.pullback b).obj G) ≅ (Over.pullback d).obj X :=
   (pbCompIso a b G).symm ≪≫ pbEqIso sq G ≪≫ pbCompIso d c G ≪≫ (Over.pullback d).mapIso gen
 
 theorem genSq_hom₁ : (genSq a b c d sq G X gen).hom = ((pbCompIso a b G).symm ≪≫ pbEqIso sq G ≪≫
-    pbCompIso d c G ≪≫ (Over.pullback d).mapIso gen).hom := rfl
+    pbCompIso d c G ≪≫ (Over.pullback d).mapIso gen).hom :=
+  congrArg Iso.hom (genSq_def a b c d sq G X gen)
 
 theorem genSq_hom₂ : (pbCompIso d c G ≪≫ (Over.pullback d).mapIso gen).hom =
     pbCompHom d c G ≫ (Over.pullback d).map gen.hom :=
@@ -988,7 +1050,7 @@ local notation "κ'" => Spec.map (CommRingCat.ofHom (algebraMap K L'))
 local notation "δ" => Spec.map (CommRingCat.ofHom (algebraMap L₀ L'))
 
 /-- `(A_{L₀})_{L'} ≅ A_{L'}`, at the syntactic pullback types. -/
-noncomputable def bcA' : (Over.pullback δ).obj ((Over.pullback κ₀).obj A.X) ≅
+noncomputable irreducible_def bcA' : (Over.pullback δ).obj ((Over.pullback κ₀).obj A.X) ≅
     (Over.pullback κ').obj A.X :=
   (pbCompIso _ _ A.X).symm ≪≫ pbEqIso (bcA_sq L₀ L') A.X
 
@@ -997,7 +1059,8 @@ noncomputable def bcA : (Over.pullback δ).obj (A.baseChange L₀).X ≅ (A.base
   bcA' A L₀ L'
 
 theorem bcA'_hom₁ : (bcA' A L₀ L').hom =
-    ((pbCompIso _ _ A.X).symm ≪≫ pbEqIso (bcA_sq L₀ L') A.X).hom := rfl
+    ((pbCompIso _ _ A.X).symm ≪≫ pbEqIso (bcA_sq L₀ L') A.X).hom :=
+  congrArg Iso.hom (bcA'_def A L₀ L')
 
 theorem bcA'_hom : (bcA' A L₀ L').hom = pbCompInv _ _ A.X ≫ pbEq (bcA_sq L₀ L') A.X :=
   (bcA'_hom₁ A L₀ L').trans ((Iso.trans_hom _ _).trans (congrArg₂ (· ≫ ·)
@@ -1048,6 +1111,126 @@ theorem bcA_proj : (bcA A L₀ L').hom.left ≫ bcProj A L₀ L' =
 end BcA
 
 
+
+
+/-- At a place with an abelian-scheme model, a local Néron model `𝒩₀` is proper: `𝒜 ×_R O₀` is a
+Néron model by N1-ab, isomorphic to `𝒩₀` by uniqueness. -/
+theorem isProper_of_abelian (hab : AbelianSchemeIsNeron) {K : Type} [Field K] (A : AbVar K)
+    {R : Type} [CommRing R] [Algebra R K] (𝒜 : Over (Spec (CommRingCat.of R))) [GrpObj 𝒜]
+    [Smooth 𝒜.hom] [IsProper 𝒜.hom]
+    (gen𝒜 : (Over.pullback (Spec.map (CommRingCat.ofHom (algebraMap R K)))).obj 𝒜 ≅ A.X)
+    (hgen𝒜 : letI : GrpObj ((Over.pullback (Spec.map (CommRingCat.ofHom (algebraMap R K)))).obj 𝒜) :=
+      Functor.grpObjObj
+      IsMonHom gen𝒜.hom)
+    {L₀ : Type} [Field L₀] [NumberField L₀] [Algebra K L₀] (O₀ : ValuationSubring L₀)
+    [IsDiscreteValuationRing O₀] (ψ : R →+* O₀)
+    (sq₀ : Spec.map (CommRingCat.ofHom (algebraMap O₀ L₀)) ≫ Spec.map (CommRingCat.ofHom ψ) =
+      Spec.map (CommRingCat.ofHom (algebraMap K L₀)) ≫ Spec.map (CommRingCat.ofHom (algebraMap R K)))
+    (𝒩₀ : NeronModelOver O₀ L₀ (A.baseChange L₀)) : IsProper 𝒩₀.G.hom := by
+  letI : GrpObj ((Over.pullback (Spec.map (CommRingCat.ofHom ψ))).obj 𝒜) := Functor.grpObjObj
+  haveI : Smooth ((Over.pullback (Spec.map (CommRingCat.ofHom ψ))).obj 𝒜).hom := by
+    dsimp; infer_instance
+  haveI : IsProper ((Over.pullback (Spec.map (CommRingCat.ofHom ψ))).obj 𝒜).hom := by
+    dsimp; infer_instance
+  have hgen₀ := isMonHom_genSq _ _ _ _ sq₀ 𝒜 A.X gen𝒜 hgen𝒜
+  have hN₀ := hab L₀ O₀ (A.baseChange L₀) _ (genSq _ _ _ _ sq₀ 𝒜 A.X gen𝒜) hgen₀
+  obtain ⟨φ₀, -, -⟩ := 𝒩₀.uniqueIso ⟨_, genSq _ _ _ _ sq₀ 𝒜 A.X gen𝒜, hgen₀, fun Y _ => hN₀ Y⟩
+  rw [← Over.w φ₀.hom]
+  infer_instance
+
+/-- If the local Néron model `𝒩₀` is proper, `𝒱 = 𝒩₀ ×_{O₀} O'` is a Néron model over `O'` (N1-ab),
+so every Néron model `𝒩'` over `O'` is isomorphic to it, compatibly with `gen`. -/
+theorem iso_baseChange_of_proper (hab : AbelianSchemeIsNeron) {K : Type} [Field K] (A : AbVar K)
+    {L₀ : Type} [Field L₀] [NumberField L₀] [Algebra K L₀] (O₀ : ValuationSubring L₀)
+    (𝒩₀ : NeronModelOver O₀ L₀ (A.baseChange L₀)) [IsProper 𝒩₀.G.hom]
+    {L' : Type} [Field L'] [NumberField L'] [Algebra K L'] [Algebra L₀ L'] [IsScalarTower K L₀ L']
+    (O' : ValuationSubring L') [IsDiscreteValuationRing O']
+    (hO' : O'.comap (algebraMap L₀ L') = O₀) (𝒩' : NeronModelOver O' L' (A.baseChange L'))
+    (sqV : Spec.map (CommRingCat.ofHom (algebraMap O' L')) ≫
+      Spec.map (CommRingCat.ofHom (resHom O₀ O' hO')) =
+      Spec.map (CommRingCat.ofHom (algebraMap L₀ L')) ≫
+        Spec.map (CommRingCat.ofHom (algebraMap O₀ L₀))) :
+    letI : GrpObj ((Over.pullback (Spec.map (CommRingCat.ofHom (resHom O₀ O' hO')))).obj 𝒩₀.G) :=
+      Functor.grpObjObj
+    ∃ φ : 𝒩'.G ≅ (Over.pullback (Spec.map (CommRingCat.ofHom (resHom O₀ O' hO')))).obj 𝒩₀.G,
+      IsMonHom φ.hom ∧
+      (Over.pullback (Spec.map (CommRingCat.ofHom (algebraMap O' L')))).map φ.hom ≫
+        (genSq _ _ _ _ sqV 𝒩₀.G (A.baseChange L₀).X 𝒩₀.gen ≪≫ bcA A L₀ L').hom = 𝒩'.gen.hom := by
+  letI : GrpObj ((Over.pullback (Spec.map (CommRingCat.ofHom (resHom O₀ O' hO')))).obj 𝒩₀.G) :=
+    Functor.grpObjObj
+  haveI : Smooth ((Over.pullback (Spec.map (CommRingCat.ofHom (resHom O₀ O' hO')))).obj
+    𝒩₀.G).hom := by dsimp; infer_instance
+  haveI : IsProper ((Over.pullback (Spec.map (CommRingCat.ofHom (resHom O₀ O' hO')))).obj
+    𝒩₀.G).hom := by dsimp; infer_instance
+  have hgenV : letI : GrpObj ((Over.pullback (Spec.map (CommRingCat.ofHom (algebraMap O' L')))).obj
+      ((Over.pullback (Spec.map (CommRingCat.ofHom (resHom O₀ O' hO')))).obj 𝒩₀.G)) :=
+      Functor.grpObjObj
+      IsMonHom (genSq _ _ _ _ sqV 𝒩₀.G (A.baseChange L₀).X 𝒩₀.gen ≪≫ bcA A L₀ L').hom := by
+    have h1 := isMonHom_genSq _ _ _ _ sqV 𝒩₀.G (A.baseChange L₀).X 𝒩₀.gen 𝒩₀.gen_hom
+    have h2 := isMonHom_bcA A L₀ L'
+    rw [Iso.trans_hom]
+    infer_instance
+  have hNV := hab L' O' (A.baseChange L') _ _ hgenV
+  exact 𝒩'.uniqueIso ⟨_, _, hgenV, fun Y _ => hNV Y⟩
+
+/-- **Glue N2-g1' (`GoodPlaceAnyField`), proved.** -/
+theorem goodPlaceAnyField : GoodPlaceAnyField := by
+  intro hab K _ _ A f hf0 hf O _ hinv L₀ _ _ _ O₀ _ hO₀ 𝒩₀ L' _ _ _ _ _ O' _ hO' 𝒩'
+  -- the localization `R = 𝓞_K[1/f]` with its map to `K`
+  have hfK : IsUnit (algebraMap (𝓞 K) K f) := isUnit_iff_ne_zero.2 (by
+    rw [ne_eq, map_eq_zero_iff _ (IsFractionRing.injective (𝓞 K) K)]; exact hf0)
+  letI : Algebra (Localization.Away f) K := (IsLocalization.Away.lift f hfK).toAlgebra
+  haveI : IsScalarTower (𝓞 K) (Localization.Away f) K :=
+    IsScalarTower.of_algebraMap_eq fun x => (IsLocalization.Away.lift_eq f hfK x).symm
+  obtain ⟨𝒜, i𝒜, s𝒜, p𝒜, gen𝒜, hgen𝒜⟩ := hf (Localization.Away f)
+  -- the map `𝓞_K[1/f] → O₀`
+  have hmem : ∀ x : 𝓞 K, algebraMap K L₀ (algebraMap (𝓞 K) K x) ∈ O₀ := fun x => by
+    have : algebraMap (𝓞 K) K x ∈ O₀.comap (algebraMap K L₀) := by
+      rw [hO₀]; exact ringOfIntegers_mem O x
+    exact this
+  let t₀ : 𝓞 K →+* O₀ :=
+    ((algebraMap K L₀).comp (algebraMap (𝓞 K) K)).codRestrict O₀.toSubring hmem
+  have ht₀ : IsUnit (t₀ f) := by
+    have hi : algebraMap K L₀ (algebraMap (𝓞 K) K f)⁻¹ ∈ O₀ := by
+      have : (algebraMap (𝓞 K) K f)⁻¹ ∈ O₀.comap (algebraMap K L₀) := by rw [hO₀]; exact hinv
+      exact this
+    refine isUnit_iff_exists_inv.2 ⟨⟨_, hi⟩, Subtype.ext ?_⟩
+    show algebraMap K L₀ (algebraMap (𝓞 K) K f) * algebraMap K L₀ (algebraMap (𝓞 K) K f)⁻¹ = 1
+    rw [← map_mul, mul_inv_cancel₀ hfK.ne_zero, map_one]
+  let ψ : Localization.Away f →+* O₀ := IsLocalization.Away.lift f ht₀
+  have hψ : (algebraMap O₀ L₀).comp ψ =
+      (algebraMap K L₀).comp (algebraMap (Localization.Away f) K) := by
+    apply IsLocalization.ringHom_ext (Submonoid.powers f)
+    ext x
+    show ((ψ (algebraMap (𝓞 K) (Localization.Away f) x) : O₀) : L₀) =
+      algebraMap K L₀ (algebraMap (Localization.Away f) K (algebraMap (𝓞 K) (Localization.Away f) x))
+    rw [IsLocalization.Away.lift_eq, ← IsScalarTower.algebraMap_apply (𝓞 K) (Localization.Away f) K]
+    rfl
+  have sq₀ : Spec.map (CommRingCat.ofHom (algebraMap O₀ L₀)) ≫ Spec.map (CommRingCat.ofHom ψ) =
+      Spec.map (CommRingCat.ofHom (algebraMap K L₀)) ≫
+        Spec.map (CommRingCat.ofHom (algebraMap (Localization.Away f) K)) := by
+    rw [← Spec.map_comp, ← Spec.map_comp, ← CommRingCat.ofHom_comp, ← CommRingCat.ofHom_comp, hψ]
+  haveI : IsProper 𝒩₀.G.hom := isProper_of_abelian hab A 𝒜 gen𝒜 hgen𝒜 O₀ ψ sq₀ 𝒩₀
+  have sqV : Spec.map (CommRingCat.ofHom (algebraMap O' L')) ≫
+      Spec.map (CommRingCat.ofHom (resHom O₀ O' hO')) =
+      Spec.map (CommRingCat.ofHom (algebraMap L₀ L')) ≫
+        Spec.map (CommRingCat.ofHom (algebraMap O₀ L₀)) := by
+    rw [← Spec.map_comp, ← Spec.map_comp]
+    rfl
+  obtain ⟨φ, hφm, hφ⟩ := iso_baseChange_of_proper hab A O₀ 𝒩₀ O' hO' 𝒩' sqV
+  -- `U = 𝒩'`, `i = 𝟙`, `j = φ`
+  refine ⟨𝒩'.G, inferInstance, 𝟙 _, φ.hom, ?_, inferInstance, ?_, hφm, ?_⟩
+  · show IsOpenImmersion (𝟙 𝒩'.G.left)
+    infer_instance
+  · show IsOpenImmersion ((Over.forget _).map φ.hom)
+    infer_instance
+  · rw [CategoryTheory.Functor.map_id, Over.id_left, Category.id_comp, ← hφ, Over.comp_left,
+      Category.assoc]
+    rw [← reassoc_of% (pbMap_fst (Spec.map (CommRingCat.ofHom (algebraMap O' L'))) φ.hom)]
+    exact congrArg (((Over.pullback (Spec.map (CommRingCat.ofHom (algebraMap O' L')))).map
+      φ.hom).left ≫ ·) (genSq_compat _ _ _ _ sqV 𝒩₀.G (A.baseChange L₀).X 𝒩₀.gen
+        (bcA A L₀ L') (bcProj A L₀ L') (bcA_proj A L₀ L'))
+
 end ZInQ.NeronLG
 
 #print axioms ZInQ.NeronLG.neronLocalToGlobal_of
@@ -1063,3 +1246,4 @@ end ZInQ.NeronLG
 #print axioms ZInQ.NeronLG.neronModelOver_localize
 #print axioms ZInQ.NeronLG.localNeronModelsOf
 #print axioms ZInQ.NeronLG.localNeronModelExists_of_self
+#print axioms ZInQ.NeronLG.goodPlaceAnyField
