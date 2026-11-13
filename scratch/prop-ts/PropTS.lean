@@ -793,6 +793,89 @@ theorem propTSAll_of_bundle_N (t2 : PkgI2.AbhyankarDVR.{0}) (hR : R1R2fp)
   propTSAll_of_bundle_meet t2 hR hKG hN hM
     (fun Y Φ π h1 hh h2 => coverModel_of_N (hC Y Φ π h1 hh h2))
 
+/-! ## Part 9: `PropTS` is a property of the cover, not a tautology -/
+
+/-- The constant map `Y → P¹`, value `1`. -/
+def constOne (X : Scheme.{0}) : ToP1 X where
+  U := ⊤
+  V := ⊤
+  cover := sup_idem _
+  f := 1
+  g := 1
+  inv := by simp
+  basicOpen_f := by rw [Scheme.basicOpen_one, inf_idem]
+  basicOpen_g := by rw [Scheme.basicOpen_one, inf_idem]
+
+theorem constOne_val (X : Scheme.{0}) {K : Type} [Field K] (y : Spec (CommRingCat.of K) ⟶ X) :
+    (constOne X).val y = OnePoint.some 1 := by
+  unfold ToP1.val
+  split_ifs with h
+  · congr 1
+    show (Scheme.SpecToEquivOfField K X y).2 (X.evaluation ⊤ _ h 1) = 1
+    rw [map_one, map_one]
+  · exact absurd trivial h
+
+theorem exists_primitive_331 : ∃ z : Qbar, IsPrimitiveRoot z 331 := by
+  obtain ⟨z, hz⟩ := IsAlgClosed.exists_root (cyclotomic 331 Qbar)
+    (degree_cyclotomic_pos 331 Qbar (by norm_num)).ne.symm
+  exact ⟨z, (isRoot_cyclotomic_iff).mp hz⟩
+
+
+theorem padicValRat_43_27 (p : ℕ) [Fact p.Prime] (hp : 43 < p) :
+    padicValRat p (1 + 16 / 27 : ℚ) = 0 := by
+  have h43 : padicValRat p ((43 : ℕ) : ℚ) = 0 := by
+    rw [padicValRat.of_nat, padicValNat.eq_zero_of_not_dvd]
+    · rfl
+    · intro h; have := Nat.le_of_dvd (by norm_num) h; omega
+  have h27 : padicValRat p ((27 : ℕ) : ℚ) = 0 := by
+    rw [padicValRat.of_nat, padicValNat.eq_zero_of_not_dvd]
+    · rfl
+    · intro h; have := Nat.le_of_dvd (by norm_num) h; omega
+  have e : (1 + 16 / 27 : ℚ) = ((43 : ℕ) : ℚ) / ((27 : ℕ) : ℚ) := by norm_num
+  rw [e, padicValRat.div (by norm_num) (by norm_num), h43, h27, sub_zero]
+
+/-- **`PropTS` fails for some `(Y₀, π₀)`** (so it is a genuine constraint on the cover, to be
+proved for `Y₃ → P¹_j` only): `Y₀ = Spec ℚ(ζ₃₃₁)`, `π₀ ≡ 1`, `t = 1`, `p = 331`. Every hypothesis
+holds (`v₃₃₁(1) = v₃₃₁(43/27) = 0`), but `331` is totally ramified in `ℚ(ζ₃₃₁)`
+(Mathlib `IsCyclotomicExtension.Rat.ramificationIdx_eq_of_prime`). -/
+theorem not_propTS_cyclotomic :
+    ∃ (Y₀ : Over (Spec (CommRingCat.of ℚ))) (π₀ : ToP1 Y₀.left), ¬ PropTS Y₀ π₀ := by
+  obtain ⟨z, hz⟩ := exists_primitive_331
+  have : Fact (Nat.Prime 331) := ⟨by norm_num⟩
+  set K : IF := IntermediateField.adjoin ℚ {z}
+  have : IsCyclotomicExtension {331} ℚ K := hz.intermediateField_adjoin_isCyclotomicExtension ℚ
+  have : FiniteDimensional ℚ K := IsCyclotomicExtension.finiteDimensional {331} ℚ K
+  have : NumberField K := ⟨⟩
+  refine ⟨fieldPt K, constOne _, fun h => ?_⟩
+  have hval : (constOne (fieldPt K).left).val (K := Qbar) (fieldMap K.val).left =
+      OnePoint.some (algebraMap ℚ Qbar 1) := by
+    rw [map_one]
+    exact constOne_val (fieldPt K).left (K := Qbar) (fieldMap K.val).left
+  have hU := h 1 (fieldMap K.val) one_ne_zero (by norm_num) hval ⟨331, by norm_num⟩
+    (by norm_num) (by simp) (by simp) (by rw [padicValRat_43_27 331 (by norm_num)]; simp)
+  have hres : residueImage (X := (fieldPt K).left) (fieldMap K.val).left = K := by
+    show residueImage (X := Spec (CommRingCat.of K))
+      (Spec.map (CommRingCat.ofHom ((K.val : K →ₐ[ℚ] Qbar) : K →+* Qbar))) = K
+    rw [residueImage_specMap]
+    have : Set.range ((K.val : K →ₐ[ℚ] Qbar) : K →+* Qbar) = (K : Set Qbar) := by
+      ext x
+      simp
+    rw [this, IntermediateField.adjoin_self]
+  rw [hres] at hU
+  have : (Ideal.span {((331 : ℕ) : ℤ)}).IsPrime :=
+    (Ideal.span_singleton_prime (by norm_num)).mpr (Nat.prime_iff_prime_int.mp (by norm_num))
+  obtain ⟨P, -, hP, hPu⟩ := Ideal.exists_ideal_over_prime_of_isIntegral
+    (Ideal.span {((331 : ℕ) : ℤ)}) (⊥ : Ideal (NumberField.RingOfIntegers K)) (by simp)
+  have : P.LiesOver (Ideal.span {((331 : ℕ) : ℤ)}) := ⟨hPu.symm⟩
+  have he := IsCyclotomicExtension.Rat.ramificationIdx_eq_of_prime 331 K P
+  have hmem : (((331 : ℕ) : ℤ) : NumberField.RingOfIntegers K) ∈ P := by
+    have : ((331 : ℕ) : ℤ) ∈ P.under ℤ := by
+      rw [hPu]
+      exact Ideal.mem_span_singleton_self _
+    simpa using this
+  have h1 := hU P hP hmem
+  omega
+
 end PropTSRed
 
 end
@@ -819,3 +902,5 @@ end
 #print axioms PropTSRed.functionFieldModel_of_normalization
 #print axioms PropTSRed.coverModel_of_N
 #print axioms PropTSRed.propTSAll_of_bundle_N
+#print axioms PropTSRed.constOne_val
+#print axioms PropTSRed.not_propTS_cyclotomic

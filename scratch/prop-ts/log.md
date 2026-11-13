@@ -72,3 +72,10 @@ Base f90cf864 (wip/prop-ts). Object: `G0ModField.PropTS`, `PropTSAll` from
   components. Applied in step 7.
 
 ## Step 7: review docstring fixes applied; recompiled 0 errors, 22 standard-axiom lines; copies still IDENTICAL (VERIFIED).
+
+## Step 8 (07:20): PropTS refuted for an arbitrary cover (sanity), compiled
+- `not_propTS_cyclotomic : ∃ Y₀ π₀, ¬ PropTS Y₀ π₀` with `Y₀ = fieldPt ℚ(ζ₃₃₁)`, `π₀ = constOne`
+  (charts ⊤, f = g = 1), `t = 1`, `p = 331`: uses `residueImage_specMap`, `constOne_val`,
+  `padicValRat_43_27`, Mathlib `IsCyclotomicExtension.Rat.ramificationIdx_eq_of_prime` (e = 330).
+  So PropTS is a genuine constraint on the cover, not inert or tautological (VERIFIED).
+- Compile: 0 errors, 0 warnings, 24 `#print axioms` lines all standard (VERIFIED).

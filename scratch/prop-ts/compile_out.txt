@@ -20,3 +20,5 @@
 'PropTSRed.functionFieldModel_of_normalization' depends on axioms: [propext, Classical.choice, Quot.sound]
 'PropTSRed.coverModel_of_N' depends on axioms: [propext, Classical.choice, Quot.sound]
 'PropTSRed.propTSAll_of_bundle_N' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PropTSRed.constOne_val' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PropTSRed.not_propTS_cyclotomic' depends on axioms: [propext, Classical.choice, Quot.sound]
