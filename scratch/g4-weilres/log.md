@@ -40,3 +40,12 @@
 - `IsConjAction D ρ`: ρ σ f ∘ g_{σ,i} = g_{σ,j} ∘ f componentwise.
 - `isConjAction_unique`: two conjugation actions for the same data are equal (IsPullback.hom_ext). COMPILED.
 - `ConjActionExists D` (def, Prop): open glue target.
+
+## G4.lean — conjugates of a model A/K (COMPILED; axioms VERIFIED standard)
+- `bcAlong A f`: base change of `AbVar K` along any ring hom `f : K →+* L` (Over.pullback, grpObjObj).
+- `embAct K σ`: G_ℚ permutes embeddings K →ₐ[ℚ] ℚ̄; `specEmb_act`: Spec(σ∘e) = Spec σ ≫ Spec e.
+- `conjMap`, `conjMap_isPullback`: A_{σ∘e} → A_e over Spec σ is a pullback (IsPullback.of_right').
+- `conjData K A : ConjData (K →ₐ[ℚ] ℚ̄)`: constructed, no hypotheses.
+- `card_conjugates`: #embeddings = [K:ℚ] (AlgHom.card).
+- `homField_of_model`: G4 for a model A/K with ρ the (unique) conjugation action; remaining hypotheses:
+  hdim (dim of base change = 2), ρ itself (ConjActionExists), hcont, hinert, hK (G2 output).

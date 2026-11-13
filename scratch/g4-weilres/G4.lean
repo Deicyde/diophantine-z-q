@@ -585,6 +585,110 @@ def ConjActionExists {Idx : Type} (D : ConjData Idx) : Prop :=
   ∃ ρ : Gal →* (HomLattice D.A ≃ₗ[ℤ] HomLattice D.A), IsConjAction D (fun σ f => ρ σ f)
 
 
+/-! ### The conjugates of a model over a number field: genuine `ConjData`
+
+For `A/K` with `K ⊆ ℚ̄` a number field, the conjugates are the base changes `A_e = A ×_{K,e} ℚ̄`
+along the embeddings `e : K → ℚ̄`; `G_ℚ` permutes the embeddings, and pullback pasting gives the
+squares `A_{σ∘e} → A_e` over `Spec σ`. This constructs `ConjData` for the manuscript's family
+(`[K:ℚ]` conjugates, `AlgHom.card`), so the open part of the Weil-restriction step is exactly
+`ConjActionExists (conjData A)` and the two properties of the action used by G4 (continuity,
+inertia). -/
+
+/-- Base change of an abelian variety along a ring homomorphism `f : K → L` of fields
+(as `PkgI3.AbVar.baseChange`, for an arbitrary embedding). -/
+noncomputable def bcAlong {K L : Type} [Field K] [Field L] (A : AbVar K) (f : K →+* L) :
+    AbVar L :=
+  let F := CategoryTheory.Over.pullback (Spec.map (CommRingCat.ofHom f))
+  letI : GrpObj (F.obj A.X) := Functor.grpObjObj
+  haveI : IsProper (F.obj A.X).hom := by dsimp [F]; infer_instance
+  haveI : Smooth (F.obj A.X).hom := by dsimp [F]; infer_instance
+  haveI : GeometricallyIntegral (F.obj A.X).hom := by dsimp [F]; infer_instance
+  { X := F.obj A.X }
+
+variable (K : IntermediateField ℚ Qbar)
+
+/-- `Spec e : Spec ℚ̄ → Spec K` for an embedding `e : K → ℚ̄`. -/
+noncomputable abbrev specEmb (e : K →ₐ[ℚ] Qbar) :
+    Spec (CommRingCat.of Qbar) ⟶ Spec (CommRingCat.of K) :=
+  Spec.map (CommRingCat.ofHom (e : K →+* Qbar))
+
+/-- `G_ℚ` permutes the embeddings `K → ℚ̄`: `σ · e = σ ∘ e`. -/
+noncomputable def embAct (σ : Gal) : Equiv.Perm (K →ₐ[ℚ] Qbar) where
+  toFun e := (σ : Qbar →ₐ[ℚ] Qbar).comp e
+  invFun e := ((σ⁻¹ : Gal) : Qbar →ₐ[ℚ] Qbar).comp e
+  left_inv e := by
+    ext x
+    show (σ⁻¹ * σ) (e x) = e x
+    rw [inv_mul_cancel]; rfl
+  right_inv e := by
+    ext x
+    show (σ * σ⁻¹) (e x) = e x
+    rw [mul_inv_cancel]; rfl
+
+theorem specEmb_act (σ : Gal) (e : K →ₐ[ℚ] Qbar) :
+    specEmb K (embAct K σ e) = specGal σ ≫ specEmb K e := by
+  rw [specEmb, specEmb, specGal, ← Spec.map_comp, ← CommRingCat.ofHom_comp]
+  rfl
+
+/-- The square `A_{σ∘e} → A_e` over `Spec σ`. -/
+noncomputable def conjMap (A : AbVar K) (σ : Gal) (e : K →ₐ[ℚ] Qbar) :
+    (bcAlong A ((embAct K σ e : K →ₐ[ℚ] Qbar) : K →+* Qbar)).X.left ⟶
+      (bcAlong A (e : K →+* Qbar)).X.left :=
+  (IsPullback.of_hasPullback A.X.hom (specEmb K e)).lift
+    (Limits.pullback.fst A.X.hom (specEmb K (embAct K σ e)))
+    (Limits.pullback.snd A.X.hom (specEmb K (embAct K σ e)) ≫ specGal σ)
+    ((Limits.pullback.condition).trans
+      ((congrArg (fun φ => Limits.pullback.snd A.X.hom (specEmb K (embAct K σ e)) ≫ φ)
+        (specEmb_act K σ e)).trans (Category.assoc _ _ _).symm))
+
+theorem conjMap_isPullback (A : AbVar K) (σ : Gal) (e : K →ₐ[ℚ] Qbar) :
+    IsPullback (conjMap K A σ e)
+      (bcAlong A ((embAct K σ e : K →ₐ[ℚ] Qbar) : K →+* Qbar)).X.hom
+      (bcAlong A (e : K →+* Qbar)).X.hom (specGal σ) := by
+  have s : IsPullback (Limits.pullback.fst A.X.hom (specEmb K (embAct K σ e)))
+      (Limits.pullback.snd A.X.hom (specEmb K (embAct K σ e))) A.X.hom
+      (specGal σ ≫ specEmb K e) := by
+    rw [← specEmb_act]; exact IsPullback.of_hasPullback _ _
+  exact IsPullback.of_right' s (IsPullback.of_hasPullback A.X.hom (specEmb K e))
+
+/-- **The conjugation data of a model `A/K`** (constructed, no hypothesis): the `[K:ℚ]`
+conjugates `A_e`, permuted by `G_ℚ`, with their pullback squares over `Spec σ`. -/
+noncomputable def conjData (A : AbVar K) : ConjData (K →ₐ[ℚ] Qbar) where
+  A e := bcAlong A (e : K →+* Qbar)
+  act σ := embAct K σ
+  g σ e := conjMap K A σ e
+  pb σ e := conjMap_isPullback K A σ e
+
+/-- There are `[K:ℚ]` conjugates. -/
+theorem card_conjugates [FiniteDimensional ℚ K] :
+    Fintype.card (K →ₐ[ℚ] Qbar) = Module.finrank ℚ K :=
+  AlgHom.card ℚ K Qbar
+
+
+/-- **G4 for a model `A/K` (the manuscript's statement, N5 L544-563).** Let `K ⊆ ℚ̄` be finite
+Galois with `[K:ℚ] ≤ F₀`, unramified outside `T` (G2), and `A/K` an abelian surface whose
+conjugates `A_e` are surfaces. Let `ρ` be the conjugation action of `G_ℚ` on
+`⊕_{e,e'} Hom(A_e, A_{e'})` (`IsConjAction (conjData K A) ρ`; unique by `isConjAction_unique`),
+continuous, with trivial inertia outside `T`. Then the Hom field `L ⊇ K` exists: finite Galois,
+`[L:ℚ] ≤ D`, every geometric homomorphism among the conjugates is fixed by `G_L`, `L`
+unramified outside `T` (both forms). Leaf: `PkgI3.HomFreeFinite`. -/
+theorem homField_of_model (hHFF : HomFreeFinite) [FiniteDimensional ℚ K] [IsGalois ℚ K]
+    (hKF : Module.finrank ℚ K ≤ ZInQ.heightF0) (A : AbVar K)
+    (hdim : ∀ e, ((conjData K A).A e).dim = 2)
+    (ρ : Gal →* (HomLattice (conjData K A).A ≃ₗ[ℤ] HomLattice (conjData K A).A))
+    (_hρ : IsConjAction (conjData K A) (fun σ f => ρ σ f))
+    (hcont : ∀ m : HomLattice (conjData K A).A, IsOpen {σ : Gal | ρ σ m = m})
+    (T : Finset ℕ) (hK : GalUnramifiedOutside K T)
+    (hinert : ∀ p : ℕ, p.Prime → p ∉ T → ∀ w : ValuationSubring Qbar, LiesOver w p →
+      ∀ s ∈ inertiaGQ w, ρ s = 1) :
+    ∃ L : IntermediateField ℚ Qbar, ∃ _ : FiniteDimensional ℚ L, ∃ _ : IsGalois ℚ L,
+      K ≤ L ∧ (∀ σ ∈ L.fixingSubgroup, ρ σ = 1) ∧
+      Module.finrank ℚ L ≤ ZInQ.heightD ∧
+      GalUnramifiedOutside L T ∧ (∀ p : Nat.Primes, (p : ℕ) ∉ T → UnramifiedAt L p) :=
+  homField_of_conjugates hHFF K hKF (by rw [card_conjugates]; exact hKF) (conjData K A).A hdim ρ
+    hcont T hK hinert
+
+
 end Lattice
 
 /-! ## What G7 receives: the Hom field feeds `GlueDescent.B3Q.b3_degree_le_QM`
@@ -643,3 +747,6 @@ end G4WeilRes
 #print axioms G4WeilRes.homField_le_heightD
 #print axioms G4WeilRes.homField_of_conjugates
 #print axioms G4WeilRes.b3_of_homField
+#print axioms G4WeilRes.isConjAction_unique
+#print axioms G4WeilRes.conjData
+#print axioms G4WeilRes.homField_of_model
