@@ -164,8 +164,10 @@ All four are true for the definitions as they stand (STANDARD; locators UNVERIFI
 - `GenericFibreStalkIso`. `Spec L → Spec 𝓞_L` is the localization at `S = 𝓞_L ∖ 0`; for any scheme
   `X` over `𝓞_L` and a point `x'` of `X_L` over `x ∈ X`, `𝒪_{X,x} → 𝒪_{X_L,x'}` is an isomorphism:
   affine locally `X = Spec B`, `X_L = Spec (S⁻¹B)`, `x'` is a prime `Q'` of `S⁻¹B` with
-  contraction `Q`, and `(S⁻¹B)_{Q'} = B_Q` (Mathlib has this ring-theoretic step:
-  localization of a localization). EGA I 3.6 / Stacks "base change by a localization",
+  contraction `Q`, and `(S⁻¹B)_{Q'} = B_Q` (Mathlib has this ring-theoretic step, VERIFIED:
+  `IsLocalization.isLocalization_isLocalization_atPrime_isLocalization` in
+  `RingTheory/Localization/LocalizationLocalization.lean`; what is missing is the scheme-side
+  identification of `X_L` and its stalks over an affine chart). EGA I 3.6 / Stacks "base change by a localization",
   UNVERIFIED. (The transport to `OriginStalkIso` is proved, §3.3.)
 - `RegularAtOrigin`. `B` is smooth over the field `L`; local rings of smooth `L`-schemes are regular
   (EGA IV 17.5.1 / Stacks tag 00TT region, UNVERIFIED).
@@ -226,3 +228,9 @@ Present and used: `IsAffineOpen.isLocalization_stalk`, `germ_injective_of_isInte
   are STANDARD consequences of §7's corollary, not proved in Lean; `HodgeLatticeTheorem` as stated
   does not ask for them.
 - No independent (model) review of the new Props was run.
+- A route for `GenericFibreStalkIso` was examined and not attempted for lack of time: an affine
+  chart `U ∋ p(x)`, `p⁻¹U ≅ Spec (L ⊗_{𝓞_L} Γ(U))` (`pullbackSpecIso` plus restriction to opens), the
+  localization-of-localization lemma above, and compatibility of `stalkMap` with these isomorphisms.
+  A second route (a section `Spec 𝒪_{X,y} → X_L` through `SpecToEquivOfLocalRing`) gives only split
+  injectivity of the stalk map without a description of the points of `X_L` over `y`
+  (`Scheme.Pullback.carrierEquiv`).
