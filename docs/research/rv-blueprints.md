@@ -17,7 +17,7 @@ N5 with line numbers.
 | --- | --- | --- |
 | **bp-faltings** | **SOUND AFTER REPAIRS** | The central claim is correct: the infimum over smooth group models is the stable Faltings height in Faltings' normalization, and Deligne's is `h_D = h_F + (g/2) log π`. Four repairs. (F1) Additivity H7 is **not** definitional for the infimum: the direction that step E4 uses, `h(A) + h(Z) ≤ h(A × Z)`, needs Néron models (M5) and H5. (F2) Each of R18-R22 is a consequence of its publication only together with H5, so H5 must be proved or entered as an explicit leaf. (F3) AT1 is a plumbing test, not a normalization test, and no test checks `g ≥ 2`: add AT4 (additivity for `E₁ × E₂`) and AT5 (base change). (F4) R19 is the one leaf whose truth depends on the source's normalization. |
 | **bp-modcurves** | **SOUND AFTER REPAIRS** | The interface `ρ_{f,ℓ} ⊂ V_ℓ(J₁(N))`, `g ≤ N²` and Belyi degree `≤ N²` is captured faithfully. "Albanese predicate + existence leaf" is neither vacuous nor a disguised conclusion. (M1) The leaf MC9, "our model ≅ Shimura's canonical model", is stated over an object the blueprint never defines. It is also unnecessary, because the existential R16 is invariant under isomorphism of `J` (proved in Lean here). R16 should be stated directly for the `K_N` model. |
-| **bp-qmmoduli** | **SOUND AFTER REPAIRS** | "Field-valued points suffice" holds for the **h-trust route** (h-b1's Prop. TS and the Raynaud route for A6). It does not hold for N5 as printed, which builds Buzzard's integral moduli scheme (Q1). The proposed field-point package is **too weak in four places**: (Q2) R5fp's degree form cannot run A10; (Q3) R1an, a statement at each point, cannot run F1; (Q4) nothing supplies `π₀(X₆) = 1`, which Lemma NV step 4 uses; (Q5) R2fp's one-way CM clauses do not give Lemma NV step 2. Each repair is a consequence of the same sources and stays at field level. |
+| **bp-qmmoduli** | **SOUND AFTER REPAIRS** | "Field-valued points suffice" holds for the **h-trust route** (h-b1's Prop. TS and the Raynaud route for A6). It does not hold for N5 as printed, which builds Buzzard's integral moduli scheme (Q1). The proposed field-point package is **too weak in four places**: (Q2) R5fp's degree form cannot run A10; (Q3) R1an, a statement at each point, cannot run F1; (Q4) no listed leaf supplies `π₀(X₆) = 1`, which Lemma NV step 4 uses; it must be added as a leaf or derived as glue; (Q5) R2fp's one-way CM clauses do not give Lemma NV step 2. Each repair is a consequence of the same sources and stays at field level. |
 
 Lean (VERIFIED, compiled with `lake env lean`, one process at a time). Every blueprint file
 compiles with no error and no `sorry`. An appended audit command runs `Lean.collectAxioms` on
@@ -283,6 +283,16 @@ Twist conventions checked here (SPECULATIVE to STANDARD; the adelic computation 
     `π₀(Sh_{K₀}) = ℚ^×_{>0}∖𝔸_f^×/nrd(K₀) = 1` (UNVERIFIED locator).
   - It is consistent with the blueprint's own computation `π₀(Y₃) = 2` (§2.1), which I
     re-derived: `nrd(1 + 3𝒪₃) = 1 + 3ℤ₃`.
+  - Alternative to a new leaf (SPECULATIVE sketch, not checked in detail): derive `π₀ = 1` as
+    glue.
+    - The generic fibre of `X₆ → P¹` is a free `W`-orbit of 4 points.
+    - The fibre over each of `0, ∞, −16/27` has 2 points: `#CM(R) = 2^b h(R) = 2` for the three
+      orders, by R5fpCount, with existence given by Q5.
+    - Four components of degree 1 would give 4 points over `0`.
+    - Two components of degree 2 would each be ramified over all three values. That is
+      impossible, because a quadratic extension `ℚ̄(j)(√f)` is branched at an even number of
+      points (Kummer theory).
+    - Either route is acceptable. The blueprint must contain one of them.
 - **Q5 (R2fp's CM clauses must be biconditionals).**
   - Lemma NV step 2 (through h-b1 M9) needs "every point over `b_i` is CM by the maximal order of
     discriminant −4, −3, −24".
@@ -323,7 +333,7 @@ Twist conventions checked here (SPECULATIVE to STANDARD; the adelic computation 
    biconditionals `↔`.
 5. §2.3, R5fp. Replace the degree disjunction by `R5fpStrong`:
    `(1 ≤ b → [ℚ(x):ℚ] = 2·#Pic R ∧ Nonempty (k →ₐ[ℚ] ℚ(x))) ∧ (b = 0 → [ℚ(x):ℚ] = #Pic R)`.
-6. §2.3, new statement after R1rec: "R1pi0 (Deligne 1971 §2, UNVERIFIED locator): for `H` the
+6. §2.3, new statement after R1rec (or the glue sketch of Q4 in its place): "R1pi0 (Deligne 1971 §2, UNVERIFIED locator): for `H` the
    image of `rightMul`, `ℚ` is algebraically closed in `ℚ(Y)^H`, i.e. `X₆ = Y/H` is geometrically
    connected."
 7. §2.3, R1an. Append: "(b) for every `τ ∈ ℍ` there are `P_τ : QML3 ℂ` and such an isomorphism;

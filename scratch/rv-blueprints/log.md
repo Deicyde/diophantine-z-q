@@ -96,3 +96,9 @@ discriminant −4, −3, −24. With the one-directional clauses and R5fpCount's
 (`(∃ P, com P ≅ R) →`), no leaf asserts that such CM objects exist. Repair: biconditional
 clauses (true: com ⊇ ℤ[i] forces com = ℤ[i], and the fibre over 0 is the single orbit CM(ℤ[i])),
 a consequence of Baba–Granath's identification of the elliptic points with the CM points.
+
+## 18:50 Report written (docs/research/rv-blueprints.md)
+Verdicts: bp-faltings SOUND AFTER REPAIRS (F1-F4); bp-modcurves SOUND AFTER REPAIRS (M1);
+bp-qmmoduli SOUND AFTER REPAIRS (Q1-Q5). Q4 refined: π0(X6) = 1 may be supplied as a leaf
+(Deligne 1971 §2) or as glue (two points over each branch value by R5fpCount + Q5; a quadratic
+cover of P¹ is branched at an even number of points) — sketch SPECULATIVE.
