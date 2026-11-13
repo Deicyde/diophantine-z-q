@@ -61,3 +61,19 @@
   axioms standard (`scratch/x0-32/AuditPkg.lean`).
 - COMPILED §14: xC_fricke, yC_fricke, fC_fricke (f is a W32-eigenform, eigenvalue −1) from Mathlib's eta_comp_eq_csqrt_I_inv; y(Wτ) formula VERIFIED numerically first (fricke2.py).
 - COMPILED §15: cusp values ∞ (|x|→∞), 0 ↦ (2,−4), 1/2 ↦ (2,4) (cuspDictionary_partial), half-shift xC_add_half, yC_add_half. 40 audited X0 declarations, standard axioms.
+
+## 07:50 (host clock) cm-points finished; duplicates removed
+
+- Merged origin/wip/cm-points (5fce4d70): they proved CM.cmComplexConj and Package.lemma318_iff_literal
+  themselves (using X0.phiC and X0.two_nsmul_add_iPt_eq_zero_iff). Removed my duplicate bridge files
+  X0CM.lean and X0Pkg.lean (and their audit files); X0.lean, X0Newform.lean unaffected.
+- Note: earlier log headings "08:00–09:40" were my estimates, not the host clock; the host clock read
+  07:46 at the time of this entry.
+
+## Final (host clock ~08:10)
+
+- Final state: X0.lean (40 audited declarations, standard axioms), X0Newform.lean (leaf NewformTC32).
+  Both build (`lake build`); cm-points' Package.lean builds on top after merging origin/wip/cm-points.
+- Not attempted further: remaining cusps ±1/4, ±1/8, 1/16 (need η(z+1/2) product identity and the Jacobi
+  triple product; Mathlib has η(z+1) and η(−1/z) only), Γ₀(32)-invariance (needs explicit eta multipliers),
+  rank-zero half of Lemma 3.16 (needs descent + heights / Mordell–Weil, absent from Mathlib).

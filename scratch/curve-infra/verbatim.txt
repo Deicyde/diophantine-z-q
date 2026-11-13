@@ -1,0 +1,9 @@
+Alg.lean ringKrullDim_eq_of_isIntegral_of_injective IDENTICAL
+Alg.lean ringKrullDim_mvPolynomial_field IDENTICAL
+Dim.lean ringKrullDim_eq_of_isIntegral_of_injective IDENTICAL
+Dim.lean ringKrullDim_mvPolynomial_field IDENTICAL
+Dim.lean topologicalKrullDim_eq_iSup_of_openEmbedding IDENTICAL
+Dim.lean scheme_dim_eq_of_iso IDENTICAL
+Dim.lean spec_dim IDENTICAL
+CurveInfraAll.lean lines 3-527 vs SmoothStalk.lean lines 2-526 IDENTICAL
+ALL OK
