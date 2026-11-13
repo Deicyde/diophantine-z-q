@@ -1156,4 +1156,128 @@ theorem sum_crt {d : ℕ} (hd : Odd d) (g : ℤ → ℂ) (hg : ∀ x : ℤ, g x 
   rw [hg (d * x.1 + 4 * x.2)]
   congr 1
 
+/-- The 2-part of `ĉ_d`: `Σ_{a ∈ (ℤ/4)²} u(a) e((a₁ν₁ + a₂ν₂)/4)`. -/
+noncomputable def g2Sum (ν : ℤ × ℤ) : ℂ :=
+  ∑ a : Fin 4 × Fin 4, unitOf ((((a.1 : ℕ) : ℤ) : ZMod 4), (((a.2 : ℕ) : ℤ) : ZMod 4)) *
+    cexp (2 * π * I * (((a.1 : ℕ) : ℂ) * ν.1 + ((a.2 : ℕ) : ℂ) * ν.2) / 4)
+
+/-- The odd part of `ĉ_d`: `Σ_{b ∈ (ℤ/d)²} (N(b)/d) e((b₁ν₁ + b₂ν₂)/d)`. -/
+noncomputable def oddSum (d : ℕ) (ν : ℤ × ℤ) : ℂ :=
+  ∑ b : Fin d × Fin d, (jacobiSym (((b.1 : ℕ) : ℤ) ^ 2 + ((b.2 : ℕ) : ℤ) ^ 2) d : ℂ) *
+    cexp (2 * π * I * (((b.1 : ℕ) : ℂ) * ν.1 + ((b.2 : ℕ) : ℂ) * ν.2) / d)
+
+theorem cexp_two_pi_I_int_mul (n : ℤ) : cexp (2 * π * I * n) = 1 := by
+  rw [show (2 * π * I * n : ℂ) = n * (2 * π * I) by ring]
+  exact Complex.exp_int_mul_two_pi_mul_I n
+
+theorem cexp_shift {M : ℕ} (hM : (M : ℂ) ≠ 0) (A : ℂ) (k n : ℤ) :
+    cexp (2 * π * I * (A + ((k * M : ℤ) : ℂ) * n) / M) = cexp (2 * π * I * A / M) := by
+  rw [show 2 * π * I * (A + ((k * M : ℤ) : ℂ) * n) / M = 2 * π * I * A / M +
+      2 * π * I * ((k * n : ℤ) : ℂ) by push_cast; field_simp,
+    Complex.exp_add, cexp_two_pi_I_int_mul, mul_one]
+
+theorem intCast_emod_eq (x : ℤ) (M : ℕ) :
+    ((x % (M : ℤ) : ℤ) : ℂ) = (x : ℂ) + ((-(x / (M : ℤ)) * M : ℤ) : ℂ) := by
+  have := Int.emod_add_ediv_mul x (M : ℤ)
+  have h : x % (M : ℤ) = x + (-(x / (M : ℤ)) * M) := by linarith
+  rw [h]; push_cast; ring
+
+/-- **Factorization of `ĉ_d`** into the 2-part and the odd part (`d ≡ 1 (mod 4)`). -/
+theorem fourierHat_cd_eq {d : ℕ} (hd4 : d % 4 = 1) (ν : ℤ × ℤ) :
+    fourierHat (4 * d) (cdChar d) ν = g2Sum ν * oddSum d ν := by
+  have hodd : Odd d := Nat.odd_iff.mpr (by omega)
+  have hd0 : 0 < d := hodd.pos
+  have : NeZero d := ⟨hd0.ne'⟩
+  have hdC : (d : ℂ) ≠ 0 := Nat.cast_ne_zero.mpr hd0.ne'
+  have hMC : ((4 * d : ℕ) : ℂ) ≠ 0 := by push_cast; exact mul_ne_zero (by norm_num) hdC
+  set F : ℤ → ℤ → ℂ := fun x y => (jacobiSym (x ^ 2 + y ^ 2) d : ℂ) *
+    unitOf ((x : ZMod 4), (y : ZMod 4)) *
+      cexp (2 * π * I * ((x : ℂ) * ν.1 + (y : ℂ) * ν.2) / ((4 * d : ℕ) : ℂ)) with hFdef
+  -- periodicity of `F`
+  have hmodd : ∀ x : ℤ, x % ((4 * d : ℕ) : ℤ) ≡ x [ZMOD d] := fun x => by
+    have : (x % ((4 * d : ℕ) : ℤ)) ≡ x [ZMOD ((4 * d : ℕ) : ℤ)] :=
+      Int.emod_emod_of_dvd x (dvd_refl _)
+    push_cast at this
+    exact this.of_mul_left 4
+  have hmod4 : ∀ x : ℤ, ((x % ((4 * d : ℕ) : ℤ) : ℤ) : ZMod 4) = (x : ZMod 4) := fun x => by
+    have : (x % ((4 * d : ℕ) : ℤ)) ≡ x [ZMOD ((4 * d : ℕ) : ℤ)] :=
+      Int.emod_emod_of_dvd x (dvd_refl _)
+    push_cast at this
+    exact (ZMod.intCast_eq_intCast_iff _ _ 4).mpr (this.of_mul_right d)
+  have hperx : ∀ x y : ℤ, F x y = F (x % ((4 * d : ℕ) : ℤ)) y := fun x y => by
+    simp only [F]
+    rw [hmod4, jacobiSym.mod_left' (((hmodd x).pow 2).add_right _).symm, intCast_emod_eq,
+      add_mul, add_right_comm, cexp_shift hMC]
+  have hpery : ∀ x y : ℤ, F x y = F x (y % ((4 * d : ℕ) : ℤ)) := fun x y => by
+    simp only [F]
+    rw [hmod4, jacobiSym.mod_left' (((hmodd y).pow 2).add_left _).symm, intCast_emod_eq,
+      add_mul, ← add_assoc, cexp_shift hMC]
+  -- the summand of `fourierHat` is `F`
+  have h1 : fourierHat (4 * d) (cdChar d) ν =
+      ∑ j1 : Fin (4 * d), ∑ j2 : Fin (4 * d), F j1 j2 := by
+    rw [fourierHat, Fintype.sum_prod_type]
+    refine Finset.sum_congr rfl fun j1 _ => Finset.sum_congr rfl fun j2 _ => ?_
+    rw [cdChar_intCast (d := d) ((j1 : ℤ), (j2 : ℤ))]
+    simp only [F, ech]
+    congr 2
+    push_cast
+    ring
+  -- CRT on both coordinates
+  have h2 : ∑ j1 : Fin (4 * d), ∑ j2 : Fin (4 * d), F j1 j2 =
+      ∑ a1 : Fin 4, ∑ b1 : Fin d, ∑ a2 : Fin 4, ∑ b2 : Fin d,
+        F (d * a1 + 4 * b1) (d * a2 + 4 * b2) := by
+    have hin : ∀ x : ℤ, ∑ j2 : Fin (4 * d), F x j2 =
+        ∑ a2 : Fin 4, ∑ b2 : Fin d, F x (d * a2 + 4 * b2) := fun x =>
+      sum_crt hodd (F x) fun y => hpery x y
+    simp_rw [hin]
+    exact sum_crt hodd (fun x => ∑ a2 : Fin 4, ∑ b2 : Fin d, F x (d * a2 + 4 * b2))
+      fun x => Finset.sum_congr rfl fun a2 _ =>
+        Finset.sum_congr rfl fun b2 _ => hperx x _
+  -- each term factors
+  have hd4' : (d : ZMod 4) = 1 := by rw [← ZMod.natCast_mod, hd4]; rfl
+  have hJ16 : jacobiSym 16 d = 1 := by
+    have h4 : Int.gcd 4 d = 1 := by
+      rw [show (4 : ℤ) = ((4 : ℕ) : ℤ) by norm_num, Int.gcd_natCast_natCast]
+      exact Nat.Coprime.pow_left 2 ((Nat.coprime_two_left).mpr hodd)
+    have := jacobiSym.sq_one' h4
+    norm_num at this; exact this
+  have h3 : ∀ (a1 a2 : Fin 4) (b1 b2 : Fin d),
+      F (d * a1 + 4 * b1) (d * a2 + 4 * b2) =
+        (unitOf ((((a1 : ℕ) : ℤ) : ZMod 4), (((a2 : ℕ) : ℤ) : ZMod 4)) *
+          cexp (2 * π * I * (((a1 : ℕ) : ℂ) * ν.1 + ((a2 : ℕ) : ℂ) * ν.2) / 4)) *
+        ((jacobiSym (((b1 : ℕ) : ℤ) ^ 2 + ((b2 : ℕ) : ℤ) ^ 2) d : ℂ) *
+          cexp (2 * π * I * (((b1 : ℕ) : ℂ) * ν.1 + ((b2 : ℕ) : ℂ) * ν.2) / d)) := by
+    intro a1 a2 b1 b2
+    simp only [F]
+    have hj : jacobiSym ((d * a1 + 4 * b1 : ℤ) ^ 2 + (d * a2 + 4 * b2 : ℤ) ^ 2) d =
+        jacobiSym (((b1 : ℕ) : ℤ) ^ 2 + ((b2 : ℕ) : ℤ) ^ 2) d := by
+      rw [jacobiSym.mod_left' (b := d) (a₂ := 16 * (((b1 : ℕ) : ℤ) ^ 2 + ((b2 : ℕ) : ℤ) ^ 2)),
+        jacobiSym.mul_left, hJ16, one_mul]
+      exact Int.modEq_of_dvd ⟨-(d * ((a1 : ℕ) : ℤ) ^ 2 + 8 * ((a1 : ℕ) : ℤ) * ((b1 : ℕ) : ℤ) +
+        d * ((a2 : ℕ) : ℤ) ^ 2 + 8 * ((a2 : ℕ) : ℤ) * ((b2 : ℕ) : ℤ)), by ring⟩
+    have hu : (((d * a1 + 4 * b1 : ℤ) : ZMod 4), ((d * a2 + 4 * b2 : ℤ) : ZMod 4)) =
+        ((((a1 : ℕ) : ℤ) : ZMod 4), (((a2 : ℕ) : ℤ) : ZMod 4)) := by
+      push_cast
+      rw [hd4', show (4 : ZMod 4) = 0 from rfl]
+      simp
+    have he : cexp (2 * π * I * (((d * a1 + 4 * b1 : ℤ) : ℂ) * ν.1 +
+        ((d * a2 + 4 * b2 : ℤ) : ℂ) * ν.2) / ((4 * d : ℕ) : ℂ)) =
+        cexp (2 * π * I * (((a1 : ℕ) : ℂ) * ν.1 + ((a2 : ℕ) : ℂ) * ν.2) / 4) *
+        cexp (2 * π * I * (((b1 : ℕ) : ℂ) * ν.1 + ((b2 : ℕ) : ℂ) * ν.2) / d) := by
+      rw [← Complex.exp_add]
+      congr 1
+      push_cast
+      field_simp
+      ring
+    rw [hj, hu, he]
+    ring
+  rw [h1, h2, g2Sum, oddSum, Fintype.sum_prod_type, Fintype.sum_prod_type, Finset.sum_mul]
+  refine Finset.sum_congr rfl fun a1 _ => ?_
+  rw [Finset.sum_comm, Finset.sum_mul]
+  refine Finset.sum_congr rfl fun a2 _ => ?_
+  rw [Finset.mul_sum]
+  refine Finset.sum_congr rfl fun b1 _ => ?_
+  rw [Finset.mul_sum]
+  exact Finset.sum_congr rfl fun b2 _ => h3 a1 a2 b1 b2
+
 end BpHeckeFE
