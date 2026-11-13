@@ -17,3 +17,14 @@
   `homLinearLift_of_unifLocalInverse`, `homLatticeCorr_of_local`.
 - `lake env lean scratch/homlattice/HomLattice.lean`: exit 0; 13 `#print axioms` reports, all
   [propext, Classical.choice, Quot.sound]; no sorry, no error (out_HomLattice.txt). VERIFIED.
+
+## Step 3 (12:45): converse for realization; rigidity copy; GAGA for morphisms
+- `analyticHomAlgebraic_of_homRealize` (HomRealize + AnalyticHomLift + UniformizationExists +
+  dimension finiteness ⇒ AnalyticHomAlgebraic), `t11a_riemannEnd_of_local`,
+  `homLatticeCorr_of_local_realize`.
+- Copied `MulRigidity` (scratch/alg-frob-red/src_Rigidity.lean lines 18-183, verbatim, by script
+  with boundary asserts) into HomLattice.lean. New: `AnalyticMapAlgebraic` (conclusion a mere
+  morphism), `eta_comp_of_one_comp`, `analyticHomAlgebraic_of_map` (rigidity),
+  `analyticMapAlgebraic_iff`, `homLatticeCorr_of_local_map`, `t11a_riemannEnd_of_local_map`.
+- `lake env lean scratch/homlattice/HomLattice.lean`: exit 0 in 10 s; 22 `#print axioms`, all
+  [propext, Classical.choice, Quot.sound]; no sorry/error. VERIFIED.

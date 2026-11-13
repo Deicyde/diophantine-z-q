@@ -1,16 +1,16 @@
-scratch/homlattice/HomLattice.lean:78:8: warning: `dif_pos` has been deprecated: Use `dite_eq_left` instead
+scratch/homlattice/HomLattice.lean:256:8: warning: `dif_pos` has been deprecated: Use `dite_eq_left` instead
 
 Hint: Replace the deprecated name:
   d̵i̵f̵_̵p̵o̵s̵d̲i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
-scratch/homlattice/HomLattice.lean:78:19: warning: `dif_pos` has been deprecated: Use `dite_eq_left` instead
+scratch/homlattice/HomLattice.lean:256:19: warning: `dif_pos` has been deprecated: Use `dite_eq_left` instead
 
 Hint: Replace the deprecated name:
   d̵i̵f̵_̵p̵o̵s̵d̲i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
-scratch/homlattice/HomLattice.lean:80:8: warning: `dif_neg` has been deprecated: Use `dite_eq_right` instead
+scratch/homlattice/HomLattice.lean:258:8: warning: `dif_neg` has been deprecated: Use `dite_eq_right` instead
 
 Hint: Replace the deprecated name:
   d̵i̵f̵_̵n̵e̵g̵d̲i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
-scratch/homlattice/HomLattice.lean:80:19: warning: `dif_neg` has been deprecated: Use `dite_eq_right` instead
+scratch/homlattice/HomLattice.lean:258:19: warning: `dif_neg` has been deprecated: Use `dite_eq_right` instead
 
 Hint: Replace the deprecated name:
   d̵i̵f̵_̵n̵e̵g̵d̲i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
@@ -30,3 +30,9 @@ Hint: Replace the deprecated name:
 'ZInQ.HomLattice.analyticHomAlgebraic_of_homRealize' depends on axioms: [propext, Classical.choice, Quot.sound]
 'ZInQ.HomLattice.t11a_riemannEnd_of_local' depends on axioms: [propext, Classical.choice, Quot.sound]
 'ZInQ.HomLattice.homLatticeCorr_of_local_realize' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MulRigidity.isMonHom_of_geometricallyIntegral' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.HomLattice.eta_comp_of_one_comp' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.HomLattice.analyticHomAlgebraic_of_map' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.HomLattice.analyticMapAlgebraic_iff' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.HomLattice.homLatticeCorr_of_local_map' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.HomLattice.t11a_riemannEnd_of_local_map' depends on axioms: [propext, Classical.choice, Quot.sound]
