@@ -25,3 +25,18 @@ Base 883c4ddf. Continues t-brauer-purity (T2 already proved there: T2Full.lean, 
   under an open normal subgroup), `isCoboundary2_iff` (↔ ε = δf with f invariant under an open
   normal subgroup), instances `compactSpace_absoluteGaloisGroup`,
   `zeroDimensionalSpace_absoluteGaloisGroup` (char 0), `isCocycle2_iff_Qp`.
+- `T2Kernel.lean` of t-brauer-purity re-compiled at this base (after `lake build
+  ZInQKernel.HDecomp.Objects ZInQKernel.HDecomp.Conductor.I6Base`): COMPILES, standard axioms;
+  `TBrauerPurityT2K.abhyankarDVR : PkgI2.AbhyankarDVR.{0}` holds here. T2 is fully proved (the
+  task brief's "only L = K and the lower half" is out of date).
+- `T1Kernel.lean` (imports ZInQKernel.HDecomp.Objects; kernel's `PkgI2.PurityBranchLocus`):
+  COMPILES, standard axioms. `TPurity2K.purity_dim_one`, `TPurity2K.purityBranchLocus_of_ge2 :
+  PurityBranchLocusGe2.{0} → PkgI2.PurityBranchLocus.{0}`, `objBridge_purityBranchLocus_of_ge2`.
+- `ProfiniteCochains.lean` extended: `IsCocycle2Fin`, `IsCoboundary2Fin`, `H2TwoClassesFin`,
+  `h2TwoClasses_iff_fin`, `localH2CardC_finite_iff_fin`. COMPILES, standard axioms.
+- `ProfiniteKernel.lean` (imports ZInQKernel.HDecomp.Conductor.I6Base; kernel's PkgI6 defs):
+  COMPILES, standard axioms. `TPurity2K.localH2CardC_iff_fin : PkgI6.LocalH2CardC ↔ (∀ p,
+  H2TwoClassesFin G_{ℚ_p}) ∧ H2TwoClasses G_ℝ`, `brauerHasse2C_iff_fin : BrauerHasse2C ↔
+  BrauerHasse2Fin`, `brauerReciprocity2C_iff_fin : BrauerReciprocity2C ↔ BrauerReciprocity2Fin`
+  (all three T14/T15 Props restated with "inflated from G/N, N open normal" in place of
+  continuity).

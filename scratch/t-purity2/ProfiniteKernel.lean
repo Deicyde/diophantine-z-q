@@ -177,6 +177,43 @@ theorem localH2CardC_iff_fin : PkgI6.LocalH2CardC ↔
   unfold PkgI6.LocalH2CardC
   rw [localH2CardC_finite_iff_fin]
 
+theorem isCocycle2_iff_fin {G : Type*} [Group G] [TopologicalSpace G]
+    [IsTopologicalGroup G] [CompactSpace G] [ZeroDimensionalSpace G] (ε : G → G → ZMod 2) :
+    IsCocycle2 ε ↔ IsCocycle2Fin ε := isCocycle2_iff ε
+
+theorem isCoboundary2_iff_fin {G : Type*} [Group G] [TopologicalSpace G]
+    [IsTopologicalGroup G] [CompactSpace G] [ZeroDimensionalSpace G] (ε : G → G → ZMod 2) :
+    IsCoboundary2 ε ↔ IsCoboundary2Fin ε := isCoboundary2_iff ε
+
+/-- T14 (Hasse half) without topology. -/
+def BrauerHasse2Fin : Prop :=
+  ∀ ε, IsCocycle2Fin ε → IsCoboundary2Fin (PkgI6.resC ℝ ε) →
+    (∀ (p : ℕ) [Fact p.Prime], IsCoboundary2Fin (PkgI6.resC ℚ_[p] ε)) → IsCoboundary2Fin ε
+
+open Classical in
+/-- T14 (reciprocity half) without topology. -/
+def BrauerReciprocity2Fin : Prop :=
+  ∀ ε, IsCocycle2Fin ε →
+    {p : Nat.Primes | haveI : Fact (p : ℕ).Prime := ⟨p.2⟩;
+        ¬ IsCoboundary2Fin (PkgI6.resC ℚ_[(p : ℕ)] ε)}.Finite ∧
+    Even ({p : Nat.Primes | haveI : Fact (p : ℕ).Prime := ⟨p.2⟩;
+        ¬ IsCoboundary2Fin (PkgI6.resC ℚ_[(p : ℕ)] ε)}.ncard
+      + if IsCoboundary2Fin (PkgI6.resC ℝ ε) then 0 else 1)
+
+theorem brauerHasse2C_iff_fin : PkgI6.BrauerHasse2C ↔ BrauerHasse2Fin := by
+  simp only [PkgI6.BrauerHasse2C, BrauerHasse2Fin, isCocycle2_iff_fin, isCoboundary2_iff_fin]
+
+theorem brauerReciprocity2C_iff_fin : PkgI6.BrauerReciprocity2C ↔ BrauerReciprocity2Fin := by
+  unfold PkgI6.BrauerReciprocity2C BrauerReciprocity2Fin
+  refine forall_congr' fun ε => ?_
+  rw [isCocycle2_iff_fin]
+  refine imp_congr_right fun _ => ?_
+  simp only [isCoboundary2_iff_fin]
+  have h := isCoboundary2_iff_fin (PkgI6.resC ℝ ε)
+  by_cases hc : IsCoboundary2Fin (PkgI6.resC ℝ ε)
+  · rw [if_pos (h.mpr hc), if_pos hc]
+  · rw [if_neg (fun h' => hc (h.mp h')), if_neg hc]
+
 end TPurity2K
 
 #print axioms TPurity2K.isCocycle2_iff
@@ -184,3 +221,5 @@ end TPurity2K
 #print axioms TPurity2K.isCocycle2_iff_Qp
 #print axioms TPurity2K.localH2CardC_finite_iff_fin
 #print axioms TPurity2K.localH2CardC_iff_fin
+#print axioms TPurity2K.brauerHasse2C_iff_fin
+#print axioms TPurity2K.brauerReciprocity2C_iff_fin
