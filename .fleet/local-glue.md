@@ -6,8 +6,9 @@ g0-mod-field's construction of that data no local glue Prop remains.
 
 - General form: `G15Ram.localGlue_of_unramRoots (hR6) (hTors) (hU : UnramRoots p ℓ) (p ≠ ℓ)
   (G7Out) (G7Clauses) (KerWild) (p ≤ 5 → DescentPts A L) : LocalGlue …`.
-- Construction form: `G15Ram.localGlue_of_baseChange` for `A = (A₀)_{L'}` (`TateBridge`'s base
-  change), with `G7Data`'s kernel-field clause, and `β = ι ∘ β_ℂ` with `ι`
+- Construction form: `G15Ram.localGlue_of_baseChange'` for `A = (A₀)_{L'}` (`TateBridge`'s base
+  change), with `dim A₀ = 2` derived from `G7Out` via g0-dim's `pkgI3_dim_baseChange`,
+  `G7Data`'s kernel-field clause, and `β = ι ∘ β_ℂ` with `ι`
   injective. It rests only on:
   - the leaves R6 and I2-Tors (already in the bundles);
   - the textbook Prop `UnramRoots` (an unramified 4th root of an unramified character), used
