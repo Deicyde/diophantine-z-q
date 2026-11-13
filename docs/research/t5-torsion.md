@@ -1,4 +1,4 @@
-# t5-torsion: T5 reduced to a count; T26 follows from T5; every use of T5 in the H proof follows from T35
+# t5-torsion: T5 reduced to `deg [n] = n^{2g}` (plus separability in characteristic p); T26 follows from T5; every use of T5 in the H proof follows from T35
 
 Status: research note (task t5-torsion, 2026-11-13). The Lean is in `scratch/t5-torsion/`, the results
 log is `scratch/t5-torsion/log.md`. No file under `ZInQKernel/` or `blueprint/` was edited, and no
@@ -13,7 +13,7 @@ judgement. **UNVERIFIED** = a locator recalled from memory (no network).
 
 All items are VERIFIED. The single file `scratch/t5-torsion/T5Full.lean` contains all of them; it
 compiles in about 10 s once the imported `ZInQKernel` modules are built. `T5Torsion.lean` (parts
-1–4b) and `Tate.lean` (part 8) also compile on their own.
+1–4b), `Tate.lean` (part 8) and `Degree.lean` (part 12) also compile on their own.
 
 1. **T5 holds over every field that embeds in `ℂ`, from T35 alone.** T35 is
    `ZInQ.LeafPush2.UniformizationExists`, already `TextbookLeaves.t35`. The proof also uses
@@ -41,20 +41,44 @@ compiles in about 10 s once the imported `ZInQKernel` modules are built. `T5Tors
    `TorsionBound3` and `TorsionCountPts` are verbatim copies of the assembly's Props (§3). After the
    rewiring in §3, the field `t5` of `TextbookLeaves` is used only to prove T26 (item 4).
 
-3. **Full T5 (all fields, all characteristics) from a counting leaf.**
+3. **Full T5 (all fields, all characteristics) from Mumford's two facts about `[n]`.**
    ```lean
+   theorem T5Torsion.torsionStructure_of_degree (hD : Degree.KernelDegree)
+       (hP : MulUnramifiedPosChar) : PkgI2.TorsionStructure.{0}
+   theorem T5Torsion.torsionStructureCharZero_of_degree (hD : Degree.KernelDegree) :
+       TorsionStructureCharZero                    -- T5 for every field of characteristic 0
+   theorem T5Torsion.Degree.natCard_torsion_of_degree (hD : KernelDegree) (A) (g n) (hg) (hn)
+       (hnK) (hU : FormallyUnramified (mulN A n)) :
+       Nat.card {x : A.Pt (AlgebraicClosure K) // x ^ n = 1} = n ^ (2 * g)
    theorem T5Torsion.torsionStructure_of_torsionCard (h : TorsionCard.{u}) :
        PkgI2.TorsionStructure.{u}
    theorem T5Torsion.torsionStructure_of_uniformization_of_nonC
        (hU : ZInQ.LeafPush2.UniformizationExists) (hN : TorsionCardNonC) :
        PkgI2.TorsionStructure.{0}
    ```
-   - `TorsionCard`: `#A(K̄)[n] = n^{2g}` whenever `(n : K) ≠ 0`.
-   - The group structure `A(K̄)[n] ≅ (ℤ/n)^{2g}` follows by pure algebra; that is proved here.
-   - `TorsionCardNonC`: `TorsionCard` on the fields with no ring map to `ℂ`. These are the fields
-     of positive characteristic, and those of characteristic 0 with transcendence degree above the
-     continuum (STANDARD: a field of characteristic 0 embeds in `ℂ` iff its transcendence degree
-     over `ℚ` is at most `𝔠`).
+   The two leaves:
+   - **`KernelDegree`** (`deg [n] = n^{2g}`, fibre form). The scheme-theoretic kernel
+     `A[n] = pullback [n] (unit section)` is `Spec R` over `K` with `dim_K R = n^{2g}`. This is
+     Mumford §6 Application 2 (`deg n_X = n^{2g}`) together with flatness of isogenies, so every
+     fibre has length `n^{2g}` (locators UNVERIFIED).
+   - **`MulUnramifiedPosChar`** (separability). `[n]` is formally unramified in characteristic
+     `p ∤ n` (Mumford §4 and §6 Application 2; Milne, *Abelian varieties*, Thm 8.2; UNVERIFIED). In
+     characteristic 0 this is proved: `mulUnramified_charZero`, from the kernel's `kerUnitOpen`.
+
+   The glue is all proved:
+   - `A(K̄)[n]` equals the `K̄`-points of `A[n]` over `K`.
+   - Those are `Hom_K(R, K̄)`.
+   - `R` is a finite unramified, hence étale, `K`-algebra (base change and `HasRingHomProperty`).
+   - `#Hom_K(R, K̄) = dim_K R`: base change to `K̄`, then Mathlib's `IsFiniteSplit` and
+     `equivPiOfIsSepClosed`.
+   - The group structure follows from the counts by pure algebra.
+
+   Other intermediate forms:
+   - `TorsionCard` is `#A(K̄)[n] = n^{2g}` whenever `(n : K) ≠ 0`.
+   - `TorsionCardNonC` is `TorsionCard` on the fields with no ring map to `ℂ`. These are the
+     fields of positive characteristic, and those of characteristic 0 with transcendence degree
+     above the continuum (STANDARD: a field of characteristic 0 embeds in `ℂ` iff its transcendence
+     degree over `ℚ` is at most `𝔠`).
 
 4. **T26 (`PkgI3.TateModuleFree`) is glue given T5.** T26 says `T_ℓ A` is free of rank `2 dim A`
    over `ℤ_ℓ`.
@@ -66,6 +90,8 @@ compiles in about 10 s once the imported `ZInQKernel` modules are built. `T5Tors
        PkgI3.TateModuleFree
    theorem T5Torsion.tateModuleFreeC_of_uniformization (hU) : TateModuleFreeC  -- k ↪ ℂ, T35 only
    theorem T5Torsion.tateModuleFree_of_uniformization_of_nonC (hU) (hN : TorsionCardNonC) :
+       PkgI3.TateModuleFree
+   theorem T5Torsion.tateModuleFree_of_degree (hD : Degree.KernelDegree) (hP : MulUnramifiedPosChar) :
        PkgI3.TateModuleFree
    ```
 
@@ -97,12 +123,20 @@ integration is not done here):
   full generality, because about 40 glue theorems pass it on as a hypothesis over all fields: for
   example `continuous_galRep_of_tateModuleFree {K}` and `tateBC_bijective_of_tateModuleFree`. So
   (c) only pays off together with (a) or (b).
+- **(e) No rewiring, smaller leaves.** Set `t5 := torsionStructure_of_degree hD hP` and
+  `t26 := tateModuleFree_of_degree hD hP`. T5 and T26 are replaced by Mumford's two facts about
+  `[n]`: `KernelDegree` (`deg [n] = n^{2g}`) and `MulUnramifiedPosChar` (separability in
+  characteristic `p`). The H proof (characteristic 0) needs only `KernelDegree`, and on subfields
+  of `ℂ` not even that.
 - **(d) Independently of (a)-(c): drop `GluePieces4.divisiblePoints` (item 5).** This needs one
   rewiring and adds no leaf.
 
 **Recommendation: (a) + (d).** This keeps T5, Mumford's standard statement, as the leaf to
-crowdsource, and removes T26 and `divisiblePoints` (two literature statements fewer). Note for
-formalizers: on subfields of `ℂ`, T5 is already a corollary of T35 (item 1).
+crowdsource, and removes T26 and `divisiblePoints` (two literature statements fewer). Notes for
+formalizers:
+- On subfields of `ℂ`, T5 is already a corollary of T35 (item 1).
+- In general, T5 reduces to `deg [n] = n^{2g}` plus separability in characteristic `p` (item 3).
+  Use (e) if the smaller leaves are preferred.
 
 ## 1. What T5 demands (VERIFIED, ZInQKernel/HDecomp/Objects.lean:993, :1486)
 
@@ -177,6 +211,20 @@ subfields of `ℚ̄` from T35.
 **Part 11.** `T_ℓ A → A(K̄)[ℓᵏ]` is onto, from the counts (`exists_tate_lift_level`): the
 successive `ℓ`-th roots of `t` stay in `A[ℓ^{k+j}]` because `ℓ : A[ℓ^{k+j+1}] → A[ℓ^{k+j}]` is onto.
 
+**Part 12 (`Degree.lean`).** The count from the degree:
+- `natCard_algHom_eq_finrank`: a finite formally unramified `K`-algebra `R` has `dim_K R` points
+  in an algebraically closed `Ω`.
+- `natCard_torsion_eq_kerPts`: `A(Ω)[n]` equals the `Ω`-points over `K` of
+  `kerN A n = pullback [n] e`, by the pullback's universal property.
+- `natCard_specPts`: the `Ω`-points of `Spec R` over `K` are `Hom_K(R, Ω)`.
+- `natCard_torsion_of_degree`: these combine. Unramifiedness passes to the kernel by base change
+  (`IsStableUnderBaseChange.of_isPullback`) and to `Spec R → Spec K` along the isomorphism
+  (`IsPullback.of_horiz_isIso`). It reaches `R` through `HasRingHomProperty.Spec_iff`.
+
+**Part 13.** `torsionCard_of_degree` splits into characteristic 0 (unramifiedness proved) and
+positive characteristic (`MulUnramifiedPosChar`). Then `torsionStructure_of_degree`,
+`tateModuleFree_of_degree`, `torsionStructureCharZero_of_degree`.
+
 ## 3. The consumers of T5, and how to rewire them (VERIFIED by reading)
 
 | use site | field `K` | n, g | replacement (compiled) |
@@ -207,17 +255,10 @@ The integrator's recipe (after the announcement), in the assembly files:
 
 ## 4. What remains
 
-- **`TorsionCardNonC`.** This is STANDARD: Mumford, *Abelian varieties* (1970), §4 after the
-  theorem of the cube, and §6 Application 2 for `deg [n] = n^{2g}` and separability when `p ∤ n`
-  (locators UNVERIFIED). The H proof never uses positive characteristic or fields larger than `ℂ`.
-  An algebraic proof needs three inputs:
-  1. `deg [n] = n^{2g}`, as the length of the fibre `ker [n]`;
-  2. étaleness of `ker [n]` (`KerUnitOpen` is proved in characteristic 0 in Contrib/AbVarBC);
-  3. the count of `K̄`-points of a finite étale `K`-scheme.
-
-  Inputs 2 and 3 are glue, but they are substantial scheme theory. Large fields of characteristic 0
-  would follow from T35 together with a Lefschetz-principle leaf: every abelian variety descends
-  to a finitely generated subfield (EGA IV 8.8.2, 8.10.5, 17.7.8; UNVERIFIED).
+- **The two Mumford facts `KernelDegree` and `MulUnramifiedPosChar` (item 3).** These are
+  STANDARD (Mumford §4 and §6 Application 2; Milne Thm 8.2; locators UNVERIFIED). The H proof
+  needs neither on subfields of `ℂ`; on other fields of characteristic 0 it needs only
+  `KernelDegree`.
 - The rewiring of §3 and the bundle change (a)/(b) of §0 are integration work, not done here.
 - Pitfalls found (in the log):
   - With `letI := AddCommGroup.zmodModule h`, instance search for `Module.finBasisOfFinrankEq` and
