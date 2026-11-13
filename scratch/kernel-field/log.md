@@ -21,3 +21,7 @@
   2a ∈ ℤ[1,i,j,ij]) compiled, standard axioms (VERIFIED, build5.txt). Import added: ZInQKernel.HDecomp.Textbook.SkolemNoether.
 - §6.8 algebra: exists_nat_mul_mem_O, int_of_rat_mem_O, center_O (centre of 𝒪 is ℤ), faithful_O (𝒪 acts faithfully on
   V with |V[n]| = n^4, via star/norm form + aniso_rat) compiled, standard axioms (VERIFIED, build6.txt).
+- §6.8 split: endBC copied from bp-qmmoduli; ConjIsogMapsAt (geometric clauses, O-linearity, discrepancy as endomorphism up
+  to e ≠ 0); conjMaps_of_qm (TorsCount + End = ι(O) + ConjIsogMapsAt → ConjMaps); ConjIsogMaps, EndEqOOnHomField (Props);
+  conjMapsNoCM_of; kernelFieldExists_of_split (HFF, NOS, Raynaud, TorsionStructure, FS5, ConjIsogMaps, EndEqOOnHomField)
+  compiled, standard axioms (VERIFIED, build7.txt).

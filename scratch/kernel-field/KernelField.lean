@@ -4599,6 +4599,170 @@ end G0ModField.KernelField
 
 end NoCMAlg
 
+
+section NoCMSplit
+
+open LeafQM LeafQM.AV
+
+namespace G0ModField.KernelField
+
+/-! Base change on endomorphisms, `End_K(A) → End_L(A_L)` (copied from
+`scratch/bp-qmmoduli/QMAbVar.lean` §BaseChangeEnd, lines 528-556, with `AbVar` qualified). -/
+
+open scoped CategoryTheory.Obj in
+/-- **Base change on endomorphisms** (first half of node N8): `End_K(A) → End_L(A_L)`,
+`f ↦ (Over.pullback (Spec L → Spec K)).map f`, a ring homomorphism (functoriality, and
+`Functor.map_mul` for the monoidal functor `Over.pullback`). -/
+noncomputable def endBC {K : Type} [Field K] (A : PkgI3.AbVar K) (L : Type) [Field L] [Algebra K L] :
+    PkgI3.AbVar.End A →+* PkgI3.AbVar.End (A.baseChange L) where
+  toFun f := @PkgI3.AbVar.Hom.mk' L _ (A.baseChange L) (A.baseChange L)
+    ((Over.pullback (Spec.map (CommRingCat.ofHom (algebraMap K L)))).map f.hom)
+    (Functor.map.instIsMonHom (F := Over.pullback (Spec.map (CommRingCat.ofHom (algebraMap K L))))
+      (f := f.hom))
+  map_one' := by
+    apply PkgI3.AbVar.Hom.ext'
+    change (Over.pullback _).map (𝟙 A.X) = 𝟙 _
+    exact (Over.pullback _).map_id _
+  map_mul' f g := by
+    apply PkgI3.AbVar.Hom.ext'
+    change (Over.pullback _).map (g.hom ≫ f.hom) = _
+    rw [Functor.map_comp]; rfl
+  map_zero' := by
+    apply PkgI3.AbVar.Hom.ext'
+    change (Over.pullback _).map (1 : A.X ⟶ A.X) = 1
+    exact Functor.map_one _
+  map_add' f g := by
+    apply PkgI3.AbVar.Hom.ext'
+    change (Over.pullback _).map (f.hom * g.hom) = _
+    rw [Functor.map_mul]; rfl
+
+
+/-- The geometric clauses of the conjugacy maps for a ring map `ι' : 𝒪 → End_L(A)` (the QM action
+on `A`), with no NoCM content: `ConjMaps`' clauses 1, 2, 4, 6 verbatim; `m_σ` is `𝒪`-linear
+(`μ_σ` is `B`-linear, A7 + Skolem–Noether `aut_O_inner`); and the discrepancy is an endomorphism up
+to a nonzero integer, `e·m_σ m_τ = δ∘m_στ` with `δ ∈ End_L(A)` (`δ = μ_σ ^σμ_τ ψ` with `ψ` a
+quasi-inverse, `ψ μ_στ = [e]`, Mumford §8; defined over `L` because `L` is a Hom field). -/
+def ConjIsogMapsAt (L : IF) (A : PkgI3.AbVar L) (ι' : O →+* PkgI3.AbVar.End A)
+    (m : GQ → (PtQ L A →+ PtQ L A)) : Prop :=
+  (∀ (σ : GQ) (σ' : Qbar ≃ₐ[L] Qbar), (∀ x, σ' x = act σ x) →
+      m σ = MonoidHom.toAdditive (A.galAct σ')) ∧
+  (∀ σ k : GQ, k ∈ GQL L → m (σ * k) = (m σ).comp (m k) ∧ m (k * σ) = (m k).comp (m σ)) ∧
+  (∀ (σ : GQ) (a : O), (m σ).comp (endPt A Qbar (ι' a)) = (endPt A Qbar (ι' a)).comp (m σ)) ∧
+  (∀ σ, Function.Surjective (m σ) ∧ ((m σ).ker : Set (PtQ L A)).Finite) ∧
+  (∀ σ τ, ∃ e : ℤ, e ≠ 0 ∧ ∃ δ : PkgI3.AbVar.End A,
+      e • (m σ).comp (m τ) = (endPt A Qbar δ).comp (m (σ * τ))) ∧
+  (∃ F : GQ → (A.X.left ⟶ A.X.left), ∀ σ, IsFinite (F σ) ∧ Surjective (F σ) ∧
+      ∀ x : PtQ L A, (Additive.toMul (m σ x)).left =
+        Spec.map (CommRingCat.ofHom ((act σ : Qbar ≃ₐ[ℚ] Qbar) : Qbar →+* Qbar)) ≫
+          (Additive.toMul x).left ≫ F σ)
+
+/-- **NoCM enters only through `End_L(A) = ι(𝒪)` (proved).** With `|A(ℚ̄)[n]| = n⁴`: the geometric
+clauses and `End_L(A) = ι'(𝒪)` give `ConjMaps` (commutation with `End_L(A)`; the discrepancy
+`δ = ι'(b)` commutes with `ι'(𝒪)` on points, so `b` is central by faithfulness, hence an
+integer). -/
+theorem conjMaps_of_qm (L : IF) (A : PkgI3.AbVar L) (ι' : O →+* PkgI3.AbVar.End A)
+    (m : GQ → (PtQ L A →+ PtQ L A)) (hT : TorsCount (PtQ L A))
+    (hEnd : ∀ f : PkgI3.AbVar.End A, ∃ a : O, f = ι' a)
+    (h : ConjIsogMapsAt L A ι' m) : ConjMaps L A m := by
+  obtain ⟨hgal, hinfl, hB, hfin, hdisc, halg⟩ := h
+  let ρ : O →+* AddMonoid.End (PtQ L A) := (endPt A Qbar).comp ι'
+  have hBx : ∀ σ a x, m σ (ρ a x) = ρ a (m σ x) := fun σ a x =>
+    DFunLike.congr_fun (hB σ a) x
+  refine ⟨hgal, hinfl, fun σ f => ?_, hfin, fun σ τ => ?_, halg⟩
+  · obtain ⟨a, rfl⟩ := hEnd f
+    exact hB σ a
+  · obtain ⟨e, he, δ, hδ⟩ := hdisc σ τ
+    obtain ⟨b, rfl⟩ := hEnd δ
+    have hδx : ∀ x, e • m σ (m τ x) = ρ b (m (σ * τ) x) := fun x => by
+      have := DFunLike.congr_fun hδ x
+      simp only [AddMonoidHom.smul_apply, AddMonoidHom.comp_apply] at this
+      exact this
+    have hcomm : ∀ a : O, b * a = a * b := by
+      intro a
+      have h2 : ρ (b * a) = ρ (a * b) := by
+        refine AddMonoidHom.ext fun y => ?_
+        obtain ⟨x, rfl⟩ := (hfin (σ * τ)).1 y
+        rw [map_mul, map_mul]
+        show ρ b (ρ a (m (σ * τ) x)) = ρ a (ρ b (m (σ * τ) x))
+        rw [← hBx, ← hδx, ← hδx, hBx, hBx, map_zsmul]
+      have : ρ (b * a - a * b) = 0 := by rw [map_sub, h2, sub_self]
+      exact sub_eq_zero.mp (faithful_O hT ρ this)
+    obtain ⟨k, rfl⟩ := center_O hcomm
+    refine ⟨k, e, he, ?_⟩
+    rw [hδ]
+    refine AddMonoidHom.ext fun x => ?_
+    have hk : ρ (k : O) = (k : AddMonoid.End (PtQ L A)) := map_intCast ρ k
+    show ρ (k : O) (m (σ * τ) x) = _
+    rw [hk, AddMonoid.End.intCast_apply, AddMonoidHom.smul_apply]
+
+end G0ModField.KernelField
+
+end NoCMSplit
+
+open CategoryTheory AlgebraicGeometry Limits MonoidalCategory CartesianMonoidalCategory MonObj
+open ZInQ LeafQM.AV GlueDescent GlueDescent.B2 GlueDescent.B2Q GlueDescent.B3Q
+
+namespace G0ModField.KernelField
+
+open G0ModField
+
+/-- **Remaining glue 3 (geometric: the conjugacy maps without NoCM).** For moduli data with
+R1-R2's clauses, a `ℚ̄`-point over a rational `j₀` with object `P`, a rational fibre `PK/K` over
+`P` and a Hom field `L ⊇ K` of `PK.A`: maps `m_σ = μ_σ∘σ` on `A_L(ℚ̄)` with `ConjIsogMapsAt` for
+the base-changed QM action `ι_L = endBC ∘ PK.q.iota`. Inputs (N5 L632-645): A7
+(`conj_twist_of_rational`, compiled, every triple), Skolem–Noether on `𝒪` (`aut_O_inner`,
+proved), a quasi-inverse of an isogeny (Mumford §8, UNVERIFIED locator), Galois descent of
+`G_L`-fixed morphisms to `L`, and the semilinear identification of `^σA` with `A` as schemes. -/
+def ConjIsogMaps : Prop :=
+  ∀ (Y : Over (Spec (CommRingCat.of ℚ))) (Φ : PtEquiv Y) (π : ToP1 Y.left),
+    R1fpProps Y Φ → R2fpProps Y Φ π → ∀ (j₀ : ℚ) (y : fieldPt Qbar ⟶ Y) (P : QML3 Qbar),
+    Φ Qbar y = M3.mk P → π.val (K := Qbar) y.left = OnePoint.some (algebraMap ℚ Qbar j₀) →
+    ∀ (K : IF) [FiniteDimensional ℚ K] [IsGalois ℚ K] (PK : QML3 K), RationalFibre Y Φ P K PK →
+      ∀ (L : IF) [FiniteDimensional ℚ L] [IsGalois ℚ L] (hKL : K ≤ L),
+        (∀ σ ∈ L.fixingSubgroup, G4WeilRes.conjAction K PK.A σ = 1) →
+        ∃ m : GQ → (PtQ L (@PkgI3.AbVar.baseChange K _ PK.A L _ (incAlg hKL)) →+
+            PtQ L (@PkgI3.AbVar.baseChange K _ PK.A L _ (incAlg hKL))),
+          ConjIsogMapsAt L (@PkgI3.AbVar.baseChange K _ PK.A L _ (incAlg hKL))
+            ((@endBC K _ PK.A L _ (incAlg hKL)).comp PK.q.iota) m
+
+/-- **Remaining glue 4 (NoCM on the Hom field: `End_L(A_L) = ι_L(𝒪)`).** Given FS5's conclusion
+`End_𝒪(P.A) = ℤ`: by Yu's dichotomy (T27, leaf) `End⁰(P.A) ≅ B`, so `End(P.A)` is an order of
+`ι(B)` containing the maximal order `ι(𝒪)`, hence equal to it; `P ≅ (PK)_ℚ̄` as QM objects (R1's
+naturality and `RationalFibre`), and `End_L(A_L) → End_ℚ̄` is injective (faithful base change). -/
+def EndEqOOnHomField : Prop :=
+  ∀ (Y : Over (Spec (CommRingCat.of ℚ))) (Φ : PtEquiv Y) (π : ToP1 Y.left),
+    R1fpProps Y Φ → R2fpProps Y Φ π → ∀ (j₀ : ℚ) (y : fieldPt Qbar ⟶ Y) (P : QML3 Qbar),
+    Φ Qbar y = M3.mk P → π.val (K := Qbar) y.left = OnePoint.some (algebraMap ℚ Qbar j₀) →
+    (∀ φ ∈ com P.q, ∃ n : ℤ, φ = (n : PkgI3.AbVar.End P.A)) →
+    ∀ (K : IF) [FiniteDimensional ℚ K] [IsGalois ℚ K] (PK : QML3 K), RationalFibre Y Φ P K PK →
+      ∀ (L : IF) [FiniteDimensional ℚ L] [IsGalois ℚ L] (hKL : K ≤ L),
+        (∀ σ ∈ L.fixingSubgroup, G4WeilRes.conjAction K PK.A σ = 1) →
+        ∀ f : PkgI3.AbVar.End (@PkgI3.AbVar.baseChange K _ PK.A L _ (incAlg hKL)),
+          ∃ a : LeafQM.O, f = ((@endBC K _ PK.A L _ (incAlg hKL)).comp PK.q.iota) a
+
+/-- **`ConjMapsNoCM` from the geometric maps and `End_L(A_L) = ι(𝒪)` (proved; leaf
+`TorsionStructure` for `|A(ℚ̄)[n]| = n⁴`).** -/
+theorem conjMapsNoCM_of (hTors : PkgI2.TorsionStructure.{0}) (hG : ConjIsogMaps)
+    (hE : EndEqOOnHomField) : ConjMapsNoCM := by
+  intro Y Φ π hR1 hR2 j₀ y P hy hπ hcom K _ _ PK hPK L _ _ hKL hfix
+  obtain ⟨m, hm⟩ := hG Y Φ π hR1 hR2 j₀ y P hy hπ K PK hPK L hKL hfix
+  exact ⟨m, conjMaps_of_qm L _ _ m
+    (torsionCountPts_of_leaf hTors L _ (bc_dim hKL PK.A PK.surface))
+    (hE Y Φ π hR1 hR2 j₀ y P hy hπ hcom K PK hPK L hKL hfix) hm⟩
+
+/-- **Headline, split form (proved).** `KernelFieldExists` from the leaves `HomFreeFinite`,
+`NeronOggShafarevich`, `RaynaudCriterion`, `TorsionStructure` and the glue `FibreComTrivial`
+(FS5, g0-fibresimple), `ConjIsogMaps` (geometric) and `EndEqOOnHomField` (NoCM consequence). -/
+theorem kernelFieldExists_of_split (hHFF : PkgI3.HomFreeFinite)
+    (hNOS : PkgI2.NeronOggShafarevich.{0}) (hRay : PkgI2.RaynaudCriterion.{0})
+    (hTors : PkgI2.TorsionStructure.{0}) (h5 : G0FibreSimple.FibreComTrivial)
+    (hG : ConjIsogMaps) (hE : EndEqOOnHomField) : KernelFieldExists :=
+  kernelFieldExists_of_leaves_FS5 hHFF hNOS hRay hTors h5 (conjMapsNoCM_of hTors hG hE)
+
+end G0ModField.KernelField
+
+#print axioms G0ModField.KernelField.conjMaps_of_qm
+#print axioms G0ModField.KernelField.kernelFieldExists_of_split
 #print axioms G0ModField.KernelField.faithful_O
 #print axioms G0ModField.KernelField.center_O
 #print axioms G0ModField.KernelField.aut_O_inner
