@@ -1,0 +1,11 @@
+TauCeti.NumberTheory.LocalField.Different.Eisenstein
+TauCeti.NumberTheory.LocalField.Different.Tower
+TauCeti.NumberTheory.LocalField.Different.Wild
+TauCeti.NumberTheory.LocalField.Eisenstein.PowerBasis
+TauCeti.NumberTheory.LocalField.Eisenstein.TotallyRamified
+TauCeti.NumberTheory.LocalField.Unramified.Factorization
+TauCeti.NumberTheory.NumberField.LocalGlobal.Different.Wild
+TauCeti.RingTheory.DedekindDomain.AdicValuation.NatCastValuation
+TauCeti.RingTheory.Polynomial.Eisenstein.Basic
+TauCeti.RingTheory.Polynomial.Eisenstein.DiscreteValuationRing
+TauCeti.RingTheory.Polynomial.Eisenstein.Minpoly
