@@ -297,8 +297,9 @@ clause order instead. Everything else is verbatim, and `py/verbatim.py` checks t
   piece of a proper scheme over a field.
 - **(AD) and (IC)** are standard curve glue, not in Mathlib v4.35.
   - (AD) needs function fields of curves and their transcendence degree. (CI) is now proved, so the
-    component is integral; what is missing is "transcendence degree of the function field equals
-    the dimension".
+    component is integral. What is missing is "the Krull dimension of a finitely generated
+    `K`-domain equals the transcendence degree of its fraction field" (Noether normalization). A
+    grep of Mathlib v4.35 for `trdeg` together with `ringKrullDim` finds no such theorem (VERIFIED).
   - (IC) needs `P¹ × P¹` as a scheme with its points, and closedness of images under proper maps.
     Mathlib has `IsProper → UniversallyClosed`.
 - **T5** is unchanged.
