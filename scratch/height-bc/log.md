@@ -24,3 +24,11 @@
   `bcCot` (semilinear over 𝓞_L → 𝓞_{L'}), `bcAlt`, `bcExt` (⋀^g π^*, via compHom restriction of scalars),
   `bcHodge` (ψ = L' ⊗ ⋀^g π^*, via `TensorProduct.liftAddHom`), `bcHodge_smul` (L-semilinear),
   `bcHodge_wedge` (ψ(wedge f) = wedge'(π^* f)).
+- Final.lean (04:35) = HeightBC.lean + Natural.lean + Part C: 0 errors, no sorry, ~12-60 s.
+  VERIFIED (axioms [propext, Classical.choice, Quot.sound] for each):
+  `hodgeLineBaseChangeDescent_of_glue`, `modelHeightBaseChange_of_glue`, `hodgeLineBaseChange_of_glue`:
+  H4a and HodgeLineBaseChange (both verbatim) from six glue Props over the natural map:
+  HodgeBCInjective, DetLatticeBC, PtsBaseChangeMul, PtsBaseChangeBij, UniformizationLift,
+  JacobianPullbackSpan. Proved along the way: `bcPts` (β p' = π ∘ p'), `evalAt_bcPts`, `dom_bcPts` (rfl),
+  `germAlong_bcPts_eventuallyEq`, `jacDet_bcPts` (jacDet (β∘Φ') f = jacDet' Φ' (π^* f)),
+  `isAnalyticUniformization_bcPts` (descent of uniformizations from BC-pts-mul, BC-pts-bij).
