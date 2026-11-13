@@ -33,3 +33,13 @@
 - Pitfalls: `m (h * g * h⁻¹)` with `h : PkgI4.GQ` multiplies in `PkgI4.GQ`; rewriting with
   `hmLL` (multiplication in `GQ`) needs `let k : GQ := h * g * h⁻¹` and `show … ; group`.
   The group law on `A.Pt Qbar` needs `open … MonObj`.
+
+## Step 2 (10:05-10:20 PST): `TateBridge35OnL` (VERIFIED)
+- New (part_onl.lean): `TateBridge35OnL` (TateBridge35's text + witnesses ψ₅, ψ₃ + conjuncts
+  `G8Object.OnL L A Tm₅ (j₅ ∘ aQ) ψ₅`, `G8Object.OnL L A Tm₃ (j₃ ∘ aQ) ψ₃`),
+  `tateBridge35_of_onL : TateBridge35OnL → G14Bridge.TateBridge35`,
+  `scalarsQbarC` (frob-trace's `scalarsQbar` + `ιC ∘ γQ = β/a`),
+  **`tateBridge35OnL_of_algFrobLink (hT : PkgI3.TateModuleFree) (hF : FrobTrace.AlgFrobLink)`**
+  (frob-trace's proof copied + `onL_exists` + `aQ = 1` on G_L via `inflatedNormalized_of`),
+  `tateBridge35OnL_of_algFrobRed`, **`tateBridge35OnL_of_gen`** (I3.M0 + alg-frob-red's five inputs).
+- Compile: `Dev.lean` exit 0, 2m25s; all 7 new axiom prints [propext, Classical.choice, Quot.sound].
