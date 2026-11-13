@@ -2276,6 +2276,7 @@ namespace ZInQ.InfraHodge
 
 open CategoryTheory AlgebraicGeometry Limits MonoidalCategory CartesianMonoidalCategory MonObj
 open NumberField ZInQ.DefFaltings
+open PkgI3 (AbVar)
 open scoped TensorProduct
 
 section CotMap
@@ -2537,6 +2538,7 @@ namespace ZInQ.InfraHodge
 
 open CategoryTheory AlgebraicGeometry Limits MonoidalCategory CartesianMonoidalCategory MonObj
 open NumberField ZInQ.DefFaltings
+open PkgI3 (AbVar)
 open scoped TensorProduct
 
 section Omega
@@ -3127,6 +3129,7 @@ namespace ZInQ.InfraHodge
 
 open CategoryTheory AlgebraicGeometry Limits MonoidalCategory CartesianMonoidalCategory MonObj
 open NumberField ZInQ.DefFaltings Module
+open PkgI3 (AbVar)
 open scoped TensorProduct
 
 section Wedge
@@ -3223,3 +3226,699 @@ theorem secIndex_eq_relIndex {V : Type*} [AddCommGroup V] [Module L V] [Module (
 end Factor
 
 end ZInQ.InfraHodge
+
+
+/-! # infra-hodge S-alg, part 1: tools
+
+* `exists_basis_in`: a spanning family inside an `R`-submodule `W` contains an `L`-basis.
+* `det_eq_zero_of_rows_supported`: if `|S| > |T|` rows of a square matrix vanish outside the
+  columns `T`, the determinant is `0`.
+* `coeffOf`, `mkMetrized`: a metrized model from a trivialization `δ` of the Hodge line, a
+  lattice section, uniformizations, and constants `c τ` with `jacDet = τ(δ(wedge f)) · c τ`. -/
+
+namespace ZInQ.InfraHodge
+
+open CategoryTheory AlgebraicGeometry Limits MonoidalCategory CartesianMonoidalCategory MonObj
+open NumberField ZInQ.DefFaltings Module
+open PkgI3 (AbVar)
+open scoped TensorProduct
+
+theorem exists_basis_in {L V R : Type*} [Field L] [AddCommGroup V] [Module L V] [CommRing R]
+    [Module R V] [FiniteDimensional L V] (W : Submodule R V) {J : Type*} [Finite J] (v : J → V)
+    (hv : ∀ i, v i ∈ W) (hsp : Submodule.span L (Set.range v) = ⊤) :
+    ∃ u : Basis (Fin (finrank L V)) L V, ∀ k, u k ∈ W := by
+  obtain ⟨s, hs, hspan, hli⟩ := exists_linearIndependent L (Set.range v)
+  have hfin : s.Finite := (Set.finite_range v).subset hs
+  haveI := hfin.fintype
+  let bs : Basis s L V := Basis.mk hli (by rw [Subtype.range_coe, hspan, hsp])
+  let u := bs.reindex (Fintype.equivFinOfCardEq (Module.finrank_eq_card_basis bs).symm)
+  refine ⟨u, fun k => ?_⟩
+  simp only [u, Basis.reindex_apply, bs, Basis.mk_apply]
+  obtain ⟨i, hi⟩ := hs (Subtype.mem ((Fintype.equivFinOfCardEq
+    (Module.finrank_eq_card_basis bs).symm).symm k))
+  rw [← hi]
+  exact hv i
+
+theorem det_eq_zero_of_rows_supported {n : ℕ} (M : Matrix (Fin n) (Fin n) ℂ)
+    (S T : Finset (Fin n)) (hM : ∀ k ∈ S, ∀ j ∉ T, M k j = 0) (hST : T.card < S.card) :
+    M.det = 0 := by
+  by_contra h
+  have hli := Matrix.linearIndependent_rows_of_det_ne_zero h
+  have h2 : LinearIndependent ℂ (fun k : S => fun j : T => M k j) := by
+    rw [Fintype.linearIndependent_iff]
+    intro c hc
+    have h3 := Fintype.linearIndependent_iff.mp
+      (hli.comp (fun k : S => (k : Fin n)) Subtype.val_injective) c
+    apply h3
+    funext j
+    by_cases hj : j ∈ T
+    · have := congrFun hc ⟨j, hj⟩
+      simpa using this
+    · simp only [Finset.sum_apply, Pi.smul_apply, Function.comp_apply, smul_eq_mul,
+        Pi.zero_apply]
+      exact Finset.sum_eq_zero fun k _ => by rw [hM k k.2 j hj, mul_zero]
+  have := h2.fintype_card_le_finrank
+  simp only [Fintype.card_coe, Module.finrank_fintype_fun_eq_card] at this
+  omega
+
+section Mk
+
+variable {K : Type} [Field K] {A : AbVar K} {L : Type} [Field L] [NumberField L] [Algebra K L]
+
+/-- `x ↦ τ(δ x) · c`, a `τ`-semilinear map. -/
+noncomputable def coeffOf {V : Type*} [AddCommGroup V] [Module L V] (δ : V ≃ₗ[L] L)
+    (τ : L →+* ℂ) (c : ℂ) : V →ₛₗ[τ] ℂ where
+  toFun x := τ (δ x) * c
+  map_add' x y := by simp [add_mul]
+  map_smul' a x := by simp [_root_.mul_assoc]
+
+theorem coeffOf_apply {V : Type*} [AddCommGroup V] [Module L V] (δ : V ≃ₗ[L] L)
+    (τ : L →+* ℂ) (c : ℂ) (x : V) : coeffOf δ τ c x = τ (δ x) * c := rfl
+
+theorem coeffOf_ne_zero {V : Type*} [AddCommGroup V] [Module L V] (δ : V ≃ₗ[L] L)
+    (τ : L →+* ℂ) {c : ℂ} (hc : c ≠ 0) : coeffOf δ τ c ≠ 0 := by
+  intro h
+  have := LinearMap.congr_fun h (δ.symm 1)
+  rw [coeffOf_apply, LinearEquiv.apply_symm_apply, map_one, _root_.one_mul,
+    LinearMap.zero_apply] at this
+  exact hc this
+
+/-- A metrized model from the data listed in the header. -/
+noncomputable def mkMetrized (𝒢 : GroupModel A L) (d : ℕ) (δ : 𝒢.hodgeSpace d ≃ₗ[L] L)
+    (s : 𝒢.hodgeSpace d) (hs : s ∈ 𝒢.detLattice d) (hs0 : s ≠ 0)
+    (hsi : secIndex (𝒢.detLattice d) s ≠ 0) (Λ : (L →+* ℂ) → Submodule ℤ (Fin d → ℂ))
+    (hΛd : ∀ τ, DiscreteTopology (Λ τ)) (hΛz : ∀ τ, IsZLattice ℝ (Λ τ))
+    (Φ : ∀ τ : L →+* ℂ, (Fin d → ℂ) → 𝒢.Pts τ)
+    (hΦ : ∀ τ, 𝒢.IsAnalyticUniformization τ (Λ τ) (Φ τ)) (c : (L →+* ℂ) → ℂ)
+    (hc : ∀ τ, c τ ≠ 0) (hjac : ∀ τ f, 𝒢.jacDet (Φ τ) f = τ (δ (𝒢.wedge f)) * c τ) :
+    MetrizedModel A L d where
+  model := 𝒢
+  hodge :=
+    { lattice := 𝒢.detLattice d
+      finrank_eq_one := by rw [δ.finrank_eq, Module.finrank_self]
+      isLattice := ⟨s, hs, hs0, hsi⟩
+      periods := Λ
+      periods_discrete := hΛd
+      periods_isZLattice := hΛz
+      coeff := fun τ => coeffOf δ τ (c τ)
+      coeff_ne_zero := fun τ => coeffOf_ne_zero δ τ (hc τ) }
+  lattice_eq := rfl
+  arch τ := ⟨Φ τ, hΦ τ, fun f => (hjac τ f).symm⟩
+
+theorem mkMetrized_model (𝒢 : GroupModel A L) (d : ℕ) (δ : 𝒢.hodgeSpace d ≃ₗ[L] L) (s hs hs0 hsi Λ
+    hΛd hΛz Φ hΦ c hc hjac) :
+    (mkMetrized 𝒢 d δ s hs hs0 hsi Λ hΛd hΛz Φ hΦ c hc hjac).model = 𝒢 := rfl
+
+end Mk
+
+end ZInQ.InfraHodge
+
+
+/-! # infra-hodge S-alg, part 2: the analytic input and the shape of the Jacobian
+
+* `ProdUnifDeriv` (new named Prop, analysis): the derivative at `0` of `p₁^* t` along the product
+  uniformization `prodUnif e Φ₁ Φ₂` is the derivative of `t` along `Φ₁` on the first block of
+  coordinates (and the same for `p₂`).
+* `jacDet_prodUnif`: the Jacobian of `(p₁^* f₁, p₂^* f₂)` along `prodUnif` is block diagonal:
+  `jacDet Φ₁ f₁ · jacDet Φ₂ f₂`.
+* `dims_le_of_jacDet_ne_zero`: if a family with `d₁` germs from `𝒢₁` and `d₂` from `𝒢₂` has nonzero
+  Jacobian along `prodUnif` composed with `ℂ^{d₁+d₂} ≅ ℂ^{g₁+g₂}`, then `d₁ ≤ g₁` and `d₂ ≤ g₂`. -/
+
+namespace ZInQ.InfraHodge
+
+open CategoryTheory AlgebraicGeometry Limits MonoidalCategory CartesianMonoidalCategory MonObj
+open NumberField ZInQ.DefFaltings Module ZInQ.ProductHeight
+open PkgI3 (AbVar)
+open scoped TensorProduct
+
+/-- **Named Prop (analysis: derivative of a pulled-back germ along the product uniformization).**
+Let `e : 𝒢P ≅ 𝒢₁ ⊗ 𝒢₂` have homomorphic projections `p₁, p₂`, and let `Φ₁`, `Φ₂` be analytic
+uniformizations of `𝒢₁(ℂ)_τ`, `𝒢₂(ℂ)_τ`. For a germ `t` at the origin of `𝒢₁`, the function
+`z ↦ (p₁^* t)(prodUnif e Φ₁ Φ₂ z)` (through the chosen representatives, `germAlong`) has at `0` the
+derivative of `z₁ ↦ t(Φ₁ z₁)` precomposed with the projection to the first block of coordinates;
+likewise for `p₂`. Why true (STANDARD): `p₁ ∘ prodUnif = Φ₁ ∘ (first block)` (definition of
+`prodUnif`), and near `0` the germ `p₁^* t` is represented by `p₁^* s` for a representative `s` of
+`t`, by any two representatives agreeing on an open `W ∋ ξ` whose preimage `dom (prodUnif) W` is
+open (the first clause of product-height's `ProductUnifAnalytic`, cf. infra-stalks'
+`productLocalStructure`); `evalAt (q ≫ p₁) U s = evalAt q (p₁⁻¹U) (p₁^* s)` (product-height's
+`evalAt_comp`). Glue (elementary analysis). -/
+def ProdUnifDeriv : Prop :=
+  ∀ (K : Type) [Field K] (A B C : AbVar K) (L : Type) [Field L] [NumberField L] [Algebra K L]
+    (𝒢P : GroupModel C L) (𝒢₁ : GroupModel A L) (𝒢₂ : GroupModel B L)
+    (e : 𝒢P.G ≅ 𝒢₁.G ⊗ 𝒢₂.G) [IsMonHom (e.hom ≫ fst _ _)] [IsMonHom (e.hom ≫ snd _ _)]
+    (τ : L →+* ℂ) (g₁ g₂ : ℕ) (Λ₁ : Submodule ℤ (Fin g₁ → ℂ)) (Λ₂ : Submodule ℤ (Fin g₂ → ℂ))
+    (Φ₁ : (Fin g₁ → ℂ) → 𝒢₁.Pts τ) (Φ₂ : (Fin g₂ → ℂ) → 𝒢₂.Pts τ),
+    𝒢₁.IsAnalyticUniformization τ Λ₁ Φ₁ → 𝒢₂.IsAnalyticUniformization τ Λ₂ Φ₂ →
+    (∀ (t : 𝒢₁.genStalk) (v : Fin (g₁ + g₂) → ℂ),
+      fderiv ℂ (𝒢P.germAlong (prodUnif e Φ₁ Φ₂)
+          (((e.hom ≫ fst _ _).left.stalkMapAt (hp1 e)).hom t)) 0 v =
+        fderiv ℂ (𝒢₁.germAlong Φ₁ t) 0 (fun i => v (Fin.castAdd g₂ i))) ∧
+    (∀ (t : 𝒢₂.genStalk) (v : Fin (g₁ + g₂) → ℂ),
+      fderiv ℂ (𝒢P.germAlong (prodUnif e Φ₁ Φ₂)
+          (((e.hom ≫ snd _ _).left.stalkMapAt (hp2 e)).hom t)) 0 v =
+        fderiv ℂ (𝒢₂.germAlong Φ₂ t) 0 (fun j => v (Fin.natAdd g₁ j)))
+
+section Shape
+
+variable {K : Type} [Field K] {A B C : AbVar K} {L : Type} [Field L] [NumberField L] [Algebra K L]
+variable {𝒢P : GroupModel C L} {𝒢₁ : GroupModel A L} {𝒢₂ : GroupModel B L}
+variable (e : 𝒢P.G ≅ 𝒢₁.G ⊗ 𝒢₂.G) [IsMonHom (e.hom ≫ fst _ _)] [IsMonHom (e.hom ≫ snd _ _)]
+
+theorem single_castAdd_comp {g₁ g₂ : ℕ} (a : Fin g₁) :
+    (fun i => (Pi.single (Fin.castAdd g₂ a) (1 : ℂ) : Fin (g₁ + g₂) → ℂ) (Fin.castAdd g₂ i)) =
+      Pi.single a 1 := by
+  funext i
+  by_cases h : i = a
+  · subst h; simp
+  · rw [Pi.single_eq_of_ne (fun h' => h (Fin.castAdd_inj.mp h')), Pi.single_eq_of_ne h]
+
+theorem single_natAdd_comp {g₁ g₂ : ℕ} (a : Fin g₂) :
+    (fun j => (Pi.single (Fin.natAdd g₁ a) (1 : ℂ) : Fin (g₁ + g₂) → ℂ) (Fin.natAdd g₁ j)) =
+      Pi.single a 1 := by
+  funext j
+  by_cases h : j = a
+  · subst h; simp
+  · rw [Pi.single_eq_of_ne (fun h' => h (Fin.ext (by have := congrArg Fin.val h'; simp at this; omega))),
+      Pi.single_eq_of_ne h]
+
+theorem single_natAdd_comp_castAdd {g₁ g₂ : ℕ} (a : Fin g₂) :
+    (fun i => (Pi.single (Fin.natAdd g₁ a) (1 : ℂ) : Fin (g₁ + g₂) → ℂ) (Fin.castAdd g₂ i)) = 0 := by
+  funext i
+  refine Pi.single_eq_of_ne (fun h => ?_) _
+  have := congrArg Fin.val h
+  simp at this
+  omega
+
+theorem single_castAdd_comp_natAdd {g₁ g₂ : ℕ} (a : Fin g₁) :
+    (fun j => (Pi.single (Fin.castAdd g₂ a) (1 : ℂ) : Fin (g₁ + g₂) → ℂ) (Fin.natAdd g₁ j)) = 0 := by
+  funext j
+  refine Pi.single_eq_of_ne (fun h => ?_) _
+  have := congrArg Fin.val h
+  simp at this
+  omega
+
+/-- **The Jacobian along a product uniformization is block diagonal** (from `ProdUnifDeriv`). -/
+theorem jacDet_prodUnif (hD : ProdUnifDeriv) {τ : L →+* ℂ} {g₁ g₂ : ℕ}
+    {Λ₁ : Submodule ℤ (Fin g₁ → ℂ)} {Λ₂ : Submodule ℤ (Fin g₂ → ℂ)}
+    {Φ₁ : (Fin g₁ → ℂ) → 𝒢₁.Pts τ} {Φ₂ : (Fin g₂ → ℂ) → 𝒢₂.Pts τ}
+    (h₁ : 𝒢₁.IsAnalyticUniformization τ Λ₁ Φ₁) (h₂ : 𝒢₂.IsAnalyticUniformization τ Λ₂ Φ₂)
+    (f₁ : Fin g₁ → IsLocalRing.maximalIdeal 𝒢₁.genStalk)
+    (f₂ : Fin g₂ → IsLocalRing.maximalIdeal 𝒢₂.genStalk)
+    (F : Fin (g₁ + g₂) → IsLocalRing.maximalIdeal 𝒢P.genStalk)
+    (hF1 : ∀ i, (F (Fin.castAdd g₂ i) : 𝒢P.genStalk) =
+      ((e.hom ≫ fst _ _).left.stalkMapAt (hp1 e)).hom (f₁ i))
+    (hF2 : ∀ j, (F (Fin.natAdd g₁ j) : 𝒢P.genStalk) =
+      ((e.hom ≫ snd _ _).left.stalkMapAt (hp2 e)).hom (f₂ j)) :
+    𝒢P.jacDet (prodUnif e Φ₁ Φ₂) F = 𝒢₁.jacDet Φ₁ f₁ * 𝒢₂.jacDet Φ₂ f₂ := by
+  obtain ⟨hd1, hd2⟩ := hD K A B C L 𝒢P 𝒢₁ 𝒢₂ e τ g₁ g₂ Λ₁ Λ₂ Φ₁ Φ₂ h₁ h₂
+  unfold GroupModel.jacDet
+  rw [← Matrix.det_fromBlocks_zero₂₁ (B := 0), ← Matrix.det_reindex_self finSumFinEquiv]
+  congr 1
+  ext k j
+  refine Fin.addCases (fun i => ?_) (fun i => ?_) k <;>
+    refine Fin.addCases (fun a => ?_) (fun a => ?_) j <;>
+    simp only [Matrix.reindex_apply, Matrix.submatrix_apply, finSumFinEquiv_symm_apply_castAdd,
+      finSumFinEquiv_symm_apply_natAdd, Matrix.fromBlocks_apply₁₁, Matrix.fromBlocks_apply₁₂,
+      Matrix.fromBlocks_apply₂₁, Matrix.fromBlocks_apply₂₂, Matrix.of_apply, Matrix.zero_apply]
+  · rw [hF1, hd1, single_castAdd_comp]
+  · rw [hF1, hd1, single_natAdd_comp_castAdd, map_zero]
+  · rw [hF2, hd2, single_castAdd_comp_natAdd, map_zero]
+  · rw [hF2, hd2, single_natAdd_comp]
+
+/-- `ℂ^{d} ≅ ℂ^{g}` for `g = d`, `v ↦ v ∘ cast`. -/
+noncomputable def castCLE {d g : ℕ} (hg : g = d) : (Fin d → ℂ) ≃L[ℂ] (Fin g → ℂ) :=
+  (LinearEquiv.funCongrLeft ℂ ℂ (finCongr hg)).toContinuousLinearEquiv
+
+theorem castCLE_apply {d g : ℕ} (hg : g = d) (v : Fin d → ℂ) :
+    castCLE hg v = fun i => v (Fin.cast hg i) := rfl
+
+/-- **Dimension count**: a family of `d₁` germs from `𝒢₁` and `d₂` germs from `𝒢₂` with nonzero
+Jacobian along `z ↦ prodUnif e Φ₁ Φ₂ (z ∘ cast)` forces `d₁ ≤ g₁` and `d₂ ≤ g₂`. -/
+theorem dims_le_of_jacDet_ne_zero (hD : ProdUnifDeriv) {τ : L →+* ℂ} {g₁ g₂ d₁ d₂ : ℕ}
+    (hg : g₁ + g₂ = d₁ + d₂)
+    {Λ₁ : Submodule ℤ (Fin g₁ → ℂ)} {Λ₂ : Submodule ℤ (Fin g₂ → ℂ)}
+    {Φ₁ : (Fin g₁ → ℂ) → 𝒢₁.Pts τ} {Φ₂ : (Fin g₂ → ℂ) → 𝒢₂.Pts τ}
+    (h₁ : 𝒢₁.IsAnalyticUniformization τ Λ₁ Φ₁) (h₂ : 𝒢₂.IsAnalyticUniformization τ Λ₂ Φ₂)
+    (f₁ : Fin d₁ → IsLocalRing.maximalIdeal 𝒢₁.genStalk)
+    (f₂ : Fin d₂ → IsLocalRing.maximalIdeal 𝒢₂.genStalk)
+    (F : Fin (d₁ + d₂) → IsLocalRing.maximalIdeal 𝒢P.genStalk)
+    (hF1 : ∀ i, (F (Fin.castAdd d₂ i) : 𝒢P.genStalk) =
+      ((e.hom ≫ fst _ _).left.stalkMapAt (hp1 e)).hom (f₁ i))
+    (hF2 : ∀ j, (F (Fin.natAdd d₁ j) : 𝒢P.genStalk) =
+      ((e.hom ≫ snd _ _).left.stalkMapAt (hp2 e)).hom (f₂ j))
+    (hne : 𝒢P.jacDet (fun z => prodUnif e Φ₁ Φ₂ (fun i => z (Fin.cast hg i))) F ≠ 0) :
+    d₁ ≤ g₁ ∧ d₂ ≤ g₂ := by
+  obtain ⟨hd1, hd2⟩ := hD K A B C L 𝒢P 𝒢₁ 𝒢₂ e τ g₁ g₂ Λ₁ Λ₂ Φ₁ Φ₂ h₁ h₂
+  set M := Matrix.of fun k j : Fin (d₁ + d₂) =>
+    fderiv ℂ (𝒢P.germAlong (fun z => prodUnif e Φ₁ Φ₂ (fun i => z (Fin.cast hg i)))
+      (F k : 𝒢P.genStalk)) 0 (Pi.single j 1) with hM
+  have hentry : ∀ k j, M k j = fderiv ℂ (𝒢P.germAlong (prodUnif e Φ₁ Φ₂) (F k : 𝒢P.genStalk)) 0
+      (castCLE hg (Pi.single j 1)) := by
+    intro k j
+    rw [hM, Matrix.of_apply]
+    have : 𝒢P.germAlong (fun z => prodUnif e Φ₁ Φ₂ (fun i => z (Fin.cast hg i)))
+        (F k : 𝒢P.genStalk) = 𝒢P.germAlong (prodUnif e Φ₁ Φ₂) (F k : 𝒢P.genStalk) ∘ castCLE hg :=
+      rfl
+    rw [this, ContinuousLinearEquiv.comp_right_fderiv, map_zero]
+    rfl
+  have hdet : M.det ≠ 0 := hne
+  constructor
+  · by_contra hlt
+    push Not at hlt
+    apply hdet
+    refine det_eq_zero_of_rows_supported M (Finset.univ.image (Fin.castAdd d₂))
+      (Finset.univ.image fun a : Fin g₁ => Fin.cast hg (Fin.castAdd g₂ a)) ?_ ?_
+    · intro k hk j hj
+      obtain ⟨i, -, rfl⟩ := Finset.mem_image.mp hk
+      rw [hentry, hF1, hd1]
+      have : (fun a => castCLE hg (Pi.single j (1 : ℂ)) (Fin.castAdd g₂ a)) = 0 := by
+        funext a
+        rw [castCLE_apply]
+        refine Pi.single_eq_of_ne (fun h => hj ?_) _
+        exact Finset.mem_image.mpr ⟨a, Finset.mem_univ _, h⟩
+      rw [this, map_zero]
+    · calc (Finset.univ.image fun a : Fin g₁ => Fin.cast hg (Fin.castAdd g₂ a)).card
+          ≤ (Finset.univ : Finset (Fin g₁)).card := Finset.card_image_le
+        _ = g₁ := by simp
+        _ < d₁ := hlt
+        _ = (Finset.univ.image (Fin.castAdd d₂ : Fin d₁ → Fin (d₁ + d₂))).card := by
+          rw [Finset.card_image_of_injective _ (Fin.castAdd_injective d₁ d₂)]; simp
+  · by_contra hlt
+    push Not at hlt
+    apply hdet
+    refine det_eq_zero_of_rows_supported M (Finset.univ.image (Fin.natAdd d₁))
+      (Finset.univ.image fun a : Fin g₂ => Fin.cast hg (Fin.natAdd g₁ a)) ?_ ?_
+    · intro k hk j hj
+      obtain ⟨i, -, rfl⟩ := Finset.mem_image.mp hk
+      rw [hentry, hF2, hd2]
+      have : (fun a => castCLE hg (Pi.single j (1 : ℂ)) (Fin.natAdd g₁ a)) = 0 := by
+        funext a
+        rw [castCLE_apply]
+        refine Pi.single_eq_of_ne (fun h => hj ?_) _
+        exact Finset.mem_image.mpr ⟨a, Finset.mem_univ _, h⟩
+      rw [this, map_zero]
+    · calc (Finset.univ.image fun a : Fin g₂ => Fin.cast hg (Fin.natAdd g₁ a)).card
+          ≤ (Finset.univ : Finset (Fin g₂)).card := Finset.card_image_le
+        _ = g₂ := by simp
+        _ < d₂ := hlt
+        _ = (Finset.univ.image (Fin.natAdd d₁ : Fin d₂ → Fin (d₁ + d₂))).card := by
+          rw [Finset.card_image_of_injective _ (Fin.natAdd_injective d₂ d₁)]; simp
+
+end Shape
+
+end ZInQ.InfraHodge
+
+
+/-! # infra-hodge S-alg, part 3: `ProductMetrizationOfProductUnif` from `ProdUnifDeriv`
+
+`g = 0`: the factors get metrizations of dimension `0` (height `0`). `g ≥ 1`: an `L`-basis of
+`ω_{A_L}` of the product inside `ω_{𝒢P}` (`exists_omega_basis`) splits along
+`ω ≅ ω₁ × ω₂` (part 2), so `dim ωᵢ = dᵢ` with `d₁ + d₂ = g`; bases `u ⊆ ω₁`, `w ⊆ ω₂`; the dimension
+count (part 2) gives `gᵢ(τ) = dᵢ` at every `τ`; the coefficient of `MP` on
+`(p₁^* f, p₂^* h)` is `jacDet Φ₁ f · jacDet Φ₂ h` (block Jacobian) and, the Hodge line being a
+line, `τ(det_u(df)) τ(det_w(dh)) · c₁ c₂`, so `jacDet Φ₁ f = τ(det_u(df)) · c₁` (descent); indices
+multiply (part 3 of ProductHodgeLattice), coefficients and covolumes multiply, and
+product-height's `modelHeight_add_of` gives `h(M₁) + h(M₂) = h(MP)`. -/
+
+namespace ZInQ.InfraHodge
+
+open CategoryTheory AlgebraicGeometry Limits MonoidalCategory CartesianMonoidalCategory MonObj
+open NumberField ZInQ.DefFaltings Module ZInQ.ProductHeight
+open PkgI3 (AbVar)
+open scoped TensorProduct
+
+section DeltaEquiv
+
+variable {L : Type*} [Field L] [NumberField L]
+variable {V : Type*} [AddCommGroup V] [Module L V] [Module (𝓞 L) V] [IsScalarTower (𝓞 L) L V]
+
+theorem delta_surjective {n : ℕ} (b : Basis (Fin n) L V) : Function.Surjective (delta b) := by
+  intro c
+  refine ⟨c ⊗ₜ[𝓞 L] exteriorPower.ιMulti (𝓞 L) n b, ?_⟩
+  rw [show c ⊗ₜ[𝓞 L] exteriorPower.ιMulti (𝓞 L) n ⇑b =
+      c • ((1 : L) ⊗ₜ[𝓞 L] exteriorPower.ιMulti (𝓞 L) n b) from by
+    rw [TensorProduct.smul_tmul', smul_eq_mul, _root_.mul_one],
+    map_smul, delta_tmul_one, b.det_self, smul_eq_mul, _root_.mul_one]
+
+/-- `δ_b` as a linear equivalence. -/
+noncomputable def deltaEquiv {n : ℕ} (b : Basis (Fin n) L V) : L ⊗[𝓞 L] ⋀[𝓞 L]^n V ≃ₗ[L] L :=
+  LinearEquiv.ofBijective (delta b) ⟨delta_injective b, delta_surjective b⟩
+
+theorem deltaEquiv_apply {n : ℕ} (b : Basis (Fin n) L V) (x : L ⊗[𝓞 L] ⋀[𝓞 L]^n V) :
+    deltaEquiv b x = delta b x := rfl
+
+end DeltaEquiv
+
+theorem covolume_congr {n : ℕ} {Λ Λ' : Submodule ℤ (Fin n → ℂ)}
+    (h : Λ = Λ') [DiscreteTopology Λ] [IsZLattice ℝ Λ] [DiscreteTopology Λ'] [IsZLattice ℝ Λ'] :
+    ZLattice.covolume Λ = ZLattice.covolume Λ' := by
+  subst h; rfl
+
+section Split
+
+variable {K : Type} [Field K] {A B C : AbVar K} {L : Type} [Field L] [NumberField L] [Algebra K L]
+
+/-- A metrized model of dimension `0` from `0`-dimensional uniformizations. -/
+noncomputable def metrizedZero (𝒢 : GroupModel A L) (Λ : (L →+* ℂ) → Submodule ℤ (Fin 0 → ℂ))
+    (hΛd : ∀ τ, DiscreteTopology (Λ τ)) (hΛz : ∀ τ, IsZLattice ℝ (Λ τ))
+    (Φ : ∀ τ : L →+* ℂ, (Fin 0 → ℂ) → 𝒢.Pts τ)
+    (hΦ : ∀ τ, 𝒢.IsAnalyticUniformization τ (Λ τ) (Φ τ)) : MetrizedModel A L 0 :=
+  mkMetrized 𝒢 0 (ZInQ.H5Neron.hodgeZeroEquiv 𝒢) (ZInQ.H5Neron.wedge0 𝒢)
+    (by rw [ZInQ.H5Neron.detLattice_zero]; exact Submodule.mem_span_singleton_self _)
+    (ZInQ.H5Neron.wedge0_ne_zero 𝒢)
+    (by rw [ZInQ.H5Neron.detLattice_zero, secIndex_eq_relIndex, AddSubgroup.relIndex_self]
+        exact one_ne_zero)
+    Λ hΛd hΛz Φ hΦ (fun _ => 1) (fun _ => one_ne_zero)
+    (fun τ f => by
+      rw [ZInQ.H5Neron.wedge_eq_wedge0, ZInQ.H5Neron.hodgeZeroEquiv_wedge0, map_one,
+        _root_.mul_one]
+      simp [GroupModel.jacDet])
+
+/-- **`ProductMetrizationOfProductUnif` from `ProdUnifDeriv`.** -/
+theorem productMetrizationOfProductUnif_of (hD : ProdUnifDeriv) :
+    ProductMetrizationOfProductUnif := by
+  intro K _ A B C L _ _ _ 𝒢₁ 𝒢₂ g MP e _ _ H
+  rcases Nat.eq_zero_or_pos g with rfl | hg0
+  · -- dimension `0`
+    have key : ∀ τ : L →+* ℂ, ∃ (Λ₁ : Submodule ℤ (Fin 0 → ℂ)) (Λ₂ : Submodule ℤ (Fin 0 → ℂ))
+        (Φ₁ : (Fin 0 → ℂ) → 𝒢₁.Pts τ) (Φ₂ : (Fin 0 → ℂ) → 𝒢₂.Pts τ),
+        (∃ _ : DiscreteTopology Λ₁, IsZLattice ℝ Λ₁) ∧
+        (∃ _ : DiscreteTopology Λ₂, IsZLattice ℝ Λ₂) ∧
+        𝒢₁.IsAnalyticUniformization τ Λ₁ Φ₁ ∧ 𝒢₂.IsAnalyticUniformization τ Λ₂ Φ₂ := by
+      intro τ
+      obtain ⟨g₁, g₂, hg, Λ₁, Λ₂, Φ₁, Φ₂, hl₁, hl₂, hu₁, hu₂, -, -⟩ := H τ
+      obtain ⟨rfl, rfl⟩ : g₁ = 0 ∧ g₂ = 0 := ⟨by omega, by omega⟩
+      exact ⟨Λ₁, Λ₂, Φ₁, Φ₂, hl₁, hl₂, hu₁, hu₂⟩
+    choose Λ₁ Λ₂ Φ₁ Φ₂ hl₁ hl₂ hu₁ hu₂ using key
+    refine ⟨0, 0, metrizedZero 𝒢₁ Λ₁ (fun τ => (hl₁ τ).1) (fun τ => (hl₁ τ).2) Φ₁ hu₁,
+      metrizedZero 𝒢₂ Λ₂ (fun τ => (hl₂ τ).1) (fun τ => (hl₂ τ).2) Φ₂ hu₂, rfl, rfl, ?_⟩
+    rw [ZInQ.H5Neron.modelHeight_dim_zero, ZInQ.H5Neron.modelHeight_dim_zero,
+      ZInQ.H5Neron.modelHeight_dim_zero, add_zero]
+  -- dimension `g ≥ 1`
+  letI := cotL 𝒢₁
+  letI := cotL 𝒢₂
+  letI := cotL MP.model
+  haveI := cotL_isScalarTower 𝒢₁
+  haveI := cotL_isScalarTower 𝒢₂
+  haveI := cotL_isScalarTower MP.model
+  obtain ⟨b, hb⟩ := exists_omega_basis MP (fun h => absurd h (by omega))
+  set P1 := cotGL (e.hom ≫ fst _ _) (hp1 e)
+  set P2 := cotGL (e.hom ≫ snd _ _) (hp2 e)
+  set I1 := cotGL (incl1 e) (hi1 e)
+  set I2 := cotGL (incl2 e) (hi2 e)
+  let Ψ : (𝒢₁.cotangent × 𝒢₂.cotangent) ≃ₗ[L] MP.model.cotangent :=
+    LinearEquiv.ofLinearMap (P1.coprod P2) (I1.prod I2)
+      (LinearMap.ext fun v => (cot_split e v).symm)
+      (LinearMap.ext fun v => by
+        refine Prod.ext ?_ ?_
+        · show I1 (P1 v.1 + P2 v.2) = v.1
+          rw [map_add]
+          exact (congrArg₂ (· + ·) (cot_i1_p1 e v.1) (cot_i1_p2 e v.2)).trans (add_zero _)
+        · show I2 (P1 v.1 + P2 v.2) = v.2
+          rw [map_add]
+          exact (congrArg₂ (· + ·) (cot_i2_p1 e v.1) (cot_i2_p2 e v.2)).trans (zero_add _))
+  have hΨ : ∀ x y, Ψ (x, y) = P1 x + P2 y := fun x y => rfl
+  have hΨs1 : ∀ x, Ψ.symm (P1 x) = (x, 0) := fun x =>
+    Prod.ext (cot_i1_p1 e x) (cot_i2_p1 e x)
+  have hΨs2 : ∀ y, Ψ.symm (P2 y) = (0, y) := fun y =>
+    Prod.ext (cot_i1_p2 e y) (cot_i2_p2 e y)
+  have hPω1 : ∀ x ∈ 𝒢₁.omega, P1 x ∈ MP.model.omega :=
+    fun x hx => cotG_omega _ (IsMonHom.one_hom _) (hp1 e) hx
+  have hPω2 : ∀ x ∈ 𝒢₂.omega, P2 x ∈ MP.model.omega :=
+    fun x hx => cotG_omega _ (IsMonHom.one_hom _) (hp2 e) hx
+  have hIω1 : ∀ v ∈ MP.model.omega, I1 v ∈ 𝒢₁.omega :=
+    fun v hv => cotG_omega _ (one_comp_incl1 e) (hi1 e) hv
+  have hIω2 : ∀ v ∈ MP.model.omega, I2 v ∈ 𝒢₂.omega :=
+    fun v hv => cotG_omega _ (one_comp_incl2 e) (hi2 e) hv
+  haveI : FiniteDimensional L MP.model.cotangent := Module.Finite.of_basis b
+  haveI : FiniteDimensional L (𝒢₁.cotangent × 𝒢₂.cotangent) := Module.Finite.equiv Ψ.symm
+  haveI : FiniteDimensional L 𝒢₁.cotangent :=
+    Module.Finite.of_surjective (LinearMap.fst L 𝒢₁.cotangent 𝒢₂.cotangent)
+      LinearMap.fst_surjective
+  haveI : FiniteDimensional L 𝒢₂.cotangent :=
+    Module.Finite.of_surjective (LinearMap.snd L 𝒢₁.cotangent 𝒢₂.cotangent)
+      LinearMap.snd_surjective
+  have hdim : finrank L 𝒢₁.cotangent + finrank L 𝒢₂.cotangent = g := by
+    rw [← Module.finrank_prod, Ψ.finrank_eq, Module.finrank_eq_card_basis b, Fintype.card_fin]
+  have hsp1 : Submodule.span L (Set.range fun k => I1 (b k)) = ⊤ := by
+    rw [show (Set.range fun k => I1 (b k)) = I1 '' Set.range b from (Set.range_comp _ _),
+      Submodule.span_image, b.span_eq, Submodule.map_top, LinearMap.range_eq_top]
+    exact fun x => ⟨P1 x, cot_i1_p1 e x⟩
+  have hsp2 : Submodule.span L (Set.range fun k => I2 (b k)) = ⊤ := by
+    rw [show (Set.range fun k => I2 (b k)) = I2 '' Set.range b from (Set.range_comp _ _),
+      Submodule.span_image, b.span_eq, Submodule.map_top, LinearMap.range_eq_top]
+    exact fun x => ⟨P2 x, cot_i2_p2 e x⟩
+  obtain ⟨u, hu⟩ := exists_basis_in 𝒢₁.omega (fun k => I1 (b k)) (fun k => hIω1 _ (hb k)) hsp1
+  obtain ⟨w, hw⟩ := exists_basis_in 𝒢₂.omega (fun k => I2 (b k)) (fun k => hIω2 _ (hb k)) hsp2
+  generalize hd₁ : finrank L 𝒢₁.cotangent = d₁ at u hdim
+  generalize hd₂ : finrank L 𝒢₂.cotangent = d₂ at w hdim
+  subst hdim
+  set B : Basis (Fin (d₁ + d₂)) L MP.model.cotangent := ((u.prod w).map Ψ).reindex finSumFinEquiv
+    with hBdef
+  have hB1 : ∀ i, B (Fin.castAdd d₂ i) = P1 (u i) := by
+    intro i
+    rw [hBdef, Basis.reindex_apply, Basis.map_apply, finSumFinEquiv_symm_apply_castAdd,
+      Basis.prod_apply]
+    show Ψ (u i, 0) = _
+    rw [hΨ, map_zero, add_zero]
+  have hB2 : ∀ j, B (Fin.natAdd d₁ j) = P2 (w j) := by
+    intro j
+    rw [hBdef, Basis.reindex_apply, Basis.map_apply, finSumFinEquiv_symm_apply_natAdd,
+      Basis.prod_apply]
+    show Ψ (0, w j) = _
+    rw [hΨ, map_zero, zero_add]
+  have hBω : ∀ k, B k ∈ MP.model.omega := by
+    intro k
+    refine Fin.addCases (fun i => ?_) (fun j => ?_) k
+    · rw [hB1]; exact hPω1 _ (hu i)
+    · rw [hB2]; exact hPω2 _ (hw j)
+  have hdet : detIdeal B MP.model.omega = detIdeal (u.prod w) (𝒢₁.omega.prod 𝒢₂.omega) := by
+    apply le_antisymm
+    · rw [detIdeal, Submodule.span_le]
+      rintro _ ⟨v, rfl⟩
+      refine Submodule.subset_span ⟨fun k => ⟨Ψ.symm (v (finSumFinEquiv k)),
+        Submodule.mem_prod.mpr ⟨hIω1 _ (v _).2, hIω2 _ (v _).2⟩⟩, ?_⟩
+      show (u.prod w).det (fun k => Ψ.symm (v (finSumFinEquiv k))) = B.det (fun k => (v k : _))
+      rw [hBdef, Basis.det_reindex, Basis.det_map]
+      rfl
+    · rw [detIdeal, Submodule.span_le]
+      rintro _ ⟨x, rfl⟩
+      refine Submodule.subset_span ⟨fun k => ⟨Ψ (x (finSumFinEquiv.symm k)), ?_⟩, ?_⟩
+      · obtain ⟨h1, h2⟩ := Submodule.mem_prod.mp (x (finSumFinEquiv.symm k)).2
+        rw [show Ψ (x (finSumFinEquiv.symm k)) =
+          P1 ((x (finSumFinEquiv.symm k) : 𝒢₁.cotangent × 𝒢₂.cotangent).1) +
+          P2 ((x (finSumFinEquiv.symm k) : 𝒢₁.cotangent × 𝒢₂.cotangent).2) from rfl]
+        exact add_mem (hPω1 _ h1) (hPω2 _ h2)
+      · show B.det (fun k => Ψ (x (finSumFinEquiv.symm k))) = (u.prod w).det (fun k => (x k : _))
+        rw [hBdef, Basis.det_reindex, Basis.det_map]
+        congr 1
+        funext k
+        simp
+  -- germ families `(p₁^* f, p₂^* h)`
+  let F' : (Fin d₁ → IsLocalRing.maximalIdeal 𝒢₁.genStalk) →
+      (Fin d₂ → IsLocalRing.maximalIdeal 𝒢₂.genStalk) →
+      Fin (d₁ + d₂) → IsLocalRing.maximalIdeal MP.model.genStalk := fun f h =>
+    Fin.append
+      (fun i => ⟨((e.hom ≫ fst _ _).left.stalkMapAt (hp1 e)).hom (f i),
+        map_nonunit ((e.hom ≫ fst _ _).left.stalkMapAt (hp1 e)).hom _ (f i).2⟩)
+      (fun j => ⟨((e.hom ≫ snd _ _).left.stalkMapAt (hp2 e)).hom (h j),
+        map_nonunit ((e.hom ≫ snd _ _).left.stalkMapAt (hp2 e)).hom _ (h j).2⟩)
+  have hF'1 : ∀ f h i, (F' f h (Fin.castAdd d₂ i) : MP.model.genStalk) =
+      ((e.hom ≫ fst _ _).left.stalkMapAt (hp1 e)).hom (f i) := by
+    intro f h i; simp only [F', Fin.append_left]
+  have hF'2 : ∀ f h j, (F' f h (Fin.natAdd d₁ j) : MP.model.genStalk) =
+      ((e.hom ≫ snd _ _).left.stalkMapAt (hp2 e)).hom (h j) := by
+    intro f h j; simp only [F', Fin.append_right]
+  have hdF1 : ∀ f h i, MP.model.dCls (F' f h (Fin.castAdd d₂ i)) = P1 (𝒢₁.dCls (f i)) := by
+    intro f h i
+    simp only [F', Fin.append_left]
+    show (IsLocalRing.maximalIdeal _).toCotangent _ =
+      cotMapAt (e.hom ≫ fst _ _).left (hp1 e) ((IsLocalRing.maximalIdeal _).toCotangent (f i))
+    rw [cotMapAt_toCotangent]
+  have hdF2 : ∀ f h j, MP.model.dCls (F' f h (Fin.natAdd d₁ j)) = P2 (𝒢₂.dCls (h j)) := by
+    intro f h j
+    simp only [F', Fin.append_right]
+    show (IsLocalRing.maximalIdeal _).toCotangent _ =
+      cotMapAt (e.hom ≫ snd _ _).left (hp2 e) ((IsLocalRing.maximalIdeal _).toCotangent (h j))
+    rw [cotMapAt_toCotangent]
+  have hCL : ∀ f h, delta B (MP.model.wedge (F' f h)) =
+      u.det (fun i => 𝒢₁.dCls (f i)) * w.det (fun j => 𝒢₂.dCls (h j)) := by
+    intro f h
+    unfold GroupModel.wedge
+    rw [delta_tmul_one, hBdef, Basis.det_reindex, Basis.det_map, ← det_prod_block]
+    congr 1
+    funext k
+    rcases k with i | j
+    · simp only [Function.comp_apply, finSumFinEquiv_apply_left, Sum.elim_inl]
+      rw [hdF1, hΨs1]
+    · simp only [Function.comp_apply, finSumFinEquiv_apply_right, Sum.elim_inr]
+      rw [hdF2, hΨs2]
+  choose f₁ hf₁ using fun i => (IsLocalRing.maximalIdeal 𝒢₁.genStalk).toCotangent_surjective (u i)
+  choose f₂ hf₂ using fun j => (IsLocalRing.maximalIdeal 𝒢₂.genStalk).toCotangent_surjective (w j)
+  have hdu : (fun i => 𝒢₁.dCls (f₁ i)) = ⇑u := funext hf₁
+  have hdw : (fun j => 𝒢₂.dCls (f₂ j)) = ⇑w := funext hf₂
+  have hδF : delta B (MP.model.wedge (F' f₁ f₂)) = 1 := by
+    rw [hCL, hdu, hdw, u.det_self, w.det_self, _root_.mul_one]
+  have hwF0 : MP.model.wedge (F' f₁ f₂) ≠ 0 := fun h => by
+    rw [h, map_zero] at hδF; exact zero_ne_one hδF
+  have hdf : (fun k => MP.model.dCls (F' f₁ f₂ k)) = fun k => B k := by
+    funext k
+    refine Fin.addCases (fun i => ?_) (fun j => ?_) k
+    · rw [hdF1, hB1]; exact congrArg P1 (hf₁ i)
+    · rw [hdF2, hB2]; exact congrArg P2 (hf₂ j)
+  have hwP : MP.model.wedge (F' f₁ f₂) =
+      (1 : L) ⊗ₜ[𝓞 L] exteriorPower.ιMulti (𝓞 L) (d₁ + d₂) B := by
+    unfold GroupModel.wedge
+    rw [hdf]
+  have hw1 : 𝒢₁.wedge f₁ = (1 : L) ⊗ₜ[𝓞 L] exteriorPower.ιMulti (𝓞 L) d₁ u := by
+    unfold GroupModel.wedge; rw [hdu]
+  have hw2 : 𝒢₂.wedge f₂ = (1 : L) ⊗ₜ[𝓞 L] exteriorPower.ιMulti (𝓞 L) d₂ w := by
+    unfold GroupModel.wedge; rw [hdw]
+  -- at each `τ`, `gᵢ(τ) = dᵢ`
+  have key : ∀ τ : L →+* ℂ, ∃ (Λ₁ : Submodule ℤ (Fin d₁ → ℂ)) (Λ₂ : Submodule ℤ (Fin d₂ → ℂ))
+      (Φ₁ : (Fin d₁ → ℂ) → 𝒢₁.Pts τ) (Φ₂ : (Fin d₂ → ℂ) → 𝒢₂.Pts τ),
+      (∃ _ : DiscreteTopology Λ₁, IsZLattice ℝ Λ₁) ∧
+      (∃ _ : DiscreteTopology Λ₂, IsZLattice ℝ Λ₂) ∧
+      𝒢₁.IsAnalyticUniformization τ Λ₁ Φ₁ ∧ 𝒢₂.IsAnalyticUniformization τ Λ₂ Φ₂ ∧
+      MP.hodge.periods τ = prodLattice Λ₁ Λ₂ ∧
+      ∀ f, MP.hodge.coeff τ (MP.model.wedge f) = MP.model.jacDet (prodUnif e Φ₁ Φ₂) f := by
+    intro τ
+    obtain ⟨g₁, g₂, hg, Λ₁, Λ₂, Φ₁, Φ₂, hl₁, hl₂, hu₁, hu₂, hper, hco⟩ := H τ
+    have hne : MP.model.jacDet (fun z => prodUnif e Φ₁ Φ₂ (fun i => z (Fin.cast hg i)))
+        (F' f₁ f₂) ≠ 0 := by
+      rw [← hco (F' f₁ f₂)]; exact MP.hodge.coeff_apply_ne_zero τ hwF0
+    obtain ⟨h1, h2⟩ := dims_le_of_jacDet_ne_zero e hD hg hu₁ hu₂ f₁ f₂ (F' f₁ f₂)
+      (hF'1 f₁ f₂) (hF'2 f₁ f₂) hne
+    obtain ⟨rfl, rfl⟩ : g₁ = d₁ ∧ g₂ = d₂ := ⟨by omega, by omega⟩
+    exact ⟨Λ₁, Λ₂, Φ₁, Φ₂, hl₁, hl₂, hu₁, hu₂, Submodule.ext fun z => hper z, fun f => hco f⟩
+  choose Λ₁ Λ₂ Φ₁ Φ₂ hl₁ hl₂ hu₁ hu₂ hper hco using key
+  have hcoF : ∀ τ f h, MP.hodge.coeff τ (MP.model.wedge (F' f h)) =
+      𝒢₁.jacDet (Φ₁ τ) f * 𝒢₂.jacDet (Φ₂ τ) h := fun τ f h =>
+    (hco τ _).trans (jacDet_prodUnif e hD (hu₁ τ) (hu₂ τ) f h (F' f h) (hF'1 f h) (hF'2 f h))
+  have hline : ∀ τ x, MP.hodge.coeff τ x =
+      τ (delta B x) * MP.hodge.coeff τ (MP.model.wedge (F' f₁ f₂)) := by
+    intro τ x
+    have hx : x = delta B x • MP.model.wedge (F' f₁ f₂) :=
+      delta_injective B (by rw [map_smul, hδF, smul_eq_mul, _root_.mul_one])
+    conv_lhs => rw [hx]
+    rw [map_smulₛₗ, smul_eq_mul]
+  have hc12 : ∀ τ, 𝒢₁.jacDet (Φ₁ τ) f₁ * 𝒢₂.jacDet (Φ₂ τ) f₂ ≠ 0 := fun τ => by
+    rw [← hcoF τ f₁ f₂]; exact MP.hodge.coeff_apply_ne_zero τ hwF0
+  have hjac₁ : ∀ τ f, 𝒢₁.jacDet (Φ₁ τ) f =
+      τ (deltaEquiv u (𝒢₁.wedge f)) * 𝒢₁.jacDet (Φ₁ τ) f₁ := by
+    intro τ f
+    have h1 := hcoF τ f f₂
+    rw [hline, hCL, hcoF τ f₁ f₂, hdw, w.det_self, _root_.mul_one] at h1
+    have hc2 : 𝒢₂.jacDet (Φ₂ τ) f₂ ≠ 0 := right_ne_zero_of_mul (hc12 τ)
+    rw [deltaEquiv_apply]
+    unfold GroupModel.wedge
+    rw [delta_tmul_one]
+    apply mul_right_cancel₀ hc2
+    linear_combination -h1
+  have hjac₂ : ∀ τ h, 𝒢₂.jacDet (Φ₂ τ) h =
+      τ (deltaEquiv w (𝒢₂.wedge h)) * 𝒢₂.jacDet (Φ₂ τ) f₂ := by
+    intro τ h
+    have h1 := hcoF τ f₁ h
+    rw [hline, hCL, hcoF τ f₁ f₂, hdu, u.det_self, _root_.one_mul] at h1
+    have hc1 : 𝒢₁.jacDet (Φ₁ τ) f₁ ≠ 0 := left_ne_zero_of_mul (hc12 τ)
+    rw [deltaEquiv_apply]
+    unfold GroupModel.wedge
+    rw [delta_tmul_one]
+    apply mul_left_cancel₀ hc1
+    linear_combination -h1
+  -- indices
+  have hone : ∀ {V : Type} [AddCommGroup V] [Module L V] [Module (𝓞 L) V]
+      [IsScalarTower (𝓞 L) L V] {n : ℕ} (b : Basis (Fin n) L V) (W : Submodule (𝓞 L) V),
+      (∀ k, b k ∈ W) → (1 : L) ∈ detIdeal b W := by
+    intro V _ _ _ _ n b W hb
+    exact Submodule.subset_span ⟨fun k => ⟨b k, hb k⟩, b.det_self⟩
+  have eP : (Submodule.span (𝓞 L) {(1 : L) ⊗ₜ[𝓞 L] exteriorPower.ιMulti (𝓞 L) (d₁ + d₂) B}).toAddSubgroup.relIndex
+      (MP.model.detLattice (d₁ + d₂)).toAddSubgroup = idx (detIdeal B MP.model.omega) :=
+    relIndex_detLat B MP.model.omega
+  have e1 : (Submodule.span (𝓞 L) {(1 : L) ⊗ₜ[𝓞 L] exteriorPower.ιMulti (𝓞 L) d₁ u}).toAddSubgroup.relIndex
+      (𝒢₁.detLattice d₁).toAddSubgroup = idx (detIdeal u 𝒢₁.omega) :=
+    relIndex_detLat u 𝒢₁.omega
+  have e2 : (Submodule.span (𝓞 L) {(1 : L) ⊗ₜ[𝓞 L] exteriorPower.ιMulti (𝓞 L) d₂ w}).toAddSubgroup.relIndex
+      (𝒢₂.detLattice d₂).toAddSubgroup = idx (detIdeal w 𝒢₂.omega) :=
+    relIndex_detLat w 𝒢₂.omega
+  have hidxP : secIndex (MP.model.detLattice (d₁ + d₂)) (MP.model.wedge (F' f₁ f₂)) =
+      idx (detIdeal u 𝒢₁.omega) * idx (detIdeal w 𝒢₂.omega) := by
+    rw [hwP, secIndex_eq_relIndex, eP, hdet, detIdeal_prod, idx_mul (hone u _ hu) (hone w _ hw)]
+  have hsi1 : secIndex (𝒢₁.detLattice d₁) (𝒢₁.wedge f₁) = idx (detIdeal u 𝒢₁.omega) := by
+    rw [hw1, secIndex_eq_relIndex, e1]
+  have hsi2 : secIndex (𝒢₂.detLattice d₂) (𝒢₂.wedge f₂) = idx (detIdeal w 𝒢₂.omega) := by
+    rw [hw2, secIndex_eq_relIndex, e2]
+  have hsP : MP.model.wedge (F' f₁ f₂) ∈ MP.hodge.lattice := by
+    rw [MP.lattice_eq, hwP]
+    exact Submodule.subset_span ⟨fun k => ⟨B k, hBω k⟩, rfl⟩
+  have hsiP := MP.hodge.hodgeBundle.secIndex_ne_zero hsP hwF0
+  have hsiP' : idx (detIdeal u 𝒢₁.omega) * idx (detIdeal w 𝒢₂.omega) ≠ 0 := by
+    rw [← hidxP, ← MP.lattice_eq]; exact hsiP
+  have hs1 : 𝒢₁.wedge f₁ ∈ 𝒢₁.detLattice d₁ := by
+    rw [hw1]; exact Submodule.subset_span ⟨fun k => ⟨u k, hu k⟩, rfl⟩
+  have hs2 : 𝒢₂.wedge f₂ ∈ 𝒢₂.detLattice d₂ := by
+    rw [hw2]; exact Submodule.subset_span ⟨fun k => ⟨w k, hw k⟩, rfl⟩
+  have hne : ∀ {V : Type} [AddCommGroup V] [Module L V] [Module (𝓞 L) V]
+      [IsScalarTower (𝓞 L) L V] {n : ℕ} (b : Basis (Fin n) L V),
+      (1 : L) ⊗ₜ[𝓞 L] exteriorPower.ιMulti (𝓞 L) n b ≠ 0 := by
+    intro V _ _ _ _ n b h
+    have := congrArg (delta b) h
+    rw [delta_tmul_one, b.det_self, map_zero] at this
+    exact one_ne_zero this
+  have hs10 : 𝒢₁.wedge f₁ ≠ 0 := by rw [hw1]; exact hne u
+  have hs20 : 𝒢₂.wedge f₂ ≠ 0 := by rw [hw2]; exact hne w
+  let M₁ := mkMetrized 𝒢₁ d₁ (deltaEquiv u) (𝒢₁.wedge f₁) hs1 hs10
+    (by rw [hsi1]; exact left_ne_zero_of_mul hsiP') Λ₁ (fun τ => (hl₁ τ).1)
+    (fun τ => (hl₁ τ).2) Φ₁ hu₁ (fun τ => 𝒢₁.jacDet (Φ₁ τ) f₁)
+    (fun τ => left_ne_zero_of_mul (hc12 τ)) hjac₁
+  let M₂ := mkMetrized 𝒢₂ d₂ (deltaEquiv w) (𝒢₂.wedge f₂) hs2 hs20
+    (by rw [hsi2]; exact right_ne_zero_of_mul hsiP') Λ₂ (fun τ => (hl₂ τ).1)
+    (fun τ => (hl₂ τ).2) Φ₂ hu₂ (fun τ => 𝒢₂.jacDet (Φ₂ τ) f₂)
+    (fun τ => right_ne_zero_of_mul (hc12 τ)) hjac₂
+  refine ⟨d₁, d₂, M₁, M₂, rfl, rfl, le_of_eq ?_⟩
+  refine (modelHeight_add_of MP.hodge M₁.hodge M₂.hodge hsP hwF0 hs1 hs10 hs2 hs20 ?_ ?_ ?_).symm
+  · rw [MP.lattice_eq, hidxP]
+    show _ = secIndex (𝒢₁.detLattice d₁) _ * secIndex (𝒢₂.detLattice d₂) _
+    rw [hsi1, hsi2]
+  · intro σ
+    show _ = coeffOf (deltaEquiv u) σ (𝒢₁.jacDet (Φ₁ σ) f₁) (𝒢₁.wedge f₁) *
+      coeffOf (deltaEquiv w) σ (𝒢₂.jacDet (Φ₂ σ) f₂) (𝒢₂.wedge f₂)
+    rw [coeffOf_apply, coeffOf_apply, deltaEquiv_apply, deltaEquiv_apply, hw1, hw2,
+      delta_tmul_one, delta_tmul_one, u.det_self, w.det_self, map_one, _root_.one_mul,
+      _root_.one_mul]
+    exact hcoF σ f₁ f₂
+  · intro σ
+    haveI := (hl₁ σ).1
+    haveI := (hl₁ σ).2
+    haveI := (hl₂ σ).1
+    haveI := (hl₂ σ).2
+    obtain ⟨hd, hz, hc⟩ := prodLattice_facts (Λ₁ σ) (Λ₂ σ)
+    haveI := MP.hodge.periods_discrete σ
+    haveI := MP.hodge.periods_isZLattice σ
+    rw [covolume_congr (hper σ)]
+    exact hc
+
+end Split
+
+end ZInQ.InfraHodge
+
+
+/-! # infra-hodge S-alg, part 4: consequences -/
+
+namespace ZInQ.InfraHodge
+
+open ZInQ.ProductHeight
+
+/-- product-height's route S with S-alg discharged: `ProductModelHeight` (P2) from the two
+analytic Props `ProductUnifSplits` (S-an) and `ProdUnifDeriv`. -/
+theorem productModelHeight_of_splits_deriv (hS : ProductUnifSplits) (hD : ProdUnifDeriv) :
+    ZInQ.H5Neron.ProductModelHeight :=
+  productModelHeight_of_splits hS (productMetrizationOfProductUnif_of hD)
+
+end ZInQ.InfraHodge
+
+#print axioms ZInQ.InfraHodge.jacDet_prodUnif
+#print axioms ZInQ.InfraHodge.dims_le_of_jacDet_ne_zero
+#print axioms ZInQ.InfraHodge.mkMetrized
+#print axioms ZInQ.InfraHodge.productMetrizationOfProductUnif_of
+#print axioms ZInQ.InfraHodge.productModelHeight_of_splits_deriv
