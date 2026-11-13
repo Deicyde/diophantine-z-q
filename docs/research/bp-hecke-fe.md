@@ -237,7 +237,7 @@ Mathlib: Hurwitz kernels, FE-pairs, hasSum_mellin, ZLattice sums, Gauss/Jacobi s
   ├─ B2a HeckeMult d (Bezout/gcd in ℤ[i], fibres of size 4)         S–M OPEN
   ├─ B2b HeckePrimePow at inert / ramified / bad p                   S  DONE  heckeCoeff_inert, _two_pow, _pow_of_dvd
   ├─ B2c HeckePrimePowSplit d (p ≡ 1 (4), p ∤ d)                    S–M OPEN
-  ├─ B3 GaussSplit 1: a_p(y² = x³ − x) = π + π̄, p ≡ 1 (4)          M  OPEN  (Gauss 1814; quartic Jacobi
+  ├─ B3 GaussPointCount (⟹ GaussSplit 1, proved): a_p(y² = x³ − x) = π + π̄   M  OPEN  (Gauss 1814; quartic Jacobi
   │       sum J(χ,χ) and its congruence mod (1+i)³; or a temporary leaf)
   ├─ B3' GaussSplit d ⟸ GaussSplit 1 (twist, reciprocity)          S  DONE  gaussSplit_of_one
   ├─ B4 DeuringCd at p ≡ 3 (4), p | d, p = 2 (point counts)        S  DONE
