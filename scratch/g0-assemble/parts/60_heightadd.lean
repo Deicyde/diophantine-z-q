@@ -1,8 +1,6 @@
-/-! ## g0-heightadd: lines 388-473 of scratch/g0-heightadd/part_heightadd.lean and the G0HeightAdd section of part_prod.lean -/
+/-! ## g0-heightadd: lines 390-473 of scratch/g0-heightadd/part_heightadd.lean and the G0HeightAdd section of part_prod.lean (lines 1-92) -/
 section G0HeightAddSec
 noncomputable section
-
-end
 
 /-! ## Glue P2 (`ProductModelHeight`) from four smaller Props
 

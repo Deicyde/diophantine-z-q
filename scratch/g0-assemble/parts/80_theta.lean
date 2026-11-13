@@ -34,6 +34,10 @@ open ZInQ ZInQ.JHeight LeafQM.AV ZInQ.DefFaltings
 
 namespace ThetaPt
 
+-- g0-assemble: in Leaves.lean these R22 objects are leaf-push2's originals (leaf-adopt3 removed
+-- g0-split's textual copies `HSyn.G0Split.Char2` etc.), so they are opened here.
+open ZInQ.LeafPush2 (CPts cptObj IsUniformization IsSiegel IsPeriodMatrix Char2 thetaConst absLogHeight)
+
 open Complex
 
 /-! ### Definitions and connective lemmas -/

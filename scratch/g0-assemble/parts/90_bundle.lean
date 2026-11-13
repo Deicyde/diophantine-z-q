@@ -14,7 +14,7 @@ from the smaller named Props that wave 26 reduced them to, bundled as `HSyn.Glue
 | `productExists` | g0-product | `G0Product.productExists` (proved, Mathlib only) |
 | `reverseIsogeny` | g0-reverseisog | `G0RevIsog.reverseIsogeny_of_leaves r dimFinite` (route B: R19 and H5 of the bundle) |
 | `thetaPoint` | g0-thetapoint | `ThetaPt.thetaPointOfFibre_of_qm_ratios` from the glue `FibreQMPeriod` (blocked on qm-pin) and the leaf candidate `ThetaRatiosAlgebraic` |
-| `modularConstituent` | g0-mod-field/-galois/-newform | **kept as one field**: the three ranges are not composed in one file (see `docs/research/g0-assemble.md` §3) |
+| `modularConstituent` | g0-mod-field, g0-mod-galois, g0-mod-newform | **kept as one field**: the three ranges are not composed in one file (see `docs/research/g0-assemble.md` §3) |
 | `heightCopies` | (no wave-26 task) | kept as one field (glue, pure transport) |
 -/
 

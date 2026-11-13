@@ -8,3 +8,14 @@
   (G0Split. -> HSyn.G0Split. as in its mkcheck.sh); 30 g0-reverseisog SplitRev.lean tail (G0RevIsog only);
   40 g0-fibresimple tail; 50 g0-stablebc Main.part; 60 g0-heightadd (G0HeightAdd sections); 70 g0-mod-galois
   four parts; 80 g0-thetapoint part_theta (ThetaPt only); 90 the bundle GluePieces2 and the theorems.
+- Prefix olean: `build_prefix.sh` compiles Leaves.lean (unchanged) to olean/LPrefix.olean: exit 0 in 605 s.
+- Tail run 1: parts 05-60 compile; errors in 60 (an extra `end`: lines 388-389 of part_heightadd are
+  `end HSyn`/`end`; range now 390-473) and in 80 (g0-split's copies `HSyn.G0Split.Char2`, `thetaConst`, `CPts`,
+  `IsUniformization`, `IsSiegel`, `IsPeriodMatrix`, `absLogHeight` were replaced in Leaves.lean by leaf-push2's
+  `ZInQ.LeafPush2` originals (leaf-adopt3); fixed by one `open ZInQ.LeafPush2 (...)` line inside `ThetaPt`; the
+  definitions are textually identical, the statements unchanged).
+- Moved g0-mod-galois' parts to off/: its `g8_g12_of_leaves` uses the old bundle fields `t.t11`, `t.t12`, `t.t19`
+  (Split.lean's bundle) and `G10Glue` takes the opaque placeholders `HSyn.T11_RiemannGAGA`,
+  `HSyn.T12_ArtinComparison` as hypotheses; both placeholders were removed from Leaves.lean by leaf-adopt2.
+- Tail run 3 (parts 05,10,20,30,40,50,60,80,90): VERIFIED exit 0, 0 errors, no `sorry`;
+  `HSyn.gluePieces_of_gluePieces2`, `HSyn.sixContactMin_of_leaves2`: [propext, Classical.choice, Quot.sound].

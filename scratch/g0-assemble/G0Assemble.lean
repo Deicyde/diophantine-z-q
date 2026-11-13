@@ -36991,11 +36991,9 @@ end G0StableBC
 end
 end G0StableBCSec
 
-/-! ## g0-heightadd: lines 388-473 of scratch/g0-heightadd/part_heightadd.lean and the G0HeightAdd section of part_prod.lean -/
+/-! ## g0-heightadd: lines 390-473 of scratch/g0-heightadd/part_heightadd.lean and the G0HeightAdd section of part_prod.lean (lines 1-92) -/
 section G0HeightAddSec
 noncomputable section
-
-end
 
 /-! ## Glue P2 (`ProductModelHeight`) from four smaller Props
 
@@ -37210,6 +37208,10 @@ open CategoryTheory AlgebraicGeometry Limits MonoidalCategory CartesianMonoidalC
 open ZInQ ZInQ.JHeight LeafQM.AV ZInQ.DefFaltings
 
 namespace ThetaPt
+
+-- g0-assemble: in Leaves.lean these R22 objects are leaf-push2's originals (leaf-adopt3 removed
+-- g0-split's textual copies `HSyn.G0Split.Char2` etc.), so they are opened here.
+open ZInQ.LeafPush2 (CPts cptObj IsUniformization IsSiegel IsPeriodMatrix Char2 thetaConst absLogHeight)
 
 open Complex
 
@@ -37602,7 +37604,7 @@ from the smaller named Props that wave 26 reduced them to, bundled as `HSyn.Glue
 | `productExists` | g0-product | `G0Product.productExists` (proved, Mathlib only) |
 | `reverseIsogeny` | g0-reverseisog | `G0RevIsog.reverseIsogeny_of_leaves r dimFinite` (route B: R19 and H5 of the bundle) |
 | `thetaPoint` | g0-thetapoint | `ThetaPt.thetaPointOfFibre_of_qm_ratios` from the glue `FibreQMPeriod` (blocked on qm-pin) and the leaf candidate `ThetaRatiosAlgebraic` |
-| `modularConstituent` | g0-mod-field/-galois/-newform | **kept as one field**: the three ranges are not composed in one file (see `docs/research/g0-assemble.md` §3) |
+| `modularConstituent` | g0-mod-field, g0-mod-galois, g0-mod-newform | **kept as one field**: the three ranges are not composed in one file (see `docs/research/g0-assemble.md` §3) |
 | `heightCopies` | (no wave-26 task) | kept as one field (glue, pure transport) |
 -/
 
