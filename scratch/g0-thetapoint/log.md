@@ -17,7 +17,8 @@ Piece: `HSyn.G0Split.ThetaPointOfFibre` (g0-split missing piece 9; G19, F1 on `A
   isomorphic to bp-analytic's `qmLattice τ` for some `τ ∈ ℍ` with `jNum/jDen(Ω(τ)) = J(u)`.
 - `ThetaNullAlgebraic` (LEAF-COMPOSITE): for any period matrix `Ω ∈ 𝔥₂` of a uniformization
   lattice, `θ_m(0,Ω) = c⁻¹·emb(z_m)` for a point `z` of a number field.
-- `FibreThetaF1` (GLUE, proved from `DimBaseChange` + the first two).
+- `FibreQMPeriod` (GLUE): the existential form of `FibreQMPeriodAll` (some `σ`, some uniformization).
+- `FibreThetaF1` (GLUE, proved from `FibreQMPeriod`).
 
 ## Results (VERIFIED: compiled)
 - run4 (02:07-02:10): `lake env lean scratch/g0-thetapoint/ThetaPoint.lean`: 0 errors, no
@@ -35,6 +36,10 @@ Piece: `HSyn.G0Split.ThetaPointOfFibre` (g0-split missing piece 9; G19, F1 on `A
   (odd theta constants vanish, reindexing `n ↦ -n-a`, no summability needed).
 - Runs 1-3: run1 failed (upstream `ZInQ` oleans missing, fixed by building JHeight); run2 one error
   (`Matrix.dotProduct_smul` → `dotProduct_smul`); run3 clean.
+
+- run5 (02:11-02:14): 0 errors, no `sorry`, 2m52s; adds `FibreQMPeriod`, `fibreQMPeriod_of_all`,
+  `fibreThetaF1_of_qm`, `thetaPointOfFibre_of_qm : FibreQMPeriod → ThetaNullAlgebraic →
+  ThetaPointOfFibre`; all axioms `[propext, Classical.choice, Quot.sound]`.
 
 ## Findings
 - The piece is not false or vacuous (model argument, docs/research/g0-thetapoint.md §3). Its

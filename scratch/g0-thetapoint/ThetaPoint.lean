@@ -20280,6 +20280,24 @@ def FibreQMPeriodAll : Prop :=
       Λ.map (F.toLinearMap.restrictScalars ℤ) = BPAnalytic.QM.qmLattice hτ.ne' ∧
       PkgI1.jNum (PkgI1.Omega τ) / PkgI1.jDen (PkgI1.Omega τ) = ((Jmap u : ℚ) : ℂ)
 
+/-- **GLUE (G19, F1 analytic on the actual fibre; the existential form of `FibreQMPeriodAll`).**
+For `u ∉ 𝒞` and every number-field model `A` of the fibre surface over `J(u)`: at some complex
+place `σ`, some analytic uniformization `Φ : ℂ² → A(ℂ)_σ` has a kernel `Λ` carried onto a QM
+lattice `Λ_τ = ι(𝒪)(τ, 1)ᵀ` (`τ ∈ ℍ`) by a `ℂ`-linear automorphism, with
+`jNum(Ω(τ)) / jDen(Ω(τ)) = J(u)`. It follows from `DimBaseChange`, `UniformizationExistsNF` and
+`FibreQMPeriodAll` (`fibreQMPeriod_of_all`), and with `ThetaNullAlgebraic` alone it gives
+`ThetaPointOfFibre` (`thetaPointOfFibre_of_qm`). Why true: as for `FibreQMPeriodAll`, at the
+place `σ` through which the embedding of `FibreOver` factors (no Galois conjugation needed). -/
+def FibreQMPeriod : Prop :=
+  ∀ (Y : Over (Spec (CommRingCat.of ℚ))) (Φ : PtEquiv Y) (π : ToP1 Y.left),
+    R1fpProps Y Φ → R2fpProps Y Φ π → ∀ u : ℚ, u ∉ contactSet →
+    ∀ (K : GlueAssembly.NF) (A : ZInQ.DefFaltings.AbVar K.K), FibreOver Y Φ π u K A →
+    ∃ (σ : K.K →+* ℂ) (Λ : Submodule ℤ (Fin 2 → ℂ))
+      (Φu : (Fin 2 → ℂ) → CPts (LeafAdopt.abVarEquiv K.K A) σ), IsUniformization σ Λ Φu ∧
+    ∃ (τ : ℂ) (hτ : 0 < τ.im) (F : (Fin 2 → ℂ) ≃ₗ[ℂ] (Fin 2 → ℂ)),
+      Λ.map (F.toLinearMap.restrictScalars ℤ) = BPAnalytic.QM.qmLattice hτ.ne' ∧
+      PkgI1.jNum (PkgI1.Omega τ) / PkgI1.jDen (PkgI1.Omega τ) = ((Jmap u : ℚ) : ℂ)
+
 /-- **LEAF-COMPOSITE (algebraicity of theta constants).** For an abelian variety `A` over a
 number field `K`, an analytic uniformization `Φ : ℂ² → A(ℂ)_σ` with kernel `Λ` and any
 `Ω ∈ 𝔥₂` that is a period matrix of `Λ` (that is, any principal polarization of `ℂ²/Λ` with any
@@ -20326,20 +20344,36 @@ theorem thetaPointOfFibre_of (hF1 : FibreThetaF1) (hAlg : ThetaNullAlgebraic) :
   exact ⟨σ, Λ, Φu, hU, Ω, hS, hP, L, emb, z, c, hc, hz, L, fun i => z (evenEnum i),
     f1_of_theta emb Ω z c hc hz (Jmap u) hJ, height_even z⟩
 
-/-- **F1-analytic on the fibre (proved)** from `DimBaseChange` (the model is a surface,
-`model_dim`), `UniformizationExistsNF` and `FibreQMPeriodAll`, with `Ω = Ω(τ)`. -/
-theorem fibreThetaF1_of (hDim : DimBaseChange) (hU : UniformizationExistsNF)
-    (hQM : FibreQMPeriodAll) : FibreThetaF1 := by
+/-- **The existential form (proved)** from `DimBaseChange` (the model is a surface,
+`model_dim`), `UniformizationExistsNF` and `FibreQMPeriodAll`. -/
+theorem fibreQMPeriod_of_all (hDim : DimBaseChange) (hU : UniformizationExistsNF)
+    (hQM : FibreQMPeriodAll) : FibreQMPeriod := by
   intro Y Φ π h1 h2 u hu K A hFib
   obtain ⟨emb, y, P, hP, hy, hiso⟩ := hFib
   have hA2 : A.dim = 2 := model_dim hDim emb A P.A hiso P.surface
   obtain ⟨σ, Λ, Φu, hΦu⟩ := hU K.K (LeafAdopt.abVarEquiv K.K A) hA2
-  obtain ⟨τ, hτ, F, hF, hJ⟩ :=
-    hQM Y Φ π h1 h2 u hu K A ⟨emb, y, P, hP, hy, hiso⟩ σ Λ Φu hΦu
+  exact ⟨σ, Λ, Φu, hΦu, hQM Y Φ π h1 h2 u hu K A ⟨emb, y, P, hP, hy, hiso⟩ σ Λ Φu hΦu⟩
+
+/-- **F1-analytic on the fibre (proved)** from `FibreQMPeriod`, with `Ω = Ω(τ)`
+(bp-analytic: `Ω(τ) ∈ 𝔥₂`, and `Ω(τ)` is a period matrix of `Λ_τ`, hence of `Λ`). -/
+theorem fibreThetaF1_of_qm (hQM : FibreQMPeriod) : FibreThetaF1 := by
+  intro Y Φ π h1 h2 u hu K A hFib
+  obtain ⟨σ, Λ, Φu, hΦu, τ, hτ, F, hF, hJ⟩ := hQM Y Φ π h1 h2 u hu K A hFib
   refine ⟨σ, Λ, Φu, hΦu, BPAnalytic.QM.Omega τ, isSiegel_Omega hτ,
     isPeriodMatrix_of_comap (isPeriodMatrix_qmLattice hτ.ne') F hF, ?_⟩
   rw [jTheta_eq, ← omega_eq]
   exact hJ
+
+/-- F1-analytic on the fibre from `DimBaseChange`, `UniformizationExistsNF`, `FibreQMPeriodAll`. -/
+theorem fibreThetaF1_of (hDim : DimBaseChange) (hU : UniformizationExistsNF)
+    (hQM : FibreQMPeriodAll) : FibreThetaF1 :=
+  fibreThetaF1_of_qm (fibreQMPeriod_of_all hDim hU hQM)
+
+/-- **Missing piece 9, `ThetaPointOfFibre`, from two named Props (proved):** the existential
+F1-analytic glue `FibreQMPeriod` and the algebraicity of theta constants. -/
+theorem thetaPointOfFibre_of_qm (hQM : FibreQMPeriod) (hAlg : ThetaNullAlgebraic) :
+    ThetaPointOfFibre :=
+  thetaPointOfFibre_of (fibreThetaF1_of_qm hQM) hAlg
 
 /-- **Missing piece 9, `ThetaPointOfFibre`, from strictly smaller named Props (proved).** -/
 theorem thetaPointOfFibre_of_parts (hDim : DimBaseChange) (hU : UniformizationExistsNF)
@@ -20373,4 +20407,6 @@ end
 #print axioms HSyn.G0Split.ThetaPt.thetaPointOfFibre_of
 #print axioms HSyn.G0Split.ThetaPt.fibreThetaF1_of
 #print axioms HSyn.G0Split.ThetaPt.thetaPointOfFibre_of_parts
+#print axioms HSyn.G0Split.ThetaPt.thetaPointOfFibre_of_qm
+#print axioms HSyn.G0Split.ThetaPt.fibreQMPeriod_of_all
 #print axioms HSyn.glueOutputs_of_leaves_thetaParts
