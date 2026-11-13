@@ -40,3 +40,14 @@
 - So T18's two forms collapse to one leaf: `ChebotarevExists` (Chebotarev existence form).
 - Full Chebotarev NOT proved (Mathlib v4.35.0 lacks Hecke/Artin L-functions of number fields
   and class field theory; Dirichlet's theorem for ℚ exists).
+
+## T17 Kronecker–Weber — NOT proved; the use-form glue PROVED from T17 (VERIFIED, compiled)
+- File: `scratch/t-skolem-kw/KroneckerWeberUse.lean` (imports only Mathlib).
+- Verbatim: `HSyn.KroneckerWeber` (as `TSkolemKW.KW.KroneckerWeber`).
+- Theorems (axioms propext, Classical.choice, Quot.sound):
+  `ker_ge_of_kroneckerWeber` (ψ : G_ℚ →* G commutative, open kernel ⇒ ∃ m ≥ 1, ψ kills every σ
+  fixing μ_m), `eq_of_agree_on_roots` (ψ factors through the action on μ_m),
+  `isOpen_ker_of_continuous` (continuous, finite image, T1 target ⇒ open kernel).
+  This is glue-assembly §2.1's "finite image ⇒ Dirichlet character" (listed there as not written).
+- Searched for proofs of KW/Chebotarev on disk: ATLAS v1 `KroneckerWeber.lean` has 22 `sorry`
+  (not usable; its `merely-true` variant lacks the main theorem); Tau Ceti not available offline.
