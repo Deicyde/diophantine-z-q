@@ -69,3 +69,25 @@
   `modularConstituent_tail_R` updated to it.
 - Compile (VERIFIED): `G15Ram.lean` exit 0, 0 errors, axioms standard for all 8 printed
   declarations; `Tail.lean` exit 0, 0 errors, ~40 s, `modularConstituent_tail_R` axioms standard.
+
+## Step 7 (04:55-05:15 PST): the DVR model, all closed local-field glue proved
+- §2e `LadicDVRModelZp p` (the model with `A = ℤ_p`) and `ladicDVRModel_of_Zp`: the conjuncts
+  `e(B/ℤ_p) = ramCard F 0` (t-different's `TDifferent.card_lowerRam_zero`), `(p) = 𝔪_B^e`
+  (`TDifferent.map_maximalIdeal_eq_pow`, `PadicInt.maximalIdeal_eq_span_p`) and "integers prime
+  to `p` are units" are derived.
+- §2f `ladicDVRModelZp : LadicDVRModelZp p` (proved, no hypothesis), with `B = 𝓞_F =
+  integralClosure ℤ_p F`: integral ⟺ `‖y‖ ≤ 1` (copied from glue-sqrt-local's spectral-norm
+  argument, `spectralNorm.eq_of_tower`, `PadicAlgCl.spectralNorm_eq`); local; Dedekind
+  (`IsIntegralClosure.isDedekindDomain`), Noetherian, not a field ⇒ DVR
+  (`IsDiscreteValuationRing.TFAE`, items 1 and 3); finite (`IsIntegralClosure.finite`);
+  torsion-free; `IsGalois`/`IsSeparable` of the fraction rings through
+  `IsGalois.of_equiv_equiv` and `FractionRing.algEquiv`; `𝔪_B^k = {‖b‖ ≤ ‖ϖ‖^k}`
+  (`maximalIdeal_eq`, `mem_maximalIdeal_pow_iff`); `galRestrict` + `restrictNormalHom` identify
+  `PkgI6.lowerRam ℤ_p B i` with the restrictions of `ramSet F i` (`card_lowerRam`,
+  `fix_of_lowerRam_bot`).
+- Pitfall: `FractionRing.liftAlgebra` instance search for `Algebra (FractionRing ℤ_p)
+  (FractionRing B)` timed out until an explicit `FaithfulSMul ℤ_[p] (OF F)` instance was given.
+- `g15RamG_of_localData`: `G15RamG D u` from `LocalData` (on `D`) and `G11Out` only.
+  `Tail.lean`'s `modularConstituent_tail_R` now has no local-field hypothesis.
+- Compile (VERIFIED): `G15Ram.lean` exit 0, 0 errors, 12 printed declarations all with
+  [propext, Classical.choice, Quot.sound]; `Tail.lean` exit 0, 0 errors.
