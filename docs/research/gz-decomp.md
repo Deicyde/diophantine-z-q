@@ -403,8 +403,10 @@ hypothesis of FH/BFH (item 3).
 vendored. The list is in `scratch/gz-decomp/tc-modules.txt`. Two port fixes, each marked in the
 file:
 
-- `NumberTheory/ModularForms/Basic.lean`: explicit `ℍ ℂ` outParams of `IsSMulApply` (as tc-port
-  312eaee4).
+- `NumberTheory/ModularForms/Basic.lean`: explicit `UpperHalfPlane ℂ` outParams of `IsSMulApply`
+  (as tc-port 312eaee4). The file is taken byte-identical from `wip/t25-newform`, which vendored
+  it with the same fix, so a merge adds identical content. The other 242 files that both
+  branches add are identical too (checked with `git diff`).
 - `NumberTheory/ModularForms/LFunction/Sign.lean`: `ModularForm.L_apply_of_ne_zero` does not exist
   in Mathlib 56a00585; `ModularForm.L` is unfolded instead.
 

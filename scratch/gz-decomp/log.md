@@ -71,3 +71,4 @@ Base: wip/tc-port 443ece10 + `git merge origin/main` (ee3e746f).
 - tc-main: `ModularCurve/Gamma/Zero.lean` (moduli problem `[Γ₀(N)]`), no coarse `X₀(N)`; lattice
   theta series only (`ModularForms/ThetaSeries/`); no Gross–Zagier/Waldspurger/Friedberg–Hoffstein
   (grep). VERIFIED.
+- Port fix of ModularForms/Basic.lean replaced by wip/t25-newform's byte-identical version (no add/add conflict); all shared vendored files identical with t25-newform, integrate-w37b, origin/main. Rebuild + Check.lean: 13/13 standard axioms. VERIFIED.
