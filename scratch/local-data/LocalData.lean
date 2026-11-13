@@ -11,8 +11,8 @@ import ZInQKernel.HDecomp.Descent.ProjRep
 /-! # local-data: `LocalData p r` (scratch/g15-ram) on G8's `r`
 
 Assembled by `scratch/local-data/build.sh`. Check with
-`lake env lean scratch/local-data/LocalData.lean`. The first part (through `end Tame`) is a
-verbatim copy of `scratch/g15-ram/G15Ram.lean` lines 8-718; then verbatim definitions from
+`lake env lean scratch/local-data/LocalData.lean`. The first part (through `end Reduction`) is a
+verbatim copy of `scratch/g15-ram/G15Ram.lean` lines 8-1384; then verbatim definitions from
 `scratch/g0-mod-galois/part_galois.lean`; then §4 (new). -/
 
 /-!
@@ -726,6 +726,672 @@ theorem wildFixTame : WildFixTame p := by
 
 end Tame
 
+/-! ## §2c. `HilbertSerreLadic` from T20 + T21 (proved by t-different) and a DVR model -/
+
+section Bridge
+
+open IsLocalRing
+
+attribute [local instance] FractionRing.liftAlgebra FractionRing.isScalarTower_liftAlgebra
+
+/-- **Glue: the DVR model of a finite Galois `F ⊆ ℚ̄_p`** (the transport between `LadicCond`'s
+norm-defined filtrations and the ring-theoretic setting of T20-T22, `PkgI6`; Serre, *Corps
+locaux*, II §2 and IV §1). There are a complete DVR `A` with perfect residue field and a DVR `B`
+finite, torsion-free, separable and Galois over `A` (namely `A = ℤ_p` and `B = 𝓞_F`, the elements
+of norm `≤ 1`), whose lower ramification groups `PkgI6.lowerRam A B i` have the orders
+`ramCard F i` and are trivial only when `ramSet F i` fixes `F`, whose ramification index is
+`e = ramCard F 0`, with `(p) = 𝔪_B^e` and every integer prime to `p` a unit of `B`. -/
+def LadicDVRModel (p : ℕ) [Fact p.Prime] : Prop :=
+  ∀ F : Fld p, IsFinGal F →
+    ∃ (A B : Type) (_ : CommRing A) (_ : IsDomain A) (_ : IsDiscreteValuationRing A)
+      (_ : IsAdicComplete (maximalIdeal A) A) (_ : PerfectField (ResidueField A))
+      (_ : CommRing B) (_ : IsDomain B) (_ : IsDiscreteValuationRing B) (_ : Algebra A B)
+      (_ : Module.Finite A B) (_ : Module.IsTorsionFree A B)
+      (_ : Algebra.IsSeparable (FractionRing A) (FractionRing B))
+      (_ : IsGalois (FractionRing A) (FractionRing B)),
+      (∀ i, Nat.card (PkgI6.lowerRam A B i) = ramCard F i) ∧
+      (∀ i, PkgI6.lowerRam A B i = ⊥ → ramSet F i ⊆ fixSet F) ∧
+      Ideal.ramificationIdx (maximalIdeal B) A = ramCard F 0 ∧
+      Ideal.span {(p : B)} = maximalIdeal B ^ ramCard F 0 ∧
+      (∀ n : ℕ, ¬ p ∣ n → IsUnit (n : B))
+
+/-- In `B` with `(p) = 𝔪^e` and integers prime to `p` units: `(e) = 𝔪^{e·v_p(e)}`. -/
+theorem span_natCast_eq {B : Type} [CommRing B] [IsLocalRing B] {p : ℕ} (hp : p.Prime)
+    {e : ℕ} (he : e ≠ 0) (hpB : Ideal.span {(p : B)} = maximalIdeal B ^ e)
+    (hunit : ∀ n : ℕ, ¬ p ∣ n → IsUnit (n : B)) :
+    Ideal.span {(e : B)} = maximalIdeal B ^ (e * padicValNat p e) := by
+  have hdec := Nat.ordProj_mul_ordCompl_eq_self e p
+  have hnd := Nat.not_dvd_ordCompl hp he
+  rw [Nat.factorization_def e hp] at hdec hnd
+  set v := padicValNat p e
+  set u := e / p ^ v
+  have hcast : (e : B) = (p : B) ^ v * (u : B) := by
+    conv_lhs => rw [← hdec]
+    push_cast
+    rfl
+  rw [hcast, ← Ideal.span_singleton_mul_span_singleton, ← Ideal.span_singleton_pow, hpB,
+    Ideal.span_singleton_eq_top.mpr (hunit u hnd), Ideal.mul_top, ← pow_mul]
+
+variable {p : ℕ} [Fact p.Prime]
+
+/-- **`HilbertSerreLadic` from T20 + T21 and the DVR model (GLUE, proved).** T20 and T21 are
+the kernel's theorems `PkgI6.hilbertDifferentFormula`, `PkgI6.differentBound` (t-different). -/
+theorem hilbertSerre_of_model (hM : LadicDVRModel p) : HilbertSerreLadic p := by
+  intro F hF
+  obtain ⟨A, B, _, _, _, _, _, _, _, _, _, _, _, _, _, hcard, hbot, he, hpB, hunit⟩ := hM F hF
+  obtain ⟨N, hN, hD⟩ := PkgI6.hilbertDifferentFormula A B
+  have hB := PkgI6.differentBound A B
+  refine ⟨N, hbot N hN, ?_⟩
+  have hsum : ∑ i ∈ Finset.range N, (Nat.card (PkgI6.lowerRam A B i) - 1) =
+      ∑ i ∈ Finset.range N, (ramCard F i - 1) :=
+    Finset.sum_congr rfl fun i _ => by rw [hcard i]
+  rw [hsum] at hD
+  have he0 : ramCard F 0 ≠ 0 := Nat.one_le_iff_ne_zero.mp (one_le_ramCard hF 0)
+  rw [he, hD, span_natCast_eq (Fact.out) he0 hpB hunit, ← pow_add] at hB
+  have hm0 : maximalIdeal B ≠ ⊥ := IsDiscreteValuationRing.not_a_field B
+  have hmu : ¬ IsUnit (maximalIdeal B) := by
+    rw [Ideal.isUnit_iff]
+    exact (maximalIdeal.isMaximal B).ne_top
+  exact (pow_dvd_pow_iff hm0 hmu).mp hB
+
+end Bridge
+
+/-! ## §2e. The DVR model over `ℤ_p`: the arithmetic conjuncts are automatic -/
+
+section BridgeZp
+
+open IsLocalRing
+
+attribute [local instance] FractionRing.liftAlgebra FractionRing.isScalarTower_liftAlgebra
+
+instance perfectField_residueField_Zp (p : ℕ) [Fact p.Prime] :
+    PerfectField (ResidueField ℤ_[p]) :=
+  PerfectField.of_ringEquiv (K := ZMod p) PadicInt.residueField.symm
+
+/-- **Glue: the DVR model of a finite Galois `F ⊆ ℚ̄_p` over `ℤ_p`** (transport; Serre, *Corps
+locaux* II §2, IV §1). There is a DVR `B` (namely `𝓞_F`, the elements of norm `≤ 1`), finite,
+torsion-free, separable and Galois over `ℤ_p`, whose lower ramification groups
+`PkgI6.lowerRam ℤ_p B i` have the orders `ramCard F i` and are trivial only when `ramSet F i`
+fixes `F`. This is `LadicDVRModel` with `A = ℤ_p`; its other conjuncts are proved
+(`ladicDVRModel_of_Zp`). -/
+def LadicDVRModelZp (p : ℕ) [Fact p.Prime] : Prop :=
+  ∀ F : Fld p, IsFinGal F →
+    ∃ (B : Type) (_ : CommRing B) (_ : IsDomain B) (_ : IsDiscreteValuationRing B)
+      (_ : Algebra ℤ_[p] B) (_ : Module.Finite ℤ_[p] B) (_ : Module.IsTorsionFree ℤ_[p] B)
+      (_ : Algebra.IsSeparable (FractionRing ℤ_[p]) (FractionRing B))
+      (_ : IsGalois (FractionRing ℤ_[p]) (FractionRing B)),
+      (∀ i, Nat.card (PkgI6.lowerRam ℤ_[p] B i) = ramCard F i) ∧
+      (∀ i, PkgI6.lowerRam ℤ_[p] B i = ⊥ → ramSet F i ⊆ fixSet F)
+
+variable {p : ℕ} [Fact p.Prime]
+
+/-- **`LadicDVRModel` from its `ℤ_p` form (GLUE, proved).** `e(B/ℤ_p) = |G_0|`
+(t-different's `TDifferent.card_lowerRam_zero`), `(p) = 𝔪_{ℤ_p}` maps to `𝔪_B^e`
+(`TDifferent.map_maximalIdeal_eq_pow`), and integers prime to `p` are units of `ℤ_p`. -/
+theorem ladicDVRModel_of_Zp (h : LadicDVRModelZp p) : LadicDVRModel p := by
+  intro F hF
+  obtain ⟨B, _, _, _, _, _, _, _, _, hcard, hbot⟩ := h F hF
+  have : IsGaloisGroup (B ≃ₐ[ℤ_[p]] B) ℤ_[p] B := TDifferent.isGaloisGroup_algEquiv ℤ_[p] B
+  have : Finite (B ≃ₐ[ℤ_[p]] B) := TDifferent.finite_algEquiv ℤ_[p] B
+  have : PerfectField (maximalIdeal ℤ_[p]).ResidueField :=
+    PerfectField.of_ringEquiv (K := ResidueField ℤ_[p])
+      (RingEquiv.ofBijective
+        (algebraMap (ℤ_[p] ⧸ maximalIdeal ℤ_[p]) (maximalIdeal ℤ_[p]).ResidueField :
+          ResidueField ℤ_[p] →+* _)
+        (maximalIdeal ℤ_[p]).bijective_algebraMap_quotient_residueField)
+  have : Algebra.HasSeparableResidueFieldsAt ℤ_[p] B (maximalIdeal ℤ_[p]) := inferInstance
+  have he : Ideal.ramificationIdx (maximalIdeal B) ℤ_[p] = ramCard F 0 := by
+    rw [← TDifferent.card_lowerRam_zero ℤ_[p] B, hcard 0]
+  refine ⟨ℤ_[p], B, inferInstance, inferInstance, inferInstance, inferInstance, inferInstance,
+    inferInstance, inferInstance, inferInstance, inferInstance, inferInstance, inferInstance,
+    inferInstance, inferInstance, hcard, hbot, he, ?_, ?_⟩
+  · have hmap := TDifferent.map_maximalIdeal_eq_pow ℤ_[p] B
+    rw [PadicInt.maximalIdeal_eq_span_p, Ideal.map_span, Set.image_singleton, map_natCast,
+      he] at hmap
+    exact hmap
+  · intro n hn
+    have hu : IsUnit (n : ℤ_[p]) := by
+      rw [PadicInt.isUnit_iff, PadicInt.norm_natCast_eq_one_iff]
+      exact (Nat.Prime.coprime_iff_not_dvd Fact.out).mpr hn
+    have := hu.map (algebraMap ℤ_[p] B)
+    rwa [map_natCast] at this
+
+end BridgeZp
+
+/-! ## §2f. The `ℤ_p`-model `𝓞_F = integralClosure ℤ_p F` (proved): `LadicDVRModelZp` -/
+
+section DVRModelSec
+
+open IsLocalRing Polynomial
+
+variable {p : ℕ} [Fact p.Prime]
+
+section Model
+
+variable (F : Fld p)
+
+/-- `ℤ_p → ℚ_p → F`. -/
+@[reducible] def algZpF : Algebra ℤ_[p] F :=
+  ((algebraMap ℚ_[p] F).comp (algebraMap ℤ_[p] ℚ_[p])).toAlgebra
+
+attribute [local instance] algZpF
+
+instance towerZpF : IsScalarTower ℤ_[p] ℚ_[p] F := IsScalarTower.of_algebraMap_eq (fun _ => rfl)
+
+/-- The ring of integers `𝓞_F = integralClosure ℤ_p F`. -/
+abbrev OF := integralClosure ℤ_[p] F
+
+theorem norm_eq_spectral (x : F) : ‖(x : Kbar p)‖ = spectralNorm ℚ_[p] F x := by
+  rw [spectralNorm.eq_of_tower (L := Kbar p) x, PadicAlgCl.spectralNorm_eq]
+  rfl
+
+variable [FiniteDimensional ℚ_[p] F]
+
+/-- `y ∈ F` is integral over `ℤ_p` iff `‖y‖ ≤ 1` (copied from glue-sqrt-local's
+`isIntegral_iff_spectralNorm_le_one`, with the norm of `ℚ̄_p`). -/
+theorem isIntegral_iff_norm_le_one (y : F) :
+    IsIntegral ℤ_[p] y ↔ ‖(y : Kbar p)‖ ≤ 1 := by
+  rw [norm_eq_spectral]
+  have hyQ : IsIntegral ℚ_[p] y := Algebra.IsIntegral.isIntegral y
+  rw [spectralNorm, spectralValue_le_one_iff (minpoly.monic hyQ)]
+  constructor
+  · intro hy n
+    rw [minpoly.isIntegrallyClosed_eq_field_fractions' ℚ_[p] hy, coeff_map]
+    exact PadicInt.norm_le_one _
+  · intro h
+    have hl : minpoly ℚ_[p] y ∈ lifts (algebraMap ℤ_[p] ℚ_[p]) := by
+      rw [lifts_iff_coeff_lifts]
+      intro n
+      exact ⟨⟨_, h n⟩, rfl⟩
+    obtain ⟨q, hq, -, hqm⟩ := lifts_and_natDegree_eq_and_monic hl (minpoly.monic hyQ)
+    refine ⟨q, hqm, ?_⟩
+    rw [← aeval_def, ← aeval_map_algebraMap ℚ_[p], hq, minpoly.aeval]
+
+theorem mem_OF (y : F) : y ∈ OF F ↔ ‖(y : Kbar p)‖ ≤ 1 := isIntegral_iff_norm_le_one F y
+
+theorem norm_le_one (b : OF F) : ‖((b : F) : Kbar p)‖ ≤ 1 := (mem_OF F b).mp b.2
+
+theorem isUnit_iff_norm (b : OF F) : IsUnit b ↔ ‖((b : F) : Kbar p)‖ = 1 := by
+  constructor
+  · rintro ⟨u, rfl⟩
+    have h1 : ‖(((u : OF F) : F) : Kbar p)‖ * ‖((((u⁻¹ : (OF F)ˣ) : OF F) : F) : Kbar p)‖ = 1 := by
+      rw [← norm_mul]
+      have : ((u : OF F) : F) * (((u⁻¹ : (OF F)ˣ) : OF F) : F) = 1 := by
+        rw [← Subalgebra.coe_mul, Units.mul_inv, Subalgebra.coe_one]
+      have h2 : (((u : OF F) : F) : Kbar p) * ((((u⁻¹ : (OF F)ˣ) : OF F) : F) : Kbar p) = 1 := by
+        rw [← IntermediateField.coe_mul, this, IntermediateField.coe_one]
+      rw [h2, norm_one]
+    have a1 := norm_le_one F u
+    have a2 := norm_le_one F (u⁻¹ : (OF F)ˣ)
+    have b1 := norm_nonneg ((((u : OF F) : F) : Kbar p))
+    have b2 := norm_nonneg (((((u⁻¹ : (OF F)ˣ) : OF F) : F) : Kbar p))
+    nlinarith
+  · intro h
+    have hx0 : (b : F) ≠ 0 := by
+      intro h0
+      rw [h0, IntermediateField.coe_zero, norm_zero] at h
+      exact zero_ne_one h
+    have hinv : ‖(((b : F)⁻¹ : F) : Kbar p)‖ = 1 := by
+      rw [IntermediateField.coe_inv, norm_inv, h, inv_one]
+    have hint : ((b : F)⁻¹) ∈ OF F := (mem_OF F _).mpr hinv.le
+    refine IsUnit.of_mul_eq_one (⟨_, hint⟩ : OF F) ?_
+    apply Subtype.ext
+    simp [hx0]
+
+theorem isLocalRing_OF : IsLocalRing (OF F) := by
+  refine IsLocalRing.of_nonunits_add ?_
+  intro a b ha hb
+  rw [mem_nonunits_iff, isUnit_iff_norm] at ha hb ⊢
+  have ha' : ‖((a : F) : Kbar p)‖ < 1 := lt_of_le_of_ne (norm_le_one F a) ha
+  have hb' : ‖((b : F) : Kbar p)‖ < 1 := lt_of_le_of_ne (norm_le_one F b) hb
+  have := IsUltrametricDist.norm_add_le_max ((a : F) : Kbar p) ((b : F) : Kbar p)
+  intro hab
+  rw [Subalgebra.coe_add, IntermediateField.coe_add] at hab
+  rw [hab] at this
+  exact absurd this (not_le.mpr (max_lt ha' hb'))
+
+end Model
+
+section Model2
+
+variable (F : Fld p) [FiniteDimensional ℚ_[p] F]
+
+attribute [local instance] algZpF
+
+theorem finite_OF : Module.Finite ℤ_[p] (OF F) := IsIntegralClosure.finite ℤ_[p] ℚ_[p] F (OF F)
+
+theorem noeth_OF : IsNoetherianRing (OF F) :=
+  IsIntegralClosure.isNoetherianRing ℤ_[p] ℚ_[p] F (OF F)
+
+theorem dedekind_OF : IsDedekindDomain (OF F) :=
+  IsIntegralClosure.isDedekindDomain ℤ_[p] ℚ_[p] F (OF F)
+
+omit [FiniteDimensional ℚ_[p] F] in
+theorem coe_natCast_F (n : ℕ) : ((n : F) : Kbar p) = n := map_natCast (algebraMap F (Kbar p)) n
+
+theorem p_mem : ((p : ℕ) : F) ∈ OF F := by
+  rw [mem_OF, coe_natCast_F, norm_p_kbar]
+  exact inv_le_one_of_one_le₀ (by exact_mod_cast (Fact.out : p.Prime).one_lt.le)
+
+theorem not_isField_OF : ¬ IsField (OF F) := by
+  intro h
+  have hp0 : (⟨((p : ℕ) : F), p_mem F⟩ : OF F) ≠ 0 := by
+    intro h0
+    have := congrArg (fun x : OF F => ((x : F) : Kbar p)) h0
+    simp only [ZeroMemClass.coe_zero] at this
+    rw [coe_natCast_F] at this
+    exact (Nat.cast_ne_zero.mpr (Fact.out : p.Prime).ne_zero) this
+  obtain ⟨b, hb⟩ := h.mul_inv_cancel hp0
+  have hu : IsUnit (⟨((p : ℕ) : F), p_mem F⟩ : OF F) := IsUnit.of_mul_eq_one _ hb
+  rw [isUnit_iff_norm] at hu
+  change ‖(((p : ℕ) : F) : Kbar p)‖ = 1 at hu
+  rw [coe_natCast_F, norm_p_kbar, inv_eq_one] at hu
+  have : (1 : ℝ) < p := by exact_mod_cast (Fact.out : p.Prime).one_lt
+  linarith
+
+theorem dvr_OF : IsDiscreteValuationRing (OF F) := by
+  haveI := isLocalRing_OF F
+  haveI := noeth_OF F
+  haveI := dedekind_OF F
+  have h := (IsDiscreteValuationRing.TFAE (OF F) (not_isField_OF F)).out 1 3
+  exact h.mpr (dedekind_OF F)
+
+theorem torsionFree_OF : Module.IsTorsionFree ℤ_[p] (OF F) := by
+  rw [Module.isTorsionFree_iff_algebraMap_injective]
+  have hinj : Function.Injective (algebraMap ℤ_[p] F) :=
+    (algebraMap ℚ_[p] F).injective.comp (FaithfulSMul.algebraMap_injective ℤ_[p] ℚ_[p])
+  intro a b h
+  apply hinj
+  have := congrArg (fun x : OF F => (x : F)) h
+  exact this
+
+variable {F}
+
+/-- The uniformizer `ϖ` as an element of `𝓞_F`. -/
+def unifB {ϖ : Kbar p} (hϖ : IsUnif F ϖ) : OF F :=
+  ⟨⟨ϖ, hϖ.1⟩, (mem_OF F _).mpr hϖ.2.1.le⟩
+
+theorem coe_unifB {ϖ : Kbar p} (hϖ : IsUnif F ϖ) : (((unifB hϖ : OF F) : F) : Kbar p) = ϖ := rfl
+
+theorem norm_unif_pos {ϖ : Kbar p} (hϖ : IsUnif F ϖ) : 0 < ‖ϖ‖ := by
+  have hp1 : (1 : ℝ) < p := by exact_mod_cast (Fact.out : p.Prime).one_lt
+  have hpF : (p : Kbar p) ∈ F := by
+    rw [← map_natCast (algebraMap ℚ_[p] (Kbar p)) p]
+    exact IntermediateField.algebraMap_mem _ _
+  have hpn : ‖(p : Kbar p)‖ < 1 := by rw [norm_p_kbar]; exact inv_lt_one_of_one_lt₀ hp1
+  have hp := hϖ.2.2 _ hpF hpn
+  exact lt_of_lt_of_le (by rw [norm_p_kbar]; positivity) hp
+
+theorem mem_span_pow_iff {ϖ : Kbar p} (hϖ : IsUnif F ϖ) (k : ℕ) (b : OF F) :
+    b ∈ Ideal.span {unifB hϖ ^ k} ↔ ‖((b : F) : Kbar p)‖ ≤ ‖ϖ‖ ^ k := by
+  have hϖ0 := norm_unif_pos hϖ
+  have hϖne : ϖ ≠ 0 := norm_pos_iff.mp hϖ0
+  rw [Ideal.mem_span_singleton']
+  constructor
+  · rintro ⟨c, rfl⟩
+    have : (((c * unifB hϖ ^ k : OF F) : F) : Kbar p) = ((c : F) : Kbar p) * ϖ ^ k := by
+      rw [Subalgebra.coe_mul, Subalgebra.coe_pow, IntermediateField.coe_mul,
+        IntermediateField.coe_pow, coe_unifB]
+    rw [this, norm_mul, norm_pow]
+    calc ‖((c : F) : Kbar p)‖ * ‖ϖ‖ ^ k ≤ 1 * ‖ϖ‖ ^ k :=
+          mul_le_mul_of_nonneg_right (norm_le_one F c) (by positivity)
+      _ = ‖ϖ‖ ^ k := one_mul _
+  · intro h
+    set ϖF : F := ⟨ϖ, hϖ.1⟩
+    have hϖF : ϖF ≠ 0 := by
+      intro h0
+      exact hϖne (congrArg (fun x : F => (x : Kbar p)) h0)
+    set c : F := (b : F) * (ϖF ^ k)⁻¹ with hc
+    have hcn : ‖(c : Kbar p)‖ ≤ 1 := by
+      rw [hc, IntermediateField.coe_mul, IntermediateField.coe_inv, IntermediateField.coe_pow,
+        norm_mul, norm_inv, norm_pow]
+      have : ‖((ϖF : F) : Kbar p)‖ = ‖ϖ‖ := rfl
+      rw [this]
+      rw [mul_inv_le_iff₀ (by positivity), one_mul]
+      exact h
+    refine ⟨⟨c, (mem_OF F c).mpr hcn⟩, ?_⟩
+    apply Subtype.ext
+    rw [Subalgebra.coe_mul, Subalgebra.coe_pow]
+    change c * ϖF ^ k = (b : F)
+    rw [hc, mul_assoc, inv_mul_cancel₀ (pow_ne_zero k hϖF), mul_one]
+
+theorem maximalIdeal_eq {ϖ : Kbar p} (hϖ : IsUnif F ϖ) :
+    haveI := isLocalRing_OF F
+    maximalIdeal (OF F) = Ideal.span {unifB hϖ} := by
+  haveI := isLocalRing_OF F
+  ext b
+  rw [mem_maximalIdeal, mem_nonunits_iff, isUnit_iff_norm, ← pow_one (unifB hϖ),
+    mem_span_pow_iff, pow_one]
+  constructor
+  · intro h
+    exact hϖ.2.2 _ (b : F).2 (lt_of_le_of_ne (norm_le_one F b) h)
+  · intro h h1
+    rw [h1] at h
+    exact absurd hϖ.2.1 (not_lt.mpr h)
+
+theorem mem_maximalIdeal_pow_iff {ϖ : Kbar p} (hϖ : IsUnif F ϖ) (k : ℕ) (b : OF F) :
+    haveI := isLocalRing_OF F
+    b ∈ maximalIdeal (OF F) ^ k ↔ ‖((b : F) : Kbar p)‖ ≤ ‖ϖ‖ ^ k := by
+  haveI := isLocalRing_OF F
+  rw [maximalIdeal_eq hϖ, Ideal.span_singleton_pow, mem_span_pow_iff]
+
+end Model2
+
+section Galois
+
+attribute [local instance] algZpF FractionRing.liftAlgebra FractionRing.isScalarTower_liftAlgebra
+
+variable (F : Fld p) [FiniteDimensional ℚ_[p] F]
+
+attribute [local instance] torsionFree_OF
+
+instance faithful_OF : FaithfulSMul ℤ_[p] (OF F) := by
+  rw [faithfulSMul_iff_algebraMap_injective, ← Module.isTorsionFree_iff_algebraMap_injective]
+  exact torsionFree_OF F
+
+instance faithful_frac_OF : FaithfulSMul ℤ_[p] (FractionRing (OF F)) := inferInstance
+
+
+instance isFractionRing_OF : IsFractionRing (OF F) F :=
+  integralClosure.isFractionRing_of_finite_extension ℚ_[p] F
+
+theorem hcomp :
+    (algebraMap (FractionRing ℤ_[p]) (FractionRing (OF F))).comp
+        ((FractionRing.algEquiv ℤ_[p] ℚ_[p]).symm.toRingEquiv : ℚ_[p] →+* FractionRing ℤ_[p]) =
+      ((FractionRing.algEquiv (OF F) F).symm.toRingEquiv : F →+* FractionRing (OF F)).comp
+        (algebraMap ℚ_[p] F) := by
+  apply IsLocalization.ringHom_ext (nonZeroDivisors ℤ_[p])
+  ext z
+  simp only [RingHom.comp_apply, RingHom.coe_coe, AlgEquiv.coe_toRingEquiv]
+  have h1 : (FractionRing.algEquiv ℤ_[p] ℚ_[p]).symm (algebraMap ℤ_[p] ℚ_[p] z) =
+      algebraMap ℤ_[p] (FractionRing ℤ_[p]) z :=
+    (FractionRing.algEquiv ℤ_[p] ℚ_[p]).symm.commutes z
+  have h2 : algebraMap ℚ_[p] F (algebraMap ℤ_[p] ℚ_[p] z) =
+      algebraMap (OF F) F (algebraMap ℤ_[p] (OF F) z) := rfl
+  have h3 : (FractionRing.algEquiv (OF F) F).symm (algebraMap (OF F) F (algebraMap ℤ_[p] (OF F) z))
+      = algebraMap (OF F) (FractionRing (OF F)) (algebraMap ℤ_[p] (OF F) z) :=
+    (FractionRing.algEquiv (OF F) F).symm.commutes _
+  rw [h1, h2, h3, ← IsScalarTower.algebraMap_apply ℤ_[p] (FractionRing ℤ_[p])
+    (FractionRing (OF F)), IsScalarTower.algebraMap_apply ℤ_[p] (OF F) (FractionRing (OF F))]
+
+theorem isGalois_frac [IsGalois ℚ_[p] F] :
+    IsGalois (FractionRing ℤ_[p]) (FractionRing (OF F)) :=
+  IsGalois.of_equiv_equiv (hcomp F)
+
+theorem isSeparable_frac :
+    Algebra.IsSeparable (FractionRing ℤ_[p]) (FractionRing (OF F)) :=
+  Algebra.IsSeparable.of_equiv_equiv _ _ (hcomp F)
+
+end Galois
+
+section Filtration
+
+attribute [local instance] algZpF
+
+variable {F : Fld p} [FiniteDimensional ℚ_[p] F] [IsGalois ℚ_[p] F]
+
+theorem coe_galRestrict (s : F ≃ₐ[ℚ_[p]] F) (b : OF F) :
+    ((galRestrict ℤ_[p] ℚ_[p] F (OF F) s b : OF F) : F) = s (b : F) :=
+  algebraMap_galRestrict_apply ℤ_[p] s b
+
+theorem mem_lowerRam_iff {ϖ : Kbar p} (hϖ : IsUnif F ϖ) (i : ℕ) (s : F ≃ₐ[ℚ_[p]] F) :
+    haveI := isLocalRing_OF F
+    galRestrict ℤ_[p] ℚ_[p] F (OF F) s ∈ PkgI6.lowerRam ℤ_[p] (OF F) i ↔
+      ∀ x : F, ‖(x : Kbar p)‖ ≤ 1 → ‖((s x : F) : Kbar p) - x‖ ≤ ‖ϖ‖ ^ (i + 1) := by
+  haveI := isLocalRing_OF F
+  rw [PkgI6.mem_lowerRam]
+  constructor
+  · intro h x hx
+    have := (mem_maximalIdeal_pow_iff hϖ (i + 1) _).mp (h ⟨x, (mem_OF F x).mpr hx⟩)
+    rw [Subalgebra.coe_sub, coe_galRestrict, AddSubgroupClass.coe_sub] at this
+    exact this
+  · intro h b
+    rw [mem_maximalIdeal_pow_iff hϖ, Subalgebra.coe_sub, coe_galRestrict,
+      AddSubgroupClass.coe_sub]
+    exact h b (norm_le_one F b)
+
+end Filtration
+
+section Card
+
+attribute [local instance] algZpF
+
+variable {F : Fld p} [FiniteDimensional ℚ_[p] F] [IsGalois ℚ_[p] F]
+
+theorem mem_ramSet_iff {ϖ : Kbar p} (hϖ : IsUnif F ϖ) (i : ℕ) (σ : GQp p) :
+    haveI := isLocalRing_OF F
+    σ ∈ ramSet F i ↔ galRestrict ℤ_[p] ℚ_[p] F (OF F) (AlgEquiv.restrictNormalHom F σ) ∈
+      PkgI6.lowerRam ℤ_[p] (OF F) i := by
+  haveI := isLocalRing_OF F
+  rw [mem_lowerRam_iff hϖ]
+  constructor
+  · rintro ⟨ϖ', hϖ', h⟩ x hx
+    rw [AlgEquiv.restrictNormalHom_apply, ← IsUnif.norm_eq hϖ hϖ']
+    exact h x x.2 hx
+  · intro h
+    refine ⟨ϖ, hϖ, fun x hx hx1 => ?_⟩
+    have := h ⟨x, hx⟩ hx1
+    rwa [AlgEquiv.restrictNormalHom_apply] at this
+
+theorem card_lowerRam (i : ℕ) :
+    haveI := isLocalRing_OF F
+    Nat.card (PkgI6.lowerRam ℤ_[p] (OF F) i) = ramCard F i := by
+  haveI := isLocalRing_OF F
+  obtain ⟨ϖ, hϖ⟩ := exists_isUnif (inferInstance : FiniteDimensional ℚ_[p] F)
+  set G := galRestrict ℤ_[p] ℚ_[p] F (OF F) with hG
+  set K : Set (F ≃ₐ[ℚ_[p]] F) := {s | G s ∈ PkgI6.lowerRam ℤ_[p] (OF F) i} with hKdef
+  have h1 : Nat.card (PkgI6.lowerRam ℤ_[p] (OF F) i) = Nat.card K :=
+    (Nat.card_congr (G.toEquiv.subtypeEquiv (fun s => Iff.rfl))).symm
+  have hK : K = AlgEquiv.restrictNormalHom F '' ramSet F i := by
+    ext s
+    constructor
+    · intro hs
+      obtain ⟨σ, rfl⟩ := AlgEquiv.restrictNormalHom_surjective (Kbar p) s
+      exact ⟨σ, (mem_ramSet_iff hϖ i σ).mpr hs, rfl⟩
+    · rintro ⟨σ, hσ, rfl⟩
+      exact (mem_ramSet_iff hϖ i σ).mp hσ
+  set φ : (F ≃ₐ[ℚ_[p]] F) → (F → Kbar p) := fun s x => ((s x : F) : Kbar p) with hφ
+  have hφinj : Function.Injective φ := by
+    intro s t h
+    ext x
+    exact congrFun h x
+  have himg : restr F '' ramSet F i = φ '' (AlgEquiv.restrictNormalHom F '' ramSet F i) := by
+    rw [Set.image_image]
+    refine Set.image_congr fun σ _ => ?_
+    funext x
+    exact (AlgEquiv.restrictNormalHom_apply F σ x).symm
+  unfold ramCard
+  rw [himg, Nat.card_image_of_injective hφinj, ← hK, h1]
+
+theorem fix_of_lowerRam_bot (i : ℕ) :
+    haveI := isLocalRing_OF F
+    PkgI6.lowerRam ℤ_[p] (OF F) i = ⊥ → ramSet F i ⊆ fixSet F := by
+  haveI := isLocalRing_OF F
+  intro hbot σ hσ
+  obtain ⟨ϖ, hϖ⟩ := exists_isUnif (inferInstance : FiniteDimensional ℚ_[p] F)
+  have h := (mem_ramSet_iff hϖ i σ).mp hσ
+  rw [hbot, Subgroup.mem_bot, ← map_one (galRestrict ℤ_[p] ℚ_[p] F (OF F))] at h
+  have h1 := (galRestrict ℤ_[p] ℚ_[p] F (OF F)).injective h
+  intro x hx
+  exact (AlgEquiv.restrictNormal_eq_one_iff F σ).mp h1 x hx
+
+end Card
+
+section FinalZp
+
+attribute [local instance] FractionRing.liftAlgebra FractionRing.isScalarTower_liftAlgebra
+
+variable {p : ℕ} [Fact p.Prime]
+
+/-- **`LadicDVRModelZp` (GLUE, proved).** `B = 𝓞_F = integralClosure ℤ_p F`: a DVR (local by the
+ultrametric norm, Dedekind as an integral closure, `IsDiscreteValuationRing.TFAE`), finite and
+torsion-free over `ℤ_p`, with `Frac(B) ≅ F` Galois over `Frac(ℤ_p) ≅ ℚ_p`
+(`IsGalois.of_equiv_equiv`); `𝔪_B^k = {‖b‖ ≤ ‖ϖ‖^k}`, and `galRestrict` identifies
+`PkgI6.lowerRam ℤ_p B i` with the restrictions of `ramSet F i`. -/
+theorem ladicDVRModelZp : LadicDVRModelZp p := by
+  intro F hF
+  haveI : FiniteDimensional ℚ_[p] F := hF.1
+  haveI : IsGalois ℚ_[p] F := hF.2
+  letI := algZpF F
+  haveI := torsionFree_OF F
+  haveI := faithful_OF F
+  haveI := dvr_OF F
+  exact ⟨OF F, inferInstance, inferInstance, dvr_OF F, inferInstance, finite_OF F,
+    torsionFree_OF F, isSeparable_frac F, isGalois_frac F, card_lowerRam, fix_of_lowerRam_bot⟩
+
+end FinalZp
+
+end DVRModelSec
+
+/-! ## §3. The reduction (proved) -/
+
+section Reduction
+
+theorem gl_eq_one_of_scalar {ℓ : ℕ} [Fact ℓ.Prime] {g : GL (Fin 2) (PadicAlgCl ℓ)}
+    {c : PadicAlgCl ℓ} (h : (g : Matrix (Fin 2) (Fin 2) (PadicAlgCl ℓ)) = Matrix.scalar (Fin 2) c)
+    (hc : c = 1) : g = 1 := by
+  apply Units.ext
+  rw [h, hc, map_one, Units.val_one]
+
+/-- **`LocalRamG` from the local pieces (GLUE, proved).** -/
+theorem localRamG_of {ℓ : ℕ} [Fact ℓ.Prime] (u : ℚ) (p : ℕ) [Fact p.Prime] (hpℓ : p ≠ ℓ)
+    (r : GaloisRep ℓ 2) (hUB : UpperBreakFix p) (hUW : UpperWild p) (hWT : WildFixTame p)
+    (hd : LocalData p r) (h11 : G0Galois.G11Out (GlueDescent.ramSet ZInQ.Mult.S_mul u) r) :
+    LocalRamG u p r := by
+  refine ⟨fun hpD t ht σ hσ => ?_, fun hpD σ hσ => ?_, fun hS hM => ?_⟩
+  · obtain ⟨F, β, hF, he, hsh, hup⟩ := hd.1 hpD
+    have ha : 1 ≤ ZInQ.heightD * ZInQ.heightG0 :=
+      Nat.mul_pos GlueDescent.heightD_pos (by unfold ZInQ.heightG0; norm_num)
+    have hU0 : (0 : ℝ) ≤ U0 := by unfold U0; positivity
+    have hfix : σ ∈ fixSet F := hUB F hF _ ha he t (by unfold U0 at ht; exact ht) hσ
+    have hwild : σ ∈ wildSet := hUW t (by linarith) hσ
+    exact gl_eq_one_of_scalar (hsh σ ⟨hfix, hwild⟩) (hup t ht σ ⟨hσ, hfix⟩)
+  · obtain ⟨F, β, hF, he, hsh, htame⟩ := hd.2 hpD
+    have hfix := hWT F hF he hσ
+    exact gl_eq_one_of_scalar (hsh σ ⟨hfix, hσ⟩) (htame σ ⟨hfix, hσ⟩)
+  · refine h11 p (Fact.out) ?_ hpℓ
+    intro hT
+    rcases Finset.mem_union.mp hT with h | h
+    · exact hS h
+    · exact hM (Nat.mem_primeFactors.mp h).2.1
+
+/-- **`G15RamG` from smaller named Props (GLUE, proved).** Closed local-field Props
+(`UpperBreakFix`, `UpperWild`, `WildFixTame`), the local data of G8/G7 on `D` (`LocalData`), and
+G11's output on `D` for `T = S_mul ∪ supp M_{S_mul}(u)` (`GlueDescent.ramSet`). -/
+theorem g15RamG_of_pieces
+    (hUB : ∀ (p : ℕ) [Fact p.Prime], UpperBreakFix p)
+    (hUW : ∀ (p : ℕ) [Fact p.Prime], UpperWild p)
+    (hWT : ∀ (p : ℕ) [Fact p.Prime], WildFixTame p)
+    {L : Type} [Field L] [NumberField L] {A : PkgI3.AbVar L} (D : ModData L A) (u : ℚ)
+    (h5 : ∀ (p : ℕ) (hp : p.Prime), p ≠ 5 → @LocalData p ⟨hp⟩ 5 _ D.r5)
+    (h3 : LocalData 5 D.r3)
+    (h11₅ : G0Galois.G11Out (GlueDescent.ramSet ZInQ.Mult.S_mul u) D.r5)
+    (h11₃ : G0Galois.G11Out (GlueDescent.ramSet ZInQ.Mult.S_mul u) D.r3) :
+    G15RamG D u := by
+  intro p hp
+  have : Fact p.Prime := ⟨hp⟩
+  refine ⟨fun h5' => localRamG_of u p h5' D.r5 (hUB p) (hUW p) (hWT p) (h5 p hp h5') h11₅,
+    fun h5' => ?_⟩
+  subst h5'
+  exact localRamG_of u 5 (by norm_num) D.r3 (hUB 5) (hUW 5) (hWT 5) h3 h11₃
+
+/-- **`G15RamG`, with D1 discharged (GLUE, proved).** As `g15RamG_of_pieces`, with
+`UpperBreakFix` replaced by the transport `HilbertSerreLadic` of T20 + T21. -/
+theorem g15RamG_of_hilbertSerre
+    (hHS : ∀ (p : ℕ) [Fact p.Prime], HilbertSerreLadic p)
+    (hUW : ∀ (p : ℕ) [Fact p.Prime], UpperWild p)
+    (hWT : ∀ (p : ℕ) [Fact p.Prime], WildFixTame p)
+    {L : Type} [Field L] [NumberField L] {A : PkgI3.AbVar L} (D : ModData L A) (u : ℚ)
+    (h5 : ∀ (p : ℕ) (hp : p.Prime), p ≠ 5 → @LocalData p ⟨hp⟩ 5 _ D.r5)
+    (h3 : LocalData 5 D.r3)
+    (h11₅ : G0Galois.G11Out (GlueDescent.ramSet ZInQ.Mult.S_mul u) D.r5)
+    (h11₃ : G0Galois.G11Out (GlueDescent.ramSet ZInQ.Mult.S_mul u) D.r3) :
+    G15RamG D u :=
+  g15RamG_of_pieces (fun p _ => upperBreakFix_of_hilbertSerre (hHS p)) hUW hWT D u h5 h3
+    h11₅ h11₃
+
+/-- **`G15RamG` from the DVR model, T20-T21 (proved in the kernel), `WildFixTame` and the data
+of G7-G8-G11 on `D` (GLUE, proved).** `UpperWild` is proved (`upperWild`). -/
+theorem g15RamG_of_model
+    (hM : ∀ (p : ℕ) [Fact p.Prime], LadicDVRModel p)
+    (hWT : ∀ (p : ℕ) [Fact p.Prime], WildFixTame p)
+    {L : Type} [Field L] [NumberField L] {A : PkgI3.AbVar L} (D : ModData L A) (u : ℚ)
+    (h5 : ∀ (p : ℕ) (hp : p.Prime), p ≠ 5 → @LocalData p ⟨hp⟩ 5 _ D.r5)
+    (h3 : LocalData 5 D.r3)
+    (h11₅ : G0Galois.G11Out (GlueDescent.ramSet ZInQ.Mult.S_mul u) D.r5)
+    (h11₃ : G0Galois.G11Out (GlueDescent.ramSet ZInQ.Mult.S_mul u) D.r3) :
+    G15RamG D u :=
+  g15RamG_of_hilbertSerre (fun p _ => hilbertSerre_of_model (hM p)) (fun p _ => upperWild) hWT
+    D u h5 h3 h11₅ h11₃
+
+/-- **`G15RamG` with all closed local-field glue proved except the DVR model (GLUE, proved).**
+Hypotheses: the transport `LadicDVRModel`, the data of G7-G8 on `D` (`LocalData`), and G11's
+output on `D`. -/
+theorem g15RamG_of_dvrModel
+    (hM : ∀ (p : ℕ) [Fact p.Prime], LadicDVRModel p)
+    {L : Type} [Field L] [NumberField L] {A : PkgI3.AbVar L} (D : ModData L A) (u : ℚ)
+    (h5 : ∀ (p : ℕ) (hp : p.Prime), p ≠ 5 → @LocalData p ⟨hp⟩ 5 _ D.r5)
+    (h3 : LocalData 5 D.r3)
+    (h11₅ : G0Galois.G11Out (GlueDescent.ramSet ZInQ.Mult.S_mul u) D.r5)
+    (h11₃ : G0Galois.G11Out (GlueDescent.ramSet ZInQ.Mult.S_mul u) D.r3) :
+    G15RamG D u :=
+  g15RamG_of_model hM (fun p _ => wildFixTame) D u h5 h3 h11₅ h11₃
+
+/-- **`G15RamG` from the `ℤ_p`-model of finite Galois `F ⊆ ℚ̄_p` (GLUE, proved).** -/
+theorem g15RamG_of_zpModel
+    (hM : ∀ (p : ℕ) [Fact p.Prime], LadicDVRModelZp p)
+    {L : Type} [Field L] [NumberField L] {A : PkgI3.AbVar L} (D : ModData L A) (u : ℚ)
+    (h5 : ∀ (p : ℕ) (hp : p.Prime), p ≠ 5 → @LocalData p ⟨hp⟩ 5 _ D.r5)
+    (h3 : LocalData 5 D.r3)
+    (h11₅ : G0Galois.G11Out (GlueDescent.ramSet ZInQ.Mult.S_mul u) D.r5)
+    (h11₃ : G0Galois.G11Out (GlueDescent.ramSet ZInQ.Mult.S_mul u) D.r3) :
+    G15RamG D u :=
+  g15RamG_of_dvrModel (fun p _ => ladicDVRModel_of_Zp (hM p)) D u h5 h3 h11₅ h11₃
+
+/-- The trivial two-dimensional representation (for the non-vacuity check below). -/
+def trivRep (ℓ : ℕ) [Fact ℓ.Prime] : GaloisRep ℓ 2 := ⟨1, continuous_const⟩
+
+/-- **Non-vacuity check (proved).** `LocalData p r` holds for the trivial representation (with
+`F = ℚ_p`, `β = 1`), so the hypotheses on `D` are not contradictory. -/
+theorem localData_trivRep (p : ℕ) [Fact p.Prime] (ℓ : ℕ) [Fact ℓ.Prime] :
+    LocalData p (trivRep ℓ) := by
+  have hF : IsFinGal (⊥ : Fld p) := ⟨inferInstance, inferInstance⟩
+  have hshape : TwistShape p (trivRep ℓ) ⊥ (fun _ => 1) := by
+    intro σ _
+    simp [trivRep, PkgI4.GaloisRep.restrictLocal]
+  have he : ramCard (⊥ : Fld p) 0 = 1 := by
+    have h1 := one_le_ramCard hF 0
+    have h2 : ramCard (⊥ : Fld p) 0 ≤ 1 := by
+      unfold ramCard
+      have hfin := (finite_restr hF (ramSet (⊥ : Fld p) 0)).to_subtype
+      refine Finite.card_le_one_iff_subsingleton.mpr ⟨fun a b => ?_⟩
+      apply Subtype.ext
+      obtain ⟨σ, -, hσ⟩ := a.2
+      obtain ⟨τ, -, hτ⟩ := b.2
+      rw [← hσ, ← hτ]
+      funext x
+      obtain ⟨q, hq⟩ := IntermediateField.mem_bot.mp x.2
+      simp only [restr, ← hq, AlgEquiv.commutes]
+    omega
+  refine ⟨fun _ => ⟨⊥, fun _ => 1, hF, ?_, hshape, fun _ _ _ _ => rfl⟩,
+    fun _ => ⟨⊥, fun _ => 1, hF, ?_, hshape, fun _ _ => rfl⟩⟩
+  · rw [he]; exact Nat.one_le_iff_ne_zero.mpr (Nat.factorial_ne_zero _)
+  · rw [he]; exact (Nat.Prime.one_lt Fact.out).ne' ∘ Nat.dvd_one.mp
+
+/-- **`G15RamG` from the data of G7-G8 on `D` and G11's output alone (GLUE, proved).** Every
+closed local-field input is proved: `UpperBreakFix` (from T20, T21 and `ladicDVRModelZp`),
+`UpperWild`, `WildFixTame`. -/
+theorem g15RamG_of_localData
+    {L : Type} [Field L] [NumberField L] {A : PkgI3.AbVar L} (D : ModData L A) (u : ℚ)
+    (h5 : ∀ (p : ℕ) (hp : p.Prime), p ≠ 5 → @LocalData p ⟨hp⟩ 5 _ D.r5)
+    (h3 : LocalData 5 D.r3)
+    (h11₅ : G0Galois.G11Out (GlueDescent.ramSet ZInQ.Mult.S_mul u) D.r5)
+    (h11₃ : G0Galois.G11Out (GlueDescent.ramSet ZInQ.Mult.S_mul u) D.r3) :
+    G15RamG D u :=
+  g15RamG_of_zpModel (fun _ _ => ladicDVRModelZp) D u h5 h3 h11₅ h11₃
+
+end Reduction
+
 end G15Ram
 
 /-! ## §3' (local-data). Verbatim copies from scratch/g0-mod-galois/part_galois.lean -/
@@ -969,25 +1635,51 @@ theorem betaUpper_of_betaTame {β : GQ → PadicAlgCl ℓ} {F : Fld p} {U : ℝ}
   intro t ht σ hσ
   exact h σ ⟨hσ.2, upperWild t (lt_of_le_of_lt hU ht) hσ.1⟩
 
+/-- **Corrected form of `LocalData p r`: the local data of G7 at `p` (GLUE on G4/G7 + R6 + D2 +
+D3 + T16; N5 L813-851).** A Prop on G7's data `(Tm, a, β)` instead of on the bare `r`: at
+`p ≤ D` a finite Galois `F ⊆ ℚ̄_p` with `e(F/ℚ_p) ≤ (DG₀)!` (Glazer: the Galois closure of
+`L_v(A[3])`, `A[5]` if `p = 3`, of degree `≤ (DG₀)!`) on which `TateWildTrivial` and
+`BetaUpper` (bound `U₀`) hold; at `p > D` a tame finite Galois `F` (the Galois closure of `L_v`,
+`[L_v:ℚ_p] ≤ D < p`) with `TateWildTrivial` and `BetaTame`. -/
+def G7LocalData {V : Type*} [AddCommGroup V] [Module (PadicAlgCl ℓ) V]
+    (Tm : GQ → Module.End (PadicAlgCl ℓ) V) (a β : GQ → PadicAlgCl ℓ) : Prop :=
+  ((p : ℝ) ≤ (ZInQ.heightD : ℝ) → ∃ F : Fld p, IsFinGal F ∧
+      ramCard F 0 ≤ (ZInQ.heightD * ZInQ.heightG0).factorial ∧
+      TateWildTrivial Tm a F ∧ BetaUpper β F U0) ∧
+    ((ZInQ.heightD : ℝ) < p → ∃ F : Fld p, IsFinGal F ∧ ¬ p ∣ ramCard F 0 ∧
+      TateWildTrivial Tm a F ∧ BetaTame β F)
+
 /-- **`LocalData p r` for G8's `r` (proved).** For `r` as in G8's output on
-`ρ = GlueDescent.rho Tm a β`: if at `p ≤ D` there is a finite Galois `F ⊆ ℚ̄_p` with
-`e(F/ℚ_p) ≤ (DG₀)!`, `TateWildTrivial` and `BetaUpper` (bound `U₀`), and at `p > D` a tame
-finite Galois `F` with `TateWildTrivial` and `BetaTame`, then `LocalData p r`, with the local
+`ρ = GlueDescent.rho Tm a β`, `G7LocalData p Tm a β` gives `LocalData p r`, with the local
 twist `σ ↦ β(σ)⁻¹`. -/
 theorem localData_of_g8 {K : Type} [Field K] [NumberField K] {A : PkgI3.AbVar K}
     {Tm : GQ → Module.End (PadicAlgCl ℓ) (G0Galois.Vb A ℓ)} {a β : GQ → PadicAlgCl ℓ}
     {r : GaloisRep ℓ 2} (hG8 : G0Galois.G8Out A ℓ (GlueDescent.rho Tm a β) r)
-    (hsmall : (p : ℝ) ≤ (ZInQ.heightD : ℝ) → ∃ F : Fld p, IsFinGal F ∧
-      ramCard F 0 ≤ (ZInQ.heightD * ZInQ.heightG0).factorial ∧
-      TateWildTrivial Tm a F ∧ BetaUpper β F U0)
-    (hlarge : (ZInQ.heightD : ℝ) < p → ∃ F : Fld p, IsFinGal F ∧ ¬ p ∣ ramCard F 0 ∧
-      TateWildTrivial Tm a F ∧ BetaTame β F) :
-    LocalData p r := by
+    (h : G7LocalData (p := p) Tm a β) : LocalData p r := by
   refine ⟨fun hp => ?_, fun hp => ?_⟩
-  · obtain ⟨F, hF, he, hT, hB⟩ := hsmall hp
+  · obtain ⟨F, hF, he, hT, hB⟩ := h.1 hp
     exact ⟨F, _, hF, he, twistShape_of_g8 hG8 hT, twistUpper_of_betaUpper hB⟩
-  · obtain ⟨F, hF, he, hT, hB⟩ := hlarge hp
+  · obtain ⟨F, hF, he, hT, hB⟩ := h.2 hp
     exact ⟨F, _, hF, he, twistShape_of_g8 hG8 hT, twistTame_of_betaTame hB⟩
+
+/-- **`G15RamG D u` from G8's outputs for `D.r5`, `D.r3` and G7's local data (proved).**
+Composes `localData_of_g8` with g15-ram's `g15RamG_of_localData`. The G7/G8 data for `r₅` and
+`r₃` may live on different models (`K₅`, `A₅`) and (`K₃`, `A₃`). -/
+theorem g15RamG_of_g8 {L : Type} [Field L] [NumberField L] {A : PkgI3.AbVar L}
+    (D : ModData L A) (u : ℚ)
+    {K₅ : Type} [Field K₅] [NumberField K₅] {A₅ : PkgI3.AbVar K₅}
+    {Tm₅ : GQ → Module.End (PadicAlgCl 5) (G0Galois.Vb A₅ 5)} {a₅ β₅ : GQ → PadicAlgCl 5}
+    (hG8₅ : G0Galois.G8Out A₅ 5 (GlueDescent.rho Tm₅ a₅ β₅) D.r5)
+    {K₃ : Type} [Field K₃] [NumberField K₃] {A₃ : PkgI3.AbVar K₃}
+    {Tm₃ : GQ → Module.End (PadicAlgCl 3) (G0Galois.Vb A₃ 3)} {a₃ β₃ : GQ → PadicAlgCl 3}
+    (hG8₃ : G0Galois.G8Out A₃ 3 (GlueDescent.rho Tm₃ a₃ β₃) D.r3)
+    (h5 : ∀ (p : ℕ) (hp : p.Prime), p ≠ 5 → @G7LocalData p ⟨hp⟩ 5 _ _ _ _ Tm₅ a₅ β₅)
+    (h3 : G7LocalData (p := 5) Tm₃ a₃ β₃)
+    (h11₅ : G0Galois.G11Out (GlueDescent.ramSet ZInQ.Mult.S_mul u) D.r5)
+    (h11₃ : G0Galois.G11Out (GlueDescent.ramSet ZInQ.Mult.S_mul u) D.r3) :
+    G15RamG D u :=
+  g15RamG_of_localData D u (fun p hp hp5 => @localData_of_g8 p ⟨hp⟩ 5 _ _ _ _ _ _ _ _ _ hG8₅
+    (h5 p hp hp5)) (localData_of_g8 hG8₃ h3) h11₅ h11₃
 
 /-! ### `BetaTame` at odd `p` (proved) -/
 
@@ -1044,24 +1736,65 @@ theorem betaTame_of_odd (hp2 : p ≠ 2) {β : GQ → PadicAlgCl ℓ} {F : Fld p}
   have := pow_gcd_eq_one.mpr ⟨hpa, hsq σ hσ⟩
   rwa [Nat.Coprime.gcd_eq_one hcop, pow_one] at this
 
-/-- **`LocalData p r` at odd `p` for G8's `r` (proved).** At odd `p` the `β`-side reduces to
-`BetaCharOn`, `BetaSqWild` and `BetaOpen`. -/
-theorem localData_of_g8_odd (hp2 : p ≠ 2) {K : Type} [Field K] [NumberField K]
-    {A : PkgI3.AbVar K}
-    {Tm : GQ → Module.End (PadicAlgCl ℓ) (G0Galois.Vb A ℓ)} {a β : GQ → PadicAlgCl ℓ}
-    {r : GaloisRep ℓ 2} (hG8 : G0Galois.G8Out A ℓ (GlueDescent.rho Tm a β) r)
-    (hopen : BetaOpen (p := p) β)
-    (hsmall : (p : ℝ) ≤ (ZInQ.heightD : ℝ) → ∃ F : Fld p, IsFinGal F ∧
+/-- `β(1) = 1` for a nonzero `β` that is a character on `G_F`. -/
+theorem beta_one_of_charOn {β : GQ → PadicAlgCl ℓ} {F : Fld p} (hm : BetaCharOn β F)
+    (h0 : β 1 ≠ 0) : β 1 = 1 := by
+  have h := hm 1 (fun _ _ => rfl) 1 (fun _ _ => rfl)
+  rw [mul_one, map_one] at h
+  have h' : β 1 * β 1 = β 1 * 1 := by rw [mul_one]; exact h.symm
+  exact mul_left_cancel₀ h0 h'
+
+/-- **`BetaOpen` from local constancy (proved).** If `β : G_ℚ → ℚ̄_ℓ` is locally constant
+(g0-mod-field's `G7Data` has `IsLocallyConstant β` for the `ℂ^×`-valued `β`; any transport of
+the values preserves it) and `β(1) = 1`, then `β ∘ decomp` is trivial on `G_{F'}` for a finite
+Galois `F'`: `decomp` is continuous (Mathlib's `Field.absoluteGaloisGroup.map`), the fibre over
+`1` is an open neighbourhood of `1`, so it contains the fixer of a finite `E`
+(`krullTopology_mem_nhds_one_iff`), and of its normal closure `F'`. -/
+theorem betaOpen_of_isLocallyConstant {β : GQ → PadicAlgCl ℓ} (hβ : IsLocallyConstant β)
+    (h1 : β 1 = 1) : BetaOpen (p := p) β := by
+  set S : Set (GQp p) := {σ | β (decomp p σ) = 1} with hSdef
+  have hcont : Continuous (decomp p) :=
+    (Field.absoluteGaloisGroup.map (algebraMap ℚ ℚ_[p])).continuous
+  have hS : S ∈ nhds (1 : GQp p) := by
+    have hopen : IsOpen S := (hβ.comp_continuous hcont).isOpen_fiber 1
+    refine hopen.mem_nhds ?_
+    show β (decomp p 1) = 1
+    rw [map_one, h1]
+  obtain ⟨E, hEfin, hE⟩ := (krullTopology_mem_nhds_one_iff ℚ_[p] (Kbar p) S).mp hS
+  set F' := IntermediateField.normalClosure ℚ_[p] E (Kbar p) with hF'
+  haveI : FiniteDimensional ℚ_[p] F' := normalClosure.is_finiteDimensional ℚ_[p] E (Kbar p)
+  haveI : Normal ℚ_[p] F' := normalClosure.normal ℚ_[p] E (Kbar p)
+  refine ⟨F', ⟨inferInstance, IsGalois.mk⟩, fun σ hσ => ?_⟩
+  have hσE : σ ∈ E.fixingSubgroup := by
+    rw [IntermediateField.mem_fixingSubgroup_iff]
+    intro x hx
+    exact hσ x (E.le_normalClosure hx)
+  exact hE hσE
+
+/-- **Corrected form at odd `p` (GLUE).** `G7LocalData` with the `β`-side replaced by
+`BetaCharOn` and `BetaSqWild` on the same `F` (local constancy and `β(1) ≠ 0` are separate
+hypotheses of `g7LocalData_of_odd`). -/
+def G7LocalDataOdd {V : Type*} [AddCommGroup V] [Module (PadicAlgCl ℓ) V]
+    (Tm : GQ → Module.End (PadicAlgCl ℓ) V) (a β : GQ → PadicAlgCl ℓ) : Prop :=
+  ((p : ℝ) ≤ (ZInQ.heightD : ℝ) → ∃ F : Fld p, IsFinGal F ∧
       ramCard F 0 ≤ (ZInQ.heightD * ZInQ.heightG0).factorial ∧
+      TateWildTrivial Tm a F ∧ BetaCharOn β F ∧ BetaSqWild β F) ∧
+    ((ZInQ.heightD : ℝ) < p → ∃ F : Fld p, IsFinGal F ∧ ¬ p ∣ ramCard F 0 ∧
       TateWildTrivial Tm a F ∧ BetaCharOn β F ∧ BetaSqWild β F)
-    (hlarge : (ZInQ.heightD : ℝ) < p → ∃ F : Fld p, IsFinGal F ∧ ¬ p ∣ ramCard F 0 ∧
-      TateWildTrivial Tm a F ∧ BetaCharOn β F ∧ BetaSqWild β F) :
-    LocalData p r := by
+
+/-- **`G7LocalData` at odd `p` (proved)** from `G7LocalDataOdd`, local constancy of `β` and
+`β(1) ≠ 0` (`G0Galois.G7Out` has `∀ g, β g ≠ 0`). -/
+theorem g7LocalData_of_odd (hp2 : p ≠ 2) {V : Type*} [AddCommGroup V]
+    [Module (PadicAlgCl ℓ) V] {Tm : GQ → Module.End (PadicAlgCl ℓ) V} {a β : GQ → PadicAlgCl ℓ}
+    (hβ : IsLocallyConstant β) (h0 : β 1 ≠ 0) (h : G7LocalDataOdd (p := p) Tm a β) :
+    G7LocalData (p := p) Tm a β := by
   have hU0 : (0 : ℝ) ≤ U0 := by unfold U0; positivity
-  refine localData_of_g8 hG8 (fun hp => ?_) (fun hp => ?_)
-  · obtain ⟨F, hF, he, hT, hm, hs⟩ := hsmall hp
+  refine ⟨fun hp => ?_, fun hp => ?_⟩
+  · obtain ⟨F, hF, he, hT, hm, hs⟩ := h.1 hp
+    have hopen := betaOpen_of_isLocallyConstant (p := p) hβ (beta_one_of_charOn hm h0)
     exact ⟨F, hF, he, hT, betaUpper_of_betaTame hU0 (betaTame_of_odd hp2 hm hs hopen)⟩
-  · obtain ⟨F, hF, he, hT, hm, hs⟩ := hlarge hp
+  · obtain ⟨F, hF, he, hT, hm, hs⟩ := h.2 hp
+    have hopen := betaOpen_of_isLocallyConstant (p := p) hβ (beta_one_of_charOn hm h0)
     exact ⟨F, hF, he, hT, betaTame_of_odd hp2 hm hs hopen⟩
 
 end LocalDataSec
@@ -1074,4 +1807,6 @@ end G15Ram
 #print axioms G15Ram.twistShape_of_g8
 #print axioms G15Ram.localData_of_g8
 #print axioms G15Ram.betaTame_of_odd
-#print axioms G15Ram.localData_of_g8_odd
+#print axioms G15Ram.g15RamG_of_g8
+#print axioms G15Ram.betaOpen_of_isLocallyConstant
+#print axioms G15Ram.g7LocalData_of_odd

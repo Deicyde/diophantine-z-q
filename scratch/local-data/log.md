@@ -21,3 +21,30 @@
   `IsQMModel` (A is a base change from the fibre field `K`, `[K:ℚ] ≤ 324!`) only if the
   local Galois-closure bound is redone over `K` (SPECULATIVE). To be reported.
 - `lake build` of the 7 kernel modules needed (HDecomp not prebuilt in this worktree): started.
+
+## Step 2 (06:00-06:20 PST): reduction compiled
+- `LocalData.lean` = verbatim G15Ram.lean 8-1384 + verbatim part_galois defs (`resQ`, `Vb`, `tate`,
+  `Intertwines`, `G7Out`, `G8Out`) + `part_local.lean` (§4, new). Needed a one-time
+  `lake build` of 7 HDecomp modules and `ZInQKernel.Multiplication.Certificate.Constants`
+  (builds the upstream `lean/` package `z_in_q`).
+- Compile (VERIFIED): `lake env lean scratch/local-data/LocalData.lean` exit 0, 0 errors, no
+  sorry, ~55 s; `#print axioms` = [propext, Classical.choice, Quot.sound] for
+  `largePrimeData_iff`, `localData_large_iff`, `mat_eq_scalar_of_intertwines`,
+  `twistShape_of_g8`, `localData_of_g8`, `betaTame_of_odd`, `g15RamG_of_g8`,
+  `betaOpen_of_isLocallyConstant`, `g7LocalData_of_odd` (output: compile.out).
+- Statements proved:
+  * `largePrimeData_iff r : LargePrimeData p r ↔ ∀ σ ∈ wildSet, r.restrictLocal p σ = 1`;
+    `localData_large_iff` (p > D): `LocalData p r ↔` the same. (F1 made precise.)
+  * `localData_of_g8 : G8Out A ℓ (rho Tm a β) r → G7LocalData p Tm a β → LocalData p r`.
+  * `g15RamG_of_g8`: `G15RamG D u` from G8Out for `D.r5`, `D.r3`, `G7LocalData` at every
+    `p ≠ 5` (ℓ = 5) and at `p = 5` (ℓ = 3), and G11Out.
+  * `betaTame_of_odd (p ≠ 2) : BetaCharOn β F → BetaSqWild β F → BetaOpen β → BetaTame β F`
+    (wild σ: σ^{p^a} fixes F' via `fix_of_wild_pow`; β(σ)^{p^a} = 1 = β(σ)²).
+  * `betaOpen_of_isLocallyConstant : IsLocallyConstant β → β 1 = 1 → BetaOpen β`
+    (continuity of `Field.absoluteGaloisGroup.map`, `krullTopology_mem_nhds_one_iff`,
+    normal closure).
+  * `g7LocalData_of_odd (p ≠ 2) : IsLocallyConstant β → β 1 ≠ 0 → G7LocalDataOdd p Tm a β →
+    G7LocalData p Tm a β`.
+- Named glue Props left: `TateWildTrivial` (G4/G7 descent on G_L + R6 + D2; G3 + NOS at p > D),
+  `BetaUpper` at p = 2 (T16 + D3), `BetaCharOn` (∂β = ε, ε inflated from Gal(L/ℚ)),
+  `BetaSqWild` (β² = χ, χ tame at odd p), the e-bound / tameness of F (field degrees).

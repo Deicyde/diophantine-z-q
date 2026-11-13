@@ -163,25 +163,51 @@ theorem betaUpper_of_betaTame {β : GQ → PadicAlgCl ℓ} {F : Fld p} {U : ℝ}
   intro t ht σ hσ
   exact h σ ⟨hσ.2, upperWild t (lt_of_le_of_lt hU ht) hσ.1⟩
 
+/-- **Corrected form of `LocalData p r`: the local data of G7 at `p` (GLUE on G4/G7 + R6 + D2 +
+D3 + T16; N5 L813-851).** A Prop on G7's data `(Tm, a, β)` instead of on the bare `r`: at
+`p ≤ D` a finite Galois `F ⊆ ℚ̄_p` with `e(F/ℚ_p) ≤ (DG₀)!` (Glazer: the Galois closure of
+`L_v(A[3])`, `A[5]` if `p = 3`, of degree `≤ (DG₀)!`) on which `TateWildTrivial` and
+`BetaUpper` (bound `U₀`) hold; at `p > D` a tame finite Galois `F` (the Galois closure of `L_v`,
+`[L_v:ℚ_p] ≤ D < p`) with `TateWildTrivial` and `BetaTame`. -/
+def G7LocalData {V : Type*} [AddCommGroup V] [Module (PadicAlgCl ℓ) V]
+    (Tm : GQ → Module.End (PadicAlgCl ℓ) V) (a β : GQ → PadicAlgCl ℓ) : Prop :=
+  ((p : ℝ) ≤ (ZInQ.heightD : ℝ) → ∃ F : Fld p, IsFinGal F ∧
+      ramCard F 0 ≤ (ZInQ.heightD * ZInQ.heightG0).factorial ∧
+      TateWildTrivial Tm a F ∧ BetaUpper β F U0) ∧
+    ((ZInQ.heightD : ℝ) < p → ∃ F : Fld p, IsFinGal F ∧ ¬ p ∣ ramCard F 0 ∧
+      TateWildTrivial Tm a F ∧ BetaTame β F)
+
 /-- **`LocalData p r` for G8's `r` (proved).** For `r` as in G8's output on
-`ρ = GlueDescent.rho Tm a β`: if at `p ≤ D` there is a finite Galois `F ⊆ ℚ̄_p` with
-`e(F/ℚ_p) ≤ (DG₀)!`, `TateWildTrivial` and `BetaUpper` (bound `U₀`), and at `p > D` a tame
-finite Galois `F` with `TateWildTrivial` and `BetaTame`, then `LocalData p r`, with the local
+`ρ = GlueDescent.rho Tm a β`, `G7LocalData p Tm a β` gives `LocalData p r`, with the local
 twist `σ ↦ β(σ)⁻¹`. -/
 theorem localData_of_g8 {K : Type} [Field K] [NumberField K] {A : PkgI3.AbVar K}
     {Tm : GQ → Module.End (PadicAlgCl ℓ) (G0Galois.Vb A ℓ)} {a β : GQ → PadicAlgCl ℓ}
     {r : GaloisRep ℓ 2} (hG8 : G0Galois.G8Out A ℓ (GlueDescent.rho Tm a β) r)
-    (hsmall : (p : ℝ) ≤ (ZInQ.heightD : ℝ) → ∃ F : Fld p, IsFinGal F ∧
-      ramCard F 0 ≤ (ZInQ.heightD * ZInQ.heightG0).factorial ∧
-      TateWildTrivial Tm a F ∧ BetaUpper β F U0)
-    (hlarge : (ZInQ.heightD : ℝ) < p → ∃ F : Fld p, IsFinGal F ∧ ¬ p ∣ ramCard F 0 ∧
-      TateWildTrivial Tm a F ∧ BetaTame β F) :
-    LocalData p r := by
+    (h : G7LocalData (p := p) Tm a β) : LocalData p r := by
   refine ⟨fun hp => ?_, fun hp => ?_⟩
-  · obtain ⟨F, hF, he, hT, hB⟩ := hsmall hp
+  · obtain ⟨F, hF, he, hT, hB⟩ := h.1 hp
     exact ⟨F, _, hF, he, twistShape_of_g8 hG8 hT, twistUpper_of_betaUpper hB⟩
-  · obtain ⟨F, hF, he, hT, hB⟩ := hlarge hp
+  · obtain ⟨F, hF, he, hT, hB⟩ := h.2 hp
     exact ⟨F, _, hF, he, twistShape_of_g8 hG8 hT, twistTame_of_betaTame hB⟩
+
+/-- **`G15RamG D u` from G8's outputs for `D.r5`, `D.r3` and G7's local data (proved).**
+Composes `localData_of_g8` with g15-ram's `g15RamG_of_localData`. The G7/G8 data for `r₅` and
+`r₃` may live on different models (`K₅`, `A₅`) and (`K₃`, `A₃`). -/
+theorem g15RamG_of_g8 {L : Type} [Field L] [NumberField L] {A : PkgI3.AbVar L}
+    (D : ModData L A) (u : ℚ)
+    {K₅ : Type} [Field K₅] [NumberField K₅] {A₅ : PkgI3.AbVar K₅}
+    {Tm₅ : GQ → Module.End (PadicAlgCl 5) (G0Galois.Vb A₅ 5)} {a₅ β₅ : GQ → PadicAlgCl 5}
+    (hG8₅ : G0Galois.G8Out A₅ 5 (GlueDescent.rho Tm₅ a₅ β₅) D.r5)
+    {K₃ : Type} [Field K₃] [NumberField K₃] {A₃ : PkgI3.AbVar K₃}
+    {Tm₃ : GQ → Module.End (PadicAlgCl 3) (G0Galois.Vb A₃ 3)} {a₃ β₃ : GQ → PadicAlgCl 3}
+    (hG8₃ : G0Galois.G8Out A₃ 3 (GlueDescent.rho Tm₃ a₃ β₃) D.r3)
+    (h5 : ∀ (p : ℕ) (hp : p.Prime), p ≠ 5 → @G7LocalData p ⟨hp⟩ 5 _ _ _ _ Tm₅ a₅ β₅)
+    (h3 : G7LocalData (p := 5) Tm₃ a₃ β₃)
+    (h11₅ : G0Galois.G11Out (GlueDescent.ramSet ZInQ.Mult.S_mul u) D.r5)
+    (h11₃ : G0Galois.G11Out (GlueDescent.ramSet ZInQ.Mult.S_mul u) D.r3) :
+    G15RamG D u :=
+  g15RamG_of_localData D u (fun p hp hp5 => @localData_of_g8 p ⟨hp⟩ 5 _ _ _ _ _ _ _ _ _ hG8₅
+    (h5 p hp hp5)) (localData_of_g8 hG8₃ h3) h11₅ h11₃
 
 /-! ### `BetaTame` at odd `p` (proved) -/
 
@@ -238,24 +264,65 @@ theorem betaTame_of_odd (hp2 : p ≠ 2) {β : GQ → PadicAlgCl ℓ} {F : Fld p}
   have := pow_gcd_eq_one.mpr ⟨hpa, hsq σ hσ⟩
   rwa [Nat.Coprime.gcd_eq_one hcop, pow_one] at this
 
-/-- **`LocalData p r` at odd `p` for G8's `r` (proved).** At odd `p` the `β`-side reduces to
-`BetaCharOn`, `BetaSqWild` and `BetaOpen`. -/
-theorem localData_of_g8_odd (hp2 : p ≠ 2) {K : Type} [Field K] [NumberField K]
-    {A : PkgI3.AbVar K}
-    {Tm : GQ → Module.End (PadicAlgCl ℓ) (G0Galois.Vb A ℓ)} {a β : GQ → PadicAlgCl ℓ}
-    {r : GaloisRep ℓ 2} (hG8 : G0Galois.G8Out A ℓ (GlueDescent.rho Tm a β) r)
-    (hopen : BetaOpen (p := p) β)
-    (hsmall : (p : ℝ) ≤ (ZInQ.heightD : ℝ) → ∃ F : Fld p, IsFinGal F ∧
+/-- `β(1) = 1` for a nonzero `β` that is a character on `G_F`. -/
+theorem beta_one_of_charOn {β : GQ → PadicAlgCl ℓ} {F : Fld p} (hm : BetaCharOn β F)
+    (h0 : β 1 ≠ 0) : β 1 = 1 := by
+  have h := hm 1 (fun _ _ => rfl) 1 (fun _ _ => rfl)
+  rw [mul_one, map_one] at h
+  have h' : β 1 * β 1 = β 1 * 1 := by rw [mul_one]; exact h.symm
+  exact mul_left_cancel₀ h0 h'
+
+/-- **`BetaOpen` from local constancy (proved).** If `β : G_ℚ → ℚ̄_ℓ` is locally constant
+(g0-mod-field's `G7Data` has `IsLocallyConstant β` for the `ℂ^×`-valued `β`; any transport of
+the values preserves it) and `β(1) = 1`, then `β ∘ decomp` is trivial on `G_{F'}` for a finite
+Galois `F'`: `decomp` is continuous (Mathlib's `Field.absoluteGaloisGroup.map`), the fibre over
+`1` is an open neighbourhood of `1`, so it contains the fixer of a finite `E`
+(`krullTopology_mem_nhds_one_iff`), and of its normal closure `F'`. -/
+theorem betaOpen_of_isLocallyConstant {β : GQ → PadicAlgCl ℓ} (hβ : IsLocallyConstant β)
+    (h1 : β 1 = 1) : BetaOpen (p := p) β := by
+  set S : Set (GQp p) := {σ | β (decomp p σ) = 1} with hSdef
+  have hcont : Continuous (decomp p) :=
+    (Field.absoluteGaloisGroup.map (algebraMap ℚ ℚ_[p])).continuous
+  have hS : S ∈ nhds (1 : GQp p) := by
+    have hopen : IsOpen S := (hβ.comp_continuous hcont).isOpen_fiber 1
+    refine hopen.mem_nhds ?_
+    show β (decomp p 1) = 1
+    rw [map_one, h1]
+  obtain ⟨E, hEfin, hE⟩ := (krullTopology_mem_nhds_one_iff ℚ_[p] (Kbar p) S).mp hS
+  set F' := IntermediateField.normalClosure ℚ_[p] E (Kbar p) with hF'
+  haveI : FiniteDimensional ℚ_[p] F' := normalClosure.is_finiteDimensional ℚ_[p] E (Kbar p)
+  haveI : Normal ℚ_[p] F' := normalClosure.normal ℚ_[p] E (Kbar p)
+  refine ⟨F', ⟨inferInstance, IsGalois.mk⟩, fun σ hσ => ?_⟩
+  have hσE : σ ∈ E.fixingSubgroup := by
+    rw [IntermediateField.mem_fixingSubgroup_iff]
+    intro x hx
+    exact hσ x (E.le_normalClosure hx)
+  exact hE hσE
+
+/-- **Corrected form at odd `p` (GLUE).** `G7LocalData` with the `β`-side replaced by
+`BetaCharOn` and `BetaSqWild` on the same `F` (local constancy and `β(1) ≠ 0` are separate
+hypotheses of `g7LocalData_of_odd`). -/
+def G7LocalDataOdd {V : Type*} [AddCommGroup V] [Module (PadicAlgCl ℓ) V]
+    (Tm : GQ → Module.End (PadicAlgCl ℓ) V) (a β : GQ → PadicAlgCl ℓ) : Prop :=
+  ((p : ℝ) ≤ (ZInQ.heightD : ℝ) → ∃ F : Fld p, IsFinGal F ∧
       ramCard F 0 ≤ (ZInQ.heightD * ZInQ.heightG0).factorial ∧
+      TateWildTrivial Tm a F ∧ BetaCharOn β F ∧ BetaSqWild β F) ∧
+    ((ZInQ.heightD : ℝ) < p → ∃ F : Fld p, IsFinGal F ∧ ¬ p ∣ ramCard F 0 ∧
       TateWildTrivial Tm a F ∧ BetaCharOn β F ∧ BetaSqWild β F)
-    (hlarge : (ZInQ.heightD : ℝ) < p → ∃ F : Fld p, IsFinGal F ∧ ¬ p ∣ ramCard F 0 ∧
-      TateWildTrivial Tm a F ∧ BetaCharOn β F ∧ BetaSqWild β F) :
-    LocalData p r := by
+
+/-- **`G7LocalData` at odd `p` (proved)** from `G7LocalDataOdd`, local constancy of `β` and
+`β(1) ≠ 0` (`G0Galois.G7Out` has `∀ g, β g ≠ 0`). -/
+theorem g7LocalData_of_odd (hp2 : p ≠ 2) {V : Type*} [AddCommGroup V]
+    [Module (PadicAlgCl ℓ) V] {Tm : GQ → Module.End (PadicAlgCl ℓ) V} {a β : GQ → PadicAlgCl ℓ}
+    (hβ : IsLocallyConstant β) (h0 : β 1 ≠ 0) (h : G7LocalDataOdd (p := p) Tm a β) :
+    G7LocalData (p := p) Tm a β := by
   have hU0 : (0 : ℝ) ≤ U0 := by unfold U0; positivity
-  refine localData_of_g8 hG8 (fun hp => ?_) (fun hp => ?_)
-  · obtain ⟨F, hF, he, hT, hm, hs⟩ := hsmall hp
+  refine ⟨fun hp => ?_, fun hp => ?_⟩
+  · obtain ⟨F, hF, he, hT, hm, hs⟩ := h.1 hp
+    have hopen := betaOpen_of_isLocallyConstant (p := p) hβ (beta_one_of_charOn hm h0)
     exact ⟨F, hF, he, hT, betaUpper_of_betaTame hU0 (betaTame_of_odd hp2 hm hs hopen)⟩
-  · obtain ⟨F, hF, he, hT, hm, hs⟩ := hlarge hp
+  · obtain ⟨F, hF, he, hT, hm, hs⟩ := h.2 hp
+    have hopen := betaOpen_of_isLocallyConstant (p := p) hβ (beta_one_of_charOn hm h0)
     exact ⟨F, hF, he, hT, betaTame_of_odd hp2 hm hs hopen⟩
 
 end LocalDataSec
@@ -268,4 +335,6 @@ end G15Ram
 #print axioms G15Ram.twistShape_of_g8
 #print axioms G15Ram.localData_of_g8
 #print axioms G15Ram.betaTame_of_odd
-#print axioms G15Ram.localData_of_g8_odd
+#print axioms G15Ram.g15RamG_of_g8
+#print axioms G15Ram.betaOpen_of_isLocallyConstant
+#print axioms G15Ram.g7LocalData_of_odd
