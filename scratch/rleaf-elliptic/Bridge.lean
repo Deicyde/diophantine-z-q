@@ -1,7 +1,9 @@
 import Mathlib
+import ZInQKernel.HDecomp.ModCurves.X1Belyi
 import ZInQKernel.Contrib.TauCeti.AlgebraicGeometry.EllipticCurve.Affine.Point.Inertia
 import ZInQKernel.Contrib.TauCeti.RingTheory.DedekindDomain.AdicValuation.Transport
 import ZInQKernel.Contrib.TauCeti.RingTheory.DedekindDomain.AdicValuation.Basic
+import ZInQKernel.Contrib.TauCeti.AlgebraicGeometry.EllipticCurve.Isogeny.MulByInt.KernelCard
 
 namespace ZInQ.RLeaf.T37
 

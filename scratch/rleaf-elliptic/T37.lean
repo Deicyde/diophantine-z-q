@@ -1,7 +1,9 @@
 import Mathlib
+import ZInQKernel.HDecomp.ModCurves.X1Belyi
 import ZInQKernel.Contrib.TauCeti.AlgebraicGeometry.EllipticCurve.Affine.Point.Inertia
 import ZInQKernel.Contrib.TauCeti.RingTheory.DedekindDomain.AdicValuation.Transport
 import ZInQKernel.Contrib.TauCeti.RingTheory.DedekindDomain.AdicValuation.Basic
+import ZInQKernel.Contrib.TauCeti.AlgebraicGeometry.EllipticCurve.Isogeny.MulByInt.KernelCard
 
 namespace ZInQ.RLeaf.T37
 
@@ -378,5 +380,174 @@ theorem core (W : WeierstrassCurve (RatFunc k)) [W.IsElliptic] (p : k[X]) (hp : 
 
 end Core
 
+section DivisionField
+
+open WeierstrassCurve
+
+variable {K : Type*} [Field K] [CharZero K] [DecidableEq (AlgebraicClosure K)]
+  (W : WeierstrassCurve K) [W.IsElliptic] (N : ℕ)
+
+/-- The `N`-torsion of `W` over `K̄`. -/
+abbrev torsK : Set (W⁄(AlgebraicClosure K)).toAffine.Point :=
+  {Q | N • Q = 0}
+
+/-- The `N`-division field `K(E[N]) ⊆ K̄`. -/
+noncomputable abbrev divField : IntermediateField K (AlgebraicClosure K) :=
+  IntermediateField.adjoin K
+    (Affine.Point.xCoord '' torsK W N ∪ Affine.Point.yCoord '' torsK W N)
+
+theorem torsK_finite (hN : 0 < N) : (torsK W N).Finite := by
+  have h := (W⁄(AlgebraicClosure K)).finite_torsionBy (n := (N : ℤ)) (by exact_mod_cast hN.ne')
+  have hT : torsK W N = (AddSubgroup.torsionBy (W⁄(AlgebraicClosure K)).toAffine.Point (N : ℤ) :
+      Set _) := by
+    ext Q
+    change N • Q = 0 ↔ (N : ℤ) • Q = 0
+    rw [natCast_zsmul]
+  rw [hT]
+  exact Set.toFinite _
+
+theorem xCoord_mem_divField {Q : (W⁄(AlgebraicClosure K)).toAffine.Point} (hQ : N • Q = 0) :
+    Affine.Point.xCoord Q ∈ divField W N :=
+  IntermediateField.subset_adjoin _ _ (Or.inl ⟨Q, hQ, rfl⟩)
+
+theorem yCoord_mem_divField {Q : (W⁄(AlgebraicClosure K)).toAffine.Point} (hQ : N • Q = 0) :
+    Affine.Point.yCoord Q ∈ divField W N :=
+  IntermediateField.subset_adjoin _ _ (Or.inr ⟨Q, hQ, rfl⟩)
+
+theorem divField_finiteDimensional (hN : 0 < N) : FiniteDimensional K (divField W N) := by
+  have hfin := ((torsK_finite W N hN).image Affine.Point.xCoord).union
+    ((torsK_finite W N hN).image Affine.Point.yCoord)
+  have := hfin.to_subtype
+  exact IntermediateField.finiteDimensional_adjoin fun x _ => Algebra.IsIntegral.isIntegral x
+
+theorem divField_isGalois (hN : 0 < N) : IsGalois K (divField W N) := by
+  have := divField_finiteDimensional W N hN
+  refine isGalois_iff.mpr ⟨inferInstance, ?_⟩
+  rw [IntermediateField.normal_iff_forall_map_le]
+  intro σ
+  rw [IntermediateField.adjoin_map, IntermediateField.adjoin_le_iff]
+  rintro _ ⟨z, hz | hz, rfl⟩ <;> obtain ⟨Q, hQ, rfl⟩ := hz
+  · have hσQ : N • Affine.Point.map (W' := W.toAffine) σ Q = 0 := by
+      rw [← map_nsmul, show N • Q = 0 from hQ, map_zero]
+    rw [← Affine.Point.xCoord_map]
+    exact xCoord_mem_divField W N hσQ
+  · have hσQ : N • Affine.Point.map (W' := W.toAffine) σ Q = 0 := by
+      rw [← map_nsmul, show N • Q = 0 from hQ, map_zero]
+    rw [← Affine.Point.yCoord_map]
+    exact yCoord_mem_divField W N hσQ
+
+/-- Every `N`-torsion point over `K̄` comes from an `N`-torsion point over `K(E[N])`. -/
+theorem exists_point_divField [DecidableEq (divField W N)]
+    {Q : (W⁄(AlgebraicClosure K)).toAffine.Point} (hQ : N • Q = 0) :
+    ∃ R : (W⁄(divField W N)).toAffine.Point, N • R = 0 ∧
+      Affine.Point.map (W' := W.toAffine) (divField W N).val R = Q := by
+  have hmap0 : ∀ R : (W⁄(divField W N)).toAffine.Point,
+      Affine.Point.map (W' := W.toAffine) (divField W N).val R = Q → N • R = 0 := by
+    intro R hR
+    apply Affine.Point.map_injective (W' := W.toAffine) (divField W N).val
+    rw [map_nsmul, hR, map_zero]
+    exact hQ
+  rcases Q with _ | ⟨x, y, h⟩
+  · exact ⟨0, nsmul_zero N, map_zero _⟩
+  · have hx : x ∈ divField W N := xCoord_mem_divField W N (Q := .some x y h) hQ
+    have hy : y ∈ divField W N := yCoord_mem_divField W N (Q := .some x y h) hQ
+    have hns : (W⁄(divField W N)).toAffine.Nonsingular ⟨x, hx⟩ ⟨y, hy⟩ :=
+      (Affine.baseChange_nonsingular (W := W.toAffine) (f := (divField W N).val)
+        Subtype.val_injective ⟨x, hx⟩ ⟨y, hy⟩).mp h
+    refine ⟨.some _ _ hns, hmap0 _ ?_, ?_⟩ <;> rw [Affine.Point.map_some] <;> rfl
+
+/-- The coordinates of the `N`-torsion over `K(E[N])` generate it. -/
+theorem adjoin_coords_eq_top [DecidableEq (divField W N)] :
+    IntermediateField.adjoin K
+      (Affine.Point.xCoord '' {R : (W⁄(divField W N)).toAffine.Point | N • R = 0} ∪
+        Affine.Point.yCoord '' {R : (W⁄(divField W N)).toAffine.Point | N • R = 0}) = ⊤ := by
+  apply IntermediateField.lift_injective
+  rw [IntermediateField.lift_adjoin, IntermediateField.lift_top]
+  apply le_antisymm
+  · rw [IntermediateField.adjoin_le_iff]
+    rintro _ ⟨z, -, rfl⟩
+    exact z.2
+  · apply IntermediateField.adjoin.mono
+    rintro _ (⟨Q, hQ, rfl⟩ | ⟨Q, hQ, rfl⟩) <;> obtain ⟨R, hR, rfl⟩ := exists_point_divField W N hQ
+    · refine ⟨Affine.Point.xCoord R, Or.inl ⟨R, hR, rfl⟩, ?_⟩
+      rw [Affine.Point.xCoord_map]; rfl
+    · refine ⟨Affine.Point.yCoord R, Or.inr ⟨R, hR, rfl⟩, ?_⟩
+      rw [Affine.Point.yCoord_map]; rfl
+
+end DivisionField
+
+/-- Extension of a valuation ring along a field embedding. -/
+theorem exists_valuationSubring_extend {F M : Type*} [Field F] [Field M] (ι : F →+* M)
+    (w : ValuationSubring F) :
+    ∃ B : ValuationSubring M, (∀ x, ι x ∈ B → x ∈ w) ∧ (∀ x ∈ w, ι x ∈ B) ∧
+      ∀ x ∈ w.nonunits, ι x ∈ B.nonunits := by
+  obtain ⟨B, hB, hloc⟩ := IsLocalRing.exists_factor_valuationRing (ι.comp w.subtype)
+  have hnu : ∀ x ∈ w.nonunits, ι x ∈ B.nonunits := by
+    intro x hx
+    have hxw : x ∈ w := ValuationSubring.nonunits_subset hx
+    have hxm := (ValuationSubring.coe_mem_nonunits_iff (a := (⟨x, hxw⟩ : w))).mp hx
+    rw [ValuationSubring.mem_nonunits_iff_exists_mem_maximalIdeal]
+    refine ⟨hB ⟨x, hxw⟩, ?_⟩
+    rw [IsLocalRing.mem_maximalIdeal, mem_nonunits_iff]
+    intro hu
+    have hu' := hloc.map_nonunit ⟨x, hxw⟩ hu
+    exact (IsLocalRing.mem_maximalIdeal _).mp hxm hu'
+  refine ⟨B, fun x hx => ?_, fun x hx => hB ⟨x, hx⟩, hnu⟩
+  by_contra hxw
+  have hx0 : x ≠ 0 := by rintro rfl; exact hxw w.zero_mem
+  have hinv : x⁻¹ ∈ w.nonunits := (w.inv_mem_nonunits_iff).mpr (Or.inr hxw)
+  have h1 := hnu _ hinv
+  rw [map_inv₀, ValuationSubring.mem_nonunits_iff] at h1
+  have h2 := (B.valuation_le_one_iff (ι x)).mpr hx
+  have : B.valuation (ι x * (ι x)⁻¹) < 1 := by
+    rw [map_mul]
+    calc B.valuation (ι x) * B.valuation (ι x)⁻¹ ≤ 1 * B.valuation (ι x)⁻¹ := by gcongr
+      _ < 1 := by rw [one_mul]; exact h1
+  rw [mul_inv_cancel₀ ((map_ne_zero ι).mpr hx0), map_one] at this
+  exact lt_irrefl _ this
+
+open Polynomial in
+/-- The leaf's `x`-coordinate (`LeafModCurves.xCoord`) is Tau Ceti's `Affine.Point.xCoord`. -/
+theorem leaf_xCoord_eq {F : Type*} [Field F] [DecidableEq F] {W : WeierstrassCurve F}
+    (P : W.toAffine.Point) : LeafModCurves.xCoord P = WeierstrassCurve.Affine.Point.xCoord P := by
+  cases P <;> rfl
+
+open Polynomial WeierstrassCurve in
+/-- **Leaf T37 (`X1Belyi.GoodReductionUnramified`), proved.** Néron–Ogg–Shafarevich over `k(T)`
+with residue characteristic `0`: good reduction at an irreducible `p` makes `k(T)(x(P))`
+unramified over `p` for every torsion point `P`. -/
+theorem t37_goodReductionUnramified : X1Belyi.GoodReductionUnramified := by
+  intro k _ _ W _ _ p hp hcoef hdisc P hPt w hw hpw x hx
+  classical
+  obtain ⟨N, hN, hNP⟩ := hPt
+  set M := divField W N
+  have : FiniteDimensional (RatFunc k) M := divField_finiteDimensional W N hN
+  have : IsGalois (RatFunc k) M := divField_isGalois W N hN
+  have hFM : IntermediateField.adjoin (RatFunc k) {LeafModCurves.xCoord P} ≤ M := by
+    rw [IntermediateField.adjoin_le_iff, Set.singleton_subset_iff, leaf_xCoord_eq]
+    exact xCoord_mem_divField W N hNP
+  let ι : IntermediateField.adjoin (RatFunc k) {LeafModCurves.xCoord P} →ₐ[RatFunc k] M := IntermediateField.inclusion hFM
+  obtain ⟨B, hBw, hwB, hnu⟩ := exists_valuationSubring_extend (ι : _ →+* M) w
+  have hιc : ∀ c : k[X], ι (algebraMap (RatFunc k) _ (algebraMap k[X] (RatFunc k) c)) =
+      algebraMap k[X] M c := fun c => by
+    rw [AlgHom.commutes, ← IsScalarTower.algebraMap_apply]
+  have hRB : ∀ c : k[X], algebraMap k[X] M c ∈ B := fun c => by
+    rw [← hιc]; exact hwB _ (hw c)
+  have hpB : algebraMap k[X] M p ∈ B.nonunits := by
+    rw [← hιc]; exact hnu _ hpw
+  have hcore := core W p hp hcoef hdisc N hN (adjoin_coords_eq_top W N) B hRB hpB
+  set π : IntermediateField.adjoin (RatFunc k) {LeafModCurves.xCoord P} :=
+    algebraMap (RatFunc k) _ (algebraMap k[X] (RatFunc k) p)
+  have hπ0 : π ≠ 0 := by
+    rw [_root_.map_ne_zero, Ne, ← map_zero (algebraMap k[X] (RatFunc k)),
+      (IsFractionRing.injective k[X] (RatFunc k)).eq_iff]
+    exact hp.ne_zero
+  refine ⟨x / π, hBw _ ?_, by field_simp⟩
+  rw [map_div₀]
+  have := hcore _ (hnu x hx)
+  rwa [← hιc] at this
+
 end ZInQ.RLeaf.T37
+
 #print axioms ZInQ.RLeaf.T37.core
+#print axioms ZInQ.RLeaf.T37.t37_goodReductionUnramified

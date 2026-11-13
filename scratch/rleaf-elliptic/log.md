@@ -28,3 +28,14 @@ Base 322303a2 (wip/integrate-w39). Start 2026-11-13 06:42 PST.
   valuation inertia ⊥ ⇒ `Ideal.inertia` ⊥ ⇒ (Mathlib `card_inertia_eq_ramificationIdxIn`) e = 1
   ⇒ p ∉ u² ⇒ v_u(p) = exp(-1).
 - `#print axioms ZInQ.RLeaf.T37.core`: [propext, Classical.choice, Quot.sound].
+
+## Step 4. T37 proved, BelyiX1 proved (VERIFIED, `lake build ZInQKernel.Contrib.RLeaf.BelyiX1` OK)
+- `ZInQKernel/Contrib/RLeaf/T37GoodReduction.lean`:
+  `ZInQ.RLeaf.T37.t37_goodReductionUnramified : X1Belyi.GoodReductionUnramified` (exact leaf type).
+  Pieces: `divField` (= k(T)(E[N]) ⊆ k(T)-bar), `divField_finiteDimensional`, `divField_isGalois`,
+  `exists_point_divField`, `adjoin_coords_eq_top`, `exists_valuationSubring_extend`, `core`,
+  `mem_inertiaSubgroup_of_forall_sub_mem`, `valuation_apply_of_forall_sub_mem`, `leaf_xCoord_eq`.
+- `ZInQKernel/Contrib/RLeaf/BelyiX1.lean`: `ZInQ.RLeaf.belyiX1 : LeafModCurves.BelyiX1`
+  (glue target, now hypothesis-free), `x1Leaves_of`, `x1ModelExists_of` (X1ModelExists from T38-T40).
+- `#print axioms` (t37_goodReductionUnramified, core, belyiX1, x1Leaves_of, x1ModelExists_of):
+  [propext, Classical.choice, Quot.sound].
