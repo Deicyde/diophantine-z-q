@@ -32,10 +32,10 @@ theorem pair_qAct (q p : Fin 3 → K) (a b c d : K) :
   simp [pair, qAct]; ring
 
 /-- The Gram matrix of `pair`. -/
-def Pm : Matrix (Fin 3) (Fin 3) K := !![0, 0, 2; 0, -1, 0; 2, 0, 0]
+def Pm (K : Type*) [Field K] : Matrix (Fin 3) (Fin 3) K := !![0, 0, 2; 0, -1, 0; 2, 0, 0]
 
 theorem gram_apply (A : Matrix (Fin 3) (Fin 3) K) (i j : Fin 3) :
-    (A * Pm * A.transpose) i j = pair (A i) (A j) := by
+    (A * Pm K * A.transpose) i j = pair (A i) (A j) := by
   simp [Matrix.mul_apply, Fin.sum_univ_three, Pm, pair]; ring
 
 /-- A null vector of `pair` is a square `(cx + d)²`. -/
@@ -49,10 +49,10 @@ theorem null_sq [IsAlgClosed K] [CharZero K] (u : Fin 3 → K) (hu : pair u u = 
     have h1 : u 1 = 0 := by rw [h0] at h; simpa using h
     obtain ⟨c, hc⟩ := IsAlgClosed.exists_pow_nat_eq (u 2) (by norm_num : 0 < 2)
     exact ⟨c, 0, by rw [h0]; ring, by rw [h1]; ring, hc.symm⟩
-  · refine ⟨u 1 / (2 * d), d, hd.symm, by field_simp, ?_⟩
-    have h2 : (2 : K) * d ≠ 0 := mul_ne_zero two_ne_zero hd0
-    field_simp
-    rw [← hd] at h; linear_combination h
+  · have h2 : (2 : K) * d ≠ 0 := mul_ne_zero two_ne_zero hd0
+    refine ⟨u 1 / (2 * d), d, hd.symm, by field_simp, ?_⟩
+    rw [div_pow, eq_div_iff (pow_ne_zero 2 h2)]
+    rw [← hd] at h; linear_combination -h
 
 /-- The algebraic core: an orthonormal-type frame `u, z, v` (`u, v` null, `pair u v = 2`,
 `pair z z = −1`, `z ⊥ u, v`) is the image of the standard frame `1, x, x²` under a substitution. -/
@@ -83,7 +83,7 @@ theorem frame [IsAlgClosed K] [CharZero K] (u z v : Fin 3 → K) (huu : pair u u
   have hz2 : z 2 = μ * (a * c) := by linear_combination a ^ 2 * hE1 + c ^ 2 * hE2 - z 2 * hH
   have hμ2 : μ ^ 2 = 1 := by
     simp only [pair] at hzz; rw [hz0, hz1, hz2] at hzz
-    linear_combination -hzz + μ ^ 2 * hH
+    linear_combination -hzz - μ ^ 2 * hH
   have hdet : a * d - b * c ≠ 0 := by intro h; rw [h] at hH; simp at hH
   have hvec : v = ![b ^ 2, 2 * a * b, a ^ 2] := by
     funext i; fin_cases i <;> simp [hv0, hv1, hv2]
@@ -105,21 +105,21 @@ theorem so3 [IsAlgClosed K] [CharZero K] (q p : Fin 3 → Fin 3 → K)
     ∃ a b c d : K, a * d - b * c ≠ 0 ∧ ∀ i, p i = qAct (q i) a b c d := by
   set Q : Matrix (Fin 3) (Fin 3) K := Matrix.of q with hQ
   set P : Matrix (Fin 3) (Fin 3) K := Matrix.of p with hP
-  have hG : P * Pm * P.transpose = Q * Pm * Q.transpose := by
+  have hG : P * Pm K * P.transpose = Q * Pm K * Q.transpose := by
     ext i j; rw [gram_apply, gram_apply]; exact hp i j
   have hQu : IsUnit Q.det := isUnit_iff_ne_zero.mpr hq
   have hQtu : IsUnit Q.transpose.det := by rw [Matrix.det_transpose]; exact hQu
   set T := Q⁻¹ * P with hTdef
-  have hT : T * Pm * T.transpose = Pm := by
+  have hT : T * Pm K * T.transpose = Pm K := by
     rw [hTdef, Matrix.transpose_mul, Matrix.transpose_nonsing_inv]
-    calc Q⁻¹ * P * Pm * (P.transpose * Q.transpose⁻¹)
-        = Q⁻¹ * (P * Pm * P.transpose) * Q.transpose⁻¹ := by simp only [Matrix.mul_assoc]
-      _ = Q⁻¹ * Q * Pm * (Q.transpose * Q.transpose⁻¹) := by rw [hG]; simp only [Matrix.mul_assoc]
-      _ = Pm := by rw [Matrix.nonsing_inv_mul Q hQu, Matrix.mul_nonsing_inv _ hQtu,
+    calc Q⁻¹ * P * Pm K * (P.transpose * Q.transpose⁻¹)
+        = Q⁻¹ * (P * Pm K * P.transpose) * Q.transpose⁻¹ := by simp only [Matrix.mul_assoc]
+      _ = Q⁻¹ * Q * Pm K * (Q.transpose * Q.transpose⁻¹) := by rw [hG]; simp only [Matrix.mul_assoc]
+      _ = Pm K := by rw [Matrix.nonsing_inv_mul Q hQu, Matrix.mul_nonsing_inv _ hQtu,
                     Matrix.one_mul, Matrix.mul_one]
   have hQT : Q * T = P := by
     rw [hTdef, ← Matrix.mul_assoc, Matrix.mul_nonsing_inv Q hQu, Matrix.one_mul]
-  have e : ∀ k l, pair (T k) (T l) = Pm k l := fun k l =>
+  have e : ∀ k l, pair (T k) (T l) = Pm K k l := fun k l =>
     (gram_apply T k l).symm.trans (congrFun (congrFun hT k) l)
   obtain ⟨a, b, c, d, hdet, hu, hz, hv⟩ := frame (T 0) (T 1) (T 2)
     (by simpa [Pm] using e 0 0) (by simpa [Pm] using e 2 2) (by simpa [Pm] using e 0 2)

@@ -71,12 +71,12 @@ theorem eq_zero_of_p6_cub (h : Fin 7 → K) [CharZero K] (y : Fin 3 → Fin 3 �
 
 theorem det_ne_zero_of_gram (y y' : Fin 3 → Fin 3 → K) [CharZero K] (hy : (Matrix.of y).det ≠ 0)
     (hG : ∀ i j, pair (y' i) (y' j) = pair (y i) (y j)) : (Matrix.of y').det ≠ 0 := by
-  have hM : Matrix.of y' * Pm * (Matrix.of y').transpose =
-      Matrix.of y * Pm * (Matrix.of y).transpose := by
+  have hM : Matrix.of y' * Pm K * (Matrix.of y').transpose =
+      Matrix.of y * Pm K * (Matrix.of y).transpose := by
     ext i j; rw [gram_apply, gram_apply]; exact hG i j
   have hd := congrArg Matrix.det hM
   simp only [Matrix.det_mul, Matrix.det_transpose] at hd
-  have hP : (Pm : Matrix (Fin 3) (Fin 3) K).det = 4 := by
+  have hP : (Pm K).det = 4 := by
     simp [Pm, Matrix.det_fin_three]; norm_num
   rw [hP] at hd
   intro h0; rw [h0] at hd
