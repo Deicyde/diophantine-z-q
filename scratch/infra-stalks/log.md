@@ -47,3 +47,8 @@
   + pls_proof.lean.part): **`ZInQ.Metrization.productLocalStructure : ProductLocalStructure`** PROVED;
   `productUniformizationAnalytic`, `productMetrizationGeo_of_hodgeLattice (hPL)`,
   `HSyn.G0Split.heightAdditivity_of_metrization_v4` (v3 minus hLS). VERIFIED: 0 errors, 0 sorry, standard axioms, 36 s.
+- UniformizationLift.lean / HeightBCGlue.lean (= StalkPullback body + local_structure part + verbatim
+  scratch/height-bc/Final.lean + bc_proof + ula_proof + hbc_final): **`ZInQ.HeightBC.uniformizationLiftAnalytic`** PROVED
+  (local structure lemma for 𝒢' ≅ 𝒢 ×_{𝓞_L} 𝓞_{L'}, s = N/H near each point, holomorphy from that of 𝒢's functions);
+  `uniformizationLift`; **`modelHeightBaseChange_of_two (HodgeBCInjective) (OmegaBaseChange) : ModelHeightBaseChange`**,
+  `hodgeLineBaseChange_of_two`. VERIFIED: 0 errors, 0 sorry (one doc-comment mention), standard axioms.
