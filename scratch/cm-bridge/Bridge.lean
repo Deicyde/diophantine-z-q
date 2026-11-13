@@ -1890,6 +1890,145 @@ theorem artinPstarChi : ArtinPstarChi := by
 
 end ArtinChi
 
+/-! ### Glue NORM-2 proved: `N𝔭₂ = 2` -/
+
+section NormTwo
+
+open ZInQ.RouteK.Redei
+
+/-- An element of `𝓞_{K_n}` (`n` odd) with imaginary part `±1/2` is not divisible by `2`. -/
+theorem not_two_dvd_of_im {n : ℕ} [NeZero n] (hn : n % 2 = 1) {v : 𝓞 (QNeg n)}
+    (hv : (v : QNeg n).im = 1 / 2 ∨ (v : QNeg n).im = -1 / 2) : ¬ ∃ w : 𝓞 (QNeg n), v = 2 * w := by
+  rintro ⟨w, rfl⟩
+  obtain ⟨k, hk⟩ := exists_two_re (w * sqrtNeg n)
+  have hre : ((w * sqrtNeg n : 𝓞 (QNeg n)) : QNeg n).re = -(n : ℚ) * (w : QNeg n).im := by
+    simp [RingOfIntegers.coe_eq_algebraMap, coe_sqrtNeg]
+  have him : ((2 * w : 𝓞 (QNeg n)) : QNeg n).im = 2 * (w : QNeg n).im := by
+    rw [RingOfIntegers.coe_eq_algebraMap, map_mul, map_ofNat]
+    simp [QuadraticAlgebra.re_ofNat, QuadraticAlgebra.im_ofNat]
+  rw [hre] at hk
+  rw [him] at hv
+  have hn' : (n : ℚ) = 2 * (n / 2 : ℕ) + 1 := by
+    have : n = 2 * (n / 2) + 1 := by omega
+    exact_mod_cast this
+  rcases hv with h | h
+  · have hw : (w : QNeg n).im = 1 / 4 := by linarith
+    rw [hw] at hk
+    have : (k : ℚ) = -(n : ℚ) / 2 := by linarith
+    have h3 : ((n : ℤ) : ℚ) = ((-2 * k : ℤ) : ℚ) := by push_cast; linarith
+    have h4 : (n : ℤ) = -2 * k := Int.cast_injective h3
+    omega
+  · have hw : (w : QNeg n).im = -1 / 4 := by linarith
+    rw [hw] at hk
+    have : (k : ℚ) = (n : ℚ) / 2 := by linarith
+    have h3 : ((n : ℤ) : ℚ) = ((2 * k : ℤ) : ℚ) := by push_cast; linarith
+    have h4 : (n : ℤ) = 2 * k := Int.cast_injective h3
+    omega
+
+/-- **Glue NORM-2 proved**: `(2) = 𝔭₂ 𝔭̄₂` with `𝔭₂, 𝔭̄₂ ≠ (1)`, so `N𝔭₂ = 2`. -/
+theorem normP2 : NormP2 := by
+  intro n _ hn
+  have h3 : n % 4 = 3 := by omega
+  have hδ := tyzDelta_spec hn
+  set δ := tyzDelta n
+  have hδodd : δ % 2 = 1 := by
+    rcases Nat.even_or_odd δ with ⟨k, hk⟩ | ⟨k, hk⟩
+    · exfalso; rw [hk] at hδ; ring_nf at hδ; omega
+    · omega
+  set m := (δ + 1) / 2
+  have hm : 2 * m = δ + 1 := by omega
+  set N1 := (δ * δ + n) / 8
+  have hN1 : 8 * N1 = δ * δ + n := by omega
+  set θ := thetaO n h3
+  set u : 𝓞 (QNeg n) := θ - (m : 𝓞 (QNeg n))
+  set ub : 𝓞 (QNeg n) := 1 - θ - (m : 𝓞 (QNeg n))
+  have hprod : u * ub = 2 * (N1 : 𝓞 (QNeg n)) := by
+    have h2θ := two_mul_thetaO n h3
+    have hω := omegaO_sq n
+    have hmc : (2 : 𝓞 (QNeg n)) * m = δ + 1 := by exact_mod_cast hm
+    have hNc : (8 : 𝓞 (QNeg n)) * N1 = δ * δ + n := by exact_mod_cast hN1
+    have h8 : (4 : 𝓞 (QNeg n)) * (u * ub) = 8 * (N1 : 𝓞 (QNeg n)) := by
+      rw [hNc]
+      simp only [u, ub]
+      linear_combination (1 - omegaO n - 2 * θ) * h2θ + ((δ : 𝓞 (QNeg n)) + 2 * m - 1) * hmc - hω
+    have h4 : (4 : 𝓞 (QNeg n)) * (u * ub) = 4 * (2 * (N1 : 𝓞 (QNeg n))) := by rw [h8]; ring
+    have h40 : (4 : 𝓞 (QNeg n)) ≠ 0 := fun h => by
+      have h' := congrArg (algebraMap (𝓞 (QNeg n)) (QNeg n)) h
+      rw [map_ofNat, map_zero] at h'
+      norm_num at h'
+    exact mul_left_cancel₀ h40 h4
+  have hodd : n % 2 = 1 := by omega
+  have himu : (u : QNeg n).im = 1 / 2 := by
+    simp only [u, θ, map_sub, RingOfIntegers.coe_eq_algebraMap, algebraMap_thetaO, theta_eq, map_natCast]
+    simp
+  have himub : (ub : QNeg n).im = -1 / 2 := by
+    simp only [ub, θ, map_sub, RingOfIntegers.coe_eq_algebraMap, algebraMap_thetaO, theta_eq, map_natCast,
+      map_one]
+    simp [QuadraticAlgebra.im_one]; norm_num
+  have hP : p2Ideal n = Ideal.span {2, u} := by
+    simp only [p2Ideal, h3, ↓reduceDIte]; rfl
+  have hmul : Ideal.span {2, u} * Ideal.span {2, ub} = Ideal.span {(2 : 𝓞 (QNeg n))} := by
+    apply le_antisymm
+    · rw [Ideal.mul_le]
+      intro x hx y hy
+      obtain ⟨a, b, rfl⟩ := Ideal.mem_span_pair.1 hx
+      obtain ⟨c, d, rfl⟩ := Ideal.mem_span_pair.1 hy
+      rw [Ideal.mem_span_singleton]
+      refine ⟨a * c * 2 + a * d * ub + b * c * u + b * d * N1, ?_⟩
+      linear_combination (b * d) * hprod
+    · rw [Ideal.span_singleton_le_iff_mem]
+      have h1 : u * 2 ∈ Ideal.span {2, u} * Ideal.span {2, ub} :=
+        Ideal.mul_mem_mul (Ideal.subset_span (by simp)) (Ideal.subset_span (by simp))
+      have h2 : 2 * ub ∈ Ideal.span {2, u} * Ideal.span {2, ub} :=
+        Ideal.mul_mem_mul (Ideal.subset_span (by simp)) (Ideal.subset_span (by simp))
+      have h4 : 2 * 2 ∈ Ideal.span {2, u} * Ideal.span {2, ub} :=
+        Ideal.mul_mem_mul (Ideal.subset_span (by simp)) (Ideal.subset_span (by simp))
+      have := add_mem (add_mem h1 h2) (Ideal.mul_mem_right (m : 𝓞 (QNeg n)) _ h4)
+      convert this using 1
+      simp only [u, ub]; ring
+  have hne1 : Ideal.span {2, u} ≠ ⊤ := by
+    intro h
+    have h1 : (1 : 𝓞 (QNeg n)) ∈ Ideal.span {2, u} := by rw [h]; trivial
+    obtain ⟨a, b, hab⟩ := Ideal.mem_span_pair.1 h1
+    apply not_two_dvd_of_im hodd (Or.inr himub)
+    refine ⟨a * ub + b * N1, ?_⟩
+    linear_combination (-ub) * hab + b * hprod
+  have hne2 : Ideal.span {2, ub} ≠ ⊤ := by
+    intro h
+    have h1 : (1 : 𝓞 (QNeg n)) ∈ Ideal.span {2, ub} := by rw [h]; trivial
+    obtain ⟨a, b, hab⟩ := Ideal.mem_span_pair.1 h1
+    apply not_two_dvd_of_im hodd (Or.inl himu)
+    refine ⟨a * u + b * N1, ?_⟩
+    linear_combination (-u) * hab + b * hprod
+  have hN2 : Ideal.absNorm (Ideal.span {(2 : 𝓞 (QNeg n))}) = 4 := by
+    rw [Ideal.absNorm_span_singleton]
+    have h := normZ_eq_re_im (2 : 𝓞 (QNeg n))
+    have hr : ((2 : 𝓞 (QNeg n)) : QNeg n).re = 2 := by
+      rw [RingOfIntegers.coe_eq_algebraMap, map_ofNat]; rfl
+    have hi : ((2 : 𝓞 (QNeg n)) : QNeg n).im = 0 := by
+      rw [RingOfIntegers.coe_eq_algebraMap, map_ofNat]; rfl
+    rw [hr, hi] at h
+    have : Algebra.norm ℤ (2 : 𝓞 (QNeg n)) = 4 := by exact_mod_cast (by linarith : ((Algebra.norm ℤ (2 : 𝓞 (QNeg n)) : ℤ) : ℚ) = 4)
+    rw [this]; rfl
+  have hab := congrArg Ideal.absNorm hmul
+  rw [map_mul, hN2] at hab
+  have ha1 : Ideal.absNorm (Ideal.span {2, u}) ≠ 1 := fun h => hne1 (Ideal.absNorm_eq_one_iff.1 h)
+  have hb1 : Ideal.absNorm (Ideal.span {2, ub}) ≠ 1 := fun h => hne2 (Ideal.absNorm_eq_one_iff.1 h)
+  rw [hP]
+  set a := Ideal.absNorm (Ideal.span {2, u})
+  set b := Ideal.absNorm (Ideal.span {2, ub})
+  have ha4 : a ≤ 4 := Nat.le_of_dvd (by norm_num) ⟨b, hab.symm⟩
+  interval_cases a <;> omega
+
+end NormTwo
+
+/-- **Glue BETA-7 proved** (from genus theory: `sqrtPstarInHilbert`, `artinPstarChi`, `normP2`). -/
+theorem betaOnGenus7 : BetaOnGenus7 := betaOnGenus7_of sqrtPstarInHilbert artinPstarChi normP2
+
+/-- **`Lemma321Seven` from TYZ Theorem 3.6(3)** (and the CM field of definition); no glue left. -/
+theorem lemma321Seven_of' (hcm : CMFieldOfDefinition7) (h36 : TYZThm36Seven) : Lemma321Seven :=
+  lemma321Seven_of hcm h36 betaOnGenus7
+
 open ZInQ.Contrib.TYZDecomp in
 /-- **Main theorem after §10–§12** (`Lemma321Seven` replaced by TYZ Thm 3.6(3) + glue BETA-7). -/
 theorem tyzThm35ReadingA_of_cmLeaves7' (h11 : TYZThm11Integral) (h1 : TYZLcalOne)
@@ -1952,3 +2091,7 @@ open ZInQ.Contrib.TYZGenus.CMBridge in
 #print axioms betaOnGenus7_of
 open ZInQ.Contrib.TYZGenus.CMBridge in
 #print axioms artinPstarChi
+open ZInQ.Contrib.TYZGenus.CMBridge in
+#print axioms normP2
+open ZInQ.Contrib.TYZGenus.CMBridge in
+#print axioms lemma321Seven_of'

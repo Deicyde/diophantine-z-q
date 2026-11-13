@@ -56,3 +56,8 @@
   iff q* is a square mod 𝔭, via `mem_splitSet_iff`, `picClass_maximal`, `chi_mk0`, `isSquare_pstar_iff`),
   `maxSubfield_kerChi` (= K_n(√q*), Bauer both ways), Galois correspondence (`fixingSubgroup_fixedField`,
   `le_iff_le`). BETA-7 now rests on NormP2 only.
+- `normP2 : NormP2` PROVED (VERIFIED compiled): (2) = 𝔭₂𝔭̄₂ (𝔭̄₂ = (2, 1 − θ − m)), u·ū = (δ²+n)/4 even
+  (`linear_combination` from 2θ = 1 + √−n, (√−n)² = −n), 𝔭₂, 𝔭̄₂ ≠ (1) (`not_two_dvd_of_im`: an element with
+  imaginary part ±1/2 is not 2·𝓞), N(2) = 4.
+- **`betaOnGenus7 : BetaOnGenus7` PROVED** and `lemma321Seven_of' : CMFieldOfDefinition7 → TYZThm36Seven →
+  Lemma321Seven` (no glue left). All standard axioms (VERIFIED).
