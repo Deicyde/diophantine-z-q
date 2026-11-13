@@ -76,3 +76,8 @@ Base: 2dd83306 + merges of origin/wip/qm-pin, origin/wip/mobius-glue (g0-thetapo
 - run_full4 (06:07-06:10): final assembled `FibreQM.lean` (with Steps 2e-2h, §N): 0 errors, 0 `sorry`, 2m55s;
   29 axioms lines of §N/§F all `[propext, Classical.choice, Quot.sound]`. VERIFIED.
 - Report rewritten for the final form `fibreQMPeriod_final''`.
+- run_dev13 (06:17): `QMSkolemNoetherC` PROVED (`qmSkolemNoetherC_proof`: ρ(i)² = 2, ρ(j)² = −3, ρ(i)ρ(j) = −ρ(j)ρ(i);
+  eigenvector e₁ of ρ(i) for √2, e₂ = ρ(j)e₁; in the basis (e₁, e₂) ρ(i), ρ(j) are ι(i), ι(j); every a ∈ 𝒪 is
+  (2n₀ + 2n₁i + n₂(1+j) + n₃(i+ij))/2). New main theorem `fibreQMPeriod_main` (no Skolem–Noether hypothesis):
+  0 errors, 31 axioms lines standard. VERIFIED. Development files kept: `dev_SN.lean` (imports FQMBase),
+  `dev_Norm.lean` (imports QMLattice only).
