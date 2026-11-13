@@ -1,0 +1,19 @@
+scratch/infra-hodge/ProductHodgeLattice.lean: def ProductHodgeLattice verbatim from scratch/metrization/part_prodsplit.lean: True
+scratch/infra-hodge/ProductHodgeLattice.lean: def ProductHodgeLattice verbatim from scratch/infra-stalks/ProductLocalStructure.lean: True
+scratch/infra-hodge/ProductHodgeLattice.lean: Metrization.lean body: True
+scratch/infra-hodge/ProductHodgeLattice.lean: infra-stalks StalkPullback body: True
+scratch/infra-hodge/ProductHodgeLattice.lean: infra-stalks CotangentProduct body: True
+scratch/infra-hodge/ProductHodgeLattice.lean: infra-stalks cot_pullback part: True
+scratch/infra-hodge/ProductHodgeLattice.lean: infra-stalks local_structure part: True
+scratch/infra-hodge/ProductHodgeLattice.lean: infra-stalks pls_proof part: True
+scratch/infra-hodge/ProductHodgeLattice.lean: hodge-bc2 ExtFrac.lean body: True
+scratch/infra-hodge/ProductHodgeLattice.lean: infra-stalks stalk_tensor part: True
+scratch/infra-hodge/ProductHodgeLattice.lean: infra-stalks cot_bc part: True
+scratch/infra-hodge/ProductHodgeLattice.lean: infra-smooth-dim SmoothStalk.lean body: True
+scratch/infra-hodge/ProductSplit.lean: def ProductMetrizationOfProductUnif verbatim from scratch/g0-assemble2/parts/a25_productheight.lean: True
+scratch/infra-hodge/ProductSplit.lean: def ProductMetrizationOfProductUnif verbatim from scratch/product-height/ProductHeight.lean: True
+scratch/infra-hodge/ProductSplit.lean: ProductHeight.lean body (after import): True
+scratch/infra-hodge/ProductSplit.lean: infra-stalks StalkPullback body: True
+scratch/infra-hodge/ProductSplit.lean: infra-stalks CotangentProduct body: True
+scratch/infra-hodge/ProductSplit.lean: hodge-bc2 ExtFrac.lean body: True
+ALL OK

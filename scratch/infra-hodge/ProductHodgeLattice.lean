@@ -6356,6 +6356,1148 @@ end HSyn.G0Split
 
 
 
+section IHStalkTensor
+
+/-! # The stalk of a fibre product is a localization of the tensor product of stalks
+
+For `z ∈ X ×_S Y` over `x ∈ X`, `y ∈ Y`, `s ∈ S`, the ring map
+`Φ : 𝒪_{X,x} ⊗_{𝒪_{S,s}} 𝒪_{Y,y} → 𝒪_{X ×_S Y, z}` is a localization at the prime `Φ⁻¹(𝔪_z)`:
+every element of `𝒪_z` is `Φ a / Φ u` with `Φ u` a unit, and `Φ t = 0` implies `u t = 0` for some
+`u` with `Φ u` a unit (`pullback_stalk_tensor_isLocalization`; Stacks 01JT, EGA I 3.6.5,
+UNVERIFIED locators). -/
+
+namespace AlgebraicGeometry
+
+open CategoryTheory Limits TensorProduct
+
+/-- `Spec.map φ` on germs of global sections, at a named point. -/
+theorem stalkMapAt_germ_ΓSpecIso_inv {R S : CommRingCat.{u}} (φ : R ⟶ S) (t : Spec S)
+    {r0 : Spec R} (h : Spec.map φ t = r0) (a : R) :
+    (Spec.map φ).stalkMapAt h ((Spec R).presheaf.germ ⊤ r0 trivial ((Scheme.ΓSpecIso R).inv a)) =
+      (Spec S).presheaf.germ ⊤ t trivial ((Scheme.ΓSpecIso S).inv (φ a)) := by
+  subst h
+  rw [Scheme.Hom.stalkMapAt_rfl]
+  exact (germ_ΓSpecIso_inv_map φ t a).symm
+
+theorem stalkMapAt_comp_apply' {X Y Z : Scheme.{u}} (f : X ⟶ Y) (g : Y ⟶ Z) {x : X} {y : Y}
+    {z : Z} (hf : f x = y) (hg : g y = z) (hfg : (f ≫ g) x = z) (c : Z.presheaf.stalk z) :
+    (f.stalkMapAt hf).hom ((g.stalkMapAt hg).hom c) = ((f ≫ g).stalkMapAt hfg).hom c := by
+  rw [Scheme.Hom.stalkMapAt_comp f g hf hg hfg]
+  rfl
+
+/-- **Stalks of a fibre product.** See the section docstring. The points are named:
+`x = fst z`, `y = snd z`, `s = f x = g y`; the algebra structures are `f^♯ : 𝒪_s → 𝒪_x` and
+`g^♯ : 𝒪_s → 𝒪_y`. -/
+theorem pullback_stalk_tensor_isLocalization {X Y S : Scheme.{u}} (f : X ⟶ S) (g : Y ⟶ S)
+    (z : ↥(pullback f g)) {x : X} {y : Y} {s : S} (hx : pullback.fst f g z = x)
+    (hy : pullback.snd f g z = y) (hs : f x = s) (hys : g y = s) :
+    letI : Algebra (S.presheaf.stalk s) (X.presheaf.stalk x) := (f.stalkMapAt hs).hom.toAlgebra
+    letI : Algebra (S.presheaf.stalk s) (Y.presheaf.stalk y) := (g.stalkMapAt hys).hom.toAlgebra
+    ∃ Φ : (X.presheaf.stalk x) ⊗[S.presheaf.stalk s] (Y.presheaf.stalk y) →+*
+        (pullback f g).presheaf.stalk z,
+      (∀ a b, Φ (a ⊗ₜ b) =
+        ((pullback.fst f g).stalkMapAt hx).hom a * ((pullback.snd f g).stalkMapAt hy).hom b) ∧
+      (∀ r : (pullback f g).presheaf.stalk z, ∃ a u, IsUnit (Φ u) ∧ r * Φ u = Φ a) ∧
+      (∀ t, Φ t = 0 → ∃ u, IsUnit (Φ u) ∧ u * t = 0) := by
+  let Ox := X.presheaf.stalk x
+  let Oy := Y.presheaf.stalk y
+  let Os := S.presheaf.stalk s
+  let Oz := (pullback f g).presheaf.stalk z
+  letI : Algebra Os Ox := (f.stalkMapAt hs).hom.toAlgebra
+  letI : Algebra Os Oy := (g.stalkMapAt hys).hom.toAlgebra
+  let ψX := ((pullback.fst f g).stalkMapAt hx).hom
+  let ψY := ((pullback.snd f g).stalkMapAt hy).hom
+  letI : Algebra Os Oz := (ψX.comp (f.stalkMapAt hs).hom).toAlgebra
+  have hzs1 : (pullback.fst f g ≫ f) z = s := by rw [Scheme.Hom.comp_apply, hx, hs]
+  have hzs2 : (pullback.snd f g ≫ g) z = s := by rw [Scheme.Hom.comp_apply, hy, hys]
+  -- the two composites `𝒪_s → 𝒪_z` agree
+  have hc0 : ∀ r : Os, ψY ((g.stalkMapAt hys).hom r) = ψX ((f.stalkMapAt hs).hom r) := by
+    intro r
+    rw [stalkMapAt_comp_apply' (pullback.snd f g) g hy hys hzs2,
+      stalkMapAt_comp_apply' (pullback.fst f g) f hx hs hzs1,
+      Scheme.Hom.stalkMapAt_congr pullback.condition.symm hzs2 hzs1]
+  let ψXa : Ox →ₐ[Os] Oz := { ψX with commutes' := fun r => rfl }
+  let ψYa : Oy →ₐ[Os] Oz := { ψY with commutes' := fun r => hc0 r }
+  have hcomm : ∀ a b, Commute (ψXa a) (ψYa b) := fun a b => Commute.all _ _
+  let Φ : Ox ⊗[Os] Oy →+* Oz := (Algebra.TensorProduct.lift ψXa ψYa hcomm).toRingHom
+  have hΦ : ∀ a b, Φ (a ⊗ₜ b) = ψX a * ψY b := fun a b => rfl
+  refine ⟨Φ, hΦ, ?_, ?_⟩
+  -- surjectivity half, from `pullback_stalkGen`
+  · intro r
+    obtain ⟨c, hc, w, hw, hwu, hrw⟩ := pullback_stalkGen f g z r
+    have hle : ((pullback.fst f g).stalkMap z).hom.range ⊔
+        ((pullback.snd f g).stalkMap z).hom.range ≤ Φ.range := by
+      refine sup_le ?_ ?_
+      · rintro _ ⟨a', rfl⟩
+        obtain ⟨a, ha⟩ := Scheme.Hom.exists_stalkMapAt_eq (pullback.fst f g) hx a'
+        exact ⟨a ⊗ₜ 1, by rw [hΦ, map_one, mul_one]; exact ha⟩
+      · rintro _ ⟨b', rfl⟩
+        obtain ⟨b, hb⟩ := Scheme.Hom.exists_stalkMapAt_eq (pullback.snd f g) hy b'
+        exact ⟨1 ⊗ₜ b, by rw [hΦ, map_one, one_mul]; exact hb⟩
+    obtain ⟨a, rfl⟩ := hle hc
+    obtain ⟨u, rfl⟩ := hle hw
+    exact ⟨a, u, hwu, hrw⟩
+  -- kernel half, through affine charts
+  · intro t ht
+    let 𝒱 := S.affineOpenCover
+    let R := 𝒱.X (𝒱.idx s)
+    let jV : Spec R ⟶ S := 𝒱.f (𝒱.idx s)
+    have hsV : f x ∈ Set.range jV := by rw [hs]; exact 𝒱.covers _
+    obtain ⟨A, jU, _, φ, hxU, eU⟩ := exists_affine_chart_over f jV x hsV
+    have hsV' : g y ∈ Set.range jV := by rw [hys]; exact 𝒱.covers _
+    obtain ⟨B, jW, _, ψ, hyW, eW⟩ := exists_affine_chart_over g jV y hsV'
+    letI : Algebra R A := φ.hom.toAlgebra
+    letI : Algebra R B := ψ.hom.toAlgebra
+    let m := pullback.map (Spec.map φ) (Spec.map ψ) f g jU jW jV eU eW
+    have hz : z ∈ Set.range m := by
+      rw [Scheme.Pullback.range_map]
+      exact ⟨by rw [Set.mem_preimage, hx]; exact hxU, by rw [Set.mem_preimage, hy]; exact hyW⟩
+    obtain ⟨t0', ht0'⟩ := hz
+    let e := pullbackSpecIso R A B
+    let T := CommRingCat.of (A ⊗[R] B)
+    let m' : Spec T ⟶ pullback f g := e.inv ≫ m
+    let iL := CommRingCat.ofHom (Algebra.TensorProduct.includeLeftRingHom : A →+* A ⊗[R] B)
+    let iR := CommRingCat.ofHom (Algebra.TensorProduct.includeRight :
+      B →ₐ[R] A ⊗[R] B).toRingHom
+    have h1 : m' ≫ pullback.fst f g = Spec.map iL ≫ jU := by
+      simp only [m', m, e, Category.assoc, pullback.lift_fst]
+      rw [← Category.assoc]
+      exact congrArg (· ≫ jU) (pullbackSpecIso_inv_fst R A B)
+    have h2 : m' ≫ pullback.snd f g = Spec.map iR ≫ jW := by
+      simp only [m', m, e, Category.assoc, pullback.lift_snd]
+      rw [← Category.assoc]
+      exact congrArg (· ≫ jW) (pullbackSpecIso_inv_snd R A B)
+    let t0 := e.hom t0'
+    have hmt0 : m' t0 = z := by
+      have he : e.inv (e.hom t0') = t0' := by
+        rw [← Scheme.Hom.comp_apply, Iso.hom_inv_id]; rfl
+      simp only [m', t0]
+      rw [Scheme.Hom.comp_apply, he, ht0']
+    -- chart points
+    let a0 := Spec.map iL t0
+    let b0 := Spec.map iR t0
+    let r0 := Spec.map φ a0
+    have ha0 : jU a0 = x := by
+      have : (m' ≫ pullback.fst f g) t0 = x := by rw [Scheme.Hom.comp_apply, hmt0, hx]
+      rw [h1, Scheme.Hom.comp_apply] at this
+      exact this
+    have hb0 : jW b0 = y := by
+      have : (m' ≫ pullback.snd f g) t0 = y := by rw [Scheme.Hom.comp_apply, hmt0, hy]
+      rw [h2, Scheme.Hom.comp_apply] at this
+      exact this
+    have hφψ : φ ≫ iL = ψ ≫ iR := by
+      ext r
+      change φ r ⊗ₜ[R] (1 : B) = (1 : A) ⊗ₜ[R] ψ r
+      rw [show φ r = r • (1 : A) from (Algebra.algebraMap_eq_smul_one r),
+        show ψ r = r • (1 : B) from (Algebra.algebraMap_eq_smul_one r), TensorProduct.smul_tmul]
+    have hr0' : Spec.map ψ b0 = r0 := by
+      change (Spec.map iR ≫ Spec.map ψ) t0 = (Spec.map iL ≫ Spec.map φ) t0
+      rw [← Spec.map_comp, ← Spec.map_comp, hφψ]
+    have hr0 : jV r0 = s := by
+      change (Spec.map φ ≫ jV) a0 = s
+      rw [eU, Scheme.Hom.comp_apply, ha0, hs]
+    -- germ maps and the stalk isomorphisms of the charts
+    let germT : T →+* (Spec T).presheaf.stalk t0 :=
+      ((Scheme.ΓSpecIso T).inv ≫ (Spec T).presheaf.germ ⊤ t0 trivial).hom
+    let germA : A →+* (Spec A).presheaf.stalk a0 :=
+      ((Scheme.ΓSpecIso A).inv ≫ (Spec A).presheaf.germ ⊤ a0 trivial).hom
+    let germB : B →+* (Spec B).presheaf.stalk b0 :=
+      ((Scheme.ΓSpecIso B).inv ≫ (Spec B).presheaf.germ ⊤ b0 trivial).hom
+    let germR : R →+* (Spec R).presheaf.stalk r0 :=
+      ((Scheme.ΓSpecIso R).inv ≫ (Spec R).presheaf.germ ⊤ r0 trivial).hom
+    let κT := m'.stalkMapAt hmt0
+    let κA := jU.stalkMapAt ha0
+    let κB := jW.stalkMapAt hb0
+    let κR := jV.stalkMapAt hr0
+    haveI : IsIso κT := by
+      simp only [κT, Scheme.Hom.stalkMapAt]; infer_instance
+    haveI : IsIso κA := by
+      simp only [κA, Scheme.Hom.stalkMapAt]; infer_instance
+    haveI : IsIso κB := by
+      simp only [κB, Scheme.Hom.stalkMapAt]; infer_instance
+    haveI : IsIso κR := by
+      simp only [κR, Scheme.Hom.stalkMapAt]; infer_instance
+    have inj : ∀ {P Q : CommRingCat.{u}} (κ : P ⟶ Q) [IsIso κ], Function.Injective κ.hom :=
+      fun κ _ => (ConcreteCategory.bijective_of_isIso κ).1
+    have invκ : ∀ {P Q : CommRingCat.{u}} (κ : P ⟶ Q) [IsIso κ] (q : Q), κ.hom ((inv κ).hom q) = q :=
+      fun κ _ q => by rw [← CommRingCat.comp_apply, IsIso.inv_hom_id, CommRingCat.id_apply]
+    let γA : A →+* Ox := (inv κA).hom.comp germA
+    let γB : B →+* Oy := (inv κB).hom.comp germB
+    let γR : R →+* Os := (inv κR).hom.comp germR
+    let Θ : T →+* Oz := (inv κT).hom.comp germT
+    -- compatibilities
+    have hγA : ∀ α, κA.hom (γA α) = germA α := fun α => invκ κA _
+    have hγB : ∀ β, κB.hom (γB β) = germB β := fun β => invκ κB _
+    have hγR : ∀ r, κR.hom (γR r) = germR r := fun r => invκ κR _
+    have hΘ : ∀ w, κT.hom (Θ w) = germT w := fun w => invκ κT _
+    have c1 : ∀ r, γA (φ r) = (f.stalkMapAt hs).hom (γR r) := by
+      intro r
+      apply inj κA
+      rw [hγA]
+      have hpt : (jU ≫ f) a0 = s := by rw [Scheme.Hom.comp_apply, ha0, hs]
+      rw [stalkMapAt_comp_apply' jU f ha0 hs hpt,
+        Scheme.Hom.stalkMapAt_congr eU.symm hpt (by rw [Scheme.Hom.comp_apply]; exact hr0),
+        ← stalkMapAt_comp_apply' (Spec.map φ) jV rfl hr0, hγR]
+      exact (stalkMapAt_germ_ΓSpecIso_inv φ a0 rfl r).symm
+    have c2 : ∀ r, γB (ψ r) = (g.stalkMapAt hys).hom (γR r) := by
+      intro r
+      apply inj κB
+      rw [hγB]
+      have hpt : (jW ≫ g) b0 = s := by rw [Scheme.Hom.comp_apply, hb0, hys]
+      rw [stalkMapAt_comp_apply' jW g hb0 hys hpt,
+        Scheme.Hom.stalkMapAt_congr eW.symm hpt
+          (by rw [Scheme.Hom.comp_apply, hr0']; exact hr0),
+        ← stalkMapAt_comp_apply' (Spec.map ψ) jV hr0' hr0, hγR]
+      exact (stalkMapAt_germ_ΓSpecIso_inv ψ b0 hr0' r).symm
+    have c3A : ∀ α, ψX (γA α) = Θ (α ⊗ₜ[R] 1) := by
+      intro α
+      apply inj κT
+      rw [hΘ]
+      have hpt : (m' ≫ pullback.fst f g) t0 = x := by rw [Scheme.Hom.comp_apply, hmt0, hx]
+      rw [stalkMapAt_comp_apply' m' (pullback.fst f g) hmt0 hx hpt,
+        Scheme.Hom.stalkMapAt_congr h1 hpt (by rw [Scheme.Hom.comp_apply]; exact ha0),
+        ← stalkMapAt_comp_apply' (Spec.map iL) jU rfl ha0, hγA]
+      exact stalkMapAt_germ_ΓSpecIso_inv iL t0 rfl α
+    have c3B : ∀ β, ψY (γB β) = Θ ((1 : A) ⊗ₜ[R] β) := by
+      intro β
+      apply inj κT
+      rw [hΘ]
+      have hpt : (m' ≫ pullback.snd f g) t0 = y := by rw [Scheme.Hom.comp_apply, hmt0, hy]
+      rw [stalkMapAt_comp_apply' m' (pullback.snd f g) hmt0 hy hpt,
+        Scheme.Hom.stalkMapAt_congr h2 hpt (by rw [Scheme.Hom.comp_apply]; exact hb0),
+        ← stalkMapAt_comp_apply' (Spec.map iR) jW rfl hb0, hγB]
+      exact stalkMapAt_germ_ΓSpecIso_inv iR t0 rfl β
+    -- the map `A ⊗[R] B → 𝒪_x ⊗[𝒪_s] 𝒪_y`
+    letI : Algebra R (Ox ⊗[Os] Oy) := ((algebraMap Os (Ox ⊗[Os] Oy)).comp γR).toAlgebra
+    let fA : A →ₐ[R] Ox ⊗[Os] Oy :=
+      { (Algebra.TensorProduct.includeLeftRingHom : Ox →+* Ox ⊗[Os] Oy).comp γA with
+        commutes' := fun r => by
+          change γA (φ r) ⊗ₜ[Os] (1 : Oy) = algebraMap Os (Ox ⊗[Os] Oy) (γR r)
+          rw [c1, Algebra.TensorProduct.algebraMap_apply]
+          rfl }
+    let fB : B →ₐ[R] Ox ⊗[Os] Oy :=
+      { (Algebra.TensorProduct.includeRight : Oy →ₐ[Os] Ox ⊗[Os] Oy).toRingHom.comp γB with
+        commutes' := fun r => by
+          change (1 : Ox) ⊗ₜ[Os] γB (ψ r) = algebraMap Os (Ox ⊗[Os] Oy) (γR r)
+          rw [c2, Algebra.TensorProduct.algebraMap_apply']
+          rfl }
+    let ι : T →+* Ox ⊗[Os] Oy :=
+      (Algebra.TensorProduct.lift fA fB (fun _ _ => Commute.all _ _)).toRingHom
+    have hι : ∀ α β, ι (α ⊗ₜ β) = γA α ⊗ₜ γB β := by
+      intro α β
+      change fA α * fB β = _
+      change (γA α ⊗ₜ[Os] (1 : Oy)) * ((1 : Ox) ⊗ₜ[Os] γB β) = _
+      rw [Algebra.TensorProduct.tmul_mul_tmul, mul_one, one_mul]
+    have hΦι : ∀ w, Φ (ι w) = Θ w := by
+      intro w
+      induction w using TensorProduct.induction_on with
+      | zero => rw [map_zero, map_zero, map_zero]
+      | add w₁ w₂ h₁ h₂ => rw [map_add, map_add, map_add, h₁, h₂]
+      | tmul α β =>
+        rw [hι, hΦ, c3A, c3B, ← map_mul, Algebra.TensorProduct.tmul_mul_tmul, mul_one, one_mul]
+    -- every element of `𝒪_x`, `𝒪_y` is a fraction of chart elements
+    have locA : ∀ a : Ox, ∃ α u : A, IsUnit (γA u) ∧ a * γA u = γA α := by
+      intro a
+      letI : Algebra Γ(Spec A, ⊤) ((Spec A).presheaf.stalk a0) :=
+        ((Spec A).presheaf.germ ⊤ a0 trivial).hom.toAlgebra
+      have hL : IsLocalization.AtPrime ((Spec A).presheaf.stalk a0)
+          ((isAffineOpen_top (Spec A)).primeIdealOf ⟨a0, trivial⟩).asIdeal :=
+        (isAffineOpen_top (Spec A)).isLocalization_stalk ⟨a0, trivial⟩
+      obtain ⟨⟨p, q⟩, hpq⟩ := @IsLocalization.surj _ _ _ _ _ _ hL (κA.hom a)
+      have hq := @IsLocalization.map_units _ _ _ _ _ _ hL q
+      refine ⟨(Scheme.ΓSpecIso A).hom p, (Scheme.ΓSpecIso A).hom q.1, ?_, ?_⟩
+      · have : germA ((Scheme.ΓSpecIso A).hom q.1) = algebraMap _ _ q.1 :=
+          congrArg ((Spec A).presheaf.germ ⊤ a0 trivial).hom
+            (Iso.hom_inv_id_apply (Scheme.ΓSpecIso A) q.1)
+        have h' : IsUnit (κA.hom (γA ((Scheme.ΓSpecIso A).hom q.1))) := by
+          rw [hγA, this]; exact hq
+        have := h'.map (inv κA).hom
+        rwa [← CommRingCat.comp_apply, IsIso.hom_inv_id, CommRingCat.id_apply] at this
+      · apply inj κA
+        rw [map_mul, hγA, hγA]
+        have e1 : germA ((Scheme.ΓSpecIso A).hom q.1) = algebraMap _ _ q.1 :=
+          congrArg ((Spec A).presheaf.germ ⊤ a0 trivial).hom
+            (Iso.hom_inv_id_apply (Scheme.ΓSpecIso A) q.1)
+        have e2 : germA ((Scheme.ΓSpecIso A).hom p) = algebraMap _ _ p :=
+          congrArg ((Spec A).presheaf.germ ⊤ a0 trivial).hom
+            (Iso.hom_inv_id_apply (Scheme.ΓSpecIso A) p)
+        rw [e1, e2]
+        exact hpq
+    have locB : ∀ b : Oy, ∃ β v : B, IsUnit (γB v) ∧ b * γB v = γB β := by
+      intro b
+      letI : Algebra Γ(Spec B, ⊤) ((Spec B).presheaf.stalk b0) :=
+        ((Spec B).presheaf.germ ⊤ b0 trivial).hom.toAlgebra
+      have hL : IsLocalization.AtPrime ((Spec B).presheaf.stalk b0)
+          ((isAffineOpen_top (Spec B)).primeIdealOf ⟨b0, trivial⟩).asIdeal :=
+        (isAffineOpen_top (Spec B)).isLocalization_stalk ⟨b0, trivial⟩
+      obtain ⟨⟨p, q⟩, hpq⟩ := @IsLocalization.surj _ _ _ _ _ _ hL (κB.hom b)
+      have hq := @IsLocalization.map_units _ _ _ _ _ _ hL q
+      refine ⟨(Scheme.ΓSpecIso B).hom p, (Scheme.ΓSpecIso B).hom q.1, ?_, ?_⟩
+      · have : germB ((Scheme.ΓSpecIso B).hom q.1) = algebraMap _ _ q.1 :=
+          congrArg ((Spec B).presheaf.germ ⊤ b0 trivial).hom
+            (Iso.hom_inv_id_apply (Scheme.ΓSpecIso B) q.1)
+        have h' : IsUnit (κB.hom (γB ((Scheme.ΓSpecIso B).hom q.1))) := by
+          rw [hγB, this]; exact hq
+        have := h'.map (inv κB).hom
+        rwa [← CommRingCat.comp_apply, IsIso.hom_inv_id, CommRingCat.id_apply] at this
+      · apply inj κB
+        rw [map_mul, hγB, hγB]
+        have e1 : germB ((Scheme.ΓSpecIso B).hom q.1) = algebraMap _ _ q.1 :=
+          congrArg ((Spec B).presheaf.germ ⊤ b0 trivial).hom
+            (Iso.hom_inv_id_apply (Scheme.ΓSpecIso B) q.1)
+        have e2 : germB ((Scheme.ΓSpecIso B).hom p) = algebraMap _ _ p :=
+          congrArg ((Spec B).presheaf.germ ⊤ b0 trivial).hom
+            (Iso.hom_inv_id_apply (Scheme.ΓSpecIso B) p)
+        rw [e1, e2]
+        exact hpq
+    -- clear denominators in `t`
+    have hden : ∀ t' : Ox ⊗[Os] Oy, ∃ (u : A) (v : B) (t₀ : T), IsUnit (γA u) ∧ IsUnit (γB v) ∧
+        (γA u ⊗ₜ[Os] γB v) * t' = ι t₀ := by
+      intro t'
+      induction t' using TensorProduct.induction_on with
+      | zero => exact ⟨1, 1, 0, by simp, by simp, by simp⟩
+      | tmul a b =>
+        obtain ⟨α, u, hu, hau⟩ := locA a
+        obtain ⟨β, v, hv, hbv⟩ := locB b
+        refine ⟨u, v, α ⊗ₜ β, hu, hv, ?_⟩
+        rw [Algebra.TensorProduct.tmul_mul_tmul, mul_comm (γA u), mul_comm (γB v), hau, hbv, hι]
+      | add t₁ t₂ h₁ h₂ =>
+        obtain ⟨u₁, v₁, s₁, hu₁, hv₁, e₁⟩ := h₁
+        obtain ⟨u₂, v₂, s₂, hu₂, hv₂, e₂⟩ := h₂
+        refine ⟨u₁ * u₂, v₁ * v₂, (u₂ ⊗ₜ v₂) * s₁ + (u₁ ⊗ₜ v₁) * s₂,
+          by rw [map_mul]; exact hu₁.mul hu₂, by rw [map_mul]; exact hv₁.mul hv₂, ?_⟩
+        rw [map_add, map_mul ι, map_mul ι, hι, hι, ← e₁, ← e₂, mul_add]
+        congr 1
+        · rw [← mul_assoc, Algebra.TensorProduct.tmul_mul_tmul, map_mul γA, map_mul γB,
+            mul_comm (γA u₁), mul_comm (γB v₁)]
+        · rw [← mul_assoc, Algebra.TensorProduct.tmul_mul_tmul, map_mul γA, map_mul γB]
+    obtain ⟨u, v, t₀, hu, hv, htu⟩ := hden t
+    have hΘ0 : Θ t₀ = 0 := by
+      rw [← hΦι, ← htu, map_mul, ht, mul_zero]
+    have hgerm0 : germT t₀ = 0 := by
+      rw [← hΘ, hΘ0, map_zero]
+    letI : Algebra Γ(Spec T, ⊤) ((Spec T).presheaf.stalk t0) :=
+      ((Spec T).presheaf.germ ⊤ t0 trivial).hom.toAlgebra
+    have hLT : IsLocalization.AtPrime ((Spec T).presheaf.stalk t0)
+        ((isAffineOpen_top (Spec T)).primeIdealOf ⟨t0, trivial⟩).asIdeal :=
+      (isAffineOpen_top (Spec T)).isLocalization_stalk ⟨t0, trivial⟩
+    have h0' : algebraMap Γ(Spec T, ⊤) ((Spec T).presheaf.stalk t0)
+        ((Scheme.ΓSpecIso T).inv t₀) = 0 := hgerm0
+    obtain ⟨w, hw⟩ := (@IsLocalization.map_eq_zero_iff _ _ _ _ _ _ hLT _).mp h0'
+    let w₀ : T := (Scheme.ΓSpecIso T).hom w.1
+    have hww : w₀ * t₀ = 0 := by
+      have := congrArg (Scheme.ΓSpecIso T).hom hw
+      rwa [map_mul, map_zero, Iso.inv_hom_id_apply] at this
+    refine ⟨ι w₀ * (γA u ⊗ₜ[Os] γB v), ?_, ?_⟩
+    · rw [map_mul, hΦι, hΦ]
+      refine IsUnit.mul ?_ ((hu.map ψX).mul (hv.map ψY))
+      have hgw : IsUnit (germT w₀) := by
+        have e1 : germT w₀ = algebraMap _ _ w.1 :=
+          congrArg ((Spec T).presheaf.germ ⊤ t0 trivial).hom
+            (Iso.hom_inv_id_apply (Scheme.ΓSpecIso T) w.1)
+        rw [e1]
+        exact @IsLocalization.map_units _ _ _ _ _ _ hLT w
+      have h' : IsUnit (κT.hom (Θ w₀)) := by rw [hΘ]; exact hgw
+      have := h'.map (inv κT).hom
+      rwa [← CommRingCat.comp_apply, IsIso.hom_inv_id, CommRingCat.id_apply] at this
+    · rw [mul_assoc, htu, ← map_mul, hww, map_zero]
+
+/-- **`𝒪_{X ×_S Y, z} = (𝒪_{X,x} ⊗_{𝒪_{S,s}} 𝒪_{Y,y})_𝔭`**, as Mathlib's `IsLocalization` at the
+prime `𝔭 = Φ⁻¹(𝔪_z)`. -/
+theorem pullback_stalk_isLocalization {X Y S : Scheme.{u}} (f : X ⟶ S) (g : Y ⟶ S)
+    (z : ↥(pullback f g)) {x : X} {y : Y} {s : S} (hx : pullback.fst f g z = x)
+    (hy : pullback.snd f g z = y) (hs : f x = s) (hys : g y = s) :
+    letI : Algebra (S.presheaf.stalk s) (X.presheaf.stalk x) := (f.stalkMapAt hs).hom.toAlgebra
+    letI : Algebra (S.presheaf.stalk s) (Y.presheaf.stalk y) := (g.stalkMapAt hys).hom.toAlgebra
+    ∃ Φ : (X.presheaf.stalk x) ⊗[S.presheaf.stalk s] (Y.presheaf.stalk y) →+*
+        (pullback f g).presheaf.stalk z,
+      (∀ a b, Φ (a ⊗ₜ b) =
+        ((pullback.fst f g).stalkMapAt hx).hom a * ((pullback.snd f g).stalkMapAt hy).hom b) ∧
+      @IsLocalization _ _ (Ideal.comap Φ (IsLocalRing.maximalIdeal _)).primeCompl _ _
+        Φ.toAlgebra := by
+  letI : Algebra (S.presheaf.stalk s) (X.presheaf.stalk x) := (f.stalkMapAt hs).hom.toAlgebra
+  letI : Algebra (S.presheaf.stalk s) (Y.presheaf.stalk y) := (g.stalkMapAt hys).hom.toAlgebra
+  obtain ⟨Φ, hΦ, hsurj, hker⟩ := pullback_stalk_tensor_isLocalization f g z hx hy hs hys
+  refine ⟨Φ, hΦ, ?_⟩
+  letI := Φ.toAlgebra
+  have hunit : ∀ u, u ∈ (Ideal.comap Φ (IsLocalRing.maximalIdeal _)).primeCompl ↔ IsUnit (Φ u) := by
+    intro u
+    change ¬ (Φ u ∈ IsLocalRing.maximalIdeal _) ↔ _
+    rw [IsLocalRing.mem_maximalIdeal, mem_nonunits_iff, not_not]
+  rw [isLocalization_iff]
+  refine ⟨fun u => (hunit u.1).mp u.2, fun r => ?_, fun {a b} hab => ?_⟩
+  · obtain ⟨a, u, hu, h⟩ := hsurj r
+    exact ⟨(a, ⟨u, (hunit u).mpr hu⟩), h⟩
+  · have h0 : Φ (a - b) = 0 := by
+      rw [map_sub]; exact sub_eq_zero.mpr hab
+    obtain ⟨u, hu, h⟩ := hker _ h0
+    exact ⟨⟨u, (hunit u).mpr hu⟩, by rw [← sub_eq_zero, ← mul_sub]; exact h⟩
+
+end AlgebraicGeometry
+
+
+end IHStalkTensor
+
+section IHCotBC
+
+/-! # Cotangent space of a base change by a field extension (bijective)
+
+For `z ∈ X ×_S Y` with `𝒪_{S,s}` and `𝒪_{Y,y}` fields (e.g. `S = Spec L`, `Y = Spec L'`) and `x`
+rational over `s`, the map `𝒪_y ⊗_{𝒪_s} 𝔪_x/𝔪_x² → 𝔪_z/𝔪_z²`, `c ⊗ da ↦ c · d(fst^♯ a)`, is
+injective (`cotangent_baseChange_injective`); it is onto by `cotangent_span_pullback`. The proof
+combines Mathlib's `Ideal.tensorCotangentHom` (flat base change of `I/I²`) with the localization
+`pullback_stalk_tensor_isLocalization` and an algebraic lemma on cotangent spaces of localizations
+at a maximal ideal (`mem_sq_of_map_mem_sq`). -/
+
+/-- If `φ : B → R` (`R` local) is a localization at an ideal `J` with `φ(J)R = 𝔪_R` and
+`B/J` a field in the sense that every `w` with `φ w` a unit is invertible modulo `J`, then
+`φ p ∈ 𝔪_R²` forces `p ∈ J²` for `p ∈ J`. -/
+theorem IsLocalRing.mem_sq_of_map_mem_sq {B R : Type*} [CommRing B] [CommRing R] [IsLocalRing R]
+    (φ : B →+* R) (J : Ideal B) (hJ : J.map φ = IsLocalRing.maximalIdeal R)
+    (hsurj : ∀ r : R, ∃ a u, IsUnit (φ u) ∧ r * φ u = φ a)
+    (hker : ∀ t, φ t = 0 → ∃ u, IsUnit (φ u) ∧ u * t = 0)
+    (hres : ∀ w, IsUnit (φ w) → ∃ d, d * w - 1 ∈ J)
+    {p : B} (hp : p ∈ J) (hφp : φ p ∈ IsLocalRing.maximalIdeal R ^ 2) : p ∈ J ^ 2 := by
+  have hK : ∀ q ∈ (J ^ 2).map φ, ∃ a ∈ J ^ 2, ∃ u, IsUnit (φ u) ∧ q * φ u = φ a := by
+    intro q hq
+    induction hq using Submodule.span_induction with
+    | mem w hw =>
+      obtain ⟨k, hk, rfl⟩ := hw
+      exact ⟨k, hk, 1, by simp, by simp⟩
+    | zero => exact ⟨0, Ideal.zero_mem _, 1, by simp, by simp⟩
+    | add q₁ q₂ _ _ h₁ h₂ =>
+      obtain ⟨a₁, ha₁, u₁, hu₁, e₁⟩ := h₁
+      obtain ⟨a₂, ha₂, u₂, hu₂, e₂⟩ := h₂
+      refine ⟨a₁ * u₂ + a₂ * u₁, Ideal.add_mem _ (Ideal.mul_mem_right _ _ ha₁)
+        (Ideal.mul_mem_right _ _ ha₂), u₁ * u₂, by rw [map_mul]; exact hu₁.mul hu₂, ?_⟩
+      rw [map_add, map_mul, map_mul, map_mul, ← e₁, ← e₂]
+      ring
+    | smul r q _ h =>
+      obtain ⟨a, ha, u, hu, e⟩ := h
+      obtain ⟨b, v, hv, ev⟩ := hsurj r
+      refine ⟨b * a, Ideal.mul_mem_left _ _ ha, v * u, by rw [map_mul]; exact hv.mul hu, ?_⟩
+      rw [smul_eq_mul, map_mul, map_mul, ← ev, ← e]
+      ring
+  have hφp' : φ p ∈ (J ^ 2).map φ := by rwa [Ideal.map_pow, hJ]
+  obtain ⟨a, ha, u, hu, e⟩ := hK _ hφp'
+  have h0 : φ (p * u - a) = 0 := by rw [map_sub, map_mul, e, sub_self]
+  obtain ⟨u', hu', e'⟩ := hker _ h0
+  -- `w p ∈ J²` with `w = u' u`, `φ w` a unit
+  have hwp : u' * u * p ∈ J ^ 2 := by
+    have : u' * u * p = u' * a := by
+      have := e'
+      rw [mul_sub, sub_eq_zero] at this
+      rw [← this]; ring
+    rw [this]; exact Ideal.mul_mem_left _ _ ha
+  obtain ⟨d, hd⟩ := hres (u' * u) (by rw [map_mul]; exact hu'.mul hu)
+  have : p = d * (u' * u * p) - (d * (u' * u) - 1) * p := by ring
+  rw [this]
+  refine Ideal.sub_mem _ (Ideal.mul_mem_left _ _ hwp) ?_
+  rw [pow_two]
+  exact Ideal.mul_mem_mul hd hp
+
+namespace AlgebraicGeometry
+
+open CategoryTheory Limits TensorProduct
+
+/-- **Cotangent space of a base change by a field extension.** See the section docstring.
+`Ψ ∘ tensorCotangentHom` is the map `c ⊗ da ↦ c · d(fst^♯ a)` and it is injective. -/
+theorem cotangent_baseChange_injective {X Y S : Scheme.{u}} (f : X ⟶ S) (g : Y ⟶ S)
+    (z : ↥(pullback f g)) {x : X} {y : Y} {s : S} (hx : pullback.fst f g z = x)
+    (hy : pullback.snd f g z = y) (hs : f x = s) (hys : g y = s)
+    (hS : IsLocalRing.maximalIdeal (S.presheaf.stalk s) = ⊥)
+    (hY : IsLocalRing.maximalIdeal (Y.presheaf.stalk y) = ⊥) (hrat : RationalOver f x) :
+    letI : Algebra (S.presheaf.stalk s) (X.presheaf.stalk x) := (f.stalkMapAt hs).hom.toAlgebra
+    letI : Algebra (S.presheaf.stalk s) (Y.presheaf.stalk y) := (g.stalkMapAt hys).hom.toAlgebra
+    ∃ Ψ : (Ideal.map (Algebra.TensorProduct.includeRight.toRingHom :
+          X.presheaf.stalk x →+* (Y.presheaf.stalk y) ⊗[S.presheaf.stalk s] (X.presheaf.stalk x))
+          (IsLocalRing.maximalIdeal (X.presheaf.stalk x))).Cotangent →+
+        IsLocalRing.CotangentSpace ((pullback f g).presheaf.stalk z),
+      (∀ (c : Y.presheaf.stalk y) (a : IsLocalRing.maximalIdeal (X.presheaf.stalk x)),
+        Ψ (Ideal.tensorCotangentHom (S.presheaf.stalk s) (Y.presheaf.stalk y)
+            (IsLocalRing.maximalIdeal (X.presheaf.stalk x))
+            (c ⊗ₜ (IsLocalRing.maximalIdeal _).toCotangent a)) =
+          ((pullback.snd f g).stalkMapAt hy).hom c •
+            (IsLocalRing.maximalIdeal _).toCotangent
+              ⟨((pullback.fst f g).stalkMapAt hx).hom a, map_nonunit _ _ a.2⟩) ∧
+      Function.Injective fun t => Ψ (Ideal.tensorCotangentHom (S.presheaf.stalk s)
+        (Y.presheaf.stalk y) (IsLocalRing.maximalIdeal (X.presheaf.stalk x)) t) := by
+  letI : Algebra (S.presheaf.stalk s) (X.presheaf.stalk x) := (f.stalkMapAt hs).hom.toAlgebra
+  letI : Algebra (S.presheaf.stalk s) (Y.presheaf.stalk y) := (g.stalkMapAt hys).hom.toAlgebra
+  obtain ⟨Φ, hΦ, hsurj, hker⟩ := pullback_stalk_tensor_isLocalization f g z hx hy hs hys
+  let Ox := X.presheaf.stalk x
+  let Oy := Y.presheaf.stalk y
+  let Os := S.presheaf.stalk s
+  let Oz := (pullback f g).presheaf.stalk z
+  let ψX := ((pullback.fst f g).stalkMapAt hx).hom
+  let ψY := ((pullback.snd f g).stalkMapAt hy).hom
+  let cm : Oy ⊗[Os] Ox →+* Ox ⊗[Os] Oy := (Algebra.TensorProduct.comm Os Oy Ox).toRingHom
+  let cm' : Ox ⊗[Os] Oy →+* Oy ⊗[Os] Ox := (Algebra.TensorProduct.comm Os Oy Ox).symm.toRingHom
+  have hcm : ∀ w, cm' (cm w) = w := fun w =>
+    (Algebra.TensorProduct.comm Os Oy Ox).symm_apply_apply w
+  have hcm' : ∀ w, cm (cm' w) = w := fun w =>
+    (Algebra.TensorProduct.comm Os Oy Ox).apply_symm_apply w
+  let Φ' : Oy ⊗[Os] Ox →+* Oz := Φ.comp cm
+  have hΦ' : ∀ c a, Φ' (c ⊗ₜ a) = ψY c * ψX a := by
+    intro c a
+    change Φ ((Algebra.TensorProduct.comm Os Oy Ox) (c ⊗ₜ a)) = _
+    rw [Algebra.TensorProduct.comm_tmul, hΦ, mul_comm]
+  let J : Ideal (Oy ⊗[Os] Ox) := Ideal.map (Algebra.TensorProduct.includeRight.toRingHom :
+    Ox →+* Oy ⊗[Os] Ox) (IsLocalRing.maximalIdeal Ox)
+  -- `φ(J) = 𝔪_z`
+  have hrat' : RationalOver f (pullback.fst f g z) := by rw [hx]; exact hrat
+  have hm := maximalIdeal_eq_of_stalkGen pullback.condition (pullback_stalkGen f g z) hrat'
+  dsimp only [stalkIdeal] at hm
+  have hY' : IsLocalRing.maximalIdeal (Y.presheaf.stalk (pullback.snd f g z)) = ⊥ := by
+    rw [hy]; exact hY
+  rw [hY', Ideal.map_bot, sup_bot_eq] at hm
+  have hJ : J.map Φ' = IsLocalRing.maximalIdeal Oz := by
+    rw [hm, Ideal.map_map, ← Scheme.Hom.map_stalkMapAt_maximalIdeal (pullback.fst f g) hx]
+    congr 1
+    ext a
+    change Φ' (1 ⊗ₜ a) = ψX a
+    rw [hΦ', map_one, one_mul]
+  have hJle : J ≤ (IsLocalRing.maximalIdeal Oz).comap Φ' := by
+    rw [← Ideal.map_le_iff_le_comap, hJ]
+  -- localization properties for `Φ'`
+  have hsurj' : ∀ r : Oz, ∃ a u, IsUnit (Φ' u) ∧ r * Φ' u = Φ' a := by
+    intro r
+    obtain ⟨a, u, hu, e⟩ := hsurj r
+    refine ⟨cm' a, cm' u, ?_, ?_⟩
+    · change IsUnit (Φ (cm (cm' u))); rw [hcm']; exact hu
+    · change r * Φ (cm (cm' u)) = Φ (cm (cm' a)); rw [hcm', hcm']; exact e
+  have hker' : ∀ t, Φ' t = 0 → ∃ u, IsUnit (Φ' u) ∧ u * t = 0 := by
+    intro t ht
+    obtain ⟨u, hu, e⟩ := hker (cm t) ht
+    refine ⟨cm' u, ?_, ?_⟩
+    · change IsUnit (Φ (cm (cm' u))); rw [hcm']; exact hu
+    · have := congrArg cm' e
+      rwa [map_mul, hcm, map_zero] at this
+  -- residues: every element is `c ⊗ 1` modulo `J`
+  have hres0 : ∀ w : Oy ⊗[Os] Ox, ∃ c : Oy, w - c ⊗ₜ 1 ∈ J := by
+    intro w
+    induction w using TensorProduct.induction_on with
+    | zero => exact ⟨0, by simp⟩
+    | tmul c a =>
+      obtain ⟨r₀, hr₀⟩ := hrat a
+      obtain ⟨r, hr⟩ := Scheme.Hom.exists_stalkMapAt_eq f hs r₀
+      refine ⟨c * algebraMap Os Oy r, ?_⟩
+      have e1 : c ⊗ₜ[Os] a - (c * algebraMap Os Oy r) ⊗ₜ[Os] (1 : Ox) =
+          (c ⊗ₜ[Os] (1 : Ox)) * ((1 : Oy) ⊗ₜ[Os] (a - algebraMap Os Ox r)) := by
+        rw [Algebra.TensorProduct.tmul_mul_tmul, mul_one, one_mul, TensorProduct.tmul_sub]
+        congr 1
+        rw [Algebra.algebraMap_eq_smul_one (A := Ox) r, ← TensorProduct.smul_tmul,
+          Algebra.smul_def, mul_comm]
+      rw [e1]
+      refine Ideal.mul_mem_left _ _ (Ideal.mem_map_of_mem _ ?_)
+      change a - (f.stalkMapAt hs).hom r ∈ _
+      rw [hr]; exact hr₀
+    | add w₁ w₂ h₁ h₂ =>
+      obtain ⟨c₁, e₁⟩ := h₁
+      obtain ⟨c₂, e₂⟩ := h₂
+      refine ⟨c₁ + c₂, ?_⟩
+      have : w₁ + w₂ - (c₁ + c₂) ⊗ₜ[Os] (1 : Ox) =
+          (w₁ - c₁ ⊗ₜ[Os] (1 : Ox)) + (w₂ - c₂ ⊗ₜ[Os] (1 : Ox)) := by
+        rw [TensorProduct.add_tmul]; ring
+      rw [this]; exact Ideal.add_mem _ e₁ e₂
+  have hres : ∀ w, IsUnit (Φ' w) → ∃ d, d * w - 1 ∈ J := by
+    intro w hw
+    obtain ⟨c, hc⟩ := hres0 w
+    have hcu : IsUnit (ψY c) := by
+      have h1 : Φ' w - ψY c ∈ IsLocalRing.maximalIdeal Oz := by
+        have := hJle hc
+        rw [Ideal.mem_comap, map_sub, hΦ', map_one, mul_one] at this
+        exact this
+      by_contra hn
+      exact (IsLocalRing.mem_maximalIdeal _).mp
+        (by have := Ideal.add_mem _ h1 (show ψY c ∈ IsLocalRing.maximalIdeal Oz from hn)
+            rwa [sub_add_cancel] at this) hw
+    have hcu' : IsUnit c := isUnit_of_map_unit ψY c hcu
+    obtain ⟨cu, rfl⟩ := hcu'
+    refine ⟨(↑cu⁻¹ : Oy) ⊗ₜ[Os] (1 : Ox), ?_⟩
+    have : (↑cu⁻¹ : Oy) ⊗ₜ[Os] (1 : Ox) * w - 1 =
+        (↑cu⁻¹ : Oy) ⊗ₜ[Os] (1 : Ox) * (w - (↑cu : Oy) ⊗ₜ[Os] (1 : Ox)) := by
+      rw [mul_sub, Algebra.TensorProduct.tmul_mul_tmul, Units.inv_mul, mul_one,
+        Algebra.TensorProduct.one_def]
+    rw [this]
+    exact Ideal.mul_mem_left _ _ hc
+  -- the map `J/J² → 𝔪_z/𝔪_z²`
+  set Ψ := Ideal.mapCotangent J (IsLocalRing.maximalIdeal Oz) Φ'.toIntAlgHom hJle with hΨ
+  refine ⟨Ψ.toAddMonoidHom, ?_, ?_⟩
+  · intro c a
+    rw [Ideal.tensorCotangentHom_tmul]
+    have hmem : c ⊗ₜ[Os] (a : Ox) ∈ J := by
+      have : c ⊗ₜ[Os] (a : Ox) = (c ⊗ₜ[Os] (1 : Ox)) * ((1 : Oy) ⊗ₜ[Os] (a : Ox)) := by
+        rw [Algebra.TensorProduct.tmul_mul_tmul, mul_one, one_mul]
+      rw [this]
+      exact Ideal.mul_mem_left _ _ (Ideal.mem_map_of_mem _ a.2)
+    have e1 : (c • J.toCotangent ⟨1 ⊗ₜ (a : Ox), Ideal.mem_map_of_mem _ a.2⟩) =
+        J.toCotangent ⟨c ⊗ₜ (a : Ox), hmem⟩ := by
+      rw [← LinearMap.map_smul_of_tower]
+      congr 1
+      apply Subtype.ext
+      change c • ((1 : Oy) ⊗ₜ[Os] (a : Ox)) = c ⊗ₜ[Os] (a : Ox)
+      rw [TensorProduct.smul_tmul', smul_eq_mul, mul_one]
+    change Ψ (c • J.toCotangent ⟨1 ⊗ₜ (a : Ox), Ideal.mem_map_of_mem _ a.2⟩) = _
+    rw [e1, hΨ]
+    refine (Ideal.mapCotangent_toCotangent _ _ _ _ _).trans ?_
+    rw [← map_smul]
+    congr 1
+    apply Subtype.ext
+    change Φ' (c ⊗ₜ (a : Ox)) = ψY c * ψX a
+    exact hΦ' c a
+  · haveI : Module.Flat Os Oy := by
+      letI : Field Os := (IsLocalRing.isField_iff_maximalIdeal_eq.mpr hS).toField
+      infer_instance
+    have hinj1 := Ideal.tensorCotangentHom_injective_of_flat Os Oy (IsLocalRing.maximalIdeal Ox)
+    have hinj2 : Function.Injective Ψ := by
+      rw [injective_iff_map_eq_zero]
+      intro v hv
+      obtain ⟨⟨p, hp⟩, rfl⟩ := J.toCotangent_surjective v
+      rw [hΨ] at hv
+      have hv' := (Ideal.mapCotangent_toCotangent _ _ _ _ _).symm.trans hv
+      rw [Ideal.toCotangent_eq_zero] at hv'
+      rw [Ideal.toCotangent_eq_zero]
+      exact IsLocalRing.mem_sq_of_map_mem_sq Φ' J hJ hsurj' hker' hres hp hv'
+    exact fun t₁ t₂ h => hinj1 (hinj2 h)
+
+end AlgebraicGeometry
+
+
+end IHCotBC
+
+section IHSmoothStalk
+
+/-! # Local rings of smooth schemes over a field (§0-§3 = StdSmoothLocal.lean verbatim)
+
+Task infra-smooth-dim. Mathlib-only. (Lemmas from `MaxHeight.lean` and `CotQuot.lean` are copied
+verbatim in §0, since scratch files cannot import each other.)
+
+**Main result.** If `S` is a standard smooth algebra of relative dimension `n` over a field `k` and
+`𝔪` is a maximal ideal of `S`, then `S_𝔪` has Krull dimension `n` and its maximal ideal is spanned by
+`n` elements (so `S_𝔪` is regular, and `dim_κ 𝔪/𝔪² = n`).
+
+Proof: write `S = k[x_ι]/(f_σ)` with invertible Jacobian, `M` the preimage of `𝔪`. Krull's height
+theorem and `ht M = |ι|` give `dim S_𝔪 ≥ |ι| - |σ|`; the derivatives `∂f_i/∂x_{map j}` show that
+the `f_i` have linearly independent classes in `M A_M / M² A_M`, so killing them lowers the embedding
+dimension `|ι|` of the regular local ring `k[x]_M` by `|σ|`; and `dim ≤ edim`. -/
+
+open Ideal IsLocalRing
+
+namespace InfraSmoothDim
+
+/-! ## §0 Copied from `MaxHeight.lean` and `CotQuot.lean` -/
+
+theorem height_isMaximal_mvPolynomial (k : Type*) [Field k] :
+    ∀ (ι : Type) [Finite ι] (M : Ideal (MvPolynomial ι k)) [M.IsMaximal],
+      M.height = Nat.card ι := by
+  intro ι _
+  induction ι using Finite.induction_empty_option with
+  | of_equiv e H =>
+    intro M _
+    have e' := (MvPolynomial.renameEquiv k e).toRingEquiv
+    have : (M.map e'.symm).IsMaximal := map_isMaximal_of_equiv e'.symm
+    rw [← e'.symm.height_map M, H, Nat.card_congr e]
+  | h_empty =>
+    intro M _
+    have h1 := Ideal.height_le_ringKrullDim_of_ne_top (I := M) IsPrime.ne_top'
+    rw [MvPolynomial.ringKrullDim_of_isNoetherianRing_of_finite, ringKrullDim_eq_zero_of_field]
+      at h1
+    simp only [Nat.card_of_isEmpty, CharP.cast_eq_zero, add_zero] at h1
+    simp only [Nat.card_of_isEmpty, CharP.cast_eq_zero]
+    exact_mod_cast nonpos_iff_eq_zero.mp (by exact_mod_cast h1)
+  | @h_option α _ IH =>
+    intro M _
+    let e := (MvPolynomial.optionEquivLeft k α).toRingEquiv
+    let P := M.map e
+    have : P.IsMaximal := map_isMaximal_of_equiv e
+    let p := P.comap (Polynomial.C : MvPolynomial α k →+* _)
+    have : p.IsMaximal := Polynomial.isMaximal_comap_C_of_isJacobsonRing P
+    have : P.LiesOver p := ⟨rfl⟩
+    rw [← e.height_map M, Polynomial.height_eq_height_add_one p P, IH p]
+    simp [Nat.card_eq_fintype_card, Fintype.card_option]
+
+theorem spanFinrank_add_card_le {B C : Type*} [CommRing B] [IsLocalRing B] [IsNoetherianRing B]
+    [CommRing C] [IsLocalRing C] (ψ : B →+* C)
+    (hmap : (maximalIdeal B).map ψ = maximalIdeal C)
+    {σ : Type*} [Fintype σ] (f : σ → maximalIdeal B)
+    (hf : LinearIndependent (ResidueField B) (fun i => (maximalIdeal B).toCotangent (f i)))
+    (hker : ∀ i, ψ (f i) = 0) :
+    (maximalIdeal C).spanFinrank + Fintype.card σ ≤ (maximalIdeal B).spanFinrank := by
+  classical
+  set κ := ResidueField B
+  set V := CotangentSpace B
+  let v : σ → V := fun i => (maximalIdeal B).toCotangent (f i)
+  let W : Submodule κ V := Submodule.span κ (Set.range v)
+  have hW : Module.finrank κ W = Fintype.card σ := finrank_span_eq_card hf
+  have hVW := Submodule.finrank_quotient_add_finrank W
+  set d := Module.finrank κ (V ⧸ W)
+  let b := Module.finBasis κ (V ⧸ W)
+  have hsurj : Function.Surjective
+      (fun x : maximalIdeal B => W.mkQ ((maximalIdeal B).toCotangent x)) :=
+    (Submodule.mkQ_surjective W).comp (Ideal.toCotangent_surjective _)
+  choose g hg using fun j : Fin d => hsurj (b j)
+  -- the classes of `f` and `g` span `V`
+  let s : Set (maximalIdeal B) := Set.range f ∪ Set.range g
+  have hspan : Submodule.span κ ((maximalIdeal B).toCotangent '' s) = ⊤ := by
+    have h1 : W ≤ Submodule.span κ ((maximalIdeal B).toCotangent '' s) := by
+      refine Submodule.span_le.mpr ?_
+      rintro _ ⟨i, rfl⟩
+      exact Submodule.subset_span ⟨f i, Or.inl ⟨i, rfl⟩, rfl⟩
+    have h2 : (Submodule.span κ ((maximalIdeal B).toCotangent '' s)).map W.mkQ = ⊤ := by
+      rw [eq_top_iff, ← b.span_eq, Submodule.span_le]
+      rintro _ ⟨j, rfl⟩
+      rw [← hg j]
+      exact Submodule.mem_map_of_mem (Submodule.subset_span ⟨g j, Or.inr ⟨j, rfl⟩, rfl⟩)
+    have := Submodule.comap_map_mkQ W (Submodule.span κ ((maximalIdeal B).toCotangent '' s))
+    rw [h2, Submodule.comap_top, sup_eq_right.mpr h1] at this
+    exact this.symm
+  have hspanB : Submodule.span B s = ⊤ := (CotangentSpace.span_image_eq_top_iff).mp hspan
+  have hmB : maximalIdeal B = Ideal.span (((↑) : maximalIdeal B → B) '' s) := by
+    have := congrArg (Submodule.map (maximalIdeal B).subtype) hspanB
+    rw [Submodule.map_span, Submodule.map_top, Submodule.range_subtype] at this
+    exact this.symm
+  have hmC : maximalIdeal C = Ideal.span (Set.range fun j => ψ (g j)) := by
+    rw [← hmap, congrArg (Ideal.map ψ) hmB, Ideal.map_span]
+    refine le_antisymm (Ideal.span_le.mpr ?_) (Ideal.span_le.mpr ?_)
+    · rintro _ ⟨_, ⟨x, hx | hx, rfl⟩, rfl⟩
+      · obtain ⟨i, rfl⟩ := hx
+        simp [hker i]
+      · obtain ⟨j, rfl⟩ := hx
+        exact Ideal.subset_span ⟨j, rfl⟩
+    · rintro _ ⟨j, rfl⟩
+      exact Ideal.subset_span ⟨_, ⟨g j, Or.inr ⟨j, rfl⟩, rfl⟩, rfl⟩
+  have hle : (maximalIdeal C).spanFinrank ≤ d := by
+    rw [hmC]
+    have := Submodule.spanFinrank_span_le_ncard_of_finite (R := C)
+      (Set.finite_range fun j => ψ (g j))
+    refine this.trans ?_
+    have h3 : (Set.range fun j => ψ (g j)).ncard ≤ Nat.card (Fin d) := by
+      rw [← Set.image_univ]
+      exact (Set.ncard_image_le Set.finite_univ).trans (Set.ncard_univ _).le
+    rw [Nat.card_fin] at h3
+    exact h3
+  rw [spanFinrank_maximalIdeal_eq_finrank_cotangentSpace B]
+  change _ ≤ Module.finrank κ V
+  omega
+
+/-! ## §1 Derivatives vanish modulo `M` on `M²` -/
+
+theorem derivation_mem_of_mem_sq {R A : Type*} [CommRing R] [CommRing A] [Algebra R A]
+    (D : Derivation R A A) {M : Ideal A} {x : A} (hx : x ∈ M ^ 2) : D x ∈ M := by
+  rw [pow_two] at hx
+  refine Submodule.mul_induction_on hx ?_ ?_
+  · intro a ha b hb
+    rw [Derivation.leibniz, smul_eq_mul, smul_eq_mul]
+    exact add_mem (M.mul_mem_right _ ha) (M.mul_mem_right _ hb)
+  · intro x y hx hy
+    rw [map_add]
+    exact add_mem hx hy
+
+/-! ## §2 The main theorem -/
+
+variable {k S : Type*} [Field k] [CommRing S] [Algebra k S]
+variable {ι σ : Type} [Finite ι] [Finite σ]
+
+/-- The class of a relation in the cotangent space of `k[x]_M`. -/
+noncomputable def relCot (P : Algebra.SubmersivePresentation k S ι σ) (M : Ideal P.Ring)
+    [M.IsMaximal] (hker : P.ker ≤ M) (i : σ) : maximalIdeal (Localization.AtPrime M) :=
+  ⟨algebraMap P.Ring (Localization.AtPrime M) (P.relation i), by
+    rw [← Localization.AtPrime.map_eq_maximalIdeal]
+    exact Ideal.mem_map_of_mem _ (hker (P.relation_mem_ker i))⟩
+
+theorem exists_residue_algebraMap_eq {R : Type*} [CommRing R] (M : Ideal R) [M.IsMaximal]
+    (x : ResidueField (Localization.AtPrime M)) :
+    ∃ a : R, residue _ (algebraMap R (Localization.AtPrime M) a) = x := by
+  obtain ⟨y, hy⟩ :=
+    (IsLocalization.AtPrime.equivQuotMaximalIdeal M (Localization.AtPrime M)).surjective x
+  obtain ⟨a, rfl⟩ := Ideal.Quotient.mk_surjective y
+  rw [IsLocalization.AtPrime.equivQuotMaximalIdeal_apply_mk] at hy
+  exact ⟨a, hy⟩
+
+omit [Finite ι] in
+theorem jacobiMatrix_det_notMem [Fintype σ] [DecidableEq σ]
+    (P : Algebra.SubmersivePresentation k S ι σ) (M : Ideal P.Ring)
+    [M.IsMaximal] (hker : P.ker ≤ M) : P.jacobiMatrix.det ∉ M := by
+  intro hdet
+  have hu := P.jacobian_isUnit
+  rw [P.jacobian_eq_jacobiMatrix_det] at hu
+  obtain ⟨u, hu⟩ := hu.exists_right_inv
+  obtain ⟨a', rfl⟩ := P.algebraMap_surjective u
+  have h1 : P.jacobiMatrix.det * a' - 1 ∈ M := hker (by
+    show _ ∈ RingHom.ker (algebraMap P.Ring S)
+    rw [RingHom.mem_ker, map_sub, map_mul, hu, map_one, sub_self])
+  have h2 : P.jacobiMatrix.det * a' ∈ M := M.mul_mem_right _ hdet
+  have : (1 : P.Ring) ∈ M := by simpa using M.sub_mem h2 h1
+  exact (Ideal.IsMaximal.ne_top inferInstance) ((Ideal.eq_top_iff_one M).mpr this)
+
+omit [Finite ι] in
+/-- If `∑ aᵢ fᵢ ∈ M²` then every `aᵢ ∈ M` (differentiate and invert the Jacobian mod `M`). -/
+theorem coeffs_mem_of_sum_mem_sq [Fintype σ] [DecidableEq σ]
+    (P : Algebra.SubmersivePresentation k S ι σ) (M : Ideal P.Ring) [M.IsMaximal]
+    (hker : P.ker ≤ M) (a : σ → P.Ring) (hy2 : ∑ i, a i * P.relation i ∈ M ^ 2) :
+    ∀ i, a i ∈ M := by
+  have hrM : ∀ i, P.relation i ∈ M := fun i => hker (P.relation_mem_ker i)
+  have hder : ∀ j : σ, ∑ i, a i * MvPolynomial.pderiv (P.map j) (P.relation i) ∈ M := by
+    intro j
+    have h1 := derivation_mem_of_mem_sq (MvPolynomial.pderiv (P.map j)) hy2
+    have h2 : MvPolynomial.pderiv (P.map j) (∑ i, a i * P.relation i) =
+        ∑ i, a i * MvPolynomial.pderiv (P.map j) (P.relation i)
+        + ∑ i, P.relation i * MvPolynomial.pderiv (P.map j) (a i) := by
+      simp only [map_sum, Derivation.leibniz, smul_eq_mul, Finset.sum_add_distrib]
+    rw [h2] at h1
+    have h3 : ∑ i, P.relation i * MvPolynomial.pderiv (P.map j) (a i) ∈ M :=
+      Ideal.sum_mem _ fun i _ => M.mul_mem_right _ (hrM i)
+    have := M.sub_mem h1 h3
+    rwa [add_sub_cancel_right] at this
+  let _ : Field (P.Ring ⧸ M) := Ideal.Quotient.field M
+  let J := P.jacobiMatrix.map (Ideal.Quotient.mk M)
+  have hJ : J.det ≠ 0 := by
+    rw [show J.det = Ideal.Quotient.mk M P.jacobiMatrix.det from (RingHom.map_det _ _).symm,
+      Ne, Ideal.Quotient.eq_zero_iff_mem]
+    exact jacobiMatrix_det_notMem P M hker
+  have hv : Matrix.mulVec J (fun i => Ideal.Quotient.mk M (a i)) = 0 := by
+    ext j
+    simp only [Matrix.mulVec, dotProduct, J, Matrix.map_apply, Pi.zero_apply]
+    rw [← Ideal.Quotient.eq_zero_iff_mem.mpr (hder j), map_sum]
+    refine Finset.sum_congr rfl fun i _ => ?_
+    rw [P.jacobiMatrix_apply, map_mul, mul_comm]
+  have := Matrix.eq_zero_of_mulVec_eq_zero hJ hv
+  intro i
+  have hi := congrFun this i
+  rwa [Pi.zero_apply, Ideal.Quotient.eq_zero_iff_mem] at hi
+
+omit [Finite ι] in
+/-- A relation among the cotangent classes, with coefficients lifted to `k[x]`, gives an element
+`∑ aᵢ fᵢ` of `M²`. -/
+theorem sum_mem_sq_of_cotangent [Fintype σ]
+    (P : Algebra.SubmersivePresentation k S ι σ) (M : Ideal P.Ring) [M.IsMaximal]
+    (hker : P.ker ≤ M) (a : σ → P.Ring)
+    (hc : ∑ i, algebraMap P.Ring (Localization.AtPrime M) (a i) •
+      (maximalIdeal (Localization.AtPrime M)).toCotangent (relCot P M hker i) = 0) :
+    ∑ i, a i * P.relation i ∈ M ^ 2 := by
+  rw [← IsLocalization.AtPrime.under_maximalIdeal_pow M (Localization.AtPrime M) 2,
+    Ideal.mem_comap]
+  simp_rw [← map_smul, ← map_sum, Ideal.toCotangent_eq_zero] at hc
+  convert hc using 1
+  rw [Submodule.coe_sum, map_sum]
+  refine Finset.sum_congr rfl fun i _ => ?_
+  rw [Submodule.coe_smul, smul_eq_mul, map_mul]
+  rfl
+
+omit [Finite ι] in
+/-- The relations of a submersive presentation have linearly independent classes in the cotangent
+space of `k[x]_M`, for any maximal ideal `M ⊇ ker (k[x] → S)`. -/
+theorem linearIndependent_relCot (P : Algebra.SubmersivePresentation k S ι σ) (M : Ideal P.Ring)
+    [M.IsMaximal] (hker : P.ker ≤ M) :
+    LinearIndependent (ResidueField (Localization.AtPrime M))
+      (fun i => (maximalIdeal (Localization.AtPrime M)).toCotangent (relCot P M hker i)) := by
+  classical
+  have := Fintype.ofFinite σ
+  rw [Fintype.linearIndependent_iff]
+  intro c hc
+  choose a ha using exists_residue_algebraMap_eq M
+  have hc' : ∑ i, algebraMap P.Ring (Localization.AtPrime M) (a (c i)) •
+      (maximalIdeal (Localization.AtPrime M)).toCotangent (relCot P M hker i) = 0 := by
+    rw [← hc]
+    refine Finset.sum_congr rfl fun i _ => ?_
+    rw [← algebraMap_smul (ResidueField (Localization.AtPrime M)), ResidueField.algebraMap_eq,
+      ha (c i)]
+  have hmem := coeffs_mem_of_sum_mem_sq P M hker (fun i => a (c i))
+    (sum_mem_sq_of_cotangent P M hker _ hc')
+  intro i
+  rw [← ha (c i), residue_eq_zero_iff, ← Localization.AtPrime.map_eq_maximalIdeal]
+  exact Ideal.mem_map_of_mem _ (hmem i)
+
+/-! ## §3 Dimension and embedding dimension of `S_𝔪` -/
+
+/-- **Main algebraic theorem.** For a submersive presentation `P` of `S` over a field `k` and a
+maximal ideal `𝔪` of `S`: `dim S_𝔪 = P.dimension` and `𝔪 S_𝔪` is spanned by `P.dimension`
+elements (and no fewer). -/
+theorem ringKrullDim_and_spanFinrank_localization (P : Algebra.SubmersivePresentation k S ι σ)
+    (m : Ideal S) [m.IsMaximal] :
+    ringKrullDim (Localization.AtPrime m) = P.dimension ∧
+      (maximalIdeal (Localization.AtPrime m)).spanFinrank = P.dimension := by
+  classical
+  have := Fintype.ofFinite σ
+  have hφs : Function.Surjective (algebraMap P.Ring S) := P.algebraMap_surjective
+  have hkerφ : ∀ x ∈ P.ker, algebraMap P.Ring S x = 0 := fun x hx => hx
+  obtain ⟨M, hMdef⟩ : ∃ M, M = m.comap (algebraMap P.Ring S) := ⟨_, rfl⟩
+  have : M.IsMaximal := hMdef ▸ Ideal.comap_isMaximal_of_surjective _ hφs
+  have hker : P.ker ≤ M := fun x hx => by
+    rw [hMdef, Ideal.mem_comap, hkerφ x hx]
+    exact m.zero_mem
+  have : IsNoetherianRing S := isNoetherianRing_of_surjective _ _ _ hφs
+  -- lower bound (Krull's height theorem)
+  have hM : M.height = Nat.card ι := height_isMaximal_mvPolynomial k ι M
+  have hK := Ideal.height_le_height_add_spanFinrank_of_le hker
+  have hspan : P.ker.spanFinrank ≤ Nat.card σ := by
+    rw [← P.span_range_relation_eq_ker]
+    refine (Submodule.spanFinrank_span_le_ncard_of_finite (Set.finite_range _)).trans ?_
+    rw [← Set.image_univ]
+    exact (Set.ncard_image_le Set.finite_univ).trans (Set.ncard_univ _).le
+  have hquot : (M.map (Ideal.Quotient.mk P.ker)).height = m.height := by
+    let e : (P.Ring ⧸ P.ker) ≃+* S := RingHom.quotientKerEquivOfSurjective hφs
+    refine (e.height_map _).symm.trans (congrArg Ideal.height ?_)
+    change Ideal.map (e : P.Ring ⧸ P.ker →+* S) _ = m
+    rw [Ideal.map_map]
+    have : (e : P.Ring ⧸ P.ker →+* S).comp (Ideal.Quotient.mk P.ker) = algebraMap P.Ring S :=
+      RingHom.ext fun x => RingHom.quotientKerEquivOfSurjective_apply_mk hφs x
+    rw [this, hMdef, Ideal.map_comap_of_surjective _ hφs]
+  rw [hquot, hM] at hK
+  have hdimC : ringKrullDim (Localization.AtPrime m) = m.height :=
+    IsLocalization.AtPrime.ringKrullDim_eq_height m (Localization.AtPrime m)
+  -- upper bound (embedding dimension)
+  let ψ := Localization.localRingHom M m (algebraMap P.Ring S) hMdef
+  have hcomp : ψ.comp (algebraMap P.Ring (Localization.AtPrime M)) =
+      (algebraMap S (Localization.AtPrime m)).comp (algebraMap P.Ring S) := by
+    ext x
+    · exact Localization.localRingHom_to_map M m _ hMdef _
+    · exact Localization.localRingHom_to_map M m _ hMdef _
+  have hmap : (maximalIdeal (Localization.AtPrime M)).map ψ =
+      maximalIdeal (Localization.AtPrime m) := by
+    rw [← Localization.AtPrime.map_eq_maximalIdeal, ← Localization.AtPrime.map_eq_maximalIdeal,
+      Ideal.map_map, hcomp, ← Ideal.map_map, hMdef, Ideal.map_comap_of_surjective _ hφs]
+  have hkill : ∀ i, ψ (relCot P M hker i) = 0 := by
+    intro i
+    change ψ (algebraMap P.Ring (Localization.AtPrime M) (P.relation i)) = 0
+    rw [← RingHom.comp_apply, hcomp, RingHom.comp_apply, hkerφ _ (P.relation_mem_ker i), map_zero]
+  have hU := spanFinrank_add_card_le ψ hmap (relCot P M hker) (linearIndependent_relCot P M hker)
+    hkill
+  have hB : ((maximalIdeal (Localization.AtPrime M)).spanFinrank : WithBot ℕ∞) = Nat.card ι := by
+    rw [IsRegularLocalRing.spanFinrank_maximalIdeal,
+      IsLocalization.AtPrime.ringKrullDim_eq_height M (Localization.AtPrime M), hM]
+    rfl
+  have hB' : (maximalIdeal (Localization.AtPrime M)).spanFinrank = Nat.card ι := by
+    exact_mod_cast hB
+  have hle := ringKrullDim_le_spanFinrank_maximalIdeal (Localization.AtPrime m)
+  rw [hdimC] at hle
+  have hle' : m.height ≤ ((maximalIdeal (Localization.AtPrime m)).spanFinrank : ℕ∞) := by
+    exact_mod_cast hle
+  obtain ⟨h, hh⟩ := ENat.ne_top_iff_exists.mp (ne_top_of_le_ne_top (ENat.natCast_ne_top _) hle')
+  rw [← hh] at hle' hK
+  rw [hB', Fintype.card_eq_nat_card] at hU
+  rw [hdimC, ← hh]
+  simp only [Algebra.Presentation.dimension]
+  have hK' : Nat.card ι ≤ h + P.ker.spanFinrank := by exact_mod_cast hK
+  have hle'' : h ≤ (maximalIdeal (Localization.AtPrime m)).spanFinrank := by exact_mod_cast hle'
+  constructor
+  · have : h = Nat.card ι - Nat.card σ := by omega
+    rw [this]; rfl
+  · omega
+
+end InfraSmoothDim
+
+
+/-! ## §4 Scheme stalks (task infra-smooth-dim) -/
+
+namespace InfraSmoothDim
+
+open CategoryTheory AlgebraicGeometry
+
+/-- The algebraic theorem over a base ring that is a field (without a `Field` instance). -/
+theorem ringKrullDim_and_spanFinrank_of_isField {R S : Type*} [CommRing R] [CommRing S]
+    (hR : IsField R) (φ : R →+* S) (n : ℕ) (h : φ.IsStandardSmoothOfRelativeDimension n)
+    (m : Ideal S) [m.IsMaximal] :
+    ringKrullDim (Localization.AtPrime m) = n ∧
+      (maximalIdeal (Localization.AtPrime m)).spanFinrank = n := by
+  let _ := hR.toField
+  let _ := φ.toAlgebra
+  obtain ⟨ι, σ, _, _, P, hP⟩ :=
+    (h : @Algebra.IsStandardSmoothOfRelativeDimension n R S _ _ φ.toAlgebra).out
+  rw [← hP]
+  exact ringKrullDim_and_spanFinrank_localization P m
+
+/-- Sections of `Spec K` over a nonempty open form a field. -/
+theorem isField_sections_spec (K : Type*) [Field K] (U : (Spec (CommRingCat.of K)).Opens)
+    (hU : (U : Set (Spec (CommRingCat.of K))).Nonempty) :
+    IsField Γ(Spec (CommRingCat.of K), U) := by
+  have hUt : U = ⊤ := by
+    obtain ⟨z, hz⟩ := hU
+    refine eq_top_iff.mpr fun y _ => ?_
+    have : Subsingleton (Spec (CommRingCat.of K)) :=
+      inferInstanceAs (Subsingleton (PrimeSpectrum K))
+    rwa [Subsingleton.elim y z]
+  subst hUt
+  exact (Scheme.ΓSpecIso (CommRingCat.of K)).commRingCatIsoToRingEquiv.toMulEquiv.isField
+    (Field.toIsField K)
+
+/-- **Local form.** If `f : X → Spec K` is standard smooth of relative dimension `n` on an affine
+chart `V → U` containing a closed point `x`, then `dim 𝒪_{X,x} = n` and `𝔪_x` is spanned by `n`
+elements (so `dim_{κ(x)} 𝔪_x/𝔪_x² = n`). -/
+theorem stalk_dim_of_chart {K : Type*} [Field K] {X : Scheme} (f : X ⟶ Spec (CommRingCat.of K))
+    {U : (Spec (CommRingCat.of K)).Opens} (hU : IsAffineOpen U) {V : X.Opens} (hV : IsAffineOpen V)
+    (e : V ≤ f ⁻¹ᵁ U) (n : ℕ)
+    (h : RingHom.IsStandardSmoothOfRelativeDimension n (f.appLE U V e).hom)
+    (x : X) (hxV : x ∈ V) (hx : IsClosed ({x} : Set X)) :
+    ringKrullDim (X.presheaf.stalk x) = n ∧
+      (maximalIdeal (X.presheaf.stalk x)).spanFinrank = n := by
+  have hR := isField_sections_spec K U ⟨f.base x, e hxV⟩
+  have hmax := hV.primeIdealOf_isMaximal_of_isClosed ⟨x, hxV⟩ hx
+  obtain ⟨h1, h2⟩ := ringKrullDim_and_spanFinrank_of_isField hR _ n h
+    (hV.primeIdealOf ⟨x, hxV⟩).asIdeal
+  let _ := X.presheaf.algebra_section_stalk ⟨x, hxV⟩
+  have := hV.isLocalization_stalk ⟨x, hxV⟩
+  let eq : Localization.AtPrime (hV.primeIdealOf ⟨x, hxV⟩).asIdeal ≃+* X.presheaf.stalk x :=
+    (IsLocalization.algEquiv (hV.primeIdealOf ⟨x, hxV⟩).asIdeal.primeCompl _ _).toRingEquiv
+  constructor
+  · rw [← ringKrullDim_eq_of_ringEquiv eq, h1]
+  · rw [← map_ringEquiv_maximalIdeal eq, Ideal.spanFinrank_map_eq_of_ringEquiv, h2]
+
+/-- **Smooth of relative dimension `n` over a field.** At every closed point, the local ring has
+Krull dimension `n` and embedding dimension `n` (it is a regular local ring of dimension `n`). -/
+theorem stalk_dim_of_smoothOfRelativeDimension {K : Type*} [Field K] {X : Scheme}
+    (f : X ⟶ Spec (CommRingCat.of K)) (n : ℕ) [SmoothOfRelativeDimension n f]
+    (x : X) (hx : IsClosed ({x} : Set X)) :
+    ringKrullDim (X.presheaf.stalk x) = n ∧
+      (maximalIdeal (X.presheaf.stalk x)).spanFinrank = n := by
+  obtain ⟨U, hU, V, hV, hxV, e, h⟩ :=
+    SmoothOfRelativeDimension.exists_isStandardSmoothOfRelativeDimension (n := n) (f := f) x
+  exact stalk_dim_of_chart f hU hV e n h x hxV hx
+
+/-- **Smooth over a field.** At every closed point, the local ring is regular: its Krull dimension
+equals its embedding dimension, and both equal the relative dimension of a standard smooth chart
+around the point. -/
+theorem exists_stalk_dim_of_smooth {K : Type*} [Field K] {X : Scheme}
+    (f : X ⟶ Spec (CommRingCat.of K)) [Smooth f] (x : X) (hx : IsClosed ({x} : Set X)) :
+    ∃ n : ℕ, ringKrullDim (X.presheaf.stalk x) = n ∧
+      (maximalIdeal (X.presheaf.stalk x)).spanFinrank = n := by
+  obtain ⟨U, hU, V, hV, hxV, e, h⟩ := Smooth.exists_isStandardSmooth f x
+  let _ := (f.appLE U V e).hom.toAlgebra
+  have h' : Algebra.IsStandardSmooth Γ(Spec (CommRingCat.of K), U) Γ(X, V) := h
+  have := h'.out
+  obtain ⟨ι, σ, _, _, ⟨P⟩⟩ := this
+  exact ⟨P.dimension, stalk_dim_of_chart f hU hV e P.dimension
+    (P.isStandardSmoothOfRelativeDimension rfl) x hxV hx⟩
+
+/-- **Chart form.** Around every point of a smooth `K`-scheme there is an open set `V` and an
+`n` such that every closed point of `V` has local ring of dimension and embedding dimension `n`. -/
+theorem exists_nbhd_stalk_dim {K : Type*} [Field K] {X : Scheme}
+    (f : X ⟶ Spec (CommRingCat.of K)) [Smooth f] (x : X) :
+    ∃ (V : X.Opens) (n : ℕ), x ∈ V ∧ ∀ y ∈ V, IsClosed ({y} : Set X) →
+      ringKrullDim (X.presheaf.stalk y) = n ∧
+        (maximalIdeal (X.presheaf.stalk y)).spanFinrank = n := by
+  obtain ⟨U, hU, V, hV, hxV, e, h⟩ := Smooth.exists_isStandardSmooth f x
+  let _ := (f.appLE U V e).hom.toAlgebra
+  have h' : Algebra.IsStandardSmooth Γ(Spec (CommRingCat.of K), U) Γ(X, V) := h
+  have := h'.out
+  obtain ⟨ι, σ, _, _, ⟨P⟩⟩ := this
+  exact ⟨V, P.dimension, hxV, fun y hy hyc => stalk_dim_of_chart f hU hV e P.dimension
+    (P.isStandardSmoothOfRelativeDimension rfl) y hy hyc⟩
+
+/-- On an irreducible smooth `K`-scheme all closed points have local rings of the same
+dimension. -/
+theorem stalk_dim_eq_of_closed {K : Type*} [Field K] {X : Scheme}
+    (f : X ⟶ Spec (CommRingCat.of K)) [Smooth f] [IrreducibleSpace X]
+    (z w : X) (hz : IsClosed ({z} : Set X)) (hw : IsClosed ({w} : Set X)) :
+    ringKrullDim (X.presheaf.stalk z) = ringKrullDim (X.presheaf.stalk w) := by
+  have : JacobsonSpace X := LocallyOfFiniteType.jacobsonSpace f
+  obtain ⟨Vz, nz, hzV, hz'⟩ := exists_nbhd_stalk_dim f z
+  obtain ⟨Vw, nw, hwV, hw'⟩ := exists_nbhd_stalk_dim f w
+  have hne : ((Vz : Set X) ∩ Vw).Nonempty :=
+    nonempty_preirreducible_inter Vz.2 Vw.2 ⟨z, hzV⟩ ⟨w, hwV⟩
+  obtain ⟨u, ⟨huz, huw⟩, hu⟩ :=
+    nonempty_inter_closedPoints hne (Vz.2.inter Vw.2).isLocallyClosed
+  rw [(hz' z hzV hz).1, (hw' w hwV hw).1, ← (hz' u huz hu).1, (hw' u huw hu).1]
+
+/-- **Dimension of an irreducible smooth `K`-scheme.** Its dimension equals the Krull dimension of
+the local ring at any closed point, which equals the embedding dimension there. -/
+theorem topologicalKrullDim_eq_of_smooth {K : Type*} [Field K] {X : Scheme}
+    (f : X ⟶ Spec (CommRingCat.of K)) [Smooth f] [IrreducibleSpace X]
+    (x : X) (hx : IsClosed ({x} : Set X)) :
+    topologicalKrullDim X = ringKrullDim (X.presheaf.stalk x) ∧
+      ((maximalIdeal (X.presheaf.stalk x)).spanFinrank : WithBot ℕ∞) =
+        ringKrullDim (X.presheaf.stalk x) := by
+  have : JacobsonSpace X := LocallyOfFiniteType.jacobsonSpace f
+  obtain ⟨n, hn1, hn2⟩ := exists_stalk_dim_of_smooth f x hx
+  refine ⟨?_, by rw [hn1, hn2]⟩
+  have hdim : topologicalKrullDim X = Order.krullDim X :=
+    Order.krullDim_eq_of_orderIso (irreducibleSetEquivPoints (α := X))
+  rw [hdim]
+  refine le_antisymm ?_ ?_
+  · rw [Order.krullDim_eq_iSup_coheight]
+    refine iSup_le fun y => ?_
+    obtain ⟨z, hz, hzc⟩ := nonempty_inter_closedPoints (Z := closure ({y} : Set X))
+      ⟨y, subset_closure rfl⟩ isClosed_closure.isLocallyClosed
+    have hyz : z ≤ y := specializes_iff_mem_closure.mpr hz
+    calc (Order.coheight y : WithBot ℕ∞) ≤ Order.coheight z := by
+          exact_mod_cast Order.coheight_anti hyz
+      _ = ringKrullDim (X.presheaf.stalk z) := (ringKrullDim_stalk_eq_coheight z).symm
+      _ = ringKrullDim (X.presheaf.stalk x) := stalk_dim_eq_of_closed f z x hzc hx
+      _ = ringKrullDim (X.presheaf.stalk x) := rfl
+  · rw [ringKrullDim_stalk_eq_coheight]
+    exact Order.coheight_le_krullDim x
+
+
+/-! ### Corollaries: regularity, cotangent dimension, rational points, dimension of `X` -/
+
+/-- **Smooth over a field ⇒ regular at closed points.** -/
+theorem isRegularLocalRing_stalk_of_smooth {K : Type*} [Field K] {X : Scheme}
+    (f : X ⟶ Spec (CommRingCat.of K)) [Smooth f] (x : X) (hx : IsClosed ({x} : Set X)) :
+    IsRegularLocalRing (X.presheaf.stalk x) := by
+  have : IsLocallyNoetherian X := LocallyOfFiniteType.isLocallyNoetherian f
+  obtain ⟨n, h1, h2⟩ := exists_stalk_dim_of_smooth f x hx
+  exact (isRegularLocalRing_iff _).mpr (by rw [h1, h2])
+
+/-- **Cotangent space at a closed point.** If `X → Spec K` is smooth of relative dimension `n`
+and `x` is a closed point, then `dim_{κ(x)} 𝔪_x/𝔪_x² = n`. -/
+theorem finrank_cotangentSpace_of_smoothOfRelativeDimension {K : Type*} [Field K] {X : Scheme}
+    (f : X ⟶ Spec (CommRingCat.of K)) (n : ℕ) [SmoothOfRelativeDimension n f]
+    (x : X) (hx : IsClosed ({x} : Set X)) :
+    Module.finrank (ResidueField (X.presheaf.stalk x)) (CotangentSpace (X.presheaf.stalk x)) =
+      n := by
+  have : Smooth f := SmoothOfRelativeDimension.smooth n f
+  have : IsLocallyNoetherian X := LocallyOfFiniteType.isLocallyNoetherian f
+  rw [← spanFinrank_maximalIdeal_eq_finrank_cotangentSpace]
+  exact (stalk_dim_of_smoothOfRelativeDimension f n x hx).2
+
+/-- The image of a `K`-point (a section of `X → Spec K`) is a closed point. -/
+theorem isClosed_of_section {K : Type*} [Field K] {X : Scheme}
+    (f : X ⟶ Spec (CommRingCat.of K)) (s : Spec (CommRingCat.of K) ⟶ X) (hs : s ≫ f = 𝟙 _)
+    (p : Spec (CommRingCat.of K)) : IsClosed ({s.base p} : Set X) := by
+  have := isClosedImmersion_of_comp_eq_id (Y := Spec (CommRingCat.of K)) f s hs
+  have hr : Set.range s.base = {s.base p} := by
+    ext y
+    constructor
+    · rintro ⟨a, rfl⟩
+      have : Subsingleton (PrimeSpectrum K) := inferInstance
+      exact congrArg _ (Subsingleton.elim (α := PrimeSpectrum K) a p)
+    · rintro rfl
+      exact ⟨_, rfl⟩
+  rw [← hr]
+  exact s.isClosedEmbedding.isClosed_range
+
+/-- **Cotangent space at a rational point.** If `X → Spec K` is smooth of relative dimension `n`
+and `s` is a `K`-point, then the local ring at `s` has dimension `n` and its cotangent space
+`𝔪/𝔪²` has dimension `n` over the residue field. -/
+theorem stalk_dims_of_section {K : Type*} [Field K] {X : Scheme}
+    (f : X ⟶ Spec (CommRingCat.of K)) (n : ℕ) [SmoothOfRelativeDimension n f]
+    (s : Spec (CommRingCat.of K) ⟶ X) (hs : s ≫ f = 𝟙 _) (p : Spec (CommRingCat.of K)) :
+    ringKrullDim (X.presheaf.stalk (s.base p)) = n ∧
+      Module.finrank (ResidueField (X.presheaf.stalk (s.base p)))
+        (CotangentSpace (X.presheaf.stalk (s.base p))) = n :=
+  ⟨(stalk_dim_of_smoothOfRelativeDimension f n _ (isClosed_of_section f s hs p)).1,
+    finrank_cotangentSpace_of_smoothOfRelativeDimension f n _ (isClosed_of_section f s hs p)⟩
+
+/-- **Dimension of an irreducible smooth `K`-scheme of relative dimension `n`** is `n`. -/
+theorem topologicalKrullDim_eq_of_smoothOfRelativeDimension {K : Type*} [Field K] {X : Scheme}
+    (f : X ⟶ Spec (CommRingCat.of K)) (n : ℕ) [SmoothOfRelativeDimension n f]
+    [IrreducibleSpace X] : topologicalKrullDim X = n := by
+  have : Smooth f := SmoothOfRelativeDimension.smooth n f
+  have : JacobsonSpace X := LocallyOfFiniteType.jacobsonSpace f
+  have : Nonempty X := IrreducibleSpace.toNonempty
+  obtain ⟨x, -, hx⟩ := nonempty_inter_closedPoints (Z := (Set.univ : Set X))
+    Set.univ_nonempty isClosed_univ.isLocallyClosed
+  rw [(topologicalKrullDim_eq_of_smooth f x hx).1,
+    (stalk_dim_of_smoothOfRelativeDimension f n x hx).1]
+
+end InfraSmoothDim
+
+
+
+
+end IHSmoothStalk
+
 /-! # infra-hodge, part 1: cotangent maps of group models
 
 * `cotMapAt f h`: the map `𝔪_y/𝔪_y² → 𝔪_x/𝔪_x²` induced by a morphism of schemes `f` with
@@ -6370,6 +7512,7 @@ namespace ZInQ.InfraHodge
 
 open CategoryTheory AlgebraicGeometry Limits MonoidalCategory CartesianMonoidalCategory MonObj
 open NumberField ZInQ.DefFaltings
+
 open scoped TensorProduct
 
 section CotMap
@@ -6631,6 +7774,7 @@ namespace ZInQ.InfraHodge
 
 open CategoryTheory AlgebraicGeometry Limits MonoidalCategory CartesianMonoidalCategory MonObj
 open NumberField ZInQ.DefFaltings
+
 open scoped TensorProduct
 
 section Omega
@@ -7221,6 +8365,7 @@ namespace ZInQ.InfraHodge
 
 open CategoryTheory AlgebraicGeometry Limits MonoidalCategory CartesianMonoidalCategory MonObj
 open NumberField ZInQ.DefFaltings Module
+
 open scoped TensorProduct
 
 section Wedge
@@ -7497,29 +8642,192 @@ end Main
 end ZInQ.InfraHodge
 
 
-/-! # infra-hodge, part 5: consequences for metrization's chain -/
+/-! # infra-hodge, part 6: `TrivialPointsCotangent` proved
+
+Let `X = 𝒢 ×_{𝓞_L} Spec ℂ` (via `τ`), smooth and locally of finite type over `ℂ`, hence Jacobson.
+Its closed points are its `ℂ`-points (Mathlib's `pointOfClosedPoint`, `ℂ` algebraically closed), and
+a `ℂ`-point of `X` over `Spec ℂ` is a `τ`-point of `𝒢`; all of these are `1`, so `X` has a single
+closed point `z₀`, hence (Jacobson) a single point. So `dim 𝒪_{X,z₀} = 0` (Mathlib's
+`ringKrullDim_stalk_eq_coheight`), and by infra-smooth-dim's `exists_stalk_dim_of_smooth`
+(dimension = embedding dimension at closed points) `𝔪_{z₀} = 0`. By infra-stalks'
+`cotangent_baseChange_injective`, `ℂ ⊗_{κ(η)} ω_{A_L} ↪ 𝔪_{z₀}/𝔪_{z₀}² = 0`, so `ω_{A_L} = 0`. -/
+
+namespace ZInQ.InfraHodge
+
+open CategoryTheory AlgebraicGeometry Limits MonoidalCategory CartesianMonoidalCategory MonObj
+open NumberField ZInQ.DefFaltings Module
+
+open scoped TensorProduct
+
+section Trivial
+
+variable {K : Type} [Field K] {A : AbVar K} {L : Type} [Field L] [NumberField L] [Algebra K L]
+
+/-- (metrization's `ptC_hom_apply`, copied) `Spec ℂ → Spec 𝓞_L` (via `τ`) hits the generic
+point. -/
+theorem ptC_hom_apply' (τ : L →+* ℂ) (x : Spec (CommRingCat.of ℂ)) :
+    (GroupModel.ptC (L := L) τ).hom x = genericPt L := by
+  haveI : x.asIdeal.IsPrime := x.isPrime
+  have hx : x.asIdeal = ⊥ := Ideal.eq_bot_of_prime x.asIdeal
+  apply PrimeSpectrum.ext
+  show Ideal.comap (τ.comp (algebraMap (𝓞 L) L)) x.asIdeal = ⊥
+  rw [hx]
+  exact Ideal.comap_bot_of_injective _
+    (τ.injective.comp (IsFractionRing.injective (𝓞 L) L))
+
+/-- (metrization's `one_left_apply`, copied) The identity complex point lies over `ξ`. -/
+theorem one_left_apply' (𝒢 : GroupModel A L) (τ : L →+* ℂ) (x : Spec (CommRingCat.of ℂ)) :
+    (1 : 𝒢.Pts τ).left x = 𝒢.genericUnit := by
+  have hw : (toUnit (GroupModel.ptC (L := L) τ)).left = (GroupModel.ptC (L := L) τ).hom :=
+    (Category.comp_id _).symm.trans (Over.w (toUnit (GroupModel.ptC (L := L) τ)))
+  show (toUnit (GroupModel.ptC τ) ≫ η[𝒢.G]).left x = 𝒢.unitSection (genericPt L)
+  rw [Over.comp_left]
+  change (η[𝒢.G]).left ((toUnit (GroupModel.ptC (L := L) τ)).left x) = _
+  rw [hw, ptC_hom_apply']
+  rfl
+
+theorem nontrivial_stalk {X : Scheme} (x : X) : Nontrivial (X.presheaf.stalk x) := inferInstance
+
+/-- **`TrivialPointsCotangent` holds.** -/
+theorem trivialPointsCotangent : TrivialPointsCotangent := by
+  intro K _ A L _ _ _ 𝒢 τ hpts
+  let f : 𝒢.G.left ⟶ Spec (CommRingCat.of (𝓞 L)) := 𝒢.G.hom
+  let g : Spec (CommRingCat.of ℂ) ⟶ Spec (CommRingCat.of (𝓞 L)) := (GroupModel.ptC (L := L) τ).hom
+  let q : pullback f g ⟶ Spec (CommRingCat.of ℂ) := pullback.snd f g
+  haveI : LocallyOfFiniteType f := show LocallyOfFiniteType 𝒢.G.hom from inferInstance
+  haveI : Smooth f := show Smooth 𝒢.G.hom from inferInstance
+  haveI : LocallyOfFiniteType q := inferInstance
+  haveI : Smooth q := inferInstance
+  haveI : JacobsonSpace (pullback f g : Scheme) := LocallyOfFiniteType.jacobsonSpace q
+  have hw1 : (1 : 𝒢.Pts τ).left ≫ f = 𝟙 _ ≫ g := by
+    rw [Category.id_comp]; exact Over.w (1 : 𝒢.Pts τ)
+  let p₀ : Spec (CommRingCat.of ℂ) ⟶ pullback f g := pullback.lift (1 : 𝒢.Pts τ).left (𝟙 _) hw1
+  have hp₀ : p₀ ≫ q = 𝟙 _ := pullback.lift_snd _ _ _
+  set z₀ := p₀ (IsLocalRing.closedPoint ℂ) with hz₀
+  have hz₀c : IsClosed ({z₀} : Set (pullback f g : Scheme)) :=
+    ((pointEquivClosedPoint q) ⟨p₀, hp₀⟩).2
+  -- every closed point is `z₀`
+  have hcl : ∀ x : (pullback f g : Scheme), IsClosed ({x} : Set (pullback f g : Scheme)) → x = z₀ := by
+    intro x hx
+    let p := pointOfClosedPoint q x hx
+    have hp : p ≫ q = 𝟙 _ := pointOfClosedPoint_comp q x hx
+    have hw : (p ≫ pullback.fst f g) ≫ f = g := by
+      rw [Category.assoc, pullback.condition, ← Category.assoc]
+      show (p ≫ q) ≫ g = g
+      rw [hp, Category.id_comp]
+    have h1 := hpts (Over.homMk (p ≫ pullback.fst f g) hw)
+    have heq : p = p₀ := by
+      apply pullback.hom_ext
+      · have := congrArg CommaMorphism.left h1
+        exact this.trans (pullback.lift_fst (1 : 𝒢.Pts τ).left (𝟙 _) hw1).symm
+      · show p ≫ q = p₀ ≫ q
+        rw [hp, hp₀]
+    rw [← pointOfClosedPoint_apply q x hx (IsLocalRing.closedPoint ℂ)]
+    show p _ = _
+    rw [heq]
+  -- every point is `z₀`
+  have hall : ∀ y : (pullback f g : Scheme), y = z₀ := by
+    intro y
+    have hZ : closure ({y} : Set (pullback f g : Scheme)) ⊆ {z₀} := by
+      rw [← closure_inter_closedPoints isClosed_closure, ← hz₀c.closure_eq]
+      refine closure_mono fun x hx => ?_
+      exact hcl x hx.2
+    exact hZ (subset_closure rfl)
+  -- the local ring at `z₀` has dimension `0`, hence is a field
+  have hdim0 : ringKrullDim ((pullback f g : Scheme).presheaf.stalk z₀) = 0 := by
+    rw [ringKrullDim_stalk_eq_coheight]
+    have : Order.coheight z₀ = 0 :=
+      Order.coheight_eq_zero.mpr (fun b _ => by rw [hall b])
+    rw [this]
+    rfl
+  obtain ⟨n, hn1, hn2⟩ := InfraSmoothDim.exists_stalk_dim_of_smooth q z₀ hz₀c
+  have hn : n = 0 := by
+    rw [hdim0] at hn1
+    exact_mod_cast hn1.symm
+  haveI : IsLocallyNoetherian (pullback f g : Scheme) := LocallyOfFiniteType.isLocallyNoetherian q
+  have hm : IsLocalRing.maximalIdeal ((pullback f g : Scheme).presheaf.stalk z₀) = ⊥ :=
+    (Submodule.spanFinrank_eq_zero_iff_eq_bot (IsNoetherian.noetherian _)).mp (hn2.trans hn)
+  have hsub : ∀ w : IsLocalRing.CotangentSpace ((pullback f g : Scheme).presheaf.stalk z₀), w = 0 := by
+    intro w
+    obtain ⟨a, rfl⟩ := (IsLocalRing.maximalIdeal _).toCotangent_surjective w
+    have ha : (a : (pullback f g : Scheme).presheaf.stalk z₀) = 0 := by
+      have h2 : (a : (pullback f g : Scheme).presheaf.stalk z₀) ∈
+          (⊥ : Ideal ((pullback f g : Scheme).presheaf.stalk z₀)) := hm ▸ a.2
+      exact (Ideal.mem_bot).mp h2
+    rw [show a = 0 from Subtype.ext ha, map_zero]
+  -- base change of the cotangent space
+  set s0 := genericPoint (Spec (CommRingCat.of (𝓞 L)))
+  have e1 : (p₀ ≫ pullback.fst f g : Spec (CommRingCat.of ℂ) ⟶ 𝒢.G.left) =
+      (1 : 𝒢.Pts τ).left := pullback.lift_fst _ _ _
+  have e2 : (p₀ ≫ pullback.snd f g : Spec (CommRingCat.of ℂ) ⟶ Spec (CommRingCat.of ℂ)) =
+      𝟙 _ := pullback.lift_snd _ _ _
+  have hx : pullback.fst f g z₀ = 𝒢.genericUnit :=
+    (congrArg (fun φ : Spec (CommRingCat.of ℂ) ⟶ 𝒢.G.left => φ (IsLocalRing.closedPoint ℂ))
+      e1).trans (one_left_apply' 𝒢 τ _)
+  have hy : pullback.snd f g z₀ = IsLocalRing.closedPoint ℂ :=
+    congrArg (fun φ : Spec (CommRingCat.of ℂ) ⟶ Spec (CommRingCat.of ℂ) =>
+      φ (IsLocalRing.closedPoint ℂ)) e2
+  have hs : f 𝒢.genericUnit = s0 := hom_genericUnit' 𝒢
+  have hys : g (IsLocalRing.closedPoint ℂ) = s0 :=
+    (ptC_hom_apply' τ _).trans (genericPt_eq_genericPoint L)
+  have hS := maximalIdeal_stalk_genericPt L s0 (genericPt_eq_genericPoint L).symm
+  have hY := maximalIdeal_stalk_spec_field ℂ (IsLocalRing.closedPoint ℂ)
+  have hrat : RationalOver f 𝒢.genericUnit :=
+    rationalOver_of_section _ _ (unitSection_comp_hom 𝒢) (genericPt L)
+  obtain ⟨Ψ, -, hinj⟩ := cotangent_baseChange_injective f g z₀ hx hy hs hys hS hY hrat
+  let Os := (Spec (CommRingCat.of (𝓞 L))).presheaf.stalk s0
+  let Ox := 𝒢.G.left.presheaf.stalk 𝒢.genericUnit
+  let Oy := (Spec (CommRingCat.of ℂ)).presheaf.stalk (IsLocalRing.closedPoint ℂ)
+  letI : Algebra Os Ox := (f.stalkMapAt hs).hom.toAlgebra
+  letI : Algebra Os Oy := (g.stalkMapAt hys).hom.toAlgebra
+  letI : Field Os := inferInstanceAs (Field (Spec (CommRingCat.of (𝓞 L))).functionField)
+  refine ⟨fun v w => ?_⟩
+  suffices H : ∀ v : 𝒢.cotangent, v = 0 by rw [H v, H w]
+  intro v
+  by_contra hv
+  let vv : (IsLocalRing.maximalIdeal Ox).Cotangent := v
+  have hbOs : LinearIndependent Os (fun _ : Unit => vv) := linearIndependent_unique_iff.mpr hv
+  have hli := Module.Flat.linearIndependent_one_tmul (S := Oy) hbOs
+  haveI : Nontrivial Oy := nontrivial_stalk (X := Spec (CommRingCat.of ℂ)) _
+  have h10 : (1 : Oy) ⊗ₜ[Os] vv ≠ 0 := hli.ne_zero ()
+  apply h10
+  apply hinj
+  simp only [map_zero]
+  exact hsub _
+
+end Trivial
+
+end ZInQ.InfraHodge
+
+
+/-! # infra-hodge, part 5: `ProductHodgeLattice` proved, and consequences for metrization's chain -/
+
+namespace ZInQ.InfraHodge
+
+/-- **metrization's glue `ProductHodgeLattice` holds** (statement verbatim). -/
+theorem productHodgeLattice : ZInQ.Metrization.ProductHodgeLattice :=
+  productHodgeLattice_of trivialPointsCotangent
+
+end ZInQ.InfraHodge
 
 namespace ZInQ.Metrization
 
-/-- `ProductMetrizationGeo` from `TrivialPointsCotangent` alone (with infra-stalks'
-`productLocalStructure`). -/
-theorem productMetrizationGeo_of_trivialPoints (h0 : ZInQ.InfraHodge.TrivialPointsCotangent) :
-    ZInQ.G0HeightAdd.ProductMetrizationGeo :=
-  productMetrizationGeo_of_hodgeLattice (ZInQ.InfraHodge.productHodgeLattice_of h0)
+/-- `ProductMetrizationGeo` (g0-heightadd's glue P2a-geo) holds: infra-stalks'
+`productMetrizationGeo_of_hodgeLattice` with `ProductHodgeLattice` proved. -/
+theorem productMetrizationGeo_infraHodge : ZInQ.G0HeightAdd.ProductMetrizationGeo :=
+  productMetrizationGeo_of_hodgeLattice ZInQ.InfraHodge.productHodgeLattice
 
 end ZInQ.Metrization
 
 namespace HSyn.G0Split
 
-/-- `HeightAdditivity` with `ProductHodgeLattice` replaced by `TrivialPointsCotangent`. -/
+/-- `HeightAdditivity` with `ProductHodgeLattice` discharged (infra-stalks' `_v4` without `hPL`). -/
 theorem heightAdditivity_of_metrization_v5 (hN1 : ZInQ.H5Neron.NeronModelExists)
     (h5 : LeafAdopt.H5) (hU : ZInQ.DefFaltings.AnalyticUniformizationUnique)
     (hH : ZInQ.DefFaltings.HodgeLatticeTheorem)
     (hUD : ZInQ.Metrization.AnalyticUniformizationOfDim)
-    (hN : ZInQ.Metrization.JacDetNondegenerate)
-    (h0 : ZInQ.InfraHodge.TrivialPointsCotangent) : HeightAdditivity :=
-  heightAdditivity_of_metrization_v4 hN1 h5 hU hH hUD hN
-    (ZInQ.InfraHodge.productHodgeLattice_of h0)
+    (hN : ZInQ.Metrization.JacDetNondegenerate) : HeightAdditivity :=
+  heightAdditivity_of_metrization_v4 hN1 h5 hU hH hUD hN ZInQ.InfraHodge.productHodgeLattice
 
 end HSyn.G0Split
 
@@ -7530,5 +8838,7 @@ end HSyn.G0Split
 #print axioms ZInQ.InfraHodge.relIndex_detLat
 #print axioms ZInQ.InfraHodge.exists_omega_basis
 #print axioms ZInQ.InfraHodge.productHodgeLattice_of
-#print axioms ZInQ.Metrization.productMetrizationGeo_of_trivialPoints
+#print axioms ZInQ.InfraHodge.trivialPointsCotangent
+#print axioms ZInQ.InfraHodge.productHodgeLattice
+#print axioms ZInQ.Metrization.productMetrizationGeo_infraHodge
 #print axioms HSyn.G0Split.heightAdditivity_of_metrization_v5

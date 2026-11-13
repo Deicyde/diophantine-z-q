@@ -63,3 +63,21 @@
   Full single-file check ProductSplit.lean: VERIFIED exit 0 in 25 s, 0 errors, no sorry warning, all 14
   InfraHodge `#print axioms` (and every other axiom report in the file) [propext, Classical.choice,
   Quot.sound]. verbatim_check.py ALL OK.
+- 11:25 Prefix.lean extended (after Metrization, each in its own section): VERBATIM infra-stalks
+  stalk_tensor + cot_bc parts (`cotangent_baseChange_injective`) and VERBATIM infra-smooth-dim
+  SmoothStalk.lean body (`InfraSmoothDim.exists_stalk_dim_of_smooth`). Prefix to olean: 48 s, 0 errors.
+- phl_4c_trivial: **`trivialPointsCotangent : TrivialPointsCotangent` PROVED**. Proof: X = 𝒢 ×_{𝓞_L} Spec ℂ
+  (via τ) is smooth, LFT over ℂ, Jacobson (`LocallyOfFiniteType.jacobsonSpace`); closed points are
+  ℂ-points (Mathlib `pointOfClosedPoint`, `pointEquivClosedPoint`), a ℂ-point over Spec ℂ is a τ-point of
+  𝒢, all equal to 1, so X has one closed point z₀, hence one point (`closure_inter_closedPoints`);
+  `ringKrullDim_stalk_eq_coheight` ⇒ dim 𝒪_{z₀} = 0; `exists_stalk_dim_of_smooth` ⇒ spanFinrank 𝔪 = 0 ⇒
+  𝔪 = ⊥; `cotangent_baseChange_injective` + `Module.Flat.linearIndependent_one_tmul` ⇒ ω_{A_L} = 0.
+  Pitfall: `pullback f g` in binder/Set positions elaborated in `Type` (write `(pullback f g : Scheme)`);
+  `IsLocalRing` of `(Spec ↧ℂ).presheaf.stalk (closedPoint ℂ)` not found by instance search (use a
+  helper lemma with `x : X` typed).
+- phl_5_cor: **`productHodgeLattice : ProductHodgeLattice` PROVED** (statement verbatim);
+  `ZInQ.Metrization.productMetrizationGeo_infraHodge : ProductMetrizationGeo`;
+  `HSyn.G0Split.heightAdditivity_of_metrization_v5` (v4 without hPL).
+- 11:29 Full single-file check ProductHodgeLattice.lean: VERIFIED exit 0 in 52 s, 0 errors, no sorry
+  warning, all axiom reports standard (11 InfraHodge/consequence prints). verbatim_check.py ALL OK
+  (output in verbatim_check_out.txt).

@@ -33,7 +33,10 @@ items = [
   ('infra-stalks cot_pullback part', noprint(open(s+'cot_pullback.lean.part').read())),
   ('infra-stalks local_structure part', noprint(open(s+'local_structure.lean.part').read())),
   ('infra-stalks pls_proof part', noprint(open(s+'pls_proof.lean.part').read())),
-  ('hodge-bc2 ExtFrac.lean body', ef)]
+  ('hodge-bc2 ExtFrac.lean body', ef),
+  ('infra-stalks stalk_tensor part', noprint(open(s+'stalk_tensor.lean.part').read())),
+  ('infra-stalks cot_bc part', noprint(open(s+'cot_bc.lean.part').read())),
+  ('infra-smooth-dim SmoothStalk.lean body', noprint(open('scratch/infra-smooth-dim/SmoothStalk.lean').read().split('\n', 1)[1]))]
 check('scratch/infra-hodge/ProductHodgeLattice.lean', items)
 if os.path.exists('scratch/infra-hodge/ProductSplit.lean'):
     ph = open('scratch/product-height/ProductHeight.lean').read()
