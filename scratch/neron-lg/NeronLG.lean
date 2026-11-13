@@ -1311,6 +1311,86 @@ theorem hasAbelianSchemeAway_zero (L : Type) [Field L] [NumberField L] (f : 𝓞
     ⟨ZInQ.H5Neron.hom_ext_of_iso_unit (Iso.refl _) _ _,
       ZInQ.H5Neron.hom_ext_of_iso_unit (Iso.refl _) _ _⟩⟩
 
+
+/-! ## §8. Alternative: the local leaf with persistence built in (removes N2-g2)
+
+SGA 7 IX gives more than `LocalSemistableAt`: once `A` has semistable reduction over `L₀` at the
+places above `O`, it keeps it over every finite `L₁ ⊇ L₀` (Exp. IX Prop. 3.3: semistability is
+stable under base change, and the identity components of the Néron models then base-change). So
+the local statement holds for **every** `L₁ ⊇ L₀`. Stating the leaf this way (N2-loc⁺) makes the
+glue N2-g2 unnecessary. -/
+
+/-- **Leaf N2-loc⁺ (local semistable reduction, persisting in extensions).** For an abelian
+variety `A` over a number field `K` and a DVR `O ⊂ K` there is a finite extension `L₀` such that
+the local statement holds for every finite extension `L₁ ⊇ L₀`. Consequence of SGA 7 I, Exp. IX,
+Thm 3.6 (semistable reduction after a finite extension `L₀`) and Prop./Cor. 3.3 (semistable
+reduction persists under further extensions and then `(𝒩₁⁰)_{O'} ≅ 𝒩'⁰` for every extension of
+DVRs), with SGA 3 VI_B 3.10. All locators UNVERIFIED. Implies N2-loc
+(`localSemistableIdentityComponent_of_mono`). -/
+def LocalSemistableIdentityComponentMono : Prop :=
+  ∀ (K : Type) [Field K] [NumberField K] (A : AbVar K) (O : ValuationSubring K)
+    [IsDiscreteValuationRing O],
+    ∃ (L₀ : Type) (_ : Field L₀) (_ : NumberField L₀) (_ : Algebra K L₀),
+      ∀ (L₁ : Type) [Field L₁] [NumberField L₁] [Algebra K L₁] [Algebra L₀ L₁]
+        [IsScalarTower K L₀ L₁], LocalSemistableWith A O L₁
+
+/-- N2-loc⁺ implies N2-loc (take `L₁ = L₀`). -/
+theorem localSemistableIdentityComponent_of_mono (h : LocalSemistableIdentityComponentMono) :
+    LocalSemistableIdentityComponent := by
+  intro K _ _ A O _
+  obtain ⟨L₀, i1, i2, i3, hL⟩ := h K A O
+  exact ⟨L₀, i1, i2, i3, hL L₀⟩
+
+/-- One field for all places from N2-loc⁺ (proved; no N2-g2). -/
+theorem semistableCommonField_mono (hab : AbelianSchemeIsNeron) (hsp : AbVarSpreadsOut)
+    (hloc2 : LocalSemistableIdentityComponentMono) (K : Type) [Field K] [NumberField K]
+    (A : AbVar K) :
+    ∃ (L₀ : Type) (_ : Field L₀) (_ : NumberField L₀) (_ : Algebra K L₀),
+      ∀ (O : ValuationSubring K) [IsDiscreteValuationRing O], LocalSemistableWith A O L₀ := by
+  classical
+  obtain ⟨T, hT⟩ := goodPlacesAnyField hab hsp K A
+  have hch : ∀ O : ValuationSubring K, ∃ (L₀ : Type) (_ : Field L₀) (_ : NumberField L₀)
+      (_ : Algebra K L₀), IsDiscreteValuationRing O →
+        ∀ (L₁ : Type) [Field L₁] [NumberField L₁] [Algebra K L₁] [Algebra L₀ L₁]
+          [IsScalarTower K L₀ L₁], LocalSemistableWith A O L₁ := by
+    intro O
+    by_cases hO : IsDiscreteValuationRing O
+    · obtain ⟨L₀, i1, i2, i3, h⟩ := hloc2 K A O
+      exact ⟨L₀, i1, i2, i3, fun _ => h⟩
+    · exact ⟨K, inferInstance, inferInstance, inferInstance, fun h => absurd h hO⟩
+  choose F iF1 iF2 iF3 hF using hch
+  obtain ⟨M, iM1, iM2, iM3, hM⟩ := compositumFinset K F T
+  refine ⟨M, iM1, iM2, iM3, fun O hO => ?_⟩
+  by_cases hOT : O ∈ T
+  · obtain ⟨iFM, tFM⟩ := hM O hOT
+    exact hF O hO M
+  · exact hT O hOT M
+
+/-- **N2 from N1, N1-ab, NL, N2-loc⁺ and the glue N1-g1, N2-g3 (proved).** -/
+theorem semistableNeronIdentityComponent_of_mono (hN1 : NeronModelExists)
+    (hab : AbelianSchemeIsNeron) (hNL : NeronLocalOnBase) (hsp : AbVarSpreadsOut)
+    (hloc2 : LocalSemistableIdentityComponentMono) (h3 : SemistableGlobalOfLocal) :
+    SemistableNeronIdentityComponent := by
+  intro K _ _ A
+  obtain ⟨L₀, i1, i2, i3, hL₀⟩ := semistableCommonField_mono hab hsp hloc2 K A
+  obtain ⟨𝒩₀, h𝒩₀⟩ := hN1 K A L₀
+  refine ⟨L₀, i1, i2, i3, 𝒩₀, h𝒩₀, ?_⟩
+  intro L' _ _ _ _ _ 𝒩' h𝒩'
+  obtain ⟨𝒱, h𝒱⟩ := ZInQ.H5Neron.groupModelBaseChangeExists K A L₀ L' 𝒩₀
+  obtain ⟨𝒰, hU1, hU2⟩ := h3 hNL K A L₀ hL₀ 𝒩₀ h𝒩₀ L' 𝒩' h𝒩' 𝒱 h𝒱
+  exact ⟨𝒰, 𝒱, h𝒱, hU1, hU2⟩
+
+/-- **The build's N1 and N2 from the leaves N1-loc, N1-ab, N2-loc⁺, NL and the four glue
+statements N1-g1, N1-g2 (bad primes), N1-g3, N2-g3 (proved).** -/
+theorem h5neron_n1_n2_of_leaves_and_glue_mono (hloc1 : LocalNeronModelExists)
+    (hab : AbelianSchemeIsNeron) (hloc2 : LocalSemistableIdentityComponentMono)
+    (hNL : NeronLocalOnBase) (g1 : AbVarSpreadsOut) (g2 : NeronNearBadPoint) (g3 : NeronGlueAway)
+    (g6 : SemistableGlobalOfLocal) :
+    ZInQ.H5Neron.NeronModelExists ∧ ZInQ.H5Neron.SemistableNeronIdentityComponent :=
+  have hN1 : NeronModelExists :=
+    neronModelExists_of_local hloc1 hab (neronLocalToGlobal_of g1 hNL (neronNearPoint_of g2) g3)
+  ⟨hN1, semistableNeronIdentityComponent_of_mono hN1 hab hNL g1 hloc2 g6⟩
+
 end ZInQ.NeronLG
 
 #print axioms ZInQ.NeronLG.neronLocalToGlobal_of
@@ -1333,3 +1413,5 @@ end ZInQ.NeronLG
 #print axioms ZInQ.NeronLG.n1_n2_of_leaves_and_glue''
 #print axioms ZInQ.NeronLG.h5neron_n1_n2_of_leaves_and_glue
 #print axioms ZInQ.NeronLG.hasAbelianSchemeAway_zero
+#print axioms ZInQ.NeronLG.localSemistableIdentityComponent_of_mono
+#print axioms ZInQ.NeronLG.h5neron_n1_n2_of_leaves_and_glue_mono

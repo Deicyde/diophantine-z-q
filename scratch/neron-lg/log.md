@@ -95,3 +95,10 @@ the `IsBaseChangeOf` iso e and 𝒩₀.gen, not 𝒱.gen).
 - `neronModelExists_iff`, `semistableNeronIdentityComponent_iff` (Iff.rfl with the build's H5Neron Props);
   `h5neron_n1_n2_of_leaves_and_glue` (the build's N1 ∧ N2 from 4 leaves + 5 glue) PROVED.
 - `hasAbelianSchemeAway_zero` (sanity: conclusion of N1-g1 for the zero AV, any f) PROVED.
+
+## NeronLG.lean §8 — COMPILED 07:08 (0 errors; 22 #print axioms, all standard)
+- Alternative leaf `LocalSemistableIdentityComponentMono` (N2-loc⁺: the local statement for every
+  L₁ ⊇ L₀; SGA 7 IX 3.6 + 3.3); `localSemistableIdentityComponent_of_mono` (N2-loc⁺ ⇒ N2-loc),
+  `semistableCommonField_mono`, `semistableNeronIdentityComponent_of_mono`,
+  `h5neron_n1_n2_of_leaves_and_glue_mono` (build's N1 ∧ N2 from N1-loc, N1-ab, N2-loc⁺, NL and the
+  four glue N1-g1, N1-g2(bad), N1-g3, N2-g3) PROVED.
