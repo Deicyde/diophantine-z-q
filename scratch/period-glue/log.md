@@ -93,3 +93,12 @@ Targets: period-map's glue `S8Nonzero`, `S8WeightExact`, `SphereFactorAffine`,
   (τ',1) = p ι(x)(τ,1) with x = u b₁; u𝒪 ⊆ 𝒪x via `latVec_eq_zero` (b ↦ ι(b)(τ,1) injective);
   b₁ ∈ 𝒪^× (`mul_eq_one_comm` on matrices, `cM_injective`); x normalizes 𝒪; det > 0 from
   `moebius_im`.
+
+## End to end — COMPILED (VERIFIED, run_all.txt)
+- `build_all.sh`: `PGAll.lean` = import PGBase + BCU, QMTwist, PiTwist, S8, W8, SFA + final_part.lean;
+  0 errors, exit 0. S8/W8/SFA also compile against PGBase (same PkgI1 copy).
+- `fibreQMPeriod_periodGlue`: `ThetaPt.FibreQMPeriod` from R1R2fp, MobiusGlue, QMHauptmodul, T35,
+  T11aRiemannHom, QMClassNumberOne, R1bFamily, TwistOrbitFinite, FibreTransferC,
+  GlueDescent.LeafSkolemNoether (kernel-proved), CMDescends, HolP1OpenMap, HolP1FactorHol,
+  SphereInjAffine, ThetaModularity, GammaStarGen, ValenceBoundGammaStar, CPtsTransport.
+  Axioms standard. (T11aRiemannEnd dropped: derived from T11aRiemannHom.)
