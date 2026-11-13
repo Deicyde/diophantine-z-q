@@ -210,3 +210,11 @@
 - Compile: LocalGlue.lean exit 0, 0 errors, no sorry, 63 printed declarations all
   [propext, Classical.choice, Quot.sound] (compile.out).
 - Remaining glue for LocalGlue: KerWild, DescentPts (p ≤ 5), BetaTwist2 (p = 2). No other Prop.
+
+## Step 15 (08:19-08:24 PST): descent pack and tail
+- `part_pack.lean`: new `G7LocalPackD ℓ r P` (G7Out, G8Out, G7Clauses, KerWild, FiniteDimensional ℚ L,
+  and at p ∈ P: `p ≤ 5 → DescentPts A L`, `p = 2 → BetaTwist2 β L`); proved (VERIFIED)
+  `g8LocalPack_of_D (hR6) (hTors) (p ≠ ℓ on P)`, `g15RamG_of_packD`.
+- `tail_glue.lean`: proved (VERIFIED) `modularConstituent_tail_D` (G13-G16 on G7LocalPackD + R6 + I2-Tors).
+- Compile: LocalGlue.lean exit 0, no sorry, 65 printed declarations standard axioms; TailK.lean exit 0,
+  no sorry, all printed axioms standard (incl. modularConstituent_tail_D).
