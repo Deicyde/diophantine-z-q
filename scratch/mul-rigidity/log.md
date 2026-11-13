@@ -18,3 +18,11 @@
   (RigidityHom copied verbatim). `#print axioms`: propext, Classical.choice, Quot.sound. VERIFIED.
   So the textbook leaf RigidityHom is no longer a hypothesis: it is a theorem (only G proper + geometrically
   integral on the source, B separated + locally of finite type on the target are used).
+
+## MulIsogeny (Mul.lean)
+- 05:31 COMPILED (exit 0): `locallyQuasiFinite_of_formallyUnramified` (scheme-level, from Mathlib's algebra
+  instance EssFiniteType + FormallyUnramified ⇒ Algebra.QuasiFinite), `isProper_left`,
+  `isIsogenyMor_of_lqf_of_isOpenMap` (finite: Mathlib ZMT `IsFinite.of_isProper_of_locallyQuasiFinite`;
+  surjective: clopen nonempty range in irreducible A), `mulIsogeny_of_mulEtale : MulEtale → MulIsogeny`,
+  `mulUnramified_of_mulEtale`, `mulIsogeny_of_mulUnramified : MulUnramified → QuasiFiniteEndSurjective →
+  MulIsogeny`. Axioms: propext, Classical.choice, Quot.sound. VERIFIED.
