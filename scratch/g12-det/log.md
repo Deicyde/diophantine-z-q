@@ -97,3 +97,18 @@ Targets (copied verbatim from scratch/g0-mod-galois): `G12Weight` (part_galois.l
 - run (05:01): 2 errors (`bot_le` shape; a `simp only` no-op). run (05:05-05:08): 0 errors,
   0 sorry; `g12Weight_concl_iff`, `g12Weight_of`, `twistExists`, `twistConj_of`,
   `g12Weight_of_HT` on [propext, Classical.choice, Quot.sound].
+
+## HTConj REDUCED to HTExtend (VERIFIED, compiled in the fast environment)
+
+- part_htconj.lean: `HTExtend` (GLUE: a model over finite `E ⊆ ℚ̄_p` with weights `S` gives a
+  model over any finite `E' ⊇ E` with weights `S`); `finrank_htSpace_conj` (conjugating a model by
+  `P ∈ GL_n(E)` gives `ℚ_p`-isomorphic `htSpace`s, `φ ↦ φ ∘ P`); `htConj_of : HTExtend → HTConj`
+  (`E' = E ⊔ ℚ_p(entries of P, P⁻¹)`, finite by `finiteDimensional_adjoin`; lift `P` to
+  `GL_n(E')`; conjugate the `E'`-model).
+- Fast environment HTFast.lean = Split.lean L1-4727 (through `end PkgI4Sec`) + part_htdefs.lean
+  (copies of `IsConj`, `HTConj`) + part_htconj.lean; 1m10s per run. run1 (05:10): 4 errors;
+  run2 (05:13): 0 errors, 0 sorry; `finrank_htSpace_conj`, `htConj_of` standard axioms.
+- Model review (subagent, read-only, no Lean; 05:12): all new Props TRUE and non-vacuous; no
+  serious issue. Notes: `htMult`'s division is exact (htSpace is an `E`-space by precomposition);
+  `SympSimDet` holds even without `c ≠ 0`; `G12Weight` witness: `V_5` of a non-CM elliptic curve
+  over ℚ with `ψ = 1`.
