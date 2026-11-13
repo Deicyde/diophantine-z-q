@@ -31,3 +31,8 @@ open ZInQ.Contrib.TYZGenus.X0 ZInQ.Contrib.TYZDecomp.CurveA
 #print axioms xC_yC_fC_T_smul
 #print axioms eta_add_nat
 #print axioms phi_iPt
+#print axioms eta_neg_conj
+#print axioms xC_neg_conj
+#print axioms yC_neg_conj
+#print axioms fC_neg_conj
+#print axioms phiC_neg_conj

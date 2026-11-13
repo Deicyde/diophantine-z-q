@@ -37,6 +37,9 @@ memory). That is the curve `CurveA.curveA` of `TYZDecomp/CurveA.lean` (`ℚ`-iso
 * §11–§12 (proved) basic analytic facts: `x, y, f` are holomorphic on `ℍ`, `f` and `y` have no
   zeros there, `phiC τ = (x(τ), y(τ))` under `EtaModelEquation`, and `x, y, f` are invariant under
   `T = [[1,1],[0,1]] ∈ Γ₀(32)` (`xC_yC_fC_T_smul`, a piece of `EtaModelInvariant`).
+* §13 (proved) `x, y, f` have real `q`-expansions: `η(−z̄) = conj η(z)` and
+  `phiC (−τ̄) = conj (phiC τ)` (`phiC_neg_conj`), the analytic input for complex conjugation on
+  Heegner points.
 
 No `sorry`, no `axiom`.
 -/
@@ -1186,5 +1189,77 @@ theorem xC_yC_fC_T_smul (τ : UpperHalfPlane) :
   exact ⟨xC_add_one _, yC_add_one _, fC_add_one _⟩
 
 end Translation
+
+/-! ## §13 Complex conjugation: `x, y, f` have real `q`-expansions (proved)
+
+`φ(−τ̄) = conj φ(τ)`. With the definition of Heegner points through `phiC` (task cm-points), this is the
+analytic input of "complex conjugation maps the Heegner point of `[A, B, C]` to that of `[A, −B, C]`"
+(`τ_{[A,−B,C]} = −conj τ_{[A,B,C]}`). -/
+
+section Conj
+
+open ModularForm
+
+theorem conj_qParam (h : ℝ) (z : ℂ) :
+    starRingEnd ℂ (Function.Periodic.qParam h z) = Function.Periodic.qParam h (-starRingEnd ℂ z) := by
+  simp only [Function.Periodic.qParam, ← Complex.exp_conj, map_div₀, map_mul, map_ofNat,
+    Complex.conj_ofReal, Complex.conj_I]
+  congr 1
+  ring
+
+/-- **`η(−z̄) = conj η(z)`.** -/
+theorem eta_neg_conj (z : ℂ) :
+    ModularForm.eta (-starRingEnd ℂ z) = starRingEnd ℂ (ModularForm.eta z) := by
+  unfold ModularForm.eta
+  rw [map_mul, conj_qParam]
+  congr 1
+  rw [Function.LeftInverse.map_tprod (g := starRingEnd ℂ) _ Complex.continuous_conj
+    Complex.continuous_conj (fun w => Complex.conj_conj w)]
+  congr 1
+  funext n
+  rw [map_sub, map_one]
+  congr 1
+  simp only [eta_q, map_pow, conj_qParam]
+
+theorem etaD_neg_conj (d : ℕ) (z : ℂ) :
+    etaD d (-starRingEnd ℂ z) = starRingEnd ℂ (etaD d z) := by
+  unfold etaD
+  rw [← eta_neg_conj, map_mul, Complex.conj_natCast, mul_neg]
+
+theorem xC_neg_conj (z : ℂ) : xC (-starRingEnd ℂ z) = starRingEnd ℂ (xC z) := by
+  simp only [xC, etaD_neg_conj, map_add, map_div₀, map_mul, map_pow, map_ofNat]
+
+theorem yC_neg_conj (z : ℂ) : yC (-starRingEnd ℂ z) = starRingEnd ℂ (yC z) := by
+  simp only [yC, etaD_neg_conj, map_neg, map_div₀, map_mul, map_pow]
+
+theorem fC_neg_conj (z : ℂ) : fC (-starRingEnd ℂ z) = starRingEnd ℂ (fC z) := by
+  simp only [fC, etaD_neg_conj, map_mul, map_pow]
+
+/-- Complex conjugation as a `ℚ`-algebra map (the same expression as cm-points' `CM.conjQ`). -/
+def conjQC : ℂ →ₐ[ℚ] ℂ := (Complex.conjAe.toAlgHom).restrictScalars ℚ
+
+theorem conjQC_apply (z : ℂ) : conjQC z = starRingEnd ℂ z := rfl
+
+/-- **`φ(−τ̄) = conj φ(τ)`** on `A(ℂ)` (conjugation acting through `Point.map`). -/
+theorem phiC_neg_conj (τ τ' : UpperHalfPlane) (h : (τ' : ℂ) = -starRingEnd ℂ (τ : ℂ)) :
+    phiC τ' = WeierstrassCurve.Affine.Point.map (W' := curveA) conjQC (phiC τ) := by
+  have hx : xC τ' = conjQC (xC τ) := by rw [h, xC_neg_conj]; rfl
+  have hy : yC τ' = conjQC (yC τ) := by rw [h, yC_neg_conj]; rfl
+  have hiff : curveAC.toAffine.Nonsingular (xC τ') (yC τ') ↔
+      curveAC.toAffine.Nonsingular (xC τ) (yC τ) := by
+    rw [hx, hy]
+    exact WeierstrassCurve.Affine.baseChange_nonsingular (W := curveA) conjQC.injective _ _
+  by_cases hN : curveAC.toAffine.Nonsingular (xC τ) (yC τ)
+  · have hN' := hiff.mpr hN
+    have e1 : phiC τ = .some (xC τ) (yC τ) hN := by simp [phiC, hN]
+    have e2 : phiC τ' = .some (xC τ') (yC τ') hN' := by simp [phiC, hN']
+    rw [e1, e2, WeierstrassCurve.Affine.Point.map_some, WeierstrassCurve.Affine.Point.some.injEq]
+    exact ⟨hx, hy⟩
+  · have hN' : ¬ curveAC.toAffine.Nonsingular (xC τ') (yC τ') := fun h' => hN (hiff.mp h')
+    have e1 : phiC τ = 0 := by simp [phiC, hN]
+    have e2 : phiC τ' = 0 := by simp [phiC, hN']
+    rw [e1, e2, map_zero]
+
+end Conj
 
 end ZInQ.Contrib.TYZGenus.X0
