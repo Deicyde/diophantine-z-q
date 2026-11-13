@@ -84,8 +84,17 @@ scratch copies) only pass it on to that theorem. The case
 between.
 
 **Proposal to the owner** (a statement change, not made here). Replace the premise
-`Literature.GrossZagier` by `GZDecomp.GrossZagierCd`, which is strictly weaker and is all the proof
+`Literature.GrossZagier` by `GZDecomp.GrossZagierCd`, which it implies (`grossZagierCd_of_grossZagier`) and which is all the proof
 uses. Or replace it by the three leaves L1-L3, which give `GrossZagierCd` in Lean.
+
+### 0.4 Relation to cr3-trust Part D
+
+| cr3-trust step | Here |
+| --- | --- |
+| D1 modularity of `C_d` (Deuring; Shimura 1971) | L1, with Deuring's identity proved (G1); the map `X₀(N) → C_d` is needed only inside L3 |
+| D2 auxiliary `K` with `L(C_d^K, 1) ≠ 0` (BFH / FH / Waldspurger) | L2, with the sign (G3) and the continuation (G6) proved |
+| D3 Gross–Zagier and `ȳ_K = −ε y_K` (GZ 1986, Gross 1984) | L3, with the descent to `C_d(ℚ)` (G4) and `K` itself (G5) proved |
+| D4 (Kolyvagin, Kriz) | not used |
 
 ---
 
