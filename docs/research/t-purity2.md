@@ -169,13 +169,13 @@ then an open normal subgroup inside the box (`ProfiniteGrp.exist_openNormalSubgr
 which needs zero-dimensionality). Conversely, invariance under an open subgroup gives local
 constancy and hence continuity. For `G_K` with `char K = 0`, `IsGalois K K^al` holds, so
 `CompactSpace Gal(K^al/K)` follows from Mathlib's instance. The instance must be stated at the type
-`Gal(…)` because `absoluteGaloisGroup` is a `def`. Zero-dimensionality follows from T2 plus totally
+`Gal(…)` because `absoluteGaloisGroup` is a `def`. Zero-dimensionality follows from Hausdorff plus totally
 disconnected plus compact.
 
 ## 4. What remains
 
 * **T1″ (dimension ≥ 2, finite, local base).** The classical proof has two parts. *Dimension 2* (Auslander):
-  `S_q` normal of dimension 2 is Cohen–Macaulay (Serre's criterion), so it is free over `R_p` by
+  `S_q` normal of dimension 2 is Cohen–Macaulay (Serre's criterion), so it is free over `R` by
   Auslander–Buchsbaum, and the branch locus of a finite free map is the discriminant divisor.
   *Dimension ≥ 3*: either Nagata's reduction or Grothendieck's purity (SGA 2 X 3.4, UNVERIFIED).
   Mathlib v4.35 has depth and regular sequences but neither Serre's criterion nor
