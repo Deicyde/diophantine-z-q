@@ -910,4 +910,59 @@ theorem riemannTheta_Omega_add_period {τ : ℂ} (hτ : τ.im ≠ 0) (z : Fin 2 
 
 end QM
 
+/-! ## §8. Continuous homomorphisms of tori are linear (node T2)
+
+A continuous group homomorphism `f : E ⧸ Λ → E' ⧸ Λ'` lifts (covering theory: `E` is simply
+connected) to a continuous additive, hence `ℝ`-linear, map `T : E → E'` with `T(Λ) ⊆ Λ'`. If `f`
+is holomorphic, `T` is `ℂ`-linear. This is the glue that turns endomorphisms of an abelian variety
+into linear maps preserving its period lattice (R1an, T11, T12). -/
+
+section Hom
+
+variable {E' : Type*} [NormedAddCommGroup E'] [NormedSpace ℂ E']
+variable (Λ' : Submodule ℤ E') [DiscreteTopology Λ']
+
+/-- A continuous map with values in a discrete subgroup is locally constant. -/
+theorem eventuallyEq_const_of_mem {X : Type*} [TopologicalSpace X] {G : X → E'} {x : X}
+    (hG : ContinuousAt G x) (hmem : ∀ᶠ z in 𝓝 x, G z ∈ Λ') (hx : G x ∈ Λ') :
+    G =ᶠ[𝓝 x] fun _ => G x := by
+  obtain ⟨ε, hε, hgap⟩ := exists_gap Λ'
+  filter_upwards [hG.eventually (Metric.ball_mem_nhds _ hε), hmem] with z hz hzm
+  have h0 := hgap _ (Λ'.sub_mem hzm hx) (by simpa [dist_eq_norm] using hz)
+  exact sub_eq_zero.mp h0
+
+/-- **Continuous homomorphisms of tori are induced by `ℝ`-linear maps.** -/
+theorem exists_realLinear_lift (f : Torus Λ →+ Torus Λ') (hf : Continuous f) :
+    ∃ T : E →L[ℝ] E', (∀ v ∈ Λ, T v ∈ Λ') ∧ ∀ v, f (proj Λ v) = proj Λ' (T v) := by
+  obtain ⟨F, ⟨hF0, hFp⟩, -⟩ := (isCoveringMap_proj Λ').existsUnique_continuousMap_lifts
+    ⟨f ∘ proj Λ, hf.comp (isLocalHomeomorph_proj Λ).continuous⟩ (0 : E) (0 : E') (by simp)
+  have hFp' : ∀ v, proj Λ' (F v) = f (proj Λ v) := fun v => congrFun hFp v
+  have hmem : ∀ p : E × E, F (p.1 + p.2) - (F p.1 + F p.2) ∈ Λ' := by
+    intro p
+    rw [← proj_eq_iff]
+    simp only [proj, QuotientAddGroup.mk_add]
+    rw [show (QuotientAddGroup.mk (F (p.1 + p.2)) : Torus Λ') = f (proj Λ (p.1 + p.2)) from
+        hFp' _, show (QuotientAddGroup.mk (F p.1) : Torus Λ') = f (proj Λ p.1) from hFp' _,
+      show (QuotientAddGroup.mk (F p.2) : Torus Λ') = f (proj Λ p.2) from hFp' _, ← map_add]
+    rfl
+  have hc : Continuous fun p : E × E => F (p.1 + p.2) - (F p.1 + F p.2) := by
+    have := F.continuous; fun_prop
+  have hadd : ∀ x y, F (x + y) = F x + F y := by
+    intro x y
+    have hconst := PreconnectedSpace.constant (inferInstance : PreconnectedSpace (E × E))
+      (f := fun p => (⟨_, hmem p⟩ : Λ')) (hc.subtype_mk _) (x := (x, y)) (y := (0, 0))
+    have := congrArg Subtype.val hconst
+    simp only [add_zero, hF0, sub_zero] at this
+    exact sub_eq_zero.mp this
+  let Fa : E →+ E' := { toFun := F, map_zero' := hF0, map_add' := hadd }
+  refine ⟨Fa.toRealLinearMap F.continuous, ?_, ?_⟩
+  · intro v hv
+    have h := hFp' v
+    rw [show proj Λ v = 0 from (QuotientAddGroup.eq_zero_iff v).mpr hv, map_zero] at h
+    exact (QuotientAddGroup.eq_zero_iff _).mp h
+  · intro v
+    exact (hFp' v).symm
+
+end Hom
+
 end BPAnalytic
