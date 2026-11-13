@@ -20,3 +20,15 @@ with standard axioms; (L0) `FiniteGlobalSections` is used by no theorem of its �
 - Props (def ... : Prop with docstrings): `DimEqTrdeg`, `DimEqTrdegAlg`, `AlgDepOfTrdegOne`; theorems
   `dimEqTrdeg`, `dimEqTrdegAlg`, `algDepOfTrdegOne`.
 - compile: 0 errors, 0 warnings; all three axioms [propext, Classical.choice, Quot.sound] (VERIFIED, run_Dim.txt).
+
+## CurveInfraAll.lean (mk_all.sh; imports Mathlib + ZInQKernel.HDecomp.LeafPush2.R18)
+- built kernel module `ZInQKernel.HDecomp.LeafPush2.R18` with lake build (success).
+- contents: infra-smooth-dim SmoothStalk.lean lines 2-526 verbatim; Dim.lean body; tail_part.lean.part.
+- new Props + theorems: `SmoothTrdeg`/`smoothTrdeg` (X integral, smooth rel. dim n over K ⇒ trdeg K K(X) = n);
+  `CurveFnFieldAlgDep`/`curveFnFieldAlgDep` (n = 1: any a b ∈ K(X) satisfy nonzero P ∈ K[x,y]);
+  `DimEqTrdegOver`, `SmoothTrdegOver` (same with kernel's `ZInQ.LeafPush2.ffAlgebra`, X : Over (Spec K));
+  `CurveAlgOverTranscendental` (smooth integral curve: K(X) algebraic over K[x] for x transcendental).
+- compile: 0 errors; one linter warning, in copied infra-smooth-dim code (line 362); all 8 theorems
+  axioms [propext, Classical.choice, Quot.sound] (VERIFIED, run_CurveInfraAll.txt).
+- py/verbatim.py: copied declarations IDENTICAL to sources, ALL OK (VERIFIED, verbatim.txt).
+  (Docstrings of the five g0-dim copies were replaced by "Copied verbatim from g0-dim"; statements and proofs identical.)
