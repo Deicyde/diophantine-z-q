@@ -292,6 +292,133 @@ theorem adjSqrt_two_le_H4 (hd : d % 4 = 1) : adjSqrt (QNeg d) 2 ≤ H4 d := by
       rw [hc, hN, e]; omega
   omega
 
+omit [NeZero d] in
+theorem splitSet_anti {K : Type} [Field K] [NumberField K]
+    {E E' : IntermediateField K (SeparableClosure K)} [FiniteDimensional K E]
+    [FiniteDimensional K E'] [IsGalois K E] [IsGalois K E'] (h : E' ≤ E) :
+    splitSet K E ⊆ splitSet K E' := by
+  have := splitSet_sup E E'
+  rw [sup_eq_left.2 h] at this
+  rw [this]
+  exact Set.inter_subset_right
+
+theorem normZ_alpha : Algebra.norm ℤ (alpha d) = 9 + 4 * d := by
+  have h := normZ_eq_re_im (alpha d)
+  have h3 : ((algebraMap (𝓞 (QNeg d)) (QNeg d)) 3) = (3 : QNeg d) := map_ofNat _ 3
+  have h2' : ((algebraMap (𝓞 (QNeg d)) (QNeg d)) 2) = (2 : QNeg d) := map_ofNat _ 2
+  have r3 : (3 : QNeg d).re = 3 := rfl
+  have i3 : (3 : QNeg d).im = 0 := rfl
+  have r2 : (2 : QNeg d).re = 2 := rfl
+  have i2 : (2 : QNeg d).im = 0 := rfl
+  have hre : ((alpha d : 𝓞 (QNeg d)) : QNeg d).re = 3 := by
+    simp [alpha, RingOfIntegers.coe_eq_algebraMap, coe_sqrtNeg, h3, h2', r3, i2]
+  have him : ((alpha d : 𝓞 (QNeg d)) : QNeg d).im = 2 := by
+    simp [alpha, RingOfIntegers.coe_eq_algebraMap, coe_sqrtNeg, h3, h2', i3, r2]
+  rw [hre, him] at h
+  have : ((Algebra.norm ℤ (alpha d) : ℤ) : ℚ) = ((9 + 4 * d : ℤ) : ℚ) := by
+    rw [h]; push_cast; ring
+  exact_mod_cast this
+
+/-- **Chebotarev for `H_{d,4}`**: every class of `Pic(O_{d,4})` contains infinitely many primes; in
+particular one outside any finite set. -/
+theorem exists_prime_picClass_eq (c : Pic (O4 d)) (T : Set (HeightOneSpectrum (𝓞 (QNeg d))))
+    (hT : T.Finite) : ∃ 𝔭 : HeightOneSpectrum (𝓞 (QNeg d)), 𝔭 ∉ T ∧
+      ¬ (O4 d).conductor ≤ 𝔭.asIdeal ∧ ∀ hJ : 𝔭.asIdeal ∈ integralIdealsPrimeTo (O4 d).conductorModulus,
+        (O4 d).picClass ⟨_, hJ⟩ = c := by
+  have hD := NumberField.Chebotarev.hasNaturalDensity_frobeniusPrimeSet (QNeg d) (H4 d)
+    (ConjClasses.mk (ringClassArtinEquiv (O4 d) c))
+  have hδ : (Nat.card (ConjClasses.mk (ringClassArtinEquiv (O4 d) c)).carrier : ℝ) /
+      Nat.card (H4 d ≃ₐ[QNeg d] H4 d) ≠ 0 := by
+    apply div_ne_zero
+    · have : Nonempty (ConjClasses.mk (ringClassArtinEquiv (O4 d) c)).carrier :=
+        ⟨⟨_, ConjClasses.mem_carrier_mk⟩⟩
+      exact_mod_cast (Nat.card_pos (α := (ConjClasses.mk
+        (ringClassArtinEquiv (O4 d) c)).carrier)).ne'
+    · exact_mod_cast (Nat.card_pos (α := H4 d ≃ₐ[QNeg d] H4 d)).ne'
+  have hinf := ((hD.infinite hδ).sdiff (hT.union (finite_conductor_primes 4)))
+  obtain ⟨𝔭, h𝔭, h𝔭T⟩ := hinf.nonempty
+  rw [Set.mem_union, not_or] at h𝔭T
+  refine ⟨𝔭, h𝔭T.1, h𝔭T.2, fun hJ => ?_⟩
+  obtain ⟨⟨Q, hQp, hQo⟩, hF⟩ := NumberField.Chebotarev.exists_isArithFrobAt_of_mem_frobeniusPrimeSet_mk h𝔭
+  have hur := NumberField.Chebotarev.isUnramifiedAt_of_mem_frobeniusPrimeSet h𝔭 Q
+  have : ((⟨𝔭.asIdeal, hJ⟩ : integralIdealsPrimeTo (O4 d).conductorModulus) :
+    Ideal (𝓞 (QNeg d))).IsMaximal := 𝔭.isMaximal
+  have : Q.LiesOver ((⟨𝔭.asIdeal, hJ⟩ : integralIdealsPrimeTo (O4 d).conductorModulus) :
+    Ideal (𝓞 (QNeg d))) := hQo
+  have hF' := isArithFrobAt_ringClassArtinEquiv_picClass (O4 d) ⟨_, hJ⟩ Q
+  exact (ringClassArtinEquiv (O4 d)).injective (isArithFrobAt_eq_of_isUnramifiedAt hF' hF)
+
+/-- **`√2 ∉ H'_d`** for `d ≡ 5 (mod 8)`: a prime `𝔭` in the class of `σ_{1+2ϖ}` has
+`N𝔭 · N(3 + 2√−d) = N(β)`, `β ∈ ℤ + 4𝓞_K`, so `N𝔭 ≡ 5 (mod 8)` and `𝔭` is inert in `K_d(√2)`,
+while it splits completely in `H'_d`. -/
+theorem not_adjSqrt_two_le_Hprime (hd : d % 8 = 5) : ¬ adjSqrt (QNeg d) 2 ≤ Hprime d := by
+  intro hle
+  obtain ⟨𝔭, h𝔭T, hT1, h𝔭c⟩ := exists_prime_picClass_eq (sigmaClass d)
+    {𝔭 | (O4 d).conductor * Ideal.span {2} ≤ 𝔭.asIdeal} finite_two_conductor_primes
+  have h2 : (2 : 𝓞 (QNeg d)) ∉ 𝔭.asIdeal := fun h =>
+    h𝔭T (le_trans Ideal.mul_le_right ((Ideal.span_singleton_le_iff_mem _).2 h))
+  have h22 : ((2 * 2 : ℤ) : 𝓞 (QNeg d)) ∉ 𝔭.asIdeal := fun h => h2 (by
+    rw [Int.cast_mul, Int.cast_two] at h
+    exact (Ideal.IsPrime.mem_or_mem inferInstance h).elim id id)
+  have hJ := mem_primeTo_of_not_le 𝔭 hT1
+  have : ((⟨𝔭.asIdeal, hJ⟩ : integralIdealsPrimeTo (O4 d).conductorModulus) :
+    Ideal (𝓞 (QNeg d))).IsMaximal := 𝔭.isMaximal
+  have hc := h𝔭c hJ
+  -- `𝔭` splits completely in `H'_d`, hence in `K_d(√2)`
+  have hsplit : 𝔭 ∈ splitSet (QNeg d) (Hprime d) := by
+    rw [Hprime_eq_ringSubfield]
+    exact (mem_splitSet_iff (O4 d) _ ⟨_, hJ⟩ 𝔭 rfl).2 (hc ▸ Subgroup.mem_zpowers _)
+  haveI : FiniteDimensional (QNeg d) (Hprime d) := by rw [Hprime_eq_ringSubfield]; infer_instance
+  haveI : IsGalois (QNeg d) (Hprime d) := by rw [Hprime_eq_ringSubfield]; infer_instance
+  have hsplit2 := splitSet_anti hle hsplit
+  rw [mem_splitSet_adjSqrt_iff 𝔭 h22] at hsplit2
+  -- the norm of `𝔭`
+  have hprod : (O4 d).picClass (⟨_, hJ⟩ * ⟨_, alphaIdeal_mem⟩) = 1 := by
+    rw [map_mul, hc, ← sigmaClass_eq, ← pow_two, sigmaClass_sq]
+  rw [picClass_eq_one_iff] at hprod
+  obtain ⟨β, hβ, hspan⟩ := hprod
+  obtain ⟨a, c, hN⟩ := norm_of_mem_O4_mod8 (by omega) β hβ
+  have hnorm : Ideal.absNorm 𝔭.asIdeal * (9 + 4 * d) = (Algebra.norm ℤ β).natAbs := by
+    have h1 := congrArg Ideal.absNorm hspan
+    rw [Submonoid.coe_mul, map_mul, Ideal.absNorm_span_singleton,
+      Ideal.absNorm_span_singleton, normZ_alpha] at h1
+    rw [← h1]
+    congr 1
+  have hq : Nat.card (𝓞 (QNeg d) ⧸ 𝔭.asIdeal) = Ideal.absNorm 𝔭.asIdeal := by
+    rw [← Submodule.cardQuot_apply, ← Ideal.absNorm_apply]
+  have hodd := card_quot_odd 𝔭 h2
+  rw [hq] at hodd
+  have hnn := normZ_nonneg (n := d) β
+  have hc' : ((Algebra.norm ℤ β).natAbs : ℤ) = Algebra.norm ℤ β := Int.natAbs_of_nonneg hnn
+  have h8 : Ideal.absNorm 𝔭.asIdeal % 8 = 5 := by
+    have e1 : ((Ideal.absNorm 𝔭.asIdeal : ℤ)) * (9 + 4 * d) = a ^ 2 + 8 * c := by
+      rw [← hN, ← hc']; exact_mod_cast hnorm
+    rcases Int.emod_two_eq_zero_or_one a with ha | ha
+    · exfalso
+      obtain ⟨k, rfl⟩ : ∃ k, a = 2 * k := ⟨a / 2, by omega⟩
+      obtain ⟨u, hu⟩ : ∃ u, Ideal.absNorm 𝔭.asIdeal = 2 * u + 1 := ⟨Ideal.absNorm 𝔭.asIdeal / 2, by omega⟩
+      rw [hu] at e1
+      push_cast at e1
+      ring_nf at e1
+      omega
+    · obtain ⟨k, rfl⟩ : ∃ k, a = 2 * k + 1 := ⟨a / 2, by omega⟩
+      obtain ⟨r, hr⟩ := Int.even_mul_succ_self k
+      have e : (2 * k + 1) ^ 2 = 8 * r + 1 := by linear_combination 4 * hr
+      rw [e] at e1
+      obtain ⟨u, v, huv, hv⟩ : ∃ u v, Ideal.absNorm 𝔭.asIdeal = 8 * u + v ∧ v < 8 :=
+        ⟨Ideal.absNorm 𝔭.asIdeal / 8, Ideal.absNorm 𝔭.asIdeal % 8, by omega, by omega⟩
+      obtain ⟨w, hw⟩ : ∃ w, d = 8 * w + 5 := ⟨d / 8, by omega⟩
+      rw [huv, hw] at e1
+      push_cast at e1
+      ring_nf at e1
+      rw [huv]
+      interval_cases v <;> omega
+  letI := Ideal.Quotient.field 𝔭.asIdeal
+  haveI : Finite (𝓞 (QNeg d) ⧸ 𝔭.asIdeal) := Ring.HasFiniteQuotients.finiteQuotient 𝔭.ne_bot
+  letI := Fintype.ofFinite (𝓞 (QNeg d) ⧸ 𝔭.asIdeal)
+  rw [Int.cast_ofNat, FiniteField.isSquare_two_iff, ← Nat.card_eq_fintype_card, hq] at hsplit2
+  exact hsplit2.2 h8
+
 end SqrtTwo
 
 end ZInQ.Contrib.TYZGenus.RingClass
