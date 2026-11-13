@@ -1,8 +1,13 @@
 # gz-theta: the leaf `HeckeThetaNewform` (L1 of gz-decomp)
 
 Status: research note (task gz-theta, 2026-11-13), branch `wip/gz-theta` (base `wip/gz-decomp`
-dcddd423, merged with `origin/wip/gz-license` 7f3880af). **Plan written before building
-(step 1); §0 is filled in at the end.**
+dcddd423, merged with `origin/wip/gz-license` 7f3880af). Lean: six new files
+`ZInQKernel/Contrib/GZTheta/{Basic,BadCoeff,Eta,Eta32,EtaForm32,Main}.lean` (1233 lines). Axiom
+check `scratch/gz-theta/Check.lean` (output `scratch/gz-theta/out_check_axioms.txt`). Log
+`scratch/gz-theta/log.md`. No existing file of the project was edited, and no Tau Ceti module
+was vendored (everything used was already vendored by tc-port, gz-decomp and t25-newform), so no
+NOTICE entry is needed. §2-3 are the plan written before building (step 1); §0 and §4 report
+what was built.
 
 Marks: **VERIFIED** (read in a source named here, computed, or compiled), **STANDARD**
 (published, reference given), **SPECULATIVE**. No network on this host: every theorem number
@@ -10,7 +15,77 @@ of the literature below is **UNVERIFIED**.
 
 ## 0. Main result
 
-(filled in at the end of the task)
+**The leaf `HeckeThetaNewform` is reduced to a `q`-series identity and newness; the
+modularity of the theta series is proved.** All theorems below compile; `#print axioms` gives
+exactly `[propext, Classical.choice, Quot.sound]` for each (VERIFIED, `out_check_axioms.txt`).
+
+```lean
+-- the theta series of ψ₁ as an eta quotient: a cusp form of weight 2 on Γ₀(32)  (EtaForm32.lean)
+def ZInQ.GZTheta.etaQuot32 (τ : ℍ) : ℂ := η (4 * (τ : ℂ)) ^ 2 * η (8 * (τ : ℂ)) ^ 2
+theorem ZInQ.GZTheta.etaQuot32_slash_eq {γ : SL(2, ℤ)} (hγ : γ ∈ Gamma0 32) :
+    etaQuot32 ∣[(2 : ℤ)] γ = etaQuot32                                         -- Eta32.lean
+theorem ZInQ.GZTheta.etaQuot32_slash_isZeroAtImInfty (γ : SL(2, ℤ)) :
+    IsZeroAtImInfty (etaQuot32 ∣[(2 : ℤ)] γ)
+def ZInQ.GZTheta.etaForm32 : CuspForm ((Gamma0 32).map (mapGL ℝ)) 2         -- ⇑etaForm32 = etaQuot32
+-- the multiplier of η² under SL(2, ℤ), by the Euclidean algorithm                (Eta.lean)
+theorem ZInQ.GZTheta.eta_sq_mobius : ∀ (fuel : ℕ) (a b c d : ℤ), c.natAbs ≤ fuel →
+    a * d - b * c = 1 → ∀ z : ℂ, 0 < z.im →
+      η ((a * z + b) / (c * z + d)) ^ 2 = zeta12 ^ etaSqExp fuel a b c d * (c * z + d) * η z ^ 2
+-- reductions of the leaf                                                         (Main.lean)
+theorem ZInQ.GZTheta.cmForm32_of_etaThetaIdentity : EtaThetaIdentity → CMForm32
+theorem ZInQ.GZTheta.heckeThetaNewform_of_etaThetaIdentity_newCM :
+    EtaThetaIdentity → NewCM → ZInQ.GZDecomp.HeckeThetaNewform
+theorem ZInQ.GZTheta.heckeThetaNewform_of_etaThetaIdentity_badCoeffCM :
+    EtaThetaIdentity → BadCoeffCM → ZInQ.GZDecomp.HeckeThetaNewform
+-- from a level-32 form with the coefficients of ψ₁                     (Basic.lean, BadCoeff.lean)
+theorem ZInQ.GZTheta.heckeThetaNewform_of_cmForm32_newCM :
+    CMForm32 → NewCM → ZInQ.GZDecomp.HeckeThetaNewform
+theorem ZInQ.GZTheta.heckeThetaNewform_of_cmForm32_badCoeffCM :
+    CMForm32 → BadCoeffCM → ZInQ.GZDecomp.HeckeThetaNewform
+theorem ZInQ.GZTheta.exists_eigenform_cmForm {F : CuspForm ((Gamma0 32).map (mapGL ℝ)) 2}
+    (hF : ∀ n, (qExpansion 1 F).coeff n = heckeCoeff 1 n) (d : ℕ) [NeZero d]
+    (hd4 : d % 4 = 1) (hsq : Squarefree d) :
+    ∃ E : Eigenform (32 * d ^ 2) 2, E.toCuspForm = cmForm F d ∧ E.χ = 1
+```
+
+The three remaining Props (all STANDARD; none proved here):
+
+```lean
+-- the q-series identity  q ∏ (1 − q^{4n})² (1 − q^{8n})² = ∑_{α ≡ 1 mod (2+2i)} α q^{Nα}
+def EtaThetaIdentity : Prop :=
+  ∀ τ : ℍ, HasSum (fun n : ℕ => heckeCoeff 1 n * cexp (2 * π * I * τ) ^ n)
+    (η (4 * (τ : ℂ)) ^ 2 * η (8 * (τ : ℂ)) ^ 2)
+-- (implied by EtaThetaIdentity) Hecke's theorem for ψ₁ = modularity of y² = x³ − x
+def CMForm32 : Prop :=
+  ∃ F : CuspForm ((Gamma0 32).map (mapGL ℝ)) 2, ∀ n : ℕ, (qExpansion 1 F).coeff n = heckeCoeff 1 n
+-- newness at level 32 d²
+def NewCM : Prop :=
+  ∀ (d : ℕ) [NeZero d], d % 4 = 1 → Squarefree d →
+    ∀ F : CuspForm ((Gamma1 (32 * d ^ 2)).map (mapGL ℝ)) 2,
+      (∀ n : ℕ, (qExpansion 1 F).coeff n = heckeCoeff d n) → F ∈ TauCeti.cuspFormsNew (32 * d ^ 2) 2
+-- or, equivalently for the leaf: the bad-prime coefficients of the newform of ψ_d
+def BadCoeffCM : Prop :=
+  ∀ d : ℕ, d % 4 = 1 → Squarefree d →
+    ∀ (M : ℕ) [NeZero M] (g : Newform M 2), g.χ = 1 →
+      (∀ p : ℕ, p.Prime → ¬ p ∣ 2 * d → coeff g p = heckeCoeff d p) →
+      ∀ p : ℕ, p.Prime → p ∣ 2 * d → p ∣ M ∧ coeff g p = 0
+```
+
+So: **L1 ⇐ EtaThetaIdentity ∧ (NewCM ∨ BadCoeffCM)**. `EtaThetaIdentity` is an identity of
+explicit `q`-series (Jacobi's `η³` identity times Gauss's identity, both from the triple product
+identity); it was checked numerically for `n ≤ 400` with 0 mismatches (VERIFIED,
+`scratch/gz-theta/qexp_check.py`). `NewCM`/`BadCoeffCM` is the conductor statement (Miyake
+Thm 4.8.2; local, at `p ∣ 2d`).
+
+What the proved part says, informally:
+1. `η(4τ)²η(8τ)² ∈ S₂(Γ₀(32))` (the newform of `y² = x³ − x`), from Mathlib's two generator laws
+   of `η` only (`Eta.lean`, `Eta32.lean`, `EtaForm32.lean`; §4.2).
+2. For every squarefree `d ≡ 1 (mod 4)`, the twist `f_d = f_1 ⊗ (·/d)` of a level-32 form with
+   coefficients `heckeCoeff 1` is a cusp form on `Γ₁(32 d²)` with trivial nebentypus, with
+   coefficients `heckeCoeff d n` for all `n`, and an eigenform of **every** Hecke operator `T_n`
+   (`Basic.lean`; §4.1).
+3. Newness at `32 d²` (or the bad coefficients of the associated newform, via Tau Ceti's
+   Diamond–Shurman 5.8.4) then gives the leaf (`Basic.lean`, `BadCoeff.lean`).
 
 ## 1. The leaf
 
@@ -119,3 +194,62 @@ signs) is several thousand lines; it is not attempted in this task.
    ∃ F : Eigenform (32 d²) 2, F.χ = 1 ∧ ∀ n, aₙ(F) = heckeCoeff d n`.
 6. `NewCM : Prop` and `heckeThetaNewform_of_cmForm32_newCM : CMForm32 → NewCM → HeckeThetaNewform`.
 7. If time: `BadCoeffCM` and `heckeThetaNewform_of_cmForm32_badCoeffCM`.
+
+(Plan change after step 6, recorded in the log: the modularity of `f_1` turned out to be
+reachable through the eta quotient `η(4τ)²η(8τ)²`, see §4.2.)
+
+## 4. What was built
+
+### 4.1 The twist, the eigenform, the leaf (`Basic.lean`, `BadCoeff.lean`)
+
+* `jacobiChar d : DirichletCharacter ℂ d`, `jacobiChar d n = (n/d)` (`jacobiChar_natCast`), with
+  `(u/d)² = 1` on units (`jacobiChar_sq_unit`).
+* `heckeCoeff_eq_jacobiSym_mul : heckeCoeff d n = (n/d) * heckeCoeff 1 n` (the Jacobi symbol of
+  `N α = n` factors out of the fibre sum).
+* `cmForm F d := CuspForm.twist (jacobiChar d) _ _ (restrict32 F)` at level `32 d²`;
+  `qExpansion_cmForm_coeff : aₙ(cmForm F d) = heckeCoeff d n` (Tau Ceti
+  `CuspForm.qExpansion_twist_coeff`); `cmForm_mem_cuspFormCharSpace` with character `1` (Tau Ceti
+  `CuspForm.twist_mem_cuspFormCharSpace`, character `1·(·/d)² = 1`, and
+  `TauCeti.restrict_mem_cuspFormCharSpace_one`).
+* `exists_eigenformAway_cmForm`, `exists_eigenform_cmForm`: Tau Ceti's Diamond–Shurman 5.8.5
+  (`exists_toCuspForm_eq_and_χ_eq_of_qExpansion_coeff_mul_of_prime_pow_add_two`) fed with
+  `HeckeFE.heckeMult` and `HeckeFE.heckePrimePow_of_split` (the recursion
+  `a_{p^{k+2}} = a_p a_{p^{k+1}} − [p ∤ 2d] p a_{p^k}` matches the trivial character extended by
+  zero at level `32 d²`, since `p ∣ 32 d² ↔ p ∣ 2d`).
+* `heckeThetaNewform_of_cmForm32_newCM`: the newform is the eigenform with `isNew` from `NewCM`
+  and `a₁ = heckeCoeff d 1 = 1`.
+* `heckeThetaNewform_of_cmForm32_badCoeffCM`: Tau Ceti's
+  `Newform.exists_newform_comp_unitsMap_eq_and_eigenvalue_eq_of_forall_heckeTCuspNat_eq_smul`
+  gives a newform `g` of level `M ∣ 32 d²`, character `1`, eigenvalues `heckeCoeff d p` at
+  `p ∤ 2d`; `BadCoeffCM` gives `p ∣ M` and `a_p(g) = 0` at `p ∣ 2d`; then
+  `coeff_eq_heckeCoeff_of_good_bad` identifies all coefficients (both sides multiplicative, same
+  prime-power recursions; `Newform.toEigenform` and Diamond–Shurman 5.8.5 for `g`).
+
+### 4.2 Modularity of `η(4τ)²η(8τ)²` (`Eta.lean`, `Eta32.lean`, `EtaForm32.lean`)
+
+* **Multiplier of `η²`.** `η²` has weight 1, so `η²(γz) = ψ(γ)(cz + d)η²(z)` with a root of
+  unity `ψ(γ)` and no square-root ambiguity. `etaSqExp` computes `ψ(γ) = ζ^{etaSqExp}`,
+  `ζ = e^{πi/6}`, by the Euclidean algorithm: for `c ≠ 0`, `γ = T^q S γ₃` with `q = ⌊a/c⌋`,
+  `γ₃ = (c, d; −(a mod c), −(b − qd))`, so `etaSqExp γ = q − 3 + etaSqExp γ₃`; for `c = 0`,
+  `γ = ±T^{±b}`. `eta_sq_mobius` proves the law by induction from Mathlib's
+  `η(z+1) = e^{πi/12}η(z)` and `η(−1/z) = (√i)⁻¹√z η(z)` (`eta_comp_eq_csqrt_I_inv`). The
+  exponent is defined by structural recursion on fuel, so the kernel evaluates it.
+* **`Γ₀(32)`-invariance.** For `γ ∈ Γ₀(32)`, `4γτ = γ'(4τ)`, `8γτ = γ''(8τ)` with
+  `γ' = (a, 4b; c/4, d)`, `γ'' = (a, 8b; c/8, d)`, so `f(γτ) = ζ^{E(γ)}(cτ + d)² f(τ)`
+  (`etaQuot32_slash`). `E ≡ 0 (mod 12)` on all of `Γ₀(32)` by **Schreier's lemma** (Mathlib
+  `Subgroup.closure_mul_image_eq`, with `SpecialLinearGroup.SL2Z_generators`): the 48 matrices
+  `(1 0; x 1)` (`x < 32`) and `(0 −1; 1 2j)` (`j < 16`) form a transversal (`isComplement_R32`;
+  the representative of `g` is computed from its bottom row with `d⁸ ≡ 1 (mod 32)` for odd `d`),
+  and `E ≡ 0 (mod 12)` on the 96 Schreier generators is checked by `decide`
+  (`schreier_check_A`, `schreier_check_B`). The set of `γ` fixing `f` is a subgroup, so it
+  contains `Γ₀(32)` (`etaQuot32_slash_eq`).
+* **Cusps.** `diag(m, 1)γ = γ₁(α β; 0 δ)` with `γ₁ ∈ SL(2, ℤ)`, `α, δ > 0` (`exists_hermite`),
+  so `f ∣[2] γ = C·η(w₁)²η(w₂)²` with `Im wᵢ → ∞`; `η → 0` at `i∞` from Mathlib's
+  `discriminant_isZeroAtImInfty`. Mathlib's `OnePoint.isZeroAt_iff_forall_SL2Z` then gives
+  `zero_at_cusps'`, as in Mathlib's `CuspForm.discriminant`.
+* `cmForm32_of_etaThetaIdentity`: coefficients by `ModularFormClass.qExpansion_coeff_unique`.
+
+The method (Euclidean multiplier of `η²`, Schreier generators checked by `decide`) proves the
+modularity of any eta quotient of even weight built from `η²`-factors at any level, with no
+Dedekind sums. **Numerics** (VERIFIED): the eta law on 33 random `γ` and `E ≡ 0 (mod 12)` on 3000
+random `γ ∈ Γ₀(32)` (`scratch/gz-theta/eta_exp_check.py`).
