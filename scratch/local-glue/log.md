@@ -249,3 +249,22 @@
   `L'` finite Galois, `β = ι ∘ β_ℂ` with `ι` injective ⟹ `KerWild L' β L` (via copied `resQ_range`).
   So the correction to TateBridge is: also output `β' = ι ∘ β` with `ι` injective.
 - Compile: LocalGlue.lean exit 0, no sorry, 73 printed declarations standard.
+
+## Step 18 (08:47-09:05 PST): DescentPts proved for the base change; packs BC
+- New part `part_bcdescent.lean` (§7f). Proved (VERIFIED, compiled, standard axioms):
+  `qEquiv` (qEmb as ring iso), `jK`, `jL'` (the embeddings L ↪ ℚ̄ inside resQ L, resQ L'),
+  `mem_range_jK` (both have image L: `AlgHom.fieldRange_of_normal`), `γL` (= jK_L⁻¹ ∘ jL'),
+  `γL_bijective`, algebras `γAlg`, `twAlg`, `compAlg`, `incAlgL` (= g0-mod-field's `incAlg`),
+  `tower_tw`, `tower_comp`, `θL` (qEmb_{L'} ∘ qEmb_L⁻¹, L-linear L̄_tw ≃ L̄'), `θL_galois`,
+  `conjModel` (A₀ ×_{L,γ} L), `bcL'` ((A₀)_{L'}), `φL` (bcPt ∘ trPt ∘ bcPt⁻¹), `φL_galAct`,
+  `dim_conjModel` (pullback along the iso Spec γ is homeomorphic: `Scheme.Hom.homeomorph`,
+  `IsHomeomorph.topologicalKrullDim_eq`), **`descentPts_baseChange (A₀) (dim A₀ = 2) :
+  DescentPts (K := L') (bcL' hLL' A₀) L`** (L ≤ L' finite, L Galois),
+  **`localGlue_of_baseChange`**: LocalGlue for G7Out on (A₀)_{L'} from R6, I2-Tors, UnramRoots,
+  dim A₀ = 2, G7Clauses, G_{L'} = G_L ∩ ker β_ℂ, β = ι ∘ β_ℂ with ι injective.
+- Finding G9 (VERIFIED, compiled): DescentPts with Mathlib's arbitrary embedding choices inside
+  `resQ L`, `resQ L'` needs the conjugate model; it is now built (γ ∈ Aut L).
+- `part_pack.lean`: `G7LocalPackBC ℓ r` (g0-mod-field's construction data, no local Prop),
+  `g8LocalPack_of_BC`, `g15RamG_of_packBC`; `tail_glue.lean`: `modularConstituent_tail_BC`.
+- Compile: LocalGlue.lean exit 0, no sorry, 77 printed declarations standard; TailK.lean exit 0,
+  no sorry, tail_{G,L,K,R,D,U,BC} standard.

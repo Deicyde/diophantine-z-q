@@ -7613,6 +7613,8 @@ namespace G0ModNewform
 open PkgI4 (Qbar GQ GaloisRep)
 open PkgI3
 
+attribute [local instance] RQ.numberField_of_fd
+
 
 /-- **G7's data for `r` at coefficient prime `ℓ`, with the local glue at `p ∈ P` as Props on the
 abelian surface `A/K` (GLUE).** -/
@@ -7778,6 +7780,54 @@ theorem g15RamG_of_packU (hR6 : ObjBridge.RaynaudCriterion)
     g8LocalPack_of_U hR6 hTors (fun hp => hU2 hp 3) (fun p h => by rw [h]; norm_num) h3
   exact G15Ram.g15RamG_of_g7 D u h8₅ hC₅ hG₅ h8₃ hC₃ (hG₃ 5 (by norm_num) rfl) h11₅ h11₃
 
+/-- **G7's data for `r` in the form of g0-mod-field's construction (GLUE: the output of an
+augmented `TateBridge`).** `L ≤ L'` finite Galois in `ℚ̄`, `A₀ : AbVar L` with `dim A₀ = 2`,
+G7Out and G8Out for `(A₀)_{L'}` (base change along `incAlg`), G7's clauses, the kernel-field
+clause `G_{L'} = G_L ∩ ker β_ℂ` of `G7Data`, and the transport `β = ι ∘ β_ℂ` with `ι` injective.
+No local Prop is asked at any prime (`g8LocalPack_of_BC`). -/
+def G7LocalPackBC (ℓ : ℕ) [Fact ℓ.Prime] (r : GaloisRep ℓ 2) : Prop :=
+  ∃ (L L' : IntermediateField ℚ Qbar) (_ : FiniteDimensional ℚ L) (_ : FiniteDimensional ℚ L')
+    (_ : IsGalois ℚ L) (_ : IsGalois ℚ L') (hLL' : L ≤ L') (A₀ : AbVar L)
+    (Tm : GQ → Module.End (PadicAlgCl ℓ) (G0Galois.Vb (G15Ram.bcL' hLL' A₀) ℓ))
+    (c ε : GQ → GQ → PadicAlgCl ℓ) (a β : GQ → PadicAlgCl ℓ)
+    (u : GlueDescent.MatrixUnits2 (PadicAlgCl ℓ) (G0Galois.Vb (G15Ram.bcL' hLL' A₀) ℓ))
+    (βC : GQ → ℂˣ) (ιC : ℂˣ →* (PadicAlgCl ℓ)ˣ),
+    A₀.dim = 2 ∧ G0Galois.G7Out (G15Ram.bcL' hLL' A₀) ℓ Tm c ε a β u ∧
+    G0Galois.G8Out (G15Ram.bcL' hLL' A₀) ℓ (GlueDescent.rho Tm a β) r ∧
+    G15Ram.G7Clauses β ε L ∧
+    (∀ σ : GQ, σ ∈ L'.fixingSubgroup ↔ σ ∈ L.fixingSubgroup ∧ βC σ = 1) ∧
+    Function.Injective ιC ∧ (∀ g, β g = (ιC (βC g) : PadicAlgCl ℓ))
+
+/-- **`G8LocalPack` from `G7LocalPackBC`, the leaves R6, I2-Tors and the textbook Prop
+`UnramRoots` (at `p = 2`), for `p ≠ ℓ` on `P` (proved)**, by `G15Ram.localGlue_of_baseChange`. -/
+theorem g8LocalPack_of_BC (hR6 : ObjBridge.RaynaudCriterion)
+    (hTors : ObjBridge.TorsionStructure) {ℓ : ℕ} [Fact ℓ.Prime]
+    (hU : ∀ (p : ℕ) [Fact p.Prime], G15Ram.UnramRoots p ℓ)
+    {r : GaloisRep ℓ 2} {P : ℕ → Prop} (hPℓ : ∀ p, P p → p ≠ ℓ) (h : G7LocalPackBC ℓ r) :
+    G8LocalPack ℓ r P := by
+  obtain ⟨L, L', _, _, _, _, hLL', A₀, Tm, c, ε, a, β, u, βC, ιC, hdim, h7, h8, hC, hker, hι,
+    hβ⟩ := h
+  refine ⟨L', _, RQ.numberField_of_fd L', G15Ram.bcL' hLL' A₀, Tm, a, β, ε, L, h8, hC,
+    fun p hp hP => ?_⟩
+  have : Fact p.Prime := ⟨hp⟩
+  exact G15Ram.localGlue_of_baseChange hLL' hR6 hTors (hU p) (hPℓ p hP) A₀ hdim h7 hC βC hker ιC
+    hι hβ
+
+/-- **`G15RamG` from the packs `G7LocalPackBC` (proved).** -/
+theorem g15RamG_of_packBC (hR6 : ObjBridge.RaynaudCriterion)
+    (hTors : ObjBridge.TorsionStructure)
+    (hU : ∀ (p : ℕ) [Fact p.Prime] (ℓ : ℕ) [Fact ℓ.Prime], G15Ram.UnramRoots p ℓ) {L : Type}
+    [Field L] [NumberField L] {A : AbVar L} (D : ModData L A) (u : ℚ)
+    (h5 : G7LocalPackBC 5 D.r5) (h3 : G7LocalPackBC 3 D.r3)
+    (h11₅ : G0Galois.G11Out (GlueDescent.ramSet ZInQ.Mult.S_mul u) D.r5)
+    (h11₃ : G0Galois.G11Out (GlueDescent.ramSet ZInQ.Mult.S_mul u) D.r3) : G15RamG D u := by
+  obtain ⟨K₅, _, _, A₅, Tm₅, a₅, β₅, ε₅, L₅, h8₅, hC₅, hG₅⟩ :=
+    g8LocalPack_of_BC (P := fun p => p ≠ 5) hR6 hTors (fun p _ => hU p 5) (fun _ h => h) h5
+  obtain ⟨K₃, _, _, A₃, Tm₃, a₃, β₃, ε₃, L₃, h8₃, hC₃, hG₃⟩ :=
+    g8LocalPack_of_BC (P := fun p => p = 5) hR6 hTors (fun p _ => hU p 3)
+      (fun p h => by rw [h]; norm_num) h3
+  exact G15Ram.g15RamG_of_g7 D u h8₅ hC₅ hG₅ h8₃ hC₃ (hG₃ 5 (by norm_num) rfl) h11₅ h11₃
+
 end G0ModNewform
 
 end
@@ -7791,6 +7841,8 @@ open PkgI4 (Qbar GQ LiesOver IsArithFrob CF coeff IsNewform IsNormalizedEigenfor
   GaloisChar)
 open PkgI3 PkgI3.AbVar LeafModCurves C9Rhof
 open CategoryTheory AlgebraicGeometry
+
+attribute [local instance] RQ.numberField_of_fd
 
 /-- **G13-G16 with G15 fed by G7's data and the local glue as Props on `A/K` (GLUE, proved).**
 As local-data's `modularConstituent_tail_L`, with `G8LocalPack` replaced by `G7LocalPackK`
@@ -7875,9 +7927,33 @@ theorem modularConstituent_tail_U (lv : NewformLeaves) (hJac : JacobianExists �
       g8LocalPack_of_U hR6 hTors (fun hp => hU2 hp 3) (fun p h => by rw [h]; norm_num) h3,
       h11a, h11b⟩
 
+/-- **G13-G16 on g0-mod-field's construction (GLUE, proved).** As `modularConstituent_tail_U`,
+with `G7LocalPackBC` (data of an augmented `TateBridge`), the leaves R6, I2-Tors and the
+textbook Prop `UnramRoots`; no local glue Prop remains (`g8LocalPack_of_BC`). -/
+theorem modularConstituent_tail_BC (lv : NewformLeaves) (hJac : JacobianExists ℚ)
+    (hX : X1ModelExists)
+    (hSw : ∀ (p : ℕ) [Fact p.Prime], LadicCond.SwanIndependent (p := p))
+    (hL8 : LadicCond.SwanIntegral) (hAd : ∀ (p : ℕ) [Fact p.Prime], LadicCond.AdaptedExists (p := p))
+    (hR6 : ObjBridge.RaynaudCriterion) (hTors : ObjBridge.TorsionStructure)
+    (hU : ∀ (p : ℕ) [Fact p.Prime] (ℓ : ℕ) [Fact ℓ.Prime], G15Ram.UnramRoots p ℓ)
+    {L : Type} [Field L] [NumberField L] (A : AbVar L) (u : ℚ)
+    (h : ∃ D : ModData L A, G12Spec D ∧ G14TraceCompat D ∧
+      G7LocalPackBC 5 D.r5 ∧ G7LocalPackBC 3 D.r3 ∧
+      G0Galois.G11Out (GlueDescent.ramSet ZInQ.Mult.S_mul u) D.r5 ∧
+      G0Galois.G11Out (GlueDescent.ramSet ZInQ.Mult.S_mul u) D.r3) :
+    ∃ (N : ℕ) (J : AbVar ℚ), 0 < N ∧ IsJ1 N J ∧
+      (N : ℝ) ≤ ZInQ.heightQ ZInQ.heightD * (ZInQ.contactSupport ZInQ.Mult.S_mul u : ℝ) ^ 2 ∧
+      CommonConstituent A (J.baseChange L) := by
+  obtain ⟨D, h12, hc, h5, h3, h11a, h11b⟩ := h
+  exact modularConstituent_tail_L lv hJac hX hSw hL8 hAd A u
+    ⟨D, h12, hc, g8LocalPack_of_BC hR6 hTors (fun p _ => hU p 5) (fun _ h => h) h5,
+      g8LocalPack_of_BC hR6 hTors (fun p _ => hU p 3) (fun p h => by rw [h]; norm_num) h3,
+      h11a, h11b⟩
+
 end G0ModNewform
 
 #print axioms G0ModNewform.modularConstituent_tail_K
 #print axioms G0ModNewform.modularConstituent_tail_R
 #print axioms G0ModNewform.modularConstituent_tail_D
 #print axioms G0ModNewform.modularConstituent_tail_U
+#print axioms G0ModNewform.modularConstituent_tail_BC

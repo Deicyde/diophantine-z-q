@@ -8,6 +8,8 @@ open PkgI4 (Qbar GQ LiesOver IsArithFrob CF coeff IsNewform IsNormalizedEigenfor
 open PkgI3 PkgI3.AbVar LeafModCurves C9Rhof
 open CategoryTheory AlgebraicGeometry
 
+attribute [local instance] RQ.numberField_of_fd
+
 /-- **G13-G16 with G15 fed by G7's data and the local glue as Props on `A/K` (GLUE, proved).**
 As local-data's `modularConstituent_tail_L`, with `G8LocalPack` replaced by `G7LocalPackK`
 (`g8LocalPack_of_K`). -/
@@ -91,9 +93,33 @@ theorem modularConstituent_tail_U (lv : NewformLeaves) (hJac : JacobianExists �
       g8LocalPack_of_U hR6 hTors (fun hp => hU2 hp 3) (fun p h => by rw [h]; norm_num) h3,
       h11a, h11b⟩
 
+/-- **G13-G16 on g0-mod-field's construction (GLUE, proved).** As `modularConstituent_tail_U`,
+with `G7LocalPackBC` (data of an augmented `TateBridge`), the leaves R6, I2-Tors and the
+textbook Prop `UnramRoots`; no local glue Prop remains (`g8LocalPack_of_BC`). -/
+theorem modularConstituent_tail_BC (lv : NewformLeaves) (hJac : JacobianExists ℚ)
+    (hX : X1ModelExists)
+    (hSw : ∀ (p : ℕ) [Fact p.Prime], LadicCond.SwanIndependent (p := p))
+    (hL8 : LadicCond.SwanIntegral) (hAd : ∀ (p : ℕ) [Fact p.Prime], LadicCond.AdaptedExists (p := p))
+    (hR6 : ObjBridge.RaynaudCriterion) (hTors : ObjBridge.TorsionStructure)
+    (hU : ∀ (p : ℕ) [Fact p.Prime] (ℓ : ℕ) [Fact ℓ.Prime], G15Ram.UnramRoots p ℓ)
+    {L : Type} [Field L] [NumberField L] (A : AbVar L) (u : ℚ)
+    (h : ∃ D : ModData L A, G12Spec D ∧ G14TraceCompat D ∧
+      G7LocalPackBC 5 D.r5 ∧ G7LocalPackBC 3 D.r3 ∧
+      G0Galois.G11Out (GlueDescent.ramSet ZInQ.Mult.S_mul u) D.r5 ∧
+      G0Galois.G11Out (GlueDescent.ramSet ZInQ.Mult.S_mul u) D.r3) :
+    ∃ (N : ℕ) (J : AbVar ℚ), 0 < N ∧ IsJ1 N J ∧
+      (N : ℝ) ≤ ZInQ.heightQ ZInQ.heightD * (ZInQ.contactSupport ZInQ.Mult.S_mul u : ℝ) ^ 2 ∧
+      CommonConstituent A (J.baseChange L) := by
+  obtain ⟨D, h12, hc, h5, h3, h11a, h11b⟩ := h
+  exact modularConstituent_tail_L lv hJac hX hSw hL8 hAd A u
+    ⟨D, h12, hc, g8LocalPack_of_BC hR6 hTors (fun p _ => hU p 5) (fun _ h => h) h5,
+      g8LocalPack_of_BC hR6 hTors (fun p _ => hU p 3) (fun p h => by rw [h]; norm_num) h3,
+      h11a, h11b⟩
+
 end G0ModNewform
 
 #print axioms G0ModNewform.modularConstituent_tail_K
 #print axioms G0ModNewform.modularConstituent_tail_R
 #print axioms G0ModNewform.modularConstituent_tail_D
 #print axioms G0ModNewform.modularConstituent_tail_U
+#print axioms G0ModNewform.modularConstituent_tail_BC
