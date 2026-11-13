@@ -63,3 +63,21 @@
 - `assemble.sh` → LinkedRam.lean = G0Assemble3.lean (md5 b5a4fb97…) + lt-goodred 99d_proofs + Tail.lean (Step 5 state),
   92 561 lines, md5 f6a325c3…; `lake env lean`: exit 0 in 922 s, 0 errors, no sorry, 237 axiom reports all standard
   (`flat_summary.txt`). Includes `HSyn.sixContactMin_of_leaves5`.
+
+## Step 7: `TateRamAtThreeD` PROVED from R6, T5 and `UpperBreakBound` — VERIFIED (Tail.lean 0 errors, standard axioms)
+- `galAct_mul'`, `psi_pow_compat`, `fix_of_pow_fix` (σK matching a wild σ under ψ : K̄ ≅ ℚ̄; σK^k x = x, p ∤ k ⇒ σK x = x:
+  stabilizer of x open (PkgI3.RhoCont.exists_openSubgroup_galAct_eq) ⇒ closed ⇒ = G_{K̄^S}
+  (InfiniteGalois.fixingSubgroup_fixedField); W2 on ψ-images).
+- `RaynaudAtThree` (σK acts unipotently on A(K̄)[5ⁿ]), `TateRamCore` (σK fixes A(K̄)[5ⁿ]), `tateRamCore_of`
+  (unipotent ⇒ σK^{5ⁿ}x = x ⇒ fix_of_pow_fix with p = 3, σ wild by upperAbsWild), `tateRamAtThreeD_of_core`
+  (transport along \bar{L'} ≅ K̄, bcPt/trPt, as lt-goodred's goodRedTorsion).
+- `TorsionFieldFive` (∃ K₁/K, [K₁:K] ≤ G₀, G_{K₁} fixes A[5]) and `torsionFieldFive_of (t5)`: stabilizer S of A[5] open,
+  K₁ = K̄^S, finrank = index (IntermediateField.finrank_eq_fixingSubgroup_index), G_K/S ↪ AddAut(𝔽₅⁴) (via Multiplicative),
+  `card_GL4_F5 : Nat.card GL₄(𝔽₅) = G₀` (Matrix.card_GL_field), `card_addAut_le`.
+- `raynaudAtThree_of (R6) (UpperBreakBound) (TorsionFieldFive)`: elements of K₁ have degree ≤ D·G₀ over ℚ, so σK fixes K₁
+  (break bound, 4(DG₀)² = U₀); σK in inertia of ψ^*(v) (upperAbsInertia, localInertiaGlobal); R6 over K₁ with m = 5
+  (K₁ a number field, O₁ DVR by neron-lg via lt-goodred), transported along A_{K₁}(K̄₁) ≅ A(K̄).
+- `tateRamAtThreeD_of_leaves r6 t5 hB : TateRamAtThreeD`. `GluePieces5` loses `tateRamAtThreeD`: 44 fields
+  = 14 LEAF + 4 LEAF? + 26 GLUE. `sixContactMin_of_leaves5`: standard axioms. VERIFIED.
+- Pitfalls: `ι` is notation (GrpObj.inv) under `open MonObj`; `AddAut` is an additive group in Mathlib 4.35 (use
+  `Multiplicative`); PkgI2.Pts vs PkgI3 Pt instances: work on one side, bridge with `exact` (defeq), not `rw`.

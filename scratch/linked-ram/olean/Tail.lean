@@ -1346,60 +1346,67 @@ theorem card_addAut_le : Nat.card ((Fin 4 → ZMod 5) ≃+ (Fin 4 → ZMod 5)) �
       LinearMap.GeneralLinearGroup (ZMod 5) (Fin 4 → ZMod 5) := fun f =>
     Units.mk (f.toAddMonoidHom.toZModLinearMap 5) (f.symm.toAddMonoidHom.toZModLinearMap 5)
       (LinearMap.ext fun v => by simp) (LinearMap.ext fun v => by simp)
-  have htoGL : Function.Injective ι := by
+  have htoGL : Function.Injective toGL := by
     intro f g h
-    ext v
-    have := congrArg (fun u : LinearMap.GeneralLinearGroup (ZMod 5) (Fin 4 → ZMod 5) =>
+    apply AddEquiv.ext
+    intro v
+    exact congrArg (fun u : LinearMap.GeneralLinearGroup (ZMod 5) (Fin 4 → ZMod 5) =>
       (u : (Fin 4 → ZMod 5) →ₗ[ZMod 5] (Fin 4 → ZMod 5)) v) h
-    simpa [toGL] using this
+  haveI : Finite (LinearMap.GeneralLinearGroup (ZMod 5) (Fin 4 → ZMod 5)) :=
+    Finite.of_equiv _ (Matrix.GeneralLinearGroup.toLin (n := Fin 4) (R := ZMod 5)).toEquiv
   exact Nat.card_le_card_of_injective toGL htoGL
 
+set_option maxHeartbeats 1000000 in
 /-- **`TorsionFieldFive`, proved from T5** (`PkgI2.TorsionStructure`): the stabilizer `S` of
 `A(K̄)[5] ≅ 𝔽₅⁴` is open (finitely many open point stabilizers), `K₁ = K̄^S` is finite with
-`[K₁:K] = [G_K : S]`, and `G_K/S` embeds in `Aut(𝔽₅⁴)`, of order `G₀`. -/
-set_option maxHeartbeats 1000000 in
+`[K₁:K] = [G_K : S]`, and `G_K/S` embeds in `Aut(𝔽₅⁴)`, of order `G₀`. Worked on the `PkgI2`
+side (`PkgI2.Pts`, `PkgI2.galAct`), which is definitionally `PkgI3`'s. -/
 theorem torsionFieldFive_of (hTors : PkgI2.TorsionStructure.{0}) : TorsionFieldFive := by
   intro K _ PK
   haveI : IsGalois K (AlgebraicClosure K) := {}
-  set A := PK.A with hAdef
-  obtain ⟨e, he⟩ := hTors K (ObjBridge.toGrp A) 2 5
+  let G := ObjBridge.toGrp PK.A
+  obtain ⟨e, he⟩ := hTors K G 2 5
     (by have h := PK.surface; simp only [PkgI3.AbVar.dim] at h; rw [h]; norm_cast) (by norm_num)
     (by norm_num)
-  let V := Fin 4 → ZMod 5
-  have hone : ∀ x : A.Pt (AlgebraicClosure K), A.galAct (1 : (AlgebraicClosure K ≃ₐ[K] AlgebraicClosure K)) x = x := by
-    intro x
-    show PkgI3.AbVar.galHom 1 ≫ x = x
-    rw [PkgI3.AbVar.galHom_one, Category.id_comp]
-  have hinv : ∀ (g : (AlgebraicClosure K ≃ₐ[K] AlgebraicClosure K)) x, A.galAct g⁻¹ (A.galAct g x) = x := by
-    intro g x; rw [← galAct_mul', inv_mul_cancel, hone]
-  have hinv' : ∀ (g : (AlgebraicClosure K ≃ₐ[K] AlgebraicClosure K)) x, A.galAct g (A.galAct g⁻¹ x) = x := by
-    intro g x; rw [← galAct_mul', mul_inv_cancel, hone]
-  -- membership in `A[5]` is preserved
-  have hmem : ∀ (g : (AlgebraicClosure K ≃ₐ[K] AlgebraicClosure K)) (x : A.Pt (AlgebraicClosure K)),
-      x ^ 5 = 1 → (A.galAct g x) ^ 5 = 1 := by
-    intro g x hx; rw [← map_pow, hx, map_one]
-  let T := PkgI2.torsion (ObjBridge.toGrp A) (AlgebraicClosure K) 5
+  let ga : (AlgebraicClosure K ≃ₐ[K] AlgebraicClosure K) →
+      PkgI2.Pts G (AlgebraicClosure K) → PkgI2.Pts G (AlgebraicClosure K) :=
+    fun g p => PkgI2.galAct G g p
+  have ga_mul : ∀ a b p, ga (a * b) p = ga a (ga b p) := fun a b p => galAct_mul' PK.A a b p
+  have ga_one : ∀ p, ga 1 p = p := fun p => by
+    show PkgI3.AbVar.galHom 1 ≫ p = p
+    rw [PkgI3.AbVar.galHom_one]
+    exact Category.id_comp _
+  have ga_hmul : ∀ g p q, ga g (p * q) = ga g p * ga g q := fun g p q => PkgI2.galAct_mul G g p q
+  have ga_pow : ∀ g p (k : ℕ), ga g (p ^ k) = ga g p ^ k := fun g p k => PkgI2.galAct_pow G g p k
+  have ga_1 : ∀ g, ga g 1 = 1 := fun g => PkgI2.galAct_one G g
+  let T := PkgI2.torsion G (AlgebraicClosure K) 5
+  have hmem : ∀ g, ∀ p ∈ T, ga g p ∈ T := by
+    intro g p hp
+    have hp' : p ^ 5 = 1 := hp
+    show (ga g p) ^ 5 = 1
+    rw [← ga_pow, hp', ga_1]
   haveI hTfin : Finite T := Finite.of_equiv _ e.symm
   -- the stabilizer `S` of `A[5]`
   let S : Subgroup (AlgebraicClosure K ≃ₐ[K] AlgebraicClosure K) :=
-    { carrier := {g | ∀ x : A.Pt (AlgebraicClosure K), x ^ 5 = 1 → A.galAct g x = x}
-      mul_mem' := fun {a b} ha hb x hx => by
-        rw [galAct_mul', hb x hx, ha x hx]
-      one_mem' := fun x _ => hone x
-      inv_mem' := fun {a} ha x hx => by
-        have h1 := ha (A.galAct a⁻¹ x) (hmem _ x hx)
-        rw [hinv'] at h1
+    { carrier := {g | ∀ p ∈ T, ga g p = p}
+      mul_mem' := fun {a b} ha hb p hp => by
+        rw [ga_mul, hb p hp, ha p hp]
+      one_mem' := fun p _ => ga_one p
+      inv_mem' := fun {a} ha p hp => by
+        have h1 := ha (ga a⁻¹ p) (hmem _ p hp)
+        rw [← ga_mul, mul_inv_cancel, ga_one] at h1
         exact h1.symm }
   -- `S` is open
-  choose U hU using fun x : A.Pt (AlgebraicClosure K) =>
-    PkgI3.RhoCont.exists_openSubgroup_galAct_eq A x
+  choose U hU using fun x : PK.A.Pt (AlgebraicClosure K) =>
+    PkgI3.RhoCont.exists_openSubgroup_galAct_eq PK.A x
   have hSnhds : (S : Set (AlgebraicClosure K ≃ₐ[K] AlgebraicClosure K)) ∈ nhds 1 := by
-    have hfinT : (T : Set (A.Pt (AlgebraicClosure K))).Finite := Set.toFinite T
+    have hfinT : (T : Set (PkgI2.Pts G (AlgebraicClosure K))).Finite := Set.toFinite T
     refine Filter.mem_of_superset ((Filter.biInter_mem hfinT).mpr
       (fun x _ => (U x).isOpen.mem_nhds (U x).one_mem)) ?_
     intro g hg x hx
     exact hU x g (Set.mem_iInter₂.mp hg x hx)
-  have hSopen : IsOpen (S : Set (AlgebraicClosure K ≃ₐ[K] AlgebraicClosure K)) := Subgroup.isOpen_of_mem_nhds S hSnhds
+  have hSopen : IsOpen (S : Set (AlgebraicClosure K ≃ₐ[K] AlgebraicClosure K)) :=
+    Subgroup.isOpen_of_mem_nhds S hSnhds
   have hSclosed : IsClosed (S : Set (AlgebraicClosure K ≃ₐ[K] AlgebraicClosure K)) :=
     Subgroup.isClosed_of_isOpen S hSopen
   let K₁ := IntermediateField.fixedField S
@@ -1410,65 +1417,76 @@ theorem torsionFieldFive_of (hTors : PkgI2.TorsionStructure.{0}) : TorsionFieldF
     show IsOpen (K₁.fixingSubgroup : Set (AlgebraicClosure K ≃ₐ[K] AlgebraicClosure K))
     rw [hfix]; exact hSopen
   -- `G_K / S ↪ Aut(𝔽₅⁴)`
-  have hesymm : ∀ v w : V, (e.symm (v + w)).1 =
-      (e.symm v).1 * (e.symm w).1 := by
+  have hesymm : ∀ v w : (Fin 4 → ZMod 5), (e.symm (v + w)).1 = (e.symm v).1 * (e.symm w).1 := by
     intro v w
     have h5 : (e.symm v).1 * (e.symm w).1 ∈ T := by
+      have h1 : (e.symm v).1 ^ 5 = 1 := (e.symm v).2
+      have h2 : (e.symm w).1 ^ 5 = 1 := (e.symm w).2
       show (_ * _) ^ 5 = 1
-      rw [mul_pow, (e.symm v).2, (e.symm w).2, _root_.one_mul]
+      rw [mul_pow, h1, h2, _root_.one_mul]
     have := he (e.symm v) (e.symm w) h5
     rw [Equiv.apply_symm_apply, Equiv.apply_symm_apply] at this
     rw [← this, Equiv.symm_apply_apply]
-  let act : (AlgebraicClosure K ≃ₐ[K] AlgebraicClosure K) → V → V := fun g v =>
-    e ⟨A.galAct g (e.symm v).1, hmem g _ (e.symm v).2⟩
+  let act : (AlgebraicClosure K ≃ₐ[K] AlgebraicClosure K) → (Fin 4 → ZMod 5) → (Fin 4 → ZMod 5) := fun g v =>
+    e ⟨ga g (e.symm v).1, hmem g _ (e.symm v).2⟩
   have hact_add : ∀ g v w, act g (v + w) = act g v + act g w := by
     intro g v w
-    show e ⟨A.galAct g (e.symm (v + w)).1, _⟩ = e ⟨A.galAct g (e.symm v).1, _⟩ + e ⟨A.galAct g (e.symm w).1, _⟩
-    have h5 : A.galAct g (e.symm v).1 * A.galAct g (e.symm w).1 ∈ T := by
-      show (_ * _) ^ 5 = 1
-      rw [mul_pow, hmem g _ (e.symm v).2, hmem g _ (e.symm w).2, _root_.one_mul]
-    rw [← he _ _ h5]
+    have h5 : ga g (e.symm v).1 * ga g (e.symm w).1 ∈ T := by
+      rw [← ga_hmul, ← hesymm]; exact hmem g _ (e.symm (v + w)).2
+    show e ⟨ga g (e.symm (v + w)).1, _⟩ = e ⟨ga g (e.symm v).1, _⟩ + e ⟨ga g (e.symm w).1, _⟩
+    rw [← he ⟨ga g (e.symm v).1, hmem g _ (e.symm v).2⟩ ⟨ga g (e.symm w).1, hmem g _ (e.symm w).2⟩ h5]
     congr 2
-    rw [hesymm, map_mul]
+    rw [hesymm, ga_hmul]
   have hact_mul : ∀ g h v, act (g * h) v = act g (act h v) := by
     intro g h v
-    show e ⟨A.galAct (g * h) (e.symm v).1, _⟩ = e ⟨A.galAct g (e.symm (e ⟨A.galAct h (e.symm v).1, _⟩)).1, _⟩
-    rw [Equiv.symm_apply_apply, galAct_mul']
+    show e ⟨ga (g * h) (e.symm v).1, _⟩ = e ⟨ga g (e.symm (e ⟨ga h (e.symm v).1, _⟩)).1, _⟩
+    congr 2
+    rw [Equiv.symm_apply_apply, ga_mul]
   have hact_one : ∀ v, act 1 v = v := by
     intro v
-    show e ⟨A.galAct 1 (e.symm v).1, _⟩ = v
-    simp only [hone]
+    show e ⟨ga 1 (e.symm v).1, _⟩ = v
+    rw [show (⟨ga 1 (e.symm v).1, hmem 1 _ (e.symm v).2⟩ : T) = e.symm v from
+      Subtype.ext (ga_one _)]
     exact e.apply_symm_apply v
-  let φ : (AlgebraicClosure K ≃ₐ[K] AlgebraicClosure K) →* (V ≃+ V) :=
-    { toFun := fun g =>
-        { toFun := act g
-          invFun := act g⁻¹
-          left_inv := fun v => by rw [← hact_mul, inv_mul_cancel, hact_one]
-          right_inv := fun v => by rw [← hact_mul, mul_inv_cancel, hact_one]
-          map_add' := hact_add g }
-      map_one' := AddEquiv.ext hact_one
-      map_mul' := fun g h => AddEquiv.ext (hact_mul g h) }
+  let F : (AlgebraicClosure K ≃ₐ[K] AlgebraicClosure K) → AddAut (Fin 4 → ZMod 5) := fun g =>
+    { toFun := act g
+      invFun := act g⁻¹
+      left_inv := fun v => by rw [← hact_mul, inv_mul_cancel, hact_one]
+      right_inv := fun v => by rw [← hact_mul, mul_inv_cancel, hact_one]
+      map_add' := hact_add g }
+  let φ : (AlgebraicClosure K ≃ₐ[K] AlgebraicClosure K) →* Multiplicative (AddAut (Fin 4 → ZMod 5)) :=
+    { toFun := fun g => Multiplicative.ofAdd (F g)
+      map_one' := by
+        apply congrArg Multiplicative.ofAdd
+        exact AddEquiv.ext hact_one
+      map_mul' := fun g h => by
+        apply congrArg Multiplicative.ofAdd
+        exact AddEquiv.ext (hact_mul g h) }
   have hker : φ.ker = S := by
     ext g
     rw [MonoidHom.mem_ker]
     constructor
-    · intro hg x hx
-      have := congrArg (fun f : V ≃+ V => f (e ⟨x, hx⟩)) hg
-      simp only [AddEquiv.one_apply] at this
-      have h2 : e ⟨A.galAct g x, hmem g x hx⟩ = e ⟨x, hx⟩ := by
-        have h3 : act g (e ⟨x, hx⟩) = e ⟨x, hx⟩ := this
-        simpa [act] using h3
-      exact congrArg Subtype.val (e.injective h2)
+    · intro hg p hp
+      have h3 : act g (e ⟨p, hp⟩) = e ⟨p, hp⟩ :=
+        DFunLike.congr_fun (congrArg Multiplicative.toAdd hg) (e ⟨p, hp⟩)
+      have h4 : e ⟨ga g p, hmem g p hp⟩ = e ⟨p, hp⟩ := by
+        rw [← h3]
+        show e ⟨ga g p, _⟩ = e ⟨ga g (e.symm (e ⟨p, hp⟩)).1, _⟩
+        congr 2
+        rw [Equiv.symm_apply_apply]
+      exact congrArg Subtype.val (e.injective h4)
     · intro hg
+      apply congrArg Multiplicative.ofAdd
       apply AddEquiv.ext
       intro v
-      show act g v = v
-      show e ⟨A.galAct g (e.symm v).1, _⟩ = v
-      rw [show (⟨A.galAct g (e.symm v).1, hmem g _ (e.symm v).2⟩ : T) = e.symm v from
+      show e ⟨ga g (e.symm v).1, _⟩ = v
+      rw [show (⟨ga g (e.symm v).1, hmem g _ (e.symm v).2⟩ : T) = e.symm v from
         Subtype.ext (hg _ (e.symm v).2)]
       exact e.apply_symm_apply v
-  haveI : Finite (V ≃+ V) :=
-    Finite.of_injective (fun f : V ≃+ V => (f : V → V)) (fun f g h => AddEquiv.ext (congrFun h))
+  haveI : Finite (Multiplicative (AddAut (Fin 4 → ZMod 5))) :=
+    Finite.of_injective (fun f : Multiplicative (AddAut (Fin 4 → ZMod 5)) =>
+      ((Multiplicative.toAdd f : AddAut (Fin 4 → ZMod 5)) : (Fin 4 → ZMod 5) → (Fin 4 → ZMod 5)))
+      (fun f g h => Multiplicative.toAdd.injective (AddEquiv.ext (congrFun h)))
   have hidx : S.index ≤ ZInQ.heightG0 := by
     rw [← hker, Subgroup.index_ker]
     exact (Nat.card_le_card_of_injective _ Subtype.val_injective).trans card_addAut_le
