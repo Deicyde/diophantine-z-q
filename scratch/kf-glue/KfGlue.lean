@@ -6576,6 +6576,204 @@ end G0ModField.KernelField
 
 end KfGlueLevel2
 
+/-! # kf-glue, part 4: `SemilinearTwistIsos`, level 3 — A7 on the conjugates (proved)
+
+`SemilinearTwistIsos` is proved from `TwistDescent`, a statement with no moduli content: for an
+abelian variety `B` with a ring map `ι : 𝒪 → End B` over a Galois number field `K ⊆ ℚ̄` and a Hom
+field `L ⊇ K` (`G_L` fixes every homomorphism between the conjugates `B_e = B ×_{K,e} ℚ̄`), if any
+two conjugates are isomorphic over `ℚ̄` by an isomorphism twisting `ι` by some `α ∈ Aut 𝒪`, then
+`B_L` has σ-semilinear twisted automorphisms `E_σ` (`SemilinearTwistAt`). This is Galois descent
+from `ℚ̄` to `L` plus the bookkeeping of conjugate varieties. The hypothesis is proved for the
+rational fibre `PK`: A7 in the manuscript's form (`LeafQM.AV.conj_iso_of_rational`, from R1fp and
+R2fp) gives twisted QM isomorphisms between the base changes `Q_e` of `PK` along `e`, and
+`IsBaseChangeOf` + rigidity (`rigidityHom`) identify `Q_e` with the conjugate `B_e` as abelian
+varieties with `𝒪`-action. -/
+
+section KfGlueLevel3
+
+open CategoryTheory AlgebraicGeometry Limits MonoidalCategory CartesianMonoidalCategory MonObj
+open ZInQ LeafQM LeafQM.AV GlueDescent GlueDescent.B2 GlueDescent.B2Q GlueDescent.B3Q
+
+namespace G0ModField.KernelField
+
+open G0ModField
+
+/-- Base change of an endomorphism of `B/K` to the conjugate `B_e = B ×_{K,e} ℚ̄`. -/
+noncomputable def bcEnd (K : IF) (B : PkgI3.AbVar K) (e : K →ₐ[ℚ] Qbar)
+    (f : PkgI3.AbVar.End B) : PkgI3.AbVar.End ((G4WeilRes.conjData K B).A e) :=
+  @PkgI3.AbVar.Hom.mk' Qbar _ ((G4WeilRes.conjData K B).A e) ((G4WeilRes.conjData K B).A e)
+    ((Over.pullback (Spec.map (CommRingCat.ofHom (e : K →+* Qbar)))).map f.hom)
+    (Functor.map.instIsMonHom (F := Over.pullback (Spec.map (CommRingCat.ofHom (e : K →+* Qbar))))
+      (f := f.hom))
+
+/-- **Glue (Galois descent of twisted isomorphisms; no moduli content).** For `B/K` with
+`ι : 𝒪 → End B`, `K ⊆ L ⊆ ℚ̄` finite Galois with `L` a Hom field of `B` (`G_L` acts trivially on
+the Hom lattice of the conjugates), if any two conjugates `B_{e₁}`, `B_{e₂}` are isomorphic over `ℚ̄`
+by an isomorphism `φ` with `ι_{e₁}(α a) φ = φ ι_{e₂}(a)` for some `α ∈ Aut 𝒪`, then `B_L` has the
+σ-semilinear twisted automorphisms of `SemilinearTwistAt` for `ι_L = endBC ∘ ι`.
+*Argument* (model check): for `σ ∈ G_ℚ` let `Ē_σ = φ ≫ cmp_σ` on `B_{ℚ̄} = B_{K.val}` (`φ` the
+twisted isomorphism `B_{K.val} → B_{σ⁻¹ K.val}`, chosen on representatives of `G_ℚ/G_L` with
+`φ = id` on `G_L`, and `cmp` the comparison of `G4Conj` over `Spec σ⁻¹`); it is σ-semilinear,
+preserves the group law and the origin, and twists `ι`. Since `L` is a Hom field, `φ` is fixed by
+conjugation through `G_L`, so `Ē_σ` commutes with the descent datum of `B_{ℚ̄}/B_L`; Galois descent
+for morphisms (Mathlib: the fpqc topology is subcanonical, `Sites/Fpqc.lean`, with
+`morphismsDescend` to reach a finite Galois `L'/L`) gives `E_σ` on `B_L`. -/
+def TwistDescent : Prop :=
+  ∀ (K : IF) [FiniteDimensional ℚ K] [IsGalois ℚ K] (B : PkgI3.AbVar K)
+    (ιB : O →+* PkgI3.AbVar.End B) (L : IF) [FiniteDimensional ℚ L] [IsGalois ℚ L]
+    (hKL : K ≤ L),
+    (∀ σ ∈ L.fixingSubgroup, G4WeilRes.conjAction K B σ = 1) →
+    (∀ e₁ e₂ : K →ₐ[ℚ] Qbar, ∃ (α : O ≃+* O)
+        (φ : PkgI3.AbVar.Hom ((G4WeilRes.conjData K B).A e₁) ((G4WeilRes.conjData K B).A e₂))
+        (ψ : PkgI3.AbVar.Hom ((G4WeilRes.conjData K B).A e₂) ((G4WeilRes.conjData K B).A e₁)),
+        φ.hom ≫ ψ.hom = 𝟙 _ ∧ ψ.hom ≫ φ.hom = 𝟙 _ ∧
+        ∀ a : O, (bcEnd K B e₁ (ιB (α a))).hom ≫ φ.hom = φ.hom ≫ (bcEnd K B e₂ (ιB a)).hom) →
+    ∃ (E : GQ → ((@PkgI3.AbVar.baseChange K _ B L _ (incAlg hKL)).X.left ⟶
+        (@PkgI3.AbVar.baseChange K _ B L _ (incAlg hKL)).X.left)) (α : GQ → (O ≃+* O)),
+      SemilinearTwistAt L (@PkgI3.AbVar.baseChange K _ B L _ (incAlg hKL))
+        ((@endBC K _ B L _ (incAlg hKL)).comp ιB) E α
+
+/-- **Transport (proved, rigidity).** A base change `Q` of `PK` along `e : K → ℚ̄`
+(`IsBaseChangeOf`, a pullback square compatible with `ι` and `η`) is isomorphic to the conjugate
+`B_e` as an abelian variety with `𝒪`-action. -/
+theorem bc_transport (hR : G0FibreSimple.RigidityHom) {K : IF} (PK : QML3 K)
+    (e : K →ₐ[ℚ] Qbar) (Q : QML3 Qbar) (hb : IsBaseChangeOf (e : K →+* Qbar) PK Q) :
+    ∃ (θ : PkgI3.AbVar.Hom ((G4WeilRes.conjData K PK.A).A e) Q.A)
+      (θ' : PkgI3.AbVar.Hom Q.A ((G4WeilRes.conjData K PK.A).A e)),
+      θ.hom ≫ θ'.hom = 𝟙 _ ∧ θ'.hom ≫ θ.hom = 𝟙 _ ∧
+      ∀ a : O, (bcEnd K PK.A e (PK.q.iota a)).hom ≫ θ.hom = θ.hom ≫ (Q.q.iota a).hom := by
+  obtain ⟨g, hpb, hι, hη⟩ := hb
+  let s := Spec.map (CommRingCat.ofHom (e : K →+* Qbar))
+  let Ae : PkgI3.AbVar Qbar := (G4WeilRes.conjData K PK.A).A e
+  have hpb0 : IsPullback (pullback.fst PK.A.X.hom s) (pullback.snd PK.A.X.hom s) PK.A.X.hom s :=
+    IsPullback.of_hasPullback _ _
+  let θ : pullback PK.A.X.hom s ≅ Q.A.X.left := hpb0.isoIsPullback _ _ hpb
+  have hθfst : θ.hom ≫ g = pullback.fst PK.A.X.hom s := hpb0.isoIsPullback_hom_fst _ _ hpb
+  have hθsnd : θ.hom ≫ Q.A.X.hom = pullback.snd PK.A.X.hom s :=
+    hpb0.isoIsPullback_hom_snd _ _ hpb
+  let h : Ae.X ⟶ Q.A.X := Over.homMk θ.hom hθsnd
+  let hinv : Q.A.X ⟶ Ae.X := Over.homMk θ.inv ((Iso.inv_comp_eq θ).mpr hθsnd.symm)
+  have hhi : h ≫ hinv = 𝟙 _ := by
+    apply Over.OverMorphism.ext; exact θ.hom_inv_id
+  have hih : hinv ≫ h = 𝟙 _ := by
+    apply Over.OverMorphism.ext; exact θ.inv_hom_id
+  have hu : ∀ {R : Type} [Field R] {U : Over (Spec (CommRingCat.of R))},
+      (toUnit U).left = U.hom := fun {R _ U} => by
+    have := Over.w (toUnit U); simpa using this
+  have hid : ∀ (R : Type) [Field R], Spec.map (CommRingCat.ofHom (algebraMap R R)) = 𝟙 _ :=
+    fun R _ => by rw [Algebra.algebraMap_self, CommRingCat.ofHom_id, Spec.map_id]
+  have hηQ : η[Q.A.X].left ≫ g = s ≫ η[PK.A.X].left := by
+    have := hη 0
+    have h0Q : Additive.toMul (Q.e.eta 0) = 1 := by rw [map_zero]; rfl
+    have h0P : Additive.toMul (PK.e.eta 0) = 1 := by rw [map_zero]; rfl
+    rw [h0Q, h0P] at this
+    change (toUnit (PkgI3.AbVar.ptObj (K := Qbar) Qbar) ≫ η[Q.A.X]).left ≫ g =
+      s ≫ (toUnit (PkgI3.AbVar.ptObj (K := K) K) ≫ η[PK.A.X]).left at this
+    rw [Over.comp_left, Over.comp_left, hu, hu] at this
+    simp only [PkgI3.AbVar.ptObj, Over.mk_hom, hid, Category.assoc] at this
+    erw [Category.id_comp, Category.id_comp] at this
+    exact this
+  have hηW : η[Ae.X].left ≫ pullback.fst PK.A.X.hom s = s ≫ η[PK.A.X].left := by
+    have e1 := G4Conj.one_left_fst s PK.A.X
+    erw [e1]
+  have hunit : η[Ae.X] ≫ h = η[Q.A.X] := by
+    apply Over.OverMorphism.ext
+    rw [Over.comp_left]
+    apply hpb.hom_ext
+    · have hh : h.left ≫ g = pullback.fst PK.A.X.hom s := hθfst
+      rw [Category.assoc, hh, hηW, hηQ]
+    · rw [Category.assoc, Over.w h, Over.w η[Ae.X], Over.w η[Q.A.X]]
+  have hunit' : η[Q.A.X] ≫ hinv = η[Ae.X] := by
+    rw [← hunit, Category.assoc, hhi, Category.comp_id]
+  haveI hmh : IsMonHom h := hR Qbar Ae Q.A h hunit
+  haveI hmi : IsMonHom hinv := hR Qbar Q.A Ae hinv hunit'
+  refine ⟨PkgI3.AbVar.Hom.mk' h, PkgI3.AbVar.Hom.mk' hinv, hhi, hih, fun a => ?_⟩
+  apply Over.OverMorphism.ext
+  rw [Over.comp_left, Over.comp_left]
+  apply hpb.hom_ext
+  · change ((Over.pullback s).map (PK.q.iota a).hom).left ≫ θ.hom ≫ g =
+      θ.hom ≫ (Q.q.iota a).hom.left ≫ g
+    rw [hι a, hθfst, ← Category.assoc θ.hom g, hθfst]
+    exact pullback.lift_fst _ _ _
+  · simp only [PkgI3.AbVar.Hom.hom_mk', Category.assoc]
+    rw [Over.w h, Over.w (Q.q.iota a).hom, Over.w h]
+    exact Over.w (bcEnd K PK.A e (PK.q.iota a)).hom
+
+/-- **A7 on the conjugates (proved).** For a `K`-point `yK` with object `PK` and rational
+`π`-value, any two conjugates `PK.A_{e₁}`, `PK.A_{e₂}` are isomorphic over `ℚ̄` by an
+isomorphism twisting `ι` by some `α ∈ Aut 𝒪`. -/
+theorem conjTwist_of_rational (hR : G0FibreSimple.RigidityHom)
+    {Y : Over (Spec (CommRingCat.of ℚ))} {Φ : PtEquiv Y} {π : ToP1 Y.left}
+    (hR1 : R1fpProps Y Φ) (hR2 : R2fpProps Y Φ π) {K : IF} (yK : fieldPt K ⟶ Y) (PK : QML3 K)
+    (hyK : Φ K yK = M3.mk PK) (j₀ : ℚ)
+    (hj : π.val (K := K) yK.left = OnePoint.some (algebraMap ℚ K j₀))
+    (e₁ e₂ : K →ₐ[ℚ] Qbar) : ∃ (α : O ≃+* O)
+        (φ : PkgI3.AbVar.Hom ((G4WeilRes.conjData K PK.A).A e₁) ((G4WeilRes.conjData K PK.A).A e₂))
+        (ψ : PkgI3.AbVar.Hom ((G4WeilRes.conjData K PK.A).A e₂) ((G4WeilRes.conjData K PK.A).A e₁)),
+        φ.hom ≫ ψ.hom = 𝟙 _ ∧ ψ.hom ≫ φ.hom = 𝟙 _ ∧
+        ∀ a : O, (bcEnd K PK.A e₁ (PK.q.iota (α a))).hom ≫ φ.hom =
+          φ.hom ≫ (bcEnd K PK.A e₂ (PK.q.iota a)).hom := by
+  obtain ⟨Q₁, Q₂, hb₁, hb₂, α, ⟨f⟩⟩ := conj_iso_of_rational hR1 hR2 yK PK hyK j₀ hj e₁ e₂
+  obtain ⟨θ₁, θ₁', h11, h12, hι1⟩ := bc_transport hR PK e₁ Q₁ hb₁
+  obtain ⟨θ₂, θ₂', h21, h22, hι2⟩ := bc_transport hR PK e₂ Q₂ hb₂
+  have hι2' : ∀ a : O, (Q₂.q.iota a).hom ≫ θ₂'.hom = θ₂'.hom ≫ (bcEnd K PK.A e₂ (PK.q.iota a)).hom :=
+    fun a => by
+      calc (Q₂.q.iota a).hom ≫ θ₂'.hom
+          = θ₂'.hom ≫ θ₂.hom ≫ (Q₂.q.iota a).hom ≫ θ₂'.hom := by rw [reassoc_of% h22]
+        _ = θ₂'.hom ≫ (bcEnd K PK.A e₂ (PK.q.iota a)).hom ≫ θ₂.hom ≫ θ₂'.hom := by
+            rw [reassoc_of% (hι2 a)]
+        _ = θ₂'.hom ≫ (bcEnd K PK.A e₂ (PK.q.iota a)).hom := by rw [h21, Category.comp_id]
+  refine ⟨α, PkgI3.AbVar.Hom.mk' (θ₁.hom ≫ f.φ.hom ≫ θ₂'.hom),
+    PkgI3.AbVar.Hom.mk' (θ₂.hom ≫ f.ψ.hom ≫ θ₁'.hom), ?_, ?_, fun a => ?_⟩
+  · simp only [PkgI3.AbVar.Hom.hom_mk', Category.assoc]
+    rw [reassoc_of% h22, reassoc_of% f.left, h11]
+  · simp only [PkgI3.AbVar.Hom.hom_mk', Category.assoc]
+    rw [reassoc_of% h12, reassoc_of% f.right, h21]
+  · simp only [PkgI3.AbVar.Hom.hom_mk']
+    have hf : (Q₁.q.iota (α a)).hom ≫ f.φ.hom = f.φ.hom ≫ (Q₂.q.iota a).hom := f.equivariant a
+    simp only [Category.assoc]
+    rw [reassoc_of% (hι1 (α a)), reassoc_of% hf, hι2' a]
+
+/-- **`SemilinearTwistIsos` from `TwistDescent` (proved; A7 and rigidity).** -/
+theorem semilinearTwistIsos_of_descent (hD : TwistDescent) : SemilinearTwistIsos := by
+  intro Y Φ π hR1 hR2 j₀ y P hy hπ K _ _ PK hPK L _ _ hKL hfix
+  obtain ⟨⟨yK, hyK, hyKP⟩, -⟩ := hPK
+  have hyy : fieldMap K.val ≫ yK = y := (Φ Qbar).injective (hyKP.trans hy.symm)
+  have hj : π.val (K := K) yK.left = OnePoint.some (algebraMap ℚ K j₀) := by
+    have h2 : (π.val (K := K) yK.left).map (K.val : K →+* Qbar) =
+        OnePoint.some (algebraMap ℚ Qbar j₀) := by
+      have h1 := π.val_comp ((K.val : K →ₐ[ℚ] Qbar) : K →+* Qbar) yK.left
+      rw [← hyy] at hπ
+      exact h1.symm.trans hπ
+    generalize π.val (K := K) yK.left = v at h2 ⊢
+    induction v using OnePoint.rec with
+    | infty => simp at h2
+    | coe x =>
+      rw [OnePoint.map_some] at h2
+      have h3 : (K.val : K →+* Qbar) x = (K.val : K →+* Qbar) (algebraMap ℚ K j₀) := by
+        rw [OnePoint.coe_eq_coe] at h2
+        rw [h2]; exact (K.val.commutes j₀).symm
+      rw [RingHom.injective _ h3]
+  exact hD K PK.A PK.q.iota L hKL hfix
+    (conjTwist_of_rational G0FibreSimple.rigidityHom hR1 hR2 yK PK hyK j₀ hj)
+
+/-- **`ConjIsogMaps` from `TwistDescent` and `MulIsogeny` (proved).** -/
+theorem conjIsogMaps_of_descent (hMul : G0FibreSimple.MulIsogeny) (hD : TwistDescent) :
+    ConjIsogMaps :=
+  conjIsogMaps_of_twist hMul (semilinearTwistIsos_of_descent hD)
+
+/-- `KernelFieldExists` from the five leaves, FS5, `MulIsogeny` and `TwistDescent`. -/
+theorem kernelFieldExists_of_descent (hHFF : PkgI3.HomFreeFinite)
+    (hNOS : PkgI2.NeronOggShafarevich.{0}) (hRay : PkgI2.RaynaudCriterion.{0})
+    (hTors : PkgI2.TorsionStructure.{0}) (t27 : PkgI3.QMDichotomyYu)
+    (h5 : G0FibreSimple.FibreComTrivial) (hMul : G0FibreSimple.MulIsogeny)
+    (hD : TwistDescent) : KernelFieldExists :=
+  kernelFieldExists_of_five hHFF hNOS hRay hTors t27 h5 (conjIsogMaps_of_descent hMul hD)
+
+end G0ModField.KernelField
+
+end KfGlueLevel3
+
 #print axioms G0ModField.KernelField.conjIsogMapsAt_of_semilinear
 #print axioms G0ModField.KernelField.conjIsogMaps_of_semilinear
 #print axioms G0ModField.KernelField.liftQbarPoints
@@ -6586,3 +6784,8 @@ end KfGlueLevel2
 #print axioms G0ModField.KernelField.conjIsogMaps_of_twist
 #print axioms G0ModField.KernelField.kernelFieldExists_of_twist
 #print axioms G0ModField.KernelField.iota_isogeny
+#print axioms G0ModField.KernelField.bc_transport
+#print axioms G0ModField.KernelField.conjTwist_of_rational
+#print axioms G0ModField.KernelField.semilinearTwistIsos_of_descent
+#print axioms G0ModField.KernelField.conjIsogMaps_of_descent
+#print axioms G0ModField.KernelField.kernelFieldExists_of_descent

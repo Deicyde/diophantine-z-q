@@ -43,3 +43,12 @@ Base: wip/integrate-w38b (f90cf864) + merges of origin/wip/kernel-field, origin/
   `semilinearIsogMaps_of_twist`, `conjIsogMaps_of_twist : MulIsogeny → SemilinearTwistIsos → ConjIsogMaps`,
   `kernelFieldExists_of_twist`. All axioms standard.
 - Finding: the quasi-inverse needs no leaf (Mumford §8 / IsogenyQuasiInverse not used): ι(N b⁻¹).
+
+## Step 5. Level 3: SemilinearTwistIsos ⇐ TwistDescent (A7 on conjugates proved) — VERIFIED (compiled, build5.txt, rc=0)
+- New: `bcEnd` (base change of End B to conjugate B_e), `TwistDescent` (Prop, glue, no moduli content:
+  Hom field + pairwise twisted isos between conjugates over ℚ̄ ⇒ SemilinearTwistAt on B_L).
+- Proved: `bc_transport` (IsBaseChangeOf e PK Q ⇒ B_e ≅ Q.A as AbVar with 𝒪-action; pasting + rigidityHom),
+  `conjTwist_of_rational` (A7 manuscript form `conj_iso_of_rational` + transport ⇒ the hypothesis of
+  TwistDescent for PK), `semilinearTwistIsos_of_descent` (π(yK) = j₀ in K from Φ injective + val_comp),
+  `conjIsogMaps_of_descent : MulIsogeny → TwistDescent → ConjIsogMaps`, `kernelFieldExists_of_descent`.
+  All axioms standard.
