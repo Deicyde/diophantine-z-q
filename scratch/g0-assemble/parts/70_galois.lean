@@ -230,10 +230,14 @@ written; each step STANDARD): `r(c)² = 1`; if `r(c) = ±1` then `ρ(c)` is scal
 normal, `c` induces a `G_K`-equivariant map `V_ℓ(cA) → V_ℓ(A)`, which by Faltings (R9b) lies in
 `Hom(cA, A) ⊗ ℚ_ℓ`; by Artin comparison (T12) it is the antiholomorphic `F_∞`, a rational map,
 contradicting holomorphy of homomorphisms (T11). So `r(c)` is not scalar, and `det r(c) = −1`.
+(g0-assemble: the hypotheses `HSyn.T11_RiemannGAGA → HSyn.T12_ArtinComparison →` of g0-mod-galois'
+text were opaque placeholders, removed from `Leaves.lean` by leaf-adopt2; they are replaced by
+leaf-push2's concrete T11 leaves `T11a_RiemannEnd`, `T11b_Rigidity` (bundle fields `t11a`, `t11b`).
+T12 is glue since leaf-adopt2, so its content is part of what this glue Prop asserts.)
 (This is N5 L742-751's Betti argument; the rank/division/noncommutativity hypotheses are not
 needed by it but are kept, being true for Glazer's `A`.) -/
 def G10Glue : Prop :=
-  HSyn.T11_RiemannGAGA → HSyn.T12_ArtinComparison → PkgI3.FaltingsTate →
+  ZInQ.LeafPush2.T11a_RiemannEnd → ZInQ.LeafPush2.T11b_Rigidity → PkgI3.FaltingsTate →
   ∀ (K : Type) [Field K] [NumberField K] [IsGalois ℚ K] (A : PkgI3.AbVar K) (ℓ : ℕ)
     [Fact ℓ.Prime] (r : GaloisRep ℓ 2)
     (e : Vb A ℓ ≃ₗ[PadicAlgCl ℓ] (Fin 2 → PadicAlgCl ℓ) × (Fin 2 → PadicAlgCl ℓ)),
@@ -427,7 +431,7 @@ theorem g12 (hPB : PkgI4.PanBerger) (hR14 : HSyn.EigenformRepExists) (hR13 : Pkg
 theorem g8_g11 (hS : PkgI3.FaltingsSemisimple) (hF : PkgI3.FaltingsTate)
     (hT : PkgI3.TateModuleFree) (hH : PkgI3.HomFreeFinite) (hSS : GlueI3.SemisimpleBaseChange)
     (hR10 : PkgI4.DeRhamComparison) (hT23 : ∀ (p : ℕ) [Fact p.Prime], PkgI4.T23_FontaineClosure p)
-    (hT11 : HSyn.T11_RiemannGAGA) (hT12 : HSyn.T12_ArtinComparison)
+    (hT11 : ZInQ.LeafPush2.T11a_RiemannEnd) (hT12 : ZInQ.LeafPush2.T11b_Rigidity)
     (hM : G8Matrix) (h9g : G9Glue) (h10g : G10Glue)
     {K : Type} [Field K] [NumberField K] [IsGalois ℚ K] (A : PkgI3.AbVar K) (T : Finset ℕ)
     (h2 : G2Out K T) (h6 : G6Out A) (ℓ : ℕ) [Fact ℓ.Prime] (h3 : G3Out A ℓ T)
@@ -451,7 +455,7 @@ weight-2 eigenform. -/
 theorem g8_g12 (hS : PkgI3.FaltingsSemisimple) (hF : PkgI3.FaltingsTate)
     (hT : PkgI3.TateModuleFree) (hH : PkgI3.HomFreeFinite) (hSS : GlueI3.SemisimpleBaseChange)
     (hR10 : PkgI4.DeRhamComparison) (hT23 : ∀ (p : ℕ) [Fact p.Prime], PkgI4.T23_FontaineClosure p)
-    (hT11 : HSyn.T11_RiemannGAGA) (hT12 : HSyn.T12_ArtinComparison)
+    (hT11 : ZInQ.LeafPush2.T11a_RiemannEnd) (hT12 : ZInQ.LeafPush2.T11b_Rigidity)
     (hPB : PkgI4.PanBerger) (hR14 : HSyn.EigenformRepExists) (hR13 : PkgI4.EigenformHT)
     (hR15 : HSyn.DeligneSerreConseq) (hT18 : HSyn.FrobeniusDense) (hT19 : HSyn.BrauerNesbitt)
     (hT9 : LeafPush.T09_WeilPairing.{0})
@@ -759,9 +763,9 @@ theorem g8_g12_of_leaves (r : HSyn.ResearchLeaves) (t : HSyn.TextbookLeaves) (m 
     (h7 : G7Out A 5 Tm c ε a β u) :
     ∃ r₅ : GaloisRep 5 2, G8Out A 5 (GlueDescent.rho Tm a β) r₅ ∧ G9Out r₅ ∧ G10Out r₅ ∧
       G11Out T r₅ ∧ G12Out r₅ :=
-  g8_g12 r.r9a r.r9b t.t26 t.t6 HSyn.G0Split.semisimpleBaseChange r.r10 t.t23 t.t11 t.t12
-    r.r11r12 r.r14 r.r13 r.r15 t.t18 t.t19 t.t9 (g8Matrix_of_burnside m.burnside) m.deRham m.odd m.weight
-    (g12Det_of m.r14det m.detTate m.finIndex (frobeniusDenseQ_of t.t18))
+  g8_g12 r.r9a r.r9b t.t26 t.t6 HSyn.G0Split.semisimpleBaseChange r.r10 t.t23 t.t11a t.t11b
+    r.r11r12 r.r14 r.r13 r.r15 t.frobeniusDense HSyn.t19_proved t.t9 (g8Matrix_of_burnside m.burnside) m.deRham m.odd m.weight
+    (g12Det_of m.r14det m.detTate m.finIndex (frobeniusDenseQ_of t.frobeniusDense))
     A T h2 h6 h3 Tm c ε a β u h7
 
 /-! ### How the conclusion feeds G13-G16 and `ModularConstituent` -/
@@ -961,7 +965,7 @@ theorem panOutput_of_g12 (hKW : HSyn.KroneckerWeber) (hFD : FiniteCharDirichlet)
 Proved from the leaves, the outputs of G2, G3, G6, G7 at `ℓ = 3` and `ℓ = 5`, the five named
 pieces of this range and `FiniteCharDirichlet`. -/
 theorem newformG12Out_of_galois (r : HSyn.ResearchLeaves) (t : HSyn.TextbookLeaves)
-    (m : GaloisPieces) (hFD : FiniteCharDirichlet)
+    (m : GaloisPieces) (hKW : HSyn.KroneckerWeber) (hFD : FiniteCharDirichlet)
     {K : Type} [Field K] [NumberField K] [IsGalois ℚ K] (A : PkgI3.AbVar K) (T : Finset ℕ)
     (h2 : G2Out K T) (h6 : G6Out A) (h3₅ : G3Out A 5 T) (h3₃ : G3Out A 3 T)
     (Tm₅ : PkgI4.GQ → Module.End (PadicAlgCl 5) (Vb A 5))
@@ -976,9 +980,9 @@ theorem newformG12Out_of_galois (r : HSyn.ResearchLeaves) (t : HSyn.TextbookLeav
   obtain ⟨r₅, ⟨hres₅, e₅, hint₅, hadj₅⟩, -, -, -, h12⟩ :=
     g8_g12_of_leaves r t m A T h2 h6 h3₅ Tm₅ c₅ ε₅ a₅ β₅ u₅ h7₅
   obtain ⟨r₃, ⟨hres₃, e₃, hint₃, hadj₃⟩, -, -, -⟩ :=
-    g8_g11 r.r9a r.r9b t.t26 t.t6 HSyn.G0Split.semisimpleBaseChange r.r10 t.t23 t.t11 t.t12
+    g8_g11 r.r9a r.r9b t.t26 t.t6 HSyn.G0Split.semisimpleBaseChange r.r10 t.t23 t.t11a t.t11b
       (g8Matrix_of_burnside m.burnside) m.deRham m.odd A T h2 h6 3 h3₃ Tm₃ c₃ ε₃ a₃ β₃ u₃ h7₃
-  obtain ⟨ιC, ι5, hpan⟩ := panOutput_of_g12 t.t17 hFD r₅ h12
+  obtain ⟨ιC, ι5, hpan⟩ := panOutput_of_g12 hKW hFD r₅ h12
   exact ⟨⟨qEmb K, ιC, ι5, ι3, r₅, r₃⟩, isIrreducible_of_g8 hadj₅, isIrreducible_of_g8 hadj₃,
     isConstituentOf_of_intertwines A 5 r₅ e₅ (intertwines_res hres₅ hint₅),
     isConstituentOf_of_intertwines A 3 r₃ e₃ (intertwines_res hres₃ hint₃), hpan⟩

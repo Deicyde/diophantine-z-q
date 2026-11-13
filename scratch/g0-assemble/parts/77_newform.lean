@@ -1,4 +1,7 @@
-/-! ## g0-mod-newform: scratch/g0-mod-newform/part_new.lean (verbatim minus #print axioms) -/
+/-! ## g0-mod-newform: scratch/g0-mod-newform/part_new.lean, verbatim minus `#print axioms`, with two
+changes: `LeafModCurves` is opened with `hiding` (as leaf-adopt3 did for `C9Rhof`), and
+`ZInQ.Mult.le_heightD_of_mem_S_mul` (in `ZInQKernel/Main.lean`, not imported) is replaced by
+g0-mod-field's verbatim copy `G0ModField.le_heightD_of_mem_S_mul` (same statement). -/
 section G0ModNewformSec
 /-!
 # g0-mod-newform: glue G13-G16 of `docs/research/h-decomposition.md` §3
@@ -28,7 +31,11 @@ namespace G0ModNewform
 
 open PkgI4 (Qbar GQ LiesOver IsArithFrob CF coeff IsNewform IsNormalizedEigenform GaloisRep
   GaloisChar)
-open PkgI3 PkgI3.AbVar LeafModCurves C9Rhof
+-- g0-assemble (as leaf-adopt3 did for C9Rhof): `LeafModCurves` opened with `hiding`, since
+-- Leaves.lean has `LeafModCurves` copies of these `PkgI4` names (the kernel has none)
+open PkgI3 PkgI3.AbVar C9Rhof
+open LeafModCurves hiding Qbar GQ LiesOver IsArithFrob CF coeff HasNebentypus IsNormalizedEigenform
+  scaleH oldSpace IsNewform
 open CategoryTheory AlgebraicGeometry
 
 instance fact_prime_five : Fact (Nat.Prime 5) := ⟨by norm_num⟩
@@ -510,7 +517,7 @@ theorem g16 (N : ℕ) (hN : 0 < N) (u : ℚ) (h15 : G15Out N u) :
       (ZInQ.contactSupport ZInQ.Mult.S_mul u : ℝ) ^ 2 := by
   obtain ⟨hsmall, hlarge, hout⟩ := h15
   exact GlueConductor.level_le ZInQ.Mult.S_mul u ZInQ.heightD GlueAssembly.one_le_heightD_real
-    (fun p hp => by exact_mod_cast ZInQ.Mult.le_heightD_of_mem_S_mul hp) N hN.ne'
+    (fun p hp => by exact_mod_cast G0ModField.le_heightD_of_mem_S_mul hp) N hN.ne'
     hsmall hlarge hout
 
 /-! ## §7b. G15's local bounds from ramification statements (proved from L8 and

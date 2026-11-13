@@ -28,3 +28,14 @@
   constructor hit a whnf heartbeat timeout; `refine` + `rw [abVarEquiv_symm_baseChange]` works).
   `HSyn.modularConstituent_of_field t hCover hKer hSup hRest`: VERIFIED, standard axioms.
 - Tail run with parts 05-90 incl. 74/75/85 and GluePieces2 using `modularConstituent_of_field`: VERIFIED 0 errors, no sorry, standard axioms for gluePieces_of_gluePieces2, sixContactMin_of_leaves2 (04:33).
+- g0-mod-galois over Leaves.lean (part 70): adapted (documented in the part): `G10Glue`'s placeholder
+  hypotheses `HSyn.T11_RiemannGAGA → HSyn.T12_ArtinComparison` (opaques removed by leaf-adopt2) replaced by the
+  bundle's concrete `ZInQ.LeafPush2.T11a_RiemannEnd → T11b_Rigidity` (T12 is glue since leaf-adopt2);
+  bundle-field renames in proofs: `t.t11 t.t12` -> `t.t11a t.t11b`, `t.t18` -> `t.frobeniusDense`,
+  `t.t19` -> `HSyn.t19_proved`; `newformG12Out_of_galois` takes `HSyn.KroneckerWeber` as a hypothesis
+  (the bundle's `t17` is now the weaker `KroneckerWeberCyclic`; this theorem is not on the assembled route).
+- g0-mod-newform over Leaves.lean (parts 72, 77): kernel LadicCond.lean Part B-D copied (part 72);
+  `open LeafModCurves hiding ...` as leaf-adopt3 did for C9Rhof (Leaves.lean's `LeafModCurves` has copies
+  `Qbar`, `GQ`, `IsArithFrob`, `CF`, `coeff`, `IsNewform`, ...); `ZInQ.Mult.le_heightD_of_mem_S_mul` ->
+  `G0ModField.le_heightD_of_mem_S_mul` (verbatim copy; Main.lean not importable: upstream helper
+  ZInQ.PoleValuation not built). TailG (74,75,70,72,77): VERIFIED 0 errors, no sorry.
