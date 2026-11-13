@@ -249,6 +249,130 @@ theorem bcCot_core (he : IsMonBC 𝒢 𝒢' e) {I : Type} (b : I → 𝒢.cotang
   rw [linearIndependent_iff'] at hli
   exact germY_inj _ (hli s (fun j => germY (a j)) ht0 i hi)
 
+/-- `π^*` maps an `L`-basis to an `L'`-independent family. -/
+theorem bcCot_linearIndependent (he : IsMonBC 𝒢 𝒢' e) {I : Type}
+    (b : letI := cotL 𝒢; Module.Basis I L 𝒢.cotangent) :
+    letI := cotL 𝒢'; LinearIndependent L' (fun i => bcCot he (b i)) := by
+  classical
+  letI := cotL 𝒢
+  letI := cotL 𝒢'
+  haveI := cotL_isScalarTower 𝒢'
+  rw [linearIndependent_iff']
+  intro s c hc i hi
+  obtain ⟨d, hd⟩ := IsLocalization.exist_integer_multiples (nonZeroDivisors (𝓞 L')) s c
+  let a : I → 𝓞 L' := fun j => if h : j ∈ s then (hd j h).choose else 0
+  have ha : ∀ j ∈ s, algebraMap (𝓞 L') L' (a j) = (d : 𝓞 L') • c j := by
+    intro j hj
+    simp only [a, dif_pos hj]
+    exact (hd j hj).choose_spec
+  have hsum : ∑ j ∈ s, a j • bcCot he (b j) = 0 := by
+    have : ∑ j ∈ s, a j • bcCot he (b j) = (d : 𝓞 L') • ∑ j ∈ s, c j • bcCot he (b j) := by
+      rw [Finset.smul_sum]
+      refine Finset.sum_congr rfl fun j hj => ?_
+      rw [← algebraMap_smul L' (a j), ha j hj, smul_assoc]
+    rw [this, hc, smul_zero]
+  have h0 := bcCot_core he (fun j => b j) b.linearIndependent s a hsum i hi
+  have h1 := ha i hi
+  rw [h0, map_zero, Algebra.smul_def] at h1
+  have hd0 : algebraMap (𝓞 L') L' (d : 𝓞 L') ≠ 0 :=
+    IsFractionRing.to_map_ne_zero_of_mem_nonZeroDivisors d.2
+  exact (mul_eq_zero.mp h1.symm).resolve_left hd0
+
+/-- `π^*` of an `L`-basis spans `ω_{A_{L'}}` over `L'` (from `cotangentSpanBC`). -/
+theorem bcCot_span [IsScalarTower K L L'] (he : IsMonBC 𝒢 𝒢' e) {I : Type}
+    (b : letI := cotL 𝒢; Module.Basis I L 𝒢.cotangent) :
+    letI := cotL 𝒢'; ⊤ ≤ Submodule.span L' (Set.range (fun i => bcCot he (b i))) := by
+  letI := cotL 𝒢
+  letI := cotL 𝒢'
+  haveI := cotL_isScalarTower 𝒢'
+  set W := Submodule.span L' (Set.range (fun i => bcCot he (b i)))
+  have hbc : ∀ u : 𝒢.cotangent, bcCot he u ∈ W := by
+    intro u
+    have hu : u ∈ Submodule.span L (Set.range b) := b.mem_span u
+    induction hu using Submodule.span_induction with
+    | mem x hx =>
+      obtain ⟨i, rfl⟩ := hx
+      exact Submodule.subset_span ⟨i, rfl⟩
+    | zero => rw [map_zero]; exact W.zero_mem
+    | add x y _ _ hx hy => rw [map_add]; exact W.add_mem hx hy
+    | smul c x _ hx =>
+      rw [bcCot_smulL]
+      exact W.smul_mem _ hx
+  have hspan := cotangentSpanBC K A L L' 𝒢 𝒢' e he
+  intro v _
+  have hv : v ∈ Submodule.span (𝓞 L') (Set.range (bcCot he)) := by rw [hspan]; trivial
+  have hle : Submodule.span (𝓞 L') (Set.range (bcCot he)) ≤ W.restrictScalars (𝓞 L') := by
+    rw [Submodule.span_le]
+    rintro _ ⟨u, rfl⟩
+    exact hbc u
+  exact hle hv
+
+/-- **`π^*` of an `L`-basis of `ω_{A_L}` is an `L'`-basis of `ω_{A_{L'}}`.** -/
+noncomputable def bcCotBasis [IsScalarTower K L L'] (he : IsMonBC 𝒢 𝒢' e) {I : Type}
+    (b : letI := cotL 𝒢; Module.Basis I L 𝒢.cotangent) :
+    letI := cotL 𝒢'; Module.Basis I L' 𝒢'.cotangent :=
+  letI := cotL 𝒢'
+  Module.Basis.mk (bcCot_linearIndependent he b) (bcCot_span he b)
+
+theorem bcCotBasis_apply [IsScalarTower K L L'] (he : IsMonBC 𝒢 𝒢' e) {I : Type}
+    (b : letI := cotL 𝒢; Module.Basis I L 𝒢.cotangent) (i : I) :
+    bcCotBasis he b i = bcCot he (b i) := by
+  letI := cotL 𝒢'
+  exact Module.Basis.mk_apply _ _ i
+
 end HodgeBC2
 
+/-- **`HodgeBCInjective` holds** (height-bc glue BC-alg; statement verbatim). The natural map
+`ψ = bcHodge` sends the `L`-basis `1 ⊗ ιMulti_family b` of the Hodge space of `𝒢` (`b` an `L`-basis
+of `ω_{A_L}`, `extFracBasis`) to the `L'`-basis `1 ⊗ ιMulti_family (π^* ∘ b)` of that of `𝒢'`
+(`bcCotBasis`); it is `L`-semilinear, hence injective, and both spaces have bases indexed by the
+same set, hence the same `finrank`. -/
+theorem hodgeBCInjective : HodgeBCInjective := by
+  intro K _ A L L' _ _ _ _ _ _ _ _ 𝒢 𝒢' e he g
+  classical
+  letI := cotL 𝒢
+  letI := cotL 𝒢'
+  haveI := cotL_isScalarTower 𝒢
+  haveI := cotL_isScalarTower 𝒢'
+  let I := Module.Basis.ofVectorSpaceIndex L 𝒢.cotangent
+  let b : Module.Basis I L 𝒢.cotangent := Module.Basis.ofVectorSpace L 𝒢.cotangent
+  letI : LinearOrder I := linearOrderOfSTO WellOrderingRel
+  let b' := bcCotBasis he b
+  let B := ZInQ.HodgeBC2.extFracBasis (R := 𝓞 L) g b
+  let B' := ZInQ.HodgeBC2.extFracBasis (R := 𝓞 L') g b'
+  have hψ : ∀ s, bcHodge he g (B s) = B' s := by
+    intro s
+    simp only [B, B', ZInQ.HodgeBC2.extFracBasis_apply]
+    rw [bcHodge_tmul, map_one]
+    congr 1
+    simp only [exteriorPower.ιMulti_family]
+    rw [bcExt_ιMulti]
+    congr 1
+    funext j
+    simp only [Function.comp_apply, b', bcCotBasis_apply]
+  constructor
+  · intro v hv hψv
+    apply hv
+    have hsum : bcHodge he g v =
+        ∑ t ∈ (B.repr v).support, algebraMap L L' (B.repr v t) • B' t := by
+      conv_lhs => rw [← B.linearCombination_repr v, Finsupp.linearCombination_apply, Finsupp.sum]
+      rw [map_sum]
+      refine Finset.sum_congr rfl fun t _ => ?_
+      rw [bcHodge_smul, hψ]
+    rw [hψv] at hsum
+    have h0 := (linearIndependent_iff'.mp B'.linearIndependent) _ _ hsum.symm
+    rw [← B.linearCombination_repr v, Finsupp.linearCombination_apply, Finsupp.sum]
+    refine Finset.sum_eq_zero fun t ht => ?_
+    have : B.repr v t = 0 := (algebraMap L L').injective (by rw [h0 t ht, map_zero])
+    rw [this, zero_smul]
+  · rw [Module.finrank_eq_nat_card_basis B, Module.finrank_eq_nat_card_basis B']
+
 end ZInQ.HeightBC
+
+
+#print axioms ZInQ.HodgeBC2.extFracEquiv
+#print axioms ZInQ.HodgeBC2.extFracBasis_apply
+#print axioms ZInQ.HeightBC.cotangentSpanBC
+#print axioms ZInQ.HeightBC.bcCot_core
+#print axioms ZInQ.HeightBC.bcCotBasis_apply
+#print axioms ZInQ.HeightBC.hodgeBCInjective
