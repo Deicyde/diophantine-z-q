@@ -37,3 +37,12 @@
     `tateWildK_of_torsFixWild`, `tateWildKE_of_torsFixWildE`.
 - New named Props (glue): `KerWild`, `TateWildK`, `TateWildKE`, `TorsFixWild`, `TorsFixWildE`.
 - Pitfall: after `open CategoryTheory`, `ι` is a token (rcases pattern fails); renamed.
+
+## Step 3 (07:12-07:20 PST): packs
+- §7: `G0ModNewform.G8LocalPack` copied verbatim from scratch/local-data/tail_part.lean;
+  new `G7LocalPackK ℓ r P` (G7Out, G8Out, G7Clauses, KerWild, and at p ∈ P: TorsFixWild for
+  p ≥ 7, TorsFixWildE for p ≤ 5, BetaUpper for p = 2).
+- Proved (VERIFIED, compiled, axioms standard): `g8LocalPack_of_K : G7LocalPackK ℓ r P →
+  G8LocalPack ℓ r P`; `g15RamG_of_packK : G7LocalPackK 5 D.r5 (· ≠ 5) → G7LocalPackK 3 D.r3
+  (· = 5) → G11Out T D.r5 → G11Out T D.r3 → G15RamG D u`.
+- Compile: exit 0, 0 errors, no sorry, 9 printed declarations all standard axioms.

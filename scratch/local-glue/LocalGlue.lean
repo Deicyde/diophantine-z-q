@@ -2776,6 +2776,64 @@ end LocalGlueSec
 
 end G15Ram
 
+
+/-! ## §7 (local-glue). The packs: G8's data with the local glue replaced by Props on `A/K`
+
+`G8LocalPack` is copied verbatim from scratch/local-data/tail_part.lean (the hypothesis of
+local-data's tail `modularConstituent_tail_L`). `G7LocalPackK` asks instead for G7's data
+(`G7Out`), G8's output, the clauses, `KerWild`, and the torsion-point Props `TorsFixWild`
+(`p ≥ 7`), `TorsFixWildE` (`p ≤ 5`) and `BetaUpper` (`p = 2`) at the primes in `P`. -/
+
+namespace G0ModNewform
+
+open PkgI4 (Qbar GQ GaloisRep)
+open PkgI3
+
+/-- **G8's data for a representation `r` at coefficient prime `ℓ`, with the G4/G7 clauses and
+the local glue at the primes `p ∈ P`** (`G15Ram.G7Clauses`, `G15Ram.LocalGlue`). -/
+def G8LocalPack (ℓ : ℕ) [Fact ℓ.Prime] (r : GaloisRep ℓ 2) (P : ℕ → Prop) : Prop :=
+  ∃ (K : Type) (_ : Field K) (_ : NumberField K) (A : AbVar K)
+    (Tm : GQ → Module.End (PadicAlgCl ℓ) (G0Galois.Vb A ℓ)) (a β : GQ → PadicAlgCl ℓ)
+    (ε : GQ → GQ → PadicAlgCl ℓ) (L : IntermediateField ℚ Qbar),
+    G0Galois.G8Out A ℓ (GlueDescent.rho Tm a β) r ∧ G15Ram.G7Clauses β ε L ∧
+    ∀ (p : ℕ) (hp : p.Prime), P p → @G15Ram.LocalGlue p ⟨hp⟩ ℓ _ _ _ _ Tm a β L
+
+/-- **G7's data for `r` at coefficient prime `ℓ`, with the local glue at `p ∈ P` as Props on the
+abelian surface `A/K` (GLUE).** -/
+def G7LocalPackK (ℓ : ℕ) [Fact ℓ.Prime] (r : GaloisRep ℓ 2) (P : ℕ → Prop) : Prop :=
+  ∃ (K : Type) (_ : Field K) (_ : NumberField K) (A : AbVar K)
+    (Tm : GQ → Module.End (PadicAlgCl ℓ) (G0Galois.Vb A ℓ)) (c ε : GQ → GQ → PadicAlgCl ℓ)
+    (a β : GQ → PadicAlgCl ℓ) (u : GlueDescent.MatrixUnits2 (PadicAlgCl ℓ) (G0Galois.Vb A ℓ))
+    (L : IntermediateField ℚ Qbar),
+    G0Galois.G7Out A ℓ Tm c ε a β u ∧ G0Galois.G8Out A ℓ (GlueDescent.rho Tm a β) r ∧
+    G15Ram.G7Clauses β ε L ∧ G15Ram.KerWild K β L ∧
+    ∀ (p : ℕ) (hp : p.Prime), P p →
+      (7 ≤ p → @G15Ram.TorsFixWild p ⟨hp⟩ K _ _ A ℓ _) ∧
+      (p ≤ 5 → @G15Ram.TorsFixWildE p ⟨hp⟩ K _ _ A ℓ _ β L) ∧
+      (p = 2 → @G15Ram.BetaUpper p ⟨hp⟩ ℓ _ β (@G15Ram.Lv p ⟨hp⟩ L) U0)
+
+/-- **`G8LocalPack` from `G7LocalPackK` (proved)**, by `G15Ram.localGlue_of_g7`. -/
+theorem g8LocalPack_of_K {ℓ : ℕ} [Fact ℓ.Prime] {r : GaloisRep ℓ 2} {P : ℕ → Prop}
+    (h : G7LocalPackK ℓ r P) : G8LocalPack ℓ r P := by
+  obtain ⟨K, _, _, A, Tm, c, ε, a, β, u, L, h7, h8, hC, hK, hloc⟩ := h
+  refine ⟨K, _, _, A, Tm, a, β, ε, L, h8, hC, fun p hp hP => ?_⟩
+  have : Fact p.Prime := ⟨hp⟩
+  obtain ⟨hW, hE, hB⟩ := hloc p hp hP
+  exact G15Ram.localGlue_of_g7 h7 hC hK (fun h => G15Ram.tateWildK_of_torsFixWild (hW h))
+    (fun h => G15Ram.tateWildKE_of_torsFixWildE (hE h)) hB
+
+/-- **G15's open Prop `G15RamG` from the packs (proved)**: g15-ram's `G15RamG D u` follows from
+G7's data for `D.r5` (local glue at `p ≠ 5`) and for `D.r3` (at `p = 5`), and G11's outputs. -/
+theorem g15RamG_of_packK {L : Type} [Field L] [NumberField L] {A : AbVar L} (D : ModData L A)
+    (u : ℚ) (h5 : G7LocalPackK 5 D.r5 (fun p => p ≠ 5)) (h3 : G7LocalPackK 3 D.r3 (fun p => p = 5))
+    (h11₅ : G0Galois.G11Out (GlueDescent.ramSet ZInQ.Mult.S_mul u) D.r5)
+    (h11₃ : G0Galois.G11Out (GlueDescent.ramSet ZInQ.Mult.S_mul u) D.r3) : G15RamG D u := by
+  obtain ⟨K₅, _, _, A₅, Tm₅, a₅, β₅, ε₅, L₅, h8₅, hC₅, hG₅⟩ := g8LocalPack_of_K h5
+  obtain ⟨K₃, _, _, A₃, Tm₃, a₃, β₃, ε₃, L₃, h8₃, hC₃, hG₃⟩ := g8LocalPack_of_K h3
+  exact G15Ram.g15RamG_of_g7 D u h8₅ hC₅ hG₅ h8₃ hC₃ (hG₃ 5 (by norm_num) rfl) h11₅ h11₃
+
+end G0ModNewform
+
 end
 
 #print axioms G15Ram.not_localGlue_zero
@@ -2785,3 +2843,5 @@ end
 #print axioms G15Ram.tate_eq_one_of_torsFix
 #print axioms G15Ram.tateWildK_of_torsFixWild
 #print axioms G15Ram.tateWildKE_of_torsFixWildE
+#print axioms G0ModNewform.g8LocalPack_of_K
+#print axioms G0ModNewform.g15RamG_of_packK
