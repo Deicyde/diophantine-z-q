@@ -396,6 +396,60 @@ theorem fricke_identity :
   rw [Finset.sum_congr rfl this] at hfr
   linear_combination -hfr
 
+
+theorem kappa_ne_zero : (-32 * (d : ℂ) ^ 2 * jacobiChar d ((-32 : ℤ) : ZMod d)) ≠ 0 := by
+  have hodd : Odd d := odd_of_mod_four hd4
+  have h32 : Nat.Coprime 32 d := by
+    have : Nat.Coprime (2 ^ 5) d := Nat.Coprime.pow_left 5 (Nat.coprime_two_left.mpr hodd)
+    simpa using this
+  have hu : IsUnit (((-32 : ℤ) : ZMod d)) := by
+    have : IsUnit (((32 : ℕ) : ZMod d)) := (ZMod.isUnit_iff_coprime 32 d).mpr h32
+    have h' : ((-32 : ℤ) : ZMod d) = -((32 : ℕ) : ZMod d) := by push_cast; ring
+    rw [h']; exact this.neg
+  have hsq32 := jacobiChar_sq_unit d hu.unit
+  have hχ0 : jacobiChar d ((-32 : ℤ) : ZMod d) ≠ 0 := by
+    intro h0; rw [IsUnit.unit_spec, h0] at hsq32; simp at hsq32
+  have hd0 : (d : ℂ) ≠ 0 := by exact_mod_cast NeZero.ne d
+  exact mul_ne_zero (mul_ne_zero (by norm_num) (pow_ne_zero 2 hd0)) hχ0
+
+/-- **The coefficient identity** from the Fricke identity. -/
+theorem coeff_identity :
+    ∃ cg : ℂ, ∀ m : ℕ, (-32 * (d : ℂ) ^ 2 * jacobiChar d ((-32 : ℤ) : ZMod d)) *
+      heckeCoeff d m = cg * ∑ e ∈ (32 * d ^ 2 / M).divisors, cAr M d (coeff g) e *
+        (((32 * d ^ 2 / M / e : ℕ) : ℂ) ^ 2 *
+          (if 32 * d ^ 2 / M / e ∣ m then coeff g (m / (32 * d ^ 2 / M / e)) else 0)) := by
+  obtain ⟨cg, hfi⟩ := fricke_identity hd4 hsq hMN g hχ hgood
+  refine ⟨cg, fun m => ?_⟩
+  set P := 32 * d ^ 2 / M with hP
+  set κ := -32 * (d : ℂ) ^ 2 * jacobiChar d ((-32 : ℤ) : ZMod d) with hκ
+  have hκ0 : κ ≠ 0 := kappa_ne_zero hd4 hsq hMN g hχ hgood
+  have hjpos : ∀ e ∈ P.divisors, 0 < P / e := fun e he =>
+    Nat.div_pos (Nat.le_of_dvd (level_pos_div hd4 hsq hMN g hχ hgood)
+      (Nat.dvd_of_mem_divisors he)) (Nat.pos_of_mem_divisors he)
+  have key : ∀ τ : ℍ, HasSum (fun m : ℕ => ((cg * ∑ e ∈ P.divisors, cAr M d (coeff g) e *
+      (((P / e : ℕ) : ℂ) ^ 2 * (if P / e ∣ m then coeff g (m / (P / e)) else 0))) / κ) •
+        Function.Periodic.qParam 1 (τ : ℂ) ^ m) (cmForm etaForm32 d τ) := by
+    intro τ
+    have hR : HasSum (fun m : ℕ => ∑ e ∈ P.divisors, cAr M d (coeff g) e *
+        (((P / e : ℕ) : ℂ) ^ 2 * ((if P / e ∣ m then coeff g (m / (P / e)) else 0) *
+          Function.Periodic.qParam 1 (τ : ℂ) ^ m)))
+        (∑ e ∈ P.divisors, cAr M d (coeff g) e *
+          (((P / e : ℕ) : ℂ) ^ 2 * gAt g.toCuspForm (P / e) τ)) :=
+      hasSum_sum fun e he => by
+        rw [gAt, dif_pos (hjpos e he)]
+        exact ((hasSum_scaled g.toCuspForm (hjpos e he) τ).mul_left _).mul_left _
+    have h2 := (hR.mul_left cg).div_const κ
+    rw [← hfi τ, mul_div_cancel_left₀ _ hκ0] at h2
+    refine h2.congr_fun fun m => ?_
+    simp only [smul_eq_mul, Finset.mul_sum, Finset.sum_div, Finset.sum_mul]
+    refine Finset.sum_congr rfl fun e _ => ?_
+    ring
+  have := ModularFormClass.qExpansion_coeff_unique one_pos
+    (TauCeti.one_mem_strictPeriods_Gamma1_map _) key m
+  rw [qExpansion_cmForm_coeff qExpansion_etaForm32_coeff d m] at this
+  rw [← this]
+  field_simp
+
 end Ident
 
 end ZInQ.GZTheta
