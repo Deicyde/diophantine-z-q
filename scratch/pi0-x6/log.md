@@ -45,3 +45,11 @@ information: Galois action on the geometric components. Inputs:
   `Pi0X6.sqrt_neg_one_not_mem` (`z² = −1`, `s² = −3` in `ℚ̄` ⇒ `z ∉ ℚ⟮s⟯`) and
   `Pi0X6.exists_fix_moves` (∃ `σ ∈ Aut(ℚ̄/ℚ)`, `σ s = s`, `σ z ≠ z`; via
   `InfiniteGalois.fixedField_fixingSubgroup`).
+- L2 (VERIFIED, compiled 23:10, `lake env lean scratch/pi0-x6/Core.lean`, 0 errors, 0 warnings;
+  axioms of the three main declarations: propext, Classical.choice, Quot.sound):
+  `Pi0X6.galPt` (Galois action on `X(ℚ̄)`), `Pi0X6.spec_comp_eq_self_iff` /
+  `Pi0X6.galPt_eq_self_iff` (σx = x ↔ σ fixes `residueImage x`),
+  `Pi0X6.galPt_eq_self_iff_of_eq_adjoin`, `Pi0X6.val_galPt`, and the core
+  `Pi0X6.subsingleton_of_galois` (Galois-compatible `c : X(ℚ̄) → S`, every class meets the fibres
+  over 0 and ∞, ≤ 2 points over 0 with residue field ℚ⟮z⟯ (z² = −1), points over ∞ with residue
+  field ℚ⟮s⟯ (s² = −3) ⇒ `Subsingleton S`).
