@@ -56,3 +56,7 @@
   (T5 at number fields / subfields of ℚ̄ from T35). COMPILES (VERIFIED).
 - Consumers found later (VERIFIED by reading): g0-assemble3 `qmModelG3_of` (G0Assemble3.lean:74743, K : IF, via QML3.goodReduction);
   lt-local `torsGL_of_leaf` (scratch/lt-local/LtLocal4.lean:3055, K a number field).
+- part 11 (T5Full.lean): `TateFree.exists_tate_lift_level`, `TateFree.tate_surj_at`, `tate_surj_of_torsionStructure`,
+  `tate_surj_numberField` (T_ℓ A → A[ℓ^k] onto, from T5 / from T35 for number fields). COMPILES (VERIFIED).
+  Consumer (VERIFIED by reading): G0Assemble3 `tatePairingZl_of_leaves` (:49582), the only main-chain use of the
+  GluePieces4 leaf `divisiblePoints` (#40), at K a number field (TatePairingZl, :49484).

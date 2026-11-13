@@ -1,0 +1,17 @@
+
+namespace T5Torsion
+
+/-- **`T_ℓ A → A(K̄)[ℓᵏ]` is onto for an abelian variety over a number field, from T35 alone**:
+the drop-in for `tate_surj (hD K A ℓ _)` in G0Assemble3's `tatePairingZl_of_leaves`, whose `K`
+is a number field (`TatePairingZl`). With it the `GluePieces4` leaf `divisiblePoints` is not
+needed. -/
+theorem tate_surj_numberField (hU : ZInQ.LeafPush2.UniformizationExists) (K : Type) [Field K]
+    [NumberField K] (A : PkgI3.AbVar K) (ℓ : ℕ) [Fact ℓ.Prime] :
+    ∀ (m : ℕ) (t : Additive (A.Pt (AlgebraicClosure K))), ℓ ^ m • t = 0 →
+      ∃ y : A.T ℓ, y.1 m = t :=
+  TateFree.tate_surj_at (fun B _ g n hg hn _ => torsionStructure_numberField hU K B g n hg hn) A ℓ
+    (Nat.cast_ne_zero.2 (Fact.out : ℓ.Prime).ne_zero)
+
+end T5Torsion
+
+#print axioms T5Torsion.tate_surj_numberField

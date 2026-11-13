@@ -68,6 +68,22 @@ compiles in about 10 s once the imported `ZInQKernel` modules are built. `T5Tors
        PkgI3.TateModuleFree
    ```
 
+5. **The `GluePieces4` leaf `divisiblePoints` (#40, `WeilPairing.DivisiblePoints`) is not needed.**
+   Its only use on the main chain is G0Assemble3's `tatePairingZl_of_leaves` (:49582, via
+   `detTate_of_leaves`). There it supplies the surjectivity of `T_ℓ A → A(K̄)[ℓᵏ]` through
+   `tate_surj (hD K A ℓ _)`, for `K` a number field. The same surjectivity follows from the torsion
+   counts (part 11):
+   ```lean
+   theorem T5Torsion.TateFree.tate_surj_of_torsionStructure (hT : PkgI2.TorsionStructure.{0})
+       (K) (A : PkgI3.AbVar K) (ℓ) [Fact ℓ.Prime] (hℓK : (ℓ : K) ≠ 0) :
+       ∀ m (t : Additive (A.Pt (AlgebraicClosure K))), ℓ ^ m • t = 0 → ∃ y : A.T ℓ, y.1 m = t
+   theorem T5Torsion.tate_surj_numberField (hU : ZInQ.LeafPush2.UniformizationExists)
+       (K) [NumberField K] (A) (ℓ) [Fact ℓ.Prime] : (same conclusion)
+   ```
+   Rewiring: in `tatePairingZl_of_leaves`, replace
+   `(fun k t ht => WeilPairing.tate_surj (hD K A ℓ _) k t ht)` by
+   `T5Torsion.tate_surj_numberField t.t35 K A ℓ`, and drop `hD` from `detTate_of_leaves`.
+
 **Effect on the list of literature theorems** (SPECULATIVE: these are proposals, and the
 integration is not done here):
 - **(a) No rewiring.** Set `t26 := tateModuleFree_of_torsionStructure t.t5`. T26 stops being a
@@ -76,6 +92,8 @@ integration is not done here):
   `t26 := tateModuleFree_of_uniformization_of_nonC t.t35 nC`.
   - T5 and T26 are replaced by the single leaf `TorsionCardNonC`, which the H proof never uses in
     substance. The list again has one leaf fewer.
+- **(d) Independently of (a)-(c): drop `GluePieces4.divisiblePoints` (item 5).** This needs one
+  rewiring and adds no leaf.
 - **(c) Rewiring T5's consumers (§3).** This makes the T5 count unnecessary for H. T26 is still
   needed in full generality, because its consumers apply it over general fields: for example
   `continuous_galRep_of_tateModuleFree {K}` and `tateBC_bijective_of_tateModuleFree`. So (c) only
