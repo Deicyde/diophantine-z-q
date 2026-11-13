@@ -1,4 +1,4 @@
-# mul-rigidity: `RigidityHom` proved from Mathlib; `MulIsogeny` reduced to one leaf at the origin of `A[n]`
+# mul-rigidity: `RigidityHom` proved from Mathlib; `MulIsogeny` reduced to two glue statements on the cotangent space at the origin (no literature leaf left)
 
 Task mul-rigidity, 2026-11-13. Lean: `scratch/mul-rigidity/` (`Rigidity.lean`, `Mul.lean`, and
 `MulRigidity.lean`, which `assemble.sh` builds from both and adds the g0-fibresimple consumers).
@@ -18,7 +18,26 @@ Consequence: g0-fibresimple's glue piece FS2 now holds unconditionally:
 `G0FibreSimple.endDivisionOfSchemeIso : EndDivisionOfSchemeIso`. Its proof
 `endDivisionOfSchemeIso_of_rigidity` is copied verbatim and applied to `rigidityHom`.
 
-**`MulIsogeny` reduces to one leaf, `KerUnitOpen`.** `MulIsogeny` (copied verbatim) says that in
+**`MulIsogeny` reduces to two glue statements and needs no literature leaf.**
+
+```
+theorem MulRigidity.mulIsogeny_of_cotangent (h1 : KerUnitOpenOfCotangentSurj)
+    (h2 : CotangentMulN) : G0FibreSimple.MulIsogeny
+```
+
+* `CotangentMulN`: the map `[n]` induces on `m₀/m₀²`, the cotangent space of the local ring
+  `𝒪_{A,0}`, is `n • id`. This holds for every `n ∈ ℤ` and in every characteristic; it is the group
+  law to first order.
+* `KerUnitOpenOfCotangentSurj`: if a homomorphism `f : A → A` has surjective cotangent map at `0`,
+  then the unit section of `ker f` is an open immersion. This is commutative algebra of the fibre,
+  plus Nakayama.
+
+Both are glue: standard and elementary, but not formalized. They are stated in Lean over Mathlib's
+`stalkMap`, `IsLocalRing.CotangentSpace` and `Ideal.mapCotangent` (§3). The step in between is
+proved: in characteristic 0, `n • id` is bijective on a vector space over the residue field at
+`0`, which has characteristic 0 (`charZero_residueField`).
+
+**Leaf alternative: the single leaf `KerUnitOpen`.** `MulIsogeny` (copied verbatim) says that in
 characteristic 0, `[n]` is finite and surjective for `n ≠ 0`. It is proved from a single leaf:
 
 ```
@@ -90,15 +109,23 @@ finite type" on the target. Smoothness is not used.
 So the chain is: `KerUnitOpen` ⇒ (diagonal) `MulUnramified` ⇒ (with properness) locally
 quasi-finite ⇒ finite (ZMT) and surjective (Noetherian generic-point argument) ⇒ `MulIsogeny`.
 
-### What `KerUnitOpen` still contains (not formalized)
+### `KerUnitOpen` from two glue statements (proved reduction; glue unproved)
 
-The kernel's unit section is an open immersion iff `O_{A[n], e} = k`. By Nakayama, this holds iff
-the cotangent map of `[n]` at `e`, `m_e/m_e² → m_e/m_e²`, is surjective. That map is
-multiplication by `n` (the group law gives `μ^♯ ≡ f ⊗ 1 + 1 ⊗ f` mod `m ⊗ m`). Both steps are
-glue (commutative algebra of stalks of fibre products, plus the group axioms); neither is a deep
-input. They are not formalized here: Mathlib v4.35 has `IsLocalRing.CotangentSpace` and
-`Ideal.mapCotangent`, but no lemmas on stalks of fibre products. So `KerUnitOpen` is recorded as a
-leaf. A Lean proof of these two glue steps would make `MulIsogeny` a theorem.
+| name | statement (Lean) | why true | status |
+|---|---|---|---|
+| `origin`, `O0`, `stalkEndo`, `cotangentMap` | the origin `η(pt)`; `𝒪_{A,0}`; `f^♯ = stalkCongr ≫ stalkMap`, a local endomorphism of `𝒪_{A,0}` (`f(0) = 0`, `map_origin`); `Ideal.mapCotangent` of `f^♯` on `m₀/m₀²` | definitions | compiled |
+| `CotangentMulN` | `cotangentMap A [n] = n • LinearMap.id`, all `n ∈ ℤ`, any field | modulo `m ⊗ m`, `μ^♯φ ≡ φ ⊗ 1 + 1 ⊗ φ` (unit axioms), so the cotangent map of `f * g` is the sum of those of `f` and `g`; induct on `n`. Mumford §4, "`d(n_X) = n`" (UNVERIFIED locator) | **glue, unproved** |
+| `KerUnitOpenOfCotangentSurj` | for `f : A.X ⟶ A.X` with `[IsMonHom f]`: `Surjective (cotangentMap A f) → IsOpenImmersion (kerUnit A f).left` | `𝒪_{ker f,0} = 𝒪_{A,0}/f^♯(m₀)𝒪`, so surjectivity gives `m₀ = f^♯(m₀)𝒪 + m₀²`, hence `m₀ = f^♯(m₀)𝒪` (Nakayama), so `𝒪_{ker f,0} = k`. A rational point of a Noetherian scheme whose local ring is a field is an open point `≅ Spec k` | **glue, unproved** |
+| `charZero_residueField` | char 0 ⇒ `CharZero (ResidueField 𝒪_{A,0})` | ring hom `k → Γ(Spec k) → Γ(A) → 𝒪_{A,0} → κ` | **proved** |
+| `kerUnitOpen_of_cotangent` | `KerUnitOpenOfCotangentSurj → CotangentMulN → KerUnitOpen` | `n • v = (n : κ) • v` with `(n : κ) ≠ 0` | **proved** |
+| `mulIsogeny_of_cotangent` | `KerUnitOpenOfCotangentSurj → CotangentMulN → MulIsogeny` | composition | **proved** |
+
+Sanity check (argument): for `n = 0`, the cotangent map is `0` (`[0]^♯` factors through the
+residue map, which kills `m₀`). `KerUnitOpenOfCotangentSurj` then says that `ker [0] = A` has an
+open unit section iff `m₀/m₀² = 0` iff `dim A = 0`, which is correct. Neither glue statement is
+proved: Mathlib v4.35 has no lemmas on stalks of fibre products (`AlgebraicGeometry/Fiber.lean`
+has the fibre but no stalk comparison), and no tangent vectors as `k[ε]`-points. Formalizing those
+two pieces of commutative algebra would make `MulIsogeny` a theorem.
 
 ### The degree
 
@@ -110,9 +137,10 @@ the degree is not stated.
 
 * `RigidityHom` moves from the textbook leaves to the proved glue (`rigidityHom`). FS2 no longer
   needs a hypothesis.
-* `MulIsogeny` can be replaced by `KerUnitOpen` (or by `MulEtale`, which implies it). This leaf
-  sits at a single point, the origin of `A[n]`, and Lean shows that the published étaleness
-  statement implies it.
+* `MulIsogeny` can be replaced in either of two ways. One is the glue pair
+  `KerUnitOpenOfCotangentSurj` + `CotangentMulN`, which leaves no literature leaf. The other is
+  the leaf `KerUnitOpen` (or `MulEtale`, which implies it). That leaf sits at a single point, the
+  origin of `A[n]`, and Lean shows that the published étaleness statement implies it.
 * Integration: `fibreSimple_of_leaves (t) (hMul) (hRig) (p)` can be called with
   `hRig := rigidityHom` and `hMul := mulIsogeny_of_kerUnitOpen h`. My file uses
   `ZInQKernel.HDecomp.Objects`'s `PkgI3`, whose text matches the `PkgI3` copy inside
