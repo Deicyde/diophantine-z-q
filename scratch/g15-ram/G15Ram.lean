@@ -178,4 +178,286 @@ def LocalData (r : GaloisRep ℓ 2) : Prop :=
 
 end Local
 
+/-! ## §2. Local field: the break bound at the level of `upperAbs` (proved) -/
+
+section Break
+
+variable {p : ℕ} [Fact p.Prime] {F : Fld p}
+
+theorem ramSet_anti {i j : ℕ} (h : i ≤ j) : ramSet F j ⊆ ramSet F i := by
+  rintro σ ⟨ϖ, hϖ, hσ⟩
+  refine ⟨ϖ, hϖ, fun x hx hx1 => (hσ x hx hx1).trans ?_⟩
+  exact pow_le_pow_of_le_one (norm_nonneg _) hϖ.2.1.le (by omega)
+
+theorem card_image_mono (hF : IsFinGal F) {S T : Set (GQp p)} (h : S ⊆ T) :
+    Nat.card (restr F '' S) ≤ Nat.card (restr F '' T) :=
+  Nat.card_mono (finite_restr hF T) (Set.image_mono h)
+
+theorem ramCard_anti (hF : IsFinGal F) : Antitone (ramCard F) := fun _ _ h =>
+  card_image_mono hF (ramSet_anti h)
+
+theorem one_le_ramCard (hF : IsFinGal F) (i : ℕ) : 1 ≤ ramCard F i := by
+  obtain ⟨ϖ, hϖ⟩ := exists_isUnif hF.1
+  exact Nat.one_le_iff_ne_zero.mpr (ramCard_ne_zero hF hϖ i)
+
+/-- If `g_i ≤ 1`, then `G_i` (pulled back) fixes `F`. -/
+theorem fix_of_ramCard_le_one (hF : IsFinGal F) {i : ℕ} (h : ramCard F i ≤ 1) :
+    ramSet F i ⊆ fixSet F := by
+  obtain ⟨ϖ, hϖ⟩ := exists_isUnif hF.1
+  have hfin : Finite (restr F '' ramSet F i) := (finite_restr hF (ramSet F i)).to_subtype
+  have hsub : Subsingleton (restr F '' ramSet F i) := Finite.card_le_one_iff_subsingleton.mp h
+  have h1 : (1 : GQp p) ∈ ramSet F i := fixSet_subset_ramSet hϖ i (fun x _ => rfl)
+  intro σ hσ x hx
+  have he : (⟨restr F σ, σ, hσ, rfl⟩ : restr F '' ramSet F i) = ⟨restr F 1, 1, h1, rfl⟩ :=
+    Subsingleton.elim _ _
+  have := congrFun (congrArg Subtype.val he) ⟨x, hx⟩
+  exact this
+
+theorem ramCardR_of_gt {t : ℝ} (ht : -1 < t) : ramCardR F t = ramCard F ⌈t⌉.toNat := by
+  unfold ramCardR ramSetR
+  rw [if_neg (not_le.mpr ht)]
+  rfl
+
+theorem ramCardR_anti (hF : IsFinGal F) : Antitone (ramCardR F) := by
+  intro s t hst
+  unfold ramCardR ramSetR
+  by_cases ht : t ≤ -1
+  · have hs : s ≤ -1 := hst.trans ht
+    rw [if_pos ht, if_pos hs]
+  · rw [if_neg ht]
+    by_cases hs : s ≤ -1
+    · rw [if_pos hs]
+      exact card_image_mono hF (Set.subset_univ _)
+    · rw [if_neg hs]
+      exact card_image_mono hF (ramSet_anti (Int.toNat_le_toNat (Int.ceil_mono hst)))
+
+/-- The integrand of Herbrand's `φ` (`phiAt`). -/
+def gInt (F : Fld p) (t : ℝ) : ℝ := (ramCardR F t : ℝ) / (ramCard F 0 : ℝ)
+
+theorem phiAt_eq (u : ℝ) : phiAt F u = ∫ t in (0 : ℝ)..u, gInt F t := rfl
+
+theorem gInt_anti (hF : IsFinGal F) : Antitone (gInt F) := fun _ _ h =>
+  div_le_div_of_nonneg_right (by exact_mod_cast ramCardR_anti hF h) (Nat.cast_nonneg _)
+
+theorem gInt_int (hF : IsFinGal F) (a b : ℝ) :
+    IntervalIntegrable (gInt F) MeasureTheory.volume a b :=
+  (gInt_anti hF).intervalIntegrable
+
+theorem g0_pos (hF : IsFinGal F) : (0 : ℝ) < ramCard F 0 := by
+  exact_mod_cast one_le_ramCard hF 0
+
+theorem gInt_le_one (hF : IsFinGal F) {t : ℝ} (ht : -1 < t) : gInt F t ≤ 1 := by
+  rw [gInt, div_le_one (g0_pos hF), ramCardR_of_gt ht]
+  exact_mod_cast ramCard_anti hF (Nat.zero_le _)
+
+theorem gInt_ge (hF : IsFinGal F) (t : ℝ) : 1 / (ramCard F 0 : ℝ) ≤ gInt F t := by
+  have h1 : 1 ≤ ramCardR F t := by
+    have h0 : -1 < max t 0 := lt_of_lt_of_le (by norm_num) (le_max_right t 0)
+    have := ramCardR_anti hF (le_max_left t 0)
+    rw [ramCardR_of_gt h0] at this
+    exact (one_le_ramCard hF _).trans this
+  exact div_le_div_of_nonneg_right (by exact_mod_cast h1) (Nat.cast_nonneg _)
+
+theorem gInt_nonneg (hF : IsFinGal F) (t : ℝ) : 0 ≤ gInt F t :=
+  le_trans (by have := g0_pos hF; positivity) (gInt_ge hF t)
+
+theorem phi_mono (hF : IsFinGal F) {u w : ℝ} (h : u ≤ w) : phiAt F u ≤ phiAt F w := by
+  have h1 := intervalIntegral.integral_interval_sub_left (gInt_int hF 0 w) (gInt_int hF 0 u)
+  have h2 : 0 ≤ ∫ t in u..w, gInt F t :=
+    intervalIntegral.integral_nonneg h (fun x _ => gInt_nonneg hF x)
+  rw [phiAt_eq, phiAt_eq]
+  linarith
+
+theorem phi_sub_le (hF : IsFinGal F) {w u : ℝ} (hw : 0 ≤ w) (hwu : w ≤ u) :
+    phiAt F u - phiAt F w ≤ u - w := by
+  rw [phiAt_eq, phiAt_eq,
+    intervalIntegral.integral_interval_sub_left (gInt_int hF _ _) (gInt_int hF _ _)]
+  calc ∫ t in w..u, gInt F t ≤ ∫ _ in w..u, (1 : ℝ) :=
+        intervalIntegral.integral_mono_on hwu (gInt_int hF _ _) intervalIntegrable_const
+          (fun x hx => gInt_le_one hF (by linarith [hx.1]))
+    _ = u - w := by rw [intervalIntegral.integral_const, smul_eq_mul, mul_one]
+
+theorem phi_ge (hF : IsFinGal F) {u : ℝ} (hu : 0 ≤ u) :
+    u * (1 / (ramCard F 0 : ℝ)) ≤ phiAt F u := by
+  rw [phiAt_eq]
+  calc u * (1 / (ramCard F 0 : ℝ)) = ∫ _ in (0 : ℝ)..u, (1 / (ramCard F 0 : ℝ)) := by
+        rw [intervalIntegral.integral_const, smul_eq_mul, sub_zero]
+    _ ≤ ∫ t in (0 : ℝ)..u, gInt F t :=
+        intervalIntegral.integral_mono_on hu intervalIntegrable_const (gInt_int hF _ _)
+          (fun x _ => gInt_ge hF x)
+
+theorem phi_nat (hF : IsFinGal F) (m : ℕ) :
+    phiAt F m = ∑ k ∈ Finset.range m, (ramCard F (k + 1) : ℝ) / ramCard F 0 := by
+  rw [phiAt_eq]
+  have h := intervalIntegral.sum_integral_adjacent_intervals (μ := MeasureTheory.volume)
+    (f := gInt F) (a := fun k : ℕ => (k : ℝ)) (n := m) (fun k _ => gInt_int hF _ _)
+  simp only [Nat.cast_zero] at h
+  rw [← h]
+  refine Finset.sum_congr rfl fun k _ => ?_
+  have hk : (k : ℝ) ≤ ((k + 1 : ℕ) : ℝ) := by push_cast; linarith
+  have : ∫ x in (k : ℝ)..((k + 1 : ℕ) : ℝ), gInt F x =
+      ∫ _ in (k : ℝ)..((k + 1 : ℕ) : ℝ), (ramCard F (k + 1) : ℝ) / ramCard F 0 := by
+    apply intervalIntegral.integral_congr_ae
+    refine Filter.Eventually.of_forall fun x hx => ?_
+    rw [Set.uIoc_of_le hk] at hx
+    have hx1 := hx.1
+    have hx2 := hx.2
+    push_cast at hx2
+    have hk0 : (0 : ℝ) ≤ k := Nat.cast_nonneg k
+    have hxm : -1 < x := by linarith
+    have hc : ⌈x⌉ = ((k + 1 : ℕ) : ℤ) := by
+      rw [Int.ceil_eq_iff]
+      push_cast
+      constructor <;> linarith
+    simp only [gInt]
+    rw [ramCardR_of_gt hxm, hc, Int.toNat_natCast]
+  rw [this, intervalIntegral.integral_const, smul_eq_mul]
+  push_cast
+  ring
+
+theorem phi_eq_sum (g : ℕ → ℕ) (m : ℕ) :
+    GlueConductor.phi g m = ∑ k ∈ Finset.range m, (g (k + 1) : ℚ) / g 0 := by
+  induction m with
+  | zero => rw [GlueConductor.phi_zero, Finset.sum_range_zero]
+  | succ m ih => rw [GlueConductor.phi_succ, ih, Finset.sum_range_succ]
+
+/-- **D1 at the level of `upperAbs` (GLUE, proved from `HilbertSerreLadic`).** -/
+theorem upperBreakFix_of_hilbertSerre (h : HilbertSerreLadic p) : UpperBreakFix p := by
+  classical
+  intro F hF a ha hea t ht σ hσ
+  have hex : ∃ n, ramSet F n ⊆ fixSet F ∧ ∑ i ∈ Finset.range n, (ramCard F i - 1) ≤
+      ramCard F 0 - 1 + ramCard F 0 * padicValNat p (ramCard F 0) := h F hF
+  have hex' : ∃ n, ramSet F n ⊆ fixSet F := let ⟨n, hn, _⟩ := hex; ⟨n, hn⟩
+  set n := Nat.find hex' with hn_def
+  have hnfix : ramSet F n ⊆ fixSet F := Nat.find_spec hex'
+  obtain ⟨N, hN, hsum⟩ := hex
+  have hnN : n ≤ N := Nat.find_min' hex' hN
+  have hsum' : ∑ i ∈ Finset.range n, (ramCard F i - 1) ≤
+      ramCard F 0 - 1 + ramCard F 0 * padicValNat p (ramCard F 0) :=
+    (Finset.sum_le_sum_of_subset (Finset.range_mono hnN)).trans hsum
+  set w : ℕ := n - 1 with hw
+  have ha2 : (0 : ℝ) ≤ 4 * (a : ℝ) ^ 2 := by positivity
+  have hφw : phiAt F w < t := by
+    have h4 : phiAt F w ≤ 4 * (a : ℝ) ^ 2 := by
+      by_cases hn1 : n ≤ 1
+      · have hw0 : w = 0 := by omega
+        rw [hw0, Nat.cast_zero, phiAt_eq, intervalIntegral.integral_same]
+        exact ha2
+      · have hb : ¬ ramSet F w ⊆ fixSet F := Nat.find_min hex' (by omega)
+        have hgb : 2 ≤ ramCard F w := by
+          by_contra hlt
+          exact hb (fix_of_ramCard_le_one hF (by omega))
+        have hub := GlueConductor.upper_break_le p a (Fact.out) ha (ramCard F)
+          (ramCard_anti hF) (one_le_ramCard hF) w n hgb (by omega) hea hsum'
+        rw [phi_nat hF]
+        have hcast : ((GlueConductor.phi (ramCard F) w : ℚ) : ℝ) =
+            ∑ k ∈ Finset.range w, (ramCard F (k + 1) : ℝ) / ramCard F 0 := by
+          rw [phi_eq_sum]
+          push_cast
+          rfl
+        rw [← hcast]
+        exact_mod_cast hub
+    linarith
+  set S := {u : ℝ | -1 ≤ u ∧ t ≤ phiAt F u} with hS
+  have ht0 : 0 < t := by linarith
+  have hg0 := g0_pos hF
+  have hw0 : (0 : ℝ) ≤ w := Nat.cast_nonneg w
+  have hne : S.Nonempty := by
+    refine ⟨w + t * ramCard F 0, by nlinarith, ?_⟩
+    have h1 := phi_ge hF (u := w + t * ramCard F 0) (by positivity)
+    have h2 : t ≤ (w + t * ramCard F 0) * (1 / (ramCard F 0 : ℝ)) := by
+      rw [add_mul, mul_one_div, mul_one_div, mul_div_assoc, div_self hg0.ne', mul_one]
+      have : (0 : ℝ) ≤ w / ramCard F 0 := div_nonneg hw0 hg0.le
+      linarith
+    exact h2.trans h1
+  have hlb : ∀ u ∈ S, (w : ℝ) + (t - phiAt F w) ≤ u := by
+    rintro u ⟨-, hu⟩
+    by_cases huw : u ≤ w
+    · exact absurd (hu.trans (phi_mono hF huw)) (not_le.mpr hφw)
+    · have := phi_sub_le hF hw0 (le_of_not_ge huw)
+      linarith
+  have hψ : (w : ℝ) < sInf S := lt_of_lt_of_le (by linarith) (le_csInf hne hlb)
+  have hσF : σ ∈ ramSetR F (sInf S) := hσ F hF
+  unfold ramSetR at hσF
+  rw [if_neg (by linarith)] at hσF
+  apply hnfix
+  refine ramSet_anti ?_ hσF
+  have hz : ((w : ℕ) : ℤ) < ⌈sInf S⌉ := Int.lt_ceil.mpr (by exact_mod_cast hψ)
+  omega
+
+end Break
+
+/-! ## §3. The reduction (proved) -/
+
+section Reduction
+
+theorem gl_eq_one_of_scalar {ℓ : ℕ} [Fact ℓ.Prime] {g : GL (Fin 2) (PadicAlgCl ℓ)}
+    {c : PadicAlgCl ℓ} (h : (g : Matrix (Fin 2) (Fin 2) (PadicAlgCl ℓ)) = Matrix.scalar (Fin 2) c)
+    (hc : c = 1) : g = 1 := by
+  apply Units.ext
+  rw [h, hc, map_one, Units.val_one]
+
+/-- **`LocalRamG` from the local pieces (GLUE, proved).** -/
+theorem localRamG_of {ℓ : ℕ} [Fact ℓ.Prime] (u : ℚ) (p : ℕ) [Fact p.Prime] (hpℓ : p ≠ ℓ)
+    (r : GaloisRep ℓ 2) (hUB : UpperBreakFix p) (hUW : UpperWild p) (hWT : WildFixTame p)
+    (hd : LocalData p r) (h11 : G0Galois.G11Out (GlueDescent.ramSet ZInQ.Mult.S_mul u) r) :
+    LocalRamG u p r := by
+  refine ⟨fun hpD t ht σ hσ => ?_, fun hpD σ hσ => ?_, fun hS hM => ?_⟩
+  · obtain ⟨F, β, hF, he, hsh, hup⟩ := hd.1 hpD
+    have ha : 1 ≤ ZInQ.heightD * ZInQ.heightG0 :=
+      Nat.mul_pos GlueDescent.heightD_pos (by unfold ZInQ.heightG0; norm_num)
+    have hU0 : (0 : ℝ) ≤ U0 := by unfold U0; positivity
+    have hfix : σ ∈ fixSet F := hUB F hF _ ha he t (by unfold U0 at ht; exact ht) hσ
+    have hwild : σ ∈ wildSet := hUW t (by linarith) hσ
+    exact gl_eq_one_of_scalar (hsh σ ⟨hfix, hwild⟩) (hup t ht σ ⟨hσ, hfix⟩)
+  · obtain ⟨F, β, hF, he, hsh, htame⟩ := hd.2 hpD
+    have hfix := hWT F hF he hσ
+    exact gl_eq_one_of_scalar (hsh σ ⟨hfix, hσ⟩) (htame σ ⟨hfix, hσ⟩)
+  · refine h11 p (Fact.out) ?_ hpℓ
+    intro hT
+    rcases Finset.mem_union.mp hT with h | h
+    · exact hS h
+    · exact hM (Nat.mem_primeFactors.mp h).2.1
+
+/-- **`G15RamG` from smaller named Props (GLUE, proved).** Closed local-field Props
+(`UpperBreakFix`, `UpperWild`, `WildFixTame`), the local data of G8/G7 on `D` (`LocalData`), and
+G11's output on `D` for `T = S_mul ∪ supp M_{S_mul}(u)` (`GlueDescent.ramSet`). -/
+theorem g15RamG_of_pieces
+    (hUB : ∀ (p : ℕ) [Fact p.Prime], UpperBreakFix p)
+    (hUW : ∀ (p : ℕ) [Fact p.Prime], UpperWild p)
+    (hWT : ∀ (p : ℕ) [Fact p.Prime], WildFixTame p)
+    {L : Type} [Field L] [NumberField L] {A : PkgI3.AbVar L} (D : ModData L A) (u : ℚ)
+    (h5 : ∀ (p : ℕ) (hp : p.Prime), p ≠ 5 → @LocalData p ⟨hp⟩ 5 _ D.r5)
+    (h3 : LocalData 5 D.r3)
+    (h11₅ : G0Galois.G11Out (GlueDescent.ramSet ZInQ.Mult.S_mul u) D.r5)
+    (h11₃ : G0Galois.G11Out (GlueDescent.ramSet ZInQ.Mult.S_mul u) D.r3) :
+    G15RamG D u := by
+  intro p hp
+  haveI : Fact p.Prime := ⟨hp⟩
+  refine ⟨fun h5' => localRamG_of u p h5' D.r5 (hUB p) (hUW p) (hWT p) (h5 p hp h5') h11₅,
+    fun h5' => ?_⟩
+  subst h5'
+  exact localRamG_of u 5 (by norm_num) D.r3 (hUB 5) (hUW 5) (hWT 5) h3 h11₃
+
+/-- **`G15RamG`, with D1 discharged (GLUE, proved).** As `g15RamG_of_pieces`, with
+`UpperBreakFix` replaced by the transport `HilbertSerreLadic` of T20 + T21. -/
+theorem g15RamG_of_hilbertSerre
+    (hHS : ∀ (p : ℕ) [Fact p.Prime], HilbertSerreLadic p)
+    (hUW : ∀ (p : ℕ) [Fact p.Prime], UpperWild p)
+    (hWT : ∀ (p : ℕ) [Fact p.Prime], WildFixTame p)
+    {L : Type} [Field L] [NumberField L] {A : PkgI3.AbVar L} (D : ModData L A) (u : ℚ)
+    (h5 : ∀ (p : ℕ) (hp : p.Prime), p ≠ 5 → @LocalData p ⟨hp⟩ 5 _ D.r5)
+    (h3 : LocalData 5 D.r3)
+    (h11₅ : G0Galois.G11Out (GlueDescent.ramSet ZInQ.Mult.S_mul u) D.r5)
+    (h11₃ : G0Galois.G11Out (GlueDescent.ramSet ZInQ.Mult.S_mul u) D.r3) :
+    G15RamG D u :=
+  g15RamG_of_pieces (fun p _ => upperBreakFix_of_hilbertSerre (hHS p)) hUW hWT D u h5 h3
+    h11₅ h11₃
+
+end Reduction
+
 end G15Ram
+
+#print axioms G15Ram.upperBreakFix_of_hilbertSerre
+#print axioms G15Ram.g15RamG_of_pieces
+#print axioms G15Ram.g15RamG_of_hilbertSerre
