@@ -406,4 +406,158 @@ theorem tyzSigmaFixesZn_of (hsh : TYZSigmaShiftsF0) (hi : IInHprime) : TYZSigmaF
   rw [map_sub, galPt_iPt ρ hρi, e, iPt_add, iPt_pt00]
   abel
 
+/-! ## §8. `Class7GenusPtDefined` from the CM field of definition and genus theory -/
+
+section Class7Descent
+
+/-- `galPt` is multiplicative: `(στ)(P) = σ(τ(P))`. -/
+theorem galPt_mul (σ τ : GalQ) (P : PtA) : galPt (σ * τ) P = galPt σ (galPt τ P) := by
+  rcases P with _ | ⟨x, y, h⟩
+  · rfl
+  · obtain ⟨h1, e1⟩ := galPt_some (σ * τ) h
+    obtain ⟨h2, e2⟩ := galPt_some τ h
+    obtain ⟨h3, e3⟩ := galPt_some σ h2
+    rw [e1, e2, e3, WeierstrassCurve.Affine.Point.some.injEq]
+    exact ⟨AlgEquiv.mul_apply σ τ x, AlgEquiv.mul_apply σ τ y⟩
+
+/-- Two automorphisms agreeing on `K` act identically on `A(K)`. -/
+theorem galPt_congr {K : IntermediateField ℚ Qbar} {ρ ρ' : GalQ} (h : ∀ x ∈ K, ρ x = ρ' x)
+    {P : PtA} (hP : P ∈ ptsOver K) : galPt ρ P = galPt ρ' P := by
+  rw [mem_ptsOver_iff] at hP
+  rcases P with _ | ⟨x, y, hxy⟩
+  · rfl
+  · obtain ⟨h1, e1⟩ := galPt_some ρ hxy
+    obtain ⟨h2, e2⟩ := galPt_some ρ' hxy
+    rw [e1, e2, WeierstrassCurve.Affine.Point.some.injEq]
+    exact ⟨h x hP.1, h y hP.2⟩
+
+variable (d : ℕ) [NeZero d]
+
+theorem hilbertBar_eq : hilbertBar d = ((hilbertField d).restrictScalars ℚ).map (embed d) := by
+  simp only [hilbertBar, NeZero.ne d, ↓reduceDIte]
+
+variable {d}
+
+theorem actsO_mem {ρ : GalQ} {c : Pic (OK d)} (hρ : ActsAsArtinO d (OK d) ρ c) {x : Qbar}
+    (hx : x ∈ hilbertBar d) : ρ x ∈ hilbertBar d := by
+  rw [hilbertBar_eq] at hx ⊢
+  obtain ⟨y, hy, rfl⟩ := hx
+  rw [hρ ⟨y, hy⟩]
+  exact ⟨_, (ringClassArtinEquiv (OK d) c ⟨y, hy⟩).2, rfl⟩
+
+theorem actsO_agree {ρ ρ' : GalQ} {c : Pic (OK d)} (hρ : ActsAsArtinO d (OK d) ρ c)
+    (hρ' : ActsAsArtinO d (OK d) ρ' c) : ∀ x ∈ hilbertBar d, ρ x = ρ' x := by
+  intro x hx
+  rw [hilbertBar_eq] at hx
+  obtain ⟨y, hy, rfl⟩ := hx
+  rw [hρ ⟨y, hy⟩, hρ' ⟨y, hy⟩]
+
+theorem actsO_mul {ρ ρ' : GalQ} {c c' : Pic (OK d)} (hρ : ActsAsArtinO d (OK d) ρ c)
+    (hρ' : ActsAsArtinO d (OK d) ρ' c') : ActsAsArtinO d (OK d) (ρ * ρ') (c * c') := by
+  intro x
+  rw [AlgEquiv.mul_apply, hρ' x, hρ (ringClassArtinEquiv (OK d) c' x), map_mul, AlgEquiv.mul_apply]
+
+theorem mem_sqClasses {c : Pic (OK d)} : c ∈ sqClasses d ↔ c ∈ picSquares (OK d) := by
+  simp [sqClasses]
+
+theorem sum_sqClasses_mul {s : Pic (OK d)} (hs : s ∈ picSquares (OK d)) (f : Pic (OK d) → PtA) :
+    ∑ c ∈ sqClasses d, f (s * c) = ∑ c ∈ sqClasses d, f c := by
+  refine Finset.sum_nbij' (fun c => s * c) (fun c => s⁻¹ * c) ?_ ?_ ?_ ?_ ?_
+  · intro c hc
+    simp only [Finset.mem_coe, mem_sqClasses] at hc ⊢
+    exact (picSquares (OK d)).mul_mem hs hc
+  · intro c hc
+    simp only [Finset.mem_coe, mem_sqClasses] at hc ⊢
+    exact (picSquares (OK d)).mul_mem ((picSquares (OK d)).inv_mem hs) hc
+  · intro c _; simp
+  · intro c _; simp
+  · intro c _; rfl
+
+theorem Z7_eq (e : ℕ) [NeZero e] : Z7 e = ∑ c ∈ sqClasses e, galPt (liftMax e c) (tyzZ7 e) := by
+  simp only [Z7, NeZero.ne e, ↓reduceDIte]
+
+theorem Z7_mem {e : ℕ} [NeZero e] (hz : tyzZ7 e ∈ ptsOver (hilbertBar e)) :
+    Z7 e ∈ ptsOver (hilbertBar e) := by
+  rw [Z7_eq]
+  exact (ptsOver _).sum_mem fun c _ =>
+    galPt_mem (liftMax e c) (fun x hx => actsO_mem (liftMax_spec e c) hx) hz
+
+/-- **The lifts of `2Cl_e` fix `Z(e)`** (reindexing the genus sum; the lifts act on `A(H_e)` through
+their Artin symbols). -/
+theorem galPt_Z7 {e : ℕ} [NeZero e] (hz : tyzZ7 e ∈ ptsOver (hilbertBar e)) {s : Pic (OK e)}
+    (hs : s ∈ picSquares (OK e)) : galPt (liftMax e s) (Z7 e) = Z7 e := by
+  rw [Z7_eq, map_sum]
+  have : ∀ c ∈ sqClasses e, galPt (liftMax e s) (galPt (liftMax e c) (tyzZ7 e)) =
+      galPt (liftMax e (s * c)) (tyzZ7 e) := fun c _ => by
+    rw [← galPt_mul]
+    exact galPt_congr (actsO_agree (actsO_mul (liftMax_spec e s) (liftMax_spec e c))
+      (liftMax_spec e (s * c))) hz
+  rw [Finset.sum_congr rfl this, sum_sqClasses_mul hs (fun c => galPt (liftMax e c) (tyzZ7 e))]
+
+/-- The genus field `G_d ⊂ ℚ̄` of `K_d` (ring-class's `genusField` of the maximal order: the subfield
+of `H_d` fixed by `2Cl_d`), `⊥` at `d = 0`. -/
+def genusBar (d : ℕ) : IntermediateField ℚ Qbar :=
+  if h : d = 0 then ⊥ else
+    haveI : NeZero d := ⟨h⟩; ((genusField (OK d)).restrictScalars ℚ).map (embed d)
+
+/-- **Galois descent `H_d → G_d`**: a point of `H_d ⊂ ℚ̄` fixed by the lifts of `2Cl_d` lies in the
+genus field. -/
+theorem mem_genusBar_of_fixed {x : Qbar} (hx : x ∈ hilbertBar d)
+    (hfix : ∀ s ∈ picSquares (OK d), liftMax d s x = x) : x ∈ genusBar d := by
+  rw [hilbertBar_eq] at hx
+  obtain ⟨y, hy, rfl⟩ := hx
+  have hg : genusBar d = ((genusField (OK d)).restrictScalars ℚ).map (embed d) := by
+    simp only [genusBar, NeZero.ne d, ↓reduceDIte]
+  rw [hg]
+  refine ⟨y, ?_, rfl⟩
+  show y ∈ genusField (OK d)
+  rw [genusField, show y = (⟨y, hy⟩ : ringClassField (OK d)).1 from rfl, IntermediateField.mem_lift,
+    IntermediateField.mem_fixedField_iff]
+  rintro f ⟨s, hs, rfl⟩
+  have h1 := liftMax_spec d s ⟨y, hy⟩
+  rw [hfix s hs] at h1
+  exact Subtype.ext ((embed d).injective h1).symm
+
+/-- **Leaf GT-7 (genus theory)**: for squarefree `e ≡ 7 (mod 8)` the genus field of `ℚ(√−e)` (the
+subfield of the Hilbert class field fixed by `Cl²`) lies in `L_e(i) = ℚ(i, √p : p ∣ e)`; it is
+`ℚ(√p* : p ∣ e)`, `p* = (−1)^{(p−1)/2} p` (Gauss; Cox, *Primes of the form x² + ny²*, Thm. 6.1 and
+§6.C, UNVERIFIED numbers; TYZ L2525 uses it). Refereed (textbook). -/
+def GenusFieldLeLni : Prop := ∀ e : ℕ, e % 8 = 7 → Squarefree e → genusBar e ≤ Lni e
+
+/-- **`Class7GenusPtDefined` is glue** from the field of definition of TYZ's class-7 CM point
+(`CMFieldOfDefinition7`, Gross/Shimura) and genus theory (`GenusFieldLeLni`). -/
+theorem class7GenusPtDefined_of (hcm : CMFieldOfDefinition7) (hg : GenusFieldLeLni) :
+    Class7GenusPtDefined := by
+  intro e he hsq
+  have : NeZero e := ⟨by omega⟩
+  have hz := hcm e he hsq
+  have hZ := Z7_mem hz
+  have hfix : ∀ s ∈ picSquares (OK e), galPt (liftMax e s) (Z7 e) = Z7 e :=
+    fun s hs => galPt_Z7 hz hs
+  rw [mem_ptsOver_iff] at hZ ⊢
+  revert hZ hfix
+  rcases Z7 e with _ | ⟨x, y, h⟩
+  · intro _ _; trivial
+  · intro hZ hfix
+    have hc : ∀ s ∈ picSquares (OK e), liftMax e s x = x ∧ liftMax e s y = y := by
+      intro s hs
+      have e1 := hfix s hs
+      obtain ⟨h', e'⟩ := galPt_some (liftMax e s) h
+      rw [e', WeierstrassCurve.Affine.Point.some.injEq] at e1
+      exact e1
+    exact ⟨hg e he hsq (mem_genusBar_of_fixed hZ.1 fun s hs => (hc s hs).1),
+      hg e he hsq (mem_genusBar_of_fixed hZ.2 fun s hs => (hc s hs).2)⟩
+
+end Class7Descent
+
+open ZInQ.Contrib.TYZDecomp in
+/-- **Main theorem, finest form**: as `tyzThm35ReadingA_of_pinned`, with `Class7GenusPtDefined`
+replaced by the textbook leaves `CMFieldOfDefinition7` and `GenusFieldLeLni`. -/
+theorem tyzThm35ReadingA_of_pinnedLeaves (h11 : TYZThm11Integral) (h1 : TYZLcalOne)
+    (h29 : TYZLemma29Mod2) (hcm : CMFieldOfDefinitionTYZ) (hi : IInH4) (hs : TYZSigmaFixesZn)
+    (hN : HprimeNormal) (h318 : Lemma318Literal HHprime) (hcm7 : CMFieldOfDefinition7)
+    (hg : GenusFieldLeLni) (h35 : ∀ ℓ : ℕ → ℤ, IsTYZLcal ℓ → Thm35First ℓ tyzZ)
+    (h5 : Lemma321Five) (h7' : Lemma321Seven) : ZInQ.Literature.TYZThm35ReadingA :=
+  tyzThm35ReadingA_of_pinned h11 h1 h29 hcm hi hs hN h318 (class7GenusPtDefined_of hcm7 hg) h35 h5 h7'
+
 end ZInQ.Contrib.TYZGenus.CMNumeric
