@@ -68,8 +68,7 @@ theorem rhoF_ev (σ : GQ) (v : A.V ℓ) :
 theorem quotMap_equivariant (σ : GQ) (x : TensorProduct ℚ_[ℓ] (PadicAlgCl ℓ) (A.V ℓ)) :
     quotMap ℓ A θ emb (GlueI3.repBaseChange (PadicAlgCl ℓ) (A.galRep ℓ) σ x) =
       rhoF ℓ A θ emb σ (quotMap ℓ A θ emb x) := by
-  induction x using TensorProduct.induction_on with
-  | zero => simp
+  induction x using TensorProduct.inductionOn with
   | tmul e v =>
     change quotMap ℓ A θ emb ((A.galRep ℓ σ).baseChange (PadicAlgCl ℓ) (e ⊗ₜ v)) = _
     rw [LinearMap.baseChange_tmul]
@@ -143,8 +142,7 @@ theorem continuous_coord (hT : TateModuleFree)
     intro v
     have h1 : Continuous fun σ : GQ => (σ, v) := continuous_id.prodMk continuous_const
     exact ((continuous_galRep_of_tateModuleFree hT A ℓ hℓ).1.comp h1).congr fun σ => rfl
-  induction x using TensorProduct.induction_on with
-  | zero => simpa using continuous_const
+  induction x using TensorProduct.inductionOn with
   | tmul e v =>
     have hL : Continuous ((c.restrictScalars ℚ_[ℓ]) ∘ₗ ev ℓ A θ emb) :=
       IsModuleTopology.continuous_of_linearMap _
@@ -202,7 +200,7 @@ theorem eq_of_eq_on_arithFrob (hD : FrobeniusDense) {X : Type*} [TopologicalSpac
     have := E.fixingSubgroup.inv_mem hU'
     simpa using this
   have := hsub hfix
-  simp only [Set.mem_preimage, mul_inv_cancel_left, Set.mem_setOf_eq] at this
+  simp only [Set.mem_preimage, mul_inv_cancel_left, Set.mem_ofPred_eq] at this
   exact this (hfr p hp hpS v τ hv hτ)
 
 /-! ## §5. Brauer–Nesbitt (leaf T19) with arithmetic Frobenius traces -/
@@ -346,3 +344,214 @@ theorem c9 (hR16 : R16_EichlerShimuraJ1') (hS : FaltingsSemisimple) (hT : TateMo
 end C9
 
 end C9Rhof
+
+/-! ## §7. Leaves R14, T24, T25 and Pan's trace form, copied verbatim from
+`scratch/h-decomposition/Leaves.lean` (namespace `PkgI4`, §2-§3 there) -/
+
+namespace PkgI4
+
+open scoped MatrixGroups ModularForm
+
+variable {ℓ : ℕ} [Fact ℓ.Prime]
+
+/-- **I4-L1. Galois representations of eigenforms** (Eichler–Shimura and Shimura 1971 Thm 7.14
+for `k = 2`; Deligne 1971 for `k ≥ 2`; Deligne–Serre 1974 Thm 6.1 for `k = 1`; theorem numbers
+UNVERIFIED). Consequence form (the published statements also give the determinant
+`ε_g χ^{k−1}`). Same as hdec-faithful L27(a). -/
+def EigenformRepExists : Prop :=
+  ∀ (ℓ : ℕ) [Fact ℓ.Prime] (ιC : Qbar →ₐ[ℚ] ℂ) (ιL : Qbar →ₐ[ℚ] PadicAlgCl ℓ)
+    (N : ℕ) (k : ℤ) (χ : DirichletCharacter ℂ N) (g : CF N k),
+    0 < N → 1 ≤ k → IsNormalizedEigenform g χ →
+    ∃ ρ : GaloisRep ℓ 2, ρ.IsSemisimple ∧ ρ.AttachedTo ιC ιL g
+
+/-- **I4-L4. Twisting an eigenform** (Shimura 1971 Prop. 3.64; Atkin–Li, Invent. Math. 48 (1978)
+Prop. 3.1; locators UNVERIFIED). Consequence form. Same as hdec-faithful L28(a). -/
+def EigenformTwist : Prop :=
+  ∀ (N m : ℕ) (k : ℤ) (χ : DirichletCharacter ℂ N) (ψ : DirichletCharacter ℂ m) (g : CF N k),
+    0 < N → 0 < m → IsNormalizedEigenform g χ →
+    ∃ (χ' : DirichletCharacter ℂ (N * m ^ 2)) (g' : CF (N * m ^ 2) k),
+      IsNormalizedEigenform g' χ' ∧
+      ∀ p : ℕ, p.Prime → ¬ p ∣ N * m → coeff g' p = ψ (p : ZMod m) * coeff g p
+
+/-- **I4-L5. Newform attached to an eigensystem** (Li, Math. Ann. 212 (1975), Thm 5 (strong
+multiplicity one) with the decomposition `S_k = S_k^new ⊕ S_k^old`; Miyake Thm 4.6.19; locators
+UNVERIFIED). Every normalized eigenform of level `M` has the Hecke eigenvalues away from `M` of a
+newform of level dividing `M`. Consequence form. -/
+def NewformOfEigenform : Prop :=
+  ∀ (M : ℕ) (k : ℤ) (χ : DirichletCharacter ℂ M) (g : CF M k),
+    0 < M → IsNormalizedEigenform g χ →
+    ∃ (N : ℕ) (χ' : DirichletCharacter ℂ N) (f : CF N k), 0 < N ∧ N ∣ M ∧ IsNewform f χ' ∧
+      ∀ p : ℕ, p.Prime → ¬ p ∣ M → coeff f p = coeff g p
+
+/-- `ρ` is attached to `g` **up to the twist** `ψ`, outside a finite set `S`: Pan's conclusion
+"comes from a cuspidal eigenform up to twist", in trace form (see `PanFor`). -/
+def GaloisRep.AttachedUpToTwist (ρ : GaloisRep ℓ 2) (ψ : GaloisChar ℓ) (ιC : Qbar →ₐ[ℚ] ℂ)
+    (ιL : Qbar →ₐ[ℚ] PadicAlgCl ℓ) {N : ℕ} {k : ℤ} (g : CF N k) (S : Finset ℕ) : Prop :=
+  ∀ p : ℕ, p.Prime → p ∉ S →
+    ρ.UnramifiedAt p ∧ ∃ α : Qbar, ιC α = coeff g p ∧
+      ∀ (v : ValuationSubring Qbar) (σ : GQ), LiesOver v p → IsArithFrob σ v p →
+        (ρ.mat σ).trace = (ψ.toHom σ : PadicAlgCl ℓ) * ιL α
+
+end PkgI4
+
+namespace C9Rhof
+
+open PkgI4 (Qbar GQ LiesOver IsArithFrob CF coeff IsNewform IsNormalizedEigenform GaloisRep
+  GaloisChar)
+open PkgI3 PkgI3.AbVar LeafModCurves
+
+/-! ## §8. `GaloisRep` (matrix form) as a `Representation` -/
+
+section Bridge
+
+variable {ℓ : ℕ} [Fact ℓ.Prime] {n : ℕ}
+
+/-- A `GaloisRep` as a `Representation` on `ℚ̄_ℓ^n`. -/
+def toRep (ρ : GaloisRep ℓ n) : Representation (PadicAlgCl ℓ) GQ (Fin n → PadicAlgCl ℓ) where
+  toFun σ := Matrix.toLin' (ρ.mat σ)
+  map_one' := by
+    simp only [GaloisRep.mat, map_one, Units.val_one, Matrix.toLin'_one]; rfl
+  map_mul' σ τ := by
+    simp only [GaloisRep.mat, map_mul, Units.val_mul, Matrix.toLin'_mul]; rfl
+
+theorem toRep_apply (ρ : GaloisRep ℓ n) (σ : GQ) : toRep ρ σ = Matrix.toLin' (ρ.mat σ) := rfl
+
+theorem toMatrix_toRep (ρ : GaloisRep ℓ n) (σ : GQ) :
+    LinearMap.toMatrix (Pi.basisFun (PadicAlgCl ℓ) (Fin n)) (Pi.basisFun (PadicAlgCl ℓ) (Fin n))
+      (toRep ρ σ) = ρ.mat σ := by
+  rw [toRep_apply, LinearMap.toMatrix_eq_toMatrix', LinearMap.toMatrix'_toLin']
+
+theorem toRep_continuous (ρ : GaloisRep ℓ n) :
+    Continuous fun σ => LinearMap.toMatrix (Pi.basisFun (PadicAlgCl ℓ) (Fin n))
+      (Pi.basisFun (PadicAlgCl ℓ) (Fin n)) (toRep ρ σ) := by
+  simp_rw [toMatrix_toRep]
+  exact Units.continuous_val.comp ρ.continuous_toHom
+
+theorem trace_toRep (ρ : GaloisRep ℓ n) (σ : GQ) :
+    LinearMap.trace (PadicAlgCl ℓ) _ (toRep ρ σ) = (ρ.mat σ).trace := by
+  rw [LinearMap.trace_eq_matrix_trace (PadicAlgCl ℓ) (Pi.basisFun (PadicAlgCl ℓ) (Fin n)),
+    toMatrix_toRep]
+
+/-- Invariant complements give a semisimple representation. -/
+theorem semisimple_of_complements {k G V : Type*} [Field k] [Monoid G] [AddCommGroup V]
+    [Module k V] (ρ : Representation k G V)
+    (h : ∀ W : Submodule k V, (∀ g, ∀ v ∈ W, ρ g v ∈ W) →
+      ∃ W' : Submodule k V, IsCompl W W' ∧ ∀ g, ∀ v ∈ W', ρ g v ∈ W') :
+    ρ.IsSemisimpleRepresentation := by
+  refine ⟨fun a => ?_⟩
+  obtain ⟨W', hc, hW'⟩ := h a.toSubmodule (fun g v hv => a.apply_mem_toSubmodule g hv)
+  refine ⟨⟨W', fun g v hv => hW' g v hv⟩, ⟨?_, ?_⟩⟩
+  · rw [disjoint_iff]
+    apply Subrepresentation.toSubmodule_injective
+    exact hc.inf_eq_bot
+  · rw [codisjoint_iff]
+    apply Subrepresentation.toSubmodule_injective
+    exact hc.sup_eq_top
+
+/-- `GaloisRep.IsSemisimple` gives a semisimple `MonoidAlgebra`-module. -/
+theorem toRep_semisimple (ρ : GaloisRep ℓ n) (h : ρ.IsSemisimple) :
+    IsSemisimpleModule (MonoidAlgebra (PadicAlgCl ℓ) GQ) (toRep ρ).asModule := by
+  rw [← Representation.isSemisimpleRepresentation_iff_isSemisimpleModule_asModule]
+  apply semisimple_of_complements
+  intro W hW
+  obtain ⟨W', hc, hW'⟩ := h W (fun σ => Submodule.map_le_iff_le_comap.mpr
+    (fun v hv => hW σ v hv))
+  exact ⟨W', hc, fun σ v hv => hW' σ (Submodule.mem_map_of_mem hv)⟩
+
+end Bridge
+
+/-! ## §9. C9 against R14 and against C8's `r₅` -/
+
+section Apps
+
+variable (ℓ : ℕ) [Fact ℓ.Prime]
+
+/-- **C9 against R14 (GLUE, proved from R14, R16, Faltings' Satz 3, I3.M0, T18, T19).** For a
+newform `f` of weight 2 and level `N`, a `J₁(N)` `J` and embeddings `ιC`, `ιL`: R14's semisimple
+`ρ` attached to `f` is isomorphic to R16's `ρ_{f,ι}` (`ι = ιL ∘ ιC⁻¹`), and they have the same
+trace at every `g ∈ G_ℚ`. -/
+theorem c9_R14 (hR14 : PkgI4.EigenformRepExists) (hR16 : R16_EichlerShimuraJ1')
+    (hS : FaltingsSemisimple) (hT : TateModuleFree) (hBN : GlueC10.BrauerNesbittChar0)
+    (hD : FrobeniusDense) (N : ℕ) (hN : 0 < N) (χ : DirichletCharacter ℂ N) (f : CF N 2)
+    (hf : IsNewform f χ) (J : AbVar ℚ) (hJ : IsJ1 N J) (ιC : Qbar →ₐ[ℚ] ℂ)
+    (ιL : Qbar →ₐ[ℚ] PadicAlgCl ℓ) :
+    ∃ ρ : GaloisRep ℓ 2, ρ.IsSemisimple ∧ ρ.AttachedTo ιC ιL f ∧
+      ∃ (_ : FiniteDimensional ℚ (coeffField f)) (A : AbVar ℚ) (π : Hom J A)
+        (θ : coeffField f →+* A.End0), AlgebraicGeometry.Surjective π.hom.left ∧
+        Nonempty ((toRep ρ).asModule ≃ₗ[MonoidAlgebra (PadicAlgCl ℓ) GQ]
+          (rhoF ℓ A θ (embOf ℓ ιC ιL (coeffField f))).asModule) ∧
+        ∀ g : GQ, (ρ.mat g).trace =
+          LinearMap.trace (PadicAlgCl ℓ) _ (rhoF ℓ A θ (embOf ℓ ιC ιL (coeffField f)) g) := by
+  obtain ⟨ρ, hss, hatt⟩ := hR14 ℓ ιC ιL N 2 χ f hN (by norm_num) hf.1
+  have hNℓ : N * ℓ ≠ 0 := Nat.mul_ne_zero hN.ne' (Fact.out : ℓ.Prime).ne_zero
+  obtain ⟨hfin, A, π, θ, hπ, -, -, -, hiso, htr, -⟩ := c9 ℓ hR16 hS hT hBN hD N hN χ f hf J hJ
+    ιC ιL (N * ℓ).primeFactors (Pi.basisFun (PadicAlgCl ℓ) (Fin 2)) (toRep ρ)
+    (toRep_continuous ρ) (toRep_semisimple ρ hss) (by
+      intro p hp hpS
+      have hpN : ¬ p ∣ N * ℓ := fun h => hpS (Nat.mem_primeFactors.mpr ⟨hp, h, hNℓ⟩)
+      obtain ⟨-, α, hα, h⟩ := hatt p hp hpN
+      exact ⟨α, hα, fun v τ hv hτ => by rw [trace_toRep]; exact h v τ hv hτ⟩)
+  exact ⟨ρ, hss, hatt, hfin, A, π, θ, hπ, hiso, fun g => by rw [← trace_toRep]; exact htr g⟩
+
+/-- **C9 for C8's `r₅` (GLUE, proved from T24 EigenformTwist, T25 NewformOfEigenform, R16,
+Faltings' Satz 3, I3.M0, T18, T19).** C8's output: a semisimple `r : G_ℚ → GL₂(ℚ̄_ℓ)` attached up
+to the twist `ψ` to a normalized eigenform `g` of weight 2 and level `M` (Pan's trace form,
+`PkgI4.GaloisRep.AttachedUpToTwist`), where `ψ` is (at arithmetic Frobenius outside `S`) the
+Dirichlet character `ψD` mod `m` through `ιC`, `ιL` (C8 steps 1-4: determinant argument and
+Kronecker–Weber). Then there is a newform `f` of weight 2 and level `N ∣ M m²` such that for every
+`J₁(N)`: `r ≅ ρ_{f,ι}` (`ι = ιL ∘ ιC⁻¹`), their traces agree on all of `G_ℚ` (`h₅` of
+`GlueC10.c10`), and `tr ρ_{f,ι}(g) = ι(a_p(f))` at every `IsFrobAt g p`, `p ∤ Nℓ` (`hρ₅`). -/
+theorem c9_r5 (hTw : PkgI4.EigenformTwist) (hNew : PkgI4.NewformOfEigenform)
+    (hR16 : R16_EichlerShimuraJ1') (hS : FaltingsSemisimple) (hT : TateModuleFree)
+    (hBN : GlueC10.BrauerNesbittChar0) (hD : FrobeniusDense)
+    (ιC : Qbar →ₐ[ℚ] ℂ) (ιL : Qbar →ₐ[ℚ] PadicAlgCl ℓ)
+    (M : ℕ) (hM : 0 < M) (χg : DirichletCharacter ℂ M) (g : CF M 2)
+    (hg : IsNormalizedEigenform g χg) (m : ℕ) (hm : 0 < m) (ψD : DirichletCharacter ℂ m)
+    (ψ : GaloisChar ℓ) (S : Finset ℕ) (r : GaloisRep ℓ 2) (hr : r.IsSemisimple)
+    (hrg : r.AttachedUpToTwist ψ ιC ιL g S)
+    (hψ : ∀ p : ℕ, p.Prime → p ∉ S → ∃ β : Qbar, ιC β = ψD (p : ZMod m) ∧
+      ∀ (v : ValuationSubring Qbar) (τ : GQ), LiesOver v p → IsArithFrob τ v p →
+        (ψ.toHom τ : PadicAlgCl ℓ) = ιL β) :
+    ∃ (N : ℕ) (χ : DirichletCharacter ℂ N) (f : CF N 2), 0 < N ∧ N ∣ M * m ^ 2 ∧
+      IsNewform f χ ∧ ∀ J : AbVar ℚ, IsJ1 N J →
+      ∃ (_ : FiniteDimensional ℚ (coeffField f)) (A : AbVar ℚ) (π : Hom J A)
+        (θ : coeffField f →+* A.End0), AlgebraicGeometry.Surjective π.hom.left ∧
+        Nonempty ((toRep r).asModule ≃ₗ[MonoidAlgebra (PadicAlgCl ℓ) GQ]
+          (rhoF ℓ A θ (embOf ℓ ιC ιL (coeffField f))).asModule) ∧
+        (∀ g : GQ, LinearMap.trace (PadicAlgCl ℓ) _ (toRep r g) =
+          LinearMap.trace (PadicAlgCl ℓ) _ (rhoF ℓ A θ (embOf ℓ ιC ιL (coeffField f)) g)) ∧
+        (∀ (g : GQ) (p : ℕ), p.Prime → ¬ p ∣ N * ℓ → IsFrobAt g p →
+          LinearMap.trace (PadicAlgCl ℓ) _ (rhoF ℓ A θ (embOf ℓ ιC ιL (coeffField f)) g) =
+            embOf ℓ ιC ιL (coeffField f) ⟨coeff f p, coeff_mem_coeffField f p⟩) := by
+  obtain ⟨χ', g', hg', hcoef⟩ := hTw M m 2 χg ψD g hM hm hg
+  obtain ⟨N, χ, f, hN, hNd, hf, hcf⟩ := hNew (M * m ^ 2) 2 χ' g' (by positivity) hg'
+  refine ⟨N, χ, f, hN, hNd, hf, fun J hJ => ?_⟩
+  have hMm : M * m ≠ 0 := Nat.mul_ne_zero hM.ne' hm.ne'
+  obtain ⟨hfin, A, π, θ, hπ, -, -, -, hiso, htr, hFrob⟩ := c9 ℓ hR16 hS hT hBN hD N hN χ f hf J
+    hJ ιC ιL (S ∪ (M * m).primeFactors) (Pi.basisFun (PadicAlgCl ℓ) (Fin 2)) (toRep r)
+    (toRep_continuous r) (toRep_semisimple r hr) (by
+      intro p hp hpS
+      have hpS1 : p ∉ S := fun h => hpS (Finset.mem_union_left _ h)
+      have hpMm : ¬ p ∣ M * m := fun h =>
+        hpS (Finset.mem_union_right _ (Nat.mem_primeFactors.mpr ⟨hp, h, hMm⟩))
+      have hpMm2 : ¬ p ∣ M * m ^ 2 := by
+        intro h
+        rcases (Nat.Prime.dvd_mul hp).mp h with h1 | h1
+        · exact hpMm (dvd_mul_of_dvd_left h1 _)
+        · exact hpMm (dvd_mul_of_dvd_right (hp.dvd_of_dvd_pow h1) _)
+      obtain ⟨-, α, hα, htrα⟩ := hrg p hp hpS1
+      obtain ⟨β, hβ, hψp⟩ := hψ p hp hpS1
+      refine ⟨β * α, ?_, fun v τ hv hτ => ?_⟩
+      · rw [map_mul, hβ, hα, hcf p hp hpMm2, hcoef p hp hpMm]
+      · rw [trace_toRep, htrα v τ hv hτ, hψp v τ hv hτ, map_mul])
+  exact ⟨hfin, A, π, θ, hπ, hiso, htr, hFrob⟩
+
+end Apps
+
+end C9Rhof
+
+#print axioms C9Rhof.rhoF_semisimple
+#print axioms C9Rhof.rhoF_continuous
+#print axioms C9Rhof.c9
+#print axioms C9Rhof.c9_R14
+#print axioms C9Rhof.c9_r5
