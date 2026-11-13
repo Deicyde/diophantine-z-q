@@ -15,7 +15,7 @@ from the smaller named Props that wave 26 reduced them to, bundled as `HSyn.Glue
 | `reverseIsogeny` | g0-reverseisog | `G0RevIsog.reverseIsogeny_of_leaves r dimFinite` (route B: R19 and H5 of the bundle) |
 | `thetaPoint` | g0-thetapoint | `ThetaPt.thetaPointOfFibre_of_qm_ratios` from the glue `FibreQMPeriod` (blocked on qm-pin) and the leaf candidate `ThetaRatiosAlgebraic` |
 | `modularConstituent` | g0-mod-field, g0-mod-galois, g0-mod-newform | `modularConstituent_of_field` (G2-G7: three glue Props, `KernelFieldExists` blocked on qm-pin; the bundle's T14a, T14b, T15, T30, T31) with `G0AssembleMod.afterG7_of` (G8-G16: g0-mod-galois' pieces with `R14Det` and `ResQFiniteIndex` proved here (`G0AssembleMod.resQFiniteIndex`), g0-mod-newform's leaves and glue, and the joint glue Props `ModelG3G6`, `LinkedTateData`) |
-| `heightCopies` | (no wave-26 task) | kept as one field (glue, pure transport) |
+| `heightCopies` | (no wave-26 task) | `G0HeightCopies.heightCopiesAgree` (proved here: field-by-field conversion of the copied Arakelov structures, model heights agree by `rfl`) |
 -/
 
 section G0AssembleSec
@@ -103,8 +103,6 @@ structure GluePieces2 : Prop where
   /-- g0-assemble, GLUE: `TateBridge` at `ℓ = 5, 3` from one descent datum, with
   `G14TraceCompat` and `G15RamG` on the resulting `r₅`, `r₃`. -/
   linkedTateData : G0AssembleMod.LinkedTateData
-  /-- leaf-adopt2's transport target, GLUE (no wave-26 task). -/
-  heightCopies : HeightCopiesAgree
 
 /-- **`GluePieces` from `GluePieces2` and the leaf bundles** (g0-assemble): every field of
 `GluePieces` is a wave-26 theorem applied to fields of `GluePieces2`, `r` or `t`. -/
@@ -128,7 +126,7 @@ theorem gluePieces_of_gluePieces2 (r : ResearchLeaves) (t : TextbookLeaves) (gp2
         G0AssembleMod.resQFiniteIndex⟩
       gp2.dirichletOfFinite gp2.carayolR17 gp2.swanIndependent gp2.swanIntegral gp2.adaptedExists
       gp2.modelG3G6 gp2.linkedTateData)
-  heightCopies := gp2.heightCopies
+  heightCopies := G0HeightCopies.heightCopiesAgree
 
 /-- **G0 after wave 26** (g0-assemble): the leaf bundles and `GluePieces2` imply
 `ZInQ.SixContactMin`. -/

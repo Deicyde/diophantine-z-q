@@ -50,3 +50,7 @@
   `subst` that removed `α`; run 2 VERIFIED, standard axioms. Field `resQFiniteIndex` removed from
   GluePieces2 (now 28 fields). Tail run: 0 errors, standard axioms.
 - Final flat file (41970 lines, with resQFiniteIndex): VERIFIED exit 0 in 548 s, 0 errors, no sorry, 180 axiom reports all standard.
+- `HSyn.G0HeightCopies.heightCopiesAgree : HSyn.HeightCopiesAgree` proved (part 89): field-by-field
+  conversions `hdTo/hdFrom` (HodgeData), `gmTo/gmFrom` (GroupModel), `mmTo/mmFrom` (MetrizedModel), FinExt by
+  `⟨E.L⟩`; `modelHeight` agrees by `rfl`; `le_antisymm` of the two infima. First run VERIFIED, standard axioms.
+  Field `heightCopies` removed from GluePieces2 (now 27 fields). Tail run: 0 errors, no sorry.

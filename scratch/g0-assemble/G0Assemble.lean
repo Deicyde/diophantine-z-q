@@ -41822,6 +41822,87 @@ end G0AssembleResQSec
 #print axioms HSyn.G0AssembleMod.resQFiniteIndex
 
 
+/-! ## g0-assemble: leaf-adopt2's glue target `HeightCopiesAgree`, proved
+
+leaf-push2's Arakelov layer (`ZInQ.LeafPush2`, over `PkgI3.AbVar`) is a textual copy of
+def-faltings' (`ZInQ.DefFaltings`, over def-faltings' `AbVar`). The copies of `HodgeData`,
+`GroupModel`, `MetrizedModel` and `FinExt` are converted field by field, in both directions; the
+model heights agree definitionally (`rfl`), so the two infima agree. -/
+
+section G0AssembleHeightCopiesSec
+
+noncomputable section
+
+namespace HSyn.G0HeightCopies
+
+open CategoryTheory AlgebraicGeometry NumberField
+
+/-- `HodgeData`: leaf-push2's copy to def-faltings'. -/
+def hdTo {L : Type} [Field L] [NumberField L] {g : ℕ} {V : Type} [AddCommGroup V] [Module L V]
+    [Module (𝓞 L) V] (D : ZInQ.LeafPush2.HodgeData L g V) : ZInQ.DefFaltings.HodgeData L g V :=
+  ⟨D.lattice, D.finrank_eq_one, D.isLattice, D.periods, D.periods_discrete, D.periods_isZLattice,
+    D.coeff, D.coeff_ne_zero⟩
+
+/-- `HodgeData`: def-faltings' copy to leaf-push2's. -/
+def hdFrom {L : Type} [Field L] [NumberField L] {g : ℕ} {V : Type} [AddCommGroup V] [Module L V]
+    [Module (𝓞 L) V] (D : ZInQ.DefFaltings.HodgeData L g V) : ZInQ.LeafPush2.HodgeData L g V :=
+  ⟨D.lattice, D.finrank_eq_one, D.isLattice, D.periods, D.periods_discrete, D.periods_isZLattice,
+    D.coeff, D.coeff_ne_zero⟩
+
+theorem hdTo_modelHeight {L : Type} [Field L] [NumberField L] {g : ℕ} {V : Type} [AddCommGroup V]
+    [Module L V] [Module (𝓞 L) V] (D : ZInQ.LeafPush2.HodgeData L g V) :
+    (hdTo D).modelHeight = D.modelHeight := rfl
+
+theorem hdFrom_modelHeight {L : Type} [Field L] [NumberField L] {g : ℕ} {V : Type}
+    [AddCommGroup V] [Module L V] [Module (𝓞 L) V] (D : ZInQ.DefFaltings.HodgeData L g V) :
+    (hdFrom D).modelHeight = D.modelHeight := rfl
+
+variable {K : Type} [Field K]
+
+/-- `GroupModel`: leaf-push2's copy (of `A`) to def-faltings' (of `abVarEquiv.symm A`). -/
+def gmTo {A : PkgI3.AbVar K} {L : Type} [Field L] [NumberField L] [Algebra K L]
+    (𝒢 : ZInQ.LeafPush2.GroupModel A L) :
+    ZInQ.DefFaltings.GroupModel ((LeafAdopt.abVarEquiv K).symm A) L :=
+  { G := 𝒢.G, gen := 𝒢.gen, gen_hom := 𝒢.gen_hom }
+
+/-- `GroupModel`: def-faltings' copy to leaf-push2's. -/
+def gmFrom {A : PkgI3.AbVar K} {L : Type} [Field L] [NumberField L] [Algebra K L]
+    (𝒢 : ZInQ.DefFaltings.GroupModel ((LeafAdopt.abVarEquiv K).symm A) L) :
+    ZInQ.LeafPush2.GroupModel A L :=
+  { G := 𝒢.G, gen := 𝒢.gen, gen_hom := 𝒢.gen_hom }
+
+/-- `MetrizedModel`: leaf-push2's copy to def-faltings'. -/
+def mmTo {A : PkgI3.AbVar K} {L : Type} [Field L] [NumberField L] [Algebra K L] {g : ℕ}
+    (M : ZInQ.LeafPush2.MetrizedModel A L g) :
+    ZInQ.DefFaltings.MetrizedModel ((LeafAdopt.abVarEquiv K).symm A) L g :=
+  { model := gmTo M.model, hodge := hdTo M.hodge, lattice_eq := M.lattice_eq, arch := M.arch }
+
+/-- `MetrizedModel`: def-faltings' copy to leaf-push2's. -/
+def mmFrom {A : PkgI3.AbVar K} {L : Type} [Field L] [NumberField L] [Algebra K L] {g : ℕ}
+    (M : ZInQ.DefFaltings.MetrizedModel ((LeafAdopt.abVarEquiv K).symm A) L g) :
+    ZInQ.LeafPush2.MetrizedModel A L g :=
+  { model := gmFrom M.model, hodge := hdFrom M.hodge, lattice_eq := M.lattice_eq, arch := M.arch }
+
+/-- **`HeightCopiesAgree`, proved** (g0-assemble). -/
+theorem heightCopiesAgree : HSyn.HeightCopiesAgree := by
+  intro K _ A
+  apply le_antisymm
+  · refine le_iInf fun E => le_iInf fun g => le_iInf fun M => ?_
+    let E' : ZInQ.LeafPush2.FinExt K := ⟨E.L⟩
+    exact iInf_le_of_le E' (iInf_le_of_le g (iInf_le_of_le (mmFrom (L := E.L) M) le_rfl))
+  · refine le_iInf fun E => le_iInf fun g => le_iInf fun M => ?_
+    let E' : ZInQ.DefFaltings.FinExt K := ⟨E.L⟩
+    exact iInf_le_of_le E' (iInf_le_of_le g (iInf_le_of_le (mmTo (L := E.L) M) le_rfl))
+
+end HSyn.G0HeightCopies
+
+end
+
+end G0AssembleHeightCopiesSec
+
+#print axioms HSyn.G0HeightCopies.heightCopiesAgree
+
+
 /-! ## g0-assemble: wave 26 assembled — `GluePieces` from `GluePieces2`
 
 Task g0-assemble, 2026-11-13. The ten fields of `HSyn.GluePieces` (above, unchanged) are derived
@@ -41838,7 +41919,7 @@ from the smaller named Props that wave 26 reduced them to, bundled as `HSyn.Glue
 | `reverseIsogeny` | g0-reverseisog | `G0RevIsog.reverseIsogeny_of_leaves r dimFinite` (route B: R19 and H5 of the bundle) |
 | `thetaPoint` | g0-thetapoint | `ThetaPt.thetaPointOfFibre_of_qm_ratios` from the glue `FibreQMPeriod` (blocked on qm-pin) and the leaf candidate `ThetaRatiosAlgebraic` |
 | `modularConstituent` | g0-mod-field, g0-mod-galois, g0-mod-newform | `modularConstituent_of_field` (G2-G7: three glue Props, `KernelFieldExists` blocked on qm-pin; the bundle's T14a, T14b, T15, T30, T31) with `G0AssembleMod.afterG7_of` (G8-G16: g0-mod-galois' pieces with `R14Det` and `ResQFiniteIndex` proved here (`G0AssembleMod.resQFiniteIndex`), g0-mod-newform's leaves and glue, and the joint glue Props `ModelG3G6`, `LinkedTateData`) |
-| `heightCopies` | (no wave-26 task) | kept as one field (glue, pure transport) |
+| `heightCopies` | (no wave-26 task) | `G0HeightCopies.heightCopiesAgree` (proved here: field-by-field conversion of the copied Arakelov structures, model heights agree by `rfl`) |
 -/
 
 section G0AssembleSec
@@ -41926,8 +42007,6 @@ structure GluePieces2 : Prop where
   /-- g0-assemble, GLUE: `TateBridge` at `ℓ = 5, 3` from one descent datum, with
   `G14TraceCompat` and `G15RamG` on the resulting `r₅`, `r₃`. -/
   linkedTateData : G0AssembleMod.LinkedTateData
-  /-- leaf-adopt2's transport target, GLUE (no wave-26 task). -/
-  heightCopies : HeightCopiesAgree
 
 /-- **`GluePieces` from `GluePieces2` and the leaf bundles** (g0-assemble): every field of
 `GluePieces` is a wave-26 theorem applied to fields of `GluePieces2`, `r` or `t`. -/
@@ -41951,7 +42030,7 @@ theorem gluePieces_of_gluePieces2 (r : ResearchLeaves) (t : TextbookLeaves) (gp2
         G0AssembleMod.resQFiniteIndex⟩
       gp2.dirichletOfFinite gp2.carayolR17 gp2.swanIndependent gp2.swanIntegral gp2.adaptedExists
       gp2.modelG3G6 gp2.linkedTateData)
-  heightCopies := gp2.heightCopies
+  heightCopies := G0HeightCopies.heightCopiesAgree
 
 /-- **G0 after wave 26** (g0-assemble): the leaf bundles and `GluePieces2` imply
 `ZInQ.SixContactMin`. -/
