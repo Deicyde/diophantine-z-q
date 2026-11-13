@@ -1280,4 +1280,45 @@ theorem fourierHat_cd_eq {d : ℕ} (hd4 : d % 4 = 1) (ν : ℤ × ℤ) :
   rw [Finset.mul_sum]
   exact Finset.sum_congr rfl fun b2 _ => h3 a1 a2 b1 b2
 
+/-- `i^k` in `ℤ[i]` for `k ∈ ℤ/4`. -/
+def iPow (k : ZMod 4) : GaussianInt := (⟨0, 1⟩ : GaussianInt) ^ k.val
+
+theorem cexp_two_pi_I_div_four (m : ℤ) :
+    cexp (2 * π * I * m / 4) = ((iPow (m : ZMod 4) : GaussianInt) : ℂ) := by
+  have hI : cexp (π / 2 * I) = I := by
+    rw [Complex.exp_mul_I, ← ofReal_ofNat, ← ofReal_div, ← ofReal_cos, ← ofReal_sin,
+      Real.cos_pi_div_two, Real.sin_pi_div_two]; simp
+  have h1 : cexp (2 * π * I * m / 4) = I ^ m := by
+    rw [show (2 * π * I * m / 4 : ℂ) = m * (π / 2 * I) by ring, Complex.exp_int_mul, hI]
+  have h4 : I ^ (4 : ℤ) = 1 := by
+    rw [show (4 : ℤ) = ((4 : ℕ) : ℤ) by norm_num, zpow_natCast, Complex.I_pow_four]
+  have h2 : I ^ m = I ^ ((m : ZMod 4).val) := by
+    have hm : m = 4 * (m / 4) + ((m : ZMod 4).val : ℤ) := by
+      rw [ZMod.val_intCast]; omega
+    conv_lhs => rw [hm]
+    rw [zpow_add₀ I_ne_zero, zpow_mul, h4, one_zpow, one_mul, zpow_natCast]
+  rw [h1, h2, iPow, map_pow]
+  congr 1
+  simp [GaussianInt.toComplex_def']
+
+/-- The 2-part in `ℤ[i]`. -/
+def g2G (n : ZMod 4 × ZMod 4) : GaussianInt :=
+  ∑ a : Fin 4 × Fin 4, unitG ((((a.1 : ℕ) : ℤ) : ZMod 4), (((a.2 : ℕ) : ℤ) : ZMod 4)) *
+    iPow ((((a.1 : ℕ) : ℤ) : ZMod 4) * n.1 + (((a.2 : ℕ) : ℤ) : ZMod 4) * n.2)
+
+theorem g2Sum_eq (ν : ℤ × ℤ) : g2Sum ν = ((g2G ((ν.1 : ZMod 4), (ν.2 : ZMod 4)) : GaussianInt) : ℂ) := by
+  rw [g2Sum, g2G, map_sum]
+  refine Finset.sum_congr rfl fun a _ => ?_
+  rw [map_mul, ← unitOf_eq_unitG]
+  congr 1
+  have := cexp_two_pi_I_div_four (((a.1 : ℕ) : ℤ) * ν.1 + ((a.2 : ℕ) : ℤ) * ν.2)
+  push_cast at this ⊢
+  exact this
+
+/-- The 2-part table (16 × 16 terms), by `decide`. -/
+theorem g2G_table :
+    (∀ m1 m2 : ZMod 4, g2G (m1 - m2, m1 + m2) = 4 * (1 + ⟨0, 1⟩) * unitG (m1, m2)) ∧
+    (∀ n1 n2 : ZMod 4, (n1 + n2).val % 2 = 1 → g2G (n1, n2) = 0) := by
+  decide
+
 end BpHeckeFE
