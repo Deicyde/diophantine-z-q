@@ -77,3 +77,5 @@ docs/research/h5-neron.md.
   `map_zero_of_hom`, `germAlong_comp_eventuallyEq` (germs along Φ≫f and along Φ agree near 0 for any
   φ compatible with f^* on sections), `jacDet_comp_map`: jacDet (Φ≫f) t = jacDet Φ (φ∘t).
   All axioms [propext, Classical.choice, Quot.sound].
+- `genMap 𝒢 𝒩 f : 𝒩.genStalk ⟶ 𝒢.genStalk` (stalkSpecializes ≫ stalkMap), `genMap_germ` (f^* on
+  germs), `jacDet_comp_genMap`: compiled ~02:18, axioms standard.
