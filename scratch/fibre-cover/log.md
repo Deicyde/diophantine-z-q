@@ -79,3 +79,5 @@
 - Added import `ZInQKernel.HDecomp.Repo.PRArith` (olean present).
 - VERIFIED: 0 errors, 0 warnings; all 13 `#print axioms`: [propext, Classical.choice, Quot.sound].
 - VERIFIED (script): the seven copied definitions are character-identical to ModField.lean.
+- run23: `PropTSAll` (Prop. TS for every admissible `(Y, π)`), `fibreUnramified_of_propTSAll`,
+  `fibreCoverExists_of_propTSAll` (pin-free composite). VERIFIED: 0 errors, 14 axiom lines standard.

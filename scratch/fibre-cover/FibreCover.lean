@@ -707,6 +707,26 @@ theorem fibreCoverExists_of_propTS (Y₀ : Over (Spec (CommRingCat.of ℚ))) (π
   fibreCoverExists_of_pinned' Y₀ π₀ (torsionBound3_of_t5 t5) hW hpin
     (fibreUnramifiedOn_of_propTS Y₀ π₀ hTS) hU
 
+/-- **Prop. TS for every admissible cover** (the pin-free alternative to `CurvePinned`): every
+`(Y, π)` admitting a moduli bijection with R1fp and R2fp satisfies Prop. TS. SPECULATIVE truth
+argument (fibre-cover §3.2): R2fp makes every rational fibre of `π` isomorphic, as a Galois set
+with residue fields, to a fibre of the genuine `π₀`, a `G`-torsor; by Hilbert irreducibility the
+arithmetic monodromy of `π` then acts regularly, so `π` is Galois of degree `|G|` with the same
+branch values and indices `4, 6, 2`, and Beckmann's theorem applies with the same inertia orders. -/
+def PropTSAll : Prop :=
+  ∀ (Y : Over (Spec (CommRingCat.of ℚ))) (Φ : PtEquiv Y) (π : ToP1 Y.left),
+    R1fpProps Y Φ → R2fpProps Y Φ π → PropTS Y π
+
+theorem fibreUnramified_of_propTSAll (h : PropTSAll) : FibreUnramified :=
+  fun Y Φ π u _ y h1 h2 hu _ hπ => fibreUnramifiedOn_of_propTS Y π (h Y Φ π h1 h2) u y hu hπ
+
+/-- **The pin-free composite**: `FibreCoverExists` from T5, `InnerTwistCount`, `PropTSAll` and
+`UnramifiedConjugates`. -/
+theorem fibreCoverExists_of_propTSAll (t5 : PkgI2.TorsionStructure.{0}) (hW : InnerTwistCount)
+    (hTS : PropTSAll) (hU : UnramifiedConjugates) : FibreCoverExists :=
+  fibreCoverExists_of_twistClassCard (twistClassCard_of (torsionBound3_of_t5 t5) hW)
+    (fibreUnramified_of_propTSAll hTS) hU
+
 end G0ModField
 
 #print axioms G0ModField.fibreCoverOut_iff
@@ -722,3 +742,4 @@ end G0ModField
 #print axioms G0ModField.torsionBound3_of_t5
 #print axioms G0ModField.fibreUnramifiedOn_of_propTS
 #print axioms G0ModField.fibreCoverExists_of_propTS
+#print axioms G0ModField.fibreCoverExists_of_propTSAll

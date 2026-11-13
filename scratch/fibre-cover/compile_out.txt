@@ -11,3 +11,4 @@
 'G0ModField.torsionBound3_of_t5' depends on axioms: [propext, Classical.choice, Quot.sound]
 'G0ModField.fibreUnramifiedOn_of_propTS' depends on axioms: [propext, Classical.choice, Quot.sound]
 'G0ModField.fibreCoverExists_of_propTS' depends on axioms: [propext, Classical.choice, Quot.sound]
+'G0ModField.fibreCoverExists_of_propTSAll' depends on axioms: [propext, Classical.choice, Quot.sound]
