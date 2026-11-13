@@ -25,3 +25,21 @@
   `abVarBaseChange_of_{mulIsogeny,kerUnitOpen,mulEtale,cotangent}`, `g9Glue_of_{kerUnitOpen,cotangent}`.
 - Finding: AbVarBaseChange is true and correctly stated (no statement change needed); outright proof needs
   `MulIsogeny` (equivalently mul-rigidity's two cotangent glue statements), which is the only missing input.
+
+## Steps 7-12 (07:10-07:45), all VERIFIED (lake env lean / lake build, 0 errors, no sorry)
+- Consumers.lean: `dimBaseChange : ZInQ.DefFaltings.HodgeLattice.DimBaseChange`; primed versions of
+  `hodgeLatticeTheorem_of_{tangent,abVarFacts,varieties,abVar}`, `tangentDim_of_abVar`, `dimOrigin_of` without
+  DimBaseChange; `bcT_bijective'` (e1-sub) without hdim; `dim_overPullback` (g4-weilres hdim; checked in
+  scratch/g9-abvarbc/G4Check.lean against a verbatim copy of `bcAlong`).
+- Tangent.lean: `ptRing` (points of affine opens = ring maps, local Λ), `ptRing_ext/ofRing/specMap_comp/comp`;
+  dual-number points `ptR`, `specHom`; `AtOrigin`, `D`, `D_one`, `eq_of_D_eq`, `D_mul` (via K ⊕ K² points),
+  `D_inv`, `D_zpow`, `comp_intCast_hom`, `eq_one_of_comp_intCast` (char 0, n ≠ 0).
+- KerUnit.lean: `dualHom`, `derivation_eq_zero` (derivations at origin of A[n] vanish), `ker_le_sq_of_derivations`,
+  `locallyOfFiniteType_kerN`, `ks_isOpenImmersion` (unit section of A[n] open immersion).
+- Main.lean: `kerUnitOpen : MulRigidity.KerUnitOpen`, `mulIsogeny : G0FibreSimple.MulIsogeny`,
+  `torsionDescends`, `tateBC_bijective`, `abVarBaseChangeK`, **`abVarBaseChange : G9Bridge.AbVarBaseChange`**,
+  `g9Glue_of_r10Weights : R10Weights → G9Glue`.
+- E1SubBC.lean: `bcPt_e1`, `bcPhi_eq_ptBC`, `bcT_eq_tateBC`, `bcT_bijective_charZero` (no T26, no hdim).
+- Axioms: scratch/g9-abvarbc/axioms-output.txt, 41 theorems, all [propext, Classical.choice, Quot.sound].
+- Merged origin/main (6c225515, STATUS.md only).
+- diffcheck2: MOD-UNNOTED 0, NOTE-ONLY 0 (nothing vendored by this task).
