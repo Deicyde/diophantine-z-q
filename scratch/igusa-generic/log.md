@@ -29,3 +29,6 @@
 - Added `T28.genericLocus_iff_gramJ` (GenericLocus f ↔ det gramJ(J f) ≠ 0 when J10 f ≠ 0) and
   `T28.genericLocus_congr` (equal J's ⇒ both generic or both special). VERIFIED compiles
   (Mestre.lean 74 s); axioms standard three.
+- Added `T28.separationBothSpecial_iff : SeparationBothSpecial ↔ SeparationSpecialLocus`
+  (VERIFIED, Mestre.lean 73 s). Axiom output: `scratch/igusa-generic/axioms.out`.
+- docs/research/igusa-generic.md written.
