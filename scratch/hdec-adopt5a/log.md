@@ -18,3 +18,10 @@
   last import line (imports cannot follow the docstring). print_axioms.lean: 65 entries appended
   (axsec.py): the drafts' 62 targets + rhoF_semisimple_of_surj, modCurveLeaves_of,
   tangentDimAtOrigin_of. Not built yet (base build still running).
+- 01:26 base build (before the new modules were picked up): exit 0, 9991 jobs.
+- 01:32 VERIFIED `lake build ZInQKernel`: exit 0, 9996 jobs (5 new modules: H5Neron 62s,
+  HodgeLattice 63s, X1Belyi 179s, C9 187s, E1Sub 190s; only linter/deprecation warnings).
+- 01:35 VERIFIED `lake env lean scripts/print_axioms.lean`: exit 0, 464 axiom lists (399 + 65
+  new), every one exactly [propext, Classical.choice, Quot.sound]; no other output. The 65 new
+  entries: scratch/hdec-adopt5a/axioms.txt. No line over 100 characters in the changed Lean files;
+  `sorry`/`axiom` occur only in comments ("no `sorry`, no `axiom`").
