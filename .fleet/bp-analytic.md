@@ -47,5 +47,5 @@ scheduled last.
 - Flagged for bp-qmmoduli: the F1 glue "two Hauptmoduln coincide" needs the analytic
   uniformization of the Shimura curve *in families*. That is not part of AN3 and should be
   recorded in R1an or R1.
-- The faithfulness review of the leaf is the author's own, plus one model read-through; no
-  human has reviewed it.
+- The faithfulness review of the leaf is the author's own, plus one model read-through, which
+  found no problem (clauses true for every `AbVar ℂ`, not vacuous). No human has reviewed it.
