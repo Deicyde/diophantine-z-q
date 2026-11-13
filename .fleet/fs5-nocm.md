@@ -43,4 +43,4 @@
 - A human check of N1b′'s literature, including the `B^op` convention.
 - mobius-glue's curve facts.
 
-Report: `docs/research/fs5-nocm.md`.
+Report: `docs/research/fs5-nocm.md`. Final compile 06:25 PST (run1.txt, run2.txt in scratch/fs5-nocm/).
