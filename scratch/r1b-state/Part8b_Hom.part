@@ -1,0 +1,140 @@
+
+/-! # r1b-state, part 8b: `PiOfQMLattice` and `R2CMOnC` from T11a in `Hom` form and R2 on `ℂ`-points
+
+`T11aHom` is T11a for homomorphisms (the same textbook theorem; leaf-push2's `T11a_RiemannEnd` is
+its `A = B` case). `R2OnC` (glue) says that R2's clause list holds at complex points. From them:
+`piOfQMLattice_of` (an `ι`-equivariant analytic isomorphism of the QM tori is algebraic, so the
+QM pairs are isomorphic and `π` agrees) and `r2CMOnC_of` (immediate). -/
+
+noncomputable section
+
+namespace R1bState
+
+open CategoryTheory AlgebraicGeometry Limits MonoidalCategory CartesianMonoidalCategory MonObj
+open LeafQM LeafQM.AV PkgI3 BPAnalytic Matrix
+open ZInQ.LeafPush2 (CPts IsUniformization isUniformization_of_bp)
+
+/-- **T11(a) in `Hom` form (textbook leaf candidate; the same theorem as leaf-push2's
+`T11a_RiemannEnd`, which is its case `A = B`).** For complex abelian varieties `A`, `B` of
+dimension `g` with uniformizations `Φ_A`, `Φ_B` (kernels `Λ_A`, `Λ_B`), every `ℂ`-linear `M` with
+`MΛ_A ⊆ Λ_B` is induced by a unique homomorphism `f : A → B` (`Φ_B(Mz) = f(Φ_A(z))`).
+Mumford, *Abelian varieties*, §1-§2; Birkenhake–Lange, Prop. 1.2.1 (for complex tori); GAGA,
+Serre 1956, for "holomorphic ⇒ algebraic" (UNVERIFIED numbers). -/
+def T11aHom : Prop :=
+  ∀ (A B : AbVar ℂ) (g : ℕ) (ΛA ΛB : Submodule ℤ (Fin g → ℂ))
+    (ΦA : (Fin g → ℂ) → CPts A (RingHom.id ℂ)) (ΦB : (Fin g → ℂ) → CPts B (RingHom.id ℂ)),
+    A.dim = (g : WithBot ℕ∞) → B.dim = (g : WithBot ℕ∞) →
+    IsUniformization (RingHom.id ℂ) ΛA ΦA → IsUniformization (RingHom.id ℂ) ΛB ΦB →
+    ∀ M : (Fin g → ℂ) →ₗ[ℂ] (Fin g → ℂ), (∀ z ∈ ΛA, M z ∈ ΛB) →
+      ∃! f : AbVar.Hom A B, ∀ z, ΦB (M z) = ΦA z ≫ f.hom
+
+/-- R2's clause list (`R2fpProps`) at complex points. -/
+def R2fpPropsC (Y : Over (Spec (CommRingCat.of ℚ))) (Φ : PtEquiv Y) (π : ToP1 Y.left) : Prop :=
+  ∀ (y y' : fieldPt ℂ ⟶ Y) (P Q : QML3 ℂ),
+    Φ ℂ y = M3.mk P → Φ ℂ y' = M3.mk Q →
+      (π.val (K := ℂ) y.left = π.val (K := ℂ) y'.left ↔
+          ∃ α : O ≃+* O, Nonempty (QMIso (P.q.twist α) Q.q)) ∧
+      (HasCM4 P.q → π.val (K := ℂ) y.left = OnePoint.some 0) ∧
+      (HasCM3 P.q → π.val (K := ℂ) y.left = OnePoint.infty) ∧
+      (HasCM24 P.q → π.val (K := ℂ) y.left = OnePoint.some (-16 / 27))
+
+/-- **GLUE (R2 at complex points).** Why true: the published statement behind `R2fpProps`
+(Baba–Granath, with R1 at level one) is about `X₆` and `X₆/W ≅ P¹` over `ℚ`, and the coarse moduli
+property holds over every algebraically closed field of characteristic 0, `ℂ` included; for a
+candidate `(Y, Φ, π)` satisfying the clause lists, `π` is determined by its values on the dense
+set of `ℚ̄`-points, so it is the published `π` (Lefschetz principle). -/
+def R2OnC : Prop :=
+  ∀ (Y : Over (Spec (CommRingCat.of ℚ))) (Φ : PtEquiv Y) (π : ToP1 Y.left),
+    R1fpProps Y Φ → R2fpProps Y Φ π → R2fpPropsC Y Φ π
+
+theorem r2CMOnC_of (h : R2OnC) : R2CMOnC := by
+  intro Y Φ π h1 h2 y P hP
+  obtain ⟨-, h4, h3, h24⟩ := h Y Φ π h1 h2 y y P P hP hP
+  exact ⟨h4, h3, h24⟩
+
+section HomInduces
+
+variable {P P' : QML3 ℂ} {τ : ℂ} {hτ : τ.im ≠ 0}
+
+theorem dim_two (P : QML3 ℂ) : P.A.dim = ((2 : ℕ) : WithBot ℕ∞) := by rw [P.surface]; norm_cast
+
+/-- The homomorphism induced by a `Λ_τ`-preserving `M`, between two uniformized objects. -/
+theorem existsUnique_hom (hT : T11aHom)
+    {φ : Torus (QM.qmLattice hτ) ≃+ Additive (P.A.Pt ℂ)}
+    {φ' : Torus (QM.qmLattice hτ) ≃+ Additive (P'.A.Pt ℂ)}
+    (hφ : Uniformization.IsUniformization P.A (QM.qmLattice hτ) φ)
+    (hφ' : Uniformization.IsUniformization P'.A (QM.qmLattice hτ) φ')
+    {M : (Fin 2 → ℂ) →ₗ[ℂ] (Fin 2 → ℂ)} (hM : ∀ z ∈ QM.qmLattice hτ, M z ∈ QM.qmLattice hτ) :
+    ∃! f : AbVar.Hom P.A P'.A, ∀ z, unifMap φ' (M z) = unifMap φ z ≫ f.hom :=
+  hT P.A P'.A 2 _ _ (unifMap φ) (unifMap φ') (dim_two P) (dim_two P')
+    (isUniformization_of_bp P.A hφ) (isUniformization_of_bp P'.A hφ') M hM
+
+end HomInduces
+
+/-- **`PiOfQMLattice` from `T11aHom` and `R2OnC` (proved).** -/
+theorem piOfQMLattice_of (hT : T11aHom) (hR : R2OnC) : PiOfQMLattice := by
+  intro Y Φ π h1 h2 y y' P P' hP hP' τ hτ φ φ' hφ hφ'
+  have hid : ∀ z ∈ QM.qmLattice hτ, (LinearMap.id : (Fin 2 → ℂ) →ₗ[ℂ] (Fin 2 → ℂ)) z ∈
+      QM.qmLattice hτ := fun z hz => hz
+  obtain ⟨f, hf, -⟩ := existsUnique_hom hT hφ.unif hφ'.unif hid
+  obtain ⟨g, hg, -⟩ := existsUnique_hom hT hφ'.unif hφ.unif hid
+  -- `g ∘ f = 1` and `f ∘ g = 1`, by uniqueness for `M = id`
+  have hgf : f.hom ≫ g.hom = 𝟙 _ := by
+    have u := existsUnique_hom hT hφ.unif hφ.unif hid
+    have e1 : ∀ z, unifMap φ ((LinearMap.id : (Fin 2 → ℂ) →ₗ[ℂ] (Fin 2 → ℂ)) z) =
+        unifMap φ z ≫ (AbVar.Hom.mk' (f.hom ≫ g.hom) : AbVar.Hom P.A P.A).hom := by
+      intro z
+      rw [AbVar.Hom.hom_mk', ← Category.assoc, ← hf z]
+      exact hg z
+    have e2 : ∀ z, unifMap φ ((LinearMap.id : (Fin 2 → ℂ) →ₗ[ℂ] (Fin 2 → ℂ)) z) =
+        unifMap φ z ≫ (AbVar.Hom.mk' (𝟙 P.A.X) : AbVar.Hom P.A P.A).hom := by
+      intro z
+      rw [AbVar.Hom.hom_mk', Category.comp_id]
+      rfl
+    have := u.unique e1 e2
+    simpa using congrArg AbVar.Hom.hom this
+  have hfg : g.hom ≫ f.hom = 𝟙 _ := by
+    have u := existsUnique_hom hT hφ'.unif hφ'.unif hid
+    have e1 : ∀ z, unifMap φ' ((LinearMap.id : (Fin 2 → ℂ) →ₗ[ℂ] (Fin 2 → ℂ)) z) =
+        unifMap φ' z ≫ (AbVar.Hom.mk' (g.hom ≫ f.hom) : AbVar.Hom P'.A P'.A).hom := by
+      intro z
+      rw [AbVar.Hom.hom_mk', ← Category.assoc, ← hg z]
+      exact hf z
+    have e2 : ∀ z, unifMap φ' ((LinearMap.id : (Fin 2 → ℂ) →ₗ[ℂ] (Fin 2 → ℂ)) z) =
+        unifMap φ' z ≫ (AbVar.Hom.mk' (𝟙 P'.A.X) : AbVar.Hom P'.A P'.A).hom := by
+      intro z
+      rw [AbVar.Hom.hom_mk', Category.comp_id]
+      rfl
+    have := u.unique e1 e2
+    simpa using congrArg AbVar.Hom.hom this
+  -- equivariance, by uniqueness for `M = ι(a)`
+  have heq : ∀ a : O, (P.q.iota a).hom ≫ f.hom = f.hom ≫ (P'.q.iota a).hom := by
+    intro a
+    have hMa : ∀ z ∈ QM.qmLattice hτ, Matrix.toLin' (iotaC (a : LeafQM.B)) z ∈
+        QM.qmLattice hτ := fun z hz => by rw [Matrix.toLin'_apply]; exact iotaC_mem a hτ hz
+    have u := existsUnique_hom hT hφ.unif hφ'.unif hMa
+    have e1 : ∀ z, unifMap φ' (Matrix.toLin' (iotaC (a : LeafQM.B)) z) =
+        unifMap φ z ≫ (AbVar.Hom.mk' ((P.q.iota a).hom ≫ f.hom) : AbVar.Hom P.A P'.A).hom := by
+      intro z
+      rw [AbVar.Hom.hom_mk', ← Category.assoc, ← induces_iota hφ a z]
+      exact hf _
+    have e2 : ∀ z, unifMap φ' (Matrix.toLin' (iotaC (a : LeafQM.B)) z) =
+        unifMap φ z ≫ (AbVar.Hom.mk' (f.hom ≫ (P'.q.iota a).hom) : AbVar.Hom P.A P'.A).hom := by
+      intro z
+      rw [AbVar.Hom.hom_mk', ← Category.assoc, ← hf z]
+      exact induces_iota hφ' a z
+    have := u.unique e1 e2
+    simpa using congrArg AbVar.Hom.hom this
+  have iso : QMIso (P.q.twist (RingEquiv.refl O)) P'.q :=
+    { φ := f, ψ := g, left := hgf, right := hfg, equivariant := fun a => heq a }
+  exact ((hR Y Φ π h1 h2 y y' P P' hP hP').1).2 ⟨RingEquiv.refl O, ⟨iso⟩⟩
+
+/-- **`FibreQMPeriod` from R1(b), `QMHauptmodul`, T11a (both forms) and six glue Props
+(proved).** -/
+theorem fibreQMPeriod_of_r1b_T11aHom (hR1b : R01b_ComplexUniformization')
+    (hH : PkgI1.QMHauptmodul) (hT : ZInQ.LeafPush2.T11a_RiemannEnd) (hTH : T11aHom)
+    (hM : MobiusRigidity) (hHol : HauptmodulHolomorphic) (hO : FamilyOrbits) (hR : R2OnC)
+    (hC : JDenNonzero) (hU : UnifBaseChange) : FibreQMPeriod' :=
+  fibreQMPeriod_of_r1b_T11a hR1b hH hT hM hHol hO (r2CMOnC_of hR) (piOfQMLattice_of hTH hR) hC hU
+
+end R1bState

@@ -66,3 +66,8 @@
   existence + uniqueness (`exists_cm_end`), and the three quadratic relations transported by
   uniqueness. `FamilyCMValues`/`CMPointsExist` now carry `det ι(x) > 0` (true for the witnesses).
   `fibreQMPeriod_of_r1b_T11a`. 0 errors, no `sorry`; axioms standard (VERIFIED).
+- run31-34: Part8b_Hom: `T11aHom` (T11a in `Hom` form, textbook leaf candidate), `R2fpPropsC`,
+  glue `R2OnC` (R2's clauses at ℂ-points); proved `r2CMOnC_of`, `piOfQMLattice_of` (the analytic
+  ι-equivariant isomorphism is algebraic by `T11aHom` existence + uniqueness, giving a `QMIso`),
+  `fibreQMPeriod_of_r1b_T11aHom`. build.sh now sorts with `LC_ALL=C` (locale sort put Part8b
+  before Part8_). 0 errors, no `sorry`; axioms standard (VERIFIED).
