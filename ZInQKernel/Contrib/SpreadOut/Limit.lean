@@ -217,7 +217,7 @@ theorem exists_lift [IsCofiltered I] [∀ {i j : I} (f : i ⟶ j), IsAffineHom (
     (bcDiag D Y) (bcDiagT D Y) Z.hom (bcCone D c Y) (bcConeIsLimit D c hc Y)
     (g.left ≫ pullback.fst _ _) (by
       ext l
-      simp only [NatTrans.comp_app, Functor.const_obj_obj, bcCone_pt, bcCone_π_app, bcDiagT_app,
+      simp only [NatTrans.comp_app, Functor.const_obj_obj, bcCone_π_app, bcDiagT_app,
         pullback.lift_snd_assoc, Category.assoc, c.w, Functor.const_map_app]
       rw [pullback.condition, reassoc_of% hgw])
   have h2' : g₀ ≫ Z.hom = pullback.snd Y.hom (D.map l.hom) ≫ D.map l.hom := h2
@@ -232,7 +232,7 @@ theorem exists_lift [IsCofiltered I] [∀ {i j : I} (f : i ⟶ j), IsAffineHom (
       g.left ≫ pullback.fst Z.hom (c.π.app k) := h1
   apply pullback.hom_ext
   · apply pullback.hom_ext
-    · simp only [Category.assoc, pullback.lift_fst, pullback.lift_fst_assoc, pbNatLeft_inv_fst_fst]
+    · simp only [Category.assoc, pullback.lift_fst, pbNatLeft_inv_fst_fst]
       rw [← h1', ← Category.assoc]
       congr 1
       apply pullback.hom_ext

@@ -181,7 +181,7 @@ theorem compatU_transport {u : 𝟙_ C ⟶ M} (h : CompatU F e u) :
   have hn := θ.hom.naturality u
   simp only [Functor.comp_map] at hn
   rw [← cancel_mono (θ.hom.app M)]
-  simp only [Iso.trans_hom, Iso.trans_inv, Iso.app_hom, Iso.app_inv, Category.assoc,
+  simp only [Iso.trans_inv, Iso.app_inv, Category.assoc,
     Iso.inv_hom_id_app, Category.comp_id, F'.map_comp]
   calc LaxMonoidal.ε F' ≫ F'.map (LaxMonoidal.ε P) ≫ F'.map (P.map u) ≫ θ.hom.app M
         = (LaxMonoidal.ε F' ≫ F'.map (LaxMonoidal.ε P) ≫ θ.hom.app (𝟙_ C)) ≫ F.map u := by
@@ -221,7 +221,7 @@ theorem compatU_of_lift {g' : P.obj (𝟙_ C) ⟶ P.obj M}
   have ht := NatTrans.IsMonoidal.unit (τ := θ.hom)
   simp only [LaxMonoidal.comp_ε, Category.assoc] at ht
   rw [F'.map_comp, hg]
-  simp only [Iso.trans_hom, Iso.trans_inv, Iso.app_hom, Iso.app_inv, Category.assoc]
+  simp only [Iso.trans_inv, Iso.app_inv, Category.assoc]
   have : LaxMonoidal.ε F' ≫ F'.map (LaxMonoidal.ε P) ≫ θ.hom.app (𝟙_ C) = LaxMonoidal.ε F := ht
   rw [reassoc_of% this, IsIso.hom_inv_id_assoc]
 
