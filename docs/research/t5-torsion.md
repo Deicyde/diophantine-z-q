@@ -157,6 +157,11 @@ For an abelian group `M` with `#M[ℓⁿ] = ℓ^{nr}` for all `n`:
 | `HDecomp/A6/A6.lean` `goodReduction_of_QM_rational3*` via `QM/Structures` `QML3.goodReduction` | G0Assemble2 `good_of_QML3` (:59730) and G0Assemble3 `qmModelG3_of` (:74743): `K : IntermediateField ℚ ℚ̄` | 3^{2k}, 2 | `QML3.goodReductionC … (qbarToC.comp K.val)` |
 | G0Assemble2 `torsionBound3_of` (:56625, via `fibreCoverExists_of_propTSAll'`) | `ℚ̄` | 3, 2 | `AssemblyCopies.torsionBound3_of_T35 t.t35` |
 | G0Assemble2 `torsionCountPts_of_leaf` (:59756, via `kernelFieldExists_of_split''`, `conjMapsNoCM_of`) | `L : IntermediateField ℚ ℚ̄` | n, 2 | `AssemblyCopies.torsionCountPts_of_T35 t.t35` |
+| lt-local (`scratch/lt-local/LtLocal4.lean:3055`) `torsGL_of_leaf` (via `localGlue_of_descent`, `linkedTateLocal_of_tateBridge35`) | `K` a number field (`variable {K} [Field K] [NumberField K]`) | m, 2 | `T5Torsion.torsionStructure_numberField t.t35 K (toGrp A) 2 m _ hm` |
+
+Drop-ins for the remaining shapes are `T5Torsion.torsionStructure_numberField` and
+`T5Torsion.torsionStructure_subfieldQbar` (part 10). They are T5 at a number field and at a subfield
+of `ℚ̄`, with the embeddings `numberFieldToC` and `subfieldQbarToC`.
 
 `ConjTwistFromLeaves` (G0Assemble2:46560) has T5 among its hypotheses. It is a definition and is
 not on the main chain.

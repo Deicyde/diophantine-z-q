@@ -52,3 +52,7 @@
 - Pitfalls: Module (ZMod ℓ) given by `letI := AddCommGroup.zmodModule h` makes Module.finBasisOfFinrankEq / natCard_eq_pow_finrank
   instance search "stuck"; state the lemma with `[Module (ZMod ℓ) V]` as a binder and pass the instance with `@`.
   A file-level `open … MonObj` makes `one_mul` resolve to `MonObj.one_mul`; use `_root_.one_mul`.
+- part 10 (T5Full.lean): `numberFieldToC`, `subfieldQbarToC`, `torsionStructure_numberField`, `torsionStructure_subfieldQbar`
+  (T5 at number fields / subfields of ℚ̄ from T35). COMPILES (VERIFIED).
+- Consumers found later (VERIFIED by reading): g0-assemble3 `qmModelG3_of` (G0Assemble3.lean:74743, K : IF, via QML3.goodReduction);
+  lt-local `torsGL_of_leaf` (scratch/lt-local/LtLocal4.lean:3055, K a number field).

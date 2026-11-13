@@ -1247,3 +1247,43 @@ end T5Torsion
 #print axioms T5Torsion.tateModuleFreeC_of_uniformization
 #print axioms T5Torsion.tateModuleFree_of_torsionCard
 #print axioms T5Torsion.tateModuleFree_of_uniformization_of_nonC
+
+/-! ## Part 10: embeddings into `ℂ` for the consumers' fields, and T5 on number fields -/
+
+namespace T5Torsion
+
+open CategoryTheory AlgebraicGeometry Limits MonoidalCategory CartesianMonoidalCategory MonObj
+open PkgI2 (IsAbelianVariety torsion)
+
+/-- A ring embedding of a number field into `ℂ`. -/
+noncomputable def numberFieldToC (K : Type) [Field K] [NumberField K] : K →+* ℂ :=
+  (IsAlgClosed.lift : K →ₐ[ℚ] ℂ).toRingHom
+
+/-- A ring embedding of a subfield of `ℚ̄` into `ℂ`. -/
+noncomputable def subfieldQbarToC (L : IntermediateField ℚ (AlgebraicClosure ℚ)) : L →+* ℂ :=
+  Pin.qbarToC'.comp (L.val : L →+* AlgebraicClosure ℚ)
+
+/-- **T5 over number fields, from T35** (drop-in for lt-local's `torsGL_of_leaf`, whose `K` is a
+number field). -/
+theorem torsionStructure_numberField (hU : ZInQ.LeafPush2.UniformizationExists)
+    (K : Type) [Field K] [NumberField K] (A : Grp (Over (Spec (.of K)))) [IsAbelianVariety A]
+    (g n : ℕ) (hg : topologicalKrullDim A.X.left = (g : WithBot ℕ∞)) (hn : 0 < n) :
+    ∃ e : torsion A (AlgebraicClosure K) n ≃ (Fin (2 * g) → ZMod n),
+      ∀ x y : torsion A (AlgebraicClosure K) n,
+        ∀ h : x.1 * y.1 ∈ torsion A (AlgebraicClosure K) n, e ⟨x.1 * y.1, h⟩ = e x + e y :=
+  torsionStructureC_of_uniformization hU K (numberFieldToC K) A g n hg hn
+
+/-- **T5 over subfields of `ℚ̄`, from T35** (the assemblies' `IF`). -/
+theorem torsionStructure_subfieldQbar (hU : ZInQ.LeafPush2.UniformizationExists)
+    (L : IntermediateField ℚ (AlgebraicClosure ℚ)) (A : Grp (Over (Spec (.of L))))
+    [IsAbelianVariety A] (g n : ℕ) (hg : topologicalKrullDim A.X.left = (g : WithBot ℕ∞))
+    (hn : 0 < n) :
+    ∃ e : torsion A (AlgebraicClosure L) n ≃ (Fin (2 * g) → ZMod n),
+      ∀ x y : torsion A (AlgebraicClosure L) n,
+        ∀ h : x.1 * y.1 ∈ torsion A (AlgebraicClosure L) n, e ⟨x.1 * y.1, h⟩ = e x + e y :=
+  torsionStructureC_of_uniformization hU L (subfieldQbarToC L) A g n hg hn
+
+end T5Torsion
+
+#print axioms T5Torsion.torsionStructure_numberField
+#print axioms T5Torsion.torsionStructure_subfieldQbar
