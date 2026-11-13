@@ -1,21 +1,23 @@
 # hdec-adopt5a: c9-rhof, e1-sub, x1-belyi, hodge-lattice and h5-neron in the built project
+# (and glue H4b proved)
 
-Status: task hdec-adopt5a, 2026-11-13. Results log: `scratch/hdec-adopt5a/log.md`. Generator:
-`scratch/hdec-adopt5a/adopt5a.py` (uses `scratch/hdec-adopt/wrap.py`). Statement check:
-`same.py`. Axiom section: `axsec.py`. Axiom output for the new entries: `axioms.txt`.
+Status: task hdec-adopt5a, 2026-11-13. Results log: `scratch/hdec-adopt5a/log.md`. Generators:
+`scratch/hdec-adopt5a/adopt5a.py` (uses `scratch/hdec-adopt/wrap.py`) and `h4b.py`. Statement
+check: `same.py`. Axiom section: `axsec.py`. Axiom output for the new entries: `axioms.txt`.
 
 ## Result
 
-VERIFIED (01:35 PST, after the last Lean change):
+VERIFIED (02:01 PST, after the last Lean change):
 
-- `lake build ZInQKernel` exits 0 (9996 jobs).
-- `lake env lean scripts/print_axioms.lean` exits 0 and prints 464 axiom lists. Each is exactly
-  `[propext, Classical.choice, Quot.sound]`, and there is no other output. 65 of them are new
+- `lake build ZInQKernel` exits 0 (9997 jobs).
+- `lake env lean scripts/print_axioms.lean` exits 0 and prints 471 axiom lists. Each is exactly
+  `[propext, Classical.choice, Quot.sound]`, and there is no other output. 72 of them are new
   here (399 before).
 
-All five developments named by the task are adopted, and nothing was dropped. They form five new
-modules (about 3,900 lines) under `ZInQKernel/HDecomp/`, all imported from
-`ZInQKernel/HDecomp.lean`:
+All five developments named by the task are adopted, and nothing was dropped. They form five
+modules (about 3,900 lines) under `ZInQKernel/HDecomp/`. A sixth module is new work: it adopts
+h5-neron's unfinished part F and **completes it, proving glue H4b** (`GroupModelBaseChangeExists`,
+§H4b below). All six are imported from `ZInQKernel/HDecomp.lean`:
 
 | Module | Draft | Lines | Main theorems |
 |---|---|---|---|
@@ -24,6 +26,7 @@ modules (about 3,900 lines) under `ZInQKernel/HDecomp/`, all imported from
 | `ModCurves/X1Belyi.lean` | `scratch/x1-belyi/X1Belyi.lean` | 377 | `X1Belyi.belyiX1_of_leaves`, `x1ModelExists_of_leaves`, `modCurveLeaves_of` |
 | `Faltings/HodgeLattice.lean` | `scratch/hodge-lattice/HodgeLattice.lean` | 1181 | `ZInQ.DefFaltings.HodgeLattice.hodgeLatticeTheorem_of_tangent`, `omegaLocal`, `genericFibreStalkIso` |
 | `Faltings/H5Neron.lean` | `scratch/h5-neron/H5Neron.lean` (see below) | 855 | `ZInQ.H5Neron.stableFaltingsHeight_eq_neron_all`, `stableFaltingsHeight_add_le'`, `productGroupModelExists` |
+| `Faltings/H5BaseChange.lean` | `scratch/h5-neron/BaseChange.lean` (compiled part) + new assembly | 216 | `ZInQ.H5Neron.groupModelBaseChangeExists` (**new**), `bcGen'_isMonHom` |
 
 In terms of the decomposition, these glue targets are now Lean theorems in the build:
 
@@ -31,9 +34,12 @@ In terms of the decomposition, these glue targets are now Lean theorems in the b
 - `X1ModelExists` and `BelyiX1`, proved from five leaves (`X1Belyi`);
 - C9, the identification of R16's `ρ_{f,ι}` against R14 and against C8's `r₅` (`C9Rhof`);
 - `HodgeLatticeTheorem`, proved from `TangentDimAtOrigin` and `DimBaseChange`;
-- H5 in the form R19-R21 need, proved from the leaves N1 and N2 and glue (`H5Neron`).
+- H5 in the form R19-R21 need, proved from the leaves N1 and N2 and glue (`H5Neron`);
+- **h5-neron's glue H4b `GroupModelBaseChangeExists`, proved here** (`H5BaseChange`): a group model
+  of `A_L` over `𝓞_L` base-changes to a group model of `A_{L'}` over `𝓞_{L'}`. So
+  `stableFaltingsHeight_eq_neron_all` now needs three glue statements instead of four.
 
-**Statements are unchanged** (VERIFIED, `same.py`: ALL SAME). After deleting the `import` and
+**Statements are unchanged** (VERIFIED, `same.py`: ALL SAME, for the five adopted drafts). After deleting the `import` and
 `#print` lines and the one-paragraph adoption docstring, each module has the same text as its
 draft, up to whitespace. Each module also has exactly the draft's imports. The only edits are
 moving `#print axioms` lines to `scripts/print_axioms.lean`, collapsing runs of blank lines, and
@@ -74,10 +80,41 @@ or `pkg-I4` into the build, the four `PkgI4.*` names will clash. That adoption s
   no conflict.
 - **Adopted:** `H5Neron.lean`, the combined file of parts A-E. Its 27 `#print axioms` targets are
   all in the axiom script.
-- **Not adopted:** `scratch/h5-neron/BaseChange.lean` (part F). It is partial: its main theorem
-  `groupModelBaseChangeExists` (glue H4b) fails with a kernel deterministic timeout, and the proof
-  is kept only as a comment. Only its helper lemmas compile. The separate files `Neron.lean`,
-  `ZeroAV.lean`, `Reduction.lean` and `ProductModel.lean` are covered by the combined file.
+- **Part F** (`scratch/h5-neron/BaseChange.lean`, partial in the draft) is adopted as
+  `Faltings/H5BaseChange.lean`, and its main theorem is now proved (§H4b).
+- The separate files `Neron.lean`, `ZeroAV.lean`, `Reduction.lean`, `ProductModel.lean` and
+  `T.lean` are not adopted. The combined file covers them.
+
+## H4b: `groupModelBaseChangeExists` (new proof, VERIFIED)
+
+The draft's assembly of `bcGen_isMonHom` passed the elaborator, but the kernel reported a
+deterministic timeout. The draft's diagnosis was "a mismatch in hidden instance arguments". The
+experiments here (`scratch/hdec-adopt5a/Exp1.lean`-`Exp3.lean`, outside the build) locate it
+elsewhere: the timeout is in the equation `(bcGen 𝒢).hom = composite`. The draft closes it by
+`rfl`. `rw` or `simp` followed by a final definitional step also time out.
+
+The cause is the types. `bcGen`'s declared source and target are `genericFibre L' _` and
+`(A.baseChange L').X`, and `𝒢.gen`'s target is `(A.baseChange L).X`. None of these is
+syntactically the object in the composite, so the kernel must unfold the category structure of
+`Over`.
+
+The fix, in the hdec-adopt5a section of the module (`H4bAssembly.part`):
+- `genIso 𝒢`: `𝒢.gen` restated at the unfolded types, with `genIso_isMonHom := 𝒢.gen_hom`.
+- `bcGen' 𝒢`: the same six-step isomorphism, built at the composite's own type.
+- `bcGen'_hom`: its `hom` as the six-fold composite. The proof is an explicit chain of
+  `Iso.trans_hom` and `congrArg₂` steps. Each one-step lemma passes the kernel quickly, while a
+  single `simp only` over the same lemmas still times out.
+- `bcGen'_isMonHom`: by `rw [bcGen'_hom]; infer_instance`, from the draft's compiled lemmas
+  `isMonHom_pbCompHom`, `isMonHom_pbCompInv` and `isMonHom_pbEq`. The instance terms gave no
+  trouble.
+- `groupModelBaseChangeExists`: as in the draft, with `bcGen'` used directly as the new
+  `GroupModel`'s `gen`. Its type unfolds definitionally to `genericFibre L' _ ≅ (A.baseChange L').X`.
+
+The draft's own copies of `IsBaseChangeOf` and `GroupModelBaseChangeExists` are verbatim in
+`H5Neron.lean`; `h4b.py` asserts this. They are replaced by the import, so the theorem proves
+exactly the glue Prop stated in `H5Neron`. The draft's compiled lemmas, `bcGen` included, are kept
+unchanged. Only the unfinished comment block is dropped. Statement check: the module states
+`theorem groupModelBaseChangeExists : GroupModelBaseChangeExists`, with no hypotheses.
 
 ## Docstring repairs (asked for by the task)
 
@@ -102,13 +139,17 @@ All three are docstring-only (VERIFIED by `git diff`, and the build passes):
 
 ## Edits to shared files (for the merge with the parallel adoption task)
 
-- `ZInQKernel/HDecomp.lean`: one block of five `import` lines, appended **after the last existing
+- `ZInQKernel/HDecomp.lean`: one block of six `import` lines, appended **after the last existing
   import line**. Lean does not allow imports after the closing docstring, so the block cannot go
   at the very end of the file. The docstring, which lists the adopting tasks, was left unchanged to
   keep the merge simple. Adding "hdec-adopt5a" there is a one-word follow-up.
-- `scripts/print_axioms.lean`: one block at the end of the file, a two-line comment and 65
-  `#print axioms` lines. These are the drafts' 62 targets plus `E1Sub.rhoF_semisimple_of_surj`,
-  `X1Belyi.modCurveLeaves_of` and `ZInQ.DefFaltings.HodgeLattice.tangentDimAtOrigin_of`.
+- `scripts/print_axioms.lean`: one block at the end of the file, with comments and 72
+  `#print axioms` lines. These are:
+  - the drafts' 62 targets;
+  - `E1Sub.rhoF_semisimple_of_surj`, `X1Belyi.modCurveLeaves_of` and
+    `ZInQ.DefFaltings.HodgeLattice.tangentDimAtOrigin_of`;
+  - for part F: the draft's 5 targets, plus `bcGen'_hom`, `bcGen'_isMonHom` and
+    `groupModelBaseChangeExists`.
 
 ## What remains (not done here)
 
@@ -116,24 +157,28 @@ All three are docstring-only (VERIFIED by `git diff`, and the build passes):
   - x1-belyi: T1, T2, M1, M2, M3;
   - hodge-lattice: `TangentDimAtOrigin` (or `RegularAtOrigin` with `DimAtOrigin`) and
     `DimBaseChange`;
-  - h5-neron: the leaves N1 and N2, and the glue `ModelHeightBaseChange`,
-    `GroupModelBaseChangeExists`, `OpenSubgroupHeight` and `ProductModelHeight`;
+  - h5-neron: the leaves N1 and N2, and the glue `ModelHeightBaseChange`, `OpenSubgroupHeight`
+    and `ProductModelHeight` (`GroupModelBaseChangeExists` is now proved);
   - C9: T18, T19, R14, T24 and T25.
 
-  hodge-lattice's `DimBaseChange` is likely the same statement as the `DimBaseChange` glue of
-  `scratch/g0-split/Split.lean`. Neither that file nor `scratch/h-decomposition/Leaves.lean` is in
-  this base, so this was not checked (UNVERIFIED).
+  hodge-lattice's `DimBaseChange` and the `DimBaseChange` glue of g0-split say the same thing:
+  `(A.baseChange L).dim = A.dim`. The g0-split version is in `scratch/g0-split/Split.lean`, which
+  is not in this base; it was read at cc52155b. The two differ only in binder order and in the
+  `AbVar` they use: g0-split's file is self-contained, with its own copy of `AbVar`. This was
+  checked by reading only, not in Lean.
 - `scratch/h-decomposition/Leaves.lean` and `docs/research/h-decomposition.md` (outside this
   task's files) still list `VSurjOfSurjective`, `X1ModelExists`/`BelyiX1`, C9 and
   `HodgeLatticeTheorem` as open glue. Their Lean proofs are now in the build under the names above.
-- h5-neron's H4b (`BaseChange.lean`) is still unproved because of the kernel timeout.
+- `docs/research/h5-neron.md` (on `wip/h5-neron`) still lists H4b as partial and unproved.
 
 ## How to reproduce
 
-1. Make `scratch/hdec-adopt5a/src/H5Neron.lean` available: it is committed here, and is
-   `git show b7c1dc21:scratch/h5-neron/H5Neron.lean`.
+1. `scratch/hdec-adopt5a/src/H5Neron.lean` and `src/BaseChange.lean` are committed here. They
+   are `git show b7c1dc21:scratch/h5-neron/<file>`.
 2. Run `python3 -I scratch/hdec-adopt5a/adopt5a.py`. It regenerates the five modules from the
    drafts, byte-identical (VERIFIED).
 3. Run `python3 -I scratch/hdec-adopt5a/same.py`. It should print `ALL SAME`.
-4. `axsec.py` appends the axiom section once; it refuses to run if the section is already present.
+   Then run `python3 -I scratch/hdec-adopt5a/h4b.py`, which writes `Faltings/H5BaseChange.lean`.
+4. `axsec.py` appends the axiom section (65 entries) once and refuses to run if the section is
+   already present. The 7 part-F entries and their comment line were then appended by hand.
 5. Run `lake build ZInQKernel`, then `lake env lean scripts/print_axioms.lean`.
