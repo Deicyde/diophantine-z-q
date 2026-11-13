@@ -9,7 +9,7 @@
 - 01:53 prefix olean built (231 s, exit 0).
 
 ## Decomposition (Tail.lean)
-- 02:00 `G0FibreSimple.fibreSimple_of_pieces : QMDichotomyYu → EndDivisionDescent → EndDivisionOfSchemeIso →
+- 01:58 `G0FibreSimple.fibreSimple_of_pieces : QMDichotomyYu → EndDivisionDescent → EndDivisionOfSchemeIso →
   EndDivisionOfEnd0Division → CentralizerOfMatrixEnd0 → FibreComTrivial → HSyn.G0Split.FibreSimple` COMPILED
   (exit 0, 38 s against the prefix olean); `#print axioms`: propext, Classical.choice, Quot.sound.
   Also `fibreSimple_of_leaves (t : TextbookLeaves) (p : FibreSimplePieces)` (T27 is `TextbookLeaves.t27`).
@@ -18,7 +18,7 @@
   with j = 2·(1+j)/2 − 1 ∈ 𝒪).
 
 ## Finding: R1fpProps/R2fpProps do not pin down Φ on closed points
-- 02:10 COMPILED (exit 0, 101 s): `PtAuto Y` (natural automorphism σ of the field-point functor), `twistBy Φ σ`,
+- 02:00 COMPILED (exit 0, 101 s): `PtAuto Y` (natural automorphism σ of the field-point functor), `twistBy Φ σ`,
   `r1fpProps_twistBy` (R1fpProps invariant, no condition), `r2fpProps_twistBy` (R2fpProps invariant if σ permutes the
   π-fibres of ℚ̄-points and fixes the fibres over 0, ∞, −16/27), `fibreComTrivial_twisted`. Standard axioms.
 - Consequence (argument, SPECULATIVE in its arithmetic part): with the true data (Y₃, Φ, π), a natural σ exchanging
@@ -28,9 +28,17 @@
   conjunct is not a published theorem and is not decided here.
 
 ## FS4 proved
-- 02:25 COMPILED (exit 0, 23 s): `centralizerOfMatrixEnd0_of_homFree : PkgI3.HomFreeFinite → CentralizerOfMatrixEnd0`
+- 02:04 COMPILED (exit 0, 23 s): `centralizerOfMatrixEnd0_of_homFree : PkgI3.HomFreeFinite → CentralizerOfMatrixEnd0`
   (scalar matrix √d central; ℚ ⊗ End A = localization (isLocalizedModule_iff_isBaseChange); freeness from T6 gives
   injectivity of m ↦ 1⊗m). `fibreSimple_of_pieces'` and `fibreSimple_of_leaves (t : TextbookLeaves)
   (p : FibreSimplePieces)` now use T6 = `TextbookLeaves.t6`, T27 = `TextbookLeaves.t27` and four glue pieces
   FS1 EndDivisionDescent, FS2 EndDivisionOfSchemeIso, FS3 EndDivisionOfEnd0Division, FS5 FibreComTrivial.
   All standard axioms.
+
+## FS3 proved
+- 02:10 COMPILED (exit 0, 69 s; rerun 19 s after bundle edit): `end0Division_of_homFree : HomFreeFinite → MulIsogeny →
+  EndDivisionOfEnd0Division`. New textbook leaf `MulIsogeny` (Mumford §4 Application 2, locator UNVERIFIED: `[n]`,
+  `n ≠ 0`, finite and surjective, char 0). Proof: clear denominators of u⁻¹ (localization), g∘f = f∘g = [s];
+  Mathlib `IsFinite.of_comp` (g separated: `IsSeparated.of_comp` with `Over.w`) and `Surjective.of_comp`.
+- `fibreSimple_of_leaves (t : TextbookLeaves) (hMul : MulIsogeny) (p : FibreSimplePieces)`, bundle = FS1
+  EndDivisionDescent, FS2 EndDivisionOfSchemeIso, FS5 FibreComTrivial. Standard axioms.

@@ -8,10 +8,11 @@ depends on in `FSPrefix.lean`) is proved below (`fibreSimple_of_pieces`) from
 
 * the leaves T27 (`PkgI3.QMDichotomyYu`, Yu 2013 Thm 1.1) and T6 (`PkgI3.HomFreeFinite`,
   Mumford §19 Thm 3), fields `t27`, `t6` of `TextbookLeaves`, and
-* four named glue Props (`EndDivisionDescent`, `EndDivisionOfSchemeIso`,
-  `EndDivisionOfEnd0Division`, `FibreComTrivial`),
+* the textbook leaf `MulIsogeny` (Mumford §4: `[n]` is an isogeny), and
+* three named glue Props (`EndDivisionDescent`, `EndDivisionOfSchemeIso`, `FibreComTrivial`),
 
-with three proved glue lemmas: the QM structure gives `B = ℍ[ℚ,2,-3] →ₐ[ℚ] End⁰(A)`
+with four proved glue lemmas: `End⁰(A)` a division algebra ⇒ nonzero endomorphisms are isogenies
+(`end0Division_of_homFree`, from T6 and `MulIsogeny`), the QM structure gives `B = ℍ[ℚ,2,-3] →ₐ[ℚ] End⁰(A)`
 (`qm_embeds_end0`), `B` is a division algebra (`B6_isUnit`), and the CM case of Yu's dichotomy
 has a non-integral `𝒪`-centralizer (`centralizerOfMatrixEnd0_of_homFree`, from T6).
 
@@ -280,18 +281,84 @@ theorem fibreSimple_of_pieces' (t6 : PkgI3.HomFreeFinite) (t27 : PkgI3.QMDichoto
     (h5 : FibreComTrivial) : FibreSimple :=
   fibreSimple_of_pieces t27 h1 h2 h3 (centralizerOfMatrixEnd0_of_homFree t6) h5
 
-/-- The four unproved glue pieces as one bundle (FS4 is proved from T6). -/
+
+/-! ## §4″ FS3 from T6 and the textbook leaf `MulIsogeny` -/
+
+/-- **Textbook leaf (Mumford, *Abelian varieties*, §4, Application 2 / §6; locator UNVERIFIED):
+multiplication by `n ≠ 0` is an isogeny** (finite and surjective, of degree `n^{2g}`), stated
+in characteristic `0` (where Mumford's statement holds with no restriction on `n`). This is
+Mumford's statement with the degree dropped, so a consequence of it. -/
+def MulIsogeny : Prop :=
+  ∀ (k : Type) [Field k] [CharZero k] (A : PkgI3.AbVar k) (n : ℤ), n ≠ 0 →
+    PkgI3.AbVar.IsIsogenyMor ((n : PkgI3.AbVar.End A).hom)
+
+/-- **FS3 is proved from T6 (`PkgI3.HomFreeFinite`) and `MulIsogeny`.** If `1 ⊗ f` is a unit of
+`End⁰(A)` with inverse `u⁻¹`, clearing denominators gives `g` and `s ≠ 0` with `g ∘ f = [s]` and
+`f ∘ g = [s]` (freeness of `End(A)` makes `m ↦ 1 ⊗ m` injective). `[s]` is finite and surjective,
+so `f` is finite (Mathlib `IsFinite.of_comp`, `g` separated since `A` is proper) and surjective
+(`Surjective.of_comp`). -/
+theorem end0Division_of_homFree (hHF : PkgI3.HomFreeFinite) (hMul : MulIsogeny) :
+    EndDivisionOfEnd0Division := by
+  intro k _ _ A hdiv f hf
+  have hfree : Module.Free ℤ (PkgI3.AbVar.End A) := (hHF k A A).1
+  let F := TensorProduct.mk ℤ ℚ (PkgI3.AbVar.End A) 1
+  have hloc : IsLocalizedModule (nonZeroDivisors ℤ) F :=
+    (isLocalizedModule_iff_isBaseChange (nonZeroDivisors ℤ) ℚ F).mpr
+      (TensorProduct.isBaseChange (R := ℤ) (M := PkgI3.AbVar.End A) (S := ℚ))
+  have hinj : ∀ m : PkgI3.AbVar.End A, (1 : ℚ) ⊗ₜ[ℤ] m = 0 → m = 0 := by
+    intro m hm
+    obtain ⟨s', hs'⟩ := (IsLocalizedModule.eq_zero_iff (nonZeroDivisors ℤ) F).mp hm
+    rw [Submonoid.smul_def] at hs'
+    exact (smul_eq_zero.mp hs').resolve_left (nonZeroDivisors.coe_ne_zero s')
+  have e1 : ∀ x y : PkgI3.AbVar.End A,
+      (1 : ℚ) ⊗ₜ[ℤ] (x * y) = ((1 : ℚ) ⊗ₜ[ℤ] x) * ((1 : ℚ) ⊗ₜ[ℤ] y) := by
+    intro x y; rw [Algebra.TensorProduct.tmul_mul_tmul, _root_.mul_one]
+  have hx : (1 : ℚ) ⊗ₜ[ℤ] f ≠ 0 := fun h => hf (hinj f h)
+  obtain ⟨u, hu⟩ := hdiv _ hx
+  obtain ⟨⟨g, s⟩, hs⟩ := IsLocalizedModule.surj (nonZeroDivisors ℤ) F (↑u⁻¹ : PkgI3.AbVar.End0 A)
+  have hs' : (1 : ℚ) ⊗ₜ[ℤ] g = (s : ℤ) • (↑u⁻¹ : PkgI3.AbVar.End0 A) := by
+    rw [Submonoid.smul_def] at hs; exact hs.symm
+  have hs0 : (s : ℤ) ≠ 0 := nonZeroDivisors.coe_ne_zero s
+  have hcast : (1 : ℚ) ⊗ₜ[ℤ] ((s : ℤ) : PkgI3.AbVar.End A) = ((s : ℤ) : PkgI3.AbVar.End0 A) :=
+    map_intCast (Algebra.TensorProduct.includeRight :
+      PkgI3.AbVar.End A →ₐ[ℤ] ℚ ⊗[ℤ] PkgI3.AbVar.End A) _
+  have hgf : g * f = ((s : ℤ) : PkgI3.AbVar.End A) := by
+    apply sub_eq_zero.mp; apply hinj
+    rw [TensorProduct.tmul_sub, e1, hs', ← hu, smul_mul_assoc, Units.inv_mul, hcast,
+      zsmul_eq_mul, _root_.mul_one, sub_self]
+  have hfg : f * g = ((s : ℤ) : PkgI3.AbVar.End A) := by
+    apply sub_eq_zero.mp; apply hinj
+    rw [TensorProduct.tmul_sub, e1, hs', ← hu, mul_smul_comm, Units.mul_inv, hcast,
+      zsmul_eq_mul, _root_.mul_one, sub_self]
+  obtain ⟨hfin, hsurj⟩ := hMul k A (s : ℤ) hs0
+  rw [← hgf] at hfin
+  rw [← hfg] at hsurj
+  change IsFinite (f.hom ≫ g.hom).left at hfin
+  change Surjective (g.hom ≫ f.hom).left at hsurj
+  rw [Over.comp_left] at hfin hsurj
+  have hsep : IsSeparated (g.hom.left ≫ A.X.hom) := by rw [Over.w g.hom]; infer_instance
+  have : IsSeparated g.hom.left := IsSeparated.of_comp (f := g.hom.left) (g := A.X.hom)
+  exact ⟨IsFinite.of_comp f.hom.left g.hom.left, Surjective.of_comp g.hom.left f.hom.left⟩
+
+/-- `FibreSimple` from the leaves T6, T27, `MulIsogeny` and the three glue pieces FS1, FS2, FS5. -/
+theorem fibreSimple_of_pieces'' (t6 : PkgI3.HomFreeFinite) (t27 : PkgI3.QMDichotomyYu)
+    (hMul : MulIsogeny) (h1 : EndDivisionDescent) (h2 : EndDivisionOfSchemeIso)
+    (h5 : FibreComTrivial) : FibreSimple :=
+  fibreSimple_of_pieces' t6 t27 h1 h2 (end0Division_of_homFree t6 hMul) h5
+
+/-- The three unproved glue pieces as one bundle (FS3 is proved from T6 and `MulIsogeny`, FS4
+from T6). -/
 structure FibreSimplePieces : Prop where
   descent : EndDivisionDescent
   schemeIso : EndDivisionOfSchemeIso
-  end0Division : EndDivisionOfEnd0Division
   comTrivial : FibreComTrivial
 
 /-- **`FibreSimple` from the leaf bundle** (`TextbookLeaves.t6` = Mumford §19 Thm 3,
-`TextbookLeaves.t27` = Yu Thm 1.1) **and the four glue pieces FS1, FS2, FS3, FS5.** -/
-theorem fibreSimple_of_leaves (t : HSyn.TextbookLeaves) (p : FibreSimplePieces) : FibreSimple :=
-  fibreSimple_of_pieces' t.t6 t.t27 p.descent p.schemeIso p.end0Division p.comTrivial
-
+`TextbookLeaves.t27` = Yu Thm 1.1), **the textbook leaf `MulIsogeny` (Mumford §4) and the three
+glue pieces FS1, FS2, FS5.** -/
+theorem fibreSimple_of_leaves (t : HSyn.TextbookLeaves) (hMul : MulIsogeny)
+    (p : FibreSimplePieces) : FibreSimple :=
+  fibreSimple_of_pieces'' t.t6 t.t27 hMul p.descent p.schemeIso p.comTrivial
 
 /-! ## §5 Finding: `R1fpProps`, `R2fpProps` do not determine `Φ` on closed points
 
@@ -375,6 +442,8 @@ end
 #print axioms G0FibreSimple.fibreSimple_of_leaves
 #print axioms G0FibreSimple.centralizerOfMatrixEnd0_of_homFree
 #print axioms G0FibreSimple.fibreSimple_of_pieces'
+#print axioms G0FibreSimple.end0Division_of_homFree
+#print axioms G0FibreSimple.fibreSimple_of_pieces''
 #print axioms G0FibreSimple.r1fpProps_twistBy
 #print axioms G0FibreSimple.r2fpProps_twistBy
 #print axioms G0FibreSimple.fibreComTrivial_twisted
