@@ -2059,6 +2059,81 @@ theorem exists_kummer (w : ValuationSubring Qbar) (χ : LeafPush.inertiaQ w →*
   push_cast
   ring
 
+theorem unit_cast_cases (u : ℤˣ) : ((u : ℤ) : Qbar) = 1 ∨ ((u : ℤ) : Qbar) = -1 := by
+  rcases Int.units_eq_one_or u with h | h <;> simp [h]
+
+open Classical in
+/-- The sign `δ_τ = τ(g)/g ∈ {±1}` of `g = √p` under `τ`. -/
+noncomputable def sgnG (g : Qbar) (τ : Gal) : Qbar := if τ g = g then 1 else -1
+
+theorem sgnG_spec {g : Qbar} {c : ℤ} (hg : g ^ 2 = (c : Qbar)) (τ : Gal) : τ g = sgnG g τ * g := by
+  unfold sgnG
+  split_ifs with h
+  · rw [h, one_mul]
+  · rw [(smul_sq_cases hg τ).resolve_left h, neg_one_mul]
+
+/-- **The classification.** Every continuous `χ : I_w → ℤˣ` is a power of `τ ↦ τ(g)/g`. -/
+theorem char_eq_sgn_zpow (hp : p.Prime) (hp2 : p ≠ 2) (hw : LiesOver w p) (g : Qbar)
+    (hg : g ^ 2 = ((p : ℤ) : Qbar)) (τ₀ : Gal) (hτ₀ : τ₀ ∈ LeafPush.inertiaQ w) (hτ₀g : τ₀ g = -g)
+    (χ : LeafPush.inertiaQ w →* ℤˣ) (hχ : Continuous χ) :
+    ∃ k : ℤ, ∀ (τ : Gal) (hτ : τ ∈ LeafPush.inertiaQ w),
+      (((χ ⟨τ, hτ⟩ : ℤˣ) : ℤ) : Qbar) = sgnG g τ ^ k := by
+  classical
+  obtain ⟨β, hβ0, hβ⟩ := exists_kummer w χ hχ
+  have hp0 : ((p : ℤ) : Qbar) ≠ 0 := by exact_mod_cast hp.ne_zero
+  have hg0 : g ≠ 0 := by rintro rfl; rw [zero_pow two_ne_zero] at hg; exact hp0 hg.symm
+  have hvg : w.valuation g ^ 2 = w.valuation (p : Qbar) := by
+    rw [← map_pow, hg, Int.cast_natCast]
+  have hvg0 : w.valuation g ≠ 0 := by rwa [Ne, Valuation.zero_iff]
+  have hex : ∃ n, 0 < n ∧ ∃ k : ℤ, w.valuation β ^ n = w.valuation g ^ k := by
+    obtain ⟨n, hn, m, hm⟩ := val_pow_eq_zpow hp hw β hβ0
+    refine ⟨n, hn, 2 * m, ?_⟩
+    rw [hm, ← hvg, ← zpow_natCast, ← zpow_mul]
+    norm_num
+  obtain ⟨hn₀, k, hk⟩ := Nat.find_spec hex
+  set n₀ := Nat.find hex with hn₀def
+  set z : Qbar := β ^ n₀ * g ^ (-k) with hzdef
+  have hvz : w.valuation z = 1 := by
+    rw [hzdef, map_mul, map_pow, map_zpow₀, hk, ← zpow_add₀ hvg0, add_neg_cancel, zpow_zero]
+  have hτz : ∀ τ (hτ : τ ∈ LeafPush.inertiaQ w),
+      τ z = (((χ ⟨τ, hτ⟩ : ℤˣ) : ℤ) : Qbar) ^ n₀ * sgnG g τ ^ (-k) * z := by
+    intro τ hτ
+    rw [hzdef, map_mul, map_pow, map_zpow₀, hβ τ hτ, sgnG_spec hg τ, mul_pow, mul_zpow]
+    ring
+  -- `n₀` is odd
+  have hodd : Odd n₀ := by
+    rcases Nat.even_or_odd n₀ with ⟨a, ha⟩ | h
+    swap; · exact h
+    exfalso
+    rcases Int.even_or_odd k with ⟨b, hb⟩ | hk2
+    · have ha0 : 0 < a := by omega
+      have h2 : (w.valuation β ^ a) ^ 2 = (w.valuation g ^ b) ^ 2 := by
+        rw [← pow_mul, mul_two, ← ha, hk, hb, ← zpow_natCast, ← zpow_mul]
+        congr 1; push_cast; ring
+      have h' : w.valuation β ^ a = w.valuation g ^ b := pow_left_injective two_ne_zero h2
+      exact Nat.find_min hex (show a < n₀ by omega) ⟨ha0, b, h'⟩
+    · have hτ₀z := hτz τ₀ hτ₀
+      have hs : sgnG g τ₀ = -1 := by
+        unfold sgnG; rw [if_neg]; rw [hτ₀g]; intro h
+        exact hg0 (by linear_combination -h / 2)
+      have hev : Even n₀ := ⟨a, ha⟩
+      rw [hs, hk2.neg.neg_one_zpow] at hτ₀z
+      rcases unit_cast_cases (χ ⟨τ₀, hτ₀⟩) with he | he
+      · rw [he, one_pow] at hτ₀z
+        exact not_inertia_neg hp hp2 hw τ₀ hτ₀ z hvz (by rw [hτ₀z]; ring)
+      · rw [he, hev.neg_one_pow] at hτ₀z
+        exact not_inertia_neg hp hp2 hw τ₀ hτ₀ z hvz (by rw [hτ₀z]; ring)
+  refine ⟨k, fun τ hτ => ?_⟩
+  have h := hτz τ hτ
+  have hsg : sgnG g τ = 1 ∨ sgnG g τ = -1 := by unfold sgnG; split_ifs <;> simp
+  rcases unit_cast_cases (χ ⟨τ, hτ⟩) with he | he <;> rcases hsg with hs | hs <;>
+    rcases Int.even_or_odd k with hk2 | hk2 <;> rw [he, hs] at h ⊢ <;>
+    simp only [one_pow, one_zpow, hodd.neg_one_pow, hk2.neg_one_zpow, hk2.neg.neg_one_zpow,
+      one_mul, mul_one] at h ⊢ <;>
+    first
+    | rfl
+    | exact (not_inertia_neg hp hp2 hw τ hτ z hvz (by rw [h]; ring)).elim
+
 end T32a
 
 end GlueB3Unram
