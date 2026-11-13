@@ -50,3 +50,20 @@
 - scratch/diff-bridge/AxiomsGlobal.lean: `example : GlueConductor.HilbertDifferentFormula := …`,
   `example : GlueConductor.SerreDifferentBound := …` typecheck; #print axioms of
   hilbertDifferentFormula, serreDifferentBound, D1_genuine_closed: [propext, Classical.choice, Quot.sound].
+
+## Step 4: restructure + second proof of T21 via t-different (VERIFIED, compiled)
+- Split: `Contrib/Different/Bridge.lean` (bridge lemmas + T20 `hilbertDifferentFormula`; imports Breaks,
+  Tau Ceti Exponent, Ideal.RamificationGroup; no Wild), `Contrib/Different/Global.lean` (T21
+  `serreDifferentBound` via Tau Ceti Wild + `D1_genuine_closed`), `Contrib/Different/SerreLocal.lean`
+  (T21 `serreDifferentBound_of_local` via `PkgI6.differentBound` + `D1_genuine_closed_of_local`).
+- Instances for `PkgI6.differentBound (v.adicCompletionIntegers ℚ) (w.adicCompletionIntegers L)` are all found
+  (probe, #synth): DVR, `HeightOneSpectrum.isAdicComplete_adicCompletionIntegers`, `PerfectField.ofFinite` with
+  `finite_residueField_adicCompletionIntegers`, `adicCompletionIntegersExtensionAlgebra`, `adicCompletionIntegers_moduleFinite`,
+  `adicCompletionIntegers_isTorsionFree`, `Algebra.IsAlgebraic.isSeparable_of_perfectField` (scope AdicCompletionExtension).
+- `map_asIdeal_eq_maximalIdeal : v.asIdeal.map (algebraMap (𝓞 ℚ) 𝒪_v) = 𝔪_v` (DVR: I = 𝔪^n, multiplicity 1).
+- `ramificationIdx_maximalIdeal_adicCompletionIntegers : Ideal.ramificationIdx 𝔪_w 𝒪_v = w.asIdeal.ramificationIdx (𝓞 ℚ)`
+  (`ramificationIdx_eq_multiplicity` twice, `multiplicity_map_adicCompletionIntegers`, square
+  `adicCompletionIntegersExtension_algebraMap`).
+- `lake build ZInQKernel.Contrib.Different.SerreLocal ZInQKernel.Contrib.Different.Global`: success.
+  #print axioms serreDifferentBound_of_local, D1_genuine_closed_of_local, hilbertDifferentFormula,
+  serreDifferentBound, D1_genuine_closed: [propext, Classical.choice, Quot.sound].
