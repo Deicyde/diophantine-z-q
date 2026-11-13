@@ -1,0 +1,27 @@
+/home/jackmccarthy/dzq-wt/rv-gluepieces2/scratch/rv-gluepieces2/olean/Check_c3_swan.lean:832:6: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+/home/jackmccarthy/dzq-wt/rv-gluepieces2/scratch/rv-gluepieces2/olean/Check_c3_swan.lean:912:6: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+/home/jackmccarthy/dzq-wt/rv-gluepieces2/scratch/rv-gluepieces2/olean/Check_c3_swan.lean:971:10: warning: `if_pos` has been deprecated: Use `ite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+/home/jackmccarthy/dzq-wt/rv-gluepieces2/scratch/rv-gluepieces2/olean/Check_c3_swan.lean:972:37: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+/home/jackmccarthy/dzq-wt/rv-gluepieces2/scratch/rv-gluepieces2/olean/Check_c3_swan.lean:1374:6: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+/home/jackmccarthy/dzq-wt/rv-gluepieces2/scratch/rv-gluepieces2/olean/Check_c3_swan.lean:1410:69: warning: `AlgEquiv.coe_ringEquiv` has been deprecated: Use `AlgEquiv.coe_toRingEquiv` instead
+
+Hint: Replace the deprecated name:
+  AlgEquiv.coe_r̵t̲o̲R̲ingEquiv
+'RvGP2.swanIndependent' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RvGP2.swanIntegral' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RvGP2.adaptedExists' depends on axioms: [propext, Classical.choice, Quot.sound]

@@ -55,3 +55,8 @@ Target: the 27 fields of `HSyn.GluePieces2` in scratch/g0-assemble/G0Assemble.le
   `RvGP2.finiteDescends : G0FibreSimple.FiniteDescends` (field 3),
   `RvGP2.unramifiedSup : G0ModField.UnramifiedSup` (field 14),
   `RvGP2.metrizationDimUnique : ZInQ.G0HeightAdd.MetrizationDimUnique` (field 6).
+- c3_swan: swan's All.lean minus imports, first run: 47 errors, all "has already been declared"
+  (Leaves.lean already contains t-different's `TDifferent` and `PkgI6.herbrandQuotient`); with that
+  block omitted: exit 0 in 29 s, 0 errors. Standard axioms (VERIFIED) for
+  `RvGP2.swanIndependent` (field 24), `RvGP2.swanIntegral` (field 25), `RvGP2.adaptedExists`
+  (field 26), stated with G0Assemble's `LadicCond` constants.
