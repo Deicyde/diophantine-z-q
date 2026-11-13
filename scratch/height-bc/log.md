@@ -32,3 +32,9 @@
   JacobianPullbackSpan. Proved along the way: `bcPts` (β p' = π ∘ p'), `evalAt_bcPts`, `dom_bcPts` (rfl),
   `germAlong_bcPts_eventuallyEq`, `jacDet_bcPts` (jacDet (β∘Φ') f = jacDet' Φ' (π^* f)),
   `isAnalyticUniformization_bcPts` (descent of uniformizations from BC-pts-mul, BC-pts-bij).
+- Final.lean (04:45): `ptsBaseChangeBij : PtsBaseChangeBij` and `ptsBaseChangeMul : PtsBaseChangeMul`
+  PROVED (pullback universal property; `MonObj.mul_comp` + `Over.μ_pullback_left_fst_fst/_fst_snd`).
+  VERIFIED: `modelHeightBaseChange_of_four`, `hodgeLineBaseChange_of_four` (H4a and HodgeLineBaseChange,
+  verbatim, from HodgeBCInjective, DetLatticeBC, UniformizationLift, JacobianPullbackSpan) and
+  `modelHeightBaseChangeGE_of_two` (H4a `≥` from HodgeBCInjective, DetLatticeBC only), all axioms
+  [propext, Classical.choice, Quot.sound]; 0 errors, no sorry (grep: 0 occurrences), 12 s.

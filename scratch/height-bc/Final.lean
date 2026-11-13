@@ -425,6 +425,29 @@ def HodgeLineBaseChangeDescent : Prop :=
           ∀ c' : 𝒢'.hodgeSpace g →ₛₗ[τ'] ℂ, (∀ f', c' (𝒢'.wedge f') = 𝒢'.jacDet Φ' f') →
             ∀ f, c' (ψ (𝒢.wedge f)) = 𝒢.jacDet Φ f)
 
+/-- **The descent half of `HodgeLineBaseChangeDescent`** (all clauses except the forward
+uniformization clause); it is what `ModelHeightBaseChangeGE` uses. -/
+def HodgeLineDescentHalf : Prop :=
+  ∀ (K : Type) [Field K] (A : AbVar K) (L L' : Type) [Field L] [NumberField L] [Algebra K L]
+    [Field L'] [NumberField L'] [Algebra K L'] [Algebra L L'] [IsScalarTower K L L']
+    (𝒢 : GroupModel A L) (𝒢' : GroupModel A L'), IsBaseChangeOf 𝒢' 𝒢 → ∀ g : ℕ,
+    ∃ ψ : 𝒢.hodgeSpace g →+ 𝒢'.hodgeSpace g,
+      (∀ (c : L) v, ψ (c • v) = algebraMap L L' c • ψ v) ∧
+      (∀ v, v ≠ 0 → ψ v ≠ 0) ∧
+      (Module.finrank L (𝒢.hodgeSpace g) = 1 ↔ Module.finrank L' (𝒢'.hodgeSpace g) = 1) ∧
+      𝒢'.detLattice g = Submodule.span (𝓞 L') (ψ '' 𝒢.detLattice g) ∧
+      (∀ (σ : L →+* ℂ) (τ' : L' →+* ℂ), τ'.comp (algebraMap L L') = σ →
+        ∀ (Λ : Submodule ℤ (Fin g → ℂ)) (Φ' : (Fin g → ℂ) → 𝒢'.Pts τ'),
+        𝒢'.IsAnalyticUniformization τ' Λ Φ' →
+        ∃ Φ : (Fin g → ℂ) → 𝒢.Pts σ, 𝒢.IsAnalyticUniformization σ Λ Φ ∧
+          ∀ c' : 𝒢'.hodgeSpace g →ₛₗ[τ'] ℂ, (∀ f', c' (𝒢'.wedge f') = 𝒢'.jacDet Φ' f') →
+            ∀ f, c' (ψ (𝒢.wedge f)) = 𝒢.jacDet Φ f)
+
+theorem descentHalf_of_descent (h : HodgeLineBaseChangeDescent) : HodgeLineDescentHalf := by
+  intro K _ A L L' _ _ _ _ _ _ _ _ 𝒢 𝒢' h𝒢 g
+  obtain ⟨ψ, h1, h2, h3, h4, -, h6⟩ := h K A L L' 𝒢 𝒢' h𝒢 g
+  exact ⟨ψ, h1, h2, h3, h4, h6⟩
+
 /-- `HodgeLineBaseChangeDescent` implies `HodgeLineBaseChange`. Proved. -/
 theorem hodgeLineBaseChange_of_descent (h : HodgeLineBaseChangeDescent) : HodgeLineBaseChange := by
   intro K _ A L L' _ _ _ _ _ _ _ _ 𝒢 𝒢' h𝒢 g
@@ -434,13 +457,13 @@ theorem hodgeLineBaseChange_of_descent (h : HodgeLineBaseChangeDescent) : HodgeL
 /-- **`ModelHeightBaseChangeGE` from the geometric statement.** A metrization of `𝒢'` gives one
 of `𝒢`: lattice `⋀^g ω_𝒢`, and at each `σ : L → ℂ` the data of `𝒢'` at a place `τ'` above `σ`
 that maximizes `log ‖ψ w‖²_{τ'}` (the maximum over the fibre is at least the average). Proved. -/
-theorem modelHeightBaseChangeGE_of_descent (h : HodgeLineBaseChangeDescent) :
+theorem modelHeightBaseChangeGE_of_descentHalf (h : HodgeLineDescentHalf) :
     ModelHeightBaseChangeGE := by
   intro K _ A L L' _ _ _ _ _ _ _ _ 𝒢 𝒢' h𝒢
   unfold GroupModel.height
   refine le_iInf fun g => le_iInf fun Mm' => le_iInf fun hM' => ?_
   subst hM'
-  obtain ⟨ψ, hsmul, hne, hfin, hlat, -, hdesc⟩ := h K A L L' 𝒢 Mm'.model h𝒢 g
+  obtain ⟨ψ, hsmul, hne, hfin, hlat, hdesc⟩ := h K A L L' 𝒢 Mm'.model h𝒢 g
   have hfinL : Module.finrank L (𝒢.hodgeSpace g) = 1 := hfin.mpr Mm'.hodge.finrank_eq_one
   have hlat' : Mm'.hodge.lattice = Submodule.span (𝓞 L') (ψ '' 𝒢.detLattice g) := by
     rw [Mm'.lattice_eq, hlat]
@@ -532,6 +555,10 @@ theorem modelHeightBaseChangeGE_of_descent (h : HodgeLineBaseChangeDescent) :
   rw [Real.log_pow, div_le_div_iff₀ hK (mul_pos hK hL)]
   have := mul_le_mul_of_nonneg_left hsum hK.le
   nlinarith
+
+theorem modelHeightBaseChangeGE_of_descent (h : HodgeLineBaseChangeDescent) :
+    ModelHeightBaseChangeGE :=
+  modelHeightBaseChangeGE_of_descentHalf (descentHalf_of_descent h)
 
 /-- **Glue H4a (`ModelHeightBaseChange`, verbatim statement) from `HodgeLineBaseChangeDescent`.**
 Proved. -/
@@ -1054,6 +1081,39 @@ theorem ptsBaseChangeBij : PtsBaseChangeBij := by
     rw [reassoc_of% hinvhom]
     exact pullback.lift_fst _ _ _
 
+/-- **BC-pts-mul is a theorem** (`e` is a homomorphism; components of `μ` of `Over.pullback`). -/
+theorem ptsBaseChangeMul : PtsBaseChangeMul := by
+  intro K _ A L L' _ _ _ _ _ _ _ _ 𝒢 𝒢' e he σ τ' hστ p q
+  subst hστ
+  let _ : GrpObj ((Over.pullback (bO L L')).obj 𝒢.G) := Functor.grpObjObj
+  have : IsMonHom e.hom := he
+  apply Over.OverMorphism.ext
+  show (p * q).left ≫ bcProj 𝒢 𝒢' e =
+    (bcPts e _ τ' rfl p * bcPts e _ τ' rfl q).left
+  have h1 : (p * q) ≫ e.hom = (p ≫ e.hom) * (q ≫ e.hom) := MonObj.mul_comp p q e.hom
+  have h2 : (p * q).left ≫ bcProj 𝒢 𝒢' e =
+      ((p ≫ e.hom) * (q ≫ e.hom)).left ≫ pullback.fst _ _ := by
+    rw [← h1, Over.comp_left, Category.assoc]
+    rfl
+  rw [h2]
+  show (lift (p ≫ e.hom) (q ≫ e.hom) ≫ (Functor.LaxMonoidal.μ (Over.pullback (bO L L')) 𝒢.G 𝒢.G ≫
+      (Over.pullback (bO L L')).map μ[𝒢.G])).left ≫ pullback.fst _ _ =
+    (lift (bcPts e _ τ' rfl p) (bcPts e _ τ' rfl q) ≫ μ[𝒢.G]).left
+  have hmap : ((Over.pullback (bO L L')).map μ[𝒢.G]).left ≫ pullback.fst _ _ =
+      pullback.fst _ _ ≫ μ[𝒢.G].left := pullback.lift_fst _ _ _
+  rw [Over.comp_left, Over.comp_left, Over.comp_left, Category.assoc, Category.assoc, hmap,
+    ← Category.assoc, ← Category.assoc]
+  congr 1
+  apply pullback.hom_ext
+  · rw [Category.assoc, Category.assoc, Over.μ_pullback_left_fst_fst, Over.lift_left,
+      Over.lift_left, pullback.lift_fst_assoc]
+    rw [Over.comp_left, Category.assoc]
+    exact (pullback.lift_fst _ _ _).symm
+  · rw [Category.assoc, Category.assoc, Over.μ_pullback_left_fst_snd, Over.lift_left,
+      Over.lift_left, pullback.lift_snd_assoc]
+    rw [Over.comp_left, Category.assoc]
+    exact (pullback.lift_snd _ _ _).symm
+
 /-- **Descent of analytic uniformizations along `β`** (proved, from BC-pts-mul and BC-pts-bij). -/
 theorem isAnalyticUniformization_bcPts (hm : PtsBaseChangeMul) (hb : PtsBaseChangeBij)
     {K : Type} [Field K] {A : AbVar K} {L L' : Type} [Field L] [NumberField L] [Algebra K L]
@@ -1131,11 +1191,40 @@ theorem hodgeLineBaseChange_of_glue (h1 : HodgeBCInjective) (h2 : DetLatticeBC)
     (hj : JacobianPullbackSpan) : HodgeLineBaseChange :=
   hodgeLineBaseChange_of_descent (hodgeLineBaseChangeDescent_of_glue h1 h2 hm hb hl hj)
 
+/-- **Main result: glue H4a (`ModelHeightBaseChange`, verbatim) from four glue statements**
+(BC-alg, BC-lat, BC-lift, BC-span; BC-pts-mul and BC-pts-bij are now theorems). Proved. -/
+theorem modelHeightBaseChange_of_four (h1 : HodgeBCInjective) (h2 : DetLatticeBC)
+    (hl : UniformizationLift) (hj : JacobianPullbackSpan) : ModelHeightBaseChange :=
+  modelHeightBaseChange_of_glue h1 h2 ptsBaseChangeMul ptsBaseChangeBij hl hj
+
+/-- **Main result: `HodgeLineBaseChange` (verbatim) from the same four glue statements.** -/
+theorem hodgeLineBaseChange_of_four (h1 : HodgeBCInjective) (h2 : DetLatticeBC)
+    (hl : UniformizationLift) (hj : JacobianPullbackSpan) : HodgeLineBaseChange :=
+  hodgeLineBaseChange_of_glue h1 h2 ptsBaseChangeMul ptsBaseChangeBij hl hj
+
+/-- **`ModelHeightBaseChangeGE` (descent half of H4a) needs only BC-alg and BC-lat** (the
+uniformization descent is proved). -/
+theorem modelHeightBaseChangeGE_of_two (h1 : HodgeBCInjective) (h2 : DetLatticeBC) :
+    ModelHeightBaseChangeGE := by
+  refine modelHeightBaseChangeGE_of_descentHalf ?_
+  intro K _ A L L' _ _ _ _ _ _ _ _ 𝒢 𝒢' h𝒢 g
+  obtain ⟨e, he⟩ := h𝒢
+  obtain ⟨hinj, hfin⟩ := h1 K A L L' 𝒢 𝒢' e he g
+  refine ⟨bcHodge he g, bcHodge_smul he g, hinj, hfin, h2 K A L L' 𝒢 𝒢' e he g, ?_⟩
+  intro σ τ' hστ Λ Φ' hΦ'
+  refine ⟨fun z => bcPts e σ τ' hστ (Φ' z), isAnalyticUniformization_bcPts ptsBaseChangeMul
+    ptsBaseChangeBij he σ τ' hστ Λ Φ' hΦ', fun c' hc' f => ?_⟩
+  rw [bcHodge_wedge he f, hc', jacDet_bcPts he σ τ' hστ Λ Φ' hΦ' f]
+
 #print axioms modelHeightBaseChange_of_descent
 #print axioms hodgeLineBaseChangeDescent_of_glue
 #print axioms modelHeightBaseChange_of_glue
 #print axioms hodgeLineBaseChange_of_glue
 #print axioms metrizationBaseChange_of_hodgeLine
 #print axioms ptsBaseChangeBij
+#print axioms ptsBaseChangeMul
+#print axioms modelHeightBaseChange_of_four
+#print axioms hodgeLineBaseChange_of_four
+#print axioms modelHeightBaseChangeGE_of_two
 
 end ZInQ.HeightBC
