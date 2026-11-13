@@ -16,7 +16,7 @@
 - `lake build ZInQKernel.Contrib.TauCeti.NumberTheory.ClassFieldTheory.ClassFields.RingClass.Field`: success, no sorry (07:00).
 - diffcheck2: MOD-UNNOTED 0, NOTE-ONLY 0.
 
-## 07:20 statements file
+## ~07:12 statements file
 - ZInQKernel/Contrib/TYZGenus/RingClass.lean: conductorOrder K f (ℤ + f𝓞_K, NumberFieldOrder), picSquares,
   picTwoTorsion, genusField O (fixed field of Pic(O)² in ringClassField O), sqrtNeg, O4 d, H4 d (H_{d,4}),
   hilbertField d, artin4, alpha d = 3+2√−d, sigmaClass d (class of σ_{1+2ϖ}, ϖ = 1+√−d), Hprime d (H'_d),
@@ -28,7 +28,7 @@
   TYZ L1203–1205); d ≡ 7: maximal order, disc −d (tyz-t1 §3.1). H_{d,4}, H'_d: Prop 3.2(1) L1253–1258.
   ℍ'_n = L_n(i)·Π H'_{d₀} (L1320), L_n(i) = ℚ(i, √d : d|n) (L1322) — all as quoted in rv-nt-tyz/rv-pn-encoding.
 
-## 08:00 proofs, round 1 (VERIFIED, `lake build ZInQKernel.Contrib.TYZGenus.RingClass` success)
+## ~07:25 proofs, round 1 (VERIFIED, `lake build ZInQKernel.Contrib.TYZGenus.RingClass` success)
 - Vendored (nov01) RayClassField, RayClass/Narrow/Basic, NarrowClassGroup/{Basic,TotallyComplex}; Backport
   ClassFieldTheory/ClassField (classField_fixingOpenNormalSubgroup with a rewritten proof: `classField` does not unfold
   outside its module); RayClassField.lean imports it (noted). diffcheck2: MOD-UNNOTED 0, NOTE-ONLY 0.
@@ -39,7 +39,7 @@
   d m² + k² = 4d mod 8/32), alphaIdeal_mem, sigmaClass_sq, not_mem_O4, sigmaClass_ne_one, orderOf_sigmaClass = 2.
   #print axioms orderOf_sigmaClass: [propext, Classical.choice, Quot.sound].
 
-## 08:25 proofs, round 2 (VERIFIED, lake build success)
+## ~07:30 proofs, round 2 (VERIFIED, lake build success)
 - Hprime_le_H4, relfinrank_Hprime ([H_{d,4} : H'_d] = 2 for d ≡ 5 mod 8), sigmaClassOrderTwo, hilbertLeH4,
   gClEqPicSquares, gCl_eq_relfinrank, gClEqRelfinrank, finrank_hilbertField (= classNumber, via vendored
   finrank_hilbertClassField), finrank_genusField_eq ([G_n : K_n] = 2^{#ramSet n − 1}, odd squarefree n > 1, from
@@ -48,10 +48,12 @@
   equality), gCl_eq_gRingClass, T5aCl_eq_gRingClass, T5bCl_eq_gRingClass, GenusData.beta_seven_ringClass,
   GenusData.beta_five_ringClass.
 
-## 09:15 proofs, round 3 (VERIFIED, lake build success)
+## ~07:39 proofs, round 3 (VERIFIED, lake build success)
 - ideleClassArtinMap_restrict (Tau Ceti's idele-class Artin maps commute with restriction between abelian
   subfields of Kˢ; from globalArtinMap_comp + of_ideleClassArtinMap), picToMax O : Pic O →* Cl(K) (= Q_max ∘ Q_O⁻¹),
   picToMax_ringClassIdeleQuotient, picToMax_surjective, picToMax_picClass_span (principal ideals ↦ 1),
   picToMax_sigmaClass, restrictNormalHom_inclusion_apply, restrict_ringClassArtinEquiv (Artin symbol in ring class
   field of O restricted to H_K = Artin symbol of picToMax c), ringClassArtinEquiv_apply_of_picToMax_eq_one,
   mem_lift_fixedField_zpowers, hilbertField_le_Hprime (H_d ⊆ H'_d; needs maxRecDepth 10000).
+
+(Note: earlier headings were mis-estimated clock times; corrected to `date` readings, ±5 min.)

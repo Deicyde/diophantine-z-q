@@ -457,6 +457,60 @@ theorem conjField_ringSubfield_le (τ : SeparableClosure (QNeg d) ≃ₐ[ℚ] Se
   rw [hfr, ← htr]
   exact h𝔮
 
+instance : IsAlgClosure ℚ (SeparableClosure (QNeg d)) := ⟨inferInstance, inferInstance⟩
+
+theorem algebraMap_eq_re_im (x : QNeg d) :
+    algebraMap (QNeg d) (SeparableClosure (QNeg d)) x =
+      algebraMap ℚ (SeparableClosure (QNeg d)) x.re +
+        algebraMap ℚ (SeparableClosure (QNeg d)) x.im *
+          algebraMap (QNeg d) (SeparableClosure (QNeg d)) QuadraticAlgebra.omega := by
+  conv_lhs => rw [← QuadraticAlgebra.re_smul_add_im_smul x]
+  rw [map_add, Algebra.smul_def, Algebra.smul_def, map_mul, map_mul, map_one, mul_one,
+    ← IsScalarTower.algebraMap_apply, ← IsScalarTower.algebraMap_apply]
+
+theorem algEquiv_algebraMap_eq (τ : SeparableClosure (QNeg d) ≃ₐ[ℚ] SeparableClosure (QNeg d))
+    (x : QNeg d) :
+    τ (algebraMap (QNeg d) (SeparableClosure (QNeg d)) x) =
+      algebraMap ℚ (SeparableClosure (QNeg d)) x.re +
+        algebraMap ℚ (SeparableClosure (QNeg d)) x.im *
+          τ (algebraMap (QNeg d) (SeparableClosure (QNeg d)) QuadraticAlgebra.omega) := by
+  rw [algebraMap_eq_re_im x, map_add, map_mul, AlgEquiv.commutes, AlgEquiv.commutes]
+
+/-- **Every subfield of `H_{d,4}` cut out by a subgroup of `Pic(O_{d,4})` is Galois over `ℚ`**
+(`Gal(H_{d,4}/ℚ)` is generalized dihedral; Cox, *Primes of the form x² + ny²*, Lemma 9.3). -/
+theorem normal_ringSubfield (S : Subgroup (Pic (O4 d))) :
+    Normal ℚ ((ringSubfield S).restrictScalars ℚ) := by
+  rw [IntermediateField.normal_iff_forall_map_le']
+  intro τ
+  set w := algebraMap (QNeg d) (SeparableClosure (QNeg d)) QuadraticAlgebra.omega
+  have hw : w * w = algebraMap ℚ (SeparableClosure (QNeg d)) (-(d : ℚ)) := by
+    rw [← map_mul, ZInQ.RouteK.Redei.omega_sq, ← IsScalarTower.algebraMap_apply]
+  have hτw : τ w * τ w = w * w := by
+    rw [← map_mul, hw, AlgEquiv.commutes]
+  rcases mul_self_eq_mul_self_iff.1 hτw with h | h
+  · -- `τ` fixes `K`
+    have hτK : ∀ x : QNeg d, τ (algebraMap (QNeg d) (SeparableClosure (QNeg d)) x) =
+        algebraMap (QNeg d) (SeparableClosure (QNeg d)) x := by
+      intro x
+      rw [algEquiv_algebraMap_eq τ x, h, ← algebraMap_eq_re_im]
+    let g : Gal(SeparableClosure (QNeg d)/QNeg d) := AlgEquiv.ofRingEquiv (f := τ.toRingEquiv) hτK
+    rintro _ ⟨y, hy, rfl⟩
+    exact (IntermediateField.normal_iff_forall_map_le'.1 inferInstance g) ⟨y, hy, rfl⟩
+  · -- `τ` acts on `K` by conjugation
+    obtain ⟨σ, hσ⟩ := exists_conj_ne_one (n := d)
+    have hτK : ∀ x : QNeg d, τ (algebraMap (QNeg d) (SeparableClosure (QNeg d)) x) =
+        algebraMap (QNeg d) (SeparableClosure (QNeg d)) (σ x) := by
+      intro x
+      rw [algEquiv_algebraMap_eq τ x, h, algebraMap_eq_re_im (σ x), conj_apply σ hσ,
+        QuadraticAlgebra.re_star, QuadraticAlgebra.im_star]
+      simp only [map_neg, zero_mul, add_zero]
+      ring
+    rintro _ ⟨y, hy, rfl⟩
+    have hmem : (τ : SeparableClosure (QNeg d) →ₐ[ℚ] SeparableClosure (QNeg d)) y ∈
+        conjField (τ : SeparableClosure (QNeg d) →ₐ[ℚ] SeparableClosure (QNeg d)) σ hτK
+          (ringSubfield S) := ⟨y, hy, rfl⟩
+    exact conjField_ringSubfield_le τ σ hσ hτK S hmem
+
 end Normality
 
 end ZInQ.Contrib.TYZGenus.RingClass
