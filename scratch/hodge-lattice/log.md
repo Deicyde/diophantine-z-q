@@ -47,3 +47,11 @@
   `fst_genericFibreUnit`, `gen_genericFibreUnit`, `originStalkIso_of`,
   `hodgeLatticeTheorem_of_varieties : GenericFibreStalkIso → RegularAtOrigin → DimAtOrigin →
   DimBaseChange → HodgeLatticeTheorem`. 0 errors; axioms [propext, Classical.choice, Quot.sound]. VERIFIED.
+- (commit ~23:52) `genericFibreStalkIso : GenericFibreStalkIso` PROVED (Generic.lean, then merged as §10):
+  `stalkwise_respectsIso`, `stalkwiseIsZariskiLocalAtTarget_of_respectsIso`,
+  `IsZariskiLocalAtTarget.of_openCover` with `affineOpenCover`, `pullbackSymmetry`,
+  `pullbackRightPullbackFstIso`, `Spec.preimage`/`Spec.map_preimage`, `pullback.congrHom`,
+  `pullbackSpecIso_hom_fst'`, `IsLocalization.tensor`, `IsLocalization.algEquiv`,
+  `isIso_specMap_stalkMap_localization`.
+  Final: `hodgeLatticeTheorem_of_abVarFacts : RegularAtOrigin → DimAtOrigin → DimBaseChange →
+  HodgeLatticeTheorem`. Whole file: 0 errors, no sorry, every #print axioms standard. VERIFIED.
