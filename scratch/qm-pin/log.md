@@ -32,3 +32,5 @@ Base: 883c4ddf + merges origin/wip/rv-g0pieces, origin/wip/g0-split (already in)
   `lake env lean`: 0 errors, 0 sorry, 2m28s; `HSyn.glueOutputs_of_leaves`, `sixContactMin_of_leaves`,
   `thetaPazuki`, ... all [propext, Classical.choice, Quot.sound]. VERIFIED (run_split.txt).
   The ten pieces' text is unchanged: they quantify over R1fpProps, which now contains the family.
+- HDecLeavesEdited.lean = scratch/h-decomposition/Leaves.lean + same edit (HDecLeaves.patch): 0 errors,
+  2m41s; one `sorry` warning at the known `HSyn.glueOutputs_of_leaves` (line 21577 of the copy). VERIFIED.
