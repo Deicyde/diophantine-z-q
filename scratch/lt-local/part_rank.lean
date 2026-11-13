@@ -142,7 +142,10 @@ theorem endDivision_of_fibreSimple (hFS : HSyn.G0Split.FibreSimple)
 theorem modelEndRank4_of_qmEndRank (hFS : HSyn.G0Split.FibreSimple)
     (hR : HSyn.LinkedTate.QMEndRank) : ModelEndRank4 := by
   intro Y Φ π u P hctx L _ _ A ε N _ χ β L' _ _ hLL' hdata
-  have hmod := hdata.2.2.2.2.2.2.2.2.2.2.2
+  have hmod : IsModelOver L' (@PkgI3.AbVar.baseChange L _ A L' _ (incAlg hLL')) P := by
+    first
+    | exact hdata.2.2.2.2.2.2.2.2.2.2.2
+    | exact hdata.2.2.2.2.2.2.2.2.2.2.2.1
   obtain ⟨K, hKL, PK, -, rfl⟩ := hdata.1
   exact hR K L L' hKL hLL' PK (endDivision_of_fibreSimple hFS hctx L' _ hmod)
 

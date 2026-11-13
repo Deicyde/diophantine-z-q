@@ -9096,7 +9096,12 @@ theorem dim_bc_of_g7Data {u : ℚ} {P : QML3 Qbar} {L : IF} {A : PkgI3.AbVar L}
     {ε : GQ → GQ → ℂˣ} {N : ℕ} [NeZero N] {χ : DirichletCharacter ℂ N} {β : GQ → ℂˣ} {L' : IF}
     {hLL' : L ≤ L'} (h : G7Data u P L A ε N χ β L' hLL') :
     (@PkgI3.AbVar.baseChange L _ A L' _ (incAlg hLL')).dim = 2 := by
-  obtain ⟨e⟩ := h.2.2.2.2.2.2.2.2.2.2.2
+  -- `first`: G7Data's model clause is its last (g0-assemble2) or second-to-last (g0-assemble3)
+  have hm : IsModelOver L' (@PkgI3.AbVar.baseChange L _ A L' _ (incAlg hLL')) P := by
+    first
+    | exact h.2.2.2.2.2.2.2.2.2.2.2
+    | exact h.2.2.2.2.2.2.2.2.2.2.2.1
+  obtain ⟨e⟩ := hm
   rw [← G0Dim.pkgI3_dim_baseChange Qbar (@PkgI3.AbVar.baseChange L _ A L' _ (incAlg hLL')),
     ← P.surface]
   exact IsHomeomorph.topologicalKrullDim_eq _
@@ -9540,7 +9545,10 @@ theorem endDivision_of_fibreSimple (hFS : HSyn.G0Split.FibreSimple)
 theorem modelEndRank4_of_qmEndRank (hFS : HSyn.G0Split.FibreSimple)
     (hR : HSyn.LinkedTate.QMEndRank) : ModelEndRank4 := by
   intro Y Φ π u P hctx L _ _ A ε N _ χ β L' _ _ hLL' hdata
-  have hmod := hdata.2.2.2.2.2.2.2.2.2.2.2
+  have hmod : IsModelOver L' (@PkgI3.AbVar.baseChange L _ A L' _ (incAlg hLL')) P := by
+    first
+    | exact hdata.2.2.2.2.2.2.2.2.2.2.2
+    | exact hdata.2.2.2.2.2.2.2.2.2.2.2.1
   obtain ⟨K, hKL, PK, -, rfl⟩ := hdata.1
   exact hR K L L' hKL hLL' PK (endDivision_of_fibreSimple hFS hctx L' _ hmod)
 

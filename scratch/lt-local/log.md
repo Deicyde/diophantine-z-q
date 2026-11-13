@@ -53,3 +53,21 @@
   `LinkedTateLocalD`.
 - Compile (VERIFIED): `ctail.sh T3.lean` (import Base + parts 1-5): exit 0, 14 s; 11 axiom
   reports, all `[propext, Classical.choice, Quot.sound]`, no sorry.
+
+## Step 5 (11:10-11:40 by task clock; host clock 10:00-10:10): GluePieces4 variant
+- Found: g0-assemble3 (origin/wip/g0-assemble3, 357f5d9e) has appended `Module.finrank ℚ L ≤ heightD`
+  to `G0ModField.G7Data` (its parts/75_modfield.lean) and chose linked-tate's route for field 39.
+- `mk_base4.py`: Base4.lean = Base.lean with that G7Data clause and g0-assemble3's three proof
+  adjustments in g0-mod-field, ported verbatim (python exact-substring replacements, each count 1).
+  No other adjustment was needed: `ctail.sh Base4.lean Base4`: exit 0, 92 s, 0 errors.
+- part_g7 / part_rank: the `IsModelOver` projection written with `first | .2^11 | .2^11.1` so the
+  same text compiles over both G7Data versions.
+- part_gp4.lean (variant only): `g7DegreeBound_gp4` (projection), **`linkedTateLocal_of_tateBridge35`**
+  : R6 + I2-Tors + UnramRoots 2 5 + UnramRoots 2 3 + TateBridge35 + FibreSimple + QMEndRank ⟹
+  `HSyn.G0AssembleMod.LinkedTateLocal` (verbatim statement), **`linkedTateLocal_of_algFrobRed`**
+  (TateBridge35 replaced by I3.M0 + `FrobTrace.AlgFrobRed`, frob-trace's reduction).
+- Compile (VERIFIED):
+  - `build.sh`; `lake env lean scratch/lt-local/LtLocal.lean` (9 576 lines): exit 0, 64 s, no
+    error, no sorry; 11 axiom reports, all `[propext, Classical.choice, Quot.sound]` (compile.out).
+  - `build4.sh`; `lake env lean scratch/lt-local/LtLocal4.lean` (9 626 lines): exit 0, 64 s, no
+    error, no sorry; 14 axiom reports, all standard (compile4.out).

@@ -1437,7 +1437,13 @@ The difference between `let` and `letI` is that `letI` inlines the value.
 But this is not relevant for proofs because of proof irrelevance.
 
 Note: This linter can be disabled with `set_option linter.style.haveILetI false`
-scratch/lt-local/LtLocal.lean:9337:2: warning: Try this: 
+scratch/lt-local/LtLocal.lean:9103:6: warning: Unused tactic linter: `exact h.2.2.2.2.2.2.2.2.2.2.2.1` does nothing.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+scratch/lt-local/LtLocal.lean:9103:6: warning: this tactic is never executed
+
+Note: This linter can be disabled with `set_option linter.unreachableTactic false`
+scratch/lt-local/LtLocal.lean:9342:2: warning: Try this: 
   haveI̵
 
 The goal is a proposition, so `have` is preferred over `haveI`.
@@ -1445,7 +1451,7 @@ The difference between `have` and `haveI` is that `haveI` inlines the value.
 But this is not relevant for proofs because of proof irrelevance.
 
 Note: This linter can be disabled with `set_option linter.style.haveILetI false`
-scratch/lt-local/LtLocal.lean:9357:2: warning: Try this: 
+scratch/lt-local/LtLocal.lean:9362:2: warning: Try this: 
   letI̵
 
 The goal is a proposition, so `let` is preferred over `letI`.
@@ -1453,7 +1459,7 @@ The difference between `let` and `letI` is that `letI` inlines the value.
 But this is not relevant for proofs because of proof irrelevance.
 
 Note: This linter can be disabled with `set_option linter.style.haveILetI false`
-scratch/lt-local/LtLocal.lean:9366:4: warning: Try this: 
+scratch/lt-local/LtLocal.lean:9371:4: warning: Try this: 
   haveI̵
 
 The goal is a proposition, so `have` is preferred over `haveI`.
@@ -1461,13 +1467,13 @@ The difference between `have` and `haveI` is that `haveI` inlines the value.
 But this is not relevant for proofs because of proof irrelevance.
 
 Note: This linter can be disabled with `set_option linter.style.haveILetI false`
-scratch/lt-local/LtLocal.lean:9354:5: warning: Variable name `hU3` is not explicitly referenced.
+scratch/lt-local/LtLocal.lean:9359:5: warning: Variable name `hU3` is not explicitly referenced.
 
 Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
   [apply] _hU3
 
 Note: This linter can be disabled with `set_option linter.unusedVariables false`
-scratch/lt-local/LtLocal.lean:9390:2: warning: Try this: 
+scratch/lt-local/LtLocal.lean:9395:2: warning: Try this: 
   letI̵
 
 The goal is a proposition, so `let` is preferred over `letI`.
@@ -1475,7 +1481,7 @@ The difference between `let` and `letI` is that `letI` inlines the value.
 But this is not relevant for proofs because of proof irrelevance.
 
 Note: This linter can be disabled with `set_option linter.style.haveILetI false`
-scratch/lt-local/LtLocal.lean:9533:2: warning: Try this: 
+scratch/lt-local/LtLocal.lean:9538:2: warning: Try this: 
   haveI̵
 
 The goal is a proposition, so `have` is preferred over `haveI`.
@@ -1483,6 +1489,12 @@ The difference between `have` and `haveI` is that `haveI` inlines the value.
 But this is not relevant for proofs because of proof irrelevance.
 
 Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/lt-local/LtLocal.lean:9551:6: warning: Unused tactic linter: `exact hdata.2.2.2.2.2.2.2.2.2.2.2.1` does nothing.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+scratch/lt-local/LtLocal.lean:9551:6: warning: this tactic is never executed
+
+Note: This linter can be disabled with `set_option linter.unreachableTactic false`
 'LTLocal.exists_equiv_extending' depends on axioms: [propext, Classical.choice, Quot.sound]
 'LTLocal.g7Clauses_of_transport' depends on axioms: [propext, Classical.choice, Quot.sound]
 'LTLocal.dim_bc_of_g7Data' depends on axioms: [propext, Classical.choice, Quot.sound]
