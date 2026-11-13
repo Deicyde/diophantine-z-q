@@ -221,7 +221,84 @@ def UnifTransport : Prop :=
       ∃ Φa : (Fin 2 → ℂ) → CPts (LeafAdopt.abVarEquiv K.K A) (ιe.comp emb),
         IsUniformization (ιe.comp emb) Λ Φa
 
-/-! ### Step 2: the proofs -/
+/-! ### Step 2b: `QMPeriodValue` from a moduli part and a complex-analysis part -/
+
+/-- `h : ℍ → P¹(ℂ)` is holomorphic at `τ` (as a map to the Riemann sphere): near `τ` it is an
+analytic function `g`, or `1/g` with `g` analytic and `g(τ) = 0` (a pole). -/
+def IsHolP1At (h : UpperHalfPlane → OnePoint ℂ) (τ : UpperHalfPlane) : Prop :=
+  (∃ g : ℂ → ℂ, AnalyticAt ℂ g (τ : ℂ) ∧
+      ∀ᶠ z in nhds (τ : ℂ), ∀ hz : 0 < z.im, h ⟨z, hz⟩ = (g z : OnePoint ℂ)) ∨
+  (∃ g : ℂ → ℂ, AnalyticAt ℂ g (τ : ℂ) ∧ g τ = 0 ∧
+      ∀ᶠ z in nhds (τ : ℂ), ∀ hz : 0 < z.im,
+        h ⟨z, hz⟩ = if g z = 0 then OnePoint.infty else (((g z)⁻¹ : ℂ) : OnePoint ℂ))
+
+/-- The analytic and CM clauses shared by `QMHauptmodul`'s `f` and the period map `h`: continuous
+and holomorphic into `P¹(ℂ)`, fibres exactly the `Γ*`-orbits, values `0, ∞, −16/27` at the fixed
+points of `ι(x)` for `x ∈ 𝒪` with `x² = −1`, `x² − x + 1 = 0`, `x² = −6`. -/
+def IsGammaStarHauptmodul (h : UpperHalfPlane → OnePoint ℂ) : Prop :=
+  Continuous h ∧ (∀ τ, IsHolP1At h τ) ∧
+    (∀ τ τ' : UpperHalfPlane, h τ = h τ' ↔ ∃ g ∈ PkgI1.GammaStar, g • τ = τ') ∧
+    (∀ x : PkgI1.B, PkgI1.InO x → x * x = -1 → ∀ g : GL (Fin 2) ℝ,
+      (g : Matrix (Fin 2) (Fin 2) ℝ) = PkgI1.iota x → ∀ τ : UpperHalfPlane, g • τ = τ →
+        h τ = ((0 : ℂ) : OnePoint ℂ)) ∧
+    (∀ x : PkgI1.B, PkgI1.InO x → x * x - x + 1 = 0 → ∀ g : GL (Fin 2) ℝ,
+      (g : Matrix (Fin 2) (Fin 2) ℝ) = PkgI1.iota x → ∀ τ : UpperHalfPlane, g • τ = τ →
+        h τ = (OnePoint.infty : OnePoint ℂ)) ∧
+    (∀ x : PkgI1.B, PkgI1.InO x → x * x = -6 → ∀ g : GL (Fin 2) ℝ,
+      (g : Matrix (Fin 2) (Fin 2) ℝ) = PkgI1.iota x → ∀ τ : UpperHalfPlane, g • τ = τ →
+        h τ = ((-16/27 : ℂ) : OnePoint ℂ))
+
+/-- **GLUE (moduli side of F1: the period map of `Y`, for one triple).** There is a function
+`h : ℍ → P¹(ℂ)` with the clauses `IsGammaStarHauptmodul` such that for every `ℚ̄`-point `y` with
+object `P`, every `ι : ℚ̄ → ℂ`, every base change `Q/ℂ` of `P` along `ι` and every `ι`-compatible
+uniformization of `Q.A` with kernel `Λ_τ`: `h(τ) = ι(π(y))`.
+
+Why true for the genuine triple (model argument): `h(τ) = π(P_τ)` for R1(b)'s analytic family
+`τ ↦ P_τ` (Shimura 1967 Main Thm I; Deligne 1971 §4.15; locators UNVERIFIED), holomorphic by
+R1(b)(c). The value clause: `Q ≅ P_τ` compatibly with `ι` up to level structure (both are
+`ι`-compatibly `ℂ²/Λ_τ`; GAGA), so they have the same `π` (R2fp's fibre clause; naturality of `π`,
+`ToP1.val_comp`). Fibres: `ℂ²/Λ_τ ≅ ℂ²/Λ_τ'` up to an `Aut 𝒪`-twist iff `τ' ∈ Γ*τ` (Shimura;
+`Aut 𝒪 = N_B(𝒪)/ℚ^×`, and `1 + i` of reduced norm `−1` is absorbed by `ι`-compatibility), with
+R2fp's fibre clause. CM values: the fixed point `τ` of `ι(x)`, `x² = −1`, gives `ℂ²/Λ_τ` the
+`𝒪`-linear automorphism `z ↦ λz`, `λ² = −1` (`ι(x)v_τ = λv_τ`), so `HasCM4`, and R2fp gives `0`;
+likewise for `−3`, `−24`. Composite of R1(b), R2 and GAGA; not in Mathlib (analytification of `Y₃`
+and of the universal family, rv-blueprints Q3). Size: large. -/
+def QMPeriodMap (Y : Over (Spec (CommRingCat.of ℚ))) (Φ : PtEquiv Y) (π : ToP1 Y.left) : Prop :=
+  ∃ h : UpperHalfPlane → OnePoint ℂ, IsGammaStarHauptmodul h ∧
+    ∀ (y : fieldPt Qbar ⟶ Y) (P : QML3 Qbar), Φ Qbar y = M3.mk P →
+    ∀ (ιe : Qbar →+* ℂ) (Q : QML3 ℂ), IsBaseChangeOf ιe P Q →
+    ∀ (τ : UpperHalfPlane) (Φu : (Fin 2 → ℂ) → CPts Q.A (RingHom.id ℂ)),
+      IsUniformization (RingHom.id ℂ) (BPAnalytic.QM.qmLattice τ.im_pos.ne') Φu →
+      IotaCompatible Q Φu →
+      h τ = (π.val (K := Qbar) y.left).map ιe
+
+/-- **GLUE (complex analysis: uniqueness of the normalized Hauptmodul of `Γ*`).** A function
+`h : ℍ → P¹(ℂ)` with the clauses `IsGammaStarHauptmodul` equals `QMHauptmodul`'s `f`.
+
+Proof sketch (model argument; every step is textbook complex analysis): `Γ*\ℍ` is compact (`B` is
+a division algebra; Shimura, *Introduction to the arithmetic theory of automorphic functions*,
+Prop. 9.2, UNVERIFIED number). `f` and `h` induce continuous injections `Γ*\ℍ → P¹`; `f`'s is
+onto (`QMHauptmodul`), hence a homeomorphism, and `h`'s is open (open mapping theorem) with closed
+image, hence onto. So `φ = h ∘ f⁻¹` is a homeomorphism of `P¹`. Away from the finitely many images
+of elliptic points and of the zeros of `jDen ∘ Ω`, `f = jNum/jDen ∘ Ω` is holomorphic (theta
+series are holomorphic on `𝔥₂`, `Ω` is holomorphic on `ℍ`) and locally injective, so `φ` is
+holomorphic there; the finitely many remaining points are removable singularities (`φ` is
+continuous). So `φ` is a biholomorphism of `P¹`, a Möbius map, fixing `0, ∞, −16/27` (both satisfy
+the CM clauses, and the fixed points exist: `(i+j)² = −1`, `((1+j)/2)² − (1+j)/2 + 1 = 0`,
+`(2j+ij)² = −6`), so `φ = id` and `h = f`. Statable over Mathlib as it stands; size: medium-large
+(compactness of `Γ*\ℍ`, removable singularities on `P¹`, Möbius rigidity). -/
+def HauptmodulUnique : Prop :=
+  ∀ f h : UpperHalfPlane → OnePoint ℂ, QMHauptmodulFn f → IsGammaStarHauptmodul h → h = f
+
+/-- **`QMPeriodValue` from the moduli part and the complex-analysis part (proved).** -/
+theorem qmPeriodValue_of (Y : Over (Spec (CommRingCat.of ℚ))) (Φ : PtEquiv Y) (π : ToP1 Y.left)
+    (hPM : QMPeriodMap Y Φ π) (hHU : HauptmodulUnique) : QMPeriodValue Y Φ π := by
+  intro f hf y P hP ιe Q hQ τ Φu hΦu hc
+  obtain ⟨h, hh, hval⟩ := hPM
+  rw [← hHU f h hf hh]
+  exact hval y P hP ιe Q hQ τ Φu hΦu hc
+
+/-! ### Step 2c: the proofs -/
 
 /-- An embedding `ℚ̄ → ℂ` over `ℚ`. -/
 def qbarToC : Qbar →ₐ[ℚ] ℂ := IsAlgClosed.lift
@@ -290,6 +367,16 @@ theorem fibreQMPeriod_of_named_rep (h : LeafAdopt.R1R2fpRep) (hM : Pin.MobiusGlu
     (hD : QMDenZeroCM3) (hT : UnifTransport) : ThetaPt.FibreQMPeriod :=
   fibreQMPeriod_of_named _ hM hH hU hV hD hT
 
+/-- **Main result, finest form (proved):** `FibreQMPeriod` from `MobiusGlue` (proved by mobius-glue
+from two curve facts and T5), the existing leaf `QMHauptmodul`, the leaf candidates
+`QMComplexUnif` and `QMDenZeroCM3`, and the glue `QMPeriodMap` (own triple), `HauptmodulUnique`,
+`UnifTransport`. -/
+theorem fibreQMPeriod_of_parts (h : R1R2fp) (hM : Pin.MobiusGlue) (hH : PkgI1.QMHauptmodul)
+    (hU : QMComplexUnif) (hPM : QMPeriodMap (ownY h) (ownΦ h) (ownπ h))
+    (hHU : HauptmodulUnique) (hD : QMDenZeroCM3) (hT : UnifTransport) :
+    ThetaPt.FibreQMPeriod :=
+  fibreQMPeriod_of_named h hM hH hU (qmPeriodValue_of _ _ _ hPM hHU) hD hT
+
 end FibreQM
 
 end G0Split
@@ -307,3 +394,5 @@ end
 #print axioms HSyn.G0Split.FibreQM.fibreQMPeriod_of_named
 #print axioms HSyn.G0Split.FibreQM.fibreQMPeriod_of_named_all
 #print axioms HSyn.G0Split.FibreQM.fibreQMPeriod_of_named_rep
+#print axioms HSyn.G0Split.FibreQM.qmPeriodValue_of
+#print axioms HSyn.G0Split.FibreQM.fibreQMPeriod_of_parts
