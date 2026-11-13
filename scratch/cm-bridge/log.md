@@ -48,3 +48,6 @@
   (equalizer field `eqField`; `IsComplexConj.apply_sqrt` γ(√D) = sgn(D)√D; `betaOneSign_pstar`;
   χ_p([𝔭₂]^{−5}) = χ_p([𝔭₂]) = legBit p 2 via `chi_mk0` + NormP2; `ZMod.exists_sq_eq_two_iff`). Remaining glue for
   BETA-7: SqrtPstarInHilbert (√p* ∈ H_n), ArtinPstarChi (Art(c)√p* = χ_p(c)√p*), NormP2 (N𝔭₂ = 2).
+- `sqrtPstarInHilbert : SqrtPstarInHilbert` PROVED (VERIFIED compiled, standard axioms): `norm_sq_mod_prime3`
+  (4N(β) ≡ t² mod p for n ≡ 3 (4)), `adjSqrt_pstar_le_hilbertField` (Bauer, as ring-class's
+  `adjSqrt_le_hilbertField`, with `isSquare_pstar_iff`). BETA-7 now rests on ArtinPstarChi + NormP2.
