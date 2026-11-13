@@ -389,4 +389,78 @@ theorem D_mul (hU : IsAffineOpen U) {v w : ptR (K := K) (TrivSqZeroExt K K) ⟶ 
 
 end Mul
 
+/-! ## §6. `[n]` on tangent vectors -/
+
+section Zpow
+
+open TrivSqZeroExt
+
+variable {K : Type} [Field K] (A : PkgI3.AbVar K) {U : A.X.left.Opens}
+  (ho : orig A (IsLocalRing.closedPoint K) ∈ U)
+
+theorem intCast_hom (n : ℤ) : ((n : PkgI3.AbVar.End A)).hom = (𝟙 A.X) ^ n := by
+  rw [← zsmul_one]
+  change (Additive.toMul (n • (1 : PkgI3.AbVar.End A))).1 = _
+  rw [toMul_zsmul, Subgroup.coe_zpow]
+  rfl
+
+/-- `q ≫ [n] = q ^ n`. -/
+theorem comp_intCast_hom {T : Over (Spec (CommRingCat.of K))} (q : T ⟶ A.X) (n : ℤ) :
+    q ≫ ((n : PkgI3.AbVar.End A)).hom = q ^ n := by
+  rw [intCast_hom, GrpObj.comp_zpow, Category.comp_id]
+
+variable {V : Type} [AddCommGroup V] [Module K V] [Module Kᵐᵒᵖ V] [IsCentralScalar K V]
+
+theorem atOrigin_inv {a : ptR (K := K) (TrivSqZeroExt K V) ⟶ A.X} (ha : AtOrigin A a) :
+    AtOrigin A a⁻¹ := by
+  unfold AtOrigin at *
+  rw [GrpObj.comp_inv, ha, inv_one]
+
+theorem atOrigin_zpow {a : ptR (K := K) (TrivSqZeroExt K V) ⟶ A.X} (ha : AtOrigin A a) (n : ℤ) :
+    AtOrigin A (a ^ n) := by
+  unfold AtOrigin at *
+  rw [GrpObj.comp_zpow, ha, one_zpow]
+
+theorem D_congr {a b : ptR (K := K) (TrivSqZeroExt K V) ⟶ A.X} (e : a = b) (ha : AtOrigin A a)
+    (hb : AtOrigin A b) : D A ho ha = D A ho hb := by
+  subst e; rfl
+
+theorem D_inv (hU : IsAffineOpen U) {v : ptR (K := K) (TrivSqZeroExt K K) ⟶ A.X}
+    (hv : AtOrigin A v) : D A ho (atOrigin_inv A hv) = - D A ho hv := by
+  have h := D_mul A ho hU hv (atOrigin_inv A hv)
+  rw [D_congr A ho (mul_inv_cancel v) _ (atOrigin_one A), D_one A ho hU] at h
+  exact (neg_eq_of_add_eq_zero_right h.symm).symm
+
+theorem D_zpow (hU : IsAffineOpen U) {v : ptR (K := K) (TrivSqZeroExt K K) ⟶ A.X}
+    (hv : AtOrigin A v) (n : ℤ) : D A ho (atOrigin_zpow A hv n) = n • D A ho hv := by
+  induction n using Int.induction_on with
+  | zero =>
+    rw [D_congr A ho (zpow_zero v) _ (atOrigin_one A), D_one A ho hU, zero_smul]
+  | succ m ih =>
+    rw [D_congr A ho (zpow_add_one v m) _ (atOrigin_mul A (atOrigin_zpow A hv m) hv),
+      D_mul A ho hU (atOrigin_zpow A hv m) hv, ih, add_smul, one_smul]
+  | pred m ih =>
+    rw [D_congr A ho (zpow_sub_one v (-(m : ℤ))) _
+      (atOrigin_mul A (atOrigin_zpow A hv _) (atOrigin_inv A hv)),
+      D_mul A ho hU (atOrigin_zpow A hv _) (atOrigin_inv A hv), ih, D_inv A ho hU, sub_smul,
+      one_smul, sub_eq_add_neg]
+
+/-- **A tangent vector at the origin killed by `[n]`, `n ≠ 0`, characteristic `0`, is trivial.** -/
+theorem eq_one_of_comp_intCast [CharZero K] (ho : orig A (IsLocalRing.closedPoint K) ∈ U) (hU : IsAffineOpen U)
+    {v : ptR (K := K) (TrivSqZeroExt K K) ⟶ A.X} (hv : AtOrigin A v) (n : ℤ) (hn : n ≠ 0)
+    (h : v ≫ ((n : PkgI3.AbVar.End A)).hom = 1) : v = 1 := by
+  rw [comp_intCast_hom] at h
+  have h1 := D_zpow A ho hU hv n
+  rw [D_congr A ho h _ (atOrigin_one A), D_one A ho hU] at h1
+  have h2 : D A ho hv = 0 := by
+    funext x
+    have := congrFun h1 x
+    simp only [Pi.zero_apply, Pi.smul_apply] at this
+    rw [← Int.cast_smul_eq_zsmul K, smul_eq_mul] at this
+    exact (mul_eq_zero.mp this.symm).resolve_left (Int.cast_ne_zero.mpr hn)
+  refine eq_of_D_eq A ho hU hv (atOrigin_one A) ?_
+  rw [h2, D_one A ho hU]
+
+end Zpow
+
 end ZInQ.Contrib.AbVarBC.Tangent
