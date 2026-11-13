@@ -30,3 +30,14 @@ from `scratch/qm-pin/QMPin.lean` (lines 553-567).
   `#print axioms` all [propext, Classical.choice, Quot.sound]. VERIFIED.
 - Hypotheses of MobiusGlue actually used by the proof: h1' (Y' proper, smooth rel. dim 1, has a
   ℚ̄-point), h2, h2', hCM, hg, and Φ' Qbar bijective. h1 (R1fpPropsU Y Φ), R1fam/R1univ of Y' unused.
+
+## AutO.lean (imports ZInQKernel.HDecomp.QM.Structures, ZInQKernel.HDecomp.Textbook.SkolemNoether)
+- `lake build ZInQKernel.HDecomp.Textbook.SkolemNoether`: success, 51 s (build1.txt). VERIFIED.
+- Extension of α : O ≃+* O to `extAlgEquiv α : B ≃ₐ[ℚ] B` (α̃ b = m⁻¹ α(m b); exists_nat_smul_mem,
+  extFun_eq (independent of m), extFun_add, extFun_mul, extFun_algebraMap, extAlgHom_symm_comp).
+- NormalizerFinite (def): ∃ finite T ⊆ Bˣ, every u ∈ Bˣ with u O u⁻¹ = O is q·v·t (q ∈ ℚ^×, v ∈ O^×, t ∈ T).
+- conj_of_skolem (from kernel `TSkolemKW.leafSkolemNoether` + `GlueDescent.B6_inner`), conjUnit,
+  key_conj, autOInnerFinite_of_normalizer : NormalizerFinite → AutOInnerFinite.
+- runs: several fix iterations (whnf timeouts from Nat.cast defeq after rw, fixed with `show`);
+  final run 0 errors, 1 deprecation warning; axioms of extAlgEquiv, autOInnerFinite_of_normalizer:
+  [propext, Classical.choice, Quot.sound]. VERIFIED.
