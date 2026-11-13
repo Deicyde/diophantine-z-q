@@ -3,7 +3,7 @@
 Task fs5-nocm, 2026-11-13. Base 2dd83306, merged with `origin/wip/qm-pin` and
 `origin/wip/mobius-glue` (`origin/wip/g0-fibresimple` was already in the base). Lean:
 `scratch/fs5-nocm/FS5NoCM.lean` and `scratch/fs5-nocm/FS5Curves.lean`, assembled from the parts
-`part0`, `partB`, `partD`, `partE`, `partE2` by `assemble.sh`. Results log:
+`part0`, `partB`, `partD`, `partE`, `partG`, `partE2` by `assemble.sh`. Results log:
 `scratch/fs5-nocm/log.md`. No file under `ZInQKernel/`, `blueprint/` or another task's directory
 was edited. This is model work with no human review.
 
@@ -18,11 +18,21 @@ theorem FS5NoCM.fibreComTrivialFull_of (hL : R1R2fpFull) (hM : MobiusGlue)
     (hA : ComIntOrQuadOrder) (hB : CMConductorCoprime6) (hK : X6KummerFibre)
     (hC : R5fpCount) : FibreComTrivialFull
 
--- the same with MobiusGlue replaced by mobius-glue's inputs (FS5Curves.lean):
-theorem FS5NoCM.fibreComTrivialFull_of_curves (hL : R1R2fpFull) (hRF : CurveRatFactor)
-    (hSu : CurveSurj) (hT : ObjBridge.TorsionStructure) (hA : ComIntOrQuadOrder)
+-- N1a split (§G): its case End⁰ ≅ B is proved from T6; only the CM case stays named:
+theorem FS5NoCM.comIntOrQuadOrder_of (t27 : PkgI3.QMDichotomyYu) (t6 : PkgI3.HomFreeFinite)
+    (hCM : ComOfMatrixEnd0) : ComIntOrQuadOrder
+
+-- everything together, MobiusGlue replaced by mobius-glue's inputs (FS5Curves.lean):
+theorem FS5NoCM.fibreComTrivialFull_of_curves_leaves (hL : R1R2fpFull)
+    (hRF : CurveRatFactor) (hSu : CurveSurj) (hT : ObjBridge.TorsionStructure)
+    (t27 : PkgI3.QMDichotomyYu) (t6 : PkgI3.HomFreeFinite) (hCM : ComOfMatrixEnd0)
     (hB : CMConductorCoprime6) (hK : X6KummerFibre) (hC : R5fpCount) : FibreComTrivialFull
 ```
+
+So FS5 rests on:
+
+- the leaves: the bundle, R5fpCount, T5, T6, T27 and the new leaf N1b;
+- the glue: `CurveRatFactor`, `CurveSurj` (mobius-glue), and the new N1a-CM and N2.
 
 The proof has two steps, as the task asked.
 
@@ -52,7 +62,8 @@ both files: 7.6 s and 11.8 s (`run1.txt`, `run2.txt`).
 | `R1R2fpFull` | leaf bundle (existing) | `LeafQM.AV.R1R2fp` with qm-pin's repaired `R1fpProps`: R1fp + R1fam + R1univ, R1hecke, `X6Props`, `R2X6Props` (Baba–Granath), `CMExists`, `R1recProps`, `X6Surj`, `R5ptProps` (González–Rotger Thm 5.12, point form) | qm-pin §2 (text checked equal to `QM-Leaves-full.patch`) |
 | `R5fpCount` | leaf (existing, kernel) | `#CM(R) = 2^{b(k)} h(R)` | González–Rotger Prop. 5.6; Jordan 1981 |
 | `MobiusGlue` | glue (existing) | `π' = π ∘ g` for two triples related by `Φ' = Φ ∘ g` | proved by mobius-glue from `CurveRatFactor`, `CurveSurj` (curve glue) and T5 |
-| **N1a `ComIntOrQuadOrder`** | glue (new) | `End_𝒪(A)` is `ℤ`, or is isomorphic to a subring of finite index of `𝒪_k`, `k` imaginary quadratic | from T27 (Yu's dichotomy, `PkgI3.QMDichotomyYu`), FS4's centralizer argument and T6. Not compiled |
+| **N1a `ComIntOrQuadOrder`** | glue (new), **proved** from T27, T6 and N1a-CM | `End_𝒪(A)` is `ℤ`, or is isomorphic to a subring of finite index of `𝒪_k`, `k` imaginary quadratic | `comIntOrQuadOrder_of`: T27 at `B = (2,−3)` (`qmDichotomy_B6`); case `End⁰ ≅ B` proved (`com_int_of_end0_quat`, from T6) |
+| **N1a-CM `ComOfMatrixEnd0`** | glue (new) | if `End⁰(A) ≅ M₂(ℚ(√d))`, `d < 0`, then `End_𝒪(A)` is isomorphic to a subring of finite index of `𝒪_k`, `k` imaginary quadratic | the centralizer of `B` in `M₂(k)` is `k`; `End(A) ∩ k` is an order (T6, FS4). Not compiled |
 | **N1b `CMConductorCoprime6`** | leaf (new) | if `End_𝒪(A) ≅ R`, an order of `k`, then `(f(R), 6) = 1` | Eichler's local optimal-embedding numbers (Vignéras LNM 800, Ch. II §3 / Ch. III §5) with the CM-point/optimal-embedding correspondence (Jordan 1981 §3; González–Rotger 2006 §5). Locators UNVERIFIED |
 | **N2 `X6KummerFibre`** | glue (new) | on the bundle's `X₆`, for rational `j₀ ∉ {0, −16/27}`: (i) every point over `j₀` has residue field `ℚ(√−t₀, √(3(t₀−1)))`, `t₀ = 1 + 27j₀/16`; (ii) the fibre has four distinct `ℚ̄`-points | Elkies' Kummer model of `X₆ → X₆/W` (rv-h-cm §2.3-2.4, `GlueRepo.PR.fibre_iff`), plus transport to an arbitrary witness (§3.3). Not compiled |
 
@@ -66,7 +77,13 @@ What was **proved here**, not assumed (all compiled):
 - the count: four distinct classes with CM by `R`, from N2 (ii), `R2X6Props`, `com_twist` and
   `comEquiv`, against `#CM(R) = 2`;
 - the case analysis on `b(k)` with R5's degree and embedding clauses;
-- the transfer from the leaf's witnesses to all triples.
+- the transfer from the leaf's witnesses to all triples;
+- N1a's case `End⁰(A) ≅ B` (`com_int_of_end0_quat`, from T6):
+  - the QM image of `B` is all of `End⁰` (`qmBasis` of g0-fibresimple; an injective map of
+    4-dimensional spaces);
+  - so `1 ⊗ φ` is central, and the centre of `ℍ[ℚ,2,−3]` is `ℚ` (`B6_central_eq`);
+  - `φ` is integral over `ℤ` (`End(A)` is finite over `ℤ`, T6), so the scalar is an integer;
+  - `m ↦ 1 ⊗ m` is injective (`tmul_one_injective`, T6).
 
 ## 2. Statements (namespace `FS5NoCM`; kernel definitions from `LeafQM.AV`)
 
