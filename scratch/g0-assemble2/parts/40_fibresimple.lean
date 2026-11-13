@@ -547,20 +547,9 @@ structure PtAuto (Y : Over (Spec (CommRingCat.of ℚ))) where
 def twistBy {Y : Over (Spec (CommRingCat.of ℚ))} (Φ : PtEquiv Y) (s : PtAuto Y) : PtEquiv Y :=
   fun K _ _ => (s.σ K).trans (Φ K)
 
-/-- **Proved: `R1fpProps` is invariant under `Φ ↦ Φ ∘ σ`.** -/
-theorem r1fpProps_twistBy {Y : Over (Spec (CommRingCat.of ℚ))} {Φ : PtEquiv Y}
-    (h1 : R1fpProps Y Φ) (s : PtAuto Y) : R1fpProps Y (twistBy Φ s) := by
-  obtain ⟨hp, hs, hq, hnat⟩ := h1
-  refine ⟨hp, hs, hq, ?_⟩
-  intro K L _ _ _ _ f y P hP
-  obtain ⟨Q, hQ, hb⟩ := hnat K L f (s.σ K y) P hP
-  refine ⟨Q, ?_, hb⟩
-  change Φ L (s.σ L (fieldMap f ≫ y)) = M3.mk Q
-  rw [s.natural]
-  exact hQ
-
-/-- **Proved: `R2fpProps` is invariant under `Φ ↦ Φ ∘ σ`** when `σ` permutes the `π`-fibres of
-`ℚ̄`-points and fixes the fibres over `0, ∞, −16/27` (no other condition). -/
+/- (g0-assemble2) `r1fpProps_twistBy` (g0-fibresimple §5) is removed: after pin-apply, `R1fpProps`
+includes `R1famProps` and `R1univProps`, which are not invariant under `Φ ↦ Φ ∘ σ` (that was the
+point of the repair), so the proof no longer applies. Off the assembled route. -/
 theorem r2fpProps_twistBy {Y : Over (Spec (CommRingCat.of ℚ))} {Φ : PtEquiv Y}
     {π : ToP1 Y.left} (h2 : R2fpProps Y Φ π) (s : PtAuto Y)
     (hfib : ∀ y y' : fieldPt LeafQM.AV.Qbar ⟶ Y,
@@ -577,28 +566,7 @@ theorem r2fpProps_twistBy {Y : Over (Spec (CommRingCat.of ℚ))} {Φ : PtEquiv Y
   refine ⟨(hfib y y').symm.trans hf, fun c => hcm y _ (Or.inl rfl) (h4 c),
     fun c => hcm y _ (Or.inr (Or.inl rfl)) (h3 c), fun c => hcm y _ (Or.inr (Or.inr rfl)) (h24 c)⟩
 
-/-- **Proved: what `FibreComTrivial` asserts about the given data.** Applied to `(Y, Φ ∘ σ, π)`,
-it asserts that the object at `σ y` has trivial `𝒪`-centralizer for every `y` over `J(u)` and
-every fibre-permuting `σ` fixing the CM fibres: that is, NoCM over every rational value `t₂`
-whose fibre `σ` can exchange with the fibre over `J(u)`. -/
-theorem fibreComTrivial_twisted (h5 : FibreComTrivial)
-    (Y : Over (Spec (CommRingCat.of ℚ))) (Φ : PtEquiv Y) (π : ToP1 Y.left)
-    (h1 : R1fpProps Y Φ) (h2 : R2fpProps Y Φ π) (s : PtAuto Y)
-    (hfib : ∀ y y' : fieldPt LeafQM.AV.Qbar ⟶ Y,
-      π.val (K := LeafQM.AV.Qbar) (s.σ LeafQM.AV.Qbar y).left =
-          π.val (K := LeafQM.AV.Qbar) (s.σ LeafQM.AV.Qbar y').left ↔
-        π.val (K := LeafQM.AV.Qbar) y.left = π.val (K := LeafQM.AV.Qbar) y'.left)
-    (hcm : ∀ (y : fieldPt LeafQM.AV.Qbar ⟶ Y) (c : OnePoint LeafQM.AV.Qbar),
-      (c = OnePoint.some 0 ∨ c = OnePoint.infty ∨ c = OnePoint.some (-16 / 27)) →
-      π.val (K := LeafQM.AV.Qbar) (s.σ LeafQM.AV.Qbar y).left = c →
-        π.val (K := LeafQM.AV.Qbar) y.left = c)
-    (u : ℚ) (hu : u ∉ contactSet) (y : fieldPt LeafQM.AV.Qbar ⟶ Y) (P : QML3 LeafQM.AV.Qbar)
-    (hP : Φ LeafQM.AV.Qbar (s.σ LeafQM.AV.Qbar y) = M3.mk P)
-    (hy : π.val (K := LeafQM.AV.Qbar) y.left =
-      OnePoint.some (algebraMap ℚ LeafQM.AV.Qbar (Jmap u))) :
-    ∀ φ ∈ com P.q, ∃ n : ℤ, φ = (n : PkgI3.AbVar.End P.A) :=
-  h5 Y (twistBy Φ s) π (r1fpProps_twistBy h1 s) (r2fpProps_twistBy h2 s hfib hcm) u hu y P hP hy
-
+/- (g0-assemble2) `fibreComTrivial_twisted` is removed with `r1fpProps_twistBy`. -/
 end G0FibreSimple
 
 end
