@@ -453,6 +453,114 @@ def KummerVerticalInf : Prop :=
     KummerShape E E' ι (rInf c n) → NoVerticalRam E p → NoVerticalRam E' p
 
 
+/-- `ℤ[X] → E` through `ℚ[X]` (the map of `intPolyAlg`). -/
+abbrev zxMap (E : Type) [Field E] [Algebra ℚ[X] E] : ℤ[X] →+* E :=
+  (algebraMap ℚ[X] E).comp (Polynomial.mapRingHom (Int.castRingHom ℚ))
+
+theorem zxMap_injective (E : Type) [Field E] [Algebra (RatFunc ℚ) E] [Algebra ℚ[X] E]
+    [IsScalarTower ℚ[X] (RatFunc ℚ) E] : Function.Injective (zxMap E) := by
+  intro a b h
+  simp only [zxMap, RingHom.comp_apply, IsScalarTower.algebraMap_apply ℚ[X] (RatFunc ℚ) E] at h
+  have h1 := (algebraMap (RatFunc ℚ) E).injective h
+  have h2 := (IsFractionRing.injective ℚ[X] (RatFunc ℚ)) h1
+  exact Polynomial.map_injective _ Int.cast_injective h2
+
+/-- **The local base `ℤ[X]_m` mapped to `E`** (the localization of `zxMap E`; elements outside
+`m` are nonzero, hence units in the field `E`). -/
+@[reducible] noncomputable def locAlg (E : Type) [Field E] [Algebra (RatFunc ℚ) E]
+    [Algebra ℚ[X] E] [IsScalarTower ℚ[X] (RatFunc ℚ) E] (m : Ideal ℤ[X]) [m.IsPrime] :
+    Algebra (Localization.AtPrime m) E :=
+  (IsLocalization.lift (M := m.primeCompl) (S := Localization.AtPrime m) (g := zxMap E)
+    (fun y => by
+      rw [isUnit_iff_ne_zero]
+      intro h
+      apply y.2
+      rw [(zxMap_injective E) (h.trans (map_zero _).symm)]
+      exact m.zero_mem)).toAlgebra
+
+/-- `ℚ(X)` is the fraction field of `ℤ[X]` (through `ℤ[X] → ℚ[X] → ℚ(X)`). -/
+theorem isFractionRing_zx :
+    letI : Algebra ℤ[X] (RatFunc ℚ) := (zxMap (RatFunc ℚ)).toAlgebra
+    IsFractionRing ℤ[X] (RatFunc ℚ) := by
+  letI : Algebra ℤ[X] (RatFunc ℚ) := (zxMap (RatFunc ℚ)).toAlgebra
+  have hinj : Function.Injective (algebraMap ℤ[X] (RatFunc ℚ)) := zxMap_injective (RatFunc ℚ)
+  refine ⟨?_, ?_, ?_⟩
+  · intro y
+    rw [isUnit_iff_ne_zero]
+    intro h
+    exact nonZeroDivisors.coe_ne_zero y (hinj (h.trans (map_zero _).symm))
+  · intro z
+    obtain ⟨⟨P, Q⟩, hz⟩ := IsLocalization.surj (nonZeroDivisors ℚ[X]) z
+    obtain ⟨bP, hbPM, hbP⟩ := IsLocalization.integerNormalization_spec (nonZeroDivisors ℤ) P
+    obtain ⟨bQ, hbQM, hbQ⟩ := IsLocalization.integerNormalization_spec (nonZeroDivisors ℤ)
+      (Q : ℚ[X])
+    set P' := IsLocalization.integerNormalization (nonZeroDivisors ℤ) P
+    set Q' := IsLocalization.integerNormalization (nonZeroDivisors ℤ) (Q : ℚ[X])
+    have hbP0 : bP ≠ 0 := nonZeroDivisors.ne_zero hbPM
+    have hbQ0 : bQ ≠ 0 := nonZeroDivisors.ne_zero hbQM
+    have hQ0 : (Q : ℚ[X]) ≠ 0 := nonZeroDivisors.coe_ne_zero Q
+    have hmapQ : Q'.map (Int.castRingHom ℚ) = C (bQ : ℚ) * Q := by
+      rw [← smul_eq_C_mul]
+      simpa [Algebra.smul_def] using hbQ
+    have hmapP : P'.map (Int.castRingHom ℚ) = C (bP : ℚ) * P := by
+      rw [← smul_eq_C_mul]
+      simpa [Algebra.smul_def] using hbP
+    have hy : C bP * Q' ∈ nonZeroDivisors ℤ[X] := by
+      rw [mem_nonZeroDivisors_iff_ne_zero]
+      refine mul_ne_zero (by simpa using hbP0) ?_
+      intro h0
+      have := hmapQ
+      rw [h0, Polynomial.map_zero] at this
+      exact mul_ne_zero (by simpa using hbQ0) hQ0 this.symm
+    refine ⟨⟨C bQ * P', ⟨_, hy⟩⟩, ?_⟩
+    simp only [RingHom.algebraMap_toAlgebra, zxMap, RingHom.comp_apply, coe_mapRingHom,
+      Polynomial.map_mul, Polynomial.map_C, hmapP, hmapQ, map_mul, eq_intCast]
+    rw [← hz]
+    simp only [map_intCast, Int.cast_id, Polynomial.map_intCast]
+    ring
+  · intro x y h
+    exact ⟨1, by rw [hinj h]⟩
+
+/-- A `p`-integral rational has denominator prime to `p`. -/
+theorem not_dvd_den_of_nonneg (p : ℕ) [hp : Fact p.Prime] (s : ℚ) (hs : 0 ≤ padicValRat p s) :
+    ¬ p ∣ s.den := by
+  intro hd
+  have hnum : ¬ (p : ℤ) ∣ s.num := by
+    intro hn
+    have h1 : p ∣ s.num.natAbs := Int.natCast_dvd.mp hn
+    exact hp.out.one_lt.ne' ((Nat.Coprime.coprime_dvd_left h1 s.reduced).eq_one_of_dvd hd)
+  rw [padicValRat_def, padicValInt.eq_zero_of_not_dvd hnum] at hs
+  have := one_le_padicValNat_of_dvd s.den_nz hd
+  omega
+
+theorem vertPrime_isPrime (p : ℕ) (hp : p.Prime) : (vertPrime p).IsPrime :=
+  (Ideal.isPrime_map_C_iff_isPrime _).mpr
+    ((Ideal.span_singleton_prime (by exact_mod_cast hp.ne_zero)).mpr
+      (Nat.prime_iff_prime_int.mp hp))
+
+/-- **An extension of degree `< p` in characteristic `p` is separable.** -/
+theorem isSeparable_of_finrank_lt {K L : Type*} [Field K] [Field L] [Algebra K L]
+    [FiniteDimensional K L] (p : ℕ) [Fact p.Prime] [CharP K p]
+    (h : Module.finrank K L < p) : Algebra.IsSeparable K L := by
+  refine ⟨fun x => ?_⟩
+  have hint : IsIntegral K x := IsIntegral.of_finite K x
+  have hirr := minpoly.irreducible hint
+  rcases separable_or p hirr with hs | ⟨-, g, hg, hgf⟩
+  · exact hs
+  · exfalso
+    have hdeg := minpoly.natDegree_le (A := K) (B := L) x
+    have h1 : (minpoly K x).natDegree = g.natDegree * p := by rw [← hgf, natDegree_expand]
+    have hg1 : 1 ≤ g.natDegree := by
+      rw [Nat.one_le_iff_ne_zero]
+      intro h0
+      have := natDegree_eq_zero.mp h0
+      obtain ⟨c, rfl⟩ := this
+      exact hg.not_isUnit (isUnit_C.mpr (isUnit_iff_ne_zero.mpr (by
+        rintro rfl
+        simp at hg)))
+    have : p ≤ (minpoly K x).natDegree := by rw [h1]; nlinarith
+    omega
+
 end TsKummer
 
 namespace TsKummer
@@ -1794,6 +1902,114 @@ theorem unramBaseChange (R K L M T K' : Type) [CommRing R] [IsDomain R] [IsDiscr
   letI := Localization.AtPrime.algebraOfLiesOver (maximalIdeal T) Q
   have hsep := ((Algebra.isUnramifiedAt_iff_map_eq T (maximalIdeal T) Q).mp inferInstance).1
   exact Algebra.isSeparable_residueField_iff.mp hsep
+
+theorem mem_vertPrime_iff (p : ℕ) (f : ℤ[X]) :
+    f ∈ vertPrime p ↔ f.map (Int.castRingHom (ZMod p)) = 0 := by
+  rw [vertPrime, Ideal.mem_map_C_iff]
+  constructor
+  · intro h
+    ext k
+    rw [coeff_map, coeff_zero, eq_intCast, ZMod.intCast_zmod_eq_zero_iff_dvd]
+    exact Ideal.mem_span_singleton.mp (h k)
+  · intro h k
+    have := congrArg (fun g => g.coeff k) h
+    simp only [coeff_map, coeff_zero, eq_intCast] at this
+    exact Ideal.mem_span_singleton.mpr ((ZMod.intCast_zmod_eq_zero_iff_dvd _ _).mp this)
+
+theorem C_mem_vertPrime (p : ℕ) (m : ℤ) : C m ∈ vertPrime p ↔ (p : ℤ) ∣ m := by
+  rw [mem_vertPrime_iff, Polynomial.map_C, C_eq_zero, eq_intCast,
+    ZMod.intCast_zmod_eq_zero_iff_dvd]
+
+theorem not_dvd_num_of_val_zero (p : ℕ) [hp : Fact p.Prime] (c : ℚ) (hc : c ≠ 0)
+    (h : padicValRat p c = 0) : ¬ (p : ℤ) ∣ c.num := by
+  intro hd
+  have h1 : padicValNat p c.den = 0 :=
+    padicValNat.eq_zero_of_not_dvd (not_dvd_den_of_nonneg p c (by rw [h]))
+  have h2 : 1 ≤ padicValInt p c.num := by
+    rcases (padicValInt_dvd_iff 1 c.num).mp (by simpa using hd) with h0 | h0
+    · exact absurd h0 (Rat.num_ne_zero.mpr hc)
+    · exact h0
+  rw [padicValRat_def, h1] at h
+  omega
+
+/-- `ℤ[X]_(p)` is a discrete valuation ring. -/
+theorem zxLoc_dvr (p : ℕ) (hp : p.Prime) :
+    haveI := vertPrime_isPrime p hp
+    IsDiscreteValuationRing (Localization.AtPrime (vertPrime p)) := by
+  haveI := vertPrime_isPrime p hp
+  set 𝔭 := vertPrime p with h𝔭
+  have hCp0 : algebraMap ℤ[X] (Localization.AtPrime 𝔭) (C (p : ℤ)) ≠ 0 := by
+    intro h0
+    have := IsLocalization.injective (Localization.AtPrime 𝔭) 𝔭.primeCompl_le_nonZeroDivisors
+      (h0.trans (map_zero _).symm)
+    rw [C_eq_zero] at this
+    exact hp.ne_zero (by exact_mod_cast this)
+  have h3 : 𝔭 = Ideal.span {C (p : ℤ)} := by
+    rw [h𝔭, vertPrime, Ideal.map_span, Set.image_singleton]
+  have hmax : maximalIdeal (Localization.AtPrime 𝔭) =
+      Ideal.span {algebraMap ℤ[X] (Localization.AtPrime 𝔭) (C (p : ℤ))} := by
+    rw [← Localization.AtPrime.map_eq_maximalIdeal]
+    refine (congrArg (Ideal.map (algebraMap ℤ[X] (Localization.AtPrime 𝔭))) h3).trans ?_
+    rw [Ideal.map_span, Set.image_singleton]
+  have hnf : ¬ IsField (Localization.AtPrime 𝔭) := by
+    intro hF
+    have := (IsLocalRing.isField_iff_maximalIdeal_eq).mp hF
+    rw [hmax, Ideal.span_singleton_eq_bot] at this
+    exact hCp0 this
+  have hprin : (maximalIdeal (Localization.AtPrime 𝔭)).IsPrincipal := ⟨⟨_, hmax⟩⟩
+  exact ((IsDiscreteValuationRing.TFAE (Localization.AtPrime 𝔭) hnf).out 1 5).mpr hprin
+
+/-- A localization-compatible lift: `ℤ[X] → R` with every `f ∉ (p)` sent to a unit extends to
+`ℤ[X]_(p)`; the image of a substitution is computed through `ℚ(X)`. Generic unit criterion:
+if `g(β) · s^d = (image of F)` with `s` a unit and `F ∉ (p)`, then `g(β)` is a unit. -/
+theorem unit_of_scaleRoots (p : ℕ) (hp : p.Prime) (N : ℤ[X]) (s : ℤ) (hs : ¬ (p : ℤ) ∣ s)
+    (hN : 0 < (N.map (Int.castRingHom (ZMod p))).natDegree) :
+    haveI := vertPrime_isPrime p hp
+    ∀ (β : Localization.AtPrime (vertPrime p)),
+      (s : Localization.AtPrime (vertPrime p)) * β =
+        algebraMap ℤ[X] (Localization.AtPrime (vertPrime p)) N →
+      ∀ f : ℤ[X], f ∉ vertPrime p →
+        IsUnit (Polynomial.eval₂ (Int.castRingHom _) β f) := by
+  haveI := vertPrime_isPrime p hp
+  haveI : Fact p.Prime := ⟨hp⟩
+  set 𝔭 := vertPrime p
+  set Rz := Localization.AtPrime 𝔭
+  intro β hβ f hf
+  have hsu : IsUnit (s : Rz) := by
+    have : IsUnit (algebraMap ℤ[X] Rz (C s)) :=
+      IsLocalization.map_units Rz (⟨C s, (C_mem_vertPrime p s).not.mpr hs⟩ : 𝔭.primeCompl)
+    simpa using this
+  have key := Polynomial.scaleRoots_eval₂_mul (p := f) (Int.castRingHom Rz) β s
+  rw [eq_intCast, hβ] at key
+  have hcomp : eval₂ (Int.castRingHom Rz) (algebraMap ℤ[X] Rz N) (scaleRoots f s) =
+      algebraMap ℤ[X] Rz ((scaleRoots f s).comp N) := by
+    rw [Polynomial.comp, Polynomial.hom_eval₂]
+    congr 1
+    exact RingHom.ext_int _ _
+  rw [hcomp] at key
+  set F := (scaleRoots f s).comp N
+  have hF : F ∉ 𝔭 := by
+    rw [mem_vertPrime_iff, Polynomial.map_comp]
+    intro h0
+    rw [comp_eq_zero_iff] at h0
+    rcases h0 with h0 | ⟨_, h0⟩
+    · obtain ⟨k, hk⟩ : ∃ k, ¬ (p : ℤ) ∣ f.coeff k := by
+        by_contra hcon
+        push_neg at hcon
+        exact hf ((mem_vertPrime_iff p f).mpr (by
+          ext k; rw [coeff_map, coeff_zero, eq_intCast, ZMod.intCast_zmod_eq_zero_iff_dvd]
+          exact hcon k))
+      have := congrArg (fun g => g.coeff k) h0
+      simp only [coeff_map, coeff_scaleRoots, coeff_zero, map_mul, map_pow, eq_intCast] at this
+      rcases mul_eq_zero.mp this with h1 | h1
+      · exact hk ((ZMod.intCast_zmod_eq_zero_iff_dvd _ _).mp h1)
+      · exact hs ((ZMod.intCast_zmod_eq_zero_iff_dvd _ _).mp (pow_eq_zero_iff'.mp h1).1)
+    · have := congrArg natDegree h0
+      rw [natDegree_C] at this
+      omega
+  have hFu : IsUnit (algebraMap ℤ[X] Rz F) := IsLocalization.map_units Rz (⟨F, hF⟩ : 𝔭.primeCompl)
+  rw [key] at hFu
+  exact isUnit_of_mul_isUnit_right hFu
 
 end TsKummer
 #print axioms TsKummer.kummerAbhyankarFinGlue
