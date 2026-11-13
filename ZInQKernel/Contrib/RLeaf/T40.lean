@@ -1,5 +1,6 @@
 import ZInQKernel.Contrib.RLeaf.TateCusp
 import ZInQKernel.Contrib.RLeaf.IgusaLocal
+import ZInQKernel.Contrib.RLeaf.TateCuspMuN
 
 /-!
 # T40 (and T39): what remains after t40-tate and t40-igusa
@@ -16,7 +17,12 @@ Leaf T40 (`X1Belyi.X1RationalCusp`) was reduced by task rleaf-elliptic to `Igusa
   (`tateMuN_of_at`); and `IgusaTransitive` also follows from Igusa's theorem in its usual form
   (`igusaTransitive_of_igusaGL2`, IgusaSL2.lean).
 
-This file records the resulting reductions of T40 and T39.
+* `TateMuN` is proved by task t40-tate (`ZInQ.RLeaf.tateMuN`, TateCuspMuN.lean, through
+  `tateMuN_of_at`).
+
+So T40 and T39 follow from `X0Transitive` alone (`x1RationalCusp_of_x0Transitive`,
+`x1ConstantField_of_x0Transitive`), and `IgusaTransitive` is equivalent to `X0Transitive`
+(`igusaTransitive_iff_x0Transitive`).
 -/
 
 namespace ZInQ.RLeaf
@@ -48,8 +54,23 @@ theorem x1RationalCusp_of_igusaSL2X (h : IgusaSL2X) : X1Belyi.X1RationalCusp :=
 theorem x1ConstantField_of_igusaSL2X (h : IgusaSL2X) : X1Belyi.X1ConstantField :=
   x1ConstantField_of_x1RationalCusp (x1RationalCusp_of_igusaSL2X h)
 
+/-- **Igusa transitivity is equivalent to `X₀(N)`-transitivity** (the cusp `μ_N` being proved). -/
+theorem igusaTransitive_iff_x0Transitive : IgusaTransitive ↔ X0Transitive :=
+  ⟨x0Transitive_of_igusaTransitive, fun h0 => igusaTransitive_of_x0_tateMuN h0 tateMuN⟩
+
+/-- **T40 from `X₀(N)`-transitivity alone.** -/
+theorem x1RationalCusp_of_x0Transitive (h0 : X0Transitive) : X1Belyi.X1RationalCusp :=
+  x1RationalCusp_of_x0_tateMuN h0 tateMuN
+
+/-- **T39 from `X₀(N)`-transitivity alone.** -/
+theorem x1ConstantField_of_x0Transitive (h0 : X0Transitive) : X1Belyi.X1ConstantField :=
+  x1ConstantField_of_x0_tateMuN h0 tateMuN
+
 end ZInQ.RLeaf
 
+#print axioms ZInQ.RLeaf.igusaTransitive_iff_x0Transitive
+#print axioms ZInQ.RLeaf.x1RationalCusp_of_x0Transitive
+#print axioms ZInQ.RLeaf.x1ConstantField_of_x0Transitive
 #print axioms ZInQ.RLeaf.x1RationalCusp_of_x0_tateMuN
 #print axioms ZInQ.RLeaf.x1ConstantField_of_x0_tateMuN
 #print axioms ZInQ.RLeaf.x1RationalCusp_of_x0_tateMuNLocal
