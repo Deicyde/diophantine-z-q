@@ -60,3 +60,26 @@ Named leaves (def … : Prop): `IgusaSL2X` (SL₂ part on x-coordinates; Shimura
   local at j = ∞.
 - Helper lemmas proved: `xCoord_neg`, `eq_or_eq_neg_of_xCoord_eq`, `addOrderOf_galPt`,
   `xCoord_galPt`.
+
+## Step 3: IgusaLocal.lean (VERIFIED, compiled with `lake env lean`; standard axioms)
+- `TateMuNOver Ω` (Ω alg. closed, Algebra Qj Ω, DecidableEq Ω): TateMuN over Ω.
+- `tateMuN_of_over Ω : TateMuNOver Ω → TateMuN` PROVED: N-torsion of E_j(Ω) is the image of
+  E_j(Kbar)[N] (`exists_map_eq_of_nsmul_eq_zero`, injective map between sets of N² points, T36
+  on both sides); τ ∈ Aut(Ω/Qj) restricts to Kbar (`exists_restrict`, `AlgEquiv.restrictNormal`).
+- `jInv : Qj →+* Qj` (j ↦ 1/j, `jInv_X`), `jInvLaurent : Qj →+* ℚ((t))` (j ↦ t⁻¹,
+  `jInvLaurent_X`), `TateOmega` = AlgebraicClosure ℚ((t)) with Qj-algebra via jInvLaurent.
+- Leaf `TateMuNLocal := TateMuNOver TateOmega`; `tateMuN_of_local`,
+  `igusaTransitive_of_x0_tateMuNLocal : X0Transitive → TateMuNLocal → IgusaTransitive`.
+- Pitfall: `Algebra ℚ (RatFunc ℚ)` diamond (RatFunc.instAlgebraOfPolynomial vs
+  DivisionRing.toRatAlgebra) — `convert` + `Subsingleton.elim` (algebra_rat_subsingleton).
+  Mathlib's `Algebra (RatFunc F) F⸨X⸩` is the scoped instance `RatFunc.liftAlgebra`
+  (`open scoped RatFunc`); `AlgebraicClosure k` inherits every `Algebra R k`, hence the type
+  synonym `TateOmega`.
+- Coordination: task t40-tate (message 2026-11-13 ~10:00) reports TateCuspLaurent PROVED on
+  origin/wip/t40-tate and plans to prove TateMuN in its own file TateCuspMuN.lean; agreed.
+- Added on t40-tate's request (VERIFIED, compiled): `TateMuNAt N Ω` (per level, Ω need not be
+  alg. closed in the def), `tateMuNOver_iff`, `tateMuNAt_kbar : 0 < N → TateMuNAt N Ω →
+  TateMuNAt N Kbar` (Ω alg. closed), `tateMuN_of_at : (∀ N > 0, ∃ Ω alg. closed ⊇ Qj,
+  TateMuNAt N Ω) → TateMuN`.
+- Merged origin/wip/t40-tate (060d6026) into wip/t40-igusa: brings TateCusp*.lean
+  (`ZInQ.RLeaf.tateCuspLaurent : TateCuspLaurent`, `x1RationalCusp_of_igusaTransitive`).
