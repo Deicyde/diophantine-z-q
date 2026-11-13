@@ -27,3 +27,6 @@
   `normalizer_component` (x ∈ N ⇒ x_p normalizes 𝒪_p), `mem_sup_iff_forall` (x ∈ Z K₀ ⇔ ∀ p, x_p ∈ ℚ_p^×𝒪_p^×),
   `mem_sup_iff` (for x ∈ N: ⇔ at p = 2, 3 only), `Phi`, `ker_Phi`, `Phi_surjective`, `quotEquiv`
   (N/(Z K₀) ≃* B_2^×/ℚ_2^×𝒪_2^× × B_3^×/ℚ_3^×𝒪_3^×), `relIndex_eq_four` ([N : Z K₀] = 4).
+- Adelic.lean, K₃ and the count (VERIFIED, standard axioms): `K3` (u ∈ K₀, u_3 ≡ 1 mod 3𝒪_3),
+  `K0_le_Nhat`, `Zhat_le_Nhat`, `conj_mem_K3` (N normalizes K₃), `sup_K3_normal`,
+  `gamma_count : (Zhat ⊔ K3).relIndex Nhat = 4 * ((Zhat ⊓ K0) ⊔ K3).relIndex K0`.

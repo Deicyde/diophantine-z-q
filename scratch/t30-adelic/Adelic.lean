@@ -468,8 +468,156 @@ noncomputable def quotEquiv : Nhat ⧸ (Zhat ⊔ K0).subgroupOf Nhat ≃*
   (QuotientGroup.quotientMulEquivOfEq ker_Phi.symm).trans
     (QuotientGroup.quotientKerEquivOfSurjective Phi Phi_surjective)
 
+/-! ### The level-3 subgroup `K₃` and the count `|Γ'| = 4 · [K₀ : (Z ∩ K₀) K₃]` -/
+
+/-- The prime `3` as a natural number, the index of `P3`. -/
+abbrev q3 : ℕ := ((P3 : Nat.Primes) : ℕ)
+
+/-- `3 𝒪_3 ⊆ B_3`. -/
+def I3 : Set (Bp q3) := {y | ∃ n : Fin 4 → ℤ_[q3], y = (3 : ℚ_[q3]) • combp q3 n}
+
+theorem I3_zero : (0 : Bp q3) ∈ I3 := ⟨0, by rw [combp_zero, smul_zero]⟩
+
+theorem I3_add {a b : Bp q3} (ha : a ∈ I3) (hb : b ∈ I3) : a + b ∈ I3 := by
+  obtain ⟨n, rfl⟩ := ha
+  obtain ⟨m, rfl⟩ := hb
+  exact ⟨n + m, by rw [← smul_add, combp_add]⟩
+
+theorem I3_neg {a : Bp q3} (ha : a ∈ I3) : -a ∈ I3 := by
+  obtain ⟨n, rfl⟩ := ha
+  exact ⟨-n, by rw [← smul_neg, combp_neg]⟩
+
+theorem I3_mul_left {a y : Bp q3} (ha : a ∈ Op q3) (hy : y ∈ I3) : a * y ∈ I3 := by
+  obtain ⟨m, rfl⟩ := ha
+  obtain ⟨n, rfl⟩ := hy
+  exact ⟨combMulp q3 m n, by rw [mul_smul_comm, combp_mul]⟩
+
+theorem I3_mul_right {a y : Bp q3} (ha : a ∈ Op q3) (hy : y ∈ I3) : y * a ∈ I3 := by
+  obtain ⟨m, rfl⟩ := ha
+  obtain ⟨n, rfl⟩ := hy
+  exact ⟨combMulp q3 n m, by rw [smul_mul_assoc, combp_mul]⟩
+
+theorem I3_conj {g : (Bp q3)ˣ} (hg : g ∈ normalizerOp q3) {y : Bp q3} (hy : y ∈ I3) :
+    (g : Bp q3) * y * ((g⁻¹ : (Bp q3)ˣ) : Bp q3) ∈ I3 := by
+  obtain ⟨n, rfl⟩ := hy
+  obtain ⟨m, hm⟩ := (hg (combp q3 n)).mp ⟨n, rfl⟩
+  exact ⟨m, by rw [mul_smul_comm, smul_mul_assoc, ← hm]⟩
+
+/-- `K₃ = ker(K₀ → (𝒪/3𝒪)^×)`: units of `𝒪̂` congruent to `1` modulo `3𝒪_3`. -/
+noncomputable def K3 : Subgroup BAˣ where
+  carrier := {u | u ∈ K0 ∧ (u : BA) P3 - 1 ∈ I3}
+  one_mem' := ⟨K0.one_mem, by
+    rw [Units.val_one, RestrictedProduct.one_apply, sub_self]; exact I3_zero⟩
+  mul_mem' := by
+    rintro u v ⟨hu, hu3⟩ ⟨hv, hv3⟩
+    refine ⟨K0.mul_mem hu hv, ?_⟩
+    rw [Units.val_mul, RestrictedProduct.mul_apply,
+      show (u : BA) P3 * (v : BA) P3 - 1 = ((u : BA) P3 - 1) * (v : BA) P3 + ((v : BA) P3 - 1)
+        by rw [sub_mul, one_mul]; abel]
+    exact I3_add (I3_mul_right (hv.1 P3) hu3) hv3
+  inv_mem' := by
+    rintro u ⟨hu, hu3⟩
+    refine ⟨K0.inv_mem hu, ?_⟩
+    have h1 : ((u⁻¹ : BAˣ) : BA) P3 * (u : BA) P3 = 1 := by
+      rw [← RestrictedProduct.mul_apply, Units.inv_mul]; rfl
+    rw [show ((u⁻¹ : BAˣ) : BA) P3 - 1 = -(((u⁻¹ : BAˣ) : BA) P3 * ((u : BA) P3 - 1)) by
+      rw [mul_sub, h1, mul_one, neg_sub]]
+    exact I3_neg (I3_mul_left (hu.2 P3) hu3)
+
+theorem K3_le_K0 : K3 ≤ K0 := fun _ h => h.1
+
+theorem K0_le_Nhat : K0 ≤ Nhat := by
+  rintro u ⟨hu1, hu2⟩ y
+  constructor
+  · intro hy p
+    rw [RestrictedProduct.mul_apply, RestrictedProduct.mul_apply]
+    exact (OpSub (p : ℕ)).mul_mem ((OpSub (p : ℕ)).mul_mem (hu1 p) (hy p)) (hu2 p)
+  · intro hy p
+    have e : y = ((u⁻¹ : BAˣ) : BA) * ((u : BA) * y * ((u⁻¹ : BAˣ) : BA)) * (u : BA) := by
+      simp only [← mul_assoc, Units.inv_mul, one_mul]
+      rw [mul_assoc, Units.inv_mul, mul_one]
+    rw [e, RestrictedProduct.mul_apply, RestrictedProduct.mul_apply]
+    exact (OpSub (p : ℕ)).mul_mem ((OpSub (p : ℕ)).mul_mem (hu2 p) (hy p)) (hu1 p)
+
+theorem Zhat_le_Nhat : Zhat ≤ Nhat := by
+  intro z hz y
+  have hc := Subgroup.mem_center_iff.mp (Zhat_le_center hz)
+  have e : (z : BA) * y * ((z⁻¹ : BAˣ) : BA) = y := by
+    have h1 : (z : BA) * y = y * (z : BA) := by
+      apply RestrictedProduct.ext _ _ (fun p => ?_)
+      obtain ⟨c, hc⟩ := hz p
+      rw [RestrictedProduct.mul_apply, RestrictedProduct.mul_apply, hc, Algebra.commutes]
+    rw [h1, mul_assoc, Units.mul_inv, mul_one]
+  rw [e]
+
+/-- `N` normalizes `K₃`. -/
+theorem conj_mem_K3 {g : BAˣ} (hg : g ∈ Nhat) {k : BAˣ} (hk : k ∈ K3) : g * k * g⁻¹ ∈ K3 := by
+  obtain ⟨⟨hk1, hk2⟩, hk3⟩ := hk
+  refine ⟨⟨?_, ?_⟩, ?_⟩
+  · exact (hg (k : BA)).mp hk1
+  · rw [mul_inv_rev, mul_inv_rev, inv_inv, ← mul_assoc]
+    exact (hg ((k⁻¹ : BAˣ) : BA)).mp hk2
+  · rw [Units.val_mul, Units.val_mul, RestrictedProduct.mul_apply, RestrictedProduct.mul_apply]
+    have h1 : (g : BA) P3 * ((g⁻¹ : BAˣ) : BA) P3 = 1 := by
+      rw [← RestrictedProduct.mul_apply, Units.mul_inv]; rfl
+    rw [show (g : BA) P3 * (k : BA) P3 * ((g⁻¹ : BAˣ) : BA) P3 - 1 =
+        (g : BA) P3 * ((k : BA) P3 - 1) * ((g⁻¹ : BAˣ) : BA) P3 by
+      rw [mul_sub, sub_mul, mul_one, h1]]
+    rw [← comp_val, ← comp_inv_val]
+    exact I3_conj (normalizer_component hg P3) hk3
+
+instance sup_K3_normal : ((Zhat ⊔ K3).subgroupOf Nhat).Normal where
+  conj_mem := by
+    intro n hn g
+    rw [Subgroup.mem_subgroupOf] at hn ⊢
+    have hn' : (n : BAˣ) ∈ ((Zhat ⊔ K3 : Subgroup BAˣ) : Set BAˣ) := hn
+    rw [Subgroup.normal_mul] at hn'
+    obtain ⟨z, hz, k, hk, hzk⟩ := hn'
+    have hzc := Subgroup.mem_center_iff.mp (Zhat_le_center hz)
+    have e : ((g * n * g⁻¹ : Nhat) : BAˣ) = z * ((g : BAˣ) * k * (g : BAˣ)⁻¹) := by
+      simp only [Subgroup.coe_mul, Subgroup.coe_inv, ← hzk]
+      rw [← mul_assoc, ← mul_assoc, hzc (g : BAˣ)]
+      group
+    rw [e]
+    exact Subgroup.mul_mem_sup hz (conj_mem_K3 g.2 hk)
+
+/-- Dedekind's modular law for a normal `Z` (copied from `G1Count.lean`). -/
+theorem sup_inf_eq {G : Type*} [Group G] (Z K₀ K₃ : Subgroup G) [Z.Normal] (hK : K₃ ≤ K₀) :
+    (Z ⊔ K₃) ⊓ K₀ = (Z ⊓ K₀) ⊔ K₃ := by
+  apply le_antisymm
+  · rintro x ⟨hx, hx0⟩
+    have hx' : x ∈ ((Z ⊔ K₃ : Subgroup G) : Set G) := hx
+    rw [Subgroup.normal_mul] at hx'
+    obtain ⟨z, hz, k, hk, rfl⟩ := hx'
+    have hz0 : z ∈ K₀ := by
+      have := K₀.mul_mem hx0 (K₀.inv_mem (hK hk))
+      simpa using this
+    exact Subgroup.mul_mem _ (Subgroup.mem_sup_left ⟨hz, hz0⟩) (Subgroup.mem_sup_right hk)
+  · refine sup_le (inf_le_inf_right _ le_sup_left) (le_inf le_sup_right hK)
+
+/-- **The count of A3: `|Γ'| = [N : 𝔸_f^× K₃] = 4 · [K₀ : (𝔸_f^× ∩ K₀) K₃]`.** -/
+theorem gamma_count :
+    (Zhat ⊔ K3).relIndex Nhat = 4 * ((Zhat ⊓ K0) ⊔ K3).relIndex K0 := by
+  have hZN := Zhat_le_Nhat
+  have hK0N := K0_le_Nhat
+  have hK3N : K3 ≤ Nhat := K3_le_K0.trans hK0N
+  have hle : Zhat ⊔ K3 ≤ Zhat ⊔ K0 := sup_le_sup_left K3_le_K0 Zhat
+  have hZK0N : Zhat ⊔ K0 ≤ Nhat := sup_le hZN hK0N
+  rw [← Subgroup.relIndex_mul_relIndex _ _ _ hle hZK0N, relIndex_eq_four, mul_comm]
+  congr 1
+  rw [← Subgroup.relIndex_subgroupOf hZK0N]
+  have hsup : K0.subgroupOf Nhat ⊔ (Zhat ⊔ K3).subgroupOf Nhat = (Zhat ⊔ K0).subgroupOf Nhat := by
+    rw [← Subgroup.subgroupOf_sup hK0N (sup_le hZN hK3N)]
+    congr 1
+    apply le_antisymm
+    · exact sup_le le_sup_right hle
+    · exact sup_le (le_sup_of_le_right le_sup_left) le_sup_left
+  rw [← hsup, Subgroup.relIndex_sup_right, Subgroup.relIndex_subgroupOf hK0N,
+    ← Subgroup.inf_relIndex_right, sup_inf_eq Zhat K0 K3 K3_le_K0]
+
 end G1Adelic
 
 #print axioms G1Adelic.relIndex_eq_four
 #print axioms G1Adelic.mem_sup_iff_forall
 #print axioms G1Adelic.normalizer_component
+#print axioms G1Adelic.gamma_count
