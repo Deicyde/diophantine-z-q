@@ -1,0 +1,1 @@
+u in box with mu^-1 ubar mu u = 1: [(-1, 0, 0, 0), (1, 0, 0, 0)]

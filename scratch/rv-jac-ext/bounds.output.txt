@@ -1,0 +1,10 @@
+digits of F0=324!: 675
+largest k with k*6^k <= 324!: 862
+largest k with k*12^k <= 324!: 622
+largest k with k*720^k <= 324!: 235
+144 k*12^k <= F0: True  k*720^k <= F0: True
+288 k*12^k <= F0: True  k*720^k <= F0: False
+324 k*12^k <= F0: True  k*720^k <= F0: False
+144 12*k <= F0: True  (16k^2)^2 <= 256 F0^4: True
+324 12*k <= F0: True  (16k^2)^2 <= 256 F0^4: True
+12 <= 3^(256(F0^4-(F0-1)^4)): True (exponent gap 2027 digits)
