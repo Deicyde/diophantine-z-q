@@ -297,6 +297,80 @@ theorem cotMap_dCls (𝒢 𝒩 : GroupModel A L) (f : 𝒢.G ⟶ 𝒩.G) [IsMonH
     cotMap 𝒢 𝒩 f (𝒩.dCls t) =
       𝒢.dCls ⟨genMap 𝒢 𝒩 f t, genMap_mem_maximalIdeal 𝒢 𝒩 f t t.2⟩ := rfl
 
+/-! ### `f^*` maps `ω_𝒩` into `ω_𝒢` (step R1) -/
+
+theorem stalkSpecializes_stalkSpecializes_apply {X : Scheme.{0}} {x y z : X} (h : x ⤳ y)
+    (h' : y ⤳ z) (t : X.presheaf.stalk z) :
+    X.presheaf.stalkSpecializes h (X.presheaf.stalkSpecializes h' t) =
+      X.presheaf.stalkSpecializes (h.trans h') t := by
+  rw [← CommRingCat.comp_apply, TopCat.Presheaf.stalkSpecializes_comp]
+
+theorem stalkSpecializes_self_apply {X : Scheme.{0}} {x : X} (h : x ⤳ x)
+    (t : X.presheaf.stalk x) : X.presheaf.stalkSpecializes h t = t := by
+  rw [show h = specializes_refl x from rfl, TopCat.Presheaf.stalkSpecializes_refl]
+  rfl
+
+theorem unitSection_comp (𝒢 𝒩 : GroupModel A L) (f : 𝒢.G ⟶ 𝒩.G) [IsMonHom f] :
+    𝒢.unitSection ≫ f.left = 𝒩.unitSection := by
+  have := congrArg CommaMorphism.left (IsMonHom.one_hom (f := f))
+  exact (Over.comp_left (f := η[𝒢.G]) (g := f)).symm.trans this
+
+/-- At each point `s` of `Spec 𝓞_L`, `f^*` maps the local lattice `(ω_𝒩)_s` into `(ω_𝒢)_s`. -/
+theorem cotMap_omegaAt (𝒢 𝒩 : GroupModel A L) (f : 𝒢.G ⟶ 𝒩.G) [IsMonHom f]
+    (s : Spec (CommRingCat.of (𝓞 L))) (m : 𝒩.cotangent) (hm : m ∈ 𝒩.omegaAt s) :
+    cotMap 𝒢 𝒩 f m ∈ 𝒢.omegaAt s := by
+  have hE := unitSection_comp 𝒢 𝒩 f
+  have hp : f.left (𝒢.unitSection s) = 𝒩.unitSection s :=
+    (Scheme.Hom.comp_apply _ _ _).symm.trans (congrArg (fun φ => φ s) hE)
+  let T := 𝒩.G.left.presheaf.stalkSpecializes (Inseparable.of_eq hp).specializes
+  induction hm using Submodule.span_induction with
+  | mem x hx =>
+    obtain ⟨g, hg, hmem, rfl⟩ := hx
+    set g' := f.left.stalkMap (𝒢.unitSection s) (T g)
+    have hspec : 𝒢.G.left.presheaf.stalkSpecializes (𝒢.specializes_genericUnit s) g' =
+        genMap 𝒢 𝒩 f (𝒩.G.left.presheaf.stalkSpecializes (𝒩.specializes_genericUnit s) g) := by
+      rw [← Scheme.Hom.stalkSpecializes_stalkMap_apply]
+      unfold genMap
+      rw [CommRingCat.comp_apply]
+      congr 1
+      rw [stalkSpecializes_stalkSpecializes_apply, stalkSpecializes_stalkSpecializes_apply]
+    have hker : g' ∈ RingHom.ker (𝒢.unitSection.stalkMap s).hom := by
+      rw [RingHom.mem_ker]
+      have h1 := Scheme.Hom.stalkMap_comp 𝒢.unitSection f.left s
+      have h2 := Scheme.Hom.stalkMap_congr_hom _ _ hE s
+      have h1' : (𝒢.unitSection.stalkMap s) g' = ((𝒢.unitSection ≫ f.left).stalkMap s) (T g) := by
+        have := congrArg (fun φ => (ConcreteCategory.hom φ) (T g)) h1
+        exact this.symm
+      have h2' : ((𝒢.unitSection ≫ f.left).stalkMap s) (T g) =
+          (𝒩.unitSection.stalkMap s) ((𝒩.G.left.presheaf.stalkCongr
+            (Inseparable.of_eq (hE ▸ rfl))).hom (T g)) := by
+        have := congrArg (fun φ => (ConcreteCategory.hom φ) (T g)) h2
+        exact this
+      rw [h1', h2']
+      have h4 : ∀ y : 𝒩.G.left.presheaf.stalk (𝒩.unitSection s), y = g →
+          (𝒩.unitSection.stalkMap s) y = 0 := by
+        rintro y rfl; exact hg
+      apply h4
+      show 𝒩.G.left.presheaf.stalkSpecializes (Inseparable.of_eq hp).symm.specializes (T g) = g
+      exact (stalkSpecializes_stalkSpecializes_apply _ _ g).trans (stalkSpecializes_self_apply _ g)
+    have hmem' : 𝒢.G.left.presheaf.stalkSpecializes (𝒢.specializes_genericUnit s) g' ∈
+        IsLocalRing.maximalIdeal 𝒢.genStalk := by
+      rw [hspec]; exact genMap_mem_maximalIdeal 𝒢 𝒩 f _ hmem
+    apply Submodule.subset_span
+    refine ⟨g', hker, hmem', ?_⟩
+    rw [cotMap_dCls]
+    congr 1
+    exact Subtype.ext hspec.symm
+  | zero => rw [map_zero]; exact zero_mem _
+  | add x y _ _ hx hy => rw [map_add]; exact add_mem hx hy
+  | smul r x _ hx => rw [map_smul]; exact Submodule.smul_mem _ r hx
+
+/-- **Step R1: `f^* (ω_𝒩) ⊆ ω_𝒢`** (proved). -/
+theorem cotMap_omega (𝒢 𝒩 : GroupModel A L) (f : 𝒢.G ⟶ 𝒩.G) [IsMonHom f] (m : 𝒩.cotangent)
+    (hm : m ∈ 𝒩.omega) : cotMap 𝒢 𝒩 f m ∈ 𝒢.omega := by
+  rw [GroupModel.omega, Submodule.mem_iInf] at hm ⊢
+  exact fun s => cotMap_omegaAt 𝒢 𝒩 f s m (hm s)
+
 end ZInQ.H5Glue
 
 #print axioms ZInQ.H5Glue.pts_comp_bijective
@@ -308,3 +382,4 @@ end ZInQ.H5Glue
 #print axioms ZInQ.H5Glue.genMap_structMap
 #print axioms ZInQ.H5Glue.cotMap
 #print axioms ZInQ.H5Glue.cotMap_dCls
+#print axioms ZInQ.H5Glue.cotMap_omega

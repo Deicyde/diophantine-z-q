@@ -83,3 +83,8 @@ docs/research/h5-neron.md.
   `cotMap 𝒢 𝒩 f : 𝒩.cotangent →ₗ[𝓞 L] 𝒢.cotangent` (f^* on 𝔪_ξ/𝔪_ξ²), `cotMap_dCls` (rfl):
   compiled ~02:20, axioms standard.
 - HeightAntitone docstring updated with the HodgeLatticeTheorem dependency in Minimal/H5Glue/Additivity; all three recompiled (standard axioms).
+
+## 10. Step R1 — PROVED (compiled ~02:30, JacDet.lean)
+- `unitSection_comp`, `stalkSpecializes_stalkSpecializes_apply`, `stalkSpecializes_self_apply`,
+  `cotMap_omegaAt` (f^* maps (ω_𝒩)_s into (ω_𝒢)_s at every s), `cotMap_omega`: f^*(ω_𝒩) ⊆ ω_𝒢 for any
+  homomorphism f (no generic-iso hypothesis needed). Axioms standard.
