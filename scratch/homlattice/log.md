@@ -28,3 +28,14 @@
   `analyticMapAlgebraic_iff`, `homLatticeCorr_of_local_map`, `t11a_riemannEnd_of_local_map`.
 - `lake env lean scratch/homlattice/HomLattice.lean`: exit 0 in 10 s; 22 `#print axioms`, all
   [propext, Classical.choice, Quot.sound]; no sorry/error. VERIFIED.
+
+## Step 4 (13:40): over ℂ, lifting from bp-analytic's existing leaf
+- Added import ZInQKernel.HDecomp.LeafPush2.UnifBridge (lake build: OK, 9067 jobs).
+- Proved: continuous_symm_comp (φ'⁻¹∘ψ continuous, adapted from bp continuous_comparison),
+  exists_realLinear_of_continuous (covering lift, adapted from bp exists_realLinear_lift),
+  exists_complexLinear_of_analytic (adapted from bp exists_complexLinear),
+  surjective_of_proj_comp_surjective (Λ' countable, ℂ uncountable), analyticHomLiftC_of_leaf
+  (UniformizationLeafAll ⇒ AnalyticHomLiftC), homLinearLiftC_of_leaf,
+  t11a_riemannEnd_of_leaf_map (UniformizationLeafAll ∧ AnalyticMapAlgebraic ⇒ T11a_RiemannEnd).
+- `lake env lean scratch/homlattice/HomLattice.lean`: exit 0; 29 `#print axioms`, all
+  [propext, Classical.choice, Quot.sound]; 0 sorryAx. VERIFIED.

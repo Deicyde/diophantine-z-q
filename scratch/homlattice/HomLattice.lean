@@ -1,4 +1,5 @@
 import ZInQKernel.Contrib.HomUnify.Corr
+import ZInQKernel.HDecomp.LeafPush2.UnifBridge
 import Mathlib.AlgebraicGeometry.Group.Abelian
 import Mathlib.AlgebraicGeometry.AlgClosed.Basic
 import Mathlib.AlgebraicGeometry.ZariskisMainTheorem
@@ -561,6 +562,222 @@ theorem t11a_riemannEnd_of_local_map (HL : UnifLocalInverse) (H2 : AnalyticMapAl
     ZInQ.LeafPush2.T11a_RiemannEnd :=
   t11a_riemannEnd_of_local HL (analyticHomAlgebraic_of_map H2)
 
+/-! ### Over `ℂ`: the lifting half from the existing leaf `UniformizationLeafAll` (bp-analytic)
+
+bp-analytic's `BPAnalytic.Uniformization.IsUniformization A Λ φ` is a group isomorphism
+`φ : ℂ^g ⧸ Λ ≃ A(ℂ)` with (i) holomorphic regular functions, (ii) local coordinates by regular
+functions, (iii) continuity of `φ⁻¹`; its leaf `UniformizationLeafAll` (AN3, in the build) gives
+one for every complex abelian variety. The proofs below adapt bp-analytic's
+`continuous_comparison` and `exists_complexLinear` from a second uniformization to an arbitrary
+analytic homomorphism `ψ` (only clauses (ii), (iii) of the bp-uniformization and the two analytic
+clauses of `ψ` are used). -/
+
+section BP
+
+open BPAnalytic BPAnalytic.Uniformization
+
+/-- **(proved)** For a bp-uniformization `φ'` and an analytic homomorphism `ψ : ℂ^n → A(ℂ)`,
+`φ'⁻¹ ∘ ψ : ℂ^n → ℂ^{g'} ⧸ Λ'` is continuous (adapted from `continuous_comparison`). -/
+theorem continuous_symm_comp {A : AbVar ℂ} {n g' : ℕ} {Λ' : Submodule ℤ (Fin g' → ℂ)}
+    {φ' : Torus Λ' ≃+ Additive (A.Pt ℂ)}
+    (hφ' : BPAnalytic.Uniformization.IsUniformization A Λ' φ')
+    {ψ : (Fin n → ℂ) → CPts A (RingHom.id ℂ)} (hψ : IsAnalyticHom (RingHom.id ℂ) ψ) :
+    Continuous (fun z => φ'.symm (Additive.ofMul (ψ z))) := by
+  rw [continuous_iff_continuousAt]
+  intro v₀
+  set w₀ := (φ'.symm (Additive.ofMul (ψ v₀))).out
+  have hw₀ : proj Λ' w₀ = φ'.symm (Additive.ofMul (ψ v₀)) := QuotientAddGroup.out_eq' _
+  have hφw : Additive.toMul (φ' (proj Λ' w₀)) = ψ v₀ := by
+    rw [hw₀, AddEquiv.apply_symm_apply]; rfl
+  rw [ContinuousAt, Filter.tendsto_def]
+  intro N' hN'
+  rw [← hw₀] at hN'
+  obtain ⟨U, k, f, ε, hε, hU0, hsep⟩ := hφ'.open_map w₀ N' hN'
+  rw [hφw] at hU0 hsep
+  have hU0' : v₀ ∈ cDom ψ U := hU0
+  have hopen : ∀ᶠ v in 𝓝 v₀, v ∈ cDom ψ U := (hψ.2.1 U).mem_nhds hU0'
+  have hall : ∀ᶠ v in 𝓝 v₀, ∀ i, dist (evalAt A U (f i) (ψ v)) (evalAt A U (f i) (ψ v₀)) < ε := by
+    rw [Filter.eventually_all]
+    intro i
+    have hc : ContinuousAt (fun v => cEvalAt (ψ v) U (f i)) v₀ :=
+      ((hψ.2.2 U (f i)).differentiableAt ((hψ.2.1 U).mem_nhds hU0')).continuousAt
+    have := hc.eventually (Metric.ball_mem_nhds _ hε)
+    refine this.mono fun v hv => ?_
+    have e1 : evalAt A U (f i) (ψ v) = cEvalAt (ψ v) U (f i) :=
+      (ZInQ.LeafPush2.cEvalAt_eq_evalAt A (ψ v) U (f i)).symm
+    have e0 : evalAt A U (f i) (ψ v₀) = cEvalAt (ψ v₀) U (f i) :=
+      (ZInQ.LeafPush2.cEvalAt_eq_evalAt A (ψ v₀) U (f i)).symm
+    rw [e1, e0]; exact hv
+  filter_upwards [hopen, hall] with v hv hvi
+  obtain ⟨q, hqN, hq⟩ := hsep _ hv (fun i => by simpa [dist_eq_norm] using hvi i)
+  have : φ'.symm (Additive.ofMul (ψ v)) = q := by
+    rw [← hq]; simp
+  show φ'.symm (Additive.ofMul (ψ v)) ∈ N'
+  rw [this]; exact hqN
+
+/-- **(proved)** A continuous homomorphism `ℂ^n → ℂ^{g'} ⧸ Λ'` lifts to an `ℝ`-linear map
+(covering theory; adapted from bp-analytic's `exists_realLinear_lift`). -/
+theorem exists_realLinear_of_continuous {n g' : ℕ} {Λ' : Submodule ℤ (Fin g' → ℂ)}
+    [DiscreteTopology Λ'] (f : (Fin n → ℂ) →+ Torus Λ') (hf : Continuous f) :
+    ∃ T : (Fin n → ℂ) →L[ℝ] (Fin g' → ℂ), ∀ v, f v = proj Λ' (T v) := by
+  obtain ⟨F, ⟨hF0, hFp⟩, -⟩ := (isCoveringMap_proj Λ').existsUnique_continuousMap_lifts
+    ⟨f, hf⟩ (0 : Fin n → ℂ) (0 : Fin g' → ℂ) (by simp)
+  have hFp' : ∀ v, proj Λ' (F v) = f v := fun v => congrFun hFp v
+  have hmem : ∀ p : (Fin n → ℂ) × (Fin n → ℂ), F (p.1 + p.2) - (F p.1 + F p.2) ∈ Λ' := by
+    intro p
+    rw [← proj_eq_iff]
+    have hadd : proj Λ' (F p.1 + F p.2) = proj Λ' (F p.1) + proj Λ' (F p.2) := rfl
+    rw [hadd, hFp', hFp', hFp', map_add]
+  have hc : Continuous fun p : (Fin n → ℂ) × (Fin n → ℂ) => F (p.1 + p.2) - (F p.1 + F p.2) := by
+    have := F.continuous; fun_prop
+  have hadd : ∀ x y, F (x + y) = F x + F y := by
+    intro x y
+    have hconst := PreconnectedSpace.constant
+      (inferInstance : PreconnectedSpace ((Fin n → ℂ) × (Fin n → ℂ)))
+      (f := fun p => (⟨_, hmem p⟩ : Λ')) (hc.subtype_mk _) (x := (x, y)) (y := (0, 0))
+    have := congrArg Subtype.val hconst
+    simp only [_root_.add_zero, hF0, sub_zero] at this
+    exact sub_eq_zero.mp this
+  let Fa : (Fin n → ℂ) →+ (Fin g' → ℂ) := { toFun := F, map_zero' := hF0, map_add' := hadd }
+  exact ⟨Fa.toRealLinearMap F.continuous, fun v => (hFp' v).symm⟩
+
+/-- **(proved)** Every analytic homomorphism `ψ : ℂ^n → A(ℂ)` factors through a bp-uniformization
+by a `ℂ`-linear map (adapted from bp-analytic's `exists_complexLinear`). -/
+theorem exists_complexLinear_of_analytic {A : AbVar ℂ} {n g' : ℕ}
+    {Λ' : Submodule ℤ (Fin g' → ℂ)} [DiscreteTopology Λ'] {φ' : Torus Λ' ≃+ Additive (A.Pt ℂ)}
+    (hφ' : BPAnalytic.Uniformization.IsUniformization A Λ' φ')
+    {ψ : (Fin n → ℂ) → CPts A (RingHom.id ℂ)} (hψ : IsAnalyticHom (RingHom.id ℂ) ψ) :
+    ∃ D : (Fin n → ℂ) →L[ℂ] (Fin g' → ℂ), ∀ v, Additive.toMul (φ' (proj Λ' (D v))) = ψ v := by
+  let f : (Fin n → ℂ) →+ Torus Λ' :=
+    { toFun := fun z => φ'.symm (Additive.ofMul (ψ z))
+      map_zero' := by
+        show φ'.symm (Additive.ofMul (ψ 0)) = 0
+        rw [map_zero_of_hom hψ.1]
+        exact map_zero φ'.symm
+      map_add' := fun z w => by
+        show φ'.symm (Additive.ofMul (ψ (z + w))) =
+          φ'.symm (Additive.ofMul (ψ z)) + φ'.symm (Additive.ofMul (ψ w))
+        rw [hψ.1 z w]
+        exact map_add φ'.symm (Additive.ofMul (ψ z)) (Additive.ofMul (ψ w)) }
+  obtain ⟨T, hT⟩ := exists_realLinear_of_continuous f (continuous_symm_comp hφ' hψ)
+  have hT' : ∀ v, Additive.toMul (φ' (proj Λ' (T v))) = ψ v := by
+    intro v; rw [← hT v]
+    show Additive.toMul (φ' (φ'.symm (Additive.ofMul (ψ v)))) = ψ v
+    rw [AddEquiv.apply_symm_apply]; rfl
+  obtain ⟨U, fs, e, hU, hF⟩ := hφ'.coords (T 0)
+  set F : (Fin g' → ℂ) → (Fin g' → ℂ) :=
+    fun v i => evalAt A U (fs i) (Additive.toMul (φ' (proj Λ' v))) with hFdef
+  set G : (Fin n → ℂ) → (Fin g' → ℂ) := fun v i => cEvalAt (ψ v) U (fs i) with hGdef
+  have hFT : ∀ v, F (T v) = G v := by
+    intro v; funext i
+    simp only [hFdef, hGdef, hT' v]
+    exact (ZInQ.LeafPush2.cEvalAt_eq_evalAt A (ψ v) U (fs i)).symm
+  have hFan : AnalyticAt ℂ F (T 0) :=
+    AnalyticAt.pi fun i => (hφ'.holo U (fs i)).2 (T 0) hU
+  have hU0 : (0 : Fin n → ℂ) ∈ cDom ψ U := by
+    have : PtIn A (Additive.toMul (φ' (proj Λ' (T 0)))) U := hU
+    rw [hT' 0] at this; exact this
+  have hGd : DifferentiableAt ℂ G 0 := by
+    rw [differentiableAt_pi]
+    intro i
+    exact (hψ.2.2 U (fs i)).differentiableAt ((hψ.2.1 U).mem_nhds hU0)
+  have hstrict : HasStrictFDerivAt F (e : (Fin g' → ℂ) →L[ℂ] (Fin g' → ℂ)) (T 0) := by
+    have h := hFan.hasStrictFDerivAt
+    rwa [hF.fderiv] at h
+  have hev : ∀ᶠ v in 𝓝 (0 : Fin n → ℂ), hstrict.localInverse F e (T 0) (G v) = T v := by
+    have hcont : Filter.Tendsto (T : (Fin n → ℂ) → (Fin g' → ℂ)) (𝓝 0) (𝓝 (T 0)) :=
+      T.continuous.tendsto 0
+    filter_upwards [hcont.eventually hstrict.eventually_left_inverse] with v hv
+    rw [← hFT v]; exact hv
+  have hdiffL : DifferentiableAt ℂ (hstrict.localInverse F e (T 0)) (G 0) := by
+    have h := hstrict.to_localInverse.differentiableAt
+    rwa [hFT 0] at h
+  have hTdiff : DifferentiableAt ℂ (T : (Fin n → ℂ) → (Fin g' → ℂ)) 0 :=
+    (hdiffL.comp 0 hGd).congr_of_eventuallyEq (hev.mono fun v hv => hv.symm)
+  set D := fderiv ℂ (T : (Fin n → ℂ) → (Fin g' → ℂ)) 0
+  have hD : (D.restrictScalars ℝ : (Fin n → ℂ) →L[ℝ] (Fin g' → ℂ)) = T :=
+    (hTdiff.hasFDerivAt.restrictScalars ℝ).unique T.hasFDerivAt
+  have hDT : ∀ v, D v = T v := fun v => congrArg (fun L : (Fin n → ℂ) →L[ℝ] _ => L v) hD
+  exact ⟨D, fun v => by rw [hDT]; exact hT' v⟩
+
+/-- **(proved, pure lattice algebra)** If `proj ∘ D : ℂ^h → ℂ^{g'} ⧸ Λ'` is onto, with `Λ'`
+discrete, then the `ℂ`-linear map `D` is onto (`Λ'` is countable, `ℂ` is not). -/
+theorem surjective_of_proj_comp_surjective {h g' : ℕ} {Λ' : Submodule ℤ (Fin g' → ℂ)}
+    [DiscreteTopology Λ'] (D : (Fin h → ℂ) →ₗ[ℂ] (Fin g' → ℂ))
+    (hs : Function.Surjective (fun v => proj Λ' (D v))) : Function.Surjective D := by
+  have hcount : Countable Λ' := (TopologicalSpace.separableSpace_iff_countable).1 inferInstance
+  by_contra hns
+  have hlt : LinearMap.range D < ⊤ := by
+    rw [lt_top_iff_ne_top, Ne, LinearMap.range_eq_top]; exact hns
+  obtain ⟨ℓ, hℓ0, hℓ⟩ := (LinearMap.range D).exists_le_ker_of_lt_top hlt
+  obtain ⟨x0, hx0⟩ : ∃ x0, ℓ x0 ≠ 0 := by
+    by_contra hall
+    push_neg at hall
+    exact hℓ0 (LinearMap.ext hall)
+  apply not_countable_complex
+  have hsub : (Set.univ : Set ℂ) ⊆ Set.range (fun l : Λ' => ℓ (l : Fin g' → ℂ)) := by
+    intro c _
+    obtain ⟨v, hv⟩ := hs (proj Λ' ((c / ℓ x0) • x0))
+    have hmem : (c / ℓ x0) • x0 - D v ∈ Λ' := by
+      rw [← proj_eq_iff]; exact hv.symm
+    refine ⟨⟨_, hmem⟩, ?_⟩
+    have hDv : ℓ (D v) = 0 := hℓ ⟨v, rfl⟩
+    simp only [map_sub, map_smul, hDv, sub_zero, smul_eq_mul]
+    field_simp
+  exact (Set.countable_range _).mono hsub
+
+/-- **Analytic lifting over `ℂ`, `σ = id`** (the `K = ℂ` instance of `AnalyticHomLift`, without
+the dimension hypothesis). -/
+def AnalyticHomLiftC : Prop :=
+  ∀ (B : AbVar ℂ) (g h : ℕ) (ΛB : Submodule ℤ (Fin h → ℂ))
+    (ΦB : (Fin h → ℂ) → CPts B (RingHom.id ℂ)), IsUniformization (RingHom.id ℂ) ΛB ΦB →
+    ∀ ψ : (Fin g → ℂ) → CPts B (RingHom.id ℂ), IsAnalyticHom (RingHom.id ℂ) ψ →
+      ∃ M : (Fin g → ℂ) →ₗ[ℂ] (Fin h → ℂ), ∀ z, ΦB (M z) = ψ z
+
+/-- **`AnalyticHomLiftC` from bp-analytic's leaf `UniformizationLeafAll` (proved).** -/
+theorem analyticHomLiftC_of_leaf (HL : UniformizationLeafAll) : AnalyticHomLiftC := by
+  intro B g h ΛB ΦB hU ψ hψ
+  obtain ⟨g', Λ', hd, -, φ', hφ'⟩ := HL B
+  obtain ⟨Dψ, hDψ⟩ := exists_complexLinear_of_analytic hφ' hψ
+  obtain ⟨DΦ, hDΦ⟩ := exists_complexLinear_of_analytic hφ' (isAnalyticHom_of_unif hU)
+  have hsurj : Function.Surjective (DΦ : (Fin h → ℂ) →ₗ[ℂ] (Fin g' → ℂ)) := by
+    refine surjective_of_proj_comp_surjective (Λ' := Λ') _ ?_
+    intro t
+    obtain ⟨v, hv⟩ := hU.2.2.1 (Additive.toMul (φ' t))
+    refine ⟨v, φ'.injective (Additive.toMul.injective ?_)⟩
+    show Additive.toMul (φ' (proj Λ' (DΦ v))) = Additive.toMul (φ' t)
+    rw [hDΦ v, hv]
+    rfl
+  obtain ⟨S, hS⟩ := LinearMap.exists_rightInverse_of_surjective
+    (DΦ : (Fin h → ℂ) →ₗ[ℂ] (Fin g' → ℂ)) (LinearMap.range_eq_top.2 hsurj)
+  refine ⟨S.comp (Dψ : (Fin g → ℂ) →ₗ[ℂ] (Fin g' → ℂ)), fun z => ?_⟩
+  have h1 : DΦ (S (Dψ z)) = Dψ z := by
+    have := congrArg (fun L : (Fin g' → ℂ) →ₗ[ℂ] (Fin g' → ℂ) => L (Dψ z)) hS
+    simpa using this
+  rw [← hDΦ, LinearMap.comp_apply, ← hDψ z]
+  simp only [ContinuousLinearMap.coe_coe] at h1 ⊢
+  rw [h1]
+
+/-- **`HomLinearLift` at `K = ℂ`, `σ = id`, from `UniformizationLeafAll` (proved).** -/
+theorem homLinearLiftC_of_leaf (HL : UniformizationLeafAll) (A B : AbVar ℂ) (g h : ℕ)
+    (ΛA : Submodule ℤ (Fin g → ℂ)) (ΛB : Submodule ℤ (Fin h → ℂ))
+    (ΦA : (Fin g → ℂ) → CPts A (RingHom.id ℂ)) (ΦB : (Fin h → ℂ) → CPts B (RingHom.id ℂ))
+    (hUA : IsUniformization (RingHom.id ℂ) ΛA ΦA) (hUB : IsUniformization (RingHom.id ℂ) ΛB ΦB)
+    (f : AbVar.Hom A B) :
+    ∃ M : (Fin g → ℂ) →ₗ[ℂ] (Fin h → ℂ), ∀ z, ΦB (M z) = ΦA z ≫ f.hom :=
+  analyticHomLiftC_of_leaf HL B g h ΛB ΦB hUB (fun z => ΦA z ≫ f.hom)
+    (isAnalyticHom_comp (isAnalyticHom_of_unif hUA) f.hom)
+
+/-- **T11(a) (leaf-push2's `T11a_RiemannEnd`) from the existing leaf `UniformizationLeafAll` and
+GAGA for morphisms (proved).** The lifting clause needs no new leaf. -/
+theorem t11a_riemannEnd_of_leaf_map (HL : UniformizationLeafAll) (H2 : AnalyticMapAlgebraic) :
+    ZInQ.LeafPush2.T11a_RiemannEnd := by
+  intro A g Λ Φ hA hU
+  refine ⟨fun M hM => ?_, fun f => homLinearLiftC_of_leaf HL A A g g Λ Λ Φ Φ hU hU f⟩
+  exact t11aHom_of_analytic (analyticHomAlgebraic_of_map H2) A A g Λ Λ Φ Φ hA hA hU hU M hM
+
+end BP
+
 end ZInQ.HomLattice
 
 #print axioms ZInQ.HomLattice.isUniformization_iff
@@ -585,3 +802,10 @@ end ZInQ.HomLattice
 #print axioms ZInQ.HomLattice.analyticMapAlgebraic_iff
 #print axioms ZInQ.HomLattice.homLatticeCorr_of_local_map
 #print axioms ZInQ.HomLattice.t11a_riemannEnd_of_local_map
+#print axioms ZInQ.HomLattice.continuous_symm_comp
+#print axioms ZInQ.HomLattice.exists_realLinear_of_continuous
+#print axioms ZInQ.HomLattice.exists_complexLinear_of_analytic
+#print axioms ZInQ.HomLattice.surjective_of_proj_comp_surjective
+#print axioms ZInQ.HomLattice.analyticHomLiftC_of_leaf
+#print axioms ZInQ.HomLattice.homLinearLiftC_of_leaf
+#print axioms ZInQ.HomLattice.t11a_riemannEnd_of_leaf_map

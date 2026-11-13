@@ -1,19 +1,26 @@
-scratch/homlattice/HomLattice.lean:256:8: warning: `dif_pos` has been deprecated: Use `dite_eq_left` instead
+scratch/homlattice/HomLattice.lean:257:8: warning: `dif_pos` has been deprecated: Use `dite_eq_left` instead
 
 Hint: Replace the deprecated name:
   d̵i̵f̵_̵p̵o̵s̵d̲i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
-scratch/homlattice/HomLattice.lean:256:19: warning: `dif_pos` has been deprecated: Use `dite_eq_left` instead
+scratch/homlattice/HomLattice.lean:257:19: warning: `dif_pos` has been deprecated: Use `dite_eq_left` instead
 
 Hint: Replace the deprecated name:
   d̵i̵f̵_̵p̵o̵s̵d̲i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
-scratch/homlattice/HomLattice.lean:258:8: warning: `dif_neg` has been deprecated: Use `dite_eq_right` instead
+scratch/homlattice/HomLattice.lean:259:8: warning: `dif_neg` has been deprecated: Use `dite_eq_right` instead
 
 Hint: Replace the deprecated name:
   d̵i̵f̵_̵n̵e̵g̵d̲i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
-scratch/homlattice/HomLattice.lean:258:19: warning: `dif_neg` has been deprecated: Use `dite_eq_right` instead
+scratch/homlattice/HomLattice.lean:259:19: warning: `dif_neg` has been deprecated: Use `dite_eq_right` instead
 
 Hint: Replace the deprecated name:
   d̵i̵f̵_̵n̵e̵g̵d̲i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+scratch/homlattice/HomLattice.lean:715:4: warning: `push_neg` has been deprecated. Prefer using `push Not` instead.
+If you'd rather continue using `push_neg` in your project, you can implement it as follows:
+```
+open Lean.Parser.Tactic in
+macro "push_neg" cfg:optConfig loc:(location)? : tactic =>
+  `(tactic| push $cfg:optConfig Not $[$loc]?)
+```
 'ZInQ.HomLattice.isUniformization_iff' depends on axioms: [propext, Classical.choice, Quot.sound]
 'ZInQ.HomLattice.cEvalAt_comp' depends on axioms: [propext, Classical.choice, Quot.sound]
 'ZInQ.HomLattice.isAnalyticHom_comp' depends on axioms: [propext, Classical.choice, Quot.sound]
@@ -36,3 +43,10 @@ Hint: Replace the deprecated name:
 'ZInQ.HomLattice.analyticMapAlgebraic_iff' depends on axioms: [propext, Classical.choice, Quot.sound]
 'ZInQ.HomLattice.homLatticeCorr_of_local_map' depends on axioms: [propext, Classical.choice, Quot.sound]
 'ZInQ.HomLattice.t11a_riemannEnd_of_local_map' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.HomLattice.continuous_symm_comp' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.HomLattice.exists_realLinear_of_continuous' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.HomLattice.exists_complexLinear_of_analytic' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.HomLattice.surjective_of_proj_comp_surjective' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.HomLattice.analyticHomLiftC_of_leaf' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.HomLattice.homLinearLiftC_of_leaf' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.HomLattice.t11a_riemannEnd_of_leaf_map' depends on axioms: [propext, Classical.choice, Quot.sound]
