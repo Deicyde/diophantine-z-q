@@ -8,7 +8,6 @@ cmDescends
 sphereFactorAffine
 valenceBoundGammaStar
 kummerCompositum
-heckeNoVertRam
 homLinearLift
 senTwist
 finiteImageHT
@@ -16,14 +15,14 @@ t09SymmIsogenyExists
 isogenyQuasiInverse
 divisiblePoints
 upperBreakBound
-betaTrivialAtTwo
-tateRamAtThreeD
+betaSignAtTwo
 gammaStarGen
 t11aRiemannHom
 y3Connected
-curveNormChart
-curveChartInf
-heckeFibreSizes
+qmAutCard
+serreRigidity3
+alFixedPoints
+heckeVertWitness
 egaIV_8_8_2_ii
 egaIV_8_10_5_xii
 egaIV_17_7_8_ii

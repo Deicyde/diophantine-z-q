@@ -126,3 +126,5 @@
   sent to the kernel's AbVar, same five fields; accepted by unfolding). TailD VERIFIED exit 0.
 - GluePieces5: − abVarSpreadsOut (GLUE) ⇐ egaIV_8_8_2_ii, egaIV_8_10_5_xii, egaIV_17_7_8_ii (LEAF): 32 fields (17 LEAF,
   6 LEAF?, 9 GLUE). TailD: VERIFIED exit 0, 76 s, no sorryAx, all axiom reports standard.
+- FLAT CHECK (32-field state after spread-out): AssemblePort.lean 107 495 lines, md5 4f787394…: VERIFIED exit 0 in
+  1123 s, 0 errors, no sorry, 279 axiom reports all standard (flat_summary.txt).
