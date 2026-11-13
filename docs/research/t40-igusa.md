@@ -194,4 +194,40 @@ several thousand lines.
 
 ## 4. Compilation and axioms (VERIFIED)
 
-(filled in below after the final build)
+`lake build ZInQKernel.Contrib.RLeaf.T40` (which builds IgusaSL2, IgusaX0, IgusaLocal and, from
+task t40-tate, TateCusp): `Build completed successfully (9394 jobs)`, no errors, no `sorry`. The
+`#print axioms` lines of the four files:
+
+```
+'ZInQ.RLeaf.exists_det_eq_one_of_addOrderOf' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.RLeaf.igusaTransitive_of_igusaSL2X' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.RLeaf.igusaSL2X_of_igusaGL2' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.RLeaf.igusaTransitive_of_igusaGL2' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.RLeaf.igusaTransitive_of_x0_tateMuN' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.RLeaf.x0Transitive_of_igusaTransitive' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.RLeaf.tateMuN_of_igusaTransitive' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.RLeaf.igusaTransitive_iff' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.RLeaf.tateMuN_of_over' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.RLeaf.tateMuN_of_at' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.RLeaf.jInvLaurent_X' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.RLeaf.tateMuN_of_local' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.RLeaf.igusaTransitive_of_x0_tateMuNLocal' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.RLeaf.x1RationalCusp_of_x0_tateMuN' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.RLeaf.x1ConstantField_of_x0_tateMuN' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.RLeaf.x1RationalCusp_of_x0_tateMuNLocal' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.RLeaf.x1RationalCusp_of_igusaGL2' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.RLeaf.x1RationalCusp_of_igusaSL2X' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.RLeaf.x1ConstantField_of_igusaSL2X' depends on axioms: [propext, Classical.choice, Quot.sound]
+```
+
+No Tau Ceti file was vendored or modified by this task; `diffcheck2.py`: `MOD-UNNOTED 0`,
+`NOTE-ONLY 0` (the `NOPROV` entries are task t40-tate's `Backport/` files).
+
+## 5. Effect on the leaf list
+
+* T40 (`X1Belyi.X1RationalCusp`) and T39 now follow from `X0Transitive` and `TateMuN`
+  (`x1RationalCusp_of_x0_tateMuN`, `x1ConstantField_of_x0_tateMuN`), the Tate-curve half
+  `TateCuspLaurent` being proved by t40-tate.
+* `TateMuN` is local at `j = ∞` (Tate curve; t40-tate is proving it with its backport of Tau
+  Ceti's Tate uniformization). If it is proved, the only elliptic input of the `X₁(N)` side of
+  the decomposition is `X0Transitive`, the irreducibility of `X₀(N)` over `ℚ`.
