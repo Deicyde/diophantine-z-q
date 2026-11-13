@@ -10,7 +10,8 @@
 #   lg-kerwild's own build.sh also spliced scratch/g0-dim/Dim.lean l.107-305, 339-344: these are now
 #   in LocalGlue.lean (diff: identical), so they are NOT spliced again (that was the integration
 #   conflict found by rv-fast).
-# + part_fix.lean (new, kerwild-fix).
+# + part_fix.lean (new, kerwild-fix; made by mk_fix.py from part_fix_head/defs/final.lean and
+#   two edited copies of frob-trace's tateBridge35_of_algFrobLink).
 # `#print axioms` lines of the copies are dropped.
 cd "$(dirname "$0")"
 LG=../local-glue/LocalGlue.lean
@@ -19,6 +20,10 @@ KW=../lg-kerwild
 UR=../unram-roots
 {
   cat $LG $FT | grep '^import' | awk '!seen[$0]++'
+  # for g8-tate's `exists_complex_equiv` (part_fix.lean §0)
+  echo "import Mathlib.Analysis.Complex.Cardinality"
+  echo "import Mathlib.Topology.Algebra.Module.Cardinality"
+  echo "import Mathlib.FieldTheory.IsAlgClosed.Classification"
   echo
   echo "-- BEGIN verbatim body of scratch/local-glue/LocalGlue.lean"
   grep -v '^import' $LG | grep -v '^#print axioms'
