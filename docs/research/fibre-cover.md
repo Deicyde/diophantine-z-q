@@ -3,181 +3,167 @@
 Task fibre-cover, 2026-11-13. Object: `G0ModField.FibreCoverExists` from
 `scratch/g0-mod-field/ModField.lean`, which g0-mod-field left open. Its statement and everything
 it depends on (`IF`, `T`, `IsModelOver`, `FibreCtx`, `RationalFibre`, `FibreCoverOut`) are copied
-verbatim into `scratch/fibre-cover/FibreCover.lean`, in the same namespace `G0ModField`. Nothing
-upstream was edited. Log: `scratch/fibre-cover/log.md`. Compiler output:
-`scratch/fibre-cover/compile_out.txt`. Model work only; no human review.
+into `scratch/fibre-cover/FibreCover.lean` in the same namespace `G0ModField`. A script checked
+that the copies are character-identical to the originals (VERIFIED). Nothing upstream was edited.
+Log: `scratch/fibre-cover/log.md`. Compiler output: `scratch/fibre-cover/compile_out.txt`.
+Model work only; no human review.
 
 ## 1. Main result
 
 **`FibreCoverExists` is not refuted, and the relabeling of rv-g0pieces does not break it.**
-The following is proved in Lean (VERIFIED: `lake env lean scratch/fibre-cover/FibreCover.lean`
-gives 0 errors and 0 warnings; every `#print axioms` lists only `[propext, Classical.choice,
-Quot.sound]`).
+It is reduced in Lean to strictly smaller named Props, two of which are already proved.
+VERIFIED: `lake env lean scratch/fibre-cover/FibreCover.lean` gives 0 errors and 0 warnings;
+all 14 `#print axioms` lines list only `[propext, Classical.choice, Quot.sound]`.
+
+**Pinned form.**
+
+```
+fibreCoverExists_of_propTS (Y₀ π₀) :
+  PkgI2.TorsionStructure.{0}      -- textbook leaf T5 of the bundle (Mumford §4)
+  → InnerTwistCount               -- glue: |N_B(𝒪)/ℚ^×𝒪^×| ≤ 4
+  → CurvePinned Y₀ π₀             -- glue (pin of (Y, π) up to iso; qm-pin)
+  → PropTS Y₀ π₀                  -- glue from leaves: Prop. TS (Beckmann / T1-T2 + R1(d))
+  → UnramifiedConjugates          -- textbook: Galois closure of an unramified field
+  → FibreCoverExists
+```
+
+**Pin-free form.**
+
+```
+fibreCoverExists_of_propTSAll :
+  PkgI2.TorsionStructure.{0} → InnerTwistCount → PropTSAll → UnramifiedConjugates → FibreCoverExists
+```
+
+What is proved on the way:
 
 1. **G2's output depends only on the residue field of the point, from R1fp alone**
-   (`fibreCoverOut_iff`). Take `(Y, Φ)` with `R1fpProps` and a `ℚ̄`-point `y` with
-   `Φ y = [P]`. Then `FibreCoverOut Y Φ u P` holds if and only if
-   `FibreFieldOut (residueImage y) u` holds. The latter says that `ℚ(y) ⊆ ℚ̄` lies in the
+   (`fibreCoverOut_iff`). Take `(Y, Φ)` with R1fp and a `ℚ̄`-point `y` with `Φ y = [P]`. Then
+   `FibreCoverOut Y Φ u P` is equivalent to the field part: `ℚ(y) = residueImage y` lies in the
    splitting field of a separable `f ∈ ℚ[X]` of degree `≤ 324`, unramified outside `T(u)`.
-   The rational fibre (`RationalFibre`: the `K`-point `y_K`, the object `PK/K`, and
-   `PK.A ⊗ ℚ̄ ≅ P.A`) is proved for every `K ⊇ ℚ(y)` (`rationalFibre_of_le`). It uses the
-   factorization of `y` through `K` (`exists_factor_of_residueImage_le`) and R1fp naturality.
-   The model comes from the pullback square of `IsBaseChangeOf` (`isModelOver_of_baseChange`).
+   - The rational fibre is proved over every `K ⊇ ℚ(y)` (`rationalFibre_of_le`). It consists of
+     the `K`-point `y_K`, the object `PK/K`, and the model `PK.A ⊗ ℚ̄ ≅ P.A`.
+   - The ingredients are the factorization `y = y_K ∘ Spec(K ⊆ ℚ̄)`
+     (`exists_factor_of_residueImage_le`), R1fp naturality, and the pullback square of
+     `IsBaseChangeOf` (`isModelOver_of_baseChange`).
 2. **The moduli bijection does not matter** (`fibreCoverOut_indep`). Let `Φ, Φ'` be two
-   bijections on the same `Y`, both with R1fp, and let `y` be one point. Then G2's output for
-   `(Φ, Φ y)` is equivalent to G2's output for `(Φ', Φ' y)`. Here is how this applies to a
-   relabeled triple `(Y, Φ∘τ, π)` (rv-g0pieces `relabel`, with R1fp by `r1fp_relabel`). The
-   point `y` over `J(u)` is the same, and only its object changes. So that triple satisfies G2 at
-   `y` exactly when `(Y, Φ, π)` does.
-3. **The reduction, compiled:**
-   - `fibreCoverExists_of_twistClassCard : TwistClassCard → FibreUnramified → UnramifiedConjugates → FibreCoverExists`.
-   - The corrected (pinned) form is `fibreCoverExists_of_pinned (Y₀ π₀) : TwistClassCard →
-     CurvePinned Y₀ π₀ → FibreUnramifiedOn Y₀ π₀ → UnramifiedConjugates → FibreCoverExists`.
-4. **The degree step needs no pin** (`fibreDegree_of : TwistClassCard → FibreDegree`). The
-   bound `[ℚ(y):ℚ] ≤ 324` (with `ℚ(y)` finite over `ℚ`) follows, for every triple, from an
-   intrinsic count of the `Aut 𝒪`-twist class of `P`. That count mentions no moduli scheme.
-   The count itself is reduced further (`twistClassCard_of : TorsionBound3 → InnerTwistCount →
-   TwistClassCard`). This is Glazer's `4·81`: at most 4 twists up to inner ones, and at most 81
-   choices of `η(1) ∈ A[3]`. Final composite:
-   `fibreCoverExists_of_pinned' (Y₀ π₀) : TorsionBound3 → InnerTwistCount → CurvePinned Y₀ π₀ →
-   FibreUnramifiedOn Y₀ π₀ → UnramifiedConjugates → FibreCoverExists`.
+   bijections on the same `Y`, both with R1fp, and let `y` be one point. Then G2 holds for
+   `(Φ, Φ y)` if and only if it holds for `(Φ', Φ' y)`. A relabeled triple `(Y, Φ∘τ, π)` keeps
+   `(Y, π, y)` and changes only the object. So it satisfies G2 exactly when `(Y, Φ, π)` does.
+3. **The degree bound needs no pin.** `fibreDegree_of : TwistClassCard → FibreDegree`. The
+   embeddings `e` of `ℚ(y)` give distinct points `e∘y_F` over `J(u)`, and R2fp puts their classes
+   into the `Aut 𝒪`-twist class of `P`. A subfield of `ℚ̄` with at most `n` embeddings into `ℚ̄` is
+   finite of degree `≤ n` (`finiteDimensional_of_card_algHom_le`).
+4. **Glazer's `4·81` count.** `twistClassCard_of : TorsionBound3 → InnerTwistCount → TwistClassCard`.
+   A class in the twist class is `[(A, ι∘w, η')]` with `w` among at most 4 twists, and `η'` is
+   determined by the 3-torsion point `η'(1)`.
+   - The Lean steps are `innerIso`, `transportLevel`, `transportIso`, `level3_ext` and
+     `level3_three`.
+   - `torsionBound3_of_t5 : PkgI2.TorsionStructure.{0} → TorsionBound3`: the map
+     `A(ℚ̄)[3] ↪ A(AlgebraicClosure ℚ̄)[3] ≃ (ℤ/3)⁴` shows `|A(ℚ̄)[3]| ≤ 81`.
+5. **The valuation half of Prop. TS is the repository's.** `fibreUnramifiedOn_of_propTS`: for
+   `p ∉ T(u)` we have `p > 324` and `p ∤ M_S(u)`. So the three Beckmann inertia orders at
+   `t = J(u)` are 1, by `GlueRepo.PR.inertia_trivial_iff_not_dvd`.
+6. **Only `(Y, π)` needs pinning, and only up to isomorphism.** `fibreUnramified_of_pinned` uses
+   `residueImage_comp_iso`.
 
-**What does break the universal form is not `Φ` but `(Y, π)`.** `FibreCtx` quantifies over every
-`(Y, π)` that admits some `Φ` with R1fp and R2fp. Those clauses constrain `(Y, π)` only through
-field points. The ramification step (Prop. TS) is a statement about the fibres of the genuine
-cover `Y₃ → P¹`. Its proof from the leaves therefore needs `(Y, π)` pinned up to isomorphism
-(`CurvePinned`, §3), which is weaker than pinning `Φ`. Once `(Y, π)` is pinned, the field part
-and the ramification part follow as stated. These are the parts the task asked for: the
-relabeling keeps them, and `fibreUnramified_of_pinned` proves the transfer.
+**Where the universal statement is weak.** `FibreCtx` quantifies over every `(Y, π)` that admits
+some `Φ` with R1fp and R2fp. These clauses constrain `(Y, π)` only through field points. So the
+ramification step needs either the pin `CurvePinned`, or Prop. TS for every such cover
+(`PropTSAll`). Both are argued true in §3, but neither follows from the existentially stated
+leaves without further glue. The field part and the ramification part, which the task asked for,
+are proved under either: on the pinned curve, they are `fibreUnramified_of_pinned` with
+`fibreUnramifiedOn_of_propTS`.
 
-## 2. The remaining Props
+## 2. The named Props
 
-All of them are `def … : Prop` in `FibreCover.lean`, each with a docstring.
+All are `def … : Prop` in `FibreCover.lean`, each with a docstring.
 
-| Prop | kind | content | source | depends on the pin? |
+| Prop | kind | content | source | status |
 |---|---|---|---|---|
-| `TwistClassCard` | glue, **proved** from `TorsionBound3` + `InnerTwistCount` | the `Aut 𝒪`-twist class of a `QML3 ℚ̄` object has `≤ 324` isomorphism classes | N5 L425-441 (`≤ 4·|(𝒪/3𝒪)^*| ≤ 4·81`) | no (intrinsic) |
-| `TorsionBound3` | glue, **proved** from the bundle's textbook leaf T5 | `A(ℚ̄)[3]` has `≤ 81` points for an abelian surface | `torsionBound3_of_t5 : PkgI2.TorsionStructure.{0} → TorsionBound3` (Mumford §4; `TextbookLeaves.t5`): `A(ℚ̄)[3] ↪ A(AlgebraicClosure ℚ̄)[3] ≃ (ℤ/3)⁴` | no |
-| `InnerTwistCount` | glue (a computation on `𝒪`) | every `α ∈ Aut 𝒪` is `w ∘ Ad u`, with `w` in a fixed set of `≤ 4` and `u ∈ 𝒪^×` | `N_B(𝒪)/ℚ^×𝒪^× ≅ (ℤ/2)²`; N5 L425-429; Skolem–Noether T13 (proved) | no |
-| `FibreUnramifiedOn Y₀ π₀` | glue | Prop. TS + Lemma NV on one curve: `ℚ(y)` is unramified outside `T(u)` for every `ℚ̄`-point `y` over `J(u)`, `u ∉ 𝒞` | N5 L484-529; h-decomposition G2 (inputs R1(d), R2, T1, T2) | no (one fixed curve) |
-| `CurvePinned Y₀ π₀` | glue (after qm-pin) | every `(Y, π)` admitting `Φ` with R1fp, R2fp is isomorphic to `(Y₀, π₀)` over `P¹` on `ℚ̄`-points | rv-g0pieces §4, repair 1 | this *is* the pin |
-| `UnramifiedConjugates` | textbook leaf | if `ℚ(α)` is unramified at `p`, so is the splitting field of `minpoly α` (a compositum of the conjugate fields) | Neukirch ANT I §9 / III §2 (UNVERIFIED locator), STANDARD | no |
-| `FibreDegree` | glue, **proved** from `TwistClassCard` | `ℚ(y)` is finite with `[ℚ(y):ℚ] ≤ 324` | N5 L524-526 | no |
-| `FibreUnramified` | glue, **proved** from `CurvePinned` + `FibreUnramifiedOn` | the universal form of Prop. TS | N5 L509-529 | yes |
-
-### 2.1 `TwistClassCard` (the reduction is compiled, `twistClassCard_of`)
-
-The proof uses three items, labelled as follows. The Lean steps are `transportLevel`,
-`transportIso`, `innerIso`, `level3_ext` and `level3_three`; the two inputs are the Props
-`InnerTwistCount` and `TorsionBound3`.
-
-- *Classes.* A class in the twist class of `P = (A, ι, η)` has the form `[(A, ι∘α, η')]`, where
-  `α ∈ Aut 𝒪` and `η'` is a level structure for `(A, ι∘α)`. This is glue: transport a level
-  structure along the given QM isomorphism.
-- *Inner twists.* For `u ∈ 𝒪^×`, the map `ι(u)` is an isomorphism `(A, ι∘Ad u) ≅ (A, ι)`. So
-  only `Aut 𝒪 / Inn(𝒪^×) = N_B(𝒪)/ℚ^×𝒪^×` matters. That quotient is `(ℤ/2)²` for the maximal
-  order of discriminant 6 (Atkin–Lehner `W`; Skolem–Noether, which is T13 and proved). This is
-  glue: a computation on N5's `𝒪`.
-- *Level structures.* By `Level3.linear`, `η'(a) = a·η'(1)`, and `3·η'(1) = η'(3) = 0`. So `η'`
-  is determined by `η'(1) ∈ A[3]`. The textbook fact `|A[3]| = 3^{2·dim A} = 81` (Mumford §4,
-  UNVERIFIED locator) then gives at most 81 choices. Glazer's bound `4·81 = 324` is the product.
-  The sharper count is `|(𝒪/3𝒪)^×| = |GL₂(𝔽₃)| = 48`.
-
-### 2.2 `FibreUnramifiedOn` (Prop. TS + Lemma NV)
-
-This is the arithmetic core of G2, unchanged from h-decomposition. The chain is:
-
-1. `Y₃ → P¹` has a smooth proper model over `ℤ[1/30]` (Buzzard Thm 2.1, Cor 2.3, N5 L443).
-2. It is branched only over `0, ∞, −16/27`, tamely.
-3. The pullback by `J` has indices `2, 6, 2`, which normalize to `2, 1, 1` (N5 L512-519).
-4. The fibre over `u` is then unramified at `p ∉ T(u)` (T1 purity, T2 Abhyankar, or Beckmann
-   1991 Prop. 4.2).
-
-Already proved:
-
-- the valuation case analysis (`GlueRepo.PR.inertia_orders_eq_one_iff`);
-- `G⁶ − 97200F² = H²` and `J(u)` is not a branch value (`PkgI1`);
-- Lemma NV step 2 (`LeafQM.AV.residue_unramified_over_branch`).
-
-Two facts make this Prop the right target for that proof:
-
-- **It mentions no moduli bijection.** `FibreUnramifiedOn Y₀ π₀` is about one curve and one map,
-  so it can be proved on the genuine `(Y₃, π)` supplied by the leaves (`R1R2fp` with the
-  good-reduction clause).
-- **It is invariant under isomorphisms of curves.** `residueImage_comp_iso` shows that residue
-  fields do not change along an isomorphism.
+| `PkgI2.TorsionStructure.{0}` | textbook leaf (bundle T5) | `A(K̄)[n] ≅ (ℤ/n)^{2g}` | Mumford §4 | leaf, in `TextbookLeaves.t5` |
+| `InnerTwistCount` | glue (a computation on N5's `𝒪`) | every `α ∈ Aut 𝒪` is `w ∘ Ad u`, with `w` in a fixed set of `≤ 4` and `u ∈ 𝒪^×` | `Aut 𝒪 = N_B(𝒪)/ℚ^×` (Skolem–Noether T13, proved); `N_B(𝒪)/ℚ^×𝒪^× ≅ (ℤ/2)²` (Atkin–Lehner; N5 L425-429; Vignéras, UNVERIFIED locator) | open |
+| `PropTS Y₀ π₀` | glue from leaves | rational non-branch `t`, `p > 324`, inertia orders `4/(4,v_p(t)⁺)`, `6/(6,(−v_p t)⁺)`, `2/(2,v_p(t+16/27)⁺)` all 1 ⇒ `ℚ(y)` unramified at `p` for `y` over `t` | N5 L484-525; Beckmann 1991 Prop. 4.2 (UNVERIFIED number) or T1-T2; R1(d) (Buzzard's model over `ℤ[1/30]`); indices `4, 6, 2` | open: the large item of h-decomposition G2 |
+| `CurvePinned Y₀ π₀` | glue | every `(Y, π)` admitting `Φ` with R1fp, R2fp is isomorphic to `(Y₀, π₀)` over `P¹` on `ℚ̄`-points | rv-g0pieces §4 repair 1; §3 below | open (qm-pin) |
+| `PropTSAll` | glue | `PropTS Y π` for every admissible `(Y, π)` | §3.2 | open; alternative to `CurvePinned` |
+| `UnramifiedConjugates` | textbook | if `ℚ(α)` is unramified at `p`, so is the splitting field of `minpoly α` | compositum of unramified fields (Neukirch ANT I §9/III §2, UNVERIFIED locator) | open, not in Mathlib v4.35 for `UnramifiedAt` |
+| `TorsionBound3` | glue | `A(ℚ̄)[3]` has `≤ 81` points, `dim A = 2` | — | **proved** from T5 |
+| `TwistClassCard` | glue | the twist class of a `QML3 ℚ̄` object has `≤ 324` classes | N5 L436-441 | **proved** from `TorsionBound3`, `InnerTwistCount` |
+| `FibreDegree` | glue | `ℚ(y)` finite, `[ℚ(y):ℚ] ≤ 324` | N5 L524-526 | **proved** from `TwistClassCard` |
+| `FibreUnramifiedOn`, `FibreUnramified` | glue | `ℚ(y)` unramified outside `T(u)` (one curve; every admissible curve) | N5 L509-529 | **proved** from `PropTS` (+ `CurvePinned`) or from `PropTSAll` |
 
 ## 3. The pinning analysis
 
-### 3.1 Why `Φ` does not matter
+### 3.1 `Φ` does not matter (VERIFIED)
 
-`FibreCoverOut Y Φ u P` concerns the fibre field `K`, the rational fibre and its model. The
-rational fibre exists over any `K ⊇ ℚ(y)` by R1fp naturality. Conversely, a rational fibre over
-`K` forces `y` to factor through `K`, because `Φ_{ℚ̄}` is injective. So the output is equivalent to
-a property of `ℚ(y) = residueImage y` (`fibreCoverOut_iff`). This field is defined from the
-scheme `Y` and the morphism `y`, and `Φ` does not enter it. The relabeling `τ` of rv-g0pieces
-keeps `(Y, π, y)` and changes only the object `Φ(τ y)`, which may lie over another rational value
-`s`. Hence it changes nothing (`fibreCoverOut_indep`; VERIFIED).
+`FibreCoverOut` is equivalent to a property of `ℚ(y)` (`fibreCoverOut_iff`). This field is
+defined from the scheme `Y` and the morphism `y`; `Φ` does not enter it. The relabeling `τ` keeps
+`(Y, π, y)`. The object `Φ(τy)` may lie over another rational value `s`, but that changes nothing
+(`fibreCoverOut_indep`).
 
-### 3.2 Why `(Y, π)` is not pinned by R1fp and R2fp
+### 3.2 `(Y, π)` is not pinned by the clauses
 
-This is an argument, not compiled.
+The arguments in this subsection are not compiled.
 
-- **`Y` is pinned up to isomorphism (SPECULATIVE).** Take `Ψ = Φ₀⁻¹ ∘ Φ : Y(K) ≃ Y₀(K)`, which
-  is natural in all fields `K`, including function fields. Naturality preserves "factors through
-  a subfield algebraic over `ℚ`". So `Ψ` maps the generic point to the generic point. Then
-  naturality at `K = ℚ(Y)` and at `K = ℚ(Y₀)` gives mutually inverse field maps
-  `ℚ(Y₀) ⇄ ℚ(Y)`. Smooth proper curves that are birational are isomorphic. So `Y ≅ Y₀`, but the
-  isomorphism need not agree with `Ψ` on closed points.
-- **`π` is not pinned.** Transport `π` along `Y ≅ Y₀`. The result is a morphism `π' : Y₀ → P¹`
-  of degree `N = deg π₀`. Its `ℚ̄`-fibres are `ρ⁻¹` of the fibres of `π₀`, for some bijection `ρ`
-  of closed points that is Galois-equivariant and preserves residue fields. So `π'` is again a
-  cover branched only over `0, ∞, −16/27`, with the same fibre cardinalities. Two cases:
-  - If `π' = π₀ ∘ a` for an automorphism `a`, then `CurvePinned` holds.
-  - Otherwise `π'` is a second Belyi-type map on `Y₀` whose fibre partition matches that of `π₀`
-    under such a `ρ`. Ramification indices within a fibre could then differ from those of `π₀`.
-    In that case the inertia orders of the specialization at `J(u)` could differ, and `T(u)`
-    could be insufficient.
-- **Status.** Whether such a `π'` exists is open here: it was neither found nor excluded. So
-  `FibreUnramified`, as stated, is not provable from the existentially stated leaves without
-  `CurvePinned`. Verdict: **UNSURE as stated, TRUE for the genuine `(Y₃, π)`**. This matches
-  rv-g0pieces' verdict on the other three pieces, but for a different reason.
+- **`Y` (SPECULATIVE).** Take `Ψ = Φ₀⁻¹ ∘ Φ : Y(K) ≃ Y₀(K)`, natural in all fields `K`,
+  including function fields.
+  - Naturality preserves "factors through a subfield algebraic over `ℚ`". So `Ψ` maps the generic
+    point to the generic point.
+  - Naturality at `ℚ(Y)` and at `ℚ(Y₀)` gives mutually inverse field maps.
+  - Smooth proper curves that are birational are isomorphic, so `Y ≅ Y₀`. The isomorphism need
+    not agree with `Ψ` on closed points.
+- **`π` (SPECULATIVE, likely true).** R2fp gives three facts about `π`:
+  - its `ℚ̄`-fibres are `Ψ⁻¹` of the fibres of `π₀`;
+  - `Ψ` is Galois-equivariant and preserves residue fields;
+  - CM points go to `0, ∞, −16/27`.
+
+  Hence every rational fibre of `π` is isomorphic, as a Galois set with residue fields, to a
+  rational fibre of `π₀`. Off the branch values these are `G`-torsors, because `G` acts over `ℚ`
+  (R1hecke). The argument then runs:
+  1. Take a rational `t` given by Hilbert irreducibility for `π`. The Galois image on
+     `π⁻¹(t)` is the full arithmetic monodromy `M` of `π`.
+  2. That image lies in the centralizer of a regular action, so `M` is regular and
+     `|M| = deg π = |G|`.
+  3. So `π` is Galois, branched only over `0, ∞, −16/27`, with the same fibre cardinalities and
+     hence the same indices `4, 6, 2`.
+  4. Beckmann's theorem then gives `PropTS Y π` with the same inertia orders (`PropTSAll`).
+
+  Alternatively, if `Aut(Y₃ ⊗ ℚ̄) = G` (expected from the maximality of the triangle group
+  `(2,4,6)`; Singerman 1972, UNVERIFIED), then `π = π₀ ∘ g` (`CurvePinned`).
+- **Status.** As stated, `FibreCoverExists` is true if these arguments are right, i.e. likely
+  TRUE. It is not provable from the existential leaves without one of the two glue Props. Both
+  need Hilbert irreducibility or automorphism groups of curves, which Lean lacks today.
 
 ### 3.3 After the repair
 
-qm-pin's repair 1 makes `Φ` induced by a universal family. Then `CurvePinned` becomes glue, by
-the following argument (UNVERIFIED as Lean, STANDARD as mathematics):
+qm-pin's repair 1 makes `Φ` induced by a universal family. `CurvePinned` then becomes light glue,
+by the following argument (UNVERIFIED as Lean, STANDARD as mathematics):
 
-1. Yoneda for the fine moduli scheme gives `g : Y ≅ Y₀` with `Φ = Φ₀ ∘ g`.
-2. `π ∘ g⁻¹` is constant on the fibres of the Galois quotient `π₀ : Y₀ → Y₀/G ≅ P¹` (N5 L436),
-   so it factors through a morphism `h : P¹ → P¹`.
+1. Yoneda for the fine moduli scheme gives `g : Y ≅ Y₀`.
+2. `π ∘ g⁻¹` is constant on the fibres of the Galois quotient `π₀`, so it factors through a
+   morphism `h : P¹ → P¹`.
 3. `h` is bijective on `ℚ̄`-points, so in characteristic 0 it is a Möbius map.
 4. `h` fixes `0, ∞, −16/27`, so `h = id`.
 
-Because of `fibreCoverOut_indep`, G2 needs only this pin of `(Y, π)`, not the full pin of `Φ`.
+Because of `fibreCoverOut_indep`, G2 needs only this pin of `(Y, π)`.
 
-## 4. Lean outcomes (`scratch/fibre-cover/FibreCover.lean`)
+## 4. Lean outcomes (`scratch/fibre-cover/FibreCover.lean`, 745 lines)
 
-All results below are proved without `sorry`, with standard axioms, and are VERIFIED.
+Every theorem below is proved without `sorry`, with standard axioms, and is VERIFIED.
 
-- **Verbatim copies.** `IF`, `T`, `IsModelOver`, `FibreCtx`, `RationalFibre`, `FibreCoverOut`,
-  `FibreCoverExists`.
-- **Part 1.**
-  - Points and residue fields: `spec_to_specQ_eq` (copied from rv-g0pieces),
-    `exists_factor_of_residueImage_le`, `residueImage_le_aux`, `residueImage_comp_le`.
+- **Part 1, the residue field.**
+  - Points and residue fields: `spec_to_specQ_eq`, `exists_factor_of_residueImage_le`,
+    `residueImage_le_aux`, `residueImage_comp_le`.
   - The rational fibre: `isModelOver_of_baseChange`, `rationalFibre_of_le`.
-  - The reduction to the residue field: `FibreFieldOut` (def), `fibreCoverOut_iff`,
-    `fibreCoverOut_indep`.
+  - The reduction: `FibreFieldOut` (def), `fibreCoverOut_iff`, `fibreCoverOut_indep`.
 - **Part 2.** `UnramifiedConjugates` (def) and `fibreFieldOut_of`: a primitive element `β`
-  gives `f = minpoly β`, which is separable of degree `[F:ℚ]`.
-- **Part 3.** `FibreDegree` and `FibreUnramified` (defs), and `fibreCoverExists_of`.
-- **Part 4.** `TwistClassCard` (def) and three theorems:
-  - `finrank_le_of_card_algHom_le`: uses `AlgHom.card` and
-    `IsAlgClosed.surjective_domRestrict_of_isAlgebraic`.
-  - `finiteDimensional_of_card_algHom_le`: if a subfield of `ℚ̄` has at most `n` embeddings into
-    `ℚ̄`, it is finite of degree `≤ n`. The proof takes a maximal finite subfield via
-    `Nat.findGreatest`.
-  - `fibreDegree_of`.
+  gives `f = minpoly ℚ β`.
+- **Part 3.** `FibreDegree`, `FibreUnramified` (defs) and `fibreCoverExists_of`.
+- **Part 4.** `TwistClassCard` (def), `finrank_le_of_card_algHom_le`,
+  `finiteDimensional_of_card_algHom_le`, `fibreDegree_of`.
+- **Part 5.**
+  - Residue fields along morphisms: `residueImage_comp_le_self(_aux)`, `residueImage_comp_iso`.
+  - The pin: `FibreUnramifiedOn`, `CurvePinned` (defs), `fibreUnramified_of_pinned`.
+  - Composites: `fibreCoverExists_of_twistClassCard`, `fibreCoverExists_of_pinned`.
 - **Part 6.**
   - Defs: `TorsionBound3`, `InnerTwistCount`.
   - Level structures: `level3_eta_eq`, `level3_ext`, `level3_three`.
@@ -185,26 +171,31 @@ All results below are proved without `sorry`, with standard axioms, and are VERI
   - Composites: `twistClassCard_of`, `fibreCoverExists_of_pinned'`.
 - **Part 7.** `spec_comp_injective`, `specIncl`, `torsionBound3_of`, `torsionBound3_of_t5`,
   `fibreCoverExists_of_leafTorsion`.
-- **Part 5.**
-  - Residue fields along morphisms: `residueImage_comp_le_self(_aux)`, `residueImage_comp_iso`.
-  - The pin: `FibreUnramifiedOn`, `CurvePinned` (defs), `fibreUnramified_of_pinned`.
-  - The composites: `fibreCoverExists_of_twistClassCard`, `fibreCoverExists_of_pinned`.
+- **Part 8.**
+  - Defs: `PropTS`, `PropTSAll`.
+  - Theorems: `fibreUnramifiedOn_of_propTS`, `fibreCoverExists_of_propTS`,
+    `fibreUnramified_of_propTSAll`, `fibreCoverExists_of_propTSAll`.
 
 **Imports.** `ZInQKernel.HDecomp.QM.Leaves`, `HDecomp.Descent.Constants`,
-`HDecomp.Descent.B2Glue`, `Multiplication.Certificate.Constants` and `Hypotheses.JHeight`. Build
-`ZInQKernel.HDecomp.QM.Leaves` first (4 min). After that, `lake env lean` takes about 2 min.
+`HDecomp.Descent.B2Glue`, `HDecomp.Repo.PRArith`, `Multiplication.Certificate.Constants` and
+`Hypotheses.JHeight`. Build `ZInQKernel.HDecomp.QM.Leaves` first (4 min). After that,
+`lake env lean` takes about 2 min.
+
+**Lean pitfalls.**
+- Under `open MonObj`, the names `ι` and `η` are tokens, and `mul_one`, `mul_assoc`, `one_mul`
+  resolve to MonObj lemmas; write `_root_.mul_one` and so on.
+- Rewriting with `(fieldMap e ≫ y).left = Spec.map … ≫ y.left` produces ill-typed motives
+  (`(fieldPt K).left` against `Spec (of K)`). State lemmas at the scheme level and apply them to
+  `y.left`.
 
 **Integration.** The names agree with `ModField.lean`, so the file can be appended there (drop
-the copied definitions). `fieldDescent` and `modularConstituent_of_ranges` then take
-`TwistClassCard`, `CurvePinned Y₀ π₀`, `FibreUnramifiedOn Y₀ π₀` and `UnramifiedConjugates` in
-place of `FibreCoverExists`.
+the copied definitions). `fieldDescent` and `modularConstituent_of_ranges` then take the five
+inputs of `fibreCoverExists_of_propTS` in place of `FibreCoverExists`.
 
 ## 5. What remains
 
-- `FibreUnramifiedOn` on the genuine curve: Prop. TS from T1-T2 or Beckmann. This needs integral
-  models of `Y₃ → P¹` and function-field Galois theory, which are not in Mathlib v4.35; it is the
-  large item of h-decomposition G2.
-- `InnerTwistCount`: the normalizer of N5's `𝒪`, `|N_B(𝒪)/ℚ^×𝒪^×| ≤ 4` (`TorsionBound3` is
-  proved from T5).
-- `CurvePinned`: depends on qm-pin.
-- `UnramifiedConjugates`: textbook; not in Mathlib v4.35 for `UnramifiedAt`.
+- `PropTS` on the genuine `(Y₃, π)`: Beckmann, or T1-T2 with R1(d). This needs integral models
+  of `Y₃ → P¹` and function-field Galois theory; it is the large G2 item of h-decomposition.
+- `InnerTwistCount`: the normalizer of N5's `𝒪`.
+- `CurvePinned` (from qm-pin) or `PropTSAll`.
+- `UnramifiedConjugates`: textbook.
