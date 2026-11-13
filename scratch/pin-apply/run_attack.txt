@@ -1,0 +1,36 @@
+scratch/pin-apply/AttackCheck.lean:20:5: warning: Variable name `h` is not explicitly referenced.
+
+Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+  [apply] _h
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+scratch/pin-apply/AttackCheck.lean:20:25: warning: Variable name `hτ` is not explicitly referenced.
+
+Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+  [apply] _hτ
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+scratch/pin-apply/AttackCheck.lean:26:6: warning: this tactic is never executed
+
+Note: This linter can be disabled with `set_option linter.unreachableTactic false`
+scratch/pin-apply/AttackCheck.lean:27:6: warning: this tactic is never executed
+
+Note: This linter can be disabled with `set_option linter.unreachableTactic false`
+scratch/pin-apply/AttackCheck.lean:28:6: warning: this tactic is never executed
+
+Note: This linter can be disabled with `set_option linter.unreachableTactic false`
+scratch/pin-apply/AttackCheck.lean:29:6: warning: this tactic is never executed
+
+Note: This linter can be disabled with `set_option linter.unreachableTactic false`
+scratch/pin-apply/AttackCheck.lean:30:6: warning: this tactic is never executed
+
+Note: This linter can be disabled with `set_option linter.unreachableTactic false`
+'LeafQM.AV.Pin.relabel_keeps_old_part' depends on axioms: [propext, Classical.choice, Quot.sound]
+'LeafQM.AV.Pin.attack_needs_family' depends on axioms: [propext, Classical.choice, Quot.sound]
+'LeafQM.AV.Pin.relabel_is_morphism' depends on axioms: [propext, Classical.choice, Quot.sound]
+'LeafQM.AV.Pin.Exotic.exotic_relabel_morphism' depends on axioms: [propext, Classical.choice, Quot.sound]
+'LeafQM.AV.Pin.Exotic.not_r1fp_exotic' depends on axioms: [propext, Classical.choice, Quot.sound]
+
+real	0m5.825s
+user	0m3.474s
+sys	0m2.636s
