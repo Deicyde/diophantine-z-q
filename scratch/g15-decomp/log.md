@@ -27,3 +27,10 @@
   (`Fld p` = IntermediateField ℚ_[p] (PadicAlgCl p), `ramSet`/`ramCard` defined by norms with a
   uniformizer, `upperAbs`). Transport global ramGroup ↔ LadicCond.ramSet is the link g15-ram needs
   beyond L_w. VERIFIED (read).
+
+## ZInQKernel/Contrib/G15/LadicBridge.lean (namespace ZInQ.Contrib.G15.Ladic)
+- 04:50 §1-4 compile: nv (x ↦ ‖j x‖₊), norm_le_one (𝓞 L ↦ unit ball), primeOf j : HeightOneSpectrum (𝓞 L)
+  ({x | ‖j x‖ < 1}), primeOf_liesOver (over span{p}), isEquiv_nv (P-adic valuation ~ ‖j ·‖),
+  unif, norm_le_unif_pow_iff (‖j y‖ ≤ ‖jπ‖^k ↔ y ∈ P^k), Lj j := adjoin ℚ_[p] (j L) : Fld p,
+  isUnif_unif, norm_eq_of_isUnif, mem_ramSet_iff (σ ∈ LadicCond.ramSet (Lj j) i ↔ τ ∈ ramGroup L P i
+  when j ∘ τ = σ ∘ j). VERIFIED (compiled). Density from TauCeti.exists_mem_norm_sub_lt_of_mem_adjoin.

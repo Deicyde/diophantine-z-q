@@ -211,6 +211,133 @@ theorem norm_le_norm_unif {z : L} (hz : ‖j z‖ < 1) : ‖j z‖ ≤ ‖j (uni
   rw [← coe_nv, ← coe_nv]
   exact_mod_cast hle
 
+/-! ## §3. The local field `Lj j = ℚ_p(j L)` and its uniformizer -/
+
+/-- `j L` as a `ℚ`-subfield of `ℚ̄_p`. -/
+def jField : IntermediateField ℚ (PadicAlgCl p) := (j.toRatAlgHom).fieldRange
+
+theorem mem_jField (y : PadicAlgCl p) : y ∈ jField j ↔ ∃ x : L, j x = y := Iff.rfl
+
+/-- **The closure of `j L` in `ℚ̄_p`**: the `ℚ_p`-subfield `ℚ_p(j L)`, a `LadicCond.Fld p`. -/
+def Lj : LadicCond.Fld p := IntermediateField.adjoin ℚ_[p] (jField j : Set (PadicAlgCl p))
+
+theorem j_mem_Lj (x : L) : j x ∈ Lj j :=
+  IntermediateField.subset_adjoin _ _ ⟨x, rfl⟩
+
+/-- `j L` is dense in `Lj j` (Tau Ceti's `exists_mem_norm_sub_lt_of_mem_adjoin`). -/
+theorem exists_norm_sub_lt {y : PadicAlgCl p} (hy : y ∈ Lj j) {ε : ℝ} (hε : 0 < ε) :
+    ∃ x : L, ‖y - j x‖ < ε := by
+  obtain ⟨y₀, ⟨x, rfl⟩, h⟩ := TauCeti.exists_mem_norm_sub_lt_of_mem_adjoin p (jField j) hy hε
+  exact ⟨x, h⟩
+
+theorem norm_eq_of_norm_sub_lt {y z : PadicAlgCl p} (h : ‖y - z‖ < ‖y‖) : ‖z‖ = ‖y‖ := by
+  have hne : ‖y‖ ≠ ‖-(y - z)‖ := by rw [norm_neg]; exact ne_of_gt h
+  have := IsUltrametricDist.norm_add_eq_max_of_norm_ne_norm hne
+  rw [norm_neg, max_eq_left h.le] at this
+  rw [← this]; congr 1; ring
+
+theorem norm_sub_le_max' (a b : PadicAlgCl p) : ‖a - b‖ ≤ max ‖a‖ ‖b‖ := by
+  rw [sub_eq_add_neg, ← norm_neg b]
+  exact IsUltrametricDist.norm_add_le_max _ _
+
+theorem unif_ne_zero : (unif j : L) ≠ 0 := by
+  intro h
+  have := valuation_unif j
+  rw [h, map_zero] at this
+  exact WithZero.zero_ne_coe this
+
+theorem norm_unif_pos : 0 < ‖j (unif j : L)‖ :=
+  norm_pos_iff.mpr ((map_ne_zero j).mpr (unif_ne_zero j))
+
+/-- **`j π` is a uniformizer of `Lj j`** (in `LadicCond`'s sense). -/
+theorem isUnif_unif : LadicCond.IsUnif (Lj j) (j (unif j : L)) := by
+  refine ⟨j_mem_Lj j _, norm_unif_lt_one j, fun y hy hy1 => ?_⟩
+  by_cases h0 : y = 0
+  · rw [h0, norm_zero]; exact (norm_unif_pos j).le
+  · obtain ⟨x, hx⟩ := exists_norm_sub_lt j hy (norm_pos_iff.mpr h0)
+    have hxy := norm_eq_of_norm_sub_lt hx
+    rw [← hxy] at hy1 ⊢
+    exact norm_le_norm_unif j hy1
+
+/-- All uniformizers of `Lj j` have the absolute value of `j π`. -/
+theorem norm_eq_of_isUnif {ϖ : PadicAlgCl p} (h : LadicCond.IsUnif (Lj j) ϖ) :
+    ‖ϖ‖ = ‖j (unif j : L)‖ :=
+  le_antisymm ((isUnif_unif j).2.2 ϖ h.1 h.2.1) (h.2.2 _ (isUnif_unif j).1 (isUnif_unif j).2.1)
+
+/-! ## §4. `σ ∈ ramSet (Lj j) i ↔ τ ∈ ramGroup L P i` -/
+
+section RamSet
+
+variable {j} {σ : PadicAlgCl p ≃ₐ[ℚ_[p]] PadicAlgCl p} {τ : Gal(L/ℚ)}
+
+theorem norm_j_apply (hστ : ∀ x, j (τ x) = σ (j x)) (x : L) : ‖j (τ x)‖ = ‖j x‖ := by
+  rw [hστ, AlgEquiv.norm_apply]
+
+theorem coe_smul_sub (τ : Gal(L/ℚ)) (x : 𝓞 L) : ((τ • x - x : 𝓞 L) : L) = τ (x : L) - x := by
+  push_cast
+  rfl
+
+/-- For `τ ∈ G_i(P)` and `x ∈ L` with `‖j x‖ ≤ 1` (not only `x ∈ 𝓞 L`):
+`‖j (τ x - x)‖ ≤ ‖j π‖^(i+1)`. -/
+theorem norm_sub_le_of_mem_ramGroup (hστ : ∀ x, j (τ x) = σ (j x)) {i : ℕ}
+    (hτ : τ ∈ GlueConductor.ramGroup L (primeOf j).asIdeal i) {x : L} (hx : ‖j x‖ ≤ 1) :
+    ‖j (τ x - x)‖ ≤ ‖j (unif j : L)‖ ^ (i + 1) := by
+  have hx' : nv j x ≤ 1 := by
+    rw [← NNReal.coe_le_coe, coe_nv, NNReal.coe_one]; exact hx
+  obtain ⟨n, d, hd, h⟩ :=
+    (le_one_iff_exists (primeOf j) (nv j) (nv_int_le_one j) (nv_int_lt_one_iff j) x).mp hx'
+  have hmem : ∀ y : 𝓞 L, ‖j (τ (y : L) - y)‖ ≤ ‖j (unif j : L)‖ ^ (i + 1) := by
+    intro y
+    rw [← coe_smul_sub]
+    exact (norm_le_unif_pow_iff j _ _).mpr (Ideal.mem_inertia.mp hτ y)
+  have hd1 : ‖j (d : L)‖ = 1 :=
+    le_antisymm (norm_le_one j d) (not_lt.mp fun h' => hd ((mem_primeOf j d).mpr h'))
+  have hτd : ‖j (τ (d : L))‖ = 1 := by rw [norm_j_apply hστ, hd1]
+  have hτh : τ x * τ (d : L) = τ (n : L) := by rw [← map_mul, h]
+  have key : (τ x - x) * ((d : L) * τ (d : L)) =
+      (τ (n : L) - n) * d - n * (τ (d : L) - d) := by
+    linear_combination (d : L) * hτh - τ (d : L) * h
+  have hnorm := congrArg (fun z => ‖j z‖) key
+  simp only [map_mul, norm_mul, hd1, hτd, mul_one] at hnorm
+  rw [hnorm, map_sub, map_mul, map_mul]
+  refine le_trans (norm_sub_le_max' _ _) (max_le ?_ ?_)
+  · rw [norm_mul, hd1, mul_one]; exact hmem n
+  · rw [norm_mul]
+    exact le_trans (mul_le_of_le_one_left (norm_nonneg _) (norm_le_one j n)) (hmem d)
+
+/-- **The lower ramification sets agree**: for `σ ∈ G_{ℚ_p}` and `τ ∈ Gal(L/ℚ)` with
+`j ∘ τ = σ ∘ j`, `σ ∈ LadicCond.ramSet (Lj j) i ↔ τ ∈ GlueConductor.ramGroup L P i`. -/
+theorem mem_ramSet_iff (hστ : ∀ x, j (τ x) = σ (j x)) (i : ℕ) :
+    σ ∈ LadicCond.ramSet (Lj j) i ↔ τ ∈ GlueConductor.ramGroup L (primeOf j).asIdeal i := by
+  constructor
+  · rintro ⟨ϖ, hϖ, hb⟩
+    rw [Ideal.mem_inertia]
+    intro x
+    rw [← norm_le_unif_pow_iff, coe_smul_sub, map_sub, hστ, ← norm_eq_of_isUnif j hϖ]
+    exact hb _ (j_mem_Lj j _) (norm_le_one j x)
+  · intro hτ
+    refine ⟨j (unif j : L), isUnif_unif j, fun y hy hy1 => ?_⟩
+    set ε := ‖j (unif j : L)‖ ^ (i + 1) with hε
+    have hε0 : 0 < ε := pow_pos (norm_unif_pos j) _
+    have hε1 : ε ≤ 1 := pow_le_one₀ (norm_nonneg _) (norm_unif_lt_one j).le
+    obtain ⟨x, hx⟩ := exists_norm_sub_lt j hy hε0
+    have hjx : ‖j x‖ ≤ 1 := by
+      have : j x = y + -(y - j x) := by ring
+      rw [this]
+      refine le_trans (IsUltrametricDist.norm_add_le_max _ _) (max_le hy1 ?_)
+      rw [norm_neg]; exact hx.le.trans hε1
+    have h1 := norm_sub_le_of_mem_ramGroup hστ hτ hjx
+    rw [map_sub, hστ] at h1
+    have : σ y - y = σ (y - j x) + ((σ (j x) - j x) + (j x - y)) := by
+      rw [map_sub]; ring
+    rw [this]
+    refine le_trans (IsUltrametricDist.norm_add_le_max _ _) (max_le ?_ ?_)
+    · rw [AlgEquiv.norm_apply]; exact hx.le
+    · refine le_trans (IsUltrametricDist.norm_add_le_max _ _) (max_le h1 ?_)
+      rw [← norm_neg, neg_sub]; exact hx.le
+
+end RamSet
+
 end ZInQ.Contrib.G15.Ladic
 
 end
