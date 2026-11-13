@@ -84,3 +84,14 @@
   45 `#print axioms` lines (27 from LocalData.lean + 18 new), all [propext, Classical.choice,
   Quot.sound].
 - `lake build` of local-data's Tail.lean imports: ok (9561 jobs).
+
+## Step 6 (07:21-07:23 PST): tail
+- `scratch/local-glue/TailK.lean` (build_tail.sh: verbatim scratch/local-data/Tail.lean +
+  galois_block.lean + part_glue.lean + part_pack.lean minus its verbatim G8LocalPack copy +
+  tail_glue.lean).
+- Proved (VERIFIED): `G0ModNewform.modularConstituent_tail_K`: g0-mod-newform's tail (G13-G16)
+  with hypothesis `∃ D, G12Spec D ∧ G14TraceCompat D ∧ G7LocalPackK 5 D.r5 (· ≠ 5) ∧
+  G7LocalPackK 3 D.r3 (· = 5) ∧ G11Out T D.r5 ∧ G11Out T D.r3`.
+- Compile: `lake env lean scratch/local-glue/TailK.lean` exit 0, 0 errors, no sorry, ~50 s;
+  axioms of `modularConstituent_tail_K` [propext, Classical.choice, Quot.sound]
+  (tail_compile.out).
