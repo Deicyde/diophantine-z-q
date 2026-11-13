@@ -11,3 +11,4 @@
 - G7Data fix (part 75_modfield.lean): appended the clause `Module.finrank ℚ L ≤ heightD` (G4Out's bound, which
   G7Data dropped; g8-object §4.1 and linked-tate §5 found this). `g7OutUnr_of_g4Out` supplies it from G4Out's
   `hLD`; `g7Out_of_g7OutUnr` drops it.
+- TailA with the G7Data clause: run 1, 1 error (part 75 L836 `hdata.2^11` now a pair; fix `.1`, also in linked-tate's copy c10 twice); run 2 VERIFIED exit 0, 0 errors, 65 s.

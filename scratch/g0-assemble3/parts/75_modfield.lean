@@ -833,7 +833,7 @@ theorem modularConstituent_of_ranges (hCover : FibreCoverExists) (hKer : KernelF
   obtain ⟨M, J, hM, hJ, hMle, hCC⟩ := hRest Y Φ π u P hctx L A ε N χ β L' hle hdata
   haveI : NumberField L' := numberField_of_fd L'
   exact ⟨⟨L'⟩, algebraMap L' Qbar, @PkgI3.AbVar.baseChange L _ A L' _ (incAlg hle), M, J,
-    hdata.2.2.2.2.2.2.2.2.2.2.2, hM, hJ, hMle, hdata.2.2.2.2.2.2.2.2.2.1, hCC⟩
+    hdata.2.2.2.2.2.2.2.2.2.2.2.1, hM, hJ, hMle, hdata.2.2.2.2.2.2.2.2.2.1, hCC⟩
 
 /-- **The same, with glue-descent's `LeafHasse`, `LeafLocalTwo` replaced by the bundle's T14-T15**
 (`PkgI6.BrauerHasse2C`, `BrauerReciprocity2C`, `LocalH2CardC`; `GlueWP3.leafHasse_of_T14`,

@@ -1,4 +1,5 @@
 /-! ## g0-assemble2: g10-odd and conj-twist (G10Glue)
+(g0-assemble3: `ConjUniformization` gains `[NumberField K]`, as in conj-twist's final ConjTwist.lean L1095.)
 
 * scratch/g10-odd/G10Odd.lean §2-§3 (lines 99-246, verbatim): `ConjTwistNontrivial` and
   `g10Glue_of_conjTwist`. Its proof `intro _ _ hF …` applies unchanged to g0-assemble's corrected
@@ -1151,7 +1152,7 @@ with kernel `Λ̄ = {z | z̄ ∈ Λ}`. (`A^s(ℂ)_σ = A(ℂ)_{σ∘s} = A(ℂ)_
 compositions are holomorphic; the group-theoretic clauses follow from `twistC` being a bijective
 homomorphism.) -/
 def ConjUniformization : Prop :=
-  ∀ (K : Type) [Field K] (A : PkgI3.AbVar K) (σ : K →+* ℂ) (s : K →+* K)
+  ∀ (K : Type) [Field K] [NumberField K] (A : PkgI3.AbVar K) (σ : K →+* ℂ) (s : K →+* K)
     (h : σ.comp s = (starRingEnd ℂ).comp σ) (g : ℕ) (Λ : Submodule ℤ (Fin g → ℂ))
     (Φ : (Fin g → ℂ) → CPts A σ),
     A.dim = (g : WithBot ℕ∞) → IsUniformization σ Λ Φ →
