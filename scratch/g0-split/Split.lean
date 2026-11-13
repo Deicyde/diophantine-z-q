@@ -19480,14 +19480,60 @@ def StableHeightBaseChange : Prop :=
     (A : ZInQ.DefFaltings.AbVar K),
     stableFaltingsHeight (A.baseChange L) = stableFaltingsHeight A
 
-/-- **Missing piece 3 (glue G18/E2: R18 applied to `X₁(N)`).** For every `N ≥ 1` and every
-`J₁(N)` over `ℚ` (`IsJ1`), `h_F(J₁(N)) ≤ 1.3·10⁷N¹²` (Javanpeykar, ANT 8 (2014), Thm 1.1.1 with
-§2.3, applied with `g, deg_B ≤ [SL₂(ℤ):Γ₁(N)] ≤ N²`). Proved parts: the index bound
-(`GlueAssembly.index_Gamma1_le`, `LeafModCurves.belyiDeg_Gamma1_le`, `genus_Gamma1_le`). Missing:
-R18 itself (a placeholder `opaque`), the Belyi map of `X₁(N)` (`LeafModCurves.BelyiX1`, a glue
-target) and the genus of `X₁(N)` as a curve. -/
+/-- `K(X)` as a `K`-algebra: `K = Γ(Spec K) → Γ(X) → K(X)` (copied from scratch/leaf-push2). -/
+noncomputable def ffStructMap {K : Type} [Field K] (X : Over (Spec (CommRingCat.of K)))
+    [IsIntegral X.left] : K →+* X.left.functionField :=
+  haveI : Nonempty (⊤ : X.left.Opens) := ⟨⟨genericPoint X.left, trivial⟩⟩
+  ((Scheme.ΓSpecIso (CommRingCat.of K)).inv ≫ X.hom.appTop ≫
+    X.left.germToFunctionField ⊤).hom
+
+/-- (copied from scratch/leaf-push2) -/
+@[instance_reducible] noncomputable def ffAlgebra {K : Type} [Field K]
+    (X : Over (Spec (CommRingCat.of K))) [IsIntegral X.left] : Algebra K X.left.functionField :=
+  (ffStructMap X).toAlgebra
+
+/-- The bound of R18: `13·10⁶ · g · d⁵` (copied from scratch/leaf-push2). -/
+noncomputable def javanpeykarBound (g d : ℕ) : ℝ := 13 * 10 ^ 6 * g * d ^ 5
+
+/-- **R18 (Javanpeykar, ANT 8 (2014), Thm 1.1.1), concrete: leaf-push2's `R18_Javanpeykar`,
+transported** to this file's copies (`LeafModCurves.IsCurve`, `IsJacobian`, `IsBelyiFunction`
+are the same definitions; the height is def-faltings' `stableFaltingsHeight` through
+`LeafAdopt.abVarEquiv`). A LEAF (a consequence of the printed theorem with H5, leaf-push2 §1), not
+glue: it replaces the placeholder `HSyn.R18_Javanpeykar` (`ResearchLeaves.r18`). -/
+def R18_JavanpeykarConcrete : Prop :=
+  ∀ (K : Type) [Field K] [NumberField K] (X : Over (Spec (CommRingCat.of K)))
+    [LeafModCurves.IsCurve X] [IsIntegral X.left] (P₀ : 𝟙_ (Over (Spec (CommRingCat.of K))) ⟶ X)
+    (J : PkgI3.AbVar K) (aj : X ⟶ J.X), LeafModCurves.IsJacobian X P₀ J aj →
+    ∀ g : ℕ, J.dim = (g : WithBot ℕ∞) → 1 ≤ g →
+    ∀ t : X.left.functionField,
+      letI := ffAlgebra X
+      LeafModCurves.IsBelyiFunction K X.left.functionField t →
+      ∀ d : ℕ, Module.finrank (IntermediateField.adjoin K {t}) X.left.functionField = d → 0 < d →
+        stableFaltingsHeight ((LeafAdopt.abVarEquiv K).symm J) ≤ ((javanpeykarBound g d : ℝ) : EReal)
+
+/-- **Missing piece 3 (glue E2, Belyi half: `LeafModCurves.BelyiX1` on the model of `IsJ1`).**
+Every `J₁(N)` over `ℚ` (`IsJ1 N J`) is the Jacobian of a pointed curve `X` whose function field
+carries a Belyi function `t` (`j/1728`) of degree `[ℚ(X) : ℚ(t)] ≤ N²`. From `BelyiX1` (a glue
+target of leaf-modcurves: good reduction of `E_j` away from `j = 0, 1728, ∞`, and
+`[K_N : ℚ(j)] ≤ N²`) by transport along `ℚ(X) ≅ K_N` (`IsX1Model`); the transport is not done
+here. -/
+def X1BelyiOnModel : Prop :=
+  ∀ (N : ℕ), 0 < N → ∀ J : PkgI3.AbVar ℚ, LeafModCurves.IsJ1 N J →
+    ∃ (X : Over (Spec (CommRingCat.of ℚ))) (_ : LeafModCurves.IsCurve X) (_ : IsIntegral X.left)
+      (P₀ : 𝟙_ (Over (Spec (CommRingCat.of ℚ))) ⟶ X) (aj : X ⟶ J.X),
+      LeafModCurves.IsJacobian X P₀ J aj ∧ ∃ t : X.left.functionField,
+        (letI := ffAlgebra X; LeafModCurves.IsBelyiFunction ℚ X.left.functionField t) ∧
+        ∃ d : ℕ,
+          (letI := ffAlgebra X
+           Module.finrank (IntermediateField.adjoin ℚ {t}) X.left.functionField = d) ∧
+          0 < d ∧ d ≤ N ^ 2
+
+/-- **G18/E2: R18 applied to `X₁(N)` (proved below, `javanpeykarJ1`, from
+`R18_JavanpeykarConcrete`, `X1BelyiOnModel` and T34).** For every `N ≥ 1` and every `J₁(N)` of
+positive dimension over `ℚ`, `h_F(J₁(N)) ≤ 1.3·10⁷N¹²`. -/
 def JavanpeykarJ1 : Prop :=
   ∀ (N : ℕ), 0 < N → ∀ J : PkgI3.AbVar ℚ, LeafModCurves.IsJ1 N J →
+    ∀ g : ℕ, J.dim = (g : WithBot ℕ∞) → 1 ≤ g →
     ∀ x : ℝ, stableFaltingsHeight ((LeafAdopt.abVarEquiv ℚ).symm J) = x →
       x ≤ 13000000 * (N : ℝ) ^ 12
 
@@ -19570,11 +19616,11 @@ def ModularConstituent : Prop :=
       CommonConstituent (LeafAdopt.abVarEquiv L.K A)
         (LeafAdopt.abVarEquiv L.K (((LeafAdopt.abVarEquiv ℚ).symm J).baseChange L.K))
 
-/-- The eight missing pieces, bundled. -/
+/-- The eight missing glue pieces, bundled. -/
 structure MissingPieces : Prop where
   dimBaseChange : DimBaseChange
   stableHeightBaseChange : StableHeightBaseChange
-  javanpeykar : JavanpeykarJ1
+  belyi : X1BelyiOnModel
   additivity : HeightAdditivity
   isogenousProduct : IsogenousProduct
   fibreSimple : FibreSimple
@@ -19598,6 +19644,28 @@ theorem model_dim (hDim : DimBaseChange) {L : Type} [Field L] (emb : L →+* Qba
   obtain ⟨e⟩ : Nonempty ((A.baseChange Qbar).X ≅ B.X) := hiso
   rw [← hDim L Qbar A, ← hB]
   exact dim_eq_of_iso e
+
+/-- **G18/E2, Javanpeykar on `J₁(N)` (proved).** From the concrete R18, the Belyi data on the
+model (`X1BelyiOnModel`) and E2's `dim J₁(N) ≤ N²` (`LeafModCurves.dim_J1_le`, from T34):
+`13·10⁶·g·d⁵ ≤ 13·10⁶·N²·(N²)⁵`. -/
+theorem javanpeykarJ1 (hR18 : R18_JavanpeykarConcrete) (hB : X1BelyiOnModel)
+    (hT34 : LeafModCurves.DimJ1Genus) : JavanpeykarJ1 := by
+  intro N hN J hJ g hg hg1 x hx
+  obtain ⟨X, _, _, P₀, aj, hJac, t, ht, d, hd, hd0, hdN⟩ := hB N hN J hJ
+  have h := hR18 ℚ X P₀ J aj hJac g hg hg1 t ht d hd hd0
+  rw [hx] at h
+  have hxb : x ≤ javanpeykarBound g d := EReal.coe_le_coe_iff.mp h
+  obtain ⟨g', hg', hgN⟩ := LeafModCurves.dim_J1_le hT34 N hN J hJ
+  have hgg : g = g' := by
+    have : (g : WithBot ℕ∞) = (g' : WithBot ℕ∞) := hg.symm.trans hg'
+    exact_mod_cast this
+  subst hgg
+  have hgR : (g : ℝ) ≤ (N : ℝ) ^ 2 := by exact_mod_cast hgN
+  have hdR : (d : ℝ) ≤ (N : ℝ) ^ 2 := by exact_mod_cast hdN
+  calc x ≤ javanpeykarBound g d := hxb
+    _ = 13 * 10 ^ 6 * (g : ℝ) * (d : ℝ) ^ 5 := rfl
+    _ ≤ 13 * 10 ^ 6 * ((N : ℝ) ^ 2) * ((N : ℝ) ^ 2) ^ 5 := by gcongr
+    _ = 13000000 * (N : ℝ) ^ 12 := by ring
 
 /-- `log κ` of Gaudron-Rémond, computed. -/
 theorem log_grKappa (g d : ℕ) (x : ℝ) (hg : 1 ≤ g) (hd : 1 ≤ d) :
@@ -19683,7 +19751,8 @@ glue-assembly's interface `GlueOutputs` at `S = Mult.S_mul`. Applied proved piec
 `dim J₁(N) ≤ N²` (`LeafModCurves.dim_J1_le`, from T34), and the E3-E4 numerics (`transfer_core`,
 from R19-R21). The non-CM disjunct is used (G6, NoCM). -/
 theorem glueOutputs_of_leaves (r : ResearchLeaves) (t : TextbookLeaves)
-    (hDim : DimBaseChange) (hBC : StableHeightBaseChange) (hJav : JavanpeykarJ1)
+    (hR18 : R18_JavanpeykarConcrete)
+    (hDim : DimBaseChange) (hBC : StableHeightBaseChange) (hBelyi : X1BelyiOnModel)
     (hAdd : HeightAdditivity) (hProd : IsogenousProduct) (hSimp : FibreSimple)
     (hTheta : ThetaPazuki) (hMod : ModularConstituent) :
     GlueAssembly.GlueOutputs ZInQ.Mult.S_mul := by
@@ -19724,7 +19793,8 @@ theorem glueOutputs_of_leaves (r : ResearchLeaves) (t : TextbookLeaves)
   have hyP := (ZInQ.DefFaltings.faltingsHeight_coe hfin Pr).symm
   have hzZ := (ZInQ.DefFaltings.faltingsHeight_coe hfin ((LeafAdopt.abVarEquiv L.K).symm Z)).symm
   have hadd := hAdd L.K Pr A ((LeafAdopt.abVarEquiv L.K).symm Z) hPprod _ _ _ hx hzZ hyP
-  have hJb := hJav N hN0 J hJ1 _ (ZInQ.DefFaltings.faltingsHeight_coe hfin _).symm
+  have hJb := javanpeykarJ1 hR18 hBelyi t.t34 N hN0 J hJ1 gJ hgJ (by omega) _
+    (ZInQ.DefFaltings.faltingsHeight_coe hfin _).symm
   have hN1 : (1 : ℝ) ≤ N := by exact_mod_cast hN0
   have hgN' : (gJ : ℝ) ≤ (N : ℝ) ^ 2 := by exact_mod_cast hgN
   -- E3-E4 (proved from R19-R21)
@@ -19746,9 +19816,9 @@ theorem jHeightBound_copy_iff :
 
 /-- **G0. The leaves and the eight missing glue pieces imply `SixContactMin`** (no `sorry`). -/
 theorem sixContactMin_of_leaves (r : ResearchLeaves) (t : TextbookLeaves)
-    (m : G0Split.MissingPieces) : ZInQ.SixContactMin :=
-  sixContactMin_of_glueOutputs (glueOutputs_of_leaves r t m.dimBaseChange
-    m.stableHeightBaseChange m.javanpeykar m.additivity m.isogenousProduct m.fibreSimple
+    (hR18 : G0Split.R18_JavanpeykarConcrete) (m : G0Split.MissingPieces) : ZInQ.SixContactMin :=
+  sixContactMin_of_glueOutputs (glueOutputs_of_leaves r t hR18 m.dimBaseChange
+    m.stableHeightBaseChange m.belyi m.additivity m.isogenousProduct m.fibreSimple
     m.thetaPazuki m.modularConstituent)
 
 end HSyn
@@ -19758,4 +19828,5 @@ end
 #print axioms HSyn.glueOutputs_of_leaves
 #print axioms HSyn.sixContactMin_of_leaves
 #print axioms HSyn.G0Split.transfer_core
+#print axioms HSyn.G0Split.javanpeykarJ1
 #print axioms HSyn.G0Split.semisimpleBaseChange
