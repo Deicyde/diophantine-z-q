@@ -188,6 +188,100 @@ theorem mulIsogeny_of_mulUnramified' (h : MulUnramified) : G0FibreSimple.MulIsog
 
 end MulRigidity
 
+
+/-! ## `MulUnramified` reduced to a statement at the origin of the kernel `A[n]` -/
+
+namespace MulRigidity
+
+open CategoryTheory AlgebraicGeometry Limits MonoidalCategory CartesianMonoidalCategory MonObj
+
+variable {K : Type} [Field K]
+
+/-- The unit section `Spec K → ker f = A ×_{f, A, e} Spec K` of the kernel of a homomorphism. -/
+def kerUnit (A : PkgI3.AbVar K) (f : A.X ⟶ A.X) [IsMonHom f] :
+    𝟙_ (Over (Spec (.of K))) ⟶ pullback f η[A.X] :=
+  pullback.lift η[A.X] (𝟙 _) (by rw [IsMonHom.one_hom, Category.id_comp])
+
+/-- `(x, y) ↦ x⁻¹ y : A ×_{f, A, f} A → ker f`. -/
+def diffKer (A : PkgI3.AbVar K) (f : A.X ⟶ A.X) [IsMonHom f] :
+    pullback f f ⟶ pullback f η[A.X] :=
+  pullback.lift ((pullback.fst f f)⁻¹ * pullback.snd f f) (toUnit _) (by
+    rw [MonObj.mul_comp, GrpObj.inv_comp, pullback.condition, inv_mul_cancel, Hom.one_def])
+
+/-- **The diagonal of a homomorphism `f` is the base change of the unit section of `ker f`**
+along `(x, y) ↦ x⁻¹ y` (the square is cartesian: `x⁻¹ y = e ⇔ x = y`). -/
+theorem diagonal_isPullback (A : PkgI3.AbVar K) (f : A.X ⟶ A.X) [IsMonHom f] :
+    IsPullback (toUnit A.X) (pullback.diagonal f) (kerUnit A f) (diffKer A f) := by
+  have key : ∀ {T : Over (Spec (.of K))} (a : T ⟶ pullback f f),
+      a ≫ diffKer A f ≫ pullback.fst f η[A.X] = (a ≫ pullback.fst f f)⁻¹ * (a ≫ pullback.snd f f) := by
+    intro T a
+    simp only [diffKer, pullback.lift_fst, MonObj.comp_mul, GrpObj.comp_inv]
+  refine IsPullback.flip ⟨⟨?_⟩, ⟨PullbackCone.IsLimit.mk _ (fun c => c.fst ≫ pullback.fst f f)
+    ?_ ?_ ?_⟩⟩
+  · apply pullback.hom_ext
+    · rw [Category.assoc, key, pullback.diagonal_fst, pullback.diagonal_snd, inv_mul_cancel,
+        Category.assoc]
+      simp only [kerUnit, pullback.lift_fst, Hom.one_def]
+    · exact toUnit_unique _ _
+  · intro c
+    have hc := congrArg (· ≫ pullback.fst f η[A.X]) c.condition
+    simp only [Category.assoc] at hc
+    simp only [kerUnit, pullback.lift_fst] at hc
+    rw [key, toUnit_unique c.snd (toUnit _), ← Hom.one_def, inv_mul_eq_one] at hc
+    apply pullback.hom_ext
+    · simp
+    · simp [hc]
+  · intro c
+    exact toUnit_unique _ _
+  · intro c m hm _
+    rw [← hm, Category.assoc, pullback.diagonal_fst, Category.comp_id]
+
+/-- **Glue.** If the unit section of `ker f` is an open immersion, the homomorphism `f` is formally
+unramified (its diagonal is an open immersion, as a base change of the unit section). -/
+theorem formallyUnramified_of_kerUnit (A : PkgI3.AbVar K) (f : A.X ⟶ A.X) [IsMonHom f]
+    (h : IsOpenImmersion (kerUnit A f).left) : FormallyUnramified f.left := by
+  have hP := (Over.forget _).map_isPullback (diagonal_isPullback A f)
+  have h1 : IsOpenImmersion (pullback.diagonal f).left :=
+    MorphismProperty.IsStableUnderBaseChange.of_isPullback (P := @IsOpenImmersion) hP h
+  let e := PreservesPullback.iso (Over.forget (Spec (.of K))) f f
+  have he : pullback.diagonal f.left = (pullback.diagonal f).left ≫ e.hom := by
+    apply pullback.hom_ext
+    · rw [pullback.diagonal_fst, Category.assoc]
+      erw [PreservesPullback.iso_hom_fst]
+      show 𝟙 _ = (pullback.diagonal f).left ≫ (pullback.fst f f).left
+      rw [← Over.comp_left, pullback.diagonal_fst]
+      rfl
+    · rw [pullback.diagonal_snd, Category.assoc]
+      erw [PreservesPullback.iso_hom_snd]
+      show 𝟙 _ = (pullback.diagonal f).left ≫ (pullback.snd f f).left
+      rw [← Over.comp_left, pullback.diagonal_snd]
+      rfl
+  have : IsOpenImmersion (pullback.diagonal f.left) := by rw [he]; infer_instance
+  infer_instance
+
+/-- **Leaf (Mumford, *Abelian varieties*, §4, Application 2 and §6: `A[n]` is étale, of order
+`n^{2g}`, when `char k ∤ n`; equivalently `d[n] = n` on the tangent space at `0`; Milne, *Abelian
+varieties* (Cornell–Silverman 1986), Thm 8.2; locators UNVERIFIED).** In characteristic `0`, for
+`n ≠ 0`, the unit section of the kernel `A[n] = A ×_{[n], A, e} Spec k` is an open immersion
+(`A[n]` is unramified over `k` at the origin: its tangent space there, `ker(n · : Lie A → Lie A)`,
+vanishes). A consequence of "`A[n]` is étale over `k`" (a section of an étale separated morphism
+is an open immersion; `kerUnitOpen_of_mulEtale`). -/
+def KerUnitOpen : Prop :=
+  ∀ (k : Type) [Field k] [CharZero k] (A : PkgI3.AbVar k) (n : ℤ), n ≠ 0 →
+    IsOpenImmersion (kerUnit A ((n : PkgI3.AbVar.End A).hom)).left
+
+/-- `MulUnramified` from `KerUnitOpen` (glue proved here). -/
+theorem mulUnramified_of_kerUnitOpen (h : KerUnitOpen) : MulUnramified := by
+  intro k _ _ A n hn
+  exact formallyUnramified_of_kerUnit A _ (h k A n hn)
+
+/-- **`MulIsogeny` from the single leaf `KerUnitOpen`.** -/
+theorem mulIsogeny_of_kerUnitOpen (h : KerUnitOpen) : G0FibreSimple.MulIsogeny :=
+  mulIsogeny_of_mulUnramified' (mulUnramified_of_kerUnitOpen h)
+
+end MulRigidity
+
 #print axioms MulRigidity.mulIsogeny_of_mulEtale
 #print axioms MulRigidity.mulIsogeny_of_mulUnramified
 #print axioms MulRigidity.mulIsogeny_of_mulUnramified'
+#print axioms MulRigidity.mulIsogeny_of_kerUnitOpen
