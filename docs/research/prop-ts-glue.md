@@ -206,3 +206,22 @@ algebra or curve theory, and no new literature leaf is needed:
      Deligne or Milne.
 
 The Lean pitfalls met along the way are in the log (steps 7 and 16).
+
+## 7. Integration
+
+- **Namespaces.** All new names are in `PropTSGlue`. prop-ts's names (`PropTSRed`, `G0ModField`)
+  and t-purity3's names (`TPurity3`) are kept verbatim. No file under `ZInQKernel/` was edited.
+- **For h-decomposition G2 (Prop. TS).** Replace prop-ts's open glue `SpecNonMeeting` by the
+  theorem `PropTSGlue.specNonMeeting`. With fibre-cover's `fibreCoverExists_of_propTSAll`,
+  `propTSAll_final''` then gives `FibreCoverExists` from:
+  - T5, `InnerTwistCount` and `UnramifiedConjugates`;
+  - T2, `R1R2fp` and `MobiusGlue`;
+  - the 12 open glue Props of §1.
+- **What the theorem uses.** The proof of `specNonMeeting` uses only Mathlib and the inlined
+  t-purity3 proof. It needs no literature leaf; in particular, T1 (purity) is a theorem here.
+- **File layout.** `PropTSGlue.lean` is built as `PropTS.lean` + `PurityCopy.lean.part` +
+  `Appendix.lean.part`. The Mathlib-only development files compile on their own:
+  - `LocalData.lean`;
+  - `HorizTransfer.lean`;
+  - `VRD.lean`;
+  - `SNSpec.lean`.
