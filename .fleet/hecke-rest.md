@@ -8,10 +8,11 @@ with standard axioms; `HeckeFibreSizes` is **proved** from three new leaves.
   type, Shimura), `SerreRigidity3` (Serre's lemma), `ALFixedPoints` (Atkin–Lehner fixed points
   on X₆). The count #fibre · s · a = 288 (72 level structures, Serre-free action) is compiled.
   Computation (`fibre_sizes.py`): sizes 144/36/24/72.
-- **`CurveNormChart`** ⇐ `ChartProper` + `ChartQuasiFinite` + `ChartDominant` (curve glue);
-  normality of smooth curves (`ChartNormal`, `ChartNormalD`) is now **proved**; finiteness from
+- **`CurveNormChart`** and **`CurveChartInf`** ⇐ `ChartProper` + `ChartQuasiFinite` (the two
+  charts of π are proper and locally quasi-finite) — nothing else. **Proved** on the way:
+  normality of smooth curves, `ChartDominant`, `ChartIrreducible`, `InfFnField` (function field
+  seen from ∞), no open closed points / infinitely many ℚ̄-points on opens; finiteness from
   Mathlib's ZMT corollary.
-- **`CurveChartInf`** ⇐ the same three + `InfFnField` (function field seen from ∞).
 - **`HeckeNoVertRam`** ⇐ `HeckeVertWitness` (one unramified vertical prime; Galois
   transitivity over ℤ[X] compiled). Honest scope: the witness form is equivalent to the target;
   its content is good reduction of Y₃ (Morita) or Lemma NV.
@@ -22,6 +23,6 @@ with standard axioms; `HeckeFibreSizes` is **proved** from three new leaves.
 
 **Remains:** leaves `QMAutCard`, `SerreRigidity3`, `ALFixedPoints` (plus ts-hecke's
 `Y3Connected`, `R1R2fp`, `TorsionStructure`); glue `ChartProper`, `ChartQuasiFinite`,
-`ChartDominant`, `InfFnField`, `HeckeVertWitness`. Review: an independent model review confirmed
+`HeckeVertWitness`. Review: an independent model review confirmed
 Parts 1-2 (one citation fix); a self-review found and fixed an empty-`Y` counterexample in two
 intermediate curve Props. Report: docs/research/hecke-rest.md.
