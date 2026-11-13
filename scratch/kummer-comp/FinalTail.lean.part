@@ -1,0 +1,30 @@
+/-! ## kummer-comp: final statements -/
+
+namespace KummerComp
+
+open Polynomial G0ModField PropTSRed PropTSGlue
+
+/-- **`KummerCompositum` (prop-ts-glue's statement) is proved.** -/
+theorem kummerCompositum_final : PropTSGlue.KummerCompositum := kummerCompositum
+
+/-- **`KummerMeetGlue` is a theorem**: ts-kummer's `kummerMeetGlue_of_compositum` applied to
+`kummerCompositum_final` (the two Abhyankar pieces use T2, which is `KummerMeetGlue`'s own
+hypothesis). -/
+theorem kummerMeetGlue : KummerMeetGlue :=
+  TsKummer.kummerMeetGlue_of_compositum kummerCompositum_final
+
+/-- `PropTSAll` (ts-kummer's `propTSAll_ts`) with `KummerCompositum` removed: from the leaves T2 and
+`R1R2fp`, `MobiusGlue` (proved in the kernel), and the open glue `SNSpecialize` and the five Hecke
+Props. -/
+theorem propTSAll_kc (t2 : PkgI2.AbhyankarDVR.{0}) (hR : R1R2fp) (hM : Pin.MobiusGlue)
+    (hS : SNSpecialize)
+    (hI : HeckeIrreducible) (hNI : HeckeNormalizationIrr) (hD : HeckeDegree) (hB : HeckeBranch)
+    (hV : HeckeNoVertRam) : PropTSAll :=
+  TsKummer.propTSAll_ts t2 hR hM hS kummerCompositum_final hI hNI hD hB hV
+
+end KummerComp
+
+#print axioms KummerComp.compositum_core
+#print axioms KummerComp.kummerCompositum_final
+#print axioms KummerComp.kummerMeetGlue
+#print axioms KummerComp.propTSAll_kc
