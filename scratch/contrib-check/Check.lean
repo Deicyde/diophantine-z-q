@@ -8,6 +8,8 @@ import ZInQKernel.Contrib.PSide.Convergence
 import ZInQKernel.Contrib.PSide.Hasse
 import ZInQKernel.Contrib.PSide.Supersingular
 import ZInQKernel.Contrib.PSide.TYZInputsIff
+import ZInQKernel.Contrib.GZDecomp.Decomp
+import ZInQKernel.Contrib.T14.Main
 
 /-! The two closed providers fed into the unchanged headline theorem: Theorem 1.1 from
 `SixContactMin`, `TYZThm35ReadingA` and `GrossZagier` alone. -/
@@ -23,3 +25,6 @@ theorem contribCheck_headline (hH : ZInQ.SixContactMin) (hA : ZInQ.Literature.TY
 #print axioms ZInQ.Contrib.GaussFE.frozenTarget_of_sixContactMin_tyzThm35ReadingA_grossZagier
 #print axioms ZInQ.Contrib.PSide.tyzInputs_iff_readingA
 #print axioms ZInQ.Contrib.PSide.LSeriesSummable_cd
+#print axioms ZInQ.GZDecomp.frozenTarget_of_sixContactMin_tyzThm35ReadingA_gzLeaves
+#print axioms ZInQ.Contrib.T14.brauerHasse2C
+#print axioms ZInQ.Contrib.T14.brauerReciprocity2C
