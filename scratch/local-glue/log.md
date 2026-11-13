@@ -156,3 +156,17 @@
   scratch/local-data/tail_part.lean.
 - docs/research/local-glue.md rewritten with the final state (verdict, main result, remaining
   Props, findings G1-G7).
+
+## Step 12 (07:45-07:52 PST): R6 at the place, rational case
+- `neron_block.lean` (mk_neron_block.sh): verbatim slices of scratch/neron-lg/NeronLG.lean on
+  origin/wip/neron-lg (l.207-215 `dvrAt` + DVR instance, l.225-236 `ringOfIntegers_mem`, `toO`,
+  `toO_coe`, l.1406-1472 `center'`, `dvrAt_center'`, `isDiscreteValuationRing_of_ne_top`).
+  Extra import `Mathlib.NumberTheory.NumberField.Completion.FinitePlace`.
+- `part_raynaud.lean` (§7c). Proved (VERIFIED, compiled, axioms standard): `normVS` (valuation
+  subring {‖f x‖ ≤ 1}), `eK : ℚ̄ ≃+* K̄`, `ιbar`, `wK`, `OK`, `wK_comap`, `OK_ne_top`,
+  `OK_dvr` (instance), `isUnit_natCast_OK` (p ∤ n), `ιbar_apply` (ιbar ∘ σ' = σ ∘ ιbar),
+  `norm_wild_eq`, **`isInertia_of_wild`** (wild σ' over decomp σ ∈ PkgI2.IsInertia (wK p K)),
+  **`raynaudPlace_rational (hR6 : ObjBridge.RaynaudCriterion) (A) (3 ≤ m) (p ∤ m)
+  (A[m] K-rational) : RaynaudPlace A m`** — the leaf R6 applies at the place of embP; PkgI2's
+  galAct/UnipSq/torsion on `ObjBridge.toGrp A` are defeq to PkgI3's (VERIFIED by the compile).
+- Compile: exit 0, no sorry, all printed axioms standard.
