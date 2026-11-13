@@ -317,4 +317,276 @@ theorem restrict_sq_eq_one {p : ℕ} [hp : Fact p.Prime] {L : Type} [Field L] [A
 
 end Torsion
 
+/-! ### The criterion over `G_{ℚ_p}` -/
+
+section Main
+
+theorem pow_val_one {F : Type*} [Field F] {q : ℕ} [NeZero q] {x : F} (hx : x ^ q = 1) :
+    x ^ ((1 : ZMod q).val) = x := by
+  have hx0 := ne_zero_of_pow_eq_one (Nat.pos_of_ne_zero (NeZero.ne q)) hx
+  have := zpow_congr_of_dvd hx hx0 (dvd_val_sub (1 : ZMod q) 1 (by simp))
+  rwa [zpow_natCast, zpow_one] at this
+
+theorem pow_val_neg_one {F : Type*} [Field F] {q : ℕ} [NeZero q] {x : F} (hx : x ^ q = 1) :
+    x ^ ((-1 : ZMod q).val) = x⁻¹ := by
+  have hx0 := ne_zero_of_pow_eq_one (Nat.pos_of_ne_zero (NeZero.ne q)) hx
+  have := zpow_congr_of_dvd hx hx0 (dvd_val_sub (-1 : ZMod q) (-1) (by simp))
+  rwa [zpow_natCast, zpow_neg_one] at this
+
+variable (p : Nat.Primes)
+
+/-- The type of `G_{ℚ_p}` written as a Galois group. -/
+abbrev Gp := PadicAlgCl (p : ℕ) ≃ₐ[ℚ_[(p : ℕ)]] PadicAlgCl (p : ℕ)
+
+/-- `σ` restricts to `1` on `ℚ_p(μ_{p^k m})`: it fixes `μ_{p^k m}`. -/
+theorem fix_of_galToProd_one (k m : ℕ) [NeZero m] (σ : GQp p)
+    (τ' : Gal(muField (p : ℕ) ((p : ℕ) ^ k * m)/ℚ_[(p : ℕ)]))
+    (hc : ∀ x : muField (p : ℕ) ((p : ℕ) ^ k * m), ((τ' x : _) : PadicAlgCl (p : ℕ)) = actp p σ x)
+    (h : galToProd (p := (p : ℕ)) (L := muField (p : ℕ) ((p : ℕ) ^ k * m)) k m τ' = 1) :
+    (∀ x : PadicAlgCl (p : ℕ), x ^ ((p : ℕ) ^ k) = 1 → actp p σ x = x) ∧
+      (∀ y : PadicAlgCl (p : ℕ), y ^ m = 1 → actp p σ y = y) := by
+  obtain ⟨h1, h2⟩ := act_of_gal p k m σ τ' hc
+  rw [h] at h1 h2
+  exact ⟨fun x hx => by rw [h1 x hx]; exact pow_val_one hx,
+    fun y hy => by rw [h2 y hy]; exact pow_val_one hy⟩
+
+/-- `σ` restricts to `τ₋₁` on `ℚ_p(μ_{p^k m})`: it inverts `μ_{p^k}` and fixes `μ_m`. -/
+theorem act_of_galToProd_tau (k m : ℕ) [NeZero m] (σ : GQp p)
+    (τ' : Gal(muField (p : ℕ) ((p : ℕ) ^ k * m)/ℚ_[(p : ℕ)]))
+    (hc : ∀ x : muField (p : ℕ) ((p : ℕ) ^ k * m), ((τ' x : _) : PadicAlgCl (p : ℕ)) = actp p σ x)
+    (h : galToProd (p := (p : ℕ)) (L := muField (p : ℕ) ((p : ℕ) ^ k * m)) k m τ' = (-1, 1)) :
+    (∀ x : PadicAlgCl (p : ℕ), x ^ ((p : ℕ) ^ k) = 1 → actp p σ x = x⁻¹) ∧
+      (∀ y : PadicAlgCl (p : ℕ), y ^ m = 1 → actp p σ y = y) := by
+  obtain ⟨h1, h2⟩ := act_of_gal p k m σ τ' hc
+  rw [h] at h1 h2
+  refine ⟨fun x hx => ?_, fun y hy => by rw [h2 y hy]; exact pow_val_one hy⟩
+  rw [h1 x hx]
+  simpa using pow_val_neg_one hx
+
+/-- Abstract inflation: a character `χ'` of `G_{ℚ_p}` trivial on `Gal(\bar ℚ_p/L)` (`L` finite
+abelian) and on every element whose image in `Gal(L/ℚ_p)` has order `≤ 2` has a locally constant
+square root. -/
+theorem sqrt_of_inflated (L : IntermediateField ℚ_[(p : ℕ)] (PadicAlgCl (p : ℕ)))
+    [FiniteDimensional ℚ_[(p : ℕ)] L] [IsGalois ℚ_[(p : ℕ)] L]
+    (hcomm : ∀ a b : Gal(L/ℚ_[(p : ℕ)]), a * b = b * a) (χ' : Gp p →* ℂˣ)
+    (hker : ∀ σ : Gp p, AlgEquiv.restrictNormalHom L σ = 1 → χ' σ = 1)
+    (htor : ∀ σ : Gp p, (AlgEquiv.restrictNormalHom L σ) ^ 2 = 1 → χ' σ = 1) :
+    ∃ φ : Gp p →* ℂˣ, IsLocallyConstant φ ∧ ∀ x, φ x ^ 2 = χ' x := by
+  let rL : Gp p →* Gal(L/ℚ_[(p : ℕ)]) := AlgEquiv.restrictNormalHom L
+  have hsurj : Function.Surjective rL := AlgEquiv.restrictNormalHom_surjective _
+  have hker' : rL.ker ≤ χ'.ker := fun σ hσ => hker σ hσ
+  let χL : Gal(L/ℚ_[(p : ℕ)]) →* ℂˣ :=
+    rL.liftOfRightInverse (Function.surjInv hsurj) (Function.rightInverse_surjInv hsurj) ⟨χ', hker'⟩
+  have hχL : ∀ σ, χL (rL σ) = χ' σ := fun σ =>
+    rL.liftOfRightInverse_comp_apply _ _ ⟨χ', hker'⟩ σ
+  letI : CommGroup Gal(L/ℚ_[(p : ℕ)]) := { (inferInstance : Group Gal(L/ℚ_[(p : ℕ)])) with
+    mul_comm := hcomm }
+  obtain ⟨ψ, hψ⟩ := (exists_sqrt_iff χL).mpr (by
+    intro g' hg'
+    obtain ⟨σ, rfl⟩ := hsurj g'
+    rw [hχL]
+    exact htor σ hg')
+  refine ⟨ψ.comp rL, ?_, fun x => ?_⟩
+  · exact (IsLocallyConstant.of_discrete ψ).comp_continuous
+      (InfiniteGalois.restrictNormalHom_continuous L)
+  · show ψ (rL x) ^ 2 = χ' x
+    rw [hψ]
+    exact hχL x
+
+/-- `σ` trivial on `ℚ_p(μ_n)`, `N ∣ n`, has trivial `cyc_N`. -/
+theorem cyc_eq_one_of_restrict (N n : ℕ) [NeZero N] [NeZero n] (hNn : N ∣ n) (σ : Gp p)
+    (hσ : AlgEquiv.restrictNormalHom (muField (p : ℕ) n) σ = 1) : cyc N (resp p σ) = 1 := by
+  apply cyc_resp_eq_one
+  intro x hx
+  have hxL : x ∈ muField (p : ℕ) n := IntermediateField.subset_adjoin _ _ (by
+    obtain ⟨c, hc⟩ := hNn
+    show x ^ n = 1
+    rw [hc, pow_mul, hx, one_pow])
+  have := AlgEquiv.restrictNormalHom_apply (muField (p : ℕ) n) σ ⟨x, hxL⟩
+  rw [hσ, AlgEquiv.one_apply] at this
+  exact this.symm
+
+theorem coe_algebraMap_mu (a b : ℕ) [Fact (a ∣ b)] (y : muField (p : ℕ) a) :
+    ((algebraMap (muField (p : ℕ) a) (muField (p : ℕ) b) y : muField (p : ℕ) b) :
+      PadicAlgCl (p : ℕ)) = y := by
+  have : algebraMap (muField (p : ℕ) a) (muField (p : ℕ) b) y =
+      IntermediateField.inclusion (muField_mono (p : ℕ) (Fact.out : a ∣ b)) y := rfl
+  rw [this, IntermediateField.coe_inclusion]
+
+/-- Restriction in two steps `\bar ℚ_p ⊇ ℚ_p(μ_b) ⊇ ℚ_p(μ_a)`. -/
+theorem restrict_restrict_compat (a b : ℕ) [NeZero a] [NeZero b] [Fact (a ∣ b)] (σ : Gp p)
+    (x : muField (p : ℕ) a) :
+    ((((AlgEquiv.restrictNormalHom (muField (p : ℕ) b) σ).restrictNormal
+      (muField (p : ℕ) a)) x : muField (p : ℕ) a) : PadicAlgCl (p : ℕ)) = actp p σ x := by
+  have e1 := AlgEquiv.restrictNormal_commutes (AlgEquiv.restrictNormalHom (muField (p : ℕ) b) σ)
+    (muField (p : ℕ) a) x
+  calc _ = ((algebraMap (muField (p : ℕ) a) (muField (p : ℕ) b)
+        (((AlgEquiv.restrictNormalHom (muField (p : ℕ) b) σ).restrictNormal
+          (muField (p : ℕ) a)) x) : muField (p : ℕ) b) : PadicAlgCl (p : ℕ)) :=
+        (coe_algebraMap_mu p a b _).symm
+    _ = ((AlgEquiv.restrictNormalHom (muField (p : ℕ) b) σ
+          (algebraMap (muField (p : ℕ) a) (muField (p : ℕ) b) x) : muField (p : ℕ) b) :
+          PadicAlgCl (p : ℕ)) := by rw [e1]
+    _ = actp p σ (algebraMap (muField (p : ℕ) a) (muField (p : ℕ) b) x) :=
+        AlgEquiv.restrictNormalHom_apply _ σ _
+    _ = actp p σ x := by rw [coe_algebraMap_mu]
+
+/-- The two-torsion step at the level `L = ℚ_p(μ_{p^{k+1}(p^{2f}-1)})`. -/
+theorem cyc_of_torsion (N k N' : ℕ) [NeZero N] [NeZero N'] (hN : N = (p : ℕ) ^ k * N')
+    (hcopN' : (p : ℕ).Coprime N')
+    [NeZero ((p : ℕ) ^ (2 * orderOf (ZMod.unitOfCoprime (p : ℕ) hcopN')) - 1)]
+    [Fact ((p : ℕ) ^ k * N' ∣
+      (p : ℕ) ^ (k + 1) * ((p : ℕ) ^ (2 * orderOf (ZMod.unitOfCoprime (p : ℕ) hcopN')) - 1))]
+    (u : (ZMod N)ˣ)
+    (hu1 : ((u : ZMod N).cast : ZMod ((p : ℕ) ^ k)) = -1)
+    (hu2 : ((u : ZMod N).cast : ZMod N') = 1) (σ : Gp p)
+    (hσ : (AlgEquiv.restrictNormalHom (muField (p : ℕ) ((p : ℕ) ^ (k + 1) *
+      ((p : ℕ) ^ (2 * orderOf (ZMod.unitOfCoprime (p : ℕ) hcopN')) - 1))) σ) ^ 2 = 1) :
+    cyc N (resp p σ) = 1 ∨ cyc N (resp p σ) = u := by
+  have hcop : ((p : ℕ) ^ k).Coprime N' := hcopN'.pow_left k
+  have hp2 : 2 ≤ (p : ℕ) := p.2.two_le
+  have hf0 : 0 < orderOf (ZMod.unitOfCoprime (p : ℕ) hcopN') := orderOf_pos _
+  have h2f : 0 < 2 * orderOf (ZMod.unitOfCoprime (p : ℕ) hcopN') := by omega
+  have hcop' := coprime_pow_sub_one hp2 h2f
+  have hord := orderOf_unit_pow_sub_one hp2 h2f
+  have hm := dvd_pow_orderOf_sub_one hcopN' 2
+  have hc := restrict_restrict_compat p ((p : ℕ) ^ k * N') ((p : ℕ) ^ (k + 1) *
+      ((p : ℕ) ^ (2 * orderOf (ZMod.unitOfCoprime (p : ℕ) hcopN')) - 1)) σ
+  rcases restrict_sq_eq_one (L := muField (p : ℕ) ((p : ℕ) ^ (k + 1) *
+      ((p : ℕ) ^ (2 * orderOf (ZMod.unitOfCoprime (p : ℕ) hcopN')) - 1)))
+      (muField (p : ℕ) ((p : ℕ) ^ k * N')) k N' _ hcopN' hcop' hm hord.symm.symm _ hσ with h1 | h1
+  · left
+    obtain ⟨a1, a2⟩ := fix_of_galToProd_one p k N' σ _ hc h1
+    apply cyc_resp_eq_one
+    intro z hz
+    rw [hN] at hz
+    have := act_crt (actp p σ).toRingEquiv hcop (hN ▸ Nat.pos_of_ne_zero (NeZero.ne N)) 1
+      (fun x hx => by rw [AlgEquiv.coe_toRingEquiv, a1 x hx, pow_one])
+      (fun y hy => by rw [AlgEquiv.coe_toRingEquiv, a2 y hy, pow_one]) z hz
+    rwa [pow_one] at this
+  · right
+    obtain ⟨a1, a2⟩ := act_of_galToProd_tau p k N' σ _ hc h1
+    exact cyc_resp_eq_u p N k N' hN hcop σ u hu1 hu2 a1 a2
+
+/-- **The "if" direction** (no Kronecker–Weber needed), with `N = p^k N'` given. -/
+theorem sqrt_of_chi' (N k N' : ℕ) [NeZero N] [NeZero N'] (hN : N = (p : ℕ) ^ k * N')
+    (hcopN' : (p : ℕ).Coprime N') (χ : DirichletCharacter ℂ N) (u : (ZMod N)ˣ)
+    (hu1 : ((u : ZMod N).cast : ZMod ((p : ℕ) ^ k)) = -1)
+    (hu2 : ((u : ZMod N).cast : ZMod N') = 1) (hχ : χ.toUnitHom u = 1) :
+    ∃ φ : Gp p →* ℂˣ, IsLocallyConstant φ ∧ ∀ x, φ x ^ 2 = χ.toUnitHom (cyc N (resp p x)) := by
+  have hp2 : 2 ≤ (p : ℕ) := p.2.two_le
+  have hf0 : 0 < orderOf (ZMod.unitOfCoprime (p : ℕ) hcopN') := orderOf_pos _
+  have h2f : 0 < 2 * orderOf (ZMod.unitOfCoprime (p : ℕ) hcopN') := by omega
+  have hcop' := coprime_pow_sub_one hp2 h2f
+  have hm'0 : (p : ℕ) ^ (2 * orderOf (ZMod.unitOfCoprime (p : ℕ) hcopN')) - 1 ≠ 0 := by
+    have := Nat.le_self_pow h2f.ne' (p : ℕ)
+    omega
+  haveI : NeZero ((p : ℕ) ^ (2 * orderOf (ZMod.unitOfCoprime (p : ℕ) hcopN')) - 1) := ⟨hm'0⟩
+  haveI : Fact ((p : ℕ) ^ k * N' ∣
+      (p : ℕ) ^ (k + 1) * ((p : ℕ) ^ (2 * orderOf (ZMod.unitOfCoprime (p : ℕ) hcopN')) - 1)) :=
+    ⟨level_dvd (p : ℕ) k N' hcopN'⟩
+  have hNL : N ∣ (p : ℕ) ^ (k + 1) *
+      ((p : ℕ) ^ (2 * orderOf (ZMod.unitOfCoprime (p : ℕ) hcopN')) - 1) :=
+    hN ▸ level_dvd (p : ℕ) k N' hcopN'
+  refine sqrt_of_inflated p (muField (p : ℕ) ((p : ℕ) ^ (k + 1) *
+      ((p : ℕ) ^ (2 * orderOf (ZMod.unitOfCoprime (p : ℕ) hcopN')) - 1)))
+    (fun a b => galToProd_injective (p := (p : ℕ)) (k + 1) _ hcop' (by
+      rw [map_mul, map_mul]; exact mul_comm _ _))
+    ((χ.toUnitHom.comp (cyc N)).comp (resp p)) (fun σ hσ => ?_) (fun σ hσ => ?_)
+  · show χ.toUnitHom (cyc N (resp p σ)) = 1
+    rw [cyc_eq_one_of_restrict p N _ hNL σ hσ, map_one]
+  · show χ.toUnitHom (cyc N (resp p σ)) = 1
+    rcases cyc_of_torsion p N k N' hN hcopN' u hu1 hu2 σ hσ with h | h
+    · rw [h, map_one]
+    · rw [h, hχ]
+
+/-- **The "only if" direction, from local Kronecker–Weber.** -/
+theorem chi_of_sqrt' (hLKW : PkgI6.LocalKroneckerWeber (p : ℕ)) (N k N' : ℕ) [NeZero N]
+    [NeZero N'] (hN : N = (p : ℕ) ^ k * N') (hcopN' : (p : ℕ).Coprime N')
+    (χ : DirichletCharacter ℂ N) (u : (ZMod N)ˣ)
+    (hu1 : ((u : ZMod N).cast : ZMod ((p : ℕ) ^ k)) = -1)
+    (hu2 : ((u : ZMod N).cast : ZMod N') = 1) (φ : Gp p →* ℂˣ) (hφl : IsLocallyConstant φ)
+    (hφ : ∀ x, φ x ^ 2 = χ.toUnitHom (cyc N (resp p x))) : χ.toUnitHom u = 1 := by
+  have hcop := hcopN'.pow_left k
+  have hHo : IsOpen ((φ.ker : Subgroup (Gp p)) : Set (Gp p)) := by
+    have := hφl.isOpen_fiber 1
+    convert this using 1
+    ext x
+    simp
+  have hHc : IsClosed ((φ.ker : Subgroup (Gp p)) : Set (Gp p)) :=
+    Subgroup.isClosed_of_isOpen _ hHo
+  have hMH : (IntermediateField.fixedField φ.ker).fixingSubgroup = φ.ker :=
+    InfiniteGalois.fixingSubgroup_fixedField ⟨φ.ker, hHc⟩
+  haveI : FiniteDimensional ℚ_[(p : ℕ)] (IntermediateField.fixedField φ.ker) :=
+    (InfiniteGalois.isOpen_iff_finite _).mp (by rw [hMH]; exact hHo)
+  haveI hgal : IsGalois ℚ_[(p : ℕ)] (IntermediateField.fixedField φ.ker) :=
+    (InfiniteGalois.normal_iff_isGalois _).mp (by rw [hMH]; exact φ.normal_ker)
+  have hsM : Function.Surjective
+      (AlgEquiv.restrictNormalHom (IntermediateField.fixedField φ.ker) : Gp p →* _) :=
+    AlgEquiv.restrictNormalHom_surjective _
+  have hcommM : ∀ a b : Gal(IntermediateField.fixedField φ.ker/ℚ_[(p : ℕ)]), a * b = b * a := by
+    intro a b
+    obtain ⟨σ, rfl⟩ := hsM a
+    obtain ⟨τ, rfl⟩ := hsM b
+    rw [← map_mul, ← map_mul, MonoidHom.eq_iff, IntermediateField.restrictNormalHom_ker, hMH,
+      MonoidHom.mem_ker, map_mul, map_inv, map_mul, map_mul, mul_comm (φ τ) (φ σ),
+      inv_mul_cancel]
+  haveI : IsAbelianGalois ℚ_[(p : ℕ)] (IntermediateField.fixedField φ.ker) :=
+    { toIsGalois := hgal, toIsMulCommutative := ⟨⟨hcommM⟩⟩ }
+  obtain ⟨a, b, hb, hcopb, hMle⟩ := le_muField_of_lkw (p : ℕ) hLKW
+    (IntermediateField.fixedField φ.ker)
+  haveI : NeZero (N' * b) := ⟨Nat.mul_ne_zero (NeZero.ne N') hb.ne'⟩
+  have hcop0 : (p : ℕ).Coprime (N' * b) := Nat.Coprime.mul_right hcopN' hcopb
+  have hMK : IntermediateField.fixedField φ.ker ≤ muField (p : ℕ) ((p : ℕ) ^ (k + a) * (N' * b)) :=
+    hMle.trans (muField_mono _ (Nat.mul_dvd_mul (pow_dvd_pow _ (Nat.le_add_left a k))
+      (dvd_mul_left b N')))
+  obtain ⟨τ, hτ⟩ := exists_tau (p := (p : ℕ))
+    (L := muField (p : ℕ) ((p : ℕ) ^ (k + a) * (N' * b))) (k + a) (N' * b) hcop0
+  have hsK : Function.Surjective (AlgEquiv.restrictNormalHom
+      (muField (p : ℕ) ((p : ℕ) ^ (k + a) * (N' * b))) : Gp p →* _) :=
+    AlgEquiv.restrictNormalHom_surjective _
+  obtain ⟨σ, hσ⟩ := hsK τ
+  have hτ2 : τ ^ 2 = 1 := galToProd_injective (p := (p : ℕ)) (k + a) (N' * b) hcop0 (by
+    rw [map_pow, hτ, map_one]
+    ext <;> simp)
+  have hσ2 : σ ^ 2 ∈ φ.ker := by
+    rw [← hMH]
+    apply IntermediateField.fixingSubgroup_antitone hMK
+    rw [← IntermediateField.restrictNormalHom_ker, MonoidHom.mem_ker, map_pow, hσ, hτ2]
+  have hc : ∀ x : muField (p : ℕ) ((p : ℕ) ^ (k + a) * (N' * b)),
+      ((τ x : _) : PadicAlgCl (p : ℕ)) = actp p σ x := fun x => by
+    rw [← hσ]
+    exact AlgEquiv.restrictNormalHom_apply _ σ x
+  obtain ⟨a1, a2⟩ := act_of_galToProd_tau p (k + a) (N' * b) σ τ hc hτ
+  have hcyc := cyc_resp_eq_u p N k N' hN hcop σ u hu1 hu2
+    (fun x hx => a1 x (by
+      obtain ⟨c, hc⟩ := pow_dvd_pow (p : ℕ) (Nat.le_add_right k a)
+      rw [hc, pow_mul, hx, one_pow]))
+    (fun y hy => a2 y (by rw [pow_mul, hy, one_pow]))
+  rw [← hcyc, ← hφ σ, ← map_pow]
+  exact hσ2
+
+end Main
+
+/-! ### The leaf -/
+
+/-- **T30: the local square-root criterion `LeafSqrtCrit` (leaf L-B2c) follows from local
+Kronecker–Weber (leaf T16, `PkgI6.LocalKroneckerWeber`) at every prime.** -/
+theorem leafSqrtCrit_of_localKroneckerWeber
+    (hLKW : ∀ p : Nat.Primes, PkgI6.LocalKroneckerWeber (p : ℕ)) : LeafSqrtCrit := by
+  intro p N _ χ u hu1 hu2
+  have hN : N = (p : ℕ) ^ N.factorization p * (N / (p : ℕ) ^ N.factorization p) :=
+    (Nat.ordProj_mul_ordCompl_eq_self N p).symm
+  have hcopN' := Nat.coprime_ordCompl p.2 (NeZero.ne N)
+  haveI : NeZero (N / (p : ℕ) ^ N.factorization p) :=
+    ⟨fun h => NeZero.ne N (by rw [hN, h, mul_zero])⟩
+  constructor
+  · rintro ⟨φ, hφl, hφ⟩
+    exact chi_of_sqrt' p (hLKW p) N _ _ hN hcopN' χ u hu1 hu2 φ hφl hφ
+  · intro hχ
+    exact sqrt_of_chi' p N _ _ hN hcopN' χ u hu1 hu2 hχ
+
 end T30
+
+/-! Axiom audit. -/
+#print axioms T30.leafSqrtCrit_of_localKroneckerWeber
