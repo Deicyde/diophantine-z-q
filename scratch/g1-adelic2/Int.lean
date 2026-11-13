@@ -5,7 +5,7 @@ import ZInQKernel.Contrib.G1Adelic.FiniteAdele
 -/
 
 open IsDedekindDomain IsDedekindDomain.HeightOneSpectrum GlueVigneras
-open scoped RestrictedProduct Quaternion
+open scoped RestrictedProduct Quaternion TensorProduct
 
 namespace G1Adelic.FA
 
@@ -76,19 +76,21 @@ noncomputable def eQ : Fin 4 → ℍ[ℚ, 2, 0, -3] :=
 /-- The basis of `𝒪` in `B ⊗ 𝔸ᶠ`. -/
 noncomputable def eAF (k : Fin 4) : HA := qmap (algebraMap ℚ AF) (eQ k)
 
-theorem half_mul_two : algebraMap ℚ AF (1 / 2) * 2 = 1 := by
+theorem half_mul_two : algebraMap ℚ AF 2⁻¹ * 2 = 1 := by
   rw [← map_ofNat (algebraMap ℚ AF) 2, ← map_mul]; norm_num
 
 theorem sum_qcoord (x : HA) : ∑ k, qcoord x k • eAF k = x := by
   have h := half_mul_two
   simp only [Fin.sum_univ_four, eAF, eQ, qcoord]
-  ext <;> simp <;> trace_state <;> sorry
+  refine QuaternionAlgebra.ext ?_ ?_ ?_ ?_ <;> simp <;>
+    first | linear_combination x.imJ * h | linear_combination x.imK * h
 
 theorem qcoord_sum (a : Fin 4 → AF) : qcoord (∑ k, a k • eAF k) = a := by
   have h := half_mul_two
   funext k
   simp only [Fin.sum_univ_four, eAF, eQ]
-  fin_cases k <;> simp [qcoord] <;> trace_state <;> sorry
+  fin_cases k <;> simp [qcoord] <;>
+    first | linear_combination a 2 * h | linear_combination a 3 * h
 
 /-- **`𝒪̂ = 𝒪 ⊗ ℤ̂`**: `OhatAF` is the set of `ℤ̂`-combinations of N5's basis of `𝒪`. -/
 theorem OhatAF_eq_span :
@@ -99,5 +101,82 @@ theorem OhatAF_eq_span :
     exact ⟨qcoord x, hx, (sum_qcoord x).symm⟩
   · rintro ⟨a, ha, rfl⟩ k
     rw [qcoord_sum]; exact ha k
+
+/-! ### `N/(𝔸ᶠ^× K₀)` over Mathlib's finite adeles -/
+
+theorem mem_sup_AF (y : BAˣ) : ThetaU y ∈ ZAF ⊔ K0AF ↔ y ∈ Zhat ⊔ K0 := by
+  rw [← map_Zhat, ← map_K0, ← Subgroup.map_sup, Subgroup.mem_map_equiv, MulEquiv.symm_apply_apply]
+
+/-- `Theta` on the normalizers: `N(𝒪̂) ⊆ B̂^×` and `N(𝒪̂) ⊆ (B ⊗ 𝔸ᶠ)^×`. -/
+noncomputable def ThetaN : Nhat ≃* NAF :=
+  (ThetaU.subgroupMap Nhat).trans (MulEquiv.subgroupCongr map_Nhat)
+
+theorem ThetaN_val (y : Nhat) : ((ThetaN y : NAF) : HAˣ) = ThetaU y := rfl
+
+theorem map_sup_subgroupOf :
+    ((Zhat ⊔ K0).subgroupOf Nhat).map (ThetaN : Nhat →* NAF) = (ZAF ⊔ K0AF).subgroupOf NAF := by
+  ext x
+  obtain ⟨y, rfl⟩ := ThetaN.surjective x
+  refine (Subgroup.mem_map_iff_mem (f := (ThetaN : Nhat →* NAF)) ThetaN.injective).trans ?_
+  rw [Subgroup.mem_subgroupOf, Subgroup.mem_subgroupOf, ThetaN_val, mem_sup_AF]
+
+instance sup_subgroupOf_normal_AF : ((ZAF ⊔ K0AF).subgroupOf NAF).Normal :=
+  map_sup_subgroupOf ▸ (sup_subgroupOf_normal.map _ ThetaN.surjective)
+
+/-- **`N/(𝔸ᶠ^× K₀) ≃ B_2^×/ℚ_2^×𝒪_2^× × B_3^×/ℚ_3^×𝒪_3^×`** over `ℍ[𝔸ᶠ[ℤ, ℚ], 2, 0, -3]`. -/
+noncomputable def quotEquivAF : NAF ⧸ (ZAF ⊔ K0AF).subgroupOf NAF ≃*
+    ((Bp 2)ˣ ⧸ Hloc P2 hP2) × ((Bp 3)ˣ ⧸ Hloc P3 hP3) :=
+  (QuotientGroup.congr _ _ ThetaN map_sup_subgroupOf).symm.trans quotEquiv
+
+end G1Adelic.FA
+
+/-! ### `B ⊗_ℚ 𝔸ᶠ = ℍ[𝔸ᶠ, 2, 0, -3]` -/
+
+namespace G1Adelic.FA
+
+section BaseChange
+
+variable (A : Type*) [CommRing A] [Algebra ℚ A]
+
+/-- `ℍ[ℚ, 2, 0, -3] →ₐ[ℚ] ℍ[A, 2, 0, -3]`, coordinatewise. -/
+noncomputable def qmapAlg : ℍ[ℚ, 2, 0, -3] →ₐ[ℚ] ℍ[A, 2, 0, -3] :=
+  { qmap (algebraMap ℚ A) with
+    commutes' := fun r => by
+      show qmap (algebraMap ℚ A) (algebraMap ℚ _ r) = ((algebraMap ℚ A r : A) : ℍ[A, 2, 0, -3])
+      ext <;> simp [QuaternionAlgebra.algebraMap_eq] }
+
+/-- The base change map `A ⊗[ℚ] ℍ[ℚ, 2, 0, -3] →ₐ[A] ℍ[A, 2, 0, -3]`, `a ⊗ q ↦ a • q`. -/
+noncomputable def bcHom : A ⊗[ℚ] ℍ[ℚ, 2, 0, -3] →ₐ[A] ℍ[A, 2, 0, -3] :=
+  AlgHom.liftEquiv ℚ A _ _ (qmapAlg A)
+
+theorem bcHom_tmul (a : A) (q : ℍ[ℚ, 2, 0, -3]) : bcHom A (a ⊗ₜ q) = a • qmap (algebraMap ℚ A) q :=
+  rfl
+
+theorem bcHom_basis (i : Fin 4) :
+    bcHom A (Algebra.TensorProduct.basis A (QuaternionAlgebra.basisOneIJK (2 : ℚ) 0 (-3)) i) =
+      QuaternionAlgebra.basisOneIJK (2 : A) 0 (-3) i := by
+  rw [Algebra.TensorProduct.basis_apply, bcHom_tmul, one_smul]
+  fin_cases i <;> ext <;> simp [QuaternionAlgebra.basisOneIJK]
+
+theorem bcHom_bijective : Function.Bijective (bcHom A) := by
+  let Bt := Algebra.TensorProduct.basis A (QuaternionAlgebra.basisOneIJK (2 : ℚ) 0 (-3))
+  let e := Bt.equiv (QuaternionAlgebra.basisOneIJK (2 : A) 0 (-3)) (Equiv.refl _)
+  have h : (bcHom A).toLinearMap = e.toLinearMap :=
+    Bt.ext fun i => by
+      rw [AlgHom.toLinearMap_apply, bcHom_basis, LinearEquiv.coe_coe, Module.Basis.equiv_apply]; rfl
+  have h' : ⇑(bcHom A) = ⇑e := congrArg DFunLike.coe h
+  rw [h']
+  exact e.bijective
+
+/-- **Base change** `A ⊗[ℚ] ℍ[ℚ, 2, 0, -3] ≃ₐ[A] ℍ[A, 2, 0, -3]`. -/
+noncomputable def baseChange : A ⊗[ℚ] ℍ[ℚ, 2, 0, -3] ≃ₐ[A] ℍ[A, 2, 0, -3] :=
+  AlgEquiv.ofBijective (bcHom A) (bcHom_bijective A)
+
+end BaseChange
+
+/-- **`B ⊗_ℚ 𝔸ᶠ ≃ B̂`**: Mathlib's `𝔸ᶠ[ℤ, ℚ] ⊗[ℚ] ℍ[ℚ, 2, 0, -3]` is isomorphic to t30-adelic's
+restricted product `B̂ = Πʳ_p [B_p, 𝒪_p]`. -/
+noncomputable def tensorEquivBA : AF ⊗[ℚ] ℍ[ℚ, 2, 0, -3] ≃+* BA :=
+  (baseChange AF).toRingEquiv.trans Theta.symm
 
 end G1Adelic.FA

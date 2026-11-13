@@ -34,3 +34,13 @@
   `Contrib/G1Adelic/Basic.lean`; `FiniteAdele.lean` now imports `ZInQKernel.HDecomp.Textbook.G1Adelic`.
   `lake build ZInQKernel.Contrib.G1Adelic.FiniteAdele`: OK (19 s); axioms of Theta, gamma_order_AF,
   relIndex_eq_four_AF, relIndex_K3_AF: [propext, Classical.choice, Quot.sound]. VERIFIED.
+- 03:45 (took over from the earlier session g1-adelic2-3e, which stopped) `ZInQKernel/Contrib/G1Adelic/Complements.lean`
+  (from scratch Int.lean) builds with `lake build ZInQKernel.Contrib.G1Adelic.Complements` (6 s). VERIFIED.
+  `ZhatAF_eq_range_structureMap`, `ZhatSubAF`, `ZintAF`, `ZAF_inf_K0AF : ZAF ⊓ K0AF = ZintAF`,
+  `gamma_count_Zint_AF` (144 = 4 · 36 with ℤ̂^× named), `eAF`/`sum_qcoord`/`qcoord_sum`/`OhatAF_eq_span`,
+  `ThetaN : Nhat ≃* NAF`, `map_sup_subgroupOf`, `quotEquivAF : NAF ⧸ (ZAF ⊔ K0AF).subgroupOf NAF ≃*
+  ((Bp 2)ˣ ⧸ Hloc P2 hP2) × ((Bp 3)ˣ ⧸ Hloc P3 hP3)`, `baseChange A : A ⊗[ℚ] ℍ[ℚ,2,0,-3] ≃ₐ[A] ℍ[A,2,0,-3]`
+  (AlgHom.liftEquiv + Algebra.TensorProduct.basis/basisOneIJK), `tensorEquivBA : AF ⊗[ℚ] ℍ[ℚ,2,0,-3] ≃+* BA`.
+  Axioms of all seven printed: [propext, Classical.choice, Quot.sound]. VERIFIED.
+  Pitfalls: `ext` on `ℍ[AF,…]` descends into the restricted product (use `QuaternionAlgebra.ext ?_ ?_ ?_ ?_`);
+  `Subgroup.mem_map_iff_mem` does not `rw` against `e y` for `e : _ ≃* _` coerced (use `.trans`).
