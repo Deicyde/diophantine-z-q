@@ -456,6 +456,16 @@ theorem genericLocus_congr (L : Type) [Field L] [IsAlgClosed L] [CharZero L] (f 
     (h10 : J10 g = J10 f) : GenericLocus g ↔ GenericLocus f := by
   rw [genericLocus_iff_gramJ L f hf, genericLocus_iff_gramJ L g hg, h2, h4, h6, h10]
 
+/-- The two phrasings of the special half agree. -/
+theorem separationBothSpecial_iff : SeparationBothSpecial ↔ SeparationSpecialLocus := by
+  constructor
+  · intro h L _ _ _ f g hf hg hy h2 h4 h6 h10
+    have hyg : ¬ GenericLocus g := by
+      rwa [genericLocus_congr L f g hf hg h2 h4 h6 h10]
+    exact h L f g hf hg (not_not.mp hy) (not_not.mp hyg) h2 h4 h6 h10
+  · intro h L _ _ _ f g hf hg hy _ h2 h4 h6 h10
+    exact h L f g hf hg (not_not.mpr hy) h2 h4 h6 h10
+
 end T28
 
 end
