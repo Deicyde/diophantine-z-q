@@ -1,7 +1,7 @@
 # Generates Bundle5.lean: import TailF + g0-assemble3's olean/TailD.lean body + CPtsTransport.lean + BCUnique.lean
 # (minus imports/#check) + GluePieces5 (GluePieces4 of parts/z95_bundle4.lean minus two fields).
 import re
-taild=open('/home/jackmccarthy/dzq-wt/g0-assemble3/scratch/g0-assemble3/olean/TailD.lean').read()
+taild=open('scratch/g0-assemble3/olean/TailD.lean').read()
 assert taild.startswith('import TailF\n')
 body=taild[len('import TailF\n'):]
 def strip(s):

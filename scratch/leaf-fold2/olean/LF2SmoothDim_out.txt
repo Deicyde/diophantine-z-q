@@ -1,6 +1,0 @@
-/home/jackmccarthy/dzq-wt/leaf-fold2/scratch/leaf-fold2/olean/LF2SmoothDim.lean:362:43: warning: Variable name `hU` is not explicitly referenced.
-
-Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
-  [apply] _hU
-
-Note: This linter can be disabled with `set_option linter.unusedVariables false`
