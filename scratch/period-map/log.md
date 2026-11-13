@@ -112,3 +112,4 @@ Task period-map (2026-11-13). Base 322303a2. Targets: `PeriodMapGlue`, `Hauptmod
 - run_full1 (before PiCMC step): build_full.sh single file, 0 errors, 3m02s, 68 axioms lines, none sorryAx. VERIFIED.
 - run_full2 (final): build_full.sh (FibreQM base + part_fqm + part_light + part_theta + part_siegel + part_order +
   part_heavy), `lake env lean`: 0 errors, 3m13s, 69 axioms lines, none with sorryAx. VERIFIED.
+- run_light_full5 (final PMLight.lean after docstring edits): 0 errors, 17 axioms lines standard. VERIFIED.
