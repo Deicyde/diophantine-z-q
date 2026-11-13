@@ -2598,6 +2598,28 @@ theorem trace_rho_twist (Tm : GQ → Module.End (PadicAlgCl ℓ) (Vb A ℓ))
 
 end Twist
 
+/-- **The twist obstruction (proved).** If data `D` and `D'` share `r₅`, `ι₅`, `ι₃`, and the traces
+of `D'.r₃` are those of `D.r₃` times `χ`, then `G14TraceCompat` for both forces
+`(χ(τ) − 1)·tr r₃(τ) = 0` at almost every arithmetic Frobenius `τ` at which `tr r₅(τ)` is
+algebraic (all but finitely many, by G13). So at most one twist of `r₃` by a character of
+`Gal(K/ℚ)` can satisfy `G14TraceCompat`, unless `r₃` is isomorphic to its twist; which one is
+fixed by the descent data, not by `G7Out` at `ℓ = 3` (`g7Out_twist`). -/
+theorem twist_obstruction {K : Type} [Field K] [NumberField K] {A : PkgI3.AbVar K}
+    (D D' : ModData K A) (h5 : D'.r5 = D.r5) (hι5 : D'.ι5 = D.ι5) (hι3 : D'.ι3 = D.ι3)
+    (χ : GQ → PadicAlgCl 3) (htw : ∀ τ, (D'.r3.mat τ).trace = χ τ * (D.r3.mat τ).trace)
+    (hc : G14TraceCompat D) (hc' : G14TraceCompat D') :
+    ∃ S : Finset ℕ, ∀ p : ℕ, p.Prime → p ∉ S → ∀ (v : ValuationSubring Qbar) (τ : GQ),
+      LiesOver v p → IsArithFrob τ v p → ∀ c : Qbar, (D.r5.mat τ).trace = D.ι5 c →
+        (χ τ - 1) * (D.r3.mat τ).trace = 0 := by
+  obtain ⟨S, hS⟩ := hc
+  obtain ⟨S', hS'⟩ := hc'
+  refine ⟨S ∪ S', fun p hp hpS v τ hv hτ c hc5 => ?_⟩
+  have h1 := hS p hp (fun h => hpS (Finset.mem_union_left _ h)) v τ hv hτ c hc5
+  have h2 := hS' p hp (fun h => hpS (Finset.mem_union_right _ h)) v τ hv hτ c
+    (by rw [h5, hι5]; exact hc5)
+  rw [htw, hι3, ← h1] at h2
+  linear_combination h2
+
 /-! ## §2. Traces through G8's intertwining (proved) -/
 
 /-- If `e : V ≃ ℚ̄_ℓ² × ℚ̄_ℓ²` intertwines `f g` with `m g ⊕ m g`, then `tr f(g) = 2 tr m(g)`. -/
@@ -2800,12 +2822,41 @@ theorem g12Spec_g14_of_galois (hDF : DirichletOfFinite) (hM : CharPolyIndepOfEll
   refine ⟨⟨i, ιC, ι5, j3.comp γ, r5, r3⟩, rfl, rfl, hspec _, ?_⟩
   exact g14TraceCompat_of_link hM _ j5 j3 γ hγ rfl a β Tm5 Tm3 h5 h3 hF
 
+/-- **From linked G7 data (GLUE, proved).** The `A`-level form of `G14Bridge.TateBridge35`'s
+conclusion (`G7Out` at 5 and 3 with scalars `j_ℓ ∘ a`, `j_ℓ ∘ β`, and `FrobTraceLink`), with
+g0-mod-galois' G8-G12 as the hypotheses `hG5` (their `g8_g12` at `ℓ = 5`: `G8Out ∧ G12Out`) and
+`hG3` (their `g8_g11` at `ℓ = 3`: `G8Out`), gives data with `G12Spec ∧ G14TraceCompat`. -/
+theorem g12Spec_g14_of_linked (hDF : DirichletOfFinite) (hM : CharPolyIndepOfEll) {K : Type}
+    [Field K] [NumberField K] (A : PkgI3.AbVar K) (a β : GQ → Qbar)
+    (j5 : Qbar →ₐ[ℚ] PadicAlgCl 5) (j3 : Qbar →ₐ[ℚ] PadicAlgCl 3)
+    (Tm5 : GQ → Module.End (PadicAlgCl 5) (Vb A 5)) (c5 ε5 : GQ → GQ → PadicAlgCl 5)
+    (u5 : GlueDescent.MatrixUnits2 (PadicAlgCl 5) (Vb A 5))
+    (Tm3 : GQ → Module.End (PadicAlgCl 3) (Vb A 3)) (c3 ε3 : GQ → GQ → PadicAlgCl 3)
+    (u3 : GlueDescent.MatrixUnits2 (PadicAlgCl 3) (Vb A 3))
+    (h75 : G7Out A 5 Tm5 c5 ε5 (fun g => j5 (a g)) (fun g => j5 (β g)) u5)
+    (h73 : G7Out A 3 Tm3 c3 ε3 (fun g => j3 (a g)) (fun g => j3 (β g)) u3)
+    (hF : FrobTraceLink A Tm5 Tm3)
+    (hG5 : G7Out A 5 Tm5 c5 ε5 (fun g => j5 (a g)) (fun g => j5 (β g)) u5 →
+      ∃ r5 : GaloisRep 5 2,
+        GalG8Out A 5 (GlueDescent.rho Tm5 (fun g => j5 (a g)) (fun g => j5 (β g))) r5 ∧
+        GalG12Out r5)
+    (hG3 : G7Out A 3 Tm3 c3 ε3 (fun g => j3 (a g)) (fun g => j3 (β g)) u3 →
+      ∃ r3 : GaloisRep 3 2,
+        GalG8Out A 3 (GlueDescent.rho Tm3 (fun g => j3 (a g)) (fun g => j3 (β g))) r3) :
+    ∃ D : ModData K A, G12Spec D ∧ G14TraceCompat D := by
+  obtain ⟨r5, h5, h12⟩ := hG5 h75
+  obtain ⟨r3, h3⟩ := hG3 h73
+  obtain ⟨D, -, -, hs, hc⟩ :=
+    g12Spec_g14_of_galois hDF hM A j5 j3 a β Tm5 Tm3 r5 r3 h5 h3 h12 hF
+  exact ⟨D, hs, hc⟩
+
 end G14Trace
 
 end
 
 #print axioms G14Trace.g7Out_twist
 #print axioms G14Trace.trace_rho_twist
+#print axioms G14Trace.twist_obstruction
 #print axioms G14Trace.trace_of_intertwines
 #print axioms G14Trace.trace_eq_image
 #print axioms G14Trace.frobTraceLink_of_squares
@@ -2814,3 +2865,4 @@ end
 #print axioms G14Trace.g14TraceCompat_of_common
 #print axioms G14Trace.g14TraceCompat_of_link
 #print axioms G14Trace.g12Spec_g14_of_galois
+#print axioms G14Trace.g12Spec_g14_of_linked
