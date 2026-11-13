@@ -2,6 +2,7 @@ import ZInQKernel.HDecomp.Conductor.LadicCond
 import ZInQKernel.HDecomp.Conductor.Breaks
 import ZInQKernel.Contrib.TauCeti.NumberTheory.Padics.AlgebraicClosure
 import ZInQKernel.Contrib.TauCeti.NumberTheory.NumberField.AutomorphismAction
+import ZInQKernel.Contrib.TauCeti.RingTheory.Ideal.RamificationGroup
 
 /-!
 # G15: the kernel's global ramification groups are the `LadicCond` ones of the closure in `ℚ̄_p`
@@ -20,7 +21,7 @@ No `sorry`, no `axiom`.
 -/
 
 open NumberField IsDedekindDomain
-open scoped NNReal
+open scoped NNReal Pointwise
 
 noncomputable section
 
@@ -337,6 +338,193 @@ theorem mem_ramSet_iff (hστ : ∀ x, j (τ x) = σ (j x)) (i : ℕ) :
       rw [← norm_neg, neg_sub]; exact hx.le
 
 end RamSet
+
+/-! ## §5. The decomposition group preserves `‖j ·‖`; lifts to `G_{ℚ_p}` -/
+
+section Lift
+
+/-- Two `ℝ≥0`-valuations equivalent to the `w`-adic one and agreeing at one `a` with
+`0 < v_w(a) < 1` are equal. -/
+theorem eq_of_isEquiv (w : HeightOneSpectrum (𝓞 L)) (u₁ u₂ : Valuation L ℝ≥0)
+    (h₁ : (w.valuation L).IsEquiv u₁) (h₂ : (w.valuation L).IsEquiv u₂) {a : L} (ha0 : a ≠ 0)
+    (ha1 : w.valuation L a < 1) (hu : u₁ a = u₂ a) (z : L) : u₁ z = u₂ z := by
+  obtain ⟨π, hπ⟩ := w.valuation_exists_uniformizer L
+  have key : ∀ y : L, y ≠ 0 →
+      w.valuation L y = w.valuation L (π ^ (-(WithZero.log (w.valuation L y)))) := by
+    intro y hy
+    have hy' : w.valuation L y ≠ 0 := (Valuation.ne_zero_iff _).mpr hy
+    rw [map_zpow₀, hπ, ← WithZero.exp_zsmul]
+    simp only [smul_eq_mul, mul_neg, mul_one, neg_neg, WithZero.exp_log hy']
+  have hval : ∀ (u : Valuation L ℝ≥0), (w.valuation L).IsEquiv u → ∀ y : L, y ≠ 0 →
+      u y = u π ^ (-(WithZero.log (w.valuation L y))) := by
+    intro u hu y hy
+    rw [← map_zpow₀]
+    have e := key y hy
+    exact le_antisymm ((hu _ _).mp e.le) ((hu _ _).mp e.ge)
+  have hπeq : u₁ π = u₂ π := by
+    have ha' : w.valuation L a ≠ 0 := (Valuation.ne_zero_iff _).mpr ha0
+    have hm : WithZero.log (w.valuation L a) < 0 := by
+      rw [← WithZero.exp_lt_one_iff, WithZero.exp_log ha']; exact ha1
+    obtain ⟨k, hk⟩ : ∃ k : ℕ, -(WithZero.log (w.valuation L a)) = (k : ℤ) :=
+      ⟨(-(WithZero.log (w.valuation L a))).toNat, by omega⟩
+    have hk0 : k ≠ 0 := by omega
+    have e := hu
+    rw [hval u₁ h₁ a ha0, hval u₂ h₂ a ha0, hk, zpow_natCast, zpow_natCast] at e
+    exact (pow_left_inj₀ zero_le zero_le hk0).mp e
+  by_cases hz : z = 0
+  · rw [hz, map_zero, map_zero]
+  · rw [hval u₁ h₁ z hz, hval u₂ h₂ z hz, hπeq]
+
+theorem coe_smul (τ : Gal(L/ℚ)) (y : 𝓞 L) : ((τ • y : 𝓞 L) : L) = τ (y : L) := rfl
+
+/-- **The decomposition group of `P = primeOf j` preserves `‖j ·‖`.** -/
+theorem norm_j_apply_of_mem_stabilizer {τ : Gal(L/ℚ)}
+    (hτ : τ ∈ MulAction.stabilizer Gal(L/ℚ) (primeOf j).asIdeal) (x : L) :
+    ‖j (τ x)‖ = ‖j x‖ := by
+  have hP : τ • (primeOf j).asIdeal = (primeOf j).asIdeal := hτ
+  let u' : Valuation L ℝ≥0 := (nv j).comap (τ : L →+* L)
+  have hu' : ∀ y, u' y = nv j (τ y) := fun _ => rfl
+  have h1 : ∀ y : 𝓞 L, u' (y : L) ≤ 1 := fun y => by
+    rw [hu', ← coe_smul]; exact nv_int_le_one j _
+  have h2 : ∀ y : 𝓞 L, u' (y : L) < 1 ↔ y ∈ (primeOf j).asIdeal := fun y => by
+    rw [hu', ← coe_smul, nv_int_lt_one_iff]
+    calc τ • y ∈ (primeOf j).asIdeal ↔ τ • y ∈ τ • (primeOf j).asIdeal := by rw [hP]
+      _ ↔ y ∈ (primeOf j).asIdeal := Ideal.smul_mem_pointwise_smul_iff
+  have he : ((primeOf j).valuation L).IsEquiv u' :=
+    Valuation.isEquiv_of_val_le_one fun z =>
+      (valuation_le_one_iff_exists _ z).trans (le_one_iff_exists _ u' h1 h2 z).symm
+  have hp0 : (p : L) ≠ 0 := by exact_mod_cast (Fact.out : p.Prime).ne_zero
+  have hp1 : (primeOf j).valuation L (p : L) < 1 := by
+    have h := (HeightOneSpectrum.valuation_lt_one_iff_mem (K := L) (primeOf j) (p : 𝓞 L)).mpr
+      (natCast_mem_primeIdeal j)
+    simpa using h
+  have hpu : u' (p : L) = nv j (p : L) := by rw [hu', map_natCast]
+  have := eq_of_isEquiv (primeOf j) u' (nv j) he (isEquiv_nv j) hp0 hp1 hpu x
+  rw [hu'] at this
+  rw [← coe_nv, ← coe_nv, this]
+
+variable [IsGalois ℚ L]
+
+/-- `L ≅ j L` over `ℚ`. -/
+def jEquiv : L ≃ₐ[ℚ] jField j := AlgEquiv.ofInjectiveField j.toRatAlgHom
+
+theorem coe_jEquiv (x : L) : ((jEquiv j x : jField j) : PadicAlgCl p) = j x := rfl
+
+instance : FiniteDimensional ℚ (jField j) := (jEquiv j).toLinearEquiv.finiteDimensional
+
+instance : IsGalois ℚ (jField j) := IsGalois.of_algEquiv (jEquiv j)
+
+/-- **`σ ↦ σ|_{j L}`**: the `τ ∈ Gal(L/ℚ)` with `j ∘ τ = σ ∘ j`. -/
+def tauOf (σ : PadicAlgCl p ≃ₐ[ℚ_[p]] PadicAlgCl p) : Gal(L/ℚ) :=
+  (jEquiv j).trans (((σ.restrictScalars ℚ).restrictNormal (jField j)).trans (jEquiv j).symm)
+
+theorem tauOf_spec (σ : PadicAlgCl p ≃ₐ[ℚ_[p]] PadicAlgCl p) (x : L) :
+    j (tauOf j σ x) = σ (j x) := by
+  rw [← coe_jEquiv]
+  simp only [tauOf, AlgEquiv.trans_apply, AlgEquiv.apply_symm_apply]
+  exact AlgEquiv.restrictNormal_commutes (σ.restrictScalars ℚ) (jField j) (jEquiv j x)
+
+theorem eq_tauOf {σ : PadicAlgCl p ≃ₐ[ℚ_[p]] PadicAlgCl p} {τ : Gal(L/ℚ)}
+    (hστ : ∀ x, j (τ x) = σ (j x)) : τ = tauOf j σ := by
+  ext x
+  apply j.injective
+  rw [hστ, tauOf_spec]
+
+/-- **Every element of the decomposition group lifts to `G_{ℚ_p}`** (Tau Ceti's
+`exists_algEquiv_apply_eq_of_norm_apply_eq`). -/
+theorem exists_lift {τ : Gal(L/ℚ)}
+    (hτ : τ ∈ MulAction.stabilizer Gal(L/ℚ) (primeOf j).asIdeal) :
+    ∃ σ : PadicAlgCl p ≃ₐ[ℚ_[p]] PadicAlgCl p, ∀ x, j (τ x) = σ (j x) := by
+  let φ : jField j →ₐ[ℚ] PadicAlgCl p :=
+    (j.toRatAlgHom.comp (τ : L →ₐ[ℚ] L)).comp (jEquiv j).symm.toAlgHom
+  have hφ' : ∀ x : L, φ (jEquiv j x) = j (τ x) := fun x => by
+    show j.toRatAlgHom (τ ((jEquiv j).symm (jEquiv j x))) = _
+    rw [AlgEquiv.symm_apply_apply]
+    rfl
+  have hφ : ∀ y : jField j, ‖φ y‖ = ‖(y : PadicAlgCl p)‖ := by
+    intro y
+    obtain ⟨x, rfl⟩ := (jEquiv j).surjective y
+    rw [hφ', coe_jEquiv, norm_j_apply_of_mem_stabilizer j hτ]
+  obtain ⟨h, hh⟩ := TauCeti.exists_algEquiv_apply_eq_of_norm_apply_eq p (jField j) φ hφ
+  refine ⟨h, fun x => ?_⟩
+  have := hh (jEquiv j x)
+  rw [hφ', coe_jEquiv] at this
+  exact this.symm
+
+end Lift
+
+/-! ## §6. `ramCard (Lj j) i = ramCard L P i` -/
+
+section Card
+
+/-- Images of `S` under two maps with the same fibres have the same cardinality. -/
+theorem card_image_eq_of_fibres {X Y Z : Type*} (f : X → Y) (g : X → Z)
+    (h : ∀ a b, f a = f b ↔ g a = g b) (S : Set X) : Nat.card (f '' S) = Nat.card (g '' S) := by
+  classical
+  let F : f '' S → g '' S := fun y => ⟨g y.2.choose, y.2.choose, y.2.choose_spec.1, rfl⟩
+  have hF : Function.Bijective F := by
+    constructor
+    · rintro ⟨y₁, h₁⟩ ⟨y₂, h₂⟩ he
+      have he' : g h₁.choose = g h₂.choose := congrArg Subtype.val he
+      have := (h _ _).mpr he'
+      rw [h₁.choose_spec.2, h₂.choose_spec.2] at this
+      exact Subtype.ext this
+    · rintro ⟨z, a, ha, rfl⟩
+      refine ⟨⟨f a, a, ha, rfl⟩, Subtype.ext ?_⟩
+      have hc := (⟨a, ha, rfl⟩ : f a ∈ f '' S).choose_spec
+      exact (h _ _).mp hc.2
+  exact Nat.card_congr (Equiv.ofBijective F hF)
+
+variable [IsGalois ℚ L]
+
+theorem restr_eq_iff (σ σ' : PadicAlgCl p ≃ₐ[ℚ_[p]] PadicAlgCl p) :
+    LadicCond.restr (Lj j) σ = LadicCond.restr (Lj j) σ' ↔ tauOf j σ = tauOf j σ' := by
+  constructor
+  · intro h
+    ext x
+    apply j.injective
+    rw [tauOf_spec, tauOf_spec]
+    exact congrFun h ⟨j x, j_mem_Lj j x⟩
+  · intro h
+    funext y
+    have hj : ∀ x : L, σ (j x) = σ' (j x) := fun x => by
+      rw [← tauOf_spec, ← tauOf_spec, h]
+    have hy : (y : PadicAlgCl p) ∈ Algebra.adjoin ℚ_[p] (jField j : Set (PadicAlgCl p)) := by
+      have : (y : PadicAlgCl p) ∈
+          IntermediateField.adjoin ℚ_[p] (jField j : Set (PadicAlgCl p)) := y.2
+      rwa [← IntermediateField.mem_toSubalgebra,
+        IntermediateField.adjoin_toSubalgebra_of_isAlgebraic
+          fun x _ => Algebra.IsAlgebraic.isAlgebraic x] at this
+    have hle : Algebra.adjoin ℚ_[p] (jField j : Set (PadicAlgCl p)) ≤
+        AlgHom.equalizer (σ : PadicAlgCl p →ₐ[ℚ_[p]] PadicAlgCl p) σ' := by
+      rw [Algebra.adjoin_le_iff]
+      rintro _ ⟨x, rfl⟩
+      exact hj x
+    exact hle hy
+
+/-- **`g_i(ℚ_p(j L)/ℚ_p) = |G_i(P)|`**: the kernel's local `LadicCond.ramCard` of the closure of
+`j L` in `ℚ̄_p` is the kernel's global `GlueConductor.ramCard` of `P = primeOf j`. -/
+theorem ramCard_Lj_eq (i : ℕ) :
+    LadicCond.ramCard (Lj j) i = GlueConductor.ramCard L (primeOf j).asIdeal i := by
+  unfold LadicCond.ramCard
+  rw [card_image_eq_of_fibres (LadicCond.restr (Lj j)) (tauOf j) (restr_eq_iff j)]
+  have : tauOf j '' LadicCond.ramSet (Lj j) i =
+      (GlueConductor.ramGroup L (primeOf j).asIdeal i : Set Gal(L/ℚ)) := by
+    ext τ
+    constructor
+    · rintro ⟨σ, hσ, rfl⟩
+      exact (mem_ramSet_iff (tauOf_spec j σ) i).mp hσ
+    · intro hτ
+      have hst : τ ∈ MulAction.stabilizer Gal(L/ℚ) (primeOf j).asIdeal := by
+        have := Ideal.ramificationGroup_le_stabilizer (G := Gal(L/ℚ)) (primeOf j).asIdeal i
+        rw [Ideal.ramificationGroup_def] at this
+        exact this hτ
+      obtain ⟨σ, hσ⟩ := exists_lift j hst
+      exact ⟨σ, (mem_ramSet_iff hσ i).mpr hτ, (eq_tauOf j hσ).symm⟩
+  rw [this]
+  rfl
+
+end Card
 
 end ZInQ.Contrib.G15.Ladic
 
