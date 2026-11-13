@@ -63,3 +63,16 @@ COMPILED 04:23 (41 s; 0 errors). `Base.lean` is byte-identical to scratch/g0-hei
   `productUniformization_of : ProductUniformizationAnalytic → ProductUniformization`;
   `HSyn.G0Split.heightAdditivity_of_metrization'` (with `ProductUniformizationAnalytic` in place
   of `ProductUniformization`). Axioms [propext, Classical.choice, Quot.sound]. VERIFIED.
+
+## Run 9-10: + part_jacdet — first attempt 6 errors (DecidableEq instance mismatch in
+  `Function.update` under `rw`, ambiguous `mul_assoc`/`one_mul` with `open MonObj`); fixed with
+  `convert` and `_root_.` — COMPILED 04:44 (28 s; 0 errors)
+- new glue `JacDetMultilinear` (four calculus properties of `jacDet`: class invariance,
+  slot additivity, `τ(a)`-scaling, vanishing on equal slots).
+- `jacDetDescends_of : JacDetMultilinear → JacDetDescends` PROVED (alternating map through
+  `Function.surjInv` of `toCotangent`, `exteriorPower.alternatingMapLinearEquiv`, `TensorProduct.lift`
+  of `(x, w) ↦ τ x · Ψ w`, semilinearity by tensor induction). VERIFIED.
+- `HSyn.G0Split.heightAdditivity_of_metrization'' : N1 → LeafAdopt.H5 → AnalyticUniformizationUnique →
+  HodgeLatticeTheorem → AnalyticUniformizationOfDim → JacDetMultilinear → JacDetNondegenerate →
+  ProductUniformizationAnalytic → ProductHodgeCompat → HeightAdditivity`. Axioms
+  [propext, Classical.choice, Quot.sound]. VERIFIED.
