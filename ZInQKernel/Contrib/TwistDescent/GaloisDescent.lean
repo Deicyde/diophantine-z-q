@@ -1,4 +1,8 @@
-/-
+import Mathlib
+
+/-!
+# twist-descent: Galois descent of morphisms of schemes
+
 Task twist-descent (2026-11-13): Galois descent of morphisms of schemes along a finite Galois
 extension of fields, from Mathlib (no project imports).
 
@@ -12,7 +16,6 @@ extension of fields, from Mathlib (no project imports).
 * `epi_of_isPullback_field`: the base change of `Spec k' → Spec k` along any morphism is an
   epimorphism, for any field extension `k'/k`.
 -/
-import Mathlib
 
 open CategoryTheory Limits AlgebraicGeometry Polynomial
 
