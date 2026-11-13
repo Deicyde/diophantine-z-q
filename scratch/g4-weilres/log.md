@@ -49,3 +49,6 @@
 - `card_conjugates`: #embeddings = [K:ℚ] (AlgHom.card).
 - `homField_of_model`: G4 for a model A/K with ρ the (unique) conjugation action; remaining hypotheses:
   hdim (dim of base change = 2), ρ itself (ConjActionExists), hcont, hinert, hK (G2 output).
+- `cm_degree_of_homField`: 1 ≤ [L:ℚ] ≤ heightD as reals (the `d` of `GlueAssembly.CMOutput`). COMPILED.
+- G4.lean: 760 lines, 0 `sorry`, compiles with `lake env lean scratch/g4-weilres/G4.lean` (needs oleans of
+  ZInQKernel.HDecomp.{B3Unram.B3b, Repo.TorsionFree, Repo.Numerics, Descent.B3Assembly, Objects}: `lake build` them first).

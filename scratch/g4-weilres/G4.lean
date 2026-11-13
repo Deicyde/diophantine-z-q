@@ -737,6 +737,14 @@ theorem b3_of_homField (hHasse : GlueDescent.B2Q.LeafHasse)
       h11 hram η hη hηl
   exact ⟨L, ε, N, hN, χ, β, L', hdeg, hKL, hβl, hβs, hβe, hle, hfd', hgal', hdeg'⟩
 
+/-- **G4 → the CM branch.** `GlueAssembly.CMOutput` takes `d = [L:ℚ]` with `1 ≤ d ≤ D` (reals);
+the Hom field supplies it. -/
+theorem cm_degree_of_homField (L : IntermediateField ℚ Qbar) [FiniteDimensional ℚ L]
+    (hL : Module.finrank ℚ L ≤ ZInQ.heightD) :
+    (1 : ℝ) ≤ (Module.finrank ℚ L : ℝ) ∧ (Module.finrank ℚ L : ℝ) ≤ (ZInQ.heightD : ℝ) :=
+  ⟨by exact_mod_cast Module.finrank_pos, by exact_mod_cast hL⟩
+
+
 end Feed
 
 end G4WeilRes
