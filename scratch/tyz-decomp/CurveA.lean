@@ -204,6 +204,11 @@ theorem iPt_iPt (P : PtA) : iPt (iPt P) = -P := by
     simp only [WeierstrassCurve.Affine.negY, curveAbar_a₁, curveAbar_a₃]
     linear_combination y * iQ_sq
 
+/-- `[i]` as an element of the ring `End(A(ℚ̄))`. -/
+def iEnd : AddMonoid.End PtA := AddMonoidHom.mk' iPt iPt_add
+
+theorem iEnd_apply (P : PtA) : iEnd P = iPt P := rfl
+
 end ZInQ.Contrib.TYZDecomp.CurveA
 
 #print axioms ZInQ.Contrib.TYZDecomp.CurveA.nonsingular_iPt
