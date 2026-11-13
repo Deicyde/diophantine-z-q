@@ -30,3 +30,13 @@ Lines copied by script (python slice of the source lines, no edit): Copies secti
   LocalSemistableMono → SemistableGlobalOfLocal → SemistableLocalToGlobal` PROVED (𝒱 from the
   build's proved H4b `H5Neron.groupModelBaseChangeExists`).
 - Lean note: `ι` is a reserved token here (open NumberField?); renamed binder to `I`.
+
+## NeronLG.lean classification + N2-g1' — COMPILED 06:31 (0 errors; all 9 #print axioms standard)
+- `ringOfIntegers_mem` (𝓞_K ⊆ every valuation subring), `toO`, `center O` (nonzero prime of 𝓞_K
+  under a DVR `O`), `dvrAt_center : dvrAt (center O) = O` PROVED: every DVR valuation subring of a
+  number field is `𝓞_{K,v}` (Mathlib `exists_primeCompl_mul_eq_of_integer`,
+  `ValuationSubring.eq_of_le_of_ne_top`).
+- `badPlaces_finite` PROVED: `{O | DVR O ∧ (1/f) ∉ O}` is finite for `f ≠ 0` (`Ideal.finite_factors`).
+- Glue `GoodPlaceAnyField` (N2-g1', one place with an abelian-scheme model); `goodPlacesAnyField_of :
+  GoodPlaceAnyField → GoodPlacesAnyField` PROVED.
+- Lean note: `open … MonObj` shadows `mul_one` (`MonObj.mul_one`); use `_root_.mul_one`.

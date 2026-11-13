@@ -194,6 +194,103 @@ instance {L : Type} [Field L] [NumberField L] (v : IsDedekindDomain.HeightOneSpe
     IsDiscreteValuationRing (dvrAt v) := by
   unfold dvrAt; infer_instance
 
+section Classify
+
+/-! ### Every DVR of a number field is some `dvrAt v` (proved) -/
+
+set_option linter.unusedSectionVars false
+
+variable {K : Type} [Field K] [NumberField K]
+
+/-- Every valuation subring of a number field contains `𝓞_K` (it is integrally closed). -/
+theorem ringOfIntegers_mem (O : ValuationSubring K) (x : 𝓞 K) : (x : K) ∈ O := by
+  obtain ⟨y, hy⟩ := IsIntegrallyClosed.isIntegral_iff.1
+    (show IsIntegral O (x : K) from x.isIntegral_coe.tower_top)
+  exact hy ▸ y.2
+
+/-- The inclusion `𝓞_K → O`. -/
+def toO (O : ValuationSubring K) : 𝓞 K →+* O :=
+  (algebraMap (𝓞 K) K).codRestrict O.toSubring (ringOfIntegers_mem O)
+
+theorem toO_coe (O : ValuationSubring K) (x : 𝓞 K) : ((toO O x : O) : K) = algebraMap (𝓞 K) K x :=
+  rfl
+
+/-- The center of a DVR `O ⊂ K` on `𝓞_K`: a nonzero prime. -/
+def center (O : ValuationSubring K) [IsDiscreteValuationRing O] :
+    IsDedekindDomain.HeightOneSpectrum (𝓞 K) where
+  asIdeal := (IsLocalRing.maximalIdeal O).comap (toO O)
+  isPrime := Ideal.comap_isPrime _ _
+  ne_bot := by
+    obtain ⟨x, hx, hx0⟩ := Submodule.exists_mem_ne_zero_of_ne_bot
+      (IsDiscreteValuationRing.not_a_field O)
+    obtain ⟨a, b, hb, hab⟩ := IsFractionRing.div_surjective (𝓞 K) (x : K)
+    have hb0 : algebraMap (𝓞 K) K b ≠ 0 := by
+      rw [ne_eq, map_eq_zero_iff _ (IsFractionRing.injective (𝓞 K) K)]
+      exact nonZeroDivisors.ne_zero hb
+    have ha : toO O a = x * toO O b := by
+      apply Subtype.ext
+      rw [toO_coe, Subring.coe_mul, toO_coe, ← hab, div_mul_cancel₀ _ hb0]
+    intro hbot
+    have hmem : a ∈ (IsLocalRing.maximalIdeal O).comap (toO O) := by
+      rw [Ideal.mem_comap, ha]; exact Ideal.mul_mem_right _ _ hx
+    rw [hbot, Ideal.mem_bot] at hmem
+    apply hx0
+    apply Subtype.ext
+    rw [← hab, hmem, map_zero, zero_div]; rfl
+
+theorem center_asIdeal (O : ValuationSubring K) [IsDiscreteValuationRing O] (x : 𝓞 K) :
+    x ∈ (center O).asIdeal ↔ toO O x ∈ IsLocalRing.maximalIdeal O := Iff.rfl
+
+/-- **Every DVR valuation subring of a number field is `𝓞_{K,v}` for its center `v` (proved).** -/
+theorem dvrAt_center (O : ValuationSubring K) [IsDiscreteValuationRing O] :
+    dvrAt (center O) = O := by
+  apply ValuationSubring.eq_of_le_of_ne_top
+  · intro x hx
+    obtain ⟨n, d, hnd⟩ :=
+      IsDedekindDomain.HeightOneSpectrum.exists_primeCompl_mul_eq_of_integer (center O) x hx
+    have hd : IsUnit (toO O d) := by
+      by_contra h
+      exact d.2 ((center_asIdeal O d).2 ((IsLocalRing.mem_maximalIdeal _).2 h))
+    have hvd : O.valuation (algebraMap (𝓞 K) K d) = 1 := (O.valuation_eq_one_iff _).1 hd
+    apply O.mem_of_valuation_le_one
+    have h2 := congrArg O.valuation hnd
+    rw [map_mul, hvd, _root_.mul_one] at h2
+    rw [h2]
+    exact O.valuation_le_one (toO O n)
+  · intro htop
+    obtain ⟨x, hx, hx0⟩ := Submodule.exists_mem_ne_zero_of_ne_bot
+      (IsDiscreteValuationRing.not_a_field O)
+    have hall : ∀ y : K, y ∈ O := by
+      intro y; rw [htop]; exact ValuationSubring.mem_top y
+    have hu : IsUnit x := by
+      refine isUnit_iff_exists_inv.2 ⟨⟨_, hall ((x : K))⁻¹⟩, Subtype.ext ?_⟩
+      rw [Subring.coe_mul]
+      exact mul_inv_cancel₀ (fun h => hx0 (Subtype.ext h))
+    exact (IsLocalRing.mem_maximalIdeal _).1 hx hu
+
+theorem mem_center_of_inv_notMem (O : ValuationSubring K) [IsDiscreteValuationRing O] (f : 𝓞 K)
+    (hf : (algebraMap (𝓞 K) K f)⁻¹ ∉ O) : f ∈ (center O).asIdeal := by
+  rw [center_asIdeal]
+  by_contra h
+  have hu : IsUnit (toO O f) := by
+    by_contra h'
+    exact h ((IsLocalRing.mem_maximalIdeal _).2 h')
+  have hv : O.valuation (algebraMap (𝓞 K) K f) = 1 := (O.valuation_eq_one_iff _).1 hu
+  apply hf
+  apply O.mem_of_valuation_le_one
+  rw [map_inv₀, hv, inv_one]
+
+/-- **Only finitely many DVRs of `K` do not contain `1/f` (proved),** for `f ≠ 0` in `𝓞_K`. -/
+theorem badPlaces_finite {f : 𝓞 K} (hf : f ≠ 0) :
+    {O : ValuationSubring K | IsDiscreteValuationRing O ∧ (algebraMap (𝓞 K) K f)⁻¹ ∉ O}.Finite := by
+  have hI : Ideal.span {f} ≠ 0 := by
+    rw [Ne, Ideal.zero_eq_bot, Ideal.span_singleton_eq_bot]; exact hf
+  refine ((Ideal.finite_factors hI).image dvrAt).subset ?_
+  rintro O ⟨hO, hfO⟩
+  exact ⟨center O, Ideal.dvd_span_singleton.2 (mem_center_of_inv_notMem O f hfO), dvrAt_center O⟩
+
+end Classify
+
 /-- The Néron mapping property of a model `G` over `Spec R` of `B` (along `Spec L → Spec R`, with
 the identification `gen` of the generic fibre): the `neron` field of `NeronModelOver`. -/
 def IsNeronOver (R : Type) [CommRing R] (L : Type) [Field L] [Algebra R L] (B : AbVar L)
@@ -387,6 +484,35 @@ def GoodPlacesAnyField : Prop :=
     ∀ (O : ValuationSubring K) [IsDiscreteValuationRing O], O ∉ T →
       ∀ (L₀ : Type) [Field L₀] [NumberField L₀] [Algebra K L₀], LocalSemistableWith A O L₀
 
+/-- **Glue N2-g1' (a place where `A` has an abelian-scheme model needs no extension).** Given the
+leaf N1-ab: if `A` extends to an abelian scheme `𝒜` over `𝓞_K[1/f]` (`f ≠ 0`) and `O ⊂ K` is a DVR
+containing `1/f`, the local statement at `O` holds for every finite extension `L₀`. Proof
+(STANDARD, not in Mathlib): `𝓞_K[1/f] ⊆ O`, so for `O₀ ⊂ L₀` over `O` and `O' ⊂ L'` over `O₀` the
+base changes `𝒜_{O₀}`, `𝒜_{O'} = 𝒜_{O₀} ×_{O₀} O'` are abelian schemes, hence Néron (N1-ab), so
+`𝒩₀ ≅ 𝒜_{O₀}` and `𝒩' ≅ 𝒜_{O'}` by group isomorphisms compatible with `gen`
+(`NeronModelOver.uniqueIso` of tau-n1n2); take `U = 𝒩'`, `i = 𝟙` and `j` the composite
+isomorphism; the generic-fibre equation holds because every isomorphism used is compatible with
+`gen`. No further literature input. -/
+def GoodPlaceAnyField : Prop :=
+  AbelianSchemeIsNeron →
+  ∀ (K : Type) [Field K] [NumberField K] (A : AbVar K) (f : 𝓞 K), f ≠ 0 →
+    HasAbelianSchemeAway K A f →
+    ∀ (O : ValuationSubring K) [IsDiscreteValuationRing O], (algebraMap (𝓞 K) K f)⁻¹ ∈ O →
+      ∀ (L₀ : Type) [Field L₀] [NumberField L₀] [Algebra K L₀], LocalSemistableWith A O L₀
+
+/-- **N2-g1 from N2-g1' (proved):** the DVRs not containing `1/f` are finitely many
+(`badPlaces_finite`). -/
+theorem goodPlacesAnyField_of (h : GoodPlaceAnyField) : GoodPlacesAnyField := by
+  intro hab hsp K _ _ A
+  obtain ⟨f, hf0, hf⟩ := hsp K A
+  classical
+  have hfin := badPlaces_finite hf0
+  refine ⟨hfin.toFinset, fun O hO hOT L₀ _ _ _ => ?_⟩
+  have hinv : (algebraMap (𝓞 K) K f)⁻¹ ∈ O := by
+    by_contra hc
+    exact hOT (hfin.mem_toFinset.2 ⟨hO, hc⟩)
+  exact h hab K A f hf0 hf O hinv L₀
+
 /-- **Glue N2-g2 (the local statement persists in larger fields).** Given the leaves N1 and NL:
 if the local statement at `O` holds for `L₀`, it holds for every finite extension `L₁ ⊇ L₀`.
 Proof (STANDARD, not in Mathlib): given `O₁ ⊂ L₁` over `O`, `𝒩₁`, `L' ⊇ L₁`, `O' ⊂ L'` over `O₁`
@@ -500,3 +626,6 @@ end ZInQ.NeronLG
 #print axioms ZInQ.NeronLG.compositumFinset
 #print axioms ZInQ.NeronLG.semistableCommonField
 #print axioms ZInQ.NeronLG.semistableLocalToGlobal_of
+#print axioms ZInQ.NeronLG.dvrAt_center
+#print axioms ZInQ.NeronLG.badPlaces_finite
+#print axioms ZInQ.NeronLG.goodPlacesAnyField_of
