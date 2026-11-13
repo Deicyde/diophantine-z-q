@@ -36,7 +36,13 @@ Targets: period-map's glue `S8Nonzero`, `S8WeightExact`, `SphereFactorAffine`,
   proper smooth over ℚ. Finding: without the properness/smoothness hypotheses the transfer is false
   (Y = Spec ℂ has no ℚ̄-points), so they are part of the statement.
 
-## S8Nonzero — REDUCED to an explicit matrix; certificate computed (VERIFIED, run_s8.txt)
+## S8Nonzero — PROVED (VERIFIED, run_s8.txt: `s8Nonzero_proof`, axioms standard)
+- Lean proof (S8.lean, no numerics beyond e^{−π/2} ∈ [0.173, 0.2532] from π ∈ (3, 3.15) and
+  1 + x ≤ eˣ): factorization `thetaConst_factor`; phases `th1_τ2`, `th1_τ1_one`;
+  `re_th1_τ1_zero` (Θ[0,b](τ1) = P + σE i, 1 ≤ P ≤ 1.0347, 0.346 ≤ E ≤ 0.5411, Re(P+σEi)⁸ < 0);
+  `re_theta8_nonpos` (all 16 characteristics), `re_theta8_m0` (< 0 for ((0,0),(0,1)));
+  `s8Omega0_re_neg : Re Σθ⁸(Ω0) < 0`.
+## (earlier step) S8Nonzero reduced to an explicit matrix; certificate computed
 - `S8.lean` (imports `PGLight` = period-map's PMLight.lean verbatim, `build_light.sh`):
   `omega_cm4 : PkgI1.Omega (√2 + I) = Omega0 = !![(-1+I)/2, 1; 1, -1+I]` (proved);
   `s8Nonzero_iff : S8Nonzero ↔ S8Omega0` (`S8Omega0 := thetaSum8 Omega0 ≠ 0`). Axioms standard.

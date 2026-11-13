@@ -1,1 +1,11 @@
+scratch/period-glue/S8.lean:127:4: warning: This simp argument is unused:
+  Matrix.head_cons
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [Matrix.mulVec, dotProduct, Fin.sum_univ_two, Omega0, τ1, τ2, Fin.cons_zero, Fin.cons_one,
+    Matrix.of_apply, Matrix.cons_val', Matrix.cons_val_zero, Matrix.cons_val_one, Matrix.empty_val',
+    Matrix.cons_val_fin_one]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
 'HSyn.G0Split.FibreQM.PeriodGlue.s8Nonzero_iff' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HSyn.G0Split.FibreQM.PeriodGlue.s8Nonzero_proof' depends on axioms: [propext, Classical.choice, Quot.sound]
