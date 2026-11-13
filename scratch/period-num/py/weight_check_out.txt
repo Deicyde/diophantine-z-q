@@ -1,0 +1,23 @@
+G = [[Fraction(0, 1), Fraction(0, 1), Fraction(1, 1), Fraction(0, 1)], [Fraction(0, 1), Fraction(0, 1), Fraction(0, 1), Fraction(1, 1)], [Fraction(-1, 1), Fraction(0, 1), Fraction(0, 1), Fraction(0, 1)], [Fraction(0, 1), Fraction(-1, 1), Fraction(0, 1), Fraction(0, 1)]]
+units found: 126
+w=1: nrd=1 winv=(Fraction(1, 1), Fraction(0, 1), Fraction(0, 1), Fraction(0, 1)) normalizes O: True; Bf(w^-1 a w, w^-1 b w)/Bf(a,b) = 1
+   oBasis-coords of winv*oBasis_k*w (columns k): [['1', '0', '0', '0'], ['0', '1', '0', '0'], ['0', '0', '1', '0'], ['0', '0', '0', '1']]
+w=i: nrd=-2 winv=(Fraction(0, 1), Fraction(1, 2), Fraction(0, 1), Fraction(0, 1)) normalizes O: True; Bf(w^-1 a w, w^-1 b w)/Bf(a,b) = -1
+   oBasis-coords of winv*oBasis_k*w (columns k): [['1', '0', '1', '0'], ['0', '1', '0', '1'], ['0', '0', '-1', '0'], ['0', '0', '0', '-1']]
+w=j+ij: nrd=-3 winv=(Fraction(0, 1), Fraction(0, 1), Fraction(1, 3), Fraction(1, 3)) normalizes O: True; Bf(w^-1 a w, w^-1 b w)/Bf(a,b) = -1
+   oBasis-coords of winv*oBasis_k*w (columns k): [['1', '0', '2', '-2'], ['0', '-1', '1', '-2'], ['0', '0', '-3', '4'], ['0', '0', '-2', '3']]
+w=mu: nrd=6 winv=(Fraction(0, 1), Fraction(0, 1), Fraction(-1, 3), Fraction(-1, 6)) normalizes O: True; Bf(w^-1 a w, w^-1 b w)/Bf(a,b) = 1
+   oBasis-coords of winv*oBasis_k*w (columns k): [['1', '0', '-1', '2'], ['0', '-1', '-1', '1'], ['0', '0', '3', '-4'], ['0', '0', '2', '-3']]
+w=1 u=('-5/2', '-3/2', '-1/2', '1/2') nrd(u)=1 t=(0.3+1.1j): |spAct-Omega(gt)|=2.84e-15 |spFactor-pred|=1.51e-15
+w=1 u=('-5/2', '-3/2', '-1/2', '1/2') nrd(u)=1 t=(-0.7+0.9j): |spAct-Omega(gt)|=3.64e-15 |spFactor-pred|=3.58e-15
+w=1 u=('-5/2', '-3/2', '-1/2', '-1/2') nrd(u)=1 t=(0.3+1.1j): |spAct-Omega(gt)|=2.94e-16 |spFactor-pred|=4.44e-16
+w=1 u=('-5/2', '-3/2', '-1/2', '-1/2') nrd(u)=1 t=(-0.7+0.9j): |spAct-Omega(gt)|=1.12e-16 |spFactor-pred|=5.33e-15
+w=1 u=('-5/2', '0', '-1/2', '1') nrd(u)=1 t=(0.3+1.1j): |spAct-Omega(gt)|=5.43e-16 |spFactor-pred|=1.99e-15
+w=1 u=('-5/2', '0', '-1/2', '1') nrd(u)=1 t=(-0.7+0.9j): |spAct-Omega(gt)|=8.95e-16 |spFactor-pred|=5.42e-15
+w=1 u=('-3/2', '-1', '1/2', '0') nrd(u)=1 t=(0.3+1.1j): |spAct-Omega(gt)|=2.62e-16 |spFactor-pred|=3.11e-15
+w=1 u=('-3/2', '-1', '1/2', '0') nrd(u)=1 t=(-0.7+0.9j): |spAct-Omega(gt)|=7.02e-16 |spFactor-pred|=1.35e-15
+w=1 u=('-3/2', '-1/2', '1/2', '1/2') nrd(u)=1 t=(0.3+1.1j): |spAct-Omega(gt)|=7.02e-16 |spFactor-pred|=1.60e-15
+w=1 u=('-3/2', '-1/2', '1/2', '1/2') nrd(u)=1 t=(-0.7+0.9j): |spAct-Omega(gt)|=1.39e-15 |spFactor-pred|=1.18e-15
+w=1 u=('-3/2', '-1/2', '1/2', '-1/2') nrd(u)=1 t=(0.3+1.1j): |spAct-Omega(gt)|=2.26e-15 |spFactor-pred|=5.98e-16
+w=1 u=('-3/2', '-1/2', '1/2', '-1/2') nrd(u)=1 t=(-0.7+0.9j): |spAct-Omega(gt)|=3.20e-15 |spFactor-pred|=1.73e-15
+checked 48 cases
