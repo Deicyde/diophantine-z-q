@@ -1,5 +1,6 @@
 import ZInQKernel.Contrib.GZTheta.Eta
 import Mathlib.GroupTheory.Schreier
+import Mathlib.LinearAlgebra.Matrix.FixedDetMatrices
 import Mathlib.NumberTheory.ModularForms.CongruenceSubgroups
 
 /-!
@@ -280,5 +281,83 @@ theorem one_mem_R32 : (1 : SL(2, ℤ)) ∈ R32 := by
   refine Or.inl ⟨0, ?_⟩
   ext i j
   fin_cases i <;> fin_cases j <;> rfl
+
+
+/-! ### Schreier generators, checked by `decide` -/
+
+def qS : Q4 := (0, -1, 1, 0)
+
+def qT : Q4 := (1, 1, 0, 1)
+
+/-- The Schreier generator `r s ρ(r s)⁻¹`, on quadruples. -/
+def schreierQ (r s : Q4) : Q4 := qmul (qmul r s) (qinv (qrep (qmul r s)))
+
+def expEQ (x : Q4) : ℤ := expE x.1 x.2.1 x.2.2.1 x.2.2.2
+
+theorem schreier_check_A : ∀ x : Fin 32,
+    expEQ (schreierQ (1, 0, (x : ℤ), 1) qS) % 12 = 0 ∧
+      expEQ (schreierQ (1, 0, (x : ℤ), 1) qT) % 12 = 0 := by
+  decide
+
+theorem schreier_check_B : ∀ j : Fin 16,
+    expEQ (schreierQ (0, -1, 1, 2 * (j : ℤ)) qS) % 12 = 0 ∧
+      expEQ (schreierQ (0, -1, 1, 2 * (j : ℤ)) qT) % 12 = 0 := by
+  decide
+
+
+/-! ### `Γ₀(32)`-invariance -/
+
+theorem dvd_of_mem_Gamma0 {h : SL(2, ℤ)} (hmem : h ∈ Gamma0 32) : (32 : ℤ) ∣ h 1 0 := by
+  rw [Gamma0_mem] at hmem
+  exact_mod_cast (ZMod.intCast_zmod_eq_zero_iff_dvd _ 32).mp hmem
+
+theorem etaQuot32_slash_of_check {h : SL(2, ℤ)} (hmem : h ∈ Gamma0 32)
+    (hE : expEQ (toQ h) % 12 = 0) : etaQuot32 ∣[(2 : ℤ)] h = etaQuot32 := by
+  rw [etaQuot32_slash h (dvd_of_mem_Gamma0 hmem), zeta12_zpow_emod]
+  have : expE (h 0 0) (h 0 1) (h 1 0) (h 1 1) % 12 = 0 := hE
+  rw [this, zpow_zero, one_smul]
+
+theorem toQ_S : toQ ModularGroup.S = qS := by
+  simp [toQ, qS, ModularGroup.S]
+
+theorem toQ_T : toQ ModularGroup.T = qT := by
+  simp [toQ, qT, ModularGroup.T]
+
+/-- **`η(4τ)² η(8τ)²` is invariant under `Γ₀(32)` in weight 2.** -/
+theorem etaQuot32_slash_eq {γ : SL(2, ℤ)} (hγ : γ ∈ Gamma0 32) :
+    etaQuot32 ∣[(2 : ℤ)] γ = etaQuot32 := by
+  have hgen := Subgroup.closure_mul_image_eq isComplement_R32 one_mem_R32
+    _root_.SpecialLinearGroup.SL2Z_generators
+  rw [← hgen] at hγ
+  induction hγ using Subgroup.closure_induction with
+  | mem x hx =>
+    obtain ⟨g, hg, rfl⟩ := hx
+    obtain ⟨r, hr, s, hs, rfl⟩ := hg
+    have hrep : (isComplement_R32.toRightFun (r * s) : SL(2, ℤ)) = repSL (r * s) := by
+      apply R32_unique (isComplement_R32.toRightFun (r * s)).2 (repSL_mem _)
+      have := (Gamma0 32).mul_mem ((Gamma0 32).inv_mem
+        (isComplement_R32.mul_inv_toRightFun_mem (r * s))) (mul_inv_repSL_mem (r * s))
+      simpa [mul_assoc] using this
+    show etaQuot32 ∣[(2 : ℤ)] (r * s * (isComplement_R32.toRightFun (r * s) : SL(2, ℤ))⁻¹) =
+      etaQuot32
+    rw [hrep]
+    apply etaQuot32_slash_of_check (mul_inv_repSL_mem (r * s))
+    rw [toQ_mul, toQ_inv, toQ_repSL, toQ_mul]
+    change expEQ (schreierQ (toQ r) (toQ s)) % 12 = 0
+    rcases hs with rfl | rfl
+    · rw [toQ_S]
+      rcases hr with ⟨x, rfl⟩ | ⟨j, rfl⟩
+      · rw [toQ_rA]; exact (schreier_check_A x).1
+      · rw [toQ_rB]; exact (schreier_check_B j).1
+    · rw [toQ_T]
+      rcases hr with ⟨x, rfl⟩ | ⟨j, rfl⟩
+      · rw [toQ_rA]; exact (schreier_check_A x).2
+      · rw [toQ_rB]; exact (schreier_check_B j).2
+  | one => exact SlashAction.slash_one _ _
+  | mul x y _ _ hx hy => rw [SlashAction.slash_mul, hx, hy]
+  | inv x _ hx =>
+    calc etaQuot32 ∣[(2 : ℤ)] x⁻¹ = (etaQuot32 ∣[(2 : ℤ)] x) ∣[(2 : ℤ)] x⁻¹ := by rw [hx]
+      _ = etaQuot32 ∣[(2 : ℤ)] (x * x⁻¹) := (SlashAction.slash_mul _ _ _ _).symm
+      _ = etaQuot32 := by rw [mul_inv_cancel, SlashAction.slash_one]
 
 end ZInQ.GZTheta
