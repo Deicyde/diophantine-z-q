@@ -3,7 +3,7 @@
 Status: research note and blueprint (task bp-analytic, 2026-11-12), written for a crowdsourced
 Lean team.
 - Lean file: `scratch/bp-analytic/Torus.lean`, about 1 650 lines. It compiles with no errors and
-  no warnings and has no `sorry`.
+  no warnings (with `linter.unusedSectionVars` disabled at Torus.lean:20) and has no `sorry`.
 - It uses Mathlib only, with no project imports. Definitions copied from
   `ZInQKernel/HDecomp/Objects.lean` and `scratch/pkg-I1/I1.lean` are marked "copied" in the file.
 - Results log: `scratch/bp-analytic/log.md`.
@@ -64,7 +64,8 @@ The node is shared by three blueprints:
      TODO (VERIFIED, read).
    - **The exponential.** The exponential `Lie(E/Λ) = E → E/Λ` is surjective and analytic, with
      kernel exactly `Λ`; its one-parameter subgroups are analytic.
-   - **Further properties.** Liouville (holomorphic functions on `E/Λ` are constant); descent of
+   - **Further properties.** Liouville (holomorphic functions on `E/Λ` are constant, for a full lattice `Λ` in
+     finite-dimensional `E`: `holomorphic_const`); descent of
      analytic maps along the projection; linear changes of coordinates give biholomorphic group
      isomorphisms (`torusDiffeo`).
    - **Homomorphisms of tori (T2).** A continuous group homomorphism `E/Λ → E'/Λ'` is induced by
@@ -105,7 +106,7 @@ The node is shared by three blueprints:
      `‖c‖²·det Im Ω` for a normalized period matrix (BUILT). The identification of `η`
      (node A6) is S-M glue over the leaf and bp-faltings' cotangent model.
    - **F1 (R1an)** needs an `𝒪`-equivariant `A_σ(ℂ) ≅ ℂ²/Λ_τ`.
-     - The `𝒪`-action on `(ℂ², Λ)` by `ℂ`-linear maps, as a ring homomorphism, is BUILT over
+     - The `𝒪`-action on `(ℂ², Λ)` by `ℂ`-linear maps, multiplicatively (unbundled, not a `RingHom`), is BUILT over
        the leaf.
      - "A rank-one `𝒪`-lattice is `ι(𝒪)v`" is lattice algebra.
      - The torus and theta side is BUILT.
@@ -165,7 +166,8 @@ The node is shared by three blueprints:
 - **Over the leaf:**
   1. **BUILT.** Each endomorphism of `A`, in particular each `ι(x)`, `x ∈ 𝒪`, acts on `ℂ²` by a
      `ℂ`-linear `ρ(x)` with `ρ(x)Λ ⊆ Λ` (`exists_complexLinear_endo`, `analyticRep`).
-     - `ρ` is a ring homomorphism (`analyticRep_id`, `analyticRep_mul`, `analyticRep_comp`).
+     - `ρ` is multiplicative and unital (`analyticRep_id`, `analyticRep_mul`, `analyticRep_comp`: three
+       lemmas, not a bundled `RingHom`).
      - This makes `Λ` an `𝒪`-module and `ℂ²` an `𝒪 ⊗ ℂ`-module.
   2. **Lattice algebra (M).** `Λ` is a torsion-free `𝒪`-module of `ℤ`-rank 4. So it is a
      locally free right ideal class of `𝒪`, and free of rank one: `Λ = ι(𝒪)v` for some `v`, after
@@ -237,7 +239,7 @@ The node is shared by three blueprints:
 | Consumer | Needs the leaf | Needs more | Built here for it |
 | --- | --- | --- | --- |
 | AN3 (Faltings) | yes, to define `Λ_σ` and `c_σ(η)` | A6 (tangent glue) | torus, `periodLattice`, `covolume_periodLattice`, `torusDiffeo`, `exists_complexLinear` (independence of choices) |
-| R1an (F1) | yes | lattice algebra (M); the Shimura-curve family uniformization (not AN3) | `analyticRep` (ring hom), `qmLattice`, `qmPeriodDiffeo`, `Omega_transpose`, `Omega_mem_siegelSpace`, `thetaConst_eq_riemannTheta` |
+| R1an (F1) | yes | lattice algebra (M); the Shimura-curve family uniformization (not AN3) | `analyticRep` (with `_id/_comp/_mul`; not a bundled `RingHom`), `qmLattice`, `qmPeriodDiffeo`, `Omega_transpose`, `Omega_mem_siegelSpace`, `thetaConst_eq_riemannTheta` |
 | R22 | yes | P4 (polarization ⇒ `𝔥₂`), Faltings height | `thetaChar`, `riemannTheta_add_period` |
 | T11 | yes | a GAGA leaf | `analyticRep`, `exists_complexLinear_lift` |
 | T12 | yes | conjugation glue (M) | `torsion_iff`, `exists_realLinear_lift`, `continuous_endo` pattern |
@@ -306,9 +308,9 @@ Statuses:
 
 | Node | Statement | Tier | Status / cheapest faithful route |
 | --- | --- | --- | --- |
-| T1 | `E/Λ` (Λ discrete) is an analytic manifold and Lie group, connected; compact if Λ is full; `exp = proj` with kernel Λ; descent of analytic maps; Liouville; linear isos give biholomorphic group isos | M | **BUILT** (§1-3, §6). Route: charts are the local inverses of the covering `proj`; transition maps are locally translations by lattice vectors (`eventuallyEq_add_const`, from discreteness), hence analytic |
-| T2 | A continuous group homomorphism `E/Λ → E'/Λ'` is induced by an `ℝ`-linear `T` with `TΛ ⊆ Λ'`; `ℂ`-linear if the homomorphism is holomorphic | M | **BUILT** (§8, about 120 lines). Route: lift through the covering (M-lift); `F(x+y) − F(x) − F(y) ∈ Λ'` is continuous on the connected `E × E`, hence 0; `AddMonoidHom.toRealLinearMap`; compare `fderiv ℂ` with the `ℝ`-derivative. The antiholomorphic variant (for T12) is the same with `conj` |
-| P1 | `Ωℤ^g + ℤ^g` is a full lattice iff `det Im Ω ≠ 0` | S | **BUILT** (`periodVec_linearIndependent`, `det_im_ne_zero_of_linearIndependent`, `periodLattice`) |
+| T1 | `E/Λ` (Λ discrete) is an analytic manifold and Lie group, connected; compact if Λ is full; `exp = proj` with kernel Λ; descent of analytic maps; Liouville (full `Λ`, finite-dimensional `E`); linear isos give biholomorphic group isos | M | **BUILT** (§1-3, §6). Route: charts are the local inverses of the covering `proj`; transition maps are locally translations by lattice vectors (`eventuallyEq_add_const`, from discreteness), hence analytic |
+| T2 | A continuous group homomorphism `E/Λ → E'/Λ'` is induced by an `ℝ`-linear `T` with `TΛ ⊆ Λ'`; `ℂ`-linear if the homomorphism is holomorphic | M | **BUILT** (§8, about 94 lines). Route: lift through the covering (M-lift); `F(x+y) − F(x) − F(y) ∈ Λ'` is continuous on the connected `E × E`, hence 0; `AddMonoidHom.toRealLinearMap`; compare `fderiv ℂ` with the `ℝ`-derivative. The antiholomorphic variant (for T12) is the same with `conj` |
+| P1 | `Ωℤ^g + ℤ^g` is a full lattice iff `det Im Ω ≠ 0` | S | **BUILT** (`periodVec_linearIndependent`, `QM.det_im_ne_zero_of_linearIndependent`, `periodLattice`) |
 | P2 | `θ(z + Ωm + n) = e(−½mᵀΩm − mᵀz)θ(z)`; `θ[c,d](Ω) = e(½cᵀΩc + cᵀd)·θ(Ωc + d)` | S | **BUILT** (`riemannTheta_add_period`, `thetaChar_eq`; no convergence needed) |
 | P3 | `covol(Ωℤ^g + ℤ^g) = |det Im Ω|` for Lebesgue measure on `ℂ^g` | M | **BUILT** (§9, `covolume_periodLattice`): `ZSpan.measureReal_fundamentalDomain` with the standard real basis (fundamental domain of volume 1, `volume_fundamentalDomain_stdRealBasis`) and coordinate matrix `[[Im Ω, 0], [Re Ω, 1]]` (`toMatrix_periodVec`) |
 | P4 | A principal polarization (positive unimodular Riemann form `E` on Λ, `E(iu, iv) = E(u, v)`) gives a symplectic basis in which the period matrix lies in `𝔥_g` | M | Route: symplectic basis of a unimodular alternating `ℤ`-form (Frobenius normal form, M), then Riemann's bilinear relations (S given the basis). Tau Ceti has Riemann forms = polarizations (prereq-survey A9, not re-checked) |
@@ -320,7 +322,7 @@ Statuses:
 | A4' | `X` geometrically integral ⇒ `X(ℂ)` connected | L | SGA 1 XII 2.4 (UNVERIFIED), via irreducible curves through two points. A5 needs `A(ℂ)` connected as an input, so A4' cannot be avoided by the Lie-theoretic argument |
 | A5 | A compact connected commutative complex Lie group `G` is `Lie(G)/Λ` with `Λ = ker exp` a full lattice | L | Route: (1) one-parameter subgroups: flows of invariant vector fields exist for all time by translation invariance (M-ode, uniform time), after restricting `G` to a real manifold (absent API, S-M); (2) commutativity makes `exp` a homomorphism; it is holomorphic because flows of holomorphic invariant fields commute with `J` (M); (3) `d exp₀ = id`, so `exp` is a local biholomorphism (M-ana); (4) the image is an open subgroup, hence all of `G`; (5) the kernel is discrete; (6) compactness forces the kernel to span `Lie(G)` over `ℝ`, and `torusDiffeo` finishes. Commutativity is algebraic for abelian varieties (Mathlib), so the Lie-theoretic proof (Liouville applied to `Ad`) is not needed |
 | U1 | Two uniformizations differ by a `ℂ`-linear isomorphism of lattices; `g` is invariant | M | **BUILT** (`continuous_comparison` from (i)+(iii); `exists_realLinear` from T2; `exists_complexLinear` from (i)+(ii) and the analytic inverse function theorem; `eq_of_proj_eq`, `exists_equiv`, `dim_eq`) |
-| U2 | `End(A)` acts on `(ℂ^g, Λ)` by `ℂ`-linear maps, as a ring homomorphism | M | **BUILT** (`ptMap`, `evalAt_comp`, `continuous_endo`, `exists_realLinear_endo`, `exists_complexLinear_endo`, `analyticRep`, `analyticRep_unique`, `analyticRep_id`, `analyticRep_comp`, `isMonHom_mul`, `analyticRep_mul`) |
+| U2 | `End(A)` acts on `(ℂ^g, Λ)` by `ℂ`-linear maps, as a ring homomorphism | M | **BUILT** (`ptMap`, `evalAt_comp`, `continuous_endo`, `exists_realLinear_endo`, `exists_complexLinear_endo`, `analyticRep`, `analyticRep_unique`, `analyticRep_id`, `analyticRep_comp`, `isMonHom_mul`, `analyticRep_mul`; three lemmas, not a bundled `RingHom`) |
 | U3 | Torsion `A(ℂ)[n] = φ((1/n)Λ/Λ)`; complex conjugation lifts to an antilinear involution | M | torsion **BUILT** (`torsion_iff`); conjugation: route in §1.5 |
 | A6 | Tangent identification `dφ₀ : ℂ^g ≅ T_eA` and `φ^*η = c(η)·dz` | S-M | glue over the leaf, §1.1; needs bp-faltings' AV3 (`𝔪/𝔪²`) |
 | G1 | GAGA for abelian varieties: holomorphic homomorphisms `A(ℂ) → B(ℂ)` are algebraic | XL | **lit** (Serre 1956; Mumford §3, UNVERIFIED); a separate leaf for T11 |
@@ -355,7 +357,8 @@ Statuses:
 
 ## 4. What compiles (VERIFIED)
 
-`lake env lean scratch/bp-analytic/Torus.lean` reports no errors and no warnings. `#print axioms`
+`lake env lean scratch/bp-analytic/Torus.lean` reports no errors and no warnings
+(`linter.unusedSectionVars` is disabled at Torus.lean:20). `#print axioms`
 lists only `propext`, `Classical.choice`, `Quot.sound` for each of these:
 - `isManifold_torus`, `lieAddGroup_torus`, `compactSpace_torus`, `holomorphic_const`,
   `ker_torusExp`, `contMDiff_torusExp_smul`, `torusDiffeo`;

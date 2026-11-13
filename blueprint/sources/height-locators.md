@@ -62,7 +62,10 @@ outside refereed sources: the manuscript's own descent, conductor and transfer a
 project replacements NoCM and Lemma PR, and the identification in step A4. Its §1 steps A1-F3 are the
 justification of the $j$-form (`docs/research/rv-lit.md` §4: the $j$-form variants assume steps
 A1-F3 and nothing else); step F4 and the final numerics are replaced by the proofs of the
-$j$-form section. As amended: step F1 cites Lin–Yang Example 30 and eqs. (13)-(14), with the theta
+$j$-form section. As amended: step F1 cites Lin–Yang Example 29 of arXiv:1807.00466v1, the
+discriminant-six example (cited as Example 30 before the locator audit `docs/research/locators.md`,
+AI agents, 2026-11-12; v1's Example 30 treats discriminant fourteen, and the journal number is
+unverified), and eqs. (13)-(14), with the theta
 expressions of Lauter–Naehrig–Yang and Igusa, and no longer Lin–Yang eq. (2) (Part F, F1); step
 C8's finiteness of the twist is the determinant argument of the upstream manuscript's Version 14
 (Weil pairing, Kronecker–Weber; cited in h-trust by Version 16 line numbers, V16 L660-667),

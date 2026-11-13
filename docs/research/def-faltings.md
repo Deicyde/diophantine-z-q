@@ -33,7 +33,8 @@ recalled from memory (no network).
 2. **The missing analytic input is one precisely stated theorem, not a hole in a definition.**
    - `AnalyticUniformizationExists` (node AN3) says: for every group model `𝒢` and every
      `τ : L → ℂ` there are a full lattice `Λ ⊂ ℂ^g` and a map `Φ : ℂ^g → 𝒢(ℂ)_τ` with
-     `IsAnalyticUniformization 𝒢 τ Λ Φ`. That Prop asks that `Φ` be a surjective group
+     `IsAnalyticUniformization 𝒢 τ Λ Φ` (the Prop quantifies `g` existentially; it does not tie `g` to
+     `dim A`). That Prop asks that `Φ` be a surjective group
      homomorphism with kernel exactly `Λ`, that every `Φ⁻¹(U(ℂ))` be open, and that every regular
      function on every open `U ⊆ 𝒢` be holomorphic along `Φ` there.
    - `AnalyticUniformizationUnique` says that two such `Φ` differ by a `ℂ`-linear automorphism
@@ -70,7 +71,7 @@ recalled from memory (no network).
 
 | Node | Lean | Content |
 | --- | --- | --- |
-| AV1, M1 | `AbVar`, `GroupModel` | copied from bp-faltings `Models.lean` (project `Objects.lean`) |
+| AV1, M1 | `AbVar`, `GroupModel` | copied from bp-faltings `Models.lean` (project `Objects.lean`, without its `IsCommMonObj` instance; `AbVar.dim` as in Objects.lean:181) |
 | — | `genericPt L`, `GroupModel.unitSection`, `genericUnit` | `η ∈ Spec 𝓞_L`; `e = η[𝒢].left : Spec 𝓞_L → 𝒢`; `ξ = e(η)` |
 | AV3 | `GroupModel.genStalk`, `cotangent`, `dCls` | `𝒪_{𝒢,ξ}` (= `𝒪_{A_L,0}`), `ω_{A_L} = 𝔪_ξ/𝔪_ξ²` (Mathlib `IsLocalRing.CotangentSpace`), `f ↦ df` |
 | — | `structMap` | `𝓞_L = Γ(S) → Γ(𝒢) → 𝒪_{𝒢,ξ}`; the `𝓞_L`-module structure on `cotangent` (definitional) |
@@ -179,8 +180,8 @@ statement stronger than the published one.
 | R18 Javanpeykar | not stated | missing: genus of curves over `ℚ̄`, Belyi maps, Jacobians (AV7) |
 | R22 Pazuki | not stated | missing: principal polarizations, level-2 theta structures and the theta height of an abelian surface; the genus-2 special case over `faltingsHeightGood` is rv-loc-leaves' `PazukiGoodGenus2Literal` |
 
-Isogenies (`IsIsogeny`) are group-scheme homomorphisms that are finite and surjective (the
-project's `IsIsogenyMor`). The degree `isogDeg φ` is `#ker φ(K̄)`, which equals the degree in
+Isogenies (`IsIsogeny`) are group-scheme homomorphisms (`IsMonHom`) that are finite and surjective
+(the project's `IsIsogenyMor`). The degree `isogDeg φ` is `#ker φ(K̄)`, which equals the degree in
 characteristic 0 (STANDARD). Dimension is the project's `AbVar.dim`, the Krull dimension of the
 underlying space.
 
@@ -201,7 +202,8 @@ listed declarations are: `stableFaltingsHeight`, `stableFaltingsHeight_le`,
 `stableFaltingsHeight_eq_iInf_height`, `faltingsHeight_coe`,
 `stableFaltingsHeight_eq_faltingsHeightEC`, `HodgeData.modelHeight_eq_faltingsHeightGood`,
 `stableFaltingsHeight_eq_faltingsHeightGood`, `stableFaltingsHeight_ne_bot_of_R21`,
-`HodgeData.modelHeight_recoord`, `modelHeight_ofIdeal_eq_faltingsHeightEC`.
+`HodgeData.modelHeight_recoord`, `modelHeight_ofIdeal_eq_faltingsHeightEC`,
+`GroupModel.omegaAt_genericPt` (16 in all; the last added in e5605439, listed by notes-fix).
 
 ## 7. What remains (recommended order; sizes SPECULATIVE)
 
@@ -211,7 +213,7 @@ listed declarations are: `stableFaltingsHeight`, `stableFaltingsHeight_le`,
 3. `AnalyticUniformizationExists` and `AnalyticUniformizationUnique` (XL): node AN3, route (a)
    of bp-faltings §2.3.
 4. AV7 (L for elliptic curves): construct `A` with `IsEllipticCurveOf A W`. Then `AcceptanceEC`
-   becomes a theorem modulo H5.
+   becomes a theorem modulo H5, AT1a and M2 for the minimal model (§4).
 5. H5 (XL): Néron models and semistable reduction; `StableHeightFinite`, `NeronModelMinimal`.
 6. R18 and R22: Jacobians, Belyi maps, polarizations, theta heights.
 
