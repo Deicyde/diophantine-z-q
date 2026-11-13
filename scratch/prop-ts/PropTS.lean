@@ -109,7 +109,8 @@ def BranchData (E : Type) [Field E] [Algebra (RatFunc ℚ) E] [Algebra ℚ[X] E]
 closure of `ℤ[X]` in `E` lying over `p·ℤ[X]` (the height-one primes of the fibre at `p`) has
 ramification index `1`. Mathlib's `ramificationIdx` localizes at the prime, so this is the
 ramification index of the discrete valuation ring at the generic point of a component of the
-fibre at `p`. (With `p ∤ [E : ℚ(X)]` the residue extensions are then separable.) -/
+fibre at `p`. (With `[E : ℚ(X)] < p` the residue extensions are then separable: the inseparable
+degree is a power of `p` dividing `f ≤ [E : ℚ(X)]`.) -/
 def NoVerticalRam (E : Type) [Field E] [Algebra ℚ[X] E] (p : ℕ) : Prop :=
   letI := intPolyAlg E
   ∀ Q : Ideal (integralClosure ℤ[X] E), Q.IsPrime → Q.under ℤ[X] = vertPrime p →
@@ -125,8 +126,8 @@ AMS 2013) (locators UNVERIFIED). h-b1 §1.2 proves the case from SGA 1 (purity +
 
 Let `E/ℚ(X)` be finite Galois (`X` need not be geometrically irreducible), with branch points in
 `S ∪ {∞}` (`S ⊆ ℚ`) and ramification indices dividing `n b` (at `b ∈ S`) and `nInf` (at `∞`).
-Let `p` be a prime with (a) `[E : ℚ(X)] < p` (so `p ∤ |G|`; stated in this weaker form so
-that the leaf is implied by every version of the theorem), (b) the branch points pairwise distinct mod `p`
+Let `p` be a prime with (a) `[E : ℚ(X)] < p` (a stronger hypothesis than `p ∤ |G|`, so the leaf
+is weaker than the theorem), (b) the branch points pairwise distinct mod `p`
 (every `b ∈ S` is `p`-integral, so it does not meet `∞`, and `v_p(b − b') = 0`), (c) automatic
 (branch points rational), (d) no vertical ramification at `p`. Let `t ∈ ℚ ∖ S` (not a branch
 point). Beckmann: the inertia group at `p` of the specialization `E_t` is conjugate to
@@ -134,7 +135,14 @@ point). Beckmann: the inertia group at `p` of the specialization `E_t` is conjug
 `b ∈ S` and `I_p(t, ∞) = (−v_p t)⁺`, and `E_t` is unramified at `p` if `t` meets no branch point
 mod `p`. Hence (`e_b ∣ n b`): if `n b ∣ v_p(t − b)⁺` for all `b ∈ S` and `nInf ∣ (−v_p t)⁺`, then
 the residue field `B/𝔓` of every prime `𝔓` of `B = ` (integral closure of `ℚ[X]` in `E`) over
-`X − t`, embedded in `ℚ̄` in any way, is unramified at `p`. -/
+`X − t`, embedded in `ℚ̄` in any way, is unramified at `p`.
+
+Non-regular `E` (constant field `k' ⊋ ℚ`; needed since `Y₃` has two geometric components):
+this case follows from the regular case over `k'` (the form of Legrand and Dèbes–Legrand). Apply
+the theorem to `E/k'(X)`, whose group is a subgroup of `G`, with the same rational branch points.
+`NoVerticalRam E p` forces `k'` unramified at `p` (multiplicativity of `e` in
+`ℤ[X] ⊆ 𝒪_{k'}[X] ⊆ C`). `B/𝔓 ⊇ k'` is the specialization of `E/k'(X)` at `t`. Whether
+Beckmann's Prop. 4.2 itself assumes regularity, and its exact form of (d), are UNVERIFIED. -/
 def BeckmannSIT : Prop :=
   ∀ (E : Type) [Field E] [Algebra (RatFunc ℚ) E] [Algebra ℚ[X] E]
     [IsScalarTower ℚ[X] (RatFunc ℚ) E] [FiniteDimensional (RatFunc ℚ) E]
@@ -157,9 +165,10 @@ def BeckmannSIT : Prop :=
 the finite rational fibres.** For every `ℚ̄`-point `y` of `Y` with `π(y) = t ∈ ℚ`, the residue
 field `ℚ(y) ⊆ ℚ̄` is the image of the residue field `B/𝔓` of a prime `𝔓` of the integral closure
 `B` of `ℚ[X]` in `E` over `X − t`, under some embedding into `ℚ̄`. True when `Y` is a normal
-proper curve, `π` finite and `E = ℚ(Y^{(1)})` for a `ℚ`-irreducible component `Y^{(1)}` whose
-translates under a group acting over `ℚ` cover the fibre (then `π⁻¹(𝔸¹) ⊇ Spec B` and
-`κ(y) ≅ B/𝔓`; h-b1 M2, M8). -/
+proper curve, `π` finite (non-constant on each component) and `E = ℚ(Y^{(1)})` for a
+`ℚ`-irreducible component `Y^{(1)}` whose translates under a group acting over `ℚ` and leaving
+`π` invariant cover the fibre (then `π⁻¹(𝔸¹) ∩ Y^{(1)} = Spec B` and `κ(y) ≅ B/𝔓`; h-b1 M2, M8).
+For `Y₃`: rightMul keeps the QM pair and twists are R2fp's fibre relation, so `π` is invariant. -/
 def FunctionFieldModel (Y : Over (Spec (CommRingCat.of ℚ))) (π : ToP1 Y.left) (E : Type)
     [Field E] [Algebra ℚ[X] E] : Prop :=
   ∀ (t : ℚ) (y : fieldPt Qbar ⟶ Y),
@@ -704,7 +713,10 @@ theorem residueImage_comp_openImmersion {X X' : Scheme.{0}} (h : X ⟶ X') [IsOp
 
 /-- **Glue (normalization of `P¹` in `E` over `𝔸¹`).** An open immersion
 `h : Spec B → Y` (`B` the integral closure of `ℚ[X]` in `E`) whose image contains every
-`ℚ̄`-point with finite `π`-value, and along which `π` is the coordinate `X`. -/
+`ℚ̄`-point with finite `π`-value, and along which `π` is the coordinate `X`. True for a normal
+proper `ℚ`-irreducible curve `Y` with function field `E` and `π` finite (`π⁻¹(𝔸¹) = Spec B`).
+`Y₃` is `ℚ`-irreducible: its two geometric components (`π₀ = ℤ̂^×/nrd(K₃) ≅ (ℤ/3)^×`) are
+conjugate over `ℚ(√−3)` by Shimura reciprocity on `π₀` (SPECULATIVE reading, h-b1 M10 style). -/
 def NormalizationModel (Y : Over (Spec (CommRingCat.of ℚ))) (π : ToP1 Y.left) (E : Type)
     [Field E] [Algebra ℚ[X] E] : Prop :=
   ∃ h : Spec (CommRingCat.of (integralClosure ℚ[X] E)) ⟶ Y.left, IsOpenImmersion h ∧

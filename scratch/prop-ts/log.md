@@ -70,3 +70,5 @@ Base f90cf864 (wip/prop-ts). Object: `G0ModField.PropTS`, `PropTSAll` from
   separability from `[E:ℚ(X)] < p`, not `p ∤ n`; (3) BeckmannSIT (a) wording ("stronger
   hypothesis, weaker leaf"); (4) FunctionFieldModel truth needs π Γ'-invariant and non-constant on
   components. Applied in step 7.
+
+## Step 7: review docstring fixes applied; recompiled 0 errors, 22 standard-axiom lines; copies still IDENTICAL (VERIFIED).
