@@ -13,7 +13,7 @@ of a cocycle of a cyclic group `⟨φ⟩` of order `n` with trivial coefficients
 `∏_{i<n} η(φ, φ^i)`, and inflation from `ℤ/f` to `ℤ/2f` squares it.
 -/
 
-namespace T31
+namespace ZInQ.Contrib.T31
 
 open GlueDescent.B2
 
@@ -124,4 +124,4 @@ theorem signCob_of_cyclic_even (ψ : G →* H) (hker : IsOpen (ψ.ker : Set G)) 
 
 end Main
 
-end T31
+end ZInQ.Contrib.T31

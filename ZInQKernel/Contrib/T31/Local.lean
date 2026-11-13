@@ -14,11 +14,11 @@ has ramification index `1`. Then `ι(L)` lies in the maximal unramified extensio
 in `Ω` (Tau Ceti's `TauCeti.maximalUnramifiedExtension`).
 
 The prime `w = {x ∈ 𝓞 L | v(ι x) < 1}` has ramification index `1`; for `b` as in
-`T31.exists_base`, `(minpoly ℤ b)'(b)` is a `w`-unit, so `K(ι b)/K` is unramified by Tau Ceti's
+`ZInQ.Contrib.T31.exists_base`, `(minpoly ℤ b)'(b)` is a `w`-unit, so `K(ι b)/K` is unramified by Tau Ceti's
 criterion `TauCeti.isUnramified_of_adjoin_eq_top_of_isUnit_aeval_derivative`.
 -/
 
-namespace T31
+namespace ZInQ.Contrib.T31
 
 open NumberField Polynomial ValuativeRel TauCeti IntermediateField
 
@@ -186,4 +186,4 @@ theorem exists_unramifiedExtension [IsGalois ℚ L] (ι : L →+* Ω) {p : ℕ}
   have hx : x ∈ S' := hαS (hα ▸ IntermediateField.mem_top)
   exact hx
 
-end T31
+end ZInQ.Contrib.T31

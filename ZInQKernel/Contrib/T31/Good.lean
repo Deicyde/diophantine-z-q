@@ -12,7 +12,7 @@ Construction: `θ` lifts a generator of the cyclic group `(𝓞 L ⧸ w)ˣ`, and
 `b₀ ∈ ρ • w` for every conjugate `ρ • w ≠ w`.
 -/
 
-namespace T31
+namespace ZInQ.Contrib.T31
 
 open NumberField Polynomial
 open scoped Pointwise
@@ -218,4 +218,4 @@ theorem exists_base (w : Ideal (𝓞 L)) [hw : w.IsMaximal] (hw0 : w ≠ ⊥)
   exact ⟨b₀, fun y => derivative_minpoly_not_mem w _
     (sub_smul_not_mem w he hθ0 hθ (isGood_add hb₀ hp y))⟩
 
-end T31
+end ZInQ.Contrib.T31
