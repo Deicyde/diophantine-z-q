@@ -937,6 +937,546 @@ theorem linkedRam_of' (hG3 : HSyn.LinkedTate.QMModelG3) (hK : KernelFieldBreaks)
     exact hρ 3 j3 _ ((hK' p hp).2 hpD σ hσ)
       (fun σ'' hσ'' => tate_trivial_of_g3 hLI hG3' p hp3 hp3 σ hσI σ'' hσ'')
 
+/-! ### `TateRamAtThreeD` reduced to Raynaud's criterion at `3` on the model -/
+
+section TateRam
+
+open CategoryTheory AlgebraicGeometry Limits MonoidalCategory CartesianMonoidalCategory MonObj
+
+/-- Compatibility with an isomorphism `ψ : K̄ ≅ ℚ̄` passes to powers. -/
+theorem psi_pow_compat {K : Type} [Field K] (ψ : AlgebraicClosure K ≃+* PkgI4.Qbar)
+    (σK : AlgebraicClosure K ≃ₐ[K] AlgebraicClosure K)
+    (g : AlgebraicClosure ℚ ≃ₐ[ℚ] AlgebraicClosure ℚ)
+    (h : ∀ y, ψ (σK y) = g (ψ y)) (n : ℕ) (y : AlgebraicClosure K) :
+    ψ ((σK ^ n) y) = (g ^ n) (ψ y) := by
+  induction n generalizing y with
+  | zero => rfl
+  | succ n ih => rw [pow_succ σK n, AlgEquiv.mul_apply, ih, h, ← AlgEquiv.mul_apply, ← pow_succ]
+
+/-- **Points: a `k`-th power with `p ∤ k` fixing a point forces the element itself to fix it**,
+for `σK ∈ G_K` matching a wild `σ ∈ G_{ℚ_p}` under some `ψ : K̄ ≅ ℚ̄`. The stabilizer `S` of the
+point is open (`PkgI3.RhoCont`), hence closed, so `S = G_{K̄^S}`; `σK^k` fixes `K̄^S`, and W2 moves
+this to `σK`. -/
+theorem fix_of_pow_fix {K : Type} [Field K] [CharZero K] (A : PkgI3.AbVar K)
+    (ψ : AlgebraicClosure K ≃+* PkgI4.Qbar) (σK : Field.absoluteGaloisGroup K)
+    {p : ℕ} [Fact p.Prime] (σ : PkgI4.GQp p) (hσ : σ ∈ (LadicCond.wildSet : Set (PkgI4.GQp p)))
+    (hc : ∀ y, ψ (σK y) = PkgI4.decomp p σ (ψ y)) {k : ℕ} (hk0 : 0 < k) (hk : ¬ p ∣ k)
+    (x : A.Pt (AlgebraicClosure K)) (hx : A.galAct (σK ^ k) x = x) : A.galAct σK x = x := by
+  haveI : IsGalois K (AlgebraicClosure K) := {}
+  have hone : A.galAct (1 : Field.absoluteGaloisGroup K) x = x := by
+    show PkgI3.AbVar.galHom 1 ≫ x = x
+    rw [PkgI3.AbVar.galHom_one, Category.id_comp]
+  obtain ⟨U, hU⟩ := PkgI3.RhoCont.exists_openSubgroup_galAct_eq A x
+  let S : Subgroup (Field.absoluteGaloisGroup K) :=
+    { carrier := {g | A.galAct g x = x}
+      mul_mem' := fun {a b} ha hb => by
+        show A.galAct (a * b) x = x
+        rw [PkgI3.RhoCont.galAct_mul, show A.galAct b x = x from hb, show A.galAct a x = x from ha]
+      one_mem' := hone
+      inv_mem' := fun {a} ha => by
+        show A.galAct a⁻¹ x = x
+        have ha' : A.galAct a x = x := ha
+        conv_lhs => rw [← ha']
+        rw [← PkgI3.RhoCont.galAct_mul, inv_mul_cancel, hone] }
+  have hSopen : IsOpen (S : Set (Field.absoluteGaloisGroup K)) :=
+    Subgroup.isOpen_mono (H₁ := U.toSubgroup) (fun g hg => hU g hg) U.isOpen
+  have hSclosed : IsClosed (S : Set (Field.absoluteGaloisGroup K)) :=
+    Subgroup.isClosed_of_isOpen S hSopen
+  have hfix := InfiniteGalois.fixingSubgroup_fixedField (⟨S, hSclosed⟩ : ClosedSubgroup _)
+  have hk' : σK ^ k ∈ S := hx
+  have hmem : σK ∈ (IntermediateField.fixedField S).fixingSubgroup := by
+    rw [IntermediateField.mem_fixingSubgroup_iff]
+    intro y hy
+    have hyk : (σK ^ k) y = y := (IntermediateField.mem_fixedField_iff S y).mp hy _ hk'
+    apply ψ.injective
+    rw [hc]
+    have he : ∀ z, embP p (PkgI4.decomp p σ z) = σ (embP p z) := embP_decomp p σ
+    have h1 : (PkgI4.decomp p σ ^ k) (ψ y) = ψ y := by
+      rw [← psi_pow_compat ψ σK (PkgI4.decomp p σ) hc k y, hyk]
+    apply (embP p).injective
+    rw [he]
+    refine LinkedRamWild.wild_fix_of_pow hσ hk0 hk ?_
+    rw [← LinkedRamWild.pow_compat (embP p) (PkgI4.decomp p σ) he k, h1]
+  rw [hfix] at hmem
+  exact hmem
+
+/-- **Glue: Raynaud's criterion at `3` for high upper ramification on the QM model.** For a
+`QML3` object over `K` with `[K:ℚ] ≤ D`, an isomorphism `ψ : K̄ ≅ ℚ̄` and `σK ∈ G_K` matching
+`σ ∈ G_{ℚ_3}^t` (`t > U₀`), `σK` acts unipotently, `(σK − 1)² = 0`, on `A(K̄)[5ⁿ]`.
+Route (STANDARD; Glazer L814-821): `K₁ = K(A[5])` has `[K₁:ℚ] ≤ D·|GL₄(𝔽₅)| = DG₀` (T5, open
+stabilizers), so `σK` fixes `K₁` (`UpperBreakBound`, `4(DG₀)² = U₀ < t`); `σK` is in the inertia
+group of the place `ψ^*(v)` above `3` (`UpperAbsInertia`, `LocalInertiaGlobal`); Raynaud's
+criterion (R6, `PkgI2.RaynaudCriterion`, with `m = 5`) over `K₁` at that place. GLUE (the
+transport of R6 along `K ⊆ K₁`, as lt-goodred transported NOS). -/
+def RaynaudAtThree : Prop :=
+  ∀ (K : IF) [FiniteDimensional ℚ K] (PK : LeafQM.AV.QML3 K), Module.finrank ℚ K ≤ ZInQ.heightD →
+    ∀ (ψ : AlgebraicClosure K ≃+* PkgI4.Qbar) (σK : Field.absoluteGaloisGroup K)
+      (t : ℝ), G0ModNewform.U0 < t → ∀ σ ∈ LadicCond.upperAbs 3 t,
+      (∀ y, ψ (σK y) = PkgI4.decomp 3 σ (ψ y)) →
+      ∀ (n : ℕ) (x : PK.A.Pt (AlgebraicClosure K)), x ^ (5 ^ n) = 1 →
+        PK.A.galAct σK (PK.A.galAct σK x) * (PK.A.galAct σK x)⁻¹ * (PK.A.galAct σK x)⁻¹ * x = 1
+
+/-- **The model statement at `3`** (over `K` itself): the same `σK` fixes `A(K̄)[5ⁿ]`. -/
+def TateRamCore : Prop :=
+  ∀ (K : IF) [FiniteDimensional ℚ K] (PK : LeafQM.AV.QML3 K), Module.finrank ℚ K ≤ ZInQ.heightD →
+    ∀ (ψ : AlgebraicClosure K ≃+* PkgI4.Qbar) (σK : Field.absoluteGaloisGroup K)
+      (t : ℝ), G0ModNewform.U0 < t → ∀ σ ∈ LadicCond.upperAbs 3 t,
+      (∀ y, ψ (σK y) = PkgI4.decomp 3 σ (ψ y)) →
+      ∀ (n : ℕ) (x : PK.A.Pt (AlgebraicClosure K)), x ^ (5 ^ n) = 1 → PK.A.galAct σK x = x
+
+/-- **`TateRamCore` from `RaynaudAtThree`**: unipotence gives `σK^{5ⁿ} x = x` (with
+`y = σK x · x⁻¹` fixed, `σK^m x = y^m x` and `y^{5ⁿ} = 1`), `σ` is wild (`upperAbsWild`), and
+`3 ∤ 5ⁿ` (`fix_of_pow_fix`). -/
+theorem tateRamCore_of (hR : RaynaudAtThree) : TateRamCore := by
+  intro K _ PK hK ψ σK t ht σ hσ hc n x hx
+  have hu := hR K PK hK ψ σK t ht σ hσ hc n x hx
+  set s := PK.A.galAct σK with hs
+  set y := s x * x⁻¹ with hy
+  have hsy : s y = y := by
+    rw [hy, map_mul, map_inv]
+    have h2 : s (s x) * (s x)⁻¹ = ((s x)⁻¹ * x)⁻¹ := by
+      rw [eq_inv_iff_mul_eq_one, ← hu]; group
+    rw [h2, mul_inv_rev, inv_inv, mul_comm]
+  have hiter : ∀ m : ℕ, PK.A.galAct (σK ^ m) x = y ^ m * x := by
+    intro m
+    induction m with
+    | zero =>
+      show PkgI3.AbVar.galHom 1 ≫ x = 1 * x
+      rw [PkgI3.AbVar.galHom_one, Category.id_comp, _root_.one_mul]
+    | succ m ih =>
+      rw [pow_succ', PkgI3.RhoCont.galAct_mul, ih, map_mul, map_pow, hsy]
+      show y ^ m * s x = y ^ (m + 1) * x
+      rw [show s x = y * x by rw [hy]; group, pow_succ, _root_.mul_assoc]
+  have hy5 : y ^ (5 ^ n) = 1 := by
+    rw [hy, mul_pow, ← map_pow, hx, map_one, inv_pow, hx, inv_one, _root_.mul_one]
+  have hfix5 : PK.A.galAct (σK ^ (5 ^ n)) x = x := by rw [hiter, hy5, _root_.one_mul]
+  have hw : σ ∈ (LadicCond.wildSet : Set (PkgI4.GQp 3)) :=
+    upperAbsWild 3 t (lt_of_le_of_lt U0_nonneg ht) hσ
+  have h35 : ¬ 3 ∣ 5 ^ n := by
+    intro h
+    have := (Nat.Prime.dvd_of_dvd_pow Nat.prime_three h)
+    omega
+  exact fix_of_pow_fix PK.A ψ σK σ hw hc (pow_pos (by norm_num) n) h35 x hfix5
+
+set_option maxHeartbeats 1000000 in
+/-- **`TateRamAtThreeD` from `TateRamCore`**: transport along `\bar{L'} ≅ K̄` over `K` and
+`A_{L,L'}(\bar{L'}) ≅ A(K̄)`, exactly as in lt-goodred's `goodRedTorsion`. -/
+theorem tateRamAtThreeD_of_core (hC : TateRamCore) : TateRamAtThreeD := by
+  intro K L L' _ _ hKL hLL' PK hLD
+  letI hNF : NumberField L' := numberField_of_fd L'
+  intro t ht σ hσ σ' hσ'
+  haveI hLfd : FiniteDimensional ℚ L := FiniteDimensional.of_injective
+    (IntermediateField.inclusion hLL').toLinearMap
+    (IntermediateField.inclusion hLL').toRingHom.injective
+  haveI hKfd : FiniteDimensional ℚ K := FiniteDimensional.of_injective
+    (IntermediateField.inclusion (hKL.trans hLL')).toLinearMap
+    (IntermediateField.inclusion (hKL.trans hLL')).toRingHom.injective
+  have hKD : Module.finrank ℚ K ≤ ZInQ.heightD :=
+    (IntermediateField.finrank_le_of_le_right hKL).trans hLD
+  apply HSyn.LinkedTate.tate_eq_one_of_torsion
+  intro n x hx
+  set A := PK.A with hAdef
+  letI iKL : Algebra K L := incAlg hKL
+  letI iLL' : Algebra L L' := incAlg hLL'
+  letI iKL' : Algebra K L' := incAlg (hKL.trans hLL')
+  haveI tKLL' : IsScalarTower K L L' := IsScalarTower.of_algebraMap_eq (fun _ => rfl)
+  haveI tLΩ : IsScalarTower L L' (AlgebraicClosure L') := inferInstance
+  haveI tKL'Ω : IsScalarTower K L' (AlgebraicClosure L') := inferInstance
+  haveI tKLΩ : IsScalarTower K L (AlgebraicClosure L') := IsScalarTower.of_algebraMap_eq
+    (fun y => by
+      rw [IsScalarTower.algebraMap_apply K L' (AlgebraicClosure L'),
+        IsScalarTower.algebraMap_apply L L' (AlgebraicClosure L'),
+        IsScalarTower.algebraMap_apply K L L'])
+  haveI tQKL' : IsScalarTower ℚ K L' := IsScalarTower.of_algebraMap_eq (fun q => by
+    rw [eq_ratCast (algebraMap ℚ L') q, eq_ratCast (algebraMap ℚ K) q, map_ratCast])
+  haveI : Algebra.IsAlgebraic ℚ L' := Algebra.IsAlgebraic.of_finite ℚ L'
+  haveI : Algebra.IsAlgebraic K L' := Algebra.IsAlgebraic.tower_top (K := ℚ) K
+  haveI : Algebra.IsAlgebraic L' (AlgebraicClosure L') := AlgebraicClosure.isAlgebraic L'
+  haveI : Algebra.IsAlgebraic K (AlgebraicClosure L') :=
+    Algebra.IsAlgebraic.trans K L' (AlgebraicClosure L')
+  haveI : IsAlgClosure K (AlgebraicClosure L') := ⟨inferInstance, inferInstance⟩
+  let τ : AlgebraicClosure L' ≃ₐ[K] AlgebraicClosure K :=
+    IsAlgClosure.equiv K (AlgebraicClosure L') (AlgebraicClosure K)
+  let g : PkgI4.Qbar →ₐ[ℚ] AlgebraicClosure L' := (G0Galois.qEmbRing L').toRatAlgHom
+  have hgbij : Function.Bijective g := by
+    letI : Algebra PkgI4.Qbar (AlgebraicClosure L') := g.toAlgebra
+    haveI : IsScalarTower ℚ PkgI4.Qbar (AlgebraicClosure L') :=
+      IsScalarTower.of_algebraMap_eq (fun x => (g.commutes x).symm)
+    haveI : Algebra.IsIntegral ℚ (AlgebraicClosure L') := inferInstance
+    haveI : Algebra.IsIntegral PkgI4.Qbar (AlgebraicClosure L') := Algebra.IsIntegral.tower_top ℚ
+    exact IsAlgClosed.algebraMap_bijective_of_isIntegral
+  let ge : PkgI4.Qbar ≃+* AlgebraicClosure L' := RingEquiv.ofBijective (G0Galois.qEmbRing L') hgbij
+  have hge : ∀ z, ge z = G0Galois.qEmbRing L' z := fun _ => rfl
+  let ψ : AlgebraicClosure K ≃+* PkgI4.Qbar := τ.symm.toRingEquiv.trans ge.symm
+  let s' : AlgebraicClosure L' ≃ₐ[L'] AlgebraicClosure L' := σ'
+  let σK : AlgebraicClosure K ≃ₐ[K] AlgebraicClosure K :=
+    (τ.symm.trans (s'.restrictScalars K)).trans τ
+  have hσK : ∀ y, σK y = τ (s' (τ.symm y)) := fun _ => rfl
+  have hres : ∀ y, ψ (σK y) = (G0Galois.resQ L' σ') (ψ y) := by
+    intro y
+    apply ge.injective
+    show ge (ge.symm (τ.symm (σK y))) = ge ((G0Galois.resQ L' σ') (ge.symm (τ.symm y)))
+    rw [RingEquiv.apply_symm_apply, hσK, AlgEquiv.symm_apply_apply]
+    have hspec := G0Galois.resQ_spec L' σ' (ge.symm (τ.symm y))
+    rw [← hge, ← hge, RingEquiv.apply_symm_apply] at hspec
+    exact hspec.symm
+  have hcomp : ∀ y, ψ (σK y) = PkgI4.decomp 3 σ (ψ y) := by
+    intro y; rw [hres, hσ']
+  let E := (UnramTate.bcPt (K := L) (L := L') (@PkgI3.AbVar.baseChange K _ A L _ (incAlg hKL))
+    (AlgebraicClosure L')).trans ((UnramTate.bcPt (K := K) (L := L) A (AlgebraicClosure L')).trans
+      (UnramTate.trPt A τ))
+  have hE : ∀ y, E ((@PkgI3.AbVar.baseChange L _
+      (@PkgI3.AbVar.baseChange K _ A L _ (incAlg hKL)) L' _ (incAlg hLL')).galAct s' y) =
+      A.galAct σK (E y) := by
+    intro y
+    show UnramTate.trPt A τ (UnramTate.bcPt (K := K) (L := L) A (AlgebraicClosure L')
+        (UnramTate.bcPt (K := L) (L := L') (@PkgI3.AbVar.baseChange K _ A L _ (incAlg hKL))
+          (AlgebraicClosure L')
+          ((@PkgI3.AbVar.baseChange L _
+            (@PkgI3.AbVar.baseChange K _ A L _ (incAlg hKL)) L' _ (incAlg hLL')).galAct s' y))) = _
+    rw [UnramTate.bcPt_galAct, UnramTate.bcPt_galAct]
+    exact UnramTate.trPt_galAct A τ _ σK (fun z => by rw [hσK, AlgEquiv.symm_apply_apply]; rfl) _
+  have hEx : E x ^ (5 ^ n) = 1 := by rw [← map_pow, hx, map_one]
+  have hfix : A.galAct σK (E x) = E x := hC K PK hKD ψ σK t ht σ hσ hcomp n (E x) hEx
+  apply E.injective
+  exact (hE x).trans hfix
+
+/-- **`TateRamAtThreeD` from `RaynaudAtThree`.** -/
+theorem tateRamAtThreeD_of_raynaud (hR : RaynaudAtThree) : TateRamAtThreeD :=
+  tateRamAtThreeD_of_core (tateRamCore_of hR)
+
+/-! #### `RaynaudAtThree` from R6, `UpperBreakBound` and the `5`-torsion field -/
+
+/-- **Glue: the `5`-torsion field of a QM surface has degree `≤ |GL₄(𝔽₅)| = G₀`.** For a `QML3`
+object over a number field `K ⊆ ℚ̄`, there is a finite `K₁/K` inside `K̄` with `[K₁:K] ≤ G₀` such
+that every `g ∈ G_K` fixing `K₁` fixes `A(K̄)[5]`. Route (STANDARD): `A(K̄)[5] ≅ (ℤ/5)⁴` (T5); the
+stabilizer of `A[5]` is open (`PkgI3.RhoCont`), its fixed field `K₁` has `[K₁:K]` = its index =
+the order of the image of `G_K` in `Aut(A[5]) ≅ GL₄(𝔽₅)`. GLUE (Galois theory and counting). -/
+def TorsionFieldFive : Prop :=
+  ∀ (K : IF) [FiniteDimensional ℚ K] (PK : LeafQM.AV.QML3 K),
+    ∃ K₁ : IntermediateField K (AlgebraicClosure K), FiniteDimensional K K₁ ∧
+      Module.finrank K K₁ ≤ ZInQ.heightG0 ∧
+      ∀ g : Field.absoluteGaloisGroup K, (∀ y ∈ K₁, g y = y) →
+        ∀ x : PK.A.Pt (AlgebraicClosure K), x ^ 5 = 1 → PK.A.galAct g x = x
+
+/-- `4 (D G₀)² = U₀`. -/
+theorem U0_eq : G0ModNewform.U0 = 4 * (((ZInQ.heightD * ZInQ.heightG0 : ℕ) : ℝ)) ^ 2 := rfl
+
+set_option maxHeartbeats 1000000 in
+/-- **`RaynaudAtThree`, proved** from R6 (`PkgI2.RaynaudCriterion`), `UpperBreakBound` and
+`TorsionFieldFive`: `σK` fixes `K₁` (each `y ∈ K₁` has degree `≤ D G₀` over `ℚ`, so the break bound
+applies to `ℚ_3(embP (ψ y))`), lies in the inertia group of `ψ^*(v)` (`upperAbsInertia`,
+`localInertiaGlobal`), and Raynaud's criterion over `K₁` with `m = 5` gives `(σK − 1)² = 0` on
+`A(K̄)[5ⁿ]`, transported along `A_{K₁}(K̄₁) ≅ A(K̄)`. -/
+theorem raynaudAtThree_of (hRay : PkgI2.RaynaudCriterion.{0}) (hB : UpperBreakBound)
+    (hT : TorsionFieldFive) : RaynaudAtThree := by
+  intro K _ PK hK ψ σK t ht σ hσ hc n x hx
+  obtain ⟨K₁, hK₁fd, hK₁deg, hK₁fix⟩ := hT K PK
+  haveI := hK₁fd
+  set A := PK.A with hAdef
+  have ht0 : 0 < t := lt_of_le_of_lt U0_nonneg ht
+  -- (1) `σK` fixes `K₁`
+  have hfixK₁ : ∀ y ∈ K₁, σK y = y := by
+    intro y hy
+    apply ψ.injective
+    rw [hc]
+    set z := ψ y
+    -- degree of `z` over `ℚ`
+    haveI : FiniteDimensional ℚ K₁ := Module.Finite.trans K K₁
+    have hdegz : (minpoly ℚ z).natDegree ≤ ZInQ.heightD * ZInQ.heightG0 := by
+      have h1 : minpoly ℚ z = minpoly ℚ y := minpoly.algEquiv_eq ψ.toRatAlgEquiv y
+      have h2 : minpoly ℚ y = minpoly ℚ (⟨y, hy⟩ : K₁) :=
+        (minpoly.algebraMap_eq (algebraMap K₁ (AlgebraicClosure K)).injective (⟨y, hy⟩ : K₁)).symm
+      have h3 : (minpoly ℚ (⟨y, hy⟩ : K₁)).natDegree ≤ Module.finrank ℚ K₁ := minpoly.natDegree_le _
+      have h4 : Module.finrank ℚ K₁ = Module.finrank ℚ K * Module.finrank K K₁ :=
+        (Module.finrank_mul_finrank ℚ K K₁).symm
+      rw [h1, h2]
+      calc _ ≤ Module.finrank ℚ K₁ := h3
+        _ = Module.finrank ℚ K * Module.finrank K K₁ := h4
+        _ ≤ ZInQ.heightD * ZInQ.heightG0 := Nat.mul_le_mul hK hK₁deg
+    -- the break bound at `ℚ_3(embP z)`
+    have he : ∀ w, embP 3 (PkgI4.decomp 3 σ w) = σ (embP 3 w) := embP_decomp 3 σ
+    apply (embP 3).injective
+    rw [he]
+    let yz : PadicAlgCl 3 := embP 3 z
+    have hyint : IsIntegral ℚ_[3] yz := Algebra.IsIntegral.isIntegral yz
+    let F : LadicCond.Fld 3 := IntermediateField.adjoin ℚ_[3] {yz}
+    haveI : FiniteDimensional ℚ_[3] F := IntermediateField.adjoin.finiteDimensional hyint
+    have hdeg : Module.finrank ℚ_[3] F ≤ ZInQ.heightD * ZInQ.heightG0 := by
+      have h1 : Module.finrank ℚ_[3] F = (minpoly ℚ_[3] yz).natDegree :=
+        IntermediateField.adjoin.finrank hyint
+      have hq0 : (minpoly ℚ z).map (algebraMap ℚ ℚ_[3]) ≠ 0 :=
+        Polynomial.map_ne_zero (minpoly.ne_zero (Algebra.IsIntegral.isIntegral z))
+      have h2 : minpoly ℚ_[3] yz ∣ (minpoly ℚ z).map (algebraMap ℚ ℚ_[3]) := by
+        apply minpoly.dvd
+        rw [Polynomial.aeval_map_algebraMap]
+        rw [show Polynomial.aeval yz (minpoly ℚ z) =
+            (embP 3).toRatAlgHom (Polynomial.aeval z (minpoly ℚ z))
+          from Polynomial.aeval_algHom_apply (embP 3).toRatAlgHom z _, minpoly.aeval, map_zero]
+      rw [h1]
+      calc (minpoly ℚ_[3] yz).natDegree ≤ ((minpoly ℚ z).map (algebraMap ℚ ℚ_[3])).natDegree :=
+            Polynomial.natDegree_le_of_dvd h2 hq0
+        _ = (minpoly ℚ z).natDegree := Polynomial.natDegree_map _
+        _ ≤ _ := hdegz
+    have hlt : 4 * (Module.finrank ℚ_[3] F : ℝ) ^ 2 < t := by
+      refine lt_of_le_of_lt ?_ ht
+      rw [U0_eq]
+      have : (Module.finrank ℚ_[3] F : ℝ) ≤ ((ZInQ.heightD * ZInQ.heightG0 : ℕ) : ℝ) := by
+        exact_mod_cast hdeg
+      exact mul_le_mul_of_nonneg_left (pow_le_pow_left₀ (Nat.cast_nonneg _) this 2) (by norm_num)
+    exact hB 3 F t hlt σ hσ yz (IntermediateField.mem_adjoin_simple_self ℚ_[3] yz)
+  -- (2) the inertia data at a place above `3`
+  have hσI := upperAbsInertia 3 t ht0 hσ
+  obtain ⟨v, hv, τv, hτv, hτveq⟩ := localInertiaGlobal 3 σ hσI
+  obtain ⟨hv1, hv2⟩ := LTGoodRed.of_mem_inertia ℚ v τv hτv
+  rw [hτveq] at hv1 hv2
+  -- (3) `K₁`, its algebraic closure `K̄₁ ≅ K̄`, `σ₁`, `ψ₁`
+  haveI hK₁NF : NumberField K₁ :=
+    { to_charZero := inferInstance, to_finiteDimensional := Module.Finite.trans K K₁ }
+  haveI : Algebra.IsAlgebraic K₁ (AlgebraicClosure K) :=
+    Algebra.IsAlgebraic.tower_top (K := K) K₁
+  haveI : IsAlgClosure K₁ (AlgebraicClosure K) := ⟨inferInstance, inferInstance⟩
+  let τ₁ : AlgebraicClosure K₁ ≃ₐ[K₁] AlgebraicClosure K :=
+    IsAlgClosure.equiv K₁ (AlgebraicClosure K₁) (AlgebraicClosure K)
+  let σK₁ : AlgebraicClosure K ≃ₐ[K₁] AlgebraicClosure K :=
+    AlgEquiv.ofRingEquiv (f := σK.toRingEquiv) (fun k => hfixK₁ k k.2)
+  let σ₁ : AlgebraicClosure K₁ ≃ₐ[K₁] AlgebraicClosure K₁ := (τ₁.trans σK₁).trans τ₁.symm
+  have hσ₁ : ∀ y, τ₁ (σ₁ y) = σK₁ (τ₁ y) := fun y => by
+    show τ₁ (τ₁.symm (σK₁ (τ₁ y))) = _
+    rw [AlgEquiv.apply_symm_apply]
+  have hrs : σK₁.restrictScalars K = σK := AlgEquiv.ext fun _ => rfl
+  let ψ₁ : AlgebraicClosure K₁ ≃+* PkgI4.Qbar := τ₁.toRingEquiv.trans ψ
+  have hc₁ : ∀ y, ψ₁ (σ₁ y) = PkgI4.decomp 3 σ (ψ₁ y) := fun y => by
+    show ψ (τ₁ (σ₁ y)) = _
+    rw [hσ₁]
+    exact hc (τ₁ y)
+  let w₁ : ValuationSubring (AlgebraicClosure K₁) := v.comap (ψ₁ : AlgebraicClosure K₁ →+* PkgI4.Qbar)
+  let O₁ : ValuationSubring K₁ := w₁.comap (algebraMap K₁ (AlgebraicClosure K₁))
+  have h3w : ((3 : ℕ) : AlgebraicClosure K₁) ∈ w₁.nonunits := by
+    rw [LTGoodRed.mem_nonunits_comap v ψ₁, map_natCast]; exact hv
+  have hunit : ∀ m : ℕ, Nat.Coprime m 3 → IsUnit (m : O₁) := by
+    intro m hm
+    obtain ⟨hm0, hmi⟩ := LTGoodRed.inv_mem_of_notMem_nonunits w₁
+      (LTGoodRed.natCast_notMem_nonunits w₁ h3w hm)
+    have hm0K : (m : K₁) ≠ 0 := by
+      intro h; apply hm0
+      rw [← map_natCast (algebraMap K₁ (AlgebraicClosure K₁)), h, map_zero]
+    have hmO : (m : K₁)⁻¹ ∈ O₁ := by
+      rw [ValuationSubring.mem_comap, map_inv₀, map_natCast]; exact hmi
+    refine isUnit_iff_exists_inv.mpr ⟨⟨(m : K₁)⁻¹, hmO⟩, Subtype.ext ?_⟩
+    push_cast
+    exact mul_inv_cancel₀ hm0K
+  have hOtop : O₁ ≠ ⊤ := by
+    intro htop
+    have hpi : ((3 : ℕ) : K₁)⁻¹ ∈ O₁ := by rw [htop]; exact ValuationSubring.mem_top _
+    rw [ValuationSubring.mem_comap, map_inv₀, map_natCast] at hpi
+    rw [ValuationSubring.mem_nonunits_iff_or] at h3w
+    rcases h3w with h | h
+    · exact (by norm_num : (3 : ℕ) ≠ 0) (by exact_mod_cast h)
+    · exact h hpi
+  haveI hODVR : IsDiscreteValuationRing O₁ := LTGoodRed.NLG.isDiscreteValuationRing_of_ne_top O₁ hOtop
+  have h5 : IsUnit ((5 : ℕ) : O₁) := hunit 5 (by norm_num)
+  have hI₁ : PkgI2.IsInertia w₁ σ₁ := by
+    refine LTGoodRed.isInertia_of K₁ w₁ σ₁ (fun y => ?_) (fun a ha => ?_)
+    · show ψ₁ (σ₁ y) ∈ v ↔ ψ₁ y ∈ v
+      rw [hc₁]; exact hv1 (ψ₁ y)
+    · rw [LTGoodRed.mem_nonunits_comap v ψ₁, map_sub, hc₁]
+      exact hv2 (ψ₁ a) ha
+  -- (4) the points: `E₁ : A_{K₁}(K̄₁) ≃* A(K̄)`
+  let A₁ : PkgI3.AbVar K₁ := A.baseChange K₁
+  let E₁ := (UnramTate.trPt A₁ τ₁).trans (UnramTate.bcPt (K := K) (L := K₁) A (AlgebraicClosure K))
+  have hE₁ : ∀ (g : AlgebraicClosure K₁ ≃ₐ[K₁] AlgebraicClosure K₁)
+      (g' : AlgebraicClosure K ≃ₐ[K₁] AlgebraicClosure K), (∀ y, τ₁ (g y) = g' (τ₁ y)) →
+      ∀ p, E₁ (A₁.galAct g p) = A.galAct (g'.restrictScalars K) (E₁ p) := by
+    intro g g' hg p
+    show UnramTate.bcPt (K := K) (L := K₁) A (AlgebraicClosure K)
+        (UnramTate.trPt A₁ τ₁ (A₁.galAct g p)) = _
+    rw [UnramTate.trPt_galAct A₁ τ₁ g g' (fun y => (hg y).symm) p, UnramTate.bcPt_galAct]
+    rfl
+  -- (5) `A_{K₁}[5]` is rational over `K₁`
+  have hrat : ∀ g : AlgebraicClosure K₁ ≃ₐ[K₁] AlgebraicClosure K₁,
+      ∀ p ∈ PkgI2.AV.torsion (ObjBridge.toGrp A₁) (AlgebraicClosure K₁) 5,
+        PkgI2.AV.galAct (ObjBridge.toGrp A₁) g p = p := by
+    intro g p hp
+    let g' : AlgebraicClosure K ≃ₐ[K₁] AlgebraicClosure K := (τ₁.symm.trans g).trans τ₁
+    have hg : ∀ y, τ₁ (g y) = g' (τ₁ y) := fun y => by
+      show τ₁ (g y) = τ₁ (g (τ₁.symm (τ₁ y))); rw [AlgEquiv.symm_apply_apply]
+    have hp5 : (E₁ p) ^ 5 = 1 := by
+      have : p ^ 5 = 1 := hp
+      rw [← map_pow, this, map_one]
+    have hfix := hK₁fix (g'.restrictScalars K) (fun y hy => g'.commutes ⟨y, hy⟩) (E₁ p) hp5
+    apply E₁.injective
+    exact (hE₁ g g' hg p).trans hfix
+  -- (6) Raynaud
+  have hx₁ : E₁.symm x ∈ PkgI2.AV.torsion (ObjBridge.toGrp A₁) (AlgebraicClosure K₁) (5 ^ n) := by
+    show (E₁.symm x) ^ (5 ^ n) = 1
+    rw [← map_pow, hx, map_one]
+  have hu := hRay K₁ O₁ w₁ rfl (ObjBridge.toGrp A₁) 5 (by norm_num) h5 hrat σ₁ hI₁ 5
+    Nat.prime_five (by exact_mod_cast h5) n (E₁.symm x) hx₁
+  -- (7) transport `(σ₁ − 1)² = 0` back
+  have hσ' : ∀ p, E₁ (A₁.galAct σ₁ p) = A.galAct σK (E₁ p) := fun p => by
+    rw [hE₁ σ₁ σK₁ hσ₁ p, hrs]
+  have hu' : A₁.galAct σ₁ (A₁.galAct σ₁ (E₁.symm x)) * (A₁.galAct σ₁ (E₁.symm x))⁻¹ *
+      (A₁.galAct σ₁ (E₁.symm x))⁻¹ * E₁.symm x = 1 := hu
+  have := congrArg E₁ hu'
+  rw [map_mul, map_mul, map_mul, map_inv, map_one, hσ', hσ', MulEquiv.apply_symm_apply] at this
+  exact this
+
+/-! #### `TorsionFieldFive`, proved from T5 -/
+
+/-- `|GL₄(𝔽₅)| = (5⁴−1)(5⁴−5)(5⁴−25)(5⁴−125) = G₀`. -/
+theorem card_GL4_F5 : Nat.card (GL (Fin 4) (ZMod 5)) = ZInQ.heightG0 := by
+  rw [Matrix.card_GL_field, ZMod.card, Fin.prod_univ_four]
+  unfold ZInQ.heightG0
+  norm_num
+
+/-- Additive automorphisms of `𝔽₅⁴` number at most `G₀`. -/
+theorem card_addAut_le : Nat.card ((Fin 4 → ZMod 5) ≃+ (Fin 4 → ZMod 5)) ≤ ZInQ.heightG0 := by
+  rw [← card_GL4_F5, ← Nat.card_congr (Matrix.GeneralLinearGroup.toLin (n := Fin 4)
+    (R := ZMod 5)).symm.toEquiv]
+  let ι : ((Fin 4 → ZMod 5) ≃+ (Fin 4 → ZMod 5)) →
+      LinearMap.GeneralLinearGroup (ZMod 5) (Fin 4 → ZMod 5) := fun f =>
+    { val := f.toAddMonoidHom.toZModLinearMap 5
+      inv := f.symm.toAddMonoidHom.toZModLinearMap 5
+      val_inv := LinearMap.ext fun v => by simp
+      inv_val := LinearMap.ext fun v => by simp }
+  have hι : Function.Injective ι := by
+    intro f g h
+    ext v
+    have := congrArg (fun u : LinearMap.GeneralLinearGroup (ZMod 5) (Fin 4 → ZMod 5) =>
+      (u : (Fin 4 → ZMod 5) →ₗ[ZMod 5] (Fin 4 → ZMod 5)) v) h
+    simpa [ι] using this
+  exact Nat.card_le_card_of_injective ι hι
+
+/-- **`TorsionFieldFive`, proved from T5** (`PkgI2.TorsionStructure`): the stabilizer `S` of
+`A(K̄)[5] ≅ 𝔽₅⁴` is open (finitely many open point stabilizers), `K₁ = K̄^S` is finite with
+`[K₁:K] = [G_K : S]`, and `G_K/S` embeds in `Aut(𝔽₅⁴)`, of order `G₀`. -/
+theorem torsionFieldFive_of (hTors : PkgI2.TorsionStructure.{0}) : TorsionFieldFive := by
+  intro K _ PK
+  haveI : IsGalois K (AlgebraicClosure K) := {}
+  set A := PK.A with hAdef
+  obtain ⟨e, he⟩ := hTors K (ObjBridge.toGrp A) 2 5 (by rw [← PK.surface]; rfl) (by norm_num)
+    (by norm_num)
+  let V := Fin 4 → ZMod 5
+  have hone : ∀ x : A.Pt (AlgebraicClosure K), A.galAct (1 : Field.absoluteGaloisGroup K) x = x := by
+    intro x
+    show PkgI3.AbVar.galHom 1 ≫ x = x
+    rw [PkgI3.AbVar.galHom_one, Category.id_comp]
+  have hinv : ∀ (g : Field.absoluteGaloisGroup K) x, A.galAct g⁻¹ (A.galAct g x) = x := by
+    intro g x; rw [← PkgI3.RhoCont.galAct_mul, inv_mul_cancel, hone]
+  have hinv' : ∀ (g : Field.absoluteGaloisGroup K) x, A.galAct g (A.galAct g⁻¹ x) = x := by
+    intro g x; rw [← PkgI3.RhoCont.galAct_mul, mul_inv_cancel, hone]
+  -- membership in `A[5]` is preserved
+  have hmem : ∀ (g : Field.absoluteGaloisGroup K) (x : A.Pt (AlgebraicClosure K)),
+      x ^ 5 = 1 → (A.galAct g x) ^ 5 = 1 := by
+    intro g x hx; rw [← map_pow, hx, map_one]
+  let T := PkgI2.AV.torsion (ObjBridge.toGrp A) (AlgebraicClosure K) 5
+  haveI hTfin : Finite T := Finite.of_equiv _ e.symm
+  -- the stabilizer `S` of `A[5]`
+  let S : Subgroup (Field.absoluteGaloisGroup K) :=
+    { carrier := {g | ∀ x : A.Pt (AlgebraicClosure K), x ^ 5 = 1 → A.galAct g x = x}
+      mul_mem' := fun {a b} ha hb x hx => by
+        rw [PkgI3.RhoCont.galAct_mul, hb x hx, ha x hx]
+      one_mem' := fun x _ => hone x
+      inv_mem' := fun {a} ha x hx => by
+        have h1 := ha (A.galAct a⁻¹ x) (hmem _ x hx)
+        rw [hinv'] at h1
+        exact h1.symm }
+  -- `S` is open
+  choose U hU using fun x : A.Pt (AlgebraicClosure K) =>
+    PkgI3.RhoCont.exists_openSubgroup_galAct_eq A x
+  have hSnhds : (S : Set (Field.absoluteGaloisGroup K)) ∈ nhds 1 := by
+    have hfinT : (T : Set (A.Pt (AlgebraicClosure K))).Finite := Set.toFinite T
+    refine Filter.mem_of_superset ((Filter.biInter_mem hfinT).mpr
+      (fun x _ => (U x).isOpen.mem_nhds (U x).one_mem)) ?_
+    intro g hg x hx
+    exact hU x g (Set.mem_iInter₂.mp hg x hx)
+  have hSopen : IsOpen (S : Set (Field.absoluteGaloisGroup K)) := Subgroup.isOpen_of_mem_nhds S hSnhds
+  have hSclosed : IsClosed (S : Set (Field.absoluteGaloisGroup K)) :=
+    Subgroup.isClosed_of_isOpen S hSopen
+  let K₁ := IntermediateField.fixedField S
+  have hfix : K₁.fixingSubgroup = S :=
+    InfiniteGalois.fixingSubgroup_fixedField (⟨S, hSclosed⟩ : ClosedSubgroup _)
+  have hfd : FiniteDimensional K K₁ := by
+    rw [← InfiniteGalois.isOpen_iff_finite]
+    show IsOpen (K₁.fixingSubgroup : Set (Field.absoluteGaloisGroup K))
+    rw [hfix]; exact hSopen
+  -- `G_K / S ↪ Aut(𝔽₅⁴)`
+  have hesymm : ∀ v w : V, ((e.symm (v + w) : T) : A.Pt (AlgebraicClosure K)) =
+      (e.symm v : A.Pt (AlgebraicClosure K)) * (e.symm w : A.Pt (AlgebraicClosure K)) := by
+    intro v w
+    have h5 : (e.symm v : A.Pt (AlgebraicClosure K)) * (e.symm w : A.Pt (AlgebraicClosure K)) ∈ T := by
+      show (_ * _) ^ 5 = 1
+      rw [mul_pow, (e.symm v).2, (e.symm w).2, _root_.one_mul]
+    have := he (e.symm v) (e.symm w) h5
+    rw [Equiv.apply_symm_apply, Equiv.apply_symm_apply] at this
+    rw [← this, Equiv.symm_apply_apply]
+  let act : Field.absoluteGaloisGroup K → V → V := fun g v =>
+    e ⟨A.galAct g (e.symm v), hmem g _ (e.symm v).2⟩
+  have hact_add : ∀ g v w, act g (v + w) = act g v + act g w := by
+    intro g v w
+    show e ⟨A.galAct g (e.symm (v + w)), _⟩ = e ⟨A.galAct g (e.symm v), _⟩ + e ⟨A.galAct g (e.symm w), _⟩
+    have h5 : A.galAct g (e.symm v) * A.galAct g (e.symm w) ∈ T := by
+      show (_ * _) ^ 5 = 1
+      rw [mul_pow, hmem g _ (e.symm v).2, hmem g _ (e.symm w).2, _root_.one_mul]
+    rw [← he _ _ h5]
+    congr 2
+    rw [hesymm, map_mul]
+  have hact_mul : ∀ g h v, act (g * h) v = act g (act h v) := by
+    intro g h v
+    show e ⟨A.galAct (g * h) (e.symm v), _⟩ = e ⟨A.galAct g (e.symm (e ⟨A.galAct h (e.symm v), _⟩)), _⟩
+    rw [Equiv.symm_apply_apply, PkgI3.RhoCont.galAct_mul]
+  have hact_one : ∀ v, act 1 v = v := by
+    intro v
+    show e ⟨A.galAct 1 (e.symm v), _⟩ = v
+    simp only [hone]
+    exact e.apply_symm_apply v
+  let φ : Field.absoluteGaloisGroup K →* (V ≃+ V) :=
+    { toFun := fun g =>
+        { toFun := act g
+          invFun := act g⁻¹
+          left_inv := fun v => by rw [← hact_mul, inv_mul_cancel, hact_one]
+          right_inv := fun v => by rw [← hact_mul, mul_inv_cancel, hact_one]
+          map_add' := hact_add g }
+      map_one' := AddEquiv.ext hact_one
+      map_mul' := fun g h => AddEquiv.ext (hact_mul g h) }
+  have hker : φ.ker = S := by
+    ext g
+    rw [MonoidHom.mem_ker]
+    constructor
+    · intro hg x hx
+      have := congrArg (fun f : V ≃+ V => f (e ⟨x, hx⟩)) hg
+      simp only [AddEquiv.one_apply] at this
+      have h2 : e ⟨A.galAct g x, hmem g x hx⟩ = e ⟨x, hx⟩ := by
+        have h3 : act g (e ⟨x, hx⟩) = e ⟨x, hx⟩ := this
+        simpa [act] using h3
+      exact congrArg Subtype.val (e.injective h2)
+    · intro hg
+      apply AddEquiv.ext
+      intro v
+      show act g v = v
+      show e ⟨A.galAct g (e.symm v), _⟩ = v
+      rw [show (⟨A.galAct g (e.symm v), hmem g _ (e.symm v).2⟩ : T) = e.symm v from
+        Subtype.ext (hg _ (e.symm v).2)]
+      exact e.apply_symm_apply v
+  haveI : Finite (V ≃+ V) :=
+    Finite.of_injective (fun f : V ≃+ V => (f : V → V)) (fun f g h => AddEquiv.ext (congrFun h))
+  have hidx : S.index ≤ ZInQ.heightG0 := by
+    rw [← hker, Subgroup.index_ker]
+    exact (Nat.card_le_card_of_injective _ Subtype.val_injective).trans card_addAut_le
+  refine ⟨K₁, hfd, ?_, fun g hg x hx => ?_⟩
+  · rw [IntermediateField.finrank_eq_fixingSubgroup_index, hfix]; exact hidx
+  · have : g ∈ K₁.fixingSubgroup := (IntermediateField.mem_fixingSubgroup_iff K₁ g).mpr hg
+    rw [hfix] at this
+    exact this x hx
+
+/-- **`TateRamAtThreeD` from the leaves R6, T5 and `UpperBreakBound`.** -/
+theorem tateRamAtThreeD_of_leaves (hRay : PkgI2.RaynaudCriterion.{0})
+    (hTors : PkgI2.TorsionStructure.{0}) (hB : UpperBreakBound) : TateRamAtThreeD :=
+  tateRamAtThreeD_of_raynaud (raynaudAtThree_of hRay hB (torsionFieldFive_of hTors))
+
+end TateRam
+
 end UnramTate
 
 end
@@ -949,6 +1489,12 @@ end LinkedRamMain
 #print axioms UnramTate.linkedRam_of'
 #print axioms UnramTate.upperAbsWild
 #print axioms UnramTate.kernelFieldBreaks_of'
+#print axioms UnramTate.fix_of_pow_fix
+#print axioms UnramTate.tateRamCore_of
+#print axioms UnramTate.tateRamAtThreeD_of_raynaud
+#print axioms UnramTate.raynaudAtThree_of
+#print axioms UnramTate.torsionFieldFive_of
+#print axioms UnramTate.tateRamAtThreeD_of_leaves
 
 /-! ## linked-ram: `GluePieces5` and `sixContactMin_of_leaves5` (from g0-assemble3's part z95, edited as stated) -/
 
@@ -961,7 +1507,8 @@ namespace HSyn
 open G0Split
 
 /-- **The named Props left after linked-ram** (g0-assemble3's `GluePieces4` with lt-goodred's two proofs folded
-and `kernelFieldBreaks`, `tateRamAtThree` replaced). -/
+and `kernelFieldBreaks`, `tateRamAtThree` replaced: `TateRamAtThreeD` is proved from R6, T5 and
+`upperBreakBound`). -/
 structure GluePieces5 : Prop where
   -- FibreSimple: FS5 (NoCM on the fibre)
   /-- fs5-nocm, LEAF (N1b′: CM points via optimal embeddings; Shimura 1967, Jordan, González–Rotger). -/
@@ -1057,8 +1604,6 @@ structure GluePieces5 : Prop where
   upperBreakBound : UnramTate.UpperBreakBound
   /-- linked-ram, GLUE (`β` trivial on `G_{ℚ_2}^u ∩ G_L`, `u > U₀`; Glazer L826-843, local reciprocity). -/
   betaTrivialAtTwo : UnramTate.BetaTrivialAtTwo
-  /-- linked-ram, GLUE (linked-tate's `TateRamAtThree` with `[L:ℚ] ≤ D`; Glazer L814-821). -/
-  tateRamAtThreeD : UnramTate.TateRamAtThreeD
 
 /-- FS5 (NoCM on the fibre) from `GluePieces5` (fs5-nocm). -/
 theorem fibreComTrivial_of_gp5 (r : ResearchLeaves4) (t : TextbookLeaves) (gp : GluePieces5) :
@@ -1143,7 +1688,8 @@ theorem gluePieces_of_gluePieces5 (r : ResearchLeaves4) (t : TextbookLeaves) (gp
         (UnramTate.linkedFrobRam_of gp.linkedFrob
           (UnramTate.linkedRam_of' (qmModelG3_of_gp5 r t gp)
             (UnramTate.kernelFieldBreaks_of' gp.upperBreakBound gp.betaTrivialAtTwo)
-            UnramTate.localInertiaGlobal UnramTate.upperAbsInertia gp.tateRamAtThreeD))))
+            UnramTate.localInertiaGlobal UnramTate.upperAbsInertia
+            (UnramTate.tateRamAtThreeD_of_leaves r.r6 t.t5 gp.upperBreakBound)))))
   heightCopies := G0HeightCopies.heightCopiesAgree
 
 /-- **G0 after linked-ram**: `ResearchLeaves4`, `TextbookLeaves` and `GluePieces5` imply `ZInQ.SixContactMin`. -/

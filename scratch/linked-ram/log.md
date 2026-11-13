@@ -58,3 +58,8 @@
   `tateRamAtThreeD` (GLUE). 45 fields = 14 LEAF + 4 LEAF? + 27 GLUE.
 - `HSyn.gluePieces_of_gluePieces5`, `HSyn.sixContactMin_of_leaves5 (r : ResearchLeaves4) (t : TextbookLeaves)
   (gp : GluePieces5) : ZInQ.SixContactMin`: 0 errors, axioms [propext, Classical.choice, Quot.sound]. VERIFIED.
+
+## Step 6: flat check (before the TateRam additions) — VERIFIED
+- `assemble.sh` → LinkedRam.lean = G0Assemble3.lean (md5 b5a4fb97…) + lt-goodred 99d_proofs + Tail.lean (Step 5 state),
+  92 561 lines, md5 f6a325c3…; `lake env lean`: exit 0 in 922 s, 0 errors, no sorry, 237 axiom reports all standard
+  (`flat_summary.txt`). Includes `HSyn.sixContactMin_of_leaves5`.
