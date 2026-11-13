@@ -67,3 +67,9 @@ Base: 2dd83306 + merges of origin/wip/qm-pin, origin/wip/mobius-glue (g0-thetapo
   `QMClassNumberOne` (textbook: an ι(𝒪)-stable full lattice is ι(𝒪)w), proved `qmLatticeFree_of` (lattice
   transported by `ZLattice.comap` along G⁻¹, Mathlib's `instIsZLatticeComap`), `fibreQMPeriod_final'`:
   0 errors, 6.6s, 27 axioms lines standard. VERIFIED.
+- run_dev12 (06:05): Step 2h: `CPtsTransport` (glue: complex points of the base change as a group iso compatible
+  with regular functions), proved `unifTransport_of`, `fibreQMPeriod_final''`: 0 errors, 29 axioms lines
+  standard. VERIFIED.
+- Verbatim check (Python, whitespace-normalized): `UniformizationExistsT35` and `T11aRiemannEnd` bodies equal the
+  kernel's `ZInQ.LeafPush2.UniformizationExists`, `T11a_RiemannEnd` (ZInQKernel/HDecomp/LeafPush2/T.lean) after
+  replacing `PkgI3.AbVar` by `AbVar` (the kernel opens `PkgI3`). VERIFIED.
