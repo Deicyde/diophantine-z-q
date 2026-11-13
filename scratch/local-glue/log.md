@@ -268,3 +268,14 @@
   `g8LocalPack_of_BC`, `g15RamG_of_packBC`; `tail_glue.lean`: `modularConstituent_tail_BC`.
 - Compile: LocalGlue.lean exit 0, no sorry, 77 printed declarations standard; TailK.lean exit 0,
   no sorry, tail_{G,L,K,R,D,U,BC} standard.
+
+## Step 19 (09:01-09:15 PST): dim A₀ derived
+- `dim_block.lean` (mk_dim_block.sh): verbatim scratch/g0-dim/Dim.lean l.23, l.107-305 (namespace
+  G0Dim: field base change preserves the dimension of a scheme locally of finite type), l.339-343
+  (`G0Dim.pkgI3_dim_baseChange`). Mathlib imports in `dim_imports.txt` (12 modules, found by a
+  test compile; `import Mathlib` broke a `rfl` in local-data's verbatim Tail.lean, l.1120 of
+  TailK.lean, "No goals", so it is not used).
+- Proved (VERIFIED): `localGlue_of_baseChange'` (dim A₀ = dim (A₀)_{L'} = 2 from G7Out's clause);
+  `G7LocalPackBC` no longer has a dim clause (`g8LocalPack_of_BC` uses the primed theorem).
+- Compile: LocalGlue.lean exit 0, 0 errors, no sorry, 78 printed declarations standard;
+  TailK.lean exit 0, 0 errors, no sorry, tail_{G,L,K,R,D,U,BC} standard.

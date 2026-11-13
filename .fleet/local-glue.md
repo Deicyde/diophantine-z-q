@@ -7,7 +7,7 @@ g0-mod-field's construction of that data no local glue Prop remains.
 - General form: `G15Ram.localGlue_of_unramRoots (hR6) (hTors) (hU : UnramRoots p ℓ) (p ≠ ℓ)
   (G7Out) (G7Clauses) (KerWild) (p ≤ 5 → DescentPts A L) : LocalGlue …`.
 - Construction form: `G15Ram.localGlue_of_baseChange` for `A = (A₀)_{L'}` (`TateBridge`'s base
-  change), with `dim A₀ = 2`, `G7Data`'s kernel-field clause, and `β = ι ∘ β_ℂ` with `ι`
+  change), with `G7Data`'s kernel-field clause, and `β = ι ∘ β_ℂ` with `ι`
   injective. It rests only on:
   - the leaves R6 and I2-Tors (already in the bundles);
   - the textbook Prop `UnramRoots` (an unramified 4th root of an unramified character), used
@@ -18,7 +18,7 @@ g0-mod-field's construction of that data no local glue Prop remains.
   needed at all.
 
 **Compiles (VERIFIED).** `scratch/local-glue/LocalGlue.lean` (build.sh) exits 0 with no `sorry`;
-all 77 `#print axioms` lines are standard. `TailK.lean` (build_tail.sh) exits 0 with no `sorry`.
+all 78 `#print axioms` lines are standard. `TailK.lean` (build_tail.sh) exits 0 with no `sorry`.
 The packs and tail are restated on the construction: `G7LocalPackBC`, `g8LocalPack_of_BC`,
 `g15RamG_of_packBC`, `modularConstituent_tail_BC`.
 

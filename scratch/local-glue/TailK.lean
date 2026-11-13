@@ -1,4 +1,15 @@
-import Mathlib
+import Mathlib.RingTheory.NoetherNormalization
+import Mathlib.RingTheory.KrullDimension.Polynomial
+import Mathlib.RingTheory.KrullDimension.Field
+import Mathlib.RingTheory.Ideal.GoingUp
+import Mathlib.RingTheory.Ideal.HasGoingUp
+import Mathlib.Topology.KrullDimension
+import Mathlib.RingTheory.TensorProduct.Finite
+import Mathlib.RingTheory.FiniteStability
+import Mathlib.RingTheory.Flat.Basic
+import Mathlib.AlgebraicGeometry.Morphisms.FiniteType
+import Mathlib.AlgebraicGeometry.Morphisms.QuasiCompact
+import Mathlib.RingTheory.Spectrum.Prime.Topology
 import Mathlib.AlgebraicGeometry.AffineTransitionLimit
 import Mathlib.NumberTheory.NumberField.Completion.FinitePlace
 import ZInQKernel.HDecomp.ModCurves.Glue

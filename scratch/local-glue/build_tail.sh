@@ -4,7 +4,7 @@
 # verbatim copy of `G8LocalPack` (already in Tail.lean) + tail_glue.lean (§9).
 cd "$(dirname "$0")"
 {
-  echo "import Mathlib"
+  cat dim_imports.txt
   echo "import Mathlib.AlgebraicGeometry.AffineTransitionLimit"
   echo "import Mathlib.NumberTheory.NumberField.Completion.FinitePlace"
   cat ../local-data/Tail.lean

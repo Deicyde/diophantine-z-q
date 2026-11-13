@@ -9,13 +9,14 @@
 # mk_bc_block.sh) + part_raynaud.lean (§7c, new) + resq_block.lean (verbatim
 # scratch/g0-assemble/parts/75_modfield.lean l.786, l.895-985, renamed; mk_resq_block.sh)
 # + part_descent.lean (§7d, new) + part_twist.lean (§7e, new) + dim_block.lean (verbatim
-# scratch/g0-dim/Dim.lean l.23, l.107-305, l.339-343; mk_dim_block.sh; needs `import Mathlib`)
+# scratch/g0-dim/Dim.lean l.23, l.107-305, l.339-343; mk_dim_block.sh; its Mathlib imports, found
+# by a test compile, are in dim_imports.txt and are put first)
 # + part_bcdescent.lean (§7f, new)
 # + part_pack.lean (§8: verbatim `G8LocalPack` from
 # scratch/local-data/tail_part.lean, then new).
 cd "$(dirname "$0")"
 {
-  echo "import Mathlib"
+  cat dim_imports.txt
   echo "import Mathlib.AlgebraicGeometry.AffineTransitionLimit"
   echo "import Mathlib.NumberTheory.NumberField.Completion.FinitePlace"
   cat ../local-data/LocalData.lean
