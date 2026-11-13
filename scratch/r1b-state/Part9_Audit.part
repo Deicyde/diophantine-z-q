@@ -19,3 +19,5 @@
 #print axioms R1bState.fibreQMPeriod_of_r1b_T11a
 #print axioms R1bState.piOfQMLattice_of
 #print axioms R1bState.fibreQMPeriod_of_r1b_T11aHom
+#print axioms R1bState.familyOrbitsInv_of
+#print axioms R1bState.fibreQMPeriod_of_r1b_orbits

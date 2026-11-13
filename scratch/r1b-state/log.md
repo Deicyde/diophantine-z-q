@@ -71,3 +71,9 @@
   ι-equivariant isomorphism is algebraic by `T11aHom` existence + uniqueness, giving a `QMIso`),
   `fibreQMPeriod_of_r1b_T11aHom`. build.sh now sorts with `LC_ALL=C` (locale sort put Part8b
   before Part8_). 0 errors, no `sorry`; axioms standard (VERIFIED).
+- run35-38: Part8c_Orbits: `FamilyOrbits` split into `FamilyOrbitsInv` (Γ*-invariance) and
+  `FamilyOrbitsSep` (`familyOrbits_of_halves`); `familyOrbitsInv_of : T11aHom → R2OnC →
+  FamilyOrbitsInv` proved (M = μ⁻¹ι(x) : Λ_τ → Λ_{γτ}, inverse μι(y), twist `a ↦ yax` as a ring
+  automorphism `conjO` of 𝒪, homomorphisms from `T11aHom`, inverse and equivariant by
+  uniqueness); `fibreQMPeriod_of_r1b_orbits`. `μ` is a token under the opens (renamed). 0 errors,
+  no `sorry`; axioms standard (VERIFIED).
