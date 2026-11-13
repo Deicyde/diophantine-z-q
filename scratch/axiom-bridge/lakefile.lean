@@ -14,3 +14,16 @@ require Mordell from git
 
 @[default_target]
 lean_lib AxiomBridge
+
+-- These companion libraries are opt-in; root package dependencies are unchanged.
+-- Preserve each checked standalone module's name instead of renaming proof imports.
+lean_lib TateConsumers where
+  roots := #[`TateComparison, `ComposedPointTateSmoke, `TateFreeness, `TateRank]
+
+lean_lib FrobeniusAdapters where
+  srcDir := "../c10-frobenius"
+  roots := #[`C10Frobenius, `C10PrimeField, `C10FiniteField, `C10FieldPoints]
+
+lean_lib FrobeniusAdapterChecks where
+  srcDir := "../c10-frobenius"
+  roots := #[`Check, `CheckPrimeField, `CheckFiniteField, `CheckFieldPoints]
