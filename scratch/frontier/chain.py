@@ -351,7 +351,7 @@ def extra_defcheck():
             print(f"  {n:20s} {ra}:{pa} vs {rb}:{pb}: {'identical' if A and B and any(x in B for x in A) else 'DIFFERENT or missing'}")
 
 
-def doc_check(path="/home/jackmccarthy/dzq-wt/frontier/docs/research/frontier.md"):
+def doc_check(path="docs/research/frontier.md"):
     """Compare the list in frontier.md (rows | Z-n | , | T-n | , | H-n | ) with the scenario-F open set."""
     doc = open(path).read()
     names = {}

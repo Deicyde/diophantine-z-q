@@ -7,7 +7,7 @@ import re
 import subprocess
 import functools
 
-ROOT = "/home/jackmccarthy/dzq-wt/frontier"
+ROOT = "."
 
 
 @functools.lru_cache(maxsize=None)
