@@ -42,9 +42,11 @@ All three items below are VERIFIED.
    ```
 
 3. **S-alg and glue piece 5 of `GluePieces` (P2, `ProductModelHeight`) follow from T35 and
-   `TangentDimAtOrigin` alone.** `Combined.lean` checks this over product-height's own file.
-   `LeavesIntegrated.lean` checks it over `scratch/h-decomposition/Leaves.lean`'s own definitions
-   (§5).
+   `TangentDimAtOrigin` alone.** `Combined.lean` checks this over product-height's own file and the
+   kernel's definitions. `LeavesIntegrated.lean` checks it over
+   `scratch/h-decomposition/Leaves.lean`'s own definitions, with metrization's
+   `AnalyticUniformizationOfDim` in place of T35. In Leaves.lean, T35 is stated over a different
+   `AbVar` structure (a finding, §5).
 
    ```lean
    theorem ZInQ.UnifDims.productMetrizationOfProductUnif_of_tangentDim
