@@ -44,3 +44,6 @@
   commutes with `B` on `H₁(A(ℂ),ℚ)` (free of rank 1 over `B`), so `F_∞ ∈ B^op`, `F_∞² = 1`, hence
   `F_∞ = ±1` (division), contradicting eigenspaces `(2,2)`. So in the application every complex
   conjugation is outside `G_K`, and `ConjTwistOutside` carries all of G10's content.
+- 2026-11-13 04:39 §8 added: `qEmbRing_bijective`, `resQ_fix`, `range_stable`,
+  `exists_resQ_conj` (for `K/ℚ` Galois, `g resQ(σ) g⁻¹ ∈ resQ(G_K)`): compiles; axioms
+  [propext, Classical.choice, Quot.sound]. VERIFIED (compiled).

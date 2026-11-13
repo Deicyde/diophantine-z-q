@@ -1,8 +1,8 @@
 # g10-odd: the glue Prop `G10Glue` (oddness of `r_ℓ`)
 
-Task g10-odd, 2026-11-13. Lean: `scratch/g10-odd/G10Odd.lean` (515 lines; compiles with
+Task g10-odd, 2026-11-13. Lean: `scratch/g10-odd/G10Odd.lean` (602 lines; compiles with
 `lake env lean scratch/g10-odd/G10Odd.lean` after
-`lake build ZInQKernel.HDecomp.LeafPush2.T ZInQKernel.HDecomp.I3Linalg.C2`; no `sorry`; the six
+`lake build ZInQKernel.HDecomp.LeafPush2.T ZInQKernel.HDecomp.I3Linalg.C2`; no `sorry`; the seven
 main theorems use only `propext`, `Classical.choice`, `Quot.sound`). Log: `scratch/g10-odd/log.md`.
 
 ## Result
@@ -62,6 +62,13 @@ main theorems use only `propext`, `Classical.choice`, `Quot.sound`). Log: `scrat
    in the `E`-span of `W ⊗ 1`, read through an injective canonical map
    `E ⊗ Hom → Hom_E(E⊗H, E⊗H')`. Then `F = 0`. The ingredients are
    `mem_of_one_tmul_mem_span` (`(W ⊗ E) ∩ U = W`) and `eq_zero_of_holo_of_antiholo`.
+
+5. **`ConjTwistNontrivial` is not vacuous in its quantifier** (§8, VERIFIED, compiled):
+   `exists_resQ_conj`. For `K/ℚ` Galois and `g ∈ G_ℚ`, every `g σ g⁻¹` with `σ ∈ G_K` is
+   `resQ K τ` for some `τ ∈ G_K`, so the twist condition constrains every `σ`. The proof uses
+   `qEmbRing_bijective` (`ℚ̄ → K̄` is onto) and `range_stable` (the copy of `K` in `ℚ̄` is
+   `G_ℚ`-stable, from `Normal.splits`). Without normality the condition could hold vacuously, and
+   the Prop would claim more than the mathematics gives.
 
 ## The proof of `ConjTwistNontrivial` (STANDARD; not formalized)
 

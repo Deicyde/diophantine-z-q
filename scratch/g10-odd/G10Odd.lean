@@ -505,6 +505,92 @@ theorem t12_of_t12K (h : T12K_ComplexConjEigen) : ZInQ.LeafPush2.T12_ComplexConj
   obtain ⟨j, hj⟩ := hc
   exact h ℚ A g hg ℓ c (isComplexConj_resQ ℚ c j.toRingHom hj)
 
+/-! ## §8. Non-vacuity of the twist condition (proved)
+
+For `K/ℚ` Galois, every `c σ c⁻¹` with `σ ∈ G_K` is `resQ K τ` for some `τ ∈ G_K`, so the
+quantifier `∀ σ τ, resQ K τ = c * resQ K σ * c⁻¹ → …` in `ConjTwistNontrivial` constrains every
+`σ`, and the Prop says what its docstring says. -/
+
+/-- `qEmbRing K : ℚ̄ → K̄` is bijective (`K̄` is algebraic over `ℚ`). -/
+theorem qEmbRing_bijective (K : Type) [Field K] [NumberField K] :
+    Function.Bijective (qEmbRing K) := by
+  have halg : Algebra.IsAlgebraic ℚ (AlgebraicClosure K) :=
+    Algebra.IsAlgebraic.trans ℚ K (AlgebraicClosure K)
+  let g : AlgebraicClosure K →ₐ[ℚ] AlgebraicClosure ℚ := IsAlgClosed.lift
+  let h : AlgebraicClosure ℚ →ₐ[ℚ] AlgebraicClosure ℚ := (g.toRingHom.comp (qEmbRing K)).toRatAlgHom
+  have hb : Function.Bijective h := Algebra.IsAlgebraic.algHom_bijective h
+  refine ⟨(qEmbRing K).injective, fun z => ?_⟩
+  obtain ⟨x, hx⟩ := hb.2 (g z)
+  exact ⟨x, g.toRingHom.injective hx⟩
+
+/-- Elements of `ℚ̄` landing in `K` are fixed by `resQ K σ`. -/
+theorem resQ_fix (K : Type) [Field K] [NumberField K] (σ : Field.absoluteGaloisGroup K)
+    (u : AlgebraicClosure ℚ)
+    (hu : qEmbRing K u ∈ (algebraMap K (AlgebraicClosure K)).range) : resQ K σ u = u := by
+  obtain ⟨k, hk⟩ := hu
+  apply (qEmbRing K).injective
+  refine (resQ_spec K σ u).trans ?_
+  rw [← hk]
+  exact AlgEquiv.commutes (σ : AlgebraicClosure K ≃ₐ[K] AlgebraicClosure K) k
+
+/-- For `K/ℚ` Galois, the elements of `ℚ̄` landing in `K` form a `G_ℚ`-stable set. -/
+theorem range_stable (K : Type) [Field K] [NumberField K] [IsGalois ℚ K] (g : PkgI4.GQ)
+    (u : AlgebraicClosure ℚ)
+    (hu : qEmbRing K u ∈ (algebraMap K (AlgebraicClosure K)).range) :
+    qEmbRing K (g u) ∈ (algebraMap K (AlgebraicClosure K)).range := by
+  obtain ⟨k, hk⟩ := hu
+  have hsplit : ((minpoly ℚ k).map (algebraMap ℚ K)).Splits :=
+    Normal.splits (IsGalois.to_normal) k
+  have hp0 : (minpoly ℚ k).map (algebraMap ℚ K) ≠ 0 :=
+    Polynomial.map_ne_zero (minpoly.ne_zero (Algebra.IsIntegral.isIntegral k))
+  apply hsplit.mem_range_of_isRoot hp0
+  rw [Polynomial.map_map, Polynomial.IsRoot, Polynomial.eval_map]
+  have e1 : (algebraMap K (AlgebraicClosure K)).comp (algebraMap ℚ K) =
+      (qEmbRing K).comp (algebraMap ℚ (AlgebraicClosure ℚ)) := Subsingleton.elim _ _
+  have e2 : (g : AlgebraicClosure ℚ →+* AlgebraicClosure ℚ).comp
+      (algebraMap ℚ (AlgebraicClosure ℚ)) = algebraMap ℚ (AlgebraicClosure ℚ) :=
+    Subsingleton.elim _ _
+  have hu0 : Polynomial.eval₂ (algebraMap ℚ (AlgebraicClosure ℚ)) u (minpoly ℚ k) = 0 := by
+    apply (qEmbRing K).injective
+    rw [Polynomial.hom_eval₂, ← e1, ← hk, ← Polynomial.hom_eval₂, ← Polynomial.aeval_def,
+      minpoly.aeval, map_zero, map_zero]
+  rw [e1, ← Polynomial.hom_eval₂]
+  have : Polynomial.eval₂ (algebraMap ℚ (AlgebraicClosure ℚ)) (g u) (minpoly ℚ k) = 0 := by
+    have := Polynomial.hom_eval₂ (minpoly ℚ k) (algebraMap ℚ (AlgebraicClosure ℚ))
+      (g : AlgebraicClosure ℚ →+* AlgebraicClosure ℚ) u
+    rw [e2, hu0, map_zero] at this
+    exact this.symm
+  rw [this, map_zero]
+
+/-- **Non-vacuity of the twist condition (proved).** For `K/ℚ` Galois, `G_K` is normal in `G_ℚ`
+through `resQ`: every `g σ g⁻¹` (`σ ∈ G_K`, `g ∈ G_ℚ`) is `resQ K τ` for some `τ ∈ G_K`. -/
+theorem exists_resQ_conj (K : Type) [Field K] [NumberField K] [IsGalois ℚ K] (g : PkgI4.GQ)
+    (σ : Field.absoluteGaloisGroup K) : ∃ τ, resQ K τ = g * resQ K σ * g⁻¹ := by
+  let Φ : AlgebraicClosure ℚ ≃+* AlgebraicClosure K :=
+    RingEquiv.ofBijective (qEmbRing K) (qEmbRing_bijective K)
+  let h : PkgI4.GQ := g * resQ K σ * g⁻¹
+  let τr : AlgebraicClosure K ≃+* AlgebraicClosure K :=
+    (Φ.symm.trans (h : AlgebraicClosure ℚ ≃+* AlgebraicClosure ℚ)).trans Φ
+  have hfix : ∀ k : K, τr (algebraMap K (AlgebraicClosure K) k) =
+      algebraMap K (AlgebraicClosure K) k := by
+    intro k
+    obtain ⟨x₀, hx₀⟩ := (qEmbRing_bijective K).2 (algebraMap K (AlgebraicClosure K) k)
+    have hΦ : Φ.symm (algebraMap K (AlgebraicClosure K) k) = x₀ := by
+      rw [← hx₀]; exact Φ.symm_apply_apply x₀
+    have h1 := range_stable K g⁻¹ x₀ ⟨k, hx₀.symm⟩
+    have h2 : resQ K σ (g⁻¹ x₀) = g⁻¹ x₀ := resQ_fix K σ _ h1
+    have h3 : h x₀ = x₀ := by
+      change g (resQ K σ (g⁻¹ x₀)) = x₀
+      rw [h2]; exact AlgEquiv.apply_symm_apply g x₀
+    change Φ (h (Φ.symm (algebraMap K (AlgebraicClosure K) k))) = _
+    rw [hΦ, h3]; exact hx₀
+  refine ⟨AlgEquiv.ofRingEquiv (f := τr) hfix, ?_⟩
+  apply AlgEquiv.ext; intro x
+  apply (qEmbRing K).injective
+  refine (resQ_spec K _ x).trans ?_
+  change Φ (h (Φ.symm (Φ x))) = _
+  rw [Φ.symm_apply_apply]; rfl
+
 end G0Galois
 
 #print axioms G0Galois.g10Glue_of_conjTwist
@@ -513,3 +599,4 @@ end G0Galois
 #print axioms G0Galois.g10GlueConcrete_of_conjTwistFromLeaves
 #print axioms G0Galois.betti_skeleton
 #print axioms G0Galois.t12_of_t12K
+#print axioms G0Galois.exists_resQ_conj
