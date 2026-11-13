@@ -41,7 +41,7 @@ degrees, `[H_{d,4}:H'_d] = 2`, `H_d ⊆ H'_d`, and the `GenusData` bridges (`gNa
 cm-points' `Package` and x0-32's `X0`. `lake build ZInQKernel` also succeeds. There is no sorry and no
 axiom, and only `ThirdParty/TauCeti/NOTICE` among existing files was changed. `diffcheck2` reports
 MOD-UNNOTED 0 and NOTE-ONLY 0. The audit `scratch/ring-class/AuditBridge.lean` prints the standard three
-axioms for 27 declarations.
+axioms for 26 declarations.
 
 **What remains.**
 - The other cm-points leaves are CM/torsion statements, outside ring class field theory:
