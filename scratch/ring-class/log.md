@@ -116,3 +116,8 @@
 - 08:51 (VERIFIED, build success, axioms standard): `artin4_sq_apply_of_sq` (Artin symbols of squares in
   Pic(O_{n,4}) fix every √q ∈ H_{n,4}, q ∈ K_n) in RingClassGenus.lean; `fixes_iQ_of_actsAsArtin4_sq`
   (ρ acting on H_{n,4} as b² fixes iQ) in RingClassBridge.lean (now imports RingClassGenus).
+- 09:04 (VERIFIED, build success, axioms standard; from scratch G8): `tauH`, `conjGal` (τ g τ⁻¹ on H_{d,4}),
+  `isArithFrobAt_conjGal` (τ transports arithmetic Frobenius elements: Frob at Q ↦ Frob at τ(Q)),
+  `conjPrime`, `conjGal_artin4` (τ ∘ Art(c) ∘ τ⁻¹ = Art(c⁻¹): complex conjugation inverts Cl'), in
+  RingClassGenus.lean; `actsAsArtin4_conj` (ℚ̄ form for cm-points' ActsAsArtin4) in RingClassBridge.lean.
+  Pitfall: `set` again caused trouble (maxRecDepth); use obtain ⟨Q', hQ'⟩ : ∃ Q', Q' = … and maxRecDepth 10000.

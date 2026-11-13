@@ -75,4 +75,37 @@ theorem fixes_iQ_of_actsAsArtin4_sq {n : ℕ} [NeZero n] {ρ : ZInQ.Contrib.TYZG
   · have : iQ = -embed n (jK (QNeg n)) := by rw [h, neg_neg]
     rw [this, map_neg, hfix]
 
+open ZInQ.Contrib.TYZDecomp.CurveA ZInQ.RouteK.Rank5b TauCeti.GlobalNumberFields in
+/-- **Complex conjugation inverts `Cl'` in `ℚ̄`**: if `γ ∈ Gal(ℚ̄/ℚ)` is nontrivial on `K_n` and `ρ`
+acts on `H_{n,4}` as the Artin symbol of `c`, then `γργ⁻¹` acts as the Artin symbol of `c⁻¹`. -/
+theorem actsAsArtin4_conj {n : ℕ} [NeZero n] {γ ρ : ZInQ.Contrib.TYZGenus.CM.GalQ}
+    {c : Pic (O4 n)}
+    (hγ : γ (embed n (algebraMap (QNeg n) (SeparableClosure (QNeg n)) QuadraticAlgebra.omega)) ≠
+      embed n (algebraMap (QNeg n) (SeparableClosure (QNeg n)) QuadraticAlgebra.omega))
+    (hρ : ActsAsArtin4 ρ n c) : ActsAsArtin4 (γ * ρ * γ⁻¹) n c⁻¹ := by
+  have hb := (Algebra.IsAlgebraic.algHom_bijective₂ (embed n)
+    (IsAlgClosed.lift : Qbar →ₐ[ℚ] SeparableClosure (QNeg n))).1
+  set e := AlgEquiv.ofBijective (embed n) hb
+  set τ : SeparableClosure (QNeg n) ≃ₐ[ℚ] SeparableClosure (QNeg n) := e.trans (γ.trans e.symm)
+  have he : ∀ y, e y = embed n y := fun y => rfl
+  have hγτ : ∀ y, γ (embed n y) = embed n (τ y) := by
+    intro y
+    rw [← he, ← he]
+    simp [τ]
+  have hγτ' : ∀ y, γ⁻¹ (embed n y) = embed n (τ.symm y) := by
+    intro y
+    apply γ.injective
+    rw [show γ (γ⁻¹ (embed n y)) = embed n y from γ.apply_symm_apply _, hγτ, τ.apply_symm_apply]
+  have hneg : τ (algebraMap (QNeg n) (SeparableClosure (QNeg n)) QuadraticAlgebra.omega) =
+      -algebraMap (QNeg n) (SeparableClosure (QNeg n)) QuadraticAlgebra.omega := by
+    rcases tau_omega_cases τ with h | h
+    · exfalso; apply hγ; rw [hγτ, h]
+    · exact h
+  obtain ⟨σ, hσ, hτσ⟩ := exists_sigma_of_neg τ hneg
+  intro x
+  rw [AlgEquiv.mul_apply, AlgEquiv.mul_apply, hγτ']
+  have h1 := hρ ((tauH τ).symm x)
+  rw [coe_tauH_symm] at h1
+  rw [h1, hγτ, conj_artin4_apply τ σ hτσ hσ c x]
+
 end ZInQ.Contrib.TYZGenus.RingClassBridge
