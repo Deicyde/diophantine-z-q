@@ -1,0 +1,23 @@
+newAt32 : NewAt32
+heckeThetaNewform_of_atkinLi : AtkinLiTwistNew → ZInQ.GZDecomp.HeckeThetaNewform
+frozenTarget_of_sixContactMin_tyzThm35ReadingA_atkinLi_gzLeaves : ZInQ.SixContactMin →
+  ZInQ.Literature.TYZThm35ReadingA →
+    AtkinLiTwistNew → ZInQ.GZDecomp.FHNonvanishing → ZInQ.GZDecomp.GrossZagierHeegner → ZInQ.FrozenTarget
+newCM_of_newAt32_atkinLi : NewAt32 → AtkinLiTwistNew → NewCM
+def ZInQ.GZTheta.AtkinLiTwistNew : Prop :=
+∀ (M : ℕ) [inst : NeZero M] (g : HeckeRing.GL2.Newform M 2),
+  g.χ = 1 →
+    ∀ (r : ℕ) [inst_1 : NeZero r],
+      r % 4 = 1 →
+        Squarefree r →
+          r.Coprime M → CuspForm.twist ⇑(jacobiChar r) ⋯ ⋯ g.toCuspForm ∈ TauCeti.cuspFormsNew (M * r ^ 2) 2
+'ZInQ.GZTheta.newAt32' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.GZTheta.heckeThetaNewform_of_atkinLi' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.GZTheta.frozenTarget_of_sixContactMin_tyzThm35ReadingA_atkinLi_gzLeaves' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.GZTheta.frozenTarget_of_sixContactMin_tyzThm35ReadingA_newCM_gzLeaves' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.GZTheta.newCM_of_newAt32_atkinLi' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.GZTheta.false_of_newform_dvd_16' depends on axioms: [propext, Classical.choice, Quot.sound]

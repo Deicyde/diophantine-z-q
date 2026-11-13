@@ -40,6 +40,9 @@ Repository: https://github.com/TauCetiProject/TauCeti
   of them, AlgebraicGeometry/EllipticCurve/Projective/Prime.lean, is modified (see
   below); the others are copied unchanged apart from the mechanical changes described
   below.
+- Commit 5a01f5fe (as above): one module vendored unmodified by the Z-in-Q task
+  gz-theta, NumberTheory/ModularForms/Newforms/BadPrime/Vanishing.lean (list in
+  scratch/gz-theta/tc-modules.txt).
 
 Location in this repository
 ---------------------------
