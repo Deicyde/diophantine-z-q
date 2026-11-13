@@ -2541,10 +2541,9 @@ variable (p : ℕ) [Fact p.Prime]
 Prop. 13; UNVERIFIED numbering). For a finite Galois `F ⊆ ℚ̄_p` with lower ramification groups
 `G_i = ramSet F i` (pulled back to `G_{ℚ_p}`) and `g_i = ramCard F i`, some `G_n` is trivial and
 `∑_{i<n}(g_i − 1) ≤ e − 1 + e·v_p(e)` with `e = g_0`. Both parts are proved by t-different over
-complete DVRs (`PkgI6.hilbertDifferentFormula`, `PkgI6.differentBound`); what is open is the
-transport to `LadicCond`'s norm-defined filtrations (the valuation ring of `F`, its Galois group
-`Gal(F/ℚ_p)`, and `G_i` as Mathlib's `ValuationSubring`-free ideal form). The existence of `n`
-alone is already proved (`LadicCond.eventuallyTrivial`). -/
+complete DVRs (`PkgI6.hilbertDifferentFormula`, `PkgI6.differentBound`). This Prop is derived
+below from them and the transport `LadicDVRModel` (`hilbertSerre_of_model`). The existence of
+`n` alone is already proved (`LadicCond.eventuallyTrivial`). -/
 def HilbertSerreLadic : Prop :=
   ∀ F : Fld p, IsFinGal F → ∃ n : ℕ, ramSet F n ⊆ fixSet F ∧
     ∑ i ∈ Finset.range n, (ramCard F i - 1) ≤
@@ -2561,13 +2560,14 @@ def UpperBreakFix : Prop :=
 /-- **Glue (Serre, *Corps locaux* IV §3: `G^t ⊆ G^0`'s wild part for `t > 0`; UNVERIFIED
 numbering).** For `t > 0` every element of `G_{ℚ_p}^t` lies in wild inertia: `|σx − x| < |x|`
 for all `x ≠ 0`. (Proof: take `F` = the Galois closure of `ℚ_p(x)`; `σ|_F ∈ G^t(F) = G_{ψ(t)}(F)`
-with `ψ(t) > 0`, so `σ|_F ∈ G_1(F)`, and `σx/x ≡ 1 mod 𝔪_F` because `|F^×| = |ϖ|^ℤ`.) -/
+with `ψ(t) > 0`, so `σ|_F ∈ G_1(F)`, and `σx/x ≡ 1 mod 𝔪_F` because `|F^×| = |ϖ|^ℤ`.)
+Proved below (`upperWild`). -/
 def UpperWild : Prop :=
   ∀ t : ℝ, 0 < t → upperAbs p t ⊆ wildSet
 
 /-- **Glue (tame extensions; Serre, *Corps locaux* IV §2, Cor. 1-4 of Prop. 7: `G_1` is the
 `p`-Sylow subgroup of `G_0`; UNVERIFIED numbering).** If `F ⊆ ℚ̄_p` is finite Galois and `p` does
-not divide `e(F/ℚ_p)`, wild inertia fixes `F`. -/
+not divide `e(F/ℚ_p)`, wild inertia fixes `F`. Proved below (`wildFixTame`). -/
 def WildFixTame : Prop :=
   ∀ F : Fld p, IsFinGal F → ¬ p ∣ ramCard F 0 → wildSet ⊆ fixSet F
 
