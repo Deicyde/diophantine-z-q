@@ -31,8 +31,17 @@ theorem productModelHeight_of_salg'' (hH : DefFaltings.HodgeLatticeTheorem)
     (hD : ProductUnifDims) (hS : ProductHodgeSections) : ZInQ.H5Neron.ProductModelHeight :=
   productModelHeight_of_salg' hH hD jacDetDescends' hS
 
+/-- **P2 from `HodgeLatticeTheorem`, `ProductUnifDims` and metrization's `ProductLocalStructure`
+and `ProductHodgeLattice` (proved).** -/
+theorem productModelHeight_of_local (hH : DefFaltings.HodgeLatticeTheorem)
+    (hD : ProductUnifDims) (hLS : ZInQ.Metrization.ProductLocalStructure)
+    (hL : ZInQ.Metrization.ProductHodgeLattice) : ZInQ.H5Neron.ProductModelHeight :=
+  ZInQ.ProductHeight.productModelHeight_of_splits productUnifSplits
+    (productMetrizationOfProductUnif_of_local hH hD hLS hL)
+
 end ZInQ.ProductUnif
 
+#print axioms ZInQ.ProductUnif.productModelHeight_of_local
 #print axioms ZInQ.ProductUnif.productModelHeight_of_salg''
 #print axioms ZInQ.ProductUnif.productUnifSplits
 #print axioms ZInQ.ProductUnif.productModelHeight_of_salg'

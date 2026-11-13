@@ -17,7 +17,8 @@ Task product-unif. Imports only the kernel module `ZInQKernel.HDecomp.Faltings.H
 * §1 Elementary analysis (copied from `Analysis.lean`, Mathlib only).
 * §2 Points of an affine open are determined by the values of its regular functions.
 * §3 **`productUnifSplits : ProductUnifSplits`** (proved).
-* §3b metrization's proof of `JacDetDescends` (copied from `JacDet.lean`).
+* §3b metrization's `jacDetDescends`, `productJacobian`, `productUniformizationAnalytic_of`
+  (copied from `ProdJac.lean`, itself verbatim from `scratch/metrization/`).
 * §4 S-alg: reduction. -/
 
 namespace ZInQ.ProductHeight
@@ -1053,7 +1054,7 @@ end Splits
 
 end ZInQ.ProductUnif
 
-/-! ## §3b. metrization's proof of `JacDetDescends`, on the kernel's types
+/-! ## §3b. metrization's `JacDetDescends`, `productJacobian`, `productUniformizationAnalytic_of`, on the kernel's types
 
 Verbatim copies (only `open PkgI3 (AbVar)` added after each `open … DefFaltings …` line, and
 `#print` lines dropped) from `scratch/metrization/`: `part_exists.lean` lines 30-43 (the Prop
@@ -1665,6 +1666,539 @@ theorem jacDetDescends : JacDetDescends :=
 end ZInQ.Metrization
 
 
+/-! Further verbatim copies from `scratch/metrization/` (only `open PkgI3 (AbVar)` added, the
+declarations after the cut points dropped): `part_prodgeo.lean` up to `ProductLatticeFacts`
+(exclusive), `part_prodlat.lean` up to `blockLinearEquiv` (exclusive), `part_produnif.lean` up to
+`productUniformization_of` (exclusive), `part_prodsplit.lean` up to `productHodgeCompat_of`
+(exclusive), `part_prodjac.lean` up to `productMetrizationGeo_of'''` (exclusive),
+`part_produnif2.lean` up to `productMetrizationGeo_of_local` (exclusive). -/
+
+
+/-! ## metrization (2026-11-13): `ProductMetrizationGeo` reduced
+
+`ProductMetrizationGeo` (P2a-geo) follows from `JacDetDescends` (shared with `MetrizationExists`),
+`ProductUniformization` (glue: `Φ₁ × Φ₂` is an analytic uniformization of the product model),
+`ProductLatticeFacts` (pure Mathlib glue: `Λ₁ × Λ₂` is a full lattice and covolumes multiply)
+and `ProductHodgeCompat` (glue: `⋀^{top}ω_{𝒢P} = ⋀ω₁ ⊗ ⋀ω₂` with the block-diagonal Jacobian). -/
+
+namespace ZInQ.Metrization
+
+open CategoryTheory AlgebraicGeometry Limits MonoidalCategory CartesianMonoidalCategory MonObj
+open NumberField DefFaltings
+open PkgI3 (AbVar)
+
+/-- The first `g₁` coordinates of `ℂ^{g₁+g₂}`. -/
+noncomputable def leftBlock (g₁ g₂ : ℕ) : (Fin (g₁ + g₂) → ℂ) →ₗ[ℂ] (Fin g₁ → ℂ) :=
+  LinearMap.pi fun i => LinearMap.proj (Fin.castAdd g₂ i)
+
+/-- The last `g₂` coordinates of `ℂ^{g₁+g₂}`. -/
+noncomputable def rightBlock (g₁ g₂ : ℕ) : (Fin (g₁ + g₂) → ℂ) →ₗ[ℂ] (Fin g₂ → ℂ) :=
+  LinearMap.pi fun j => LinearMap.proj (Fin.natAdd g₁ j)
+
+/-- The product lattice `Λ₁ × Λ₂ ⊂ ℂ^{g₁} × ℂ^{g₂} = ℂ^{g₁+g₂}` (coordinates `Fin.append`). -/
+noncomputable def prodLattice {g₁ g₂ : ℕ} (Λ₁ : Submodule ℤ (Fin g₁ → ℂ))
+    (Λ₂ : Submodule ℤ (Fin g₂ → ℂ)) : Submodule ℤ (Fin (g₁ + g₂) → ℂ) :=
+  Λ₁.comap (leftBlock g₁ g₂).toAddMonoidHom.toIntLinearMap ⊓
+    Λ₂.comap (rightBlock g₁ g₂).toAddMonoidHom.toIntLinearMap
+
+/-- The product map `ℂ^{g₁+g₂} → 𝒢₁(ℂ)_τ × 𝒢₂(ℂ)_τ ≅ 𝒢P(ℂ)_τ`, `z ↦ e⁻¹(Φ₁(z'), Φ₂(z''))`. -/
+noncomputable def prodPts {K : Type} [Field K] {A B C : AbVar K} {L : Type} [Field L]
+    [NumberField L] [Algebra K L] {𝒢P : GroupModel C L} {𝒢₁ : GroupModel A L}
+    {𝒢₂ : GroupModel B L} (e : 𝒢P.G ≅ 𝒢₁.G ⊗ 𝒢₂.G) {τ : L →+* ℂ} {g₁ g₂ : ℕ}
+    (Φ₁ : (Fin g₁ → ℂ) → 𝒢₁.Pts τ) (Φ₂ : (Fin g₂ → ℂ) → 𝒢₂.Pts τ) :
+    (Fin (g₁ + g₂) → ℂ) → 𝒢P.Pts τ :=
+  fun z => lift (Φ₁ (leftBlock g₁ g₂ z)) (Φ₂ (rightBlock g₁ g₂ z)) ≫ e.inv
+
+end ZInQ.Metrization
+
+
+/-! ## metrization: `ProductLatticeFacts`, proved (body of ProdLattice.lean, section Proof) -/
+
+namespace ZInQ.Metrization
+
+open MeasureTheory
+
+section Proof
+
+variable {g₁ g₂ : ℕ}
+
+@[simp] theorem leftBlock_apply (z : Fin (g₁ + g₂) → ℂ) (i : Fin g₁) :
+    leftBlock g₁ g₂ z i = z (Fin.castAdd g₂ i) := rfl
+
+@[simp] theorem rightBlock_apply (z : Fin (g₁ + g₂) → ℂ) (j : Fin g₂) :
+    rightBlock g₁ g₂ z j = z (Fin.natAdd g₁ j) := rfl
+
+theorem mem_prodLattice {Λ₁ : Submodule ℤ (Fin g₁ → ℂ)} {Λ₂ : Submodule ℤ (Fin g₂ → ℂ)}
+    {z : Fin (g₁ + g₂) → ℂ} :
+    z ∈ prodLattice Λ₁ Λ₂ ↔ leftBlock g₁ g₂ z ∈ Λ₁ ∧ rightBlock g₁ g₂ z ∈ Λ₂ := Iff.rfl
+
+theorem eq_of_blocks {z w : Fin (g₁ + g₂) → ℂ} (h1 : leftBlock g₁ g₂ z = leftBlock g₁ g₂ w)
+    (h2 : rightBlock g₁ g₂ z = rightBlock g₁ g₂ w) : z = w := by
+  funext k
+  refine Fin.addCases (fun i => ?_) (fun j => ?_) k
+  · exact congrFun h1 i
+  · exact congrFun h2 j
+
+@[simp] theorem leftBlock_append (x : Fin g₁ → ℂ) (y : Fin g₂ → ℂ) :
+    leftBlock g₁ g₂ (Fin.append x y) = x := by
+  funext i; simp
+
+@[simp] theorem rightBlock_append (x : Fin g₁ → ℂ) (y : Fin g₂ → ℂ) :
+    rightBlock g₁ g₂ (Fin.append x y) = y := by
+  funext j; simp
+
+end Proof
+
+end ZInQ.Metrization
+
+
+/-! ## metrization: the algebraic half of `ProductUniformization`, proved
+
+`prodPts e Φ₁ Φ₂` is a surjective homomorphism with kernel `Λ₁ × Λ₂` (from `e` and the universal
+property of `⊗`); `ProductUniformization` is reduced to `ProductUniformizationAnalytic` (openness
+of `dom` and holomorphy). -/
+
+namespace ZInQ.Metrization
+
+open CategoryTheory AlgebraicGeometry Limits MonoidalCategory CartesianMonoidalCategory MonObj
+open NumberField DefFaltings
+open PkgI3 (AbVar)
+
+section ProdPtsAlg
+
+variable {K : Type} [Field K] {A B C : AbVar K} {L : Type} [Field L] [NumberField L]
+  [Algebra K L] {𝒢P : GroupModel C L} {𝒢₁ : GroupModel A L} {𝒢₂ : GroupModel B L}
+  (e : 𝒢P.G ≅ 𝒢₁.G ⊗ 𝒢₂.G) {τ : L →+* ℂ} {g₁ g₂ : ℕ}
+
+theorem prodPts_comp_fst (Φ₁ : (Fin g₁ → ℂ) → 𝒢₁.Pts τ) (Φ₂ : (Fin g₂ → ℂ) → 𝒢₂.Pts τ)
+    (z : Fin (g₁ + g₂) → ℂ) : prodPts e Φ₁ Φ₂ z ≫ e.hom ≫ fst _ _ = Φ₁ (leftBlock g₁ g₂ z) := by
+  simp [prodPts]
+
+theorem prodPts_comp_snd (Φ₁ : (Fin g₁ → ℂ) → 𝒢₁.Pts τ) (Φ₂ : (Fin g₂ → ℂ) → 𝒢₂.Pts τ)
+    (z : Fin (g₁ + g₂) → ℂ) : prodPts e Φ₁ Φ₂ z ≫ e.hom ≫ snd _ _ = Φ₂ (rightBlock g₁ g₂ z) := by
+  simp [prodPts]
+
+theorem pts_ext {p q : 𝒢P.Pts τ} (h1 : p ≫ e.hom ≫ fst _ _ = q ≫ e.hom ≫ fst _ _)
+    (h2 : p ≫ e.hom ≫ snd _ _ = q ≫ e.hom ≫ snd _ _) : p = q := by
+  rw [← cancel_mono e.hom]
+  apply CartesianMonoidalCategory.hom_ext
+  · simpa using h1
+  · simpa using h2
+
+/-- **The algebraic clauses of `IsAnalyticUniformization` for `prodPts` (proved).** -/
+theorem prodPts_alg (hfst : IsMonHom (e.hom ≫ fst _ _)) (hsnd : IsMonHom (e.hom ≫ snd _ _))
+    {Λ₁ : Submodule ℤ (Fin g₁ → ℂ)} {Λ₂ : Submodule ℤ (Fin g₂ → ℂ)}
+    {Φ₁ : (Fin g₁ → ℂ) → 𝒢₁.Pts τ} {Φ₂ : (Fin g₂ → ℂ) → 𝒢₂.Pts τ}
+    (h₁ : 𝒢₁.IsAnalyticUniformization τ Λ₁ Φ₁) (h₂ : 𝒢₂.IsAnalyticUniformization τ Λ₂ Φ₂) :
+    (∀ z w, prodPts e Φ₁ Φ₂ (z + w) = prodPts e Φ₁ Φ₂ z * prodPts e Φ₁ Φ₂ w) ∧
+    (∀ z, prodPts e Φ₁ Φ₂ z = 1 ↔ z ∈ prodLattice Λ₁ Λ₂) ∧
+    Function.Surjective (prodPts e Φ₁ Φ₂) := by
+  refine ⟨fun z w => ?_, fun z => ?_, fun p => ?_⟩
+  · apply pts_ext e
+    · rw [MonObj.mul_comp, prodPts_comp_fst, prodPts_comp_fst, prodPts_comp_fst, map_add,
+        h₁.1]
+    · rw [MonObj.mul_comp, prodPts_comp_snd, prodPts_comp_snd, prodPts_comp_snd, map_add,
+        h₂.1]
+  · constructor
+    · intro h
+      have e1 : Φ₁ (leftBlock g₁ g₂ z) = 1 := by
+        rw [← prodPts_comp_fst e Φ₁ Φ₂ z, h, MonObj.one_comp]
+      have e2 : Φ₂ (rightBlock g₁ g₂ z) = 1 := by
+        rw [← prodPts_comp_snd e Φ₁ Φ₂ z, h, MonObj.one_comp]
+      exact mem_prodLattice.mpr ⟨(h₁.2.1 _).mp e1, (h₂.2.1 _).mp e2⟩
+    · intro hz
+      obtain ⟨hz1, hz2⟩ := mem_prodLattice.mp hz
+      apply pts_ext e
+      · rw [prodPts_comp_fst, MonObj.one_comp, (h₁.2.1 _).mpr hz1]
+      · rw [prodPts_comp_snd, MonObj.one_comp, (h₂.2.1 _).mpr hz2]
+  · obtain ⟨x, hx⟩ := h₁.2.2.1 (p ≫ e.hom ≫ fst _ _)
+    obtain ⟨y, hy⟩ := h₂.2.2.1 (p ≫ e.hom ≫ snd _ _)
+    refine ⟨Fin.append x y, pts_ext e ?_ ?_⟩
+    · rw [prodPts_comp_fst, leftBlock_append, hx]
+    · rw [prodPts_comp_snd, rightBlock_append, hy]
+
+end ProdPtsAlg
+
+/-- **Glue (the analytic half of the product uniformization).** With the hypotheses of
+`ProductUniformization`: each `dom (prodPts e Φ₁ Φ₂) U` is open and each regular function on `U`
+is holomorphic along `prodPts e Φ₁ Φ₂` there. Why true: as in `ProductUniformization` (basic opens
+`D(h)` of products of affine opens; regular functions `a/hⁿ`, `a, h ∈ R₁ ⊗_{𝓞_L} R₂`). STANDARD,
+unproved. -/
+def ProductUniformizationAnalytic : Prop :=
+  ∀ (K : Type) [Field K] (A B C : AbVar K) (L : Type) [Field L] [NumberField L] [Algebra K L]
+    (𝒢P : GroupModel C L) (𝒢₁ : GroupModel A L) (𝒢₂ : GroupModel B L)
+    (e : 𝒢P.G ≅ 𝒢₁.G ⊗ 𝒢₂.G), IsMonHom (e.hom ≫ fst _ _) → IsMonHom (e.hom ≫ snd _ _) →
+    ∀ (τ : L →+* ℂ) (g₁ g₂ : ℕ) (Λ₁ : Submodule ℤ (Fin g₁ → ℂ)) (Λ₂ : Submodule ℤ (Fin g₂ → ℂ))
+      (Φ₁ : (Fin g₁ → ℂ) → 𝒢₁.Pts τ) (Φ₂ : (Fin g₂ → ℂ) → 𝒢₂.Pts τ),
+      𝒢₁.IsAnalyticUniformization τ Λ₁ Φ₁ → 𝒢₂.IsAnalyticUniformization τ Λ₂ Φ₂ →
+      (∀ U, IsOpen (𝒢P.dom (prodPts e Φ₁ Φ₂) U)) ∧
+      (∀ U (s : Γ(𝒢P.G.left, U)), DifferentiableOn ℂ
+        (fun z => 𝒢P.evalAt (prodPts e Φ₁ Φ₂ z) U s) (𝒢P.dom (prodPts e Φ₁ Φ₂) U))
+
+end ZInQ.Metrization
+
+
+/-! ## metrization: `ProductHodgeCompat` split into an algebraic and an analytic Prop
+
+`pullGerm φ : 𝒪_{ℋ,ξ} → 𝒪_{𝒢,ξ}` (pull-back of germs along a homomorphism of group models; it
+needs `φ(ξ_𝒢) = ξ_ℋ`, proved from `IsMonHom`). `ProductHodgeLattice` (algebra: `s = p₁*s₁ ∧ p₂*s₂`
+lies in the lattice with multiplicative index) and `ProductJacobian` (analysis: block-diagonal
+Jacobian) give `ProductHodgeCompat` (with `ProductUniformization`). -/
+
+namespace ZInQ.Metrization
+
+open CategoryTheory AlgebraicGeometry Limits MonoidalCategory CartesianMonoidalCategory MonObj
+open NumberField DefFaltings
+open PkgI3 (AbVar)
+
+section Pull
+
+variable {K : Type} [Field K] {A C : AbVar K} {L : Type} [Field L] [NumberField L] [Algebra K L]
+
+/-- A homomorphism of group models maps the identity `ξ` of the generic fibre to `ξ` (proved). -/
+theorem map_genericUnit_of_isMonHom {𝒢 : GroupModel C L} {ℋ : GroupModel A L} (φ : 𝒢.G ⟶ ℋ.G)
+    [IsMonHom φ] : φ.left 𝒢.genericUnit = ℋ.genericUnit := by
+  have h1 : η[𝒢.G] ≫ φ = η[ℋ.G] := IsMonHom.one_hom φ
+  have h2 : (η[𝒢.G]).left ≫ φ.left = (η[ℋ.G]).left := by rw [← Over.comp_left, h1]
+  show φ.left ((η[𝒢.G]).left (genericPt L)) = (η[ℋ.G]).left (genericPt L)
+  rw [← h2]
+  rfl
+
+/-- Pull-back of germs at `ξ` along a homomorphism of group models: `𝒪_{ℋ,ξ} → 𝒪_{𝒢,ξ}`. -/
+noncomputable def pullGerm {𝒢 : GroupModel C L} {ℋ : GroupModel A L} (φ : 𝒢.G ⟶ ℋ.G)
+    [IsMonHom φ] : ℋ.genStalk ⟶ 𝒢.genStalk :=
+  ℋ.G.left.presheaf.stalkSpecializes
+      ((congrArg (fun x => x ⤳ ℋ.genericUnit) (map_genericUnit_of_isMonHom φ)).mpr
+        specializes_rfl) ≫
+    φ.left.stalkMap 𝒢.genericUnit
+
+end Pull
+
+/-- **Glue (algebra: the Hodge lattice of a product).** For `e : 𝒢P ≅ M₁.model × M₂.model` with
+homomorphic components: `hodgeSpace (g₁+g₂)` of `𝒢P` is a line, and there are germ tuples
+`f₁, f₂` and their pull-backs `f = (p₁*f₁, p₂*f₂)`, and `a₁, a₂ ∈ L`, such that `sᵢ = aᵢ · 1⊗dfᵢ`
+are nonzero elements of `⋀ω_{𝒢ᵢ}`, `s = a₁a₂ · 1⊗df` is a nonzero element of `⋀ω_{𝒢P}`, and
+`[⋀ω_{𝒢P} : 𝓞s] = [⋀ω₁ : 𝓞s₁]·[⋀ω₂ : 𝓞s₂]`. Why true (STANDARD): `ω_{𝒢P} = p₁*ω₁ ⊕ p₂*ω₂` and
+`𝔪_ξ/𝔪_ξ² = p₁*C₁ ⊕ p₂*C₂` for a product of smooth group schemes (EGA IV 17.2.3, UNVERIFIED
+locator), so `⋀^{g₁+g₂}` is the tensor product of the two lines; for invertible `𝓞_L`-modules
+indices multiply (norms of ideals). Unproved (stalks and differentials of fibre products are
+not in Mathlib). -/
+def ProductHodgeLattice : Prop :=
+  ∀ (K : Type) [Field K] (A B C : AbVar K) (L : Type) [Field L] [NumberField L] [Algebra K L]
+    (𝒢P : GroupModel C L) (g₁ g₂ : ℕ) (M₁ : MetrizedModel A L g₁) (M₂ : MetrizedModel B L g₂)
+    (e : 𝒢P.G ≅ M₁.model.G ⊗ M₂.model.G) (hfst : IsMonHom (e.hom ≫ fst _ _))
+    (hsnd : IsMonHom (e.hom ≫ snd _ _)),
+    Module.finrank L (𝒢P.hodgeSpace (g₁ + g₂)) = 1 ∧
+    ∃ (f₁ : Fin g₁ → IsLocalRing.maximalIdeal M₁.model.genStalk)
+      (f₂ : Fin g₂ → IsLocalRing.maximalIdeal M₂.model.genStalk)
+      (f : Fin (g₁ + g₂) → IsLocalRing.maximalIdeal 𝒢P.genStalk) (a₁ a₂ : L),
+      (∀ i, (f (Fin.castAdd g₂ i) : 𝒢P.genStalk) = (pullGerm (e.hom ≫ fst _ _)).hom (f₁ i)) ∧
+      (∀ j, (f (Fin.natAdd g₁ j) : 𝒢P.genStalk) = (pullGerm (e.hom ≫ snd _ _)).hom (f₂ j)) ∧
+      a₁ • M₁.model.wedge f₁ ∈ M₁.hodge.lattice ∧ a₁ • M₁.model.wedge f₁ ≠ 0 ∧
+      a₂ • M₂.model.wedge f₂ ∈ M₂.hodge.lattice ∧ a₂ • M₂.model.wedge f₂ ≠ 0 ∧
+      (a₁ * a₂) • 𝒢P.wedge f ∈ 𝒢P.detLattice (g₁ + g₂) ∧ (a₁ * a₂) • 𝒢P.wedge f ≠ 0 ∧
+      secIndex (𝒢P.detLattice (g₁ + g₂)) ((a₁ * a₂) • 𝒢P.wedge f) =
+        secIndex M₁.hodge.lattice (a₁ • M₁.model.wedge f₁) *
+          secIndex M₂.hodge.lattice (a₂ • M₂.model.wedge f₂)
+
+/-- **Glue (analysis: the Jacobian of the product uniformization is block diagonal).** If
+`prodPts e Φ₁ Φ₂` is an analytic uniformization and `f = (p₁*f₁, p₂*f₂)`, then
+`jacDet (prodPts e Φ₁ Φ₂) f = jacDet Φ₁ f₁ · jacDet Φ₂ f₂`. Why true: `p₁ ∘ prodPts = Φ₁ ∘ leftBlock`
+(`prodPts_comp_fst`), so near `0` the germ `(p₁*f₁ᵢ) ∘ prodPts` is `f₁ᵢ ∘ Φ₁ ∘ leftBlock` (the
+representatives agree on an open `V ∋ ξ` and `dom (prodPts) V` is open), whose derivative
+vanishes on the last `g₂` coordinates; the matrix is block diagonal (`Matrix.det_fromBlocks_zero₂₁`
+after `finSumFinEquiv`). Elementary, unproved (needs the `evalAt`/stalk compatibilities of
+`JacDetMultilinear` and functoriality of `evalAt` along morphisms). -/
+def ProductJacobian : Prop :=
+  ∀ (K : Type) [Field K] (A B C : AbVar K) (L : Type) [Field L] [NumberField L] [Algebra K L]
+    (𝒢P : GroupModel C L) (𝒢₁ : GroupModel A L) (𝒢₂ : GroupModel B L)
+    (e : 𝒢P.G ≅ 𝒢₁.G ⊗ 𝒢₂.G) (hfst : IsMonHom (e.hom ≫ fst _ _))
+    (hsnd : IsMonHom (e.hom ≫ snd _ _))
+    (τ : L →+* ℂ) (g₁ g₂ : ℕ) (Λ₁ : Submodule ℤ (Fin g₁ → ℂ)) (Λ₂ : Submodule ℤ (Fin g₂ → ℂ))
+    (Φ₁ : (Fin g₁ → ℂ) → 𝒢₁.Pts τ) (Φ₂ : (Fin g₂ → ℂ) → 𝒢₂.Pts τ),
+    𝒢₁.IsAnalyticUniformization τ Λ₁ Φ₁ → 𝒢₂.IsAnalyticUniformization τ Λ₂ Φ₂ →
+    𝒢P.IsAnalyticUniformization τ (prodLattice Λ₁ Λ₂) (prodPts e Φ₁ Φ₂) →
+    ∀ (f₁ : Fin g₁ → IsLocalRing.maximalIdeal 𝒢₁.genStalk)
+      (f₂ : Fin g₂ → IsLocalRing.maximalIdeal 𝒢₂.genStalk)
+      (f : Fin (g₁ + g₂) → IsLocalRing.maximalIdeal 𝒢P.genStalk),
+      (∀ i, (f (Fin.castAdd g₂ i) : 𝒢P.genStalk) = (pullGerm (e.hom ≫ fst _ _)).hom (f₁ i)) →
+      (∀ j, (f (Fin.natAdd g₁ j) : 𝒢P.genStalk) = (pullGerm (e.hom ≫ snd _ _)).hom (f₂ j)) →
+      𝒢P.jacDet (prodPts e Φ₁ Φ₂) f = 𝒢₁.jacDet Φ₁ f₁ * 𝒢₂.jacDet Φ₂ f₂
+
+end ZInQ.Metrization
+
+
+/-! ## metrization: `ProductJacobian`, proved (block-diagonal Jacobian of `prodPts`) -/
+
+namespace ZInQ.Metrization
+
+open CategoryTheory AlgebraicGeometry Limits MonoidalCategory CartesianMonoidalCategory MonObj
+open NumberField DefFaltings Topology
+open PkgI3 (AbVar)
+
+section ProdJac
+
+variable {K : Type} [Field K] {A B C : AbVar K} {L : Type} [Field L] [NumberField L]
+  [Algebra K L]
+
+/-- Pull-back of a germ is the germ of the pulled-back section. -/
+theorem pullGerm_germ {𝒢 : GroupModel C L} {ℋ : GroupModel A L} (φ : 𝒢.G ⟶ ℋ.G) [IsMonHom φ]
+    (U : ℋ.G.left.Opens) (m : ℋ.genericUnit ∈ U) (s : Γ(ℋ.G.left, U)) :
+    (pullGerm φ).hom (ℋ.G.left.presheaf.germ U ℋ.genericUnit m s) =
+      𝒢.G.left.presheaf.germ (φ.left ⁻¹ᵁ U) 𝒢.genericUnit
+        (by show φ.left 𝒢.genericUnit ∈ U; rw [map_genericUnit_of_isMonHom φ]; exact m)
+        (φ.left.app U s) := by
+  unfold pullGerm
+  rw [ConcreteCategory.comp_apply, TopCat.Presheaf.germ_stalkSpecializes_apply,
+    Scheme.Hom.germ_stalkMap_apply]
+
+/-- `evalAt` along a morphism of models. -/
+theorem evalAt_comp {𝒢 : GroupModel C L} {ℋ : GroupModel A L} (φ : 𝒢.G ⟶ ℋ.G) {τ : L →+* ℂ}
+    (p : 𝒢.Pts τ) (U : ℋ.G.left.Opens) (s : Γ(ℋ.G.left, U))
+    (hp : ⊤ ≤ p.left ⁻¹ᵁ (φ.left ⁻¹ᵁ U)) :
+    𝒢.evalAt p (φ.left ⁻¹ᵁ U) (φ.left.app U s) = ℋ.evalAt (p ≫ φ) U s := by
+  have hp' : ⊤ ≤ (p ≫ φ).left ⁻¹ᵁ U := hp
+  unfold GroupModel.evalAt
+  rw [dif_pos hp, dif_pos hp']
+  rw [show (p ≫ φ).left.appLE U ⊤ hp' = φ.left.app U ≫ p.left.appLE (φ.left ⁻¹ᵁ U) ⊤ hp from
+    Scheme.Hom.comp_appLE p.left φ.left U ⊤ hp']
+  rfl
+
+variable {𝒢P : GroupModel C L} {𝒢₁ : GroupModel A L} {𝒢₂ : GroupModel B L}
+  (e : 𝒢P.G ≅ 𝒢₁.G ⊗ 𝒢₂.G) [IsMonHom (e.hom ≫ fst _ _)] [IsMonHom (e.hom ≫ snd _ _)]
+  {τ : L →+* ℂ} {g₁ g₂ : ℕ} {Λ₁ : Submodule ℤ (Fin g₁ → ℂ)} {Λ₂ : Submodule ℤ (Fin g₂ → ℂ)}
+  {Φ₁ : (Fin g₁ → ℂ) → 𝒢₁.Pts τ} {Φ₂ : (Fin g₂ → ℂ) → 𝒢₂.Pts τ}
+
+theorem germAlong_pull_fst_eventuallyEq (hΦ₁ : 𝒢₁.IsAnalyticUniformization τ Λ₁ Φ₁)
+    (hΦP : 𝒢P.IsAnalyticUniformization τ (prodLattice Λ₁ Λ₂) (prodPts e Φ₁ Φ₂))
+    (t : 𝒢₁.genStalk) :
+    𝒢P.germAlong (prodPts e Φ₁ Φ₂) ((pullGerm (e.hom ≫ fst _ _)).hom t) =ᶠ[𝓝 0]
+      fun z => 𝒢₁.germAlong Φ₁ t (leftBlock g₁ g₂ z) := by
+  obtain ⟨U, m, s, rfl⟩ := 𝒢₁.exists_rep t
+  rw [pullGerm_germ]
+  have ht : Filter.Tendsto (leftBlock g₁ g₂) (𝓝 0) (𝓝 0) :=
+    (leftBlock g₁ g₂).continuous_of_finiteDimensional.tendsto' 0 0 (map_zero _)
+  filter_upwards [germAlong_eventuallyEq 𝒢P hΦP _ _ _,
+    (germAlong_eventuallyEq 𝒢₁ hΦ₁ U m s).comp_tendsto ht,
+    (hΦP.2.2.2.1 _).mem_nhds (zero_mem_dom 𝒢P hΦP ((e.hom ≫ fst _ _).left ⁻¹ᵁ U)
+      (by show (e.hom ≫ fst _ _).left 𝒢P.genericUnit ∈ U
+          rw [map_genericUnit_of_isMonHom]; exact m))] with z h1 h2 hz
+  have h2' : 𝒢₁.germAlong Φ₁ (𝒢₁.G.left.presheaf.germ U 𝒢₁.genericUnit m s) (leftBlock g₁ g₂ z) =
+      𝒢₁.evalAt (Φ₁ (leftBlock g₁ g₂ z)) U s := h2
+  rw [h1, h2', evalAt_comp _ _ _ _ hz, prodPts_comp_fst]
+
+theorem germAlong_pull_snd_eventuallyEq (hΦ₂ : 𝒢₂.IsAnalyticUniformization τ Λ₂ Φ₂)
+    (hΦP : 𝒢P.IsAnalyticUniformization τ (prodLattice Λ₁ Λ₂) (prodPts e Φ₁ Φ₂))
+    (t : 𝒢₂.genStalk) :
+    𝒢P.germAlong (prodPts e Φ₁ Φ₂) ((pullGerm (e.hom ≫ snd _ _)).hom t) =ᶠ[𝓝 0]
+      fun z => 𝒢₂.germAlong Φ₂ t (rightBlock g₁ g₂ z) := by
+  obtain ⟨U, m, s, rfl⟩ := 𝒢₂.exists_rep t
+  rw [pullGerm_germ]
+  have ht : Filter.Tendsto (rightBlock g₁ g₂) (𝓝 0) (𝓝 0) :=
+    (rightBlock g₁ g₂).continuous_of_finiteDimensional.tendsto' 0 0 (map_zero _)
+  filter_upwards [germAlong_eventuallyEq 𝒢P hΦP _ _ _,
+    (germAlong_eventuallyEq 𝒢₂ hΦ₂ U m s).comp_tendsto ht,
+    (hΦP.2.2.2.1 _).mem_nhds (zero_mem_dom 𝒢P hΦP ((e.hom ≫ snd _ _).left ⁻¹ᵁ U)
+      (by show (e.hom ≫ snd _ _).left 𝒢P.genericUnit ∈ U
+          rw [map_genericUnit_of_isMonHom]; exact m))] with z h1 h2 hz
+  have h2' : 𝒢₂.germAlong Φ₂ (𝒢₂.G.left.presheaf.germ U 𝒢₂.genericUnit m s) (rightBlock g₁ g₂ z) =
+      𝒢₂.evalAt (Φ₂ (rightBlock g₁ g₂ z)) U s := h2
+  rw [h1, h2', evalAt_comp _ _ _ _ hz, prodPts_comp_snd]
+
+/-- Derivative of `F ∘ ℓ` for a linear `ℓ` on `ℂ^{g₁+g₂}` (chain rule). -/
+theorem fderiv_comp_linear {n : ℕ} (ℓ : (Fin (g₁ + g₂) → ℂ) →ₗ[ℂ] (Fin n → ℂ))
+    (F : (Fin n → ℂ) → ℂ) (hF : DifferentiableAt ℂ F 0) (w : Fin (g₁ + g₂) → ℂ) :
+    fderiv ℂ (fun z => F (ℓ z)) 0 w = fderiv ℂ F 0 (ℓ w) := by
+  let ℓc := LinearMap.toContinuousLinearMap ℓ
+  have hfun : (fun z => F (ℓ z)) = F ∘ ℓc := by
+    funext z; simp [ℓc]
+  have hF' : DifferentiableAt ℂ F (ℓc 0) := by rw [map_zero]; exact hF
+  rw [hfun, fderiv_comp _ hF' ℓc.differentiableAt, ContinuousLinearMap.fderiv, map_zero]
+  simp [ℓc]
+
+end ProdJac
+
+/-- **`ProductJacobian`, proved.** -/
+theorem productJacobian : ProductJacobian := by
+  intro K _ A B C L _ _ _ 𝒢P 𝒢₁ 𝒢₂ e hfst hsnd τ g₁ g₂ Λ₁ Λ₂ Φ₁ Φ₂ hΦ₁ hΦ₂ hΦP f₁ f₂ f hf1 hf2
+  have hl : ∀ (i : Fin g₁) (w : Fin (g₁ + g₂) → ℂ),
+      fderiv ℂ (𝒢P.germAlong (prodPts e Φ₁ Φ₂) (f (Fin.castAdd g₂ i) : 𝒢P.genStalk)) 0 w =
+        fderiv ℂ (𝒢₁.germAlong Φ₁ (f₁ i : 𝒢₁.genStalk)) 0 (leftBlock g₁ g₂ w) := by
+    intro i w
+    rw [hf1 i, (germAlong_pull_fst_eventuallyEq e hΦ₁ hΦP _).fderiv_eq]
+    exact fderiv_comp_linear (leftBlock g₁ g₂) _ (germAlong_differentiableAt 𝒢₁ hΦ₁ _) w
+  have hr : ∀ (j : Fin g₂) (w : Fin (g₁ + g₂) → ℂ),
+      fderiv ℂ (𝒢P.germAlong (prodPts e Φ₁ Φ₂) (f (Fin.natAdd g₁ j) : 𝒢P.genStalk)) 0 w =
+        fderiv ℂ (𝒢₂.germAlong Φ₂ (f₂ j : 𝒢₂.genStalk)) 0 (rightBlock g₁ g₂ w) := by
+    intro j w
+    rw [hf2 j, (germAlong_pull_snd_eventuallyEq e hΦ₂ hΦP _).fderiv_eq]
+    exact fderiv_comp_linear (rightBlock g₁ g₂) _ (germAlong_differentiableAt 𝒢₂ hΦ₂ _) w
+  have hL1 : ∀ j : Fin g₁, leftBlock g₁ g₂ (Pi.single (Fin.castAdd g₂ j) 1) = Pi.single j 1 := by
+    intro j; funext k; simp [Pi.single_apply]
+  have hL2 : ∀ j : Fin g₂, leftBlock g₁ g₂ (Pi.single (Fin.natAdd g₁ j) 1) = 0 := by
+    intro j; funext k; simp [Pi.single_apply, Fin.ext_iff]; omega
+  have hR1 : ∀ j : Fin g₁, rightBlock g₁ g₂ (Pi.single (Fin.castAdd g₂ j) 1) = 0 := by
+    intro j; funext k; simp [Pi.single_apply, Fin.ext_iff]; omega
+  have hR2 : ∀ j : Fin g₂, rightBlock g₁ g₂ (Pi.single (Fin.natAdd g₁ j) 1) = Pi.single j 1 := by
+    intro j; funext k; simp [Pi.single_apply]
+  let J₁ : Matrix (Fin g₁) (Fin g₁) ℂ :=
+    Matrix.of fun i j => fderiv ℂ (𝒢₁.germAlong Φ₁ (f₁ i : 𝒢₁.genStalk)) 0 (Pi.single j 1)
+  let J₂ : Matrix (Fin g₂) (Fin g₂) ℂ :=
+    Matrix.of fun i j => fderiv ℂ (𝒢₂.germAlong Φ₂ (f₂ i : 𝒢₂.genStalk)) 0 (Pi.single j 1)
+  have hblock : Matrix.reindex finSumFinEquiv.symm finSumFinEquiv.symm
+      (Matrix.of fun i j : Fin (g₁ + g₂) =>
+        fderiv ℂ (𝒢P.germAlong (prodPts e Φ₁ Φ₂) (f i : 𝒢P.genStalk)) 0 (Pi.single j 1)) =
+      Matrix.fromBlocks J₁ 0 0 J₂ := by
+    ext (i | i) (j | j)
+    · simp only [Matrix.reindex_apply, Matrix.submatrix_apply, Equiv.symm_symm,
+        finSumFinEquiv_apply_left, Matrix.of_apply, Matrix.fromBlocks_apply₁₁, J₁]
+      rw [hl, hL1 j]
+    · simp only [Matrix.reindex_apply, Matrix.submatrix_apply, Equiv.symm_symm,
+        finSumFinEquiv_apply_left, finSumFinEquiv_apply_right, Matrix.of_apply,
+        Matrix.fromBlocks_apply₁₂, Matrix.zero_apply]
+      rw [hl, hL2, map_zero]
+    · simp only [Matrix.reindex_apply, Matrix.submatrix_apply, Equiv.symm_symm,
+        finSumFinEquiv_apply_left, finSumFinEquiv_apply_right, Matrix.of_apply,
+        Matrix.fromBlocks_apply₂₁, Matrix.zero_apply]
+      rw [hr, hR1, map_zero]
+    · simp only [Matrix.reindex_apply, Matrix.submatrix_apply, Equiv.symm_symm,
+        finSumFinEquiv_apply_right, Matrix.of_apply, Matrix.fromBlocks_apply₂₂, J₂]
+      rw [hr, hR2]
+  unfold GroupModel.jacDet
+  rw [← Matrix.det_reindex_self finSumFinEquiv.symm, hblock, Matrix.det_fromBlocks_zero₂₁]
+
+end ZInQ.Metrization
+
+
+/-! ## metrization: `ProductUniformizationAnalytic` reduced to a statement about complex points
+
+`ProductLocalStructure` (pure algebraic geometry, no analysis): near a complex point of
+`𝒢₁ × 𝒢₂`, membership in a Zariski open `U` and a regular function on `U` are given, on
+`V₁(ℂ) × V₂(ℂ)`, by sums of products of regular functions on opens `V₁ ⊂ 𝒢₁`, `V₂ ⊂ 𝒢₂`. The
+analytic consequences (openness of `dom`, holomorphy) are proved. -/
+
+namespace ZInQ.Metrization
+
+open CategoryTheory AlgebraicGeometry Limits MonoidalCategory CartesianMonoidalCategory MonObj
+open NumberField DefFaltings Topology
+open PkgI3 (AbVar)
+
+/-- **Glue (local product structure of `𝒢₁ ×_{𝓞_L} 𝒢₂` at complex points).** For
+`e : 𝒢P ≅ 𝒢₁ × 𝒢₂`, an open `U ⊂ 𝒢P`, `s ∈ Γ(U)` and complex points `p₁`, `p₂` with
+`e⁻¹(p₁, p₂) ∈ U(ℂ)`, there are opens `V₁ ∋ p₁`, `V₂ ∋ p₂` and regular functions
+`a_k, c_k` on `V₁`, `b_k, d_k` on `V₂` such that `H = Σ c_k ⊗ d_k` does not vanish at `(p₁, p₂)`,
+and at every `(p₁', p₂') ∈ V₁(ℂ) × V₂(ℂ)` with `H(p₁', p₂') ≠ 0`: `e⁻¹(p₁', p₂') ∈ U(ℂ)` and
+`s(e⁻¹(p₁', p₂')) · H(p₁', p₂') = Σ a_k(p₁') b_k(p₂')`. Why true (STANDARD): take affine
+`V₁ = Spec R₁`, `V₂ = Spec R₂` (over the affine `Spec 𝓞_L`), so `V₁ ×_{𝓞_L} V₂ = Spec(R₁ ⊗ R₂)`
+is open in the product; choose a basic open `D(h)` of it with `(p₁, p₂) ∈ D(h) ⊆ e(U)`,
+`h ∈ R₁ ⊗ R₂`; on `D(h)`, `s = a/h^m` with `a ∈ R₁ ⊗ R₂`; take `H = h^m` and expand `H` and `a`
+as sums of pure tensors; a pure tensor `c ⊗ d` evaluates at `(p₁', p₂')` to `c(p₁') d(p₂')`.
+Unproved (needs Mathlib's affine opens of pullbacks and sections on basic opens). -/
+def ProductLocalStructure : Prop :=
+  ∀ (K : Type) [Field K] (A B C : AbVar K) (L : Type) [Field L] [NumberField L] [Algebra K L]
+    (𝒢P : GroupModel C L) (𝒢₁ : GroupModel A L) (𝒢₂ : GroupModel B L)
+    (e : 𝒢P.G ≅ 𝒢₁.G ⊗ 𝒢₂.G) (τ : L →+* ℂ) (U : 𝒢P.G.left.Opens) (s : Γ(𝒢P.G.left, U))
+    (p₁ : 𝒢₁.Pts τ) (p₂ : 𝒢₂.Pts τ), ⊤ ≤ (lift p₁ p₂ ≫ e.inv).left ⁻¹ᵁ U →
+    ∃ (V₁ : 𝒢₁.G.left.Opens) (V₂ : 𝒢₂.G.left.Opens) (n : ℕ)
+      (a c : Fin n → Γ(𝒢₁.G.left, V₁)) (b d : Fin n → Γ(𝒢₂.G.left, V₂)),
+      ⊤ ≤ p₁.left ⁻¹ᵁ V₁ ∧ ⊤ ≤ p₂.left ⁻¹ᵁ V₂ ∧
+      (∑ k, 𝒢₁.evalAt p₁ V₁ (c k) * 𝒢₂.evalAt p₂ V₂ (d k)) ≠ 0 ∧
+      ∀ (p₁' : 𝒢₁.Pts τ) (p₂' : 𝒢₂.Pts τ), ⊤ ≤ p₁'.left ⁻¹ᵁ V₁ → ⊤ ≤ p₂'.left ⁻¹ᵁ V₂ →
+        (∑ k, 𝒢₁.evalAt p₁' V₁ (c k) * 𝒢₂.evalAt p₂' V₂ (d k)) ≠ 0 →
+        ⊤ ≤ (lift p₁' p₂' ≫ e.inv).left ⁻¹ᵁ U ∧
+        𝒢P.evalAt (lift p₁' p₂' ≫ e.inv) U s *
+            (∑ k, 𝒢₁.evalAt p₁' V₁ (c k) * 𝒢₂.evalAt p₂' V₂ (d k)) =
+          ∑ k, 𝒢₁.evalAt p₁' V₁ (a k) * 𝒢₂.evalAt p₂' V₂ (b k)
+
+section Local
+
+variable {K : Type} [Field K] {A B C : AbVar K} {L : Type} [Field L] [NumberField L]
+  [Algebra K L] {𝒢P : GroupModel C L} {𝒢₁ : GroupModel A L} {𝒢₂ : GroupModel B L}
+  (e : 𝒢P.G ≅ 𝒢₁.G ⊗ 𝒢₂.G) {τ : L →+* ℂ} {g₁ g₂ : ℕ} {Λ₁ : Submodule ℤ (Fin g₁ → ℂ)}
+  {Λ₂ : Submodule ℤ (Fin g₂ → ℂ)} {Φ₁ : (Fin g₁ → ℂ) → 𝒢₁.Pts τ} {Φ₂ : (Fin g₂ → ℂ) → 𝒢₂.Pts τ}
+
+theorem leftBlock_differentiable : Differentiable ℂ (leftBlock g₁ g₂) := by
+  have h := (LinearMap.toContinuousLinearMap (leftBlock g₁ g₂)).differentiable
+  simpa using h
+
+theorem rightBlock_differentiable : Differentiable ℂ (rightBlock g₁ g₂) := by
+  have h := (LinearMap.toContinuousLinearMap (rightBlock g₁ g₂)).differentiable
+  simpa using h
+
+/-- The local statement: every point of `dom (prodPts) U` has an open neighbourhood inside
+`dom (prodPts) U` on which `z ↦ s(prodPts z)` is holomorphic. -/
+theorem prodPts_local (hLS : ProductLocalStructure) (h₁ : 𝒢₁.IsAnalyticUniformization τ Λ₁ Φ₁)
+    (h₂ : 𝒢₂.IsAnalyticUniformization τ Λ₂ Φ₂) (U : 𝒢P.G.left.Opens) (s : Γ(𝒢P.G.left, U))
+    (z₀ : Fin (g₁ + g₂) → ℂ) (hz₀ : z₀ ∈ 𝒢P.dom (prodPts e Φ₁ Φ₂) U) :
+    ∃ N : Set (Fin (g₁ + g₂) → ℂ), IsOpen N ∧ z₀ ∈ N ∧ N ⊆ 𝒢P.dom (prodPts e Φ₁ Φ₂) U ∧
+      DifferentiableOn ℂ (fun z => 𝒢P.evalAt (prodPts e Φ₁ Φ₂ z) U s) N := by
+  obtain ⟨V₁, V₂, n, a, c, b, d, hV₁, hV₂, hne, hall⟩ :=
+    hLS K A B C L 𝒢P 𝒢₁ 𝒢₂ e τ U s (Φ₁ (leftBlock g₁ g₂ z₀)) (Φ₂ (rightBlock g₁ g₂ z₀)) hz₀
+  let O : Set (Fin (g₁ + g₂) → ℂ) :=
+    leftBlock g₁ g₂ ⁻¹' 𝒢₁.dom Φ₁ V₁ ∩ rightBlock g₁ g₂ ⁻¹' 𝒢₂.dom Φ₂ V₂
+  have hO : IsOpen O :=
+    ((h₁.2.2.2.1 V₁).preimage (leftBlock_differentiable).continuous).inter
+      ((h₂.2.2.2.1 V₂).preimage (rightBlock_differentiable).continuous)
+  have hd1 : ∀ σ : Γ(𝒢₁.G.left, V₁),
+      DifferentiableOn ℂ (fun z => 𝒢₁.evalAt (Φ₁ (leftBlock g₁ g₂ z)) V₁ σ) O := fun σ =>
+    (h₁.2.2.2.2 V₁ σ).comp (leftBlock_differentiable).differentiableOn (fun z hz => hz.1)
+  have hd2 : ∀ σ : Γ(𝒢₂.G.left, V₂),
+      DifferentiableOn ℂ (fun z => 𝒢₂.evalAt (Φ₂ (rightBlock g₁ g₂ z)) V₂ σ) O := fun σ =>
+    (h₂.2.2.2.2 V₂ σ).comp (rightBlock_differentiable).differentiableOn (fun z hz => hz.2)
+  let H : (Fin (g₁ + g₂) → ℂ) → ℂ := fun z =>
+    ∑ k, 𝒢₁.evalAt (Φ₁ (leftBlock g₁ g₂ z)) V₁ (c k) * 𝒢₂.evalAt (Φ₂ (rightBlock g₁ g₂ z)) V₂ (d k)
+  let Afun : (Fin (g₁ + g₂) → ℂ) → ℂ := fun z =>
+    ∑ k, 𝒢₁.evalAt (Φ₁ (leftBlock g₁ g₂ z)) V₁ (a k) * 𝒢₂.evalAt (Φ₂ (rightBlock g₁ g₂ z)) V₂ (b k)
+  have hH : DifferentiableOn ℂ H O := by
+    have := DifferentiableOn.sum (u := Finset.univ)
+      (A := fun k z => 𝒢₁.evalAt (Φ₁ (leftBlock g₁ g₂ z)) V₁ (c k) *
+        𝒢₂.evalAt (Φ₂ (rightBlock g₁ g₂ z)) V₂ (d k))
+      (fun k _ => (hd1 (c k)).mul (hd2 (d k)))
+    convert this using 1
+    funext z
+    simp [H, Finset.sum_apply]
+  have hA : DifferentiableOn ℂ Afun O := by
+    have := DifferentiableOn.sum (u := Finset.univ)
+      (A := fun k z => 𝒢₁.evalAt (Φ₁ (leftBlock g₁ g₂ z)) V₁ (a k) *
+        𝒢₂.evalAt (Φ₂ (rightBlock g₁ g₂ z)) V₂ (b k))
+      (fun k _ => (hd1 (a k)).mul (hd2 (b k)))
+    convert this using 1
+    funext z
+    simp [Afun, Finset.sum_apply]
+  let N := O ∩ H ⁻¹' {0}ᶜ
+  have hN : IsOpen N := hH.continuousOn.isOpen_inter_preimage hO isOpen_compl_singleton
+  have hsub : ∀ z ∈ N, z ∈ 𝒢P.dom (prodPts e Φ₁ Φ₂) U ∧
+      𝒢P.evalAt (prodPts e Φ₁ Φ₂ z) U s = Afun z / H z := by
+    intro z hz
+    obtain ⟨hmem, heq⟩ := hall _ _ hz.1.1 hz.1.2 hz.2
+    refine ⟨hmem, ?_⟩
+    rw [eq_div_iff hz.2]
+    exact heq
+  refine ⟨N, hN, ⟨⟨hV₁, hV₂⟩, hne⟩, fun z hz => (hsub z hz).1, ?_⟩
+  have hdiv : DifferentiableOn ℂ (fun z => Afun z * (H z)⁻¹) N :=
+    (hA.mono Set.inter_subset_left).mul
+      ((hH.mono Set.inter_subset_left).inv (fun z hz => hz.2))
+  refine hdiv.congr fun z hz => ?_
+  rw [(hsub z hz).2, div_eq_mul_inv]
+
+end Local
+
+/-- **`ProductUniformizationAnalytic` from `ProductLocalStructure` (proved).** -/
+theorem productUniformizationAnalytic_of (hLS : ProductLocalStructure) :
+    ProductUniformizationAnalytic := by
+  intro K _ A B C L _ _ _ 𝒢P 𝒢₁ 𝒢₂ e hfst hsnd τ g₁ g₂ Λ₁ Λ₂ Φ₁ Φ₂ h₁ h₂
+  refine ⟨fun U => ?_, fun U s => ?_⟩
+  · rw [isOpen_iff_forall_mem_open]
+    intro z₀ hz₀
+    obtain ⟨N, hN, hz₀N, hsub, -⟩ := prodPts_local e hLS h₁ h₂ U 0 z₀ hz₀
+    exact ⟨N, hsub, hN, hz₀N⟩
+  · intro z₀ hz₀
+    obtain ⟨N, hN, hz₀N, -, hd⟩ := prodPts_local e hLS h₁ h₂ U s z₀ hz₀
+    exact ((hd z₀ hz₀N).differentiableAt (hN.mem_nhds hz₀N)).differentiableWithinAt
+
+end ZInQ.Metrization
+
+
 namespace ZInQ.ProductUnif
 
 /-! ## §4. S-alg (`ProductMetrizationOfProductUnif`): reduction to three smaller glue Props
@@ -1910,6 +2444,79 @@ theorem productMetrizationOfProductUnif_of'' (hH : HodgeLatticeTheorem) (hD : Pr
     (hS : ProductHodgeSections) : ProductMetrizationOfProductUnif :=
   productMetrizationOfProductUnif_of' hH hD jacDetDescends' hS
 
+/-- `prodUnif` (product-height) is metrization's `prodPts` (proved). -/
+theorem prodUnif_eq_prodPts {K : Type} [Field K] {A B C : AbVar K} {L : Type} [Field L]
+    [NumberField L] [Algebra K L] {𝒢P : GroupModel C L} {𝒢₁ : GroupModel A L}
+    {𝒢₂ : GroupModel B L} (e : 𝒢P.G ≅ 𝒢₁.G ⊗ 𝒢₂.G) [IsMonHom (e.hom ≫ fst _ _)]
+    [IsMonHom (e.hom ≫ snd _ _)] {τ : L →+* ℂ} {g₁ g₂ : ℕ} (Φ₁ : (Fin g₁ → ℂ) → 𝒢₁.Pts τ)
+    (Φ₂ : (Fin g₂ → ℂ) → 𝒢₂.Pts τ) :
+    prodUnif e Φ₁ Φ₂ = ZInQ.Metrization.prodPts e Φ₁ Φ₂ := by
+  funext z
+  unfold prodUnif
+  rw [MulEquiv.symm_apply_eq]
+  apply Prod.ext
+  · exact (ZInQ.Metrization.prodPts_comp_fst e Φ₁ Φ₂ z).symm
+  · exact (ZInQ.Metrization.prodPts_comp_snd e Φ₁ Φ₂ z).symm
+
+/-- product-height's `prodLattice` is metrization's (proved). -/
+theorem prodLattice_eq_metrization {g₁ g₂ : ℕ} (Λ₁ : Submodule ℤ (Fin g₁ → ℂ))
+    (Λ₂ : Submodule ℤ (Fin g₂ → ℂ)) :
+    prodLattice Λ₁ Λ₂ = ZInQ.Metrization.prodLattice Λ₁ Λ₂ := by
+  ext z
+  exact Iff.rfl
+
+/-- **`ProductHodgeSections` from metrization's `ProductUniformizationAnalytic` and
+`ProductHodgeLattice` (proved).** The factor metrizations are assembled from the hypotheses;
+`ProductHodgeLattice` gives the sections and the index; metrization's `productJacobian`
+(proved, §3b) gives the multiplicativity of the coefficients, applied to `prodPts = prodUnif`,
+which is an analytic uniformization by `prodPts_alg` and `ProductUniformizationAnalytic`. -/
+theorem productHodgeSections_of (hPA : ZInQ.Metrization.ProductUniformizationAnalytic)
+    (hL : ZInQ.Metrization.ProductHodgeLattice) : ProductHodgeSections := by
+  intro K _ A B C L _ _ _ 𝒢₁ 𝒢₂ g MP e he₁ he₂ g₁ g₂ hg D₁ D₂ hl₁ hl₂ hform
+  subst hg
+  choose Φ₁ Φ₂ hu₁ hu₂ hc₁ hc₂ hper hco using hform
+  let M₁ : MetrizedModel A L g₁ :=
+    { model := 𝒢₁, hodge := D₁, lattice_eq := hl₁, arch := fun τ => ⟨Φ₁ τ, hu₁ τ, hc₁ τ⟩ }
+  let M₂ : MetrizedModel B L g₂ :=
+    { model := 𝒢₂, hodge := D₂, lattice_eq := hl₂, arch := fun τ => ⟨Φ₂ τ, hu₂ τ, hc₂ τ⟩ }
+  obtain ⟨-, f₁, f₂, f, a₁, a₂, hf1, hf2, hs₁, hs₁0, hs₂, hs₂0, hs, hs0, hidx⟩ :=
+    hL K A B C L MP.model g₁ g₂ M₁ M₂ e he₁ he₂
+  refine ⟨(a₁ * a₂) • MP.model.wedge f, a₁ • 𝒢₁.wedge f₁, a₂ • 𝒢₂.wedge f₂, ?_, hs0, hs₁, hs₁0,
+    hs₂, hs₂0, ?_, fun τ => ?_⟩
+  · rw [MP.lattice_eq]
+    exact hs
+  · rw [MP.lattice_eq]
+    exact hidx
+  · obtain ⟨hhom, hker, hsurj⟩ := ZInQ.Metrization.prodPts_alg e he₁ he₂ (hu₁ τ) (hu₂ τ)
+    obtain ⟨hopen, hdiff⟩ := hPA K A B C L MP.model 𝒢₁ 𝒢₂ e he₁ he₂ τ g₁ g₂ _ _ (Φ₁ τ) (Φ₂ τ)
+      (hu₁ τ) (hu₂ τ)
+    have hjac := ZInQ.Metrization.productJacobian K A B C L MP.model 𝒢₁ 𝒢₂ e he₁ he₂ τ g₁ g₂ _ _
+      (Φ₁ τ) (Φ₂ τ) (hu₁ τ) (hu₂ τ) ⟨hhom, hker, hsurj, hopen, hdiff⟩ f₁ f₂ f hf1 hf2
+    have hfun : (fun z => prodUnif e (Φ₁ τ) (Φ₂ τ) (fun i => z (Fin.cast rfl i))) =
+        ZInQ.Metrization.prodPts e (Φ₁ τ) (Φ₂ τ) := by
+      rw [← prodUnif_eq_prodPts]
+      rfl
+    have hc := hco τ f
+    rw [hfun] at hc
+    rw [map_smulₛₗ, map_smulₛₗ, map_smulₛₗ, hc, hc₁, hc₂, hjac, map_mul]
+    simp only [smul_eq_mul]
+    ring
+
+/-- **S-alg from `HodgeLatticeTheorem`, `ProductUnifDims`, metrization's
+`ProductUniformizationAnalytic` and `ProductHodgeLattice` (proved).** -/
+theorem productMetrizationOfProductUnif_of_metrization (hH : HodgeLatticeTheorem)
+    (hD : ProductUnifDims) (hPA : ZInQ.Metrization.ProductUniformizationAnalytic)
+    (hL : ZInQ.Metrization.ProductHodgeLattice) : ProductMetrizationOfProductUnif :=
+  productMetrizationOfProductUnif_of'' hH hD (productHodgeSections_of hPA hL)
+
+/-- **The same with `ProductLocalStructure` (metrization's glue, pure algebraic geometry) in place
+of `ProductUniformizationAnalytic` (proved, via metrization's `productUniformizationAnalytic_of`).** -/
+theorem productMetrizationOfProductUnif_of_local (hH : HodgeLatticeTheorem)
+    (hD : ProductUnifDims) (hLS : ZInQ.Metrization.ProductLocalStructure)
+    (hL : ZInQ.Metrization.ProductHodgeLattice) : ProductMetrizationOfProductUnif :=
+  productMetrizationOfProductUnif_of_metrization hH hD
+    (ZInQ.Metrization.productUniformizationAnalytic_of hLS) hL
+
 end SAlg
 
 end ZInQ.ProductUnif
@@ -1922,3 +2529,5 @@ end ZInQ.ProductUnif
 #print axioms ZInQ.ProductUnif.productMetrizationOfProductUnif_of'
 #print axioms ZInQ.ProductUnif.jacDetDescends'
 #print axioms ZInQ.ProductUnif.productMetrizationOfProductUnif_of''
+#print axioms ZInQ.ProductUnif.productHodgeSections_of
+#print axioms ZInQ.ProductUnif.productMetrizationOfProductUnif_of_local
