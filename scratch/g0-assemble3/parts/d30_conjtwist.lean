@@ -9,6 +9,8 @@ namespace G0Galois
 open PkgI4 (GaloisRep GaloisChar)
 open CategoryTheory AlgebraicGeometry Limits MonoidalCategory CartesianMonoidalCategory MonObj
 open scoped TensorProduct CategoryTheory.Obj
+-- (g0-assemble3) as part a30 L777: leaf-push2's names (ConjTwist.lean imports them from the kernel)
+open ZInQ.LeafPush2 (CPts cptObj IsUniformization cDom cEvalAt)
 
 /-! ## §13. N1-surj from T5 and a uniformization (proved)
 
