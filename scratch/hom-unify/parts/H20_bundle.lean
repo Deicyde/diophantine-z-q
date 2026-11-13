@@ -234,6 +234,8 @@ end
 end HomUnifyBundleSec
 
 #print axioms G0Galois.conjTwistNontrivial_of_leaves
+#print axioms G0Galois.conjTwistFromLeaves_of_homLinearLift
+#print axioms G0Galois.twistCEval
 #print axioms G0Galois.g10Glue_of_conjTwist_new
 #print axioms G0Galois.g10Glue_of_homLinearLift
 #print axioms G0Galois.galoisPieces_of_hom

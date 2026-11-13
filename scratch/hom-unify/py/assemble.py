@@ -23,9 +23,9 @@ def block(text, start_pat):
     next blank line"""
     i = text.index(start_pat)
     j = text.rfind('/--', 0, i)
-    if j != -1 and text[j:i].count('\n\n') == 0 and '-/' in text[j:i]:
+    if j != -1 and text[j:i].rstrip().endswith('-/') and text[j:i].count('-/') == 1:
         i = j
-    k = text.index('\n\n', i)
+    k = text.index('\n\n', text.index(start_pat))
     return text[i:k + 1]
 
 h10 = '\n'.join(ct[38:2005]) + '\n'   # lines 39-2005
