@@ -39,3 +39,12 @@ Base 322303a2 (wip/integrate-w39). Start 2026-11-13 06:42 PST.
   (glue target, now hypothesis-free), `x1Leaves_of`, `x1ModelExists_of` (X1ModelExists from T38-T40).
 - `#print axioms` (t37_goodReductionUnramified, core, belyiX1, x1Leaves_of, x1ModelExists_of):
   [propext, Classical.choice, Quot.sound].
+
+## Step 5. T39 from T40 (VERIFIED, `lake build ZInQKernel.Contrib.RLeaf.X1ConstantField` OK)
+- `ZInQKernel/Contrib/RLeaf/X1ConstantField.lean`:
+  `constantFieldIsQ_of_hasRationalPlace (F) : X1Belyi.HasRationalPlace F → X1Belyi.ConstantFieldIsQ F`
+  (a degree-one place forces constant field ℚ: algebraic ⇒ integral over w ⇒ in w; residue c ∈ ℚ;
+  (x−c)⁻¹ algebraic ⇒ in w, contradiction with x−c ∈ 𝔪_w).
+  `x1ConstantField_of_x1RationalCusp : X1RationalCusp → X1ConstantField` (T39 ⇐ T40),
+  `x1Leaves_of_t38_t40`, `x1ModelExists_of_t38_t40`.
+- All four `#print axioms`: [propext, Classical.choice, Quot.sound].
