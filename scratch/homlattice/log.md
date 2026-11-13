@@ -65,3 +65,6 @@
   t11a_riemannEnd_of_leaf_gaga (UniformizationLeafAll ∧ GAGAMorphism ⇒ T11a_RiemannEnd),
   t11aHom_of_leaf_gaga, leafAll_of_strong (StrongUniformizationExists ⇒ UniformizationLeafAll).
 - compile: exit 0; 45 `#print axioms`, all standard; 0 sorryAx. VERIFIED.
+
+## Step 8: independent model review of StrongUniformizationExists / GAGAMorphism: no problem
+found; docstring wording adjusted (base-changed affine cover). Recompile: exit 0, 45 standard.

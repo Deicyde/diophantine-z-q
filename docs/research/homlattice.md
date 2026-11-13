@@ -275,7 +275,18 @@ theorem t11a_riemannEnd_of_leaf_map ; t11aHom_of_analytic
 - All theorem numbers in §1 and §3 are UNVERIFIED (no network). This includes Birkenhake–Lange
   Prop. 1.2.1, Mumford §1/§3/§4 and §4 Cor. 1, SGA 1 XII 2.4/3.1/3.2/4.4/4.5, and Serre GAGA §2.
 - The argument that `K`-regular functions suffice in clauses (ii) and (iii) for general `σ`
-  (§3.1) is a model argument. No human or second-model review has checked it.
+  (§3.1) is a model argument. One independent model read-through has checked it, with no human
+  review. That read-through, run read-only on `StrongUniformizationExists`, `IsStrongUnif` and
+  `GAGAMorphism`, found no problem:
+  - both statements are true for every `K`, `A`, `σ`, including points over non-closed points of
+    `A`;
+  - the junk value of `cEvalAt` is never seen;
+  - neither statement is vacuous;
+  - no clause is stronger than the literature;
+  - `GAGAMorphism` is weaker than GAGA plus rigidity.
+
+  Its one wording remark: not every open of `A_σ` is a base change, but the base-changed affine
+  cover suffices. The docstring was adjusted accordingly.
 - The assembly was not rebuilt. hom-unify's `GluePieces3Hom` takes `homLinearLift : HomLinearLift`,
   and `homLinearLift_of_strong` supplies it, but this was not composed over the flat assembly.
   The step is a one-line composition.
