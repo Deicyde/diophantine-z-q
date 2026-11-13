@@ -1,0 +1,32 @@
+scratch/aut-o-finite/AutOFinite.lean:594:76: warning: Unused tactic linter: `<;>` should be replaced with `;` or be removed.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+scratch/aut-o-finite/AutOFinite.lean:594:80: warning: Unused tactic linter: `norm_num` does nothing.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+scratch/aut-o-finite/AutOFinite.lean:594:80: warning: this tactic is never executed
+
+Note: This linter can be disabled with `set_option linter.unreachableTactic false`
+scratch/aut-o-finite/AutOFinite.lean:608:88: warning: Unused tactic linter: `<;>` should be replaced with `;` or be removed.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+scratch/aut-o-finite/AutOFinite.lean:608:92: warning: Unused tactic linter: `norm_num` does nothing.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+scratch/aut-o-finite/AutOFinite.lean:612:76: warning: Unused tactic linter: `<;>` should be replaced with `;` or be removed.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+scratch/aut-o-finite/AutOFinite.lean:612:80: warning: Unused tactic linter: `norm_num` does nothing.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+scratch/aut-o-finite/AutOFinite.lean:608:92: warning: this tactic is never executed
+
+Note: This linter can be disabled with `set_option linter.unreachableTactic false`
+scratch/aut-o-finite/AutOFinite.lean:612:80: warning: this tactic is never executed
+
+Note: This linter can be disabled with `set_option linter.unreachableTactic false`
+'LeafQM.AV.Pin.AutOExt.autOInnerFinite_of_normalizer' depends on axioms: [propext, Classical.choice, Quot.sound]
+'LeafQM.AV.Pin.NormO.normalizerFinite' depends on axioms: [propext, Classical.choice, Quot.sound]
+'LeafQM.AV.Pin.autOInnerFinite' depends on axioms: [propext, Classical.choice, Quot.sound]
+'LeafQM.AV.Pin.Exact.autO_mod_inner_exact' depends on axioms: [propext, Classical.choice, Quot.sound]
+'LeafQM.AV.Pin.Exact.autOInnerFinite'' depends on axioms: [propext, Classical.choice, Quot.sound]
