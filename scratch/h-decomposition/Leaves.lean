@@ -59,8 +59,18 @@ obj-bridge's §C-§E as `ObjBridge` (its §F does not compile here; see the comm
 paragraph above is otherwise as hsyn-fix left it: the only remaining glue Prop hypothesis is
 `GlueI3.SemisimpleBaseChange`.
 
-No `axiom` declarations. Leaf numbering (R1-R22 research-level, T1-T32 textbook) is that of the
-note's §2.
+leaf-adopt (2026-11-12) added, each in its own section after `LeafPushSec`: `GlueT32aSec`
+(glue-t32a with glue-b3b: T32 is proved glue, `HSyn.t32a_glue`, `t32b_glue`), `LeafQMSec`
+(leaf-qm-fp: R1 (a), (c), (d), R2, R5 in field-point form), `LeafModCurvesSec` (leaf-modcurves: R16,
+`JacobianExists` = T33, `DimJ1Genus` = T34), `DefFaltingsSec` (def-faltings: the stable Faltings
+height, R19-R21), and `LeafAdoptSec` (rv-blueprints' repairs Q2, Q4, Q5, M1, F2: `R1R2fpRep`,
+`R1pi0Props`, `R2X6PropsIff`, `R5fpStrong`, `H5`, and the bridge `abVarEquiv`). The placeholders
+are now R1(b), R3, R17, R18, R22, T10-T12 (8 `opaque`). The Shimura-curve leaves rest on the
+SPECULATIVE premise bp-qmmoduli §2.2, and the height leaves are not yet known to be non-vacuous
+(AN3 open); see the docstrings and `docs/research/leaf-adopt.md`.
+
+No `axiom` declarations. Leaf numbering (R1-R22 and H5 research-level, T1-T34 textbook, T32 now
+glue) is that of the note's §2.
 -/
 
 section PkgI1Sec
