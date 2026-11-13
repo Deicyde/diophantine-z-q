@@ -39,3 +39,6 @@ open ZInQ.Contrib.TYZGenus.X0 ZInQ.Contrib.TYZDecomp.CurveA
 #print axioms xC_fricke
 #print axioms yC_fricke
 #print axioms fC_fricke
+#print axioms cuspDictionary_partial
+#print axioms xC_add_half
+#print axioms yC_add_half
