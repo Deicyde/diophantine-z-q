@@ -90,8 +90,8 @@ lemma homVK_galRep {J A : AbVar K} (π : Hom J A) (σ : Field.absoluteGaloisGrou
   rw [← LinearMap.baseChange_comp, ← LinearMap.baseChange_comp, h1]
 
 /-- Complement of a subrepresentation, as `IsCompl` of submodules. -/
-lemma isCompl_toSubmodule {G V : Type*} [Monoid G] [AddCommGroup V] [Module ℚ_[ℓ] V]
-    {ρ : Representation ℚ_[ℓ] G V} {W W' : Subrepresentation ρ} (h : IsCompl W W') :
+lemma isCompl_toSubmodule {k G V : Type*} [Field k] [Monoid G] [AddCommGroup V] [Module k V]
+    {ρ : Representation k G V} {W W' : Subrepresentation ρ} (h : IsCompl W W') :
     IsCompl W.toSubmodule W'.toSubmodule := by
   constructor
   · rw [disjoint_iff]
@@ -127,7 +127,7 @@ theorem homVK_surjective (hS : FaltingsSemisimple) (hF : FaltingsTate) (hT : Tat
         rintro σ _ ⟨w, rfl⟩
         exact ⟨J.galRep ℓ σ w, LinearMap.congr_fun (homVK_galRep ℓ π σ) w⟩ }
   obtain ⟨R', hR'⟩ := (hS K A ℓ).exists_isCompl R
-  have hc := isCompl_toSubmodule ℓ hR'.symm
+  have hc := isCompl_toSubmodule hR'.symm
   -- if `R' = 0` we are done
   suffices hR'0 : R'.toSubmodule = ⊥ by
     have htop : R.toSubmodule = ⊤ := by
@@ -206,5 +206,154 @@ theorem homVK_surjective (hS : FaltingsSemisimple) (hF : FaltingsTate) (hT : Tat
   exact hr0 (by rw [← hpr, hp0])
 
 end VSurj
+
+/-- **`LeafModCurves.VSurjOfSurjective` (the glue target of leaf-modcurves), proved.** -/
+theorem vSurjOfSurjective (hS : FaltingsSemisimple) (hF : FaltingsTate) (hT : TateModuleFree) :
+    LeafModCurves.VSurjOfSurjective := by
+  intro J A π ℓ _ hπ
+  exact homVK_surjective ℓ hS hF hT J A π hπ
+
+/-! ## §2. Equivariant sections out of a semisimple representation -/
+
+section Section
+
+variable {k G V W : Type*} [Field k] [Monoid G] [AddCommGroup V] [Module k V] [AddCommGroup W]
+  [Module k W]
+
+/-- A surjective equivariant map `q : V → W` out of a semisimple representation restricts to an
+equivariant isomorphism from a subrepresentation of `V` onto `W` (an invariant complement of
+`ker q`). -/
+theorem exists_subrep_equiv_of_surjective (ρ : Representation k G V) (σ : Representation k G W)
+    (hss : ρ.IsSemisimpleRepresentation) (q : V →ₗ[k] W) (hq : Function.Surjective q)
+    (hqeq : ∀ g v, q (ρ g v) = σ g (q v)) :
+    ∃ (U : Subrepresentation ρ) (e : U.toSubmodule ≃ₗ[k] W),
+      ∀ g (u : U.toSubmodule), e ⟨ρ g u, U.apply_mem_toSubmodule g u.2⟩ = σ g (e u) := by
+  let Kr : Subrepresentation ρ :=
+    { toSubmodule := LinearMap.ker q
+      apply_mem_toSubmodule := fun g v hv => by
+        rw [LinearMap.mem_ker] at hv ⊢; rw [hqeq, hv, map_zero] }
+  obtain ⟨U, hU⟩ := hss.exists_isCompl Kr
+  have hc : IsCompl Kr.toSubmodule U.toSubmodule := isCompl_toSubmodule hU
+  have hbij : Function.Bijective (q ∘ₗ U.toSubmodule.subtype) := by
+    constructor
+    · rw [← LinearMap.ker_eq_bot, LinearMap.ker_eq_bot']
+      intro u hu
+      have hK : (u : V) ∈ Kr.toSubmodule := hu
+      exact Subtype.ext ((Submodule.disjoint_def.mp hc.disjoint) u hK u.2)
+    · intro w
+      obtain ⟨v, rfl⟩ := hq w
+      have hv : v ∈ Kr.toSubmodule ⊔ U.toSubmodule := by rw [hc.sup_eq_top]; exact Submodule.mem_top
+      obtain ⟨a, ha, b, hb, rfl⟩ := Submodule.mem_sup.mp hv
+      have ha' : q a = 0 := ha
+      exact ⟨⟨b, hb⟩, by simp [ha']⟩
+  refine ⟨U, LinearEquiv.ofBijective _ hbij, fun g u => ?_⟩
+  simp [LinearEquiv.ofBijective_apply, hqeq]
+
+end Section
+
+/-- Base change of a surjective linear map is surjective. -/
+lemma baseChange_surjective {R M N : Type*} [CommRing R] [AddCommGroup M] [AddCommGroup N]
+    [Module R M] [Module R N] (E : Type*) [CommRing E] [Algebra R E] (f : M →ₗ[R] N)
+    (hf : Function.Surjective f) : Function.Surjective (f.baseChange E) := by
+  intro y
+  induction y using TensorProduct.induction_on with
+  | zero => exact ⟨0, map_zero _⟩
+  | tmul e n =>
+    obtain ⟨m, rfl⟩ := hf n
+    exact ⟨e ⊗ₜ m, by simp⟩
+  | add y z hy hz =>
+    obtain ⟨a, rfl⟩ := hy
+    obtain ⟨b, rfl⟩ := hz
+    exact ⟨a + b, map_add _ _ _⟩
+
+/-! ## §3. `ρ_{f,ι}` is a subrepresentation of `V_ℓ(J) ⊗ ℚ̄_ℓ` (over `G_ℚ`) -/
+
+section RhoSub
+
+open LeafModCurves
+open PkgI4 (GQ)
+
+variable (ℓ : ℕ) [Fact ℓ.Prime]
+
+/-- Evaluation of the `ι`-eigenfunctionals: `V_ℓ(A) → (eigenFun)^∨`, `v ↦ (φ ↦ φ v)`. -/
+def evalEig (A : AbVar ℚ) {F : Type} [Field F] (θ : F →+* A.End0) (emb : F →+* PadicAlgCl ℓ) :
+    A.V ℓ →ₗ[ℚ_[ℓ]] Module.Dual (PadicAlgCl ℓ) (eigenFun ℓ A θ emb) where
+  toFun v :=
+    { toFun := fun φ => (φ : A.V ℓ →ₗ[ℚ_[ℓ]] PadicAlgCl ℓ) v
+      map_add' := fun φ ψ => rfl
+      map_smul' := fun c φ => rfl }
+  map_add' v w := by ext φ; simp
+  map_smul' c v := by ext φ; simp
+
+/-- Its `ℚ̄_ℓ`-linear extension `V_ℓ(A) ⊗ ℚ̄_ℓ → (eigenFun)^∨`. -/
+def evalEigE (A : AbVar ℚ) {F : Type} [Field F] (θ : F →+* A.End0) (emb : F →+* PadicAlgCl ℓ) :
+    TensorProduct ℚ_[ℓ] (PadicAlgCl ℓ) (A.V ℓ) →ₗ[PadicAlgCl ℓ]
+      Module.Dual (PadicAlgCl ℓ) (eigenFun ℓ A θ emb) :=
+  (evalEig ℓ A θ emb).liftBaseChange (PadicAlgCl ℓ)
+
+theorem evalEigE_equivariant (A : AbVar ℚ) {F : Type} [Field F] (θ : F →+* A.End0)
+    (emb : F →+* PadicAlgCl ℓ) (σ : GQ) (x : TensorProduct ℚ_[ℓ] (PadicAlgCl ℓ) (A.V ℓ)) :
+    evalEigE ℓ A θ emb (GlueI3.repBaseChange (PadicAlgCl ℓ) (A.galRep ℓ) σ x) =
+      rhoF ℓ A θ emb σ (evalEigE ℓ A θ emb x) := by
+  induction x using TensorProduct.induction_on with
+  | zero => simp
+  | tmul e v =>
+    change evalEigE ℓ A θ emb ((A.galRep ℓ σ).baseChange (PadicAlgCl ℓ) (e ⊗ₜ v)) = _
+    rw [LinearMap.baseChange_tmul]
+    simp only [evalEigE, LinearMap.liftBaseChange_tmul, map_smul]
+    congr 1
+  | add x y hx hy => simp only [map_add, hx, hy]
+
+theorem evalEigE_surjective (A : AbVar ℚ) {F : Type} [Field F] (θ : F →+* A.End0)
+    (emb : F →+* PadicAlgCl ℓ) [FiniteDimensional (PadicAlgCl ℓ) (eigenFun ℓ A θ emb)] :
+    Function.Surjective (evalEigE ℓ A θ emb) := by
+  rw [← LinearMap.range_eq_top]
+  by_contra hne
+  obtain ⟨f, hf0, hf⟩ := Submodule.exists_dual_map_eq_bot_of_lt_top (lt_top_iff_ne_top.2 hne)
+    inferInstance
+  set w := (Module.evalEquiv (PadicAlgCl ℓ) (eigenFun ℓ A θ emb)).symm f
+  have hfw : ∀ g, f g = g w := fun g => by
+    have : f = Module.evalEquiv (PadicAlgCl ℓ) (eigenFun ℓ A θ emb) w := by simp [w]
+    rw [this]; rfl
+  have hv : ∀ v, (w : A.V ℓ →ₗ[ℚ_[ℓ]] PadicAlgCl ℓ) v = 0 := fun v => by
+    have hx : evalEigE ℓ A θ emb (1 ⊗ₜ v) ∈ LinearMap.range (evalEigE ℓ A θ emb) := ⟨_, rfl⟩
+    have := Submodule.mem_map_of_mem (f := f) hx
+    rw [hf, Submodule.mem_bot, hfw] at this
+    simp only [evalEigE, LinearMap.liftBaseChange_tmul, one_smul] at this
+    exact this
+  have hw0 : w = 0 := Subtype.ext (LinearMap.ext hv)
+  apply hf0
+  ext g
+  rw [hfw, hw0, map_zero]; rfl
+
+/-- **`ρ_{f,ι}` as a subrepresentation (GLUE, proved).** If `V_ℓ(π) : V_ℓ(J) → V_ℓ(A)` is
+surjective, the representation `rhoF ℓ A θ ι` of `G_ℚ` on `(eigenFun)^∨` is equivariantly
+isomorphic to a subrepresentation of `V_ℓ(J) ⊗ ℚ̄_ℓ` (Faltings' semisimplicity of `V_ℓ(J)`,
+kept under extension of scalars by `GlueI3.semisimpleBaseChange`). -/
+theorem rhoF_subrep_of_surj (hS : FaltingsSemisimple) (hT : TateModuleFree) (J A : AbVar ℚ)
+    (π : Hom J A) (hπ : Function.Surjective (homV ℓ π)) {F : Type} [Field F]
+    (θ : F →+* A.End0) (emb : F →+* PadicAlgCl ℓ)
+    [FiniteDimensional (PadicAlgCl ℓ) (eigenFun ℓ A θ emb)] :
+    ∃ (U : Subrepresentation (GlueI3.repBaseChange (PadicAlgCl ℓ) (J.galRep ℓ)))
+      (e : U.toSubmodule ≃ₗ[PadicAlgCl ℓ] Module.Dual (PadicAlgCl ℓ) (eigenFun ℓ A θ emb)),
+      ∀ g (u : U.toSubmodule),
+        e ⟨GlueI3.repBaseChange (PadicAlgCl ℓ) (J.galRep ℓ) g u, U.apply_mem_toSubmodule g u.2⟩ =
+          rhoF ℓ A θ emb g (e u) := by
+  have hℓ : (ℓ : ℚ) ≠ 0 := Nat.cast_ne_zero.mpr (Fact.out : ℓ.Prime).ne_zero
+  obtain ⟨-, hfin, -⟩ := hT ℚ J ℓ hℓ
+  have : FiniteDimensional ℚ_[ℓ] (J.V ℓ) := inferInstance
+  have hss := GlueI3.semisimpleBaseChange ℚ_[ℓ] (PadicAlgCl ℓ) _ _ (J.galRep ℓ) (hS ℚ J ℓ)
+  refine exists_subrep_equiv_of_surjective _ (rhoF ℓ A θ emb) hss
+    (evalEigE ℓ A θ emb ∘ₗ (homV ℓ π).baseChange (PadicAlgCl ℓ))
+    ((evalEigE_surjective ℓ A θ emb).comp (baseChange_surjective _ _ hπ)) ?_
+  intro g v
+  simp only [LinearMap.coe_comp, Function.comp_apply]
+  rw [← evalEigE_equivariant]
+  congr 1
+  change ((homV ℓ π).baseChange _ ∘ₗ (J.galRep ℓ g).baseChange _) v =
+    ((A.galRep ℓ g).baseChange _ ∘ₗ (homV ℓ π).baseChange _) v
+  rw [← LinearMap.baseChange_comp, ← LinearMap.baseChange_comp, homV_galRep]
+
+end RhoSub
 
 end E1Sub
