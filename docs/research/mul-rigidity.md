@@ -38,7 +38,8 @@ proved: in characteristic 0, `n • id` is bijective on a vector space over the 
 `0`, which has characteristic 0 (`charZero_residueField`).
 
 **Leaf alternative: the single leaf `KerUnitOpen`.** `MulIsogeny` (copied verbatim) says that in
-characteristic 0, `[n]` is finite and surjective for `n ≠ 0`. It is proved from a single leaf:
+characteristic 0, `[n]` is finite and surjective for `n ≠ 0`. It is also proved from a single
+leaf, and the glue pair above passes through this leaf:
 
 ```
 theorem MulRigidity.mulIsogeny_of_kerUnitOpen (h : KerUnitOpen) : G0FibreSimple.MulIsogeny
@@ -57,10 +58,11 @@ finiteness, surjectivity, the reduction from `[n]` to its kernel, and the step f
 to finite.
 
 **Consumer.** g0-fibresimple's glue piece FS3 is now proved from T6 and `KerUnitOpen`:
-`G0FibreSimple.end0Division_of_homFree_kerUnitOpen`.
+`G0FibreSimple.end0Division_of_homFree_kerUnitOpen`. Since `KerUnitOpen` follows from the glue
+pair, FS3 also follows from T6 and that pair.
 
 **Verification.** VERIFIED (compiled). `lake env lean scratch/mul-rigidity/MulRigidity.lean`
-exits 0 in 12 s with no `sorry`. All eight `#print axioms` lines give
+exits 0 in 12 s with no `sorry`. All nine `#print axioms` lines give
 `[propext, Classical.choice, Quot.sound]`. `Rigidity.lean` and `Mul.lean` also compile on their
 own, using targeted Mathlib imports. The statements of `RigidityHom` and `MulIsogeny` match the
 source exactly (checked with `diff` against `scratch/g0-fibresimple/FibreSimple.lean`). Their
