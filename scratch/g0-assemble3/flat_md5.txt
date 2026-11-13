@@ -1,0 +1,2 @@
+b5a4fb976de18bab657dd3481aa86963  scratch/g0-assemble3/G0Assemble3.lean
+exit 0 in 966s
