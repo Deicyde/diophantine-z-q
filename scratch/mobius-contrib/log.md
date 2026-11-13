@@ -30,3 +30,20 @@
 - `lake build` of all its imports, then `lake env lean scratch/contrib-check/Check.lean`: rc 0,
   0 errors, all printed axiom sets are [propext, Classical.choice, Quot.sound], including the two
   new lines (output `check.out`). VERIFIED. So no name clash with the other Contrib modules there.
+
+## Verbatim check
+- `subseq.py`: the nonblank body lines of each module are an in-order subsequence of
+  ImagePlaneFinal.lean's nonblank lines: InfraDim, Glue, CurveFacts, ImagePlane all True. VERIFIED.
+- diffcheck2.py: MOD-UNNOTED 0, NOTE-ONLY 0 (nothing vendored by this task). VERIFIED.
+
+## Step 3: T5 not closed in Contrib
+- No theorem of type PkgI2.TorsionStructure / ObjBridge.TorsionStructure in ZInQKernel/Contrib on
+  any origin/* ref (git grep). VERIFIED. h-decomposition.md row T5: open. VERIFIED (read).
+- `ZInQ.RLeaf.t36_torsionStructure : X1Belyi.TorsionStructure` is T36 (elliptic curves), not T5. VERIFIED (read).
+- GluePiecesPin / TextbookLeaves are defined only in scratch/h-decomposition/Leaves.lean. VERIFIED (grep).
+- So step 3 not done.
+
+## Step 4
+- ImagePlaneCurveClosed is defined in no kernel file (grep of ZInQKernel/ outside Contrib/Mobius);
+  it is curve-glue's scratch definition, now in Contrib/Mobius/CurveFacts.lean. The theorem
+  imagePlaneCurveClosed compiles in Contrib with standard axioms. VERIFIED.
