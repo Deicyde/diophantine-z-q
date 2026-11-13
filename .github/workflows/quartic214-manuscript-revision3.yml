@@ -1,13 +1,6 @@
 name: Quartic 214 receiving revision 3
 
 on:
-  pull_request:
-    paths:
-      - 'research/quartic214*/**'
-      - 'CURRENT_214_REVISION3.md'
-      - '.github/workflows/quartic214-manuscript-revision3.yml'
-  push:
-    branches: ['proposal/quartic-214-protocol-d']
   workflow_dispatch:
 
 permissions:

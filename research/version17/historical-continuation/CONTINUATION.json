@@ -13,29 +13,9 @@
   "mathematical_acceptance_renewed": false,
   "bindings": [
     {
-      "path": ".github/workflows/quartic214-manuscript.yml",
-      "sha256": "b4daf95ed8a941419b5c63bdbfa812dc5793fed0e75fdb6475b9ea672943a012",
-      "bytes": 2202
-    },
-    {
-      "path": ".github/workflows/research-checks.yml",
-      "sha256": "357ad486fde5be994be1909f433abb58d5a7b7b4c24052106d1125df1d08552c",
-      "bytes": 10001
-    },
-    {
-      "path": "README.md",
-      "sha256": "e84e33cc5db9585814e70df6276c036639e6e014da57a11cb88c16545c59b0aa",
-      "bytes": 17204
-    },
-    {
       "path": "docs/current-manuscript.json",
       "sha256": "e9efcf581616cfc866263cda9e633892e399eaf6f86a63e1edd88d61b10e1890",
       "bytes": 517
-    },
-    {
-      "path": "docs/release-policy.md",
-      "sha256": "7df7ee649d002d83285d5b8421822fbeb2f7e80457f877f8335427f51834f2b6",
-      "bytes": 5804
     },
     {
       "path": "research/quartic214-main-integration/CONTINUATION.json",

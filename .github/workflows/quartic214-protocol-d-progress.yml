@@ -1,10 +1,6 @@
 name: Quartic 214 protocol progress records
 
 on:
-  pull_request:
-  push:
-    branches:
-      - 'proposal/quartic-214-protocol-d'
   workflow_dispatch:
 
 permissions:

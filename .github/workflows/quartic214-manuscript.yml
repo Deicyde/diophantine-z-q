@@ -1,22 +1,6 @@
 name: Quartic 214 manuscript
 
 on:
-  pull_request:
-    paths:
-      - 'research/quartic214-manuscript/**'
-      - 'research/quartic214-manuscript-review/**'
-      - 'research/quartic214/**'
-      - 'research/quartic214-main-integration/**'
-      - 'research/version17/**'
-      - 'research/quartic214-protocol-d-public/**'
-      - 'manuscripts/quartic_v16.tex'
-      - 'research/version16/**'
-      - 'docs/current-manuscript.json'
-      - 'README.md'
-      - '.github/workflows/quartic214-manuscript.yml'
-  push:
-    branches:
-      - 'proposal/quartic-214-protocol-d'
   workflow_dispatch:
 
 permissions:

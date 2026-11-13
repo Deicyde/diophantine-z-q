@@ -30,8 +30,7 @@ The project uses the collective agentic notes from Stefan Baranczuk, Jose Brox, 
 | Reproduce the 498/514-variable quartics | [Tables, proof inventory and independent reviews](docs/manuscript-revisions/version12/README.md) |
 | Reproduce the 523/540-variable quartics | [Tables, source, dependency chain and checks](docs/quartic-523-540/README.md) |
 | Read the fully expanded Version 4 quartic | [4,973-variable package](quartics/quartic-4973/README.md), [integer monomial table](quartics/quartic-4973/polynomial.expanded.txt) |
-| Follow the current mathematical research review protocol | [Protocol_D](https://github.com/elliotglazer/protocols/blob/main/Protocol_D.md), [local copy](docs/research-review/PROTOCOL.md), [contributor guide](docs/research-review/README.md) |
-| Reuse the protocol in another project | [Starter kit: protocol, agent instructions, and project brief](docs/research-review/starter-kit/README.md) |
+| Review requirements for pull requests | [Contributor guide](docs/research-review/README.md) |
 | Inspect the Version 11 repair and repository audit integration | [Version 11 source audit](docs/manuscript-revisions/version11/README.md), [audit integration protocol](docs/audit-history/PROTOCOL.md) |
 | Inspect the nine earlier review corrections | [Version 10 response and inventory](docs/manuscript-revisions/version10/README.md) |
 | Inspect theorem applications and conventions | [Version 17 source and review index](research/version17/ARTIFACT-INDEX.md), [Version 16 source-use inventory](research/version16/protocol/DOSSIER.json), [Version 16 corrections](research/version16/APPLICATIONS.json), [Version 9 extension](docs/quartic-523-540/README.md), [inherited proof inventory](docs/quartic-962/README.md) |
