@@ -57,3 +57,9 @@
   surjective up to units, and Φ t = 0 ⇒ u t = 0 with Φ u a unit) and **`pullback_stalk_isLocalization`**
   (Mathlib `IsLocalization` at the prime Φ⁻¹(𝔪_z)). Kernel half by charts: t cleared of denominators to ι(t₀),
   t₀ ∈ A ⊗[R] B, killed in (A⊗B)_{t0} by w ∉ t0. VERIFIED: 0 errors, 0 sorry, standard axioms.
+- CotangentBaseChange.lean (Mathlib-only; StalkPullback body + stalk_tensor + cot_bc parts; assemble_cbc.py):
+  `IsLocalRing.mem_sq_of_map_mem_sq` (cotangent of a localization at a "residually-field" ideal) and
+  **`cotangent_baseChange_injective`**: 𝒪_s, 𝒪_y fields, x rational over s ⇒ Ψ ∘ Ideal.tensorCotangentHom :
+  𝒪_y ⊗_{𝒪_s} 𝔪_x/𝔪_x² → 𝔪_z/𝔪_z² (c ⊗ da ↦ c·d(fst^♯a)) injective (Mathlib's flat base change of I/I² +
+  pullback_stalk_tensor_isLocalization). With cotangent_span_pullback: bijective. VERIFIED: 0 errors, 0 sorry,
+  standard axioms.
