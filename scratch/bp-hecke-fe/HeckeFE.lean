@@ -1994,4 +1994,154 @@ theorem literature_hecke_fe_of_mult_primePow_gaussPointCount
     (fun d h5 hsq => heckeEuler_of_mult_primePow (Nat.odd_iff.mpr (by omega)) hsq
       (hM d h5 hsq) (hP d h5 hsq)) h1
 
+/-! ### `HeckePrimePow` at the non-split primes -/
+
+theorem unitOf_eq_zero_of_even {a b : ZMod 4} (h : (a.val + b.val) % 2 = 0) : unitOf (a, b) = 0 := by
+  have hc : ∀ a b : ZMod 4, (a.val + b.val) % 2 = 0 →
+      ¬ ((a, b) = (1, 0) ∨ (a, b) = (3, 2)) ∧ ¬ ((a, b) = (3, 0) ∨ (a, b) = (1, 2)) ∧
+      ¬ ((a, b) = (0, 3) ∨ (a, b) = (2, 1)) ∧ ¬ ((a, b) = (0, 1) ∨ (a, b) = (2, 3)) := by decide
+  obtain ⟨h1, h2, h3, h4⟩ := hc a b h
+  simp only [unitOf, h1, h2, h3, h4, ite_false]
+
+/-- `heckeCoeff d (2^m) = 0` for `m ≥ 1`: `(1 + i) ∣ α` when `N α` is even. -/
+theorem heckeCoeff_two_pow (d : ℕ) {m : ℕ} (hm : 1 ≤ m) : heckeCoeff d (2 ^ m) = 0 := by
+  rw [heckeCoeff]
+  refine mul_eq_zero_of_right _ (Finset.sum_eq_zero fun q hq => ?_)
+  have h := mem_normFiber.mp hq
+  have hev : Even (q.1 ^ 2 + q.2 ^ 2) := by
+    rw [h]; push_cast
+    exact (Int.even_pow.mpr ⟨even_two, by omega⟩)
+  have hev2 : Even (q.1 + q.2) := by
+    rw [Int.even_add] at hev ⊢
+    simpa [Int.even_pow, two_ne_zero] using hev
+  have hu : unitOf ((q.1 : ZMod 4), (q.2 : ZMod 4)) = 0 := by
+    apply unitOf_eq_zero_of_even
+    have h1 := ZMod.val_intCast (n := 4) q.1
+    have h2 := ZMod.val_intCast (n := 4) q.2
+    obtain ⟨r, hr⟩ := hev2
+    omega
+  rw [hu]; ring
+
+/-- `heckeCoeff d (p^m) = 0` for primes `p ∣ d`, `m ≥ 1`. -/
+theorem heckeCoeff_pow_of_dvd {d p : ℕ} (hd : Odd d) (hp : p.Prime) (hpd : p ∣ d) {m : ℕ}
+    (hm : 1 ≤ m) : heckeCoeff d (p ^ m) = 0 := by
+  have : NeZero d := ⟨by rintro rfl; simp at hd⟩
+  rw [heckeCoeff]
+  refine mul_eq_zero_of_right _ (Finset.sum_eq_zero fun q hq => ?_)
+  rw [mem_normFiber.mp hq]
+  have hJ : jacobiSym ((p ^ m : ℕ) : ℤ) d = 0 := by
+    rw [jacobiSym.eq_zero_iff_not_coprime, Int.gcd_natCast_natCast]
+    intro h
+    have : p ∣ Nat.gcd (p ^ m) d := Nat.dvd_gcd (dvd_pow_self p (by omega)) hpd
+    rw [h] at this
+    exact hp.one_lt.ne' (Nat.dvd_one.mp this)
+  have hJ' : jacobiSym ((p : ℤ) ^ m) d = 0 := by exact_mod_cast hJ
+  simp [hJ']
+
+/-- A prime `p ≡ 3 (mod 4)` dividing `a² + b²` divides `a` and `b`. -/
+theorem dvd_of_dvd_sq_add_sq {p : ℕ} (hp : p.Prime) (hp3 : p % 4 = 3) {a b : ℤ}
+    (h : (p : ℤ) ∣ a ^ 2 + b ^ 2) : (p : ℤ) ∣ a ∧ (p : ℤ) ∣ b := by
+  have : Fact p.Prime := ⟨hp⟩
+  have h0 : ((a ^ 2 + b ^ 2 : ℤ) : ZMod p) = 0 := (ZMod.intCast_zmod_eq_zero_iff_dvd _ p).mpr h
+  push_cast at h0
+  have hb : (b : ZMod p) = 0 := by
+    by_contra hb
+    exact ZMod.mod_four_ne_three_of_sq_eq_neg_sq' (x := (a : ZMod p)) hb
+      (by linear_combination h0) hp3
+  have ha : (a : ZMod p) = 0 := by
+    rw [hb] at h0; simpa using h0
+  exact ⟨(ZMod.intCast_zmod_eq_zero_iff_dvd a p).mp ha, (ZMod.intCast_zmod_eq_zero_iff_dvd b p).mp hb⟩
+
+theorem normFiber_inert {p : ℕ} (hp : p.Prime) (hp3 : p % 4 = 3) (k : ℕ) :
+    normFiber (p ^ (k + 2)) =
+      (normFiber (p ^ k)).image fun r : ℤ × ℤ => ((p : ℤ) * r.1, (p : ℤ) * r.2) := by
+  have hp0 : (p : ℤ) ≠ 0 := by exact_mod_cast hp.ne_zero
+  ext q
+  simp only [Finset.mem_image, mem_normFiber]
+  constructor
+  · intro h
+    have hdvd : (p : ℤ) ∣ q.1 ^ 2 + q.2 ^ 2 := by
+      rw [h]; push_cast; exact dvd_pow_self _ (by omega)
+    obtain ⟨⟨r1, hr1⟩, ⟨r2, hr2⟩⟩ := dvd_of_dvd_sq_add_sq hp hp3 hdvd
+    refine ⟨(r1, r2), ?_, ?_⟩
+    · rw [hr1, hr2] at h
+      push_cast at h
+      have h2 : (p : ℤ) ^ 2 * (r1 ^ 2 + r2 ^ 2) = (p : ℤ) ^ 2 * (p : ℤ) ^ k := by
+        linear_combination h
+      have := mul_left_cancel₀ (pow_ne_zero 2 hp0) h2
+      push_cast; exact this
+    · ext <;> simp [hr1, hr2]
+  · rintro ⟨r, hr, rfl⟩
+    push_cast at hr ⊢
+    linear_combination (p : ℤ) ^ 2 * hr
+
+/-- **Inert primes**: `heckeCoeff d (p^(k+2)) = −p · heckeCoeff d (p^k)` for `p ≡ 3 (mod 4)`, `p ∤ d`. -/
+theorem heckeCoeff_inert {d p : ℕ} (hp : p.Prime) (hp3 : p % 4 = 3) (hpd : ¬ p ∣ d) (k : ℕ) :
+    heckeCoeff d (p ^ (k + 2)) = -(p : ℂ) * heckeCoeff d (p ^ k) := by
+  have hp0 : (p : ℤ) ≠ 0 := by exact_mod_cast hp.ne_zero
+  have hinj : Set.InjOn (fun r : ℤ × ℤ => ((p : ℤ) * r.1, (p : ℤ) * r.2))
+      (normFiber (p ^ k) : Set (ℤ × ℤ)) := by
+    intro x _ y _ hxy
+    simp only [Prod.mk.injEq] at hxy
+    ext
+    · exact mul_left_cancel₀ hp0 hxy.1
+    · exact mul_left_cancel₀ hp0 hxy.2
+  have hpsi : psi d ((p : ℤ), 0) = -(p : ℂ) := by
+    have hJ : jacobiSym ((p : ℤ) ^ 2 + 0 ^ 2) d = 1 := by
+      rw [zero_pow two_ne_zero, add_zero]
+      apply jacobiSym.sq_one'
+      rw [Int.gcd_natCast_natCast]
+      exact (Nat.Prime.coprime_iff_not_dvd hp).mpr hpd
+    have hu : unitOf (((p : ℤ) : ZMod 4), ((0 : ℤ) : ZMod 4)) = -1 := by
+      have h3 : ((p : ℤ) : ZMod 4) = 3 := by
+        rw [Int.cast_natCast, ← ZMod.natCast_mod, hp3]; rfl
+      rw [h3]; simp [unitOf]; decide
+    simp only [psi, hJ, hu, gz]
+    push_cast; ring
+  rw [heckeCoeff_eq_sum_psi, heckeCoeff_eq_sum_psi, normFiber_inert hp hp3,
+    Finset.sum_image hinj, Finset.mul_sum, Finset.mul_sum, Finset.mul_sum]
+  refine Finset.sum_congr rfl fun r _ => ?_
+  have hg : ((p : ℤ) * r.1, (p : ℤ) * r.2) = gmul ((p : ℤ), 0) r := by
+    simp [gmul]
+  rw [hg, psi_mul, hpsi]
+  ring
+
+/-- The prime-power recursion at the split primes only (`p ≡ 1 (mod 4)`, `p ∤ d`). -/
+def HeckePrimePowSplit (d : ℕ) : Prop :=
+  ∀ p : ℕ, p.Prime → p % 4 = 1 → ¬ p ∣ d → ∀ k : ℕ,
+    heckeCoeff d (p ^ (k + 2)) = heckeCoeff d p * heckeCoeff d (p ^ (k + 1)) -
+      (p : ℂ) * heckeCoeff d (p ^ k)
+
+theorem heckePrimePow_of_split {d : ℕ} (hd : Odd d) (hsq : Squarefree d)
+    (hS : HeckePrimePowSplit d) : HeckePrimePow d := by
+  intro p hp k
+  by_cases h2d : p ∣ 2 * d
+  · simp only [h2d, ↓reduceIte, zero_mul, sub_zero]
+    rw [heckeCoeff_prime_of_dvd hd hsq hp h2d, zero_mul]
+    rcases (Nat.Prime.dvd_mul hp).mp h2d with h2 | hpd
+    · have : p = 2 := (Nat.prime_dvd_prime_iff_eq hp Nat.prime_two).mp h2
+      subst this
+      exact heckeCoeff_two_pow d (by omega)
+    · exact heckeCoeff_pow_of_dvd hd hp hpd (by omega)
+  · simp only [h2d, ↓reduceIte]
+    have hpd : ¬ p ∣ d := fun h => h2d (dvd_mul_of_dvd_right h 2)
+    have hp2 : p ≠ 2 := fun h => h2d (h ▸ dvd_mul_right 2 d)
+    have : p % 4 = 1 ∨ p % 4 = 3 := by
+      have := Nat.odd_iff.mp (hp.odd_of_ne_two hp2); omega
+    rcases this with h1 | h3
+    · exact hS p hp h1 hpd k
+    · have hp0 : heckeCoeff d p = 0 := by
+        rw [heckeCoeff, normFiber_eq_empty_of_mod_four_eq_three h3]; simp
+      rw [heckeCoeff_inert hp h3 hpd k, hp0]
+      ring
+
+/-- **Final form**: the two literature Props from three statements: multiplicativity of
+`heckeCoeff` and its recursion at split primes (both about `ℤ[i]`), and Gauss's point count. -/
+theorem literature_hecke_fe_of_mult_split_gaussPointCount
+    (hM : ∀ d : ℕ, d % 8 = 5 → Squarefree d → HeckeMult d)
+    (hS : ∀ d : ℕ, d % 8 = 5 → Squarefree d → HeckePrimePowSplit d) (h1 : GaussPointCount) :
+    HeckeContinuation5 ∧ ZInQ.Literature.FunctionalEquation5 :=
+  literature_hecke_fe_of_mult_primePow_gaussPointCount hM
+    (fun d h5 hsq => heckePrimePow_of_split (Nat.odd_iff.mpr (by omega)) hsq (hS d h5 hsq)) h1
+
 end BpHeckeFE

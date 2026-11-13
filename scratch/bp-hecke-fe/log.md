@@ -100,3 +100,9 @@
   `normFiber_one` (decide), `heckeCoeff_one`, `coeff_inv_quadratic`, `heckeCoeff_prime_of_dvd`,
   `heckeEuler_of_mult_primePow`, `literature_hecke_fe_of_mult_primePow_gaussPointCount :
    (∀d HeckeMult d) → (∀d HeckePrimePow d) → GaussPointCount → HeckeContinuation5 ∧ FunctionalEquation5`.
+- (VERIFIED, compiled ~19:05; axioms standard) non-split prime powers: `unitOf_eq_zero_of_even`,
+  `heckeCoeff_two_pow`, `heckeCoeff_pow_of_dvd`, `dvd_of_dvd_sq_add_sq` (p ≡ 3 mod 4),
+  `normFiber_inert`, `heckeCoeff_inert` (h(p^{k+2}) = −p h(p^k)), `HeckePrimePowSplit d : Prop`,
+  `heckePrimePow_of_split`, `literature_hecke_fe_of_mult_split_gaussPointCount :
+   (∀d HeckeMult d) → (∀d HeckePrimePowSplit d) → GaussPointCount →
+   HeckeContinuation5 ∧ ZInQ.Literature.FunctionalEquation5`.
