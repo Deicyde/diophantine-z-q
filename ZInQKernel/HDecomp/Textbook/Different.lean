@@ -764,8 +764,8 @@ theorem map_maximalIdeal_eq_pow (A B : Type) [CommRing A] [IsDomain A] [IsDiscre
   rw [← Ideal.span_singleton_pow, ← hπ.maximalIdeal_eq] at hj
   rw [← Ideal.ramificationIdx'_eq_ramificationIdx (maximalIdeal A) (maximalIdeal B)
     (IsDiscreteValuationRing.not_a_field A)]
-  rw [Ideal.ramificationIdx'_spec (n := j) (by rw [hj]) (by rw [hj, maximalIdeal_pow_le_iff];
-      omega)]
+  rw [Ideal.ramificationIdx'_spec (n := j) (by rw [hj])
+    (by rw [hj, maximalIdeal_pow_le_iff]; omega)]
   exact hj
 
 section GaloisSetup
