@@ -416,6 +416,39 @@ theorem abhyankarDVR_main (R K L M : Type*) [CommRing R] [IsDomain R] [IsDiscret
       simp [ϖM, map_mul, map_pow]
     simp only [w, div_pow, ← pow_mul, mul_comm m e, h1]
     field_simp
+  -- `L₁ = L(w)` and `A₂ = integral closure of A₁ in L₁`
+  have hwint : IsIntegral L w := ⟨X ^ e - C ((u : integralClosure R L) : L),
+    monic_X_pow_sub_C _ he0.ne', by
+      rw [← aeval_def, map_sub, map_pow, aeval_X, aeval_C, hw, sub_self]⟩
+  let L1 : IntermediateField L M := L⟮w⟯
+  haveI : FiniteDimensional L L1 := IntermediateField.adjoin.finiteDimensional hwint
+  haveI : Algebra.IsSeparable L L1 := Algebra.isSeparable_tower_bot_of_isSeparable L L1 M
+  haveI : IsScalarTower (integralClosure R L) L L1 := inferInstance
+  haveI : IsDedekindDomain (integralClosure (integralClosure R L) L1) :=
+    integralClosure.isDedekindDomain (integralClosure R L) L L1
+  haveI : IsFractionRing (integralClosure (integralClosure R L) L1) L1 :=
+    integralClosure.isFractionRing_of_finite_extension L L1
+  haveI : Module.Finite (integralClosure R L) (integralClosure (integralClosure R L) L1) :=
+    IsIntegralClosure.finite (integralClosure R L) L L1 _
+  haveI : Module.IsTorsionFree (integralClosure R L) (integralClosure (integralClosure R L) L1) := by
+    rw [Module.isTorsionFree_iff_algebraMap_injective]
+    intro a b hab
+    have h2 := congrArg (fun x => ((x : L1) : M)) (congrArg Subtype.val hab)
+    apply Subtype.ext
+    exact (algebraMap L M).injective h2
+  -- `w` as an element of `A₂`
+  let wL1 : L1 := ⟨w, IntermediateField.mem_adjoin_simple_self L w⟩
+  have hwL1 : wL1 ^ e = algebraMap (integralClosure R L) L1 u := by
+    apply Subtype.ext
+    simp only [wL1, SubmonoidClass.coe_pow]
+    exact hw
+  have hw2int : IsIntegral (integralClosure R L) wL1 :=
+    ⟨X ^ e - C u, monic_X_pow_sub_C _ he0.ne', by
+      rw [← aeval_def, map_sub, map_pow, aeval_X, aeval_C, hwL1, sub_self]⟩
+  let w2 : integralClosure (integralClosure R L) L1 := ⟨wL1, hw2int⟩
+  have hw2 : w2 ^ e = algebraMap (integralClosure R L) _ u := Subtype.ext hwL1
+  have hgen : Algebra.adjoin L {algebraMap (integralClosure (integralClosure R L) L1) L1 w2} = ⊤ :=
+    algebra_adjoin_gen_eq_top hwint
   sorry
 
 end Assembly
