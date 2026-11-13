@@ -93,3 +93,14 @@ Marks: VERIFIED (compiled / read in a file), STANDARD, SPECULATIVE, UNVERIFIED.
   Then TailE: exit 0, 0 errors; 26 `#print axioms`, all standard. `productMetrizationOfProductUnif` now
   follows from `t.t35` (`productMetrizationOfProductUnif_of_t35`).
 - Result: OpenGlue2 has 11 fields; total hypotheses 26 + 18 + 12 + 11 = 67.
+
+## inner-twist fold, second flat run (10:20-10:58 PST)
+- `UnramifiedConjugates`: scratch/inner-twist/UnramConj.lean verbatim as module LF2UnramConj (0 errors, 6 s);
+  `unramifiedConjugates_proved` by `exact` (Mathlib-level statement). TailE: exit 0, 0 errors, 27 `#print
+  axioms`, all standard. OpenGlue2: 10 fields; total 66.
+- Flat run (md5 268c53bbc262…): exit 1 in 994 s, 8 errors, all in part b10 (AbVarBC Tangent):
+  `map` ambiguous (TrivSqZeroExt.map vs Ideal.map). Cause: in the flat file the root modules' file-level
+  `open`s leak (LF2SmoothDim's `open Ideal IsLocalRing`); in the olean chain they do not. Fix
+  (assemble.sh): each root-module body in its own `section LF2Root_<name> … end`, plus `end` for an
+  unclosed `noncomputable section`. Check: olean/FlatTailTest.lean (import TailD + the flat file from the
+  root modules on): exit 0, 0 errors, 76 s.
