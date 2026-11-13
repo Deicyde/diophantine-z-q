@@ -56,3 +56,14 @@ H5GlueMinimal, H5GlueReduction, H5GlueOpen (h5-glue H5Final.lean 714-1731 / 1732
   Limits` for the infra-stalks parts; height-bc lines 29-33 / h5-glue lines 716-730 re-opening the
   namespace at a cut; a closing `end`). No proof text was changed; nothing needed fixing.
 - diffcheck2.py: MOD-UNNOTED 0, NOTE-ONLY 0 (nothing vendored by this task).
+
+## Step 3: scratch/heightbc-contrib/Check.lean
+
+- = scratch/contrib-check/Check.lean (unchanged text) + `import ZInQKernel.Contrib.HeightBC.Main` +
+  10 `example`s (each closed theorem at its Prop) + 15 `#print axioms` lines.
+- Imports built first, one `lake build <Module>` at a time (all "Build completed successfully";
+  the "`ring` tactic failed" lines are `info` messages from ZInQKernel/Compiler/Programs/PointSpec.lean).
+- VERIFIED (11:2x): `lake env lean scratch/heightbc-contrib/Check.lean`, 0 errors, 12 s; output in
+  Check.out: all 28 `#print axioms` lines [propext, Classical.choice, Quot.sound]. So the HeightBC
+  modules coexist with HeckeAll, GaussFE, PSide, GZDecomp, T14, T28, RLeaf, AbVarBC (no duplicate
+  declarations).
