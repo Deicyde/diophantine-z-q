@@ -60,3 +60,17 @@ Task tyz-cm, 2026-11-13. Targets: `CM.CMFieldOfDefinition ringClassFieldD`, `Pac
 - ShimuraQExp.lean: `xQExpRational : XQExpRational`, `yQExpRational : YQExpRational`;
   `cmFieldOfDefinition_of_modFn' : ShimuraReciprocityModFn → X0.EtaModelInvariant → EtaCuspGrowth →
   CM.CMFieldOfDefinition ringClassFieldD`. Axioms: the standard three.
+
+## 10:55 cusp growth proved; main result (VERIFIED, compiled)
+- ShimuraCusp.lean: `etaCuspGrowth : EtaCuspGrowth` (k = 6). H(w) = |η(w)|⁴ Im w SL₂(ℤ)-invariant via
+  `CuspForm.discriminant`; Hermite decomposition; compactness bounds for ∏(1−qⁿ) on |q| ≤ e^{−2π};
+  identities |x−2|⁴H₄H₃₂² = 64H₂²H₁₆, |y|⁴H₄²H₃₂⁴ = 16H₈⁴H₁₆².
+  `cmFieldOfDefinition_of_modFn_inv : ShimuraReciprocityModFn → X0.EtaModelInvariant → CMFieldOfDefinition ringClassFieldD`.
+- ShimuraMain.lean: leaf `CMValueRingClass` (values of ℚ(X₀(N)) regular on ℍ at Heegner points lie in
+  ringClassFieldD D); `cmFieldOfDefinition_of_cmValue : CMValueRingClass → X0.EtaModelInvariant →
+  CM.CMFieldOfDefinition ringClassFieldD` (MAIN RESULT); `cmValueRingClass_of_modFn`;
+  `shimuraReciprocityPic_of_modFn`; `tyzThm35ReadingA_of_cmValue`. All: propext, Classical.choice, Quot.sound
+  (scratch/tyz-cm/ax5.lean). Commit 45ee8aaf.
+- Finding (not formalized): for γ ∈ Γ₀(32), |x(γτ)−2| = |x(τ)−2| (H-invariance), so x∘γ−2 = ε_γ(x−2), ε_γ²⁴ = 1;
+  EtaModelInvariant ⇔ ε ≡ 1, which needs the eta multiplier. Left as x0-32's leaf.
+- diffcheck2: MOD-UNNOTED 0, NOTE-ONLY 0.
