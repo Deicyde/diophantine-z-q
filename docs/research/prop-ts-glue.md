@@ -1,4 +1,4 @@
-# prop-ts-glue: the three glue Props under Proposition TS, reduced and partly proved in Lean
+# prop-ts-glue: `SpecNonMeeting` proved in Lean; `KummerMeetGlue` and `CoverModelOfHecke` reduced
 
 Task prop-ts-glue, 2026-11-13. The objects are `PropTSRed.SpecNonMeeting`,
 `PropTSRed.KummerMeetGlue` and `PropTSRed.CoverModelOfHecke` from `scratch/prop-ts/PropTS.lean`
@@ -7,10 +7,10 @@ Proposition TS in prop-ts's `propTSAll_of_bundle_meet`.
 
 | File | Contents |
 |---|---|
-| `scratch/prop-ts-glue/PropTSGlue.lean` | the Lean file (3670 lines) |
+| `scratch/prop-ts-glue/PropTSGlue.lean` | the Lean file (4227 lines) |
 | `scratch/prop-ts-glue/log.md` | results log |
 | `scratch/prop-ts-glue/compile_out.txt` | compiler output |
-| `LocalData.lean`, `HorizTransfer.lean`, `VRD.lean` | development files, Mathlib-only, compiled; their results are pasted into the main file |
+| `LocalData.lean`, `HorizTransfer.lean`, `VRD.lean`, `SNSpec.lean` | development files, Mathlib-only, compiled; their results are pasted into the main file |
 
 Model work only; no human has reviewed it. Marks: **VERIFIED** means compiled, computed or read
 in a named source. **STANDARD** means a published result with its reference. **PROVED HERE**
@@ -19,43 +19,47 @@ from memory are **UNVERIFIED** (no network).
 
 ## 1. Main result
 
-**None of the three statements is false, vacuous or inert, and none was changed. Each is reduced
-in Lean to smaller named Props.** The headline: **`SpecNonMeeting` now follows from the single
-glue Prop `SNSpecializeUnram`** (`specNonMeeting_of_specialize`, `snSpecialize_of_unram`). That
-Prop is the unramifiedness of the specialized fibre. Every other step of prop-ts §4.1 is proved:
+**None of the three statements is false, vacuous or inert, and none was changed.**
+
+- **`SpecNonMeeting` is a theorem:** `PropTSGlue.specNonMeeting : SpecNonMeeting`, compiled from
+  Mathlib alone, with t-purity3's purity proof inlined. This is Grothendieck's specialization of
+  étale covers, in the form Prop. TS uses.
+- **`KummerMeetGlue` and `CoverModelOfHecke` are reduced in Lean** to seven and five smaller named
+  glue Props.
+
+The proof of `SpecNonMeeting` follows prop-ts §4.1 step by step, and every step is a compiled
+theorem:
 
 - `SNLocalData`;
-- `SNHorizontalTransfer`;
-- `SNVertical`;
+- `SNHorizontalTransfer` and `SNVertical` (codimension-one unramifiedness);
 - `VerticalResidueDegree` (`Σ e f = n` at the vertical primes);
 - separability from degree `< p`;
-- purity, through an inlined copy of t-purity3's proof;
-- the finiteness half of `SNSpecialize` (`finiteDimensional_residue`).
+- purity (inlined copy of t-purity3);
+- `SNSpecialize`: the specialized fibre is unramified, via `snSpecializeUnram` and
+  `finiteDimensional_residue`.
 
 All of the `p`-adic and Gauss-lemma bookkeeping, for both `SpecNonMeeting` and `KummerMeet`, is
 also proved.
 
 **What is VERIFIED:**
 
-- `lake env lean scratch/prop-ts-glue/PropTSGlue.lean` (about 25 s) gives 0 errors. The 48
+- `lake env lean scratch/prop-ts-glue/PropTSGlue.lean` (about 1 min) gives 0 errors. The 63
   warnings are linter warnings only.
-- All 41 new `#print axioms` lines read `[propext, Classical.choice, Quot.sound]`.
+- All 45 new `#print axioms` lines read `[propext, Classical.choice, Quot.sound]`.
 - `check_identical.py` prints `PREFIX IDENTICAL`: the first 906 lines are
   `scratch/prop-ts/PropTS.lean` byte for byte, so the three statements and their dependencies are
   verbatim.
 - It also prints `PURITY COPY CONTAINED`: t-purity3's `PurityDim2.lean` (origin/wip/t-purity3,
   7e4d4dd0) is included verbatim, minus its import and `#print` lines.
 
-**The final composite** is `PropTSGlue.propTSAll_final'`. Its hypotheses are:
+**The final composite** is `PropTSGlue.propTSAll_final''`. Its hypotheses are:
 
 - **Leaves:**
   - T2 (`PkgI2.AbhyankarDVR`);
   - `R1R2fp`.
 - **Kernel glue:**
   - `MobiusGlue`.
-- **Open glue: 13 Props in total. For `SpecNonMeeting`:**
-  - `SNSpecializeUnram` only.
-- **Open glue, for `KummerMeetGlue`:**
+- **Open glue: 12 Props in total, none of them under `SpecNonMeeting`. For `KummerMeetGlue`:**
   - `KummerCompositum`;
   - `KummerAbhyankarFinGlue`, `KummerOtherBranchFin`, `KummerVerticalFin`;
   - `KummerAbhyankarInfGlue`, `KummerOtherBranchInf`, `KummerVerticalInf`.
@@ -67,7 +71,7 @@ T2 enters only through the two Abhyankar steps. No new literature leaf is needed
 
 | Prop of the task | reduction (compiled) | proved along the way |
 |---|---|---|
-| `SpecNonMeeting` | **`specNonMeeting_of_specialize : SNSpecialize → SpecNonMeeting`**. It goes through `specNonMeeting_of_pieces4 : PurityGlobalDim2 → VerticalResidueSeparable → SNSpecialize → SpecNonMeeting`, with `verticalResidueSeparable_of_degree` and `verticalResidueDegree`. `PurityGlobalDim2` is a theorem in the file (`purityGlobalDim2`, t-purity3's proof inlined) | `snLocalData`, `snHorizontalTransfer`, `snVertical_of_sep`, `snHeightOne_of_pieces`, `isSeparable_of_finrank_lt`, `verticalResidueDegree`; the Gauss-lemma arithmetic (`exists_int_multiple`, `homog_mem`, `notMem_of_val_zero`); `isFractionRing_zx`; `exists_secIdeal`; `regular_dim2_intPoly` |
+| `SpecNonMeeting` | **theorem `specNonMeeting`**, via `specNonMeeting_of_specialize : SNSpecialize → SpecNonMeeting`, `snSpecialize_of_unram` and `snSpecializeUnram`. It goes through `specNonMeeting_of_pieces4 : PurityGlobalDim2 → VerticalResidueSeparable → SNSpecialize → SpecNonMeeting`, with `verticalResidueSeparable_of_degree` and `verticalResidueDegree`. `PurityGlobalDim2` is a theorem in the file (`purityGlobalDim2`, t-purity3's proof inlined) | `snLocalData`, `snHorizontalTransfer`, `snVertical_of_sep`, `snHeightOne_of_pieces`, `isSeparable_of_finrank_lt`, `verticalResidueDegree`; the Gauss-lemma arithmetic (`exists_int_multiple`, `homog_mem`, `notMem_of_val_zero`); `isFractionRing_zx`; `exists_secIdeal`; `regular_dim2_intPoly` |
 | `KummerMeetGlue` | `kummerMeetGlue_of_pieces'`, seven pieces | the case split; all of prop-ts §4.2's arithmetic in both cases (`kummerMeetFin_of_pieces`, `kummerMeetInf_of_pieces`) |
 | `CoverModelOfHecke` | `coverModelOfHecke_of_pieces` (four pieces) and `heckeNormalization_of_irr` | `coverModelOfHecke_of_witness : MobiusGlue → R1R2fp → CoverModelWitness → CoverModelOfHecke`, so one triple suffices (`functionFieldModel_transfer`, `coverModel_transfer`) |
 
@@ -97,7 +101,7 @@ purity, and the result follows by specialization.
 | `VerticalResidueSeparable` | **theorem** from the next row (`verticalResidueSeparable_of_degree`) | `[E:ℚ(X)] < p ⇒ Algebra.HasSeparableResidueFieldsAt ℤ[X] C (pℤ[X])`. The step "degree `< p` in characteristic `p` ⇒ separable" is proved (`isSeparable_of_finrank_lt`, via `Polynomial.separable_or`) |
 | `VerticalResidueDegree` | **theorem** `verticalResidueDegree` | for `q` over `pℤ[X]` in `C`, `κ(q)/κ(pℤ[X])` is finite of degree `≤ [E:ℚ(X)]`. Proof, in four steps:<br>(1) Mathlib's `Ideal.sum_ramification_inertia_eq_finrank_fiber` for `ℤ[X] → C` at `pℤ[X]`;<br>(2) `e(q) > 0`, since `q` is minimal over `pC` by incomparability;<br>(3) the fibre `κ ⊗_{ℤ[X]} C ≅ κ ⊗_{ℤ[X]_{(p)}} C_{(p)}` (`cancelBaseChange`, `IsLocalizedModule.isBaseChange`);<br>(4) `ℤ[X]_{(p)}` is a DVR (`IsDiscreteValuationRing.TFAE`) and `C_{(p)}` is free of rank `[E:ℚ(X)]` (`IsIntegralClosure.module_free`, `.rank`) |
 | `SNSpecialize` | **theorem** from `SNSpecializeUnram` (`snSpecialize_of_unram`; the finiteness half is `finiteDimensional_residue`) | `R → S` étale ⇒ every residue field `B/𝔓` over `X − s₀`, embedded in `ℚ̄`, is a number field unramified at `p` |
-| `SNSpecializeUnram` | **open glue** (STANDARD) | the `UnramifiedAt` half. Proof: base change along `R → R/(dX − a) = ℤ_(p)`; then étale over a DVR ⇒ unramified |
+| `SNSpecializeUnram` | **theorem** `snSpecializeUnram` | the `UnramifiedAt` half. See the steps below the table |
 
 **Proof of `SNHorizontalTransfer`:**
 
@@ -117,6 +121,19 @@ purity, and the result follows by specialization.
 3. Separable residue fields (`VerticalResidueSeparable`, from `VerticalResidueDegree`) then make
    `ℤ[X] → C_𝔮` formally unramified.
 4. `C_𝔮 ≅ S_{Q'}`, so `R → S_{Q'}` is formally unramified.
+
+**Proof of `SNSpecializeUnram`** (compiled):
+
+1. Let `Ψ : S → ℚ̄` extend `φ ∘ (C → B/𝔓)`. Denominators `u ∉ m` have `u(s₀) ≠ 0`, by
+   `mem_m_iff`.
+2. The image `A = Ψ(S) ⊆ ℚ̄` is formally unramified over `R/(dX − a)`: it is a quotient of the
+   étale `S`.
+3. `R/(dX − a)` is the localization of `ℤ` at `(p)` (`rbar_isLocalization`). So `A` is formally
+   unramified over `ℤ`, and it is a Dedekind domain (Mathlib `IsDedekindDomain.of_formallyUnramified`).
+4. `L` lies in the fraction field of `A`, so `𝓞_L ⊆ A` (`mem_of_isIntegral_of_mem_closure`).
+   Moreover `A = (𝓞_L)_{(p)}`, by `IsIntegral.exists_multiple_integral_of_isLocalization`.
+5. For `P ∋ p`, `(𝓞_L)_P ≅ A_{PA}` is formally unramified over `ℤ`, so `e(P) = 1`
+   (`Ideal.ramificationIdx_eq_one`).
 
 ## 3. `KummerMeetGlue`
 
@@ -178,21 +195,33 @@ Lean proofs (§2).
 
 ## 6. What remains
 
-Open glue, all STANDARD commutative algebra or curve theory; no new literature leaf:
+Nothing remains open under `SpecNonMeeting`. The 12 open glue Props are all STANDARD commutative
+algebra or curve theory, and no new literature leaf is needed:
 
-1. **`SNSpecializeUnram`**, the only open piece under `SpecNonMeeting`. Suggested route:
-   - `R → S` étale implies `R/(dX − a) → S/𝔓_S` is formally unramified (quotient and
-     restriction of scalars);
-   - `ℤ → R/(dX − a) = ℤ_(p)` is formally unramified;
-   - so `A = S/𝔓_S` is a domain, finite and formally unramified over `ℤ_(p)`. Its local rings at
-     the primes over `p` then have maximal ideal `(p)`, so they are DVRs
-     (`IsDiscreteValuationRing.TFAE`), hence equal to the local rings of `𝓞_L`, which gives
-     `e = 1`.
-2. **The seven Kummer pieces.** `KummerCompositum` (a factor of `E ⊗ ℚ(s)` with a place over a
+1. **The seven Kummer pieces.** `KummerCompositum` (a factor of `E ⊗ ℚ(s)` with a place over a
    given place), Abhyankar via T2, and ramification in composita.
-3. **The Hecke pieces.**
+2. **The Hecke pieces.**
    - `HeckeNoVertRam` is h-b1's Lemma NV (inputs: R1rec and Abhyankar).
    - `HeckeIrreducible` is a reciprocity statement on `π₀` that should be checked against
      Deligne or Milne.
 
-The Lean pitfalls met along the way are in the log (step 7).
+The Lean pitfalls met along the way are in the log (steps 7 and 16).
+
+## 7. Integration
+
+- **Namespaces.** All new names are in `PropTSGlue`. prop-ts's names (`PropTSRed`, `G0ModField`)
+  and t-purity3's names (`TPurity3`) are kept verbatim. No file under `ZInQKernel/` was edited.
+- **For h-decomposition G2 (Prop. TS).** Replace prop-ts's open glue `SpecNonMeeting` by the
+  theorem `PropTSGlue.specNonMeeting`. With fibre-cover's `fibreCoverExists_of_propTSAll`,
+  `propTSAll_final''` then gives `FibreCoverExists` from:
+  - T5, `InnerTwistCount` and `UnramifiedConjugates`;
+  - T2, `R1R2fp` and `MobiusGlue`;
+  - the 12 open glue Props of §1.
+- **What the theorem uses.** The proof of `specNonMeeting` uses only Mathlib and the inlined
+  t-purity3 proof. It needs no literature leaf; in particular, T1 (purity) is a theorem here.
+- **File layout.** `PropTSGlue.lean` is built as `PropTS.lean` + `PurityCopy.lean.part` +
+  `Appendix.lean.part`. The Mathlib-only development files compile on their own:
+  - `LocalData.lean`;
+  - `HorizTransfer.lean`;
+  - `VRD.lean`;
+  - `SNSpec.lean`.

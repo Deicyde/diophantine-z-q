@@ -164,3 +164,27 @@ Task: reduce `PropTSRed.SpecNonMeeting`, `PropTSRed.KummerMeetGlue`, `PropTSRed.
 - Lean pitfall: `map_add`/`map_zero` on `Ideal.Quotient.mk 𝔓` for 𝔓 an ideal of an
   `integralClosure` timed out in typeclass search; `RingHom.map_add` etc. worked.
 - Compile: 0 errors, 41 PropTSGlue axiom lines all standard; prefix IDENTICAL, purity CONTAINED.
+
+## Step 16: SNSpecializeUnram PROVED; SpecNonMeeting is a THEOREM, compiled
+- Developed in `SNSpec.lean` (Mathlib only; compiled, standard axioms): `nval`, `nval_cast`,
+  `mem_m_iff` (u ∈ m ↔ p ∣ d^k u(s₀)), `secGen`, `evR`, `rbar_isLocalization` (ℤ[X]_m/(dX − a) is
+  the localization of ℤ at (p)), `mem_of_isIntegral_of_mem_closure`, `isIntegral_int_of_injective`,
+  `isIntegral_int_map`, `snSpecializeUnram_aux`.
+- Route: Ψ : S → ℚ̄ extends φ ∘ (C → B/𝔓) (`IsLocalization.lift`; denominators u ∉ m have
+  u(s₀) ≠ 0); A := Ψ(S) ⊆ ℚ̄ is formally unramified over R/(dX − a) (étale S, surjection,
+  `of_restrictScalars`), hence over ℤ (`rbar_isLocalization`, `of_isLocalization`, `comp`); A is
+  Dedekind (`IsDedekindDomain.of_formallyUnramified`); 𝓞_L ⊆ A (integrally closed, L ⊆ Frac A);
+  A = (𝓞_L)_{(p)} (`IsIntegral.exists_multiple_integral_of_isLocalization`); for P ∋ p,
+  (𝓞_L)_P ≅ A_{PA} formally unramified over ℤ ⇒ e(P) = 1 (`Ideal.ramificationIdx_eq_one`).
+- Lean pitfalls: integralClosure over `Localization.AtPrime m` with `locAlg` has two semiring
+  paths (OreLocalization.instCommSemiring vs CommRing.toCommSemiring); `RingHom.range` and
+  `Ideal` quotients of it failed until `letI : CommSemiring S := CommRing.toCommSemiring` was set
+  at the start; ℤ-scalar towers needed `IsScalarTower.of_algebraMap_eq` with explicit (R S A);
+  `isIntegral_algHom_iff` hit an int-algebra diamond on `FractionRing A` (replaced by
+  `Polynomial.hom_eval₂`); `eval_map` clashes with a CategoryTheory name under the file's opens
+  (use `Polynomial.eval_map`).
+- Appendix: `snSpecializeUnram : SNSpecializeUnram`, `specNonMeeting : SpecNonMeeting`,
+  `propTSAll_final''` (12 open glue Props: seven Kummer pieces, five Hecke pieces; plus T2,
+  R1R2fp, MobiusGlue).
+- Compile (about 1 min): 0 errors, 45 PropTSGlue axiom lines all standard; prefix IDENTICAL,
+  purity copy CONTAINED (VERIFIED).
