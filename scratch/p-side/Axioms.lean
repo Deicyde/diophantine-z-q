@@ -1,0 +1,16 @@
+import ZInQKernel.Contrib.PSide.APZero
+import ZInQKernel.Contrib.PSide.Coeff
+import ZInQKernel.Contrib.PSide.BadPrimes
+import ZInQKernel.Contrib.PSide.TYZInputsIff
+open ZInQ.Contrib.PSide
+#print axioms LFunction_cd_apply_prime_of_mod_four_eq_three
+#print axioms natCard_point_cd_of_mod_four_eq_three
+#print axioms LFunction_cd_apply_prime_eq_neg_charSum
+#print axioms cdCoeff_mul
+#print axioms cdCoeff_prime_pow_succ_succ
+#print axioms cdCoeff_eq_zero_of_dvd
+#print axioms LFunction_cd_prime_pow_succ_succ
+#print axioms LFunction_cd_apply_prime_eq_sub_card_all
+#print axioms tyzInputs_iff
+#print axioms tyzInputs_iff_readingA
+#print axioms tyzInputs_of_readingA

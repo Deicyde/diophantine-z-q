@@ -25,3 +25,14 @@ For every d (no hypothesis) unless noted:
 - `natCard_cd_two` : d odd ⇒ #{y² = x³ − d²x over F_2} = 2 (decide).
 - `LFunction_cd_apply_prime_eq_sub_card_of_dvd` : d odd sqfree, p ∣ 2d ⇒ a_p = p − N_p (= 0).  [P3]
 - `LFunction_cd_apply_prime_eq_sub_card_all` : d odd sqfree, every prime p ⇒ a_p = p − N_p.
+
+## P5 — ZInQKernel/Contrib/PSide/TYZInputsIff.lean (compiles, no sorry; VERIFIED 22:50)
+- `ReadingAAt n` := (∃F, IsLContinuation (C_n) F ∧ analyticOrderAt F 1 ≤ 1) ∨ (T5aCl n = 0 ∧ T5bCl n = 0).
+- `parity_sums_eq` : L ≡ Λ mod 2 on classes 1,3 ⇒ finalStep's parity sums = T5aCl n, T5bCl n.
+- `tyzInputs_iff` : TYZInputs ↔ ∀ n ≡ 5 (8) sqfree, ReadingAAt n.   [P5]
+  backward choice: L = Λ.val on classes 1,3; 1/0 on class 5 by existence of a cont. of order ≤ 1; 0 else.
+- `tyzInputs_iff_readingA` : TYZInputs ↔ TYZThm35ReadingA ∧ ∀ n, (∃ cont) ∨ (T5a = T5b = 0)  (no hypothesis).
+- `tyzInputs_iff_readingA_of_hecke` : HeckeContinuation → (TYZInputs ↔ TYZThm35ReadingA).
+- `tyzInputs_of_readingA` : TYZThm35ReadingA → HeckeContinuation → TYZInputs.
+- Axioms (scratch/p-side/Axioms.lean, `lake env lean`): all P1/P2/P3/P5 headline theorems depend on
+  [propext, Classical.choice, Quot.sound] only. VERIFIED.
