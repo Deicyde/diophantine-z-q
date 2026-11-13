@@ -86,4 +86,3 @@ theorem elkies_sq (u : ℚ) (i : Qbar) (hi : i ^ 2 = -1) :
     simp only [map_mul, map_pow, map_neg, map_div₀, map_ofNat]
     ring
 
-end FS5NoCM

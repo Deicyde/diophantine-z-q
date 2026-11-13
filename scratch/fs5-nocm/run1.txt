@@ -1,0 +1,9 @@
+'FS5NoCM.two_not_prime_of_sqrt_neg_one' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FS5NoCM.finrank_adjoin_sqrt_neg_one' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FS5NoCM.elkies_sq' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FS5NoCM.nocm_on_witness' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FS5NoCM.fibreComTrivialFull_of' depends on axioms: [propext, Classical.choice, Quot.sound]
+
+real	0m7.542s
+user	0m7.063s
+sys	0m2.357s
