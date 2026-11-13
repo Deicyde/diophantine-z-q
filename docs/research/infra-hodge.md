@@ -171,6 +171,7 @@ def ProdUnifDeriv : Prop :=
 | file | contents | result |
 |---|---|---|
 | `scratch/infra-hodge/ProductHodgeLattice.lean` | `assemble.py`: Prefix (verbatim `scratch/metrization/Metrization.lean` + infra-stalks + hodge-bc2 ExtFrac + infra-smooth-dim SmoothStalk bodies) + `phl_1`–`phl_5` | exit 0, 52 s, 0 errors, no sorry warning, all axiom reports standard |
+| `scratch/infra-hodge/IntegrationG0Tail.lean` | `assemble_g0.py`: `import TailB` (g0-assemble2's olean chain, built from byte-identical copies of its `olean/{LPrefix,TailA,TailB}.lean`) + infra-stalks/ExtFrac bodies + the same parts | exit 0, 20 s, 0 errors; `HSyn.gluePieces3_productMetrizationOfProductUnif : ZInQ.ProductHeight.ProductMetrizationOfProductUnif` (the `GluePieces3` field, over Leaves.lean's DefFaltings copy), standard axioms |
 | `scratch/infra-hodge/ProductSplit.lean` | `assemble_split.py`: SPrefix (`import ZInQKernel.HDecomp.Faltings.H5Neron`, `import Mathlib`, infra-stalks + ExtFrac bodies, verbatim `scratch/product-height/ProductHeight.lean`) + `phl_1`–`phl_3`, `phl_4a` + `ps_1`–`ps_6` | exit 0, 25 s, 0 errors, no sorry warning (one doc-comment mention of the word in the copied header), all axiom reports standard |
 
 `python3 scratch/infra-hodge/verbatim_check.py` prints ALL OK (output in `verbatim_check_out.txt`).
@@ -189,9 +190,9 @@ the kernel's `ZInQKernel.HDecomp.Faltings.H5Neron` built.
   files. The generic parts `phl_1`–`phl_3`, `phl_4a` compile in both: the line `--IH:ABVAR` becomes
   `open PkgI3 (AbVar)` in the kernel file and is dropped in the metrization file.
 - **g0-assemble2.** The field `productMetrizationOfProductUnif` of `GluePieces3` is the same text
-  over Leaves.lean's `ZInQ.DefFaltings` copy (`AbVar` through `open DefFaltings`). In that
-  environment the parts should be used with `--IH:ABVAR` dropped, together with the Mathlib-only
-  infra-stalks/ExtFrac bodies (no name clashes with LPrefix/TailA/TailB: checked by grep).
+  over Leaves.lean's `ZInQ.DefFaltings` copy. VERIFIED: the parts, with `--IH:ABVAR` dropped and the
+  Mathlib-only infra-stalks/ExtFrac bodies, compile after `import TailB` (`IntegrationG0Tail.lean`), so
+  the field can be deleted from `GluePieces3` (append `assemble_g0.py`'s output as a new part after a25).
 - New general lemmas worth upstreaming (Mathlib-only, in `phl_3_linalg`): `detIdeal_prod`,
   `idx_mul`, `delta`/`relIndex_detLat`. Also `det_eq_zero_of_rows_supported` (in `ps_1`) and
   `cotMapAt` with its functoriality (in `phl_1`).

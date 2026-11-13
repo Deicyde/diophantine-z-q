@@ -81,3 +81,12 @@
 - 11:29 Full single-file check ProductHodgeLattice.lean: VERIFIED exit 0 in 52 s, 0 errors, no sorry
   warning, all axiom reports standard (11 InfraHodge/consequence prints). verbatim_check.py ALL OK
   (output in verbatim_check_out.txt).
+- 11:30-11:44 g0-assemble2 environment check. Built g0-assemble2's olean chain from byte-identical copies
+  (cmp) of scratch/g0-assemble2/olean/{LPrefix,TailA,TailB}.lean into /tmp (LPrefix 503 s, TailA 80 s,
+  TailB 89 s, 0 errors each; needed `lake build ZInQKernel.Hypotheses.JHeight ...HeightConstant` and the
+  imports_extra modules first). `assemble_g0.py` → `IntegrationG0Tail.lean` (`import TailB` + verbatim
+  infra-stalks/ExtFrac bodies + parts phl_1-3, 4a, ps_1-6 with `--IH:ABVAR` dropped):
+  VERIFIED exit 0 in 20 s, 0 errors, no sorry; `HSyn.gluePieces3_productMetrizationOfProductUnif :
+  ZInQ.ProductHeight.ProductMetrizationOfProductUnif` (the GluePieces3 field, over Leaves.lean's
+  DefFaltings copy) axioms [propext, Classical.choice, Quot.sound]. So the field can be removed from
+  GluePieces3 at the next g0-assemble.
