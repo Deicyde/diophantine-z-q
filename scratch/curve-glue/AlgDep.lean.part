@@ -128,7 +128,7 @@ theorem imagePlaneCurveIrr_of (h2 : ConstOrOntoAlgClosed) (hI : ComponentIrreduc
       fun h => by
         show ptOf p ∈ connectedComponent x₀
         rw [← h]; exact mem_connectedComponent⟩
-  have hWi : IsPreirreducible (W : Set X) := (hI K X f hS x₀).isPreirreducible
+  have hWi : IsPreirreducible (W : Set X) := (hI K X f hP hS x₀).isPreirreducible
   by_cases hinf : ∀ p : Spec (CommRingCat.of K) ⟶ X, p ≫ f = 𝟙 _ →
       connectedComponent (ptOf p) = connectedComponent x₀ → ρ.val p = OnePoint.infty
   · exact Or.inl hinf

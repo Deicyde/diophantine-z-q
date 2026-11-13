@@ -1235,8 +1235,10 @@ theorem ratFactorAlgClosed_of_closed (h2 : ConstOrOntoAlgClosed) (hG : ImagePlan
 
 /-! ## §5 Clause (c) of (G1') from irreducibility of the component (task curve-glue) -/
 
-/-- **(CI) Connected components of a smooth curve over a field are irreducible.** If `X → Spec K`
-is smooth of relative dimension 1 over a field, every connected component of `X` is irreducible.
+/-- **(CI) Connected components of a proper smooth curve over a field are irreducible.** If
+`X → Spec K` is proper and smooth of relative dimension 1 over a field, every connected component of
+`X` is irreducible (properness is not needed, but is kept: it is where (CI) is used, and it makes
+the Lean proof `componentIrreducible` in `MobiusFinal.lean` a Noetherian argument).
 
 Why true (STANDARD; references UNVERIFIED): smooth over a field implies regular, hence normal
 (Stacks, *Varieties*, smooth ⇒ normal; Hartshorne II.8 for regular local rings being domains);
@@ -1244,9 +1246,10 @@ a locally Noetherian normal scheme is a disjoint union of integral open subschem
 are domains, so irreducible components are disjoint and open), so its connected components are
 its irreducible components. Glue (standard commutative algebra and topology). Not in Mathlib
 v4.35 as stated (task infra-smooth-dim proved that the local rings at closed points are regular of
-dimension 1, `stalk_dim_of_smoothOfRelativeDimension`, which is the main input). -/
+dimension 1, `stalk_dim_of_smoothOfRelativeDimension`, which is the main input; with it, (CI) is
+proved in `MobiusFinal.lean`, `componentIrreducible`). -/
 def ComponentIrreducible : Prop :=
-  ∀ (K : Type) [Field K] (X : Scheme.{0}) (f : X ⟶ Spec (CommRingCat.of K)),
+  ∀ (K : Type) [Field K] (X : Scheme.{0}) (f : X ⟶ Spec (CommRingCat.of K)), IsProper f →
     SmoothOfRelativeDimension 1 f → ∀ x : X, IsIrreducible (connectedComponent x)
 
 open Polynomial in
@@ -1397,7 +1400,7 @@ theorem imagePlaneCurveClosed_of (hI : ComponentIrreducible) (hG : ImagePlaneCur
       fun h => by
         show ptOf p ∈ connectedComponent x₀
         rw [← h]; exact mem_connectedComponent⟩
-  have hWi : IsPreirreducible (W : Set X) := (hI K X f hS x₀).isPreirreducible
+  have hWi : IsPreirreducible (W : Set X) := (hI K X f hP hS x₀).isPreirreducible
   by_cases hinf : ∀ p : Spec (CommRingCat.of K) ⟶ X, p ≫ f = 𝟙 _ →
       connectedComponent (ptOf p) = connectedComponent x₀ → ρ.val p = OnePoint.infty
   · exact Or.inl hinf
@@ -1564,7 +1567,7 @@ theorem imagePlaneCurveIrr_of (h2 : ConstOrOntoAlgClosed) (hI : ComponentIrreduc
       fun h => by
         show ptOf p ∈ connectedComponent x₀
         rw [← h]; exact mem_connectedComponent⟩
-  have hWi : IsPreirreducible (W : Set X) := (hI K X f hS x₀).isPreirreducible
+  have hWi : IsPreirreducible (W : Set X) := (hI K X f hP hS x₀).isPreirreducible
   by_cases hinf : ∀ p : Spec (CommRingCat.of K) ⟶ X, p ≫ f = 𝟙 _ →
       connectedComponent (ptOf p) = connectedComponent x₀ → ρ.val p = OnePoint.infty
   · exact Or.inl hinf

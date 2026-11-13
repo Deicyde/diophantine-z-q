@@ -97,3 +97,19 @@
 - `imagePlaneCurveIrr_of`, `ratFactorAlgClosed_of_AD`, `curveFacts_of_glue_AD`, `curveFacts_of_L0_CI_AD_IC`,
   `mobiusGlue_of_L0_CI_AD_IC_T5`, `mobiusGlueNoCM_of_L0_CI_AD_IC_T5`: compiled, 0 errors, standard axioms
   (VERIFIED, run_CurveGlueAll.txt, run_MobiusFinal.txt). verbatim.py: all IDENTICAL.
+
+## 13. (CI) proved (`CIproof.lean.part`, inside MobiusFinal.lean)
+- (CI) restated with `IsProper f` (my own named Prop; only used where f is proper).
+- `CurveGlueCI.isDomain_of_dim_one`: Noetherian local, dim 1, spanFinrank 𝔪 = 1 ⇒ domain (Krull intersection
+  `Ideal.iInf_pow_eq_bot_of_isLocalRing`; π not nilpotent else Spec is a point and dim = 0).
+- `CurveGlueCI.irreducibleComponent_eq_of_isDomain_stalk`: components through y with domain stalk coincide (generic
+  points specialize to y; {z ⤳ y} = range fromSpecStalk is irreducible).
+- `componentIrreducible : ComponentIrreducible` from infra's `stalk_dim_of_smoothOfRelativeDimension` + Noetherian
+  clopen argument. Compiled, standard axioms.
+- Final: `mobiusGlue_of_L0_AD_IC_T5 (hL0) (hA : AlgDep) (hC : ImageClosed) (hT) : MobiusGlue`,
+  `mobiusGlueNoCM_of_L0_AD_IC_T5`, `curveFacts_of_L0_AD_IC` — compiled, 0 errors, standard axioms (VERIFIED,
+  run_MobiusFinal.txt).
+
+## 14. Third independent model check (fresh agent): (CI), (AD), (IC) all TRUE, not vacuous.
+- (CI) true even without properness/quasi-compactness; (AD) true (P = 1 when no finite points); (IC) needs properness
+  (counterexample without: 𝔸¹∖0, σ = x, ρ = 0 gives K^× × {0}).

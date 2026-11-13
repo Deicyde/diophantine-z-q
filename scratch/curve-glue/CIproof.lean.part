@@ -1,0 +1,150 @@
+/-! ## (CI) proved: components of a proper smooth curve are irreducible (task curve-glue)
+
+Uses task infra-smooth-dim's `InfraSmoothDim.stalk_dim_of_smoothOfRelativeDimension` (local rings
+at closed points have Krull dimension 1 and principal maximal ideal). -/
+
+namespace CurveGlueCI
+
+open CategoryTheory AlgebraicGeometry IsLocalRing
+
+/-- **A Noetherian local ring of Krull dimension 1 with principal maximal ideal is a domain.**
+(Krull intersection theorem: every nonzero element is `π^n · unit`; `π` is not nilpotent since the
+dimension is positive.) -/
+theorem isDomain_of_dim_one {R : Type*} [CommRing R] [IsLocalRing R] [IsNoetherianRing R]
+    (hdim : ringKrullDim R = 1) (hspan : (maximalIdeal R).spanFinrank = 1) : IsDomain R := by
+  classical
+  have hfg : (maximalIdeal R).FG := IsNoetherian.noetherian _
+  obtain ⟨s, hs, hspan'⟩ := Submodule.FG.exists_span_set_encard_eq_spanFinrank hfg
+  rw [hspan] at hs
+  obtain ⟨π, rfl⟩ := Set.encard_eq_one.1 (by exact_mod_cast hs)
+  -- `π` is not nilpotent
+  have hπ : ∀ n : ℕ, π ^ n ≠ 0 := by
+    intro n hn
+    have hsub : ∀ p : PrimeSpectrum R, p.asIdeal = maximalIdeal R := by
+      intro p
+      refine le_antisymm (le_maximalIdeal p.2.ne_top) ?_
+      rw [← hspan', Ideal.span_le, Set.singleton_subset_iff]
+      exact p.2.mem_of_pow_mem n (by rw [hn]; exact p.asIdeal.zero_mem)
+    have : Subsingleton (PrimeSpectrum R) :=
+      ⟨fun p q => PrimeSpectrum.ext ((hsub p).trans (hsub q).symm)⟩
+    have h0 : ringKrullDim R = 0 := Order.krullDim_eq_zero
+    rw [hdim] at h0
+    norm_num at h0
+  -- every nonzero element is `π ^ n * unit`
+  have hdec : ∀ a : R, a ≠ 0 → ∃ (n : ℕ) (u : R), IsUnit u ∧ a = π ^ n * u := by
+    intro a ha
+    have hex : ∃ k : ℕ, a ∉ maximalIdeal R ^ k := by
+      by_contra! h
+      apply ha
+      have := Ideal.iInf_pow_eq_bot_of_isLocalRing (maximalIdeal R) (maximalIdeal.isMaximal R).ne_top
+      rw [← Submodule.mem_bot R, ← this, Submodule.mem_iInf]
+      exact h
+    let k := Nat.find hex
+    have hk : a ∉ maximalIdeal R ^ k := Nat.find_spec hex
+    have hk0 : k ≠ 0 := by
+      intro h0
+      apply hk
+      rw [h0, pow_zero, Ideal.one_eq_top]
+      exact Submodule.mem_top
+    obtain ⟨n, hn⟩ : ∃ n, k = n + 1 := Nat.exists_eq_succ_of_ne_zero hk0
+    have hmem : a ∈ maximalIdeal R ^ n := by
+      have := Nat.find_min hex (show n < k by omega)
+      push Not at this
+      exact this
+    rw [← hspan', Ideal.span_singleton_pow, Ideal.mem_span_singleton'] at hmem
+    obtain ⟨u, hu⟩ := hmem
+    refine ⟨n, u, ?_, by rw [← hu, mul_comm]⟩
+    by_contra hu'
+    have hum : u ∈ maximalIdeal R := (mem_maximalIdeal u).2 hu'
+    rw [← hspan', Ideal.mem_span_singleton'] at hum
+    obtain ⟨w, hw⟩ := hum
+    apply hk
+    rw [hn, ← hspan', Ideal.span_singleton_pow, Ideal.mem_span_singleton']
+    exact ⟨w, by rw [← hu, ← hw]; ring⟩
+  have : NoZeroDivisors R := by
+    refine ⟨fun {a b} hab => ?_⟩
+    by_contra hne
+    push Not at hne
+    obtain ⟨n, u, hu, rfl⟩ := hdec a hne.1
+    obtain ⟨m, v, hv, rfl⟩ := hdec b hne.2
+    have : π ^ (n + m) * (u * v) = 0 := by rw [← hab]; ring
+    exact hπ (n + m) ((hu.mul hv).mul_left_eq_zero.mp this)
+  exact NoZeroDivisors.to_isDomain R
+
+/-- **Two irreducible components meeting at a point with a domain stalk coincide.** -/
+theorem irreducibleComponent_eq_of_isDomain_stalk {X : Scheme} {Z₁ Z₂ : Set X}
+    (h₁ : Z₁ ∈ irreducibleComponents X) (h₂ : Z₂ ∈ irreducibleComponents X) {y : X}
+    (hy₁ : y ∈ Z₁) (hy₂ : y ∈ Z₂) (hdom : IsDomain (X.presheaf.stalk y)) : Z₁ = Z₂ := by
+  let G : Set X := Set.range (X.fromSpecStalk y)
+  have hG : IsIrreducible G := by
+    have : IrreducibleSpace (Spec (X.presheaf.stalk y)) := PrimeSpectrum.irreducibleSpace
+    show IsIrreducible (Set.range (X.fromSpecStalk y))
+    rw [← Set.image_univ]
+    exact (IrreducibleSpace.isIrreducible_univ _).image _ (X.fromSpecStalk y).continuous.continuousOn
+  have key : ∀ Z ∈ irreducibleComponents X, y ∈ Z → Z = closure G := by
+    intro Z hZ hyZ
+    have hcl : IsClosed Z := isClosed_of_mem_irreducibleComponents Z hZ
+    have hgen := hZ.1.isGenericPoint_genericPoint hcl
+    have hspec : hZ.1.genericPoint ⤳ y := by
+      rw [specializes_iff_mem_closure, hgen.def]; exact hyZ
+    have hmem : hZ.1.genericPoint ∈ G := by
+      show _ ∈ Set.range (X.fromSpecStalk y)
+      rw [Scheme.range_fromSpecStalk]; exact hspec
+    have hsub : Z ⊆ closure G := by
+      rw [← hgen.def]
+      exact closure_mono (Set.singleton_subset_iff.2 hmem)
+    exact (hZ.eq_of_subset hG.closure hsub)
+  rw [key Z₁ h₁ hy₁, key Z₂ h₂ hy₂]
+
+end CurveGlueCI
+
+/-- **(CI), proved** (from infra-smooth-dim's stalk dimensions). -/
+theorem componentIrreducible : ComponentIrreducible := by
+  intro K _ X f hP hS x
+  have : LocallyOfFiniteType f := inferInstance
+  have : JacobsonSpace X := LocallyOfFiniteType.jacobsonSpace f
+  have : CompactSpace X := QuasiCompact.compactSpace_of_compactSpace f
+  have : IsLocallyNoetherian X := LocallyOfFiniteType.isLocallyNoetherian f
+  have : IsNoetherian X := { }
+  have : SmoothOfRelativeDimension 1 f := hS
+  -- stalks at closed points are domains
+  have hdom : ∀ y : X, IsClosed ({y} : Set X) → IsDomain (X.presheaf.stalk y) := by
+    intro y hy
+    obtain ⟨h1, h2⟩ := InfraSmoothDim.stalk_dim_of_smoothOfRelativeDimension f 1 y hy
+    exact CurveGlueCI.isDomain_of_dim_one (by exact_mod_cast h1) h2
+  -- irreducible components are pairwise disjoint
+  have hdisj : ∀ Z₁ ∈ irreducibleComponents X, ∀ Z₂ ∈ irreducibleComponents X,
+      (Z₁ ∩ Z₂).Nonempty → Z₁ = Z₂ := by
+    intro Z₁ h₁ Z₂ h₂ hne
+    have hcl : IsClosed (Z₁ ∩ Z₂) :=
+      (isClosed_of_mem_irreducibleComponents Z₁ h₁).inter (isClosed_of_mem_irreducibleComponents Z₂ h₂)
+    obtain ⟨y, ⟨hy₁, hy₂⟩, hyc⟩ := nonempty_inter_closedPoints hne hcl.isLocallyClosed
+    exact CurveGlueCI.irreducibleComponent_eq_of_isDomain_stalk h₁ h₂ hy₁ hy₂
+      (hdom y (mem_closedPoints_iff.mp hyc))
+  -- the irreducible component of `x` is clopen
+  set Z := irreducibleComponent x with hZ
+  have hZc : IsClosed Z := isClosed_irreducibleComponent
+  have hZmem := irreducibleComponent_mem_irreducibleComponents x
+  have hfin := TopologicalSpace.NoetherianSpace.finite_irreducibleComponents (α := X)
+  have hcompl : Zᶜ = ⋃ Z' ∈ {Z' ∈ irreducibleComponents X | Z' ≠ Z}, Z' := by
+    ext z
+    simp only [Set.mem_compl_iff, Set.mem_iUnion, Set.mem_ofPred_eq, exists_prop]
+    constructor
+    · intro hz
+      refine ⟨irreducibleComponent z, ⟨irreducibleComponent_mem_irreducibleComponents z, ?_⟩,
+        mem_irreducibleComponent⟩
+      intro h
+      exact hz (h ▸ mem_irreducibleComponent)
+    · rintro ⟨Z', ⟨hZ', hne⟩, hzZ'⟩ hzZ
+      exact hne (hdisj Z' hZ' Z hZmem ⟨z, hzZ', hzZ⟩)
+  have hZo : IsOpen Z := by
+    rw [← isClosed_compl_iff, hcompl]
+    exact (hfin.subset fun Z' hZ' => hZ'.1).isClosed_biUnion fun Z' hZ' =>
+      isClosed_of_mem_irreducibleComponents Z' hZ'.1
+  have h1 : connectedComponent x ⊆ Z :=
+    (IsClopen.connectedComponent_subset ⟨hZc, hZo⟩ mem_irreducibleComponent)
+  have h2 : Z ⊆ connectedComponent x :=
+    isIrreducible_irreducibleComponent.isConnected.subset_connectedComponent mem_irreducibleComponent
+  rw [Set.Subset.antisymm h1 h2]
+  exact isIrreducible_irreducibleComponent
+

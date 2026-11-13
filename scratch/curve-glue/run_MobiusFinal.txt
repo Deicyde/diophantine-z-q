@@ -50,3 +50,7 @@ Note: This linter can be disabled with `set_option linter.unusedTactic false`
 'LeafQM.AV.Pin.curveFacts_of_L0_CI_AD_IC' depends on axioms: [propext, Classical.choice, Quot.sound]
 'LeafQM.AV.CurveGlue.mobiusGlue_of_L0_CI_AD_IC_T5' depends on axioms: [propext, Classical.choice, Quot.sound]
 'LeafQM.AV.CurveGlue.mobiusGlueNoCM_of_L0_CI_AD_IC_T5' depends on axioms: [propext, Classical.choice, Quot.sound]
+'LeafQM.AV.Pin.componentIrreducible' depends on axioms: [propext, Classical.choice, Quot.sound]
+'LeafQM.AV.Pin.curveFacts_of_L0_AD_IC' depends on axioms: [propext, Classical.choice, Quot.sound]
+'LeafQM.AV.CurveGlue.mobiusGlue_of_L0_AD_IC_T5' depends on axioms: [propext, Classical.choice, Quot.sound]
+'LeafQM.AV.CurveGlue.mobiusGlueNoCM_of_L0_AD_IC_T5' depends on axioms: [propext, Classical.choice, Quot.sound]
