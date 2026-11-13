@@ -186,7 +186,7 @@ Proof of `beta4Inertia_of_clauses` (`p = 2`):
 - **G7 (VERIFIED, logical; fixed).** Raynaud at `m = p` would be unsatisfiable. `RaynaudPlace` is
   only claimed, and only used, at `m` prime to `p`.
 - **G8 (VERIFIED, read).** g0-assemble's `TateBridge` (`scratch/g0-assemble/parts/75_modfield.lean`
-  l.1001-1020) produces `G7Out` with `ℚ̄_ℓ`-valued `β'`, but no relation to G7Data's `ℂ^×`-valued
+  l.1002-1020, `def TateBridge` at l.1007) produces `G7Out` with `ℚ̄_ℓ`-valued `β'`, but no relation to G7Data's `ℂ^×`-valued
   `β` or to `L' = ker β`. So `KerWild` for `β'` does not follow from its output.
   - Correction: add `KerWild K β' L` (equivalently `β' = ι ∘ β` with `ι` injective on roots of
     unity) to `TateBridge`'s conclusion.
