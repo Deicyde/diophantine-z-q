@@ -590,6 +590,57 @@ theorem ToP1.val_comp {X : Scheme.{0}} (π : ToP1 X) {K L : Type} [Field K] [Fie
   subst hp
   split_ifs <;> rfl
 
+/-- **Composition of a morphism to `P¹` with a morphism of schemes** (pull back the charts). -/
+def ToP1.comp {X Y : Scheme.{0}} (h : Y ⟶ X) (π : ToP1 X) : ToP1 Y where
+  U := h ⁻¹ᵁ π.U
+  V := h ⁻¹ᵁ π.V
+  cover := by rw [← Scheme.Hom.preimage_sup, π.cover]; rfl
+  f := h.app π.U π.f
+  g := h.app π.V π.g
+  inv := by
+    have n1 := ConcreteCategory.congr_hom
+      (h.naturality (homOfLE (inf_le_left : π.U ⊓ π.V ≤ π.U)).op) π.f
+    have n2 := ConcreteCategory.congr_hom
+      (h.naturality (homOfLE (inf_le_right : π.U ⊓ π.V ≤ π.V)).op) π.g
+    simp only [ConcreteCategory.comp_apply] at n1 n2
+    have e := congrArg (h.app (π.U ⊓ π.V)) π.inv
+    rw [map_mul, map_one, n1, n2] at e
+    exact e
+  basicOpen_f := by rw [← Scheme.preimage_basicOpen, π.basicOpen_f]; rfl
+  basicOpen_g := by rw [← Scheme.preimage_basicOpen, π.basicOpen_g]; rfl
+
+/-- Postcomposing a field point with `h` moves the point by `h` and precomposes the embedding
+with the residue-field map. -/
+theorem specToEquivOfField_comp_right {K : Type} [Field K] {X Y : Scheme.{0}} (h : Y ⟶ X)
+    (y : Spec (CommRingCat.of K) ⟶ Y) :
+    Scheme.SpecToEquivOfField K X (y ≫ h) =
+      ⟨h (Scheme.SpecToEquivOfField K Y y).1,
+        h.residueFieldMap (Scheme.SpecToEquivOfField K Y y).1 ≫
+          (Scheme.SpecToEquivOfField K Y y).2⟩ := by
+  obtain ⟨p, rfl⟩ := (Scheme.SpecToEquivOfField K Y).symm.surjective y
+  rw [Equiv.apply_symm_apply]
+  have : (Scheme.SpecToEquivOfField K Y).symm p ≫ h =
+      (Scheme.SpecToEquivOfField K X).symm ⟨h p.1, h.residueFieldMap p.1 ≫ p.2⟩ := by
+    simp only [Scheme.SpecToEquivOfField_symm_apply, Spec.map_comp, Category.assoc,
+      Scheme.Hom.SpecMap_residueFieldMap_fromSpecResidueField]
+  rw [this, Equiv.apply_symm_apply]
+
+/-- `(π ∘ h)(y) = π(h ∘ y)`. -/
+theorem ToP1.val_comp_right {X Y : Scheme.{0}} (π : ToP1 X) (h : Y ⟶ X) {K : Type} [Field K]
+    (y : Spec (CommRingCat.of K) ⟶ Y) : (π.comp h).val y = π.val (y ≫ h) := by
+  unfold ToP1.val
+  generalize hp : Scheme.SpecToEquivOfField K X (y ≫ h) = p
+  rw [specToEquivOfField_comp_right] at hp
+  subst hp
+  dsimp only
+  split_ifs with h1 h2 h2
+  · congr 1
+    rw [ConcreteCategory.comp_apply, Scheme.evaluation_naturality_apply]
+    rfl
+  · exact (h2 h1).elim
+  · exact (h1 h2).elim
+  · rfl
+
 /-! ## §7 Field points of a `ℚ`-scheme -/
 
 /-- `Spec K` as a `ℚ`-scheme. -/
@@ -647,10 +698,10 @@ def QMPair.twist (P : QMPair K) (α : O ≃+* O) : QMPair K := ⟨P.A, P.surface
 /-- **The level-one curve `X₆ = X₀(6,1)`, clause list** (coarse moduli on `ℚ̄`-points): `X` is a
 proper smooth curve over `ℚ`; `Ψ : X(ℚ̄) ≃ {QM pairs over ℚ̄}/≅` is Galois-equivariant; each twist
 `α ∈ Aut 𝒪` is induced by an automorphism of `X` over `ℚ` (the Atkin–Lehner group `W`); the
-forgetful morphism `fY : Y₃ → X₆` is `(A, ι, η) ↦ (A, ι)` on `ℚ̄`-points; `π = π₆ ∘ fY`. -/
-def X6Props (Y : Over (Spec (CommRingCat.of ℚ))) (Φ : PtEquiv Y) (π : ToP1 Y.left)
+forgetful morphism `fY : Y₃ → X₆` is `(A, ι, η) ↦ (A, ι)` on `ℚ̄`-points. -/
+def X6Props (Y : Over (Spec (CommRingCat.of ℚ))) (Φ : PtEquiv Y)
     (X : Over (Spec (CommRingCat.of ℚ))) (Ψ : (fieldPt Qbar ⟶ X) ≃ Quotient (pairSetoid Qbar))
-    (fY : Y ⟶ X) (π₆ : ToP1 X.left) : Prop :=
+    (fY : Y ⟶ X) : Prop :=
   IsProper X.hom ∧ SmoothOfRelativeDimension 1 X.hom ∧
   (∀ (σ : Qbar ≃ₐ[ℚ] Qbar) (x : fieldPt Qbar ⟶ X) (P : QMPair Qbar),
     Ψ x = Quotient.mk _ P → ∃ Q : QMPair Qbar,
@@ -659,8 +710,7 @@ def X6Props (Y : Over (Spec (CommRingCat.of ℚ))) (Φ : PtEquiv Y) (π : ToP1 Y
   (∀ α : O ≃+* O, ∃ g : X ≅ X, ∀ (x : fieldPt Qbar ⟶ X) (P : QMPair Qbar),
     Ψ x = Quotient.mk _ P → Ψ (x ≫ g.hom) = Quotient.mk _ (P.twist α)) ∧
   (∀ (y : fieldPt Qbar ⟶ Y) (P : QML3 Qbar), Φ Qbar y = M3.mk P →
-    Ψ (y ≫ fY) = Quotient.mk _ P.forget) ∧
-  (∀ y : fieldPt Qbar ⟶ Y, π.val (K := Qbar) y.left = π₆.val (K := Qbar) (y ≫ fY).left)
+    Ψ (y ≫ fY) = Quotient.mk _ P.forget)
 
 /-- **R2 on `X₆` (Baba–Granath), clause list**: `π₆ : X₆ → X₆/W ≅ P¹`; two `ℚ̄`-points have the
 same value iff their QM pairs are `Aut(𝒪)`-twists of each other (`W`-conjugate); the CM points
@@ -707,15 +757,18 @@ theorem cm_of_val {X : Over (Spec (CommRingCat.of ℚ))}
       (((h2 x₂ x₂ P₂ P₂ h₂ h₂).2.2.2 c₂).trans hx.symm)
     exact HasCM24.of_iso g ((hasCM24_twist P₂.q α).2 c₂)
 
-/-- **Glue (compiled): R2 on `Y₃` from R2 on `X₆`** through the forgetful morphism. -/
-theorem R2fpProps_of_X6 {Y : Over (Spec (CommRingCat.of ℚ))} {Φ : PtEquiv Y} {π : ToP1 Y.left}
+/-- **Glue (compiled): R2 on `Y₃` from R2 on `X₆`**, for `π = π₆ ∘ fY` (`ToP1.comp`). -/
+theorem R2fpProps_of_X6 {Y : Over (Spec (CommRingCat.of ℚ))} {Φ : PtEquiv Y}
     {X : Over (Spec (CommRingCat.of ℚ))} {Ψ : (fieldPt Qbar ⟶ X) ≃ Quotient (pairSetoid Qbar)}
-    {fY : Y ⟶ X} {π₆ : ToP1 X.left} (hX : X6Props Y Φ π X Ψ fY π₆)
-    (h2 : R2X6Props X Ψ π₆) : R2fpProps Y Φ π := by
-  obtain ⟨-, -, -, -, hf, hπ⟩ := hX
+    {fY : Y ⟶ X} {π₆ : ToP1 X.left} (hX : X6Props Y Φ X Ψ fY)
+    (h2 : R2X6Props X Ψ π₆) : R2fpProps Y Φ (π₆.comp fY.left) := by
+  obtain ⟨-, -, -, -, hf⟩ := hX
   intro y y' P Q hP hQ
   have h := h2 (y ≫ fY) (y' ≫ fY) P.forget Q.forget (hf y P hP) (hf y' Q hQ)
-  rw [hπ y, hπ y']
+  have e : ∀ z : fieldPt Qbar ⟶ Y,
+      (π₆.comp fY.left).val (K := Qbar) z.left = π₆.val (K := Qbar) (z ≫ fY).left :=
+    fun z => ToP1.val_comp_right π₆ fY.left z.left
+  rw [e y, e y']
   exact h
 
 /-- **Leaf R1fp (field-point form of Shimura–Deligne R1(a)).**
@@ -749,8 +802,8 @@ maximal order, no level) is a coarse moduli space over `ℚ` for `(A, ι, λ)` (
 1971 as for R1fp; UNVERIFIED as a literal locator, the audit read Deligne's §§4.9-4.17); the
 Atkin–Lehner group acts on it over `ℚ`. *Why faithful*: coarse moduli give `X₆(ℚ̄) = {(A, ι)}/≅`
 Galois-equivariantly in characteristic 0; the twists `(A, ι) ↦ (A, ι∘α)` are natural in families,
-so the coarse space inherits them; `Y₃ → X₆` exists by the coarse universal property; `π := π₆ ∘
-fY`. Smooth proper curve: `X₆` is the quotient of `ℍ` by a cocompact Fuchsian group without
+so the coarse space inherits them; `Y₃ → X₆` exists by the coarse universal property; the
+morphism `Y₃ → P¹` is `π₆ ∘ fY` (`ToP1.comp`, `R1R2fp_Y`). Smooth proper curve: `X₆` is the quotient of `ℍ` by a cocompact Fuchsian group without
 cusps; its canonical model is smooth projective over `ℚ` (it is a smooth curve because a
 coarse space of a one-dimensional smooth DM stack in characteristic 0 is a normal curve).
 
@@ -778,21 +831,21 @@ indices of `X₆ → X₆/W`, which are `(2, 2, 2)`; the indices `(4, 6, 2)` of 
 `RvNocm.ramification_eq_orbifold_order`). Composite: R2fp's fibre clause uses R1 (the forgetful
 morphism `Y₃ → X₆` and the moduli interpretation of `X₆`) together with Baba–Granath. -/
 def R1R2fp : Prop :=
-  ∃ (Y : Over (Spec (CommRingCat.of ℚ))) (Φ : PtEquiv Y) (π : ToP1 Y.left)
+  ∃ (Y : Over (Spec (CommRingCat.of ℚ))) (Φ : PtEquiv Y)
     (X : Over (Spec (CommRingCat.of ℚ))) (Ψ : (fieldPt Qbar ⟶ X) ≃ Quotient (pairSetoid Qbar))
     (fY : Y ⟶ X) (π₆ : ToP1 X.left),
-    R1fpProps Y Φ ∧ R1heckeProps Y Φ ∧ X6Props Y Φ π X Ψ fY π₆ ∧ R2X6Props X Ψ π₆ ∧
+    R1fpProps Y Φ ∧ R1heckeProps Y Φ ∧ X6Props Y Φ X Ψ fY ∧ R2X6Props X Ψ π₆ ∧
       CMExists X Ψ
 
 theorem R1fp_of_R1R2fp (h : R1R2fp) : R1fp := by
-  obtain ⟨Y, Φ, -, -, -, -, -, h1, -, -, -, -⟩ := h
+  obtain ⟨Y, Φ, -, -, -, -, h1, -, -, -, -⟩ := h
   exact ⟨Y, Φ, h1⟩
 
 /-- The form consumed on `Y₃`: R1fp + R1hecke + R2fp on one `Y` with one `π`. -/
 theorem R1R2fp_Y (h : R1R2fp) : ∃ (Y : Over (Spec (CommRingCat.of ℚ))) (Φ : PtEquiv Y)
     (π : ToP1 Y.left), R1fpProps Y Φ ∧ R1heckeProps Y Φ ∧ R2fpProps Y Φ π := by
-  obtain ⟨Y, Φ, π, X, Ψ, fY, π₆, h1, hh, hX, h2, -⟩ := h
-  exact ⟨Y, Φ, π, h1, hh, R2fpProps_of_X6 hX h2⟩
+  obtain ⟨Y, Φ, X, Ψ, fY, π₆, h1, hh, hX, h2, -⟩ := h
+  exact ⟨Y, Φ, π₆.comp fY.left, h1, hh, R2fpProps_of_X6 hX h2⟩
 
 /-- **Glue A7 from R1fp + R2fp (compiled).** Let `y` be a `ℚ̄`-point of `Y` with object `P` whose
 `π`-value is rational. Then every Galois conjugate of `P` (its base change `Q` along `σ`) has an
@@ -969,4 +1022,5 @@ end LeafQM
 #print axioms LeafQM.AV.R1R2fp_Y
 #print axioms LeafQM.AV.conj_iso_of_rational
 #print axioms LeafQM.AV.cm_of_val
+#print axioms LeafQM.AV.ToP1.val_comp_right
 #print axioms LeafQM.AV.HasCM3.of_iso

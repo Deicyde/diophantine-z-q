@@ -39,3 +39,8 @@ Compile command: `lake env lean scratch/leaf-qm-fp/QMLeaves.lean` (one Lean proc
   `conjHom_mem_com`, `HasCM4/3/24.of_iso`, `hasCM4/3/24_twist`, and `cm_of_val` (h-b1 M9 on X₆:
   points over 0, ∞, −16/27 are CM by ℤ[i], ℤ[ζ₃], ℤ[√−6], from R2X6Props + CMExists).
   COMPILES, 19 s, standard axioms.
+- 17:0x proved `ToP1.comp` (pull back the charts of a morphism to P¹ along a morphism of
+  schemes; uses `Scheme.Hom.naturality`, `Scheme.preimage_basicOpen`),
+  `specToEquivOfField_comp_right`, `ToP1.val_comp_right` ((π∘h)(y) = π(h∘y)). The leaf no longer
+  asserts a separate π on Y₃: `X6Props` lost its π-clause, `R1R2fp` quantifies only π₆ on X₆,
+  and `R1R2fp_Y` produces π := π₆.comp fY.left with `R2fpProps` (compiled). COMPILES.
