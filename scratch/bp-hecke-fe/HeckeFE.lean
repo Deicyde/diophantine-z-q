@@ -1699,6 +1699,121 @@ theorem sum_psi_complete_sq (hp2 : p ≠ 2) {t : ZMod p} (ht : t ≠ 0) (n : ZMo
   field_simp
   ring
 
+theorem chiC_zero : chiC p 0 = 0 := MulChar.map_zero _
+
+theorem chiC_inv_eq {w : ZMod p} : chiC p w⁻¹ = chiC p w := by
+  by_cases hw : w = 0
+  · simp [hw]
+  · have h1 : chiC p w⁻¹ * chiC p w = 1 := by rw [← map_mul, inv_mul_cancel₀ hw, map_one]
+    have h2 := chiC_sq_of_ne_zero hw
+    calc chiC p w⁻¹ = chiC p w⁻¹ * (chiC p w) ^ 2 := by rw [h2, mul_one]
+      _ = (chiC p w⁻¹ * chiC p w) * chiC p w := by ring
+      _ = chiC p w := by rw [h1, one_mul]
+
+theorem gP_sq (hp2 : p ≠ 2) : gP p ^ 2 = chiC p (-1) * p := by
+  have h : gP p ^ 2 = chiC p (-1) * Fintype.card (ZMod p) :=
+    gaussSum_sq (chiC_ne_one hp2) chiC_isQuadratic (ZMod.isPrimitive_stdAddChar p)
+  rwa [ZMod.card] at h
+
+theorem gP_ne_zero (hp2 : p ≠ 2) : gP p ≠ 0 := by
+  intro h
+  have hsq := gP_sq hp2
+  rw [h, zero_pow two_ne_zero] at hsq
+  have hm1 : chiC p (-1) ^ 2 = 1 := chiC_sq_of_ne_zero (neg_ne_zero.mpr one_ne_zero)
+  have : chiC p (-1) * (p : ℂ) ≠ 0 := by
+    refine mul_ne_zero (fun h0 => ?_) (Nat.cast_ne_zero.mpr hpp.out.ne_zero)
+    rw [h0] at hm1; norm_num at hm1
+  exact this hsq.symm
+
+/-- **The two-dimensional quadratic Gauss sum over `𝔽_p`.** -/
+theorem gauss2D (hp2 : p ≠ 2) (n1 n2 : ZMod p) :
+    ∑ x : ZMod p, ∑ y : ZMod p, chiC p (x ^ 2 + y ^ 2) * ZMod.stdAddChar (x * n1 + y * n2) =
+      p * chiC p (n1 ^ 2 + n2 ^ 2) := by
+  have hg : gP p ≠ 0 := gP_ne_zero hp2
+  have hχ : ∀ m : ZMod p, chiC p m =
+      (gP p)⁻¹ * ∑ t : ZMod p, chiC p t * ZMod.stdAddChar (t * m) := fun m => by
+    rw [sum_chi_psi_mul hp2 m]; field_simp
+  -- expand and separate the variables
+  have hexp : ∑ x : ZMod p, ∑ y : ZMod p, chiC p (x ^ 2 + y ^ 2) *
+      ZMod.stdAddChar (x * n1 + y * n2) =
+      (gP p)⁻¹ * ∑ t : ZMod p, chiC p t *
+        ((∑ x : ZMod p, ZMod.stdAddChar (t * x ^ 2 + n1 * x)) *
+          (∑ y : ZMod p, ZMod.stdAddChar (t * y ^ 2 + n2 * y))) := by
+    calc _ = ∑ x : ZMod p, ∑ y : ZMod p, ∑ t : ZMod p, (gP p)⁻¹ * (chiC p t *
+          (ZMod.stdAddChar (t * x ^ 2 + n1 * x) * ZMod.stdAddChar (t * y ^ 2 + n2 * y))) := by
+          refine Finset.sum_congr rfl fun x _ => Finset.sum_congr rfl fun y _ => ?_
+          rw [hχ, Finset.mul_sum, Finset.sum_mul]
+          refine Finset.sum_congr rfl fun t _ => ?_
+          have : ZMod.stdAddChar (t * (x ^ 2 + y ^ 2)) * ZMod.stdAddChar (x * n1 + y * n2) =
+              ZMod.stdAddChar (t * x ^ 2 + n1 * x) * ZMod.stdAddChar (t * y ^ 2 + n2 * y) := by
+            rw [← AddChar.map_add_eq_mul, ← AddChar.map_add_eq_mul]; congr 1; ring
+          linear_combination ((gP p)⁻¹ * chiC p t) * this
+      _ = ∑ t : ZMod p, ∑ x : ZMod p, ∑ y : ZMod p, (gP p)⁻¹ * (chiC p t *
+          (ZMod.stdAddChar (t * x ^ 2 + n1 * x) * ZMod.stdAddChar (t * y ^ 2 + n2 * y))) :=
+          (Finset.sum_congr rfl fun x _ => Finset.sum_comm).trans Finset.sum_comm
+      _ = _ := by
+          rw [Finset.mul_sum]
+          refine Finset.sum_congr rfl fun t _ => ?_
+          rw [Finset.sum_mul_sum]
+          simp only [Finset.mul_sum]
+  -- evaluate the inner sums
+  have hin : ∀ t : ZMod p, chiC p t * ((∑ x : ZMod p, ZMod.stdAddChar (t * x ^ 2 + n1 * x)) *
+      (∑ y : ZMod p, ZMod.stdAddChar (t * y ^ 2 + n2 * y))) =
+      gP p ^ 2 * (chiC p t * ZMod.stdAddChar (-((n1 ^ 2 + n2 ^ 2) / (4 * t)))) := fun t => by
+    by_cases ht : t = 0
+    · simp [ht]
+    · rw [sum_psi_complete_sq hp2 ht, sum_psi_complete_sq hp2 ht, sum_psi_sq hp2 ht]
+      have hsq : chiC p t ^ 2 = 1 := chiC_sq_of_ne_zero ht
+      have hadd : ZMod.stdAddChar (-(n1 ^ 2 / (4 * t))) * ZMod.stdAddChar (-(n2 ^ 2 / (4 * t))) =
+          (ZMod.stdAddChar (-((n1 ^ 2 + n2 ^ 2) / (4 * t))) : ℂ) := by
+        rw [← AddChar.map_add_eq_mul]; congr 1; ring
+      linear_combination (gP p ^ 2 * chiC p t * ZMod.stdAddChar (-(n1 ^ 2 / (4 * t))) *
+          ZMod.stdAddChar (-(n2 ^ 2 / (4 * t)))) * hsq + (gP p ^ 2 * chiC p t) * hadd
+  -- the substitution `u = −1/(4t)`
+  have h2 : (2 : ZMod p) ≠ 0 := by
+    intro h
+    have : (p : ℕ) ∣ 2 := by exact_mod_cast (ZMod.natCast_eq_zero_iff 2 p).mp (by exact_mod_cast h)
+    exact hp2 ((Nat.prime_dvd_prime_iff_eq hpp.out Nat.prime_two).mp this)
+  have h4 : (4 : ZMod p) ≠ 0 := by
+    rw [show (4 : ZMod p) = 2 * 2 by norm_num]; exact mul_ne_zero h2 h2
+  have hχ4 : chiC p 4 = 1 := by
+    rw [show (4 : ZMod p) = 2 ^ 2 by norm_num, map_pow]; exact chiC_sq_of_ne_zero h2
+  let φ : ZMod p ≃ ZMod p :=
+    { toFun := fun u => -(4 * u)⁻¹
+      invFun := fun u => -(4 * u)⁻¹
+      left_inv := fun u => by
+        simp only
+        by_cases hu : u = 0
+        · simp [hu]
+        · field_simp
+      right_inv := fun u => by
+        simp only
+        by_cases hu : u = 0
+        · simp [hu]
+        · field_simp }
+  have hsub : ∑ t : ZMod p, chiC p t * ZMod.stdAddChar (-((n1 ^ 2 + n2 ^ 2) / (4 * t))) =
+      chiC p (-1) * (chiC p (n1 ^ 2 + n2 ^ 2) * gP p) := by
+    rw [← sum_chi_psi_mul hp2 (n1 ^ 2 + n2 ^ 2), Finset.mul_sum, ← Equiv.sum_comp φ]
+    refine Finset.sum_congr rfl fun u _ => ?_
+    by_cases hu : u = 0
+    · simp [φ, hu]
+    · have e1 : (φ u : ZMod p) = -(4 * u)⁻¹ := rfl
+      have e2 : -((n1 ^ 2 + n2 ^ 2) / (4 * φ u)) = u * (n1 ^ 2 + n2 ^ 2) := by
+        rw [e1]; field_simp
+      rw [e2, e1, show -(4 * u)⁻¹ = (-1) * (4 * u)⁻¹ by ring, map_mul, chiC_inv_eq, map_mul, hχ4,
+        one_mul]
+      ring
+  rw [hexp]
+  simp_rw [hin]
+  rw [← Finset.mul_sum, hsub]
+  have hm1 : chiC p (-1) ^ 2 = 1 := chiC_sq_of_ne_zero (neg_ne_zero.mpr one_ne_zero)
+  have hsq := gP_sq hp2
+  have : (gP p)⁻¹ * (gP p ^ 2 * (chiC p (-1) * (chiC p (n1 ^ 2 + n2 ^ 2) * gP p))) =
+      chiC p (-1) * gP p ^ 2 * chiC p (n1 ^ 2 + n2 ^ 2) := by
+    field_simp
+  rw [this, hsq]
+  linear_combination (p * chiC p (n1 ^ 2 + n2 ^ 2)) * hm1
+
 end OddGaussPrime
 
 end BpHeckeFE
