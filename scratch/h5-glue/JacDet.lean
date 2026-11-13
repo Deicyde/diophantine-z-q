@@ -371,6 +371,43 @@ theorem cotMap_omega (𝒢 𝒩 : GroupModel A L) (f : 𝒢.G ⟶ 𝒩.G) [IsMon
   rw [GroupModel.omega, Submodule.mem_iInf] at hm ⊢
   exact fun s => cotMap_omegaAt 𝒢 𝒩 f s m (hm s)
 
+/-! ### The map of Hodge lines (step R2, lattice part) -/
+
+/-- `L ⊗ ⋀^g f^* : 𝒩.hodgeSpace g → 𝒢.hodgeSpace g`, `L`-linear. -/
+noncomputable def hodgeMap (𝒢 𝒩 : GroupModel A L) (f : 𝒢.G ⟶ 𝒩.G) [IsMonHom f] (g : ℕ) :
+    𝒩.hodgeSpace g →ₗ[L] 𝒢.hodgeSpace g :=
+  (exteriorPower.map g (cotMap 𝒢 𝒩 f)).baseChange L
+
+theorem hodgeMap_wedge (𝒢 𝒩 : GroupModel A L) (f : 𝒢.G ⟶ 𝒩.G) [IsMonHom f] (g : ℕ)
+    (v : Fin g → 𝒩.cotangent) :
+    hodgeMap 𝒢 𝒩 f g ((1 : L) ⊗ₜ[𝓞 L] exteriorPower.ιMulti (𝓞 L) g v) =
+      (1 : L) ⊗ₜ[𝓞 L] exteriorPower.ιMulti (𝓞 L) g (fun i => cotMap 𝒢 𝒩 f (v i)) := by
+  rw [hodgeMap, LinearMap.baseChange_tmul, exteriorPower.map_apply_ιMulti]
+  rfl
+
+/-- **`L ⊗ ⋀^g f^*` maps `⋀^g ω_𝒩` into `⋀^g ω_𝒢`** (proved, from R1). -/
+theorem hodgeMap_detLattice (𝒢 𝒩 : GroupModel A L) (f : 𝒢.G ⟶ 𝒩.G) [IsMonHom f] (g : ℕ)
+    (x : 𝒩.hodgeSpace g) (hx : x ∈ 𝒩.detLattice g) : hodgeMap 𝒢 𝒩 f g x ∈ 𝒢.detLattice g := by
+  induction hx using Submodule.span_induction with
+  | mem y hy =>
+    obtain ⟨v, rfl⟩ := hy
+    rw [hodgeMap_wedge]
+    apply Submodule.subset_span
+    exact ⟨fun i => ⟨cotMap 𝒢 𝒩 f (v i), cotMap_omega 𝒢 𝒩 f _ (v i).2⟩, rfl⟩
+  | zero => rw [map_zero]; exact zero_mem _
+  | add y z _ _ hy hz => rw [map_add]; exact add_mem hy hz
+  | smul r y _ hy =>
+    rw [← algebraMap_smul L r y, LinearMap.map_smul, algebraMap_smul]
+    exact Submodule.smul_mem _ r hy
+
+theorem hodgeMap_wedgeGerm (𝒢 𝒩 : GroupModel A L) (f : 𝒢.G ⟶ 𝒩.G) [IsMonHom f] {g : ℕ}
+    (t : Fin g → IsLocalRing.maximalIdeal 𝒩.genStalk) :
+    hodgeMap 𝒢 𝒩 f g (𝒩.wedge t) =
+      𝒢.wedge (fun i => ⟨genMap 𝒢 𝒩 f (t i), genMap_mem_maximalIdeal 𝒢 𝒩 f _ (t i).2⟩) := by
+  unfold GroupModel.wedge
+  rw [hodgeMap_wedge]
+  rfl
+
 end ZInQ.H5Glue
 
 #print axioms ZInQ.H5Glue.pts_comp_bijective
@@ -383,3 +420,5 @@ end ZInQ.H5Glue
 #print axioms ZInQ.H5Glue.cotMap
 #print axioms ZInQ.H5Glue.cotMap_dCls
 #print axioms ZInQ.H5Glue.cotMap_omega
+#print axioms ZInQ.H5Glue.hodgeMap_detLattice
+#print axioms ZInQ.H5Glue.hodgeMap_wedgeGerm

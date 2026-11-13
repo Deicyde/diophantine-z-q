@@ -84,7 +84,12 @@ docs/research/h5-neron.md.
   compiled ~02:20, axioms standard.
 - HeightAntitone docstring updated with the HodgeLatticeTheorem dependency in Minimal/H5Glue/Additivity; all three recompiled (standard axioms).
 
-## 10. Step R1 — PROVED (compiled ~02:30, JacDet.lean)
+## 10. Step R1 — PROVED (compiled ~02:21, JacDet.lean)
 - `unitSection_comp`, `stalkSpecializes_stalkSpecializes_apply`, `stalkSpecializes_self_apply`,
   `cotMap_omegaAt` (f^* maps (ω_𝒩)_s into (ω_𝒢)_s at every s), `cotMap_omega`: f^*(ω_𝒩) ⊆ ω_𝒢 for any
   homomorphism f (no generic-iso hypothesis needed). Axioms standard.
+
+## 11. Step R2 (lattice part) — PROVED (compiled ~02:23, JacDet.lean)
+- `hodgeMap 𝒢 𝒩 f g := (exteriorPower.map g cotMap).baseChange L : 𝒩.hodgeSpace g →ₗ[L] 𝒢.hodgeSpace g`,
+  `hodgeMap_wedge`, `hodgeMap_detLattice` (maps ⋀^g ω_𝒩 into ⋀^g ω_𝒢), `hodgeMap_wedgeGerm`
+  (wedge t ↦ wedge (genMap ∘ t)). Axioms standard. Bijectivity of hodgeMap NOT proved.
