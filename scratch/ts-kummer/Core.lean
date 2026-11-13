@@ -2464,6 +2464,124 @@ instance (D : Type) [CommRing D] [IsDomain D] : IsFractionRing D (KSyn D) :=
 /-- The identity `ℚ[X] → SrcPoly`. -/
 def toSrc (f : ℚ[X]) : SrcPoly := f
 
+/-- The construction behind `KummerCompositum`, from an abstract ring `D` (in the application
+`D = (O ⊗_{ℚ[X]} B)/𝔫` for a minimal prime `𝔫`). -/
+theorem kc_core (E : Type) [Field E] [Algebra (RatFunc ℚ) E] [Algebra ℚ[X] E]
+    [IsScalarTower ℚ[X] (RatFunc ℚ) E] [FiniteDimensional (RatFunc ℚ) E]
+    (P Q : ℚ[X]) (s₀ : ℚ)
+    (𝔓 : Ideal (integralClosure ℚ[X] E)) [h𝔓m : 𝔓.IsMaximal]
+    (φ : integralClosure ℚ[X] E ⧸ 𝔓 →+* AlgebraicClosure ℚ)
+    (O : Type) [CommRing O] [IsDomain O] [IsLocalRing O] [Algebra SrcPoly O]
+    [hp0 : (Ideal.span {toSrc (X - C s₀)}).IsPrime]
+    [IsLocalization.AtPrime O (Ideal.span {toSrc (X - C s₀)})]
+    (ρ : ℚ[X] →+* O) (hρ : Function.Injective ρ)
+    (oK : O →+* RatFunc ℚ)
+    (hoK : ∀ a : SrcPoly, oK (algebraMap SrcPoly O a) = algebraMap ℚ[X] (RatFunc ℚ) a.toPoly)
+    (hoKρX : oK (ρ X) = algebraMap ℚ[X] (RatFunc ℚ) P / algebraMap ℚ[X] (RatFunc ℚ) Q)
+    (evO : O →+* ℚ) (hevO : ∀ o, evO o = 0 ↔ o ∈ maximalIdeal O)
+    (D : Type) [CommRing D] [IsDomain D] (iO : O →+* D) (hiO : Function.Injective iO)
+    (iB : integralClosure ℚ[X] E →+* D)
+    (hiB : ∀ c : ℚ[X], iB (algebraMap ℚ[X] (integralClosure ℚ[X] E) c) = iO (ρ c))
+    (hgen : ∀ d : D, d ∈ Subring.closure (Set.range iO ∪ Set.range iB))
+    (hint : iO.IsIntegral)
+    (N' : Ideal D) [hN' : N'.IsPrime] (hN'O : N'.comap iO = maximalIdeal O)
+    (hN'B : 𝔓 ≤ N'.comap iB) :
+    ∃ (E' : Type) (_ : Field E') (_ : Algebra (RatFunc ℚ) E') (_ : Algebra ℚ[X] E')
+      (_ : IsScalarTower ℚ[X] (RatFunc ℚ) E') (_ : FiniteDimensional (RatFunc ℚ) E')
+      (ι : E →+* E'),
+      KummerShape E E' ι (algebraMap ℚ[X] (RatFunc ℚ) P / algebraMap ℚ[X] (RatFunc ℚ) Q) ∧
+      Module.finrank (RatFunc ℚ) E' ≤ Module.finrank (RatFunc ℚ) E ∧
+      ∃ 𝔓' : Ideal (integralClosure ℚ[X] E'), 𝔓'.IsPrime ∧
+        𝔓'.under ℚ[X] = Ideal.span {X - C s₀} ∧
+        ∃ φ' : integralClosure ℚ[X] E' ⧸ 𝔓' →+* AlgebraicClosure ℚ,
+          IntermediateField.adjoin ℚ (Set.range φ) ≤ IntermediateField.adjoin ℚ (Set.range φ') := by
+  classical
+  set p0 : Ideal SrcPoly := Ideal.span {toSrc (X - C s₀)} with hp0_def
+  -- the maps into `E' = Frac D`
+  let gO : O →+* KSyn D := (algebraMap D (KSyn D)).comp iO
+  have hgO : Function.Injective gO := (IsFractionRing.injective D (KSyn D)).comp hiO
+  let gS : ℚ[X] →+* KSyn D := gO.comp (algebraMap SrcPoly O)
+  have hSO : Function.Injective (algebraMap SrcPoly O) :=
+    IsLocalization.injective O p0.primeCompl_le_nonZeroDivisors
+  have hgS : Function.Injective gS := fun a b h => hSO (hgO h)
+  letI iK' : Algebra (RatFunc ℚ) (KSyn D) :=
+    (IsFractionRing.lift (A := ℚ[X]) (K := RatFunc ℚ) hgS).toAlgebra
+  letI iP : Algebra ℚ[X] (KSyn D) :=
+    ((algebraMap (RatFunc ℚ) (KSyn D)).comp (algebraMap ℚ[X] (RatFunc ℚ))).toAlgebra
+  haveI iT : IsScalarTower ℚ[X] (RatFunc ℚ) (KSyn D) := IsScalarTower.of_algebraMap_eq' rfl
+  have hPS : ∀ a : ℚ[X], algebraMap ℚ[X] (KSyn D) a = gS a := by
+    intro a
+    rw [IsScalarTower.algebraMap_apply ℚ[X] (RatFunc ℚ) (KSyn D)]
+    exact IsFractionRing.lift_algebraMap hgS a
+  have hKO : ∀ o, algebraMap (RatFunc ℚ) (KSyn D) (oK o) = gO o := by
+    have : (algebraMap (RatFunc ℚ) (KSyn D)).comp oK = gO := by
+      apply IsLocalization.ringHom_ext p0.primeCompl
+      apply RingHom.ext
+      intro a
+      simp only [RingHom.comp_apply]
+      rw [hoK]
+      exact IsFractionRing.lift_algebraMap hgS a
+    intro o
+    exact RingHom.congr_fun this o
+  -- `ι : E → E'`
+  let ιB : integralClosure ℚ[X] E →+* KSyn D := (algebraMap D (KSyn D)).comp iB
+  have hιB : Function.Injective ιB := by
+    rw [injective_iff_map_eq_zero]
+    intro b hb
+    by_contra hb0
+    have hne := Ideal.under_ne_bot_of_integral_mem (R := ℚ[X]) hb0
+      (Ideal.mem_span_singleton_self b) (Algebra.IsIntegral.isIntegral b)
+    obtain ⟨c, hc, hc0⟩ := Submodule.exists_mem_ne_zero_of_ne_bot hne
+    obtain ⟨b', hb'⟩ := Ideal.mem_span_singleton'.mp hc
+    have h1 : ιB (algebraMap ℚ[X] _ c) = 0 := by rw [← hb', map_mul, hb, mul_zero]
+    change algebraMap D (KSyn D) (iB _) = 0 at h1
+    rw [hiB] at h1
+    exact hc0 (hρ (hgO (h1.trans (map_zero gO).symm) |>.trans (map_zero ρ).symm))
+  haveI : IsFractionRing (integralClosure ℚ[X] E) E :=
+    integralClosure.isFractionRing_of_finite_extension (RatFunc ℚ) E
+  let ι : E →+* KSyn D := IsFractionRing.lift hιB
+  have hι : ∀ b, ι (algebraMap (integralClosure ℚ[X] E) E b) = ιB b :=
+    fun b => IsFractionRing.lift_algebraMap hιB b
+  have hιX : ι (algebraMap ℚ[X] E X) = gO (ρ X) := by
+    rw [IsScalarTower.algebraMap_apply ℚ[X] (integralClosure ℚ[X] E) E, hι]
+    change algebraMap D (KSyn D) (iB _) = _
+    rw [hiB]
+    rfl
+  have hshape1 : ι (algebraMap (RatFunc ℚ) E RatFunc.X) = algebraMap (RatFunc ℚ) (KSyn D)
+      (algebraMap ℚ[X] (RatFunc ℚ) P / algebraMap ℚ[X] (RatFunc ℚ) Q) := by
+    rw [← RatFunc.algebraMap_X, ← IsScalarTower.algebraMap_apply ℚ[X] (RatFunc ℚ) E, hιX,
+      ← hoKρX, hKO]
+  -- the subfield generated by `ι(E)` and `s` is everything
+  set F := Subfield.closure (Set.range ι ∪ {algebraMap (RatFunc ℚ) (KSyn D) RatFunc.X}) with hF
+  have hK'F : ∀ z : RatFunc ℚ, algebraMap (RatFunc ℚ) (KSyn D) z ∈ F := by
+    intro z
+    have h1 : Subfield.closure {(RatFunc.X : RatFunc ℚ)} ≤ F.comap (algebraMap (RatFunc ℚ) (KSyn D)) := by
+      rw [Subfield.closure_le]
+      rintro _ rfl
+      exact Subfield.subset_closure (Or.inr rfl)
+    exact h1 (ratFunc_mem_closure z)
+  have hDF : ∀ d : D, algebraMap D (KSyn D) d ∈ F := by
+    intro d
+    induction hgen d using Subring.closure_induction with
+    | mem x hx =>
+      rcases hx with ⟨o, rfl⟩ | ⟨b, rfl⟩
+      · change gO o ∈ F
+        rw [← hKO]; exact hK'F _
+      · change ιB b ∈ F
+        rw [← hι]; exact Subfield.subset_closure (Or.inl ⟨_, rfl⟩)
+    | zero => rw [map_zero]; exact zero_mem _
+    | one => rw [map_one]; exact one_mem _
+    | add x y _ _ hx hy => rw [map_add]; exact add_mem hx hy
+    | neg x _ hx => rw [map_neg]; exact neg_mem hx
+    | mul x y _ _ hx hy => rw [map_mul]; exact mul_mem hx hy
+  have hFtop : F = ⊤ := by
+    rw [eq_top_iff]
+    intro z _
+    obtain ⟨a, b, _, rfl⟩ := IsFractionRing.div_surjective (A := D) z
+    exact div_mem (hDF a) (hDF b)
+  sorry
+
+
 theorem kummerCompositum_proof : KummerCompositum := by
   intro E _ _ _ _ _ P Q t s₀ hQ hPQ hnc 𝔓 h𝔓 h𝔓u φ
   classical
@@ -2548,6 +2666,44 @@ theorem kummerCompositum_proof : KummerCompositum := by
       rw [mul_comm, ← Algebra.smul_def] at hx
       exact (smul_eq_zero_iff_right ho).mp hx
     exact Set.disjoint_left.mp (Ideal.disjoint_nonZeroDivisors_of_mem_minimalPrimes h𝔫min) hm hnzd
+  -- the map `O → ℚ(s)` and injectivity of `ρ`
+  let sK : SrcPoly →+* RatFunc ℚ := algebraMap ℚ[X] (RatFunc ℚ)
+  have hS_K : ∀ y : p0.primeCompl, IsUnit (sK y) := by
+    intro y
+    refine Ne.isUnit fun h0 => y.2 ?_
+    have : (y : SrcPoly) = 0 := IsFractionRing.injective ℚ[X] (RatFunc ℚ)
+      (h0.trans (map_zero sK).symm)
+    rw [this]; exact p0.zero_mem
+  let oK : O →+* RatFunc ℚ := IsLocalization.lift (M := p0.primeCompl) (S := O) (g := sK) hS_K
+  have hoK : ∀ a : SrcPoly, oK (algebraMap SrcPoly O a) = algebraMap ℚ[X] (RatFunc ℚ) a.toPoly :=
+    fun a => IsLocalization.lift_eq hS_K a
+  have hQK : algebraMap ℚ[X] (RatFunc ℚ) Q ≠ 0 :=
+    (map_ne_zero_iff _ (IsFractionRing.injective ℚ[X] (RatFunc ℚ))).mpr
+      (fun h0 => hQ (by rw [h0, eval_zero]))
+  have hoKr : oK r = algebraMap ℚ[X] (RatFunc ℚ) P / algebraMap ℚ[X] (RatFunc ℚ) Q := by
+    have h1 := congrArg oK hrspec
+    rw [map_mul, hoK, hoK] at h1
+    rw [eq_div_iff hQK]; exact h1
+  have hoKρ : ∀ f : ℚ[X], oK (ρ f) =
+      aeval (algebraMap ℚ[X] (RatFunc ℚ) P / algebraMap ℚ[X] (RatFunc ℚ) Q) f := by
+    have : oK.comp ρ = (aeval (algebraMap ℚ[X] (RatFunc ℚ) P /
+        algebraMap ℚ[X] (RatFunc ℚ) Q) : ℚ[X] →ₐ[ℚ] RatFunc ℚ).toRingHom := by
+      apply Polynomial.ringHom_ext
+      · intro a
+        exact RingHom.congr_fun (RingHom.ext_rat ((oK.comp ρ).comp C)
+          (((aeval (algebraMap ℚ[X] (RatFunc ℚ) P /
+            algebraMap ℚ[X] (RatFunc ℚ) Q) : ℚ[X] →ₐ[ℚ] RatFunc ℚ).toRingHom).comp C)) a
+      · simp only [RingHom.comp_apply, AlgHom.toRingHom_eq_coe, RingHom.coe_coe, aeval_X]
+        change oK (eval₂ _ r X) = _
+        rw [eval₂_X, hoKr]
+    intro f
+    exact RingHom.congr_fun this f
+  have hρinj : Function.Injective ρ := by
+    rw [injective_iff_map_eq_zero]
+    intro f hf
+    have := hoKρ f
+    rw [hf, map_zero] at this
+    exact ratFunc_transc P Q (fun h0 => hQ (by rw [h0, eval_zero])) hnc f this.symm
   sorry
 
 end TsKummer
