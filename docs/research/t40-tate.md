@@ -8,9 +8,15 @@ Marks: **VERIFIED** = compiled, or read in the source; **STANDARD** = published,
 
 ## 0. Main result
 
-`ZInQ.RLeaf.TateCuspLaurent` (task rleaf-elliptic, `ZInQKernel/Contrib/RLeaf/X1RationalCusp.lean`)
-is **proved outright**. Consequently leaf T40 (`X1Belyi.X1RationalCusp`) and leaf T39
-(`X1Belyi.X1ConstantField`) now depend only on `IgusaTransitive` (task t40-igusa).
+Two statements are **proved outright** (closed theorems, standard axioms only):
+
+1. `ZInQ.RLeaf.TateCuspLaurent` (my target; task rleaf-elliptic,
+   `ZInQKernel/Contrib/RLeaf/X1RationalCusp.lean`). So leaf T40 (`X1Belyi.X1RationalCusp`) and leaf
+   T39 (`X1Belyi.X1ConstantField`) depend only on `IgusaTransitive`.
+2. `ZInQ.RLeaf.TateMuN` (task t40-igusa's cusp statement, `ZInQKernel/Contrib/RLeaf/IgusaX0.lean`,
+   agreed with t40-igusa by message). t40-igusa proved `IgusaTransitive ↔ X0Transitive ∧ TateMuN`,
+   so with this T40 and T39 depend only on `X0Transitive` (Galois transitivity on cyclic subgroups
+   of order `N`, i.e. irreducibility of `X₀(N)`). t40-igusa writes `T40.lean` with that reduction.
 
 | Declaration | Type (exact) | File |
 |---|---|---|
@@ -19,6 +25,9 @@ is **proved outright**. Consequently leaf T40 (`X1Belyi.X1RationalCusp`) and lea
 | `ZInQ.RLeaf.x1ConstantField_of_igusaTransitive` | `ZInQ.RLeaf.IgusaTransitive → X1Belyi.X1ConstantField` | same |
 | `ZInQ.RLeaf.TateCuspTorsion.tateLaurentTorsion` | `ZInQ.RLeaf.TateLaurentTorsion` | `ZInQKernel/Contrib/RLeaf/TateCuspTorsion.lean` |
 | `ZInQ.RLeaf.tateCuspLaurent_of_tateLaurentTorsion` | `ZInQ.RLeaf.TateLaurentTorsion → ZInQ.RLeaf.TateCuspLaurent` | `ZInQKernel/Contrib/RLeaf/TateCuspGlue.lean` |
+| `ZInQ.RLeaf.tateMuN` | `ZInQ.RLeaf.TateMuN` | `ZInQKernel/Contrib/RLeaf/TateCuspMuN.lean` |
+| `ZInQ.RLeaf.TateCuspMuN.tateMuNAt_of_unit` | for `F` complete ultrametric with isometric `incl : ℚ((t)) →+* F`, `N ≥ 2`, `u : Fˣ` with `orderOf [u] = N` in `Fˣ/(incl t)^ℤ` and, for each `m < N` prime to `N`, a continuous `σ : F ≃+* F` fixing `incl` with `σ u = u^m`: `TateMuNAt N (ΩF F incl)` | same |
+| `ZInQ.RLeaf.TateCuspMuN.tateMuNAt_of_root` | `K` char. 0, `ζ` primitive `N`-th root, all `ζ ↦ ζ^m` induced by `K ≃+* K`: `TateMuNAt N (ΩF K((t)) (inclK K))` | same |
 
 The target, verbatim from `X1RationalCusp.lean`:
 
@@ -48,6 +57,23 @@ def TateLaurentTorsion : Prop :=
 'ZInQ.RLeaf.tateCuspLaurent' depends on axioms: [propext, Classical.choice, Quot.sound]
 'ZInQ.RLeaf.x1RationalCusp_of_igusaTransitive' depends on axioms: [propext, Classical.choice, Quot.sound]
 'ZInQ.RLeaf.x1ConstantField_of_igusaTransitive' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.RLeaf.tateMuN' depends on axioms: [propext, Classical.choice, Quot.sound]
+```
+(the last from `lake build ZInQKernel.Contrib.RLeaf.TateCuspMuN ZInQKernel.Contrib.RLeaf.TateCusp`,
+"Build completed successfully (9394 jobs)", log `scratch/t40-tate/build-tatecuspmun.txt`).
+
+`TateMuN` and `TateMuNAt`, verbatim from t40-igusa (`IgusaX0.lean`, `IgusaLocal.lean`):
+
+```lean
+def TateMuN : Prop :=
+  ∀ N : ℕ, 0 < N → ∃ Q₀ : EjBar.toAffine.Point, addOrderOf Q₀ = N ∧
+    ∀ R ∈ AddSubgroup.zmultiples Q₀, addOrderOf R = N →
+      ∃ τ : Kbar ≃ₐ[Qj] Kbar, τ (xCoord Q₀) = xCoord R
+
+def TateMuNAt (N : ℕ) (Ω : Type) [Field Ω] [Algebra Qj Ω] [DecidableEq Ω] : Prop :=
+  ∃ Q₀ : (Ej.baseChange Ω).toAffine.Point, addOrderOf Q₀ = N ∧
+    ∀ R ∈ AddSubgroup.zmultiples Q₀, addOrderOf R = N →
+      ∃ τ : Ω ≃ₐ[Qj] Ω, τ (xCoord Q₀) = xCoord R
 ```
 
 ## 1. The proof
@@ -84,6 +110,28 @@ use the case `N = 2` only for `W`, and the point `0`):
    `E_j[N] → T[N]`, both of size `N²` (leaf T36, `t36_torsionStructure`), hence bijective; the
    preimage `P` of `Q` has exact order `N` and `φ̄(x(P)) ∈ ℚ((t))`. So `φ̄` maps
    `K_N = ℚ(j)(x(P))` into `ℚ((t))` (`IntermediateField.adjoin_le_iff`), which defines `ψ`.
+
+### 1.3 `TateMuN` (`TateCuspMuN.lean`)
+
+* `K((t))` for any field `K` is a complete normed field (`rankOneK`); coefficientwise maps along
+  injective field maps preserve the valuation (`valuation_mapRingHom`, via
+  `valuation_le_iff_coeff_lt_eq_zero`), hence are isometric and continuous.
+* Generic step (`tateMuNAt_of_unit`): `F ⊇ ℚ((t))` complete, `q = t`, `W = E_t/ℚ((t))`,
+  `J = j(W)`, `Ω = \overline F` as a `ℚ(j)`-algebra by `j ↦ J`. Over `Ω`, `C • E_j = W` (same
+  `j`); `u², r ∈ ℚ((t))` (`uR_mem`). `Φ : E_t(F) → E_j(Ω)` (cast, `mapAlong`, cast,
+  `addEquivVariableChange`) is an injective homomorphism with `x(Φ P) = u² x(P) + r`.
+  `Q₀ = Φ(P(u))`; a generator `R` of `⟨Q₀⟩` is `m • Q₀` with `m < N` prime to `N`
+  (`exists_nat_zsmul_eq`, `coprime_of_addOrderOf_nsmul`), `= Φ(P(u^m))`; the given `σ` extends to
+  `τ ∈ Aut(Ω/ℚ(j))` (`IsAlgClosure.equivOfEquiv`; `τ` fixes `ℚ(j)` because `σ` fixes `ℚ((t))`),
+  and `σ X(q, u) = X(q, u^m)` (`TauCeti.map_tateUniformizationX`, `σ q = q`).
+* Specialization: `F = ℚ(ζ_N)((t))`, `u = ζ_N` (order `N` in `F^×/t^ℤ` by valuations),
+  `σ = ` coefficientwise `ζ ↦ ζ^m` (`IsCyclotomicExtension.autEquivPow`, `cyclotomic.irreducible_rat`);
+  `N = 1` is trivial over `Kbar`; t40-igusa's `tateMuN_of_at` (torsion counting) moves the
+  statement from `Ω` to `Kbar`.
+* Kernel note (VERIFIED by bisection): with the concrete field `CyclotomicField N ℚ ((t))` the
+  kernel timed out on rewrites whose instance paths differ (e.g. `map_nsmul` on
+  `Additive (Fˣ ⧸ q^ℤ)`, `addOrderOf_zero` on points); stating the argument for an abstract `F`
+  removed all timeouts.
 
 ## 2. Tau Ceti backport (licence)
 
