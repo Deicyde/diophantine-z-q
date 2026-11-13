@@ -89,8 +89,8 @@ Pack and tail on this form:
 - `g8LocalPack_of_BC`, `g15RamG_of_packBC`;
 - `modularConstituent_tail_BC`.
 
-The packs and the tail of `ModularConstituent` (G13-G16) are restated on these inputs and
-compiled (`TailK.lean`):
+For the general form, the packs and the tail of `ModularConstituent` (G13-G16) are also
+restated and compiled (`TailK.lean`):
 - `G0ModNewform.G7LocalPackU`: G7's data with `KerWild` and `DescentPts`;
 - `g8LocalPack_of_U`: gives local-data's `G8LocalPack`;
 - `g15RamG_of_packU`: gives g15-ram's `G15RamG`;
