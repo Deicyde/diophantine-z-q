@@ -22,3 +22,18 @@
   Build completed successfully (warnings only: deprecations, unused section variables), 2 min.
 - scratch/diff-bridge/AxiomsLocal.lean (`example : PkgI6.X := PkgI6.x` for the four, then #print axioms):
   all four depend on axioms [propext, Classical.choice, Quot.sound].
+
+## Step 2: T20 global (VERIFIED, compiled: `lake env lean scratch/diff-bridge/Global.lean`, no errors)
+- `DiffBridge.range_algebraMap_ringOfIntegers_rat : (algebraMap (𝓞 ℚ) ℚ).range = (algebraMap ℤ ℚ).range`.
+- `DiffBridge.differentIdeal_int_eq_differentIdeal_ringOfIntegers_rat :
+   differentIdeal ℤ (𝓞 L) = differentIdeal (𝓞 ℚ) (𝓞 L)` (via `coeSubmodule_differentIdeal` and
+   `Submodule.mem_traceDual`: both trace duals are cut out by the same range in ℚ).
+- `DiffBridge.ramificationIdx_int_eq : P.ramificationIdx ℤ = P.ramificationIdx (𝓞 ℚ)` (unfold
+  `Ideal.ramificationIdx_def`; `ℤ → 𝓞 ℚ` surjective).
+- `DiffBridge.ramificationGroup_eq_ramGroup : P.ramificationGroup Gal(L/ℚ) i = GlueConductor.ramGroup L P i`
+  (Tau Ceti `Ideal.ramificationGroup_def`; same action instance, closes by the lemma).
+- `DiffBridge.hilbertDifferentFormula : GlueConductor.HilbertDifferentFormula` from Tau Ceti
+  `multiplicity_differentIdeal_eq_finsum_card_ramificationGroup_sub_one` (K = ℚ),
+  `Ideal.exists_forall_ramificationGroup_eq_bot` (FaithfulSMul via `IsGaloisGroup.faithful (𝓞 ℚ)`),
+  `finsum_eq_sum_of_support_subset`, `Ideal.finiteMultiplicity`, `pow_multiplicity_dvd`,
+  `FiniteMultiplicity.not_pow_dvd_of_multiplicity_lt`.
