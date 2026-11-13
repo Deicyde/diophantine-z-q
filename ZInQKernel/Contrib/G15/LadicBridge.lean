@@ -403,14 +403,14 @@ theorem norm_j_apply_of_mem_stabilizer {τ : Gal(L/ℚ)}
   rw [hu'] at this
   rw [← coe_nv, ← coe_nv, this]
 
-variable [IsGalois ℚ L]
-
 /-- `L ≅ j L` over `ℚ`. -/
 def jEquiv : L ≃ₐ[ℚ] jField j := AlgEquiv.ofInjectiveField j.toRatAlgHom
 
 theorem coe_jEquiv (x : L) : ((jEquiv j x : jField j) : PadicAlgCl p) = j x := rfl
 
 instance : FiniteDimensional ℚ (jField j) := (jEquiv j).toLinearEquiv.finiteDimensional
+
+variable [IsGalois ℚ L]
 
 instance : IsGalois ℚ (jField j) := IsGalois.of_algEquiv (jEquiv j)
 
@@ -525,6 +525,64 @@ theorem ramCard_Lj_eq (i : ℕ) :
   rfl
 
 end Card
+
+/-! ## §7. `Lj j` is finite Galois over `ℚ_p`; specialising `upperAbs` -/
+
+section FinGal
+
+/-- `Lj j = ℚ_p(α)` for a primitive element `α` of `j L / ℚ`. -/
+theorem exists_Lj_eq_adjoin_simple :
+    ∃ α : PadicAlgCl p, Lj j = IntermediateField.adjoin ℚ_[p] {α} := by
+  obtain ⟨α, hα⟩ := Field.exists_primitive_element ℚ (jField j)
+  have h1 := IntermediateField.adjoin_map ℚ {α} (jField j).val
+  rw [hα, Set.image_singleton] at h1
+  have h2 : (⊤ : IntermediateField ℚ (jField j)).map (jField j).val = jField j := by
+    ext y
+    constructor
+    · rintro ⟨z, -, rfl⟩; exact z.2
+    · intro hy; exact ⟨⟨y, hy⟩, trivial, rfl⟩
+  obtain ⟨a, ha⟩ : ∃ a, (jField j).val α = a := ⟨_, rfl⟩
+  rw [ha] at h1
+  have hj : jField j = IntermediateField.adjoin ℚ {a} := h2.symm.trans h1
+  have ha' : a ∈ jField j := ha ▸ α.2
+  refine ⟨a, le_antisymm ?_ ?_⟩
+  · have hle : jField j ≤ (IntermediateField.adjoin ℚ_[p] {a}).restrictScalars ℚ := by
+      rw [hj, IntermediateField.adjoin_le_iff, Set.singleton_subset_iff]
+      exact IntermediateField.mem_adjoin_simple_self ℚ_[p] a
+    rw [Lj, IntermediateField.adjoin_le_iff]
+    intro y hy
+    exact hle hy
+  · rw [IntermediateField.adjoin_le_iff, Set.singleton_subset_iff]
+    exact IntermediateField.subset_adjoin _ _ ha'
+
+theorem finiteDimensional_Lj : FiniteDimensional ℚ_[p] (Lj j) := by
+  obtain ⟨α, hα⟩ := exists_Lj_eq_adjoin_simple j
+  rw [hα]
+  exact IntermediateField.adjoin.finiteDimensional (Algebra.IsIntegral.isIntegral α)
+
+variable [IsGalois ℚ L]
+
+theorem normal_Lj : Normal ℚ_[p] (Lj j) := by
+  rw [IntermediateField.normal_iff_forall_map_le']
+  intro σ
+  rw [Lj, IntermediateField.adjoin_map]
+  apply IntermediateField.adjoin.mono
+  rintro _ ⟨y, ⟨x, rfl⟩, rfl⟩
+  exact ⟨tauOf j σ x, tauOf_spec j σ x⟩
+
+/-- **`Lj j` is finite Galois over `ℚ_p`** (`LadicCond.IsFinGal`). -/
+theorem isFinGal_Lj : LadicCond.IsFinGal (Lj j) := by
+  have := finiteDimensional_Lj j
+  have := normal_Lj j
+  exact ⟨inferInstance, IsGalois.mk⟩
+
+/-- **The absolute upper filtration specialises to `Lj j`**: `σ ∈ G_{ℚ_p}^v` implies
+`σ ∈ upperSet (Lj j) v`. -/
+theorem mem_upperSet_of_mem_upperAbs {σ : PadicAlgCl p ≃ₐ[ℚ_[p]] PadicAlgCl p} {v : ℝ}
+    (hσ : σ ∈ LadicCond.upperAbs p v) : σ ∈ LadicCond.upperSet (Lj j) v :=
+  hσ (Lj j) (isFinGal_Lj j)
+
+end FinGal
 
 end ZInQ.Contrib.G15.Ladic
 
