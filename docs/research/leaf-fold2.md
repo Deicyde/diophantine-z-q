@@ -55,7 +55,7 @@ What changed:
   to the research leaves.
 - **Merged into existing leaves.** `r14Det` merges into R14, and `g9R10Weights` merges into
   R10 (`PkgI4.DeRhamComparisonHT`, r10-amend).
-- **Proved.** 13 fields are proved, and one more follows from a leaf already in the bundle:
+- **Proved.** 15 fields are proved, and one more follows from a leaf already in the bundle:
   - textbook leaves: T14(a′), T14(b′), T36, T37;
   - added leaves: `mulEtale` (through `MulIsogeny`), `constOrOntoAlgClosed`;
   - glue: `smoothStalkDimOne`, `ratFactorAlgClosed`, `g9AbVarBaseChange`, `oMaximal`,
