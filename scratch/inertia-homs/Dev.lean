@@ -537,6 +537,86 @@ theorem isUnit_prime_of_liesOver {F : Type*} [Field F] [CharZero F] (f : F →+*
 
 end Unit
 
+section DVR
+
+open NumberField IsDedekindDomain
+
+/-- Algebraic integers lie in every valuation subring of `ℚ̄`. -/
+theorem mem_of_isIntegral_int (w : ValuationSubring Qbar) (y : Qbar) (hy : IsIntegral ℤ y) :
+    y ∈ w := by
+  have hv := Valuation.valuationSubring.integers w.valuation
+  have hy' : IsIntegral w.valuation.valuationSubring y := hy.tower_top
+  exact (w.valuation_le_one_iff y).mp (hv.isIntegral_iff_v_le_one.mp hy')
+
+/-- **A place of `ℚ̄` over `p` restricts to a DVR on every number field (glue, proved).** The
+restriction `O = w ∩ F` contains `𝓞_F`; with `P = 𝔪_O ∩ 𝓞_F` (a nonzero prime, `p ∈ P`), the
+`P`-adic valuation ring `𝓞_{F,P}` (Mathlib: a DVR) is contained in `O`, and `O ≠ F`, so
+`O = 𝓞_{F,P}` (a valuation ring of Krull dimension `1` has no proper overrings but `F`). -/
+theorem comap_isDVR {F : Type*} [Field F] [NumberField F] (f : F →+* Qbar)
+    (w : ValuationSubring Qbar) (p : ℕ) (hp : p.Prime) (hw : LiesOver w p) :
+    IsDiscreteValuationRing (w.comap f) := by
+  set Ov := w.comap f with hOv
+  have hint : ∀ x : 𝓞 F, algebraMap (𝓞 F) F x ∈ Ov := fun x => by
+    rw [ValuationSubring.mem_comap]
+    exact mem_of_isIntegral_int w _ ((RingOfIntegers.isIntegral_coe x).map f.toIntAlgHom)
+  let ι0 : 𝓞 F →+* Ov := (algebraMap (𝓞 F) F).codRestrict Ov.toSubring hint
+  have hι0 : ∀ x, ((ι0 x : Ov) : F) = algebraMap (𝓞 F) F x := fun x => rfl
+  let P : Ideal (𝓞 F) := (IsLocalRing.maximalIdeal Ov).comap ι0
+  have hPp : P.IsPrime := Ideal.comap_isPrime _ _
+  have hpinv : ((p : F))⁻¹ ∉ Ov := by
+    rw [ValuationSubring.mem_comap, map_inv₀, map_natCast]
+    rcases (valuation_lt_one_iff_mem w (p : Qbar)).mp hw with h | h
+    · exact absurd h (Nat.cast_ne_zero.mpr hp.ne_zero)
+    · exact h
+  have hmax : ∀ x : 𝓞 F, x ∈ P ↔ algebraMap (𝓞 F) F x = 0 ∨
+      (algebraMap (𝓞 F) F x)⁻¹ ∉ Ov := fun x => by
+    show ι0 x ∈ IsLocalRing.maximalIdeal Ov ↔ _
+    rw [ValuationSubring.valuation_lt_one_iff, valuation_lt_one_iff_mem, hι0]
+  have hpP : ((p : 𝓞 F)) ∈ P := by
+    rw [hmax]
+    right
+    simpa using hpinv
+  have hPne : P ≠ ⊥ := fun h => by
+    rw [h, Ideal.mem_bot] at hpP
+    exact hp.ne_zero (by exact_mod_cast hpP)
+  let v : HeightOneSpectrum (𝓞 F) := ⟨P, hPp, hPne⟩
+  have hle : (v.valuation F).valuationSubring ≤ Ov := by
+    intro x hx
+    obtain ⟨n, d, hnd⟩ := HeightOneSpectrum.exists_primeCompl_mul_eq_of_integer v x hx
+    have hdP : (d : 𝓞 F) ∉ P := d.2
+    have hdu : IsUnit (ι0 d) := by
+      by_contra h
+      exact hdP ((IsLocalRing.mem_maximalIdeal _).mpr h)
+    have hd0 : algebraMap (𝓞 F) F d ≠ 0 := by
+      intro h0
+      apply hdP
+      rw [hmax]
+      left
+      exact h0
+    obtain ⟨u, hu⟩ := hdu
+    have hinvmem : (algebraMap (𝓞 F) F d)⁻¹ ∈ Ov := by
+      have h1 : ((u⁻¹ : Ovˣ) : Ov) * (u : Ov) = 1 := by simp
+      have h2 : (((u⁻¹ : Ovˣ) : Ov) : F) * algebraMap (𝓞 F) F d = 1 := by
+        rw [← hι0, ← hu]
+        exact_mod_cast congrArg (fun t : Ov => (t : F)) h1
+      have h3 : (((u⁻¹ : Ovˣ) : Ov) : F) = (algebraMap (𝓞 F) F d)⁻¹ :=
+        eq_inv_of_mul_eq_one_left h2
+      rw [← h3]
+      exact ((u⁻¹ : Ovˣ) : Ov).2
+    have hx : x = algebraMap (𝓞 F) F n * (algebraMap (𝓞 F) F d)⁻¹ := by
+      rw [← hnd, mul_assoc, mul_inv_cancel₀ hd0, mul_one]
+    rw [hx]
+    exact Ov.mul_mem _ _ (hint n) hinvmem
+  have hne : Ov ≠ ⊤ := fun h => hpinv (by rw [h]; exact ValuationSubring.mem_top _)
+  haveI : IsDiscreteValuationRing (v.valuation F).valuationSubring :=
+    (inferInstance : IsDiscreteValuationRing (v.valuation F).integer)
+  have heq : (v.valuation F).valuationSubring = Ov :=
+    ValuationSubring.eq_of_le_of_ne_top _ hle hne
+  rw [← heq]
+  infer_instance
+
+end DVR
+
 end InertiaHoms
 
 -- BEGIN STUB (copies of G4 definitions; dropped when merged after G4.lean)
