@@ -36,7 +36,7 @@
   All standard axioms.
 
 ## FS3 proved
-- 02:10 COMPILED (exit 0, 69 s; rerun 19 s after bundle edit): `end0Division_of_homFree : HomFreeFinite → MulIsogeny →
+- 02:07 COMPILED (exit 0, 69 s; rerun 19 s after bundle edit): `end0Division_of_homFree : HomFreeFinite → MulIsogeny →
   EndDivisionOfEnd0Division`. New textbook leaf `MulIsogeny` (Mumford §4 Application 2, locator UNVERIFIED: `[n]`,
   `n ≠ 0`, finite and surjective, char 0). Proof: clear denominators of u⁻¹ (localization), g∘f = f∘g = [s];
   Mathlib `IsFinite.of_comp` (g separated: `IsSeparated.of_comp` with `Over.w`) and `Surjective.of_comp`.
