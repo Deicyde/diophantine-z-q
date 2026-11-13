@@ -6,7 +6,7 @@ abbrev ZInQ.DefFaltings.AbVar (K : Type) [Field K] : Type 1 := PkgI3.AbVar K
 
 %%MAINPART%%
 
-/-! # Part E: g0-split's piece `StableHeightBaseChange` from the five glue statements -/
+/-! # Part E: g0-split's piece `StableHeightBaseChange` from the four glue statements -/
 
 namespace ZInQ.HeightBC
 
@@ -14,15 +14,15 @@ namespace ZInQ.HeightBC
 objects). -/
 theorem g0_hodgeLine_iff : G0StableBC.HodgeLineBaseChange ↔ HodgeLineBaseChange := Iff.rfl
 
-/-- **`StableHeightBaseChange` (g0-split missing piece 6, verbatim) from the five glue statements
+/-- **`StableHeightBaseChange` (g0-split missing piece 6, verbatim) from the four glue statements
 of Part C**, through g0-stablebc's `stableHeightBaseChange_of_hodgeLine`. Proved. -/
-theorem stableHeightBaseChange_of_final (h1 : HodgeBCInjective) (hc : CotangentSpanBC)
-    (hω : OmegaBaseChange) (hl : UniformizationLiftAnalytic) (hD : GermDerivation) :
+theorem stableHeightBaseChange_of_glue4 (h1 : HodgeBCInjective) (hc : CotangentSpanBC)
+    (hω : OmegaBaseChange) (hl : UniformizationLiftAnalytic) :
     G0StableBC.StableHeightBaseChange :=
   G0StableBC.stableHeightBaseChange_of_hodgeLine
-    (g0_hodgeLine_iff.mpr (hodgeLineBaseChange_of_final h1 hc hω hl hD))
+    (g0_hodgeLine_iff.mpr (hodgeLineBaseChange_of_glue4 h1 hc hω hl))
 
 end ZInQ.HeightBC
 
 #print axioms G0StableBC.stableHeightBaseChange_of_hodgeLine
-#print axioms ZInQ.HeightBC.stableHeightBaseChange_of_final
+#print axioms ZInQ.HeightBC.stableHeightBaseChange_of_glue4

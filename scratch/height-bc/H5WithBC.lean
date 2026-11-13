@@ -2643,13 +2643,16 @@ Self-contained (Mathlib + project only; no `sorry`, no `axiom`).
   (`span_bcHodge_le`).
 * Part C (new): glue statements over the natural map. Proved here: `ptsBaseChangeMul`,
   `ptsBaseChangeBij`, `detLatticeBC_of_omega`, `hodgeSpanBC_of`, `jacobianPullbackSpan_of`,
-  `uniformizationLift_of`, `jacobianSemilinear_of`.
-  **Main results** (final form): `modelHeightBaseChange_of_final` and
-  `hodgeLineBaseChange_of_final` (H4a and `HodgeLineBaseChange`, verbatim, from the five glue
+  `uniformizationLift_of`, `jacobianSemilinear_of`, and the glue statement `GermDerivation`
+  itself (`germDerivation`, from the section `GermDer`: germs along `Φ` form a ring
+  homomorphism near `0`, germs in `𝔪_ξ` vanish at the unit point, structure sections take the
+  value `τ(r)`).
+  **Main results** (final form): `modelHeightBaseChange_of_glue4` and
+  `hodgeLineBaseChange_of_glue4` (H4a and `HodgeLineBaseChange`, verbatim, from the four glue
   statements `HodgeBCInjective`, `CotangentSpanBC`, `OmegaBaseChange`,
-  `UniformizationLiftAnalytic`, `GermDerivation`), and `modelHeightBaseChangeGE_of_main`
-  (the descent half from `HodgeBCInjective` and `OmegaBaseChange`). Coarser forms:
-  `_of_glue5`, `_of_five`, `_of_main`, `_of_four`, `_of_glue`. -/
+  `UniformizationLiftAnalytic`), and `modelHeightBaseChangeGE_of_main` (the descent half from
+  `HodgeBCInjective` and `OmegaBaseChange`). Coarser forms: `_of_final`, `_of_glue5`,
+  `_of_five`, `_of_main`, `_of_four`, `_of_glue`. -/
 
 namespace ZInQ.HeightBC
 
@@ -3788,6 +3791,285 @@ def OmegaBaseChange : Prop :=
     (he : IsMonBC 𝒢 𝒢' e), 𝒢'.omega ≤ Submodule.span (𝓞 L') (bcCot he '' 𝒢.omega)
 
 
+/-! ### The differential at the origin along `Φ` (proves `GermDerivation`) -/
+
+section GermDer
+
+variable {K : Type} [Field K] {A : AbVar K}
+
+variable {L : Type} [Field L] [NumberField L] [Algebra K L] (𝒢 : GroupModel A L)
+
+/-- Values at a point of `V(ℂ)` are additive in the section. -/
+theorem evalAt_add {τ : L →+* ℂ} (p : 𝒢.Pts τ) (V : 𝒢.G.left.Opens) (hp : ⊤ ≤ p.left ⁻¹ᵁ V)
+    (r₁ r₂ : Γ(𝒢.G.left, V)) : 𝒢.evalAt p V (r₁ + r₂) = 𝒢.evalAt p V r₁ + 𝒢.evalAt p V r₂ := by
+  unfold GroupModel.evalAt
+  rw [dif_pos hp, dif_pos hp, dif_pos hp, map_add]
+  exact map_add (ConcreteCategory.hom (Scheme.ΓSpecIso (CommRingCat.of ℂ)).hom) _ _
+
+/-- Values at a point of `V(ℂ)` are multiplicative in the section. -/
+theorem evalAt_mul {τ : L →+* ℂ} (p : 𝒢.Pts τ) (V : 𝒢.G.left.Opens) (hp : ⊤ ≤ p.left ⁻¹ᵁ V)
+    (r₁ r₂ : Γ(𝒢.G.left, V)) : 𝒢.evalAt p V (r₁ * r₂) = 𝒢.evalAt p V r₁ * 𝒢.evalAt p V r₂ := by
+  unfold GroupModel.evalAt
+  rw [dif_pos hp, dif_pos hp, dif_pos hp, map_mul]
+  exact map_mul (ConcreteCategory.hom (Scheme.ΓSpecIso (CommRingCat.of ℂ)).hom) _ _
+
+variable {𝒢}
+
+/-- **Any representative computes the germ along `Φ` near `0`.** -/
+theorem germAlong_eventuallyEq_rep {τ : L →+* ℂ} {g : ℕ} {Λ : Submodule ℤ (Fin g → ℂ)}
+    {Φ : (Fin g → ℂ) → 𝒢.Pts τ} (hΦ : 𝒢.IsAnalyticUniformization τ Λ Φ) (t : 𝒢.genStalk)
+    (V : 𝒢.G.left.Opens) (mV : 𝒢.genericUnit ∈ V) (r : Γ(𝒢.G.left, V))
+    (ht : 𝒢.G.left.presheaf.germ V 𝒢.genericUnit mV r = t) :
+    𝒢.germAlong Φ t =ᶠ[nhds 0] fun z => 𝒢.evalAt (Φ z) V r := by
+  obtain ⟨hmul, -, -, hopen, -⟩ := hΦ
+  set U := (𝒢.exists_rep t).choose
+  set m := (𝒢.exists_rep t).choose_spec.choose
+  set s := (𝒢.exists_rep t).choose_spec.choose_spec.choose
+  have hs : 𝒢.G.left.presheaf.germ U 𝒢.genericUnit m s = t :=
+    (𝒢.exists_rep t).choose_spec.choose_spec.choose_spec
+  have heq : 𝒢.G.left.presheaf.germ U 𝒢.genericUnit m s =
+      𝒢.G.left.presheaf.germ V 𝒢.genericUnit mV r := by rw [hs, ht]
+  obtain ⟨W, mW, iU, iV, hW⟩ := TopCat.Presheaf.germ_eq _ _ m mV _ _ heq
+  have hnhds : 𝒢.dom Φ W ∈ nhds (0 : Fin g → ℂ) := by
+    refine (hopen W).mem_nhds ?_
+    show ⊤ ≤ (Φ 0).left ⁻¹ᵁ W
+    rw [map_zero_of_hom Φ hmul]
+    exact one_mem_dom 𝒢 τ mW
+  filter_upwards [hnhds] with z hz
+  show 𝒢.evalAt (Φ z) U s = 𝒢.evalAt (Φ z) V r
+  rw [evalAt_res 𝒢 (Φ z) iU hz, hW, ← evalAt_res 𝒢 (Φ z) iV hz]
+
+/-- The germ along `Φ` is differentiable at `0`. -/
+theorem germAlong_differentiableAt {τ : L →+* ℂ} {g : ℕ} {Λ : Submodule ℤ (Fin g → ℂ)}
+    {Φ : (Fin g → ℂ) → 𝒢.Pts τ} (hΦ : 𝒢.IsAnalyticUniformization τ Λ Φ) (t : 𝒢.genStalk) :
+    DifferentiableAt ℂ (𝒢.germAlong Φ t) 0 := by
+  obtain ⟨V, mV, r, hr⟩ := 𝒢.exists_rep t
+  have hev := germAlong_eventuallyEq_rep hΦ t V mV r hr
+  obtain ⟨hmul, -, -, hopen, hdiff⟩ := hΦ
+  have h0 : (0 : Fin g → ℂ) ∈ 𝒢.dom Φ V := by
+    show ⊤ ≤ (Φ 0).left ⁻¹ᵁ V
+    rw [map_zero_of_hom Φ hmul]
+    exact one_mem_dom 𝒢 τ mV
+  have hd : DifferentiableAt ℂ (fun z => 𝒢.evalAt (Φ z) V r) 0 :=
+    (hdiff V r).differentiableAt ((hopen V).mem_nhds h0)
+  exact hev.differentiableAt_iff.mpr hd
+
+/-- **Eventual additivity and multiplicativity of germs along `Φ`.** -/
+theorem germAlong_add_mul {τ : L →+* ℂ} {g : ℕ} {Λ : Submodule ℤ (Fin g → ℂ)}
+    {Φ : (Fin g → ℂ) → 𝒢.Pts τ} (hΦ : 𝒢.IsAnalyticUniformization τ Λ Φ) (t₁ t₂ : 𝒢.genStalk) :
+    (𝒢.germAlong Φ (t₁ + t₂) =ᶠ[nhds 0] fun z => 𝒢.germAlong Φ t₁ z + 𝒢.germAlong Φ t₂ z) ∧
+      (𝒢.germAlong Φ (t₁ * t₂) =ᶠ[nhds 0] fun z => 𝒢.germAlong Φ t₁ z * 𝒢.germAlong Φ t₂ z) := by
+  obtain ⟨V₁, m₁, r₁, h₁⟩ := 𝒢.exists_rep t₁
+  obtain ⟨V₂, m₂, r₂, h₂⟩ := 𝒢.exists_rep t₂
+  have e₁ := germAlong_eventuallyEq_rep hΦ t₁ V₁ m₁ r₁ h₁
+  have e₂ := germAlong_eventuallyEq_rep hΦ t₂ V₂ m₂ r₂ h₂
+  set W := V₁ ⊓ V₂
+  have mW : 𝒢.genericUnit ∈ W := ⟨m₁, m₂⟩
+  let i₁ : W ⟶ V₁ := homOfLE inf_le_left
+  let i₂ : W ⟶ V₂ := homOfLE inf_le_right
+  let ρ₁ := 𝒢.G.left.presheaf.map i₁.op r₁
+  let ρ₂ := 𝒢.G.left.presheaf.map i₂.op r₂
+  have g₁ : 𝒢.G.left.presheaf.germ W 𝒢.genericUnit mW ρ₁ = t₁ := by
+    rw [TopCat.Presheaf.germ_res_apply]; exact h₁
+  have g₂ : 𝒢.G.left.presheaf.germ W 𝒢.genericUnit mW ρ₂ = t₂ := by
+    rw [TopCat.Presheaf.germ_res_apply]; exact h₂
+  have hnhds : 𝒢.dom Φ W ∈ nhds (0 : Fin g → ℂ) := by
+    obtain ⟨hmul, -, -, hopen, -⟩ := hΦ
+    refine (hopen W).mem_nhds ?_
+    show ⊤ ≤ (Φ 0).left ⁻¹ᵁ W
+    rw [map_zero_of_hom Φ hmul]
+    exact one_mem_dom 𝒢 τ mW
+  constructor
+  · have eS := germAlong_eventuallyEq_rep hΦ (t₁ + t₂) W mW (ρ₁ + ρ₂)
+      (by rw [map_add, g₁, g₂])
+    filter_upwards [eS, e₁, e₂, hnhds] with z hS hz₁ hz₂ hz
+    rw [hS, hz₁, hz₂, evalAt_add 𝒢 (Φ z) W hz, evalAt_res 𝒢 (Φ z) i₁ hz r₁,
+      evalAt_res 𝒢 (Φ z) i₂ hz r₂]
+  · have eP := germAlong_eventuallyEq_rep hΦ (t₁ * t₂) W mW (ρ₁ * ρ₂)
+      (by rw [map_mul, g₁, g₂])
+    filter_upwards [eP, e₁, e₂, hnhds] with z hP hz₁ hz₂ hz
+    rw [hP, hz₁, hz₂, evalAt_mul 𝒢 (Φ z) W hz, evalAt_res 𝒢 (Φ z) i₁ hz r₁,
+      evalAt_res 𝒢 (Φ z) i₂ hz r₂]
+
+/-- `appLE ⊤ ⊤` is `appTop`. -/
+theorem appLE_top_top {X Y : Scheme.{0}} (f : X ⟶ Y) (e : (⊤ : X.Opens) ≤ f ⁻¹ᵁ ⊤) :
+    f.appLE ⊤ ⊤ e = f.appTop :=
+  Scheme.Hom.appLE_eq_app (U := ⊤) f
+
+/-- **Structure sections take the value `τ(r)` at every complex point.** -/
+theorem evalAt_structSection {τ : L →+* ℂ} (p : 𝒢.Pts τ) (r : 𝓞 L) :
+    𝒢.evalAt p ⊤ (𝒢.G.hom.appTop ((Scheme.ΓSpecIso (CommRingCat.of (𝓞 L))).inv r)) =
+      τ (algebraMap (𝓞 L) L r) := by
+  unfold GroupModel.evalAt
+  have h : ⊤ ≤ p.left ⁻¹ᵁ (⊤ : 𝒢.G.left.Opens) := fun x _ => trivial
+  rw [dif_pos h, appLE_top_top, ← CommRingCat.comp_apply, ← Scheme.Hom.comp_appTop]
+  have hw : p.left ≫ 𝒢.G.hom = Spec.map (CommRingCat.ofHom (τ.comp (algebraMap (𝓞 L) L))) :=
+    Over.w p
+  rw [hw]
+  have hN := congrArg (fun φ => (ConcreteCategory.hom φ)
+      ((Scheme.ΓSpecIso (CommRingCat.of (𝓞 L))).inv r))
+    (Scheme.ΓSpecIso_naturality (CommRingCat.ofHom (τ.comp (algebraMap (𝓞 L) L))))
+  refine hN.trans ?_
+  erw [CommRingCat.comp_apply, Iso.inv_hom_id_apply]
+  rfl
+
+/-- **Germs in `𝔪_ξ` vanish at the unit complex point.** -/
+theorem evalAt_one_eq_zero (τ : L →+* ℂ) (U : 𝒢.G.left.Opens) (hU : 𝒢.genericUnit ∈ U)
+    (s : Γ(𝒢.G.left, U))
+    (hs : 𝒢.G.left.presheaf.germ U 𝒢.genericUnit hU s ∈ IsLocalRing.maximalIdeal 𝒢.genStalk) :
+    𝒢.evalAt (1 : 𝒢.Pts τ) U s = 0 := by
+  unfold GroupModel.evalAt
+  have h : ⊤ ≤ (1 : 𝒢.Pts τ).left ⁻¹ᵁ U := one_mem_dom 𝒢 τ hU
+  rw [dif_pos h]
+  have h1 : (1 : 𝒢.Pts τ).left = (GroupModel.ptC τ).hom ≫ 𝒢.unitSection := rfl
+  have hgen : genericPt L ∈ 𝒢.unitSection ⁻¹ᵁ U := hU
+  have hz : 𝒢.unitSection.app U s = 0 := by
+    apply germ_injective_of_isIntegral _ (genericPt L) hgen
+    rw [map_zero]
+    refine (Scheme.Hom.germ_stalkMap_apply 𝒢.unitSection U (genericPt L) hgen s).symm.trans ?_
+    have hfield : IsField ((Spec (CommRingCat.of (𝓞 L))).presheaf.stalk (genericPt L)) := by
+      have : genericPt L = genericPoint (Spec (CommRingCat.of (𝓞 L))) :=
+        (genericPoint_eq_bot_of_affine (CommRingCat.of (𝓞 L))).symm
+      rw [this]
+      exact Field.toIsField _
+    have hloc := map_nonunit (𝒢.unitSection.stalkMap (genericPt L)).hom _
+      ((IsLocalRing.mem_maximalIdeal _).mp hs)
+    rw [IsLocalRing.isField_iff_maximalIdeal_eq.mp hfield] at hloc
+    exact hloc
+  have h2 : (1 : 𝒢.Pts τ).left.appLE U ⊤ h s =
+      ((GroupModel.ptC τ).hom.appLE (𝒢.unitSection ⁻¹ᵁ U) ⊤ h) (𝒢.unitSection.app U s) := by
+    have := Scheme.Hom.comp_appLE (GroupModel.ptC τ).hom 𝒢.unitSection U ⊤ h
+    exact congrArg (fun φ => (ConcreteCategory.hom φ) s) this
+  rw [h2, hz, map_zero]
+  exact map_zero _
+
+section Derivation
+
+variable {τ : L →+* ℂ} {g : ℕ} {Λ : Submodule ℤ (Fin g → ℂ)} {Φ : (Fin g → ℂ) → 𝒢.Pts τ}
+
+/-- Germs in `𝔪_ξ` vanish at `0` along `Φ`. -/
+theorem germAlong_zero_of_mem (hΦ : 𝒢.IsAnalyticUniformization τ Λ Φ) (t : 𝒢.genStalk)
+    (ht : t ∈ IsLocalRing.maximalIdeal 𝒢.genStalk) : 𝒢.germAlong Φ t 0 = 0 := by
+  have hs : 𝒢.G.left.presheaf.germ (𝒢.exists_rep t).choose 𝒢.genericUnit
+      (𝒢.exists_rep t).choose_spec.choose (𝒢.exists_rep t).choose_spec.choose_spec.choose = t :=
+    (𝒢.exists_rep t).choose_spec.choose_spec.choose_spec
+  show 𝒢.evalAt (Φ 0) _ _ = 0
+  rw [map_zero_of_hom Φ hΦ.1]
+  exact evalAt_one_eq_zero τ _ _ _ (hs ▸ ht)
+
+/-- Structure sections are constant `τ(r)` along `Φ` near `0`. -/
+theorem germAlong_structMap (hΦ : 𝒢.IsAnalyticUniformization τ Λ Φ) (r : 𝓞 L) :
+    𝒢.germAlong Φ (𝒢.structMap r) =ᶠ[nhds 0] fun _ => τ (algebraMap (𝓞 L) L r) := by
+  have e1 : 𝒢.structMap r = 𝒢.G.left.presheaf.germ ⊤ 𝒢.genericUnit trivial
+      (𝒢.G.hom.appTop ((Scheme.ΓSpecIso (CommRingCat.of (𝓞 L))).inv r)) := rfl
+  filter_upwards [germAlong_eventuallyEq_rep hΦ _ ⊤ trivial _ e1.symm] with z hz
+  rw [hz, evalAt_structSection]
+
+/-- The derivative at `0` of the germ along `Φ`. -/
+noncomputable def D0 (Φ : (Fin g → ℂ) → 𝒢.Pts τ) (t : 𝒢.genStalk) : (Fin g → ℂ) →L[ℂ] ℂ :=
+  fderiv ℂ (𝒢.germAlong Φ t) 0
+
+theorem D0_add (hΦ : 𝒢.IsAnalyticUniformization τ Λ Φ) (t₁ t₂ : 𝒢.genStalk) :
+    D0 Φ (t₁ + t₂) = D0 Φ t₁ + D0 Φ t₂ := by
+  unfold D0
+  rw [(germAlong_add_mul hΦ t₁ t₂).1.fderiv_eq]
+  exact fderiv_add (germAlong_differentiableAt hΦ t₁) (germAlong_differentiableAt hΦ t₂)
+
+theorem D0_mul (hΦ : 𝒢.IsAnalyticUniformization τ Λ Φ) (t₁ t₂ : 𝒢.genStalk) :
+    D0 Φ (t₁ * t₂) = 𝒢.germAlong Φ t₁ 0 • D0 Φ t₂ + 𝒢.germAlong Φ t₂ 0 • D0 Φ t₁ := by
+  unfold D0
+  rw [(germAlong_add_mul hΦ t₁ t₂).2.fderiv_eq]
+  exact fderiv_mul (germAlong_differentiableAt hΦ t₁) (germAlong_differentiableAt hΦ t₂)
+
+theorem D0_mul_apply (hΦ : 𝒢.IsAnalyticUniformization τ Λ Φ) (t₁ t₂ : 𝒢.genStalk)
+    (v : Fin g → ℂ) : D0 Φ (t₁ * t₂) v =
+      𝒢.germAlong Φ t₁ 0 * D0 Φ t₂ v + 𝒢.germAlong Φ t₂ 0 * D0 Φ t₁ v := by
+  rw [D0_mul hΦ]
+  rfl
+
+theorem D0_add_apply (hΦ : 𝒢.IsAnalyticUniformization τ Λ Φ) (t₁ t₂ : 𝒢.genStalk)
+    (v : Fin g → ℂ) : D0 Φ (t₁ + t₂) v = D0 Φ t₁ v + D0 Φ t₂ v := by
+  rw [D0_add hΦ]
+  rfl
+
+theorem D0_structMap_mul (hΦ : 𝒢.IsAnalyticUniformization τ Λ Φ) (r : 𝓞 L) (t : 𝒢.genStalk)
+    (v : Fin g → ℂ) : D0 Φ (𝒢.structMap r * t) v = τ (algebraMap (𝓞 L) L r) * D0 Φ t v := by
+  rw [D0_mul_apply hΦ]
+  have h0 : D0 Φ (𝒢.structMap r) = 0 := by
+    unfold D0
+    rw [(germAlong_structMap hΦ r).fderiv_eq, fderiv_const_apply]
+  rw [h0, (germAlong_structMap hΦ r).eq_of_nhds]
+  simp
+
+theorem D0_sq (hΦ : 𝒢.IsAnalyticUniformization τ Λ Φ) (x : 𝒢.genStalk)
+    (hx : x ∈ IsLocalRing.maximalIdeal 𝒢.genStalk ^ 2) (v : Fin g → ℂ) : D0 Φ x v = 0 := by
+  rw [pow_two] at hx
+  refine Submodule.mul_induction_on (C := fun x => D0 Φ x v = 0) hx ?_ ?_
+  · intro a ha b hb
+    rw [D0_mul_apply hΦ, germAlong_zero_of_mem hΦ a ha, germAlong_zero_of_mem hΦ b hb]
+    ring
+  · intro x y hx hy
+    rw [D0_add_apply hΦ, hx, hy, add_zero]
+
+/-- **`GermDerivation` holds for every analytic uniformization** (proved). -/
+theorem germDerivation_at (hΦ : 𝒢.IsAnalyticUniformization τ Λ Φ) :
+    ∃ D : 𝒢.cotangent →+ (Fin g → ℂ),
+      (∀ (r : 𝓞 L) x, D (r • x) = τ (algebraMap (𝓞 L) L r) • D x) ∧
+      ∀ (t : IsLocalRing.maximalIdeal 𝒢.genStalk) (j : Fin g),
+        D (𝒢.dCls t) j = fderiv ℂ (𝒢.germAlong Φ (t : 𝒢.genStalk)) 0 (Pi.single j 1) := by
+  let 𝔪 := IsLocalRing.maximalIdeal 𝒢.genStalk
+  let D1 : 𝔪 → (Fin g → ℂ) := fun t j => D0 Φ (t : 𝒢.genStalk) (Pi.single j 1)
+  have hD1add : ∀ a b : 𝔪, D1 (a + b) = D1 a + D1 b := by
+    intro a b
+    funext j
+    simp only [D1, Submodule.coe_add, D0_add_apply hΦ, Pi.add_apply]
+  have hD1wd : ∀ a b : 𝔪, 𝔪.toCotangent a = 𝔪.toCotangent b → D1 a = D1 b := by
+    intro a b hab
+    rw [Ideal.toCotangent_eq] at hab
+    have this : D0 Φ (a : 𝒢.genStalk) = D0 Φ ((a : 𝒢.genStalk) - b) + D0 Φ (b : 𝒢.genStalk) := by
+      rw [← D0_add hΦ, sub_add_cancel]
+    funext j
+    simp only [D1]
+    rw [this, ContinuousLinearMap.add_apply, D0_sq hΦ _ hab, zero_add]
+  let sec : 𝒢.cotangent → 𝔪 := Function.surjInv (𝔪.toCotangent_surjective)
+  have hsec : ∀ x : 𝒢.cotangent, 𝔪.toCotangent (sec x) = x :=
+    Function.surjInv_eq _
+  let D : 𝒢.cotangent →+ (Fin g → ℂ) :=
+    { toFun := fun x => D1 (sec x)
+      map_zero' := by
+        have : D1 (sec 0) = D1 0 := hD1wd _ _ (by rw [hsec, map_zero]; rfl)
+        rw [this]
+        have h00 : D0 Φ (0 : 𝒢.genStalk) = 0 := by
+          have := D0_add hΦ (0 : 𝒢.genStalk) 0
+          rw [add_zero] at this
+          exact add_eq_left.mp this.symm
+        funext j
+        simp [D1, h00]
+      map_add' := fun x y => by
+        show D1 (sec (x + y)) = D1 (sec x) + D1 (sec y)
+        rw [← hD1add]
+        exact hD1wd _ _ (by rw [hsec, map_add, hsec, hsec]; rfl) }
+  have hD : ∀ t : 𝔪, D (𝔪.toCotangent t) = D1 t := fun t => hD1wd _ _ (hsec _)
+  refine ⟨D, fun r x => ?_, fun t j => ?_⟩
+  · obtain ⟨t, rfl⟩ := 𝔪.toCotangent_surjective x
+    have hrx : r • 𝒢.dCls t = 𝔪.toCotangent (𝒢.structMap r • t) := by
+      show 𝒢.structMap r • 𝔪.toCotangent t = _
+      rw [LinearMap.map_smul]
+    show D (r • 𝒢.dCls t) = _ • D (𝒢.dCls t)
+    rw [hrx]
+    show D (𝔪.toCotangent _) = _ • D (𝔪.toCotangent t)
+    rw [hD, hD]
+    funext j
+    simp only [D1, SetLike.val_smul, smul_eq_mul, Pi.smul_apply]
+    rw [D0_structMap_mul hΦ]
+  · show D (𝔪.toCotangent t) j = _
+    rw [hD]
+    rfl
+
+end Derivation
+
+end GermDer
+
 /-! # Part C: `HodgeLineBaseChangeDescent` from glue statements over the natural map
 
 All six are about the honest natural map: `π = e.hom.left ≫ pullback.fst : 𝒢' → 𝒢`, its stalk map
@@ -4070,6 +4352,13 @@ theorem jacobianSemilinear_of (h : GermDerivation) : JacobianSemilinear := by
   ext i j
   simp only [Matrix.of_apply]
   rw [hDf]
+
+/-- **AN-der is a theorem** (`germDerivation_at`). -/
+theorem germDerivation : GermDerivation :=
+  fun _ _ _ _ _ _ _ _ _ _ _ _ hΦ => germDerivation_at hΦ
+
+/-- **AN-jac is a theorem.** -/
+theorem jacobianSemilinear : JacobianSemilinear := jacobianSemilinear_of germDerivation
 
 /-- **Glue BC-hspan (the image of `ψ` spans).** `L' · ψ(hodgeSpace g) = hodgeSpace' g`. True by
 cotangent base change `ω_{A_{L'}} = L' · π^*(ω_{A_L})` and multilinearity; proved from
@@ -4395,6 +4684,19 @@ theorem hodgeLineBaseChange_of_final (h1 : HodgeBCInjective) (hc : CotangentSpan
     HodgeLineBaseChange :=
   hodgeLineBaseChange_of_glue5 h1 hc hω hl (jacobianSemilinear_of hD)
 
+/-- **Main result (final form): glue H4a (`ModelHeightBaseChange`, verbatim) from four glue
+statements**: BC-alg (`HodgeBCInjective`), BC-cot (`CotangentSpanBC`), BC-omega
+(`OmegaBaseChange`), BC-lift-an (`UniformizationLiftAnalytic`). `GermDerivation` is proved.
+Proved. -/
+theorem modelHeightBaseChange_of_glue4 (h1 : HodgeBCInjective) (hc : CotangentSpanBC)
+    (hω : OmegaBaseChange) (hl : UniformizationLiftAnalytic) : ModelHeightBaseChange :=
+  modelHeightBaseChange_of_final h1 hc hω hl germDerivation
+
+/-- **`HodgeLineBaseChange` (verbatim) from the same four glue statements** (final form). -/
+theorem hodgeLineBaseChange_of_glue4 (h1 : HodgeBCInjective) (hc : CotangentSpanBC)
+    (hω : OmegaBaseChange) (hl : UniformizationLiftAnalytic) : HodgeLineBaseChange :=
+  hodgeLineBaseChange_of_final h1 hc hω hl germDerivation
+
 
 
 /-! # Part D: H5 (h5-glue's `stableFaltingsHeight_eq_neron_all'`) with H4a discharged -/
@@ -4403,23 +4705,23 @@ theorem hodgeLineBaseChange_of_final (h1 : HodgeBCInjective) (hc : CotangentSpan
 theorem h5_modelHeightBaseChange_iff :
     ZInQ.H5Glue.ModelHeightBaseChange ↔ ModelHeightBaseChange := Iff.rfl
 
-/-- **H5 in the multi-field form R19-R21 need, from the leaves N1, N2 and the five glue
-statements of Part C (final form)** (h5-glue's theorem with `hbc` discharged by
-`modelHeightBaseChange_of_final`). Proved. -/
-theorem stableFaltingsHeight_eq_neron_of_final (hN1 : ZInQ.H5Glue.NeronModelExists)
+/-- **H5 in the multi-field form R19-R21 need, from the leaves N1, N2 and the four glue
+statements of Part C** (h5-glue's theorem with `hbc` discharged by
+`modelHeightBaseChange_of_glue4`). Proved. -/
+theorem stableFaltingsHeight_eq_neron_of_glue4 (hN1 : ZInQ.H5Glue.NeronModelExists)
     (hN2 : ZInQ.H5Glue.SemistableNeronIdentityComponent) (h1 : HodgeBCInjective)
     (hc : CotangentSpanBC) (hω : OmegaBaseChange) (hl : UniformizationLiftAnalytic)
-    (hD : GermDerivation) (K : Type) [Field K] [NumberField K] (A : AbVar K) :
+    (K : Type) [Field K] [NumberField K] (A : AbVar K) :
     ∃ (L₀ : Type) (_ : Field L₀) (_ : NumberField L₀) (_ : Algebra K L₀) (𝒩₀ : GroupModel A L₀),
       𝒩₀.IsNeronModel ∧ stableFaltingsHeight A = 𝒩₀.height ∧
       ∀ (L' : Type) [Field L'] [NumberField L'] [Algebra K L'] [Algebra L₀ L']
         [IsScalarTower K L₀ L'] (𝒩' : GroupModel A L'), 𝒩'.IsNeronModel →
         stableFaltingsHeight A = 𝒩'.height :=
   ZInQ.H5Glue.stableFaltingsHeight_eq_neron_all' hN1 hN2
-    (h5_modelHeightBaseChange_iff.mpr (modelHeightBaseChange_of_final h1 hc hω hl hD)) K A
+    (h5_modelHeightBaseChange_iff.mpr (modelHeightBaseChange_of_glue4 h1 hc hω hl)) K A
 
 end ZInQ.HeightBC
 
-#print axioms ZInQ.HeightBC.modelHeightBaseChange_of_final
-#print axioms ZInQ.HeightBC.hodgeLineBaseChange_of_final
-#print axioms ZInQ.HeightBC.stableFaltingsHeight_eq_neron_of_final
+#print axioms ZInQ.HeightBC.modelHeightBaseChange_of_glue4
+#print axioms ZInQ.HeightBC.hodgeLineBaseChange_of_glue4
+#print axioms ZInQ.HeightBC.stableFaltingsHeight_eq_neron_of_glue4

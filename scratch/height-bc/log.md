@@ -89,3 +89,17 @@
   24 `#print axioms` all [propext, Classical.choice, Quot.sound]. Regenerated G0WithBC
   (`stableHeightBaseChange_of_final`) and H5WithBC (`stableFaltingsHeight_eq_neron_of_final`): 0 errors,
   axioms standard.
+- GermDer.lean (05:15-05:22): PROVED `germDerivation_at` (GermDerivation for every analytic
+  uniformization): `evalAt_add`, `evalAt_mul`, `germAlong_eventuallyEq_rep` (any representative computes
+  the germ near 0), `germAlong_differentiableAt`, `germAlong_add_mul`, `appLE_top_top`,
+  `evalAt_structSection` (structure sections take value τ(r) at every ℂ-point, via ΓSpecIso naturality),
+  `evalAt_one_eq_zero` (germs in 𝔪_ξ vanish at the unit point: germ injectivity on the integral
+  Spec 𝓞_L, the generic stalk is a field), `D0_add/_mul(_apply)`, `D0_structMap_mul`, `D0_sq`, descent to
+  the cotangent space via `Ideal.toCotangent_eq`. FINDING: smul lemmas on `E →L[ℂ] ℂ` from `fderiv_mul`
+  did not rewrite (instance path); worked around with applied forms.
+- Final.lean (05:24): section GermDer merged; `germDerivation : GermDerivation`,
+  `jacobianSemilinear : JacobianSemilinear` theorems. VERIFIED: `modelHeightBaseChange_of_glue4`,
+  `hodgeLineBaseChange_of_glue4` from HodgeBCInjective, CotangentSpanBC, OmegaBaseChange,
+  UniformizationLiftAnalytic only. 0 errors, 28 `#print axioms` all standard.
+  G0WithBC (`stableHeightBaseChange_of_glue4`) and H5WithBC (`stableFaltingsHeight_eq_neron_of_glue4`)
+  regenerated: 0 errors, axioms standard.
