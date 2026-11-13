@@ -121,3 +121,4 @@
   `conjPrime`, `conjGal_artin4` (τ ∘ Art(c) ∘ τ⁻¹ = Art(c⁻¹): complex conjugation inverts Cl'), in
   RingClassGenus.lean; `actsAsArtin4_conj` (ℚ̄ form for cm-points' ActsAsArtin4) in RingClassBridge.lean.
   Pitfall: `set` again caused trouble (maxRecDepth); use obtain ⟨Q', hQ'⟩ : ∃ Q', Q' = … and maxRecDepth 10000.
+- 09:05 fleet report .fleet/ring-class.md written (last commit).
