@@ -49,3 +49,11 @@ ringClassFieldD at a junk argument.
   `ffAlgebra X = fnFieldAlgebra K X.left X.hom := rfl`; DimEqTrdegOver ↔ … := Iff.rfl;
   trdeg K (FractionRing K[X]) toENat = 1 and trdeg K (FractionRing K) toENat = 0 derived from dimEqTrdegAlg.
   8 axiom prints all [propext, Classical.choice, Quot.sound].
+
+## unram-roots compile (VERIFIED, 11:16)
+- `lake build …Unramified.Maximal` (3373 jobs, up to date); `lake env lean scratch/rv-fast/UnramRootsCheck.lean`:
+  exit 0, 0 errors, linter warnings only (deprecation `if_pos`, haveI style, unused hN). Appended checks pass:
+  `unramRoots_all` has local-glue's `hU` shape; the Frobenius lift of `UnramProcyclic` is outside inertiaSet
+  (χ φ = 1 ≠ 0 in ZMod 2). 6 axiom prints all [propext, Classical.choice, Quot.sound].
+- Statement: `def UnramRoots` byte-identical to scratch/local-glue/part_twist.lean and to the copy in KerWild.lean
+  (diff); no def of fixSet/inertiaSet/Fld/GQp in local-glue/*.lean, KerWild.lean, UnramRoots.lean (grep).
