@@ -48,3 +48,15 @@ File ZInQKernel/Contrib/RLeaf/IgusaSL2.lean. Proved, axioms [propext, Classical.
 - `igusaTransitive_of_igusaGL2 : IgusaGL2 → IgusaTransitive`
 Named leaves (def … : Prop): `IgusaSL2X` (SL₂ part on x-coordinates; Shimura 6.6 geometric part),
 `IgusaGL2` (Igusa 1959 as usually stated: surjectivity onto GL₂(ℤ/N), points, every basis).
+
+## Step 2: IgusaX0.lean (VERIFIED, compiled with `lake env lean`, clean)
+`IgusaTransitive ↔ X0Transitive ∧ TateMuN` (`igusaTransitive_iff`), axioms standard three.
+- `X0Transitive`: Galois transitive on cyclic subgroups of order N (∃σ, σP ∈ ⟨P'⟩). Published:
+  irreducibility of Φ_N(X,j) over ℂ(j) (Lang EF Ch 5 §2 Thm 3; Cox Thm 11.18; UNVERIFIED numbers).
+- `TateMuN`: ∃ Q₀ of order N whose generators R have x(R) = τ(x(Q₀)) for some τ. Published:
+  Tate curve (Silverman ATAEC V.3.1, V.5.3, UNVERIFIED numbers) with Q₀ = image of ζ_N.
+- Both are consequences of IgusaTransitive (proved), so each is strictly weaker or equal; their
+  conjunction is equivalent to it. X0Transitive is the X₀(N) (degree ψ(N)) statement; TateMuN is
+  local at j = ∞.
+- Helper lemmas proved: `xCoord_neg`, `eq_or_eq_neg_of_xCoord_eq`, `addOrderOf_galPt`,
+  `xCoord_galPt`.
