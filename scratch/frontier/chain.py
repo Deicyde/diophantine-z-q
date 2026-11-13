@@ -26,7 +26,7 @@ import chainlib as c
 MAIN = "HEAD"
 G3 = ("357f5d9e", "scratch/g0-assemble3/G0Assemble3.lean")
 B5 = ("93a1e33c", "scratch/cpts-transport/Bundle5.lean")
-AP = ("ddc1d8eb", "scratch/assemble-port/AssemblePort.lean")  # assemble-port final flat check (31 glue fields)
+AP = ("cd031f5b", "scratch/assemble-port/AssemblePort.lean")  # assemble-port final flat check (28 glue fields, 1123 s)
 
 # ---------------------------------------------------------------- edges
 # (concl, short theorem name, rev, file, [hyp heads], scenario set, note)

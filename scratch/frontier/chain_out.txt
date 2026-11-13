@@ -1,8 +1,7 @@
 ===== scenario A
 edge check mismatches: 0
-open nodes: 84
+open nodes: 81
   ALFixedPoints                                 GluePieces5.alFixedPoints
-  BetaSignAtTwo                                 GluePieces5.betaSignAtTwo
   CMDescends                                    GluePieces5.cmDescends
   CMOptimalEmbedding                            GluePieces5.cmOptimalEmbedding
   CarayolR17'                                   OpenResearchLeaves2.r17
@@ -29,7 +28,6 @@ open nodes: 84
   HomLinearLift                                 GluePieces5.homLinearLift
   IsogenyQuasiInverse                           GluePieces5.isogenyQuasiInverse
   JacobianExists                                OpenTextbookLeaves2.t33
-  KummerCompositum                              GluePieces5.kummerCompositum
   Lemma318Literal                               -
   Lemma321Five                                  -
   NeronMappingAbelianScheme                     GluePieces5.neronMappingAbelianScheme
@@ -80,7 +78,6 @@ open nodes: 84
   Thm35First                                    -
   TorsionStructure                              OpenTextbookLeaves2.t5
   UniformizationExists                          OpenTextbookLeaves2.t35
-  UpperBreakBound                               GluePieces5.upperBreakBound
   ValenceBoundGammaStar                         GluePieces5.valenceBoundGammaStar
   X1RationalCusp                                OpenTextbookLeaves2.t40
   X6ConicModel                                  GluePieces5.x6ConicModel
@@ -170,12 +167,8 @@ def-text comparison (proved/reduced Prop vs assemble-port's def; edges on the F 
   X1RationalCusp                      identical
   SphereFactorAffine                  identical
   PiTwistC                            identical
-  KummerCompositum                    identical
   HomLinearLift                       identical
-  QMEndRank                           identical
-  TateBridge35                        identical
   ProperSmoothGenConnected            identical
-  AbVarSpreadsOut                     identical
   TateModuleFree                      identical
 route T inputs and kernel leaf copies (def text vs g0-assemble3, and pairwise):
   LinkedTateLocal      3d1b90b5:scratch/lt-local/LtLocal4.lean: identical
