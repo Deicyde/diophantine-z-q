@@ -72,3 +72,10 @@ information: Galois action on the geometric components. Inputs:
   `prime_two_O3` (parity table over `ZMod 2` by `decide`), `inertCount6_K3 = 1`,
   `pic_R3 = 1` (Mathlib's `three_pid`), `conductor_R3 = 1`, `finrank_K3 = 2`,
   `sqrt3_sq : (2ζ₃+1)² = −3`.
+- L6 (VERIFIED, compiled, `lake env lean scratch/pi0-x6/Pi0X6.lean`, 0 errors, 0 warnings; all
+  8 audited declarations: propext, Classical.choice, Quot.sound): the single file combining
+  Core + ClosedQi + ClosedQ3, plus §7: `R2X6CMExact` (exact-CM clause at 0, ∞), `Xbar`,
+  `ptOf`, `compOf`, `AGInputs` (structure of the unproved algebraic-geometry inputs: galois,
+  over0, overInf, descend), `subsingleton_components_of_bundle` and
+  `r1pi0Props_of_bundle : R5ptProps X Ψ → R5fpCount → R2X6CMExact Ψ π₆ → AGInputs π₆ →
+  GeometricallyConnected X.hom`.
