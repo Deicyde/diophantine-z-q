@@ -143,6 +143,8 @@ def X1RationalCusp : Prop :=
 instance : CharZero Kbar :=
   charZero_of_injective_algebraMap (algebraMap Qj Kbar).injective
 
+instance : EjBar.IsElliptic := inferInstanceAs ((Ej.map (algebraMap Qj Kbar)).IsElliptic)
+
 theorem nTors_card (K : Type) [Field K] [DecidableEq K] (W : WeierstrassCurve K) (N : ℕ) (hN : 0 < N)
     (e : nTors W N ≃+ (ZMod N × ZMod N)) : Nat.card (nTors W N) = N ^ 2 := by
   have : NeZero N := ⟨hN.ne'⟩
@@ -154,5 +156,49 @@ theorem exists_addOrderOf (K : Type) [Field K] [DecidableEq K] (W : WeierstrassC
   refine ⟨(e.symm (1, 0) : W.toAffine.Point), ?_⟩
   rw [AddSubgroup.addOrderOf_coe, AddEquiv.addOrderOf_eq, Prod.addOrderOf, ZMod.addOrderOf_one,
     addOrderOf_zero, Nat.lcm_one_right]
+
+/-! ## The degree bound `[K_N : ℚ(j)] ≤ N²` (from leaf T1) -/
+
+/-- `x(σ P) = σ(x(P))`. -/
+theorem xCoord_map (σ : Kbar ≃ₐ[Qj] Kbar) (P : EjBar.toAffine.Point) :
+    xCoord (WeierstrassCurve.Affine.Point.map (W' := Ej) σ.toAlgHom P) = σ (xCoord P) := by
+  cases P with
+  | zero => exact (map_zero σ).symm
+  | some x y h => rfl
+
+theorem map_mem_nTors (σ : Kbar ≃ₐ[Qj] Kbar) (N : ℕ) (P : EjBar.toAffine.Point) (hP : N • P = 0) :
+    WeierstrassCurve.Affine.Point.map (W' := Ej) σ.toAlgHom P ∈ nTors EjBar N := by
+  show N • _ = 0
+  exact (map_nsmul _ N P).symm.trans ((congrArg _ hP).trans (map_zero _))
+
+/-- **Degree bound (glue, proved from T1).** For `N • P = 0`, `N ≥ 1`:
+`[ℚ(j)(x(P)) : ℚ(j)] ≤ N²`. The conjugates of `x(P)` over `ℚ(j)` are the `x(σP)`, `σP ∈ E[N]`. -/
+theorem finrank_fieldX1_le (hT : TorsionStructure) (N : ℕ) (hN : 0 < N)
+    (P : EjBar.toAffine.Point) (hP : N • P = 0) : Module.finrank Qj (fieldX1 P) ≤ N ^ 2 := by
+  obtain ⟨e⟩ := hT Kbar EjBar N hN
+  have hx : IsIntegral Qj (xCoord P) := Algebra.IsIntegral.isIntegral _
+  rw [fieldX1, IntermediateField.adjoin.finrank hx]
+  have hirr := minpoly.irreducible hx
+  have hsep : (minpoly Qj (xCoord P)).Separable := hirr.separable
+  have hspl : ((minpoly Qj (xCoord P)).map (algebraMap Qj Kbar)).Splits := IsAlgClosed.splits _
+  rw [← card_rootSet_eq_natDegree hsep hspl]
+  have hsub : (minpoly Qj (xCoord P)).rootSet Kbar ⊆ xCoord '' (nTors EjBar N : Set EjBar.toAffine.Point) := by
+    intro r hr
+    have hroot : aeval r (minpoly Qj (xCoord P)) = 0 := (mem_rootSet.mp hr).2
+    have hmin : minpoly Qj r = minpoly Qj (xCoord P) :=
+      (minpoly.eq_of_irreducible_of_monic hirr hroot (minpoly.monic hx)).symm
+    obtain ⟨σ, hσ⟩ := (Normal.minpoly_eq_iff_mem_orbit (F := Qj) (E := Kbar)).mp hmin
+    refine ⟨WeierstrassCurve.Affine.Point.map (W' := Ej) σ.toAlgHom P,
+      map_mem_nTors σ N P hP, ?_⟩
+    exact (xCoord_map σ P).trans hσ
+  have hfin : (nTors EjBar N : Set EjBar.toAffine.Point).Finite := by
+    have : NeZero N := ⟨hN.ne'⟩
+    have : Finite (nTors EjBar N) := Finite.of_equiv _ e.toEquiv.symm
+    exact Set.toFinite _
+  calc Fintype.card ((minpoly Qj (xCoord P)).rootSet Kbar)
+      = ((minpoly Qj (xCoord P)).rootSet Kbar).ncard := Nat.card_eq_fintype_card.symm.trans (Nat.card_coe_set_eq _)
+    _ ≤ (xCoord '' (nTors EjBar N : Set EjBar.toAffine.Point)).ncard := Set.ncard_le_ncard hsub (hfin.image _)
+    _ ≤ (nTors EjBar N : Set EjBar.toAffine.Point).ncard := Set.ncard_image_le hfin
+    _ = N ^ 2 := (Nat.card_coe_set_eq _).symm.trans (nTors_card Kbar EjBar N hN e)
 
 end X1Belyi

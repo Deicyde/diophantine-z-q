@@ -13,3 +13,4 @@
   `y² + xy = x³ − 36/(j−1728)x − 1/(j−1728)`; the definition itself is Mathlib's.)
 - FINDING (VERIFIED, read): Mathlib has no multiplication-by-`n` formula for division polynomials and no
   structure theorem for `E[N]`; so the degree bound `[K_N : ℚ(j)] ≤ N²` is reduced to leaf T1.
+- 23:20 `finrank_fieldX1_le` (TorsionStructure ⇒ [ℚ(j)(x(P)) : ℚ(j)] ≤ N² for N•P = 0): compiles. VERIFIED (compiled).
