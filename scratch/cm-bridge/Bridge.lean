@@ -1038,24 +1038,38 @@ theorem IsComplexConj.ne_omega {γ : GalQ} (hγ : IsComplexConj γ) (n : ℕ) [N
   have hn : (0 : ℝ) < n := by exact_mod_cast Nat.pos_of_ne_zero (NeZero.ne n)
   nlinarith [sq_nonneg r]
 
+/-- The orientation of `K_n ⊂ ℚ̄ ⊂ ℂ` (through ring-class's arbitrary `embed n` and `CM`'s `ιC`):
+`ιC(embed(√−n)) = +i√n`. -/
+def PosOrient (n : ℕ) [NeZero n] : Prop :=
+  0 < (ιC (embed n (algebraMap (QNeg n) (SeparableClosure (QNeg n)) QuadraticAlgebra.omega))).im
+
+open Classical in
 /-- TYZ's place `v₂` for `n ≡ 7 (mod 8)` (Theorem 3.6(3), L1424–1425: the place above 2 with
-`v₂(√−n − δ) ≥ 6`): the prime `𝔭₂ = (2, (√−n − δ)/2)` of `𝓞_{K_n}`, `δ = tyzDelta n`,
-`(√−n − δ)/2 = θ − (δ+1)/2`, `θ = (1 + √−n)/2`. (`⊤` if `n % 4 ≠ 3`.) The binary form of `[𝔭₂]` is
-`[2, δ mod 4, ·]` (used in `thm36_7.py`). -/
+`v₂(√−n − δ) ≥ 6`), **oriented through `ιC`**: the prime of `𝓞_{K_n}` whose image in `ℂ` is
+`(2, (i√n − δ)/2)`, `δ = tyzDelta n`, i.e. `(2, (√−n − δ)/2) = (2, θ − (δ+1)/2)` if
+`ιC(embed √−n) = +i√n` and its conjugate `(2, (−√−n − δ)/2) = (2, 1 − θ − (δ+1)/2)` otherwise
+(`θ = (1 + √−n)/2`). The orientation matters: with the conjugate prime the statement
+`TYZThm36Seven` is false (`thm36_7.out`, "wrong sign"); the numerical check uses `√−n ↦ i√n` and the
+form `[2, δ mod 4, ·]` of `(2, (i√n − δ)/2)`. (`⊤` if `n % 4 ≠ 3`.) -/
 def p2Ideal (n : ℕ) [NeZero n] : Ideal (𝓞 (QNeg n)) :=
   if h : n % 4 = 3 then
-    Ideal.span {2, ZInQ.RouteK.Redei.thetaO n h - (((tyzDelta n + 1) / 2 : ℕ) : 𝓞 (QNeg n))}
+    if PosOrient n then
+      Ideal.span {2, ZInQ.RouteK.Redei.thetaO n h - (((tyzDelta n + 1) / 2 : ℕ) : 𝓞 (QNeg n))}
+    else
+      Ideal.span {2, 1 - ZInQ.RouteK.Redei.thetaO n h - (((tyzDelta n + 1) / 2 : ℕ) : 𝓞 (QNeg n))}
   else ⊤
 
 theorem p2Ideal_mem (n : ℕ) [NeZero n] : p2Ideal n ∈ (Ideal (𝓞 (QNeg n)))⁰ := by
   apply mem_nonZeroDivisors_of_ne_zero
-  unfold p2Ideal
-  split_ifs with h
-  · intro h0
-    have h2 : (2 : 𝓞 (QNeg n)) ∈ Ideal.span {2, ZInQ.RouteK.Redei.thetaO n h -
-        (((tyzDelta n + 1) / 2 : ℕ) : 𝓞 (QNeg n))} := Ideal.subset_span (by simp)
+  have key : ∀ x : 𝓞 (QNeg n), Ideal.span {2, x} ≠ 0 := by
+    intro x h0
+    have h2 : (2 : 𝓞 (QNeg n)) ∈ Ideal.span {2, x} := Ideal.subset_span (by simp)
     rw [h0, Ideal.zero_eq_bot, Ideal.mem_bot] at h2
     exact two_ne_zero h2
+  unfold p2Ideal
+  split_ifs
+  · exact key _
+  · exact key _
   · exact top_ne_bot
 
 /-- The class `[𝔭₂] ∈ Cl(K_n) = Pic(𝓞_{K_n})`. -/
@@ -1064,7 +1078,9 @@ def p2Class (n : ℕ) [NeZero n] : Pic (OK n) :=
 
 /-- **Leaf TYZ-3.6(3) (Galois action on TYZ's class-7 CM point)**: for squarefree `n ≡ 7 (mod 8)`,
 complex conjugation `γ` and any `ρ ∈ Gal(ℚ̄/ℚ)` acting on the Hilbert class field `H_n` as the
-(arithmetic) Artin symbol of `[𝔭₂]^{−5}`: `γ(z_n) + ρ(z_n) = τ(1/2)`. TYZ Theorem 3.6(3) (L1424–1427,
+(arithmetic) Artin symbol of `[𝔭₂]^{−5}`, `𝔭₂` the prime with image `(2, (i√n − δ)/2)` in `ℂ`
+(`p2Ideal`, oriented through `ιC`; independent review 2026-11-13 found that an unoriented `𝔭₂` makes
+the statement depend on the arbitrary `embed n`): `γ(z_n) + ρ(z_n) = τ(1/2)`. TYZ Theorem 3.6(3) (L1424–1427,
 VERIFIED read): `z̄_n + z_n^{σ_{ϖ^5}} = τ(1/2)` with `ϖ ∈ K_{n,2}`, `v₂(ϖ) = 1`, `v₂'(ϖ) = 0`, and `σ`
 the geometric Artin map (L1247–1250), so `σ_{ϖ^5}|_{H_n} = Art([𝔭₂])^{−5}`. Refereed. Numerically
 VERIFIED for the 12 squarefree `n ≡ 7 (mod 8)`, `7 ≤ n ≤ 103` (`thm36_7.out`); the opposite sign
@@ -1970,8 +1986,11 @@ theorem normP2 : NormP2 := by
     simp only [ub, θ, map_sub, RingOfIntegers.coe_eq_algebraMap, algebraMap_thetaO, theta_eq, map_natCast,
       map_one]
     simp [QuadraticAlgebra.im_one]; norm_num
-  have hP : p2Ideal n = Ideal.span {2, u} := by
-    simp only [p2Ideal, h3, ↓reduceDIte]; rfl
+  have hP : p2Ideal n = Ideal.span {2, u} ∨ p2Ideal n = Ideal.span {2, ub} := by
+    unfold p2Ideal
+    split_ifs
+    · left; rfl
+    · right; rfl
   have hmul : Ideal.span {2, u} * Ideal.span {2, ub} = Ideal.span {(2 : 𝓞 (QNeg n))} := by
     apply le_antisymm
     · rw [Ideal.mul_le]
@@ -2019,11 +2038,15 @@ theorem normP2 : NormP2 := by
   rw [map_mul, hN2] at hab
   have ha1 : Ideal.absNorm (Ideal.span {2, u}) ≠ 1 := fun h => hne1 (Ideal.absNorm_eq_one_iff.1 h)
   have hb1 : Ideal.absNorm (Ideal.span {2, ub}) ≠ 1 := fun h => hne2 (Ideal.absNorm_eq_one_iff.1 h)
-  rw [hP]
   set a := Ideal.absNorm (Ideal.span {2, u})
   set b := Ideal.absNorm (Ideal.span {2, ub})
   have ha4 : a ≤ 4 := Nat.le_of_dvd (by norm_num) ⟨b, hab.symm⟩
-  interval_cases a <;> omega
+  have hb4 : b ≤ 4 := Nat.le_of_dvd (by norm_num) ⟨a, by rw [mul_comm]; exact hab.symm⟩
+  have ha2 : a = 2 := by interval_cases a <;> omega
+  have hb2 : b = 2 := by interval_cases b <;> omega
+  rcases hP with hP | hP
+  · rw [hP]; exact ha2
+  · rw [hP]; exact hb2
 
 end NormTwo
 

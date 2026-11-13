@@ -61,3 +61,10 @@
   imaginary part ±1/2 is not 2·𝓞), N(2) = 4.
 - **`betaOnGenus7 : BetaOnGenus7` PROVED** and `lemma321Seven_of' : CMFieldOfDefinition7 → TYZThm36Seven →
   Lemma321Seven` (no glue left). All standard axioms (VERIFIED).
+- Independent statement review of `TYZThm36Seven` (AI subagent, read-only, 2026-11-13): items (1) 𝔭₂ = TYZ's v₂,
+  (2) σ_{ϖ^5}|_H = Art([𝔭₂])^{−5}, (3) z_n pinned correctly (depends only on δ mod 64), (4) τ(1/2) = (2,−4),
+  (5) non-vacuous: OK. **PROBLEM found**: `p2Ideal` was defined from the abstract √−n, but `embed n` is an arbitrary
+  ℚ-embedding, so if ιC(embed √−n) = −i√n the Lean leaf becomes the wrong-sign statement, which `thm36_7.out`
+  shows false (n = 23, …). **Fixed**: `PosOrient n` (Im ιC(embed √−n) > 0) and `p2Ideal n` = (2, θ − m) if
+  PosOrient else (2, 1 − θ − m) — the prime with image (2, (i√n − δ)/2) in ℂ, the one tested numerically.
+  `normP2` reproved for both branches; Bridge.lean recompiled, 0 errors, all axioms standard (VERIFIED).
