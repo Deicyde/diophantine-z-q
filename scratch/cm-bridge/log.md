@@ -41,3 +41,6 @@
   `actsAsArtin4_conj`), `Z7_mem_genusBar`, `card_sqClasses`, `lemma321Seven_of : CMFieldOfDefinition7 →
   TYZThm36Seven → BetaOnGenus7 → Lemma321Seven`, `tyzThm35ReadingA_of_cmLeaves7'`. All axioms standard (VERIFIED).
 - Correction to thm36_7 entry: the wrong sign fails for 7 n (23, 31, 39, 55, 71, 87, 95), not 8.
+- §13 (in progress) COMPILED: `pstar`, `isSquare_pstar_iff` (QR in finite-field form with p*: IsSquare (p* : F) ↔
+  IsSquare (|F| : ZMod p), from Mathlib's `quadraticChar_odd_prime`, `quadraticChar_neg_one`), `genusStar n =
+  K_n(√p* : p ∣ n)`, `chi_eq_one_of_isSquare_pstar`, `genusField_le_genusStar` (Bauer). VERIFIED compiled.
