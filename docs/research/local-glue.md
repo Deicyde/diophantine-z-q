@@ -10,7 +10,8 @@ Lean: `scratch/local-glue/LocalGlue.lean`, assembled by `scratch/local-glue/buil
   (`bc_block.lean`) and `scratch/g0-assemble/parts/75_modfield.lean` (`resq_block.lean`:
   `resQ_range`);
 - the new parts `part_glue.lean` (§6-§7), `part_ptfinite.lean` (§7b), `part_raynaud.lean` (§7c),
-  `part_descent.lean` (§7d), `part_twist.lean` (§7e) and `part_pack.lean` (§8).
+  `part_descent.lean` (§7d), `part_twist.lean` (§7e), `part_bcdescent.lean` (§7f) and
+  `part_pack.lean` (§8).
 
 Integration file: `scratch/local-glue/TailK.lean` (`build_tail.sh`): local-data's `Tail.lean`
 plus the same parts plus `tail_glue.lean` (§9).
@@ -25,10 +26,13 @@ Markers: **VERIFIED** = compiled or read here. **STANDARD** = published, with a 
 **Verdict.** `LocalGlue p Tm a β L`, copied verbatim from local-data, is a predicate on arbitrary
 operators `Tm`, scalars `a`, `β` and a field `L`, so it is not a closed theorem:
 `not_localGlue_zero` proves it false for `Tm = 0` at every `p > D` (VERIFIED). It is a claim about
-the data that G7 builds; on that data it is now a theorem from two leaves, one textbook Prop and
-two glue Props.
+the data that G7 builds.
 
-**Main result (VERIFIED, compiled, standard axioms only).**
+On g0-mod-field's construction of that data, it is a theorem from two leaves and one textbook
+Prop. Besides those it uses only clauses of the construction itself. No local glue Prop is
+left.
+
+**Main result (VERIFIED, compiled, standard axioms only).** The general form:
 
 ```
 theorem G15Ram.localGlue_of_unramRoots (hR6 : ObjBridge.RaynaudCriterion)
@@ -56,6 +60,33 @@ What it rests on:
 - **At `p = 2`** add `DescentPts` and `UnramRoots`. local-data's `BetaUpper`, i.e. T16 + D3 +
   Herbrand, is not used (§3, G6).
 
+**On G7's construction both glue Props are discharged (VERIFIED, compiled).**
+
+```
+theorem G15Ram.localGlue_of_baseChange (hLL' : L ≤ L') (hR6) (hTors) (hU : UnramRoots p ℓ)
+    (hpℓ : p ≠ ℓ) [IsGalois ℚ L'] (A₀ : PkgI3.AbVar L) (hdim₀ : A₀.dim = 2)
+    (h7 : G0Galois.G7Out (bcL' hLL' A₀) ℓ Tm c ε a β u) (hC : G7Clauses β ε L)
+    (βC : GQ → ℂˣ) (hker : ∀ σ, σ ∈ L'.fixingSubgroup ↔ σ ∈ L.fixingSubgroup ∧ βC σ = 1)
+    (ιC : ℂˣ →* (PadicAlgCl ℓ)ˣ) (hι : Function.Injective ιC) (hβ : ∀ g, β g = ιC (βC g)) :
+    LocalGlue (p := p) Tm a β L
+```
+
+Here `L ≤ L'` are finite in `ℚ̄`, `L/ℚ` is Galois, and `bcL' hLL' A₀` is `A₀.baseChange L'` along
+g0-mod-field's `incAlg`, exactly as in `TateBridge`. The data clauses:
+- `dim A₀ = 2` (G4/G5);
+- `hker` is `G7Data`'s kernel-field clause;
+- `β = ι ∘ β_ℂ` with `ι` injective is the transport that `TateBridge` should output (G8).
+
+How the glue Props are discharged:
+- `kerWild_of_g7Data` gives `KerWild`;
+- `descentPts_baseChange` gives `DescentPts`. It builds the conjugate model `A₀ ×_{L,γ} L`
+  (finding G9) and proves `dim` invariance along `Spec γ`.
+
+Pack and tail on this form:
+- `G0ModNewform.G7LocalPackBC`: the construction's data, with no local Prop;
+- `g8LocalPack_of_BC`, `g15RamG_of_packBC`;
+- `modularConstituent_tail_BC`.
+
 The packs and the tail of `ModularConstituent` (G13-G16) are restated on these inputs and
 compiled (`TailK.lean`):
 - `G0ModNewform.G7LocalPackU`: G7's data with `KerWild` and `DescentPts`;
@@ -82,7 +113,8 @@ Lean needs the unramified extension of each degree and `Gal(F_d/F)` cyclic, gene
 Frobenius. It is stated over the genuine `fixSet`/`inertiaSet` of `ℚ̄_p`, so it is a leaf candidate
 of textbook type.
 
-**`KerWild K β L`** (`part_glue.lean`). Glue. Statement: `g ∈ G_L` and `β(g) = 1` imply
+**`KerWild K β L`** (`part_glue.lean`). Glue; discharged on G7's construction by
+`kerWild_of_g7Data`. Statement: `g ∈ G_L` and `β(g) = 1` imply
 `g ∈ resQ_K(G_K)`.
 - This is g0-mod-field's `G7Data` clause `σ ∈ G_{L'} ↔ σ ∈ G_L ∧ β σ = 1`, transported to
   `G7Out`'s `K` and `ℚ̄_ℓ`-valued `β`.
@@ -93,7 +125,8 @@ of textbook type.
 - It cannot be removed: without it, `LocalGlue` fails on data satisfying `G7Out ∧ G8Out ∧
   G7Clauses` (G1').
 
-**`DescentPts A L`** (`part_descent.lean`). Glue, used at `p ≤ 5`. Statement:
+**`DescentPts A L`** (`part_descent.lean`). Glue, used at `p ≤ 5`; proved for the base change
+by `descentPts_baseChange` (`part_bcdescent.lean`). Statement:
 - `L/ℚ` is Galois;
 - there is a model `A₀ : AbVar L` with `dim A₀ = 2`;
 - there is a group isomorphism `φ : A₀(L̄) ≃* A(K̄)` with `φ ∘ σ₀ = σ' ∘ φ` whenever
@@ -101,9 +134,9 @@ of textbook type.
 
 In g0-assemble, `A_{L'}` is literally `A.baseChange L'` for `A : AbVar L` (`TateBridge`). Then `φ`
 is `bcPt` composed with a transport along `L̄ ≅ L̄'` (`trPt`).
-- If Mathlib's choices of embeddings inside `resQ L`, `resQ L'` differ on `L` by
-  `γ ∈ Gal(L/ℚ)`, take the conjugate model `A ×_{L,γ} L`. So the existential is met
-  (SPECULATIVE, not formalized).
+- Mathlib's choices of embeddings inside `resQ L`, `resQ L'` can differ on `L` by
+  `γ ∈ Gal(L/ℚ)`. So the model is the conjugate `A₀ ×_{L,γ} L` (VERIFIED, compiled:
+  `descentPts_baseChange`).
 - Why it is needed at `p ≤ 5`: finding G3.
 
 **Removed in this run** (each was a named Prop in the first report; now proved or reduced):
@@ -116,7 +149,7 @@ is `bcPt` composed with a transport along `L̄ ≅ L̄'` (`trPt`).
 ## 3. What is proved
 
 All rows are VERIFIED: `lake env lean scratch/local-glue/LocalGlue.lean` exits 0 with 0 errors and
-no `sorry`. All 73 `#print axioms` lines are `[propext, Classical.choice, Quot.sound]`. Names are
+no `sorry`. All 77 `#print axioms` lines are `[propext, Classical.choice, Quot.sound]`. Names are
 in `G15Ram` unless noted.
 
 | Lean | statement | proof idea |
@@ -138,6 +171,9 @@ in `G15Ram` unless noted.
 | `inertia_fix_prime_to_p`, `sq_fix_four`, `chiLevel_dvd_four_mul_odd`, `cyc_decomp_sq_inertia`, **`beta4Inertia_of_clauses`** | `p = 2`: `β⁴ = 1` on inertia of `G_{L_v}` | see below |
 | `kerWild_of_g7Data` | `G_{L'} = G_L ∩ ker β_ℂ`, `β = ι ∘ β_ℂ`, `ι` injective ⟹ `KerWild L' β L` | `resQ_range` |
 | `localGlue_of_unramRoots` | main result (§1) | the above |
+| `γL`, `θL`, `θL_galois`, `conjModel`, `φL`, `φL_galAct`, `dim_conjModel`, **`descentPts_baseChange`** | `DescentPts ((A₀)_{L'}) L` for `dim A₀ = 2`, `L/ℚ` Galois | `γ = jK_L⁻¹ ∘ jL'` (both embeddings have image `L`); `φ = bcPt⁻¹ ∘ trPt θ ∘ bcPt`, `θ = qEmb_{L'} ∘ qEmb_L⁻¹`; `Scheme.Hom.homeomorph` |
+| **`localGlue_of_baseChange`** | `LocalGlue` on G7's construction (§1) | the above |
+| `G0ModNewform.g8LocalPack_of_BC`, `g15RamG_of_packBC`, `modularConstituent_tail_BC` | packs and tail on `G7LocalPackBC` | the above |
 | `G0ModNewform.g8LocalPack_of_{K,D,U}`, `g15RamG_of_pack{K,R,D,U}`, `g7LocalPackK_of_R` | packs | the above |
 | `G0ModNewform.modularConstituent_tail_{K,R,D,U}` (`TailK.lean`) | G13-G16 on the packs | local-data's `modularConstituent_tail_L` |
 
@@ -189,6 +225,10 @@ Proof of `beta4Inertia_of_clauses` (`p = 2`):
   - `M` comes from `UnramRoots` and the proved `Beta4Inertia`.
 - **G7 (VERIFIED, logical; fixed).** Raynaud at `m = p` would be unsatisfiable. `RaynaudPlace` is
   only claimed, and only used, at `m` prime to `p`.
+- **G9 (VERIFIED, compiled).** `resQ K` restricts along an embedding `K ↪ ℚ̄` chosen by
+  `IsAlgClosed.lift`. For `K = L'` and the model field `L`, the two choices can differ on `L` by
+  `γ ∈ Gal(L/ℚ)`, so `(A₀)_{L'}` descends to the conjugate model `A₀ ×_{L,γ} L`, not to `A₀`
+  itself. `descentPts_baseChange` handles this.
 - **G8 (VERIFIED, read).** g0-assemble's `TateBridge` (`scratch/g0-assemble/parts/75_modfield.lean`
   l.1002-1020, `def TateBridge` at l.1007) produces `G7Out` with `ℚ̄_ℓ`-valued `β'`, but no relation to G7Data's `ℂ^×`-valued
   `β` or to `L' = ker β`. So `KerWild` for `β'` does not follow from its output.
@@ -201,19 +241,19 @@ Proof of `beta4Inertia_of_clauses` (`p = 2`):
 1. `UnramRoots` (textbook): Lean needs unramified extensions of `p`-adic fields of every degree,
    with cyclic Galois group generated by Frobenius. Mathlib 4.35 has neither (prereq-survey; not
    re-checked here).
-2. `KerWild`: add `β' = ι ∘ β` (`ι` injective) to `TateBridge`'s output (G8); then
-   `kerWild_of_g7Data` gives it.
-3. `DescentPts`: prove it for `A = (A₀)_{L'}` from `bc_block`'s `bcPt`/`trPt`. This needs:
-   - the conjugate model `A₀ ×_{L,γ} L`, when the embeddings of `L` chosen inside `resQ L` and
-     `resQ L'` differ;
-   - `dim` invariance under base change.
+2. Integration: `TateBridge` (g0-assemble) should also output the transport `β' = ι ∘ β`
+   (`ι` injective). Then its data fills `G7LocalPackBC`, and `g15RamG_of_packBC` gives
+   `G15RamG`. `dim A₀ = 2` is a G4/G5 clause.
+
+   (`dim` of a base change along a field extension is not proved here; only along the
+   isomorphism `Spec γ`.)
 
 ## 6. Compile record
 
 - `lake env lean scratch/local-glue/LocalGlue.lean`: exit 0, 0 errors, no `sorry`, about 90 s.
-  All 73 `#print axioms` lines are standard (`compile.out`).
+  All 77 `#print axioms` lines are standard (`compile.out`).
 - `lake env lean scratch/local-glue/TailK.lean`: exit 0, 0 errors, no `sorry`, about 70 s.
-  `modularConstituent_tail_{G,L,K,R,D,U}` have standard axioms (`tail_compile.out`).
+  `modularConstituent_tail_{G,L,K,R,D,U,BC}` have standard axioms (`tail_compile.out`).
 - Verbatim copies, VERIFIED by construction (`cat`/`sed -n` in the build scripts):
   - `scratch/local-data/LocalData.lean` and `Tail.lean`, whole;
   - `part_galois.lean` l.40-58;
