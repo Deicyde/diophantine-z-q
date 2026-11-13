@@ -1,11 +1,15 @@
-# unif-dims: `ProductUnifDims` proved from T35; `ProductHodgeLattice` reduced to one geometric Prop
+# unif-dims: `ProductUnifDims` and `ProductHodgeLattice` proved from T35 and `TangentDimAtOrigin`; P2 follows
 
 Status: research note (task unif-dims, 2026-11-13).
-- **Lean:** `scratch/unif-dims/`. Every file below compiles with `lake env lean`, with no `sorry`
-  and no `axiom`, and every `#print axioms` lists only `propext`, `Classical.choice` and
+- **Lean:** `scratch/unif-dims/`. Every file below compiles with `lake env lean`. There is no
+  `sorry` and no `axiom`, and every `#print axioms` lists only `propext`, `Classical.choice` and
   `Quot.sound` (VERIFIED, see `scratch/unif-dims/log.md`).
 - No file under `ZInQKernel/` or `blueprint/` was edited, and no other task's notes or scratch
-  files were edited. Merged: origin/wip/product-unif.
+  files were edited. Merged: origin/wip/product-unif. Copied with attribution into
+  `scratch/unif-dims/base/`:
+  - metrization2's `Kernel.lean` (origin/wip/metrization2 6a687213);
+  - infra-stalks' `StalkPullback.lean` and `CotangentProduct.lean` (origin/wip/infra-stalks
+    3cbf276a).
 
 Marks: **VERIFIED** = compiled, or read in Mathlib or the repository. **STANDARD** = published
 mathematics with a reference. **SPECULATIVE** = estimate or unchecked argument. **UNVERIFIED** =
@@ -13,194 +17,196 @@ locator from memory (no network).
 
 ## 0. Main results
 
-1. **`ZInQ.ProductUnif.ProductUnifDims` is proved from the textbook leaf T35** (VERIFIED):
+All three items below are VERIFIED.
+
+1. **`ZInQ.ProductUnif.ProductUnifDims` follows from the textbook leaf T35.** T35 is
+   `UniformizationExists`, Mumford §1 with GAGA. It is already `TextbookLeaves.t35`, so nothing new
+   is added.
 
    ```lean
    theorem ZInQ.UnifDims.productUnifDims_of_uniformizationExists
        (hT : ZInQ.LeafPush2.UniformizationExists) : ZInQ.ProductUnif.ProductUnifDims
    ```
 
-   T35 (`UniformizationExists`, Mumford §1 with GAGA) is already `TextbookLeaves.t35`, so this adds
-   no leaf and no glue. The proof has two halves.
-   - **Dimension half** (`ProductUnifDimsEq`). The dimension of an analytic uniformization is fixed
-     by the abstract group `𝒢(ℂ)_τ`. If `Φ : ℂ^g → G` is an onto homomorphism whose kernel is a
-     discrete full `ℤ`-lattice `Λ`, then `#{p ∈ G : p² = 1} = 2^{2g}`.
-     - Proof: `λ ↦ Φ(λ/2)` maps `Λ` onto `G[2]` with kernel `2Λ`, and `[Λ : 2Λ] = 2^{rank Λ}`
-       with `rank Λ = 2g`. The Lean names are `card_twoTorsion` and `dim_eq_of_unif`, in
-       `Torsion.lean`, which uses Mathlib only.
-     - T35, transported to group models by metrization2's
-       `analyticUniformizationOfDim_of_uniformizationExists`, gives one uniformization of dimension
-       `dim A`. So every full-lattice analytic uniformization has `g = dim A`
-       (`dim_eq_of_isAnalyticUniformization`).
-     - Only the algebraic clauses of `IsAnalyticUniformization` are used (homomorphism, kernel,
-       onto).
-   - **Nonsingularity half.** This is metrization2's `jacDetNondegenerate`, proved with no
-     hypotheses. product-unif's `productUnifDims_of` already combined the two halves.
-   - The product structure and the metrization `MP` in the hypotheses of `ProductUnifDims` are not
-     used. The statement is therefore true but stronger in its hypotheses than it needs to be
-     (§2).
-
-2. **metrization's `ProductHodgeLattice` is reduced to one new geometric glue Prop**
-   (VERIFIED). infra-stalks had not closed it: origin/wip/infra-stalks 7667e59b has stalk
-   infrastructure only.
+2. **metrization's `ZInQ.Metrization.ProductHodgeLattice` follows from hodge-lattice's
+   `TangentDimAtOrigin` and T35.** infra-stalks had not closed it. Its two new glue pieces are
+   both proved here:
+   - `DetLatticeProd`: determinant lattice of a direct sum, pure algebra;
+   - `ProductCotangent`: cotangent space and conormal lattice of a product model, algebraic
+     geometry.
 
    ```lean
-   theorem ZInQ.UnifDims.productHodgeLattice_of_cotangent (hPC : ProductCotangent)
+   theorem ZInQ.UnifDims.productHodgeLattice_of_tangentDim
        (hT : ZInQ.DefFaltings.HodgeLattice.TangentDimAtOrigin)
        (hT35 : ZInQ.LeafPush2.UniformizationExists) : ZInQ.Metrization.ProductHodgeLattice
    ```
 
-   - **`ProductCotangent`** (new glue, algebraic geometry, open). The cotangent space at the
-     generic unit of a product model is `j₁(cot₁) ⊕ j₂(cot₂)`, where `jᵢ(df) = d(pᵢ* f)`. The
-     conormal lattice is `ω_P = j₁ω₁ + j₂ω₂`.
-   - **`DetLatticeProd`** (new glue, pure commutative algebra) is **proved**:
-     `ZInQ.UnifDims.detLatticeProd`, in `DetProd.lean`. For `M₁ × M₂ ≅ M` over `𝓞_K` with
-     f.g. full lattices `ωᵢ` of ranks `gᵢ`, the determinant lattice of `j₁ω₁ + j₂ω₂` has a section
-     whose index is the product of the factors' indices.
-   - `TangentDimAtOrigin` is hodge-lattice's open Prop, which is already named. It reduces to
-     `RegularAtOrigin` and `DimAtOrigin` (`tangentDimAtOrigin_of`).
-   - hodge-lattice's other input `DimBaseChange` is proved here (`dimBaseChange`, from g0-dim's
-     `G0Dim.dim_baseChange`).
-   - T35 is used only for `gᵢ = dim` of the two metrizations.
-
-3. **Consequence for S-alg and for glue piece 5 (P2)** (VERIFIED, `Combined.lean`):
+3. **S-alg and glue piece 5 of `GluePieces` (P2, `ProductModelHeight`) follow from T35 and
+   `TangentDimAtOrigin` alone.** `Combined.lean` checks this over product-height's own file.
+   `LeavesIntegrated.lean` checks it over `scratch/h-decomposition/Leaves.lean`'s own definitions
+   (§5).
 
    ```lean
-   theorem ZInQ.UnifDims.productMetrizationOfProductUnif_of_cotangent
-       (hT35 : ZInQ.LeafPush2.UniformizationExists) (hPC : ProductCotangent)
-       (hT : TangentDimAtOrigin) : ZInQ.ProductHeight.ProductMetrizationOfProductUnif
-   theorem ZInQ.UnifDims.productModelHeight_of_cotangent
-       (hT35 : ZInQ.LeafPush2.UniformizationExists) (hPC : ProductCotangent)
-       (hT : TangentDimAtOrigin) : ZInQ.H5Neron.ProductModelHeight
+   theorem ZInQ.UnifDims.productMetrizationOfProductUnif_of_tangentDim
+       (hT35 : ZInQ.LeafPush2.UniformizationExists) (hT : TangentDimAtOrigin) :
+       ZInQ.ProductHeight.ProductMetrizationOfProductUnif
+   theorem ZInQ.UnifDims.productModelHeight_of_tangentDim
+       (hT35 : ZInQ.LeafPush2.UniformizationExists) (hT : TangentDimAtOrigin) :
+       ZInQ.H5Neron.ProductModelHeight
    ```
 
-   The proof combines four things:
-   - product-unif's `productModelHeight_of_local`, which needs `HodgeLatticeTheorem`,
-     `ProductUnifDims`, `ProductLocalStructure` and `ProductHodgeLattice`;
-   - hodge-lattice's `hodgeLatticeTheorem_of_tangent`;
-   - metrization2's `productLocalStructure` (proved);
-   - items 1 and 2.
+   - `TangentDimAtOrigin` is already a named open Prop: the tangent space of an abelian variety
+     `B/L` at its origin has dimension `dim B` (STANDARD). `HodgeLatticeTheorem` needs it anyway,
+     and hence so does `MetrizationExists`.
+   - So P2 adds **no leaf and no open glue** to the decomposition.
+   - The proof chain: product-height's `productModelHeight_of_splits`; product-unif's
+     `productUnifSplits` and `productModelHeight_of_local`; hodge-lattice's
+     `hodgeLatticeTheorem_of_tangent`, with `DimBaseChange` proved here from g0-dim; metrization2's
+     `productLocalStructure`; items 1 and 2.
 
-   So `GluePieces.productModelHeight` (P2) rests on:
-   - the existing leaf T35;
-   - the already-named open Prop `TangentDimAtOrigin`, shared with `HodgeLatticeTheorem`, hence
-     with `MetrizationExists`;
-   - the single new geometric glue Prop `ProductCotangent`.
-
-4. **No statement is false, vacuous or inert.**
-   - `ProductUnifDims` is true (item 1 proves it from a true leaf).
-   - `ProductHodgeLattice` is true: it is a consequence of `ProductCotangent` and
-     `TangentDimAtOrigin`, which are true (STANDARD), and of T35.
+4. **No statement is false, vacuous or inert.** Every target was proved from true hypotheses.
    - An independent read-only model review checked `ProductCotangent`, `DetLatticeProd` and the
-     statement of `productHodgeLattice_of`. Verdict: both Props are TRUE for every instance, not
-     vacuous, and not disguised forms of the conclusion, and the reduction is faithful. The
-     reviewer also diffed `ProductHodgeLattice` and `pullGerm` against `scratch/metrization` and
-     found them identical. `DetLatticeProd` has since been proved.
+     statement of `productHodgeLattice_of`, before either Prop was proved. Verdict: both are TRUE
+     for every instance, neither is vacuous or a disguised form of the conclusion, and the
+     reduction is faithful.
+   - One remark on `ProductUnifDims` (§2): its product-form hypotheses are unused once T35 is
+     available.
 
 ## 1. Files (all VERIFIED: compile, standard axioms only)
 
-| file | imports | content |
-|---|---|---|
-| `Torsion.lean` | Mathlib | `halfHom`, `card_twoTorsion` (`#G[2] = 2^{2g}`), `dim_eq_of_unif` |
-| `DetProd.lean` | `ZInQKernel.HDecomp.Faltings.HodgeLattice` | `detFun`, `detFun_injective`, `exists_basis_of_span`, `secIndex_map`, `secIndex_one_mul`, `sumIso`, `prodBasis`, `det_prodBasis_append`, `card_le_of_li_range`, **`detLatticeProd_aux`** |
-| `UnifDims.lean` (generated by `build.sh`) | `LeafPush2.T`, `HodgeLattice`, Mathlib | metrization2's `Kernel.lean` (verbatim copy in `base/`), product-unif §0 and `ProductUnifDims`, `ProductUnifDimsEq`, `productUnifDims_of` (verbatim), `pullGerm` and `ProductHodgeLattice` (verbatim), Torsion, DetProd, `part_main.lean`, `part_phl.lean`, `part_final.lean`; 15 s |
-| `Combined.lean` (generated by `build_combined.py`) | `H5Neron`, `LeafPush2.T`, `HodgeLattice`, Mathlib | product-unif's `WithProductHeight.lean` (product-height's own `ProductHeight.lean` + ProductUnif §1-§4) + metrization2's kernel file (its duplicates of ProductUnif's metrization copies removed) + this task's parts + `part_combined.lean`; 22 s |
+| file | imports | content | time |
+|---|---|---|---|
+| `Torsion.lean` | Mathlib | `card_twoTorsion` (`#G[2] = 2^{2g}`), `dim_eq_of_unif` | 6 s |
+| `DetProd.lean` | `ZInQKernel.HDecomp.Faltings.HodgeLattice` | `DetLatticeProd` proved (`detLatticeProd_aux`) | 6 s |
+| `PC.lean` (generated by `build_pc.sh`) | `HodgeLattice`, Mathlib | infra-stalks' two files (verbatim) + `pullGerm` (verbatim) + `part_pc.lean`, `part_pcfinal.lean`: `ProductCotangent` proved (`productCotangent_aux`) | 15 s |
+| `UnifDims.lean` (generated by `build.sh`) | `LeafPush2.T`, `HodgeLattice`, Mathlib | metrization2's kernel file, the statements copied verbatim from product-unif (`ProductUnifDims`, `ProductUnifDimsEq`, `productUnifDims_of`, `pullGerm`, `ProductHodgeLattice`), and all of this task's parts | 20 s |
+| `Combined.lean` (generated by `build_combined.py`) | `H5Neron`, `LeafPush2.T`, `HodgeLattice`, Mathlib | product-unif's `WithProductHeight.lean`, i.e. product-height's own `ProductHeight.lean` + ProductUnif §1-§4, plus metrization2's kernel file (minus the declarations ProductUnif already has, which come from the same sources) and this task's parts. S-alg and P2 from T35 and `TangentDimAtOrigin` | 25 s |
+| `LeavesIntegrated.lean` (generated by `build_leaves.py`, not committed) | as `Leaves.lean` | `Leaves.lean` + product-height + ProductUnif + metrization2 + this task, without `open PkgI3 (AbVar)`. `productModelHeight_of_leaves : HSyn.TextbookLeaves → TangentDimAtOrigin → ProductModelHeight` | see log |
 
-Main declarations (namespace `ZInQ.UnifDims`):
+Main declarations, in namespace `ZInQ.UnifDims`:
 
 | name | statement |
 |---|---|
 | `dim_eq_of_isAnalyticUniformization` | `AnalyticUniformizationOfDim →` a full-lattice analytic uniformization `ℂ^g → 𝒢(ℂ)_τ` has `A.dim = g` |
-| `productUnifDimsEq_of` | `AnalyticUniformizationOfDim → ProductUnifDimsEq` |
-| `productUnifDims_of_unifOfDim`, **`productUnifDims_of_uniformizationExists`** | `ProductUnifDims` from `AnalyticUniformizationOfDim`, from T35 |
-| `ProductCotangent`, `DetLatticeProd` | new glue Props (§3) |
+| `productUnifDimsEq_of`, `productUnifDims_of_unifOfDim`, **`productUnifDims_of_uniformizationExists`** | `ProductUnifDimsEq` and `ProductUnifDims` from `AnalyticUniformizationOfDim` or T35 |
+| `ProductCotangent`, `DetLatticeProd` | glue Props, now theorems (§3) |
 | `dimBaseChange` | hodge-lattice's `DimBaseChange` |
-| `rank_tensor_of_bijective` | `rank_K (K⊗M) = g₁ + g₂` for `M₁ × M₂ ≅ M` |
-| `productHodgeLattice_of` | `ProductCotangent → DetLatticeProd → CotangentRank → AnalyticUniformizationOfDim → ProductHodgeLattice` |
-| `productHodgeLattice_of_tangent` | the same with `TangentDimAtOrigin` and T35 |
-| **`detLatticeProd`** | `DetLatticeProd` |
-| **`productHodgeLattice_of_cotangent`** | `ProductCotangent → TangentDimAtOrigin → T35 → ProductHodgeLattice` |
-| **`productMetrizationOfProductUnif_of_cotangent`**, **`productModelHeight_of_cotangent`** | S-alg and P2 from T35, `ProductCotangent`, `TangentDimAtOrigin` |
+| `productHodgeLattice_of`, `_of_tangent`, `_of_cotangent`, **`_of_tangentDim`** | the reduction chain for `ProductHodgeLattice` |
+| **`detLatticeProd`**, **`productCotangent`** | the two new glue Props, proved |
+| `cotMap`, `cotMap_dCls`, `cotMap_comp`, `cotMap_id`, **`omega_map_le`** | the `𝓞_L`-linear cotangent map of a unit-preserving morphism of models; functoriality of `ω` |
+| `germ_decomp`, **`cot_decomp`** | cotangent space at the generic unit of a product model: `x = j₁ψ₁x + j₂ψ₂x` |
+| `productMetrizationOfProductUnif_of_cotangent`, **`_of_tangentDim`**; `productModelHeight_of_cotangent`, **`_of_tangentDim`** | S-alg and P2 |
 
-## 2. `ProductUnifDims`: how, and a remark on its statement
+## 2. `ProductUnifDims`
 
-- `card_twoTorsion` proceeds in four steps.
-  1. `ZLattice.rank` gives `finrank_ℤ Λ = finrank_ℝ ℂ^g = 2g`.
-  2. `finBasisOfFinrankEq` gives a `ℤ`-basis.
-  3. The kernel of `λ ↦ Φ(λ/2)` is the preimage of `∏ 2ℤ` under the coordinate equivalence, so
-     its index is `2^{2g}` (`AddSubgroup.index_comap_of_surjective`, `AddSubgroup.index_pi`,
-     `Int.index_zmultiples`).
-  4. `QuotientAddGroup.quotientKerEquivRange` identifies the quotient with `G[2]`.
-- The remark (not a defect). `ProductUnifDims` assumes a product-form metrization `MP`, but its
-  conclusion holds for any two full-lattice analytic uniformizations `Φ₁`, `Φ₂` of the factors,
-  once T35 is available. In the reduction of S-alg, `ProductUnifDims` could therefore be replaced
-  by T35, which is already a leaf. Without T35 the dimension half would need the Krull dimension
-  of `A` from complex-analytic data, which is not available.
+- **Dimension half** (`ProductUnifDimsEq`). If `Φ : ℂ^g → G` is an onto homomorphism whose kernel
+  is a discrete full `ℤ`-lattice `Λ`, then `#{p : p² = 1} = 2^{2g}` (`card_twoTorsion`). The
+  proof:
+  1. `λ ↦ Φ(λ/2)` maps `Λ` onto `G[2]` with kernel `2Λ`.
+  2. `ZLattice.rank` gives `rank Λ = 2g`.
+  3. The index of `2Λ` comes from `AddSubgroup.index_comap_of_surjective`,
+     `AddSubgroup.index_pi` and `Int.index_zmultiples`.
+  4. `QuotientAddGroup.quotientKerEquivRange` finishes.
 
-## 3. `ProductHodgeLattice`: the decomposition
+  So the abstract group `𝒢(ℂ)_τ` fixes `g`. T35, transported to group models by metrization2,
+  supplies a uniformization of dimension `dim A`. Hence `g = dim A`.
+- **Nonsingularity half.** This is metrization2's `jacDetNondegenerate`. product-unif's
+  `productUnifDims_of` combines the two halves.
+- **Remark (not a defect).** The hypotheses of `ProductUnifDims` about the product-form
+  metrization `MP` are not used. Once T35 is available, the conclusion holds for any full-lattice
+  analytic uniformizations of the factors.
+
+## 3. `ProductHodgeLattice`
 
 | name | kind | statement (short) | status |
 |---|---|---|---|
-| `Metrization.ProductHodgeLattice` | glue (target) | for `e : 𝒢P ≅ M₁.model × M₂.model`: `hodgeSpace (g₁+g₂)` of `𝒢P` is a line; germ tuples `f₁, f₂`, `f = (p₁*f₁, p₂*f₂)` and `a₁, a₂` give nonzero sections with `[⋀ω_P : 𝓞s] = [⋀ω₁ : 𝓞s₁][⋀ω₂ : 𝓞s₂]` | **reduced** |
-| `UnifDims.ProductCotangent` | **new glue** (algebraic geometry) | `𝓞_L`-linear `jᵢ : cotᵢ → cot_P` with `jᵢ(df) = d(pᵢ* f)` (`pᵢ* = pullGerm`, and `pᵢ* f ∈ 𝔪_P`); `(x,y) ↦ j₁x + j₂y` bijective; `ω_P = j₁ω₁ ⊔ j₂ω₂` | open. Why true (STANDARD): `𝒪_{𝒢P,ξ}` is the local ring of `A_L × B_L` at the origin; `Ω_{X×_S Y} = p₁*Ω_X ⊕ p₂*Ω_Y`; at each `s`, the ideal of the product section is `p₁*I₁ + p₂*I₂` (kernel of `R₁ ⊗ R₂ → 𝓞`), and the intersection over `s` commutes with the direct sum (EGA IV 16.4.23 / Stacks, UNVERIFIED locators) |
-| `UnifDims.DetLatticeProd` | glue (commutative algebra) | determinant lattice of `j₁ω₁ ⊕ j₂ω₂`: a section `s = s₁ ∧ s₂` with multiplicative index | **proved** |
-| `HodgeLattice.CotangentRank` | glue (kernel) | `rank_L (L ⊗ cot) = dim A` | reduced by hodge-lattice to `TangentDimAtOrigin` + `DimBaseChange` |
-| `HodgeLattice.TangentDimAtOrigin` | glue (kernel, open) | the tangent space of `B/L` at the origin has dimension `dim B` | open (STANDARD; needs the dimension theory of varieties) |
-| `HodgeLattice.DimBaseChange` | glue (kernel) | `dim A_L = dim A` | **proved** here from g0-dim |
-| `LeafPush2.UniformizationExists` (T35) | leaf (textbook, in `TextbookLeaves`) | uniformization of `A(ℂ)_σ` by `ℂ^{dim A}` | leaf |
+| `Metrization.ProductHodgeLattice` | glue (target) | for `e : 𝒢P ≅ M₁.model × M₂.model`: `hodgeSpace (g₁+g₂)` of `𝒢P` is a line; there are germ tuples `f₁, f₂`, `f = (p₁*f₁, p₂*f₂)` and `a₁, a₂` giving nonzero sections with `[⋀ω_P : 𝓞s] = [⋀ω₁ : 𝓞s₁][⋀ω₂ : 𝓞s₂]` | **proved** from `TangentDimAtOrigin` + T35 |
+| `UnifDims.ProductCotangent` | glue (algebraic geometry) | `𝓞_L`-linear `jᵢ` with `jᵢ(df) = d(pᵢ* f)`; `(x,y) ↦ j₁x + j₂y` bijective; `ω_P = j₁ω₁ ⊔ j₂ω₂` | **proved** |
+| `UnifDims.DetLatticeProd` | glue (commutative algebra) | determinant lattice of `j₁ω₁ ⊕ j₂ω₂`: sections `s₁, s₂, s = s₁ ∧ s₂` with multiplicative index | **proved** |
+| `HodgeLattice.CotangentRank` | glue (kernel) | `rank_L(L ⊗ cot) = dim A` | from `TangentDimAtOrigin` + `DimBaseChange` (hodge-lattice) |
+| `HodgeLattice.TangentDimAtOrigin` | glue (kernel, **open**) | tangent space of `B/L` at the origin has dimension `dim B` | open (STANDARD; dimension theory of varieties) |
+| `HodgeLattice.DimBaseChange` | glue (kernel) | `dim A_L = dim A` | **proved** (from g0-dim) |
+| T35 `LeafPush2.UniformizationExists` | leaf (`TextbookLeaves.t35`) | uniformization by `ℂ^{dim A}` | leaf |
 
-How `DetLatticeProd` is proved (`DetProd.lean`, about 450 lines):
-1. **Bases and determinant functionals.**
-   - Pick `𝓞_K`-families `wᵢ` in `ωᵢ` with `1 ⊗ wᵢ` a `K`-basis `bᵢ` of `K ⊗ Mᵢ` (hodge-lattice's
-     step 1). Concatenate them through `K⊗M₁ × K⊗M₂ ≅ K⊗M` (`sumIso`, `prodBasis`).
-   - The determinant functional `detFun b : K ⊗ ⋀^g M → K` is injective (hodge-lattice's steps
-     2-4) and sends `1 ⊗ ∧w` to `1`.
-   - So the three determinant lattices become `𝓞_K`-submodules `I₁, I₂, I ⊆ K` containing `1`,
-     with equal indices (`secIndex_map`).
-2. **`I = I₁ I₂`.**
-   - `⊇`: a block determinant (`det_prodBasis_append`, from `Matrix.det_fromBlocks_zero₂₁`).
-   - `⊆`: generalized Laplace expansion. Each `vₖ = j₁aₖ + j₂cₖ`.
-     - `MultilinearMap.map_add_univ` expands `det` over subsets `T`.
-     - If `#T ≠ g₁`, the family is dependent (a dimension count in `range jᵢ`), so the term is 0.
-     - If `#T = g₁`, a permutation (`Finset.orderIsoOfFin`, `Equiv.sumCompl`) brings it to block
-       form, at the cost of a sign.
-3. **Indices.** `[I₁I₂ : 𝓞] = [I₁ : 𝓞][I₂ : 𝓞]` follows from the kernel's `secIndex_mul_absNorm`
-   and the multiplicativity of `FractionalIdeal.absNorm` (`secIndex_one_mul`).
+**`ProductCotangent`** (`PC.lean`, about 400 lines of this task's code).
+- **The cotangent map.** A morphism `φ : 𝒢 → ℋ` of models with `φ(ξ_𝒢) = ξ_ℋ` induces
+  `cotMap φ : cot_ℋ → cot_𝒢`.
+  - It is built through `Ideal.Cotangent.lift`, from the local stalk map `germMap φ`
+    (infra-stalks' `stalkMapAt`).
+  - It is `𝓞_L`-linear because `φ` lies over `Spec 𝓞_L` (`germMap_structMap`).
+  - It is functorial (`cotMap_comp`, `cotMap_id`).
+- **Functoriality of `ω`** (`omega_map_le`). If `φ` preserves the unit sections, then
+  `cotMap φ (ω_ℋ) ⊆ ω_𝒢`.
+  - At each `s`, a germ `f` vanishing on `e_ℋ` at `e_ℋ(s)` pulls back to `φ^♯ f`. The pullback
+    vanishes on `e_𝒢 = e_ℋ ∘ φ`, as `stalkMapAt_comp` shows.
+  - Specialization commutes with stalk maps (`stalkMapAt_stalkSpecializes`, from Mathlib's
+    `stalkSpecializes_stalkMap`).
+- **Retractions.**
+  - Set `inc₁ = (𝟙, toUnit ≫ η) ≫ e⁻¹`, that is `x ↦ (x, 1)`; `inc₂` is the analogue for the
+    second factor.
+  - Then `inc₁ ≫ p₁ = 𝟙`, while `inc₁ ≫ p₂` factors through `Spec 𝓞_L`.
+  - The stalk of `Spec 𝓞_L` at the generic point is a field, so `p₂^♯` followed by `inc₁^♯` kills
+    `𝔪` (`germMap_eq_zero_of_factor`). The unit preservation of `inc₁` follows from `IsMonHom` of
+    the components.
+- **Surjectivity** (`germ_decomp`, `cot_decomp`).
+  - infra-stalks' `pullback_stalkGen`, transported along `e`, shows that the generic stalk of
+    `𝒢P` is generated by the two factor stalks.
+  - `maximalIdeal_eq_of_stalkGen` and `exists_sub_mem_maximalIdeal_of_stalkGen` (`ξ₁` is rational,
+    on the unit section) then give `𝔪_P = p₁^♯𝔪₁ + p₂^♯𝔪₂` and the residue field.
+  - infra-stalks' `sub_mem_maximalIdeal_sq_of_product`, generalized here to two different factor
+    rings, gives `m ≡ p₁^♯i₁^♯m + p₂^♯i₂^♯m (mod 𝔪²)`.
+- **Assembly** (`productCotangent_aux`).
+  - Injectivity comes from the retractions.
+  - The lattice: `≤` from `cot_decomp` and `omega_map_le` for `inc₁`, `inc₂`; `≥` from
+    `omega_map_le` for `p₁`, `p₂`.
+  - The compatibility with metrization's `pullGerm` holds by `rfl`.
 
-How `productHodgeLattice_of` is proved:
-- `gᵢ = dim` comes from `Mᵢ.arch` and `dim_eq_of_isAnalyticUniformization`, and `CotangentRank`
-  then gives `rank_L (L⊗cotᵢ) = gᵢ`.
-- The kernel's `omegaLocal` gives `ωᵢ` finitely generated and spanning.
+**`DetLatticeProd`** (`DetProd.lean`, about 450 lines).
+1. **Bases.** Choose `K`-bases `1 ⊗ wᵢ` with `wᵢ ∈ ωᵢ` and concatenate them through
+   `K⊗M₁ × K⊗M₂ ≅ K⊗M`.
+2. **Determinant functionals.** These are injective (hodge-lattice's argument), so they turn the
+   three determinant lattices into `𝓞_K`-submodules `I₁, I₂, I ⊆ K` containing `1`.
+3. **`I = I₁I₂`.**
+   - `⊇`: a block determinant.
+   - `⊆`: generalized Laplace expansion. `MultilinearMap.map_add_univ` expands; terms of the wrong
+     shape vanish by a dimension count; the others reach block form through a permutation
+     (`AlternatingMap.map_perm`).
+4. **Indices.** `[I₁I₂ : 𝓞] = [I₁ : 𝓞][I₂ : 𝓞]`, from the kernel's `secIndex_mul_absNorm` and the
+   multiplicativity of `FractionalIdeal.absNorm`.
+
+**`productHodgeLattice_of`.**
+- `gᵢ = dim` comes from `Mᵢ.arch` and `dim_eq_of_isAnalyticUniformization`.
+- `CotangentRank` gives the ranks.
+- The kernel's `omegaLocal` gives the lattices finitely generated and spanning.
 - The line property of `𝒢P` is `hodgeLattice_of_lattice` with
   `rank_L(L⊗cot_P) = g₁+g₂` (`rank_tensor_of_bijective`).
-- `DetLatticeProd` yields the sections. They are lifted to germs through `toCotangent_surjective`
-  and the compatibility clause of `ProductCotangent`.
+- The sections of `DetLatticeProd` are lifted to germs through `toCotangent_surjective` and the
+  compatibility clause of `ProductCotangent`.
 
 ## 4. What remains
 
-- **`ProductCotangent`** (open, algebraic geometry at the generic unit and at the unit section).
-  Mathlib has no computation of the stalk or the cotangent space of a fibre product of schemes.
-  infra-stalks is building that infrastructure (`pullback_stalkGen`; maximal ideal and residue
-  field of stalks of fibre products). Size estimate: medium to large (SPECULATIVE).
-- **`TangentDimAtOrigin`** (open, shared with `HodgeLatticeTheorem`): dimension theory of
-  varieties.
-- Checked over `scratch/h-decomposition/Leaves.lean`'s own definitions: not done. product-unif
-  did this for `productModelHeight_of_local` (9 min run). `Combined.lean` is checked against
-  product-height's and the kernel's definitions, which product-unif showed agree with Leaves.lean.
+- Nothing new. P2 rests on T35, an existing textbook leaf, and on `TangentDimAtOrigin`. The latter
+  is an existing named open Prop, shared with `HodgeLatticeTheorem`. It reduces further to
+  `RegularAtOrigin` + `DimAtOrigin` (`tangentDimAtOrigin_of`) and needs the dimension theory of
+  varieties, which Mathlib lacks (docs/research/hodge-lattice.md §5).
+- `ProductUnifDims` could be dropped from product-unif's reduction in favour of T35 (§2).
 
 ## 5. Integration
 
-- Suggested replacement of glue piece 5:
-  `productModelHeight := ZInQ.UnifDims.productModelHeight_of_cotangent t.t35 hPC hT`.
-  - `t.t35` is the existing textbook leaf T35.
-  - `hT : TangentDimAtOrigin` is the hodge-lattice Prop, which `HodgeLatticeTheorem` also needs.
-  - `hPC : ProductCotangent` is the new glue.
-- `Torsion.lean` and `DetProd.lean` can become kernel modules unchanged. The rest needs
-  product-unif's, product-height's and metrization2's pieces adopted first.
+- Suggested replacement of glue piece 5 in `scratch/h-decomposition/Leaves.lean`:
+  `productModelHeight := ZInQ.UnifDims.productModelHeight_of_leaves t hT`.
+  - `t : TextbookLeaves` is the existing bundle.
+  - `hT : TangentDimAtOrigin` is the hodge-lattice Prop.
+- `LeavesIntegrated.lean` (`build_leaves.py`) checks this over Leaves.lean's own copies of every
+  definition; the outcome is in the log.
+- `Torsion.lean`, `DetProd.lean` and `PC.lean` can become kernel modules unchanged. `PC.lean`
+  contains infra-stalks' two files, which should be adopted from infra-stalks, not duplicated. The
+  composites need product-unif's, product-height's and metrization2's pieces adopted first.
 
 ## 6. Reviews and unchecked
 
 - One independent read-only model review (general-purpose agent) of `ProductCotangent`,
-  `DetLatticeProd` and `productHodgeLattice_of`; verdict in §0 item 4. No human review.
-- All locators (EGA IV, Stacks, Bourbaki, Mumford) are from memory: UNVERIFIED. Sizes are
-  SPECULATIVE.
+  `DetLatticeProd` and `productHodgeLattice_of`, before they were proved. Both Props were then
+  proved in Lean, so their truth is now VERIFIED.
+- No human review.
+- All locators (EGA IV, Stacks, Bourbaki, Mumford) are from memory: UNVERIFIED.
