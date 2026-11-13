@@ -73,7 +73,7 @@ lemma exists_gram_J : ∀ (n : ℕ) (V : Type) [AddCommGroup V] [Module F V] [Fi
     obtain ⟨e, he⟩ := exists_ne (0 : V)
     have : ∃ y, B e y ≠ 0 := by
       by_contra h
-      push_neg at h
+      push Not at h
       exact he (hB.1 e h)
     obtain ⟨y, hy⟩ := this
     set f := (B e y)⁻¹ • y with hfdef
@@ -115,7 +115,8 @@ lemma exists_gram_J : ∀ (n : ℕ) (V : Type) [AddCommGroup V] [Module F V] [Fi
       · linear_combination h1
     have hH2 : finrank F H = 2 := by
       have := finrank_span_eq_card hli
-      simpa [hH, Matrix.range_cons, Matrix.range_empty, Set.union_empty, Set.insert_eq] using this
+      rw [Matrix.range_cons_cons_empty, Fintype.card_fin] at this
+      exact this
     have hW2 : finrank F W = 2 * n := by
       rw [hW, finrank_orthogonal hB, hdim, hH2]; omega
     -- the restriction to `W` is nondegenerate and alternating
@@ -154,8 +155,8 @@ lemma exists_gram_J : ∀ (n : ℕ) (V : Type) [AddCommGroup V] [Module F V] [Fi
     rcases i with i | i <;> rcases j with j | j <;>
       induction i using Fin.cases <;> induction j using Fin.cases <;>
       simp [v, Matrix.J, hef, hfe, hee, hff, hfw, hew, hwf, hwe, hww, Matrix.one_apply,
-        Fin.succ_ne_zero, Fin.succ_inj] <;>
-      simp [Matrix.J, Matrix.one_apply]
+        Fin.succ_ne_zero, Fin.succ_inj]
+    all_goals exact (Fin.succ_ne_zero _).symm
 
 /-- **`Darboux`, proved.** -/
 theorem darboux : Darboux := by
@@ -165,9 +166,9 @@ theorem darboux : Darboux := by
   have hli := linearIndependent_of_gram B n v hv
   have hcard : Fintype.card (Fin n ⊕ Fin n) = finrank F V := by
     rw [Fintype.card_sum, Fintype.card_fin, hdim]; ring
-  refine ⟨basisOfLinearIndependentOfCardEqFinrank hli hcard, ?_⟩
-  ext i j
-  rw [LinearMap.BilinForm.toMatrix_apply, coe_basisOfLinearIndependentOfCardEqFinrank, hv]
+  refine ⟨basisOfLinearIndependentOfCardEqFinrank' v hli hcard, ?_⟩
+  refine Matrix.ext fun i j => ?_
+  rw [LinearMap.BilinForm.toMatrix_apply, coe_basisOfLinearIndependentOfCardEqFinrank', hv]
 
 end Proof
 

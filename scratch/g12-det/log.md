@@ -57,3 +57,16 @@ Targets (copied verbatim from scratch/g0-mod-galois): `G12Weight` (part_galois.l
   through `TwistConj`.
 - run1 (04:32, 2m55s): fact_five missing. run2 (04:45): 0 errors; `g12Weight_concl_iff`,
   `g12Weight_of` on [propext, Classical.choice, Quot.sound].
+
+## Darboux — PROVED (VERIFIED, compiled); DetTate now rests on TateGSp alone
+
+- scratch/g12-det/Darboux.lean (`import Mathlib`): `G0Galois.darboux : Darboux`. Induction on
+  `n`: hyperbolic pair `B e f = 1`, `H = span{e,f}`, `IsCompl H H^⊥`
+  (`isCompl_orthogonal_of_restrict_nondegenerate`), `B|H^⊥` nondegenerate alternating of
+  dimension `2n` (`finrank_orthogonal`); family `Sum.elim (Fin.cons f w_l) (Fin.cons e w_r)` with
+  Gram `J`; independence from `J² = −1`; `basisOfLinearIndependentOfCardEqFinrank'` (the unprimed
+  one needs `Nonempty`, fails at `n = 0`). runs 04:45-04:48: 3 fix rounds; final 0 errors, axioms
+  standard.
+- Same proof appended to DetTate.lean; `detTate_of_tateGSp : TateGSp → DetTate`. run4 (04:49):
+  0 errors; `sympSimDet_of_darboux`, `cycQ_resQ`, `detTate_of`, `detTate_of_darboux`, `darboux`,
+  `detTate_of_tateGSp` all on [propext, Classical.choice, Quot.sound].
