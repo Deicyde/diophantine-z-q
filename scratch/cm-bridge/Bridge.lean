@@ -2385,6 +2385,112 @@ theorem uK_mul_tb'K (hn : n % 8 = 7) : uK n * tb'K n = -(N7 n : QNeg n) := by
 
 end Thm36b
 
+
+section Thm36c
+
+open TyzCm Complex
+open scoped nonZeroDivisors
+
+variable {n : ℕ} [NeZero n]
+
+theorem n_delta_q {n : ℕ} (hn : n % 8 = 7) : (n : ℚ) + (tyzDelta n : ℚ) ^ 2 = 128 * N7 n := by
+  have h1 : (4 : ℚ) * A7 n = n + (tyzDelta n : ℚ) ^ 2 := by exact_mod_cast four_A7 hn
+  have h2 : (A7 n : ℚ) = 32 * N7 n := by exact_mod_cast A7_eq hn
+  linarith
+
+theorem ubK_sq (hn : n % 8 = 7) :
+    ubK n * ubK n = -(tyzDelta n : QNeg n) * ubK n - 32 * (N7 n : QNeg n) := by
+  have h := n_delta_q hn
+  ext <;> simp [ubK, QuadraticAlgebra.re_ofNat, QuadraticAlgebra.im_ofNat] <;>
+    first | linear_combination (1/4 : ℚ) * h | linear_combination (-1/4 : ℚ) * h | ring1
+
+theorem uK_sq (hn : n % 8 = 7) :
+    uK n * uK n = -(tyzDelta n : QNeg n) * uK n - 32 * (N7 n : QNeg n) := by
+  have h := n_delta_q hn
+  ext <;> simp [uK, QuadraticAlgebra.re_ofNat, QuadraticAlgebra.im_ofNat] <;>
+    first | linear_combination (1/4 : ℚ) * h | linear_combination (-1/4 : ℚ) * h | ring1
+
+theorem uK_add_ubK : uK n + ubK n = -(tyzDelta n : QNeg n) := by
+  ext <;> simp [uK, ubK] <;> ring
+
+omit [NeZero n] in
+theorem mem_span_pair_of' {a b x : QNeg n} (p q : ℤ) (h : x = p • a + q • b) :
+    x ∈ Submodule.span ℤ ({a, b} : Set (QNeg n)) :=
+  Submodule.mem_span_pair.2 ⟨p, q, h.symm⟩
+
+/-- `𝓞_K = ℤ + ℤū` (`n ≡ 7 (mod 8)`). -/
+theorem coe_mem_span_ubK (hn : n % 8 = 7) (hsq : Squarefree n) (z : 𝓞 (QNeg n)) :
+    (z : QNeg n) ∈ Submodule.span ℤ ({ubK n, 1} : Set (QNeg n)) := by
+  obtain ⟨s, t, hs, ht, k, hk⟩ := int_coords3 (by omega) hsq z
+  obtain ⟨d, hd⟩ := delta_odd hn
+  refine mem_span_pair_of' (-t) (k - t * d) ?_
+  have hdq : (tyzDelta n : ℚ) = 2 * d + 1 := by exact_mod_cast hd
+  have hkq : (s : ℚ) = t + 2 * k := by exact_mod_cast hk
+  ext <;> simp [ubK, hs, ht, zsmul_eq_mul, QuadraticAlgebra.re_one, QuadraticAlgebra.im_one,
+    QuadraticAlgebra.re_ofNat, QuadraticAlgebra.im_ofNat, QuadraticAlgebra.re_intCast,
+    QuadraticAlgebra.im_intCast] <;>
+    (try rw [hdq]) <;> (try rw [hkq]) <;> ring
+
+/-- `𝓞_K = ℤ + ℤu`. -/
+theorem coe_mem_span_uK (hn : n % 8 = 7) (hsq : Squarefree n) (z : 𝓞 (QNeg n)) :
+    (z : QNeg n) ∈ Submodule.span ℤ ({-uK n, 1} : Set (QNeg n)) := by
+  obtain ⟨s, t, hs, ht, k, hk⟩ := int_coords3 (by omega) hsq z
+  obtain ⟨d, hd⟩ := delta_odd hn
+  refine mem_span_pair_of' (-t) (k + t * (d + 1)) ?_
+  have hdq : (tyzDelta n : ℚ) = 2 * d + 1 := by exact_mod_cast hd
+  have hkq : (s : ℚ) = t + 2 * k := by exact_mod_cast hk
+  ext <;> simp [uK, hs, ht, zsmul_eq_mul, QuadraticAlgebra.re_one, QuadraticAlgebra.im_one,
+    QuadraticAlgebra.re_ofNat, QuadraticAlgebra.im_ofNat, QuadraticAlgebra.re_intCast,
+    QuadraticAlgebra.im_intCast] <;>
+    (try rw [hdq]) <;> (try rw [hkq]) <;> ring
+
+theorem coe_mem_span_ubK32 (hn : n % 8 = 7) (hsq : Squarefree n) (z : 𝓞 (QNeg n)) :
+    (z : QNeg n) ∈ Submodule.span ℤ ({ubK n * oneN32 n, 1} : Set (QNeg n)) := by
+  obtain ⟨s, t, hs, ht, k, hk⟩ := int_coords3 (by omega) hsq z
+  obtain ⟨d, hd⟩ := delta_odd hn
+  refine mem_span_pair_of' (-32 * t) (k - t * d) ?_
+  have hdq : (tyzDelta n : ℚ) = 2 * d + 1 := by exact_mod_cast hd
+  have hkq : (s : ℚ) = t + 2 * k := by exact_mod_cast hk
+  ext <;> simp [ubK, hs, ht, zsmul_eq_mul, QuadraticAlgebra.re_one, QuadraticAlgebra.im_one,
+    QuadraticAlgebra.re_ofNat, QuadraticAlgebra.im_ofNat, QuadraticAlgebra.re_intCast,
+    QuadraticAlgebra.im_intCast] <;>
+    (try rw [hdq]) <;> (try rw [hkq]) <;> ring
+
+theorem coe_mem_span_uK32 (hn : n % 8 = 7) (hsq : Squarefree n) (z : 𝓞 (QNeg n)) :
+    (z : QNeg n) ∈ Submodule.span ℤ ({-uK n * oneN32 n, 1} : Set (QNeg n)) := by
+  obtain ⟨s, t, hs, ht, k, hk⟩ := int_coords3 (by omega) hsq z
+  obtain ⟨d, hd⟩ := delta_odd hn
+  refine mem_span_pair_of' (-32 * t) (k + t * (d + 1)) ?_
+  have hdq : (tyzDelta n : ℚ) = 2 * d + 1 := by exact_mod_cast hd
+  have hkq : (s : ℚ) = t + 2 * k := by exact_mod_cast hk
+  ext <;> simp [uK, hs, ht, zsmul_eq_mul, QuadraticAlgebra.re_one, QuadraticAlgebra.im_one,
+    QuadraticAlgebra.re_ofNat, QuadraticAlgebra.im_ofNat, QuadraticAlgebra.re_intCast,
+    QuadraticAlgebra.im_intCast] <;>
+    (try rw [hdq]) <;> (try rw [hkq]) <;> ring
+
+theorem coe_mul_mem_span_ubK32 (hn : n % 8 = 7) (hsq : Squarefree n) (z : 𝓞 (QNeg n)) :
+    (z : QNeg n) * (ubK n * oneN32 n) ∈ Submodule.span ℤ ({ubK n * oneN32 n, 1} : Set (QNeg n)) := by
+  obtain ⟨s, t, hs, ht, k, hk⟩ := int_coords3 (by omega) hsq z
+  obtain ⟨d, hd⟩ := delta_odd hn
+  have hdq : (tyzDelta n : ℚ) = 2 * d + 1 := by exact_mod_cast hd
+  have hkq : (s : ℚ) = t + 2 * k := by exact_mod_cast hk
+  have h := n_delta_q hn
+  rw [hdq] at h
+  refine mem_span_pair_of' (k - t * d + t * (2 * d + 1)) (t * N7 n) ?_
+  ext <;> simp [ubK, hs, ht, zsmul_eq_mul, QuadraticAlgebra.re_one, QuadraticAlgebra.im_one,
+    QuadraticAlgebra.re_ofNat, QuadraticAlgebra.im_ofNat, QuadraticAlgebra.re_intCast,
+    QuadraticAlgebra.im_intCast] <;> (try rw [hkq]) <;> (try rw [hdq]) <;>
+    first
+    | ring1
+    | linear_combination (t / 128 : ℚ) * h
+    | linear_combination (-t / 128 : ℚ) * h
+    | linear_combination (t / 256 : ℚ) * h
+    | linear_combination (-t / 256 : ℚ) * h
+    | linear_combination (t / 64 : ℚ) * h
+    | linear_combination (-t / 64 : ℚ) * h
+
+end Thm36c
+
 open ZInQ.Contrib.TYZDecomp in
 /-- **Main theorem of cm-bridge (final leaves).** Reading A of TYZ Theorem 3.5
 (`ZInQ.Literature.TYZThm35ReadingA`) from:
