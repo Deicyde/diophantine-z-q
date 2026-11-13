@@ -33,6 +33,34 @@ concrete, over Mathlib definitions:
 `GaussSplit 1` is a published, refereed, classical theorem about a single curve, so it is a
 legitimate leaf if the team wants one. `HeckeEuler` is glue (ideal counting in `ℤ[i]`).
 
+The exact Lean definitions (from `HeckeFE.lean`; `normFiber n` is the finset of `(a, b) ∈ ℤ²`
+with `a² + b² = n`, `gz 0 0 (a, b) = a + bi`, `unitOf` is the table of §2.1):
+
+```lean
+noncomputable def heckeCoeff (d n : ℕ) : ℂ :=
+  (1 / 4) * ∑ p ∈ normFiber n,
+    (jacobiSym (p.1 ^ 2 + p.2 ^ 2) d : ℂ) * unitOf ((p.1 : ZMod 4), (p.2 : ZMod 4)) * gz 0 0 p
+
+noncomputable def heckeEulerPoly (d p : ℕ) : Polynomial ℂ :=
+  if p ∣ 2 * d then 1
+  else 1 - Polynomial.C (heckeCoeff d p) * Polynomial.X + Polynomial.C (p : ℂ) * Polynomial.X ^ 2
+
+def HeckeEuler (d : ℕ) : Prop :=
+  ∀ n : ℕ, n ≠ 0 → heckeCoeff d n = n.factorization.prod fun p k =>
+    PowerSeries.coeff k (PowerSeries.invOfUnit ((heckeEulerPoly d p : Polynomial ℂ) :
+      PowerSeries ℂ) 1)
+
+-- Gauss's theorem as a point count (implies `GaussSplit 1`: `gaussSplit_one_of_pointCount`)
+def GaussPointCount : Prop :=
+  ∀ p : ℕ, p.Prime → p % 4 = 1 →
+    (p : ℂ) - (Nat.card {xy : ZMod p × ZMod p // xy.2 ^ 2 = xy.1 ^ 3 - xy.1} : ℂ) =
+      (1 / 4) * ∑ q ∈ normFiber p, unitOf ((q.1 : ZMod 4), (q.2 : ZMod 4)) * gz 0 0 q
+```
+
+`literature_hecke_fe_of_heckeEuler_gaussPointCount` takes `HeckeEuler` (for `d ≡ 5 (mod 8)`
+squarefree) and `GaussPointCount`. `GaussPointCount` mentions only `𝔽_p`, `ℤ²` and a 16-entry
+table, so a formalizer needs nothing from the elliptic-curve library.
+
 **How the Props reduce** (all proved in `scratch/bp-hecke-fe/HeckeFE.lean`):
 
 1. **Analysis: no Hecke characters, adeles or Poisson summation on `ℝ²`.** The weight-two theta
