@@ -1,0 +1,3 @@
+'LeafQM.AV.CurveGlue.cm_points_of_R1R2fp' depends on axioms: [propext, Classical.choice, Quot.sound]
+'LeafQM.AV.CurveGlue.cm_points_of_R1R2fpRep' depends on axioms: [propext, Classical.choice, Quot.sound]
+'LeafQM.AV.CurveGlue.mobiusGlue_noCM_of_rep' depends on axioms: [propext, Classical.choice, Quot.sound]

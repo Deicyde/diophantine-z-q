@@ -1,0 +1,2 @@
+'LeafQM.AV.Pin.ratFactorAlgClosed_of' depends on axioms: [propext, Classical.choice, Quot.sound]
+'LeafQM.AV.Pin.Alg.exists_two_roots' depends on axioms: [propext, Classical.choice, Quot.sound]

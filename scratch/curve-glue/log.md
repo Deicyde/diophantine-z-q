@@ -18,3 +18,22 @@
   via Mathlib `germ_stalkClosedPointTo`); units detected by values at K-points (Jacobson + `pointOfClosedPoint`);
   missed value ∞: W ⊆ U, f|_W constant; missed value a: glue 1/(f−a) and g/(1−ag) with
   `objSupIsoProdEqLocus`, apply (L), case analysis on c.
+
+## 3. C3K from the glue (G1) ImagePlaneCurve and Lean algebra (`C3K.lean`)
+- `Alg.exists_two_roots`: P ∈ K[x][y] irreducible, deg_y P ≥ 2, K alg. closed char 0 ⇒ some fibre P(t,·) has two
+  distinct roots. Proof: Gauss lemma (`IsPrimitive.irreducible_iff_irreducible_map_fraction_map`), separable in
+  char 0, `resultant_ne_zero`, `resultant_map_map` to K[x] then to K at a good t, `resultant_eq_zero_iff`,
+  `nodup_roots`, `Splits.natDegree_eq_card_roots`. Compiled.
+- `Alg.isCoprime_coeff_of_irreducible`: deg_y P = 1, irreducible ⇒ coefficients coprime. Compiled.
+- `theorem ratFactorAlgClosed_of (hG : ImagePlaneCurve) : RatFactorAlgClosed` — compiled, 0 errors 0 warnings,
+  axioms [propext, Classical.choice, Quot.sound] (VERIFIED, `run_C3K.txt`).
+- (G1) `ImagePlaneCurve` (glue): ρ ≡ ∞ on W, or ∃ irreducible P of y-degree ≥ 1 with (a) P(σ,ρ)=0 at finite points,
+  (b) every affine root (t,u) is hit by a K-point of W, (c) ρ=∞ ∧ σ=t finite ⇒ lc_y(P)(t)=0. No char-0 hypothesis.
+
+## 4. Composite (`CurveGlueAll.lean`)
+- CurveFacts.lean verbatim + C2K.lean §1-4 + C3K.lean §1-2;
+  `curveFacts_of_glue (h1 : SmoothStalkDimOne) (hL : GlobalFunctionsConst) (hG : ImagePlaneCurve) :
+  CurveRatFactor ∧ CurveSurj` — compiled, axioms standard (VERIFIED, `run_CurveGlueAll.txt`).
+
+## 5. Verbatim copies
+- `py/verbatim.py` → `verbatim.txt`: all copied declarations IDENTICAL to sources (VERIFIED).
