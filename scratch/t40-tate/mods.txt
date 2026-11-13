@@ -1,0 +1,6 @@
+Backport/Analysis/Normed/Field/ZPowers.lean: nnNormHom -> nnnormHom (Mathlib name)
+Backport/Analysis/Normed/Group/Ultra.lean: nnNorm_mul_le_max -> nnnorm_mul_le_max
+Backport/Algebra/Polynomial/Derivative.lean: FunLike.coe_pow_eq_iterate/pow_apply_eq_iterate -> Module.End.coe_pow
+Backport/Topology/Algebra/InfiniteSum/IntegralCoefficients.lean: maxHeartbeats 1000000 on evalIntBivariateSeries_eq_tsum
+Backport/Analysis/Normed/Module/InfiniteSum.lean: Finset.tsum_subtype without summation-filter argument; maxHeartbeats 1000000 on hasSum_laurent_mul_of_summable_norm
+Backport/AlgebraicGeometry/EllipticCurve/TateCurve/Injectivity.lean: FiniteDimensional.completeSpace -> FiniteDimensional.complete
