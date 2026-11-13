@@ -96,8 +96,8 @@ is `IntermediateField.inclusion` plus `IntermediateField.coe_inclusion` (`coe_al
 
 - `B̂` is Mathlib's `RestrictedProduct` over `Nat.Primes` of the rings `B_p` w.r.t. the subrings
   `𝒪_p` (`OpSub`: N5's lattice is closed under multiplication, `combp_mul`, the `ℤ_p`-form of
-  glue-repo's `combMul`). This is the standard description of `B ⊗_ℚ 𝔸_f` (STANDARD: `B` has the
-  `ℤ[1/6]`-basis of N5's order, so `B ⊗ 𝔸_f = ∏'(B_p, 𝒪_p)`); its identification with
+  glue-repo's `combMul`). This is the standard description of `B ⊗_ℚ 𝔸_f` (STANDARD: for any `ℤ`-order `𝒪`
+  of `B`, `B ⊗ 𝔸_f` is the restricted product of the `B_p` w.r.t. the `𝒪 ⊗ ℤ_p`); its identification with
   `ℍ[𝔸ᶠ[ℤ, ℚ], 2, 0, -3]` over Mathlib's `FiniteAdeleRing` is not formalized (Mathlib's
   `Rat.HeightOneSpectrum.adicCompletion.padicEquiv` would give it componentwise).
 - `normalizer_component`: test `x 𝒪̂ x⁻¹ = 𝒪̂` on the element with component `y` at `p` and `0`
@@ -137,7 +137,10 @@ with an identity `R3.mk` so that rewriting keeps terms well-typed.
 - The other parts of A3 (the Hecke action of `Γ'` on `Y₃` over `ℚ`, quotient `P¹_j`, `deg ≤ |Γ'|`)
   are outside this task.
 - Integration: `T30.leafSqrtCrit_of_localKroneckerWeber` can replace the hypothesis `t30` of
-  `HSyn` (it needs only `t16a`); `G1Adelic` imports only `ZInQKernel.HDecomp.Vigneras.Local`.
+  `HSyn` (it needs only `t16a`); `SqrtCrit.lean` imports `ZInQKernel.HDecomp.Sqrt.Disj` and
+  `ZInQKernel.HDecomp.Descent.B2Glue`; `Adelic.lean` imports `ZInQKernel.HDecomp.Vigneras.Local`
+  and `ZInQKernel.HDecomp.Repo.A1Quaternion`; `G1Count.lean` imports only Mathlib. All three
+  respect upstream's contract if moved to `ZInQKernel/Contrib/` (new files, no pinned file edited).
 
 ## 5. Changes to classifications
 
