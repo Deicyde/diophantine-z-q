@@ -2,22 +2,32 @@ import ZInQKernel.Contrib.TYZGenus.RingClassBridge
 import ZInQKernel.Contrib.TYZGenus.RingClassTwo
 
 /-!
-# sqrt2-glue: `√2 ∉ ℍ'_n` (`SqrtTwoNotInHHprime`, TYZ Lemma `torsion2`, Step 3)
+# sqrt2-glue: `√2 ∉ ℍ'_n` (`SqrtTwoNotInHHprime`, TYZ Lemma `torsion2`, Step 3) — PROVED
 
 Task sqrt2-glue (2026-11-14). Report: `docs/research/sqrt2-glue.md`; log: `scratch/sqrt2-glue/log.md`.
 
 `SqrtTwoNotInHHprime` and `SigmaLift` are copied verbatim from `scratch/tyz-318/Lemma318.lean`, with
-tyz-318's proof of `SigmaLift → SqrtTwoNotInHHprime`.
+tyz-318's proof of `SigmaLift → SqrtTwoNotInHHprime`. Main result (§13, no hypotheses, standard axioms):
 
-Route A of `docs/research/tyz-318.md` §3.2, in factorization form (no Chebotarev over `L_n(i)`):
-`h` is a product of Frobenius elements over `F = L_n(i)` at the prime factors of `α𝓞_F`, where
-`α = 1 + 2i∏_{q∣n}(1 + √q*)/2`.
+    theorem sqrtTwoNotInHHprime : SqrtTwoNotInHHprime
+    theorem sigmaLift : SigmaLift
 
-* `FrobNormLaw`: a Frobenius over `F` at a prime `P ∤ 2` acts on `H_{d,4}` as the Artin symbol of the
-  relative norm `N_{F/K_d}(P)` (Tau Ceti's ring-class reciprocity at primes, plus the comparison of
-  Frobenius exponents `N P = (N 𝔭)^f`).
-* `NormSigma`: some `α ∈ 𝓞_F` coprime to `2` has `[N_{F/K_{d₀}}(α𝓞_F)] = σ_{1+2ϖ}` in
-  `Pic(ℤ + 4𝓞_{K_{d₀}})` for every `d₀ ∣ n`, `d₀ ≡ 5 (mod 8)`.
+Route A of `docs/research/tyz-318.md` §3.2, in factorization form (no Chebotarev, no class field of
+`L_n(i)`): `h` is a product of Frobenius elements over `F = L_n(i)` at the prime factors of `α𝓞_F`,
+where `α = 1 + 2i∏_{q∣n}(1 + √q*)/2`.
+
+* `FrobNormLaw` (§2, PROVED §5–§7 as `frobNormLaw`): a Frobenius over `F` at a prime `P ∤ 2` acts on
+  `H_{d,4}` as the Artin symbol of the relative norm `N_{F/K_d}(P) = 𝔭^f` (Tau Ceti's ring-class
+  reciprocity at primes and unramifiedness, plus `eq_pow_of_congr`: an exponent-`(N𝔭)^f` Frobenius is
+  `Art(𝔭)^f`).
+* `NormSigma` (§2, PROVED §8–§13 as `normSigma`, via `NormCongr`): `α` is coprime to `2` and
+  `[N_{F/K_{d₀}}(α𝓞_F)] = σ_{1+2ϖ}` in `Pic(ℤ + 4𝓞_{K_{d₀}})` for every `d₀ ∣ n`, `d₀ ≡ 5 (mod 8)`:
+  `N(1 + 2β) ≡ 1 + 2 Tr(β) (mod 4)`, `Tr_{F/K_{d₀}}(β) = ±√−d₀` (the degree `[F : K_{d₀}] = 2^{ω(n)}`
+  from an upper bound and the integrality of the trace).
+* `sigmaLift_of` (§4): the product of the Frobenius elements over `normalizedFactors (α𝓞_F)`.
+
+No `sorry`, no `axiom`. `scratch/sqrt2-glue/Combined.lean` appends this file to tyz-318's and proves
+`Lemma318Literal HHprime` (TYZ Lemma 3.18) outright.
 -/
 
 noncomputable section
