@@ -1,4 +1,11 @@
 import ZInQKernel.OneProof.H.LPrefix
+import ZInQKernel.HDecomp.Analytic.Torus
+import ZInQKernel.HDecomp.Analytic.QMLattice
+import ZInQKernel.Contrib.FrobChain.Rigidity
+import ZInQKernel.Contrib.HeightBC.G0StableBC
+import ZInQKernel.HDecomp.Conductor.LadicCond
+import ZInQKernel.HDecomp.Descent.WP3
+import ZInQKernel.Contrib.FrobChain.TateBridge
 
 namespace HDec
 
@@ -39,6 +46,7 @@ set_option linter.unusedSectionVars false
 noncomputable section
 
 namespace BPAnalytic
+open _root_.BPAnalytic (Char2 QM.B QM.Emat QM.Emat_eq QM.F0mat QM.F0mat_eq QM.Fp QM.FpEquiv QM.FpEquiv_apply QM.Fp_mulVec_periodVec QM.Fp_mulVec_periodVec' QM.Fp_mul_Emat_transpose QM.Fp_mul_Omega QM.Fp_mul_OmegaPF QM.Mi QM.Mj QM.Omega QM.OmegaPF QM.Omega_eq_PF QM.Omega_mem_siegelSpace QM.Omega_transpose QM.Pinv QM.QMTorus QM.det_Fp QM.det_Fp_ne_zero QM.det_im_Omega_ne_zero QM.det_im_ne_zero_of_linearIndependent QM.imgVec QM.imgVec_linearIndependent QM.iota QM.latVec QM.latVec0 QM.latVec1 QM.latVec2 QM.latVec3 QM.map_periodLattice_Omega QM.mulVec_col QM.oBasis QM.qmBasis QM.qmLattice QM.qmLattice_eq QM.qmPeriodDiffeo QM.qmPeriodDiffeo_add QM.qmPeriodDiffeo_proj QM.qmVec QM.qmVec_linearIndependent QM.riemannTheta_Omega_add_period QM.span_imgVec QM.sqrt2_ne_zero QM.sqrt2_sq SiegelSpace SiegelTorus Torus card_periodIndex charHalf chartAt_torus chartOf chartOf_symm_apply coe_periodBasis compactSpace_torus connectedSpace_torus contDiffOn_of_sub_mem contMDiff_of_comp_proj contMDiff_of_comp_proj₂ contMDiff_proj contMDiff_torusExp contMDiff_torusExp_smul det_im_ne_zero_of_mem_siegelSpace dotProduct_mulVec_symm eventuallyEq_add_const exists_gap holomorphic_const intVec intVec_dotProduct intVec_sub isAddQuotientCoveringMap_proj isCoveringMap_proj isLocalHomeomorph_proj isManifold_torus ker_torusExp lieAddGroup_torus mem_periodLattice_iff periodBasis periodLattice periodVec periodVec_linearIndependent proj proj_chartOf proj_eq_iff proj_mem_chartOf_source riemannTheta riemannTheta_add_int riemannTheta_add_mulVec riemannTheta_add_period self_mem_chartOf_target thetaChar thetaChar_eq thetaConst thetaConst_eq_riemannTheta thetaConst_eq_thetaChar torusAddEquiv torusAddEquiv_proj torusAddEquiv_symm_proj torusDiffeo torusDiffeo_apply torusExp torusExp_apply torusExp_surjective transition_sub_mem two_nsmul_proj_charPoint) -- op-dedupe
 
 variable {E : Type*} [NormedAddCommGroup E] [NormedSpace ℂ E]
 
@@ -46,239 +54,22 @@ section Discrete
 
 variable (Λ : Submodule ℤ E) [DiscreteTopology Λ]
 
-/-- A discrete subgroup has a uniform gap around `0`. -/
-theorem exists_gap : ∃ ε > 0, ∀ v ∈ Λ, ‖v‖ < ε → v = 0 := by
-  have h : IsOpen ({0} : Set Λ) := isOpen_discrete _
-  obtain ⟨ε, hε, hball⟩ := Metric.isOpen_singleton_iff.mp h
-  refine ⟨ε, hε, fun v hv hlt => ?_⟩
-  have := hball ⟨v, hv⟩ (by simpa [Subtype.dist_eq] using hlt)
-  simpa using congrArg Subtype.val this
-
-/-- **Local constancy.** A continuous map that differs from the identity by lattice vectors is,
-near every point, a translation. -/
-theorem eventuallyEq_add_const {U : Set E} (hU : IsOpen U) {F : E → E} (hF : ContinuousOn F U)
-    (hΛ : ∀ z ∈ U, F z - z ∈ Λ) {x : E} (hx : x ∈ U) :
-    F =ᶠ[𝓝 x] fun z => z + (F x - x) := by
-  obtain ⟨ε, hε, hgap⟩ := exists_gap Λ
-  have hc : ContinuousAt (fun z => F z - z) x :=
-    ((hF.continuousAt (hU.mem_nhds hx)).sub continuousAt_id)
-  have h1 : ∀ᶠ z in 𝓝 x, dist (F z - z) (F x - x) < ε :=
-    hc.eventually (Metric.ball_mem_nhds _ hε)
-  filter_upwards [h1, hU.mem_nhds hx] with z hz hzU
-  have hmem : (F z - z) - (F x - x) ∈ Λ := Λ.sub_mem (hΛ z hzU) (hΛ x hx)
-  have h0 := hgap _ hmem (by simpa [dist_eq_norm] using hz)
-  have : F z - z = F x - x := sub_eq_zero.mp h0
-  linear_combination (norm := abel_nf) this
-
-/-- Such a map is analytic (indeed `C^n` for every `n`) on `U`. -/
-theorem contDiffOn_of_sub_mem {n : WithTop ℕ∞} {U : Set E} (hU : IsOpen U) {F : E → E}
-    (hF : ContinuousOn F U) (hΛ : ∀ z ∈ U, F z - z ∈ Λ) : ContDiffOn ℂ n F U := fun _ hx =>
-  ((contDiff_id.add contDiff_const).contDiffAt.congr_of_eventuallyEq
-    (eventuallyEq_add_const Λ hU hF hΛ hx)).contDiffWithinAt
-
 end Discrete
 
 variable (Λ : Submodule ℤ E) [DiscreteTopology Λ]
 
-/-- The complex torus `E ⧸ Λ`. -/
-abbrev Torus := E ⧸ Λ.toAddSubgroup
-
-/-- The projection `E → E ⧸ Λ` (for the torus, this is the exponential map). -/
-abbrev proj : E → Torus Λ := QuotientAddGroup.mk
-
-theorem proj_eq_iff {x y : E} : proj Λ x = proj Λ y ↔ x - y ∈ Λ := by
-  rw [QuotientAddGroup.eq_iff_sub_mem]
-  simp
-
-theorem isAddQuotientCoveringMap_proj :
-    IsAddQuotientCoveringMap (proj Λ) Λ.toAddSubgroup :=
-  AddSubgroup.isAddQuotientCoveringMap_of_comm _
-    (isDiscrete_iff_discreteTopology.mpr (by assumption))
-
-theorem isCoveringMap_proj : IsCoveringMap (proj Λ) :=
-  (isAddQuotientCoveringMap_proj Λ).isCoveringMap
-
-theorem isLocalHomeomorph_proj : IsLocalHomeomorph (proj Λ) :=
-  (isAddQuotientCoveringMap_proj Λ).isLocalHomeomorph
-
-/-- The chart at a point `x : E`: the local inverse of `proj` through `x`. -/
-def chartOf (x : E) : OpenPartialHomeomorph (Torus Λ) E :=
-  (isLocalHomeomorph_proj Λ).localInverseAt x
-
-theorem chartOf_symm_apply (x z : E) : (chartOf Λ x).symm z = proj Λ z := by
-  rw [chartOf, (isLocalHomeomorph_proj Λ).localInverseAt_symm]
-
-theorem proj_chartOf {x : E} {q : Torus Λ} (hq : q ∈ (chartOf Λ x).source) :
-    proj Λ (chartOf Λ x q) = q :=
-  (isLocalHomeomorph_proj Λ).apply_localInverseAt_of_mem hq
-
-theorem self_mem_chartOf_target (x : E) : x ∈ (chartOf Λ x).target :=
-  (isLocalHomeomorph_proj Λ).self_mem_localInverseAt_target
-
-theorem proj_mem_chartOf_source (x : E) : proj Λ x ∈ (chartOf Λ x).source :=
-  (isLocalHomeomorph_proj Λ).apply_self_mem_localInverseAt_source
-
-instance : ChartedSpace E (Torus Λ) where
-  atlas := range (chartOf Λ)
-  chartAt q := chartOf Λ q.out
-  mem_chart_source q := by
-    have := proj_mem_chartOf_source Λ q.out
-    rwa [proj, QuotientAddGroup.out_eq'] at this
-  chart_mem_atlas q := ⟨_, rfl⟩
-
-theorem chartAt_torus (q : Torus Λ) : chartAt E q = chartOf Λ q.out := rfl
-
-/-- Transition maps differ from the identity by lattice vectors. -/
-theorem transition_sub_mem (x x' : E) {z : E}
-    (hz : z ∈ ((chartOf Λ x).symm ≫ₕ chartOf Λ x').source) :
-    ((chartOf Λ x).symm ≫ₕ chartOf Λ x') z - z ∈ Λ := by
-  rw [OpenPartialHomeomorph.trans_source] at hz
-  have h2 : (chartOf Λ x).symm z ∈ (chartOf Λ x').source := hz.2
-  rw [chartOf_symm_apply] at h2
-  have := proj_chartOf Λ h2
-  rw [OpenPartialHomeomorph.coe_trans, Function.comp_apply, chartOf_symm_apply]
-  exact (proj_eq_iff Λ).mp this
-
-/-- **`E ⧸ Λ` is a complex analytic manifold.** -/
-instance isManifold_torus : IsManifold 𝓘(ℂ, E) ω (Torus Λ) := by
-  apply isManifold_of_contDiffOn
-  rintro e e' ⟨x, rfl⟩ ⟨x', rfl⟩
-  simp only [modelWithCornersSelf_coe, modelWithCornersSelf_coe_symm, Function.id_comp,
-    Function.comp_id, preimage_id_eq, id_eq, range_id, inter_univ]
-  exact contDiffOn_of_sub_mem Λ ((chartOf Λ x).symm ≫ₕ chartOf Λ x').open_source
-    ((chartOf Λ x).symm ≫ₕ chartOf Λ x').continuousOn (fun z hz => transition_sub_mem Λ x x' hz)
-
 /-! ## §2. Smoothness of the projection; descent of smooth maps; the Lie group structure -/
-
-/-- The projection `E → E ⧸ Λ` is analytic. -/
-theorem contMDiff_proj {n : ℕ∞ω} : ContMDiff 𝓘(ℂ, E) 𝓘(ℂ, E) n (proj Λ) := by
-  intro x
-  rw [contMDiffAt_iff_target, extChartAt_coe, modelWithCornersSelf_coe, Function.id_comp,
-    contMDiffAt_iff_contDiffAt]
-  refine ⟨(isLocalHomeomorph_proj Λ).continuous.continuousAt, ?_⟩
-  set c := chartAt E (proj Λ x)
-  have hU : IsOpen (proj Λ ⁻¹' c.source) :=
-    c.open_source.preimage (isLocalHomeomorph_proj Λ).continuous
-  have hx : x ∈ proj Λ ⁻¹' c.source := mem_chart_source E (proj Λ x)
-  have hcont : ContinuousOn (c ∘ proj Λ) (proj Λ ⁻¹' c.source) :=
-    c.continuousOn.comp (isLocalHomeomorph_proj Λ).continuous.continuousOn (fun _ hz => hz)
-  have hsub : ∀ z ∈ proj Λ ⁻¹' c.source, (c ∘ proj Λ) z - z ∈ Λ := by
-    intro z hz
-    have := proj_chartOf Λ (x := (proj Λ x).out) hz
-    exact (proj_eq_iff Λ).mp this
-  exact (contDiffOn_of_sub_mem Λ hU hcont hsub).contDiffAt (hU.mem_nhds hx)
 
 variable {F : Type*} [NormedAddCommGroup F] [NormedSpace ℂ F] {H' : Type*} [TopologicalSpace H']
   {I' : ModelWithCorners ℂ F H'} {M : Type*} [TopologicalSpace M] [ChartedSpace H' M]
 
-/-- **Descent.** A map out of `E ⧸ Λ` is `C^n` (analytic for `n = ω`) as soon as its composite
-with the projection is. -/
-theorem contMDiff_of_comp_proj {n : ℕ∞ω} {f : Torus Λ → M}
-    (hf : ContMDiff 𝓘(ℂ, E) I' n (f ∘ proj Λ)) : ContMDiff 𝓘(ℂ, E) I' n f := by
-  intro q
-  set c := chartAt E q
-  have hq : q ∈ c.source := mem_chart_source E q
-  have hc : ContMDiffAt 𝓘(ℂ, E) 𝓘(ℂ, E) n c q :=
-    (contMDiffOn_chart).contMDiffAt (c.open_source.mem_nhds hq)
-  have heq : f =ᶠ[𝓝 q] (f ∘ proj Λ) ∘ c := by
-    filter_upwards [c.open_source.mem_nhds hq] with y hy
-    simp only [Function.comp_apply]
-    exact congrArg f (proj_chartOf Λ (x := q.out) hy).symm
-  exact ((hf (c q)).comp q hc).congr_of_eventuallyEq heq
-
-/-- Descent for maps of two variables. -/
-theorem contMDiff_of_comp_proj₂ {n : ℕ∞ω} {f : Torus Λ × Torus Λ → M}
-    (hf : ContMDiff (𝓘(ℂ, E).prod 𝓘(ℂ, E)) I' n (f ∘ Prod.map (proj Λ) (proj Λ))) :
-    ContMDiff (𝓘(ℂ, E).prod 𝓘(ℂ, E)) I' n f := by
-  rintro ⟨q₁, q₂⟩
-  set c₁ := chartAt E q₁
-  set c₂ := chartAt E q₂
-  have h₁ : q₁ ∈ c₁.source := mem_chart_source E q₁
-  have h₂ : q₂ ∈ c₂.source := mem_chart_source E q₂
-  have hc₁ : ContMDiffAt 𝓘(ℂ, E) 𝓘(ℂ, E) n c₁ q₁ :=
-    (contMDiffOn_chart).contMDiffAt (c₁.open_source.mem_nhds h₁)
-  have hc₂ : ContMDiffAt 𝓘(ℂ, E) 𝓘(ℂ, E) n c₂ q₂ :=
-    (contMDiffOn_chart).contMDiffAt (c₂.open_source.mem_nhds h₂)
-  have hc := hc₁.prodMap hc₂
-  have heq : f =ᶠ[𝓝 (q₁, q₂)] (f ∘ Prod.map (proj Λ) (proj Λ)) ∘ Prod.map c₁ c₂ := by
-    filter_upwards [prod_mem_nhds (c₁.open_source.mem_nhds h₁) (c₂.open_source.mem_nhds h₂)]
-      with y hy
-    obtain ⟨y₁, y₂⟩ := y
-    simp only [Function.comp_apply, Prod.map_apply]
-    rw [show proj Λ (c₁ y₁) = y₁ from proj_chartOf Λ (x := q₁.out) hy.1,
-      show proj Λ (c₂ y₂) = y₂ from proj_chartOf Λ (x := q₂.out) hy.2]
-  exact ((hf _).comp _ hc).congr_of_eventuallyEq heq
-
-/-- **`E ⧸ Λ` is a complex Lie group** (analytic group law). -/
-instance lieAddGroup_torus : LieAddGroup 𝓘(ℂ, E) ω (Torus Λ) where
-  contMDiff_add := by
-    apply contMDiff_of_comp_proj₂ Λ
-    have : (fun p : Torus Λ × Torus Λ => p.1 + p.2) ∘ Prod.map (proj Λ) (proj Λ) =
-        proj Λ ∘ (fun p : E × E => p.1 + p.2) := by
-      ext ⟨a, b⟩; rfl
-    rw [this]
-    exact (contMDiff_proj Λ).comp (contMDiff_add 𝓘(ℂ, E) ω)
-  contMDiff_neg := by
-    apply contMDiff_of_comp_proj Λ
-    have : (fun a : Torus Λ => -a) ∘ proj Λ = proj Λ ∘ (fun a : E => -a) := by
-      ext a; rfl
-    rw [this]
-    exact (contMDiff_proj Λ).comp (contMDiff_neg 𝓘(ℂ, E) ω)
-
 /-! ## §3. Compactness, connectedness, the exponential -/
-
-instance connectedSpace_torus : ConnectedSpace (Torus Λ) :=
-  QuotientAddGroup.mk_surjective.connectedSpace (isLocalHomeomorph_proj Λ).continuous
-
-/-- **`E ⧸ Λ` is compact** for a full lattice: it is the image of a closed parallelepiped. -/
-instance compactSpace_torus [FiniteDimensional ℂ E] [IsZLattice ℝ Λ] : CompactSpace (Torus Λ) := by
-  have := ZLattice.module_free ℝ Λ
-  have := ZLattice.module_finite ℝ Λ
-  let b := (Module.Free.chooseBasis ℤ Λ).ofZLatticeBasis ℝ Λ
-  refine ⟨?_⟩
-  have himg : proj Λ '' parallelepiped b = univ := by
-    refine eq_univ_of_forall fun q => ?_
-    obtain ⟨x, rfl⟩ := QuotientAddGroup.mk_surjective q
-    refine ⟨ZSpan.fract b x, ZSpan.fundamentalDomain_subset_parallelepiped b
-      (ZSpan.fract_mem_fundamentalDomain b x), ?_⟩
-    rw [proj_eq_iff, ZSpan.fract_apply, sub_sub_cancel_left]
-    have hspan := Module.Basis.ofZLatticeBasis_span ℝ Λ (Module.Free.chooseBasis ℤ Λ)
-    exact Λ.neg_mem (hspan.le (ZSpan.floor b x).2)
-  rw [← himg]
-  exact b.parallelepiped.isCompact.image (isLocalHomeomorph_proj Λ).continuous
 
 /-- The Lie algebra of the torus is `E` itself (Mathlib's `AddGroupLieAlgebra`, the tangent space
 at `0`, is definitionally the model space). -/
 example : AddGroupLieAlgebra 𝓘(ℂ, E) (Torus Λ) = E := rfl
 
 instance : Λ.toAddSubgroup.Normal := AddSubgroup.normal_of_isAddCommutative _
-
-/-- **The exponential map** `Lie(E ⧸ Λ) = E → E ⧸ Λ`: the projection, as a group homomorphism.
-(Its source is stated as `E`; `AddGroupLieAlgebra 𝓘(ℂ, E) (Torus Λ)` is `E` by `rfl`, above.) -/
-def torusExp : E →+ Torus Λ :=
-  QuotientAddGroup.mk' Λ.toAddSubgroup
-
-theorem torusExp_apply (v : E) : torusExp Λ v = proj Λ v := rfl
-
-theorem torusExp_surjective : Function.Surjective (torusExp Λ) :=
-  QuotientAddGroup.mk_surjective
-
-/-- **The period lattice is the kernel of the exponential.** -/
-theorem ker_torusExp : (torusExp Λ).ker = Λ.toAddSubgroup := by
-  ext v
-  simp [torusExp]
-
-theorem contMDiff_torusExp : ContMDiff 𝓘(ℂ, E) 𝓘(ℂ, E) ω (torusExp Λ) := contMDiff_proj Λ
-
-/-- One-parameter subgroups: `t ↦ exp(t • v)` is an analytic homomorphism `ℂ → E ⧸ Λ`. -/
-theorem contMDiff_torusExp_smul (v : E) :
-    ContMDiff 𝓘(ℂ, ℂ) 𝓘(ℂ, E) ω (fun t : ℂ => torusExp Λ (t • v)) :=
-  (contMDiff_proj Λ).comp (contMDiff_iff_contDiff.mpr (contDiff_id.smul contDiff_const))
-
-/-- **Liouville on the torus.** Every holomorphic function on `E ⧸ Λ` is constant. -/
-theorem holomorphic_const [FiniteDimensional ℂ E] [IsZLattice ℝ Λ] {f : Torus Λ → F}
-    (hf : MDifferentiable 𝓘(ℂ, E) 𝓘(ℂ, F) f) : ∃ v : F, f = Function.const _ v :=
-  hf.exists_eq_const_of_compactSpace
 
 /-! ## §4. The period lattice `Ωℤ^g + ℤ^g` of a point of the Siegel space
 
@@ -291,102 +82,6 @@ section Siegel
 open Matrix
 
 variable {g : ℕ}
-
-/-- The Siegel upper half-space of degree `g` (pkg-I1's `SiegelH2` is the case `g = 2`). -/
-def SiegelSpace (g : ℕ) : Set (Matrix (Fin g) (Fin g) ℂ) :=
-  {Ω | Ωᵀ = Ω ∧ (Ω.map Complex.im).PosDef}
-
-/-- The `2g` period vectors: the columns of `Ω`, then the standard basis vectors. -/
-def periodVec (Ω : Matrix (Fin g) (Fin g) ℂ) : Fin g ⊕ Fin g → (Fin g → ℂ)
-  | Sum.inl j => fun i => Ω i j
-  | Sum.inr j => Pi.single j 1
-
-theorem periodVec_linearIndependent (Ω : Matrix (Fin g) (Fin g) ℂ)
-    (hΩ : (Ω.map Complex.im).det ≠ 0) : LinearIndependent ℝ (periodVec Ω) := by
-  rw [Fintype.linearIndependent_iff]
-  intro c hc
-  have hcoord : ∀ i, (∑ j, (c (Sum.inl j) : ℂ) * Ω i j) + (c (Sum.inr i) : ℂ) = 0 := by
-    intro i
-    have := congrFun hc i
-    simp only [Fintype.sum_sum_type, Finset.sum_apply, Pi.smul_apply,
-      periodVec, Pi.zero_apply] at this
-    rw [← this]
-    congr 1
-    simp [Pi.single_apply, Complex.real_smul]
-  -- imaginary parts: `(Im Ω) a = 0`
-  have ha : (Ω.map Complex.im) *ᵥ (fun j => c (Sum.inl j)) = 0 := by
-    funext i
-    have := congrArg Complex.im (hcoord i)
-    simp only [Complex.add_im, Complex.ofReal_im, add_zero, Complex.zero_im] at this
-    rw [Complex.im_sum] at this
-    simp only [Complex.im_ofReal_mul] at this
-    simp only [Matrix.mulVec, dotProduct, Matrix.map_apply, Pi.zero_apply]
-    rw [← this]
-    exact Finset.sum_congr rfl fun j _ => mul_comm _ _
-  have ha0 := Matrix.eq_zero_of_mulVec_eq_zero hΩ ha
-  have hb : ∀ i, c (Sum.inr i) = 0 := by
-    intro i
-    have := hcoord i
-    have hz : ∀ j, (c (Sum.inl j) : ℂ) = 0 := fun j => by
-      simpa using congrFun ha0 j
-    simp only [hz, zero_mul, Finset.sum_const_zero, zero_add, Complex.ofReal_eq_zero] at this
-    exact this
-  rintro (j | j)
-  · simpa using congrFun ha0 j
-  · exact hb j
-
-theorem card_periodIndex : Fintype.card (Fin g ⊕ Fin g) = Module.finrank ℝ (Fin g → ℂ) := by
-  rw [Module.finrank_pi_fintype, Fintype.card_sum, Fintype.card_fin]
-  simp [Complex.finrank_real_complex]
-  ring
-
-/-- The real basis of `ℂ^g` given by the period vectors. -/
-def periodBasis (Ω : Matrix (Fin g) (Fin g) ℂ) (hΩ : (Ω.map Complex.im).det ≠ 0) :
-    Module.Basis (Fin g ⊕ Fin g) ℝ (Fin g → ℂ) :=
-  basisOfLinearIndependentOfCardEqFinrank' _ (periodVec_linearIndependent Ω hΩ) card_periodIndex
-
-theorem coe_periodBasis (Ω : Matrix (Fin g) (Fin g) ℂ) (hΩ : (Ω.map Complex.im).det ≠ 0) :
-    ⇑(periodBasis Ω hΩ) = periodVec Ω := by
-  simp [periodBasis]
-
-/-- **The period lattice `Λ_Ω = Ωℤ^g + ℤ^g`.** -/
-def periodLattice (Ω : Matrix (Fin g) (Fin g) ℂ) (hΩ : (Ω.map Complex.im).det ≠ 0) :
-    Submodule ℤ (Fin g → ℂ) :=
-  Submodule.span ℤ (Set.range (periodBasis Ω hΩ))
-
-instance (Ω : Matrix (Fin g) (Fin g) ℂ) (hΩ : (Ω.map Complex.im).det ≠ 0) :
-    DiscreteTopology (periodLattice Ω hΩ) := by
-  unfold periodLattice; infer_instance
-
-instance (Ω : Matrix (Fin g) (Fin g) ℂ) (hΩ : (Ω.map Complex.im).det ≠ 0) :
-    IsZLattice ℝ (periodLattice Ω hΩ) := by
-  unfold periodLattice; infer_instance
-
-theorem det_im_ne_zero_of_mem_siegelSpace {Ω : Matrix (Fin g) (Fin g) ℂ} (h : Ω ∈ SiegelSpace g) :
-    (Ω.map Complex.im).det ≠ 0 :=
-  h.2.det_pos.ne'
-
-/-- Membership: `v ∈ Λ_Ω ↔ v = Ω m + n` with `m n ∈ ℤ^g`. -/
-theorem mem_periodLattice_iff (Ω : Matrix (Fin g) (Fin g) ℂ) (hΩ : (Ω.map Complex.im).det ≠ 0)
-    (v : Fin g → ℂ) :
-    v ∈ periodLattice Ω hΩ ↔
-      ∃ m n : Fin g → ℤ, v = Ω *ᵥ (fun j => (m j : ℂ)) + (fun j => (n j : ℂ)) := by
-  rw [periodLattice, coe_periodBasis, Submodule.mem_span_range_iff_exists_fun]
-  constructor
-  · rintro ⟨c, rfl⟩
-    refine ⟨fun j => c (Sum.inl j), fun j => c (Sum.inr j), ?_⟩
-    funext i
-    simp [Fintype.sum_sum_type, periodVec, Matrix.mulVec, dotProduct, Pi.single_apply,
-      mul_comm]
-  · rintro ⟨m, n, rfl⟩
-    refine ⟨Sum.elim m n, ?_⟩
-    funext i
-    simp [Fintype.sum_sum_type, periodVec, Matrix.mulVec, dotProduct, Pi.single_apply,
-      mul_comm]
-
-/-- The abelian variety (complex torus) attached to a point `Ω` of the Siegel space. -/
-abbrev SiegelTorus (Ω : Matrix (Fin g) (Fin g) ℂ) (hΩ : (Ω.map Complex.im).det ≠ 0) :=
-  Torus (periodLattice Ω hΩ)
 
 example (Ω : Matrix (Fin g) (Fin g) ℂ) (hΩ : (Ω.map Complex.im).det ≠ 0) :
     LieAddGroup 𝓘(ℂ, Fin g → ℂ) ω (SiegelTorus Ω hΩ) := inferInstance
@@ -409,140 +104,6 @@ open Matrix Complex
 
 variable {g : ℕ}
 
-/-- `ℤ^g ⊂ ℂ^g`. -/
-def intVec (n : Fin g → ℤ) : Fin g → ℂ := fun j => (n j : ℂ)
-
-theorem intVec_sub (k m : Fin g → ℤ) : intVec (k - m) = intVec k - intVec m := by
-  funext j; simp [intVec]
-
-theorem intVec_dotProduct (n m : Fin g → ℤ) :
-    intVec n ⬝ᵥ intVec m = ((n ⬝ᵥ m : ℤ) : ℂ) := by
-  simp [intVec, dotProduct]
-
-/-- Riemann's theta function. -/
-def riemannTheta (Ω : Matrix (Fin g) (Fin g) ℂ) (z : Fin g → ℂ) : ℂ :=
-  ∑' n : Fin g → ℤ,
-    exp (Real.pi * I * (intVec n ⬝ᵥ (Ω *ᵥ intVec n)) + 2 * Real.pi * I * (intVec n ⬝ᵥ z))
-
-theorem dotProduct_mulVec_symm {Ω : Matrix (Fin g) (Fin g) ℂ} (hΩ : Ωᵀ = Ω) (a b : Fin g → ℂ) :
-    b ⬝ᵥ (Ω *ᵥ a) = a ⬝ᵥ (Ω *ᵥ b) := by
-  rw [dotProduct_mulVec, ← mulVec_transpose, hΩ, dotProduct_comm]
-
-/-- Periodicity under `ℤ^g`. -/
-theorem riemannTheta_add_int (Ω : Matrix (Fin g) (Fin g) ℂ) (z : Fin g → ℂ) (m : Fin g → ℤ) :
-    riemannTheta Ω (z + intVec m) = riemannTheta Ω z := by
-  unfold riemannTheta
-  congr 1
-  funext n
-  rw [dotProduct_add, intVec_dotProduct, mul_add, ← add_assoc, exp_add]
-  have : exp (2 * Real.pi * I * ((n ⬝ᵥ m : ℤ) : ℂ)) = 1 := by
-    rw [show 2 * Real.pi * I * ((n ⬝ᵥ m : ℤ) : ℂ) = ((n ⬝ᵥ m : ℤ) : ℂ) * (2 * Real.pi * I) by ring]
-    exact exp_int_mul_two_pi_mul_I _
-  rw [this, mul_one]
-
-/-- **Quasi-periodicity under `Ωℤ^g`**: `θ(z + Ωm) = exp(-πi mᵀΩm - 2πi mᵀz) θ(z)`. -/
-theorem riemannTheta_add_mulVec (Ω : Matrix (Fin g) (Fin g) ℂ) (hΩ : Ωᵀ = Ω)
-    (z : Fin g → ℂ) (m : Fin g → ℤ) :
-    riemannTheta Ω (z + Ω *ᵥ intVec m) =
-      exp (-(Real.pi * I * (intVec m ⬝ᵥ (Ω *ᵥ intVec m))) - 2 * Real.pi * I * (intVec m ⬝ᵥ z)) *
-        riemannTheta Ω z := by
-  unfold riemannTheta
-  rw [← (Equiv.subRight m).tsum_eq, ← tsum_mul_left]
-  congr 1
-  funext k
-  simp only [Equiv.subRight_apply, intVec_sub]
-  rw [← exp_add]
-  congr 1
-  set a := intVec k
-  set b := intVec m
-  have hs := dotProduct_mulVec_symm hΩ a b
-  simp only [mulVec_sub, sub_dotProduct, dotProduct_sub, dotProduct_add]
-  rw [hs]
-  ring
-
-/-- Quasi-periodicity under the whole period lattice `Λ_Ω`. -/
-theorem riemannTheta_add_period (Ω : Matrix (Fin g) (Fin g) ℂ) (hΩ : Ωᵀ = Ω)
-    (z : Fin g → ℂ) (m n : Fin g → ℤ) :
-    riemannTheta Ω (z + (Ω *ᵥ intVec m + intVec n)) =
-      exp (-(Real.pi * I * (intVec m ⬝ᵥ (Ω *ᵥ intVec m))) - 2 * Real.pi * I * (intVec m ⬝ᵥ z)) *
-        riemannTheta Ω z := by
-  rw [← add_assoc, riemannTheta_add_int, riemannTheta_add_mulVec Ω hΩ]
-
-/-- Theta function with characteristic `(c, d) ∈ ℂ^g × ℂ^g`, at `z = 0`:
-`θ[c, d](Ω) = Σ_n exp(πi (n+c)ᵀΩ(n+c) + 2πi (n+c)ᵀd)`. -/
-def thetaChar (c d : Fin g → ℂ) (Ω : Matrix (Fin g) (Fin g) ℂ) : ℂ :=
-  ∑' n : Fin g → ℤ,
-    exp (Real.pi * I * ((intVec n + c) ⬝ᵥ (Ω *ᵥ (intVec n + c))) + 2 * Real.pi * I * ((intVec n + c)
-        ⬝ᵥ d))
-
-/-- **Theta constants are values of `θ` at torsion points**:
-`θ[c, d](Ω) = exp(πi cᵀΩc + 2πi cᵀd) · θ(Ωc + d, Ω)`. -/
-theorem thetaChar_eq (c d : Fin g → ℂ) (Ω : Matrix (Fin g) (Fin g) ℂ) (hΩ : Ωᵀ = Ω) :
-    thetaChar c d Ω =
-      exp (Real.pi * I * (c ⬝ᵥ (Ω *ᵥ c)) + 2 * Real.pi * I * (c ⬝ᵥ d)) * riemannTheta Ω (Ω *ᵥ c + d)
-          := by
-  unfold thetaChar riemannTheta
-  rw [← tsum_mul_left]
-  congr 1
-  funext n
-  rw [← exp_add]
-  congr 1
-  set a := intVec n
-  have hs := dotProduct_mulVec_symm hΩ a c
-  simp only [mulVec_add, add_dotProduct, dotProduct_add]
-  rw [hs]
-  ring
-
-/-- pkg-I1's theta constant (copied verbatim from `scratch/pkg-I1/I1.lean`, §3). -/
-abbrev Char2 := (Fin 2 → Fin 2) × (Fin 2 → Fin 2)
-
-/-- pkg-I1's theta constant (copied verbatim from `scratch/pkg-I1/I1.lean`, §3). -/
-def thetaConst (m : Char2) (Ω : Matrix (Fin 2) (Fin 2) ℂ) : ℂ :=
-  ∑' n : Fin 2 → ℤ,
-    let v : Fin 2 → ℂ := fun k => (n k : ℂ) + ((m.1 k : ℕ) : ℂ) / 2
-    Complex.exp (Real.pi * I * (v ⬝ᵥ (Ω *ᵥ v)) + Real.pi * I * (v ⬝ᵥ fun k => ((m.2 k : ℕ) : ℂ)))
-
-/-- The half-integral vectors `a/2`, `b/2` of a characteristic. -/
-def charHalf (a : Fin 2 → Fin 2) : Fin 2 → ℂ := fun k => ((a k : ℕ) : ℂ) / 2
-
-/-- pkg-I1's `thetaConst m` is `θ[a/2, b/2]`. -/
-theorem thetaConst_eq_thetaChar (m : Char2) (Ω : Matrix (Fin 2) (Fin 2) ℂ) :
-    thetaConst m Ω = thetaChar (charHalf m.1) (charHalf m.2) Ω := by
-  unfold thetaConst thetaChar
-  congr 1
-  funext n
-  have hv : (fun k => (n k : ℂ) + ((m.1 k : ℕ) : ℂ) / 2) = intVec n + charHalf m.1 := by
-    funext k; simp [intVec, charHalf]
-  simp only [hv]
-  congr 1
-  have : ((intVec n + charHalf m.1) ⬝ᵥ fun k => ((m.2 k : ℕ) : ℂ)) =
-      2 * ((intVec n + charHalf m.1) ⬝ᵥ charHalf m.2) := by
-    simp only [dotProduct, charHalf, Finset.mul_sum]
-    exact Finset.sum_congr rfl fun k _ => by ring
-  rw [this]
-  ring
-
-/-- **F1's theta constants are values of Riemann's theta function at the 2-torsion points**
-`(Ωa + b)/2` of the torus `ℂ² ⧸ Λ_Ω`. -/
-theorem thetaConst_eq_riemannTheta (m : Char2) (Ω : Matrix (Fin 2) (Fin 2) ℂ) (hΩ : Ωᵀ = Ω) :
-    thetaConst m Ω =
-      exp (Real.pi * I * (charHalf m.1 ⬝ᵥ (Ω *ᵥ charHalf m.1)) +
-          2 * Real.pi * I * (charHalf m.1 ⬝ᵥ charHalf m.2)) *
-        riemannTheta Ω (Ω *ᵥ charHalf m.1 + charHalf m.2) := by
-  rw [thetaConst_eq_thetaChar, thetaChar_eq _ _ _ hΩ]
-
-/-- The point `Ω(a/2) + b/2` is 2-torsion on `ℂ² ⧸ Λ_Ω`. -/
-theorem two_nsmul_proj_charPoint (m : Char2) (Ω : Matrix (Fin 2) (Fin 2) ℂ)
-    (hΩ : (Ω.map Complex.im).det ≠ 0) :
-    (2 : ℕ) • proj (periodLattice Ω hΩ) (Ω *ᵥ charHalf m.1 + charHalf m.2) = 0 := by
-  rw [proj, ← QuotientAddGroup.mk_nsmul, QuotientAddGroup.eq_zero_iff]
-  show _ ∈ periodLattice Ω hΩ
-  rw [mem_periodLattice_iff]
-  refine ⟨fun k => ((m.1 k : ℕ) : ℤ), fun k => ((m.2 k : ℕ) : ℤ), ?_⟩
-  have h2 : ∀ a : Fin 2 → Fin 2, (2 : ℕ) • charHalf a = fun k => (((a k : ℕ) : ℤ) : ℂ) := by
-    intro a; funext k; simp [charHalf]; ring
-  rw [nsmul_add, ← mulVec_smul, h2, h2]
-
 end Theta
 
 /-! ## §6. Linear changes of coordinates: biholomorphic group isomorphisms of tori -/
@@ -550,39 +111,6 @@ end Theta
 section Iso
 
 variable {E' : Type*} [NormedAddCommGroup E'] [NormedSpace ℂ E']
-
-/-- A `ℂ`-linear isomorphism `T : E ≃ E'` with `T(Λ) = Λ'` induces a group isomorphism
-`E ⧸ Λ ≃ E' ⧸ Λ'`. -/
-def torusAddEquiv (Λ' : Submodule ℤ E') (T : E ≃L[ℂ] E')
-    (hT : Λ.map (T.toLinearEquiv.toLinearMap.restrictScalars ℤ) = Λ') :
-    Torus Λ ≃+ Torus Λ' :=
-  QuotientAddGroup.congr _ _ T.toLinearEquiv.toAddEquiv (by
-    rw [← hT]
-    ext v
-    simp [AddSubgroup.mem_map, Submodule.mem_map])
-
-theorem torusAddEquiv_proj (Λ' : Submodule ℤ E') (T : E ≃L[ℂ] E')
-    (hT : Λ.map (T.toLinearEquiv.toLinearMap.restrictScalars ℤ) = Λ') (v : E) :
-    torusAddEquiv Λ Λ' T hT (proj Λ v) = proj Λ' (T v) := rfl
-
-theorem torusAddEquiv_symm_proj (Λ' : Submodule ℤ E') (T : E ≃L[ℂ] E')
-    (hT : Λ.map (T.toLinearEquiv.toLinearMap.restrictScalars ℤ) = Λ') (v : E') :
-    (torusAddEquiv Λ Λ' T hT).symm (proj Λ' v) = proj Λ (T.symm v) := rfl
-
-/-- **The induced map is biholomorphic**: an analytic diffeomorphism `E ⧸ Λ ≃ E' ⧸ Λ'`, additive
-by `torusAddEquiv`. -/
-def torusDiffeo (Λ' : Submodule ℤ E') [DiscreteTopology Λ'] (T : E ≃L[ℂ] E')
-    (hT : Λ.map (T.toLinearEquiv.toLinearMap.restrictScalars ℤ) = Λ') :
-    Torus Λ ≃ₘ^ω⟮𝓘(ℂ, E), 𝓘(ℂ, E')⟯ Torus Λ' where
-  toEquiv := (torusAddEquiv Λ Λ' T hT).toEquiv
-  contMDiff_toFun := contMDiff_of_comp_proj Λ
-    ((contMDiff_proj Λ').comp (contMDiff_iff_contDiff.mpr T.contDiff))
-  contMDiff_invFun := contMDiff_of_comp_proj Λ'
-    ((contMDiff_proj Λ).comp (contMDiff_iff_contDiff.mpr T.symm.contDiff))
-
-theorem torusDiffeo_apply (Λ' : Submodule ℤ E') [DiscreteTopology Λ'] (T : E ≃L[ℂ] E')
-    (hT : Λ.map (T.toLinearEquiv.toLinearMap.restrictScalars ℤ) = Λ') (q : Torus Λ) :
-    torusDiffeo Λ Λ' T hT q = torusAddEquiv Λ Λ' T hT q := rfl
 
 end Iso
 
@@ -603,6 +131,7 @@ set_option linter.unusedSectionVars false
 noncomputable section
 
 namespace BPAnalytic
+open _root_.BPAnalytic (Char2 QM.B QM.Emat QM.Emat_eq QM.F0mat QM.F0mat_eq QM.Fp QM.FpEquiv QM.FpEquiv_apply QM.Fp_mulVec_periodVec QM.Fp_mulVec_periodVec' QM.Fp_mul_Emat_transpose QM.Fp_mul_Omega QM.Fp_mul_OmegaPF QM.Mi QM.Mj QM.Omega QM.OmegaPF QM.Omega_eq_PF QM.Omega_mem_siegelSpace QM.Omega_transpose QM.Pinv QM.QMTorus QM.det_Fp QM.det_Fp_ne_zero QM.det_im_Omega_ne_zero QM.det_im_ne_zero_of_linearIndependent QM.imgVec QM.imgVec_linearIndependent QM.iota QM.latVec QM.latVec0 QM.latVec1 QM.latVec2 QM.latVec3 QM.map_periodLattice_Omega QM.mulVec_col QM.oBasis QM.qmBasis QM.qmLattice QM.qmLattice_eq QM.qmPeriodDiffeo QM.qmPeriodDiffeo_add QM.qmPeriodDiffeo_proj QM.qmVec QM.qmVec_linearIndependent QM.riemannTheta_Omega_add_period QM.span_imgVec QM.sqrt2_ne_zero QM.sqrt2_sq SiegelSpace SiegelTorus Torus card_periodIndex charHalf chartAt_torus chartOf chartOf_symm_apply coe_periodBasis compactSpace_torus connectedSpace_torus contDiffOn_of_sub_mem contMDiff_of_comp_proj contMDiff_of_comp_proj₂ contMDiff_proj contMDiff_torusExp contMDiff_torusExp_smul det_im_ne_zero_of_mem_siegelSpace dotProduct_mulVec_symm eventuallyEq_add_const exists_gap holomorphic_const intVec intVec_dotProduct intVec_sub isAddQuotientCoveringMap_proj isCoveringMap_proj isLocalHomeomorph_proj isManifold_torus ker_torusExp lieAddGroup_torus mem_periodLattice_iff periodBasis periodLattice periodVec periodVec_linearIndependent proj proj_chartOf proj_eq_iff proj_mem_chartOf_source riemannTheta riemannTheta_add_int riemannTheta_add_mulVec riemannTheta_add_period self_mem_chartOf_target thetaChar thetaChar_eq thetaConst thetaConst_eq_riemannTheta thetaConst_eq_thetaChar torusAddEquiv torusAddEquiv_proj torusAddEquiv_symm_proj torusDiffeo torusDiffeo_apply torusExp torusExp_apply torusExp_surjective transition_sub_mem two_nsmul_proj_charPoint) -- op-dedupe
 
 variable {E : Type*} [NormedAddCommGroup E] [NormedSpace ℂ E]
 
@@ -622,400 +151,15 @@ copied verbatim from `scratch/pkg-I1/I1.lean` (§1, §2, §4). We prove: for `Im
   (pkg-I1 §4 claimed this from numerical checks; the polarization is not treated here). -/
 
 namespace QM
+open _root_.BPAnalytic.QM (B Emat Emat_eq F0mat F0mat_eq Fp FpEquiv FpEquiv_apply Fp_mulVec_periodVec Fp_mulVec_periodVec' Fp_mul_Emat_transpose Fp_mul_Omega Fp_mul_OmegaPF Mi Mj Omega OmegaPF Omega_eq_PF Omega_mem_siegelSpace Omega_transpose Pinv QMTorus det_Fp det_Fp_ne_zero det_im_Omega_ne_zero det_im_ne_zero_of_linearIndependent imgVec imgVec_linearIndependent iota latVec latVec0 latVec1 latVec2 latVec3 map_periodLattice_Omega mulVec_col oBasis qmBasis qmLattice qmLattice_eq qmPeriodDiffeo qmPeriodDiffeo_add qmPeriodDiffeo_proj qmVec qmVec_linearIndependent riemannTheta_Omega_add_period span_imgVec sqrt2_ne_zero sqrt2_sq) -- op-dedupe
+open _root_.BPAnalytic (Char2 QM.B QM.Emat QM.Emat_eq QM.F0mat QM.F0mat_eq QM.Fp QM.FpEquiv QM.FpEquiv_apply QM.Fp_mulVec_periodVec QM.Fp_mulVec_periodVec' QM.Fp_mul_Emat_transpose QM.Fp_mul_Omega QM.Fp_mul_OmegaPF QM.Mi QM.Mj QM.Omega QM.OmegaPF QM.Omega_eq_PF QM.Omega_mem_siegelSpace QM.Omega_transpose QM.Pinv QM.QMTorus QM.det_Fp QM.det_Fp_ne_zero QM.det_im_Omega_ne_zero QM.det_im_ne_zero_of_linearIndependent QM.imgVec QM.imgVec_linearIndependent QM.iota QM.latVec QM.latVec0 QM.latVec1 QM.latVec2 QM.latVec3 QM.map_periodLattice_Omega QM.mulVec_col QM.oBasis QM.qmBasis QM.qmLattice QM.qmLattice_eq QM.qmPeriodDiffeo QM.qmPeriodDiffeo_add QM.qmPeriodDiffeo_proj QM.qmVec QM.qmVec_linearIndependent QM.riemannTheta_Omega_add_period QM.span_imgVec QM.sqrt2_ne_zero QM.sqrt2_sq SiegelSpace SiegelTorus Torus card_periodIndex charHalf chartAt_torus chartOf chartOf_symm_apply coe_periodBasis compactSpace_torus connectedSpace_torus contDiffOn_of_sub_mem contMDiff_of_comp_proj contMDiff_of_comp_proj₂ contMDiff_proj contMDiff_torusExp contMDiff_torusExp_smul det_im_ne_zero_of_mem_siegelSpace dotProduct_mulVec_symm eventuallyEq_add_const exists_gap holomorphic_const intVec intVec_dotProduct intVec_sub isAddQuotientCoveringMap_proj isCoveringMap_proj isLocalHomeomorph_proj isManifold_torus ker_torusExp lieAddGroup_torus mem_periodLattice_iff periodBasis periodLattice periodVec periodVec_linearIndependent proj proj_chartOf proj_eq_iff proj_mem_chartOf_source riemannTheta riemannTheta_add_int riemannTheta_add_mulVec riemannTheta_add_period self_mem_chartOf_target thetaChar thetaChar_eq thetaConst thetaConst_eq_riemannTheta thetaConst_eq_thetaChar torusAddEquiv torusAddEquiv_proj torusAddEquiv_symm_proj torusDiffeo torusDiffeo_apply torusExp torusExp_apply torusExp_surjective transition_sub_mem two_nsmul_proj_charPoint) -- op-dedupe
 
 open Matrix
-
-/-- (pkg-I1) `B = (2,-3)`. -/
-abbrev B := QuaternionAlgebra ℚ 2 0 (-3)
-
-/-- (pkg-I1) N5's ordered basis `(1, i, (1+j)/2, (i+ij)/2)` of the maximal order `𝒪`. -/
-def oBasis : Fin 4 → B := ![⟨1, 0, 0, 0⟩, ⟨0, 1, 0, 0⟩, ⟨1/2, 0, 1/2, 0⟩, ⟨0, 1/2, 0, 1/2⟩]
-
-/-- (pkg-I1) `ι(i) = [[√2,0],[0,-√2]]`. -/
-def Mi : Matrix (Fin 2) (Fin 2) ℝ := !![√2, 0; 0, -√2]
-/-- (pkg-I1) `ι(j) = [[0,-3],[1,0]]`. -/
-def Mj : Matrix (Fin 2) (Fin 2) ℝ := !![0, -3; 1, 0]
-
-/-- (pkg-I1) The real embedding `ι : B → M₂(ℝ)`. -/
-def iota (x : B) : Matrix (Fin 2) (Fin 2) ℝ :=
-  (x.re : ℝ) • 1 + (x.imI : ℝ) • Mi + (x.imJ : ℝ) • Mj + (x.imK : ℝ) • (Mi * Mj)
-
-/-- (pkg-I1) `ι(x)·(τ, 1)ᵀ`. -/
-def latVec (x : B) (τ : ℂ) : Fin 2 → ℂ := (iota x).map (fun r : ℝ => (r : ℂ)) *ᵥ ![τ, 1]
-
-/-- (pkg-I1) `E(τ)`: columns `ι(1)v_τ`, `ι(i)v_τ`. -/
-def Emat (τ : ℂ) : Matrix (Fin 2) (Fin 2) ℂ :=
-  Matrix.of fun r c => ![latVec (oBasis 0) τ, latVec (oBasis 1) τ] c r
-
-/-- (pkg-I1) `F₀(τ)`: columns `ι((1+j)/2)v_τ`, `ι((i+ij)/2)v_τ`. -/
-def F0mat (τ : ℂ) : Matrix (Fin 2) (Fin 2) ℂ :=
-  Matrix.of fun r c => ![latVec (oBasis 2) τ, latVec (oBasis 3) τ] c r
-
-/-- (pkg-I1) `P⁻¹` for `P = [[-1,1],[1,-2]]`. -/
-def Pinv : Matrix (Fin 2) (Fin 2) ℂ := !![-2, -1; -1, -1]
-
-/-- (pkg-I1) The period matrix `Ω(τ) = (F₀(τ)P⁻¹)⁻¹E(τ)`. -/
-def Omega (τ : ℂ) : Matrix (Fin 2) (Fin 2) ℂ := (F0mat τ * Pinv)⁻¹ * Emat τ
-
-theorem latVec0 (τ : ℂ) : latVec (oBasis 0) τ = ![τ, 1] := by
-  ext i; fin_cases i <;> simp [latVec, iota, oBasis, Mi, Mj, mulVec, dotProduct, Fin.sum_univ_two]
-
-theorem latVec1 (τ : ℂ) : latVec (oBasis 1) τ = ![√2 * τ, -√2] := by
-  ext i; fin_cases i <;> simp [latVec, iota, oBasis, Mi, Mj, mulVec, dotProduct, Fin.sum_univ_two]
-
-theorem latVec2 (τ : ℂ) : latVec (oBasis 2) τ = ![(τ - 3) / 2, (τ + 1) / 2] := by
-  ext i; fin_cases i <;>
-    simp [latVec, iota, oBasis, Mi, Mj, mulVec, dotProduct, Fin.sum_univ_two] <;> ring
-
-theorem latVec3 (τ : ℂ) : latVec (oBasis 3) τ = ![√2 * (τ - 3) / 2, -(√2 * (τ + 1)) / 2] := by
-  ext i; fin_cases i <;>
-    simp [latVec, iota, oBasis, Mi, Mj, mulVec, dotProduct, Fin.sum_univ_two] <;>
-    ring
-
-theorem Emat_eq (τ : ℂ) : Emat τ = !![τ, √2 * τ; 1, -√2] := by
-  ext i j; fin_cases i <;> fin_cases j <;> simp [Emat, latVec0, latVec1]
-
-theorem F0mat_eq (τ : ℂ) :
-    F0mat τ = !![(τ - 3) / 2, √2 * (τ - 3) / 2; (τ + 1) / 2, -(√2 * (τ + 1)) / 2] := by
-  ext i j; fin_cases i <;> fin_cases j <;> simp [F0mat, latVec2, latVec3]
-
-/-- `F'(τ) = F₀(τ)P⁻¹`. -/
-def Fp (τ : ℂ) : Matrix (Fin 2) (Fin 2) ℂ := F0mat τ * Pinv
-
-theorem det_Fp (τ : ℂ) : (Fp τ).det = -((√2 : ℂ) * (τ - 3) * (τ + 1)) / 2 := by
-  rw [Fp, det_mul, F0mat_eq, Pinv, det_fin_two_of, det_fin_two_of]
-  ring
-
-theorem sqrt2_ne_zero : (√2 : ℂ) ≠ 0 :=
-  Complex.ofReal_ne_zero.mpr (Real.sqrt_ne_zero'.mpr two_pos)
-
-theorem det_Fp_ne_zero {τ : ℂ} (hτ : τ.im ≠ 0) : (Fp τ).det ≠ 0 := by
-  rw [det_Fp]
-  have h3 : τ - 3 ≠ 0 := fun h => hτ (by simpa using congrArg Complex.im h)
-  have h1 : τ + 1 ≠ 0 := fun h => hτ (by simpa using congrArg Complex.im h)
-  have := sqrt2_ne_zero
-  field_simp
-  simp [this, h3, h1]
-
-theorem Fp_mul_Omega {τ : ℂ} (hτ : τ.im ≠ 0) : Fp τ * Omega τ = Emat τ := by
-  rw [Omega, ← Fp, ← Matrix.mul_assoc, Matrix.mul_nonsing_inv _ (Ne.isUnit (det_Fp_ne_zero hτ)),
-    Matrix.one_mul]
-
-/-- The four generators `ι(b_k)(τ, 1)ᵀ` of `Λ_τ`. -/
-def qmVec (τ : ℂ) (k : Fin 4) : Fin 2 → ℂ := latVec (oBasis k) τ
-
-theorem qmVec_linearIndependent {τ : ℂ} (hτ : τ.im ≠ 0) : LinearIndependent ℝ (qmVec τ) := by
-  rw [Fintype.linearIndependent_iff]
-  intro c hc
-  have e0 := congrFun hc 0
-  have e1 := congrFun hc 1
-  simp only [qmVec, Fin.sum_univ_four, latVec0, latVec1, latVec2, latVec3, Finset.sum_apply,
-    Pi.smul_apply, Matrix.cons_val_zero, Matrix.cons_val_one, Pi.zero_apply,
-    Complex.real_smul] at e0 e1
-  have r0 := congrArg Complex.re e0
-  have i0 := congrArg Complex.im e0
-  have r1 := congrArg Complex.re e1
-  have i1 := congrArg Complex.im e1
-  simp at r0 i0 r1 i1
-  set x := τ.re
-  set y := τ.im
-  have hs : √2 ≠ 0 := Real.sqrt_ne_zero'.mpr two_pos
-  have hA : y * (c 2 - √2 * c 3) = 0 := by linear_combination 2 * i1
-  have A : c 2 - √2 * c 3 = 0 := (mul_eq_zero.mp hA).resolve_left hτ
-  have hK : y * (c 0 + √2 * c 1 + c 2 / 2 + √2 * c 3 / 2) = 0 := by linear_combination i0
-  have K : c 0 + √2 * c 1 + c 2 / 2 + √2 * c 3 / 2 = 0 := (mul_eq_zero.mp hK).resolve_left hτ
-  have Bq : c 2 + √2 * c 3 = 0 := by linear_combination (2 / 3 * x) * K - (2 / 3) * r0
-  have h3' : √2 * c 3 = 0 := by linear_combination (Bq - A) / 2
-  have h3 : c 3 = 0 := (mul_eq_zero.mp h3').resolve_left hs
-  have h2 : c 2 = 0 := by linear_combination A + h3'
-  have C : c 0 - √2 * c 1 = 0 := by linear_combination r1 - ((x + 1) / 2) * A
-  have h1' : √2 * c 1 = 0 := by linear_combination (K - C) / 2 - Bq / 4
-  have h1 : c 1 = 0 := (mul_eq_zero.mp h1').resolve_left hs
-  have h0 : c 0 = 0 := by linear_combination C + h1'
-  intro i; fin_cases i <;> assumption
-
-/-- The ordered `ℝ`-basis `ι(b_k)(τ, 1)ᵀ` of `ℂ²` (for `Im τ ≠ 0`). -/
-def qmBasis {τ : ℂ} (hτ : τ.im ≠ 0) : Module.Basis (Fin 4) ℝ (Fin 2 → ℂ) :=
-  basisOfLinearIndependentOfCardEqFinrank' _ (qmVec_linearIndependent hτ) (by
-    rw [Module.finrank_pi_fintype]; simp [Complex.finrank_real_complex])
-
-/-- **The QM lattice `Λ_τ = ι(𝒪)(τ, 1)ᵀ`**, the period lattice of N5's QM surface at `τ`. -/
-def qmLattice {τ : ℂ} (hτ : τ.im ≠ 0) : Submodule ℤ (Fin 2 → ℂ) :=
-  Submodule.span ℤ (Set.range (qmBasis hτ))
-
-instance {τ : ℂ} (hτ : τ.im ≠ 0) : DiscreteTopology (qmLattice hτ) := by
-  unfold qmLattice; infer_instance
-
-instance {τ : ℂ} (hτ : τ.im ≠ 0) : IsZLattice ℝ (qmLattice hτ) := by
-  unfold qmLattice; infer_instance
-
-theorem qmLattice_eq {τ : ℂ} (hτ : τ.im ≠ 0) :
-    qmLattice hτ = Submodule.span ℤ (Set.range (qmVec τ)) := by
-  simp [qmLattice, qmBasis]
-
-/-- The QM torus `A_τ = ℂ² ⧸ ι(𝒪)(τ, 1)ᵀ`: a compact connected complex Lie group of dimension 2. -/
-abbrev QMTorus {τ : ℂ} (hτ : τ.im ≠ 0) := Torus (qmLattice hτ)
 
 example {τ : ℂ} (hτ : τ.im ≠ 0) : LieAddGroup 𝓘(ℂ, Fin 2 → ℂ) ω (QMTorus hτ) := inferInstance
 example {τ : ℂ} (hτ : τ.im ≠ 0) : CompactSpace (QMTorus hτ) := inferInstance
 
-theorem mulVec_col (A M : Matrix (Fin 2) (Fin 2) ℂ) (j : Fin 2) :
-    (A *ᵥ fun i => M i j) = fun i => (A * M) i j := by
-  funext i; simp [mulVec, dotProduct, mul_apply]
-
-/-- Images of the period vectors of `Ω(τ)` under `F'(τ)`. -/
-theorem Fp_mulVec_periodVec {τ : ℂ} (hτ : τ.im ≠ 0) (k : Fin 2 ⊕ Fin 2) :
-    Fp τ *ᵥ periodVec (Omega τ) k =
-      match k with
-      | Sum.inl 0 => qmVec τ 0
-      | Sum.inl 1 => qmVec τ 1
-      | Sum.inr 0 => -(2 : ℤ) • qmVec τ 2 - qmVec τ 3
-      | Sum.inr 1 => -qmVec τ 2 - qmVec τ 3 := by
-  rcases k with j | j
-  · rw [periodVec, mulVec_col, Fp_mul_Omega hτ, Emat_eq]
-    fin_cases j <;> funext i <;> fin_cases i <;> simp [qmVec, latVec0, latVec1]
-  · rw [periodVec, mulVec_single_one]
-    fin_cases j <;> funext i <;> fin_cases i <;>
-      simp [Fp, F0mat_eq, Pinv, qmVec, latVec2, latVec3] <;> ring
-
-/-- Conversely to `periodVec_linearIndependent`: if the period vectors of `Ω` are `ℝ`-independent,
-then `det (Im Ω) ≠ 0`. -/
-theorem det_im_ne_zero_of_linearIndependent {g : ℕ} (Ω : Matrix (Fin g) (Fin g) ℂ)
-    (h : LinearIndependent ℝ (periodVec Ω)) : (Ω.map Complex.im).det ≠ 0 := by
-  intro hdet
-  obtain ⟨a, ha0, ha⟩ := Matrix.exists_mulVec_eq_zero_iff.mpr hdet
-  have hrel := Fintype.linearIndependent_iff.mp h
-    (Sum.elim a (fun i => -∑ j, (Ω i j).re * a j)) (by
-      funext i
-      have hi := congrFun ha i
-      simp only [mulVec, dotProduct, Matrix.map_apply, Pi.zero_apply] at hi
-      simp only [Fintype.sum_sum_type, Sum.elim_inl, Sum.elim_inr, Finset.sum_apply,
-        Pi.smul_apply, periodVec, Pi.zero_apply, Pi.single_apply, smul_ite, smul_zero]
-      apply Complex.ext
-      · simp [Complex.re_sum, mul_comm]
-      · simpa [Complex.im_sum, mul_comm] using hi)
-  exact ha0 (funext fun j => by simpa using hrel (Sum.inl j))
-
-/-- The images `F'(τ)·(period vectors of Ω(τ))`, explicitly. -/
-def imgVec (τ : ℂ) : Fin 2 ⊕ Fin 2 → (Fin 2 → ℂ) :=
-  Sum.elim ![qmVec τ 0, qmVec τ 1] ![-(2 : ℤ) • qmVec τ 2 - qmVec τ 3, -qmVec τ 2 - qmVec τ 3]
-
-theorem Fp_mulVec_periodVec' {τ : ℂ} (hτ : τ.im ≠ 0) (k : Fin 2 ⊕ Fin 2) :
-    Fp τ *ᵥ periodVec (Omega τ) k = imgVec τ k := by
-  rw [Fp_mulVec_periodVec hτ]
-  rcases k with j | j <;> fin_cases j <;> rfl
-
-theorem imgVec_linearIndependent {τ : ℂ} (hτ : τ.im ≠ 0) : LinearIndependent ℝ (imgVec τ) := by
-  rw [Fintype.linearIndependent_iff]
-  intro c hc
-  set d : Fin 4 → ℝ := ![c (Sum.inl 0), c (Sum.inl 1), -2 * c (Sum.inr 0) - c (Sum.inr 1),
-      -c (Sum.inr 0) - c (Sum.inr 1)] with hd
-  have hsum : ∑ k, d k • qmVec τ k = ∑ i, c i • imgVec τ i := by
-    have e : ∑ k, d k • qmVec τ k = c (Sum.inl 0) • qmVec τ 0 + c (Sum.inl 1) • qmVec τ 1 +
-        (-2 * c (Sum.inr 0) - c (Sum.inr 1)) • qmVec τ 2 +
-        (-c (Sum.inr 0) - c (Sum.inr 1)) • qmVec τ 3 := by
-      simp [Fin.sum_univ_four, d]
-    rw [e]
-    simp only [Fintype.sum_sum_type, Fin.sum_univ_two, imgVec, Sum.elim_inl, Sum.elim_inr]
-    simp only [Matrix.cons_val_zero, Matrix.cons_val_one, Fin.isValue]
-    rw [← Int.cast_smul_eq_zsmul ℝ]
-    module
-  have key := Fintype.linearIndependent_iff.mp (qmVec_linearIndependent hτ) d (hsum.trans hc)
-  have k0 := key 0
-  have k1 := key 1
-  have k2 := key 2
-  have k3 := key 3
-  simp [d] at k0 k1 k2 k3
-  rintro (j | j) <;> fin_cases j
-  · simpa using k0
-  · simpa using k1
-  · simp; linarith
-  · simp; linarith
-
-theorem span_imgVec {τ : ℂ} :
-    Submodule.span ℤ (Set.range (imgVec τ)) = Submodule.span ℤ (Set.range (qmVec τ)) := by
-  have hq : ∀ i, qmVec τ i ∈ Submodule.span ℤ (Set.range (qmVec τ)) :=
-    fun i => Submodule.subset_span ⟨i, rfl⟩
-  have hp : ∀ k, imgVec τ k ∈ Submodule.span ℤ (Set.range (imgVec τ)) :=
-    fun k => Submodule.subset_span ⟨k, rfl⟩
-  have i0 : imgVec τ (Sum.inr 0) = -(2 : ℤ) • qmVec τ 2 - qmVec τ 3 := rfl
-  have i1 : imgVec τ (Sum.inr 1) = -qmVec τ 2 - qmVec τ 3 := rfl
-  apply le_antisymm
-  · rw [Submodule.span_le]
-    rintro _ ⟨k, rfl⟩
-    rcases k with j | j <;> fin_cases j
-    · exact hq 0
-    · exact hq 1
-    · exact Submodule.sub_mem _ (Submodule.smul_mem _ _ (hq 2)) (hq 3)
-    · exact Submodule.sub_mem _ (Submodule.neg_mem _ (hq 2)) (hq 3)
-  · rw [Submodule.span_le]
-    rintro _ ⟨k, rfl⟩
-    rw [SetLike.mem_coe]
-    fin_cases k
-    · exact hp (Sum.inl 0)
-    · exact hp (Sum.inl 1)
-    · have h := Submodule.add_mem _ (Submodule.neg_mem _ (hp (Sum.inr 0))) (hp (Sum.inr 1))
-      have e : qmVec τ 2 = -imgVec τ (Sum.inr 0) + imgVec τ (Sum.inr 1) := by
-        rw [i0, i1]; module
-      show qmVec τ 2 ∈ _
-      rw [e]; exact h
-    · have h := Submodule.sub_mem _ (hp (Sum.inr 0)) (Submodule.smul_mem _ (2 : ℤ) (hp (Sum.inr 1)))
-      have e : qmVec τ 3 = imgVec τ (Sum.inr 0) - (2 : ℤ) • imgVec τ (Sum.inr 1) := by
-        rw [i0, i1]; module
-      show qmVec τ 3 ∈ _
-      rw [e]; exact h
-
-/-- `F'(τ)` as a continuous `ℂ`-linear automorphism of `ℂ²`. -/
-def FpEquiv {τ : ℂ} (hτ : τ.im ≠ 0) : (Fin 2 → ℂ) ≃L[ℂ] (Fin 2 → ℂ) :=
-  (Matrix.toLinearEquiv' (Fp τ)
-    (Matrix.invertibleOfIsUnitDet _ (Ne.isUnit (det_Fp_ne_zero hτ)))).toContinuousLinearEquiv
-
-theorem FpEquiv_apply {τ : ℂ} (hτ : τ.im ≠ 0) (v : Fin 2 → ℂ) : FpEquiv hτ v = Fp τ *ᵥ v := rfl
-
-/-- **`det Im Ω(τ) ≠ 0`** for `Im τ ≠ 0` (so `Ω(τ)ℤ² + ℤ²` is a full lattice). -/
-theorem det_im_Omega_ne_zero {τ : ℂ} (hτ : τ.im ≠ 0) : ((Omega τ).map Complex.im).det ≠ 0 := by
-  apply det_im_ne_zero_of_linearIndependent
-  apply LinearIndependent.of_comp ((Matrix.toLin' (Fp τ)).restrictScalars ℝ)
-  have : ((Matrix.toLin' (Fp τ)).restrictScalars ℝ) ∘ periodVec (Omega τ) = imgVec τ := by
-    funext k
-    simp only [Function.comp_apply, LinearMap.coe_restrictScalars, Matrix.toLin'_apply]
-    exact Fp_mulVec_periodVec' hτ k
-  rw [this]
-  exact imgVec_linearIndependent hτ
-
-/-- **`F'(τ)` carries the Siegel lattice `Ω(τ)ℤ² + ℤ²` onto the QM lattice `ι(𝒪)(τ, 1)ᵀ`.** -/
-theorem map_periodLattice_Omega {τ : ℂ} (hτ : τ.im ≠ 0) :
-    (periodLattice (Omega τ) (det_im_Omega_ne_zero hτ)).map
-      ((FpEquiv hτ).toLinearEquiv.toLinearMap.restrictScalars ℤ) = qmLattice hτ := by
-  rw [periodLattice, coe_periodBasis, Submodule.map_span, ← Set.range_comp, qmLattice_eq,
-    ← span_imgVec]
-  congr 2
-  funext k
-  exact Fp_mulVec_periodVec' hτ k
-
-/-- **`Ω(τ)` is a period matrix of the QM torus**: `F'(τ)` induces a biholomorphic group
-isomorphism `ℂ² ⧸ (Ω(τ)ℤ² + ℤ²) ≃ ℂ² ⧸ ι(𝒪)(τ, 1)ᵀ`. -/
-def qmPeriodDiffeo {τ : ℂ} (hτ : τ.im ≠ 0) :
-    SiegelTorus (Omega τ) (det_im_Omega_ne_zero hτ) ≃ₘ^ω⟮𝓘(ℂ, Fin 2 → ℂ), 𝓘(ℂ, Fin 2 → ℂ)⟯
-      QMTorus hτ :=
-  torusDiffeo _ _ (FpEquiv hτ) (map_periodLattice_Omega hτ)
-
-/-- It is additive (a group isomorphism). -/
-theorem qmPeriodDiffeo_add {τ : ℂ} (hτ : τ.im ≠ 0) (p q : SiegelTorus (Omega τ)
-    (det_im_Omega_ne_zero hτ)) :
-    qmPeriodDiffeo hτ (p + q) = qmPeriodDiffeo hτ p + qmPeriodDiffeo hτ q :=
-  map_add (torusAddEquiv _ _ (FpEquiv hτ) (map_periodLattice_Omega hτ)) p q
-
-theorem qmPeriodDiffeo_proj {τ : ℂ} (hτ : τ.im ≠ 0) (v : Fin 2 → ℂ) :
-    qmPeriodDiffeo hτ (proj _ v) = proj (qmLattice hτ) (Fp τ *ᵥ v) := rfl
-
-theorem sqrt2_sq : (√2 : ℂ) ^ 2 = 2 := by
-  rw [← Complex.ofReal_pow, Real.sq_sqrt (by norm_num)]; norm_num
-
-/-- The compatibility `F' Eᵀ = E F'ᵀ` (the Riemann form is alternating in N5's basis). -/
-theorem Fp_mul_Emat_transpose (τ : ℂ) : Fp τ * (Emat τ)ᵀ = Emat τ * (Fp τ)ᵀ := by
-  have h2 := sqrt2_sq
-  rw [Fp, F0mat_eq, Emat_eq, Pinv]
-  ext i j
-  fin_cases i <;> fin_cases j <;>
-    simp [Matrix.mul_apply, Fin.sum_univ_two, Matrix.transpose_apply] <;> ring_nf <;>
-    simp only [h2] <;> ring_nf
-
-/-- **`Ω(τ)` is symmetric** (for `Im τ ≠ 0`). -/
-theorem Omega_transpose {τ : ℂ} (hτ : τ.im ≠ 0) : (Omega τ)ᵀ = Omega τ := by
-  have hu : IsUnit (Fp τ).det := Ne.isUnit (det_Fp_ne_zero hτ)
-  have hut : IsUnit (Fp τ)ᵀ.det := by rwa [det_transpose]
-  have key := Fp_mul_Emat_transpose τ
-  rw [Omega, ← Fp, transpose_mul, transpose_nonsing_inv]
-  calc (Emat τ)ᵀ * ((Fp τ)ᵀ)⁻¹
-      = (Fp τ)⁻¹ * (Fp τ * (Emat τ)ᵀ) * ((Fp τ)ᵀ)⁻¹ := by
-        rw [← Matrix.mul_assoc (Fp τ)⁻¹, Matrix.nonsing_inv_mul _ hu, Matrix.one_mul]
-    _ = (Fp τ)⁻¹ * (Emat τ * (Fp τ)ᵀ) * ((Fp τ)ᵀ)⁻¹ := by rw [key]
-    _ = (Fp τ)⁻¹ * Emat τ := by
-        rw [Matrix.mul_assoc, Matrix.mul_assoc, Matrix.mul_nonsing_inv _ hut, Matrix.mul_one]
-
-/-- Hence `θ(·, Ω(τ))` is quasi-periodic for `Ω(τ)ℤ² + ℤ² = F'(τ)⁻¹Λ_τ`: it is a section of a
-line bundle on the QM torus (via `qmPeriodDiffeo`). -/
-theorem riemannTheta_Omega_add_period {τ : ℂ} (hτ : τ.im ≠ 0) (z : Fin 2 → ℂ) (m n : Fin 2 → ℤ) :
-    riemannTheta (Omega τ) (z + (Omega τ *ᵥ intVec m + intVec n)) =
-      Complex.exp (-(Real.pi * Complex.I * (intVec m ⬝ᵥ (Omega τ *ᵥ intVec m))) -
-          2 * Real.pi * Complex.I * (intVec m ⬝ᵥ z)) * riemannTheta (Omega τ) z :=
-  riemannTheta_add_period _ (Omega_transpose hτ) z m n
-
 /-! #### `Ω(τ)` lies in the Siegel space for `Im τ > 0` -/
-
-/-- Partial fractions: `Ω(τ) = A₀ + C/(τ+1) + B/(τ−3)` (found with sympy). -/
-def OmegaPF (τ : ℂ) : Matrix (Fin 2) (Fin 2) ℂ :=
-  (!![-1 + (√2 : ℂ) / 2, 1 - (√2 : ℂ); 1 - (√2 : ℂ), -2 + (√2 : ℂ)] :
-      Matrix (Fin 2) (Fin 2) ℂ) +
-    (τ + 1)⁻¹ • !![-((√2 : ℂ) + 2) / 2, 1 + (√2 : ℂ); 1 + (√2 : ℂ), -((√2 : ℂ) + 2)] +
-    (τ - 3)⁻¹ • !![3 * ((√2 : ℂ) - 2) / 2, -3 * ((√2 : ℂ) - 1); -3 * ((√2 : ℂ) - 1),
-      3 * ((√2 : ℂ) - 2)]
-
-theorem Fp_mul_OmegaPF {τ : ℂ} (hτ : τ.im ≠ 0) : Fp τ * OmegaPF τ = Emat τ := by
-  have h2 := sqrt2_sq
-  have h3 : τ - 3 ≠ 0 := fun h => hτ (by simpa using congrArg Complex.im h)
-  have h1 : τ + 1 ≠ 0 := fun h => hτ (by simpa using congrArg Complex.im h)
-  rw [Fp, F0mat_eq, Pinv, Emat_eq, OmegaPF]
-  ext i j
-  fin_cases i <;> fin_cases j <;>
-    simp [Matrix.mul_apply, Fin.sum_univ_two] <;> field_simp <;> ring_nf <;>
-    simp only [h2] <;> ring_nf
-
-theorem Omega_eq_PF {τ : ℂ} (hτ : τ.im ≠ 0) : Omega τ = OmegaPF τ := by
-  have hu : IsUnit (Fp τ).det := Ne.isUnit (det_Fp_ne_zero hτ)
-  rw [Omega, ← Fp, ← Fp_mul_OmegaPF hτ, ← Matrix.mul_assoc, Matrix.nonsing_inv_mul _ hu,
-    Matrix.one_mul]
-
-/-- **`Ω(τ) ∈ 𝔥₂` for `Im τ > 0`.** `Im Ω(τ) = y·(C'/|τ+1|² + B'/|τ−3|²)` with `C'`, `B'` positive
-semidefinite of rank one with different kernels. -/
-theorem Omega_mem_siegelSpace {τ : ℂ} (hτ : 0 < τ.im) : Omega τ ∈ SiegelSpace 2 := by
-  have hτ' : τ.im ≠ 0 := hτ.ne'
-  refine ⟨Omega_transpose hτ', ?_⟩
-  rw [Matrix.posDef_iff_dotProduct_mulVec]
-  constructor
-  · show ((Omega τ).map Complex.im)ᴴ = (Omega τ).map Complex.im
-    rw [Matrix.conjTranspose_eq_transpose_of_trivial, ← Matrix.transpose_map,
-      Omega_transpose hτ']
-  · intro x hx
-    rw [Omega_eq_PF hτ']
-    have hs : (√2 : ℝ) ^ 2 = 2 := Real.sq_sqrt (by norm_num)
-    have hp : 0 < Complex.normSq (τ + 1) :=
-      Complex.normSq_pos.mpr fun h => hτ' (by simpa using congrArg Complex.im h)
-    have hq : 0 < Complex.normSq (τ - 3) :=
-      Complex.normSq_pos.mpr fun h => hτ' (by simpa using congrArg Complex.im h)
-    simp [OmegaPF, dotProduct, mulVec, Fin.sum_univ_two, Complex.inv_im, Complex.inv_re]
-    set y := τ.im
-    set P := Complex.normSq (τ + 1)
-    set Q := Complex.normSq (τ - 3)
-    set r := √2
-    rw [show x 0 * ((-y / P * ((-2 + -r) / 2) + -y / Q * (3 * (r - 2) / 2)) * x 0 +
-          (-y / P * (1 + r) + -(-y / Q * (3 * (r - 1)))) * x 1) +
-        x 1 * ((-y / P * (1 + r) + -(-y / Q * (3 * (r - 1)))) * x 0 +
-          (-y / P * (-2 + -r) + -y / Q * (3 * (r - 2))) * x 1) =
-        y / P * ((r + 2) / 2 * (x 0 - r * x 1) ^ 2) + y / Q * (3 * (2 - r) / 2 * (x 0 + r * x 1) ^
-            2)
-      by linear_combination (x 1 * y * (3 * r * x 1 + 6 * x 0 - 6 * x 1) / (2 * Q) +
-        x 1 * y * (-r * x 1 + 2 * x 0 - 2 * x 1) / (2 * P)) * hs]
-    have hr0 : 0 < r := Real.sqrt_pos.mpr two_pos
-    have hr2 : r < 2 := by nlinarith
-    have hA : 0 < y / P * ((r + 2) / 2) := mul_pos (div_pos hτ hp) (by linarith)
-    have hB : 0 < y / Q * (3 * (2 - r) / 2) := mul_pos (div_pos hτ hq) (by linarith)
-    by_contra hle
-    push Not at hle
-    have hu : (x 0 - r * x 1) ^ 2 = 0 := by
-      nlinarith [sq_nonneg (x 0 - r * x 1), sq_nonneg (x 0 + r * x 1),
-        mul_nonneg hA.le (sq_nonneg (x 0 - r * x 1)), mul_nonneg hB.le (sq_nonneg (x 0 + r * x 1))]
-    have hw : (x 0 + r * x 1) ^ 2 = 0 := by
-      nlinarith [sq_nonneg (x 0 - r * x 1), sq_nonneg (x 0 + r * x 1),
-        mul_nonneg hA.le (sq_nonneg (x 0 - r * x 1)), mul_nonneg hB.le (sq_nonneg (x 0 + r * x 1))]
-    have hu' := pow_eq_zero_iff (n := 2) (by norm_num) |>.mp hu
-    have hw' := pow_eq_zero_iff (n := 2) (by norm_num) |>.mp hw
-    have hx1 : x 1 = 0 := by
-      have : r * x 1 = 0 := by linarith
-      exact (mul_eq_zero.mp this).resolve_left hr0.ne'
-    have hx0 : x 0 = 0 := by linarith
-    exact hx (funext fun i => by fin_cases i <;> simp [hx0, hx1])
 
 end QM
 
@@ -1847,9 +991,13 @@ stronger than NoCM for the true moduli data; see docs/research/g0-fibresimple.md
 noncomputable section
 
 namespace G0FibreSimple
+open _root_.G0FibreSimple (RigidityHom) -- op-dedupe
 
 open CategoryTheory AlgebraicGeometry Limits MonoidalCategory CartesianMonoidalCategory MonObj
 open _root_.ZInQ ZInQ ZInQ.JHeight LeafQM.AV ZInQ.DefFaltings
+open _root_.ZInQ (DefFaltings.AbVar DefFaltings.AnalyticUniformizationExists DefFaltings.AnalyticUniformizationUnique DefFaltings.EReal.add_coe_add_neg_coe DefFaltings.FinExt DefFaltings.Genus2Eq DefFaltings.Genus2Eq.Good DefFaltings.Genus2Eq.P DefFaltings.Genus2Eq.binDisc DefFaltings.GroupModel DefFaltings.GroupModel.IsAnalyticUniformization DefFaltings.GroupModel.IsNeronModel DefFaltings.GroupModel.Pts DefFaltings.GroupModel.cotangent DefFaltings.GroupModel.dCls DefFaltings.GroupModel.detLattice DefFaltings.GroupModel.dom DefFaltings.GroupModel.evalAt DefFaltings.GroupModel.exists_rep DefFaltings.GroupModel.genStalk DefFaltings.GroupModel.genericUnit DefFaltings.GroupModel.germAlong DefFaltings.GroupModel.height DefFaltings.GroupModel.height_eq DefFaltings.GroupModel.hodgeSpace DefFaltings.GroupModel.jacDet DefFaltings.GroupModel.jacDet_comp DefFaltings.GroupModel.omega DefFaltings.GroupModel.omegaAt DefFaltings.GroupModel.omegaAt_genericPt DefFaltings.GroupModel.ptC DefFaltings.GroupModel.semilinear_ext_wedge DefFaltings.GroupModel.specializes_genericUnit DefFaltings.GroupModel.structMap DefFaltings.GroupModel.unitSection DefFaltings.GroupModel.wedge DefFaltings.HermitianLattice DefFaltings.HermitianLattice.arakelovDegree DefFaltings.HermitianLattice.arakelovDegree_ofFractionalIdeal DefFaltings.HermitianLattice.arakelovDegree_rescale DefFaltings.HermitianLattice.degreeAt DefFaltings.HermitianLattice.degreeAt_eq DefFaltings.HermitianLattice.degreeAt_eq_arakelovDegree DefFaltings.HermitianLattice.degreeAt_smul DefFaltings.HermitianLattice.ofFractionalIdeal DefFaltings.HermitianLattice.rescale DefFaltings.HermitianLattice.secIndex_ne_zero DefFaltings.HodgeData DefFaltings.HodgeData.coeff_apply_ne_zero DefFaltings.HodgeData.hodgeBundle DefFaltings.HodgeData.modelHeight DefFaltings.HodgeData.modelHeight_eq DefFaltings.HodgeData.modelHeight_eq_add_of_le DefFaltings.HodgeData.modelHeight_eq_faltingsHeightGood DefFaltings.HodgeData.modelHeight_le_of_le DefFaltings.HodgeData.modelHeight_ofIdeal DefFaltings.HodgeData.modelHeight_ofIdeal_baseChange DefFaltings.HodgeData.modelHeight_of_span DefFaltings.HodgeData.modelHeight_recoord DefFaltings.HodgeData.norm DefFaltings.HodgeData.norm_sq DefFaltings.HodgeData.recoord DefFaltings.HodgeLatticeTheorem DefFaltings.IsIsogeny DefFaltings.MetrizedModel DefFaltings.MetrizedModel.modelHeight_eq_of_model_eq DefFaltings.NeronModelMinimal DefFaltings.PeriodAreaFormula DefFaltings.R19_GaudronRemond DefFaltings.R20_FaltingsLemma5 DefFaltings.R21_Bost DefFaltings.StableHeightFinite DefFaltings.absNorm_extendedHom DefFaltings.absNorm_map_ringOfIntegers DefFaltings.arakelovDegree_ofFractionalIdeal_baseChange DefFaltings.arakelovDegree_ofFractionalIdeal_mul DefFaltings.card_embeddings_over DefFaltings.covolume_comap_mul_det DefFaltings.covolume_gaussianPair DefFaltings.det_restrictScalars_complex DefFaltings.embCoeff DefFaltings.faltingsHeight DefFaltings.faltingsHeightEC DefFaltings.faltingsHeightGood DefFaltings.faltingsHeight_coe DefFaltings.finiteHeightPart DefFaltings.finrank_ringOfIntegers DefFaltings.gaussianPair DefFaltings.genericFibre DefFaltings.genericPt DefFaltings.grKappa DefFaltings.hypGram DefFaltings.hypGram_comp_add DefFaltings.hypVol DefFaltings.hypVol_one_comp_add DefFaltings.isogDeg DefFaltings.le_stableFaltingsHeight DefFaltings.modelHeight_ofIdeal_eq_faltingsHeightEC DefFaltings.modelHeight_ofIdeal_eq_faltingsHeightEC' DefFaltings.norm_algebraMap_tower DefFaltings.ptObj DefFaltings.ratCoeff DefFaltings.realify DefFaltings.secIndex DefFaltings.secIndex_mul_absNorm DefFaltings.secIndex_smul DefFaltings.stableFaltingsHeight DefFaltings.stableFaltingsHeightDeligne DefFaltings.stableFaltingsHeightDeligne_eq DefFaltings.stableFaltingsHeight_eq_faltingsHeightGood DefFaltings.stableFaltingsHeight_eq_iInf_height DefFaltings.stableFaltingsHeight_le DefFaltings.stableFaltingsHeight_ne_bot_of_R21 DefFaltings.sum_embeddings_comp DefFaltings.sum_log_norm_embeddings DefFaltings.sum_log_norm_embeddings_int DefFaltings.torusMetricSq DefFaltings.torusMetricSq_comap DefFaltings.torusMetricSq_eq_setIntegral DefFaltings.torusMetricSq_pos DefFaltings.torusMetricSq_smul DefFaltings.torus_setIntegral_indep H5Neron.GroupModel.IsNeronModel.lift H5Neron.GroupModel.IsNeronModel.uniqueIso H5Neron.GroupModel.isNeronModel_iff H5Neron.GroupModelBaseChangeExists H5Neron.IsBaseChangeOf H5Neron.IsOpenSubgroupModel H5Neron.IsProductAbVar H5Neron.IsProductModel H5Neron.ModelHeightBaseChange H5Neron.NeronModelExists H5Neron.NeronProp H5Neron.NeronProp.lift H5Neron.NeronProp.of_iso H5Neron.NeronProp.tensor H5Neron.NeronProp.uniqueIso H5Neron.OpenSubgroupHeight H5Neron.ProductGroupModelExists H5Neron.ProductModelHeight H5Neron.R19_zero H5Neron.R20_zero H5Neron.R21_zero H5Neron.SemistableNeronIdentityComponent H5Neron.bcProd H5Neron.bcUnitIso H5Neron.compositum H5Neron.covolume_fin_zero H5Neron.detLattice_zero H5Neron.glue_zero H5Neron.groupModel_height_zero H5Neron.hodgeZeroEquiv H5Neron.hodgeZeroEquiv_wedge0 H5Neron.hom_ext_of_iso_unit H5Neron.isIsogeny_id_zero H5Neron.isMonHom_of_iso_unit H5Neron.isMonHom_prodComparisonIso H5Neron.isNeronModel_of_isProductModel H5Neron.isogDeg_zero_le_one H5Neron.jL H5Neron.metrizedOf H5Neron.modelHeight_dim_zero H5Neron.neronModelExists_zero H5Neron.neronModelMinimal_zero H5Neron.neron_zero_iso_unit H5Neron.no_metrized_succ H5Neron.one_le_grKappa H5Neron.productGroupModelExists H5Neron.pts_subsingleton H5Neron.semistableNeronIdentityComponent_zero H5Neron.semσ H5Neron.stableFaltingsHeight_add_le H5Neron.stableFaltingsHeight_add_le' H5Neron.stableFaltingsHeight_eq_neron H5Neron.stableFaltingsHeight_eq_neron_all H5Neron.stableFaltingsHeight_zero H5Neron.stableHeightFinite_zero H5Neron.tensorGen H5Neron.tensorGen_fst H5Neron.tensorGen_snd H5Neron.trivHodge H5Neron.trivMetrized H5Neron.trivModel H5Neron.trivModel_isNeronModel H5Neron.wedge0 H5Neron.wedge0_ne_zero H5Neron.wedge_eq_wedge0 LeafPush2.CPts LeafPush2.Char2 LeafPush2.HasSexticModel LeafPush2.IC10 LeafPush2.IC2 LeafPush2.IC4 LeafPush2.IC6 LeafPush2.IgJ10 LeafPush2.IgJ2 LeafPush2.IgJ4 LeafPush2.IgJ6 LeafPush2.IsGenus2 LeafPush2.IsPeriodMatrix LeafPush2.IsSiegel LeafPush2.IsUniformization LeafPush2.LinYangTuple LeafPush2.OnQMLocus LeafPush2.T10_groupIso LeafPush2.T11a_RiemannEnd LeafPush2.T11b_Rigidity LeafPush2.T12_ComplexConjEigen LeafPush2.UniformizationExists LeafPush2.absLogHeight LeafPush2.cDom LeafPush2.cEvalAt LeafPush2.cptObj LeafPush2.dsq LeafPush2.exists_isComplexConj LeafPush2.ffAlgebra LeafPush2.ffStructMap LeafPush2.isSiegel_I LeafPush2.javanpeykarBound LeafPush2.javanpeykarBound_mono LeafPush2.javanpeykarBound_pos LeafPush2.linYangTuple_onQMLocus LeafPush2.linYang_j_eq LeafPush2.onQMLocus_of_linYangTuple LeafPush2.pazukiC2 LeafPush2.sextic LeafPush2.thetaConst) -- op-dedupe
+open _root_.LeafQM.AV (CMExists HasCM24 HasCM24.of_iso HasCM3 HasCM3.of_iso HasCM4 HasCM4.of_iso IsBaseChangeOf IsBaseChangeOfPair IsFibreOf Level3 Level3.bcPt_pow_three Level3.eq_iff Level3.exists_mul_of_range_le Level3.ext' Level3.onto Level3.range_le Level3.rightMul Level3.rightMul_eq_self Level3.rightMul_rightMul Level3.torsor Level3.twist M3 M3.mk M3.rightMul M3.rightMul_rightMul M3.twist M3.twist_mk Pin.IsNaturalRelabel Pin.MobiusGlue Pin.PinUnique Pin.QMFamily.transport Pin.R1fpProps.fam Pin.R1fpProps.univ Pin.SameTriple Pin.SameTripleMor Pin.autRelabel Pin.autRelabel_natural Pin.cm_objects_of_R1R2fp Pin.isFibreOf_transport Pin.phi_part Pin.pointwise_of_witness Pin.pointwise_of_witness_mor Pin.r1fpPin_aut Pin.r1fpPin_relabel_iff Pin.r2fp_aut Pin.relabel Pin.relabel_geometric Pin.relabel_is_morphism Pin.sameTripleMor_of_mobius Pin.sameTriple_aut Pin.transfer_exists Pin.transfer_pointwise Pin.transfer_pointwise_mor PtEquiv QMFamily QMIso QMIso.nonempty_abVarIso QMIso.refl QMIso.symm QMIso.trans QML3 QML3.Iso QML3.Iso.refl QML3.Iso.rightMul QML3.Iso.symm QML3.Iso.trans QML3.Iso.twist QML3.forget QML3.rightMul QML3.rightMul_A QML3.rightMul_rightMul QML3.twist QML3.twist_A QMLeaves QMPair QMPair.twist QMStr QMStr.twist Qbar R1R2fp R1R2fp_Y R1famProps R1fp R1fpProps R1fp_of_R1R2fp R1heckeProps R1rec R1recProps R1univProps R2X6Props R2fpProps R2fpProps_of_X6 R5fp R5fpCount R5fpWeak R5fpWeak_of_R5fp R5ptProps ToP1 ToP1.comp ToP1.val ToP1.val_comp ToP1.val_comp_right UnramifiedAbove5 X6Props X6Surj act_mul_apply bcPt bcPt_injective cm_of_val com comEquiv com_twist conductor conjHom conjHom_iota conjHom_mem_com conjHom_symm_apply conj_iso_of_rational conj_twist_of_rational endPt exists_fibre_object fibre_conjugates_isomorphic fieldMap fieldOfModuli3 fieldOfModuliPair fieldPt galAct_bcPt hI hIJ hJ hasCM24_twist hasCM3_twist hasCM4_twist hrat inertCount6 intCast_mem_com isoSetoid leaves_on_one_witness liftO not_qmStr_zero ofInt_injective ofInt_sub oi oi_mul_oi oj oj_mul_oi_add oj_mul_oj pairSetoid qmAct residueImage residue_unramified_over_branch specMap_flat specMap_surjective specToEquivOfField_comp specToEquivOfField_comp_right stab3 stabPair three_mul_ofInt toKbar unramified_over_branch) -- op-dedupe
+open _root_.ZInQ.DefFaltings (AbVar AnalyticUniformizationExists AnalyticUniformizationUnique EReal.add_coe_add_neg_coe FinExt Genus2Eq Genus2Eq.Good Genus2Eq.P Genus2Eq.binDisc GroupModel GroupModel.IsAnalyticUniformization GroupModel.IsNeronModel GroupModel.Pts GroupModel.cotangent GroupModel.dCls GroupModel.detLattice GroupModel.dom GroupModel.evalAt GroupModel.exists_rep GroupModel.genStalk GroupModel.genericUnit GroupModel.germAlong GroupModel.height GroupModel.height_eq GroupModel.hodgeSpace GroupModel.jacDet GroupModel.jacDet_comp GroupModel.omega GroupModel.omegaAt GroupModel.omegaAt_genericPt GroupModel.ptC GroupModel.semilinear_ext_wedge GroupModel.specializes_genericUnit GroupModel.structMap GroupModel.unitSection GroupModel.wedge HermitianLattice HermitianLattice.arakelovDegree HermitianLattice.arakelovDegree_ofFractionalIdeal HermitianLattice.arakelovDegree_rescale HermitianLattice.degreeAt HermitianLattice.degreeAt_eq HermitianLattice.degreeAt_eq_arakelovDegree HermitianLattice.degreeAt_smul HermitianLattice.ofFractionalIdeal HermitianLattice.rescale HermitianLattice.secIndex_ne_zero HodgeData HodgeData.coeff_apply_ne_zero HodgeData.hodgeBundle HodgeData.modelHeight HodgeData.modelHeight_eq HodgeData.modelHeight_eq_add_of_le HodgeData.modelHeight_eq_faltingsHeightGood HodgeData.modelHeight_le_of_le HodgeData.modelHeight_ofIdeal HodgeData.modelHeight_ofIdeal_baseChange HodgeData.modelHeight_of_span HodgeData.modelHeight_recoord HodgeData.norm HodgeData.norm_sq HodgeData.recoord HodgeLatticeTheorem IsIsogeny MetrizedModel MetrizedModel.modelHeight_eq_of_model_eq NeronModelMinimal PeriodAreaFormula R19_GaudronRemond R20_FaltingsLemma5 R21_Bost StableHeightFinite absNorm_extendedHom absNorm_map_ringOfIntegers arakelovDegree_ofFractionalIdeal_baseChange arakelovDegree_ofFractionalIdeal_mul card_embeddings_over covolume_comap_mul_det covolume_gaussianPair det_restrictScalars_complex embCoeff faltingsHeight faltingsHeightEC faltingsHeightGood faltingsHeight_coe finiteHeightPart finrank_ringOfIntegers gaussianPair genericFibre genericPt grKappa hypGram hypGram_comp_add hypVol hypVol_one_comp_add isogDeg le_stableFaltingsHeight modelHeight_ofIdeal_eq_faltingsHeightEC modelHeight_ofIdeal_eq_faltingsHeightEC' norm_algebraMap_tower ptObj ratCoeff realify secIndex secIndex_mul_absNorm secIndex_smul stableFaltingsHeight stableFaltingsHeightDeligne stableFaltingsHeightDeligne_eq stableFaltingsHeight_eq_faltingsHeightGood stableFaltingsHeight_eq_iInf_height stableFaltingsHeight_le stableFaltingsHeight_ne_bot_of_R21 sum_embeddings_comp sum_log_norm_embeddings sum_log_norm_embeddings_int torusMetricSq torusMetricSq_comap torusMetricSq_eq_setIntegral torusMetricSq_pos torusMetricSq_smul torus_setIntegral_indep) -- op-dedupe
 open HSyn HSyn.G0Split
 open scoped Quaternion TensorProduct
 
@@ -2173,13 +1321,6 @@ theorem fibreSimple_of_pieces'' (t6 : PkgI3.HomFreeFinite) (t27 : PkgI3.QMDichot
 
 /-! ## §4‴ FS2 from the textbook leaf `RigidityHom` -/
 
-/-- **Textbook leaf (rigidity; Mumford, *Abelian varieties*, §4 Cor. 1; Milne, *Abelian
-varieties* (Cornell–Silverman 1986), Cor. 2.2, over any field; locators UNVERIFIED).** A morphism
-of `k`-schemes between abelian varieties that sends the identity to the identity is a
-homomorphism. -/
-def RigidityHom : Prop :=
-  ∀ (k : Type) [Field k] (A B : PkgI3.AbVar k) (h : A.X ⟶ B.X), η[A.X] ≫ h = η[B.X] → IsMonHom h
-
 /-- **FS2 is proved from `RigidityHom`.** For a `k`-isomorphism `e : A.X ≅ B.X`, put
 `b = e(0)`, `ψ = e - b` and `ψ' = e⁻¹ ∘ (· + b)` (translations, in the group of morphisms into
 the group object). They are inverse, preserve the identity, hence are homomorphisms by rigidity;
@@ -2396,20 +1537,13 @@ noncomputable section
 /-! ## g0-stablebc: the piece `StableHeightBaseChange` -/
 
 namespace G0StableBC
+open _root_.G0StableBC (BaseChangeCompIso GroupModelBaseChangeExists HodgeLineBaseChange IsBaseChangeOf IsHodgeBaseChange MetrizationBaseChange ModelHeightBaseChange ModelHeightBaseChangeLE StableHeightBaseChange baseChangeCompIso compositum exists_pbPaste exists_pbSquare groupModelBaseChangeExists isMonHom_pbCompInv metrizationBaseChange_of_hodgeLine modelHeightBaseChangeLE modelHeightBaseChangeLE_of_metrization modelHeight_eq_of_isHodgeBaseChange pbCompInv secIndex_baseChange secIndex_map secIndex_nsmul_mem square1 stableHeightBaseChange_of_glue stableHeightBaseChange_of_hodgeLine stableHeightBaseChange_of_metrization stableHeightBaseChange_of_modelHeightBaseChange stableHeightBaseChange_of_modelHeightBaseChangeLE transportMetrized transportModel transportModel_height_le) -- op-dedupe
 
 open CategoryTheory AlgebraicGeometry Limits MonoidalCategory CartesianMonoidalCategory MonObj
 open NumberField ZInQ.DefFaltings
+open _root_.ZInQ.DefFaltings (AbVar AnalyticUniformizationExists AnalyticUniformizationUnique EReal.add_coe_add_neg_coe FinExt Genus2Eq Genus2Eq.Good Genus2Eq.P Genus2Eq.binDisc GroupModel GroupModel.IsAnalyticUniformization GroupModel.IsNeronModel GroupModel.Pts GroupModel.cotangent GroupModel.dCls GroupModel.detLattice GroupModel.dom GroupModel.evalAt GroupModel.exists_rep GroupModel.genStalk GroupModel.genericUnit GroupModel.germAlong GroupModel.height GroupModel.height_eq GroupModel.hodgeSpace GroupModel.jacDet GroupModel.jacDet_comp GroupModel.omega GroupModel.omegaAt GroupModel.omegaAt_genericPt GroupModel.ptC GroupModel.semilinear_ext_wedge GroupModel.specializes_genericUnit GroupModel.structMap GroupModel.unitSection GroupModel.wedge HermitianLattice HermitianLattice.arakelovDegree HermitianLattice.arakelovDegree_ofFractionalIdeal HermitianLattice.arakelovDegree_rescale HermitianLattice.degreeAt HermitianLattice.degreeAt_eq HermitianLattice.degreeAt_eq_arakelovDegree HermitianLattice.degreeAt_smul HermitianLattice.ofFractionalIdeal HermitianLattice.rescale HermitianLattice.secIndex_ne_zero HodgeData HodgeData.coeff_apply_ne_zero HodgeData.hodgeBundle HodgeData.modelHeight HodgeData.modelHeight_eq HodgeData.modelHeight_eq_add_of_le HodgeData.modelHeight_eq_faltingsHeightGood HodgeData.modelHeight_le_of_le HodgeData.modelHeight_ofIdeal HodgeData.modelHeight_ofIdeal_baseChange HodgeData.modelHeight_of_span HodgeData.modelHeight_recoord HodgeData.norm HodgeData.norm_sq HodgeData.recoord HodgeLatticeTheorem IsIsogeny MetrizedModel MetrizedModel.modelHeight_eq_of_model_eq NeronModelMinimal PeriodAreaFormula R19_GaudronRemond R20_FaltingsLemma5 R21_Bost StableHeightFinite absNorm_extendedHom absNorm_map_ringOfIntegers arakelovDegree_ofFractionalIdeal_baseChange arakelovDegree_ofFractionalIdeal_mul card_embeddings_over covolume_comap_mul_det covolume_gaussianPair det_restrictScalars_complex embCoeff faltingsHeight faltingsHeightEC faltingsHeightGood faltingsHeight_coe finiteHeightPart finrank_ringOfIntegers gaussianPair genericFibre genericPt grKappa hypGram hypGram_comp_add hypVol hypVol_one_comp_add isogDeg le_stableFaltingsHeight modelHeight_ofIdeal_eq_faltingsHeightEC modelHeight_ofIdeal_eq_faltingsHeightEC' norm_algebraMap_tower ptObj ratCoeff realify secIndex secIndex_mul_absNorm secIndex_smul stableFaltingsHeight stableFaltingsHeightDeligne stableFaltingsHeightDeligne_eq stableFaltingsHeight_eq_faltingsHeightGood stableFaltingsHeight_eq_iInf_height stableFaltingsHeight_le stableFaltingsHeight_ne_bot_of_R21 sum_embeddings_comp sum_log_norm_embeddings sum_log_norm_embeddings_int torusMetricSq torusMetricSq_comap torusMetricSq_eq_setIntegral torusMetricSq_pos torusMetricSq_smul torus_setIntegral_indep) -- op-dedupe
 
 -- The following definition (docstring and body) is copied verbatim from scratch/g0-split/Split.lean.
-/-- **Missing piece 6 (definition-level glue; used by E3-E4).** The *stable* Faltings
-height is invariant under finite extension of the number field (Faltings 1983 §1; Deligne,
-Sém. Bourbaki 616). For def-faltings' infimum this needs semistable reduction and the Néron
-models of H5 (`NeronModelMinimal`); it is a property of the definition, not a literature leaf. -/
-def StableHeightBaseChange : Prop :=
-  ∀ (K : Type) [Field K] [NumberField K] (L : Type) [Field L] [NumberField L] [Algebra K L]
-    (A : ZInQ.DefFaltings.AbVar K),
-    stableFaltingsHeight (A.baseChange L) = stableFaltingsHeight A
-
 /-! ### Glue statements copied from `scratch/h5-neron/Reduction.lean` (verbatim, over this file's
 `AbVar`; h5-neron states them over the kernel's `PkgI3.AbVar`, the same structure) -/
 
@@ -2417,88 +1551,9 @@ section H5NeronCopies
 
 variable {K : Type} [Field K] {A : AbVar K}
 
-/-- `𝒢'` (over `𝓞_{L'}`) is the base change of `𝒢` (over `𝓞_L`) along `𝓞_L → 𝓞_{L'}`, as a group
-scheme: an isomorphism of group objects `𝒢' ≅ 𝒢 ×_{𝓞_L} 𝓞_{L'}`. (The identifications with
-`A_{L'}` are not compared; the height does not use them.) (copied from h5-neron) -/
-def IsBaseChangeOf {L L' : Type} [Field L] [NumberField L] [Algebra K L] [Field L']
-    [NumberField L'] [Algebra K L'] [Algebra L L'] (𝒢' : GroupModel A L') (𝒢 : GroupModel A L) :
-    Prop :=
-  letI : GrpObj ((Over.pullback (Spec.map (CommRingCat.ofHom (algebraMap (𝓞 L) (𝓞 L'))))).obj
-    𝒢.G) := Functor.grpObjObj
-  ∃ e : 𝒢'.G ≅ (Over.pullback (Spec.map (CommRingCat.ofHom (algebraMap (𝓞 L) (𝓞 L'))))).obj 𝒢.G,
-    IsMonHom e.hom
-
 end H5NeronCopies
 
-/-- **Glue H4a** (h5-neron). The height of a fixed smooth model is invariant under base change:
-`ω_{𝒢_{L'}} = ω_𝒢 ⊗ 𝓞_{L'}` (flat base change of the conormal sheaf), the Arakelov degree is
-multiplied by `[L':L]`, and each `τ' : L' → ℂ` restricts to `τ = τ'|_L` with the same
-uniformization. (copied from h5-neron) -/
-def ModelHeightBaseChange : Prop :=
-  ∀ (K : Type) [Field K] (A : AbVar K) (L L' : Type) [Field L] [NumberField L] [Algebra K L]
-    [Field L'] [NumberField L'] [Algebra K L'] [Algebra L L'] [IsScalarTower K L L']
-    (𝒢 : GroupModel A L) (𝒢' : GroupModel A L'), IsBaseChangeOf 𝒢' 𝒢 → 𝒢'.height = 𝒢.height
-
-/-- **Glue H4a, the inequality half (used here).** `h(𝒢_{L'}) ≤ h(𝒢)` for a group model `𝒢` and
-a base change `𝒢'` of it. Implied by `ModelHeightBaseChange` (`modelHeightBaseChangeLE`
-below). Same justification (h5-neron §2): `ω` of a smooth model commutes with base change, the
-Arakelov degree is multiplied by `[L':L]`, and `𝒢'(ℂ)_{τ'} = 𝒢(ℂ)_{τ'|_L}`. -/
-def ModelHeightBaseChangeLE : Prop :=
-  ∀ (K : Type) [Field K] (A : AbVar K) (L L' : Type) [Field L] [NumberField L] [Algebra K L]
-    [Field L'] [NumberField L'] [Algebra K L'] [Algebra L L'] [IsScalarTower K L L']
-    (𝒢 : GroupModel A L) (𝒢' : GroupModel A L'), IsBaseChangeOf 𝒢' 𝒢 → 𝒢'.height ≤ 𝒢.height
-
-theorem modelHeightBaseChangeLE (h : ModelHeightBaseChange) : ModelHeightBaseChangeLE :=
-  fun K _ A L L' _ _ _ _ _ _ _ _ 𝒢 𝒢' h𝒢 => (h K A L L' 𝒢 𝒢' h𝒢).le
-
-/-- **Glue H4b** (h5-neron). A group model base-changes to a group model (smoothness,
-separatedness and quasi-compactness are stable under base change; the group structure is
-transported by the monoidal functor `Over.pullback`; the generic fibre is `A_L ×_L L' ≅ A_{L'}` by
-pullback pasting). (copied from h5-neron) -/
-def GroupModelBaseChangeExists : Prop :=
-  ∀ (K : Type) [Field K] (A : AbVar K) (L L' : Type) [Field L] [NumberField L] [Algebra K L]
-    [Field L'] [NumberField L'] [Algebra K L'] [Algebra L L'] [IsScalarTower K L L']
-    (𝒢 : GroupModel A L), ∃ 𝒢' : GroupModel A L', IsBaseChangeOf 𝒢' 𝒢
-
-/-- **The compositum** (proved in h5-neron; proof copied). Two number fields `L, L₀` over a
-number field `K` embed `K`-linearly in a common number field `L'`. -/
-theorem compositum (K : Type) [Field K] [NumberField K] (L L₀ : Type) [Field L] [NumberField L]
-    [Algebra K L] [Field L₀] [NumberField L₀] [Algebra K L₀] :
-    ∃ (L' : Type) (_ : Field L') (_ : NumberField L') (_ : Algebra K L') (_ : Algebra L L')
-      (_ : Algebra L₀ L'), IsScalarTower K L L' ∧ IsScalarTower K L₀ L' := by
-  let Ω := AlgebraicClosure K
-  haveI : Module.Finite K L := Module.Finite.of_restrictScalars_finite ℚ K L
-  haveI : Module.Finite K L₀ := Module.Finite.of_restrictScalars_finite ℚ K L₀
-  let eL : L →ₐ[K] Ω := IsAlgClosed.lift
-  let eL₀ : L₀ →ₐ[K] Ω := IsAlgClosed.lift
-  let E : IntermediateField K Ω := eL.fieldRange ⊔ eL₀.fieldRange
-  haveI : FiniteDimensional K eL.fieldRange :=
-    LinearEquiv.finiteDimensional (AlgEquiv.ofInjectiveField eL).toLinearEquiv
-  haveI : FiniteDimensional K eL₀.fieldRange :=
-    LinearEquiv.finiteDimensional (AlgEquiv.ofInjectiveField eL₀).toLinearEquiv
-  haveI : FiniteDimensional K E := IntermediateField.finiteDimensional_sup _ _
-  haveI : CharZero E := charZero_of_injective_algebraMap (algebraMap K E).injective
-  haveI : FiniteDimensional ℚ E := Module.Finite.trans K E
-  haveI : NumberField E := ⟨⟩
-  let f : L →ₐ[K] E := (IntermediateField.inclusion le_sup_left).comp
-    (AlgEquiv.ofInjectiveField eL).toAlgHom
-  let f₀ : L₀ →ₐ[K] E := (IntermediateField.inclusion le_sup_right).comp
-    (AlgEquiv.ofInjectiveField eL₀).toAlgHom
-  letI : Algebra L E := f.toRingHom.toAlgebra
-  letI : Algebra L₀ E := f₀.toRingHom.toAlgebra
-  refine ⟨E, inferInstance, inferInstance, inferInstance, inferInstance, inferInstance, ?_, ?_⟩
-  · exact IsScalarTower.of_algebraMap_eq fun x => (f.commutes x).symm
-  · exact IsScalarTower.of_algebraMap_eq fun x => (f₀.commutes x).symm
-
 /-! ### New glue: pullback pasting for abelian varieties -/
-
-/-- **Glue (pullback pasting, `(A_L)_M ≅ A_M`).** For fields `K → L → M` (a scalar tower), the
-iterated base change `(A ×_K L) ×_L M` is isomorphic to `A ×_K M` as a group scheme over `M`
-(`Over.pullbackComp`, and `Spec` of the tower `K → L → M`). Category theory, no arithmetic. -/
-def BaseChangeCompIso : Prop :=
-  ∀ (K : Type) [Field K] (A : AbVar K) (L M : Type) [Field L] [Algebra K L] [Field M]
-    [Algebra K M] [Algebra L M] [IsScalarTower K L M],
-    ∃ e : ((A.baseChange L).baseChange M).X ≅ (A.baseChange M).X, IsMonHom e.hom
 
 /-! ### Pullback pasting and base change of group models (proved)
 
@@ -2512,84 +1567,6 @@ section PbPaste
 
 open scoped Obj
 
-/-- `f^* g^* G → (f ≫ g)^* G` (h5-neron). -/
-noncomputable def pbCompInv {X Y Z : Scheme.{0}} (f : X ⟶ Y) (g : Y ⟶ Z) (G : Over Z) :
-    (Over.pullback f).obj ((Over.pullback g).obj G) ⟶ (Over.pullback (f ≫ g)).obj G :=
-  (Over.pullbackComp f g).inv.app G
-
-theorem isMonHom_pbCompInv {X Y Z : Scheme.{0}} (f : X ⟶ Y) (g : Y ⟶ Z) (G : Over Z)
-    [MonObj G] : IsMonHom (pbCompInv f g G) := by
-  have h := ((Functor.mapMonCompIso (F := Over.pullback g) (G := Over.pullback f)).inv.app
-      (Mon.mk G) ≫ (Functor.mapMonNatIso (Over.pullbackComp f g)).inv.app (Mon.mk G)).isMonHom_hom
-  have e : pbCompInv f g G = 𝟙 _ ≫ pbCompInv f g G := (Category.id_comp _).symm
-  rw [e]
-  exact h
-
-/-- Pullback pasting for group objects, with an arbitrary third side `h = f ≫ g`. -/
-theorem exists_pbPaste {X Y Z : Scheme.{0}} (f : X ⟶ Y) (g : Y ⟶ Z) (h : X ⟶ Z) (sq : f ≫ g = h)
-    (G : Over Z) [GrpObj G] :
-    letI : GrpObj ((Over.pullback g).obj G) := Functor.grpObjObj
-    letI : GrpObj ((Over.pullback f).obj ((Over.pullback g).obj G)) := Functor.grpObjObj
-    letI : GrpObj ((Over.pullback h).obj G) := Functor.grpObjObj
-    ∃ e : (Over.pullback f).obj ((Over.pullback g).obj G) ≅ (Over.pullback h).obj G,
-      IsMonHom e.hom := by
-  subst sq
-  letI : GrpObj ((Over.pullback g).obj G) := Functor.grpObjObj
-  letI : GrpObj ((Over.pullback f).obj ((Over.pullback g).obj G)) := Functor.grpObjObj
-  letI : GrpObj ((Over.pullback (f ≫ g)).obj G) := Functor.grpObjObj
-  exact ⟨(Over.pullbackComp f g).symm.app G, isMonHom_pbCompInv f g G⟩
-
-/-- **`BaseChangeCompIso`, proved.** -/
-theorem baseChangeCompIso : BaseChangeCompIso := by
-  intro K _ A L M _ _ _ _ _ _
-  have sq : Spec.map (CommRingCat.ofHom (algebraMap L M)) ≫
-      Spec.map (CommRingCat.ofHom (algebraMap K L)) =
-      Spec.map (CommRingCat.ofHom (algebraMap K M)) := by
-    rw [← Spec.map_comp, ← CommRingCat.ofHom_comp, ← IsScalarTower.algebraMap_eq]
-  exact exists_pbPaste _ _ _ sq A.X
-
-/-- Pasting two pullback squares, with a group-scheme iso on one leg. -/
-theorem exists_pbSquare {X Y₁ Y₂ Z : Scheme.{0}} (f₁ : X ⟶ Y₁) (g₁ : Y₁ ⟶ Z) (f₂ : X ⟶ Y₂)
-    (g₂ : Y₂ ⟶ Z) (sq : f₁ ≫ g₁ = f₂ ≫ g₂) (G : Over Z) [GrpObj G] (H : Over Y₂) [GrpObj H]
-    (u : (Over.pullback g₂).obj G ≅ H)
-    (hu : letI : GrpObj ((Over.pullback g₂).obj G) := Functor.grpObjObj; IsMonHom u.hom) :
-    letI : GrpObj ((Over.pullback g₁).obj G) := Functor.grpObjObj
-    letI : GrpObj ((Over.pullback f₁).obj ((Over.pullback g₁).obj G)) := Functor.grpObjObj
-    letI : GrpObj ((Over.pullback f₂).obj H) := Functor.grpObjObj
-    ∃ e : (Over.pullback f₁).obj ((Over.pullback g₁).obj G) ≅ (Over.pullback f₂).obj H,
-      IsMonHom e.hom := by
-  obtain ⟨e₁, he₁⟩ := exists_pbPaste f₁ g₁ (f₁ ≫ g₁) rfl G
-  obtain ⟨e₂, he₂⟩ := exists_pbPaste f₂ g₂ (f₁ ≫ g₁) sq.symm G
-  have hu' : IsMonHom ((Over.pullback f₂).map u.hom) := inferInstance
-  exact ⟨e₁ ≪≫ e₂.symm ≪≫ (Over.pullback f₂).mapIso u,
-    (inferInstance : IsMonHom (e₁.hom ≫ e₂.inv ≫ (Over.pullback f₂).map u.hom))⟩
-
-/-- The square `Spec L' → Spec 𝓞_{L'} → Spec 𝓞_L = Spec L' → Spec L → Spec 𝓞_L` (h5-neron). -/
-theorem square1 (L L' : Type) [Field L] [NumberField L] [Field L'] [NumberField L'] [Algebra L L'] :
-    Spec.map (CommRingCat.ofHom (algebraMap (𝓞 L') L')) ≫
-        Spec.map (CommRingCat.ofHom (algebraMap (𝓞 L) (𝓞 L'))) =
-      Spec.map (CommRingCat.ofHom (algebraMap L L')) ≫
-        Spec.map (CommRingCat.ofHom (algebraMap (𝓞 L) L)) := by
-  rw [← Spec.map_comp, ← Spec.map_comp, ← CommRingCat.ofHom_comp, ← CommRingCat.ofHom_comp]
-  congr 2
-
-/-- **Glue H4b (`GroupModelBaseChangeExists`), proved**: `𝒢 ×_{𝓞_L} 𝓞_{L'}` with the generic
-fibre identification `(𝒢 ×_{𝓞_L} 𝓞_{L'})_{L'} ≅ (𝒢_L)_{L'} ≅ (A_L)_{L'} ≅ A_{L'}`. -/
-theorem groupModelBaseChangeExists : GroupModelBaseChangeExists := by
-  intro K _ A L L' _ _ _ _ _ _ _ _ 𝒢
-  haveI : Smooth ((Over.pullback (Spec.map (CommRingCat.ofHom (algebraMap (𝓞 L) (𝓞 L'))))).obj
-    𝒢.G).hom := by dsimp; infer_instance
-  haveI : IsSeparated ((Over.pullback (Spec.map (CommRingCat.ofHom
-    (algebraMap (𝓞 L) (𝓞 L'))))).obj 𝒢.G).hom := by dsimp; infer_instance
-  haveI : QuasiCompact ((Over.pullback (Spec.map (CommRingCat.ofHom
-    (algebraMap (𝓞 L) (𝓞 L'))))).obj 𝒢.G).hom := by dsimp; infer_instance
-  obtain ⟨c, hc⟩ := baseChangeCompIso K A L L'
-  obtain ⟨e, he⟩ := exists_pbSquare _ _ _ _ (square1 L L') 𝒢.G (A.baseChange L).X 𝒢.gen 𝒢.gen_hom
-  refine ⟨⟨_, e ≪≫ c, ?_⟩, Iso.refl _, ?_⟩
-  · exact @CategoryTheory.instIsMonHomComp _ _ _ _ _ _ _ _ _ e.hom c.hom he hc
-  · exact (inferInstance : IsMonHom (𝟙 ((Over.pullback
-      (Spec.map (CommRingCat.ofHom (algebraMap (𝓞 L) (𝓞 L'))))).obj 𝒢.G)))
-
 end PbPaste
 
 /-! ### Transport of (metrized) group models along an isomorphism of generic fibres (proved) -/
@@ -2598,35 +1575,6 @@ section Transport
 
 variable {K K' : Type} [Field K] [Field K'] {A : AbVar K} {B : AbVar K'}
   {L : Type} [Field L] [NumberField L] [Algebra K L] [Algebra K' L]
-
-/-- A group model of `A_L` is a group model of `B_L` for any group-scheme isomorphism
-`A_L ≅ B_L`: same `𝒢`, generic-fibre identification composed with the isomorphism. -/
-noncomputable def transportModel (e : (A.baseChange L).X ≅ (B.baseChange L).X)
-    (he : IsMonHom e.hom) (𝒢 : GroupModel A L) : GroupModel B L where
-  G := 𝒢.G
-  gen := 𝒢.gen ≪≫ e
-  gen_hom := by
-    letI : GrpObj (genericFibre L 𝒢.G) := Functor.grpObjObj
-    haveI := 𝒢.gen_hom
-    exact (inferInstance : IsMonHom (𝒢.gen.hom ≫ e.hom))
-
-/-- The same Hodge data metrize the transported model (the Hodge line, its lattice and the
-complex points depend only on `𝒢`, not on the identification of the generic fibre). -/
-noncomputable def transportMetrized (e : (A.baseChange L).X ≅ (B.baseChange L).X)
-    (he : IsMonHom e.hom) {g : ℕ} (Mm : MetrizedModel A L g) : MetrizedModel B L g where
-  model := transportModel e he Mm.model
-  hodge := Mm.hodge
-  lattice_eq := Mm.lattice_eq
-  arch := Mm.arch
-
-/-- Transport does not increase the height of a group model. Proved. -/
-theorem transportModel_height_le (e : (A.baseChange L).X ≅ (B.baseChange L).X)
-    (he : IsMonHom e.hom) (𝒢 : GroupModel A L) :
-    (transportModel e he 𝒢).height ≤ 𝒢.height := by
-  unfold GroupModel.height
-  refine le_iInf fun g => le_iInf fun Mm => le_iInf fun hM => ?_
-  subst hM
-  exact iInf_le_of_le g (iInf_le_of_le (transportMetrized e he Mm) (iInf_le_of_le rfl le_rfl))
 
 end Transport
 
@@ -2643,307 +1591,11 @@ section ArakelovBC
 
 open scoped nonZeroDivisors
 
-/-- `secIndex` is invariant under an injective linear map. -/
-theorem secIndex_map {K : Type*} [Field K] [NumberField K] {V W : Type*} [AddCommGroup V]
-    [Module K V] [Module (𝓞 K) V] [IsScalarTower (𝓞 K) K V] [AddCommGroup W] [Module K W]
-    [Module (𝓞 K) W] [IsScalarTower (𝓞 K) K W] (f : V →ₗ[𝓞 K] W) (hf : Function.Injective f)
-    (Λ : Submodule (𝓞 K) V) (w : V) : secIndex (Λ.map f) (f w) = secIndex Λ w := by
-  unfold secIndex
-  rw [← Set.image_singleton, ← Submodule.map_span, Submodule.map_toAddSubgroup,
-    Submodule.map_toAddSubgroup]
-  exact AddSubgroup.relIndex_map_map_of_injective _ _ hf
-
-/-- A finite index kills the quotient: `#(Λ/𝓞η) • x ∈ 𝓞η` for `x ∈ Λ`. -/
-theorem secIndex_nsmul_mem {K : Type*} [Field K] [NumberField K] {V : Type*} [AddCommGroup V]
-    [Module K V] [Module (𝓞 K) V] [IsScalarTower (𝓞 K) K V] (Λ : Submodule (𝓞 K) V) (w : V)
-    {x : V} (hx : x ∈ Λ) : secIndex Λ w • x ∈ Submodule.span (𝓞 K) {w} :=
-  AddSubgroup.nsmul_relIndex_mem (Submodule.span (𝓞 K) {w}).toAddSubgroup hx
-
 variable {L L' : Type} [Field L] [NumberField L] [Field L'] [NumberField L'] [Algebra L L']
-
-/-- **The finite part of base change**: `#(Λ'/𝓞_{L'}ιη) = #(Λ/𝓞_Lη)^{[L':L]}` for
-`Λ' = 𝓞_{L'} · ψ(Λ)`. -/
-theorem secIndex_baseChange {V V' : Type*} [AddCommGroup V] [Module L V] [Module (𝓞 L) V]
-    [IsScalarTower (𝓞 L) L V] [AddCommGroup V'] [Module L' V'] [Module (𝓞 L') V']
-    [IsScalarTower (𝓞 L') L' V'] (hV : Module.finrank L V = 1) (ψ : V →+ V')
-    (hsmul : ∀ (c : L) v, ψ (c • v) = algebraMap L L' c • ψ v) (Λ : Submodule (𝓞 L) V)
-    {w : V} (hηΛ : w ∈ Λ) (hη : w ≠ 0) (hη' : ψ w ≠ 0) (hi : secIndex Λ w ≠ 0) :
-    secIndex (Submodule.span (𝓞 L') (ψ '' Λ)) (ψ w) = secIndex Λ w ^ Module.finrank L L' := by
-  -- coordinates `c ↦ c • w` and `c ↦ c • ιη`
-  let φ : L →ₗ[𝓞 L] V := (LinearMap.toSpanSingleton L V w).restrictScalars (𝓞 L)
-  let φ' : L' →ₗ[𝓞 L'] V' := (LinearMap.toSpanSingleton L' V' (ψ w)).restrictScalars (𝓞 L')
-  have hφ : ∀ c, φ c = c • w := fun c => rfl
-  have hφ' : ∀ c, φ' c = c • ψ w := fun c => rfl
-  have hφinj : Function.Injective φ := fun a b h => by
-    rw [hφ, hφ] at h
-    exact smul_left_injective L hη h
-  have hφ'inj : Function.Injective φ' := fun a b h => by
-    rw [hφ', hφ'] at h
-    exact smul_left_injective L' hη' h
-  have hφsurj : Function.Surjective φ := fun v => by
-    obtain ⟨c, hc⟩ := (finrank_eq_one_iff_of_nonzero' w hη).mp hV v
-    exact ⟨c, hc⟩
-  set I : Submodule (𝓞 L) L := Λ.comap φ with hI
-  have hΛ : Λ = I.map φ := (Submodule.map_comap_eq_of_surjective hφsurj Λ).symm
-  have h1I : (1 : L) ∈ I := by simpa [hI, hφ] using hηΛ
-  have hidx : secIndex I 1 = secIndex Λ w := by
-    conv_rhs => rw [hΛ, show w = φ 1 by simp [hφ]]
-    exact (secIndex_map φ hφinj I 1).symm
-  -- `ψ(Λ) = φ'(L'-image of I)`
-  have himg : ψ '' (Λ : Set V) = φ' '' (algebraMap L L' '' (I : Set L)) := by
-    rw [hΛ, Submodule.map_coe, Set.image_image, Set.image_image]
-    refine Set.image_congr fun c _ => ?_
-    rw [hφ, hφ', hsmul]
-  have hspan : Submodule.span (𝓞 L') (ψ '' (Λ : Set V)) =
-      (Submodule.span (𝓞 L') (algebraMap L L' '' (I : Set L))).map φ' := by
-    rw [himg, Submodule.map_span]
-  have hidx' : secIndex (Submodule.span (𝓞 L') (ψ '' (Λ : Set V))) (ψ w) =
-      secIndex (Submodule.span (𝓞 L') (algebraMap L L' '' (I : Set L))) 1 := by
-    rw [hspan, show ψ w = φ' 1 by simp [hφ']]
-    exact secIndex_map φ' hφ'inj _ 1
-  -- `I` is a fractional ideal
-  set N := secIndex I 1 with hN
-  have hN0 : N ≠ 0 := hidx ▸ hi
-  have hfrac : IsFractional (𝓞 L)⁰ I := by
-    refine ⟨(N : 𝓞 L), mem_nonZeroDivisors_of_ne_zero (by exact_mod_cast hN0), fun b hb => ?_⟩
-    have hm := secIndex_nsmul_mem I 1 hb
-    rw [Submodule.mem_span_singleton] at hm
-    obtain ⟨a, ha⟩ := hm
-    refine ⟨a, ?_⟩
-    rw [Nat.cast_smul_eq_nsmul, ← ha, Algebra.smul_def, _root_.mul_one]
-  let I₀ : FractionalIdeal (𝓞 L)⁰ L := ⟨I, hfrac⟩
-  have hI₀ : (I₀ : Submodule (𝓞 L) L) = I := rfl
-  have e1 := secIndex_mul_absNorm I₀ (x := 1) h1I one_ne_zero
-  have e2 := secIndex_mul_absNorm (FractionalIdeal.extendedHom L' (𝓞 L') I₀) (x := 1)
-    (by
-      rw [← FractionalIdeal.mem_coe, FractionalIdeal.coe_extendedHom_eq_span]
-      exact Submodule.subset_span ⟨1, h1I, map_one _⟩) one_ne_zero
-  rw [FractionalIdeal.coe_extendedHom_eq_span, absNorm_extendedHom, map_one, abs_one] at e2
-  rw [map_one, abs_one] at e1
-  have e1' : (secIndex I 1 : ℚ) * FractionalIdeal.absNorm I₀ = 1 := e1
-  have e2' : (secIndex (Submodule.span (𝓞 L') (algebraMap L L' '' (I : Set L))) 1 : ℚ) *
-      FractionalIdeal.absNorm I₀ ^ Module.finrank L L' = 1 := e2
-  rw [← hidx, hidx']
-  have key : (secIndex (Submodule.span (𝓞 L') (algebraMap L L' '' (I : Set L))) 1 : ℚ) =
-      (secIndex I 1 : ℚ) ^ Module.finrank L L' := by
-    rw [eq_inv_of_mul_eq_one_left e1', eq_inv_of_mul_eq_one_left e2', inv_pow]
-  exact_mod_cast key
-
-/-- **Base change data for Hodge data** `D/L ↦ D'/L'` along a semilinear injection `ψ`. -/
-structure IsHodgeBaseChange {g : ℕ} {V V' : Type*} [AddCommGroup V] [Module L V]
-    [Module (𝓞 L) V] [AddCommGroup V'] [Module L' V'] [Module (𝓞 L') V']
-    (D : HodgeData L g V) (D' : HodgeData L' g V') (ψ : V →+ V') : Prop where
-  smul : ∀ (c : L) v, ψ (c • v) = algebraMap L L' c • ψ v
-  ne_zero : ∀ v, v ≠ 0 → ψ v ≠ 0
-  lattice : D'.lattice = Submodule.span (𝓞 L') (ψ '' D.lattice)
-  periods : ∀ τ' : L' →+* ℂ, D'.periods τ' = D.periods (τ'.comp (algebraMap L L'))
-  coeff : ∀ (τ' : L' →+* ℂ) v, D'.coeff τ' (ψ v) = D.coeff (τ'.comp (algebraMap L L')) v
-
-/-- **The model height is invariant under base change of Hodge data.** Proved. -/
-theorem modelHeight_eq_of_isHodgeBaseChange {g : ℕ} {V V' : Type*} [AddCommGroup V]
-    [Module L V] [Module (𝓞 L) V] [IsScalarTower (𝓞 L) L V] [AddCommGroup V'] [Module L' V']
-    [Module (𝓞 L') V'] [IsScalarTower (𝓞 L') L' V'] (D : HodgeData L g V) (D' : HodgeData L' g V')
-    (ψ : V →+ V') (h : IsHodgeBaseChange D D' ψ) : D'.modelHeight = D.modelHeight := by
-  obtain ⟨w, hηM, hη, hi⟩ := D.isLattice
-  have hη' : ψ w ≠ 0 := h.ne_zero w hη
-  have hηM' : ψ w ∈ D'.lattice := by
-    rw [h.lattice]; exact Submodule.subset_span ⟨w, hηM, rfl⟩
-  rw [D.modelHeight_eq hηM hη, D'.modelHeight_eq hηM' hη']
-  have hsec : secIndex D'.lattice (ψ w) = secIndex D.lattice w ^ Module.finrank L L' := by
-    rw [h.lattice]
-    exact secIndex_baseChange D.finrank_eq_one ψ h.smul D.lattice hηM hη hη' hi
-  have hsum : ∑ τ' : L' →+* ℂ, Real.log (torusMetricSq (D'.periods τ') (D'.coeff τ' (ψ w))) =
-      Module.finrank L L' *
-        ∑ σ : L →+* ℂ, Real.log (torusMetricSq (D.periods σ) (D.coeff σ w)) := by
-    simp only [h.periods, h.coeff]
-    exact sum_embeddings_comp (fun σ => Real.log (torusMetricSq (D.periods σ) (D.coeff σ w)))
-  rw [hsec, hsum, ← Module.finrank_mul_finrank ℚ L L']
-  have hK : (0 : ℝ) < Module.finrank ℚ L := by exact_mod_cast Module.finrank_pos
-  have hL : (0 : ℝ) < Module.finrank L L' := by exact_mod_cast Module.finrank_pos
-  push_cast
-  rw [Real.log_pow]
-  field_simp
 
 end ArakelovBC
 
-/-- **Glue H4a, geometric half (stated).** A metrization of a group model `𝒢/𝓞_L` induces one of
-its base change `𝒢'/𝓞_{L'}`, by base change of the Hodge data: `ψ` is the natural map
-`⋀^g ω_{A_L} → ⋀^g ω_{A_{L'}}` (from `𝒪_{𝒢,ξ} → 𝒪_{𝒢',ξ'}`), `⋀^g ω_{𝒢'} = 𝓞_{L'} · ψ(⋀^g ω_𝒢)`
-(formation of `e*Ω¹` of a smooth group scheme commutes with base change; EGA IV 17.2.3,
-UNVERIFIED locator), and at `τ' : L' → ℂ` the uniformization of `𝒢(ℂ)_{τ'|_L}` composed with the
-bijection `𝒢(ℂ)_{τ'|_L} ≅ 𝒢'(ℂ)_{τ'}` (universal property of the pullback). Glue (a property of
-def-faltings' definitions), STANDARD; not a literature leaf. -/
-def MetrizationBaseChange : Prop :=
-  ∀ (K : Type) [Field K] (A : AbVar K) (L L' : Type) [Field L] [NumberField L] [Algebra K L]
-    [Field L'] [NumberField L'] [Algebra K L'] [Algebra L L'] [IsScalarTower K L L']
-    (𝒢 : GroupModel A L) (𝒢' : GroupModel A L'), IsBaseChangeOf 𝒢' 𝒢 →
-    ∀ (g : ℕ) (Mm : MetrizedModel A L g), Mm.model = 𝒢 →
-    ∃ (Mm' : MetrizedModel A L' g) (ψ : Mm.model.hodgeSpace g →+ Mm'.model.hodgeSpace g),
-      Mm'.model = 𝒢' ∧ IsHodgeBaseChange Mm.hodge Mm'.hodge ψ
-
-/-- **`ModelHeightBaseChangeLE` from the geometric half.** Proved. -/
-theorem modelHeightBaseChangeLE_of_metrization (h : MetrizationBaseChange) :
-    ModelHeightBaseChangeLE := by
-  intro K _ A L L' _ _ _ _ _ _ _ _ 𝒢 𝒢' h𝒢
-  unfold GroupModel.height
-  refine le_iInf fun g => le_iInf fun Mm => le_iInf fun hM => ?_
-  obtain ⟨Mm', ψ, hM', hι⟩ := h K A L L' 𝒢 𝒢' h𝒢 g Mm hM
-  refine iInf_le_of_le g (iInf_le_of_le Mm' (iInf_le_of_le hM' ?_))
-  rw [modelHeight_eq_of_isHodgeBaseChange Mm.hodge Mm'.hodge ψ hι]
-
-/-- **Glue H4a, geometric content, stated without metrized models.** For a base change `𝒢'` of
-`𝒢` and each `g`, the natural map `ψ : ⋀^g ω_{A_L} → ⋀^g ω_{A_{L'}}` (induced by
-`𝒪_{𝒢,ξ} → 𝒪_{𝒢',ξ'}`):
-* is `L`-semilinear over `L → L'` and injective on nonzero vectors, and the Hodge space of `𝒢'` is
-  an `L'`-line when that of `𝒢` is an `L`-line (it is `L' ⊗_L` of it);
-* carries the lattice: `⋀^g ω_{𝒢'} = 𝓞_{L'} · ψ(⋀^g ω_𝒢)` (formation of `e*Ω¹` of a smooth group
-  scheme commutes with base change; EGA IV 17.2.3, UNVERIFIED locator);
-* is compatible with uniformizations: an analytic uniformization `Φ` of `𝒢(ℂ)_{τ'|_L}` gives one
-  `Φ'` of `𝒢'(ℂ)_{τ'}` with the same kernel (compose with the bijection
-  `𝒢(ℂ)_{τ'|_L} ≅ 𝒢'(ℂ)_{τ'}` of the pullback), and if a coefficient map `c` is computed by `Φ` on
-  wedges of germs, its `τ'`-semilinear extension `c'` (`c' ∘ ψ = c`) is computed by `Φ'` on wedges
-  of germs of `𝒢'` (both sides are `τ'`-semilinear alternating functions of the differentials
-  `df'_i`, and they agree on pulled-back germs, which span).
-Glue (a property of def-faltings' definitions), STANDARD; not a literature leaf. -/
-def HodgeLineBaseChange : Prop :=
-  ∀ (K : Type) [Field K] (A : AbVar K) (L L' : Type) [Field L] [NumberField L] [Algebra K L]
-    [Field L'] [NumberField L'] [Algebra K L'] [Algebra L L'] [IsScalarTower K L L']
-    (𝒢 : GroupModel A L) (𝒢' : GroupModel A L'), IsBaseChangeOf 𝒢' 𝒢 → ∀ g : ℕ,
-    ∃ ψ : 𝒢.hodgeSpace g →+ 𝒢'.hodgeSpace g,
-      (∀ (c : L) v, ψ (c • v) = algebraMap L L' c • ψ v) ∧
-      (∀ v, v ≠ 0 → ψ v ≠ 0) ∧
-      (Module.finrank L (𝒢.hodgeSpace g) = 1 → Module.finrank L' (𝒢'.hodgeSpace g) = 1) ∧
-      𝒢'.detLattice g = Submodule.span (𝓞 L') (ψ '' 𝒢.detLattice g) ∧
-      ∀ (τ' : L' →+* ℂ) (Λ : Submodule ℤ (Fin g → ℂ))
-        (Φ : (Fin g → ℂ) → 𝒢.Pts (τ'.comp (algebraMap L L'))),
-        𝒢.IsAnalyticUniformization _ Λ Φ →
-        ∃ Φ' : (Fin g → ℂ) → 𝒢'.Pts τ', 𝒢'.IsAnalyticUniformization τ' Λ Φ' ∧
-          ∀ (c : 𝒢.hodgeSpace g →ₛₗ[τ'.comp (algebraMap L L')] ℂ)
-            (c' : 𝒢'.hodgeSpace g →ₛₗ[τ'] ℂ),
-            (∀ f, c (𝒢.wedge f) = 𝒢.jacDet Φ f) → (∀ v, c' (ψ v) = c v) →
-            ∀ f', c' (𝒢'.wedge f') = 𝒢'.jacDet Φ' f'
-
-/-- **`MetrizationBaseChange` from `HodgeLineBaseChange`.** The Hodge data of `𝒢'`: lattice
-`⋀^g ω_{𝒢'}`, restricted period lattices, and the `τ'`-semilinear extension of the coefficient
-maps along `ψ` (through the coordinate `c ↦ c · ψ(w)` on the `L'`-line). Proved. -/
-theorem metrizationBaseChange_of_hodgeLine (h : HodgeLineBaseChange) :
-    MetrizationBaseChange := by
-  intro K _ A L L' _ _ _ _ _ _ _ _ 𝒢 𝒢' h𝒢 g Mm hM
-  subst hM
-  obtain ⟨ψ, hsmul, hne, hfin, hlat, harch⟩ := h K A L L' Mm.model 𝒢' h𝒢 g
-  obtain ⟨w, hwM, hw, hi⟩ := Mm.hodge.isLattice
-  have hw' : ψ w ≠ 0 := hne w hw
-  have hfin' : Module.finrank L' (𝒢'.hodgeSpace g) = 1 := hfin Mm.hodge.finrank_eq_one
-  -- the coordinate `c ↦ c • ψ w` on the `L'`-line
-  have hinj : Function.Injective (LinearMap.toSpanSingleton L' (𝒢'.hodgeSpace g) (ψ w)) :=
-    fun a b hab => smul_left_injective L' hw' hab
-  have hsurj : Function.Surjective (LinearMap.toSpanSingleton L' (𝒢'.hodgeSpace g) (ψ w)) :=
-    fun v => (finrank_eq_one_iff_of_nonzero' (ψ w) hw').mp hfin' v
-  let e : L' ≃ₗ[L'] 𝒢'.hodgeSpace g := LinearEquiv.ofBijective _ ⟨hinj, hsurj⟩
-  have he : ∀ c, e c = c • ψ w := fun c => rfl
-  -- the extended coefficient maps
-  let lin : ∀ τ' : L' →+* ℂ, L' →ₛₗ[τ'] ℂ := fun τ' =>
-    { toFun := fun c => τ' c * Mm.hodge.coeff (τ'.comp (algebraMap L L')) w
-      map_add' := fun a b => by rw [map_add, add_mul]
-      map_smul' := fun a b => by rw [smul_eq_mul, map_mul, smul_eq_mul, _root_.mul_assoc] }
-  let coeff' : ∀ τ' : L' →+* ℂ, 𝒢'.hodgeSpace g →ₛₗ[τ'] ℂ := fun τ' =>
-    (lin τ').comp e.symm.toLinearMap
-  have hcoeff' : ∀ (τ' : L' →+* ℂ) v,
-      coeff' τ' (ψ v) = Mm.hodge.coeff (τ'.comp (algebraMap L L')) v := by
-    intro τ' v
-    obtain ⟨a, rfl⟩ := (finrank_eq_one_iff_of_nonzero' w hw).mp Mm.hodge.finrank_eq_one v
-    have h1 : e.symm (ψ (a • w)) = algebraMap L L' a := by
-      rw [LinearEquiv.symm_apply_eq, he, hsmul]
-    show lin τ' (e.symm (ψ (a • w))) = _
-    rw [h1]
-    show τ' (algebraMap L L' a) * _ = _
-    rw [map_smulₛₗ, smul_eq_mul]
-    rfl
-  have hlat' : 𝒢'.detLattice g = Submodule.span (𝓞 L') (ψ '' Mm.hodge.lattice) := by
-    rw [hlat, Mm.lattice_eq]
-  let D' : HodgeData L' g (𝒢'.hodgeSpace g) :=
-    { lattice := 𝒢'.detLattice g
-      finrank_eq_one := hfin'
-      isLattice := by
-        refine ⟨ψ w, ?_, hw', ?_⟩
-        · rw [hlat']; exact Submodule.subset_span ⟨w, hwM, rfl⟩
-        · rw [hlat', secIndex_baseChange Mm.hodge.finrank_eq_one ψ hsmul _ hwM hw hw' hi]
-          exact pow_ne_zero _ hi
-      periods := fun τ' => Mm.hodge.periods (τ'.comp (algebraMap L L'))
-      periods_discrete := fun τ' => Mm.hodge.periods_discrete _
-      periods_isZLattice := fun τ' => Mm.hodge.periods_isZLattice _
-      coeff := coeff'
-      coeff_ne_zero := fun τ' h0 => by
-        have h2 := hcoeff' τ' w
-        rw [h0, LinearMap.zero_apply] at h2
-        exact Mm.hodge.coeff_apply_ne_zero _ hw h2.symm }
-  let Mm' : MetrizedModel A L' g :=
-    { model := 𝒢'
-      hodge := D'
-      lattice_eq := rfl
-      arch := fun τ' => by
-        obtain ⟨Φ, hΦ, hc⟩ := Mm.arch (τ'.comp (algebraMap L L'))
-        obtain ⟨Φ', hΦ', hc'⟩ := harch τ' _ Φ hΦ
-        exact ⟨Φ', hΦ', hc' _ (coeff' τ') hc (hcoeff' τ')⟩ }
-  exact ⟨Mm', ψ, rfl,
-    { smul := hsmul
-      ne_zero := hne
-      lattice := hlat'
-      periods := fun _ => rfl
-      coeff := hcoeff' }⟩
-
 /-! ### The piece, from the glue (proved) -/
-
-/-- **`StableHeightBaseChange` from three glue statements** (`BaseChangeCompIso`, and h5-neron's
-`GroupModelBaseChangeExists` (H4b) and the `≤` half `ModelHeightBaseChangeLE` of H4a) and the proved
-`compositum`. `≥`: a model of `(A_L)_M` is a model of `A_M` (transport along `(A_L)_M ≅ A_M`).
-`≤`: a model `𝒢` of `A_E` base-changes to a model of `A_M` over a compositum `M` of `E` and `L`,
-with no larger height (H4a `≤`, H4b), and is then a model of `(A_L)_M`. -/
-theorem stableHeightBaseChange_of_glue (hcomp : BaseChangeCompIso)
-    (hbcE : GroupModelBaseChangeExists) (hbc : ModelHeightBaseChangeLE) :
-    StableHeightBaseChange := by
-  intro K _ _ L _ _ _ A
-  rw [stableFaltingsHeight_eq_iInf_height, stableFaltingsHeight_eq_iInf_height]
-  apply le_antisymm
-  · refine le_iInf fun E => le_iInf fun 𝒢 => ?_
-    obtain ⟨M, i1, i2, i3, i4, i5, t1, t2⟩ := compositum K E.L L
-    obtain ⟨𝒢', h𝒢'⟩ := hbcE K A E.L M 𝒢
-    obtain ⟨e, he⟩ := hcomp K A L M
-    have he' : IsMonHom e.symm.hom := (inferInstance : IsMonHom e.inv)
-    calc ⨅ (E' : FinExt L) (𝒢₁ : GroupModel (A.baseChange L) E'.L), 𝒢₁.height
-        ≤ (transportModel e.symm he' 𝒢').height :=
-          iInf_le_of_le (FinExt.mk M) (iInf_le_of_le _ le_rfl)
-      _ ≤ 𝒢'.height := transportModel_height_le _ _ _
-      _ ≤ 𝒢.height := hbc K A E.L M 𝒢 𝒢' h𝒢'
-  · refine le_iInf fun E => le_iInf fun 𝒢 => ?_
-    letI : Algebra K E.L := ((algebraMap L E.L).comp (algebraMap K L)).toAlgebra
-    haveI : IsScalarTower K L E.L := IsScalarTower.of_algebraMap_eq fun _ => rfl
-    obtain ⟨e, he⟩ := hcomp K A L E.L
-    calc ⨅ (E' : FinExt K) (𝒢₁ : GroupModel A E'.L), 𝒢₁.height
-        ≤ (transportModel e he 𝒢).height :=
-          iInf_le_of_le (FinExt.mk E.L) (iInf_le_of_le _ le_rfl)
-      _ ≤ 𝒢.height := transportModel_height_le _ _ _
-
-/-- **`StableHeightBaseChange` from the inequality half of glue H4a alone** (`BaseChangeCompIso`
-and H4b are proved above). -/
-theorem stableHeightBaseChange_of_modelHeightBaseChangeLE (hbc : ModelHeightBaseChangeLE) :
-    StableHeightBaseChange :=
-  stableHeightBaseChange_of_glue baseChangeCompIso groupModelBaseChangeExists hbc
-
-/-- **`StableHeightBaseChange` from h5-neron's glue H4a.** -/
-theorem stableHeightBaseChange_of_modelHeightBaseChange (hbc : ModelHeightBaseChange) :
-    StableHeightBaseChange :=
-  stableHeightBaseChange_of_modelHeightBaseChangeLE (modelHeightBaseChangeLE hbc)
-
-/-- **`StableHeightBaseChange` from the geometric half of H4a alone.** -/
-theorem stableHeightBaseChange_of_metrization (h : MetrizationBaseChange) :
-    StableHeightBaseChange :=
-  stableHeightBaseChange_of_modelHeightBaseChangeLE (modelHeightBaseChangeLE_of_metrization h)
-
-/-- **`StableHeightBaseChange` from `HodgeLineBaseChange` alone.** -/
-theorem stableHeightBaseChange_of_hodgeLine (h : HodgeLineBaseChange) :
-    StableHeightBaseChange :=
-  stableHeightBaseChange_of_metrization (metrizationBaseChange_of_hodgeLine h)
 
 end G0StableBC
 
@@ -2966,9 +1618,12 @@ the three group models (infima over metrizations). It follows from:
   is the sum (the construction direction; equality). -/
 
 namespace ZInQ.G0HeightAdd
+open _root_.ZInQ (DefFaltings.AbVar DefFaltings.AnalyticUniformizationExists DefFaltings.AnalyticUniformizationUnique DefFaltings.EReal.add_coe_add_neg_coe DefFaltings.FinExt DefFaltings.Genus2Eq DefFaltings.Genus2Eq.Good DefFaltings.Genus2Eq.P DefFaltings.Genus2Eq.binDisc DefFaltings.GroupModel DefFaltings.GroupModel.IsAnalyticUniformization DefFaltings.GroupModel.IsNeronModel DefFaltings.GroupModel.Pts DefFaltings.GroupModel.cotangent DefFaltings.GroupModel.dCls DefFaltings.GroupModel.detLattice DefFaltings.GroupModel.dom DefFaltings.GroupModel.evalAt DefFaltings.GroupModel.exists_rep DefFaltings.GroupModel.genStalk DefFaltings.GroupModel.genericUnit DefFaltings.GroupModel.germAlong DefFaltings.GroupModel.height DefFaltings.GroupModel.height_eq DefFaltings.GroupModel.hodgeSpace DefFaltings.GroupModel.jacDet DefFaltings.GroupModel.jacDet_comp DefFaltings.GroupModel.omega DefFaltings.GroupModel.omegaAt DefFaltings.GroupModel.omegaAt_genericPt DefFaltings.GroupModel.ptC DefFaltings.GroupModel.semilinear_ext_wedge DefFaltings.GroupModel.specializes_genericUnit DefFaltings.GroupModel.structMap DefFaltings.GroupModel.unitSection DefFaltings.GroupModel.wedge DefFaltings.HermitianLattice DefFaltings.HermitianLattice.arakelovDegree DefFaltings.HermitianLattice.arakelovDegree_ofFractionalIdeal DefFaltings.HermitianLattice.arakelovDegree_rescale DefFaltings.HermitianLattice.degreeAt DefFaltings.HermitianLattice.degreeAt_eq DefFaltings.HermitianLattice.degreeAt_eq_arakelovDegree DefFaltings.HermitianLattice.degreeAt_smul DefFaltings.HermitianLattice.ofFractionalIdeal DefFaltings.HermitianLattice.rescale DefFaltings.HermitianLattice.secIndex_ne_zero DefFaltings.HodgeData DefFaltings.HodgeData.coeff_apply_ne_zero DefFaltings.HodgeData.hodgeBundle DefFaltings.HodgeData.modelHeight DefFaltings.HodgeData.modelHeight_eq DefFaltings.HodgeData.modelHeight_eq_add_of_le DefFaltings.HodgeData.modelHeight_eq_faltingsHeightGood DefFaltings.HodgeData.modelHeight_le_of_le DefFaltings.HodgeData.modelHeight_ofIdeal DefFaltings.HodgeData.modelHeight_ofIdeal_baseChange DefFaltings.HodgeData.modelHeight_of_span DefFaltings.HodgeData.modelHeight_recoord DefFaltings.HodgeData.norm DefFaltings.HodgeData.norm_sq DefFaltings.HodgeData.recoord DefFaltings.HodgeLatticeTheorem DefFaltings.IsIsogeny DefFaltings.MetrizedModel DefFaltings.MetrizedModel.modelHeight_eq_of_model_eq DefFaltings.NeronModelMinimal DefFaltings.PeriodAreaFormula DefFaltings.R19_GaudronRemond DefFaltings.R20_FaltingsLemma5 DefFaltings.R21_Bost DefFaltings.StableHeightFinite DefFaltings.absNorm_extendedHom DefFaltings.absNorm_map_ringOfIntegers DefFaltings.arakelovDegree_ofFractionalIdeal_baseChange DefFaltings.arakelovDegree_ofFractionalIdeal_mul DefFaltings.card_embeddings_over DefFaltings.covolume_comap_mul_det DefFaltings.covolume_gaussianPair DefFaltings.det_restrictScalars_complex DefFaltings.embCoeff DefFaltings.faltingsHeight DefFaltings.faltingsHeightEC DefFaltings.faltingsHeightGood DefFaltings.faltingsHeight_coe DefFaltings.finiteHeightPart DefFaltings.finrank_ringOfIntegers DefFaltings.gaussianPair DefFaltings.genericFibre DefFaltings.genericPt DefFaltings.grKappa DefFaltings.hypGram DefFaltings.hypGram_comp_add DefFaltings.hypVol DefFaltings.hypVol_one_comp_add DefFaltings.isogDeg DefFaltings.le_stableFaltingsHeight DefFaltings.modelHeight_ofIdeal_eq_faltingsHeightEC DefFaltings.modelHeight_ofIdeal_eq_faltingsHeightEC' DefFaltings.norm_algebraMap_tower DefFaltings.ptObj DefFaltings.ratCoeff DefFaltings.realify DefFaltings.secIndex DefFaltings.secIndex_mul_absNorm DefFaltings.secIndex_smul DefFaltings.stableFaltingsHeight DefFaltings.stableFaltingsHeightDeligne DefFaltings.stableFaltingsHeightDeligne_eq DefFaltings.stableFaltingsHeight_eq_faltingsHeightGood DefFaltings.stableFaltingsHeight_eq_iInf_height DefFaltings.stableFaltingsHeight_le DefFaltings.stableFaltingsHeight_ne_bot_of_R21 DefFaltings.sum_embeddings_comp DefFaltings.sum_log_norm_embeddings DefFaltings.sum_log_norm_embeddings_int DefFaltings.torusMetricSq DefFaltings.torusMetricSq_comap DefFaltings.torusMetricSq_eq_setIntegral DefFaltings.torusMetricSq_pos DefFaltings.torusMetricSq_smul DefFaltings.torus_setIntegral_indep H5Neron.GroupModel.IsNeronModel.lift H5Neron.GroupModel.IsNeronModel.uniqueIso H5Neron.GroupModel.isNeronModel_iff H5Neron.GroupModelBaseChangeExists H5Neron.IsBaseChangeOf H5Neron.IsOpenSubgroupModel H5Neron.IsProductAbVar H5Neron.IsProductModel H5Neron.ModelHeightBaseChange H5Neron.NeronModelExists H5Neron.NeronProp H5Neron.NeronProp.lift H5Neron.NeronProp.of_iso H5Neron.NeronProp.tensor H5Neron.NeronProp.uniqueIso H5Neron.OpenSubgroupHeight H5Neron.ProductGroupModelExists H5Neron.ProductModelHeight H5Neron.R19_zero H5Neron.R20_zero H5Neron.R21_zero H5Neron.SemistableNeronIdentityComponent H5Neron.bcProd H5Neron.bcUnitIso H5Neron.compositum H5Neron.covolume_fin_zero H5Neron.detLattice_zero H5Neron.glue_zero H5Neron.groupModel_height_zero H5Neron.hodgeZeroEquiv H5Neron.hodgeZeroEquiv_wedge0 H5Neron.hom_ext_of_iso_unit H5Neron.isIsogeny_id_zero H5Neron.isMonHom_of_iso_unit H5Neron.isMonHom_prodComparisonIso H5Neron.isNeronModel_of_isProductModel H5Neron.isogDeg_zero_le_one H5Neron.jL H5Neron.metrizedOf H5Neron.modelHeight_dim_zero H5Neron.neronModelExists_zero H5Neron.neronModelMinimal_zero H5Neron.neron_zero_iso_unit H5Neron.no_metrized_succ H5Neron.one_le_grKappa H5Neron.productGroupModelExists H5Neron.pts_subsingleton H5Neron.semistableNeronIdentityComponent_zero H5Neron.semσ H5Neron.stableFaltingsHeight_add_le H5Neron.stableFaltingsHeight_add_le' H5Neron.stableFaltingsHeight_eq_neron H5Neron.stableFaltingsHeight_eq_neron_all H5Neron.stableFaltingsHeight_zero H5Neron.stableHeightFinite_zero H5Neron.tensorGen H5Neron.tensorGen_fst H5Neron.tensorGen_snd H5Neron.trivHodge H5Neron.trivMetrized H5Neron.trivModel H5Neron.trivModel_isNeronModel H5Neron.wedge0 H5Neron.wedge0_ne_zero H5Neron.wedge_eq_wedge0 LeafPush2.CPts LeafPush2.Char2 LeafPush2.HasSexticModel LeafPush2.IC10 LeafPush2.IC2 LeafPush2.IC4 LeafPush2.IC6 LeafPush2.IgJ10 LeafPush2.IgJ2 LeafPush2.IgJ4 LeafPush2.IgJ6 LeafPush2.IsGenus2 LeafPush2.IsPeriodMatrix LeafPush2.IsSiegel LeafPush2.IsUniformization LeafPush2.LinYangTuple LeafPush2.OnQMLocus LeafPush2.T10_groupIso LeafPush2.T11a_RiemannEnd LeafPush2.T11b_Rigidity LeafPush2.T12_ComplexConjEigen LeafPush2.UniformizationExists LeafPush2.absLogHeight LeafPush2.cDom LeafPush2.cEvalAt LeafPush2.cptObj LeafPush2.dsq LeafPush2.exists_isComplexConj LeafPush2.ffAlgebra LeafPush2.ffStructMap LeafPush2.isSiegel_I LeafPush2.javanpeykarBound LeafPush2.javanpeykarBound_mono LeafPush2.javanpeykarBound_pos LeafPush2.linYangTuple_onQMLocus LeafPush2.linYang_j_eq LeafPush2.onQMLocus_of_linYangTuple LeafPush2.pazukiC2 LeafPush2.sextic LeafPush2.thetaConst) -- op-dedupe
 
 open CategoryTheory AlgebraicGeometry Limits MonoidalCategory CartesianMonoidalCategory MonObj
 open NumberField DefFaltings H5Neron
+open _root_.ZInQ.DefFaltings (AbVar AnalyticUniformizationExists AnalyticUniformizationUnique EReal.add_coe_add_neg_coe FinExt Genus2Eq Genus2Eq.Good Genus2Eq.P Genus2Eq.binDisc GroupModel GroupModel.IsAnalyticUniformization GroupModel.IsNeronModel GroupModel.Pts GroupModel.cotangent GroupModel.dCls GroupModel.detLattice GroupModel.dom GroupModel.evalAt GroupModel.exists_rep GroupModel.genStalk GroupModel.genericUnit GroupModel.germAlong GroupModel.height GroupModel.height_eq GroupModel.hodgeSpace GroupModel.jacDet GroupModel.jacDet_comp GroupModel.omega GroupModel.omegaAt GroupModel.omegaAt_genericPt GroupModel.ptC GroupModel.semilinear_ext_wedge GroupModel.specializes_genericUnit GroupModel.structMap GroupModel.unitSection GroupModel.wedge HermitianLattice HermitianLattice.arakelovDegree HermitianLattice.arakelovDegree_ofFractionalIdeal HermitianLattice.arakelovDegree_rescale HermitianLattice.degreeAt HermitianLattice.degreeAt_eq HermitianLattice.degreeAt_eq_arakelovDegree HermitianLattice.degreeAt_smul HermitianLattice.ofFractionalIdeal HermitianLattice.rescale HermitianLattice.secIndex_ne_zero HodgeData HodgeData.coeff_apply_ne_zero HodgeData.hodgeBundle HodgeData.modelHeight HodgeData.modelHeight_eq HodgeData.modelHeight_eq_add_of_le HodgeData.modelHeight_eq_faltingsHeightGood HodgeData.modelHeight_le_of_le HodgeData.modelHeight_ofIdeal HodgeData.modelHeight_ofIdeal_baseChange HodgeData.modelHeight_of_span HodgeData.modelHeight_recoord HodgeData.norm HodgeData.norm_sq HodgeData.recoord HodgeLatticeTheorem IsIsogeny MetrizedModel MetrizedModel.modelHeight_eq_of_model_eq NeronModelMinimal PeriodAreaFormula R19_GaudronRemond R20_FaltingsLemma5 R21_Bost StableHeightFinite absNorm_extendedHom absNorm_map_ringOfIntegers arakelovDegree_ofFractionalIdeal_baseChange arakelovDegree_ofFractionalIdeal_mul card_embeddings_over covolume_comap_mul_det covolume_gaussianPair det_restrictScalars_complex embCoeff faltingsHeight faltingsHeightEC faltingsHeightGood faltingsHeight_coe finiteHeightPart finrank_ringOfIntegers gaussianPair genericFibre genericPt grKappa hypGram hypGram_comp_add hypVol hypVol_one_comp_add isogDeg le_stableFaltingsHeight modelHeight_ofIdeal_eq_faltingsHeightEC modelHeight_ofIdeal_eq_faltingsHeightEC' norm_algebraMap_tower ptObj ratCoeff realify secIndex secIndex_mul_absNorm secIndex_smul stableFaltingsHeight stableFaltingsHeightDeligne stableFaltingsHeightDeligne_eq stableFaltingsHeight_eq_faltingsHeightGood stableFaltingsHeight_eq_iInf_height stableFaltingsHeight_le stableFaltingsHeight_ne_bot_of_R21 sum_embeddings_comp sum_log_norm_embeddings sum_log_norm_embeddings_int torusMetricSq torusMetricSq_comap torusMetricSq_eq_setIntegral torusMetricSq_pos torusMetricSq_smul torus_setIntegral_indep) -- op-dedupe
+open _root_.ZInQ.H5Neron (GroupModel.IsNeronModel.lift GroupModel.IsNeronModel.uniqueIso GroupModel.isNeronModel_iff GroupModelBaseChangeExists IsBaseChangeOf IsOpenSubgroupModel IsProductAbVar IsProductModel ModelHeightBaseChange NeronModelExists NeronProp NeronProp.lift NeronProp.of_iso NeronProp.tensor NeronProp.uniqueIso OpenSubgroupHeight ProductGroupModelExists ProductModelHeight R19_zero R20_zero R21_zero SemistableNeronIdentityComponent bcProd bcUnitIso compositum covolume_fin_zero detLattice_zero glue_zero groupModel_height_zero hodgeZeroEquiv hodgeZeroEquiv_wedge0 hom_ext_of_iso_unit isIsogeny_id_zero isMonHom_of_iso_unit isMonHom_prodComparisonIso isNeronModel_of_isProductModel isogDeg_zero_le_one jL metrizedOf modelHeight_dim_zero neronModelExists_zero neronModelMinimal_zero neron_zero_iso_unit no_metrized_succ one_le_grKappa productGroupModelExists pts_subsingleton semistableNeronIdentityComponent_zero semσ stableFaltingsHeight_add_le stableFaltingsHeight_add_le' stableFaltingsHeight_eq_neron stableFaltingsHeight_eq_neron_all stableFaltingsHeight_zero stableHeightFinite_zero tensorGen tensorGen_fst tensorGen_snd trivHodge trivMetrized trivModel trivModel_isNeronModel wedge0 wedge0_ne_zero wedge_eq_wedge0) -- op-dedupe
 
 /-- **Glue P2a (product of metrized models).** If `𝒢P ≅ 𝒢₁ × 𝒢₂` (`IsProductModel`) and `M₁`, `M₂`
 are metrizations of `𝒢₁`, `𝒢₂` of dimensions `g₁`, `g₂`, then `𝒢P` has a metrization of
@@ -3046,9 +1701,12 @@ metrization with a product section `η = η₁ ∧ η₂` for which the index, t
 covolumes are multiplicative) + the height computation (`modelHeight_add_of`, proved). -/
 
 namespace ZInQ.G0HeightAdd
+open _root_.ZInQ (DefFaltings.AbVar DefFaltings.AnalyticUniformizationExists DefFaltings.AnalyticUniformizationUnique DefFaltings.EReal.add_coe_add_neg_coe DefFaltings.FinExt DefFaltings.Genus2Eq DefFaltings.Genus2Eq.Good DefFaltings.Genus2Eq.P DefFaltings.Genus2Eq.binDisc DefFaltings.GroupModel DefFaltings.GroupModel.IsAnalyticUniformization DefFaltings.GroupModel.IsNeronModel DefFaltings.GroupModel.Pts DefFaltings.GroupModel.cotangent DefFaltings.GroupModel.dCls DefFaltings.GroupModel.detLattice DefFaltings.GroupModel.dom DefFaltings.GroupModel.evalAt DefFaltings.GroupModel.exists_rep DefFaltings.GroupModel.genStalk DefFaltings.GroupModel.genericUnit DefFaltings.GroupModel.germAlong DefFaltings.GroupModel.height DefFaltings.GroupModel.height_eq DefFaltings.GroupModel.hodgeSpace DefFaltings.GroupModel.jacDet DefFaltings.GroupModel.jacDet_comp DefFaltings.GroupModel.omega DefFaltings.GroupModel.omegaAt DefFaltings.GroupModel.omegaAt_genericPt DefFaltings.GroupModel.ptC DefFaltings.GroupModel.semilinear_ext_wedge DefFaltings.GroupModel.specializes_genericUnit DefFaltings.GroupModel.structMap DefFaltings.GroupModel.unitSection DefFaltings.GroupModel.wedge DefFaltings.HermitianLattice DefFaltings.HermitianLattice.arakelovDegree DefFaltings.HermitianLattice.arakelovDegree_ofFractionalIdeal DefFaltings.HermitianLattice.arakelovDegree_rescale DefFaltings.HermitianLattice.degreeAt DefFaltings.HermitianLattice.degreeAt_eq DefFaltings.HermitianLattice.degreeAt_eq_arakelovDegree DefFaltings.HermitianLattice.degreeAt_smul DefFaltings.HermitianLattice.ofFractionalIdeal DefFaltings.HermitianLattice.rescale DefFaltings.HermitianLattice.secIndex_ne_zero DefFaltings.HodgeData DefFaltings.HodgeData.coeff_apply_ne_zero DefFaltings.HodgeData.hodgeBundle DefFaltings.HodgeData.modelHeight DefFaltings.HodgeData.modelHeight_eq DefFaltings.HodgeData.modelHeight_eq_add_of_le DefFaltings.HodgeData.modelHeight_eq_faltingsHeightGood DefFaltings.HodgeData.modelHeight_le_of_le DefFaltings.HodgeData.modelHeight_ofIdeal DefFaltings.HodgeData.modelHeight_ofIdeal_baseChange DefFaltings.HodgeData.modelHeight_of_span DefFaltings.HodgeData.modelHeight_recoord DefFaltings.HodgeData.norm DefFaltings.HodgeData.norm_sq DefFaltings.HodgeData.recoord DefFaltings.HodgeLatticeTheorem DefFaltings.IsIsogeny DefFaltings.MetrizedModel DefFaltings.MetrizedModel.modelHeight_eq_of_model_eq DefFaltings.NeronModelMinimal DefFaltings.PeriodAreaFormula DefFaltings.R19_GaudronRemond DefFaltings.R20_FaltingsLemma5 DefFaltings.R21_Bost DefFaltings.StableHeightFinite DefFaltings.absNorm_extendedHom DefFaltings.absNorm_map_ringOfIntegers DefFaltings.arakelovDegree_ofFractionalIdeal_baseChange DefFaltings.arakelovDegree_ofFractionalIdeal_mul DefFaltings.card_embeddings_over DefFaltings.covolume_comap_mul_det DefFaltings.covolume_gaussianPair DefFaltings.det_restrictScalars_complex DefFaltings.embCoeff DefFaltings.faltingsHeight DefFaltings.faltingsHeightEC DefFaltings.faltingsHeightGood DefFaltings.faltingsHeight_coe DefFaltings.finiteHeightPart DefFaltings.finrank_ringOfIntegers DefFaltings.gaussianPair DefFaltings.genericFibre DefFaltings.genericPt DefFaltings.grKappa DefFaltings.hypGram DefFaltings.hypGram_comp_add DefFaltings.hypVol DefFaltings.hypVol_one_comp_add DefFaltings.isogDeg DefFaltings.le_stableFaltingsHeight DefFaltings.modelHeight_ofIdeal_eq_faltingsHeightEC DefFaltings.modelHeight_ofIdeal_eq_faltingsHeightEC' DefFaltings.norm_algebraMap_tower DefFaltings.ptObj DefFaltings.ratCoeff DefFaltings.realify DefFaltings.secIndex DefFaltings.secIndex_mul_absNorm DefFaltings.secIndex_smul DefFaltings.stableFaltingsHeight DefFaltings.stableFaltingsHeightDeligne DefFaltings.stableFaltingsHeightDeligne_eq DefFaltings.stableFaltingsHeight_eq_faltingsHeightGood DefFaltings.stableFaltingsHeight_eq_iInf_height DefFaltings.stableFaltingsHeight_le DefFaltings.stableFaltingsHeight_ne_bot_of_R21 DefFaltings.sum_embeddings_comp DefFaltings.sum_log_norm_embeddings DefFaltings.sum_log_norm_embeddings_int DefFaltings.torusMetricSq DefFaltings.torusMetricSq_comap DefFaltings.torusMetricSq_eq_setIntegral DefFaltings.torusMetricSq_pos DefFaltings.torusMetricSq_smul DefFaltings.torus_setIntegral_indep H5Neron.GroupModel.IsNeronModel.lift H5Neron.GroupModel.IsNeronModel.uniqueIso H5Neron.GroupModel.isNeronModel_iff H5Neron.GroupModelBaseChangeExists H5Neron.IsBaseChangeOf H5Neron.IsOpenSubgroupModel H5Neron.IsProductAbVar H5Neron.IsProductModel H5Neron.ModelHeightBaseChange H5Neron.NeronModelExists H5Neron.NeronProp H5Neron.NeronProp.lift H5Neron.NeronProp.of_iso H5Neron.NeronProp.tensor H5Neron.NeronProp.uniqueIso H5Neron.OpenSubgroupHeight H5Neron.ProductGroupModelExists H5Neron.ProductModelHeight H5Neron.R19_zero H5Neron.R20_zero H5Neron.R21_zero H5Neron.SemistableNeronIdentityComponent H5Neron.bcProd H5Neron.bcUnitIso H5Neron.compositum H5Neron.covolume_fin_zero H5Neron.detLattice_zero H5Neron.glue_zero H5Neron.groupModel_height_zero H5Neron.hodgeZeroEquiv H5Neron.hodgeZeroEquiv_wedge0 H5Neron.hom_ext_of_iso_unit H5Neron.isIsogeny_id_zero H5Neron.isMonHom_of_iso_unit H5Neron.isMonHom_prodComparisonIso H5Neron.isNeronModel_of_isProductModel H5Neron.isogDeg_zero_le_one H5Neron.jL H5Neron.metrizedOf H5Neron.modelHeight_dim_zero H5Neron.neronModelExists_zero H5Neron.neronModelMinimal_zero H5Neron.neron_zero_iso_unit H5Neron.no_metrized_succ H5Neron.one_le_grKappa H5Neron.productGroupModelExists H5Neron.pts_subsingleton H5Neron.semistableNeronIdentityComponent_zero H5Neron.semσ H5Neron.stableFaltingsHeight_add_le H5Neron.stableFaltingsHeight_add_le' H5Neron.stableFaltingsHeight_eq_neron H5Neron.stableFaltingsHeight_eq_neron_all H5Neron.stableFaltingsHeight_zero H5Neron.stableHeightFinite_zero H5Neron.tensorGen H5Neron.tensorGen_fst H5Neron.tensorGen_snd H5Neron.trivHodge H5Neron.trivMetrized H5Neron.trivModel H5Neron.trivModel_isNeronModel H5Neron.wedge0 H5Neron.wedge0_ne_zero H5Neron.wedge_eq_wedge0 LeafPush2.CPts LeafPush2.Char2 LeafPush2.HasSexticModel LeafPush2.IC10 LeafPush2.IC2 LeafPush2.IC4 LeafPush2.IC6 LeafPush2.IgJ10 LeafPush2.IgJ2 LeafPush2.IgJ4 LeafPush2.IgJ6 LeafPush2.IsGenus2 LeafPush2.IsPeriodMatrix LeafPush2.IsSiegel LeafPush2.IsUniformization LeafPush2.LinYangTuple LeafPush2.OnQMLocus LeafPush2.T10_groupIso LeafPush2.T11a_RiemannEnd LeafPush2.T11b_Rigidity LeafPush2.T12_ComplexConjEigen LeafPush2.UniformizationExists LeafPush2.absLogHeight LeafPush2.cDom LeafPush2.cEvalAt LeafPush2.cptObj LeafPush2.dsq LeafPush2.exists_isComplexConj LeafPush2.ffAlgebra LeafPush2.ffStructMap LeafPush2.isSiegel_I LeafPush2.javanpeykarBound LeafPush2.javanpeykarBound_mono LeafPush2.javanpeykarBound_pos LeafPush2.linYangTuple_onQMLocus LeafPush2.linYang_j_eq LeafPush2.onQMLocus_of_linYangTuple LeafPush2.pazukiC2 LeafPush2.sextic LeafPush2.thetaConst) -- op-dedupe
 
 open CategoryTheory AlgebraicGeometry Limits MonoidalCategory CartesianMonoidalCategory MonObj
 open NumberField MeasureTheory DefFaltings H5Neron
+open _root_.ZInQ.DefFaltings (AbVar AnalyticUniformizationExists AnalyticUniformizationUnique EReal.add_coe_add_neg_coe FinExt Genus2Eq Genus2Eq.Good Genus2Eq.P Genus2Eq.binDisc GroupModel GroupModel.IsAnalyticUniformization GroupModel.IsNeronModel GroupModel.Pts GroupModel.cotangent GroupModel.dCls GroupModel.detLattice GroupModel.dom GroupModel.evalAt GroupModel.exists_rep GroupModel.genStalk GroupModel.genericUnit GroupModel.germAlong GroupModel.height GroupModel.height_eq GroupModel.hodgeSpace GroupModel.jacDet GroupModel.jacDet_comp GroupModel.omega GroupModel.omegaAt GroupModel.omegaAt_genericPt GroupModel.ptC GroupModel.semilinear_ext_wedge GroupModel.specializes_genericUnit GroupModel.structMap GroupModel.unitSection GroupModel.wedge HermitianLattice HermitianLattice.arakelovDegree HermitianLattice.arakelovDegree_ofFractionalIdeal HermitianLattice.arakelovDegree_rescale HermitianLattice.degreeAt HermitianLattice.degreeAt_eq HermitianLattice.degreeAt_eq_arakelovDegree HermitianLattice.degreeAt_smul HermitianLattice.ofFractionalIdeal HermitianLattice.rescale HermitianLattice.secIndex_ne_zero HodgeData HodgeData.coeff_apply_ne_zero HodgeData.hodgeBundle HodgeData.modelHeight HodgeData.modelHeight_eq HodgeData.modelHeight_eq_add_of_le HodgeData.modelHeight_eq_faltingsHeightGood HodgeData.modelHeight_le_of_le HodgeData.modelHeight_ofIdeal HodgeData.modelHeight_ofIdeal_baseChange HodgeData.modelHeight_of_span HodgeData.modelHeight_recoord HodgeData.norm HodgeData.norm_sq HodgeData.recoord HodgeLatticeTheorem IsIsogeny MetrizedModel MetrizedModel.modelHeight_eq_of_model_eq NeronModelMinimal PeriodAreaFormula R19_GaudronRemond R20_FaltingsLemma5 R21_Bost StableHeightFinite absNorm_extendedHom absNorm_map_ringOfIntegers arakelovDegree_ofFractionalIdeal_baseChange arakelovDegree_ofFractionalIdeal_mul card_embeddings_over covolume_comap_mul_det covolume_gaussianPair det_restrictScalars_complex embCoeff faltingsHeight faltingsHeightEC faltingsHeightGood faltingsHeight_coe finiteHeightPart finrank_ringOfIntegers gaussianPair genericFibre genericPt grKappa hypGram hypGram_comp_add hypVol hypVol_one_comp_add isogDeg le_stableFaltingsHeight modelHeight_ofIdeal_eq_faltingsHeightEC modelHeight_ofIdeal_eq_faltingsHeightEC' norm_algebraMap_tower ptObj ratCoeff realify secIndex secIndex_mul_absNorm secIndex_smul stableFaltingsHeight stableFaltingsHeightDeligne stableFaltingsHeightDeligne_eq stableFaltingsHeight_eq_faltingsHeightGood stableFaltingsHeight_eq_iInf_height stableFaltingsHeight_le stableFaltingsHeight_ne_bot_of_R21 sum_embeddings_comp sum_log_norm_embeddings sum_log_norm_embeddings_int torusMetricSq torusMetricSq_comap torusMetricSq_eq_setIntegral torusMetricSq_pos torusMetricSq_smul torus_setIntegral_indep) -- op-dedupe
+open _root_.ZInQ.H5Neron (GroupModel.IsNeronModel.lift GroupModel.IsNeronModel.uniqueIso GroupModel.isNeronModel_iff GroupModelBaseChangeExists IsBaseChangeOf IsOpenSubgroupModel IsProductAbVar IsProductModel ModelHeightBaseChange NeronModelExists NeronProp NeronProp.lift NeronProp.of_iso NeronProp.tensor NeronProp.uniqueIso OpenSubgroupHeight ProductGroupModelExists ProductModelHeight R19_zero R20_zero R21_zero SemistableNeronIdentityComponent bcProd bcUnitIso compositum covolume_fin_zero detLattice_zero glue_zero groupModel_height_zero hodgeZeroEquiv hodgeZeroEquiv_wedge0 hom_ext_of_iso_unit isIsogeny_id_zero isMonHom_of_iso_unit isMonHom_prodComparisonIso isNeronModel_of_isProductModel isogDeg_zero_le_one jL metrizedOf modelHeight_dim_zero neronModelExists_zero neronModelMinimal_zero neron_zero_iso_unit no_metrized_succ one_le_grKappa productGroupModelExists pts_subsingleton semistableNeronIdentityComponent_zero semσ stableFaltingsHeight_add_le stableFaltingsHeight_add_le' stableFaltingsHeight_eq_neron stableFaltingsHeight_eq_neron_all stableFaltingsHeight_zero stableHeightFinite_zero tensorGen tensorGen_fst tensorGen_snd trivHodge trivMetrized trivModel trivModel_isNeronModel wedge0 wedge0_ne_zero wedge_eq_wedge0) -- op-dedupe
 
 section HodgeAdd
 
@@ -3162,7 +1820,8 @@ noncomputable section
 
 namespace G0Galois
 
-open PkgI4 (GaloisRep GaloisChar)
+-- op-dedupe was: open PkgI4 (GaloisRep GaloisChar)
+open _root_.PkgI4 (GaloisRep GaloisChar) -- op-dedupe
 open CategoryTheory AlgebraicGeometry Limits MonoidalCategory CartesianMonoidalCategory MonObj
 
 /-! ### Objects -/
@@ -3277,7 +1936,7 @@ def G8Out {K : Type} [Field K] [NumberField K] (A : PkgI3.AbVar K) (ℓ : ℕ) [
 `r|G_{ℚ_ℓ}` is de Rham, with Hodge–Tate weights `{0, −1}` (Tate convention, cyclotomic weight
 `−1`; pkg-I4's `LocalIsDeRham`, `HasHTWeightsAtSelf`). -/
 def G9Out {ℓ : ℕ} [Fact ℓ.Prime] (r : GaloisRep ℓ 2) : Prop :=
-  PkgI4.LocalIsDeRham ℓ 2 (r.restrictLocal ℓ) ∧ r.HasHTWeightsAtSelf ℓ {0, -1}
+  PkgI4.LocalIsDeRham ℓ 2 (r.restrictLocal ℓ) ∧ PkgI4.GaloisRep.HasHTWeightsAtSelf (ρ := r) ℓ {0, -1}
 
 -- (leaf-fold2) `G0Galois.G10Out` deleted: Leaves.lean (leaf-fold) declares it with the same body.
 
@@ -3384,7 +2043,7 @@ def G12Weight : Prop :=
     (ψ : GaloisChar 5) (ιC : PkgI4.Qbar →ₐ[ℚ] ℂ) (ιL : PkgI4.Qbar →ₐ[ℚ] PadicAlgCl 5)
     (S : Finset ℕ),
     0 < N → 1 ≤ k → PkgI4.IsNormalizedEigenform g χ → r.IsIrreducible →
-    r.HasHTWeightsAtSelf 5 {0, -1} → r.AttachedUpToTwist ψ ιC ιL g S →
+    PkgI4.GaloisRep.HasHTWeightsAtSelf (ρ := r) 5 {0, -1} → r.AttachedUpToTwist ψ ιC ιL g S →
     ∃ n : ℤ, ({n, n + 1 - k} : Multiset ℤ) = {0, -1}
 
 /-- **G12, the determinant identities (GLUE, unproved; h-trust C8 items 1-3, V16 L660-667).**
@@ -3610,7 +2269,8 @@ noncomputable section
 
 namespace G0Galois
 
-open PkgI4 (GaloisRep)
+-- op-dedupe was: open PkgI4 (GaloisRep)
+open _root_.PkgI4 (GaloisRep) -- op-dedupe
 
 /-- **Burnside's theorem, absolutely irreducible form (textbook leaf; Lang, *Algebra*, XVII §3,
 Cor. 3.4, and Curtis–Reiner §27 (Burnside, Frobenius–Schur); locators UNVERIFIED).** If a
@@ -3698,7 +2358,8 @@ noncomputable section
 
 namespace G0Galois
 
-open PkgI4 (GaloisRep GaloisChar)
+-- op-dedupe was: open PkgI4 (GaloisRep GaloisChar)
+open _root_.PkgI4 (GaloisRep GaloisChar) -- op-dedupe
 
 -- (leaf-fold2) `G0Galois.toRingEquivQ` deleted: Leaves.lean (leaf-fold) declares it with the same body.
 
@@ -3837,7 +2498,8 @@ end G0GaloisDetSec
 
 namespace G0Galois
 
-open PkgI4 (GaloisRep GaloisChar)
+-- op-dedupe was: open PkgI4 (GaloisRep GaloisChar)
+open _root_.PkgI4 (GaloisRep GaloisChar) -- op-dedupe
 
 noncomputable section
 
@@ -4102,587 +2764,24 @@ set_option linter.unusedSectionVars false
 /-! ## Part B. Inertia, ramification groups and the conductor exponent on `G_{ℚ_p}` -/
 
 namespace LadicCond
+open _root_.LadicCond (AdaptedExists CarayolR17 CarayolR17' EventuallyTrivial Fld InertiaRestriction IsAdapted IsFinGal IsUnif IsUnif.norm_eq Kbar SwanIndependent SwanIntegral apply_mem artinAt carayolR17'_of_R17 carayolR17_of_R17' codimInv codimInv_eq_zero codimInv_le condAt condAt_eq_artinAt condAt_eq_artinAt' condAt_eq_artinAt'' condAt_eq_artinAt_of_surj condAt_eq_zero_of_unramified condAt_le_of_upper condExp condExp_eq_condAt condExp_eq_zero_of_unramified condExp_one eventuallyTrivial eventually_not_restr exists_isUnif finite_restr fixSet fixSet_subset_ramSet inertiaSet inertiaSet_subset_ramSet_zero integral_codim_le invariants invariants_eq_of_cover invariants_eq_top isAdapted_one isUnif_bot norm_p_kbar norm_pow_factorial one_mem_wildSet phiAt ramCard ramCardR ramCard_ne_zero ramSet ramSetR restr swan swanAt swanAt_eq_zero_of_unramified upperAbs upperSet wildSet wildSet_subset_inertiaSet) -- op-dedupe
 
 open PkgI4
+open _root_.PkgI4 (CF EigenformRepExists EigenformTwist GQ GQp GaloisChar GaloisRep GaloisRep.AttachedTo GaloisRep.AttachedUpToTwist GaloisRep.FinitelyRamified GaloisRep.IsIrreducible GaloisRep.IsOdd GaloisRep.IsSemisimple GaloisRep.UnramifiedAt GaloisRep.mat GaloisRep.restrictLocal HasNebentypus IsArithFrob IsComplexConj IsNewform IsNormalizedEigenform LiesOver NewformOfEigenform Qbar coeff decomp oldSpace scaleH) -- op-dedupe
 
 variable {p : ℕ} [Fact p.Prime]
 
-/-- `ℚ̄_p` (Mathlib's `PadicAlgCl p`, normed by the unique extension of `|·|_p`). -/
-abbrev Kbar (p : ℕ) [Fact p.Prime] := PadicAlgCl p
-
-/-- A finite Galois extension `L/ℚ_p` inside `ℚ̄_p`. -/
-abbrev Fld (p : ℕ) [Fact p.Prime] := IntermediateField ℚ_[p] (Kbar p)
-
-/-- **Inertia** `I_p ⊂ G_{ℚ_p}`: the `σ` acting trivially on the residue field of `ℚ̄_p`,
-i.e. `|σx − x| < 1` for all `|x| ≤ 1` (Serre, *Corps locaux* I §7 / IV §1). -/
-def inertiaSet : Set (GQp p) := {σ | ∀ x : Kbar p, ‖x‖ ≤ 1 → ‖σ x - x‖ < 1}
-
-/-- **Wild inertia** `P_p ⊂ G_{ℚ_p}`: the `σ` with `σx/x ≡ 1` modulo the maximal ideal for all
-`x ≠ 0`, i.e. `|σx − x| < |x|` (Serre, *Corps locaux* IV §2, Cor. 1 of Prop. 7, at every finite
-level; UNVERIFIED numbering). -/
-def wildSet : Set (GQp p) := {σ | ∀ x : Kbar p, x ≠ 0 → ‖σ x - x‖ < ‖x‖}
-
-/-- `G_L ⊂ G_{ℚ_p}`: the `σ` fixing `L` pointwise. -/
-def fixSet (L : Fld p) : Set (GQp p) := {σ | ∀ x ∈ L, σ x = x}
-
-/-- `ϖ` is a uniformizer of `L`: an element of `L` of maximal absolute value `< 1`. -/
-def IsUnif (L : Fld p) (ϖ : Kbar p) : Prop :=
-  ϖ ∈ L ∧ ‖ϖ‖ < 1 ∧ ∀ y ∈ L, ‖y‖ < 1 → ‖y‖ ≤ ‖ϖ‖
-
-/-- **Lower ramification groups** of `L/ℚ_p` (Serre, *Corps locaux* IV §1), pulled back to
-`G_{ℚ_p}`: `σ ∈ ramSet L i` iff `v_L(σx − x) ≥ i + 1` for every `x ∈ 𝓞_L`. It contains `G_L`, and
-its image under `σ ↦ σ|_L` is `G_i(L/ℚ_p)` (for `L/ℚ_p` Galois). -/
-def ramSet (L : Fld p) (i : ℕ) : Set (GQp p) :=
-  {σ | ∃ ϖ, IsUnif L ϖ ∧ ∀ x ∈ L, ‖x‖ ≤ 1 → ‖σ x - x‖ ≤ ‖ϖ‖ ^ (i + 1)}
-
-/-- `σ ↦ σ|_L`, as a function `L → ℚ̄_p`. -/
-def restr (L : Fld p) (σ : GQp p) : L → Kbar p := fun x => σ x
-
-/-- `g_i = |G_i(L/ℚ_p)|`: the number of restrictions to `L` of elements of `ramSet L i`. -/
-def ramCard (L : Fld p) (i : ℕ) : ℕ := Nat.card (restr L '' ramSet L i)
-
-/-- `L/ℚ_p` is finite Galois. -/
-def IsFinGal (L : Fld p) : Prop := FiniteDimensional ℚ_[p] L ∧ IsGalois ℚ_[p] L
-
 variable {k : Type*} [Field k] {n : ℕ}
-
-/-- `V^S` for `V = kⁿ` and a set `S ⊆ G_{ℚ_p}` acting through `ρ`. -/
-def invariants (ρ : GQp p →* GL (Fin n) k) (S : Set (GQp p)) : Submodule k (Fin n → k) where
-  carrier := {v | ∀ σ ∈ S, (ρ σ : Matrix (Fin n) (Fin n) k).mulVec v = v}
-  zero_mem' := by intro σ _; simp
-  add_mem' := by
-    intro v w hv hw σ hσ
-    simp only [Set.mem_ofPred_eq] at hv hw
-    rw [Matrix.mulVec_add, hv σ hσ, hw σ hσ]
-  smul_mem' := by
-    intro c v hv σ hσ
-    simp only [Set.mem_ofPred_eq] at hv
-    rw [Matrix.mulVec_smul, hv σ hσ]
-
-/-- `codim V^S = n − dim V^S`. -/
-def codimInv (ρ : GQp p →* GL (Fin n) k) (S : Set (GQp p)) : ℕ :=
-  n - Module.finrank k (invariants ρ S)
-
-/-- `L` is **adapted** to `ρ`: `L/ℚ_p` is finite Galois and `ρ` is trivial on `P_p ∩ G_L`, so
-that `ρ|_{P_p}` factors through `Gal(L/ℚ_p)`. For `ρ` continuous with values in `GL_n(E)`,
-`E/ℚ_ℓ` finite, `ℓ ≠ p`, such an `L` exists, since `ρ(P_p)` is finite (`AdaptedExists`). -/
-def IsAdapted (L : Fld p) (ρ : GQp p →* GL (Fin n) k) : Prop :=
-  IsFinGal L ∧ ∀ σ ∈ wildSet ∩ fixSet L, ρ σ = 1
-
-/-- **The Swan conductor at level `L`** (Serre–Tate 1968 §2; Serre, *Corps locaux* VI §2):
-`Sw_L(ρ) = ∑_{i ≥ 1} (g_i/g_0) · codim V^{G_i ∩ P}`. For `L` adapted, `G_i ∩ P` acts through
-`G_i(L/ℚ_p)` (for `i ≥ 1`, `G_i(L/ℚ_p)` is the image of `P ∩ ramSet L i`). -/
-def swanAt (L : Fld p) (ρ : GQp p →* GL (Fin n) k) : ℚ :=
-  ∑ᶠ i : ℕ, ((ramCard L (i + 1) : ℚ) / ramCard L 0) * (codimInv ρ (ramSet L (i + 1) ∩ wildSet) : ℚ)
-
-open Classical in
-/-- **The Swan conductor** `Sw(ρ)`: `swanAt L ρ` at a chosen adapted `L` (`0` if none exists,
-which does not happen for continuous ℓ-adic `ρ`). Independent of `L`: `SwanIndependent`. -/
-def swan (ρ : GQp p →* GL (Fin n) k) : ℚ :=
-  if h : ∃ L : Fld p, IsAdapted L ρ then swanAt h.choose ρ else 0
-
-/-- **The conductor exponent** `a(ρ) = codim V^{I_p} + Sw(ρ)` (Serre–Tate 1968 §2; equal to the
-conductor of the Weil–Deligne representation, `codim (ker N)^{I}` + Swan, since
-`V^{ρ(I)} = (ker N)^{I}` by Grothendieck's monodromy theorem). -/
-def condExp (ρ : GQp p →* GL (Fin n) k) : ℚ :=
-  codimInv ρ inertiaSet + swan ρ
-
-/-- The conductor exponent computed at a level `L`. -/
-def condAt (L : Fld p) (ρ : GQp p →* GL (Fin n) k) : ℚ :=
-  codimInv ρ inertiaSet + swanAt L ρ
-
-/-- **Finite-level Artin conductor** (Serre, *Corps locaux* VI §2):
-  `∑_{i ≥ 0} (g_i/g_0) codim V^{G_i}`.
-For `ρ` trivial on `G_L` this is pkg-I6's `PkgI6.artinConductor` of the induced representation of
-`Gal(L/ℚ_p)` (same formula, with `G_i(L/ℚ_p)` = image of `ramSet L i`). -/
-def artinAt (L : Fld p) (ρ : GQp p →* GL (Fin n) k) : ℚ :=
-  ∑ᶠ i : ℕ, ((ramCard L i : ℚ) / ramCard L 0) * (codimInv ρ (ramSet L i) : ℚ)
 
 /-! ### Herbrand's function and the upper numbering (for L8) -/
 
-/-- Lower numbering for real `t`: `G_t = G_{⌈t⌉}` for `t > −1`, `G_t = G` for `t ≤ −1`. -/
-def ramSetR (L : Fld p) (t : ℝ) : Set (GQp p) :=
-  if t ≤ -1 then Set.univ else ramSet L ⌈t⌉.toNat
-
-/-- `|G_t(L/ℚ_p)|` for real `t`. -/
-def ramCardR (L : Fld p) (t : ℝ) : ℕ := Nat.card (restr L '' ramSetR L t)
-
-/-- **Herbrand's function** `φ_{L/ℚ_p}(u) = ∫₀ᵘ g_t/g_0 dt` (Serre IV §3). -/
-def phiAt (L : Fld p) (u : ℝ) : ℝ :=
-  ∫ t in (0 : ℝ)..u, (ramCardR L t : ℝ) / (ramCard L 0 : ℝ)
-
-/-- **Upper numbering** `G^v(L/ℚ_p) = G_{ψ(v)}`, `ψ = φ⁻¹` (Serre IV §3), pulled back to `G_{ℚ_p}`.
-  -/
-def upperSet (L : Fld p) (v : ℝ) : Set (GQp p) :=
-  ramSetR L (sInf {u : ℝ | -1 ≤ u ∧ v ≤ phiAt L u})
-
-/-- **The upper ramification filtration of `G_{ℚ_p}`**: `σ ∈ G^v` iff `σ|_L ∈ G^v(L/ℚ_p)` for
-every finite Galois `L` (Serre IV §3, remark after Prop. 14; well defined by Herbrand's theorem). -/
-def upperAbs (p : ℕ) [Fact p.Prime] (v : ℝ) : Set (GQp p) :=
-  {σ | ∀ L : Fld p, IsFinGal L → σ ∈ upperSet L v}
-
 /-! ## Part C. Sanity facts -/
-
-theorem wildSet_subset_inertiaSet : (wildSet : Set (GQp p)) ⊆ inertiaSet := by
-  intro σ hσ x hx
-  by_cases h0 : x = 0
-  · subst h0; simp
-  · exact lt_of_lt_of_le (hσ x h0) hx
-
-theorem invariants_eq_top {ρ : GQp p →* GL (Fin n) k} {S : Set (GQp p)}
-    (h : ∀ σ ∈ S, ρ σ = 1) : invariants ρ S = ⊤ := by
-  ext v
-  simp only [Submodule.mem_top, iff_true]
-  intro σ hσ
-  rw [h σ hσ]
-  simp
-
-theorem codimInv_eq_zero {ρ : GQp p →* GL (Fin n) k} {S : Set (GQp p)}
-    (h : ∀ σ ∈ S, ρ σ = 1) : codimInv ρ S = 0 := by
-  rw [codimInv, invariants_eq_top h, finrank_top, Module.finrank_fin_fun, Nat.sub_self]
-
-/-- **Sanity (a1).** If `ρ` is unramified (trivial on `I_p`), `Sw_L(ρ) = 0` at every level. -/
-theorem swanAt_eq_zero_of_unramified {ρ : GQp p →* GL (Fin n) k}
-    (h : ∀ σ ∈ inertiaSet, ρ σ = 1) (L : Fld p) : swanAt L ρ = 0 := by
-  rw [swanAt]
-  refine finsum_eq_zero_of_forall_eq_zero fun i => ?_
-  rw [codimInv_eq_zero (fun σ hσ => h σ (wildSet_subset_inertiaSet hσ.2))]
-  simp
-
-/-- **Sanity (a).** Unramified ⇒ conductor exponent `0` (whatever `L` the definition picks). -/
-theorem condExp_eq_zero_of_unramified {ρ : GQp p →* GL (Fin n) k}
-    (h : ∀ σ ∈ inertiaSet, ρ σ = 1) : condExp ρ = 0 := by
-  rw [condExp, codimInv_eq_zero h, swan]
-  split_ifs with hL
-  · rw [swanAt_eq_zero_of_unramified h]; simp
-  · simp
-
-theorem condAt_eq_zero_of_unramified {ρ : GQp p →* GL (Fin n) k}
-    (h : ∀ σ ∈ inertiaSet, ρ σ = 1) (L : Fld p) : condAt L ρ = 0 := by
-  rw [condAt, codimInv_eq_zero h, swanAt_eq_zero_of_unramified h]; simp
-
-/-- `V^S = V^T` when `S ⊆ T` and every element of `T` agrees on `L` with one of `S`, and `ρ` is
-trivial on `G_L`. -/
-theorem invariants_eq_of_cover {ρ : GQp p →* GL (Fin n) k} {L : Fld p} {S T : Set (GQp p)}
-    (hfix : ∀ σ ∈ fixSet L, ρ σ = 1) (hST : S ⊆ T)
-    (hcov : ∀ σ ∈ T, ∃ τ ∈ S, ∀ x ∈ L, τ x = σ x) : invariants ρ S = invariants ρ T := by
-  apply le_antisymm
-  · intro v hv σ hσ
-    obtain ⟨τ, hτ, hτσ⟩ := hcov σ hσ
-    have h1 : τ⁻¹ * σ ∈ fixSet L := by
-      intro x hx
-      change τ⁻¹ (σ x) = x
-      rw [← hτσ x hx]
-      exact τ.symm_apply_apply x
-    have h2 : ρ σ = ρ τ * ρ (τ⁻¹ * σ) := by rw [← map_mul, mul_inv_cancel_left]
-    rw [h2, hfix _ h1, mul_one]
-    exact hv τ hτ
-  · intro v hv σ hσ
-    exact hv σ (hST hσ)
-
-/-- **Restriction of inertia is onto** `G_0(L/ℚ_p)` and of wild inertia onto `G_i(L/ℚ_p)`,
-`i ≥ 1`, together with `I_p ⊆ ramSet L 0` (Serre, *Corps locaux* I §7 Prop. 21 and IV §1–2;
-UNVERIFIED numbering). STANDARD; stated, not proved here. -/
-def InertiaRestriction (L : Fld p) : Prop :=
-  inertiaSet ⊆ ramSet L 0 ∧
-  (∀ σ ∈ ramSet L 0, ∃ τ ∈ inertiaSet, ∀ x ∈ L, τ x = σ x) ∧
-  (∀ i : ℕ, ∀ σ ∈ ramSet L (i + 1), ∃ τ ∈ ramSet L (i + 1) ∩ wildSet, ∀ x ∈ L, τ x = σ x)
-
-/-- `G_i(L/ℚ_p) = 1` for `i ≥ N` (Serre IV §1; holds for every finite `L`). -/
-def EventuallyTrivial (L : Fld p) (N : ℕ) : Prop := ∀ i, N ≤ i → ramSet L i ⊆ fixSet L
-
-/-- **Sanity (b). Agreement with the Artin conductor on finite image.** If `ρ` factors through
-`Gal(L/ℚ_p)` (trivial on `G_L`), then `codim V^I + Sw_L(ρ)` equals the finite-level Artin
-conductor `∑_{i≥0} (g_i/g_0) codim V^{G_i}` (pkg-I6's `artinConductor` formula), given the
-restriction facts `InertiaRestriction L`, `G_i(L/ℚ_p) = 1` for large `i`, and `g_0 ≠ 0`. -/
-theorem condAt_eq_artinAt {ρ : GQp p →* GL (Fin n) k} {L : Fld p}
-    (hfix : ∀ σ ∈ fixSet L, ρ σ = 1) (hR : InertiaRestriction L) {N : ℕ}
-    (hN : EventuallyTrivial L N) (hg0 : ramCard L 0 ≠ 0) :
-    condAt L ρ = artinAt L ρ := by
-  obtain ⟨hI, hIc, hW⟩ := hR
-  have e0 : codimInv ρ inertiaSet = codimInv ρ (ramSet L 0) := by
-    rw [codimInv, codimInv, invariants_eq_of_cover hfix hI hIc]
-  have ei : ∀ i, codimInv ρ (ramSet L (i + 1) ∩ wildSet) = codimInv ρ (ramSet L (i + 1)) := by
-    intro i
-    rw [codimInv, codimInv, invariants_eq_of_cover hfix Set.inter_subset_left (hW i)]
-  have hz : ∀ i, N ≤ i → codimInv ρ (ramSet L i) = 0 := fun i hi =>
-    codimInv_eq_zero fun σ hσ => hfix σ (hN i hi hσ)
-  set f : ℕ → ℚ := fun i => ((ramCard L i : ℚ) / ramCard L 0) * (codimInv ρ (ramSet L i) : ℚ)
-    with hf
-  have hsupp : Function.support f ⊆ ↑(Finset.range (N + 1)) := by
-    intro i hi
-    simp only [Finset.coe_range, Set.mem_Iio]
-    by_contra hlt
-    exact hi (by simp [f, hz i (by omega)])
-  have hsupp' : Function.support (fun i => f (i + 1)) ⊆ ↑(Finset.range N) := by
-    intro i hi
-    simp only [Finset.coe_range, Set.mem_Iio]
-    by_contra hlt
-    exact hi (by simp [f, hz (i + 1) (by omega)])
-  have hA : artinAt L ρ = ∑ i ∈ Finset.range (N + 1), f i :=
-    finsum_eq_sum_of_support_subset f hsupp
-  have hS : swanAt L ρ = ∑ i ∈ Finset.range N, f (i + 1) := by
-    rw [swanAt]
-    simp_rw [ei]
-    exact finsum_eq_sum_of_support_subset (fun i => f (i + 1)) hsupp'
-  rw [condAt, hA, hS, Finset.sum_range_succ', e0, add_comm]
-  congr 1
-  simp only [f]
-  rw [div_self (by exact_mod_cast hg0), one_mul]
-
-/-- **Independence of the level** (Serre–Tate 1968 §2; a consequence of Herbrand's theorem,
-pkg-I6 leaf I6.8, and the transitivity I6.9). GLUE, not proved here. -/
-def SwanIndependent : Prop :=
-  ∀ (k : Type) [Field k] (n : ℕ) (ρ : GQp p →* GL (Fin n) k) (L L' : Fld p),
-    IsAdapted L ρ → IsAdapted L' ρ → swanAt L ρ = swanAt L' ρ
-
-/-- Under `SwanIndependent`, the conductor exponent is computed at any adapted level. -/
-theorem condExp_eq_condAt (hI : SwanIndependent (p := p)) {k : Type} [Field k]
-    {ρ : GQp p →* GL (Fin n) k} {L : Fld p} (hL : IsAdapted L ρ) : condExp ρ = condAt L ρ := by
-  have h : ∃ L : Fld p, IsAdapted L ρ := ⟨L, hL⟩
-  rw [condExp, condAt, swan, dite_cond_eq_true (eq_true h), hI k n ρ _ L h.choose_spec hL]
-
-/-- **Existence of an adapted level** (Serre–Tate 1968 §2, after Grothendieck: `ρ(P_p)` is finite
-for `ℓ ≠ p` since `P_p` is pro-`p` and the kernel of `GL_n(𝓞_E) → GL_n(𝓞_E/λ)` is pro-`ℓ`; a
-continuous `ρ` into `GL_n(ℚ̄_ℓ)` takes values in `GL_n(E)`, `E/ℚ_ℓ` finite). GLUE (elementary
-profinite group theory plus Baire), not proved here. -/
-def AdaptedExists : Prop :=
-  ∀ (ℓ : ℕ) [Fact ℓ.Prime], ℓ ≠ p → ∀ (n : ℕ) (ρ : GQp p →* GL (Fin n) (PadicAlgCl ℓ)),
-    Continuous ρ → ∃ L : Fld p, IsAdapted L ρ
 
 /-! ## Part D. The leaves -/
 
-/-- **R17 = glue-conductor's L10: Carayol, Ann. Sci. ÉNS 19 (1986), Théorème (A)** at `F = ℚ`,
-weight 2, pp. 409-411 and §0.8 p. 411 (read by the locator audit: all finite `p` and every
-`ℓ ≠ p`, including `p ∣ N` and `ℓ = 2`; the finite discrete-series hypothesis concerns only totally
-real `F` of even degree), with `a(π_p) = v_p(N)` for newforms (Casselman 1973, locator
-UNVERIFIED). Do not replace it by Théorème (B) or by the `Γ₀` elliptic-curve corollary.
-*2026-11-12 (loc-fix, applying rv-loc-leaves (f)):* this replaces "content and coverage of
-`p ∣ N` UNVERIFIED"; the Lean statement is unchanged. This form, at every adapted level, is a
-consequence of the published form `CarayolR17'` plus the glue `SwanIndependent`
-(`carayolR17_of_R17'`); it is not a separate published statement. For a newform `f` of weight 2,
-level `N`, and a semisimple `ρ` attached to
-`f` (pkg-I4's trace form), and a prime `p ≠ ℓ`, the conductor exponent of `ρ|_{G_{ℚ_p}}` is
-`v_p(N)`; stated at every adapted level (equivalent to the published form by `SwanIndependent`). -/
-def CarayolR17 : Prop :=
-  ∀ (ℓ : ℕ) [Fact ℓ.Prime] (ιC : Qbar →ₐ[ℚ] ℂ) (ιL : Qbar →ₐ[ℚ] PadicAlgCl ℓ)
-    (N : ℕ) (χ : DirichletCharacter ℂ N) (f : CF N 2) (ρ : GaloisRep ℓ 2) (p : ℕ) [Fact p.Prime],
-    0 < N → IsNewform f χ → ρ.IsSemisimple → ρ.AttachedTo ιC ιL f → p ≠ ℓ →
-    ∀ L : Fld p, IsAdapted L (ρ.restrictLocal p) →
-      condAt L (ρ.restrictLocal p) = (N.factorization p : ℚ)
-
-/-- **R17, published form**, with the canonical `condExp` (choice of level inside): Carayol,
-Théorème (A), coverage as above (every `ℓ`, including 2; every `p ≠ ℓ`, including `p ∣ N`; read by
-the locator audit, adopted 2026-11-12 by loc-fix). `condExp` is the Serre–Tate conductor, which
-does not change under duals, so the Tate normalization of `AttachedTo` is harmless. -/
-def CarayolR17' : Prop :=
-  ∀ (ℓ : ℕ) [Fact ℓ.Prime] (ιC : Qbar →ₐ[ℚ] ℂ) (ιL : Qbar →ₐ[ℚ] PadicAlgCl ℓ)
-    (N : ℕ) (χ : DirichletCharacter ℂ N) (f : CF N 2) (ρ : GaloisRep ℓ 2) (p : ℕ) [Fact p.Prime],
-    0 < N → IsNewform f χ → ρ.IsSemisimple → ρ.AttachedTo ιC ιL f → p ≠ ℓ →
-      condExp (ρ.restrictLocal p) = (N.factorization p : ℚ)
-
-/-- The two forms of R17 agree given the glue `SwanIndependent` and `AdaptedExists`. -/
-theorem carayolR17_of_R17' (hI : ∀ (p : ℕ) [Fact p.Prime], SwanIndependent (p := p))
-    (h : CarayolR17') : CarayolR17 := by
-  intro ℓ _ ιC ιL N χ f ρ p _ hN hf hs ha hp L hL
-  rw [← condExp_eq_condAt (hI p) hL]
-  exact h ℓ ιC ιL N χ f ρ p hN hf hs ha hp
-
-theorem carayolR17'_of_R17 (hE : ∀ (p : ℕ) [Fact p.Prime], AdaptedExists (p := p))
-    (hI : ∀ (p : ℕ) [Fact p.Prime], SwanIndependent (p := p))
-    (h : CarayolR17) : CarayolR17' := by
-  intro ℓ _ ιC ιL N χ f ρ p _ hN hf hs ha hp
-  obtain ⟨L, hL⟩ := hE p ℓ hp.symm 2 (ρ.restrictLocal p)
-    (ρ.continuous_toHom.comp
-      (Field.absoluteGaloisGroup.map (algebraMap ℚ ℚ_[p])).continuous_toFun)
-  rw [condExp_eq_condAt (hI p) hL]
-  exact h ℓ ιC ιL N χ f ρ p hN hf hs ha hp L hL
-
-/-- **L8 (glue-conductor): the Swan conductor is the integral of the upper filtration**,
-`Sw(ρ) = ∫₀^∞ codim V^{G^u} du` (Serre, *Corps locaux* VI §2 and IV §3 for finite image;
-Serre–Tate 1968 §2 for ℓ-adic `ρ`; UNVERIFIED numbering). With `condAt = codim V^I + swanAt`
-this is glue-conductor's `a = codim V^I + ∫₀^∞ codim V^{G^u} du`. A change of variables in
-Herbrand's `φ` plus Herbrand's theorem: provable glue over Part B. -/
-def SwanIntegral : Prop :=
-  ∀ (ℓ : ℕ) [Fact ℓ.Prime] (p : ℕ) [Fact p.Prime], p ≠ ℓ →
-    ∀ (n : ℕ) (ρ : GQp p →* GL (Fin n) (PadicAlgCl ℓ)), Continuous ρ →
-    ∀ L : Fld p, IsAdapted L ρ →
-      (swanAt L ρ : ℝ) = ∫ u in Set.Ioi (0 : ℝ), (codimInv ρ (upperAbs p u) : ℝ)
-
 /-! ### Consumer: glue-conductor's D4(i) from L8 (GLUE, proved) -/
 
-theorem codimInv_le (ρ : GQp p →* GL (Fin n) k) (S : Set (GQp p)) : codimInv ρ S ≤ n :=
-  Nat.sub_le _ _
-
-open MeasureTheory in
-/-- If `ρ` is trivial on `G^u` for every `u > U ≥ 0`, the right side of L8 is `≤ n·U`. (If the
-integrand is not integrable, Mathlib's integral is `0` and the bound is trivial.) -/
-theorem integral_codim_le (ρ : GQp p →* GL (Fin n) k) (U : ℝ) (hU : 0 ≤ U)
-    (h : ∀ u : ℝ, U < u → ∀ σ ∈ upperAbs p u, ρ σ = 1) :
-    ∫ u in Set.Ioi (0 : ℝ), (codimInv ρ (upperAbs p u) : ℝ) ≤ n * U := by
-  set f : ℝ → ℝ := fun u => (codimInv ρ (upperAbs p u) : ℝ) with hf
-  set g : ℝ → ℝ := (Set.Ioc 0 U).indicator (fun _ => (n : ℝ)) with hg
-  have hle : ∀ u ∈ Set.Ioi (0 : ℝ), f u ≤ g u := by
-    intro u hu
-    by_cases huU : u ≤ U
-    · have : u ∈ Set.Ioc 0 U := ⟨hu, huU⟩
-      simp only [hf, hg, Set.indicator_of_mem this]
-      exact_mod_cast codimInv_le ρ _
-    · have h0 : codimInv ρ (upperAbs p u) = 0 := codimInv_eq_zero (h u (lt_of_not_ge huU))
-      simp only [hf, h0, Nat.cast_zero]
-      exact Set.indicator_nonneg (fun _ _ => Nat.cast_nonneg n) u
-  have hgi : ∫ u in Set.Ioi (0 : ℝ), g u = n * U := by
-    rw [hg, setIntegral_indicator measurableSet_Ioc,
-      Set.inter_eq_right.mpr Set.Ioc_subset_Ioi_self, setIntegral_const]
-    simp [Real.volume_real_Ioc_of_le hU, mul_comm]
-  have hgint : IntegrableOn g (Set.Ioi (0 : ℝ)) := by
-    rw [IntegrableOn, hg, integrable_indicator_iff measurableSet_Ioc]
-    refine IntegrableOn.restrict ?_
-    exact integrableOn_const (by simp [Real.volume_Ioc])
-  by_cases hfi : IntegrableOn f (Set.Ioi (0 : ℝ))
-  · rw [← hgi]
-    exact setIntegral_mono_on hfi hgint measurableSet_Ioi hle
-  · rw [integral_undef hfi]
-    positivity
-
-/-- **D4(i) from L8 (GLUE, proved).** For continuous ℓ-adic `ρ`, `ℓ ≠ p`, trivial on `G^u` for
-`u > U ≥ 0`, and `L` adapted: `a(ρ) = codim V^I + Sw_L(ρ) ≤ n(1 + U)`. -/
-theorem condAt_le_of_upper (hL8 : SwanIntegral) (ℓ : ℕ) [Fact ℓ.Prime] (hp : p ≠ ℓ)
-    (ρ : GQp p →* GL (Fin n) (PadicAlgCl ℓ)) (hc : Continuous ρ) (L : Fld p)
-    (hL : IsAdapted L ρ) (U : ℝ) (hU : 0 ≤ U)
-    (h : ∀ u : ℝ, U < u → ∀ σ ∈ upperAbs p u, ρ σ = 1) :
-    (condAt L ρ : ℝ) ≤ n * (1 + U) := by
-  have h1 : ((codimInv ρ inertiaSet : ℕ) : ℝ) ≤ n := by exact_mod_cast codimInv_le ρ _
-  have h2 := integral_codim_le ρ U hU h
-  rw [← hL8 ℓ p hp n ρ hc L hL] at h2
-  rw [condAt, Rat.cast_add, Rat.cast_natCast]
-  linarith
-
 /-! ### Non-degeneracy checks -/
-
-/-- `G_L ⊆ G_i(L)` (preimage) as soon as `L` has a uniformizer. -/
-theorem fixSet_subset_ramSet {L : Fld p} {ϖ : Kbar p} (hϖ : IsUnif L ϖ) (i : ℕ) :
-    fixSet L ⊆ ramSet L i := by
-  intro σ hσ
-  refine ⟨ϖ, hϖ, fun x hx _ => ?_⟩
-  rw [hσ x hx, sub_self, norm_zero]
-  positivity
-
-/-- The trivial representation is adapted to every finite Galois `L`, and has conductor `0`. -/
-theorem isAdapted_one {L : Fld p} (hL : IsFinGal L) :
-    IsAdapted L (1 : GQp p →* GL (Fin n) k) :=
-  ⟨hL, fun _ _ => rfl⟩
-
-theorem condExp_one : condExp (1 : GQp p →* GL (Fin n) k) = 0 :=
-  condExp_eq_zero_of_unramified fun _ _ => rfl
-
-/-- Wild inertia contains `1`. -/
-theorem one_mem_wildSet : (1 : GQp p) ∈ wildSet := by
-  intro x hx
-  simp only [AlgEquiv.one_apply, sub_self, norm_zero]
-  exact norm_pos_iff.mpr hx
-
-/-- Galois conjugates of elements of a finite Galois `L ⊆ ℚ̄_p` lie in `L`. -/
-theorem apply_mem {L : Fld p} (hL : IsFinGal L) (σ : GQp p) {x : Kbar p} (hx : x ∈ L) :
-    σ x ∈ L := by
-  have : IsGalois ℚ_[p] L := hL.2
-  have hn : Normal ℚ_[p] L := inferInstance
-  exact (IntermediateField.normal_iff_forall_map_le'.1 hn σ) ⟨x, hx, rfl⟩
-
-/-- **First clause of `InertiaRestriction` (proved):** `I_p ⊆ ramSet L 0` for finite Galois `L`
-with a uniformizer. -/
-theorem inertiaSet_subset_ramSet_zero {L : Fld p} (hL : IsFinGal L) {ϖ : Kbar p}
-    (hϖ : IsUnif L ϖ) : inertiaSet ⊆ ramSet L 0 := by
-  intro σ hσ
-  refine ⟨ϖ, hϖ, fun x hx hx1 => ?_⟩
-  rw [zero_add, pow_one]
-  exact hϖ.2.2 _ (L.sub_mem (apply_mem hL σ hx) hx) (hσ x hx1)
-
-theorem norm_p_kbar : ‖(p : Kbar p)‖ = (p : ℝ)⁻¹ := by
-  have h := PadicAlgCl.norm_extends p (p : ℚ_[p])
-  have e : ((p : ℚ_[p]) : PadicAlgCl p) = (p : Kbar p) := map_natCast (algebraMap ℚ_[p] _) p
-  rw [e, Padic.norm_p] at h
-  exact h
-
-/-- **Non-vacuity of `IsUnif`:** `p` is a uniformizer of `L = ℚ_p`. -/
-theorem isUnif_bot : IsUnif (⊥ : Fld p) (p : Kbar p) := by
-  have hp1 : (1 : ℝ) < p := by exact_mod_cast (Fact.out : p.Prime).one_lt
-  refine ⟨?_, ?_, ?_⟩
-  · rw [← map_natCast (algebraMap ℚ_[p] (Kbar p)) p]
-    exact IntermediateField.algebraMap_mem _ _
-  · rw [norm_p_kbar]; exact inv_lt_one_of_one_lt₀ hp1
-  · intro y hy hy1
-    obtain ⟨q, rfl⟩ := IntermediateField.mem_bot.1 hy
-    have hq : ‖algebraMap ℚ_[p] (Kbar p) q‖ = ‖q‖ := PadicAlgCl.norm_extends p q
-    rw [hq] at hy1 ⊢
-    rw [norm_p_kbar]
-    have := (Padic.norm_le_pow_iff_norm_lt_pow_add_one q (-1)).2 (by simpa using hy1)
-    simpa [zpow_neg_one] using this
-
-/-- The restrictions to a finite `L` of elements of `G_{ℚ_p}` form a finite set. -/
-theorem finite_restr {L : Fld p} (hL : IsFinGal L) (S : Set (GQp p)) :
-    (restr L '' S).Finite := by
-  have : FiniteDimensional ℚ_[p] L := hL.1
-  refine (Set.finite_range (fun f : L →ₐ[ℚ_[p]] Kbar p => (f : L → Kbar p))).subset ?_
-  rintro _ ⟨σ, -, rfl⟩
-  exact ⟨σ.toAlgHom.comp L.val, rfl⟩
-
-/-- **`g_0 ≠ 0` (proved)** for a finite Galois `L` with a uniformizer. -/
-theorem ramCard_ne_zero {L : Fld p} (hL : IsFinGal L) {ϖ : Kbar p} (hϖ : IsUnif L ϖ) (i : ℕ) :
-    ramCard L i ≠ 0 := by
-  have hne : (restr L '' ramSet L i).Nonempty :=
-    ⟨restr L 1, 1, fixSet_subset_ramSet hϖ i (fun x _ => rfl), rfl⟩
-  have hfin := finite_restr hL (ramSet L i)
-  have : Finite (restr L '' ramSet L i) := hfin.to_subtype
-  have : Nonempty (restr L '' ramSet L i) := hne.to_subtype
-  exact Nat.card_ne_zero.2 ⟨inferInstance, inferInstance⟩
-
-/-- **Sanity (b), reduced hypotheses.** For `L` finite Galois with a uniformizer and `ρ` trivial on
-`G_L`: `codim V^I + Sw_L = ∑_{i≥0}(g_i/g_0) codim V^{G_i}`, assuming only the two surjectivity
-statements (restriction of `I_p` onto `G_0(L)`, of `P_p ∩ G_i` onto `G_i(L)` for `i ≥ 1`) and
-`G_i(L) = 1` for `i ≥ N`. -/
-theorem condAt_eq_artinAt' {ρ : GQp p →* GL (Fin n) k} {L : Fld p} (hL : IsFinGal L)
-    {ϖ : Kbar p} (hϖ : IsUnif L ϖ) (hfix : ∀ σ ∈ fixSet L, ρ σ = 1)
-    (hI : ∀ σ ∈ ramSet L 0, ∃ τ ∈ inertiaSet, ∀ x ∈ L, τ x = σ x)
-    (hW : ∀ i : ℕ, ∀ σ ∈ ramSet L (i + 1), ∃ τ ∈ ramSet L (i + 1) ∩ wildSet, ∀ x ∈ L, τ x = σ x)
-    {N : ℕ} (hN : EventuallyTrivial L N) :
-    condAt L ρ = artinAt L ρ :=
-  condAt_eq_artinAt hfix ⟨inertiaSet_subset_ramSet_zero hL hϖ, hI, hW⟩ hN
-    (ramCard_ne_zero hL hϖ 0)
-
-/-- Two uniformizers of `L` have the same absolute value. -/
-theorem IsUnif.norm_eq {L : Fld p} {ϖ ϖ' : Kbar p} (h : IsUnif L ϖ) (h' : IsUnif L ϖ') :
-    ‖ϖ'‖ = ‖ϖ‖ :=
-  le_antisymm (h.2.2 _ h'.1 h'.2.1) (h'.2.2 _ h.1 h.2.1)
-
-/-- If `σ₀` moves `L`, then for large `i` no element of `ramSet L i` restricts to `σ₀|_L`. -/
-theorem eventually_not_restr {L : Fld p} {ϖ : Kbar p} (hϖ : IsUnif L ϖ) {σ₀ : GQp p}
-    (h₀ : σ₀ ∉ fixSet L) :
-    ∃ N : ℕ, ∀ i, N ≤ i → ∀ σ ∈ ramSet L i, restr L σ ≠ restr L σ₀ := by
-  simp only [fixSet, Set.mem_setOf_eq, not_forall] at h₀
-  obtain ⟨y, hy, hσy⟩ := h₀
-  have hpn : ‖(p : Kbar p)‖ < 1 := by
-    rw [norm_p_kbar]; exact inv_lt_one_of_one_lt₀ (by exact_mod_cast (Fact.out : p.Prime).one_lt)
-  obtain ⟨k, hk⟩ := exists_pow_lt_of_lt_one (show (0 : ℝ) < 1 / (‖y‖ + 1) by positivity) hpn
-  set x₀ : Kbar p := (p : Kbar p) ^ k * y with hx₀
-  have hpk : (p : Kbar p) ^ k = algebraMap ℚ_[p] (Kbar p) ((p : ℚ_[p]) ^ k) := by simp
-  have hx₀L : x₀ ∈ L := L.mul_mem (hpk ▸ IntermediateField.algebraMap_mem _ _) hy
-  have hx₀1 : ‖x₀‖ ≤ 1 := by
-    rw [hx₀, norm_mul, norm_pow]
-    have h1 : ‖(p : Kbar p)‖ ^ k * (‖y‖ + 1) < 1 := by
-      rwa [lt_div_iff₀ (by positivity)] at hk
-    nlinarith [norm_nonneg y, pow_nonneg (norm_nonneg (p : Kbar p)) k]
-  have hσx₀ : σ₀ x₀ - x₀ = (p : Kbar p) ^ k * (σ₀ y - y) := by
-    rw [hx₀, map_mul, map_pow, map_natCast]; ring
-  have hε : 0 < ‖σ₀ x₀ - x₀‖ := by
-    rw [hσx₀, norm_pos_iff]
-    exact mul_ne_zero (pow_ne_zero _ (Nat.cast_ne_zero.2 (Fact.out : p.Prime).ne_zero))
-      (sub_ne_zero.2 hσy)
-  obtain ⟨N, hN⟩ := exists_pow_lt_of_lt_one hε hϖ.2.1
-  refine ⟨N, fun i hi σ hσ heq => ?_⟩
-  obtain ⟨ϖ', hϖ', hb⟩ := hσ
-  have e : σ x₀ = σ₀ x₀ := congrFun heq ⟨x₀, hx₀L⟩
-  have h1 := hb x₀ hx₀L hx₀1
-  rw [e, hϖ.norm_eq hϖ'] at h1
-  have h2 : ‖ϖ‖ ^ (i + 1) ≤ ‖ϖ‖ ^ N :=
-    pow_le_pow_of_le_one (norm_nonneg _) hϖ.2.1.le (by omega)
-  linarith
-
-/-- **`G_i(L/ℚ_p) = 1` for large `i` (proved)**, for finite Galois `L` with a uniformizer. -/
-theorem eventuallyTrivial {L : Fld p} (hL : IsFinGal L) {ϖ : Kbar p} (hϖ : IsUnif L ϖ) :
-    ∃ N, EventuallyTrivial L N := by
-  have key : ∀ T : Set (L → Kbar p), T.Finite → T ⊆ restr L '' (fixSet L)ᶜ →
-      ∃ N : ℕ, ∀ i, N ≤ i → ∀ σ ∈ ramSet L i, restr L σ ∉ T := by
-    intro T hT
-    induction T, hT using Set.Finite.induction_on with
-    | empty => exact fun _ => ⟨0, fun _ _ _ _ h => h⟩
-    | @insert f T' _ _ ih =>
-      intro hsub
-      obtain ⟨N₁, hN₁⟩ := ih (fun g hg => hsub (Set.mem_insert_of_mem _ hg))
-      obtain ⟨σ₀, h₀, rfl⟩ := hsub (Set.mem_insert _ _)
-      obtain ⟨N₀, hN₀⟩ := eventually_not_restr hϖ h₀
-      refine ⟨max N₀ N₁, fun i hi σ hσ hmem => ?_⟩
-      rcases hmem with h | h
-      · exact hN₀ i (le_of_max_le_left hi) σ hσ h
-      · exact hN₁ i (le_of_max_le_right hi) σ hσ h
-  obtain ⟨N, hN⟩ := key _ (finite_restr hL _) le_rfl
-  refine ⟨N, fun i hi σ hσ => ?_⟩
-  by_contra hfix
-  exact hN i hi σ hσ ⟨σ, hfix, rfl⟩
-
-/-- **Sanity (b), final form.** For `L` finite Galois with a uniformizer and `ρ` trivial on `G_L`,
-`codim V^I + Sw_L = ∑_{i≥0}(g_i/g_0) codim V^{G_i}`, given only the two surjectivity facts. -/
-theorem condAt_eq_artinAt'' {ρ : GQp p →* GL (Fin n) k} {L : Fld p} (hL : IsFinGal L)
-    {ϖ : Kbar p} (hϖ : IsUnif L ϖ) (hfix : ∀ σ ∈ fixSet L, ρ σ = 1)
-    (hI : ∀ σ ∈ ramSet L 0, ∃ τ ∈ inertiaSet, ∀ x ∈ L, τ x = σ x)
-    (hW : ∀ i : ℕ, ∀ σ ∈ ramSet L (i + 1), ∃ τ ∈ ramSet L (i + 1) ∩ wildSet, ∀ x ∈ L, τ x = σ x) :
-    condAt L ρ = artinAt L ρ :=
-  let ⟨_, hN⟩ := eventuallyTrivial hL hϖ
-  condAt_eq_artinAt' hL hϖ hfix hI hW hN
-
-/-- For `y ≠ 0` in a finite `L/ℚ_p`, `‖y‖^{[L:ℚ_p]!}` is an integral power of `p` (from Mathlib's
-`spectralNorm_eq_norm_coeff_zero_rpow`: `‖y‖ = ‖a_0‖^{1/deg}` for the minimal polynomial). -/
-theorem norm_pow_factorial {L : Fld p} (hL : FiniteDimensional ℚ_[p] L) {y : Kbar p}
-    (hy : y ∈ L) (hy0 : y ≠ 0) :
-    ∃ j : ℤ, ‖y‖ ^ (Module.finrank ℚ_[p] L).factorial = (p : ℝ) ^ j := by
-  have hint : IsIntegral ℚ_[p] y := (Algebra.IsAlgebraic.isAlgebraic y).isIntegral
-  set m := (minpoly ℚ_[p] y).natDegree with hm
-  have hm_le : m ≤ Module.finrank ℚ_[p] L := by
-    have := minpoly.natDegree_le (A := ℚ_[p]) (⟨y, hy⟩ : L)
-    rwa [IntermediateField.minpoly_eq] at this
-  have hm_pos : 0 < m := minpoly.natDegree_pos hint
-  obtain ⟨t, ht⟩ := Nat.dvd_factorial hm_pos hm_le
-  set c := (minpoly ℚ_[p] y).coeff 0 with hc
-  have hc0 : c ≠ 0 := minpoly.coeff_zero_ne_zero hint hy0
-  have hnorm : ‖y‖ = ‖c‖ ^ (1 / m : ℝ) := by
-    rw [← PadicAlgCl.spectralNorm_eq]
-    exact spectralNorm.spectralNorm_eq_norm_coeff_zero_rpow (K := ℚ_[p]) (L := Kbar p) y
-  have hym : ‖y‖ ^ m = ‖c‖ := by
-    rw [hnorm, ← Real.rpow_natCast, ← Real.rpow_mul (norm_nonneg _)]
-    have : (1 / (m : ℝ)) * (m : ℝ) = 1 := by
-      field_simp
-    rw [this, Real.rpow_one]
-  refine ⟨-c.valuation * t, ?_⟩
-  rw [ht, pow_mul, hym, Padic.norm_eq_zpow_neg_valuation hc0, ← zpow_natCast, ← zpow_mul]
-
-/-- **Every finite `L/ℚ_p` inside `ℚ̄_p` has a uniformizer (proved).** -/
-theorem exists_isUnif {L : Fld p} (hL : FiniteDimensional ℚ_[p] L) : ∃ ϖ, IsUnif L ϖ := by
-  classical
-  set D := (Module.finrank ℚ_[p] L).factorial with hDdef
-  have hD : 0 < D := Nat.factorial_pos _
-  have hp1 : (1 : ℝ) < p := by exact_mod_cast (Fact.out : p.Prime).one_lt
-  have hpL : (p : Kbar p) ∈ L := by
-    rw [← map_natCast (algebraMap ℚ_[p] (Kbar p)) p]
-    exact IntermediateField.algebraMap_mem _ _
-  have hex : ∃ n : ℕ, ∃ y ∈ L, ‖y‖ < 1 ∧ ‖y‖ ^ D = (p : ℝ) ^ (-(n : ℤ)) :=
-    ⟨D, p, hpL, isUnif_bot.2.1, by rw [norm_p_kbar, zpow_neg, zpow_natCast, inv_pow]⟩
-  obtain ⟨ϖ, hϖL, hϖ1, hϖD⟩ := Nat.find_spec hex
-  refine ⟨ϖ, hϖL, hϖ1, fun y hy hy1 => ?_⟩
-  by_cases hy0 : y = 0
-  · rw [hy0, norm_zero]; exact norm_nonneg _
-  obtain ⟨j, hj⟩ := norm_pow_factorial hL hy hy0
-  have hjneg : j < 0 := by
-    have h1 : ‖y‖ ^ D < 1 := pow_lt_one₀ (norm_nonneg _) hy1 hD.ne'
-    rw [hj] at h1
-    by_contra h
-    rw [not_lt] at h
-    exact absurd h1 (not_lt.2 (one_le_zpow₀ hp1.le h))
-  have hle : Nat.find hex ≤ (-j).toNat :=
-    Nat.find_min' hex ⟨y, hy, hy1, by rw [hj]; congr 1; omega⟩
-  have hDle : ‖y‖ ^ D ≤ ‖ϖ‖ ^ D := by
-    rw [hj, hϖD]
-    exact zpow_le_zpow_right₀ hp1.le (by omega)
-  exact (pow_le_pow_iff_left₀ (norm_nonneg _) (norm_nonneg _) hD.ne').1 hDle
-
-/-- **Sanity (b), with no structural hypotheses.** For `L/ℚ_p` finite Galois and `ρ` trivial on
-`G_L`: `codim V^I + Sw_L = ∑_{i≥0}(g_i/g_0) codim V^{G_i}`, given the two surjectivity facts. -/
-theorem condAt_eq_artinAt_of_surj {ρ : GQp p →* GL (Fin n) k} {L : Fld p} (hL : IsFinGal L)
-    (hfix : ∀ σ ∈ fixSet L, ρ σ = 1)
-    (hI : ∀ σ ∈ ramSet L 0, ∃ τ ∈ inertiaSet, ∀ x ∈ L, τ x = σ x)
-    (hW : ∀ i : ℕ, ∀ σ ∈ ramSet L (i + 1), ∃ τ ∈ ramSet L (i + 1) ∩ wildSet, ∀ x ∈ L, τ x = σ x) :
-    condAt L ρ = artinAt L ρ :=
-  let ⟨_, hϖ⟩ := exists_isUnif hL.1
-  condAt_eq_artinAt'' hL hϖ hfix hI hW
 
 end LadicCond
 end
@@ -4730,75 +2829,14 @@ they are imported from `Conductor/I6Base.lean` and `Descent/*.lean`.
 noncomputable section
 
 namespace GlueWP3
+open _root_.GlueWP3 (b3_degree_le_QM_of_T14_T15 brauerHasse2C_of_leafHasse exists_of_isSignCocycle isCoboundary2_iff isCocycle2_iff leafHasse_iff leafHasse_of_T14 leafLocalTwo_iff leafLocalTwo_of_T15 neg_one_ne_one pull_resp_sgnC real_of_finite sgn sgnC sgnC_unsgnC sgn_add sgn_eq_one_iff sgn_injective sgn_inv sgn_neg sgn_one sgn_sq sgn_sub sgn_unsgn sgn_zero sq_eq_one_cases unsgn unsgnC zmod2_cases) -- op-dedupe
 
 open GlueDescent.B2 GlueDescent.B2Q PkgI6
+open _root_.GlueDescent.B2 (IsSignCocycle SignCob dB dB_inv dB_mul exists_beta isSignCocycle_dB isSignCocycle_inv isSignCocycle_mul isSignCocycle_pull pull pull_dB signCob_dB_iff signCob_inv signCob_mul) -- op-dedupe
+open _root_.GlueDescent.B2Q (GQ GQp InflatedFrom LeafHasse LeafLocalTwo LeafSqrtCrit LeafUnramified UnramifiedAt act act_mul b2_of_leaves cast_cast_of_dvd chiLevel_pos chi_toUnitHom_crt cyc cyc_eq_of_agree cyc_isLocallyConstant exists_crt_unit galChar galChar_isLocallyConstant isLocallyConstant_of_openSubgroup lev_eq_pow resp resp_continuous sqrtU sqrtU_sq toRingAut) -- op-dedupe
+open _root_.PkgI6 (BrauerHasse2 BrauerHasse2C BrauerNesbittChar0 BrauerReciprocity2 BrauerReciprocity2C ChebotarevExists DifferentBound H2TwoClasses HerbrandQuotient HerbrandTransitivity HilbertDifferentFormula IsCoboundary2 IsCoboundary2.sub IsCocycle2 IsCocycle2.resC IsCocycle2.sub LocalH2Card LocalH2CardC LocalKroneckerWeber LocalReciprocityUpper MonogenicDVR SkolemNoether TraceContainsRamificationIdx Z2 artinConductor artinConductor_le_of_upper cob_of_same_finite_support codimInv codimInv_eq_zero codimInv_le differentBound differentBound_of_trace eq_of_ne_zero_of_card_two eq_of_same_finite_support g0_pos hInt hInt_anti hInt_ge hInt_zero herbrandPhi herbrandPhi_eq herbrandQuotient herbrandTransitivity hilbertDifferentFormula hilbertDifferentFormula_of_dvr hilbertDifferentFormula_of_monogenicDVR loc locInf locP lowerRam lowerRamR lowerRamR_anti lowerRamR_nat lowerRam_anti lowerRam_tower mem_lowerRam monogenicDVR phi_nat_ge phi_strictMono phi_sub_ge phi_zero resC skolemNoether_aut sum_hInt_le traceContainsRamificationIdx unitFiltration upperRam upperRam_phi_nat) -- op-dedupe
 
 /-! ## The dictionary `ZMod 2` ↔ `±1 ⊂ ℂˣ` -/
-
-/-- `ZMod 2 → ±1 ⊂ ℂˣ`, `0 ↦ 1`, `1 ↦ -1`. -/
-def sgn (a : ZMod 2) : ℂˣ := if a = 0 then 1 else -1
-
-/-- `±1 → ZMod 2`, `1 ↦ 0`, anything else `↦ 1`. -/
-def unsgn (s : ℂˣ) : ZMod 2 := if s = 1 then 0 else 1
-
-theorem zmod2_cases : ∀ a : ZMod 2, a = 0 ∨ a = 1 := by decide
-
-theorem sgn_zero : sgn 0 = 1 := by simp [sgn]
-
-theorem sgn_one : sgn 1 = -1 := by simp [sgn]
-
-theorem neg_one_ne_one : (-1 : ℂˣ) ≠ 1 := by
-  intro h
-  have := congrArg (fun u : ℂˣ => (u : ℂ)) h
-  norm_num at this
-
-theorem sgn_add (a b : ZMod 2) : sgn (a + b) = sgn a * sgn b := by
-  rcases zmod2_cases a with rfl | rfl <;> rcases zmod2_cases b with rfl | rfl
-  · simp [sgn]
-  · simp [sgn]
-  · simp [sgn]
-  · have : (1 + 1 : ZMod 2) = 0 := by decide
-    rw [this, sgn_zero, sgn_one]; simp
-
-theorem sgn_neg (a : ZMod 2) : sgn (-a) = sgn a := by
-  rcases zmod2_cases a with rfl | rfl
-  · simp
-  · have : (-1 : ZMod 2) = 1 := by decide
-    rw [this]
-
-theorem sgn_sub (a b : ZMod 2) : sgn (a - b) = sgn a * sgn b := by
-  rw [sub_eq_add_neg, sgn_add, sgn_neg]
-
-theorem sgn_sq (a : ZMod 2) : sgn a ^ 2 = 1 := by
-  rcases zmod2_cases a with rfl | rfl <;> simp [sgn]
-
-theorem sgn_inv (a : ZMod 2) : (sgn a)⁻¹ = sgn a := by
-  rw [inv_eq_iff_mul_eq_one, ← sq, sgn_sq]
-
-theorem sgn_injective : Function.Injective sgn := by
-  intro a b h
-  rcases zmod2_cases a with rfl | rfl <;> rcases zmod2_cases b with rfl | rfl
-  · rfl
-  · rw [sgn_zero, sgn_one] at h; exact absurd h.symm neg_one_ne_one
-  · rw [sgn_zero, sgn_one] at h; exact absurd h neg_one_ne_one
-  · rfl
-
-theorem sgn_eq_one_iff (a : ZMod 2) : sgn a = 1 ↔ a = 0 := by
-  rw [← sgn_zero]; exact sgn_injective.eq_iff
-
-/-- A unit of `ℂ` with square `1` is `±1`. -/
-theorem sq_eq_one_cases {s : ℂˣ} (h : s ^ 2 = 1) : s = 1 ∨ s = -1 := by
-  have h' : (s : ℂ) * s = 1 := by
-    have := congrArg (fun u : ℂˣ => (u : ℂ)) h
-    simpa [sq] using this
-  rcases mul_self_eq_one_iff.mp h' with h1 | h1
-  · left; exact Units.ext h1
-  · right; exact Units.ext (by simpa using h1)
-
-theorem sgn_unsgn {s : ℂˣ} (h : s ^ 2 = 1) : sgn (unsgn s) = s := by
-  rcases sq_eq_one_cases h with rfl | rfl
-  · simp [unsgn, sgn]
-  · simp [unsgn, sgn]
 
 /-! ## Cocycles and coboundaries correspond -/
 
@@ -4806,197 +2844,13 @@ section Generic
 
 variable {G : Type*} [Group G] [TopologicalSpace G]
 
-/-- Push a `ZMod 2` cochain to a sign cochain. -/
-def sgnC (ε : G → G → ZMod 2) : G → G → ℂˣ := fun x y => sgn (ε x y)
-
-/-- Pull a sign cochain back to a `ZMod 2` cochain. -/
-def unsgnC (η : G → G → ℂˣ) : G → G → ZMod 2 := fun x y => unsgn (η x y)
-
-theorem sgnC_unsgnC {η : G → G → ℂˣ} (h : ∀ x y, η x y ^ 2 = 1) : sgnC (unsgnC η) = η := by
-  funext x y; exact sgn_unsgn (h x y)
-
-theorem isCocycle2_iff (ε : G → G → ZMod 2) : IsCocycle2 ε ↔ IsSignCocycle (sgnC ε) := by
-  constructor
-  · rintro ⟨hc, hcoc⟩
-    refine ⟨?_, fun x y => sgn_sq _, fun x y z => ?_⟩
-    · have : IsLocallyConstant (fun x : G × G => ε x.1 x.2) :=
-        (IsLocallyConstant.iff_continuous _).mpr hc
-      exact this.comp sgn
-    · -- `ε y z - ε (xy) z + ε x (yz) - ε x y = 0`
-      have h := congrArg sgn (hcoc x y z)
-      rw [sgn_sub, sgn_add, sgn_sub, sgn_zero] at h
-      simp only [sgnC]
-      have e1 := sgn_inv (ε (x * y) z)
-      have e2 := sgn_inv (ε x y)
-      calc sgn (ε (x * y) z) * sgn (ε x y)
-          = sgn (ε (x * y) z) * sgn (ε x y) *
-            (sgn (ε y z) * sgn (ε (x * y) z) * sgn (ε x (y * z)) * sgn (ε x y)) := by
-            rw [h, mul_one]
-        _ = sgn (ε y z) * sgn (ε x (y * z)) *
-            ((sgn (ε (x * y) z) * sgn (ε (x * y) z)) * (sgn (ε x y) * sgn (ε x y))) := by ac_rfl
-        _ = sgn (ε y z) * sgn (ε x (y * z)) := by
-            rw [← sq, ← sq, sgn_sq, sgn_sq, one_mul, mul_one]
-  · rintro ⟨hl, -, hcoc⟩
-    refine ⟨?_, fun a b c => ?_⟩
-    · have hl' : IsLocallyConstant (fun x : G × G => ε x.1 x.2) := by
-        have := hl.comp unsgn
-        have e : (unsgn ∘ Function.uncurry (sgnC ε)) = fun x : G × G => ε x.1 x.2 := by
-          funext ⟨x, y⟩
-          show unsgn (sgn (ε x y)) = ε x y
-          rcases zmod2_cases (ε x y) with h | h <;> rw [h] <;> simp [sgn, unsgn]
-        rwa [e] at this
-      exact hl'.continuous
-    · apply sgn_injective
-      rw [sgn_sub, sgn_add, sgn_sub, sgn_zero]
-      have h := hcoc a b c
-      simp only [sgnC] at h
-      calc sgn (ε b c) * sgn (ε (a * b) c) * sgn (ε a (b * c)) * sgn (ε a b)
-          = (sgn (ε b c) * sgn (ε a (b * c))) * (sgn (ε (a * b) c) * sgn (ε a b)) := by ac_rfl
-        _ = (sgn (ε (a * b) c) * sgn (ε a b)) * (sgn (ε (a * b) c) * sgn (ε a b)) := by rw [h]
-        _ = 1 := by rw [← sq, mul_pow, sgn_sq, sgn_sq, mul_one]
-
-theorem isCoboundary2_iff (ε : G → G → ZMod 2) : IsCoboundary2 ε ↔ SignCob (sgnC ε) := by
-  constructor
-  · rintro ⟨f, hf, he⟩
-    refine ⟨fun x => sgn (f x), ((IsLocallyConstant.iff_continuous f).mpr hf).comp sgn,
-      fun x => sgn_sq _, fun x y => ?_⟩
-    simp only [sgnC, dB, he, sgn_add, sgn_sub, sgn_inv]
-    ac_rfl
-  · rintro ⟨γ, hγl, hγs, he⟩
-    refine ⟨fun x => unsgn (γ x), (hγl.comp unsgn).continuous, fun a b => ?_⟩
-    apply sgn_injective
-    have h := he a b
-    simp only [sgnC, dB] at h
-    have hi : (γ (a * b))⁻¹ = γ (a * b) :=
-      inv_eq_of_mul_eq_one_right (by rw [← sq, hγs])
-    rw [h, sgn_add, sgn_sub, sgn_unsgn (hγs a), sgn_unsgn (hγs b), sgn_unsgn (hγs (a * b)), hi]
-    ac_rfl
-
-/-- Every sign cocycle is `sgnC` of a `ZMod 2` cocycle. -/
-theorem exists_of_isSignCocycle {η : G → G → ℂˣ} (h : IsSignCocycle η) :
-    ∃ ε : G → G → ZMod 2, IsCocycle2 ε ∧ η = sgnC ε :=
-  ⟨unsgnC η, by rw [isCocycle2_iff, sgnC_unsgnC h.2.1]; exact h, (sgnC_unsgnC h.2.1).symm⟩
-
 end Generic
-
-/-- Restriction commutes with the dictionary: glue-descent's `pull (resp p)` is pkg-I6's
-`resC ℚ_[p]` (the same Mathlib map). -/
-theorem pull_resp_sgnC (p : Nat.Primes) (ε : GQ → GQ → ZMod 2) :
-    haveI : Fact (p : ℕ).Prime := ⟨p.2⟩
-    pull (resp p) (sgnC ε) = sgnC (resC ℚ_[(p : ℕ)] ε) := rfl
 
 /-! ## The two leaves -/
 
-/-- The real place from reciprocity: a `ZMod 2` cocycle of `G_ℚ` that is a coboundary at every
-finite prime is a coboundary at `∞` (the number of places where it is locally nontrivial is
-even, and there are none at finite primes). -/
-theorem real_of_finite (hR : BrauerReciprocity2C) (ε : GQ → GQ → ZMod 2) (hε : IsCocycle2 ε)
-    (hp : ∀ (p : ℕ) [Fact p.Prime], IsCoboundary2 (resC ℚ_[p] ε)) :
-    IsCoboundary2 (resC ℝ ε) := by
-  classical
-  obtain ⟨-, hev⟩ := hR ε hε
-  have hempty : {q : Nat.Primes | haveI : Fact (q : ℕ).Prime := ⟨q.2⟩;
-      ¬ IsCoboundary2 (resC ℚ_[(q : ℕ)] ε)} = ∅ := by
-    ext q
-    have : Fact (q : ℕ).Prime := ⟨q.2⟩
-    simp only [Set.mem_setOf_eq, Set.mem_empty_iff_false, iff_false, not_not]
-    exact hp q
-  rw [hempty, Set.ncard_empty, zero_add] at hev
-  by_contra hne
-  rw [if_neg hne] at hev
-  exact Nat.not_even_one hev
-
-/-- **glue-descent's `LeafHasse` from T14** (`BrauerHasse2C` and `BrauerReciprocity2C`). -/
-theorem leafHasse_of_T14 (hH : BrauerHasse2C) (hR : BrauerReciprocity2C) : LeafHasse := by
-  intro η hη hloc
-  obtain ⟨ε, hε, rfl⟩ := exists_of_isSignCocycle hη
-  have hp : ∀ (p : ℕ) [Fact p.Prime], IsCoboundary2 (resC ℚ_[p] ε) := by
-    intro p hpp
-    rw [isCoboundary2_iff]
-    exact hloc ⟨p, hpp.out⟩
-  rw [← isCoboundary2_iff]
-  exact hH ε hε (real_of_finite hR ε hε hp) hp
-
-/-- **glue-descent's `LeafLocalTwo` from T15** (`LocalH2CardC`, its finite-place half; the
-existence of a nontrivial class and the real place are not used). -/
-theorem leafLocalTwo_of_T15 (hC : LocalH2CardC) : LeafLocalTwo := by
-  intro p η₁ η₂ h₁ h₂ hn₁ hn₂
-  have : Fact (p : ℕ).Prime := ⟨p.2⟩
-  obtain ⟨ε₁, hε₁, rfl⟩ := exists_of_isSignCocycle h₁
-  obtain ⟨ε₂, hε₂, rfl⟩ := exists_of_isSignCocycle h₂
-  rw [← isCoboundary2_iff] at hn₁ hn₂
-  have h := (hC.1 p).2 ε₁ ε₂ hε₁ hε₂ hn₁ hn₂
-  rw [isCoboundary2_iff] at h
-  have e : (fun x y => sgnC ε₁ x y * (sgnC ε₂ x y)⁻¹) = sgnC (ε₁ - ε₂) := by
-    funext x y
-    simp only [sgnC, Pi.sub_apply, sgn_sub, sgn_inv]
-  rw [e]
-  exact h
-
 /-! ## Converses: glue-descent's forms say no more than the announced leaves -/
 
-/-- `LeafHasse` (finite places only) implies `BrauerHasse2C` outright. -/
-theorem brauerHasse2C_of_leafHasse (h : LeafHasse) : BrauerHasse2C := by
-  intro ε hε _ hp
-  rw [isCoboundary2_iff]
-  rw [isCocycle2_iff] at hε
-  refine h _ hε fun p => ?_
-  have : Fact (p : ℕ).Prime := ⟨p.2⟩
-  rw [pull_resp_sgnC, ← isCoboundary2_iff]
-  exact hp p
-
-/-- Given reciprocity, `LeafHasse ↔ BrauerHasse2C`. -/
-theorem leafHasse_iff (hR : BrauerReciprocity2C) : LeafHasse ↔ BrauerHasse2C :=
-  ⟨brauerHasse2C_of_leafHasse, fun hH => leafHasse_of_T14 hH hR⟩
-
-/-- `LeafLocalTwo` is exactly the second half of `H2TwoClasses (G_{ℚ_p})` for every `p`. -/
-theorem leafLocalTwo_iff : LeafLocalTwo ↔ ∀ (p : ℕ) [Fact p.Prime],
-    ∀ ε₁ ε₂, IsCocycle2 (G := Field.absoluteGaloisGroup ℚ_[p]) ε₁ → IsCocycle2 ε₂ →
-      ¬ IsCoboundary2 ε₁ → ¬ IsCoboundary2 ε₂ → IsCoboundary2 (ε₁ - ε₂) := by
-  have e : ∀ {G : Type} [Group G] [TopologicalSpace G] (ε₁ ε₂ : G → G → ZMod 2),
-      (fun x y => sgnC ε₁ x y * (sgnC ε₂ x y)⁻¹) = sgnC (ε₁ - ε₂) := by
-    intro G _ _ ε₁ ε₂
-    funext x y
-    simp only [sgnC, Pi.sub_apply, sgn_sub, sgn_inv]
-  constructor
-  · intro h p hp ε₁ ε₂ h₁ h₂ hn₁ hn₂
-    rw [isCocycle2_iff] at h₁ h₂
-    rw [isCoboundary2_iff] at hn₁ hn₂ ⊢
-    rw [← e]
-    exact h ⟨p, hp.out⟩ _ _ h₁ h₂ hn₁ hn₂
-  · intro h p η₁ η₂ h₁ h₂ hn₁ hn₂
-    have : Fact (p : ℕ).Prime := ⟨p.2⟩
-    obtain ⟨ε₁, hε₁, rfl⟩ := exists_of_isSignCocycle h₁
-    obtain ⟨ε₂, hε₂, rfl⟩ := exists_of_isSignCocycle h₂
-    rw [← isCoboundary2_iff] at hn₁ hn₂
-    rw [e, ← isCoboundary2_iff]
-    exact h p ε₁ ε₂ hε₁ hε₂ hn₁ hn₂
-
 /-! ## B2-B3 from the announced leaves -/
-
-/-- **B2-B3 with the constants from the announced leaves**: glue-descent's
-`GlueDescent.B3Q.b3_degree_le_QM` with `LeafHasse`, `LeafLocalTwo` replaced by T14-T15
-(`BrauerHasse2C`, `BrauerReciprocity2C`, `LocalH2CardC`).  The remaining hypotheses
-`LeafSqrtCrit` (L-B2c, T16) and `LeafUnramified` (L-B2d) are glue-descent's other leaves. -/
-theorem b3_degree_le_QM_of_T14_T15 (hH : BrauerHasse2C) (hR : BrauerReciprocity2C)
-    (hC : LocalH2CardC) (hSq : LeafSqrtCrit)
-    (hUnr : LeafUnramified) (S : Finset ℕ) (hS : ∀ p ∈ S, p.Prime) (R : ℝ)
-    (hRD : (ZInQ.heightD : ℝ) ≤ R) (hRS : ∀ p ∈ S, (p : ℝ) ≤ R) (hR12 : (10 : ℝ) ^ 12 ≤ R)
-    (u : ℚ)
-    (L : IntermediateField ℚ (AlgebraicClosure ℚ)) [FiniteDimensional ℚ L] [IsGalois ℚ L]
-    (hLD : Module.finrank ℚ L ≤ ZInQ.heightD)
-    (ε : GQ → GQ → ℂˣ) (hε : IsSignCocycle ε) (hinf : InflatedFrom L ε) (h11 : ε 1 1 = 1)
-    (hram : ∀ p : Nat.Primes, (p : ℕ) ∉ GlueDescent.ramSet S u → UnramifiedAt L p)
-    (η : GQ →* ℂˣ) (hη : ∀ x, η x ^ 2 = 1) (hηl : IsLocallyConstant η) :
-    ∃ (N : ℕ) (hN : NeZero N) (χ : DirichletCharacter ℂ N) (β : GQ → ℂˣ)
-      (L' : IntermediateField ℚ (AlgebraicClosure ℚ)),
-      IsLocallyConstant β ∧ (∀ x, β x ^ 2 = galChar χ x) ∧
-      (∀ x y, β x * β y = ε x y * β (x * y)) ∧
-      L ≤ L' ∧ FiniteDimensional ℚ L' ∧ IsGalois ℚ L' ∧
-      (∀ σ : GQ, σ ∈ GlueDescent.B3Q.GQL L' ↔ σ ∈ GlueDescent.B3Q.GQL L ∧ β σ = 1) ∧
-      (Module.finrank ℚ L' : ℝ) ≤ ZInQ.heightQ R * ZInQ.contactSupport S u :=
-  GlueDescent.B3Q.b3_degree_le_QM (leafHasse_of_T14 hH hR) (leafLocalTwo_of_T15 hC) hSq hUnr
-    S hS R hRD hRS hR12 u L hLD ε hε hinf h11 hram η hη hηl
 
 end GlueWP3
 
@@ -5043,555 +2897,27 @@ of glue-descent (`LeafHasse`, `LeafLocalTwo`, `LeafSqrtCrit`, `LeafUnramified`),
 
 open CategoryTheory AlgebraicGeometry Limits MonoidalCategory CartesianMonoidalCategory MonObj
 open _root_.ZInQ ZInQ LeafQM.AV GlueDescent GlueDescent.B2 GlueDescent.B2Q GlueDescent.B3Q
+open _root_.ZInQ (DefFaltings.AbVar DefFaltings.AnalyticUniformizationExists DefFaltings.AnalyticUniformizationUnique DefFaltings.EReal.add_coe_add_neg_coe DefFaltings.FinExt DefFaltings.Genus2Eq DefFaltings.Genus2Eq.Good DefFaltings.Genus2Eq.P DefFaltings.Genus2Eq.binDisc DefFaltings.GroupModel DefFaltings.GroupModel.IsAnalyticUniformization DefFaltings.GroupModel.IsNeronModel DefFaltings.GroupModel.Pts DefFaltings.GroupModel.cotangent DefFaltings.GroupModel.dCls DefFaltings.GroupModel.detLattice DefFaltings.GroupModel.dom DefFaltings.GroupModel.evalAt DefFaltings.GroupModel.exists_rep DefFaltings.GroupModel.genStalk DefFaltings.GroupModel.genericUnit DefFaltings.GroupModel.germAlong DefFaltings.GroupModel.height DefFaltings.GroupModel.height_eq DefFaltings.GroupModel.hodgeSpace DefFaltings.GroupModel.jacDet DefFaltings.GroupModel.jacDet_comp DefFaltings.GroupModel.omega DefFaltings.GroupModel.omegaAt DefFaltings.GroupModel.omegaAt_genericPt DefFaltings.GroupModel.ptC DefFaltings.GroupModel.semilinear_ext_wedge DefFaltings.GroupModel.specializes_genericUnit DefFaltings.GroupModel.structMap DefFaltings.GroupModel.unitSection DefFaltings.GroupModel.wedge DefFaltings.HermitianLattice DefFaltings.HermitianLattice.arakelovDegree DefFaltings.HermitianLattice.arakelovDegree_ofFractionalIdeal DefFaltings.HermitianLattice.arakelovDegree_rescale DefFaltings.HermitianLattice.degreeAt DefFaltings.HermitianLattice.degreeAt_eq DefFaltings.HermitianLattice.degreeAt_eq_arakelovDegree DefFaltings.HermitianLattice.degreeAt_smul DefFaltings.HermitianLattice.ofFractionalIdeal DefFaltings.HermitianLattice.rescale DefFaltings.HermitianLattice.secIndex_ne_zero DefFaltings.HodgeData DefFaltings.HodgeData.coeff_apply_ne_zero DefFaltings.HodgeData.hodgeBundle DefFaltings.HodgeData.modelHeight DefFaltings.HodgeData.modelHeight_eq DefFaltings.HodgeData.modelHeight_eq_add_of_le DefFaltings.HodgeData.modelHeight_eq_faltingsHeightGood DefFaltings.HodgeData.modelHeight_le_of_le DefFaltings.HodgeData.modelHeight_ofIdeal DefFaltings.HodgeData.modelHeight_ofIdeal_baseChange DefFaltings.HodgeData.modelHeight_of_span DefFaltings.HodgeData.modelHeight_recoord DefFaltings.HodgeData.norm DefFaltings.HodgeData.norm_sq DefFaltings.HodgeData.recoord DefFaltings.HodgeLatticeTheorem DefFaltings.IsIsogeny DefFaltings.MetrizedModel DefFaltings.MetrizedModel.modelHeight_eq_of_model_eq DefFaltings.NeronModelMinimal DefFaltings.PeriodAreaFormula DefFaltings.R19_GaudronRemond DefFaltings.R20_FaltingsLemma5 DefFaltings.R21_Bost DefFaltings.StableHeightFinite DefFaltings.absNorm_extendedHom DefFaltings.absNorm_map_ringOfIntegers DefFaltings.arakelovDegree_ofFractionalIdeal_baseChange DefFaltings.arakelovDegree_ofFractionalIdeal_mul DefFaltings.card_embeddings_over DefFaltings.covolume_comap_mul_det DefFaltings.covolume_gaussianPair DefFaltings.det_restrictScalars_complex DefFaltings.embCoeff DefFaltings.faltingsHeight DefFaltings.faltingsHeightEC DefFaltings.faltingsHeightGood DefFaltings.faltingsHeight_coe DefFaltings.finiteHeightPart DefFaltings.finrank_ringOfIntegers DefFaltings.gaussianPair DefFaltings.genericFibre DefFaltings.genericPt DefFaltings.grKappa DefFaltings.hypGram DefFaltings.hypGram_comp_add DefFaltings.hypVol DefFaltings.hypVol_one_comp_add DefFaltings.isogDeg DefFaltings.le_stableFaltingsHeight DefFaltings.modelHeight_ofIdeal_eq_faltingsHeightEC DefFaltings.modelHeight_ofIdeal_eq_faltingsHeightEC' DefFaltings.norm_algebraMap_tower DefFaltings.ptObj DefFaltings.ratCoeff DefFaltings.realify DefFaltings.secIndex DefFaltings.secIndex_mul_absNorm DefFaltings.secIndex_smul DefFaltings.stableFaltingsHeight DefFaltings.stableFaltingsHeightDeligne DefFaltings.stableFaltingsHeightDeligne_eq DefFaltings.stableFaltingsHeight_eq_faltingsHeightGood DefFaltings.stableFaltingsHeight_eq_iInf_height DefFaltings.stableFaltingsHeight_le DefFaltings.stableFaltingsHeight_ne_bot_of_R21 DefFaltings.sum_embeddings_comp DefFaltings.sum_log_norm_embeddings DefFaltings.sum_log_norm_embeddings_int DefFaltings.torusMetricSq DefFaltings.torusMetricSq_comap DefFaltings.torusMetricSq_eq_setIntegral DefFaltings.torusMetricSq_pos DefFaltings.torusMetricSq_smul DefFaltings.torus_setIntegral_indep H5Neron.GroupModel.IsNeronModel.lift H5Neron.GroupModel.IsNeronModel.uniqueIso H5Neron.GroupModel.isNeronModel_iff H5Neron.GroupModelBaseChangeExists H5Neron.IsBaseChangeOf H5Neron.IsOpenSubgroupModel H5Neron.IsProductAbVar H5Neron.IsProductModel H5Neron.ModelHeightBaseChange H5Neron.NeronModelExists H5Neron.NeronProp H5Neron.NeronProp.lift H5Neron.NeronProp.of_iso H5Neron.NeronProp.tensor H5Neron.NeronProp.uniqueIso H5Neron.OpenSubgroupHeight H5Neron.ProductGroupModelExists H5Neron.ProductModelHeight H5Neron.R19_zero H5Neron.R20_zero H5Neron.R21_zero H5Neron.SemistableNeronIdentityComponent H5Neron.bcProd H5Neron.bcUnitIso H5Neron.compositum H5Neron.covolume_fin_zero H5Neron.detLattice_zero H5Neron.glue_zero H5Neron.groupModel_height_zero H5Neron.hodgeZeroEquiv H5Neron.hodgeZeroEquiv_wedge0 H5Neron.hom_ext_of_iso_unit H5Neron.isIsogeny_id_zero H5Neron.isMonHom_of_iso_unit H5Neron.isMonHom_prodComparisonIso H5Neron.isNeronModel_of_isProductModel H5Neron.isogDeg_zero_le_one H5Neron.jL H5Neron.metrizedOf H5Neron.modelHeight_dim_zero H5Neron.neronModelExists_zero H5Neron.neronModelMinimal_zero H5Neron.neron_zero_iso_unit H5Neron.no_metrized_succ H5Neron.one_le_grKappa H5Neron.productGroupModelExists H5Neron.pts_subsingleton H5Neron.semistableNeronIdentityComponent_zero H5Neron.semσ H5Neron.stableFaltingsHeight_add_le H5Neron.stableFaltingsHeight_add_le' H5Neron.stableFaltingsHeight_eq_neron H5Neron.stableFaltingsHeight_eq_neron_all H5Neron.stableFaltingsHeight_zero H5Neron.stableHeightFinite_zero H5Neron.tensorGen H5Neron.tensorGen_fst H5Neron.tensorGen_snd H5Neron.trivHodge H5Neron.trivMetrized H5Neron.trivModel H5Neron.trivModel_isNeronModel H5Neron.wedge0 H5Neron.wedge0_ne_zero H5Neron.wedge_eq_wedge0 LeafPush2.CPts LeafPush2.Char2 LeafPush2.HasSexticModel LeafPush2.IC10 LeafPush2.IC2 LeafPush2.IC4 LeafPush2.IC6 LeafPush2.IgJ10 LeafPush2.IgJ2 LeafPush2.IgJ4 LeafPush2.IgJ6 LeafPush2.IsGenus2 LeafPush2.IsPeriodMatrix LeafPush2.IsSiegel LeafPush2.IsUniformization LeafPush2.LinYangTuple LeafPush2.OnQMLocus LeafPush2.T10_groupIso LeafPush2.T11a_RiemannEnd LeafPush2.T11b_Rigidity LeafPush2.T12_ComplexConjEigen LeafPush2.UniformizationExists LeafPush2.absLogHeight LeafPush2.cDom LeafPush2.cEvalAt LeafPush2.cptObj LeafPush2.dsq LeafPush2.exists_isComplexConj LeafPush2.ffAlgebra LeafPush2.ffStructMap LeafPush2.isSiegel_I LeafPush2.javanpeykarBound LeafPush2.javanpeykarBound_mono LeafPush2.javanpeykarBound_pos LeafPush2.linYangTuple_onQMLocus LeafPush2.linYang_j_eq LeafPush2.onQMLocus_of_linYangTuple LeafPush2.pazukiC2 LeafPush2.sextic LeafPush2.thetaConst) -- op-dedupe
+open _root_.LeafQM.AV (CMExists HasCM24 HasCM24.of_iso HasCM3 HasCM3.of_iso HasCM4 HasCM4.of_iso IsBaseChangeOf IsBaseChangeOfPair IsFibreOf Level3 Level3.bcPt_pow_three Level3.eq_iff Level3.exists_mul_of_range_le Level3.ext' Level3.onto Level3.range_le Level3.rightMul Level3.rightMul_eq_self Level3.rightMul_rightMul Level3.torsor Level3.twist M3 M3.mk M3.rightMul M3.rightMul_rightMul M3.twist M3.twist_mk Pin.IsNaturalRelabel Pin.MobiusGlue Pin.PinUnique Pin.QMFamily.transport Pin.R1fpProps.fam Pin.R1fpProps.univ Pin.SameTriple Pin.SameTripleMor Pin.autRelabel Pin.autRelabel_natural Pin.cm_objects_of_R1R2fp Pin.isFibreOf_transport Pin.phi_part Pin.pointwise_of_witness Pin.pointwise_of_witness_mor Pin.r1fpPin_aut Pin.r1fpPin_relabel_iff Pin.r2fp_aut Pin.relabel Pin.relabel_geometric Pin.relabel_is_morphism Pin.sameTripleMor_of_mobius Pin.sameTriple_aut Pin.transfer_exists Pin.transfer_pointwise Pin.transfer_pointwise_mor PtEquiv QMFamily QMIso QMIso.nonempty_abVarIso QMIso.refl QMIso.symm QMIso.trans QML3 QML3.Iso QML3.Iso.refl QML3.Iso.rightMul QML3.Iso.symm QML3.Iso.trans QML3.Iso.twist QML3.forget QML3.rightMul QML3.rightMul_A QML3.rightMul_rightMul QML3.twist QML3.twist_A QMLeaves QMPair QMPair.twist QMStr QMStr.twist Qbar R1R2fp R1R2fp_Y R1famProps R1fp R1fpProps R1fp_of_R1R2fp R1heckeProps R1rec R1recProps R1univProps R2X6Props R2fpProps R2fpProps_of_X6 R5fp R5fpCount R5fpWeak R5fpWeak_of_R5fp R5ptProps ToP1 ToP1.comp ToP1.val ToP1.val_comp ToP1.val_comp_right UnramifiedAbove5 X6Props X6Surj act_mul_apply bcPt bcPt_injective cm_of_val com comEquiv com_twist conductor conjHom conjHom_iota conjHom_mem_com conjHom_symm_apply conj_iso_of_rational conj_twist_of_rational endPt exists_fibre_object fibre_conjugates_isomorphic fieldMap fieldOfModuli3 fieldOfModuliPair fieldPt galAct_bcPt hI hIJ hJ hasCM24_twist hasCM3_twist hasCM4_twist hrat inertCount6 intCast_mem_com isoSetoid leaves_on_one_witness liftO not_qmStr_zero ofInt_injective ofInt_sub oi oi_mul_oi oj oj_mul_oi_add oj_mul_oj pairSetoid qmAct residueImage residue_unramified_over_branch specMap_flat specMap_surjective specToEquivOfField_comp specToEquivOfField_comp_right stab3 stabPair three_mul_ofInt toKbar unramified_over_branch) -- op-dedupe
+open _root_.GlueDescent (B2.IsSignCocycle B2.SignCob B2.dB B2.dB_inv B2.dB_mul B2.exists_beta B2.isSignCocycle_dB B2.isSignCocycle_inv B2.isSignCocycle_mul B2.isSignCocycle_pull B2.pull B2.pull_dB B2.signCob_dB_iff B2.signCob_inv B2.signCob_mul B2Q.GQ B2Q.GQp B2Q.InflatedFrom B2Q.LeafHasse B2Q.LeafLocalTwo B2Q.LeafSqrtCrit B2Q.LeafUnramified B2Q.UnramifiedAt B2Q.act B2Q.act_mul B2Q.b2_of_leaves B2Q.cast_cast_of_dvd B2Q.chiLevel_pos B2Q.chi_toUnitHom_crt B2Q.cyc B2Q.cyc_eq_of_agree B2Q.cyc_isLocallyConstant B2Q.exists_crt_unit B2Q.galChar B2Q.galChar_isLocallyConstant B2Q.isLocallyConstant_of_openSubgroup B2Q.lev_eq_pow B2Q.resp B2Q.resp_continuous B2Q.sqrtU B2Q.sqrtU_sq B2Q.toRingAut B3Q.GQL B3Q.b3_degree_le_QM B3Q.b3_of_leaves B3Q.inflatedNormalized_of B3Q.mem_GQL B3Q.orderOf_pos_dirichlet B6 B6_commute_i_j B6_inner B6_isCentral B6_isSimpleRing B6_star_mul InflatedNormalized IsCochainFor LeafSkolemNoether MatrixUnits2 MatrixUnits2.W MatrixUnits2.e00_of_mem MatrixUnits2.e_apply_e MatrixUnits2.finrank_W MatrixUnits2.mapsTo_W MatrixUnits2.mem_W_of_e0 MatrixUnits2.splitEquiv MatrixUnits2.splitEquiv_intertwines aniso_int aniso_rat boundary_sq chi chiLevel cochain_conj cochain_mul_kernel cochain_mul_left cochain_mul_right cochain_of_boundary_eq cochain_one cocycle_of_projective commute_adjoin contactSupport_pos degree_le_QM exists_chi exists_odd_char heightD_pos index_kernel_le inertia_le_kernel kernelSubgroup kernelSubgroup_le kernelSubgroup_normal lev lev_dvd_chiLevel mem_kernelSubgroup oddChar oddChar_neg_one orderOf_dvd_totient orderOf_prod_dvd prod_S_le prod_odd_le prod_odd_le_aux prod_totient_lev_le qi qj ramSet relindex_kernel_le restrictHom rho rhoRep rho_commute rho_eq_act rho_map_mul sign_cocycle sign_normalization sign_sq_eq_one ten_le_heightE0 three_dvd_of_form totient_lev twist twist_kills_inertia twist_sq two_lt_lev zmod3_aniso) -- op-dedupe
+open _root_.GlueDescent.B2 (IsSignCocycle SignCob dB dB_inv dB_mul exists_beta isSignCocycle_dB isSignCocycle_inv isSignCocycle_mul isSignCocycle_pull pull pull_dB signCob_dB_iff signCob_inv signCob_mul) -- op-dedupe
+open _root_.GlueDescent.B2Q (GQ GQp InflatedFrom LeafHasse LeafLocalTwo LeafSqrtCrit LeafUnramified UnramifiedAt act act_mul b2_of_leaves cast_cast_of_dvd chiLevel_pos chi_toUnitHom_crt cyc cyc_eq_of_agree cyc_isLocallyConstant exists_crt_unit galChar galChar_isLocallyConstant isLocallyConstant_of_openSubgroup lev_eq_pow resp resp_continuous sqrtU sqrtU_sq toRingAut) -- op-dedupe
+open _root_.GlueDescent.B3Q (GQL b3_degree_le_QM b3_of_leaves inflatedNormalized_of mem_GQL orderOf_pos_dirichlet) -- op-dedupe
 
 namespace G0ModField
-
-/-- Intermediate fields of `ℚ̄/ℚ`. -/
-abbrev IF : Type := IntermediateField ℚ Qbar
-
-/-- `T = S_mul ∪ supp M_{S_mul}(u)`, the ramification set (N5 L528). -/
-noncomputable def T (u : ℚ) : Finset ℕ := GlueDescent.ramSet Mult.S_mul u
-
-/-- `A`, an abelian variety over the subfield `L ⊆ ℚ̄`, is a model of the surface of the
-`ℚ̄`-object `P`: `A_{ℚ̄} ≅ P.A` as `ℚ̄`-schemes (base change along the inclusion `L ⊆ ℚ̄`). -/
-def IsModelOver (L : IF) (A : PkgI3.AbVar L) (P : QML3 Qbar) : Prop :=
-  Nonempty ((A.baseChange Qbar).X ≅ P.A.X)
-
-/-- The algebra `L → L'` for `L ≤ L'`. -/
-@[instance_reducible] noncomputable def incAlg {L L' : IF} (h : L ≤ L') : Algebra L L' :=
-  (IntermediateField.inclusion h).toRingHom.toAlgebra
-
-/-- **`A/L` is a QM model of `P`**: the base change to `L` of the abelian surface of an object
-`PK` of `Y₃`'s moduli problem (QM by `𝒪` with level-3 structure) over a subfield `K ≤ L`, itself a
-model of `P`'s surface. Such an `A` has good reduction away from `3` (G3,
-`LeafQM.AV.QML3.goodReduction`), unlike an arbitrary model (a twist by a cocycle ramified at
-`p ∉ T` has bad reduction at `p`), so the later steps (G11, G15) hold for every such `A`. -/
-def IsQMModel (L : IF) (A : PkgI3.AbVar L) (P : QML3 Qbar) : Prop :=
-  ∃ (K : IF) (hKL : K ≤ L) (PK : QML3 K), IsModelOver K PK.A P ∧
-    A = @PkgI3.AbVar.baseChange K _ PK.A L _ (incAlg hKL)
-
-/-- **The fibre context** (the hypotheses of `ModularConstituent`): moduli data `(Y, Φ, π)` with
-R1-R2's clauses, `u ∉ 𝒞`, and a `ℚ̄`-point `y` of `Y₃` carrying the object `P` and lying over
-`J(u)`. -/
-def FibreCtx (Y : Over (Spec (CommRingCat.of ℚ))) (Φ : PtEquiv Y) (π : ToP1 Y.left) (u : ℚ)
-    (P : QML3 Qbar) : Prop :=
-  R1fpProps Y Φ ∧ R2fpProps Y Φ π ∧ u ∉ contactSet ∧
-  ∃ y : fieldPt Qbar ⟶ Y, Φ Qbar y = M3.mk P ∧
-    π.val (K := Qbar) y.left = OnePoint.some (algebraMap ℚ Qbar (ZInQ.JHeight.Jmap u))
-
-/-- **A rational fibre over `K`** (Glazer N5 L528: "Choose a fiber `A/K`"): `PK` is an object of
-`Y₃` over `K ⊆ ℚ̄` at a `K`-point `yK` whose base change to `ℚ̄` carries `P` (so `yK` lies over the
-`ℚ̄`-point of `P`, `Φ` being a bijection), and `PK.A` is a model of `P`'s surface. Unlike an
-arbitrary `K`-model (a twist of `PK.A` by a cocycle ramified outside `T` can have bad
-reduction there), `PK.A` is the fibre of the universal family and has good reduction away
-from `3` (G3). -/
-def RationalFibre (Y : Over (Spec (CommRingCat.of ℚ))) (Φ : PtEquiv Y) (P : QML3 Qbar) (K : IF)
-    (PK : QML3 K) : Prop :=
-  (∃ yK : fieldPt K ⟶ Y, Φ K yK = M3.mk PK ∧ Φ Qbar (fieldMap K.val ≫ yK) = M3.mk P) ∧
-    IsModelOver K PK.A P
+open _root_.G0ModField (CommonConstituent ConjugacyData DescentDatum FibreCoverExists FibreCoverOut FibreCtx G2Out G4Out G7Out GaloisCopy.G2Out GaloisCopy.G7Out GaloisCopy.Vb GaloisCopy.resQ GaloisCopy.tate IF IsModelOver IsQMModel IsQMModel.isModelOver KernelFieldExists KernelFieldOut ModularConstituentG PtQ RationalFibre ResQRange T UnramifiedSup actK actQ admissible_S_mul b2_of_leaves_level b3_of_cochain baseChangeTrans card_ker_GL descentDatum_bot descentDatum_of_conjugacy fieldDescent g2Out_of_cover g4Out_of_kernelField g7Out_of_g4Out galAct_bijective galAct_mul incAlg isModelOver_baseChange le_heightD_of_mem_S_mul mem_GQL_bot normA numberField_of_fd resQRange resQ_comm' resQ_range sgnU sgnU_mul sgnU_mul_abs sgnU_sq toLAut toLAut_apply two_mem_T) -- op-dedupe
 
 /-! ## The outputs of G2, G4, G7 -/
 
-/-- **G2's output (Lemma PR(i), N5 L524-529).** A finite Galois `K ⊆ ℚ̄` with `[K:ℚ] ≤ F₀ = 324!`,
-unramified outside `T`, with a rational fibre `PK/K` over `P` (Glazer: "Choose a fiber `A/K`";
-`RationalFibre`). -/
-def G2Out (Y : Over (Spec (CommRingCat.of ℚ))) (Φ : PtEquiv Y) (u : ℚ) (P : QML3 Qbar) : Prop :=
-  ∃ (K : IF) (_ : FiniteDimensional ℚ K) (_ : IsGalois ℚ K),
-    Module.finrank ℚ K ≤ heightF0 ∧
-    (∀ p : Nat.Primes, (p : ℕ) ∉ T u → UnramifiedAt K p) ∧
-    ∃ PK : QML3 K, RationalFibre Y Φ P K PK
-
-/-- `A(ℚ̄)` as an additive group, for `A` over `L ⊆ ℚ̄`. -/
-abbrev PtQ (L : IF) (A : PkgI3.AbVar L) : Type := Additive (A.Pt Qbar)
-
-/-- **The descent datum of B1 on the actual `A` (N5 L632-663).** `ε` is a normalized
-locally constant sign 2-cocycle of `G_ℚ` inflated from `Gal(L/ℚ)`, and it is the cocycle of `A`:
-there are maps `m_σ = μ_σ ∘ σ` on `A(ℚ̄)` (`μ_σ : ^σA → A` the `B`-linear conjugacy isogeny over
-`L`, `σ` acting on coordinates) and reals `a_σ > 0` (`a_σ = (deg μ_σ)^{-1/4}`) with
-* `a` inflated from `Gal(L/ℚ)` with `a = 1` on `G_L`,
-* `m_σ` the Galois action of `σ` for `σ ∈ G_L` (`μ_σ = 1` there),
-* `m_{σk} = m_σ m_k`, `m_{kσ} = m_k m_σ` for `k ∈ G_L` (`μ` inflated from `Gal(L/ℚ)`, defined
-  over `L`),
-* `m_σ` commutes with every `L`-endomorphism of `A` (`μ_σ` is `B`-linear and `L` is the Hom
-  field),
-* `m_σ` surjective with finite kernel (an isogeny composed with a bijection),
-* `m_σ m_τ = c(σ,τ) m_{στ}` with `c = n/d ∈ ℚ^×` (the discrepancy commutes with `B`), and
-  `a_σ a_τ c(σ,τ) = ε(σ,τ) a_{στ}` (N5 L651-660: `ν = aμ`, `ν_σ ^σν_τ = ε ν_{στ}`).
-* `m_σ` is algebraic: it is induced by a finite surjective morphism of schemes
-  `F_σ : A → A` (`μ_σ`, composed with the identification of the underlying schemes of `^σA` and
-  `A`): `m_σ(x) = F_σ ∘ x ∘ Spec(σ)` (G14's trace identities reduce `F_σ` modulo primes).
-The maps `m_σ` are on points, hence independent of `ℓ`; on `V_ℓ(A)` they give G8's
-`ρ_ℓ(σ) = β(σ)⁻¹ a_σ μ_σ σ` (N5 L725-727). -/
-def DescentDatum (L : IF) (A : PkgI3.AbVar L) (ε : GQ → GQ → ℂˣ) : Prop :=
-  IsSignCocycle ε ∧ InflatedFrom L ε ∧ ε 1 1 = 1 ∧
-  ∃ (m : GQ → (PtQ L A →+ PtQ L A)) (a : GQ → ℝ),
-    (∀ σ, 0 < a σ) ∧
-    (∀ σ k : GQ, k ∈ GQL L → a k = 1 ∧ a (σ * k) = a σ ∧ a (k * σ) = a σ) ∧
-    (∀ (σ : GQ) (σ' : Qbar ≃ₐ[L] Qbar), (∀ x, σ' x = act σ x) →
-        m σ = MonoidHom.toAdditive (A.galAct σ')) ∧
-    (∀ σ k : GQ, k ∈ GQL L → m (σ * k) = (m σ).comp (m k) ∧ m (k * σ) = (m k).comp (m σ)) ∧
-    (∀ (σ : GQ) (f : PkgI3.AbVar.End A),
-        (m σ).comp (MonoidHom.toAdditive (PkgI3.AbVar.ptMap (L := Qbar) f)) =
-          (MonoidHom.toAdditive (PkgI3.AbVar.ptMap (L := Qbar) f)).comp (m σ)) ∧
-    (∀ σ, Function.Surjective (m σ) ∧ ((m σ).ker : Set (PtQ L A)).Finite) ∧
-    (∀ σ τ, ∃ n d : ℤ, n ≠ 0 ∧ d ≠ 0 ∧ d • (m σ).comp (m τ) = n • m (σ * τ) ∧
-        (((a σ * a τ * ((n : ℝ) / d) : ℝ) : ℂ)) = (ε σ τ : ℂ) * ((a (σ * τ) : ℝ) : ℂ)) ∧
-    (∃ F : GQ → (A.X.left ⟶ A.X.left), ∀ σ, IsFinite (F σ) ∧ Surjective (F σ) ∧
-        ∀ x : PtQ L A, (Additive.toMul (m σ x)).left =
-          Spec.map (CommRingCat.ofHom ((act σ : Qbar ≃ₐ[ℚ] Qbar) : Qbar →+* Qbar)) ≫
-            (Additive.toMul x).left ≫ F σ)
-
 /-! ## B1's normalization (proved): from conjugacy isogenies to the sign cocycle -/
-
-/-- The sign of a rational, as `±1 ∈ ℂ^×` (`1` for `q > 0`). -/
-noncomputable def sgnU (q : ℚ) : ℂˣ := if 0 < q then 1 else -1
-
-theorem sgnU_sq (q : ℚ) : sgnU q ^ 2 = 1 := by
-  unfold sgnU; split_ifs <;> simp
-
-theorem sgnU_mul {q r : ℚ} (hq : q ≠ 0) (hr : r ≠ 0) : sgnU (q * r) = sgnU q * sgnU r := by
-  unfold sgnU
-  rcases lt_or_gt_of_ne hq with hq' | hq' <;> rcases lt_or_gt_of_ne hr with hr' | hr'
-  · rw [if_pos (mul_pos_of_neg_of_neg hq' hr'), if_neg (not_lt.2 hq'.le),
-      if_neg (not_lt.2 hr'.le)]; simp
-  · rw [if_neg (not_lt.2 (mul_neg_of_neg_of_pos hq' hr').le), if_neg (not_lt.2 hq'.le),
-      if_pos hr']; simp
-  · rw [if_neg (not_lt.2 (mul_neg_of_pos_of_neg hq' hr').le), if_pos hq',
-      if_neg (not_lt.2 hr'.le)]; simp
-  · rw [if_pos (mul_pos hq' hr'), if_pos hq', if_pos hr']; simp
-
-/-- `sgn(q)·|q| = q`, in `ℂ`. -/
-theorem sgnU_mul_abs (q : ℚ) : ((sgnU q : ℂˣ) : ℂ) * ((|(q : ℝ)| : ℝ) : ℂ) = ((q : ℝ) : ℂ) := by
-  unfold sgnU
-  split_ifs with h
-  · have : (0 : ℝ) < q := by exact_mod_cast h
-    rw [abs_of_pos this]; simp
-  · have : (q : ℝ) ≤ 0 := by exact_mod_cast not_lt.1 h
-    rw [abs_of_nonpos this]; push_cast; ring
-
-/-- **The conjugacy isogenies before normalization (N5 L632-645; the content of G4 + B1's
-geometric half).** Maps `m_σ = μ_σ ∘ σ` on `A(ℚ̄)` with the first four clauses of
-`DescentDatum`; the discrepancy `c(σ,τ) = n/d ∈ ℚ^×` with `d·m_σ m_τ = n·m_{στ}`, a 2-cocycle
-inflated from `Gal(L/ℚ)` with `c(1,1) = 1`; and degree multiplicativity in the form
-`|ker m_σ|·|ker m_τ| = c(σ,τ)⁴·|ker m_{στ}|` (`deg μ = |ker μ(ℚ̄)|` in characteristic 0,
-`deg[n] = n⁴` on a surface); and algebraicity: `m_σ(x) = F_σ ∘ x ∘ Spec(σ)` for a finite
-surjective scheme morphism `F_σ : A → A`. -/
-def ConjugacyData (L : IF) (A : PkgI3.AbVar L) (m : GQ → (PtQ L A →+ PtQ L A))
-    (c : GQ → GQ → ℚ) : Prop :=
-  (∀ (σ : GQ) (σ' : Qbar ≃ₐ[L] Qbar), (∀ x, σ' x = act σ x) →
-      m σ = MonoidHom.toAdditive (A.galAct σ')) ∧
-  (∀ σ k : GQ, k ∈ GQL L → m (σ * k) = (m σ).comp (m k) ∧ m (k * σ) = (m k).comp (m σ)) ∧
-  (∀ (σ : GQ) (f : PkgI3.AbVar.End A),
-      (m σ).comp (MonoidHom.toAdditive (PkgI3.AbVar.ptMap (L := Qbar) f)) =
-        (MonoidHom.toAdditive (PkgI3.AbVar.ptMap (L := Qbar) f)).comp (m σ)) ∧
-  (∀ σ, Function.Surjective (m σ) ∧ ((m σ).ker : Set (PtQ L A)).Finite) ∧
-  (∀ σ τ, c σ τ ≠ 0 ∧ ∃ n d : ℤ, d ≠ 0 ∧ c σ τ = n / d ∧
-      d • (m σ).comp (m τ) = n • m (σ * τ)) ∧
-  (∀ σ τ ρ, c (σ * τ) ρ * c σ τ = c τ ρ * c σ (τ * ρ)) ∧
-  (∀ σ σ' τ τ' : GQ, (∀ x ∈ L, act σ x = act σ' x) → (∀ x ∈ L, act τ x = act τ' x) →
-      c σ τ = c σ' τ') ∧
-  c 1 1 = 1 ∧
-  (∀ σ τ, (Nat.card (m σ).ker : ℚ) * Nat.card (m τ).ker = c σ τ ^ 4 * Nat.card (m (σ * τ)).ker) ∧
-  (∃ F : GQ → (A.X.left ⟶ A.X.left), ∀ σ, IsFinite (F σ) ∧ Surjective (F σ) ∧
-      ∀ x : PtQ L A, (Additive.toMul (m σ x)).left =
-        Spec.map (CommRingCat.ofHom ((act σ : Qbar ≃ₐ[ℚ] Qbar) : Qbar →+* Qbar)) ≫
-          (Additive.toMul x).left ≫ F σ)
-
-/-- The Galois action of `σ' ∈ Aut(ℚ̄/L)` on `A(ℚ̄)` is bijective. -/
-theorem galAct_bijective {L : IF} (A : PkgI3.AbVar L) (σ' : Qbar ≃ₐ[L] Qbar) :
-    Function.Bijective (A.galAct σ') := by
-  have key : ∀ (g h : Qbar ≃ₐ[L] Qbar) (P : A.Pt Qbar),
-      A.galAct g (A.galAct h P) = A.galAct (g * h) P := by
-    intro g h P
-    show PkgI3.AbVar.galHom g ≫ PkgI3.AbVar.galHom h ≫ P = PkgI3.AbVar.galHom (g * h) ≫ P
-    rw [PkgI3.AbVar.galHom_mul, Category.assoc]
-  have one : ∀ P : A.Pt Qbar, A.galAct 1 P = P := by
-    intro P
-    show PkgI3.AbVar.galHom 1 ≫ P = P
-    rw [PkgI3.AbVar.galHom_one, Category.id_comp]
-  refine ⟨fun P Q h => ?_, fun Q => ⟨A.galAct σ'⁻¹ Q, ?_⟩⟩
-  · have := congrArg (A.galAct σ'⁻¹) h
-    rwa [key, key, inv_mul_cancel, one, one] at this
-  · rw [key, mul_inv_cancel, one]
-
-/-- `k ∈ G_L` as an `L`-automorphism of `ℚ̄`. -/
-noncomputable def toLAut {L : IF} (k : GQ) (hk : k ∈ GQL L) : Qbar ≃ₐ[L] Qbar :=
-  AlgEquiv.ofRingEquiv (f := (act k).toRingEquiv) (fun x => mem_GQL.mp hk x x.2)
-
-theorem toLAut_apply {L : IF} (k : GQ) (hk : k ∈ GQL L) (x : Qbar) : toLAut k hk x = act k x :=
-  rfl
-
-/-- The kernel sizes of `m_k`, `m_{σk}`, `m_{kσ}` for `k ∈ G_L` (from the first two clauses of
-`ConjugacyData`). -/
-theorem card_ker_GL {L : IF} {A : PkgI3.AbVar L} {m : GQ → (PtQ L A →+ PtQ L A)}
-    (hgal : ∀ (σ : GQ) (σ' : Qbar ≃ₐ[L] Qbar), (∀ x, σ' x = act σ x) →
-      m σ = MonoidHom.toAdditive (A.galAct σ'))
-    (hinfl : ∀ σ k : GQ, k ∈ GQL L → m (σ * k) = (m σ).comp (m k) ∧ m (k * σ) = (m k).comp (m σ))
-    (σ k : GQ) (hk : k ∈ GQL L) :
-    Nat.card (m k).ker = 1 ∧ Nat.card (m (σ * k)).ker = Nat.card (m σ).ker ∧
-      Nat.card (m (k * σ)).ker = Nat.card (m σ).ker := by
-  have hmk : m k = MonoidHom.toAdditive (A.galAct (toLAut k hk)) :=
-    hgal k (toLAut k hk) (toLAut_apply k hk)
-  have hbij : Function.Bijective (m k) := by
-    rw [hmk]; exact galAct_bijective A (toLAut k hk)
-  have hker : (m k).ker = ⊥ := by
-    rw [eq_bot_iff]
-    intro x hx
-    have : m k x = m k 0 := by rw [map_zero]; exact hx
-    exact hbij.1 this
-  refine ⟨by rw [hker]; simp, ?_, ?_⟩
-  · rw [(hinfl σ k hk).1]
-    refine Nat.card_congr (Equiv.ofBijective (fun x => ⟨m k x, x.2⟩) ⟨?_, ?_⟩)
-    · intro x y h
-      exact Subtype.ext (hbij.1 (congrArg Subtype.val h))
-    · rintro ⟨y, hy⟩
-      obtain ⟨x, rfl⟩ := hbij.2 y
-      exact ⟨⟨x, hy⟩, rfl⟩
-  · have hk2 : ((m k).comp (m σ)).ker = (m σ).ker := by
-      ext x
-      simp only [AddMonoidHom.mem_ker, AddMonoidHom.coe_comp, Function.comp_apply]
-      constructor
-      · intro h
-        have : m k (m σ x) = m k 0 := by rw [map_zero]; exact h
-        exact hbij.1 this
-      · intro h; rw [h, map_zero]
-    rw [(hinfl σ k hk).2, hk2]
-
-/-- `a_σ = |ker m_σ|^{-1/4}` (`= (deg μ_σ)^{-1/4}`, N5 L645). -/
-noncomputable def normA {L : IF} {A : PkgI3.AbVar L} (m : GQ → (PtQ L A →+ PtQ L A)) (σ : GQ) :
-    ℝ := (Nat.card (m σ).ker : ℝ) ^ (-(1 / 4 : ℝ))
-
-/-- **B1's normalization, proved** (N5 L645-663): from the conjugacy isogenies, `ε = sgn c` is a
-normalized locally constant sign cocycle inflated from `Gal(L/ℚ)`, and `(m, a = |ker m|^{-1/4},
-ε)` is a descent datum. -/
-theorem descentDatum_of_conjugacy (L : IF) [FiniteDimensional ℚ L] [IsGalois ℚ L]
-    (A : PkgI3.AbVar L) (m : GQ → (PtQ L A →+ PtQ L A)) (c : GQ → GQ → ℚ)
-    (h : ConjugacyData L A m c) : DescentDatum L A (fun σ τ => sgnU (c σ τ)) := by
-  obtain ⟨hgal, hinfl, hend, hfin, hc, hcoc, hcinf, hc11, hdeg, halg⟩ := h
-  have hkerL := card_ker_GL hgal hinfl
-  have hcard : ∀ σ, 0 < Nat.card (m σ).ker := fun σ => by
-    haveI : Finite (m σ).ker := (hfin σ).2.to_subtype
-    exact Nat.card_pos
-  -- the sign cocycle
-  have hloc : IsLocallyConstant (Function.uncurry fun σ τ => sgnU (c σ τ)) := by
-    refine isLocallyConstant_of_openSubgroup ((GQL L).prod (GQL L))
-      (by rw [Subgroup.coe_prod]; exact L.fixingSubgroup_isOpen.prod L.fixingSubgroup_isOpen)
-      _ ?_
-    rintro ⟨σ, τ⟩ ⟨k₁, k₂⟩ hk
-    rw [Subgroup.mem_prod] at hk
-    simp only [Function.uncurry_apply_pair, Prod.mk_mul_mk]
-    congr 1
-    refine (hcinf σ (σ * k₁) τ (τ * k₂) ?_ ?_).symm
-    · intro x hx
-      show act σ x = act σ (act k₁ x)
-      rw [mem_GQL.mp hk.1 x hx]
-    · intro x hx
-      show act τ x = act τ (act k₂ x)
-      rw [mem_GQL.mp hk.2 x hx]
-  refine ⟨⟨hloc, fun σ τ => sgnU_sq _, fun σ τ ρ => ?_⟩, ?_, ?_, m, normA m, ?_, ?_, hgal, hinfl,
-    hend, hfin, ?_, halg⟩
-  · rw [← sgnU_mul (hc _ _).1 (hc _ _).1, ← sgnU_mul (hc _ _).1 (hc _ _).1, hcoc]
-  · exact fun σ σ' τ τ' h1 h2 => by simp only [hcinf σ σ' τ τ' h1 h2]
-  · show sgnU (c 1 1) = 1
-    rw [hc11]; unfold sgnU; simp
-  · intro σ; unfold normA; exact Real.rpow_pos_of_pos (by exact_mod_cast hcard σ) _
-  · intro σ k hk
-    obtain ⟨h1, h2, h3⟩ := hkerL σ k hk
-    unfold normA
-    rw [h1, h2, h3]
-    simp
-  · intro σ τ
-    obtain ⟨hc0, n, d, hd, hcnd, hnd⟩ := hc σ τ
-    have hn : n ≠ 0 := by
-      rintro rfl; apply hc0; rw [hcnd]; simp
-    refine ⟨n, d, hn, hd, hnd, ?_⟩
-    have hx : (0 : ℝ) < Nat.card (m σ).ker := by exact_mod_cast hcard σ
-    have hy : (0 : ℝ) < Nat.card (m τ).ker := by exact_mod_cast hcard τ
-    have hz : (0 : ℝ) < Nat.card (m (σ * τ)).ker := by exact_mod_cast hcard (σ * τ)
-    have hdegR : (Nat.card (m σ).ker : ℝ) * Nat.card (m τ).ker =
-        |(c σ τ : ℝ)| ^ 4 * Nat.card (m (σ * τ)).ker := by
-      have := congrArg (fun q : ℚ => (q : ℝ)) (hdeg σ τ)
-      push_cast at this
-      rw [this, pow_abs, abs_of_nonneg (by positivity)]
-    have hcR : ((n : ℝ) / d) = (c σ τ : ℝ) := by rw [hcnd]; push_cast; rfl
-    have habs : (0 : ℝ) < |(c σ τ : ℝ)| := abs_pos.mpr (by exact_mod_cast hc0)
-    have key : normA m σ * normA m τ * |(c σ τ : ℝ)| = normA m (σ * τ) := by
-      unfold normA
-      rw [← Real.mul_rpow hx.le hy.le, hdegR, Real.mul_rpow (by positivity) hz.le]
-      rw [show |(c σ τ : ℝ)| ^ 4 = |(c σ τ : ℝ)| ^ ((4 : ℕ) : ℝ) by norm_cast,
-        ← Real.rpow_mul habs.le]
-      rw [show ((4 : ℕ) : ℝ) * (-(1 / 4 : ℝ)) = -1 by norm_num, Real.rpow_neg_one]
-      field_simp
-    rw [hcR]
-    have e1 : ((normA m σ * normA m τ * (c σ τ : ℝ) : ℝ) : ℂ) =
-        ((sgnU (c σ τ) : ℂˣ) : ℂ) * ((normA m σ * normA m τ * |(c σ τ : ℝ)| : ℝ) : ℂ) := by
-      have h := sgnU_mul_abs (c σ τ)
-      push_cast at h ⊢
-      linear_combination (-((normA m σ : ℂ) * (normA m τ : ℂ))) * h
-    rw [e1, key]
 
 /-! ## Sanity check: `DescentDatum` is satisfiable (an abelian variety over `ℚ`, `ε = 1`) -/
 
-theorem mem_GQL_bot (σ : GQ) : σ ∈ GQL (⊥ : IF) := by
-  rw [mem_GQL]
-  intro x hx
-  obtain ⟨r, rfl⟩ := IntermediateField.mem_bot.mp hx
-  exact (act σ).commutes r
-
-theorem galAct_mul {L : IF} (A : PkgI3.AbVar L) (g h : Qbar ≃ₐ[L] Qbar) (P : A.Pt Qbar) :
-    A.galAct g (A.galAct h P) = A.galAct (g * h) P := by
-  show PkgI3.AbVar.galHom g ≫ PkgI3.AbVar.galHom h ≫ P = PkgI3.AbVar.galHom (g * h) ≫ P
-  rw [PkgI3.AbVar.galHom_mul, Category.assoc]
-
-/-- **Sanity check (proved).** For every abelian variety `A` over `ℚ` (here `L = ⊥ ⊆ ℚ̄`), the
-Galois action itself is a descent datum with `ε = 1`, `a = 1`, `F_σ = id`. So `DescentDatum` is
-not contradictory. -/
-theorem descentDatum_bot (A : PkgI3.AbVar (⊥ : IF)) : DescentDatum ⊥ A (fun _ _ => 1) := by
-  let m : GQ → (PtQ ⊥ A →+ PtQ ⊥ A) := fun σ =>
-    MonoidHom.toAdditive (A.galAct (toLAut σ (mem_GQL_bot σ)))
-  have hmul : ∀ σ τ : GQ, (m σ).comp (m τ) = m (σ * τ) := by
-    intro σ τ
-    refine AddMonoidHom.ext fun x => ?_
-    show Additive.ofMul (A.galAct _ (A.galAct _ (Additive.toMul x))) =
-      Additive.ofMul (A.galAct _ (Additive.toMul x))
-    rw [galAct_mul]
-    rfl
-  have hbij : ∀ σ, Function.Bijective (m σ) := fun σ => galAct_bijective A _
-  refine ⟨⟨IsLocallyConstant.const 1, fun _ _ => by simp, fun _ _ _ => by simp⟩,
-    fun _ _ _ _ _ _ => rfl, rfl, m, fun _ => 1, fun _ => one_pos, fun _ _ _ => ⟨rfl, rfl, rfl⟩,
-    ?_, ?_, ?_, ?_, ?_, ?_⟩
-  · intro σ σ' h
-    have : σ' = toLAut σ (mem_GQL_bot σ) := AlgEquiv.ext h
-    rw [this]
-  · intro σ k _
-    exact ⟨(hmul σ k).symm, (hmul k σ).symm⟩
-  · intro σ f
-    refine AddMonoidHom.ext fun x => ?_
-    show Additive.ofMul (PkgI3.AbVar.galHom _ ≫ (Additive.toMul x ≫ f.hom)) =
-      Additive.ofMul ((PkgI3.AbVar.galHom _ ≫ Additive.toMul x) ≫ f.hom)
-    rw [Category.assoc]
-  · intro σ
-    refine ⟨(hbij σ).2, ?_⟩
-    have : ((m σ).ker : Set (PtQ ⊥ A)) = {0} := by
-      ext x
-      simp only [SetLike.mem_coe, AddMonoidHom.mem_ker, Set.mem_singleton_iff]
-      constructor
-      · intro h; exact (hbij σ).1 (h.trans (map_zero _).symm)
-      · rintro rfl; exact map_zero _
-    rw [this]; exact Set.finite_singleton 0
-  · intro σ τ
-    refine ⟨1, 1, one_ne_zero, one_ne_zero, by rw [one_smul, one_smul, hmul], by simp⟩
-  · refine ⟨fun _ => 𝟙 _, fun σ => ⟨inferInstance, inferInstance, fun x => ?_⟩⟩
-    show (PkgI3.AbVar.galHom (toLAut σ (mem_GQL_bot σ)) ≫ Additive.toMul x).left =
-      Spec.map (CommRingCat.ofHom ((act σ : Qbar ≃ₐ[ℚ] Qbar) : Qbar →+* Qbar)) ≫
-        (Additive.toMul x).left ≫ 𝟙 _
-    erw [Category.comp_id]
-    rfl
-
-/-- **G4's output (N5 L532-563 and the B1 normalization L632-663).** A finite Galois `L ⊆ ℚ̄`
-(the Hom field) with `[L:ℚ] ≤ D`, unramified outside `T`, a QM model `A/L` of `P` (`IsQMModel`), and
-the descent datum `ε` of `A` (`DescentDatum`). -/
-def G4Out (u : ℚ) (P : QML3 Qbar) : Prop :=
-  ∃ (L : IF) (_ : FiniteDimensional ℚ L) (_ : IsGalois ℚ L),
-    Module.finrank ℚ L ≤ heightD ∧
-    (∀ p : Nat.Primes, (p : ℕ) ∉ T u → UnramifiedAt L p) ∧
-    ∃ (A : PkgI3.AbVar L) (ε : GQ → GQ → ℂˣ), IsQMModel L A P ∧ DescentDatum L A ε
-
-/-- **G7's output (B2-B3, N5 L664-716).** The data of G4 (`L`, `A/L`, `ε`), and: a Dirichlet
-character `χ` mod `N`, a locally constant cochain `β : G_ℚ → ℂ^×` with `β² = χ` and `∂β = ε`, and
-the kernel field `L' ⊇ L` of `β|_{G_L}`: finite Galois, `G_{L'} = G_L ∩ ker β`,
-`[L':ℚ] ≤ Q_D · M_{S_mul}(u)`, and the base change `A_{L'}` is a model of `P`'s surface. -/
-def G7Out (u : ℚ) (P : QML3 Qbar) : Prop :=
-  ∃ (L : IF) (_ : FiniteDimensional ℚ L) (_ : IsGalois ℚ L) (A : PkgI3.AbVar L)
-    (ε : GQ → GQ → ℂˣ),
-    IsQMModel L A P ∧ DescentDatum L A ε ∧
-    (∀ p : Nat.Primes, (p : ℕ) ∉ T u → UnramifiedAt L p) ∧
-  ∃ (N : ℕ) (_ : NeZero N) (χ : DirichletCharacter ℂ N) (β : GQ → ℂˣ) (L' : IF)
-    (_ : FiniteDimensional ℚ L') (_ : IsGalois ℚ L') (hLL' : L ≤ L'),
-    IsLocallyConstant β ∧ (∀ x, β x ^ 2 = galChar χ x) ∧
-    (∀ x y, β x * β y = ε x y * β (x * y)) ∧
-    (∀ σ : GQ, σ ∈ GQL L' ↔ σ ∈ GQL L ∧ β σ = 1) ∧
-    (Module.finrank ℚ L' : ℝ) ≤ heightQ heightD * (contactSupport Mult.S_mul u : ℝ) ∧
-    IsModelOver L' (@PkgI3.AbVar.baseChange L _ A L' _ (incAlg hLL')) P
-
 /-! ## Transitivity of base change -/
-
-/-- `(A_{L'})_{ℚ̄} ≅ A_{ℚ̄}` for `L ≤ L' ⊆ ℚ̄` (pasting of pullbacks). -/
-noncomputable def baseChangeTrans {L L' : IF} (h : L ≤ L') (A : PkgI3.AbVar L) :
-    ((@PkgI3.AbVar.baseChange L _ A L' _ (incAlg h)).baseChange Qbar).X ≅
-      (A.baseChange Qbar).X := by
-  letI := incAlg h
-  have hcomp : Spec.map (CommRingCat.ofHom (algebraMap L' Qbar)) ≫
-      Spec.map (CommRingCat.ofHom (algebraMap L L')) =
-      Spec.map (CommRingCat.ofHom (algebraMap L Qbar)) := by
-    rw [← Spec.map_comp]
-    congr 1
-  exact ((Over.pullbackComp (Spec.map (CommRingCat.ofHom (algebraMap L' Qbar)))
-      (Spec.map (CommRingCat.ofHom (algebraMap L L')))).app A.X).symm ≪≫
-    eqToIso (congrArg (fun f => (Over.pullback f).obj A.X) hcomp)
-
-theorem isModelOver_baseChange {L L' : IF} (h : L ≤ L') (A : PkgI3.AbVar L) (P : QML3 Qbar)
-    (hA : IsModelOver L A P) :
-    IsModelOver L' (@PkgI3.AbVar.baseChange L _ A L' _ (incAlg h)) P := by
-  obtain ⟨e⟩ := hA
-  exact ⟨baseChangeTrans h A ≪≫ e⟩
-
-theorem IsQMModel.isModelOver {L : IF} {A : PkgI3.AbVar L} {P : QML3 Qbar}
-    (h : IsQMModel L A P) : IsModelOver L A P := by
-  obtain ⟨K, hKL, PK, hPK, rfl⟩ := h
-  exact isModelOver_baseChange hKL PK.A P hPK
 
 /-! ## G7 from G4 (proved) -/
 
-/-- `max S_mul ≤ D` (copied from `ZInQKernel/Main.lean`, `ZInQ.Mult.le_heightD_of_mem_S_mul`). -/
-theorem le_heightD_of_mem_S_mul {p : ℕ} (hp : p ∈ Mult.S_mul) : p ≤ heightD :=
-  (Mult.le_R_of_mem_S_mul hp).trans_eq ((Size.R_eq_D catalogueBound8).trans Mult.D_eq_heightD)
-
-theorem admissible_S_mul :
-    (∀ p ∈ Mult.S_mul, p.Prime) ∧ (∀ p ∈ Mult.S_mul, (p : ℝ) ≤ (heightD : ℝ)) ∧
-      (10 : ℝ) ^ 12 ≤ (heightD : ℝ) :=
-  ⟨fun _ hp => Mult.prime_of_mem_S_mul hp,
-   fun _ hp => by exact_mod_cast le_heightD_of_mem_S_mul hp,
-   by exact_mod_cast Compiler.Precision.ten_pow_twelve_le_heightD⟩
-
-/-- **G7 (B2-B3 on the actual descent datum), proved** from G4's output and glue-descent's four
-B2 leaves, by `GlueDescent.B3Q.b3_degree_le_QM` at `S = S_mul`, `R = D`, `η = 1`. -/
-theorem g7Out_of_g4Out (hHasse : LeafHasse) (hTwo : LeafLocalTwo) (hSq : LeafSqrtCrit)
-    (hUnr : LeafUnramified) (u : ℚ) (P : QML3 Qbar) (h : G4Out u P) : G7Out u P := by
-  obtain ⟨L, hfd, hgal, hLD, hram, A, ε, hA, hD⟩ := h
-  have ⟨hε, hinf, h11, _⟩ := hD
-  obtain ⟨hS, hRS, hR12⟩ := admissible_S_mul
-  obtain ⟨N, hN, χ, β, L', hβl, hβs, hβe, hle, hfd', hgal', hGL', hdeg⟩ :=
-    b3_degree_le_QM hHasse hTwo hSq hUnr Mult.S_mul hS (heightD : ℝ) le_rfl hRS hR12 u L hLD
-      ε hε hinf h11 hram 1 (fun _ => by simp) (IsLocallyConstant.const 1)
-  exact ⟨L, hfd, hgal, A, ε, hA, hD, hram, N, hN, χ, β, L', hfd', hgal', hle, hβl, hβs, hβe, hGL',
-    hdeg, isModelOver_baseChange hle A P hA.isModelOver⟩
-
 /-! ## G7 with the twist: `L'` unramified outside `T` (proved) -/
-
-/-- **B2 over `G_ℚ` with the level of `χ` exposed** (the proof of
-`GlueDescent.B2Q.b2_of_leaves`, copied; the only change is the extra output
-`N = chiLevel T₋ = ∏_{p ∈ T₋} lev p` with `T₋ ⊆ T`, `lev 2 = 4`, `lev p = p`). -/
-theorem b2_of_leaves_level (hHasse : LeafHasse) (hTwo : LeafLocalTwo) (hSq : LeafSqrtCrit)
-    (hUnr : LeafUnramified)
-    (L : IntermediateField ℚ (AlgebraicClosure ℚ)) [FiniteDimensional ℚ L] [IsGalois ℚ L]
-    (ε : GQ → GQ → ℂˣ) (hε : IsSignCocycle ε) (hinf : InflatedFrom L ε)
-    (T : Finset ℕ) (hT : ∀ p ∈ T, p.Prime)
-    (hram : ∀ p : Nat.Primes, (p : ℕ) ∉ T → UnramifiedAt L p) :
-    ∃ (N : ℕ) (hN : NeZero N) (χ : DirichletCharacter ℂ N) (β : GQ → ℂˣ),
-      (∃ Tm ⊆ T, N = chiLevel Tm) ∧
-      (∀ q : ℕ, q.Prime → q ∣ N → q ∈ T) ∧
-      orderOf χ ≤ 2 * ∏ p ∈ T.filter (· ≠ 2), (p - 1) ∧
-      IsLocallyConstant β ∧ (∀ x, β x ^ 2 = galChar χ x) ∧
-      ∀ x y, β x * β y = ε x y * β (x * y) := by
-  classical
-  let Tm := T.filter (fun p => ∃ hp : p.Prime, ¬ SignCob (pull (resp ⟨p, hp⟩) ε))
-  have hloc : ∀ p : Nat.Primes, ¬ SignCob (pull (resp p) ε) ↔ (p : ℕ) ∈ Tm := by
-    intro p
-    constructor
-    · intro h
-      refine Finset.mem_filter.2 ⟨?_, p.2, h⟩
-      by_contra hpT
-      exact h (hUnr L ε hε hinf p (hram p hpT))
-    · intro h
-      obtain ⟨_, hp, h'⟩ := Finset.mem_filter.1 h
-      exact h'
-  have hTmP : ∀ q ∈ Tm, q.Prime := fun q hq => hT q (Finset.filter_subset _ _ hq)
-  haveI hN : NeZero (chiLevel Tm) := ⟨(chiLevel_pos Tm hTmP).ne'⟩
-  obtain ⟨_, hsupp, hord⟩ := exists_chi T Tm hT (Finset.filter_subset _ _)
-  let χ := chi Tm
-  let β₀ : GQ → ℂˣ := fun x => sqrtU (galChar χ x)
-  have hβ₀ : ∀ x, β₀ x ^ 2 = galChar χ x := fun x => sqrtU_sq _
-  have hl : IsLocallyConstant β₀ := (galChar_isLocallyConstant χ).comp sqrtU
-  have agree : ∀ p : Nat.Primes,
-      SignCob (pull (resp p) ε) ↔ SignCob (pull (resp p) (dB β₀)) := by
-    intro p
-    rw [pull_dB, signCob_dB_iff ((galChar χ).comp (resp p)) (β₀ ∘ resp p) (fun x => hβ₀ _)
-      (hl.comp_continuous (resp_continuous p))]
-    obtain ⟨u, hu1, hu2⟩ := exists_crt_unit (chiLevel Tm) p p.2
-    have hsq := hSq p (chiLevel Tm) χ u hu1 hu2
-    have hsq' : (∃ φ : GQp p →* ℂˣ, IsLocallyConstant φ ∧
-        ∀ x, φ x ^ 2 = ((galChar χ).comp (resp p)) x) ↔ χ.toUnitHom u = 1 := hsq
-    rw [hsq', chi_toUnitHom_crt Tm hTmP p p.2 u hu1 hu2]
-    by_cases h : (p : ℕ) ∈ Tm
-    · rw [if_pos h]
-      have hne : (-1 : ℂˣ) ≠ 1 := by
-        intro h1
-        have := congrArg (fun z : ℂˣ => (z : ℂ)) h1
-        norm_num at this
-      constructor
-      · intro hc; exact absurd hc ((hloc p).mpr h)
-      · intro h1; exact absurd h1 hne
-    · rw [if_neg h]
-      simp only [iff_true]
-      by_contra hc
-      exact h ((hloc p).mp hc)
-  obtain ⟨β, hβl, hβs, hβe⟩ := exists_beta (G := GQ) GQp resp resp_continuous hHasse hTwo ε hε
-    (galChar χ) β₀ hβ₀ hl agree
-  exact ⟨chiLevel Tm, hN, χ, β, ⟨Tm, Finset.filter_subset _ _, rfl⟩, hsupp, hord, hβl, hβs, hβe⟩
-
-/-- **B3 from a given B2 cochain** (the proof of `GlueDescent.B3Q.b3_of_leaves`, copied, with
-`b2_of_leaves`' output taken as hypotheses so that the twist `η` may depend on it). -/
-theorem b3_of_cochain
-    (L : IntermediateField ℚ (AlgebraicClosure ℚ)) [FiniteDimensional ℚ L] [IsGalois ℚ L]
-    (ε : GQ → GQ → ℂˣ) (hε : IsSignCocycle ε) (hinf : InflatedFrom L ε) (h11 : ε 1 1 = 1)
-    {N : ℕ} [NeZero N] (χ : DirichletCharacter ℂ N) (β₁ : GQ → ℂˣ) (hβl₁ : IsLocallyConstant β₁)
-    (hβs₁ : ∀ x, β₁ x ^ 2 = galChar χ x) (hβe₁ : ∀ x y, β₁ x * β₁ y = ε x y * β₁ (x * y))
-    (tw : GQ →* ℂˣ) (htw : ∀ x, tw x ^ 2 = 1) (htwl : IsLocallyConstant tw) :
-    ∃ L' : IntermediateField ℚ (AlgebraicClosure ℚ),
-      L ≤ L' ∧ FiniteDimensional ℚ L' ∧ IsGalois ℚ L' ∧
-      (∀ σ : GQ, σ ∈ GQL L' ↔ σ ∈ GQL L ∧ β₁ σ * tw σ = 1) ∧
-      Module.finrank ℚ L' ≤ 2 * orderOf χ * Module.finrank ℚ L := by
-  let β : GQ → ℂˣ := fun x => β₁ x * tw x
-  have hβl : IsLocallyConstant β := hβl₁.mul htwl
-  have hβs : ∀ x, β x ^ 2 = galChar χ x := twist_sq (galChar χ) hβs₁ tw htw
-  have hβe : ∀ x y, β x * β y = ε x y * β (x * y) := twist hβe₁ tw
-  have hεN := inflatedNormalized_of L ε hε hinf h11
-  have hβ : IsCochainFor ε β := hβe
-  let K' : Subgroup GQ := kernelSubgroup hβ hεN
-  have hHopen : IsOpen ((GQL L : Subgroup GQ) : Set GQ) := L.fixingSubgroup_isOpen
-  have hK'set : (K' : Set GQ) = (GQL L : Set GQ) ∩ β ⁻¹' {1} := by
-    ext g
-    simp only [SetLike.mem_coe, Set.mem_inter_iff, Set.mem_preimage, Set.mem_singleton_iff]
-    exact mem_kernelSubgroup hβ hεN
-  have hK'open : IsOpen (K' : Set GQ) := by
-    rw [hK'set]; exact hHopen.inter (hβl.isOpen_fiber 1)
-  have hK'closed : IsClosed (K' : Set GQ) := Subgroup.isClosed_of_isOpen K' hK'open
-  let K'c : ClosedSubgroup (AlgebraicClosure ℚ ≃ₐ[ℚ] AlgebraicClosure ℚ) :=
-    { toSubgroup := K', isClosed' := hK'closed }
-  let L' : IntermediateField ℚ (AlgebraicClosure ℚ) := IntermediateField.fixedField K'
-  have hfix : L'.fixingSubgroup = K' := InfiniteGalois.fixingSubgroup_fixedField K'c
-  have hGL' : ∀ σ : GQ, σ ∈ GQL L' ↔ σ ∈ GQL L ∧ β σ = 1 := by
-    intro σ
-    show σ ∈ L'.fixingSubgroup ↔ _
-    rw [hfix]
-    exact mem_kernelSubgroup hβ hεN
-  have hm := orderOf_pos_dirichlet χ
-  have hpow : ∀ s ∈ GQL L, β s ^ (2 * orderOf χ) = 1 := by
-    intro s _
-    rw [pow_mul, hβs]
-    show (MulChar.mulEquivToUnitHom χ (cyc N s)) ^ orderOf χ = 1
-    rw [← MonoidHom.pow_apply, ← map_pow, pow_orderOf_eq_one, map_one, MonoidHom.one_apply]
-  haveI : (GQL L).Normal := (InfiniteGalois.normal_iff_isGalois L).mpr inferInstance
-  have hidx := index_kernel_le hβ hεN (2 * orderOf χ) (by positivity) hpow
-  have hfd : FiniteDimensional ℚ L' :=
-    (InfiniteGalois.isOpen_iff_finite L').mp (by rw [hfix]; exact hK'open)
-  have hL : Module.finrank ℚ L = (GQL L).index := IntermediateField.finrank_eq_fixingSubgroup_index
-      (L := L)
-  have hL' : Module.finrank ℚ L' = K'.index := by
-    rw [IntermediateField.finrank_eq_fixingSubgroup_index (L := L'), hfix]
-    rfl
-  have hgal : IsGalois ℚ L' :=
-    (InfiniteGalois.normal_iff_isGalois L').mp (by rw [hfix]; exact kernelSubgroup_normal hβ hεN)
-  have hle : L ≤ L' := by
-    intro x hx
-    show x ∈ IntermediateField.fixedField K'
-    exact fun k => mem_GQL.mp (kernelSubgroup_le hβ hεN k.2) x hx
-  refine ⟨L', hle, hfd, hgal, hGL', ?_⟩
-  rw [hL', hL]; exact hidx
-
-theorem two_mem_T (u : ℚ) : 2 ∈ T u :=
-  Finset.mem_union_left _ (Mult.mem_S_mul_of_le Nat.prime_two (by norm_num))
 
 /-- **The data of G7, clause by clause** (the interface handed to G8-G16). For the fibre `P`
 over `J(u)`: the Hom field `L` (finite Galois, unramified outside `T`), the model `A/L` with its
@@ -5662,109 +2988,9 @@ theorem g7Out_of_g7OutUnr (u : ℚ) (P : QML3 Qbar) (h : G7OutUnr u P) : G7Out u
 
 /-! ## G2's bookkeeping (proved) -/
 
-/-- **G2's input, the fibre cover (Prop. TS + Lemma NV, N5 L509-529; remaining).** There is a
-separable `f ∈ ℚ[X]` of degree `≤ 324` (the fibre of the normalized cover of `P¹_u` over `u`)
-whose splitting field `K = ℚ(roots of f) ⊆ ℚ̄` is unramified outside `T` and contains the residue
-field of the point of `P` (a rational fibre `PK/K`, `RationalFibre`). -/
-def FibreCoverOut (Y : Over (Spec (CommRingCat.of ℚ))) (Φ : PtEquiv Y) (u : ℚ) (P : QML3 Qbar) :
-    Prop :=
-  ∃ f : Polynomial ℚ, f.Separable ∧ f.natDegree ≤ 324 ∧
-    (∀ p : Nat.Primes, (p : ℕ) ∉ T u →
-      UnramifiedAt (IntermediateField.adjoin ℚ (f.rootSet Qbar)) p) ∧
-    ∃ PK : QML3 (IntermediateField.adjoin ℚ (f.rootSet Qbar)),
-      RationalFibre Y Φ P (IntermediateField.adjoin ℚ (f.rootSet Qbar)) PK
-
-/-- **G2, proved from the fibre cover**: the splitting field is Galois of degree `≤ 324!`
-(`GlueRepo.Numerics.splitting_degree_le`). -/
-theorem g2Out_of_cover (Y : Over (Spec (CommRingCat.of ℚ))) (Φ : PtEquiv Y) (u : ℚ)
-    (P : QML3 Qbar) (h : FibreCoverOut Y Φ u P) : G2Out Y Φ u P := by
-  obtain ⟨f, hs, hd, hram, A, hA⟩ := h
-  have hsp : f.IsSplittingField ℚ (IntermediateField.adjoin ℚ (f.rootSet Qbar)) :=
-    IntermediateField.adjoin_rootSet_isSplittingField (IsAlgClosed.splits _)
-  have hfd : FiniteDimensional ℚ (IntermediateField.adjoin ℚ (f.rootSet Qbar)) :=
-    Polynomial.IsSplittingField.finiteDimensional _ f
-  have hgal : IsGalois ℚ (IntermediateField.adjoin ℚ (f.rootSet Qbar)) :=
-    IsGalois.of_separable_splitting_field hs
-  have hdeg : Module.finrank ℚ (IntermediateField.adjoin ℚ (f.rootSet Qbar)) ≤ heightF0 := by
-    rw [(Polynomial.IsSplittingField.algEquiv _ f).toLinearEquiv.finrank_eq]
-    exact GlueRepo.Numerics.splitting_degree_le f hs hd
-  exact ⟨_, hfd, hgal, hdeg, hram, A, hA⟩
-
 /-! ## G4's bookkeeping (proved) -/
 
-/-- **Compositum of unramified fields (STANDARD; remaining, not in Mathlib v4.35).** If `E`
-and `K` are finite over `ℚ` and unramified at `p`, so is `E ⊔ K` (Neukirch, *Algebraic Number
-Theory*, I (8.?)/III, UNVERIFIED locator; a prime is unramified in a compositum iff it is in both
-factors, for Galois factors). -/
-def UnramifiedSup : Prop :=
-  ∀ (E K : IF) [FiniteDimensional ℚ E] [FiniteDimensional ℚ K] [IsGalois ℚ E] [IsGalois ℚ K]
-    (p : ℕ), UnramifiedAt E p → UnramifiedAt K p → UnramifiedAt (E ⊔ K) p
-
-/-- **G4's input, the kernel field (N5 L540-563 and B1, L632-663; remaining).** For a field `K`
-and model `A/K` as in G2's output: `W₀ = Res_{K/ℚ} A` has endomorphism lattice of rank `r ≤ 16F₀²`;
-the image of `G_ℚ` on it is a finite subgroup `G ≤ GL_r(ℤ)` with kernel field `E`
-(`[E:ℚ] = |G|`), unramified outside `T` (inertia at `p ∉ T` acts trivially on the Tate module of
-`W₀`, which has good reduction there); and the base change `A_L` of `A` to the Hom field
-`L = E ⊔ K` carries conjugacy isogenies `μ_σ : ^σA → A` over `L`, `B`-linear after the
-Skolem-Noether correction, with rational discrepancy (`ConjugacyData`; B1's normalization to a
-sign cocycle is proved, `descentDatum_of_conjugacy`). -/
-def KernelFieldOut (u : ℚ) (P : QML3 Qbar) (K : IF) (A : PkgI3.AbVar K) : Prop :=
-  ∃ (r : ℕ), r ≤ 16 * heightF0 ^ 2 ∧
-  ∃ (G : Subgroup (GL (Fin r) ℤ)) (_ : Finite G) (E : IF) (_ : FiniteDimensional ℚ E)
-    (_ : IsGalois ℚ E), Module.finrank ℚ E = Nat.card G ∧
-    (∀ p : Nat.Primes, (p : ℕ) ∉ T u → UnramifiedAt E p) ∧
-    ∃ (m : GQ → (PtQ (E ⊔ K) (@PkgI3.AbVar.baseChange K _ A ↥(E ⊔ K) _ (incAlg le_sup_right)) →+
-        PtQ (E ⊔ K) (@PkgI3.AbVar.baseChange K _ A ↥(E ⊔ K) _ (incAlg le_sup_right))))
-      (c : GQ → GQ → ℚ),
-      ConjugacyData (E ⊔ K) (@PkgI3.AbVar.baseChange K _ A ↥(E ⊔ K) _ (incAlg le_sup_right)) m c
-
-/-- **G4, proved from the kernel field**: `L = E ⊔ K` is finite Galois, unramified outside `T`
-(`UnramifiedSup`), `[L:ℚ] ≤ [K:ℚ]·[E:ℚ] ≤ F₀·3^{r²} ≤ D` (Minkowski,
-`GlueRepo.TorsionFree.card_le_three_pow`; `GlueRepo.Numerics.a8_field`), `A_L = (PK.A)_L` is a QM
-model of `P` (`IsQMModel`), and B1's normalization gives the descent datum
-(`descentDatum_of_conjugacy`). -/
-theorem g4Out_of_kernelField (hSup : UnramifiedSup) (u : ℚ) (P : QML3 Qbar) (K : IF)
-    [FiniteDimensional ℚ K] [IsGalois ℚ K] (hK : Module.finrank ℚ K ≤ heightF0)
-    (hramK : ∀ p : Nat.Primes, (p : ℕ) ∉ T u → UnramifiedAt K p) (PK : QML3 K)
-    (hPK : IsModelOver K PK.A P) (h : KernelFieldOut u P K PK.A) : G4Out u P := by
-  obtain ⟨r, hr, G, hG, E, hfE, hgE, hEG, hramE, m, c, hCD⟩ := h
-  have hE : Module.finrank ℚ E ≤ 3 ^ (r ^ 2) := hEG ▸ GlueRepo.TorsionFree.card_le_three_pow G
-  have hdeg : Module.finrank ℚ ↥(E ⊔ K) ≤ heightD :=
-    GlueRepo.Numerics.a8_field E K Compiler.Precision.heightD_eq hK hE hr
-  have : IsGalois ℚ ↥(E ⊔ K) := IsGalois.mk
-  exact ⟨E ⊔ K, inferInstance, inferInstance, hdeg,
-    fun p hp => hSup E K p (hramE p hp) (hramK p hp), _, _,
-    ⟨K, le_sup_right, PK, hPK, rfl⟩, descentDatum_of_conjugacy _ _ m c hCD⟩
-
 /-! ## The remaining glue as Props, and the composite -/
-
-/-- **Remaining (G2): Prop. TS + Lemma NV on the actual fibre** (h-decomposition G2: inputs
-R1(d), R2, T1, T2; the valuation case analysis is proved, `GlueRepo.PR.inertia_orders_eq_one_iff`,
-and Lemma NV step 2, `LeafQM.AV.residue_unramified_over_branch`). -/
-def FibreCoverExists : Prop :=
-  ∀ (Y : Over (Spec (CommRingCat.of ℚ))) (Φ : PtEquiv Y) (π : ToP1 Y.left) (u : ℚ)
-    (P : QML3 Qbar), FibreCtx Y Φ π u P → FibreCoverOut Y Φ u P
-
-/-- **Remaining (G4 + B1): the kernel field of `Res_{K/ℚ} A` and the descent datum on the Hom
-field**, for every field `K` and rational fibre `PK/K` as in G2's output (h-decomposition G4: inputs R2, R3, T6,
-R7a, T28; A7 proved, `LeafQM.AV.fibre_conjugates_isomorphic`; B1's algebra proved,
-glue-descent `B1Quat`, `Cochain`; uses NoCM (G6) for `End⁰(A_ℚ̄) = B`). -/
-def KernelFieldExists : Prop :=
-  ∀ (Y : Over (Spec (CommRingCat.of ℚ))) (Φ : PtEquiv Y) (π : ToP1 Y.left) (u : ℚ)
-    (P : QML3 Qbar), FibreCtx Y Φ π u P →
-    ∀ (K : IF) [FiniteDimensional ℚ K] [IsGalois ℚ K], Module.finrank ℚ K ≤ heightF0 →
-      (∀ p : Nat.Primes, (p : ℕ) ∉ T u → UnramifiedAt K p) →
-      ∀ PK : QML3 K, RationalFibre Y Φ P K PK → KernelFieldOut u P K PK.A
-
-/-- **G2 → G4 → G7 (proved)**: from the two remaining glue Props and the four B2 leaves, every
-fibre context has G7's output. -/
-theorem fieldDescent (hCover : FibreCoverExists) (hKer : KernelFieldExists) (hSup : UnramifiedSup)
-    (hHasse : LeafHasse) (hTwo : LeafLocalTwo) (hSq : LeafSqrtCrit) (hUnr : LeafUnramified)
-    (Y : Over (Spec (CommRingCat.of ℚ))) (Φ : PtEquiv Y) (π : ToP1 Y.left) (u : ℚ)
-    (P : QML3 Qbar) (hctx : FibreCtx Y Φ π u P) : G7Out u P := by
-  obtain ⟨K, hfK, hgK, hK, hramK, PK, hPK⟩ := g2Out_of_cover Y Φ u P (hCover Y Φ π u P hctx)
-  exact g7Out_of_g4Out hHasse hTwo hSq hUnr u P
-    (g4Out_of_kernelField hSup u P K hK hramK PK hPK.2 (hKer Y Φ π u P hctx K hK hramK PK hPK))
 
 /-- **G2 → G4 → G7 with the twist (proved)**: as `fieldDescent`, with `L'` unramified outside `T`
 and the clause list `G7Data`. -/
@@ -5778,38 +3004,6 @@ theorem fieldDescentUnr (hCover : FibreCoverExists) (hKer : KernelFieldExists)
     (g4Out_of_kernelField hSup u P K hK hramK PK hPK.2 (hKer Y Φ π u P hctx K hK hramK PK hPK))
 
 /-! ## How G7's output feeds `ModularConstituent` -/
-
-/-- (copied from scratch/g0-split/part_split.lean, `G0Split.CommonConstituent`, verbatim) The
-hypotheses of E1: for some prime `ℓ` and field `E ⊇ ℚ_ℓ`, `V_ℓ(A) ⊗ E` and `V_ℓ(J) ⊗ E` have a
-common nonzero constituent, as `G_K`-representations. -/
-def CommonConstituent {K : Type} [Field K] [NumberField K] (A J : PkgI3.AbVar K) : Prop :=
-  ∃ (ℓ : ℕ) (_ : Fact ℓ.Prime) (E : Type) (_ : Field E) (_ : Algebra ℚ_[ℓ] E)
-    (U : Subrepresentation (GlueI3.repBaseChange E (A.galRep ℓ)))
-    (U' : Subrepresentation (GlueI3.repBaseChange E (J.galRep ℓ)))
-    (e : U.toSubmodule ≃ₗ[E] U'.toSubmodule), U ≠ ⊥ ∧
-    ∀ g (u : U.toSubmodule),
-      (e ⟨GlueI3.repBaseChange E (A.galRep ℓ) g u, U.apply_mem_toSubmodule g u.2⟩ :
-        TensorProduct ℚ_[ℓ] E (J.V ℓ)) = GlueI3.repBaseChange E (J.galRep ℓ) g (e u)
-
-/-- A finite-dimensional `L ⊆ ℚ̄` is a number field. -/
-theorem numberField_of_fd (L : IF) [FiniteDimensional ℚ L] : NumberField L := ⟨⟩
-
-/-- **`ModularConstituent`** (scratch/g0-split/part_split.lean, piece 10), copied with
-def-faltings' copy `ZInQ.DefFaltings.AbVar` and the bridge `LeafAdopt.abVarEquiv` (the identity on
-the underlying scheme) replaced by the kernel's `PkgI3.AbVar`, which `ZInQKernel/HDecomp/`
-already uses for both. -/
-def ModularConstituentG : Prop :=
-  ∀ (Y : Over (Spec (CommRingCat.of ℚ))) (Φ : PtEquiv Y) (π : ToP1 Y.left),
-    R1fpProps Y Φ → R2fpProps Y Φ π → ∀ u : ℚ, u ∉ contactSet →
-    ∀ (y : fieldPt Qbar ⟶ Y) (P : QML3 Qbar), Φ Qbar y = M3.mk P →
-      π.val (K := Qbar) y.left = OnePoint.some (algebraMap ℚ Qbar (ZInQ.JHeight.Jmap u)) →
-    ∃ (L : GlueAssembly.NF) (emb : L.K →+* Qbar) (A : PkgI3.AbVar L.K) (N : ℕ)
-      (J : PkgI3.AbVar ℚ),
-      (letI : Algebra L.K Qbar := emb.toAlgebra; Nonempty ((A.baseChange Qbar).X ≅ P.A.X)) ∧
-      0 < N ∧ LeafModCurves.IsJ1 N J ∧
-      (N : ℝ) ≤ heightQ heightD * (contactSupport Mult.S_mul u : ℝ) ^ 2 ∧
-      (Module.finrank ℚ L.K : ℝ) ≤ heightQ heightD * (contactSupport Mult.S_mul u : ℝ) ∧
-      CommonConstituent A (J.baseChange L.K)
 
 /-- **The remaining ranges G8-G16 (the next tasks' target), as one Prop.** For every fibre
 context and every G7 data (`G7Data`): a level `1 ≤ M ≤ Q_D·M_{S_mul}(u)²`, a `J₁(M)` over `ℚ`, and a
@@ -5855,146 +3049,12 @@ theorem modularConstituent_of_ranges_T14 (hCover : FibreCoverExists) (hKer : Ker
 /-! ## Feeding g0-mod-galois' inputs (G8-G12): their `G2Out`, `G7Out` -/
 
 namespace GaloisCopy
+open _root_.G0ModField.GaloisCopy (G2Out G7Out Vb resQ tate) -- op-dedupe
+open _root_.G0ModField (CommonConstituent ConjugacyData DescentDatum FibreCoverExists FibreCoverOut FibreCtx G4Out GaloisCopy.G2Out GaloisCopy.G7Out GaloisCopy.Vb GaloisCopy.resQ GaloisCopy.tate IF IsModelOver IsQMModel IsQMModel.isModelOver KernelFieldExists KernelFieldOut ModularConstituentG PtQ RationalFibre ResQRange T UnramifiedSup actK actQ admissible_S_mul b2_of_leaves_level b3_of_cochain baseChangeTrans card_ker_GL descentDatum_bot descentDatum_of_conjugacy fieldDescent g2Out_of_cover g4Out_of_kernelField g7Out_of_g4Out galAct_bijective galAct_mul incAlg isModelOver_baseChange le_heightD_of_mem_S_mul mem_GQL_bot normA numberField_of_fd resQRange resQ_comm' resQ_range sgnU sgnU_mul sgnU_mul_abs sgnU_sq toLAut toLAut_apply two_mem_T) -- op-dedupe
 /-! Copied from scratch/g0-mod-galois/part_galois.lean (branch wip/g0-mod-galois at 20fa1287),
 definitions `resQ`, `Vb`, `tate`, `G2Out`, `G7Out`, verbatim (namespace renamed). -/
 
-/-- (copied) The restriction map `G_K → G_ℚ` (Mathlib's `Field.absoluteGaloisGroup.map`). -/
-noncomputable def resQ (K : Type) [Field K] [NumberField K] :
-    Field.absoluteGaloisGroup K →* PkgI4.GQ :=
-  (Field.absoluteGaloisGroup.map (algebraMap ℚ K) :
-    Field.absoluteGaloisGroup K →* Field.absoluteGaloisGroup ℚ)
-
-/-- (copied) `ℚ̄_ℓ ⊗_{ℚ_ℓ} V_ℓ(A)`. -/
-abbrev Vb {K : Type} [Field K] (A : PkgI3.AbVar K) (ℓ : ℕ) [Fact ℓ.Prime] : Type :=
-  TensorProduct ℚ_[ℓ] (PadicAlgCl ℓ) (A.V ℓ)
-
-/-- (copied) The Tate action of `G_K` on `ℚ̄_ℓ ⊗ V_ℓ(A)`. -/
-noncomputable def tate {K : Type} [Field K] (A : PkgI3.AbVar K) (ℓ : ℕ) [Fact ℓ.Prime] :
-    Representation (PadicAlgCl ℓ) (Field.absoluteGaloisGroup K) (Vb A ℓ) :=
-  GlueI3.repBaseChange (PadicAlgCl ℓ) (A.galRep ℓ)
-
-/-- (copied) g0-mod-galois' input "output of G2": inertia at `p ∉ T` lies in `G_K`. -/
-def G2Out (K : Type) [Field K] [NumberField K] (T : Finset ℕ) : Prop :=
-  ∀ p : ℕ, p.Prime → p ∉ T → ∀ v : ValuationSubring PkgI4.Qbar, PkgI4.LiesOver v p →
-    ∀ σ ∈ v.inertiaSubgroup ℚ, ((σ : v.decompositionSubgroup ℚ) : PkgI4.GQ) ∈ (resQ K).range
-
-/-- (copied) g0-mod-galois' input "output of G7 at the coefficient prime `ℓ`". -/
-def G7Out {K : Type} [Field K] [NumberField K] (A : PkgI3.AbVar K) (ℓ : ℕ) [Fact ℓ.Prime]
-    (Tm : PkgI4.GQ → Module.End (PadicAlgCl ℓ) (Vb A ℓ))
-    (c ε : PkgI4.GQ → PkgI4.GQ → PadicAlgCl ℓ) (a β : PkgI4.GQ → PadicAlgCl ℓ)
-    (u : GlueDescent.MatrixUnits2 (PadicAlgCl ℓ) (Vb A ℓ)) : Prop :=
-  A.dim = 2 ∧ Module.finrank ℤ (PkgI3.AbVar.End A) = 4 ∧
-  (∀ g h, Tm g * Tm h = c g h • Tm (g * h)) ∧
-  (∀ g h, a g * a h * c g h = ε g h * a (g * h)) ∧
-  (∀ g h, β g * β h = ε g h * β (g * h)) ∧ (∀ g, β g ≠ 0) ∧
-  (∀ σ, Tm (resQ K σ) = tate A ℓ σ ∧ a (resQ K σ) = 1 ∧ β (resQ K σ) = 1) ∧
-  (∀ g i j, Commute (Tm g) (u.e i j)) ∧
-  (∀ (f : Module.Dual (PadicAlgCl ℓ) (Vb A ℓ)) (v : Vb A ℓ),
-    Continuous fun g => f (GlueDescent.rho Tm a β g v))
-
 end GaloisCopy
-
-/-- **Bridge 1 (Mathlib-level Galois theory; proved below, `resQRange`).** For a finite Galois `L' ⊆ ℚ̄`, the
-image of `resQ L' : G_{L'} → G_ℚ` is `G_{L'} = Fix(L')` (true for every embedding of the
-algebraic closures because `L'/ℚ` is normal). -/
-def ResQRange : Prop :=
-  ∀ (L' : IF) [FiniteDimensional ℚ L'] [IsGalois ℚ L'],
-    (@GaloisCopy.resQ L' _ (numberField_of_fd L')).range = L'.fixingSubgroup
-
-/-- An element of `G_ℚ` as an automorphism of `ℚ̄`. -/
-def actQ (τ : Field.absoluteGaloisGroup ℚ) : AlgebraicClosure ℚ ≃ₐ[ℚ] AlgebraicClosure ℚ := τ
-/-- An element of `G_K` as an automorphism of `\bar K`. -/
-def actK {K : Type} [Field K] (σ : Field.absoluteGaloisGroup K) :
-    AlgebraicClosure K ≃ₐ[K] AlgebraicClosure K := σ
-
-/-- `resQ K σ` is `σ` transported along the embedding `g : ℚ̄ → \bar K` that
-`Field.absoluteGaloisGroup.map` chooses. -/
-theorem resQ_comm' (K : Type) [Field K] [NumberField K] :
-    ∃ g : AlgebraicClosure ℚ →+* AlgebraicClosure K, ∀ σ x,
-      g (actQ (GaloisCopy.resQ K σ) x) = actK σ (g x) := by
-  letI : Algebra ℚ K := (algebraMap ℚ K).toAlgebra
-  let g : AlgebraicClosure ℚ →ₐ[ℚ] AlgebraicClosure K := IsAlgClosed.lift
-  letI : Algebra (AlgebraicClosure ℚ) (AlgebraicClosure K) := g.toAlgebra
-  haveI : IsScalarTower ℚ (AlgebraicClosure ℚ) (AlgebraicClosure K) :=
-    IsScalarTower.of_algebraMap_eq (fun x => (g.commutes x).symm)
-  refine ⟨g.toRingHom, fun σ x => ?_⟩
-  exact AlgEquiv.restrictNormal_commutes ((AlgEquiv.restrictScalarsHom ℚ) σ) (AlgebraicClosure ℚ) x
-
-/-- **`ResQRange` proved**: for finite Galois `L ⊆ ℚ̄`, the image of `resQ L` is `Fix(L)`
-(normality of `L` gives `g(L) = L` inside `\bar L`; `g` is bijective because `\bar L/ℚ` is
-algebraic). -/
-theorem resQ_range (L : IF) [FiniteDimensional ℚ L] [IsGalois ℚ L] :
-    (@GaloisCopy.resQ L _ (numberField_of_fd L)).range = L.fixingSubgroup := by
-  haveI := numberField_of_fd L
-  obtain ⟨g0, hcomm⟩ := resQ_comm' L
-  let g : Qbar →ₐ[ℚ] AlgebraicClosure L := g0.toRatAlgHom
-  have hg : ∀ x, g x = g0 x := fun _ => rfl
-  -- `g` is bijective (`AlgebraicClosure L` is algebraic over `ℚ`)
-  have hKalg : Algebra.IsAlgebraic ℚ (AlgebraicClosure L) := by
-    haveI : Algebra.IsAlgebraic ℚ L := Algebra.IsAlgebraic.of_finite ℚ L
-    haveI : Algebra.IsAlgebraic L (AlgebraicClosure L) := AlgebraicClosure.isAlgebraic L
-    exact Algebra.IsAlgebraic.trans ℚ L (AlgebraicClosure L)
-  have hgbij : Function.Bijective g := by
-    letI : Algebra Qbar (AlgebraicClosure L) := g.toAlgebra
-    haveI : IsScalarTower ℚ Qbar (AlgebraicClosure L) :=
-      IsScalarTower.of_algebraMap_eq (fun x => (g.commutes x).symm)
-    haveI : Algebra.IsIntegral ℚ (AlgebraicClosure L) := inferInstance
-    haveI : Algebra.IsIntegral Qbar (AlgebraicClosure L) := Algebra.IsIntegral.tower_top ℚ
-    exact IsAlgClosed.algebraMap_bijective_of_isIntegral
-  let ψ : L →ₐ[ℚ] AlgebraicClosure L := IsScalarTower.toAlgHom ℚ L (AlgebraicClosure L)
-  let e : L ≃ₐ[ℚ] ψ.fieldRange := AlgEquiv.ofInjectiveField ψ
-  haveI : Normal ℚ ψ.fieldRange := Normal.of_algEquiv e
-  let f : ψ.fieldRange →ₐ[ℚ] AlgebraicClosure L := (g.comp L.val).comp e.symm.toAlgHom
-  have hf := AlgHom.fieldRange_of_normal f
-  have hgL : ∀ x : L, ∃ y : L, g x = ψ y := by
-    intro x
-    have hx : g x ∈ f.fieldRange := ⟨e x, by simp [f]⟩
-    rw [hf] at hx
-    obtain ⟨y, hy⟩ := hx
-    exact ⟨y, hy.symm⟩
-  have hLg : ∀ y : L, ∃ x : L, g x = ψ y := by
-    intro y
-    have hy : ψ y ∈ f.fieldRange := by rw [hf]; exact ⟨y, rfl⟩
-    obtain ⟨z, hz⟩ := hy
-    exact ⟨e.symm z, by simpa [f] using hz⟩
-  ext τ
-  constructor
-  · rintro ⟨σ, rfl⟩
-    refine (IntermediateField.mem_fixingSubgroup_iff L (actQ (GaloisCopy.resQ L σ))).mpr ?_
-    intro x hx
-    apply g.toRingHom.injective
-    show g (actQ (GaloisCopy.resQ L σ) x) = g x
-    rw [hg, hcomm σ x, ← hg]
-    obtain ⟨y, hy⟩ := hgL ⟨x, hx⟩
-    have hy' : g x = ψ y := hy
-    rw [hy']
-    exact (actK σ).commutes y
-  · intro hτ'
-    have hτ := (IntermediateField.mem_fixingSubgroup_iff L (actQ τ)).mp hτ'
-    let eg : Qbar ≃+* AlgebraicClosure L := RingEquiv.ofBijective g.toRingHom hgbij
-    let τ' : Qbar ≃ₐ[ℚ] Qbar := τ
-    let σ₀ : AlgebraicClosure L ≃+* AlgebraicClosure L := (eg.symm.trans τ'.toRingEquiv).trans eg
-    have hσ₀ : ∀ x, σ₀ (g x) = g (τ' x) := by
-      intro x
-      show eg (τ' (eg.symm (eg x))) = g (τ' x)
-      rw [RingEquiv.symm_apply_apply]; rfl
-    have hfix : ∀ y : L, σ₀ (algebraMap L (AlgebraicClosure L) y) =
-        algebraMap L (AlgebraicClosure L) y := by
-      intro y
-      obtain ⟨x, hx⟩ := hLg y
-      have hx' : g x = algebraMap L (AlgebraicClosure L) y := hx
-      rw [← hx', hσ₀, show τ' (x : Qbar) = x from hτ x x.2]
-    let σ : Field.absoluteGaloisGroup L := AlgEquiv.ofRingEquiv (f := σ₀) hfix
-    refine ⟨σ, ?_⟩
-    apply AlgEquiv.ext
-    intro x
-    apply g.toRingHom.injective
-    show g (actQ (GaloisCopy.resQ L σ) x) = g (τ' x)
-    rw [hg, hcomm σ x, ← hg]
-    exact hσ₀ x
-
-
-theorem resQRange : ResQRange := fun L' _ _ => resQ_range L'
 
 /-- **g0-mod-galois' `G2Out` for `K = L'`, proved** from `G7Data` (B3(v): inertia outside `T`
 fixes `L'`) and `ResQRange`. -/
@@ -6063,13 +3123,17 @@ noncomputable section
 
 namespace G0ModNewform
 
-open PkgI4 (Qbar GQ LiesOver IsArithFrob CF coeff IsNewform IsNormalizedEigenform GaloisRep
-  GaloisChar)
+-- op-dedupe was: open PkgI4 (Qbar GQ LiesOver IsArithFrob CF coeff IsNewform IsNormalizedEigenform GaloisRep GaloisChar)
+open _root_.PkgI4 (Qbar GQ LiesOver IsArithFrob CF coeff IsNewform IsNormalizedEigenform GaloisRep GaloisChar) -- op-dedupe
 -- g0-assemble (as leaf-adopt3 did for C9Rhof): `LeafModCurves` opened with `hiding`, since
 -- Leaves.lean has `LeafModCurves` copies of these `PkgI4` names (the kernel has none)
 open PkgI3 PkgI3.AbVar C9Rhof
+open _root_.PkgI3 (AbVar AbVar.End AbVar.End0 AbVar.Hom AbVar.Hom.ext' AbVar.Hom.hom AbVar.Hom.hom_add AbVar.Hom.hom_mk' AbVar.Hom.hom_zero AbVar.Hom.mk' AbVar.IsGalEquivariant AbVar.IsIsogenyMor AbVar.Pt AbVar.T AbVar.V AbVar.baseChange AbVar.dim AbVar.galAct AbVar.galHom AbVar.galHom_mul AbVar.galHom_one AbVar.galRep AbVar.galT AbVar.geometricallyIntegral_id_spec AbVar.homGroup AbVar.homT AbVar.ptMap AbVar.ptObj AbVar.tateHom AbVar.tateHomZl AbVar.zero C2_absolutelyIrreducible CharPolyIndepOfEll E1_exists_hom_ne_zero E1_exists_hom_ne_zero' EndDivision FaltingsSemisimple FaltingsTate HomFreeFinite I3Leaves PoincareReducibility QMDichotomyYu QuatIndefinite RhoCont.continuous_act RhoCont.continuous_galRep RhoCont.continuous_galT RhoCont.continuous_one_tmul RhoCont.continuous_orbit RhoCont.continuous_toMatrix_galRep RhoCont.continuous_trace_galRep RhoCont.exists_openSubgroup_galAct_eq RhoCont.galAct_mul RhoCont.instTopologicalSpacePt RhoCont.instTopologicalSpaceV RhoCont.stalkClosedPointTo_comp_galois Tate.T Tate.continuous_map_action Tate.continuous_of_linearMap_padicInt Tate.coord_eq_zero_iff Tate.coord_eq_zero_of_le Tate.ell_smul_succ Tate.isOpen_coord_eq Tate.map Tate.map_apply Tate.map_bijective Tate.map_injective Tate.mem_range_of_ell_smul Tate.mem_range_of_pow_smul Tate.mem_range_of_smul Tate.nhds_zero_hasBasis Tate.nsmul_congr Tate.pow_smul_eq_zero Tate.pow_smul_shift Tate.smulSeq Tate.smulSeq_congr Tate.smulSeq_mem Tate.smul_apply Tate.val_cast TateModuleFree continuous_galRep_of_tateModuleFree equivEnd equivEnd_eq_commOf exists_hom_ne_zero_of_equivariant finrank_equivEnd homT_galT qmDichotomy_B6 quatIndefinite_two_neg_three range_tateHomZl_subset trace_eq_trace_of_ell trace_indep_of_ell) -- op-dedupe
+open _root_.PkgI3.AbVar (End End0 Hom Hom.ext' Hom.hom Hom.hom_add Hom.hom_mk' Hom.hom_zero Hom.mk' IsGalEquivariant IsIsogenyMor Pt T V baseChange dim galAct galHom galHom_mul galHom_one galRep galT geometricallyIntegral_id_spec homGroup homT ptMap ptObj tateHom tateHomZl zero) -- op-dedupe
+open _root_.C9Rhof (FrobeniusDense c10_via_c9 c9 c9_R14 c9_core c9_r5 continuous_coord eq_of_eq_on_arithFrob ev ev_apply finiteDimensional_V isSemisimple_of_isIrreducible iso_of_arithFrob quotMap quotMap_equivariant quotMap_surjective rhoF_continuous rhoF_ev rhoF_isSemisimpleModule rhoF_semisimple semisimple_of_complements toMatrix_toRep toRep toRep_apply toRep_continuous toRep_semisimple trace_eq_of_arithFrob trace_toRep) -- op-dedupe
 open LeafModCurves hiding Qbar GQ LiesOver IsArithFrob CF coeff HasNebentypus IsNormalizedEigenform
   scaleH oldSpace IsNewform
+open _root_.LeafModCurves (BelyiX1 Cosets DimJ1Genus Ej EjBar Ej_j IsBelyiFunction IsCurve IsFrobAt IsJ1 IsJacobian IsJacobian.unique IsX1Model JacobianExists Kbar ModCurveLeaves Qj R16_EichlerShimuraJ1' RatPt SpecQ VSurjOfSurjective X1ModelExists X_sub_1728_ne_zero Y1j belyiDeg belyiDeg_Gamma1_le belyiDeg_le_index coeffField coeff_mem_coeffField dim_J1_le dualAct dualAct_mem dualAct_mul dualAct_one eigenFun embOf embOf_spec endV endV_comm exists_J1 exists_J1_dim_le exists_J1_quotient exists_preimage fieldX1 finrank_rhoF frobOn frobOn_mul frobOn_one g13_constituent galRep_apply genus genus_Gamma1 genus_Gamma1_le genus_le homV homVAdd homVAdd_apply homV_galRep isFrobAt_of_isArithFrob jLineToField jMap le_pmSubgroup neg_one_mem_pmSubgroup nu2 nu2_Gamma1 nu3 nu3_Gamma1 nuInf nuInf_pos pmSubgroup pullback pullback_dualAct pullback_injective rhoF rhoF_attached rhoF_traces smul_mk_eq_iff trace_ST_inv trace_S_inv trace_conj trace_mem_pmGamma1 trace_rhoF xCoord zbar_mem) -- op-dedupe
 open CategoryTheory AlgebraicGeometry
 
 instance fact_prime_five : Fact (Nat.Prime 5) := ⟨by norm_num⟩
@@ -6114,7 +3178,9 @@ end RepLemmas
 section CondIso
 
 open LadicCond
-open PkgI4 (GQp)
+open _root_.LadicCond (AdaptedExists CarayolR17 CarayolR17' EventuallyTrivial Fld InertiaRestriction IsAdapted IsFinGal IsUnif IsUnif.norm_eq Kbar SwanIndependent SwanIntegral apply_mem artinAt carayolR17'_of_R17 carayolR17_of_R17' codimInv codimInv_eq_zero codimInv_le condAt condAt_eq_artinAt condAt_eq_artinAt' condAt_eq_artinAt'' condAt_eq_artinAt_of_surj condAt_eq_zero_of_unramified condAt_le_of_upper condExp condExp_eq_condAt condExp_eq_zero_of_unramified condExp_one eventuallyTrivial eventually_not_restr exists_isUnif finite_restr fixSet fixSet_subset_ramSet inertiaSet inertiaSet_subset_ramSet_zero integral_codim_le invariants invariants_eq_of_cover invariants_eq_top isAdapted_one isUnif_bot norm_p_kbar norm_pow_factorial one_mem_wildSet phiAt ramCard ramCardR ramCard_ne_zero ramSet ramSetR restr swan swanAt swanAt_eq_zero_of_unramified upperAbs upperSet wildSet wildSet_subset_inertiaSet) -- op-dedupe
+-- op-dedupe was: open PkgI4 (GQp)
+open _root_.PkgI4 (GQp) -- op-dedupe
 
 variable {p : ℕ} [Fact p.Prime] {k : Type*} [Field k] {n : ℕ}
 
@@ -6567,7 +3633,9 @@ theorem g16 (N : ℕ) (hN : 0 < N) (u : ℚ) (h15 : G15Out N u) :
 section LocalRamSec
 
 open LadicCond
-open PkgI4 (GQp)
+open _root_.LadicCond (AdaptedExists CarayolR17 CarayolR17' EventuallyTrivial Fld InertiaRestriction IsAdapted IsFinGal IsUnif IsUnif.norm_eq Kbar SwanIndependent SwanIntegral apply_mem artinAt carayolR17'_of_R17 carayolR17_of_R17' codimInv codimInv_eq_zero codimInv_le condAt condAt_eq_artinAt condAt_eq_artinAt' condAt_eq_artinAt'' condAt_eq_artinAt_of_surj condAt_eq_zero_of_unramified condAt_le_of_upper condExp condExp_eq_condAt condExp_eq_zero_of_unramified condExp_one eventuallyTrivial eventually_not_restr exists_isUnif finite_restr fixSet fixSet_subset_ramSet inertiaSet inertiaSet_subset_ramSet_zero integral_codim_le invariants invariants_eq_of_cover invariants_eq_top isAdapted_one isUnif_bot norm_p_kbar norm_pow_factorial one_mem_wildSet phiAt ramCard ramCardR ramCard_ne_zero ramSet ramSetR restr swan swanAt swanAt_eq_zero_of_unramified upperAbs upperSet wildSet wildSet_subset_inertiaSet) -- op-dedupe
+-- op-dedupe was: open PkgI4 (GQp)
+open _root_.PkgI4 (GQp) -- op-dedupe
 
 /-- Glazer's uniform bound for the last upper break, `U₀ = 4(DG₀)²` (N5 L826-830). -/
 def U0 : ℝ := 4 * ((ZInQ.heightD * ZInQ.heightG0 : ℕ) : ℝ) ^ 2
@@ -6897,7 +3965,8 @@ end Bridge
 
 section LocalGlobal
 
-open PkgI4 (GQp)
+-- op-dedupe was: open PkgI4 (GQp)
+open _root_.PkgI4 (GQp) -- op-dedupe
 open scoped Pointwise
 
 variable (p : ℕ) [Fact p.Prime]
@@ -7061,12 +4130,16 @@ namespace G0Split
 
 open CategoryTheory AlgebraicGeometry Limits MonoidalCategory CartesianMonoidalCategory MonObj
 open _root_.ZInQ ZInQ ZInQ.JHeight LeafQM.AV ZInQ.DefFaltings
+open _root_.ZInQ (DefFaltings.AbVar DefFaltings.AnalyticUniformizationExists DefFaltings.AnalyticUniformizationUnique DefFaltings.EReal.add_coe_add_neg_coe DefFaltings.FinExt DefFaltings.Genus2Eq DefFaltings.Genus2Eq.Good DefFaltings.Genus2Eq.P DefFaltings.Genus2Eq.binDisc DefFaltings.GroupModel DefFaltings.GroupModel.IsAnalyticUniformization DefFaltings.GroupModel.IsNeronModel DefFaltings.GroupModel.Pts DefFaltings.GroupModel.cotangent DefFaltings.GroupModel.dCls DefFaltings.GroupModel.detLattice DefFaltings.GroupModel.dom DefFaltings.GroupModel.evalAt DefFaltings.GroupModel.exists_rep DefFaltings.GroupModel.genStalk DefFaltings.GroupModel.genericUnit DefFaltings.GroupModel.germAlong DefFaltings.GroupModel.height DefFaltings.GroupModel.height_eq DefFaltings.GroupModel.hodgeSpace DefFaltings.GroupModel.jacDet DefFaltings.GroupModel.jacDet_comp DefFaltings.GroupModel.omega DefFaltings.GroupModel.omegaAt DefFaltings.GroupModel.omegaAt_genericPt DefFaltings.GroupModel.ptC DefFaltings.GroupModel.semilinear_ext_wedge DefFaltings.GroupModel.specializes_genericUnit DefFaltings.GroupModel.structMap DefFaltings.GroupModel.unitSection DefFaltings.GroupModel.wedge DefFaltings.HermitianLattice DefFaltings.HermitianLattice.arakelovDegree DefFaltings.HermitianLattice.arakelovDegree_ofFractionalIdeal DefFaltings.HermitianLattice.arakelovDegree_rescale DefFaltings.HermitianLattice.degreeAt DefFaltings.HermitianLattice.degreeAt_eq DefFaltings.HermitianLattice.degreeAt_eq_arakelovDegree DefFaltings.HermitianLattice.degreeAt_smul DefFaltings.HermitianLattice.ofFractionalIdeal DefFaltings.HermitianLattice.rescale DefFaltings.HermitianLattice.secIndex_ne_zero DefFaltings.HodgeData DefFaltings.HodgeData.coeff_apply_ne_zero DefFaltings.HodgeData.hodgeBundle DefFaltings.HodgeData.modelHeight DefFaltings.HodgeData.modelHeight_eq DefFaltings.HodgeData.modelHeight_eq_add_of_le DefFaltings.HodgeData.modelHeight_eq_faltingsHeightGood DefFaltings.HodgeData.modelHeight_le_of_le DefFaltings.HodgeData.modelHeight_ofIdeal DefFaltings.HodgeData.modelHeight_ofIdeal_baseChange DefFaltings.HodgeData.modelHeight_of_span DefFaltings.HodgeData.modelHeight_recoord DefFaltings.HodgeData.norm DefFaltings.HodgeData.norm_sq DefFaltings.HodgeData.recoord DefFaltings.HodgeLatticeTheorem DefFaltings.IsIsogeny DefFaltings.MetrizedModel DefFaltings.MetrizedModel.modelHeight_eq_of_model_eq DefFaltings.NeronModelMinimal DefFaltings.PeriodAreaFormula DefFaltings.R19_GaudronRemond DefFaltings.R20_FaltingsLemma5 DefFaltings.R21_Bost DefFaltings.StableHeightFinite DefFaltings.absNorm_extendedHom DefFaltings.absNorm_map_ringOfIntegers DefFaltings.arakelovDegree_ofFractionalIdeal_baseChange DefFaltings.arakelovDegree_ofFractionalIdeal_mul DefFaltings.card_embeddings_over DefFaltings.covolume_comap_mul_det DefFaltings.covolume_gaussianPair DefFaltings.det_restrictScalars_complex DefFaltings.embCoeff DefFaltings.faltingsHeight DefFaltings.faltingsHeightEC DefFaltings.faltingsHeightGood DefFaltings.faltingsHeight_coe DefFaltings.finiteHeightPart DefFaltings.finrank_ringOfIntegers DefFaltings.gaussianPair DefFaltings.genericFibre DefFaltings.genericPt DefFaltings.grKappa DefFaltings.hypGram DefFaltings.hypGram_comp_add DefFaltings.hypVol DefFaltings.hypVol_one_comp_add DefFaltings.isogDeg DefFaltings.le_stableFaltingsHeight DefFaltings.modelHeight_ofIdeal_eq_faltingsHeightEC DefFaltings.modelHeight_ofIdeal_eq_faltingsHeightEC' DefFaltings.norm_algebraMap_tower DefFaltings.ptObj DefFaltings.ratCoeff DefFaltings.realify DefFaltings.secIndex DefFaltings.secIndex_mul_absNorm DefFaltings.secIndex_smul DefFaltings.stableFaltingsHeight DefFaltings.stableFaltingsHeightDeligne DefFaltings.stableFaltingsHeightDeligne_eq DefFaltings.stableFaltingsHeight_eq_faltingsHeightGood DefFaltings.stableFaltingsHeight_eq_iInf_height DefFaltings.stableFaltingsHeight_le DefFaltings.stableFaltingsHeight_ne_bot_of_R21 DefFaltings.sum_embeddings_comp DefFaltings.sum_log_norm_embeddings DefFaltings.sum_log_norm_embeddings_int DefFaltings.torusMetricSq DefFaltings.torusMetricSq_comap DefFaltings.torusMetricSq_eq_setIntegral DefFaltings.torusMetricSq_pos DefFaltings.torusMetricSq_smul DefFaltings.torus_setIntegral_indep H5Neron.GroupModel.IsNeronModel.lift H5Neron.GroupModel.IsNeronModel.uniqueIso H5Neron.GroupModel.isNeronModel_iff H5Neron.GroupModelBaseChangeExists H5Neron.IsBaseChangeOf H5Neron.IsOpenSubgroupModel H5Neron.IsProductAbVar H5Neron.IsProductModel H5Neron.ModelHeightBaseChange H5Neron.NeronModelExists H5Neron.NeronProp H5Neron.NeronProp.lift H5Neron.NeronProp.of_iso H5Neron.NeronProp.tensor H5Neron.NeronProp.uniqueIso H5Neron.OpenSubgroupHeight H5Neron.ProductGroupModelExists H5Neron.ProductModelHeight H5Neron.R19_zero H5Neron.R20_zero H5Neron.R21_zero H5Neron.SemistableNeronIdentityComponent H5Neron.bcProd H5Neron.bcUnitIso H5Neron.compositum H5Neron.covolume_fin_zero H5Neron.detLattice_zero H5Neron.glue_zero H5Neron.groupModel_height_zero H5Neron.hodgeZeroEquiv H5Neron.hodgeZeroEquiv_wedge0 H5Neron.hom_ext_of_iso_unit H5Neron.isIsogeny_id_zero H5Neron.isMonHom_of_iso_unit H5Neron.isMonHom_prodComparisonIso H5Neron.isNeronModel_of_isProductModel H5Neron.isogDeg_zero_le_one H5Neron.jL H5Neron.metrizedOf H5Neron.modelHeight_dim_zero H5Neron.neronModelExists_zero H5Neron.neronModelMinimal_zero H5Neron.neron_zero_iso_unit H5Neron.no_metrized_succ H5Neron.one_le_grKappa H5Neron.productGroupModelExists H5Neron.pts_subsingleton H5Neron.semistableNeronIdentityComponent_zero H5Neron.semσ H5Neron.stableFaltingsHeight_add_le H5Neron.stableFaltingsHeight_add_le' H5Neron.stableFaltingsHeight_eq_neron H5Neron.stableFaltingsHeight_eq_neron_all H5Neron.stableFaltingsHeight_zero H5Neron.stableHeightFinite_zero H5Neron.tensorGen H5Neron.tensorGen_fst H5Neron.tensorGen_snd H5Neron.trivHodge H5Neron.trivMetrized H5Neron.trivModel H5Neron.trivModel_isNeronModel H5Neron.wedge0 H5Neron.wedge0_ne_zero H5Neron.wedge_eq_wedge0 LeafPush2.CPts LeafPush2.Char2 LeafPush2.HasSexticModel LeafPush2.IC10 LeafPush2.IC2 LeafPush2.IC4 LeafPush2.IC6 LeafPush2.IgJ10 LeafPush2.IgJ2 LeafPush2.IgJ4 LeafPush2.IgJ6 LeafPush2.IsGenus2 LeafPush2.IsPeriodMatrix LeafPush2.IsSiegel LeafPush2.IsUniformization LeafPush2.LinYangTuple LeafPush2.OnQMLocus LeafPush2.T10_groupIso LeafPush2.T11a_RiemannEnd LeafPush2.T11b_Rigidity LeafPush2.T12_ComplexConjEigen LeafPush2.UniformizationExists LeafPush2.absLogHeight LeafPush2.cDom LeafPush2.cEvalAt LeafPush2.cptObj LeafPush2.dsq LeafPush2.exists_isComplexConj LeafPush2.ffAlgebra LeafPush2.ffStructMap LeafPush2.isSiegel_I LeafPush2.javanpeykarBound LeafPush2.javanpeykarBound_mono LeafPush2.javanpeykarBound_pos LeafPush2.linYangTuple_onQMLocus LeafPush2.linYang_j_eq LeafPush2.onQMLocus_of_linYangTuple LeafPush2.pazukiC2 LeafPush2.sextic LeafPush2.thetaConst) -- op-dedupe
+open _root_.LeafQM.AV (CMExists HasCM24 HasCM24.of_iso HasCM3 HasCM3.of_iso HasCM4 HasCM4.of_iso IsBaseChangeOf IsBaseChangeOfPair IsFibreOf Level3 Level3.bcPt_pow_three Level3.eq_iff Level3.exists_mul_of_range_le Level3.ext' Level3.onto Level3.range_le Level3.rightMul Level3.rightMul_eq_self Level3.rightMul_rightMul Level3.torsor Level3.twist M3 M3.mk M3.rightMul M3.rightMul_rightMul M3.twist M3.twist_mk Pin.IsNaturalRelabel Pin.MobiusGlue Pin.PinUnique Pin.QMFamily.transport Pin.R1fpProps.fam Pin.R1fpProps.univ Pin.SameTriple Pin.SameTripleMor Pin.autRelabel Pin.autRelabel_natural Pin.cm_objects_of_R1R2fp Pin.isFibreOf_transport Pin.phi_part Pin.pointwise_of_witness Pin.pointwise_of_witness_mor Pin.r1fpPin_aut Pin.r1fpPin_relabel_iff Pin.r2fp_aut Pin.relabel Pin.relabel_geometric Pin.relabel_is_morphism Pin.sameTripleMor_of_mobius Pin.sameTriple_aut Pin.transfer_exists Pin.transfer_pointwise Pin.transfer_pointwise_mor PtEquiv QMFamily QMIso QMIso.nonempty_abVarIso QMIso.refl QMIso.symm QMIso.trans QML3 QML3.Iso QML3.Iso.refl QML3.Iso.rightMul QML3.Iso.symm QML3.Iso.trans QML3.Iso.twist QML3.forget QML3.rightMul QML3.rightMul_A QML3.rightMul_rightMul QML3.twist QML3.twist_A QMLeaves QMPair QMPair.twist QMStr QMStr.twist Qbar R1R2fp R1R2fp_Y R1famProps R1fp R1fpProps R1fp_of_R1R2fp R1heckeProps R1rec R1recProps R1univProps R2X6Props R2fpProps R2fpProps_of_X6 R5fp R5fpCount R5fpWeak R5fpWeak_of_R5fp R5ptProps ToP1 ToP1.comp ToP1.val ToP1.val_comp ToP1.val_comp_right UnramifiedAbove5 X6Props X6Surj act_mul_apply bcPt bcPt_injective cm_of_val com comEquiv com_twist conductor conjHom conjHom_iota conjHom_mem_com conjHom_symm_apply conj_iso_of_rational conj_twist_of_rational endPt exists_fibre_object fibre_conjugates_isomorphic fieldMap fieldOfModuli3 fieldOfModuliPair fieldPt galAct_bcPt hI hIJ hJ hasCM24_twist hasCM3_twist hasCM4_twist hrat inertCount6 intCast_mem_com isoSetoid leaves_on_one_witness liftO not_qmStr_zero ofInt_injective ofInt_sub oi oi_mul_oi oj oj_mul_oi_add oj_mul_oj pairSetoid qmAct residueImage residue_unramified_over_branch specMap_flat specMap_surjective specToEquivOfField_comp specToEquivOfField_comp_right stab3 stabPair three_mul_ofInt toKbar unramified_over_branch) -- op-dedupe
+open _root_.ZInQ.DefFaltings (AbVar AnalyticUniformizationExists AnalyticUniformizationUnique EReal.add_coe_add_neg_coe FinExt Genus2Eq Genus2Eq.Good Genus2Eq.P Genus2Eq.binDisc GroupModel GroupModel.IsAnalyticUniformization GroupModel.IsNeronModel GroupModel.Pts GroupModel.cotangent GroupModel.dCls GroupModel.detLattice GroupModel.dom GroupModel.evalAt GroupModel.exists_rep GroupModel.genStalk GroupModel.genericUnit GroupModel.germAlong GroupModel.height GroupModel.height_eq GroupModel.hodgeSpace GroupModel.jacDet GroupModel.jacDet_comp GroupModel.omega GroupModel.omegaAt GroupModel.omegaAt_genericPt GroupModel.ptC GroupModel.semilinear_ext_wedge GroupModel.specializes_genericUnit GroupModel.structMap GroupModel.unitSection GroupModel.wedge HermitianLattice HermitianLattice.arakelovDegree HermitianLattice.arakelovDegree_ofFractionalIdeal HermitianLattice.arakelovDegree_rescale HermitianLattice.degreeAt HermitianLattice.degreeAt_eq HermitianLattice.degreeAt_eq_arakelovDegree HermitianLattice.degreeAt_smul HermitianLattice.ofFractionalIdeal HermitianLattice.rescale HermitianLattice.secIndex_ne_zero HodgeData HodgeData.coeff_apply_ne_zero HodgeData.hodgeBundle HodgeData.modelHeight HodgeData.modelHeight_eq HodgeData.modelHeight_eq_add_of_le HodgeData.modelHeight_eq_faltingsHeightGood HodgeData.modelHeight_le_of_le HodgeData.modelHeight_ofIdeal HodgeData.modelHeight_ofIdeal_baseChange HodgeData.modelHeight_of_span HodgeData.modelHeight_recoord HodgeData.norm HodgeData.norm_sq HodgeData.recoord HodgeLatticeTheorem IsIsogeny MetrizedModel MetrizedModel.modelHeight_eq_of_model_eq NeronModelMinimal PeriodAreaFormula R19_GaudronRemond R20_FaltingsLemma5 R21_Bost StableHeightFinite absNorm_extendedHom absNorm_map_ringOfIntegers arakelovDegree_ofFractionalIdeal_baseChange arakelovDegree_ofFractionalIdeal_mul card_embeddings_over covolume_comap_mul_det covolume_gaussianPair det_restrictScalars_complex embCoeff faltingsHeight faltingsHeightEC faltingsHeightGood faltingsHeight_coe finiteHeightPart finrank_ringOfIntegers gaussianPair genericFibre genericPt grKappa hypGram hypGram_comp_add hypVol hypVol_one_comp_add isogDeg le_stableFaltingsHeight modelHeight_ofIdeal_eq_faltingsHeightEC modelHeight_ofIdeal_eq_faltingsHeightEC' norm_algebraMap_tower ptObj ratCoeff realify secIndex secIndex_mul_absNorm secIndex_smul stableFaltingsHeight stableFaltingsHeightDeligne stableFaltingsHeightDeligne_eq stableFaltingsHeight_eq_faltingsHeightGood stableFaltingsHeight_eq_iInf_height stableFaltingsHeight_le stableFaltingsHeight_ne_bot_of_R21 sum_embeddings_comp sum_log_norm_embeddings sum_log_norm_embeddings_int torusMetricSq torusMetricSq_comap torusMetricSq_eq_setIntegral torusMetricSq_pos torusMetricSq_smul torus_setIntegral_indep) -- op-dedupe
 
 namespace ThetaPt
 
 -- g0-assemble: in Leaves.lean these R22 objects are leaf-push2's originals (leaf-adopt3 removed
 -- g0-split's textual copies `HSyn.G0Split.Char2` etc.), so they are opened here.
-open ZInQ.LeafPush2 (CPts cptObj IsUniformization IsSiegel IsPeriodMatrix Char2 thetaConst absLogHeight)
+-- op-dedupe was: open ZInQ.LeafPush2 (CPts cptObj IsUniformization IsSiegel IsPeriodMatrix Char2 thetaConst absLogHeight)
+open _root_.ZInQ.LeafPush2 (CPts cptObj IsUniformization IsSiegel IsPeriodMatrix Char2 thetaConst absLogHeight) -- op-dedupe
 
 open Complex
 
@@ -7531,6 +4604,7 @@ namespace HSyn.G0AssembleMod
 
 open CategoryTheory AlgebraicGeometry
 open G0ModField
+open _root_.G0ModField (CommonConstituent ConjugacyData DescentDatum FibreCoverExists FibreCoverOut FibreCtx G2Out G4Out G7Out GaloisCopy.G2Out GaloisCopy.G7Out GaloisCopy.Vb GaloisCopy.resQ GaloisCopy.tate IF IsModelOver IsQMModel IsQMModel.isModelOver KernelFieldExists KernelFieldOut ModularConstituentG PtQ RationalFibre ResQRange T UnramifiedSup actK actQ admissible_S_mul b2_of_leaves_level b3_of_cochain baseChangeTrans card_ker_GL descentDatum_bot descentDatum_of_conjugacy fieldDescent g2Out_of_cover g4Out_of_kernelField g7Out_of_g4Out galAct_bijective galAct_mul incAlg isModelOver_baseChange le_heightD_of_mem_S_mul mem_GQL_bot normA numberField_of_fd resQRange resQ_comm' resQ_range sgnU sgnU_mul sgnU_mul_abs sgnU_sq toLAut toLAut_apply two_mem_T) -- op-dedupe
 
 /-- **Glue G3 + G5-G6 on G7's model** (g0-assemble; QM-PIN for the G6 part). For every fibre
 context and G7 data of g0-mod-field: `End(A_{L'})` is a noncommutative division ring
@@ -7688,6 +4762,7 @@ section G0AssembleResQSec
 namespace HSyn.G0AssembleMod
 
 open G0ModField
+open _root_.G0ModField (CommonConstituent ConjugacyData DescentDatum FibreCoverExists FibreCoverOut FibreCtx G2Out G4Out G7Out GaloisCopy.G2Out GaloisCopy.G7Out GaloisCopy.Vb GaloisCopy.resQ GaloisCopy.tate IF IsModelOver IsQMModel IsQMModel.isModelOver KernelFieldExists KernelFieldOut ModularConstituentG PtQ RationalFibre ResQRange T UnramifiedSup actK actQ admissible_S_mul b2_of_leaves_level b3_of_cochain baseChangeTrans card_ker_GL descentDatum_bot descentDatum_of_conjugacy fieldDescent g2Out_of_cover g4Out_of_kernelField g7Out_of_g4Out galAct_bijective galAct_mul incAlg isModelOver_baseChange le_heightD_of_mem_S_mul mem_GQL_bot normA numberField_of_fd resQRange resQ_comm' resQ_range sgnU sgnU_mul sgnU_mul_abs sgnU_sq toLAut toLAut_apply two_mem_T) -- op-dedupe
 
 theorem resQFiniteIndex : G0Galois.ResQFiniteIndex := by
   intro K _ _

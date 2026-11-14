@@ -1,5 +1,6 @@
 import ZInQKernel.HDecomp.QM.Pairs
 import ZInQKernel.HDecomp.Descent.B2Glue
+import ZInQKernel.Contrib.FrobChain.TateBridge
 
 /-!
 # inner-twist: `G0ModField.UnramifiedConjugates` (from `scratch/fibre-cover/FibreCover.lean`), proved
@@ -109,10 +110,8 @@ theorem conj_mem_inertia (Q : Ideal (𝓞 L)) (g σ : L ≃ₐ[ℚ] L)
 
 end Abstract
 
-/-- A finite intermediate field of `ℚ̄/ℚ` is a number field. -/
-theorem numberField_of_fd (F : IntermediateField ℚ Qbar) [FiniteDimensional ℚ F] :
-    NumberField F :=
-  { to_charZero := inferInstance, to_finiteDimensional := inferInstance }
+-- op-dedupe: `numberField_of_fd` is the kernel's `G0ModField.numberField_of_fd`
+-- (`ZInQKernel/Contrib/FrobChain/TateBridge.lean`, same statement, `IF = IntermediateField ℚ Qbar`).
 
 /-- **`UnramifiedConjugates`, proved** (no leaf, no glue Prop). -/
 theorem unramifiedConjugates : UnramifiedConjugates := by

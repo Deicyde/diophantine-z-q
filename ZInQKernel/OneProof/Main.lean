@@ -9,7 +9,8 @@ import ZInQKernel.OneProof.TYZBridge
 the development fork, and from nothing else. It composes two compiled chains:
 
 * H: `HDec.HSyn.sixContactMin_of_open4` (`OneProof/H/`, generated from leaf-fold4's olean chain by
-  `scripts/one_proof/gen.sh`) proves `ZInQ.SixContactMin` from the open research leaves (`OpenResearchLeaves2`), the
+  `scripts/one_proof/gen.sh`, then moved onto the kernel's declarations by op-dedupe: 2951 copies removed, see
+  `docs/research/op-dedupe.md`; gen.sh no longer reproduces these modules) proves `ZInQ.SixContactMin` from the open research leaves (`OpenResearchLeaves2`), the
   open textbook leaves (`OpenTextbookLeaves4`), the added leaves (`OpenAddedLeaves4`) and the open glue (`OpenGlue4`);
 * the rest: `ZInQ.GZDecomp.frozenTarget_of_sixContactMin_tyzThm35ReadingA_gzLeaves` proves `ZInQ.FrozenTarget` from H,
   reading A of Tian–Yuan–Zhang (from its seven open statements by cm-bridge's chain, `OneProof/TYZBridge.lean`) and the

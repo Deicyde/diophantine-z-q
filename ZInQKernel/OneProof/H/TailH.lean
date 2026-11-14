@@ -1,4 +1,16 @@
 import ZInQKernel.OneProof.H.TailG
+import ZInQKernel.Contrib.UnramRoots.Reduction
+import ZInQKernel.Contrib.FrobChain.Bridge35
+import ZInQKernel.Contrib.FrobChain.FrobTrace
+import ZInQKernel.Contrib.UnramRoots.Metric
+import ZInQKernel.Contrib.UnramRoots.FrobData
+import ZInQKernel.Contrib.UnramRoots.Procyclic
+import ZInQKernel.Contrib.UnramRoots.Main
+import ZInQKernel.Contrib.FrobChain.AlgFrobRed
+import ZInQKernel.Contrib.AbsFrob.AlgFrobRed
+import ZInQKernel.Contrib.AbsFrob.Basic
+import ZInQKernel.Contrib.FrobChain.FExtend
+import ZInQKernel.Contrib.FrobChain.Pieces
 
 namespace HDec
 
@@ -48,20 +60,25 @@ noncomputable section
 
 namespace G0Galois
 
-open PkgI4 (GaloisRep GaloisChar)
+-- op-dedupe was: open PkgI4 (GaloisRep GaloisChar)
+open _root_.PkgI4 (GaloisRep GaloisChar) -- op-dedupe
 
 end G0Galois
 
 namespace G0ModNewform
 
-open PkgI4 (Qbar GQ LiesOver IsArithFrob CF coeff IsNewform IsNormalizedEigenform GaloisRep
-  GaloisChar)
+-- op-dedupe was: open PkgI4 (Qbar GQ LiesOver IsArithFrob CF coeff IsNewform IsNormalizedEigenform GaloisRep GaloisChar)
+open _root_.PkgI4 (Qbar GQ LiesOver IsArithFrob CF coeff IsNewform IsNormalizedEigenform GaloisRep GaloisChar) -- op-dedupe
 open PkgI3 PkgI3.AbVar
+open _root_.PkgI3 (AbVar AbVar.End AbVar.End0 AbVar.Hom AbVar.Hom.ext' AbVar.Hom.hom AbVar.Hom.hom_add AbVar.Hom.hom_mk' AbVar.Hom.hom_zero AbVar.Hom.mk' AbVar.IsGalEquivariant AbVar.IsIsogenyMor AbVar.Pt AbVar.T AbVar.V AbVar.baseChange AbVar.dim AbVar.dim_baseChange AbVar.dim_finite AbVar.galAct AbVar.galHom AbVar.galHom_mul AbVar.galHom_one AbVar.galRep AbVar.galT AbVar.geometricallyIntegral_id_spec AbVar.homGroup AbVar.homT AbVar.ptMap AbVar.ptObj AbVar.tateHom AbVar.tateHomZl AbVar.zero C2_absolutelyIrreducible CharPolyIndepOfEll E1_exists_hom_ne_zero E1_exists_hom_ne_zero' EndDivision FaltingsSemisimple FaltingsTate HomFreeFinite I3Leaves PoincareReducibility QMDichotomyYu QuatIndefinite RhoCont.continuous_act RhoCont.continuous_galRep RhoCont.continuous_galT RhoCont.continuous_one_tmul RhoCont.continuous_orbit RhoCont.continuous_toMatrix_galRep RhoCont.continuous_trace_galRep RhoCont.exists_openSubgroup_galAct_eq RhoCont.galAct_mul RhoCont.instTopologicalSpacePt RhoCont.instTopologicalSpaceV RhoCont.stalkClosedPointTo_comp_galois Tate.T Tate.continuous_map_action Tate.continuous_of_linearMap_padicInt Tate.coord_eq_zero_iff Tate.coord_eq_zero_of_le Tate.ell_smul_succ Tate.isOpen_coord_eq Tate.map Tate.map_apply Tate.map_bijective Tate.map_injective Tate.mem_range_of_ell_smul Tate.mem_range_of_pow_smul Tate.mem_range_of_smul Tate.nhds_zero_hasBasis Tate.nsmul_congr Tate.pow_smul_eq_zero Tate.pow_smul_shift Tate.smulSeq Tate.smulSeq_congr Tate.smulSeq_mem Tate.smul_apply Tate.val_cast TateModuleFree continuous_galRep_of_tateModuleFree equivEnd equivEnd_eq_commOf exists_hom_ne_zero_of_equivariant finrank_equivEnd homT_galT qmDichotomy_B6 quatIndefinite_two_neg_three range_tateHomZl_subset trace_eq_trace_of_ell trace_indep_of_ell) -- op-dedupe
+open _root_.PkgI3.AbVar (End End0 Hom Hom.ext' Hom.hom Hom.hom_add Hom.hom_mk' Hom.hom_zero Hom.mk' IsGalEquivariant IsIsogenyMor Pt T V baseChange dim dim_baseChange dim_finite galAct galHom galHom_mul galHom_one galRep galT geometricallyIntegral_id_spec homGroup homT ptMap ptObj tateHom tateHomZl zero) -- op-dedupe
 
 section LocalRamSec
 
 open LadicCond
-open PkgI4 (GQp)
+open _root_.LadicCond (AdaptedExists CarayolR17 CarayolR17' EventuallyTrivial Fld InertiaRestriction IsAdapted IsFinGal IsUnif IsUnif.norm_eq Kbar SwanIndependent SwanIntegral apply_mem artinAt carayolR17'_of_R17 carayolR17_of_R17' codimInv codimInv_eq_zero codimInv_le condAt condAt_eq_artinAt condAt_eq_artinAt' condAt_eq_artinAt'' condAt_eq_artinAt_of_surj condAt_eq_zero_of_unramified condAt_le_of_upper condExp condExp_eq_condAt condExp_eq_zero_of_unramified condExp_one eventuallyTrivial eventually_not_restr exists_isUnif finite_restr fixSet fixSet_subset_ramSet inertiaSet inertiaSet_subset_ramSet_zero integral_codim_le invariants invariants_eq_of_cover invariants_eq_top isAdapted_one isUnif_bot norm_p_kbar norm_pow_factorial one_mem_wildSet phiAt ramCard ramCardR ramCard_ne_zero ramSet ramSetR restr swan swanAt swanAt_eq_zero_of_unramified upperAbs upperSet wildSet wildSet_subset_inertiaSet) -- op-dedupe
+-- op-dedupe was: open PkgI4 (GQp)
+open _root_.PkgI4 (GQp) -- op-dedupe
 
 end LocalRamSec
 
@@ -70,9 +87,12 @@ end G0ModNewform
 /-! ## §1. The smaller named Props -/
 
 namespace G15Ram
+open _root_.G15Ram (UnramRoots) -- op-dedupe
 
-open PkgI4 (GQp GaloisRep)
+-- op-dedupe was: open PkgI4 (GQp GaloisRep)
+open _root_.PkgI4 (GQp GaloisRep) -- op-dedupe
 open LadicCond G0ModNewform
+open _root_.LadicCond (AdaptedExists CarayolR17 CarayolR17' EventuallyTrivial Fld InertiaRestriction IsAdapted IsFinGal IsUnif IsUnif.norm_eq Kbar SwanIndependent SwanIntegral apply_mem artinAt carayolR17'_of_R17 carayolR17_of_R17' codimInv codimInv_eq_zero codimInv_le condAt condAt_eq_artinAt condAt_eq_artinAt' condAt_eq_artinAt'' condAt_eq_artinAt_of_surj condAt_eq_zero_of_unramified condAt_le_of_upper condExp condExp_eq_condAt condExp_eq_zero_of_unramified condExp_one eventuallyTrivial eventually_not_restr exists_isUnif finite_restr fixSet fixSet_subset_ramSet inertiaSet inertiaSet_subset_ramSet_zero integral_codim_le invariants invariants_eq_of_cover invariants_eq_top isAdapted_one isUnif_bot norm_p_kbar norm_pow_factorial one_mem_wildSet phiAt ramCard ramCardR ramCard_ne_zero ramSet ramSetR restr swan swanAt swanAt_eq_zero_of_unramified upperAbs upperSet wildSet wildSet_subset_inertiaSet) -- op-dedupe
 
 section Local
 
@@ -210,7 +230,8 @@ noncomputable section
 
 namespace G0Galois
 
-open PkgI4 (GaloisRep GaloisChar)
+-- op-dedupe was: open PkgI4 (GaloisRep GaloisChar)
+open _root_.PkgI4 (GaloisRep GaloisChar) -- op-dedupe
 open CategoryTheory AlgebraicGeometry Limits MonoidalCategory CartesianMonoidalCategory MonObj
 
 /-! ### Objects -/
@@ -242,9 +263,12 @@ The copied `LocalData p r` (§1) is a predicate on a bare `r : GaloisRep ℓ 2`.
 -/
 
 namespace G15Ram
+open _root_.G15Ram (UnramRoots) -- op-dedupe
 
-open PkgI4 (GQp GaloisRep GQ decomp)
+-- op-dedupe was: open PkgI4 (GQp GaloisRep GQ decomp)
+open _root_.PkgI4 (GQp GaloisRep GQ decomp) -- op-dedupe
 open LadicCond G0ModNewform
+open _root_.LadicCond (AdaptedExists CarayolR17 CarayolR17' EventuallyTrivial Fld InertiaRestriction IsAdapted IsFinGal IsUnif IsUnif.norm_eq Kbar SwanIndependent SwanIntegral apply_mem artinAt carayolR17'_of_R17 carayolR17_of_R17' codimInv codimInv_eq_zero codimInv_le condAt condAt_eq_artinAt condAt_eq_artinAt' condAt_eq_artinAt'' condAt_eq_artinAt_of_surj condAt_eq_zero_of_unramified condAt_le_of_upper condExp condExp_eq_condAt condExp_eq_zero_of_unramified condExp_one eventuallyTrivial eventually_not_restr exists_isUnif finite_restr fixSet fixSet_subset_ramSet inertiaSet inertiaSet_subset_ramSet_zero integral_codim_le invariants invariants_eq_of_cover invariants_eq_top isAdapted_one isUnif_bot norm_p_kbar norm_pow_factorial one_mem_wildSet phiAt ramCard ramCardR ramCard_ne_zero ramSet ramSetR restr swan swanAt swanAt_eq_zero_of_unramified upperAbs upperSet wildSet wildSet_subset_inertiaSet) -- op-dedupe
 
 section LocalDataSec
 
@@ -1292,9 +1316,12 @@ arbitrary operators `Tm`, scalars `a`, `β` and a field `L`. Here:
 noncomputable section
 
 namespace G15Ram
+open _root_.G15Ram (UnramRoots) -- op-dedupe
 
-open PkgI4 (GQp GaloisRep GQ decomp)
+-- op-dedupe was: open PkgI4 (GQp GaloisRep GQ decomp)
+open _root_.PkgI4 (GQp GaloisRep GQ decomp) -- op-dedupe
 open LadicCond G0ModNewform
+open _root_.LadicCond (AdaptedExists CarayolR17 CarayolR17' EventuallyTrivial Fld InertiaRestriction IsAdapted IsFinGal IsUnif IsUnif.norm_eq Kbar SwanIndependent SwanIntegral apply_mem artinAt carayolR17'_of_R17 carayolR17_of_R17' codimInv codimInv_eq_zero codimInv_le condAt condAt_eq_artinAt condAt_eq_artinAt' condAt_eq_artinAt'' condAt_eq_artinAt_of_surj condAt_eq_zero_of_unramified condAt_le_of_upper condExp condExp_eq_condAt condExp_eq_zero_of_unramified condExp_one eventuallyTrivial eventually_not_restr exists_isUnif finite_restr fixSet fixSet_subset_ramSet inertiaSet inertiaSet_subset_ramSet_zero integral_codim_le invariants invariants_eq_of_cover invariants_eq_top isAdapted_one isUnif_bot norm_p_kbar norm_pow_factorial one_mem_wildSet phiAt ramCard ramCardR ramCard_ne_zero ramSet ramSetR restr swan swanAt swanAt_eq_zero_of_unramified upperAbs upperSet wildSet wildSet_subset_inertiaSet) -- op-dedupe
 open CategoryTheory MonObj
 
 section LocalGlueSec
@@ -1597,9 +1624,12 @@ a wild `σ'` on `A[m]` has order prime to `p` and `p`-power, hence is trivial
 `A[ℓⁿ]` (`fixed_of_unipSq_of_iterate'`, the core of D2). -/
 
 namespace G15Ram
+open _root_.G15Ram (UnramRoots) -- op-dedupe
 
-open PkgI4 (GQp GQ decomp)
+-- op-dedupe was: open PkgI4 (GQp GQ decomp)
+open _root_.PkgI4 (GQp GQ decomp) -- op-dedupe
 open LadicCond
+open _root_.LadicCond (AdaptedExists CarayolR17 CarayolR17' EventuallyTrivial Fld InertiaRestriction IsAdapted IsFinGal IsUnif IsUnif.norm_eq Kbar SwanIndependent SwanIntegral apply_mem artinAt carayolR17'_of_R17 carayolR17_of_R17' codimInv codimInv_eq_zero codimInv_le condAt condAt_eq_artinAt condAt_eq_artinAt' condAt_eq_artinAt'' condAt_eq_artinAt_of_surj condAt_eq_zero_of_unramified condAt_le_of_upper condExp condExp_eq_condAt condExp_eq_zero_of_unramified condExp_one eventuallyTrivial eventually_not_restr exists_isUnif finite_restr fixSet fixSet_subset_ramSet inertiaSet inertiaSet_subset_ramSet_zero integral_codim_le invariants invariants_eq_of_cover invariants_eq_top isAdapted_one isUnif_bot norm_p_kbar norm_pow_factorial one_mem_wildSet phiAt ramCard ramCardR ramCard_ne_zero ramSet ramSetR restr swan swanAt swanAt_eq_zero_of_unramified upperAbs upperSet wildSet wildSet_subset_inertiaSet) -- op-dedupe
 open CategoryTheory MonObj
 
 section TorsSec
@@ -1966,6 +1996,7 @@ hence locally of finite presentation, Mathlib's `Scheme.exists_π_app_comp_eq_of
 noncomputable section
 
 namespace G15Ram
+open _root_.G15Ram (UnramRoots) -- op-dedupe
 
 open CategoryTheory Limits AlgebraicGeometry
 
@@ -2106,6 +2137,7 @@ l.207-215, l.225-236, l.1406-1472 -/
 noncomputable section
 
 namespace ZInQ.NeronLG
+open _root_.ZInQ (Contrib.AbVarBC.G0FibreSimple.MulIsogeny Contrib.AbVarBC.MulRigidity.CotangentMulN Contrib.AbVarBC.MulRigidity.KerUnitOpen Contrib.AbVarBC.MulRigidity.KerUnitOpenOfCotangentSurj Contrib.AbVarBC.MulRigidity.MulEtale Contrib.AbVarBC.MulRigidity.MulUnramified Contrib.AbVarBC.MulRigidity.O0 Contrib.AbVarBC.MulRigidity.QuasiFiniteEndSurjective Contrib.AbVarBC.MulRigidity.charZero_residueField Contrib.AbVarBC.MulRigidity.cotangentMap Contrib.AbVarBC.MulRigidity.diagonal_isPullback Contrib.AbVarBC.MulRigidity.diffKer Contrib.AbVarBC.MulRigidity.formallyUnramified_of_kerUnit Contrib.AbVarBC.MulRigidity.isIsogenyMor_of_lqf_of_isOpenMap Contrib.AbVarBC.MulRigidity.isOpenImmersion_of_section Contrib.AbVarBC.MulRigidity.isProper_left Contrib.AbVarBC.MulRigidity.kerUnit Contrib.AbVarBC.MulRigidity.kerUnitOpen_of_cotangent Contrib.AbVarBC.MulRigidity.kerUnitOpen_of_mulEtale Contrib.AbVarBC.MulRigidity.locallyQuasiFinite_of_formallyUnramified Contrib.AbVarBC.MulRigidity.map_origin Contrib.AbVarBC.MulRigidity.mulIsogeny_of_cotangent Contrib.AbVarBC.MulRigidity.mulIsogeny_of_kerUnitOpen Contrib.AbVarBC.MulRigidity.mulIsogeny_of_mulEtale Contrib.AbVarBC.MulRigidity.mulIsogeny_of_mulUnramified Contrib.AbVarBC.MulRigidity.mulIsogeny_of_mulUnramified' Contrib.AbVarBC.MulRigidity.mulUnramified_of_kerUnitOpen Contrib.AbVarBC.MulRigidity.mulUnramified_of_mulEtale Contrib.AbVarBC.MulRigidity.ne_of_specializes_of_lqf Contrib.AbVarBC.MulRigidity.origin Contrib.AbVarBC.MulRigidity.quasiFiniteEndSurjective Contrib.AbVarBC.MulRigidity.stalkEndo Contrib.AbVarBC.MulRigidity.surjective_of_lqf_self Contrib.AbVarBC.Tangent.AtOrigin Contrib.AbVarBC.Tangent.D Contrib.AbVarBC.Tangent.D_congr Contrib.AbVarBC.Tangent.D_inv Contrib.AbVarBC.Tangent.D_mul Contrib.AbVarBC.Tangent.D_one Contrib.AbVarBC.Tangent.D_zpow Contrib.AbVarBC.Tangent.KerN Contrib.AbVarBC.Tangent.atOrigin_inv Contrib.AbVarBC.Tangent.atOrigin_map Contrib.AbVarBC.Tangent.atOrigin_mul Contrib.AbVarBC.Tangent.atOrigin_one Contrib.AbVarBC.Tangent.atOrigin_zpow Contrib.AbVarBC.Tangent.closedPoint_eq Contrib.AbVarBC.Tangent.comp_intCast_hom Contrib.AbVarBC.Tangent.comp_mem_of_subsingleton Contrib.AbVarBC.Tangent.comp_orig_mem Contrib.AbVarBC.Tangent.derivation_eq_zero Contrib.AbVarBC.Tangent.dualHom Contrib.AbVarBC.Tangent.eq_ofRing_ptRing Contrib.AbVarBC.Tangent.eq_of_D_eq Contrib.AbVarBC.Tangent.eq_one_of_comp_intCast Contrib.AbVarBC.Tangent.ev0 Contrib.AbVarBC.Tangent.exists_affine_orig Contrib.AbVarBC.Tangent.fst_tRing Contrib.AbVarBC.Tangent.id_appLE_top Contrib.AbVarBC.Tangent.intCast_hom Contrib.AbVarBC.Tangent.isLocalHom_fstHom Contrib.AbVarBC.Tangent.isLocalRing_tsze Contrib.AbVarBC.Tangent.ker_le_sq_of_derivations Contrib.AbVarBC.Tangent.ks Contrib.AbVarBC.Tangent.ks_hom Contrib.AbVarBC.Tangent.ks_isOpenImmersion Contrib.AbVarBC.Tangent.left_closedPoint Contrib.AbVarBC.Tangent.locallyOfFiniteType_kerN Contrib.AbVarBC.Tangent.map_add_inl Contrib.AbVarBC.Tangent.map_add_inr Contrib.AbVarBC.Tangent.map_fst_inl Contrib.AbVarBC.Tangent.map_fst_inr Contrib.AbVarBC.Tangent.map_snd_inl Contrib.AbVarBC.Tangent.map_snd_inr Contrib.AbVarBC.Tangent.mem_of_atOrigin Contrib.AbVarBC.Tangent.mulN Contrib.AbVarBC.Tangent.ofRing Contrib.AbVarBC.Tangent.ofRing_mem Contrib.AbVarBC.Tangent.one_left Contrib.AbVarBC.Tangent.orig Contrib.AbVarBC.Tangent.ptR Contrib.AbVarBC.Tangent.ptRing Contrib.AbVarBC.Tangent.ptRing_comp Contrib.AbVarBC.Tangent.ptRing_congr Contrib.AbVarBC.Tangent.ptRing_ext Contrib.AbVarBC.Tangent.ptRing_id_top Contrib.AbVarBC.Tangent.ptRing_ofRing Contrib.AbVarBC.Tangent.ptRing_specMap_comp Contrib.AbVarBC.Tangent.specHom Contrib.AbVarBC.Tangent.specHom_comp Contrib.AbVarBC.Tangent.specHom_id Contrib.AbVarBC.Tangent.specHom_left Contrib.AbVarBC.Tangent.spec_inl_fst_comp Contrib.AbVarBC.Tangent.tRing Contrib.AbVarBC.Tangent.tRing_congr Contrib.AbVarBC.Tangent.tRing_one Contrib.AbVarBC.Tangent.tRing_specHom Contrib.AbVarBC.TorsionDescends Contrib.AbVarBC.comp_natCast_hom Contrib.AbVarBC.dim_baseChange_scheme Contrib.AbVarBC.dim_finite Contrib.AbVarBC.dim_pullback_spec Contrib.AbVarBC.dim_spec_le Contrib.AbVarBC.exists_lift_of_isFinite Contrib.AbVarBC.exists_nat_of_le Contrib.AbVarBC.galK Contrib.AbVarBC.kerUnitOpen Contrib.AbVarBC.map_comm Contrib.AbVarBC.mem_range_of_isIntegral Contrib.AbVarBC.mulIsogeny Contrib.AbVarBC.ptBC Contrib.AbVarBC.ptBC_galAct Contrib.AbVarBC.ptBC_injective Contrib.AbVarBC.ringKrullDim_eq_of_isIntegral_of_injective Contrib.AbVarBC.ringKrullDim_le_of_finiteType Contrib.AbVarBC.ringKrullDim_mvPolynomial_field Contrib.AbVarBC.ringKrullDim_tensor_field Contrib.AbVarBC.scheme_dim_eq_iSup_cover Contrib.AbVarBC.scheme_dim_eq_of_iso Contrib.AbVarBC.spec_dim Contrib.AbVarBC.tateBC Contrib.AbVarBC.tateBC_bijective_of_tateModuleFree Contrib.AbVarBC.tateBC_bijective_of_torsionDescends Contrib.AbVarBC.tateBC_galT Contrib.AbVarBC.tateBC_injective Contrib.AbVarBC.tate_map_bijective_of_torsion Contrib.AbVarBC.topologicalKrullDim_eq_iSup_of_openEmbedding Contrib.AbVarBC.torsionDescends_of_isFinite Contrib.AbVarBC.vBC Contrib.AbVarBC.vBC_galRep DefFaltings.AbVar DefFaltings.AnalyticUniformizationExists DefFaltings.AnalyticUniformizationUnique DefFaltings.EReal.add_coe_add_neg_coe DefFaltings.FinExt DefFaltings.Genus2Eq DefFaltings.Genus2Eq.Good DefFaltings.Genus2Eq.P DefFaltings.Genus2Eq.binDisc DefFaltings.GroupModel DefFaltings.GroupModel.IsAnalyticUniformization DefFaltings.GroupModel.IsNeronModel DefFaltings.GroupModel.Pts DefFaltings.GroupModel.cotangent DefFaltings.GroupModel.dCls DefFaltings.GroupModel.detLattice DefFaltings.GroupModel.dom DefFaltings.GroupModel.evalAt DefFaltings.GroupModel.exists_rep DefFaltings.GroupModel.genStalk DefFaltings.GroupModel.genericUnit DefFaltings.GroupModel.germAlong DefFaltings.GroupModel.height DefFaltings.GroupModel.height_eq DefFaltings.GroupModel.hodgeSpace DefFaltings.GroupModel.jacDet DefFaltings.GroupModel.jacDet_comp DefFaltings.GroupModel.omega DefFaltings.GroupModel.omegaAt DefFaltings.GroupModel.omegaAt_genericPt DefFaltings.GroupModel.ptC DefFaltings.GroupModel.semilinear_ext_wedge DefFaltings.GroupModel.specializes_genericUnit DefFaltings.GroupModel.structMap DefFaltings.GroupModel.unitSection DefFaltings.GroupModel.wedge DefFaltings.HermitianLattice DefFaltings.HermitianLattice.arakelovDegree DefFaltings.HermitianLattice.arakelovDegree_ofFractionalIdeal DefFaltings.HermitianLattice.arakelovDegree_rescale DefFaltings.HermitianLattice.degreeAt DefFaltings.HermitianLattice.degreeAt_eq DefFaltings.HermitianLattice.degreeAt_eq_arakelovDegree DefFaltings.HermitianLattice.degreeAt_smul DefFaltings.HermitianLattice.ofFractionalIdeal DefFaltings.HermitianLattice.rescale DefFaltings.HermitianLattice.secIndex_ne_zero DefFaltings.HodgeData DefFaltings.HodgeData.coeff_apply_ne_zero DefFaltings.HodgeData.hodgeBundle DefFaltings.HodgeData.modelHeight DefFaltings.HodgeData.modelHeight_eq DefFaltings.HodgeData.modelHeight_eq_add_of_le DefFaltings.HodgeData.modelHeight_eq_faltingsHeightGood DefFaltings.HodgeData.modelHeight_le_of_le DefFaltings.HodgeData.modelHeight_ofIdeal DefFaltings.HodgeData.modelHeight_ofIdeal_baseChange DefFaltings.HodgeData.modelHeight_of_span DefFaltings.HodgeData.modelHeight_recoord DefFaltings.HodgeData.norm DefFaltings.HodgeData.norm_sq DefFaltings.HodgeData.recoord DefFaltings.HodgeLatticeTheorem DefFaltings.IsIsogeny DefFaltings.MetrizedModel DefFaltings.MetrizedModel.modelHeight_eq_of_model_eq DefFaltings.NeronModelMinimal DefFaltings.PeriodAreaFormula DefFaltings.R19_GaudronRemond DefFaltings.R20_FaltingsLemma5 DefFaltings.R21_Bost DefFaltings.StableHeightFinite DefFaltings.absNorm_extendedHom DefFaltings.absNorm_map_ringOfIntegers DefFaltings.arakelovDegree_ofFractionalIdeal_baseChange DefFaltings.arakelovDegree_ofFractionalIdeal_mul DefFaltings.card_embeddings_over DefFaltings.covolume_comap_mul_det DefFaltings.covolume_gaussianPair DefFaltings.det_restrictScalars_complex DefFaltings.embCoeff DefFaltings.faltingsHeight DefFaltings.faltingsHeightEC DefFaltings.faltingsHeightGood DefFaltings.faltingsHeight_coe DefFaltings.finiteHeightPart DefFaltings.finrank_ringOfIntegers DefFaltings.gaussianPair DefFaltings.genericFibre DefFaltings.genericPt DefFaltings.grKappa DefFaltings.hypGram DefFaltings.hypGram_comp_add DefFaltings.hypVol DefFaltings.hypVol_one_comp_add DefFaltings.isogDeg DefFaltings.le_stableFaltingsHeight DefFaltings.modelHeight_ofIdeal_eq_faltingsHeightEC DefFaltings.modelHeight_ofIdeal_eq_faltingsHeightEC' DefFaltings.norm_algebraMap_tower DefFaltings.ptObj DefFaltings.ratCoeff DefFaltings.realify DefFaltings.secIndex DefFaltings.secIndex_mul_absNorm DefFaltings.secIndex_smul DefFaltings.stableFaltingsHeight DefFaltings.stableFaltingsHeightDeligne DefFaltings.stableFaltingsHeightDeligne_eq DefFaltings.stableFaltingsHeight_eq_faltingsHeightGood DefFaltings.stableFaltingsHeight_eq_iInf_height DefFaltings.stableFaltingsHeight_le DefFaltings.stableFaltingsHeight_ne_bot_of_R21 DefFaltings.sum_embeddings_comp DefFaltings.sum_log_norm_embeddings DefFaltings.sum_log_norm_embeddings_int DefFaltings.torusMetricSq DefFaltings.torusMetricSq_comap DefFaltings.torusMetricSq_eq_setIntegral DefFaltings.torusMetricSq_pos DefFaltings.torusMetricSq_smul DefFaltings.torus_setIntegral_indep H5Glue.GenericFibreStalkIso H5Glue.GroupModel.baseChange H5Glue.GroupModel.isNeronModel_iff H5Glue.GroupModelBaseChangeExists H5Glue.HeightAntitone H5Glue.HodgeLatticeNonzero H5Glue.HodgeMapBijective H5Glue.IsBaseChangeOf H5Glue.IsOpenSubgroupModel H5Glue.IsProductAbVar H5Glue.IsProductModel H5Glue.ModelHeightBaseChange H5Glue.NeronModelExists H5Glue.NeronProp H5Glue.NeronProp.lift H5Glue.NeronProp.of_iso H5Glue.NeronProp.tensor H5Glue.NeronProp.uniqueIso H5Glue.OmegaSpans H5Glue.OpenImmersionHeightLe H5Glue.OpenSubgroupHeight H5Glue.ProductGroupModelExists H5Glue.ProductModelHeight H5Glue.SemistableNeronIdentityComponent H5Glue.baseChange_map_bijective H5Glue.bcProd H5Glue.bijective_respectsIso H5Glue.compositum H5Glue.cotMap H5Glue.cotMap_bijective H5Glue.cotMap_dCls H5Glue.cotMap_omega H5Glue.cotMap_omegaAt H5Glue.detLattice_le_hodgeMap H5Glue.dom_comp H5Glue.evalAt_comp H5Glue.evalAt_res H5Glue.exists_smul_mem_omega H5Glue.fst_genericFibreUnit H5Glue.fst_genericFibre_unit H5Glue.genBC H5Glue.genBC_isMonHom H5Glue.genMap H5Glue.genMap_germ H5Glue.genMap_mem_maximalIdeal H5Glue.genMap_mem_maximalIdeal_iff H5Glue.genMap_structMap H5Glue.genericFibreStalkIso H5Glue.genericFibreUnit H5Glue.genericIso_of_openImmersion H5Glue.germAlong_comp_eventuallyEq H5Glue.groupModelBaseChangeExists H5Glue.heightAntitone H5Glue.heightAntitone_of H5Glue.heightAntitone_of_hodgeLatticeNonzero H5Glue.heightAntitone_of_omegaSpans H5Glue.hodgeLatticeNonzero_of_omegaSpans H5Glue.hodgeMap H5Glue.hodgeMapBijective H5Glue.hodgeMap_detLattice H5Glue.hodgeMap_wedge H5Glue.hodgeMap_wedgeGerm H5Glue.isAnalyticUniformization_comp H5Glue.isAnalyticUniformization_of_comp H5Glue.isIso_genMap H5Glue.isIso_of_openImmersion_self H5Glue.isIso_stalkSpecializes_genMap H5Glue.isMonHom_of_map H5Glue.isMonHom_pbCompHom H5Glue.isMonHom_pbCompInv H5Glue.isMonHom_pbEqIso H5Glue.isMonHom_prodComparisonIso H5Glue.isNeronModel_of_isProductModel H5Glue.isOpenImmersion_pullback_map H5Glue.jL H5Glue.jacDet_comp_genMap H5Glue.jacDet_comp_map H5Glue.map_genericUnit' H5Glue.map_span_singleton_toAddSubgroup H5Glue.map_zero_of_hom H5Glue.modelHeight_pullHodge_le H5Glue.neronModelMinimal H5Glue.neronModelMinimal_of_heightAntitone H5Glue.neron_lift H5Glue.neron_lift_isMonHom H5Glue.neron_map_injective H5Glue.omegaAt_le_cotMap H5Glue.omegaSpans H5Glue.omega_le_cotMap H5Glue.one_mem_dom H5Glue.openImmersionHeightLe H5Glue.openSubgroupHeight H5Glue.openSubgroupHeight_of H5Glue.pbCompHom H5Glue.pbCompInv H5Glue.pbCompIso H5Glue.pbEqIso H5Glue.productGroupModelExists H5Glue.ptCIso H5Glue.ptC_hom_apply H5Glue.ptsEquiv H5Glue.ptsEquiv_comp H5Glue.pts_comp_bijective H5Glue.pullHodge H5Glue.secIndex_le_of_map H5Glue.secIndex_ne_zero_of_mem H5Glue.smooth_tensor H5Glue.smooth_unit H5Glue.square1 H5Glue.square2 H5Glue.stableFaltingsHeight_add_le H5Glue.stableFaltingsHeight_add_le_of_productModelHeight H5Glue.stableFaltingsHeight_eq_neron_all H5Glue.stableFaltingsHeight_eq_neron_all' H5Glue.stalkIso_of_genericIso H5Glue.stalkSpecializes_self_apply H5Glue.stalkSpecializes_stalkSpecializes_apply H5Glue.stalk_ker_eq H5Glue.stalk_spec_eq H5Glue.stalkwise_fst_toGeneric H5Glue.stalkwise_tensor_localization H5Glue.tensorGen H5Glue.tensorGen_fst H5Glue.tensorGen_snd H5Glue.toGeneric_pt H5Glue.unitSection_comp H5Neron.GroupModel.IsNeronModel.lift H5Neron.GroupModel.IsNeronModel.uniqueIso H5Neron.GroupModel.isNeronModel_iff H5Neron.GroupModelBaseChangeExists H5Neron.IsBaseChangeOf H5Neron.IsOpenSubgroupModel H5Neron.IsProductAbVar H5Neron.IsProductModel H5Neron.ModelHeightBaseChange H5Neron.NeronModelExists H5Neron.NeronProp H5Neron.NeronProp.lift H5Neron.NeronProp.of_iso H5Neron.NeronProp.tensor H5Neron.NeronProp.uniqueIso H5Neron.OpenSubgroupHeight H5Neron.ProductGroupModelExists H5Neron.ProductModelHeight H5Neron.R19_zero H5Neron.R20_zero H5Neron.R21_zero H5Neron.SemistableNeronIdentityComponent H5Neron.bcProd H5Neron.bcUnitIso H5Neron.compositum H5Neron.covolume_fin_zero H5Neron.detLattice_zero H5Neron.glue_zero H5Neron.groupModel_height_zero H5Neron.hodgeZeroEquiv H5Neron.hodgeZeroEquiv_wedge0 H5Neron.hom_ext_of_iso_unit H5Neron.isIsogeny_id_zero H5Neron.isMonHom_of_iso_unit H5Neron.isMonHom_prodComparisonIso H5Neron.isNeronModel_of_isProductModel H5Neron.isogDeg_zero_le_one H5Neron.jL H5Neron.metrizedOf H5Neron.modelHeight_dim_zero H5Neron.neronModelExists_zero H5Neron.neronModelMinimal_zero H5Neron.neron_zero_iso_unit H5Neron.no_metrized_succ H5Neron.one_le_grKappa H5Neron.productGroupModelExists H5Neron.pts_subsingleton H5Neron.semistableNeronIdentityComponent_zero H5Neron.semσ H5Neron.stableFaltingsHeight_add_le H5Neron.stableFaltingsHeight_add_le' H5Neron.stableFaltingsHeight_eq_neron H5Neron.stableFaltingsHeight_eq_neron_all H5Neron.stableFaltingsHeight_zero H5Neron.stableHeightFinite_zero H5Neron.tensorGen H5Neron.tensorGen_fst H5Neron.tensorGen_snd H5Neron.trivHodge H5Neron.trivMetrized H5Neron.trivModel H5Neron.trivModel_isNeronModel H5Neron.wedge0 H5Neron.wedge0_ne_zero H5Neron.wedge_eq_wedge0 HeightBC.CotangentSpanBC HeightBC.D0 HeightBC.D0_add HeightBC.D0_add_apply HeightBC.D0_mul HeightBC.D0_mul_apply HeightBC.D0_sq HeightBC.D0_structMap_mul HeightBC.DetLatticeBC HeightBC.FF HeightBC.GermDerivation HeightBC.HodgeBCInjective HeightBC.HodgeLineBaseChange HeightBC.HodgeLineBaseChangeDescent HeightBC.HodgeLineDescentHalf HeightBC.HodgeSpanBC HeightBC.IsBaseChangeOf HeightBC.IsHodgeBaseChange HeightBC.IsMonBC HeightBC.JacobianPullbackSpan HeightBC.JacobianSemilinear HeightBC.MetrizationBaseChange HeightBC.ModelHeightBaseChange HeightBC.ModelHeightBaseChangeGE HeightBC.ModelHeightBaseChangeLE HeightBC.OmegaBaseChange HeightBC.OmegaLocalization HeightBC.PtsBaseChangeBij HeightBC.PtsBaseChangeMul HeightBC.UniformizationLift HeightBC.UniformizationLiftAnalytic HeightBC.algebraMap_FF HeightBC.algebraMap_ringOfIntegers_coe HeightBC.appLE_top_top HeightBC.bO HeightBC.bO_appTop HeightBC.bO_genericPt HeightBC.bcAlt HeightBC.bcCot HeightBC.bcCotBasis HeightBC.bcCotBasis_apply HeightBC.bcCot_core HeightBC.bcCot_dCls HeightBC.bcCot_intInv HeightBC.bcCot_linearIndependent HeightBC.bcCot_omega HeightBC.bcCot_omegaAt HeightBC.bcCot_smulL HeightBC.bcCot_smul_genStalk HeightBC.bcCot_span HeightBC.bcCot_update HeightBC.bcExt HeightBC.bcExt_smul HeightBC.bcExt_ιMulti HeightBC.bcHodge HeightBC.bcHodge_detLattice HeightBC.bcHodge_smul HeightBC.bcHodge_tmul HeightBC.bcHodge_wedge HeightBC.bcMap HeightBC.bcMap_germ HeightBC.bcMap_mem_maximalIdeal HeightBC.bcMap_structMap HeightBC.bcMap_φL HeightBC.bcProj HeightBC.bcProj_genericUnit HeightBC.bcProj_unit HeightBC.bcProj_w HeightBC.bcPts HeightBC.cotL HeightBC.cotL_isScalarTower HeightBC.cotL_smul HeightBC.cotRes HeightBC.cotangentSpanBC HeightBC.descentHalf_of_descent HeightBC.detLatticeBC_of_omega HeightBC.dom_bcPts HeightBC.evalAt_add HeightBC.evalAt_bcPts HeightBC.evalAt_mul HeightBC.evalAt_one_eq_zero HeightBC.evalAt_res HeightBC.evalAt_structSection HeightBC.exists_act HeightBC.exists_comp_eq HeightBC.exists_int_dvd HeightBC.exists_mem_not_mem_of_sat HeightBC.exists_ringOfIntegers_of_algebraMap HeightBC.extRes HeightBC.finite_of_isClosed_not_genericPt HeightBC.g0_hodgeLine_iff HeightBC.genericPt_eq_genericPoint HeightBC.germAlong_add_mul HeightBC.germAlong_bcPts_eventuallyEq HeightBC.germAlong_differentiableAt HeightBC.germAlong_eventuallyEq_rep HeightBC.germAlong_structMap HeightBC.germAlong_zero_of_mem HeightBC.germDerivation HeightBC.germDerivation_at HeightBC.hodgeBCInjective HeightBC.hodgeLineBaseChangeDescent_of_glue HeightBC.hodgeLineBaseChange_of_descent HeightBC.hodgeLineBaseChange_of_final HeightBC.hodgeLineBaseChange_of_five HeightBC.hodgeLineBaseChange_of_four HeightBC.hodgeLineBaseChange_of_glue HeightBC.hodgeLineBaseChange_of_glue4 HeightBC.hodgeLineBaseChange_of_glue5 HeightBC.hodgeLineBaseChange_of_main HeightBC.hodgeLineBaseChange_of_two HeightBC.hodgeSpanBC_of HeightBC.hom_genericUnit HeightBC.hom_genericUnit' HeightBC.hom_unitSection HeightBC.isAnalyticUniformization_bcPts HeightBC.isField_stalk_genericPt HeightBC.isIso_stalkSpecializes_bcMap HeightBC.isUnit_germ_genericPt HeightBC.isUnit_structMap HeightBC.jacDet_bcPts HeightBC.jacobianPullbackSpan_of HeightBC.jacobianSemilinear HeightBC.jacobianSemilinear_of HeightBC.locSub HeightBC.mapCotangent_injective_of_isIso HeightBC.mapCotangent_smul' HeightBC.map_zero_of_hom HeightBC.maximalIdeal_stalk_genericPt HeightBC.mem_locSub HeightBC.mem_of_forall_locSub HeightBC.metrizationBaseChange_of_hodgeLine HeightBC.modelHeightBaseChangeGE_of_descent HeightBC.modelHeightBaseChangeGE_of_descentHalf HeightBC.modelHeightBaseChangeGE_of_main HeightBC.modelHeightBaseChangeGE_of_two HeightBC.modelHeightBaseChangeLE_of_metrization HeightBC.modelHeightBaseChange_of_descent HeightBC.modelHeightBaseChange_of_final HeightBC.modelHeightBaseChange_of_five HeightBC.modelHeightBaseChange_of_four HeightBC.modelHeightBaseChange_of_glue HeightBC.modelHeightBaseChange_of_glue4 HeightBC.modelHeightBaseChange_of_glue5 HeightBC.modelHeightBaseChange_of_main HeightBC.modelHeightBaseChange_of_two HeightBC.modelHeight_eq_of_isHodgeBaseChange HeightBC.multilinear_mem_span HeightBC.omegaAt_bc_local HeightBC.omegaAt_full HeightBC.omegaAt_open HeightBC.omegaAt_sat HeightBC.omegaBaseChange HeightBC.omegaBaseChange_of_localization HeightBC.omegaLocalization HeightBC.one_mem_dom HeightBC.ptC_hom_apply HeightBC.ptC_hom_comp_bO HeightBC.ptsBaseChangeBij HeightBC.ptsBaseChangeMul HeightBC.rationalOver_genericUnit HeightBC.secIndex_baseChange HeightBC.secIndex_map HeightBC.secIndex_ne_zero_of_baseChange HeightBC.secIndex_nsmul_mem HeightBC.smul_cotangent_eq_of_sub_mem HeightBC.span_bcHodge_le HeightBC.spec_mem_of_ker HeightBC.stalkMapAt_germ' HeightBC.stalkSpec_comp_apply HeightBC.stalkSpec_self_apply HeightBC.stalkSpecializes_self_apply' HeightBC.stalkSpecializes_stalkSpecializes_apply' HeightBC.structMap_eq_spec HeightBC.structMap_eq_stalkMap HeightBC.toCotangent_mul HeightBC.uniformizationLift HeightBC.uniformizationLiftAnalytic HeightBC.uniformizationLift_of HeightBC.unitSection_comp_hom HeightBC.unitSection_stalkMapAt_hom HeightBC.σFF HeightBC.φL HeightBC.φL_algebraMap LeafPush2.CPts LeafPush2.Char2 LeafPush2.HasSexticModel LeafPush2.IC10 LeafPush2.IC2 LeafPush2.IC4 LeafPush2.IC6 LeafPush2.IgJ10 LeafPush2.IgJ2 LeafPush2.IgJ4 LeafPush2.IgJ6 LeafPush2.IsGenus2 LeafPush2.IsPeriodMatrix LeafPush2.IsSiegel LeafPush2.IsUniformization LeafPush2.LinYangTuple LeafPush2.OnQMLocus LeafPush2.T10_groupIso LeafPush2.T11a_RiemannEnd LeafPush2.T11b_Rigidity LeafPush2.T12_ComplexConjEigen LeafPush2.UniformizationExists LeafPush2.absLogHeight LeafPush2.cDom LeafPush2.cEvalAt LeafPush2.cptObj LeafPush2.dsq LeafPush2.exists_isComplexConj LeafPush2.ffAlgebra LeafPush2.ffStructMap LeafPush2.isSiegel_I LeafPush2.javanpeykarBound LeafPush2.javanpeykarBound_mono LeafPush2.javanpeykarBound_pos LeafPush2.linYangTuple_onQMLocus LeafPush2.linYang_j_eq LeafPush2.onQMLocus_of_linYangTuple LeafPush2.pazukiC2 LeafPush2.sextic LeafPush2.thetaConst) -- op-dedupe
 
 open NumberField
 open CategoryTheory MonObj
@@ -2223,6 +2255,7 @@ open CategoryTheory AlgebraicGeometry Limits MonoidalCategory CartesianMonoidalC
 open scoped CategoryTheory.Obj
 
 namespace UnramTate
+open _root_.UnramTate (EndBaseChange PtA ResQEmbedding ScalarTransfer TateCont TatePoints bcPt bcPt_galAct conjE conjE_apply endBC endBaseChange eps_right_one hO homEquiv_mul iO iO_jO iO_sq incO' incO'_coe inertia_trivial' instGaloisQbar' jO jO_sq lift_fixes' matrixUnits_of_quat numberField_of_fd'' opV opVHom ptMapIso quat_words resQEmbedding sK scalarTransfer specMap_comp_sK tateCont_of_tateModuleFree tateMap_add tateMap_comp tateMap_id tateMap_zero tatePoints tate_eq_opV tmOf trHom trHom_comp_symm trHom_left trHom_symm_comp trPt trPt_galAct unramifiedSup_mf) -- op-dedupe
 
 section BC
 
@@ -2256,9 +2289,12 @@ The general case of `RaynaudPlace` needs R6 over `K(A[m])` and the base change o
 noncomputable section
 
 namespace G15Ram
+open _root_.G15Ram (UnramRoots) -- op-dedupe
 
-open PkgI4 (GQp GQ decomp)
+-- op-dedupe was: open PkgI4 (GQp GQ decomp)
+open _root_.PkgI4 (GQp GQ decomp) -- op-dedupe
 open LadicCond
+open _root_.LadicCond (AdaptedExists CarayolR17 CarayolR17' EventuallyTrivial Fld InertiaRestriction IsAdapted IsFinGal IsUnif IsUnif.norm_eq Kbar SwanIndependent SwanIntegral apply_mem artinAt carayolR17'_of_R17 carayolR17_of_R17' codimInv codimInv_eq_zero codimInv_le condAt condAt_eq_artinAt condAt_eq_artinAt' condAt_eq_artinAt'' condAt_eq_artinAt_of_surj condAt_eq_zero_of_unramified condAt_le_of_upper condExp condExp_eq_condAt condExp_eq_zero_of_unramified condExp_one eventuallyTrivial eventually_not_restr exists_isUnif finite_restr fixSet fixSet_subset_ramSet inertiaSet inertiaSet_subset_ramSet_zero integral_codim_le invariants invariants_eq_of_cover invariants_eq_top isAdapted_one isUnif_bot norm_p_kbar norm_pow_factorial one_mem_wildSet phiAt ramCard ramCardR ramCard_ne_zero ramSet ramSetR restr swan swanAt swanAt_eq_zero_of_unramified upperAbs upperSet wildSet wildSet_subset_inertiaSet) -- op-dedupe
 open CategoryTheory MonObj
 open scoped Pointwise
 
@@ -2785,9 +2821,12 @@ uses the model `A_L` over the Hom field `L` (N5 L813-818): `E = L_v(A_L[m])`, of
 noncomputable section
 
 namespace G15Ram
+open _root_.G15Ram (UnramRoots) -- op-dedupe
 
-open PkgI4 (GQp GQ decomp)
+-- op-dedupe was: open PkgI4 (GQp GQ decomp)
+open _root_.PkgI4 (GQp GQ decomp) -- op-dedupe
 open LadicCond
+open _root_.LadicCond (AdaptedExists CarayolR17 CarayolR17' EventuallyTrivial Fld InertiaRestriction IsAdapted IsFinGal IsUnif IsUnif.norm_eq Kbar SwanIndependent SwanIntegral apply_mem artinAt carayolR17'_of_R17 carayolR17_of_R17' codimInv codimInv_eq_zero codimInv_le condAt condAt_eq_artinAt condAt_eq_artinAt' condAt_eq_artinAt'' condAt_eq_artinAt_of_surj condAt_eq_zero_of_unramified condAt_le_of_upper condExp condExp_eq_condAt condExp_eq_zero_of_unramified condExp_one eventuallyTrivial eventually_not_restr exists_isUnif finite_restr fixSet fixSet_subset_ramSet inertiaSet inertiaSet_subset_ramSet_zero integral_codim_le invariants invariants_eq_of_cover invariants_eq_top isAdapted_one isUnif_bot norm_p_kbar norm_pow_factorial one_mem_wildSet phiAt ramCard ramCardR ramCard_ne_zero ramSet ramSetR restr swan swanAt swanAt_eq_zero_of_unramified upperAbs upperSet wildSet wildSet_subset_inertiaSet) -- op-dedupe
 open CategoryTheory MonObj
 
 section DescentSec
@@ -3173,9 +3212,12 @@ of `G_M`. -/
 noncomputable section
 
 namespace G15Ram
+open _root_.G15Ram (UnramRoots) -- op-dedupe
 
-open PkgI4 (GQp GQ decomp)
+-- op-dedupe was: open PkgI4 (GQp GQ decomp)
+open _root_.PkgI4 (GQp GQ decomp) -- op-dedupe
 open LadicCond
+open _root_.LadicCond (AdaptedExists CarayolR17 CarayolR17' EventuallyTrivial Fld InertiaRestriction IsAdapted IsFinGal IsUnif IsUnif.norm_eq Kbar SwanIndependent SwanIntegral apply_mem artinAt carayolR17'_of_R17 carayolR17_of_R17' codimInv codimInv_eq_zero codimInv_le condAt condAt_eq_artinAt condAt_eq_artinAt' condAt_eq_artinAt'' condAt_eq_artinAt_of_surj condAt_eq_zero_of_unramified condAt_le_of_upper condExp condExp_eq_condAt condExp_eq_zero_of_unramified condExp_one eventuallyTrivial eventually_not_restr exists_isUnif finite_restr fixSet fixSet_subset_ramSet inertiaSet inertiaSet_subset_ramSet_zero integral_codim_le invariants invariants_eq_of_cover invariants_eq_top isAdapted_one isUnif_bot norm_p_kbar norm_pow_factorial one_mem_wildSet phiAt ramCard ramCardR ramCard_ne_zero ramSet ramSetR restr swan swanAt swanAt_eq_zero_of_unramified upperAbs upperSet wildSet wildSet_subset_inertiaSet) -- op-dedupe
 
 section TwistSec
 
@@ -3189,24 +3231,6 @@ distinct `N'`-th roots of unity are at distance `1`), so `cyc_N(σ) ∈ (ℤ/4)^
 `2`, and `χ² (cyc_N σ) = 1`. -/
 def Beta4Inertia (β : GQ → PadicAlgCl ℓ) (L : IntermediateField ℚ PkgI4.Qbar) : Prop :=
   ∀ σ ∈ fixSet (Lv (p := p) L) ∩ inertiaSet, β (decomp p σ) ^ 4 = 1
-
-variable (p ℓ) in
-/-- **Glue (textbook; Serre, *Local Fields*, Ch. III §5 and Ch. IV §2, locators UNVERIFIED): an
-unramified fourth root.** For a finite `F/ℚ_p` and a character `ψ` of `G_F` with values in
-`ℚ̄_ℓ^×` that is trivial on some open `G_{F''}` and on the inertia subgroup `G_F ∩ I`, there is a
-character `η` of `G_F`, trivial on some open `G_{F₁}` and on `G_F ∩ I`, with `η⁴ = ψ` on `G_F`.
-(`ψ` factors through `Gal(F_m/F) ≅ ℤ/m`, `F_m` unramified of degree `m`, generated by Frobenius;
-take `ξ` with `ξ⁴ = ψ(Frob)`, of order `d ∣ 4m`, and `η(σ) = ξ^k` for `σ|_{F_d} = Frob^k`.) -/
-def UnramRoots : Prop :=
-  ∀ (F : Fld p), FiniteDimensional ℚ_[p] F → ∀ ψ : GQp p → PadicAlgCl ℓ,
-    (∀ σ ∈ fixSet F, ∀ τ ∈ fixSet F, ψ (σ * τ) = ψ σ * ψ τ) →
-    (∃ F'' : Fld p, FiniteDimensional ℚ_[p] F'' ∧ ∀ σ ∈ fixSet F'', ψ σ = 1) →
-    (∀ σ ∈ fixSet F ∩ inertiaSet, ψ σ = 1) →
-    ∃ η : GQp p → PadicAlgCl ℓ,
-      (∃ F₁ : Fld p, FiniteDimensional ℚ_[p] F₁ ∧ ∀ σ ∈ fixSet F₁, η σ = 1) ∧
-      (∀ σ ∈ fixSet F, ∀ τ ∈ fixSet F, η (σ * τ) = η σ * η τ) ∧
-      (∀ σ ∈ fixSet F, η σ ^ 4 = ψ σ) ∧
-      (∀ σ ∈ fixSet F ∩ inertiaSet, η σ = 1)
 
 /-- **`BetaTwist2` from G7's clauses, `Beta4Inertia` and `UnramRoots` (proved).** -/
 theorem betaTwist2_of_roots {β : GQ → PadicAlgCl ℓ} {ε : GQ → GQ → PadicAlgCl ℓ}
@@ -3531,8 +3555,10 @@ that Mathlib chooses inside `resQ L` and inside `resQ L'` (`jL L`, `jL' hLL'`; b
 noncomputable section
 
 namespace G15Ram
+open _root_.G15Ram (UnramRoots) -- op-dedupe
 
-open PkgI4 (GQ)
+-- op-dedupe was: open PkgI4 (GQ)
+open _root_.PkgI4 (GQ) -- op-dedupe
 open CategoryTheory AlgebraicGeometry Limits MonObj
 
 section BCDescentSec
@@ -3750,8 +3776,10 @@ local-data's tail `modularConstituent_tail_L`). `G7LocalPackK` asks instead for 
 
 namespace G0ModNewform
 
-open PkgI4 (Qbar GQ GaloisRep)
+-- op-dedupe was: open PkgI4 (Qbar GQ GaloisRep)
+open _root_.PkgI4 (Qbar GQ GaloisRep) -- op-dedupe
 open PkgI3
+open _root_.PkgI3 (AbVar AbVar.End AbVar.End0 AbVar.Hom AbVar.Hom.ext' AbVar.Hom.hom AbVar.Hom.hom_add AbVar.Hom.hom_mk' AbVar.Hom.hom_zero AbVar.Hom.mk' AbVar.IsGalEquivariant AbVar.IsIsogenyMor AbVar.Pt AbVar.T AbVar.V AbVar.baseChange AbVar.dim AbVar.dim_baseChange AbVar.dim_finite AbVar.galAct AbVar.galHom AbVar.galHom_mul AbVar.galHom_one AbVar.galRep AbVar.galT AbVar.geometricallyIntegral_id_spec AbVar.homGroup AbVar.homT AbVar.ptMap AbVar.ptObj AbVar.tateHom AbVar.tateHomZl AbVar.zero C2_absolutelyIrreducible CharPolyIndepOfEll E1_exists_hom_ne_zero E1_exists_hom_ne_zero' EndDivision FaltingsSemisimple FaltingsTate HomFreeFinite I3Leaves PoincareReducibility QMDichotomyYu QuatIndefinite RhoCont.continuous_act RhoCont.continuous_galRep RhoCont.continuous_galT RhoCont.continuous_one_tmul RhoCont.continuous_orbit RhoCont.continuous_toMatrix_galRep RhoCont.continuous_trace_galRep RhoCont.exists_openSubgroup_galAct_eq RhoCont.galAct_mul RhoCont.instTopologicalSpacePt RhoCont.instTopologicalSpaceV RhoCont.stalkClosedPointTo_comp_galois Tate.T Tate.continuous_map_action Tate.continuous_of_linearMap_padicInt Tate.coord_eq_zero_iff Tate.coord_eq_zero_of_le Tate.ell_smul_succ Tate.isOpen_coord_eq Tate.map Tate.map_apply Tate.map_bijective Tate.map_injective Tate.mem_range_of_ell_smul Tate.mem_range_of_pow_smul Tate.mem_range_of_smul Tate.nhds_zero_hasBasis Tate.nsmul_congr Tate.pow_smul_eq_zero Tate.pow_smul_shift Tate.smulSeq Tate.smulSeq_congr Tate.smulSeq_mem Tate.smul_apply Tate.val_cast TateModuleFree continuous_galRep_of_tateModuleFree equivEnd equivEnd_eq_commOf exists_hom_ne_zero_of_equivariant finrank_equivEnd homT_galT qmDichotomy_B6 quatIndefinite_two_neg_three range_tateHomZl_subset trace_eq_trace_of_ell trace_indep_of_ell) -- op-dedupe
 
 attribute [local instance] RQ.numberField_of_fd
 
@@ -4025,8 +4053,15 @@ of glue-descent (`LeafHasse`, `LeafLocalTwo`, `LeafSqrtCrit`, `LeafUnramified`),
 
 open CategoryTheory AlgebraicGeometry Limits MonoidalCategory CartesianMonoidalCategory MonObj
 open _root_.ZInQ ZInQ LeafQM.AV GlueDescent GlueDescent.B2 GlueDescent.B2Q GlueDescent.B3Q
+open _root_.ZInQ (Contrib.AbVarBC.G0FibreSimple.MulIsogeny Contrib.AbVarBC.MulRigidity.CotangentMulN Contrib.AbVarBC.MulRigidity.KerUnitOpen Contrib.AbVarBC.MulRigidity.KerUnitOpenOfCotangentSurj Contrib.AbVarBC.MulRigidity.MulEtale Contrib.AbVarBC.MulRigidity.MulUnramified Contrib.AbVarBC.MulRigidity.O0 Contrib.AbVarBC.MulRigidity.QuasiFiniteEndSurjective Contrib.AbVarBC.MulRigidity.charZero_residueField Contrib.AbVarBC.MulRigidity.cotangentMap Contrib.AbVarBC.MulRigidity.diagonal_isPullback Contrib.AbVarBC.MulRigidity.diffKer Contrib.AbVarBC.MulRigidity.formallyUnramified_of_kerUnit Contrib.AbVarBC.MulRigidity.isIsogenyMor_of_lqf_of_isOpenMap Contrib.AbVarBC.MulRigidity.isOpenImmersion_of_section Contrib.AbVarBC.MulRigidity.isProper_left Contrib.AbVarBC.MulRigidity.kerUnit Contrib.AbVarBC.MulRigidity.kerUnitOpen_of_cotangent Contrib.AbVarBC.MulRigidity.kerUnitOpen_of_mulEtale Contrib.AbVarBC.MulRigidity.locallyQuasiFinite_of_formallyUnramified Contrib.AbVarBC.MulRigidity.map_origin Contrib.AbVarBC.MulRigidity.mulIsogeny_of_cotangent Contrib.AbVarBC.MulRigidity.mulIsogeny_of_kerUnitOpen Contrib.AbVarBC.MulRigidity.mulIsogeny_of_mulEtale Contrib.AbVarBC.MulRigidity.mulIsogeny_of_mulUnramified Contrib.AbVarBC.MulRigidity.mulIsogeny_of_mulUnramified' Contrib.AbVarBC.MulRigidity.mulUnramified_of_kerUnitOpen Contrib.AbVarBC.MulRigidity.mulUnramified_of_mulEtale Contrib.AbVarBC.MulRigidity.ne_of_specializes_of_lqf Contrib.AbVarBC.MulRigidity.origin Contrib.AbVarBC.MulRigidity.quasiFiniteEndSurjective Contrib.AbVarBC.MulRigidity.stalkEndo Contrib.AbVarBC.MulRigidity.surjective_of_lqf_self Contrib.AbVarBC.Tangent.AtOrigin Contrib.AbVarBC.Tangent.D Contrib.AbVarBC.Tangent.D_congr Contrib.AbVarBC.Tangent.D_inv Contrib.AbVarBC.Tangent.D_mul Contrib.AbVarBC.Tangent.D_one Contrib.AbVarBC.Tangent.D_zpow Contrib.AbVarBC.Tangent.KerN Contrib.AbVarBC.Tangent.atOrigin_inv Contrib.AbVarBC.Tangent.atOrigin_map Contrib.AbVarBC.Tangent.atOrigin_mul Contrib.AbVarBC.Tangent.atOrigin_one Contrib.AbVarBC.Tangent.atOrigin_zpow Contrib.AbVarBC.Tangent.closedPoint_eq Contrib.AbVarBC.Tangent.comp_intCast_hom Contrib.AbVarBC.Tangent.comp_mem_of_subsingleton Contrib.AbVarBC.Tangent.comp_orig_mem Contrib.AbVarBC.Tangent.derivation_eq_zero Contrib.AbVarBC.Tangent.dualHom Contrib.AbVarBC.Tangent.eq_ofRing_ptRing Contrib.AbVarBC.Tangent.eq_of_D_eq Contrib.AbVarBC.Tangent.eq_one_of_comp_intCast Contrib.AbVarBC.Tangent.ev0 Contrib.AbVarBC.Tangent.exists_affine_orig Contrib.AbVarBC.Tangent.fst_tRing Contrib.AbVarBC.Tangent.id_appLE_top Contrib.AbVarBC.Tangent.intCast_hom Contrib.AbVarBC.Tangent.isLocalHom_fstHom Contrib.AbVarBC.Tangent.isLocalRing_tsze Contrib.AbVarBC.Tangent.ker_le_sq_of_derivations Contrib.AbVarBC.Tangent.ks Contrib.AbVarBC.Tangent.ks_hom Contrib.AbVarBC.Tangent.ks_isOpenImmersion Contrib.AbVarBC.Tangent.left_closedPoint Contrib.AbVarBC.Tangent.locallyOfFiniteType_kerN Contrib.AbVarBC.Tangent.map_add_inl Contrib.AbVarBC.Tangent.map_add_inr Contrib.AbVarBC.Tangent.map_fst_inl Contrib.AbVarBC.Tangent.map_fst_inr Contrib.AbVarBC.Tangent.map_snd_inl Contrib.AbVarBC.Tangent.map_snd_inr Contrib.AbVarBC.Tangent.mem_of_atOrigin Contrib.AbVarBC.Tangent.mulN Contrib.AbVarBC.Tangent.ofRing Contrib.AbVarBC.Tangent.ofRing_mem Contrib.AbVarBC.Tangent.one_left Contrib.AbVarBC.Tangent.orig Contrib.AbVarBC.Tangent.ptR Contrib.AbVarBC.Tangent.ptRing Contrib.AbVarBC.Tangent.ptRing_comp Contrib.AbVarBC.Tangent.ptRing_congr Contrib.AbVarBC.Tangent.ptRing_ext Contrib.AbVarBC.Tangent.ptRing_id_top Contrib.AbVarBC.Tangent.ptRing_ofRing Contrib.AbVarBC.Tangent.ptRing_specMap_comp Contrib.AbVarBC.Tangent.specHom Contrib.AbVarBC.Tangent.specHom_comp Contrib.AbVarBC.Tangent.specHom_id Contrib.AbVarBC.Tangent.specHom_left Contrib.AbVarBC.Tangent.spec_inl_fst_comp Contrib.AbVarBC.Tangent.tRing Contrib.AbVarBC.Tangent.tRing_congr Contrib.AbVarBC.Tangent.tRing_one Contrib.AbVarBC.Tangent.tRing_specHom Contrib.AbVarBC.TorsionDescends Contrib.AbVarBC.comp_natCast_hom Contrib.AbVarBC.dim_baseChange_scheme Contrib.AbVarBC.dim_finite Contrib.AbVarBC.dim_pullback_spec Contrib.AbVarBC.dim_spec_le Contrib.AbVarBC.exists_lift_of_isFinite Contrib.AbVarBC.exists_nat_of_le Contrib.AbVarBC.galK Contrib.AbVarBC.kerUnitOpen Contrib.AbVarBC.map_comm Contrib.AbVarBC.mem_range_of_isIntegral Contrib.AbVarBC.mulIsogeny Contrib.AbVarBC.ptBC Contrib.AbVarBC.ptBC_galAct Contrib.AbVarBC.ptBC_injective Contrib.AbVarBC.ringKrullDim_eq_of_isIntegral_of_injective Contrib.AbVarBC.ringKrullDim_le_of_finiteType Contrib.AbVarBC.ringKrullDim_mvPolynomial_field Contrib.AbVarBC.ringKrullDim_tensor_field Contrib.AbVarBC.scheme_dim_eq_iSup_cover Contrib.AbVarBC.scheme_dim_eq_of_iso Contrib.AbVarBC.spec_dim Contrib.AbVarBC.tateBC Contrib.AbVarBC.tateBC_bijective_of_tateModuleFree Contrib.AbVarBC.tateBC_bijective_of_torsionDescends Contrib.AbVarBC.tateBC_galT Contrib.AbVarBC.tateBC_injective Contrib.AbVarBC.tate_map_bijective_of_torsion Contrib.AbVarBC.topologicalKrullDim_eq_iSup_of_openEmbedding Contrib.AbVarBC.torsionDescends_of_isFinite Contrib.AbVarBC.vBC Contrib.AbVarBC.vBC_galRep DefFaltings.AbVar DefFaltings.AnalyticUniformizationExists DefFaltings.AnalyticUniformizationUnique DefFaltings.EReal.add_coe_add_neg_coe DefFaltings.FinExt DefFaltings.Genus2Eq DefFaltings.Genus2Eq.Good DefFaltings.Genus2Eq.P DefFaltings.Genus2Eq.binDisc DefFaltings.GroupModel DefFaltings.GroupModel.IsAnalyticUniformization DefFaltings.GroupModel.IsNeronModel DefFaltings.GroupModel.Pts DefFaltings.GroupModel.cotangent DefFaltings.GroupModel.dCls DefFaltings.GroupModel.detLattice DefFaltings.GroupModel.dom DefFaltings.GroupModel.evalAt DefFaltings.GroupModel.exists_rep DefFaltings.GroupModel.genStalk DefFaltings.GroupModel.genericUnit DefFaltings.GroupModel.germAlong DefFaltings.GroupModel.height DefFaltings.GroupModel.height_eq DefFaltings.GroupModel.hodgeSpace DefFaltings.GroupModel.jacDet DefFaltings.GroupModel.jacDet_comp DefFaltings.GroupModel.omega DefFaltings.GroupModel.omegaAt DefFaltings.GroupModel.omegaAt_genericPt DefFaltings.GroupModel.ptC DefFaltings.GroupModel.semilinear_ext_wedge DefFaltings.GroupModel.specializes_genericUnit DefFaltings.GroupModel.structMap DefFaltings.GroupModel.unitSection DefFaltings.GroupModel.wedge DefFaltings.HermitianLattice DefFaltings.HermitianLattice.arakelovDegree DefFaltings.HermitianLattice.arakelovDegree_ofFractionalIdeal DefFaltings.HermitianLattice.arakelovDegree_rescale DefFaltings.HermitianLattice.degreeAt DefFaltings.HermitianLattice.degreeAt_eq DefFaltings.HermitianLattice.degreeAt_eq_arakelovDegree DefFaltings.HermitianLattice.degreeAt_smul DefFaltings.HermitianLattice.ofFractionalIdeal DefFaltings.HermitianLattice.rescale DefFaltings.HermitianLattice.secIndex_ne_zero DefFaltings.HodgeData DefFaltings.HodgeData.coeff_apply_ne_zero DefFaltings.HodgeData.hodgeBundle DefFaltings.HodgeData.modelHeight DefFaltings.HodgeData.modelHeight_eq DefFaltings.HodgeData.modelHeight_eq_add_of_le DefFaltings.HodgeData.modelHeight_eq_faltingsHeightGood DefFaltings.HodgeData.modelHeight_le_of_le DefFaltings.HodgeData.modelHeight_ofIdeal DefFaltings.HodgeData.modelHeight_ofIdeal_baseChange DefFaltings.HodgeData.modelHeight_of_span DefFaltings.HodgeData.modelHeight_recoord DefFaltings.HodgeData.norm DefFaltings.HodgeData.norm_sq DefFaltings.HodgeData.recoord DefFaltings.HodgeLatticeTheorem DefFaltings.IsIsogeny DefFaltings.MetrizedModel DefFaltings.MetrizedModel.modelHeight_eq_of_model_eq DefFaltings.NeronModelMinimal DefFaltings.PeriodAreaFormula DefFaltings.R19_GaudronRemond DefFaltings.R20_FaltingsLemma5 DefFaltings.R21_Bost DefFaltings.StableHeightFinite DefFaltings.absNorm_extendedHom DefFaltings.absNorm_map_ringOfIntegers DefFaltings.arakelovDegree_ofFractionalIdeal_baseChange DefFaltings.arakelovDegree_ofFractionalIdeal_mul DefFaltings.card_embeddings_over DefFaltings.covolume_comap_mul_det DefFaltings.covolume_gaussianPair DefFaltings.det_restrictScalars_complex DefFaltings.embCoeff DefFaltings.faltingsHeight DefFaltings.faltingsHeightEC DefFaltings.faltingsHeightGood DefFaltings.faltingsHeight_coe DefFaltings.finiteHeightPart DefFaltings.finrank_ringOfIntegers DefFaltings.gaussianPair DefFaltings.genericFibre DefFaltings.genericPt DefFaltings.grKappa DefFaltings.hypGram DefFaltings.hypGram_comp_add DefFaltings.hypVol DefFaltings.hypVol_one_comp_add DefFaltings.isogDeg DefFaltings.le_stableFaltingsHeight DefFaltings.modelHeight_ofIdeal_eq_faltingsHeightEC DefFaltings.modelHeight_ofIdeal_eq_faltingsHeightEC' DefFaltings.norm_algebraMap_tower DefFaltings.ptObj DefFaltings.ratCoeff DefFaltings.realify DefFaltings.secIndex DefFaltings.secIndex_mul_absNorm DefFaltings.secIndex_smul DefFaltings.stableFaltingsHeight DefFaltings.stableFaltingsHeightDeligne DefFaltings.stableFaltingsHeightDeligne_eq DefFaltings.stableFaltingsHeight_eq_faltingsHeightGood DefFaltings.stableFaltingsHeight_eq_iInf_height DefFaltings.stableFaltingsHeight_le DefFaltings.stableFaltingsHeight_ne_bot_of_R21 DefFaltings.sum_embeddings_comp DefFaltings.sum_log_norm_embeddings DefFaltings.sum_log_norm_embeddings_int DefFaltings.torusMetricSq DefFaltings.torusMetricSq_comap DefFaltings.torusMetricSq_eq_setIntegral DefFaltings.torusMetricSq_pos DefFaltings.torusMetricSq_smul DefFaltings.torus_setIntegral_indep H5Glue.GenericFibreStalkIso H5Glue.GroupModel.baseChange H5Glue.GroupModel.isNeronModel_iff H5Glue.GroupModelBaseChangeExists H5Glue.HeightAntitone H5Glue.HodgeLatticeNonzero H5Glue.HodgeMapBijective H5Glue.IsBaseChangeOf H5Glue.IsOpenSubgroupModel H5Glue.IsProductAbVar H5Glue.IsProductModel H5Glue.ModelHeightBaseChange H5Glue.NeronModelExists H5Glue.NeronProp H5Glue.NeronProp.lift H5Glue.NeronProp.of_iso H5Glue.NeronProp.tensor H5Glue.NeronProp.uniqueIso H5Glue.OmegaSpans H5Glue.OpenImmersionHeightLe H5Glue.OpenSubgroupHeight H5Glue.ProductGroupModelExists H5Glue.ProductModelHeight H5Glue.SemistableNeronIdentityComponent H5Glue.baseChange_map_bijective H5Glue.bcProd H5Glue.bijective_respectsIso H5Glue.compositum H5Glue.cotMap H5Glue.cotMap_bijective H5Glue.cotMap_dCls H5Glue.cotMap_omega H5Glue.cotMap_omegaAt H5Glue.detLattice_le_hodgeMap H5Glue.dom_comp H5Glue.evalAt_comp H5Glue.evalAt_res H5Glue.exists_smul_mem_omega H5Glue.fst_genericFibreUnit H5Glue.fst_genericFibre_unit H5Glue.genBC H5Glue.genBC_isMonHom H5Glue.genMap H5Glue.genMap_germ H5Glue.genMap_mem_maximalIdeal H5Glue.genMap_mem_maximalIdeal_iff H5Glue.genMap_structMap H5Glue.genericFibreStalkIso H5Glue.genericFibreUnit H5Glue.genericIso_of_openImmersion H5Glue.germAlong_comp_eventuallyEq H5Glue.groupModelBaseChangeExists H5Glue.heightAntitone H5Glue.heightAntitone_of H5Glue.heightAntitone_of_hodgeLatticeNonzero H5Glue.heightAntitone_of_omegaSpans H5Glue.hodgeLatticeNonzero_of_omegaSpans H5Glue.hodgeMap H5Glue.hodgeMapBijective H5Glue.hodgeMap_detLattice H5Glue.hodgeMap_wedge H5Glue.hodgeMap_wedgeGerm H5Glue.isAnalyticUniformization_comp H5Glue.isAnalyticUniformization_of_comp H5Glue.isIso_genMap H5Glue.isIso_of_openImmersion_self H5Glue.isIso_stalkSpecializes_genMap H5Glue.isMonHom_of_map H5Glue.isMonHom_pbCompHom H5Glue.isMonHom_pbCompInv H5Glue.isMonHom_pbEqIso H5Glue.isMonHom_prodComparisonIso H5Glue.isNeronModel_of_isProductModel H5Glue.isOpenImmersion_pullback_map H5Glue.jL H5Glue.jacDet_comp_genMap H5Glue.jacDet_comp_map H5Glue.map_genericUnit' H5Glue.map_span_singleton_toAddSubgroup H5Glue.map_zero_of_hom H5Glue.modelHeight_pullHodge_le H5Glue.neronModelMinimal H5Glue.neronModelMinimal_of_heightAntitone H5Glue.neron_lift H5Glue.neron_lift_isMonHom H5Glue.neron_map_injective H5Glue.omegaAt_le_cotMap H5Glue.omegaSpans H5Glue.omega_le_cotMap H5Glue.one_mem_dom H5Glue.openImmersionHeightLe H5Glue.openSubgroupHeight H5Glue.openSubgroupHeight_of H5Glue.pbCompHom H5Glue.pbCompInv H5Glue.pbCompIso H5Glue.pbEqIso H5Glue.productGroupModelExists H5Glue.ptCIso H5Glue.ptC_hom_apply H5Glue.ptsEquiv H5Glue.ptsEquiv_comp H5Glue.pts_comp_bijective H5Glue.pullHodge H5Glue.secIndex_le_of_map H5Glue.secIndex_ne_zero_of_mem H5Glue.smooth_tensor H5Glue.smooth_unit H5Glue.square1 H5Glue.square2 H5Glue.stableFaltingsHeight_add_le H5Glue.stableFaltingsHeight_add_le_of_productModelHeight H5Glue.stableFaltingsHeight_eq_neron_all H5Glue.stableFaltingsHeight_eq_neron_all' H5Glue.stalkIso_of_genericIso H5Glue.stalkSpecializes_self_apply H5Glue.stalkSpecializes_stalkSpecializes_apply H5Glue.stalk_ker_eq H5Glue.stalk_spec_eq H5Glue.stalkwise_fst_toGeneric H5Glue.stalkwise_tensor_localization H5Glue.tensorGen H5Glue.tensorGen_fst H5Glue.tensorGen_snd H5Glue.toGeneric_pt H5Glue.unitSection_comp H5Neron.GroupModel.IsNeronModel.lift H5Neron.GroupModel.IsNeronModel.uniqueIso H5Neron.GroupModel.isNeronModel_iff H5Neron.GroupModelBaseChangeExists H5Neron.IsBaseChangeOf H5Neron.IsOpenSubgroupModel H5Neron.IsProductAbVar H5Neron.IsProductModel H5Neron.ModelHeightBaseChange H5Neron.NeronModelExists H5Neron.NeronProp H5Neron.NeronProp.lift H5Neron.NeronProp.of_iso H5Neron.NeronProp.tensor H5Neron.NeronProp.uniqueIso H5Neron.OpenSubgroupHeight H5Neron.ProductGroupModelExists H5Neron.ProductModelHeight H5Neron.R19_zero H5Neron.R20_zero H5Neron.R21_zero H5Neron.SemistableNeronIdentityComponent H5Neron.bcProd H5Neron.bcUnitIso H5Neron.compositum H5Neron.covolume_fin_zero H5Neron.detLattice_zero H5Neron.glue_zero H5Neron.groupModel_height_zero H5Neron.hodgeZeroEquiv H5Neron.hodgeZeroEquiv_wedge0 H5Neron.hom_ext_of_iso_unit H5Neron.isIsogeny_id_zero H5Neron.isMonHom_of_iso_unit H5Neron.isMonHom_prodComparisonIso H5Neron.isNeronModel_of_isProductModel H5Neron.isogDeg_zero_le_one H5Neron.jL H5Neron.metrizedOf H5Neron.modelHeight_dim_zero H5Neron.neronModelExists_zero H5Neron.neronModelMinimal_zero H5Neron.neron_zero_iso_unit H5Neron.no_metrized_succ H5Neron.one_le_grKappa H5Neron.productGroupModelExists H5Neron.pts_subsingleton H5Neron.semistableNeronIdentityComponent_zero H5Neron.semσ H5Neron.stableFaltingsHeight_add_le H5Neron.stableFaltingsHeight_add_le' H5Neron.stableFaltingsHeight_eq_neron H5Neron.stableFaltingsHeight_eq_neron_all H5Neron.stableFaltingsHeight_zero H5Neron.stableHeightFinite_zero H5Neron.tensorGen H5Neron.tensorGen_fst H5Neron.tensorGen_snd H5Neron.trivHodge H5Neron.trivMetrized H5Neron.trivModel H5Neron.trivModel_isNeronModel H5Neron.wedge0 H5Neron.wedge0_ne_zero H5Neron.wedge_eq_wedge0 HeightBC.CotangentSpanBC HeightBC.D0 HeightBC.D0_add HeightBC.D0_add_apply HeightBC.D0_mul HeightBC.D0_mul_apply HeightBC.D0_sq HeightBC.D0_structMap_mul HeightBC.DetLatticeBC HeightBC.FF HeightBC.GermDerivation HeightBC.HodgeBCInjective HeightBC.HodgeLineBaseChange HeightBC.HodgeLineBaseChangeDescent HeightBC.HodgeLineDescentHalf HeightBC.HodgeSpanBC HeightBC.IsBaseChangeOf HeightBC.IsHodgeBaseChange HeightBC.IsMonBC HeightBC.JacobianPullbackSpan HeightBC.JacobianSemilinear HeightBC.MetrizationBaseChange HeightBC.ModelHeightBaseChange HeightBC.ModelHeightBaseChangeGE HeightBC.ModelHeightBaseChangeLE HeightBC.OmegaBaseChange HeightBC.OmegaLocalization HeightBC.PtsBaseChangeBij HeightBC.PtsBaseChangeMul HeightBC.UniformizationLift HeightBC.UniformizationLiftAnalytic HeightBC.algebraMap_FF HeightBC.algebraMap_ringOfIntegers_coe HeightBC.appLE_top_top HeightBC.bO HeightBC.bO_appTop HeightBC.bO_genericPt HeightBC.bcAlt HeightBC.bcCot HeightBC.bcCotBasis HeightBC.bcCotBasis_apply HeightBC.bcCot_core HeightBC.bcCot_dCls HeightBC.bcCot_intInv HeightBC.bcCot_linearIndependent HeightBC.bcCot_omega HeightBC.bcCot_omegaAt HeightBC.bcCot_smulL HeightBC.bcCot_smul_genStalk HeightBC.bcCot_span HeightBC.bcCot_update HeightBC.bcExt HeightBC.bcExt_smul HeightBC.bcExt_ιMulti HeightBC.bcHodge HeightBC.bcHodge_detLattice HeightBC.bcHodge_smul HeightBC.bcHodge_tmul HeightBC.bcHodge_wedge HeightBC.bcMap HeightBC.bcMap_germ HeightBC.bcMap_mem_maximalIdeal HeightBC.bcMap_structMap HeightBC.bcMap_φL HeightBC.bcProj HeightBC.bcProj_genericUnit HeightBC.bcProj_unit HeightBC.bcProj_w HeightBC.bcPts HeightBC.cotL HeightBC.cotL_isScalarTower HeightBC.cotL_smul HeightBC.cotRes HeightBC.cotangentSpanBC HeightBC.descentHalf_of_descent HeightBC.detLatticeBC_of_omega HeightBC.dom_bcPts HeightBC.evalAt_add HeightBC.evalAt_bcPts HeightBC.evalAt_mul HeightBC.evalAt_one_eq_zero HeightBC.evalAt_res HeightBC.evalAt_structSection HeightBC.exists_act HeightBC.exists_comp_eq HeightBC.exists_int_dvd HeightBC.exists_mem_not_mem_of_sat HeightBC.exists_ringOfIntegers_of_algebraMap HeightBC.extRes HeightBC.finite_of_isClosed_not_genericPt HeightBC.g0_hodgeLine_iff HeightBC.genericPt_eq_genericPoint HeightBC.germAlong_add_mul HeightBC.germAlong_bcPts_eventuallyEq HeightBC.germAlong_differentiableAt HeightBC.germAlong_eventuallyEq_rep HeightBC.germAlong_structMap HeightBC.germAlong_zero_of_mem HeightBC.germDerivation HeightBC.germDerivation_at HeightBC.hodgeBCInjective HeightBC.hodgeLineBaseChangeDescent_of_glue HeightBC.hodgeLineBaseChange_of_descent HeightBC.hodgeLineBaseChange_of_final HeightBC.hodgeLineBaseChange_of_five HeightBC.hodgeLineBaseChange_of_four HeightBC.hodgeLineBaseChange_of_glue HeightBC.hodgeLineBaseChange_of_glue4 HeightBC.hodgeLineBaseChange_of_glue5 HeightBC.hodgeLineBaseChange_of_main HeightBC.hodgeLineBaseChange_of_two HeightBC.hodgeSpanBC_of HeightBC.hom_genericUnit HeightBC.hom_genericUnit' HeightBC.hom_unitSection HeightBC.isAnalyticUniformization_bcPts HeightBC.isField_stalk_genericPt HeightBC.isIso_stalkSpecializes_bcMap HeightBC.isUnit_germ_genericPt HeightBC.isUnit_structMap HeightBC.jacDet_bcPts HeightBC.jacobianPullbackSpan_of HeightBC.jacobianSemilinear HeightBC.jacobianSemilinear_of HeightBC.locSub HeightBC.mapCotangent_injective_of_isIso HeightBC.mapCotangent_smul' HeightBC.map_zero_of_hom HeightBC.maximalIdeal_stalk_genericPt HeightBC.mem_locSub HeightBC.mem_of_forall_locSub HeightBC.metrizationBaseChange_of_hodgeLine HeightBC.modelHeightBaseChangeGE_of_descent HeightBC.modelHeightBaseChangeGE_of_descentHalf HeightBC.modelHeightBaseChangeGE_of_main HeightBC.modelHeightBaseChangeGE_of_two HeightBC.modelHeightBaseChangeLE_of_metrization HeightBC.modelHeightBaseChange_of_descent HeightBC.modelHeightBaseChange_of_final HeightBC.modelHeightBaseChange_of_five HeightBC.modelHeightBaseChange_of_four HeightBC.modelHeightBaseChange_of_glue HeightBC.modelHeightBaseChange_of_glue4 HeightBC.modelHeightBaseChange_of_glue5 HeightBC.modelHeightBaseChange_of_main HeightBC.modelHeightBaseChange_of_two HeightBC.modelHeight_eq_of_isHodgeBaseChange HeightBC.multilinear_mem_span HeightBC.omegaAt_bc_local HeightBC.omegaAt_full HeightBC.omegaAt_open HeightBC.omegaAt_sat HeightBC.omegaBaseChange HeightBC.omegaBaseChange_of_localization HeightBC.omegaLocalization HeightBC.one_mem_dom HeightBC.ptC_hom_apply HeightBC.ptC_hom_comp_bO HeightBC.ptsBaseChangeBij HeightBC.ptsBaseChangeMul HeightBC.rationalOver_genericUnit HeightBC.secIndex_baseChange HeightBC.secIndex_map HeightBC.secIndex_ne_zero_of_baseChange HeightBC.secIndex_nsmul_mem HeightBC.smul_cotangent_eq_of_sub_mem HeightBC.span_bcHodge_le HeightBC.spec_mem_of_ker HeightBC.stalkMapAt_germ' HeightBC.stalkSpec_comp_apply HeightBC.stalkSpec_self_apply HeightBC.stalkSpecializes_self_apply' HeightBC.stalkSpecializes_stalkSpecializes_apply' HeightBC.structMap_eq_spec HeightBC.structMap_eq_stalkMap HeightBC.toCotangent_mul HeightBC.uniformizationLift HeightBC.uniformizationLiftAnalytic HeightBC.uniformizationLift_of HeightBC.unitSection_comp_hom HeightBC.unitSection_stalkMapAt_hom HeightBC.σFF HeightBC.φL HeightBC.φL_algebraMap LeafPush2.CPts LeafPush2.Char2 LeafPush2.HasSexticModel LeafPush2.IC10 LeafPush2.IC2 LeafPush2.IC4 LeafPush2.IC6 LeafPush2.IgJ10 LeafPush2.IgJ2 LeafPush2.IgJ4 LeafPush2.IgJ6 LeafPush2.IsGenus2 LeafPush2.IsPeriodMatrix LeafPush2.IsSiegel LeafPush2.IsUniformization LeafPush2.LinYangTuple LeafPush2.OnQMLocus LeafPush2.T10_groupIso LeafPush2.T11a_RiemannEnd LeafPush2.T11b_Rigidity LeafPush2.T12_ComplexConjEigen LeafPush2.UniformizationExists LeafPush2.absLogHeight LeafPush2.cDom LeafPush2.cEvalAt LeafPush2.cptObj LeafPush2.dsq LeafPush2.exists_isComplexConj LeafPush2.ffAlgebra LeafPush2.ffStructMap LeafPush2.isSiegel_I LeafPush2.javanpeykarBound LeafPush2.javanpeykarBound_mono LeafPush2.javanpeykarBound_pos LeafPush2.linYangTuple_onQMLocus LeafPush2.linYang_j_eq LeafPush2.onQMLocus_of_linYangTuple LeafPush2.pazukiC2 LeafPush2.sextic LeafPush2.thetaConst) -- op-dedupe
+open _root_.LeafQM.AV (CMExists HasCM24 HasCM24.of_iso HasCM3 HasCM3.of_iso HasCM4 HasCM4.of_iso IsBaseChangeOf IsBaseChangeOfPair IsFibreOf Level3 Level3.bcPt_pow_three Level3.eq_iff Level3.exists_mul_of_range_le Level3.ext' Level3.onto Level3.range_le Level3.rightMul Level3.rightMul_eq_self Level3.rightMul_rightMul Level3.torsor Level3.twist M3 M3.mk M3.rightMul M3.rightMul_rightMul M3.twist M3.twist_mk Pin.AutOExt.NormalizerFinite Pin.AutOExt.alpha_nat_smul Pin.AutOExt.autOInnerFinite_of_normalizer Pin.AutOExt.common_den Pin.AutOExt.conjUnit Pin.AutOExt.conj_of_skolem Pin.AutOExt.den_mul_int Pin.AutOExt.exists_nat_smul_mem Pin.AutOExt.extAlgEquiv Pin.AutOExt.extAlgHom Pin.AutOExt.extAlgHom_coe Pin.AutOExt.extAlgHom_symm_comp Pin.AutOExt.extDen Pin.AutOExt.extDen_mem Pin.AutOExt.extDen_pos Pin.AutOExt.extFun Pin.AutOExt.extFun_add Pin.AutOExt.extFun_algebraMap Pin.AutOExt.extFun_coe Pin.AutOExt.extFun_eq Pin.AutOExt.extFun_mul Pin.AutOExt.key_conj Pin.AutOExt.mem_O_of_int Pin.AutOExt.natCast_mul_eq_smul Pin.AutOExt.nat_smul_mem Pin.AutOExt.smul_mul_smul' Pin.AutOInnerFinite Pin.ConstOrOntoAlgClosed Pin.CurveRatFactor Pin.CurveSurj Pin.GeomCompConstOrOnto Pin.GeomCompFinite Pin.GeomCompInfinite Pin.GeomCompRatFactor Pin.ImagePlane.ev_comp Pin.ImagePlane.ev_spec_top Pin.ImagePlane.ptOf_comp Pin.ImagePlane.ptOf_spec_asIdeal Pin.IsNaturalRelabel Pin.Mob.eval_ne_zero_of_coprime Pin.Mob.exists_interp Pin.Mob.isCoprime_X_sub_C_of_eval_one Pin.Mob.natDegree_le_one_of_injective Pin.Mob.ratEval Pin.Mob.ratEval_eq_self Pin.Mob.wronskian_ne_zero Pin.MobiusGlue Pin.NormO.IsNorm Pin.NormO.IsNorm.inv Pin.NormO.IsNorm.mul Pin.NormO.T Pin.NormO.T_finite Pin.NormO.T_mul_ui Pin.NormO.T_mul_uj Pin.NormO.bas Pin.NormO.conjC Pin.NormO.descent Pin.NormO.dvd_of_prime_dvd_nrd Pin.NormO.dvd_of_smul_mem Pin.NormO.ei Pin.NormO.ej Pin.NormO.inv_eq Pin.NormO.isNorm_sc Pin.NormO.isNorm_ui Pin.NormO.isNorm_uj Pin.NormO.mulCoord_conjC Pin.NormO.mulCoord_conjC' Pin.NormO.mulCoord_smul_left Pin.NormO.mulCoord_smul_right Pin.NormO.normalizerFinite Pin.NormO.nrdZ Pin.NormO.nrdZ_ei Pin.NormO.nrdZ_ej Pin.NormO.nrdZ_mul Pin.NormO.nrdZ_ne_zero Pin.NormO.nrdZ_smul Pin.NormO.nrd_dvd_coords Pin.NormO.ofInt_scalar Pin.NormO.rearrange Pin.NormO.sc Pin.NormO.six_sq_identities Pin.NormO.smul_ofInt Pin.NormO.three_dvd_mulCoord_ej Pin.NormO.two_dvd_mulCoord_ei Pin.NormO.ui Pin.NormO.uj Pin.PinUnique Pin.QMFamily.transport Pin.QML3.isoTransport Pin.R1fpProps.fam Pin.R1fpProps.univ Pin.RatFactorAlgClosed Pin.SameTriple Pin.SameTripleMor Pin.SmoothCurveNoIsolatedPoint Pin.SmoothStalkDimOne Pin.TwistClassFinite Pin.autOInnerFinite Pin.autRelabel Pin.autRelabel_natural Pin.bcPt Pin.bcPt_ptOfSection Pin.bcPt_snd Pin.bcQbar Pin.bcSnd Pin.cm_objects_of_R1R2fp Pin.conjUnitIso Pin.cst Pin.curveFacts_of_algClosed Pin.curveFacts_of_comp Pin.curveFacts_of_leaves Pin.curveFacts_of_named Pin.curveRatFactor_of_comp Pin.curveSurj_of_comp Pin.ev Pin.ev_cst Pin.ev_eq_zero_iff Pin.ev_f_mul_g Pin.ev_g_eq_zero Pin.ev_res Pin.ev_top Pin.exists_isOpen_singleton_of_finite_closedPoints Pin.exists_liftO_congr Pin.exists_point_of_isLocallyClosed Pin.geomComp Pin.geomCompConstOrOnto_of Pin.geomCompFinite Pin.geomCompInfinite_of Pin.geomCompRatFactor_of Pin.isFibreOf_transport Pin.isOpen_connectedComponent_of_noetherian Pin.level3_finite Pin.mem_V_of_not_mem_U Pin.phi_part Pin.pointwise_of_witness Pin.pointwise_of_witness_mor Pin.ptOf Pin.ptOfSection Pin.r1fpPin_aut Pin.r1fpPin_relabel_iff Pin.r2fp_aut Pin.relabel Pin.relabel_geometric Pin.relabel_is_morphism Pin.res Pin.res_res Pin.sameTripleMor_of_mobius Pin.sameTriple_aut Pin.smoothCurveNoIsolatedPoint_of Pin.transfer_exists Pin.transfer_pointwise Pin.transfer_pointwise_mor Pin.transportLevel Pin.twistClassFinite Pin.twistClassFinite_of Pin.val_bcPt Pin.val_of_mem Pin.val_of_not_mem PtEquiv QMFamily QMIso QMIso.nonempty_abVarIso QMIso.refl QMIso.symm QMIso.trans QML3 QML3.Iso QML3.Iso.refl QML3.Iso.rightMul QML3.Iso.symm QML3.Iso.trans QML3.Iso.twist QML3.forget QML3.rightMul QML3.rightMul_A QML3.rightMul_rightMul QML3.twist QML3.twist_A QMLeaves QMPair QMPair.twist QMStr QMStr.twist Qbar R1R2fp R1R2fp_Y R1famProps R1fp R1fpProps R1fp_of_R1R2fp R1heckeProps R1rec R1recProps R1univProps R2X6Props R2fpProps R2fpProps_of_X6 R5fp R5fpCount R5fpWeak R5fpWeak_of_R5fp R5ptProps ToP1 ToP1.comp ToP1.val ToP1.val_comp ToP1.val_comp_right UnramifiedAbove5 X6Props X6Surj act_mul_apply bcPt bcPt_injective cm_of_val com comEquiv com_twist conductor conjHom conjHom_iota conjHom_mem_com conjHom_symm_apply conj_iso_of_rational conj_twist_of_rational endPt exists_fibre_object fibre_conjugates_isomorphic fieldMap fieldOfModuli3 fieldOfModuliPair fieldPt galAct_bcPt hI hIJ hJ hasCM24_twist hasCM3_twist hasCM4_twist hrat inertCount6 intCast_mem_com isoSetoid leaves_on_one_witness liftO not_qmStr_zero ofInt_injective ofInt_sub oi oi_mul_oi oj oj_mul_oi_add oj_mul_oj pairSetoid qmAct residueImage residue_unramified_over_branch specMap_flat specMap_surjective specToEquivOfField_comp specToEquivOfField_comp_right stab3 stabPair three_mul_ofInt toKbar unramified_over_branch) -- op-dedupe
+open _root_.GlueDescent (B2.IsSignCocycle B2.SignCob B2.dB B2.dB_inv B2.dB_mul B2.exists_beta B2.isSignCocycle_dB B2.isSignCocycle_inv B2.isSignCocycle_mul B2.isSignCocycle_pull B2.pull B2.pull_dB B2.signCob_dB_iff B2.signCob_inv B2.signCob_mul B2Q.GQ B2Q.GQp B2Q.InflatedFrom B2Q.LeafHasse B2Q.LeafLocalTwo B2Q.LeafSqrtCrit B2Q.LeafUnramified B2Q.UnramifiedAt B2Q.act B2Q.act_mul B2Q.b2_of_leaves B2Q.cast_cast_of_dvd B2Q.chiLevel_pos B2Q.chi_toUnitHom_crt B2Q.cyc B2Q.cyc_eq_of_agree B2Q.cyc_isLocallyConstant B2Q.exists_crt_unit B2Q.galChar B2Q.galChar_isLocallyConstant B2Q.isLocallyConstant_of_openSubgroup B2Q.lev_eq_pow B2Q.resp B2Q.resp_continuous B2Q.sqrtU B2Q.sqrtU_sq B2Q.toRingAut B3Q.GQL B3Q.b3_degree_le_QM B3Q.b3_of_leaves B3Q.inflatedNormalized_of B3Q.mem_GQL B3Q.orderOf_pos_dirichlet B6 B6_commute_i_j B6_inner B6_isCentral B6_isSimpleRing B6_star_mul InflatedNormalized IsCochainFor LeafSkolemNoether MatrixUnits2 MatrixUnits2.W MatrixUnits2.e00_of_mem MatrixUnits2.e_apply_e MatrixUnits2.finrank_W MatrixUnits2.mapsTo_W MatrixUnits2.mem_W_of_e0 MatrixUnits2.splitEquiv MatrixUnits2.splitEquiv_intertwines aniso_int aniso_rat boundary_sq chi chiLevel cochain_conj cochain_mul_kernel cochain_mul_left cochain_mul_right cochain_of_boundary_eq cochain_one cocycle_of_projective commute_adjoin contactSupport_pos degree_le_QM exists_chi exists_odd_char heightD_pos index_kernel_le inertia_le_kernel kernelSubgroup kernelSubgroup_le kernelSubgroup_normal lev lev_dvd_chiLevel mem_kernelSubgroup oddChar oddChar_neg_one orderOf_dvd_totient orderOf_prod_dvd prod_S_le prod_odd_le prod_odd_le_aux prod_totient_lev_le qi qj ramSet relindex_kernel_le restrictHom rho rhoRep rho_commute rho_eq_act rho_map_mul sign_cocycle sign_normalization sign_sq_eq_one ten_le_heightE0 three_dvd_of_form totient_lev twist twist_kills_inertia twist_sq two_lt_lev zmod3_aniso) -- op-dedupe
+open _root_.GlueDescent.B2 (IsSignCocycle SignCob dB dB_inv dB_mul exists_beta isSignCocycle_dB isSignCocycle_inv isSignCocycle_mul isSignCocycle_pull pull pull_dB signCob_dB_iff signCob_inv signCob_mul) -- op-dedupe
+open _root_.GlueDescent.B2Q (GQ GQp InflatedFrom LeafHasse LeafLocalTwo LeafSqrtCrit LeafUnramified UnramifiedAt act act_mul b2_of_leaves cast_cast_of_dvd chiLevel_pos chi_toUnitHom_crt cyc cyc_eq_of_agree cyc_isLocallyConstant exists_crt_unit galChar galChar_isLocallyConstant isLocallyConstant_of_openSubgroup lev_eq_pow resp resp_continuous sqrtU sqrtU_sq toRingAut) -- op-dedupe
+open _root_.GlueDescent.B3Q (GQL b3_degree_le_QM b3_of_leaves inflatedNormalized_of mem_GQL orderOf_pos_dirichlet) -- op-dedupe
 
 namespace G0ModField
+open _root_.G0ModField (CommonConstituent ConjugacyData DescentDatum FibreCoverExists FibreCoverOut FibreCtx G2Out G4Out G7Out GaloisCopy.G2Out GaloisCopy.G7Out GaloisCopy.Vb GaloisCopy.resQ GaloisCopy.tate IF IsModelOver IsQMModel IsQMModel.isModelOver KernelFieldExists KernelFieldOut ModularConstituentG PtQ RationalFibre ResQRange T UnramifiedSup actK actQ admissible_S_mul b2_of_leaves_level b3_of_cochain baseChangeTrans card_ker_GL descentDatum_bot descentDatum_of_conjugacy fieldDescent g2Out_of_cover g4Out_of_kernelField g7Out_of_g4Out galAct_bijective galAct_mul incAlg isModelOver_baseChange le_heightD_of_mem_S_mul mem_GQL_bot normA numberField_of_fd resQRange resQ_comm' resQ_range sgnU sgnU_mul sgnU_mul_abs sgnU_sq toLAut toLAut_apply two_mem_T) -- op-dedupe
 
 /-! ## The outputs of G2, G4, G7 -/
 
@@ -4051,6 +4086,8 @@ namespace G0ModField
 /-! ## Feeding g0-mod-galois' inputs (G8-G12): their `G2Out`, `G7Out` -/
 
 namespace GaloisCopy
+open _root_.G0ModField.GaloisCopy (G2Out G7Out Vb resQ tate) -- op-dedupe
+open _root_.G0ModField (CommonConstituent ConjugacyData DescentDatum FibreCoverExists FibreCoverOut FibreCtx G4Out GaloisCopy.G2Out GaloisCopy.G7Out GaloisCopy.Vb GaloisCopy.resQ GaloisCopy.tate IF IsModelOver IsQMModel IsQMModel.isModelOver KernelFieldExists KernelFieldOut ModularConstituentG PtQ RationalFibre ResQRange T UnramifiedSup actK actQ admissible_S_mul b2_of_leaves_level b3_of_cochain baseChangeTrans card_ker_GL descentDatum_bot descentDatum_of_conjugacy fieldDescent g2Out_of_cover g4Out_of_kernelField g7Out_of_g4Out galAct_bijective galAct_mul incAlg isModelOver_baseChange le_heightD_of_mem_S_mul mem_GQL_bot normA numberField_of_fd resQRange resQ_comm' resQ_range sgnU sgnU_mul sgnU_mul_abs sgnU_sq toLAut toLAut_apply two_mem_T) -- op-dedupe
 /-! Copied from scratch/g0-mod-galois/part_galois.lean (branch wip/g0-mod-galois at 20fa1287),
 definitions `resQ`, `Vb`, `tate`, `G2Out`, `G7Out`, verbatim (namespace renamed). -/
 
@@ -4069,8 +4106,10 @@ the assembly `tateBridge_of_pieces` (proved).
 -/
 
 namespace UnramTate
+open _root_.UnramTate (EndBaseChange PtA ResQEmbedding ScalarTransfer TateCont TatePoints bcPt bcPt_galAct conjE conjE_apply endBC endBaseChange eps_right_one hO homEquiv_mul iO iO_jO iO_sq incO' incO'_coe inertia_trivial' instGaloisQbar' jO jO_sq lift_fixes' matrixUnits_of_quat numberField_of_fd'' opV opVHom ptMapIso quat_words resQEmbedding sK scalarTransfer specMap_comp_sK tateCont_of_tateModuleFree tateMap_add tateMap_comp tateMap_id tateMap_zero tatePoints tate_eq_opV tmOf trHom trHom_comp_symm trHom_left trHom_symm_comp trPt trPt_galAct unramifiedSup_mf) -- op-dedupe
 
 open G0ModField
+open _root_.G0ModField (CommonConstituent ConjugacyData DescentDatum FibreCoverExists FibreCoverOut FibreCtx G2Out G4Out G7Out GaloisCopy.G2Out GaloisCopy.G7Out GaloisCopy.Vb GaloisCopy.resQ GaloisCopy.tate IF IsModelOver IsQMModel IsQMModel.isModelOver KernelFieldExists KernelFieldOut ModularConstituentG PtQ RationalFibre ResQRange T UnramifiedSup actK actQ admissible_S_mul b2_of_leaves_level b3_of_cochain baseChangeTrans card_ker_GL descentDatum_bot descentDatum_of_conjugacy fieldDescent g2Out_of_cover g4Out_of_kernelField g7Out_of_g4Out galAct_bijective galAct_mul incAlg isModelOver_baseChange le_heightD_of_mem_S_mul mem_GQL_bot normA numberField_of_fd resQRange resQ_comm' resQ_range sgnU sgnU_mul sgnU_mul_abs sgnU_sq toLAut toLAut_apply two_mem_T) -- op-dedupe
 
 /-! ## The Tate functor on additive maps of points -/
 
@@ -4085,6 +4124,7 @@ end Ops
 section Quat
 
 open GlueDescent
+open _root_.GlueDescent (B2.IsSignCocycle B2.SignCob B2.dB B2.dB_inv B2.dB_mul B2.exists_beta B2.isSignCocycle_dB B2.isSignCocycle_inv B2.isSignCocycle_mul B2.isSignCocycle_pull B2.pull B2.pull_dB B2.signCob_dB_iff B2.signCob_inv B2.signCob_mul B2Q.GQ B2Q.GQp B2Q.InflatedFrom B2Q.LeafHasse B2Q.LeafLocalTwo B2Q.LeafSqrtCrit B2Q.LeafUnramified B2Q.UnramifiedAt B2Q.act B2Q.act_mul B2Q.b2_of_leaves B2Q.cast_cast_of_dvd B2Q.chiLevel_pos B2Q.chi_toUnitHom_crt B2Q.cyc B2Q.cyc_eq_of_agree B2Q.cyc_isLocallyConstant B2Q.exists_crt_unit B2Q.galChar B2Q.galChar_isLocallyConstant B2Q.isLocallyConstant_of_openSubgroup B2Q.lev_eq_pow B2Q.resp B2Q.resp_continuous B2Q.sqrtU B2Q.sqrtU_sq B2Q.toRingAut B3Q.GQL B3Q.b3_degree_le_QM B3Q.b3_of_leaves B3Q.inflatedNormalized_of B3Q.mem_GQL B3Q.orderOf_pos_dirichlet B6 B6_commute_i_j B6_inner B6_isCentral B6_isSimpleRing B6_star_mul InflatedNormalized IsCochainFor LeafSkolemNoether MatrixUnits2 MatrixUnits2.W MatrixUnits2.e00_of_mem MatrixUnits2.e_apply_e MatrixUnits2.finrank_W MatrixUnits2.mapsTo_W MatrixUnits2.mem_W_of_e0 MatrixUnits2.splitEquiv MatrixUnits2.splitEquiv_intertwines aniso_int aniso_rat boundary_sq chi chiLevel cochain_conj cochain_mul_kernel cochain_mul_left cochain_mul_right cochain_of_boundary_eq cochain_one cocycle_of_projective commute_adjoin contactSupport_pos degree_le_QM exists_chi exists_odd_char heightD_pos index_kernel_le inertia_le_kernel kernelSubgroup kernelSubgroup_le kernelSubgroup_normal lev lev_dvd_chiLevel mem_kernelSubgroup oddChar oddChar_neg_one orderOf_dvd_totient orderOf_prod_dvd prod_S_le prod_odd_le prod_odd_le_aux prod_totient_lev_le qi qj ramSet relindex_kernel_le restrictHom rho rhoRep rho_commute rho_eq_act rho_map_mul sign_cocycle sign_normalization sign_sq_eq_one ten_le_heightE0 three_dvd_of_form totient_lev twist twist_kills_inertia twist_sq two_lt_lev zmod3_aniso) -- op-dedupe
 
 variable {E V : Type*} [Field E] [AddCommGroup V] [Module E V]
 
@@ -4142,22 +4182,16 @@ Frobenius link at Frobenius elements. No `sorry`, no `axiom`.
 noncomputable section
 
 namespace G14Bridge
+open _root_.G14Bridge (FrobTraceLink fact_prime_five' fact_prime_three') -- op-dedupe
 
 open CategoryTheory AlgebraicGeometry
 open _root_.ZInQ ZInQ LeafQM.AV GlueDescent G0ModField
-open GlueC10Link (FrobCompare)
-
-/-- (copy of `G14Trace.FrobTraceLink`, over `GaloisCopy.Vb`) **The Frobenius trace link (GLUE,
-AV side; N5 L781-786).** Outside a finite set `S`, at every arithmetic Frobenius `τ` above `p`,
-`N·Tm_ℓ(τ)` is conjugate to `V_ℓ(α')` for one endomorphism `α'` of an abelian variety over a
-field of characteristic `p`, at `ℓ = 3` and `ℓ = 5` (kernel's `GlueC10Link.FrobCompare`). -/
-def FrobTraceLink {K : Type} [Field K] [NumberField K] (A : PkgI3.AbVar K)
-    (Tm5 : PkgI4.GQ → Module.End (PadicAlgCl 5) (GaloisCopy.Vb A 5))
-    (Tm3 : PkgI4.GQ → Module.End (PadicAlgCl 3) (GaloisCopy.Vb A 3)) : Prop :=
-  ∃ S : Finset ℕ, ∀ p : ℕ, p.Prime → p ∉ S → ∀ (v : ValuationSubring PkgI4.Qbar) (τ : PkgI4.GQ),
-    PkgI4.LiesOver v p → PkgI4.IsArithFrob τ v p →
-    ∃ (k : Type) (_ : Field k), CharP k p ∧ ∃ (Ab : PkgI3.AbVar k) (α : PkgI3.AbVar.End Ab)
-      (N : ℕ), N ≠ 0 ∧ FrobCompare 3 (Tm3 τ) α N ∧ FrobCompare 5 (Tm5 τ) α N
+open _root_.ZInQ (Contrib.AbVarBC.G0FibreSimple.MulIsogeny Contrib.AbVarBC.MulRigidity.CotangentMulN Contrib.AbVarBC.MulRigidity.KerUnitOpen Contrib.AbVarBC.MulRigidity.KerUnitOpenOfCotangentSurj Contrib.AbVarBC.MulRigidity.MulEtale Contrib.AbVarBC.MulRigidity.MulUnramified Contrib.AbVarBC.MulRigidity.O0 Contrib.AbVarBC.MulRigidity.QuasiFiniteEndSurjective Contrib.AbVarBC.MulRigidity.charZero_residueField Contrib.AbVarBC.MulRigidity.cotangentMap Contrib.AbVarBC.MulRigidity.diagonal_isPullback Contrib.AbVarBC.MulRigidity.diffKer Contrib.AbVarBC.MulRigidity.formallyUnramified_of_kerUnit Contrib.AbVarBC.MulRigidity.isIsogenyMor_of_lqf_of_isOpenMap Contrib.AbVarBC.MulRigidity.isOpenImmersion_of_section Contrib.AbVarBC.MulRigidity.isProper_left Contrib.AbVarBC.MulRigidity.kerUnit Contrib.AbVarBC.MulRigidity.kerUnitOpen_of_cotangent Contrib.AbVarBC.MulRigidity.kerUnitOpen_of_mulEtale Contrib.AbVarBC.MulRigidity.locallyQuasiFinite_of_formallyUnramified Contrib.AbVarBC.MulRigidity.map_origin Contrib.AbVarBC.MulRigidity.mulIsogeny_of_cotangent Contrib.AbVarBC.MulRigidity.mulIsogeny_of_kerUnitOpen Contrib.AbVarBC.MulRigidity.mulIsogeny_of_mulEtale Contrib.AbVarBC.MulRigidity.mulIsogeny_of_mulUnramified Contrib.AbVarBC.MulRigidity.mulIsogeny_of_mulUnramified' Contrib.AbVarBC.MulRigidity.mulUnramified_of_kerUnitOpen Contrib.AbVarBC.MulRigidity.mulUnramified_of_mulEtale Contrib.AbVarBC.MulRigidity.ne_of_specializes_of_lqf Contrib.AbVarBC.MulRigidity.origin Contrib.AbVarBC.MulRigidity.quasiFiniteEndSurjective Contrib.AbVarBC.MulRigidity.stalkEndo Contrib.AbVarBC.MulRigidity.surjective_of_lqf_self Contrib.AbVarBC.Tangent.AtOrigin Contrib.AbVarBC.Tangent.D Contrib.AbVarBC.Tangent.D_congr Contrib.AbVarBC.Tangent.D_inv Contrib.AbVarBC.Tangent.D_mul Contrib.AbVarBC.Tangent.D_one Contrib.AbVarBC.Tangent.D_zpow Contrib.AbVarBC.Tangent.KerN Contrib.AbVarBC.Tangent.atOrigin_inv Contrib.AbVarBC.Tangent.atOrigin_map Contrib.AbVarBC.Tangent.atOrigin_mul Contrib.AbVarBC.Tangent.atOrigin_one Contrib.AbVarBC.Tangent.atOrigin_zpow Contrib.AbVarBC.Tangent.closedPoint_eq Contrib.AbVarBC.Tangent.comp_intCast_hom Contrib.AbVarBC.Tangent.comp_mem_of_subsingleton Contrib.AbVarBC.Tangent.comp_orig_mem Contrib.AbVarBC.Tangent.derivation_eq_zero Contrib.AbVarBC.Tangent.dualHom Contrib.AbVarBC.Tangent.eq_ofRing_ptRing Contrib.AbVarBC.Tangent.eq_of_D_eq Contrib.AbVarBC.Tangent.eq_one_of_comp_intCast Contrib.AbVarBC.Tangent.ev0 Contrib.AbVarBC.Tangent.exists_affine_orig Contrib.AbVarBC.Tangent.fst_tRing Contrib.AbVarBC.Tangent.id_appLE_top Contrib.AbVarBC.Tangent.intCast_hom Contrib.AbVarBC.Tangent.isLocalHom_fstHom Contrib.AbVarBC.Tangent.isLocalRing_tsze Contrib.AbVarBC.Tangent.ker_le_sq_of_derivations Contrib.AbVarBC.Tangent.ks Contrib.AbVarBC.Tangent.ks_hom Contrib.AbVarBC.Tangent.ks_isOpenImmersion Contrib.AbVarBC.Tangent.left_closedPoint Contrib.AbVarBC.Tangent.locallyOfFiniteType_kerN Contrib.AbVarBC.Tangent.map_add_inl Contrib.AbVarBC.Tangent.map_add_inr Contrib.AbVarBC.Tangent.map_fst_inl Contrib.AbVarBC.Tangent.map_fst_inr Contrib.AbVarBC.Tangent.map_snd_inl Contrib.AbVarBC.Tangent.map_snd_inr Contrib.AbVarBC.Tangent.mem_of_atOrigin Contrib.AbVarBC.Tangent.mulN Contrib.AbVarBC.Tangent.ofRing Contrib.AbVarBC.Tangent.ofRing_mem Contrib.AbVarBC.Tangent.one_left Contrib.AbVarBC.Tangent.orig Contrib.AbVarBC.Tangent.ptR Contrib.AbVarBC.Tangent.ptRing Contrib.AbVarBC.Tangent.ptRing_comp Contrib.AbVarBC.Tangent.ptRing_congr Contrib.AbVarBC.Tangent.ptRing_ext Contrib.AbVarBC.Tangent.ptRing_id_top Contrib.AbVarBC.Tangent.ptRing_ofRing Contrib.AbVarBC.Tangent.ptRing_specMap_comp Contrib.AbVarBC.Tangent.specHom Contrib.AbVarBC.Tangent.specHom_comp Contrib.AbVarBC.Tangent.specHom_id Contrib.AbVarBC.Tangent.specHom_left Contrib.AbVarBC.Tangent.spec_inl_fst_comp Contrib.AbVarBC.Tangent.tRing Contrib.AbVarBC.Tangent.tRing_congr Contrib.AbVarBC.Tangent.tRing_one Contrib.AbVarBC.Tangent.tRing_specHom Contrib.AbVarBC.TorsionDescends Contrib.AbVarBC.comp_natCast_hom Contrib.AbVarBC.dim_baseChange_scheme Contrib.AbVarBC.dim_finite Contrib.AbVarBC.dim_pullback_spec Contrib.AbVarBC.dim_spec_le Contrib.AbVarBC.exists_lift_of_isFinite Contrib.AbVarBC.exists_nat_of_le Contrib.AbVarBC.galK Contrib.AbVarBC.kerUnitOpen Contrib.AbVarBC.map_comm Contrib.AbVarBC.mem_range_of_isIntegral Contrib.AbVarBC.mulIsogeny Contrib.AbVarBC.ptBC Contrib.AbVarBC.ptBC_galAct Contrib.AbVarBC.ptBC_injective Contrib.AbVarBC.ringKrullDim_eq_of_isIntegral_of_injective Contrib.AbVarBC.ringKrullDim_le_of_finiteType Contrib.AbVarBC.ringKrullDim_mvPolynomial_field Contrib.AbVarBC.ringKrullDim_tensor_field Contrib.AbVarBC.scheme_dim_eq_iSup_cover Contrib.AbVarBC.scheme_dim_eq_of_iso Contrib.AbVarBC.spec_dim Contrib.AbVarBC.tateBC Contrib.AbVarBC.tateBC_bijective_of_tateModuleFree Contrib.AbVarBC.tateBC_bijective_of_torsionDescends Contrib.AbVarBC.tateBC_galT Contrib.AbVarBC.tateBC_injective Contrib.AbVarBC.tate_map_bijective_of_torsion Contrib.AbVarBC.topologicalKrullDim_eq_iSup_of_openEmbedding Contrib.AbVarBC.torsionDescends_of_isFinite Contrib.AbVarBC.vBC Contrib.AbVarBC.vBC_galRep DefFaltings.AbVar DefFaltings.AnalyticUniformizationExists DefFaltings.AnalyticUniformizationUnique DefFaltings.EReal.add_coe_add_neg_coe DefFaltings.FinExt DefFaltings.Genus2Eq DefFaltings.Genus2Eq.Good DefFaltings.Genus2Eq.P DefFaltings.Genus2Eq.binDisc DefFaltings.GroupModel DefFaltings.GroupModel.IsAnalyticUniformization DefFaltings.GroupModel.IsNeronModel DefFaltings.GroupModel.Pts DefFaltings.GroupModel.cotangent DefFaltings.GroupModel.dCls DefFaltings.GroupModel.detLattice DefFaltings.GroupModel.dom DefFaltings.GroupModel.evalAt DefFaltings.GroupModel.exists_rep DefFaltings.GroupModel.genStalk DefFaltings.GroupModel.genericUnit DefFaltings.GroupModel.germAlong DefFaltings.GroupModel.height DefFaltings.GroupModel.height_eq DefFaltings.GroupModel.hodgeSpace DefFaltings.GroupModel.jacDet DefFaltings.GroupModel.jacDet_comp DefFaltings.GroupModel.omega DefFaltings.GroupModel.omegaAt DefFaltings.GroupModel.omegaAt_genericPt DefFaltings.GroupModel.ptC DefFaltings.GroupModel.semilinear_ext_wedge DefFaltings.GroupModel.specializes_genericUnit DefFaltings.GroupModel.structMap DefFaltings.GroupModel.unitSection DefFaltings.GroupModel.wedge DefFaltings.HermitianLattice DefFaltings.HermitianLattice.arakelovDegree DefFaltings.HermitianLattice.arakelovDegree_ofFractionalIdeal DefFaltings.HermitianLattice.arakelovDegree_rescale DefFaltings.HermitianLattice.degreeAt DefFaltings.HermitianLattice.degreeAt_eq DefFaltings.HermitianLattice.degreeAt_eq_arakelovDegree DefFaltings.HermitianLattice.degreeAt_smul DefFaltings.HermitianLattice.ofFractionalIdeal DefFaltings.HermitianLattice.rescale DefFaltings.HermitianLattice.secIndex_ne_zero DefFaltings.HodgeData DefFaltings.HodgeData.coeff_apply_ne_zero DefFaltings.HodgeData.hodgeBundle DefFaltings.HodgeData.modelHeight DefFaltings.HodgeData.modelHeight_eq DefFaltings.HodgeData.modelHeight_eq_add_of_le DefFaltings.HodgeData.modelHeight_eq_faltingsHeightGood DefFaltings.HodgeData.modelHeight_le_of_le DefFaltings.HodgeData.modelHeight_ofIdeal DefFaltings.HodgeData.modelHeight_ofIdeal_baseChange DefFaltings.HodgeData.modelHeight_of_span DefFaltings.HodgeData.modelHeight_recoord DefFaltings.HodgeData.norm DefFaltings.HodgeData.norm_sq DefFaltings.HodgeData.recoord DefFaltings.HodgeLatticeTheorem DefFaltings.IsIsogeny DefFaltings.MetrizedModel DefFaltings.MetrizedModel.modelHeight_eq_of_model_eq DefFaltings.NeronModelMinimal DefFaltings.PeriodAreaFormula DefFaltings.R19_GaudronRemond DefFaltings.R20_FaltingsLemma5 DefFaltings.R21_Bost DefFaltings.StableHeightFinite DefFaltings.absNorm_extendedHom DefFaltings.absNorm_map_ringOfIntegers DefFaltings.arakelovDegree_ofFractionalIdeal_baseChange DefFaltings.arakelovDegree_ofFractionalIdeal_mul DefFaltings.card_embeddings_over DefFaltings.covolume_comap_mul_det DefFaltings.covolume_gaussianPair DefFaltings.det_restrictScalars_complex DefFaltings.embCoeff DefFaltings.faltingsHeight DefFaltings.faltingsHeightEC DefFaltings.faltingsHeightGood DefFaltings.faltingsHeight_coe DefFaltings.finiteHeightPart DefFaltings.finrank_ringOfIntegers DefFaltings.gaussianPair DefFaltings.genericFibre DefFaltings.genericPt DefFaltings.grKappa DefFaltings.hypGram DefFaltings.hypGram_comp_add DefFaltings.hypVol DefFaltings.hypVol_one_comp_add DefFaltings.isogDeg DefFaltings.le_stableFaltingsHeight DefFaltings.modelHeight_ofIdeal_eq_faltingsHeightEC DefFaltings.modelHeight_ofIdeal_eq_faltingsHeightEC' DefFaltings.norm_algebraMap_tower DefFaltings.ptObj DefFaltings.ratCoeff DefFaltings.realify DefFaltings.secIndex DefFaltings.secIndex_mul_absNorm DefFaltings.secIndex_smul DefFaltings.stableFaltingsHeight DefFaltings.stableFaltingsHeightDeligne DefFaltings.stableFaltingsHeightDeligne_eq DefFaltings.stableFaltingsHeight_eq_faltingsHeightGood DefFaltings.stableFaltingsHeight_eq_iInf_height DefFaltings.stableFaltingsHeight_le DefFaltings.stableFaltingsHeight_ne_bot_of_R21 DefFaltings.sum_embeddings_comp DefFaltings.sum_log_norm_embeddings DefFaltings.sum_log_norm_embeddings_int DefFaltings.torusMetricSq DefFaltings.torusMetricSq_comap DefFaltings.torusMetricSq_eq_setIntegral DefFaltings.torusMetricSq_pos DefFaltings.torusMetricSq_smul DefFaltings.torus_setIntegral_indep H5Glue.GenericFibreStalkIso H5Glue.GroupModel.baseChange H5Glue.GroupModel.isNeronModel_iff H5Glue.GroupModelBaseChangeExists H5Glue.HeightAntitone H5Glue.HodgeLatticeNonzero H5Glue.HodgeMapBijective H5Glue.IsBaseChangeOf H5Glue.IsOpenSubgroupModel H5Glue.IsProductAbVar H5Glue.IsProductModel H5Glue.ModelHeightBaseChange H5Glue.NeronModelExists H5Glue.NeronProp H5Glue.NeronProp.lift H5Glue.NeronProp.of_iso H5Glue.NeronProp.tensor H5Glue.NeronProp.uniqueIso H5Glue.OmegaSpans H5Glue.OpenImmersionHeightLe H5Glue.OpenSubgroupHeight H5Glue.ProductGroupModelExists H5Glue.ProductModelHeight H5Glue.SemistableNeronIdentityComponent H5Glue.baseChange_map_bijective H5Glue.bcProd H5Glue.bijective_respectsIso H5Glue.compositum H5Glue.cotMap H5Glue.cotMap_bijective H5Glue.cotMap_dCls H5Glue.cotMap_omega H5Glue.cotMap_omegaAt H5Glue.detLattice_le_hodgeMap H5Glue.dom_comp H5Glue.evalAt_comp H5Glue.evalAt_res H5Glue.exists_smul_mem_omega H5Glue.fst_genericFibreUnit H5Glue.fst_genericFibre_unit H5Glue.genBC H5Glue.genBC_isMonHom H5Glue.genMap H5Glue.genMap_germ H5Glue.genMap_mem_maximalIdeal H5Glue.genMap_mem_maximalIdeal_iff H5Glue.genMap_structMap H5Glue.genericFibreStalkIso H5Glue.genericFibreUnit H5Glue.genericIso_of_openImmersion H5Glue.germAlong_comp_eventuallyEq H5Glue.groupModelBaseChangeExists H5Glue.heightAntitone H5Glue.heightAntitone_of H5Glue.heightAntitone_of_hodgeLatticeNonzero H5Glue.heightAntitone_of_omegaSpans H5Glue.hodgeLatticeNonzero_of_omegaSpans H5Glue.hodgeMap H5Glue.hodgeMapBijective H5Glue.hodgeMap_detLattice H5Glue.hodgeMap_wedge H5Glue.hodgeMap_wedgeGerm H5Glue.isAnalyticUniformization_comp H5Glue.isAnalyticUniformization_of_comp H5Glue.isIso_genMap H5Glue.isIso_of_openImmersion_self H5Glue.isIso_stalkSpecializes_genMap H5Glue.isMonHom_of_map H5Glue.isMonHom_pbCompHom H5Glue.isMonHom_pbCompInv H5Glue.isMonHom_pbEqIso H5Glue.isMonHom_prodComparisonIso H5Glue.isNeronModel_of_isProductModel H5Glue.isOpenImmersion_pullback_map H5Glue.jL H5Glue.jacDet_comp_genMap H5Glue.jacDet_comp_map H5Glue.map_genericUnit' H5Glue.map_span_singleton_toAddSubgroup H5Glue.map_zero_of_hom H5Glue.modelHeight_pullHodge_le H5Glue.neronModelMinimal H5Glue.neronModelMinimal_of_heightAntitone H5Glue.neron_lift H5Glue.neron_lift_isMonHom H5Glue.neron_map_injective H5Glue.omegaAt_le_cotMap H5Glue.omegaSpans H5Glue.omega_le_cotMap H5Glue.one_mem_dom H5Glue.openImmersionHeightLe H5Glue.openSubgroupHeight H5Glue.openSubgroupHeight_of H5Glue.pbCompHom H5Glue.pbCompInv H5Glue.pbCompIso H5Glue.pbEqIso H5Glue.productGroupModelExists H5Glue.ptCIso H5Glue.ptC_hom_apply H5Glue.ptsEquiv H5Glue.ptsEquiv_comp H5Glue.pts_comp_bijective H5Glue.pullHodge H5Glue.secIndex_le_of_map H5Glue.secIndex_ne_zero_of_mem H5Glue.smooth_tensor H5Glue.smooth_unit H5Glue.square1 H5Glue.square2 H5Glue.stableFaltingsHeight_add_le H5Glue.stableFaltingsHeight_add_le_of_productModelHeight H5Glue.stableFaltingsHeight_eq_neron_all H5Glue.stableFaltingsHeight_eq_neron_all' H5Glue.stalkIso_of_genericIso H5Glue.stalkSpecializes_self_apply H5Glue.stalkSpecializes_stalkSpecializes_apply H5Glue.stalk_ker_eq H5Glue.stalk_spec_eq H5Glue.stalkwise_fst_toGeneric H5Glue.stalkwise_tensor_localization H5Glue.tensorGen H5Glue.tensorGen_fst H5Glue.tensorGen_snd H5Glue.toGeneric_pt H5Glue.unitSection_comp H5Neron.GroupModel.IsNeronModel.lift H5Neron.GroupModel.IsNeronModel.uniqueIso H5Neron.GroupModel.isNeronModel_iff H5Neron.GroupModelBaseChangeExists H5Neron.IsBaseChangeOf H5Neron.IsOpenSubgroupModel H5Neron.IsProductAbVar H5Neron.IsProductModel H5Neron.ModelHeightBaseChange H5Neron.NeronModelExists H5Neron.NeronProp H5Neron.NeronProp.lift H5Neron.NeronProp.of_iso H5Neron.NeronProp.tensor H5Neron.NeronProp.uniqueIso H5Neron.OpenSubgroupHeight H5Neron.ProductGroupModelExists H5Neron.ProductModelHeight H5Neron.R19_zero H5Neron.R20_zero H5Neron.R21_zero H5Neron.SemistableNeronIdentityComponent H5Neron.bcProd H5Neron.bcUnitIso H5Neron.compositum H5Neron.covolume_fin_zero H5Neron.detLattice_zero H5Neron.glue_zero H5Neron.groupModel_height_zero H5Neron.hodgeZeroEquiv H5Neron.hodgeZeroEquiv_wedge0 H5Neron.hom_ext_of_iso_unit H5Neron.isIsogeny_id_zero H5Neron.isMonHom_of_iso_unit H5Neron.isMonHom_prodComparisonIso H5Neron.isNeronModel_of_isProductModel H5Neron.isogDeg_zero_le_one H5Neron.jL H5Neron.metrizedOf H5Neron.modelHeight_dim_zero H5Neron.neronModelExists_zero H5Neron.neronModelMinimal_zero H5Neron.neron_zero_iso_unit H5Neron.no_metrized_succ H5Neron.one_le_grKappa H5Neron.productGroupModelExists H5Neron.pts_subsingleton H5Neron.semistableNeronIdentityComponent_zero H5Neron.semσ H5Neron.stableFaltingsHeight_add_le H5Neron.stableFaltingsHeight_add_le' H5Neron.stableFaltingsHeight_eq_neron H5Neron.stableFaltingsHeight_eq_neron_all H5Neron.stableFaltingsHeight_zero H5Neron.stableHeightFinite_zero H5Neron.tensorGen H5Neron.tensorGen_fst H5Neron.tensorGen_snd H5Neron.trivHodge H5Neron.trivMetrized H5Neron.trivModel H5Neron.trivModel_isNeronModel H5Neron.wedge0 H5Neron.wedge0_ne_zero H5Neron.wedge_eq_wedge0 HeightBC.CotangentSpanBC HeightBC.D0 HeightBC.D0_add HeightBC.D0_add_apply HeightBC.D0_mul HeightBC.D0_mul_apply HeightBC.D0_sq HeightBC.D0_structMap_mul HeightBC.DetLatticeBC HeightBC.FF HeightBC.GermDerivation HeightBC.HodgeBCInjective HeightBC.HodgeLineBaseChange HeightBC.HodgeLineBaseChangeDescent HeightBC.HodgeLineDescentHalf HeightBC.HodgeSpanBC HeightBC.IsBaseChangeOf HeightBC.IsHodgeBaseChange HeightBC.IsMonBC HeightBC.JacobianPullbackSpan HeightBC.JacobianSemilinear HeightBC.MetrizationBaseChange HeightBC.ModelHeightBaseChange HeightBC.ModelHeightBaseChangeGE HeightBC.ModelHeightBaseChangeLE HeightBC.OmegaBaseChange HeightBC.OmegaLocalization HeightBC.PtsBaseChangeBij HeightBC.PtsBaseChangeMul HeightBC.UniformizationLift HeightBC.UniformizationLiftAnalytic HeightBC.algebraMap_FF HeightBC.algebraMap_ringOfIntegers_coe HeightBC.appLE_top_top HeightBC.bO HeightBC.bO_appTop HeightBC.bO_genericPt HeightBC.bcAlt HeightBC.bcCot HeightBC.bcCotBasis HeightBC.bcCotBasis_apply HeightBC.bcCot_core HeightBC.bcCot_dCls HeightBC.bcCot_intInv HeightBC.bcCot_linearIndependent HeightBC.bcCot_omega HeightBC.bcCot_omegaAt HeightBC.bcCot_smulL HeightBC.bcCot_smul_genStalk HeightBC.bcCot_span HeightBC.bcCot_update HeightBC.bcExt HeightBC.bcExt_smul HeightBC.bcExt_ιMulti HeightBC.bcHodge HeightBC.bcHodge_detLattice HeightBC.bcHodge_smul HeightBC.bcHodge_tmul HeightBC.bcHodge_wedge HeightBC.bcMap HeightBC.bcMap_germ HeightBC.bcMap_mem_maximalIdeal HeightBC.bcMap_structMap HeightBC.bcMap_φL HeightBC.bcProj HeightBC.bcProj_genericUnit HeightBC.bcProj_unit HeightBC.bcProj_w HeightBC.bcPts HeightBC.cotL HeightBC.cotL_isScalarTower HeightBC.cotL_smul HeightBC.cotRes HeightBC.cotangentSpanBC HeightBC.descentHalf_of_descent HeightBC.detLatticeBC_of_omega HeightBC.dom_bcPts HeightBC.evalAt_add HeightBC.evalAt_bcPts HeightBC.evalAt_mul HeightBC.evalAt_one_eq_zero HeightBC.evalAt_res HeightBC.evalAt_structSection HeightBC.exists_act HeightBC.exists_comp_eq HeightBC.exists_int_dvd HeightBC.exists_mem_not_mem_of_sat HeightBC.exists_ringOfIntegers_of_algebraMap HeightBC.extRes HeightBC.finite_of_isClosed_not_genericPt HeightBC.g0_hodgeLine_iff HeightBC.genericPt_eq_genericPoint HeightBC.germAlong_add_mul HeightBC.germAlong_bcPts_eventuallyEq HeightBC.germAlong_differentiableAt HeightBC.germAlong_eventuallyEq_rep HeightBC.germAlong_structMap HeightBC.germAlong_zero_of_mem HeightBC.germDerivation HeightBC.germDerivation_at HeightBC.hodgeBCInjective HeightBC.hodgeLineBaseChangeDescent_of_glue HeightBC.hodgeLineBaseChange_of_descent HeightBC.hodgeLineBaseChange_of_final HeightBC.hodgeLineBaseChange_of_five HeightBC.hodgeLineBaseChange_of_four HeightBC.hodgeLineBaseChange_of_glue HeightBC.hodgeLineBaseChange_of_glue4 HeightBC.hodgeLineBaseChange_of_glue5 HeightBC.hodgeLineBaseChange_of_main HeightBC.hodgeLineBaseChange_of_two HeightBC.hodgeSpanBC_of HeightBC.hom_genericUnit HeightBC.hom_genericUnit' HeightBC.hom_unitSection HeightBC.isAnalyticUniformization_bcPts HeightBC.isField_stalk_genericPt HeightBC.isIso_stalkSpecializes_bcMap HeightBC.isUnit_germ_genericPt HeightBC.isUnit_structMap HeightBC.jacDet_bcPts HeightBC.jacobianPullbackSpan_of HeightBC.jacobianSemilinear HeightBC.jacobianSemilinear_of HeightBC.locSub HeightBC.mapCotangent_injective_of_isIso HeightBC.mapCotangent_smul' HeightBC.map_zero_of_hom HeightBC.maximalIdeal_stalk_genericPt HeightBC.mem_locSub HeightBC.mem_of_forall_locSub HeightBC.metrizationBaseChange_of_hodgeLine HeightBC.modelHeightBaseChangeGE_of_descent HeightBC.modelHeightBaseChangeGE_of_descentHalf HeightBC.modelHeightBaseChangeGE_of_main HeightBC.modelHeightBaseChangeGE_of_two HeightBC.modelHeightBaseChangeLE_of_metrization HeightBC.modelHeightBaseChange_of_descent HeightBC.modelHeightBaseChange_of_final HeightBC.modelHeightBaseChange_of_five HeightBC.modelHeightBaseChange_of_four HeightBC.modelHeightBaseChange_of_glue HeightBC.modelHeightBaseChange_of_glue4 HeightBC.modelHeightBaseChange_of_glue5 HeightBC.modelHeightBaseChange_of_main HeightBC.modelHeightBaseChange_of_two HeightBC.modelHeight_eq_of_isHodgeBaseChange HeightBC.multilinear_mem_span HeightBC.omegaAt_bc_local HeightBC.omegaAt_full HeightBC.omegaAt_open HeightBC.omegaAt_sat HeightBC.omegaBaseChange HeightBC.omegaBaseChange_of_localization HeightBC.omegaLocalization HeightBC.one_mem_dom HeightBC.ptC_hom_apply HeightBC.ptC_hom_comp_bO HeightBC.ptsBaseChangeBij HeightBC.ptsBaseChangeMul HeightBC.rationalOver_genericUnit HeightBC.secIndex_baseChange HeightBC.secIndex_map HeightBC.secIndex_ne_zero_of_baseChange HeightBC.secIndex_nsmul_mem HeightBC.smul_cotangent_eq_of_sub_mem HeightBC.span_bcHodge_le HeightBC.spec_mem_of_ker HeightBC.stalkMapAt_germ' HeightBC.stalkSpec_comp_apply HeightBC.stalkSpec_self_apply HeightBC.stalkSpecializes_self_apply' HeightBC.stalkSpecializes_stalkSpecializes_apply' HeightBC.structMap_eq_spec HeightBC.structMap_eq_stalkMap HeightBC.toCotangent_mul HeightBC.uniformizationLift HeightBC.uniformizationLiftAnalytic HeightBC.uniformizationLift_of HeightBC.unitSection_comp_hom HeightBC.unitSection_stalkMapAt_hom HeightBC.σFF HeightBC.φL HeightBC.φL_algebraMap LeafPush2.CPts LeafPush2.Char2 LeafPush2.HasSexticModel LeafPush2.IC10 LeafPush2.IC2 LeafPush2.IC4 LeafPush2.IC6 LeafPush2.IgJ10 LeafPush2.IgJ2 LeafPush2.IgJ4 LeafPush2.IgJ6 LeafPush2.IsGenus2 LeafPush2.IsPeriodMatrix LeafPush2.IsSiegel LeafPush2.IsUniformization LeafPush2.LinYangTuple LeafPush2.OnQMLocus LeafPush2.T10_groupIso LeafPush2.T11a_RiemannEnd LeafPush2.T11b_Rigidity LeafPush2.T12_ComplexConjEigen LeafPush2.UniformizationExists LeafPush2.absLogHeight LeafPush2.cDom LeafPush2.cEvalAt LeafPush2.cptObj LeafPush2.dsq LeafPush2.exists_isComplexConj LeafPush2.ffAlgebra LeafPush2.ffStructMap LeafPush2.isSiegel_I LeafPush2.javanpeykarBound LeafPush2.javanpeykarBound_mono LeafPush2.javanpeykarBound_pos LeafPush2.linYangTuple_onQMLocus LeafPush2.linYang_j_eq LeafPush2.onQMLocus_of_linYangTuple LeafPush2.pazukiC2 LeafPush2.sextic LeafPush2.thetaConst) -- op-dedupe
+open _root_.LeafQM.AV (CMExists HasCM24 HasCM24.of_iso HasCM3 HasCM3.of_iso HasCM4 HasCM4.of_iso IsBaseChangeOf IsBaseChangeOfPair IsFibreOf Level3 Level3.bcPt_pow_three Level3.eq_iff Level3.exists_mul_of_range_le Level3.ext' Level3.onto Level3.range_le Level3.rightMul Level3.rightMul_eq_self Level3.rightMul_rightMul Level3.torsor Level3.twist M3 M3.mk M3.rightMul M3.rightMul_rightMul M3.twist M3.twist_mk Pin.AutOExt.NormalizerFinite Pin.AutOExt.alpha_nat_smul Pin.AutOExt.autOInnerFinite_of_normalizer Pin.AutOExt.common_den Pin.AutOExt.conjUnit Pin.AutOExt.conj_of_skolem Pin.AutOExt.den_mul_int Pin.AutOExt.exists_nat_smul_mem Pin.AutOExt.extAlgEquiv Pin.AutOExt.extAlgHom Pin.AutOExt.extAlgHom_coe Pin.AutOExt.extAlgHom_symm_comp Pin.AutOExt.extDen Pin.AutOExt.extDen_mem Pin.AutOExt.extDen_pos Pin.AutOExt.extFun Pin.AutOExt.extFun_add Pin.AutOExt.extFun_algebraMap Pin.AutOExt.extFun_coe Pin.AutOExt.extFun_eq Pin.AutOExt.extFun_mul Pin.AutOExt.key_conj Pin.AutOExt.mem_O_of_int Pin.AutOExt.natCast_mul_eq_smul Pin.AutOExt.nat_smul_mem Pin.AutOExt.smul_mul_smul' Pin.AutOInnerFinite Pin.ConstOrOntoAlgClosed Pin.CurveRatFactor Pin.CurveSurj Pin.GeomCompConstOrOnto Pin.GeomCompFinite Pin.GeomCompInfinite Pin.GeomCompRatFactor Pin.ImagePlane.ev_comp Pin.ImagePlane.ev_spec_top Pin.ImagePlane.ptOf_comp Pin.ImagePlane.ptOf_spec_asIdeal Pin.IsNaturalRelabel Pin.Mob.eval_ne_zero_of_coprime Pin.Mob.exists_interp Pin.Mob.isCoprime_X_sub_C_of_eval_one Pin.Mob.natDegree_le_one_of_injective Pin.Mob.ratEval Pin.Mob.ratEval_eq_self Pin.Mob.wronskian_ne_zero Pin.MobiusGlue Pin.NormO.IsNorm Pin.NormO.IsNorm.inv Pin.NormO.IsNorm.mul Pin.NormO.T Pin.NormO.T_finite Pin.NormO.T_mul_ui Pin.NormO.T_mul_uj Pin.NormO.bas Pin.NormO.conjC Pin.NormO.descent Pin.NormO.dvd_of_prime_dvd_nrd Pin.NormO.dvd_of_smul_mem Pin.NormO.ei Pin.NormO.ej Pin.NormO.inv_eq Pin.NormO.isNorm_sc Pin.NormO.isNorm_ui Pin.NormO.isNorm_uj Pin.NormO.mulCoord_conjC Pin.NormO.mulCoord_conjC' Pin.NormO.mulCoord_smul_left Pin.NormO.mulCoord_smul_right Pin.NormO.normalizerFinite Pin.NormO.nrdZ Pin.NormO.nrdZ_ei Pin.NormO.nrdZ_ej Pin.NormO.nrdZ_mul Pin.NormO.nrdZ_ne_zero Pin.NormO.nrdZ_smul Pin.NormO.nrd_dvd_coords Pin.NormO.ofInt_scalar Pin.NormO.rearrange Pin.NormO.sc Pin.NormO.six_sq_identities Pin.NormO.smul_ofInt Pin.NormO.three_dvd_mulCoord_ej Pin.NormO.two_dvd_mulCoord_ei Pin.NormO.ui Pin.NormO.uj Pin.PinUnique Pin.QMFamily.transport Pin.QML3.isoTransport Pin.R1fpProps.fam Pin.R1fpProps.univ Pin.RatFactorAlgClosed Pin.SameTriple Pin.SameTripleMor Pin.SmoothCurveNoIsolatedPoint Pin.SmoothStalkDimOne Pin.TwistClassFinite Pin.autOInnerFinite Pin.autRelabel Pin.autRelabel_natural Pin.bcPt Pin.bcPt_ptOfSection Pin.bcPt_snd Pin.bcQbar Pin.bcSnd Pin.cm_objects_of_R1R2fp Pin.conjUnitIso Pin.cst Pin.curveFacts_of_algClosed Pin.curveFacts_of_comp Pin.curveFacts_of_leaves Pin.curveFacts_of_named Pin.curveRatFactor_of_comp Pin.curveSurj_of_comp Pin.ev Pin.ev_cst Pin.ev_eq_zero_iff Pin.ev_f_mul_g Pin.ev_g_eq_zero Pin.ev_res Pin.ev_top Pin.exists_isOpen_singleton_of_finite_closedPoints Pin.exists_liftO_congr Pin.exists_point_of_isLocallyClosed Pin.geomComp Pin.geomCompConstOrOnto_of Pin.geomCompFinite Pin.geomCompInfinite_of Pin.geomCompRatFactor_of Pin.isFibreOf_transport Pin.isOpen_connectedComponent_of_noetherian Pin.level3_finite Pin.mem_V_of_not_mem_U Pin.phi_part Pin.pointwise_of_witness Pin.pointwise_of_witness_mor Pin.ptOf Pin.ptOfSection Pin.r1fpPin_aut Pin.r1fpPin_relabel_iff Pin.r2fp_aut Pin.relabel Pin.relabel_geometric Pin.relabel_is_morphism Pin.res Pin.res_res Pin.sameTripleMor_of_mobius Pin.sameTriple_aut Pin.smoothCurveNoIsolatedPoint_of Pin.transfer_exists Pin.transfer_pointwise Pin.transfer_pointwise_mor Pin.transportLevel Pin.twistClassFinite Pin.twistClassFinite_of Pin.val_bcPt Pin.val_of_mem Pin.val_of_not_mem PtEquiv QMFamily QMIso QMIso.nonempty_abVarIso QMIso.refl QMIso.symm QMIso.trans QML3 QML3.Iso QML3.Iso.refl QML3.Iso.rightMul QML3.Iso.symm QML3.Iso.trans QML3.Iso.twist QML3.forget QML3.rightMul QML3.rightMul_A QML3.rightMul_rightMul QML3.twist QML3.twist_A QMLeaves QMPair QMPair.twist QMStr QMStr.twist Qbar R1R2fp R1R2fp_Y R1famProps R1fp R1fpProps R1fp_of_R1R2fp R1heckeProps R1rec R1recProps R1univProps R2X6Props R2fpProps R2fpProps_of_X6 R5fp R5fpCount R5fpWeak R5fpWeak_of_R5fp R5ptProps ToP1 ToP1.comp ToP1.val ToP1.val_comp ToP1.val_comp_right UnramifiedAbove5 X6Props X6Surj act_mul_apply bcPt bcPt_injective cm_of_val com comEquiv com_twist conductor conjHom conjHom_iota conjHom_mem_com conjHom_symm_apply conj_iso_of_rational conj_twist_of_rational endPt exists_fibre_object fibre_conjugates_isomorphic fieldMap fieldOfModuli3 fieldOfModuliPair fieldPt galAct_bcPt hI hIJ hJ hasCM24_twist hasCM3_twist hasCM4_twist hrat inertCount6 intCast_mem_com isoSetoid leaves_on_one_witness liftO not_qmStr_zero ofInt_injective ofInt_sub oi oi_mul_oi oj oj_mul_oi_add oj_mul_oj pairSetoid qmAct residueImage residue_unramified_over_branch specMap_flat specMap_surjective specToEquivOfField_comp specToEquivOfField_comp_right stab3 stabPair three_mul_ofInt toKbar unramified_over_branch) -- op-dedupe
+open _root_.GlueDescent (B2.IsSignCocycle B2.SignCob B2.dB B2.dB_inv B2.dB_mul B2.exists_beta B2.isSignCocycle_dB B2.isSignCocycle_inv B2.isSignCocycle_mul B2.isSignCocycle_pull B2.pull B2.pull_dB B2.signCob_dB_iff B2.signCob_inv B2.signCob_mul B2Q.GQ B2Q.GQp B2Q.InflatedFrom B2Q.LeafHasse B2Q.LeafLocalTwo B2Q.LeafSqrtCrit B2Q.LeafUnramified B2Q.UnramifiedAt B2Q.act B2Q.act_mul B2Q.b2_of_leaves B2Q.cast_cast_of_dvd B2Q.chiLevel_pos B2Q.chi_toUnitHom_crt B2Q.cyc B2Q.cyc_eq_of_agree B2Q.cyc_isLocallyConstant B2Q.exists_crt_unit B2Q.galChar B2Q.galChar_isLocallyConstant B2Q.isLocallyConstant_of_openSubgroup B2Q.lev_eq_pow B2Q.resp B2Q.resp_continuous B2Q.sqrtU B2Q.sqrtU_sq B2Q.toRingAut B3Q.GQL B3Q.b3_degree_le_QM B3Q.b3_of_leaves B3Q.inflatedNormalized_of B3Q.mem_GQL B3Q.orderOf_pos_dirichlet B6 B6_commute_i_j B6_inner B6_isCentral B6_isSimpleRing B6_star_mul InflatedNormalized IsCochainFor LeafSkolemNoether MatrixUnits2 MatrixUnits2.W MatrixUnits2.e00_of_mem MatrixUnits2.e_apply_e MatrixUnits2.finrank_W MatrixUnits2.mapsTo_W MatrixUnits2.mem_W_of_e0 MatrixUnits2.splitEquiv MatrixUnits2.splitEquiv_intertwines aniso_int aniso_rat boundary_sq chi chiLevel cochain_conj cochain_mul_kernel cochain_mul_left cochain_mul_right cochain_of_boundary_eq cochain_one cocycle_of_projective commute_adjoin contactSupport_pos degree_le_QM exists_chi exists_odd_char heightD_pos index_kernel_le inertia_le_kernel kernelSubgroup kernelSubgroup_le kernelSubgroup_normal lev lev_dvd_chiLevel mem_kernelSubgroup oddChar oddChar_neg_one orderOf_dvd_totient orderOf_prod_dvd prod_S_le prod_odd_le prod_odd_le_aux prod_totient_lev_le qi qj ramSet relindex_kernel_le restrictHom rho rhoRep rho_commute rho_eq_act rho_map_mul sign_cocycle sign_normalization sign_sq_eq_one ten_le_heightE0 three_dvd_of_form totient_lev twist twist_kills_inertia twist_sq two_lt_lev zmod3_aniso) -- op-dedupe
+open _root_.G0ModField (CommonConstituent ConjugacyData DescentDatum FibreCoverExists FibreCoverOut FibreCtx G2Out G4Out G7Out GaloisCopy.G2Out GaloisCopy.G7Out GaloisCopy.Vb GaloisCopy.resQ GaloisCopy.tate IF IsModelOver IsQMModel IsQMModel.isModelOver KernelFieldExists KernelFieldOut ModularConstituentG PtQ RationalFibre ResQRange T UnramifiedSup actK actQ admissible_S_mul b2_of_leaves_level b3_of_cochain baseChangeTrans card_ker_GL descentDatum_bot descentDatum_of_conjugacy fieldDescent g2Out_of_cover g4Out_of_kernelField g7Out_of_g4Out galAct_bijective galAct_mul incAlg isModelOver_baseChange le_heightD_of_mem_S_mul mem_GQL_bot normA numberField_of_fd resQRange resQ_comm' resQ_range sgnU sgnU_mul sgnU_mul_abs sgnU_sq toLAut toLAut_apply two_mem_T) -- op-dedupe
+-- op-dedupe was: open GlueC10Link (FrobCompare)
+open _root_.GlueC10Link (FrobCompare) -- op-dedupe
 
 /-- **The linked Tate bridge at `ℓ = 3, 5` (GLUE; replaces the `ℓ = 3, 5` instances of
 `G0ModField.TateBridge`).** From G7's data, `dim A_{L'} = 2` and `rank End = 4`: one pair
@@ -4197,9 +4231,6 @@ def TateBridge35 : Prop :=
       @FrobTraceLink L' _ (numberField_of_fd L')
         (@PkgI3.AbVar.baseChange L _ A L' _ (incAlg hLL')) Tm5 Tm3 ∧
       ∃ ιC : PkgI4.Qbar →ₐ[ℚ] ℂ, ∀ g, ιC (βQ g) = (β g : ℂ)
-
-instance fact_prime_five' : Fact (Nat.Prime 5) := ⟨by norm_num⟩
-instance fact_prime_three' : Fact (Nat.Prime 3) := ⟨by norm_num⟩
 
 /-- `TateBridge35` contains the `ℓ = 5` and `ℓ = 3` conclusions of `TateBridge` (proved): it is a
 strengthening at these two primes. -/
@@ -4255,475 +4286,27 @@ No `sorry`, no `axiom`.
 noncomputable section
 
 namespace FrobTrace
+open _root_.FrobTrace (AlgFrobLink AlgFrobOne AlgFrobRed algFrobLink_of_one algFrobOne_of_red conj_baseChange frobCompare_opV_conjE g7Out_rescale scalarsQbar tateMapEquiv tateMap_bijective) -- op-dedupe
 
 open CategoryTheory AlgebraicGeometry
 open _root_.ZInQ ZInQ LeafQM.AV GlueDescent G0ModField UnramTate
+open _root_.ZInQ (Contrib.AbVarBC.G0FibreSimple.MulIsogeny Contrib.AbVarBC.MulRigidity.CotangentMulN Contrib.AbVarBC.MulRigidity.KerUnitOpen Contrib.AbVarBC.MulRigidity.KerUnitOpenOfCotangentSurj Contrib.AbVarBC.MulRigidity.MulEtale Contrib.AbVarBC.MulRigidity.MulUnramified Contrib.AbVarBC.MulRigidity.O0 Contrib.AbVarBC.MulRigidity.QuasiFiniteEndSurjective Contrib.AbVarBC.MulRigidity.charZero_residueField Contrib.AbVarBC.MulRigidity.cotangentMap Contrib.AbVarBC.MulRigidity.diagonal_isPullback Contrib.AbVarBC.MulRigidity.diffKer Contrib.AbVarBC.MulRigidity.formallyUnramified_of_kerUnit Contrib.AbVarBC.MulRigidity.isIsogenyMor_of_lqf_of_isOpenMap Contrib.AbVarBC.MulRigidity.isOpenImmersion_of_section Contrib.AbVarBC.MulRigidity.isProper_left Contrib.AbVarBC.MulRigidity.kerUnit Contrib.AbVarBC.MulRigidity.kerUnitOpen_of_cotangent Contrib.AbVarBC.MulRigidity.kerUnitOpen_of_mulEtale Contrib.AbVarBC.MulRigidity.locallyQuasiFinite_of_formallyUnramified Contrib.AbVarBC.MulRigidity.map_origin Contrib.AbVarBC.MulRigidity.mulIsogeny_of_cotangent Contrib.AbVarBC.MulRigidity.mulIsogeny_of_kerUnitOpen Contrib.AbVarBC.MulRigidity.mulIsogeny_of_mulEtale Contrib.AbVarBC.MulRigidity.mulIsogeny_of_mulUnramified Contrib.AbVarBC.MulRigidity.mulIsogeny_of_mulUnramified' Contrib.AbVarBC.MulRigidity.mulUnramified_of_kerUnitOpen Contrib.AbVarBC.MulRigidity.mulUnramified_of_mulEtale Contrib.AbVarBC.MulRigidity.ne_of_specializes_of_lqf Contrib.AbVarBC.MulRigidity.origin Contrib.AbVarBC.MulRigidity.quasiFiniteEndSurjective Contrib.AbVarBC.MulRigidity.stalkEndo Contrib.AbVarBC.MulRigidity.surjective_of_lqf_self Contrib.AbVarBC.Tangent.AtOrigin Contrib.AbVarBC.Tangent.D Contrib.AbVarBC.Tangent.D_congr Contrib.AbVarBC.Tangent.D_inv Contrib.AbVarBC.Tangent.D_mul Contrib.AbVarBC.Tangent.D_one Contrib.AbVarBC.Tangent.D_zpow Contrib.AbVarBC.Tangent.KerN Contrib.AbVarBC.Tangent.atOrigin_inv Contrib.AbVarBC.Tangent.atOrigin_map Contrib.AbVarBC.Tangent.atOrigin_mul Contrib.AbVarBC.Tangent.atOrigin_one Contrib.AbVarBC.Tangent.atOrigin_zpow Contrib.AbVarBC.Tangent.closedPoint_eq Contrib.AbVarBC.Tangent.comp_intCast_hom Contrib.AbVarBC.Tangent.comp_mem_of_subsingleton Contrib.AbVarBC.Tangent.comp_orig_mem Contrib.AbVarBC.Tangent.derivation_eq_zero Contrib.AbVarBC.Tangent.dualHom Contrib.AbVarBC.Tangent.eq_ofRing_ptRing Contrib.AbVarBC.Tangent.eq_of_D_eq Contrib.AbVarBC.Tangent.eq_one_of_comp_intCast Contrib.AbVarBC.Tangent.ev0 Contrib.AbVarBC.Tangent.exists_affine_orig Contrib.AbVarBC.Tangent.fst_tRing Contrib.AbVarBC.Tangent.id_appLE_top Contrib.AbVarBC.Tangent.intCast_hom Contrib.AbVarBC.Tangent.isLocalHom_fstHom Contrib.AbVarBC.Tangent.isLocalRing_tsze Contrib.AbVarBC.Tangent.ker_le_sq_of_derivations Contrib.AbVarBC.Tangent.ks Contrib.AbVarBC.Tangent.ks_hom Contrib.AbVarBC.Tangent.ks_isOpenImmersion Contrib.AbVarBC.Tangent.left_closedPoint Contrib.AbVarBC.Tangent.locallyOfFiniteType_kerN Contrib.AbVarBC.Tangent.map_add_inl Contrib.AbVarBC.Tangent.map_add_inr Contrib.AbVarBC.Tangent.map_fst_inl Contrib.AbVarBC.Tangent.map_fst_inr Contrib.AbVarBC.Tangent.map_snd_inl Contrib.AbVarBC.Tangent.map_snd_inr Contrib.AbVarBC.Tangent.mem_of_atOrigin Contrib.AbVarBC.Tangent.mulN Contrib.AbVarBC.Tangent.ofRing Contrib.AbVarBC.Tangent.ofRing_mem Contrib.AbVarBC.Tangent.one_left Contrib.AbVarBC.Tangent.orig Contrib.AbVarBC.Tangent.ptR Contrib.AbVarBC.Tangent.ptRing Contrib.AbVarBC.Tangent.ptRing_comp Contrib.AbVarBC.Tangent.ptRing_congr Contrib.AbVarBC.Tangent.ptRing_ext Contrib.AbVarBC.Tangent.ptRing_id_top Contrib.AbVarBC.Tangent.ptRing_ofRing Contrib.AbVarBC.Tangent.ptRing_specMap_comp Contrib.AbVarBC.Tangent.specHom Contrib.AbVarBC.Tangent.specHom_comp Contrib.AbVarBC.Tangent.specHom_id Contrib.AbVarBC.Tangent.specHom_left Contrib.AbVarBC.Tangent.spec_inl_fst_comp Contrib.AbVarBC.Tangent.tRing Contrib.AbVarBC.Tangent.tRing_congr Contrib.AbVarBC.Tangent.tRing_one Contrib.AbVarBC.Tangent.tRing_specHom Contrib.AbVarBC.TorsionDescends Contrib.AbVarBC.comp_natCast_hom Contrib.AbVarBC.dim_baseChange_scheme Contrib.AbVarBC.dim_finite Contrib.AbVarBC.dim_pullback_spec Contrib.AbVarBC.dim_spec_le Contrib.AbVarBC.exists_lift_of_isFinite Contrib.AbVarBC.exists_nat_of_le Contrib.AbVarBC.galK Contrib.AbVarBC.kerUnitOpen Contrib.AbVarBC.map_comm Contrib.AbVarBC.mem_range_of_isIntegral Contrib.AbVarBC.mulIsogeny Contrib.AbVarBC.ptBC Contrib.AbVarBC.ptBC_galAct Contrib.AbVarBC.ptBC_injective Contrib.AbVarBC.ringKrullDim_eq_of_isIntegral_of_injective Contrib.AbVarBC.ringKrullDim_le_of_finiteType Contrib.AbVarBC.ringKrullDim_mvPolynomial_field Contrib.AbVarBC.ringKrullDim_tensor_field Contrib.AbVarBC.scheme_dim_eq_iSup_cover Contrib.AbVarBC.scheme_dim_eq_of_iso Contrib.AbVarBC.spec_dim Contrib.AbVarBC.tateBC Contrib.AbVarBC.tateBC_bijective_of_tateModuleFree Contrib.AbVarBC.tateBC_bijective_of_torsionDescends Contrib.AbVarBC.tateBC_galT Contrib.AbVarBC.tateBC_injective Contrib.AbVarBC.tate_map_bijective_of_torsion Contrib.AbVarBC.topologicalKrullDim_eq_iSup_of_openEmbedding Contrib.AbVarBC.torsionDescends_of_isFinite Contrib.AbVarBC.vBC Contrib.AbVarBC.vBC_galRep DefFaltings.AbVar DefFaltings.AnalyticUniformizationExists DefFaltings.AnalyticUniformizationUnique DefFaltings.EReal.add_coe_add_neg_coe DefFaltings.FinExt DefFaltings.Genus2Eq DefFaltings.Genus2Eq.Good DefFaltings.Genus2Eq.P DefFaltings.Genus2Eq.binDisc DefFaltings.GroupModel DefFaltings.GroupModel.IsAnalyticUniformization DefFaltings.GroupModel.IsNeronModel DefFaltings.GroupModel.Pts DefFaltings.GroupModel.cotangent DefFaltings.GroupModel.dCls DefFaltings.GroupModel.detLattice DefFaltings.GroupModel.dom DefFaltings.GroupModel.evalAt DefFaltings.GroupModel.exists_rep DefFaltings.GroupModel.genStalk DefFaltings.GroupModel.genericUnit DefFaltings.GroupModel.germAlong DefFaltings.GroupModel.height DefFaltings.GroupModel.height_eq DefFaltings.GroupModel.hodgeSpace DefFaltings.GroupModel.jacDet DefFaltings.GroupModel.jacDet_comp DefFaltings.GroupModel.omega DefFaltings.GroupModel.omegaAt DefFaltings.GroupModel.omegaAt_genericPt DefFaltings.GroupModel.ptC DefFaltings.GroupModel.semilinear_ext_wedge DefFaltings.GroupModel.specializes_genericUnit DefFaltings.GroupModel.structMap DefFaltings.GroupModel.unitSection DefFaltings.GroupModel.wedge DefFaltings.HermitianLattice DefFaltings.HermitianLattice.arakelovDegree DefFaltings.HermitianLattice.arakelovDegree_ofFractionalIdeal DefFaltings.HermitianLattice.arakelovDegree_rescale DefFaltings.HermitianLattice.degreeAt DefFaltings.HermitianLattice.degreeAt_eq DefFaltings.HermitianLattice.degreeAt_eq_arakelovDegree DefFaltings.HermitianLattice.degreeAt_smul DefFaltings.HermitianLattice.ofFractionalIdeal DefFaltings.HermitianLattice.rescale DefFaltings.HermitianLattice.secIndex_ne_zero DefFaltings.HodgeData DefFaltings.HodgeData.coeff_apply_ne_zero DefFaltings.HodgeData.hodgeBundle DefFaltings.HodgeData.modelHeight DefFaltings.HodgeData.modelHeight_eq DefFaltings.HodgeData.modelHeight_eq_add_of_le DefFaltings.HodgeData.modelHeight_eq_faltingsHeightGood DefFaltings.HodgeData.modelHeight_le_of_le DefFaltings.HodgeData.modelHeight_ofIdeal DefFaltings.HodgeData.modelHeight_ofIdeal_baseChange DefFaltings.HodgeData.modelHeight_of_span DefFaltings.HodgeData.modelHeight_recoord DefFaltings.HodgeData.norm DefFaltings.HodgeData.norm_sq DefFaltings.HodgeData.recoord DefFaltings.HodgeLatticeTheorem DefFaltings.IsIsogeny DefFaltings.MetrizedModel DefFaltings.MetrizedModel.modelHeight_eq_of_model_eq DefFaltings.NeronModelMinimal DefFaltings.PeriodAreaFormula DefFaltings.R19_GaudronRemond DefFaltings.R20_FaltingsLemma5 DefFaltings.R21_Bost DefFaltings.StableHeightFinite DefFaltings.absNorm_extendedHom DefFaltings.absNorm_map_ringOfIntegers DefFaltings.arakelovDegree_ofFractionalIdeal_baseChange DefFaltings.arakelovDegree_ofFractionalIdeal_mul DefFaltings.card_embeddings_over DefFaltings.covolume_comap_mul_det DefFaltings.covolume_gaussianPair DefFaltings.det_restrictScalars_complex DefFaltings.embCoeff DefFaltings.faltingsHeight DefFaltings.faltingsHeightEC DefFaltings.faltingsHeightGood DefFaltings.faltingsHeight_coe DefFaltings.finiteHeightPart DefFaltings.finrank_ringOfIntegers DefFaltings.gaussianPair DefFaltings.genericFibre DefFaltings.genericPt DefFaltings.grKappa DefFaltings.hypGram DefFaltings.hypGram_comp_add DefFaltings.hypVol DefFaltings.hypVol_one_comp_add DefFaltings.isogDeg DefFaltings.le_stableFaltingsHeight DefFaltings.modelHeight_ofIdeal_eq_faltingsHeightEC DefFaltings.modelHeight_ofIdeal_eq_faltingsHeightEC' DefFaltings.norm_algebraMap_tower DefFaltings.ptObj DefFaltings.ratCoeff DefFaltings.realify DefFaltings.secIndex DefFaltings.secIndex_mul_absNorm DefFaltings.secIndex_smul DefFaltings.stableFaltingsHeight DefFaltings.stableFaltingsHeightDeligne DefFaltings.stableFaltingsHeightDeligne_eq DefFaltings.stableFaltingsHeight_eq_faltingsHeightGood DefFaltings.stableFaltingsHeight_eq_iInf_height DefFaltings.stableFaltingsHeight_le DefFaltings.stableFaltingsHeight_ne_bot_of_R21 DefFaltings.sum_embeddings_comp DefFaltings.sum_log_norm_embeddings DefFaltings.sum_log_norm_embeddings_int DefFaltings.torusMetricSq DefFaltings.torusMetricSq_comap DefFaltings.torusMetricSq_eq_setIntegral DefFaltings.torusMetricSq_pos DefFaltings.torusMetricSq_smul DefFaltings.torus_setIntegral_indep H5Glue.GenericFibreStalkIso H5Glue.GroupModel.baseChange H5Glue.GroupModel.isNeronModel_iff H5Glue.GroupModelBaseChangeExists H5Glue.HeightAntitone H5Glue.HodgeLatticeNonzero H5Glue.HodgeMapBijective H5Glue.IsBaseChangeOf H5Glue.IsOpenSubgroupModel H5Glue.IsProductAbVar H5Glue.IsProductModel H5Glue.ModelHeightBaseChange H5Glue.NeronModelExists H5Glue.NeronProp H5Glue.NeronProp.lift H5Glue.NeronProp.of_iso H5Glue.NeronProp.tensor H5Glue.NeronProp.uniqueIso H5Glue.OmegaSpans H5Glue.OpenImmersionHeightLe H5Glue.OpenSubgroupHeight H5Glue.ProductGroupModelExists H5Glue.ProductModelHeight H5Glue.SemistableNeronIdentityComponent H5Glue.baseChange_map_bijective H5Glue.bcProd H5Glue.bijective_respectsIso H5Glue.compositum H5Glue.cotMap H5Glue.cotMap_bijective H5Glue.cotMap_dCls H5Glue.cotMap_omega H5Glue.cotMap_omegaAt H5Glue.detLattice_le_hodgeMap H5Glue.dom_comp H5Glue.evalAt_comp H5Glue.evalAt_res H5Glue.exists_smul_mem_omega H5Glue.fst_genericFibreUnit H5Glue.fst_genericFibre_unit H5Glue.genBC H5Glue.genBC_isMonHom H5Glue.genMap H5Glue.genMap_germ H5Glue.genMap_mem_maximalIdeal H5Glue.genMap_mem_maximalIdeal_iff H5Glue.genMap_structMap H5Glue.genericFibreStalkIso H5Glue.genericFibreUnit H5Glue.genericIso_of_openImmersion H5Glue.germAlong_comp_eventuallyEq H5Glue.groupModelBaseChangeExists H5Glue.heightAntitone H5Glue.heightAntitone_of H5Glue.heightAntitone_of_hodgeLatticeNonzero H5Glue.heightAntitone_of_omegaSpans H5Glue.hodgeLatticeNonzero_of_omegaSpans H5Glue.hodgeMap H5Glue.hodgeMapBijective H5Glue.hodgeMap_detLattice H5Glue.hodgeMap_wedge H5Glue.hodgeMap_wedgeGerm H5Glue.isAnalyticUniformization_comp H5Glue.isAnalyticUniformization_of_comp H5Glue.isIso_genMap H5Glue.isIso_of_openImmersion_self H5Glue.isIso_stalkSpecializes_genMap H5Glue.isMonHom_of_map H5Glue.isMonHom_pbCompHom H5Glue.isMonHom_pbCompInv H5Glue.isMonHom_pbEqIso H5Glue.isMonHom_prodComparisonIso H5Glue.isNeronModel_of_isProductModel H5Glue.isOpenImmersion_pullback_map H5Glue.jL H5Glue.jacDet_comp_genMap H5Glue.jacDet_comp_map H5Glue.map_genericUnit' H5Glue.map_span_singleton_toAddSubgroup H5Glue.map_zero_of_hom H5Glue.modelHeight_pullHodge_le H5Glue.neronModelMinimal H5Glue.neronModelMinimal_of_heightAntitone H5Glue.neron_lift H5Glue.neron_lift_isMonHom H5Glue.neron_map_injective H5Glue.omegaAt_le_cotMap H5Glue.omegaSpans H5Glue.omega_le_cotMap H5Glue.one_mem_dom H5Glue.openImmersionHeightLe H5Glue.openSubgroupHeight H5Glue.openSubgroupHeight_of H5Glue.pbCompHom H5Glue.pbCompInv H5Glue.pbCompIso H5Glue.pbEqIso H5Glue.productGroupModelExists H5Glue.ptCIso H5Glue.ptC_hom_apply H5Glue.ptsEquiv H5Glue.ptsEquiv_comp H5Glue.pts_comp_bijective H5Glue.pullHodge H5Glue.secIndex_le_of_map H5Glue.secIndex_ne_zero_of_mem H5Glue.smooth_tensor H5Glue.smooth_unit H5Glue.square1 H5Glue.square2 H5Glue.stableFaltingsHeight_add_le H5Glue.stableFaltingsHeight_add_le_of_productModelHeight H5Glue.stableFaltingsHeight_eq_neron_all H5Glue.stableFaltingsHeight_eq_neron_all' H5Glue.stalkIso_of_genericIso H5Glue.stalkSpecializes_self_apply H5Glue.stalkSpecializes_stalkSpecializes_apply H5Glue.stalk_ker_eq H5Glue.stalk_spec_eq H5Glue.stalkwise_fst_toGeneric H5Glue.stalkwise_tensor_localization H5Glue.tensorGen H5Glue.tensorGen_fst H5Glue.tensorGen_snd H5Glue.toGeneric_pt H5Glue.unitSection_comp H5Neron.GroupModel.IsNeronModel.lift H5Neron.GroupModel.IsNeronModel.uniqueIso H5Neron.GroupModel.isNeronModel_iff H5Neron.GroupModelBaseChangeExists H5Neron.IsBaseChangeOf H5Neron.IsOpenSubgroupModel H5Neron.IsProductAbVar H5Neron.IsProductModel H5Neron.ModelHeightBaseChange H5Neron.NeronModelExists H5Neron.NeronProp H5Neron.NeronProp.lift H5Neron.NeronProp.of_iso H5Neron.NeronProp.tensor H5Neron.NeronProp.uniqueIso H5Neron.OpenSubgroupHeight H5Neron.ProductGroupModelExists H5Neron.ProductModelHeight H5Neron.R19_zero H5Neron.R20_zero H5Neron.R21_zero H5Neron.SemistableNeronIdentityComponent H5Neron.bcProd H5Neron.bcUnitIso H5Neron.compositum H5Neron.covolume_fin_zero H5Neron.detLattice_zero H5Neron.glue_zero H5Neron.groupModel_height_zero H5Neron.hodgeZeroEquiv H5Neron.hodgeZeroEquiv_wedge0 H5Neron.hom_ext_of_iso_unit H5Neron.isIsogeny_id_zero H5Neron.isMonHom_of_iso_unit H5Neron.isMonHom_prodComparisonIso H5Neron.isNeronModel_of_isProductModel H5Neron.isogDeg_zero_le_one H5Neron.jL H5Neron.metrizedOf H5Neron.modelHeight_dim_zero H5Neron.neronModelExists_zero H5Neron.neronModelMinimal_zero H5Neron.neron_zero_iso_unit H5Neron.no_metrized_succ H5Neron.one_le_grKappa H5Neron.productGroupModelExists H5Neron.pts_subsingleton H5Neron.semistableNeronIdentityComponent_zero H5Neron.semσ H5Neron.stableFaltingsHeight_add_le H5Neron.stableFaltingsHeight_add_le' H5Neron.stableFaltingsHeight_eq_neron H5Neron.stableFaltingsHeight_eq_neron_all H5Neron.stableFaltingsHeight_zero H5Neron.stableHeightFinite_zero H5Neron.tensorGen H5Neron.tensorGen_fst H5Neron.tensorGen_snd H5Neron.trivHodge H5Neron.trivMetrized H5Neron.trivModel H5Neron.trivModel_isNeronModel H5Neron.wedge0 H5Neron.wedge0_ne_zero H5Neron.wedge_eq_wedge0 HeightBC.CotangentSpanBC HeightBC.D0 HeightBC.D0_add HeightBC.D0_add_apply HeightBC.D0_mul HeightBC.D0_mul_apply HeightBC.D0_sq HeightBC.D0_structMap_mul HeightBC.DetLatticeBC HeightBC.FF HeightBC.GermDerivation HeightBC.HodgeBCInjective HeightBC.HodgeLineBaseChange HeightBC.HodgeLineBaseChangeDescent HeightBC.HodgeLineDescentHalf HeightBC.HodgeSpanBC HeightBC.IsBaseChangeOf HeightBC.IsHodgeBaseChange HeightBC.IsMonBC HeightBC.JacobianPullbackSpan HeightBC.JacobianSemilinear HeightBC.MetrizationBaseChange HeightBC.ModelHeightBaseChange HeightBC.ModelHeightBaseChangeGE HeightBC.ModelHeightBaseChangeLE HeightBC.OmegaBaseChange HeightBC.OmegaLocalization HeightBC.PtsBaseChangeBij HeightBC.PtsBaseChangeMul HeightBC.UniformizationLift HeightBC.UniformizationLiftAnalytic HeightBC.algebraMap_FF HeightBC.algebraMap_ringOfIntegers_coe HeightBC.appLE_top_top HeightBC.bO HeightBC.bO_appTop HeightBC.bO_genericPt HeightBC.bcAlt HeightBC.bcCot HeightBC.bcCotBasis HeightBC.bcCotBasis_apply HeightBC.bcCot_core HeightBC.bcCot_dCls HeightBC.bcCot_intInv HeightBC.bcCot_linearIndependent HeightBC.bcCot_omega HeightBC.bcCot_omegaAt HeightBC.bcCot_smulL HeightBC.bcCot_smul_genStalk HeightBC.bcCot_span HeightBC.bcCot_update HeightBC.bcExt HeightBC.bcExt_smul HeightBC.bcExt_ιMulti HeightBC.bcHodge HeightBC.bcHodge_detLattice HeightBC.bcHodge_smul HeightBC.bcHodge_tmul HeightBC.bcHodge_wedge HeightBC.bcMap HeightBC.bcMap_germ HeightBC.bcMap_mem_maximalIdeal HeightBC.bcMap_structMap HeightBC.bcMap_φL HeightBC.bcProj HeightBC.bcProj_genericUnit HeightBC.bcProj_unit HeightBC.bcProj_w HeightBC.bcPts HeightBC.cotL HeightBC.cotL_isScalarTower HeightBC.cotL_smul HeightBC.cotRes HeightBC.cotangentSpanBC HeightBC.descentHalf_of_descent HeightBC.detLatticeBC_of_omega HeightBC.dom_bcPts HeightBC.evalAt_add HeightBC.evalAt_bcPts HeightBC.evalAt_mul HeightBC.evalAt_one_eq_zero HeightBC.evalAt_res HeightBC.evalAt_structSection HeightBC.exists_act HeightBC.exists_comp_eq HeightBC.exists_int_dvd HeightBC.exists_mem_not_mem_of_sat HeightBC.exists_ringOfIntegers_of_algebraMap HeightBC.extRes HeightBC.finite_of_isClosed_not_genericPt HeightBC.g0_hodgeLine_iff HeightBC.genericPt_eq_genericPoint HeightBC.germAlong_add_mul HeightBC.germAlong_bcPts_eventuallyEq HeightBC.germAlong_differentiableAt HeightBC.germAlong_eventuallyEq_rep HeightBC.germAlong_structMap HeightBC.germAlong_zero_of_mem HeightBC.germDerivation HeightBC.germDerivation_at HeightBC.hodgeBCInjective HeightBC.hodgeLineBaseChangeDescent_of_glue HeightBC.hodgeLineBaseChange_of_descent HeightBC.hodgeLineBaseChange_of_final HeightBC.hodgeLineBaseChange_of_five HeightBC.hodgeLineBaseChange_of_four HeightBC.hodgeLineBaseChange_of_glue HeightBC.hodgeLineBaseChange_of_glue4 HeightBC.hodgeLineBaseChange_of_glue5 HeightBC.hodgeLineBaseChange_of_main HeightBC.hodgeLineBaseChange_of_two HeightBC.hodgeSpanBC_of HeightBC.hom_genericUnit HeightBC.hom_genericUnit' HeightBC.hom_unitSection HeightBC.isAnalyticUniformization_bcPts HeightBC.isField_stalk_genericPt HeightBC.isIso_stalkSpecializes_bcMap HeightBC.isUnit_germ_genericPt HeightBC.isUnit_structMap HeightBC.jacDet_bcPts HeightBC.jacobianPullbackSpan_of HeightBC.jacobianSemilinear HeightBC.jacobianSemilinear_of HeightBC.locSub HeightBC.mapCotangent_injective_of_isIso HeightBC.mapCotangent_smul' HeightBC.map_zero_of_hom HeightBC.maximalIdeal_stalk_genericPt HeightBC.mem_locSub HeightBC.mem_of_forall_locSub HeightBC.metrizationBaseChange_of_hodgeLine HeightBC.modelHeightBaseChangeGE_of_descent HeightBC.modelHeightBaseChangeGE_of_descentHalf HeightBC.modelHeightBaseChangeGE_of_main HeightBC.modelHeightBaseChangeGE_of_two HeightBC.modelHeightBaseChangeLE_of_metrization HeightBC.modelHeightBaseChange_of_descent HeightBC.modelHeightBaseChange_of_final HeightBC.modelHeightBaseChange_of_five HeightBC.modelHeightBaseChange_of_four HeightBC.modelHeightBaseChange_of_glue HeightBC.modelHeightBaseChange_of_glue4 HeightBC.modelHeightBaseChange_of_glue5 HeightBC.modelHeightBaseChange_of_main HeightBC.modelHeightBaseChange_of_two HeightBC.modelHeight_eq_of_isHodgeBaseChange HeightBC.multilinear_mem_span HeightBC.omegaAt_bc_local HeightBC.omegaAt_full HeightBC.omegaAt_open HeightBC.omegaAt_sat HeightBC.omegaBaseChange HeightBC.omegaBaseChange_of_localization HeightBC.omegaLocalization HeightBC.one_mem_dom HeightBC.ptC_hom_apply HeightBC.ptC_hom_comp_bO HeightBC.ptsBaseChangeBij HeightBC.ptsBaseChangeMul HeightBC.rationalOver_genericUnit HeightBC.secIndex_baseChange HeightBC.secIndex_map HeightBC.secIndex_ne_zero_of_baseChange HeightBC.secIndex_nsmul_mem HeightBC.smul_cotangent_eq_of_sub_mem HeightBC.span_bcHodge_le HeightBC.spec_mem_of_ker HeightBC.stalkMapAt_germ' HeightBC.stalkSpec_comp_apply HeightBC.stalkSpec_self_apply HeightBC.stalkSpecializes_self_apply' HeightBC.stalkSpecializes_stalkSpecializes_apply' HeightBC.structMap_eq_spec HeightBC.structMap_eq_stalkMap HeightBC.toCotangent_mul HeightBC.uniformizationLift HeightBC.uniformizationLiftAnalytic HeightBC.uniformizationLift_of HeightBC.unitSection_comp_hom HeightBC.unitSection_stalkMapAt_hom HeightBC.σFF HeightBC.φL HeightBC.φL_algebraMap LeafPush2.CPts LeafPush2.Char2 LeafPush2.HasSexticModel LeafPush2.IC10 LeafPush2.IC2 LeafPush2.IC4 LeafPush2.IC6 LeafPush2.IgJ10 LeafPush2.IgJ2 LeafPush2.IgJ4 LeafPush2.IgJ6 LeafPush2.IsGenus2 LeafPush2.IsPeriodMatrix LeafPush2.IsSiegel LeafPush2.IsUniformization LeafPush2.LinYangTuple LeafPush2.OnQMLocus LeafPush2.T10_groupIso LeafPush2.T11a_RiemannEnd LeafPush2.T11b_Rigidity LeafPush2.T12_ComplexConjEigen LeafPush2.UniformizationExists LeafPush2.absLogHeight LeafPush2.cDom LeafPush2.cEvalAt LeafPush2.cptObj LeafPush2.dsq LeafPush2.exists_isComplexConj LeafPush2.ffAlgebra LeafPush2.ffStructMap LeafPush2.isSiegel_I LeafPush2.javanpeykarBound LeafPush2.javanpeykarBound_mono LeafPush2.javanpeykarBound_pos LeafPush2.linYangTuple_onQMLocus LeafPush2.linYang_j_eq LeafPush2.onQMLocus_of_linYangTuple LeafPush2.pazukiC2 LeafPush2.sextic LeafPush2.thetaConst) -- op-dedupe
+open _root_.LeafQM.AV (CMExists HasCM24 HasCM24.of_iso HasCM3 HasCM3.of_iso HasCM4 HasCM4.of_iso IsBaseChangeOf IsBaseChangeOfPair IsFibreOf Level3 Level3.bcPt_pow_three Level3.eq_iff Level3.exists_mul_of_range_le Level3.ext' Level3.onto Level3.range_le Level3.rightMul Level3.rightMul_eq_self Level3.rightMul_rightMul Level3.torsor Level3.twist M3 M3.mk M3.rightMul M3.rightMul_rightMul M3.twist M3.twist_mk Pin.AutOExt.NormalizerFinite Pin.AutOExt.alpha_nat_smul Pin.AutOExt.autOInnerFinite_of_normalizer Pin.AutOExt.common_den Pin.AutOExt.conjUnit Pin.AutOExt.conj_of_skolem Pin.AutOExt.den_mul_int Pin.AutOExt.exists_nat_smul_mem Pin.AutOExt.extAlgEquiv Pin.AutOExt.extAlgHom Pin.AutOExt.extAlgHom_coe Pin.AutOExt.extAlgHom_symm_comp Pin.AutOExt.extDen Pin.AutOExt.extDen_mem Pin.AutOExt.extDen_pos Pin.AutOExt.extFun Pin.AutOExt.extFun_add Pin.AutOExt.extFun_algebraMap Pin.AutOExt.extFun_coe Pin.AutOExt.extFun_eq Pin.AutOExt.extFun_mul Pin.AutOExt.key_conj Pin.AutOExt.mem_O_of_int Pin.AutOExt.natCast_mul_eq_smul Pin.AutOExt.nat_smul_mem Pin.AutOExt.smul_mul_smul' Pin.AutOInnerFinite Pin.ConstOrOntoAlgClosed Pin.CurveRatFactor Pin.CurveSurj Pin.GeomCompConstOrOnto Pin.GeomCompFinite Pin.GeomCompInfinite Pin.GeomCompRatFactor Pin.ImagePlane.ev_comp Pin.ImagePlane.ev_spec_top Pin.ImagePlane.ptOf_comp Pin.ImagePlane.ptOf_spec_asIdeal Pin.IsNaturalRelabel Pin.Mob.eval_ne_zero_of_coprime Pin.Mob.exists_interp Pin.Mob.isCoprime_X_sub_C_of_eval_one Pin.Mob.natDegree_le_one_of_injective Pin.Mob.ratEval Pin.Mob.ratEval_eq_self Pin.Mob.wronskian_ne_zero Pin.MobiusGlue Pin.NormO.IsNorm Pin.NormO.IsNorm.inv Pin.NormO.IsNorm.mul Pin.NormO.T Pin.NormO.T_finite Pin.NormO.T_mul_ui Pin.NormO.T_mul_uj Pin.NormO.bas Pin.NormO.conjC Pin.NormO.descent Pin.NormO.dvd_of_prime_dvd_nrd Pin.NormO.dvd_of_smul_mem Pin.NormO.ei Pin.NormO.ej Pin.NormO.inv_eq Pin.NormO.isNorm_sc Pin.NormO.isNorm_ui Pin.NormO.isNorm_uj Pin.NormO.mulCoord_conjC Pin.NormO.mulCoord_conjC' Pin.NormO.mulCoord_smul_left Pin.NormO.mulCoord_smul_right Pin.NormO.normalizerFinite Pin.NormO.nrdZ Pin.NormO.nrdZ_ei Pin.NormO.nrdZ_ej Pin.NormO.nrdZ_mul Pin.NormO.nrdZ_ne_zero Pin.NormO.nrdZ_smul Pin.NormO.nrd_dvd_coords Pin.NormO.ofInt_scalar Pin.NormO.rearrange Pin.NormO.sc Pin.NormO.six_sq_identities Pin.NormO.smul_ofInt Pin.NormO.three_dvd_mulCoord_ej Pin.NormO.two_dvd_mulCoord_ei Pin.NormO.ui Pin.NormO.uj Pin.PinUnique Pin.QMFamily.transport Pin.QML3.isoTransport Pin.R1fpProps.fam Pin.R1fpProps.univ Pin.RatFactorAlgClosed Pin.SameTriple Pin.SameTripleMor Pin.SmoothCurveNoIsolatedPoint Pin.SmoothStalkDimOne Pin.TwistClassFinite Pin.autOInnerFinite Pin.autRelabel Pin.autRelabel_natural Pin.bcPt Pin.bcPt_ptOfSection Pin.bcPt_snd Pin.bcQbar Pin.bcSnd Pin.cm_objects_of_R1R2fp Pin.conjUnitIso Pin.cst Pin.curveFacts_of_algClosed Pin.curveFacts_of_comp Pin.curveFacts_of_leaves Pin.curveFacts_of_named Pin.curveRatFactor_of_comp Pin.curveSurj_of_comp Pin.ev Pin.ev_cst Pin.ev_eq_zero_iff Pin.ev_f_mul_g Pin.ev_g_eq_zero Pin.ev_res Pin.ev_top Pin.exists_isOpen_singleton_of_finite_closedPoints Pin.exists_liftO_congr Pin.exists_point_of_isLocallyClosed Pin.geomComp Pin.geomCompConstOrOnto_of Pin.geomCompFinite Pin.geomCompInfinite_of Pin.geomCompRatFactor_of Pin.isFibreOf_transport Pin.isOpen_connectedComponent_of_noetherian Pin.level3_finite Pin.mem_V_of_not_mem_U Pin.phi_part Pin.pointwise_of_witness Pin.pointwise_of_witness_mor Pin.ptOf Pin.ptOfSection Pin.r1fpPin_aut Pin.r1fpPin_relabel_iff Pin.r2fp_aut Pin.relabel Pin.relabel_geometric Pin.relabel_is_morphism Pin.res Pin.res_res Pin.sameTripleMor_of_mobius Pin.sameTriple_aut Pin.smoothCurveNoIsolatedPoint_of Pin.transfer_exists Pin.transfer_pointwise Pin.transfer_pointwise_mor Pin.transportLevel Pin.twistClassFinite Pin.twistClassFinite_of Pin.val_bcPt Pin.val_of_mem Pin.val_of_not_mem PtEquiv QMFamily QMIso QMIso.nonempty_abVarIso QMIso.refl QMIso.symm QMIso.trans QML3 QML3.Iso QML3.Iso.refl QML3.Iso.rightMul QML3.Iso.symm QML3.Iso.trans QML3.Iso.twist QML3.forget QML3.rightMul QML3.rightMul_A QML3.rightMul_rightMul QML3.twist QML3.twist_A QMLeaves QMPair QMPair.twist QMStr QMStr.twist Qbar R1R2fp R1R2fp_Y R1famProps R1fp R1fpProps R1fp_of_R1R2fp R1heckeProps R1rec R1recProps R1univProps R2X6Props R2fpProps R2fpProps_of_X6 R5fp R5fpCount R5fpWeak R5fpWeak_of_R5fp R5ptProps ToP1 ToP1.comp ToP1.val ToP1.val_comp ToP1.val_comp_right UnramifiedAbove5 X6Props X6Surj act_mul_apply bcPt bcPt_injective cm_of_val com comEquiv com_twist conductor conjHom conjHom_iota conjHom_mem_com conjHom_symm_apply conj_iso_of_rational conj_twist_of_rational endPt exists_fibre_object fibre_conjugates_isomorphic fieldMap fieldOfModuli3 fieldOfModuliPair fieldPt galAct_bcPt hI hIJ hJ hasCM24_twist hasCM3_twist hasCM4_twist hrat inertCount6 intCast_mem_com isoSetoid leaves_on_one_witness liftO not_qmStr_zero ofInt_injective ofInt_sub oi oi_mul_oi oj oj_mul_oi_add oj_mul_oj pairSetoid qmAct residueImage residue_unramified_over_branch specMap_flat specMap_surjective specToEquivOfField_comp specToEquivOfField_comp_right stab3 stabPair three_mul_ofInt toKbar unramified_over_branch) -- op-dedupe
+open _root_.GlueDescent (B2.IsSignCocycle B2.SignCob B2.dB B2.dB_inv B2.dB_mul B2.exists_beta B2.isSignCocycle_dB B2.isSignCocycle_inv B2.isSignCocycle_mul B2.isSignCocycle_pull B2.pull B2.pull_dB B2.signCob_dB_iff B2.signCob_inv B2.signCob_mul B2Q.GQ B2Q.GQp B2Q.InflatedFrom B2Q.LeafHasse B2Q.LeafLocalTwo B2Q.LeafSqrtCrit B2Q.LeafUnramified B2Q.UnramifiedAt B2Q.act B2Q.act_mul B2Q.b2_of_leaves B2Q.cast_cast_of_dvd B2Q.chiLevel_pos B2Q.chi_toUnitHom_crt B2Q.cyc B2Q.cyc_eq_of_agree B2Q.cyc_isLocallyConstant B2Q.exists_crt_unit B2Q.galChar B2Q.galChar_isLocallyConstant B2Q.isLocallyConstant_of_openSubgroup B2Q.lev_eq_pow B2Q.resp B2Q.resp_continuous B2Q.sqrtU B2Q.sqrtU_sq B2Q.toRingAut B3Q.GQL B3Q.b3_degree_le_QM B3Q.b3_of_leaves B3Q.inflatedNormalized_of B3Q.mem_GQL B3Q.orderOf_pos_dirichlet B6 B6_commute_i_j B6_inner B6_isCentral B6_isSimpleRing B6_star_mul InflatedNormalized IsCochainFor LeafSkolemNoether MatrixUnits2 MatrixUnits2.W MatrixUnits2.e00_of_mem MatrixUnits2.e_apply_e MatrixUnits2.finrank_W MatrixUnits2.mapsTo_W MatrixUnits2.mem_W_of_e0 MatrixUnits2.splitEquiv MatrixUnits2.splitEquiv_intertwines aniso_int aniso_rat boundary_sq chi chiLevel cochain_conj cochain_mul_kernel cochain_mul_left cochain_mul_right cochain_of_boundary_eq cochain_one cocycle_of_projective commute_adjoin contactSupport_pos degree_le_QM exists_chi exists_odd_char heightD_pos index_kernel_le inertia_le_kernel kernelSubgroup kernelSubgroup_le kernelSubgroup_normal lev lev_dvd_chiLevel mem_kernelSubgroup oddChar oddChar_neg_one orderOf_dvd_totient orderOf_prod_dvd prod_S_le prod_odd_le prod_odd_le_aux prod_totient_lev_le qi qj ramSet relindex_kernel_le restrictHom rho rhoRep rho_commute rho_eq_act rho_map_mul sign_cocycle sign_normalization sign_sq_eq_one ten_le_heightE0 three_dvd_of_form totient_lev twist twist_kills_inertia twist_sq two_lt_lev zmod3_aniso) -- op-dedupe
+open _root_.G0ModField (CommonConstituent ConjugacyData DescentDatum FibreCoverExists FibreCoverOut FibreCtx G2Out G4Out G7Out GaloisCopy.G2Out GaloisCopy.G7Out GaloisCopy.Vb GaloisCopy.resQ GaloisCopy.tate IF IsModelOver IsQMModel IsQMModel.isModelOver KernelFieldExists KernelFieldOut ModularConstituentG PtQ RationalFibre ResQRange T UnramifiedSup actK actQ admissible_S_mul b2_of_leaves_level b3_of_cochain baseChangeTrans card_ker_GL descentDatum_bot descentDatum_of_conjugacy fieldDescent g2Out_of_cover g4Out_of_kernelField g7Out_of_g4Out galAct_bijective galAct_mul incAlg isModelOver_baseChange le_heightD_of_mem_S_mul mem_GQL_bot normA numberField_of_fd resQRange resQ_comm' resQ_range sgnU sgnU_mul sgnU_mul_abs sgnU_sq toLAut toLAut_apply two_mem_T) -- op-dedupe
+open _root_.UnramTate (EndBaseChange PtA ResQEmbedding ScalarTransfer TateCont TatePoints bcPt bcPt_galAct conjE conjE_apply endBC endBaseChange eps_right_one hO homEquiv_mul iO iO_jO iO_sq incO' incO'_coe inertia_trivial' instGaloisQbar' jO jO_sq lift_fixes' matrixUnits_of_quat numberField_of_fd'' opV opVHom ptMapIso quat_words resQEmbedding sK scalarTransfer specMap_comp_sK tateCont_of_tateModuleFree tateMap_add tateMap_comp tateMap_id tateMap_zero tatePoints tate_eq_opV tmOf trHom trHom_comp_symm trHom_left trHom_symm_comp trPt trPt_galAct unramifiedSup_mf) -- op-dedupe
 
 /-! ## The Tate functor on an additive equivalence -/
 
-/-- `T_ℓ(Θ)` for an additive equivalence `Θ : M ≃+ N`, as a `ℤ_ℓ`-linear equivalence. -/
-def tateMapEquiv (ℓ : ℕ) [Fact ℓ.Prime] {M N : Type*} [AddCommGroup M] [AddCommGroup N]
-    (Θ : M ≃+ N) : PkgI3.Tate.T ℓ M ≃ₗ[ℤ_[ℓ]] PkgI3.Tate.T ℓ N :=
-  LinearEquiv.ofLinear (PkgI3.Tate.map (ℓ := ℓ) Θ.toAddMonoidHom)
-    (PkgI3.Tate.map (ℓ := ℓ) Θ.symm.toAddMonoidHom)
-    (LinearMap.ext fun x => Subtype.ext (funext fun n => Θ.apply_symm_apply (x.1 n)))
-    (LinearMap.ext fun x => Subtype.ext (funext fun n => Θ.symm_apply_apply (x.1 n)))
-
-/-- Conjugation commutes with base change. -/
-theorem conj_baseChange {R A M N : Type*} [CommRing R] [CommRing A] [Algebra R A]
-    [AddCommGroup M] [Module R M] [AddCommGroup N] [Module R N] (e : M ≃ₗ[R] N)
-    (f : Module.End R M) :
-    (e.baseChange R A M N).conj (f.baseChange A) = (e.conj f).baseChange A := by
-  rw [LinearEquiv.conj_apply, LinearEquiv.conj_apply, ← LinearEquiv.baseChange_symm,
-    LinearEquiv.coe_baseChange, LinearEquiv.coe_baseChange, LinearMap.baseChange_comp,
-    LinearMap.baseChange_comp]
-
 /-! ## The glue Prop: reduction of the algebraic maps `m_σ` modulo `p` -/
-
-/-- **`AlgFrobLink` (GLUE, AV side; Glazer N5 L777-786; reduction of abelian varieties).** Let
-`A` be an abelian variety over a finite Galois `L ⊆ ℚ̄` and `m_σ` (`σ ∈ G_ℚ`) additive maps of
-`A(ℚ̄)` with three of `DescentDatum`'s clauses, copied verbatim: `m_σ` is the Galois action for
-`σ ∈ G_L`; `m_{σk} = m_σ m_k`, `m_{kσ} = m_k m_σ` for `k ∈ G_L`; and `m_σ` is algebraic,
-`m_σ(x) = F_σ ∘ x ∘ Spec(σ)` for a finite surjective morphism of schemes `F_σ : A → A`. Then there
-is a finite set `S` of primes such that, for every arithmetic Frobenius `τ` at a place `v` above
-`p ∉ S` and every `g ∈ G_ℚ` (`gτg⁻¹` is an arithmetic Frobenius at `g(v)`), there are an
-abelian variety `Ā` over a field `k` of characteristic `p`, an endomorphism `α'` of `Ā` and
-`N ≠ 0` such that for every prime `ℓ ≠ p` some `ℚ_ℓ`-isomorphism
-`ℚ_ℓ ⊗ T_ℓ(A(ℚ̄)) ≅ V_ℓ(Ā)` carries `N · V_ℓ(m_{gτg⁻¹})` to `V_ℓ(α')`.
-
-Why it is true (SPECULATIVE in its Lean details; `N = 1` works): by the first two clauses one
-`F_{σ_s}` serves the whole coset `σ_s G_L`, so finitely many morphisms occur (this is the proved
-step `algFrobLink_of_one`). Put `σ' = gτg⁻¹` and `w = g(v) ∩ L`, not `v ∩ L`: `σ'` lies in the
-decomposition group of `g(v)`. Put in `S` the primes of bad reduction of `A` and the primes below
-which some `F_{σ_s}` does not extend to the abelian scheme. For `p ∉ S`, `Ā` is the reduction of
-`A` at `w` over `k = κ(w)`. On prime-to-`p` torsion, reduction is a bijection
-`A(ℚ̄)[ℓⁿ] ≅ Ā(k̄)[ℓⁿ]` (leaf I2-Red, `PkgI2.ReductionTorsionBijective`, Serre–Tate 1968 §1).
-Under it, `σ'` acting on coordinates becomes the `p`-power map of `k̄` (`IsArithFrob`), which on
-`k̄`-points is the absolute Frobenius of `Ā`, and `F_{σ'}` becomes its reduction `F̄_{σ'}` (Néron
-mapping property of the abelian scheme, leaf I2-NMP, `PkgI2.NeronMappingAbelianScheme`). So
-`m_{σ'}` becomes `α' = F̄_{σ'} ∘ Fr_Ā`, a `k`-morphism
-fixing `0`, hence an endomorphism of `Ā`, the same for every `ℓ ≠ p`. -/
-def AlgFrobLink : Prop :=
-  ∀ (L : IF) [FiniteDimensional ℚ L] [IsGalois ℚ L] (A : PkgI3.AbVar L)
-    (m : GQ → (PtQ L A →+ PtQ L A)),
-    (∀ (σ : GQ) (σ' : Qbar ≃ₐ[L] Qbar), (∀ x, σ' x = act σ x) →
-        m σ = MonoidHom.toAdditive (A.galAct σ')) →
-    (∀ σ k : GQ, k ∈ GQL L → m (σ * k) = (m σ).comp (m k) ∧ m (k * σ) = (m k).comp (m σ)) →
-    (∃ F : GQ → (A.X.left ⟶ A.X.left), ∀ σ, IsFinite (F σ) ∧ Surjective (F σ) ∧
-        ∀ x : PtQ L A, (Additive.toMul (m σ x)).left =
-          Spec.map (CommRingCat.ofHom ((act σ : Qbar ≃ₐ[ℚ] Qbar) : Qbar →+* Qbar)) ≫
-            (Additive.toMul x).left ≫ F σ) →
-    ∃ S : Finset ℕ, ∀ p : ℕ, p.Prime → p ∉ S →
-      ∀ (v : ValuationSubring PkgI4.Qbar) (τ : PkgI4.GQ),
-        PkgI4.LiesOver v p → PkgI4.IsArithFrob τ v p → ∀ g : PkgI4.GQ,
-        ∃ (k : Type) (_ : Field k), CharP k p ∧ ∃ (Ab : PkgI3.AbVar k)
-          (α : PkgI3.AbVar.End Ab) (N : ℕ), N ≠ 0 ∧
-          ∀ (ℓ : ℕ) [Fact ℓ.Prime], ℓ ≠ p →
-            ∃ Ψ : TensorProduct ℤ_[ℓ] ℚ_[ℓ] (PkgI3.Tate.T ℓ (PtQ L A)) ≃ₗ[ℚ_[ℓ]] Ab.V ℓ,
-              Ψ.conj ((N : ℚ_[ℓ]) •
-                  (PkgI3.Tate.map (ℓ := ℓ) (m (g * τ * g⁻¹))).baseChange ℚ_[ℓ]) =
-                (PkgI3.AbVar.homT (ℓ := ℓ) α).baseChange ℚ_[ℓ]
-
-/-- **`AlgFrobOne` (GLUE, AV side; Glazer N5 L777-786; reduction of one morphism modulo `p`).**
-`AlgFrobLink` for a single morphism of schemes. Let `A` be an abelian variety over a finite Galois
-`L ⊆ ℚ̄` and `F : A → A` a finite surjective morphism of schemes. There is a finite set `S` of
-primes such that: for every arithmetic Frobenius `τ` at a place `v` above `p ∉ S`, every
-`g ∈ G_ℚ`, and every additive map `f` of `A(ℚ̄)` of the form `f(x) = F ∘ x ∘ Spec(gτg⁻¹)`, there
-are an abelian variety `Ā` over a field `k` of characteristic `p`, `α' ∈ End(Ā)` and `N ≠ 0`
-such that for every prime `ℓ ≠ p` some `ℚ_ℓ`-isomorphism `ℚ_ℓ ⊗ T_ℓ(A(ℚ̄)) ≅ V_ℓ(Ā)` carries
-`N · V_ℓ(f)` to `V_ℓ(α')`.
-
-Why it is true (SPECULATIVE in its Lean details; `N = 1` works). If such an `f` exists, `F` lies
-over `Spec(s)` with `s = (gτg⁻¹)⁻¹|_L`, which is in the decomposition group of `w = g(v) ∩ L`;
-so `F` is an `L`-morphism `A → A^{(s)}`. Put in `S` the primes below which `A` has bad
-reduction or this `L`-morphism does not extend to the abelian-scheme models (spreading out; one
-condition: `s` is determined by `F`, since `Γ(A, 𝒪) = L`; `S` depends on `F` only). For `p ∉ S`,
-`Ā` is the reduction of `A` at `w`, over `k = κ(w)`. Reduction is a bijection on prime-to-`p`
-torsion (leaf I2-Red, `PkgI2.ReductionTorsionBijective`, Serre–Tate 1968 §1); under it,
-`gτg⁻¹` acting on coordinates becomes the `p`-power map of `k̄`, i.e. the absolute Frobenius
-`Fr_Ā` on `k̄`-points, and `F` becomes its reduction `F̄` (leaf I2-NMP,
-`PkgI2.NeronMappingAbelianScheme`). So `f` becomes `F̄ ∘ Fr_Ā`, which lies over `Spec(id_k)`
-and fixes `0` (`f` is additive), hence `α' := F̄ ∘ Fr_Ā ∈ End(Ā)` (rigidity, Mumford §4 Cor. 1,
-UNVERIFIED locator), the same for every `ℓ ≠ p`. -/
-def AlgFrobOne : Prop :=
-  ∀ (L : IF) [FiniteDimensional ℚ L] [IsGalois ℚ L] (A : PkgI3.AbVar L)
-    (F : A.X.left ⟶ A.X.left), IsFinite F → Surjective F →
-    ∃ S : Finset ℕ, ∀ p : ℕ, p.Prime → p ∉ S →
-      ∀ (v : ValuationSubring PkgI4.Qbar) (τ : PkgI4.GQ),
-        PkgI4.LiesOver v p → PkgI4.IsArithFrob τ v p → ∀ (g : PkgI4.GQ)
-        (f : PtQ L A →+ PtQ L A), (∀ x : PtQ L A, (Additive.toMul (f x)).left =
-          Spec.map (CommRingCat.ofHom ((act (g * τ * g⁻¹) : Qbar ≃ₐ[ℚ] Qbar) : Qbar →+* Qbar)) ≫
-            (Additive.toMul x).left ≫ F) →
-        ∃ (k : Type) (_ : Field k), CharP k p ∧ ∃ (Ab : PkgI3.AbVar k)
-          (α : PkgI3.AbVar.End Ab) (N : ℕ), N ≠ 0 ∧
-          ∀ (ℓ : ℕ) [Fact ℓ.Prime], ℓ ≠ p →
-            ∃ Ψ : TensorProduct ℤ_[ℓ] ℚ_[ℓ] (PkgI3.Tate.T ℓ (PtQ L A)) ≃ₗ[ℚ_[ℓ]] Ab.V ℓ,
-              Ψ.conj ((N : ℚ_[ℓ]) • (PkgI3.Tate.map (ℓ := ℓ) f).baseChange ℚ_[ℓ]) =
-                (PkgI3.AbVar.homT (ℓ := ℓ) α).baseChange ℚ_[ℓ]
-
-/-- **`AlgFrobLink` from `AlgFrobOne` (proved).** The maps `m_σ` take only finitely many shapes:
-for each `s ∈ Gal(L/ℚ)` fix one `σ_s` restricting to `s`; then
-`m_{σ_s k}(x) = F_{σ_s} ∘ x ∘ Spec(σ_s k)` for `k ∈ G_L` (second and first clauses), so one
-morphism `F_{σ_s}` serves the whole coset, and `S` is the union of the `|Gal(L/ℚ)|` sets
-`AlgFrobOne` gives for the `F_{σ_s}`. -/
-theorem algFrobLink_of_one (hO : AlgFrobOne) : AlgFrobLink := by
-  classical
-  intro L _ _ A m hmL hmLL hFalg
-  obtain ⟨F, hF⟩ := hFalg
-  let res : GQ →* (L ≃ₐ[ℚ] L) := AlgEquiv.restrictNormalHom (F := ℚ) (K₁ := Qbar) L
-  -- a representative of each restriction class
-  let rep : (L ≃ₐ[ℚ] L) → GQ := fun s =>
-    if h : ∃ σ : GQ, res σ = s then h.choose else 1
-  have hrep : ∀ σ : GQ, res (rep (res σ)) = res σ := by
-    intro σ
-    have h : ∃ σ' : GQ, res σ' = res σ := ⟨σ, rfl⟩
-    simp only [rep, h, dite_true]
-    exact h.choose_spec
-  choose Sf hSf using fun s : L ≃ₐ[ℚ] L => hO L A (F (rep s)) (hF (rep s)).1 (hF (rep s)).2.1
-  refine ⟨Finset.univ.biUnion Sf, fun p hp hpS v τ hv hτ g => ?_⟩
-  let σ' : GQ := g * τ * g⁻¹
-  let σ0 : GQ := rep (res σ')
-  have hpS0 : p ∉ Sf (res σ') := fun h' =>
-    hpS (Finset.mem_biUnion.mpr ⟨res σ', Finset.mem_univ _, h'⟩)
-  -- `k = σ0⁻¹ σ' ∈ G_L`
-  have hk : σ0⁻¹ * σ' ∈ GQL L := by
-    have h1 : res (σ0⁻¹ * σ') = 1 := by
-      rw [map_mul, map_inv, hrep, inv_mul_cancel]
-    rw [mem_GQL]
-    intro x hx
-    exact (AlgEquiv.restrictNormal_eq_one_iff L _).mp h1 x hx
-  have hσ' : σ' = σ0 * (σ0⁻¹ * σ') := by group
-  have hf : ∀ x : PtQ L A, (Additive.toMul (m σ' x)).left =
-      Spec.map (CommRingCat.ofHom ((act (g * τ * g⁻¹) : Qbar ≃ₐ[ℚ] Qbar) : Qbar →+* Qbar)) ≫
-        (Additive.toMul x).left ≫ F σ0 := by
-    intro x
-    have hm : m σ' = (m σ0).comp (m (σ0⁻¹ * σ')) := by
-      conv_lhs => rw [hσ']
-      exact (hmLL σ0 _ hk).1
-    have hmk := hmL (σ0⁻¹ * σ') (toLAut _ hk) (fun _ => rfl)
-    rw [hm, AddMonoidHom.comp_apply, (hF σ0).2.2, hmk]
-    show Spec.map (CommRingCat.ofHom ((act σ0 : Qbar ≃ₐ[ℚ] Qbar) : Qbar →+* Qbar)) ≫
-        (PkgI3.AbVar.galHom (toLAut _ hk) ≫ Additive.toMul x).left ≫ F σ0 = _
-    have hSpec : Spec.map (CommRingCat.ofHom ((act σ0 : Qbar ≃ₐ[ℚ] Qbar) : Qbar →+* Qbar)) ≫
-        Spec.map (CommRingCat.ofHom ((toLAut _ hk : Qbar ≃ₐ[L] Qbar) : Qbar →+* Qbar)) =
-        Spec.map (CommRingCat.ofHom ((act (g * τ * g⁻¹) : Qbar ≃ₐ[ℚ] Qbar) : Qbar →+* Qbar)) := by
-      rw [← Spec.map_comp, ← CommRingCat.ofHom_comp]
-      congr 2
-      ext y
-      have h0 : σ0 * (σ0⁻¹ * σ') = σ' := by group
-      exact congrArg (fun s : GQ => act s y) h0
-    rw [← hSpec, Category.assoc]
-    rfl
-  exact hSf (res σ') p hp hpS0 v τ hv hτ g (m σ') hf
 
 /-! ## `AlgFrobOne` from a reduction homomorphism on points -/
 
-/-- `T_ℓ(r)` is bijective if `r` is injective on `ℓ`-power torsion and every `ℓⁿ`-torsion point
-of the target has an `ℓⁿ`-torsion preimage. -/
-theorem tateMap_bijective (ℓ : ℕ) [Fact ℓ.Prime] {M N : Type*} [AddCommGroup M]
-    [AddCommGroup N] (r : M →+ N)
-    (hinj : ∀ (n : ℕ) (x : M), (ℓ ^ n) • x = 0 → r x = 0 → x = 0)
-    (hsurj : ∀ (n : ℕ) (y : N), (ℓ ^ n) • y = 0 → ∃ x, (ℓ ^ n) • x = 0 ∧ r x = y) :
-    Function.Bijective (PkgI3.Tate.map (ℓ := ℓ) r) := by
-  constructor
-  · rw [injective_iff_map_eq_zero]
-    intro x hx
-    apply Subtype.ext
-    funext n
-    exact hinj n (x.1 n) (PkgI3.Tate.pow_smul_eq_zero x.2 n)
-      (congrFun (congrArg Subtype.val hx) n)
-  · intro y
-    choose X hX using fun n => hsurj n (y.1 n) (PkgI3.Tate.pow_smul_eq_zero y.2 n)
-    have h0 : X 0 = 0 := by simpa using (hX 0).1
-    have hs : ∀ n, ℓ • X (n + 1) = X n := by
-      intro n
-      have := hinj n (ℓ • X (n + 1) - X n) (by
-          rw [smul_sub, smul_smul, ← pow_succ, (hX (n + 1)).1, (hX n).1, sub_zero])
-        (by rw [map_sub, map_nsmul, (hX (n + 1)).2, (hX n).2, y.2.2 n, sub_self])
-      exact sub_eq_zero.mp this
-    exact ⟨⟨X, h0, hs⟩, Subtype.ext (funext fun n => (hX n).2)⟩
-
-/-- **`AlgFrobRed` (GLUE, AV side; Glazer N5 L777-786; the reduction map).** `AlgFrobOne` with
-the `ℓ`-adic isomorphisms replaced by one homomorphism on points: for `F`, `S`, `p ∉ S`, `τ`, `g`
-and `f(x) = F ∘ x ∘ Spec(gτg⁻¹)` as in `AlgFrobOne`, there are an abelian variety `Ā` over a
-field `k` of characteristic `p`, `α' ∈ End(Ā)`, `N ≠ 0` and a group homomorphism
-`red : A(ℚ̄) → Ā(k̄)` with `red ∘ (N·f) = α' ∘ red`, injective on `ℓ`-power torsion and with
-every `ℓⁿ`-torsion point of `Ā(k̄)` the image of an `ℓⁿ`-torsion point, for every prime `ℓ ≠ p`.
-
-Why it is true (SPECULATIVE in its Lean details; `N = 1`). `S` as in `AlgFrobOne`. Let
-`v' = g(v)`, at which `σ' = gτg⁻¹` is an arithmetic Frobenius, `w = v' ∩ L`, `𝒜` the abelian
-scheme over `O_w`, `Ā` its special fibre over `k = κ(w)`. `red` is the reduction map
-`A(ℚ̄) = 𝒜(O_{v'}) → Ā(κ(v'))` (valuative criterion of properness), followed by a `k`-isomorphism
-`κ(v') ≅ k̄`. Since `σ'` preserves `O_{v'}` and `F` extends to `𝒜` (leaf I2-NMP), `f` lifts to
-`𝒜(O_{v'})` and reduces to `x̄ ↦ F̄ ∘ x̄ ∘ Spec(Frob_p) = (F̄ ∘ Fr_Ā)(x̄)`, which is
-`α' := F̄ ∘ Fr_Ā ∈ End(Ā)` (see `AlgFrobOne`). The torsion clauses are leaf I2-Red
-(`PkgI2.ReductionTorsionBijective`, Serre–Tate 1968 §1) for `m = ℓⁿ`, prime to `p`. -/
-def AlgFrobRed : Prop :=
-  ∀ (L : IF) [FiniteDimensional ℚ L] [IsGalois ℚ L] (A : PkgI3.AbVar L)
-    (F : A.X.left ⟶ A.X.left), IsFinite F → Surjective F →
-    ∃ S : Finset ℕ, ∀ p : ℕ, p.Prime → p ∉ S →
-      ∀ (v : ValuationSubring PkgI4.Qbar) (τ : PkgI4.GQ),
-        PkgI4.LiesOver v p → PkgI4.IsArithFrob τ v p → ∀ (g : PkgI4.GQ)
-        (f : PtQ L A →+ PtQ L A), (∀ x : PtQ L A, (Additive.toMul (f x)).left =
-          Spec.map (CommRingCat.ofHom ((act (g * τ * g⁻¹) : Qbar ≃ₐ[ℚ] Qbar) : Qbar →+* Qbar)) ≫
-            (Additive.toMul x).left ≫ F) →
-        ∃ (k : Type) (_ : Field k), CharP k p ∧ ∃ (Ab : PkgI3.AbVar k)
-          (α : PkgI3.AbVar.End Ab) (N : ℕ), N ≠ 0 ∧
-          ∃ red : PtQ L A →+ Additive (Ab.Pt (AlgebraicClosure k)),
-            (∀ x, red (N • f x) =
-              MonoidHom.toAdditive (PkgI3.AbVar.ptMap (L := AlgebraicClosure k) α) (red x)) ∧
-            ∀ ℓ : ℕ, ℓ.Prime → ℓ ≠ p → ∀ n : ℕ,
-              (∀ x : PtQ L A, (ℓ ^ n) • x = 0 → red x = 0 → x = 0) ∧
-              (∀ y, (ℓ ^ n) • y = 0 → ∃ x, (ℓ ^ n) • x = 0 ∧ red x = y)
-
-/-- **`AlgFrobOne` from `AlgFrobRed` (proved):** `Ψ = ℚ_ℓ ⊗ T_ℓ(red)`. -/
-theorem algFrobOne_of_red (hR : AlgFrobRed) : AlgFrobOne := by
-  intro L _ _ A F hF1 hF2
-  obtain ⟨S, hS⟩ := hR L A F hF1 hF2
-  refine ⟨S, fun p hp hpS v τ hv hτ g f hf => ?_⟩
-  obtain ⟨k, _, hk, Ab, α, N, hN, red, hred, hbij⟩ := hS p hp hpS v τ hv hτ g f hf
-  refine ⟨k, _, hk, Ab, α, N, hN, fun ℓ _ hℓp => ?_⟩
-  let Ψ0 := LinearEquiv.ofBijective (PkgI3.Tate.map (ℓ := ℓ) red)
-    (tateMap_bijective ℓ red (fun n => (hbij ℓ (Fact.out) hℓp n).1)
-      (fun n => (hbij ℓ (Fact.out) hℓp n).2))
-  refine ⟨Ψ0.baseChange ℤ_[ℓ] ℚ_[ℓ] _ _, ?_⟩
-  have h1 : Ψ0.conj (N • PkgI3.Tate.map (ℓ := ℓ) f) = PkgI3.AbVar.homT (ℓ := ℓ) α := by
-    apply LinearMap.ext
-    intro z
-    obtain ⟨w, rfl⟩ := Ψ0.surjective z
-    rw [LinearEquiv.conj_apply_apply, LinearEquiv.symm_apply_apply]
-    apply Subtype.ext
-    funext n
-    show (PkgI3.Tate.map red ((N • PkgI3.Tate.map f) w)).1 n =
-      (PkgI3.AbVar.homT (ℓ := ℓ) α (PkgI3.Tate.map red w)).1 n
-    rw [LinearMap.smul_apply, map_nsmul]
-    simp only [AddSubgroup.coe_nsmul, Pi.smul_apply, PkgI3.Tate.map_apply, PkgI3.AbVar.homT]
-    rw [← map_nsmul, hred]
-  have h2 : (N : ℚ_[ℓ]) • (PkgI3.Tate.map (ℓ := ℓ) f).baseChange ℚ_[ℓ] =
-      (N • PkgI3.Tate.map (ℓ := ℓ) f).baseChange ℚ_[ℓ] := by
-    rw [← Nat.cast_smul_eq_nsmul ℤ_[ℓ] N (PkgI3.Tate.map (ℓ := ℓ) f), LinearMap.baseChange_smul,
-      Nat.cast_smul_eq_nsmul, Nat.cast_smul_eq_nsmul]
-  rw [h2, conj_baseChange, h1]
-
 /-! ## From the points-level comparison to `FrobCompare` for `opV(Θ ∘ f ∘ Θ⁻¹)` -/
-
-/-- The comparison for `f` on `V_ℓ(A(ℚ̄))` gives the kernel's `FrobCompare` for the transported
-operator `opV(Θ ∘ f ∘ Θ⁻¹)` on `ℚ̄_ℓ ⊗ V_ℓ(A_{L'})`, for any additive bijection `Θ`. -/
-theorem frobCompare_opV_conjE {L : IF} (A : PkgI3.AbVar L) {K : Type} [Field K]
-    (A' : PkgI3.AbVar K) (Θ : PtQ L A ≃+ PtA A') (f : PtQ L A →+ PtQ L A)
-    (ℓ : ℕ) [Fact ℓ.Prime] {k : Type} [Field k] (Ab : PkgI3.AbVar k)
-    (α : PkgI3.AbVar.End Ab) (N : ℕ)
-    (Ψ : TensorProduct ℤ_[ℓ] ℚ_[ℓ] (PkgI3.Tate.T ℓ (PtQ L A)) ≃ₗ[ℚ_[ℓ]] Ab.V ℓ)
-    (hΨ : Ψ.conj ((N : ℚ_[ℓ]) • (PkgI3.Tate.map (ℓ := ℓ) f).baseChange ℚ_[ℓ]) =
-      (PkgI3.AbVar.homT (ℓ := ℓ) α).baseChange ℚ_[ℓ]) :
-    GlueC10Link.FrobCompare ℓ (opV A' ℓ (conjE Θ f)) α N := by
-  let e := tateMapEquiv ℓ Θ
-  let Ψ' : A'.V ℓ ≃ₗ[ℚ_[ℓ]] Ab.V ℓ :=
-    (e.symm.baseChange ℤ_[ℓ] ℚ_[ℓ] (PkgI3.Tate.T ℓ (PtA A')) (PkgI3.Tate.T ℓ (PtQ L A))).trans Ψ
-  refine ⟨Ψ'.baseChange ℚ_[ℓ] (PadicAlgCl ℓ) (A'.V ℓ) (Ab.V ℓ), ?_⟩
-  -- the `ℚ_ℓ`-level identity
-  have h1 : Ψ'.conj ((N : ℚ_[ℓ]) •
-      (PkgI3.Tate.map (ℓ := ℓ) (conjE Θ f)).baseChange ℚ_[ℓ]) =
-      (PkgI3.AbVar.homT (ℓ := ℓ) α).baseChange ℚ_[ℓ] := by
-    rw [← hΨ]
-    apply LinearMap.ext
-    intro x
-    rw [LinearEquiv.conj_apply_apply, LinearEquiv.conj_apply_apply]
-    show (e.symm.baseChange ℤ_[ℓ] ℚ_[ℓ] _ _).trans Ψ _ = _
-    rw [LinearEquiv.trans_apply]
-    congr 1
-    rw [LinearEquiv.symm_trans_apply]
-    generalize Ψ.symm x = y
-    induction y using TensorProduct.induction_on with
-    | zero => simp only [map_zero]
-    | tmul q t =>
-      rw [← LinearEquiv.baseChange_symm, LinearEquiv.symm_symm, LinearEquiv.baseChange_tmul,
-        LinearMap.smul_apply, LinearMap.smul_apply, LinearMap.baseChange_tmul,
-        LinearMap.baseChange_tmul, map_smul, LinearEquiv.baseChange_tmul]
-      congr 2
-      apply Subtype.ext
-      funext n
-      show Θ.symm (Θ (f (Θ.symm (Θ (t.1 n))))) = f (t.1 n)
-      rw [AddEquiv.symm_apply_apply, AddEquiv.symm_apply_apply]
-    | add y z hy hz => simp only [map_add, hy, hz]
-  -- base change to `ℚ̄_ℓ`
-  have h2 : ((N : PadicAlgCl ℓ) • opV A' ℓ (conjE Θ f)) =
-      (((N : ℚ_[ℓ]) • (PkgI3.Tate.map (ℓ := ℓ) (conjE Θ f)).baseChange ℚ_[ℓ])).baseChange
-        (PadicAlgCl ℓ) := by
-    rw [LinearMap.baseChange_smul, Nat.cast_smul_eq_nsmul, Nat.cast_smul_eq_nsmul]
-    rfl
-  rw [h2, conj_baseChange, h1]
 
 /-! ## Rescaling the scalars of `G7Out` -/
 
-/-- `G7Out` is preserved by multiplying `a` and `β` by one nonzero `φ` that is `1` on `G_K`
-(with `ε` multiplied by `∂φ`); `ρ = β⁻¹ a T` does not change. -/
-theorem g7Out_rescale {K : Type} [Field K] [NumberField K] (A : PkgI3.AbVar K) (ℓ : ℕ)
-    [Fact ℓ.Prime] (Tm : PkgI4.GQ → Module.End (PadicAlgCl ℓ) (GaloisCopy.Vb A ℓ))
-    (c ε : PkgI4.GQ → PkgI4.GQ → PadicAlgCl ℓ) (a β a₂ β₂ φ : PkgI4.GQ → PadicAlgCl ℓ)
-    (u : GlueDescent.MatrixUnits2 (PadicAlgCl ℓ) (GaloisCopy.Vb A ℓ))
-    (hφ0 : ∀ g, φ g ≠ 0) (hφ1 : ∀ σ, φ (GaloisCopy.resQ K σ) = 1)
-    (ha₂ : ∀ g, a₂ g = φ g * a g) (hβ₂ : ∀ g, β₂ g = φ g * β g)
-    (h : GaloisCopy.G7Out A ℓ Tm c ε a β u) :
-    GaloisCopy.G7Out A ℓ Tm c (fun g g₂ => ε g g₂ * (φ g * φ g₂ / φ (g * g₂))) a₂ β₂ u := by
-  obtain ⟨hdim, hrk, hT, ha, hβ, hβ0, hres, hcomm, hcont⟩ := h
-  have hrho : ∀ g, GlueDescent.rho Tm a₂ β₂ g = GlueDescent.rho Tm a β g := by
-    intro g
-    unfold GlueDescent.rho
-    rw [ha₂, hβ₂]
-    congr 1
-    have h0 := hφ0 g
-    have h1 := hβ0 g
-    field_simp
-  refine ⟨hdim, hrk, hT, fun g g₂ => ?_, fun g g₂ => ?_, fun g => ?_, fun σ => ?_, hcomm, ?_⟩
-  · rw [ha₂, ha₂, ha₂]
-    have h0 := hφ0 (g * g₂)
-    have := ha g g₂
-    calc φ g * a g * (φ g₂ * a g₂) * c g g₂ = φ g * φ g₂ * (a g * a g₂ * c g g₂) := by ring
-      _ = φ g * φ g₂ * (ε g g₂ * a (g * g₂)) := by rw [this]
-      _ = ε g g₂ * (φ g * φ g₂ / φ (g * g₂)) * (φ (g * g₂) * a (g * g₂)) := by
-        field_simp
-  · rw [hβ₂, hβ₂, hβ₂]
-    have h0 := hφ0 (g * g₂)
-    have := hβ g g₂
-    calc φ g * β g * (φ g₂ * β g₂) = φ g * φ g₂ * (β g * β g₂) := by ring
-      _ = φ g * φ g₂ * (ε g g₂ * β (g * g₂)) := by rw [this]
-      _ = ε g g₂ * (φ g * φ g₂ / φ (g * g₂)) * (φ (g * g₂) * β (g * g₂)) := by
-        field_simp
-  · rw [hβ₂]; exact mul_ne_zero (hφ0 g) (hβ0 g)
-  · obtain ⟨h1, h2, h3⟩ := hres σ
-    exact ⟨h1, by rw [ha₂, hφ1, h2, _root_.one_mul], by rw [hβ₂, hφ1, h3, _root_.one_mul]⟩
-  · intro f v
-    have : (fun g => f (GlueDescent.rho Tm a₂ β₂ g v)) = fun g => f (GlueDescent.rho Tm a β g v) :=
-      funext fun g => by rw [hrho]
-    rw [this]
-    exact hcont f v
-
 /-! ## The scalars in `ℚ̄` -/
-
-/-- **The scalar link (proved, no leaf).** From the data of B1/B2 (`a > 0` real, `c = n/d`,
-`ε` a sign cocycle with `a_σ a_τ c(σ,τ) = ε(σ,τ) a_{στ}`, `∂β = ε`, `a = β = 1` on `G_{L'}`):
-`γQ : G_ℚ → ℚ̄^×` with `∂γQ = c` and `γQ = 1` on `G_{L'}` (the algebraic form of `β/a`), and
-`βQ : G_ℚ → ℚ̄` with `ιC ∘ βQ = β` for one embedding `ιC : ℚ̄ → ℂ`. The values of `β/a` and of `β`
-are algebraic because their `r`-th powers lie in `ℚ`, resp. are `±1`, where `r` is the order of
-`σ|_{L'}`. -/
-theorem scalarsQbar (L' : IF) [FiniteDimensional ℚ L'] [IsGalois ℚ L'] (a : GQ → ℝ)
-    (β : GQ → ℂˣ) (ε : GQ → GQ → ℂˣ) (n d : GQ → GQ → ℤ)
-    (hd : ∀ σ τ, d σ τ ≠ 0)
-    (hna : ∀ σ τ, (((a σ * a τ * ((n σ τ : ℝ) / d σ τ) : ℝ) : ℂ)) =
-      (ε σ τ : ℂ) * ((a (σ * τ) : ℝ) : ℂ))
-    (hβe : ∀ σ τ, β σ * β τ = ε σ τ * β (σ * τ))
-    (hε2 : ∀ σ τ, ε σ τ ^ 2 = 1)
-    (ha0 : ∀ σ, 0 < a σ)
-    (hone : ∀ k ∈ GQL L', a k = 1 ∧ β k = 1) :
-    ∃ (gamQ βQ : GQ → Qbar) (ιC : Qbar →ₐ[ℚ] ℂ), (∀ σ, gamQ σ ≠ 0) ∧
-      (∀ σ τ, gamQ σ * gamQ τ = ((n σ τ : Qbar) / (d σ τ : Qbar)) * gamQ (σ * τ)) ∧
-      (∀ k ∈ GQL L', gamQ k = 1) ∧ (∀ σ, ιC (βQ σ) = (β σ : ℂ)) := by
-  let gC : GQ → ℂ := fun σ => (β σ : ℂ) / ((a σ : ℝ) : ℂ)
-  let q : GQ → GQ → ℚ := fun σ τ => (n σ τ : ℚ) / d σ τ
-  have ha0' : ∀ σ, ((a σ : ℝ) : ℂ) ≠ 0 := fun σ => Complex.ofReal_ne_zero.mpr (ha0 σ).ne'
-  have hq : ∀ σ τ, gC σ * gC τ = (q σ τ : ℂ) * gC (σ * τ) := by
-    intro σ τ
-    have h1 := hna σ τ
-    have h2 : (β σ : ℂ) * β τ = ε σ τ * β (σ * τ) := by
-      rw [← Units.val_mul, hβe σ τ, Units.val_mul]
-    have hdC : (d σ τ : ℂ) ≠ 0 := Int.cast_ne_zero.mpr (hd σ τ)
-    have hε : (ε σ τ : ℂ) = (((a σ * a τ * ((n σ τ : ℝ) / d σ τ)) : ℝ) : ℂ) /
-        ((a (σ * τ) : ℝ) : ℂ) := by
-      rw [h1, mul_div_cancel_right₀ _ (ha0' _)]
-    have hA := ha0' σ
-    have hB := ha0' τ
-    have hAB := ha0' (σ * τ)
-    simp only [gC, q]
-    rw [div_mul_div_comm, h2, hε]
-    push_cast
-    field_simp
-  have hg1 : ∀ k ∈ GQL L', gC k = 1 := by
-    intro k hk; simp only [gC]; rw [(hone k hk).1, (hone k hk).2]; simp
-  have hg0 : ∀ σ, gC σ ≠ 0 := fun σ => div_ne_zero (Units.ne_zero _) (ha0' σ)
-  have hpow : ∀ (σ : GQ) (k : ℕ), ∃ r : ℚ, gC σ ^ k = (r : ℂ) * gC (σ ^ k) := by
-    intro σ k
-    induction k with
-    | zero => exact ⟨1, by rw [pow_zero, pow_zero, hg1 1 (one_mem _)]; simp⟩
-    | succ k ih =>
-      obtain ⟨r, hr⟩ := ih
-      refine ⟨r * q (σ ^ k) σ, ?_⟩
-      rw [pow_succ, hr, _root_.mul_assoc, hq, pow_succ]
-      push_cast; ring
-  have hfin : ∀ σ : GQ, ∃ r : ℕ, 0 < r ∧ σ ^ r ∈ GQL L' := by
-    intro σ
-    let σ' : Qbar ≃ₐ[ℚ] Qbar := σ
-    let s := AlgEquiv.restrictNormalHom (F := ℚ) (K₁ := Qbar) L' σ'
-    have hs : IsOfFinOrder s := isOfFinOrder_of_finite s
-    refine ⟨orderOf s, hs.orderOf_pos, ?_⟩
-    have h1 : AlgEquiv.restrictNormalHom (F := ℚ) (K₁ := Qbar) L' (σ' ^ orderOf s) = 1 := by
-      rw [map_pow, pow_orderOf_eq_one]
-    rw [mem_GQL]
-    intro x hx
-    exact (AlgEquiv.restrictNormal_eq_one_iff L' _).mp h1 x hx
-  have halg : ∀ σ, IsIntegral ℚ (gC σ) := by
-    intro σ
-    obtain ⟨r, hr0, hr⟩ := hfin σ
-    obtain ⟨t, ht⟩ := hpow σ r
-    rw [hg1 _ hr, _root_.mul_one] at ht
-    refine ⟨Polynomial.X ^ r - Polynomial.C t, Polynomial.monic_X_pow_sub_C t hr0.ne', ?_⟩
-    simp [Polynomial.eval₂_sub, ht]
-  -- `β` is algebraic: `β(σ)^r = ±1`
-  have hpowβ : ∀ (σ : GQ) (k : ℕ), ∃ e : ℂ, e ^ 2 = 1 ∧
-      (β σ : ℂ) ^ k = e * (β (σ ^ k) : ℂ) := by
-    intro σ k
-    induction k with
-    | zero => exact ⟨1, by norm_num, by rw [pow_zero, pow_zero, (hone 1 (one_mem _)).2]; simp⟩
-    | succ k ih =>
-      obtain ⟨e, he, hk⟩ := ih
-      refine ⟨e * (ε (σ ^ k) σ : ℂ), ?_, ?_⟩
-      · rw [mul_pow, he, _root_.one_mul, ← Units.val_pow_eq_pow_val, hε2, Units.val_one]
-      · rw [pow_succ, hk, _root_.mul_assoc, ← Units.val_mul, hβe, Units.val_mul, pow_succ]
-        ring
-  have halgβ : ∀ σ, IsIntegral ℚ (β σ : ℂ) := by
-    intro σ
-    obtain ⟨r, hr0, hr⟩ := hfin σ
-    obtain ⟨e, he, ht⟩ := hpowβ σ r
-    rw [(hone _ hr).2, Units.val_one, _root_.mul_one] at ht
-    refine ⟨Polynomial.X ^ (r * 2) - Polynomial.C 1,
-      Polynomial.monic_X_pow_sub_C 1 (by omega), ?_⟩
-    simp [Polynomial.eval₂_sub, pow_mul, ht, he]
-  let F : IntermediateField ℚ ℂ :=
-    IntermediateField.adjoin ℚ (Set.range gC ∪ Set.range (fun σ => (β σ : ℂ)))
-  haveI : Algebra.IsAlgebraic ℚ F := IntermediateField.isAlgebraic_adjoin (by
-    rintro x (⟨σ, rfl⟩ | ⟨σ, rfl⟩)
-    · exact halg σ
-    · exact halgβ σ)
-  let ψ : F →ₐ[ℚ] Qbar := IsAlgClosed.lift
-  have hmem : ∀ σ, gC σ ∈ F := fun σ =>
-    IntermediateField.subset_adjoin ℚ _ (Or.inl ⟨σ, rfl⟩)
-  have hmemβ : ∀ σ, (β σ : ℂ) ∈ F := fun σ =>
-    IntermediateField.subset_adjoin ℚ _ (Or.inr ⟨σ, rfl⟩)
-  letI : Algebra F Qbar := ψ.toAlgebra
-  haveI : IsScalarTower ℚ F Qbar := IsScalarTower.of_algebraMap_eq (fun x => (ψ.commutes x).symm)
-  haveI : Algebra.IsAlgebraic F Qbar :=
-    Algebra.IsAlgebraic.extendScalars (R := ℚ) (algebraMap ℚ F).injective
-  let ιF : Qbar →ₐ[F] ℂ := IsAlgClosed.lift
-  let ιC : Qbar →ₐ[ℚ] ℂ := ιF.restrictScalars ℚ
-  have hιψ : ∀ x : F, ιC (ψ x) = x := fun x => ιF.commutes x
-  refine ⟨fun σ => ψ ⟨gC σ, hmem σ⟩, fun σ => ψ ⟨β σ, hmemβ σ⟩, ιC, ?_, ?_, ?_, ?_⟩
-  · intro σ h0
-    apply hg0 σ
-    have : (⟨gC σ, hmem σ⟩ : F) = 0 := ψ.toRingHom.injective (h0.trans (map_zero ψ).symm)
-    exact congrArg Subtype.val this
-  · intro σ τ
-    have hF : (⟨gC σ, hmem σ⟩ : F) * ⟨gC τ, hmem τ⟩ =
-        algebraMap ℚ F (q σ τ) * ⟨gC (σ * τ), hmem (σ * τ)⟩ := Subtype.ext (hq σ τ)
-    show ψ _ * ψ _ = _ * ψ _
-    rw [← map_mul, hF, map_mul, AlgHom.commutes]
-    congr 1
-    simp only [q, map_div₀, map_intCast]
-  · intro k hk
-    show ψ _ = 1
-    rw [← map_one ψ]
-    exact congrArg ψ (Subtype.ext (hg1 k hk))
-  · intro σ
-    exact hιψ ⟨β σ, hmemβ σ⟩
 
 /-! ## The assembly -/
 
@@ -4992,6 +4575,13 @@ namespace LGKerWild
 
 open CategoryTheory AlgebraicGeometry
 open _root_.ZInQ ZInQ LeafQM.AV GlueDescent GlueDescent.B2 GlueDescent.B2Q GlueDescent.B3Q G0ModField
+open _root_.ZInQ (Contrib.AbVarBC.G0FibreSimple.MulIsogeny Contrib.AbVarBC.MulRigidity.CotangentMulN Contrib.AbVarBC.MulRigidity.KerUnitOpen Contrib.AbVarBC.MulRigidity.KerUnitOpenOfCotangentSurj Contrib.AbVarBC.MulRigidity.MulEtale Contrib.AbVarBC.MulRigidity.MulUnramified Contrib.AbVarBC.MulRigidity.O0 Contrib.AbVarBC.MulRigidity.QuasiFiniteEndSurjective Contrib.AbVarBC.MulRigidity.charZero_residueField Contrib.AbVarBC.MulRigidity.cotangentMap Contrib.AbVarBC.MulRigidity.diagonal_isPullback Contrib.AbVarBC.MulRigidity.diffKer Contrib.AbVarBC.MulRigidity.formallyUnramified_of_kerUnit Contrib.AbVarBC.MulRigidity.isIsogenyMor_of_lqf_of_isOpenMap Contrib.AbVarBC.MulRigidity.isOpenImmersion_of_section Contrib.AbVarBC.MulRigidity.isProper_left Contrib.AbVarBC.MulRigidity.kerUnit Contrib.AbVarBC.MulRigidity.kerUnitOpen_of_cotangent Contrib.AbVarBC.MulRigidity.kerUnitOpen_of_mulEtale Contrib.AbVarBC.MulRigidity.locallyQuasiFinite_of_formallyUnramified Contrib.AbVarBC.MulRigidity.map_origin Contrib.AbVarBC.MulRigidity.mulIsogeny_of_cotangent Contrib.AbVarBC.MulRigidity.mulIsogeny_of_kerUnitOpen Contrib.AbVarBC.MulRigidity.mulIsogeny_of_mulEtale Contrib.AbVarBC.MulRigidity.mulIsogeny_of_mulUnramified Contrib.AbVarBC.MulRigidity.mulIsogeny_of_mulUnramified' Contrib.AbVarBC.MulRigidity.mulUnramified_of_kerUnitOpen Contrib.AbVarBC.MulRigidity.mulUnramified_of_mulEtale Contrib.AbVarBC.MulRigidity.ne_of_specializes_of_lqf Contrib.AbVarBC.MulRigidity.origin Contrib.AbVarBC.MulRigidity.quasiFiniteEndSurjective Contrib.AbVarBC.MulRigidity.stalkEndo Contrib.AbVarBC.MulRigidity.surjective_of_lqf_self Contrib.AbVarBC.Tangent.AtOrigin Contrib.AbVarBC.Tangent.D Contrib.AbVarBC.Tangent.D_congr Contrib.AbVarBC.Tangent.D_inv Contrib.AbVarBC.Tangent.D_mul Contrib.AbVarBC.Tangent.D_one Contrib.AbVarBC.Tangent.D_zpow Contrib.AbVarBC.Tangent.KerN Contrib.AbVarBC.Tangent.atOrigin_inv Contrib.AbVarBC.Tangent.atOrigin_map Contrib.AbVarBC.Tangent.atOrigin_mul Contrib.AbVarBC.Tangent.atOrigin_one Contrib.AbVarBC.Tangent.atOrigin_zpow Contrib.AbVarBC.Tangent.closedPoint_eq Contrib.AbVarBC.Tangent.comp_intCast_hom Contrib.AbVarBC.Tangent.comp_mem_of_subsingleton Contrib.AbVarBC.Tangent.comp_orig_mem Contrib.AbVarBC.Tangent.derivation_eq_zero Contrib.AbVarBC.Tangent.dualHom Contrib.AbVarBC.Tangent.eq_ofRing_ptRing Contrib.AbVarBC.Tangent.eq_of_D_eq Contrib.AbVarBC.Tangent.eq_one_of_comp_intCast Contrib.AbVarBC.Tangent.ev0 Contrib.AbVarBC.Tangent.exists_affine_orig Contrib.AbVarBC.Tangent.fst_tRing Contrib.AbVarBC.Tangent.id_appLE_top Contrib.AbVarBC.Tangent.intCast_hom Contrib.AbVarBC.Tangent.isLocalHom_fstHom Contrib.AbVarBC.Tangent.isLocalRing_tsze Contrib.AbVarBC.Tangent.ker_le_sq_of_derivations Contrib.AbVarBC.Tangent.ks Contrib.AbVarBC.Tangent.ks_hom Contrib.AbVarBC.Tangent.ks_isOpenImmersion Contrib.AbVarBC.Tangent.left_closedPoint Contrib.AbVarBC.Tangent.locallyOfFiniteType_kerN Contrib.AbVarBC.Tangent.map_add_inl Contrib.AbVarBC.Tangent.map_add_inr Contrib.AbVarBC.Tangent.map_fst_inl Contrib.AbVarBC.Tangent.map_fst_inr Contrib.AbVarBC.Tangent.map_snd_inl Contrib.AbVarBC.Tangent.map_snd_inr Contrib.AbVarBC.Tangent.mem_of_atOrigin Contrib.AbVarBC.Tangent.mulN Contrib.AbVarBC.Tangent.ofRing Contrib.AbVarBC.Tangent.ofRing_mem Contrib.AbVarBC.Tangent.one_left Contrib.AbVarBC.Tangent.orig Contrib.AbVarBC.Tangent.ptR Contrib.AbVarBC.Tangent.ptRing Contrib.AbVarBC.Tangent.ptRing_comp Contrib.AbVarBC.Tangent.ptRing_congr Contrib.AbVarBC.Tangent.ptRing_ext Contrib.AbVarBC.Tangent.ptRing_id_top Contrib.AbVarBC.Tangent.ptRing_ofRing Contrib.AbVarBC.Tangent.ptRing_specMap_comp Contrib.AbVarBC.Tangent.specHom Contrib.AbVarBC.Tangent.specHom_comp Contrib.AbVarBC.Tangent.specHom_id Contrib.AbVarBC.Tangent.specHom_left Contrib.AbVarBC.Tangent.spec_inl_fst_comp Contrib.AbVarBC.Tangent.tRing Contrib.AbVarBC.Tangent.tRing_congr Contrib.AbVarBC.Tangent.tRing_one Contrib.AbVarBC.Tangent.tRing_specHom Contrib.AbVarBC.TorsionDescends Contrib.AbVarBC.comp_natCast_hom Contrib.AbVarBC.dim_baseChange_scheme Contrib.AbVarBC.dim_finite Contrib.AbVarBC.dim_pullback_spec Contrib.AbVarBC.dim_spec_le Contrib.AbVarBC.exists_lift_of_isFinite Contrib.AbVarBC.exists_nat_of_le Contrib.AbVarBC.galK Contrib.AbVarBC.kerUnitOpen Contrib.AbVarBC.map_comm Contrib.AbVarBC.mem_range_of_isIntegral Contrib.AbVarBC.mulIsogeny Contrib.AbVarBC.ptBC Contrib.AbVarBC.ptBC_galAct Contrib.AbVarBC.ptBC_injective Contrib.AbVarBC.ringKrullDim_eq_of_isIntegral_of_injective Contrib.AbVarBC.ringKrullDim_le_of_finiteType Contrib.AbVarBC.ringKrullDim_mvPolynomial_field Contrib.AbVarBC.ringKrullDim_tensor_field Contrib.AbVarBC.scheme_dim_eq_iSup_cover Contrib.AbVarBC.scheme_dim_eq_of_iso Contrib.AbVarBC.spec_dim Contrib.AbVarBC.tateBC Contrib.AbVarBC.tateBC_bijective_of_tateModuleFree Contrib.AbVarBC.tateBC_bijective_of_torsionDescends Contrib.AbVarBC.tateBC_galT Contrib.AbVarBC.tateBC_injective Contrib.AbVarBC.tate_map_bijective_of_torsion Contrib.AbVarBC.topologicalKrullDim_eq_iSup_of_openEmbedding Contrib.AbVarBC.torsionDescends_of_isFinite Contrib.AbVarBC.vBC Contrib.AbVarBC.vBC_galRep DefFaltings.AbVar DefFaltings.AnalyticUniformizationExists DefFaltings.AnalyticUniformizationUnique DefFaltings.EReal.add_coe_add_neg_coe DefFaltings.FinExt DefFaltings.Genus2Eq DefFaltings.Genus2Eq.Good DefFaltings.Genus2Eq.P DefFaltings.Genus2Eq.binDisc DefFaltings.GroupModel DefFaltings.GroupModel.IsAnalyticUniformization DefFaltings.GroupModel.IsNeronModel DefFaltings.GroupModel.Pts DefFaltings.GroupModel.cotangent DefFaltings.GroupModel.dCls DefFaltings.GroupModel.detLattice DefFaltings.GroupModel.dom DefFaltings.GroupModel.evalAt DefFaltings.GroupModel.exists_rep DefFaltings.GroupModel.genStalk DefFaltings.GroupModel.genericUnit DefFaltings.GroupModel.germAlong DefFaltings.GroupModel.height DefFaltings.GroupModel.height_eq DefFaltings.GroupModel.hodgeSpace DefFaltings.GroupModel.jacDet DefFaltings.GroupModel.jacDet_comp DefFaltings.GroupModel.omega DefFaltings.GroupModel.omegaAt DefFaltings.GroupModel.omegaAt_genericPt DefFaltings.GroupModel.ptC DefFaltings.GroupModel.semilinear_ext_wedge DefFaltings.GroupModel.specializes_genericUnit DefFaltings.GroupModel.structMap DefFaltings.GroupModel.unitSection DefFaltings.GroupModel.wedge DefFaltings.HermitianLattice DefFaltings.HermitianLattice.arakelovDegree DefFaltings.HermitianLattice.arakelovDegree_ofFractionalIdeal DefFaltings.HermitianLattice.arakelovDegree_rescale DefFaltings.HermitianLattice.degreeAt DefFaltings.HermitianLattice.degreeAt_eq DefFaltings.HermitianLattice.degreeAt_eq_arakelovDegree DefFaltings.HermitianLattice.degreeAt_smul DefFaltings.HermitianLattice.ofFractionalIdeal DefFaltings.HermitianLattice.rescale DefFaltings.HermitianLattice.secIndex_ne_zero DefFaltings.HodgeData DefFaltings.HodgeData.coeff_apply_ne_zero DefFaltings.HodgeData.hodgeBundle DefFaltings.HodgeData.modelHeight DefFaltings.HodgeData.modelHeight_eq DefFaltings.HodgeData.modelHeight_eq_add_of_le DefFaltings.HodgeData.modelHeight_eq_faltingsHeightGood DefFaltings.HodgeData.modelHeight_le_of_le DefFaltings.HodgeData.modelHeight_ofIdeal DefFaltings.HodgeData.modelHeight_ofIdeal_baseChange DefFaltings.HodgeData.modelHeight_of_span DefFaltings.HodgeData.modelHeight_recoord DefFaltings.HodgeData.norm DefFaltings.HodgeData.norm_sq DefFaltings.HodgeData.recoord DefFaltings.HodgeLatticeTheorem DefFaltings.IsIsogeny DefFaltings.MetrizedModel DefFaltings.MetrizedModel.modelHeight_eq_of_model_eq DefFaltings.NeronModelMinimal DefFaltings.PeriodAreaFormula DefFaltings.R19_GaudronRemond DefFaltings.R20_FaltingsLemma5 DefFaltings.R21_Bost DefFaltings.StableHeightFinite DefFaltings.absNorm_extendedHom DefFaltings.absNorm_map_ringOfIntegers DefFaltings.arakelovDegree_ofFractionalIdeal_baseChange DefFaltings.arakelovDegree_ofFractionalIdeal_mul DefFaltings.card_embeddings_over DefFaltings.covolume_comap_mul_det DefFaltings.covolume_gaussianPair DefFaltings.det_restrictScalars_complex DefFaltings.embCoeff DefFaltings.faltingsHeight DefFaltings.faltingsHeightEC DefFaltings.faltingsHeightGood DefFaltings.faltingsHeight_coe DefFaltings.finiteHeightPart DefFaltings.finrank_ringOfIntegers DefFaltings.gaussianPair DefFaltings.genericFibre DefFaltings.genericPt DefFaltings.grKappa DefFaltings.hypGram DefFaltings.hypGram_comp_add DefFaltings.hypVol DefFaltings.hypVol_one_comp_add DefFaltings.isogDeg DefFaltings.le_stableFaltingsHeight DefFaltings.modelHeight_ofIdeal_eq_faltingsHeightEC DefFaltings.modelHeight_ofIdeal_eq_faltingsHeightEC' DefFaltings.norm_algebraMap_tower DefFaltings.ptObj DefFaltings.ratCoeff DefFaltings.realify DefFaltings.secIndex DefFaltings.secIndex_mul_absNorm DefFaltings.secIndex_smul DefFaltings.stableFaltingsHeight DefFaltings.stableFaltingsHeightDeligne DefFaltings.stableFaltingsHeightDeligne_eq DefFaltings.stableFaltingsHeight_eq_faltingsHeightGood DefFaltings.stableFaltingsHeight_eq_iInf_height DefFaltings.stableFaltingsHeight_le DefFaltings.stableFaltingsHeight_ne_bot_of_R21 DefFaltings.sum_embeddings_comp DefFaltings.sum_log_norm_embeddings DefFaltings.sum_log_norm_embeddings_int DefFaltings.torusMetricSq DefFaltings.torusMetricSq_comap DefFaltings.torusMetricSq_eq_setIntegral DefFaltings.torusMetricSq_pos DefFaltings.torusMetricSq_smul DefFaltings.torus_setIntegral_indep H5Glue.GenericFibreStalkIso H5Glue.GroupModel.baseChange H5Glue.GroupModel.isNeronModel_iff H5Glue.GroupModelBaseChangeExists H5Glue.HeightAntitone H5Glue.HodgeLatticeNonzero H5Glue.HodgeMapBijective H5Glue.IsBaseChangeOf H5Glue.IsOpenSubgroupModel H5Glue.IsProductAbVar H5Glue.IsProductModel H5Glue.ModelHeightBaseChange H5Glue.NeronModelExists H5Glue.NeronProp H5Glue.NeronProp.lift H5Glue.NeronProp.of_iso H5Glue.NeronProp.tensor H5Glue.NeronProp.uniqueIso H5Glue.OmegaSpans H5Glue.OpenImmersionHeightLe H5Glue.OpenSubgroupHeight H5Glue.ProductGroupModelExists H5Glue.ProductModelHeight H5Glue.SemistableNeronIdentityComponent H5Glue.baseChange_map_bijective H5Glue.bcProd H5Glue.bijective_respectsIso H5Glue.compositum H5Glue.cotMap H5Glue.cotMap_bijective H5Glue.cotMap_dCls H5Glue.cotMap_omega H5Glue.cotMap_omegaAt H5Glue.detLattice_le_hodgeMap H5Glue.dom_comp H5Glue.evalAt_comp H5Glue.evalAt_res H5Glue.exists_smul_mem_omega H5Glue.fst_genericFibreUnit H5Glue.fst_genericFibre_unit H5Glue.genBC H5Glue.genBC_isMonHom H5Glue.genMap H5Glue.genMap_germ H5Glue.genMap_mem_maximalIdeal H5Glue.genMap_mem_maximalIdeal_iff H5Glue.genMap_structMap H5Glue.genericFibreStalkIso H5Glue.genericFibreUnit H5Glue.genericIso_of_openImmersion H5Glue.germAlong_comp_eventuallyEq H5Glue.groupModelBaseChangeExists H5Glue.heightAntitone H5Glue.heightAntitone_of H5Glue.heightAntitone_of_hodgeLatticeNonzero H5Glue.heightAntitone_of_omegaSpans H5Glue.hodgeLatticeNonzero_of_omegaSpans H5Glue.hodgeMap H5Glue.hodgeMapBijective H5Glue.hodgeMap_detLattice H5Glue.hodgeMap_wedge H5Glue.hodgeMap_wedgeGerm H5Glue.isAnalyticUniformization_comp H5Glue.isAnalyticUniformization_of_comp H5Glue.isIso_genMap H5Glue.isIso_of_openImmersion_self H5Glue.isIso_stalkSpecializes_genMap H5Glue.isMonHom_of_map H5Glue.isMonHom_pbCompHom H5Glue.isMonHom_pbCompInv H5Glue.isMonHom_pbEqIso H5Glue.isMonHom_prodComparisonIso H5Glue.isNeronModel_of_isProductModel H5Glue.isOpenImmersion_pullback_map H5Glue.jL H5Glue.jacDet_comp_genMap H5Glue.jacDet_comp_map H5Glue.map_genericUnit' H5Glue.map_span_singleton_toAddSubgroup H5Glue.map_zero_of_hom H5Glue.modelHeight_pullHodge_le H5Glue.neronModelMinimal H5Glue.neronModelMinimal_of_heightAntitone H5Glue.neron_lift H5Glue.neron_lift_isMonHom H5Glue.neron_map_injective H5Glue.omegaAt_le_cotMap H5Glue.omegaSpans H5Glue.omega_le_cotMap H5Glue.one_mem_dom H5Glue.openImmersionHeightLe H5Glue.openSubgroupHeight H5Glue.openSubgroupHeight_of H5Glue.pbCompHom H5Glue.pbCompInv H5Glue.pbCompIso H5Glue.pbEqIso H5Glue.productGroupModelExists H5Glue.ptCIso H5Glue.ptC_hom_apply H5Glue.ptsEquiv H5Glue.ptsEquiv_comp H5Glue.pts_comp_bijective H5Glue.pullHodge H5Glue.secIndex_le_of_map H5Glue.secIndex_ne_zero_of_mem H5Glue.smooth_tensor H5Glue.smooth_unit H5Glue.square1 H5Glue.square2 H5Glue.stableFaltingsHeight_add_le H5Glue.stableFaltingsHeight_add_le_of_productModelHeight H5Glue.stableFaltingsHeight_eq_neron_all H5Glue.stableFaltingsHeight_eq_neron_all' H5Glue.stalkIso_of_genericIso H5Glue.stalkSpecializes_self_apply H5Glue.stalkSpecializes_stalkSpecializes_apply H5Glue.stalk_ker_eq H5Glue.stalk_spec_eq H5Glue.stalkwise_fst_toGeneric H5Glue.stalkwise_tensor_localization H5Glue.tensorGen H5Glue.tensorGen_fst H5Glue.tensorGen_snd H5Glue.toGeneric_pt H5Glue.unitSection_comp H5Neron.GroupModel.IsNeronModel.lift H5Neron.GroupModel.IsNeronModel.uniqueIso H5Neron.GroupModel.isNeronModel_iff H5Neron.GroupModelBaseChangeExists H5Neron.IsBaseChangeOf H5Neron.IsOpenSubgroupModel H5Neron.IsProductAbVar H5Neron.IsProductModel H5Neron.ModelHeightBaseChange H5Neron.NeronModelExists H5Neron.NeronProp H5Neron.NeronProp.lift H5Neron.NeronProp.of_iso H5Neron.NeronProp.tensor H5Neron.NeronProp.uniqueIso H5Neron.OpenSubgroupHeight H5Neron.ProductGroupModelExists H5Neron.ProductModelHeight H5Neron.R19_zero H5Neron.R20_zero H5Neron.R21_zero H5Neron.SemistableNeronIdentityComponent H5Neron.bcProd H5Neron.bcUnitIso H5Neron.compositum H5Neron.covolume_fin_zero H5Neron.detLattice_zero H5Neron.glue_zero H5Neron.groupModel_height_zero H5Neron.hodgeZeroEquiv H5Neron.hodgeZeroEquiv_wedge0 H5Neron.hom_ext_of_iso_unit H5Neron.isIsogeny_id_zero H5Neron.isMonHom_of_iso_unit H5Neron.isMonHom_prodComparisonIso H5Neron.isNeronModel_of_isProductModel H5Neron.isogDeg_zero_le_one H5Neron.jL H5Neron.metrizedOf H5Neron.modelHeight_dim_zero H5Neron.neronModelExists_zero H5Neron.neronModelMinimal_zero H5Neron.neron_zero_iso_unit H5Neron.no_metrized_succ H5Neron.one_le_grKappa H5Neron.productGroupModelExists H5Neron.pts_subsingleton H5Neron.semistableNeronIdentityComponent_zero H5Neron.semσ H5Neron.stableFaltingsHeight_add_le H5Neron.stableFaltingsHeight_add_le' H5Neron.stableFaltingsHeight_eq_neron H5Neron.stableFaltingsHeight_eq_neron_all H5Neron.stableFaltingsHeight_zero H5Neron.stableHeightFinite_zero H5Neron.tensorGen H5Neron.tensorGen_fst H5Neron.tensorGen_snd H5Neron.trivHodge H5Neron.trivMetrized H5Neron.trivModel H5Neron.trivModel_isNeronModel H5Neron.wedge0 H5Neron.wedge0_ne_zero H5Neron.wedge_eq_wedge0 HeightBC.CotangentSpanBC HeightBC.D0 HeightBC.D0_add HeightBC.D0_add_apply HeightBC.D0_mul HeightBC.D0_mul_apply HeightBC.D0_sq HeightBC.D0_structMap_mul HeightBC.DetLatticeBC HeightBC.FF HeightBC.GermDerivation HeightBC.HodgeBCInjective HeightBC.HodgeLineBaseChange HeightBC.HodgeLineBaseChangeDescent HeightBC.HodgeLineDescentHalf HeightBC.HodgeSpanBC HeightBC.IsBaseChangeOf HeightBC.IsHodgeBaseChange HeightBC.IsMonBC HeightBC.JacobianPullbackSpan HeightBC.JacobianSemilinear HeightBC.MetrizationBaseChange HeightBC.ModelHeightBaseChange HeightBC.ModelHeightBaseChangeGE HeightBC.ModelHeightBaseChangeLE HeightBC.OmegaBaseChange HeightBC.OmegaLocalization HeightBC.PtsBaseChangeBij HeightBC.PtsBaseChangeMul HeightBC.UniformizationLift HeightBC.UniformizationLiftAnalytic HeightBC.algebraMap_FF HeightBC.algebraMap_ringOfIntegers_coe HeightBC.appLE_top_top HeightBC.bO HeightBC.bO_appTop HeightBC.bO_genericPt HeightBC.bcAlt HeightBC.bcCot HeightBC.bcCotBasis HeightBC.bcCotBasis_apply HeightBC.bcCot_core HeightBC.bcCot_dCls HeightBC.bcCot_intInv HeightBC.bcCot_linearIndependent HeightBC.bcCot_omega HeightBC.bcCot_omegaAt HeightBC.bcCot_smulL HeightBC.bcCot_smul_genStalk HeightBC.bcCot_span HeightBC.bcCot_update HeightBC.bcExt HeightBC.bcExt_smul HeightBC.bcExt_ιMulti HeightBC.bcHodge HeightBC.bcHodge_detLattice HeightBC.bcHodge_smul HeightBC.bcHodge_tmul HeightBC.bcHodge_wedge HeightBC.bcMap HeightBC.bcMap_germ HeightBC.bcMap_mem_maximalIdeal HeightBC.bcMap_structMap HeightBC.bcMap_φL HeightBC.bcProj HeightBC.bcProj_genericUnit HeightBC.bcProj_unit HeightBC.bcProj_w HeightBC.bcPts HeightBC.cotL HeightBC.cotL_isScalarTower HeightBC.cotL_smul HeightBC.cotRes HeightBC.cotangentSpanBC HeightBC.descentHalf_of_descent HeightBC.detLatticeBC_of_omega HeightBC.dom_bcPts HeightBC.evalAt_add HeightBC.evalAt_bcPts HeightBC.evalAt_mul HeightBC.evalAt_one_eq_zero HeightBC.evalAt_res HeightBC.evalAt_structSection HeightBC.exists_act HeightBC.exists_comp_eq HeightBC.exists_int_dvd HeightBC.exists_mem_not_mem_of_sat HeightBC.exists_ringOfIntegers_of_algebraMap HeightBC.extRes HeightBC.finite_of_isClosed_not_genericPt HeightBC.g0_hodgeLine_iff HeightBC.genericPt_eq_genericPoint HeightBC.germAlong_add_mul HeightBC.germAlong_bcPts_eventuallyEq HeightBC.germAlong_differentiableAt HeightBC.germAlong_eventuallyEq_rep HeightBC.germAlong_structMap HeightBC.germAlong_zero_of_mem HeightBC.germDerivation HeightBC.germDerivation_at HeightBC.hodgeBCInjective HeightBC.hodgeLineBaseChangeDescent_of_glue HeightBC.hodgeLineBaseChange_of_descent HeightBC.hodgeLineBaseChange_of_final HeightBC.hodgeLineBaseChange_of_five HeightBC.hodgeLineBaseChange_of_four HeightBC.hodgeLineBaseChange_of_glue HeightBC.hodgeLineBaseChange_of_glue4 HeightBC.hodgeLineBaseChange_of_glue5 HeightBC.hodgeLineBaseChange_of_main HeightBC.hodgeLineBaseChange_of_two HeightBC.hodgeSpanBC_of HeightBC.hom_genericUnit HeightBC.hom_genericUnit' HeightBC.hom_unitSection HeightBC.isAnalyticUniformization_bcPts HeightBC.isField_stalk_genericPt HeightBC.isIso_stalkSpecializes_bcMap HeightBC.isUnit_germ_genericPt HeightBC.isUnit_structMap HeightBC.jacDet_bcPts HeightBC.jacobianPullbackSpan_of HeightBC.jacobianSemilinear HeightBC.jacobianSemilinear_of HeightBC.locSub HeightBC.mapCotangent_injective_of_isIso HeightBC.mapCotangent_smul' HeightBC.map_zero_of_hom HeightBC.maximalIdeal_stalk_genericPt HeightBC.mem_locSub HeightBC.mem_of_forall_locSub HeightBC.metrizationBaseChange_of_hodgeLine HeightBC.modelHeightBaseChangeGE_of_descent HeightBC.modelHeightBaseChangeGE_of_descentHalf HeightBC.modelHeightBaseChangeGE_of_main HeightBC.modelHeightBaseChangeGE_of_two HeightBC.modelHeightBaseChangeLE_of_metrization HeightBC.modelHeightBaseChange_of_descent HeightBC.modelHeightBaseChange_of_final HeightBC.modelHeightBaseChange_of_five HeightBC.modelHeightBaseChange_of_four HeightBC.modelHeightBaseChange_of_glue HeightBC.modelHeightBaseChange_of_glue4 HeightBC.modelHeightBaseChange_of_glue5 HeightBC.modelHeightBaseChange_of_main HeightBC.modelHeightBaseChange_of_two HeightBC.modelHeight_eq_of_isHodgeBaseChange HeightBC.multilinear_mem_span HeightBC.omegaAt_bc_local HeightBC.omegaAt_full HeightBC.omegaAt_open HeightBC.omegaAt_sat HeightBC.omegaBaseChange HeightBC.omegaBaseChange_of_localization HeightBC.omegaLocalization HeightBC.one_mem_dom HeightBC.ptC_hom_apply HeightBC.ptC_hom_comp_bO HeightBC.ptsBaseChangeBij HeightBC.ptsBaseChangeMul HeightBC.rationalOver_genericUnit HeightBC.secIndex_baseChange HeightBC.secIndex_map HeightBC.secIndex_ne_zero_of_baseChange HeightBC.secIndex_nsmul_mem HeightBC.smul_cotangent_eq_of_sub_mem HeightBC.span_bcHodge_le HeightBC.spec_mem_of_ker HeightBC.stalkMapAt_germ' HeightBC.stalkSpec_comp_apply HeightBC.stalkSpec_self_apply HeightBC.stalkSpecializes_self_apply' HeightBC.stalkSpecializes_stalkSpecializes_apply' HeightBC.structMap_eq_spec HeightBC.structMap_eq_stalkMap HeightBC.toCotangent_mul HeightBC.uniformizationLift HeightBC.uniformizationLiftAnalytic HeightBC.uniformizationLift_of HeightBC.unitSection_comp_hom HeightBC.unitSection_stalkMapAt_hom HeightBC.σFF HeightBC.φL HeightBC.φL_algebraMap LeafPush2.CPts LeafPush2.Char2 LeafPush2.HasSexticModel LeafPush2.IC10 LeafPush2.IC2 LeafPush2.IC4 LeafPush2.IC6 LeafPush2.IgJ10 LeafPush2.IgJ2 LeafPush2.IgJ4 LeafPush2.IgJ6 LeafPush2.IsGenus2 LeafPush2.IsPeriodMatrix LeafPush2.IsSiegel LeafPush2.IsUniformization LeafPush2.LinYangTuple LeafPush2.OnQMLocus LeafPush2.T10_groupIso LeafPush2.T11a_RiemannEnd LeafPush2.T11b_Rigidity LeafPush2.T12_ComplexConjEigen LeafPush2.UniformizationExists LeafPush2.absLogHeight LeafPush2.cDom LeafPush2.cEvalAt LeafPush2.cptObj LeafPush2.dsq LeafPush2.exists_isComplexConj LeafPush2.ffAlgebra LeafPush2.ffStructMap LeafPush2.isSiegel_I LeafPush2.javanpeykarBound LeafPush2.javanpeykarBound_mono LeafPush2.javanpeykarBound_pos LeafPush2.linYangTuple_onQMLocus LeafPush2.linYang_j_eq LeafPush2.onQMLocus_of_linYangTuple LeafPush2.pazukiC2 LeafPush2.sextic LeafPush2.thetaConst) -- op-dedupe
+open _root_.LeafQM.AV (CMExists HasCM24 HasCM24.of_iso HasCM3 HasCM3.of_iso HasCM4 HasCM4.of_iso IsBaseChangeOf IsBaseChangeOfPair IsFibreOf Level3 Level3.bcPt_pow_three Level3.eq_iff Level3.exists_mul_of_range_le Level3.ext' Level3.onto Level3.range_le Level3.rightMul Level3.rightMul_eq_self Level3.rightMul_rightMul Level3.torsor Level3.twist M3 M3.mk M3.rightMul M3.rightMul_rightMul M3.twist M3.twist_mk Pin.AutOExt.NormalizerFinite Pin.AutOExt.alpha_nat_smul Pin.AutOExt.autOInnerFinite_of_normalizer Pin.AutOExt.common_den Pin.AutOExt.conjUnit Pin.AutOExt.conj_of_skolem Pin.AutOExt.den_mul_int Pin.AutOExt.exists_nat_smul_mem Pin.AutOExt.extAlgEquiv Pin.AutOExt.extAlgHom Pin.AutOExt.extAlgHom_coe Pin.AutOExt.extAlgHom_symm_comp Pin.AutOExt.extDen Pin.AutOExt.extDen_mem Pin.AutOExt.extDen_pos Pin.AutOExt.extFun Pin.AutOExt.extFun_add Pin.AutOExt.extFun_algebraMap Pin.AutOExt.extFun_coe Pin.AutOExt.extFun_eq Pin.AutOExt.extFun_mul Pin.AutOExt.key_conj Pin.AutOExt.mem_O_of_int Pin.AutOExt.natCast_mul_eq_smul Pin.AutOExt.nat_smul_mem Pin.AutOExt.smul_mul_smul' Pin.AutOInnerFinite Pin.ConstOrOntoAlgClosed Pin.CurveRatFactor Pin.CurveSurj Pin.GeomCompConstOrOnto Pin.GeomCompFinite Pin.GeomCompInfinite Pin.GeomCompRatFactor Pin.ImagePlane.ev_comp Pin.ImagePlane.ev_spec_top Pin.ImagePlane.ptOf_comp Pin.ImagePlane.ptOf_spec_asIdeal Pin.IsNaturalRelabel Pin.Mob.eval_ne_zero_of_coprime Pin.Mob.exists_interp Pin.Mob.isCoprime_X_sub_C_of_eval_one Pin.Mob.natDegree_le_one_of_injective Pin.Mob.ratEval Pin.Mob.ratEval_eq_self Pin.Mob.wronskian_ne_zero Pin.MobiusGlue Pin.NormO.IsNorm Pin.NormO.IsNorm.inv Pin.NormO.IsNorm.mul Pin.NormO.T Pin.NormO.T_finite Pin.NormO.T_mul_ui Pin.NormO.T_mul_uj Pin.NormO.bas Pin.NormO.conjC Pin.NormO.descent Pin.NormO.dvd_of_prime_dvd_nrd Pin.NormO.dvd_of_smul_mem Pin.NormO.ei Pin.NormO.ej Pin.NormO.inv_eq Pin.NormO.isNorm_sc Pin.NormO.isNorm_ui Pin.NormO.isNorm_uj Pin.NormO.mulCoord_conjC Pin.NormO.mulCoord_conjC' Pin.NormO.mulCoord_smul_left Pin.NormO.mulCoord_smul_right Pin.NormO.normalizerFinite Pin.NormO.nrdZ Pin.NormO.nrdZ_ei Pin.NormO.nrdZ_ej Pin.NormO.nrdZ_mul Pin.NormO.nrdZ_ne_zero Pin.NormO.nrdZ_smul Pin.NormO.nrd_dvd_coords Pin.NormO.ofInt_scalar Pin.NormO.rearrange Pin.NormO.sc Pin.NormO.six_sq_identities Pin.NormO.smul_ofInt Pin.NormO.three_dvd_mulCoord_ej Pin.NormO.two_dvd_mulCoord_ei Pin.NormO.ui Pin.NormO.uj Pin.PinUnique Pin.QMFamily.transport Pin.QML3.isoTransport Pin.R1fpProps.fam Pin.R1fpProps.univ Pin.RatFactorAlgClosed Pin.SameTriple Pin.SameTripleMor Pin.SmoothCurveNoIsolatedPoint Pin.SmoothStalkDimOne Pin.TwistClassFinite Pin.autOInnerFinite Pin.autRelabel Pin.autRelabel_natural Pin.bcPt Pin.bcPt_ptOfSection Pin.bcPt_snd Pin.bcQbar Pin.bcSnd Pin.cm_objects_of_R1R2fp Pin.conjUnitIso Pin.cst Pin.curveFacts_of_algClosed Pin.curveFacts_of_comp Pin.curveFacts_of_leaves Pin.curveFacts_of_named Pin.curveRatFactor_of_comp Pin.curveSurj_of_comp Pin.ev Pin.ev_cst Pin.ev_eq_zero_iff Pin.ev_f_mul_g Pin.ev_g_eq_zero Pin.ev_res Pin.ev_top Pin.exists_isOpen_singleton_of_finite_closedPoints Pin.exists_liftO_congr Pin.exists_point_of_isLocallyClosed Pin.geomComp Pin.geomCompConstOrOnto_of Pin.geomCompFinite Pin.geomCompInfinite_of Pin.geomCompRatFactor_of Pin.isFibreOf_transport Pin.isOpen_connectedComponent_of_noetherian Pin.level3_finite Pin.mem_V_of_not_mem_U Pin.phi_part Pin.pointwise_of_witness Pin.pointwise_of_witness_mor Pin.ptOf Pin.ptOfSection Pin.r1fpPin_aut Pin.r1fpPin_relabel_iff Pin.r2fp_aut Pin.relabel Pin.relabel_geometric Pin.relabel_is_morphism Pin.res Pin.res_res Pin.sameTripleMor_of_mobius Pin.sameTriple_aut Pin.smoothCurveNoIsolatedPoint_of Pin.transfer_exists Pin.transfer_pointwise Pin.transfer_pointwise_mor Pin.transportLevel Pin.twistClassFinite Pin.twistClassFinite_of Pin.val_bcPt Pin.val_of_mem Pin.val_of_not_mem PtEquiv QMFamily QMIso QMIso.nonempty_abVarIso QMIso.refl QMIso.symm QMIso.trans QML3 QML3.Iso QML3.Iso.refl QML3.Iso.rightMul QML3.Iso.symm QML3.Iso.trans QML3.Iso.twist QML3.forget QML3.rightMul QML3.rightMul_A QML3.rightMul_rightMul QML3.twist QML3.twist_A QMLeaves QMPair QMPair.twist QMStr QMStr.twist Qbar R1R2fp R1R2fp_Y R1famProps R1fp R1fpProps R1fp_of_R1R2fp R1heckeProps R1rec R1recProps R1univProps R2X6Props R2fpProps R2fpProps_of_X6 R5fp R5fpCount R5fpWeak R5fpWeak_of_R5fp R5ptProps ToP1 ToP1.comp ToP1.val ToP1.val_comp ToP1.val_comp_right UnramifiedAbove5 X6Props X6Surj act_mul_apply bcPt bcPt_injective cm_of_val com comEquiv com_twist conductor conjHom conjHom_iota conjHom_mem_com conjHom_symm_apply conj_iso_of_rational conj_twist_of_rational endPt exists_fibre_object fibre_conjugates_isomorphic fieldMap fieldOfModuli3 fieldOfModuliPair fieldPt galAct_bcPt hI hIJ hJ hasCM24_twist hasCM3_twist hasCM4_twist hrat inertCount6 intCast_mem_com isoSetoid leaves_on_one_witness liftO not_qmStr_zero ofInt_injective ofInt_sub oi oi_mul_oi oj oj_mul_oi_add oj_mul_oj pairSetoid qmAct residueImage residue_unramified_over_branch specMap_flat specMap_surjective specToEquivOfField_comp specToEquivOfField_comp_right stab3 stabPair three_mul_ofInt toKbar unramified_over_branch) -- op-dedupe
+open _root_.GlueDescent (B2.IsSignCocycle B2.SignCob B2.dB B2.dB_inv B2.dB_mul B2.exists_beta B2.isSignCocycle_dB B2.isSignCocycle_inv B2.isSignCocycle_mul B2.isSignCocycle_pull B2.pull B2.pull_dB B2.signCob_dB_iff B2.signCob_inv B2.signCob_mul B2Q.GQ B2Q.GQp B2Q.InflatedFrom B2Q.LeafHasse B2Q.LeafLocalTwo B2Q.LeafSqrtCrit B2Q.LeafUnramified B2Q.UnramifiedAt B2Q.act B2Q.act_mul B2Q.b2_of_leaves B2Q.cast_cast_of_dvd B2Q.chiLevel_pos B2Q.chi_toUnitHom_crt B2Q.cyc B2Q.cyc_eq_of_agree B2Q.cyc_isLocallyConstant B2Q.exists_crt_unit B2Q.galChar B2Q.galChar_isLocallyConstant B2Q.isLocallyConstant_of_openSubgroup B2Q.lev_eq_pow B2Q.resp B2Q.resp_continuous B2Q.sqrtU B2Q.sqrtU_sq B2Q.toRingAut B3Q.GQL B3Q.b3_degree_le_QM B3Q.b3_of_leaves B3Q.inflatedNormalized_of B3Q.mem_GQL B3Q.orderOf_pos_dirichlet B6 B6_commute_i_j B6_inner B6_isCentral B6_isSimpleRing B6_star_mul InflatedNormalized IsCochainFor LeafSkolemNoether MatrixUnits2 MatrixUnits2.W MatrixUnits2.e00_of_mem MatrixUnits2.e_apply_e MatrixUnits2.finrank_W MatrixUnits2.mapsTo_W MatrixUnits2.mem_W_of_e0 MatrixUnits2.splitEquiv MatrixUnits2.splitEquiv_intertwines aniso_int aniso_rat boundary_sq chi chiLevel cochain_conj cochain_mul_kernel cochain_mul_left cochain_mul_right cochain_of_boundary_eq cochain_one cocycle_of_projective commute_adjoin contactSupport_pos degree_le_QM exists_chi exists_odd_char heightD_pos index_kernel_le inertia_le_kernel kernelSubgroup kernelSubgroup_le kernelSubgroup_normal lev lev_dvd_chiLevel mem_kernelSubgroup oddChar oddChar_neg_one orderOf_dvd_totient orderOf_prod_dvd prod_S_le prod_odd_le prod_odd_le_aux prod_totient_lev_le qi qj ramSet relindex_kernel_le restrictHom rho rhoRep rho_commute rho_eq_act rho_map_mul sign_cocycle sign_normalization sign_sq_eq_one ten_le_heightE0 three_dvd_of_form totient_lev twist twist_kills_inertia twist_sq two_lt_lev zmod3_aniso) -- op-dedupe
+open _root_.GlueDescent.B2 (IsSignCocycle SignCob dB dB_inv dB_mul exists_beta isSignCocycle_dB isSignCocycle_inv isSignCocycle_mul isSignCocycle_pull pull pull_dB signCob_dB_iff signCob_inv signCob_mul) -- op-dedupe
+open _root_.GlueDescent.B2Q (GQ GQp InflatedFrom LeafHasse LeafLocalTwo LeafSqrtCrit LeafUnramified UnramifiedAt act act_mul b2_of_leaves cast_cast_of_dvd chiLevel_pos chi_toUnitHom_crt cyc cyc_eq_of_agree cyc_isLocallyConstant exists_crt_unit galChar galChar_isLocallyConstant isLocallyConstant_of_openSubgroup lev_eq_pow resp resp_continuous sqrtU sqrtU_sq toRingAut) -- op-dedupe
+open _root_.GlueDescent.B3Q (GQL b3_degree_le_QM b3_of_leaves inflatedNormalized_of mem_GQL orderOf_pos_dirichlet) -- op-dedupe
+open _root_.G0ModField (CommonConstituent ConjugacyData DescentDatum FibreCoverExists FibreCoverOut FibreCtx G2Out G4Out G7Out GaloisCopy.G2Out GaloisCopy.G7Out GaloisCopy.Vb GaloisCopy.resQ GaloisCopy.tate IF IsModelOver IsQMModel IsQMModel.isModelOver KernelFieldExists KernelFieldOut ModularConstituentG PtQ RationalFibre ResQRange T UnramifiedSup actK actQ admissible_S_mul b2_of_leaves_level b3_of_cochain baseChangeTrans card_ker_GL descentDatum_bot descentDatum_of_conjugacy fieldDescent g2Out_of_cover g4Out_of_kernelField g7Out_of_g4Out galAct_bijective galAct_mul incAlg isModelOver_baseChange le_heightD_of_mem_S_mul mem_GQL_bot normA numberField_of_fd resQRange resQ_comm' resQ_range sgnU sgnU_mul sgnU_mul_abs sgnU_sq toLAut toLAut_apply two_mem_T) -- op-dedupe
 
 /-! ### §1. `KerWild` from the kernel-field clause -/
 
@@ -5314,10 +4904,18 @@ section LGTateBridgeKSec
 
 open CategoryTheory AlgebraicGeometry Limits MonoidalCategory CartesianMonoidalCategory MonObj
 open _root_.ZInQ ZInQ LeafQM.AV GlueDescent GlueDescent.B2 GlueDescent.B2Q GlueDescent.B3Q
+open _root_.ZInQ (Contrib.AbVarBC.G0FibreSimple.MulIsogeny Contrib.AbVarBC.MulRigidity.CotangentMulN Contrib.AbVarBC.MulRigidity.KerUnitOpen Contrib.AbVarBC.MulRigidity.KerUnitOpenOfCotangentSurj Contrib.AbVarBC.MulRigidity.MulEtale Contrib.AbVarBC.MulRigidity.MulUnramified Contrib.AbVarBC.MulRigidity.O0 Contrib.AbVarBC.MulRigidity.QuasiFiniteEndSurjective Contrib.AbVarBC.MulRigidity.charZero_residueField Contrib.AbVarBC.MulRigidity.cotangentMap Contrib.AbVarBC.MulRigidity.diagonal_isPullback Contrib.AbVarBC.MulRigidity.diffKer Contrib.AbVarBC.MulRigidity.formallyUnramified_of_kerUnit Contrib.AbVarBC.MulRigidity.isIsogenyMor_of_lqf_of_isOpenMap Contrib.AbVarBC.MulRigidity.isOpenImmersion_of_section Contrib.AbVarBC.MulRigidity.isProper_left Contrib.AbVarBC.MulRigidity.kerUnit Contrib.AbVarBC.MulRigidity.kerUnitOpen_of_cotangent Contrib.AbVarBC.MulRigidity.kerUnitOpen_of_mulEtale Contrib.AbVarBC.MulRigidity.locallyQuasiFinite_of_formallyUnramified Contrib.AbVarBC.MulRigidity.map_origin Contrib.AbVarBC.MulRigidity.mulIsogeny_of_cotangent Contrib.AbVarBC.MulRigidity.mulIsogeny_of_kerUnitOpen Contrib.AbVarBC.MulRigidity.mulIsogeny_of_mulEtale Contrib.AbVarBC.MulRigidity.mulIsogeny_of_mulUnramified Contrib.AbVarBC.MulRigidity.mulIsogeny_of_mulUnramified' Contrib.AbVarBC.MulRigidity.mulUnramified_of_kerUnitOpen Contrib.AbVarBC.MulRigidity.mulUnramified_of_mulEtale Contrib.AbVarBC.MulRigidity.ne_of_specializes_of_lqf Contrib.AbVarBC.MulRigidity.origin Contrib.AbVarBC.MulRigidity.quasiFiniteEndSurjective Contrib.AbVarBC.MulRigidity.stalkEndo Contrib.AbVarBC.MulRigidity.surjective_of_lqf_self Contrib.AbVarBC.Tangent.AtOrigin Contrib.AbVarBC.Tangent.D Contrib.AbVarBC.Tangent.D_congr Contrib.AbVarBC.Tangent.D_inv Contrib.AbVarBC.Tangent.D_mul Contrib.AbVarBC.Tangent.D_one Contrib.AbVarBC.Tangent.D_zpow Contrib.AbVarBC.Tangent.KerN Contrib.AbVarBC.Tangent.atOrigin_inv Contrib.AbVarBC.Tangent.atOrigin_map Contrib.AbVarBC.Tangent.atOrigin_mul Contrib.AbVarBC.Tangent.atOrigin_one Contrib.AbVarBC.Tangent.atOrigin_zpow Contrib.AbVarBC.Tangent.closedPoint_eq Contrib.AbVarBC.Tangent.comp_intCast_hom Contrib.AbVarBC.Tangent.comp_mem_of_subsingleton Contrib.AbVarBC.Tangent.comp_orig_mem Contrib.AbVarBC.Tangent.derivation_eq_zero Contrib.AbVarBC.Tangent.dualHom Contrib.AbVarBC.Tangent.eq_ofRing_ptRing Contrib.AbVarBC.Tangent.eq_of_D_eq Contrib.AbVarBC.Tangent.eq_one_of_comp_intCast Contrib.AbVarBC.Tangent.ev0 Contrib.AbVarBC.Tangent.exists_affine_orig Contrib.AbVarBC.Tangent.fst_tRing Contrib.AbVarBC.Tangent.id_appLE_top Contrib.AbVarBC.Tangent.intCast_hom Contrib.AbVarBC.Tangent.isLocalHom_fstHom Contrib.AbVarBC.Tangent.isLocalRing_tsze Contrib.AbVarBC.Tangent.ker_le_sq_of_derivations Contrib.AbVarBC.Tangent.ks Contrib.AbVarBC.Tangent.ks_hom Contrib.AbVarBC.Tangent.ks_isOpenImmersion Contrib.AbVarBC.Tangent.left_closedPoint Contrib.AbVarBC.Tangent.locallyOfFiniteType_kerN Contrib.AbVarBC.Tangent.map_add_inl Contrib.AbVarBC.Tangent.map_add_inr Contrib.AbVarBC.Tangent.map_fst_inl Contrib.AbVarBC.Tangent.map_fst_inr Contrib.AbVarBC.Tangent.map_snd_inl Contrib.AbVarBC.Tangent.map_snd_inr Contrib.AbVarBC.Tangent.mem_of_atOrigin Contrib.AbVarBC.Tangent.mulN Contrib.AbVarBC.Tangent.ofRing Contrib.AbVarBC.Tangent.ofRing_mem Contrib.AbVarBC.Tangent.one_left Contrib.AbVarBC.Tangent.orig Contrib.AbVarBC.Tangent.ptR Contrib.AbVarBC.Tangent.ptRing Contrib.AbVarBC.Tangent.ptRing_comp Contrib.AbVarBC.Tangent.ptRing_congr Contrib.AbVarBC.Tangent.ptRing_ext Contrib.AbVarBC.Tangent.ptRing_id_top Contrib.AbVarBC.Tangent.ptRing_ofRing Contrib.AbVarBC.Tangent.ptRing_specMap_comp Contrib.AbVarBC.Tangent.specHom Contrib.AbVarBC.Tangent.specHom_comp Contrib.AbVarBC.Tangent.specHom_id Contrib.AbVarBC.Tangent.specHom_left Contrib.AbVarBC.Tangent.spec_inl_fst_comp Contrib.AbVarBC.Tangent.tRing Contrib.AbVarBC.Tangent.tRing_congr Contrib.AbVarBC.Tangent.tRing_one Contrib.AbVarBC.Tangent.tRing_specHom Contrib.AbVarBC.TorsionDescends Contrib.AbVarBC.comp_natCast_hom Contrib.AbVarBC.dim_baseChange_scheme Contrib.AbVarBC.dim_finite Contrib.AbVarBC.dim_pullback_spec Contrib.AbVarBC.dim_spec_le Contrib.AbVarBC.exists_lift_of_isFinite Contrib.AbVarBC.exists_nat_of_le Contrib.AbVarBC.galK Contrib.AbVarBC.kerUnitOpen Contrib.AbVarBC.map_comm Contrib.AbVarBC.mem_range_of_isIntegral Contrib.AbVarBC.mulIsogeny Contrib.AbVarBC.ptBC Contrib.AbVarBC.ptBC_galAct Contrib.AbVarBC.ptBC_injective Contrib.AbVarBC.ringKrullDim_eq_of_isIntegral_of_injective Contrib.AbVarBC.ringKrullDim_le_of_finiteType Contrib.AbVarBC.ringKrullDim_mvPolynomial_field Contrib.AbVarBC.ringKrullDim_tensor_field Contrib.AbVarBC.scheme_dim_eq_iSup_cover Contrib.AbVarBC.scheme_dim_eq_of_iso Contrib.AbVarBC.spec_dim Contrib.AbVarBC.tateBC Contrib.AbVarBC.tateBC_bijective_of_tateModuleFree Contrib.AbVarBC.tateBC_bijective_of_torsionDescends Contrib.AbVarBC.tateBC_galT Contrib.AbVarBC.tateBC_injective Contrib.AbVarBC.tate_map_bijective_of_torsion Contrib.AbVarBC.topologicalKrullDim_eq_iSup_of_openEmbedding Contrib.AbVarBC.torsionDescends_of_isFinite Contrib.AbVarBC.vBC Contrib.AbVarBC.vBC_galRep DefFaltings.AbVar DefFaltings.AnalyticUniformizationExists DefFaltings.AnalyticUniformizationUnique DefFaltings.EReal.add_coe_add_neg_coe DefFaltings.FinExt DefFaltings.Genus2Eq DefFaltings.Genus2Eq.Good DefFaltings.Genus2Eq.P DefFaltings.Genus2Eq.binDisc DefFaltings.GroupModel DefFaltings.GroupModel.IsAnalyticUniformization DefFaltings.GroupModel.IsNeronModel DefFaltings.GroupModel.Pts DefFaltings.GroupModel.cotangent DefFaltings.GroupModel.dCls DefFaltings.GroupModel.detLattice DefFaltings.GroupModel.dom DefFaltings.GroupModel.evalAt DefFaltings.GroupModel.exists_rep DefFaltings.GroupModel.genStalk DefFaltings.GroupModel.genericUnit DefFaltings.GroupModel.germAlong DefFaltings.GroupModel.height DefFaltings.GroupModel.height_eq DefFaltings.GroupModel.hodgeSpace DefFaltings.GroupModel.jacDet DefFaltings.GroupModel.jacDet_comp DefFaltings.GroupModel.omega DefFaltings.GroupModel.omegaAt DefFaltings.GroupModel.omegaAt_genericPt DefFaltings.GroupModel.ptC DefFaltings.GroupModel.semilinear_ext_wedge DefFaltings.GroupModel.specializes_genericUnit DefFaltings.GroupModel.structMap DefFaltings.GroupModel.unitSection DefFaltings.GroupModel.wedge DefFaltings.HermitianLattice DefFaltings.HermitianLattice.arakelovDegree DefFaltings.HermitianLattice.arakelovDegree_ofFractionalIdeal DefFaltings.HermitianLattice.arakelovDegree_rescale DefFaltings.HermitianLattice.degreeAt DefFaltings.HermitianLattice.degreeAt_eq DefFaltings.HermitianLattice.degreeAt_eq_arakelovDegree DefFaltings.HermitianLattice.degreeAt_smul DefFaltings.HermitianLattice.ofFractionalIdeal DefFaltings.HermitianLattice.rescale DefFaltings.HermitianLattice.secIndex_ne_zero DefFaltings.HodgeData DefFaltings.HodgeData.coeff_apply_ne_zero DefFaltings.HodgeData.hodgeBundle DefFaltings.HodgeData.modelHeight DefFaltings.HodgeData.modelHeight_eq DefFaltings.HodgeData.modelHeight_eq_add_of_le DefFaltings.HodgeData.modelHeight_eq_faltingsHeightGood DefFaltings.HodgeData.modelHeight_le_of_le DefFaltings.HodgeData.modelHeight_ofIdeal DefFaltings.HodgeData.modelHeight_ofIdeal_baseChange DefFaltings.HodgeData.modelHeight_of_span DefFaltings.HodgeData.modelHeight_recoord DefFaltings.HodgeData.norm DefFaltings.HodgeData.norm_sq DefFaltings.HodgeData.recoord DefFaltings.HodgeLatticeTheorem DefFaltings.IsIsogeny DefFaltings.MetrizedModel DefFaltings.MetrizedModel.modelHeight_eq_of_model_eq DefFaltings.NeronModelMinimal DefFaltings.PeriodAreaFormula DefFaltings.R19_GaudronRemond DefFaltings.R20_FaltingsLemma5 DefFaltings.R21_Bost DefFaltings.StableHeightFinite DefFaltings.absNorm_extendedHom DefFaltings.absNorm_map_ringOfIntegers DefFaltings.arakelovDegree_ofFractionalIdeal_baseChange DefFaltings.arakelovDegree_ofFractionalIdeal_mul DefFaltings.card_embeddings_over DefFaltings.covolume_comap_mul_det DefFaltings.covolume_gaussianPair DefFaltings.det_restrictScalars_complex DefFaltings.embCoeff DefFaltings.faltingsHeight DefFaltings.faltingsHeightEC DefFaltings.faltingsHeightGood DefFaltings.faltingsHeight_coe DefFaltings.finiteHeightPart DefFaltings.finrank_ringOfIntegers DefFaltings.gaussianPair DefFaltings.genericFibre DefFaltings.genericPt DefFaltings.grKappa DefFaltings.hypGram DefFaltings.hypGram_comp_add DefFaltings.hypVol DefFaltings.hypVol_one_comp_add DefFaltings.isogDeg DefFaltings.le_stableFaltingsHeight DefFaltings.modelHeight_ofIdeal_eq_faltingsHeightEC DefFaltings.modelHeight_ofIdeal_eq_faltingsHeightEC' DefFaltings.norm_algebraMap_tower DefFaltings.ptObj DefFaltings.ratCoeff DefFaltings.realify DefFaltings.secIndex DefFaltings.secIndex_mul_absNorm DefFaltings.secIndex_smul DefFaltings.stableFaltingsHeight DefFaltings.stableFaltingsHeightDeligne DefFaltings.stableFaltingsHeightDeligne_eq DefFaltings.stableFaltingsHeight_eq_faltingsHeightGood DefFaltings.stableFaltingsHeight_eq_iInf_height DefFaltings.stableFaltingsHeight_le DefFaltings.stableFaltingsHeight_ne_bot_of_R21 DefFaltings.sum_embeddings_comp DefFaltings.sum_log_norm_embeddings DefFaltings.sum_log_norm_embeddings_int DefFaltings.torusMetricSq DefFaltings.torusMetricSq_comap DefFaltings.torusMetricSq_eq_setIntegral DefFaltings.torusMetricSq_pos DefFaltings.torusMetricSq_smul DefFaltings.torus_setIntegral_indep H5Glue.GenericFibreStalkIso H5Glue.GroupModel.baseChange H5Glue.GroupModel.isNeronModel_iff H5Glue.GroupModelBaseChangeExists H5Glue.HeightAntitone H5Glue.HodgeLatticeNonzero H5Glue.HodgeMapBijective H5Glue.IsBaseChangeOf H5Glue.IsOpenSubgroupModel H5Glue.IsProductAbVar H5Glue.IsProductModel H5Glue.ModelHeightBaseChange H5Glue.NeronModelExists H5Glue.NeronProp H5Glue.NeronProp.lift H5Glue.NeronProp.of_iso H5Glue.NeronProp.tensor H5Glue.NeronProp.uniqueIso H5Glue.OmegaSpans H5Glue.OpenImmersionHeightLe H5Glue.OpenSubgroupHeight H5Glue.ProductGroupModelExists H5Glue.ProductModelHeight H5Glue.SemistableNeronIdentityComponent H5Glue.baseChange_map_bijective H5Glue.bcProd H5Glue.bijective_respectsIso H5Glue.compositum H5Glue.cotMap H5Glue.cotMap_bijective H5Glue.cotMap_dCls H5Glue.cotMap_omega H5Glue.cotMap_omegaAt H5Glue.detLattice_le_hodgeMap H5Glue.dom_comp H5Glue.evalAt_comp H5Glue.evalAt_res H5Glue.exists_smul_mem_omega H5Glue.fst_genericFibreUnit H5Glue.fst_genericFibre_unit H5Glue.genBC H5Glue.genBC_isMonHom H5Glue.genMap H5Glue.genMap_germ H5Glue.genMap_mem_maximalIdeal H5Glue.genMap_mem_maximalIdeal_iff H5Glue.genMap_structMap H5Glue.genericFibreStalkIso H5Glue.genericFibreUnit H5Glue.genericIso_of_openImmersion H5Glue.germAlong_comp_eventuallyEq H5Glue.groupModelBaseChangeExists H5Glue.heightAntitone H5Glue.heightAntitone_of H5Glue.heightAntitone_of_hodgeLatticeNonzero H5Glue.heightAntitone_of_omegaSpans H5Glue.hodgeLatticeNonzero_of_omegaSpans H5Glue.hodgeMap H5Glue.hodgeMapBijective H5Glue.hodgeMap_detLattice H5Glue.hodgeMap_wedge H5Glue.hodgeMap_wedgeGerm H5Glue.isAnalyticUniformization_comp H5Glue.isAnalyticUniformization_of_comp H5Glue.isIso_genMap H5Glue.isIso_of_openImmersion_self H5Glue.isIso_stalkSpecializes_genMap H5Glue.isMonHom_of_map H5Glue.isMonHom_pbCompHom H5Glue.isMonHom_pbCompInv H5Glue.isMonHom_pbEqIso H5Glue.isMonHom_prodComparisonIso H5Glue.isNeronModel_of_isProductModel H5Glue.isOpenImmersion_pullback_map H5Glue.jL H5Glue.jacDet_comp_genMap H5Glue.jacDet_comp_map H5Glue.map_genericUnit' H5Glue.map_span_singleton_toAddSubgroup H5Glue.map_zero_of_hom H5Glue.modelHeight_pullHodge_le H5Glue.neronModelMinimal H5Glue.neronModelMinimal_of_heightAntitone H5Glue.neron_lift H5Glue.neron_lift_isMonHom H5Glue.neron_map_injective H5Glue.omegaAt_le_cotMap H5Glue.omegaSpans H5Glue.omega_le_cotMap H5Glue.one_mem_dom H5Glue.openImmersionHeightLe H5Glue.openSubgroupHeight H5Glue.openSubgroupHeight_of H5Glue.pbCompHom H5Glue.pbCompInv H5Glue.pbCompIso H5Glue.pbEqIso H5Glue.productGroupModelExists H5Glue.ptCIso H5Glue.ptC_hom_apply H5Glue.ptsEquiv H5Glue.ptsEquiv_comp H5Glue.pts_comp_bijective H5Glue.pullHodge H5Glue.secIndex_le_of_map H5Glue.secIndex_ne_zero_of_mem H5Glue.smooth_tensor H5Glue.smooth_unit H5Glue.square1 H5Glue.square2 H5Glue.stableFaltingsHeight_add_le H5Glue.stableFaltingsHeight_add_le_of_productModelHeight H5Glue.stableFaltingsHeight_eq_neron_all H5Glue.stableFaltingsHeight_eq_neron_all' H5Glue.stalkIso_of_genericIso H5Glue.stalkSpecializes_self_apply H5Glue.stalkSpecializes_stalkSpecializes_apply H5Glue.stalk_ker_eq H5Glue.stalk_spec_eq H5Glue.stalkwise_fst_toGeneric H5Glue.stalkwise_tensor_localization H5Glue.tensorGen H5Glue.tensorGen_fst H5Glue.tensorGen_snd H5Glue.toGeneric_pt H5Glue.unitSection_comp H5Neron.GroupModel.IsNeronModel.lift H5Neron.GroupModel.IsNeronModel.uniqueIso H5Neron.GroupModel.isNeronModel_iff H5Neron.GroupModelBaseChangeExists H5Neron.IsBaseChangeOf H5Neron.IsOpenSubgroupModel H5Neron.IsProductAbVar H5Neron.IsProductModel H5Neron.ModelHeightBaseChange H5Neron.NeronModelExists H5Neron.NeronProp H5Neron.NeronProp.lift H5Neron.NeronProp.of_iso H5Neron.NeronProp.tensor H5Neron.NeronProp.uniqueIso H5Neron.OpenSubgroupHeight H5Neron.ProductGroupModelExists H5Neron.ProductModelHeight H5Neron.R19_zero H5Neron.R20_zero H5Neron.R21_zero H5Neron.SemistableNeronIdentityComponent H5Neron.bcProd H5Neron.bcUnitIso H5Neron.compositum H5Neron.covolume_fin_zero H5Neron.detLattice_zero H5Neron.glue_zero H5Neron.groupModel_height_zero H5Neron.hodgeZeroEquiv H5Neron.hodgeZeroEquiv_wedge0 H5Neron.hom_ext_of_iso_unit H5Neron.isIsogeny_id_zero H5Neron.isMonHom_of_iso_unit H5Neron.isMonHom_prodComparisonIso H5Neron.isNeronModel_of_isProductModel H5Neron.isogDeg_zero_le_one H5Neron.jL H5Neron.metrizedOf H5Neron.modelHeight_dim_zero H5Neron.neronModelExists_zero H5Neron.neronModelMinimal_zero H5Neron.neron_zero_iso_unit H5Neron.no_metrized_succ H5Neron.one_le_grKappa H5Neron.productGroupModelExists H5Neron.pts_subsingleton H5Neron.semistableNeronIdentityComponent_zero H5Neron.semσ H5Neron.stableFaltingsHeight_add_le H5Neron.stableFaltingsHeight_add_le' H5Neron.stableFaltingsHeight_eq_neron H5Neron.stableFaltingsHeight_eq_neron_all H5Neron.stableFaltingsHeight_zero H5Neron.stableHeightFinite_zero H5Neron.tensorGen H5Neron.tensorGen_fst H5Neron.tensorGen_snd H5Neron.trivHodge H5Neron.trivMetrized H5Neron.trivModel H5Neron.trivModel_isNeronModel H5Neron.wedge0 H5Neron.wedge0_ne_zero H5Neron.wedge_eq_wedge0 HeightBC.CotangentSpanBC HeightBC.D0 HeightBC.D0_add HeightBC.D0_add_apply HeightBC.D0_mul HeightBC.D0_mul_apply HeightBC.D0_sq HeightBC.D0_structMap_mul HeightBC.DetLatticeBC HeightBC.FF HeightBC.GermDerivation HeightBC.HodgeBCInjective HeightBC.HodgeLineBaseChange HeightBC.HodgeLineBaseChangeDescent HeightBC.HodgeLineDescentHalf HeightBC.HodgeSpanBC HeightBC.IsBaseChangeOf HeightBC.IsHodgeBaseChange HeightBC.IsMonBC HeightBC.JacobianPullbackSpan HeightBC.JacobianSemilinear HeightBC.MetrizationBaseChange HeightBC.ModelHeightBaseChange HeightBC.ModelHeightBaseChangeGE HeightBC.ModelHeightBaseChangeLE HeightBC.OmegaBaseChange HeightBC.OmegaLocalization HeightBC.PtsBaseChangeBij HeightBC.PtsBaseChangeMul HeightBC.UniformizationLift HeightBC.UniformizationLiftAnalytic HeightBC.algebraMap_FF HeightBC.algebraMap_ringOfIntegers_coe HeightBC.appLE_top_top HeightBC.bO HeightBC.bO_appTop HeightBC.bO_genericPt HeightBC.bcAlt HeightBC.bcCot HeightBC.bcCotBasis HeightBC.bcCotBasis_apply HeightBC.bcCot_core HeightBC.bcCot_dCls HeightBC.bcCot_intInv HeightBC.bcCot_linearIndependent HeightBC.bcCot_omega HeightBC.bcCot_omegaAt HeightBC.bcCot_smulL HeightBC.bcCot_smul_genStalk HeightBC.bcCot_span HeightBC.bcCot_update HeightBC.bcExt HeightBC.bcExt_smul HeightBC.bcExt_ιMulti HeightBC.bcHodge HeightBC.bcHodge_detLattice HeightBC.bcHodge_smul HeightBC.bcHodge_tmul HeightBC.bcHodge_wedge HeightBC.bcMap HeightBC.bcMap_germ HeightBC.bcMap_mem_maximalIdeal HeightBC.bcMap_structMap HeightBC.bcMap_φL HeightBC.bcProj HeightBC.bcProj_genericUnit HeightBC.bcProj_unit HeightBC.bcProj_w HeightBC.bcPts HeightBC.cotL HeightBC.cotL_isScalarTower HeightBC.cotL_smul HeightBC.cotRes HeightBC.cotangentSpanBC HeightBC.descentHalf_of_descent HeightBC.detLatticeBC_of_omega HeightBC.dom_bcPts HeightBC.evalAt_add HeightBC.evalAt_bcPts HeightBC.evalAt_mul HeightBC.evalAt_one_eq_zero HeightBC.evalAt_res HeightBC.evalAt_structSection HeightBC.exists_act HeightBC.exists_comp_eq HeightBC.exists_int_dvd HeightBC.exists_mem_not_mem_of_sat HeightBC.exists_ringOfIntegers_of_algebraMap HeightBC.extRes HeightBC.finite_of_isClosed_not_genericPt HeightBC.g0_hodgeLine_iff HeightBC.genericPt_eq_genericPoint HeightBC.germAlong_add_mul HeightBC.germAlong_bcPts_eventuallyEq HeightBC.germAlong_differentiableAt HeightBC.germAlong_eventuallyEq_rep HeightBC.germAlong_structMap HeightBC.germAlong_zero_of_mem HeightBC.germDerivation HeightBC.germDerivation_at HeightBC.hodgeBCInjective HeightBC.hodgeLineBaseChangeDescent_of_glue HeightBC.hodgeLineBaseChange_of_descent HeightBC.hodgeLineBaseChange_of_final HeightBC.hodgeLineBaseChange_of_five HeightBC.hodgeLineBaseChange_of_four HeightBC.hodgeLineBaseChange_of_glue HeightBC.hodgeLineBaseChange_of_glue4 HeightBC.hodgeLineBaseChange_of_glue5 HeightBC.hodgeLineBaseChange_of_main HeightBC.hodgeLineBaseChange_of_two HeightBC.hodgeSpanBC_of HeightBC.hom_genericUnit HeightBC.hom_genericUnit' HeightBC.hom_unitSection HeightBC.isAnalyticUniformization_bcPts HeightBC.isField_stalk_genericPt HeightBC.isIso_stalkSpecializes_bcMap HeightBC.isUnit_germ_genericPt HeightBC.isUnit_structMap HeightBC.jacDet_bcPts HeightBC.jacobianPullbackSpan_of HeightBC.jacobianSemilinear HeightBC.jacobianSemilinear_of HeightBC.locSub HeightBC.mapCotangent_injective_of_isIso HeightBC.mapCotangent_smul' HeightBC.map_zero_of_hom HeightBC.maximalIdeal_stalk_genericPt HeightBC.mem_locSub HeightBC.mem_of_forall_locSub HeightBC.metrizationBaseChange_of_hodgeLine HeightBC.modelHeightBaseChangeGE_of_descent HeightBC.modelHeightBaseChangeGE_of_descentHalf HeightBC.modelHeightBaseChangeGE_of_main HeightBC.modelHeightBaseChangeGE_of_two HeightBC.modelHeightBaseChangeLE_of_metrization HeightBC.modelHeightBaseChange_of_descent HeightBC.modelHeightBaseChange_of_final HeightBC.modelHeightBaseChange_of_five HeightBC.modelHeightBaseChange_of_four HeightBC.modelHeightBaseChange_of_glue HeightBC.modelHeightBaseChange_of_glue4 HeightBC.modelHeightBaseChange_of_glue5 HeightBC.modelHeightBaseChange_of_main HeightBC.modelHeightBaseChange_of_two HeightBC.modelHeight_eq_of_isHodgeBaseChange HeightBC.multilinear_mem_span HeightBC.omegaAt_bc_local HeightBC.omegaAt_full HeightBC.omegaAt_open HeightBC.omegaAt_sat HeightBC.omegaBaseChange HeightBC.omegaBaseChange_of_localization HeightBC.omegaLocalization HeightBC.one_mem_dom HeightBC.ptC_hom_apply HeightBC.ptC_hom_comp_bO HeightBC.ptsBaseChangeBij HeightBC.ptsBaseChangeMul HeightBC.rationalOver_genericUnit HeightBC.secIndex_baseChange HeightBC.secIndex_map HeightBC.secIndex_ne_zero_of_baseChange HeightBC.secIndex_nsmul_mem HeightBC.smul_cotangent_eq_of_sub_mem HeightBC.span_bcHodge_le HeightBC.spec_mem_of_ker HeightBC.stalkMapAt_germ' HeightBC.stalkSpec_comp_apply HeightBC.stalkSpec_self_apply HeightBC.stalkSpecializes_self_apply' HeightBC.stalkSpecializes_stalkSpecializes_apply' HeightBC.structMap_eq_spec HeightBC.structMap_eq_stalkMap HeightBC.toCotangent_mul HeightBC.uniformizationLift HeightBC.uniformizationLiftAnalytic HeightBC.uniformizationLift_of HeightBC.unitSection_comp_hom HeightBC.unitSection_stalkMapAt_hom HeightBC.σFF HeightBC.φL HeightBC.φL_algebraMap LeafPush2.CPts LeafPush2.Char2 LeafPush2.HasSexticModel LeafPush2.IC10 LeafPush2.IC2 LeafPush2.IC4 LeafPush2.IC6 LeafPush2.IgJ10 LeafPush2.IgJ2 LeafPush2.IgJ4 LeafPush2.IgJ6 LeafPush2.IsGenus2 LeafPush2.IsPeriodMatrix LeafPush2.IsSiegel LeafPush2.IsUniformization LeafPush2.LinYangTuple LeafPush2.OnQMLocus LeafPush2.T10_groupIso LeafPush2.T11a_RiemannEnd LeafPush2.T11b_Rigidity LeafPush2.T12_ComplexConjEigen LeafPush2.UniformizationExists LeafPush2.absLogHeight LeafPush2.cDom LeafPush2.cEvalAt LeafPush2.cptObj LeafPush2.dsq LeafPush2.exists_isComplexConj LeafPush2.ffAlgebra LeafPush2.ffStructMap LeafPush2.isSiegel_I LeafPush2.javanpeykarBound LeafPush2.javanpeykarBound_mono LeafPush2.javanpeykarBound_pos LeafPush2.linYangTuple_onQMLocus LeafPush2.linYang_j_eq LeafPush2.onQMLocus_of_linYangTuple LeafPush2.pazukiC2 LeafPush2.sextic LeafPush2.thetaConst) -- op-dedupe
+open _root_.LeafQM.AV (CMExists HasCM24 HasCM24.of_iso HasCM3 HasCM3.of_iso HasCM4 HasCM4.of_iso IsBaseChangeOf IsBaseChangeOfPair IsFibreOf Level3 Level3.bcPt_pow_three Level3.eq_iff Level3.exists_mul_of_range_le Level3.ext' Level3.onto Level3.range_le Level3.rightMul Level3.rightMul_eq_self Level3.rightMul_rightMul Level3.torsor Level3.twist M3 M3.mk M3.rightMul M3.rightMul_rightMul M3.twist M3.twist_mk Pin.AutOExt.NormalizerFinite Pin.AutOExt.alpha_nat_smul Pin.AutOExt.autOInnerFinite_of_normalizer Pin.AutOExt.common_den Pin.AutOExt.conjUnit Pin.AutOExt.conj_of_skolem Pin.AutOExt.den_mul_int Pin.AutOExt.exists_nat_smul_mem Pin.AutOExt.extAlgEquiv Pin.AutOExt.extAlgHom Pin.AutOExt.extAlgHom_coe Pin.AutOExt.extAlgHom_symm_comp Pin.AutOExt.extDen Pin.AutOExt.extDen_mem Pin.AutOExt.extDen_pos Pin.AutOExt.extFun Pin.AutOExt.extFun_add Pin.AutOExt.extFun_algebraMap Pin.AutOExt.extFun_coe Pin.AutOExt.extFun_eq Pin.AutOExt.extFun_mul Pin.AutOExt.key_conj Pin.AutOExt.mem_O_of_int Pin.AutOExt.natCast_mul_eq_smul Pin.AutOExt.nat_smul_mem Pin.AutOExt.smul_mul_smul' Pin.AutOInnerFinite Pin.ConstOrOntoAlgClosed Pin.CurveRatFactor Pin.CurveSurj Pin.GeomCompConstOrOnto Pin.GeomCompFinite Pin.GeomCompInfinite Pin.GeomCompRatFactor Pin.ImagePlane.ev_comp Pin.ImagePlane.ev_spec_top Pin.ImagePlane.ptOf_comp Pin.ImagePlane.ptOf_spec_asIdeal Pin.IsNaturalRelabel Pin.Mob.eval_ne_zero_of_coprime Pin.Mob.exists_interp Pin.Mob.isCoprime_X_sub_C_of_eval_one Pin.Mob.natDegree_le_one_of_injective Pin.Mob.ratEval Pin.Mob.ratEval_eq_self Pin.Mob.wronskian_ne_zero Pin.MobiusGlue Pin.NormO.IsNorm Pin.NormO.IsNorm.inv Pin.NormO.IsNorm.mul Pin.NormO.T Pin.NormO.T_finite Pin.NormO.T_mul_ui Pin.NormO.T_mul_uj Pin.NormO.bas Pin.NormO.conjC Pin.NormO.descent Pin.NormO.dvd_of_prime_dvd_nrd Pin.NormO.dvd_of_smul_mem Pin.NormO.ei Pin.NormO.ej Pin.NormO.inv_eq Pin.NormO.isNorm_sc Pin.NormO.isNorm_ui Pin.NormO.isNorm_uj Pin.NormO.mulCoord_conjC Pin.NormO.mulCoord_conjC' Pin.NormO.mulCoord_smul_left Pin.NormO.mulCoord_smul_right Pin.NormO.normalizerFinite Pin.NormO.nrdZ Pin.NormO.nrdZ_ei Pin.NormO.nrdZ_ej Pin.NormO.nrdZ_mul Pin.NormO.nrdZ_ne_zero Pin.NormO.nrdZ_smul Pin.NormO.nrd_dvd_coords Pin.NormO.ofInt_scalar Pin.NormO.rearrange Pin.NormO.sc Pin.NormO.six_sq_identities Pin.NormO.smul_ofInt Pin.NormO.three_dvd_mulCoord_ej Pin.NormO.two_dvd_mulCoord_ei Pin.NormO.ui Pin.NormO.uj Pin.PinUnique Pin.QMFamily.transport Pin.QML3.isoTransport Pin.R1fpProps.fam Pin.R1fpProps.univ Pin.RatFactorAlgClosed Pin.SameTriple Pin.SameTripleMor Pin.SmoothCurveNoIsolatedPoint Pin.SmoothStalkDimOne Pin.TwistClassFinite Pin.autOInnerFinite Pin.autRelabel Pin.autRelabel_natural Pin.bcPt Pin.bcPt_ptOfSection Pin.bcPt_snd Pin.bcQbar Pin.bcSnd Pin.cm_objects_of_R1R2fp Pin.conjUnitIso Pin.cst Pin.curveFacts_of_algClosed Pin.curveFacts_of_comp Pin.curveFacts_of_leaves Pin.curveFacts_of_named Pin.curveRatFactor_of_comp Pin.curveSurj_of_comp Pin.ev Pin.ev_cst Pin.ev_eq_zero_iff Pin.ev_f_mul_g Pin.ev_g_eq_zero Pin.ev_res Pin.ev_top Pin.exists_isOpen_singleton_of_finite_closedPoints Pin.exists_liftO_congr Pin.exists_point_of_isLocallyClosed Pin.geomComp Pin.geomCompConstOrOnto_of Pin.geomCompFinite Pin.geomCompInfinite_of Pin.geomCompRatFactor_of Pin.isFibreOf_transport Pin.isOpen_connectedComponent_of_noetherian Pin.level3_finite Pin.mem_V_of_not_mem_U Pin.phi_part Pin.pointwise_of_witness Pin.pointwise_of_witness_mor Pin.ptOf Pin.ptOfSection Pin.r1fpPin_aut Pin.r1fpPin_relabel_iff Pin.r2fp_aut Pin.relabel Pin.relabel_geometric Pin.relabel_is_morphism Pin.res Pin.res_res Pin.sameTripleMor_of_mobius Pin.sameTriple_aut Pin.smoothCurveNoIsolatedPoint_of Pin.transfer_exists Pin.transfer_pointwise Pin.transfer_pointwise_mor Pin.transportLevel Pin.twistClassFinite Pin.twistClassFinite_of Pin.val_bcPt Pin.val_of_mem Pin.val_of_not_mem PtEquiv QMFamily QMIso QMIso.nonempty_abVarIso QMIso.refl QMIso.symm QMIso.trans QML3 QML3.Iso QML3.Iso.refl QML3.Iso.rightMul QML3.Iso.symm QML3.Iso.trans QML3.Iso.twist QML3.forget QML3.rightMul QML3.rightMul_A QML3.rightMul_rightMul QML3.twist QML3.twist_A QMLeaves QMPair QMPair.twist QMStr QMStr.twist Qbar R1R2fp R1R2fp_Y R1famProps R1fp R1fpProps R1fp_of_R1R2fp R1heckeProps R1rec R1recProps R1univProps R2X6Props R2fpProps R2fpProps_of_X6 R5fp R5fpCount R5fpWeak R5fpWeak_of_R5fp R5ptProps ToP1 ToP1.comp ToP1.val ToP1.val_comp ToP1.val_comp_right UnramifiedAbove5 X6Props X6Surj act_mul_apply bcPt bcPt_injective cm_of_val com comEquiv com_twist conductor conjHom conjHom_iota conjHom_mem_com conjHom_symm_apply conj_iso_of_rational conj_twist_of_rational endPt exists_fibre_object fibre_conjugates_isomorphic fieldMap fieldOfModuli3 fieldOfModuliPair fieldPt galAct_bcPt hI hIJ hJ hasCM24_twist hasCM3_twist hasCM4_twist hrat inertCount6 intCast_mem_com isoSetoid leaves_on_one_witness liftO not_qmStr_zero ofInt_injective ofInt_sub oi oi_mul_oi oj oj_mul_oi_add oj_mul_oj pairSetoid qmAct residueImage residue_unramified_over_branch specMap_flat specMap_surjective specToEquivOfField_comp specToEquivOfField_comp_right stab3 stabPair three_mul_ofInt toKbar unramified_over_branch) -- op-dedupe
+open _root_.GlueDescent (B2.IsSignCocycle B2.SignCob B2.dB B2.dB_inv B2.dB_mul B2.exists_beta B2.isSignCocycle_dB B2.isSignCocycle_inv B2.isSignCocycle_mul B2.isSignCocycle_pull B2.pull B2.pull_dB B2.signCob_dB_iff B2.signCob_inv B2.signCob_mul B2Q.GQ B2Q.GQp B2Q.InflatedFrom B2Q.LeafHasse B2Q.LeafLocalTwo B2Q.LeafSqrtCrit B2Q.LeafUnramified B2Q.UnramifiedAt B2Q.act B2Q.act_mul B2Q.b2_of_leaves B2Q.cast_cast_of_dvd B2Q.chiLevel_pos B2Q.chi_toUnitHom_crt B2Q.cyc B2Q.cyc_eq_of_agree B2Q.cyc_isLocallyConstant B2Q.exists_crt_unit B2Q.galChar B2Q.galChar_isLocallyConstant B2Q.isLocallyConstant_of_openSubgroup B2Q.lev_eq_pow B2Q.resp B2Q.resp_continuous B2Q.sqrtU B2Q.sqrtU_sq B2Q.toRingAut B3Q.GQL B3Q.b3_degree_le_QM B3Q.b3_of_leaves B3Q.inflatedNormalized_of B3Q.mem_GQL B3Q.orderOf_pos_dirichlet B6 B6_commute_i_j B6_inner B6_isCentral B6_isSimpleRing B6_star_mul InflatedNormalized IsCochainFor LeafSkolemNoether MatrixUnits2 MatrixUnits2.W MatrixUnits2.e00_of_mem MatrixUnits2.e_apply_e MatrixUnits2.finrank_W MatrixUnits2.mapsTo_W MatrixUnits2.mem_W_of_e0 MatrixUnits2.splitEquiv MatrixUnits2.splitEquiv_intertwines aniso_int aniso_rat boundary_sq chi chiLevel cochain_conj cochain_mul_kernel cochain_mul_left cochain_mul_right cochain_of_boundary_eq cochain_one cocycle_of_projective commute_adjoin contactSupport_pos degree_le_QM exists_chi exists_odd_char heightD_pos index_kernel_le inertia_le_kernel kernelSubgroup kernelSubgroup_le kernelSubgroup_normal lev lev_dvd_chiLevel mem_kernelSubgroup oddChar oddChar_neg_one orderOf_dvd_totient orderOf_prod_dvd prod_S_le prod_odd_le prod_odd_le_aux prod_totient_lev_le qi qj ramSet relindex_kernel_le restrictHom rho rhoRep rho_commute rho_eq_act rho_map_mul sign_cocycle sign_normalization sign_sq_eq_one ten_le_heightE0 three_dvd_of_form totient_lev twist twist_kills_inertia twist_sq two_lt_lev zmod3_aniso) -- op-dedupe
+open _root_.GlueDescent.B2 (IsSignCocycle SignCob dB dB_inv dB_mul exists_beta isSignCocycle_dB isSignCocycle_inv isSignCocycle_mul isSignCocycle_pull pull pull_dB signCob_dB_iff signCob_inv signCob_mul) -- op-dedupe
+open _root_.GlueDescent.B2Q (GQ GQp InflatedFrom LeafHasse LeafLocalTwo LeafSqrtCrit LeafUnramified UnramifiedAt act act_mul b2_of_leaves cast_cast_of_dvd chiLevel_pos chi_toUnitHom_crt cyc cyc_eq_of_agree cyc_isLocallyConstant exists_crt_unit galChar galChar_isLocallyConstant isLocallyConstant_of_openSubgroup lev_eq_pow resp resp_continuous sqrtU sqrtU_sq toRingAut) -- op-dedupe
+open _root_.GlueDescent.B3Q (GQL b3_degree_le_QM b3_of_leaves inflatedNormalized_of mem_GQL orderOf_pos_dirichlet) -- op-dedupe
 
 namespace UnramTate
+open _root_.UnramTate (EndBaseChange PtA ResQEmbedding ScalarTransfer TateCont TatePoints bcPt bcPt_galAct conjE conjE_apply endBC endBaseChange eps_right_one hO homEquiv_mul iO iO_jO iO_sq incO' incO'_coe inertia_trivial' instGaloisQbar' jO jO_sq lift_fixes' matrixUnits_of_quat numberField_of_fd'' opV opVHom ptMapIso quat_words resQEmbedding sK scalarTransfer specMap_comp_sK tateCont_of_tateModuleFree tateMap_add tateMap_comp tateMap_id tateMap_zero tatePoints tate_eq_opV tmOf trHom trHom_comp_symm trHom_left trHom_symm_comp trPt trPt_galAct unramifiedSup_mf) -- op-dedupe
 
 open G0ModField
+open _root_.G0ModField (CommonConstituent ConjugacyData DescentDatum FibreCoverExists FibreCoverOut FibreCtx G2Out G4Out G7Out GaloisCopy.G2Out GaloisCopy.G7Out GaloisCopy.Vb GaloisCopy.resQ GaloisCopy.tate IF IsModelOver IsQMModel IsQMModel.isModelOver KernelFieldExists KernelFieldOut ModularConstituentG PtQ RationalFibre ResQRange T UnramifiedSup actK actQ admissible_S_mul b2_of_leaves_level b3_of_cochain baseChangeTrans card_ker_GL descentDatum_bot descentDatum_of_conjugacy fieldDescent g2Out_of_cover g4Out_of_kernelField g7Out_of_g4Out galAct_bijective galAct_mul incAlg isModelOver_baseChange le_heightD_of_mem_S_mul mem_GQL_bot normA numberField_of_fd resQRange resQ_comm' resQ_range sgnU sgnU_mul sgnU_mul_abs sgnU_sq toLAut toLAut_apply two_mem_T) -- op-dedupe
 
 /-- **Glue piece TB-iii with the kernel clause (GLUE, proved below: `scalarTransferK`).**
 unram-tate's `ScalarTransfer` (statement copied) with the extra output `γ(σ) = 1 ⟹ β(σ) = a(σ)`:
@@ -5590,6 +5188,13 @@ section LGFinalSec
 
 open CategoryTheory AlgebraicGeometry
 open _root_.ZInQ ZInQ LeafQM.AV GlueDescent GlueDescent.B2 GlueDescent.B2Q GlueDescent.B3Q G0ModField
+open _root_.ZInQ (Contrib.AbVarBC.G0FibreSimple.MulIsogeny Contrib.AbVarBC.MulRigidity.CotangentMulN Contrib.AbVarBC.MulRigidity.KerUnitOpen Contrib.AbVarBC.MulRigidity.KerUnitOpenOfCotangentSurj Contrib.AbVarBC.MulRigidity.MulEtale Contrib.AbVarBC.MulRigidity.MulUnramified Contrib.AbVarBC.MulRigidity.O0 Contrib.AbVarBC.MulRigidity.QuasiFiniteEndSurjective Contrib.AbVarBC.MulRigidity.charZero_residueField Contrib.AbVarBC.MulRigidity.cotangentMap Contrib.AbVarBC.MulRigidity.diagonal_isPullback Contrib.AbVarBC.MulRigidity.diffKer Contrib.AbVarBC.MulRigidity.formallyUnramified_of_kerUnit Contrib.AbVarBC.MulRigidity.isIsogenyMor_of_lqf_of_isOpenMap Contrib.AbVarBC.MulRigidity.isOpenImmersion_of_section Contrib.AbVarBC.MulRigidity.isProper_left Contrib.AbVarBC.MulRigidity.kerUnit Contrib.AbVarBC.MulRigidity.kerUnitOpen_of_cotangent Contrib.AbVarBC.MulRigidity.kerUnitOpen_of_mulEtale Contrib.AbVarBC.MulRigidity.locallyQuasiFinite_of_formallyUnramified Contrib.AbVarBC.MulRigidity.map_origin Contrib.AbVarBC.MulRigidity.mulIsogeny_of_cotangent Contrib.AbVarBC.MulRigidity.mulIsogeny_of_kerUnitOpen Contrib.AbVarBC.MulRigidity.mulIsogeny_of_mulEtale Contrib.AbVarBC.MulRigidity.mulIsogeny_of_mulUnramified Contrib.AbVarBC.MulRigidity.mulIsogeny_of_mulUnramified' Contrib.AbVarBC.MulRigidity.mulUnramified_of_kerUnitOpen Contrib.AbVarBC.MulRigidity.mulUnramified_of_mulEtale Contrib.AbVarBC.MulRigidity.ne_of_specializes_of_lqf Contrib.AbVarBC.MulRigidity.origin Contrib.AbVarBC.MulRigidity.quasiFiniteEndSurjective Contrib.AbVarBC.MulRigidity.stalkEndo Contrib.AbVarBC.MulRigidity.surjective_of_lqf_self Contrib.AbVarBC.Tangent.AtOrigin Contrib.AbVarBC.Tangent.D Contrib.AbVarBC.Tangent.D_congr Contrib.AbVarBC.Tangent.D_inv Contrib.AbVarBC.Tangent.D_mul Contrib.AbVarBC.Tangent.D_one Contrib.AbVarBC.Tangent.D_zpow Contrib.AbVarBC.Tangent.KerN Contrib.AbVarBC.Tangent.atOrigin_inv Contrib.AbVarBC.Tangent.atOrigin_map Contrib.AbVarBC.Tangent.atOrigin_mul Contrib.AbVarBC.Tangent.atOrigin_one Contrib.AbVarBC.Tangent.atOrigin_zpow Contrib.AbVarBC.Tangent.closedPoint_eq Contrib.AbVarBC.Tangent.comp_intCast_hom Contrib.AbVarBC.Tangent.comp_mem_of_subsingleton Contrib.AbVarBC.Tangent.comp_orig_mem Contrib.AbVarBC.Tangent.derivation_eq_zero Contrib.AbVarBC.Tangent.dualHom Contrib.AbVarBC.Tangent.eq_ofRing_ptRing Contrib.AbVarBC.Tangent.eq_of_D_eq Contrib.AbVarBC.Tangent.eq_one_of_comp_intCast Contrib.AbVarBC.Tangent.ev0 Contrib.AbVarBC.Tangent.exists_affine_orig Contrib.AbVarBC.Tangent.fst_tRing Contrib.AbVarBC.Tangent.id_appLE_top Contrib.AbVarBC.Tangent.intCast_hom Contrib.AbVarBC.Tangent.isLocalHom_fstHom Contrib.AbVarBC.Tangent.isLocalRing_tsze Contrib.AbVarBC.Tangent.ker_le_sq_of_derivations Contrib.AbVarBC.Tangent.ks Contrib.AbVarBC.Tangent.ks_hom Contrib.AbVarBC.Tangent.ks_isOpenImmersion Contrib.AbVarBC.Tangent.left_closedPoint Contrib.AbVarBC.Tangent.locallyOfFiniteType_kerN Contrib.AbVarBC.Tangent.map_add_inl Contrib.AbVarBC.Tangent.map_add_inr Contrib.AbVarBC.Tangent.map_fst_inl Contrib.AbVarBC.Tangent.map_fst_inr Contrib.AbVarBC.Tangent.map_snd_inl Contrib.AbVarBC.Tangent.map_snd_inr Contrib.AbVarBC.Tangent.mem_of_atOrigin Contrib.AbVarBC.Tangent.mulN Contrib.AbVarBC.Tangent.ofRing Contrib.AbVarBC.Tangent.ofRing_mem Contrib.AbVarBC.Tangent.one_left Contrib.AbVarBC.Tangent.orig Contrib.AbVarBC.Tangent.ptR Contrib.AbVarBC.Tangent.ptRing Contrib.AbVarBC.Tangent.ptRing_comp Contrib.AbVarBC.Tangent.ptRing_congr Contrib.AbVarBC.Tangent.ptRing_ext Contrib.AbVarBC.Tangent.ptRing_id_top Contrib.AbVarBC.Tangent.ptRing_ofRing Contrib.AbVarBC.Tangent.ptRing_specMap_comp Contrib.AbVarBC.Tangent.specHom Contrib.AbVarBC.Tangent.specHom_comp Contrib.AbVarBC.Tangent.specHom_id Contrib.AbVarBC.Tangent.specHom_left Contrib.AbVarBC.Tangent.spec_inl_fst_comp Contrib.AbVarBC.Tangent.tRing Contrib.AbVarBC.Tangent.tRing_congr Contrib.AbVarBC.Tangent.tRing_one Contrib.AbVarBC.Tangent.tRing_specHom Contrib.AbVarBC.TorsionDescends Contrib.AbVarBC.comp_natCast_hom Contrib.AbVarBC.dim_baseChange_scheme Contrib.AbVarBC.dim_finite Contrib.AbVarBC.dim_pullback_spec Contrib.AbVarBC.dim_spec_le Contrib.AbVarBC.exists_lift_of_isFinite Contrib.AbVarBC.exists_nat_of_le Contrib.AbVarBC.galK Contrib.AbVarBC.kerUnitOpen Contrib.AbVarBC.map_comm Contrib.AbVarBC.mem_range_of_isIntegral Contrib.AbVarBC.mulIsogeny Contrib.AbVarBC.ptBC Contrib.AbVarBC.ptBC_galAct Contrib.AbVarBC.ptBC_injective Contrib.AbVarBC.ringKrullDim_eq_of_isIntegral_of_injective Contrib.AbVarBC.ringKrullDim_le_of_finiteType Contrib.AbVarBC.ringKrullDim_mvPolynomial_field Contrib.AbVarBC.ringKrullDim_tensor_field Contrib.AbVarBC.scheme_dim_eq_iSup_cover Contrib.AbVarBC.scheme_dim_eq_of_iso Contrib.AbVarBC.spec_dim Contrib.AbVarBC.tateBC Contrib.AbVarBC.tateBC_bijective_of_tateModuleFree Contrib.AbVarBC.tateBC_bijective_of_torsionDescends Contrib.AbVarBC.tateBC_galT Contrib.AbVarBC.tateBC_injective Contrib.AbVarBC.tate_map_bijective_of_torsion Contrib.AbVarBC.topologicalKrullDim_eq_iSup_of_openEmbedding Contrib.AbVarBC.torsionDescends_of_isFinite Contrib.AbVarBC.vBC Contrib.AbVarBC.vBC_galRep DefFaltings.AbVar DefFaltings.AnalyticUniformizationExists DefFaltings.AnalyticUniformizationUnique DefFaltings.EReal.add_coe_add_neg_coe DefFaltings.FinExt DefFaltings.Genus2Eq DefFaltings.Genus2Eq.Good DefFaltings.Genus2Eq.P DefFaltings.Genus2Eq.binDisc DefFaltings.GroupModel DefFaltings.GroupModel.IsAnalyticUniformization DefFaltings.GroupModel.IsNeronModel DefFaltings.GroupModel.Pts DefFaltings.GroupModel.cotangent DefFaltings.GroupModel.dCls DefFaltings.GroupModel.detLattice DefFaltings.GroupModel.dom DefFaltings.GroupModel.evalAt DefFaltings.GroupModel.exists_rep DefFaltings.GroupModel.genStalk DefFaltings.GroupModel.genericUnit DefFaltings.GroupModel.germAlong DefFaltings.GroupModel.height DefFaltings.GroupModel.height_eq DefFaltings.GroupModel.hodgeSpace DefFaltings.GroupModel.jacDet DefFaltings.GroupModel.jacDet_comp DefFaltings.GroupModel.omega DefFaltings.GroupModel.omegaAt DefFaltings.GroupModel.omegaAt_genericPt DefFaltings.GroupModel.ptC DefFaltings.GroupModel.semilinear_ext_wedge DefFaltings.GroupModel.specializes_genericUnit DefFaltings.GroupModel.structMap DefFaltings.GroupModel.unitSection DefFaltings.GroupModel.wedge DefFaltings.HermitianLattice DefFaltings.HermitianLattice.arakelovDegree DefFaltings.HermitianLattice.arakelovDegree_ofFractionalIdeal DefFaltings.HermitianLattice.arakelovDegree_rescale DefFaltings.HermitianLattice.degreeAt DefFaltings.HermitianLattice.degreeAt_eq DefFaltings.HermitianLattice.degreeAt_eq_arakelovDegree DefFaltings.HermitianLattice.degreeAt_smul DefFaltings.HermitianLattice.ofFractionalIdeal DefFaltings.HermitianLattice.rescale DefFaltings.HermitianLattice.secIndex_ne_zero DefFaltings.HodgeData DefFaltings.HodgeData.coeff_apply_ne_zero DefFaltings.HodgeData.hodgeBundle DefFaltings.HodgeData.modelHeight DefFaltings.HodgeData.modelHeight_eq DefFaltings.HodgeData.modelHeight_eq_add_of_le DefFaltings.HodgeData.modelHeight_eq_faltingsHeightGood DefFaltings.HodgeData.modelHeight_le_of_le DefFaltings.HodgeData.modelHeight_ofIdeal DefFaltings.HodgeData.modelHeight_ofIdeal_baseChange DefFaltings.HodgeData.modelHeight_of_span DefFaltings.HodgeData.modelHeight_recoord DefFaltings.HodgeData.norm DefFaltings.HodgeData.norm_sq DefFaltings.HodgeData.recoord DefFaltings.HodgeLatticeTheorem DefFaltings.IsIsogeny DefFaltings.MetrizedModel DefFaltings.MetrizedModel.modelHeight_eq_of_model_eq DefFaltings.NeronModelMinimal DefFaltings.PeriodAreaFormula DefFaltings.R19_GaudronRemond DefFaltings.R20_FaltingsLemma5 DefFaltings.R21_Bost DefFaltings.StableHeightFinite DefFaltings.absNorm_extendedHom DefFaltings.absNorm_map_ringOfIntegers DefFaltings.arakelovDegree_ofFractionalIdeal_baseChange DefFaltings.arakelovDegree_ofFractionalIdeal_mul DefFaltings.card_embeddings_over DefFaltings.covolume_comap_mul_det DefFaltings.covolume_gaussianPair DefFaltings.det_restrictScalars_complex DefFaltings.embCoeff DefFaltings.faltingsHeight DefFaltings.faltingsHeightEC DefFaltings.faltingsHeightGood DefFaltings.faltingsHeight_coe DefFaltings.finiteHeightPart DefFaltings.finrank_ringOfIntegers DefFaltings.gaussianPair DefFaltings.genericFibre DefFaltings.genericPt DefFaltings.grKappa DefFaltings.hypGram DefFaltings.hypGram_comp_add DefFaltings.hypVol DefFaltings.hypVol_one_comp_add DefFaltings.isogDeg DefFaltings.le_stableFaltingsHeight DefFaltings.modelHeight_ofIdeal_eq_faltingsHeightEC DefFaltings.modelHeight_ofIdeal_eq_faltingsHeightEC' DefFaltings.norm_algebraMap_tower DefFaltings.ptObj DefFaltings.ratCoeff DefFaltings.realify DefFaltings.secIndex DefFaltings.secIndex_mul_absNorm DefFaltings.secIndex_smul DefFaltings.stableFaltingsHeight DefFaltings.stableFaltingsHeightDeligne DefFaltings.stableFaltingsHeightDeligne_eq DefFaltings.stableFaltingsHeight_eq_faltingsHeightGood DefFaltings.stableFaltingsHeight_eq_iInf_height DefFaltings.stableFaltingsHeight_le DefFaltings.stableFaltingsHeight_ne_bot_of_R21 DefFaltings.sum_embeddings_comp DefFaltings.sum_log_norm_embeddings DefFaltings.sum_log_norm_embeddings_int DefFaltings.torusMetricSq DefFaltings.torusMetricSq_comap DefFaltings.torusMetricSq_eq_setIntegral DefFaltings.torusMetricSq_pos DefFaltings.torusMetricSq_smul DefFaltings.torus_setIntegral_indep H5Glue.GenericFibreStalkIso H5Glue.GroupModel.baseChange H5Glue.GroupModel.isNeronModel_iff H5Glue.GroupModelBaseChangeExists H5Glue.HeightAntitone H5Glue.HodgeLatticeNonzero H5Glue.HodgeMapBijective H5Glue.IsBaseChangeOf H5Glue.IsOpenSubgroupModel H5Glue.IsProductAbVar H5Glue.IsProductModel H5Glue.ModelHeightBaseChange H5Glue.NeronModelExists H5Glue.NeronProp H5Glue.NeronProp.lift H5Glue.NeronProp.of_iso H5Glue.NeronProp.tensor H5Glue.NeronProp.uniqueIso H5Glue.OmegaSpans H5Glue.OpenImmersionHeightLe H5Glue.OpenSubgroupHeight H5Glue.ProductGroupModelExists H5Glue.ProductModelHeight H5Glue.SemistableNeronIdentityComponent H5Glue.baseChange_map_bijective H5Glue.bcProd H5Glue.bijective_respectsIso H5Glue.compositum H5Glue.cotMap H5Glue.cotMap_bijective H5Glue.cotMap_dCls H5Glue.cotMap_omega H5Glue.cotMap_omegaAt H5Glue.detLattice_le_hodgeMap H5Glue.dom_comp H5Glue.evalAt_comp H5Glue.evalAt_res H5Glue.exists_smul_mem_omega H5Glue.fst_genericFibreUnit H5Glue.fst_genericFibre_unit H5Glue.genBC H5Glue.genBC_isMonHom H5Glue.genMap H5Glue.genMap_germ H5Glue.genMap_mem_maximalIdeal H5Glue.genMap_mem_maximalIdeal_iff H5Glue.genMap_structMap H5Glue.genericFibreStalkIso H5Glue.genericFibreUnit H5Glue.genericIso_of_openImmersion H5Glue.germAlong_comp_eventuallyEq H5Glue.groupModelBaseChangeExists H5Glue.heightAntitone H5Glue.heightAntitone_of H5Glue.heightAntitone_of_hodgeLatticeNonzero H5Glue.heightAntitone_of_omegaSpans H5Glue.hodgeLatticeNonzero_of_omegaSpans H5Glue.hodgeMap H5Glue.hodgeMapBijective H5Glue.hodgeMap_detLattice H5Glue.hodgeMap_wedge H5Glue.hodgeMap_wedgeGerm H5Glue.isAnalyticUniformization_comp H5Glue.isAnalyticUniformization_of_comp H5Glue.isIso_genMap H5Glue.isIso_of_openImmersion_self H5Glue.isIso_stalkSpecializes_genMap H5Glue.isMonHom_of_map H5Glue.isMonHom_pbCompHom H5Glue.isMonHom_pbCompInv H5Glue.isMonHom_pbEqIso H5Glue.isMonHom_prodComparisonIso H5Glue.isNeronModel_of_isProductModel H5Glue.isOpenImmersion_pullback_map H5Glue.jL H5Glue.jacDet_comp_genMap H5Glue.jacDet_comp_map H5Glue.map_genericUnit' H5Glue.map_span_singleton_toAddSubgroup H5Glue.map_zero_of_hom H5Glue.modelHeight_pullHodge_le H5Glue.neronModelMinimal H5Glue.neronModelMinimal_of_heightAntitone H5Glue.neron_lift H5Glue.neron_lift_isMonHom H5Glue.neron_map_injective H5Glue.omegaAt_le_cotMap H5Glue.omegaSpans H5Glue.omega_le_cotMap H5Glue.one_mem_dom H5Glue.openImmersionHeightLe H5Glue.openSubgroupHeight H5Glue.openSubgroupHeight_of H5Glue.pbCompHom H5Glue.pbCompInv H5Glue.pbCompIso H5Glue.pbEqIso H5Glue.productGroupModelExists H5Glue.ptCIso H5Glue.ptC_hom_apply H5Glue.ptsEquiv H5Glue.ptsEquiv_comp H5Glue.pts_comp_bijective H5Glue.pullHodge H5Glue.secIndex_le_of_map H5Glue.secIndex_ne_zero_of_mem H5Glue.smooth_tensor H5Glue.smooth_unit H5Glue.square1 H5Glue.square2 H5Glue.stableFaltingsHeight_add_le H5Glue.stableFaltingsHeight_add_le_of_productModelHeight H5Glue.stableFaltingsHeight_eq_neron_all H5Glue.stableFaltingsHeight_eq_neron_all' H5Glue.stalkIso_of_genericIso H5Glue.stalkSpecializes_self_apply H5Glue.stalkSpecializes_stalkSpecializes_apply H5Glue.stalk_ker_eq H5Glue.stalk_spec_eq H5Glue.stalkwise_fst_toGeneric H5Glue.stalkwise_tensor_localization H5Glue.tensorGen H5Glue.tensorGen_fst H5Glue.tensorGen_snd H5Glue.toGeneric_pt H5Glue.unitSection_comp H5Neron.GroupModel.IsNeronModel.lift H5Neron.GroupModel.IsNeronModel.uniqueIso H5Neron.GroupModel.isNeronModel_iff H5Neron.GroupModelBaseChangeExists H5Neron.IsBaseChangeOf H5Neron.IsOpenSubgroupModel H5Neron.IsProductAbVar H5Neron.IsProductModel H5Neron.ModelHeightBaseChange H5Neron.NeronModelExists H5Neron.NeronProp H5Neron.NeronProp.lift H5Neron.NeronProp.of_iso H5Neron.NeronProp.tensor H5Neron.NeronProp.uniqueIso H5Neron.OpenSubgroupHeight H5Neron.ProductGroupModelExists H5Neron.ProductModelHeight H5Neron.R19_zero H5Neron.R20_zero H5Neron.R21_zero H5Neron.SemistableNeronIdentityComponent H5Neron.bcProd H5Neron.bcUnitIso H5Neron.compositum H5Neron.covolume_fin_zero H5Neron.detLattice_zero H5Neron.glue_zero H5Neron.groupModel_height_zero H5Neron.hodgeZeroEquiv H5Neron.hodgeZeroEquiv_wedge0 H5Neron.hom_ext_of_iso_unit H5Neron.isIsogeny_id_zero H5Neron.isMonHom_of_iso_unit H5Neron.isMonHom_prodComparisonIso H5Neron.isNeronModel_of_isProductModel H5Neron.isogDeg_zero_le_one H5Neron.jL H5Neron.metrizedOf H5Neron.modelHeight_dim_zero H5Neron.neronModelExists_zero H5Neron.neronModelMinimal_zero H5Neron.neron_zero_iso_unit H5Neron.no_metrized_succ H5Neron.one_le_grKappa H5Neron.productGroupModelExists H5Neron.pts_subsingleton H5Neron.semistableNeronIdentityComponent_zero H5Neron.semσ H5Neron.stableFaltingsHeight_add_le H5Neron.stableFaltingsHeight_add_le' H5Neron.stableFaltingsHeight_eq_neron H5Neron.stableFaltingsHeight_eq_neron_all H5Neron.stableFaltingsHeight_zero H5Neron.stableHeightFinite_zero H5Neron.tensorGen H5Neron.tensorGen_fst H5Neron.tensorGen_snd H5Neron.trivHodge H5Neron.trivMetrized H5Neron.trivModel H5Neron.trivModel_isNeronModel H5Neron.wedge0 H5Neron.wedge0_ne_zero H5Neron.wedge_eq_wedge0 HeightBC.CotangentSpanBC HeightBC.D0 HeightBC.D0_add HeightBC.D0_add_apply HeightBC.D0_mul HeightBC.D0_mul_apply HeightBC.D0_sq HeightBC.D0_structMap_mul HeightBC.DetLatticeBC HeightBC.FF HeightBC.GermDerivation HeightBC.HodgeBCInjective HeightBC.HodgeLineBaseChange HeightBC.HodgeLineBaseChangeDescent HeightBC.HodgeLineDescentHalf HeightBC.HodgeSpanBC HeightBC.IsBaseChangeOf HeightBC.IsHodgeBaseChange HeightBC.IsMonBC HeightBC.JacobianPullbackSpan HeightBC.JacobianSemilinear HeightBC.MetrizationBaseChange HeightBC.ModelHeightBaseChange HeightBC.ModelHeightBaseChangeGE HeightBC.ModelHeightBaseChangeLE HeightBC.OmegaBaseChange HeightBC.OmegaLocalization HeightBC.PtsBaseChangeBij HeightBC.PtsBaseChangeMul HeightBC.UniformizationLift HeightBC.UniformizationLiftAnalytic HeightBC.algebraMap_FF HeightBC.algebraMap_ringOfIntegers_coe HeightBC.appLE_top_top HeightBC.bO HeightBC.bO_appTop HeightBC.bO_genericPt HeightBC.bcAlt HeightBC.bcCot HeightBC.bcCotBasis HeightBC.bcCotBasis_apply HeightBC.bcCot_core HeightBC.bcCot_dCls HeightBC.bcCot_intInv HeightBC.bcCot_linearIndependent HeightBC.bcCot_omega HeightBC.bcCot_omegaAt HeightBC.bcCot_smulL HeightBC.bcCot_smul_genStalk HeightBC.bcCot_span HeightBC.bcCot_update HeightBC.bcExt HeightBC.bcExt_smul HeightBC.bcExt_ιMulti HeightBC.bcHodge HeightBC.bcHodge_detLattice HeightBC.bcHodge_smul HeightBC.bcHodge_tmul HeightBC.bcHodge_wedge HeightBC.bcMap HeightBC.bcMap_germ HeightBC.bcMap_mem_maximalIdeal HeightBC.bcMap_structMap HeightBC.bcMap_φL HeightBC.bcProj HeightBC.bcProj_genericUnit HeightBC.bcProj_unit HeightBC.bcProj_w HeightBC.bcPts HeightBC.cotL HeightBC.cotL_isScalarTower HeightBC.cotL_smul HeightBC.cotRes HeightBC.cotangentSpanBC HeightBC.descentHalf_of_descent HeightBC.detLatticeBC_of_omega HeightBC.dom_bcPts HeightBC.evalAt_add HeightBC.evalAt_bcPts HeightBC.evalAt_mul HeightBC.evalAt_one_eq_zero HeightBC.evalAt_res HeightBC.evalAt_structSection HeightBC.exists_act HeightBC.exists_comp_eq HeightBC.exists_int_dvd HeightBC.exists_mem_not_mem_of_sat HeightBC.exists_ringOfIntegers_of_algebraMap HeightBC.extRes HeightBC.finite_of_isClosed_not_genericPt HeightBC.g0_hodgeLine_iff HeightBC.genericPt_eq_genericPoint HeightBC.germAlong_add_mul HeightBC.germAlong_bcPts_eventuallyEq HeightBC.germAlong_differentiableAt HeightBC.germAlong_eventuallyEq_rep HeightBC.germAlong_structMap HeightBC.germAlong_zero_of_mem HeightBC.germDerivation HeightBC.germDerivation_at HeightBC.hodgeBCInjective HeightBC.hodgeLineBaseChangeDescent_of_glue HeightBC.hodgeLineBaseChange_of_descent HeightBC.hodgeLineBaseChange_of_final HeightBC.hodgeLineBaseChange_of_five HeightBC.hodgeLineBaseChange_of_four HeightBC.hodgeLineBaseChange_of_glue HeightBC.hodgeLineBaseChange_of_glue4 HeightBC.hodgeLineBaseChange_of_glue5 HeightBC.hodgeLineBaseChange_of_main HeightBC.hodgeLineBaseChange_of_two HeightBC.hodgeSpanBC_of HeightBC.hom_genericUnit HeightBC.hom_genericUnit' HeightBC.hom_unitSection HeightBC.isAnalyticUniformization_bcPts HeightBC.isField_stalk_genericPt HeightBC.isIso_stalkSpecializes_bcMap HeightBC.isUnit_germ_genericPt HeightBC.isUnit_structMap HeightBC.jacDet_bcPts HeightBC.jacobianPullbackSpan_of HeightBC.jacobianSemilinear HeightBC.jacobianSemilinear_of HeightBC.locSub HeightBC.mapCotangent_injective_of_isIso HeightBC.mapCotangent_smul' HeightBC.map_zero_of_hom HeightBC.maximalIdeal_stalk_genericPt HeightBC.mem_locSub HeightBC.mem_of_forall_locSub HeightBC.metrizationBaseChange_of_hodgeLine HeightBC.modelHeightBaseChangeGE_of_descent HeightBC.modelHeightBaseChangeGE_of_descentHalf HeightBC.modelHeightBaseChangeGE_of_main HeightBC.modelHeightBaseChangeGE_of_two HeightBC.modelHeightBaseChangeLE_of_metrization HeightBC.modelHeightBaseChange_of_descent HeightBC.modelHeightBaseChange_of_final HeightBC.modelHeightBaseChange_of_five HeightBC.modelHeightBaseChange_of_four HeightBC.modelHeightBaseChange_of_glue HeightBC.modelHeightBaseChange_of_glue4 HeightBC.modelHeightBaseChange_of_glue5 HeightBC.modelHeightBaseChange_of_main HeightBC.modelHeightBaseChange_of_two HeightBC.modelHeight_eq_of_isHodgeBaseChange HeightBC.multilinear_mem_span HeightBC.omegaAt_bc_local HeightBC.omegaAt_full HeightBC.omegaAt_open HeightBC.omegaAt_sat HeightBC.omegaBaseChange HeightBC.omegaBaseChange_of_localization HeightBC.omegaLocalization HeightBC.one_mem_dom HeightBC.ptC_hom_apply HeightBC.ptC_hom_comp_bO HeightBC.ptsBaseChangeBij HeightBC.ptsBaseChangeMul HeightBC.rationalOver_genericUnit HeightBC.secIndex_baseChange HeightBC.secIndex_map HeightBC.secIndex_ne_zero_of_baseChange HeightBC.secIndex_nsmul_mem HeightBC.smul_cotangent_eq_of_sub_mem HeightBC.span_bcHodge_le HeightBC.spec_mem_of_ker HeightBC.stalkMapAt_germ' HeightBC.stalkSpec_comp_apply HeightBC.stalkSpec_self_apply HeightBC.stalkSpecializes_self_apply' HeightBC.stalkSpecializes_stalkSpecializes_apply' HeightBC.structMap_eq_spec HeightBC.structMap_eq_stalkMap HeightBC.toCotangent_mul HeightBC.uniformizationLift HeightBC.uniformizationLiftAnalytic HeightBC.uniformizationLift_of HeightBC.unitSection_comp_hom HeightBC.unitSection_stalkMapAt_hom HeightBC.σFF HeightBC.φL HeightBC.φL_algebraMap LeafPush2.CPts LeafPush2.Char2 LeafPush2.HasSexticModel LeafPush2.IC10 LeafPush2.IC2 LeafPush2.IC4 LeafPush2.IC6 LeafPush2.IgJ10 LeafPush2.IgJ2 LeafPush2.IgJ4 LeafPush2.IgJ6 LeafPush2.IsGenus2 LeafPush2.IsPeriodMatrix LeafPush2.IsSiegel LeafPush2.IsUniformization LeafPush2.LinYangTuple LeafPush2.OnQMLocus LeafPush2.T10_groupIso LeafPush2.T11a_RiemannEnd LeafPush2.T11b_Rigidity LeafPush2.T12_ComplexConjEigen LeafPush2.UniformizationExists LeafPush2.absLogHeight LeafPush2.cDom LeafPush2.cEvalAt LeafPush2.cptObj LeafPush2.dsq LeafPush2.exists_isComplexConj LeafPush2.ffAlgebra LeafPush2.ffStructMap LeafPush2.isSiegel_I LeafPush2.javanpeykarBound LeafPush2.javanpeykarBound_mono LeafPush2.javanpeykarBound_pos LeafPush2.linYangTuple_onQMLocus LeafPush2.linYang_j_eq LeafPush2.onQMLocus_of_linYangTuple LeafPush2.pazukiC2 LeafPush2.sextic LeafPush2.thetaConst) -- op-dedupe
+open _root_.LeafQM.AV (CMExists HasCM24 HasCM24.of_iso HasCM3 HasCM3.of_iso HasCM4 HasCM4.of_iso IsBaseChangeOf IsBaseChangeOfPair IsFibreOf Level3 Level3.bcPt_pow_three Level3.eq_iff Level3.exists_mul_of_range_le Level3.ext' Level3.onto Level3.range_le Level3.rightMul Level3.rightMul_eq_self Level3.rightMul_rightMul Level3.torsor Level3.twist M3 M3.mk M3.rightMul M3.rightMul_rightMul M3.twist M3.twist_mk Pin.AutOExt.NormalizerFinite Pin.AutOExt.alpha_nat_smul Pin.AutOExt.autOInnerFinite_of_normalizer Pin.AutOExt.common_den Pin.AutOExt.conjUnit Pin.AutOExt.conj_of_skolem Pin.AutOExt.den_mul_int Pin.AutOExt.exists_nat_smul_mem Pin.AutOExt.extAlgEquiv Pin.AutOExt.extAlgHom Pin.AutOExt.extAlgHom_coe Pin.AutOExt.extAlgHom_symm_comp Pin.AutOExt.extDen Pin.AutOExt.extDen_mem Pin.AutOExt.extDen_pos Pin.AutOExt.extFun Pin.AutOExt.extFun_add Pin.AutOExt.extFun_algebraMap Pin.AutOExt.extFun_coe Pin.AutOExt.extFun_eq Pin.AutOExt.extFun_mul Pin.AutOExt.key_conj Pin.AutOExt.mem_O_of_int Pin.AutOExt.natCast_mul_eq_smul Pin.AutOExt.nat_smul_mem Pin.AutOExt.smul_mul_smul' Pin.AutOInnerFinite Pin.ConstOrOntoAlgClosed Pin.CurveRatFactor Pin.CurveSurj Pin.GeomCompConstOrOnto Pin.GeomCompFinite Pin.GeomCompInfinite Pin.GeomCompRatFactor Pin.ImagePlane.ev_comp Pin.ImagePlane.ev_spec_top Pin.ImagePlane.ptOf_comp Pin.ImagePlane.ptOf_spec_asIdeal Pin.IsNaturalRelabel Pin.Mob.eval_ne_zero_of_coprime Pin.Mob.exists_interp Pin.Mob.isCoprime_X_sub_C_of_eval_one Pin.Mob.natDegree_le_one_of_injective Pin.Mob.ratEval Pin.Mob.ratEval_eq_self Pin.Mob.wronskian_ne_zero Pin.MobiusGlue Pin.NormO.IsNorm Pin.NormO.IsNorm.inv Pin.NormO.IsNorm.mul Pin.NormO.T Pin.NormO.T_finite Pin.NormO.T_mul_ui Pin.NormO.T_mul_uj Pin.NormO.bas Pin.NormO.conjC Pin.NormO.descent Pin.NormO.dvd_of_prime_dvd_nrd Pin.NormO.dvd_of_smul_mem Pin.NormO.ei Pin.NormO.ej Pin.NormO.inv_eq Pin.NormO.isNorm_sc Pin.NormO.isNorm_ui Pin.NormO.isNorm_uj Pin.NormO.mulCoord_conjC Pin.NormO.mulCoord_conjC' Pin.NormO.mulCoord_smul_left Pin.NormO.mulCoord_smul_right Pin.NormO.normalizerFinite Pin.NormO.nrdZ Pin.NormO.nrdZ_ei Pin.NormO.nrdZ_ej Pin.NormO.nrdZ_mul Pin.NormO.nrdZ_ne_zero Pin.NormO.nrdZ_smul Pin.NormO.nrd_dvd_coords Pin.NormO.ofInt_scalar Pin.NormO.rearrange Pin.NormO.sc Pin.NormO.six_sq_identities Pin.NormO.smul_ofInt Pin.NormO.three_dvd_mulCoord_ej Pin.NormO.two_dvd_mulCoord_ei Pin.NormO.ui Pin.NormO.uj Pin.PinUnique Pin.QMFamily.transport Pin.QML3.isoTransport Pin.R1fpProps.fam Pin.R1fpProps.univ Pin.RatFactorAlgClosed Pin.SameTriple Pin.SameTripleMor Pin.SmoothCurveNoIsolatedPoint Pin.SmoothStalkDimOne Pin.TwistClassFinite Pin.autOInnerFinite Pin.autRelabel Pin.autRelabel_natural Pin.bcPt Pin.bcPt_ptOfSection Pin.bcPt_snd Pin.bcQbar Pin.bcSnd Pin.cm_objects_of_R1R2fp Pin.conjUnitIso Pin.cst Pin.curveFacts_of_algClosed Pin.curveFacts_of_comp Pin.curveFacts_of_leaves Pin.curveFacts_of_named Pin.curveRatFactor_of_comp Pin.curveSurj_of_comp Pin.ev Pin.ev_cst Pin.ev_eq_zero_iff Pin.ev_f_mul_g Pin.ev_g_eq_zero Pin.ev_res Pin.ev_top Pin.exists_isOpen_singleton_of_finite_closedPoints Pin.exists_liftO_congr Pin.exists_point_of_isLocallyClosed Pin.geomComp Pin.geomCompConstOrOnto_of Pin.geomCompFinite Pin.geomCompInfinite_of Pin.geomCompRatFactor_of Pin.isFibreOf_transport Pin.isOpen_connectedComponent_of_noetherian Pin.level3_finite Pin.mem_V_of_not_mem_U Pin.phi_part Pin.pointwise_of_witness Pin.pointwise_of_witness_mor Pin.ptOf Pin.ptOfSection Pin.r1fpPin_aut Pin.r1fpPin_relabel_iff Pin.r2fp_aut Pin.relabel Pin.relabel_geometric Pin.relabel_is_morphism Pin.res Pin.res_res Pin.sameTripleMor_of_mobius Pin.sameTriple_aut Pin.smoothCurveNoIsolatedPoint_of Pin.transfer_exists Pin.transfer_pointwise Pin.transfer_pointwise_mor Pin.transportLevel Pin.twistClassFinite Pin.twistClassFinite_of Pin.val_bcPt Pin.val_of_mem Pin.val_of_not_mem PtEquiv QMFamily QMIso QMIso.nonempty_abVarIso QMIso.refl QMIso.symm QMIso.trans QML3 QML3.Iso QML3.Iso.refl QML3.Iso.rightMul QML3.Iso.symm QML3.Iso.trans QML3.Iso.twist QML3.forget QML3.rightMul QML3.rightMul_A QML3.rightMul_rightMul QML3.twist QML3.twist_A QMLeaves QMPair QMPair.twist QMStr QMStr.twist Qbar R1R2fp R1R2fp_Y R1famProps R1fp R1fpProps R1fp_of_R1R2fp R1heckeProps R1rec R1recProps R1univProps R2X6Props R2fpProps R2fpProps_of_X6 R5fp R5fpCount R5fpWeak R5fpWeak_of_R5fp R5ptProps ToP1 ToP1.comp ToP1.val ToP1.val_comp ToP1.val_comp_right UnramifiedAbove5 X6Props X6Surj act_mul_apply bcPt bcPt_injective cm_of_val com comEquiv com_twist conductor conjHom conjHom_iota conjHom_mem_com conjHom_symm_apply conj_iso_of_rational conj_twist_of_rational endPt exists_fibre_object fibre_conjugates_isomorphic fieldMap fieldOfModuli3 fieldOfModuliPair fieldPt galAct_bcPt hI hIJ hJ hasCM24_twist hasCM3_twist hasCM4_twist hrat inertCount6 intCast_mem_com isoSetoid leaves_on_one_witness liftO not_qmStr_zero ofInt_injective ofInt_sub oi oi_mul_oi oj oj_mul_oi_add oj_mul_oj pairSetoid qmAct residueImage residue_unramified_over_branch specMap_flat specMap_surjective specToEquivOfField_comp specToEquivOfField_comp_right stab3 stabPair three_mul_ofInt toKbar unramified_over_branch) -- op-dedupe
+open _root_.GlueDescent (B2.IsSignCocycle B2.SignCob B2.dB B2.dB_inv B2.dB_mul B2.exists_beta B2.isSignCocycle_dB B2.isSignCocycle_inv B2.isSignCocycle_mul B2.isSignCocycle_pull B2.pull B2.pull_dB B2.signCob_dB_iff B2.signCob_inv B2.signCob_mul B2Q.GQ B2Q.GQp B2Q.InflatedFrom B2Q.LeafHasse B2Q.LeafLocalTwo B2Q.LeafSqrtCrit B2Q.LeafUnramified B2Q.UnramifiedAt B2Q.act B2Q.act_mul B2Q.b2_of_leaves B2Q.cast_cast_of_dvd B2Q.chiLevel_pos B2Q.chi_toUnitHom_crt B2Q.cyc B2Q.cyc_eq_of_agree B2Q.cyc_isLocallyConstant B2Q.exists_crt_unit B2Q.galChar B2Q.galChar_isLocallyConstant B2Q.isLocallyConstant_of_openSubgroup B2Q.lev_eq_pow B2Q.resp B2Q.resp_continuous B2Q.sqrtU B2Q.sqrtU_sq B2Q.toRingAut B3Q.GQL B3Q.b3_degree_le_QM B3Q.b3_of_leaves B3Q.inflatedNormalized_of B3Q.mem_GQL B3Q.orderOf_pos_dirichlet B6 B6_commute_i_j B6_inner B6_isCentral B6_isSimpleRing B6_star_mul InflatedNormalized IsCochainFor LeafSkolemNoether MatrixUnits2 MatrixUnits2.W MatrixUnits2.e00_of_mem MatrixUnits2.e_apply_e MatrixUnits2.finrank_W MatrixUnits2.mapsTo_W MatrixUnits2.mem_W_of_e0 MatrixUnits2.splitEquiv MatrixUnits2.splitEquiv_intertwines aniso_int aniso_rat boundary_sq chi chiLevel cochain_conj cochain_mul_kernel cochain_mul_left cochain_mul_right cochain_of_boundary_eq cochain_one cocycle_of_projective commute_adjoin contactSupport_pos degree_le_QM exists_chi exists_odd_char heightD_pos index_kernel_le inertia_le_kernel kernelSubgroup kernelSubgroup_le kernelSubgroup_normal lev lev_dvd_chiLevel mem_kernelSubgroup oddChar oddChar_neg_one orderOf_dvd_totient orderOf_prod_dvd prod_S_le prod_odd_le prod_odd_le_aux prod_totient_lev_le qi qj ramSet relindex_kernel_le restrictHom rho rhoRep rho_commute rho_eq_act rho_map_mul sign_cocycle sign_normalization sign_sq_eq_one ten_le_heightE0 three_dvd_of_form totient_lev twist twist_kills_inertia twist_sq two_lt_lev zmod3_aniso) -- op-dedupe
+open _root_.GlueDescent.B2 (IsSignCocycle SignCob dB dB_inv dB_mul exists_beta isSignCocycle_dB isSignCocycle_inv isSignCocycle_mul isSignCocycle_pull pull pull_dB signCob_dB_iff signCob_inv signCob_mul) -- op-dedupe
+open _root_.GlueDescent.B2Q (GQ GQp InflatedFrom LeafHasse LeafLocalTwo LeafSqrtCrit LeafUnramified UnramifiedAt act act_mul b2_of_leaves cast_cast_of_dvd chiLevel_pos chi_toUnitHom_crt cyc cyc_eq_of_agree cyc_isLocallyConstant exists_crt_unit galChar galChar_isLocallyConstant isLocallyConstant_of_openSubgroup lev_eq_pow resp resp_continuous sqrtU sqrtU_sq toRingAut) -- op-dedupe
+open _root_.GlueDescent.B3Q (GQL b3_degree_le_QM b3_of_leaves inflatedNormalized_of mem_GQL orderOf_pos_dirichlet) -- op-dedupe
+open _root_.G0ModField (CommonConstituent ConjugacyData DescentDatum FibreCoverExists FibreCoverOut FibreCtx G2Out G4Out G7Out GaloisCopy.G2Out GaloisCopy.G7Out GaloisCopy.Vb GaloisCopy.resQ GaloisCopy.tate IF IsModelOver IsQMModel IsQMModel.isModelOver KernelFieldExists KernelFieldOut ModularConstituentG PtQ RationalFibre ResQRange T UnramifiedSup actK actQ admissible_S_mul b2_of_leaves_level b3_of_cochain baseChangeTrans card_ker_GL descentDatum_bot descentDatum_of_conjugacy fieldDescent g2Out_of_cover g4Out_of_kernelField g7Out_of_g4Out galAct_bijective galAct_mul incAlg isModelOver_baseChange le_heightD_of_mem_S_mul mem_GQL_bot normA numberField_of_fd resQRange resQ_comm' resQ_range sgnU sgnU_mul sgnU_mul_abs sgnU_sq toLAut toLAut_apply two_mem_T) -- op-dedupe
 
 namespace LGKerWild
 
@@ -5691,6 +5296,7 @@ noncomputable section
 namespace LTLocal
 
 open Cardinal LadicCond
+open _root_.LadicCond (AdaptedExists CarayolR17 CarayolR17' EventuallyTrivial Fld InertiaRestriction IsAdapted IsFinGal IsUnif IsUnif.norm_eq Kbar SwanIndependent SwanIntegral apply_mem artinAt carayolR17'_of_R17 carayolR17_of_R17' codimInv codimInv_eq_zero codimInv_le condAt condAt_eq_artinAt condAt_eq_artinAt' condAt_eq_artinAt'' condAt_eq_artinAt_of_surj condAt_eq_zero_of_unramified condAt_le_of_upper condExp condExp_eq_condAt condExp_eq_zero_of_unramified condExp_one eventuallyTrivial eventually_not_restr exists_isUnif finite_restr fixSet fixSet_subset_ramSet inertiaSet inertiaSet_subset_ramSet_zero integral_codim_le invariants invariants_eq_of_cover invariants_eq_top isAdapted_one isUnif_bot norm_p_kbar norm_pow_factorial one_mem_wildSet phiAt ramCard ramCardR ramCard_ne_zero ramSet ramSetR restr swan swanAt swanAt_eq_zero_of_unramified upperAbs upperSet wildSet wildSet_subset_inertiaSet) -- op-dedupe
 
 /-- (copied from g8-tate) `#ℚ_p ≤ 𝔠`. -/
 theorem padic_card_le (p : ℕ) [Fact p.Prime] : #ℚ_[p] ≤ 𝔠 := by
@@ -5783,9 +5389,15 @@ noncomputable section
 
 namespace LTLocal
 
-open PkgI4 (GQ GQp decomp)
+-- op-dedupe was: open PkgI4 (GQ GQp decomp)
+open _root_.PkgI4 (GQ GQp decomp) -- op-dedupe
 open LadicCond G0ModField
+open _root_.LadicCond (AdaptedExists CarayolR17 CarayolR17' EventuallyTrivial Fld InertiaRestriction IsAdapted IsFinGal IsUnif IsUnif.norm_eq Kbar SwanIndependent SwanIntegral apply_mem artinAt carayolR17'_of_R17 carayolR17_of_R17' codimInv codimInv_eq_zero codimInv_le condAt condAt_eq_artinAt condAt_eq_artinAt' condAt_eq_artinAt'' condAt_eq_artinAt_of_surj condAt_eq_zero_of_unramified condAt_le_of_upper condExp condExp_eq_condAt condExp_eq_zero_of_unramified condExp_one eventuallyTrivial eventually_not_restr exists_isUnif finite_restr fixSet fixSet_subset_ramSet inertiaSet inertiaSet_subset_ramSet_zero integral_codim_le invariants invariants_eq_of_cover invariants_eq_top isAdapted_one isUnif_bot norm_p_kbar norm_pow_factorial one_mem_wildSet phiAt ramCard ramCardR ramCard_ne_zero ramSet ramSetR restr swan swanAt swanAt_eq_zero_of_unramified upperAbs upperSet wildSet wildSet_subset_inertiaSet) -- op-dedupe
+open _root_.G0ModField (CommonConstituent ConjugacyData DescentDatum FibreCoverExists FibreCoverOut FibreCtx G2Out G4Out G7Out GaloisCopy.G2Out GaloisCopy.G7Out GaloisCopy.Vb GaloisCopy.resQ GaloisCopy.tate IF IsModelOver IsQMModel IsQMModel.isModelOver KernelFieldExists KernelFieldOut ModularConstituentG PtQ RationalFibre ResQRange T UnramifiedSup actK actQ admissible_S_mul b2_of_leaves_level b3_of_cochain baseChangeTrans card_ker_GL descentDatum_bot descentDatum_of_conjugacy fieldDescent g2Out_of_cover g4Out_of_kernelField g7Out_of_g4Out galAct_bijective galAct_mul incAlg isModelOver_baseChange le_heightD_of_mem_S_mul mem_GQL_bot normA numberField_of_fd resQRange resQ_comm' resQ_range sgnU sgnU_mul sgnU_mul_abs sgnU_sq toLAut toLAut_apply two_mem_T) -- op-dedupe
 open _root_.ZInQ ZInQ LeafQM.AV GlueDescent.B2
+open _root_.ZInQ (Contrib.AbVarBC.G0FibreSimple.MulIsogeny Contrib.AbVarBC.MulRigidity.CotangentMulN Contrib.AbVarBC.MulRigidity.KerUnitOpen Contrib.AbVarBC.MulRigidity.KerUnitOpenOfCotangentSurj Contrib.AbVarBC.MulRigidity.MulEtale Contrib.AbVarBC.MulRigidity.MulUnramified Contrib.AbVarBC.MulRigidity.O0 Contrib.AbVarBC.MulRigidity.QuasiFiniteEndSurjective Contrib.AbVarBC.MulRigidity.charZero_residueField Contrib.AbVarBC.MulRigidity.cotangentMap Contrib.AbVarBC.MulRigidity.diagonal_isPullback Contrib.AbVarBC.MulRigidity.diffKer Contrib.AbVarBC.MulRigidity.formallyUnramified_of_kerUnit Contrib.AbVarBC.MulRigidity.isIsogenyMor_of_lqf_of_isOpenMap Contrib.AbVarBC.MulRigidity.isOpenImmersion_of_section Contrib.AbVarBC.MulRigidity.isProper_left Contrib.AbVarBC.MulRigidity.kerUnit Contrib.AbVarBC.MulRigidity.kerUnitOpen_of_cotangent Contrib.AbVarBC.MulRigidity.kerUnitOpen_of_mulEtale Contrib.AbVarBC.MulRigidity.locallyQuasiFinite_of_formallyUnramified Contrib.AbVarBC.MulRigidity.map_origin Contrib.AbVarBC.MulRigidity.mulIsogeny_of_cotangent Contrib.AbVarBC.MulRigidity.mulIsogeny_of_kerUnitOpen Contrib.AbVarBC.MulRigidity.mulIsogeny_of_mulEtale Contrib.AbVarBC.MulRigidity.mulIsogeny_of_mulUnramified Contrib.AbVarBC.MulRigidity.mulIsogeny_of_mulUnramified' Contrib.AbVarBC.MulRigidity.mulUnramified_of_kerUnitOpen Contrib.AbVarBC.MulRigidity.mulUnramified_of_mulEtale Contrib.AbVarBC.MulRigidity.ne_of_specializes_of_lqf Contrib.AbVarBC.MulRigidity.origin Contrib.AbVarBC.MulRigidity.quasiFiniteEndSurjective Contrib.AbVarBC.MulRigidity.stalkEndo Contrib.AbVarBC.MulRigidity.surjective_of_lqf_self Contrib.AbVarBC.Tangent.AtOrigin Contrib.AbVarBC.Tangent.D Contrib.AbVarBC.Tangent.D_congr Contrib.AbVarBC.Tangent.D_inv Contrib.AbVarBC.Tangent.D_mul Contrib.AbVarBC.Tangent.D_one Contrib.AbVarBC.Tangent.D_zpow Contrib.AbVarBC.Tangent.KerN Contrib.AbVarBC.Tangent.atOrigin_inv Contrib.AbVarBC.Tangent.atOrigin_map Contrib.AbVarBC.Tangent.atOrigin_mul Contrib.AbVarBC.Tangent.atOrigin_one Contrib.AbVarBC.Tangent.atOrigin_zpow Contrib.AbVarBC.Tangent.closedPoint_eq Contrib.AbVarBC.Tangent.comp_intCast_hom Contrib.AbVarBC.Tangent.comp_mem_of_subsingleton Contrib.AbVarBC.Tangent.comp_orig_mem Contrib.AbVarBC.Tangent.derivation_eq_zero Contrib.AbVarBC.Tangent.dualHom Contrib.AbVarBC.Tangent.eq_ofRing_ptRing Contrib.AbVarBC.Tangent.eq_of_D_eq Contrib.AbVarBC.Tangent.eq_one_of_comp_intCast Contrib.AbVarBC.Tangent.ev0 Contrib.AbVarBC.Tangent.exists_affine_orig Contrib.AbVarBC.Tangent.fst_tRing Contrib.AbVarBC.Tangent.id_appLE_top Contrib.AbVarBC.Tangent.intCast_hom Contrib.AbVarBC.Tangent.isLocalHom_fstHom Contrib.AbVarBC.Tangent.isLocalRing_tsze Contrib.AbVarBC.Tangent.ker_le_sq_of_derivations Contrib.AbVarBC.Tangent.ks Contrib.AbVarBC.Tangent.ks_hom Contrib.AbVarBC.Tangent.ks_isOpenImmersion Contrib.AbVarBC.Tangent.left_closedPoint Contrib.AbVarBC.Tangent.locallyOfFiniteType_kerN Contrib.AbVarBC.Tangent.map_add_inl Contrib.AbVarBC.Tangent.map_add_inr Contrib.AbVarBC.Tangent.map_fst_inl Contrib.AbVarBC.Tangent.map_fst_inr Contrib.AbVarBC.Tangent.map_snd_inl Contrib.AbVarBC.Tangent.map_snd_inr Contrib.AbVarBC.Tangent.mem_of_atOrigin Contrib.AbVarBC.Tangent.mulN Contrib.AbVarBC.Tangent.ofRing Contrib.AbVarBC.Tangent.ofRing_mem Contrib.AbVarBC.Tangent.one_left Contrib.AbVarBC.Tangent.orig Contrib.AbVarBC.Tangent.ptR Contrib.AbVarBC.Tangent.ptRing Contrib.AbVarBC.Tangent.ptRing_comp Contrib.AbVarBC.Tangent.ptRing_congr Contrib.AbVarBC.Tangent.ptRing_ext Contrib.AbVarBC.Tangent.ptRing_id_top Contrib.AbVarBC.Tangent.ptRing_ofRing Contrib.AbVarBC.Tangent.ptRing_specMap_comp Contrib.AbVarBC.Tangent.specHom Contrib.AbVarBC.Tangent.specHom_comp Contrib.AbVarBC.Tangent.specHom_id Contrib.AbVarBC.Tangent.specHom_left Contrib.AbVarBC.Tangent.spec_inl_fst_comp Contrib.AbVarBC.Tangent.tRing Contrib.AbVarBC.Tangent.tRing_congr Contrib.AbVarBC.Tangent.tRing_one Contrib.AbVarBC.Tangent.tRing_specHom Contrib.AbVarBC.TorsionDescends Contrib.AbVarBC.comp_natCast_hom Contrib.AbVarBC.dim_baseChange_scheme Contrib.AbVarBC.dim_finite Contrib.AbVarBC.dim_pullback_spec Contrib.AbVarBC.dim_spec_le Contrib.AbVarBC.exists_lift_of_isFinite Contrib.AbVarBC.exists_nat_of_le Contrib.AbVarBC.galK Contrib.AbVarBC.kerUnitOpen Contrib.AbVarBC.map_comm Contrib.AbVarBC.mem_range_of_isIntegral Contrib.AbVarBC.mulIsogeny Contrib.AbVarBC.ptBC Contrib.AbVarBC.ptBC_galAct Contrib.AbVarBC.ptBC_injective Contrib.AbVarBC.ringKrullDim_eq_of_isIntegral_of_injective Contrib.AbVarBC.ringKrullDim_le_of_finiteType Contrib.AbVarBC.ringKrullDim_mvPolynomial_field Contrib.AbVarBC.ringKrullDim_tensor_field Contrib.AbVarBC.scheme_dim_eq_iSup_cover Contrib.AbVarBC.scheme_dim_eq_of_iso Contrib.AbVarBC.spec_dim Contrib.AbVarBC.tateBC Contrib.AbVarBC.tateBC_bijective_of_tateModuleFree Contrib.AbVarBC.tateBC_bijective_of_torsionDescends Contrib.AbVarBC.tateBC_galT Contrib.AbVarBC.tateBC_injective Contrib.AbVarBC.tate_map_bijective_of_torsion Contrib.AbVarBC.topologicalKrullDim_eq_iSup_of_openEmbedding Contrib.AbVarBC.torsionDescends_of_isFinite Contrib.AbVarBC.vBC Contrib.AbVarBC.vBC_galRep DefFaltings.AbVar DefFaltings.AnalyticUniformizationExists DefFaltings.AnalyticUniformizationUnique DefFaltings.EReal.add_coe_add_neg_coe DefFaltings.FinExt DefFaltings.Genus2Eq DefFaltings.Genus2Eq.Good DefFaltings.Genus2Eq.P DefFaltings.Genus2Eq.binDisc DefFaltings.GroupModel DefFaltings.GroupModel.IsAnalyticUniformization DefFaltings.GroupModel.IsNeronModel DefFaltings.GroupModel.Pts DefFaltings.GroupModel.cotangent DefFaltings.GroupModel.dCls DefFaltings.GroupModel.detLattice DefFaltings.GroupModel.dom DefFaltings.GroupModel.evalAt DefFaltings.GroupModel.exists_rep DefFaltings.GroupModel.genStalk DefFaltings.GroupModel.genericUnit DefFaltings.GroupModel.germAlong DefFaltings.GroupModel.height DefFaltings.GroupModel.height_eq DefFaltings.GroupModel.hodgeSpace DefFaltings.GroupModel.jacDet DefFaltings.GroupModel.jacDet_comp DefFaltings.GroupModel.omega DefFaltings.GroupModel.omegaAt DefFaltings.GroupModel.omegaAt_genericPt DefFaltings.GroupModel.ptC DefFaltings.GroupModel.semilinear_ext_wedge DefFaltings.GroupModel.specializes_genericUnit DefFaltings.GroupModel.structMap DefFaltings.GroupModel.unitSection DefFaltings.GroupModel.wedge DefFaltings.HermitianLattice DefFaltings.HermitianLattice.arakelovDegree DefFaltings.HermitianLattice.arakelovDegree_ofFractionalIdeal DefFaltings.HermitianLattice.arakelovDegree_rescale DefFaltings.HermitianLattice.degreeAt DefFaltings.HermitianLattice.degreeAt_eq DefFaltings.HermitianLattice.degreeAt_eq_arakelovDegree DefFaltings.HermitianLattice.degreeAt_smul DefFaltings.HermitianLattice.ofFractionalIdeal DefFaltings.HermitianLattice.rescale DefFaltings.HermitianLattice.secIndex_ne_zero DefFaltings.HodgeData DefFaltings.HodgeData.coeff_apply_ne_zero DefFaltings.HodgeData.hodgeBundle DefFaltings.HodgeData.modelHeight DefFaltings.HodgeData.modelHeight_eq DefFaltings.HodgeData.modelHeight_eq_add_of_le DefFaltings.HodgeData.modelHeight_eq_faltingsHeightGood DefFaltings.HodgeData.modelHeight_le_of_le DefFaltings.HodgeData.modelHeight_ofIdeal DefFaltings.HodgeData.modelHeight_ofIdeal_baseChange DefFaltings.HodgeData.modelHeight_of_span DefFaltings.HodgeData.modelHeight_recoord DefFaltings.HodgeData.norm DefFaltings.HodgeData.norm_sq DefFaltings.HodgeData.recoord DefFaltings.HodgeLatticeTheorem DefFaltings.IsIsogeny DefFaltings.MetrizedModel DefFaltings.MetrizedModel.modelHeight_eq_of_model_eq DefFaltings.NeronModelMinimal DefFaltings.PeriodAreaFormula DefFaltings.R19_GaudronRemond DefFaltings.R20_FaltingsLemma5 DefFaltings.R21_Bost DefFaltings.StableHeightFinite DefFaltings.absNorm_extendedHom DefFaltings.absNorm_map_ringOfIntegers DefFaltings.arakelovDegree_ofFractionalIdeal_baseChange DefFaltings.arakelovDegree_ofFractionalIdeal_mul DefFaltings.card_embeddings_over DefFaltings.covolume_comap_mul_det DefFaltings.covolume_gaussianPair DefFaltings.det_restrictScalars_complex DefFaltings.embCoeff DefFaltings.faltingsHeight DefFaltings.faltingsHeightEC DefFaltings.faltingsHeightGood DefFaltings.faltingsHeight_coe DefFaltings.finiteHeightPart DefFaltings.finrank_ringOfIntegers DefFaltings.gaussianPair DefFaltings.genericFibre DefFaltings.genericPt DefFaltings.grKappa DefFaltings.hypGram DefFaltings.hypGram_comp_add DefFaltings.hypVol DefFaltings.hypVol_one_comp_add DefFaltings.isogDeg DefFaltings.le_stableFaltingsHeight DefFaltings.modelHeight_ofIdeal_eq_faltingsHeightEC DefFaltings.modelHeight_ofIdeal_eq_faltingsHeightEC' DefFaltings.norm_algebraMap_tower DefFaltings.ptObj DefFaltings.ratCoeff DefFaltings.realify DefFaltings.secIndex DefFaltings.secIndex_mul_absNorm DefFaltings.secIndex_smul DefFaltings.stableFaltingsHeight DefFaltings.stableFaltingsHeightDeligne DefFaltings.stableFaltingsHeightDeligne_eq DefFaltings.stableFaltingsHeight_eq_faltingsHeightGood DefFaltings.stableFaltingsHeight_eq_iInf_height DefFaltings.stableFaltingsHeight_le DefFaltings.stableFaltingsHeight_ne_bot_of_R21 DefFaltings.sum_embeddings_comp DefFaltings.sum_log_norm_embeddings DefFaltings.sum_log_norm_embeddings_int DefFaltings.torusMetricSq DefFaltings.torusMetricSq_comap DefFaltings.torusMetricSq_eq_setIntegral DefFaltings.torusMetricSq_pos DefFaltings.torusMetricSq_smul DefFaltings.torus_setIntegral_indep H5Glue.GenericFibreStalkIso H5Glue.GroupModel.baseChange H5Glue.GroupModel.isNeronModel_iff H5Glue.GroupModelBaseChangeExists H5Glue.HeightAntitone H5Glue.HodgeLatticeNonzero H5Glue.HodgeMapBijective H5Glue.IsBaseChangeOf H5Glue.IsOpenSubgroupModel H5Glue.IsProductAbVar H5Glue.IsProductModel H5Glue.ModelHeightBaseChange H5Glue.NeronModelExists H5Glue.NeronProp H5Glue.NeronProp.lift H5Glue.NeronProp.of_iso H5Glue.NeronProp.tensor H5Glue.NeronProp.uniqueIso H5Glue.OmegaSpans H5Glue.OpenImmersionHeightLe H5Glue.OpenSubgroupHeight H5Glue.ProductGroupModelExists H5Glue.ProductModelHeight H5Glue.SemistableNeronIdentityComponent H5Glue.baseChange_map_bijective H5Glue.bcProd H5Glue.bijective_respectsIso H5Glue.compositum H5Glue.cotMap H5Glue.cotMap_bijective H5Glue.cotMap_dCls H5Glue.cotMap_omega H5Glue.cotMap_omegaAt H5Glue.detLattice_le_hodgeMap H5Glue.dom_comp H5Glue.evalAt_comp H5Glue.evalAt_res H5Glue.exists_smul_mem_omega H5Glue.fst_genericFibreUnit H5Glue.fst_genericFibre_unit H5Glue.genBC H5Glue.genBC_isMonHom H5Glue.genMap H5Glue.genMap_germ H5Glue.genMap_mem_maximalIdeal H5Glue.genMap_mem_maximalIdeal_iff H5Glue.genMap_structMap H5Glue.genericFibreStalkIso H5Glue.genericFibreUnit H5Glue.genericIso_of_openImmersion H5Glue.germAlong_comp_eventuallyEq H5Glue.groupModelBaseChangeExists H5Glue.heightAntitone H5Glue.heightAntitone_of H5Glue.heightAntitone_of_hodgeLatticeNonzero H5Glue.heightAntitone_of_omegaSpans H5Glue.hodgeLatticeNonzero_of_omegaSpans H5Glue.hodgeMap H5Glue.hodgeMapBijective H5Glue.hodgeMap_detLattice H5Glue.hodgeMap_wedge H5Glue.hodgeMap_wedgeGerm H5Glue.isAnalyticUniformization_comp H5Glue.isAnalyticUniformization_of_comp H5Glue.isIso_genMap H5Glue.isIso_of_openImmersion_self H5Glue.isIso_stalkSpecializes_genMap H5Glue.isMonHom_of_map H5Glue.isMonHom_pbCompHom H5Glue.isMonHom_pbCompInv H5Glue.isMonHom_pbEqIso H5Glue.isMonHom_prodComparisonIso H5Glue.isNeronModel_of_isProductModel H5Glue.isOpenImmersion_pullback_map H5Glue.jL H5Glue.jacDet_comp_genMap H5Glue.jacDet_comp_map H5Glue.map_genericUnit' H5Glue.map_span_singleton_toAddSubgroup H5Glue.map_zero_of_hom H5Glue.modelHeight_pullHodge_le H5Glue.neronModelMinimal H5Glue.neronModelMinimal_of_heightAntitone H5Glue.neron_lift H5Glue.neron_lift_isMonHom H5Glue.neron_map_injective H5Glue.omegaAt_le_cotMap H5Glue.omegaSpans H5Glue.omega_le_cotMap H5Glue.one_mem_dom H5Glue.openImmersionHeightLe H5Glue.openSubgroupHeight H5Glue.openSubgroupHeight_of H5Glue.pbCompHom H5Glue.pbCompInv H5Glue.pbCompIso H5Glue.pbEqIso H5Glue.productGroupModelExists H5Glue.ptCIso H5Glue.ptC_hom_apply H5Glue.ptsEquiv H5Glue.ptsEquiv_comp H5Glue.pts_comp_bijective H5Glue.pullHodge H5Glue.secIndex_le_of_map H5Glue.secIndex_ne_zero_of_mem H5Glue.smooth_tensor H5Glue.smooth_unit H5Glue.square1 H5Glue.square2 H5Glue.stableFaltingsHeight_add_le H5Glue.stableFaltingsHeight_add_le_of_productModelHeight H5Glue.stableFaltingsHeight_eq_neron_all H5Glue.stableFaltingsHeight_eq_neron_all' H5Glue.stalkIso_of_genericIso H5Glue.stalkSpecializes_self_apply H5Glue.stalkSpecializes_stalkSpecializes_apply H5Glue.stalk_ker_eq H5Glue.stalk_spec_eq H5Glue.stalkwise_fst_toGeneric H5Glue.stalkwise_tensor_localization H5Glue.tensorGen H5Glue.tensorGen_fst H5Glue.tensorGen_snd H5Glue.toGeneric_pt H5Glue.unitSection_comp H5Neron.GroupModel.IsNeronModel.lift H5Neron.GroupModel.IsNeronModel.uniqueIso H5Neron.GroupModel.isNeronModel_iff H5Neron.GroupModelBaseChangeExists H5Neron.IsBaseChangeOf H5Neron.IsOpenSubgroupModel H5Neron.IsProductAbVar H5Neron.IsProductModel H5Neron.ModelHeightBaseChange H5Neron.NeronModelExists H5Neron.NeronProp H5Neron.NeronProp.lift H5Neron.NeronProp.of_iso H5Neron.NeronProp.tensor H5Neron.NeronProp.uniqueIso H5Neron.OpenSubgroupHeight H5Neron.ProductGroupModelExists H5Neron.ProductModelHeight H5Neron.R19_zero H5Neron.R20_zero H5Neron.R21_zero H5Neron.SemistableNeronIdentityComponent H5Neron.bcProd H5Neron.bcUnitIso H5Neron.compositum H5Neron.covolume_fin_zero H5Neron.detLattice_zero H5Neron.glue_zero H5Neron.groupModel_height_zero H5Neron.hodgeZeroEquiv H5Neron.hodgeZeroEquiv_wedge0 H5Neron.hom_ext_of_iso_unit H5Neron.isIsogeny_id_zero H5Neron.isMonHom_of_iso_unit H5Neron.isMonHom_prodComparisonIso H5Neron.isNeronModel_of_isProductModel H5Neron.isogDeg_zero_le_one H5Neron.jL H5Neron.metrizedOf H5Neron.modelHeight_dim_zero H5Neron.neronModelExists_zero H5Neron.neronModelMinimal_zero H5Neron.neron_zero_iso_unit H5Neron.no_metrized_succ H5Neron.one_le_grKappa H5Neron.productGroupModelExists H5Neron.pts_subsingleton H5Neron.semistableNeronIdentityComponent_zero H5Neron.semσ H5Neron.stableFaltingsHeight_add_le H5Neron.stableFaltingsHeight_add_le' H5Neron.stableFaltingsHeight_eq_neron H5Neron.stableFaltingsHeight_eq_neron_all H5Neron.stableFaltingsHeight_zero H5Neron.stableHeightFinite_zero H5Neron.tensorGen H5Neron.tensorGen_fst H5Neron.tensorGen_snd H5Neron.trivHodge H5Neron.trivMetrized H5Neron.trivModel H5Neron.trivModel_isNeronModel H5Neron.wedge0 H5Neron.wedge0_ne_zero H5Neron.wedge_eq_wedge0 HeightBC.CotangentSpanBC HeightBC.D0 HeightBC.D0_add HeightBC.D0_add_apply HeightBC.D0_mul HeightBC.D0_mul_apply HeightBC.D0_sq HeightBC.D0_structMap_mul HeightBC.DetLatticeBC HeightBC.FF HeightBC.GermDerivation HeightBC.HodgeBCInjective HeightBC.HodgeLineBaseChange HeightBC.HodgeLineBaseChangeDescent HeightBC.HodgeLineDescentHalf HeightBC.HodgeSpanBC HeightBC.IsBaseChangeOf HeightBC.IsHodgeBaseChange HeightBC.IsMonBC HeightBC.JacobianPullbackSpan HeightBC.JacobianSemilinear HeightBC.MetrizationBaseChange HeightBC.ModelHeightBaseChange HeightBC.ModelHeightBaseChangeGE HeightBC.ModelHeightBaseChangeLE HeightBC.OmegaBaseChange HeightBC.OmegaLocalization HeightBC.PtsBaseChangeBij HeightBC.PtsBaseChangeMul HeightBC.UniformizationLift HeightBC.UniformizationLiftAnalytic HeightBC.algebraMap_FF HeightBC.algebraMap_ringOfIntegers_coe HeightBC.appLE_top_top HeightBC.bO HeightBC.bO_appTop HeightBC.bO_genericPt HeightBC.bcAlt HeightBC.bcCot HeightBC.bcCotBasis HeightBC.bcCotBasis_apply HeightBC.bcCot_core HeightBC.bcCot_dCls HeightBC.bcCot_intInv HeightBC.bcCot_linearIndependent HeightBC.bcCot_omega HeightBC.bcCot_omegaAt HeightBC.bcCot_smulL HeightBC.bcCot_smul_genStalk HeightBC.bcCot_span HeightBC.bcCot_update HeightBC.bcExt HeightBC.bcExt_smul HeightBC.bcExt_ιMulti HeightBC.bcHodge HeightBC.bcHodge_detLattice HeightBC.bcHodge_smul HeightBC.bcHodge_tmul HeightBC.bcHodge_wedge HeightBC.bcMap HeightBC.bcMap_germ HeightBC.bcMap_mem_maximalIdeal HeightBC.bcMap_structMap HeightBC.bcMap_φL HeightBC.bcProj HeightBC.bcProj_genericUnit HeightBC.bcProj_unit HeightBC.bcProj_w HeightBC.bcPts HeightBC.cotL HeightBC.cotL_isScalarTower HeightBC.cotL_smul HeightBC.cotRes HeightBC.cotangentSpanBC HeightBC.descentHalf_of_descent HeightBC.detLatticeBC_of_omega HeightBC.dom_bcPts HeightBC.evalAt_add HeightBC.evalAt_bcPts HeightBC.evalAt_mul HeightBC.evalAt_one_eq_zero HeightBC.evalAt_res HeightBC.evalAt_structSection HeightBC.exists_act HeightBC.exists_comp_eq HeightBC.exists_int_dvd HeightBC.exists_mem_not_mem_of_sat HeightBC.exists_ringOfIntegers_of_algebraMap HeightBC.extRes HeightBC.finite_of_isClosed_not_genericPt HeightBC.g0_hodgeLine_iff HeightBC.genericPt_eq_genericPoint HeightBC.germAlong_add_mul HeightBC.germAlong_bcPts_eventuallyEq HeightBC.germAlong_differentiableAt HeightBC.germAlong_eventuallyEq_rep HeightBC.germAlong_structMap HeightBC.germAlong_zero_of_mem HeightBC.germDerivation HeightBC.germDerivation_at HeightBC.hodgeBCInjective HeightBC.hodgeLineBaseChangeDescent_of_glue HeightBC.hodgeLineBaseChange_of_descent HeightBC.hodgeLineBaseChange_of_final HeightBC.hodgeLineBaseChange_of_five HeightBC.hodgeLineBaseChange_of_four HeightBC.hodgeLineBaseChange_of_glue HeightBC.hodgeLineBaseChange_of_glue4 HeightBC.hodgeLineBaseChange_of_glue5 HeightBC.hodgeLineBaseChange_of_main HeightBC.hodgeLineBaseChange_of_two HeightBC.hodgeSpanBC_of HeightBC.hom_genericUnit HeightBC.hom_genericUnit' HeightBC.hom_unitSection HeightBC.isAnalyticUniformization_bcPts HeightBC.isField_stalk_genericPt HeightBC.isIso_stalkSpecializes_bcMap HeightBC.isUnit_germ_genericPt HeightBC.isUnit_structMap HeightBC.jacDet_bcPts HeightBC.jacobianPullbackSpan_of HeightBC.jacobianSemilinear HeightBC.jacobianSemilinear_of HeightBC.locSub HeightBC.mapCotangent_injective_of_isIso HeightBC.mapCotangent_smul' HeightBC.map_zero_of_hom HeightBC.maximalIdeal_stalk_genericPt HeightBC.mem_locSub HeightBC.mem_of_forall_locSub HeightBC.metrizationBaseChange_of_hodgeLine HeightBC.modelHeightBaseChangeGE_of_descent HeightBC.modelHeightBaseChangeGE_of_descentHalf HeightBC.modelHeightBaseChangeGE_of_main HeightBC.modelHeightBaseChangeGE_of_two HeightBC.modelHeightBaseChangeLE_of_metrization HeightBC.modelHeightBaseChange_of_descent HeightBC.modelHeightBaseChange_of_final HeightBC.modelHeightBaseChange_of_five HeightBC.modelHeightBaseChange_of_four HeightBC.modelHeightBaseChange_of_glue HeightBC.modelHeightBaseChange_of_glue4 HeightBC.modelHeightBaseChange_of_glue5 HeightBC.modelHeightBaseChange_of_main HeightBC.modelHeightBaseChange_of_two HeightBC.modelHeight_eq_of_isHodgeBaseChange HeightBC.multilinear_mem_span HeightBC.omegaAt_bc_local HeightBC.omegaAt_full HeightBC.omegaAt_open HeightBC.omegaAt_sat HeightBC.omegaBaseChange HeightBC.omegaBaseChange_of_localization HeightBC.omegaLocalization HeightBC.one_mem_dom HeightBC.ptC_hom_apply HeightBC.ptC_hom_comp_bO HeightBC.ptsBaseChangeBij HeightBC.ptsBaseChangeMul HeightBC.rationalOver_genericUnit HeightBC.secIndex_baseChange HeightBC.secIndex_map HeightBC.secIndex_ne_zero_of_baseChange HeightBC.secIndex_nsmul_mem HeightBC.smul_cotangent_eq_of_sub_mem HeightBC.span_bcHodge_le HeightBC.spec_mem_of_ker HeightBC.stalkMapAt_germ' HeightBC.stalkSpec_comp_apply HeightBC.stalkSpec_self_apply HeightBC.stalkSpecializes_self_apply' HeightBC.stalkSpecializes_stalkSpecializes_apply' HeightBC.structMap_eq_spec HeightBC.structMap_eq_stalkMap HeightBC.toCotangent_mul HeightBC.uniformizationLift HeightBC.uniformizationLiftAnalytic HeightBC.uniformizationLift_of HeightBC.unitSection_comp_hom HeightBC.unitSection_stalkMapAt_hom HeightBC.σFF HeightBC.φL HeightBC.φL_algebraMap LeafPush2.CPts LeafPush2.Char2 LeafPush2.HasSexticModel LeafPush2.IC10 LeafPush2.IC2 LeafPush2.IC4 LeafPush2.IC6 LeafPush2.IgJ10 LeafPush2.IgJ2 LeafPush2.IgJ4 LeafPush2.IgJ6 LeafPush2.IsGenus2 LeafPush2.IsPeriodMatrix LeafPush2.IsSiegel LeafPush2.IsUniformization LeafPush2.LinYangTuple LeafPush2.OnQMLocus LeafPush2.T10_groupIso LeafPush2.T11a_RiemannEnd LeafPush2.T11b_Rigidity LeafPush2.T12_ComplexConjEigen LeafPush2.UniformizationExists LeafPush2.absLogHeight LeafPush2.cDom LeafPush2.cEvalAt LeafPush2.cptObj LeafPush2.dsq LeafPush2.exists_isComplexConj LeafPush2.ffAlgebra LeafPush2.ffStructMap LeafPush2.isSiegel_I LeafPush2.javanpeykarBound LeafPush2.javanpeykarBound_mono LeafPush2.javanpeykarBound_pos LeafPush2.linYangTuple_onQMLocus LeafPush2.linYang_j_eq LeafPush2.onQMLocus_of_linYangTuple LeafPush2.pazukiC2 LeafPush2.sextic LeafPush2.thetaConst) -- op-dedupe
+open _root_.LeafQM.AV (CMExists HasCM24 HasCM24.of_iso HasCM3 HasCM3.of_iso HasCM4 HasCM4.of_iso IsBaseChangeOf IsBaseChangeOfPair IsFibreOf Level3 Level3.bcPt_pow_three Level3.eq_iff Level3.exists_mul_of_range_le Level3.ext' Level3.onto Level3.range_le Level3.rightMul Level3.rightMul_eq_self Level3.rightMul_rightMul Level3.torsor Level3.twist M3 M3.mk M3.rightMul M3.rightMul_rightMul M3.twist M3.twist_mk Pin.AutOExt.NormalizerFinite Pin.AutOExt.alpha_nat_smul Pin.AutOExt.autOInnerFinite_of_normalizer Pin.AutOExt.common_den Pin.AutOExt.conjUnit Pin.AutOExt.conj_of_skolem Pin.AutOExt.den_mul_int Pin.AutOExt.exists_nat_smul_mem Pin.AutOExt.extAlgEquiv Pin.AutOExt.extAlgHom Pin.AutOExt.extAlgHom_coe Pin.AutOExt.extAlgHom_symm_comp Pin.AutOExt.extDen Pin.AutOExt.extDen_mem Pin.AutOExt.extDen_pos Pin.AutOExt.extFun Pin.AutOExt.extFun_add Pin.AutOExt.extFun_algebraMap Pin.AutOExt.extFun_coe Pin.AutOExt.extFun_eq Pin.AutOExt.extFun_mul Pin.AutOExt.key_conj Pin.AutOExt.mem_O_of_int Pin.AutOExt.natCast_mul_eq_smul Pin.AutOExt.nat_smul_mem Pin.AutOExt.smul_mul_smul' Pin.AutOInnerFinite Pin.ConstOrOntoAlgClosed Pin.CurveRatFactor Pin.CurveSurj Pin.GeomCompConstOrOnto Pin.GeomCompFinite Pin.GeomCompInfinite Pin.GeomCompRatFactor Pin.ImagePlane.ev_comp Pin.ImagePlane.ev_spec_top Pin.ImagePlane.ptOf_comp Pin.ImagePlane.ptOf_spec_asIdeal Pin.IsNaturalRelabel Pin.Mob.eval_ne_zero_of_coprime Pin.Mob.exists_interp Pin.Mob.isCoprime_X_sub_C_of_eval_one Pin.Mob.natDegree_le_one_of_injective Pin.Mob.ratEval Pin.Mob.ratEval_eq_self Pin.Mob.wronskian_ne_zero Pin.MobiusGlue Pin.NormO.IsNorm Pin.NormO.IsNorm.inv Pin.NormO.IsNorm.mul Pin.NormO.T Pin.NormO.T_finite Pin.NormO.T_mul_ui Pin.NormO.T_mul_uj Pin.NormO.bas Pin.NormO.conjC Pin.NormO.descent Pin.NormO.dvd_of_prime_dvd_nrd Pin.NormO.dvd_of_smul_mem Pin.NormO.ei Pin.NormO.ej Pin.NormO.inv_eq Pin.NormO.isNorm_sc Pin.NormO.isNorm_ui Pin.NormO.isNorm_uj Pin.NormO.mulCoord_conjC Pin.NormO.mulCoord_conjC' Pin.NormO.mulCoord_smul_left Pin.NormO.mulCoord_smul_right Pin.NormO.normalizerFinite Pin.NormO.nrdZ Pin.NormO.nrdZ_ei Pin.NormO.nrdZ_ej Pin.NormO.nrdZ_mul Pin.NormO.nrdZ_ne_zero Pin.NormO.nrdZ_smul Pin.NormO.nrd_dvd_coords Pin.NormO.ofInt_scalar Pin.NormO.rearrange Pin.NormO.sc Pin.NormO.six_sq_identities Pin.NormO.smul_ofInt Pin.NormO.three_dvd_mulCoord_ej Pin.NormO.two_dvd_mulCoord_ei Pin.NormO.ui Pin.NormO.uj Pin.PinUnique Pin.QMFamily.transport Pin.QML3.isoTransport Pin.R1fpProps.fam Pin.R1fpProps.univ Pin.RatFactorAlgClosed Pin.SameTriple Pin.SameTripleMor Pin.SmoothCurveNoIsolatedPoint Pin.SmoothStalkDimOne Pin.TwistClassFinite Pin.autOInnerFinite Pin.autRelabel Pin.autRelabel_natural Pin.bcPt Pin.bcPt_ptOfSection Pin.bcPt_snd Pin.bcQbar Pin.bcSnd Pin.cm_objects_of_R1R2fp Pin.conjUnitIso Pin.cst Pin.curveFacts_of_algClosed Pin.curveFacts_of_comp Pin.curveFacts_of_leaves Pin.curveFacts_of_named Pin.curveRatFactor_of_comp Pin.curveSurj_of_comp Pin.ev Pin.ev_cst Pin.ev_eq_zero_iff Pin.ev_f_mul_g Pin.ev_g_eq_zero Pin.ev_res Pin.ev_top Pin.exists_isOpen_singleton_of_finite_closedPoints Pin.exists_liftO_congr Pin.exists_point_of_isLocallyClosed Pin.geomComp Pin.geomCompConstOrOnto_of Pin.geomCompFinite Pin.geomCompInfinite_of Pin.geomCompRatFactor_of Pin.isFibreOf_transport Pin.isOpen_connectedComponent_of_noetherian Pin.level3_finite Pin.mem_V_of_not_mem_U Pin.phi_part Pin.pointwise_of_witness Pin.pointwise_of_witness_mor Pin.ptOf Pin.ptOfSection Pin.r1fpPin_aut Pin.r1fpPin_relabel_iff Pin.r2fp_aut Pin.relabel Pin.relabel_geometric Pin.relabel_is_morphism Pin.res Pin.res_res Pin.sameTripleMor_of_mobius Pin.sameTriple_aut Pin.smoothCurveNoIsolatedPoint_of Pin.transfer_exists Pin.transfer_pointwise Pin.transfer_pointwise_mor Pin.transportLevel Pin.twistClassFinite Pin.twistClassFinite_of Pin.val_bcPt Pin.val_of_mem Pin.val_of_not_mem PtEquiv QMFamily QMIso QMIso.nonempty_abVarIso QMIso.refl QMIso.symm QMIso.trans QML3 QML3.Iso QML3.Iso.refl QML3.Iso.rightMul QML3.Iso.symm QML3.Iso.trans QML3.Iso.twist QML3.forget QML3.rightMul QML3.rightMul_A QML3.rightMul_rightMul QML3.twist QML3.twist_A QMLeaves QMPair QMPair.twist QMStr QMStr.twist Qbar R1R2fp R1R2fp_Y R1famProps R1fp R1fpProps R1fp_of_R1R2fp R1heckeProps R1rec R1recProps R1univProps R2X6Props R2fpProps R2fpProps_of_X6 R5fp R5fpCount R5fpWeak R5fpWeak_of_R5fp R5ptProps ToP1 ToP1.comp ToP1.val ToP1.val_comp ToP1.val_comp_right UnramifiedAbove5 X6Props X6Surj act_mul_apply bcPt bcPt_injective cm_of_val com comEquiv com_twist conductor conjHom conjHom_iota conjHom_mem_com conjHom_symm_apply conj_iso_of_rational conj_twist_of_rational endPt exists_fibre_object fibre_conjugates_isomorphic fieldMap fieldOfModuli3 fieldOfModuliPair fieldPt galAct_bcPt hI hIJ hJ hasCM24_twist hasCM3_twist hasCM4_twist hrat inertCount6 intCast_mem_com isoSetoid leaves_on_one_witness liftO not_qmStr_zero ofInt_injective ofInt_sub oi oi_mul_oi oj oj_mul_oi_add oj_mul_oj pairSetoid qmAct residueImage residue_unramified_over_branch specMap_flat specMap_surjective specToEquivOfField_comp specToEquivOfField_comp_right stab3 stabPair three_mul_ofInt toKbar unramified_over_branch) -- op-dedupe
+open _root_.GlueDescent.B2 (IsSignCocycle SignCob dB dB_inv dB_mul exists_beta isSignCocycle_dB isSignCocycle_inv isSignCocycle_mul isSignCocycle_pull pull pull_dB signCob_dB_iff signCob_inv signCob_mul) -- op-dedupe
 open CategoryTheory AlgebraicGeometry
 
 /-- (copied from g8-tate) `T u` consists of primes. -/
@@ -5870,8 +5482,11 @@ end G0ModNewform
 
 namespace G14Trace
 
-open PkgI4 (Qbar GQ LiesOver IsArithFrob GaloisRep)
+-- op-dedupe was: open PkgI4 (Qbar GQ LiesOver IsArithFrob GaloisRep)
+open _root_.PkgI4 (Qbar GQ LiesOver IsArithFrob GaloisRep) -- op-dedupe
 open PkgI3 G0ModNewform GlueC10Link
+open _root_.PkgI3 (AbVar AbVar.End AbVar.End0 AbVar.Hom AbVar.Hom.ext' AbVar.Hom.hom AbVar.Hom.hom_add AbVar.Hom.hom_mk' AbVar.Hom.hom_zero AbVar.Hom.mk' AbVar.IsGalEquivariant AbVar.IsIsogenyMor AbVar.Pt AbVar.T AbVar.V AbVar.baseChange AbVar.dim AbVar.dim_baseChange AbVar.dim_finite AbVar.galAct AbVar.galHom AbVar.galHom_mul AbVar.galHom_one AbVar.galRep AbVar.galT AbVar.geometricallyIntegral_id_spec AbVar.homGroup AbVar.homT AbVar.ptMap AbVar.ptObj AbVar.tateHom AbVar.tateHomZl AbVar.zero C2_absolutelyIrreducible CharPolyIndepOfEll E1_exists_hom_ne_zero E1_exists_hom_ne_zero' EndDivision FaltingsSemisimple FaltingsTate HomFreeFinite I3Leaves PoincareReducibility QMDichotomyYu QuatIndefinite RhoCont.continuous_act RhoCont.continuous_galRep RhoCont.continuous_galT RhoCont.continuous_one_tmul RhoCont.continuous_orbit RhoCont.continuous_toMatrix_galRep RhoCont.continuous_trace_galRep RhoCont.exists_openSubgroup_galAct_eq RhoCont.galAct_mul RhoCont.instTopologicalSpacePt RhoCont.instTopologicalSpaceV RhoCont.stalkClosedPointTo_comp_galois Tate.T Tate.continuous_map_action Tate.continuous_of_linearMap_padicInt Tate.coord_eq_zero_iff Tate.coord_eq_zero_of_le Tate.ell_smul_succ Tate.isOpen_coord_eq Tate.map Tate.map_apply Tate.map_bijective Tate.map_injective Tate.mem_range_of_ell_smul Tate.mem_range_of_pow_smul Tate.mem_range_of_smul Tate.nhds_zero_hasBasis Tate.nsmul_congr Tate.pow_smul_eq_zero Tate.pow_smul_shift Tate.smulSeq Tate.smulSeq_congr Tate.smulSeq_mem Tate.smul_apply Tate.val_cast TateModuleFree continuous_galRep_of_tateModuleFree equivEnd equivEnd_eq_commOf exists_hom_ne_zero_of_equivariant finrank_equivEnd homT_galT qmDichotomy_B6 quatIndefinite_two_neg_three range_tateHomZl_subset trace_eq_trace_of_ell trace_indep_of_ell) -- op-dedupe
+open _root_.GlueC10Link (FrobCompare FrobSquares Vmap c10_of_squares c10_of_trace_link cast_ne_zero_of_charP conj_baseChange conj_splitEquiv endE fact_prime_five finite_of_baseChange frobCompare_of_frobSquares frobCompare_of_squares homComp homT_homComp rL rhoL rhoL_apply rhoL_commute subRep subRep_apply trace_T_of_frobCompare trace_endE_indep trace_eq_two_mul_trace_subRep trace_link trace_link_three_five trace_rho) -- op-dedupe
 
 
 end G14Trace
@@ -5886,12 +5501,16 @@ noncomputable section
 -- and `GQ` of `Qbar ≃ₐ[ℚ] Qbar`, so the statement is the same term up to reducible unfolding.
 open CategoryTheory.MonObj
 open GlueDescent GlueC10 PkgI3
+open _root_.GlueDescent (B2.IsSignCocycle B2.SignCob B2.dB B2.dB_inv B2.dB_mul B2.exists_beta B2.isSignCocycle_dB B2.isSignCocycle_inv B2.isSignCocycle_mul B2.isSignCocycle_pull B2.pull B2.pull_dB B2.signCob_dB_iff B2.signCob_inv B2.signCob_mul B2Q.GQ B2Q.GQp B2Q.InflatedFrom B2Q.LeafHasse B2Q.LeafLocalTwo B2Q.LeafSqrtCrit B2Q.LeafUnramified B2Q.UnramifiedAt B2Q.act B2Q.act_mul B2Q.b2_of_leaves B2Q.cast_cast_of_dvd B2Q.chiLevel_pos B2Q.chi_toUnitHom_crt B2Q.cyc B2Q.cyc_eq_of_agree B2Q.cyc_isLocallyConstant B2Q.exists_crt_unit B2Q.galChar B2Q.galChar_isLocallyConstant B2Q.isLocallyConstant_of_openSubgroup B2Q.lev_eq_pow B2Q.resp B2Q.resp_continuous B2Q.sqrtU B2Q.sqrtU_sq B2Q.toRingAut B3Q.GQL B3Q.b3_degree_le_QM B3Q.b3_of_leaves B3Q.inflatedNormalized_of B3Q.mem_GQL B3Q.orderOf_pos_dirichlet B6 B6_commute_i_j B6_inner B6_isCentral B6_isSimpleRing B6_star_mul InflatedNormalized IsCochainFor LeafSkolemNoether MatrixUnits2 MatrixUnits2.W MatrixUnits2.e00_of_mem MatrixUnits2.e_apply_e MatrixUnits2.finrank_W MatrixUnits2.mapsTo_W MatrixUnits2.mem_W_of_e0 MatrixUnits2.splitEquiv MatrixUnits2.splitEquiv_intertwines aniso_int aniso_rat boundary_sq chi chiLevel cochain_conj cochain_mul_kernel cochain_mul_left cochain_mul_right cochain_of_boundary_eq cochain_one cocycle_of_projective commute_adjoin contactSupport_pos degree_le_QM exists_chi exists_odd_char heightD_pos index_kernel_le inertia_le_kernel kernelSubgroup kernelSubgroup_le kernelSubgroup_normal lev lev_dvd_chiLevel mem_kernelSubgroup oddChar oddChar_neg_one orderOf_dvd_totient orderOf_prod_dvd prod_S_le prod_odd_le prod_odd_le_aux prod_totient_lev_le qi qj ramSet relindex_kernel_le restrictHom rho rhoRep rho_commute rho_eq_act rho_map_mul sign_cocycle sign_normalization sign_sq_eq_one ten_le_heightE0 three_dvd_of_form totient_lev twist twist_kills_inertia twist_sq two_lt_lev zmod3_aniso) -- op-dedupe
+open _root_.GlueC10 (BrauerNesbittChar0 ChebotarevExists FrobDense FrobExistsAt FrobExistsFinite FrobLift FrobOn GQ IsFrobAt IsUnramFrob Qbar Zbar c10 card_quot continuous_trace eq_of_eq_on_frob frobDense frobDense_of_chebotarev frobExistsAt_of_finite frobExistsFinite frobLift frobLift_of_frobExistsAt frobOn_anti isClosed_frobOn isUnramFrob_all iso_of_trace_eq_frob_finite iso_of_trace_eq_on_frob iso_three_of_five semisimple_of_le toZbar toZbar_coe toZbar_injective trace_eq_matrix trace_half) -- op-dedupe
+open _root_.PkgI3 (AbVar AbVar.End AbVar.End0 AbVar.Hom AbVar.Hom.ext' AbVar.Hom.hom AbVar.Hom.hom_add AbVar.Hom.hom_mk' AbVar.Hom.hom_zero AbVar.Hom.mk' AbVar.IsGalEquivariant AbVar.IsIsogenyMor AbVar.Pt AbVar.T AbVar.V AbVar.baseChange AbVar.dim AbVar.dim_baseChange AbVar.dim_finite AbVar.galAct AbVar.galHom AbVar.galHom_mul AbVar.galHom_one AbVar.galRep AbVar.galT AbVar.geometricallyIntegral_id_spec AbVar.homGroup AbVar.homT AbVar.ptMap AbVar.ptObj AbVar.tateHom AbVar.tateHomZl AbVar.zero C2_absolutelyIrreducible CharPolyIndepOfEll E1_exists_hom_ne_zero E1_exists_hom_ne_zero' EndDivision FaltingsSemisimple FaltingsTate HomFreeFinite I3Leaves PoincareReducibility QMDichotomyYu QuatIndefinite RhoCont.continuous_act RhoCont.continuous_galRep RhoCont.continuous_galT RhoCont.continuous_one_tmul RhoCont.continuous_orbit RhoCont.continuous_toMatrix_galRep RhoCont.continuous_trace_galRep RhoCont.exists_openSubgroup_galAct_eq RhoCont.galAct_mul RhoCont.instTopologicalSpacePt RhoCont.instTopologicalSpaceV RhoCont.stalkClosedPointTo_comp_galois Tate.T Tate.continuous_map_action Tate.continuous_of_linearMap_padicInt Tate.coord_eq_zero_iff Tate.coord_eq_zero_of_le Tate.ell_smul_succ Tate.isOpen_coord_eq Tate.map Tate.map_apply Tate.map_bijective Tate.map_injective Tate.mem_range_of_ell_smul Tate.mem_range_of_pow_smul Tate.mem_range_of_smul Tate.nhds_zero_hasBasis Tate.nsmul_congr Tate.pow_smul_eq_zero Tate.pow_smul_shift Tate.smulSeq Tate.smulSeq_congr Tate.smulSeq_mem Tate.smul_apply Tate.val_cast TateModuleFree continuous_galRep_of_tateModuleFree equivEnd equivEnd_eq_commOf exists_hom_ne_zero_of_equivariant finrank_equivEnd homT_galT qmDichotomy_B6 quatIndefinite_two_neg_three range_tateHomZl_subset trace_eq_trace_of_ell trace_indep_of_ell) -- op-dedupe
 open scoped TensorProduct
 
 namespace HSyn.G0AssembleMod
 
 open CategoryTheory AlgebraicGeometry
 open G0ModField
+open _root_.G0ModField (CommonConstituent ConjugacyData DescentDatum FibreCoverExists FibreCoverOut FibreCtx G2Out G4Out G7Out GaloisCopy.G2Out GaloisCopy.G7Out GaloisCopy.Vb GaloisCopy.resQ GaloisCopy.tate IF IsModelOver IsQMModel IsQMModel.isModelOver KernelFieldExists KernelFieldOut ModularConstituentG PtQ RationalFibre ResQRange T UnramifiedSup actK actQ admissible_S_mul b2_of_leaves_level b3_of_cochain baseChangeTrans card_ker_GL descentDatum_bot descentDatum_of_conjugacy fieldDescent g2Out_of_cover g4Out_of_kernelField g7Out_of_g4Out galAct_bijective galAct_mul incAlg isModelOver_baseChange le_heightD_of_mem_S_mul mem_GQL_bot normA numberField_of_fd resQRange resQ_comm' resQ_range sgnU sgnU_mul sgnU_mul_abs sgnU_sq toLAut toLAut_apply two_mem_T) -- op-dedupe
 
 end HSyn.G0AssembleMod
 
@@ -5916,12 +5535,16 @@ noncomputable section
 -- the section-level opens of G0Assemble2.lean's `section G0A2_a85_linked`, as for the copy
 open CategoryTheory.MonObj
 open GlueDescent GlueC10 PkgI3
+open _root_.GlueDescent (B2.IsSignCocycle B2.SignCob B2.dB B2.dB_inv B2.dB_mul B2.exists_beta B2.isSignCocycle_dB B2.isSignCocycle_inv B2.isSignCocycle_mul B2.isSignCocycle_pull B2.pull B2.pull_dB B2.signCob_dB_iff B2.signCob_inv B2.signCob_mul B2Q.GQ B2Q.GQp B2Q.InflatedFrom B2Q.LeafHasse B2Q.LeafLocalTwo B2Q.LeafSqrtCrit B2Q.LeafUnramified B2Q.UnramifiedAt B2Q.act B2Q.act_mul B2Q.b2_of_leaves B2Q.cast_cast_of_dvd B2Q.chiLevel_pos B2Q.chi_toUnitHom_crt B2Q.cyc B2Q.cyc_eq_of_agree B2Q.cyc_isLocallyConstant B2Q.exists_crt_unit B2Q.galChar B2Q.galChar_isLocallyConstant B2Q.isLocallyConstant_of_openSubgroup B2Q.lev_eq_pow B2Q.resp B2Q.resp_continuous B2Q.sqrtU B2Q.sqrtU_sq B2Q.toRingAut B3Q.GQL B3Q.b3_degree_le_QM B3Q.b3_of_leaves B3Q.inflatedNormalized_of B3Q.mem_GQL B3Q.orderOf_pos_dirichlet B6 B6_commute_i_j B6_inner B6_isCentral B6_isSimpleRing B6_star_mul InflatedNormalized IsCochainFor LeafSkolemNoether MatrixUnits2 MatrixUnits2.W MatrixUnits2.e00_of_mem MatrixUnits2.e_apply_e MatrixUnits2.finrank_W MatrixUnits2.mapsTo_W MatrixUnits2.mem_W_of_e0 MatrixUnits2.splitEquiv MatrixUnits2.splitEquiv_intertwines aniso_int aniso_rat boundary_sq chi chiLevel cochain_conj cochain_mul_kernel cochain_mul_left cochain_mul_right cochain_of_boundary_eq cochain_one cocycle_of_projective commute_adjoin contactSupport_pos degree_le_QM exists_chi exists_odd_char heightD_pos index_kernel_le inertia_le_kernel kernelSubgroup kernelSubgroup_le kernelSubgroup_normal lev lev_dvd_chiLevel mem_kernelSubgroup oddChar oddChar_neg_one orderOf_dvd_totient orderOf_prod_dvd prod_S_le prod_odd_le prod_odd_le_aux prod_totient_lev_le qi qj ramSet relindex_kernel_le restrictHom rho rhoRep rho_commute rho_eq_act rho_map_mul sign_cocycle sign_normalization sign_sq_eq_one ten_le_heightE0 three_dvd_of_form totient_lev twist twist_kills_inertia twist_sq two_lt_lev zmod3_aniso) -- op-dedupe
+open _root_.GlueC10 (BrauerNesbittChar0 ChebotarevExists FrobDense FrobExistsAt FrobExistsFinite FrobLift FrobOn GQ IsFrobAt IsUnramFrob Qbar Zbar c10 card_quot continuous_trace eq_of_eq_on_frob frobDense frobDense_of_chebotarev frobExistsAt_of_finite frobExistsFinite frobLift frobLift_of_frobExistsAt frobOn_anti isClosed_frobOn isUnramFrob_all iso_of_trace_eq_frob_finite iso_of_trace_eq_on_frob iso_three_of_five semisimple_of_le toZbar toZbar_coe toZbar_injective trace_eq_matrix trace_half) -- op-dedupe
+open _root_.PkgI3 (AbVar AbVar.End AbVar.End0 AbVar.Hom AbVar.Hom.ext' AbVar.Hom.hom AbVar.Hom.hom_add AbVar.Hom.hom_mk' AbVar.Hom.hom_zero AbVar.Hom.mk' AbVar.IsGalEquivariant AbVar.IsIsogenyMor AbVar.Pt AbVar.T AbVar.V AbVar.baseChange AbVar.dim AbVar.dim_baseChange AbVar.dim_finite AbVar.galAct AbVar.galHom AbVar.galHom_mul AbVar.galHom_one AbVar.galRep AbVar.galT AbVar.geometricallyIntegral_id_spec AbVar.homGroup AbVar.homT AbVar.ptMap AbVar.ptObj AbVar.tateHom AbVar.tateHomZl AbVar.zero C2_absolutelyIrreducible CharPolyIndepOfEll E1_exists_hom_ne_zero E1_exists_hom_ne_zero' EndDivision FaltingsSemisimple FaltingsTate HomFreeFinite I3Leaves PoincareReducibility QMDichotomyYu QuatIndefinite RhoCont.continuous_act RhoCont.continuous_galRep RhoCont.continuous_galT RhoCont.continuous_one_tmul RhoCont.continuous_orbit RhoCont.continuous_toMatrix_galRep RhoCont.continuous_trace_galRep RhoCont.exists_openSubgroup_galAct_eq RhoCont.galAct_mul RhoCont.instTopologicalSpacePt RhoCont.instTopologicalSpaceV RhoCont.stalkClosedPointTo_comp_galois Tate.T Tate.continuous_map_action Tate.continuous_of_linearMap_padicInt Tate.coord_eq_zero_iff Tate.coord_eq_zero_of_le Tate.ell_smul_succ Tate.isOpen_coord_eq Tate.map Tate.map_apply Tate.map_bijective Tate.map_injective Tate.mem_range_of_ell_smul Tate.mem_range_of_pow_smul Tate.mem_range_of_smul Tate.nhds_zero_hasBasis Tate.nsmul_congr Tate.pow_smul_eq_zero Tate.pow_smul_shift Tate.smulSeq Tate.smulSeq_congr Tate.smulSeq_mem Tate.smul_apply Tate.val_cast TateModuleFree continuous_galRep_of_tateModuleFree equivEnd equivEnd_eq_commOf exists_hom_ne_zero_of_equivariant finrank_equivEnd homT_galT qmDichotomy_B6 quatIndefinite_two_neg_three range_tateHomZl_subset trace_eq_trace_of_ell trace_indep_of_ell) -- op-dedupe
 open scoped TensorProduct
 
 namespace LTLocal
 
 open CategoryTheory AlgebraicGeometry
 open G0ModField
+open _root_.G0ModField (CommonConstituent ConjugacyData DescentDatum FibreCoverExists FibreCoverOut FibreCtx G2Out G4Out G7Out GaloisCopy.G2Out GaloisCopy.G7Out GaloisCopy.Vb GaloisCopy.resQ GaloisCopy.tate IF IsModelOver IsQMModel IsQMModel.isModelOver KernelFieldExists KernelFieldOut ModularConstituentG PtQ RationalFibre ResQRange T UnramifiedSup actK actQ admissible_S_mul b2_of_leaves_level b3_of_cochain baseChangeTrans card_ker_GL descentDatum_bot descentDatum_of_conjugacy fieldDescent g2Out_of_cover g4Out_of_kernelField g7Out_of_g4Out galAct_bijective galAct_mul incAlg isModelOver_baseChange le_heightD_of_mem_S_mul mem_GQL_bot normA numberField_of_fd resQRange resQ_comm' resQ_range sgnU sgnU_mul sgnU_mul_abs sgnU_sq toLAut toLAut_apply two_mem_T) -- op-dedupe
 
 /-- **Glue (G5-G6 on G7's model, N5 L528-563): the endomorphism ring of `A_{L'}` has rank 4.**
 For every fibre context and G7 data, `rank_ℤ End(A_{L'}) = 4`. Proof plan (not formalized):
@@ -6092,6 +5715,8 @@ New: `endDivision_of_fibreSimple` (linked-tate's proof, copied) and `modelEndRan
 noncomputable section
 
 namespace ZInQ.DefFaltings
+open _root_.ZInQ.DefFaltings (AbVar AnalyticUniformizationExists AnalyticUniformizationUnique EReal.add_coe_add_neg_coe FinExt Genus2Eq Genus2Eq.Good Genus2Eq.P Genus2Eq.binDisc GroupModel GroupModel.IsAnalyticUniformization GroupModel.IsNeronModel GroupModel.Pts GroupModel.cotangent GroupModel.dCls GroupModel.detLattice GroupModel.dom GroupModel.evalAt GroupModel.exists_rep GroupModel.genStalk GroupModel.genericUnit GroupModel.germAlong GroupModel.height GroupModel.height_eq GroupModel.hodgeSpace GroupModel.jacDet GroupModel.jacDet_comp GroupModel.omega GroupModel.omegaAt GroupModel.omegaAt_genericPt GroupModel.ptC GroupModel.semilinear_ext_wedge GroupModel.specializes_genericUnit GroupModel.structMap GroupModel.unitSection GroupModel.wedge HermitianLattice HermitianLattice.arakelovDegree HermitianLattice.arakelovDegree_ofFractionalIdeal HermitianLattice.arakelovDegree_rescale HermitianLattice.degreeAt HermitianLattice.degreeAt_eq HermitianLattice.degreeAt_eq_arakelovDegree HermitianLattice.degreeAt_smul HermitianLattice.ofFractionalIdeal HermitianLattice.rescale HermitianLattice.secIndex_ne_zero HodgeData HodgeData.coeff_apply_ne_zero HodgeData.hodgeBundle HodgeData.modelHeight HodgeData.modelHeight_eq HodgeData.modelHeight_eq_add_of_le HodgeData.modelHeight_eq_faltingsHeightGood HodgeData.modelHeight_le_of_le HodgeData.modelHeight_ofIdeal HodgeData.modelHeight_ofIdeal_baseChange HodgeData.modelHeight_of_span HodgeData.modelHeight_recoord HodgeData.norm HodgeData.norm_sq HodgeData.recoord HodgeLatticeTheorem IsIsogeny MetrizedModel MetrizedModel.modelHeight_eq_of_model_eq NeronModelMinimal PeriodAreaFormula R19_GaudronRemond R20_FaltingsLemma5 R21_Bost StableHeightFinite absNorm_extendedHom absNorm_map_ringOfIntegers arakelovDegree_ofFractionalIdeal_baseChange arakelovDegree_ofFractionalIdeal_mul card_embeddings_over covolume_comap_mul_det covolume_gaussianPair det_restrictScalars_complex embCoeff faltingsHeight faltingsHeightEC faltingsHeightGood faltingsHeight_coe finiteHeightPart finrank_ringOfIntegers gaussianPair genericFibre genericPt grKappa hypGram hypGram_comp_add hypVol hypVol_one_comp_add isogDeg le_stableFaltingsHeight modelHeight_ofIdeal_eq_faltingsHeightEC modelHeight_ofIdeal_eq_faltingsHeightEC' norm_algebraMap_tower ptObj ratCoeff realify secIndex secIndex_mul_absNorm secIndex_smul stableFaltingsHeight stableFaltingsHeightDeligne stableFaltingsHeightDeligne_eq stableFaltingsHeight_eq_faltingsHeightGood stableFaltingsHeight_eq_iInf_height stableFaltingsHeight_le stableFaltingsHeight_ne_bot_of_R21 sum_embeddings_comp sum_log_norm_embeddings sum_log_norm_embeddings_int torusMetricSq torusMetricSq_comap torusMetricSq_eq_setIntegral torusMetricSq_pos torusMetricSq_smul torus_setIntegral_indep) -- op-dedupe
+open _root_.ZInQ (Contrib.AbVarBC.G0FibreSimple.MulIsogeny Contrib.AbVarBC.MulRigidity.CotangentMulN Contrib.AbVarBC.MulRigidity.KerUnitOpen Contrib.AbVarBC.MulRigidity.KerUnitOpenOfCotangentSurj Contrib.AbVarBC.MulRigidity.MulEtale Contrib.AbVarBC.MulRigidity.MulUnramified Contrib.AbVarBC.MulRigidity.O0 Contrib.AbVarBC.MulRigidity.QuasiFiniteEndSurjective Contrib.AbVarBC.MulRigidity.charZero_residueField Contrib.AbVarBC.MulRigidity.cotangentMap Contrib.AbVarBC.MulRigidity.diagonal_isPullback Contrib.AbVarBC.MulRigidity.diffKer Contrib.AbVarBC.MulRigidity.formallyUnramified_of_kerUnit Contrib.AbVarBC.MulRigidity.isIsogenyMor_of_lqf_of_isOpenMap Contrib.AbVarBC.MulRigidity.isOpenImmersion_of_section Contrib.AbVarBC.MulRigidity.isProper_left Contrib.AbVarBC.MulRigidity.kerUnit Contrib.AbVarBC.MulRigidity.kerUnitOpen_of_cotangent Contrib.AbVarBC.MulRigidity.kerUnitOpen_of_mulEtale Contrib.AbVarBC.MulRigidity.locallyQuasiFinite_of_formallyUnramified Contrib.AbVarBC.MulRigidity.map_origin Contrib.AbVarBC.MulRigidity.mulIsogeny_of_cotangent Contrib.AbVarBC.MulRigidity.mulIsogeny_of_kerUnitOpen Contrib.AbVarBC.MulRigidity.mulIsogeny_of_mulEtale Contrib.AbVarBC.MulRigidity.mulIsogeny_of_mulUnramified Contrib.AbVarBC.MulRigidity.mulIsogeny_of_mulUnramified' Contrib.AbVarBC.MulRigidity.mulUnramified_of_kerUnitOpen Contrib.AbVarBC.MulRigidity.mulUnramified_of_mulEtale Contrib.AbVarBC.MulRigidity.ne_of_specializes_of_lqf Contrib.AbVarBC.MulRigidity.origin Contrib.AbVarBC.MulRigidity.quasiFiniteEndSurjective Contrib.AbVarBC.MulRigidity.stalkEndo Contrib.AbVarBC.MulRigidity.surjective_of_lqf_self Contrib.AbVarBC.Tangent.AtOrigin Contrib.AbVarBC.Tangent.D Contrib.AbVarBC.Tangent.D_congr Contrib.AbVarBC.Tangent.D_inv Contrib.AbVarBC.Tangent.D_mul Contrib.AbVarBC.Tangent.D_one Contrib.AbVarBC.Tangent.D_zpow Contrib.AbVarBC.Tangent.KerN Contrib.AbVarBC.Tangent.atOrigin_inv Contrib.AbVarBC.Tangent.atOrigin_map Contrib.AbVarBC.Tangent.atOrigin_mul Contrib.AbVarBC.Tangent.atOrigin_one Contrib.AbVarBC.Tangent.atOrigin_zpow Contrib.AbVarBC.Tangent.closedPoint_eq Contrib.AbVarBC.Tangent.comp_intCast_hom Contrib.AbVarBC.Tangent.comp_mem_of_subsingleton Contrib.AbVarBC.Tangent.comp_orig_mem Contrib.AbVarBC.Tangent.derivation_eq_zero Contrib.AbVarBC.Tangent.dualHom Contrib.AbVarBC.Tangent.eq_ofRing_ptRing Contrib.AbVarBC.Tangent.eq_of_D_eq Contrib.AbVarBC.Tangent.eq_one_of_comp_intCast Contrib.AbVarBC.Tangent.ev0 Contrib.AbVarBC.Tangent.exists_affine_orig Contrib.AbVarBC.Tangent.fst_tRing Contrib.AbVarBC.Tangent.id_appLE_top Contrib.AbVarBC.Tangent.intCast_hom Contrib.AbVarBC.Tangent.isLocalHom_fstHom Contrib.AbVarBC.Tangent.isLocalRing_tsze Contrib.AbVarBC.Tangent.ker_le_sq_of_derivations Contrib.AbVarBC.Tangent.ks Contrib.AbVarBC.Tangent.ks_hom Contrib.AbVarBC.Tangent.ks_isOpenImmersion Contrib.AbVarBC.Tangent.left_closedPoint Contrib.AbVarBC.Tangent.locallyOfFiniteType_kerN Contrib.AbVarBC.Tangent.map_add_inl Contrib.AbVarBC.Tangent.map_add_inr Contrib.AbVarBC.Tangent.map_fst_inl Contrib.AbVarBC.Tangent.map_fst_inr Contrib.AbVarBC.Tangent.map_snd_inl Contrib.AbVarBC.Tangent.map_snd_inr Contrib.AbVarBC.Tangent.mem_of_atOrigin Contrib.AbVarBC.Tangent.mulN Contrib.AbVarBC.Tangent.ofRing Contrib.AbVarBC.Tangent.ofRing_mem Contrib.AbVarBC.Tangent.one_left Contrib.AbVarBC.Tangent.orig Contrib.AbVarBC.Tangent.ptR Contrib.AbVarBC.Tangent.ptRing Contrib.AbVarBC.Tangent.ptRing_comp Contrib.AbVarBC.Tangent.ptRing_congr Contrib.AbVarBC.Tangent.ptRing_ext Contrib.AbVarBC.Tangent.ptRing_id_top Contrib.AbVarBC.Tangent.ptRing_ofRing Contrib.AbVarBC.Tangent.ptRing_specMap_comp Contrib.AbVarBC.Tangent.specHom Contrib.AbVarBC.Tangent.specHom_comp Contrib.AbVarBC.Tangent.specHom_id Contrib.AbVarBC.Tangent.specHom_left Contrib.AbVarBC.Tangent.spec_inl_fst_comp Contrib.AbVarBC.Tangent.tRing Contrib.AbVarBC.Tangent.tRing_congr Contrib.AbVarBC.Tangent.tRing_one Contrib.AbVarBC.Tangent.tRing_specHom Contrib.AbVarBC.TorsionDescends Contrib.AbVarBC.comp_natCast_hom Contrib.AbVarBC.dim_baseChange_scheme Contrib.AbVarBC.dim_finite Contrib.AbVarBC.dim_pullback_spec Contrib.AbVarBC.dim_spec_le Contrib.AbVarBC.exists_lift_of_isFinite Contrib.AbVarBC.exists_nat_of_le Contrib.AbVarBC.galK Contrib.AbVarBC.kerUnitOpen Contrib.AbVarBC.map_comm Contrib.AbVarBC.mem_range_of_isIntegral Contrib.AbVarBC.mulIsogeny Contrib.AbVarBC.ptBC Contrib.AbVarBC.ptBC_galAct Contrib.AbVarBC.ptBC_injective Contrib.AbVarBC.ringKrullDim_eq_of_isIntegral_of_injective Contrib.AbVarBC.ringKrullDim_le_of_finiteType Contrib.AbVarBC.ringKrullDim_mvPolynomial_field Contrib.AbVarBC.ringKrullDim_tensor_field Contrib.AbVarBC.scheme_dim_eq_iSup_cover Contrib.AbVarBC.scheme_dim_eq_of_iso Contrib.AbVarBC.spec_dim Contrib.AbVarBC.tateBC Contrib.AbVarBC.tateBC_bijective_of_tateModuleFree Contrib.AbVarBC.tateBC_bijective_of_torsionDescends Contrib.AbVarBC.tateBC_galT Contrib.AbVarBC.tateBC_injective Contrib.AbVarBC.tate_map_bijective_of_torsion Contrib.AbVarBC.topologicalKrullDim_eq_iSup_of_openEmbedding Contrib.AbVarBC.torsionDescends_of_isFinite Contrib.AbVarBC.vBC Contrib.AbVarBC.vBC_galRep DefFaltings.AbVar DefFaltings.AnalyticUniformizationExists DefFaltings.AnalyticUniformizationUnique DefFaltings.EReal.add_coe_add_neg_coe DefFaltings.FinExt DefFaltings.Genus2Eq DefFaltings.Genus2Eq.Good DefFaltings.Genus2Eq.P DefFaltings.Genus2Eq.binDisc DefFaltings.GroupModel DefFaltings.GroupModel.IsAnalyticUniformization DefFaltings.GroupModel.IsNeronModel DefFaltings.GroupModel.Pts DefFaltings.GroupModel.cotangent DefFaltings.GroupModel.dCls DefFaltings.GroupModel.detLattice DefFaltings.GroupModel.dom DefFaltings.GroupModel.evalAt DefFaltings.GroupModel.exists_rep DefFaltings.GroupModel.genStalk DefFaltings.GroupModel.genericUnit DefFaltings.GroupModel.germAlong DefFaltings.GroupModel.height DefFaltings.GroupModel.height_eq DefFaltings.GroupModel.hodgeSpace DefFaltings.GroupModel.jacDet DefFaltings.GroupModel.jacDet_comp DefFaltings.GroupModel.omega DefFaltings.GroupModel.omegaAt DefFaltings.GroupModel.omegaAt_genericPt DefFaltings.GroupModel.ptC DefFaltings.GroupModel.semilinear_ext_wedge DefFaltings.GroupModel.specializes_genericUnit DefFaltings.GroupModel.structMap DefFaltings.GroupModel.unitSection DefFaltings.GroupModel.wedge DefFaltings.HermitianLattice DefFaltings.HermitianLattice.arakelovDegree DefFaltings.HermitianLattice.arakelovDegree_ofFractionalIdeal DefFaltings.HermitianLattice.arakelovDegree_rescale DefFaltings.HermitianLattice.degreeAt DefFaltings.HermitianLattice.degreeAt_eq DefFaltings.HermitianLattice.degreeAt_eq_arakelovDegree DefFaltings.HermitianLattice.degreeAt_smul DefFaltings.HermitianLattice.ofFractionalIdeal DefFaltings.HermitianLattice.rescale DefFaltings.HermitianLattice.secIndex_ne_zero DefFaltings.HodgeData DefFaltings.HodgeData.coeff_apply_ne_zero DefFaltings.HodgeData.hodgeBundle DefFaltings.HodgeData.modelHeight DefFaltings.HodgeData.modelHeight_eq DefFaltings.HodgeData.modelHeight_eq_add_of_le DefFaltings.HodgeData.modelHeight_eq_faltingsHeightGood DefFaltings.HodgeData.modelHeight_le_of_le DefFaltings.HodgeData.modelHeight_ofIdeal DefFaltings.HodgeData.modelHeight_ofIdeal_baseChange DefFaltings.HodgeData.modelHeight_of_span DefFaltings.HodgeData.modelHeight_recoord DefFaltings.HodgeData.norm DefFaltings.HodgeData.norm_sq DefFaltings.HodgeData.recoord DefFaltings.HodgeLatticeTheorem DefFaltings.IsIsogeny DefFaltings.MetrizedModel DefFaltings.MetrizedModel.modelHeight_eq_of_model_eq DefFaltings.NeronModelMinimal DefFaltings.PeriodAreaFormula DefFaltings.R19_GaudronRemond DefFaltings.R20_FaltingsLemma5 DefFaltings.R21_Bost DefFaltings.StableHeightFinite DefFaltings.absNorm_extendedHom DefFaltings.absNorm_map_ringOfIntegers DefFaltings.arakelovDegree_ofFractionalIdeal_baseChange DefFaltings.arakelovDegree_ofFractionalIdeal_mul DefFaltings.card_embeddings_over DefFaltings.covolume_comap_mul_det DefFaltings.covolume_gaussianPair DefFaltings.det_restrictScalars_complex DefFaltings.embCoeff DefFaltings.faltingsHeight DefFaltings.faltingsHeightEC DefFaltings.faltingsHeightGood DefFaltings.faltingsHeight_coe DefFaltings.finiteHeightPart DefFaltings.finrank_ringOfIntegers DefFaltings.gaussianPair DefFaltings.genericFibre DefFaltings.genericPt DefFaltings.grKappa DefFaltings.hypGram DefFaltings.hypGram_comp_add DefFaltings.hypVol DefFaltings.hypVol_one_comp_add DefFaltings.isogDeg DefFaltings.le_stableFaltingsHeight DefFaltings.modelHeight_ofIdeal_eq_faltingsHeightEC DefFaltings.modelHeight_ofIdeal_eq_faltingsHeightEC' DefFaltings.norm_algebraMap_tower DefFaltings.ptObj DefFaltings.ratCoeff DefFaltings.realify DefFaltings.secIndex DefFaltings.secIndex_mul_absNorm DefFaltings.secIndex_smul DefFaltings.stableFaltingsHeight DefFaltings.stableFaltingsHeightDeligne DefFaltings.stableFaltingsHeightDeligne_eq DefFaltings.stableFaltingsHeight_eq_faltingsHeightGood DefFaltings.stableFaltingsHeight_eq_iInf_height DefFaltings.stableFaltingsHeight_le DefFaltings.stableFaltingsHeight_ne_bot_of_R21 DefFaltings.sum_embeddings_comp DefFaltings.sum_log_norm_embeddings DefFaltings.sum_log_norm_embeddings_int DefFaltings.torusMetricSq DefFaltings.torusMetricSq_comap DefFaltings.torusMetricSq_eq_setIntegral DefFaltings.torusMetricSq_pos DefFaltings.torusMetricSq_smul DefFaltings.torus_setIntegral_indep H5Glue.GenericFibreStalkIso H5Glue.GroupModel.baseChange H5Glue.GroupModel.isNeronModel_iff H5Glue.GroupModelBaseChangeExists H5Glue.HeightAntitone H5Glue.HodgeLatticeNonzero H5Glue.HodgeMapBijective H5Glue.IsBaseChangeOf H5Glue.IsOpenSubgroupModel H5Glue.IsProductAbVar H5Glue.IsProductModel H5Glue.ModelHeightBaseChange H5Glue.NeronModelExists H5Glue.NeronProp H5Glue.NeronProp.lift H5Glue.NeronProp.of_iso H5Glue.NeronProp.tensor H5Glue.NeronProp.uniqueIso H5Glue.OmegaSpans H5Glue.OpenImmersionHeightLe H5Glue.OpenSubgroupHeight H5Glue.ProductGroupModelExists H5Glue.ProductModelHeight H5Glue.SemistableNeronIdentityComponent H5Glue.baseChange_map_bijective H5Glue.bcProd H5Glue.bijective_respectsIso H5Glue.compositum H5Glue.cotMap H5Glue.cotMap_bijective H5Glue.cotMap_dCls H5Glue.cotMap_omega H5Glue.cotMap_omegaAt H5Glue.detLattice_le_hodgeMap H5Glue.dom_comp H5Glue.evalAt_comp H5Glue.evalAt_res H5Glue.exists_smul_mem_omega H5Glue.fst_genericFibreUnit H5Glue.fst_genericFibre_unit H5Glue.genBC H5Glue.genBC_isMonHom H5Glue.genMap H5Glue.genMap_germ H5Glue.genMap_mem_maximalIdeal H5Glue.genMap_mem_maximalIdeal_iff H5Glue.genMap_structMap H5Glue.genericFibreStalkIso H5Glue.genericFibreUnit H5Glue.genericIso_of_openImmersion H5Glue.germAlong_comp_eventuallyEq H5Glue.groupModelBaseChangeExists H5Glue.heightAntitone H5Glue.heightAntitone_of H5Glue.heightAntitone_of_hodgeLatticeNonzero H5Glue.heightAntitone_of_omegaSpans H5Glue.hodgeLatticeNonzero_of_omegaSpans H5Glue.hodgeMap H5Glue.hodgeMapBijective H5Glue.hodgeMap_detLattice H5Glue.hodgeMap_wedge H5Glue.hodgeMap_wedgeGerm H5Glue.isAnalyticUniformization_comp H5Glue.isAnalyticUniformization_of_comp H5Glue.isIso_genMap H5Glue.isIso_of_openImmersion_self H5Glue.isIso_stalkSpecializes_genMap H5Glue.isMonHom_of_map H5Glue.isMonHom_pbCompHom H5Glue.isMonHom_pbCompInv H5Glue.isMonHom_pbEqIso H5Glue.isMonHom_prodComparisonIso H5Glue.isNeronModel_of_isProductModel H5Glue.isOpenImmersion_pullback_map H5Glue.jL H5Glue.jacDet_comp_genMap H5Glue.jacDet_comp_map H5Glue.map_genericUnit' H5Glue.map_span_singleton_toAddSubgroup H5Glue.map_zero_of_hom H5Glue.modelHeight_pullHodge_le H5Glue.neronModelMinimal H5Glue.neronModelMinimal_of_heightAntitone H5Glue.neron_lift H5Glue.neron_lift_isMonHom H5Glue.neron_map_injective H5Glue.omegaAt_le_cotMap H5Glue.omegaSpans H5Glue.omega_le_cotMap H5Glue.one_mem_dom H5Glue.openImmersionHeightLe H5Glue.openSubgroupHeight H5Glue.openSubgroupHeight_of H5Glue.pbCompHom H5Glue.pbCompInv H5Glue.pbCompIso H5Glue.pbEqIso H5Glue.productGroupModelExists H5Glue.ptCIso H5Glue.ptC_hom_apply H5Glue.ptsEquiv H5Glue.ptsEquiv_comp H5Glue.pts_comp_bijective H5Glue.pullHodge H5Glue.secIndex_le_of_map H5Glue.secIndex_ne_zero_of_mem H5Glue.smooth_tensor H5Glue.smooth_unit H5Glue.square1 H5Glue.square2 H5Glue.stableFaltingsHeight_add_le H5Glue.stableFaltingsHeight_add_le_of_productModelHeight H5Glue.stableFaltingsHeight_eq_neron_all H5Glue.stableFaltingsHeight_eq_neron_all' H5Glue.stalkIso_of_genericIso H5Glue.stalkSpecializes_self_apply H5Glue.stalkSpecializes_stalkSpecializes_apply H5Glue.stalk_ker_eq H5Glue.stalk_spec_eq H5Glue.stalkwise_fst_toGeneric H5Glue.stalkwise_tensor_localization H5Glue.tensorGen H5Glue.tensorGen_fst H5Glue.tensorGen_snd H5Glue.toGeneric_pt H5Glue.unitSection_comp H5Neron.GroupModel.IsNeronModel.lift H5Neron.GroupModel.IsNeronModel.uniqueIso H5Neron.GroupModel.isNeronModel_iff H5Neron.GroupModelBaseChangeExists H5Neron.IsBaseChangeOf H5Neron.IsOpenSubgroupModel H5Neron.IsProductAbVar H5Neron.IsProductModel H5Neron.ModelHeightBaseChange H5Neron.NeronModelExists H5Neron.NeronProp H5Neron.NeronProp.lift H5Neron.NeronProp.of_iso H5Neron.NeronProp.tensor H5Neron.NeronProp.uniqueIso H5Neron.OpenSubgroupHeight H5Neron.ProductGroupModelExists H5Neron.ProductModelHeight H5Neron.R19_zero H5Neron.R20_zero H5Neron.R21_zero H5Neron.SemistableNeronIdentityComponent H5Neron.bcProd H5Neron.bcUnitIso H5Neron.compositum H5Neron.covolume_fin_zero H5Neron.detLattice_zero H5Neron.glue_zero H5Neron.groupModel_height_zero H5Neron.hodgeZeroEquiv H5Neron.hodgeZeroEquiv_wedge0 H5Neron.hom_ext_of_iso_unit H5Neron.isIsogeny_id_zero H5Neron.isMonHom_of_iso_unit H5Neron.isMonHom_prodComparisonIso H5Neron.isNeronModel_of_isProductModel H5Neron.isogDeg_zero_le_one H5Neron.jL H5Neron.metrizedOf H5Neron.modelHeight_dim_zero H5Neron.neronModelExists_zero H5Neron.neronModelMinimal_zero H5Neron.neron_zero_iso_unit H5Neron.no_metrized_succ H5Neron.one_le_grKappa H5Neron.productGroupModelExists H5Neron.pts_subsingleton H5Neron.semistableNeronIdentityComponent_zero H5Neron.semσ H5Neron.stableFaltingsHeight_add_le H5Neron.stableFaltingsHeight_add_le' H5Neron.stableFaltingsHeight_eq_neron H5Neron.stableFaltingsHeight_eq_neron_all H5Neron.stableFaltingsHeight_zero H5Neron.stableHeightFinite_zero H5Neron.tensorGen H5Neron.tensorGen_fst H5Neron.tensorGen_snd H5Neron.trivHodge H5Neron.trivMetrized H5Neron.trivModel H5Neron.trivModel_isNeronModel H5Neron.wedge0 H5Neron.wedge0_ne_zero H5Neron.wedge_eq_wedge0 HeightBC.CotangentSpanBC HeightBC.D0 HeightBC.D0_add HeightBC.D0_add_apply HeightBC.D0_mul HeightBC.D0_mul_apply HeightBC.D0_sq HeightBC.D0_structMap_mul HeightBC.DetLatticeBC HeightBC.FF HeightBC.GermDerivation HeightBC.HodgeBCInjective HeightBC.HodgeLineBaseChange HeightBC.HodgeLineBaseChangeDescent HeightBC.HodgeLineDescentHalf HeightBC.HodgeSpanBC HeightBC.IsBaseChangeOf HeightBC.IsHodgeBaseChange HeightBC.IsMonBC HeightBC.JacobianPullbackSpan HeightBC.JacobianSemilinear HeightBC.MetrizationBaseChange HeightBC.ModelHeightBaseChange HeightBC.ModelHeightBaseChangeGE HeightBC.ModelHeightBaseChangeLE HeightBC.OmegaBaseChange HeightBC.OmegaLocalization HeightBC.PtsBaseChangeBij HeightBC.PtsBaseChangeMul HeightBC.UniformizationLift HeightBC.UniformizationLiftAnalytic HeightBC.algebraMap_FF HeightBC.algebraMap_ringOfIntegers_coe HeightBC.appLE_top_top HeightBC.bO HeightBC.bO_appTop HeightBC.bO_genericPt HeightBC.bcAlt HeightBC.bcCot HeightBC.bcCotBasis HeightBC.bcCotBasis_apply HeightBC.bcCot_core HeightBC.bcCot_dCls HeightBC.bcCot_intInv HeightBC.bcCot_linearIndependent HeightBC.bcCot_omega HeightBC.bcCot_omegaAt HeightBC.bcCot_smulL HeightBC.bcCot_smul_genStalk HeightBC.bcCot_span HeightBC.bcCot_update HeightBC.bcExt HeightBC.bcExt_smul HeightBC.bcExt_ιMulti HeightBC.bcHodge HeightBC.bcHodge_detLattice HeightBC.bcHodge_smul HeightBC.bcHodge_tmul HeightBC.bcHodge_wedge HeightBC.bcMap HeightBC.bcMap_germ HeightBC.bcMap_mem_maximalIdeal HeightBC.bcMap_structMap HeightBC.bcMap_φL HeightBC.bcProj HeightBC.bcProj_genericUnit HeightBC.bcProj_unit HeightBC.bcProj_w HeightBC.bcPts HeightBC.cotL HeightBC.cotL_isScalarTower HeightBC.cotL_smul HeightBC.cotRes HeightBC.cotangentSpanBC HeightBC.descentHalf_of_descent HeightBC.detLatticeBC_of_omega HeightBC.dom_bcPts HeightBC.evalAt_add HeightBC.evalAt_bcPts HeightBC.evalAt_mul HeightBC.evalAt_one_eq_zero HeightBC.evalAt_res HeightBC.evalAt_structSection HeightBC.exists_act HeightBC.exists_comp_eq HeightBC.exists_int_dvd HeightBC.exists_mem_not_mem_of_sat HeightBC.exists_ringOfIntegers_of_algebraMap HeightBC.extRes HeightBC.finite_of_isClosed_not_genericPt HeightBC.g0_hodgeLine_iff HeightBC.genericPt_eq_genericPoint HeightBC.germAlong_add_mul HeightBC.germAlong_bcPts_eventuallyEq HeightBC.germAlong_differentiableAt HeightBC.germAlong_eventuallyEq_rep HeightBC.germAlong_structMap HeightBC.germAlong_zero_of_mem HeightBC.germDerivation HeightBC.germDerivation_at HeightBC.hodgeBCInjective HeightBC.hodgeLineBaseChangeDescent_of_glue HeightBC.hodgeLineBaseChange_of_descent HeightBC.hodgeLineBaseChange_of_final HeightBC.hodgeLineBaseChange_of_five HeightBC.hodgeLineBaseChange_of_four HeightBC.hodgeLineBaseChange_of_glue HeightBC.hodgeLineBaseChange_of_glue4 HeightBC.hodgeLineBaseChange_of_glue5 HeightBC.hodgeLineBaseChange_of_main HeightBC.hodgeLineBaseChange_of_two HeightBC.hodgeSpanBC_of HeightBC.hom_genericUnit HeightBC.hom_genericUnit' HeightBC.hom_unitSection HeightBC.isAnalyticUniformization_bcPts HeightBC.isField_stalk_genericPt HeightBC.isIso_stalkSpecializes_bcMap HeightBC.isUnit_germ_genericPt HeightBC.isUnit_structMap HeightBC.jacDet_bcPts HeightBC.jacobianPullbackSpan_of HeightBC.jacobianSemilinear HeightBC.jacobianSemilinear_of HeightBC.locSub HeightBC.mapCotangent_injective_of_isIso HeightBC.mapCotangent_smul' HeightBC.map_zero_of_hom HeightBC.maximalIdeal_stalk_genericPt HeightBC.mem_locSub HeightBC.mem_of_forall_locSub HeightBC.metrizationBaseChange_of_hodgeLine HeightBC.modelHeightBaseChangeGE_of_descent HeightBC.modelHeightBaseChangeGE_of_descentHalf HeightBC.modelHeightBaseChangeGE_of_main HeightBC.modelHeightBaseChangeGE_of_two HeightBC.modelHeightBaseChangeLE_of_metrization HeightBC.modelHeightBaseChange_of_descent HeightBC.modelHeightBaseChange_of_final HeightBC.modelHeightBaseChange_of_five HeightBC.modelHeightBaseChange_of_four HeightBC.modelHeightBaseChange_of_glue HeightBC.modelHeightBaseChange_of_glue4 HeightBC.modelHeightBaseChange_of_glue5 HeightBC.modelHeightBaseChange_of_main HeightBC.modelHeightBaseChange_of_two HeightBC.modelHeight_eq_of_isHodgeBaseChange HeightBC.multilinear_mem_span HeightBC.omegaAt_bc_local HeightBC.omegaAt_full HeightBC.omegaAt_open HeightBC.omegaAt_sat HeightBC.omegaBaseChange HeightBC.omegaBaseChange_of_localization HeightBC.omegaLocalization HeightBC.one_mem_dom HeightBC.ptC_hom_apply HeightBC.ptC_hom_comp_bO HeightBC.ptsBaseChangeBij HeightBC.ptsBaseChangeMul HeightBC.rationalOver_genericUnit HeightBC.secIndex_baseChange HeightBC.secIndex_map HeightBC.secIndex_ne_zero_of_baseChange HeightBC.secIndex_nsmul_mem HeightBC.smul_cotangent_eq_of_sub_mem HeightBC.span_bcHodge_le HeightBC.spec_mem_of_ker HeightBC.stalkMapAt_germ' HeightBC.stalkSpec_comp_apply HeightBC.stalkSpec_self_apply HeightBC.stalkSpecializes_self_apply' HeightBC.stalkSpecializes_stalkSpecializes_apply' HeightBC.structMap_eq_spec HeightBC.structMap_eq_stalkMap HeightBC.toCotangent_mul HeightBC.uniformizationLift HeightBC.uniformizationLiftAnalytic HeightBC.uniformizationLift_of HeightBC.unitSection_comp_hom HeightBC.unitSection_stalkMapAt_hom HeightBC.σFF HeightBC.φL HeightBC.φL_algebraMap LeafPush2.CPts LeafPush2.Char2 LeafPush2.HasSexticModel LeafPush2.IC10 LeafPush2.IC2 LeafPush2.IC4 LeafPush2.IC6 LeafPush2.IgJ10 LeafPush2.IgJ2 LeafPush2.IgJ4 LeafPush2.IgJ6 LeafPush2.IsGenus2 LeafPush2.IsPeriodMatrix LeafPush2.IsSiegel LeafPush2.IsUniformization LeafPush2.LinYangTuple LeafPush2.OnQMLocus LeafPush2.T10_groupIso LeafPush2.T11a_RiemannEnd LeafPush2.T11b_Rigidity LeafPush2.T12_ComplexConjEigen LeafPush2.UniformizationExists LeafPush2.absLogHeight LeafPush2.cDom LeafPush2.cEvalAt LeafPush2.cptObj LeafPush2.dsq LeafPush2.exists_isComplexConj LeafPush2.ffAlgebra LeafPush2.ffStructMap LeafPush2.isSiegel_I LeafPush2.javanpeykarBound LeafPush2.javanpeykarBound_mono LeafPush2.javanpeykarBound_pos LeafPush2.linYangTuple_onQMLocus LeafPush2.linYang_j_eq LeafPush2.onQMLocus_of_linYangTuple LeafPush2.pazukiC2 LeafPush2.sextic LeafPush2.thetaConst) -- op-dedupe
 
 section ModelsSec
 
@@ -6099,7 +5724,8 @@ open CategoryTheory AlgebraicGeometry Limits MonoidalCategory CartesianMonoidalC
 open scoped TensorProduct
 open ExteriorAlgebra
 
-attribute [instance] AbVar.grp AbVar.proper AbVar.smooth AbVar.geomInt
+-- op-dedupe: `attribute [instance] AbVar.grp ...` dropped: `AbVar` is the kernel alias of `PkgI3.AbVar`,
+-- whose fields are instances already.
 
 end ModelsSec
 
@@ -6109,6 +5735,8 @@ namespace LeafAdopt
 
 open CategoryTheory AlgebraicGeometry Limits
 open LeafQM LeafQM.AV
+open _root_.LeafQM (AV.CMExists AV.HasCM24 AV.HasCM24.of_iso AV.HasCM3 AV.HasCM3.of_iso AV.HasCM4 AV.HasCM4.of_iso AV.IsBaseChangeOf AV.IsBaseChangeOfPair AV.IsFibreOf AV.Level3 AV.Level3.bcPt_pow_three AV.Level3.eq_iff AV.Level3.exists_mul_of_range_le AV.Level3.ext' AV.Level3.onto AV.Level3.range_le AV.Level3.rightMul AV.Level3.rightMul_eq_self AV.Level3.rightMul_rightMul AV.Level3.torsor AV.Level3.twist AV.M3 AV.M3.mk AV.M3.rightMul AV.M3.rightMul_rightMul AV.M3.twist AV.M3.twist_mk AV.Pin.AutOExt.NormalizerFinite AV.Pin.AutOExt.alpha_nat_smul AV.Pin.AutOExt.autOInnerFinite_of_normalizer AV.Pin.AutOExt.common_den AV.Pin.AutOExt.conjUnit AV.Pin.AutOExt.conj_of_skolem AV.Pin.AutOExt.den_mul_int AV.Pin.AutOExt.exists_nat_smul_mem AV.Pin.AutOExt.extAlgEquiv AV.Pin.AutOExt.extAlgHom AV.Pin.AutOExt.extAlgHom_coe AV.Pin.AutOExt.extAlgHom_symm_comp AV.Pin.AutOExt.extDen AV.Pin.AutOExt.extDen_mem AV.Pin.AutOExt.extDen_pos AV.Pin.AutOExt.extFun AV.Pin.AutOExt.extFun_add AV.Pin.AutOExt.extFun_algebraMap AV.Pin.AutOExt.extFun_coe AV.Pin.AutOExt.extFun_eq AV.Pin.AutOExt.extFun_mul AV.Pin.AutOExt.key_conj AV.Pin.AutOExt.mem_O_of_int AV.Pin.AutOExt.natCast_mul_eq_smul AV.Pin.AutOExt.nat_smul_mem AV.Pin.AutOExt.smul_mul_smul' AV.Pin.AutOInnerFinite AV.Pin.ConstOrOntoAlgClosed AV.Pin.CurveRatFactor AV.Pin.CurveSurj AV.Pin.GeomCompConstOrOnto AV.Pin.GeomCompFinite AV.Pin.GeomCompInfinite AV.Pin.GeomCompRatFactor AV.Pin.ImagePlane.ev_comp AV.Pin.ImagePlane.ev_spec_top AV.Pin.ImagePlane.ptOf_comp AV.Pin.ImagePlane.ptOf_spec_asIdeal AV.Pin.IsNaturalRelabel AV.Pin.Mob.eval_ne_zero_of_coprime AV.Pin.Mob.exists_interp AV.Pin.Mob.isCoprime_X_sub_C_of_eval_one AV.Pin.Mob.natDegree_le_one_of_injective AV.Pin.Mob.ratEval AV.Pin.Mob.ratEval_eq_self AV.Pin.Mob.wronskian_ne_zero AV.Pin.MobiusGlue AV.Pin.NormO.IsNorm AV.Pin.NormO.IsNorm.inv AV.Pin.NormO.IsNorm.mul AV.Pin.NormO.T AV.Pin.NormO.T_finite AV.Pin.NormO.T_mul_ui AV.Pin.NormO.T_mul_uj AV.Pin.NormO.bas AV.Pin.NormO.conjC AV.Pin.NormO.descent AV.Pin.NormO.dvd_of_prime_dvd_nrd AV.Pin.NormO.dvd_of_smul_mem AV.Pin.NormO.ei AV.Pin.NormO.ej AV.Pin.NormO.inv_eq AV.Pin.NormO.isNorm_sc AV.Pin.NormO.isNorm_ui AV.Pin.NormO.isNorm_uj AV.Pin.NormO.mulCoord_conjC AV.Pin.NormO.mulCoord_conjC' AV.Pin.NormO.mulCoord_smul_left AV.Pin.NormO.mulCoord_smul_right AV.Pin.NormO.normalizerFinite AV.Pin.NormO.nrdZ AV.Pin.NormO.nrdZ_ei AV.Pin.NormO.nrdZ_ej AV.Pin.NormO.nrdZ_mul AV.Pin.NormO.nrdZ_ne_zero AV.Pin.NormO.nrdZ_smul AV.Pin.NormO.nrd_dvd_coords AV.Pin.NormO.ofInt_scalar AV.Pin.NormO.rearrange AV.Pin.NormO.sc AV.Pin.NormO.six_sq_identities AV.Pin.NormO.smul_ofInt AV.Pin.NormO.three_dvd_mulCoord_ej AV.Pin.NormO.two_dvd_mulCoord_ei AV.Pin.NormO.ui AV.Pin.NormO.uj AV.Pin.PinUnique AV.Pin.QMFamily.transport AV.Pin.QML3.isoTransport AV.Pin.R1fpProps.fam AV.Pin.R1fpProps.univ AV.Pin.RatFactorAlgClosed AV.Pin.SameTriple AV.Pin.SameTripleMor AV.Pin.SmoothCurveNoIsolatedPoint AV.Pin.SmoothStalkDimOne AV.Pin.TwistClassFinite AV.Pin.autOInnerFinite AV.Pin.autRelabel AV.Pin.autRelabel_natural AV.Pin.bcPt AV.Pin.bcPt_ptOfSection AV.Pin.bcPt_snd AV.Pin.bcQbar AV.Pin.bcSnd AV.Pin.cm_objects_of_R1R2fp AV.Pin.conjUnitIso AV.Pin.cst AV.Pin.curveFacts_of_algClosed AV.Pin.curveFacts_of_comp AV.Pin.curveFacts_of_leaves AV.Pin.curveFacts_of_named AV.Pin.curveRatFactor_of_comp AV.Pin.curveSurj_of_comp AV.Pin.ev AV.Pin.ev_cst AV.Pin.ev_eq_zero_iff AV.Pin.ev_f_mul_g AV.Pin.ev_g_eq_zero AV.Pin.ev_res AV.Pin.ev_top AV.Pin.exists_isOpen_singleton_of_finite_closedPoints AV.Pin.exists_liftO_congr AV.Pin.exists_point_of_isLocallyClosed AV.Pin.geomComp AV.Pin.geomCompConstOrOnto_of AV.Pin.geomCompFinite AV.Pin.geomCompInfinite_of AV.Pin.geomCompRatFactor_of AV.Pin.isFibreOf_transport AV.Pin.isOpen_connectedComponent_of_noetherian AV.Pin.level3_finite AV.Pin.mem_V_of_not_mem_U AV.Pin.phi_part AV.Pin.pointwise_of_witness AV.Pin.pointwise_of_witness_mor AV.Pin.ptOf AV.Pin.ptOfSection AV.Pin.r1fpPin_aut AV.Pin.r1fpPin_relabel_iff AV.Pin.r2fp_aut AV.Pin.relabel AV.Pin.relabel_geometric AV.Pin.relabel_is_morphism AV.Pin.res AV.Pin.res_res AV.Pin.sameTripleMor_of_mobius AV.Pin.sameTriple_aut AV.Pin.smoothCurveNoIsolatedPoint_of AV.Pin.transfer_exists AV.Pin.transfer_pointwise AV.Pin.transfer_pointwise_mor AV.Pin.transportLevel AV.Pin.twistClassFinite AV.Pin.twistClassFinite_of AV.Pin.val_bcPt AV.Pin.val_of_mem AV.Pin.val_of_not_mem AV.PtEquiv AV.QMFamily AV.QMIso AV.QMIso.nonempty_abVarIso AV.QMIso.refl AV.QMIso.symm AV.QMIso.trans AV.QML3 AV.QML3.Iso AV.QML3.Iso.refl AV.QML3.Iso.rightMul AV.QML3.Iso.symm AV.QML3.Iso.trans AV.QML3.Iso.twist AV.QML3.forget AV.QML3.rightMul AV.QML3.rightMul_A AV.QML3.rightMul_rightMul AV.QML3.twist AV.QML3.twist_A AV.QMLeaves AV.QMPair AV.QMPair.twist AV.QMStr AV.QMStr.twist AV.Qbar AV.R1R2fp AV.R1R2fp_Y AV.R1famProps AV.R1fp AV.R1fpProps AV.R1fp_of_R1R2fp AV.R1heckeProps AV.R1rec AV.R1recProps AV.R1univProps AV.R2X6Props AV.R2fpProps AV.R2fpProps_of_X6 AV.R5fp AV.R5fpCount AV.R5fpWeak AV.R5fpWeak_of_R5fp AV.R5ptProps AV.ToP1 AV.ToP1.comp AV.ToP1.val AV.ToP1.val_comp AV.ToP1.val_comp_right AV.UnramifiedAbove5 AV.X6Props AV.X6Surj AV.act_mul_apply AV.bcPt AV.bcPt_injective AV.cm_of_val AV.com AV.comEquiv AV.com_twist AV.conductor AV.conjHom AV.conjHom_iota AV.conjHom_mem_com AV.conjHom_symm_apply AV.conj_iso_of_rational AV.conj_twist_of_rational AV.endPt AV.exists_fibre_object AV.fibre_conjugates_isomorphic AV.fieldMap AV.fieldOfModuli3 AV.fieldOfModuliPair AV.fieldPt AV.galAct_bcPt AV.hI AV.hIJ AV.hJ AV.hasCM24_twist AV.hasCM3_twist AV.hasCM4_twist AV.hrat AV.inertCount6 AV.intCast_mem_com AV.isoSetoid AV.leaves_on_one_witness AV.liftO AV.not_qmStr_zero AV.ofInt_injective AV.ofInt_sub AV.oi AV.oi_mul_oi AV.oj AV.oj_mul_oi_add AV.oj_mul_oj AV.pairSetoid AV.qmAct AV.residueImage AV.residue_unramified_over_branch AV.specMap_flat AV.specMap_surjective AV.specToEquivOfField_comp AV.specToEquivOfField_comp_right AV.stab3 AV.stabPair AV.three_mul_ofInt AV.toKbar AV.unramified_over_branch B InO O O_nontrivial mulCoord ofInt ofInt_add ofInt_mul ofInt_neg ofInt_one ofInt_zero) -- op-dedupe
+open _root_.LeafQM.AV (CMExists HasCM24 HasCM24.of_iso HasCM3 HasCM3.of_iso HasCM4 HasCM4.of_iso IsBaseChangeOf IsBaseChangeOfPair IsFibreOf Level3 Level3.bcPt_pow_three Level3.eq_iff Level3.exists_mul_of_range_le Level3.ext' Level3.onto Level3.range_le Level3.rightMul Level3.rightMul_eq_self Level3.rightMul_rightMul Level3.torsor Level3.twist M3 M3.mk M3.rightMul M3.rightMul_rightMul M3.twist M3.twist_mk Pin.AutOExt.NormalizerFinite Pin.AutOExt.alpha_nat_smul Pin.AutOExt.autOInnerFinite_of_normalizer Pin.AutOExt.common_den Pin.AutOExt.conjUnit Pin.AutOExt.conj_of_skolem Pin.AutOExt.den_mul_int Pin.AutOExt.exists_nat_smul_mem Pin.AutOExt.extAlgEquiv Pin.AutOExt.extAlgHom Pin.AutOExt.extAlgHom_coe Pin.AutOExt.extAlgHom_symm_comp Pin.AutOExt.extDen Pin.AutOExt.extDen_mem Pin.AutOExt.extDen_pos Pin.AutOExt.extFun Pin.AutOExt.extFun_add Pin.AutOExt.extFun_algebraMap Pin.AutOExt.extFun_coe Pin.AutOExt.extFun_eq Pin.AutOExt.extFun_mul Pin.AutOExt.key_conj Pin.AutOExt.mem_O_of_int Pin.AutOExt.natCast_mul_eq_smul Pin.AutOExt.nat_smul_mem Pin.AutOExt.smul_mul_smul' Pin.AutOInnerFinite Pin.ConstOrOntoAlgClosed Pin.CurveRatFactor Pin.CurveSurj Pin.GeomCompConstOrOnto Pin.GeomCompFinite Pin.GeomCompInfinite Pin.GeomCompRatFactor Pin.ImagePlane.ev_comp Pin.ImagePlane.ev_spec_top Pin.ImagePlane.ptOf_comp Pin.ImagePlane.ptOf_spec_asIdeal Pin.IsNaturalRelabel Pin.Mob.eval_ne_zero_of_coprime Pin.Mob.exists_interp Pin.Mob.isCoprime_X_sub_C_of_eval_one Pin.Mob.natDegree_le_one_of_injective Pin.Mob.ratEval Pin.Mob.ratEval_eq_self Pin.Mob.wronskian_ne_zero Pin.MobiusGlue Pin.NormO.IsNorm Pin.NormO.IsNorm.inv Pin.NormO.IsNorm.mul Pin.NormO.T Pin.NormO.T_finite Pin.NormO.T_mul_ui Pin.NormO.T_mul_uj Pin.NormO.bas Pin.NormO.conjC Pin.NormO.descent Pin.NormO.dvd_of_prime_dvd_nrd Pin.NormO.dvd_of_smul_mem Pin.NormO.ei Pin.NormO.ej Pin.NormO.inv_eq Pin.NormO.isNorm_sc Pin.NormO.isNorm_ui Pin.NormO.isNorm_uj Pin.NormO.mulCoord_conjC Pin.NormO.mulCoord_conjC' Pin.NormO.mulCoord_smul_left Pin.NormO.mulCoord_smul_right Pin.NormO.normalizerFinite Pin.NormO.nrdZ Pin.NormO.nrdZ_ei Pin.NormO.nrdZ_ej Pin.NormO.nrdZ_mul Pin.NormO.nrdZ_ne_zero Pin.NormO.nrdZ_smul Pin.NormO.nrd_dvd_coords Pin.NormO.ofInt_scalar Pin.NormO.rearrange Pin.NormO.sc Pin.NormO.six_sq_identities Pin.NormO.smul_ofInt Pin.NormO.three_dvd_mulCoord_ej Pin.NormO.two_dvd_mulCoord_ei Pin.NormO.ui Pin.NormO.uj Pin.PinUnique Pin.QMFamily.transport Pin.QML3.isoTransport Pin.R1fpProps.fam Pin.R1fpProps.univ Pin.RatFactorAlgClosed Pin.SameTriple Pin.SameTripleMor Pin.SmoothCurveNoIsolatedPoint Pin.SmoothStalkDimOne Pin.TwistClassFinite Pin.autOInnerFinite Pin.autRelabel Pin.autRelabel_natural Pin.bcPt Pin.bcPt_ptOfSection Pin.bcPt_snd Pin.bcQbar Pin.bcSnd Pin.cm_objects_of_R1R2fp Pin.conjUnitIso Pin.cst Pin.curveFacts_of_algClosed Pin.curveFacts_of_comp Pin.curveFacts_of_leaves Pin.curveFacts_of_named Pin.curveRatFactor_of_comp Pin.curveSurj_of_comp Pin.ev Pin.ev_cst Pin.ev_eq_zero_iff Pin.ev_f_mul_g Pin.ev_g_eq_zero Pin.ev_res Pin.ev_top Pin.exists_isOpen_singleton_of_finite_closedPoints Pin.exists_liftO_congr Pin.exists_point_of_isLocallyClosed Pin.geomComp Pin.geomCompConstOrOnto_of Pin.geomCompFinite Pin.geomCompInfinite_of Pin.geomCompRatFactor_of Pin.isFibreOf_transport Pin.isOpen_connectedComponent_of_noetherian Pin.level3_finite Pin.mem_V_of_not_mem_U Pin.phi_part Pin.pointwise_of_witness Pin.pointwise_of_witness_mor Pin.ptOf Pin.ptOfSection Pin.r1fpPin_aut Pin.r1fpPin_relabel_iff Pin.r2fp_aut Pin.relabel Pin.relabel_geometric Pin.relabel_is_morphism Pin.res Pin.res_res Pin.sameTripleMor_of_mobius Pin.sameTriple_aut Pin.smoothCurveNoIsolatedPoint_of Pin.transfer_exists Pin.transfer_pointwise Pin.transfer_pointwise_mor Pin.transportLevel Pin.twistClassFinite Pin.twistClassFinite_of Pin.val_bcPt Pin.val_of_mem Pin.val_of_not_mem PtEquiv QMFamily QMIso QMIso.nonempty_abVarIso QMIso.refl QMIso.symm QMIso.trans QML3 QML3.Iso QML3.Iso.refl QML3.Iso.rightMul QML3.Iso.symm QML3.Iso.trans QML3.Iso.twist QML3.forget QML3.rightMul QML3.rightMul_A QML3.rightMul_rightMul QML3.twist QML3.twist_A QMLeaves QMPair QMPair.twist QMStr QMStr.twist Qbar R1R2fp R1R2fp_Y R1famProps R1fp R1fpProps R1fp_of_R1R2fp R1heckeProps R1rec R1recProps R1univProps R2X6Props R2fpProps R2fpProps_of_X6 R5fp R5fpCount R5fpWeak R5fpWeak_of_R5fp R5ptProps ToP1 ToP1.comp ToP1.val ToP1.val_comp ToP1.val_comp_right UnramifiedAbove5 X6Props X6Surj act_mul_apply bcPt bcPt_injective cm_of_val com comEquiv com_twist conductor conjHom conjHom_iota conjHom_mem_com conjHom_symm_apply conj_iso_of_rational conj_twist_of_rational endPt exists_fibre_object fibre_conjugates_isomorphic fieldMap fieldOfModuli3 fieldOfModuliPair fieldPt galAct_bcPt hI hIJ hJ hasCM24_twist hasCM3_twist hasCM4_twist hrat inertCount6 intCast_mem_com isoSetoid leaves_on_one_witness liftO not_qmStr_zero ofInt_injective ofInt_sub oi oi_mul_oi oj oj_mul_oi_add oj_mul_oj pairSetoid qmAct residueImage residue_unramified_over_branch specMap_flat specMap_surjective specToEquivOfField_comp specToEquivOfField_comp_right stab3 stabPair three_mul_ofInt toKbar unramified_over_branch) -- op-dedupe
 
 end LeafAdopt
 
@@ -6120,6 +5748,9 @@ namespace G0Split
 
 open CategoryTheory AlgebraicGeometry Limits MonoidalCategory CartesianMonoidalCategory MonObj
 open _root_.ZInQ ZInQ ZInQ.JHeight LeafQM.AV ZInQ.DefFaltings
+open _root_.ZInQ (Contrib.AbVarBC.G0FibreSimple.MulIsogeny Contrib.AbVarBC.MulRigidity.CotangentMulN Contrib.AbVarBC.MulRigidity.KerUnitOpen Contrib.AbVarBC.MulRigidity.KerUnitOpenOfCotangentSurj Contrib.AbVarBC.MulRigidity.MulEtale Contrib.AbVarBC.MulRigidity.MulUnramified Contrib.AbVarBC.MulRigidity.O0 Contrib.AbVarBC.MulRigidity.QuasiFiniteEndSurjective Contrib.AbVarBC.MulRigidity.charZero_residueField Contrib.AbVarBC.MulRigidity.cotangentMap Contrib.AbVarBC.MulRigidity.diagonal_isPullback Contrib.AbVarBC.MulRigidity.diffKer Contrib.AbVarBC.MulRigidity.formallyUnramified_of_kerUnit Contrib.AbVarBC.MulRigidity.isIsogenyMor_of_lqf_of_isOpenMap Contrib.AbVarBC.MulRigidity.isOpenImmersion_of_section Contrib.AbVarBC.MulRigidity.isProper_left Contrib.AbVarBC.MulRigidity.kerUnit Contrib.AbVarBC.MulRigidity.kerUnitOpen_of_cotangent Contrib.AbVarBC.MulRigidity.kerUnitOpen_of_mulEtale Contrib.AbVarBC.MulRigidity.locallyQuasiFinite_of_formallyUnramified Contrib.AbVarBC.MulRigidity.map_origin Contrib.AbVarBC.MulRigidity.mulIsogeny_of_cotangent Contrib.AbVarBC.MulRigidity.mulIsogeny_of_kerUnitOpen Contrib.AbVarBC.MulRigidity.mulIsogeny_of_mulEtale Contrib.AbVarBC.MulRigidity.mulIsogeny_of_mulUnramified Contrib.AbVarBC.MulRigidity.mulIsogeny_of_mulUnramified' Contrib.AbVarBC.MulRigidity.mulUnramified_of_kerUnitOpen Contrib.AbVarBC.MulRigidity.mulUnramified_of_mulEtale Contrib.AbVarBC.MulRigidity.ne_of_specializes_of_lqf Contrib.AbVarBC.MulRigidity.origin Contrib.AbVarBC.MulRigidity.quasiFiniteEndSurjective Contrib.AbVarBC.MulRigidity.stalkEndo Contrib.AbVarBC.MulRigidity.surjective_of_lqf_self Contrib.AbVarBC.Tangent.AtOrigin Contrib.AbVarBC.Tangent.D Contrib.AbVarBC.Tangent.D_congr Contrib.AbVarBC.Tangent.D_inv Contrib.AbVarBC.Tangent.D_mul Contrib.AbVarBC.Tangent.D_one Contrib.AbVarBC.Tangent.D_zpow Contrib.AbVarBC.Tangent.KerN Contrib.AbVarBC.Tangent.atOrigin_inv Contrib.AbVarBC.Tangent.atOrigin_map Contrib.AbVarBC.Tangent.atOrigin_mul Contrib.AbVarBC.Tangent.atOrigin_one Contrib.AbVarBC.Tangent.atOrigin_zpow Contrib.AbVarBC.Tangent.closedPoint_eq Contrib.AbVarBC.Tangent.comp_intCast_hom Contrib.AbVarBC.Tangent.comp_mem_of_subsingleton Contrib.AbVarBC.Tangent.comp_orig_mem Contrib.AbVarBC.Tangent.derivation_eq_zero Contrib.AbVarBC.Tangent.dualHom Contrib.AbVarBC.Tangent.eq_ofRing_ptRing Contrib.AbVarBC.Tangent.eq_of_D_eq Contrib.AbVarBC.Tangent.eq_one_of_comp_intCast Contrib.AbVarBC.Tangent.ev0 Contrib.AbVarBC.Tangent.exists_affine_orig Contrib.AbVarBC.Tangent.fst_tRing Contrib.AbVarBC.Tangent.id_appLE_top Contrib.AbVarBC.Tangent.intCast_hom Contrib.AbVarBC.Tangent.isLocalHom_fstHom Contrib.AbVarBC.Tangent.isLocalRing_tsze Contrib.AbVarBC.Tangent.ker_le_sq_of_derivations Contrib.AbVarBC.Tangent.ks Contrib.AbVarBC.Tangent.ks_hom Contrib.AbVarBC.Tangent.ks_isOpenImmersion Contrib.AbVarBC.Tangent.left_closedPoint Contrib.AbVarBC.Tangent.locallyOfFiniteType_kerN Contrib.AbVarBC.Tangent.map_add_inl Contrib.AbVarBC.Tangent.map_add_inr Contrib.AbVarBC.Tangent.map_fst_inl Contrib.AbVarBC.Tangent.map_fst_inr Contrib.AbVarBC.Tangent.map_snd_inl Contrib.AbVarBC.Tangent.map_snd_inr Contrib.AbVarBC.Tangent.mem_of_atOrigin Contrib.AbVarBC.Tangent.mulN Contrib.AbVarBC.Tangent.ofRing Contrib.AbVarBC.Tangent.ofRing_mem Contrib.AbVarBC.Tangent.one_left Contrib.AbVarBC.Tangent.orig Contrib.AbVarBC.Tangent.ptR Contrib.AbVarBC.Tangent.ptRing Contrib.AbVarBC.Tangent.ptRing_comp Contrib.AbVarBC.Tangent.ptRing_congr Contrib.AbVarBC.Tangent.ptRing_ext Contrib.AbVarBC.Tangent.ptRing_id_top Contrib.AbVarBC.Tangent.ptRing_ofRing Contrib.AbVarBC.Tangent.ptRing_specMap_comp Contrib.AbVarBC.Tangent.specHom Contrib.AbVarBC.Tangent.specHom_comp Contrib.AbVarBC.Tangent.specHom_id Contrib.AbVarBC.Tangent.specHom_left Contrib.AbVarBC.Tangent.spec_inl_fst_comp Contrib.AbVarBC.Tangent.tRing Contrib.AbVarBC.Tangent.tRing_congr Contrib.AbVarBC.Tangent.tRing_one Contrib.AbVarBC.Tangent.tRing_specHom Contrib.AbVarBC.TorsionDescends Contrib.AbVarBC.comp_natCast_hom Contrib.AbVarBC.dim_baseChange_scheme Contrib.AbVarBC.dim_finite Contrib.AbVarBC.dim_pullback_spec Contrib.AbVarBC.dim_spec_le Contrib.AbVarBC.exists_lift_of_isFinite Contrib.AbVarBC.exists_nat_of_le Contrib.AbVarBC.galK Contrib.AbVarBC.kerUnitOpen Contrib.AbVarBC.map_comm Contrib.AbVarBC.mem_range_of_isIntegral Contrib.AbVarBC.mulIsogeny Contrib.AbVarBC.ptBC Contrib.AbVarBC.ptBC_galAct Contrib.AbVarBC.ptBC_injective Contrib.AbVarBC.ringKrullDim_eq_of_isIntegral_of_injective Contrib.AbVarBC.ringKrullDim_le_of_finiteType Contrib.AbVarBC.ringKrullDim_mvPolynomial_field Contrib.AbVarBC.ringKrullDim_tensor_field Contrib.AbVarBC.scheme_dim_eq_iSup_cover Contrib.AbVarBC.scheme_dim_eq_of_iso Contrib.AbVarBC.spec_dim Contrib.AbVarBC.tateBC Contrib.AbVarBC.tateBC_bijective_of_tateModuleFree Contrib.AbVarBC.tateBC_bijective_of_torsionDescends Contrib.AbVarBC.tateBC_galT Contrib.AbVarBC.tateBC_injective Contrib.AbVarBC.tate_map_bijective_of_torsion Contrib.AbVarBC.topologicalKrullDim_eq_iSup_of_openEmbedding Contrib.AbVarBC.torsionDescends_of_isFinite Contrib.AbVarBC.vBC Contrib.AbVarBC.vBC_galRep DefFaltings.AbVar DefFaltings.AnalyticUniformizationExists DefFaltings.AnalyticUniformizationUnique DefFaltings.EReal.add_coe_add_neg_coe DefFaltings.FinExt DefFaltings.Genus2Eq DefFaltings.Genus2Eq.Good DefFaltings.Genus2Eq.P DefFaltings.Genus2Eq.binDisc DefFaltings.GroupModel DefFaltings.GroupModel.IsAnalyticUniformization DefFaltings.GroupModel.IsNeronModel DefFaltings.GroupModel.Pts DefFaltings.GroupModel.cotangent DefFaltings.GroupModel.dCls DefFaltings.GroupModel.detLattice DefFaltings.GroupModel.dom DefFaltings.GroupModel.evalAt DefFaltings.GroupModel.exists_rep DefFaltings.GroupModel.genStalk DefFaltings.GroupModel.genericUnit DefFaltings.GroupModel.germAlong DefFaltings.GroupModel.height DefFaltings.GroupModel.height_eq DefFaltings.GroupModel.hodgeSpace DefFaltings.GroupModel.jacDet DefFaltings.GroupModel.jacDet_comp DefFaltings.GroupModel.omega DefFaltings.GroupModel.omegaAt DefFaltings.GroupModel.omegaAt_genericPt DefFaltings.GroupModel.ptC DefFaltings.GroupModel.semilinear_ext_wedge DefFaltings.GroupModel.specializes_genericUnit DefFaltings.GroupModel.structMap DefFaltings.GroupModel.unitSection DefFaltings.GroupModel.wedge DefFaltings.HermitianLattice DefFaltings.HermitianLattice.arakelovDegree DefFaltings.HermitianLattice.arakelovDegree_ofFractionalIdeal DefFaltings.HermitianLattice.arakelovDegree_rescale DefFaltings.HermitianLattice.degreeAt DefFaltings.HermitianLattice.degreeAt_eq DefFaltings.HermitianLattice.degreeAt_eq_arakelovDegree DefFaltings.HermitianLattice.degreeAt_smul DefFaltings.HermitianLattice.ofFractionalIdeal DefFaltings.HermitianLattice.rescale DefFaltings.HermitianLattice.secIndex_ne_zero DefFaltings.HodgeData DefFaltings.HodgeData.coeff_apply_ne_zero DefFaltings.HodgeData.hodgeBundle DefFaltings.HodgeData.modelHeight DefFaltings.HodgeData.modelHeight_eq DefFaltings.HodgeData.modelHeight_eq_add_of_le DefFaltings.HodgeData.modelHeight_eq_faltingsHeightGood DefFaltings.HodgeData.modelHeight_le_of_le DefFaltings.HodgeData.modelHeight_ofIdeal DefFaltings.HodgeData.modelHeight_ofIdeal_baseChange DefFaltings.HodgeData.modelHeight_of_span DefFaltings.HodgeData.modelHeight_recoord DefFaltings.HodgeData.norm DefFaltings.HodgeData.norm_sq DefFaltings.HodgeData.recoord DefFaltings.HodgeLatticeTheorem DefFaltings.IsIsogeny DefFaltings.MetrizedModel DefFaltings.MetrizedModel.modelHeight_eq_of_model_eq DefFaltings.NeronModelMinimal DefFaltings.PeriodAreaFormula DefFaltings.R19_GaudronRemond DefFaltings.R20_FaltingsLemma5 DefFaltings.R21_Bost DefFaltings.StableHeightFinite DefFaltings.absNorm_extendedHom DefFaltings.absNorm_map_ringOfIntegers DefFaltings.arakelovDegree_ofFractionalIdeal_baseChange DefFaltings.arakelovDegree_ofFractionalIdeal_mul DefFaltings.card_embeddings_over DefFaltings.covolume_comap_mul_det DefFaltings.covolume_gaussianPair DefFaltings.det_restrictScalars_complex DefFaltings.embCoeff DefFaltings.faltingsHeight DefFaltings.faltingsHeightEC DefFaltings.faltingsHeightGood DefFaltings.faltingsHeight_coe DefFaltings.finiteHeightPart DefFaltings.finrank_ringOfIntegers DefFaltings.gaussianPair DefFaltings.genericFibre DefFaltings.genericPt DefFaltings.grKappa DefFaltings.hypGram DefFaltings.hypGram_comp_add DefFaltings.hypVol DefFaltings.hypVol_one_comp_add DefFaltings.isogDeg DefFaltings.le_stableFaltingsHeight DefFaltings.modelHeight_ofIdeal_eq_faltingsHeightEC DefFaltings.modelHeight_ofIdeal_eq_faltingsHeightEC' DefFaltings.norm_algebraMap_tower DefFaltings.ptObj DefFaltings.ratCoeff DefFaltings.realify DefFaltings.secIndex DefFaltings.secIndex_mul_absNorm DefFaltings.secIndex_smul DefFaltings.stableFaltingsHeight DefFaltings.stableFaltingsHeightDeligne DefFaltings.stableFaltingsHeightDeligne_eq DefFaltings.stableFaltingsHeight_eq_faltingsHeightGood DefFaltings.stableFaltingsHeight_eq_iInf_height DefFaltings.stableFaltingsHeight_le DefFaltings.stableFaltingsHeight_ne_bot_of_R21 DefFaltings.sum_embeddings_comp DefFaltings.sum_log_norm_embeddings DefFaltings.sum_log_norm_embeddings_int DefFaltings.torusMetricSq DefFaltings.torusMetricSq_comap DefFaltings.torusMetricSq_eq_setIntegral DefFaltings.torusMetricSq_pos DefFaltings.torusMetricSq_smul DefFaltings.torus_setIntegral_indep H5Glue.GenericFibreStalkIso H5Glue.GroupModel.baseChange H5Glue.GroupModel.isNeronModel_iff H5Glue.GroupModelBaseChangeExists H5Glue.HeightAntitone H5Glue.HodgeLatticeNonzero H5Glue.HodgeMapBijective H5Glue.IsBaseChangeOf H5Glue.IsOpenSubgroupModel H5Glue.IsProductAbVar H5Glue.IsProductModel H5Glue.ModelHeightBaseChange H5Glue.NeronModelExists H5Glue.NeronProp H5Glue.NeronProp.lift H5Glue.NeronProp.of_iso H5Glue.NeronProp.tensor H5Glue.NeronProp.uniqueIso H5Glue.OmegaSpans H5Glue.OpenImmersionHeightLe H5Glue.OpenSubgroupHeight H5Glue.ProductGroupModelExists H5Glue.ProductModelHeight H5Glue.SemistableNeronIdentityComponent H5Glue.baseChange_map_bijective H5Glue.bcProd H5Glue.bijective_respectsIso H5Glue.compositum H5Glue.cotMap H5Glue.cotMap_bijective H5Glue.cotMap_dCls H5Glue.cotMap_omega H5Glue.cotMap_omegaAt H5Glue.detLattice_le_hodgeMap H5Glue.dom_comp H5Glue.evalAt_comp H5Glue.evalAt_res H5Glue.exists_smul_mem_omega H5Glue.fst_genericFibreUnit H5Glue.fst_genericFibre_unit H5Glue.genBC H5Glue.genBC_isMonHom H5Glue.genMap H5Glue.genMap_germ H5Glue.genMap_mem_maximalIdeal H5Glue.genMap_mem_maximalIdeal_iff H5Glue.genMap_structMap H5Glue.genericFibreStalkIso H5Glue.genericFibreUnit H5Glue.genericIso_of_openImmersion H5Glue.germAlong_comp_eventuallyEq H5Glue.groupModelBaseChangeExists H5Glue.heightAntitone H5Glue.heightAntitone_of H5Glue.heightAntitone_of_hodgeLatticeNonzero H5Glue.heightAntitone_of_omegaSpans H5Glue.hodgeLatticeNonzero_of_omegaSpans H5Glue.hodgeMap H5Glue.hodgeMapBijective H5Glue.hodgeMap_detLattice H5Glue.hodgeMap_wedge H5Glue.hodgeMap_wedgeGerm H5Glue.isAnalyticUniformization_comp H5Glue.isAnalyticUniformization_of_comp H5Glue.isIso_genMap H5Glue.isIso_of_openImmersion_self H5Glue.isIso_stalkSpecializes_genMap H5Glue.isMonHom_of_map H5Glue.isMonHom_pbCompHom H5Glue.isMonHom_pbCompInv H5Glue.isMonHom_pbEqIso H5Glue.isMonHom_prodComparisonIso H5Glue.isNeronModel_of_isProductModel H5Glue.isOpenImmersion_pullback_map H5Glue.jL H5Glue.jacDet_comp_genMap H5Glue.jacDet_comp_map H5Glue.map_genericUnit' H5Glue.map_span_singleton_toAddSubgroup H5Glue.map_zero_of_hom H5Glue.modelHeight_pullHodge_le H5Glue.neronModelMinimal H5Glue.neronModelMinimal_of_heightAntitone H5Glue.neron_lift H5Glue.neron_lift_isMonHom H5Glue.neron_map_injective H5Glue.omegaAt_le_cotMap H5Glue.omegaSpans H5Glue.omega_le_cotMap H5Glue.one_mem_dom H5Glue.openImmersionHeightLe H5Glue.openSubgroupHeight H5Glue.openSubgroupHeight_of H5Glue.pbCompHom H5Glue.pbCompInv H5Glue.pbCompIso H5Glue.pbEqIso H5Glue.productGroupModelExists H5Glue.ptCIso H5Glue.ptC_hom_apply H5Glue.ptsEquiv H5Glue.ptsEquiv_comp H5Glue.pts_comp_bijective H5Glue.pullHodge H5Glue.secIndex_le_of_map H5Glue.secIndex_ne_zero_of_mem H5Glue.smooth_tensor H5Glue.smooth_unit H5Glue.square1 H5Glue.square2 H5Glue.stableFaltingsHeight_add_le H5Glue.stableFaltingsHeight_add_le_of_productModelHeight H5Glue.stableFaltingsHeight_eq_neron_all H5Glue.stableFaltingsHeight_eq_neron_all' H5Glue.stalkIso_of_genericIso H5Glue.stalkSpecializes_self_apply H5Glue.stalkSpecializes_stalkSpecializes_apply H5Glue.stalk_ker_eq H5Glue.stalk_spec_eq H5Glue.stalkwise_fst_toGeneric H5Glue.stalkwise_tensor_localization H5Glue.tensorGen H5Glue.tensorGen_fst H5Glue.tensorGen_snd H5Glue.toGeneric_pt H5Glue.unitSection_comp H5Neron.GroupModel.IsNeronModel.lift H5Neron.GroupModel.IsNeronModel.uniqueIso H5Neron.GroupModel.isNeronModel_iff H5Neron.GroupModelBaseChangeExists H5Neron.IsBaseChangeOf H5Neron.IsOpenSubgroupModel H5Neron.IsProductAbVar H5Neron.IsProductModel H5Neron.ModelHeightBaseChange H5Neron.NeronModelExists H5Neron.NeronProp H5Neron.NeronProp.lift H5Neron.NeronProp.of_iso H5Neron.NeronProp.tensor H5Neron.NeronProp.uniqueIso H5Neron.OpenSubgroupHeight H5Neron.ProductGroupModelExists H5Neron.ProductModelHeight H5Neron.R19_zero H5Neron.R20_zero H5Neron.R21_zero H5Neron.SemistableNeronIdentityComponent H5Neron.bcProd H5Neron.bcUnitIso H5Neron.compositum H5Neron.covolume_fin_zero H5Neron.detLattice_zero H5Neron.glue_zero H5Neron.groupModel_height_zero H5Neron.hodgeZeroEquiv H5Neron.hodgeZeroEquiv_wedge0 H5Neron.hom_ext_of_iso_unit H5Neron.isIsogeny_id_zero H5Neron.isMonHom_of_iso_unit H5Neron.isMonHom_prodComparisonIso H5Neron.isNeronModel_of_isProductModel H5Neron.isogDeg_zero_le_one H5Neron.jL H5Neron.metrizedOf H5Neron.modelHeight_dim_zero H5Neron.neronModelExists_zero H5Neron.neronModelMinimal_zero H5Neron.neron_zero_iso_unit H5Neron.no_metrized_succ H5Neron.one_le_grKappa H5Neron.productGroupModelExists H5Neron.pts_subsingleton H5Neron.semistableNeronIdentityComponent_zero H5Neron.semσ H5Neron.stableFaltingsHeight_add_le H5Neron.stableFaltingsHeight_add_le' H5Neron.stableFaltingsHeight_eq_neron H5Neron.stableFaltingsHeight_eq_neron_all H5Neron.stableFaltingsHeight_zero H5Neron.stableHeightFinite_zero H5Neron.tensorGen H5Neron.tensorGen_fst H5Neron.tensorGen_snd H5Neron.trivHodge H5Neron.trivMetrized H5Neron.trivModel H5Neron.trivModel_isNeronModel H5Neron.wedge0 H5Neron.wedge0_ne_zero H5Neron.wedge_eq_wedge0 HeightBC.CotangentSpanBC HeightBC.D0 HeightBC.D0_add HeightBC.D0_add_apply HeightBC.D0_mul HeightBC.D0_mul_apply HeightBC.D0_sq HeightBC.D0_structMap_mul HeightBC.DetLatticeBC HeightBC.FF HeightBC.GermDerivation HeightBC.HodgeBCInjective HeightBC.HodgeLineBaseChange HeightBC.HodgeLineBaseChangeDescent HeightBC.HodgeLineDescentHalf HeightBC.HodgeSpanBC HeightBC.IsBaseChangeOf HeightBC.IsHodgeBaseChange HeightBC.IsMonBC HeightBC.JacobianPullbackSpan HeightBC.JacobianSemilinear HeightBC.MetrizationBaseChange HeightBC.ModelHeightBaseChange HeightBC.ModelHeightBaseChangeGE HeightBC.ModelHeightBaseChangeLE HeightBC.OmegaBaseChange HeightBC.OmegaLocalization HeightBC.PtsBaseChangeBij HeightBC.PtsBaseChangeMul HeightBC.UniformizationLift HeightBC.UniformizationLiftAnalytic HeightBC.algebraMap_FF HeightBC.algebraMap_ringOfIntegers_coe HeightBC.appLE_top_top HeightBC.bO HeightBC.bO_appTop HeightBC.bO_genericPt HeightBC.bcAlt HeightBC.bcCot HeightBC.bcCotBasis HeightBC.bcCotBasis_apply HeightBC.bcCot_core HeightBC.bcCot_dCls HeightBC.bcCot_intInv HeightBC.bcCot_linearIndependent HeightBC.bcCot_omega HeightBC.bcCot_omegaAt HeightBC.bcCot_smulL HeightBC.bcCot_smul_genStalk HeightBC.bcCot_span HeightBC.bcCot_update HeightBC.bcExt HeightBC.bcExt_smul HeightBC.bcExt_ιMulti HeightBC.bcHodge HeightBC.bcHodge_detLattice HeightBC.bcHodge_smul HeightBC.bcHodge_tmul HeightBC.bcHodge_wedge HeightBC.bcMap HeightBC.bcMap_germ HeightBC.bcMap_mem_maximalIdeal HeightBC.bcMap_structMap HeightBC.bcMap_φL HeightBC.bcProj HeightBC.bcProj_genericUnit HeightBC.bcProj_unit HeightBC.bcProj_w HeightBC.bcPts HeightBC.cotL HeightBC.cotL_isScalarTower HeightBC.cotL_smul HeightBC.cotRes HeightBC.cotangentSpanBC HeightBC.descentHalf_of_descent HeightBC.detLatticeBC_of_omega HeightBC.dom_bcPts HeightBC.evalAt_add HeightBC.evalAt_bcPts HeightBC.evalAt_mul HeightBC.evalAt_one_eq_zero HeightBC.evalAt_res HeightBC.evalAt_structSection HeightBC.exists_act HeightBC.exists_comp_eq HeightBC.exists_int_dvd HeightBC.exists_mem_not_mem_of_sat HeightBC.exists_ringOfIntegers_of_algebraMap HeightBC.extRes HeightBC.finite_of_isClosed_not_genericPt HeightBC.g0_hodgeLine_iff HeightBC.genericPt_eq_genericPoint HeightBC.germAlong_add_mul HeightBC.germAlong_bcPts_eventuallyEq HeightBC.germAlong_differentiableAt HeightBC.germAlong_eventuallyEq_rep HeightBC.germAlong_structMap HeightBC.germAlong_zero_of_mem HeightBC.germDerivation HeightBC.germDerivation_at HeightBC.hodgeBCInjective HeightBC.hodgeLineBaseChangeDescent_of_glue HeightBC.hodgeLineBaseChange_of_descent HeightBC.hodgeLineBaseChange_of_final HeightBC.hodgeLineBaseChange_of_five HeightBC.hodgeLineBaseChange_of_four HeightBC.hodgeLineBaseChange_of_glue HeightBC.hodgeLineBaseChange_of_glue4 HeightBC.hodgeLineBaseChange_of_glue5 HeightBC.hodgeLineBaseChange_of_main HeightBC.hodgeLineBaseChange_of_two HeightBC.hodgeSpanBC_of HeightBC.hom_genericUnit HeightBC.hom_genericUnit' HeightBC.hom_unitSection HeightBC.isAnalyticUniformization_bcPts HeightBC.isField_stalk_genericPt HeightBC.isIso_stalkSpecializes_bcMap HeightBC.isUnit_germ_genericPt HeightBC.isUnit_structMap HeightBC.jacDet_bcPts HeightBC.jacobianPullbackSpan_of HeightBC.jacobianSemilinear HeightBC.jacobianSemilinear_of HeightBC.locSub HeightBC.mapCotangent_injective_of_isIso HeightBC.mapCotangent_smul' HeightBC.map_zero_of_hom HeightBC.maximalIdeal_stalk_genericPt HeightBC.mem_locSub HeightBC.mem_of_forall_locSub HeightBC.metrizationBaseChange_of_hodgeLine HeightBC.modelHeightBaseChangeGE_of_descent HeightBC.modelHeightBaseChangeGE_of_descentHalf HeightBC.modelHeightBaseChangeGE_of_main HeightBC.modelHeightBaseChangeGE_of_two HeightBC.modelHeightBaseChangeLE_of_metrization HeightBC.modelHeightBaseChange_of_descent HeightBC.modelHeightBaseChange_of_final HeightBC.modelHeightBaseChange_of_five HeightBC.modelHeightBaseChange_of_four HeightBC.modelHeightBaseChange_of_glue HeightBC.modelHeightBaseChange_of_glue4 HeightBC.modelHeightBaseChange_of_glue5 HeightBC.modelHeightBaseChange_of_main HeightBC.modelHeightBaseChange_of_two HeightBC.modelHeight_eq_of_isHodgeBaseChange HeightBC.multilinear_mem_span HeightBC.omegaAt_bc_local HeightBC.omegaAt_full HeightBC.omegaAt_open HeightBC.omegaAt_sat HeightBC.omegaBaseChange HeightBC.omegaBaseChange_of_localization HeightBC.omegaLocalization HeightBC.one_mem_dom HeightBC.ptC_hom_apply HeightBC.ptC_hom_comp_bO HeightBC.ptsBaseChangeBij HeightBC.ptsBaseChangeMul HeightBC.rationalOver_genericUnit HeightBC.secIndex_baseChange HeightBC.secIndex_map HeightBC.secIndex_ne_zero_of_baseChange HeightBC.secIndex_nsmul_mem HeightBC.smul_cotangent_eq_of_sub_mem HeightBC.span_bcHodge_le HeightBC.spec_mem_of_ker HeightBC.stalkMapAt_germ' HeightBC.stalkSpec_comp_apply HeightBC.stalkSpec_self_apply HeightBC.stalkSpecializes_self_apply' HeightBC.stalkSpecializes_stalkSpecializes_apply' HeightBC.structMap_eq_spec HeightBC.structMap_eq_stalkMap HeightBC.toCotangent_mul HeightBC.uniformizationLift HeightBC.uniformizationLiftAnalytic HeightBC.uniformizationLift_of HeightBC.unitSection_comp_hom HeightBC.unitSection_stalkMapAt_hom HeightBC.σFF HeightBC.φL HeightBC.φL_algebraMap LeafPush2.CPts LeafPush2.Char2 LeafPush2.HasSexticModel LeafPush2.IC10 LeafPush2.IC2 LeafPush2.IC4 LeafPush2.IC6 LeafPush2.IgJ10 LeafPush2.IgJ2 LeafPush2.IgJ4 LeafPush2.IgJ6 LeafPush2.IsGenus2 LeafPush2.IsPeriodMatrix LeafPush2.IsSiegel LeafPush2.IsUniformization LeafPush2.LinYangTuple LeafPush2.OnQMLocus LeafPush2.T10_groupIso LeafPush2.T11a_RiemannEnd LeafPush2.T11b_Rigidity LeafPush2.T12_ComplexConjEigen LeafPush2.UniformizationExists LeafPush2.absLogHeight LeafPush2.cDom LeafPush2.cEvalAt LeafPush2.cptObj LeafPush2.dsq LeafPush2.exists_isComplexConj LeafPush2.ffAlgebra LeafPush2.ffStructMap LeafPush2.isSiegel_I LeafPush2.javanpeykarBound LeafPush2.javanpeykarBound_mono LeafPush2.javanpeykarBound_pos LeafPush2.linYangTuple_onQMLocus LeafPush2.linYang_j_eq LeafPush2.onQMLocus_of_linYangTuple LeafPush2.pazukiC2 LeafPush2.sextic LeafPush2.thetaConst) -- op-dedupe
+open _root_.LeafQM.AV (CMExists HasCM24 HasCM24.of_iso HasCM3 HasCM3.of_iso HasCM4 HasCM4.of_iso IsBaseChangeOf IsBaseChangeOfPair IsFibreOf Level3 Level3.bcPt_pow_three Level3.eq_iff Level3.exists_mul_of_range_le Level3.ext' Level3.onto Level3.range_le Level3.rightMul Level3.rightMul_eq_self Level3.rightMul_rightMul Level3.torsor Level3.twist M3 M3.mk M3.rightMul M3.rightMul_rightMul M3.twist M3.twist_mk Pin.AutOExt.NormalizerFinite Pin.AutOExt.alpha_nat_smul Pin.AutOExt.autOInnerFinite_of_normalizer Pin.AutOExt.common_den Pin.AutOExt.conjUnit Pin.AutOExt.conj_of_skolem Pin.AutOExt.den_mul_int Pin.AutOExt.exists_nat_smul_mem Pin.AutOExt.extAlgEquiv Pin.AutOExt.extAlgHom Pin.AutOExt.extAlgHom_coe Pin.AutOExt.extAlgHom_symm_comp Pin.AutOExt.extDen Pin.AutOExt.extDen_mem Pin.AutOExt.extDen_pos Pin.AutOExt.extFun Pin.AutOExt.extFun_add Pin.AutOExt.extFun_algebraMap Pin.AutOExt.extFun_coe Pin.AutOExt.extFun_eq Pin.AutOExt.extFun_mul Pin.AutOExt.key_conj Pin.AutOExt.mem_O_of_int Pin.AutOExt.natCast_mul_eq_smul Pin.AutOExt.nat_smul_mem Pin.AutOExt.smul_mul_smul' Pin.AutOInnerFinite Pin.ConstOrOntoAlgClosed Pin.CurveRatFactor Pin.CurveSurj Pin.GeomCompConstOrOnto Pin.GeomCompFinite Pin.GeomCompInfinite Pin.GeomCompRatFactor Pin.ImagePlane.ev_comp Pin.ImagePlane.ev_spec_top Pin.ImagePlane.ptOf_comp Pin.ImagePlane.ptOf_spec_asIdeal Pin.IsNaturalRelabel Pin.Mob.eval_ne_zero_of_coprime Pin.Mob.exists_interp Pin.Mob.isCoprime_X_sub_C_of_eval_one Pin.Mob.natDegree_le_one_of_injective Pin.Mob.ratEval Pin.Mob.ratEval_eq_self Pin.Mob.wronskian_ne_zero Pin.MobiusGlue Pin.NormO.IsNorm Pin.NormO.IsNorm.inv Pin.NormO.IsNorm.mul Pin.NormO.T Pin.NormO.T_finite Pin.NormO.T_mul_ui Pin.NormO.T_mul_uj Pin.NormO.bas Pin.NormO.conjC Pin.NormO.descent Pin.NormO.dvd_of_prime_dvd_nrd Pin.NormO.dvd_of_smul_mem Pin.NormO.ei Pin.NormO.ej Pin.NormO.inv_eq Pin.NormO.isNorm_sc Pin.NormO.isNorm_ui Pin.NormO.isNorm_uj Pin.NormO.mulCoord_conjC Pin.NormO.mulCoord_conjC' Pin.NormO.mulCoord_smul_left Pin.NormO.mulCoord_smul_right Pin.NormO.normalizerFinite Pin.NormO.nrdZ Pin.NormO.nrdZ_ei Pin.NormO.nrdZ_ej Pin.NormO.nrdZ_mul Pin.NormO.nrdZ_ne_zero Pin.NormO.nrdZ_smul Pin.NormO.nrd_dvd_coords Pin.NormO.ofInt_scalar Pin.NormO.rearrange Pin.NormO.sc Pin.NormO.six_sq_identities Pin.NormO.smul_ofInt Pin.NormO.three_dvd_mulCoord_ej Pin.NormO.two_dvd_mulCoord_ei Pin.NormO.ui Pin.NormO.uj Pin.PinUnique Pin.QMFamily.transport Pin.QML3.isoTransport Pin.R1fpProps.fam Pin.R1fpProps.univ Pin.RatFactorAlgClosed Pin.SameTriple Pin.SameTripleMor Pin.SmoothCurveNoIsolatedPoint Pin.SmoothStalkDimOne Pin.TwistClassFinite Pin.autOInnerFinite Pin.autRelabel Pin.autRelabel_natural Pin.bcPt Pin.bcPt_ptOfSection Pin.bcPt_snd Pin.bcQbar Pin.bcSnd Pin.cm_objects_of_R1R2fp Pin.conjUnitIso Pin.cst Pin.curveFacts_of_algClosed Pin.curveFacts_of_comp Pin.curveFacts_of_leaves Pin.curveFacts_of_named Pin.curveRatFactor_of_comp Pin.curveSurj_of_comp Pin.ev Pin.ev_cst Pin.ev_eq_zero_iff Pin.ev_f_mul_g Pin.ev_g_eq_zero Pin.ev_res Pin.ev_top Pin.exists_isOpen_singleton_of_finite_closedPoints Pin.exists_liftO_congr Pin.exists_point_of_isLocallyClosed Pin.geomComp Pin.geomCompConstOrOnto_of Pin.geomCompFinite Pin.geomCompInfinite_of Pin.geomCompRatFactor_of Pin.isFibreOf_transport Pin.isOpen_connectedComponent_of_noetherian Pin.level3_finite Pin.mem_V_of_not_mem_U Pin.phi_part Pin.pointwise_of_witness Pin.pointwise_of_witness_mor Pin.ptOf Pin.ptOfSection Pin.r1fpPin_aut Pin.r1fpPin_relabel_iff Pin.r2fp_aut Pin.relabel Pin.relabel_geometric Pin.relabel_is_morphism Pin.res Pin.res_res Pin.sameTripleMor_of_mobius Pin.sameTriple_aut Pin.smoothCurveNoIsolatedPoint_of Pin.transfer_exists Pin.transfer_pointwise Pin.transfer_pointwise_mor Pin.transportLevel Pin.twistClassFinite Pin.twistClassFinite_of Pin.val_bcPt Pin.val_of_mem Pin.val_of_not_mem PtEquiv QMFamily QMIso QMIso.nonempty_abVarIso QMIso.refl QMIso.symm QMIso.trans QML3 QML3.Iso QML3.Iso.refl QML3.Iso.rightMul QML3.Iso.symm QML3.Iso.trans QML3.Iso.twist QML3.forget QML3.rightMul QML3.rightMul_A QML3.rightMul_rightMul QML3.twist QML3.twist_A QMLeaves QMPair QMPair.twist QMStr QMStr.twist Qbar R1R2fp R1R2fp_Y R1famProps R1fp R1fpProps R1fp_of_R1R2fp R1heckeProps R1rec R1recProps R1univProps R2X6Props R2fpProps R2fpProps_of_X6 R5fp R5fpCount R5fpWeak R5fpWeak_of_R5fp R5ptProps ToP1 ToP1.comp ToP1.val ToP1.val_comp ToP1.val_comp_right UnramifiedAbove5 X6Props X6Surj act_mul_apply bcPt bcPt_injective cm_of_val com comEquiv com_twist conductor conjHom conjHom_iota conjHom_mem_com conjHom_symm_apply conj_iso_of_rational conj_twist_of_rational endPt exists_fibre_object fibre_conjugates_isomorphic fieldMap fieldOfModuli3 fieldOfModuliPair fieldPt galAct_bcPt hI hIJ hJ hasCM24_twist hasCM3_twist hasCM4_twist hrat inertCount6 intCast_mem_com isoSetoid leaves_on_one_witness liftO not_qmStr_zero ofInt_injective ofInt_sub oi oi_mul_oi oj oj_mul_oi_add oj_mul_oj pairSetoid qmAct residueImage residue_unramified_over_branch specMap_flat specMap_surjective specToEquivOfField_comp specToEquivOfField_comp_right stab3 stabPair three_mul_ofInt toKbar unramified_over_branch) -- op-dedupe
+open _root_.ZInQ.DefFaltings (AbVar AnalyticUniformizationExists AnalyticUniformizationUnique EReal.add_coe_add_neg_coe FinExt Genus2Eq Genus2Eq.Good Genus2Eq.P Genus2Eq.binDisc GroupModel GroupModel.IsAnalyticUniformization GroupModel.IsNeronModel GroupModel.Pts GroupModel.cotangent GroupModel.dCls GroupModel.detLattice GroupModel.dom GroupModel.evalAt GroupModel.exists_rep GroupModel.genStalk GroupModel.genericUnit GroupModel.germAlong GroupModel.height GroupModel.height_eq GroupModel.hodgeSpace GroupModel.jacDet GroupModel.jacDet_comp GroupModel.omega GroupModel.omegaAt GroupModel.omegaAt_genericPt GroupModel.ptC GroupModel.semilinear_ext_wedge GroupModel.specializes_genericUnit GroupModel.structMap GroupModel.unitSection GroupModel.wedge HermitianLattice HermitianLattice.arakelovDegree HermitianLattice.arakelovDegree_ofFractionalIdeal HermitianLattice.arakelovDegree_rescale HermitianLattice.degreeAt HermitianLattice.degreeAt_eq HermitianLattice.degreeAt_eq_arakelovDegree HermitianLattice.degreeAt_smul HermitianLattice.ofFractionalIdeal HermitianLattice.rescale HermitianLattice.secIndex_ne_zero HodgeData HodgeData.coeff_apply_ne_zero HodgeData.hodgeBundle HodgeData.modelHeight HodgeData.modelHeight_eq HodgeData.modelHeight_eq_add_of_le HodgeData.modelHeight_eq_faltingsHeightGood HodgeData.modelHeight_le_of_le HodgeData.modelHeight_ofIdeal HodgeData.modelHeight_ofIdeal_baseChange HodgeData.modelHeight_of_span HodgeData.modelHeight_recoord HodgeData.norm HodgeData.norm_sq HodgeData.recoord HodgeLatticeTheorem IsIsogeny MetrizedModel MetrizedModel.modelHeight_eq_of_model_eq NeronModelMinimal PeriodAreaFormula R19_GaudronRemond R20_FaltingsLemma5 R21_Bost StableHeightFinite absNorm_extendedHom absNorm_map_ringOfIntegers arakelovDegree_ofFractionalIdeal_baseChange arakelovDegree_ofFractionalIdeal_mul card_embeddings_over covolume_comap_mul_det covolume_gaussianPair det_restrictScalars_complex embCoeff faltingsHeight faltingsHeightEC faltingsHeightGood faltingsHeight_coe finiteHeightPart finrank_ringOfIntegers gaussianPair genericFibre genericPt grKappa hypGram hypGram_comp_add hypVol hypVol_one_comp_add isogDeg le_stableFaltingsHeight modelHeight_ofIdeal_eq_faltingsHeightEC modelHeight_ofIdeal_eq_faltingsHeightEC' norm_algebraMap_tower ptObj ratCoeff realify secIndex secIndex_mul_absNorm secIndex_smul stableFaltingsHeight stableFaltingsHeightDeligne stableFaltingsHeightDeligne_eq stableFaltingsHeight_eq_faltingsHeightGood stableFaltingsHeight_eq_iInf_height stableFaltingsHeight_le stableFaltingsHeight_ne_bot_of_R21 sum_embeddings_comp sum_log_norm_embeddings sum_log_norm_embeddings_int torusMetricSq torusMetricSq_comap torusMetricSq_eq_setIntegral torusMetricSq_pos torusMetricSq_smul torus_setIntegral_indep) -- op-dedupe
 
 end G0Split
 
@@ -6129,6 +5760,7 @@ namespace HSyn.LinkedTate
 
 open CategoryTheory AlgebraicGeometry Limits MonoidalCategory CartesianMonoidalCategory MonObj
 open G0ModField
+open _root_.G0ModField (CommonConstituent ConjugacyData DescentDatum FibreCoverExists FibreCoverOut FibreCtx G2Out G4Out G7Out GaloisCopy.G2Out GaloisCopy.G7Out GaloisCopy.Vb GaloisCopy.resQ GaloisCopy.tate IF IsModelOver IsQMModel IsQMModel.isModelOver KernelFieldExists KernelFieldOut ModularConstituentG PtQ RationalFibre ResQRange T UnramifiedSup actK actQ admissible_S_mul b2_of_leaves_level b3_of_cochain baseChangeTrans card_ker_GL descentDatum_bot descentDatum_of_conjugacy fieldDescent g2Out_of_cover g4Out_of_kernelField g7Out_of_g4Out galAct_bijective galAct_mul incAlg isModelOver_baseChange le_heightD_of_mem_S_mul mem_GQL_bot normA numberField_of_fd resQRange resQ_comm' resQ_range sgnU sgnU_mul sgnU_mul_abs sgnU_sq toLAut toLAut_apply two_mem_T) -- op-dedupe
 
 end HSyn.LinkedTate
 
@@ -6136,6 +5768,7 @@ namespace LTLocal
 
 open CategoryTheory AlgebraicGeometry Limits MonoidalCategory CartesianMonoidalCategory MonObj
 open G0ModField
+open _root_.G0ModField (CommonConstituent ConjugacyData DescentDatum FibreCoverExists FibreCoverOut FibreCtx G2Out G4Out G7Out GaloisCopy.G2Out GaloisCopy.G7Out GaloisCopy.Vb GaloisCopy.resQ GaloisCopy.tate IF IsModelOver IsQMModel IsQMModel.isModelOver KernelFieldExists KernelFieldOut ModularConstituentG PtQ RationalFibre ResQRange T UnramifiedSup actK actQ admissible_S_mul b2_of_leaves_level b3_of_cochain baseChangeTrans card_ker_GL descentDatum_bot descentDatum_of_conjugacy fieldDescent g2Out_of_cover g4Out_of_kernelField g7Out_of_g4Out galAct_bijective galAct_mul incAlg isModelOver_baseChange le_heightD_of_mem_S_mul mem_GQL_bot normA numberField_of_fd resQRange resQ_comm' resQ_range sgnU sgnU_mul sgnU_mul_abs sgnU_sq toLAut toLAut_apply two_mem_T) -- op-dedupe
 
 /-- (copied from linked-tate; `Qbar` written `PkgI4.Qbar`) **`EndDivision` for every number-field model of the fibre, from the
 glue piece `FibreSimple`** (proved). -/
@@ -6188,6 +5821,7 @@ namespace LTLocal
 
 open CategoryTheory AlgebraicGeometry
 open G0ModField
+open _root_.G0ModField (CommonConstituent ConjugacyData DescentDatum FibreCoverExists FibreCoverOut FibreCtx G2Out G4Out G7Out GaloisCopy.G2Out GaloisCopy.G7Out GaloisCopy.Vb GaloisCopy.resQ GaloisCopy.tate IF IsModelOver IsQMModel IsQMModel.isModelOver KernelFieldExists KernelFieldOut ModularConstituentG PtQ RationalFibre ResQRange T UnramifiedSup actK actQ admissible_S_mul b2_of_leaves_level b3_of_cochain baseChangeTrans card_ker_GL descentDatum_bot descentDatum_of_conjugacy fieldDescent g2Out_of_cover g4Out_of_kernelField g7Out_of_g4Out galAct_bijective galAct_mul incAlg isModelOver_baseChange le_heightD_of_mem_S_mul mem_GQL_bot normA numberField_of_fd resQRange resQ_comm' resQ_range sgnU sgnU_mul sgnU_mul_abs sgnU_sq toLAut toLAut_apply two_mem_T) -- op-dedupe
 
 /-- **`G7DegreeBound` over g0-assemble3's `G7Data` (proved: its last clause).** -/
 theorem g7DegreeBound_gp4 : G7DegreeBound := by
@@ -6240,9 +5874,12 @@ in a given open `G_K`, and (F2) for every `n ≥ 1` there is an unramified chara
 noncomputable section
 
 namespace G15Ram
+open _root_.G15Ram (UnramRoots) -- op-dedupe
 
-open PkgI4 (GQp)
+-- op-dedupe was: open PkgI4 (GQp)
+open _root_.PkgI4 (GQp) -- op-dedupe
 open LadicCond
+open _root_.LadicCond (AdaptedExists CarayolR17 CarayolR17' EventuallyTrivial Fld InertiaRestriction IsAdapted IsFinGal IsUnif IsUnif.norm_eq Kbar SwanIndependent SwanIntegral apply_mem artinAt carayolR17'_of_R17 carayolR17_of_R17' codimInv codimInv_eq_zero codimInv_le condAt condAt_eq_artinAt condAt_eq_artinAt' condAt_eq_artinAt'' condAt_eq_artinAt_of_surj condAt_eq_zero_of_unramified condAt_le_of_upper condExp condExp_eq_condAt condExp_eq_zero_of_unramified condExp_one eventuallyTrivial eventually_not_restr exists_isUnif finite_restr fixSet fixSet_subset_ramSet inertiaSet inertiaSet_subset_ramSet_zero integral_codim_le invariants invariants_eq_of_cover invariants_eq_top isAdapted_one isUnif_bot norm_p_kbar norm_pow_factorial one_mem_wildSet phiAt ramCard ramCardR ramCard_ne_zero ramSet ramSetR restr swan swanAt swanAt_eq_zero_of_unramified upperAbs upperSet wildSet wildSet_subset_inertiaSet) -- op-dedupe
 
 section TwistSec
 
@@ -6253,139 +5890,16 @@ end TwistSec
 end G15Ram
 
 namespace UnramRootsTask
+open _root_.UnramRootsTask (EN FrobData OO Rq UnramProcyclic coe_zpToOO eq_one_of_pow_eq_one exists_mem_EN exists_pow_mem_fixSet exists_pow_sub_lt_one exists_root_close f1_of_frobData f2_of_frobData fixSet_anti fix_adjoin fix_of_mem_inertiaSet_of_pow_eq_one fix_of_mem_inertiaSet_of_pow_eq_self frobData_exists inv_mem_fixSet map_pow_of_mul mem_OO mem_inertiaSet_of_fix mem_rootSet_Qp mem_rootSet_of_pow modEq_of_act modEq_of_pow_modEq mul_mem_fixSet norm_add_le_max' norm_aut norm_le_one_of_pow_eq_self norm_natCast_eq_one norm_sub_le_max' norm_sum_lt_one one_mem_fixSet pow_mem_fixSet pow_modEq_pow_mod pow_mod_of_pow_eq_one pow_pow_of_dvd residue_eq_zero_iff toF toF_apply unramProcyclic_of_frobData unramRoots unramRoots_all unramRoots_of_unramProcyclic unramRoots_two zpToOO) -- op-dedupe
 
-open PkgI4 (GQp)
+-- op-dedupe was: open PkgI4 (GQp)
+open _root_.PkgI4 (GQp) -- op-dedupe
 open LadicCond
+open _root_.LadicCond (AdaptedExists CarayolR17 CarayolR17' EventuallyTrivial Fld InertiaRestriction IsAdapted IsFinGal IsUnif IsUnif.norm_eq Kbar SwanIndependent SwanIntegral apply_mem artinAt carayolR17'_of_R17 carayolR17_of_R17' codimInv codimInv_eq_zero codimInv_le condAt condAt_eq_artinAt condAt_eq_artinAt' condAt_eq_artinAt'' condAt_eq_artinAt_of_surj condAt_eq_zero_of_unramified condAt_le_of_upper condExp condExp_eq_condAt condExp_eq_zero_of_unramified condExp_one eventuallyTrivial eventually_not_restr exists_isUnif finite_restr fixSet fixSet_subset_ramSet inertiaSet inertiaSet_subset_ramSet_zero integral_codim_le invariants invariants_eq_of_cover invariants_eq_top isAdapted_one isUnif_bot norm_p_kbar norm_pow_factorial one_mem_wildSet phiAt ramCard ramCardR ramCard_ne_zero ramSet ramSetR restr swan swanAt swanAt_eq_zero_of_unramified upperAbs upperSet wildSet wildSet_subset_inertiaSet) -- op-dedupe
 
 variable {p : ℕ} [Fact p.Prime]
 
-variable (p) in
-/-- **Textbook (new): `G_F / I_F` is procyclic, topologically generated by a Frobenius lift.**
-For a finite `F/ℚ_p` inside `ℚ̄_p` there is `φ ∈ G_F` such that
-* (F1) for every finite `K ⊇ F`, every `σ ∈ G_F` is `φ^k τ g` with `k ∈ ℕ`, `τ ∈ G_F ∩ I` and
-  `g ∈ G_K` (the image of `φ` generates the finite quotient `G_F / G_K I_F`);
-* (F2) for every `n ≥ 1` there is a homomorphism `χ : G_F → ℤ/n` with `χ(φ) = 1`, trivial on
-  `G_F ∩ I` and on some open `G_{K}` (the character of the unramified extension of degree `n`).
-Sources: `G_F/I_F ≅ Gal(F^{ur}/F) ≅ Gal(k̄/k) ≅ Ẑ`, generated by Frobenius (Serre, *Local
-Fields*, Ch. I §7 Prop. 20-21, Ch. III §5 Thm 2, Ch. XIII §1; Neukirch, *Algebraic Number Theory*,
-Ch. II Prop. 9.9 and Ch. IV (1.4); locators UNVERIFIED). -/
-def UnramProcyclic : Prop :=
-  ∀ (F : Fld p), FiniteDimensional ℚ_[p] F → ∃ φ ∈ fixSet F,
-    (∀ K : Fld p, FiniteDimensional ℚ_[p] K → F ≤ K → ∀ σ ∈ fixSet F,
-        ∃ k : ℕ, ∃ τ ∈ fixSet F ∩ inertiaSet, ∃ g ∈ fixSet K, σ = φ ^ k * τ * g) ∧
-    (∀ n : ℕ, 0 < n → ∃ χ : GQp p → ZMod n,
-        (∀ σ ∈ fixSet F, ∀ τ ∈ fixSet F, χ (σ * τ) = χ σ + χ τ) ∧ χ φ = 1 ∧
-        (∀ σ ∈ fixSet F ∩ inertiaSet, χ σ = 0) ∧
-        ∃ K : Fld p, FiniteDimensional ℚ_[p] K ∧ ∀ σ ∈ fixSet K, χ σ = 0)
-
-theorem mul_mem_fixSet {F : Fld p} {σ τ : GQp p} (hσ : σ ∈ fixSet F) (hτ : τ ∈ fixSet F) :
-    σ * τ ∈ fixSet F := by
-  intro x hx
-  rw [AlgEquiv.mul_apply, hτ x hx, hσ x hx]
-
-theorem one_mem_fixSet (F : Fld p) : (1 : GQp p) ∈ fixSet F := fun _ _ => rfl
-
-theorem pow_mem_fixSet {F : Fld p} {σ : GQp p} (hσ : σ ∈ fixSet F) (k : ℕ) :
-    σ ^ k ∈ fixSet F := by
-  induction k with
-  | zero => rw [pow_zero]; exact one_mem_fixSet F
-  | succ k ih => rw [pow_succ]; exact mul_mem_fixSet ih hσ
-
-theorem fixSet_anti {F K : Fld p} (h : F ≤ K) : fixSet K ⊆ fixSet F :=
-  fun _ hσ x hx => hσ x (h hx)
-
-theorem inv_mem_fixSet {F : Fld p} {σ : GQp p} (hσ : σ ∈ fixSet F) : σ⁻¹ ∈ fixSet F := by
-  intro x hx
-  have h := hσ x hx
-  calc σ⁻¹ x = σ⁻¹ (σ x) := by rw [h]
-    _ = x := by rw [← AlgEquiv.mul_apply, inv_mul_cancel, AlgEquiv.one_apply]
-
-/-- A multiplicative function on `G_F` is multiplicative on powers. -/
-theorem map_pow_of_mul {M : Type*} [Monoid M] {F : Fld p} {f : GQp p → M}
-    (hf : ∀ σ ∈ fixSet F, ∀ τ ∈ fixSet F, f (σ * τ) = f σ * f τ) (h1 : f 1 = 1)
-    {σ : GQp p} (hσ : σ ∈ fixSet F) (k : ℕ) : f (σ ^ k) = f σ ^ k := by
-  induction k with
-  | zero => simp [h1]
-  | succ k ih => rw [pow_succ, hf _ (pow_mem_fixSet hσ k) _ hσ, ih, pow_succ]
-
-/-- Some positive power of `σ ∈ G_F` lies in `G_K` for `K` finite over `ℚ_p`. -/
-theorem exists_pow_mem_fixSet {K : Fld p} (hK : FiniteDimensional ℚ_[p] K)
-    {σ : GQp p} : ∃ j : ℕ, 0 < j ∧ σ ^ j ∈ fixSet K := by
-  let r : ℕ → (K →ₐ[ℚ_[p]] Kbar p) := fun i => (σ ^ i : GQp p).toAlgHom.comp K.val
-  obtain ⟨a, b, hab, he⟩ := Finite.exists_ne_map_eq_of_infinite r
-  rcases lt_or_gt_of_ne hab with h | h
-  · refine ⟨b - a, by omega, ?_⟩
-    intro x hx
-    have hx' := congrArg (fun f => f ⟨x, hx⟩) he
-    change (σ ^ a) x = (σ ^ b) x at hx'
-    have hb : σ ^ b = σ ^ a * σ ^ (b - a) := by rw [← pow_add]; congr 1; omega
-    rw [hb, AlgEquiv.mul_apply] at hx'
-    exact (σ ^ a).injective hx'.symm
-  · refine ⟨a - b, by omega, ?_⟩
-    intro x hx
-    have hx' := congrArg (fun f => f ⟨x, hx⟩) he
-    change (σ ^ a) x = (σ ^ b) x at hx'
-    have ha : σ ^ a = σ ^ b * σ ^ (a - b) := by rw [← pow_add]; congr 1; omega
-    rw [ha, AlgEquiv.mul_apply] at hx'
-    exact (σ ^ b).injective hx'
-
-theorem pow_mod_of_pow_eq_one {M : Type*} [Monoid M] {x : M} {n : ℕ} (hx : x ^ n = 1) (m : ℕ) :
-    x ^ (m % n) = x ^ m := by
-  conv_rhs => rw [← Nat.div_add_mod m n, pow_add, pow_mul, hx, one_pow, one_mul]
-
 variable {ℓ : ℕ} [Fact ℓ.Prime]
-
-/-- **`UnramRoots` from `UnramProcyclic` (proved).** -/
-theorem unramRoots_of_unramProcyclic (h : UnramProcyclic p) : G15Ram.UnramRoots p ℓ := by
-  intro F hF ψ hmul ⟨F'', hF'', hψ''⟩ hI
-  obtain ⟨φ, hφF, hF1, hF2⟩ := h F hF
-  have hψ1 : ψ 1 = 1 := hψ'' 1 (one_mem_fixSet F'')
-  -- `ψ(φ)` is a root of unity
-  obtain ⟨j, hj, hφj⟩ := exists_pow_mem_fixSet hF'' (σ := φ)
-  have hψφj : ψ φ ^ j = 1 := by
-    rw [← map_pow_of_mul hmul hψ1 hφF j]; exact hψ'' _ hφj
-  obtain ⟨ξ, hξ⟩ := IsAlgClosed.exists_pow_nat_eq (ψ φ) (by norm_num : 0 < 4)
-  set n := 4 * j with hn
-  have hn0 : 0 < n := by omega
-  have hξn : ξ ^ n = 1 := by rw [hn, pow_mul, hξ, hψφj]
-  have hψφn : ψ φ ^ n = 1 := by rw [hn, mul_comm, pow_mul, hψφj, one_pow]
-  obtain ⟨χ, hχmul, hχφ, hχI, Kn, hKn, hχK⟩ := hF2 n hn0
-  have hχ1 : χ 1 = 0 := by
-    have := hχmul 1 (one_mem_fixSet F) 1 (one_mem_fixSet F)
-    rw [mul_one] at this
-    exact left_eq_add.mp this
-  classical
-  let η : GQp p → PadicAlgCl ℓ := fun σ => if σ ∈ fixSet F then ξ ^ (χ σ).val else 1
-  have hηF : ∀ σ ∈ fixSet F, η σ = ξ ^ (χ σ).val := fun σ hσ => if_pos hσ
-  have hχk : ∀ k : ℕ, χ (φ ^ k) = k := by
-    intro k
-    induction k with
-    | zero => rw [pow_zero, hχ1, Nat.cast_zero]
-    | succ k ih =>
-      rw [pow_succ, hχmul _ (pow_mem_fixSet hφF k) _ hφF, ih, hχφ, Nat.cast_succ]
-  haveI : NeZero n := ⟨hn0.ne'⟩
-  refine ⟨η, ⟨F ⊔ Kn, inferInstance, ?_⟩, ?_, ?_, ?_⟩
-  · intro σ hσ
-    rw [hηF σ (fixSet_anti le_sup_left hσ), hχK σ (fixSet_anti le_sup_right hσ), ZMod.val_zero,
-      pow_zero]
-  · intro σ hσ τ hτ
-    rw [hηF _ (mul_mem_fixSet hσ hτ), hηF σ hσ, hηF τ hτ, hχmul σ hσ τ hτ, ZMod.val_add,
-      pow_mod_of_pow_eq_one hξn, pow_add]
-  · intro σ hσ
-    let K : Fld p := F ⊔ F'' ⊔ Kn
-    have hFK : F ≤ K := le_sup_left.trans le_sup_left
-    obtain ⟨k, τ, ⟨hτF, hτI⟩, g, hg, rfl⟩ := hF1 K inferInstance hFK σ hσ
-    have hgF : g ∈ fixSet F := fixSet_anti hFK hg
-    have hg'' : g ∈ fixSet F'' := fixSet_anti (le_sup_right.trans le_sup_left) hg
-    have hgn : g ∈ fixSet Kn := fixSet_anti le_sup_right hg
-    have hφk := pow_mem_fixSet hφF k
-    have hm1 := mul_mem_fixSet hφk hτF
-    rw [hηF _ (mul_mem_fixSet hm1 hgF), hmul _ hm1 _ hgF, hmul _ hφk _ hτF,
-      hχmul _ hm1 _ hgF, hχmul _ hφk _ hτF, hχI τ ⟨hτF, hτI⟩, hχK g hgn, hI τ ⟨hτF, hτI⟩,
-      hψ'' g hg'', map_pow_of_mul hmul hψ1 hφF k, hχk k, add_zero, add_zero, mul_one, mul_one,
-      ← pow_mul, mul_comm, pow_mul, hξ, ZMod.val_natCast, pow_mod_of_pow_eq_one hψφn]
-  · intro σ hσ
-    rw [hηF σ hσ.1, hχI σ hσ, ZMod.val_zero, pow_zero]
 
 end UnramRootsTask
 
@@ -6405,367 +5919,30 @@ for all `‖x‖ ≤ 1` in `ℚ̄_p = PadicAlgCl p`.
 noncomputable section
 
 namespace UnramRootsTask
+open _root_.UnramRootsTask (EN FrobData OO Rq UnramProcyclic coe_zpToOO eq_one_of_pow_eq_one exists_mem_EN exists_pow_mem_fixSet exists_pow_sub_lt_one exists_root_close f1_of_frobData f2_of_frobData fixSet_anti fix_adjoin fix_of_mem_inertiaSet_of_pow_eq_one fix_of_mem_inertiaSet_of_pow_eq_self frobData_exists inv_mem_fixSet map_pow_of_mul mem_OO mem_inertiaSet_of_fix mem_rootSet_Qp mem_rootSet_of_pow modEq_of_act modEq_of_pow_modEq mul_mem_fixSet norm_add_le_max' norm_aut norm_le_one_of_pow_eq_self norm_natCast_eq_one norm_sub_le_max' norm_sum_lt_one one_mem_fixSet pow_mem_fixSet pow_modEq_pow_mod pow_mod_of_pow_eq_one pow_pow_of_dvd residue_eq_zero_iff toF toF_apply unramProcyclic_of_frobData unramRoots unramRoots_all unramRoots_of_unramProcyclic unramRoots_two zpToOO) -- op-dedupe
 
-open PkgI4 (GQp)
+-- op-dedupe was: open PkgI4 (GQp)
+open _root_.PkgI4 (GQp) -- op-dedupe
 open LadicCond Polynomial
+open _root_.LadicCond (AdaptedExists CarayolR17 CarayolR17' EventuallyTrivial Fld InertiaRestriction IsAdapted IsFinGal IsUnif IsUnif.norm_eq Kbar SwanIndependent SwanIntegral apply_mem artinAt carayolR17'_of_R17 carayolR17_of_R17' codimInv codimInv_eq_zero codimInv_le condAt condAt_eq_artinAt condAt_eq_artinAt' condAt_eq_artinAt'' condAt_eq_artinAt_of_surj condAt_eq_zero_of_unramified condAt_le_of_upper condExp condExp_eq_condAt condExp_eq_zero_of_unramified condExp_one eventuallyTrivial eventually_not_restr exists_isUnif finite_restr fixSet fixSet_subset_ramSet inertiaSet inertiaSet_subset_ramSet_zero integral_codim_le invariants invariants_eq_of_cover invariants_eq_top isAdapted_one isUnif_bot norm_p_kbar norm_pow_factorial one_mem_wildSet phiAt ramCard ramCardR ramCard_ne_zero ramSet ramSetR restr swan swanAt swanAt_eq_zero_of_unramified upperAbs upperSet wildSet wildSet_subset_inertiaSet) -- op-dedupe
 
 variable {p : ℕ} [Fact p.Prime]
 
-theorem norm_aut (σ : GQp p) (x : Kbar p) : ‖σ x‖ = ‖x‖ := by
-  rw [← PadicAlgCl.spectralNorm_eq, ← PadicAlgCl.spectralNorm_eq]
-  exact (spectralNorm_eq_of_equiv σ x).symm
-
-theorem norm_natCast_eq_one {N : ℕ} (h : ¬ p ∣ N) : ‖(N : Kbar p)‖ = 1 := by
-  have e : ((N : ℚ_[p]) : Kbar p) = (N : Kbar p) := map_natCast _ N
-  rw [← e, PadicAlgCl.norm_extends]
-  exact Padic.norm_natCast_eq_one_iff.mpr ((Nat.Prime.coprime_iff_not_dvd Fact.out).2 h)
-
-theorem norm_add_le_max' (a b : Kbar p) : ‖a + b‖ ≤ max ‖a‖ ‖b‖ :=
-  IsUltrametricDist.norm_add_le_max a b
-
-theorem norm_sub_le_max' (a b : Kbar p) : ‖a - b‖ ≤ max ‖a‖ ‖b‖ := by
-  rw [sub_eq_add_neg]
-  exact (norm_add_le_max' a (-b)).trans (by rw [norm_neg])
-
-theorem norm_sum_lt_one {ι : Type*} (s : Finset ι) (f : ι → Kbar p) (h : ∀ i ∈ s, ‖f i‖ < 1) :
-    ‖∑ i ∈ s, f i‖ < 1 := by
-  classical
-  induction s using Finset.induction_on with
-  | empty => simp
-  | insert a s ha ih =>
-    rw [Finset.sum_insert ha]
-    exact (norm_add_le_max' _ _).trans_lt (max_lt (h a (Finset.mem_insert_self a s))
-      (ih fun i hi => h i (Finset.mem_insert_of_mem hi)))
-
-/-- A root of unity of order prime to `p` congruent to `1` is `1`. -/
-theorem eq_one_of_pow_eq_one {u : Kbar p} {N : ℕ} (hN : 0 < N) (hpN : ¬ p ∣ N) (hu : u ^ N = 1)
-    (h1 : ‖u - 1‖ < 1) : u = 1 := by
-  by_contra hne
-  have hu1 : u - 1 ≠ 0 := sub_ne_zero.mpr hne
-  have hgeom : (∑ i ∈ Finset.range N, u ^ i) * (u - 1) = u ^ N - 1 := geom_sum_mul u N
-  rw [hu, sub_self] at hgeom
-  have hsum : ∑ i ∈ Finset.range N, u ^ i = 0 := (mul_eq_zero.mp hgeom).resolve_right hu1
-  have hule : ‖u‖ ≤ 1 := by
-    have : u = (u - 1) + 1 := by ring
-    rw [this]
-    exact (norm_add_le_max' _ _).trans (max_le h1.le (by rw [norm_one]))
-  have hpow : ∀ i : ℕ, ‖u ^ i - 1‖ < 1 := by
-    intro i
-    induction i with
-    | zero => simp
-    | succ i ih =>
-      have : u ^ (i + 1) - 1 = u * (u ^ i - 1) + (u - 1) := by ring
-      rw [this]
-      refine (norm_add_le_max' _ _).trans_lt (max_lt ?_ h1)
-      rw [norm_mul]
-      calc ‖u‖ * ‖u ^ i - 1‖ ≤ 1 * ‖u ^ i - 1‖ :=
-            mul_le_mul_of_nonneg_right hule (norm_nonneg _)
-        _ < 1 := by rw [one_mul]; exact ih
-  have hN1 : ‖(N : Kbar p)‖ = 1 := norm_natCast_eq_one hpN
-  have : (N : Kbar p) = -∑ i ∈ Finset.range N, (u ^ i - 1) := by
-    rw [Finset.sum_sub_distrib, hsum, Finset.sum_const, Finset.card_range, nsmul_eq_mul, mul_one]
-    ring
-  rw [this, norm_neg] at hN1
-  exact absurd hN1 (norm_sum_lt_one _ _ fun i _ => hpow i).ne
-
-/-- **Metric inertia fixes the roots of unity of order prime to `p`.** -/
-theorem fix_of_mem_inertiaSet_of_pow_eq_one {σ : GQp p} (hσ : σ ∈ inertiaSet) {x : Kbar p}
-    {N : ℕ} (hN : 0 < N) (hpN : ¬ p ∣ N) (hx : x ^ N = 1) : σ x = x := by
-  have hxn : ‖x‖ = 1 := by
-    have h := congrArg norm hx
-    rw [norm_pow, norm_one] at h
-    exact (pow_eq_one_iff_of_nonneg (norm_nonneg x) hN.ne').mp h
-  have hx0 : x ≠ 0 := by rintro rfl; simp at hxn
-  have hy : (σ x) ^ N = 1 := by rw [← map_pow, hx, map_one]
-  have hclose : ‖σ x - x‖ < 1 := hσ x hxn.le
-  set u := σ x * x⁻¹ with hu
-  have huN : u ^ N = 1 := by rw [hu, mul_pow, inv_pow, hy, hx, inv_one, mul_one]
-  have hu1 : ‖u - 1‖ < 1 := by
-    have : u - 1 = (σ x - x) * x⁻¹ := by rw [hu]; field_simp
-    rw [this, norm_mul, norm_inv, hxn, inv_one, mul_one]
-    exact hclose
-  have := eq_one_of_pow_eq_one hN hpN huN hu1
-  rw [hu] at this
-  exact (mul_inv_eq_one₀ hx0).mp this
-
-/-- Metric inertia fixes the roots of `X^M − X` when `p ∣ M`, `M > 1`. -/
-theorem fix_of_mem_inertiaSet_of_pow_eq_self {σ : GQp p} (hσ : σ ∈ inertiaSet) {x : Kbar p}
-    {M : ℕ} (hM : 1 < M) (hpM : p ∣ M) (hx : x ^ M = x) : σ x = x := by
-  rcases eq_or_ne x 0 with rfl | hx0
-  · exact map_zero σ
-  have h1 : x ^ (M - 1) = 1 := by
-    have : x ^ (M - 1) * x = 1 * x := by
-      rw [← pow_succ, Nat.sub_add_cancel hM.le, one_mul, hx]
-    exact mul_right_cancel₀ hx0 this
-  refine fix_of_mem_inertiaSet_of_pow_eq_one hσ (by omega) ?_ h1
-  intro hd
-  have hp1 : p ∣ M - (M - 1) := Nat.dvd_sub hpM hd
-  rw [Nat.sub_sub_self hM.le] at hp1
-  exact (Fact.out : p.Prime).one_lt.ne' (Nat.dvd_one.mp hp1)
-
 /-! ### The residue field of `ℚ̄_p` -/
-
-/-- The unit ball of `ℚ̄_p` as a valuation subring. -/
-abbrev OO (p : ℕ) [Fact p.Prime] : ValuationSubring (Kbar p) :=
-  (PadicAlgCl.valued p).v.valuationSubring
-
-theorem mem_OO {x : Kbar p} : x ∈ OO p ↔ ‖x‖ ≤ 1 := by
-  rw [Valuation.mem_valuationSubring_iff]
-  change ‖x‖₊ ≤ 1 ↔ _
-  rw [← NNReal.coe_le_coe, coe_nnnorm, NNReal.coe_one]
-
-theorem residue_eq_zero_iff (a : OO p) :
-    IsLocalRing.residue (OO p) a = 0 ↔ ‖(a : Kbar p)‖ < 1 := by
-  rw [IsLocalRing.residue_eq_zero_iff, Valuation.mem_maximalIdeal_iff]
-  change ‖(a : Kbar p)‖₊ < 1 ↔ _
-  rw [← NNReal.coe_lt_coe, coe_nnnorm, NNReal.coe_one]
-
-/-- `ℤ_p → 𝒪_{ℚ̄_p}`. -/
-def zpToOO (p : ℕ) [Fact p.Prime] : ℤ_[p] →+* OO p :=
-  ((algebraMap ℚ_[p] (Kbar p)).comp PadicInt.Coe.ringHom).codRestrict (OO p) (fun c => by
-    rw [mem_OO]
-    change ‖((c : ℚ_[p]) : Kbar p)‖ ≤ 1
-    rw [PadicAlgCl.norm_extends]
-    exact c.2)
-
-theorem coe_zpToOO (c : ℤ_[p]) : ((zpToOO p c : OO p) : Kbar p) = algebraMap ℚ_[p] _ c := rfl
-
-/-- **Every `x` with `‖x‖ ≤ 1` satisfies `‖x^{p^m} − x‖ < 1` for some `m ≥ 1`.** -/
-theorem exists_pow_sub_lt_one {x : Kbar p} (hx : ‖x‖ ≤ 1) :
-    ∃ m : ℕ, 0 < m ∧ ‖x ^ p ^ m - x‖ < 1 := by
-  set k := IsLocalRing.ResidueField (OO p)
-  set r := IsLocalRing.residue (OO p)
-  have hp : p.Prime := Fact.out
-  -- `k` has characteristic `p`
-  have hpk : ((p : ℕ) : k) = 0 := by
-    rw [← map_natCast r p, residue_eq_zero_iff]
-    change ‖((p : OO p) : Kbar p)‖ < 1
-    rw [show ((p : OO p) : Kbar p) = ((p : ℚ_[p]) : Kbar p) by simp, PadicAlgCl.norm_extends,
-      Padic.norm_p]
-    exact inv_lt_one_of_one_lt₀ (by exact_mod_cast hp.one_lt)
-  haveI : CharP k p := (CharP.charP_iff_prime_eq_zero hp).2 hpk
-  -- the minimal polynomial of `x` has integral coefficients
-  have hint : IsIntegral ℚ_[p] x := Algebra.IsIntegral.isIntegral x
-  set g := minpoly ℚ_[p] x with hg
-  have hgm : g.Monic := minpoly.monic hint
-  have hcoeff : ∀ n, ‖g.coeff n‖ ≤ 1 := by
-    have : spectralValue g ≤ 1 := by
-      have e : spectralNorm ℚ_[p] (Kbar p) x = spectralValue g := rfl
-      rw [← e, PadicAlgCl.spectralNorm_eq]; exact hx
-    exact (spectralValue_le_one_iff hgm).1 this
-  have hlifts : g ∈ Polynomial.lifts (PadicInt.Coe.ringHom : ℤ_[p] →+* ℚ_[p]) := by
-    rw [Polynomial.lifts_iff_coeff_lifts]
-    intro n
-    exact ⟨⟨g.coeff n, hcoeff n⟩, rfl⟩
-  obtain ⟨gZ, hgZ, -, hgZm⟩ := Polynomial.lifts_and_degree_eq_and_monic hlifts hgm
-  set ψ : ℤ_[p] →+* k := r.comp (zpToOO p)
-  set gk : k[X] := gZ.map ψ
-  have hgk0 : gk ≠ 0 := (hgZm.map ψ).ne_zero
-  set x' : OO p := ⟨x, mem_OO.mpr hx⟩
-  set y : k := r x'
-  -- `y` is a root of `gk`
-  have hroot : gk.eval y = 0 := by
-    rw [Polynomial.eval_map]
-    change Polynomial.eval₂ (r.comp (zpToOO p)) (r x') gZ = 0
-    rw [← Polynomial.hom_eval₂]
-    have : Polynomial.eval₂ (zpToOO p) x' gZ = 0 := by
-      apply Subtype.ext
-      change (OO p).subtype (Polynomial.eval₂ (zpToOO p) x' gZ) = 0
-      rw [Polynomial.hom_eval₂]
-      have e : (OO p).subtype.comp (zpToOO p) =
-          (algebraMap ℚ_[p] (Kbar p)).comp PadicInt.Coe.ringHom := RingHom.ext fun _ => rfl
-      rw [e, ← Polynomial.eval₂_map, hgZ]
-      exact minpoly.aeval ℚ_[p] x
-    rw [this, map_zero]
-  -- the coefficients of `gk` are fixed by Frobenius
-  have hψ : ∀ c : ℤ_[p], (ψ c) ^ p = ψ c := by
-    intro c
-    obtain ⟨n, -, hn⟩ := PadicInt.exists_mem_range c
-    have h0 : ψ (c - n) = 0 := by
-      change r (zpToOO p (c - n)) = 0
-      rw [residue_eq_zero_iff, coe_zpToOO, PadicAlgCl.norm_extends]
-      exact (PadicInt.mem_nonunits.mp hn :)
-    have hc : ψ c = (n : k) := by
-      rw [map_sub, sub_eq_zero, map_natCast] at h0; exact h0
-    rw [hc, ← frobenius_def, map_natCast]
-  have hfrob : ∀ z : k, gk.eval z = 0 → gk.eval (z ^ p) = 0 := by
-    intro z hz
-    have e : gk.map (frobenius k p) = gk := by
-      ext n
-      rw [Polynomial.coeff_map, frobenius_def, Polynomial.coeff_map, hψ]
-    calc gk.eval (z ^ p) = (gk.map (frobenius k p)).eval (frobenius k p z) := by
-          rw [e, frobenius_def]
-      _ = frobenius k p (gk.eval z) := by
-          rw [Polynomial.eval_map, Polynomial.eval, Polynomial.hom_eval₂, RingHom.comp_id]
-      _ = 0 := by rw [hz, map_zero]
-  have hall : ∀ i : ℕ, y ^ p ^ i ∈ {z : k | IsRoot gk z} := by
-    intro i
-    induction i with
-    | zero => simpa using hroot
-    | succ i ih =>
-      rw [pow_succ, pow_mul]
-      exact hfrob _ ih
-  obtain ⟨i, j, hij, hyij⟩ := (Polynomial.finite_setOfPred_isRoot hgk0).exists_lt_map_eq_of_forall_mem hall
-  refine ⟨j - i, by omega, ?_⟩
-  have hy : y ^ p ^ (j - i) = y := by
-    have hinj := (iterateFrobenius k p i).injective
-    apply hinj
-    rw [iterateFrobenius_def, iterateFrobenius_def, ← pow_mul, ← pow_add, Nat.sub_add_cancel hij.le]
-    exact hyij.symm
-  have : r (x' ^ p ^ (j - i) - x') = 0 := by rw [map_sub, map_pow, hy, sub_self]
-  rw [residue_eq_zero_iff] at this
-  simpa using this
-
-theorem norm_le_one_of_pow_eq_self {t : Kbar p} {M : ℕ} (hM : 1 < M) (ht : t ^ M = t) :
-    ‖t‖ ≤ 1 := by
-  by_contra h
-  push Not at h
-  have h1 : ‖t‖ ^ 1 < ‖t‖ ^ M := pow_lt_pow_right₀ h hM
-  rw [pow_one, ← norm_pow, ht] at h1
-  exact lt_irrefl _ h1
-
-/-- If `‖x^M − x‖ < 1` then `x` is congruent to a root of `X^M − X`. -/
-theorem exists_root_close {x : Kbar p} (hx : ‖x‖ ≤ 1) {M : ℕ} (hM : 1 < M)
-    (hlt : ‖x ^ M - x‖ < 1) : ∃ t : Kbar p, t ^ M = t ∧ ‖x - t‖ < 1 := by
-  set P : (Kbar p)[X] := X ^ M - X with hP
-  have hPm : P.Monic := monic_X_pow_sub (by rw [degree_X]; exact_mod_cast hM)
-  have hprod : (P.roots.map fun a => X - C a).prod = P :=
-    prod_multiset_X_sub_C_of_monic_of_roots_card_eq hPm IsAlgClosed.card_roots_eq_natDegree
-  have heval : P.eval x = (P.roots.map fun a => x - a).prod := by
-    conv_lhs => rw [← hprod]
-    rw [eval_multiset_prod, Multiset.map_map]
-    simp
-  by_contra hne
-  push Not at hne
-  have hroot : ∀ a ∈ P.roots, ‖x - a‖ = 1 := by
-    intro a ha
-    have ha' : a ^ M = a := by
-      have := (mem_roots hPm.ne_zero).1 ha
-      simpa [P, sub_eq_zero] using this
-    exact le_antisymm ((norm_sub_le_max' _ _).trans (max_le hx
-      (norm_le_one_of_pow_eq_self hM ha'))) (hne a ha')
-  have h1 : ‖P.eval x‖ = 1 := by
-    rw [heval]
-    change (normHom : Kbar p →*₀ ℝ) _ = 1
-    rw [map_multiset_prod, Multiset.map_map]
-    apply Multiset.prod_eq_one
-    intro c hc
-    obtain ⟨a, ha, rfl⟩ := Multiset.mem_map.mp hc
-    exact hroot a ha
-  have : P.eval x = x ^ M - x := by simp [P]
-  rw [this] at h1
-  exact absurd h1 hlt.ne
-
-/-- **An element of `G_{ℚ_p}` fixing the roots of every `X^{p^m} − X` (`m ≥ 1`) lies in the metric
-inertia group.** -/
-theorem mem_inertiaSet_of_fix {σ : GQp p}
-    (h : ∀ m : ℕ, 0 < m → ∀ t : Kbar p, t ^ p ^ m = t → σ t = t) : σ ∈ inertiaSet := by
-  intro x hx
-  obtain ⟨m, hm, hlt⟩ := exists_pow_sub_lt_one hx
-  have hM : 1 < p ^ m := Nat.one_lt_pow hm.ne' (Fact.out : p.Prime).one_lt
-  obtain ⟨t, ht, hxt⟩ := exists_root_close hx hM hlt
-  have hσt := h m hm t ht
-  have e : σ x - x = σ (x - t) - (x - t) := by rw [map_sub, hσt]; ring
-  rw [e]
-  refine (norm_sub_le_max' _ _).trans_lt ?_
-  rw [norm_aut, max_self]
-  exact hxt
 
 end UnramRootsTask
 
 noncomputable section
 
 namespace UnramRootsTask
+open _root_.UnramRootsTask (EN FrobData OO Rq UnramProcyclic coe_zpToOO eq_one_of_pow_eq_one exists_mem_EN exists_pow_mem_fixSet exists_pow_sub_lt_one exists_root_close f1_of_frobData f2_of_frobData fixSet_anti fix_adjoin fix_of_mem_inertiaSet_of_pow_eq_one fix_of_mem_inertiaSet_of_pow_eq_self frobData_exists inv_mem_fixSet map_pow_of_mul mem_OO mem_inertiaSet_of_fix mem_rootSet_Qp mem_rootSet_of_pow modEq_of_act modEq_of_pow_modEq mul_mem_fixSet norm_add_le_max' norm_aut norm_le_one_of_pow_eq_self norm_natCast_eq_one norm_sub_le_max' norm_sum_lt_one one_mem_fixSet pow_mem_fixSet pow_modEq_pow_mod pow_mod_of_pow_eq_one pow_pow_of_dvd residue_eq_zero_iff toF toF_apply unramProcyclic_of_frobData unramRoots unramRoots_all unramRoots_of_unramProcyclic unramRoots_two zpToOO) -- op-dedupe
 
-open PkgI4 (GQp)
+-- op-dedupe was: open PkgI4 (GQp)
+open _root_.PkgI4 (GQp) -- op-dedupe
 open LadicCond Polynomial TauCeti IntermediateField ValuativeRel
+open _root_.LadicCond (AdaptedExists CarayolR17 CarayolR17' EventuallyTrivial Fld InertiaRestriction IsAdapted IsFinGal IsUnif IsUnif.norm_eq Kbar SwanIndependent SwanIntegral apply_mem artinAt carayolR17'_of_R17 carayolR17_of_R17' codimInv codimInv_eq_zero codimInv_le condAt condAt_eq_artinAt condAt_eq_artinAt' condAt_eq_artinAt'' condAt_eq_artinAt_of_surj condAt_eq_zero_of_unramified condAt_le_of_upper condExp condExp_eq_condAt condExp_eq_zero_of_unramified condExp_one eventuallyTrivial eventually_not_restr exists_isUnif finite_restr fixSet fixSet_subset_ramSet inertiaSet inertiaSet_subset_ramSet_zero integral_codim_le invariants invariants_eq_of_cover invariants_eq_top isAdapted_one isUnif_bot norm_p_kbar norm_pow_factorial one_mem_wildSet phiAt ramCard ramCardR ramCard_ne_zero ramSet ramSetR restr swan swanAt swanAt_eq_zero_of_unramified upperAbs upperSet wildSet wildSet_subset_inertiaSet) -- op-dedupe
 
 variable {p : ℕ} [Fact p.Prime]
-
-/-- Frobenius data of a finite `F/ℚ_p` (TC-free): `q > 1` a power of `p` (the residue cardinality),
-a Frobenius lift `φ ∈ G_F` raising the roots of every `X^{q^f} − X` to the `q`-th power, and every
-`σ ∈ G_F` acting on the roots of `X^{q^f} − X` as a power `x ↦ x^{q^k}`. -/
-def FrobData (F : Fld p) (q : ℕ) (φ : GQp p) : Prop :=
-  1 < q ∧ (∃ e : ℕ, q = p ^ e) ∧ φ ∈ fixSet F ∧
-  (∀ (f : ℕ) (x : Kbar p), 0 < f → x ^ q ^ f = x → φ x = x ^ q) ∧
-  (∀ σ ∈ fixSet F, ∀ f : ℕ, 0 < f → ∃ k : ℕ, ∀ x : Kbar p, x ^ q ^ f = x → σ x = x ^ q ^ k)
-
-/-- `σ ∈ G_F` as an `F`-automorphism of `ℚ̄_p`. -/
-def toF (F : Fld p) (σ : GQp p) (hσ : σ ∈ fixSet F) : Kbar p ≃ₐ[F] Kbar p :=
-  AlgEquiv.ofRingEquiv (f := σ.toRingEquiv) (fun c => hσ (c : Kbar p) c.2)
-
-theorem toF_apply (F : Fld p) (σ : GQp p) (hσ : σ ∈ fixSet F) (x : Kbar p) :
-    toF F σ hσ x = σ x := rfl
-
-theorem mem_rootSet_of_pow (F : Fld p) {q f : ℕ} (hq : 1 < q) (hf : 0 < f) {x : Kbar p}
-    (hx : x ^ q ^ f = x) : x ∈ (X ^ q ^ f - X : F[X]).rootSet (Kbar p) := by
-  have hdeg : 1 < q ^ f := Nat.one_lt_pow hf.ne' hq
-  have hne : (X ^ q ^ f - X : F[X]) ≠ 0 :=
-    (monic_X_pow_sub (by rw [degree_X]; exact_mod_cast hdeg)).ne_zero
-  rw [mem_rootSet_of_ne hne]
-  simp [hx]
-
-/-- **Frobenius data from Tau Ceti (proved).** -/
-theorem frobData_exists (F : Fld p) [FiniteDimensional ℚ_[p] F] : ∃ q φ, FrobData F q φ := by
-  letI := finiteIntermediateFieldValuativeRel ℚ_[p] (Kbar p) F
-  letI := finiteIntermediateFieldTopology ℚ_[p] (Kbar p) F
-  haveI := finiteIntermediateField_isNonarchimedeanLocalField ℚ_[p] (Kbar p) F
-  haveI := finiteIntermediateField_valuativeExtension ℚ_[p] (Kbar p) F
-  set q := Nat.card 𝓀[F] with hqdef
-  have hq1 : 1 < q := Finite.one_lt_card
-  have hpq : ∃ e : ℕ, q = p ^ e := by
-    have h2 : q = Nat.card 𝓀[ℚ_[p]] ^ inertiaDegree ℚ_[p] F := TauCeti.natCard_residueField ℚ_[p] F
-    rw [Padic.natCard_residueField p] at h2
-    exact ⟨_, h2⟩
-  haveI : Algebra.IsIntegral F (Kbar p) := Algebra.IsIntegral.tower_top ℚ_[p]
-  haveI : IsAlgClosure F (Kbar p) := ⟨inferInstance, inferInstance⟩
-  haveI : Normal F (Kbar p) := IsAlgClosure.normal F (Kbar p)
-  set E := maximalUnramifiedExtension F (Kbar p)
-  set Φ := maximalUnramifiedFrobenius F (Kbar p)
-  set φF : Kbar p ≃ₐ[F] Kbar p := Φ.liftNormal (Kbar p)
-  refine ⟨q, φF.restrictScalars ℚ_[p], hq1, hpq, ?_, ?_, ?_⟩
-  · intro x hx
-    exact φF.commutes ⟨x, hx⟩
-  · intro f x hf hx
-    have hxL := rootSet_subset_unramifiedExtension F (Kbar p) f (mem_rootSet_of_pow F hq1 hf hx)
-    have hxE : x ∈ E := unramifiedExtension_le_maximalUnramifiedExtension F (Kbar p) f hxL
-    change φF x = x ^ q
-    have h := AlgEquiv.liftNormal_commutes Φ (Kbar p) ⟨x, hxE⟩
-    have hx' : (⟨x, hxE⟩ : E) ^ q ^ f = ⟨x, hxE⟩ := Subtype.ext (by simp [hx])
-    rw [maximalUnramifiedFrobenius_apply_of_pow_natCard_pow_eq_self hf.ne' hx'] at h
-    simpa using h
-  · intro σ hσ f hf
-    set L := unramifiedExtension F (Kbar p) f
-    letI := finiteIntermediateFieldValuativeRel F (Kbar p) L
-    letI := finiteIntermediateFieldTopology F (Kbar p) L
-    haveI := finiteIntermediateField_isNonarchimedeanLocalField F (Kbar p) L
-    haveI := finiteIntermediateField_valuativeExtension F (Kbar p) L
-    haveI : IsUnramified F L := isUnramified_unramifiedExtension hf.ne'
-    set σL : L ≃ₐ[F] L := (toF F σ hσ).restrictNormal L
-    have hmem : σL ∈ Subgroup.zpowers (frobeniusAlgEquiv (K := F) (L := L)) := by
-      rw [zpowers_frobeniusAlgEquiv]; trivial
-    rw [← mem_powers_iff_mem_zpowers] at hmem
-    obtain ⟨k, hk⟩ := hmem
-    refine ⟨k, fun x hx => ?_⟩
-    have hxL : x ∈ L := rootSet_subset_unramifiedExtension F (Kbar p) f (mem_rootSet_of_pow F hq1 hf hx)
-    have h1 : σ x = (σL ⟨x, hxL⟩ : Kbar p) :=
-      (AlgEquiv.restrictNormal_commutes (toF F σ hσ) L ⟨x, hxL⟩).symm
-    rw [h1, ← hk]
-    have key : ∀ j : ℕ, ∀ y : L, y ^ q ^ f = y →
-        (frobeniusAlgEquiv (K := F) (L := L) ^ j) y = y ^ q ^ j := by
-      intro j
-      induction j with
-      | zero => intro y _; simp
-      | succ j ih =>
-        intro y hy
-        have hyq : (y ^ q) ^ q ^ f = y ^ q := by rw [← pow_mul, mul_comm, pow_mul, hy]
-        rw [pow_succ', AlgEquiv.mul_apply, ih y hy, map_pow,
-          frobeniusAlgEquiv_apply_of_pow_natCard_pow_eq_self hf.ne' hy, ← pow_mul]
-        show y ^ (q * q ^ j) = _
-        rw [← pow_succ']
-    have hy : (⟨x, hxL⟩ : L) ^ q ^ f = ⟨x, hxL⟩ := Subtype.ext (by simp [hx])
-    rw [key k _ hy]
-    simp
 
 end UnramRootsTask
 
@@ -6775,287 +5952,23 @@ TC-free: Frobenius data (`FrobData`, from Tau Ceti in `frobData_exists`), the me
 Mathlib's finite and infinite Galois correspondence. -/
 
 namespace UnramRootsTask
+open _root_.UnramRootsTask (EN FrobData OO Rq UnramProcyclic coe_zpToOO eq_one_of_pow_eq_one exists_mem_EN exists_pow_mem_fixSet exists_pow_sub_lt_one exists_root_close f1_of_frobData f2_of_frobData fixSet_anti fix_adjoin fix_of_mem_inertiaSet_of_pow_eq_one fix_of_mem_inertiaSet_of_pow_eq_self frobData_exists inv_mem_fixSet map_pow_of_mul mem_OO mem_inertiaSet_of_fix mem_rootSet_Qp mem_rootSet_of_pow modEq_of_act modEq_of_pow_modEq mul_mem_fixSet norm_add_le_max' norm_aut norm_le_one_of_pow_eq_self norm_natCast_eq_one norm_sub_le_max' norm_sum_lt_one one_mem_fixSet pow_mem_fixSet pow_modEq_pow_mod pow_mod_of_pow_eq_one pow_pow_of_dvd residue_eq_zero_iff toF toF_apply unramProcyclic_of_frobData unramRoots unramRoots_all unramRoots_of_unramProcyclic unramRoots_two zpToOO) -- op-dedupe
 
-open PkgI4 (GQp)
+-- op-dedupe was: open PkgI4 (GQp)
+open _root_.PkgI4 (GQp) -- op-dedupe
 open LadicCond Polynomial IntermediateField
+open _root_.LadicCond (AdaptedExists CarayolR17 CarayolR17' EventuallyTrivial Fld InertiaRestriction IsAdapted IsFinGal IsUnif IsUnif.norm_eq Kbar SwanIndependent SwanIntegral apply_mem artinAt carayolR17'_of_R17 carayolR17_of_R17' codimInv codimInv_eq_zero codimInv_le condAt condAt_eq_artinAt condAt_eq_artinAt' condAt_eq_artinAt'' condAt_eq_artinAt_of_surj condAt_eq_zero_of_unramified condAt_le_of_upper condExp condExp_eq_condAt condExp_eq_zero_of_unramified condExp_one eventuallyTrivial eventually_not_restr exists_isUnif finite_restr fixSet fixSet_subset_ramSet inertiaSet inertiaSet_subset_ramSet_zero integral_codim_le invariants invariants_eq_of_cover invariants_eq_top isAdapted_one isUnif_bot norm_p_kbar norm_pow_factorial one_mem_wildSet phiAt ramCard ramCardR ramCard_ne_zero ramSet ramSetR restr swan swanAt swanAt_eq_zero_of_unramified upperAbs upperSet wildSet wildSet_subset_inertiaSet) -- op-dedupe
 
 variable {p : ℕ} [Fact p.Prime]
-
-theorem pow_modEq_pow_mod (q n k : ℕ) (hq : 0 < q) : q ^ k ≡ q ^ (k % n) [MOD q ^ n - 1] := by
-  have h1 : q ^ n ≡ 1 [MOD q ^ n - 1] := Nat.modEq_sub (Nat.one_le_pow _ _ hq)
-  calc q ^ k = (q ^ n) ^ (k / n) * q ^ (k % n) := by rw [← pow_mul, ← pow_add, Nat.div_add_mod]
-    _ ≡ 1 ^ (k / n) * q ^ (k % n) [MOD q ^ n - 1] := (h1.pow _).mul_right _
-    _ = q ^ (k % n) := by rw [one_pow, one_mul]
-
-theorem modEq_of_pow_modEq {q n k k' : ℕ} (hq : 1 < q) (hn : 0 < n)
-    (h : q ^ k ≡ q ^ k' [MOD q ^ n - 1]) : k ≡ k' [MOD n] := by
-  have h' : q ^ (k % n) ≡ q ^ (k' % n) [MOD q ^ n - 1] :=
-    ((pow_modEq_pow_mod q n k (by omega)).symm.trans h).trans (pow_modEq_pow_mod q n k' (by omega))
-  rcases Nat.lt_or_ge n 2 with hn1 | hn2
-  · have : n = 1 := by omega
-    subst this
-    exact Nat.modEq_one
-  have hbound : ∀ r, r < n → q ^ r < q ^ n - 1 := by
-    intro r hr
-    have h1 : q ^ r ≤ q ^ (n - 1) := Nat.pow_le_pow_right (by omega) (by omega)
-    have h2 : q ^ n = q * q ^ (n - 1) := by rw [← pow_succ']; congr 1; omega
-    have h3 : q ≤ q ^ (n - 1) := by
-      calc q = q ^ 1 := (pow_one q).symm
-        _ ≤ q ^ (n - 1) := Nat.pow_le_pow_right (by omega) (by omega)
-    have h4 : 2 * q ^ (n - 1) ≤ q ^ n := by rw [h2]; exact Nat.mul_le_mul_right _ hq
-    omega
-  have := Nat.ModEq.eq_of_lt_of_lt h' (hbound _ (Nat.mod_lt _ hn)) (hbound _ (Nat.mod_lt _ hn))
-  exact Nat.pow_right_injective hq this
-
-/-- The exponent by which `σ` acts on the roots of `X^{q^n} − X` is unique modulo `n`. -/
-theorem modEq_of_act {q n k k' : ℕ} (hq : 1 < q) (hn : 0 < n)
-    (h : ∀ x : Kbar p, x ^ q ^ n = x → x ^ q ^ k = x ^ q ^ k') : k ≡ k' [MOD n] := by
-  set N := q ^ n - 1 with hNdef
-  have hqn : 1 < q ^ n := Nat.one_lt_pow hn.ne' hq
-  have hN : 0 < N := by omega
-  haveI : NeZero (N : Kbar p) := ⟨by exact_mod_cast hN.ne'⟩
-  obtain ⟨ζ, hζ⟩ := HasEnoughRootsOfUnity.exists_isPrimitiveRoot (Kbar p) N
-  have hζN : ζ ^ q ^ n = ζ := by
-    rw [show q ^ n = N + 1 by omega, pow_succ, hζ.pow_eq_one, one_mul]
-  have e := h ζ hζN
-  rw [← pow_mod_of_pow_eq_one hζ.pow_eq_one (q ^ k),
-    ← pow_mod_of_pow_eq_one hζ.pow_eq_one (q ^ k')] at e
-  exact modEq_of_pow_modEq hq hn (hζ.pow_inj (Nat.mod_lt _ hN) (Nat.mod_lt _ hN) e)
-
-theorem pow_pow_of_dvd {q f N : ℕ} {x : Kbar p} (hx : x ^ q ^ f = x) (h : f ∣ N) :
-    x ^ q ^ N = x := by
-  obtain ⟨j, rfl⟩ := h
-  induction j with
-  | zero => simp
-  | succ j ih => rw [Nat.mul_succ, pow_add, pow_mul, ih, hx]
-
-theorem mem_rootSet_Qp {q f : ℕ} (hq : 1 < q) (hf : 0 < f) {x : Kbar p}
-    (hx : x ^ q ^ f = x) : x ∈ (X ^ q ^ f - X : ℚ_[p][X]).rootSet (Kbar p) := by
-  have hdeg : 1 < q ^ f := Nat.one_lt_pow hf.ne' hq
-  have hne : (X ^ q ^ f - X : ℚ_[p][X]) ≠ 0 :=
-    (monic_X_pow_sub (by rw [degree_X]; exact_mod_cast hdeg)).ne_zero
-  rw [mem_rootSet_of_ne hne]
-  simp [hx]
-
-theorem fix_adjoin {σ : GQp p} {S : Set (Kbar p)} (h : ∀ x ∈ S, σ x = x) :
-    ∀ x ∈ adjoin ℚ_[p] S, σ x = x := by
-  intro x hx
-  induction hx using IntermediateField.adjoin_induction with
-  | mem x hx => exact h x hx
-  | algebraMap r => exact σ.commutes r
-  | add x y _ _ hx hy => rw [map_add, hx, hy]
-  | inv x _ hx => rw [map_inv₀, hx]
-  | mul x y _ _ hx hy => rw [map_mul, hx, hy]
-
-/-- (F2) from the Frobenius data. -/
-theorem f2_of_frobData {F : Fld p} [FiniteDimensional ℚ_[p] F] {q : ℕ} {φ : GQp p}
-    (hD : FrobData F q φ) (n : ℕ) (hn : 0 < n) : ∃ χ : GQp p → ZMod n,
-        (∀ σ ∈ fixSet F, ∀ τ ∈ fixSet F, χ (σ * τ) = χ σ + χ τ) ∧ χ φ = 1 ∧
-        (∀ σ ∈ fixSet F ∩ inertiaSet, χ σ = 0) ∧
-        ∃ K : Fld p, FiniteDimensional ℚ_[p] K ∧ ∀ σ ∈ fixSet K, χ σ = 0 := by
-  obtain ⟨hq1, ⟨e, hqe⟩, hφF, hφ, hS3⟩ := hD
-  have hpq : p ∣ q := by
-    rcases e with _ | e
-    · rw [pow_zero] at hqe; omega
-    · rw [hqe]; exact dvd_pow_self p (Nat.succ_ne_zero e)
-  classical
-  let kk : GQp p → ℕ := fun σ => if h : σ ∈ fixSet F then Classical.choose (hS3 σ h n hn) else 0
-  have hkk : ∀ σ (h : σ ∈ fixSet F), ∀ x : Kbar p, x ^ q ^ n = x → σ x = x ^ q ^ kk σ := by
-    intro σ h
-    simp only [kk, dif_pos h]
-    exact Classical.choose_spec (hS3 σ h n hn)
-  have hzero : ∀ σ (h : σ ∈ fixSet F), (∀ x : Kbar p, x ^ q ^ n = x → σ x = x) →
-      ((kk σ : ℕ) : ZMod n) = 0 := by
-    intro σ h hfix
-    rw [← Nat.cast_zero, ZMod.natCast_eq_natCast_iff]
-    apply modEq_of_act (p := p) hq1 hn
-    intro x hx
-    rw [← hkk σ h x hx, pow_zero, pow_one]
-    exact hfix x hx
-  refine ⟨fun σ => (kk σ : ZMod n), ?_, ?_, ?_, ?_⟩
-  · intro σ hσ τ hτ
-    rw [← Nat.cast_add, ZMod.natCast_eq_natCast_iff]
-    apply modEq_of_act (p := p) hq1 hn
-    intro x hx
-    rw [← hkk _ (mul_mem_fixSet hσ hτ) x hx, AlgEquiv.mul_apply, hkk τ hτ x hx, map_pow,
-      hkk σ hσ x hx, ← pow_mul, ← pow_add]
-  · show ((kk φ : ℕ) : ZMod n) = 1
-    rw [← Nat.cast_one, ZMod.natCast_eq_natCast_iff]
-    apply modEq_of_act (p := p) hq1 hn
-    intro x hx
-    rw [← hkk φ hφF x hx, hφ n x hn hx, pow_one]
-  · intro σ hσ
-    exact hzero σ hσ.1 fun x hx => fix_of_mem_inertiaSet_of_pow_eq_self hσ.2
-      (Nat.one_lt_pow hn.ne' hq1) (dvd_pow hpq hn.ne') hx
-  · set A : Fld p := adjoin ℚ_[p] ((X ^ q ^ n - X : ℚ_[p][X]).rootSet (Kbar p))
-    haveI : FiniteDimensional ℚ_[p] A :=
-      finiteDimensional_adjoin fun _ hx => (isAlgebraic_of_mem_rootSet hx).isIntegral
-    refine ⟨F ⊔ A, inferInstance, fun σ hσ => ?_⟩
-    refine hzero σ (fixSet_anti le_sup_left hσ) fun x hx => ?_
-    exact hσ x ((le_sup_right : A ≤ F ⊔ A) (subset_adjoin _ _ (mem_rootSet_Qp hq1 hn hx)))
-
-/-- The roots of `X^{q^f} − X`, `f ≥ 1`. -/
-def Rq (q : ℕ) : Set (Kbar p) := {x | ∃ f : ℕ, 0 < f ∧ x ^ q ^ f = x}
-
-/-- `F(R_N)`, as a field over `ℚ_p`. -/
-def EN (F : Fld p) (q N : ℕ) : Fld p := adjoin ℚ_[p] ((F : Set (Kbar p)) ∪ {x | x ^ q ^ N = x})
-
-/-- Every element of `F^{ur} = F(R)` lies in some `F(R_N)`. -/
-theorem exists_mem_EN {F : Fld p} {q : ℕ} {y : Kbar p}
-    (hy : y ∈ adjoin ℚ_[p] ((F : Set (Kbar p)) ∪ Rq q)) : ∃ N : ℕ, 0 < N ∧ y ∈ EN F q N := by
-  classical
-  obtain ⟨T, hTS, hyT⟩ := exists_finset_of_mem_adjoin hy
-  let ff : Kbar p → ℕ := fun t => if h : t ∈ Rq q then Classical.choose h else 1
-  have hff : ∀ t, 0 < ff t := by
-    intro t
-    by_cases h : t ∈ Rq q
-    · simp only [ff, dif_pos h]; exact (Classical.choose_spec h).1
-    · simp only [ff, dif_neg h]; exact Nat.one_pos
-  set N := ∏ t ∈ T, ff t
-  have hN : 0 < N := Finset.prod_pos fun t _ => hff t
-  refine ⟨N, hN, adjoin.mono _ _ _ ?_ hyT⟩
-  intro t ht
-  rcases hTS ht with htF | htR
-  · exact Or.inl htF
-  · right
-    have hspec := (Classical.choose_spec htR).2
-    have hdvd : ff t ∣ N := Finset.dvd_prod_of_mem ff ht
-    simp only [ff, dif_pos htR] at hdvd
-    exact pow_pow_of_dvd hspec hdvd
-
-/-- (F1) from the Frobenius data. -/
-theorem f1_of_frobData {F : Fld p} [FiniteDimensional ℚ_[p] F] {q : ℕ} {φ : GQp p}
-    (hD : FrobData F q φ) (K : Fld p) (hK : FiniteDimensional ℚ_[p] K) (hFK : F ≤ K)
-    (σ : GQp p) (hσ : σ ∈ fixSet F) :
-    ∃ k : ℕ, ∃ τ ∈ fixSet F ∩ inertiaSet, ∃ g ∈ fixSet K, σ = φ ^ k * τ * g := by
-  obtain ⟨hq1, ⟨e, hqe⟩, hφF, hφ, hS3⟩ := hD
-  haveI : IsGalois ℚ_[p] (Kbar p) := IsAlgClosure.isGalois ℚ_[p] (Kbar p)
-  set E : Fld p := adjoin ℚ_[p] ((F : Set (Kbar p)) ∪ Rq q) with hE
-  set M : Fld p := normalClosure ℚ_[p] K (Kbar p) with hM
-  have hKM : K ≤ M := IntermediateField.le_normalClosure K
-  set H₀ : Subgroup (M ≃ₐ[ℚ_[p]] M) := E.fixingSubgroup.map (AlgEquiv.restrictNormalHom M)
-  -- the fixed field of `H₀` is `M ∩ E`
-  have hfix : ∀ y : M, y ∈ fixedField H₀ → (y : Kbar p) ∈ E := by
-    intro y hy
-    rw [← InfiniteGalois.fixedField_fixingSubgroup E, IntermediateField.mem_fixedField_iff]
-    intro τ hτ
-    have h1 := (mem_fixedField_iff H₀ y).1 hy (AlgEquiv.restrictNormalHom M τ) ⟨τ, hτ, rfl⟩
-    have h2 : (((τ.restrictNormal M) y : M) : Kbar p) = τ y := AlgEquiv.restrictNormal_commutes τ M y
-    change τ (y : Kbar p) = y
-    rw [← h2]
-    exact congrArg Subtype.val h1
-  -- a uniform level `N`
-  obtain ⟨N, hN, hNfix⟩ : ∃ N : ℕ, 0 < N ∧ ∀ y : M, y ∈ fixedField H₀ → (y : Kbar p) ∈ EN F q N := by
-    classical
-    let b := Module.finBasis ℚ_[p] (fixedField H₀)
-    have hb : ∀ i, ∃ N : ℕ, 0 < N ∧ (((b i : fixedField H₀) : M) : Kbar p) ∈ EN F q N :=
-      fun i => exists_mem_EN (hfix _ (b i).2)
-    choose Nf hNf0 hNf using hb
-    refine ⟨∏ i, Nf i, Finset.prod_pos fun i _ => hNf0 i, fun y hy => ?_⟩
-    have hmono : ∀ i, EN F q (Nf i) ≤ EN F q (∏ i, Nf i) := by
-      intro i
-      apply adjoin.mono
-      rintro x (hx | hx)
-      · exact Or.inl hx
-      · exact Or.inr (pow_pow_of_dvd hx (Finset.dvd_prod_of_mem Nf (Finset.mem_univ i)))
-    have hrepr := b.sum_repr ⟨y, hy⟩
-    let L : (fixedField H₀) →ₗ[ℚ_[p]] Kbar p := (M.val.comp (fixedField H₀).val).toLinearMap
-    have hL := congrArg L hrepr
-    rw [map_sum] at hL
-    simp only [LinearMap.map_smul] at hL
-    have : (y : Kbar p) = ∑ i, (b.repr ⟨y, hy⟩ i) • (((b i : fixedField H₀) : M) : Kbar p) :=
-      hL.symm
-    rw [this]
-    exact sum_mem fun i _ => smul_mem _ (hmono i (hNf i))
-  -- Frobenius exponent at level `N`
-  obtain ⟨k, hk⟩ := hS3 σ hσ N hN
-  have hφk : ∀ j : ℕ, ∀ x : Kbar p, x ^ q ^ N = x → (φ ^ j) x = x ^ q ^ j := by
-    intro j
-    induction j with
-    | zero => intro x _; simp
-    | succ j ih =>
-      intro x hx
-      have hxq : (x ^ q) ^ q ^ N = x ^ q := by rw [← pow_mul, mul_comm, pow_mul, hx]
-      rw [pow_succ', AlgEquiv.mul_apply, ih x hx, map_pow, hφ N x hN hx, ← pow_mul, ← pow_succ']
-  set σ' : GQp p := (φ ^ k)⁻¹ * σ with hσ'
-  have hσ'F : σ' ∈ fixSet F := mul_mem_fixSet (inv_mem_fixSet (pow_mem_fixSet hφF k)) hσ
-  have hσ'N : ∀ x ∈ EN F q N, σ' x = x := by
-    apply fix_adjoin
-    rintro x (hx | hx)
-    · exact hσ'F x hx
-    · change (φ ^ k)⁻¹ (σ x) = x
-      rw [hk x hx, ← hφk k x hx, ← AlgEquiv.mul_apply, inv_mul_cancel, AlgEquiv.one_apply]
-  -- Galois correspondence in `M / ℚ_p`
-  have hσM : AlgEquiv.restrictNormalHom M σ' ∈ H₀ := by
-    rw [← IntermediateField.fixingSubgroup_fixedField H₀, IntermediateField.mem_fixingSubgroup_iff]
-    intro y hy
-    apply Subtype.ext
-    have h2 : (((σ'.restrictNormal M) y : M) : Kbar p) = σ' y :=
-      AlgEquiv.restrictNormal_commutes σ' M y
-    change ((σ'.restrictNormal M) y : Kbar p) = y
-    rw [h2]
-    exact hσ'N _ (hNfix y hy)
-  obtain ⟨τ, hτE, hτσ⟩ := Subgroup.mem_map.1 hσM
-  have hτE' : ∀ x ∈ E, τ x = x := fun x hx => (IntermediateField.mem_fixingSubgroup_iff _ _).1 hτE x hx
-  have hτM : ∀ y ∈ M, τ y = σ' y := by
-    intro y hy
-    have h1 : (((τ.restrictNormal M) ⟨y, hy⟩ : M) : Kbar p) = τ y :=
-      AlgEquiv.restrictNormal_commutes τ M ⟨y, hy⟩
-    have h2 : (((σ'.restrictNormal M) ⟨y, hy⟩ : M) : Kbar p) = σ' y :=
-      AlgEquiv.restrictNormal_commutes σ' M ⟨y, hy⟩
-    have h3 := congrArg (fun χ : M ≃ₐ[ℚ_[p]] M => ((χ ⟨y, hy⟩ : M) : Kbar p)) hτσ
-    rw [← h1, ← h2]
-    exact h3
-  have hFE : (F : Set (Kbar p)) ⊆ E := fun x hx => subset_adjoin _ _ (Or.inl hx)
-  refine ⟨k, τ, ⟨fun x hx => hτE' x (hFE hx), ?_⟩, τ⁻¹ * σ', ?_, ?_⟩
-  · apply mem_inertiaSet_of_fix
-    intro m hm t ht
-    apply hτE'
-    apply subset_adjoin
-    right
-    refine ⟨m, hm, ?_⟩
-    rw [hqe, ← pow_mul, mul_comm, pow_mul]
-    clear hqe
-    induction e with
-    | zero => simp
-    | succ e ih => rw [pow_succ, pow_mul, ih, ht]
-  · intro x hx
-    have hxM := hKM hx
-    change τ⁻¹ (σ' x) = x
-    rw [← hτM x hxM, ← AlgEquiv.mul_apply, inv_mul_cancel, AlgEquiv.one_apply]
-  · rw [hσ']; group
-
-/-- **`UnramProcyclic` from the Frobenius data (proved).** -/
-theorem unramProcyclic_of_frobData
-    (h : ∀ F : Fld p, FiniteDimensional ℚ_[p] F → ∃ q φ, FrobData F q φ) :
-    UnramProcyclic p := by
-  intro F hF
-  obtain ⟨q, φ, hD⟩ := h F hF
-  exact ⟨φ, hD.2.2.1, fun K hK hFK σ hσ => f1_of_frobData hD K hK hFK σ hσ,
-    fun n hn => f2_of_frobData hD n hn⟩
 
 end UnramRootsTask
 
 /-! ## The result -/
 
 namespace UnramRootsTask
+open _root_.UnramRootsTask (EN FrobData OO Rq UnramProcyclic coe_zpToOO eq_one_of_pow_eq_one exists_mem_EN exists_pow_mem_fixSet exists_pow_sub_lt_one exists_root_close f1_of_frobData f2_of_frobData fixSet_anti fix_adjoin fix_of_mem_inertiaSet_of_pow_eq_one fix_of_mem_inertiaSet_of_pow_eq_self frobData_exists inv_mem_fixSet map_pow_of_mul mem_OO mem_inertiaSet_of_fix mem_rootSet_Qp mem_rootSet_of_pow modEq_of_act modEq_of_pow_modEq mul_mem_fixSet norm_add_le_max' norm_aut norm_le_one_of_pow_eq_self norm_natCast_eq_one norm_sub_le_max' norm_sum_lt_one one_mem_fixSet pow_mem_fixSet pow_modEq_pow_mod pow_mod_of_pow_eq_one pow_pow_of_dvd residue_eq_zero_iff toF toF_apply unramProcyclic_of_frobData unramRoots unramRoots_all unramRoots_of_unramProcyclic unramRoots_two zpToOO) -- op-dedupe
 
 variable {p : ℕ} [Fact p.Prime] {ℓ : ℕ} [Fact ℓ.Prime]
-
-/-- **`UnramRoots` (local-glue's textbook Prop, verbatim) is a theorem (proved)**, from Mathlib and
-the vendored Tau Ceti (`ZInQKernel/Contrib/TauCeti/`). -/
-theorem unramRoots : G15Ram.UnramRoots p ℓ :=
-  unramRoots_of_unramProcyclic
-    (unramProcyclic_of_frobData fun F hF => by haveI := hF; exact frobData_exists F)
-
-/-- The form used by local-glue (`tail_glue.lean`, `part_pack.lean`): every `p`, `ℓ`. -/
-theorem unramRoots_all : ∀ (p : ℕ) [Fact p.Prime] (ℓ : ℕ) [Fact ℓ.Prime], G15Ram.UnramRoots p ℓ :=
-  fun _ _ _ _ => unramRoots
-
-/-- The form used at `p = 2` by local-glue (`hU2` in `tail_glue.lean`). -/
-theorem unramRoots_two : ∀ (hp : Nat.Prime 2) (ℓ : ℕ) [Fact ℓ.Prime],
-    @G15Ram.UnramRoots 2 ⟨hp⟩ ℓ _ :=
-  fun hp _ _ => @unramRoots 2 ⟨hp⟩ _ _
 
 end UnramRootsTask
 
@@ -7100,8 +6013,15 @@ of glue-descent (`LeafHasse`, `LeafLocalTwo`, `LeafSqrtCrit`, `LeafUnramified`),
 
 open CategoryTheory AlgebraicGeometry Limits MonoidalCategory CartesianMonoidalCategory MonObj
 open _root_.ZInQ ZInQ LeafQM.AV GlueDescent GlueDescent.B2 GlueDescent.B2Q GlueDescent.B3Q
+open _root_.ZInQ (Contrib.AbVarBC.G0FibreSimple.MulIsogeny Contrib.AbVarBC.MulRigidity.CotangentMulN Contrib.AbVarBC.MulRigidity.KerUnitOpen Contrib.AbVarBC.MulRigidity.KerUnitOpenOfCotangentSurj Contrib.AbVarBC.MulRigidity.MulEtale Contrib.AbVarBC.MulRigidity.MulUnramified Contrib.AbVarBC.MulRigidity.O0 Contrib.AbVarBC.MulRigidity.QuasiFiniteEndSurjective Contrib.AbVarBC.MulRigidity.charZero_residueField Contrib.AbVarBC.MulRigidity.cotangentMap Contrib.AbVarBC.MulRigidity.diagonal_isPullback Contrib.AbVarBC.MulRigidity.diffKer Contrib.AbVarBC.MulRigidity.formallyUnramified_of_kerUnit Contrib.AbVarBC.MulRigidity.isIsogenyMor_of_lqf_of_isOpenMap Contrib.AbVarBC.MulRigidity.isOpenImmersion_of_section Contrib.AbVarBC.MulRigidity.isProper_left Contrib.AbVarBC.MulRigidity.kerUnit Contrib.AbVarBC.MulRigidity.kerUnitOpen_of_cotangent Contrib.AbVarBC.MulRigidity.kerUnitOpen_of_mulEtale Contrib.AbVarBC.MulRigidity.locallyQuasiFinite_of_formallyUnramified Contrib.AbVarBC.MulRigidity.map_origin Contrib.AbVarBC.MulRigidity.mulIsogeny_of_cotangent Contrib.AbVarBC.MulRigidity.mulIsogeny_of_kerUnitOpen Contrib.AbVarBC.MulRigidity.mulIsogeny_of_mulEtale Contrib.AbVarBC.MulRigidity.mulIsogeny_of_mulUnramified Contrib.AbVarBC.MulRigidity.mulIsogeny_of_mulUnramified' Contrib.AbVarBC.MulRigidity.mulUnramified_of_kerUnitOpen Contrib.AbVarBC.MulRigidity.mulUnramified_of_mulEtale Contrib.AbVarBC.MulRigidity.ne_of_specializes_of_lqf Contrib.AbVarBC.MulRigidity.origin Contrib.AbVarBC.MulRigidity.quasiFiniteEndSurjective Contrib.AbVarBC.MulRigidity.stalkEndo Contrib.AbVarBC.MulRigidity.surjective_of_lqf_self Contrib.AbVarBC.Tangent.AtOrigin Contrib.AbVarBC.Tangent.D Contrib.AbVarBC.Tangent.D_congr Contrib.AbVarBC.Tangent.D_inv Contrib.AbVarBC.Tangent.D_mul Contrib.AbVarBC.Tangent.D_one Contrib.AbVarBC.Tangent.D_zpow Contrib.AbVarBC.Tangent.KerN Contrib.AbVarBC.Tangent.atOrigin_inv Contrib.AbVarBC.Tangent.atOrigin_map Contrib.AbVarBC.Tangent.atOrigin_mul Contrib.AbVarBC.Tangent.atOrigin_one Contrib.AbVarBC.Tangent.atOrigin_zpow Contrib.AbVarBC.Tangent.closedPoint_eq Contrib.AbVarBC.Tangent.comp_intCast_hom Contrib.AbVarBC.Tangent.comp_mem_of_subsingleton Contrib.AbVarBC.Tangent.comp_orig_mem Contrib.AbVarBC.Tangent.derivation_eq_zero Contrib.AbVarBC.Tangent.dualHom Contrib.AbVarBC.Tangent.eq_ofRing_ptRing Contrib.AbVarBC.Tangent.eq_of_D_eq Contrib.AbVarBC.Tangent.eq_one_of_comp_intCast Contrib.AbVarBC.Tangent.ev0 Contrib.AbVarBC.Tangent.exists_affine_orig Contrib.AbVarBC.Tangent.fst_tRing Contrib.AbVarBC.Tangent.id_appLE_top Contrib.AbVarBC.Tangent.intCast_hom Contrib.AbVarBC.Tangent.isLocalHom_fstHom Contrib.AbVarBC.Tangent.isLocalRing_tsze Contrib.AbVarBC.Tangent.ker_le_sq_of_derivations Contrib.AbVarBC.Tangent.ks Contrib.AbVarBC.Tangent.ks_hom Contrib.AbVarBC.Tangent.ks_isOpenImmersion Contrib.AbVarBC.Tangent.left_closedPoint Contrib.AbVarBC.Tangent.locallyOfFiniteType_kerN Contrib.AbVarBC.Tangent.map_add_inl Contrib.AbVarBC.Tangent.map_add_inr Contrib.AbVarBC.Tangent.map_fst_inl Contrib.AbVarBC.Tangent.map_fst_inr Contrib.AbVarBC.Tangent.map_snd_inl Contrib.AbVarBC.Tangent.map_snd_inr Contrib.AbVarBC.Tangent.mem_of_atOrigin Contrib.AbVarBC.Tangent.mulN Contrib.AbVarBC.Tangent.ofRing Contrib.AbVarBC.Tangent.ofRing_mem Contrib.AbVarBC.Tangent.one_left Contrib.AbVarBC.Tangent.orig Contrib.AbVarBC.Tangent.ptR Contrib.AbVarBC.Tangent.ptRing Contrib.AbVarBC.Tangent.ptRing_comp Contrib.AbVarBC.Tangent.ptRing_congr Contrib.AbVarBC.Tangent.ptRing_ext Contrib.AbVarBC.Tangent.ptRing_id_top Contrib.AbVarBC.Tangent.ptRing_ofRing Contrib.AbVarBC.Tangent.ptRing_specMap_comp Contrib.AbVarBC.Tangent.specHom Contrib.AbVarBC.Tangent.specHom_comp Contrib.AbVarBC.Tangent.specHom_id Contrib.AbVarBC.Tangent.specHom_left Contrib.AbVarBC.Tangent.spec_inl_fst_comp Contrib.AbVarBC.Tangent.tRing Contrib.AbVarBC.Tangent.tRing_congr Contrib.AbVarBC.Tangent.tRing_one Contrib.AbVarBC.Tangent.tRing_specHom Contrib.AbVarBC.TorsionDescends Contrib.AbVarBC.comp_natCast_hom Contrib.AbVarBC.dim_baseChange_scheme Contrib.AbVarBC.dim_finite Contrib.AbVarBC.dim_pullback_spec Contrib.AbVarBC.dim_spec_le Contrib.AbVarBC.exists_lift_of_isFinite Contrib.AbVarBC.exists_nat_of_le Contrib.AbVarBC.galK Contrib.AbVarBC.kerUnitOpen Contrib.AbVarBC.map_comm Contrib.AbVarBC.mem_range_of_isIntegral Contrib.AbVarBC.mulIsogeny Contrib.AbVarBC.ptBC Contrib.AbVarBC.ptBC_galAct Contrib.AbVarBC.ptBC_injective Contrib.AbVarBC.ringKrullDim_eq_of_isIntegral_of_injective Contrib.AbVarBC.ringKrullDim_le_of_finiteType Contrib.AbVarBC.ringKrullDim_mvPolynomial_field Contrib.AbVarBC.ringKrullDim_tensor_field Contrib.AbVarBC.scheme_dim_eq_iSup_cover Contrib.AbVarBC.scheme_dim_eq_of_iso Contrib.AbVarBC.spec_dim Contrib.AbVarBC.tateBC Contrib.AbVarBC.tateBC_bijective_of_tateModuleFree Contrib.AbVarBC.tateBC_bijective_of_torsionDescends Contrib.AbVarBC.tateBC_galT Contrib.AbVarBC.tateBC_injective Contrib.AbVarBC.tate_map_bijective_of_torsion Contrib.AbVarBC.topologicalKrullDim_eq_iSup_of_openEmbedding Contrib.AbVarBC.torsionDescends_of_isFinite Contrib.AbVarBC.vBC Contrib.AbVarBC.vBC_galRep DefFaltings.AbVar DefFaltings.AnalyticUniformizationExists DefFaltings.AnalyticUniformizationUnique DefFaltings.EReal.add_coe_add_neg_coe DefFaltings.FinExt DefFaltings.Genus2Eq DefFaltings.Genus2Eq.Good DefFaltings.Genus2Eq.P DefFaltings.Genus2Eq.binDisc DefFaltings.GroupModel DefFaltings.GroupModel.IsAnalyticUniformization DefFaltings.GroupModel.IsNeronModel DefFaltings.GroupModel.Pts DefFaltings.GroupModel.cotangent DefFaltings.GroupModel.dCls DefFaltings.GroupModel.detLattice DefFaltings.GroupModel.dom DefFaltings.GroupModel.evalAt DefFaltings.GroupModel.exists_rep DefFaltings.GroupModel.genStalk DefFaltings.GroupModel.genericUnit DefFaltings.GroupModel.germAlong DefFaltings.GroupModel.height DefFaltings.GroupModel.height_eq DefFaltings.GroupModel.hodgeSpace DefFaltings.GroupModel.jacDet DefFaltings.GroupModel.jacDet_comp DefFaltings.GroupModel.omega DefFaltings.GroupModel.omegaAt DefFaltings.GroupModel.omegaAt_genericPt DefFaltings.GroupModel.ptC DefFaltings.GroupModel.semilinear_ext_wedge DefFaltings.GroupModel.specializes_genericUnit DefFaltings.GroupModel.structMap DefFaltings.GroupModel.unitSection DefFaltings.GroupModel.wedge DefFaltings.HermitianLattice DefFaltings.HermitianLattice.arakelovDegree DefFaltings.HermitianLattice.arakelovDegree_ofFractionalIdeal DefFaltings.HermitianLattice.arakelovDegree_rescale DefFaltings.HermitianLattice.degreeAt DefFaltings.HermitianLattice.degreeAt_eq DefFaltings.HermitianLattice.degreeAt_eq_arakelovDegree DefFaltings.HermitianLattice.degreeAt_smul DefFaltings.HermitianLattice.ofFractionalIdeal DefFaltings.HermitianLattice.rescale DefFaltings.HermitianLattice.secIndex_ne_zero DefFaltings.HodgeData DefFaltings.HodgeData.coeff_apply_ne_zero DefFaltings.HodgeData.hodgeBundle DefFaltings.HodgeData.modelHeight DefFaltings.HodgeData.modelHeight_eq DefFaltings.HodgeData.modelHeight_eq_add_of_le DefFaltings.HodgeData.modelHeight_eq_faltingsHeightGood DefFaltings.HodgeData.modelHeight_le_of_le DefFaltings.HodgeData.modelHeight_ofIdeal DefFaltings.HodgeData.modelHeight_ofIdeal_baseChange DefFaltings.HodgeData.modelHeight_of_span DefFaltings.HodgeData.modelHeight_recoord DefFaltings.HodgeData.norm DefFaltings.HodgeData.norm_sq DefFaltings.HodgeData.recoord DefFaltings.HodgeLatticeTheorem DefFaltings.IsIsogeny DefFaltings.MetrizedModel DefFaltings.MetrizedModel.modelHeight_eq_of_model_eq DefFaltings.NeronModelMinimal DefFaltings.PeriodAreaFormula DefFaltings.R19_GaudronRemond DefFaltings.R20_FaltingsLemma5 DefFaltings.R21_Bost DefFaltings.StableHeightFinite DefFaltings.absNorm_extendedHom DefFaltings.absNorm_map_ringOfIntegers DefFaltings.arakelovDegree_ofFractionalIdeal_baseChange DefFaltings.arakelovDegree_ofFractionalIdeal_mul DefFaltings.card_embeddings_over DefFaltings.covolume_comap_mul_det DefFaltings.covolume_gaussianPair DefFaltings.det_restrictScalars_complex DefFaltings.embCoeff DefFaltings.faltingsHeight DefFaltings.faltingsHeightEC DefFaltings.faltingsHeightGood DefFaltings.faltingsHeight_coe DefFaltings.finiteHeightPart DefFaltings.finrank_ringOfIntegers DefFaltings.gaussianPair DefFaltings.genericFibre DefFaltings.genericPt DefFaltings.grKappa DefFaltings.hypGram DefFaltings.hypGram_comp_add DefFaltings.hypVol DefFaltings.hypVol_one_comp_add DefFaltings.isogDeg DefFaltings.le_stableFaltingsHeight DefFaltings.modelHeight_ofIdeal_eq_faltingsHeightEC DefFaltings.modelHeight_ofIdeal_eq_faltingsHeightEC' DefFaltings.norm_algebraMap_tower DefFaltings.ptObj DefFaltings.ratCoeff DefFaltings.realify DefFaltings.secIndex DefFaltings.secIndex_mul_absNorm DefFaltings.secIndex_smul DefFaltings.stableFaltingsHeight DefFaltings.stableFaltingsHeightDeligne DefFaltings.stableFaltingsHeightDeligne_eq DefFaltings.stableFaltingsHeight_eq_faltingsHeightGood DefFaltings.stableFaltingsHeight_eq_iInf_height DefFaltings.stableFaltingsHeight_le DefFaltings.stableFaltingsHeight_ne_bot_of_R21 DefFaltings.sum_embeddings_comp DefFaltings.sum_log_norm_embeddings DefFaltings.sum_log_norm_embeddings_int DefFaltings.torusMetricSq DefFaltings.torusMetricSq_comap DefFaltings.torusMetricSq_eq_setIntegral DefFaltings.torusMetricSq_pos DefFaltings.torusMetricSq_smul DefFaltings.torus_setIntegral_indep H5Glue.GenericFibreStalkIso H5Glue.GroupModel.baseChange H5Glue.GroupModel.isNeronModel_iff H5Glue.GroupModelBaseChangeExists H5Glue.HeightAntitone H5Glue.HodgeLatticeNonzero H5Glue.HodgeMapBijective H5Glue.IsBaseChangeOf H5Glue.IsOpenSubgroupModel H5Glue.IsProductAbVar H5Glue.IsProductModel H5Glue.ModelHeightBaseChange H5Glue.NeronModelExists H5Glue.NeronProp H5Glue.NeronProp.lift H5Glue.NeronProp.of_iso H5Glue.NeronProp.tensor H5Glue.NeronProp.uniqueIso H5Glue.OmegaSpans H5Glue.OpenImmersionHeightLe H5Glue.OpenSubgroupHeight H5Glue.ProductGroupModelExists H5Glue.ProductModelHeight H5Glue.SemistableNeronIdentityComponent H5Glue.baseChange_map_bijective H5Glue.bcProd H5Glue.bijective_respectsIso H5Glue.compositum H5Glue.cotMap H5Glue.cotMap_bijective H5Glue.cotMap_dCls H5Glue.cotMap_omega H5Glue.cotMap_omegaAt H5Glue.detLattice_le_hodgeMap H5Glue.dom_comp H5Glue.evalAt_comp H5Glue.evalAt_res H5Glue.exists_smul_mem_omega H5Glue.fst_genericFibreUnit H5Glue.fst_genericFibre_unit H5Glue.genBC H5Glue.genBC_isMonHom H5Glue.genMap H5Glue.genMap_germ H5Glue.genMap_mem_maximalIdeal H5Glue.genMap_mem_maximalIdeal_iff H5Glue.genMap_structMap H5Glue.genericFibreStalkIso H5Glue.genericFibreUnit H5Glue.genericIso_of_openImmersion H5Glue.germAlong_comp_eventuallyEq H5Glue.groupModelBaseChangeExists H5Glue.heightAntitone H5Glue.heightAntitone_of H5Glue.heightAntitone_of_hodgeLatticeNonzero H5Glue.heightAntitone_of_omegaSpans H5Glue.hodgeLatticeNonzero_of_omegaSpans H5Glue.hodgeMap H5Glue.hodgeMapBijective H5Glue.hodgeMap_detLattice H5Glue.hodgeMap_wedge H5Glue.hodgeMap_wedgeGerm H5Glue.isAnalyticUniformization_comp H5Glue.isAnalyticUniformization_of_comp H5Glue.isIso_genMap H5Glue.isIso_of_openImmersion_self H5Glue.isIso_stalkSpecializes_genMap H5Glue.isMonHom_of_map H5Glue.isMonHom_pbCompHom H5Glue.isMonHom_pbCompInv H5Glue.isMonHom_pbEqIso H5Glue.isMonHom_prodComparisonIso H5Glue.isNeronModel_of_isProductModel H5Glue.isOpenImmersion_pullback_map H5Glue.jL H5Glue.jacDet_comp_genMap H5Glue.jacDet_comp_map H5Glue.map_genericUnit' H5Glue.map_span_singleton_toAddSubgroup H5Glue.map_zero_of_hom H5Glue.modelHeight_pullHodge_le H5Glue.neronModelMinimal H5Glue.neronModelMinimal_of_heightAntitone H5Glue.neron_lift H5Glue.neron_lift_isMonHom H5Glue.neron_map_injective H5Glue.omegaAt_le_cotMap H5Glue.omegaSpans H5Glue.omega_le_cotMap H5Glue.one_mem_dom H5Glue.openImmersionHeightLe H5Glue.openSubgroupHeight H5Glue.openSubgroupHeight_of H5Glue.pbCompHom H5Glue.pbCompInv H5Glue.pbCompIso H5Glue.pbEqIso H5Glue.productGroupModelExists H5Glue.ptCIso H5Glue.ptC_hom_apply H5Glue.ptsEquiv H5Glue.ptsEquiv_comp H5Glue.pts_comp_bijective H5Glue.pullHodge H5Glue.secIndex_le_of_map H5Glue.secIndex_ne_zero_of_mem H5Glue.smooth_tensor H5Glue.smooth_unit H5Glue.square1 H5Glue.square2 H5Glue.stableFaltingsHeight_add_le H5Glue.stableFaltingsHeight_add_le_of_productModelHeight H5Glue.stableFaltingsHeight_eq_neron_all H5Glue.stableFaltingsHeight_eq_neron_all' H5Glue.stalkIso_of_genericIso H5Glue.stalkSpecializes_self_apply H5Glue.stalkSpecializes_stalkSpecializes_apply H5Glue.stalk_ker_eq H5Glue.stalk_spec_eq H5Glue.stalkwise_fst_toGeneric H5Glue.stalkwise_tensor_localization H5Glue.tensorGen H5Glue.tensorGen_fst H5Glue.tensorGen_snd H5Glue.toGeneric_pt H5Glue.unitSection_comp H5Neron.GroupModel.IsNeronModel.lift H5Neron.GroupModel.IsNeronModel.uniqueIso H5Neron.GroupModel.isNeronModel_iff H5Neron.GroupModelBaseChangeExists H5Neron.IsBaseChangeOf H5Neron.IsOpenSubgroupModel H5Neron.IsProductAbVar H5Neron.IsProductModel H5Neron.ModelHeightBaseChange H5Neron.NeronModelExists H5Neron.NeronProp H5Neron.NeronProp.lift H5Neron.NeronProp.of_iso H5Neron.NeronProp.tensor H5Neron.NeronProp.uniqueIso H5Neron.OpenSubgroupHeight H5Neron.ProductGroupModelExists H5Neron.ProductModelHeight H5Neron.R19_zero H5Neron.R20_zero H5Neron.R21_zero H5Neron.SemistableNeronIdentityComponent H5Neron.bcProd H5Neron.bcUnitIso H5Neron.compositum H5Neron.covolume_fin_zero H5Neron.detLattice_zero H5Neron.glue_zero H5Neron.groupModel_height_zero H5Neron.hodgeZeroEquiv H5Neron.hodgeZeroEquiv_wedge0 H5Neron.hom_ext_of_iso_unit H5Neron.isIsogeny_id_zero H5Neron.isMonHom_of_iso_unit H5Neron.isMonHom_prodComparisonIso H5Neron.isNeronModel_of_isProductModel H5Neron.isogDeg_zero_le_one H5Neron.jL H5Neron.metrizedOf H5Neron.modelHeight_dim_zero H5Neron.neronModelExists_zero H5Neron.neronModelMinimal_zero H5Neron.neron_zero_iso_unit H5Neron.no_metrized_succ H5Neron.one_le_grKappa H5Neron.productGroupModelExists H5Neron.pts_subsingleton H5Neron.semistableNeronIdentityComponent_zero H5Neron.semσ H5Neron.stableFaltingsHeight_add_le H5Neron.stableFaltingsHeight_add_le' H5Neron.stableFaltingsHeight_eq_neron H5Neron.stableFaltingsHeight_eq_neron_all H5Neron.stableFaltingsHeight_zero H5Neron.stableHeightFinite_zero H5Neron.tensorGen H5Neron.tensorGen_fst H5Neron.tensorGen_snd H5Neron.trivHodge H5Neron.trivMetrized H5Neron.trivModel H5Neron.trivModel_isNeronModel H5Neron.wedge0 H5Neron.wedge0_ne_zero H5Neron.wedge_eq_wedge0 HeightBC.CotangentSpanBC HeightBC.D0 HeightBC.D0_add HeightBC.D0_add_apply HeightBC.D0_mul HeightBC.D0_mul_apply HeightBC.D0_sq HeightBC.D0_structMap_mul HeightBC.DetLatticeBC HeightBC.FF HeightBC.GermDerivation HeightBC.HodgeBCInjective HeightBC.HodgeLineBaseChange HeightBC.HodgeLineBaseChangeDescent HeightBC.HodgeLineDescentHalf HeightBC.HodgeSpanBC HeightBC.IsBaseChangeOf HeightBC.IsHodgeBaseChange HeightBC.IsMonBC HeightBC.JacobianPullbackSpan HeightBC.JacobianSemilinear HeightBC.MetrizationBaseChange HeightBC.ModelHeightBaseChange HeightBC.ModelHeightBaseChangeGE HeightBC.ModelHeightBaseChangeLE HeightBC.OmegaBaseChange HeightBC.OmegaLocalization HeightBC.PtsBaseChangeBij HeightBC.PtsBaseChangeMul HeightBC.UniformizationLift HeightBC.UniformizationLiftAnalytic HeightBC.algebraMap_FF HeightBC.algebraMap_ringOfIntegers_coe HeightBC.appLE_top_top HeightBC.bO HeightBC.bO_appTop HeightBC.bO_genericPt HeightBC.bcAlt HeightBC.bcCot HeightBC.bcCotBasis HeightBC.bcCotBasis_apply HeightBC.bcCot_core HeightBC.bcCot_dCls HeightBC.bcCot_intInv HeightBC.bcCot_linearIndependent HeightBC.bcCot_omega HeightBC.bcCot_omegaAt HeightBC.bcCot_smulL HeightBC.bcCot_smul_genStalk HeightBC.bcCot_span HeightBC.bcCot_update HeightBC.bcExt HeightBC.bcExt_smul HeightBC.bcExt_ιMulti HeightBC.bcHodge HeightBC.bcHodge_detLattice HeightBC.bcHodge_smul HeightBC.bcHodge_tmul HeightBC.bcHodge_wedge HeightBC.bcMap HeightBC.bcMap_germ HeightBC.bcMap_mem_maximalIdeal HeightBC.bcMap_structMap HeightBC.bcMap_φL HeightBC.bcProj HeightBC.bcProj_genericUnit HeightBC.bcProj_unit HeightBC.bcProj_w HeightBC.bcPts HeightBC.cotL HeightBC.cotL_isScalarTower HeightBC.cotL_smul HeightBC.cotRes HeightBC.cotangentSpanBC HeightBC.descentHalf_of_descent HeightBC.detLatticeBC_of_omega HeightBC.dom_bcPts HeightBC.evalAt_add HeightBC.evalAt_bcPts HeightBC.evalAt_mul HeightBC.evalAt_one_eq_zero HeightBC.evalAt_res HeightBC.evalAt_structSection HeightBC.exists_act HeightBC.exists_comp_eq HeightBC.exists_int_dvd HeightBC.exists_mem_not_mem_of_sat HeightBC.exists_ringOfIntegers_of_algebraMap HeightBC.extRes HeightBC.finite_of_isClosed_not_genericPt HeightBC.g0_hodgeLine_iff HeightBC.genericPt_eq_genericPoint HeightBC.germAlong_add_mul HeightBC.germAlong_bcPts_eventuallyEq HeightBC.germAlong_differentiableAt HeightBC.germAlong_eventuallyEq_rep HeightBC.germAlong_structMap HeightBC.germAlong_zero_of_mem HeightBC.germDerivation HeightBC.germDerivation_at HeightBC.hodgeBCInjective HeightBC.hodgeLineBaseChangeDescent_of_glue HeightBC.hodgeLineBaseChange_of_descent HeightBC.hodgeLineBaseChange_of_final HeightBC.hodgeLineBaseChange_of_five HeightBC.hodgeLineBaseChange_of_four HeightBC.hodgeLineBaseChange_of_glue HeightBC.hodgeLineBaseChange_of_glue4 HeightBC.hodgeLineBaseChange_of_glue5 HeightBC.hodgeLineBaseChange_of_main HeightBC.hodgeLineBaseChange_of_two HeightBC.hodgeSpanBC_of HeightBC.hom_genericUnit HeightBC.hom_genericUnit' HeightBC.hom_unitSection HeightBC.isAnalyticUniformization_bcPts HeightBC.isField_stalk_genericPt HeightBC.isIso_stalkSpecializes_bcMap HeightBC.isUnit_germ_genericPt HeightBC.isUnit_structMap HeightBC.jacDet_bcPts HeightBC.jacobianPullbackSpan_of HeightBC.jacobianSemilinear HeightBC.jacobianSemilinear_of HeightBC.locSub HeightBC.mapCotangent_injective_of_isIso HeightBC.mapCotangent_smul' HeightBC.map_zero_of_hom HeightBC.maximalIdeal_stalk_genericPt HeightBC.mem_locSub HeightBC.mem_of_forall_locSub HeightBC.metrizationBaseChange_of_hodgeLine HeightBC.modelHeightBaseChangeGE_of_descent HeightBC.modelHeightBaseChangeGE_of_descentHalf HeightBC.modelHeightBaseChangeGE_of_main HeightBC.modelHeightBaseChangeGE_of_two HeightBC.modelHeightBaseChangeLE_of_metrization HeightBC.modelHeightBaseChange_of_descent HeightBC.modelHeightBaseChange_of_final HeightBC.modelHeightBaseChange_of_five HeightBC.modelHeightBaseChange_of_four HeightBC.modelHeightBaseChange_of_glue HeightBC.modelHeightBaseChange_of_glue4 HeightBC.modelHeightBaseChange_of_glue5 HeightBC.modelHeightBaseChange_of_main HeightBC.modelHeightBaseChange_of_two HeightBC.modelHeight_eq_of_isHodgeBaseChange HeightBC.multilinear_mem_span HeightBC.omegaAt_bc_local HeightBC.omegaAt_full HeightBC.omegaAt_open HeightBC.omegaAt_sat HeightBC.omegaBaseChange HeightBC.omegaBaseChange_of_localization HeightBC.omegaLocalization HeightBC.one_mem_dom HeightBC.ptC_hom_apply HeightBC.ptC_hom_comp_bO HeightBC.ptsBaseChangeBij HeightBC.ptsBaseChangeMul HeightBC.rationalOver_genericUnit HeightBC.secIndex_baseChange HeightBC.secIndex_map HeightBC.secIndex_ne_zero_of_baseChange HeightBC.secIndex_nsmul_mem HeightBC.smul_cotangent_eq_of_sub_mem HeightBC.span_bcHodge_le HeightBC.spec_mem_of_ker HeightBC.stalkMapAt_germ' HeightBC.stalkSpec_comp_apply HeightBC.stalkSpec_self_apply HeightBC.stalkSpecializes_self_apply' HeightBC.stalkSpecializes_stalkSpecializes_apply' HeightBC.structMap_eq_spec HeightBC.structMap_eq_stalkMap HeightBC.toCotangent_mul HeightBC.uniformizationLift HeightBC.uniformizationLiftAnalytic HeightBC.uniformizationLift_of HeightBC.unitSection_comp_hom HeightBC.unitSection_stalkMapAt_hom HeightBC.σFF HeightBC.φL HeightBC.φL_algebraMap LeafPush2.CPts LeafPush2.Char2 LeafPush2.HasSexticModel LeafPush2.IC10 LeafPush2.IC2 LeafPush2.IC4 LeafPush2.IC6 LeafPush2.IgJ10 LeafPush2.IgJ2 LeafPush2.IgJ4 LeafPush2.IgJ6 LeafPush2.IsGenus2 LeafPush2.IsPeriodMatrix LeafPush2.IsSiegel LeafPush2.IsUniformization LeafPush2.LinYangTuple LeafPush2.OnQMLocus LeafPush2.T10_groupIso LeafPush2.T11a_RiemannEnd LeafPush2.T11b_Rigidity LeafPush2.T12_ComplexConjEigen LeafPush2.UniformizationExists LeafPush2.absLogHeight LeafPush2.cDom LeafPush2.cEvalAt LeafPush2.cptObj LeafPush2.dsq LeafPush2.exists_isComplexConj LeafPush2.ffAlgebra LeafPush2.ffStructMap LeafPush2.isSiegel_I LeafPush2.javanpeykarBound LeafPush2.javanpeykarBound_mono LeafPush2.javanpeykarBound_pos LeafPush2.linYangTuple_onQMLocus LeafPush2.linYang_j_eq LeafPush2.onQMLocus_of_linYangTuple LeafPush2.pazukiC2 LeafPush2.sextic LeafPush2.thetaConst) -- op-dedupe
+open _root_.LeafQM.AV (CMExists HasCM24 HasCM24.of_iso HasCM3 HasCM3.of_iso HasCM4 HasCM4.of_iso IsBaseChangeOf IsBaseChangeOfPair IsFibreOf Level3 Level3.bcPt_pow_three Level3.eq_iff Level3.exists_mul_of_range_le Level3.ext' Level3.onto Level3.range_le Level3.rightMul Level3.rightMul_eq_self Level3.rightMul_rightMul Level3.torsor Level3.twist M3 M3.mk M3.rightMul M3.rightMul_rightMul M3.twist M3.twist_mk Pin.AutOExt.NormalizerFinite Pin.AutOExt.alpha_nat_smul Pin.AutOExt.autOInnerFinite_of_normalizer Pin.AutOExt.common_den Pin.AutOExt.conjUnit Pin.AutOExt.conj_of_skolem Pin.AutOExt.den_mul_int Pin.AutOExt.exists_nat_smul_mem Pin.AutOExt.extAlgEquiv Pin.AutOExt.extAlgHom Pin.AutOExt.extAlgHom_coe Pin.AutOExt.extAlgHom_symm_comp Pin.AutOExt.extDen Pin.AutOExt.extDen_mem Pin.AutOExt.extDen_pos Pin.AutOExt.extFun Pin.AutOExt.extFun_add Pin.AutOExt.extFun_algebraMap Pin.AutOExt.extFun_coe Pin.AutOExt.extFun_eq Pin.AutOExt.extFun_mul Pin.AutOExt.key_conj Pin.AutOExt.mem_O_of_int Pin.AutOExt.natCast_mul_eq_smul Pin.AutOExt.nat_smul_mem Pin.AutOExt.smul_mul_smul' Pin.AutOInnerFinite Pin.ConstOrOntoAlgClosed Pin.CurveRatFactor Pin.CurveSurj Pin.GeomCompConstOrOnto Pin.GeomCompFinite Pin.GeomCompInfinite Pin.GeomCompRatFactor Pin.ImagePlane.ev_comp Pin.ImagePlane.ev_spec_top Pin.ImagePlane.ptOf_comp Pin.ImagePlane.ptOf_spec_asIdeal Pin.IsNaturalRelabel Pin.Mob.eval_ne_zero_of_coprime Pin.Mob.exists_interp Pin.Mob.isCoprime_X_sub_C_of_eval_one Pin.Mob.natDegree_le_one_of_injective Pin.Mob.ratEval Pin.Mob.ratEval_eq_self Pin.Mob.wronskian_ne_zero Pin.MobiusGlue Pin.NormO.IsNorm Pin.NormO.IsNorm.inv Pin.NormO.IsNorm.mul Pin.NormO.T Pin.NormO.T_finite Pin.NormO.T_mul_ui Pin.NormO.T_mul_uj Pin.NormO.bas Pin.NormO.conjC Pin.NormO.descent Pin.NormO.dvd_of_prime_dvd_nrd Pin.NormO.dvd_of_smul_mem Pin.NormO.ei Pin.NormO.ej Pin.NormO.inv_eq Pin.NormO.isNorm_sc Pin.NormO.isNorm_ui Pin.NormO.isNorm_uj Pin.NormO.mulCoord_conjC Pin.NormO.mulCoord_conjC' Pin.NormO.mulCoord_smul_left Pin.NormO.mulCoord_smul_right Pin.NormO.normalizerFinite Pin.NormO.nrdZ Pin.NormO.nrdZ_ei Pin.NormO.nrdZ_ej Pin.NormO.nrdZ_mul Pin.NormO.nrdZ_ne_zero Pin.NormO.nrdZ_smul Pin.NormO.nrd_dvd_coords Pin.NormO.ofInt_scalar Pin.NormO.rearrange Pin.NormO.sc Pin.NormO.six_sq_identities Pin.NormO.smul_ofInt Pin.NormO.three_dvd_mulCoord_ej Pin.NormO.two_dvd_mulCoord_ei Pin.NormO.ui Pin.NormO.uj Pin.PinUnique Pin.QMFamily.transport Pin.QML3.isoTransport Pin.R1fpProps.fam Pin.R1fpProps.univ Pin.RatFactorAlgClosed Pin.SameTriple Pin.SameTripleMor Pin.SmoothCurveNoIsolatedPoint Pin.SmoothStalkDimOne Pin.TwistClassFinite Pin.autOInnerFinite Pin.autRelabel Pin.autRelabel_natural Pin.bcPt Pin.bcPt_ptOfSection Pin.bcPt_snd Pin.bcQbar Pin.bcSnd Pin.cm_objects_of_R1R2fp Pin.conjUnitIso Pin.cst Pin.curveFacts_of_algClosed Pin.curveFacts_of_comp Pin.curveFacts_of_leaves Pin.curveFacts_of_named Pin.curveRatFactor_of_comp Pin.curveSurj_of_comp Pin.ev Pin.ev_cst Pin.ev_eq_zero_iff Pin.ev_f_mul_g Pin.ev_g_eq_zero Pin.ev_res Pin.ev_top Pin.exists_isOpen_singleton_of_finite_closedPoints Pin.exists_liftO_congr Pin.exists_point_of_isLocallyClosed Pin.geomComp Pin.geomCompConstOrOnto_of Pin.geomCompFinite Pin.geomCompInfinite_of Pin.geomCompRatFactor_of Pin.isFibreOf_transport Pin.isOpen_connectedComponent_of_noetherian Pin.level3_finite Pin.mem_V_of_not_mem_U Pin.phi_part Pin.pointwise_of_witness Pin.pointwise_of_witness_mor Pin.ptOf Pin.ptOfSection Pin.r1fpPin_aut Pin.r1fpPin_relabel_iff Pin.r2fp_aut Pin.relabel Pin.relabel_geometric Pin.relabel_is_morphism Pin.res Pin.res_res Pin.sameTripleMor_of_mobius Pin.sameTriple_aut Pin.smoothCurveNoIsolatedPoint_of Pin.transfer_exists Pin.transfer_pointwise Pin.transfer_pointwise_mor Pin.transportLevel Pin.twistClassFinite Pin.twistClassFinite_of Pin.val_bcPt Pin.val_of_mem Pin.val_of_not_mem PtEquiv QMFamily QMIso QMIso.nonempty_abVarIso QMIso.refl QMIso.symm QMIso.trans QML3 QML3.Iso QML3.Iso.refl QML3.Iso.rightMul QML3.Iso.symm QML3.Iso.trans QML3.Iso.twist QML3.forget QML3.rightMul QML3.rightMul_A QML3.rightMul_rightMul QML3.twist QML3.twist_A QMLeaves QMPair QMPair.twist QMStr QMStr.twist Qbar R1R2fp R1R2fp_Y R1famProps R1fp R1fpProps R1fp_of_R1R2fp R1heckeProps R1rec R1recProps R1univProps R2X6Props R2fpProps R2fpProps_of_X6 R5fp R5fpCount R5fpWeak R5fpWeak_of_R5fp R5ptProps ToP1 ToP1.comp ToP1.val ToP1.val_comp ToP1.val_comp_right UnramifiedAbove5 X6Props X6Surj act_mul_apply bcPt bcPt_injective cm_of_val com comEquiv com_twist conductor conjHom conjHom_iota conjHom_mem_com conjHom_symm_apply conj_iso_of_rational conj_twist_of_rational endPt exists_fibre_object fibre_conjugates_isomorphic fieldMap fieldOfModuli3 fieldOfModuliPair fieldPt galAct_bcPt hI hIJ hJ hasCM24_twist hasCM3_twist hasCM4_twist hrat inertCount6 intCast_mem_com isoSetoid leaves_on_one_witness liftO not_qmStr_zero ofInt_injective ofInt_sub oi oi_mul_oi oj oj_mul_oi_add oj_mul_oj pairSetoid qmAct residueImage residue_unramified_over_branch specMap_flat specMap_surjective specToEquivOfField_comp specToEquivOfField_comp_right stab3 stabPair three_mul_ofInt toKbar unramified_over_branch) -- op-dedupe
+open _root_.GlueDescent (B2.IsSignCocycle B2.SignCob B2.dB B2.dB_inv B2.dB_mul B2.exists_beta B2.isSignCocycle_dB B2.isSignCocycle_inv B2.isSignCocycle_mul B2.isSignCocycle_pull B2.pull B2.pull_dB B2.signCob_dB_iff B2.signCob_inv B2.signCob_mul B2Q.GQ B2Q.GQp B2Q.InflatedFrom B2Q.LeafHasse B2Q.LeafLocalTwo B2Q.LeafSqrtCrit B2Q.LeafUnramified B2Q.UnramifiedAt B2Q.act B2Q.act_mul B2Q.b2_of_leaves B2Q.cast_cast_of_dvd B2Q.chiLevel_pos B2Q.chi_toUnitHom_crt B2Q.cyc B2Q.cyc_eq_of_agree B2Q.cyc_isLocallyConstant B2Q.exists_crt_unit B2Q.galChar B2Q.galChar_isLocallyConstant B2Q.isLocallyConstant_of_openSubgroup B2Q.lev_eq_pow B2Q.resp B2Q.resp_continuous B2Q.sqrtU B2Q.sqrtU_sq B2Q.toRingAut B3Q.GQL B3Q.b3_degree_le_QM B3Q.b3_of_leaves B3Q.inflatedNormalized_of B3Q.mem_GQL B3Q.orderOf_pos_dirichlet B6 B6_commute_i_j B6_inner B6_isCentral B6_isSimpleRing B6_star_mul InflatedNormalized IsCochainFor LeafSkolemNoether MatrixUnits2 MatrixUnits2.W MatrixUnits2.e00_of_mem MatrixUnits2.e_apply_e MatrixUnits2.finrank_W MatrixUnits2.mapsTo_W MatrixUnits2.mem_W_of_e0 MatrixUnits2.splitEquiv MatrixUnits2.splitEquiv_intertwines aniso_int aniso_rat boundary_sq chi chiLevel cochain_conj cochain_mul_kernel cochain_mul_left cochain_mul_right cochain_of_boundary_eq cochain_one cocycle_of_projective commute_adjoin contactSupport_pos degree_le_QM exists_chi exists_odd_char heightD_pos index_kernel_le inertia_le_kernel kernelSubgroup kernelSubgroup_le kernelSubgroup_normal lev lev_dvd_chiLevel mem_kernelSubgroup oddChar oddChar_neg_one orderOf_dvd_totient orderOf_prod_dvd prod_S_le prod_odd_le prod_odd_le_aux prod_totient_lev_le qi qj ramSet relindex_kernel_le restrictHom rho rhoRep rho_commute rho_eq_act rho_map_mul sign_cocycle sign_normalization sign_sq_eq_one ten_le_heightE0 three_dvd_of_form totient_lev twist twist_kills_inertia twist_sq two_lt_lev zmod3_aniso) -- op-dedupe
+open _root_.GlueDescent.B2 (IsSignCocycle SignCob dB dB_inv dB_mul exists_beta isSignCocycle_dB isSignCocycle_inv isSignCocycle_mul isSignCocycle_pull pull pull_dB signCob_dB_iff signCob_inv signCob_mul) -- op-dedupe
+open _root_.GlueDescent.B2Q (GQ GQp InflatedFrom LeafHasse LeafLocalTwo LeafSqrtCrit LeafUnramified UnramifiedAt act act_mul b2_of_leaves cast_cast_of_dvd chiLevel_pos chi_toUnitHom_crt cyc cyc_eq_of_agree cyc_isLocallyConstant exists_crt_unit galChar galChar_isLocallyConstant isLocallyConstant_of_openSubgroup lev_eq_pow resp resp_continuous sqrtU sqrtU_sq toRingAut) -- op-dedupe
+open _root_.GlueDescent.B3Q (GQL b3_degree_le_QM b3_of_leaves inflatedNormalized_of mem_GQL orderOf_pos_dirichlet) -- op-dedupe
 
 namespace G0ModField
+open _root_.G0ModField (CommonConstituent ConjugacyData DescentDatum FibreCoverExists FibreCoverOut FibreCtx G2Out G4Out G7Out GaloisCopy.G2Out GaloisCopy.G7Out GaloisCopy.Vb GaloisCopy.resQ GaloisCopy.tate IF IsModelOver IsQMModel IsQMModel.isModelOver KernelFieldExists KernelFieldOut ModularConstituentG PtQ RationalFibre ResQRange T UnramifiedSup actK actQ admissible_S_mul b2_of_leaves_level b3_of_cochain baseChangeTrans card_ker_GL descentDatum_bot descentDatum_of_conjugacy fieldDescent g2Out_of_cover g4Out_of_kernelField g7Out_of_g4Out galAct_bijective galAct_mul incAlg isModelOver_baseChange le_heightD_of_mem_S_mul mem_GQL_bot normA numberField_of_fd resQRange resQ_comm' resQ_range sgnU sgnU_mul sgnU_mul_abs sgnU_sq toLAut toLAut_apply two_mem_T) -- op-dedupe
 
 /-! ## The outputs of G2, G4, G7 -/
 
@@ -7126,6 +6046,8 @@ namespace G0ModField
 /-! ## Feeding g0-mod-galois' inputs (G8-G12): their `G2Out`, `G7Out` -/
 
 namespace GaloisCopy
+open _root_.G0ModField.GaloisCopy (G2Out G7Out Vb resQ tate) -- op-dedupe
+open _root_.G0ModField (CommonConstituent ConjugacyData DescentDatum FibreCoverExists FibreCoverOut FibreCtx G4Out GaloisCopy.G2Out GaloisCopy.G7Out GaloisCopy.Vb GaloisCopy.resQ GaloisCopy.tate IF IsModelOver IsQMModel IsQMModel.isModelOver KernelFieldExists KernelFieldOut ModularConstituentG PtQ RationalFibre ResQRange T UnramifiedSup actK actQ admissible_S_mul b2_of_leaves_level b3_of_cochain baseChangeTrans card_ker_GL descentDatum_bot descentDatum_of_conjugacy fieldDescent g2Out_of_cover g4Out_of_kernelField g7Out_of_g4Out galAct_bijective galAct_mul incAlg isModelOver_baseChange le_heightD_of_mem_S_mul mem_GQL_bot normA numberField_of_fd resQRange resQ_comm' resQ_range sgnU sgnU_mul sgnU_mul_abs sgnU_sq toLAut toLAut_apply two_mem_T) -- op-dedupe
 /-! Copied from scratch/g0-mod-galois/part_galois.lean (branch wip/g0-mod-galois at 20fa1287),
 definitions `resQ`, `Vb`, `tate`, `G2Out`, `G7Out`, verbatim (namespace renamed). -/
 
@@ -7144,8 +6066,10 @@ the assembly `tateBridge_of_pieces` (proved).
 -/
 
 namespace UnramTate
+open _root_.UnramTate (EndBaseChange PtA ResQEmbedding ScalarTransfer TateCont TatePoints bcPt bcPt_galAct conjE conjE_apply endBC endBaseChange eps_right_one hO homEquiv_mul iO iO_jO iO_sq incO' incO'_coe inertia_trivial' instGaloisQbar' jO jO_sq lift_fixes' matrixUnits_of_quat numberField_of_fd'' opV opVHom ptMapIso quat_words resQEmbedding sK scalarTransfer specMap_comp_sK tateCont_of_tateModuleFree tateMap_add tateMap_comp tateMap_id tateMap_zero tatePoints tate_eq_opV tmOf trHom trHom_comp_symm trHom_left trHom_symm_comp trPt trPt_galAct unramifiedSup_mf) -- op-dedupe
 
 open G0ModField
+open _root_.G0ModField (CommonConstituent ConjugacyData DescentDatum FibreCoverExists FibreCoverOut FibreCtx G2Out G4Out G7Out GaloisCopy.G2Out GaloisCopy.G7Out GaloisCopy.Vb GaloisCopy.resQ GaloisCopy.tate IF IsModelOver IsQMModel IsQMModel.isModelOver KernelFieldExists KernelFieldOut ModularConstituentG PtQ RationalFibre ResQRange T UnramifiedSup actK actQ admissible_S_mul b2_of_leaves_level b3_of_cochain baseChangeTrans card_ker_GL descentDatum_bot descentDatum_of_conjugacy fieldDescent g2Out_of_cover g4Out_of_kernelField g7Out_of_g4Out galAct_bijective galAct_mul incAlg isModelOver_baseChange le_heightD_of_mem_S_mul mem_GQL_bot normA numberField_of_fd resQRange resQ_comm' resQ_range sgnU sgnU_mul sgnU_mul_abs sgnU_sq toLAut toLAut_apply two_mem_T) -- op-dedupe
 
 /-! ## The Tate functor on additive maps of points -/
 
@@ -7160,6 +6084,7 @@ end Ops
 section Quat
 
 open GlueDescent
+open _root_.GlueDescent (B2.IsSignCocycle B2.SignCob B2.dB B2.dB_inv B2.dB_mul B2.exists_beta B2.isSignCocycle_dB B2.isSignCocycle_inv B2.isSignCocycle_mul B2.isSignCocycle_pull B2.pull B2.pull_dB B2.signCob_dB_iff B2.signCob_inv B2.signCob_mul B2Q.GQ B2Q.GQp B2Q.InflatedFrom B2Q.LeafHasse B2Q.LeafLocalTwo B2Q.LeafSqrtCrit B2Q.LeafUnramified B2Q.UnramifiedAt B2Q.act B2Q.act_mul B2Q.b2_of_leaves B2Q.cast_cast_of_dvd B2Q.chiLevel_pos B2Q.chi_toUnitHom_crt B2Q.cyc B2Q.cyc_eq_of_agree B2Q.cyc_isLocallyConstant B2Q.exists_crt_unit B2Q.galChar B2Q.galChar_isLocallyConstant B2Q.isLocallyConstant_of_openSubgroup B2Q.lev_eq_pow B2Q.resp B2Q.resp_continuous B2Q.sqrtU B2Q.sqrtU_sq B2Q.toRingAut B3Q.GQL B3Q.b3_degree_le_QM B3Q.b3_of_leaves B3Q.inflatedNormalized_of B3Q.mem_GQL B3Q.orderOf_pos_dirichlet B6 B6_commute_i_j B6_inner B6_isCentral B6_isSimpleRing B6_star_mul InflatedNormalized IsCochainFor LeafSkolemNoether MatrixUnits2 MatrixUnits2.W MatrixUnits2.e00_of_mem MatrixUnits2.e_apply_e MatrixUnits2.finrank_W MatrixUnits2.mapsTo_W MatrixUnits2.mem_W_of_e0 MatrixUnits2.splitEquiv MatrixUnits2.splitEquiv_intertwines aniso_int aniso_rat boundary_sq chi chiLevel cochain_conj cochain_mul_kernel cochain_mul_left cochain_mul_right cochain_of_boundary_eq cochain_one cocycle_of_projective commute_adjoin contactSupport_pos degree_le_QM exists_chi exists_odd_char heightD_pos index_kernel_le inertia_le_kernel kernelSubgroup kernelSubgroup_le kernelSubgroup_normal lev lev_dvd_chiLevel mem_kernelSubgroup oddChar oddChar_neg_one orderOf_dvd_totient orderOf_prod_dvd prod_S_le prod_odd_le prod_odd_le_aux prod_totient_lev_le qi qj ramSet relindex_kernel_le restrictHom rho rhoRep rho_commute rho_eq_act rho_map_mul sign_cocycle sign_normalization sign_sq_eq_one ten_le_heightE0 three_dvd_of_form totient_lev twist twist_kills_inertia twist_sq two_lt_lev zmod3_aniso) -- op-dedupe
 
 variable {E V : Type*} [Field E] [AddCommGroup V] [Module E V]
 
@@ -7231,10 +6156,16 @@ Frobenius link at Frobenius elements. No `sorry`, no `axiom`.
 noncomputable section
 
 namespace G14Bridge
+open _root_.G14Bridge (FrobTraceLink fact_prime_five' fact_prime_three') -- op-dedupe
 
 open CategoryTheory AlgebraicGeometry
 open _root_.ZInQ ZInQ LeafQM.AV GlueDescent G0ModField
-open GlueC10Link (FrobCompare)
+open _root_.ZInQ (Contrib.AbVarBC.G0FibreSimple.MulIsogeny Contrib.AbVarBC.MulRigidity.CotangentMulN Contrib.AbVarBC.MulRigidity.KerUnitOpen Contrib.AbVarBC.MulRigidity.KerUnitOpenOfCotangentSurj Contrib.AbVarBC.MulRigidity.MulEtale Contrib.AbVarBC.MulRigidity.MulUnramified Contrib.AbVarBC.MulRigidity.O0 Contrib.AbVarBC.MulRigidity.QuasiFiniteEndSurjective Contrib.AbVarBC.MulRigidity.charZero_residueField Contrib.AbVarBC.MulRigidity.cotangentMap Contrib.AbVarBC.MulRigidity.diagonal_isPullback Contrib.AbVarBC.MulRigidity.diffKer Contrib.AbVarBC.MulRigidity.formallyUnramified_of_kerUnit Contrib.AbVarBC.MulRigidity.isIsogenyMor_of_lqf_of_isOpenMap Contrib.AbVarBC.MulRigidity.isOpenImmersion_of_section Contrib.AbVarBC.MulRigidity.isProper_left Contrib.AbVarBC.MulRigidity.kerUnit Contrib.AbVarBC.MulRigidity.kerUnitOpen_of_cotangent Contrib.AbVarBC.MulRigidity.kerUnitOpen_of_mulEtale Contrib.AbVarBC.MulRigidity.locallyQuasiFinite_of_formallyUnramified Contrib.AbVarBC.MulRigidity.map_origin Contrib.AbVarBC.MulRigidity.mulIsogeny_of_cotangent Contrib.AbVarBC.MulRigidity.mulIsogeny_of_kerUnitOpen Contrib.AbVarBC.MulRigidity.mulIsogeny_of_mulEtale Contrib.AbVarBC.MulRigidity.mulIsogeny_of_mulUnramified Contrib.AbVarBC.MulRigidity.mulIsogeny_of_mulUnramified' Contrib.AbVarBC.MulRigidity.mulUnramified_of_kerUnitOpen Contrib.AbVarBC.MulRigidity.mulUnramified_of_mulEtale Contrib.AbVarBC.MulRigidity.ne_of_specializes_of_lqf Contrib.AbVarBC.MulRigidity.origin Contrib.AbVarBC.MulRigidity.quasiFiniteEndSurjective Contrib.AbVarBC.MulRigidity.stalkEndo Contrib.AbVarBC.MulRigidity.surjective_of_lqf_self Contrib.AbVarBC.Tangent.AtOrigin Contrib.AbVarBC.Tangent.D Contrib.AbVarBC.Tangent.D_congr Contrib.AbVarBC.Tangent.D_inv Contrib.AbVarBC.Tangent.D_mul Contrib.AbVarBC.Tangent.D_one Contrib.AbVarBC.Tangent.D_zpow Contrib.AbVarBC.Tangent.KerN Contrib.AbVarBC.Tangent.atOrigin_inv Contrib.AbVarBC.Tangent.atOrigin_map Contrib.AbVarBC.Tangent.atOrigin_mul Contrib.AbVarBC.Tangent.atOrigin_one Contrib.AbVarBC.Tangent.atOrigin_zpow Contrib.AbVarBC.Tangent.closedPoint_eq Contrib.AbVarBC.Tangent.comp_intCast_hom Contrib.AbVarBC.Tangent.comp_mem_of_subsingleton Contrib.AbVarBC.Tangent.comp_orig_mem Contrib.AbVarBC.Tangent.derivation_eq_zero Contrib.AbVarBC.Tangent.dualHom Contrib.AbVarBC.Tangent.eq_ofRing_ptRing Contrib.AbVarBC.Tangent.eq_of_D_eq Contrib.AbVarBC.Tangent.eq_one_of_comp_intCast Contrib.AbVarBC.Tangent.ev0 Contrib.AbVarBC.Tangent.exists_affine_orig Contrib.AbVarBC.Tangent.fst_tRing Contrib.AbVarBC.Tangent.id_appLE_top Contrib.AbVarBC.Tangent.intCast_hom Contrib.AbVarBC.Tangent.isLocalHom_fstHom Contrib.AbVarBC.Tangent.isLocalRing_tsze Contrib.AbVarBC.Tangent.ker_le_sq_of_derivations Contrib.AbVarBC.Tangent.ks Contrib.AbVarBC.Tangent.ks_hom Contrib.AbVarBC.Tangent.ks_isOpenImmersion Contrib.AbVarBC.Tangent.left_closedPoint Contrib.AbVarBC.Tangent.locallyOfFiniteType_kerN Contrib.AbVarBC.Tangent.map_add_inl Contrib.AbVarBC.Tangent.map_add_inr Contrib.AbVarBC.Tangent.map_fst_inl Contrib.AbVarBC.Tangent.map_fst_inr Contrib.AbVarBC.Tangent.map_snd_inl Contrib.AbVarBC.Tangent.map_snd_inr Contrib.AbVarBC.Tangent.mem_of_atOrigin Contrib.AbVarBC.Tangent.mulN Contrib.AbVarBC.Tangent.ofRing Contrib.AbVarBC.Tangent.ofRing_mem Contrib.AbVarBC.Tangent.one_left Contrib.AbVarBC.Tangent.orig Contrib.AbVarBC.Tangent.ptR Contrib.AbVarBC.Tangent.ptRing Contrib.AbVarBC.Tangent.ptRing_comp Contrib.AbVarBC.Tangent.ptRing_congr Contrib.AbVarBC.Tangent.ptRing_ext Contrib.AbVarBC.Tangent.ptRing_id_top Contrib.AbVarBC.Tangent.ptRing_ofRing Contrib.AbVarBC.Tangent.ptRing_specMap_comp Contrib.AbVarBC.Tangent.specHom Contrib.AbVarBC.Tangent.specHom_comp Contrib.AbVarBC.Tangent.specHom_id Contrib.AbVarBC.Tangent.specHom_left Contrib.AbVarBC.Tangent.spec_inl_fst_comp Contrib.AbVarBC.Tangent.tRing Contrib.AbVarBC.Tangent.tRing_congr Contrib.AbVarBC.Tangent.tRing_one Contrib.AbVarBC.Tangent.tRing_specHom Contrib.AbVarBC.TorsionDescends Contrib.AbVarBC.comp_natCast_hom Contrib.AbVarBC.dim_baseChange_scheme Contrib.AbVarBC.dim_finite Contrib.AbVarBC.dim_pullback_spec Contrib.AbVarBC.dim_spec_le Contrib.AbVarBC.exists_lift_of_isFinite Contrib.AbVarBC.exists_nat_of_le Contrib.AbVarBC.galK Contrib.AbVarBC.kerUnitOpen Contrib.AbVarBC.map_comm Contrib.AbVarBC.mem_range_of_isIntegral Contrib.AbVarBC.mulIsogeny Contrib.AbVarBC.ptBC Contrib.AbVarBC.ptBC_galAct Contrib.AbVarBC.ptBC_injective Contrib.AbVarBC.ringKrullDim_eq_of_isIntegral_of_injective Contrib.AbVarBC.ringKrullDim_le_of_finiteType Contrib.AbVarBC.ringKrullDim_mvPolynomial_field Contrib.AbVarBC.ringKrullDim_tensor_field Contrib.AbVarBC.scheme_dim_eq_iSup_cover Contrib.AbVarBC.scheme_dim_eq_of_iso Contrib.AbVarBC.spec_dim Contrib.AbVarBC.tateBC Contrib.AbVarBC.tateBC_bijective_of_tateModuleFree Contrib.AbVarBC.tateBC_bijective_of_torsionDescends Contrib.AbVarBC.tateBC_galT Contrib.AbVarBC.tateBC_injective Contrib.AbVarBC.tate_map_bijective_of_torsion Contrib.AbVarBC.topologicalKrullDim_eq_iSup_of_openEmbedding Contrib.AbVarBC.torsionDescends_of_isFinite Contrib.AbVarBC.vBC Contrib.AbVarBC.vBC_galRep DefFaltings.AbVar DefFaltings.AnalyticUniformizationExists DefFaltings.AnalyticUniformizationUnique DefFaltings.EReal.add_coe_add_neg_coe DefFaltings.FinExt DefFaltings.Genus2Eq DefFaltings.Genus2Eq.Good DefFaltings.Genus2Eq.P DefFaltings.Genus2Eq.binDisc DefFaltings.GroupModel DefFaltings.GroupModel.IsAnalyticUniformization DefFaltings.GroupModel.IsNeronModel DefFaltings.GroupModel.Pts DefFaltings.GroupModel.cotangent DefFaltings.GroupModel.dCls DefFaltings.GroupModel.detLattice DefFaltings.GroupModel.dom DefFaltings.GroupModel.evalAt DefFaltings.GroupModel.exists_rep DefFaltings.GroupModel.genStalk DefFaltings.GroupModel.genericUnit DefFaltings.GroupModel.germAlong DefFaltings.GroupModel.height DefFaltings.GroupModel.height_eq DefFaltings.GroupModel.hodgeSpace DefFaltings.GroupModel.jacDet DefFaltings.GroupModel.jacDet_comp DefFaltings.GroupModel.omega DefFaltings.GroupModel.omegaAt DefFaltings.GroupModel.omegaAt_genericPt DefFaltings.GroupModel.ptC DefFaltings.GroupModel.semilinear_ext_wedge DefFaltings.GroupModel.specializes_genericUnit DefFaltings.GroupModel.structMap DefFaltings.GroupModel.unitSection DefFaltings.GroupModel.wedge DefFaltings.HermitianLattice DefFaltings.HermitianLattice.arakelovDegree DefFaltings.HermitianLattice.arakelovDegree_ofFractionalIdeal DefFaltings.HermitianLattice.arakelovDegree_rescale DefFaltings.HermitianLattice.degreeAt DefFaltings.HermitianLattice.degreeAt_eq DefFaltings.HermitianLattice.degreeAt_eq_arakelovDegree DefFaltings.HermitianLattice.degreeAt_smul DefFaltings.HermitianLattice.ofFractionalIdeal DefFaltings.HermitianLattice.rescale DefFaltings.HermitianLattice.secIndex_ne_zero DefFaltings.HodgeData DefFaltings.HodgeData.coeff_apply_ne_zero DefFaltings.HodgeData.hodgeBundle DefFaltings.HodgeData.modelHeight DefFaltings.HodgeData.modelHeight_eq DefFaltings.HodgeData.modelHeight_eq_add_of_le DefFaltings.HodgeData.modelHeight_eq_faltingsHeightGood DefFaltings.HodgeData.modelHeight_le_of_le DefFaltings.HodgeData.modelHeight_ofIdeal DefFaltings.HodgeData.modelHeight_ofIdeal_baseChange DefFaltings.HodgeData.modelHeight_of_span DefFaltings.HodgeData.modelHeight_recoord DefFaltings.HodgeData.norm DefFaltings.HodgeData.norm_sq DefFaltings.HodgeData.recoord DefFaltings.HodgeLatticeTheorem DefFaltings.IsIsogeny DefFaltings.MetrizedModel DefFaltings.MetrizedModel.modelHeight_eq_of_model_eq DefFaltings.NeronModelMinimal DefFaltings.PeriodAreaFormula DefFaltings.R19_GaudronRemond DefFaltings.R20_FaltingsLemma5 DefFaltings.R21_Bost DefFaltings.StableHeightFinite DefFaltings.absNorm_extendedHom DefFaltings.absNorm_map_ringOfIntegers DefFaltings.arakelovDegree_ofFractionalIdeal_baseChange DefFaltings.arakelovDegree_ofFractionalIdeal_mul DefFaltings.card_embeddings_over DefFaltings.covolume_comap_mul_det DefFaltings.covolume_gaussianPair DefFaltings.det_restrictScalars_complex DefFaltings.embCoeff DefFaltings.faltingsHeight DefFaltings.faltingsHeightEC DefFaltings.faltingsHeightGood DefFaltings.faltingsHeight_coe DefFaltings.finiteHeightPart DefFaltings.finrank_ringOfIntegers DefFaltings.gaussianPair DefFaltings.genericFibre DefFaltings.genericPt DefFaltings.grKappa DefFaltings.hypGram DefFaltings.hypGram_comp_add DefFaltings.hypVol DefFaltings.hypVol_one_comp_add DefFaltings.isogDeg DefFaltings.le_stableFaltingsHeight DefFaltings.modelHeight_ofIdeal_eq_faltingsHeightEC DefFaltings.modelHeight_ofIdeal_eq_faltingsHeightEC' DefFaltings.norm_algebraMap_tower DefFaltings.ptObj DefFaltings.ratCoeff DefFaltings.realify DefFaltings.secIndex DefFaltings.secIndex_mul_absNorm DefFaltings.secIndex_smul DefFaltings.stableFaltingsHeight DefFaltings.stableFaltingsHeightDeligne DefFaltings.stableFaltingsHeightDeligne_eq DefFaltings.stableFaltingsHeight_eq_faltingsHeightGood DefFaltings.stableFaltingsHeight_eq_iInf_height DefFaltings.stableFaltingsHeight_le DefFaltings.stableFaltingsHeight_ne_bot_of_R21 DefFaltings.sum_embeddings_comp DefFaltings.sum_log_norm_embeddings DefFaltings.sum_log_norm_embeddings_int DefFaltings.torusMetricSq DefFaltings.torusMetricSq_comap DefFaltings.torusMetricSq_eq_setIntegral DefFaltings.torusMetricSq_pos DefFaltings.torusMetricSq_smul DefFaltings.torus_setIntegral_indep H5Glue.GenericFibreStalkIso H5Glue.GroupModel.baseChange H5Glue.GroupModel.isNeronModel_iff H5Glue.GroupModelBaseChangeExists H5Glue.HeightAntitone H5Glue.HodgeLatticeNonzero H5Glue.HodgeMapBijective H5Glue.IsBaseChangeOf H5Glue.IsOpenSubgroupModel H5Glue.IsProductAbVar H5Glue.IsProductModel H5Glue.ModelHeightBaseChange H5Glue.NeronModelExists H5Glue.NeronProp H5Glue.NeronProp.lift H5Glue.NeronProp.of_iso H5Glue.NeronProp.tensor H5Glue.NeronProp.uniqueIso H5Glue.OmegaSpans H5Glue.OpenImmersionHeightLe H5Glue.OpenSubgroupHeight H5Glue.ProductGroupModelExists H5Glue.ProductModelHeight H5Glue.SemistableNeronIdentityComponent H5Glue.baseChange_map_bijective H5Glue.bcProd H5Glue.bijective_respectsIso H5Glue.compositum H5Glue.cotMap H5Glue.cotMap_bijective H5Glue.cotMap_dCls H5Glue.cotMap_omega H5Glue.cotMap_omegaAt H5Glue.detLattice_le_hodgeMap H5Glue.dom_comp H5Glue.evalAt_comp H5Glue.evalAt_res H5Glue.exists_smul_mem_omega H5Glue.fst_genericFibreUnit H5Glue.fst_genericFibre_unit H5Glue.genBC H5Glue.genBC_isMonHom H5Glue.genMap H5Glue.genMap_germ H5Glue.genMap_mem_maximalIdeal H5Glue.genMap_mem_maximalIdeal_iff H5Glue.genMap_structMap H5Glue.genericFibreStalkIso H5Glue.genericFibreUnit H5Glue.genericIso_of_openImmersion H5Glue.germAlong_comp_eventuallyEq H5Glue.groupModelBaseChangeExists H5Glue.heightAntitone H5Glue.heightAntitone_of H5Glue.heightAntitone_of_hodgeLatticeNonzero H5Glue.heightAntitone_of_omegaSpans H5Glue.hodgeLatticeNonzero_of_omegaSpans H5Glue.hodgeMap H5Glue.hodgeMapBijective H5Glue.hodgeMap_detLattice H5Glue.hodgeMap_wedge H5Glue.hodgeMap_wedgeGerm H5Glue.isAnalyticUniformization_comp H5Glue.isAnalyticUniformization_of_comp H5Glue.isIso_genMap H5Glue.isIso_of_openImmersion_self H5Glue.isIso_stalkSpecializes_genMap H5Glue.isMonHom_of_map H5Glue.isMonHom_pbCompHom H5Glue.isMonHom_pbCompInv H5Glue.isMonHom_pbEqIso H5Glue.isMonHom_prodComparisonIso H5Glue.isNeronModel_of_isProductModel H5Glue.isOpenImmersion_pullback_map H5Glue.jL H5Glue.jacDet_comp_genMap H5Glue.jacDet_comp_map H5Glue.map_genericUnit' H5Glue.map_span_singleton_toAddSubgroup H5Glue.map_zero_of_hom H5Glue.modelHeight_pullHodge_le H5Glue.neronModelMinimal H5Glue.neronModelMinimal_of_heightAntitone H5Glue.neron_lift H5Glue.neron_lift_isMonHom H5Glue.neron_map_injective H5Glue.omegaAt_le_cotMap H5Glue.omegaSpans H5Glue.omega_le_cotMap H5Glue.one_mem_dom H5Glue.openImmersionHeightLe H5Glue.openSubgroupHeight H5Glue.openSubgroupHeight_of H5Glue.pbCompHom H5Glue.pbCompInv H5Glue.pbCompIso H5Glue.pbEqIso H5Glue.productGroupModelExists H5Glue.ptCIso H5Glue.ptC_hom_apply H5Glue.ptsEquiv H5Glue.ptsEquiv_comp H5Glue.pts_comp_bijective H5Glue.pullHodge H5Glue.secIndex_le_of_map H5Glue.secIndex_ne_zero_of_mem H5Glue.smooth_tensor H5Glue.smooth_unit H5Glue.square1 H5Glue.square2 H5Glue.stableFaltingsHeight_add_le H5Glue.stableFaltingsHeight_add_le_of_productModelHeight H5Glue.stableFaltingsHeight_eq_neron_all H5Glue.stableFaltingsHeight_eq_neron_all' H5Glue.stalkIso_of_genericIso H5Glue.stalkSpecializes_self_apply H5Glue.stalkSpecializes_stalkSpecializes_apply H5Glue.stalk_ker_eq H5Glue.stalk_spec_eq H5Glue.stalkwise_fst_toGeneric H5Glue.stalkwise_tensor_localization H5Glue.tensorGen H5Glue.tensorGen_fst H5Glue.tensorGen_snd H5Glue.toGeneric_pt H5Glue.unitSection_comp H5Neron.GroupModel.IsNeronModel.lift H5Neron.GroupModel.IsNeronModel.uniqueIso H5Neron.GroupModel.isNeronModel_iff H5Neron.GroupModelBaseChangeExists H5Neron.IsBaseChangeOf H5Neron.IsOpenSubgroupModel H5Neron.IsProductAbVar H5Neron.IsProductModel H5Neron.ModelHeightBaseChange H5Neron.NeronModelExists H5Neron.NeronProp H5Neron.NeronProp.lift H5Neron.NeronProp.of_iso H5Neron.NeronProp.tensor H5Neron.NeronProp.uniqueIso H5Neron.OpenSubgroupHeight H5Neron.ProductGroupModelExists H5Neron.ProductModelHeight H5Neron.R19_zero H5Neron.R20_zero H5Neron.R21_zero H5Neron.SemistableNeronIdentityComponent H5Neron.bcProd H5Neron.bcUnitIso H5Neron.compositum H5Neron.covolume_fin_zero H5Neron.detLattice_zero H5Neron.glue_zero H5Neron.groupModel_height_zero H5Neron.hodgeZeroEquiv H5Neron.hodgeZeroEquiv_wedge0 H5Neron.hom_ext_of_iso_unit H5Neron.isIsogeny_id_zero H5Neron.isMonHom_of_iso_unit H5Neron.isMonHom_prodComparisonIso H5Neron.isNeronModel_of_isProductModel H5Neron.isogDeg_zero_le_one H5Neron.jL H5Neron.metrizedOf H5Neron.modelHeight_dim_zero H5Neron.neronModelExists_zero H5Neron.neronModelMinimal_zero H5Neron.neron_zero_iso_unit H5Neron.no_metrized_succ H5Neron.one_le_grKappa H5Neron.productGroupModelExists H5Neron.pts_subsingleton H5Neron.semistableNeronIdentityComponent_zero H5Neron.semσ H5Neron.stableFaltingsHeight_add_le H5Neron.stableFaltingsHeight_add_le' H5Neron.stableFaltingsHeight_eq_neron H5Neron.stableFaltingsHeight_eq_neron_all H5Neron.stableFaltingsHeight_zero H5Neron.stableHeightFinite_zero H5Neron.tensorGen H5Neron.tensorGen_fst H5Neron.tensorGen_snd H5Neron.trivHodge H5Neron.trivMetrized H5Neron.trivModel H5Neron.trivModel_isNeronModel H5Neron.wedge0 H5Neron.wedge0_ne_zero H5Neron.wedge_eq_wedge0 HeightBC.CotangentSpanBC HeightBC.D0 HeightBC.D0_add HeightBC.D0_add_apply HeightBC.D0_mul HeightBC.D0_mul_apply HeightBC.D0_sq HeightBC.D0_structMap_mul HeightBC.DetLatticeBC HeightBC.FF HeightBC.GermDerivation HeightBC.HodgeBCInjective HeightBC.HodgeLineBaseChange HeightBC.HodgeLineBaseChangeDescent HeightBC.HodgeLineDescentHalf HeightBC.HodgeSpanBC HeightBC.IsBaseChangeOf HeightBC.IsHodgeBaseChange HeightBC.IsMonBC HeightBC.JacobianPullbackSpan HeightBC.JacobianSemilinear HeightBC.MetrizationBaseChange HeightBC.ModelHeightBaseChange HeightBC.ModelHeightBaseChangeGE HeightBC.ModelHeightBaseChangeLE HeightBC.OmegaBaseChange HeightBC.OmegaLocalization HeightBC.PtsBaseChangeBij HeightBC.PtsBaseChangeMul HeightBC.UniformizationLift HeightBC.UniformizationLiftAnalytic HeightBC.algebraMap_FF HeightBC.algebraMap_ringOfIntegers_coe HeightBC.appLE_top_top HeightBC.bO HeightBC.bO_appTop HeightBC.bO_genericPt HeightBC.bcAlt HeightBC.bcCot HeightBC.bcCotBasis HeightBC.bcCotBasis_apply HeightBC.bcCot_core HeightBC.bcCot_dCls HeightBC.bcCot_intInv HeightBC.bcCot_linearIndependent HeightBC.bcCot_omega HeightBC.bcCot_omegaAt HeightBC.bcCot_smulL HeightBC.bcCot_smul_genStalk HeightBC.bcCot_span HeightBC.bcCot_update HeightBC.bcExt HeightBC.bcExt_smul HeightBC.bcExt_ιMulti HeightBC.bcHodge HeightBC.bcHodge_detLattice HeightBC.bcHodge_smul HeightBC.bcHodge_tmul HeightBC.bcHodge_wedge HeightBC.bcMap HeightBC.bcMap_germ HeightBC.bcMap_mem_maximalIdeal HeightBC.bcMap_structMap HeightBC.bcMap_φL HeightBC.bcProj HeightBC.bcProj_genericUnit HeightBC.bcProj_unit HeightBC.bcProj_w HeightBC.bcPts HeightBC.cotL HeightBC.cotL_isScalarTower HeightBC.cotL_smul HeightBC.cotRes HeightBC.cotangentSpanBC HeightBC.descentHalf_of_descent HeightBC.detLatticeBC_of_omega HeightBC.dom_bcPts HeightBC.evalAt_add HeightBC.evalAt_bcPts HeightBC.evalAt_mul HeightBC.evalAt_one_eq_zero HeightBC.evalAt_res HeightBC.evalAt_structSection HeightBC.exists_act HeightBC.exists_comp_eq HeightBC.exists_int_dvd HeightBC.exists_mem_not_mem_of_sat HeightBC.exists_ringOfIntegers_of_algebraMap HeightBC.extRes HeightBC.finite_of_isClosed_not_genericPt HeightBC.g0_hodgeLine_iff HeightBC.genericPt_eq_genericPoint HeightBC.germAlong_add_mul HeightBC.germAlong_bcPts_eventuallyEq HeightBC.germAlong_differentiableAt HeightBC.germAlong_eventuallyEq_rep HeightBC.germAlong_structMap HeightBC.germAlong_zero_of_mem HeightBC.germDerivation HeightBC.germDerivation_at HeightBC.hodgeBCInjective HeightBC.hodgeLineBaseChangeDescent_of_glue HeightBC.hodgeLineBaseChange_of_descent HeightBC.hodgeLineBaseChange_of_final HeightBC.hodgeLineBaseChange_of_five HeightBC.hodgeLineBaseChange_of_four HeightBC.hodgeLineBaseChange_of_glue HeightBC.hodgeLineBaseChange_of_glue4 HeightBC.hodgeLineBaseChange_of_glue5 HeightBC.hodgeLineBaseChange_of_main HeightBC.hodgeLineBaseChange_of_two HeightBC.hodgeSpanBC_of HeightBC.hom_genericUnit HeightBC.hom_genericUnit' HeightBC.hom_unitSection HeightBC.isAnalyticUniformization_bcPts HeightBC.isField_stalk_genericPt HeightBC.isIso_stalkSpecializes_bcMap HeightBC.isUnit_germ_genericPt HeightBC.isUnit_structMap HeightBC.jacDet_bcPts HeightBC.jacobianPullbackSpan_of HeightBC.jacobianSemilinear HeightBC.jacobianSemilinear_of HeightBC.locSub HeightBC.mapCotangent_injective_of_isIso HeightBC.mapCotangent_smul' HeightBC.map_zero_of_hom HeightBC.maximalIdeal_stalk_genericPt HeightBC.mem_locSub HeightBC.mem_of_forall_locSub HeightBC.metrizationBaseChange_of_hodgeLine HeightBC.modelHeightBaseChangeGE_of_descent HeightBC.modelHeightBaseChangeGE_of_descentHalf HeightBC.modelHeightBaseChangeGE_of_main HeightBC.modelHeightBaseChangeGE_of_two HeightBC.modelHeightBaseChangeLE_of_metrization HeightBC.modelHeightBaseChange_of_descent HeightBC.modelHeightBaseChange_of_final HeightBC.modelHeightBaseChange_of_five HeightBC.modelHeightBaseChange_of_four HeightBC.modelHeightBaseChange_of_glue HeightBC.modelHeightBaseChange_of_glue4 HeightBC.modelHeightBaseChange_of_glue5 HeightBC.modelHeightBaseChange_of_main HeightBC.modelHeightBaseChange_of_two HeightBC.modelHeight_eq_of_isHodgeBaseChange HeightBC.multilinear_mem_span HeightBC.omegaAt_bc_local HeightBC.omegaAt_full HeightBC.omegaAt_open HeightBC.omegaAt_sat HeightBC.omegaBaseChange HeightBC.omegaBaseChange_of_localization HeightBC.omegaLocalization HeightBC.one_mem_dom HeightBC.ptC_hom_apply HeightBC.ptC_hom_comp_bO HeightBC.ptsBaseChangeBij HeightBC.ptsBaseChangeMul HeightBC.rationalOver_genericUnit HeightBC.secIndex_baseChange HeightBC.secIndex_map HeightBC.secIndex_ne_zero_of_baseChange HeightBC.secIndex_nsmul_mem HeightBC.smul_cotangent_eq_of_sub_mem HeightBC.span_bcHodge_le HeightBC.spec_mem_of_ker HeightBC.stalkMapAt_germ' HeightBC.stalkSpec_comp_apply HeightBC.stalkSpec_self_apply HeightBC.stalkSpecializes_self_apply' HeightBC.stalkSpecializes_stalkSpecializes_apply' HeightBC.structMap_eq_spec HeightBC.structMap_eq_stalkMap HeightBC.toCotangent_mul HeightBC.uniformizationLift HeightBC.uniformizationLiftAnalytic HeightBC.uniformizationLift_of HeightBC.unitSection_comp_hom HeightBC.unitSection_stalkMapAt_hom HeightBC.σFF HeightBC.φL HeightBC.φL_algebraMap LeafPush2.CPts LeafPush2.Char2 LeafPush2.HasSexticModel LeafPush2.IC10 LeafPush2.IC2 LeafPush2.IC4 LeafPush2.IC6 LeafPush2.IgJ10 LeafPush2.IgJ2 LeafPush2.IgJ4 LeafPush2.IgJ6 LeafPush2.IsGenus2 LeafPush2.IsPeriodMatrix LeafPush2.IsSiegel LeafPush2.IsUniformization LeafPush2.LinYangTuple LeafPush2.OnQMLocus LeafPush2.T10_groupIso LeafPush2.T11a_RiemannEnd LeafPush2.T11b_Rigidity LeafPush2.T12_ComplexConjEigen LeafPush2.UniformizationExists LeafPush2.absLogHeight LeafPush2.cDom LeafPush2.cEvalAt LeafPush2.cptObj LeafPush2.dsq LeafPush2.exists_isComplexConj LeafPush2.ffAlgebra LeafPush2.ffStructMap LeafPush2.isSiegel_I LeafPush2.javanpeykarBound LeafPush2.javanpeykarBound_mono LeafPush2.javanpeykarBound_pos LeafPush2.linYangTuple_onQMLocus LeafPush2.linYang_j_eq LeafPush2.onQMLocus_of_linYangTuple LeafPush2.pazukiC2 LeafPush2.sextic LeafPush2.thetaConst) -- op-dedupe
+open _root_.LeafQM.AV (CMExists HasCM24 HasCM24.of_iso HasCM3 HasCM3.of_iso HasCM4 HasCM4.of_iso IsBaseChangeOf IsBaseChangeOfPair IsFibreOf Level3 Level3.bcPt_pow_three Level3.eq_iff Level3.exists_mul_of_range_le Level3.ext' Level3.onto Level3.range_le Level3.rightMul Level3.rightMul_eq_self Level3.rightMul_rightMul Level3.torsor Level3.twist M3 M3.mk M3.rightMul M3.rightMul_rightMul M3.twist M3.twist_mk Pin.AutOExt.NormalizerFinite Pin.AutOExt.alpha_nat_smul Pin.AutOExt.autOInnerFinite_of_normalizer Pin.AutOExt.common_den Pin.AutOExt.conjUnit Pin.AutOExt.conj_of_skolem Pin.AutOExt.den_mul_int Pin.AutOExt.exists_nat_smul_mem Pin.AutOExt.extAlgEquiv Pin.AutOExt.extAlgHom Pin.AutOExt.extAlgHom_coe Pin.AutOExt.extAlgHom_symm_comp Pin.AutOExt.extDen Pin.AutOExt.extDen_mem Pin.AutOExt.extDen_pos Pin.AutOExt.extFun Pin.AutOExt.extFun_add Pin.AutOExt.extFun_algebraMap Pin.AutOExt.extFun_coe Pin.AutOExt.extFun_eq Pin.AutOExt.extFun_mul Pin.AutOExt.key_conj Pin.AutOExt.mem_O_of_int Pin.AutOExt.natCast_mul_eq_smul Pin.AutOExt.nat_smul_mem Pin.AutOExt.smul_mul_smul' Pin.AutOInnerFinite Pin.ConstOrOntoAlgClosed Pin.CurveRatFactor Pin.CurveSurj Pin.GeomCompConstOrOnto Pin.GeomCompFinite Pin.GeomCompInfinite Pin.GeomCompRatFactor Pin.ImagePlane.ev_comp Pin.ImagePlane.ev_spec_top Pin.ImagePlane.ptOf_comp Pin.ImagePlane.ptOf_spec_asIdeal Pin.IsNaturalRelabel Pin.Mob.eval_ne_zero_of_coprime Pin.Mob.exists_interp Pin.Mob.isCoprime_X_sub_C_of_eval_one Pin.Mob.natDegree_le_one_of_injective Pin.Mob.ratEval Pin.Mob.ratEval_eq_self Pin.Mob.wronskian_ne_zero Pin.MobiusGlue Pin.NormO.IsNorm Pin.NormO.IsNorm.inv Pin.NormO.IsNorm.mul Pin.NormO.T Pin.NormO.T_finite Pin.NormO.T_mul_ui Pin.NormO.T_mul_uj Pin.NormO.bas Pin.NormO.conjC Pin.NormO.descent Pin.NormO.dvd_of_prime_dvd_nrd Pin.NormO.dvd_of_smul_mem Pin.NormO.ei Pin.NormO.ej Pin.NormO.inv_eq Pin.NormO.isNorm_sc Pin.NormO.isNorm_ui Pin.NormO.isNorm_uj Pin.NormO.mulCoord_conjC Pin.NormO.mulCoord_conjC' Pin.NormO.mulCoord_smul_left Pin.NormO.mulCoord_smul_right Pin.NormO.normalizerFinite Pin.NormO.nrdZ Pin.NormO.nrdZ_ei Pin.NormO.nrdZ_ej Pin.NormO.nrdZ_mul Pin.NormO.nrdZ_ne_zero Pin.NormO.nrdZ_smul Pin.NormO.nrd_dvd_coords Pin.NormO.ofInt_scalar Pin.NormO.rearrange Pin.NormO.sc Pin.NormO.six_sq_identities Pin.NormO.smul_ofInt Pin.NormO.three_dvd_mulCoord_ej Pin.NormO.two_dvd_mulCoord_ei Pin.NormO.ui Pin.NormO.uj Pin.PinUnique Pin.QMFamily.transport Pin.QML3.isoTransport Pin.R1fpProps.fam Pin.R1fpProps.univ Pin.RatFactorAlgClosed Pin.SameTriple Pin.SameTripleMor Pin.SmoothCurveNoIsolatedPoint Pin.SmoothStalkDimOne Pin.TwistClassFinite Pin.autOInnerFinite Pin.autRelabel Pin.autRelabel_natural Pin.bcPt Pin.bcPt_ptOfSection Pin.bcPt_snd Pin.bcQbar Pin.bcSnd Pin.cm_objects_of_R1R2fp Pin.conjUnitIso Pin.cst Pin.curveFacts_of_algClosed Pin.curveFacts_of_comp Pin.curveFacts_of_leaves Pin.curveFacts_of_named Pin.curveRatFactor_of_comp Pin.curveSurj_of_comp Pin.ev Pin.ev_cst Pin.ev_eq_zero_iff Pin.ev_f_mul_g Pin.ev_g_eq_zero Pin.ev_res Pin.ev_top Pin.exists_isOpen_singleton_of_finite_closedPoints Pin.exists_liftO_congr Pin.exists_point_of_isLocallyClosed Pin.geomComp Pin.geomCompConstOrOnto_of Pin.geomCompFinite Pin.geomCompInfinite_of Pin.geomCompRatFactor_of Pin.isFibreOf_transport Pin.isOpen_connectedComponent_of_noetherian Pin.level3_finite Pin.mem_V_of_not_mem_U Pin.phi_part Pin.pointwise_of_witness Pin.pointwise_of_witness_mor Pin.ptOf Pin.ptOfSection Pin.r1fpPin_aut Pin.r1fpPin_relabel_iff Pin.r2fp_aut Pin.relabel Pin.relabel_geometric Pin.relabel_is_morphism Pin.res Pin.res_res Pin.sameTripleMor_of_mobius Pin.sameTriple_aut Pin.smoothCurveNoIsolatedPoint_of Pin.transfer_exists Pin.transfer_pointwise Pin.transfer_pointwise_mor Pin.transportLevel Pin.twistClassFinite Pin.twistClassFinite_of Pin.val_bcPt Pin.val_of_mem Pin.val_of_not_mem PtEquiv QMFamily QMIso QMIso.nonempty_abVarIso QMIso.refl QMIso.symm QMIso.trans QML3 QML3.Iso QML3.Iso.refl QML3.Iso.rightMul QML3.Iso.symm QML3.Iso.trans QML3.Iso.twist QML3.forget QML3.rightMul QML3.rightMul_A QML3.rightMul_rightMul QML3.twist QML3.twist_A QMLeaves QMPair QMPair.twist QMStr QMStr.twist Qbar R1R2fp R1R2fp_Y R1famProps R1fp R1fpProps R1fp_of_R1R2fp R1heckeProps R1rec R1recProps R1univProps R2X6Props R2fpProps R2fpProps_of_X6 R5fp R5fpCount R5fpWeak R5fpWeak_of_R5fp R5ptProps ToP1 ToP1.comp ToP1.val ToP1.val_comp ToP1.val_comp_right UnramifiedAbove5 X6Props X6Surj act_mul_apply bcPt bcPt_injective cm_of_val com comEquiv com_twist conductor conjHom conjHom_iota conjHom_mem_com conjHom_symm_apply conj_iso_of_rational conj_twist_of_rational endPt exists_fibre_object fibre_conjugates_isomorphic fieldMap fieldOfModuli3 fieldOfModuliPair fieldPt galAct_bcPt hI hIJ hJ hasCM24_twist hasCM3_twist hasCM4_twist hrat inertCount6 intCast_mem_com isoSetoid leaves_on_one_witness liftO not_qmStr_zero ofInt_injective ofInt_sub oi oi_mul_oi oj oj_mul_oi_add oj_mul_oj pairSetoid qmAct residueImage residue_unramified_over_branch specMap_flat specMap_surjective specToEquivOfField_comp specToEquivOfField_comp_right stab3 stabPair three_mul_ofInt toKbar unramified_over_branch) -- op-dedupe
+open _root_.GlueDescent (B2.IsSignCocycle B2.SignCob B2.dB B2.dB_inv B2.dB_mul B2.exists_beta B2.isSignCocycle_dB B2.isSignCocycle_inv B2.isSignCocycle_mul B2.isSignCocycle_pull B2.pull B2.pull_dB B2.signCob_dB_iff B2.signCob_inv B2.signCob_mul B2Q.GQ B2Q.GQp B2Q.InflatedFrom B2Q.LeafHasse B2Q.LeafLocalTwo B2Q.LeafSqrtCrit B2Q.LeafUnramified B2Q.UnramifiedAt B2Q.act B2Q.act_mul B2Q.b2_of_leaves B2Q.cast_cast_of_dvd B2Q.chiLevel_pos B2Q.chi_toUnitHom_crt B2Q.cyc B2Q.cyc_eq_of_agree B2Q.cyc_isLocallyConstant B2Q.exists_crt_unit B2Q.galChar B2Q.galChar_isLocallyConstant B2Q.isLocallyConstant_of_openSubgroup B2Q.lev_eq_pow B2Q.resp B2Q.resp_continuous B2Q.sqrtU B2Q.sqrtU_sq B2Q.toRingAut B3Q.GQL B3Q.b3_degree_le_QM B3Q.b3_of_leaves B3Q.inflatedNormalized_of B3Q.mem_GQL B3Q.orderOf_pos_dirichlet B6 B6_commute_i_j B6_inner B6_isCentral B6_isSimpleRing B6_star_mul InflatedNormalized IsCochainFor LeafSkolemNoether MatrixUnits2 MatrixUnits2.W MatrixUnits2.e00_of_mem MatrixUnits2.e_apply_e MatrixUnits2.finrank_W MatrixUnits2.mapsTo_W MatrixUnits2.mem_W_of_e0 MatrixUnits2.splitEquiv MatrixUnits2.splitEquiv_intertwines aniso_int aniso_rat boundary_sq chi chiLevel cochain_conj cochain_mul_kernel cochain_mul_left cochain_mul_right cochain_of_boundary_eq cochain_one cocycle_of_projective commute_adjoin contactSupport_pos degree_le_QM exists_chi exists_odd_char heightD_pos index_kernel_le inertia_le_kernel kernelSubgroup kernelSubgroup_le kernelSubgroup_normal lev lev_dvd_chiLevel mem_kernelSubgroup oddChar oddChar_neg_one orderOf_dvd_totient orderOf_prod_dvd prod_S_le prod_odd_le prod_odd_le_aux prod_totient_lev_le qi qj ramSet relindex_kernel_le restrictHom rho rhoRep rho_commute rho_eq_act rho_map_mul sign_cocycle sign_normalization sign_sq_eq_one ten_le_heightE0 three_dvd_of_form totient_lev twist twist_kills_inertia twist_sq two_lt_lev zmod3_aniso) -- op-dedupe
+open _root_.G0ModField (CommonConstituent ConjugacyData DescentDatum FibreCoverExists FibreCoverOut FibreCtx G2Out G4Out G7Out GaloisCopy.G2Out GaloisCopy.G7Out GaloisCopy.Vb GaloisCopy.resQ GaloisCopy.tate IF IsModelOver IsQMModel IsQMModel.isModelOver KernelFieldExists KernelFieldOut ModularConstituentG PtQ RationalFibre ResQRange T UnramifiedSup actK actQ admissible_S_mul b2_of_leaves_level b3_of_cochain baseChangeTrans card_ker_GL descentDatum_bot descentDatum_of_conjugacy fieldDescent g2Out_of_cover g4Out_of_kernelField g7Out_of_g4Out galAct_bijective galAct_mul incAlg isModelOver_baseChange le_heightD_of_mem_S_mul mem_GQL_bot normA numberField_of_fd resQRange resQ_comm' resQ_range sgnU sgnU_mul sgnU_mul_abs sgnU_sq toLAut toLAut_apply two_mem_T) -- op-dedupe
+-- op-dedupe was: open GlueC10Link (FrobCompare)
+open _root_.GlueC10Link (FrobCompare) -- op-dedupe
 
 end G14Bridge
 
@@ -7262,9 +6193,15 @@ No `sorry`, no `axiom`.
 noncomputable section
 
 namespace FrobTrace
+open _root_.FrobTrace (AlgFrobLink AlgFrobOne AlgFrobRed algFrobLink_of_one algFrobOne_of_red conj_baseChange frobCompare_opV_conjE g7Out_rescale scalarsQbar tateMapEquiv tateMap_bijective) -- op-dedupe
 
 open CategoryTheory AlgebraicGeometry
 open _root_.ZInQ ZInQ LeafQM.AV GlueDescent G0ModField UnramTate
+open _root_.ZInQ (Contrib.AbVarBC.G0FibreSimple.MulIsogeny Contrib.AbVarBC.MulRigidity.CotangentMulN Contrib.AbVarBC.MulRigidity.KerUnitOpen Contrib.AbVarBC.MulRigidity.KerUnitOpenOfCotangentSurj Contrib.AbVarBC.MulRigidity.MulEtale Contrib.AbVarBC.MulRigidity.MulUnramified Contrib.AbVarBC.MulRigidity.O0 Contrib.AbVarBC.MulRigidity.QuasiFiniteEndSurjective Contrib.AbVarBC.MulRigidity.charZero_residueField Contrib.AbVarBC.MulRigidity.cotangentMap Contrib.AbVarBC.MulRigidity.diagonal_isPullback Contrib.AbVarBC.MulRigidity.diffKer Contrib.AbVarBC.MulRigidity.formallyUnramified_of_kerUnit Contrib.AbVarBC.MulRigidity.isIsogenyMor_of_lqf_of_isOpenMap Contrib.AbVarBC.MulRigidity.isOpenImmersion_of_section Contrib.AbVarBC.MulRigidity.isProper_left Contrib.AbVarBC.MulRigidity.kerUnit Contrib.AbVarBC.MulRigidity.kerUnitOpen_of_cotangent Contrib.AbVarBC.MulRigidity.kerUnitOpen_of_mulEtale Contrib.AbVarBC.MulRigidity.locallyQuasiFinite_of_formallyUnramified Contrib.AbVarBC.MulRigidity.map_origin Contrib.AbVarBC.MulRigidity.mulIsogeny_of_cotangent Contrib.AbVarBC.MulRigidity.mulIsogeny_of_kerUnitOpen Contrib.AbVarBC.MulRigidity.mulIsogeny_of_mulEtale Contrib.AbVarBC.MulRigidity.mulIsogeny_of_mulUnramified Contrib.AbVarBC.MulRigidity.mulIsogeny_of_mulUnramified' Contrib.AbVarBC.MulRigidity.mulUnramified_of_kerUnitOpen Contrib.AbVarBC.MulRigidity.mulUnramified_of_mulEtale Contrib.AbVarBC.MulRigidity.ne_of_specializes_of_lqf Contrib.AbVarBC.MulRigidity.origin Contrib.AbVarBC.MulRigidity.quasiFiniteEndSurjective Contrib.AbVarBC.MulRigidity.stalkEndo Contrib.AbVarBC.MulRigidity.surjective_of_lqf_self Contrib.AbVarBC.Tangent.AtOrigin Contrib.AbVarBC.Tangent.D Contrib.AbVarBC.Tangent.D_congr Contrib.AbVarBC.Tangent.D_inv Contrib.AbVarBC.Tangent.D_mul Contrib.AbVarBC.Tangent.D_one Contrib.AbVarBC.Tangent.D_zpow Contrib.AbVarBC.Tangent.KerN Contrib.AbVarBC.Tangent.atOrigin_inv Contrib.AbVarBC.Tangent.atOrigin_map Contrib.AbVarBC.Tangent.atOrigin_mul Contrib.AbVarBC.Tangent.atOrigin_one Contrib.AbVarBC.Tangent.atOrigin_zpow Contrib.AbVarBC.Tangent.closedPoint_eq Contrib.AbVarBC.Tangent.comp_intCast_hom Contrib.AbVarBC.Tangent.comp_mem_of_subsingleton Contrib.AbVarBC.Tangent.comp_orig_mem Contrib.AbVarBC.Tangent.derivation_eq_zero Contrib.AbVarBC.Tangent.dualHom Contrib.AbVarBC.Tangent.eq_ofRing_ptRing Contrib.AbVarBC.Tangent.eq_of_D_eq Contrib.AbVarBC.Tangent.eq_one_of_comp_intCast Contrib.AbVarBC.Tangent.ev0 Contrib.AbVarBC.Tangent.exists_affine_orig Contrib.AbVarBC.Tangent.fst_tRing Contrib.AbVarBC.Tangent.id_appLE_top Contrib.AbVarBC.Tangent.intCast_hom Contrib.AbVarBC.Tangent.isLocalHom_fstHom Contrib.AbVarBC.Tangent.isLocalRing_tsze Contrib.AbVarBC.Tangent.ker_le_sq_of_derivations Contrib.AbVarBC.Tangent.ks Contrib.AbVarBC.Tangent.ks_hom Contrib.AbVarBC.Tangent.ks_isOpenImmersion Contrib.AbVarBC.Tangent.left_closedPoint Contrib.AbVarBC.Tangent.locallyOfFiniteType_kerN Contrib.AbVarBC.Tangent.map_add_inl Contrib.AbVarBC.Tangent.map_add_inr Contrib.AbVarBC.Tangent.map_fst_inl Contrib.AbVarBC.Tangent.map_fst_inr Contrib.AbVarBC.Tangent.map_snd_inl Contrib.AbVarBC.Tangent.map_snd_inr Contrib.AbVarBC.Tangent.mem_of_atOrigin Contrib.AbVarBC.Tangent.mulN Contrib.AbVarBC.Tangent.ofRing Contrib.AbVarBC.Tangent.ofRing_mem Contrib.AbVarBC.Tangent.one_left Contrib.AbVarBC.Tangent.orig Contrib.AbVarBC.Tangent.ptR Contrib.AbVarBC.Tangent.ptRing Contrib.AbVarBC.Tangent.ptRing_comp Contrib.AbVarBC.Tangent.ptRing_congr Contrib.AbVarBC.Tangent.ptRing_ext Contrib.AbVarBC.Tangent.ptRing_id_top Contrib.AbVarBC.Tangent.ptRing_ofRing Contrib.AbVarBC.Tangent.ptRing_specMap_comp Contrib.AbVarBC.Tangent.specHom Contrib.AbVarBC.Tangent.specHom_comp Contrib.AbVarBC.Tangent.specHom_id Contrib.AbVarBC.Tangent.specHom_left Contrib.AbVarBC.Tangent.spec_inl_fst_comp Contrib.AbVarBC.Tangent.tRing Contrib.AbVarBC.Tangent.tRing_congr Contrib.AbVarBC.Tangent.tRing_one Contrib.AbVarBC.Tangent.tRing_specHom Contrib.AbVarBC.TorsionDescends Contrib.AbVarBC.comp_natCast_hom Contrib.AbVarBC.dim_baseChange_scheme Contrib.AbVarBC.dim_finite Contrib.AbVarBC.dim_pullback_spec Contrib.AbVarBC.dim_spec_le Contrib.AbVarBC.exists_lift_of_isFinite Contrib.AbVarBC.exists_nat_of_le Contrib.AbVarBC.galK Contrib.AbVarBC.kerUnitOpen Contrib.AbVarBC.map_comm Contrib.AbVarBC.mem_range_of_isIntegral Contrib.AbVarBC.mulIsogeny Contrib.AbVarBC.ptBC Contrib.AbVarBC.ptBC_galAct Contrib.AbVarBC.ptBC_injective Contrib.AbVarBC.ringKrullDim_eq_of_isIntegral_of_injective Contrib.AbVarBC.ringKrullDim_le_of_finiteType Contrib.AbVarBC.ringKrullDim_mvPolynomial_field Contrib.AbVarBC.ringKrullDim_tensor_field Contrib.AbVarBC.scheme_dim_eq_iSup_cover Contrib.AbVarBC.scheme_dim_eq_of_iso Contrib.AbVarBC.spec_dim Contrib.AbVarBC.tateBC Contrib.AbVarBC.tateBC_bijective_of_tateModuleFree Contrib.AbVarBC.tateBC_bijective_of_torsionDescends Contrib.AbVarBC.tateBC_galT Contrib.AbVarBC.tateBC_injective Contrib.AbVarBC.tate_map_bijective_of_torsion Contrib.AbVarBC.topologicalKrullDim_eq_iSup_of_openEmbedding Contrib.AbVarBC.torsionDescends_of_isFinite Contrib.AbVarBC.vBC Contrib.AbVarBC.vBC_galRep DefFaltings.AbVar DefFaltings.AnalyticUniformizationExists DefFaltings.AnalyticUniformizationUnique DefFaltings.EReal.add_coe_add_neg_coe DefFaltings.FinExt DefFaltings.Genus2Eq DefFaltings.Genus2Eq.Good DefFaltings.Genus2Eq.P DefFaltings.Genus2Eq.binDisc DefFaltings.GroupModel DefFaltings.GroupModel.IsAnalyticUniformization DefFaltings.GroupModel.IsNeronModel DefFaltings.GroupModel.Pts DefFaltings.GroupModel.cotangent DefFaltings.GroupModel.dCls DefFaltings.GroupModel.detLattice DefFaltings.GroupModel.dom DefFaltings.GroupModel.evalAt DefFaltings.GroupModel.exists_rep DefFaltings.GroupModel.genStalk DefFaltings.GroupModel.genericUnit DefFaltings.GroupModel.germAlong DefFaltings.GroupModel.height DefFaltings.GroupModel.height_eq DefFaltings.GroupModel.hodgeSpace DefFaltings.GroupModel.jacDet DefFaltings.GroupModel.jacDet_comp DefFaltings.GroupModel.omega DefFaltings.GroupModel.omegaAt DefFaltings.GroupModel.omegaAt_genericPt DefFaltings.GroupModel.ptC DefFaltings.GroupModel.semilinear_ext_wedge DefFaltings.GroupModel.specializes_genericUnit DefFaltings.GroupModel.structMap DefFaltings.GroupModel.unitSection DefFaltings.GroupModel.wedge DefFaltings.HermitianLattice DefFaltings.HermitianLattice.arakelovDegree DefFaltings.HermitianLattice.arakelovDegree_ofFractionalIdeal DefFaltings.HermitianLattice.arakelovDegree_rescale DefFaltings.HermitianLattice.degreeAt DefFaltings.HermitianLattice.degreeAt_eq DefFaltings.HermitianLattice.degreeAt_eq_arakelovDegree DefFaltings.HermitianLattice.degreeAt_smul DefFaltings.HermitianLattice.ofFractionalIdeal DefFaltings.HermitianLattice.rescale DefFaltings.HermitianLattice.secIndex_ne_zero DefFaltings.HodgeData DefFaltings.HodgeData.coeff_apply_ne_zero DefFaltings.HodgeData.hodgeBundle DefFaltings.HodgeData.modelHeight DefFaltings.HodgeData.modelHeight_eq DefFaltings.HodgeData.modelHeight_eq_add_of_le DefFaltings.HodgeData.modelHeight_eq_faltingsHeightGood DefFaltings.HodgeData.modelHeight_le_of_le DefFaltings.HodgeData.modelHeight_ofIdeal DefFaltings.HodgeData.modelHeight_ofIdeal_baseChange DefFaltings.HodgeData.modelHeight_of_span DefFaltings.HodgeData.modelHeight_recoord DefFaltings.HodgeData.norm DefFaltings.HodgeData.norm_sq DefFaltings.HodgeData.recoord DefFaltings.HodgeLatticeTheorem DefFaltings.IsIsogeny DefFaltings.MetrizedModel DefFaltings.MetrizedModel.modelHeight_eq_of_model_eq DefFaltings.NeronModelMinimal DefFaltings.PeriodAreaFormula DefFaltings.R19_GaudronRemond DefFaltings.R20_FaltingsLemma5 DefFaltings.R21_Bost DefFaltings.StableHeightFinite DefFaltings.absNorm_extendedHom DefFaltings.absNorm_map_ringOfIntegers DefFaltings.arakelovDegree_ofFractionalIdeal_baseChange DefFaltings.arakelovDegree_ofFractionalIdeal_mul DefFaltings.card_embeddings_over DefFaltings.covolume_comap_mul_det DefFaltings.covolume_gaussianPair DefFaltings.det_restrictScalars_complex DefFaltings.embCoeff DefFaltings.faltingsHeight DefFaltings.faltingsHeightEC DefFaltings.faltingsHeightGood DefFaltings.faltingsHeight_coe DefFaltings.finiteHeightPart DefFaltings.finrank_ringOfIntegers DefFaltings.gaussianPair DefFaltings.genericFibre DefFaltings.genericPt DefFaltings.grKappa DefFaltings.hypGram DefFaltings.hypGram_comp_add DefFaltings.hypVol DefFaltings.hypVol_one_comp_add DefFaltings.isogDeg DefFaltings.le_stableFaltingsHeight DefFaltings.modelHeight_ofIdeal_eq_faltingsHeightEC DefFaltings.modelHeight_ofIdeal_eq_faltingsHeightEC' DefFaltings.norm_algebraMap_tower DefFaltings.ptObj DefFaltings.ratCoeff DefFaltings.realify DefFaltings.secIndex DefFaltings.secIndex_mul_absNorm DefFaltings.secIndex_smul DefFaltings.stableFaltingsHeight DefFaltings.stableFaltingsHeightDeligne DefFaltings.stableFaltingsHeightDeligne_eq DefFaltings.stableFaltingsHeight_eq_faltingsHeightGood DefFaltings.stableFaltingsHeight_eq_iInf_height DefFaltings.stableFaltingsHeight_le DefFaltings.stableFaltingsHeight_ne_bot_of_R21 DefFaltings.sum_embeddings_comp DefFaltings.sum_log_norm_embeddings DefFaltings.sum_log_norm_embeddings_int DefFaltings.torusMetricSq DefFaltings.torusMetricSq_comap DefFaltings.torusMetricSq_eq_setIntegral DefFaltings.torusMetricSq_pos DefFaltings.torusMetricSq_smul DefFaltings.torus_setIntegral_indep H5Glue.GenericFibreStalkIso H5Glue.GroupModel.baseChange H5Glue.GroupModel.isNeronModel_iff H5Glue.GroupModelBaseChangeExists H5Glue.HeightAntitone H5Glue.HodgeLatticeNonzero H5Glue.HodgeMapBijective H5Glue.IsBaseChangeOf H5Glue.IsOpenSubgroupModel H5Glue.IsProductAbVar H5Glue.IsProductModel H5Glue.ModelHeightBaseChange H5Glue.NeronModelExists H5Glue.NeronProp H5Glue.NeronProp.lift H5Glue.NeronProp.of_iso H5Glue.NeronProp.tensor H5Glue.NeronProp.uniqueIso H5Glue.OmegaSpans H5Glue.OpenImmersionHeightLe H5Glue.OpenSubgroupHeight H5Glue.ProductGroupModelExists H5Glue.ProductModelHeight H5Glue.SemistableNeronIdentityComponent H5Glue.baseChange_map_bijective H5Glue.bcProd H5Glue.bijective_respectsIso H5Glue.compositum H5Glue.cotMap H5Glue.cotMap_bijective H5Glue.cotMap_dCls H5Glue.cotMap_omega H5Glue.cotMap_omegaAt H5Glue.detLattice_le_hodgeMap H5Glue.dom_comp H5Glue.evalAt_comp H5Glue.evalAt_res H5Glue.exists_smul_mem_omega H5Glue.fst_genericFibreUnit H5Glue.fst_genericFibre_unit H5Glue.genBC H5Glue.genBC_isMonHom H5Glue.genMap H5Glue.genMap_germ H5Glue.genMap_mem_maximalIdeal H5Glue.genMap_mem_maximalIdeal_iff H5Glue.genMap_structMap H5Glue.genericFibreStalkIso H5Glue.genericFibreUnit H5Glue.genericIso_of_openImmersion H5Glue.germAlong_comp_eventuallyEq H5Glue.groupModelBaseChangeExists H5Glue.heightAntitone H5Glue.heightAntitone_of H5Glue.heightAntitone_of_hodgeLatticeNonzero H5Glue.heightAntitone_of_omegaSpans H5Glue.hodgeLatticeNonzero_of_omegaSpans H5Glue.hodgeMap H5Glue.hodgeMapBijective H5Glue.hodgeMap_detLattice H5Glue.hodgeMap_wedge H5Glue.hodgeMap_wedgeGerm H5Glue.isAnalyticUniformization_comp H5Glue.isAnalyticUniformization_of_comp H5Glue.isIso_genMap H5Glue.isIso_of_openImmersion_self H5Glue.isIso_stalkSpecializes_genMap H5Glue.isMonHom_of_map H5Glue.isMonHom_pbCompHom H5Glue.isMonHom_pbCompInv H5Glue.isMonHom_pbEqIso H5Glue.isMonHom_prodComparisonIso H5Glue.isNeronModel_of_isProductModel H5Glue.isOpenImmersion_pullback_map H5Glue.jL H5Glue.jacDet_comp_genMap H5Glue.jacDet_comp_map H5Glue.map_genericUnit' H5Glue.map_span_singleton_toAddSubgroup H5Glue.map_zero_of_hom H5Glue.modelHeight_pullHodge_le H5Glue.neronModelMinimal H5Glue.neronModelMinimal_of_heightAntitone H5Glue.neron_lift H5Glue.neron_lift_isMonHom H5Glue.neron_map_injective H5Glue.omegaAt_le_cotMap H5Glue.omegaSpans H5Glue.omega_le_cotMap H5Glue.one_mem_dom H5Glue.openImmersionHeightLe H5Glue.openSubgroupHeight H5Glue.openSubgroupHeight_of H5Glue.pbCompHom H5Glue.pbCompInv H5Glue.pbCompIso H5Glue.pbEqIso H5Glue.productGroupModelExists H5Glue.ptCIso H5Glue.ptC_hom_apply H5Glue.ptsEquiv H5Glue.ptsEquiv_comp H5Glue.pts_comp_bijective H5Glue.pullHodge H5Glue.secIndex_le_of_map H5Glue.secIndex_ne_zero_of_mem H5Glue.smooth_tensor H5Glue.smooth_unit H5Glue.square1 H5Glue.square2 H5Glue.stableFaltingsHeight_add_le H5Glue.stableFaltingsHeight_add_le_of_productModelHeight H5Glue.stableFaltingsHeight_eq_neron_all H5Glue.stableFaltingsHeight_eq_neron_all' H5Glue.stalkIso_of_genericIso H5Glue.stalkSpecializes_self_apply H5Glue.stalkSpecializes_stalkSpecializes_apply H5Glue.stalk_ker_eq H5Glue.stalk_spec_eq H5Glue.stalkwise_fst_toGeneric H5Glue.stalkwise_tensor_localization H5Glue.tensorGen H5Glue.tensorGen_fst H5Glue.tensorGen_snd H5Glue.toGeneric_pt H5Glue.unitSection_comp H5Neron.GroupModel.IsNeronModel.lift H5Neron.GroupModel.IsNeronModel.uniqueIso H5Neron.GroupModel.isNeronModel_iff H5Neron.GroupModelBaseChangeExists H5Neron.IsBaseChangeOf H5Neron.IsOpenSubgroupModel H5Neron.IsProductAbVar H5Neron.IsProductModel H5Neron.ModelHeightBaseChange H5Neron.NeronModelExists H5Neron.NeronProp H5Neron.NeronProp.lift H5Neron.NeronProp.of_iso H5Neron.NeronProp.tensor H5Neron.NeronProp.uniqueIso H5Neron.OpenSubgroupHeight H5Neron.ProductGroupModelExists H5Neron.ProductModelHeight H5Neron.R19_zero H5Neron.R20_zero H5Neron.R21_zero H5Neron.SemistableNeronIdentityComponent H5Neron.bcProd H5Neron.bcUnitIso H5Neron.compositum H5Neron.covolume_fin_zero H5Neron.detLattice_zero H5Neron.glue_zero H5Neron.groupModel_height_zero H5Neron.hodgeZeroEquiv H5Neron.hodgeZeroEquiv_wedge0 H5Neron.hom_ext_of_iso_unit H5Neron.isIsogeny_id_zero H5Neron.isMonHom_of_iso_unit H5Neron.isMonHom_prodComparisonIso H5Neron.isNeronModel_of_isProductModel H5Neron.isogDeg_zero_le_one H5Neron.jL H5Neron.metrizedOf H5Neron.modelHeight_dim_zero H5Neron.neronModelExists_zero H5Neron.neronModelMinimal_zero H5Neron.neron_zero_iso_unit H5Neron.no_metrized_succ H5Neron.one_le_grKappa H5Neron.productGroupModelExists H5Neron.pts_subsingleton H5Neron.semistableNeronIdentityComponent_zero H5Neron.semσ H5Neron.stableFaltingsHeight_add_le H5Neron.stableFaltingsHeight_add_le' H5Neron.stableFaltingsHeight_eq_neron H5Neron.stableFaltingsHeight_eq_neron_all H5Neron.stableFaltingsHeight_zero H5Neron.stableHeightFinite_zero H5Neron.tensorGen H5Neron.tensorGen_fst H5Neron.tensorGen_snd H5Neron.trivHodge H5Neron.trivMetrized H5Neron.trivModel H5Neron.trivModel_isNeronModel H5Neron.wedge0 H5Neron.wedge0_ne_zero H5Neron.wedge_eq_wedge0 HeightBC.CotangentSpanBC HeightBC.D0 HeightBC.D0_add HeightBC.D0_add_apply HeightBC.D0_mul HeightBC.D0_mul_apply HeightBC.D0_sq HeightBC.D0_structMap_mul HeightBC.DetLatticeBC HeightBC.FF HeightBC.GermDerivation HeightBC.HodgeBCInjective HeightBC.HodgeLineBaseChange HeightBC.HodgeLineBaseChangeDescent HeightBC.HodgeLineDescentHalf HeightBC.HodgeSpanBC HeightBC.IsBaseChangeOf HeightBC.IsHodgeBaseChange HeightBC.IsMonBC HeightBC.JacobianPullbackSpan HeightBC.JacobianSemilinear HeightBC.MetrizationBaseChange HeightBC.ModelHeightBaseChange HeightBC.ModelHeightBaseChangeGE HeightBC.ModelHeightBaseChangeLE HeightBC.OmegaBaseChange HeightBC.OmegaLocalization HeightBC.PtsBaseChangeBij HeightBC.PtsBaseChangeMul HeightBC.UniformizationLift HeightBC.UniformizationLiftAnalytic HeightBC.algebraMap_FF HeightBC.algebraMap_ringOfIntegers_coe HeightBC.appLE_top_top HeightBC.bO HeightBC.bO_appTop HeightBC.bO_genericPt HeightBC.bcAlt HeightBC.bcCot HeightBC.bcCotBasis HeightBC.bcCotBasis_apply HeightBC.bcCot_core HeightBC.bcCot_dCls HeightBC.bcCot_intInv HeightBC.bcCot_linearIndependent HeightBC.bcCot_omega HeightBC.bcCot_omegaAt HeightBC.bcCot_smulL HeightBC.bcCot_smul_genStalk HeightBC.bcCot_span HeightBC.bcCot_update HeightBC.bcExt HeightBC.bcExt_smul HeightBC.bcExt_ιMulti HeightBC.bcHodge HeightBC.bcHodge_detLattice HeightBC.bcHodge_smul HeightBC.bcHodge_tmul HeightBC.bcHodge_wedge HeightBC.bcMap HeightBC.bcMap_germ HeightBC.bcMap_mem_maximalIdeal HeightBC.bcMap_structMap HeightBC.bcMap_φL HeightBC.bcProj HeightBC.bcProj_genericUnit HeightBC.bcProj_unit HeightBC.bcProj_w HeightBC.bcPts HeightBC.cotL HeightBC.cotL_isScalarTower HeightBC.cotL_smul HeightBC.cotRes HeightBC.cotangentSpanBC HeightBC.descentHalf_of_descent HeightBC.detLatticeBC_of_omega HeightBC.dom_bcPts HeightBC.evalAt_add HeightBC.evalAt_bcPts HeightBC.evalAt_mul HeightBC.evalAt_one_eq_zero HeightBC.evalAt_res HeightBC.evalAt_structSection HeightBC.exists_act HeightBC.exists_comp_eq HeightBC.exists_int_dvd HeightBC.exists_mem_not_mem_of_sat HeightBC.exists_ringOfIntegers_of_algebraMap HeightBC.extRes HeightBC.finite_of_isClosed_not_genericPt HeightBC.g0_hodgeLine_iff HeightBC.genericPt_eq_genericPoint HeightBC.germAlong_add_mul HeightBC.germAlong_bcPts_eventuallyEq HeightBC.germAlong_differentiableAt HeightBC.germAlong_eventuallyEq_rep HeightBC.germAlong_structMap HeightBC.germAlong_zero_of_mem HeightBC.germDerivation HeightBC.germDerivation_at HeightBC.hodgeBCInjective HeightBC.hodgeLineBaseChangeDescent_of_glue HeightBC.hodgeLineBaseChange_of_descent HeightBC.hodgeLineBaseChange_of_final HeightBC.hodgeLineBaseChange_of_five HeightBC.hodgeLineBaseChange_of_four HeightBC.hodgeLineBaseChange_of_glue HeightBC.hodgeLineBaseChange_of_glue4 HeightBC.hodgeLineBaseChange_of_glue5 HeightBC.hodgeLineBaseChange_of_main HeightBC.hodgeLineBaseChange_of_two HeightBC.hodgeSpanBC_of HeightBC.hom_genericUnit HeightBC.hom_genericUnit' HeightBC.hom_unitSection HeightBC.isAnalyticUniformization_bcPts HeightBC.isField_stalk_genericPt HeightBC.isIso_stalkSpecializes_bcMap HeightBC.isUnit_germ_genericPt HeightBC.isUnit_structMap HeightBC.jacDet_bcPts HeightBC.jacobianPullbackSpan_of HeightBC.jacobianSemilinear HeightBC.jacobianSemilinear_of HeightBC.locSub HeightBC.mapCotangent_injective_of_isIso HeightBC.mapCotangent_smul' HeightBC.map_zero_of_hom HeightBC.maximalIdeal_stalk_genericPt HeightBC.mem_locSub HeightBC.mem_of_forall_locSub HeightBC.metrizationBaseChange_of_hodgeLine HeightBC.modelHeightBaseChangeGE_of_descent HeightBC.modelHeightBaseChangeGE_of_descentHalf HeightBC.modelHeightBaseChangeGE_of_main HeightBC.modelHeightBaseChangeGE_of_two HeightBC.modelHeightBaseChangeLE_of_metrization HeightBC.modelHeightBaseChange_of_descent HeightBC.modelHeightBaseChange_of_final HeightBC.modelHeightBaseChange_of_five HeightBC.modelHeightBaseChange_of_four HeightBC.modelHeightBaseChange_of_glue HeightBC.modelHeightBaseChange_of_glue4 HeightBC.modelHeightBaseChange_of_glue5 HeightBC.modelHeightBaseChange_of_main HeightBC.modelHeightBaseChange_of_two HeightBC.modelHeight_eq_of_isHodgeBaseChange HeightBC.multilinear_mem_span HeightBC.omegaAt_bc_local HeightBC.omegaAt_full HeightBC.omegaAt_open HeightBC.omegaAt_sat HeightBC.omegaBaseChange HeightBC.omegaBaseChange_of_localization HeightBC.omegaLocalization HeightBC.one_mem_dom HeightBC.ptC_hom_apply HeightBC.ptC_hom_comp_bO HeightBC.ptsBaseChangeBij HeightBC.ptsBaseChangeMul HeightBC.rationalOver_genericUnit HeightBC.secIndex_baseChange HeightBC.secIndex_map HeightBC.secIndex_ne_zero_of_baseChange HeightBC.secIndex_nsmul_mem HeightBC.smul_cotangent_eq_of_sub_mem HeightBC.span_bcHodge_le HeightBC.spec_mem_of_ker HeightBC.stalkMapAt_germ' HeightBC.stalkSpec_comp_apply HeightBC.stalkSpec_self_apply HeightBC.stalkSpecializes_self_apply' HeightBC.stalkSpecializes_stalkSpecializes_apply' HeightBC.structMap_eq_spec HeightBC.structMap_eq_stalkMap HeightBC.toCotangent_mul HeightBC.uniformizationLift HeightBC.uniformizationLiftAnalytic HeightBC.uniformizationLift_of HeightBC.unitSection_comp_hom HeightBC.unitSection_stalkMapAt_hom HeightBC.σFF HeightBC.φL HeightBC.φL_algebraMap LeafPush2.CPts LeafPush2.Char2 LeafPush2.HasSexticModel LeafPush2.IC10 LeafPush2.IC2 LeafPush2.IC4 LeafPush2.IC6 LeafPush2.IgJ10 LeafPush2.IgJ2 LeafPush2.IgJ4 LeafPush2.IgJ6 LeafPush2.IsGenus2 LeafPush2.IsPeriodMatrix LeafPush2.IsSiegel LeafPush2.IsUniformization LeafPush2.LinYangTuple LeafPush2.OnQMLocus LeafPush2.T10_groupIso LeafPush2.T11a_RiemannEnd LeafPush2.T11b_Rigidity LeafPush2.T12_ComplexConjEigen LeafPush2.UniformizationExists LeafPush2.absLogHeight LeafPush2.cDom LeafPush2.cEvalAt LeafPush2.cptObj LeafPush2.dsq LeafPush2.exists_isComplexConj LeafPush2.ffAlgebra LeafPush2.ffStructMap LeafPush2.isSiegel_I LeafPush2.javanpeykarBound LeafPush2.javanpeykarBound_mono LeafPush2.javanpeykarBound_pos LeafPush2.linYangTuple_onQMLocus LeafPush2.linYang_j_eq LeafPush2.onQMLocus_of_linYangTuple LeafPush2.pazukiC2 LeafPush2.sextic LeafPush2.thetaConst) -- op-dedupe
+open _root_.LeafQM.AV (CMExists HasCM24 HasCM24.of_iso HasCM3 HasCM3.of_iso HasCM4 HasCM4.of_iso IsBaseChangeOf IsBaseChangeOfPair IsFibreOf Level3 Level3.bcPt_pow_three Level3.eq_iff Level3.exists_mul_of_range_le Level3.ext' Level3.onto Level3.range_le Level3.rightMul Level3.rightMul_eq_self Level3.rightMul_rightMul Level3.torsor Level3.twist M3 M3.mk M3.rightMul M3.rightMul_rightMul M3.twist M3.twist_mk Pin.AutOExt.NormalizerFinite Pin.AutOExt.alpha_nat_smul Pin.AutOExt.autOInnerFinite_of_normalizer Pin.AutOExt.common_den Pin.AutOExt.conjUnit Pin.AutOExt.conj_of_skolem Pin.AutOExt.den_mul_int Pin.AutOExt.exists_nat_smul_mem Pin.AutOExt.extAlgEquiv Pin.AutOExt.extAlgHom Pin.AutOExt.extAlgHom_coe Pin.AutOExt.extAlgHom_symm_comp Pin.AutOExt.extDen Pin.AutOExt.extDen_mem Pin.AutOExt.extDen_pos Pin.AutOExt.extFun Pin.AutOExt.extFun_add Pin.AutOExt.extFun_algebraMap Pin.AutOExt.extFun_coe Pin.AutOExt.extFun_eq Pin.AutOExt.extFun_mul Pin.AutOExt.key_conj Pin.AutOExt.mem_O_of_int Pin.AutOExt.natCast_mul_eq_smul Pin.AutOExt.nat_smul_mem Pin.AutOExt.smul_mul_smul' Pin.AutOInnerFinite Pin.ConstOrOntoAlgClosed Pin.CurveRatFactor Pin.CurveSurj Pin.GeomCompConstOrOnto Pin.GeomCompFinite Pin.GeomCompInfinite Pin.GeomCompRatFactor Pin.ImagePlane.ev_comp Pin.ImagePlane.ev_spec_top Pin.ImagePlane.ptOf_comp Pin.ImagePlane.ptOf_spec_asIdeal Pin.IsNaturalRelabel Pin.Mob.eval_ne_zero_of_coprime Pin.Mob.exists_interp Pin.Mob.isCoprime_X_sub_C_of_eval_one Pin.Mob.natDegree_le_one_of_injective Pin.Mob.ratEval Pin.Mob.ratEval_eq_self Pin.Mob.wronskian_ne_zero Pin.MobiusGlue Pin.NormO.IsNorm Pin.NormO.IsNorm.inv Pin.NormO.IsNorm.mul Pin.NormO.T Pin.NormO.T_finite Pin.NormO.T_mul_ui Pin.NormO.T_mul_uj Pin.NormO.bas Pin.NormO.conjC Pin.NormO.descent Pin.NormO.dvd_of_prime_dvd_nrd Pin.NormO.dvd_of_smul_mem Pin.NormO.ei Pin.NormO.ej Pin.NormO.inv_eq Pin.NormO.isNorm_sc Pin.NormO.isNorm_ui Pin.NormO.isNorm_uj Pin.NormO.mulCoord_conjC Pin.NormO.mulCoord_conjC' Pin.NormO.mulCoord_smul_left Pin.NormO.mulCoord_smul_right Pin.NormO.normalizerFinite Pin.NormO.nrdZ Pin.NormO.nrdZ_ei Pin.NormO.nrdZ_ej Pin.NormO.nrdZ_mul Pin.NormO.nrdZ_ne_zero Pin.NormO.nrdZ_smul Pin.NormO.nrd_dvd_coords Pin.NormO.ofInt_scalar Pin.NormO.rearrange Pin.NormO.sc Pin.NormO.six_sq_identities Pin.NormO.smul_ofInt Pin.NormO.three_dvd_mulCoord_ej Pin.NormO.two_dvd_mulCoord_ei Pin.NormO.ui Pin.NormO.uj Pin.PinUnique Pin.QMFamily.transport Pin.QML3.isoTransport Pin.R1fpProps.fam Pin.R1fpProps.univ Pin.RatFactorAlgClosed Pin.SameTriple Pin.SameTripleMor Pin.SmoothCurveNoIsolatedPoint Pin.SmoothStalkDimOne Pin.TwistClassFinite Pin.autOInnerFinite Pin.autRelabel Pin.autRelabel_natural Pin.bcPt Pin.bcPt_ptOfSection Pin.bcPt_snd Pin.bcQbar Pin.bcSnd Pin.cm_objects_of_R1R2fp Pin.conjUnitIso Pin.cst Pin.curveFacts_of_algClosed Pin.curveFacts_of_comp Pin.curveFacts_of_leaves Pin.curveFacts_of_named Pin.curveRatFactor_of_comp Pin.curveSurj_of_comp Pin.ev Pin.ev_cst Pin.ev_eq_zero_iff Pin.ev_f_mul_g Pin.ev_g_eq_zero Pin.ev_res Pin.ev_top Pin.exists_isOpen_singleton_of_finite_closedPoints Pin.exists_liftO_congr Pin.exists_point_of_isLocallyClosed Pin.geomComp Pin.geomCompConstOrOnto_of Pin.geomCompFinite Pin.geomCompInfinite_of Pin.geomCompRatFactor_of Pin.isFibreOf_transport Pin.isOpen_connectedComponent_of_noetherian Pin.level3_finite Pin.mem_V_of_not_mem_U Pin.phi_part Pin.pointwise_of_witness Pin.pointwise_of_witness_mor Pin.ptOf Pin.ptOfSection Pin.r1fpPin_aut Pin.r1fpPin_relabel_iff Pin.r2fp_aut Pin.relabel Pin.relabel_geometric Pin.relabel_is_morphism Pin.res Pin.res_res Pin.sameTripleMor_of_mobius Pin.sameTriple_aut Pin.smoothCurveNoIsolatedPoint_of Pin.transfer_exists Pin.transfer_pointwise Pin.transfer_pointwise_mor Pin.transportLevel Pin.twistClassFinite Pin.twistClassFinite_of Pin.val_bcPt Pin.val_of_mem Pin.val_of_not_mem PtEquiv QMFamily QMIso QMIso.nonempty_abVarIso QMIso.refl QMIso.symm QMIso.trans QML3 QML3.Iso QML3.Iso.refl QML3.Iso.rightMul QML3.Iso.symm QML3.Iso.trans QML3.Iso.twist QML3.forget QML3.rightMul QML3.rightMul_A QML3.rightMul_rightMul QML3.twist QML3.twist_A QMLeaves QMPair QMPair.twist QMStr QMStr.twist Qbar R1R2fp R1R2fp_Y R1famProps R1fp R1fpProps R1fp_of_R1R2fp R1heckeProps R1rec R1recProps R1univProps R2X6Props R2fpProps R2fpProps_of_X6 R5fp R5fpCount R5fpWeak R5fpWeak_of_R5fp R5ptProps ToP1 ToP1.comp ToP1.val ToP1.val_comp ToP1.val_comp_right UnramifiedAbove5 X6Props X6Surj act_mul_apply bcPt bcPt_injective cm_of_val com comEquiv com_twist conductor conjHom conjHom_iota conjHom_mem_com conjHom_symm_apply conj_iso_of_rational conj_twist_of_rational endPt exists_fibre_object fibre_conjugates_isomorphic fieldMap fieldOfModuli3 fieldOfModuliPair fieldPt galAct_bcPt hI hIJ hJ hasCM24_twist hasCM3_twist hasCM4_twist hrat inertCount6 intCast_mem_com isoSetoid leaves_on_one_witness liftO not_qmStr_zero ofInt_injective ofInt_sub oi oi_mul_oi oj oj_mul_oi_add oj_mul_oj pairSetoid qmAct residueImage residue_unramified_over_branch specMap_flat specMap_surjective specToEquivOfField_comp specToEquivOfField_comp_right stab3 stabPair three_mul_ofInt toKbar unramified_over_branch) -- op-dedupe
+open _root_.GlueDescent (B2.IsSignCocycle B2.SignCob B2.dB B2.dB_inv B2.dB_mul B2.exists_beta B2.isSignCocycle_dB B2.isSignCocycle_inv B2.isSignCocycle_mul B2.isSignCocycle_pull B2.pull B2.pull_dB B2.signCob_dB_iff B2.signCob_inv B2.signCob_mul B2Q.GQ B2Q.GQp B2Q.InflatedFrom B2Q.LeafHasse B2Q.LeafLocalTwo B2Q.LeafSqrtCrit B2Q.LeafUnramified B2Q.UnramifiedAt B2Q.act B2Q.act_mul B2Q.b2_of_leaves B2Q.cast_cast_of_dvd B2Q.chiLevel_pos B2Q.chi_toUnitHom_crt B2Q.cyc B2Q.cyc_eq_of_agree B2Q.cyc_isLocallyConstant B2Q.exists_crt_unit B2Q.galChar B2Q.galChar_isLocallyConstant B2Q.isLocallyConstant_of_openSubgroup B2Q.lev_eq_pow B2Q.resp B2Q.resp_continuous B2Q.sqrtU B2Q.sqrtU_sq B2Q.toRingAut B3Q.GQL B3Q.b3_degree_le_QM B3Q.b3_of_leaves B3Q.inflatedNormalized_of B3Q.mem_GQL B3Q.orderOf_pos_dirichlet B6 B6_commute_i_j B6_inner B6_isCentral B6_isSimpleRing B6_star_mul InflatedNormalized IsCochainFor LeafSkolemNoether MatrixUnits2 MatrixUnits2.W MatrixUnits2.e00_of_mem MatrixUnits2.e_apply_e MatrixUnits2.finrank_W MatrixUnits2.mapsTo_W MatrixUnits2.mem_W_of_e0 MatrixUnits2.splitEquiv MatrixUnits2.splitEquiv_intertwines aniso_int aniso_rat boundary_sq chi chiLevel cochain_conj cochain_mul_kernel cochain_mul_left cochain_mul_right cochain_of_boundary_eq cochain_one cocycle_of_projective commute_adjoin contactSupport_pos degree_le_QM exists_chi exists_odd_char heightD_pos index_kernel_le inertia_le_kernel kernelSubgroup kernelSubgroup_le kernelSubgroup_normal lev lev_dvd_chiLevel mem_kernelSubgroup oddChar oddChar_neg_one orderOf_dvd_totient orderOf_prod_dvd prod_S_le prod_odd_le prod_odd_le_aux prod_totient_lev_le qi qj ramSet relindex_kernel_le restrictHom rho rhoRep rho_commute rho_eq_act rho_map_mul sign_cocycle sign_normalization sign_sq_eq_one ten_le_heightE0 three_dvd_of_form totient_lev twist twist_kills_inertia twist_sq two_lt_lev zmod3_aniso) -- op-dedupe
+open _root_.G0ModField (CommonConstituent ConjugacyData DescentDatum FibreCoverExists FibreCoverOut FibreCtx G2Out G4Out G7Out GaloisCopy.G2Out GaloisCopy.G7Out GaloisCopy.Vb GaloisCopy.resQ GaloisCopy.tate IF IsModelOver IsQMModel IsQMModel.isModelOver KernelFieldExists KernelFieldOut ModularConstituentG PtQ RationalFibre ResQRange T UnramifiedSup actK actQ admissible_S_mul b2_of_leaves_level b3_of_cochain baseChangeTrans card_ker_GL descentDatum_bot descentDatum_of_conjugacy fieldDescent g2Out_of_cover g4Out_of_kernelField g7Out_of_g4Out galAct_bijective galAct_mul incAlg isModelOver_baseChange le_heightD_of_mem_S_mul mem_GQL_bot normA numberField_of_fd resQRange resQ_comm' resQ_range sgnU sgnU_mul sgnU_mul_abs sgnU_sq toLAut toLAut_apply two_mem_T) -- op-dedupe
+open _root_.UnramTate (EndBaseChange PtA ResQEmbedding ScalarTransfer TateCont TatePoints bcPt bcPt_galAct conjE conjE_apply endBC endBaseChange eps_right_one hO homEquiv_mul iO iO_jO iO_sq incO' incO'_coe inertia_trivial' instGaloisQbar' jO jO_sq lift_fixes' matrixUnits_of_quat numberField_of_fd'' opV opVHom ptMapIso quat_words resQEmbedding sK scalarTransfer specMap_comp_sK tateCont_of_tateModuleFree tateMap_add tateMap_comp tateMap_id tateMap_zero tatePoints tate_eq_opV tmOf trHom trHom_comp_symm trHom_left trHom_symm_comp trPt trPt_galAct unramifiedSup_mf) -- op-dedupe
 
 /-! ## The Tate functor on an additive equivalence -/
 
@@ -7298,6 +6235,7 @@ with the commutator replaced by an arbitrary `c : G ⊗ G ⟶ Z` that is constan
 noncomputable section
 
 namespace MulRigidity
+open _root_.MulRigidity (isClosedImmersion_point isMonHom_of_algClosed isMonHom_of_geometricallyIntegral rigidity_algClosed) -- op-dedupe
 
 open CategoryTheory AlgebraicGeometry Limits MonoidalCategory CartesianMonoidalCategory MonObj
 
@@ -7310,6 +6248,7 @@ end MulRigidity
 /-! ## The leaf, copied verbatim, and its proof -/
 
 namespace G0FibreSimple
+open _root_.G0FibreSimple (RigidityHom rigidityHom) -- op-dedupe
 
 open CategoryTheory AlgebraicGeometry Limits MonoidalCategory CartesianMonoidalCategory MonObj
 
@@ -7334,137 +6273,20 @@ No `sorry`, no `axiom`.
 noncomputable section
 
 namespace AlgFrobRedRed
+open _root_.AlgFrobRedRed (AbsFrob AlgFrobRedAt AlgFrobRedGood FExtend FExtendCore FExtendGen FrobMorph GoodRedCofinite Ow OwDVR RedRel RedRelMul RedTorsionQbar ReductionFrobGood ReductionMapGood ResidueAlgClosed ResidueAlgClosure ResidueAlgebraic SmoothGeomConnIntegral absFrob algFrobRedAt_of_good algFrobRedGood_of algFrobRed_of_I2 algFrobRed_of_absFrob algFrobRed_of_at algFrobRed_of_core algFrobRed_of_final algFrobRed_of_fine algFrobRed_of_finest algFrobRed_of_five algFrobRed_of_gen algFrobRed_of_good algFrobRed_of_leaves algFrobRed_of_main algFrobRed_of_nmp algFrobRed_of_pieces algFrobRed_of_split charP_kw dvrAt' exists_lift exists_redRel fExtendCore_of_gen fExtendCore_of_nmp fExtendGen_of_nmp fExtend_of_core frobMorph_of frobenius_eq_powHom genMap genMap_comm genPt hom_spec_eq_of_point hw_of iotaW iotaW_isIso_left isArithFrob_conj isDominant_Spec_map_of_injective isLocalHom_of_resPow isLocalHom_toW isUnit_cast_of_ne jSpec kw liesOver_smul lift_unique natCast_mem_maximalIdeal owDVR pb_eta_fst pb_mul pb_mul' pb_one pb_one' pb_symm_mul pb_symm_mul' psiW psiW_toW redRelMul redRel_of_isReductionOf redRel_unique redTorsionQbar_of reductionFrobGood_of reductionMapGood_of residueAlgClosed residueAlgClosure_of residueAlgebraic residue_sigV ringHom_eq_of_normal ringOfIntegers_mem' sf sf_eta_fst sf_isAbelianVariety sigV smul_mem_nonunits spec_aut_cancel tSig tSig_residue tSpec tauL thetaHom thetaW thetaW_injective thetaW_left thetaW_surjective thetaW_symm toO' vsq wOf) -- op-dedupe
 
 open CategoryTheory AlgebraicGeometry
 open _root_.ZInQ ZInQ LeafQM.AV GlueDescent G0ModField UnramTate
+open _root_.ZInQ (Contrib.AbVarBC.G0FibreSimple.MulIsogeny Contrib.AbVarBC.MulRigidity.CotangentMulN Contrib.AbVarBC.MulRigidity.KerUnitOpen Contrib.AbVarBC.MulRigidity.KerUnitOpenOfCotangentSurj Contrib.AbVarBC.MulRigidity.MulEtale Contrib.AbVarBC.MulRigidity.MulUnramified Contrib.AbVarBC.MulRigidity.O0 Contrib.AbVarBC.MulRigidity.QuasiFiniteEndSurjective Contrib.AbVarBC.MulRigidity.charZero_residueField Contrib.AbVarBC.MulRigidity.cotangentMap Contrib.AbVarBC.MulRigidity.diagonal_isPullback Contrib.AbVarBC.MulRigidity.diffKer Contrib.AbVarBC.MulRigidity.formallyUnramified_of_kerUnit Contrib.AbVarBC.MulRigidity.isIsogenyMor_of_lqf_of_isOpenMap Contrib.AbVarBC.MulRigidity.isOpenImmersion_of_section Contrib.AbVarBC.MulRigidity.isProper_left Contrib.AbVarBC.MulRigidity.kerUnit Contrib.AbVarBC.MulRigidity.kerUnitOpen_of_cotangent Contrib.AbVarBC.MulRigidity.kerUnitOpen_of_mulEtale Contrib.AbVarBC.MulRigidity.locallyQuasiFinite_of_formallyUnramified Contrib.AbVarBC.MulRigidity.map_origin Contrib.AbVarBC.MulRigidity.mulIsogeny_of_cotangent Contrib.AbVarBC.MulRigidity.mulIsogeny_of_kerUnitOpen Contrib.AbVarBC.MulRigidity.mulIsogeny_of_mulEtale Contrib.AbVarBC.MulRigidity.mulIsogeny_of_mulUnramified Contrib.AbVarBC.MulRigidity.mulIsogeny_of_mulUnramified' Contrib.AbVarBC.MulRigidity.mulUnramified_of_kerUnitOpen Contrib.AbVarBC.MulRigidity.mulUnramified_of_mulEtale Contrib.AbVarBC.MulRigidity.ne_of_specializes_of_lqf Contrib.AbVarBC.MulRigidity.origin Contrib.AbVarBC.MulRigidity.quasiFiniteEndSurjective Contrib.AbVarBC.MulRigidity.stalkEndo Contrib.AbVarBC.MulRigidity.surjective_of_lqf_self Contrib.AbVarBC.Tangent.AtOrigin Contrib.AbVarBC.Tangent.D Contrib.AbVarBC.Tangent.D_congr Contrib.AbVarBC.Tangent.D_inv Contrib.AbVarBC.Tangent.D_mul Contrib.AbVarBC.Tangent.D_one Contrib.AbVarBC.Tangent.D_zpow Contrib.AbVarBC.Tangent.KerN Contrib.AbVarBC.Tangent.atOrigin_inv Contrib.AbVarBC.Tangent.atOrigin_map Contrib.AbVarBC.Tangent.atOrigin_mul Contrib.AbVarBC.Tangent.atOrigin_one Contrib.AbVarBC.Tangent.atOrigin_zpow Contrib.AbVarBC.Tangent.closedPoint_eq Contrib.AbVarBC.Tangent.comp_intCast_hom Contrib.AbVarBC.Tangent.comp_mem_of_subsingleton Contrib.AbVarBC.Tangent.comp_orig_mem Contrib.AbVarBC.Tangent.derivation_eq_zero Contrib.AbVarBC.Tangent.dualHom Contrib.AbVarBC.Tangent.eq_ofRing_ptRing Contrib.AbVarBC.Tangent.eq_of_D_eq Contrib.AbVarBC.Tangent.eq_one_of_comp_intCast Contrib.AbVarBC.Tangent.ev0 Contrib.AbVarBC.Tangent.exists_affine_orig Contrib.AbVarBC.Tangent.fst_tRing Contrib.AbVarBC.Tangent.id_appLE_top Contrib.AbVarBC.Tangent.intCast_hom Contrib.AbVarBC.Tangent.isLocalHom_fstHom Contrib.AbVarBC.Tangent.isLocalRing_tsze Contrib.AbVarBC.Tangent.ker_le_sq_of_derivations Contrib.AbVarBC.Tangent.ks Contrib.AbVarBC.Tangent.ks_hom Contrib.AbVarBC.Tangent.ks_isOpenImmersion Contrib.AbVarBC.Tangent.left_closedPoint Contrib.AbVarBC.Tangent.locallyOfFiniteType_kerN Contrib.AbVarBC.Tangent.map_add_inl Contrib.AbVarBC.Tangent.map_add_inr Contrib.AbVarBC.Tangent.map_fst_inl Contrib.AbVarBC.Tangent.map_fst_inr Contrib.AbVarBC.Tangent.map_snd_inl Contrib.AbVarBC.Tangent.map_snd_inr Contrib.AbVarBC.Tangent.mem_of_atOrigin Contrib.AbVarBC.Tangent.mulN Contrib.AbVarBC.Tangent.ofRing Contrib.AbVarBC.Tangent.ofRing_mem Contrib.AbVarBC.Tangent.one_left Contrib.AbVarBC.Tangent.orig Contrib.AbVarBC.Tangent.ptR Contrib.AbVarBC.Tangent.ptRing Contrib.AbVarBC.Tangent.ptRing_comp Contrib.AbVarBC.Tangent.ptRing_congr Contrib.AbVarBC.Tangent.ptRing_ext Contrib.AbVarBC.Tangent.ptRing_id_top Contrib.AbVarBC.Tangent.ptRing_ofRing Contrib.AbVarBC.Tangent.ptRing_specMap_comp Contrib.AbVarBC.Tangent.specHom Contrib.AbVarBC.Tangent.specHom_comp Contrib.AbVarBC.Tangent.specHom_id Contrib.AbVarBC.Tangent.specHom_left Contrib.AbVarBC.Tangent.spec_inl_fst_comp Contrib.AbVarBC.Tangent.tRing Contrib.AbVarBC.Tangent.tRing_congr Contrib.AbVarBC.Tangent.tRing_one Contrib.AbVarBC.Tangent.tRing_specHom Contrib.AbVarBC.TorsionDescends Contrib.AbVarBC.comp_natCast_hom Contrib.AbVarBC.dim_baseChange_scheme Contrib.AbVarBC.dim_finite Contrib.AbVarBC.dim_pullback_spec Contrib.AbVarBC.dim_spec_le Contrib.AbVarBC.exists_lift_of_isFinite Contrib.AbVarBC.exists_nat_of_le Contrib.AbVarBC.galK Contrib.AbVarBC.kerUnitOpen Contrib.AbVarBC.map_comm Contrib.AbVarBC.mem_range_of_isIntegral Contrib.AbVarBC.mulIsogeny Contrib.AbVarBC.ptBC Contrib.AbVarBC.ptBC_galAct Contrib.AbVarBC.ptBC_injective Contrib.AbVarBC.ringKrullDim_eq_of_isIntegral_of_injective Contrib.AbVarBC.ringKrullDim_le_of_finiteType Contrib.AbVarBC.ringKrullDim_mvPolynomial_field Contrib.AbVarBC.ringKrullDim_tensor_field Contrib.AbVarBC.scheme_dim_eq_iSup_cover Contrib.AbVarBC.scheme_dim_eq_of_iso Contrib.AbVarBC.spec_dim Contrib.AbVarBC.tateBC Contrib.AbVarBC.tateBC_bijective_of_tateModuleFree Contrib.AbVarBC.tateBC_bijective_of_torsionDescends Contrib.AbVarBC.tateBC_galT Contrib.AbVarBC.tateBC_injective Contrib.AbVarBC.tate_map_bijective_of_torsion Contrib.AbVarBC.topologicalKrullDim_eq_iSup_of_openEmbedding Contrib.AbVarBC.torsionDescends_of_isFinite Contrib.AbVarBC.vBC Contrib.AbVarBC.vBC_galRep DefFaltings.AbVar DefFaltings.AnalyticUniformizationExists DefFaltings.AnalyticUniformizationUnique DefFaltings.EReal.add_coe_add_neg_coe DefFaltings.FinExt DefFaltings.Genus2Eq DefFaltings.Genus2Eq.Good DefFaltings.Genus2Eq.P DefFaltings.Genus2Eq.binDisc DefFaltings.GroupModel DefFaltings.GroupModel.IsAnalyticUniformization DefFaltings.GroupModel.IsNeronModel DefFaltings.GroupModel.Pts DefFaltings.GroupModel.cotangent DefFaltings.GroupModel.dCls DefFaltings.GroupModel.detLattice DefFaltings.GroupModel.dom DefFaltings.GroupModel.evalAt DefFaltings.GroupModel.exists_rep DefFaltings.GroupModel.genStalk DefFaltings.GroupModel.genericUnit DefFaltings.GroupModel.germAlong DefFaltings.GroupModel.height DefFaltings.GroupModel.height_eq DefFaltings.GroupModel.hodgeSpace DefFaltings.GroupModel.jacDet DefFaltings.GroupModel.jacDet_comp DefFaltings.GroupModel.omega DefFaltings.GroupModel.omegaAt DefFaltings.GroupModel.omegaAt_genericPt DefFaltings.GroupModel.ptC DefFaltings.GroupModel.semilinear_ext_wedge DefFaltings.GroupModel.specializes_genericUnit DefFaltings.GroupModel.structMap DefFaltings.GroupModel.unitSection DefFaltings.GroupModel.wedge DefFaltings.HermitianLattice DefFaltings.HermitianLattice.arakelovDegree DefFaltings.HermitianLattice.arakelovDegree_ofFractionalIdeal DefFaltings.HermitianLattice.arakelovDegree_rescale DefFaltings.HermitianLattice.degreeAt DefFaltings.HermitianLattice.degreeAt_eq DefFaltings.HermitianLattice.degreeAt_eq_arakelovDegree DefFaltings.HermitianLattice.degreeAt_smul DefFaltings.HermitianLattice.ofFractionalIdeal DefFaltings.HermitianLattice.rescale DefFaltings.HermitianLattice.secIndex_ne_zero DefFaltings.HodgeData DefFaltings.HodgeData.coeff_apply_ne_zero DefFaltings.HodgeData.hodgeBundle DefFaltings.HodgeData.modelHeight DefFaltings.HodgeData.modelHeight_eq DefFaltings.HodgeData.modelHeight_eq_add_of_le DefFaltings.HodgeData.modelHeight_eq_faltingsHeightGood DefFaltings.HodgeData.modelHeight_le_of_le DefFaltings.HodgeData.modelHeight_ofIdeal DefFaltings.HodgeData.modelHeight_ofIdeal_baseChange DefFaltings.HodgeData.modelHeight_of_span DefFaltings.HodgeData.modelHeight_recoord DefFaltings.HodgeData.norm DefFaltings.HodgeData.norm_sq DefFaltings.HodgeData.recoord DefFaltings.HodgeLatticeTheorem DefFaltings.IsIsogeny DefFaltings.MetrizedModel DefFaltings.MetrizedModel.modelHeight_eq_of_model_eq DefFaltings.NeronModelMinimal DefFaltings.PeriodAreaFormula DefFaltings.R19_GaudronRemond DefFaltings.R20_FaltingsLemma5 DefFaltings.R21_Bost DefFaltings.StableHeightFinite DefFaltings.absNorm_extendedHom DefFaltings.absNorm_map_ringOfIntegers DefFaltings.arakelovDegree_ofFractionalIdeal_baseChange DefFaltings.arakelovDegree_ofFractionalIdeal_mul DefFaltings.card_embeddings_over DefFaltings.covolume_comap_mul_det DefFaltings.covolume_gaussianPair DefFaltings.det_restrictScalars_complex DefFaltings.embCoeff DefFaltings.faltingsHeight DefFaltings.faltingsHeightEC DefFaltings.faltingsHeightGood DefFaltings.faltingsHeight_coe DefFaltings.finiteHeightPart DefFaltings.finrank_ringOfIntegers DefFaltings.gaussianPair DefFaltings.genericFibre DefFaltings.genericPt DefFaltings.grKappa DefFaltings.hypGram DefFaltings.hypGram_comp_add DefFaltings.hypVol DefFaltings.hypVol_one_comp_add DefFaltings.isogDeg DefFaltings.le_stableFaltingsHeight DefFaltings.modelHeight_ofIdeal_eq_faltingsHeightEC DefFaltings.modelHeight_ofIdeal_eq_faltingsHeightEC' DefFaltings.norm_algebraMap_tower DefFaltings.ptObj DefFaltings.ratCoeff DefFaltings.realify DefFaltings.secIndex DefFaltings.secIndex_mul_absNorm DefFaltings.secIndex_smul DefFaltings.stableFaltingsHeight DefFaltings.stableFaltingsHeightDeligne DefFaltings.stableFaltingsHeightDeligne_eq DefFaltings.stableFaltingsHeight_eq_faltingsHeightGood DefFaltings.stableFaltingsHeight_eq_iInf_height DefFaltings.stableFaltingsHeight_le DefFaltings.stableFaltingsHeight_ne_bot_of_R21 DefFaltings.sum_embeddings_comp DefFaltings.sum_log_norm_embeddings DefFaltings.sum_log_norm_embeddings_int DefFaltings.torusMetricSq DefFaltings.torusMetricSq_comap DefFaltings.torusMetricSq_eq_setIntegral DefFaltings.torusMetricSq_pos DefFaltings.torusMetricSq_smul DefFaltings.torus_setIntegral_indep H5Glue.GenericFibreStalkIso H5Glue.GroupModel.baseChange H5Glue.GroupModel.isNeronModel_iff H5Glue.GroupModelBaseChangeExists H5Glue.HeightAntitone H5Glue.HodgeLatticeNonzero H5Glue.HodgeMapBijective H5Glue.IsBaseChangeOf H5Glue.IsOpenSubgroupModel H5Glue.IsProductAbVar H5Glue.IsProductModel H5Glue.ModelHeightBaseChange H5Glue.NeronModelExists H5Glue.NeronProp H5Glue.NeronProp.lift H5Glue.NeronProp.of_iso H5Glue.NeronProp.tensor H5Glue.NeronProp.uniqueIso H5Glue.OmegaSpans H5Glue.OpenImmersionHeightLe H5Glue.OpenSubgroupHeight H5Glue.ProductGroupModelExists H5Glue.ProductModelHeight H5Glue.SemistableNeronIdentityComponent H5Glue.baseChange_map_bijective H5Glue.bcProd H5Glue.bijective_respectsIso H5Glue.compositum H5Glue.cotMap H5Glue.cotMap_bijective H5Glue.cotMap_dCls H5Glue.cotMap_omega H5Glue.cotMap_omegaAt H5Glue.detLattice_le_hodgeMap H5Glue.dom_comp H5Glue.evalAt_comp H5Glue.evalAt_res H5Glue.exists_smul_mem_omega H5Glue.fst_genericFibreUnit H5Glue.fst_genericFibre_unit H5Glue.genBC H5Glue.genBC_isMonHom H5Glue.genMap H5Glue.genMap_germ H5Glue.genMap_mem_maximalIdeal H5Glue.genMap_mem_maximalIdeal_iff H5Glue.genMap_structMap H5Glue.genericFibreStalkIso H5Glue.genericFibreUnit H5Glue.genericIso_of_openImmersion H5Glue.germAlong_comp_eventuallyEq H5Glue.groupModelBaseChangeExists H5Glue.heightAntitone H5Glue.heightAntitone_of H5Glue.heightAntitone_of_hodgeLatticeNonzero H5Glue.heightAntitone_of_omegaSpans H5Glue.hodgeLatticeNonzero_of_omegaSpans H5Glue.hodgeMap H5Glue.hodgeMapBijective H5Glue.hodgeMap_detLattice H5Glue.hodgeMap_wedge H5Glue.hodgeMap_wedgeGerm H5Glue.isAnalyticUniformization_comp H5Glue.isAnalyticUniformization_of_comp H5Glue.isIso_genMap H5Glue.isIso_of_openImmersion_self H5Glue.isIso_stalkSpecializes_genMap H5Glue.isMonHom_of_map H5Glue.isMonHom_pbCompHom H5Glue.isMonHom_pbCompInv H5Glue.isMonHom_pbEqIso H5Glue.isMonHom_prodComparisonIso H5Glue.isNeronModel_of_isProductModel H5Glue.isOpenImmersion_pullback_map H5Glue.jL H5Glue.jacDet_comp_genMap H5Glue.jacDet_comp_map H5Glue.map_genericUnit' H5Glue.map_span_singleton_toAddSubgroup H5Glue.map_zero_of_hom H5Glue.modelHeight_pullHodge_le H5Glue.neronModelMinimal H5Glue.neronModelMinimal_of_heightAntitone H5Glue.neron_lift H5Glue.neron_lift_isMonHom H5Glue.neron_map_injective H5Glue.omegaAt_le_cotMap H5Glue.omegaSpans H5Glue.omega_le_cotMap H5Glue.one_mem_dom H5Glue.openImmersionHeightLe H5Glue.openSubgroupHeight H5Glue.openSubgroupHeight_of H5Glue.pbCompHom H5Glue.pbCompInv H5Glue.pbCompIso H5Glue.pbEqIso H5Glue.productGroupModelExists H5Glue.ptCIso H5Glue.ptC_hom_apply H5Glue.ptsEquiv H5Glue.ptsEquiv_comp H5Glue.pts_comp_bijective H5Glue.pullHodge H5Glue.secIndex_le_of_map H5Glue.secIndex_ne_zero_of_mem H5Glue.smooth_tensor H5Glue.smooth_unit H5Glue.square1 H5Glue.square2 H5Glue.stableFaltingsHeight_add_le H5Glue.stableFaltingsHeight_add_le_of_productModelHeight H5Glue.stableFaltingsHeight_eq_neron_all H5Glue.stableFaltingsHeight_eq_neron_all' H5Glue.stalkIso_of_genericIso H5Glue.stalkSpecializes_self_apply H5Glue.stalkSpecializes_stalkSpecializes_apply H5Glue.stalk_ker_eq H5Glue.stalk_spec_eq H5Glue.stalkwise_fst_toGeneric H5Glue.stalkwise_tensor_localization H5Glue.tensorGen H5Glue.tensorGen_fst H5Glue.tensorGen_snd H5Glue.toGeneric_pt H5Glue.unitSection_comp H5Neron.GroupModel.IsNeronModel.lift H5Neron.GroupModel.IsNeronModel.uniqueIso H5Neron.GroupModel.isNeronModel_iff H5Neron.GroupModelBaseChangeExists H5Neron.IsBaseChangeOf H5Neron.IsOpenSubgroupModel H5Neron.IsProductAbVar H5Neron.IsProductModel H5Neron.ModelHeightBaseChange H5Neron.NeronModelExists H5Neron.NeronProp H5Neron.NeronProp.lift H5Neron.NeronProp.of_iso H5Neron.NeronProp.tensor H5Neron.NeronProp.uniqueIso H5Neron.OpenSubgroupHeight H5Neron.ProductGroupModelExists H5Neron.ProductModelHeight H5Neron.R19_zero H5Neron.R20_zero H5Neron.R21_zero H5Neron.SemistableNeronIdentityComponent H5Neron.bcProd H5Neron.bcUnitIso H5Neron.compositum H5Neron.covolume_fin_zero H5Neron.detLattice_zero H5Neron.glue_zero H5Neron.groupModel_height_zero H5Neron.hodgeZeroEquiv H5Neron.hodgeZeroEquiv_wedge0 H5Neron.hom_ext_of_iso_unit H5Neron.isIsogeny_id_zero H5Neron.isMonHom_of_iso_unit H5Neron.isMonHom_prodComparisonIso H5Neron.isNeronModel_of_isProductModel H5Neron.isogDeg_zero_le_one H5Neron.jL H5Neron.metrizedOf H5Neron.modelHeight_dim_zero H5Neron.neronModelExists_zero H5Neron.neronModelMinimal_zero H5Neron.neron_zero_iso_unit H5Neron.no_metrized_succ H5Neron.one_le_grKappa H5Neron.productGroupModelExists H5Neron.pts_subsingleton H5Neron.semistableNeronIdentityComponent_zero H5Neron.semσ H5Neron.stableFaltingsHeight_add_le H5Neron.stableFaltingsHeight_add_le' H5Neron.stableFaltingsHeight_eq_neron H5Neron.stableFaltingsHeight_eq_neron_all H5Neron.stableFaltingsHeight_zero H5Neron.stableHeightFinite_zero H5Neron.tensorGen H5Neron.tensorGen_fst H5Neron.tensorGen_snd H5Neron.trivHodge H5Neron.trivMetrized H5Neron.trivModel H5Neron.trivModel_isNeronModel H5Neron.wedge0 H5Neron.wedge0_ne_zero H5Neron.wedge_eq_wedge0 HeightBC.CotangentSpanBC HeightBC.D0 HeightBC.D0_add HeightBC.D0_add_apply HeightBC.D0_mul HeightBC.D0_mul_apply HeightBC.D0_sq HeightBC.D0_structMap_mul HeightBC.DetLatticeBC HeightBC.FF HeightBC.GermDerivation HeightBC.HodgeBCInjective HeightBC.HodgeLineBaseChange HeightBC.HodgeLineBaseChangeDescent HeightBC.HodgeLineDescentHalf HeightBC.HodgeSpanBC HeightBC.IsBaseChangeOf HeightBC.IsHodgeBaseChange HeightBC.IsMonBC HeightBC.JacobianPullbackSpan HeightBC.JacobianSemilinear HeightBC.MetrizationBaseChange HeightBC.ModelHeightBaseChange HeightBC.ModelHeightBaseChangeGE HeightBC.ModelHeightBaseChangeLE HeightBC.OmegaBaseChange HeightBC.OmegaLocalization HeightBC.PtsBaseChangeBij HeightBC.PtsBaseChangeMul HeightBC.UniformizationLift HeightBC.UniformizationLiftAnalytic HeightBC.algebraMap_FF HeightBC.algebraMap_ringOfIntegers_coe HeightBC.appLE_top_top HeightBC.bO HeightBC.bO_appTop HeightBC.bO_genericPt HeightBC.bcAlt HeightBC.bcCot HeightBC.bcCotBasis HeightBC.bcCotBasis_apply HeightBC.bcCot_core HeightBC.bcCot_dCls HeightBC.bcCot_intInv HeightBC.bcCot_linearIndependent HeightBC.bcCot_omega HeightBC.bcCot_omegaAt HeightBC.bcCot_smulL HeightBC.bcCot_smul_genStalk HeightBC.bcCot_span HeightBC.bcCot_update HeightBC.bcExt HeightBC.bcExt_smul HeightBC.bcExt_ιMulti HeightBC.bcHodge HeightBC.bcHodge_detLattice HeightBC.bcHodge_smul HeightBC.bcHodge_tmul HeightBC.bcHodge_wedge HeightBC.bcMap HeightBC.bcMap_germ HeightBC.bcMap_mem_maximalIdeal HeightBC.bcMap_structMap HeightBC.bcMap_φL HeightBC.bcProj HeightBC.bcProj_genericUnit HeightBC.bcProj_unit HeightBC.bcProj_w HeightBC.bcPts HeightBC.cotL HeightBC.cotL_isScalarTower HeightBC.cotL_smul HeightBC.cotRes HeightBC.cotangentSpanBC HeightBC.descentHalf_of_descent HeightBC.detLatticeBC_of_omega HeightBC.dom_bcPts HeightBC.evalAt_add HeightBC.evalAt_bcPts HeightBC.evalAt_mul HeightBC.evalAt_one_eq_zero HeightBC.evalAt_res HeightBC.evalAt_structSection HeightBC.exists_act HeightBC.exists_comp_eq HeightBC.exists_int_dvd HeightBC.exists_mem_not_mem_of_sat HeightBC.exists_ringOfIntegers_of_algebraMap HeightBC.extRes HeightBC.finite_of_isClosed_not_genericPt HeightBC.g0_hodgeLine_iff HeightBC.genericPt_eq_genericPoint HeightBC.germAlong_add_mul HeightBC.germAlong_bcPts_eventuallyEq HeightBC.germAlong_differentiableAt HeightBC.germAlong_eventuallyEq_rep HeightBC.germAlong_structMap HeightBC.germAlong_zero_of_mem HeightBC.germDerivation HeightBC.germDerivation_at HeightBC.hodgeBCInjective HeightBC.hodgeLineBaseChangeDescent_of_glue HeightBC.hodgeLineBaseChange_of_descent HeightBC.hodgeLineBaseChange_of_final HeightBC.hodgeLineBaseChange_of_five HeightBC.hodgeLineBaseChange_of_four HeightBC.hodgeLineBaseChange_of_glue HeightBC.hodgeLineBaseChange_of_glue4 HeightBC.hodgeLineBaseChange_of_glue5 HeightBC.hodgeLineBaseChange_of_main HeightBC.hodgeLineBaseChange_of_two HeightBC.hodgeSpanBC_of HeightBC.hom_genericUnit HeightBC.hom_genericUnit' HeightBC.hom_unitSection HeightBC.isAnalyticUniformization_bcPts HeightBC.isField_stalk_genericPt HeightBC.isIso_stalkSpecializes_bcMap HeightBC.isUnit_germ_genericPt HeightBC.isUnit_structMap HeightBC.jacDet_bcPts HeightBC.jacobianPullbackSpan_of HeightBC.jacobianSemilinear HeightBC.jacobianSemilinear_of HeightBC.locSub HeightBC.mapCotangent_injective_of_isIso HeightBC.mapCotangent_smul' HeightBC.map_zero_of_hom HeightBC.maximalIdeal_stalk_genericPt HeightBC.mem_locSub HeightBC.mem_of_forall_locSub HeightBC.metrizationBaseChange_of_hodgeLine HeightBC.modelHeightBaseChangeGE_of_descent HeightBC.modelHeightBaseChangeGE_of_descentHalf HeightBC.modelHeightBaseChangeGE_of_main HeightBC.modelHeightBaseChangeGE_of_two HeightBC.modelHeightBaseChangeLE_of_metrization HeightBC.modelHeightBaseChange_of_descent HeightBC.modelHeightBaseChange_of_final HeightBC.modelHeightBaseChange_of_five HeightBC.modelHeightBaseChange_of_four HeightBC.modelHeightBaseChange_of_glue HeightBC.modelHeightBaseChange_of_glue4 HeightBC.modelHeightBaseChange_of_glue5 HeightBC.modelHeightBaseChange_of_main HeightBC.modelHeightBaseChange_of_two HeightBC.modelHeight_eq_of_isHodgeBaseChange HeightBC.multilinear_mem_span HeightBC.omegaAt_bc_local HeightBC.omegaAt_full HeightBC.omegaAt_open HeightBC.omegaAt_sat HeightBC.omegaBaseChange HeightBC.omegaBaseChange_of_localization HeightBC.omegaLocalization HeightBC.one_mem_dom HeightBC.ptC_hom_apply HeightBC.ptC_hom_comp_bO HeightBC.ptsBaseChangeBij HeightBC.ptsBaseChangeMul HeightBC.rationalOver_genericUnit HeightBC.secIndex_baseChange HeightBC.secIndex_map HeightBC.secIndex_ne_zero_of_baseChange HeightBC.secIndex_nsmul_mem HeightBC.smul_cotangent_eq_of_sub_mem HeightBC.span_bcHodge_le HeightBC.spec_mem_of_ker HeightBC.stalkMapAt_germ' HeightBC.stalkSpec_comp_apply HeightBC.stalkSpec_self_apply HeightBC.stalkSpecializes_self_apply' HeightBC.stalkSpecializes_stalkSpecializes_apply' HeightBC.structMap_eq_spec HeightBC.structMap_eq_stalkMap HeightBC.toCotangent_mul HeightBC.uniformizationLift HeightBC.uniformizationLiftAnalytic HeightBC.uniformizationLift_of HeightBC.unitSection_comp_hom HeightBC.unitSection_stalkMapAt_hom HeightBC.σFF HeightBC.φL HeightBC.φL_algebraMap LeafPush2.CPts LeafPush2.Char2 LeafPush2.HasSexticModel LeafPush2.IC10 LeafPush2.IC2 LeafPush2.IC4 LeafPush2.IC6 LeafPush2.IgJ10 LeafPush2.IgJ2 LeafPush2.IgJ4 LeafPush2.IgJ6 LeafPush2.IsGenus2 LeafPush2.IsPeriodMatrix LeafPush2.IsSiegel LeafPush2.IsUniformization LeafPush2.LinYangTuple LeafPush2.OnQMLocus LeafPush2.T10_groupIso LeafPush2.T11a_RiemannEnd LeafPush2.T11b_Rigidity LeafPush2.T12_ComplexConjEigen LeafPush2.UniformizationExists LeafPush2.absLogHeight LeafPush2.cDom LeafPush2.cEvalAt LeafPush2.cptObj LeafPush2.dsq LeafPush2.exists_isComplexConj LeafPush2.ffAlgebra LeafPush2.ffStructMap LeafPush2.isSiegel_I LeafPush2.javanpeykarBound LeafPush2.javanpeykarBound_mono LeafPush2.javanpeykarBound_pos LeafPush2.linYangTuple_onQMLocus LeafPush2.linYang_j_eq LeafPush2.onQMLocus_of_linYangTuple LeafPush2.pazukiC2 LeafPush2.sextic LeafPush2.thetaConst) -- op-dedupe
+open _root_.LeafQM.AV (CMExists HasCM24 HasCM24.of_iso HasCM3 HasCM3.of_iso HasCM4 HasCM4.of_iso IsBaseChangeOf IsBaseChangeOfPair IsFibreOf Level3 Level3.bcPt_pow_three Level3.eq_iff Level3.exists_mul_of_range_le Level3.ext' Level3.onto Level3.range_le Level3.rightMul Level3.rightMul_eq_self Level3.rightMul_rightMul Level3.torsor Level3.twist M3 M3.mk M3.rightMul M3.rightMul_rightMul M3.twist M3.twist_mk Pin.AutOExt.NormalizerFinite Pin.AutOExt.alpha_nat_smul Pin.AutOExt.autOInnerFinite_of_normalizer Pin.AutOExt.common_den Pin.AutOExt.conjUnit Pin.AutOExt.conj_of_skolem Pin.AutOExt.den_mul_int Pin.AutOExt.exists_nat_smul_mem Pin.AutOExt.extAlgEquiv Pin.AutOExt.extAlgHom Pin.AutOExt.extAlgHom_coe Pin.AutOExt.extAlgHom_symm_comp Pin.AutOExt.extDen Pin.AutOExt.extDen_mem Pin.AutOExt.extDen_pos Pin.AutOExt.extFun Pin.AutOExt.extFun_add Pin.AutOExt.extFun_algebraMap Pin.AutOExt.extFun_coe Pin.AutOExt.extFun_eq Pin.AutOExt.extFun_mul Pin.AutOExt.key_conj Pin.AutOExt.mem_O_of_int Pin.AutOExt.natCast_mul_eq_smul Pin.AutOExt.nat_smul_mem Pin.AutOExt.smul_mul_smul' Pin.AutOInnerFinite Pin.ConstOrOntoAlgClosed Pin.CurveRatFactor Pin.CurveSurj Pin.GeomCompConstOrOnto Pin.GeomCompFinite Pin.GeomCompInfinite Pin.GeomCompRatFactor Pin.ImagePlane.ev_comp Pin.ImagePlane.ev_spec_top Pin.ImagePlane.ptOf_comp Pin.ImagePlane.ptOf_spec_asIdeal Pin.IsNaturalRelabel Pin.Mob.eval_ne_zero_of_coprime Pin.Mob.exists_interp Pin.Mob.isCoprime_X_sub_C_of_eval_one Pin.Mob.natDegree_le_one_of_injective Pin.Mob.ratEval Pin.Mob.ratEval_eq_self Pin.Mob.wronskian_ne_zero Pin.MobiusGlue Pin.NormO.IsNorm Pin.NormO.IsNorm.inv Pin.NormO.IsNorm.mul Pin.NormO.T Pin.NormO.T_finite Pin.NormO.T_mul_ui Pin.NormO.T_mul_uj Pin.NormO.bas Pin.NormO.conjC Pin.NormO.descent Pin.NormO.dvd_of_prime_dvd_nrd Pin.NormO.dvd_of_smul_mem Pin.NormO.ei Pin.NormO.ej Pin.NormO.inv_eq Pin.NormO.isNorm_sc Pin.NormO.isNorm_ui Pin.NormO.isNorm_uj Pin.NormO.mulCoord_conjC Pin.NormO.mulCoord_conjC' Pin.NormO.mulCoord_smul_left Pin.NormO.mulCoord_smul_right Pin.NormO.normalizerFinite Pin.NormO.nrdZ Pin.NormO.nrdZ_ei Pin.NormO.nrdZ_ej Pin.NormO.nrdZ_mul Pin.NormO.nrdZ_ne_zero Pin.NormO.nrdZ_smul Pin.NormO.nrd_dvd_coords Pin.NormO.ofInt_scalar Pin.NormO.rearrange Pin.NormO.sc Pin.NormO.six_sq_identities Pin.NormO.smul_ofInt Pin.NormO.three_dvd_mulCoord_ej Pin.NormO.two_dvd_mulCoord_ei Pin.NormO.ui Pin.NormO.uj Pin.PinUnique Pin.QMFamily.transport Pin.QML3.isoTransport Pin.R1fpProps.fam Pin.R1fpProps.univ Pin.RatFactorAlgClosed Pin.SameTriple Pin.SameTripleMor Pin.SmoothCurveNoIsolatedPoint Pin.SmoothStalkDimOne Pin.TwistClassFinite Pin.autOInnerFinite Pin.autRelabel Pin.autRelabel_natural Pin.bcPt Pin.bcPt_ptOfSection Pin.bcPt_snd Pin.bcQbar Pin.bcSnd Pin.cm_objects_of_R1R2fp Pin.conjUnitIso Pin.cst Pin.curveFacts_of_algClosed Pin.curveFacts_of_comp Pin.curveFacts_of_leaves Pin.curveFacts_of_named Pin.curveRatFactor_of_comp Pin.curveSurj_of_comp Pin.ev Pin.ev_cst Pin.ev_eq_zero_iff Pin.ev_f_mul_g Pin.ev_g_eq_zero Pin.ev_res Pin.ev_top Pin.exists_isOpen_singleton_of_finite_closedPoints Pin.exists_liftO_congr Pin.exists_point_of_isLocallyClosed Pin.geomComp Pin.geomCompConstOrOnto_of Pin.geomCompFinite Pin.geomCompInfinite_of Pin.geomCompRatFactor_of Pin.isFibreOf_transport Pin.isOpen_connectedComponent_of_noetherian Pin.level3_finite Pin.mem_V_of_not_mem_U Pin.phi_part Pin.pointwise_of_witness Pin.pointwise_of_witness_mor Pin.ptOf Pin.ptOfSection Pin.r1fpPin_aut Pin.r1fpPin_relabel_iff Pin.r2fp_aut Pin.relabel Pin.relabel_geometric Pin.relabel_is_morphism Pin.res Pin.res_res Pin.sameTripleMor_of_mobius Pin.sameTriple_aut Pin.smoothCurveNoIsolatedPoint_of Pin.transfer_exists Pin.transfer_pointwise Pin.transfer_pointwise_mor Pin.transportLevel Pin.twistClassFinite Pin.twistClassFinite_of Pin.val_bcPt Pin.val_of_mem Pin.val_of_not_mem PtEquiv QMFamily QMIso QMIso.nonempty_abVarIso QMIso.refl QMIso.symm QMIso.trans QML3 QML3.Iso QML3.Iso.refl QML3.Iso.rightMul QML3.Iso.symm QML3.Iso.trans QML3.Iso.twist QML3.forget QML3.rightMul QML3.rightMul_A QML3.rightMul_rightMul QML3.twist QML3.twist_A QMLeaves QMPair QMPair.twist QMStr QMStr.twist Qbar R1R2fp R1R2fp_Y R1famProps R1fp R1fpProps R1fp_of_R1R2fp R1heckeProps R1rec R1recProps R1univProps R2X6Props R2fpProps R2fpProps_of_X6 R5fp R5fpCount R5fpWeak R5fpWeak_of_R5fp R5ptProps ToP1 ToP1.comp ToP1.val ToP1.val_comp ToP1.val_comp_right UnramifiedAbove5 X6Props X6Surj act_mul_apply bcPt bcPt_injective cm_of_val com comEquiv com_twist conductor conjHom conjHom_iota conjHom_mem_com conjHom_symm_apply conj_iso_of_rational conj_twist_of_rational endPt exists_fibre_object fibre_conjugates_isomorphic fieldMap fieldOfModuli3 fieldOfModuliPair fieldPt galAct_bcPt hI hIJ hJ hasCM24_twist hasCM3_twist hasCM4_twist hrat inertCount6 intCast_mem_com isoSetoid leaves_on_one_witness liftO not_qmStr_zero ofInt_injective ofInt_sub oi oi_mul_oi oj oj_mul_oi_add oj_mul_oj pairSetoid qmAct residueImage residue_unramified_over_branch specMap_flat specMap_surjective specToEquivOfField_comp specToEquivOfField_comp_right stab3 stabPair three_mul_ofInt toKbar unramified_over_branch) -- op-dedupe
+open _root_.GlueDescent (B2.IsSignCocycle B2.SignCob B2.dB B2.dB_inv B2.dB_mul B2.exists_beta B2.isSignCocycle_dB B2.isSignCocycle_inv B2.isSignCocycle_mul B2.isSignCocycle_pull B2.pull B2.pull_dB B2.signCob_dB_iff B2.signCob_inv B2.signCob_mul B2Q.GQ B2Q.GQp B2Q.InflatedFrom B2Q.LeafHasse B2Q.LeafLocalTwo B2Q.LeafSqrtCrit B2Q.LeafUnramified B2Q.UnramifiedAt B2Q.act B2Q.act_mul B2Q.b2_of_leaves B2Q.cast_cast_of_dvd B2Q.chiLevel_pos B2Q.chi_toUnitHom_crt B2Q.cyc B2Q.cyc_eq_of_agree B2Q.cyc_isLocallyConstant B2Q.exists_crt_unit B2Q.galChar B2Q.galChar_isLocallyConstant B2Q.isLocallyConstant_of_openSubgroup B2Q.lev_eq_pow B2Q.resp B2Q.resp_continuous B2Q.sqrtU B2Q.sqrtU_sq B2Q.toRingAut B3Q.GQL B3Q.b3_degree_le_QM B3Q.b3_of_leaves B3Q.inflatedNormalized_of B3Q.mem_GQL B3Q.orderOf_pos_dirichlet B6 B6_commute_i_j B6_inner B6_isCentral B6_isSimpleRing B6_star_mul InflatedNormalized IsCochainFor LeafSkolemNoether MatrixUnits2 MatrixUnits2.W MatrixUnits2.e00_of_mem MatrixUnits2.e_apply_e MatrixUnits2.finrank_W MatrixUnits2.mapsTo_W MatrixUnits2.mem_W_of_e0 MatrixUnits2.splitEquiv MatrixUnits2.splitEquiv_intertwines aniso_int aniso_rat boundary_sq chi chiLevel cochain_conj cochain_mul_kernel cochain_mul_left cochain_mul_right cochain_of_boundary_eq cochain_one cocycle_of_projective commute_adjoin contactSupport_pos degree_le_QM exists_chi exists_odd_char heightD_pos index_kernel_le inertia_le_kernel kernelSubgroup kernelSubgroup_le kernelSubgroup_normal lev lev_dvd_chiLevel mem_kernelSubgroup oddChar oddChar_neg_one orderOf_dvd_totient orderOf_prod_dvd prod_S_le prod_odd_le prod_odd_le_aux prod_totient_lev_le qi qj ramSet relindex_kernel_le restrictHom rho rhoRep rho_commute rho_eq_act rho_map_mul sign_cocycle sign_normalization sign_sq_eq_one ten_le_heightE0 three_dvd_of_form totient_lev twist twist_kills_inertia twist_sq two_lt_lev zmod3_aniso) -- op-dedupe
+open _root_.G0ModField (CommonConstituent ConjugacyData DescentDatum FibreCoverExists FibreCoverOut FibreCtx G2Out G4Out G7Out GaloisCopy.G2Out GaloisCopy.G7Out GaloisCopy.Vb GaloisCopy.resQ GaloisCopy.tate IF IsModelOver IsQMModel IsQMModel.isModelOver KernelFieldExists KernelFieldOut ModularConstituentG PtQ RationalFibre ResQRange T UnramifiedSup actK actQ admissible_S_mul b2_of_leaves_level b3_of_cochain baseChangeTrans card_ker_GL descentDatum_bot descentDatum_of_conjugacy fieldDescent g2Out_of_cover g4Out_of_kernelField g7Out_of_g4Out galAct_bijective galAct_mul incAlg isModelOver_baseChange le_heightD_of_mem_S_mul mem_GQL_bot normA numberField_of_fd resQRange resQ_comm' resQ_range sgnU sgnU_mul sgnU_mul_abs sgnU_sq toLAut toLAut_apply two_mem_T) -- op-dedupe
+open _root_.UnramTate (EndBaseChange PtA ResQEmbedding ScalarTransfer TateCont TatePoints bcPt bcPt_galAct conjE conjE_apply endBC endBaseChange eps_right_one hO homEquiv_mul iO iO_jO iO_sq incO' incO'_coe inertia_trivial' instGaloisQbar' jO jO_sq lift_fixes' matrixUnits_of_quat numberField_of_fd'' opV opVHom ptMapIso quat_words resQEmbedding sK scalarTransfer specMap_comp_sK tateCont_of_tateModuleFree tateMap_add tateMap_comp tateMap_id tateMap_zero tatePoints tate_eq_opV tmOf trHom trHom_comp_symm trHom_left trHom_symm_comp trPt trPt_galAct unramifiedSup_mf) -- op-dedupe
 open scoped Pointwise
 
 /-! ## 1. Conjugating the place -/
 
-/-- Nonunits move with the place: `z ∈ v.nonunits → g z ∈ (g • v).nonunits`. -/
-theorem smul_mem_nonunits (g : PkgI4.GQ) {v : ValuationSubring PkgI4.Qbar} {z : PkgI4.Qbar}
-    (hz : z ∈ v.nonunits) : g z ∈ (g • v).nonunits := by
-  rw [ValuationSubring.mem_nonunits_iff_or] at hz ⊢
-  rcases hz with hz | hz
-  · left; rw [hz, map_zero]
-  · right
-    rw [ValuationSubring.mem_pointwise_smul_iff_inv_smul_mem, AlgEquiv.smul_def, map_inv₀,
-      AlgEquiv.aut_inv, AlgEquiv.symm_apply_apply]
-    exact hz
-
-/-- `g(v)` lies over `p` if `v` does. -/
-theorem liesOver_smul (g : PkgI4.GQ) {v : ValuationSubring PkgI4.Qbar} {p : ℕ}
-    (hv : PkgI4.LiesOver v p) : PkgI4.LiesOver (g • v) p := by
-  have := smul_mem_nonunits g hv
-  rwa [map_natCast] at this
-
-/-- `gτg⁻¹` is an arithmetic Frobenius at `g(v)` if `τ` is one at `v`. -/
-theorem isArithFrob_conj (g : PkgI4.GQ) {τ : PkgI4.GQ} {v : ValuationSubring PkgI4.Qbar}
-    {p : ℕ} (hτ : PkgI4.IsArithFrob τ v p) : PkgI4.IsArithFrob (g * τ * g⁻¹) (g • v) p := by
-  obtain ⟨hD, hF⟩ := hτ
-  refine ⟨?_, fun x hx => ?_⟩
-  · rw [MulAction.mem_stabilizer_iff] at hD ⊢
-    rw [mul_smul, mul_smul, inv_smul_smul, hD]
-  · rw [ValuationSubring.mem_pointwise_smul_iff_inv_smul_mem, AlgEquiv.smul_def] at hx
-    have h := smul_mem_nonunits g (hF _ hx)
-    have e1 : g (τ (g⁻¹ x)) = (g * τ * g⁻¹) x := rfl
-    have e2 : g (g⁻¹ x) = x := by rw [AlgEquiv.aut_inv, AlgEquiv.apply_symm_apply]
-    rwa [map_sub, map_pow, e1, e2] at h
-
-/-- **`AlgFrobRedAt` (GLUE, AV side; Glazer N5 L777-786; the reduction map at the place of the
-Frobenius).** `FrobTrace.AlgFrobRed` with the Frobenius `σ` at the place `v` itself (no
-conjugating `g`): for `A/L`, `F : A → A` finite surjective there is a finite `S` such that for
-`p ∉ S`, `v ∣ p`, `σ` an arithmetic Frobenius at `v` and `f(x) = F ∘ x ∘ Spec(σ)` additive, there
-are `Ā/k` (`char k = p`), `α' ∈ End(Ā)`, `N ≠ 0` and `red : A(ℚ̄) → Ā(k̄)` with
-`red ∘ (N·f) = α' ∘ red`, injective on `ℓⁿ`-torsion and onto `Ā(k̄)[ℓⁿ]` from `A(ℚ̄)[ℓⁿ]` for every
-prime `ℓ ≠ p`. -/
-def AlgFrobRedAt : Prop :=
-  ∀ (L : IF) [FiniteDimensional ℚ L] [IsGalois ℚ L] (A : PkgI3.AbVar L)
-    (F : A.X.left ⟶ A.X.left), IsFinite F → Surjective F →
-    ∃ S : Finset ℕ, ∀ p : ℕ, p.Prime → p ∉ S →
-      ∀ (v : ValuationSubring PkgI4.Qbar) (σ : PkgI4.GQ),
-        PkgI4.LiesOver v p → PkgI4.IsArithFrob σ v p →
-        ∀ (f : PtQ L A →+ PtQ L A), (∀ x : PtQ L A, (Additive.toMul (f x)).left =
-          Spec.map (CommRingCat.ofHom ((act σ : Qbar ≃ₐ[ℚ] Qbar) : Qbar →+* Qbar)) ≫
-            (Additive.toMul x).left ≫ F) →
-        ∃ (k : Type) (_ : Field k), CharP k p ∧ ∃ (Ab : PkgI3.AbVar k)
-          (α : PkgI3.AbVar.End Ab) (N : ℕ), N ≠ 0 ∧
-          ∃ red : PtQ L A →+ Additive (Ab.Pt (AlgebraicClosure k)),
-            (∀ x, red (N • f x) =
-              MonoidHom.toAdditive (PkgI3.AbVar.ptMap (L := AlgebraicClosure k) α) (red x)) ∧
-            ∀ ℓ : ℕ, ℓ.Prime → ℓ ≠ p → ∀ n : ℕ,
-              (∀ x : PtQ L A, (ℓ ^ n) • x = 0 → red x = 0 → x = 0) ∧
-              (∀ y, (ℓ ^ n) • y = 0 → ∃ x, (ℓ ^ n) • x = 0 ∧ red x = y)
-
-/-- **`AlgFrobRed` from `AlgFrobRedAt` (proved):** apply `AlgFrobRedAt` at the place `g(v)` to
-the arithmetic Frobenius `gτg⁻¹` there. -/
-theorem algFrobRed_of_at (h : AlgFrobRedAt) : FrobTrace.AlgFrobRed := by
-  intro L _ _ A F hF1 hF2
-  obtain ⟨S, hS⟩ := h L A F hF1 hF2
-  exact ⟨S, fun p hp hpS v τ hv hτ g f hf =>
-    hS p hp hpS (g • v) (g * τ * g⁻¹) (liesOver_smul g hv) (isArithFrob_conj g hτ) f hf⟩
-
 /-! ## 2. Isolating the finite set: good reduction outside finitely many primes -/
-
-/-- **`GoodRedCofinite` (LEAF candidate; good reduction almost everywhere).** An abelian variety
-`A` over a number field `L ⊆ ℚ̄` has good reduction at every place of `L` above all but finitely
-many primes `p`: there is a finite `S` with `A` having good reduction (I2's `HasGoodReduction`:
-an abelian scheme over the valuation ring with generic fibre `≅ A`) at `v ∩ L` for every place
-`v` of `ℚ̄` above `p ∉ S`. Source: spreading out, EGA IV₃ §8 (8.8.2, 8.10.5) and EGA IV₄ 17.7.8
-for smoothness, with properness and geometric connectedness of fibres; in this form e.g.
-Serre–Tate, *Good reduction of abelian varieties*, Ann. of Math. 88 (1968), §1, and
-Milne, *Abelian varieties* (in Cornell–Silverman, *Arithmetic Geometry*, 1986), §20
-(all locators UNVERIFIED). -/
-def GoodRedCofinite : Prop :=
-  ∀ (L : IF) [FiniteDimensional ℚ L] (A : PkgI3.AbVar L),
-    ∃ S : Finset ℕ, ∀ p : ℕ, p.Prime → p ∉ S →
-      ∀ v : ValuationSubring PkgI4.Qbar, PkgI4.LiesOver v p →
-        PkgI2.HasGoodReduction (ObjBridge.toGrp A) (v.comap (algebraMap L PkgI4.Qbar))
-
-/-- **`AlgFrobRedGood` (GLUE, AV side; Glazer N5 L777-786; the reduction map at one place of
-good reduction).** `AlgFrobRedAt` at a single place `v ∣ p` at which `A` has good reduction
-(`HasGoodReduction` at `v ∩ L`), with no finite set: for `σ` an arithmetic Frobenius at `v` and
-`f(x) = F ∘ x ∘ Spec(σ)` additive (`F : A → A` finite surjective), there are `Ā/k`
-(`char k = p`), `α' ∈ End(Ā)`, `N ≠ 0` and `red : A(ℚ̄) → Ā(k̄)` with `red ∘ (N·f) = α' ∘ red`,
-injective on `ℓⁿ`-torsion and onto `Ā(k̄)[ℓⁿ]` from `A(ℚ̄)[ℓⁿ]` for every prime `ℓ ≠ p`.
-
-Why it is true (SPECULATIVE in its Lean details; `N = 1`): `𝒜/O_w` (`w = v ∩ L`) the abelian
-scheme, `Ā` its special fibre over `k = κ(w)`; `red` is `A(ℚ̄) = 𝒜(O_v) → Ā(κ(v)) ≅ Ā(k̄)`
-(valuative criterion); `F` is an `L`-morphism `A → A^{(s)}`, `s = σ⁻¹|_L ∈ D(w)`, and `A^{(s)}`
-has good reduction at `s(w) = w`, so `F` extends to `𝒜 → 𝒜^{(s)}` (leaf I2-NMP); `f` reduces to
-`F̄ ∘ Fr_Ā`, a `k`-morphism fixing `0`, hence `α' ∈ End(Ā)` (rigidity); the torsion clauses are
-leaf I2-Red. -/
-def AlgFrobRedGood : Prop :=
-  ∀ (L : IF) [FiniteDimensional ℚ L] [IsGalois ℚ L] (A : PkgI3.AbVar L)
-    (F : A.X.left ⟶ A.X.left), IsFinite F → Surjective F →
-    ∀ p : ℕ, p.Prime →
-      ∀ (v : ValuationSubring PkgI4.Qbar) (σ : PkgI4.GQ),
-        PkgI4.LiesOver v p → PkgI4.IsArithFrob σ v p →
-        PkgI2.HasGoodReduction (ObjBridge.toGrp A) (v.comap (algebraMap L PkgI4.Qbar)) →
-        ∀ (f : PtQ L A →+ PtQ L A), (∀ x : PtQ L A, (Additive.toMul (f x)).left =
-          Spec.map (CommRingCat.ofHom ((act σ : Qbar ≃ₐ[ℚ] Qbar) : Qbar →+* Qbar)) ≫
-            (Additive.toMul x).left ≫ F) →
-        ∃ (k : Type) (_ : Field k), CharP k p ∧ ∃ (Ab : PkgI3.AbVar k)
-          (α : PkgI3.AbVar.End Ab) (N : ℕ), N ≠ 0 ∧
-          ∃ red : PtQ L A →+ Additive (Ab.Pt (AlgebraicClosure k)),
-            (∀ x, red (N • f x) =
-              MonoidHom.toAdditive (PkgI3.AbVar.ptMap (L := AlgebraicClosure k) α) (red x)) ∧
-            ∀ ℓ : ℕ, ℓ.Prime → ℓ ≠ p → ∀ n : ℕ,
-              (∀ x : PtQ L A, (ℓ ^ n) • x = 0 → red x = 0 → x = 0) ∧
-              (∀ y, (ℓ ^ n) • y = 0 → ∃ x, (ℓ ^ n) • x = 0 ∧ red x = y)
-
-/-- **`AlgFrobRedAt` from the leaf `GoodRedCofinite` and the local glue `AlgFrobRedGood`
-(proved):** `S` is the finite set of `GoodRedCofinite` for `A`. -/
-theorem algFrobRedAt_of_good (hG : GoodRedCofinite) (hL : AlgFrobRedGood) : AlgFrobRedAt := by
-  intro L _ _ A F hF1 hF2
-  obtain ⟨S, hS⟩ := hG L A
-  exact ⟨S, fun p hp hpS v σ hv hσ f hf =>
-    hL L A F hF1 hF2 p hp v σ hv hσ (hS p hp hpS v hv) f hf⟩
-
-/-- **`AlgFrobRed` from `GoodRedCofinite` and `AlgFrobRedGood` (proved).** -/
-theorem algFrobRed_of_good (hG : GoodRedCofinite) (hL : AlgFrobRedGood) :
-    FrobTrace.AlgFrobRed :=
-  algFrobRed_of_at (algFrobRedAt_of_good hG hL)
 
 /-- **`TateBridge35` from I3.M0, `GoodRedCofinite` and `AlgFrobRedGood` (proved).** -/
 theorem tateBridge35_of_good (hT : PkgI3.TateModuleFree) (hG : GoodRedCofinite)
@@ -7473,414 +6295,13 @@ theorem tateBridge35_of_good (hT : PkgI3.TateModuleFree) (hG : GoodRedCofinite)
 
 /-! ## 3. The local glue: special fibre, reduction relation, Frobenius -/
 
-/-- `O_w = v ∩ L`, the valuation ring of `L` below the place `v` of `ℚ̄`. -/
-abbrev Ow (L : IF) (v : ValuationSubring PkgI4.Qbar) : ValuationSubring L :=
-  v.comap (algebraMap L PkgI4.Qbar)
-
-/-- The residue field `k = κ(w)` of `O_w`. -/
-abbrev kw (L : IF) (v : ValuationSubring PkgI4.Qbar) : Type :=
-  IsLocalRing.ResidueField (Ow L v)
-
-/-- The special fibre `𝒜 ×_{O} κ(O)` of a group object over a local ring `O`, as a group object
-over `Spec κ(O)` (base change along `Spec κ(O) → Spec O`). -/
-def sf {O : Type} [CommRing O] [IsLocalRing O] (𝒜 : Grp (Over (Spec (.of O)))) :
-    Grp (Over (Spec (.of (IsLocalRing.ResidueField O)))) :=
-  (Over.pullback (Spec.map (CommRingCat.ofHom (IsLocalRing.residue O)))).mapGrp.obj 𝒜
-
-/-- **`SmoothGeomConnIntegral` (LEAF candidate, textbook; Stacks Project / EGA IV₂).** A smooth,
-quasi-compact, geometrically connected scheme over a field is geometrically integral (smooth ⇒
-geometrically normal, EGA IV₂ 6.8.1 / 6.7.4 (UNVERIFIED); a connected, quasi-compact, locally
-Noetherian normal scheme is integral, Stacks Tag 033M (UNVERIFIED); applied after every field
-base change, which preserves smoothness and connectedness). -/
-def SmoothGeomConnIntegral : Prop :=
-  ∀ (k : Type) [Field k] (X : Scheme.{0}) (f : X ⟶ Spec (.of k)),
-    Smooth f → GeometricallyConnected f → QuasiCompact f → GeometricallyIntegral f
-
-/-- The special fibre of an abelian scheme over a local ring is an abelian variety (I2's
-`IsAbelianVariety`): properness, smoothness and geometric connectedness are stable under base
-change (Mathlib), and geometric integrality is `SmoothGeomConnIntegral`. -/
-theorem sf_isAbelianVariety (hS : SmoothGeomConnIntegral) {O : Type} [CommRing O]
-    [IsLocalRing O] (𝒜 : Grp (Over (Spec (.of O)))) [h : PkgI2.IsAbelianScheme 𝒜] :
-    PkgI2.IsAbelianVariety (sf 𝒜) := by
-  haveI := h.proper; haveI := h.smooth; haveI := h.geomConnected
-  have hp : IsProper (sf 𝒜).X.hom := by
-    show IsProper (pullback.snd 𝒜.X.hom (Spec.map (CommRingCat.ofHom (IsLocalRing.residue O))))
-    infer_instance
-  have hs : Smooth (sf 𝒜).X.hom := by
-    show Smooth (pullback.snd 𝒜.X.hom (Spec.map (CommRingCat.ofHom (IsLocalRing.residue O))))
-    infer_instance
-  have hc : GeometricallyConnected (sf 𝒜).X.hom := by
-    show GeometricallyConnected
-      (pullback.snd 𝒜.X.hom (Spec.map (CommRingCat.ofHom (IsLocalRing.residue O))))
-    infer_instance
-  exact ⟨hp, hs, hS _ _ _ hs hc inferInstance⟩
-
-set_option synthInstance.maxHeartbeats 400000 in
-/-- **The reduction relation.** For `A/L`, an abelian scheme `𝒜/O_w` with `e : 𝒜_L ≅ A`, and a
-ring map `j : κ(v) → κ(w)‾`: the `κ(w)‾`-point `y` of the special fibre is the reduction of
-`x ∈ A(ℚ̄)` (via `j`) if some `O_w`-morphism `x' : Spec O_v → 𝒜` restricts to `x` on the generic
-point (through `e`; the clause of I2's `IsReductionOf`, copied) and `y` followed by the projection
-to `𝒜` is `x'` on `Spec κ(v)`, read through `Spec j`. -/
-def RedRel {L : IF} {A : PkgI3.AbVar L} (v : ValuationSubring PkgI4.Qbar)
-    (𝒜 : Grp (Over (Spec (.of (Ow L v)))))
-    (e : (Over.pullback (Spec.map (CommRingCat.ofHom (algebraMap (Ow L v) L)))).mapGrp.obj 𝒜 ≅
-      ObjBridge.toGrp A)
-    (j : IsLocalRing.ResidueField v →+* AlgebraicClosure (kw L v))
-    (x : PtQ L A) (y : PkgI2.Pts (sf 𝒜) (AlgebraicClosure (kw L v))) : Prop :=
-  ∃ x' : Over.mk (Spec.map (CommRingCat.ofHom (PkgI2.toW (Ow L v) v rfl))) ⟶ 𝒜.X,
-    ((Additive.toMul x) ≫ (e.inv.hom.hom : A.X ⟶
-        (Over.pullback (Spec.map (CommRingCat.ofHom (algebraMap (Ow L v) L)))).obj 𝒜.X)).left ≫
-        pullback.fst 𝒜.X.hom (Spec.map (CommRingCat.ofHom (algebraMap (Ow L v) L))) =
-      Spec.map (CommRingCat.ofHom v.subtype) ≫ x'.left ∧
-    y.left ≫ pullback.fst 𝒜.X.hom (Spec.map (CommRingCat.ofHom (IsLocalRing.residue (Ow L v)))) =
-      Spec.map (CommRingCat.ofHom j) ≫ Spec.map (CommRingCat.ofHom (IsLocalRing.residue v)) ≫
-        x'.left
-
-/-- `char κ(w) = p` for `w = v ∩ L`, `v ∣ p`. -/
-theorem charP_kw {L : IF} {v : ValuationSubring PkgI4.Qbar} {p : ℕ} (hp : p.Prime)
-    (hv : PkgI4.LiesOver v p) : CharP (kw L v) p := by
-  have h1 : ((p : Ow L v) : L) ∈ (Ow L v).nonunits := by
-    rw [ValuationSubring.mem_nonunits_iff_or]
-    right
-    intro hin
-    rw [ValuationSubring.mem_comap, map_inv₀] at hin
-    have he : (algebraMap L PkgI4.Qbar ((p : Ow L v) : L)) = (p : PkgI4.Qbar) := by simp
-    rw [he] at hin
-    have hv' := hv
-    unfold PkgI4.LiesOver at hv'
-    rw [ValuationSubring.mem_nonunits_iff_or] at hv'
-    rcases hv' with h0 | h0
-    · exact (Nat.cast_ne_zero.mpr hp.ne_zero) h0
-    · exact h0 hin
-  have h2 : (p : Ow L v) ∈ IsLocalRing.maximalIdeal (Ow L v) :=
-    (ValuationSubring.coe_mem_nonunits_iff).mp h1
-  have h3 : (p : kw L v) = 0 := by
-    rw [← map_natCast (IsLocalRing.residue (Ow L v)), IsLocalRing.residue_eq_zero_iff]
-    exact h2
-  exact (CharP.charP_iff_prime_eq_zero hp).mpr h3
-
-/-- `ℓⁿ` is a unit of `O_w` for a prime `ℓ ≠ p`. -/
-theorem isUnit_cast_of_ne {L : IF} {v : ValuationSubring PkgI4.Qbar} {p : ℕ} (hp : p.Prime)
-    (hv : PkgI4.LiesOver v p) {ℓ : ℕ} (hℓ : ℓ.Prime) (hne : ℓ ≠ p) (n : ℕ) :
-    IsUnit (((ℓ ^ n : ℕ)) : Ow L v) := by
-  by_contra hnu
-  have hm : ((ℓ ^ n : ℕ) : Ow L v) ∈ IsLocalRing.maximalIdeal (Ow L v) :=
-    (IsLocalRing.mem_maximalIdeal _).mpr hnu
-  have h0 : ((ℓ ^ n : ℕ) : kw L v) = 0 := by
-    rw [← map_natCast (IsLocalRing.residue (Ow L v)), IsLocalRing.residue_eq_zero_iff]
-    exact hm
-  haveI := charP_kw (L := L) hp hv
-  rw [CharP.cast_eq_zero_iff (kw L v) p] at h0
-  exact hne ((Nat.prime_dvd_prime_iff_eq hp hℓ).mp (hp.dvd_of_dvd_pow h0)).symm
-
-set_option synthInstance.maxHeartbeats 400000 in
-/-- **`ReductionMapGood` (GLUE; valuative criterion of properness, Stacks Tag 0BX5 / EGA II 7.3.8
-(UNVERIFIED locators)).** At a place `v ∣ p` and an abelian scheme `𝒜/O_w` (`w = v ∩ L`) with
-`e : 𝒜_L ≅ A`: there are a ring isomorphism `j : κ(v) ≅ κ(w)‾` compatible with the maps from
-`O_w` (`κ(v)` is an algebraic closure of `κ(w)`) and a group homomorphism
-`red : A(ℚ̄) → Ā(κ(w)‾)` (`Ā` the special fibre `sf 𝒜`) with `RedRel x (red x)` for every `x`
-(existence of the lift `x' : Spec O_v → 𝒜`, valuative criterion: `𝒜` proper, `O_v` a valuation
-ring with fraction field `ℚ̄`), and the reduction is unique (uniqueness of the lift, `𝒜`
-separated, plus the universal property of the fibre product). `red` is a homomorphism since
-restriction `𝒜(O_v) → 𝒜(ℚ̄)` is a bijective homomorphism and reduction `𝒜(O_v) → 𝒜(κ(v))` is
-one. No Frobenius, no torsion. -/
-def ReductionMapGood : Prop :=
-  ∀ (L : IF) [FiniteDimensional ℚ L] (A : PkgI3.AbVar L) (p : ℕ), p.Prime →
-    ∀ (v : ValuationSubring PkgI4.Qbar), PkgI4.LiesOver v p →
-    ∀ (𝒜 : Grp (Over (Spec (.of (Ow L v))))) [PkgI2.IsAbelianScheme 𝒜]
-      (e : (Over.pullback (Spec.map (CommRingCat.ofHom (algebraMap (Ow L v) L)))).mapGrp.obj 𝒜 ≅
-        ObjBridge.toGrp A),
-    ∃ j : IsLocalRing.ResidueField v →+* AlgebraicClosure (kw L v), Function.Bijective j ∧
-      (∀ a : Ow L v, j (IsLocalRing.residue v (PkgI2.toW (Ow L v) v rfl a)) =
-        algebraMap (kw L v) (AlgebraicClosure (kw L v)) (IsLocalRing.residue (Ow L v) a)) ∧
-      ∃ red : PtQ L A →+ Additive (PkgI2.Pts (sf 𝒜) (AlgebraicClosure (kw L v))),
-        (∀ x, RedRel v 𝒜 e j x (Additive.toMul (red x))) ∧
-        (∀ x y y', RedRel v 𝒜 e j x y → RedRel v 𝒜 e j x y' → y = y')
-
-set_option synthInstance.maxHeartbeats 400000 in
-/-- **`RedTorsionQbar` (GLUE: leaf I2-Red, `PkgI2.ReductionTorsionBijective` (Serre–Tate 1968,
-§1), transported).** For `m ≥ 1` invertible in `O_w` and any ring isomorphism
-`j : κ(v) ≅ κ(w)‾` compatible with the maps from `O_w`: reduction (`RedRel`) is a bijection
-`A(ℚ̄)[m] → Ā(κ(w)‾)[m]`, in I2-Red's form (`∃!` both ways). This is I2-Red for the abelian scheme
-`𝒜` over the DVR `O_w` (a valuation ring of the number field `L` with `p` a nonunit), read
-through the `L`-isomorphism `ℚ̄ ≅ L‾` (`ℚ̄` is an algebraic closure of `L`), the universal
-property of `sf 𝒜 = 𝒜 ×_{O_w} κ(w)` (points of `𝒜` over `κ(v)` = `κ(w)`-points of `sf 𝒜` over
-`κ(v)`) and `j`. -/
-def RedTorsionQbar : Prop :=
-  ∀ (L : IF) [FiniteDimensional ℚ L] (A : PkgI3.AbVar L) (p : ℕ), p.Prime →
-    ∀ (v : ValuationSubring PkgI4.Qbar), PkgI4.LiesOver v p →
-    ∀ (𝒜 : Grp (Over (Spec (.of (Ow L v))))) [PkgI2.IsAbelianScheme 𝒜]
-      (e : (Over.pullback (Spec.map (CommRingCat.ofHom (algebraMap (Ow L v) L)))).mapGrp.obj 𝒜 ≅
-        ObjBridge.toGrp A)
-      (j : IsLocalRing.ResidueField v →+* AlgebraicClosure (kw L v)), Function.Bijective j →
-      (∀ a : Ow L v, j (IsLocalRing.residue v (PkgI2.toW (Ow L v) v rfl a)) =
-        algebraMap (kw L v) (AlgebraicClosure (kw L v)) (IsLocalRing.residue (Ow L v) a)) →
-      ∀ m : ℕ, 0 < m → IsUnit (m : Ow L v) →
-        (∀ x : PtQ L A, m • x = 0 →
-          ∃! y : Additive (PkgI2.Pts (sf 𝒜) (AlgebraicClosure (kw L v))),
-            m • y = 0 ∧ RedRel v 𝒜 e j x (Additive.toMul y)) ∧
-        (∀ y : Additive (PkgI2.Pts (sf 𝒜) (AlgebraicClosure (kw L v))), m • y = 0 →
-          ∃! x : PtQ L A, m • x = 0 ∧ RedRel v 𝒜 e j x (Additive.toMul y))
-
-set_option synthInstance.maxHeartbeats 400000 in
-/-- **`ReductionFrobGood` (GLUE, AV side; Glazer N5 L777-786; the Frobenius step).** At a place
-`v ∣ p` with an abelian scheme `𝒜/O_w` and `e : 𝒜_L ≅ A`, `σ` an arithmetic Frobenius at `v`,
-`F : A → A` finite surjective and `f(x) = F ∘ x ∘ Spec(σ)` additive: there is an endomorphism
-`ᾱ` of the special fibre `Ā = sf 𝒜` (a morphism of group objects over `κ(w)`) such that for every
-ring map `j : κ(v) → κ(w)‾`, if `y` is the reduction of `x` then `ᾱ ∘ y` is the reduction of
-`f x`.
-
-Why it is true (SPECULATIVE in its Lean details): `F` lies over `Spec(t)`, `t = σ⁻¹|_L ∈ D(w)`
-(forced by `f(x)` being an `L`-point); `F` extends to `F̃ : 𝒜 → 𝒜` over `Spec(t|_{O_w})` (leaf
-I2-NMP applied to `𝒜` and its base change along `t`); a lift of `f x` is
-`Spec(σ|_{O_v}) ≫ x' ≫ F̃`; on `Spec κ(v)`, `σ` induces the `p`-power map (`IsArithFrob`), i.e.
-the absolute Frobenius, which commutes with every morphism of schemes; so the reduction of
-`f x` is `y ≫ Fr_Ā ≫ F̄` with `F̄` the base change of `F̃` (over `Spec(t̄) = Spec(Frob⁻¹)`), and
-`ᾱ = Fr_Ā ≫ F̄` lies over `id_{κ(w)}` and fixes `0` (`f` is additive), hence is a homomorphism
-(rigidity, Mumford, *Abelian varieties*, §4 Cor. 1, UNVERIFIED locator). -/
-def ReductionFrobGood : Prop :=
-  ∀ (L : IF) [FiniteDimensional ℚ L] [IsGalois ℚ L] (A : PkgI3.AbVar L)
-    (F : A.X.left ⟶ A.X.left), IsFinite F → Surjective F →
-    ∀ p : ℕ, p.Prime →
-      ∀ (v : ValuationSubring PkgI4.Qbar) (σ : PkgI4.GQ),
-        PkgI4.LiesOver v p → PkgI4.IsArithFrob σ v p →
-        ∀ (𝒜 : Grp (Over (Spec (.of (Ow L v))))) [PkgI2.IsAbelianScheme 𝒜]
-          (e : (Over.pullback (Spec.map (CommRingCat.ofHom (algebraMap (Ow L v) L)))).mapGrp.obj
-            𝒜 ≅ ObjBridge.toGrp A)
-          (f : PtQ L A →+ PtQ L A), (∀ x : PtQ L A, (Additive.toMul (f x)).left =
-            Spec.map (CommRingCat.ofHom ((act σ : Qbar ≃ₐ[ℚ] Qbar) : Qbar →+* Qbar)) ≫
-              (Additive.toMul x).left ≫ F) →
-        ∃ ab : sf 𝒜 ⟶ sf 𝒜,
-          ∀ (j : IsLocalRing.ResidueField v →+* AlgebraicClosure (kw L v)) (x : PtQ L A)
-            (y : PkgI2.Pts (sf 𝒜) (AlgebraicClosure (kw L v))),
-            RedRel v 𝒜 e j x y → RedRel v 𝒜 e j (f x) (y ≫ ab.hom.hom)
-
-set_option synthInstance.maxHeartbeats 400000 in
-/-- **`AlgFrobRedGood` from `SmoothGeomConnIntegral`, `ReductionMapGood`, `RedTorsionQbar` and
-`ReductionFrobGood` (proved).** `k = κ(w)`, `Ā = sf 𝒜` (an abelian variety by
-`sf_isAbelianVariety`), `α' = ᾱ`, `N = 1`, `red` from `ReductionMapGood`; the intertwining is the
-uniqueness of reductions, the torsion clauses are `RedTorsionQbar` at `m = ℓⁿ` (a unit of `O_w`,
-`isUnit_cast_of_ne`). -/
-theorem algFrobRedGood_of (hS : SmoothGeomConnIntegral) (h1 : ReductionMapGood)
-    (h2 : RedTorsionQbar) (h3 : ReductionFrobGood) : AlgFrobRedGood := by
-  intro L _ _ A F hF1 hF2 p hp v σ hv hσ hgood f hf
-  obtain ⟨𝒜, h𝒜, ⟨e⟩⟩ := hgood
-  haveI := h𝒜
-  haveI hAV := sf_isAbelianVariety hS 𝒜
-  obtain ⟨j, hjb, hjc, red, hred, huniq⟩ := h1 L A p hp v hv 𝒜 e
-  obtain ⟨ab, hab⟩ := h3 L A F hF1 hF2 p hp v σ hv hσ 𝒜 e f hf
-  refine ⟨kw L v, inferInstance, charP_kw hp hv, ObjBridge.ofGrp (sf 𝒜),
-    ObjBridge.homOfGrp ab, 1, one_ne_zero, red, ?_, ?_⟩
-  · intro x
-    rw [one_smul]
-    exact congrArg Additive.ofMul (huniq (f x) _ _ (hred (f x)) (hab j x _ (hred x)))
-  · intro ℓ hℓ hne n
-    have hu := isUnit_cast_of_ne (L := L) hp hv hℓ hne n
-    obtain ⟨-, hB⟩ := h2 L A p hp v hv 𝒜 e j hjb hjc (ℓ ^ n) (pow_pos hℓ.pos n) hu
-    refine ⟨fun x hx h0 => ?_, fun y hy => ?_⟩
-    · have hx0 : RedRel v 𝒜 e j x (Additive.toMul 0) := h0 ▸ hred x
-      have h00 : RedRel v 𝒜 e j 0 (Additive.toMul 0) := (map_zero red) ▸ hred 0
-      exact (hB 0 (smul_zero _)).unique ⟨hx, hx0⟩ ⟨smul_zero _, h00⟩
-    · obtain ⟨x, ⟨hx, hxr⟩, -⟩ := hB y hy
-      exact ⟨x, hx, congrArg Additive.ofMul (huniq x _ _ (hred x) hxr)⟩
-
 /-! ## 4. `ReductionMapGood` from the valuative criterion (Mathlib) and two smaller Props -/
-
-set_option synthInstance.maxHeartbeats 400000 in
-/-- `x ∈ A(ℚ̄)` as a `ℚ̄`-point of `𝒜_L` (through `e`). -/
-def genPt {L : IF} {A : PkgI3.AbVar L} (v : ValuationSubring PkgI4.Qbar)
-    (𝒜 : Grp (Over (Spec (.of (Ow L v)))))
-    (e : (Over.pullback (Spec.map (CommRingCat.ofHom (algebraMap (Ow L v) L)))).mapGrp.obj 𝒜 ≅
-      ObjBridge.toGrp A) (x : PtQ L A) :
-    PkgI3.AbVar.ptObj (K := L) PkgI4.Qbar ⟶
-      (Over.pullback (Spec.map (CommRingCat.ofHom (algebraMap (Ow L v) L)))).obj 𝒜.X :=
-  (Additive.toMul x) ≫ (e.inv.hom.hom : A.X ⟶
-      (Over.pullback (Spec.map (CommRingCat.ofHom (algebraMap (Ow L v) L)))).obj 𝒜.X)
-
-set_option synthInstance.maxHeartbeats 400000 in
-/-- The generic point map `Spec ℚ̄ → 𝒜` of `x ∈ A(ℚ̄)` (through `e`), as in `RedRel`. -/
-def genMap {L : IF} {A : PkgI3.AbVar L} (v : ValuationSubring PkgI4.Qbar)
-    (𝒜 : Grp (Over (Spec (.of (Ow L v)))))
-    (e : (Over.pullback (Spec.map (CommRingCat.ofHom (algebraMap (Ow L v) L)))).mapGrp.obj 𝒜 ≅
-      ObjBridge.toGrp A) (x : PtQ L A) : Spec (.of PkgI4.Qbar) ⟶ 𝒜.X.left :=
-  (genPt v 𝒜 e x).left ≫
-    pullback.fst 𝒜.X.hom (Spec.map (CommRingCat.ofHom (algebraMap (Ow L v) L)))
-
-set_option synthInstance.maxHeartbeats 400000 in
-/-- The valuative square: `Spec ℚ̄ → 𝒜` over `Spec O_v → Spec O_w`. -/
-theorem genMap_comm {L : IF} {A : PkgI3.AbVar L} (v : ValuationSubring PkgI4.Qbar)
-    (𝒜 : Grp (Over (Spec (.of (Ow L v)))))
-    (e : (Over.pullback (Spec.map (CommRingCat.ofHom (algebraMap (Ow L v) L)))).mapGrp.obj 𝒜 ≅
-      ObjBridge.toGrp A) (x : PtQ L A) :
-    genMap v 𝒜 e x ≫ 𝒜.X.hom = Spec.map (CommRingCat.ofHom (algebraMap v PkgI4.Qbar)) ≫
-      Spec.map (CommRingCat.ofHom (PkgI2.toW (Ow L v) v rfl)) := by
-  have key : ∀ (T : Scheme) (u : T ⟶ pullback 𝒜.X.hom
-      (Spec.map (CommRingCat.ofHom (algebraMap (Ow L v) L)))),
-      (u ≫ pullback.fst _ _) ≫ 𝒜.X.hom = (u ≫ pullback.snd _ _) ≫
-        Spec.map (CommRingCat.ofHom (algebraMap (Ow L v) L)) := fun T u => by
-    rw [Category.assoc, pullback.condition, Category.assoc]
-  have hw : (genPt v 𝒜 e x).left ≫ pullback.snd 𝒜.X.hom
-      (Spec.map (CommRingCat.ofHom (algebraMap (Ow L v) L))) =
-      Spec.map (CommRingCat.ofHom (algebraMap L PkgI4.Qbar)) := Over.w (genPt v 𝒜 e x)
-  have h2 : ((genPt v 𝒜 e x).left ≫ pullback.snd _ _) ≫
-      Spec.map (CommRingCat.ofHom (algebraMap (Ow L v) L)) =
-      Spec.map (CommRingCat.ofHom (algebraMap L PkgI4.Qbar)) ≫
-        Spec.map (CommRingCat.ofHom (algebraMap (Ow L v) L)) :=
-    congrArg (fun t => t ≫ Spec.map (CommRingCat.ofHom (algebraMap (Ow L v) L))) hw
-  have h3 : Spec.map (CommRingCat.ofHom (algebraMap L PkgI4.Qbar)) ≫
-        Spec.map (CommRingCat.ofHom (algebraMap (Ow L v) L)) =
-      Spec.map (CommRingCat.ofHom (algebraMap v PkgI4.Qbar)) ≫
-        Spec.map (CommRingCat.ofHom (PkgI2.toW (Ow L v) v rfl)) := by
-    rw [← Spec.map_comp, ← Spec.map_comp, ← CommRingCat.ofHom_comp, ← CommRingCat.ofHom_comp]
-    rfl
-  exact (key _ (genPt v 𝒜 e x).left).trans (h2.trans h3)
-
-set_option synthInstance.maxHeartbeats 400000 in
-/-- The valuative commutative square of `x`. -/
-def vsq {L : IF} {A : PkgI3.AbVar L} (v : ValuationSubring PkgI4.Qbar)
-    (𝒜 : Grp (Over (Spec (.of (Ow L v)))))
-    (e : (Over.pullback (Spec.map (CommRingCat.ofHom (algebraMap (Ow L v) L)))).mapGrp.obj 𝒜 ≅
-      ObjBridge.toGrp A) (x : PtQ L A) : ValuativeCommSq 𝒜.X.hom where
-  R := v
-  K := PkgI4.Qbar
-  i₁ := genMap v 𝒜 e x
-  i₂ := Spec.map (CommRingCat.ofHom (PkgI2.toW (Ow L v) v rfl))
-  commSq := ⟨genMap_comm v 𝒜 e x⟩
-
-set_option synthInstance.maxHeartbeats 400000 in
-/-- **Existence of the lift** `x' : Spec O_v → 𝒜` (proved: valuative criterion for the proper
-`𝒜 → Spec O_w`, Mathlib `UniversallyClosed.eq_valuativeCriterion`). -/
-theorem exists_lift {L : IF} {A : PkgI3.AbVar L} (v : ValuationSubring PkgI4.Qbar)
-    (𝒜 : Grp (Over (Spec (.of (Ow L v))))) [h𝒜 : PkgI2.IsAbelianScheme 𝒜]
-    (e : (Over.pullback (Spec.map (CommRingCat.ofHom (algebraMap (Ow L v) L)))).mapGrp.obj 𝒜 ≅
-      ObjBridge.toGrp A) (x : PtQ L A) :
-    ∃ x' : Over.mk (Spec.map (CommRingCat.ofHom (PkgI2.toW (Ow L v) v rfl))) ⟶ 𝒜.X,
-      genMap v 𝒜 e x = Spec.map (CommRingCat.ofHom v.subtype) ≫ x'.left := by
-  haveI := h𝒜.proper
-  have h1 : (ValuativeCriterion.Existence ⊓ @QuasiCompact) 𝒜.X.hom := by
-    rw [← UniversallyClosed.eq_valuativeCriterion]; infer_instance
-  obtain ⟨⟨l, hl1, hl2⟩⟩ := h1.1 (vsq v 𝒜 e x)
-  exact ⟨Over.homMk l hl2, hl1.symm⟩
-
-set_option synthInstance.maxHeartbeats 400000 in
-/-- **Uniqueness of the lift** (proved: valuative criterion of separatedness, Mathlib
-`IsSeparated.valuativeCriterion`). -/
-theorem lift_unique {L : IF} {A : PkgI3.AbVar L} (v : ValuationSubring PkgI4.Qbar)
-    (𝒜 : Grp (Over (Spec (.of (Ow L v))))) [h𝒜 : PkgI2.IsAbelianScheme 𝒜]
-    (e : (Over.pullback (Spec.map (CommRingCat.ofHom (algebraMap (Ow L v) L)))).mapGrp.obj 𝒜 ≅
-      ObjBridge.toGrp A) (x : PtQ L A)
-    (x₁ x₂ : Over.mk (Spec.map (CommRingCat.ofHom (PkgI2.toW (Ow L v) v rfl))) ⟶ 𝒜.X)
-    (h₁ : genMap v 𝒜 e x = Spec.map (CommRingCat.ofHom v.subtype) ≫ x₁.left)
-    (h₂ : genMap v 𝒜 e x = Spec.map (CommRingCat.ofHom v.subtype) ≫ x₂.left) : x₁ = x₂ := by
-  haveI := h𝒜.proper
-  have hU := IsSeparated.valuativeCriterion 𝒜.X.hom (vsq v 𝒜 e x)
-  have e1 : (⟨x₁.left, h₁.symm, Over.w x₁⟩ : (vsq v 𝒜 e x).commSq.LiftStruct) =
-      ⟨x₂.left, h₂.symm, Over.w x₂⟩ := Subsingleton.elim _ _
-  exact Over.OverMorphism.ext (congrArg CommSq.LiftStruct.l e1)
-
-set_option synthInstance.maxHeartbeats 400000 in
-/-- Every `x` has a reduction, for `j` compatible with the maps from `O_w` (proved). -/
-theorem exists_redRel {L : IF} {A : PkgI3.AbVar L} (v : ValuationSubring PkgI4.Qbar)
-    (𝒜 : Grp (Over (Spec (.of (Ow L v))))) [PkgI2.IsAbelianScheme 𝒜]
-    (e : (Over.pullback (Spec.map (CommRingCat.ofHom (algebraMap (Ow L v) L)))).mapGrp.obj 𝒜 ≅
-      ObjBridge.toGrp A)
-    (j : IsLocalRing.ResidueField v →+* AlgebraicClosure (kw L v))
-    (hjc : ∀ a : Ow L v, j (IsLocalRing.residue v (PkgI2.toW (Ow L v) v rfl a)) =
-        algebraMap (kw L v) (AlgebraicClosure (kw L v)) (IsLocalRing.residue (Ow L v) a))
-    (x : PtQ L A) : ∃ y, RedRel v 𝒜 e j x y := by
-  obtain ⟨x', hx'⟩ := exists_lift v 𝒜 e x
-  have hw : (Spec.map (CommRingCat.ofHom j) ≫ Spec.map (CommRingCat.ofHom
-      (IsLocalRing.residue v)) ≫ x'.left) ≫ 𝒜.X.hom =
-      Spec.map (CommRingCat.ofHom (algebraMap (kw L v) (AlgebraicClosure (kw L v)))) ≫
-        Spec.map (CommRingCat.ofHom (IsLocalRing.residue (Ow L v))) := by
-    rw [Category.assoc, Category.assoc, Over.w x']
-    simp only [Over.mk_hom, ← Spec.map_comp, ← CommRingCat.ofHom_comp]
-    congr 2
-    ext a
-    exact hjc a
-  refine ⟨Over.homMk (pullback.lift _ _ hw) (pullback.lift_snd _ _ hw), x', hx', ?_⟩
-  exact pullback.lift_fst _ _ hw
-
-set_option synthInstance.maxHeartbeats 400000 in
-/-- Reductions are unique (proved: uniqueness of the lift and of maps into a fibre product). -/
-theorem redRel_unique {L : IF} {A : PkgI3.AbVar L} (v : ValuationSubring PkgI4.Qbar)
-    (𝒜 : Grp (Over (Spec (.of (Ow L v))))) [PkgI2.IsAbelianScheme 𝒜]
-    (e : (Over.pullback (Spec.map (CommRingCat.ofHom (algebraMap (Ow L v) L)))).mapGrp.obj 𝒜 ≅
-      ObjBridge.toGrp A)
-    (j : IsLocalRing.ResidueField v →+* AlgebraicClosure (kw L v)) (x : PtQ L A)
-    (y y' : PkgI2.Pts (sf 𝒜) (AlgebraicClosure (kw L v))) :
-    RedRel v 𝒜 e j x y → RedRel v 𝒜 e j x y' → y = y' := by
-  rintro ⟨x₁, h₁, h₁'⟩ ⟨x₂, h₂, h₂'⟩
-  obtain rfl := lift_unique v 𝒜 e x x₁ x₂ h₁ h₂
-  apply Over.OverMorphism.ext
-  apply pullback.hom_ext
-  · exact h₁'.trans h₂'.symm
-  · exact (Over.w y).trans (Over.w y').symm
-
-/-- **`ResidueAlgClosure` (GLUE, standard commutative algebra).** For a place `v ∣ p` of `ℚ̄` and
-`w = v ∩ L`, there is a ring isomorphism `j : κ(v) ≅ κ(w)‾` compatible with the maps from `O_w`:
-`κ(v)` is algebraically closed (the residue field of a valuation ring of an algebraically closed
-field) and algebraic over `κ(w)` (`ℚ̄/L` is algebraic), hence an algebraic closure of `κ(w)`
-(Engler–Prestel, *Valued fields* (2005), Thm 3.2.11 and §3.2; Bourbaki, *Alg. Comm.* VI §8;
-locators UNVERIFIED). -/
-def ResidueAlgClosure : Prop :=
-  ∀ (L : IF) [FiniteDimensional ℚ L] (v : ValuationSubring PkgI4.Qbar) (p : ℕ), p.Prime →
-    PkgI4.LiesOver v p →
-    ∃ j : IsLocalRing.ResidueField v →+* AlgebraicClosure (kw L v), Function.Bijective j ∧
-      (∀ a : Ow L v, j (IsLocalRing.residue v (PkgI2.toW (Ow L v) v rfl a)) =
-        algebraMap (kw L v) (AlgebraicClosure (kw L v)) (IsLocalRing.residue (Ow L v) a))
-
-set_option synthInstance.maxHeartbeats 400000 in
-/-- **`RedRelMul` (GLUE; reduction respects the group law).** If `y₁, y₂` are the reductions of
-`x₁, x₂` then `y₁ y₂` is the reduction of `x₁ + x₂`: the product `x'₁ x'₂` of the lifts (in the
-group `𝒜(O_v)`) lifts `x₁ + x₂` (restriction to the generic point and `e` respect the group
-laws), and base change to the special fibre respects them too (`sf 𝒜` carries the base-changed
-group law). -/
-def RedRelMul : Prop :=
-  ∀ (L : IF) [FiniteDimensional ℚ L] (A : PkgI3.AbVar L) (v : ValuationSubring PkgI4.Qbar)
-    (𝒜 : Grp (Over (Spec (.of (Ow L v))))) [PkgI2.IsAbelianScheme 𝒜]
-    (e : (Over.pullback (Spec.map (CommRingCat.ofHom (algebraMap (Ow L v) L)))).mapGrp.obj 𝒜 ≅
-      ObjBridge.toGrp A)
-    (j : IsLocalRing.ResidueField v →+* AlgebraicClosure (kw L v)) (x₁ x₂ : PtQ L A)
-    (y₁ y₂ : PkgI2.Pts (sf 𝒜) (AlgebraicClosure (kw L v))),
-    RedRel v 𝒜 e j x₁ y₁ → RedRel v 𝒜 e j x₂ y₂ → RedRel v 𝒜 e j (x₁ + x₂) (y₁ * y₂)
-
-set_option synthInstance.maxHeartbeats 400000 in
-/-- **`ReductionMapGood` from `ResidueAlgClosure` and `RedRelMul` (proved)**, with the valuative
-criterion (existence and uniqueness of lifts) from Mathlib. -/
-theorem reductionMapGood_of (hR : ResidueAlgClosure) (hM : RedRelMul) : ReductionMapGood := by
-  intro L _ A p hp v hv 𝒜 _ e
-  obtain ⟨j, hjb, hjc⟩ := hR L v p hp hv
-  choose r hr using exists_redRel v 𝒜 e j hjc
-  have hun := redRel_unique v 𝒜 e j
-  let red : PtQ L A →+ Additive (PkgI2.Pts (sf 𝒜) (AlgebraicClosure (kw L v))) :=
-    AddMonoidHom.mk' (fun x => Additive.ofMul (r x)) (fun a b => by
-      show Additive.ofMul (r (a + b)) = Additive.ofMul (r a * r b)
-      exact congrArg Additive.ofMul (hun _ _ _ (hr (a + b)) (hM L A v 𝒜 e j a b _ _ (hr a) (hr b))))
-  exact ⟨j, hjb, hjc, red, fun x => hr x, hun⟩
-
-/-- **`AlgFrobRed` from the leaves `GoodRedCofinite`, `SmoothGeomConnIntegral` and the glue
-`ReductionMapGood`, `RedTorsionQbar`, `ReductionFrobGood` (proved).** -/
-theorem algFrobRed_of_pieces (hG : GoodRedCofinite) (hS : SmoothGeomConnIntegral)
-    (h1 : ReductionMapGood) (h2 : RedTorsionQbar) (h3 : ReductionFrobGood) :
-    FrobTrace.AlgFrobRed :=
-  algFrobRed_of_good hG (algFrobRedGood_of hS h1 h2 h3)
 
 /-- **`TateBridge35` from I3.M0 and the five pieces (proved).** -/
 theorem tateBridge35_of_pieces (hT : PkgI3.TateModuleFree) (hG : GoodRedCofinite)
     (hS : SmoothGeomConnIntegral) (h1 : ReductionMapGood) (h2 : RedTorsionQbar)
     (h3 : ReductionFrobGood) : G14Bridge.TateBridge35 :=
   FrobTrace.tateBridge35_of_algFrobRed hT (algFrobRed_of_pieces hG hS h1 h2 h3)
-
-/-- **Main result: `AlgFrobRed` from the leaf candidates `GoodRedCofinite`,
-`SmoothGeomConnIntegral` and the glue `ResidueAlgClosure`, `RedRelMul`, `RedTorsionQbar`,
-`ReductionFrobGood` (proved).** The valuative criterion (existence and uniqueness of the lift
-`Spec O_v → 𝒜`), the special fibre being an abelian variety (up to `SmoothGeomConnIntegral`), the
-residue characteristic, the units `ℓⁿ` and the conjugation of the place are proved here. -/
-theorem algFrobRed_of_split (hG : GoodRedCofinite) (hS : SmoothGeomConnIntegral)
-    (hR : ResidueAlgClosure) (hM : RedRelMul) (h2 : RedTorsionQbar) (h3 : ReductionFrobGood) :
-    FrobTrace.AlgFrobRed :=
-  algFrobRed_of_pieces hG hS (reductionMapGood_of hR hM) h2 h3
 
 /-- **`TateBridge35` from I3.M0 and the six pieces (proved).** -/
 theorem tateBridge35_of_split (hT : PkgI3.TateModuleFree) (hG : GoodRedCofinite)
@@ -7890,271 +6311,7 @@ theorem tateBridge35_of_split (hT : PkgI3.TateModuleFree) (hG : GoodRedCofinite)
 
 /-! ## 5. `ReductionFrobGood` from the extension of `F` and the twisted Frobenius -/
 
-/-- `σ` restricted to `O_v`, for `σ` in the decomposition group of `v`. -/
-def sigV {v : ValuationSubring PkgI4.Qbar} (σ : PkgI4.GQ) (hσ : σ ∈ v.decompositionSubgroup ℚ) :
-    v →+* v where
-  toFun y := ⟨σ y, by
-    have h : σ • v = v := hσ
-    have h2 := ValuationSubring.smul_mem_pointwise_smul σ (y : PkgI4.Qbar) v y.2
-    rw [h, AlgEquiv.smul_def] at h2
-    exact h2⟩
-  map_one' := Subtype.ext (map_one σ)
-  map_mul' a b := Subtype.ext (map_mul σ _ _)
-  map_zero' := Subtype.ext (map_zero σ)
-  map_add' a b := Subtype.ext (map_add σ _ _)
-
-/-- An arithmetic Frobenius acts on `κ(v)` as `z ↦ z^p` (proved from `IsArithFrob`). -/
-theorem residue_sigV {v : ValuationSubring PkgI4.Qbar} {σ : PkgI4.GQ} {p : ℕ}
-    (hσ : PkgI4.IsArithFrob σ v p) (y : v) :
-    IsLocalRing.residue v (sigV σ hσ.1 y) = IsLocalRing.residue v y ^ p := by
-  rw [← map_pow, ← sub_eq_zero, ← map_sub, IsLocalRing.residue_eq_zero_iff,
-    ← ValuationSubring.coe_mem_nonunits_iff]
-  have h := hσ.2 y y.2
-  simpa [sigV] using h
-
-set_option synthInstance.maxHeartbeats 400000 in
-/-- **`FExtend` (GLUE; leaf I2-NMP, `PkgI2.NeronMappingAbelianScheme` (BLR, *Néron models*,
-§1.2), applied to the conjugate model).** At a place `v ∣ p` with an abelian scheme `𝒜/O_w`,
-`e : 𝒜_L ≅ A`, `σ` an arithmetic Frobenius at `v`, `F : A → A` finite surjective and
-`f(x) = F ∘ x ∘ Spec(σ)` additive: there are a ring endomorphism `t` of `O_w` (it is
-`σ⁻¹|_{O_w}`) and a morphism of schemes `F̃ : 𝒜 → 𝒜` over `Spec(t)` such that `t` induces
-`Frob⁻¹` on `κ(w)` (`t(a)^p ≡ a`), `F̃` maps the unit section to itself (over `Spec t`), and
-`F̃` extends `F`: whenever `x'` is the lift of `x`, `Spec(σ|_{O_v}) ≫ x' ≫ F̃` is a lift of `f x`.
-
-Why it is true: `f(x) ∈ A(ℚ̄)` for all `x` forces `F` to lie over `Spec(σ⁻¹|_L)`, so `F` is an
-`L`-morphism `A → A^{(t)}`; `A^{(t)}` is the generic fibre of the base change `𝒜^{(t)}` of `𝒜`
-along `t|_{O_w}` (`σ ∈ D(v)`, so `t(O_w) = O_w`), and I2-NMP extends it to `𝒜 → 𝒜^{(t)}`, i.e.
-`F̃`; the lift identity holds on the generic point, and `F̃` fixes `0` since `f(0) = 0` and `𝒜`
-is separated over the integral `Spec O_w`. `t(a)^p ≡ a` since `σ` acts on `κ(v)` as `z ↦ z^p`. -/
-def FExtend : Prop :=
-  ∀ (L : IF) [FiniteDimensional ℚ L] [IsGalois ℚ L] (A : PkgI3.AbVar L)
-    (F : A.X.left ⟶ A.X.left), IsFinite F → Surjective F →
-    ∀ p : ℕ, p.Prime →
-      ∀ (v : ValuationSubring PkgI4.Qbar) (σ : PkgI4.GQ) (_ : PkgI4.LiesOver v p)
-        (hσ : PkgI4.IsArithFrob σ v p)
-        (𝒜 : Grp (Over (Spec (.of (Ow L v))))) [PkgI2.IsAbelianScheme 𝒜]
-        (e : (Over.pullback (Spec.map (CommRingCat.ofHom (algebraMap (Ow L v) L)))).mapGrp.obj
-          𝒜 ≅ ObjBridge.toGrp A)
-        (f : PtQ L A →+ PtQ L A), (∀ x : PtQ L A, (Additive.toMul (f x)).left =
-          Spec.map (CommRingCat.ofHom ((act σ : Qbar ≃ₐ[ℚ] Qbar) : Qbar →+* Qbar)) ≫
-            (Additive.toMul x).left ≫ F) →
-        ∃ (Ft : 𝒜.X.left ⟶ 𝒜.X.left) (t : Ow L v →+* Ow L v),
-          Ft ≫ 𝒜.X.hom = 𝒜.X.hom ≫ Spec.map (CommRingCat.ofHom t) ∧
-          (∀ a, IsLocalRing.residue (Ow L v) (t a) ^ p = IsLocalRing.residue (Ow L v) a) ∧
-          (η[𝒜.X]).left ≫ Ft = Spec.map (CommRingCat.ofHom t) ≫ (η[𝒜.X]).left ∧
-          ∀ (x : PtQ L A)
-            (x' : Over.mk (Spec.map (CommRingCat.ofHom (PkgI2.toW (Ow L v) v rfl))) ⟶ 𝒜.X),
-            genMap v 𝒜 e x = Spec.map (CommRingCat.ofHom v.subtype) ≫ x'.left →
-            ∃ x'' : Over.mk (Spec.map (CommRingCat.ofHom (PkgI2.toW (Ow L v) v rfl))) ⟶ 𝒜.X,
-              genMap v 𝒜 e (f x) = Spec.map (CommRingCat.ofHom v.subtype) ≫ x''.left ∧
-              x''.left = Spec.map (CommRingCat.ofHom (sigV σ hσ.1)) ≫ x'.left ≫ Ft
-
-/-- **`FrobMorph` (GLUE; the absolute Frobenius of the special fibre twisted by `F̄`).** Let `O`
-be a local ring with residue field `k` of characteristic `p`, `𝒜/O` an abelian scheme,
-`t : O → O` a ring map inducing `Frob⁻¹` on `k` (`t(a)^p ≡ a`) and `F̃ : 𝒜 → 𝒜` a morphism over
-`Spec(t)` fixing the unit section. Then there is a `k`-morphism `β` of the special fibre
-`Ā = sf 𝒜` fixing `0` with `β ∘ y = F̃ ∘ y ∘ Spec(z ↦ z^p)` on `k̄`-points (after projecting to
-`𝒜`).
-
-Why it is true: `β = Fr_Ā ≫ F̄`, with `Fr_Ā` the absolute Frobenius of the `𝔽_p`-scheme `Ā`
-(over `Fr_{Spec k} = Spec(z ↦ z^p)`) and `F̄ = F̃ ×_{Spec t} Spec(t̄)` the base change (over
-`Spec t̄`, `t̄ = Frob⁻¹`); `β` lies over `Spec(t̄) ∘ Spec(Frob) = id`; on a point,
-`y ≫ Fr_Ā = Fr_{Spec k̄} ≫ y` (naturality of the absolute Frobenius), and `Fr_Ā, F̄` fix `0`. The
-absolute Frobenius of schemes is not in Mathlib 4.35. -/
-def FrobMorph : Prop :=
-  ∀ (O : Type) [CommRing O] [IsLocalRing O] (p : ℕ), p.Prime →
-    CharP (IsLocalRing.ResidueField O) p →
-    ∀ (𝒜 : Grp (Over (Spec (.of O)))) [PkgI2.IsAbelianScheme 𝒜]
-      (Ft : 𝒜.X.left ⟶ 𝒜.X.left) (t : O →+* O),
-      Ft ≫ 𝒜.X.hom = 𝒜.X.hom ≫ Spec.map (CommRingCat.ofHom t) →
-      (∀ a, IsLocalRing.residue O (t a) ^ p = IsLocalRing.residue O a) →
-      (η[𝒜.X]).left ≫ Ft = Spec.map (CommRingCat.ofHom t) ≫ (η[𝒜.X]).left →
-      ∃ β : (sf 𝒜).X ⟶ (sf 𝒜).X, η[(sf 𝒜).X] ≫ β = η[(sf 𝒜).X] ∧
-        ∀ (y : PkgI2.Pts (sf 𝒜) (AlgebraicClosure (IsLocalRing.ResidueField O)))
-          (φ : AlgebraicClosure (IsLocalRing.ResidueField O) →+*
-            AlgebraicClosure (IsLocalRing.ResidueField O)),
-          (∀ z, φ z = z ^ p) →
-          (y ≫ β).left ≫
-              pullback.fst 𝒜.X.hom (Spec.map (CommRingCat.ofHom (IsLocalRing.residue O))) =
-            Spec.map (CommRingCat.ofHom φ) ≫ y.left ≫
-              pullback.fst 𝒜.X.hom (Spec.map (CommRingCat.ofHom (IsLocalRing.residue O))) ≫ Ft
-
-set_option synthInstance.maxHeartbeats 400000 in
-/-- **`ReductionFrobGood` from `SmoothGeomConnIntegral`, `FExtend` and `FrobMorph` (proved)**,
-with rigidity (`G0FibreSimple.rigidityHom`, proved from Mathlib by mul-rigidity, copied
-verbatim): `ᾱ = β` is a homomorphism because it fixes `0`; the reduction of `f x` is computed
-from the lift `Spec(σ|_{O_v}) ≫ x' ≫ F̃` and `residue_sigV` (`σ` is `z ↦ z^p` on `κ(v)`, and
-`j` commutes with `z ↦ z^p`). -/
-theorem reductionFrobGood_of (hS : SmoothGeomConnIntegral) (hE : FExtend) (hFr : FrobMorph) :
-    ReductionFrobGood := by
-  intro L _ _ A F hF1 hF2 p hp v σ hv hσ 𝒜 _ e f hf
-  obtain ⟨Ft, t, hover, hres, hzero, hlift⟩ := hE L A F hF1 hF2 p hp v σ hv hσ 𝒜 e f hf
-  haveI := charP_kw (L := L) hp hv
-  obtain ⟨β, hβ0, hβ⟩ := hFr (Ow L v) p hp inferInstance 𝒜 Ft t hover hres hzero
-  haveI hAV := sf_isAbelianVariety hS 𝒜
-  haveI hmon : IsMonHom β := G0FibreSimple.rigidityHom _ (ObjBridge.ofGrp (sf 𝒜))
-    (ObjBridge.ofGrp (sf 𝒜)) β hβ0
-  refine ⟨Grp.homMk β, fun j x y ⟨x', hx', hy⟩ => ?_⟩
-  obtain ⟨x'', hx'', hx''eq⟩ := hlift x x' hx'
-  refine ⟨x'', hx'', ?_⟩
-  haveI : Fact p.Prime := ⟨hp⟩
-  haveI : CharP (AlgebraicClosure (kw L v)) p :=
-    charP_of_injective_algebraMap (algebraMap (kw L v) _).injective p
-  have h1 := hβ y (frobenius _ p) (fun z => rfl)
-  have hring : Spec.map (CommRingCat.ofHom (frobenius (AlgebraicClosure (kw L v)) p)) ≫
-      Spec.map (CommRingCat.ofHom j) ≫ Spec.map (CommRingCat.ofHom (IsLocalRing.residue v)) =
-      Spec.map (CommRingCat.ofHom j) ≫ Spec.map (CommRingCat.ofHom (IsLocalRing.residue v)) ≫
-        Spec.map (CommRingCat.ofHom (sigV σ hσ.1)) := by
-    simp only [← Spec.map_comp, ← CommRingCat.ofHom_comp]
-    congr 2
-    ext z
-    simp only [RingHom.comp_apply, residue_sigV hσ, map_pow, frobenius_def]
-  have h3 := congrArg (fun m => Spec.map (CommRingCat.ofHom
-    (frobenius (AlgebraicClosure (kw L v)) p)) ≫ m ≫ Ft) hy
-  have h5 : Spec.map (CommRingCat.ofHom (frobenius (AlgebraicClosure (kw L v)) p)) ≫
-      (Spec.map (CommRingCat.ofHom j) ≫ Spec.map (CommRingCat.ofHom (IsLocalRing.residue v)) ≫
-        x'.left) ≫ Ft =
-      Spec.map (CommRingCat.ofHom j) ≫ Spec.map (CommRingCat.ofHom (IsLocalRing.residue v)) ≫
-        Spec.map (CommRingCat.ofHom (sigV σ hσ.1)) ≫ x'.left ≫ Ft := by
-    have h4 := congrArg (fun m => m ≫ x'.left ≫ Ft) hring
-    simp only [Category.assoc] at h4 ⊢
-    exact h4
-  have h2 := (congrArg (fun m => Spec.map (CommRingCat.ofHom
-    (frobenius (AlgebraicClosure (kw L v)) p)) ≫ m) (Category.assoc y.left _ Ft).symm).trans
-    (h3.trans h5)
-  rw [hx''eq]
-  exact h1.trans h2
-
 /-! ## 6. `ResidueAlgClosure` from two statements on residue fields -/
-
-/-- `O_w → O_v` is a local homomorphism (proved). -/
-instance isLocalHom_toW (L : IF) (v : ValuationSubring PkgI4.Qbar) :
-    IsLocalHom (PkgI2.toW (Ow L v) v rfl) := by
-  refine ⟨fun a ha => ?_⟩
-  by_contra hna
-  have h1 : ((a : Ow L v) : L) ∈ (Ow L v).nonunits :=
-    ValuationSubring.coe_mem_nonunits_iff.mpr ((IsLocalRing.mem_maximalIdeal _).mpr hna)
-  have h2 : ((PkgI2.toW (Ow L v) v rfl a : v) : PkgI4.Qbar) ∈ v.nonunits := by
-    rw [ValuationSubring.mem_nonunits_iff_or] at h1 ⊢
-    show algebraMap L PkgI4.Qbar (a : L) = 0 ∨ (algebraMap L PkgI4.Qbar (a : L))⁻¹ ∉ v
-    rcases h1 with h | h
-    · left; rw [h, map_zero]
-    · right; rw [← map_inv₀]; exact h
-  exact (IsLocalRing.mem_maximalIdeal _).mp (ValuationSubring.coe_mem_nonunits_iff.mp h2) ha
-
-/-- **`ResidueAlgClosed` (GLUE, standard: the residue field of a valuation ring of an
-algebraically closed field is algebraically closed; e.g. Engler–Prestel, *Valued fields* (2005),
-Thm 3.2.11 (locator UNVERIFIED)).** Proof idea: lift a monic polynomial to `O_v`, take a root in
-`ℚ̄`; it is integral over `O_v`, hence in `O_v`; reduce. -/
-def ResidueAlgClosed : Prop :=
-  ∀ v : ValuationSubring PkgI4.Qbar, IsAlgClosed (IsLocalRing.ResidueField v)
-
-/-- **`ResidueAlgebraic` (GLUE, standard: the residue extension of an algebraic extension of
-valued fields is algebraic; Bourbaki, *Alg. Comm.* VI §8.1, Engler–Prestel Cor. 3.2.3 (locators
-UNVERIFIED)).** `κ(v)` is algebraic over `κ(w)`, `w = v ∩ L`, for the map induced by
-`O_w → O_v`. -/
-def ResidueAlgebraic : Prop :=
-  ∀ (L : IF) [FiniteDimensional ℚ L] (v : ValuationSubring PkgI4.Qbar),
-    @Algebra.IsAlgebraic (kw L v) (IsLocalRing.ResidueField v) _ _
-      (IsLocalRing.ResidueField.map (PkgI2.toW (Ow L v) v rfl)).toAlgebra
-
-/-- **`ResidueAlgClosed` holds (proved from Mathlib):** lift a monic irreducible `q` over `κ(v)`
-to a monic `Q` over `O_v`, take a root `z ∈ ℚ̄` of `Q`; `z` is integral over the integrally closed
-`O_v`, so `z ∈ O_v`, and its residue is a root of `q`. -/
-theorem residueAlgClosed : ResidueAlgClosed := by
-  intro v
-  refine IsAlgClosed.of_exists_root _ (fun q hq hirr => ?_)
-  obtain ⟨Q, hQmap, hQdeg, hQmon⟩ := Polynomial.lifts_and_natDegree_eq_and_monic
-    (Polynomial.mem_lifts_of_surjective IsLocalRing.residue_surjective q) hq
-  have hinj : Function.Injective (algebraMap v PkgI4.Qbar) := IsFractionRing.injective v PkgI4.Qbar
-  have hdeg : (Q.map (algebraMap v PkgI4.Qbar)).degree ≠ 0 := by
-    rw [Polynomial.degree_map_eq_of_injective hinj]
-    intro h
-    have h1 : Q.natDegree = 0 := Polynomial.natDegree_eq_of_degree_eq_some h
-    rw [hQdeg] at h1
-    exact (Irreducible.natDegree_pos hirr).ne' h1
-  obtain ⟨z, hz⟩ := IsAlgClosed.exists_root _ hdeg
-  rw [Polynomial.IsRoot, Polynomial.eval_map] at hz
-  have hint : IsIntegral v z := ⟨Q, hQmon, hz⟩
-  obtain ⟨y, rfl⟩ := IsIntegrallyClosed.isIntegral_iff.mp hint
-  rw [Polynomial.eval₂_hom] at hz
-  have h0 : Q.eval y = 0 := hinj (hz.trans (map_zero _).symm)
-  refine ⟨IsLocalRing.residue v y, ?_⟩
-  rw [← hQmap, Polynomial.eval_map, Polynomial.eval₂_hom, h0, map_zero]
-
-/-- **`ResidueAlgebraic` holds (proved from Mathlib):** for `y ∈ O_v`, take `P ∈ L[X]`, `P ≠ 0`,
-`P(y) = 0`, and divide by a coefficient of largest valuation for `O_w`: the result has
-coefficients in `O_w` and a coefficient `1`, so its reduction is a nonzero polynomial over `κ(w)`
-vanishing at the residue of `y`. -/
-theorem residueAlgebraic : ResidueAlgebraic := by
-  intro L _ v
-  letI : Algebra (kw L v) (IsLocalRing.ResidueField v) :=
-    (IsLocalRing.ResidueField.map (PkgI2.toW (Ow L v) v rfl)).toAlgebra
-  refine ⟨fun z => ?_⟩
-  obtain ⟨y, rfl⟩ := IsLocalRing.residue_surjective z
-  have hyalg : IsAlgebraic L (y : PkgI4.Qbar) :=
-    (Algebra.IsAlgebraic.isAlgebraic (R := ℚ) (y : PkgI4.Qbar)).tower_top L
-  obtain ⟨P, hP0, hPy⟩ := hyalg
-  obtain ⟨i, hi, hmax⟩ := P.support.exists_max_image (fun n => (Ow L v).valuation (P.coeff n))
-    (Polynomial.support_nonempty.mpr hP0)
-  have hci : P.coeff i ≠ 0 := Polynomial.mem_support_iff.mp hi
-  have hlift : P * Polynomial.C (P.coeff i)⁻¹ ∈ Polynomial.lifts (algebraMap (Ow L v) L) := by
-    rw [Polynomial.lifts_iff_coeff_lifts]
-    intro n
-    rw [Polynomial.coeff_mul_C]
-    have hmem : P.coeff n * (P.coeff i)⁻¹ ∈ Ow L v := by
-      rw [← ValuationSubring.valuation_le_one_iff, map_mul, map_inv₀]
-      by_cases hn : n ∈ P.support
-      · exact mul_inv_le_one_of_le₀ (hmax n hn) zero_le'
-      · rw [Polynomial.notMem_support_iff.mp hn, map_zero, zero_mul]
-        exact zero_le'
-    exact ⟨⟨_, hmem⟩, rfl⟩
-  obtain ⟨Q, hQ⟩ := (Polynomial.mem_lifts _).mp hlift
-  have hinjO : Function.Injective (algebraMap (Ow L v) L) := IsFractionRing.injective (Ow L v) L
-  have hQi : Q.coeff i = 1 := by
-    apply hinjO
-    rw [← Polynomial.coeff_map, hQ, Polynomial.coeff_mul_C, mul_inv_cancel₀ hci, map_one]
-  refine ⟨Q.map (IsLocalRing.residue (Ow L v)), ?_, ?_⟩
-  · intro h0
-    have h1 := congrArg (fun r => r.coeff i) h0
-    simp only [Polynomial.coeff_map, hQi, map_one, Polynomial.coeff_zero] at h1
-    exact one_ne_zero h1
-  · rw [Polynomial.aeval_def, Polynomial.eval₂_map]
-    have hcomp : (algebraMap (kw L v) (IsLocalRing.ResidueField v)).comp
-        (IsLocalRing.residue (Ow L v)) =
-        (IsLocalRing.residue v).comp (PkgI2.toW (Ow L v) v rfl) := by
-      ext a
-      exact IsLocalRing.ResidueField.map_residue _ a
-    rw [hcomp, ← Polynomial.hom_eval₂]
-    have hzero : Q.eval₂ (PkgI2.toW (Ow L v) v rfl) y = 0 := by
-      apply IsFractionRing.injective v PkgI4.Qbar
-      rw [map_zero]
-      have e1 := Polynomial.hom_eval₂ Q (PkgI2.toW (Ow L v) v rfl) (algebraMap v PkgI4.Qbar) y
-      have e2 : (algebraMap v PkgI4.Qbar).comp (PkgI2.toW (Ow L v) v rfl) =
-          (algebraMap L PkgI4.Qbar).comp (algebraMap (Ow L v) L) := rfl
-      rw [e1, e2, ← Polynomial.eval₂_map, hQ, Polynomial.eval₂_mul, Polynomial.eval₂_C]
-      have e3 : P.eval₂ (algebraMap L PkgI4.Qbar) (algebraMap v PkgI4.Qbar y) = 0 := hPy
-      rw [e3, zero_mul]
-    rw [hzero, map_zero]
-
-set_option synthInstance.maxHeartbeats 400000 in
-/-- **`ResidueAlgClosure` from `ResidueAlgClosed` and `ResidueAlgebraic` (proved):** `κ(v)` is an
-algebraic closure of `κ(w)`, so `IsAlgClosure.equiv` gives `j`. -/
-theorem residueAlgClosure_of (h1 : ResidueAlgClosed) (h2 : ResidueAlgebraic) :
-    ResidueAlgClosure := by
-  intro L _ v p _ _
-  letI : Algebra (kw L v) (IsLocalRing.ResidueField v) :=
-    (IsLocalRing.ResidueField.map (PkgI2.toW (Ow L v) v rfl)).toAlgebra
-  haveI : IsAlgClosed (IsLocalRing.ResidueField v) := h1 v
-  haveI : Algebra.IsAlgebraic (kw L v) (IsLocalRing.ResidueField v) := h2 L v
-  haveI : IsAlgClosure (kw L v) (IsLocalRing.ResidueField v) := ⟨inferInstance, inferInstance⟩
-  let e := IsAlgClosure.equiv (kw L v) (IsLocalRing.ResidueField v) (AlgebraicClosure (kw L v))
-  refine ⟨e.toRingEquiv.toRingHom, e.bijective, fun a => ?_⟩
-  have h3 : IsLocalRing.residue v (PkgI2.toW (Ow L v) v rfl a) =
-      algebraMap (kw L v) (IsLocalRing.ResidueField v) (IsLocalRing.residue (Ow L v) a) :=
-    (IsLocalRing.ResidueField.map_residue _ a).symm
-  show e (IsLocalRing.residue v (PkgI2.toW (Ow L v) v rfl a)) = _
-  rw [h3, AlgEquiv.commutes]
 
 /-! ## 7. `RedRelMul` from the adjunction `Over.map ⊣ Over.pullback` -/
 
@@ -8162,109 +6319,7 @@ section RedMul
 
 open scoped CategoryTheory.Obj
 
-/-- The adjunction bijection `Hom(T, g^* M) ≃ Hom(g_! T, M)` is multiplicative (as in
-unram-tate's `homEquiv_mul`), here for the inverse map. -/
-theorem pb_symm_mul {S S' : Scheme} (g : S' ⟶ S) (M : Over S) [MonObj M] (T : Over S')
-    (u w : T ⟶ (Over.pullback g).obj M) :
-    ((Over.mapPullbackAdj g).homEquiv T M).symm (u * w) =
-      ((Over.mapPullbackAdj g).homEquiv T M).symm u *
-        ((Over.mapPullbackAdj g).homEquiv T M).symm w := by
-  obtain ⟨p, rfl⟩ := ((Over.mapPullbackAdj g).homEquiv T M).surjective u
-  obtain ⟨q, rfl⟩ := ((Over.mapPullbackAdj g).homEquiv T M).surjective w
-  have hm : (Over.mapPullbackAdj g).homEquiv T M (p * q) =
-      (Over.mapPullbackAdj g).homEquiv T M p * (Over.mapPullbackAdj g).homEquiv T M q := by
-    rw [Adjunction.homEquiv_unit, Adjunction.homEquiv_unit, Adjunction.homEquiv_unit,
-      Functor.map_mul, MonObj.comp_mul]
-  rw [← hm, Equiv.symm_apply_apply, Equiv.symm_apply_apply, Equiv.symm_apply_apply]
-
 end RedMul
-
-/-- `pb_symm_mul` for the group law of `(Over.pullback g).mapGrp.obj G` (the one of `sf 𝒜` and of
-`𝒜_L`). -/
-theorem pb_symm_mul' {S S' : Scheme} (g : S' ⟶ S) (G : Grp (Over S)) (T : Over S')
-    (u w : T ⟶ ((Over.pullback g).mapGrp.obj G).X) :
-    ((Over.mapPullbackAdj g).homEquiv T G.X).symm (u * w) =
-      ((Over.mapPullbackAdj g).homEquiv T G.X).symm u *
-        ((Over.mapPullbackAdj g).homEquiv T G.X).symm w :=
-  pb_symm_mul g G.X T u w
-
-set_option synthInstance.maxHeartbeats 400000 in
-/-- **`RedRelMul` holds (proved):** the product of the lifts lifts the sum, and on both the
-generic point and the special fibre the passage to `𝒜` is the adjunction bijection, which is
-multiplicative (`pb_symm_mul'`); `e.inv` is a homomorphism. -/
-theorem redRelMul : RedRelMul := by
-  intro L _ A v 𝒜 _ e j x₁ x₂ y₁ y₂ ⟨x'₁, g₁, c₁⟩ ⟨x'₂, g₂, c₂⟩
-  refine ⟨x'₁ * x'₂, ?_, ?_⟩
-  · have hw : Spec.map (CommRingCat.ofHom v.subtype) ≫
-        (Over.mk (Spec.map (CommRingCat.ofHom (PkgI2.toW (Ow L v) v rfl)))).hom =
-        ((Over.map (Spec.map (CommRingCat.ofHom (algebraMap (Ow L v) L)))).obj
-          (PkgI3.AbVar.ptObj (K := L) PkgI4.Qbar)).hom := by
-      simp only [Over.mk_hom, Over.map_obj_hom, PkgI3.AbVar.ptObj]
-      rw [← Spec.map_comp, ← Spec.map_comp, ← CommRingCat.ofHom_comp, ← CommRingCat.ofHom_comp]
-      rfl
-    let ι0 : (Over.map (Spec.map (CommRingCat.ofHom (algebraMap (Ow L v) L)))).obj
-        (PkgI3.AbVar.ptObj (K := L) PkgI4.Qbar) ⟶
-        Over.mk (Spec.map (CommRingCat.ofHom (PkgI2.toW (Ow L v) v rfl))) :=
-      Over.homMk (Spec.map (CommRingCat.ofHom v.subtype)) hw
-    let u : PtQ L A → (PkgI3.AbVar.ptObj (K := L) PkgI4.Qbar ⟶
-        ((Over.pullback (Spec.map (CommRingCat.ofHom (algebraMap (Ow L v) L)))).mapGrp.obj
-          𝒜).X) := fun x => genPt v 𝒜 e x
-    have hs : ∀ (x : PtQ L A)
-        (x' : Over.mk (Spec.map (CommRingCat.ofHom (PkgI2.toW (Ow L v) v rfl))) ⟶ 𝒜.X),
-        genMap v 𝒜 e x = Spec.map (CommRingCat.ofHom v.subtype) ≫ x'.left →
-        ((Over.mapPullbackAdj (Spec.map (CommRingCat.ofHom (algebraMap (Ow L v) L)))).homEquiv
-          _ 𝒜.X).symm (u x) = ι0 ≫ x' := fun x x' h => Over.OverMorphism.ext h
-    have hmul : u (x₁ + x₂) = u x₁ * u x₂ := by
-      show (Additive.toMul x₁ * Additive.toMul x₂) ≫ e.inv.hom.hom =
-        (Additive.toMul x₁ ≫ e.inv.hom.hom) * (Additive.toMul x₂ ≫ e.inv.hom.hom)
-      exact MonObj.mul_comp _ _ _
-    have key : ((Over.mapPullbackAdj (Spec.map (CommRingCat.ofHom
-        (algebraMap (Ow L v) L)))).homEquiv _ 𝒜.X).symm (u (x₁ + x₂)) = ι0 ≫ (x'₁ * x'₂) :=
-      (congrArg ((Over.mapPullbackAdj (Spec.map (CommRingCat.ofHom
-        (algebraMap (Ow L v) L)))).homEquiv _ 𝒜.X).symm hmul).trans
-        ((pb_symm_mul' _ 𝒜 _ (u x₁) (u x₂)).trans
-          (by rw [hs x₁ x'₁ g₁, hs x₂ x'₂ g₂, MonObj.comp_mul]))
-    exact congrArg Over.Hom.left key
-  · have keyc : ∀ (T' : Scheme) (u : T' ⟶ pullback 𝒜.X.hom
-        (Spec.map (CommRingCat.ofHom (IsLocalRing.residue (Ow L v))))),
-        (u ≫ pullback.fst _ _) ≫ 𝒜.X.hom = (u ≫ pullback.snd _ _) ≫
-          Spec.map (CommRingCat.ofHom (IsLocalRing.residue (Ow L v))) := fun T' u => by
-      rw [Category.assoc, pullback.condition, Category.assoc]
-    have h2 := (keyc _ y₁.left).trans (congrArg (· ≫ Spec.map (CommRingCat.ofHom
-      (IsLocalRing.residue (Ow L v)))) (Over.w y₁))
-    have h1 := congrArg (· ≫ 𝒜.X.hom) c₁
-    have h3 : (Spec.map (CommRingCat.ofHom j) ≫ Spec.map (CommRingCat.ofHom
-        (IsLocalRing.residue v)) ≫ x'₁.left) ≫ 𝒜.X.hom =
-        (Spec.map (CommRingCat.ofHom j) ≫ Spec.map (CommRingCat.ofHom
-          (IsLocalRing.residue v))) ≫
-          (Over.mk (Spec.map (CommRingCat.ofHom (PkgI2.toW (Ow L v) v rfl)))).hom := by
-      rw [Category.assoc, Category.assoc, Category.assoc, Over.w x'₁]
-    have hw' : (Spec.map (CommRingCat.ofHom j) ≫ Spec.map (CommRingCat.ofHom
-          (IsLocalRing.residue v))) ≫
-          (Over.mk (Spec.map (CommRingCat.ofHom (PkgI2.toW (Ow L v) v rfl)))).hom =
-        ((Over.map (Spec.map (CommRingCat.ofHom (IsLocalRing.residue (Ow L v))))).obj
-          (PkgI2.specOver (kw L v) (AlgebraicClosure (kw L v)))).hom :=
-      h3.symm.trans (h1.symm.trans h2)
-    let ι1 : (Over.map (Spec.map (CommRingCat.ofHom (IsLocalRing.residue (Ow L v))))).obj
-        (PkgI2.specOver (kw L v) (AlgebraicClosure (kw L v))) ⟶
-        Over.mk (Spec.map (CommRingCat.ofHom (PkgI2.toW (Ow L v) v rfl))) :=
-      Over.homMk (Spec.map (CommRingCat.ofHom j) ≫
-        Spec.map (CommRingCat.ofHom (IsLocalRing.residue v))) hw'
-    have hs : ∀ (y : PkgI2.Pts (sf 𝒜) (AlgebraicClosure (kw L v)))
-        (x' : Over.mk (Spec.map (CommRingCat.ofHom (PkgI2.toW (Ow L v) v rfl))) ⟶ 𝒜.X),
-        y.left ≫ pullback.fst 𝒜.X.hom
-            (Spec.map (CommRingCat.ofHom (IsLocalRing.residue (Ow L v)))) =
-          Spec.map (CommRingCat.ofHom j) ≫ Spec.map (CommRingCat.ofHom (IsLocalRing.residue v)) ≫
-            x'.left →
-        ((Over.mapPullbackAdj (Spec.map (CommRingCat.ofHom
-          (IsLocalRing.residue (Ow L v))))).homEquiv _ 𝒜.X).symm y = ι1 ≫ x' :=
-      fun y x' h => Over.OverMorphism.ext (h.trans (Category.assoc _ _ _).symm)
-    have key : ((Over.mapPullbackAdj (Spec.map (CommRingCat.ofHom
-          (IsLocalRing.residue (Ow L v))))).homEquiv _ 𝒜.X).symm (y₁ * y₂) =
-        ι1 ≫ (x'₁ * x'₂) :=
-      (pb_symm_mul' _ 𝒜 _ y₁ y₂).trans (by rw [hs y₁ x'₁ c₁, hs y₂ x'₂ c₂, MonObj.comp_mul])
-    exact (congrArg Over.Hom.left key).trans (Category.assoc _ _ _)
-
 
 /-! ## 8. `RedTorsionQbar` from the leaf I2-Red (transport along `L‾ ≅ ℚ̄`) -/
 
@@ -8272,527 +6327,9 @@ section RedMul2
 
 open scoped CategoryTheory.Obj
 
-/-- The adjunction bijection `Hom(g_! T, M) ≃ Hom(T, g^* M)` is multiplicative. -/
-theorem pb_mul {S S' : Scheme} (g : S' ⟶ S) (M : Over S) [MonObj M] (T : Over S')
-    (p q : (Over.map g).obj T ⟶ M) :
-    (Over.mapPullbackAdj g).homEquiv T M (p * q) =
-      (Over.mapPullbackAdj g).homEquiv T M p * (Over.mapPullbackAdj g).homEquiv T M q := by
-  rw [Adjunction.homEquiv_unit, Adjunction.homEquiv_unit, Adjunction.homEquiv_unit,
-    Functor.map_mul, MonObj.comp_mul]
-
-set_option synthInstance.maxHeartbeats 400000 in
-/-- The adjunction bijection sends `1` to `1`. -/
-theorem pb_one {S S' : Scheme} (g : S' ⟶ S) (M : Over S) [MonObj M] (T : Over S') :
-    (Over.mapPullbackAdj g).homEquiv T M 1 = 1 := by
-  rw [Adjunction.homEquiv_unit, Functor.map_one, MonObj.comp_one]
-
 end RedMul2
 
-/-- `pb_mul` at the group law of `(Over.pullback g).mapGrp.obj G`. -/
-theorem pb_mul' {S S' : Scheme} (g : S' ⟶ S) (G : Grp (Over S)) (T : Over S')
-    (p q : (Over.map g).obj T ⟶ G.X) (r u w : T ⟶ ((Over.pullback g).mapGrp.obj G).X)
-    (hr : r = (Over.mapPullbackAdj g).homEquiv T G.X (p * q))
-    (hu : u = (Over.mapPullbackAdj g).homEquiv T G.X p)
-    (hw : w = (Over.mapPullbackAdj g).homEquiv T G.X q) : r = u * w := by
-  subst hr hu hw
-  exact pb_mul g G.X T p q
-
-set_option synthInstance.maxHeartbeats 400000 in
-/-- `pb_one` at the group law of `(Over.pullback g).mapGrp.obj G`. -/
-theorem pb_one' {S S' : Scheme} (g : S' ⟶ S) (G : Grp (Over S)) (T : Over S')
-    (r : T ⟶ ((Over.pullback g).mapGrp.obj G).X)
-    (hr : r = (Over.mapPullbackAdj g).homEquiv T G.X 1) : r = 1 := by
-  subst hr
-  exact pb_one g G.X T
-
-/-- **`OwDVR` (GLUE, standard: a valuation ring of a number field in which `p` is not a unit is
-the localization of `𝓞_L` at a nonzero prime, a DVR; e.g. Neukirch, *Algebraic Number Theory*,
-Ch. II (locator UNVERIFIED)).** Needed to apply I2-Red, whose base is a DVR. -/
-def OwDVR : Prop :=
-  ∀ (L : IF) [FiniteDimensional ℚ L] (v : ValuationSubring PkgI4.Qbar) (p : ℕ), p.Prime →
-    PkgI4.LiesOver v p → IsDiscreteValuationRing (Ow L v)
-
-/-- The place `w = ψ⁻¹(v)` of `L‾` for an `L`-isomorphism `ψ : L‾ ≅ ℚ̄`. -/
-abbrev wOf {L : IF} (ψ : AlgebraicClosure L ≃ₐ[L] PkgI4.Qbar) (v : ValuationSubring PkgI4.Qbar) :
-    ValuationSubring (AlgebraicClosure L) :=
-  v.comap (ψ : AlgebraicClosure L →+* PkgI4.Qbar)
-
-theorem hw_of {L : IF} (ψ : AlgebraicClosure L ≃ₐ[L] PkgI4.Qbar)
-    (v : ValuationSubring PkgI4.Qbar) :
-    (wOf ψ v).comap (algebraMap L (AlgebraicClosure L)) = Ow L v := by
-  ext x
-  simp [ValuationSubring.mem_comap]
-
-/-- `ψ` restricted to `O_w ≅ O_v`. -/
-def psiW {L : IF} (ψ : AlgebraicClosure L ≃ₐ[L] PkgI4.Qbar) (v : ValuationSubring PkgI4.Qbar) :
-    wOf ψ v ≃+* v where
-  toFun y := ⟨ψ y, y.2⟩
-  invFun z := ⟨ψ.symm z, by
-    show ψ (ψ.symm z) ∈ v
-    rw [AlgEquiv.apply_symm_apply]
-    exact z.2⟩
-  left_inv y := Subtype.ext (ψ.symm_apply_apply _)
-  right_inv z := Subtype.ext (ψ.apply_symm_apply _)
-  map_mul' a b := Subtype.ext (map_mul ψ _ _)
-  map_add' a b := Subtype.ext (map_add ψ _ _)
-
-theorem psiW_toW {L : IF} (ψ : AlgebraicClosure L ≃ₐ[L] PkgI4.Qbar)
-    (v : ValuationSubring PkgI4.Qbar) (a : Ow L v) :
-    psiW ψ v (PkgI2.toW (Ow L v) (wOf ψ v) (hw_of ψ v) a) = PkgI2.toW (Ow L v) v rfl a :=
-  Subtype.ext (by
-    show ψ (algebraMap L (AlgebraicClosure L) (a : L)) = algebraMap L PkgI4.Qbar (a : L)
-    exact ψ.commutes _)
-
-set_option synthInstance.maxHeartbeats 400000 in
-/-- `Spec(j ∘ κ(ψ)) : Spec κ(w)‾ → Spec κ(w')` over `Spec O_w`, where `w' = ψ⁻¹(v)` (an
-isomorphism when `j` is bijective). -/
-def iotaW {L : IF} (ψ : AlgebraicClosure L ≃ₐ[L] PkgI4.Qbar) (v : ValuationSubring PkgI4.Qbar)
-    (j : IsLocalRing.ResidueField v →+* AlgebraicClosure (kw L v))
-    (hjc : ∀ a : Ow L v, j (IsLocalRing.residue v (PkgI2.toW (Ow L v) v rfl a)) =
-        algebraMap (kw L v) (AlgebraicClosure (kw L v)) (IsLocalRing.residue (Ow L v) a)) :
-    (Over.map (Spec.map (CommRingCat.ofHom (IsLocalRing.residue (Ow L v))))).obj
-        (PkgI2.specOver (kw L v) (AlgebraicClosure (kw L v))) ⟶
-      Over.mk (Spec.map (CommRingCat.ofHom ((IsLocalRing.residue (wOf ψ v)).comp
-        (PkgI2.toW (Ow L v) (wOf ψ v) (hw_of ψ v))))) :=
-  Over.homMk (Spec.map (CommRingCat.ofHom
-      (j.comp (IsLocalRing.ResidueField.mapEquiv (psiW ψ v)).toRingHom))) (by
-    simp only [Over.mk_hom, Over.map_obj_hom, PkgI2.specOver]
-    rw [← Spec.map_comp, ← Spec.map_comp, ← CommRingCat.ofHom_comp, ← CommRingCat.ofHom_comp]
-    congr 2
-    ext a
-    simp only [RingHom.comp_apply, RingEquiv.toRingHom_eq_coe, RingHom.coe_coe,
-      IsLocalRing.ResidueField.mapEquiv_apply, IsLocalRing.ResidueField.map_residue]
-    rw [psiW_toW ψ v a]
-    exact hjc a)
-
-set_option synthInstance.maxHeartbeats 400000 in
-/-- `Θ`: I2's `κ(w')`-points of `𝒜` to `κ(w)‾`-points of the special fibre (the adjunction
-bijection applied to `ι ≫ y`, written out). -/
-def thetaW {L : IF} (ψ : AlgebraicClosure L ≃ₐ[L] PkgI4.Qbar) (v : ValuationSubring PkgI4.Qbar)
-    (𝒜 : Grp (Over (Spec (.of (Ow L v)))))
-    (j : IsLocalRing.ResidueField v →+* AlgebraicClosure (kw L v))
-    (hjc : ∀ a : Ow L v, j (IsLocalRing.residue v (PkgI2.toW (Ow L v) v rfl a)) =
-        algebraMap (kw L v) (AlgebraicClosure (kw L v)) (IsLocalRing.residue (Ow L v) a))
-    (y : Over.mk (Spec.map (CommRingCat.ofHom ((IsLocalRing.residue (wOf ψ v)).comp
-        (PkgI2.toW (Ow L v) (wOf ψ v) (hw_of ψ v))))) ⟶ 𝒜.X) :
-    PkgI2.Pts (sf 𝒜) (AlgebraicClosure (kw L v)) :=
-  Over.homMk (pullback.lift (iotaW ψ v j hjc ≫ y).left
-    (PkgI2.specOver (kw L v) (AlgebraicClosure (kw L v))).hom (Over.w (iotaW ψ v j hjc ≫ y)))
-    (pullback.lift_snd _ _ _)
-
-set_option synthInstance.maxHeartbeats 400000 in
-theorem thetaW_left {L : IF} (ψ : AlgebraicClosure L ≃ₐ[L] PkgI4.Qbar)
-    (v : ValuationSubring PkgI4.Qbar) (𝒜 : Grp (Over (Spec (.of (Ow L v)))))
-    (j : IsLocalRing.ResidueField v →+* AlgebraicClosure (kw L v))
-    (hjc : ∀ a : Ow L v, j (IsLocalRing.residue v (PkgI2.toW (Ow L v) v rfl a)) =
-        algebraMap (kw L v) (AlgebraicClosure (kw L v)) (IsLocalRing.residue (Ow L v) a))
-    (y : Over.mk (Spec.map (CommRingCat.ofHom ((IsLocalRing.residue (wOf ψ v)).comp
-        (PkgI2.toW (Ow L v) (wOf ψ v) (hw_of ψ v))))) ⟶ 𝒜.X) :
-    (thetaW ψ v 𝒜 j hjc y).left ≫
-        pullback.fst 𝒜.X.hom (Spec.map (CommRingCat.ofHom (IsLocalRing.residue (Ow L v)))) =
-      Spec.map (CommRingCat.ofHom
-        (j.comp (IsLocalRing.ResidueField.mapEquiv (psiW ψ v)).toRingHom)) ≫ y.left :=
-  pullback.lift_fst _ _ _
-
-set_option synthInstance.maxHeartbeats 400000 in
-theorem thetaW_symm {L : IF} (ψ : AlgebraicClosure L ≃ₐ[L] PkgI4.Qbar)
-    (v : ValuationSubring PkgI4.Qbar) (𝒜 : Grp (Over (Spec (.of (Ow L v)))))
-    (j : IsLocalRing.ResidueField v →+* AlgebraicClosure (kw L v))
-    (hjc : ∀ a : Ow L v, j (IsLocalRing.residue v (PkgI2.toW (Ow L v) v rfl a)) =
-        algebraMap (kw L v) (AlgebraicClosure (kw L v)) (IsLocalRing.residue (Ow L v) a))
-    (y : Over.mk (Spec.map (CommRingCat.ofHom ((IsLocalRing.residue (wOf ψ v)).comp
-        (PkgI2.toW (Ow L v) (wOf ψ v) (hw_of ψ v))))) ⟶ 𝒜.X) :
-    ((Over.mapPullbackAdj (Spec.map (CommRingCat.ofHom
-      (IsLocalRing.residue (Ow L v))))).homEquiv _ 𝒜.X).symm (thetaW ψ v 𝒜 j hjc y) =
-      iotaW ψ v j hjc ≫ y :=
-  Over.OverMorphism.ext (thetaW_left ψ v 𝒜 j hjc y)
-
-set_option synthInstance.maxHeartbeats 400000 in
-/-- `Θ` as a monoid homomorphism. -/
-def thetaHom {L : IF} (ψ : AlgebraicClosure L ≃ₐ[L] PkgI4.Qbar)
-    (v : ValuationSubring PkgI4.Qbar) (𝒜 : Grp (Over (Spec (.of (Ow L v)))))
-    (j : IsLocalRing.ResidueField v →+* AlgebraicClosure (kw L v))
-    (hjc : ∀ a : Ow L v, j (IsLocalRing.residue v (PkgI2.toW (Ow L v) v rfl a)) =
-        algebraMap (kw L v) (AlgebraicClosure (kw L v)) (IsLocalRing.residue (Ow L v) a)) :
-    (Over.mk (Spec.map (CommRingCat.ofHom ((IsLocalRing.residue (wOf ψ v)).comp
-        (PkgI2.toW (Ow L v) (wOf ψ v) (hw_of ψ v))))) ⟶ 𝒜.X) →*
-      PkgI2.Pts (sf 𝒜) (AlgebraicClosure (kw L v)) where
-  toFun := thetaW ψ v 𝒜 j hjc
-  map_one' := by
-    apply ((Over.mapPullbackAdj (Spec.map (CommRingCat.ofHom
-      (IsLocalRing.residue (Ow L v))))).homEquiv _ 𝒜.X).symm.injective
-    rw [thetaW_symm, MonObj.comp_one]
-    have h := pb_one' (Spec.map (CommRingCat.ofHom (IsLocalRing.residue (Ow L v)))) 𝒜
-      (PkgI2.specOver (kw L v) (AlgebraicClosure (kw L v))) _ rfl
-    exact (((Over.mapPullbackAdj _).homEquiv _ 𝒜.X).symm_apply_eq.mpr h.symm).symm
-  map_mul' y₁ y₂ := by
-    apply ((Over.mapPullbackAdj (Spec.map (CommRingCat.ofHom
-      (IsLocalRing.residue (Ow L v))))).homEquiv _ 𝒜.X).symm.injective
-    rw [thetaW_symm, MonObj.comp_mul]
-    exact ((pb_symm_mul' _ 𝒜 _ (thetaW ψ v 𝒜 j hjc y₁) (thetaW ψ v 𝒜 j hjc y₂)).trans
-      (by rw [thetaW_symm, thetaW_symm])).symm
-
-set_option synthInstance.maxHeartbeats 400000 in
-theorem iotaW_isIso_left {L : IF} (ψ : AlgebraicClosure L ≃ₐ[L] PkgI4.Qbar)
-    (v : ValuationSubring PkgI4.Qbar)
-    (j : IsLocalRing.ResidueField v →+* AlgebraicClosure (kw L v)) (hjb : Function.Bijective j) :
-    IsIso (Spec.map (CommRingCat.ofHom
-      (j.comp (IsLocalRing.ResidueField.mapEquiv (psiW ψ v)).toRingHom))) := by
-  have hb : Function.Bijective (j.comp (IsLocalRing.ResidueField.mapEquiv (psiW ψ v)).toRingHom) :=
-    hjb.comp (IsLocalRing.ResidueField.mapEquiv (psiW ψ v)).bijective
-  haveI : IsIso (CommRingCat.ofHom
-      (j.comp (IsLocalRing.ResidueField.mapEquiv (psiW ψ v)).toRingHom)) :=
-    (RingEquiv.ofBijective _ hb).toCommRingCatIso.isIso_hom
-  infer_instance
-
-set_option synthInstance.maxHeartbeats 400000 in
-theorem thetaW_injective {L : IF} (ψ : AlgebraicClosure L ≃ₐ[L] PkgI4.Qbar)
-    (v : ValuationSubring PkgI4.Qbar) (𝒜 : Grp (Over (Spec (.of (Ow L v)))))
-    (j : IsLocalRing.ResidueField v →+* AlgebraicClosure (kw L v)) (hjb : Function.Bijective j)
-    (hjc : ∀ a : Ow L v, j (IsLocalRing.residue v (PkgI2.toW (Ow L v) v rfl a)) =
-        algebraMap (kw L v) (AlgebraicClosure (kw L v)) (IsLocalRing.residue (Ow L v) a)) :
-    Function.Injective (thetaW ψ v 𝒜 j hjc) := by
-  intro y₁ y₂ h
-  haveI := iotaW_isIso_left ψ v j hjb
-  have h1 := congrArg ((Over.mapPullbackAdj (Spec.map (CommRingCat.ofHom
-      (IsLocalRing.residue (Ow L v))))).homEquiv _ 𝒜.X).symm h
-  rw [thetaW_symm, thetaW_symm] at h1
-  have h2 := congrArg Over.Hom.left h1
-  apply Over.OverMorphism.ext
-  exact (cancel_epi (Spec.map (CommRingCat.ofHom
-    (j.comp (IsLocalRing.ResidueField.mapEquiv (psiW ψ v)).toRingHom)))).mp h2
-
-set_option synthInstance.maxHeartbeats 400000 in
-theorem thetaW_surjective {L : IF} (ψ : AlgebraicClosure L ≃ₐ[L] PkgI4.Qbar)
-    (v : ValuationSubring PkgI4.Qbar) (𝒜 : Grp (Over (Spec (.of (Ow L v)))))
-    (j : IsLocalRing.ResidueField v →+* AlgebraicClosure (kw L v)) (hjb : Function.Bijective j)
-    (hjc : ∀ a : Ow L v, j (IsLocalRing.residue v (PkgI2.toW (Ow L v) v rfl a)) =
-        algebraMap (kw L v) (AlgebraicClosure (kw L v)) (IsLocalRing.residue (Ow L v) a)) :
-    Function.Surjective (thetaW ψ v 𝒜 j hjc) := by
-  intro yt
-  haveI := iotaW_isIso_left ψ v j hjb
-  let z := ((Over.mapPullbackAdj (Spec.map (CommRingCat.ofHom
-    (IsLocalRing.residue (Ow L v))))).homEquiv _ 𝒜.X).symm yt
-  have hz2 : z.left ≫ 𝒜.X.hom = (iotaW ψ v j hjc).left ≫ (Over.mk (Spec.map (CommRingCat.ofHom
-      ((IsLocalRing.residue (wOf ψ v)).comp
-        (PkgI2.toW (Ow L v) (wOf ψ v) (hw_of ψ v)))))).hom :=
-    (Over.w z).trans (Over.w (iotaW ψ v j hjc)).symm
-  have hw : (inv (Spec.map (CommRingCat.ofHom
-      (j.comp (IsLocalRing.ResidueField.mapEquiv (psiW ψ v)).toRingHom))) ≫ z.left) ≫ 𝒜.X.hom =
-      (Over.mk (Spec.map (CommRingCat.ofHom ((IsLocalRing.residue (wOf ψ v)).comp
-        (PkgI2.toW (Ow L v) (wOf ψ v) (hw_of ψ v)))))).hom :=
-    (Category.assoc _ _ _).trans ((congrArg (inv (Spec.map (CommRingCat.ofHom
-      (j.comp (IsLocalRing.ResidueField.mapEquiv (psiW ψ v)).toRingHom))) ≫ ·) hz2).trans
-      (IsIso.inv_hom_id_assoc _ _))
-  refine ⟨Over.homMk _ hw, ?_⟩
-  apply ((Over.mapPullbackAdj (Spec.map (CommRingCat.ofHom
-    (IsLocalRing.residue (Ow L v))))).homEquiv _ 𝒜.X).symm.injective
-  rw [thetaW_symm]
-  apply Over.OverMorphism.ext
-  exact IsIso.hom_inv_id_assoc (Spec.map (CommRingCat.ofHom
-    (j.comp (IsLocalRing.ResidueField.mapEquiv (psiW ψ v)).toRingHom))) z.left
-
-set_option synthInstance.maxHeartbeats 400000 in
-/-- **I2's reduction relation gives `RedRel`** (transport along `ψ`; proved). -/
-theorem redRel_of_isReductionOf {L : IF} {A : PkgI3.AbVar L}
-    (ψ : AlgebraicClosure L ≃ₐ[L] PkgI4.Qbar) (v : ValuationSubring PkgI4.Qbar)
-    (𝒜 : Grp (Over (Spec (.of (Ow L v)))))
-    (e : (Over.pullback (Spec.map (CommRingCat.ofHom (algebraMap (Ow L v) L)))).mapGrp.obj 𝒜 ≅
-      ObjBridge.toGrp A)
-    (j : IsLocalRing.ResidueField v →+* AlgebraicClosure (kw L v))
-    (hjc : ∀ a : Ow L v, j (IsLocalRing.residue v (PkgI2.toW (Ow L v) v rfl a)) =
-        algebraMap (kw L v) (AlgebraicClosure (kw L v)) (IsLocalRing.residue (Ow L v) a))
-    (x : A.Pt (AlgebraicClosure L))
-    (y : Over.mk (Spec.map (CommRingCat.ofHom ((IsLocalRing.residue (wOf ψ v)).comp
-        (PkgI2.toW (Ow L v) (wOf ψ v) (hw_of ψ v))))) ⟶ 𝒜.X)
-    (h : PkgI2.IsReductionOf 𝒜 e (wOf ψ v) (hw_of ψ v) x y) :
-    RedRel v 𝒜 e j (Additive.ofMul (UnramTate.trPt A ψ x)) (thetaW ψ v 𝒜 j hjc y) := by
-  obtain ⟨xw, hg, hc⟩ := h
-  have hov : (Spec.map (CommRingCat.ofHom (psiW ψ v : wOf ψ v →+* v)) ≫ xw.left) ≫ 𝒜.X.hom =
-      (Over.mk (Spec.map (CommRingCat.ofHom (PkgI2.toW (Ow L v) v rfl)))).hom := by
-    rw [Category.assoc, Over.w xw]
-    simp only [Over.mk_hom]
-    rw [← Spec.map_comp, ← CommRingCat.ofHom_comp]
-    congr 2
-    ext a
-    exact congrArg Subtype.val (psiW_toW ψ v a)
-  refine ⟨Over.homMk _ hov, ?_, ?_⟩
-  · have hring : Spec.map (CommRingCat.ofHom (ψ : AlgebraicClosure L →+* PkgI4.Qbar)) ≫
-        Spec.map (CommRingCat.ofHom (wOf ψ v).subtype) =
-        Spec.map (CommRingCat.ofHom v.subtype) ≫
-          Spec.map (CommRingCat.ofHom (psiW ψ v : wOf ψ v →+* v)) := by
-      rw [← Spec.map_comp, ← Spec.map_comp, ← CommRingCat.ofHom_comp, ← CommRingCat.ofHom_comp]
-      rfl
-    have h1 := congrArg (Spec.map (CommRingCat.ofHom
-      (ψ : AlgebraicClosure L →+* PkgI4.Qbar)) ≫ ·) hg
-    have h2 := congrArg (· ≫ xw.left) hring
-    simp only [Category.assoc] at h2
-    exact ((Category.assoc _ _ _).trans h1).trans ((Category.assoc _ _ _).symm.trans
-      ((congrArg (· ≫ xw.left) hring).trans (Category.assoc _ _ _)))
-  · have hring : Spec.map (CommRingCat.ofHom
-        (j.comp (IsLocalRing.ResidueField.mapEquiv (psiW ψ v)).toRingHom)) ≫
-        Spec.map (CommRingCat.ofHom (IsLocalRing.residue (wOf ψ v))) =
-        Spec.map (CommRingCat.ofHom j) ≫ Spec.map (CommRingCat.ofHom (IsLocalRing.residue v)) ≫
-          Spec.map (CommRingCat.ofHom (psiW ψ v : wOf ψ v →+* v)) := by
-      rw [← Spec.map_comp, ← Spec.map_comp, ← Spec.map_comp, ← CommRingCat.ofHom_comp,
-        ← CommRingCat.ofHom_comp, ← CommRingCat.ofHom_comp]
-      rfl
-    refine (thetaW_left ψ v 𝒜 j hjc y).trans ?_
-    rw [hc]
-    have h3 := congrArg (· ≫ xw.left) hring
-    simp only [Category.assoc] at h3
-    exact h3
-
-/-- `t = σ⁻¹|_{O_w}` (for `σ ∈ D(v)`, `L/ℚ` Galois). -/
-def tSig {L : IF} [IsGalois ℚ L] {v : ValuationSubring PkgI4.Qbar} (σ : PkgI4.GQ)
-    (hσ : σ ∈ v.decompositionSubgroup ℚ) : Ow L v →+* Ow L v where
-  toFun a := ⟨(σ⁻¹).restrictNormal L (a : L), by
-    show algebraMap L PkgI4.Qbar ((σ⁻¹).restrictNormal L (a : L)) ∈ v
-    rw [AlgEquiv.restrictNormal_commutes]
-    exact (sigV σ⁻¹ (inv_mem hσ) ⟨_, a.2⟩).2⟩
-  map_one' := Subtype.ext (map_one _)
-  map_mul' a b := Subtype.ext (map_mul _ _ _)
-  map_zero' := Subtype.ext (map_zero _)
-  map_add' a b := Subtype.ext (map_add _ _ _)
-
-/-- `t = σ⁻¹|_{O_w}` induces `Frob⁻¹` on `κ(w)` (proved from `IsArithFrob`). -/
-theorem tSig_residue {L : IF} [IsGalois ℚ L] {v : ValuationSubring PkgI4.Qbar} {σ : PkgI4.GQ}
-    {p : ℕ} (hσ : PkgI4.IsArithFrob σ v p) (a : Ow L v) :
-    IsLocalRing.residue (Ow L v) (tSig σ hσ.1 a) ^ p = IsLocalRing.residue (Ow L v) a := by
-  apply (IsLocalRing.ResidueField.map (PkgI2.toW (Ow L v) v rfl)).injective
-  rw [map_pow, IsLocalRing.ResidueField.map_residue, IsLocalRing.ResidueField.map_residue,
-    ← residue_sigV hσ]
-  congr 1
-  apply Subtype.ext
-  show σ (algebraMap L PkgI4.Qbar ((σ⁻¹).restrictNormal L (a : L))) =
-    algebraMap L PkgI4.Qbar (a : L)
-  rw [AlgEquiv.restrictNormal_commutes, AlgEquiv.aut_inv, AlgEquiv.apply_symm_apply]
-
-set_option synthInstance.maxHeartbeats 400000 in
-/-- **`FExtendCore` (GLUE; leaf I2-NMP, `PkgI2.NeronMappingAbelianScheme` (BLR, *Néron models*,
-§1.2), applied to the conjugate model).** `FExtend` with `t = σ⁻¹|_{O_w}` fixed (`tSig`): there is
-a morphism of schemes `F̃ : 𝒜 → 𝒜` over `Spec(t)` fixing the unit section and extending `F`
-(whenever `x'` is the lift of `x`, `Spec(σ|_{O_v}) ≫ x' ≫ F̃` is a lift of `f x`). See `FExtend`
-for why it is true. -/
-def FExtendCore : Prop :=
-  ∀ (L : IF) [FiniteDimensional ℚ L] [IsGalois ℚ L] (A : PkgI3.AbVar L)
-    (F : A.X.left ⟶ A.X.left), IsFinite F → Surjective F →
-    ∀ p : ℕ, p.Prime →
-      ∀ (v : ValuationSubring PkgI4.Qbar) (σ : PkgI4.GQ) (_ : PkgI4.LiesOver v p)
-        (hσ : PkgI4.IsArithFrob σ v p)
-        (𝒜 : Grp (Over (Spec (.of (Ow L v))))) [PkgI2.IsAbelianScheme 𝒜]
-        (e : (Over.pullback (Spec.map (CommRingCat.ofHom (algebraMap (Ow L v) L)))).mapGrp.obj
-          𝒜 ≅ ObjBridge.toGrp A)
-        (f : PtQ L A →+ PtQ L A), (∀ x : PtQ L A, (Additive.toMul (f x)).left =
-          Spec.map (CommRingCat.ofHom ((act σ : Qbar ≃ₐ[ℚ] Qbar) : Qbar →+* Qbar)) ≫
-            (Additive.toMul x).left ≫ F) →
-        ∃ Ft : 𝒜.X.left ⟶ 𝒜.X.left,
-          Ft ≫ 𝒜.X.hom = 𝒜.X.hom ≫ Spec.map (CommRingCat.ofHom (tSig σ hσ.1)) ∧
-          (η[𝒜.X]).left ≫ Ft = Spec.map (CommRingCat.ofHom (tSig σ hσ.1)) ≫ (η[𝒜.X]).left ∧
-          ∀ (x : PtQ L A)
-            (x' : Over.mk (Spec.map (CommRingCat.ofHom (PkgI2.toW (Ow L v) v rfl))) ⟶ 𝒜.X),
-            genMap v 𝒜 e x = Spec.map (CommRingCat.ofHom v.subtype) ≫ x'.left →
-            ∃ x'' : Over.mk (Spec.map (CommRingCat.ofHom (PkgI2.toW (Ow L v) v rfl))) ⟶ 𝒜.X,
-              genMap v 𝒜 e (f x) = Spec.map (CommRingCat.ofHom v.subtype) ≫ x''.left ∧
-              x''.left = Spec.map (CommRingCat.ofHom (sigV σ hσ.1)) ≫ x'.left ≫ Ft
-
-/-- **`FExtend` from `FExtendCore` (proved):** `t = tSig σ`, `t(a)^p ≡ a` by `tSig_residue`. -/
-theorem fExtend_of_core (h : FExtendCore) : FExtend := by
-  intro L _ _ A F hF1 hF2 p hp v σ hv hσ 𝒜 _ e f hf
-  obtain ⟨Ft, h1, h2, h3⟩ := h L A F hF1 hF2 p hp v σ hv hσ 𝒜 e f hf
-  exact ⟨Ft, tSig σ hσ.1, h1, tSig_residue hσ, h2, h3⟩
-
-set_option synthInstance.maxHeartbeats 400000 in
-/-- **`FExtendGen` (GLUE; leaf I2-NMP, `PkgI2.NeronMappingAbelianScheme` (BLR, *Néron models*,
-§1.2), applied to the conjugate model `𝒜^{(t)}`).** For `F`, `σ`, `f` as in `FExtend` and
-`t = σ⁻¹|_{O_w}`: there is a morphism of schemes `F̃ : 𝒜 → 𝒜` over `Spec(t)` fixing the unit
-section whose restriction to the generic fibre is `F` (through `e`):
-`e⁻¹ ≫ pr₁ ≫ F̃ = F ≫ e⁻¹ ≫ pr₁` as maps `A → 𝒜`.
-
-Why it is true: `f(x) ∈ A(ℚ̄)` for all `x` forces `F` to lie over `Spec(σ⁻¹|_L)`, so `F` is an
-`L`-morphism `A → A^{(t)}`; I2-NMP for `𝒜` and its base change `𝒜^{(t)}` along `Spec t` extends
-it; `F̃` fixes the unit section because both sides are sections of the separated `𝒜 → Spec O_w`
-agreeing at the generic point (`f(0) = 0`). -/
-def FExtendGen : Prop :=
-  ∀ (L : IF) [FiniteDimensional ℚ L] [IsGalois ℚ L] (A : PkgI3.AbVar L)
-    (F : A.X.left ⟶ A.X.left), IsFinite F → Surjective F →
-    ∀ p : ℕ, p.Prime →
-      ∀ (v : ValuationSubring PkgI4.Qbar) (σ : PkgI4.GQ) (_ : PkgI4.LiesOver v p)
-        (hσ : PkgI4.IsArithFrob σ v p)
-        (𝒜 : Grp (Over (Spec (.of (Ow L v))))) [PkgI2.IsAbelianScheme 𝒜]
-        (e : (Over.pullback (Spec.map (CommRingCat.ofHom (algebraMap (Ow L v) L)))).mapGrp.obj
-          𝒜 ≅ ObjBridge.toGrp A)
-        (f : PtQ L A →+ PtQ L A), (∀ x : PtQ L A, (Additive.toMul (f x)).left =
-          Spec.map (CommRingCat.ofHom ((act σ : Qbar ≃ₐ[ℚ] Qbar) : Qbar →+* Qbar)) ≫
-            (Additive.toMul x).left ≫ F) →
-        ∃ Ft : 𝒜.X.left ⟶ 𝒜.X.left,
-          Ft ≫ 𝒜.X.hom = 𝒜.X.hom ≫ Spec.map (CommRingCat.ofHom (tSig σ hσ.1)) ∧
-          (η[𝒜.X]).left ≫ Ft = Spec.map (CommRingCat.ofHom (tSig σ hσ.1)) ≫ (η[𝒜.X]).left ∧
-          (e.inv.hom.hom : A.X ⟶ (Over.pullback (Spec.map (CommRingCat.ofHom
-              (algebraMap (Ow L v) L)))).obj 𝒜.X).left ≫
-            pullback.fst 𝒜.X.hom (Spec.map (CommRingCat.ofHom (algebraMap (Ow L v) L))) ≫ Ft =
-          F ≫ (e.inv.hom.hom : A.X ⟶ (Over.pullback (Spec.map (CommRingCat.ofHom
-              (algebraMap (Ow L v) L)))).obj 𝒜.X).left ≫
-            pullback.fst 𝒜.X.hom (Spec.map (CommRingCat.ofHom (algebraMap (Ow L v) L)))
-
-set_option synthInstance.maxHeartbeats 400000 in
-/-- **`FExtendCore` from `FExtendGen` (proved):** the lift of `f x` is
-`Spec(σ|_{O_v}) ≫ x' ≫ F̃`; it lies over `Spec(toW)` since `σ ∘ t = id` on `O_w`, and restricts to
-`f x` by `hf`, the generic compatibility and `Spec σ ≫ Spec(O_v ⊂ ℚ̄) = Spec(O_v ⊂ ℚ̄) ≫ Spec σ_v`. -/
-theorem fExtendCore_of_gen (h : FExtendGen) : FExtendCore := by
-  intro L _ _ A F hF1 hF2 p hp v σ hv hσ 𝒜 _ e f hf
-  obtain ⟨Ft, h1, h2, h3⟩ := h L A F hF1 hF2 p hp v σ hv hσ 𝒜 e f hf
-  refine ⟨Ft, h1, h2, fun x x' hx' => ?_⟩
-  have hring1 : Spec.map (CommRingCat.ofHom (sigV σ hσ.1)) ≫
-      Spec.map (CommRingCat.ofHom (PkgI2.toW (Ow L v) v rfl)) ≫
-        Spec.map (CommRingCat.ofHom (tSig σ hσ.1)) =
-      Spec.map (CommRingCat.ofHom (PkgI2.toW (Ow L v) v rfl)) := by
-    rw [← Spec.map_comp, ← Spec.map_comp, ← CommRingCat.ofHom_comp, ← CommRingCat.ofHom_comp]
-    congr 2
-    ext a
-    show σ (algebraMap L PkgI4.Qbar ((σ⁻¹).restrictNormal L (a : L))) =
-      algebraMap L PkgI4.Qbar (a : L)
-    rw [AlgEquiv.restrictNormal_commutes, AlgEquiv.aut_inv, AlgEquiv.apply_symm_apply]
-  have hov : (Spec.map (CommRingCat.ofHom (sigV σ hσ.1)) ≫ x'.left ≫ Ft) ≫ 𝒜.X.hom =
-      (Over.mk (Spec.map (CommRingCat.ofHom (PkgI2.toW (Ow L v) v rfl)))).hom := by
-    rw [Category.assoc, Category.assoc, h1, ← Category.assoc x'.left, Over.w x']
-    exact hring1
-  refine ⟨Over.homMk _ hov, ?_, rfl⟩
-  have hring2 : Spec.map (CommRingCat.ofHom ((act σ : Qbar ≃ₐ[ℚ] Qbar) : Qbar →+* Qbar)) ≫
-      Spec.map (CommRingCat.ofHom v.subtype) =
-      Spec.map (CommRingCat.ofHom v.subtype) ≫ Spec.map (CommRingCat.ofHom (sigV σ hσ.1)) := by
-    rw [← Spec.map_comp, ← Spec.map_comp, ← CommRingCat.ofHom_comp, ← CommRingCat.ofHom_comp]
-    rfl
-  have hfx := hf x
-  have hx'' := (Category.assoc _ _ _).symm.trans hx'
-  have hx3 := ((congrArg ((Additive.toMul x).left ≫ ·) (Category.assoc _ _ Ft).symm).trans
-    (Category.assoc _ _ Ft).symm).trans ((congrArg (· ≫ Ft) hx'').trans (Category.assoc _ _ _))
-  exact (Category.assoc _ _ _).trans <|
-    (congrArg (· ≫ _) hfx).trans <|
-    ((Category.assoc _ _ _).trans (congrArg (_ ≫ ·) (Category.assoc _ _ _))).trans <|
-    (congrArg (fun m => _ ≫ (Additive.toMul x).left ≫ m) h3.symm).trans <|
-    (congrArg (_ ≫ ·) hx3).trans <|
-    (Category.assoc _ _ _).symm.trans ((congrArg (· ≫ x'.left ≫ Ft) hring2).trans
-      (Category.assoc _ _ _))
-
 /-! ## 9. `FrobMorph` from the existence of the absolute Frobenius -/
-
-/-- **`AbsFrob` (GLUE; the absolute Frobenius of an `𝔽_p`-scheme; standard, e.g. SGA 5 XIV,
-Stacks Tag 0CC6 (locators UNVERIFIED); not in Mathlib 4.35).** For a scheme `X` over a field `k`
-of characteristic `p` there is an endomorphism `Fr_X` (the identity on the space, `f ↦ f^p` on
-sections) lying over `Fr_{Spec k} = Spec(z ↦ z^p)`, and natural for points: for every ring `R` of
-characteristic `p` and `g : Spec R → X`, `Spec(r ↦ r^p) ≫ g = g ≫ Fr_X`. -/
-def AbsFrob : Prop :=
-  ∀ (k : Type) [Field k] (p : ℕ) [Fact p.Prime] [CharP k p] (X : Over (Spec (.of k))),
-    ∃ Fr : X.left ⟶ X.left,
-      Fr ≫ X.hom = X.hom ≫ Spec.map (CommRingCat.ofHom (frobenius k p)) ∧
-      ∀ (R : Type) [CommRing R] [CharP R p] (g : Spec (.of R) ⟶ X.left),
-        Spec.map (CommRingCat.ofHom (frobenius R p)) ≫ g = g ≫ Fr
-
-/-- A ring endomorphism inducing an inverse Frobenius on the residue field is local. -/
-theorem isLocalHom_of_resPow {O : Type} [CommRing O] [IsLocalRing O] {p : ℕ} (hp : p.Prime)
-    (t : O →+* O) (hres : ∀ a, IsLocalRing.residue O (t a) ^ p = IsLocalRing.residue O a) :
-    IsLocalHom t := by
-  refine ⟨fun a ha => ?_⟩
-  by_contra hna
-  have h1 : IsLocalRing.residue O a = 0 :=
-    (IsLocalRing.residue_eq_zero_iff _).mpr ((IsLocalRing.mem_maximalIdeal _).mpr hna)
-  rw [← hres a] at h1
-  have h2 : IsLocalRing.residue O (t a) = 0 := pow_eq_zero_iff hp.ne_zero |>.mp h1
-  exact ((IsLocalRing.mem_maximalIdeal _).mp ((IsLocalRing.residue_eq_zero_iff _).mp h2)) ha
-
-/-- The unit section of the special fibre, followed by the projection to `𝒜`, is the closed
-point followed by the unit section of `𝒜` (proved). -/
-theorem sf_eta_fst {O : Type} [CommRing O] [IsLocalRing O] (𝒜 : Grp (Over (Spec (.of O)))) :
-    (η[(sf 𝒜).X]).left ≫
-        pullback.fst 𝒜.X.hom (Spec.map (CommRingCat.ofHom (IsLocalRing.residue O))) =
-      Spec.map (CommRingCat.ofHom (IsLocalRing.residue O)) ≫ (η[𝒜.X]).left := by
-  let g' := Spec.map (CommRingCat.ofHom (IsLocalRing.residue O))
-  let F := Over.pullback g'
-  have hε : (Functor.LaxMonoidal.ε F).left ≫ pullback.snd (𝟙 (Spec (.of O))) g' = 𝟙 _ :=
-    Over.w (Functor.LaxMonoidal.ε F)
-  have hε2 : (Functor.LaxMonoidal.ε F).left ≫ pullback.fst (𝟙 (Spec (.of O))) g' = g' := by
-    have hc : pullback.fst (𝟙 (Spec (.of O))) g' = pullback.snd (𝟙 (Spec (.of O))) g' ≫ g' := by
-      rw [← pullback.condition, Category.comp_id]
-    rw [hc, ← Category.assoc, hε, Category.id_comp]
-  have hmap : (F.map η[𝒜.X]).left ≫ pullback.fst 𝒜.X.hom g' =
-      pullback.fst (𝟙 (Spec (.of O))) g' ≫ (η[𝒜.X]).left := pullback.lift_fst _ _ _
-  show ((Functor.LaxMonoidal.ε F) ≫ F.map η[𝒜.X]).left ≫ pullback.fst 𝒜.X.hom g' = _
-  rw [Over.comp_left, Category.assoc, hmap, ← Category.assoc, hε2]
-
-set_option synthInstance.maxHeartbeats 400000 in
-/-- **`FrobMorph` from `AbsFrob` (proved):** `β = Fr_Ā ≫ F̄`, with `F̄ = F̃ ×_{Spec t} Spec(t̄)`
-(`pullback.map`) and `t̄` the map induced by `t` on `κ(O)` (`t̄ = Frob⁻¹`); `β` lies over
-`Spec(Frob ∘ t̄) = id`; it fixes `0` (`sf_eta_fst`, point-naturality at the unit section); the
-point formula is point-naturality at `y`. -/
-theorem frobMorph_of (hA : AbsFrob) : FrobMorph := by
-  intro O _ _ p hp hk 𝒜 _ Ft t hover hres hzero
-  haveI : Fact p.Prime := ⟨hp⟩
-  haveI := isLocalHom_of_resPow hp t hres
-  let tb := IsLocalRing.ResidueField.map t
-  have htb : ∀ z, frobenius (IsLocalRing.ResidueField O) p (tb z) = z := by
-    intro z
-    obtain ⟨a, rfl⟩ := IsLocalRing.residue_surjective z
-    exact hres a
-  let g' := Spec.map (CommRingCat.ofHom (IsLocalRing.residue O))
-  have heq2 : g' ≫ Spec.map (CommRingCat.ofHom t) = Spec.map (CommRingCat.ofHom tb) ≫ g' := by
-    rw [← Spec.map_comp, ← Spec.map_comp, ← CommRingCat.ofHom_comp, ← CommRingCat.ofHom_comp]
-    rfl
-  have hid : Spec.map (CommRingCat.ofHom (frobenius (IsLocalRing.ResidueField O) p)) ≫
-      Spec.map (CommRingCat.ofHom tb) = 𝟙 _ := by
-    rw [← Spec.map_comp, ← CommRingCat.ofHom_comp]
-    rw [show (frobenius (IsLocalRing.ResidueField O) p).comp tb = RingHom.id _ from
-      RingHom.ext htb, CommRingCat.ofHom_id, Spec.map_id]
-  let Fb : pullback 𝒜.X.hom g' ⟶ pullback 𝒜.X.hom g' :=
-    pullback.map 𝒜.X.hom g' 𝒜.X.hom g' Ft (Spec.map (CommRingCat.ofHom tb))
-      (Spec.map (CommRingCat.ofHom t)) hover.symm heq2
-  have hFb1 : Fb ≫ pullback.fst 𝒜.X.hom g' = pullback.fst 𝒜.X.hom g' ≫ Ft :=
-    pullback.lift_fst _ _ _
-  have hFb2 : Fb ≫ pullback.snd 𝒜.X.hom g' =
-      pullback.snd 𝒜.X.hom g' ≫ Spec.map (CommRingCat.ofHom tb) := pullback.lift_snd _ _ _
-  obtain ⟨Fr0, hFr1, hFr2⟩ := hA (IsLocalRing.ResidueField O) p
-    (Over.mk (pullback.snd 𝒜.X.hom g'))
-  let Fr : pullback 𝒜.X.hom g' ⟶ pullback 𝒜.X.hom g' := Fr0
-  have hFr1' : Fr ≫ pullback.snd 𝒜.X.hom g' = pullback.snd 𝒜.X.hom g' ≫
-      Spec.map (CommRingCat.ofHom (frobenius (IsLocalRing.ResidueField O) p)) := hFr1
-  have hFr2' : ∀ (R : Type) [CommRing R] [CharP R p] (g : Spec (.of R) ⟶ pullback 𝒜.X.hom g'),
-      Spec.map (CommRingCat.ofHom (frobenius R p)) ≫ g = g ≫ Fr := fun R _ _ g => hFr2 R g
-  have hw : (Fr ≫ Fb) ≫ pullback.snd 𝒜.X.hom g' = pullback.snd 𝒜.X.hom g' := by
-    rw [Category.assoc, hFb2, ← Category.assoc, hFr1', Category.assoc, hid, Category.comp_id]
-  let e0 : Spec (.of (IsLocalRing.ResidueField O)) ⟶ pullback 𝒜.X.hom g' := (η[(sf 𝒜).X]).left
-  have he0 : e0 ≫ pullback.fst 𝒜.X.hom g' = g' ≫ (η[𝒜.X]).left := sf_eta_fst 𝒜
-  have he0s : e0 ≫ pullback.snd 𝒜.X.hom g' = 𝟙 _ := Over.w η[(sf 𝒜).X]
-  refine ⟨Over.homMk (U := (sf 𝒜).X) (V := (sf 𝒜).X) (Fr ≫ Fb) hw, ?_, ?_⟩
-  · apply Over.OverMorphism.ext
-    show e0 ≫ Fr ≫ Fb = e0
-    have hn := hFr2' (IsLocalRing.ResidueField O) e0
-    rw [← Category.assoc, ← hn, Category.assoc]
-    have hη : e0 ≫ Fb = Spec.map (CommRingCat.ofHom tb) ≫ e0 := by
-      apply pullback.hom_ext
-      · rw [Category.assoc, hFb1, ← Category.assoc, he0, Category.assoc, Category.assoc, he0,
-          hzero, ← Category.assoc, heq2, Category.assoc]
-      · rw [Category.assoc, hFb2, ← Category.assoc, he0s, Category.id_comp, Category.assoc, he0s,
-          Category.comp_id]
-    rw [hη, ← Category.assoc, hid, Category.id_comp]
-  · intro y φ hφ
-    haveI : CharP (AlgebraicClosure (IsLocalRing.ResidueField O)) p :=
-      charP_of_injective_algebraMap (algebraMap (IsLocalRing.ResidueField O) _).injective p
-    have hφ' : φ = frobenius _ p := RingHom.ext hφ
-    subst hφ'
-    let yl : Spec (.of (AlgebraicClosure (IsLocalRing.ResidueField O))) ⟶ pullback 𝒜.X.hom g' :=
-      y.left
-    have hn := hFr2' (AlgebraicClosure (IsLocalRing.ResidueField O)) yl
-    show (yl ≫ Fr ≫ Fb) ≫ pullback.fst 𝒜.X.hom g' = _ ≫ yl ≫ pullback.fst 𝒜.X.hom g' ≫ Ft
-    rw [Category.assoc, Category.assoc, hFb1, ← Category.assoc, ← Category.assoc, ← hn,
-      Category.assoc, Category.assoc]
-
-/-- **Main result, finest form: `AlgFrobRed` from the leaf candidates `GoodRedCofinite`,
-`SmoothGeomConnIntegral` and the glue `ResidueAlgClosure`, `RedRelMul`, `RedTorsionQbar`,
-`FExtend`, `FrobMorph` (proved).** -/
-theorem algFrobRed_of_fine (hG : GoodRedCofinite) (hS : SmoothGeomConnIntegral)
-    (hR : ResidueAlgClosure) (hM : RedRelMul) (h2 : RedTorsionQbar) (hE : FExtend)
-    (hFr : FrobMorph) : FrobTrace.AlgFrobRed :=
-  algFrobRed_of_split hG hS hR hM h2 (reductionFrobGood_of hS hE hFr)
 
 /-- **`TateBridge35` from I3.M0 and the seven pieces (proved).** -/
 theorem tateBridge35_of_fine (hT : PkgI3.TateModuleFree) (hG : GoodRedCofinite)
@@ -8800,54 +6337,17 @@ theorem tateBridge35_of_fine (hT : PkgI3.TateModuleFree) (hG : GoodRedCofinite)
     (h2 : RedTorsionQbar) (hE : FExtend) (hFr : FrobMorph) : G14Bridge.TateBridge35 :=
   FrobTrace.tateBridge35_of_algFrobRed hT (algFrobRed_of_fine hG hS hR hM h2 hE hFr)
 
-/-- **`AlgFrobRed` with `ResidueAlgClosure` split (proved).** Leaf candidates
-`GoodRedCofinite`, `SmoothGeomConnIntegral`; glue `ResidueAlgClosed`, `ResidueAlgebraic`,
-`RedRelMul`, `RedTorsionQbar`, `FExtend`, `FrobMorph`. -/
-theorem algFrobRed_of_finest (hG : GoodRedCofinite) (hS : SmoothGeomConnIntegral)
-    (hC : ResidueAlgClosed) (hA : ResidueAlgebraic) (hM : RedRelMul) (h2 : RedTorsionQbar)
-    (hE : FExtend) (hFr : FrobMorph) : FrobTrace.AlgFrobRed :=
-  algFrobRed_of_fine hG hS (residueAlgClosure_of hC hA) hM h2 hE hFr
-
-/-- **`AlgFrobRed` with `ResidueAlgClosed` discharged (proved).** Leaf candidates
-`GoodRedCofinite`, `SmoothGeomConnIntegral`; glue `ResidueAlgebraic`, `RedRelMul`,
-`RedTorsionQbar`, `FExtend`, `FrobMorph`. -/
-theorem algFrobRed_of_final (hG : GoodRedCofinite) (hS : SmoothGeomConnIntegral)
-    (hA : ResidueAlgebraic) (hM : RedRelMul) (h2 : RedTorsionQbar) (hE : FExtend)
-    (hFr : FrobMorph) : FrobTrace.AlgFrobRed :=
-  algFrobRed_of_finest hG hS residueAlgClosed hA hM h2 hE hFr
-
 /-- **`TateBridge35` from I3.M0 and the seven remaining pieces (proved).** -/
 theorem tateBridge35_of_final (hT : PkgI3.TateModuleFree) (hG : GoodRedCofinite)
     (hS : SmoothGeomConnIntegral) (hA : ResidueAlgebraic) (hM : RedRelMul)
     (h2 : RedTorsionQbar) (hE : FExtend) (hFr : FrobMorph) : G14Bridge.TateBridge35 :=
   FrobTrace.tateBridge35_of_algFrobRed hT (algFrobRed_of_final hG hS hA hM h2 hE hFr)
 
-/-- **Main result: `FrobTrace.AlgFrobRed` from the leaf candidates `GoodRedCofinite`,
-`SmoothGeomConnIntegral` and the glue `RedRelMul`, `RedTorsionQbar`, `FExtend`, `FrobMorph`
-(proved).** Everything else (conjugating the place, isolating the finite set, the special fibre
-as an abelian variety, the residue characteristic, the valuative criterion, `κ(v) ≅ κ(w)‾`,
-`σ = Frob` on `κ(v)`, rigidity) is proved here or by Mathlib / mul-rigidity. -/
-theorem algFrobRed_of_main (hG : GoodRedCofinite) (hS : SmoothGeomConnIntegral)
-    (hM : RedRelMul) (h2 : RedTorsionQbar) (hE : FExtend) (hFr : FrobMorph) :
-    FrobTrace.AlgFrobRed :=
-  algFrobRed_of_final hG hS residueAlgebraic hM h2 hE hFr
-
 /-- **`TateBridge35` from I3.M0 and the six remaining pieces (proved).** -/
 theorem tateBridge35_of_main (hT : PkgI3.TateModuleFree) (hG : GoodRedCofinite)
     (hS : SmoothGeomConnIntegral) (hM : RedRelMul) (h2 : RedTorsionQbar) (hE : FExtend)
     (hFr : FrobMorph) : G14Bridge.TateBridge35 :=
   FrobTrace.tateBridge35_of_algFrobRed hT (algFrobRed_of_main hG hS hM h2 hE hFr)
-
-/-- **Main result: `FrobTrace.AlgFrobRed` from the leaf candidates `GoodRedCofinite` and
-`SmoothGeomConnIntegral` and the glue `RedTorsionQbar`, `FExtend`, `FrobMorph` (proved).**
-Proved here (or in Mathlib / mul-rigidity): conjugating the place, isolating the finite set, the
-special fibre as an abelian variety (from `SmoothGeomConnIntegral`), the residue characteristic and
-the units `ℓⁿ`, the valuative criterion (existence and uniqueness of lifts), `κ(v) ≅ κ(w)‾`
-(`residueAlgClosed`, `residueAlgebraic`), the reduction map as a homomorphism (`redRelMul`),
-`σ = Frob` on `κ(v)`, rigidity. -/
-theorem algFrobRed_of_five (hG : GoodRedCofinite) (hS : SmoothGeomConnIntegral)
-    (h2 : RedTorsionQbar) (hE : FExtend) (hFr : FrobMorph) : FrobTrace.AlgFrobRed :=
-  algFrobRed_of_main hG hS redRelMul h2 hE hFr
 
 /-- **`TateBridge35` from I3.M0 and the five pieces (proved).** -/
 theorem tateBridge35_of_five (hT : PkgI3.TateModuleFree) (hG : GoodRedCofinite)
@@ -8861,216 +6361,13 @@ section DVR
 
 open NumberField
 
-/-- The DVR `𝓞_{L,P}` of a nonzero prime `P` of `𝓞_L`, as a valuation subring of `L` (as in
-neron-lg's `dvrAt`). -/
-noncomputable def dvrAt' {K : Type} [Field K] [NumberField K]
-    (P : IsDedekindDomain.HeightOneSpectrum (𝓞 K)) : ValuationSubring K :=
-  (P.valuation K).valuationSubring
-
-instance {K : Type} [Field K] [NumberField K] (P : IsDedekindDomain.HeightOneSpectrum (𝓞 K)) :
-    IsDiscreteValuationRing (dvrAt' P) := by
-  unfold dvrAt'; infer_instance
-
-theorem ringOfIntegers_mem' {K : Type} [Field K] [NumberField K] (O : ValuationSubring K)
-    (x : 𝓞 K) : (x : K) ∈ O := by
-  obtain ⟨y, hy⟩ := IsIntegrallyClosed.isIntegral_iff.1
-    (show IsIntegral O (x : K) from x.isIntegral_coe.tower_top)
-  exact hy ▸ y.2
-
-/-- The inclusion `𝓞_K → O`. -/
-def toO' {K : Type} [Field K] [NumberField K] (O : ValuationSubring K) : 𝓞 K →+* O :=
-  (algebraMap (𝓞 K) K).codRestrict O.toSubring (ringOfIntegers_mem' O)
-
-/-- `p ∈ 𝔪_{O_w}` for `v ∣ p`. -/
-theorem natCast_mem_maximalIdeal {L : IF} {v : ValuationSubring PkgI4.Qbar} {p : ℕ}
-    (hp : p.Prime) (hv : PkgI4.LiesOver v p) :
-    (p : Ow L v) ∈ IsLocalRing.maximalIdeal (Ow L v) := by
-  have h1 : ((p : Ow L v) : L) ∈ (Ow L v).nonunits := by
-    rw [ValuationSubring.mem_nonunits_iff_or]
-    right
-    intro hin
-    rw [ValuationSubring.mem_comap, map_inv₀] at hin
-    have he : (algebraMap L PkgI4.Qbar ((p : Ow L v) : L)) = (p : PkgI4.Qbar) := by simp
-    rw [he] at hin
-    have hv' := hv
-    unfold PkgI4.LiesOver at hv'
-    rw [ValuationSubring.mem_nonunits_iff_or] at hv'
-    rcases hv' with h0 | h0
-    · exact (Nat.cast_ne_zero.mpr hp.ne_zero) h0
-    · exact h0 hin
-  exact (ValuationSubring.coe_mem_nonunits_iff).mp h1
-
-/-- **`OwDVR` holds (proved):** `O_w` contains `𝓞_L`; its center `P = 𝔪_{O_w} ∩ 𝓞_L` is a nonzero
-prime (it contains `p`); `𝓞_{L,P} ⊆ O_w`, and a DVR is a maximal proper valuation subring
-(`ValuationSubring.eq_of_le_of_ne_top`), so `O_w = 𝓞_{L,P}`. -/
-theorem owDVR : OwDVR := by
-  intro L _ v p hp hv
-  haveI : NumberField L := { to_charZero := inferInstance, to_finiteDimensional := inferInstance }
-  have hpm := natCast_mem_maximalIdeal (L := L) hp hv
-  let P : IsDedekindDomain.HeightOneSpectrum (𝓞 L) :=
-    { asIdeal := (IsLocalRing.maximalIdeal (Ow L v)).comap (toO' (Ow L v))
-      isPrime := Ideal.comap_isPrime _ _
-      ne_bot := by
-        intro hbot
-        have hmem : (p : 𝓞 L) ∈ (IsLocalRing.maximalIdeal (Ow L v)).comap (toO' (Ow L v)) := by
-          rw [Ideal.mem_comap, map_natCast]; exact hpm
-        rw [hbot, Ideal.mem_bot] at hmem
-        exact hp.ne_zero (by exact_mod_cast hmem) }
-  have hP : ∀ x : 𝓞 L, x ∈ P.asIdeal ↔ toO' (Ow L v) x ∈ IsLocalRing.maximalIdeal (Ow L v) :=
-    fun x => Iff.rfl
-  have heq : dvrAt' P = Ow L v := by
-    apply ValuationSubring.eq_of_le_of_ne_top
-    · intro x hx
-      obtain ⟨n, d, hnd⟩ :=
-        IsDedekindDomain.HeightOneSpectrum.exists_primeCompl_mul_eq_of_integer P x hx
-      have hd : IsUnit (toO' (Ow L v) d) := by
-        by_contra h
-        exact d.2 ((hP d).2 ((IsLocalRing.mem_maximalIdeal _).2 h))
-      have hvd : (Ow L v).valuation (algebraMap (𝓞 L) L d) = 1 :=
-        ((Ow L v).valuation_eq_one_iff _).1 hd
-      apply (Ow L v).mem_of_valuation_le_one
-      have h2 := congrArg (Ow L v).valuation hnd
-      rw [map_mul, hvd, _root_.mul_one] at h2
-      rw [h2]
-      exact (Ow L v).valuation_le_one (toO' (Ow L v) n)
-    · intro htop
-      have hall : ∀ y : L, y ∈ Ow L v := by
-        intro y; rw [htop]; exact ValuationSubring.mem_top y
-      have hp0 : ((p : Ow L v) : L) ≠ 0 := by
-        simp only [ne_eq, map_natCast]
-        push_cast
-        exact_mod_cast hp.ne_zero
-      have hu : IsUnit (p : Ow L v) := by
-        refine isUnit_iff_exists_inv.2 ⟨⟨_, hall (((p : Ow L v) : L))⁻¹⟩, Subtype.ext ?_⟩
-        rw [Subring.coe_mul]
-        exact mul_inv_cancel₀ hp0
-      exact (IsLocalRing.mem_maximalIdeal _).1 hpm hu
-  have key : ∀ O' : ValuationSubring L, dvrAt' P = O' → IsDiscreteValuationRing O' := by
-    rintro O' rfl; infer_instance
-  exact key _ heq
-
 end DVR
-
-set_option synthInstance.maxHeartbeats 400000 in
-/-- **`RedTorsionQbar` from the leaf I2-Red and `OwDVR` (proved).** Transport along an
-`L`-isomorphism `ψ : L‾ ≅ ℚ̄` (`UnramTate.trPt`) and the bijective homomorphism `Θ` from I2's
-`κ(w')`-points of `𝒜` to the `κ(w)‾`-points of `sf 𝒜`; I2's reductions are `RedRel`s
-(`redRel_of_isReductionOf`), reductions are unique (`redRel_unique`) and additive
-(`redRelMul`). -/
-theorem redTorsionQbar_of (hRed : PkgI2.ReductionTorsionBijective.{0}) (hD : OwDVR) :
-    RedTorsionQbar := by
-  intro L _ A p hp v hv 𝒜 _ e j hjb hjc m hm hmu
-  haveI := hD L v p hp hv
-  haveI : Algebra.IsAlgebraic L PkgI4.Qbar := Algebra.IsAlgebraic.tower_top (K := ℚ) L
-  haveI : IsAlgClosure L PkgI4.Qbar := ⟨inferInstance, inferInstance⟩
-  let ψ : AlgebraicClosure L ≃ₐ[L] PkgI4.Qbar :=
-    IsAlgClosure.equiv L (AlgebraicClosure L) PkgI4.Qbar
-  obtain ⟨hR1, hR2⟩ := hRed L (Ow L v) (wOf ψ v) (hw_of ψ v) (ObjBridge.toGrp A) 𝒜 e m hm hmu
-  let Φ := UnramTate.trPt A ψ
-  let Θ := thetaHom ψ v 𝒜 j hjc
-  have hΘinj := thetaW_injective ψ v 𝒜 j hjb hjc
-  have hΘsurj := thetaW_surjective ψ v 𝒜 j hjb hjc
-  have hT3 := redRel_of_isReductionOf (A := A) ψ v 𝒜 e j hjc
-  have hun := redRel_unique v 𝒜 e j
-  have hex := exists_redRel v 𝒜 e j hjc
-  have hmul := redRelMul L A v 𝒜 e j
-  have h01 : RedRel v 𝒜 e j 0 1 := by
-    obtain ⟨z, hz⟩ := hex 0
-    have h2 := hmul 0 0 z z hz hz
-    rw [add_zero] at h2
-    have h3 : z * z = z := hun 0 _ _ h2 hz
-    have hz1 : z = 1 := mul_eq_right.mp h3
-    rw [hz1] at hz
-    exact hz
-  have hΘ1 : ∀ y, thetaW ψ v 𝒜 j hjc y = 1 → y = 1 := fun y h =>
-    hΘinj (h.trans (map_one Θ).symm)
-  have htors : ∀ x : PtQ L A, m • x = 0 →
-      Φ.symm (Additive.toMul x) ∈ PkgI2.torsion (ObjBridge.toGrp A) (AlgebraicClosure L) m := by
-    intro x hx
-    show (Φ.symm (Additive.toMul x)) ^ m = 1
-    rw [← map_pow, ← toMul_nsmul, hx, toMul_zero, map_one]
-  have hT3' : ∀ (x : PtQ L A) yw, PkgI2.IsReductionOf 𝒜 e (wOf ψ v) (hw_of ψ v)
-      (Φ.symm (Additive.toMul x)) yw → RedRel v 𝒜 e j x (thetaW ψ v 𝒜 j hjc yw) := by
-    intro x yw h
-    have hr := hT3 _ yw h
-    rw [show UnramTate.trPt A ψ (Φ.symm (Additive.toMul x)) = Additive.toMul x from
-      Φ.apply_symm_apply _, ofMul_toMul] at hr
-    exact hr
-  constructor
-  · intro x hx
-    obtain ⟨yw, ⟨hyw1, hyw2⟩, -⟩ := hR1 _ (htors x hx)
-    have hr := hT3' x yw hyw2
-    refine ⟨Additive.ofMul (thetaW ψ v 𝒜 j hjc yw), ⟨?_, hr⟩, ?_⟩
-    · rw [← ofMul_pow]
-      show Additive.ofMul (Θ yw ^ m) = 0
-      rw [← map_pow, hyw1, map_one]
-      rfl
-    · rintro y' ⟨-, hy'⟩
-      exact Additive.toMul.injective (hun x _ _ hy' hr)
-  · intro yt hyt
-    obtain ⟨yw, hyw⟩ := hΘsurj (Additive.toMul yt)
-    have hywt : yw ^ m = 1 := by
-      apply hΘinj
-      show Θ (yw ^ m) = Θ 1
-      rw [map_pow, map_one]
-      show (thetaW ψ v 𝒜 j hjc yw) ^ m = 1
-      rw [hyw, ← toMul_nsmul, hyt, toMul_zero]
-    obtain ⟨xw0, ⟨hxw1, hxw2⟩, -⟩ := hR2 yw hywt
-    let xw : A.Pt (AlgebraicClosure L) := xw0
-    have hr := hT3 xw yw hxw2
-    rw [hyw] at hr
-    have hx2t : m • Additive.ofMul (Φ xw) = 0 := by
-      rw [← ofMul_pow, ← map_pow]
-      have : xw ^ m = 1 := hxw1
-      rw [this, map_one]
-      rfl
-    refine ⟨Additive.ofMul (Φ xw), ⟨hx2t, hr⟩, ?_⟩
-    rintro x1 ⟨hx1t, hx1r⟩
-    have hd : RedRel v 𝒜 e j (x1 - Additive.ofMul (Φ xw)) 1 := by
-      obtain ⟨yd, hyd⟩ := hex (x1 - Additive.ofMul (Φ xw))
-      have h3 := hmul _ _ yd (Additive.toMul yt) hyd hr
-      rw [sub_add_cancel] at h3
-      have h4 : yd * Additive.toMul yt = Additive.toMul yt := hun x1 _ _ h3 hx1r
-      rw [mul_eq_right.mp h4] at hyd
-      exact hyd
-    have hdt : m • (x1 - Additive.ofMul (Φ xw)) = 0 := by
-      rw [smul_sub, hx1t, hx2t, sub_zero]
-    obtain ⟨yd', ⟨hyd'1, hyd'2⟩, -⟩ := hR1 _ (htors _ hdt)
-    have hyd'eq : yd' = 1 := hΘ1 yd' (hun _ _ _ (hT3' _ yd' hyd'2) hd)
-    have h1t : (1 : PkgI2.Pts (ObjBridge.toGrp A) (AlgebraicClosure L)) ∈
-        PkgI2.torsion (ObjBridge.toGrp A) (AlgebraicClosure L) m := one_pow m
-    obtain ⟨y0, ⟨hy01, hy02⟩, -⟩ := hR1 1 h1t
-    have hy0eq : y0 = 1 := by
-      have hr0 := hT3 1 y0 hy02
-      rw [map_one, ofMul_one] at hr0
-      exact hΘ1 y0 (hun 0 _ _ hr0 h01)
-    have hxd1 := (hR2 1 (one_pow m)).unique ⟨htors _ hdt, hyd'eq ▸ hyd'2⟩ ⟨h1t, hy0eq ▸ hy02⟩
-    have h5 : Additive.toMul (x1 - Additive.ofMul (Φ xw)) = 1 := by
-      have h6 := congrArg Φ hxd1
-      rw [MulEquiv.apply_symm_apply] at h6
-      exact h6.trans (map_one Φ)
-    exact sub_eq_zero.mp (Additive.toMul.injective (h5.trans toMul_zero.symm))
-
-/-- **`AlgFrobRed` from the leaves `GoodRedCofinite`, `SmoothGeomConnIntegral`, I2-Red (kernel
-leaf `PkgI2.ReductionTorsionBijective`) and the glue `OwDVR`, `FExtend`, `FrobMorph` (proved).** -/
-theorem algFrobRed_of_I2 (hG : GoodRedCofinite) (hS : SmoothGeomConnIntegral)
-    (hRed : PkgI2.ReductionTorsionBijective.{0}) (hD : OwDVR) (hE : FExtend) (hFr : FrobMorph) :
-    FrobTrace.AlgFrobRed :=
-  algFrobRed_of_five hG hS (redTorsionQbar_of hRed hD) hE hFr
 
 /-- **`TateBridge35` from I3.M0, I2-Red and the five other pieces (proved).** -/
 theorem tateBridge35_of_I2 (hT : PkgI3.TateModuleFree) (hG : GoodRedCofinite)
     (hS : SmoothGeomConnIntegral) (hRed : PkgI2.ReductionTorsionBijective.{0}) (hD : OwDVR)
     (hE : FExtend) (hFr : FrobMorph) : G14Bridge.TateBridge35 :=
   FrobTrace.tateBridge35_of_algFrobRed hT (algFrobRed_of_I2 hG hS hRed hD hE hFr)
-
-/-- **Main result, final form: `FrobTrace.AlgFrobRed` from the leaf candidates `GoodRedCofinite`
-and `SmoothGeomConnIntegral`, the kernel leaf I2-Red (`PkgI2.ReductionTorsionBijective`), and the
-glue `FExtend` and `FrobMorph` (proved).** -/
-theorem algFrobRed_of_leaves (hG : GoodRedCofinite) (hS : SmoothGeomConnIntegral)
-    (hRed : PkgI2.ReductionTorsionBijective.{0}) (hE : FExtend) (hFr : FrobMorph) :
-    FrobTrace.AlgFrobRed :=
-  algFrobRed_of_I2 hG hS hRed owDVR hE hFr
 
 /-- **`TateBridge35` from I3.M0, I2-Red, `GoodRedCofinite`, `SmoothGeomConnIntegral`, `FExtend`,
 `FrobMorph` (proved).** -/
@@ -9079,14 +6376,6 @@ theorem tateBridge35_of_leaves (hT : PkgI3.TateModuleFree) (hG : GoodRedCofinite
     (hFr : FrobMorph) : G14Bridge.TateBridge35 :=
   FrobTrace.tateBridge35_of_algFrobRed hT (algFrobRed_of_leaves hG hS hRed hE hFr)
 
-/-- **Main result, finest form: `FrobTrace.AlgFrobRed` from the leaf candidates
-`GoodRedCofinite`, `SmoothGeomConnIntegral`, the kernel leaf I2-Red, and the glue `FExtendCore`
-and `FrobMorph` (proved).** -/
-theorem algFrobRed_of_core (hG : GoodRedCofinite) (hS : SmoothGeomConnIntegral)
-    (hRed : PkgI2.ReductionTorsionBijective.{0}) (hE : FExtendCore) (hFr : FrobMorph) :
-    FrobTrace.AlgFrobRed :=
-  algFrobRed_of_leaves hG hS hRed (fExtend_of_core hE) hFr
-
 /-- **`TateBridge35` from I3.M0, I2-Red, `GoodRedCofinite`, `SmoothGeomConnIntegral`,
 `FExtendCore`, `FrobMorph` (proved).** -/
 theorem tateBridge35_of_core (hT : PkgI3.TateModuleFree) (hG : GoodRedCofinite)
@@ -9094,28 +6383,12 @@ theorem tateBridge35_of_core (hT : PkgI3.TateModuleFree) (hG : GoodRedCofinite)
     (hE : FExtendCore) (hFr : FrobMorph) : G14Bridge.TateBridge35 :=
   FrobTrace.tateBridge35_of_algFrobRed hT (algFrobRed_of_core hG hS hRed hE hFr)
 
-/-- **Main result with `FrobMorph` reduced: `FrobTrace.AlgFrobRed` from the leaf candidates
-`GoodRedCofinite`, `SmoothGeomConnIntegral`, the kernel leaf I2-Red, and the glue `FExtendCore` and
-`AbsFrob` (proved).** -/
-theorem algFrobRed_of_absFrob (hG : GoodRedCofinite) (hS : SmoothGeomConnIntegral)
-    (hRed : PkgI2.ReductionTorsionBijective.{0}) (hE : FExtendCore) (hA : AbsFrob) :
-    FrobTrace.AlgFrobRed :=
-  algFrobRed_of_core hG hS hRed hE (frobMorph_of hA)
-
 /-- **`TateBridge35` from I3.M0, I2-Red, `GoodRedCofinite`, `SmoothGeomConnIntegral`,
 `FExtendCore`, `AbsFrob` (proved).** -/
 theorem tateBridge35_of_absFrob (hT : PkgI3.TateModuleFree) (hG : GoodRedCofinite)
     (hS : SmoothGeomConnIntegral) (hRed : PkgI2.ReductionTorsionBijective.{0})
     (hE : FExtendCore) (hA : AbsFrob) : G14Bridge.TateBridge35 :=
   FrobTrace.tateBridge35_of_algFrobRed hT (algFrobRed_of_absFrob hG hS hRed hE hA)
-
-/-- **Main result, finest form: `FrobTrace.AlgFrobRed` from the leaf candidates
-`GoodRedCofinite`, `SmoothGeomConnIntegral`, the kernel leaf I2-Red, and the glue `FExtendGen` and
-`AbsFrob` (proved).** -/
-theorem algFrobRed_of_gen (hG : GoodRedCofinite) (hS : SmoothGeomConnIntegral)
-    (hRed : PkgI2.ReductionTorsionBijective.{0}) (hE : FExtendGen) (hA : AbsFrob) :
-    FrobTrace.AlgFrobRed :=
-  algFrobRed_of_absFrob hG hS hRed (fExtendCore_of_gen hE) hA
 
 /-- **`TateBridge35` from I3.M0, I2-Red, `GoodRedCofinite`, `SmoothGeomConnIntegral`,
 `FExtendGen`, `AbsFrob` (proved).** -/
@@ -9139,6 +6412,7 @@ identity on the underlying space and `s ↦ s ^ p` on every ring of sections.
 noncomputable section
 
 namespace AbsFrobDef
+open _root_.AbsFrobDef (fr fr_Spec fr_app fr_base fr_naturality frobC frobPSh frob_stalkMap natCast_Spec natCast_of_hom natCast_sections powHom powHom_apply) -- op-dedupe
 
 open CategoryTheory AlgebraicGeometry TopologicalSpace Opposite
 
@@ -9146,126 +6420,13 @@ universe u
 
 variable (p : ℕ) [hp : Fact p.Prime]
 
-/-- `x ↦ x ^ p` as a ring endomorphism of a commutative ring in which `p = 0` (the ring may be
-trivial, so no `CharP` instance is assumed). -/
-def powHom (R : Type*) [CommRing R] (h : (p : R) = 0) : R →+* R where
-  toFun x := x ^ p
-  map_one' := one_pow _
-  map_mul' x y := mul_pow x y p
-  map_zero' := zero_pow hp.out.ne_zero
-  map_add' x y := by
-    rcases subsingleton_or_nontrivial R with hR | hR
-    · exact Subsingleton.elim _ _
-    · have := (CharP.charP_iff_prime_eq_zero hp.out).2 h
-      exact add_pow_char x y p
-
-@[simp] theorem powHom_apply (R : Type*) [CommRing R] (h : (p : R) = 0) (x : R) :
-    powHom p R h x = x ^ p := rfl
-
-omit hp in
-/-- `p = 0` in every ring of sections of `X` if it is `0` in the global sections. -/
-theorem natCast_sections {X : Scheme.{u}} (hX : (p : Γ(X, ⊤)) = 0) (U : X.Opens) :
-    (p : Γ(X, U)) = 0 := by
-  have := congrArg (X.presheaf.map (homOfLE (le_top : U ≤ ⊤)).op).hom hX
-  rwa [map_natCast, map_zero] at this
-
-/-- The Frobenius on the structure presheaf. -/
-def frobC (X : Scheme.{u}) (hX : (p : Γ(X, ⊤)) = 0) :
-    X.presheaf ⟶ (TopCat.Presheaf.pushforward CommRingCat (𝟙 (X : TopCat))).obj X.presheaf where
-  app U := CommRingCat.ofHom (powHom p _ (natCast_sections p hX U.unop))
-  naturality U V i := by
-    ext x
-    exact (map_pow (X.presheaf.map i).hom x p).symm
-
-/-- The absolute Frobenius as a morphism of presheafed spaces. -/
-def frobPSh (X : Scheme.{u}) (hX : (p : Γ(X, ⊤)) = 0) :
-    X.toPresheafedSpace ⟶ X.toPresheafedSpace where
-  base := 𝟙 _
-  c := frobC p X hX
-
-/-- The stalk map of the absolute Frobenius is `a ↦ a ^ p`. -/
-theorem frob_stalkMap (X : Scheme.{u}) (hX : (p : Γ(X, ⊤)) = 0) (x : X)
-    (a : X.presheaf.stalk x) :
-    ((frobPSh p X hX).stalkMap x).hom a = a ^ p := by
-  obtain ⟨U, hxU, s, rfl⟩ := TopCat.Presheaf.exists_germ_eq X.presheaf a
-  have := PresheafedSpace.stalkMap_germ_apply (frobPSh p X hX) U x hxU s
-  erw [this]
-  show X.presheaf.germ U x hxU (s ^ p) = _
-  rw [map_pow]
-
-/-- **The absolute Frobenius** `Fr_X : X ⟶ X` of a scheme with `p = 0` on `X`: the identity on
-the underlying space, `s ↦ s ^ p` on sections (local on stalks since `a ^ p` a unit forces `a` a
-unit). -/
-def fr (X : Scheme.{u}) (hX : (p : Γ(X, ⊤)) = 0) : X ⟶ X :=
-  Scheme.Hom.mk
-    { toHom := frobPSh p X hX
-      prop := fun x => ⟨fun a ha => by
-        rw [frob_stalkMap p X hX x a] at ha
-        exact (isUnit_pow_iff hp.out.ne_zero).mp ha⟩ }
-
-@[simp] theorem fr_base (X : Scheme.{u}) (hX : (p : Γ(X, ⊤)) = 0) :
-    (fr p X hX).base = 𝟙 _ := rfl
-
-theorem fr_app (X : Scheme.{u}) (hX : (p : Γ(X, ⊤)) = 0) (U : X.Opens) :
-    (fr p X hX).app U = CommRingCat.ofHom (powHom p _ (natCast_sections p hX U)) := rfl
-
-/-- **Naturality of the absolute Frobenius:** `f ≫ Fr_X = Fr_Y ≫ f` for every morphism
-`f : Y ⟶ X` of schemes on which `p = 0`. -/
-theorem fr_naturality {X Y : Scheme.{u}} (f : Y ⟶ X) (hX : (p : Γ(X, ⊤)) = 0)
-    (hY : (p : Γ(Y, ⊤)) = 0) : f ≫ fr p X hX = fr p Y hY ≫ f := by
-  have hb : (f ≫ fr p X hX).base = (fr p Y hY ≫ f).base := by
-    rw [Scheme.Hom.comp_base, Scheme.Hom.comp_base, fr_base, fr_base, Category.comp_id,
-      Category.id_comp]
-  refine Scheme.Hom.ext hb fun U => ?_
-  rw [show (eqToHom (congr((Opens.map $hb.symm).obj U))).op =
-      𝟙 (op ((Opens.map (f ≫ fr p X hX).base).obj U)) from
-      Quiver.Hom.unop_inj (Subsingleton.elim _ _)]
-  erw [CategoryTheory.Functor.map_id, Category.comp_id]
-  rw [Scheme.Hom.comp_app, Scheme.Hom.comp_app, fr_app, fr_app]
-  ext s
-  exact map_pow (f.app U).hom s p
-
-omit hp in
-theorem natCast_Spec (R : CommRingCat.{u}) (h : (p : R) = 0) : (p : Γ(Spec R, ⊤)) = 0 := by
-  have := congrArg (Scheme.ΓSpecIso R).inv.hom h
-  rwa [map_natCast, map_zero] at this
-
-omit hp in
-theorem natCast_of_hom {R : CommRingCat.{u}} (h : (p : R) = 0) {X : Scheme.{u}}
-    (f : X ⟶ Spec R) : (p : Γ(X, ⊤)) = 0 := by
-  have := congrArg f.appTop.hom (natCast_Spec p R h)
-  rwa [map_natCast, map_zero] at this
-
-/-- **The absolute Frobenius of an affine scheme** is `Spec` of `r ↦ r ^ p`. -/
-theorem fr_Spec (R : CommRingCat.{u}) (h : (p : R) = 0) :
-    fr p (Spec R) (natCast_Spec p R h) = Spec.map (CommRingCat.ofHom (powHom p R h)) := by
-  apply ext_of_isAffine
-  rw [← cancel_mono (Scheme.ΓSpecIso R).hom, Scheme.ΓSpecIso_naturality]
-  ext s
-  exact map_pow (Scheme.ΓSpecIso R).hom.hom s p
-
 end AbsFrobDef
 
 namespace AlgFrobRedRed
+open _root_.AlgFrobRedRed (AbsFrob AlgFrobRedAt AlgFrobRedGood FExtend FExtendCore FExtendGen FrobMorph GoodRedCofinite Ow OwDVR RedRel RedRelMul RedTorsionQbar ReductionFrobGood ReductionMapGood ResidueAlgClosed ResidueAlgClosure ResidueAlgebraic SmoothGeomConnIntegral absFrob algFrobRedAt_of_good algFrobRedGood_of algFrobRed_of_I2 algFrobRed_of_absFrob algFrobRed_of_at algFrobRed_of_core algFrobRed_of_final algFrobRed_of_fine algFrobRed_of_finest algFrobRed_of_five algFrobRed_of_gen algFrobRed_of_good algFrobRed_of_leaves algFrobRed_of_main algFrobRed_of_nmp algFrobRed_of_pieces algFrobRed_of_split charP_kw dvrAt' exists_lift exists_redRel fExtendCore_of_gen fExtendCore_of_nmp fExtendGen_of_nmp fExtend_of_core frobMorph_of frobenius_eq_powHom genMap genMap_comm genPt hom_spec_eq_of_point hw_of iotaW iotaW_isIso_left isArithFrob_conj isDominant_Spec_map_of_injective isLocalHom_of_resPow isLocalHom_toW isUnit_cast_of_ne jSpec kw liesOver_smul lift_unique natCast_mem_maximalIdeal owDVR pb_eta_fst pb_mul pb_mul' pb_one pb_one' pb_symm_mul pb_symm_mul' psiW psiW_toW redRelMul redRel_of_isReductionOf redRel_unique redTorsionQbar_of reductionFrobGood_of reductionMapGood_of residueAlgClosed residueAlgClosure_of residueAlgebraic residue_sigV ringHom_eq_of_normal ringOfIntegers_mem' sf sf_eta_fst sf_isAbelianVariety sigV smul_mem_nonunits spec_aut_cancel tSig tSig_residue tSpec tauL thetaHom thetaW thetaW_injective thetaW_left thetaW_surjective thetaW_symm toO' vsq wOf) -- op-dedupe
 
 open CategoryTheory AlgebraicGeometry
 
-
-/-- `frobenius R p` is `AbsFrobDef.powHom`. -/
-theorem frobenius_eq_powHom (R : Type) [CommRing R] (p : ℕ) [Fact p.Prime] [CharP R p] :
-    frobenius R p = AbsFrobDef.powHom p R (CharP.cast_eq_zero R p) :=
-  RingHom.ext fun _ => rfl
-
-/-- **`AbsFrob` (proved):** `Fr_X = AbsFrobDef.fr`. -/
-theorem absFrob : AbsFrob := by
-  intro k _ p _ _ X
-  have hk : ((p : ℕ) : CommRingCat.of k) = 0 := CharP.cast_eq_zero k p
-  have hX := AbsFrobDef.natCast_of_hom p hk X.hom
-  refine ⟨AbsFrobDef.fr p X.left hX, ?_, fun R _ _ g => ?_⟩
-  · rw [frobenius_eq_powHom, ← AbsFrobDef.fr_Spec p (.of k) hk,
-      AbsFrobDef.fr_naturality p X.hom]
-  · have hR : ((p : ℕ) : CommRingCat.of R) = 0 := CharP.cast_eq_zero R p
-    rw [frobenius_eq_powHom, ← AbsFrobDef.fr_Spec p (.of R) hR, AbsFrobDef.fr_naturality p g]
 
 end AlgFrobRedRed
 
@@ -9278,263 +6439,15 @@ absolute-Frobenius part. -/
 noncomputable section
 
 namespace AlgFrobRedRed
+open _root_.AlgFrobRedRed (AbsFrob AlgFrobRedAt AlgFrobRedGood FExtend FExtendCore FExtendGen FrobMorph GoodRedCofinite Ow OwDVR RedRel RedRelMul RedTorsionQbar ReductionFrobGood ReductionMapGood ResidueAlgClosed ResidueAlgClosure ResidueAlgebraic SmoothGeomConnIntegral absFrob algFrobRedAt_of_good algFrobRedGood_of algFrobRed_of_I2 algFrobRed_of_absFrob algFrobRed_of_at algFrobRed_of_core algFrobRed_of_final algFrobRed_of_fine algFrobRed_of_finest algFrobRed_of_five algFrobRed_of_gen algFrobRed_of_good algFrobRed_of_leaves algFrobRed_of_main algFrobRed_of_nmp algFrobRed_of_pieces algFrobRed_of_split charP_kw dvrAt' exists_lift exists_redRel fExtendCore_of_gen fExtendCore_of_nmp fExtendGen_of_nmp fExtend_of_core frobMorph_of frobenius_eq_powHom genMap genMap_comm genPt hom_spec_eq_of_point hw_of iotaW iotaW_isIso_left isArithFrob_conj isDominant_Spec_map_of_injective isLocalHom_of_resPow isLocalHom_toW isUnit_cast_of_ne jSpec kw liesOver_smul lift_unique natCast_mem_maximalIdeal owDVR pb_eta_fst pb_mul pb_mul' pb_one pb_one' pb_symm_mul pb_symm_mul' psiW psiW_toW redRelMul redRel_of_isReductionOf redRel_unique redTorsionQbar_of reductionFrobGood_of reductionMapGood_of residueAlgClosed residueAlgClosure_of residueAlgebraic residue_sigV ringHom_eq_of_normal ringOfIntegers_mem' sf sf_eta_fst sf_isAbelianVariety sigV smul_mem_nonunits spec_aut_cancel tSig tSig_residue tSpec tauL thetaHom thetaW thetaW_injective thetaW_left thetaW_surjective thetaW_symm toO' vsq wOf) -- op-dedupe
 
 open CategoryTheory AlgebraicGeometry Limits
 open _root_.ZInQ ZInQ LeafQM.AV GlueDescent G0ModField UnramTate
-
-/-- **Galois rigidity of embeddings (proved).** For a normal extension `L/ℚ`, a domain `R` and two
-ring maps `ψ₁, ψ₂ : L → R` which agree after some ring map `χ : R → Q` to a nontrivial ring,
-`ψ₁ = ψ₂`. (`ψ₂ ℓ` is a root of the minimal polynomial of `ℓ`, which splits in `L`; so
-`ψ₂ ℓ = ψ₁ r` for a conjugate `r`, and `χ ∘ ψ₁` is injective.) -/
-theorem ringHom_eq_of_normal {L R Q : Type*} [Field L] [Algebra ℚ L] [Normal ℚ L]
-    [CommRing R] [IsDomain R] [CommRing Q] [Nontrivial Q]
-    (ψ₁ ψ₂ : L →+* R) (χ : R →+* Q) (h : χ.comp ψ₁ = χ.comp ψ₂) : ψ₁ = ψ₂ := by
-  ext ℓ
-  have hint : IsIntegral ℚ ℓ := Normal.isIntegral inferInstance ℓ
-  have hsp := Normal.splits (inferInstance : Normal ℚ L) ℓ
-  have hc : ψ₁.comp (algebraMap ℚ L) = ψ₂.comp (algebraMap ℚ L) := RingHom.ext_rat _ _
-  have hne : ((minpoly ℚ ℓ).map (algebraMap ℚ L)).map ψ₁ ≠ 0 :=
-    Polynomial.map_ne_zero (Polynomial.map_ne_zero (minpoly.ne_zero hint))
-  have hroot : ψ₂ ℓ ∈ (((minpoly ℚ ℓ).map (algebraMap ℚ L)).map ψ₁).roots := by
-    rw [Polynomial.mem_roots hne, Polynomial.IsRoot.def, Polynomial.map_map, hc,
-      ← Polynomial.map_map, Polynomial.eval_map, Polynomial.eval₂_at_apply,
-      Polynomial.eval_map_algebraMap, minpoly.aeval, map_zero]
-  rw [hsp.roots_map ψ₁, Multiset.mem_map] at hroot
-  obtain ⟨r, -, hr⟩ := hroot
-  have hrl : r = ℓ := (χ.comp ψ₁).injective (by
-    show χ (ψ₁ r) = χ (ψ₁ ℓ)
-    rw [hr]
-    exact (RingHom.congr_fun h ℓ).symm)
-  rw [← hr, hrl]
-
-/-- **Morphisms from an integral scheme to `Spec L`, `L/ℚ` normal, agreeing at one field-valued
-point, are equal (proved).** Via `Γ(X, ⊤)` (a domain) and `ringHom_eq_of_normal`. -/
-theorem hom_spec_eq_of_point {L : Type} [Field L] [Algebra ℚ L] [Normal ℚ L] {X : Scheme.{0}}
-    [IsIntegral X] {K : Type} [Field K] (g₁ g₂ : X ⟶ Spec (.of L)) (x : Spec (.of K) ⟶ X)
-    (h : x ≫ g₁ = x ≫ g₂) : g₁ = g₂ := by
-  apply ext_of_isAffine
-  have h' := congrArg Scheme.Hom.appTop h
-  rw [Scheme.Hom.comp_appTop, Scheme.Hom.comp_appTop] at h'
-  have key := ringHom_eq_of_normal ((Scheme.ΓSpecIso (.of L)).inv ≫ g₁.appTop).hom
-    ((Scheme.ΓSpecIso (.of L)).inv ≫ g₂.appTop).hom (x.appTop ≫ (Scheme.ΓSpecIso (.of K)).hom).hom
-    (by
-      rw [← CommRingCat.hom_comp, ← CommRingCat.hom_comp]
-      congr 1
-      simp only [Category.assoc]
-      rw [reassoc_of% h'])
-  rw [← cancel_epi (Scheme.ΓSpecIso (.of L)).inv]
-  exact CommRingCat.hom_ext key
-
-/-- `Spec` of an injective ring map is dominant (proved; the kernel is `0 ≤ nilradical`). -/
-theorem isDominant_Spec_map_of_injective {R S : CommRingCat.{0}} (φ : R ⟶ S)
-    (h : Function.Injective φ.hom) : IsDominant (Spec.map φ) := by
-  refine ⟨?_⟩
-  show DenseRange (PrimeSpectrum.comap φ.hom)
-  rw [PrimeSpectrum.denseRange_comap_iff_ker_le_nilRadical]
-  intro x hx
-  rw [RingHom.mem_ker] at hx
-  rw [h (hx.trans (map_zero _).symm)]
-  exact zero_mem _
-
-/-- Cancelling `Spec(s)` for an automorphism `s` of `ℚ̄` (proved). -/
-theorem spec_aut_cancel (s : AlgebraicClosure ℚ ≃ₐ[ℚ] AlgebraicClosure ℚ) {X : Scheme.{0}}
-    {a b : Spec (.of (AlgebraicClosure ℚ)) ⟶ X}
-    (h : Spec.map (CommRingCat.ofHom (s : AlgebraicClosure ℚ →+* AlgebraicClosure ℚ)) ≫ a =
-      Spec.map (CommRingCat.ofHom (s : AlgebraicClosure ℚ →+* AlgebraicClosure ℚ)) ≫ b) :
-    a = b := by
-  have hi : Spec.map (CommRingCat.ofHom (s.symm : AlgebraicClosure ℚ →+* AlgebraicClosure ℚ)) ≫
-      Spec.map (CommRingCat.ofHom (s : AlgebraicClosure ℚ →+* AlgebraicClosure ℚ)) = 𝟙 _ := by
-    rw [← Spec.map_comp, ← CommRingCat.ofHom_comp,
-      show (s.symm : AlgebraicClosure ℚ →+* AlgebraicClosure ℚ).comp
-          (s : AlgebraicClosure ℚ →+* AlgebraicClosure ℚ) = RingHom.id _ from
-        RingHom.ext fun x => s.symm_apply_apply x,
-      CommRingCat.ofHom_id, Spec.map_id]
-  calc a = (Spec.map (CommRingCat.ofHom (s.symm : AlgebraicClosure ℚ →+* AlgebraicClosure ℚ)) ≫
-        Spec.map (CommRingCat.ofHom (s : AlgebraicClosure ℚ →+* AlgebraicClosure ℚ))) ≫ a := by
-          rw [hi, Category.id_comp]
-    _ = b := by rw [Category.assoc, h, ← Category.assoc, hi, Category.id_comp]
-
-set_option synthInstance.maxHeartbeats 400000 in
-/-- The unit section of a base change `(Over.pullback g').mapGrp.obj 𝒜`, followed by the first
-projection, is `g'` followed by the unit section of `𝒜` (proved; `sf_eta_fst` for any `g'`). -/
-theorem pb_eta_fst {S S' : Scheme.{0}} (g' : S' ⟶ S) (𝒜 : Grp (Over S)) :
-    (η[((Over.pullback g').mapGrp.obj 𝒜).X]).left ≫ pullback.fst 𝒜.X.hom g' =
-      g' ≫ (η[𝒜.X]).left := by
-  let F := Over.pullback g'
-  have hε : (Functor.LaxMonoidal.ε F).left ≫ pullback.snd (𝟙 S) g' = 𝟙 _ :=
-    Over.w (Functor.LaxMonoidal.ε F)
-  have hε2 : (Functor.LaxMonoidal.ε F).left ≫ pullback.fst (𝟙 S) g' = g' := by
-    have hc : pullback.fst (𝟙 S) g' = pullback.snd (𝟙 S) g' ≫ g' := by
-      rw [← pullback.condition, Category.comp_id]
-    rw [hc, ← Category.assoc, hε, Category.id_comp]
-  have hmap : (F.map η[𝒜.X]).left ≫ pullback.fst 𝒜.X.hom g' =
-      pullback.fst (𝟙 S) g' ≫ (η[𝒜.X]).left := pullback.lift_fst _ _ _
-  show ((Functor.LaxMonoidal.ε F) ≫ F.map η[𝒜.X]).left ≫ pullback.fst 𝒜.X.hom g' = _
-  rw [Over.comp_left, Category.assoc, hmap, ← Category.assoc, hε2]
-
-/-- `Spec(O_w → L)`. -/
-abbrev jSpec (L : IF) (v : ValuationSubring PkgI4.Qbar) :
-    Spec (.of L) ⟶ Spec (.of (Ow L v)) :=
-  Spec.map (CommRingCat.ofHom (algebraMap (Ow L v) L))
-
-/-- `Spec(t)`, `t = σ⁻¹|_{O_w}`. -/
-abbrev tSpec {L : IF} [IsGalois ℚ L] {v : ValuationSubring PkgI4.Qbar} (σ : PkgI4.GQ)
-    (hσ : σ ∈ v.decompositionSubgroup ℚ) : Spec (.of (Ow L v)) ⟶ Spec (.of (Ow L v)) :=
-  Spec.map (CommRingCat.ofHom (tSig σ hσ))
-
-/-- `τ = σ⁻¹|_L`. -/
-abbrev tauL (L : IF) [IsGalois ℚ L] (σ : PkgI4.GQ) : L →+* L :=
-  (((σ⁻¹).restrictNormal L : L ≃ₐ[ℚ] L) : L →+* L)
-
-set_option synthInstance.maxHeartbeats 400000 in
-set_option maxHeartbeats 1000000 in
-/-- **`FExtendGen` from the leaf I2-NMP (proved).**
-1. `F` lies over `Spec τ`, `τ = σ⁻¹|_L`: both `F ≫ A → Spec L` and `A → Spec L → Spec L` agree at
-   the `ℚ̄`-point `0` (from `f 0 = 0`), and `A` is integral (`hom_spec_eq_of_point`).
-2. `ℬ = 𝒜 ×_{Spec t} Spec O_w` (the conjugate model) is an abelian scheme (base change).
-3. `φ = (e ≫ F ≫ e⁻¹ ≫ pr₁, pr₂) : 𝒜_L → ℬ_L` is an `L`-morphism; I2-NMP gives `G : 𝒜 → ℬ`
-   over `O_w` with `G_L = φ`; `F̃ = G ≫ pr₁` lies over `Spec t` and restricts to `F`.
-4. `F̃` fixes the unit section: both sides agree on `Spec L` (because `F(0) = 0` twisted, by
-   separatedness of `A` and dominance of `Spec ℚ̄ → Spec L`), hence on `Spec O_w`
-   (separatedness of `𝒜`, dominance of `Spec L → Spec O_w`). -/
-theorem fExtendGen_of_nmp (hN : PkgI2.NeronMappingAbelianScheme.{0}) : FExtendGen := by
-  intro L _ _ A F _ _ p hp v σ hv hσ 𝒜 h𝒜 e f hf
-  generalize hσ.1 = hσ1
-  haveI : IsDiscreteValuationRing (Ow L v) := owDVR L v p hp hv
-  haveI : IsProper 𝒜.X.hom := h𝒜.proper
-  haveI : Smooth 𝒜.X.hom := h𝒜.smooth
-  haveI : GeometricallyConnected 𝒜.X.hom := h𝒜.geomConnected
-  haveI : IsIntegral A.X.left := GeometricallyIntegral.isIntegral_of_subsingleton A.X.hom
-  -- ring identities
-  have hR1 : Spec.map (CommRingCat.ofHom ((act σ : Qbar ≃ₐ[ℚ] Qbar) : Qbar →+* Qbar)) ≫
-      Spec.map (CommRingCat.ofHom (algebraMap L Qbar)) ≫ Spec.map (CommRingCat.ofHom (tauL L σ)) =
-      Spec.map (CommRingCat.ofHom (algebraMap L Qbar)) := by
-    rw [← Spec.map_comp, ← Spec.map_comp, ← CommRingCat.ofHom_comp, ← CommRingCat.ofHom_comp]
-    congr 2
-    ext a
-    show σ (algebraMap L PkgI4.Qbar ((σ⁻¹).restrictNormal L a)) = algebraMap L PkgI4.Qbar a
-    rw [AlgEquiv.restrictNormal_commutes, AlgEquiv.aut_inv, AlgEquiv.apply_symm_apply]
-  have hR2 : jSpec L v ≫ tSpec σ hσ1 = Spec.map (CommRingCat.ofHom (tauL L σ)) ≫ jSpec L v := by
-    show Spec.map _ ≫ Spec.map _ = Spec.map _ ≫ Spec.map _
-    rw [← Spec.map_comp, ← Spec.map_comp, ← CommRingCat.ofHom_comp, ← CommRingCat.ofHom_comp]
-    rfl
-  -- the zero point
-  let x0 : Spec (.of Qbar) ⟶ A.X.left := (Additive.toMul (0 : PtQ L A)).left
-  have hu : (CartesianMonoidalCategory.toUnit (PkgI3.AbVar.ptObj (K := L) Qbar)).left =
-      Spec.map (CommRingCat.ofHom (algebraMap L Qbar)) :=
-    (Category.comp_id _).symm.trans
-      (Over.w (CartesianMonoidalCategory.toUnit (PkgI3.AbVar.ptObj (K := L) Qbar)))
-  have hx0 : x0 = Spec.map (CommRingCat.ofHom (algebraMap L Qbar)) ≫ (η[A.X]).left := by
-    show (CartesianMonoidalCategory.toUnit (PkgI3.AbVar.ptObj (K := L) Qbar)).left ≫
-      (η[A.X]).left = _
-    rw [hu]
-    rfl
-  have hx0w : x0 ≫ A.X.hom = Spec.map (CommRingCat.ofHom (algebraMap L Qbar)) :=
-    Over.w (Additive.toMul (0 : PtQ L A))
-  have hηw : (η[A.X]).left ≫ A.X.hom = 𝟙 _ := Over.w η[A.X]
-  have hf0 : Spec.map (CommRingCat.ofHom ((act σ : Qbar ≃ₐ[ℚ] Qbar) : Qbar →+* Qbar)) ≫
-      x0 ≫ F = x0 := by
-    have := hf 0
-    rw [map_zero] at this
-    exact this.symm
-  have hpt : x0 ≫ F = Spec.map (CommRingCat.ofHom (algebraMap L Qbar)) ≫
-      Spec.map (CommRingCat.ofHom (tauL L σ)) ≫ (η[A.X]).left := by
-    apply spec_aut_cancel (act σ)
-    rw [hf0, reassoc_of% hR1]
-    exact hx0
-  -- Step 1: `F` lies over `Spec τ`
-  have hFover : F ≫ A.X.hom = A.X.hom ≫ Spec.map (CommRingCat.ofHom (tauL L σ)) := by
-    apply hom_spec_eq_of_point _ _ x0
-    rw [reassoc_of% hpt, hηw, reassoc_of% hx0w]
-    erw [Category.comp_id]
-  -- `F(0) = 0`, twisted
-  have hF0 : (η[A.X]).left ≫ F = Spec.map (CommRingCat.ofHom (tauL L σ)) ≫ (η[A.X]).left := by
-    haveI := isDominant_Spec_map_of_injective (CommRingCat.ofHom (algebraMap L Qbar))
-      (algebraMap L Qbar).injective
-    refine ext_of_isDominant_of_isSeparated (X := Spec (.of L)) A.X.hom ?_
-      (Spec.map (CommRingCat.ofHom (algebraMap L Qbar))) ?_
-    · simp only [Category.assoc]
-      rw [hFover, reassoc_of% hηw, hηw]
-      erw [Category.comp_id]
-    · calc _ = x0 ≫ F := by rw [hx0, Category.assoc]
-        _ = _ := hpt
-  -- Step 2: the conjugate model
-  let ℬ := (Over.pullback (tSpec σ hσ1)).mapGrp.obj 𝒜
-  haveI hℬ : PkgI2.IsAbelianScheme ℬ :=
-    ⟨show IsProper (pullback.snd 𝒜.X.hom (tSpec σ hσ1)) from inferInstance,
-      show Smooth (pullback.snd 𝒜.X.hom (tSpec σ hσ1)) from inferInstance,
-      show GeometricallyConnected (pullback.snd 𝒜.X.hom (tSpec σ hσ1)) from inferInstance⟩
-  -- Step 3: the generic morphism and I2-NMP
-  let E : pullback 𝒜.X.hom (jSpec L v) ⟶ A.X.left := e.hom.hom.hom.left
-  let Ei : A.X.left ⟶ pullback 𝒜.X.hom (jSpec L v) := e.inv.hom.hom.left
-  have hEi : Ei ≫ E = 𝟙 _ := congrArg (fun m => m.hom.hom.left) e.inv_hom_id
-  have hEw : E ≫ A.X.hom = pullback.snd 𝒜.X.hom (jSpec L v) := Over.w e.hom.hom.hom
-  have hEiw : Ei ≫ pullback.snd 𝒜.X.hom (jSpec L v) = A.X.hom := Over.w e.inv.hom.hom
-  have c1 : (E ≫ F ≫ Ei ≫ pullback.fst 𝒜.X.hom (jSpec L v)) ≫ 𝒜.X.hom =
-      (pullback.snd 𝒜.X.hom (jSpec L v) ≫ jSpec L v) ≫ tSpec σ hσ1 := by
-    simp only [Category.assoc]
-    rw [pullback.condition, reassoc_of% hEiw, reassoc_of% hFover, reassoc_of% hEw, hR2]
-  let inner : pullback 𝒜.X.hom (jSpec L v) ⟶ pullback 𝒜.X.hom (tSpec σ hσ1) :=
-    pullback.lift (E ≫ F ≫ Ei ≫ pullback.fst 𝒜.X.hom (jSpec L v))
-      (pullback.snd 𝒜.X.hom (jSpec L v) ≫ jSpec L v) c1
-  let φl : pullback 𝒜.X.hom (jSpec L v) ⟶
-      pullback (pullback.snd 𝒜.X.hom (tSpec σ hσ1)) (jSpec L v) :=
-    pullback.lift inner (pullback.snd 𝒜.X.hom (jSpec L v)) (pullback.lift_snd _ _ _)
-  let φ : (Over.pullback (jSpec L v)).obj 𝒜.X ⟶ (Over.pullback (jSpec L v)).obj ℬ.X :=
-    Over.homMk φl (pullback.lift_snd _ _ _)
-  obtain ⟨G, hG⟩ := (hN L (Ow L v) 𝒜 ℬ).2 φ
-  have hG' : (Over.pullback (jSpec L v)).map G = φ := hG
-  let Gl : 𝒜.X.left ⟶ pullback 𝒜.X.hom (tSpec σ hσ1) := G.left
-  let Ft : 𝒜.X.left ⟶ 𝒜.X.left := Gl ≫ pullback.fst 𝒜.X.hom (tSpec σ hσ1)
-  have hGl : pullback.fst 𝒜.X.hom (jSpec L v) ≫ Gl =
-      φl ≫ pullback.fst (pullback.snd 𝒜.X.hom (tSpec σ hσ1)) (jSpec L v) := by
-    have h1 : ((Over.pullback (jSpec L v)).map G).left ≫
-        pullback.fst (pullback.snd 𝒜.X.hom (tSpec σ hσ1)) (jSpec L v) =
-        pullback.fst 𝒜.X.hom (jSpec L v) ≫ G.left := pullback.lift_fst _ _ _
-    have h2 : ((Over.pullback (jSpec L v)).map G).left = φl := congrArg (fun m => m.left) hG'
-    rw [← h2]
-    exact h1.symm
-  have hfst : pullback.fst 𝒜.X.hom (jSpec L v) ≫ Ft =
-      E ≫ F ≫ Ei ≫ pullback.fst 𝒜.X.hom (jSpec L v) := by
-    show pullback.fst 𝒜.X.hom (jSpec L v) ≫ Gl ≫ pullback.fst 𝒜.X.hom (tSpec σ hσ1) = _
-    rw [← Category.assoc (pullback.fst 𝒜.X.hom (jSpec L v)), hGl, Category.assoc φl]
-    simp only [φl, inner, pullback.lift_fst_assoc, pullback.lift_fst]
-  have hC3 : Ei ≫ pullback.fst 𝒜.X.hom (jSpec L v) ≫ Ft =
-      F ≫ Ei ≫ pullback.fst 𝒜.X.hom (jSpec L v) := by
-    rw [hfst, ← Category.assoc Ei E, hEi, Category.id_comp]
-  have hGw : Gl ≫ pullback.snd 𝒜.X.hom (tSpec σ hσ1) = 𝒜.X.hom := Over.w G
-  have hC1 : Ft ≫ 𝒜.X.hom = 𝒜.X.hom ≫ tSpec σ hσ1 := by
-    show (Gl ≫ pullback.fst 𝒜.X.hom (tSpec σ hσ1)) ≫ 𝒜.X.hom = _
-    rw [Category.assoc, pullback.condition, reassoc_of% hGw]
-  refine ⟨Ft, hC1, ?_, hC3⟩
-  -- Step 4: the unit section
-  have hηO : (η[𝒜.X]).left ≫ 𝒜.X.hom = 𝟙 _ := Over.w η[𝒜.X]
-  have hηL : jSpec L v ≫ (η[𝒜.X]).left =
-      (η[A.X]).left ≫ Ei ≫ pullback.fst 𝒜.X.hom (jSpec L v) := by
-    rw [← pb_eta_fst (jSpec L v) 𝒜, ← Category.assoc]
-    congr 1
-    have h1 : η[A.X] ≫ e.inv.hom.hom = η[((Over.pullback (jSpec L v)).mapGrp.obj 𝒜).X] :=
-      IsMonHom.one_hom _
-    exact (congrArg (fun m => m.left) h1).symm
-  haveI := isDominant_Spec_map_of_injective (CommRingCat.ofHom (algebraMap (Ow L v) L))
-    (Subtype.val_injective)
-  refine ext_of_isDominant_of_isSeparated (X := Spec (.of (Ow L v))) 𝒜.X.hom ?_ (jSpec L v) ?_
-  · simp only [Category.assoc]
-    rw [hC1, reassoc_of% hηO, hηO]
-    erw [Category.comp_id]
-  · rw [reassoc_of% hηL, hC3, reassoc_of% hF0, reassoc_of% hR2, hηL]
-
-/-- **`FExtendCore` from I2-NMP (proved).** -/
-theorem fExtendCore_of_nmp (hN : PkgI2.NeronMappingAbelianScheme.{0}) : FExtendCore :=
-  fExtendCore_of_gen (fExtendGen_of_nmp hN)
-
-/-- **Main result: `FrobTrace.AlgFrobRed` from the leaf candidates `GoodRedCofinite`,
-`SmoothGeomConnIntegral` and the kernel leaves I2-Red, I2-NMP (proved).** alg-frob-red's two glue
-Props are discharged: `AbsFrob` (`absFrob`, Mathlib only) and `FExtendGen` (`fExtendGen_of_nmp`). -/
-theorem algFrobRed_of_nmp (hG : GoodRedCofinite) (hS : SmoothGeomConnIntegral)
-    (hRed : PkgI2.ReductionTorsionBijective.{0}) (hN : PkgI2.NeronMappingAbelianScheme.{0}) :
-    FrobTrace.AlgFrobRed :=
-  algFrobRed_of_gen hG hS hRed (fExtendGen_of_nmp hN) absFrob
+open _root_.ZInQ (Contrib.AbVarBC.G0FibreSimple.MulIsogeny Contrib.AbVarBC.MulRigidity.CotangentMulN Contrib.AbVarBC.MulRigidity.KerUnitOpen Contrib.AbVarBC.MulRigidity.KerUnitOpenOfCotangentSurj Contrib.AbVarBC.MulRigidity.MulEtale Contrib.AbVarBC.MulRigidity.MulUnramified Contrib.AbVarBC.MulRigidity.O0 Contrib.AbVarBC.MulRigidity.QuasiFiniteEndSurjective Contrib.AbVarBC.MulRigidity.charZero_residueField Contrib.AbVarBC.MulRigidity.cotangentMap Contrib.AbVarBC.MulRigidity.diagonal_isPullback Contrib.AbVarBC.MulRigidity.diffKer Contrib.AbVarBC.MulRigidity.formallyUnramified_of_kerUnit Contrib.AbVarBC.MulRigidity.isIsogenyMor_of_lqf_of_isOpenMap Contrib.AbVarBC.MulRigidity.isOpenImmersion_of_section Contrib.AbVarBC.MulRigidity.isProper_left Contrib.AbVarBC.MulRigidity.kerUnit Contrib.AbVarBC.MulRigidity.kerUnitOpen_of_cotangent Contrib.AbVarBC.MulRigidity.kerUnitOpen_of_mulEtale Contrib.AbVarBC.MulRigidity.locallyQuasiFinite_of_formallyUnramified Contrib.AbVarBC.MulRigidity.map_origin Contrib.AbVarBC.MulRigidity.mulIsogeny_of_cotangent Contrib.AbVarBC.MulRigidity.mulIsogeny_of_kerUnitOpen Contrib.AbVarBC.MulRigidity.mulIsogeny_of_mulEtale Contrib.AbVarBC.MulRigidity.mulIsogeny_of_mulUnramified Contrib.AbVarBC.MulRigidity.mulIsogeny_of_mulUnramified' Contrib.AbVarBC.MulRigidity.mulUnramified_of_kerUnitOpen Contrib.AbVarBC.MulRigidity.mulUnramified_of_mulEtale Contrib.AbVarBC.MulRigidity.ne_of_specializes_of_lqf Contrib.AbVarBC.MulRigidity.origin Contrib.AbVarBC.MulRigidity.quasiFiniteEndSurjective Contrib.AbVarBC.MulRigidity.stalkEndo Contrib.AbVarBC.MulRigidity.surjective_of_lqf_self Contrib.AbVarBC.Tangent.AtOrigin Contrib.AbVarBC.Tangent.D Contrib.AbVarBC.Tangent.D_congr Contrib.AbVarBC.Tangent.D_inv Contrib.AbVarBC.Tangent.D_mul Contrib.AbVarBC.Tangent.D_one Contrib.AbVarBC.Tangent.D_zpow Contrib.AbVarBC.Tangent.KerN Contrib.AbVarBC.Tangent.atOrigin_inv Contrib.AbVarBC.Tangent.atOrigin_map Contrib.AbVarBC.Tangent.atOrigin_mul Contrib.AbVarBC.Tangent.atOrigin_one Contrib.AbVarBC.Tangent.atOrigin_zpow Contrib.AbVarBC.Tangent.closedPoint_eq Contrib.AbVarBC.Tangent.comp_intCast_hom Contrib.AbVarBC.Tangent.comp_mem_of_subsingleton Contrib.AbVarBC.Tangent.comp_orig_mem Contrib.AbVarBC.Tangent.derivation_eq_zero Contrib.AbVarBC.Tangent.dualHom Contrib.AbVarBC.Tangent.eq_ofRing_ptRing Contrib.AbVarBC.Tangent.eq_of_D_eq Contrib.AbVarBC.Tangent.eq_one_of_comp_intCast Contrib.AbVarBC.Tangent.ev0 Contrib.AbVarBC.Tangent.exists_affine_orig Contrib.AbVarBC.Tangent.fst_tRing Contrib.AbVarBC.Tangent.id_appLE_top Contrib.AbVarBC.Tangent.intCast_hom Contrib.AbVarBC.Tangent.isLocalHom_fstHom Contrib.AbVarBC.Tangent.isLocalRing_tsze Contrib.AbVarBC.Tangent.ker_le_sq_of_derivations Contrib.AbVarBC.Tangent.ks Contrib.AbVarBC.Tangent.ks_hom Contrib.AbVarBC.Tangent.ks_isOpenImmersion Contrib.AbVarBC.Tangent.left_closedPoint Contrib.AbVarBC.Tangent.locallyOfFiniteType_kerN Contrib.AbVarBC.Tangent.map_add_inl Contrib.AbVarBC.Tangent.map_add_inr Contrib.AbVarBC.Tangent.map_fst_inl Contrib.AbVarBC.Tangent.map_fst_inr Contrib.AbVarBC.Tangent.map_snd_inl Contrib.AbVarBC.Tangent.map_snd_inr Contrib.AbVarBC.Tangent.mem_of_atOrigin Contrib.AbVarBC.Tangent.mulN Contrib.AbVarBC.Tangent.ofRing Contrib.AbVarBC.Tangent.ofRing_mem Contrib.AbVarBC.Tangent.one_left Contrib.AbVarBC.Tangent.orig Contrib.AbVarBC.Tangent.ptR Contrib.AbVarBC.Tangent.ptRing Contrib.AbVarBC.Tangent.ptRing_comp Contrib.AbVarBC.Tangent.ptRing_congr Contrib.AbVarBC.Tangent.ptRing_ext Contrib.AbVarBC.Tangent.ptRing_id_top Contrib.AbVarBC.Tangent.ptRing_ofRing Contrib.AbVarBC.Tangent.ptRing_specMap_comp Contrib.AbVarBC.Tangent.specHom Contrib.AbVarBC.Tangent.specHom_comp Contrib.AbVarBC.Tangent.specHom_id Contrib.AbVarBC.Tangent.specHom_left Contrib.AbVarBC.Tangent.spec_inl_fst_comp Contrib.AbVarBC.Tangent.tRing Contrib.AbVarBC.Tangent.tRing_congr Contrib.AbVarBC.Tangent.tRing_one Contrib.AbVarBC.Tangent.tRing_specHom Contrib.AbVarBC.TorsionDescends Contrib.AbVarBC.comp_natCast_hom Contrib.AbVarBC.dim_baseChange_scheme Contrib.AbVarBC.dim_finite Contrib.AbVarBC.dim_pullback_spec Contrib.AbVarBC.dim_spec_le Contrib.AbVarBC.exists_lift_of_isFinite Contrib.AbVarBC.exists_nat_of_le Contrib.AbVarBC.galK Contrib.AbVarBC.kerUnitOpen Contrib.AbVarBC.map_comm Contrib.AbVarBC.mem_range_of_isIntegral Contrib.AbVarBC.mulIsogeny Contrib.AbVarBC.ptBC Contrib.AbVarBC.ptBC_galAct Contrib.AbVarBC.ptBC_injective Contrib.AbVarBC.ringKrullDim_eq_of_isIntegral_of_injective Contrib.AbVarBC.ringKrullDim_le_of_finiteType Contrib.AbVarBC.ringKrullDim_mvPolynomial_field Contrib.AbVarBC.ringKrullDim_tensor_field Contrib.AbVarBC.scheme_dim_eq_iSup_cover Contrib.AbVarBC.scheme_dim_eq_of_iso Contrib.AbVarBC.spec_dim Contrib.AbVarBC.tateBC Contrib.AbVarBC.tateBC_bijective_of_tateModuleFree Contrib.AbVarBC.tateBC_bijective_of_torsionDescends Contrib.AbVarBC.tateBC_galT Contrib.AbVarBC.tateBC_injective Contrib.AbVarBC.tate_map_bijective_of_torsion Contrib.AbVarBC.topologicalKrullDim_eq_iSup_of_openEmbedding Contrib.AbVarBC.torsionDescends_of_isFinite Contrib.AbVarBC.vBC Contrib.AbVarBC.vBC_galRep DefFaltings.AbVar DefFaltings.AnalyticUniformizationExists DefFaltings.AnalyticUniformizationUnique DefFaltings.EReal.add_coe_add_neg_coe DefFaltings.FinExt DefFaltings.Genus2Eq DefFaltings.Genus2Eq.Good DefFaltings.Genus2Eq.P DefFaltings.Genus2Eq.binDisc DefFaltings.GroupModel DefFaltings.GroupModel.IsAnalyticUniformization DefFaltings.GroupModel.IsNeronModel DefFaltings.GroupModel.Pts DefFaltings.GroupModel.cotangent DefFaltings.GroupModel.dCls DefFaltings.GroupModel.detLattice DefFaltings.GroupModel.dom DefFaltings.GroupModel.evalAt DefFaltings.GroupModel.exists_rep DefFaltings.GroupModel.genStalk DefFaltings.GroupModel.genericUnit DefFaltings.GroupModel.germAlong DefFaltings.GroupModel.height DefFaltings.GroupModel.height_eq DefFaltings.GroupModel.hodgeSpace DefFaltings.GroupModel.jacDet DefFaltings.GroupModel.jacDet_comp DefFaltings.GroupModel.omega DefFaltings.GroupModel.omegaAt DefFaltings.GroupModel.omegaAt_genericPt DefFaltings.GroupModel.ptC DefFaltings.GroupModel.semilinear_ext_wedge DefFaltings.GroupModel.specializes_genericUnit DefFaltings.GroupModel.structMap DefFaltings.GroupModel.unitSection DefFaltings.GroupModel.wedge DefFaltings.HermitianLattice DefFaltings.HermitianLattice.arakelovDegree DefFaltings.HermitianLattice.arakelovDegree_ofFractionalIdeal DefFaltings.HermitianLattice.arakelovDegree_rescale DefFaltings.HermitianLattice.degreeAt DefFaltings.HermitianLattice.degreeAt_eq DefFaltings.HermitianLattice.degreeAt_eq_arakelovDegree DefFaltings.HermitianLattice.degreeAt_smul DefFaltings.HermitianLattice.ofFractionalIdeal DefFaltings.HermitianLattice.rescale DefFaltings.HermitianLattice.secIndex_ne_zero DefFaltings.HodgeData DefFaltings.HodgeData.coeff_apply_ne_zero DefFaltings.HodgeData.hodgeBundle DefFaltings.HodgeData.modelHeight DefFaltings.HodgeData.modelHeight_eq DefFaltings.HodgeData.modelHeight_eq_add_of_le DefFaltings.HodgeData.modelHeight_eq_faltingsHeightGood DefFaltings.HodgeData.modelHeight_le_of_le DefFaltings.HodgeData.modelHeight_ofIdeal DefFaltings.HodgeData.modelHeight_ofIdeal_baseChange DefFaltings.HodgeData.modelHeight_of_span DefFaltings.HodgeData.modelHeight_recoord DefFaltings.HodgeData.norm DefFaltings.HodgeData.norm_sq DefFaltings.HodgeData.recoord DefFaltings.HodgeLatticeTheorem DefFaltings.IsIsogeny DefFaltings.MetrizedModel DefFaltings.MetrizedModel.modelHeight_eq_of_model_eq DefFaltings.NeronModelMinimal DefFaltings.PeriodAreaFormula DefFaltings.R19_GaudronRemond DefFaltings.R20_FaltingsLemma5 DefFaltings.R21_Bost DefFaltings.StableHeightFinite DefFaltings.absNorm_extendedHom DefFaltings.absNorm_map_ringOfIntegers DefFaltings.arakelovDegree_ofFractionalIdeal_baseChange DefFaltings.arakelovDegree_ofFractionalIdeal_mul DefFaltings.card_embeddings_over DefFaltings.covolume_comap_mul_det DefFaltings.covolume_gaussianPair DefFaltings.det_restrictScalars_complex DefFaltings.embCoeff DefFaltings.faltingsHeight DefFaltings.faltingsHeightEC DefFaltings.faltingsHeightGood DefFaltings.faltingsHeight_coe DefFaltings.finiteHeightPart DefFaltings.finrank_ringOfIntegers DefFaltings.gaussianPair DefFaltings.genericFibre DefFaltings.genericPt DefFaltings.grKappa DefFaltings.hypGram DefFaltings.hypGram_comp_add DefFaltings.hypVol DefFaltings.hypVol_one_comp_add DefFaltings.isogDeg DefFaltings.le_stableFaltingsHeight DefFaltings.modelHeight_ofIdeal_eq_faltingsHeightEC DefFaltings.modelHeight_ofIdeal_eq_faltingsHeightEC' DefFaltings.norm_algebraMap_tower DefFaltings.ptObj DefFaltings.ratCoeff DefFaltings.realify DefFaltings.secIndex DefFaltings.secIndex_mul_absNorm DefFaltings.secIndex_smul DefFaltings.stableFaltingsHeight DefFaltings.stableFaltingsHeightDeligne DefFaltings.stableFaltingsHeightDeligne_eq DefFaltings.stableFaltingsHeight_eq_faltingsHeightGood DefFaltings.stableFaltingsHeight_eq_iInf_height DefFaltings.stableFaltingsHeight_le DefFaltings.stableFaltingsHeight_ne_bot_of_R21 DefFaltings.sum_embeddings_comp DefFaltings.sum_log_norm_embeddings DefFaltings.sum_log_norm_embeddings_int DefFaltings.torusMetricSq DefFaltings.torusMetricSq_comap DefFaltings.torusMetricSq_eq_setIntegral DefFaltings.torusMetricSq_pos DefFaltings.torusMetricSq_smul DefFaltings.torus_setIntegral_indep H5Glue.GenericFibreStalkIso H5Glue.GroupModel.baseChange H5Glue.GroupModel.isNeronModel_iff H5Glue.GroupModelBaseChangeExists H5Glue.HeightAntitone H5Glue.HodgeLatticeNonzero H5Glue.HodgeMapBijective H5Glue.IsBaseChangeOf H5Glue.IsOpenSubgroupModel H5Glue.IsProductAbVar H5Glue.IsProductModel H5Glue.ModelHeightBaseChange H5Glue.NeronModelExists H5Glue.NeronProp H5Glue.NeronProp.lift H5Glue.NeronProp.of_iso H5Glue.NeronProp.tensor H5Glue.NeronProp.uniqueIso H5Glue.OmegaSpans H5Glue.OpenImmersionHeightLe H5Glue.OpenSubgroupHeight H5Glue.ProductGroupModelExists H5Glue.ProductModelHeight H5Glue.SemistableNeronIdentityComponent H5Glue.baseChange_map_bijective H5Glue.bcProd H5Glue.bijective_respectsIso H5Glue.compositum H5Glue.cotMap H5Glue.cotMap_bijective H5Glue.cotMap_dCls H5Glue.cotMap_omega H5Glue.cotMap_omegaAt H5Glue.detLattice_le_hodgeMap H5Glue.dom_comp H5Glue.evalAt_comp H5Glue.evalAt_res H5Glue.exists_smul_mem_omega H5Glue.fst_genericFibreUnit H5Glue.fst_genericFibre_unit H5Glue.genBC H5Glue.genBC_isMonHom H5Glue.genMap H5Glue.genMap_germ H5Glue.genMap_mem_maximalIdeal H5Glue.genMap_mem_maximalIdeal_iff H5Glue.genMap_structMap H5Glue.genericFibreStalkIso H5Glue.genericFibreUnit H5Glue.genericIso_of_openImmersion H5Glue.germAlong_comp_eventuallyEq H5Glue.groupModelBaseChangeExists H5Glue.heightAntitone H5Glue.heightAntitone_of H5Glue.heightAntitone_of_hodgeLatticeNonzero H5Glue.heightAntitone_of_omegaSpans H5Glue.hodgeLatticeNonzero_of_omegaSpans H5Glue.hodgeMap H5Glue.hodgeMapBijective H5Glue.hodgeMap_detLattice H5Glue.hodgeMap_wedge H5Glue.hodgeMap_wedgeGerm H5Glue.isAnalyticUniformization_comp H5Glue.isAnalyticUniformization_of_comp H5Glue.isIso_genMap H5Glue.isIso_of_openImmersion_self H5Glue.isIso_stalkSpecializes_genMap H5Glue.isMonHom_of_map H5Glue.isMonHom_pbCompHom H5Glue.isMonHom_pbCompInv H5Glue.isMonHom_pbEqIso H5Glue.isMonHom_prodComparisonIso H5Glue.isNeronModel_of_isProductModel H5Glue.isOpenImmersion_pullback_map H5Glue.jL H5Glue.jacDet_comp_genMap H5Glue.jacDet_comp_map H5Glue.map_genericUnit' H5Glue.map_span_singleton_toAddSubgroup H5Glue.map_zero_of_hom H5Glue.modelHeight_pullHodge_le H5Glue.neronModelMinimal H5Glue.neronModelMinimal_of_heightAntitone H5Glue.neron_lift H5Glue.neron_lift_isMonHom H5Glue.neron_map_injective H5Glue.omegaAt_le_cotMap H5Glue.omegaSpans H5Glue.omega_le_cotMap H5Glue.one_mem_dom H5Glue.openImmersionHeightLe H5Glue.openSubgroupHeight H5Glue.openSubgroupHeight_of H5Glue.pbCompHom H5Glue.pbCompInv H5Glue.pbCompIso H5Glue.pbEqIso H5Glue.productGroupModelExists H5Glue.ptCIso H5Glue.ptC_hom_apply H5Glue.ptsEquiv H5Glue.ptsEquiv_comp H5Glue.pts_comp_bijective H5Glue.pullHodge H5Glue.secIndex_le_of_map H5Glue.secIndex_ne_zero_of_mem H5Glue.smooth_tensor H5Glue.smooth_unit H5Glue.square1 H5Glue.square2 H5Glue.stableFaltingsHeight_add_le H5Glue.stableFaltingsHeight_add_le_of_productModelHeight H5Glue.stableFaltingsHeight_eq_neron_all H5Glue.stableFaltingsHeight_eq_neron_all' H5Glue.stalkIso_of_genericIso H5Glue.stalkSpecializes_self_apply H5Glue.stalkSpecializes_stalkSpecializes_apply H5Glue.stalk_ker_eq H5Glue.stalk_spec_eq H5Glue.stalkwise_fst_toGeneric H5Glue.stalkwise_tensor_localization H5Glue.tensorGen H5Glue.tensorGen_fst H5Glue.tensorGen_snd H5Glue.toGeneric_pt H5Glue.unitSection_comp H5Neron.GroupModel.IsNeronModel.lift H5Neron.GroupModel.IsNeronModel.uniqueIso H5Neron.GroupModel.isNeronModel_iff H5Neron.GroupModelBaseChangeExists H5Neron.IsBaseChangeOf H5Neron.IsOpenSubgroupModel H5Neron.IsProductAbVar H5Neron.IsProductModel H5Neron.ModelHeightBaseChange H5Neron.NeronModelExists H5Neron.NeronProp H5Neron.NeronProp.lift H5Neron.NeronProp.of_iso H5Neron.NeronProp.tensor H5Neron.NeronProp.uniqueIso H5Neron.OpenSubgroupHeight H5Neron.ProductGroupModelExists H5Neron.ProductModelHeight H5Neron.R19_zero H5Neron.R20_zero H5Neron.R21_zero H5Neron.SemistableNeronIdentityComponent H5Neron.bcProd H5Neron.bcUnitIso H5Neron.compositum H5Neron.covolume_fin_zero H5Neron.detLattice_zero H5Neron.glue_zero H5Neron.groupModel_height_zero H5Neron.hodgeZeroEquiv H5Neron.hodgeZeroEquiv_wedge0 H5Neron.hom_ext_of_iso_unit H5Neron.isIsogeny_id_zero H5Neron.isMonHom_of_iso_unit H5Neron.isMonHom_prodComparisonIso H5Neron.isNeronModel_of_isProductModel H5Neron.isogDeg_zero_le_one H5Neron.jL H5Neron.metrizedOf H5Neron.modelHeight_dim_zero H5Neron.neronModelExists_zero H5Neron.neronModelMinimal_zero H5Neron.neron_zero_iso_unit H5Neron.no_metrized_succ H5Neron.one_le_grKappa H5Neron.productGroupModelExists H5Neron.pts_subsingleton H5Neron.semistableNeronIdentityComponent_zero H5Neron.semσ H5Neron.stableFaltingsHeight_add_le H5Neron.stableFaltingsHeight_add_le' H5Neron.stableFaltingsHeight_eq_neron H5Neron.stableFaltingsHeight_eq_neron_all H5Neron.stableFaltingsHeight_zero H5Neron.stableHeightFinite_zero H5Neron.tensorGen H5Neron.tensorGen_fst H5Neron.tensorGen_snd H5Neron.trivHodge H5Neron.trivMetrized H5Neron.trivModel H5Neron.trivModel_isNeronModel H5Neron.wedge0 H5Neron.wedge0_ne_zero H5Neron.wedge_eq_wedge0 HeightBC.CotangentSpanBC HeightBC.D0 HeightBC.D0_add HeightBC.D0_add_apply HeightBC.D0_mul HeightBC.D0_mul_apply HeightBC.D0_sq HeightBC.D0_structMap_mul HeightBC.DetLatticeBC HeightBC.FF HeightBC.GermDerivation HeightBC.HodgeBCInjective HeightBC.HodgeLineBaseChange HeightBC.HodgeLineBaseChangeDescent HeightBC.HodgeLineDescentHalf HeightBC.HodgeSpanBC HeightBC.IsBaseChangeOf HeightBC.IsHodgeBaseChange HeightBC.IsMonBC HeightBC.JacobianPullbackSpan HeightBC.JacobianSemilinear HeightBC.MetrizationBaseChange HeightBC.ModelHeightBaseChange HeightBC.ModelHeightBaseChangeGE HeightBC.ModelHeightBaseChangeLE HeightBC.OmegaBaseChange HeightBC.OmegaLocalization HeightBC.PtsBaseChangeBij HeightBC.PtsBaseChangeMul HeightBC.UniformizationLift HeightBC.UniformizationLiftAnalytic HeightBC.algebraMap_FF HeightBC.algebraMap_ringOfIntegers_coe HeightBC.appLE_top_top HeightBC.bO HeightBC.bO_appTop HeightBC.bO_genericPt HeightBC.bcAlt HeightBC.bcCot HeightBC.bcCotBasis HeightBC.bcCotBasis_apply HeightBC.bcCot_core HeightBC.bcCot_dCls HeightBC.bcCot_intInv HeightBC.bcCot_linearIndependent HeightBC.bcCot_omega HeightBC.bcCot_omegaAt HeightBC.bcCot_smulL HeightBC.bcCot_smul_genStalk HeightBC.bcCot_span HeightBC.bcCot_update HeightBC.bcExt HeightBC.bcExt_smul HeightBC.bcExt_ιMulti HeightBC.bcHodge HeightBC.bcHodge_detLattice HeightBC.bcHodge_smul HeightBC.bcHodge_tmul HeightBC.bcHodge_wedge HeightBC.bcMap HeightBC.bcMap_germ HeightBC.bcMap_mem_maximalIdeal HeightBC.bcMap_structMap HeightBC.bcMap_φL HeightBC.bcProj HeightBC.bcProj_genericUnit HeightBC.bcProj_unit HeightBC.bcProj_w HeightBC.bcPts HeightBC.cotL HeightBC.cotL_isScalarTower HeightBC.cotL_smul HeightBC.cotRes HeightBC.cotangentSpanBC HeightBC.descentHalf_of_descent HeightBC.detLatticeBC_of_omega HeightBC.dom_bcPts HeightBC.evalAt_add HeightBC.evalAt_bcPts HeightBC.evalAt_mul HeightBC.evalAt_one_eq_zero HeightBC.evalAt_res HeightBC.evalAt_structSection HeightBC.exists_act HeightBC.exists_comp_eq HeightBC.exists_int_dvd HeightBC.exists_mem_not_mem_of_sat HeightBC.exists_ringOfIntegers_of_algebraMap HeightBC.extRes HeightBC.finite_of_isClosed_not_genericPt HeightBC.g0_hodgeLine_iff HeightBC.genericPt_eq_genericPoint HeightBC.germAlong_add_mul HeightBC.germAlong_bcPts_eventuallyEq HeightBC.germAlong_differentiableAt HeightBC.germAlong_eventuallyEq_rep HeightBC.germAlong_structMap HeightBC.germAlong_zero_of_mem HeightBC.germDerivation HeightBC.germDerivation_at HeightBC.hodgeBCInjective HeightBC.hodgeLineBaseChangeDescent_of_glue HeightBC.hodgeLineBaseChange_of_descent HeightBC.hodgeLineBaseChange_of_final HeightBC.hodgeLineBaseChange_of_five HeightBC.hodgeLineBaseChange_of_four HeightBC.hodgeLineBaseChange_of_glue HeightBC.hodgeLineBaseChange_of_glue4 HeightBC.hodgeLineBaseChange_of_glue5 HeightBC.hodgeLineBaseChange_of_main HeightBC.hodgeLineBaseChange_of_two HeightBC.hodgeSpanBC_of HeightBC.hom_genericUnit HeightBC.hom_genericUnit' HeightBC.hom_unitSection HeightBC.isAnalyticUniformization_bcPts HeightBC.isField_stalk_genericPt HeightBC.isIso_stalkSpecializes_bcMap HeightBC.isUnit_germ_genericPt HeightBC.isUnit_structMap HeightBC.jacDet_bcPts HeightBC.jacobianPullbackSpan_of HeightBC.jacobianSemilinear HeightBC.jacobianSemilinear_of HeightBC.locSub HeightBC.mapCotangent_injective_of_isIso HeightBC.mapCotangent_smul' HeightBC.map_zero_of_hom HeightBC.maximalIdeal_stalk_genericPt HeightBC.mem_locSub HeightBC.mem_of_forall_locSub HeightBC.metrizationBaseChange_of_hodgeLine HeightBC.modelHeightBaseChangeGE_of_descent HeightBC.modelHeightBaseChangeGE_of_descentHalf HeightBC.modelHeightBaseChangeGE_of_main HeightBC.modelHeightBaseChangeGE_of_two HeightBC.modelHeightBaseChangeLE_of_metrization HeightBC.modelHeightBaseChange_of_descent HeightBC.modelHeightBaseChange_of_final HeightBC.modelHeightBaseChange_of_five HeightBC.modelHeightBaseChange_of_four HeightBC.modelHeightBaseChange_of_glue HeightBC.modelHeightBaseChange_of_glue4 HeightBC.modelHeightBaseChange_of_glue5 HeightBC.modelHeightBaseChange_of_main HeightBC.modelHeightBaseChange_of_two HeightBC.modelHeight_eq_of_isHodgeBaseChange HeightBC.multilinear_mem_span HeightBC.omegaAt_bc_local HeightBC.omegaAt_full HeightBC.omegaAt_open HeightBC.omegaAt_sat HeightBC.omegaBaseChange HeightBC.omegaBaseChange_of_localization HeightBC.omegaLocalization HeightBC.one_mem_dom HeightBC.ptC_hom_apply HeightBC.ptC_hom_comp_bO HeightBC.ptsBaseChangeBij HeightBC.ptsBaseChangeMul HeightBC.rationalOver_genericUnit HeightBC.secIndex_baseChange HeightBC.secIndex_map HeightBC.secIndex_ne_zero_of_baseChange HeightBC.secIndex_nsmul_mem HeightBC.smul_cotangent_eq_of_sub_mem HeightBC.span_bcHodge_le HeightBC.spec_mem_of_ker HeightBC.stalkMapAt_germ' HeightBC.stalkSpec_comp_apply HeightBC.stalkSpec_self_apply HeightBC.stalkSpecializes_self_apply' HeightBC.stalkSpecializes_stalkSpecializes_apply' HeightBC.structMap_eq_spec HeightBC.structMap_eq_stalkMap HeightBC.toCotangent_mul HeightBC.uniformizationLift HeightBC.uniformizationLiftAnalytic HeightBC.uniformizationLift_of HeightBC.unitSection_comp_hom HeightBC.unitSection_stalkMapAt_hom HeightBC.σFF HeightBC.φL HeightBC.φL_algebraMap LeafPush2.CPts LeafPush2.Char2 LeafPush2.HasSexticModel LeafPush2.IC10 LeafPush2.IC2 LeafPush2.IC4 LeafPush2.IC6 LeafPush2.IgJ10 LeafPush2.IgJ2 LeafPush2.IgJ4 LeafPush2.IgJ6 LeafPush2.IsGenus2 LeafPush2.IsPeriodMatrix LeafPush2.IsSiegel LeafPush2.IsUniformization LeafPush2.LinYangTuple LeafPush2.OnQMLocus LeafPush2.T10_groupIso LeafPush2.T11a_RiemannEnd LeafPush2.T11b_Rigidity LeafPush2.T12_ComplexConjEigen LeafPush2.UniformizationExists LeafPush2.absLogHeight LeafPush2.cDom LeafPush2.cEvalAt LeafPush2.cptObj LeafPush2.dsq LeafPush2.exists_isComplexConj LeafPush2.ffAlgebra LeafPush2.ffStructMap LeafPush2.isSiegel_I LeafPush2.javanpeykarBound LeafPush2.javanpeykarBound_mono LeafPush2.javanpeykarBound_pos LeafPush2.linYangTuple_onQMLocus LeafPush2.linYang_j_eq LeafPush2.onQMLocus_of_linYangTuple LeafPush2.pazukiC2 LeafPush2.sextic LeafPush2.thetaConst) -- op-dedupe
+open _root_.LeafQM.AV (CMExists HasCM24 HasCM24.of_iso HasCM3 HasCM3.of_iso HasCM4 HasCM4.of_iso IsBaseChangeOf IsBaseChangeOfPair IsFibreOf Level3 Level3.bcPt_pow_three Level3.eq_iff Level3.exists_mul_of_range_le Level3.ext' Level3.onto Level3.range_le Level3.rightMul Level3.rightMul_eq_self Level3.rightMul_rightMul Level3.torsor Level3.twist M3 M3.mk M3.rightMul M3.rightMul_rightMul M3.twist M3.twist_mk Pin.AutOExt.NormalizerFinite Pin.AutOExt.alpha_nat_smul Pin.AutOExt.autOInnerFinite_of_normalizer Pin.AutOExt.common_den Pin.AutOExt.conjUnit Pin.AutOExt.conj_of_skolem Pin.AutOExt.den_mul_int Pin.AutOExt.exists_nat_smul_mem Pin.AutOExt.extAlgEquiv Pin.AutOExt.extAlgHom Pin.AutOExt.extAlgHom_coe Pin.AutOExt.extAlgHom_symm_comp Pin.AutOExt.extDen Pin.AutOExt.extDen_mem Pin.AutOExt.extDen_pos Pin.AutOExt.extFun Pin.AutOExt.extFun_add Pin.AutOExt.extFun_algebraMap Pin.AutOExt.extFun_coe Pin.AutOExt.extFun_eq Pin.AutOExt.extFun_mul Pin.AutOExt.key_conj Pin.AutOExt.mem_O_of_int Pin.AutOExt.natCast_mul_eq_smul Pin.AutOExt.nat_smul_mem Pin.AutOExt.smul_mul_smul' Pin.AutOInnerFinite Pin.ConstOrOntoAlgClosed Pin.CurveRatFactor Pin.CurveSurj Pin.GeomCompConstOrOnto Pin.GeomCompFinite Pin.GeomCompInfinite Pin.GeomCompRatFactor Pin.ImagePlane.ev_comp Pin.ImagePlane.ev_spec_top Pin.ImagePlane.ptOf_comp Pin.ImagePlane.ptOf_spec_asIdeal Pin.IsNaturalRelabel Pin.Mob.eval_ne_zero_of_coprime Pin.Mob.exists_interp Pin.Mob.isCoprime_X_sub_C_of_eval_one Pin.Mob.natDegree_le_one_of_injective Pin.Mob.ratEval Pin.Mob.ratEval_eq_self Pin.Mob.wronskian_ne_zero Pin.MobiusGlue Pin.NormO.IsNorm Pin.NormO.IsNorm.inv Pin.NormO.IsNorm.mul Pin.NormO.T Pin.NormO.T_finite Pin.NormO.T_mul_ui Pin.NormO.T_mul_uj Pin.NormO.bas Pin.NormO.conjC Pin.NormO.descent Pin.NormO.dvd_of_prime_dvd_nrd Pin.NormO.dvd_of_smul_mem Pin.NormO.ei Pin.NormO.ej Pin.NormO.inv_eq Pin.NormO.isNorm_sc Pin.NormO.isNorm_ui Pin.NormO.isNorm_uj Pin.NormO.mulCoord_conjC Pin.NormO.mulCoord_conjC' Pin.NormO.mulCoord_smul_left Pin.NormO.mulCoord_smul_right Pin.NormO.normalizerFinite Pin.NormO.nrdZ Pin.NormO.nrdZ_ei Pin.NormO.nrdZ_ej Pin.NormO.nrdZ_mul Pin.NormO.nrdZ_ne_zero Pin.NormO.nrdZ_smul Pin.NormO.nrd_dvd_coords Pin.NormO.ofInt_scalar Pin.NormO.rearrange Pin.NormO.sc Pin.NormO.six_sq_identities Pin.NormO.smul_ofInt Pin.NormO.three_dvd_mulCoord_ej Pin.NormO.two_dvd_mulCoord_ei Pin.NormO.ui Pin.NormO.uj Pin.PinUnique Pin.QMFamily.transport Pin.QML3.isoTransport Pin.R1fpProps.fam Pin.R1fpProps.univ Pin.RatFactorAlgClosed Pin.SameTriple Pin.SameTripleMor Pin.SmoothCurveNoIsolatedPoint Pin.SmoothStalkDimOne Pin.TwistClassFinite Pin.autOInnerFinite Pin.autRelabel Pin.autRelabel_natural Pin.bcPt Pin.bcPt_ptOfSection Pin.bcPt_snd Pin.bcQbar Pin.bcSnd Pin.cm_objects_of_R1R2fp Pin.conjUnitIso Pin.cst Pin.curveFacts_of_algClosed Pin.curveFacts_of_comp Pin.curveFacts_of_leaves Pin.curveFacts_of_named Pin.curveRatFactor_of_comp Pin.curveSurj_of_comp Pin.ev Pin.ev_cst Pin.ev_eq_zero_iff Pin.ev_f_mul_g Pin.ev_g_eq_zero Pin.ev_res Pin.ev_top Pin.exists_isOpen_singleton_of_finite_closedPoints Pin.exists_liftO_congr Pin.exists_point_of_isLocallyClosed Pin.geomComp Pin.geomCompConstOrOnto_of Pin.geomCompFinite Pin.geomCompInfinite_of Pin.geomCompRatFactor_of Pin.isFibreOf_transport Pin.isOpen_connectedComponent_of_noetherian Pin.level3_finite Pin.mem_V_of_not_mem_U Pin.phi_part Pin.pointwise_of_witness Pin.pointwise_of_witness_mor Pin.ptOf Pin.ptOfSection Pin.r1fpPin_aut Pin.r1fpPin_relabel_iff Pin.r2fp_aut Pin.relabel Pin.relabel_geometric Pin.relabel_is_morphism Pin.res Pin.res_res Pin.sameTripleMor_of_mobius Pin.sameTriple_aut Pin.smoothCurveNoIsolatedPoint_of Pin.transfer_exists Pin.transfer_pointwise Pin.transfer_pointwise_mor Pin.transportLevel Pin.twistClassFinite Pin.twistClassFinite_of Pin.val_bcPt Pin.val_of_mem Pin.val_of_not_mem PtEquiv QMFamily QMIso QMIso.nonempty_abVarIso QMIso.refl QMIso.symm QMIso.trans QML3 QML3.Iso QML3.Iso.refl QML3.Iso.rightMul QML3.Iso.symm QML3.Iso.trans QML3.Iso.twist QML3.forget QML3.rightMul QML3.rightMul_A QML3.rightMul_rightMul QML3.twist QML3.twist_A QMLeaves QMPair QMPair.twist QMStr QMStr.twist Qbar R1R2fp R1R2fp_Y R1famProps R1fp R1fpProps R1fp_of_R1R2fp R1heckeProps R1rec R1recProps R1univProps R2X6Props R2fpProps R2fpProps_of_X6 R5fp R5fpCount R5fpWeak R5fpWeak_of_R5fp R5ptProps ToP1 ToP1.comp ToP1.val ToP1.val_comp ToP1.val_comp_right UnramifiedAbove5 X6Props X6Surj act_mul_apply bcPt bcPt_injective cm_of_val com comEquiv com_twist conductor conjHom conjHom_iota conjHom_mem_com conjHom_symm_apply conj_iso_of_rational conj_twist_of_rational endPt exists_fibre_object fibre_conjugates_isomorphic fieldMap fieldOfModuli3 fieldOfModuliPair fieldPt galAct_bcPt hI hIJ hJ hasCM24_twist hasCM3_twist hasCM4_twist hrat inertCount6 intCast_mem_com isoSetoid leaves_on_one_witness liftO not_qmStr_zero ofInt_injective ofInt_sub oi oi_mul_oi oj oj_mul_oi_add oj_mul_oj pairSetoid qmAct residueImage residue_unramified_over_branch specMap_flat specMap_surjective specToEquivOfField_comp specToEquivOfField_comp_right stab3 stabPair three_mul_ofInt toKbar unramified_over_branch) -- op-dedupe
+open _root_.GlueDescent (B2.IsSignCocycle B2.SignCob B2.dB B2.dB_inv B2.dB_mul B2.exists_beta B2.isSignCocycle_dB B2.isSignCocycle_inv B2.isSignCocycle_mul B2.isSignCocycle_pull B2.pull B2.pull_dB B2.signCob_dB_iff B2.signCob_inv B2.signCob_mul B2Q.GQ B2Q.GQp B2Q.InflatedFrom B2Q.LeafHasse B2Q.LeafLocalTwo B2Q.LeafSqrtCrit B2Q.LeafUnramified B2Q.UnramifiedAt B2Q.act B2Q.act_mul B2Q.b2_of_leaves B2Q.cast_cast_of_dvd B2Q.chiLevel_pos B2Q.chi_toUnitHom_crt B2Q.cyc B2Q.cyc_eq_of_agree B2Q.cyc_isLocallyConstant B2Q.exists_crt_unit B2Q.galChar B2Q.galChar_isLocallyConstant B2Q.isLocallyConstant_of_openSubgroup B2Q.lev_eq_pow B2Q.resp B2Q.resp_continuous B2Q.sqrtU B2Q.sqrtU_sq B2Q.toRingAut B3Q.GQL B3Q.b3_degree_le_QM B3Q.b3_of_leaves B3Q.inflatedNormalized_of B3Q.mem_GQL B3Q.orderOf_pos_dirichlet B6 B6_commute_i_j B6_inner B6_isCentral B6_isSimpleRing B6_star_mul InflatedNormalized IsCochainFor LeafSkolemNoether MatrixUnits2 MatrixUnits2.W MatrixUnits2.e00_of_mem MatrixUnits2.e_apply_e MatrixUnits2.finrank_W MatrixUnits2.mapsTo_W MatrixUnits2.mem_W_of_e0 MatrixUnits2.splitEquiv MatrixUnits2.splitEquiv_intertwines aniso_int aniso_rat boundary_sq chi chiLevel cochain_conj cochain_mul_kernel cochain_mul_left cochain_mul_right cochain_of_boundary_eq cochain_one cocycle_of_projective commute_adjoin contactSupport_pos degree_le_QM exists_chi exists_odd_char heightD_pos index_kernel_le inertia_le_kernel kernelSubgroup kernelSubgroup_le kernelSubgroup_normal lev lev_dvd_chiLevel mem_kernelSubgroup oddChar oddChar_neg_one orderOf_dvd_totient orderOf_prod_dvd prod_S_le prod_odd_le prod_odd_le_aux prod_totient_lev_le qi qj ramSet relindex_kernel_le restrictHom rho rhoRep rho_commute rho_eq_act rho_map_mul sign_cocycle sign_normalization sign_sq_eq_one ten_le_heightE0 three_dvd_of_form totient_lev twist twist_kills_inertia twist_sq two_lt_lev zmod3_aniso) -- op-dedupe
+open _root_.G0ModField (CommonConstituent ConjugacyData DescentDatum FibreCoverExists FibreCoverOut FibreCtx G2Out G4Out G7Out GaloisCopy.G2Out GaloisCopy.G7Out GaloisCopy.Vb GaloisCopy.resQ GaloisCopy.tate IF IsModelOver IsQMModel IsQMModel.isModelOver KernelFieldExists KernelFieldOut ModularConstituentG PtQ RationalFibre ResQRange T UnramifiedSup actK actQ admissible_S_mul b2_of_leaves_level b3_of_cochain baseChangeTrans card_ker_GL descentDatum_bot descentDatum_of_conjugacy fieldDescent g2Out_of_cover g4Out_of_kernelField g7Out_of_g4Out galAct_bijective galAct_mul incAlg isModelOver_baseChange le_heightD_of_mem_S_mul mem_GQL_bot normA numberField_of_fd resQRange resQ_comm' resQ_range sgnU sgnU_mul sgnU_mul_abs sgnU_sq toLAut toLAut_apply two_mem_T) -- op-dedupe
+open _root_.UnramTate (EndBaseChange PtA ResQEmbedding ScalarTransfer TateCont TatePoints bcPt bcPt_galAct conjE conjE_apply endBC endBaseChange eps_right_one hO homEquiv_mul iO iO_jO iO_sq incO' incO'_coe inertia_trivial' instGaloisQbar' jO jO_sq lift_fixes' matrixUnits_of_quat numberField_of_fd'' opV opVHom ptMapIso quat_words resQEmbedding sK scalarTransfer specMap_comp_sK tateCont_of_tateModuleFree tateMap_add tateMap_comp tateMap_id tateMap_zero tatePoints tate_eq_opV tmOf trHom trHom_comp_symm trHom_left trHom_symm_comp trPt trPt_galAct unramifiedSup_mf) -- op-dedupe
 
 /-- **`TateBridge35` from I3.M0, the two leaf candidates and I2-Red, I2-NMP (proved).** -/
 theorem tateBridge35_of_nmp (hT : PkgI3.TateModuleFree) (hG : GoodRedCofinite)
@@ -9553,102 +6466,16 @@ Appended (by `scratch/frob-pieces/build.sh`) to a verbatim copy of
 noncomputable section
 
 namespace FrobPiecesGood
+open _root_.FrobPiecesGood (AbSchemeSpreadsOut algFrobRed_of_four algFrobRed_of_goodRed_nmp algFrobRed_of_neron algFrobRed_of_neron_nmp algFrobRed_of_spread algFrobRed_of_spread_nmp goodRedCofinite_of isUnit_intCast_of_coprime pullbackGrp_congr smoothGeomConnIntegral) -- op-dedupe
 
 open CategoryTheory AlgebraicGeometry
 open _root_.ZInQ ZInQ LeafQM.AV GlueDescent G0ModField UnramTate AlgFrobRedRed
-
-set_option synthInstance.maxHeartbeats 400000 in
-/-- **`AbSchemeSpreadsOut` (LEAF candidate, published: spreading out an abelian variety to an
-abelian scheme).** An abelian variety `A` over a number field `L ⊆ ℚ̄` extends to an abelian
-scheme (I2's `IsAbelianScheme`: a group object, proper, smooth, geometrically connected) over a
-finitely generated subring `R = ℤ[s] ⊆ L`, with generic fibre isomorphic to `A` as a group object.
-Source: `L = colim R` over finitely generated subrings; the scheme, group law and axioms descend to
-some `R` (EGA IV₃ 8.8.2), as do properness (EGA IV₃ 8.10.5 (xii)) and smoothness (EGA IV₄ 17.7.8);
-geometric connectedness of the fibres holds after shrinking `R` to a normal ring with fraction
-field `L`, e.g. `𝓞_L[1/N]` (finitely generated: an integral basis and `1/N`), by Zariski's
-connectedness theorem (EGA III₁ 4.3; this is `FrobPiecesNeron.ProperSmoothGenConnected`), or
-over a nonempty open of `Spec R` (EGA IV₃ 9.7.7, with a generic-point argument). Locators UNVERIFIED. Same input as
-neron-lg's glue N1-g1 `AbVarSpreadsOut`, plus geometric connectedness of the fibres. -/
-def AbSchemeSpreadsOut : Prop :=
-  ∀ (L : IF) [FiniteDimensional ℚ L] (A : PkgI3.AbVar L),
-    ∃ (s : Finset L) (𝒜 : Grp (Over (Spec (.of (Subring.closure (s : Set L)))))),
-      PkgI2.IsAbelianScheme 𝒜 ∧
-      Nonempty ((Over.pullback (Spec.map (CommRingCat.ofHom
-        (algebraMap (Subring.closure (s : Set L)) L)))).mapGrp.obj 𝒜 ≅ ObjBridge.toGrp A)
-
-/-- A nonzero integer prime to `p` is a unit in `O_w` for `w ∣ p`. -/
-theorem isUnit_intCast_of_coprime {L : IF} {v : ValuationSubring PkgI4.Qbar} {p : ℕ}
-    (hp : p.Prime) (hv : PkgI4.LiesOver v p) {y : ℤ}
-    (hpy : ¬ p ∣ y.natAbs) : IsUnit (y : Ow L v) := by
-  by_contra hnu
-  have hym : (y : Ow L v) ∈ IsLocalRing.maximalIdeal (Ow L v) :=
-    (IsLocalRing.mem_maximalIdeal _).2 hnu
-  have hpm := natCast_mem_maximalIdeal (L := L) hp hv
-  have hcop : IsCoprime (p : ℤ) y := by
-    rw [Int.isCoprime_iff_gcd_eq_one]
-    have := (Nat.Prime.coprime_iff_not_dvd hp).2 hpy
-    simpa [Int.gcd] using this
-  obtain ⟨u, w, huw⟩ := hcop
-  have h1 : ((u * p + w * y : ℤ) : Ow L v) ∈ IsLocalRing.maximalIdeal (Ow L v) := by
-    push_cast
-    exact Ideal.add_mem _ (Ideal.mul_mem_left _ _ hpm) (Ideal.mul_mem_left _ _ hym)
-  rw [huw, Int.cast_one] at h1
-  exact (IsLocalRing.maximalIdeal.isMaximal _).ne_top ((Ideal.eq_top_iff_one _).2 h1)
-
-set_option synthInstance.maxHeartbeats 400000 in
-/-- Base change of a group object along equal morphisms. -/
-theorem pullbackGrp_congr {X Y : Scheme} {f f' : X ⟶ Y} (h : f = f') (𝒜 : Grp (Over Y)) :
-    Nonempty ((Over.pullback f).mapGrp.obj 𝒜 ≅ (Over.pullback f').mapGrp.obj 𝒜) := by
-  subst h; exact ⟨Iso.refl _⟩
-
-set_option synthInstance.maxHeartbeats 400000 in
-/-- **`GoodRedCofinite` from `AbSchemeSpreadsOut` (proved).** Let `𝒜/ℤ[s]` spread out `A`, and
-`y ≠ 0` an integer with `y·a` integral for every `a ∈ s` (`exists_integral_multiples`). For a prime
-`p ∤ y` and `w ∣ p`, `y` is a unit and integral elements lie in the valuation ring `O_w`, so
-`ℤ[s] ⊆ O_w`; the base change of `𝒜` to `O_w` is an abelian scheme (base-change stability) whose
-generic fibre is that of `𝒜` (`Over.pullbackComp`, `Functor.mapGrpNatIso`). -/
-theorem goodRedCofinite_of (h : AbSchemeSpreadsOut) : GoodRedCofinite := by
-  intro L _ A
-  letI : NumberField L := { to_charZero := inferInstance, to_finiteDimensional := inferInstance }
-  obtain ⟨s, 𝒜, h𝒜, ⟨e⟩⟩ := h L A
-  obtain ⟨y, hy0, hyint⟩ := exists_integral_multiples ℤ ℚ s
-  refine ⟨y.natAbs.primeFactors, fun p hp hpS v hv => ?_⟩
-  have hpy : ¬ p ∣ y.natAbs := fun hd =>
-    hpS (Nat.mem_primeFactors.2 ⟨hp, hd, Int.natAbs_ne_zero.2 hy0⟩)
-  obtain ⟨u, hu⟩ := isUnit_intCast_of_coprime (L := L) hp hv hpy
-  have hinv : (y : L)⁻¹ ∈ Ow L v := by
-    have h2 : ((u⁻¹ : (Ow L v)ˣ) : Ow L v) * (y : Ow L v) = 1 := by rw [← hu]; exact u.inv_mul
-    have h3 : (((u⁻¹ : (Ow L v)ˣ) : Ow L v) : L) * (y : L) = 1 := by
-      have := congrArg (fun z : Ow L v => (z : L)) h2
-      simpa using this
-    rw [← eq_inv_of_mul_eq_one_left h3]
-    exact ((u⁻¹ : (Ow L v)ˣ) : Ow L v).2
-  have hmem : ∀ a ∈ s, a ∈ Ow L v := by
-    intro a ha
-    obtain ⟨b, hb⟩ := IsIntegrallyClosed.isIntegral_iff.1
-      (show IsIntegral (Ow L v) (y • a) from (hyint a ha).tower_top)
-    have hyL : (y : L) ≠ 0 := by exact_mod_cast hy0
-    have ha' : a = (y : L)⁻¹ * (y • a) := by
-      rw [zsmul_eq_mul, ← _root_.mul_assoc, inv_mul_cancel₀ hyL, _root_.one_mul]
-    rw [ha', ← hb]
-    exact mul_mem hinv b.2
-  have hle : Subring.closure (s : Set L) ≤ (Ow L v).toSubring :=
-    Subring.closure_le.2 (fun a ha => hmem a ha)
-  let φ : Subring.closure (s : Set L) →+* Ow L v := Subring.inclusion hle
-  let g := Spec.map (CommRingCat.ofHom φ)
-  refine ⟨(Over.pullback g).mapGrp.obj 𝒜, ?_, ?_⟩
-  · have := h𝒜.proper; have := h𝒜.smooth; have := h𝒜.geomConnected
-    refine ⟨?_, ?_, ?_⟩
-    · show IsProper (Limits.pullback.snd 𝒜.X.hom g); infer_instance
-    · show Smooth (Limits.pullback.snd 𝒜.X.hom g); infer_instance
-    · show GeometricallyConnected (Limits.pullback.snd 𝒜.X.hom g); infer_instance
-  · have hcomp : Spec.map (CommRingCat.ofHom (algebraMap (Ow L v) L)) ≫ g =
-        Spec.map (CommRingCat.ofHom (algebraMap (Subring.closure (s : Set L)) L)) := by
-      rw [← Spec.map_comp, ← CommRingCat.ofHom_comp]
-      rfl
-    refine ⟨(Functor.mapGrpCompIso.app 𝒜).symm ≪≫
-      (Functor.mapGrpNatIso (Over.pullbackComp _ _).symm).app 𝒜 ≪≫ ?_⟩
-    exact (pullbackGrp_congr hcomp 𝒜).some ≪≫ e
+open _root_.ZInQ (Contrib.AbVarBC.G0FibreSimple.MulIsogeny Contrib.AbVarBC.MulRigidity.CotangentMulN Contrib.AbVarBC.MulRigidity.KerUnitOpen Contrib.AbVarBC.MulRigidity.KerUnitOpenOfCotangentSurj Contrib.AbVarBC.MulRigidity.MulEtale Contrib.AbVarBC.MulRigidity.MulUnramified Contrib.AbVarBC.MulRigidity.O0 Contrib.AbVarBC.MulRigidity.QuasiFiniteEndSurjective Contrib.AbVarBC.MulRigidity.charZero_residueField Contrib.AbVarBC.MulRigidity.cotangentMap Contrib.AbVarBC.MulRigidity.diagonal_isPullback Contrib.AbVarBC.MulRigidity.diffKer Contrib.AbVarBC.MulRigidity.formallyUnramified_of_kerUnit Contrib.AbVarBC.MulRigidity.isIsogenyMor_of_lqf_of_isOpenMap Contrib.AbVarBC.MulRigidity.isOpenImmersion_of_section Contrib.AbVarBC.MulRigidity.isProper_left Contrib.AbVarBC.MulRigidity.kerUnit Contrib.AbVarBC.MulRigidity.kerUnitOpen_of_cotangent Contrib.AbVarBC.MulRigidity.kerUnitOpen_of_mulEtale Contrib.AbVarBC.MulRigidity.locallyQuasiFinite_of_formallyUnramified Contrib.AbVarBC.MulRigidity.map_origin Contrib.AbVarBC.MulRigidity.mulIsogeny_of_cotangent Contrib.AbVarBC.MulRigidity.mulIsogeny_of_kerUnitOpen Contrib.AbVarBC.MulRigidity.mulIsogeny_of_mulEtale Contrib.AbVarBC.MulRigidity.mulIsogeny_of_mulUnramified Contrib.AbVarBC.MulRigidity.mulIsogeny_of_mulUnramified' Contrib.AbVarBC.MulRigidity.mulUnramified_of_kerUnitOpen Contrib.AbVarBC.MulRigidity.mulUnramified_of_mulEtale Contrib.AbVarBC.MulRigidity.ne_of_specializes_of_lqf Contrib.AbVarBC.MulRigidity.origin Contrib.AbVarBC.MulRigidity.quasiFiniteEndSurjective Contrib.AbVarBC.MulRigidity.stalkEndo Contrib.AbVarBC.MulRigidity.surjective_of_lqf_self Contrib.AbVarBC.Tangent.AtOrigin Contrib.AbVarBC.Tangent.D Contrib.AbVarBC.Tangent.D_congr Contrib.AbVarBC.Tangent.D_inv Contrib.AbVarBC.Tangent.D_mul Contrib.AbVarBC.Tangent.D_one Contrib.AbVarBC.Tangent.D_zpow Contrib.AbVarBC.Tangent.KerN Contrib.AbVarBC.Tangent.atOrigin_inv Contrib.AbVarBC.Tangent.atOrigin_map Contrib.AbVarBC.Tangent.atOrigin_mul Contrib.AbVarBC.Tangent.atOrigin_one Contrib.AbVarBC.Tangent.atOrigin_zpow Contrib.AbVarBC.Tangent.closedPoint_eq Contrib.AbVarBC.Tangent.comp_intCast_hom Contrib.AbVarBC.Tangent.comp_mem_of_subsingleton Contrib.AbVarBC.Tangent.comp_orig_mem Contrib.AbVarBC.Tangent.derivation_eq_zero Contrib.AbVarBC.Tangent.dualHom Contrib.AbVarBC.Tangent.eq_ofRing_ptRing Contrib.AbVarBC.Tangent.eq_of_D_eq Contrib.AbVarBC.Tangent.eq_one_of_comp_intCast Contrib.AbVarBC.Tangent.ev0 Contrib.AbVarBC.Tangent.exists_affine_orig Contrib.AbVarBC.Tangent.fst_tRing Contrib.AbVarBC.Tangent.id_appLE_top Contrib.AbVarBC.Tangent.intCast_hom Contrib.AbVarBC.Tangent.isLocalHom_fstHom Contrib.AbVarBC.Tangent.isLocalRing_tsze Contrib.AbVarBC.Tangent.ker_le_sq_of_derivations Contrib.AbVarBC.Tangent.ks Contrib.AbVarBC.Tangent.ks_hom Contrib.AbVarBC.Tangent.ks_isOpenImmersion Contrib.AbVarBC.Tangent.left_closedPoint Contrib.AbVarBC.Tangent.locallyOfFiniteType_kerN Contrib.AbVarBC.Tangent.map_add_inl Contrib.AbVarBC.Tangent.map_add_inr Contrib.AbVarBC.Tangent.map_fst_inl Contrib.AbVarBC.Tangent.map_fst_inr Contrib.AbVarBC.Tangent.map_snd_inl Contrib.AbVarBC.Tangent.map_snd_inr Contrib.AbVarBC.Tangent.mem_of_atOrigin Contrib.AbVarBC.Tangent.mulN Contrib.AbVarBC.Tangent.ofRing Contrib.AbVarBC.Tangent.ofRing_mem Contrib.AbVarBC.Tangent.one_left Contrib.AbVarBC.Tangent.orig Contrib.AbVarBC.Tangent.ptR Contrib.AbVarBC.Tangent.ptRing Contrib.AbVarBC.Tangent.ptRing_comp Contrib.AbVarBC.Tangent.ptRing_congr Contrib.AbVarBC.Tangent.ptRing_ext Contrib.AbVarBC.Tangent.ptRing_id_top Contrib.AbVarBC.Tangent.ptRing_ofRing Contrib.AbVarBC.Tangent.ptRing_specMap_comp Contrib.AbVarBC.Tangent.specHom Contrib.AbVarBC.Tangent.specHom_comp Contrib.AbVarBC.Tangent.specHom_id Contrib.AbVarBC.Tangent.specHom_left Contrib.AbVarBC.Tangent.spec_inl_fst_comp Contrib.AbVarBC.Tangent.tRing Contrib.AbVarBC.Tangent.tRing_congr Contrib.AbVarBC.Tangent.tRing_one Contrib.AbVarBC.Tangent.tRing_specHom Contrib.AbVarBC.TorsionDescends Contrib.AbVarBC.comp_natCast_hom Contrib.AbVarBC.dim_baseChange_scheme Contrib.AbVarBC.dim_finite Contrib.AbVarBC.dim_pullback_spec Contrib.AbVarBC.dim_spec_le Contrib.AbVarBC.exists_lift_of_isFinite Contrib.AbVarBC.exists_nat_of_le Contrib.AbVarBC.galK Contrib.AbVarBC.kerUnitOpen Contrib.AbVarBC.map_comm Contrib.AbVarBC.mem_range_of_isIntegral Contrib.AbVarBC.mulIsogeny Contrib.AbVarBC.ptBC Contrib.AbVarBC.ptBC_galAct Contrib.AbVarBC.ptBC_injective Contrib.AbVarBC.ringKrullDim_eq_of_isIntegral_of_injective Contrib.AbVarBC.ringKrullDim_le_of_finiteType Contrib.AbVarBC.ringKrullDim_mvPolynomial_field Contrib.AbVarBC.ringKrullDim_tensor_field Contrib.AbVarBC.scheme_dim_eq_iSup_cover Contrib.AbVarBC.scheme_dim_eq_of_iso Contrib.AbVarBC.spec_dim Contrib.AbVarBC.tateBC Contrib.AbVarBC.tateBC_bijective_of_tateModuleFree Contrib.AbVarBC.tateBC_bijective_of_torsionDescends Contrib.AbVarBC.tateBC_galT Contrib.AbVarBC.tateBC_injective Contrib.AbVarBC.tate_map_bijective_of_torsion Contrib.AbVarBC.topologicalKrullDim_eq_iSup_of_openEmbedding Contrib.AbVarBC.torsionDescends_of_isFinite Contrib.AbVarBC.vBC Contrib.AbVarBC.vBC_galRep DefFaltings.AbVar DefFaltings.AnalyticUniformizationExists DefFaltings.AnalyticUniformizationUnique DefFaltings.EReal.add_coe_add_neg_coe DefFaltings.FinExt DefFaltings.Genus2Eq DefFaltings.Genus2Eq.Good DefFaltings.Genus2Eq.P DefFaltings.Genus2Eq.binDisc DefFaltings.GroupModel DefFaltings.GroupModel.IsAnalyticUniformization DefFaltings.GroupModel.IsNeronModel DefFaltings.GroupModel.Pts DefFaltings.GroupModel.cotangent DefFaltings.GroupModel.dCls DefFaltings.GroupModel.detLattice DefFaltings.GroupModel.dom DefFaltings.GroupModel.evalAt DefFaltings.GroupModel.exists_rep DefFaltings.GroupModel.genStalk DefFaltings.GroupModel.genericUnit DefFaltings.GroupModel.germAlong DefFaltings.GroupModel.height DefFaltings.GroupModel.height_eq DefFaltings.GroupModel.hodgeSpace DefFaltings.GroupModel.jacDet DefFaltings.GroupModel.jacDet_comp DefFaltings.GroupModel.omega DefFaltings.GroupModel.omegaAt DefFaltings.GroupModel.omegaAt_genericPt DefFaltings.GroupModel.ptC DefFaltings.GroupModel.semilinear_ext_wedge DefFaltings.GroupModel.specializes_genericUnit DefFaltings.GroupModel.structMap DefFaltings.GroupModel.unitSection DefFaltings.GroupModel.wedge DefFaltings.HermitianLattice DefFaltings.HermitianLattice.arakelovDegree DefFaltings.HermitianLattice.arakelovDegree_ofFractionalIdeal DefFaltings.HermitianLattice.arakelovDegree_rescale DefFaltings.HermitianLattice.degreeAt DefFaltings.HermitianLattice.degreeAt_eq DefFaltings.HermitianLattice.degreeAt_eq_arakelovDegree DefFaltings.HermitianLattice.degreeAt_smul DefFaltings.HermitianLattice.ofFractionalIdeal DefFaltings.HermitianLattice.rescale DefFaltings.HermitianLattice.secIndex_ne_zero DefFaltings.HodgeData DefFaltings.HodgeData.coeff_apply_ne_zero DefFaltings.HodgeData.hodgeBundle DefFaltings.HodgeData.modelHeight DefFaltings.HodgeData.modelHeight_eq DefFaltings.HodgeData.modelHeight_eq_add_of_le DefFaltings.HodgeData.modelHeight_eq_faltingsHeightGood DefFaltings.HodgeData.modelHeight_le_of_le DefFaltings.HodgeData.modelHeight_ofIdeal DefFaltings.HodgeData.modelHeight_ofIdeal_baseChange DefFaltings.HodgeData.modelHeight_of_span DefFaltings.HodgeData.modelHeight_recoord DefFaltings.HodgeData.norm DefFaltings.HodgeData.norm_sq DefFaltings.HodgeData.recoord DefFaltings.HodgeLatticeTheorem DefFaltings.IsIsogeny DefFaltings.MetrizedModel DefFaltings.MetrizedModel.modelHeight_eq_of_model_eq DefFaltings.NeronModelMinimal DefFaltings.PeriodAreaFormula DefFaltings.R19_GaudronRemond DefFaltings.R20_FaltingsLemma5 DefFaltings.R21_Bost DefFaltings.StableHeightFinite DefFaltings.absNorm_extendedHom DefFaltings.absNorm_map_ringOfIntegers DefFaltings.arakelovDegree_ofFractionalIdeal_baseChange DefFaltings.arakelovDegree_ofFractionalIdeal_mul DefFaltings.card_embeddings_over DefFaltings.covolume_comap_mul_det DefFaltings.covolume_gaussianPair DefFaltings.det_restrictScalars_complex DefFaltings.embCoeff DefFaltings.faltingsHeight DefFaltings.faltingsHeightEC DefFaltings.faltingsHeightGood DefFaltings.faltingsHeight_coe DefFaltings.finiteHeightPart DefFaltings.finrank_ringOfIntegers DefFaltings.gaussianPair DefFaltings.genericFibre DefFaltings.genericPt DefFaltings.grKappa DefFaltings.hypGram DefFaltings.hypGram_comp_add DefFaltings.hypVol DefFaltings.hypVol_one_comp_add DefFaltings.isogDeg DefFaltings.le_stableFaltingsHeight DefFaltings.modelHeight_ofIdeal_eq_faltingsHeightEC DefFaltings.modelHeight_ofIdeal_eq_faltingsHeightEC' DefFaltings.norm_algebraMap_tower DefFaltings.ptObj DefFaltings.ratCoeff DefFaltings.realify DefFaltings.secIndex DefFaltings.secIndex_mul_absNorm DefFaltings.secIndex_smul DefFaltings.stableFaltingsHeight DefFaltings.stableFaltingsHeightDeligne DefFaltings.stableFaltingsHeightDeligne_eq DefFaltings.stableFaltingsHeight_eq_faltingsHeightGood DefFaltings.stableFaltingsHeight_eq_iInf_height DefFaltings.stableFaltingsHeight_le DefFaltings.stableFaltingsHeight_ne_bot_of_R21 DefFaltings.sum_embeddings_comp DefFaltings.sum_log_norm_embeddings DefFaltings.sum_log_norm_embeddings_int DefFaltings.torusMetricSq DefFaltings.torusMetricSq_comap DefFaltings.torusMetricSq_eq_setIntegral DefFaltings.torusMetricSq_pos DefFaltings.torusMetricSq_smul DefFaltings.torus_setIntegral_indep H5Glue.GenericFibreStalkIso H5Glue.GroupModel.baseChange H5Glue.GroupModel.isNeronModel_iff H5Glue.GroupModelBaseChangeExists H5Glue.HeightAntitone H5Glue.HodgeLatticeNonzero H5Glue.HodgeMapBijective H5Glue.IsBaseChangeOf H5Glue.IsOpenSubgroupModel H5Glue.IsProductAbVar H5Glue.IsProductModel H5Glue.ModelHeightBaseChange H5Glue.NeronModelExists H5Glue.NeronProp H5Glue.NeronProp.lift H5Glue.NeronProp.of_iso H5Glue.NeronProp.tensor H5Glue.NeronProp.uniqueIso H5Glue.OmegaSpans H5Glue.OpenImmersionHeightLe H5Glue.OpenSubgroupHeight H5Glue.ProductGroupModelExists H5Glue.ProductModelHeight H5Glue.SemistableNeronIdentityComponent H5Glue.baseChange_map_bijective H5Glue.bcProd H5Glue.bijective_respectsIso H5Glue.compositum H5Glue.cotMap H5Glue.cotMap_bijective H5Glue.cotMap_dCls H5Glue.cotMap_omega H5Glue.cotMap_omegaAt H5Glue.detLattice_le_hodgeMap H5Glue.dom_comp H5Glue.evalAt_comp H5Glue.evalAt_res H5Glue.exists_smul_mem_omega H5Glue.fst_genericFibreUnit H5Glue.fst_genericFibre_unit H5Glue.genBC H5Glue.genBC_isMonHom H5Glue.genMap H5Glue.genMap_germ H5Glue.genMap_mem_maximalIdeal H5Glue.genMap_mem_maximalIdeal_iff H5Glue.genMap_structMap H5Glue.genericFibreStalkIso H5Glue.genericFibreUnit H5Glue.genericIso_of_openImmersion H5Glue.germAlong_comp_eventuallyEq H5Glue.groupModelBaseChangeExists H5Glue.heightAntitone H5Glue.heightAntitone_of H5Glue.heightAntitone_of_hodgeLatticeNonzero H5Glue.heightAntitone_of_omegaSpans H5Glue.hodgeLatticeNonzero_of_omegaSpans H5Glue.hodgeMap H5Glue.hodgeMapBijective H5Glue.hodgeMap_detLattice H5Glue.hodgeMap_wedge H5Glue.hodgeMap_wedgeGerm H5Glue.isAnalyticUniformization_comp H5Glue.isAnalyticUniformization_of_comp H5Glue.isIso_genMap H5Glue.isIso_of_openImmersion_self H5Glue.isIso_stalkSpecializes_genMap H5Glue.isMonHom_of_map H5Glue.isMonHom_pbCompHom H5Glue.isMonHom_pbCompInv H5Glue.isMonHom_pbEqIso H5Glue.isMonHom_prodComparisonIso H5Glue.isNeronModel_of_isProductModel H5Glue.isOpenImmersion_pullback_map H5Glue.jL H5Glue.jacDet_comp_genMap H5Glue.jacDet_comp_map H5Glue.map_genericUnit' H5Glue.map_span_singleton_toAddSubgroup H5Glue.map_zero_of_hom H5Glue.modelHeight_pullHodge_le H5Glue.neronModelMinimal H5Glue.neronModelMinimal_of_heightAntitone H5Glue.neron_lift H5Glue.neron_lift_isMonHom H5Glue.neron_map_injective H5Glue.omegaAt_le_cotMap H5Glue.omegaSpans H5Glue.omega_le_cotMap H5Glue.one_mem_dom H5Glue.openImmersionHeightLe H5Glue.openSubgroupHeight H5Glue.openSubgroupHeight_of H5Glue.pbCompHom H5Glue.pbCompInv H5Glue.pbCompIso H5Glue.pbEqIso H5Glue.productGroupModelExists H5Glue.ptCIso H5Glue.ptC_hom_apply H5Glue.ptsEquiv H5Glue.ptsEquiv_comp H5Glue.pts_comp_bijective H5Glue.pullHodge H5Glue.secIndex_le_of_map H5Glue.secIndex_ne_zero_of_mem H5Glue.smooth_tensor H5Glue.smooth_unit H5Glue.square1 H5Glue.square2 H5Glue.stableFaltingsHeight_add_le H5Glue.stableFaltingsHeight_add_le_of_productModelHeight H5Glue.stableFaltingsHeight_eq_neron_all H5Glue.stableFaltingsHeight_eq_neron_all' H5Glue.stalkIso_of_genericIso H5Glue.stalkSpecializes_self_apply H5Glue.stalkSpecializes_stalkSpecializes_apply H5Glue.stalk_ker_eq H5Glue.stalk_spec_eq H5Glue.stalkwise_fst_toGeneric H5Glue.stalkwise_tensor_localization H5Glue.tensorGen H5Glue.tensorGen_fst H5Glue.tensorGen_snd H5Glue.toGeneric_pt H5Glue.unitSection_comp H5Neron.GroupModel.IsNeronModel.lift H5Neron.GroupModel.IsNeronModel.uniqueIso H5Neron.GroupModel.isNeronModel_iff H5Neron.GroupModelBaseChangeExists H5Neron.IsBaseChangeOf H5Neron.IsOpenSubgroupModel H5Neron.IsProductAbVar H5Neron.IsProductModel H5Neron.ModelHeightBaseChange H5Neron.NeronModelExists H5Neron.NeronProp H5Neron.NeronProp.lift H5Neron.NeronProp.of_iso H5Neron.NeronProp.tensor H5Neron.NeronProp.uniqueIso H5Neron.OpenSubgroupHeight H5Neron.ProductGroupModelExists H5Neron.ProductModelHeight H5Neron.R19_zero H5Neron.R20_zero H5Neron.R21_zero H5Neron.SemistableNeronIdentityComponent H5Neron.bcProd H5Neron.bcUnitIso H5Neron.compositum H5Neron.covolume_fin_zero H5Neron.detLattice_zero H5Neron.glue_zero H5Neron.groupModel_height_zero H5Neron.hodgeZeroEquiv H5Neron.hodgeZeroEquiv_wedge0 H5Neron.hom_ext_of_iso_unit H5Neron.isIsogeny_id_zero H5Neron.isMonHom_of_iso_unit H5Neron.isMonHom_prodComparisonIso H5Neron.isNeronModel_of_isProductModel H5Neron.isogDeg_zero_le_one H5Neron.jL H5Neron.metrizedOf H5Neron.modelHeight_dim_zero H5Neron.neronModelExists_zero H5Neron.neronModelMinimal_zero H5Neron.neron_zero_iso_unit H5Neron.no_metrized_succ H5Neron.one_le_grKappa H5Neron.productGroupModelExists H5Neron.pts_subsingleton H5Neron.semistableNeronIdentityComponent_zero H5Neron.semσ H5Neron.stableFaltingsHeight_add_le H5Neron.stableFaltingsHeight_add_le' H5Neron.stableFaltingsHeight_eq_neron H5Neron.stableFaltingsHeight_eq_neron_all H5Neron.stableFaltingsHeight_zero H5Neron.stableHeightFinite_zero H5Neron.tensorGen H5Neron.tensorGen_fst H5Neron.tensorGen_snd H5Neron.trivHodge H5Neron.trivMetrized H5Neron.trivModel H5Neron.trivModel_isNeronModel H5Neron.wedge0 H5Neron.wedge0_ne_zero H5Neron.wedge_eq_wedge0 HeightBC.CotangentSpanBC HeightBC.D0 HeightBC.D0_add HeightBC.D0_add_apply HeightBC.D0_mul HeightBC.D0_mul_apply HeightBC.D0_sq HeightBC.D0_structMap_mul HeightBC.DetLatticeBC HeightBC.FF HeightBC.GermDerivation HeightBC.HodgeBCInjective HeightBC.HodgeLineBaseChange HeightBC.HodgeLineBaseChangeDescent HeightBC.HodgeLineDescentHalf HeightBC.HodgeSpanBC HeightBC.IsBaseChangeOf HeightBC.IsHodgeBaseChange HeightBC.IsMonBC HeightBC.JacobianPullbackSpan HeightBC.JacobianSemilinear HeightBC.MetrizationBaseChange HeightBC.ModelHeightBaseChange HeightBC.ModelHeightBaseChangeGE HeightBC.ModelHeightBaseChangeLE HeightBC.OmegaBaseChange HeightBC.OmegaLocalization HeightBC.PtsBaseChangeBij HeightBC.PtsBaseChangeMul HeightBC.UniformizationLift HeightBC.UniformizationLiftAnalytic HeightBC.algebraMap_FF HeightBC.algebraMap_ringOfIntegers_coe HeightBC.appLE_top_top HeightBC.bO HeightBC.bO_appTop HeightBC.bO_genericPt HeightBC.bcAlt HeightBC.bcCot HeightBC.bcCotBasis HeightBC.bcCotBasis_apply HeightBC.bcCot_core HeightBC.bcCot_dCls HeightBC.bcCot_intInv HeightBC.bcCot_linearIndependent HeightBC.bcCot_omega HeightBC.bcCot_omegaAt HeightBC.bcCot_smulL HeightBC.bcCot_smul_genStalk HeightBC.bcCot_span HeightBC.bcCot_update HeightBC.bcExt HeightBC.bcExt_smul HeightBC.bcExt_ιMulti HeightBC.bcHodge HeightBC.bcHodge_detLattice HeightBC.bcHodge_smul HeightBC.bcHodge_tmul HeightBC.bcHodge_wedge HeightBC.bcMap HeightBC.bcMap_germ HeightBC.bcMap_mem_maximalIdeal HeightBC.bcMap_structMap HeightBC.bcMap_φL HeightBC.bcProj HeightBC.bcProj_genericUnit HeightBC.bcProj_unit HeightBC.bcProj_w HeightBC.bcPts HeightBC.cotL HeightBC.cotL_isScalarTower HeightBC.cotL_smul HeightBC.cotRes HeightBC.cotangentSpanBC HeightBC.descentHalf_of_descent HeightBC.detLatticeBC_of_omega HeightBC.dom_bcPts HeightBC.evalAt_add HeightBC.evalAt_bcPts HeightBC.evalAt_mul HeightBC.evalAt_one_eq_zero HeightBC.evalAt_res HeightBC.evalAt_structSection HeightBC.exists_act HeightBC.exists_comp_eq HeightBC.exists_int_dvd HeightBC.exists_mem_not_mem_of_sat HeightBC.exists_ringOfIntegers_of_algebraMap HeightBC.extRes HeightBC.finite_of_isClosed_not_genericPt HeightBC.g0_hodgeLine_iff HeightBC.genericPt_eq_genericPoint HeightBC.germAlong_add_mul HeightBC.germAlong_bcPts_eventuallyEq HeightBC.germAlong_differentiableAt HeightBC.germAlong_eventuallyEq_rep HeightBC.germAlong_structMap HeightBC.germAlong_zero_of_mem HeightBC.germDerivation HeightBC.germDerivation_at HeightBC.hodgeBCInjective HeightBC.hodgeLineBaseChangeDescent_of_glue HeightBC.hodgeLineBaseChange_of_descent HeightBC.hodgeLineBaseChange_of_final HeightBC.hodgeLineBaseChange_of_five HeightBC.hodgeLineBaseChange_of_four HeightBC.hodgeLineBaseChange_of_glue HeightBC.hodgeLineBaseChange_of_glue4 HeightBC.hodgeLineBaseChange_of_glue5 HeightBC.hodgeLineBaseChange_of_main HeightBC.hodgeLineBaseChange_of_two HeightBC.hodgeSpanBC_of HeightBC.hom_genericUnit HeightBC.hom_genericUnit' HeightBC.hom_unitSection HeightBC.isAnalyticUniformization_bcPts HeightBC.isField_stalk_genericPt HeightBC.isIso_stalkSpecializes_bcMap HeightBC.isUnit_germ_genericPt HeightBC.isUnit_structMap HeightBC.jacDet_bcPts HeightBC.jacobianPullbackSpan_of HeightBC.jacobianSemilinear HeightBC.jacobianSemilinear_of HeightBC.locSub HeightBC.mapCotangent_injective_of_isIso HeightBC.mapCotangent_smul' HeightBC.map_zero_of_hom HeightBC.maximalIdeal_stalk_genericPt HeightBC.mem_locSub HeightBC.mem_of_forall_locSub HeightBC.metrizationBaseChange_of_hodgeLine HeightBC.modelHeightBaseChangeGE_of_descent HeightBC.modelHeightBaseChangeGE_of_descentHalf HeightBC.modelHeightBaseChangeGE_of_main HeightBC.modelHeightBaseChangeGE_of_two HeightBC.modelHeightBaseChangeLE_of_metrization HeightBC.modelHeightBaseChange_of_descent HeightBC.modelHeightBaseChange_of_final HeightBC.modelHeightBaseChange_of_five HeightBC.modelHeightBaseChange_of_four HeightBC.modelHeightBaseChange_of_glue HeightBC.modelHeightBaseChange_of_glue4 HeightBC.modelHeightBaseChange_of_glue5 HeightBC.modelHeightBaseChange_of_main HeightBC.modelHeightBaseChange_of_two HeightBC.modelHeight_eq_of_isHodgeBaseChange HeightBC.multilinear_mem_span HeightBC.omegaAt_bc_local HeightBC.omegaAt_full HeightBC.omegaAt_open HeightBC.omegaAt_sat HeightBC.omegaBaseChange HeightBC.omegaBaseChange_of_localization HeightBC.omegaLocalization HeightBC.one_mem_dom HeightBC.ptC_hom_apply HeightBC.ptC_hom_comp_bO HeightBC.ptsBaseChangeBij HeightBC.ptsBaseChangeMul HeightBC.rationalOver_genericUnit HeightBC.secIndex_baseChange HeightBC.secIndex_map HeightBC.secIndex_ne_zero_of_baseChange HeightBC.secIndex_nsmul_mem HeightBC.smul_cotangent_eq_of_sub_mem HeightBC.span_bcHodge_le HeightBC.spec_mem_of_ker HeightBC.stalkMapAt_germ' HeightBC.stalkSpec_comp_apply HeightBC.stalkSpec_self_apply HeightBC.stalkSpecializes_self_apply' HeightBC.stalkSpecializes_stalkSpecializes_apply' HeightBC.structMap_eq_spec HeightBC.structMap_eq_stalkMap HeightBC.toCotangent_mul HeightBC.uniformizationLift HeightBC.uniformizationLiftAnalytic HeightBC.uniformizationLift_of HeightBC.unitSection_comp_hom HeightBC.unitSection_stalkMapAt_hom HeightBC.σFF HeightBC.φL HeightBC.φL_algebraMap LeafPush2.CPts LeafPush2.Char2 LeafPush2.HasSexticModel LeafPush2.IC10 LeafPush2.IC2 LeafPush2.IC4 LeafPush2.IC6 LeafPush2.IgJ10 LeafPush2.IgJ2 LeafPush2.IgJ4 LeafPush2.IgJ6 LeafPush2.IsGenus2 LeafPush2.IsPeriodMatrix LeafPush2.IsSiegel LeafPush2.IsUniformization LeafPush2.LinYangTuple LeafPush2.OnQMLocus LeafPush2.T10_groupIso LeafPush2.T11a_RiemannEnd LeafPush2.T11b_Rigidity LeafPush2.T12_ComplexConjEigen LeafPush2.UniformizationExists LeafPush2.absLogHeight LeafPush2.cDom LeafPush2.cEvalAt LeafPush2.cptObj LeafPush2.dsq LeafPush2.exists_isComplexConj LeafPush2.ffAlgebra LeafPush2.ffStructMap LeafPush2.isSiegel_I LeafPush2.javanpeykarBound LeafPush2.javanpeykarBound_mono LeafPush2.javanpeykarBound_pos LeafPush2.linYangTuple_onQMLocus LeafPush2.linYang_j_eq LeafPush2.onQMLocus_of_linYangTuple LeafPush2.pazukiC2 LeafPush2.sextic LeafPush2.thetaConst) -- op-dedupe
+open _root_.LeafQM.AV (CMExists HasCM24 HasCM24.of_iso HasCM3 HasCM3.of_iso HasCM4 HasCM4.of_iso IsBaseChangeOf IsBaseChangeOfPair IsFibreOf Level3 Level3.bcPt_pow_three Level3.eq_iff Level3.exists_mul_of_range_le Level3.ext' Level3.onto Level3.range_le Level3.rightMul Level3.rightMul_eq_self Level3.rightMul_rightMul Level3.torsor Level3.twist M3 M3.mk M3.rightMul M3.rightMul_rightMul M3.twist M3.twist_mk Pin.AutOExt.NormalizerFinite Pin.AutOExt.alpha_nat_smul Pin.AutOExt.autOInnerFinite_of_normalizer Pin.AutOExt.common_den Pin.AutOExt.conjUnit Pin.AutOExt.conj_of_skolem Pin.AutOExt.den_mul_int Pin.AutOExt.exists_nat_smul_mem Pin.AutOExt.extAlgEquiv Pin.AutOExt.extAlgHom Pin.AutOExt.extAlgHom_coe Pin.AutOExt.extAlgHom_symm_comp Pin.AutOExt.extDen Pin.AutOExt.extDen_mem Pin.AutOExt.extDen_pos Pin.AutOExt.extFun Pin.AutOExt.extFun_add Pin.AutOExt.extFun_algebraMap Pin.AutOExt.extFun_coe Pin.AutOExt.extFun_eq Pin.AutOExt.extFun_mul Pin.AutOExt.key_conj Pin.AutOExt.mem_O_of_int Pin.AutOExt.natCast_mul_eq_smul Pin.AutOExt.nat_smul_mem Pin.AutOExt.smul_mul_smul' Pin.AutOInnerFinite Pin.ConstOrOntoAlgClosed Pin.CurveRatFactor Pin.CurveSurj Pin.GeomCompConstOrOnto Pin.GeomCompFinite Pin.GeomCompInfinite Pin.GeomCompRatFactor Pin.ImagePlane.ev_comp Pin.ImagePlane.ev_spec_top Pin.ImagePlane.ptOf_comp Pin.ImagePlane.ptOf_spec_asIdeal Pin.IsNaturalRelabel Pin.Mob.eval_ne_zero_of_coprime Pin.Mob.exists_interp Pin.Mob.isCoprime_X_sub_C_of_eval_one Pin.Mob.natDegree_le_one_of_injective Pin.Mob.ratEval Pin.Mob.ratEval_eq_self Pin.Mob.wronskian_ne_zero Pin.MobiusGlue Pin.NormO.IsNorm Pin.NormO.IsNorm.inv Pin.NormO.IsNorm.mul Pin.NormO.T Pin.NormO.T_finite Pin.NormO.T_mul_ui Pin.NormO.T_mul_uj Pin.NormO.bas Pin.NormO.conjC Pin.NormO.descent Pin.NormO.dvd_of_prime_dvd_nrd Pin.NormO.dvd_of_smul_mem Pin.NormO.ei Pin.NormO.ej Pin.NormO.inv_eq Pin.NormO.isNorm_sc Pin.NormO.isNorm_ui Pin.NormO.isNorm_uj Pin.NormO.mulCoord_conjC Pin.NormO.mulCoord_conjC' Pin.NormO.mulCoord_smul_left Pin.NormO.mulCoord_smul_right Pin.NormO.normalizerFinite Pin.NormO.nrdZ Pin.NormO.nrdZ_ei Pin.NormO.nrdZ_ej Pin.NormO.nrdZ_mul Pin.NormO.nrdZ_ne_zero Pin.NormO.nrdZ_smul Pin.NormO.nrd_dvd_coords Pin.NormO.ofInt_scalar Pin.NormO.rearrange Pin.NormO.sc Pin.NormO.six_sq_identities Pin.NormO.smul_ofInt Pin.NormO.three_dvd_mulCoord_ej Pin.NormO.two_dvd_mulCoord_ei Pin.NormO.ui Pin.NormO.uj Pin.PinUnique Pin.QMFamily.transport Pin.QML3.isoTransport Pin.R1fpProps.fam Pin.R1fpProps.univ Pin.RatFactorAlgClosed Pin.SameTriple Pin.SameTripleMor Pin.SmoothCurveNoIsolatedPoint Pin.SmoothStalkDimOne Pin.TwistClassFinite Pin.autOInnerFinite Pin.autRelabel Pin.autRelabel_natural Pin.bcPt Pin.bcPt_ptOfSection Pin.bcPt_snd Pin.bcQbar Pin.bcSnd Pin.cm_objects_of_R1R2fp Pin.conjUnitIso Pin.cst Pin.curveFacts_of_algClosed Pin.curveFacts_of_comp Pin.curveFacts_of_leaves Pin.curveFacts_of_named Pin.curveRatFactor_of_comp Pin.curveSurj_of_comp Pin.ev Pin.ev_cst Pin.ev_eq_zero_iff Pin.ev_f_mul_g Pin.ev_g_eq_zero Pin.ev_res Pin.ev_top Pin.exists_isOpen_singleton_of_finite_closedPoints Pin.exists_liftO_congr Pin.exists_point_of_isLocallyClosed Pin.geomComp Pin.geomCompConstOrOnto_of Pin.geomCompFinite Pin.geomCompInfinite_of Pin.geomCompRatFactor_of Pin.isFibreOf_transport Pin.isOpen_connectedComponent_of_noetherian Pin.level3_finite Pin.mem_V_of_not_mem_U Pin.phi_part Pin.pointwise_of_witness Pin.pointwise_of_witness_mor Pin.ptOf Pin.ptOfSection Pin.r1fpPin_aut Pin.r1fpPin_relabel_iff Pin.r2fp_aut Pin.relabel Pin.relabel_geometric Pin.relabel_is_morphism Pin.res Pin.res_res Pin.sameTripleMor_of_mobius Pin.sameTriple_aut Pin.smoothCurveNoIsolatedPoint_of Pin.transfer_exists Pin.transfer_pointwise Pin.transfer_pointwise_mor Pin.transportLevel Pin.twistClassFinite Pin.twistClassFinite_of Pin.val_bcPt Pin.val_of_mem Pin.val_of_not_mem PtEquiv QMFamily QMIso QMIso.nonempty_abVarIso QMIso.refl QMIso.symm QMIso.trans QML3 QML3.Iso QML3.Iso.refl QML3.Iso.rightMul QML3.Iso.symm QML3.Iso.trans QML3.Iso.twist QML3.forget QML3.rightMul QML3.rightMul_A QML3.rightMul_rightMul QML3.twist QML3.twist_A QMLeaves QMPair QMPair.twist QMStr QMStr.twist Qbar R1R2fp R1R2fp_Y R1famProps R1fp R1fpProps R1fp_of_R1R2fp R1heckeProps R1rec R1recProps R1univProps R2X6Props R2fpProps R2fpProps_of_X6 R5fp R5fpCount R5fpWeak R5fpWeak_of_R5fp R5ptProps ToP1 ToP1.comp ToP1.val ToP1.val_comp ToP1.val_comp_right UnramifiedAbove5 X6Props X6Surj act_mul_apply bcPt bcPt_injective cm_of_val com comEquiv com_twist conductor conjHom conjHom_iota conjHom_mem_com conjHom_symm_apply conj_iso_of_rational conj_twist_of_rational endPt exists_fibre_object fibre_conjugates_isomorphic fieldMap fieldOfModuli3 fieldOfModuliPair fieldPt galAct_bcPt hI hIJ hJ hasCM24_twist hasCM3_twist hasCM4_twist hrat inertCount6 intCast_mem_com isoSetoid leaves_on_one_witness liftO not_qmStr_zero ofInt_injective ofInt_sub oi oi_mul_oi oj oj_mul_oi_add oj_mul_oj pairSetoid qmAct residueImage residue_unramified_over_branch specMap_flat specMap_surjective specToEquivOfField_comp specToEquivOfField_comp_right stab3 stabPair three_mul_ofInt toKbar unramified_over_branch) -- op-dedupe
+open _root_.GlueDescent (B2.IsSignCocycle B2.SignCob B2.dB B2.dB_inv B2.dB_mul B2.exists_beta B2.isSignCocycle_dB B2.isSignCocycle_inv B2.isSignCocycle_mul B2.isSignCocycle_pull B2.pull B2.pull_dB B2.signCob_dB_iff B2.signCob_inv B2.signCob_mul B2Q.GQ B2Q.GQp B2Q.InflatedFrom B2Q.LeafHasse B2Q.LeafLocalTwo B2Q.LeafSqrtCrit B2Q.LeafUnramified B2Q.UnramifiedAt B2Q.act B2Q.act_mul B2Q.b2_of_leaves B2Q.cast_cast_of_dvd B2Q.chiLevel_pos B2Q.chi_toUnitHom_crt B2Q.cyc B2Q.cyc_eq_of_agree B2Q.cyc_isLocallyConstant B2Q.exists_crt_unit B2Q.galChar B2Q.galChar_isLocallyConstant B2Q.isLocallyConstant_of_openSubgroup B2Q.lev_eq_pow B2Q.resp B2Q.resp_continuous B2Q.sqrtU B2Q.sqrtU_sq B2Q.toRingAut B3Q.GQL B3Q.b3_degree_le_QM B3Q.b3_of_leaves B3Q.inflatedNormalized_of B3Q.mem_GQL B3Q.orderOf_pos_dirichlet B6 B6_commute_i_j B6_inner B6_isCentral B6_isSimpleRing B6_star_mul InflatedNormalized IsCochainFor LeafSkolemNoether MatrixUnits2 MatrixUnits2.W MatrixUnits2.e00_of_mem MatrixUnits2.e_apply_e MatrixUnits2.finrank_W MatrixUnits2.mapsTo_W MatrixUnits2.mem_W_of_e0 MatrixUnits2.splitEquiv MatrixUnits2.splitEquiv_intertwines aniso_int aniso_rat boundary_sq chi chiLevel cochain_conj cochain_mul_kernel cochain_mul_left cochain_mul_right cochain_of_boundary_eq cochain_one cocycle_of_projective commute_adjoin contactSupport_pos degree_le_QM exists_chi exists_odd_char heightD_pos index_kernel_le inertia_le_kernel kernelSubgroup kernelSubgroup_le kernelSubgroup_normal lev lev_dvd_chiLevel mem_kernelSubgroup oddChar oddChar_neg_one orderOf_dvd_totient orderOf_prod_dvd prod_S_le prod_odd_le prod_odd_le_aux prod_totient_lev_le qi qj ramSet relindex_kernel_le restrictHom rho rhoRep rho_commute rho_eq_act rho_map_mul sign_cocycle sign_normalization sign_sq_eq_one ten_le_heightE0 three_dvd_of_form totient_lev twist twist_kills_inertia twist_sq two_lt_lev zmod3_aniso) -- op-dedupe
+open _root_.G0ModField (CommonConstituent ConjugacyData DescentDatum FibreCoverExists FibreCoverOut FibreCtx G2Out G4Out G7Out GaloisCopy.G2Out GaloisCopy.G7Out GaloisCopy.Vb GaloisCopy.resQ GaloisCopy.tate IF IsModelOver IsQMModel IsQMModel.isModelOver KernelFieldExists KernelFieldOut ModularConstituentG PtQ RationalFibre ResQRange T UnramifiedSup actK actQ admissible_S_mul b2_of_leaves_level b3_of_cochain baseChangeTrans card_ker_GL descentDatum_bot descentDatum_of_conjugacy fieldDescent g2Out_of_cover g4Out_of_kernelField g7Out_of_g4Out galAct_bijective galAct_mul incAlg isModelOver_baseChange le_heightD_of_mem_S_mul mem_GQL_bot normA numberField_of_fd resQRange resQ_comm' resQ_range sgnU sgnU_mul sgnU_mul_abs sgnU_sq toLAut toLAut_apply two_mem_T) -- op-dedupe
+open _root_.UnramTate (EndBaseChange PtA ResQEmbedding ScalarTransfer TateCont TatePoints bcPt bcPt_galAct conjE conjE_apply endBC endBaseChange eps_right_one hO homEquiv_mul iO iO_jO iO_sq incO' incO'_coe inertia_trivial' instGaloisQbar' jO jO_sq lift_fixes' matrixUnits_of_quat numberField_of_fd'' opV opVHom ptMapIso quat_words resQEmbedding sK scalarTransfer specMap_comp_sK tateCont_of_tateModuleFree tateMap_add tateMap_comp tateMap_id tateMap_zero tatePoints tate_eq_opV tmOf trHom trHom_comp_symm trHom_left trHom_symm_comp trPt trPt_galAct unramifiedSup_mf) -- op-dedupe
+open _root_.AlgFrobRedRed (AbsFrob AlgFrobRedAt AlgFrobRedGood FExtend FExtendCore FExtendGen FrobMorph GoodRedCofinite Ow OwDVR RedRel RedRelMul RedTorsionQbar ReductionFrobGood ReductionMapGood ResidueAlgClosed ResidueAlgClosure ResidueAlgebraic SmoothGeomConnIntegral absFrob algFrobRedAt_of_good algFrobRedGood_of algFrobRed_of_I2 algFrobRed_of_absFrob algFrobRed_of_at algFrobRed_of_core algFrobRed_of_final algFrobRed_of_fine algFrobRed_of_finest algFrobRed_of_five algFrobRed_of_gen algFrobRed_of_good algFrobRed_of_leaves algFrobRed_of_main algFrobRed_of_nmp algFrobRed_of_pieces algFrobRed_of_split charP_kw dvrAt' exists_lift exists_redRel fExtendCore_of_gen fExtendCore_of_nmp fExtendGen_of_nmp fExtend_of_core frobMorph_of frobenius_eq_powHom genMap genMap_comm genPt hom_spec_eq_of_point hw_of iotaW iotaW_isIso_left isArithFrob_conj isDominant_Spec_map_of_injective isLocalHom_of_resPow isLocalHom_toW isUnit_cast_of_ne jSpec kw liesOver_smul lift_unique natCast_mem_maximalIdeal owDVR pb_eta_fst pb_mul pb_mul' pb_one pb_one' pb_symm_mul pb_symm_mul' psiW psiW_toW redRelMul redRel_of_isReductionOf redRel_unique redTorsionQbar_of reductionFrobGood_of reductionMapGood_of residueAlgClosed residueAlgClosure_of residueAlgebraic residue_sigV ringHom_eq_of_normal ringOfIntegers_mem' sf sf_eta_fst sf_isAbelianVariety sigV smul_mem_nonunits spec_aut_cancel tSig tSig_residue tSpec tauL thetaHom thetaW thetaW_injective thetaW_left thetaW_surjective thetaW_symm toO' vsq wOf) -- op-dedupe
 
 end FrobPiecesGood
 
@@ -9664,142 +6491,13 @@ the declarations of the same names in `scratch/neron-lg/NeronLG.lean` (namespace
 noncomputable section
 
 namespace FrobPiecesNeron
+open _root_.FrobPiecesNeron (AbVarSpreadsOut HasAbelianSchemeAway ProperSmoothGenConnected geometricallyConnected_of_geometricallyIntegral goodRedCofinite_of_neron hasGoodReduction_of_base) -- op-dedupe
 
 open CategoryTheory AlgebraicGeometry Limits MonoidalCategory CartesianMonoidalCategory MonObj
 open NumberField
-open PkgI3 (AbVar)
+-- op-dedupe was: open PkgI3 (AbVar)
+open _root_.PkgI3 (AbVar) -- op-dedupe
 open scoped Obj
-
-/-- `B` extends to an abelian scheme over `𝓞_L[1/f]`: a smooth proper group scheme whose generic
-fibre is identified with `B` as a group scheme (over every presentation of `𝓞_L[1/f]`). -/
-def HasAbelianSchemeAway (L : Type) [Field L] [NumberField L] (B : AbVar L) (f : 𝓞 L) : Prop :=
-  ∀ (R : Type) [CommRing R] [Algebra (𝓞 L) R] [IsLocalization.Away f R] [Algebra R L]
-    [IsScalarTower (𝓞 L) R L],
-    ∃ (G : Over (Spec (CommRingCat.of R))) (_ : GrpObj G) (_ : Smooth G.hom) (_ : IsProper G.hom)
-      (gen : (Over.pullback (Spec.map (CommRingCat.ofHom (algebraMap R L)))).obj G ≅ B.X),
-      letI : GrpObj ((Over.pullback (Spec.map (CommRingCat.ofHom (algebraMap R L)))).obj G) :=
-        Functor.grpObjObj
-      IsMonHom gen.hom
-
-/-- **Glue N1-g1 (spreading out an abelian variety).** An abelian variety `B` over a number field
-`L` extends to an abelian scheme over `𝓞_L[1/f]` for some nonzero `f ∈ 𝓞_L`. Textbook (a
-candidate for a textbook leaf): `L = colim 𝓞_L[1/f]`, so `B`, its group law, unit and inverse
-and the group axioms (equalities of morphisms) descend to some `𝓞_L[1/f]` (EGA IV₃ 8.8.2), as do
-properness (EGA IV₃ 8.10.5 (xii)) and smoothness (EGA IV₄ 17.7.8 (ii)); all locators UNVERIFIED.
-Mathlib v4.35 has the descent of morphisms for affine transition maps
-(`AlgebraicGeometry/.../AffineTransitionLimit.lean`, EGA IV 8.8.2) but not the descent of schemes
-or of properness and smoothness. -/
-def AbVarSpreadsOut : Prop :=
-  ∀ (L : Type) [Field L] [NumberField L] (B : AbVar L), ∃ f : 𝓞 L, f ≠ 0 ∧ HasAbelianSchemeAway L B f
-
-set_option synthInstance.maxHeartbeats 400000 in
-/-- **`ProperSmoothGenConnected` (LEAF candidate, published: Zariski's connectedness theorem).**
-A smooth proper scheme `X` over `R = 𝓞_L[1/f]` (any presentation) whose generic fibre is
-geometrically connected is geometrically connected over `R`. Proof (STANDARD): `R ≅ 𝓞_L[1/f]`
-is normal with fraction field `L` (the case `f = 0` is vacuous: no ring map from the zero ring to
-`L`), and `X_L` is geometrically reduced (smooth) and geometrically connected and proper, so
-`H⁰(X_L, 𝒪) = L`; `f_*𝒪_X` is a finite `R`-algebra, torsion-free since `X` is flat (smooth), so
-it lies inside `H⁰(X_L, 𝒪) = L` and is integral over the normal `R`, hence
-`f_*𝒪_X = 𝒪_{Spec R}`; then all fibres of the proper `f` are geometrically connected (Zariski's
-connectedness theorem, EGA III₁ 4.3.1–4.3.4; locators UNVERIFIED). The fibres are nonempty since
-`X → Spec R` is open (smooth), closed (proper), `X ≠ ∅` and `Spec R` is connected. Not in Mathlib
-v4.35 (no Stein factorization). -/
-def ProperSmoothGenConnected : Prop :=
-  ∀ (L : Type) [Field L] [NumberField L] (f : 𝓞 L) (R : Type) [CommRing R] [Algebra (𝓞 L) R]
-    [IsLocalization.Away f R] [Algebra R L] [IsScalarTower (𝓞 L) R L]
-    (X : Over (Spec (CommRingCat.of R))), Smooth X.hom → IsProper X.hom →
-    GeometricallyConnected
-      ((Over.pullback (Spec.map (CommRingCat.ofHom (algebraMap R L)))).obj X).hom →
-    GeometricallyConnected X.hom
-
-/-- Geometrically integral implies geometrically connected. -/
-theorem geometricallyConnected_of_geometricallyIntegral {X Y : Scheme.{0}} (g : X ⟶ Y)
-    [GeometricallyIntegral g] : GeometricallyConnected g := by
-  refine ⟨fun K _ y Z fst snd h => ?_⟩
-  have : IsIntegral Z := GeometricallyIntegral.geometrically_isIntegral y fst snd h
-  infer_instance
-
-/-- `A` has good reduction at `O` if an abelian scheme over a ring `R` mapping to `O` (compatibly
-with the maps to `K`) has generic fibre `≅ A`: base change along `Spec O → Spec R`. -/
-theorem hasGoodReduction_of_base {K : Type} [Field K] (O : ValuationSubring K) {R : Type}
-    [CommRing R] (ιR : R →+* K) (φ : R →+* O) (hφ : (algebraMap O K).comp φ = ιR)
-    (A : Grp (Over (Spec (.of K)))) (𝒜 : Grp (Over (Spec (.of R))))
-    (h𝒜 : PkgI2.IsAbelianScheme 𝒜)
-    (e : (Over.pullback (Spec.map (CommRingCat.ofHom ιR))).mapGrp.obj 𝒜 ≅ A) :
-    PkgI2.HasGoodReduction A O := by
-  let g := Spec.map (CommRingCat.ofHom φ)
-  refine ⟨(Over.pullback g).mapGrp.obj 𝒜, ?_, ?_⟩
-  · have := h𝒜.proper; have := h𝒜.smooth; have := h𝒜.geomConnected
-    refine ⟨?_, ?_, ?_⟩
-    · show IsProper (Limits.pullback.snd 𝒜.X.hom g); infer_instance
-    · show Smooth (Limits.pullback.snd 𝒜.X.hom g); infer_instance
-    · show GeometricallyConnected (Limits.pullback.snd 𝒜.X.hom g); infer_instance
-  · have hcomp : Spec.map (CommRingCat.ofHom (algebraMap O K)) ≫ g =
-        Spec.map (CommRingCat.ofHom ιR) := by
-      rw [← Spec.map_comp, ← CommRingCat.ofHom_comp, ← hφ]
-    exact ⟨(Functor.mapGrpCompIso.app 𝒜).symm ≪≫
-      (Functor.mapGrpNatIso (Over.pullbackComp _ _).symm).app 𝒜 ≪≫
-      (FrobPiecesGood.pullbackGrp_congr hcomp 𝒜).some ≪≫ e⟩
-
-set_option synthInstance.maxHeartbeats 400000 in
-/-- **`GoodRedCofinite` from neron-lg's N1-g1 `AbVarSpreadsOut` and `ProperSmoothGenConnected`
-(proved).** Spread `A` out to `G/𝓞_L[1/f]` (presentation `Localization.Away f`); `G` is
-geometrically connected by `ProperSmoothGenConnected` (its generic fibre is `≅ A`, geometrically
-integral). `S` is the set of prime factors of `N = |N_{L/ℚ}(f)|`: for `p ∉ S` and `w ∣ p`, `N` is a
-unit of `O_w` and `N ∈ (f)`, so `f` is a unit of `O_w`, and `𝓞_L[1/f] → L` factors through `O_w`
-(`IsLocalization.Away.lift`); conclude by base change (`hasGoodReduction_of_base`). -/
-theorem goodRedCofinite_of_neron (hsp : AbVarSpreadsOut) (hc : ProperSmoothGenConnected) :
-    AlgFrobRedRed.GoodRedCofinite := by
-  intro L _ A
-  letI : NumberField L := { to_charZero := inferInstance, to_finiteDimensional := inferInstance }
-  obtain ⟨f, hf0, hf⟩ := hsp L A
-  have hfL : IsUnit (algebraMap (𝓞 L) L f) :=
-    isUnit_iff_ne_zero.2 (by simpa using hf0)
-  let R := Localization.Away f
-  letI : Algebra R L := (IsLocalization.Away.lift f hfL).toAlgebra
-  haveI : IsScalarTower (𝓞 L) R L := IsScalarTower.of_algebraMap_eq (fun x =>
-    (IsLocalization.Away.lift_eq f hfL x).symm)
-  obtain ⟨G, hG, hGs, hGp, gen, hgen⟩ := hf R
-  have hgc : GeometricallyConnected G.hom := by
-    refine hc L f R G hGs hGp ?_
-    have h1 : GeometricallyConnected A.X.hom := geometricallyConnected_of_geometricallyIntegral _
-    have h2 : ((Over.pullback (Spec.map (CommRingCat.ofHom (algebraMap R L)))).obj G).hom =
-        gen.hom.left ≫ A.X.hom := (Over.w gen.hom).symm
-    rw [h2]
-    have hR : MorphismProperty.RespectsIso (@GeometricallyConnected : MorphismProperty Scheme.{0}) :=
-      MorphismProperty.IsStableUnderBaseChange.respectsIso
-    exact (MorphismProperty.cancel_left_of_respectsIso (@GeometricallyConnected : MorphismProperty Scheme.{0})
-      gen.hom.left A.X.hom).2 h1
-  let N : ℕ := Ideal.absNorm (Ideal.span {f})
-  have hN0 : N ≠ 0 := by
-    simp only [N, ne_eq, Ideal.absNorm_eq_zero_iff, Ideal.span_singleton_eq_bot]
-    exact hf0
-  refine ⟨N.primeFactors, fun p hp hpS v hv => ?_⟩
-  have hpN : ¬ p ∣ (N : ℤ).natAbs := by
-    rw [Int.natAbs_natCast]
-    exact fun hd => hpS (Nat.mem_primeFactors.2 ⟨hp, hd, hN0⟩)
-  have hNu : IsUnit ((N : ℤ) : AlgFrobRedRed.Ow L v) :=
-    FrobPiecesGood.isUnit_intCast_of_coprime (L := L) hp hv hpN
-  have hfu : IsUnit (AlgFrobRedRed.toO' (AlgFrobRedRed.Ow L v) f) := by
-    by_contra hnu
-    have hfm : AlgFrobRedRed.toO' (AlgFrobRedRed.Ow L v) f ∈
-        IsLocalRing.maximalIdeal (AlgFrobRedRed.Ow L v) := (IsLocalRing.mem_maximalIdeal _).2 hnu
-    obtain ⟨c, hc'⟩ := Ideal.mem_span_singleton'.1 (Ideal.absNorm_mem (Ideal.span {f}))
-    have : ((N : ℤ) : AlgFrobRedRed.Ow L v) ∈ IsLocalRing.maximalIdeal (AlgFrobRedRed.Ow L v) := by
-      have := congrArg (AlgFrobRedRed.toO' (AlgFrobRedRed.Ow L v)) hc'
-      rw [map_mul, map_natCast] at this
-      rw [Int.cast_natCast, ← this]
-      exact Ideal.mul_mem_left _ _ hfm
-    exact (IsLocalRing.mem_maximalIdeal _).1 this hNu
-  let φ : R →+* AlgFrobRedRed.Ow L v := IsLocalization.Away.lift f hfu
-  have hφ : (algebraMap (AlgFrobRedRed.Ow L v) L).comp φ = algebraMap R L := by
-    refine IsLocalization.ringHom_ext (Submonoid.powers f) (RingHom.ext fun x => ?_)
-    simp only [RingHom.comp_apply, φ, IsLocalization.Away.lift_eq]
-    exact (IsLocalization.Away.lift_eq f hfL x).symm
-  letI : GrpObj ((Over.pullback (Spec.map (CommRingCat.ofHom (algebraMap R L)))).obj G) :=
-    Functor.grpObjObj
-  exact hasGoodReduction_of_base _ (algebraMap R L) φ hφ _ (Grp.mk G) ⟨hGp, hGs, hgc⟩
-    (Grp.mkIso' gen)
 
 end FrobPiecesNeron
 
@@ -9811,27 +6509,16 @@ replaced by `AbSchemeSpreadsOut` -/
 noncomputable section
 
 namespace FrobPiecesGood
+open _root_.FrobPiecesGood (AbSchemeSpreadsOut algFrobRed_of_four algFrobRed_of_goodRed_nmp algFrobRed_of_neron algFrobRed_of_neron_nmp algFrobRed_of_spread algFrobRed_of_spread_nmp goodRedCofinite_of isUnit_intCast_of_coprime pullbackGrp_congr smoothGeomConnIntegral) -- op-dedupe
 
 open CategoryTheory AlgebraicGeometry
 open _root_.ZInQ ZInQ LeafQM.AV GlueDescent G0ModField UnramTate AlgFrobRedRed
-
-/-- **alg-frob-red's `SmoothGeomConnIntegral`, proved** (it is definitionally the verbatim copy
-`FrobPieces.SmoothGeomConnIntegral` of `ZInQKernel/Contrib/FrobPieces/SmoothGeomConnIntegral.lean`,
-proved there from the vendored Tau Ceti theorem `TauCeti.AlgebraicGeometry.Smooth.geometricallyIntegral`). -/
-theorem smoothGeomConnIntegral : AlgFrobRedRed.SmoothGeomConnIntegral :=
-  FrobPieces.smoothGeomConnIntegral
-
-/-- **`AlgFrobRed` from `AbSchemeSpreadsOut`, I2-Red, `FExtendGen`, `AbsFrob` (proved).** -/
-theorem algFrobRed_of_spread (hG : AbSchemeSpreadsOut)
-    (hRed : PkgI2.ReductionTorsionBijective.{0}) (hE : FExtendGen) (hA : AbsFrob) :
-    FrobTrace.AlgFrobRed :=
-  algFrobRed_of_gen (goodRedCofinite_of hG) smoothGeomConnIntegral hRed hE hA
-
-/-- **`AlgFrobRed` from `GoodRedCofinite`, I2-Red, `FExtendGen`, `AbsFrob` (proved).** -/
-theorem algFrobRed_of_four (hG : GoodRedCofinite)
-    (hRed : PkgI2.ReductionTorsionBijective.{0}) (hE : FExtendGen) (hA : AbsFrob) :
-    FrobTrace.AlgFrobRed :=
-  algFrobRed_of_gen hG smoothGeomConnIntegral hRed hE hA
+open _root_.ZInQ (Contrib.AbVarBC.G0FibreSimple.MulIsogeny Contrib.AbVarBC.MulRigidity.CotangentMulN Contrib.AbVarBC.MulRigidity.KerUnitOpen Contrib.AbVarBC.MulRigidity.KerUnitOpenOfCotangentSurj Contrib.AbVarBC.MulRigidity.MulEtale Contrib.AbVarBC.MulRigidity.MulUnramified Contrib.AbVarBC.MulRigidity.O0 Contrib.AbVarBC.MulRigidity.QuasiFiniteEndSurjective Contrib.AbVarBC.MulRigidity.charZero_residueField Contrib.AbVarBC.MulRigidity.cotangentMap Contrib.AbVarBC.MulRigidity.diagonal_isPullback Contrib.AbVarBC.MulRigidity.diffKer Contrib.AbVarBC.MulRigidity.formallyUnramified_of_kerUnit Contrib.AbVarBC.MulRigidity.isIsogenyMor_of_lqf_of_isOpenMap Contrib.AbVarBC.MulRigidity.isOpenImmersion_of_section Contrib.AbVarBC.MulRigidity.isProper_left Contrib.AbVarBC.MulRigidity.kerUnit Contrib.AbVarBC.MulRigidity.kerUnitOpen_of_cotangent Contrib.AbVarBC.MulRigidity.kerUnitOpen_of_mulEtale Contrib.AbVarBC.MulRigidity.locallyQuasiFinite_of_formallyUnramified Contrib.AbVarBC.MulRigidity.map_origin Contrib.AbVarBC.MulRigidity.mulIsogeny_of_cotangent Contrib.AbVarBC.MulRigidity.mulIsogeny_of_kerUnitOpen Contrib.AbVarBC.MulRigidity.mulIsogeny_of_mulEtale Contrib.AbVarBC.MulRigidity.mulIsogeny_of_mulUnramified Contrib.AbVarBC.MulRigidity.mulIsogeny_of_mulUnramified' Contrib.AbVarBC.MulRigidity.mulUnramified_of_kerUnitOpen Contrib.AbVarBC.MulRigidity.mulUnramified_of_mulEtale Contrib.AbVarBC.MulRigidity.ne_of_specializes_of_lqf Contrib.AbVarBC.MulRigidity.origin Contrib.AbVarBC.MulRigidity.quasiFiniteEndSurjective Contrib.AbVarBC.MulRigidity.stalkEndo Contrib.AbVarBC.MulRigidity.surjective_of_lqf_self Contrib.AbVarBC.Tangent.AtOrigin Contrib.AbVarBC.Tangent.D Contrib.AbVarBC.Tangent.D_congr Contrib.AbVarBC.Tangent.D_inv Contrib.AbVarBC.Tangent.D_mul Contrib.AbVarBC.Tangent.D_one Contrib.AbVarBC.Tangent.D_zpow Contrib.AbVarBC.Tangent.KerN Contrib.AbVarBC.Tangent.atOrigin_inv Contrib.AbVarBC.Tangent.atOrigin_map Contrib.AbVarBC.Tangent.atOrigin_mul Contrib.AbVarBC.Tangent.atOrigin_one Contrib.AbVarBC.Tangent.atOrigin_zpow Contrib.AbVarBC.Tangent.closedPoint_eq Contrib.AbVarBC.Tangent.comp_intCast_hom Contrib.AbVarBC.Tangent.comp_mem_of_subsingleton Contrib.AbVarBC.Tangent.comp_orig_mem Contrib.AbVarBC.Tangent.derivation_eq_zero Contrib.AbVarBC.Tangent.dualHom Contrib.AbVarBC.Tangent.eq_ofRing_ptRing Contrib.AbVarBC.Tangent.eq_of_D_eq Contrib.AbVarBC.Tangent.eq_one_of_comp_intCast Contrib.AbVarBC.Tangent.ev0 Contrib.AbVarBC.Tangent.exists_affine_orig Contrib.AbVarBC.Tangent.fst_tRing Contrib.AbVarBC.Tangent.id_appLE_top Contrib.AbVarBC.Tangent.intCast_hom Contrib.AbVarBC.Tangent.isLocalHom_fstHom Contrib.AbVarBC.Tangent.isLocalRing_tsze Contrib.AbVarBC.Tangent.ker_le_sq_of_derivations Contrib.AbVarBC.Tangent.ks Contrib.AbVarBC.Tangent.ks_hom Contrib.AbVarBC.Tangent.ks_isOpenImmersion Contrib.AbVarBC.Tangent.left_closedPoint Contrib.AbVarBC.Tangent.locallyOfFiniteType_kerN Contrib.AbVarBC.Tangent.map_add_inl Contrib.AbVarBC.Tangent.map_add_inr Contrib.AbVarBC.Tangent.map_fst_inl Contrib.AbVarBC.Tangent.map_fst_inr Contrib.AbVarBC.Tangent.map_snd_inl Contrib.AbVarBC.Tangent.map_snd_inr Contrib.AbVarBC.Tangent.mem_of_atOrigin Contrib.AbVarBC.Tangent.mulN Contrib.AbVarBC.Tangent.ofRing Contrib.AbVarBC.Tangent.ofRing_mem Contrib.AbVarBC.Tangent.one_left Contrib.AbVarBC.Tangent.orig Contrib.AbVarBC.Tangent.ptR Contrib.AbVarBC.Tangent.ptRing Contrib.AbVarBC.Tangent.ptRing_comp Contrib.AbVarBC.Tangent.ptRing_congr Contrib.AbVarBC.Tangent.ptRing_ext Contrib.AbVarBC.Tangent.ptRing_id_top Contrib.AbVarBC.Tangent.ptRing_ofRing Contrib.AbVarBC.Tangent.ptRing_specMap_comp Contrib.AbVarBC.Tangent.specHom Contrib.AbVarBC.Tangent.specHom_comp Contrib.AbVarBC.Tangent.specHom_id Contrib.AbVarBC.Tangent.specHom_left Contrib.AbVarBC.Tangent.spec_inl_fst_comp Contrib.AbVarBC.Tangent.tRing Contrib.AbVarBC.Tangent.tRing_congr Contrib.AbVarBC.Tangent.tRing_one Contrib.AbVarBC.Tangent.tRing_specHom Contrib.AbVarBC.TorsionDescends Contrib.AbVarBC.comp_natCast_hom Contrib.AbVarBC.dim_baseChange_scheme Contrib.AbVarBC.dim_finite Contrib.AbVarBC.dim_pullback_spec Contrib.AbVarBC.dim_spec_le Contrib.AbVarBC.exists_lift_of_isFinite Contrib.AbVarBC.exists_nat_of_le Contrib.AbVarBC.galK Contrib.AbVarBC.kerUnitOpen Contrib.AbVarBC.map_comm Contrib.AbVarBC.mem_range_of_isIntegral Contrib.AbVarBC.mulIsogeny Contrib.AbVarBC.ptBC Contrib.AbVarBC.ptBC_galAct Contrib.AbVarBC.ptBC_injective Contrib.AbVarBC.ringKrullDim_eq_of_isIntegral_of_injective Contrib.AbVarBC.ringKrullDim_le_of_finiteType Contrib.AbVarBC.ringKrullDim_mvPolynomial_field Contrib.AbVarBC.ringKrullDim_tensor_field Contrib.AbVarBC.scheme_dim_eq_iSup_cover Contrib.AbVarBC.scheme_dim_eq_of_iso Contrib.AbVarBC.spec_dim Contrib.AbVarBC.tateBC Contrib.AbVarBC.tateBC_bijective_of_tateModuleFree Contrib.AbVarBC.tateBC_bijective_of_torsionDescends Contrib.AbVarBC.tateBC_galT Contrib.AbVarBC.tateBC_injective Contrib.AbVarBC.tate_map_bijective_of_torsion Contrib.AbVarBC.topologicalKrullDim_eq_iSup_of_openEmbedding Contrib.AbVarBC.torsionDescends_of_isFinite Contrib.AbVarBC.vBC Contrib.AbVarBC.vBC_galRep DefFaltings.AbVar DefFaltings.AnalyticUniformizationExists DefFaltings.AnalyticUniformizationUnique DefFaltings.EReal.add_coe_add_neg_coe DefFaltings.FinExt DefFaltings.Genus2Eq DefFaltings.Genus2Eq.Good DefFaltings.Genus2Eq.P DefFaltings.Genus2Eq.binDisc DefFaltings.GroupModel DefFaltings.GroupModel.IsAnalyticUniformization DefFaltings.GroupModel.IsNeronModel DefFaltings.GroupModel.Pts DefFaltings.GroupModel.cotangent DefFaltings.GroupModel.dCls DefFaltings.GroupModel.detLattice DefFaltings.GroupModel.dom DefFaltings.GroupModel.evalAt DefFaltings.GroupModel.exists_rep DefFaltings.GroupModel.genStalk DefFaltings.GroupModel.genericUnit DefFaltings.GroupModel.germAlong DefFaltings.GroupModel.height DefFaltings.GroupModel.height_eq DefFaltings.GroupModel.hodgeSpace DefFaltings.GroupModel.jacDet DefFaltings.GroupModel.jacDet_comp DefFaltings.GroupModel.omega DefFaltings.GroupModel.omegaAt DefFaltings.GroupModel.omegaAt_genericPt DefFaltings.GroupModel.ptC DefFaltings.GroupModel.semilinear_ext_wedge DefFaltings.GroupModel.specializes_genericUnit DefFaltings.GroupModel.structMap DefFaltings.GroupModel.unitSection DefFaltings.GroupModel.wedge DefFaltings.HermitianLattice DefFaltings.HermitianLattice.arakelovDegree DefFaltings.HermitianLattice.arakelovDegree_ofFractionalIdeal DefFaltings.HermitianLattice.arakelovDegree_rescale DefFaltings.HermitianLattice.degreeAt DefFaltings.HermitianLattice.degreeAt_eq DefFaltings.HermitianLattice.degreeAt_eq_arakelovDegree DefFaltings.HermitianLattice.degreeAt_smul DefFaltings.HermitianLattice.ofFractionalIdeal DefFaltings.HermitianLattice.rescale DefFaltings.HermitianLattice.secIndex_ne_zero DefFaltings.HodgeData DefFaltings.HodgeData.coeff_apply_ne_zero DefFaltings.HodgeData.hodgeBundle DefFaltings.HodgeData.modelHeight DefFaltings.HodgeData.modelHeight_eq DefFaltings.HodgeData.modelHeight_eq_add_of_le DefFaltings.HodgeData.modelHeight_eq_faltingsHeightGood DefFaltings.HodgeData.modelHeight_le_of_le DefFaltings.HodgeData.modelHeight_ofIdeal DefFaltings.HodgeData.modelHeight_ofIdeal_baseChange DefFaltings.HodgeData.modelHeight_of_span DefFaltings.HodgeData.modelHeight_recoord DefFaltings.HodgeData.norm DefFaltings.HodgeData.norm_sq DefFaltings.HodgeData.recoord DefFaltings.HodgeLatticeTheorem DefFaltings.IsIsogeny DefFaltings.MetrizedModel DefFaltings.MetrizedModel.modelHeight_eq_of_model_eq DefFaltings.NeronModelMinimal DefFaltings.PeriodAreaFormula DefFaltings.R19_GaudronRemond DefFaltings.R20_FaltingsLemma5 DefFaltings.R21_Bost DefFaltings.StableHeightFinite DefFaltings.absNorm_extendedHom DefFaltings.absNorm_map_ringOfIntegers DefFaltings.arakelovDegree_ofFractionalIdeal_baseChange DefFaltings.arakelovDegree_ofFractionalIdeal_mul DefFaltings.card_embeddings_over DefFaltings.covolume_comap_mul_det DefFaltings.covolume_gaussianPair DefFaltings.det_restrictScalars_complex DefFaltings.embCoeff DefFaltings.faltingsHeight DefFaltings.faltingsHeightEC DefFaltings.faltingsHeightGood DefFaltings.faltingsHeight_coe DefFaltings.finiteHeightPart DefFaltings.finrank_ringOfIntegers DefFaltings.gaussianPair DefFaltings.genericFibre DefFaltings.genericPt DefFaltings.grKappa DefFaltings.hypGram DefFaltings.hypGram_comp_add DefFaltings.hypVol DefFaltings.hypVol_one_comp_add DefFaltings.isogDeg DefFaltings.le_stableFaltingsHeight DefFaltings.modelHeight_ofIdeal_eq_faltingsHeightEC DefFaltings.modelHeight_ofIdeal_eq_faltingsHeightEC' DefFaltings.norm_algebraMap_tower DefFaltings.ptObj DefFaltings.ratCoeff DefFaltings.realify DefFaltings.secIndex DefFaltings.secIndex_mul_absNorm DefFaltings.secIndex_smul DefFaltings.stableFaltingsHeight DefFaltings.stableFaltingsHeightDeligne DefFaltings.stableFaltingsHeightDeligne_eq DefFaltings.stableFaltingsHeight_eq_faltingsHeightGood DefFaltings.stableFaltingsHeight_eq_iInf_height DefFaltings.stableFaltingsHeight_le DefFaltings.stableFaltingsHeight_ne_bot_of_R21 DefFaltings.sum_embeddings_comp DefFaltings.sum_log_norm_embeddings DefFaltings.sum_log_norm_embeddings_int DefFaltings.torusMetricSq DefFaltings.torusMetricSq_comap DefFaltings.torusMetricSq_eq_setIntegral DefFaltings.torusMetricSq_pos DefFaltings.torusMetricSq_smul DefFaltings.torus_setIntegral_indep H5Glue.GenericFibreStalkIso H5Glue.GroupModel.baseChange H5Glue.GroupModel.isNeronModel_iff H5Glue.GroupModelBaseChangeExists H5Glue.HeightAntitone H5Glue.HodgeLatticeNonzero H5Glue.HodgeMapBijective H5Glue.IsBaseChangeOf H5Glue.IsOpenSubgroupModel H5Glue.IsProductAbVar H5Glue.IsProductModel H5Glue.ModelHeightBaseChange H5Glue.NeronModelExists H5Glue.NeronProp H5Glue.NeronProp.lift H5Glue.NeronProp.of_iso H5Glue.NeronProp.tensor H5Glue.NeronProp.uniqueIso H5Glue.OmegaSpans H5Glue.OpenImmersionHeightLe H5Glue.OpenSubgroupHeight H5Glue.ProductGroupModelExists H5Glue.ProductModelHeight H5Glue.SemistableNeronIdentityComponent H5Glue.baseChange_map_bijective H5Glue.bcProd H5Glue.bijective_respectsIso H5Glue.compositum H5Glue.cotMap H5Glue.cotMap_bijective H5Glue.cotMap_dCls H5Glue.cotMap_omega H5Glue.cotMap_omegaAt H5Glue.detLattice_le_hodgeMap H5Glue.dom_comp H5Glue.evalAt_comp H5Glue.evalAt_res H5Glue.exists_smul_mem_omega H5Glue.fst_genericFibreUnit H5Glue.fst_genericFibre_unit H5Glue.genBC H5Glue.genBC_isMonHom H5Glue.genMap H5Glue.genMap_germ H5Glue.genMap_mem_maximalIdeal H5Glue.genMap_mem_maximalIdeal_iff H5Glue.genMap_structMap H5Glue.genericFibreStalkIso H5Glue.genericFibreUnit H5Glue.genericIso_of_openImmersion H5Glue.germAlong_comp_eventuallyEq H5Glue.groupModelBaseChangeExists H5Glue.heightAntitone H5Glue.heightAntitone_of H5Glue.heightAntitone_of_hodgeLatticeNonzero H5Glue.heightAntitone_of_omegaSpans H5Glue.hodgeLatticeNonzero_of_omegaSpans H5Glue.hodgeMap H5Glue.hodgeMapBijective H5Glue.hodgeMap_detLattice H5Glue.hodgeMap_wedge H5Glue.hodgeMap_wedgeGerm H5Glue.isAnalyticUniformization_comp H5Glue.isAnalyticUniformization_of_comp H5Glue.isIso_genMap H5Glue.isIso_of_openImmersion_self H5Glue.isIso_stalkSpecializes_genMap H5Glue.isMonHom_of_map H5Glue.isMonHom_pbCompHom H5Glue.isMonHom_pbCompInv H5Glue.isMonHom_pbEqIso H5Glue.isMonHom_prodComparisonIso H5Glue.isNeronModel_of_isProductModel H5Glue.isOpenImmersion_pullback_map H5Glue.jL H5Glue.jacDet_comp_genMap H5Glue.jacDet_comp_map H5Glue.map_genericUnit' H5Glue.map_span_singleton_toAddSubgroup H5Glue.map_zero_of_hom H5Glue.modelHeight_pullHodge_le H5Glue.neronModelMinimal H5Glue.neronModelMinimal_of_heightAntitone H5Glue.neron_lift H5Glue.neron_lift_isMonHom H5Glue.neron_map_injective H5Glue.omegaAt_le_cotMap H5Glue.omegaSpans H5Glue.omega_le_cotMap H5Glue.one_mem_dom H5Glue.openImmersionHeightLe H5Glue.openSubgroupHeight H5Glue.openSubgroupHeight_of H5Glue.pbCompHom H5Glue.pbCompInv H5Glue.pbCompIso H5Glue.pbEqIso H5Glue.productGroupModelExists H5Glue.ptCIso H5Glue.ptC_hom_apply H5Glue.ptsEquiv H5Glue.ptsEquiv_comp H5Glue.pts_comp_bijective H5Glue.pullHodge H5Glue.secIndex_le_of_map H5Glue.secIndex_ne_zero_of_mem H5Glue.smooth_tensor H5Glue.smooth_unit H5Glue.square1 H5Glue.square2 H5Glue.stableFaltingsHeight_add_le H5Glue.stableFaltingsHeight_add_le_of_productModelHeight H5Glue.stableFaltingsHeight_eq_neron_all H5Glue.stableFaltingsHeight_eq_neron_all' H5Glue.stalkIso_of_genericIso H5Glue.stalkSpecializes_self_apply H5Glue.stalkSpecializes_stalkSpecializes_apply H5Glue.stalk_ker_eq H5Glue.stalk_spec_eq H5Glue.stalkwise_fst_toGeneric H5Glue.stalkwise_tensor_localization H5Glue.tensorGen H5Glue.tensorGen_fst H5Glue.tensorGen_snd H5Glue.toGeneric_pt H5Glue.unitSection_comp H5Neron.GroupModel.IsNeronModel.lift H5Neron.GroupModel.IsNeronModel.uniqueIso H5Neron.GroupModel.isNeronModel_iff H5Neron.GroupModelBaseChangeExists H5Neron.IsBaseChangeOf H5Neron.IsOpenSubgroupModel H5Neron.IsProductAbVar H5Neron.IsProductModel H5Neron.ModelHeightBaseChange H5Neron.NeronModelExists H5Neron.NeronProp H5Neron.NeronProp.lift H5Neron.NeronProp.of_iso H5Neron.NeronProp.tensor H5Neron.NeronProp.uniqueIso H5Neron.OpenSubgroupHeight H5Neron.ProductGroupModelExists H5Neron.ProductModelHeight H5Neron.R19_zero H5Neron.R20_zero H5Neron.R21_zero H5Neron.SemistableNeronIdentityComponent H5Neron.bcProd H5Neron.bcUnitIso H5Neron.compositum H5Neron.covolume_fin_zero H5Neron.detLattice_zero H5Neron.glue_zero H5Neron.groupModel_height_zero H5Neron.hodgeZeroEquiv H5Neron.hodgeZeroEquiv_wedge0 H5Neron.hom_ext_of_iso_unit H5Neron.isIsogeny_id_zero H5Neron.isMonHom_of_iso_unit H5Neron.isMonHom_prodComparisonIso H5Neron.isNeronModel_of_isProductModel H5Neron.isogDeg_zero_le_one H5Neron.jL H5Neron.metrizedOf H5Neron.modelHeight_dim_zero H5Neron.neronModelExists_zero H5Neron.neronModelMinimal_zero H5Neron.neron_zero_iso_unit H5Neron.no_metrized_succ H5Neron.one_le_grKappa H5Neron.productGroupModelExists H5Neron.pts_subsingleton H5Neron.semistableNeronIdentityComponent_zero H5Neron.semσ H5Neron.stableFaltingsHeight_add_le H5Neron.stableFaltingsHeight_add_le' H5Neron.stableFaltingsHeight_eq_neron H5Neron.stableFaltingsHeight_eq_neron_all H5Neron.stableFaltingsHeight_zero H5Neron.stableHeightFinite_zero H5Neron.tensorGen H5Neron.tensorGen_fst H5Neron.tensorGen_snd H5Neron.trivHodge H5Neron.trivMetrized H5Neron.trivModel H5Neron.trivModel_isNeronModel H5Neron.wedge0 H5Neron.wedge0_ne_zero H5Neron.wedge_eq_wedge0 HeightBC.CotangentSpanBC HeightBC.D0 HeightBC.D0_add HeightBC.D0_add_apply HeightBC.D0_mul HeightBC.D0_mul_apply HeightBC.D0_sq HeightBC.D0_structMap_mul HeightBC.DetLatticeBC HeightBC.FF HeightBC.GermDerivation HeightBC.HodgeBCInjective HeightBC.HodgeLineBaseChange HeightBC.HodgeLineBaseChangeDescent HeightBC.HodgeLineDescentHalf HeightBC.HodgeSpanBC HeightBC.IsBaseChangeOf HeightBC.IsHodgeBaseChange HeightBC.IsMonBC HeightBC.JacobianPullbackSpan HeightBC.JacobianSemilinear HeightBC.MetrizationBaseChange HeightBC.ModelHeightBaseChange HeightBC.ModelHeightBaseChangeGE HeightBC.ModelHeightBaseChangeLE HeightBC.OmegaBaseChange HeightBC.OmegaLocalization HeightBC.PtsBaseChangeBij HeightBC.PtsBaseChangeMul HeightBC.UniformizationLift HeightBC.UniformizationLiftAnalytic HeightBC.algebraMap_FF HeightBC.algebraMap_ringOfIntegers_coe HeightBC.appLE_top_top HeightBC.bO HeightBC.bO_appTop HeightBC.bO_genericPt HeightBC.bcAlt HeightBC.bcCot HeightBC.bcCotBasis HeightBC.bcCotBasis_apply HeightBC.bcCot_core HeightBC.bcCot_dCls HeightBC.bcCot_intInv HeightBC.bcCot_linearIndependent HeightBC.bcCot_omega HeightBC.bcCot_omegaAt HeightBC.bcCot_smulL HeightBC.bcCot_smul_genStalk HeightBC.bcCot_span HeightBC.bcCot_update HeightBC.bcExt HeightBC.bcExt_smul HeightBC.bcExt_ιMulti HeightBC.bcHodge HeightBC.bcHodge_detLattice HeightBC.bcHodge_smul HeightBC.bcHodge_tmul HeightBC.bcHodge_wedge HeightBC.bcMap HeightBC.bcMap_germ HeightBC.bcMap_mem_maximalIdeal HeightBC.bcMap_structMap HeightBC.bcMap_φL HeightBC.bcProj HeightBC.bcProj_genericUnit HeightBC.bcProj_unit HeightBC.bcProj_w HeightBC.bcPts HeightBC.cotL HeightBC.cotL_isScalarTower HeightBC.cotL_smul HeightBC.cotRes HeightBC.cotangentSpanBC HeightBC.descentHalf_of_descent HeightBC.detLatticeBC_of_omega HeightBC.dom_bcPts HeightBC.evalAt_add HeightBC.evalAt_bcPts HeightBC.evalAt_mul HeightBC.evalAt_one_eq_zero HeightBC.evalAt_res HeightBC.evalAt_structSection HeightBC.exists_act HeightBC.exists_comp_eq HeightBC.exists_int_dvd HeightBC.exists_mem_not_mem_of_sat HeightBC.exists_ringOfIntegers_of_algebraMap HeightBC.extRes HeightBC.finite_of_isClosed_not_genericPt HeightBC.g0_hodgeLine_iff HeightBC.genericPt_eq_genericPoint HeightBC.germAlong_add_mul HeightBC.germAlong_bcPts_eventuallyEq HeightBC.germAlong_differentiableAt HeightBC.germAlong_eventuallyEq_rep HeightBC.germAlong_structMap HeightBC.germAlong_zero_of_mem HeightBC.germDerivation HeightBC.germDerivation_at HeightBC.hodgeBCInjective HeightBC.hodgeLineBaseChangeDescent_of_glue HeightBC.hodgeLineBaseChange_of_descent HeightBC.hodgeLineBaseChange_of_final HeightBC.hodgeLineBaseChange_of_five HeightBC.hodgeLineBaseChange_of_four HeightBC.hodgeLineBaseChange_of_glue HeightBC.hodgeLineBaseChange_of_glue4 HeightBC.hodgeLineBaseChange_of_glue5 HeightBC.hodgeLineBaseChange_of_main HeightBC.hodgeLineBaseChange_of_two HeightBC.hodgeSpanBC_of HeightBC.hom_genericUnit HeightBC.hom_genericUnit' HeightBC.hom_unitSection HeightBC.isAnalyticUniformization_bcPts HeightBC.isField_stalk_genericPt HeightBC.isIso_stalkSpecializes_bcMap HeightBC.isUnit_germ_genericPt HeightBC.isUnit_structMap HeightBC.jacDet_bcPts HeightBC.jacobianPullbackSpan_of HeightBC.jacobianSemilinear HeightBC.jacobianSemilinear_of HeightBC.locSub HeightBC.mapCotangent_injective_of_isIso HeightBC.mapCotangent_smul' HeightBC.map_zero_of_hom HeightBC.maximalIdeal_stalk_genericPt HeightBC.mem_locSub HeightBC.mem_of_forall_locSub HeightBC.metrizationBaseChange_of_hodgeLine HeightBC.modelHeightBaseChangeGE_of_descent HeightBC.modelHeightBaseChangeGE_of_descentHalf HeightBC.modelHeightBaseChangeGE_of_main HeightBC.modelHeightBaseChangeGE_of_two HeightBC.modelHeightBaseChangeLE_of_metrization HeightBC.modelHeightBaseChange_of_descent HeightBC.modelHeightBaseChange_of_final HeightBC.modelHeightBaseChange_of_five HeightBC.modelHeightBaseChange_of_four HeightBC.modelHeightBaseChange_of_glue HeightBC.modelHeightBaseChange_of_glue4 HeightBC.modelHeightBaseChange_of_glue5 HeightBC.modelHeightBaseChange_of_main HeightBC.modelHeightBaseChange_of_two HeightBC.modelHeight_eq_of_isHodgeBaseChange HeightBC.multilinear_mem_span HeightBC.omegaAt_bc_local HeightBC.omegaAt_full HeightBC.omegaAt_open HeightBC.omegaAt_sat HeightBC.omegaBaseChange HeightBC.omegaBaseChange_of_localization HeightBC.omegaLocalization HeightBC.one_mem_dom HeightBC.ptC_hom_apply HeightBC.ptC_hom_comp_bO HeightBC.ptsBaseChangeBij HeightBC.ptsBaseChangeMul HeightBC.rationalOver_genericUnit HeightBC.secIndex_baseChange HeightBC.secIndex_map HeightBC.secIndex_ne_zero_of_baseChange HeightBC.secIndex_nsmul_mem HeightBC.smul_cotangent_eq_of_sub_mem HeightBC.span_bcHodge_le HeightBC.spec_mem_of_ker HeightBC.stalkMapAt_germ' HeightBC.stalkSpec_comp_apply HeightBC.stalkSpec_self_apply HeightBC.stalkSpecializes_self_apply' HeightBC.stalkSpecializes_stalkSpecializes_apply' HeightBC.structMap_eq_spec HeightBC.structMap_eq_stalkMap HeightBC.toCotangent_mul HeightBC.uniformizationLift HeightBC.uniformizationLiftAnalytic HeightBC.uniformizationLift_of HeightBC.unitSection_comp_hom HeightBC.unitSection_stalkMapAt_hom HeightBC.σFF HeightBC.φL HeightBC.φL_algebraMap LeafPush2.CPts LeafPush2.Char2 LeafPush2.HasSexticModel LeafPush2.IC10 LeafPush2.IC2 LeafPush2.IC4 LeafPush2.IC6 LeafPush2.IgJ10 LeafPush2.IgJ2 LeafPush2.IgJ4 LeafPush2.IgJ6 LeafPush2.IsGenus2 LeafPush2.IsPeriodMatrix LeafPush2.IsSiegel LeafPush2.IsUniformization LeafPush2.LinYangTuple LeafPush2.OnQMLocus LeafPush2.T10_groupIso LeafPush2.T11a_RiemannEnd LeafPush2.T11b_Rigidity LeafPush2.T12_ComplexConjEigen LeafPush2.UniformizationExists LeafPush2.absLogHeight LeafPush2.cDom LeafPush2.cEvalAt LeafPush2.cptObj LeafPush2.dsq LeafPush2.exists_isComplexConj LeafPush2.ffAlgebra LeafPush2.ffStructMap LeafPush2.isSiegel_I LeafPush2.javanpeykarBound LeafPush2.javanpeykarBound_mono LeafPush2.javanpeykarBound_pos LeafPush2.linYangTuple_onQMLocus LeafPush2.linYang_j_eq LeafPush2.onQMLocus_of_linYangTuple LeafPush2.pazukiC2 LeafPush2.sextic LeafPush2.thetaConst) -- op-dedupe
+open _root_.LeafQM.AV (CMExists HasCM24 HasCM24.of_iso HasCM3 HasCM3.of_iso HasCM4 HasCM4.of_iso IsBaseChangeOf IsBaseChangeOfPair IsFibreOf Level3 Level3.bcPt_pow_three Level3.eq_iff Level3.exists_mul_of_range_le Level3.ext' Level3.onto Level3.range_le Level3.rightMul Level3.rightMul_eq_self Level3.rightMul_rightMul Level3.torsor Level3.twist M3 M3.mk M3.rightMul M3.rightMul_rightMul M3.twist M3.twist_mk Pin.AutOExt.NormalizerFinite Pin.AutOExt.alpha_nat_smul Pin.AutOExt.autOInnerFinite_of_normalizer Pin.AutOExt.common_den Pin.AutOExt.conjUnit Pin.AutOExt.conj_of_skolem Pin.AutOExt.den_mul_int Pin.AutOExt.exists_nat_smul_mem Pin.AutOExt.extAlgEquiv Pin.AutOExt.extAlgHom Pin.AutOExt.extAlgHom_coe Pin.AutOExt.extAlgHom_symm_comp Pin.AutOExt.extDen Pin.AutOExt.extDen_mem Pin.AutOExt.extDen_pos Pin.AutOExt.extFun Pin.AutOExt.extFun_add Pin.AutOExt.extFun_algebraMap Pin.AutOExt.extFun_coe Pin.AutOExt.extFun_eq Pin.AutOExt.extFun_mul Pin.AutOExt.key_conj Pin.AutOExt.mem_O_of_int Pin.AutOExt.natCast_mul_eq_smul Pin.AutOExt.nat_smul_mem Pin.AutOExt.smul_mul_smul' Pin.AutOInnerFinite Pin.ConstOrOntoAlgClosed Pin.CurveRatFactor Pin.CurveSurj Pin.GeomCompConstOrOnto Pin.GeomCompFinite Pin.GeomCompInfinite Pin.GeomCompRatFactor Pin.ImagePlane.ev_comp Pin.ImagePlane.ev_spec_top Pin.ImagePlane.ptOf_comp Pin.ImagePlane.ptOf_spec_asIdeal Pin.IsNaturalRelabel Pin.Mob.eval_ne_zero_of_coprime Pin.Mob.exists_interp Pin.Mob.isCoprime_X_sub_C_of_eval_one Pin.Mob.natDegree_le_one_of_injective Pin.Mob.ratEval Pin.Mob.ratEval_eq_self Pin.Mob.wronskian_ne_zero Pin.MobiusGlue Pin.NormO.IsNorm Pin.NormO.IsNorm.inv Pin.NormO.IsNorm.mul Pin.NormO.T Pin.NormO.T_finite Pin.NormO.T_mul_ui Pin.NormO.T_mul_uj Pin.NormO.bas Pin.NormO.conjC Pin.NormO.descent Pin.NormO.dvd_of_prime_dvd_nrd Pin.NormO.dvd_of_smul_mem Pin.NormO.ei Pin.NormO.ej Pin.NormO.inv_eq Pin.NormO.isNorm_sc Pin.NormO.isNorm_ui Pin.NormO.isNorm_uj Pin.NormO.mulCoord_conjC Pin.NormO.mulCoord_conjC' Pin.NormO.mulCoord_smul_left Pin.NormO.mulCoord_smul_right Pin.NormO.normalizerFinite Pin.NormO.nrdZ Pin.NormO.nrdZ_ei Pin.NormO.nrdZ_ej Pin.NormO.nrdZ_mul Pin.NormO.nrdZ_ne_zero Pin.NormO.nrdZ_smul Pin.NormO.nrd_dvd_coords Pin.NormO.ofInt_scalar Pin.NormO.rearrange Pin.NormO.sc Pin.NormO.six_sq_identities Pin.NormO.smul_ofInt Pin.NormO.three_dvd_mulCoord_ej Pin.NormO.two_dvd_mulCoord_ei Pin.NormO.ui Pin.NormO.uj Pin.PinUnique Pin.QMFamily.transport Pin.QML3.isoTransport Pin.R1fpProps.fam Pin.R1fpProps.univ Pin.RatFactorAlgClosed Pin.SameTriple Pin.SameTripleMor Pin.SmoothCurveNoIsolatedPoint Pin.SmoothStalkDimOne Pin.TwistClassFinite Pin.autOInnerFinite Pin.autRelabel Pin.autRelabel_natural Pin.bcPt Pin.bcPt_ptOfSection Pin.bcPt_snd Pin.bcQbar Pin.bcSnd Pin.cm_objects_of_R1R2fp Pin.conjUnitIso Pin.cst Pin.curveFacts_of_algClosed Pin.curveFacts_of_comp Pin.curveFacts_of_leaves Pin.curveFacts_of_named Pin.curveRatFactor_of_comp Pin.curveSurj_of_comp Pin.ev Pin.ev_cst Pin.ev_eq_zero_iff Pin.ev_f_mul_g Pin.ev_g_eq_zero Pin.ev_res Pin.ev_top Pin.exists_isOpen_singleton_of_finite_closedPoints Pin.exists_liftO_congr Pin.exists_point_of_isLocallyClosed Pin.geomComp Pin.geomCompConstOrOnto_of Pin.geomCompFinite Pin.geomCompInfinite_of Pin.geomCompRatFactor_of Pin.isFibreOf_transport Pin.isOpen_connectedComponent_of_noetherian Pin.level3_finite Pin.mem_V_of_not_mem_U Pin.phi_part Pin.pointwise_of_witness Pin.pointwise_of_witness_mor Pin.ptOf Pin.ptOfSection Pin.r1fpPin_aut Pin.r1fpPin_relabel_iff Pin.r2fp_aut Pin.relabel Pin.relabel_geometric Pin.relabel_is_morphism Pin.res Pin.res_res Pin.sameTripleMor_of_mobius Pin.sameTriple_aut Pin.smoothCurveNoIsolatedPoint_of Pin.transfer_exists Pin.transfer_pointwise Pin.transfer_pointwise_mor Pin.transportLevel Pin.twistClassFinite Pin.twistClassFinite_of Pin.val_bcPt Pin.val_of_mem Pin.val_of_not_mem PtEquiv QMFamily QMIso QMIso.nonempty_abVarIso QMIso.refl QMIso.symm QMIso.trans QML3 QML3.Iso QML3.Iso.refl QML3.Iso.rightMul QML3.Iso.symm QML3.Iso.trans QML3.Iso.twist QML3.forget QML3.rightMul QML3.rightMul_A QML3.rightMul_rightMul QML3.twist QML3.twist_A QMLeaves QMPair QMPair.twist QMStr QMStr.twist Qbar R1R2fp R1R2fp_Y R1famProps R1fp R1fpProps R1fp_of_R1R2fp R1heckeProps R1rec R1recProps R1univProps R2X6Props R2fpProps R2fpProps_of_X6 R5fp R5fpCount R5fpWeak R5fpWeak_of_R5fp R5ptProps ToP1 ToP1.comp ToP1.val ToP1.val_comp ToP1.val_comp_right UnramifiedAbove5 X6Props X6Surj act_mul_apply bcPt bcPt_injective cm_of_val com comEquiv com_twist conductor conjHom conjHom_iota conjHom_mem_com conjHom_symm_apply conj_iso_of_rational conj_twist_of_rational endPt exists_fibre_object fibre_conjugates_isomorphic fieldMap fieldOfModuli3 fieldOfModuliPair fieldPt galAct_bcPt hI hIJ hJ hasCM24_twist hasCM3_twist hasCM4_twist hrat inertCount6 intCast_mem_com isoSetoid leaves_on_one_witness liftO not_qmStr_zero ofInt_injective ofInt_sub oi oi_mul_oi oj oj_mul_oi_add oj_mul_oj pairSetoid qmAct residueImage residue_unramified_over_branch specMap_flat specMap_surjective specToEquivOfField_comp specToEquivOfField_comp_right stab3 stabPair three_mul_ofInt toKbar unramified_over_branch) -- op-dedupe
+open _root_.GlueDescent (B2.IsSignCocycle B2.SignCob B2.dB B2.dB_inv B2.dB_mul B2.exists_beta B2.isSignCocycle_dB B2.isSignCocycle_inv B2.isSignCocycle_mul B2.isSignCocycle_pull B2.pull B2.pull_dB B2.signCob_dB_iff B2.signCob_inv B2.signCob_mul B2Q.GQ B2Q.GQp B2Q.InflatedFrom B2Q.LeafHasse B2Q.LeafLocalTwo B2Q.LeafSqrtCrit B2Q.LeafUnramified B2Q.UnramifiedAt B2Q.act B2Q.act_mul B2Q.b2_of_leaves B2Q.cast_cast_of_dvd B2Q.chiLevel_pos B2Q.chi_toUnitHom_crt B2Q.cyc B2Q.cyc_eq_of_agree B2Q.cyc_isLocallyConstant B2Q.exists_crt_unit B2Q.galChar B2Q.galChar_isLocallyConstant B2Q.isLocallyConstant_of_openSubgroup B2Q.lev_eq_pow B2Q.resp B2Q.resp_continuous B2Q.sqrtU B2Q.sqrtU_sq B2Q.toRingAut B3Q.GQL B3Q.b3_degree_le_QM B3Q.b3_of_leaves B3Q.inflatedNormalized_of B3Q.mem_GQL B3Q.orderOf_pos_dirichlet B6 B6_commute_i_j B6_inner B6_isCentral B6_isSimpleRing B6_star_mul InflatedNormalized IsCochainFor LeafSkolemNoether MatrixUnits2 MatrixUnits2.W MatrixUnits2.e00_of_mem MatrixUnits2.e_apply_e MatrixUnits2.finrank_W MatrixUnits2.mapsTo_W MatrixUnits2.mem_W_of_e0 MatrixUnits2.splitEquiv MatrixUnits2.splitEquiv_intertwines aniso_int aniso_rat boundary_sq chi chiLevel cochain_conj cochain_mul_kernel cochain_mul_left cochain_mul_right cochain_of_boundary_eq cochain_one cocycle_of_projective commute_adjoin contactSupport_pos degree_le_QM exists_chi exists_odd_char heightD_pos index_kernel_le inertia_le_kernel kernelSubgroup kernelSubgroup_le kernelSubgroup_normal lev lev_dvd_chiLevel mem_kernelSubgroup oddChar oddChar_neg_one orderOf_dvd_totient orderOf_prod_dvd prod_S_le prod_odd_le prod_odd_le_aux prod_totient_lev_le qi qj ramSet relindex_kernel_le restrictHom rho rhoRep rho_commute rho_eq_act rho_map_mul sign_cocycle sign_normalization sign_sq_eq_one ten_le_heightE0 three_dvd_of_form totient_lev twist twist_kills_inertia twist_sq two_lt_lev zmod3_aniso) -- op-dedupe
+open _root_.G0ModField (CommonConstituent ConjugacyData DescentDatum FibreCoverExists FibreCoverOut FibreCtx G2Out G4Out G7Out GaloisCopy.G2Out GaloisCopy.G7Out GaloisCopy.Vb GaloisCopy.resQ GaloisCopy.tate IF IsModelOver IsQMModel IsQMModel.isModelOver KernelFieldExists KernelFieldOut ModularConstituentG PtQ RationalFibre ResQRange T UnramifiedSup actK actQ admissible_S_mul b2_of_leaves_level b3_of_cochain baseChangeTrans card_ker_GL descentDatum_bot descentDatum_of_conjugacy fieldDescent g2Out_of_cover g4Out_of_kernelField g7Out_of_g4Out galAct_bijective galAct_mul incAlg isModelOver_baseChange le_heightD_of_mem_S_mul mem_GQL_bot normA numberField_of_fd resQRange resQ_comm' resQ_range sgnU sgnU_mul sgnU_mul_abs sgnU_sq toLAut toLAut_apply two_mem_T) -- op-dedupe
+open _root_.UnramTate (EndBaseChange PtA ResQEmbedding ScalarTransfer TateCont TatePoints bcPt bcPt_galAct conjE conjE_apply endBC endBaseChange eps_right_one hO homEquiv_mul iO iO_jO iO_sq incO' incO'_coe inertia_trivial' instGaloisQbar' jO jO_sq lift_fixes' matrixUnits_of_quat numberField_of_fd'' opV opVHom ptMapIso quat_words resQEmbedding sK scalarTransfer specMap_comp_sK tateCont_of_tateModuleFree tateMap_add tateMap_comp tateMap_id tateMap_zero tatePoints tate_eq_opV tmOf trHom trHom_comp_symm trHom_left trHom_symm_comp trPt trPt_galAct unramifiedSup_mf) -- op-dedupe
+open _root_.AlgFrobRedRed (AbsFrob AlgFrobRedAt AlgFrobRedGood FExtend FExtendCore FExtendGen FrobMorph GoodRedCofinite Ow OwDVR RedRel RedRelMul RedTorsionQbar ReductionFrobGood ReductionMapGood ResidueAlgClosed ResidueAlgClosure ResidueAlgebraic SmoothGeomConnIntegral absFrob algFrobRedAt_of_good algFrobRedGood_of algFrobRed_of_I2 algFrobRed_of_absFrob algFrobRed_of_at algFrobRed_of_core algFrobRed_of_final algFrobRed_of_fine algFrobRed_of_finest algFrobRed_of_five algFrobRed_of_gen algFrobRed_of_good algFrobRed_of_leaves algFrobRed_of_main algFrobRed_of_nmp algFrobRed_of_pieces algFrobRed_of_split charP_kw dvrAt' exists_lift exists_redRel fExtendCore_of_gen fExtendCore_of_nmp fExtendGen_of_nmp fExtend_of_core frobMorph_of frobenius_eq_powHom genMap genMap_comm genPt hom_spec_eq_of_point hw_of iotaW iotaW_isIso_left isArithFrob_conj isDominant_Spec_map_of_injective isLocalHom_of_resPow isLocalHom_toW isUnit_cast_of_ne jSpec kw liesOver_smul lift_unique natCast_mem_maximalIdeal owDVR pb_eta_fst pb_mul pb_mul' pb_one pb_one' pb_symm_mul pb_symm_mul' psiW psiW_toW redRelMul redRel_of_isReductionOf redRel_unique redTorsionQbar_of reductionFrobGood_of reductionMapGood_of residueAlgClosed residueAlgClosure_of residueAlgebraic residue_sigV ringHom_eq_of_normal ringOfIntegers_mem' sf sf_eta_fst sf_isAbelianVariety sigV smul_mem_nonunits spec_aut_cancel tSig tSig_residue tSpec tauL thetaHom thetaW thetaW_injective thetaW_left thetaW_surjective thetaW_symm toO' vsq wOf) -- op-dedupe
 
 /-- **`TateBridge35` from I3.M0, `AbSchemeSpreadsOut`, I2-Red, `FExtendGen`, `AbsFrob`
 (proved).** -/
@@ -9839,15 +6526,6 @@ theorem tateBridge35_of_spread (hT : PkgI3.TateModuleFree) (hG : AbSchemeSpreads
     (hRed : PkgI2.ReductionTorsionBijective.{0}) (hE : FExtendGen) (hA : AbsFrob) :
     G14Bridge.TateBridge35 :=
   FrobTrace.tateBridge35_of_algFrobRed hT (algFrobRed_of_spread hG hRed hE hA)
-
-/-- **`AlgFrobRed` from neron-lg's glue N1-g1 `AbVarSpreadsOut`, `ProperSmoothGenConnected`,
-I2-Red, `FExtendGen`, `AbsFrob` (proved).** -/
-theorem algFrobRed_of_neron (hsp : FrobPiecesNeron.AbVarSpreadsOut)
-    (hc : FrobPiecesNeron.ProperSmoothGenConnected)
-    (hRed : PkgI2.ReductionTorsionBijective.{0}) (hE : FExtendGen) (hA : AbsFrob) :
-    FrobTrace.AlgFrobRed :=
-  algFrobRed_of_gen (FrobPiecesNeron.goodRedCofinite_of_neron hsp hc) smoothGeomConnIntegral hRed
-    hE hA
 
 /-- **`TateBridge35` from I3.M0, N1-g1, `ProperSmoothGenConnected`, I2-Red, `FExtendGen`,
 `AbsFrob` (proved).** -/
@@ -9870,32 +6548,16 @@ begins with alg-frob-red's `AlgFrobRed.lean`) and this task's parts. -/
 noncomputable section
 
 namespace FrobPiecesGood
+open _root_.FrobPiecesGood (AbSchemeSpreadsOut algFrobRed_of_four algFrobRed_of_goodRed_nmp algFrobRed_of_neron algFrobRed_of_neron_nmp algFrobRed_of_spread algFrobRed_of_spread_nmp goodRedCofinite_of isUnit_intCast_of_coprime pullbackGrp_congr smoothGeomConnIntegral) -- op-dedupe
 
 open CategoryTheory AlgebraicGeometry
 open _root_.ZInQ ZInQ LeafQM.AV GlueDescent G0ModField UnramTate AlgFrobRedRed
-
-/-- **`FrobTrace.AlgFrobRed` from neron-lg's glue N1-g1 `AbVarSpreadsOut`, the leaf candidate
-`ProperSmoothGenConnected` and the kernel leaves I2-Red, I2-NMP (proved).** -/
-theorem algFrobRed_of_neron_nmp (hsp : FrobPiecesNeron.AbVarSpreadsOut)
-    (hc : FrobPiecesNeron.ProperSmoothGenConnected)
-    (hRed : PkgI2.ReductionTorsionBijective.{0}) (hN : PkgI2.NeronMappingAbelianScheme.{0}) :
-    FrobTrace.AlgFrobRed :=
-  algFrobRed_of_nmp (FrobPiecesNeron.goodRedCofinite_of_neron hsp hc) smoothGeomConnIntegral
-    hRed hN
-
-/-- **`FrobTrace.AlgFrobRed` from `AbSchemeSpreadsOut` and the kernel leaves I2-Red, I2-NMP
-(proved).** -/
-theorem algFrobRed_of_spread_nmp (hG : AbSchemeSpreadsOut)
-    (hRed : PkgI2.ReductionTorsionBijective.{0}) (hN : PkgI2.NeronMappingAbelianScheme.{0}) :
-    FrobTrace.AlgFrobRed :=
-  algFrobRed_of_nmp (goodRedCofinite_of hG) smoothGeomConnIntegral hRed hN
-
-/-- **`FrobTrace.AlgFrobRed` from `GoodRedCofinite` and the kernel leaves I2-Red, I2-NMP
-(proved).** -/
-theorem algFrobRed_of_goodRed_nmp (hG : GoodRedCofinite)
-    (hRed : PkgI2.ReductionTorsionBijective.{0}) (hN : PkgI2.NeronMappingAbelianScheme.{0}) :
-    FrobTrace.AlgFrobRed :=
-  algFrobRed_of_nmp hG smoothGeomConnIntegral hRed hN
+open _root_.ZInQ (Contrib.AbVarBC.G0FibreSimple.MulIsogeny Contrib.AbVarBC.MulRigidity.CotangentMulN Contrib.AbVarBC.MulRigidity.KerUnitOpen Contrib.AbVarBC.MulRigidity.KerUnitOpenOfCotangentSurj Contrib.AbVarBC.MulRigidity.MulEtale Contrib.AbVarBC.MulRigidity.MulUnramified Contrib.AbVarBC.MulRigidity.O0 Contrib.AbVarBC.MulRigidity.QuasiFiniteEndSurjective Contrib.AbVarBC.MulRigidity.charZero_residueField Contrib.AbVarBC.MulRigidity.cotangentMap Contrib.AbVarBC.MulRigidity.diagonal_isPullback Contrib.AbVarBC.MulRigidity.diffKer Contrib.AbVarBC.MulRigidity.formallyUnramified_of_kerUnit Contrib.AbVarBC.MulRigidity.isIsogenyMor_of_lqf_of_isOpenMap Contrib.AbVarBC.MulRigidity.isOpenImmersion_of_section Contrib.AbVarBC.MulRigidity.isProper_left Contrib.AbVarBC.MulRigidity.kerUnit Contrib.AbVarBC.MulRigidity.kerUnitOpen_of_cotangent Contrib.AbVarBC.MulRigidity.kerUnitOpen_of_mulEtale Contrib.AbVarBC.MulRigidity.locallyQuasiFinite_of_formallyUnramified Contrib.AbVarBC.MulRigidity.map_origin Contrib.AbVarBC.MulRigidity.mulIsogeny_of_cotangent Contrib.AbVarBC.MulRigidity.mulIsogeny_of_kerUnitOpen Contrib.AbVarBC.MulRigidity.mulIsogeny_of_mulEtale Contrib.AbVarBC.MulRigidity.mulIsogeny_of_mulUnramified Contrib.AbVarBC.MulRigidity.mulIsogeny_of_mulUnramified' Contrib.AbVarBC.MulRigidity.mulUnramified_of_kerUnitOpen Contrib.AbVarBC.MulRigidity.mulUnramified_of_mulEtale Contrib.AbVarBC.MulRigidity.ne_of_specializes_of_lqf Contrib.AbVarBC.MulRigidity.origin Contrib.AbVarBC.MulRigidity.quasiFiniteEndSurjective Contrib.AbVarBC.MulRigidity.stalkEndo Contrib.AbVarBC.MulRigidity.surjective_of_lqf_self Contrib.AbVarBC.Tangent.AtOrigin Contrib.AbVarBC.Tangent.D Contrib.AbVarBC.Tangent.D_congr Contrib.AbVarBC.Tangent.D_inv Contrib.AbVarBC.Tangent.D_mul Contrib.AbVarBC.Tangent.D_one Contrib.AbVarBC.Tangent.D_zpow Contrib.AbVarBC.Tangent.KerN Contrib.AbVarBC.Tangent.atOrigin_inv Contrib.AbVarBC.Tangent.atOrigin_map Contrib.AbVarBC.Tangent.atOrigin_mul Contrib.AbVarBC.Tangent.atOrigin_one Contrib.AbVarBC.Tangent.atOrigin_zpow Contrib.AbVarBC.Tangent.closedPoint_eq Contrib.AbVarBC.Tangent.comp_intCast_hom Contrib.AbVarBC.Tangent.comp_mem_of_subsingleton Contrib.AbVarBC.Tangent.comp_orig_mem Contrib.AbVarBC.Tangent.derivation_eq_zero Contrib.AbVarBC.Tangent.dualHom Contrib.AbVarBC.Tangent.eq_ofRing_ptRing Contrib.AbVarBC.Tangent.eq_of_D_eq Contrib.AbVarBC.Tangent.eq_one_of_comp_intCast Contrib.AbVarBC.Tangent.ev0 Contrib.AbVarBC.Tangent.exists_affine_orig Contrib.AbVarBC.Tangent.fst_tRing Contrib.AbVarBC.Tangent.id_appLE_top Contrib.AbVarBC.Tangent.intCast_hom Contrib.AbVarBC.Tangent.isLocalHom_fstHom Contrib.AbVarBC.Tangent.isLocalRing_tsze Contrib.AbVarBC.Tangent.ker_le_sq_of_derivations Contrib.AbVarBC.Tangent.ks Contrib.AbVarBC.Tangent.ks_hom Contrib.AbVarBC.Tangent.ks_isOpenImmersion Contrib.AbVarBC.Tangent.left_closedPoint Contrib.AbVarBC.Tangent.locallyOfFiniteType_kerN Contrib.AbVarBC.Tangent.map_add_inl Contrib.AbVarBC.Tangent.map_add_inr Contrib.AbVarBC.Tangent.map_fst_inl Contrib.AbVarBC.Tangent.map_fst_inr Contrib.AbVarBC.Tangent.map_snd_inl Contrib.AbVarBC.Tangent.map_snd_inr Contrib.AbVarBC.Tangent.mem_of_atOrigin Contrib.AbVarBC.Tangent.mulN Contrib.AbVarBC.Tangent.ofRing Contrib.AbVarBC.Tangent.ofRing_mem Contrib.AbVarBC.Tangent.one_left Contrib.AbVarBC.Tangent.orig Contrib.AbVarBC.Tangent.ptR Contrib.AbVarBC.Tangent.ptRing Contrib.AbVarBC.Tangent.ptRing_comp Contrib.AbVarBC.Tangent.ptRing_congr Contrib.AbVarBC.Tangent.ptRing_ext Contrib.AbVarBC.Tangent.ptRing_id_top Contrib.AbVarBC.Tangent.ptRing_ofRing Contrib.AbVarBC.Tangent.ptRing_specMap_comp Contrib.AbVarBC.Tangent.specHom Contrib.AbVarBC.Tangent.specHom_comp Contrib.AbVarBC.Tangent.specHom_id Contrib.AbVarBC.Tangent.specHom_left Contrib.AbVarBC.Tangent.spec_inl_fst_comp Contrib.AbVarBC.Tangent.tRing Contrib.AbVarBC.Tangent.tRing_congr Contrib.AbVarBC.Tangent.tRing_one Contrib.AbVarBC.Tangent.tRing_specHom Contrib.AbVarBC.TorsionDescends Contrib.AbVarBC.comp_natCast_hom Contrib.AbVarBC.dim_baseChange_scheme Contrib.AbVarBC.dim_finite Contrib.AbVarBC.dim_pullback_spec Contrib.AbVarBC.dim_spec_le Contrib.AbVarBC.exists_lift_of_isFinite Contrib.AbVarBC.exists_nat_of_le Contrib.AbVarBC.galK Contrib.AbVarBC.kerUnitOpen Contrib.AbVarBC.map_comm Contrib.AbVarBC.mem_range_of_isIntegral Contrib.AbVarBC.mulIsogeny Contrib.AbVarBC.ptBC Contrib.AbVarBC.ptBC_galAct Contrib.AbVarBC.ptBC_injective Contrib.AbVarBC.ringKrullDim_eq_of_isIntegral_of_injective Contrib.AbVarBC.ringKrullDim_le_of_finiteType Contrib.AbVarBC.ringKrullDim_mvPolynomial_field Contrib.AbVarBC.ringKrullDim_tensor_field Contrib.AbVarBC.scheme_dim_eq_iSup_cover Contrib.AbVarBC.scheme_dim_eq_of_iso Contrib.AbVarBC.spec_dim Contrib.AbVarBC.tateBC Contrib.AbVarBC.tateBC_bijective_of_tateModuleFree Contrib.AbVarBC.tateBC_bijective_of_torsionDescends Contrib.AbVarBC.tateBC_galT Contrib.AbVarBC.tateBC_injective Contrib.AbVarBC.tate_map_bijective_of_torsion Contrib.AbVarBC.topologicalKrullDim_eq_iSup_of_openEmbedding Contrib.AbVarBC.torsionDescends_of_isFinite Contrib.AbVarBC.vBC Contrib.AbVarBC.vBC_galRep DefFaltings.AbVar DefFaltings.AnalyticUniformizationExists DefFaltings.AnalyticUniformizationUnique DefFaltings.EReal.add_coe_add_neg_coe DefFaltings.FinExt DefFaltings.Genus2Eq DefFaltings.Genus2Eq.Good DefFaltings.Genus2Eq.P DefFaltings.Genus2Eq.binDisc DefFaltings.GroupModel DefFaltings.GroupModel.IsAnalyticUniformization DefFaltings.GroupModel.IsNeronModel DefFaltings.GroupModel.Pts DefFaltings.GroupModel.cotangent DefFaltings.GroupModel.dCls DefFaltings.GroupModel.detLattice DefFaltings.GroupModel.dom DefFaltings.GroupModel.evalAt DefFaltings.GroupModel.exists_rep DefFaltings.GroupModel.genStalk DefFaltings.GroupModel.genericUnit DefFaltings.GroupModel.germAlong DefFaltings.GroupModel.height DefFaltings.GroupModel.height_eq DefFaltings.GroupModel.hodgeSpace DefFaltings.GroupModel.jacDet DefFaltings.GroupModel.jacDet_comp DefFaltings.GroupModel.omega DefFaltings.GroupModel.omegaAt DefFaltings.GroupModel.omegaAt_genericPt DefFaltings.GroupModel.ptC DefFaltings.GroupModel.semilinear_ext_wedge DefFaltings.GroupModel.specializes_genericUnit DefFaltings.GroupModel.structMap DefFaltings.GroupModel.unitSection DefFaltings.GroupModel.wedge DefFaltings.HermitianLattice DefFaltings.HermitianLattice.arakelovDegree DefFaltings.HermitianLattice.arakelovDegree_ofFractionalIdeal DefFaltings.HermitianLattice.arakelovDegree_rescale DefFaltings.HermitianLattice.degreeAt DefFaltings.HermitianLattice.degreeAt_eq DefFaltings.HermitianLattice.degreeAt_eq_arakelovDegree DefFaltings.HermitianLattice.degreeAt_smul DefFaltings.HermitianLattice.ofFractionalIdeal DefFaltings.HermitianLattice.rescale DefFaltings.HermitianLattice.secIndex_ne_zero DefFaltings.HodgeData DefFaltings.HodgeData.coeff_apply_ne_zero DefFaltings.HodgeData.hodgeBundle DefFaltings.HodgeData.modelHeight DefFaltings.HodgeData.modelHeight_eq DefFaltings.HodgeData.modelHeight_eq_add_of_le DefFaltings.HodgeData.modelHeight_eq_faltingsHeightGood DefFaltings.HodgeData.modelHeight_le_of_le DefFaltings.HodgeData.modelHeight_ofIdeal DefFaltings.HodgeData.modelHeight_ofIdeal_baseChange DefFaltings.HodgeData.modelHeight_of_span DefFaltings.HodgeData.modelHeight_recoord DefFaltings.HodgeData.norm DefFaltings.HodgeData.norm_sq DefFaltings.HodgeData.recoord DefFaltings.HodgeLatticeTheorem DefFaltings.IsIsogeny DefFaltings.MetrizedModel DefFaltings.MetrizedModel.modelHeight_eq_of_model_eq DefFaltings.NeronModelMinimal DefFaltings.PeriodAreaFormula DefFaltings.R19_GaudronRemond DefFaltings.R20_FaltingsLemma5 DefFaltings.R21_Bost DefFaltings.StableHeightFinite DefFaltings.absNorm_extendedHom DefFaltings.absNorm_map_ringOfIntegers DefFaltings.arakelovDegree_ofFractionalIdeal_baseChange DefFaltings.arakelovDegree_ofFractionalIdeal_mul DefFaltings.card_embeddings_over DefFaltings.covolume_comap_mul_det DefFaltings.covolume_gaussianPair DefFaltings.det_restrictScalars_complex DefFaltings.embCoeff DefFaltings.faltingsHeight DefFaltings.faltingsHeightEC DefFaltings.faltingsHeightGood DefFaltings.faltingsHeight_coe DefFaltings.finiteHeightPart DefFaltings.finrank_ringOfIntegers DefFaltings.gaussianPair DefFaltings.genericFibre DefFaltings.genericPt DefFaltings.grKappa DefFaltings.hypGram DefFaltings.hypGram_comp_add DefFaltings.hypVol DefFaltings.hypVol_one_comp_add DefFaltings.isogDeg DefFaltings.le_stableFaltingsHeight DefFaltings.modelHeight_ofIdeal_eq_faltingsHeightEC DefFaltings.modelHeight_ofIdeal_eq_faltingsHeightEC' DefFaltings.norm_algebraMap_tower DefFaltings.ptObj DefFaltings.ratCoeff DefFaltings.realify DefFaltings.secIndex DefFaltings.secIndex_mul_absNorm DefFaltings.secIndex_smul DefFaltings.stableFaltingsHeight DefFaltings.stableFaltingsHeightDeligne DefFaltings.stableFaltingsHeightDeligne_eq DefFaltings.stableFaltingsHeight_eq_faltingsHeightGood DefFaltings.stableFaltingsHeight_eq_iInf_height DefFaltings.stableFaltingsHeight_le DefFaltings.stableFaltingsHeight_ne_bot_of_R21 DefFaltings.sum_embeddings_comp DefFaltings.sum_log_norm_embeddings DefFaltings.sum_log_norm_embeddings_int DefFaltings.torusMetricSq DefFaltings.torusMetricSq_comap DefFaltings.torusMetricSq_eq_setIntegral DefFaltings.torusMetricSq_pos DefFaltings.torusMetricSq_smul DefFaltings.torus_setIntegral_indep H5Glue.GenericFibreStalkIso H5Glue.GroupModel.baseChange H5Glue.GroupModel.isNeronModel_iff H5Glue.GroupModelBaseChangeExists H5Glue.HeightAntitone H5Glue.HodgeLatticeNonzero H5Glue.HodgeMapBijective H5Glue.IsBaseChangeOf H5Glue.IsOpenSubgroupModel H5Glue.IsProductAbVar H5Glue.IsProductModel H5Glue.ModelHeightBaseChange H5Glue.NeronModelExists H5Glue.NeronProp H5Glue.NeronProp.lift H5Glue.NeronProp.of_iso H5Glue.NeronProp.tensor H5Glue.NeronProp.uniqueIso H5Glue.OmegaSpans H5Glue.OpenImmersionHeightLe H5Glue.OpenSubgroupHeight H5Glue.ProductGroupModelExists H5Glue.ProductModelHeight H5Glue.SemistableNeronIdentityComponent H5Glue.baseChange_map_bijective H5Glue.bcProd H5Glue.bijective_respectsIso H5Glue.compositum H5Glue.cotMap H5Glue.cotMap_bijective H5Glue.cotMap_dCls H5Glue.cotMap_omega H5Glue.cotMap_omegaAt H5Glue.detLattice_le_hodgeMap H5Glue.dom_comp H5Glue.evalAt_comp H5Glue.evalAt_res H5Glue.exists_smul_mem_omega H5Glue.fst_genericFibreUnit H5Glue.fst_genericFibre_unit H5Glue.genBC H5Glue.genBC_isMonHom H5Glue.genMap H5Glue.genMap_germ H5Glue.genMap_mem_maximalIdeal H5Glue.genMap_mem_maximalIdeal_iff H5Glue.genMap_structMap H5Glue.genericFibreStalkIso H5Glue.genericFibreUnit H5Glue.genericIso_of_openImmersion H5Glue.germAlong_comp_eventuallyEq H5Glue.groupModelBaseChangeExists H5Glue.heightAntitone H5Glue.heightAntitone_of H5Glue.heightAntitone_of_hodgeLatticeNonzero H5Glue.heightAntitone_of_omegaSpans H5Glue.hodgeLatticeNonzero_of_omegaSpans H5Glue.hodgeMap H5Glue.hodgeMapBijective H5Glue.hodgeMap_detLattice H5Glue.hodgeMap_wedge H5Glue.hodgeMap_wedgeGerm H5Glue.isAnalyticUniformization_comp H5Glue.isAnalyticUniformization_of_comp H5Glue.isIso_genMap H5Glue.isIso_of_openImmersion_self H5Glue.isIso_stalkSpecializes_genMap H5Glue.isMonHom_of_map H5Glue.isMonHom_pbCompHom H5Glue.isMonHom_pbCompInv H5Glue.isMonHom_pbEqIso H5Glue.isMonHom_prodComparisonIso H5Glue.isNeronModel_of_isProductModel H5Glue.isOpenImmersion_pullback_map H5Glue.jL H5Glue.jacDet_comp_genMap H5Glue.jacDet_comp_map H5Glue.map_genericUnit' H5Glue.map_span_singleton_toAddSubgroup H5Glue.map_zero_of_hom H5Glue.modelHeight_pullHodge_le H5Glue.neronModelMinimal H5Glue.neronModelMinimal_of_heightAntitone H5Glue.neron_lift H5Glue.neron_lift_isMonHom H5Glue.neron_map_injective H5Glue.omegaAt_le_cotMap H5Glue.omegaSpans H5Glue.omega_le_cotMap H5Glue.one_mem_dom H5Glue.openImmersionHeightLe H5Glue.openSubgroupHeight H5Glue.openSubgroupHeight_of H5Glue.pbCompHom H5Glue.pbCompInv H5Glue.pbCompIso H5Glue.pbEqIso H5Glue.productGroupModelExists H5Glue.ptCIso H5Glue.ptC_hom_apply H5Glue.ptsEquiv H5Glue.ptsEquiv_comp H5Glue.pts_comp_bijective H5Glue.pullHodge H5Glue.secIndex_le_of_map H5Glue.secIndex_ne_zero_of_mem H5Glue.smooth_tensor H5Glue.smooth_unit H5Glue.square1 H5Glue.square2 H5Glue.stableFaltingsHeight_add_le H5Glue.stableFaltingsHeight_add_le_of_productModelHeight H5Glue.stableFaltingsHeight_eq_neron_all H5Glue.stableFaltingsHeight_eq_neron_all' H5Glue.stalkIso_of_genericIso H5Glue.stalkSpecializes_self_apply H5Glue.stalkSpecializes_stalkSpecializes_apply H5Glue.stalk_ker_eq H5Glue.stalk_spec_eq H5Glue.stalkwise_fst_toGeneric H5Glue.stalkwise_tensor_localization H5Glue.tensorGen H5Glue.tensorGen_fst H5Glue.tensorGen_snd H5Glue.toGeneric_pt H5Glue.unitSection_comp H5Neron.GroupModel.IsNeronModel.lift H5Neron.GroupModel.IsNeronModel.uniqueIso H5Neron.GroupModel.isNeronModel_iff H5Neron.GroupModelBaseChangeExists H5Neron.IsBaseChangeOf H5Neron.IsOpenSubgroupModel H5Neron.IsProductAbVar H5Neron.IsProductModel H5Neron.ModelHeightBaseChange H5Neron.NeronModelExists H5Neron.NeronProp H5Neron.NeronProp.lift H5Neron.NeronProp.of_iso H5Neron.NeronProp.tensor H5Neron.NeronProp.uniqueIso H5Neron.OpenSubgroupHeight H5Neron.ProductGroupModelExists H5Neron.ProductModelHeight H5Neron.R19_zero H5Neron.R20_zero H5Neron.R21_zero H5Neron.SemistableNeronIdentityComponent H5Neron.bcProd H5Neron.bcUnitIso H5Neron.compositum H5Neron.covolume_fin_zero H5Neron.detLattice_zero H5Neron.glue_zero H5Neron.groupModel_height_zero H5Neron.hodgeZeroEquiv H5Neron.hodgeZeroEquiv_wedge0 H5Neron.hom_ext_of_iso_unit H5Neron.isIsogeny_id_zero H5Neron.isMonHom_of_iso_unit H5Neron.isMonHom_prodComparisonIso H5Neron.isNeronModel_of_isProductModel H5Neron.isogDeg_zero_le_one H5Neron.jL H5Neron.metrizedOf H5Neron.modelHeight_dim_zero H5Neron.neronModelExists_zero H5Neron.neronModelMinimal_zero H5Neron.neron_zero_iso_unit H5Neron.no_metrized_succ H5Neron.one_le_grKappa H5Neron.productGroupModelExists H5Neron.pts_subsingleton H5Neron.semistableNeronIdentityComponent_zero H5Neron.semσ H5Neron.stableFaltingsHeight_add_le H5Neron.stableFaltingsHeight_add_le' H5Neron.stableFaltingsHeight_eq_neron H5Neron.stableFaltingsHeight_eq_neron_all H5Neron.stableFaltingsHeight_zero H5Neron.stableHeightFinite_zero H5Neron.tensorGen H5Neron.tensorGen_fst H5Neron.tensorGen_snd H5Neron.trivHodge H5Neron.trivMetrized H5Neron.trivModel H5Neron.trivModel_isNeronModel H5Neron.wedge0 H5Neron.wedge0_ne_zero H5Neron.wedge_eq_wedge0 HeightBC.CotangentSpanBC HeightBC.D0 HeightBC.D0_add HeightBC.D0_add_apply HeightBC.D0_mul HeightBC.D0_mul_apply HeightBC.D0_sq HeightBC.D0_structMap_mul HeightBC.DetLatticeBC HeightBC.FF HeightBC.GermDerivation HeightBC.HodgeBCInjective HeightBC.HodgeLineBaseChange HeightBC.HodgeLineBaseChangeDescent HeightBC.HodgeLineDescentHalf HeightBC.HodgeSpanBC HeightBC.IsBaseChangeOf HeightBC.IsHodgeBaseChange HeightBC.IsMonBC HeightBC.JacobianPullbackSpan HeightBC.JacobianSemilinear HeightBC.MetrizationBaseChange HeightBC.ModelHeightBaseChange HeightBC.ModelHeightBaseChangeGE HeightBC.ModelHeightBaseChangeLE HeightBC.OmegaBaseChange HeightBC.OmegaLocalization HeightBC.PtsBaseChangeBij HeightBC.PtsBaseChangeMul HeightBC.UniformizationLift HeightBC.UniformizationLiftAnalytic HeightBC.algebraMap_FF HeightBC.algebraMap_ringOfIntegers_coe HeightBC.appLE_top_top HeightBC.bO HeightBC.bO_appTop HeightBC.bO_genericPt HeightBC.bcAlt HeightBC.bcCot HeightBC.bcCotBasis HeightBC.bcCotBasis_apply HeightBC.bcCot_core HeightBC.bcCot_dCls HeightBC.bcCot_intInv HeightBC.bcCot_linearIndependent HeightBC.bcCot_omega HeightBC.bcCot_omegaAt HeightBC.bcCot_smulL HeightBC.bcCot_smul_genStalk HeightBC.bcCot_span HeightBC.bcCot_update HeightBC.bcExt HeightBC.bcExt_smul HeightBC.bcExt_ιMulti HeightBC.bcHodge HeightBC.bcHodge_detLattice HeightBC.bcHodge_smul HeightBC.bcHodge_tmul HeightBC.bcHodge_wedge HeightBC.bcMap HeightBC.bcMap_germ HeightBC.bcMap_mem_maximalIdeal HeightBC.bcMap_structMap HeightBC.bcMap_φL HeightBC.bcProj HeightBC.bcProj_genericUnit HeightBC.bcProj_unit HeightBC.bcProj_w HeightBC.bcPts HeightBC.cotL HeightBC.cotL_isScalarTower HeightBC.cotL_smul HeightBC.cotRes HeightBC.cotangentSpanBC HeightBC.descentHalf_of_descent HeightBC.detLatticeBC_of_omega HeightBC.dom_bcPts HeightBC.evalAt_add HeightBC.evalAt_bcPts HeightBC.evalAt_mul HeightBC.evalAt_one_eq_zero HeightBC.evalAt_res HeightBC.evalAt_structSection HeightBC.exists_act HeightBC.exists_comp_eq HeightBC.exists_int_dvd HeightBC.exists_mem_not_mem_of_sat HeightBC.exists_ringOfIntegers_of_algebraMap HeightBC.extRes HeightBC.finite_of_isClosed_not_genericPt HeightBC.g0_hodgeLine_iff HeightBC.genericPt_eq_genericPoint HeightBC.germAlong_add_mul HeightBC.germAlong_bcPts_eventuallyEq HeightBC.germAlong_differentiableAt HeightBC.germAlong_eventuallyEq_rep HeightBC.germAlong_structMap HeightBC.germAlong_zero_of_mem HeightBC.germDerivation HeightBC.germDerivation_at HeightBC.hodgeBCInjective HeightBC.hodgeLineBaseChangeDescent_of_glue HeightBC.hodgeLineBaseChange_of_descent HeightBC.hodgeLineBaseChange_of_final HeightBC.hodgeLineBaseChange_of_five HeightBC.hodgeLineBaseChange_of_four HeightBC.hodgeLineBaseChange_of_glue HeightBC.hodgeLineBaseChange_of_glue4 HeightBC.hodgeLineBaseChange_of_glue5 HeightBC.hodgeLineBaseChange_of_main HeightBC.hodgeLineBaseChange_of_two HeightBC.hodgeSpanBC_of HeightBC.hom_genericUnit HeightBC.hom_genericUnit' HeightBC.hom_unitSection HeightBC.isAnalyticUniformization_bcPts HeightBC.isField_stalk_genericPt HeightBC.isIso_stalkSpecializes_bcMap HeightBC.isUnit_germ_genericPt HeightBC.isUnit_structMap HeightBC.jacDet_bcPts HeightBC.jacobianPullbackSpan_of HeightBC.jacobianSemilinear HeightBC.jacobianSemilinear_of HeightBC.locSub HeightBC.mapCotangent_injective_of_isIso HeightBC.mapCotangent_smul' HeightBC.map_zero_of_hom HeightBC.maximalIdeal_stalk_genericPt HeightBC.mem_locSub HeightBC.mem_of_forall_locSub HeightBC.metrizationBaseChange_of_hodgeLine HeightBC.modelHeightBaseChangeGE_of_descent HeightBC.modelHeightBaseChangeGE_of_descentHalf HeightBC.modelHeightBaseChangeGE_of_main HeightBC.modelHeightBaseChangeGE_of_two HeightBC.modelHeightBaseChangeLE_of_metrization HeightBC.modelHeightBaseChange_of_descent HeightBC.modelHeightBaseChange_of_final HeightBC.modelHeightBaseChange_of_five HeightBC.modelHeightBaseChange_of_four HeightBC.modelHeightBaseChange_of_glue HeightBC.modelHeightBaseChange_of_glue4 HeightBC.modelHeightBaseChange_of_glue5 HeightBC.modelHeightBaseChange_of_main HeightBC.modelHeightBaseChange_of_two HeightBC.modelHeight_eq_of_isHodgeBaseChange HeightBC.multilinear_mem_span HeightBC.omegaAt_bc_local HeightBC.omegaAt_full HeightBC.omegaAt_open HeightBC.omegaAt_sat HeightBC.omegaBaseChange HeightBC.omegaBaseChange_of_localization HeightBC.omegaLocalization HeightBC.one_mem_dom HeightBC.ptC_hom_apply HeightBC.ptC_hom_comp_bO HeightBC.ptsBaseChangeBij HeightBC.ptsBaseChangeMul HeightBC.rationalOver_genericUnit HeightBC.secIndex_baseChange HeightBC.secIndex_map HeightBC.secIndex_ne_zero_of_baseChange HeightBC.secIndex_nsmul_mem HeightBC.smul_cotangent_eq_of_sub_mem HeightBC.span_bcHodge_le HeightBC.spec_mem_of_ker HeightBC.stalkMapAt_germ' HeightBC.stalkSpec_comp_apply HeightBC.stalkSpec_self_apply HeightBC.stalkSpecializes_self_apply' HeightBC.stalkSpecializes_stalkSpecializes_apply' HeightBC.structMap_eq_spec HeightBC.structMap_eq_stalkMap HeightBC.toCotangent_mul HeightBC.uniformizationLift HeightBC.uniformizationLiftAnalytic HeightBC.uniformizationLift_of HeightBC.unitSection_comp_hom HeightBC.unitSection_stalkMapAt_hom HeightBC.σFF HeightBC.φL HeightBC.φL_algebraMap LeafPush2.CPts LeafPush2.Char2 LeafPush2.HasSexticModel LeafPush2.IC10 LeafPush2.IC2 LeafPush2.IC4 LeafPush2.IC6 LeafPush2.IgJ10 LeafPush2.IgJ2 LeafPush2.IgJ4 LeafPush2.IgJ6 LeafPush2.IsGenus2 LeafPush2.IsPeriodMatrix LeafPush2.IsSiegel LeafPush2.IsUniformization LeafPush2.LinYangTuple LeafPush2.OnQMLocus LeafPush2.T10_groupIso LeafPush2.T11a_RiemannEnd LeafPush2.T11b_Rigidity LeafPush2.T12_ComplexConjEigen LeafPush2.UniformizationExists LeafPush2.absLogHeight LeafPush2.cDom LeafPush2.cEvalAt LeafPush2.cptObj LeafPush2.dsq LeafPush2.exists_isComplexConj LeafPush2.ffAlgebra LeafPush2.ffStructMap LeafPush2.isSiegel_I LeafPush2.javanpeykarBound LeafPush2.javanpeykarBound_mono LeafPush2.javanpeykarBound_pos LeafPush2.linYangTuple_onQMLocus LeafPush2.linYang_j_eq LeafPush2.onQMLocus_of_linYangTuple LeafPush2.pazukiC2 LeafPush2.sextic LeafPush2.thetaConst) -- op-dedupe
+open _root_.LeafQM.AV (CMExists HasCM24 HasCM24.of_iso HasCM3 HasCM3.of_iso HasCM4 HasCM4.of_iso IsBaseChangeOf IsBaseChangeOfPair IsFibreOf Level3 Level3.bcPt_pow_three Level3.eq_iff Level3.exists_mul_of_range_le Level3.ext' Level3.onto Level3.range_le Level3.rightMul Level3.rightMul_eq_self Level3.rightMul_rightMul Level3.torsor Level3.twist M3 M3.mk M3.rightMul M3.rightMul_rightMul M3.twist M3.twist_mk Pin.AutOExt.NormalizerFinite Pin.AutOExt.alpha_nat_smul Pin.AutOExt.autOInnerFinite_of_normalizer Pin.AutOExt.common_den Pin.AutOExt.conjUnit Pin.AutOExt.conj_of_skolem Pin.AutOExt.den_mul_int Pin.AutOExt.exists_nat_smul_mem Pin.AutOExt.extAlgEquiv Pin.AutOExt.extAlgHom Pin.AutOExt.extAlgHom_coe Pin.AutOExt.extAlgHom_symm_comp Pin.AutOExt.extDen Pin.AutOExt.extDen_mem Pin.AutOExt.extDen_pos Pin.AutOExt.extFun Pin.AutOExt.extFun_add Pin.AutOExt.extFun_algebraMap Pin.AutOExt.extFun_coe Pin.AutOExt.extFun_eq Pin.AutOExt.extFun_mul Pin.AutOExt.key_conj Pin.AutOExt.mem_O_of_int Pin.AutOExt.natCast_mul_eq_smul Pin.AutOExt.nat_smul_mem Pin.AutOExt.smul_mul_smul' Pin.AutOInnerFinite Pin.ConstOrOntoAlgClosed Pin.CurveRatFactor Pin.CurveSurj Pin.GeomCompConstOrOnto Pin.GeomCompFinite Pin.GeomCompInfinite Pin.GeomCompRatFactor Pin.ImagePlane.ev_comp Pin.ImagePlane.ev_spec_top Pin.ImagePlane.ptOf_comp Pin.ImagePlane.ptOf_spec_asIdeal Pin.IsNaturalRelabel Pin.Mob.eval_ne_zero_of_coprime Pin.Mob.exists_interp Pin.Mob.isCoprime_X_sub_C_of_eval_one Pin.Mob.natDegree_le_one_of_injective Pin.Mob.ratEval Pin.Mob.ratEval_eq_self Pin.Mob.wronskian_ne_zero Pin.MobiusGlue Pin.NormO.IsNorm Pin.NormO.IsNorm.inv Pin.NormO.IsNorm.mul Pin.NormO.T Pin.NormO.T_finite Pin.NormO.T_mul_ui Pin.NormO.T_mul_uj Pin.NormO.bas Pin.NormO.conjC Pin.NormO.descent Pin.NormO.dvd_of_prime_dvd_nrd Pin.NormO.dvd_of_smul_mem Pin.NormO.ei Pin.NormO.ej Pin.NormO.inv_eq Pin.NormO.isNorm_sc Pin.NormO.isNorm_ui Pin.NormO.isNorm_uj Pin.NormO.mulCoord_conjC Pin.NormO.mulCoord_conjC' Pin.NormO.mulCoord_smul_left Pin.NormO.mulCoord_smul_right Pin.NormO.normalizerFinite Pin.NormO.nrdZ Pin.NormO.nrdZ_ei Pin.NormO.nrdZ_ej Pin.NormO.nrdZ_mul Pin.NormO.nrdZ_ne_zero Pin.NormO.nrdZ_smul Pin.NormO.nrd_dvd_coords Pin.NormO.ofInt_scalar Pin.NormO.rearrange Pin.NormO.sc Pin.NormO.six_sq_identities Pin.NormO.smul_ofInt Pin.NormO.three_dvd_mulCoord_ej Pin.NormO.two_dvd_mulCoord_ei Pin.NormO.ui Pin.NormO.uj Pin.PinUnique Pin.QMFamily.transport Pin.QML3.isoTransport Pin.R1fpProps.fam Pin.R1fpProps.univ Pin.RatFactorAlgClosed Pin.SameTriple Pin.SameTripleMor Pin.SmoothCurveNoIsolatedPoint Pin.SmoothStalkDimOne Pin.TwistClassFinite Pin.autOInnerFinite Pin.autRelabel Pin.autRelabel_natural Pin.bcPt Pin.bcPt_ptOfSection Pin.bcPt_snd Pin.bcQbar Pin.bcSnd Pin.cm_objects_of_R1R2fp Pin.conjUnitIso Pin.cst Pin.curveFacts_of_algClosed Pin.curveFacts_of_comp Pin.curveFacts_of_leaves Pin.curveFacts_of_named Pin.curveRatFactor_of_comp Pin.curveSurj_of_comp Pin.ev Pin.ev_cst Pin.ev_eq_zero_iff Pin.ev_f_mul_g Pin.ev_g_eq_zero Pin.ev_res Pin.ev_top Pin.exists_isOpen_singleton_of_finite_closedPoints Pin.exists_liftO_congr Pin.exists_point_of_isLocallyClosed Pin.geomComp Pin.geomCompConstOrOnto_of Pin.geomCompFinite Pin.geomCompInfinite_of Pin.geomCompRatFactor_of Pin.isFibreOf_transport Pin.isOpen_connectedComponent_of_noetherian Pin.level3_finite Pin.mem_V_of_not_mem_U Pin.phi_part Pin.pointwise_of_witness Pin.pointwise_of_witness_mor Pin.ptOf Pin.ptOfSection Pin.r1fpPin_aut Pin.r1fpPin_relabel_iff Pin.r2fp_aut Pin.relabel Pin.relabel_geometric Pin.relabel_is_morphism Pin.res Pin.res_res Pin.sameTripleMor_of_mobius Pin.sameTriple_aut Pin.smoothCurveNoIsolatedPoint_of Pin.transfer_exists Pin.transfer_pointwise Pin.transfer_pointwise_mor Pin.transportLevel Pin.twistClassFinite Pin.twistClassFinite_of Pin.val_bcPt Pin.val_of_mem Pin.val_of_not_mem PtEquiv QMFamily QMIso QMIso.nonempty_abVarIso QMIso.refl QMIso.symm QMIso.trans QML3 QML3.Iso QML3.Iso.refl QML3.Iso.rightMul QML3.Iso.symm QML3.Iso.trans QML3.Iso.twist QML3.forget QML3.rightMul QML3.rightMul_A QML3.rightMul_rightMul QML3.twist QML3.twist_A QMLeaves QMPair QMPair.twist QMStr QMStr.twist Qbar R1R2fp R1R2fp_Y R1famProps R1fp R1fpProps R1fp_of_R1R2fp R1heckeProps R1rec R1recProps R1univProps R2X6Props R2fpProps R2fpProps_of_X6 R5fp R5fpCount R5fpWeak R5fpWeak_of_R5fp R5ptProps ToP1 ToP1.comp ToP1.val ToP1.val_comp ToP1.val_comp_right UnramifiedAbove5 X6Props X6Surj act_mul_apply bcPt bcPt_injective cm_of_val com comEquiv com_twist conductor conjHom conjHom_iota conjHom_mem_com conjHom_symm_apply conj_iso_of_rational conj_twist_of_rational endPt exists_fibre_object fibre_conjugates_isomorphic fieldMap fieldOfModuli3 fieldOfModuliPair fieldPt galAct_bcPt hI hIJ hJ hasCM24_twist hasCM3_twist hasCM4_twist hrat inertCount6 intCast_mem_com isoSetoid leaves_on_one_witness liftO not_qmStr_zero ofInt_injective ofInt_sub oi oi_mul_oi oj oj_mul_oi_add oj_mul_oj pairSetoid qmAct residueImage residue_unramified_over_branch specMap_flat specMap_surjective specToEquivOfField_comp specToEquivOfField_comp_right stab3 stabPair three_mul_ofInt toKbar unramified_over_branch) -- op-dedupe
+open _root_.GlueDescent (B2.IsSignCocycle B2.SignCob B2.dB B2.dB_inv B2.dB_mul B2.exists_beta B2.isSignCocycle_dB B2.isSignCocycle_inv B2.isSignCocycle_mul B2.isSignCocycle_pull B2.pull B2.pull_dB B2.signCob_dB_iff B2.signCob_inv B2.signCob_mul B2Q.GQ B2Q.GQp B2Q.InflatedFrom B2Q.LeafHasse B2Q.LeafLocalTwo B2Q.LeafSqrtCrit B2Q.LeafUnramified B2Q.UnramifiedAt B2Q.act B2Q.act_mul B2Q.b2_of_leaves B2Q.cast_cast_of_dvd B2Q.chiLevel_pos B2Q.chi_toUnitHom_crt B2Q.cyc B2Q.cyc_eq_of_agree B2Q.cyc_isLocallyConstant B2Q.exists_crt_unit B2Q.galChar B2Q.galChar_isLocallyConstant B2Q.isLocallyConstant_of_openSubgroup B2Q.lev_eq_pow B2Q.resp B2Q.resp_continuous B2Q.sqrtU B2Q.sqrtU_sq B2Q.toRingAut B3Q.GQL B3Q.b3_degree_le_QM B3Q.b3_of_leaves B3Q.inflatedNormalized_of B3Q.mem_GQL B3Q.orderOf_pos_dirichlet B6 B6_commute_i_j B6_inner B6_isCentral B6_isSimpleRing B6_star_mul InflatedNormalized IsCochainFor LeafSkolemNoether MatrixUnits2 MatrixUnits2.W MatrixUnits2.e00_of_mem MatrixUnits2.e_apply_e MatrixUnits2.finrank_W MatrixUnits2.mapsTo_W MatrixUnits2.mem_W_of_e0 MatrixUnits2.splitEquiv MatrixUnits2.splitEquiv_intertwines aniso_int aniso_rat boundary_sq chi chiLevel cochain_conj cochain_mul_kernel cochain_mul_left cochain_mul_right cochain_of_boundary_eq cochain_one cocycle_of_projective commute_adjoin contactSupport_pos degree_le_QM exists_chi exists_odd_char heightD_pos index_kernel_le inertia_le_kernel kernelSubgroup kernelSubgroup_le kernelSubgroup_normal lev lev_dvd_chiLevel mem_kernelSubgroup oddChar oddChar_neg_one orderOf_dvd_totient orderOf_prod_dvd prod_S_le prod_odd_le prod_odd_le_aux prod_totient_lev_le qi qj ramSet relindex_kernel_le restrictHom rho rhoRep rho_commute rho_eq_act rho_map_mul sign_cocycle sign_normalization sign_sq_eq_one ten_le_heightE0 three_dvd_of_form totient_lev twist twist_kills_inertia twist_sq two_lt_lev zmod3_aniso) -- op-dedupe
+open _root_.G0ModField (CommonConstituent ConjugacyData DescentDatum FibreCoverExists FibreCoverOut FibreCtx G2Out G4Out G7Out GaloisCopy.G2Out GaloisCopy.G7Out GaloisCopy.Vb GaloisCopy.resQ GaloisCopy.tate IF IsModelOver IsQMModel IsQMModel.isModelOver KernelFieldExists KernelFieldOut ModularConstituentG PtQ RationalFibre ResQRange T UnramifiedSup actK actQ admissible_S_mul b2_of_leaves_level b3_of_cochain baseChangeTrans card_ker_GL descentDatum_bot descentDatum_of_conjugacy fieldDescent g2Out_of_cover g4Out_of_kernelField g7Out_of_g4Out galAct_bijective galAct_mul incAlg isModelOver_baseChange le_heightD_of_mem_S_mul mem_GQL_bot normA numberField_of_fd resQRange resQ_comm' resQ_range sgnU sgnU_mul sgnU_mul_abs sgnU_sq toLAut toLAut_apply two_mem_T) -- op-dedupe
+open _root_.UnramTate (EndBaseChange PtA ResQEmbedding ScalarTransfer TateCont TatePoints bcPt bcPt_galAct conjE conjE_apply endBC endBaseChange eps_right_one hO homEquiv_mul iO iO_jO iO_sq incO' incO'_coe inertia_trivial' instGaloisQbar' jO jO_sq lift_fixes' matrixUnits_of_quat numberField_of_fd'' opV opVHom ptMapIso quat_words resQEmbedding sK scalarTransfer specMap_comp_sK tateCont_of_tateModuleFree tateMap_add tateMap_comp tateMap_id tateMap_zero tatePoints tate_eq_opV tmOf trHom trHom_comp_symm trHom_left trHom_symm_comp trPt trPt_galAct unramifiedSup_mf) -- op-dedupe
+open _root_.AlgFrobRedRed (AbsFrob AlgFrobRedAt AlgFrobRedGood FExtend FExtendCore FExtendGen FrobMorph GoodRedCofinite Ow OwDVR RedRel RedRelMul RedTorsionQbar ReductionFrobGood ReductionMapGood ResidueAlgClosed ResidueAlgClosure ResidueAlgebraic SmoothGeomConnIntegral absFrob algFrobRedAt_of_good algFrobRedGood_of algFrobRed_of_I2 algFrobRed_of_absFrob algFrobRed_of_at algFrobRed_of_core algFrobRed_of_final algFrobRed_of_fine algFrobRed_of_finest algFrobRed_of_five algFrobRed_of_gen algFrobRed_of_good algFrobRed_of_leaves algFrobRed_of_main algFrobRed_of_nmp algFrobRed_of_pieces algFrobRed_of_split charP_kw dvrAt' exists_lift exists_redRel fExtendCore_of_gen fExtendCore_of_nmp fExtendGen_of_nmp fExtend_of_core frobMorph_of frobenius_eq_powHom genMap genMap_comm genPt hom_spec_eq_of_point hw_of iotaW iotaW_isIso_left isArithFrob_conj isDominant_Spec_map_of_injective isLocalHom_of_resPow isLocalHom_toW isUnit_cast_of_ne jSpec kw liesOver_smul lift_unique natCast_mem_maximalIdeal owDVR pb_eta_fst pb_mul pb_mul' pb_one pb_one' pb_symm_mul pb_symm_mul' psiW psiW_toW redRelMul redRel_of_isReductionOf redRel_unique redTorsionQbar_of reductionFrobGood_of reductionMapGood_of residueAlgClosed residueAlgClosure_of residueAlgebraic residue_sigV ringHom_eq_of_normal ringOfIntegers_mem' sf sf_eta_fst sf_isAbelianVariety sigV smul_mem_nonunits spec_aut_cancel tSig tSig_residue tSpec tauL thetaHom thetaW thetaW_injective thetaW_left thetaW_surjective thetaW_symm toO' vsq wOf) -- op-dedupe
 
 /-- **`G14Bridge.TateBridge35` from I3.M0, N1-g1, `ProperSmoothGenConnected`, I2-Red, I2-NMP
 (proved).** -/
