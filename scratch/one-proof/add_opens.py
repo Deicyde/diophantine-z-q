@@ -123,8 +123,9 @@ for idx, l in enumerate(lines):
     toks = [mh.group(1)] if mh else body.split()
     hid = set(mh.group(2).split()) if mh else set()
     for tok in toks:
-        if tok.startswith('_root_.'): continue
-        M = resolve(tok)
+        if tok.startswith('_root_.HDec.'): M = tok[len('_root_.HDec.'):]
+        elif tok.startswith('_root_.'): continue
+        else: M = resolve(tok)
         if M and desc.get(M):
             names = [x for x in desc[M] if x.split('.')[0] not in hid]
             if names: out.append(openline(M, names, suf))
