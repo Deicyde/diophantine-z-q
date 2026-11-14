@@ -187,6 +187,279 @@ theorem lqf_of_ker [IsProper h.left] (hK : LocallyQuasiFinite (kerOver h).hom) :
 
 end Kernel
 
+-- BEGIN DUP (verbatim from scratch/av-glue/ImageFact.lean; dropped by mk_combined.py)
+section Transport
+
+variable {C : Type*} [Category C] [CartesianMonoidalCategory C] {G Y : C} [GrpObj G]
+
+/-- The group object structure on a subobject `i : Y ↪ G` closed under the group law. -/
+@[reducible] noncomputable def grpObjOfMono (i : Y ⟶ G) [Mono i]
+    (mulY : Y ⊗ Y ⟶ Y) (hmul : mulY ≫ i = fst Y Y ≫ i * snd Y Y ≫ i)
+    (oneY : 𝟙_ C ⟶ Y) (hone : oneY ≫ i = η[G])
+    (invY : Y ⟶ Y) (hinv : invY ≫ i = i⁻¹) : GrpObj Y where
+  one := oneY
+  mul := mulY
+  one_mul := by
+    apply (cancel_mono i).1
+    simp only [Category.assoc, hmul, MonObj.comp_mul, whiskerRight_fst_assoc,
+      whiskerRight_snd_assoc, hone, leftUnitor_hom]
+    rw [show fst (𝟙_ C) Y ≫ η[G] = 1 by rw [Hom.one_def]; congr 1; exact toUnit_unique _ _,
+      _root_.one_mul]
+  mul_one := by
+    apply (cancel_mono i).1
+    simp only [Category.assoc, hmul, MonObj.comp_mul, whiskerLeft_fst_assoc,
+      whiskerLeft_snd_assoc, hone, rightUnitor_hom]
+    rw [show snd Y (𝟙_ C) ≫ η[G] = 1 by rw [Hom.one_def]; congr 1; exact toUnit_unique _ _,
+      _root_.mul_one]
+  mul_assoc := by
+    apply (cancel_mono i).1
+    simp only [Category.assoc, hmul, MonObj.comp_mul, whiskerRight_fst_assoc,
+      whiskerRight_snd_assoc, whiskerLeft_fst_assoc, whiskerLeft_snd_assoc,
+      associator_hom_fst_assoc, associator_hom_snd_fst_assoc, associator_hom_snd_snd_assoc]
+    rw [_root_.mul_assoc]
+  inv := invY
+  left_inv := by
+    apply (cancel_mono i).1
+    simp only [Category.assoc, hmul, MonObj.comp_mul, lift_fst_assoc, lift_snd_assoc, hinv,
+      hone, Category.id_comp]
+    rw [inv_mul_cancel, Hom.one_def]
+  right_inv := by
+    apply (cancel_mono i).1
+    simp only [Category.assoc, hmul, MonObj.comp_mul, lift_fst_assoc, lift_snd_assoc, hinv,
+      hone, Category.id_comp]
+    rw [mul_inv_cancel, Hom.one_def]
+
+/-- The inclusion is a homomorphism for `grpObjOfMono`. -/
+theorem isMonHom_grpObjOfMono (i : Y ⟶ G) [Mono i]
+    (mulY : Y ⊗ Y ⟶ Y) (hmul : mulY ≫ i = fst Y Y ≫ i * snd Y Y ≫ i)
+    (oneY : 𝟙_ C ⟶ Y) (hone : oneY ≫ i = η[G])
+    (invY : Y ⟶ Y) (hinv : invY ≫ i = i⁻¹) :
+    letI := grpObjOfMono i mulY hmul oneY hone invY hinv
+    IsMonHom i := by
+  letI := grpObjOfMono i mulY hmul oneY hone invY hinv
+  refine ⟨hone, ?_⟩
+  change mulY ≫ i = _
+  rw [hmul, Hom.mul_def, ← lift_fst_comp_snd_comp]
+
+/-- If `i` is a monic homomorphism and `π ≫ i` is a homomorphism, so is `π`. -/
+theorem isMonHom_of_comp_mono {M : C} [MonObj M] [MonObj Y] (π : M ⟶ Y) (i : Y ⟶ G) [Mono i]
+    [IsMonHom i] [IsMonHom (π ≫ i)] : IsMonHom π := by
+  refine ⟨?_, ?_⟩
+  · apply (cancel_mono i).1
+    rw [Category.assoc, IsMonHom.one_hom, IsMonHom.one_hom]
+  · apply (cancel_mono i).1
+    rw [Category.assoc, IsMonHom.mul_hom, Category.assoc, IsMonHom.mul_hom, ← Category.assoc,
+      ← tensorHom_comp_tensorHom]
+
+end Transport
+-- END DUP
+
+/-! ## The identity component of the kernel -/
+
+/-- In a noetherian space, connected components are open. -/
+theorem isOpen_connectedComponent_of_noetherian {X : Type*} [TopologicalSpace X]
+    [TopologicalSpace.NoetherianSpace X] (x : X) : IsOpen (connectedComponent x) := by
+  have hfin := TopologicalSpace.NoetherianSpace.finite_irreducibleComponents (α := X)
+  have heq : (connectedComponent x)ᶜ =
+      ⋃ Z ∈ {Z ∈ irreducibleComponents X | Disjoint Z (connectedComponent x)}, Z := by
+    ext y
+    simp only [Set.mem_compl_iff, Set.mem_iUnion, Set.mem_ofPred_eq, exists_prop]
+    constructor
+    · intro hy
+      obtain ⟨Z, hZ, hyZ⟩ := exists_mem_irreducibleComponents_subset_of_isIrreducible {y}
+        isIrreducible_singleton
+      refine ⟨Z, ⟨hZ, ?_⟩, hyZ rfl⟩
+      have hZy : Z ⊆ connectedComponent y :=
+        hZ.1.isConnected.isPreconnected.subset_connectedComponent
+          (hyZ rfl)
+      refine Set.disjoint_of_subset_left hZy ?_
+      rw [Set.disjoint_iff]
+      rintro w ⟨hw1, hw2⟩
+      apply hy
+      rw [connectedComponent_eq hw2, ← connectedComponent_eq hw1]
+      exact mem_connectedComponent
+    · rintro ⟨Z, ⟨-, hdisj⟩, hyZ⟩ hy
+      exact Set.disjoint_left.mp hdisj hyZ hy
+  rw [← isClosed_compl_iff, heq]
+  exact (hfin.subset (Set.sep_subset _ _)).isClosed_biUnion fun Z hZ =>
+    isClosed_of_mem_irreducibleComponents Z hZ.1
+
+/-- **LEAF (Stacks, Varieties, Lemma 33.7.14, Tag 04KV; UNVERIFIED locator).** A connected
+scheme locally of finite type over a field `k` with a `k`-rational point is geometrically
+connected. (Stacks states it without the finiteness hypothesis and with "a point `x` such that `k`
+is algebraically closed in `κ(x)`"; a `k`-rational point is such a point, so this is a
+consequence, never stronger.) -/
+def GeomConnOfRationalPoint : Prop :=
+  ∀ (k : Type) [Field k] (X : Scheme.{0}) (f : X ⟶ Spec (CommRingCat.of k))
+    (s : Spec (CommRingCat.of k) ⟶ X), s ≫ f = 𝟙 _ → LocallyOfFiniteType f →
+    ConnectedSpace X → GeometricallyConnected f
+
+/-- **LEAF (group schemes are equidimensional; Stacks, Groupoids, Lemma 39.8.? "`G` is
+equidimensional and `dim G = dim_g G`" (UNVERIFIED locator); SGA 3, Exp. VI_A, 2.4; Milne,
+*Algebraic Groups* (2017), Prop. 1.37? (UNVERIFIED)).** For a group scheme `G` of finite type over
+a field, every irreducible component of `G` has the dimension of `G` (Krull dimensions of the
+underlying spaces; a component with its subspace topology). A consequence of the published
+statement (restricted to finite type), never stronger. -/
+def GroupSchemeEquidim : Prop :=
+  ∀ (k : Type) [Field k] (G : Over (Spec (CommRingCat.of k))) [GrpObj G],
+    LocallyOfFiniteType G.hom → QuasiCompact G.hom →
+    ∀ Z ∈ irreducibleComponents G.left, topologicalKrullDim Z = topologicalKrullDim G.left
+
+/-- **LEAF: Cartier's theorem** (copy of `CartierSmooth` in `scratch/av-glue/ImageFact.lean`). -/
+def CartierSmooth' : Prop :=
+  ∀ (k : Type) [Field k] [CharZero k] (G : Over (Spec (CommRingCat.of k))) [GrpObj G],
+    LocallyOfFiniteType G.hom → Smooth G.hom
+
+section IdComp
+
+variable {k : Type} [Field k] {A B : _root_.PkgI3.AbVar k} (h : A.X ⟶ B.X) [IsMonHom h]
+
+noncomputable def kerMul : kerOver h ⊗ kerOver h ⟶ kerOver h :=
+  kerLift h (fst _ _ ≫ kerι h * snd _ _ ≫ kerι h) (by
+    rw [MonObj.mul_comp, Category.assoc, Category.assoc, kerι_comp, MonObj.comp_one,
+      MonObj.comp_one, _root_.mul_one])
+
+lemma kerMul_ι : kerMul h ≫ kerι h = fst _ _ ≫ kerι h * snd _ _ ≫ kerι h := by
+  rw [kerMul, kerLift_ι]
+
+noncomputable def kerOne : 𝟙_ _ ⟶ kerOver h :=
+  kerLift h η[A.X] (by
+    rw [IsMonHom.one_hom, Hom.one_def, show toUnit (𝟙_ (Over (Spec (CommRingCat.of k)))) = 𝟙 _
+      from toUnit_unique _ _, Category.id_comp])
+
+lemma kerOne_ι : kerOne h ≫ kerι h = η[A.X] := by rw [kerOne, kerLift_ι]
+
+noncomputable def kerInv : kerOver h ⟶ kerOver h :=
+  kerLift h (kerι h)⁻¹ (by rw [GrpObj.inv_comp, kerι_comp, inv_one])
+
+lemma kerInv_ι : kerInv h ≫ kerι h = (kerι h)⁻¹ := by rw [kerInv, kerLift_ι]
+
+/-- The group structure of the kernel. -/
+noncomputable instance kerGrp : GrpObj (kerOver h) :=
+  grpObjOfMono (kerι h) (kerMul h) (kerMul_ι h) (kerOne h) (kerOne_ι h) (kerInv h) (kerInv_ι h)
+
+instance isMonHom_kerι : IsMonHom (kerι h) :=
+  isMonHom_grpObjOfMono (kerι h) (kerMul h) (kerMul_ι h) (kerOne h) (kerOne_ι h) (kerInv h)
+    (kerInv_ι h)
+
+instance : IsClosedImmersion (η[B.X]).left := by
+  have : IsClosedImmersion ((η[B.X]).left ≫ B.X.hom) := by
+    rw [Over.w]; dsimp; infer_instance
+  exact IsClosedImmersion.of_comp _ B.X.hom
+
+instance : IsClosedImmersion (kerι h).left :=
+  inferInstanceAs (IsClosedImmersion (pullback.fst h.left (η[B.X]).left))
+
+instance : IsProper (kerOver h).hom := by
+  dsimp only [kerOver, Over.mk_hom]; infer_instance
+
+instance : IsLocallyNoetherian (kerOver h).left :=
+  LocallyOfFiniteType.isLocallyNoetherian (kerOver h).hom
+
+instance : CompactSpace (kerOver h).left :=
+  QuasiCompact.compactSpace_of_compactSpace (kerOver h).hom
+
+instance : IsNoetherian (kerOver h).left := {}
+
+instance subsingleton_unit_left : Subsingleton (𝟙_ (Over (Spec (CommRingCat.of k)))).left :=
+  (inferInstance : Subsingleton (Spec (CommRingCat.of k)))
+
+/-- The unit point of the kernel. -/
+noncomputable def ePt : (kerOver h).left :=
+  (η[kerOver h]).left (Nonempty.some (inferInstance : Nonempty (Spec (CommRingCat.of k))))
+
+/-- The identity component `(ker h)⁰` as an open subscheme. -/
+noncomputable def U0 : (kerOver h).left.Opens :=
+  ⟨connectedComponent (ePt h), isOpen_connectedComponent_of_noetherian _⟩
+
+/-- `(ker h)⁰` as a `k`-scheme. -/
+noncomputable abbrev covOver : Over (Spec (CommRingCat.of k)) :=
+  Over.mk ((U0 h).ι ≫ (kerOver h).hom)
+
+noncomputable def jK : covOver h ⟶ kerOver h := Over.homMk (U0 h).ι rfl
+
+instance : Mono (jK h) := by
+  haveI : Mono (jK h).left := (inferInstance : Mono (U0 h).ι)
+  exact Over.mono_of_mono_left _
+
+instance : IsClosedImmersion (jK h).left := by
+  change IsClosedImmersion (U0 h).ι
+  exact IsClosedImmersion.of_isPreimmersion _ (by
+    rw [Scheme.Opens.range_ι]; exact isClosed_connectedComponent)
+
+instance : ConnectedSpace (covOver h).left := by
+  change ConnectedSpace (connectedComponent (ePt h))
+  exact isConnected_iff_connectedSpace.mp isConnected_connectedComponent
+
+/-- Lift a map into the kernel whose range lies in `(ker h)⁰`. -/
+noncomputable def liftCov {W : Over (Spec (CommRingCat.of k))} (g : W ⟶ kerOver h)
+    (hg : Set.range g.left ⊆ connectedComponent (ePt h)) : W ⟶ covOver h :=
+  Over.homMk (IsOpenImmersion.lift (U0 h).ι g.left (by rw [Scheme.Opens.range_ι]; exact hg))
+    (by
+      change IsOpenImmersion.lift _ _ _ ≫ (U0 h).ι ≫ (kerOver h).hom = W.hom
+      rw [IsOpenImmersion.lift_fac_assoc]; exact Over.w g)
+
+@[reassoc (attr := simp)]
+lemma liftCov_jK {W : Over (Spec (CommRingCat.of k))} (g : W ⟶ kerOver h)
+    (hg : Set.range g.left ⊆ connectedComponent (ePt h)) : liftCov h g hg ≫ jK h = g := by
+  ext1; simp [liftCov, jK]
+
+lemma range_sub {W : Over (Spec (CommRingCat.of k))} [ConnectedSpace W.left]
+    (g : W ⟶ kerOver h) (w0 : W.left) (hw0 : g.left w0 = ePt h) :
+    Set.range g.left ⊆ connectedComponent (ePt h) :=
+  (isPreconnected_range g.left.continuous).subset_connectedComponent ⟨w0, hw0⟩
+
+lemma eta_left_apply {W : Over (Spec (CommRingCat.of k))} (u : 𝟙_ _ ⟶ W) (g : W ⟶ kerOver h)
+    (hu : u ≫ g = η[kerOver h]) (p : Spec (CommRingCat.of k)) : g.left (u.left p) = ePt h := by
+  rw [← Scheme.Hom.comp_apply, ← Over.comp_left, hu, ePt]
+  congr 1
+  exact Subsingleton.elim _ _
+
+/-- The unit of `(ker h)⁰`. -/
+noncomputable def oneCov : 𝟙_ _ ⟶ covOver h :=
+  liftCov h η[kerOver h] (by
+    rintro _ ⟨p, rfl⟩
+    rw [show (η[kerOver h]).left p = ePt h by
+      rw [ePt]; congr 1; exact Subsingleton.elim _ _]
+    exact mem_connectedComponent)
+
+lemma oneCov_jK : oneCov h ≫ jK h = η[kerOver h] := liftCov_jK _ _ _
+
+variable (hG : GeomConnOfRationalPoint) (hC : CartierSmooth')
+
+include hG in
+theorem geomConn_cov : GeometricallyConnected (covOver h).hom := by
+  refine hG k (covOver h).left (covOver h).hom (oneCov h).left (Over.w (oneCov h)) ?_ inferInstance
+  dsimp only [covOver, Over.mk_hom]; infer_instance
+
+lemma one_eq_eta : (1 : 𝟙_ (Over (Spec (CommRingCat.of k))) ⟶ kerOver h) = η[kerOver h] := by
+  rw [Hom.one_def, show toUnit (𝟙_ (Over (Spec (CommRingCat.of k)))) = 𝟙 _
+    from toUnit_unique _ _, Category.id_comp]
+
+include hG in
+theorem exists_mulCov : ∃ m : covOver h ⊗ covOver h ⟶ covOver h,
+    m ≫ jK h = fst _ _ ≫ jK h * snd _ _ ≫ jK h := by
+  haveI := geomConn_cov h hG
+  haveI : ConnectedSpace (covOver h ⊗ covOver h).left :=
+    (inferInstance : ConnectedSpace (pullback (C := Scheme.{0}) (covOver h).hom (covOver h).hom))
+  refine ⟨liftCov h _ (range_sub h _ ((lift (oneCov h) (oneCov h)).left
+    (Nonempty.some (inferInstance : Nonempty (Spec (CommRingCat.of k))))) ?_), liftCov_jK _ _ _⟩
+  rw [← Scheme.Hom.comp_apply, ← Over.comp_left, MonObj.comp_mul, ← Category.assoc,
+    ← Category.assoc, lift_fst, lift_snd, oneCov_jK, ← one_eq_eta, _root_.mul_one, one_eq_eta, ePt]
+
+theorem exists_invCov : ∃ v : covOver h ⟶ covOver h, v ≫ jK h = (jK h)⁻¹ := by
+  refine ⟨liftCov h _ (range_sub h _ ((oneCov h).left
+    (Nonempty.some (inferInstance : Nonempty (Spec (CommRingCat.of k))))) ?_), liftCov_jK _ _ _⟩
+  rw [← Scheme.Hom.comp_apply, ← Over.comp_left, GrpObj.comp_inv, oneCov_jK, ← one_eq_eta,
+    inv_one, one_eq_eta, ePt]
+
+/-- The group structure of `(ker h)⁰`. -/
+noncomputable abbrev covGrp : GrpObj (covOver h) :=
+  grpObjOfMono (jK h) (exists_mulCov h hG).choose (exists_mulCov h hG).choose_spec
+    (oneCov h) (oneCov_jK h) (exists_invCov h).choose (exists_invCov h).choose_spec
+
+end IdComp
+
 /-- **LEAF (`(ker h)⁰_red` is an abelian subvariety, kernel form).** Over a field of
 characteristic `0`, let `h : A → B` be a homomorphism of abelian varieties and
 `ker h = A ×_B Spec k` its kernel (Mathlib's fibre product of `h` with the identity section of
