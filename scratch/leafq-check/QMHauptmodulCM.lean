@@ -920,6 +920,108 @@ theorem base_of_base2 (h : QMHauptmodulBase2) : QMHauptmodulBase := by
 theorem qmHauptmodul_of_base2 (h : QMHauptmodulBase2) : PkgI1.QMHauptmodul :=
   qmHauptmodul_of_base (base_of_base2 h)
 
+/-! ### The disc −3 clause from the valence bound: the pole of `j_θ` at `i√3` -/
+
+open HSyn.G0Split.FibreQM.PeriodMap (G8 U tau3 tau4 thetaOmegaAnalytic_proof s8OrderCM3_of
+  ValenceBoundGammaStar isOpen_U isPreconnected_U)
+
+/-- `Σθ⁸ ∘ Ω`. -/
+noncomputable def Sf (z : ℂ) : ℂ := PkgI1.thetaSum8 (PkgI1.Omega z)
+/-- `∏θ² ∘ Ω`. -/
+noncomputable def Pf (z : ℂ) : ℂ := PkgI1.thetaProd2 (PkgI1.Omega z)
+/-- `(z − 3)(z + 1)`. -/
+def Zf (z : ℂ) : ℂ := (z - 3) * (z + 1)
+
+theorem Zf_ne {z : ℂ} (hz : 0 < z.im) : Zf z ≠ 0 := by
+  unfold Zf
+  have h3 : z - 3 ≠ 0 := fun h => by have := congrArg Complex.im h; simp at this; linarith
+  have h4 : z + 1 ≠ 0 := fun h => by have := congrArg Complex.im h; simp at this; linarith
+  exact mul_ne_zero h3 h4
+
+theorem Zf_analytic (z : ℂ) : AnalyticAt ℂ Zf z := by unfold Zf; fun_prop
+
+theorem Sf_analytic : AnalyticOnNhd ℂ Sf U := thetaOmegaAnalytic_proof.1
+theorem Pf_analytic : AnalyticOnNhd ℂ Pf U := thetaOmegaAnalytic_proof.2
+
+theorem jDenO_eq (z : ℂ) : PkgI1.jDen (PkgI1.Omega z) = Sf z ^ 5 := rfl
+theorem jNumO_eq (z : ℂ) : PkgI1.jNum (PkgI1.Omega z) = 3779136 * Pf z ^ 2 := rfl
+
+theorem tau4_coe : (tau4 : ℂ) = (√2 : ℂ) + Complex.I := rfl
+theorem tau3_coe : (tau3 : ℂ) = (√3 : ℂ) * Complex.I := rfl
+
+theorem Sf_tau4 : Sf (tau4 : ℂ) ≠ 0 := by
+  unfold Sf; rw [tau4_coe, omega_cm4]; exact s8Omega0_proof
+
+theorem Pf_tau4 : Pf (tau4 : ℂ) = 0 := by
+  unfold Pf; rw [tau4_coe, omega_cm4]; exact thetaProd2_omega0
+
+/-- `jDen ∘ Ω` is analytic on `ℍ` and nowhere locally zero. -/
+theorem jDenO_analytic : AnalyticOnNhd ℂ (fun z => PkgI1.jDen (PkgI1.Omega z)) U :=
+  fun z hz => (Sf_analytic z hz).pow 5
+
+theorem jDenO_order_ne_top {z : ℂ} (hz : z ∈ U) :
+    analyticOrderAt (fun z => PkgI1.jDen (PkgI1.Omega z)) z ≠ ⊤ := by
+  intro htop
+  have hev := analyticOrderAt_eq_top.1 htop
+  have h0 := jDenO_analytic.eqOn_zero_of_preconnected_of_eventuallyEq_zero isPreconnected_U hz hev
+  have h4 := h0 (show (tau4 : ℂ) ∈ U from tau4.im_pos)
+  simp only [Pi.zero_apply, jDenO_eq] at h4
+  exact Sf_tau4 (pow_eq_zero_iff (by norm_num) |>.1 h4)
+
+/-- Near every point of `ℍ`, `jDen ∘ Ω ≠ 0` off that point. -/
+theorem jDenO_eventually_ne {z : ℂ} (hz : z ∈ U) :
+    ∀ᶠ w in nhdsWithin z {z}ᶜ, PkgI1.jDen (PkgI1.Omega w) ≠ 0 := by
+  rcases (jDenO_analytic z hz).eventually_eq_zero_or_eventually_ne_zero with h | h
+  · exact absurd (analyticOrderAt_eq_top.2 h) (jDenO_order_ne_top hz)
+  · exact h
+
+open Filter Topology in
+theorem map_coe_punctured (τ0 : UpperHalfPlane) :
+    Filter.map (fun τ : UpperHalfPlane => (τ : ℂ)) (𝓝[≠] τ0) = 𝓝[≠] (τ0 : ℂ) := by
+  rw [UpperHalfPlane.isOpenEmbedding_coe.map_nhdsWithin_eq]
+  have himg : (fun τ : UpperHalfPlane => (τ : ℂ)) '' {τ0}ᶜ = U ∩ {(τ0 : ℂ)}ᶜ := by
+    ext z
+    constructor
+    · rintro ⟨τ, hτ, rfl⟩
+      exact ⟨τ.im_pos, fun h => hτ (UpperHalfPlane.ext h)⟩
+    · rintro ⟨hz, hne⟩
+      exact ⟨⟨z, hz⟩, fun h => hne (by rw [← h]; rfl), rfl⟩
+  rw [himg, nhdsWithin_inter_of_mem]
+  exact mem_nhdsWithin_of_mem_nhds (isOpen_U.mem_nhds τ0.im_pos)
+
+open Filter Topology in
+instance punctured_neBot (τ0 : UpperHalfPlane) : (𝓝[≠] τ0).NeBot := by
+  rw [← Filter.map_neBot_iff (fun τ : UpperHalfPlane => (τ : ℂ)), map_coe_punctured]
+  infer_instance
+
+open Filter Topology in
+theorem eventually_jDen_ne_H (τ0 : UpperHalfPlane) :
+    ∀ᶠ τ : UpperHalfPlane in 𝓝[≠] τ0, PkgI1.jDen (PkgI1.Omega (τ : ℂ)) ≠ 0 := by
+  have h := jDenO_eventually_ne (z := (τ0 : ℂ)) τ0.im_pos
+  rw [← map_coe_punctured] at h
+  exact Filter.eventually_map.1 h
+
+open Filter Topology in
+theorem value_infty_of_tendsto {f : UpperHalfPlane → OnePoint ℂ} (hc : Continuous f) {h : ℂ → ℂ}
+    (τ0 : UpperHalfPlane) (hev : ∀ᶠ τ : UpperHalfPlane in 𝓝[≠] τ0, f τ = ((h τ : ℂ) : OnePoint ℂ))
+    (ht : Tendsto h (𝓝[≠] (τ0 : ℂ)) (Bornology.cobounded ℂ)) : f τ0 = OnePoint.infty := by
+  have h1 : Tendsto f (𝓝[≠] τ0) (𝓝 (f τ0)) := hc.continuousAt.tendsto.mono_left nhdsWithin_le_nhds
+  have hcoe : Tendsto (fun z : ℂ => (z : OnePoint ℂ)) (Bornology.cobounded ℂ) (𝓝 OnePoint.infty) := by
+    rw [Metric.cobounded_eq_cocompact, ← Filter.coclosedCompact_eq_cocompact]
+    exact OnePoint.tendsto_coe_infty
+  have hh : Tendsto (fun τ : UpperHalfPlane => h τ) (𝓝[≠] τ0) (Bornology.cobounded ℂ) :=
+    ht.comp (le_of_eq (map_coe_punctured τ0))
+  have h2 : Tendsto f (𝓝[≠] τ0) (𝓝 OnePoint.infty) :=
+    (hcoe.comp hh).congr' (hev.mono fun τ hτ => hτ.symm)
+  exact tendsto_nhds_unique h1 h2
+
+open Filter Topology in
+theorem value_of_eventually {f : UpperHalfPlane → OnePoint ℂ} (hc : Continuous f) (τ0 : UpperHalfPlane)
+    (v : OnePoint ℂ) (hev : ∀ᶠ τ : UpperHalfPlane in 𝓝[≠] τ0, f τ = v) : f τ0 = v := by
+  have h1 : Tendsto f (𝓝[≠] τ0) (𝓝 (f τ0)) := hc.continuousAt.tendsto.mono_left nhdsWithin_le_nhds
+  have h2 : Tendsto f (𝓝[≠] τ0) (𝓝 v) := tendsto_const_nhds.congr' (hev.mono fun τ hτ => hτ.symm)
+  exact tendsto_nhds_unique h1 h2
+
 end HDec.LeafQCheck.HM
 
 #print axioms HDec.LeafQCheck.HM.qmHauptmodul_of_base
