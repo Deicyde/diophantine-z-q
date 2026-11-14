@@ -58,3 +58,10 @@ Target: `CMBridge.Lemma321Five` (TYZ Lemma 3.21(1)), copied verbatim with all of
 - **`T321.lemma321Five_of_shimuraModFn' (hS : Shimura.ShimuraReciprocityModFn) : Lemma321Five`.**
 - **`T321.tyzThm35ReadingA_of_lcal_shimuraModFn_lemma318_thm35First`** (cm-bridge's headline without h5).
 - Axiom audit: scratch/tyz-321/audit-out.txt.
+
+## 2026-11-14 00:05 final check (VERIFIED)
+- `diff` of L321.lean lines 1–3213 against scratch/cm-bridge/Bridge.lean lines 1–3213: identical
+  (verbatim copy of Lemma321Five and its dependencies).
+- `lake env lean scratch/tyz-321/L321.lean`: exit 0, 0 errors, 0 sorry, 11 `#print axioms` lines all
+  `[propext, Classical.choice, Quot.sound]`.
+- Dev files WTest.lean, G5Test.lean, Beta.lean removed (superseded by L321.lean).
