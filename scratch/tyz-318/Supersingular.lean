@@ -236,4 +236,157 @@ def iKHom : C.toAffine.Point →+ C.toAffine.Point :=
 
 end IMap
 
+/-! ## §3. Frobenius and the exponent `2(p + 1)` -/
+
+section Frob
+
+variable (p : ℕ) [hp : Fact p.Prime] (k : Type) [Field k] [DecidableEq k] [CharP k p]
+
+/-- The roots of `X^p − X` in `k` are the elements of the prime field. -/
+theorem exists_zmod_of_pow_eq (r : k) (hr : r ^ p = r) :
+    ∃ a : ZMod p, (ZMod.castHom (dvd_refl p) k) a = r := by
+  classical
+  by_contra hne
+  push_neg at hne
+  set f : Polynomial k := Polynomial.X ^ p - Polynomial.X
+  have hp1 : 1 < p := hp.out.one_lt
+  have hf0 : f ≠ 0 := FiniteField.X_pow_card_sub_X_ne_zero k hp1
+  have hdeg : f.natDegree = p := FiniteField.X_pow_card_sub_X_natDegree_eq k hp1
+  set S : Finset k := insert r (Finset.univ.image (ZMod.castHom (dvd_refl p) k))
+  have hSsub : S ⊆ f.roots.toFinset := by
+    intro z hz
+    rw [Multiset.mem_toFinset, Polynomial.mem_roots hf0, Polynomial.IsRoot.def]
+    simp only [f, Polynomial.eval_sub, Polynomial.eval_pow, Polynomial.eval_X]
+    rcases Finset.mem_insert.mp hz with rfl | hz
+    · rw [hr, sub_self]
+    · obtain ⟨a, -, rfl⟩ := Finset.mem_image.mp hz
+      rw [← map_pow, ZMod.pow_card, sub_self]
+  have hcardS : S.card = p + 1 := by
+    rw [Finset.card_insert_of_notMem, Finset.card_image_of_injective _ (RingHom.injective _),
+      Finset.card_univ, ZMod.card]
+    intro hmem
+    obtain ⟨a, -, ha⟩ := Finset.mem_image.mp hmem
+    exact hne a ha
+  have h1 := Finset.card_le_card hSsub
+  have h2 := Multiset.toFinset_card_le f.roots
+  have h3 := Polynomial.card_roots' f
+  omega
+
+end Frob
+
+section Main
+
+variable (p : ℕ) [hp : Fact p.Prime] (k : Type) [Field k] [DecidableEq k] [Algebra (ZMod p) k]
+
+theorem exists_zmod_of_pow_eq' (r : k) (hr : r ^ p = r) :
+    ∃ a : ZMod p, algebraMap (ZMod p) k a = r := by
+  haveI : CharP k p := charP_of_injective_algebraMap' (ZMod p) p
+  obtain ⟨a, ha⟩ := exists_zmod_of_pow_eq p k r hr
+  refine ⟨a, ?_⟩
+  rw [← ha]
+  exact congrFun (congrArg DFunLike.coe (RingHom.ext_zmod (algebraMap (ZMod p) k)
+    (ZMod.castHom (dvd_refl p) k))) a
+
+/-- `E = (y² = x³ + 4x)⁄k`. -/
+abbrev Ek : WeierstrassCurve k := (ZInQ.shortCurve (4 : ZMod p)).baseChange k
+
+@[simp] theorem Ek_a₁ : (Ek p k).a₁ = 0 := by simp [Ek, WeierstrassCurve.baseChange]
+@[simp] theorem Ek_a₂ : (Ek p k).a₂ = 0 := by simp [Ek, WeierstrassCurve.baseChange]
+@[simp] theorem Ek_a₃ : (Ek p k).a₃ = 0 := by simp [Ek, WeierstrassCurve.baseChange]
+@[simp] theorem Ek_a₆ : (Ek p k).a₆ = 0 := by simp [Ek, WeierstrassCurve.baseChange]
+
+/-- **The weak supersingular exponent**: for `p ≡ 3 (mod 4)`, `k ⊆ F_{p²}` with `ι² = −1`, every point
+of `(y² = x³ + 4x)⁄k` is killed by `2(p + 1)`. -/
+theorem two_mul_succ_nsmul_Ek (hp4 : p % 4 = 3) (hk : ∀ r : k, r ^ (p ^ 2) = r) {ι : k}
+    (hι : ι ^ 2 = -1) (P : (Ek p k).toAffine.Point) : (2 * (p + 1)) • P = 0 := by
+  set W0 := ZInQ.shortCurve (4 : ZMod p)
+  have hcardp : Fintype.card (ZMod p) = p := ZMod.card p
+  set frob : k →ₐ[ZMod p] k := FiniteField.frobeniusAlgHom (ZMod p) k
+  have hfrob : ∀ r : k, frob r = r ^ p := by
+    intro r; simp [frob, FiniteField.frobeniusAlgHom_apply, hcardp]
+  let π : (Ek p k).toAffine.Point →+ (Ek p k).toAffine.Point := Point.map (W' := W0) frob
+  let ψ : (W0.baseChange (ZMod p)).toAffine.Point →+ (Ek p k).toAffine.Point :=
+    Point.map (W' := W0) (Algebra.ofId (ZMod p) k)
+  -- `π² = 1`
+  have hππ : ∀ Q, π (π Q) = Q := by
+    intro Q
+    rcases Q with _ | ⟨x, y, h⟩
+    · rfl
+    · simp only [π, Point.map_some, Point.some.injEq, hfrob]
+      rw [← pow_mul, ← pow_mul, ← sq, hk, hk]
+      exact ⟨rfl, rfl⟩
+  -- fixed points are `F_p`-points, killed by `p + 1`
+  have hcard := card_W1 p hp4
+  have hfix : ∀ Q, π Q = Q → (p + 1) • Q = 0 := by
+    intro Q hQ
+    rcases Q with _ | ⟨x, y, h⟩
+    · exact nsmul_zero _
+    · simp only [π, Point.map_some, Point.some.injEq, hfrob] at hQ
+      obtain ⟨a, rfl⟩ := exists_zmod_of_pow_eq' p k x hQ.1
+      obtain ⟨b, rfl⟩ := exists_zmod_of_pow_eq' p k y hQ.2
+      have h' : (W0.baseChange (ZMod p)).toAffine.Nonsingular a b :=
+        (WeierstrassCurve.Affine.baseChange_nonsingular (W := W0) (f := Algebra.ofId (ZMod p) k)
+          (algebraMap (ZMod p) k).injective a b).mp h
+      have hψ : ψ (.some a b h') = .some _ _ h := rfl
+      rw [← hψ, ← map_nsmul]
+      have : (p + 1) • (Point.some a b h' : (W0.baseChange (ZMod p)).toAffine.Point) = 0 := by
+        rw [← hcard]; exact card_nsmul_eq_zero'
+      rw [this, map_zero]
+  -- `[i]`
+  let iH := iKHom (Ek p k) (Ek_a₁ p k) (Ek_a₂ p k) (Ek_a₃ p k) (Ek_a₆ p k) hι
+  have hiH : ∀ Q, iH (iH Q) = -Q := iK_iK (Ek p k) (Ek_a₁ p k) (Ek_a₂ p k) (Ek_a₃ p k) (Ek_a₆ p k) hι
+  have hιp : ι ^ p = -ι := by
+    obtain ⟨m, hm⟩ : ∃ m, p = 4 * m + 3 := ⟨p / 4, by omega⟩
+    rw [hm, show 4 * m + 3 = 2 * (2 * m + 1) + 1 by ring, pow_succ, pow_mul, hι,
+      Odd.neg_one_pow ⟨m, rfl⟩, neg_one_mul]
+  have hpodd : Odd p := Nat.odd_iff.mpr (by omega)
+  have hπi : ∀ Q, π (iH Q) = -(iH (π Q)) := by
+    intro Q
+    rcases Q with _ | ⟨x, y, h⟩
+    · rfl
+    · show π (iK (Ek p k) (Ek_a₁ p k) (Ek_a₂ p k) (Ek_a₃ p k) (Ek_a₆ p k) hι (.some x y h)) =
+        -(iK (Ek p k) (Ek_a₁ p k) (Ek_a₂ p k) (Ek_a₃ p k) (Ek_a₆ p k) hι (π (.some x y h)))
+      simp only [π, iK_some, Point.map_some, Point.neg_some, Point.some.injEq, hfrob]
+      refine ⟨hpodd.neg_pow x, ?_⟩
+      simp only [negY, Ek_a₁, Ek_a₃]
+      rw [mul_pow, hιp]; ring
+  -- assemble
+  have h1 : (p + 1) • (P + π P) = 0 := by
+    apply hfix
+    rw [map_add, hππ, add_comm]
+  have h2 : (p + 1) • (P - π P) = 0 := by
+    have hQ2 : (p + 1) • iH (P - π P) = 0 := by
+      apply hfix
+      rw [hπi, map_sub, hππ, ← neg_sub, map_neg, neg_neg]
+    have := congrArg iH hQ2
+    rw [map_nsmul, map_zero, hiH, smul_neg, neg_eq_zero] at this
+    exact this
+  calc (2 * (p + 1)) • P = (p + 1) • (P + π P) + (p + 1) • (P - π P) := by
+        rw [mul_comm, mul_nsmul', ← nsmul_add]; congr 1; abel
+    _ = 0 := by rw [h1, h2, add_zero]
+
+end Main
+
+/-- **The weak supersingular exponent of `y² = x³ + 4x`, PROVED** (statement over the plain curve
+`ZInQ.shortCurve (4 : k)`): for `p ≡ 3 (mod 4)` and a field `k` of characteristic `p` with
+`r^{p²} = r` for all `r` and containing `√−1`, every point is killed by `2(p + 1)`. -/
+theorem supersingularExponentWeak : ∀ p : ℕ, p.Prime → p % 4 = 3 →
+    ∀ (k : Type) [Field k] [CharP k p] [DecidableEq k], (∀ r : k, r ^ (p ^ 2) = r) →
+      (∃ ι : k, ι ^ 2 = -1) →
+      ∀ P : (ZInQ.shortCurve (4 : k)).toAffine.Point, (2 * (p + 1)) • P = 0 := by
+  intro p hp hp4 k _ _ _ hk hι
+  haveI : Fact p.Prime := ⟨hp⟩
+  letI : Algebra (ZMod p) k := ZMod.algebra k p
+  obtain ⟨ι, hι⟩ := hι
+  have hE : Ek p k = ZInQ.shortCurve 4 := by
+    ext <;> simp [Ek, WeierstrassCurve.baseChange]
+    exact map_ofNat _ 4
+  have key : ∀ C : WeierstrassCurve k, Ek p k = C →
+      ∀ P : C.toAffine.Point, (2 * (p + 1)) • P = 0 := by
+    rintro C rfl P
+    exact two_mul_succ_nsmul_Ek p k hp4 hk hι P
+  exact key _ hE
+
 end ZInQ.Contrib.TYZGenus.T318SS
+
+#print axioms ZInQ.Contrib.TYZGenus.T318SS.supersingularExponentWeak

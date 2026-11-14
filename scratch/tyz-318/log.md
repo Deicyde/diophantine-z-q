@@ -66,3 +66,10 @@ TYZ Lemma `torsion2` (Lemma 3.18): torsion of `A(ℍ'_n)` is killed by `2(1+[i])
 - [VERIFIED, compiled, ~00:10 11-14] `SigmaLift` (def; common lift h ∈ Gal(ℚ̄/ℚ) fixing L_n(i), acting as σ_{1+2ϖ} on
   every H̄_{d₀,4}; STRONGER than SqrtTwoNotInHHprime, the form CFT supplies), `sigma_moves_sqrtTwo` (σ_{1+2ϖ}(√2) = −√2),
   `sqrtTwoNotInHHprime_of_sigmaLift : SigmaLift → SqrtTwoNotInHHprime` (Route A steps 5–7). Axioms standard.
+- [VERIFIED, compiled, ~00:30 11-14] scratch/tyz-318/Supersingular.lean (imports Mathlib + ShortWeierstrass):
+  `card_W1` (#E(F_p) = p+1 for y²=x³+4x, p ≡ 3 mod 4, via quadraticChar_card_sqrts and x ↦ −x),
+  `iK`, `iK_add`, `iK_iK` ([i] on y² = x³ + a₄x over any field with ι² = −1), `exists_zmod_of_pow_eq`
+  (roots of X^p − X), `two_mul_succ_nsmul_Ek`, and **`supersingularExponentWeak`**: for p ≡ 3 (4), k ⊆ F_{p²} of char p
+  containing √−1, every point of y² = x³ + 4x over k is killed by 2(p+1). Elementary proof: P + πP and [i](P − πP)
+  are Frobenius-fixed, hence F_p-points, hence killed by p+1. Axioms standard. This replaces the textbook leaf
+  (2(p+1) suffices for odd ℓ).
