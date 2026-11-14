@@ -1788,21 +1788,11 @@ theorem irreducible_of_chart (hT : TwistClassFinite) {Y : Over (Spec (CommRingCa
 
 /-! ## Part 12: `𝒴` is reduced and irreducible -/
 
-/-- An étale algebra over a domain is reduced (copied verbatim from task smooth-fibre,
+/-- An étale algebra over a domain is reduced (leaf-fold5: the kernel's lemma, of which model-glue had a verbatim copy,
 `ZInQKernel/Contrib/SmoothFibre/Basic.lean`, `ZInQ.SmoothFibre.isReduced_of_etale_of_isDomain`). -/
 theorem isReduced_of_etale_of_isDomain' (P S : Type*) [CommRing P] [IsDomain P] [CommRing S]
-    [Algebra P S] [Algebra.Etale P S] : IsReduced S := by
-  let K := FractionRing P
-  let f := Algebra.TensorProduct.includeRight (R := P) (A := K) (B := S)
-  have hinj : Function.Injective f := by
-    have : ⇑f = (LinearMap.rTensor S (Algebra.ofId P K).toLinearMap).comp
-        (Algebra.TensorProduct.lid P S).symm.toLinearMap := by
-      ext x; simp [f]
-    rw [this]
-    exact (Module.Flat.rTensor_preserves_injective_linearMap _
-      (IsFractionRing.injective P K)).comp (Algebra.TensorProduct.lid P S).symm.injective
-  have : IsReduced (TensorProduct P K S) := Algebra.FormallyUnramified.isReduced_of_field K _
-  exact isReduced_of_injective (f : S →+* TensorProduct P K S) hinj
+    [Algebra P S] [Algebra.Etale P S] : IsReduced S :=
+  _root_.ZInQ.SmoothFibre.isReduced_of_etale_of_isDomain P S
 
 /-- A smooth algebra over a domain is reduced (the proof of smooth-fibre's
 `isReduced_of_smooth_of_field`, with a domain in place of a field). -/

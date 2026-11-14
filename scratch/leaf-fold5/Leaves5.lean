@@ -51,6 +51,13 @@ import Mathlib.AlgebraicGeometry.Morphisms.FormallyUnramified
 import Mathlib.RingTheory.Etale.Field
 import Mathlib.RingTheory.TotallySplit
 import ZInQKernel.Contrib.SmoothFibre.Basic
+import ZInQKernel.Contrib.AVB2.SerreLemma
+import ZInQKernel.Contrib.AVB1.AlgClosed
+import ZInQKernel.Contrib.AVB1.Poincare
+import ZInQKernel.Contrib.CurvesG.CurveSplit
+import ZInQKernel.Contrib.CurvesG.GenusSplit
+import ZInQKernel.Contrib.NeronC.NMPInjective
+import ZInQKernel.Contrib.NeronC.NeronGroup
 
 /-!
 # H = `ZInQ.SixContactMin` decomposed into literature leaves and glue (synthesis)
@@ -120278,21 +120285,11 @@ theorem irreducible_of_chart (hT : TwistClassFinite) {Y : Over (Spec (CommRingCa
 
 /-! ## Part 12: `𝒴` is reduced and irreducible -/
 
-/-- An étale algebra over a domain is reduced (copied verbatim from task smooth-fibre,
+/-- An étale algebra over a domain is reduced (leaf-fold5: the kernel's lemma, of which model-glue had a verbatim copy,
 `ZInQKernel/Contrib/SmoothFibre/Basic.lean`, `ZInQ.SmoothFibre.isReduced_of_etale_of_isDomain`). -/
 theorem isReduced_of_etale_of_isDomain' (P S : Type*) [CommRing P] [IsDomain P] [CommRing S]
-    [Algebra P S] [Algebra.Etale P S] : IsReduced S := by
-  let K := FractionRing P
-  let f := Algebra.TensorProduct.includeRight (R := P) (A := K) (B := S)
-  have hinj : Function.Injective f := by
-    have : ⇑f = (LinearMap.rTensor S (Algebra.ofId P K).toLinearMap).comp
-        (Algebra.TensorProduct.lid P S).symm.toLinearMap := by
-      ext x; simp [f]
-    rw [this]
-    exact (Module.Flat.rTensor_preserves_injective_linearMap _
-      (IsFractionRing.injective P K)).comp (Algebra.TensorProduct.lid P S).symm.injective
-  have : IsReduced (TensorProduct P K S) := Algebra.FormallyUnramified.isReduced_of_field K _
-  exact isReduced_of_injective (f : S →+* TensorProduct P K S) hinj
+    [Algebra P S] [Algebra.Etale P S] : IsReduced S :=
+  _root_.ZInQ.SmoothFibre.isReduced_of_etale_of_isDomain P S
 
 /-- A smooth algebra over a domain is reduced (the proof of smooth-fibre's
 `isReduced_of_smooth_of_field`, with a domain in place of a field). -/
@@ -120910,5 +120907,619 @@ end
 
 
 end G0A2_e10_vertmodel
+
+end HDec
+namespace HDec
+
+set_option maxHeartbeats 1000000
+
+attribute [-instance] TauCeti.FinitePadicExtension.toAlgebra
+  TauCeti.FinitePadicExtension.ofInstances TauCeti.FinitePadicExtension.toModuleFinite
+  TauCeti.FinitePadicExtension.toValuativeExtension
+
+section G0A2_e20_avb2
+-- (leaf-fold5) mk_e20.py: scratch/av-b2/olean/AVB2Main.lean, `namespace AVB2` ... `end AVB2`, verbatim
+noncomputable section
+
+namespace AVB2
+
+open CategoryTheory AlgebraicGeometry Limits MonoidalCategory CartesianMonoidalCategory MonObj
+
+/-! ## 1. T9 -/
+
+/-- **T9 is glue** given the two `OpenAddedLeaves3` fields `t09SymmIsogenyExists` and
+`isogenyQuasiInverse` (proof: weil-pairing's `oldT9_of_symmIsogeny`). -/
+theorem t9_of_leaves3 (h9 : WeilPairing.T09_SymmIsogenyExists)
+    (hQ : WeilPairing.IsogenyQuasiInverse) : LeafPush.T09_WeilPairing.{0} :=
+  WeilPairing.oldT9_of_symmIsogeny h9 hQ
+
+/-! ## 2. `DivisiblePoints` -/
+
+/-- **Leaf (positive-characteristic half of "`[n]` is an isogeny").** Over a field `k` of positive
+characteristic, multiplication by `n ≠ 0` on an abelian variety is finite and surjective.
+Published: Mumford, *Abelian varieties*, §4, Application 2 (`n_X` is an isogeny of degree
+`n^{2g}`, over an algebraically closed field) and §6; Milne, *Abelian varieties* (Cornell–Silverman
+1986), Thm 8.2, over any field (locators UNVERIFIED). The degree is dropped, so a consequence of the
+published statement. The characteristic-0 half is g9-abvarbc's proved `MulIsogeny`. -/
+def MulIsogenyPosChar : Prop :=
+  ∀ (k : Type) [Field k] (A : PkgI3.AbVar k) (n : ℤ), n ≠ 0 → ringChar k ≠ 0 →
+    PkgI3.AbVar.IsIsogenyMor ((n : PkgI3.AbVar.End A).hom)
+
+/-- `[n]` is an isogeny in every characteristic. -/
+theorem mulIsogenyAll (hP : MulIsogenyPosChar) (k : Type) [Field k] (A : PkgI3.AbVar k) (n : ℤ)
+    (hn : n ≠ 0) : PkgI3.AbVar.IsIsogenyMor ((n : PkgI3.AbVar.End A).hom) := by
+  by_cases h : ringChar k = 0
+  · haveI : CharP k 0 := ringChar.eq_iff.1 h
+    haveI : CharZero k := CharP.charP_to_charZero k
+    exact HSyn.mulIsogeny_proved k A n hn
+  · exact hP k A n hn h
+
+/-- **Lifting `K̄`-points through a finite surjective `K`-endomorphism** (the fibre is a nonempty
+finite `K̄`-scheme; its closed points are `K̄`-points). -/
+theorem exists_lift_pt {K : Type} [Field K] (A : PkgI3.AbVar K) (f : A.X ⟶ A.X)
+    (hf : PkgI3.AbVar.IsIsogenyMor f) (z : A.Pt (AlgebraicClosure K)) :
+    ∃ w : A.Pt (AlgebraicClosure K), w ≫ f = z := by
+  obtain ⟨hfin, hsurj⟩ := hf
+  let zl : Spec (CommRingCat.of (AlgebraicClosure K)) ⟶ A.X.left := z.left
+  let s : pullback f.left zl ⟶ Spec (CommRingCat.of (AlgebraicClosure K)) := pullback.snd f.left zl
+  haveI : IsFinite s := by dsimp [s]; infer_instance
+  haveI : Surjective s := by dsimp [s]; infer_instance
+  haveI : CompactSpace ((pullback f.left zl : Scheme) : Type) := QuasiCompact.compactSpace_of_compactSpace s
+  haveI : Nonempty ((pullback f.left zl : Scheme) : Type) := by
+    obtain ⟨y⟩ : Nonempty (Spec (CommRingCat.of (AlgebraicClosure K))) := inferInstance
+    exact ⟨(s.surjective y).choose⟩
+  obtain ⟨x, -, hx⟩ := IsClosed.exists_closed_singleton (X := ((pullback f.left zl : Scheme) : Type))
+    isClosed_univ Set.univ_nonempty
+  let pt := pointOfClosedPoint s x hx
+  have hpt : pt ≫ s = 𝟙 _ := pointOfClosedPoint_comp s x hx
+  have hz : zl ≫ A.X.hom =
+      Spec.map (CommRingCat.ofHom (algebraMap K (AlgebraicClosure K))) := Over.w z
+  have hw : f.left ≫ A.X.hom = A.X.hom := Over.w f
+  refine ⟨Over.homMk (pt ≫ pullback.fst f.left zl) ?_, ?_⟩
+  · change (pt ≫ pullback.fst f.left zl) ≫ A.X.hom =
+      Spec.map (CommRingCat.ofHom (algebraMap K (AlgebraicClosure K)))
+    rw [Category.assoc, ← hw, pullback.condition_assoc, hz, ← Category.assoc]
+    change (pt ≫ s) ≫ _ = _
+    rw [hpt, Category.id_comp]
+  · apply Over.OverMorphism.ext
+    change (pt ≫ pullback.fst f.left zl) ≫ f.left = zl
+    rw [Category.assoc, pullback.condition, ← Category.assoc]
+    change (pt ≫ s) ≫ _ = _
+    rw [hpt, Category.id_comp]
+
+/-- **`DivisiblePoints` from `MulIsogenyPosChar`** (characteristic 0: g9-abvarbc's `MulIsogeny`). -/
+theorem divisiblePoints_of_posChar (hP : MulIsogenyPosChar) : WeilPairing.DivisiblePoints := by
+  intro K _ A n hn z
+  have hiso := mulIsogenyAll hP K A (n : ℤ) (by exact_mod_cast hn.ne')
+  obtain ⟨w, hw⟩ := exists_lift_pt A _ hiso (Additive.toMul z)
+  refine ⟨Additive.ofMul w, ?_⟩
+  apply Additive.toMul.injective
+  rw [toMul_nsmul, toMul_ofMul, ← ZInQ.Contrib.AbVarBC.comp_natCast_hom A w n, hw]
+
+/-! ## 3. `SerreRigidity3` -/
+
+/-- `Spec σ : Spec ℂ → Spec K` as a morphism of `K`-schemes. -/
+def sC {K : Type} [Field K] (σ : K →+* ℂ) :
+    ZInQ.LeafPush2.cptObj σ ⟶ PkgI3.AbVar.ptObj (K := K) K :=
+  Over.homMk (Spec.map (CommRingCat.ofHom σ)) (by
+    simp only [ZInQ.LeafPush2.cptObj, PkgI3.AbVar.ptObj, Over.mk_hom, ← Spec.map_comp,
+      ← CommRingCat.ofHom_comp])
+
+/-- Precomposition with `Spec σ` is injective on `K`-points. -/
+theorem sC_cancel {K : Type} [Field K] (σ : K →+* ℂ) {Y : Over (Spec (CommRingCat.of K))}
+    {a b : PkgI3.AbVar.ptObj (K := K) K ⟶ Y} (h : sC σ ≫ a = sC σ ≫ b) : a = b := by
+  haveI := ZInQ.Contrib.AbVarBC.epi_spec_map_field σ
+  apply Over.OverMorphism.ext
+  have h2 := congrArg CommaMorphism.left h
+  simp only [Over.comp_left] at h2
+  exact (cancel_epi (Spec.map (CommRingCat.ofHom σ))).1 h2
+
+/-- **Torsion of `A(ℂ)_σ` comes from `A(K)`** for `K` algebraically closed of characteristic `0`
+(`[N]` is finite by `MulIsogeny`; points of a finite `K`-scheme, g9-abvarbc's
+`exists_lift_of_isFinite`). -/
+theorem cpt_torsion_descends {K : Type} [Field K] [IsAlgClosed K] [CharZero K]
+    (A : PkgI3.AbVar K) (σ : K →+* ℂ) (N : ℕ) (hN : 0 < N) (x : ZInQ.LeafPush2.CPts A σ)
+    (hx : x ^ N = 1) : ∃ y : A.Pt K, sC σ ≫ y = x := by
+  letI : Algebra K ℂ := σ.toAlgebra
+  have hfinN : IsFinite ((((N : ℕ) : ℤ) : PkgI3.AbVar.End A).hom.left) :=
+    (HSyn.mulIsogeny_proved K A (N : ℤ) (by exact_mod_cast hN.ne')).1
+  let fN : A.X.left ⟶ A.X.left := ((N : ℤ) : PkgI3.AbVar.End A).hom.left
+  let e : Spec (CommRingCat.of K) ⟶ A.X.left := η[A.X].left
+  have h1 : x ≫ ((N : ℤ) : PkgI3.AbVar.End A).hom = 1 := by
+    rw [ZInQ.Contrib.AbVarBC.comp_natCast_hom, hx]
+  have hq0 : x.left ≫ fN = Spec.map (CommRingCat.ofHom (algebraMap K ℂ)) ≫ e := by
+    have h2 := congrArg (fun f => f.left) h1
+    simp only [Over.comp_left, Hom.one_def] at h2
+    exact h2
+  haveI : IsFinite fN := hfinN
+  let z : Spec (CommRingCat.of ℂ) ⟶ pullback fN e :=
+    pullback.lift x.left (Spec.map (CommRingCat.ofHom (algebraMap K ℂ))) hq0
+  obtain ⟨p0, hp0, hp0g⟩ := ZInQ.Contrib.AbVarBC.exists_lift_of_isFinite (Algebra.ofId K ℂ)
+    (pullback.snd fN e) z (pullback.lift_snd _ _ _)
+  have hfst : pullback.fst fN e ≫ A.X.hom = pullback.snd fN e := by
+    have hw : fN ≫ A.X.hom = A.X.hom := Over.w ((N : ℤ) : PkgI3.AbVar.End A).hom
+    have he : e ≫ A.X.hom = 𝟙 _ := Over.w η[A.X]
+    rw [← hw, ← Category.assoc, pullback.condition, Category.assoc, he, Category.comp_id]
+  refine ⟨Over.homMk (p0 ≫ pullback.fst fN e) (by
+    change (p0 ≫ pullback.fst fN e) ≫ A.X.hom = _
+    rw [Category.assoc, hfst, hp0g]
+    rfl), ?_⟩
+  apply Over.OverMorphism.ext
+  change Spec.map (CommRingCat.ofHom ((Algebra.ofId K ℂ : K →ₐ[K] ℂ) : K →+* ℂ)) ≫
+    p0 ≫ pullback.fst fN e = x.left
+  rw [← Category.assoc, hp0]
+  exact pullback.lift_fst _ _ _
+
+/-- **Morphisms of abelian varieties over an algebraically closed `K` agreeing on `K`-points are
+equal** (hom-unify's `hom_ext_of_cpts` with `K` for `ℂ`). -/
+theorem hom_ext_of_pts {K : Type} [Field K] [IsAlgClosed K] {A B : PkgI3.AbVar K}
+    (f f' : A.X ⟶ B.X) (h : ∀ p : A.Pt K, p ≫ f = p ≫ f') : f = f' := by
+  have : IsIntegral A.X.left := GeometricallyIntegral.isIntegral_of_subsingleton A.X.hom
+  apply Over.OverMorphism.ext
+  have hw : f.left ≫ B.X.hom = f'.left ≫ B.X.hom := by rw [Over.w f, Over.w f']
+  have : LocallyOfFiniteType (f.left ≫ B.X.hom) := by rw [Over.w f]; infer_instance
+  refine ext_of_apply_eq B.X.hom Set.univ isOpen_univ.isLocallyClosed dense_univ
+    (fun x _ hx => ?_) hw
+  let p0 := pointOfClosedPoint A.X.hom x hx
+  let p : A.Pt K := Over.homMk p0 (by
+    simp only [PkgI3.AbVar.ptObj, Over.mk_hom, Algebra.algebraMap_self, CommRingCat.ofHom_id,
+      Spec.map_id]
+    exact pointOfClosedPoint_comp A.X.hom x hx)
+  have hp : p0 ≫ f.left = p0 ≫ f'.left := congrArg CommaMorphism.left (h p)
+  have key : (p0 ≫ f.left) (A.X.hom x) = (p0 ≫ f'.left) (A.X.hom x) := by rw [hp]
+  rw [Scheme.Hom.comp_apply, Scheme.Hom.comp_apply, pointOfClosedPoint_apply] at key
+  exact key
+
+
+/-! ## 3′. T11(b): uniqueness proved, existence left as the leaf -/
+
+/-- **Base change along a field extension is injective on morphisms** between abelian varieties
+over an algebraically closed `k` (compare on `k`-points; `Spec L → Spec k` is an epimorphism). -/
+theorem baseChange_map_injective {k : Type} [Field k] [IsAlgClosed k] (L : Type) [Field L]
+    [Algebra k L] {A B : PkgI3.AbVar k} {φ φ' : A.X ⟶ B.X}
+    (h : (Over.pullback (Spec.map (CommRingCat.ofHom (algebraMap k L)))).map φ =
+      (Over.pullback (Spec.map (CommRingCat.ofHom (algebraMap k L)))).map φ') : φ = φ' := by
+  apply hom_ext_of_pts φ φ'
+  intro p
+  haveI := ZInQ.Contrib.AbVarBC.epi_spec_map_field (algebraMap k L)
+  have hp1 : p.left ≫ A.X.hom = 𝟙 _ := by
+    have := Over.w p
+    simp only [PkgI3.AbVar.ptObj, Over.mk_hom, Algebra.algebraMap_self, CommRingCat.ofHom_id,
+      Spec.map_id] at this
+    exact this
+  let s := Spec.map (CommRingCat.ofHom (algebraMap k L))
+  let q : Spec (CommRingCat.of L) ⟶ pullback A.X.hom s :=
+    pullback.lift (s ≫ p.left) (𝟙 _)
+      ((Category.assoc _ _ _).trans ((congrArg (s ≫ ·) hp1).trans
+        ((Category.comp_id s).trans (Category.id_comp s).symm)))
+  have key : ∀ g : A.X ⟶ B.X,
+      ((Over.pullback s).map g).left ≫ pullback.fst B.X.hom s = pullback.fst A.X.hom s ≫ g.left := by
+    intro g
+    simp
+  have h2 : s ≫ (p ≫ φ).left = s ≫ (p ≫ φ').left := by
+    have e1 : s ≫ (p ≫ φ).left = q ≫ ((Over.pullback s).map φ).left ≫ pullback.fst B.X.hom s := by
+      rw [key, ← Category.assoc, pullback.lift_fst, Over.comp_left]
+      exact (Category.assoc _ _ _).symm
+    have e2 : s ≫ (p ≫ φ').left = q ≫ ((Over.pullback s).map φ').left ≫ pullback.fst B.X.hom s := by
+      rw [key, ← Category.assoc, pullback.lift_fst, Over.comp_left]
+      exact (Category.assoc _ _ _).symm
+    rw [e1, e2, h]
+  exact Over.OverMorphism.ext ((cancel_epi s).1 h2)
+
+/-- **Leaf (T11(b), existence half).** For abelian varieties over an algebraically closed field `k`
+of characteristic `0` and an extension `L/k`, every homomorphism `A_L → B_L` is the base change of a
+homomorphism `A → B`. Published: Conrad, *Chow's `K/k`-image and `K/k`-trace, and the Lang–Néron
+theorem*, Enseign. Math. 52 (2006), §3 (rigidity of `Hom` for primary extensions, locator UNVERIFIED);
+Milne, *Abelian varieties* (Cornell–Silverman 1986), §20 (UNVERIFIED). `LeafPush2.T11b_Rigidity`
+without its uniqueness clause, which `baseChange_map_injective` proves. -/
+def T11bExists : Prop :=
+  ∀ (k : Type) [Field k] [IsAlgClosed k] [CharZero k] (L : Type) [Field L] [Algebra k L]
+    (A B : PkgI3.AbVar k) (ψ : (A.baseChange L).X ⟶ (B.baseChange L).X), IsMonHom ψ →
+    ∃ φ : A.X ⟶ B.X, IsMonHom φ ∧
+      (Over.pullback (Spec.map (CommRingCat.ofHom (algebraMap k L)))).map φ = ψ
+
+/-- **`T11b_Rigidity` from its existence half** (uniqueness: `baseChange_map_injective`). -/
+theorem t11b_of_exists (h : T11bExists) : ZInQ.LeafPush2.T11b_Rigidity := by
+  intro k _ _ _ L _ _ A B ψ hψ
+  obtain ⟨φ, hφ, hφψ⟩ := h k L A B ψ hψ
+  exact ⟨φ, ⟨hφ, hφψ⟩, fun φ' hφ' => baseChange_map_injective L (hφ'.2.trans hφψ.symm)⟩
+
+/-- **`SerreRigidity3` from T35 and `HomLatticeCorr`** (with the proved `MulIsogeny`). Embed
+`ℚ̄ ↪ ℂ`; `A(ℂ) = ℂ^g/Λ` (T35); `φ` acts by a `ℂ`-linear `M` (HomLatticeCorr, clause 1); `M`
+preserves `Λ`, `M^m − 1` maps `ℂ^g` into `Λ`, and `M ≡ 1 (mod 3Λ)` because `3`-torsion of `A(ℂ)`
+comes from `A(ℚ̄)`, where `φ` fixes it; Serre's lemma (`lattice_serre`) gives `M = 1`, so `φ`
+fixes `A(ℂ)`, hence `A(ℚ̄)`, hence `φ = 1`. -/
+theorem serreRigidity3_of_T35 (hU : ZInQ.LeafPush2.UniformizationExists)
+    (hC : HomUnify.HomLatticeCorr) : HeckeRest.SerreRigidity3 := by
+  intro A φ hφ hfix
+  obtain ⟨m, hm, hφm⟩ := hφ
+  let σ : AlgebraicClosure ℚ →+* ℂ :=
+    ((IsAlgClosed.lift : AlgebraicClosure ℚ →ₐ[ℚ] ℂ) : AlgebraicClosure ℚ →+* ℂ)
+  obtain ⟨g, hg⟩ := PkgI3.AbVar.dim_finite A
+  obtain ⟨Λ, Φ, hdisc, hΛ, hΦ⟩ := hU (AlgebraicClosure ℚ) A σ g hg
+  obtain ⟨M, hM⟩ := hC.1 (AlgebraicClosure ℚ) A A σ g g Λ Λ Φ Φ hg hg hΦ hΦ φ
+  obtain ⟨hadd, hker, hsurj, -, -⟩ := hΦ
+  have hdiff : ∀ a b, Φ a = Φ b → a - b ∈ Λ := by
+    intro a b hab
+    rw [← hker]
+    have h := hadd (a - b) b
+    rw [sub_add_cancel, hab] at h
+    exact mul_eq_right.1 h.symm
+  have hMΛ : ∀ z ∈ Λ, M z ∈ Λ := by
+    intro z hz
+    rw [← hker, hM z, (hker z).2 hz, MonObj.one_comp]
+  have hpowM : ∀ (k : ℕ) (z : Fin g → ℂ), Φ ((M ^ k) z) = Φ z ≫ (φ ^ k).hom := by
+    intro k
+    induction k with
+    | zero =>
+      intro z
+      rw [pow_zero, pow_zero, Module.End.one_apply]
+      exact (Category.comp_id _).symm
+    | succ k ih =>
+      intro z
+      rw [pow_succ, Module.End.mul_apply, ih, hM z, pow_succ]
+      exact Category.assoc _ _ _
+  have hfin : ∀ z, (M ^ m) z - z ∈ Λ := by
+    intro z
+    refine hdiff _ _ ?_
+    rw [hpowM, hφm]
+    exact Category.comp_id _
+  have h3 : ∀ z ∈ Λ, (3⁻¹ : ℂ) • (M z - z) ∈ Λ := by
+    intro z hz
+    set u : Fin g → ℂ := (3⁻¹ : ℂ) • z with hu
+    have huz : u + u + u = z := by
+      rw [hu, ← add_smul, ← add_smul]
+      norm_num
+    have hu3 : Φ u ^ 3 = 1 := by
+      rw [pow_succ, pow_succ, pow_one, ← hadd, ← hadd, huz]
+      exact (hker z).2 hz
+    obtain ⟨y, hy⟩ := cpt_torsion_descends A σ 3 (by norm_num) (Φ u) hu3
+    have hy3 : y ^ 3 = 1 := by
+      apply sC_cancel σ
+      rw [MonObj.comp_pow, hy, hu3, MonObj.comp_one]
+    have hfu : Φ u ≫ φ.hom = Φ u := by
+      rw [← hy, Category.assoc, hfix y hy3]
+    have := hdiff (M u) u (by rw [hM u, hfu])
+    rwa [hu, map_smul, ← smul_sub] at this
+  haveI := hdisc
+  have hM1 : M = 1 := ZInQ.Contrib.AVB2.lattice_serre Λ hΛ M hMΛ h3 hm hfin
+  have hC1 : ∀ x : ZInQ.LeafPush2.CPts A σ, x ≫ φ.hom = x := by
+    intro x
+    obtain ⟨z, rfl⟩ := hsurj x
+    rw [← hM z, hM1, Module.End.one_apply]
+  have hK1 : ∀ y : A.Pt (AlgebraicClosure ℚ), y ≫ φ.hom = y ≫ 𝟙 _ := by
+    intro y
+    apply sC_cancel σ
+    rw [← Category.assoc, hC1, Category.comp_id]
+  have hφ1 : φ.hom = 𝟙 _ := hom_ext_of_pts φ.hom (𝟙 _) hK1
+  exact PkgI3.AbVar.Hom.ext' hφ1
+
+end AVB2
+
+end
+
+end G0A2_e20_avb2
+
+section G0A2_e30_kernel
+/-! ## leaf-fold5: the chain's textbook fields from the kernel's av-b1, curves-g and neron-c theorems
+
+Each theorem below has as its type the chain's own Prop (the field of `OpenTextbookLeaves4`) and is proved by
+applying a kernel theorem (`ZInQKernel/Contrib/AVB1`, `CurvesG`, `NeronC`, imported), whose hypotheses are the
+kernel's own leaf Props over the kernel's objects (`ZInQKernel/HDecomp/Objects.lean`). The chain's `PkgI3.AbVar`
+is a copy of the kernel's; `HSyn.toAbVarK4` and `HSyn.ofAbVarK4` (leaf-fold4) pass between the two with the
+same scheme, and Lean accepts the remaining identifications (`Hom`, `T`, `V`, `dim`, `baseChange`, ...) by
+unfolding, as it did for leaf-fold4's T26. -/
+
+noncomputable section
+
+namespace HSyn
+
+open CategoryTheory AlgebraicGeometry Limits MonoidalCategory CartesianMonoidalCategory MonObj
+
+/-! ### av-b1: T6, T7 from their algebraically closed forms; T8 from Poincaré's complement form -/
+
+/-- **T6 from `HomFreeFiniteAlgClosed`** (Mumford §19 Thm 3 over an algebraically closed field; the kernel's
+`ZInQ.Contrib.AVB1.homFreeFinite_of_algClosed`). -/
+theorem t6_of_algClosed5 (h : _root_.ZInQ.Contrib.AVB1.HomFreeFiniteAlgClosed) : PkgI3.HomFreeFinite :=
+  fun k _ A B => _root_.ZInQ.Contrib.AVB1.homFreeFinite_of_algClosed h k (toAbVarK4 A) (toAbVarK4 B)
+
+/-- **T7 from `CharPolyIndepOfEllAlgClosed`** (Mumford §19 Thm 4 over an algebraically closed field; the
+kernel's `ZInQ.Contrib.AVB1.charPolyIndepOfEll_of_algClosed`). -/
+theorem t7_of_algClosed5 (h : _root_.ZInQ.Contrib.AVB1.CharPolyIndepOfEllAlgClosed) :
+    PkgI3.CharPolyIndepOfEll :=
+  fun k _ A φ => _root_.ZInQ.Contrib.AVB1.charPolyIndepOfEll_of_algClosed h k (toAbVarK4 A) φ
+
+/-- **T8 from `PoincareComplement` and `SimpleImageIsogeny`** (the kernel's
+`ZInQ.Contrib.AVB1.poincareReducibility_of_simpleImage`; the complement `Z` is the kernel's abelian
+variety, read back with `ofAbVarK4`). -/
+theorem t8_of_simpleImage5 (hP : _root_.ZInQ.Contrib.AVB1.PoincareComplement)
+    (hSI : _root_.ZInQ.Contrib.AVB1.SimpleImageIsogeny) : PkgI3.PoincareReducibility := by
+  intro k _ _ A J hA f hf
+  obtain ⟨Z, g, hg⟩ := _root_.ZInQ.Contrib.AVB1.poincareReducibility_of_simpleImage hP hSI k
+    (toAbVarK4 A) (toAbVarK4 J) hA f hf
+  exact ⟨ofAbVarK4 Z, g, hg⟩
+
+/-! ### curves-g: T38 with its rational-point clause proved; T34 from its two published halves -/
+
+/-- **T38 from three textbook facts** (the kernel's `ZInQ.Contrib.CurvesG.curveOfFunctionFieldQ_of_split`:
+the rational-point clause is proved by the valuative criterion; (A) normal models of function fields, (B) normal
+curves over `ℚ` are smooth, (C) geometric connectedness from the constant field). `X1Belyi.CurveOfFunctionFieldQ`
+is over Mathlib definitions only. -/
+theorem t38_of_split5 (hA : _root_.ZInQ.Contrib.CurvesG.NormalModelOfFunctionFieldQ)
+    (hB : _root_.ZInQ.Contrib.CurvesG.NormalCurveSmoothQ)
+    (hC : _root_.ZInQ.Contrib.CurvesG.GeomConnectedOfConstantFieldQ) : X1Belyi.CurveOfFunctionFieldQ :=
+  _root_.ZInQ.Contrib.CurvesG.curveOfFunctionFieldQ_of_split hA hB hC
+
+/-- The chain's Jacobian property gives the kernel's, for the kernel's copy of the abelian variety. -/
+theorem isJacobianK_of5 {X : Over (Spec (CommRingCat.of ℚ))}
+    {P₀ : 𝟙_ (Over (Spec (CommRingCat.of ℚ))) ⟶ X} {J : PkgI3.AbVar ℚ} {aj : X ⟶ J.X}
+    (h : LeafModCurves.IsJacobian X P₀ J aj) :
+    _root_.LeafModCurves.IsJacobian X P₀ (toAbVarK4 J) aj :=
+  ⟨h.base, fun A f hf => h.univ (ofAbVarK4 A) f hf⟩
+
+/-- **T34 from its two halves** (the kernel's `ZInQ.Contrib.CurvesG.dimJ1Genus_of_split`: `dim Jac X = genus`
+for curves over `ℚ`, and the genus of `K_N` is the genus of `Γ₁(N)`). -/
+theorem t34_of_split5 (h1 : _root_.ZInQ.Contrib.CurvesG.DimJacobianEqGenus)
+    (h2 : _root_.ZInQ.Contrib.CurvesG.GenusX1Field) : LeafModCurves.DimJ1Genus := by
+  rintro N J hN ⟨X, P₀, aj, hX, hJ⟩
+  exact _root_.ZInQ.Contrib.CurvesG.dimJ1Genus_of_split h1 h2 N (toAbVarK4 J) hN
+    ⟨X, P₀, aj, hX, isJacobianK_of5 hJ⟩
+
+/-! ### neron-c: T3 from its surjective half; T41 from the scheme-level Néron extension property -/
+
+/-- **T3 from `NeronMappingAbelianSchemeSurj`** (BLR §1.2 Prop. 8, surjective half; the injective half is
+the kernel's proved `ZInQ.Contrib.NeronC.neronMappingAbelianScheme_injective`). The two `IsAbelianScheme`
+classes are copies; only the instances are transported. -/
+theorem t3_of_surj5 (h : _root_.ZInQ.Contrib.NeronC.NeronMappingAbelianSchemeSurj.{0}) :
+    PkgI2.NeronMappingAbelianScheme.{0} := by
+  intro K _ O _ 𝒜 ℬ h𝒜 hℬ
+  haveI : _root_.PkgI2.IsAbelianScheme 𝒜 := ⟨h𝒜.proper, h𝒜.smooth, h𝒜.geomConnected⟩
+  haveI : _root_.PkgI2.IsAbelianScheme ℬ := ⟨hℬ.proper, hℬ.smooth, hℬ.geomConnected⟩
+  exact _root_.ZInQ.Contrib.NeronC.neronMappingAbelianScheme_of_surj h K O 𝒜 ℬ
+
+/-- **T41 from `NeronSchemeExtensionExists`** (BLR §1.4 Thm 3 at the level of schemes; the group law and the
+uniqueness of extensions are the kernel's proved `ZInQ.Contrib.NeronC.neronModelExists_of_extension`). The
+kernel's Néron model, a `GroupModel` of `toAbVarK4 A`, is read as the chain's `GroupModel` of `A` (same fields). -/
+theorem t41_of_extension5 (h : _root_.ZInQ.Contrib.NeronC.NeronSchemeExtensionExists) :
+    ZInQ.H5Neron.NeronModelExists := by
+  intro K _ A L _ _ _
+  obtain ⟨𝒩, h𝒩⟩ := _root_.ZInQ.Contrib.NeronC.neronModelExists_of_extension h K (toAbVarK4 A) L
+  exact ⟨⟨𝒩.G, 𝒩.gen, 𝒩.gen_hom⟩, h𝒩⟩
+
+end HSyn
+
+end
+
+end G0A2_e30_kernel
+
+end HDec
+namespace HDec
+
+set_option maxHeartbeats 1000000
+
+attribute [-instance] TauCeti.FinitePadicExtension.toAlgebra
+  TauCeti.FinitePadicExtension.ofInstances TauCeti.FinitePadicExtension.toModuleFinite
+  TauCeti.FinitePadicExtension.toValuativeExtension
+
+section G0A2_e90_fold5
+/-! ## leaf-fold5: the results since leaf-fold4, folded into the statement of what remains open
+
+Task leaf-fold5, 2026-11-14. Everything above this part is leaf-fold4's `Leaves4.lean` (olean chain LPrefix ...
+TailK, unchanged), then part e10 (vert-witness's `VertMain.lean.part` and model-glue's six parts, in
+`namespace HDec`), part e20 (av-b2's `AVB2Main.lean`, namespace `AVB2`) and part e30 (the chain's textbook fields
+from the kernel's av-b1, curves-g and neron-c theorems). The kernel modules `Contrib.SmoothFibre.Basic`,
+`Contrib.AVB2.SerreLemma`, `Contrib.AVB1.{AlgClosed,Poincare}`, `Contrib.CurvesG.{CurveSplit,GenusSplit}` and
+`Contrib.NeronC.{NMPInjective,NeronGroup}` are imported.
+
+`sixContactMin_of_open5` is leaf-fold4's `sixContactMin_of_open4` applied to leaf-fold4's four bundles, each
+built here from leaf-fold5's: every field of leaf-fold4 that changed is a theorem below whose type is the chain's
+own Prop, so Lean checks that the statements agree. -/
+
+noncomputable section
+
+namespace HSyn
+
+open CategoryTheory AlgebraicGeometry
+
+/-! ### (a) `HeckeVertWitness` from good reduction of `Y₃` (vert-witness, smooth-fibre, model-glue) -/
+
+/-- **`HeckeVertWitness` from leaves and one glue Prop** (model-glue's `ModelGlue.heckeVertWitness_of_curveBijIso`,
+part e10, with `SmoothFibreReduced` the kernel's theorem `ZInQ.SmoothFibre.smoothFibreReduced`): the leaf
+`ShimuraGoodReduction` (a smooth proper model of `Y₃` over `ℤ_(p)` for `p > 324`), R1fp/R1hecke/R2fp (the bundle
+field `r1r2`), T5, the textbook leaf `CurveBijIso` and the glue `ModelCoordinateResidue` (the tame quotient
+`𝒴/Γ' ≅ P¹_{ℤ_(p)}`). -/
+theorem heckeVertWitness_of_leaves5 (hL : VertWitness.ShimuraGoodReduction) (h : LeafAdopt.R1R2fpRep)
+    (hT : PkgI2.TorsionStructure.{0}) (hD : ModelGlue.ModelCoordinateResidue)
+    (hC : ModelGlue.CurveBijIso) : HeckeRestNV.HeckeVertWitness :=
+  ModelGlue.heckeVertWitness_of_curveBijIso hL (LeafAdopt.R1R2fp_of_rep h)
+    (ObjBridge.torsionStructure_iff.mpr hT) hD hC
+
+/-! ### (b) av-b2: T9 and Serre's lemma proved from fields already present; T11(b) from its existence half -/
+
+/-- **T9 from two existing fields** (av-b2's `AVB2.t9_of_leaves3`, part e20). -/
+theorem t9_of_leaves5 (h9 : WeilPairing.T09_SymmIsogenyExists) (hQ : WeilPairing.IsogenyQuasiInverse) :
+    LeafPush.T09_WeilPairing.{0} :=
+  AVB2.t9_of_leaves3 h9 hQ
+
+/-- **Serre's lemma at level 3 from T35 and `HomLatticeCorr`** (av-b2's `AVB2.serreRigidity3_of_T35`). -/
+theorem serreRigidity3_of_T35_5 (hU : ZInQ.LeafPush2.UniformizationExists) (hC : HomUnify.HomLatticeCorr) :
+    HeckeRest.SerreRigidity3 :=
+  AVB2.serreRigidity3_of_T35 hU hC
+
+/-- **T11(b) from its existence half** (av-b2's `AVB2.t11b_of_exists`; uniqueness is proved). -/
+theorem t11b_of_exists5 (h : AVB2.T11bExists) : ZInQ.LeafPush2.T11b_Rigidity :=
+  AVB2.t11b_of_exists h
+
+/-! ### The open statements -/
+
+/-- **The textbook leaves still open** (leaf-fold5): `OpenTextbookLeaves4` with
+* `t3` (T3) replaced by its surjective half `NeronMappingAbelianSchemeSurj` (neron-c);
+* `t6`, `t7` (T6, T7) replaced by their forms over algebraically closed fields (av-b1; Mumford §19 Thms 3, 4);
+* `t8` (T8) replaced by `PoincareComplement` (av-b1; with the glue `SimpleImageIsogeny`, in `OpenGlue5`);
+* `t9` (T9) dropped (proved from `t09SymmIsogenyExists`, `isogenyQuasiInverse`; av-b2);
+* `t11b` (T11(b)) replaced by its existence half `T11bExists` (av-b2);
+* `t34` (T34) replaced by its two halves `DimJacobianEqGenus`, `GenusX1Field` (curves-g);
+* `t38` (T38) replaced by curves-g's three statements (A), (B), (C) (its rational-point clause is proved);
+* `t41` (T41) replaced by `NeronSchemeExtensionExists` (neron-c; the group law is proved). -/
+structure OpenTextbookLeaves5 : Prop where
+  /-- neron-c, LEAF: every `K`-morphism of the generic fibres of two abelian schemes over a DVR extends
+  (BLR §1.2 Prop. 8, surjective half). -/
+  t3Surj : _root_.ZInQ.Contrib.NeronC.NeronMappingAbelianSchemeSurj.{0}
+  /-- T4 = I2-Red, reduction is bijective on prime-to-`p` torsion. -/
+  t4 : PkgI2.ReductionTorsionBijective.{0}
+  t5 : PkgI2.TorsionStructure.{0}
+  /-- av-b1, LEAF: Mumford §19 Thm 3 over an algebraically closed field. -/
+  homFreeFiniteAlgClosed : _root_.ZInQ.Contrib.AVB1.HomFreeFiniteAlgClosed
+  /-- av-b1, LEAF: Mumford §19 Thm 4 (consequence) over an algebraically closed field. -/
+  charPolyIndepOfEllAlgClosed : _root_.ZInQ.Contrib.AVB1.CharPolyIndepOfEllAlgClosed
+  /-- av-b1, LEAF: Poincaré's complement theorem (Milne 1986 Prop. 12.1; Mumford §19 Thm 1), weakened. -/
+  poincareComplement : _root_.ZInQ.Contrib.AVB1.PoincareComplement
+  t10 : T10Etale.T10_TateDuality
+  homLatticeCorr : HomUnify.HomLatticeCorr
+  /-- av-b2, LEAF: T11(b) without its uniqueness clause (Conrad 2006 §3; Milne 1986 §20). -/
+  t11bExists : AVB2.T11bExists
+  t23 : ∀ (p : ℕ) [Fact p.Prime], PkgI4.T23_FontaineClosure p
+  t24 : EigenformTwist
+  t27 : PkgI3.QMDichotomyYu
+  t33 : LeafModCurves.JacobianExists ℚ
+  /-- curves-g: `dim Jac X = genus` for curves over `ℚ` (Milne 1986 Prop. 2.1 with Serre duality). -/
+  dimJacobianEqGenus : _root_.ZInQ.Contrib.CurvesG.DimJacobianEqGenus
+  /-- curves-g: the genus of `K_N` is the genus of `Γ₁(N)` (Shimura 1971 §6.7 and Prop. 1.40). -/
+  genusX1Field : _root_.ZInQ.Contrib.CurvesG.GenusX1Field
+  t35 : ZInQ.LeafPush2.UniformizationExists
+  /-- curves-g (A): a normal proper model of a function field over `ℚ(T)` (Stacks 0BXX). -/
+  normalModelOfFunctionFieldQ : _root_.ZInQ.Contrib.CurvesG.NormalModelOfFunctionFieldQ
+  /-- curves-g (B): a normal integral curve locally of finite type over `ℚ` is smooth. -/
+  normalCurveSmoothQ : _root_.ZInQ.Contrib.CurvesG.NormalCurveSmoothQ
+  /-- curves-g (C): constant field `ℚ` gives geometric connectedness (Stacks 0FD1). -/
+  geomConnectedOfConstantFieldQ : _root_.ZInQ.Contrib.CurvesG.GeomConnectedOfConstantFieldQ
+  x0Transitive : _root_.ZInQ.RLeaf.X0Transitive
+  /-- neron-c, LEAF: a smooth separated quasi-compact `𝓞_L`-scheme with generic fibre `A_L` to which maps from
+  smooth schemes extend (BLR §1.4 Thm 3, scheme level). -/
+  neronSchemeExtensionExists : _root_.ZInQ.Contrib.NeronC.NeronSchemeExtensionExists
+
+/-- **The added leaves still open** (leaf-fold5): `OpenAddedLeaves4` without `serreRigidity3` (proved from
+T35 and `HomLatticeCorr`, av-b2), with vert-witness's `ShimuraGoodReduction` and model-glue's `CurveBijIso`. -/
+structure OpenAddedLeaves5 : Prop where
+  cmOptimalEmbedding : FS5NoCM.CMOptimalEmbedding
+  thetaRatiosAlgebraic : G0Split.ThetaPt.ThetaRatiosAlgebraic
+  qmHauptmodul : PkgI1.QMHauptmodul
+  qmClassNumberOne : G0Split.FibreQM.QMClassNumberOne
+  senTwist : G0Galois.SenTwist
+  finiteImageHT : G0Galois.FiniteImageHT
+  t09SymmIsogenyExists : WeilPairing.T09_SymmIsogenyExists
+  isogenyQuasiInverse : WeilPairing.IsogenyQuasiInverse
+  x6ConicModel : X6Kummer.X6ConicModel
+  y3Connected : TSHecke.Y3Connected
+  qmAutCard : HeckeRest.QMAutCard
+  alFixedPoints : HeckeRest.ALFixedPoints
+  zariskiConnectedness : _root_.ZariskiConn.ZariskiConnectedness.{0}
+  cmDescends : G0Split.FibreQM.PeriodMapH.CMDescends
+  gammaStarGen : G0Split.FibreQM.PeriodGlue.GammaStarGen
+  valenceBoundGammaStar : G0Split.FibreQM.PeriodMap.ValenceBoundGammaStar
+  egaIV_8_8_2_ii : _root_.ZInQ.Contrib.SpreadOut.EGAIV_8_8_2_ii
+  egaIV_8_10_5_xii : _root_.ZInQ.Contrib.SpreadOut.EGAIV_8_10_5_xii
+  egaIV_17_7_8_ii : _root_.ZInQ.Contrib.SpreadOut.EGAIV_17_7_8_ii
+  /-- vert-witness, LEAF: good reduction of the level-3 Shimura curve `Y₃` at `p > 324` with its universal
+  family and Hecke automorphisms (Kottwitz 1992 §5; Morita 1981; Carayol 1986; Buzzard 1997). -/
+  shimuraGoodReduction : VertWitness.ShimuraGoodReduction
+  /-- model-glue, LEAF (textbook): a morphism of proper smooth curves over `ℚ` bijective on `ℚ̄`-points is an
+  isomorphism (Hartshorne II.6.7-6.9, III.10.7; EGA III 4.4.2). -/
+  curveBijIso : ModelGlue.CurveBijIso
+
+/-- **The glue still open** (leaf-fold5). `HeckeVertWitness` (leaf-fold4's one glue Prop) is now a theorem from
+leaves and `modelCoordinateResidue`; av-b1's `SimpleImageIsogeny` enters with T8's reduction. -/
+structure OpenGlue5 : Prop where
+  /-- model-glue: a coordinate `ρ : 𝒴 → P¹` on the smooth model with transcendental residue at every point
+  whose stalk is a DVR with maximal ideal `(p)` (the tame quotient `𝒴/Γ' ≅ P¹_{ℤ_(p)}`). -/
+  modelCoordinateResidue : ModelGlue.ModelCoordinateResidue
+  /-- av-b1: a nonzero homomorphism out of a simple abelian variety is an isogeny onto its image. -/
+  simpleImageIsogeny : _root_.ZInQ.Contrib.AVB1.SimpleImageIsogeny
+
+/-- leaf-fold4's textbook bundle from leaf-fold5's. -/
+theorem textbookLeaves4_of_open5 (t : OpenTextbookLeaves5) (l : OpenAddedLeaves5) (g : OpenGlue5) :
+    OpenTextbookLeaves4 where
+  t3 := t3_of_surj5 t.t3Surj
+  t4 := t.t4
+  t5 := t.t5
+  t6 := t6_of_algClosed5 t.homFreeFiniteAlgClosed
+  t7 := t7_of_algClosed5 t.charPolyIndepOfEllAlgClosed
+  t8 := t8_of_simpleImage5 t.poincareComplement g.simpleImageIsogeny
+  t9 := t9_of_leaves5 l.t09SymmIsogenyExists l.isogenyQuasiInverse
+  t10 := t.t10
+  homLatticeCorr := t.homLatticeCorr
+  t11b := t11b_of_exists5 t.t11bExists
+  t23 := t.t23
+  t24 := t.t24
+  t27 := t.t27
+  t33 := t.t33
+  t34 := t34_of_split5 t.dimJacobianEqGenus t.genusX1Field
+  t35 := t.t35
+  t38 := t38_of_split5 t.normalModelOfFunctionFieldQ t.normalCurveSmoothQ t.geomConnectedOfConstantFieldQ
+  x0Transitive := t.x0Transitive
+  t41 := t41_of_extension5 t.neronSchemeExtensionExists
+
+/-- leaf-fold4's added-leaves bundle from leaf-fold5's (`serreRigidity3` from T35 and `HomLatticeCorr`). -/
+theorem addedLeaves4_of_open5 (t : OpenTextbookLeaves5) (l : OpenAddedLeaves5) : OpenAddedLeaves4 where
+  cmOptimalEmbedding := l.cmOptimalEmbedding
+  thetaRatiosAlgebraic := l.thetaRatiosAlgebraic
+  qmHauptmodul := l.qmHauptmodul
+  qmClassNumberOne := l.qmClassNumberOne
+  senTwist := l.senTwist
+  finiteImageHT := l.finiteImageHT
+  t09SymmIsogenyExists := l.t09SymmIsogenyExists
+  isogenyQuasiInverse := l.isogenyQuasiInverse
+  x6ConicModel := l.x6ConicModel
+  y3Connected := l.y3Connected
+  qmAutCard := l.qmAutCard
+  serreRigidity3 := serreRigidity3_of_T35_5 t.t35 t.homLatticeCorr
+  alFixedPoints := l.alFixedPoints
+  zariskiConnectedness := l.zariskiConnectedness
+  cmDescends := l.cmDescends
+  gammaStarGen := l.gammaStarGen
+  valenceBoundGammaStar := l.valenceBoundGammaStar
+  egaIV_8_8_2_ii := l.egaIV_8_8_2_ii
+  egaIV_8_10_5_xii := l.egaIV_8_10_5_xii
+  egaIV_17_7_8_ii := l.egaIV_17_7_8_ii
+
+/-- leaf-fold4's glue bundle from leaf-fold5's: `HeckeVertWitness` from leaves and `ModelCoordinateResidue`. -/
+theorem glue4_of_open5 (r : OpenResearchLeaves2) (t : OpenTextbookLeaves5) (l : OpenAddedLeaves5)
+    (g : OpenGlue5) : OpenGlue4 where
+  heckeVertWitness := heckeVertWitness_of_leaves5 l.shimuraGoodReduction r.r1r2 t.t5
+    g.modelCoordinateResidue l.curveBijIso
+
+/-- **G0 with only the open leaves and the open glue** (leaf-fold5; no `sorry`, standard axioms).
+`ZInQ.SixContactMin` follows from
+* `OpenResearchLeaves2`: 26 research-level fields (unchanged);
+* `OpenTextbookLeaves5`: 21 textbook fields;
+* `OpenAddedLeaves5`: 21 added leaves;
+* `OpenGlue5`: 2 glue Props (`ModelCoordinateResidue`, `SimpleImageIsogeny`).
+The table of every field is `docs/research/leaf-fold5.md` §2. -/
+theorem sixContactMin_of_open5 (r : OpenResearchLeaves2) (t : OpenTextbookLeaves5)
+    (l : OpenAddedLeaves5) (g : OpenGlue5) : ZInQ.SixContactMin :=
+  sixContactMin_of_open4 r (textbookLeaves4_of_open5 t l g) (addedLeaves4_of_open5 t l)
+    (glue4_of_open5 r t l g)
+
+end HSyn
+
+end
+
+#print axioms HSyn.heckeVertWitness_of_leaves5
+#print axioms HSyn.t9_of_leaves5
+#print axioms HSyn.serreRigidity3_of_T35_5
+#print axioms HSyn.t11b_of_exists5
+#print axioms HSyn.t6_of_algClosed5
+#print axioms HSyn.t7_of_algClosed5
+#print axioms HSyn.t8_of_simpleImage5
+#print axioms HSyn.t38_of_split5
+#print axioms HSyn.t34_of_split5
+#print axioms HSyn.t3_of_surj5
+#print axioms HSyn.t41_of_extension5
+#print axioms HSyn.textbookLeaves4_of_open5
+#print axioms HSyn.addedLeaves4_of_open5
+#print axioms HSyn.glue4_of_open5
+#print axioms HSyn.sixContactMin_of_open5
+
+end G0A2_e90_fold5
 
 end HDec

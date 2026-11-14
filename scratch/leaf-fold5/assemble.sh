@@ -17,7 +17,8 @@ attribute [-instance] TauCeti.FinitePadicExtension.toAlgebra
 wrapF() { for p in "$@"; do n=$(basename $p .lean); echo "section G0A2_$n"; cat $p; echo; k=$(python3 py/balance.py $p); for i in $(seq 1 $k); do echo "end"; done; echo "end G0A2_$n"; echo; done; }
 L=$(ls parts/e1*.lean); M=$(ls parts/e[2-8]*.lean 2>/dev/null); N=$(ls parts/e9*.lean 2>/dev/null)
 LIMP='import ZInQKernel.Contrib.SmoothFibre.Basic'
-MIMP='import ZInQKernel.Contrib.AVB1.AlgClosed
+MIMP='import ZInQKernel.Contrib.AVB2.SerreLemma
+import ZInQKernel.Contrib.AVB1.AlgClosed
 import ZInQKernel.Contrib.AVB1.Poincare
 import ZInQKernel.Contrib.CurvesG.CurveSplit
 import ZInQKernel.Contrib.CurvesG.GenusSplit

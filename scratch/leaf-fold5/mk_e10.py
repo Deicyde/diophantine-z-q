@@ -62,6 +62,12 @@ EDITS = [
   " (the kernel's `ZInQ.SmoothFibre.smoothFibreReduced`, leaf-fold5). -/\ntheorem smoothFibreReduced' : SmoothFibreReduced :=\n  _root_.ZInQ.SmoothFibre.smoothFibreReduced"),
 
 ]
+EDITS.append((
+ # (c) the kernel's lemma (ZInQKernel/Contrib/SmoothFibre/Basic.lean, imported), of which model-glue's is a copy
+ open(R + 'model-glue/ModelGlue4.lean.part').read().split('theorem isReduced_of_etale_of_isDomain\' ')[1].split('\n\n')[0],
+ "(P S : Type*) [CommRing P] [IsDomain P] [CommRing S]\n    [Algebra P S] [Algebra.Etale P S] : IsReduced S :=\n  _root_.ZInQ.SmoothFibre.isReduced_of_etale_of_isDomain P S"))
+EDITS.append(("An étale algebra over a domain is reduced (copied verbatim from task smooth-fibre,",
+ "An étale algebra over a domain is reduced (leaf-fold5: the kernel's lemma, of which model-glue had a verbatim copy,"))
 for a, b in EDITS:
     assert txt.count(a) == 1, a
     txt = txt.replace(a, b)
