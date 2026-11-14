@@ -1,0 +1,172 @@
+'HDec.HSyn.sixContactMin_of_open6' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.HSyn.sixContactMin_of_open6_poincare' depends on axioms: [propext, Classical.choice, Quot.sound]
+== HDec.HSyn.sixContactMin_of_open6: closure size 184758
+  sorryAx: false
+  HDec.LeafQCheck.gammaStarGen_proof: true
+  HDec.LeafQCheck.VB.valenceBound_of_formula: true
+  HDec.LeafQCheck.VB.ellipticOrderLe6_proof: true
+  HDec.HSyn.G0Split.FibreQM.PeriodMapH.LeafQCheck.cmDescends_of: true
+  HDec.HSyn.G0Split.FibreQM.PeriodMapH.LeafQCheck.torsionDescends_of_t5: true
+  HDec.LeafQCheck.HM.base2_of_base3: true
+  HDec.LeafQCheck.HM.qmHauptmodul_of_base2: true
+  HDec.LeafQCheck.HM.orbit4: true
+  HDec.LeafQCheck.HM.orbit3: true
+  HDec.LeafQCheck.HM.orbit24: true
+  HDec.HSyn.G0Split.FibreQM.PeriodGlue.LQ20.s20WeightExact_of: true
+  HDec.HSyn.t8_ofK6: true
+  ZInQ.Contrib.AVB1.poincareReducibility_of_simpleImage: false
+  HDec.HSyn.t8_of_simpleImage5: false
+  HDec.AVB2.t11b_of_exists: true
+  HDec.HSyn.torsionStructure_ofK5: true
+  HDec.HSyn.heckeVertWitness_of_leaves5: true
+  HDec.ModelGlue.heckeVertWitness_of_curveBijIso: true
+  ZInQ.SmoothFibre.smoothFibreReduced: true
+  ZInQ.Contrib.AVB1.homFreeFinite_of_algClosed: true
+  ZInQ.Contrib.CurvesG.curveOfFunctionFieldQ_of_split: true
+  ZInQ.Contrib.NeronC.neronModelExists_of_extension: true
+  HDec.HSyn.sixContactMin_of_open4: true
+  HDec.HSyn.sixContactMin_of_open5: false
+  HDec.HSyn.sixContactMin_of_openQ10: false
+== HDec.HSyn.sixContactMin_of_open6_poincare: closure size 184795
+  sorryAx: false
+  HDec.LeafQCheck.gammaStarGen_proof: true
+  HDec.LeafQCheck.VB.valenceBound_of_formula: true
+  HDec.LeafQCheck.VB.ellipticOrderLe6_proof: true
+  HDec.HSyn.G0Split.FibreQM.PeriodMapH.LeafQCheck.cmDescends_of: true
+  HDec.HSyn.G0Split.FibreQM.PeriodMapH.LeafQCheck.torsionDescends_of_t5: true
+  HDec.LeafQCheck.HM.base2_of_base3: true
+  HDec.LeafQCheck.HM.qmHauptmodul_of_base2: true
+  HDec.LeafQCheck.HM.orbit4: true
+  HDec.LeafQCheck.HM.orbit3: true
+  HDec.LeafQCheck.HM.orbit24: true
+  HDec.HSyn.G0Split.FibreQM.PeriodGlue.LQ20.s20WeightExact_of: true
+  HDec.HSyn.t8_ofK6: true
+  ZInQ.Contrib.AVB1.poincareReducibility_of_simpleImage: true
+  HDec.HSyn.t8_of_simpleImage5: false
+  HDec.AVB2.t11b_of_exists: true
+  HDec.HSyn.torsionStructure_ofK5: true
+  HDec.HSyn.heckeVertWitness_of_leaves5: true
+  HDec.ModelGlue.heckeVertWitness_of_curveBijIso: true
+  ZInQ.SmoothFibre.smoothFibreReduced: true
+  ZInQ.Contrib.AVB1.homFreeFinite_of_algClosed: true
+  ZInQ.Contrib.CurvesG.curveOfFunctionFieldQ_of_split: true
+  ZInQ.Contrib.NeronC.neronModelExists_of_extension: true
+  HDec.HSyn.sixContactMin_of_open4: true
+  HDec.HSyn.sixContactMin_of_open5: false
+  HDec.HSyn.sixContactMin_of_openQ10: false
+== HDec.HSyn.OpenResearchLeaves5: 26 fields
+  r1r2 : (some HDec.LeafAdopt.R1R2fpRep)
+  r1b : (some HDec.HSyn.G0Split.FibreQM.R1bFamily)
+  r1rec : (some HDec.LeafQM.AV.R1rec)
+  r3 : (some ZInQ.LeafPush2.R03_LinYang)  [kernel]
+  r4 : (some HDec.PkgI1.ThetaModularity)
+  r5 : (some HDec.LeafQM.AV.R5fp)
+  r5count : (some HDec.LeafQM.AV.R5fpCount)
+  r6 : (some PkgI2.RaynaudCriterion)  [kernel]
+  r7a : (some PkgI2.NeronOggShafarevich)  [kernel]
+  r7b : (some PkgI2.SerreTatePotentialGood)  [kernel]
+  r8 : (some PkgI2.GrothendieckMonodromy)  [kernel]
+  r9a : (some PkgI3.FaltingsSemisimple)  [kernel]
+  r9b : (some PkgI3.FaltingsTate)  [kernel]
+  r10 : (some HDec.PkgI4.DeRhamComparisonHT)
+  r11r12 : (some HDec.PkgI4.PanBerger)
+  r13 : (some HDec.PkgI4.EigenformHT)
+  r14 : (some HDec.G0Galois.R14Det)
+  r15 : (some HDec.HSyn.DeligneSerreConseq)
+  r16 : (some LeafModCurves.R16_EichlerShimuraJ1')  [kernel]
+  r17 : (some LadicCond.CarayolR17')  [kernel]
+  r18 : (some HDec.ZInQ.LeafPush2.R18_Javanpeykar)
+  r19 : (some HDec.ZInQ.DefFaltings.R19_GaudronRemond)
+  r20 : (some HDec.ZInQ.DefFaltings.R20_FaltingsLemma5)
+  r21 : (some HDec.ZInQ.DefFaltings.R21_Bost)
+  r22 : (some HDec.ZInQ.LeafPush2.R22_Pazuki)
+  h5fin : (some HDec.ZInQ.DefFaltings.StableHeightFinite)
+== HDec.HSyn.OpenTextbookLeaves6: 21 fields
+  t3Surj : (some ZInQ.Contrib.NeronC.NeronMappingAbelianSchemeSurj)  [kernel]
+  t4 : (some PkgI2.ReductionTorsionBijective)  [kernel]
+  t5 : (some PkgI2.TorsionStructure)  [kernel]
+  homFreeFiniteAlgClosed : (some ZInQ.Contrib.AVB1.HomFreeFiniteAlgClosed)  [kernel]
+  charPolyIndepOfEllAlgClosed : (some ZInQ.Contrib.AVB1.CharPolyIndepOfEllAlgClosed)  [kernel]
+  t8 : (some PkgI3.PoincareReducibility)  [kernel]
+  t10 : (some T10Etale.T10_TateDuality)  [kernel]
+  homLatticeCorr : (some ZInQ.HomUnify.HomLatticeCorr)  [kernel]
+  t11bExists : (some HDec.AVB2.T11bExists)
+  t23 : (some HDec.PkgI4.T23_FontaineClosure)
+  t24 : (some PkgI4.EigenformTwist)  [kernel]
+  t27 : (some PkgI3.QMDichotomyYu)  [kernel]
+  t33 : (some LeafModCurves.JacobianExists)  [kernel]
+  dimJacobianEqGenus : (some ZInQ.Contrib.CurvesG.DimJacobianEqGenus)  [kernel]
+  genusX1Field : (some ZInQ.Contrib.CurvesG.GenusX1Field)  [kernel]
+  t35 : (some ZInQ.LeafPush2.UniformizationExists)  [kernel]
+  normalModelOfFunctionFieldQ : (some ZInQ.Contrib.CurvesG.NormalModelOfFunctionFieldQ)  [kernel]
+  normalCurveSmoothQ : (some ZInQ.Contrib.CurvesG.NormalCurveSmoothQ)  [kernel]
+  geomConnectedOfConstantFieldQ : (some ZInQ.Contrib.CurvesG.GeomConnectedOfConstantFieldQ)  [kernel]
+  x0Transitive : (some ZInQ.RLeaf.X0Transitive)  [kernel]
+  neronSchemeExtensionExists : (some ZInQ.Contrib.NeronC.NeronSchemeExtensionExists)  [kernel]
+== HDec.HSyn.OpenAddedLeaves6: 20 fields
+  cmOptimalEmbedding : (some HDec.FS5NoCM.CMOptimalEmbedding)
+  thetaRatiosAlgebraic : (some HDec.HSyn.G0Split.ThetaPt.ThetaRatiosAlgebraic)
+  qmHauptmodulBase3 : (some HDec.LeafQCheck.HM.QMHauptmodulBase3)
+  qmClassNumberOne : (some HDec.HSyn.G0Split.FibreQM.QMClassNumberOne)
+  senTwist : (some HDec.G0Galois.SenTwist)
+  finiteImageHT : (some HDec.G0Galois.FiniteImageHT)
+  t09SymmIsogenyExists : (some HDec.WeilPairing.T09_SymmIsogenyExists)
+  isogenyQuasiInverse : (some HDec.WeilPairing.IsogenyQuasiInverse)
+  x6ConicModel : (some HDec.X6Kummer.X6ConicModel)
+  y3Connected : (some HDec.TSHecke.Y3Connected)
+  qmAutCard : (some HDec.HeckeRest.QMAutCard)
+  alFixedPoints : (some HDec.HeckeRest.ALFixedPoints)
+  zariskiConnectedness : (some ZariskiConn.ZariskiConnectedness)  [kernel]
+  stQM : (some HDec.HSyn.G0Split.FibreQM.PeriodMapH.LeafQCheck.STQM)
+  valenceFormulaGammaStar : (some HDec.LeafQCheck.VB.ValenceFormulaGammaStar)
+  egaIV_8_8_2_ii : (some ZInQ.Contrib.SpreadOut.EGAIV_8_8_2_ii)  [kernel]
+  egaIV_8_10_5_xii : (some ZInQ.Contrib.SpreadOut.EGAIV_8_10_5_xii)  [kernel]
+  egaIV_17_7_8_ii : (some ZInQ.Contrib.SpreadOut.EGAIV_17_7_8_ii)  [kernel]
+  shimuraGoodReduction : (some HDec.VertWitness.ShimuraGoodReduction)
+  curveBijIso : (some HDec.ModelGlue.CurveBijIso)
+== HDec.HSyn.OpenGlue6: 1 fields
+  modelCoordinateResidue : (some HDec.ModelGlue.ModelCoordinateResidue)
+fields 68, on kernel constants 32
+  HDec.HSyn.OpenTextbookLeaves6.t3Surj == HDec.HSyn.OpenTextbookLeaves5.t3Surj
+  HDec.HSyn.OpenTextbookLeaves6.t4 == HDec.HSyn.OpenTextbookLeaves5.t4
+  HDec.HSyn.OpenTextbookLeaves6.t5 == HDec.HSyn.OpenTextbookLeaves5.t5
+  HDec.HSyn.OpenTextbookLeaves6.homFreeFiniteAlgClosed == HDec.HSyn.OpenTextbookLeaves5.homFreeFiniteAlgClosed
+  HDec.HSyn.OpenTextbookLeaves6.charPolyIndepOfEllAlgClosed == HDec.HSyn.OpenTextbookLeaves5.charPolyIndepOfEllAlgClosed
+  HDec.HSyn.OpenTextbookLeaves6.t8 == PkgI3.PoincareReducibility.t8
+  HDec.HSyn.OpenTextbookLeaves6.t10 == HDec.HSyn.OpenTextbookLeaves5.t10
+  HDec.HSyn.OpenTextbookLeaves6.homLatticeCorr == HDec.HSyn.OpenTextbookLeaves5.homLatticeCorr
+  HDec.HSyn.OpenTextbookLeaves6.t11bExists == HDec.HSyn.OpenTextbookLeaves5.t11bExists
+  HDec.HSyn.OpenTextbookLeaves6.t23 == HDec.HSyn.OpenTextbookLeaves5.t23
+  HDec.HSyn.OpenTextbookLeaves6.t24 == HDec.HSyn.OpenTextbookLeaves5.t24
+  HDec.HSyn.OpenTextbookLeaves6.t27 == HDec.HSyn.OpenTextbookLeaves5.t27
+  HDec.HSyn.OpenTextbookLeaves6.t33 == HDec.HSyn.OpenTextbookLeaves5.t33
+  HDec.HSyn.OpenTextbookLeaves6.dimJacobianEqGenus == HDec.HSyn.OpenTextbookLeaves5.dimJacobianEqGenus
+  HDec.HSyn.OpenTextbookLeaves6.genusX1Field == HDec.HSyn.OpenTextbookLeaves5.genusX1Field
+  HDec.HSyn.OpenTextbookLeaves6.t35 == HDec.HSyn.OpenTextbookLeaves5.t35
+  HDec.HSyn.OpenTextbookLeaves6.normalModelOfFunctionFieldQ == HDec.HSyn.OpenTextbookLeaves5.normalModelOfFunctionFieldQ
+  HDec.HSyn.OpenTextbookLeaves6.normalCurveSmoothQ == HDec.HSyn.OpenTextbookLeaves5.normalCurveSmoothQ
+  HDec.HSyn.OpenTextbookLeaves6.geomConnectedOfConstantFieldQ == HDec.HSyn.OpenTextbookLeaves5.geomConnectedOfConstantFieldQ
+  HDec.HSyn.OpenTextbookLeaves6.x0Transitive == HDec.HSyn.OpenTextbookLeaves5.x0Transitive
+  HDec.HSyn.OpenTextbookLeaves6.neronSchemeExtensionExists == HDec.HSyn.OpenTextbookLeaves5.neronSchemeExtensionExists
+  HDec.HSyn.OpenAddedLeaves6.cmOptimalEmbedding == HDec.HSyn.OpenAddedLeaves5.cmOptimalEmbedding
+  HDec.HSyn.OpenAddedLeaves6.thetaRatiosAlgebraic == HDec.HSyn.OpenAddedLeaves5.thetaRatiosAlgebraic
+  HDec.HSyn.OpenAddedLeaves6.qmHauptmodulBase3 == HDec.HSyn.OpenAddedLeavesQ10.qmHauptmodulBase3
+  HDec.HSyn.OpenAddedLeaves6.qmClassNumberOne == HDec.HSyn.OpenAddedLeaves5.qmClassNumberOne
+  HDec.HSyn.OpenAddedLeaves6.senTwist == HDec.HSyn.OpenAddedLeaves5.senTwist
+  HDec.HSyn.OpenAddedLeaves6.finiteImageHT == HDec.HSyn.OpenAddedLeaves5.finiteImageHT
+  HDec.HSyn.OpenAddedLeaves6.t09SymmIsogenyExists == HDec.HSyn.OpenAddedLeaves5.t09SymmIsogenyExists
+  HDec.HSyn.OpenAddedLeaves6.isogenyQuasiInverse == HDec.HSyn.OpenAddedLeaves5.isogenyQuasiInverse
+  HDec.HSyn.OpenAddedLeaves6.x6ConicModel == HDec.HSyn.OpenAddedLeaves5.x6ConicModel
+  HDec.HSyn.OpenAddedLeaves6.y3Connected == HDec.HSyn.OpenAddedLeaves5.y3Connected
+  HDec.HSyn.OpenAddedLeaves6.qmAutCard == HDec.HSyn.OpenAddedLeaves5.qmAutCard
+  HDec.HSyn.OpenAddedLeaves6.alFixedPoints == HDec.HSyn.OpenAddedLeaves5.alFixedPoints
+  HDec.HSyn.OpenAddedLeaves6.zariskiConnectedness == HDec.HSyn.OpenAddedLeaves5.zariskiConnectedness
+  HDec.HSyn.OpenAddedLeaves6.stQM == HDec.HSyn.OpenAddedLeavesQ10.stQM
+  HDec.HSyn.OpenAddedLeaves6.valenceFormulaGammaStar == HDec.HSyn.OpenAddedLeavesQ10.valenceFormulaGammaStar
+  HDec.HSyn.OpenAddedLeaves6.egaIV_8_8_2_ii == HDec.HSyn.OpenAddedLeaves5.egaIV_8_8_2_ii
+  HDec.HSyn.OpenAddedLeaves6.egaIV_8_10_5_xii == HDec.HSyn.OpenAddedLeaves5.egaIV_8_10_5_xii
+  HDec.HSyn.OpenAddedLeaves6.egaIV_17_7_8_ii == HDec.HSyn.OpenAddedLeaves5.egaIV_17_7_8_ii
+  HDec.HSyn.OpenAddedLeaves6.shimuraGoodReduction == HDec.HSyn.OpenAddedLeaves5.shimuraGoodReduction
+  HDec.HSyn.OpenAddedLeaves6.curveBijIso == HDec.HSyn.OpenAddedLeaves5.curveBijIso
+  HDec.HSyn.OpenGlue6.modelCoordinateResidue == HDec.HSyn.OpenGlue5.modelCoordinateResidue
+FIELD TYPES: ALL MATCH
