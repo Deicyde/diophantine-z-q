@@ -98,6 +98,147 @@ theorem dimJ1Le_of_belyi (h1 : DimJacobianEqGenus) (hB : BelyiGenusBound)
     (h0 : ZInQ.RLeaf.X0Transitive) : DimJ1Le :=
   dimJ1Le_of h1 (genusX1Le_of_belyi hB h0)
 
+/-! ## `BelyiGenusBound` from three textbook theorems
+
+Places of a function field `F/ℚ` are Mathlib `ValuationSubring`s; the ramification index over
+`ℚ(j)` is the index of `U_P · ℚ(j)ˣ` in `Fˣ` (`Fˣ/U_P` is the value group), the degree of a place
+is the `ℚ`-dimension of its residue field. -/
+
+section RH
+
+variable (F : Type) [Field F] [Algebra Qj F] [Algebra ℚ F]
+
+/-- A place of `F/ℚ`: a proper valuation subring containing `ℚ`. -/
+structure Place where
+  w : ValuationSubring F
+  ne_top : w ≠ ⊤
+  rat_mem : ∀ c : ℚ, algebraMap ℚ F c ∈ w
+
+variable {F}
+
+theorem Place.ext' {P Q : Place F} (h : P.w = Q.w) : P = Q := by
+  cases P; cases Q; cases h; rfl
+
+/-- `ℚ → κ(P)`. -/
+def Place.ratHom (P : Place F) : ℚ →+* IsLocalRing.ResidueField P.w :=
+  (IsLocalRing.residue P.w).comp ((algebraMap ℚ F).codRestrict P.w.toSubring P.rat_mem)
+
+/-- The degree `[κ(P) : ℚ]` of a place. -/
+def Place.deg (P : Place F) : ℕ :=
+  @Module.finrank ℚ (IsLocalRing.ResidueField P.w) _ _ P.ratHom.toModule
+
+/-- The ramification index `e(P | P ∩ ℚ(j))`: the index of `U_P · ℚ(j)ˣ` in `Fˣ`. -/
+def Place.ramIdx (P : Place F) : ℕ :=
+  (P.w.unitGroup ⊔ (Units.map (algebraMap Qj F : Qj →* F)).range).index
+
+/-- The Belyi coordinate `t = j/1728` in `F`. -/
+abbrev tF : F := algebraMap Qj F (RatFunc.X / 1728)
+
+variable (F)
+
+/-- **Leaf: Riemann–Hurwitz for `F/ℚ(j)`** (published). For `F` finite over `ℚ(j)` with
+constant field `ℚ`: only finitely many places ramify, and
+`2 g(F) − 2 = [F : ℚ(j)] · (2·0 − 2) + Σ_P (e_P − 1) deg P`.
+Source: Stichtenoth, *Algebraic Function Fields and Codes* (2nd ed.), Thm 3.4.13 (Hurwitz genus
+formula, `g(ℚ(j)) = 0`) with Thm 3.5.1 (Dedekind's different theorem: `d(P) = e_P − 1` in
+characteristic 0); Hartshorne IV.2.4 geometrically (numbers UNVERIFIED). The genus is
+`fieldGenus` (the dimension of the holomorphic differentials, which equals the Riemann–Roch genus:
+Stichtenoth Thm 1.5.15 / Hartshorne II.8, UNVERIFIED): a composite of these printed statements. -/
+def RiemannHurwitzQj : Prop :=
+  ∀ (F : Type) [Field F] [Algebra Qj F] [Algebra ℚ F] [FiniteDimensional Qj F],
+    ConstantFieldIsQ F →
+      ∃ h : (Function.support fun P : Place F => ((P.ramIdx : ℤ) - 1) * P.deg).Finite,
+        2 * (fieldGenus F : ℤ) - 2 =
+          -2 * (Module.finrank Qj F : ℤ) + ∑ P ∈ h.toFinset, ((P.ramIdx : ℤ) - 1) * P.deg
+
+/-- **Leaf: the fundamental identity at the places `j = 0`, `j = 1728`, `j = ∞` of `ℚ(j)`**
+(published). For `F` finite over `ℚ(j)` and `Q` one of these three places of degree one, finitely
+many places `P` of `F` lie over `Q` and `Σ_{P|Q} e_P deg P = [F : ℚ(j)]`.
+Source: Stichtenoth Thm 3.1.11 (`Σ e(P|Q) f(P|Q) = [F : ℚ(j)]`) with `deg P = f(P|Q) deg Q` and
+`deg Q = 1` (Stichtenoth §3.1; numbers UNVERIFIED). `P` lies over `j = 0` iff `t ∈ 𝔪_P`, over
+`j = 1728` iff `t − 1 ∈ 𝔪_P`, over `j = ∞` iff `t ∉ 𝒪_P` (`t = j/1728`). -/
+def FundamentalIdentityQj : Prop :=
+  ∀ (F : Type) [Field F] [Algebra Qj F] [Algebra ℚ F] [FiniteDimensional Qj F],
+    ∀ Z ∈ ({{P : Place F | tF ∈ P.w ∧ tF ∈ P.w.nonunits},
+        {P : Place F | tF ∈ P.w ∧ tF - 1 ∈ P.w.nonunits},
+        {P : Place F | tF ∉ P.w}} : Set (Set (Place F))),
+      ∃ h : Z.Finite, ∑ P ∈ h.toFinset, P.ramIdx * P.deg = Module.finrank Qj F
+
+/-- **Leaf: places of a function field are discrete valuation rings** (published). Every place
+`P` of `F/ℚ` has a uniformizer `π`: `π ∈ 𝒪_P` is not a unit, and every `x ∈ Fˣ` is `π^n` times a
+unit of `𝒪_P`. Source: Stichtenoth Thm 1.1.6 with Def. 1.1.4 / Thm 1.1.5 (numbers UNVERIFIED). -/
+def PlacesAreDVR : Prop :=
+  ∀ (F : Type) [Field F] [Algebra Qj F] [Algebra ℚ F] [FiniteDimensional Qj F],
+    ∀ P : Place F, ∃ π : Fˣ, (π : F) ∈ P.w ∧ π ∉ P.w.unitGroup ∧
+      ∀ x : Fˣ, ∃ n : ℤ, x * π ^ (-n) ∈ P.w.unitGroup
+
+end RH
+
+section Glue
+
+variable {F : Type} [Field F] [Algebra Qj F] [Algebra ℚ F]
+
+/-- Valuation of a `ℤ`-power of a unit. -/
+theorem val_zpow (A : ValuationSubring F) (x : Fˣ) (n : ℤ) :
+    A.valuation ((x ^ n : Fˣ) : F) = A.valuation (x : F) ^ n := by
+  rw [Units.val_zpow_eq_zpow_val, map_zpow₀]
+
+/-- **`e_P = 1` when a uniformizer comes from `ℚ(j)`** (proved). If `P` has a uniformizer `π` and
+`s = r ∈ ℚ(j)ˣ` is a non-unit of `𝒪_P` dividing every element of `𝔪_P`, then `e_P = 1`. -/
+theorem ramIdx_eq_one (P : Place F) (π : Fˣ) (hπ : (π : F) ∈ P.w) (hπu : π ∉ P.w.unitGroup)
+    (hdvr : ∀ x : Fˣ, ∃ n : ℤ, x * π ^ (-n) ∈ P.w.unitGroup) (r : Qj) (hr0 : r ≠ 0)
+    (hs : algebraMap Qj F r ∈ P.w.nonunits)
+    (hgen : ∀ x ∈ P.w.nonunits, ∃ y ∈ P.w, x = algebraMap Qj F r * y) : P.ramIdx = 1 := by
+  set v := P.w.valuation
+  set s : Fˣ := Units.map (algebraMap Qj F : Qj →* F) (Units.mk0 r hr0) with hsdef
+  have hsval : (s : F) = algebraMap Qj F r := rfl
+  have hsrange : s ∈ (Units.map (algebraMap Qj F : Qj →* F)).range := ⟨_, rfl⟩
+  -- `v π < 1`
+  have hvπ1 : v π ≤ 1 := (P.w.valuation_le_one_iff _).mpr hπ
+  have hvπne : v π ≠ 1 := fun h => hπu ((P.w.mem_unitGroup_iff π).mpr h)
+  have hvπ : v π < 1 := lt_of_le_of_ne hvπ1 hvπne
+  have hvπ0 : 0 < v π := (Valuation.pos_iff v).mpr π.ne_zero
+  have hanti := zpow_right_strictAnti₀ hvπ0 hvπ
+  -- `v(x) = v(π)^n` from the uniformizer
+  have hval : ∀ x : Fˣ, ∃ n : ℤ, v x = v π ^ n := by
+    intro x
+    obtain ⟨n, hn⟩ := hdvr x
+    refine ⟨n, ?_⟩
+    have h1 : v ((x * π ^ (-n) : Fˣ) : F) = 1 := (P.w.mem_unitGroup_iff _).mp hn
+    rw [Units.val_mul, map_mul, val_zpow, zpow_neg] at h1
+    have hne : v π ^ n ≠ 0 := (zpow_pos hvπ0 n).ne'
+    calc v x = v x * ((v π ^ n)⁻¹ * v π ^ n) := by rw [inv_mul_cancel₀ hne, mul_one]
+      _ = v π ^ n := by rw [← mul_assoc, h1, one_mul]
+  -- `v(s) = v(π)`
+  obtain ⟨m, hm⟩ := hval s
+  have hvs : v s < 1 := (P.w.mem_nonunits_iff).mp (hsval ▸ hs)
+  have hπn : (π : F) ∈ P.w.nonunits := (P.w.mem_nonunits_iff).mpr hvπ
+  obtain ⟨y, hy, hπy⟩ := hgen _ hπn
+  have hvy : v y ≤ 1 := (P.w.valuation_le_one_iff _).mpr hy
+  have hle : v π ≤ v s := by
+    rw [hπy, map_mul, ← hsval]
+    exact mul_le_of_le_one_right zero_le' hvy
+  have hm1 : m = 1 := by
+    have h1 : v π ^ (1 : ℤ) ≤ v π ^ m := by rw [zpow_one, ← hm]; exact hle
+    have h2 : v π ^ m < v π ^ (0 : ℤ) := by rw [zpow_zero, ← hm]; exact hvs
+    have h3 : m ≤ 1 := hanti.le_iff_ge.mp h1
+    have h4 : 0 < m := hanti.lt_iff_gt.mp h2
+    omega
+  rw [hm1, zpow_one] at hm
+  -- every unit lies in `U_P · ℚ(j)ˣ`
+  rw [Place.ramIdx, Subgroup.index_eq_one, eq_top_iff]
+  intro x _
+  obtain ⟨n, hn⟩ := hval x
+  have hu : x * s ^ (-n) ∈ P.w.unitGroup := by
+    rw [P.w.mem_unitGroup_iff, Units.val_mul, map_mul, val_zpow, hm, hn, zpow_neg,
+      mul_inv_cancel₀ (zpow_pos hvπ0 n).ne']
+  have : x = (x * s ^ (-n)) * s ^ n := by group
+  rw [this]
+  exact Subgroup.mul_mem _ (Subgroup.mem_sup_left hu)
+    (Subgroup.mem_sup_right (Subgroup.zpow_mem _ hsrange n))
+
+end Glue
+
 end CurveSplit
 
 #print axioms CurveSplit.genusX1Le_of_genusX1Field
