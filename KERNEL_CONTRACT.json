@@ -3,8 +3,8 @@
   "baseline_commit": "9c7b60ef504a22a68137b46c86dd46efd54c6738",
   "scope": "Conditional original existential polynomial; no claim of a formalized explicit quartic or proved premises.",
   "files": {
-    ".gitattributes": "99083324d7c521a59c4f998f08d1dfeef7e092ff9e2a1137c6edb0df24c7472c",
-    ".github/workflows/kernel-lean.yml": "1c04351d63b2eaccbef49cfc45a13f715710771c799104388fa783dd4fb85e9a",
+    ".gitattributes": "d72cd1a01bce3da869df78301c170c8eff08ffb0bb39a3cedb263f1df138d399",
+    ".github/workflows/kernel-lean.yml": "24343f1b708f28c2d75d58d0fd645a8504ab294e9a4f67356f01767098e81222",
     "ThirdParty/GreenTao/ChallengeDeps.lean": "996bfc179f93078686a6a805adfc072727bbad1b7dbb59a87b2a0adafdb9fafe",
     "ThirdParty/GreenTao/Submission.lean": "6c01d0d42973f587d95e1731860910584ddaba17b92c9a170c3d22ea882724df",
     "ThirdParty/GreenTao/Submission/ArithmeticProgression/Basic.lean": "9e3ac01ce10d186a1fbbb25202f8ce66fb8a0518563c09d91f5d4ddb719985b2",
@@ -936,14 +936,18 @@
     "lean/lake-manifest.json": "a770787f33b5824f61a0731d59e67fca3f44a531b21d1fc1a804064c6fb54e58",
     "lean/lakefile.toml": "632fda3c75f7616378b9dadd0906d9518c7b4a1199c59d7b36369121acfb3b26",
     "lean/lean-toolchain": "ca5f1f601d34c49079e38d7e7041eb0f2a9c227fbc1df0f404820069a052330c",
-    "scripts/audit_kernel.lean": "673af3d23f5433cb17145e9de8cac97b40a7d513281b7c2a726fb19ca089facc",
-    "scripts/check_kernel.py": "1dc77a83fba91142ed01dde700a57d8a05310ea81367f7a3ced2ddfe7b0bcd38",
+    "scripts/audit_kernel.lean": "79096b836bce4c04735cc4ab2f6af21e207cb9b1b84fc46b959b55369787198a",
+    "scripts/check_kernel.py": "a60adeb26ad3900906adb46618aece75515062882d44129504daea467fb26ad4",
     "scripts/check_kernel_contract.py": "ff1f2dd9f5b19f96d314934fede23c6ff0b6a57bb82671050913050c7aae4d5e",
     "scripts/check_target.py": "3217b013bf839c4166dfbbfe6fb560a2d3b56bc1408addbfc08646807dfa2e25",
     "scripts/kernel_base_report.py": "994453807d588cd255edaa5b7488268f73f15f0d97b5e49b0ecc5cda8a83273c",
+    "scripts/kernel_diagnostics.py": "4be2262183922a8067e609e7b556d84fa0e0c63e8e83e871fe9d11e6351c973a",
+    "scripts/kernel_pr_scope.py": "e48da253fcab6d68be69f2dde5848797f12c82d3c727e3bf4fec10b7659c5712",
     "scripts/print_axioms.lean": "dda22248b496bc767c9ae88b24d84d350d8bd21585a647b2d54eb61f13e552e0",
     "scripts/test_kernel_audit.py": "81e103c0f06f5840ddd64ff997288a703e69557e39f1779f66bbd8c3ce3b0469",
-    "scripts/test_kernel_contract.py": "1f4641c5dcd96809f9a65857384b1b0ea981b680116b6d5e9ebedfd5afca8a45"
+    "scripts/test_kernel_contract.py": "1f4641c5dcd96809f9a65857384b1b0ea981b680116b6d5e9ebedfd5afca8a45",
+    "scripts/test_kernel_diagnostics.py": "60d11d4c647cfb31a89aa8285df310055df1c6690aaeb5bf6b1402239a504edd",
+    "scripts/test_kernel_pr_scope.py": "65883934ba125bdcd4b66328aaa3bd8721b9912316dd1c606d59d75c4c1c2dc9"
   },
   "targets": [
     {

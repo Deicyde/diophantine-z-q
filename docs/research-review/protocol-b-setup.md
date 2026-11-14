@@ -99,20 +99,59 @@ project's findings record as well as the PR discussion.
 
 Both reviewers have a preflight context budget of 400,000 estimated tokens,
 including a 64,000-token output allowance and an 8,192-token formatting reserve.
-The estimate includes the full request: instructions, tools and conversation.
-After a provider response it uses reported input tokens, including Anthropic
-cache reads and writes, plus the larger of new UTF-8 bytes or the previous
-output-token count. Before reported usage is available, it uses request bytes.
-This deliberately avoids treating cached input as absent or assuming every
-character sequence averages four characters per token.
+The estimate includes instructions, tools and the full conversation. Ordinary
+text uses UTF-8 bytes as a conservative token estimate. Successful Anthropic
+web-result payloads instead use bounded accounting estimates: at most 20,000
+for fetched text, 16,000 for a search result block, and 128,000 for a binary
+fetch result. These estimates do not change the actual conversation sent to
+the provider. Unknown block types and repository text receive no discount.
 
-This is a conservative estimate, not a tokenizer calculation or a dollar cap.
-Provider-side web tools can add context during a request. The token-counting
+After a response, the next estimate adds the larger of the new accounting
+growth or the reported output-token count to the request's input-token count.
+For Astra, the input count comes from reported usage. For Fable, it comes from
+the streaming `message_start` input count, including cache reads and writes,
+preserved before subsequent updates. End-of-request Anthropic usage can count
+the same cached input repeatedly during internal server-tool calls; that
+cumulative total is retained for diagnostics, not used as resident context.
+If the initial count is missing after server-tool use, the previous preflight
+estimate is used instead. The next usable request-start measurement
+recalibrates the estimate. Before usable measurements, the full request is
+estimated with the same byte and web-payload accounting rules.
+
+Fable's requests cap web search at three uses and web fetch at five uses, with
+`max_content_tokens` set to 20,000 for fetched text. Direct calls share the
+limit across a turn, including client-tool-result and `pause_turn`
+continuations; programmatic calls through dynamic filtering reset per
+request. Failed or pending direct calls consume the displayed allowance
+conservatively. These are not review-wide quotas. Astra has no corresponding
+local web-use cap. The fetch text limit is approximate and may truncate the
+source; omitted text has not been reviewed. It does not cover binary PDFs.
+
+The search and binary accounting reserves are assumptions, not provider
+content limits or proven upper bounds. The guard enforces a 400,000-token
+**estimate**, not a guaranteed ceiling on actual context or spending. A large
+binary result can exceed the estimate within a request; the following
+request-start measurement corrects it. Provider-side web tools can add
+context during a request. The token-counting
 endpoint does not support the gate's server tools, so the gate does not send an
 incompatible counting request or silently remove those tools. An independent
-tool-result guard is reduced to 1,200,000 characters. A request over budget
-stops before another model call; it does not truncate history or approve a
-partial review. Scope reads to the changed argument and affected consumers.
+tool-result guard is reduced to 1,200,000 characters. Before a file, file-list or
+history result is returned, the gate measures the complete projected next
+request, reserving small error results for other calls in the same batch and
+4,096 tokens for recovery. An oversized read returns a tool error and leaves
+the review running. Every result includes `remaining_context_tokens` and
+`remaining_tool_characters`, which are planning estimates rather than exact
+token allowances. Every client tool result, including an error, also includes
+`web_uses_remaining`: Fable's remaining direct uses, the next request's
+programmatic maximum, and the fetched-text truncation warning. Provider-owned
+server-result blocks are replayed unchanged. Rejected repository results
+neither count as source reads nor complete the history
+requirement. The model can retry a smaller read. The pre-request check remains
+the final safeguard for unexpected growth, such as a large model-generated
+message. The gate never silently truncates conversation history or repository
+reads, and it does not accept a partial review. This does not make
+provider-truncated web content a complete source read.
+Scope reads to the changed argument and affected consumers.
 Split a review that cannot fit while preserving all necessary dependencies.
 
 Anthropic caching uses a one-hour TTL. This reduces expiration during long
@@ -124,7 +163,9 @@ rate limit. These changes do not raise an account spending cap.
 
 Sources: [prompt caching](https://platform.claude.com/docs/en/build-with-claude/prompt-caching),
 [rate and spending limits](https://platform.claude.com/docs/en/api/rate-limits),
-[token-counting limitations](https://platform.claude.com/docs/en/build-with-claude/token-counting).
+[token-counting limitations](https://platform.claude.com/docs/en/build-with-claude/token-counting),
+[web fetch caps and content limits](https://platform.claude.com/docs/en/agents-and-tools/tool-use/web-fetch-tool),
+[cumulative server-tool cache usage](https://platform.claude.com/docs/en/build-with-claude/context-editing#server-side-tools).
 
 ## Collaborator commands
 
