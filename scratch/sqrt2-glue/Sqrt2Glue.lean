@@ -831,6 +831,107 @@ theorem frobNormLaw : FrobNormLaw := by
 theorem sqrtTwoNotInHHprime_of_normSigma (hN : NormSigma) : SqrtTwoNotInHHprime :=
   sqrtTwoNotInHHprime_of frobNormLaw hN
 
+/-! ## §8. From the norm congruence `N(α) ≡ 1 ± 2√−d₀ (mod 4)` to `NormSigma` -/
+
+section NormClass
+
+variable {d : ℕ} [NeZero d]
+
+theorem intCast_add_four_mul_mem (a : ℤ) (y : 𝓞 (QNeg d)) :
+    ((a : 𝓞 (QNeg d)) + 4 * y) ∈ (O4 d).toRingOfIntegers := by
+  rw [mem_toRingOfIntegers]
+  refine ⟨a, y, ?_⟩
+  push_cast
+  rfl
+
+theorem isCoprime_span_two_of_eq {x y : 𝓞 (QNeg d)} (h : x = 1 + 2 * y) :
+    IsCoprime (Ideal.span {x}) (Ideal.span {(2 : 𝓞 (QNeg d))}) := by
+  rw [Ideal.isCoprime_span_singleton_iff]
+  exact ⟨1, -y, by rw [h]; ring⟩
+
+theorem classOf_span_mul_eq_one {x y : 𝓞 (QNeg d)}
+    (hx : IsCoprime (Ideal.span {x}) (Ideal.span {(2 : 𝓞 (QNeg d))}))
+    (hy : IsCoprime (Ideal.span {y}) (Ideal.span {(2 : 𝓞 (QNeg d))}))
+    (hxy : x * y ∈ (O4 d).toRingOfIntegers) :
+    classOf (Ideal.span {x}) * classOf (Ideal.span {y}) = 1 := by
+  have hmx := mem_primeTo_of_isCoprime_two hx
+  have hmy := mem_primeTo_of_isCoprime_two hy
+  rw [← classOf_mul hmx hmy, Ideal.span_singleton_mul_span_singleton,
+    classOf_of_mem (by rw [← Ideal.span_singleton_mul_span_singleton]; exact Submonoid.mul_mem _ hmx hmy),
+    picClass_eq_one_iff]
+  exact ⟨x * y, hxy, rfl⟩
+
+/-- **The class of `1 + 2ε√−d + 4γ` is `σ_{1+2ϖ}`** (`ε = ±1`, `d ≡ 5 (mod 8)`): its product with
+`3 − 2ε√−d` lies in `ℤ + 4𝓞_K`, and `3 ∓ 2√−d` both have class `σ^{±1} = σ`. -/
+theorem classOf_span_congr (hd : d % 8 = 5) {ε : ℤ} (hε : ε = 1 ∨ ε = -1) (γ : 𝓞 (QNeg d)) :
+    classOf (Ideal.span {1 + 2 * (ε : 𝓞 (QNeg d)) * sqrtNeg d + 4 * γ}) = sigmaClass d := by
+  have hε2 : (ε : 𝓞 (QNeg d)) * ε = 1 := by
+    rcases hε with rfl | rfl <;> norm_num
+  set u := 1 + 2 * (ε : 𝓞 (QNeg d)) * sqrtNeg d + 4 * γ with hu
+  set v := 3 - 2 * (ε : 𝓞 (QNeg d)) * sqrtNeg d with hv
+  have hcu := isCoprime_span_two_of_eq (x := u) (y := ε * sqrtNeg d + 2 * γ) (by rw [hu]; ring)
+  have hcv := isCoprime_span_two_of_eq (x := v) (y := 1 - ε * sqrtNeg d) (by rw [hv]; ring)
+  have huv : u * v ∈ (O4 d).toRingOfIntegers := by
+    have e : u * v = ((3 + 4 * (d : ℤ) : ℤ) : 𝓞 (QNeg d)) +
+        4 * (ε * sqrtNeg d + γ * (3 - 2 * ε * sqrtNeg d)) := by
+      rw [hu, hv]
+      push_cast
+      linear_combination (-4 : 𝓞 (QNeg d)) * (ε : 𝓞 (QNeg d)) * ε * sqrtNeg_mul_self (d := d) +
+        (4 * (d : 𝓞 (QNeg d))) * hε2
+    rw [e]; exact intCast_add_four_mul_mem _ _
+  have h1 := classOf_span_mul_eq_one hcu hcv huv
+  have hσ2 : sigmaClass d * sigmaClass d = 1 := by rw [← sq]; exact sigmaClass_sq
+  have hσ : sigmaClass d = classOf (Ideal.span {alpha d}) := rfl
+  have hca : IsCoprime (Ideal.span {alpha d}) (Ideal.span {(2 : 𝓞 (QNeg d))}) :=
+    isCoprime_span_two_of_eq (y := 1 + sqrtNeg d) (by unfold alpha; ring)
+  rcases hε with rfl | rfl
+  · -- `v = 3 − 2√−d`, `v · α = 9 + 4d`
+    have hva : v * alpha d ∈ (O4 d).toRingOfIntegers := by
+      have e : v * alpha d = ((9 + 4 * (d : ℤ) : ℤ) : 𝓞 (QNeg d)) + 4 * 0 := by
+        rw [hv]; unfold alpha; push_cast
+        linear_combination (-4 : 𝓞 (QNeg d)) * sqrtNeg_mul_self (d := d)
+      rw [e]; exact intCast_add_four_mul_mem _ _
+    have h2 := classOf_span_mul_eq_one hcv hca hva
+    rw [← hσ] at h2
+    -- `cu * cv = 1` and `cv * σ = 1`, so `cu = σ`
+    calc classOf (Ideal.span {u}) = classOf (Ideal.span {u}) * (classOf (Ideal.span {v}) * sigmaClass d) := by
+          rw [h2, mul_one]
+      _ = (classOf (Ideal.span {u}) * classOf (Ideal.span {v})) * sigmaClass d := by rw [mul_assoc]
+      _ = sigmaClass d := by rw [h1, one_mul]
+  · -- `v = 3 + 2√−d = α`
+    have hva : v = alpha d := by rw [hv]; unfold alpha; push_cast; ring
+    rw [hva, ← hσ] at h1
+    calc classOf (Ideal.span {u}) = classOf (Ideal.span {u}) * (sigmaClass d * sigmaClass d) := by
+          rw [hσ2, mul_one]
+      _ = (classOf (Ideal.span {u}) * sigmaClass d) * sigmaClass d := by rw [mul_assoc]
+      _ = sigmaClass d := by rw [h1, one_mul]
+
+end NormClass
+
+/-- **GLUE `NormCongr` (the norm congruence of Route A, step 1)**: for squarefree `n ≡ 5 (mod 8)` some
+`α ∈ 𝓞_{L_n(i)}`, `α ≠ 0`, coprime to `2`, has `N_{L_n(i)/K_{d₀}}(α𝓞) = (1 + 2ε√−d₀ + 4γ)𝓞_{K_{d₀}}`
+with `ε = ±1`, `γ ∈ 𝓞_{K_{d₀}}`, for every `d₀ ∣ n`, `d₀ ≡ 5 (mod 8)`. For
+`α = 1 + 2i∏_{q∣n}(1 + √q*)/2`: `N(1 + 2β) ≡ 1 + 2 Tr(β) (mod 4)` and `Tr_{L_n(i)/K_{d₀}}(β) = ±√−d₀`
+(`docs/research/tyz-318.md` §3.2). -/
+def NormCongr : Prop :=
+  ∀ n : ℕ, n % 8 = 5 → Squarefree n → ∃ α : 𝓞 (Lni n), α ≠ 0 ∧ IsCoprime α 2 ∧
+    ∀ d₀ ∈ n.divisors, d₀ % 8 = 5 → ∀ _ : NeZero d₀, ∃ ε : ℤ, (ε = 1 ∨ ε = -1) ∧
+      ∃ γ : 𝓞 (QNeg d₀), relNormK (Lni n) d₀ (Ideal.span {α}) =
+        Ideal.span {1 + 2 * (ε : 𝓞 (QNeg d₀)) * sqrtNeg d₀ + 4 * γ}
+
+theorem normSigma_of (h : NormCongr) : NormSigma := by
+  intro n hn hsq
+  obtain ⟨α, hα0, hα2, hα⟩ := h n hn hsq
+  refine ⟨α, hα0, hα2, ?_⟩
+  intro d₀ hd₀ hd₀5 hd₀0
+  obtain ⟨ε, hε, γ, hrel⟩ := hα d₀ hd₀ hd₀5 hd₀0
+  rw [hrel]
+  exact classOf_span_congr hd₀5 hε γ
+
+/-- **`SqrtTwoNotInHHprime` from `NormCongr` alone.** -/
+theorem sqrtTwoNotInHHprime_of_normCongr (h : NormCongr) : SqrtTwoNotInHHprime :=
+  sqrtTwoNotInHHprime_of_normSigma (normSigma_of h)
+
 end ZInQ.Contrib.TYZGenus.Sqrt2Glue
 
 #print axioms ZInQ.Contrib.TYZGenus.Sqrt2Glue.sigmaLift_of
