@@ -4041,7 +4041,154 @@ theorem valenceFormulaGammaStar_of_O1 (hV : ValenceFormulaCocompactEq) (hS : Shi
   rw [h12, ENNReal.le_div_iff_mul_le (Or.inl (by norm_num)) (Or.inl (by norm_num)), mul_comm]
   exact hsum
 
+theorem enn_eq (o : ℝ≥0∞) (es e1 k : ℕ) (hes : 0 < es) (he1 : 0 < e1) (h : k * es = 4 * e1) :
+    (k : ℝ≥0∞) * (o / e1) = 4 * (o / es) := by
+  rw [ENNReal.div_eq_inv_mul, ENNReal.div_eq_inv_mul, ← mul_assoc, ← mul_assoc]
+  congr 1
+  have e1' : (4 : ℝ≥0∞) * (es : ℝ≥0∞)⁻¹ = ((4 : ℕ) : ℝ≥0∞) / (es : ℝ≥0∞) := by
+    rw [ENNReal.div_eq_inv_mul, mul_comm]; norm_cast
+  have e2' : (k : ℝ≥0∞) * (e1 : ℝ≥0∞)⁻¹ = (k : ℝ≥0∞) / (e1 : ℝ≥0∞) := by
+    rw [ENNReal.div_eq_inv_mul, mul_comm]
+  rw [e1', e2', enn_div _ _ hes, enn_div _ _ he1]
+  congr 1
+  rw [div_eq_div_iff (by exact_mod_cast he1.ne') (by exact_mod_cast hes.ne')]
+  exact_mod_cast (by linarith : k * es = 4 * e1)
+
+/-- Every finite set has a subset of pairwise `Γ*`-inequivalent points meeting each of its `Γ*`-classes. -/
+theorem exists_reps (S : Finset UpperHalfPlane) :
+    ∃ T ⊆ S, (T : Set UpperHalfPlane).Pairwise (fun z w => ∀ γ ∈ Γs, γ • z ≠ w) ∧
+      ∀ s ∈ S, ∃ t ∈ T, ∃ γ ∈ Γs, γ • t = s := by
+  classical
+  induction S using Finset.induction_on with
+  | empty => exact ⟨∅, subset_refl _, by simp, by simp⟩
+  | insert a S ha ih =>
+    obtain ⟨T, hTS, hTp, hTc⟩ := ih
+    by_cases hc : ∃ t ∈ T, ∃ γ ∈ Γs, γ • t = a
+    · refine ⟨T, hTS.trans (Finset.subset_insert _ _), hTp, fun s hs => ?_⟩
+      rcases Finset.mem_insert.1 hs with rfl | hs
+      · exact hc
+      · exact hTc s hs
+    · push Not at hc
+      refine ⟨insert a T, Finset.insert_subset_insert _ hTS, ?_, fun s hs => ?_⟩
+      · rw [Finset.coe_insert]
+        refine hTp.insert fun t ht hne => ⟨fun γ hγ h => ?_, fun γ hγ h => hc t ht γ hγ h⟩
+        exact hc t ht γ⁻¹ (gammaStar_inv hγ) (by rw [← h, inv_smul_smul])
+      · rcases Finset.mem_insert.1 hs with rfl | hs
+        · exact ⟨s, Finset.mem_insert_self _ _, 1, one_mem_gammaStar', one_smul _ _⟩
+        · obtain ⟨t, ht, γ, hγ, h⟩ := hTc s hs
+          exact ⟨t, Finset.mem_insert_of_mem ht, γ, hγ, h⟩
+
+/-- **`GammaStarValence` from the published leaves only** (valence formula for `Γ¹`, Shimizu's covolume), by the
+index argument with the exact count `r e* = 4 e¹` and the covering by the four cosets. -/
+theorem gammaStarValence_of_O1 (hV : ValenceFormulaCocompactEq) (hS : ShimizuCovolumeO1) :
+    GammaStarValence := by
+  classical
+  intro m F hF hne hau
+  obtain ⟨hF1, s, hs, hvol⟩ := hS
+  have haut := abs_auto hau
+  have haut1 : ∀ γ ∈ Gamma1, ∀ z : UpperHalfPlane,
+      ‖F ((γ • z : UpperHalfPlane) : ℂ)‖ * ((γ : Matrix (Fin 2) (Fin 2) ℝ).det) ^ m =
+        ‖denom γ z‖ ^ (2 * m) * ‖F (z : ℂ)‖ := fun γ hγ z => haut γ (G1_le hγ) z
+  obtain ⟨h1, h2, -⟩ := hV Gamma1 hF1 s hs m F hF hne haut1
+  refine ⟨?_, fun T hT hcov => ?_, fun T hT => valenceFormulaGammaStar_of_O1 hV ⟨hF1, s, hs, hvol⟩ m F hF hne haut T hT⟩
+  · -- representatives for `Γ*` from representatives for `Γ¹`
+    obtain ⟨T₁, -, hT₁c⟩ := h1
+    obtain ⟨T, -, hTp, hTc⟩ := exists_reps T₁
+    refine ⟨T, hTp, fun w hw => ?_⟩
+    obtain ⟨t₁, ht₁, h, hh, rfl⟩ := hT₁c w hw
+    obtain ⟨t, ht, γ, hγ, rfl⟩ := hTc t₁ ht₁
+    exact ⟨t, ht, h * γ, Gs.mul_mem (G1_le hh) hγ, mul_smul _ _ _⟩
+  · set K : UpperHalfPlane → Finset (Fin 4) := fun z =>
+      Finset.univ.filter (fun i : Fin 4 => ∀ j < i, ¬ Eq1 (g4 j • z) (g4 i • z)) with hK
+    set p : UpperHalfPlane → Fin 4 → UpperHalfPlane := fun z i => g4 i • z with hp
+    set T' := T.biUnion (fun z => (K z).image (p z)) with hT'
+    have hcross : ∀ z ∈ T, ∀ z' ∈ T, ∀ i j, Eq1 (p z i) (p z' j) → z = z' := by
+      intro z hz z' hz' i j ⟨h, hh, hhz⟩
+      by_contra hne'
+      apply hT hz hz' hne' ((g4 j)⁻¹ * h * g4 i)
+        (Gs.mul_mem (Gs.mul_mem (Gs.inv_mem (g4_mem j)) (G1_le hh)) (g4_mem i))
+      simp only [hp] at hhz
+      rw [mul_smul, mul_smul, hhz, inv_smul_smul]
+    have hkeep : ∀ z, ∀ i ∈ K z, ∀ j ∈ K z, i ≠ j → ¬ Eq1 (p z i) (p z j) := by
+      intro z i hi j hj hij hE
+      rcases lt_or_gt_of_ne hij with h | h
+      · exact (Finset.mem_filter.1 hj).2 i h hE
+      · exact (Finset.mem_filter.1 hi).2 j h (eq1_symm hE)
+    have hpair : (T' : Set UpperHalfPlane).Pairwise (fun a b => ∀ γ ∈ Gamma1, γ • a ≠ b) := by
+      intro a ha b hb hab γ hγ hγab
+      simp only [hT', Finset.coe_biUnion, Set.mem_iUnion, Finset.mem_coe, Finset.mem_image] at ha hb
+      obtain ⟨z, hz, i, hi, rfl⟩ := ha
+      obtain ⟨z', hz', j, hj, rfl⟩ := hb
+      have hE : Eq1 (p z i) (p z' j) := ⟨γ, hγ, hγab⟩
+      obtain rfl := hcross z hz z' hz' i j hE
+      have hij : i ≠ j := fun h => hab (by rw [h])
+      exact hkeep z i hi j hj hij hE
+    -- covering of the zeros by `T'` (the four cosets cover `Γ*`)
+    have hcov1 : Covers Gamma1 T' F := by
+      intro w hw
+      obtain ⟨t, ht, γ, hγ, rfl⟩ := hcov w hw
+      obtain ⟨i, h, hh, he⟩ := coset_cover hγ
+      have hw' : γ • t = h • (g4 i • t) := by
+        have := congrArg (fun π : Equiv.Perm UpperHalfPlane => π t) he
+        simpa [mob_apply, mul_smul] using this
+      set Sx := Finset.univ.filter (fun j : Fin 4 => Eq1 (g4 j • t) (g4 i • t))
+      have hS : Sx.Nonempty := ⟨i, Finset.mem_filter.2 ⟨Finset.mem_univ _, eq1_refl _⟩⟩
+      set i' := Sx.min' hS
+      have hi'K : i' ∈ K t := by
+        refine Finset.mem_filter.2 ⟨Finset.mem_univ _, fun k hk hEq => ?_⟩
+        have h1 := (Finset.mem_filter.1 (Sx.min'_mem hS)).2
+        have hkS : k ∈ Sx := Finset.mem_filter.2 ⟨Finset.mem_univ _, eq1_trans hEq h1⟩
+        exact absurd (Sx.min'_le k hkS) (not_le.2 hk)
+      have hE : Eq1 (g4 i' • t) (γ • t) := by
+        rw [hw']
+        exact eq1_trans (Finset.mem_filter.1 (Sx.min'_mem hS)).2 ⟨h, hh, rfl⟩
+      obtain ⟨h', hh', he'⟩ := hE
+      refine ⟨g4 i' • t, ?_, h', hh', he'⟩
+      simp only [hT', Finset.mem_biUnion, Finset.mem_image]
+      exact ⟨t, ht, i', hi'K, rfl⟩
+    have hval := h2 T' hpair hcov1
+    rw [hvol, arith3] at hval
+    have hdisj : (T : Set UpperHalfPlane).PairwiseDisjoint (fun z => (K z).image (p z)) := by
+      intro z hz z' hz' hne'
+      rw [Function.onFun, Finset.disjoint_left]
+      intro a ha ha'
+      simp only [Finset.mem_image] at ha ha'
+      obtain ⟨i, -, rfl⟩ := ha
+      obtain ⟨j, -, hj⟩ := ha'
+      exact hne' (hcross z hz z' hz' i j (by rw [← hj]; exact eq1_refl _))
+    rw [hT', Finset.sum_biUnion hdisj] at hval
+    have hinner : ∀ z ∈ T, ∑ a ∈ (K z).image (p z),
+        ((analyticOrderAt F (a : ℂ) : ℕ∞) : ℝ≥0∞) / (ellOrderOf Gamma1 a : ℝ≥0∞) =
+        4 * (((analyticOrderAt F (z : ℂ) : ℕ∞) : ℝ≥0∞) / (HDec.LeafQCheck.VB.ellOrder z : ℝ≥0∞)) := by
+      intro z hz
+      rw [Finset.sum_image (fun i hi j hj hij => by
+        by_contra hne'
+        exact hkeep z i hi j hj hne' (by rw [hij]; exact eq1_refl _))]
+      rw [Finset.sum_congr rfl (fun i _ => by
+        rw [ord_smul_eq hF haut (g4_mem i) z, ← card_Sone, card_Sone_smul (g4_mem i) z]),
+        Finset.sum_const, nsmul_eq_mul]
+      have hk := kept_eq z
+      rw [card_Sstar] at hk
+      obtain ⟨he0, -⟩ := HDec.LeafQCheck.VB.ellipticOrderLe6_proof z
+      exact enn_eq _ _ _ _ he0 (card_Sone_pos z) hk
+    rw [Finset.sum_congr rfl hinner, ← Finset.mul_sum] at hval
+    have h12 : (m : ℝ≥0∞) / 12 = ((m : ℝ≥0∞) / 3) / 4 := by
+      rw [show ((m : ℝ≥0∞) / 3) = ((m : ℕ) : ℝ≥0∞) / ((3 : ℕ) : ℝ≥0∞) by norm_num,
+        show ((m : ℝ≥0∞) / 12) = ((m : ℕ) : ℝ≥0∞) / ((12 : ℕ) : ℝ≥0∞) by norm_num,
+        enn_div _ _ (by norm_num), enn_div _ _ (by norm_num),
+        show (4 : ℝ≥0∞) = ENNReal.ofReal 4 by simp, ← ENNReal.ofReal_div_of_pos (by norm_num)]
+      congr 1; push_cast; ring
+    rw [h12, ENNReal.eq_div_iff (by norm_num) (by norm_num)]
+    exact hval
+
 end Index
+
+include hT hC in
+/-- **Row H-88 from published leaves and one number**: the valence formula (for `Γ¹`), Shimizu's covolume,
+the CM value `ThetaQuotientValue24` (and the bundle leaf `r4`). -/
+theorem qmHauptmodulBase3_of_O1 (hV : ValenceFormulaCocompactEq) (hS : ShimizuCovolumeO1) :
+    QMHauptmodulBase3 :=
+  qmHauptmodulBase3_of' hT (gammaStarValence_of_O1 hV hS) hC
 
 include hT hC in
 /-- **Row H-88 from published leaves and project glue**: the valence formula, Shimizu's volume formula, the
@@ -4060,3 +4207,5 @@ end HDec.LeafQCheck.HM.QMSplit
 #print axioms HDec.LeafQCheck.HM.QMSplit.qmHauptmodulBase3_of'
 #print axioms HDec.LeafQCheck.HM.QMSplit.qmHauptmodulBase3_of_shimizu
 #print axioms HDec.LeafQCheck.HM.QMSplit.valenceFormulaGammaStar_of_O1
+#print axioms HDec.LeafQCheck.HM.QMSplit.gammaStarValence_of_O1
+#print axioms HDec.LeafQCheck.HM.QMSplit.qmHauptmodulBase3_of_O1

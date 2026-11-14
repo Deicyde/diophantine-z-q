@@ -138,3 +138,12 @@ Row sources (VERIFIED, read): definitions read in ~/dzq-wt/leaf-fold4/scratch/le
   12, 18 would be a square), the classes of g_i z under Γ¹ number r_z with 4e¹ ≤ r e* (`class_bound` via
   Stab*(z)/Stab¹(z), `kept_bound`), orders and e¹ are constant along Γ*-orbits (`ord_smul_eq`,
   `card_Sone_smul`). So `GammaStarFromO1` is not needed for H-87.
+
+## H-88 from published leaves + one number (VERIFIED, compiled)
+- `Haupt.lean`: the Hauptmodul argument refactored over `GammaStarValence` (existence of representatives, the
+  equality and the bound for Γ*); `gammaStarValence_of_area` (old route) and `gammaStarValence_of_O1 :
+  ValenceFormulaCocompactEq → ShimizuCovolumeO1 → GammaStarValence` (new): `coset_cover` (the four cosets
+  cover Γ*: the chain's normalizer descent with T = {1, i, j, ij} kept, `normalizer_explicit`; elements
+  i·a4⁻¹, j·a6⁻¹, ij·(a4a6)⁻¹ are in 𝒪 with norm −1, 1, −1), `class_bound_rev`, `kept_eq` (r e* = 4 e¹),
+  `exists_reps`. `qmHauptmodulBase3_of_O1 (hT) (hC) (hV) (hS) : QMHauptmodulBase3`. Axioms standard, 26 s.
+- So `GammaStarFromO1` (project glue) is not needed by H-87 or H-88.
