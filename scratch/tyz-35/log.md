@@ -48,3 +48,12 @@ for the pinned points; TYZ prove it (L2343–2380) from Theorem 3.3 by the chara
 - `tyzThm35ReadingA_of_lcal_shimuraModFn_lemma318_thm33_lemma321Five` (cm-bridge headline with
   `∀ ℓ, IsTYZLcal ℓ → TYZThm33Pinned ℓ` in place of `… → Thm35First ℓ tyzZ`): standard axioms. VERIFIED.
 - TYZ source `~/tyz-src/Period7.tex`: not present on this host (checked) → HUMAN CHECK items stay.
+
+## 2026-11-13 ~23:45 n ≡ 7 numerics (pure Python, double precision)
+- `heeg7.py` → `heeg7.out`: re-implementation of tyz-t1's Heegner model (32a1 a_n by point counting,
+  φ(τ) = Σ a_n/n qⁿ, lattice from Γ₀(32) differences: square, side 1.3110·√2) with the leaf's
+  characters (`Jacobi(m/gmap)`), for 27 squarefree n ≡ 7 (mod 8), 15 ≤ n ≤ 903 (k = 2, 3).
+  TYZ Thm 3.3 as encoded in `TYZThm33Pinned`: `16 P_{χ_{d₀,d₁}}(n) = ±16·2^{h₂(n)−h₂(d₀)} 𝓛(d₁) ε P_{χ=1}(d₀)`
+  mod Λ with ε = i for (5,3), 1 for (7,1): 43 contributing pairs with d₁ > 1 (32 of type (5,3)),
+  𝓛(d₁) ∈ {0,1,2,3} (3 with 𝓛 = 0: P torsion as predicted); 70 complement checks χ_T = χ_{T^c} on P:
+  0 mismatches (VERIFIED computed). First numerical test of the n ≡ 7 cross-level part of Thm 3.3.
