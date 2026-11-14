@@ -28,3 +28,8 @@ scratch/leaf-fold3/Leaves3.lean under `HDec.PkgI3`).
 - scratch/av-b1/mk_check.py → AVB1Check.lean (111 374 lines, md5 in check.md5): Leaves3.lean + AVB1 files
   renamed `_root_.PkgI3 → _root_.HDec.PkgI3` inside `namespace HDec` + check_tail.lean. Flat run started
   18:24 (`lake env lean`, one process).
+
+## 19:01 PST — flat run 2 (run 1 failed: AlgClosed.lean lacked its closing `end ZInQ.Contrib.AVB1`, fixed)
+- `lake env lean scratch/av-b1/AVB1Check.lean` (660161e571cb…): EXIT 0 in 1027 s, 0 errors,
+  no sorry; 297 axiom reports, all [propext, Classical.choice, Quot.sound], incl.
+  HDec.AVB1Check.{t6_of_algClosed, t7_of_algClosed, t8_of_pieces, t6_t7_t8_of_avb1} (VERIFIED).
