@@ -87,3 +87,18 @@ after `lake build ZInQKernel.Contrib.R10.Amend ZInQKernel.Contrib.AbVarBC.Dim` (
 - Instance pitfall: `Algebra ↥E ↥E'` for intermediate fields via letI makes `Module.Free ↥E ↥E'` search time
   out; fix: state the count over abstract fields (`dsp_finrank_extend`) and add `letI mod := alg.toModule`,
   `haveI := Module.Free.of_divisionRing E E'` before `Module.finrank_mul_finrank`.
+
+## Glue proved: AttachedConj (AttachedConj.lean, companion file)
+- `attachedConj_proof : AttachedConj` from the kernel's T18 (`ZInQ.Contrib.frobeniusDense`) and T19
+  (`TSkolemKW.C10.brauerNesbittChar0'`) via `C9Rhof.iso_of_arithFrob`; bridge GaloisRep → Representation
+  (`galRepRep`), IsSemisimple → IsSemisimpleModule (Mathlib `Representation.mapSubmodule`), asModule iso →
+  conjugating matrix. Separate file because importing ZInQKernel.HDecomp makes `open PkgI4 (GaloisRep)`
+  ambiguous (root PkgI4 vs ZInQ.Contrib.G9.PkgI4); AttachedConj/IsConj there are textual copies with the
+  G9 names written out. COMPILED 11-14, standard axioms. VERIFIED.
+- With it, H-10: EigenformHT ⇐ EigenformHTNew + NewformOfEigenform (kernel leaf I4-L5) + EigenformRepExists
+  (R14, implied by R14Det) + htConj_proof + attachedConj_proof.
+
+## Glue proved: Semisimplification2 (HodgeSplit.lean §14)
+- `semisimplification2_proof`: non-semisimple 2-dim ρ has an invariant line; conjugate to upper triangular
+  (a ∗; 0 d); `diagHom a d` is continuous, semisimple (`isSemisimple_diag`), same charpoly
+  (`charpoly_fin_two'`), unramified where ρ is. COMPILED 11-14, standard axioms. VERIFIED.

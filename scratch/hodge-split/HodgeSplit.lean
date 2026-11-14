@@ -1612,6 +1612,334 @@ theorem htConj_proof : HTConj := by
 
 end HTConjSec
 
+
+/-! ## §14. Glue proved: `Semisimplification2` -/
+
+section SemisimpSec
+
+open PkgI4 (GaloisRep GaloisChar)
+open Polynomial
+
+variable {ℓ : ℕ} [Fact ℓ.Prime]
+
+theorem charpoly_fin_two' (M : Matrix (Fin 2) (Fin 2) (PadicAlgCl ℓ)) :
+    M.charpoly = X ^ 2 - C M.trace * X + C M.det := by
+  rw [Matrix.charpoly, Matrix.det_fin_two, Matrix.trace_fin_two, Matrix.det_fin_two]
+  simp only [Matrix.charmatrix_apply, Matrix.diagonal_apply_eq, Matrix.diagonal_apply_ne _
+    (show (0 : Fin 2) ≠ 1 by decide), Matrix.diagonal_apply_ne _ (show (1 : Fin 2) ≠ 0 by decide),
+    RingHom.mapMatrix_apply, Matrix.map_apply, Matrix.of_apply]
+  simp only [map_sub, map_add, map_mul]
+  ring
+
+/-- `σ ↦ diag(a σ, d σ)`. -/
+def diagHom (a d : PkgI4.GQ →* (PadicAlgCl ℓ)ˣ) : PkgI4.GQ →* GL (Fin 2) (PadicAlgCl ℓ) where
+  toFun σ := ⟨!![(a σ : PadicAlgCl ℓ), 0; 0, (d σ : PadicAlgCl ℓ)],
+    !![(((a σ)⁻¹ : (PadicAlgCl ℓ)ˣ) : PadicAlgCl ℓ), 0; 0, (((d σ)⁻¹ : (PadicAlgCl ℓ)ˣ) : PadicAlgCl ℓ)],
+    by simp [Matrix.one_fin_two], by simp [Matrix.one_fin_two]⟩
+  map_one' := Units.ext (by simp [Matrix.one_fin_two])
+  map_mul' σ τ := Units.ext (by simp [Matrix.mul_fin_two])
+
+theorem diagHom_val (a d : PkgI4.GQ →* (PadicAlgCl ℓ)ˣ) (σ : PkgI4.GQ) :
+    ((diagHom a d σ : GL (Fin 2) (PadicAlgCl ℓ)) : Matrix (Fin 2) (Fin 2) (PadicAlgCl ℓ)) =
+      !![(a σ : PadicAlgCl ℓ), 0; 0, (d σ : PadicAlgCl ℓ)] := rfl
+
+/-- A diagonal representation is semisimple. -/
+theorem isSemisimple_diag (a d : PkgI4.GQ →* (PadicAlgCl ℓ)ˣ)
+    (W : Submodule (PadicAlgCl ℓ) (Fin 2 → PadicAlgCl ℓ))
+    (hW : ∀ σ, W.map (Matrix.toLin' (!![(a σ : PadicAlgCl ℓ), 0; 0, (d σ : PadicAlgCl ℓ)])) ≤ W) :
+    ∃ W', IsCompl W W' ∧ ∀ σ,
+      W'.map (Matrix.toLin' (!![(a σ : PadicAlgCl ℓ), 0; 0, (d σ : PadicAlgCl ℓ)])) ≤ W' := by
+  classical
+  -- the coordinate lines
+  let e0 : Fin 2 → PadicAlgCl ℓ := ![1, 0]
+  let e1 : Fin 2 → PadicAlgCl ℓ := ![0, 1]
+  have hdiag : ∀ σ (x : Fin 2 → PadicAlgCl ℓ),
+      Matrix.toLin' (!![(a σ : PadicAlgCl ℓ), 0; 0, (d σ : PadicAlgCl ℓ)]) x =
+        ![(a σ : PadicAlgCl ℓ) * x 0, (d σ : PadicAlgCl ℓ) * x 1] := by
+    intro σ x; ext i; fin_cases i <;> simp [Matrix.mulVec, dotProduct, Fin.sum_univ_two]
+  have hline0 : ∀ σ, (PadicAlgCl ℓ ∙ e0).map (Matrix.toLin'
+      (!![(a σ : PadicAlgCl ℓ), 0; 0, (d σ : PadicAlgCl ℓ)])) ≤ (PadicAlgCl ℓ ∙ e0) := by
+    intro σ
+    rw [Submodule.map_le_iff_le_comap, Submodule.span_singleton_le_iff_mem, Submodule.mem_comap,
+      hdiag, Submodule.mem_span_singleton]
+    exact ⟨(a σ : PadicAlgCl ℓ), by ext i; fin_cases i <;> simp [e0]⟩
+  have hline1 : ∀ σ, (PadicAlgCl ℓ ∙ e1).map (Matrix.toLin'
+      (!![(a σ : PadicAlgCl ℓ), 0; 0, (d σ : PadicAlgCl ℓ)])) ≤ (PadicAlgCl ℓ ∙ e1) := by
+    intro σ
+    rw [Submodule.map_le_iff_le_comap, Submodule.span_singleton_le_iff_mem, Submodule.mem_comap,
+      hdiag, Submodule.mem_span_singleton]
+    exact ⟨(d σ : PadicAlgCl ℓ), by ext i; fin_cases i <;> simp [e1]⟩
+  have hc01 : IsCompl (PadicAlgCl ℓ ∙ e0) (PadicAlgCl ℓ ∙ e1) := by
+    constructor
+    · rw [disjoint_iff, eq_bot_iff]
+      intro x hx
+      obtain ⟨⟨c, rfl⟩, ⟨c', hc'⟩⟩ := (Submodule.mem_inf.mp hx).imp Submodule.mem_span_singleton.mp
+        Submodule.mem_span_singleton.mp
+      have h0 := congrFun hc' 0
+      have h1 := congrFun hc' 1
+      simp [e0, e1] at h0 h1
+      rw [Submodule.mem_bot]
+      ext i; fin_cases i <;> simp [e0, ← h0]
+    · rw [codisjoint_iff, eq_top_iff]
+      intro x _
+      have : x = x 0 • e0 + x 1 • e1 := by ext i; fin_cases i <;> simp [e0, e1]
+      rw [this]
+      exact Submodule.add_mem _ (Submodule.mem_sup_left (Submodule.smul_mem _ _
+        (Submodule.mem_span_singleton_self _)))
+        (Submodule.mem_sup_right (Submodule.smul_mem _ _ (Submodule.mem_span_singleton_self _)))
+  by_cases hsc : ∀ σ, (a σ : PadicAlgCl ℓ) = d σ
+  · -- scalar: every subspace is invariant
+    obtain ⟨W', hW'⟩ := Submodule.exists_isCompl W
+    refine ⟨W', hW', fun σ => ?_⟩
+    rintro _ ⟨x, hx, rfl⟩
+    rw [hdiag, ← hsc σ]
+    have : ![(a σ : PadicAlgCl ℓ) * x 0, (a σ : PadicAlgCl ℓ) * x 1] = (a σ : PadicAlgCl ℓ) • x := by
+      ext i; fin_cases i <;> simp
+    rw [this]
+    exact W'.smul_mem _ hx
+  push_neg at hsc
+  obtain ⟨σ₀, hσ₀⟩ := hsc
+  by_cases htop : W = ⊤
+  · exact ⟨⊥, by rw [htop]; exact isCompl_top_bot, fun σ => by simp⟩
+  by_cases hbot : W = ⊥
+  · exact ⟨⊤, by rw [hbot]; exact isCompl_bot_top, fun σ => le_top⟩
+  -- every vector of `W` lies on a coordinate line
+  have key : ∀ z ∈ W, z 0 = 0 ∨ z 1 = 0 := by
+    intro z hz
+    by_contra h
+    push_neg at h
+    apply htop
+    have hz' : ![(a σ₀ : PadicAlgCl ℓ) * z 0, (d σ₀ : PadicAlgCl ℓ) * z 1] ∈ W := by
+      rw [← hdiag]; exact hW σ₀ ⟨z, hz, rfl⟩
+    have hsub : (a σ₀ : PadicAlgCl ℓ) ≠ d σ₀ := hσ₀
+    have he0 : e0 ∈ W := by
+      have hm : (d σ₀ : PadicAlgCl ℓ) • z - ![(a σ₀ : PadicAlgCl ℓ) * z 0, (d σ₀ : PadicAlgCl ℓ) * z 1] ∈ W :=
+        W.sub_mem (W.smul_mem _ hz) hz'
+      have hne : ((d σ₀ : PadicAlgCl ℓ) - a σ₀) * z 0 ≠ 0 :=
+        mul_ne_zero (sub_ne_zero.mpr (Ne.symm hsub)) h.1
+      have hv : (d σ₀ : PadicAlgCl ℓ) • z - ![(a σ₀ : PadicAlgCl ℓ) * z 0, (d σ₀ : PadicAlgCl ℓ) * z 1] =
+          (((d σ₀ : PadicAlgCl ℓ) - a σ₀) * z 0) • e0 := by
+        ext i; fin_cases i
+        · simp [e0, Matrix.vecHead]; ring
+        · simp [e0, Matrix.vecHead, Matrix.vecTail]
+      have : e0 = (((d σ₀ : PadicAlgCl ℓ) - a σ₀) * z 0)⁻¹ •
+          ((d σ₀ : PadicAlgCl ℓ) • z - ![(a σ₀ : PadicAlgCl ℓ) * z 0, (d σ₀ : PadicAlgCl ℓ) * z 1]) := by
+        rw [hv, inv_smul_smul₀ hne]
+      rw [this]; exact W.smul_mem _ hm
+    have he1 : e1 ∈ W := by
+      have hm : (a σ₀ : PadicAlgCl ℓ) • z - ![(a σ₀ : PadicAlgCl ℓ) * z 0, (d σ₀ : PadicAlgCl ℓ) * z 1] ∈ W :=
+        W.sub_mem (W.smul_mem _ hz) hz'
+      have hne : ((a σ₀ : PadicAlgCl ℓ) - d σ₀) * z 1 ≠ 0 :=
+        mul_ne_zero (sub_ne_zero.mpr hsub) h.2
+      have hv : (a σ₀ : PadicAlgCl ℓ) • z - ![(a σ₀ : PadicAlgCl ℓ) * z 0, (d σ₀ : PadicAlgCl ℓ) * z 1] =
+          (((a σ₀ : PadicAlgCl ℓ) - d σ₀) * z 1) • e1 := by
+        ext i; fin_cases i
+        · simp [e1, Matrix.vecHead]
+        · simp [e1, Matrix.vecHead, Matrix.vecTail]; ring
+      have : e1 = (((a σ₀ : PadicAlgCl ℓ) - d σ₀) * z 1)⁻¹ •
+          ((a σ₀ : PadicAlgCl ℓ) • z - ![(a σ₀ : PadicAlgCl ℓ) * z 0, (d σ₀ : PadicAlgCl ℓ) * z 1]) := by
+        rw [hv, inv_smul_smul₀ hne]
+      rw [this]; exact W.smul_mem _ hm
+    rw [eq_top_iff]
+    intro x _
+    have : x = x 0 • e0 + x 1 • e1 := by ext i; fin_cases i <;> simp [e0, e1]
+    rw [this]
+    exact W.add_mem (W.smul_mem _ he0) (W.smul_mem _ he1)
+  by_cases h0 : ∀ x ∈ W, x 1 = 0
+  · have hle : W ≤ PadicAlgCl ℓ ∙ e0 := by
+      intro x hx
+      rw [Submodule.mem_span_singleton]
+      exact ⟨x 0, by ext i; fin_cases i <;> simp [e0, h0 x hx]⟩
+    have hge : PadicAlgCl ℓ ∙ e0 ≤ W := by
+      obtain ⟨x, hx, hx0⟩ := Submodule.exists_mem_ne_zero_of_ne_bot hbot
+      have hx00 : x 0 ≠ 0 := by
+        intro h; apply hx0; ext i; fin_cases i <;> simp [h, h0 x hx]
+      rw [Submodule.span_singleton_le_iff_mem]
+      have : e0 = (x 0)⁻¹ • x := by ext i; fin_cases i <;> simp [e0, h0 x hx, hx00]
+      rw [this]; exact W.smul_mem _ hx
+    have hWe : W = PadicAlgCl ℓ ∙ e0 := le_antisymm hle hge
+    exact ⟨PadicAlgCl ℓ ∙ e1, hWe ▸ hc01, hline1⟩
+  push_neg at h0
+  obtain ⟨x, hx, hx1⟩ := h0
+  have hx0 : x 0 = 0 := (key x hx).resolve_right hx1
+  by_cases h1 : ∀ y ∈ W, y 0 = 0
+  · have hle : W ≤ PadicAlgCl ℓ ∙ e1 := by
+      intro y hy
+      rw [Submodule.mem_span_singleton]
+      exact ⟨y 1, by ext i; fin_cases i <;> simp [e1, h1 y hy]⟩
+    have hge : PadicAlgCl ℓ ∙ e1 ≤ W := by
+      rw [Submodule.span_singleton_le_iff_mem]
+      have : e1 = (x 1)⁻¹ • x := by ext i; fin_cases i <;> simp [e1, hx0, hx1]
+      rw [this]; exact W.smul_mem _ hx
+    have hWe : W = PadicAlgCl ℓ ∙ e1 := le_antisymm hle hge
+    exact ⟨PadicAlgCl ℓ ∙ e0, hWe ▸ hc01.symm, hline0⟩
+  push_neg at h1
+  obtain ⟨y, hy, hy0⟩ := h1
+  have hy1 : y 1 = 0 := (key y hy).resolve_left hy0
+  rcases key (x + y) (W.add_mem hx hy) with h | h
+  · exact absurd (by simpa [hx0] using h) hy0
+  · exact absurd (by simpa [hy1] using h) hx1
+
+theorem mulVec_e0 (M : Matrix (Fin 2) (Fin 2) (PadicAlgCl ℓ)) (i : Fin 2) :
+    (M.mulVec ![1, 0]) i = M i 0 := by
+  simp [Matrix.mulVec, dotProduct, Fin.sum_univ_two]
+
+/-- **`Semisimplification2`, proved.** If `ρ` is not semisimple it has an invariant line; in a
+basis through it `ρ` is upper triangular `(a ∗; 0 d)`, and `diag(a, d)` is the semisimplification. -/
+theorem semisimplification2_proof : Semisimplification2 := by
+  intro ℓ _ ρ
+  classical
+  by_cases hss : ρ.IsSemisimple
+  · exact ⟨ρ, hss, fun _ => rfl, fun _ h => h⟩
+  -- an invariant subspace without invariant complement
+  have hss' := hss
+  simp only [GaloisRep.IsSemisimple, not_forall, not_exists, not_and] at hss'
+  obtain ⟨W, hW, hno⟩ := hss'
+  have hWbot : W ≠ ⊥ := by
+    rintro rfl
+    obtain ⟨σ, hσ⟩ := hno ⊤ isCompl_bot_top
+    exact hσ le_top
+  have hWtop : W ≠ ⊤ := by
+    rintro rfl
+    obtain ⟨σ, hσ⟩ := hno ⊥ isCompl_top_bot
+    exact hσ (by simp)
+  obtain ⟨w, hwW, hw⟩ := Submodule.exists_mem_ne_zero_of_ne_bot hWbot
+  have hfin : Module.finrank (PadicAlgCl ℓ) W = 1 := by
+    have h2 : Module.finrank (PadicAlgCl ℓ) W ≤ 2 := by
+      have := Submodule.finrank_le W
+      simpa using this
+    have h0 : Module.finrank (PadicAlgCl ℓ) W ≠ 0 := by
+      intro h; exact hWbot (Submodule.finrank_eq_zero.mp h)
+    have h2' : Module.finrank (PadicAlgCl ℓ) W ≠ 2 := by
+      intro h; apply hWtop
+      apply Submodule.eq_top_of_finrank_eq
+      simp [h]
+    omega
+  have hmul : ∀ v ∈ W, ∃ c : PadicAlgCl ℓ, c • w = v := by
+    intro v hv
+    obtain ⟨c, hc⟩ := (finrank_eq_one_iff_of_nonzero' (⟨w, hwW⟩ : W)
+      (fun h => hw (congrArg Subtype.val h))).mp hfin ⟨v, hv⟩
+    exact ⟨c, congrArg Subtype.val hc⟩
+  have heig : ∀ σ, ∃ c : PadicAlgCl ℓ, (ρ.mat σ).mulVec w = c • w := by
+    intro σ
+    obtain ⟨c, hc⟩ := hmul _ (hW σ ⟨w, hwW, rfl⟩)
+    exact ⟨c, by rw [hc, Matrix.toLin'_apply]⟩
+  -- a basis through `w`
+  let u : Fin 2 → PadicAlgCl ℓ := if w 0 ≠ 0 then ![0, 1] else ![1, 0]
+  let P : Matrix (Fin 2) (Fin 2) (PadicAlgCl ℓ) := !![w 0, u 0; w 1, u 1]
+  have hdet : P.det ≠ 0 := by
+    rw [Matrix.det_fin_two_of]
+    by_cases h0 : w 0 ≠ 0
+    · simp [u, h0]
+    · have hw0 : w 0 = 0 := not_not.mp h0
+      have h1 : w 1 ≠ 0 := by
+        intro h1; apply hw; ext i; fin_cases i <;> simp [hw0, h1]
+      simp [u, hw0, h1]
+  let Pu : GL (Fin 2) (PadicAlgCl ℓ) := Matrix.nonsingInvUnit P (Ne.isUnit hdet)
+  let Q : Matrix (Fin 2) (Fin 2) (PadicAlgCl ℓ) := ((Pu⁻¹ : GL (Fin 2) (PadicAlgCl ℓ)) : Matrix _ _ _)
+  have hQP : Q * P = 1 := by
+    change (Pu⁻¹).val * Pu.val = 1
+    rw [← Units.val_mul, inv_mul_cancel, Units.val_one]
+  have hPQ : P * Q = 1 := by
+    change Pu.val * (Pu⁻¹).val = 1
+    rw [← Units.val_mul, mul_inv_cancel, Units.val_one]
+  let T : PkgI4.GQ → Matrix (Fin 2) (Fin 2) (PadicAlgCl ℓ) := fun σ => Q * ρ.mat σ * P
+  have hPe0 : P.mulVec ![1, 0] = w := by
+    ext i; rw [mulVec_e0]; fin_cases i <;> simp [P]
+  have hT10 : ∀ σ, T σ 1 0 = 0 := by
+    intro σ
+    obtain ⟨c, hc⟩ := heig σ
+    have h1 : (T σ).mulVec ![1, 0] = c • ![1, 0] := by
+      simp only [T, ← Matrix.mulVec_mulVec, hPe0, hc, Matrix.mulVec_smul]
+      rw [← hPe0, Matrix.mulVec_mulVec, hQP, Matrix.one_mulVec]
+    have := congrFun h1 1
+    rw [mulVec_e0] at this
+    simpa using this
+  have hmatmul : ∀ σ τ, ρ.mat (σ * τ) = ρ.mat σ * ρ.mat τ := by
+    intro σ τ; simp [GaloisRep.mat]
+  have hTmul : ∀ σ τ, T (σ * τ) = T σ * T τ := by
+    intro σ τ
+    simp only [T, hmatmul]
+    rw [show Q * ρ.mat σ * P * (Q * ρ.mat τ * P) = Q * ρ.mat σ * (P * Q) * ρ.mat τ * P by
+      simp only [mul_assoc], hPQ, mul_one]
+    simp only [mul_assoc]
+  have hT1 : T 1 = 1 := by simp [T, GaloisRep.mat, hQP]
+  have hdetT : ∀ σ, (T σ).det = T σ 0 0 * T σ 1 1 := by
+    intro σ; rw [Matrix.det_fin_two, hT10]; ring
+  have hdetT' : ∀ σ, (T σ).det ≠ 0 := by
+    intro σ
+    simp only [T, Matrix.det_mul]
+    refine mul_ne_zero (mul_ne_zero ?_ ?_) hdet
+    · intro h
+      have := congrArg Matrix.det hQP
+      rw [Matrix.det_mul, h, zero_mul, Matrix.det_one] at this
+      exact zero_ne_one this
+    · exact (Matrix.isUnit_iff_isUnit_det _).mp (ρ.toHom σ).isUnit |>.ne_zero
+  have ha0 : ∀ σ, T σ 0 0 ≠ 0 := fun σ h => hdetT' σ (by rw [hdetT, h, zero_mul])
+  have hd0 : ∀ σ, T σ 1 1 ≠ 0 := fun σ h => hdetT' σ (by rw [hdetT, h, mul_zero])
+  let a : PkgI4.GQ →* (PadicAlgCl ℓ)ˣ :=
+    { toFun := fun σ => Units.mk0 (T σ 0 0) (ha0 σ)
+      map_one' := Units.ext (by simp [hT1])
+      map_mul' := fun σ τ => Units.ext (by
+        simp only [Units.val_mk0, Units.val_mul, hTmul, Matrix.mul_apply, Fin.sum_univ_two, hT10]
+        ring) }
+  let d : PkgI4.GQ →* (PadicAlgCl ℓ)ˣ :=
+    { toFun := fun σ => Units.mk0 (T σ 1 1) (hd0 σ)
+      map_one' := Units.ext (by simp [hT1])
+      map_mul' := fun σ τ => Units.ext (by
+        simp only [Units.val_mk0, Units.val_mul, hTmul, Matrix.mul_apply, Fin.sum_univ_two, hT10]
+        ring) }
+  have hTc : Continuous T :=
+    (continuous_const.matrix_mul (Units.continuous_val.comp ρ.continuous_toHom)).matrix_mul
+      continuous_const
+  have hac : Continuous fun σ => (a σ : PadicAlgCl ℓ) := hTc.matrix_elem 0 0
+  have hdc : Continuous fun σ => (d σ : PadicAlgCl ℓ) := hTc.matrix_elem 1 1
+  have hdiagc : ∀ (f g : PkgI4.GQ → PadicAlgCl ℓ), Continuous f → Continuous g →
+      Continuous fun σ => !![f σ, 0; 0, g σ] := by
+    intro f g hf hg
+    refine continuous_pi fun i => continuous_pi fun j => ?_
+    fin_cases i <;> fin_cases j
+    · simpa using hf
+    · simpa using continuous_const
+    · simpa using continuous_const
+    · simpa using hg
+  have hcont : Continuous (diagHom a d) := by
+    rw [Units.continuous_iff]
+    refine ⟨hdiagc _ _ hac hdc, ?_⟩
+    have : (fun σ => (((diagHom a d σ)⁻¹ : GL (Fin 2) (PadicAlgCl ℓ)) : Matrix (Fin 2) (Fin 2) (PadicAlgCl ℓ)))
+        = fun σ => !![(a σ⁻¹ : PadicAlgCl ℓ), 0; 0, (d σ⁻¹ : PadicAlgCl ℓ)] := by
+      funext σ; rw [← map_inv]; rfl
+    rw [this]
+    exact hdiagc _ _ (hac.comp continuous_inv) (hdc.comp continuous_inv)
+  let ρ' : GaloisRep ℓ 2 := ⟨diagHom a d, hcont⟩
+  have hρ'mat : ∀ σ, ρ'.mat σ = !![(a σ : PadicAlgCl ℓ), 0; 0, (d σ : PadicAlgCl ℓ)] := fun σ => rfl
+  have hρT : ∀ σ, ρ.mat σ = P * T σ * Q := by
+    intro σ
+    simp only [T]
+    rw [show P * (Q * ρ.mat σ * P) * Q = (P * Q) * ρ.mat σ * (P * Q) by simp only [mul_assoc],
+      hPQ, one_mul, mul_one]
+  refine ⟨ρ', fun W' hW' => ?_, fun σ => ?_, fun p hu => ?_⟩
+  · simp only [hρ'mat] at hW' ⊢
+    exact isSemisimple_diag a d W' hW'
+  · rw [charpoly_fin_two', charpoly_fin_two', hρ'mat, hρT]
+    have htr : (P * T σ * Q).trace = (T σ).trace := by
+      rw [Matrix.trace_mul_comm, ← mul_assoc, hQP, one_mul]
+    have hdt : (P * T σ * Q).det = (T σ).det := by
+      rw [Matrix.det_mul, Matrix.det_mul, mul_comm (P.det), mul_assoc, ← Matrix.det_mul, hPQ,
+        Matrix.det_one, mul_one]
+    rw [htr, hdt, hdetT]
+    simp [Matrix.trace_fin_two, Matrix.det_fin_two, a, d]
+  · intro v hv σ hσ
+    have h1 := hu v hv σ hσ
+    apply Units.ext
+    change !![(a _ : PadicAlgCl ℓ), 0; 0, (d _ : PadicAlgCl ℓ)] = 1
+    have hTσ : T ((σ : v.decompositionSubgroup ℚ) : PkgI4.GQ) = 1 := by
+      simp only [T, GaloisRep.mat, h1, Units.val_one, mul_one, hQP]
+    rw [Matrix.one_fin_two]
+    simp [a, d, hTσ]
+
+end SemisimpSec
+
 end
 
 end ZInQ.Contrib.HodgeSplit
@@ -1625,3 +1953,4 @@ end ZInQ.Contrib.HodgeSplit
 #print axioms ZInQ.Contrib.HodgeSplit.senTwist_of_glue
 #print axioms ZInQ.Contrib.HodgeSplit.htWeightsUnique_proof
 #print axioms ZInQ.Contrib.HodgeSplit.htConj_proof
+#print axioms ZInQ.Contrib.HodgeSplit.semisimplification2_proof
