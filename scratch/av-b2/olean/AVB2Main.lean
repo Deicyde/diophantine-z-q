@@ -170,6 +170,60 @@ theorem hom_ext_of_pts {K : Type} [Field K] [IsAlgClosed K] {A B : PkgI3.AbVar K
   rw [Scheme.Hom.comp_apply, Scheme.Hom.comp_apply, pointOfClosedPoint_apply] at key
   exact key
 
+
+/-! ## 3′. T11(b): uniqueness proved, existence left as the leaf -/
+
+/-- **Base change along a field extension is injective on morphisms** between abelian varieties
+over an algebraically closed `k` (compare on `k`-points; `Spec L → Spec k` is an epimorphism). -/
+theorem baseChange_map_injective {k : Type} [Field k] [IsAlgClosed k] (L : Type) [Field L]
+    [Algebra k L] {A B : PkgI3.AbVar k} {φ φ' : A.X ⟶ B.X}
+    (h : (Over.pullback (Spec.map (CommRingCat.ofHom (algebraMap k L)))).map φ =
+      (Over.pullback (Spec.map (CommRingCat.ofHom (algebraMap k L)))).map φ') : φ = φ' := by
+  apply hom_ext_of_pts φ φ'
+  intro p
+  haveI := ZInQ.Contrib.AbVarBC.epi_spec_map_field (algebraMap k L)
+  have hp1 : p.left ≫ A.X.hom = 𝟙 _ := by
+    have := Over.w p
+    simp only [PkgI3.AbVar.ptObj, Over.mk_hom, Algebra.algebraMap_self, CommRingCat.ofHom_id,
+      Spec.map_id] at this
+    exact this
+  let s := Spec.map (CommRingCat.ofHom (algebraMap k L))
+  let q : Spec (CommRingCat.of L) ⟶ pullback A.X.hom s :=
+    pullback.lift (s ≫ p.left) (𝟙 _)
+      ((Category.assoc _ _ _).trans ((congrArg (s ≫ ·) hp1).trans
+        ((Category.comp_id s).trans (Category.id_comp s).symm)))
+  have key : ∀ g : A.X ⟶ B.X,
+      ((Over.pullback s).map g).left ≫ pullback.fst B.X.hom s = pullback.fst A.X.hom s ≫ g.left := by
+    intro g
+    simp
+  have h2 : s ≫ (p ≫ φ).left = s ≫ (p ≫ φ').left := by
+    have e1 : s ≫ (p ≫ φ).left = q ≫ ((Over.pullback s).map φ).left ≫ pullback.fst B.X.hom s := by
+      rw [key, ← Category.assoc, pullback.lift_fst, Over.comp_left]
+      exact (Category.assoc _ _ _).symm
+    have e2 : s ≫ (p ≫ φ').left = q ≫ ((Over.pullback s).map φ').left ≫ pullback.fst B.X.hom s := by
+      rw [key, ← Category.assoc, pullback.lift_fst, Over.comp_left]
+      exact (Category.assoc _ _ _).symm
+    rw [e1, e2, h]
+  exact Over.OverMorphism.ext ((cancel_epi s).1 h2)
+
+/-- **Leaf (T11(b), existence half).** For abelian varieties over an algebraically closed field `k`
+of characteristic `0` and an extension `L/k`, every homomorphism `A_L → B_L` is the base change of a
+homomorphism `A → B`. Published: Conrad, *Chow's `K/k`-image and `K/k`-trace, and the Lang–Néron
+theorem*, Enseign. Math. 52 (2006), §3 (rigidity of `Hom` for primary extensions, locator UNVERIFIED);
+Milne, *Abelian varieties* (Cornell–Silverman 1986), §20 (UNVERIFIED). `LeafPush2.T11b_Rigidity`
+without its uniqueness clause, which `baseChange_map_injective` proves. -/
+def T11bExists : Prop :=
+  ∀ (k : Type) [Field k] [IsAlgClosed k] [CharZero k] (L : Type) [Field L] [Algebra k L]
+    (A B : PkgI3.AbVar k) (ψ : (A.baseChange L).X ⟶ (B.baseChange L).X), IsMonHom ψ →
+    ∃ φ : A.X ⟶ B.X, IsMonHom φ ∧
+      (Over.pullback (Spec.map (CommRingCat.ofHom (algebraMap k L)))).map φ = ψ
+
+/-- **`T11b_Rigidity` from its existence half** (uniqueness: `baseChange_map_injective`). -/
+theorem t11b_of_exists (h : T11bExists) : ZInQ.LeafPush2.T11b_Rigidity := by
+  intro k _ _ _ L _ _ A B ψ hψ
+  obtain ⟨φ, hφ, hφψ⟩ := h k L A B ψ hψ
+  exact ⟨φ, ⟨hφ, hφψ⟩, fun φ' hφ' => baseChange_map_injective L (hφ'.2.trans hφψ.symm)⟩
+
 /-- **`SerreRigidity3` from T35 and `HomLatticeCorr`** (with the proved `MulIsogeny`). Embed
 `ℚ̄ ↪ ℂ`; `A(ℂ) = ℂ^g/Λ` (T35); `φ` acts by a `ℂ`-linear `M` (HomLatticeCorr, clause 1); `M`
 preserves `Λ`, `M^m − 1` maps `ℂ^g` into `Λ`, and `M ≡ 1 (mod 3Λ)` because `3`-torsion of `A(ℂ)`
@@ -258,7 +312,7 @@ structure OpenTextbookLeavesB2 : Prop where
   t8 : PkgI3.PoincareReducibility
   t10 : T10Etale.T10_TateDuality
   homLatticeCorr : HomUnify.HomLatticeCorr
-  t11b : ZInQ.LeafPush2.T11b_Rigidity
+  t11bExists : AVB2.T11bExists
   t23 : ∀ (p : ℕ) [Fact p.Prime], PkgI4.T23_FontaineClosure p
   t24 : EigenformTwist
   t26 : PkgI3.TateModuleFree
@@ -301,7 +355,7 @@ theorem textbookLeaves3_of_B2 (t : OpenTextbookLeavesB2) (l : OpenAddedLeavesB2)
   t9 := AVB2.t9_of_leaves3 l.t09SymmIsogenyExists l.isogenyQuasiInverse
   t10 := t.t10
   homLatticeCorr := t.homLatticeCorr
-  t11b := t.t11b
+  t11b := AVB2.t11b_of_exists t.t11bExists
   t23 := t.t23
   t24 := t.t24
   t26 := t.t26
@@ -345,4 +399,5 @@ end HDec
 #print axioms HDec.AVB2.t9_of_leaves3
 #print axioms HDec.AVB2.divisiblePoints_of_posChar
 #print axioms HDec.AVB2.serreRigidity3_of_T35
+#print axioms HDec.AVB2.t11b_of_exists
 #print axioms HDec.HSyn.sixContactMin_of_openB2
