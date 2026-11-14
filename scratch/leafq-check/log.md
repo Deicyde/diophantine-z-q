@@ -16,3 +16,11 @@ Y3Connected 97479, ValenceBoundGammaStar 113443, CMDescends 114469, GammaStarGen
 - base: x commutes with y ⇒ x = a + b y; u = x j x⁻¹ has imJ = 1 + 4b²/N, imK = 2ab/N (N = a²+b²)
   (`py/gsg_norm.py`); integrality forces ab = 0 or a = ±b, i.e. x ∈ ℚ^×⟨x₄⟩.
 - normalizer witnesses for x₄, x₆ (`py/gsg_norm.py`).
+
+## GammaStarGen: PROVED (VERIFIED, compiled)
+- `scratch/leafq-check/GammaStarGen.lean`: `import Mathlib` only; PkgI1 §1-§2, `x4`, `x6`, `GammaStarGen`
+  copied verbatim from Leaves4.lean; `theorem gammaStarGen_proof : GammaStarGen`.
+- `lake env lean scratch/leafq-check/GammaStarGen.lean`: 0 errors (linter warnings only);
+  `#print axioms gammaStarGen_proof` = [propext, Classical.choice, Quot.sound]. ~90 s.
+- No leaf, no glue hypothesis: the LEAF? field `gammaStarGen` of `OpenAddedLeaves4` can be removed
+  (period-glue's `s8WeightExact_of hT gammaStarGen_proof`).

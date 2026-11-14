@@ -6,7 +6,7 @@ import Mathlib
 The Prop `HDec.HSyn.G0Split.FibreQM.PeriodGlue.GammaStarGen` (leaf-fold4's LEAF? field
 `gammaStarGen`, period-glue §5.3) and everything it depends on are copied verbatim from
 `scratch/leaf-fold4/Leaves4.lean` (lines 170-235: `PkgI1` §1-§2; lines 117092-117094: `x4`, `x6`;
-lines 117339-117343: `GammaStarGen`). Below the copies: a proof of `GammaStarGen` from Mathlib alone
+lines 117322-117343: `GammaStarGen` with its docstring). Below the copies: a proof of `GammaStarGen` from Mathlib alone
 (no leaf, no glue hypothesis), by a descent on the orbit of `y = i + j` in the hyperboloid model.
 -/
 
@@ -440,3 +440,127 @@ theorem P_base {x z : PkgI1.B} (hxz : x * z = 1) (hzx : z * x = 1)
     have h44 : nrd (x4 * x4) ≠ 0 := by rw [nrd_mul]; exact mul_ne_zero nx4 nx4
     exact P_mul (P_rat (b / 2) hb2') (P_mul P_x4 P_x4 nx4 nx4)
       (by rw [nrd_ratCast]; exact pow_ne_zero 2 hb2') h44
+
+/-! ### The induction -/
+
+theorem nrd_x6 : nrd x6 = 3 := by norm_num [nrd, x6]
+theorem nrd_x6i : nrd x6i = 1 / 3 := by norm_num [nrd, x6i]
+theorem nrd_x4 : nrd x4 = 2 := by norm_num [nrd, x4]
+theorem nrd_x4i : nrd x4i = 1 / 2 := by norm_num [nrd, x4i]
+
+/-- One step: if `(s, si)` is a pair of mutually inverse normalizers of `𝒪` with `P s`, `nrd s > 0`,
+the claim for `s * x` gives the claim for `x`. -/
+theorem key (n : ℕ) : ∀ x z : PkgI1.B, x * z = 1 → z * x = 1 →
+    (∀ w, PkgI1.InO w → PkgI1.InO (x * w * z) ∧ PkgI1.InO (z * w * x)) → 0 < nrd x →
+    pairY (x * yq * z) ≤ n → P x := by
+  induction n with
+  | zero =>
+    intro x z hxz _ _ hpos hle
+    have := pairY_ge hxz hpos
+    push_cast at hle; linarith
+  | succ n ih =>
+    intro x z hxz hzx hN hpos hle
+    have hvO : PkgI1.InO (x * yq * z) := (hN _ inO_yq).1
+    obtain ⟨hre, hn⟩ := pure_of_sq (conj_sq hxz hzx)
+    obtain ⟨m, hm⟩ := pairY_int hvO hre
+    have hge := pairY_ge hxz hpos
+    -- a step by a pair `(s, si)`
+    have step : ∀ s si : PkgI1.B, s * si = 1 → si * s = 1 →
+        (∀ w, PkgI1.InO w → PkgI1.InO (s * w * si) ∧ PkgI1.InO (si * w * s)) →
+        P s → 0 < nrd s → pairY (s * (x * yq * z) * si) < pairY (x * yq * z) → P x := by
+      intro s si hs1 hs2 hsN hPs hspos hlt
+      have hx' : P (s * x) := by
+        refine ih (s * x) (z * si) ?_ ?_ ?_ ?_ ?_
+        · calc s * x * (z * si) = s * (x * z) * si := by simp only [mul_assoc]
+            _ = 1 := by rw [hxz, mul_one, hs1]
+        · calc z * si * (s * x) = z * (si * s) * x := by simp only [mul_assoc]
+            _ = 1 := by rw [hs2, mul_one, hzx]
+        · intro w hw
+          constructor
+          · have := (hsN _ (hN w hw).1).1
+            have e : s * x * w * (z * si) = s * (x * w * z) * si := by simp only [mul_assoc]
+            rw [e]; exact this
+          · have := (hN _ (hsN w hw).2).2
+            have e : z * si * w * (s * x) = z * (si * w * s) * x := by simp only [mul_assoc]
+            rw [e]; exact this
+        · rw [nrd_mul]; exact mul_pos hspos hpos
+        · have hvO' : PkgI1.InO (s * (x * yq * z) * si) := (hsN _ hvO).1
+          have hsq : (s * (x * yq * z) * si) * (s * (x * yq * z) * si) = -1 := by
+            calc (s * (x * yq * z) * si) * (s * (x * yq * z) * si)
+                = s * ((x * yq * z) * ((si * s) * (x * yq * z))) * si := by
+                  simp only [mul_assoc]
+              _ = -1 := by
+                  rw [hs2, one_mul, conj_sq hxz hzx]; simp [hs1]
+          obtain ⟨hre', _⟩ := pure_of_sq hsq
+          obtain ⟨m', hm'⟩ := pairY_int hvO' hre'
+          have e : s * x * yq * (z * si) = s * (x * yq * z) * si := by simp only [mul_assoc]
+          rw [e, hm']
+          rw [hm, hm'] at hlt
+          have hlt' : m' < m := by exact_mod_cast hlt
+          have hle' : (m : ℚ) ≤ (n + 1 : ℕ) := hm ▸ hle
+          have : m ≤ (n + 1 : ℤ) := by exact_mod_cast hle'
+          have : (m' : ℚ) ≤ (n : ℤ) := by exact_mod_cast (by omega : m' ≤ (n : ℤ))
+          exact_mod_cast this
+      exact P_cancel hPs hx' hspos.ne'
+    by_cases h1 : pairY (x * yq * z) = 1
+    · exact P_base hxz hzx hN hpos (eq_yq hre hn h1)
+    · have h2 : 2 ≤ pairY (x * yq * z) := by
+        rw [hm] at h1 hge ⊢
+        have : (1 : ℤ) ≤ m := by exact_mod_cast hge
+        have : m ≠ 1 := by intro h; apply h1; rw [h]; norm_num
+        have : (2 : ℤ) ≤ m := by omega
+        exact_mod_cast this
+      have hN6 := conj_x6
+      have hN4 := conj_x4
+      rcases descent hre hn h2 with h | h | h | h
+      · exact step x6 x6i x6_x6i x6i_x6 conj_x6 P_x6 (by rw [nrd_x6]; norm_num) h
+      · exact step x6i x6 x6i_x6 x6_x6i (fun w hw => ⟨(conj_x6 w hw).2, (conj_x6 w hw).1⟩)
+          P_x6i (by rw [nrd_x6i]; norm_num) h
+      · refine step (x6 * x4) (x4i * x6i) ?_ ?_ ?_
+          (P_mul P_x6 P_x4 (by rw [nrd_x6]; norm_num) (by rw [nrd_x4]; norm_num))
+          (by rw [nrd_mul, nrd_x6, nrd_x4]; norm_num) ?_
+        · calc x6 * x4 * (x4i * x6i) = x6 * (x4 * x4i) * x6i := by simp only [mul_assoc]
+            _ = 1 := by rw [x4_x4i, mul_one, x6_x6i]
+        · calc x4i * x6i * (x6 * x4) = x4i * (x6i * x6) * x4 := by simp only [mul_assoc]
+            _ = 1 := by rw [x6i_x6, mul_one, x4i_x4]
+        · intro w hw
+          constructor
+          · have := (conj_x6 _ (conj_x4 w hw).1).1
+            have e : x6 * x4 * w * (x4i * x6i) = x6 * (x4 * w * x4i) * x6i := by simp only [mul_assoc]
+            rw [e]; exact this
+          · have := (conj_x4 _ (conj_x6 w hw).2).2
+            have e : x4i * x6i * w * (x6 * x4) = x4i * (x6i * w * x6) * x4 := by simp only [mul_assoc]
+            rw [e]; exact this
+        · simpa only [mul_assoc] using h
+      · refine step (x6i * x4i) (x4 * x6) ?_ ?_ ?_
+          (P_mul P_x6i P_x4i (by rw [nrd_x6i]; norm_num) (by rw [nrd_x4i]; norm_num))
+          (by rw [nrd_mul, nrd_x6i, nrd_x4i]; norm_num) ?_
+        · calc x6i * x4i * (x4 * x6) = x6i * (x4i * x4) * x6 := by simp only [mul_assoc]
+            _ = 1 := by rw [x4i_x4, mul_one, x6i_x6]
+        · calc x4 * x6 * (x6i * x4i) = x4 * (x6 * x6i) * x4i := by simp only [mul_assoc]
+            _ = 1 := by rw [x6_x6i, mul_one, x4_x4i]
+        · intro w hw
+          constructor
+          · have := (conj_x6 _ (conj_x4 w hw).2).2
+            have e : x6i * x4i * w * (x4 * x6) = x6i * (x4i * w * x4) * x6 := by simp only [mul_assoc]
+            rw [e]; exact this
+          · have := (conj_x4 _ (conj_x6 w hw).1).1
+            have e : x4 * x6 * w * (x6i * x4i) = x4 * (x6 * w * x6i) * x4i := by simp only [mul_assoc]
+            rw [e]; exact this
+        · simpa only [mul_assoc] using h
+
+/-! ### `GammaStarGen` -/
+
+/-- **`GammaStarGen` is a theorem** (leafq-check; from Mathlib only, no leaf). -/
+theorem gammaStarGen_proof : GammaStarGen := by
+  intro γ hγ
+  obtain ⟨x, ⟨z, hxz, hzx, hN⟩, hγx, hdet⟩ := hγ
+  have hpos : 0 < nrd x := by
+    rw [hγx, det_iota_eq] at hdet; exact_mod_cast hdet
+  exact key ⌈pairY (x * yq * z)⌉₊ x z hxz hzx hN hpos (Nat.le_ceil _) γ hγx
+
+end HSyn.G0Split.FibreQM.PeriodGlue
+
+end HDec
+
+#print axioms HDec.HSyn.G0Split.FibreQM.PeriodGlue.gammaStarGen_proof
