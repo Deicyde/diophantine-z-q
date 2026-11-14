@@ -13,3 +13,17 @@
   Backport vs vendored Global/PrescribedInvariant (6), Backport vs vendored Global/Kummer/Norm (5),
   FinitePlace vs FinitePlace/Basic (2), Cyclic/Basic vs Cyclic/PowMonoidHom (1),
   Backport vs vendored Global/Kummer/AuxiliaryPlaces (1).
+- 21:22 VERIFIED (diff): FDRep/Basic, UnitFiltration/Pow/Basic, NumberField/FinitePlace/Basic (all 97a5b235)
+  contain every line of the corresponding 5a01f5fe FDRep, UnitFiltration/Pow, FinitePlace (Pow: one proof
+  differs); none imports its 5a01f5fe counterpart. Fix: the 5a01f5fe file re-exports the 97a5b235 one.
+- 21:22 VERIFIED (grep): vendored 5a01f5fe Global/PrescribedInvariant, Global/Kummer/Norm,
+  Global/Kummer/AuxiliaryPlaces are imported by no Lean file of ZInQKernel; their Backport/ replacements
+  (whole 97a5b235 modules, some statements generalized) declare every name they declare. Fix: the 5a01f5fe
+  file re-exports the Backport replacement (its 6+5+1 old statements are dropped, unused).
+- 21:23 IsCyclic.mem_range_powMonoidHom_iff: Cyclic/Basic (5a01f5fe, hyp n ∣ card) vs Cyclic/PowMonoidHom
+  (97a5b235, gcd form). Only user: FieldTheory/Finite/EulerCriterion. Fix as Tau Ceti did at 97a5b235:
+  removed from Cyclic/Basic; EulerCriterion imports Cyclic.PowMonoidHom and uses the 97a5b235 proof lines.
+- second scan (names.py incl. instances, no comment filter; dupscan2-before.txt): no further real
+  duplicates (remaining hits are docstring words: of, map, group, field, ...).
+- diffcheck2 after all edits: MOD-UNNOTED 0, NOTE-ONLY 0, MOD-NOTED 45 (VERIFIED).
+- 21:25 AllContrib.lean (2064 imports from git ls-files 'ZInQKernel/Contrib/*.lean'); build started.
