@@ -51,9 +51,16 @@ All 14 rows now have a compiled Lean proof from stated hypotheses (no `sorry`; e
 
 Counts (strict rule: LEAF = published form). Before: 14 GLUE rows. After: 1 row is a theorem with no
 hypothesis (H-46); 6 rows are theorems from published-form leaves only (H-2, H-35, H-42, H-61, H-63, H-86;
-6 new leaves: `IgusaPsi4`, `IgusaChi10`, `YuThm11`, `QMCentralizerCMC`, `ShimuraTaniyamaQbar`, plus the
-existing bundle leaf T11(b)); 7 rows are reduced to 4 further leaves (`ThetaNullNonvanishing`,
-`ValenceFormulaCocompact(Eq)`, `CanonicalModelY3`, `ShimuraFamily`) plus named glue (§3).
+5 new leaves `IgusaPsi4`, `IgusaChi10`, `YuThm11`, `QMCentralizerCMC`, `ShimuraTaniyamaQbar`, plus the
+existing bundle leaf T11(b)); H-20 rests on one leaf candidate (`ShimuraFamily`); 6 rows are reduced to 4
+further leaves (`ThetaNullNonvanishing`, `ValenceFormulaCocompact(Eq)`, `ShimizuCovolumeO1`,
+`CanonicalModelY3`) plus named glue (§3): one composite for H-44 (`ThetaFourthRatiosAlgebraic`), one project
+glue for H-87 and H-88 (`GammaStarFromO1`), one number for H-88 (`ThetaQuotientValue24`), and the
+per-witness statements of the moduli rows H-1, H-43, H-59.
+
+New theorems that discharge glue (all compiled): `qmClassNumberOne_proof`, `ellipticOrderDvd_proof`,
+`compare_iso` (uniqueness of the fine witness), `heckeOfFine_proof`, `r1bTransport_proof`,
+`qmCentralizerCM_of` (the `ℂ`-leaf gives the `ℚ̄`-form via T11(b)).
 
 ## 2. The computations (proved, no leaf)
 
