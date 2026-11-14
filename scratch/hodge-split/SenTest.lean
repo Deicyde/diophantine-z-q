@@ -2309,6 +2309,69 @@ theorem LamC_surjective : Function.Surjective (LamC p E (n := n)) := by
 
 end SenBridge
 
+section SenBridge2
+
+variable {n : ℕ} (E : IntermediateField ℚ_[p] (PadicAlgCl p)) [FiniteDimensional ℚ_[p] E]
+  [IsGalois ℚ_[p] E]
+
+theorem mem_fixing_iff_ker (σ : GQp p) :
+    σ ∈ E.fixingSubgroup ↔ σ ∈ (AlgEquiv.restrictNormalHom (F := ℚ_[p]) (K₁ := PadicAlgCl p) E).ker := by
+  rw [IntermediateField.restrictNormalHom_ker]
+
+theorem cpAct_eC_fix {σ : GQp p} (hσ : σ ∈ E.fixingSubgroup) (e : E) :
+    cpAct p σ (algebraMap E ℂ_[p] e) = algebraMap E ℂ_[p] e := by
+  rw [eC_eq, cpAct_coe]
+  congr 1
+  exact hσ e
+
+/-- (I1) -/
+theorem LamC_matRep (ρ : GQp p →* GL (Fin n) E) (σ : GQp p)
+    (y : (E ≃ₐ[ℚ_[p]] E) → (Fin n → ℂ_[p])) (v : Fin n → E) :
+    LamC p E y (matRep p ρ σ v) =
+      LamC p E (fun τ => (matC p (rhoTau p E τ ρ σ : Matrix (Fin n) (Fin n) E)).transpose.mulVec (y τ)) v := by
+  rw [LamC_apply, LamC_apply, matRep_apply]
+  refine Finset.sum_congr rfl fun τ _ => ?_
+  simp only [Matrix.mulVec, dotProduct, Matrix.transpose_apply, matC_rhoTau, map_sum, map_mul,
+    Finset.mul_sum, Finset.sum_mul]
+  rw [Finset.sum_comm]
+  refine Finset.sum_congr rfl fun a _ => Finset.sum_congr rfl fun b _ => ?_
+  ring
+
+/-- (I2) -/
+theorem LamC_htAct (i : ℤ) {σ : GQp p} (hσ : σ ∈ E.fixingSubgroup)
+    (y : (E ≃ₐ[ℚ_[p]] E) → (Fin n → ℂ_[p])) (v : Fin n → E) :
+    htAct p i σ (LamC p E y v) = LamC p E (fun τ => cycPow p σ i • vAct p σ (y τ)) v := by
+  rw [htAct_apply, LamC_apply, LamC_apply, map_sum, Finset.smul_sum]
+  refine Finset.sum_congr rfl fun τ _ => ?_
+  rw [map_sum, Finset.smul_sum]
+  refine Finset.sum_congr rfl fun k _ => ?_
+  rw [map_mul, cpAct_eC_fix p E hσ, Pi.smul_apply, smul_mul_assoc]
+  rfl
+
+/-- **Membership in Dedekind coordinates.** -/
+theorem LamC_mem_iff (ρ : GQp p →* GL (Fin n) E) (i : ℤ)
+    (y : (E ≃ₐ[ℚ_[p]] E) → (Fin n → ℂ_[p])) :
+    LamC p E y ∈ Dsp (htAct p i) (matRep p ρ)
+        ((AlgEquiv.restrictNormalHom (F := ℚ_[p]) (K₁ := PadicAlgCl p) E).ker : Set (GQp p)) ↔
+      ∀ τ, y τ ∈ Ysp p (rhoTau p E τ ρ) i E := by
+  constructor
+  · intro h τ σ hσ
+    have hσ' := (mem_fixing_iff_ker p E σ).mp hσ
+    have h1 : LamC p E (fun τ => (matC p (rhoTau p E τ ρ σ : Matrix (Fin n) (Fin n) E)).transpose.mulVec (y τ)) =
+        LamC p E (fun τ => cycPow p σ i • vAct p σ (y τ)) := by
+      refine LinearMap.ext fun v => ?_
+      rw [← LamC_matRep, ← LamC_htAct p E i hσ]
+      exact h σ hσ' v
+    exact congrFun (LamC_injective p E h1) τ
+  · intro h σ hσ v
+    have hσ' := (mem_fixing_iff_ker p E σ).mpr hσ
+    rw [LamC_matRep, LamC_htAct p E i hσ']
+    congr 2
+    funext τ
+    exact h τ σ hσ'
+
+end SenBridge2
+
 end
 
 end ZInQ.Contrib.HodgeSplit
