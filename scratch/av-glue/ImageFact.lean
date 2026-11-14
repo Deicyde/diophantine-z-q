@@ -261,4 +261,72 @@ theorem geometricallyConnected_img : GeometricallyConnected (imgOver f).hom := b
 
 end Image
 
+
+/-! ## §5. The leaf (Cartier's theorem) and `ImageFactorization` -/
+
+/-- (verbatim copy of `ZInQ.Contrib.AVB1.ImageFactorization`, `ZInQKernel/Contrib/AVB1/Poincare.lean`)
+**The image of a homomorphism is an abelian subvariety** (textbook; GLUE-level composite).
+Over a field of characteristic `0`, every homomorphism `f : A → J` of abelian varieties factors
+as `f = i ∘ h` with `h : A → B` a surjective homomorphism and `i : B → J` a homomorphism that is
+a closed immersion, `B` an abelian variety. Sources (UNVERIFIED locators): the image `f(A)` is
+closed (`A` proper), reduced and irreducible, a subgroup; a reduced group scheme of finite type
+over a field of characteristic `0` is smooth (Cartier; Mumford, *Abelian varieties*, §11, Thm 1);
+geometric integrality passes to the image of the geometrically integral `A`; Milne 1986 §8
+(images of homomorphisms are abelian subvarieties). -/
+def ImageFactorization : Prop :=
+  ∀ (k : Type) [Field k] [CharZero k] (A J : _root_.PkgI3.AbVar k)
+    (f : _root_.PkgI3.AbVar.Hom A J),
+    ∃ (B : _root_.PkgI3.AbVar k) (h : _root_.PkgI3.AbVar.Hom A B)
+      (i : _root_.PkgI3.AbVar.Hom B J),
+      Surjective h.hom.left ∧ IsClosedImmersion i.hom.left ∧ f.hom = h.hom ≫ i.hom
+
+theorem imageFactorization_iff :
+    ImageFactorization ↔ ZInQ.Contrib.AVB1.ImageFactorization := Iff.rfl
+
+/-- **LEAF: Cartier's theorem.** A group scheme locally of finite type over a field of
+characteristic `0` is smooth. Stated for a group object `G` (Mathlib's `GrpObj`) in the category
+`Over (Spec k)` with its cartesian monoidal structure (fibre products over `k`), i.e. a group
+scheme over `k`. Sources (locators UNVERIFIED, from memory): P. Cartier, *Groupes algébriques et
+groupes formels*, Colloque Bruxelles 1962; F. Oort, *Algebraic group schemes in characteristic
+zero are reduced*, Invent. Math. 2 (1966), 79-80; D. Mumford, *Abelian varieties*, §11, Thm 1
+(Cartier's theorem); J. S. Milne, *Algebraic Groups* (CUP 2017), Thm 3.23; Stacks Project,
+Groupoid schemes, "Cartier's theorem" (Tag 047N). The published statement, not strengthened (no
+hypothesis dropped: `LocallyOfFiniteType` and characteristic `0`). -/
+def CartierSmooth : Prop :=
+  ∀ (k : Type) [Field k] [CharZero k] (G : Over (Spec (CommRingCat.of k))) [GrpObj G],
+    LocallyOfFiniteType G.hom → Smooth G.hom
+
+section Final
+
+variable {k : Type} [Field k] {A J : _root_.PkgI3.AbVar k} (f : A.X ⟶ J.X) [IsMonHom f]
+
+instance : IsProper (imgOver f).hom := by
+  change IsProper (f.left.imageι ≫ J.X.hom); infer_instance
+
+/-- The image of `f` as an abelian variety, given Cartier's theorem. -/
+noncomputable abbrev imgAbVar [CharZero k] (hC : CartierSmooth) : _root_.PkgI3.AbVar k :=
+  letI := imgGrp f
+  haveI : Smooth (imgOver f).hom := hC k (imgOver f) inferInstance
+  haveI : GeometricallyConnected (imgOver f).hom := geometricallyConnected_img f
+  haveI : GeometricallyIntegral (imgOver f).hom :=
+    TauCeti.AlgebraicGeometry.Smooth.geometricallyIntegral _
+  { X := imgOver f }
+
+end Final
+
+/-- **`ImageFactorization` from Cartier's theorem** (with Mathlib and the vendored Tau Ceti
+theorem "smooth + geometrically connected ⇒ geometrically integral"). -/
+theorem imageFactorization_of_cartier (hC : CartierSmooth) : ImageFactorization := by
+  intro k _ _ A J f
+  letI := imgGrp f.hom
+  haveI : IsMonHom (imgι f.hom) := isMonHom_imgι f.hom
+  haveI : IsMonHom (imgπ f.hom) := isMonHom_imgπ f.hom
+  refine ⟨imgAbVar f.hom hC, _root_.PkgI3.AbVar.Hom.mk' (B := imgAbVar f.hom hC) (imgπ f.hom),
+    _root_.PkgI3.AbVar.Hom.mk' (A := imgAbVar f.hom hC) (imgι f.hom), ?_, ?_, ?_⟩
+  · exact surjective_imgπ f.hom
+  · exact (inferInstance : IsClosedImmersion (imgι f.hom).left)
+  · rw [_root_.PkgI3.AbVar.Hom.hom_mk', _root_.PkgI3.AbVar.Hom.hom_mk', imgπ_imgι]
+
 end AVGlue
+
+#print axioms AVGlue.imageFactorization_of_cartier
