@@ -24,3 +24,6 @@
 #print axioms MCRQuot.fibreAutTame_of'
 #print axioms MCRQuot.cMSectionsDisjoint_of'
 #print axioms MCRQuot.modelCoordinateResidue_final
+#print axioms MCRQuot.translate
+#print axioms MCRQuot.stabFixesClosure
+#print axioms MCRQuot.cMSectionsDisjoint_of''

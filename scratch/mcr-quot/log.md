@@ -129,3 +129,11 @@ C2 `CoordinateFromSections` of `scratch/mcr-glue/MCRGlue.lean` (copied verbatim 
 - Part 12: `MCRQuot.translate ρ E : ToP1 X` (for `E ∈ Γ(X, ⊤)`): `U' = U`, `f' = f + E`,
   `V' = D_V(1 + E g) ⊔ D_U(f + E)`, `g'` glued (`objSupIsoProdEqLocus`) from `g/(1+Eg)` and
   `1/(f+E)`; all `ToP1` fields proved (`tS_compat`, `U_inf_tDV_le`, `tF_basicOpen`).
+
+## Step 10 (08:15) — VERIFIED (parts 1-13 + 9; exit 0; compile13_out.txt; standard axioms)
+- **(C1c) proved**: `MCRQuot.stabFixesClosure : StabFixesClosure`. Proof: equalizer of `h` and `id`
+  in `Over S` is a closed immersion (Mathlib `isClosedImmersion_equalizer_ι_left`, Stacks 01KM,
+  needs only `IsSeparated 𝒴.hom`, from `IsProper`); `y` factors through it; closed range contains
+  the closure; `exists_factor_of_mem_range_closedImm` (field points over the range of a closed
+  immersion factor; `isIso_residueFieldMap_of_closedImm`). Smoothness unused.
+- `cMSectionsDisjoint_of'' (hA) (hfix) (hI : CMStabInvolution) : CMSectionsDisjoint`.

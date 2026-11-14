@@ -6872,6 +6872,93 @@ end Translate
 
 end MCRQuot
 
+/-! ════════════════════════════════════════════════════════════════════════════════════════════
+# mcr-quot, part 13: (C1c) `StabFixesClosure` proved (the fixed locus as a closed subscheme)
+════════════════════════════════════════════════════════════════════════════════════════════ -/
+
+noncomputable section
+
+namespace MCRQuot
+
+open Polynomial CategoryTheory AlgebraicGeometry Limits LeafQM LeafQM.AV VertWitness HeckeRestNV
+open G0ModField PropTSRed PropTSGlue ModelGlue MCRGlue LeafQM.AV.Pin PkgI3
+
+/-- The residue field map of a closed immersion is an isomorphism (the stalk map is surjective). -/
+theorem isIso_residueFieldMap_of_closedImm {X Y : Scheme.{0}} (f : X ⟶ Y)
+    [IsClosedImmersion f] (x : X) : IsIso (f.residueFieldMap x) := by
+  have hs : Function.Surjective (f.residueFieldMap x) := by
+    intro a
+    obtain ⟨b, rfl⟩ := X.residue_surjective x a
+    obtain ⟨c, rfl⟩ := f.stalkMap_surjective x b
+    refine ⟨Y.residue (f x) c, ?_⟩
+    rw [← ConcreteCategory.comp_apply, Scheme.residue_residueFieldMap]
+    rfl
+  have hb : Function.Bijective (f.residueFieldMap x) := ⟨(f.residueFieldMap x).hom.injective, hs⟩
+  exact (ConcreteCategory.isIso_iff_bijective _).2 hb
+
+/-- A field point whose point lies in the range of a closed immersion factors through it. -/
+theorem exists_factor_of_mem_range_closedImm {X Y : Scheme.{0}} (f : X ⟶ Y) [IsClosedImmersion f]
+    {K : Type} [Field K] (t : Spec (CommRingCat.of K) ⟶ Y) (ht : ptOf t ∈ Set.range f) :
+    ∃ t' : Spec (CommRingCat.of K) ⟶ X, t' ≫ f = t := by
+  obtain ⟨e, he⟩ := ht
+  have := isIso_residueFieldMap_of_closedImm f e
+  set xf := Scheme.SpecToEquivOfField K Y t with hxf
+  have ht' : t = Spec.map xf.2 ≫ Y.fromSpecResidueField xf.1 :=
+    ((Scheme.SpecToEquivOfField K Y).symm_apply_apply t).symm
+  have h1 : Y.fromSpecResidueField (f e) =
+      Spec.map (inv (f.residueFieldMap e)) ≫ X.fromSpecResidueField e ≫ f := by
+    rw [← Scheme.Hom.SpecMap_residueFieldMap_fromSpecResidueField, ← Category.assoc,
+      ← Spec.map_comp, IsIso.hom_inv_id, Spec.map_id, Category.id_comp]
+  refine ⟨Spec.map xf.2 ≫ Spec.map (Y.residueFieldCongr he).hom ≫
+    Spec.map (inv (f.residueFieldMap e)) ≫ X.fromSpecResidueField e, ?_⟩
+  refine Eq.trans ?_ ht'.symm
+  simp only [Category.assoc]
+  rw [← h1, Scheme.residueFieldCongr_fromSpecResidueField]
+
+/-- **The fixed locus is closed and contains the closure of a fixed point.** For an automorphism
+`h` over `S` of a separated `S`-scheme `X` and a field point `y` with `y ≫ h = y`, every field point
+whose point lies in the closure of the point of `y` is fixed by `h`. Proof: the equalizer of `h`
+and `id` in `Over S` is a closed subscheme (`isClosedImmersion_equalizer_ι_left`, Stacks 01KM);
+`y` factors through it, so its closed range contains the closure; a field point with point in the
+range of a closed immersion factors through it (residue fields agree). -/
+theorem fixes_closure_of_separated {S : Scheme.{0}} (X : Over S) [IsSeparated X.hom]
+    (h : X.left ≅ X.left) (hh : h.hom ≫ X.hom = X.hom) {K₀ : Type} [Field K₀]
+    (y : Spec (CommRingCat.of K₀) ⟶ X.left) (hy : y ≫ h.hom = y) {K : Type} [Field K]
+    (t : Spec (CommRingCat.of K) ⟶ X.left) (ht : ptOf t ∈ closure {ptOf y}) : t ≫ h.hom = t := by
+  let f : X ⟶ X := Over.homMk h.hom hh
+  let g : X ⟶ X := 𝟙 X
+  let ι := (equalizer.ι f g).left
+  have hι : ι ≫ h.hom = ι := by
+    have := congrArg CommaMorphism.left (equalizer.condition f g)
+    simpa [f, g, ι] using this
+  have hcl : IsClosed (Set.range ι) := ι.isClosedEmbedding.isClosed_range
+  have hyr : ptOf y ∈ Set.range ι := by
+    let y' : Over.mk (y ≫ X.hom) ⟶ X := Over.homMk y rfl
+    have hc : y' ≫ f = y' ≫ g := by
+      ext1; simpa [f, g, y'] using hy
+    refine ⟨(equalizer.lift y' hc).left (IsLocalRing.closedPoint K₀), ?_⟩
+    show ((equalizer.lift y' hc).left ≫ (equalizer.ι f g).left) _ = _
+    rw [← Over.comp_left, equalizer.lift_ι]
+    rfl
+  have htr : ptOf t ∈ Set.range ι :=
+    (closure_minimal (Set.singleton_subset_iff.2 hyr) hcl) ht
+  obtain ⟨t', rfl⟩ := exists_factor_of_mem_range_closedImm ι t htr
+  rw [Category.assoc, hι]
+
+/-- **(C1c) `StabFixesClosure` proved.** Only the separatedness of `𝒴 → Spec ℤ_(p)` (from
+properness) is used; smoothness is not needed, and the fixed field points over the closure need no
+spreading out (EGA IV 8.13.1 is not used). -/
+theorem stabFixesClosure : StabFixesClosure := by
+  intro p _ 𝒴 hP _ h hh y hy K _ t ht
+  exact fixes_closure_of_separated 𝒴 h.asIso hh y hy t ht
+
+/-- **Glue C1 from glue A, (A-fix), (C1b)** ((C1a), (C1c), (C1d) proved). -/
+theorem cMSectionsDisjoint_of'' (hA : FibreAutTame) (hfix : FibreAutFixFinite)
+    (hI : CMStabInvolution) : CMSectionsDisjoint :=
+  cMSectionsDisjoint_of' hA hfix hI stabFixesClosure
+
+end MCRQuot
+
 #print axioms MCRQuot.exists_unit_congr
 #print axioms MCRQuot.mem_orbit_of_twistEq
 #print axioms MCRQuot.twistEq_of_mem_fibreAut
@@ -6897,3 +6984,6 @@ end MCRQuot
 #print axioms MCRQuot.fibreAutTame_of'
 #print axioms MCRQuot.cMSectionsDisjoint_of'
 #print axioms MCRQuot.modelCoordinateResidue_final
+#print axioms MCRQuot.translate
+#print axioms MCRQuot.stabFixesClosure
+#print axioms MCRQuot.cMSectionsDisjoint_of''
