@@ -17,3 +17,10 @@
 #print axioms MCRQuot.modelCoordinateResidue_of_mcrQuot'
 #print axioms MCRQuot.genericQuotientP1_of
 #print axioms MCRQuot.modelCoordinateResidue_of_mcrQuot''
+#print axioms MCRQuot.gQuotientPointOrbits
+#print axioms MCRQuot.qbarPointsConjugate
+#print axioms MCRQuot.autOInnerCard
+#print axioms MCRQuot.twistClassCard
+#print axioms MCRQuot.fibreAutTame_of'
+#print axioms MCRQuot.cMSectionsDisjoint_of'
+#print axioms MCRQuot.modelCoordinateResidue_final

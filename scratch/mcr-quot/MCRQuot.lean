@@ -5412,15 +5412,16 @@ def FibreAutFixFinite : Prop :=
     ∀ h ∈ fibreAut 𝒴 𝒜, h ≠ 1 →
       {y : Spec (CommRingCat.of Qbar) ⟶ 𝒴.left | y ≫ h.asIso.hom = y}.Finite
 
-/-- **Glue (A-count): a twist class has at most `288 = 4 · 72` isomorphism classes** (algebra of
+/-- **Glue (A-count): a twist class has at most `324 = 4 · 81` isomorphism classes** (algebra of
 `𝒪` and level structures; no new literature beyond T5). (Outline: by Skolem–Noether every
 `α ∈ Aut 𝒪` is, up to conjugation by `𝒪^×` (which does not change the pair's class,
-`conjUnitIso`), one of the four automorphisms induced by `1, i, j, ij` (`NormO.T`, the
+`conjUnitIso`), one of the at most four automorphisms induced by `1, i, j, ij` (`NormO.T`, the
 Atkin–Lehner group), so a twist class contains at most 4 pair classes; on one pair the level
-structures are `η₀(· u₀)` with `u₀ ∈ (𝒪/3𝒪)^×` (`Level3.torsor`, given T5), 72 of them.) -/
+structures are `η₀(· u₀)` with `u₀` determined mod `3𝒪` (`Level3.torsor`, given T5), at most
+`#(𝒪/3𝒪) = 81` of them (in fact 72). Proved below: `twistClassCard`.) -/
 def TwistClassCard : Prop :=
   ∀ P : QML3 Qbar, {m : M3 Qbar | ∃ Q : QML3 Qbar, m = M3.mk Q ∧ TwistEq P Q}.Finite ∧
-    {m : M3 Qbar | ∃ Q : QML3 Qbar, m = M3.mk Q ∧ TwistEq P Q}.ncard ≤ 288
+    {m : M3 Qbar | ∃ Q : QML3 Qbar, m = M3.mk Q ∧ TwistEq P Q}.ncard ≤ 324
 
 /-- The smooth model has infinitely many `ℚ̄`-points (`CurveSurj` for `π ∘ g` on `𝒴_ℚ`). -/
 theorem infinite_qbarPoints {p : ℕ} [Fact p.Prime] {𝒴 : Over (Spec (CommRingCat.of (Zloc p)))}
@@ -5452,7 +5453,7 @@ theorem infinite_qbarPoints {p : ℕ} [Fact p.Prime] {𝒴 : Over (Spec (CommRin
 
 /-- **Glue A `FibreAutTame` from T5, (A-fix) and (A-count).** A finite subset `S` of `fibreAut`
 injects into the twist class of a `ℚ̄`-point `y` avoiding the (finitely many) fixed points of the
-`s⁻¹ t` (`s ≠ t ∈ S`), so `|S| ≤ 288`; hence `fibreAut` is finite of order `≤ 288 < 324 < p`. -/
+`s⁻¹ t` (`s ≠ t ∈ S`), so `|S| ≤ 324`; hence `fibreAut` is finite of order `≤ 324 < p`. -/
 theorem fibreAutTame_of (hT : ObjBridge.TorsionStructure) (hfix : FibreAutFixFinite)
     (hcnt : TwistClassCard) : FibreAutTame := by
   intro p _ hp 𝒴 𝒜 hM hCM Y Φ π h1 hh h2
@@ -5465,7 +5466,7 @@ theorem fibreAutTame_of (hT : ObjBridge.TorsionStructure) (hfix : FibreAutFixFin
       ← hg Qbar s P' ((congrArg (fun t => IsFibreOf 𝒜 t _) hs).mpr hP')]
   choose fib hfib using fun y => hM.2.2.1 Qbar y
   have hbound : ∀ S : Finset (Aut 𝒴.left), (↑S : Set (Aut 𝒴.left)) ⊆ fibreAut 𝒴 𝒜 →
-      S.card ≤ 288 := by
+      S.card ≤ 324 := by
     intro S hS
     classical
     let F : Set (Spec (CommRingCat.of Qbar) ⟶ 𝒴.left) :=
@@ -5497,16 +5498,16 @@ theorem fibreAutTame_of (hT : ObjBridge.TorsionStructure) (hfix : FibreAutFixFin
       rw [← Category.assoc, ← e, Category.assoc, Iso.hom_inv_id, Category.comp_id]
     calc S.card = (↑S : Set (Aut 𝒴.left)).ncard := (Set.ncard_coe_finset S).symm
       _ ≤ _ := Set.ncard_le_ncard_of_injOn _ hmaps hinj hcl.1
-      _ ≤ 288 := hcl.2
+      _ ≤ 324 := hcl.2
   have hfinG : (fibreAut 𝒴 𝒜 : Set (Aut 𝒴.left)).Finite := by
     by_contra hinf
-    obtain ⟨S, hS, hcard⟩ := Set.Infinite.exists_subset_card_eq hinf 289
+    obtain ⟨S, hS, hcard⟩ := Set.Infinite.exists_subset_card_eq hinf 325
     have := hbound S hS
     omega
   haveI : Finite (fibreAut 𝒴 𝒜) := hfinG.to_subtype
   refine ⟨this, fun hdvd => ?_⟩
   have hpos : 0 < Nat.card (fibreAut 𝒴 𝒜) := Nat.card_pos
-  have hle : Nat.card (fibreAut 𝒴 𝒜) ≤ 288 := by
+  have hle : Nat.card (fibreAut 𝒴 𝒜) ≤ 324 := by
     have e : Nat.card (fibreAut 𝒴 𝒜) = (fibreAut 𝒴 𝒜 : Set (Aut 𝒴.left)).ncard :=
       Nat.card_coe_set_eq _
     rw [e, Set.ncard_eq_toFinset_card _ hfinG]
@@ -6508,6 +6509,177 @@ theorem qbarPointsConjugate : QbarPointsConjugate := by
 
 end MCRQuot
 
+/-! ════════════════════════════════════════════════════════════════════════════════════════════
+# mcr-quot, part 11: (A-count) `TwistClassCard`, proved from T5
+════════════════════════════════════════════════════════════════════════════════════════════ -/
+
+noncomputable section
+
+namespace MCRQuot
+
+open Polynomial CategoryTheory AlgebraicGeometry Limits LeafQM LeafQM.AV VertWitness HeckeRestNV
+open G0ModField PropTSRed PropTSGlue ModelGlue MCRGlue LeafQM.AV.Pin PkgI3
+
+/-- The normalizer fact of the kernel (`NormO.normalizerFinite`) with its explicit set
+`NormO.T = {1, i, j, ij}` (the same proof). -/
+theorem normalizer_T (u : Bˣ) (hu : ∀ a : B, a ∈ O ↔ (u : B) * a * ((u⁻¹ : Bˣ) : B) ∈ O) :
+    ∃ t ∈ NormO.T, ∃ v : Oˣ, ∃ q : ℚ, q ≠ 0 ∧ (u : B) = algebraMap ℚ B q * ((v : O) : B) * (t : B) := by
+  obtain ⟨m, hm, ⟨n, hn⟩⟩ := AutOExt.exists_nat_smul_mem (u : B)
+  have hm0 : (m : ℚ) ≠ 0 := by exact_mod_cast hm.ne'
+  have hu0 : ((NormO.sc _ hm0 * u : Bˣ) : B) = ofInt n := by
+    change algebraMap ℚ B m * u = _
+    rw [← Algebra.smul_def]; exact hn
+  have hN : NormO.IsNorm u := by
+    intro a ha
+    refine ⟨(hu a).1 ha, (hu _).2 ?_⟩
+    simpa [mul_assoc] using ha
+  obtain ⟨q, hq, v, t, ht, he⟩ :=
+    NormO.descent _ (NormO.sc _ hm0 * u) n hu0 rfl ((NormO.isNorm_sc _ hm0).mul hN)
+  refine ⟨t, ht, v, (m : ℚ)⁻¹ * q, mul_ne_zero (inv_ne_zero hm0) hq, ?_⟩
+  have : (u : B) = algebraMap ℚ B ((m : ℚ)⁻¹) * ((NormO.sc _ hm0 * u : Bˣ) : B) := by
+    change _ = _ * (algebraMap ℚ B m * u)
+    rw [← mul_assoc, ← map_mul, inv_mul_cancel₀ hm0, map_one, one_mul]
+  rw [this, he, ← mul_assoc, ← mul_assoc, ← map_mul]
+
+theorem ncard_T_le : (NormO.T : Set Bˣ).ncard ≤ 4 := by
+  simp only [NormO.T]
+  refine (Set.ncard_insert_le _ _).trans ?_
+  refine (Nat.succ_le_succ (Set.ncard_insert_le _ _)).trans ?_
+  refine (Nat.succ_le_succ (Nat.succ_le_succ (Set.ncard_insert_le _ _))).trans ?_
+  simp
+
+/-- **`AutOInnerFinite` with a cardinality bound** (the kernel's
+`AutOExt.autOInnerFinite_of_normalizer`, same proof, for `NormO.T`): every automorphism of `𝒪` is,
+up to conjugation by a unit, one of at most 4. -/
+theorem autOInnerCard : ∃ T' : Set (O ≃+* O), T'.Finite ∧ T'.ncard ≤ 4 ∧
+    ∀ α : O ≃+* O, ∃ t ∈ T', ∃ v : Oˣ, ∀ a : O, α a = (v : O) * t a * ((v⁻¹ : Oˣ) : O) := by
+  classical
+  let T := (NormO.T : Set Bˣ)
+  have hT : T.Finite := NormO.T_finite
+  let P : (O ≃+* O) → Bˣ → Prop := fun β t => ∀ a : O, ((β a : O) : B) * t = t * a
+  let T' : Set (O ≃+* O) := {β | ∃ t ∈ T, P β t}
+  let f : (O ≃+* O) → Bˣ := fun β => if h : ∃ t ∈ T, P β t then Classical.choose h else 1
+  have hf : ∀ β ∈ T', f β ∈ T ∧ P β (f β) := by
+    intro β hβ
+    have hβ' : ∃ t ∈ T, P β t := hβ
+    simp only [f, hβ', dite_true]
+    exact Classical.choose_spec hβ'
+  have hinj : Set.InjOn f T' := by
+    intro β₁ h₁ β₂ h₂ heq
+    apply RingEquiv.ext; intro a
+    apply Subtype.ext
+    have e1 := (hf β₁ h₁).2 a
+    have e2 := (hf β₂ h₂).2 a
+    rw [heq] at e1
+    exact (Units.mul_left_inj (f β₂)).1 (e1.trans e2.symm)
+  have hmaps : Set.MapsTo f T' T := fun β hβ => (hf β hβ).1
+  have hT' : T'.Finite := Set.Finite.of_finite_image (hT.subset (hmaps.image_subset)) hinj
+  refine ⟨T', hT', (Set.ncard_le_ncard_of_injOn f hmaps hinj hT).trans ncard_T_le, fun α => ?_⟩
+  obtain ⟨u, hu⟩ := AutOExt.conj_of_skolem α
+  have hback : ∀ b : B, AutOExt.extFun α.symm (AutOExt.extFun α b) = b := fun b =>
+    congrArg (fun φ : B →ₐ[ℚ] B => φ b) (AutOExt.extAlgHom_symm_comp α)
+  have hnorm : ∀ a : B, a ∈ O ↔ (u : B) * a * ((u⁻¹ : Bˣ) : B) ∈ O := by
+    intro a
+    rw [← hu]
+    constructor
+    · intro ha
+      rw [show a = ((⟨a, ha⟩ : O) : B) from rfl, AutOExt.extFun_coe]
+      exact (α _).2
+    · intro ha
+      rw [← hback a, show AutOExt.extFun α a = ((⟨_, ha⟩ : O) : B) from rfl, AutOExt.extFun_coe]
+      exact (α.symm _).2
+  obtain ⟨t, ht, v, q, hq, huq⟩ := normalizer_T u hnorm
+  have hrel : ∀ a : O, ((α a : O) : B) * u = u * a := by
+    intro a
+    rw [← AutOExt.extFun_coe, hu, Units.inv_mul_cancel_right]
+  let β : O ≃+* O := α.trans (AutOExt.conjUnit v)
+  have hβ : ∀ a : O, β a = ((v⁻¹ : Oˣ) : O) * α a * v := fun a => rfl
+  refine ⟨β, ⟨t, ht, fun a => ?_⟩, v, fun a => ?_⟩
+  · have hvv : (((v⁻¹ : Oˣ) : O) : B) * ((v : O) : B) = 1 := by
+      rw [← MulMemClass.coe_mul, Units.inv_mul]; rfl
+    have hcc : algebraMap ℚ B q⁻¹ * algebraMap ℚ B q = 1 := by
+      rw [← map_mul, inv_mul_cancel₀ hq, map_one]
+    have h := hrel a
+    rw [huq] at h
+    rw [hβ, MulMemClass.coe_mul, MulMemClass.coe_mul]
+    exact AutOExt.key_conj _ _ _ _ _ _ _ hvv hcc (Algebra.commutes q _) h
+  · rw [hβ]
+    simp only [mul_assoc, Units.mul_inv, mul_one, Units.mul_inv_cancel_left]
+
+/-- **(A-count) proved from T5: a twist class has at most `4 · 81 = 324` isomorphism classes.** -/
+theorem twistClassCard (hT : ObjBridge.TorsionStructure) : TwistClassCard := by
+  classical
+  intro P
+  obtain ⟨T', hT'fin, hT'card, hT'⟩ := autOInnerCard
+  haveI : Fintype T' := hT'fin.fintype
+  set S := {m : M3 Qbar | ∃ Q : QML3 Qbar, m = M3.mk Q ∧ TwistEq P Q} with hSdef
+  let S' : T' → (Fin 4 → ZMod 3) → Set (M3 Qbar) := fun t c =>
+    {m | ∃ e : Level3 (P.q.twist (t : O ≃+* O)),
+      (∀ a, e.eta a = (P.e.twist (t : O ≃+* O)).eta (a * liftO c)) ∧
+      m = M3.mk ⟨P.A, P.surface, P.q.twist (t : O ≃+* O), e⟩}
+  have hsub : ∀ t c, (S' t c).Subsingleton := by
+    rintro t c _ ⟨e, he, rfl⟩ _ ⟨e', he', rfl⟩
+    have : e = e' := Level3.ext' (DFunLike.ext _ _ fun a => (he a).trans (he' a).symm)
+    rw [this]
+  let F : T' × (Fin 4 → ZMod 3) → M3 Qbar := fun tc =>
+    if h : (S' tc.1 tc.2).Nonempty then h.some else M3.mk P
+  have hcover : S ⊆ Set.range F := by
+    rintro m ⟨Q, rfl, α, ⟨f⟩⟩
+    obtain ⟨t, ht, v, hv⟩ := hT' α
+    let f' : QMIso (P.q.twist t) Q.q := (conjUnitIso P.q t α v hv).trans f
+    let e' : Level3 (P.q.twist t) := transportLevel f'.symm Q.e
+    have hiso : Q.Iso ⟨P.A, P.surface, P.q.twist t, e'⟩ := QML3.isoTransport Q P.surface f'.symm
+    obtain ⟨u₀, v₀, -, hlin⟩ := Level3.torsor hT (P.twist t) e'
+    obtain ⟨c, k, hk⟩ := exists_liftO_congr u₀
+    have hmem : M3.mk Q ∈ S' ⟨t, ht⟩ c := by
+      refine ⟨e', fun a => (hlin a).trans ?_, Quotient.sound ⟨hiso⟩⟩
+      change (P.e.twist t).eta (a * u₀) = (P.e.twist t).eta (a * liftO c)
+      rw [(P.e.twist t).eq_iff]
+      refine ⟨a * k, ?_⟩
+      calc a * u₀ - a * liftO c = a * (u₀ - liftO c) := by noncomm_ring
+        _ = a * (3 * k) := by rw [hk]
+        _ = 3 * (a * k) := by noncomm_ring
+    refine ⟨(⟨t, ht⟩, c), ?_⟩
+    have hne : (S' ⟨t, ht⟩ c).Nonempty := ⟨_, hmem⟩
+    simp only [F, hne, dite_true]
+    exact hsub ⟨t, ht⟩ c hne.some_mem hmem
+  have hfinR : (Set.range F).Finite := Set.finite_range F
+  refine ⟨hfinR.subset hcover, ?_⟩
+  calc S.ncard ≤ (Set.range F).ncard := Set.ncard_le_ncard hcover hfinR
+    _ ≤ Nat.card (T' × (Fin 4 → ZMod 3)) := by
+      rw [← Set.image_univ, ← Set.ncard_univ]
+      exact Set.ncard_image_le Set.finite_univ
+    _ = T'.ncard * 81 := by
+      rw [Nat.card_prod, Nat.card_coe_set_eq]
+      simp [Nat.card_eq_fintype_card, ZMod.card]
+    _ ≤ 4 * 81 := Nat.mul_le_mul_right _ hT'card
+    _ = 324 := by norm_num
+
+/-- **Glue A from T5 and (A-fix) alone.** -/
+theorem fibreAutTame_of' (hT : ObjBridge.TorsionStructure) (hfix : FibreAutFixFinite) :
+    FibreAutTame :=
+  fibreAutTame_of hT hfix (twistClassCard hT)
+
+/-- **Glue C1 from glue A, (A-fix), (C1b), (C1c)** ((C1a), (C1d) proved). -/
+theorem cMSectionsDisjoint_of' (hA : FibreAutTame) (hfix : FibreAutFixFinite)
+    (hI : CMStabInvolution) (hS : StabFixesClosure) : CMSectionsDisjoint :=
+  cMSectionsDisjoint_of hA hfix gQuotientPointOrbits hI hS qbarPointsConjugate
+
+/-- **Main composite (final form): `ModelCoordinateResidue` from the leaves L1-L6, the textbook
+leaf T5 and six glue Props of this task**: (A-fix) `FibreAutFixFinite`, (B-desc)
+`QuotientDescendsQ`, (B-iso) `ToP1BijIsCoordinateQ`, (C1b) `CMStabInvolution`, (C1c)
+`StabFixesClosure`, (C2-T) `P1Translate`. (A-count), (C1a), (C1d) are proved. -/
+theorem modelCoordinateResidue_final (hAF : ProperCurveAF) (hQE : FiniteQuotientExists)
+    (hTS : TameQuotientSmooth) (hP1 : SmoothModelOfP1) (hFix : TameFixedPointsDisjoint)
+    (hCyc : TameInertiaCyclic) (hT : ObjBridge.TorsionStructure)
+    (hfix : FibreAutFixFinite) (hD : QuotientDescendsQ) (hB : ToP1BijIsCoordinateQ)
+    (hI : CMStabInvolution) (hS : StabFixesClosure) (hTr : P1Translate) :
+    ModelCoordinateResidue :=
+  modelCoordinateResidue_of_mcrQuot'' hAF hQE hTS hP1 hFix hCyc hT hfix (twistClassCard hT) hD hB
+    gQuotientPointOrbits hI hS qbarPointsConjugate hTr
+
+end MCRQuot
+
 #print axioms MCRQuot.exists_unit_congr
 #print axioms MCRQuot.mem_orbit_of_twistEq
 #print axioms MCRQuot.twistEq_of_mem_fibreAut
@@ -6526,3 +6698,10 @@ end MCRQuot
 #print axioms MCRQuot.modelCoordinateResidue_of_mcrQuot'
 #print axioms MCRQuot.genericQuotientP1_of
 #print axioms MCRQuot.modelCoordinateResidue_of_mcrQuot''
+#print axioms MCRQuot.gQuotientPointOrbits
+#print axioms MCRQuot.qbarPointsConjugate
+#print axioms MCRQuot.autOInnerCard
+#print axioms MCRQuot.twistClassCard
+#print axioms MCRQuot.fibreAutTame_of'
+#print axioms MCRQuot.cMSectionsDisjoint_of'
+#print axioms MCRQuot.modelCoordinateResidue_final

@@ -96,3 +96,18 @@ C2 `CoordinateFromSections` of `scratch/mcr-glue/MCRGlue.lean` (copied verbatim 
 - **Main composite `MCRQuot.modelCoordinateResidue_of_mcrQuot''`**: L1-L6 + T5 + (A-fix),
   (A-count), (B-desc), (B-iso), (C1a)-(C1d), (C2-T) ⇒ `ModelCoordinateResidue`. None of
   mcr-glue's glue A, B, C1, C2 remains a hypothesis.
+
+## Step 7 (08:20) — VERIFIED (parts 1-11 + 9; exit 0; compile11_out.txt; all 25 MCRQuot
+`#print axioms` standard; no sorry)
+- **(C1a) proved**: `MCRQuot.gQuotientPointOrbits : GQuotientPointOrbits` (primes via
+  `IsAffineOpen.primeIdealOf`, `comap_primeIdealOf_appLE`, `exists_smul_of_under_eq`).
+- **(C1d) proved**: `MCRQuot.qbarPointsConjugate : QbarPointsConjugate`
+  (`exists_algEquiv_comp_eq` via `AlgHom.liftNormal`, `Algebra.IsAlgebraic.algHom_bijective`).
+- **(A-count) proved from T5**: `MCRQuot.twistClassCard`. The statement was changed (it is this
+  task's own glue, not a target) from `≤ 288` to `≤ 324 = 4 · 81`, which suffices for
+  `fibreAutTame_of` because `p > 324`. Helpers `normalizer_T`, `ncard_T_le`, `autOInnerCard`
+  (copies of the kernel's `normalizerFinite` / `autOInnerFinite_of_normalizer` proofs with an
+  explicit `≤ 4` bound).
+- **Final composite `MCRQuot.modelCoordinateResidue_final`**: L1-L6 + T5 + (A-fix), (B-desc),
+  (B-iso), (C1b), (C1c), (C2-T) ⇒ `ModelCoordinateResidue`. Also `fibreAutTame_of'` (A from T5 +
+  A-fix) and `cMSectionsDisjoint_of'` (C1 from A, A-fix, C1b, C1c).
