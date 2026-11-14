@@ -27,3 +27,7 @@ Base cba8157f (wip/av-split). Build artifacts: copied .lake/build from ~/dzq-wt/
 - `AvSplit.HomLattice.homLatticeCorr_of : UnifHoloLift → ZInQ.HomUnify.HomRealize → ZInQ.HomUnify.HomLatticeCorr`: compiled, standard axioms. VERIFIED.
 - `AvSplit.HomLattice.homLinearLift_of : UnifHoloLift → HomLinearLift` (via torusMap, eΦ : ℂ^g/Λ ≃+ A(ℂ)_σ, exists_complexLinear_lift). VERIFIED.
 - Open GLUE: `UnifHoloLift` (weak uniformizations: kernels discrete, induced torus maps holomorphic; needs analytic coordinates + compactness of A(ℂ)^an), `HomRealize` (GAGA content; GAGA not statable over Mathlib definitions: no analytification).
+
+## 04:15 report draft docs/research/av-split.md
+- Checked by grep: Mathlib v4.35 has no Pic / line bundles / sheaf of differentials on schemes (Mathlib/AlgebraicGeometry: Modules/{Presheaf,Sheaf,Tilde}.lean only); sheaf cohomology `CategoryTheory.Sheaf.H` (abelian groups). VERIFIED.
+- H-53, H-78: reported as not splittable over Mathlib definitions (stay GLUE).
