@@ -21,3 +21,10 @@ Targets (group B of docs/research/leaf-fold3.md §3, minus t5, t26, t27, t35, ho
   for pro-étale cohomology of abelian varieties exists in Mathlib.
 - `t11b : ZInQ.LeafPush2.T11b_Rigidity` (l.21477).
 - `t4 : PkgI2.ReductionTorsionBijective.{0}` (l.1593).
+
+## Plan (drafted, compile pending)
+- `ZInQKernel/Contrib/AVB2/SerreLemma.lean` (Mathlib only): `eq_one_of_pow_eq_one` (ring form of Serre's lemma
+  at 3), `eq_zero_of_smul_mem` (discreteness), `lattice_serre` (lattice form).
+- `scratch/av-b2/olean/AVB2Main.lean` (imports TailI): `t9_of_leaves3`, `MulIsogenyPosChar` (new leaf),
+  `divisiblePoints_of_posChar`, `cpt_torsion_descends`, `hom_ext_of_pts`, `serreRigidity3_of_T35`,
+  bundles `OpenTextbookLeavesB2`/`OpenAddedLeavesB2`, `sixContactMin_of_openB2` (66 Props).
