@@ -158,7 +158,45 @@ theorem eta_bc_fst : η[(bcC ιe A₀).X].left ≫ fstC ιe A₀ =
   erw [hw]
   exact Category.id_comp _
 
+
+/-- `ℂ`-points of the base change are determined by their projection to `A₀`. -/
+theorem ptC_ext {u u' : (bcC ιe A₀).Pt ℂ} (h : u.left ≫ fstC ιe A₀ = u'.left ≫ fstC ιe A₀) :
+    u = u' := by
+  ext1
+  exact (bc_isPullback ιe A₀).hom_ext h (by rw [Over.w u, Over.w u'])
+
+/-- The identity points correspond. -/
+theorem one_corr : (1 : (bcC ιe A₀).Pt ℂ).left ≫ fstC ιe A₀ =
+    Spec.map (CommRingCat.ofHom ιe) ≫ (1 : A₀.Pt Qbar).left := by
+  rw [Hom.one_def, Hom.one_def, Over.comp_left, Over.comp_left, Over.toUnit_left, Over.toUnit_left,
+    PeriodGlue.ptObj_hom_self, PeriodGlue.ptObj_hom_self']
+  erw [Category.id_comp, Category.id_comp]
+  exact eta_bc_fst ιe A₀
+
+/-- Endomorphisms act compatibly on corresponding points. -/
+theorem endBCe_corr (f : PkgI3.AbVar.End A₀) {w : (bcC ιe A₀).Pt ℂ} {w₀ : A₀.Pt Qbar}
+    (hw : w.left ≫ fstC ιe A₀ = Spec.map (CommRingCat.ofHom ιe) ≫ w₀.left) :
+    (w ≫ (endBCe ιe A₀ f).hom).left ≫ fstC ιe A₀ =
+      Spec.map (CommRingCat.ofHom ιe) ≫ (w₀ ≫ f.hom).left := by
+  rw [Over.comp_left, Category.assoc, endBCe_fst, ← Category.assoc, hw, Over.comp_left]
+  exact Category.assoc _ _ _
+
 end Glue
+
+/-- Isomorphic abelian varieties have the same dimension. -/
+theorem dim_eq_of_iso {B A : PkgI3.AbVar ℂ} (e : PkgI3.AbVar.Hom B A) (e' : PkgI3.AbVar.Hom A B)
+    (h1 : e.hom ≫ e'.hom = 𝟙 _) (h2 : e'.hom ≫ e.hom = 𝟙 _) : B.dim = A.dim := by
+  obtain ⟨i⟩ : Nonempty (B.X.left ≅ A.X.left) := ⟨
+    { hom := e.hom.left
+      inv := e'.hom.left
+      hom_inv_id := by rw [← Over.comp_left, h1, Over.id_left]
+      inv_hom_id := by rw [← Over.comp_left, h2, Over.id_left] }⟩
+  exact IsHomeomorph.topologicalKrullDim_eq _ i.hom.homeomorph.isHomeomorph
+
+section Glue2
+
+
+end Glue2
 
 end LeafQCheck
 
