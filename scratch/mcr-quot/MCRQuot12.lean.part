@@ -1,0 +1,97 @@
+
+/-! ════════════════════════════════════════════════════════════════════════════════════════════
+# mcr-quot, part 12: translations of a coordinate (towards `P1Translate`)
+════════════════════════════════════════════════════════════════════════════════════════════ -/
+
+noncomputable section
+
+namespace MCRQuot
+
+open Polynomial CategoryTheory AlgebraicGeometry Limits LeafQM LeafQM.AV MCRGlue LeafQM.AV.Pin
+open TopologicalSpace Opposite
+
+section Translate
+
+variable {X : Scheme.{0}}
+
+theorem res_inv_mul {O O' : X.Opens} (h : O' ≤ O) (u : (Γ(X, O))ˣ) :
+    res h (↑u⁻¹ : Γ(X, O)) * res h (u : Γ(X, O)) = 1 := by
+  rw [← map_mul, Units.inv_mul, map_one]
+
+theorem res_res' {O O' O'' : X.Opens} (h : O' ≤ O) (h' : O'' ≤ O') (h'' : O'' ≤ O)
+    (s : Γ(X, O)) : res h' (res h s) = res h'' s := res_res h h' s
+
+theorem eq_of_mul_eq_one {R : Type*} [CommRing R] {a b c : R} (ha : a * c = 1) (hb : b * c = 1) :
+    a = b := by
+  calc a = a * (c * b) := by rw [mul_comm c b, hb, mul_one]
+    _ = (a * c) * b := by ring
+    _ = b := by rw [ha, one_mul]
+
+/-- Outside the basic open of `s`, `1 + a s` is a unit. -/
+theorem mem_basicOpen_one_add {O : X.Opens} (a s : Γ(X, O)) {x : X} (hx : x ∈ O)
+    (hs : x ∉ X.basicOpen s) : x ∈ X.basicOpen (1 + a * s) := by
+  rw [Scheme.mem_basicOpen _ _ x hx] at hs ⊢
+  rw [map_add, map_one, map_mul]
+  apply IsLocalRing.isUnit_of_mem_nonunits_one_sub_self
+  rw [show (1 : X.presheaf.stalk x) - (1 + _ * _) = -(X.presheaf.germ O x hx a *
+    X.presheaf.germ O x hx s) by ring, ← IsLocalRing.mem_maximalIdeal]
+  refine neg_mem (Ideal.mul_mem_left _ _ ?_)
+  rw [IsLocalRing.mem_maximalIdeal]
+  exact hs
+
+variable (ρ : ToP1 X) (E : Γ(X, ⊤))
+
+/-- `f + E` on `U`. -/
+def tF : Γ(X, ρ.U) := ρ.f + res le_top E
+/-- `1 + E g` on `V`. -/
+def tG : Γ(X, ρ.V) := 1 + res le_top E * ρ.g
+/-- `D_U(f + E)`. -/
+def tDU : X.Opens := X.basicOpen (tF ρ E)
+/-- `D_V(1 + E g)`. -/
+def tDV : X.Opens := X.basicOpen (tG ρ E)
+
+theorem tDU_le : tDU ρ E ≤ ρ.U := Scheme.basicOpen_le _ _
+theorem tDV_le : tDV ρ E ≤ ρ.V := Scheme.basicOpen_le _ _
+
+/-- The unit `f + E` on `D_U(f + E)`. -/
+def uF : (Γ(X, tDU ρ E))ˣ := (X.toRingedSpace.isUnit_res_basicOpen (tF ρ E)).unit
+/-- The unit `1 + E g` on `D_V(1 + E g)`. -/
+def uG : (Γ(X, tDV ρ E))ˣ := (X.toRingedSpace.isUnit_res_basicOpen (tG ρ E)).unit
+
+theorem uF_val : (uF ρ E : Γ(X, tDU ρ E)) = res (tDU_le ρ E) (tF ρ E) := rfl
+theorem uG_val : (uG ρ E : Γ(X, tDV ρ E)) = res (tDV_le ρ E) (tG ρ E) := rfl
+
+/-- `g / (1 + E g)` on `D_V(1 + E g)`. -/
+def tS1 : Γ(X, tDV ρ E) := res (tDV_le ρ E) ρ.g * ↑(uG ρ E)⁻¹
+/-- `1 / (f + E)` on `D_U(f + E)`. -/
+def tS2 : Γ(X, tDU ρ E) := ↑(uF ρ E)⁻¹
+
+/-- On `U ⊓ V`, `g · (f + E) = 1 + E g`. -/
+theorem g_mul_tF {W : X.Opens} (hW : W ≤ ρ.U ⊓ ρ.V) :
+    res (hW.trans inf_le_right) ρ.g * res (hW.trans inf_le_left) (tF ρ E) =
+      res (hW.trans inf_le_right) (tG ρ E) := by
+  have hinv := congrArg (res (hW : W ≤ ρ.U ⊓ ρ.V)) ρ.inv
+  rw [map_mul, map_one, res_res, res_res] at hinv
+  simp only [tF, tG, map_add, map_mul, map_one, res_res]
+  rw [mul_add, mul_comm (res _ ρ.g) (res _ ρ.f), hinv, mul_comm]
+
+theorem tS_compat :
+    res (inf_le_left : tDV ρ E ⊓ tDU ρ E ≤ tDV ρ E) (tS1 ρ E) =
+      res (inf_le_right : tDV ρ E ⊓ tDU ρ E ≤ tDU ρ E) (tS2 ρ E) := by
+  have hW : tDV ρ E ⊓ tDU ρ E ≤ ρ.U ⊓ ρ.V :=
+    le_inf (inf_le_right.trans (tDU_le ρ E)) (inf_le_left.trans (tDV_le ρ E))
+  let c := res (hW.trans inf_le_left) (tF ρ E)
+  refine eq_of_mul_eq_one (c := c) ?_ ?_
+  · have h1 := g_mul_tF ρ E hW
+    simp only [tS1, map_mul, c, res_res]
+    rw [mul_assoc, mul_comm (res _ (↑(uG ρ E)⁻¹ : Γ(X, tDV ρ E))), ← mul_assoc, h1]
+    have := res_inv_mul (inf_le_left : tDV ρ E ⊓ tDU ρ E ≤ tDV ρ E) (uG ρ E)
+    rw [uG_val, res_res] at this
+    rw [mul_comm]; exact this
+  · have := res_inv_mul (inf_le_right : tDV ρ E ⊓ tDU ρ E ≤ tDU ρ E) (uF ρ E)
+    rw [uF_val, res_res] at this
+    exact this
+
+end Translate
+
+end MCRQuot
