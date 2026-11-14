@@ -1,0 +1,120 @@
+
+/-! ════════════════════════════════════════════════════════════════════════════════════════════
+# mcr-quot, part 14: (C2-T) `P1Translate` proved (translations of `P¹_{ℤ_(p)}` by charts)
+════════════════════════════════════════════════════════════════════════════════════════════ -/
+
+noncomputable section
+
+namespace MCRQuot
+
+open Polynomial CategoryTheory AlgebraicGeometry Limits LeafQM LeafQM.AV VertWitness HeckeRestNV
+open G0ModField PropTSRed PropTSGlue ModelGlue MCRGlue LeafQM.AV.Pin PkgI3
+open TopologicalSpace Opposite
+
+variable {p : ℕ} [Fact p.Prime]
+
+/-- Bijectivity of `X ↦ h + c` when `X ↦ h` is bijective. -/
+theorem bijective_eval₂_add {R S : Type*} [CommRing R] [CommRing S] (φ : R →+* S) (h : S)
+    (c : R) (hb : Function.Bijective (eval₂RingHom φ h)) :
+    Function.Bijective (eval₂RingHom φ (h + φ c)) := by
+  let m : R[X] →+* R[X] := eval₂RingHom C (X + C c)
+  let m' : R[X] →+* R[X] := eval₂RingHom C (X - C c)
+  have hcomp : eval₂RingHom φ (h + φ c) = (eval₂RingHom φ h).comp m := by
+    apply Polynomial.ringHom_ext
+    · intro a; simp [m]
+    · simp [m]
+  have hmm' : m.comp m' = RingHom.id _ := by
+    apply Polynomial.ringHom_ext
+    · intro a; simp [m, m']
+    · simp [m, m']
+  have hm'm : m'.comp m = RingHom.id _ := by
+    apply Polynomial.ringHom_ext
+    · intro a; simp [m, m']
+    · simp [m, m']
+  have hmb : Function.Bijective m :=
+    ⟨Function.LeftInverse.injective (g := m') (fun x => congrArg (fun f => f x) hm'm),
+      Function.RightInverse.surjective (g := m') (fun x => congrArg (fun f => f x) hmm')⟩
+  rw [hcomp, RingHom.coe_comp]
+  exact hb.comp hmb
+
+section P1T
+
+variable (𝒵 : Over (Spec (CommRingCat.of (Zloc p)))) (ρ : ToP1 𝒵.left) (e : Zloc p)
+
+/-- The constant `e` as a global section. -/
+abbrev cE : Γ(𝒵.left, ⊤) := baseToSections 𝒵 ⊤ e
+
+theorem res_cE {W : 𝒵.left.Opens} (h : W ≤ ⊤) : res h (cE 𝒵 e) = baseToSections 𝒵 W e :=
+  res_baseToSections 𝒵 h e
+
+theorem tF_eq : tF ρ (cE 𝒵 e) = ρ.f + baseToSections 𝒵 ρ.U e := by
+  rw [tF, res_cE]
+
+/-- The section `h' = 1 − e g'` on `V'`. -/
+def tH : Γ(𝒵.left, tDV ρ (cE 𝒵 e) ⊔ tDU ρ (cE 𝒵 e)) :=
+  1 - baseToSections 𝒵 _ e * tg ρ (cE 𝒵 e)
+
+theorem basicOpen_tg : 𝒵.left.basicOpen (tg ρ (cE 𝒵 e)) = tDU ρ (cE 𝒵 e) :=
+  (translate ρ (cE 𝒵 e)).basicOpen_g.trans (tF_basicOpen ρ (cE 𝒵 e)).symm
+
+theorem res_tH_DV : res (le_sup_left : tDV ρ (cE 𝒵 e) ≤ _) (tH 𝒵 ρ e) * (uG ρ (cE 𝒵 e) : _) = 1 := by
+  have hu := Units.inv_mul (uG ρ (cE 𝒵 e))
+  have huval : (uG ρ (cE 𝒵 e) : Γ(𝒵.left, tDV ρ (cE 𝒵 e))) =
+      1 + baseToSections 𝒵 _ e * res (tDV_le ρ (cE 𝒵 e)) ρ.g := by
+    rw [uG_val, tG, map_add, map_one, map_mul, res_res, res_cE]
+  rw [tH, map_sub, map_one, map_mul, res_baseToSections, tg_res_DV, tS1]
+  linear_combination huval - baseToSections 𝒵 (tDV ρ (cE 𝒵 e)) e *
+    res (tDV_le ρ (cE 𝒵 e)) ρ.g * hu
+
+theorem res_tH_DU : res (le_sup_right : tDU ρ (cE 𝒵 e) ≤ _) (tH 𝒵 ρ e) =
+    res (tDU_le ρ (cE 𝒵 e)) ρ.f * (tS2 ρ (cE 𝒵 e)) := by
+  have hu := Units.mul_inv (uF ρ (cE 𝒵 e))
+  have huval : (uF ρ (cE 𝒵 e) : Γ(𝒵.left, tDU ρ (cE 𝒵 e))) =
+      res (tDU_le ρ (cE 𝒵 e)) ρ.f + baseToSections 𝒵 _ e := by
+    rw [uF_val, tF_eq, map_add, res_baseToSections]
+  rw [tH, map_sub, map_one, map_mul, res_baseToSections, tg_res_DU, tS2]
+  linear_combination (-1 : Γ(𝒵.left, tDU ρ (cE 𝒵 e))) * hu +
+    (↑(uF ρ (cE 𝒵 e))⁻¹ : Γ(𝒵.left, tDU ρ (cE 𝒵 e))) * huval
+
+theorem basicOpen_tH : 𝒵.left.basicOpen (tH 𝒵 ρ e) = tDV ρ (cE 𝒵 e) := by
+  apply le_antisymm
+  · intro x hx
+    have hxV : x ∈ tDV ρ (cE 𝒵 e) ⊔ tDU ρ (cE 𝒵 e) := Scheme.basicOpen_le _ _ hx
+    rcases hxV with h | h
+    · exact h
+    · have h2 : x ∈ 𝒵.left.basicOpen (res (le_sup_right : tDU ρ (cE 𝒵 e) ≤ _) (tH 𝒵 ρ e)) := by
+        rw [basicOpen_res_of_le]; exact ⟨h, hx⟩
+      rw [res_tH_DU, Scheme.basicOpen_mul, basicOpen_res_of_le, ρ.basicOpen_f] at h2
+      have hUV : x ∈ ρ.U ⊓ ρ.V := h2.1.2
+      have h1 := g_mul_tF ρ (cE 𝒵 e) (W := ρ.U ⊓ ρ.V) le_rfl
+      have h3 : x ∈ 𝒵.left.basicOpen (res (le_rfl.trans inf_le_right : ρ.U ⊓ ρ.V ≤ ρ.V) ρ.g *
+          res (le_rfl.trans inf_le_left : ρ.U ⊓ ρ.V ≤ ρ.U) (tF ρ (cE 𝒵 e))) := by
+        rw [Scheme.basicOpen_mul, basicOpen_res_of_le, basicOpen_res_of_le, ρ.basicOpen_g]
+        exact ⟨⟨hUV, hUV⟩, ⟨hUV, h⟩⟩
+      rw [h1, basicOpen_res_of_le] at h3
+      exact h3.2
+  · intro x hx
+    have h2 : 𝒵.left.basicOpen (res (le_sup_left : tDV ρ (cE 𝒵 e) ≤ _) (tH 𝒵 ρ e)) =
+        tDV ρ (cE 𝒵 e) :=
+      Scheme.basicOpen_of_isUnit _ (isUnit_iff_exists_inv.mpr ⟨_, res_tH_DV 𝒵 ρ e⟩)
+    have h3 : x ∈ 𝒵.left.basicOpen (res (le_sup_left : tDV ρ (cE 𝒵 e) ≤ _) (tH 𝒵 ρ e)) := by
+      rw [h2]; exact hx
+    rw [basicOpen_res_of_le] at h3
+    exact h3.2
+
+theorem isAffineOpen_V' (hρ : IsP1Coordinate 𝒵 ρ) :
+    IsAffineOpen (tDV ρ (cE 𝒵 e) ⊔ tDU ρ (cE 𝒵 e)) := by
+  refine isAffineOpen_of_isAffineOpen_basicOpen _ {tg ρ (cE 𝒵 e), tH 𝒵 ρ e} ?_ ?_
+  · rw [Ideal.eq_top_iff_one]
+    have : (1 : Γ(𝒵.left, tDV ρ (cE 𝒵 e) ⊔ tDU ρ (cE 𝒵 e))) =
+        baseToSections 𝒵 _ e * tg ρ (cE 𝒵 e) + tH 𝒵 ρ e := by rw [tH]; ring
+    rw [this]
+    exact Ideal.add_mem _ (Ideal.mul_mem_left _ _ (Ideal.subset_span (by simp)))
+      (Ideal.subset_span (by simp))
+  · rintro i (rfl | rfl)
+    · rw [basicOpen_tg]; exact hρ.1.basicOpen _
+    · rw [basicOpen_tH]; exact hρ.2.1.basicOpen _
+
+end P1T
+
+end MCRQuot
