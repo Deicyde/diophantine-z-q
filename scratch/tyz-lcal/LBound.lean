@@ -86,4 +86,74 @@ theorem norm_integral_Ioi_one_le {f : ℝ → ℂ} {C c : ℝ} (hc : 0 < c)
   refine norm_integral_le_of_norm_le (integrableOn_exp_decay C hc) ?_
   exact (ae_restrict_iff' measurableSet_Ioi).mpr (Filter.Eventually.of_forall fun x hx => hf x hx)
 
+
+/-! ## §3. The explicit continuation of `L(C₁, s)` and its value at `1` -/
+
+/-- `π^s Γ(s)⁻¹ Λ_{a,b}(s)` is the lattice series for `Re s > 3/2` (proof of
+`HeckeFE.gaussL_continuation`). -/
+theorem gaussL_eq_of_re (a b : ℝ) {s : ℂ} (hs : 3 / 2 < s.re) :
+    (π : ℂ) ^ s * (Gamma s)⁻¹ * gaussLambda a b s = gaussL a b s := by
+  have hG : Gamma s ≠ 0 := Gamma_ne_zero_of_re_pos (by linarith)
+  have hpi : (π : ℂ) ^ s ≠ 0 := (cpow_ne_zero_iff_of_exponent_ne_zero
+    (by rintro rfl; norm_num at hs)).mpr (ofReal_ne_zero.mpr pi_ne_zero)
+  rw [← (hasSum_gaussLambda a b hs).tsum_eq, gaussL]
+  simp_rw [mul_div_assoc]
+  rw [tsum_mul_left, cpow_neg]
+  field_simp
+
+/-- The explicit continuation of a twisted lattice series (the function of
+`HeckeFE.twistedL_continuation`). -/
+def Fexp (M : ℕ) (c : ZMod M × ZMod M → ℂ) (s : ℂ) : ℂ :=
+  ∑ j : Fin M × Fin M, c (((j.1 : ℤ) : ZMod M), ((j.2 : ℤ) : ZMod M)) *
+    ((M : ℂ) / (((M : ℝ) ^ 2 : ℝ) : ℂ) ^ s) *
+      ((π : ℂ) ^ s * (Gamma s)⁻¹ *
+        gaussLambda (((j.1 : ℝ) / M : ℝ) : UnitAddCircle) (((j.2 : ℝ) / M : ℝ) : UnitAddCircle) s)
+
+theorem differentiable_Fexp (M : ℕ) [NeZero M] (c : ZMod M × ZMod M → ℂ) :
+    Differentiable ℂ (Fexp M c) := by
+  have hM : (((M : ℝ) ^ 2 : ℝ) : ℂ) ≠ 0 := by
+    exact_mod_cast pow_ne_zero 2 (Nat.cast_ne_zero.mpr (NeZero.ne M))
+  have : NeZero (((M : ℝ) ^ 2 : ℝ) : ℂ) := ⟨hM⟩
+  have hpi : (π : ℂ) ≠ 0 := ofReal_ne_zero.mpr pi_ne_zero
+  have : NeZero (π : ℂ) := ⟨hpi⟩
+  unfold Fexp
+  refine Differentiable.fun_sum fun j _ => ?_
+  refine (Differentiable.const_mul ?_ _).mul ?_
+  · simp_rw [div_eq_mul_inv, ← cpow_neg]
+    exact (differentiable_const_cpow_of_neZero _).comp differentiable_id.neg |>.const_mul _
+  · exact ((differentiable_const_cpow_of_neZero (π : ℂ)).mul differentiable_one_div_Gamma).mul
+      (differentiable_gaussLambda _ _)
+
+theorem Fexp_eq_twistedL (M : ℕ) [NeZero M] (c : ZMod M × ZMod M → ℂ) {s : ℂ}
+    (hs : 3 / 2 < s.re) : Fexp M c s = twistedL M c s := by
+  rw [twistedL_eq M c hs, Fexp]
+  exact Finset.sum_congr rfl fun j _ => by rw [gaussL_eq_of_re _ _ hs]
+
+/-- The coefficient function of `L(C₁, s)` on `ℤ[i]/4`: `¼ · unitOf`. -/
+def cU (x : ZMod 4 × ZMod 4) : ℂ := (1 / 4) * unitOf x
+
+/-- `F₁ := Fexp 4 cU` is the entire continuation of Mathlib's `L(y² = x³ − x, s)`. -/
+theorem isLContinuation_Fone : ZInQ.Literature.IsLContinuation (ZInQ.Contrib.TYZDecomp.curveC 1)
+    (Fexp 4 cU) := by
+  refine ⟨differentiable_Fexp 4 cU, fun s hs => ?_⟩
+  have hD1 : DeuringCd 1 := deuringCd_of_gaussPointCount (by norm_num) squarefree_one
+    ZInQ.Contrib.GaussFE.gaussPointCount
+  rw [Fexp_eq_twistedL 4 cU hs, ZInQ.Contrib.TYZDecomp.curveC,
+    ZInQ.Literature.LSeries_cd_eq (by norm_num) squarefree_one s]
+  refine (LSeries_eq_twistedL 4 cU _ (fun n hn => ?_) hs).symm
+  rw [hD1 n hn, heckeCoeff, Finset.mul_sum]
+  refine Finset.sum_congr rfl fun p _ => ?_
+  simp only [cU, jacobiSym.one_right, Int.cast_one, one_mul]
+  ring
+
+/-- **`L(C₁, 1)` as a finite combination of the `Λ_{a,b}(1)`.** -/
+theorem lValOne_one_eq : ZInQ.Contrib.TYZDecomp.lValOne 1 =
+    ∑ j : Fin 4 × Fin 4, cU (((j.1 : ℤ) : ZMod 4), ((j.2 : ℤ) : ZMod 4)) * (1 / 4) *
+      ((π : ℂ) * gaussLambda (((j.1 : ℝ) / 4 : ℝ) : UnitAddCircle) (((j.2 : ℝ) / 4 : ℝ) : UnitAddCircle) 1) := by
+  rw [ZInQ.Contrib.TYZDecomp.lValOne_eq isLContinuation_Fone, Fexp]
+  refine Finset.sum_congr rfl fun j _ => ?_
+  simp only [cpow_one, Complex.Gamma_one, inv_one, mul_one]
+  push_cast
+  norm_num
+
 end ZInQ.Contrib.TYZLcal
