@@ -35,3 +35,7 @@
   `open ZInQ.Contrib.TYZGenus.Shimura (...)`. Rebuild of Bridge/Thm35/L321/Main OK (1m48); Check rerun OK. VERIFIED.
 - 00:52 ModFn: shimura-modfn's §0 verbatim copies of Shimura.IsRatModFn / Shimura.ShimuraReciprocityModFn replaced
   by a selective open of the originals (rfl checks kept, now trivial). Build OK (131 s); Check rerun: 81 × standard. VERIFIED.
+- 01:05 New module TYZChain/Headline.lean: `TYZChainLeaves` (structure of the five hypotheses),
+  `tyzThm35ReadingA_of_tyzChainLeaves`, `frozenTarget_of_sixContactMin_grossZagier_tyzChainLeaves :
+  SixContactMin → GrossZagier → TYZChainLeaves → FrozenTarget` (headline with the two proved providers
+  heckeContinuation, functionalEquation5). Build OK (6.7 s); Check rerun: 83 × standard axioms. VERIFIED.

@@ -66,6 +66,7 @@ Notes on the leaves (from the source reports, not re-checked here):
 | `TYZChain/ModFn.lean` | `scratch/shimura-modfn/ModFn.lean`, minus copies of tyz-cm | 675 | shimura-modfn (not used by `Main`) |
 | `TYZChain/SSExponent.lean` | `scratch/ss-exponent/SSExponent.lean`, minus a copy of tyz-318's §S | 434 | ss-exponent: `SupersingularExponentA` proved, linked to tyz-318's copy of the leaf (not used by `Main`) |
 | `TYZChain/Main.lean` | new | 68 | `tyzThm35ReadingA_of_leaves` |
+| `TYZChain/Headline.lean` | new | ~60 | `TYZChainLeaves`, `frozenTarget_of_sixContactMin_grossZagier_tyzChainLeaves` |
 
 Total 9894 lines, against 16744 in the seven source files (the difference is the three copies of
 cm-bridge's file and the copies listed below).
@@ -134,6 +135,18 @@ tyzThm35ReadingA_of_leaves h11 h29 hS h2 h33 :=
   §14–§15), and from ring-class's theorems everything else of the former cm-numeric package.
 
 ## 3. Other results now importable (not needed by `Main`)
+
+* `TYZChain/Headline.lean` (VERIFIED compiled, standard axioms):
+
+  ```lean
+  structure TYZChainLeaves : Prop   -- the five hypotheses of §0 as fields
+  theorem frozenTarget_of_sixContactMin_grossZagier_tyzChainLeaves (hH : ZInQ.SixContactMin)
+      (hG : ZInQ.Literature.GrossZagier) (t : TYZChainLeaves) : ZInQ.FrozenTarget
+  ```
+
+  i.e. the fork's headline with `TYZThm35ReadingA` replaced by the TYZ leaves and the two registered
+  providers `ZInQ.Contrib.heckeContinuation`, `ZInQ.Contrib.functionalEquation5` filled in: Theorem 1.1
+  now rests on `SixContactMin`, `GrossZagier` and the five TYZ-side hypotheses.
 
 * `T318.lemma318_at_single_unconditional`: TYZ Lemma 3.18 with no hypothesis at all for `n` whose only
   divisor `≡ 5 (mod 8)` is `n`.

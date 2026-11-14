@@ -1,11 +1,12 @@
 import ZInQKernel.Contrib.TYZChain.Main
+import ZInQKernel.Contrib.TYZChain.Headline
 import ZInQKernel.Contrib.TYZChain.ModFn
 import ZInQKernel.Contrib.TYZChain.SSExponent
 
 /-! # tyz-chain axiom audit
 
 Run with `lake env lean scratch/tyz-chain/Check.lean` after `lake build ZInQKernel.Contrib.TYZChain.Main
-ZInQKernel.Contrib.TYZChain.ModFn ZInQKernel.Contrib.TYZChain.SSExponent`. Output: `Check.out`.
+ZInQKernel.Contrib.TYZChain.Headline ZInQKernel.Contrib.TYZChain.ModFn ZInQKernel.Contrib.TYZChain.SSExponent`. Output: `Check.out`.
 The `#print axioms` lines of the source scratch files, with full names, then the main theorem. -/
 
 -- main theorem
@@ -13,6 +14,11 @@ The `#print axioms` lines of the source scratch files, with full names, then the
 
 -- the statement of the main theorem (hypotheses as listed in its docstring)
 #check @ZInQ.Contrib.TYZChain.tyzThm35ReadingA_of_leaves
+
+-- headline variant (TYZChain/Headline.lean)
+#print axioms ZInQ.Contrib.TYZChain.tyzThm35ReadingA_of_tyzChainLeaves
+#print axioms ZInQ.Contrib.TYZChain.frozenTarget_of_sixContactMin_grossZagier_tyzChainLeaves
+#check @ZInQ.Contrib.TYZChain.frozenTarget_of_sixContactMin_grossZagier_tyzChainLeaves
 
 -- cm-bridge (TYZChain/Bridge.lean)
 #print axioms ZInQ.Contrib.TYZGenus.CMBridge.tyzDelta_spec
