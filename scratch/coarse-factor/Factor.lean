@@ -668,4 +668,112 @@ theorem bijective_of_points {A B : Type} [CommRing A] [CommRing B] [IsDedekindDo
 end Alg
 
 
+section Sch
+
+variable {Ω : Type} [Field Ω] [IsAlgClosed Ω] [CharZero Ω]
+
+/-- **Affine case.** A finite morphism from a reduced scheme onto an affine integral smooth curve
+over `ℚ`, bijective on `Ω`-points, is an isomorphism. -/
+theorem isIso_affine {Z U : Scheme.{0}} (q : Z ⟶ U) [IsAffine U] [IsIntegral U]
+    (sU : U ⟶ SpecK ℚ) [SmoothOfRelativeDimension 1 sU] [IsReduced Z] [IsFinite q]
+    (hI : ∀ a b : Spec (CommRingCat.of Ω) ⟶ Z, a ≫ q = b ≫ q → a = b)
+    (hS : ∀ c : Spec (CommRingCat.of Ω) ⟶ U, ∃ a, a ≫ q = c) : IsIso q := by
+  haveI : IsAffine Z := isAffine_of_isAffineHom q
+  let A := Γ(U, ⊤)
+  let B := Γ(Z, ⊤)
+  letI : Algebra A B := q.appTop.hom.toAlgebra
+  have : Nonempty (⊤ : U.Opens) := by
+    obtain ⟨u⟩ := (inferInstance : Nonempty U)
+    exact ⟨⟨u, trivial⟩⟩
+  haveI : IsDedekindDomain A := isDedekindDomain_sections sU (isAffineOpen_top U)
+  haveI : Smooth sU := SmoothOfRelativeDimension.smooth 1 sU
+  have hft := sU.finiteType_appLE (isAffineOpen_top _) (isAffineOpen_top U) (by simp)
+  let e : CommRingCat.of ℚ ⟶ Γ(SpecK ℚ, ⊤) := (Scheme.ΓSpecIso (CommRingCat.of ℚ)).inv
+  letI : Algebra ℚ A := ((sU.appLE ⊤ ⊤ (by simp)).hom.comp e.hom).toAlgebra
+  haveI : Algebra.FiniteType ℚ A := by
+    have : (e.hom).FiniteType := RingHom.FiniteType.of_surjective _
+      ((ConcreteCategory.bijective_of_isIso e).2)
+    exact RingHom.FiniteType.comp hft this
+  haveI : Module.Finite A B := q.finite_app ⊤ (isAffineOpen_top U)
+  have hbij := bijective_of_points (Ω := Ω) (A := A) (B := B) ?_ ?_
+  · have h1 : IsIso q.appTop := (ConcreteCategory.isIso_iff_bijective _).mpr hbij
+    have : IsIso (Spec.map q.appTop) := inferInstance
+    exact (MorphismProperty.arrow_mk_iso_iff (MorphismProperty.isomorphisms Scheme)
+      (arrowIsoSpecΓOfIsAffine q)).mpr this
+  · intro φ₁ φ₂ hφ
+    have key : ∀ φ : B →+* Ω, (Spec.map (CommRingCat.ofHom φ) ≫ Z.isoSpec.inv) ≫ q =
+        Spec.map (CommRingCat.ofHom (φ.comp (algebraMap A B))) ≫ U.isoSpec.inv := by
+      intro φ
+      rw [Category.assoc, ← Scheme.isoSpec_inv_naturality, ← Category.assoc, ← Spec.map_comp]
+      rfl
+    have h := hI _ _ ((key φ₁).trans ((congrArg (fun χ : A →+* Ω =>
+      Spec.map (CommRingCat.ofHom χ) ≫ U.isoSpec.inv) hφ).trans (key φ₂).symm))
+    have h2 := Spec.map_injective (cancel_mono _ |>.mp h)
+    exact congrArg CommRingCat.Hom.hom h2
+  · intro ψ
+    obtain ⟨a, ha⟩ := hS (Spec.map (CommRingCat.ofHom ψ) ≫ U.isoSpec.inv)
+    let φ' : B ⟶ CommRingCat.of Ω := Spec.preimage (a ≫ Z.isoSpec.hom)
+    refine ⟨φ'.hom, ?_⟩
+    have : Spec.map (q.appTop ≫ φ') = Spec.map (CommRingCat.ofHom ψ) := by
+      rw [Spec.map_comp, Spec.map_preimage, Category.assoc, Scheme.isoSpec_hom_naturality,
+        ← Category.assoc, ha, Category.assoc, Iso.inv_hom_id, Category.comp_id]
+    exact congrArg CommRingCat.Hom.hom (Spec.map_injective this)
+
+/-- `Ω`-point injectivity passes to restrictions over opens. -/
+theorem restrict_inj {Z W : Scheme.{0}} (p : Z ⟶ W) (V : W.Opens)
+    (hI : ∀ a b : Spec (CommRingCat.of Ω) ⟶ Z, a ≫ p = b ≫ p → a = b) :
+    ∀ a b : Spec (CommRingCat.of Ω) ⟶ (p ⁻¹ᵁ V).toScheme, a ≫ p ∣_ V = b ≫ p ∣_ V → a = b := by
+  intro a b h
+  have h' : (a ≫ (p ⁻¹ᵁ V).ι) ≫ p = (b ≫ (p ⁻¹ᵁ V).ι) ≫ p := by
+    rw [Category.assoc, Category.assoc, ← morphismRestrict_ι, ← Category.assoc, h,
+      Category.assoc]
+  exact (cancel_mono (p ⁻¹ᵁ V).ι).mp (hI _ _ h')
+
+/-- `Ω`-point surjectivity passes to restrictions over opens. -/
+theorem restrict_surj {Z W : Scheme.{0}} (p : Z ⟶ W) (V : W.Opens)
+    (hS : ∀ c : Spec (CommRingCat.of Ω) ⟶ W, ∃ a, a ≫ p = c) :
+    ∀ c : Spec (CommRingCat.of Ω) ⟶ V.toScheme, ∃ a, a ≫ p ∣_ V = c := by
+  intro c
+  obtain ⟨a, ha⟩ := hS (c ≫ V.ι)
+  have hr : Set.range a ⊆ Set.range (p ⁻¹ᵁ V).ι := by
+    rintro _ ⟨u, rfl⟩
+    rw [Scheme.Opens.range_ι]
+    show p (a u) ∈ V
+    rw [← Scheme.Hom.comp_apply, ha, Scheme.Hom.comp_apply]
+    exact (c u).2
+  let a' := IsOpenImmersion.lift (p ⁻¹ᵁ V).ι a hr
+  refine ⟨a', (cancel_mono V.ι).mp ?_⟩
+  rw [Category.assoc, morphismRestrict_ι, ← Category.assoc, IsOpenImmersion.lift_fac, ha]
+
+/-- **Global case.** A finite morphism from a reduced scheme onto a quasi-compact smooth curve over
+`ℚ`, bijective on `Ω`-points, is an isomorphism. -/
+theorem isIso_of_points {Z W : Scheme.{0}} (p : Z ⟶ W) (sW : W ⟶ SpecK ℚ)
+    [SmoothOfRelativeDimension 1 sW] [CompactSpace W] [IsReduced Z] [IsFinite p]
+    (hI : ∀ a b : Spec (CommRingCat.of Ω) ⟶ Z, a ≫ p = b ≫ p → a = b)
+    (hS : ∀ c : Spec (CommRingCat.of Ω) ⟶ W, ∃ a, a ≫ p = c) : IsIso p := by
+  haveI : Smooth sW := SmoothOfRelativeDimension.smooth 1 sW
+  haveI : IsReduced W := isReduced_of_smooth sW
+  let I := {U : W.affineOpens // ((U : W.Opens) : Set W).Nonempty ∧
+    IsIrreducible ((U : W.Opens) : Set W)}
+  refine IsZariskiLocalAtTarget.of_iSup_eq_top (P := MorphismProperty.isomorphisms Scheme)
+    (fun U : I => U.1.1) ?_ fun U => ?_
+  · rw [eq_top_iff]
+    intro w _
+    obtain ⟨_, ⟨V, hV, rfl⟩, hwV, hVC⟩ := W.isBasis_affineOpens.exists_subset_of_mem_open
+      (mem_irreducibleComponent (x := w)) (isOpen_irreducibleComponent sW w)
+    have hirr : IsIrreducible (V : Set W) :=
+      ⟨⟨w, hwV⟩, isIrreducible_irreducibleComponent.isPreirreducible.open_subset V.2 hVC⟩
+    exact TopologicalSpace.Opens.mem_iSup.mpr ⟨⟨⟨V, hV⟩, ⟨w, hwV⟩, hirr⟩, hwV⟩
+  · show IsIso (p ∣_ U.1.1)
+    set V : W.Opens := U.1.1 with hVdef
+    haveI : IsAffine V.toScheme := U.1.2
+    haveI : IrreducibleSpace V.toScheme := Subtype.irreducibleSpace U.2.2
+    haveI : IsIntegral V.toScheme := isIntegral_of_irreducibleSpace_of_isReduced _
+    have hsm : SmoothOfRelativeDimension 1 (V.ι ≫ sW) := by
+      have := smoothOfRelativeDimension_comp (n := 0) (m := 1) V.ι sW
+      rwa [zero_add] at this
+    exact isIso_affine (Ω := Ω) (p ∣_ V) (V.ι ≫ sW) (restrict_inj p V hI) (restrict_surj p V hS)
+
+end Sch
+
 end CoarseFactorAG
