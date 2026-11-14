@@ -16,3 +16,10 @@
   (3m, 0 errors). These two targets cover every module that imports the changed file
   (scratch/t40-clash/rdeps.py: Backport TateCurve CoordinateEvaluation, Equation, Line, XCoordinate,
   Uniformization, Injectivity, Homomorphism; RLeaf TateCusp, TateCuspMuN, TateCuspTorsion, T40).
+- 18:00 `lake build` of Mobius.Main, FrobPieces.SmoothGeomConnIntegral, Chebotarev.FrobeniusDense,
+  AbsFrob.Basic, GZTheta.ALFinal, RLeaf.T36Torsion: success (10690 jobs, 8.5 min, 0 errors).
+  `lake env lean scratch/t40-clash/Together.lean` (T40 + those six + the vendored
+  GroupWithZero.Units.Basic): compiles, all #checks print (7 s).
+  Note: none of the six required modules imports GroupWithZero.Units.Basic (forward closures), so
+  the explicit import of that module in Together.lean is what exercises the former clash.
+  Next: broader test, T40 + all 74 top-level Contrib modules (1105 modules still unbuilt).
