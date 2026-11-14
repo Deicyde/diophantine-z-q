@@ -456,7 +456,7 @@ theorem serreTatePotentialGood_ofK5 (h : _root_.PkgI2.SerreTatePotentialGood.{0}
   intro K _ O _ w hw A hA
   haveI : _root_.PkgI2.IsAbelianVariety A := ⟨hA.proper, hA.smooth, hA.geomIntegral⟩
   have h' := h K O w hw A
-  simp only [hasGoodReduction_iffK5] at h'
+  try simp only [hasGoodReduction_iffK5] at h'
   exact h'
 
 /-- R8 (`GrothendieckMonodromy`, SGA 7 IX) from the kernel's statement. -/
