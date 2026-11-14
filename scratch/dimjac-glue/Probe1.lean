@@ -335,4 +335,120 @@ lemma key_identity (a b c d s u : F) (hc : c * s = a) (hd : d * u = b) :
   simp only [smul_add, smul_sub, smul_smul]
   module
 
+
+lemma Φ_range_smul (U : X.Opens) (hU : IsAffineOpen U) (hne : (U : Set X).Nonempty) (a : Γ(X, U))
+    {η : Ω[F⁄ℚ]} (h : η ∈ (Φ g e U hU hne).range) : ψ e U hne a • η ∈ (Φ g e U hU hne).range := by
+  obtain ⟨σ, rfl⟩ := h
+  exact ⟨a • σ, Φ_smul U hU hne a σ⟩
+
+/-- A maximal ideal of `Γ(X, V)` gives a closed point of `X` (`X` is Jacobson). -/
+lemma isClosed_fromSpec [SmoothOfRelativeDimension 1 g] (V : X.Opens) (hV : IsAffineOpen V)
+    (y : PrimeSpectrum Γ(X, V)) (hy : y.asIdeal.IsMaximal) : IsClosed ({hV.fromSpec y} : Set X) := by
+  have : Smooth g := SmoothOfRelativeDimension.smooth 1 g
+  haveI : JacobsonSpace X := LocallyOfFiniteType.jacobsonSpace g
+  have hyc : IsClosed ({y} : Set (PrimeSpectrum Γ(X, V))) :=
+    (PrimeSpectrum.isClosed_singleton_iff_isMaximal y).mpr hy
+  have h := hV.fromSpec.isOpenEmbedding.preimage_closedPoints
+  have hmem : y ∈ closedPoints (Spec Γ(X, V)) := hyc
+  rw [← h] at hmem
+  exact hmem
+
+/-- **Local–global step.** A differential regular at every place lies in the image of `Φ_V`. -/
+lemma mem_range_Φ_of_regular [SmoothOfRelativeDimension 1 g] (V : X.Opens) (hV : IsAffineOpen V)
+    (hne : (V : Set X).Nonempty) (ω : Ω[F⁄ℚ])
+    (hω : ∀ w : ValuationSubring F, (∀ c : ℚ, algebraMap ℚ F c ∈ w) →
+      ω ∈ ZInQ.Contrib.CurvesG.regularAt F w) :
+    ω ∈ (Φ g e V hV hne).range := by
+  classical
+  by_contra hnot
+  let I : Ideal Γ(X, V) :=
+    { carrier := {a | ψ e V hne a • ω ∈ (Φ g e V hV hne).range}
+      add_mem' := fun {a b} ha hb => by
+        simp only [Set.mem_ofPred_eq, map_add, add_smul] at *
+        exact add_mem ha hb
+      zero_mem' := by simp only [Set.mem_ofPred_eq, map_zero, zero_smul]; exact zero_mem _
+      smul_mem' := fun c a ha => by
+        simp only [Set.mem_ofPred_eq, smul_eq_mul, map_mul, mul_smul] at *
+        exact Φ_range_smul V hV hne c ha }
+  have hI : I ≠ ⊤ := fun h => hnot (by
+    have : (1 : Γ(X, V)) ∈ I := h ▸ Submodule.mem_top
+    simpa [I] using this)
+  obtain ⟨𝔪, h𝔪, hI𝔪⟩ := Ideal.exists_le_maximal I hI
+  let y : PrimeSpectrum Γ(X, V) := ⟨𝔪, h𝔪.isPrime⟩
+  have hyV : hV.fromSpec y ∈ V := hV.range_fromSpec.subset ⟨y, rfl⟩
+  have hxc := isClosed_fromSpec (g := g) V hV y h𝔪
+  haveI := valuationRing_stalk (g := g) (hV.fromSpec y) hxc
+  letI : Algebra Γ(X, V) (X.presheaf.stalk (hV.fromSpec y)) := (X.presheaf.germ V _ hyV).hom.toAlgebra
+  haveI hloc : IsLocalization y.asIdeal.primeCompl (X.presheaf.stalk (hV.fromSpec y)) :=
+    hV.isLocalization_stalk' y hyV
+  haveI : Nonempty V := hne.to_subtype
+  let f : X.presheaf.stalk (hV.fromSpec y) →+* F :=
+    e.toRingHom.comp (algebraMap (X.presheaf.stalk (hV.fromSpec y)) X.functionField)
+  have hf_germ : ∀ a, f (algebraMap Γ(X, V) (X.presheaf.stalk (hV.fromSpec y)) a) = ψ e V hne a := by
+    intro a
+    change e (algebraMap _ X.functionField (X.presheaf.germ V _ hyV a)) = _
+    rw [Scheme.algebraMap_germ_eq_germToFunctionField]
+    rfl
+  have hfrac : ∀ z : F, ∃ a b, f b ≠ 0 ∧ z * f b = f a := by
+    intro z
+    obtain ⟨a, b, hb, hab⟩ := IsFractionRing.div_surjective (A := X.presheaf.stalk (hV.fromSpec y))
+      (e.symm z)
+    refine ⟨a, b, ?_, ?_⟩
+    · exact fun h => (IsFractionRing.to_map_ne_zero_of_mem_nonZeroDivisors (K := X.functionField) hb)
+        (e.injective (h.trans (map_zero e).symm))
+    · have hb' : algebraMap _ X.functionField b ≠ 0 :=
+        IsFractionRing.to_map_ne_zero_of_mem_nonZeroDivisors (K := X.functionField) hb
+      have h1 : algebraMap _ X.functionField a = e.symm z * algebraMap _ X.functionField b := by
+        rw [← hab, div_mul_cancel₀ _ hb']
+      have h2 := congrArg e h1
+      rw [map_mul, RingEquiv.apply_symm_apply] at h2
+      exact h2.symm
+  let w := imageVS f hfrac
+  have hwQ : ∀ c : ℚ, algebraMap ℚ F c ∈ w := by
+    intro c
+    refine ⟨(X.presheaf.germ V _ hyV).hom ((g.specStructureMap V).hom c), ?_⟩
+    exact congrArg (· c) (RingHom.ext_rat
+      (f.comp ((X.presheaf.germ V _ hyV).hom.comp (g.specStructureMap V).hom)) (algebraMap ℚ F))
+  have key : ∀ η ∈ ZInQ.Contrib.CurvesG.regularAt F w,
+      ∃ t : Γ(X, V), t ∉ 𝔪 ∧ ψ e V hne t • η ∈ (Φ g e V hV hne).range := by
+    intro η hη
+    induction hη using AddSubgroup.closure_induction with
+    | mem η hη =>
+      obtain ⟨c, d, ⟨c', rfl⟩, ⟨d', rfl⟩, rfl⟩ := hη
+      obtain ⟨⟨a, s⟩, rfl⟩ := IsLocalization.mk'_surjective y.asIdeal.primeCompl c'
+      obtain ⟨⟨b, u⟩, rfl⟩ := IsLocalization.mk'_surjective y.asIdeal.primeCompl d'
+      have hc : f (IsLocalization.mk' _ a s) * ψ e V hne s = ψ e V hne a := by
+        rw [← hf_germ, ← hf_germ, ← map_mul, IsLocalization.mk'_spec]
+      have hd : f (IsLocalization.mk' _ b u) * ψ e V hne u = ψ e V hne b := by
+        rw [← hf_germ, ← hf_germ, ← map_mul, IsLocalization.mk'_spec]
+      refine ⟨s * u * u, ?_, ?_⟩
+      · have hs : (s : Γ(X, V)) ∉ 𝔪 := s.2
+        have hu : (u : Γ(X, V)) ∉ 𝔪 := u.2
+        intro h
+        rcases h𝔪.isPrime.mem_or_mem h with h | h
+        · rcases h𝔪.isPrime.mem_or_mem h with h | h
+          · exact hs h
+          · exact hu h
+        · exact hu h
+      · rw [map_mul, map_mul, key_identity _ _ _ _ _ _ hc hd]
+        refine ⟨a • ((u : Γ(X, V)) • g.sectionsD V b - b • g.sectionsD V (u : Γ(X, V))), ?_⟩
+        rw [Φ_smul, map_sub, Φ_smul_D, Φ_smul_D]
+    | zero => exact ⟨1, fun h => h𝔪.ne_top ((Ideal.eq_top_iff_one _).mpr h), by simp⟩
+    | add η₁ η₂ _ _ h₁ h₂ =>
+      obtain ⟨t₁, ht₁, h₁⟩ := h₁
+      obtain ⟨t₂, ht₂, h₂⟩ := h₂
+      refine ⟨t₁ * t₂, fun h => (h𝔪.isPrime.mem_or_mem h).elim ht₁ ht₂, ?_⟩
+      have e1 := Φ_range_smul V hV hne t₂ h₁
+      have e2 := Φ_range_smul V hV hne t₁ h₂
+      have : ψ e V hne (t₁ * t₂) • (η₁ + η₂) =
+          ψ e V hne t₂ • (ψ e V hne t₁ • η₁) + ψ e V hne t₁ • (ψ e V hne t₂ • η₂) := by
+        rw [map_mul, smul_add, smul_smul, smul_smul, mul_comm (ψ e V hne t₂)]
+      rw [this]
+      exact add_mem e1 e2
+    | neg η _ h =>
+      obtain ⟨t, ht, h⟩ := h
+      exact ⟨t, ht, by rw [smul_neg]; exact neg_mem h⟩
+  obtain ⟨t, ht, htω⟩ := key ω (hω w hwQ)
+  exact ht (hI𝔪 htω)
+
 end DimJacGlue
