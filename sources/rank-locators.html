@@ -1470,6 +1470,8 @@
       
         
       
+        
+      
     
     
     
@@ -1653,6 +1655,34 @@
     
   
     Locators for the Green–Tao chapter
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="hecke-locators.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Locators for the Hecke section
   
 
     
@@ -2055,6 +2085,28 @@
     <span class="md-ellipsis">
       
         The L-series of the congruent number curves
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-hasse-bound-for-the-congruent-number-curves" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Hasse bound for the congruent number curves
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-coefficients-of-the-congruent-number-curves-at-the-primes-3-mod-4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The coefficients of the congruent number curves at the primes 3 mod 4
       
     </span>
   </a>
@@ -2539,6 +2591,28 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#the-hasse-bound-for-the-congruent-number-curves" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Hasse bound for the congruent number curves
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-coefficients-of-the-congruent-number-curves-at-the-primes-3-mod-4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The coefficients of the congruent number curves at the primes 3 mod 4
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#hecke-and-deuring" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2825,7 +2899,8 @@ computation, namely that the model is minimal at every prime with good reduction
 additive reduction for <span class="arithmatex">\(p\mid2d\)</span>, and that the coefficient at <span class="arithmatex">\(p\)</span> is <span class="arithmatex">\(p-\#\{(x,y)\in\mathbb F_p^2:
 y^2=x^3-d^2x\}\)</span> for <span class="arithmatex">\(p\nmid2d\)</span> and <span class="arithmatex">\(0\)</span> for <span class="arithmatex">\(p\mid2d\)</span>, to remove the risk that the definition of
 <span class="arithmatex">\(L(E,s)\)</span> used here differs from the textbook one. Its third item (<span class="arithmatex">\(a_p=0\)</span> for <span class="arithmatex">\(p\equiv3\pmod4\)</span>) and
-its optional Hasse's bound for <span class="arithmatex">\(C_d\)</span> are not proved here. The checks of the same facts by reading
+its optional Hasse's bound for <span class="arithmatex">\(C_d\)</span> are proved here (see the two sections below; AI-written,
+checked by Lean's kernel, no human has reviewed the proofs; <code>docs/research/contrib-tidy.md</code>). The checks of the same facts by reading
 and by PARI (wk-cr3 §3, rv-lit §2) are recorded under the L-series of an elliptic curve; the
 residual risk named in wk-cr3 §3, that no lemma connects the definition to point counts, is what
 this computation removes, for odd squarefree <span class="arithmatex">\(d\)</span>.</p>
@@ -2834,6 +2909,36 @@ Mathematics 97, Springer (1993), Chapter II: the zeta function of <span class="a
 and its Hasse–Weil L-function. <code>docs/research/cr3-trust.md</code> item D1 cites Chapter II of this book
 for the conductor <span class="arithmatex">\(32d^2\)</span> of <span class="arithmatex">\(C_d\)</span> (odd squarefree <span class="arithmatex">\(d\)</span>), as an unverified locator; no project note
 cites it for the zeta function or the point counts of <span class="arithmatex">\(C_d\)</span>, and the chapter was not checked here.</p>
+<h2 id="the-hasse-bound-for-the-congruent-number-curves">The Hasse bound for the congruent number curves</h2>
+<p>Hasse's bound <span class="arithmatex">\(|a_p|\le2\sqrt p\)</span> for an elliptic curve over <span class="arithmatex">\(\mathbb F_p\)</span> (H. Hasse, 1936;
+J. H. Silverman, <em>The Arithmetic of Elliptic Curves</em>, 2nd ed., Graduate Texts in Mathematics 106,
+Springer (2009), Theorem V.1.1, a locator added here, cited by no project note and not checked)
+(STANDARD). For <span class="arithmatex">\(y^2=x^3+ax\)</span> the proof here is the elementary one
+through Jacobsthal sums <span class="arithmatex">\(\varphi(a)=\sum_x\chi\bigl(x(x^2+a)\bigr)\)</span>: scaling
+<span class="arithmatex">\(\varphi(at^2)=\chi(t)\varphi(a)\)</span>, the shifted products <span class="arithmatex">\(\sum_a\chi((a+u)(a+v))\)</span> through the Jacobi
+sum <span class="arithmatex">\(J(\chi,\chi)=-\chi(-1)\)</span>, the second moment <span class="arithmatex">\(\sum_a\varphi(a)^2=q(q-1)(1+\chi(-1))\)</span>, and
+<span class="arithmatex">\(\varphi(a)^2\le4q\)</span> by averaging over the square class of <span class="arithmatex">\(a\)</span>. The documentation of the Lean proof here
+(<code>docs/research/p-side.md</code>, P4) cites B. C. Berndt, R. J. Evans and K. S. Williams, <em>Gauss and
+Jacobi Sums</em>, Wiley (1998), Chapter 6 (Jacobsthal sums), and K. Ireland and M. Rosen, <em>A Classical
+Introduction to Modern Number Theory</em>, 2nd ed., Graduate Texts in Mathematics 84, Springer (1990),
+Chapter 18 §3, for the evaluation <span class="arithmatex">\(a_p=\pm2a\)</span> when <span class="arithmatex">\(p=a^2+b^2\)</span>; <code>docs/research/p-side.md</code> (P4)
+marks both chapter numbers UNVERIFIED (written without network access), and neither locator was
+checked here. The same scaling and second moment over <span class="arithmatex">\(\mathbb F_p\)</span> are cited under
+<a href="density-locators.html#character-sums">Character sums</a> for the density chapter.</p>
+<p><code>docs/research/wk-cr3.md</code> §4.2 lists Hasse's bound for <span class="arithmatex">\(C_d\)</span> as an optional item of the plan, and
+the section on the L-series of an elliptic curve above records the absolute convergence of
+<span class="arithmatex">\(L(E,s)\)</span> on <span class="arithmatex">\(\operatorname{Re}s&gt;3/2\)</span> by Hasse's bound (STANDARD). For <span class="arithmatex">\(C_d\)</span> with odd squarefree
+<span class="arithmatex">\(d\)</span> both are proved here: <span class="arithmatex">\(|a_p|\le2\sqrt p\)</span>, then <span class="arithmatex">\(|a_{p^k}|\le(k+1)p^{k/2}\)</span> from the recursion
+<span class="arithmatex">\(a_{p^{k+2}}=a_pa_{p^{k+1}}-pa_{p^k}\)</span>, then <span class="arithmatex">\(|a_n|\le\sigma_0(n)\sqrt n\)</span>, and absolute convergence
+by comparison with <span class="arithmatex">\(\sum_n\sigma_0(n)n^{-(s-1/2)}\)</span>.</p>
+<h2 id="the-coefficients-of-the-congruent-number-curves-at-the-primes-3-mod-4">The coefficients of the congruent number curves at the primes 3 mod 4</h2>
+<p>For a prime <span class="arithmatex">\(p\equiv3\pmod4\)</span> with <span class="arithmatex">\(p\nmid2d\)</span>, <span class="arithmatex">\(\#C_d(\mathbb F_p)=p+1\)</span>, so <span class="arithmatex">\(a_p(C_d)=0\)</span> and the local factor of <span class="arithmatex">\(L(C_d,s)\)</span> is <span class="arithmatex">\((1+p^{1-2s})^{-1}\)</span>: the map
+<span class="arithmatex">\(x\mapsto-x\)</span> sends <span class="arithmatex">\(x^3-d^2x\)</span> to its negative and <span class="arithmatex">\(-1\)</span> is not a square in <span class="arithmatex">\(\mathbb F_p\)</span>, so the
+character sum <span class="arithmatex">\(\sum_x\chi(x^3-d^2x)\)</span> vanishes (STANDARD). No project note gives a locator for this
+fact. Koblitz, GTM 97, Chapter II (see the section on the L-series of the congruent number curves)
+and Ireland–Rosen, GTM 84, Chapter 18 are where it is expected; these locators were added here and
+not checked. <code>docs/research/wk-cr3.md</code> §4.2 lists it as the third item of the
+computation of <span class="arithmatex">\(L(C_d,s)\)</span>; it is proved here.</p>
 <h2 id="hecke-and-deuring">Hecke and Deuring</h2>
 <p><span class="arithmatex">\(C_d\)</span> has complex multiplication by <span class="arithmatex">\(\mathbb Z[i]\)</span>, so <span class="arithmatex">\(L(C_d,s)\)</span> is the L-function of a Hecke
 character of <span class="arithmatex">\(\mathbb Q(i)\)</span> (Deuring; Hecke), which is entire and satisfies a functional equation
@@ -2842,8 +2947,15 @@ AI agents with web access, 2026-11-12, did not read an original source for it: i
 functional equation is UNVERIFIED as a complete original-supplier audit).
 <code>docs/research/wk-cr3.md</code> §1.2 (item "Analytic continuation") and
 §4.3 (proving this here would need Hecke L-functions of <span class="arithmatex">\(\mathbb Q(i)\)</span> and Deuring's identification
-of <span class="arithmatex">\(L(C_d,s)\)</span>; out of reach); <code>docs/research/rv-lit.md</code> §1.1 (existence of the continuation for
-<span class="arithmatex">\(C_d\)</span>) and the row for Hecke's continuation in the table of §1.2 (true, STANDARD).</p>
+of <span class="arithmatex">\(L(C_d,s)\)</span>; written before the proof recorded below); <code>docs/research/rv-lit.md</code> §1.1 (existence
+of the continuation for <span class="arithmatex">\(C_d\)</span>) and the row for Hecke's continuation in the table of §1.2 (true,
+STANDARD).</p>
+<p>Both are proved here, with no hypotheses: Hecke's continuation for every <span class="arithmatex">\(d\ne0\)</span> and the functional
+equation for squarefree <span class="arithmatex">\(d\equiv5\pmod8\)</span>, from Gauss's point count of <span class="arithmatex">\(y^2=x^3-x\)</span>, itself proved
+(<code>docs/research/gauss-proof.md</code>, <code>docs/research/hecke-all.md</code>, <code>docs/research/contrib-tidy.md</code>).
+No human has reviewed these proofs; Lean's kernel checks them. The proofs follow Hecke's route,
+and the original sources above are still unread; see
+<a href="hecke-locators.html#the-hecke-section">the Hecke section</a>.</p>
 <h2 id="the-functional-equation-and-the-root-number">The functional equation and the root number</h2>
 <p>With <span class="arithmatex">\(\Lambda(s)=N^{s/2}(2\pi)^{-s}\Gamma(s)L(C_d,s)\)</span>, the functional equation is
 <span class="arithmatex">\(\Lambda(2-s)=w\Lambda(s)\)</span>, with conductor <span class="arithmatex">\(N=32d^2\)</span> for odd squarefree <span class="arithmatex">\(d\)</span> and root number <span class="arithmatex">\(w=-1\)</span>
@@ -2868,6 +2980,11 @@ points for <span class="arithmatex">\(d=5,13,21\)</span>) and §3.2 (PARI gives 
 <code>docs/research/wk-cr3.md</code>, the closing note (the adopted form holds on the strip only and
 suffices, since the proof uses <span class="arithmatex">\(s=1\)</span>), and its §3 row for the functional equation only as
 superseded: it calls the all-<span class="arithmatex">\(s\)</span> draft true; see rv-lit §1.2 and its repair N1.</p>
+<p>The functional equation on the strip, for squarefree <span class="arithmatex">\(d\equiv5\pmod8\)</span>, is proved here along
+Hecke's route, without reading the original sources; see
+<a href="hecke-locators.html#the-hecke-section">the Hecke section</a>. The proof gives the factor
+<span class="arithmatex">\((32d^2)^{s/2}\)</span> of the completed function; it does not compute the conductor. The audit gaps
+above concern the citation, not the proof.</p>
 <h2 id="reading-a-of-tian-yuan-zhang">Reading A of Tian-Yuan-Zhang</h2>
 <p>Theorem and proposition numbers are those of arXiv:1411.4728v1 (Theorem 3.5 is label <code>m3</code>), the
 version the project's notes read (<code>docs/research/nt-tyz.md</code> §1.1 and the numbering warning of §3).
@@ -2972,6 +3089,10 @@ for an abelian group with a height (Theorem VIII.3.1); heights on elliptic curve
 fields, with the naive height, the approximate parallelogram law and the finiteness of points of
 bounded height (§VIII.6); descent via two-isogeny for <span class="arithmatex">\(y^2=x^3+ax^2+bx\)</span> (Proposition X.4.9). No
 project note cites these numbers, and they were not checked.</p>
+<div class="bp-body-link-validation" hidden="hidden">
+<p><a href="density-locators.html#character-sums"> </a></p>
+<p><a href="hecke-locators.html#the-hecke-section"> </a></p>
+</div>
 </div>
 <p><link rel="stylesheet" href="../stylesheets/blueprint-dag.css" data-autoform-dag-style></p>
 <div class="bp-dag-viewer" data-catalog-src="../dependencies/index.json" data-graph-src="../dependencies.json" data-page-href="rank-locators.html" data-scope-id="roadmap">

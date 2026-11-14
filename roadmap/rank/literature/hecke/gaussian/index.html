@@ -1,0 +1,2985 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../theta/index.html">
+      
+      
+        <link rel="next" href="../gauss/index.html">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../../../assets/autoform.svg">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>The Hecke character ψ_d and its coefficients - Z is Diophantine in Q</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Plus+Jakarta+Sans:300,300i,400,400i,700,700i%7CJetBrains+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Plus Jakarta Sans";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../../stylesheets/blueprint.css">
+    
+    <script>__md_scope=new URL("../../../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../../../../index.html" title="Z is Diophantine in Q" class="md-header__button md-logo" aria-label="Z is Diophantine in Q" data-md-component="logo">
+      
+  <img src="../../../../../assets/autoform.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Z is Diophantine in Q
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              The Hecke character ψ_d and its coefficients
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Use dark theme"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Use dark theme" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Use light theme"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Use light theme" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/Deicyde/diophantine-z-q" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../../../index.html" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../../../index.html" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Mathematics
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../../../../index.html" title="Z is Diophantine in Q" class="md-nav__button md-logo" aria-label="Z is Diophantine in Q" data-md-component="logo">
+      
+  <img src="../../../../../assets/autoform.svg" alt="logo">
+
+    </a>
+    Z is Diophantine in Q
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/Deicyde/diophantine-z-q" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Mathematics
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Mathematics
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../../index.html" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Z is Diophantine in Q
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_1" id="__nav_2_1_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_1_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Z is Diophantine in Q
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../../../main/index.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The main theorem and its hypotheses
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../../../syntax/index.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The finite specification of the polynomial
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../../../model/index.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The elliptic model of integer indices
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../../../multiplication/index.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Multiplication and the finite false-triple guard
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../../../compiler/index.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Exact precision computation and polynomial compilation
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../../../assembly/index.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Assembly and the ordinary-value relation
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../../../size/index.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The cutoff and polynomial size
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../../../progressions/index.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Primes in arithmetic progressions
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../route-k/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Pole completeness from certified rank (Route K)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../route-ap/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Route AP: progressions of good primes in place of the prime pattern
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../green-tao/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Szemerédi&#39;s theorem in the primes (Green–Tao)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../density/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Proposition D: the density of good slope primes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../selmer/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Proposition 0: the explicit system is the 2-Selmer group
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../../../rank-5b/index.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The row-5b determinant
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../../../redei/index.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Rédei&#39;s formula for the 4-rank of class groups
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1_17" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../index.html" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The rank hypothesis as positive rank
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_1_17" id="__nav_2_1_17_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_1_17_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_1_17">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    The rank hypothesis as positive rank
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../two-descent/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The complete 2-descent on a congruent number curve
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../mordell-weil/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Mordell–Weil by two-isogeny descent
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1_17_4" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../index.html" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CR₃^TYZ&#95;Cl,Rk from three literature statements
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_1_17_4" id="__nav_2_1_17_4_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="4" aria-labelledby="__nav_2_1_17_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_1_17_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    CR₃^TYZ&#95;Cl,Rk from three literature statements
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../l-function-cd/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The L-series of the congruent number curves, computed
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1_17_4_3" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../index.html" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hecke&#39;s continuation and the functional equation, proved
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_1_17_4_3" id="__nav_2_1_17_4_3_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="5" aria-labelledby="__nav_2_1_17_4_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_1_17_4_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Hecke&#39;s continuation and the functional equation, proved
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../theta/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Theta series of ℤ&#91;i&#93; and Hecke&#39;s continuation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+      <a href="index.html" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The Hecke character ψ&#95;d and its coefficients
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../gauss/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Gauss&#39;s point count on y²=x³-x
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../deuring/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deuring&#39;s identity for C&#95;d
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../fourier/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The Fourier identity for the Hecke character
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../every-d/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The L-series of C&#95;d for every d ≠ 0
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../two-curves/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The rank hypothesis on the two curves of a slot choice
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../infinitely-many-points/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The rank hypotheses as infinitely many rational points
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../coverage/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Coverage contract
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../../../../sources/index.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Sources
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<div class="bp-explorer-page">
+<div class="bp-reading-source" data-autoform-node-id="rank/literature/hecke/gaussian" data-page-title="The Hecke character ψ_d and its coefficients">
+<h1 id="the-hecke-character-psi_d-and-its-coefficients">The Hecke character <span class="arithmatex">\(\psi_d\)</span> and its coefficients</h1>
+<p>This subsection is about the Gaussian integers, with one exception: the vanishing of <span class="arithmatex">\(\lambda_d(p)\)</span>
+at the primes <span class="arithmatex">\(p\mid2d\)</span> is read off from Deuring's identity at those primes. For a natural number
+<span class="arithmatex">\(d\)</span>, the Hecke character <span class="arithmatex">\(\psi_d\)</span> is <span class="arithmatex">\(\psi_d(\alpha)=\left(\frac{N(\alpha)}d\right)u(\alpha)\,\alpha\)</span> on <span class="arithmatex">\(\mathbb Z[i]\)</span>,
+where <span class="arithmatex">\(u(\alpha)\)</span> is a unit read off <span class="arithmatex">\(\alpha\)</span> modulo <span class="arithmatex">\(4\)</span> (the primary unit, <span class="arithmatex">\(0\)</span> when <span class="arithmatex">\(1+i\)</span> divides
+<span class="arithmatex">\(\alpha\)</span>). It is completely multiplicative and takes the value <span class="arithmatex">\(1\)</span> on the four units, so the
+coefficients <span class="arithmatex">\(\lambda_d(n)=\frac14\sum_{N(\alpha)=n}\psi_d(\alpha)\)</span> are a sum over the ideals of
+norm <span class="arithmatex">\(n\)</span>. For squarefree <span class="arithmatex">\(d\equiv1\pmod4\)</span> its coefficients are those of <span class="arithmatex">\(C_d\)</span>
+(<a href="../deuring/index.html#deuring-from-gauss-count">Deuring's identity</a>).</p>
+<p>These coefficients are multiplicative, by counting the factorizations <span class="arithmatex">\(\gamma=\alpha\beta\)</span> with
+<span class="arithmatex">\(N(\alpha)=m\)</span>, <span class="arithmatex">\(N(\beta)=n\)</span> for coprime <span class="arithmatex">\(m,n\)</span>. At a prime <span class="arithmatex">\(p\equiv1\pmod4\)</span> that does not divide
+<span class="arithmatex">\(d\)</span>, the factorization <span class="arithmatex">\(p=\pi\bar\pi\)</span> into two non-associate Gaussian primes gives the Hecke relation
+<span class="arithmatex">\(\lambda_d(p^{k+2})=\lambda_d(p)\lambda_d(p^{k+1})-p\lambda_d(p^k)\)</span>; at a prime <span class="arithmatex">\(p\equiv3\pmod4\)</span>
+not dividing <span class="arithmatex">\(d\)</span>, the elements of norm <span class="arithmatex">\(p^{k+2}\)</span> are <span class="arithmatex">\(p\)</span> times those of norm <span class="arithmatex">\(p^k\)</span>, which gives
+<span class="arithmatex">\(\lambda_d(p^{k+2})=-p\lambda_d(p^k)\)</span>; and at <span class="arithmatex">\(2\)</span> and at the primes dividing <span class="arithmatex">\(d\)</span> the coefficients of
+the prime powers vanish. Together, for odd squarefree <span class="arithmatex">\(d\)</span>, the coefficients are those of an Euler
+product with local factors <span class="arithmatex">\((1-\lambda_d(p)T+pT^2)^{-1}\)</span> at <span class="arithmatex">\(p\nmid2d\)</span> and <span class="arithmatex">\(1\)</span> at <span class="arithmatex">\(p\mid2d\)</span>.</p>
+<p>Throughout, a pair <span class="arithmatex">\((a,b)\in\mathbb Z^2\)</span> is also the Gaussian integer <span class="arithmatex">\(a+bi\)</span>, with norm
+<span class="arithmatex">\(N(a,b)=a^2+b^2\)</span>; <span class="arithmatex">\(A_n\)</span> is the set of Gaussian integers of norm <span class="arithmatex">\(n\)</span>; and <span class="arithmatex">\(\left(\frac an\right)\)</span> is
+the Jacobi symbol as in <a href="#hecke-character">the Hecke character</a>.</p>
+<div class="bp-thmwrapper theorem-style-definition bp-fully_proved" data-autoform-node-id="rank/literature/hecke/gaussian/norm-fibres">
+<h4 class="bp-thmheading" id="norm-fibres">
+<span class="bp-thmcaption" data-search-exclude>Definition</span><span class="bp-thmtitle">Gaussian integers as pairs, norms and units</span><span class="bp-code-links"><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/8ec807114805afd96d90c468ec2cf40c6f9cc634/ZInQKernel/Contrib/HeckeFE/Basic.lean#L386" aria-label="View ZInQ.Contrib.HeckeFE.normFiber in Lean source" title="View ZInQ.Contrib.HeckeFE.normFiber in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/8ec807114805afd96d90c468ec2cf40c6f9cc634/ZInQKernel/Contrib/HeckeFE/Basic.lean#L390" aria-label="View ZInQ.Contrib.HeckeFE.mem_normFiber in Lean source" title="View ZInQ.Contrib.HeckeFE.mem_normFiber in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/8ec807114805afd96d90c468ec2cf40c6f9cc634/ZInQKernel/Contrib/HeckeFE/Basic.lean#L1089" aria-label="View ZInQ.Contrib.HeckeFE.gmul in Lean source" title="View ZInQ.Contrib.HeckeFE.gmul in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/8ec807114805afd96d90c468ec2cf40c6f9cc634/ZInQKernel/Contrib/HeckeFE/Basic.lean#L2197" aria-label="View ZInQ.Contrib.HeckeFE.toG in Lean source" title="View ZInQ.Contrib.HeckeFE.toG in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/8ec807114805afd96d90c468ec2cf40c6f9cc634/ZInQKernel/Contrib/HeckeFE/Basic.lean#L2199" aria-label="View ZInQ.Contrib.HeckeFE.norm_toG in Lean source" title="View ZInQ.Contrib.HeckeFE.norm_toG in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/8ec807114805afd96d90c468ec2cf40c6f9cc634/ZInQKernel/Contrib/HeckeFE/Basic.lean#L2202" aria-label="View ZInQ.Contrib.HeckeFE.toG_gmul in Lean source" title="View ZInQ.Contrib.HeckeFE.toG_gmul in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/8ec807114805afd96d90c468ec2cf40c6f9cc634/ZInQKernel/Contrib/HeckeFE/Basic.lean#L2205" aria-label="View ZInQ.Contrib.HeckeFE.toG_injective in Lean source" title="View ZInQ.Contrib.HeckeFE.toG_injective in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/8ec807114805afd96d90c468ec2cf40c6f9cc634/ZInQKernel/Contrib/HeckeFE/Basic.lean#L2210" aria-label="View ZInQ.Contrib.HeckeFE.toG_surj in Lean source" title="View ZInQ.Contrib.HeckeFE.toG_surj in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/8ec807114805afd96d90c468ec2cf40c6f9cc634/ZInQKernel/Contrib/HeckeFE/Basic.lean#L2389" aria-label="View ZInQ.Contrib.HeckeFE.gmul_mem_normFiber in Lean source" title="View ZInQ.Contrib.HeckeFE.gmul_mem_normFiber in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/8ec807114805afd96d90c468ec2cf40c6f9cc634/ZInQKernel/Contrib/HeckeFE/Basic.lean#L2289" aria-label="View ZInQ.Contrib.HeckeFE.unitsZ in Lean source" title="View ZInQ.Contrib.HeckeFE.unitsZ in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/8ec807114805afd96d90c468ec2cf40c6f9cc634/ZInQKernel/Contrib/HeckeFE/Basic.lean#L2674" aria-label="View ZInQ.Contrib.HeckeFE.card_unitsZ in Lean source" title="View ZInQ.Contrib.HeckeFE.card_unitsZ in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/8ec807114805afd96d90c468ec2cf40c6f9cc634/ZInQKernel/Contrib/HeckeFE/Basic.lean#L1935" aria-label="View ZInQ.Contrib.HeckeFE.normFiber_one in Lean source" title="View ZInQ.Contrib.HeckeFE.normFiber_one in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/8ec807114805afd96d90c468ec2cf40c6f9cc634/ZInQKernel/Contrib/HeckeFE/Basic.lean#L2292" aria-label="View ZInQ.Contrib.HeckeFE.conjZ in Lean source" title="View ZInQ.Contrib.HeckeFE.conjZ in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/8ec807114805afd96d90c468ec2cf40c6f9cc634/ZInQKernel/Contrib/HeckeFE/Basic.lean#L2302" aria-label="View ZInQ.Contrib.HeckeFE.toG_conjZ in Lean source" title="View ZInQ.Contrib.HeckeFE.toG_conjZ in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/8ec807114805afd96d90c468ec2cf40c6f9cc634/ZInQKernel/Contrib/HeckeFE/Basic.lean#L2294" aria-label="View ZInQ.Contrib.HeckeFE.unitsZ_props in Lean source" title="View ZInQ.Contrib.HeckeFE.unitsZ_props in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/8ec807114805afd96d90c468ec2cf40c6f9cc634/ZInQKernel/Contrib/HeckeFE/Basic.lean#L2213" aria-label="View ZInQ.Contrib.HeckeFE.norm_eq_one_cases in Lean source" title="View ZInQ.Contrib.HeckeFE.norm_eq_one_cases in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/8ec807114805afd96d90c468ec2cf40c6f9cc634/ZInQKernel/Contrib/HeckeFE/Basic.lean#L2439" aria-label="View ZInQ.Contrib.HeckeFE.isUnit_of_norm_one in Lean source" title="View ZInQ.Contrib.HeckeFE.isUnit_of_norm_one in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/8ec807114805afd96d90c468ec2cf40c6f9cc634/ZInQKernel/Contrib/HeckeFE/Basic.lean#L2512" aria-label="View ZInQ.Contrib.HeckeFE.unit_mem_unitsZ in Lean source" title="View ZInQ.Contrib.HeckeFE.unit_mem_unitsZ in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/8ec807114805afd96d90c468ec2cf40c6f9cc634/ZInQKernel/Contrib/HeckeFE/Basic.lean#L2519" aria-label="View ZInQ.Contrib.HeckeFE.norm_unitsZ in Lean source" title="View ZInQ.Contrib.HeckeFE.norm_unitsZ in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a></span><a class="bp-source-link" href="https://github.com/Deicyde/diophantine-z-q/blob/8ec807114805afd96d90c468ec2cf40c6f9cc634/blueprint/roadmap/rank/literature/hecke/gaussian/norm-fibres.md" aria-label="Edit the Markdown source for Gaussian integers as pairs, norms and units" title="Edit the Markdown source for Gaussian integers as pairs, norms and units"><svg class="bp-source-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4h9l7 7v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M13 4v7h7"/></svg></a><a class="bp-permalink" href="#norm-fibres" aria-label="Link to Gaussian integers as pairs, norms and units" data-search-exclude>#</a><span class="bp-mark" title="fully proved" data-search-exclude>✓<span class="bp-mark-label">fully proved</span></span>
+</h4>
+<div class="bp-search-names" hidden="hidden">ZInQ.Contrib.HeckeFE.normFiber ZInQ.Contrib.HeckeFE.mem_normFiber ZInQ.Contrib.HeckeFE.gmul ZInQ.Contrib.HeckeFE.toG ZInQ.Contrib.HeckeFE.norm_toG ZInQ.Contrib.HeckeFE.toG_gmul ZInQ.Contrib.HeckeFE.toG_injective ZInQ.Contrib.HeckeFE.toG_surj ZInQ.Contrib.HeckeFE.gmul_mem_normFiber ZInQ.Contrib.HeckeFE.unitsZ ZInQ.Contrib.HeckeFE.card_unitsZ ZInQ.Contrib.HeckeFE.normFiber_one ZInQ.Contrib.HeckeFE.conjZ ZInQ.Contrib.HeckeFE.toG_conjZ ZInQ.Contrib.HeckeFE.unitsZ_props ZInQ.Contrib.HeckeFE.norm_eq_one_cases ZInQ.Contrib.HeckeFE.isUnit_of_norm_one ZInQ.Contrib.HeckeFE.unit_mem_unitsZ ZInQ.Contrib.HeckeFE.norm_unitsZ</div>
+<div class="bp-thmcontent">
+<p>A pair <span class="arithmatex">\((a,b)\in\mathbb Z^2\)</span> stands for the Gaussian integer <span class="arithmatex">\(a+bi\in\mathbb Z[i]\)</span>. The <em>product</em> of
+pairs is <span class="arithmatex">\((a,b)(c,e)=(ac-be,\,ae+bc)\)</span>, the <em>conjugate</em> of <span class="arithmatex">\((a,b)\)</span> is <span class="arithmatex">\((a,-b)\)</span>, and the <em>norm</em> is
+<span class="arithmatex">\(N(a,b)=a^2+b^2\)</span>. For a natural number <span class="arithmatex">\(n\)</span>, the <em>norm fibre</em> <span class="arithmatex">\(A_n\)</span> is the finite set of pairs of
+norm <span class="arithmatex">\(n\)</span> (all of them have both coordinates in <span class="arithmatex">\([-n,n]\)</span>). The <em>units</em> are the four pairs
+<span class="arithmatex">\(U=\{(1,0),(-1,0),(0,1),(0,-1)\}\)</span>.</p>
+<ol>
+<li>A pair lies in <span class="arithmatex">\(A_n\)</span> exactly when its norm is <span class="arithmatex">\(n\)</span>. <span class="arithmatex">\(U\)</span> has four elements and <span class="arithmatex">\(A_1=U\)</span>.</li>
+<li>The map <span class="arithmatex">\((a,b)\mapsto a+bi\)</span> from <span class="arithmatex">\(\mathbb Z^2\)</span> to <span class="arithmatex">\(\mathbb Z[i]\)</span> is a bijection; it carries the
+   product of pairs to the product, the conjugate to the complex conjugate, and <span class="arithmatex">\(N(a,b)\)</span> to the norm
+   of <span class="arithmatex">\(a+bi\)</span>.</li>
+<li>If <span class="arithmatex">\(\alpha\in A_m\)</span> and <span class="arithmatex">\(\beta\in A_n\)</span>, then <span class="arithmatex">\(\alpha\beta\in A_{mn}\)</span>.</li>
+<li>For <span class="arithmatex">\(e\in U\)</span>: <span class="arithmatex">\(e\bar e=1\)</span>, <span class="arithmatex">\(\bar e\in U\)</span>, <span class="arithmatex">\(\bar{\bar e}=e\)</span> and <span class="arithmatex">\(N(e)=1\)</span>.</li>
+<li>If <span class="arithmatex">\(a^2+b^2=1\)</span>, then <span class="arithmatex">\((a,b)\in U\)</span>. A Gaussian integer of norm <span class="arithmatex">\(1\)</span> is a unit of <span class="arithmatex">\(\mathbb Z[i]\)</span>,
+   and its pair lies in <span class="arithmatex">\(U\)</span>; the elements of <span class="arithmatex">\(U\)</span> have norm <span class="arithmatex">\(1\)</span> in <span class="arithmatex">\(\mathbb Z[i]\)</span>.</li>
+</ol>
+<p><strong>Proof sketch.</strong> (1)–(4) are direct computations; <span class="arithmatex">\(A_1=U\)</span> by listing the pairs in <span class="arithmatex">\([-1,1]^2\)</span>.
+(5) <span class="arithmatex">\(a^2+b^2=1\)</span> forces <span class="arithmatex">\(\{|a|,|b|\}=\{0,1\}\)</span>; a Gaussian integer <span class="arithmatex">\(x\)</span> of norm <span class="arithmatex">\(1\)</span> satisfies
+<span class="arithmatex">\(x\bar x=1\)</span>.</p>
+</div>
+<div class="bp-lean-source">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> normFiber (n : ℕ) : Finset (ℤ × ℤ) :=
+  ((Finset.Icc (-(n : ℤ)) n) ×ˢ (Finset.Icc (-(n : ℤ)) n)).filter
+    (<span class="bp-lean-keyword">fun</span> p =&gt; p.1 ^ 2 + p.2 ^ 2 = n)</code></pre>
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> mem_normFiber {n : ℕ} {p : ℤ × ℤ} : p ∈ <a class="bp-lean-ref" href="#norm-fibres" data-lean-name="ZInQ.Contrib.HeckeFE.normFiber">normFiber</a> n ↔ p.1 ^ 2 + p.2 ^ 2 = n</code></pre>
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> gmul (p q : ℤ × ℤ) : ℤ × ℤ := (p.1 * q.1 - p.2 * q.2, p.1 * q.2 + p.2 * q.1)</code></pre>
+<div class="bp-lean-names" hidden="hidden">
+<div data-lean-name="ZInQ.Contrib.HeckeFE.normFiber">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> normFiber (n : ℕ) : Finset (ℤ × ℤ) :=
+  ((Finset.Icc (-(n : ℤ)) n) ×ˢ (Finset.Icc (-(n : ℤ)) n)).filter
+    (<span class="bp-lean-keyword">fun</span> p =&gt; p.1 ^ 2 + p.2 ^ 2 = n)</code></pre>
+<p class="bp-lean-where">ZInQKernel/Contrib/HeckeFE/Basic.lean:386</p>
+</div>
+</div>
+</div>
+<div class="bp-thmnotes">
+<div class="bp-notes-heading">
+<h6 id="sources">Sources</h6>
+</div>
+<div class="bp-search-text" hidden="hidden">Sources</div>
+<ul>
+<li><a href="../../../../../sources/hecke-locators.html#arithmetic-of-the-gaussian-integers">Arithmetic of the Gaussian integers</a></li>
+</ul>
+</div>
+<details class="bp-dependencies">
+<summary>Used by 9</summary>
+<div class="bp-dependency-body">
+<div class="bp-row"><span class="bp-key">Used by</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../every-d/index.html#continuation-squarefree">The continuation of <span class="arithmatex">\(L(C_d,s)\)</span> for every squarefree <span class="arithmatex">\(d\)</span>, from Gauss&#x27;s point count</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../gauss/index.html#gauss-point-count">Gauss&#x27;s point count on <span class="arithmatex">\(y^2=x^3-x\)</span></a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#hecke-character">The Hecke character <span class="arithmatex">\(\psi_d\)</span></a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#hecke-coefficients">The coefficients of the Hecke L-series <span class="arithmatex">\(L(\psi_d,s)\)</span></a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#hecke-multiplicative">The Hecke coefficients are multiplicative</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#norm-fibres-coprime">Factoring a Gaussian integer along coprime norms</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#norm-fibres-primes">Gaussian integers whose norm is a prime power</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#norm-fibres-split">The Gaussian primes above a split prime</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../theta/index.html#twisted-series">Periodic twists of the lattice series and their continuation</a></span></div>
+</div>
+</details>
+</div>
+<div class="bp-thmwrapper theorem-style-plain bp-fully_proved" data-autoform-node-id="rank/literature/hecke/gaussian/norm-fibres-coprime">
+<h4 class="bp-thmheading" id="norm-fibres-coprime">
+<span class="bp-thmcaption" data-search-exclude>Theorem</span><span class="bp-thmtitle">Factoring a Gaussian integer along coprime norms</span><span class="bp-code-links"><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/8ec807114805afd96d90c468ec2cf40c6f9cc634/ZInQKernel/Contrib/HeckeFE/Basic.lean#L2228" aria-label="View ZInQ.Contrib.HeckeFE.norm_gcd_eq in Lean source" title="View ZInQ.Contrib.HeckeFE.norm_gcd_eq in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/8ec807114805afd96d90c468ec2cf40c6f9cc634/ZInQKernel/Contrib/HeckeFE/Basic.lean#L2306" aria-label="View ZInQ.Contrib.HeckeFE.card_mul_fiber in Lean source" title="View ZInQ.Contrib.HeckeFE.card_mul_fiber in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a></span><a class="bp-source-link" href="https://github.com/Deicyde/diophantine-z-q/blob/8ec807114805afd96d90c468ec2cf40c6f9cc634/blueprint/roadmap/rank/literature/hecke/gaussian/norm-fibres-coprime.md" aria-label="Edit the Markdown source for Factoring a Gaussian integer along coprime norms" title="Edit the Markdown source for Factoring a Gaussian integer along coprime norms"><svg class="bp-source-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4h9l7 7v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M13 4v7h7"/></svg></a><a class="bp-permalink" href="#norm-fibres-coprime" aria-label="Link to Factoring a Gaussian integer along coprime norms" data-search-exclude>#</a><span class="bp-mark" title="fully proved" data-search-exclude>✓<span class="bp-mark-label">fully proved</span></span>
+</h4>
+<div class="bp-search-names" hidden="hidden">ZInQ.Contrib.HeckeFE.norm_gcd_eq ZInQ.Contrib.HeckeFE.card_mul_fiber</div>
+<div class="bp-thmcontent">
+<p>Let <span class="arithmatex">\(m,n&gt;0\)</span> be coprime natural numbers. Pairs and Gaussian integers are identified as in
+<a href="#norm-fibres">Gaussian integers as pairs</a>, and <span class="arithmatex">\(\gcd\)</span> in <span class="arithmatex">\(\mathbb Z[i]\)</span> is the greatest common
+divisor computed by the Euclidean algorithm.</p>
+<ol>
+<li>If <span class="arithmatex">\(\gamma\in\mathbb Z[i]\)</span> has norm <span class="arithmatex">\(mn\)</span>, then <span class="arithmatex">\(N(\gcd(\gamma,m))=m\)</span>.</li>
+<li>For every <span class="arithmatex">\(y\in A_{mn}\)</span> there are exactly four pairs <span class="arithmatex">\((\alpha,\beta)\in A_m\times A_n\)</span> with
+   <span class="arithmatex">\(\alpha\beta=y\)</span>.</li>
+</ol>
+<p><strong>Proof sketch.</strong> (1) Let <span class="arithmatex">\(D=\gcd(\gamma,m)\)</span> and <span class="arithmatex">\(E=\gcd(\gamma,n)\)</span>. Since <span class="arithmatex">\(D\)</span> divides <span class="arithmatex">\(m\)</span> and
+<span class="arithmatex">\(\gamma\)</span>, <span class="arithmatex">\(N(D)\)</span> divides <span class="arithmatex">\(m^2\)</span> and <span class="arithmatex">\(mn\)</span>, hence <span class="arithmatex">\(m\)</span> by coprimality; likewise <span class="arithmatex">\(N(E)\)</span> divides <span class="arithmatex">\(n\)</span>.
+Writing <span class="arithmatex">\(D\)</span> and <span class="arithmatex">\(E\)</span> as <span class="arithmatex">\(\mathbb Z[i]\)</span>-combinations of <span class="arithmatex">\(\gamma,m\)</span> and of <span class="arithmatex">\(\gamma,n\)</span> and using
+<span class="arithmatex">\(mn=\gamma\bar\gamma\)</span> shows <span class="arithmatex">\(\gamma\mid DE\)</span>, so <span class="arithmatex">\(mn\mid N(D)N(E)\)</span>. With <span class="arithmatex">\(N(D)\le m\)</span> and <span class="arithmatex">\(N(E)\le n\)</span>
+this forces <span class="arithmatex">\(N(D)N(E)=mn\)</span>; if <span class="arithmatex">\(N(D)&lt;m\)</span>, then <span class="arithmatex">\(N(D)N(E)&lt;mn\)</span>.</p>
+<p>(2) Let <span class="arithmatex">\(D=\gcd(y,m)\)</span>, so <span class="arithmatex">\(N(D)=m\)</span> by (1), and <span class="arithmatex">\(Q=y/D\)</span>, so <span class="arithmatex">\(N(Q)=n\)</span>. For each unit <span class="arithmatex">\(e\)</span>, the pair
+<span class="arithmatex">\((eD,\bar eQ)\)</span> is a solution, and distinct units give distinct solutions since <span class="arithmatex">\(D\ne0\)</span>. Conversely,
+if <span class="arithmatex">\(\alpha\beta=y\)</span> with <span class="arithmatex">\(N(\alpha)=m\)</span>, then <span class="arithmatex">\(\alpha\mid m\)</span> (as <span class="arithmatex">\(\alpha\bar\alpha=m\)</span>) and
+<span class="arithmatex">\(\alpha\mid y\)</span>, so <span class="arithmatex">\(D=\alpha c\)</span> with <span class="arithmatex">\(N(c)=1\)</span>: <span class="arithmatex">\(c\)</span> is a unit, <span class="arithmatex">\(\alpha=D\bar c\)</span> and <span class="arithmatex">\(\beta=cQ\)</span>.</p>
+<div class="bp-body-link-validation" hidden="hidden">
+<p><a href="#norm-fibres"> </a></p>
+</div>
+</div>
+<div class="bp-lean-source">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> norm_gcd_eq {γ : GaussianInt} {m n : ℕ} (hm : 0 &lt; m) (hn : 0 &lt; n) (hmn : Nat.Coprime m n)
+    (hγ : γ.norm = (m * n : ℕ)) :
+    (EuclideanDomain.gcd γ (m : GaussianInt)).norm = m</code></pre>
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> card_mul_fiber {m n : ℕ} (hm : 0 &lt; m) (hn : 0 &lt; n) (hmn : Nat.Coprime m n)
+    {y : ℤ × ℤ} (hy : y ∈ <a class="bp-lean-ref" href="#norm-fibres" data-lean-name="ZInQ.Contrib.HeckeFE.normFiber">normFiber</a> (m * n)) :
+    ((<a class="bp-lean-ref" href="#norm-fibres" data-lean-name="ZInQ.Contrib.HeckeFE.normFiber">normFiber</a> m ×ˢ <a class="bp-lean-ref" href="#norm-fibres" data-lean-name="ZInQ.Contrib.HeckeFE.normFiber">normFiber</a> n).filter <span class="bp-lean-keyword">fun</span> x =&gt; <a class="bp-lean-ref" href="#norm-fibres" data-lean-name="ZInQ.Contrib.HeckeFE.gmul">gmul</a> x.1 x.2 = y).card = 4</code></pre>
+<div class="bp-lean-names" hidden="hidden">
+<div data-lean-name="ZInQ.Contrib.HeckeFE.normFiber">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> normFiber (n : ℕ) : Finset (ℤ × ℤ) :=
+  ((Finset.Icc (-(n : ℤ)) n) ×ˢ (Finset.Icc (-(n : ℤ)) n)).filter
+    (<span class="bp-lean-keyword">fun</span> p =&gt; p.1 ^ 2 + p.2 ^ 2 = n)</code></pre>
+<p class="bp-lean-where">ZInQKernel/Contrib/HeckeFE/Basic.lean:386</p>
+</div>
+<div data-lean-name="ZInQ.Contrib.HeckeFE.gmul">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> gmul (p q : ℤ × ℤ) : ℤ × ℤ := (p.1 * q.1 - p.2 * q.2, p.1 * q.2 + p.2 * q.1)</code></pre>
+<p class="bp-lean-where">ZInQKernel/Contrib/HeckeFE/Basic.lean:1089</p>
+</div>
+</div>
+</div>
+<div class="bp-thmnotes">
+<div class="bp-notes-heading">
+<h6 id="sources_1">Sources</h6>
+</div>
+<div class="bp-search-text" hidden="hidden">Sources</div>
+<ul>
+<li><a href="../../../../../sources/hecke-locators.html#arithmetic-of-the-gaussian-integers">Arithmetic of the Gaussian integers</a></li>
+</ul>
+<div class="bp-body-link-validation" hidden="hidden">
+<p><a href="../../../../../sources/hecke-locators.html#arithmetic-of-the-gaussian-integers"> </a></p>
+</div>
+</div>
+<details class="bp-dependencies">
+<summary>Uses 1 · Used by 1</summary>
+<div class="bp-dependency-body">
+<div class="bp-row"><span class="bp-key">Statement uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#norm-fibres">Gaussian integers as pairs, norms and units</a></span></div>
+<div class="bp-row"><span class="bp-key">Used by</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#hecke-multiplicative">The Hecke coefficients are multiplicative</a></span></div>
+</div>
+</details>
+</div>
+<div class="bp-thmwrapper theorem-style-plain bp-fully_proved" data-autoform-node-id="rank/literature/hecke/gaussian/norm-fibres-primes">
+<h4 class="bp-thmheading" id="norm-fibres-primes">
+<span class="bp-thmcaption" data-search-exclude>Theorem</span><span class="bp-thmtitle">Gaussian integers whose norm is a prime power</span><span class="bp-code-links"><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/8ec807114805afd96d90c468ec2cf40c6f9cc634/ZInQKernel/Contrib/HeckeFE/Basic.lean#L894" aria-label="View ZInQ.Contrib.HeckeFE.normFiber_eq_empty_of_mod_four_eq_three in Lean source" title="View ZInQ.Contrib.HeckeFE.normFiber_eq_empty_of_mod_four_eq_three in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/8ec807114805afd96d90c468ec2cf40c6f9cc634/ZInQKernel/Contrib/HeckeFE/Basic.lean#L2073" aria-label="View ZInQ.Contrib.HeckeFE.dvd_of_dvd_sq_add_sq in Lean source" title="View ZInQ.Contrib.HeckeFE.dvd_of_dvd_sq_add_sq in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/8ec807114805afd96d90c468ec2cf40c6f9cc634/ZInQKernel/Contrib/HeckeFE/Basic.lean#L2087" aria-label="View ZInQ.Contrib.HeckeFE.normFiber_inert in Lean source" title="View ZInQ.Contrib.HeckeFE.normFiber_inert in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/8ec807114805afd96d90c468ec2cf40c6f9cc634/ZInQKernel/Contrib/HeckeFE/Basic.lean#L2443" aria-label="View ZInQ.Contrib.HeckeFE.prime_of_norm_prime in Lean source" title="View ZInQ.Contrib.HeckeFE.prime_of_norm_prime in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/8ec807114805afd96d90c468ec2cf40c6f9cc634/ZInQKernel/Contrib/HeckeFE/Basic.lean#L2480" aria-label="View ZInQ.Contrib.HeckeFE.sum_mul_bij in Lean source" title="View ZInQ.Contrib.HeckeFE.sum_mul_bij in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a></span><a class="bp-source-link" href="https://github.com/Deicyde/diophantine-z-q/blob/8ec807114805afd96d90c468ec2cf40c6f9cc634/blueprint/roadmap/rank/literature/hecke/gaussian/norm-fibres-primes.md" aria-label="Edit the Markdown source for Gaussian integers whose norm is a prime power" title="Edit the Markdown source for Gaussian integers whose norm is a prime power"><svg class="bp-source-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4h9l7 7v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M13 4v7h7"/></svg></a><a class="bp-permalink" href="#norm-fibres-primes" aria-label="Link to Gaussian integers whose norm is a prime power" data-search-exclude>#</a><span class="bp-mark" title="fully proved" data-search-exclude>✓<span class="bp-mark-label">fully proved</span></span>
+</h4>
+<div class="bp-search-names" hidden="hidden">ZInQ.Contrib.HeckeFE.normFiber_eq_empty_of_mod_four_eq_three ZInQ.Contrib.HeckeFE.dvd_of_dvd_sq_add_sq ZInQ.Contrib.HeckeFE.normFiber_inert ZInQ.Contrib.HeckeFE.prime_of_norm_prime ZInQ.Contrib.HeckeFE.sum_mul_bij</div>
+<div class="bp-thmcontent">
+<p>Notation of <a href="#norm-fibres">Gaussian integers as pairs</a>: <span class="arithmatex">\(A_n\)</span> is the set of Gaussian integers of
+norm <span class="arithmatex">\(n\)</span>.</p>
+<ol>
+<li>If <span class="arithmatex">\(n\equiv3\pmod4\)</span>, then <span class="arithmatex">\(A_n\)</span> is empty.</li>
+<li>Let <span class="arithmatex">\(p\equiv3\pmod4\)</span> be prime. If <span class="arithmatex">\(p\mid a^2+b^2\)</span> for integers <span class="arithmatex">\(a,b\)</span>, then <span class="arithmatex">\(p\mid a\)</span> and
+   <span class="arithmatex">\(p\mid b\)</span>. For every <span class="arithmatex">\(k\ge0\)</span>, <span class="arithmatex">\(A_{p^{k+2}}=\{p\beta:\beta\in A_{p^k}\}\)</span>.</li>
+<li>A Gaussian integer whose norm is a prime number is a prime element of <span class="arithmatex">\(\mathbb Z[i]\)</span>.</li>
+<li>Let <span class="arithmatex">\(p&gt;0\)</span> be a natural number, <span class="arithmatex">\(z\)</span> a Gaussian integer of norm <span class="arithmatex">\(p\)</span>, <span class="arithmatex">\(n\)</span> a natural number and
+   <span class="arithmatex">\(f:\mathbb Z^2\to\mathbb C\)</span>. Then
+   $<span class="arithmatex">\(\sum_{\beta\in A_n}f(z\beta)=\sum_{\gamma\in A_{pn},\ z\mid\gamma}f(\gamma).\)</span>$</li>
+</ol>
+<p><strong>Proof sketch.</strong> (1) Squares are <span class="arithmatex">\(0\)</span> or <span class="arithmatex">\(1\)</span> modulo <span class="arithmatex">\(4\)</span>, so <span class="arithmatex">\(a^2+b^2\not\equiv3\)</span>.</p>
+<p>(2) If <span class="arithmatex">\(p\nmid b\)</span>, then <span class="arithmatex">\((ab^{-1})^2\equiv-1\pmod p\)</span>, but <span class="arithmatex">\(-1\)</span> is not a square modulo a prime
+<span class="arithmatex">\(p\equiv3\pmod4\)</span>. So <span class="arithmatex">\(p\mid b\)</span>, and then <span class="arithmatex">\(p\mid a\)</span>. For <span class="arithmatex">\(\gamma\in A_{p^{k+2}}\)</span> both coordinates
+are divisible by <span class="arithmatex">\(p\)</span>, and <span class="arithmatex">\(\gamma/p\in A_{p^k}\)</span>; conversely <span class="arithmatex">\(N(p\beta)=p^2N(\beta)\)</span>.</p>
+<p>(3) A unit has norm <span class="arithmatex">\(1\)</span>, so a Gaussian integer <span class="arithmatex">\(x\)</span> of prime norm is not a unit; if <span class="arithmatex">\(x=yz\)</span>, then
+<span class="arithmatex">\(N(y)N(z)\)</span> is prime, so <span class="arithmatex">\(y\)</span> or <span class="arithmatex">\(z\)</span> has norm <span class="arithmatex">\(1\)</span> and is a unit. So <span class="arithmatex">\(x\)</span> is irreducible, hence prime,
+as <span class="arithmatex">\(\mathbb Z[i]\)</span> is a principal ideal domain.</p>
+<p>(4) <span class="arithmatex">\(z\ne0\)</span>. The map <span class="arithmatex">\(\beta\mapsto z\beta\)</span> sends <span class="arithmatex">\(A_n\)</span> into the elements of <span class="arithmatex">\(A_{pn}\)</span> divisible by
+<span class="arithmatex">\(z\)</span>, with inverse <span class="arithmatex">\(\gamma\mapsto\gamma/z\)</span>.</p>
+</div>
+<div class="bp-lean-source">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> normFiber_eq_empty_of_mod_four_eq_three {n : ℕ} (hn : n % 4 = 3) : <a class="bp-lean-ref" href="#norm-fibres" data-lean-name="ZInQ.Contrib.HeckeFE.normFiber">normFiber</a> n = ∅</code></pre>
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> dvd_of_dvd_sq_add_sq {p : ℕ} (hp : p.Prime) (hp3 : p % 4 = 3) {a b : ℤ}
+    (h : (p : ℤ) ∣ a ^ 2 + b ^ 2) : (p : ℤ) ∣ a ∧ (p : ℤ) ∣ b</code></pre>
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> normFiber_inert {p : ℕ} (hp : p.Prime) (hp3 : p % 4 = 3) (k : ℕ) :
+    <a class="bp-lean-ref" href="#norm-fibres" data-lean-name="ZInQ.Contrib.HeckeFE.normFiber">normFiber</a> (p ^ (k + 2)) =
+      (<a class="bp-lean-ref" href="#norm-fibres" data-lean-name="ZInQ.Contrib.HeckeFE.normFiber">normFiber</a> (p ^ k)).image <span class="bp-lean-keyword">fun</span> r : ℤ × ℤ =&gt; ((p : ℤ) * r.1, (p : ℤ) * r.2)</code></pre>
+<div class="bp-lean-names" hidden="hidden">
+<div data-lean-name="ZInQ.Contrib.HeckeFE.normFiber">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> normFiber (n : ℕ) : Finset (ℤ × ℤ) :=
+  ((Finset.Icc (-(n : ℤ)) n) ×ˢ (Finset.Icc (-(n : ℤ)) n)).filter
+    (<span class="bp-lean-keyword">fun</span> p =&gt; p.1 ^ 2 + p.2 ^ 2 = n)</code></pre>
+<p class="bp-lean-where">ZInQKernel/Contrib/HeckeFE/Basic.lean:386</p>
+</div>
+</div>
+</div>
+<div class="bp-thmnotes">
+<div class="bp-notes-heading">
+<h6 id="sources_2">Sources</h6>
+</div>
+<div class="bp-search-text" hidden="hidden">Sources</div>
+<ul>
+<li><a href="../../../../../sources/hecke-locators.html#arithmetic-of-the-gaussian-integers">Arithmetic of the Gaussian integers</a></li>
+</ul>
+</div>
+<details class="bp-dependencies">
+<summary>Uses 1 · Used by 4</summary>
+<div class="bp-dependency-body">
+<div class="bp-row"><span class="bp-key">Statement uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#norm-fibres">Gaussian integers as pairs, norms and units</a></span></div>
+<div class="bp-row"><span class="bp-key">Used by</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="../deuring/index.html#deuring-small-primes">Deuring&#x27;s identity at the primes <span class="arithmatex">\(2\)</span>, <span class="arithmatex">\(p\mid d\)</span> and <span class="arithmatex">\(p\equiv3\pmod4\)</span></a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#hecke-coefficients-non-split">The Hecke coefficients at the primes that do not split</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#hecke-split-recursion">The Hecke relation at prime powers</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#norm-fibres-split">The Gaussian primes above a split prime</a></span></div>
+</div>
+</details>
+</div>
+<div class="bp-thmwrapper theorem-style-plain bp-fully_proved" data-autoform-node-id="rank/literature/hecke/gaussian/norm-fibres-split">
+<h4 class="bp-thmheading" id="norm-fibres-split">
+<span class="bp-thmcaption" data-search-exclude>Theorem</span><span class="bp-thmtitle">The Gaussian primes above a split prime</span><span class="bp-code-links"><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/8ec807114805afd96d90c468ec2cf40c6f9cc634/ZInQKernel/Contrib/HeckeFE/Basic.lean#L2550" aria-label="View ZInQ.Contrib.HeckeFE.piZ in Lean source" title="View ZInQ.Contrib.HeckeFE.piZ in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/8ec807114805afd96d90c468ec2cf40c6f9cc634/ZInQKernel/Contrib/HeckeFE/Basic.lean#L2534" aria-label="View ZInQ.Contrib.HeckeFE.split_ne in Lean source" title="View ZInQ.Contrib.HeckeFE.split_ne in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/8ec807114805afd96d90c468ec2cf40c6f9cc634/ZInQKernel/Contrib/HeckeFE/Basic.lean#L2552" aria-label="View ZInQ.Contrib.HeckeFE.norm_piZ in Lean source" title="View ZInQ.Contrib.HeckeFE.norm_piZ in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/8ec807114805afd96d90c468ec2cf40c6f9cc634/ZInQKernel/Contrib/HeckeFE/Basic.lean#L2555" aria-label="View ZInQ.Contrib.HeckeFE.norm_conj_piZ in Lean source" title="View ZInQ.Contrib.HeckeFE.norm_conj_piZ in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/8ec807114805afd96d90c468ec2cf40c6f9cc634/ZInQKernel/Contrib/HeckeFE/Basic.lean#L2559" aria-label="View ZInQ.Contrib.HeckeFE.not_conj_dvd in Lean source" title="View ZInQ.Contrib.HeckeFE.not_conj_dvd in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/8ec807114805afd96d90c468ec2cf40c6f9cc634/ZInQKernel/Contrib/HeckeFE/Basic.lean#L2575" aria-label="View ZInQ.Contrib.HeckeFE.prime_piZ in Lean source" title="View ZInQ.Contrib.HeckeFE.prime_piZ in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/8ec807114805afd96d90c468ec2cf40c6f9cc634/ZInQKernel/Contrib/HeckeFE/Basic.lean#L2578" aria-label="View ZInQ.Contrib.HeckeFE.prime_conj_piZ in Lean source" title="View ZInQ.Contrib.HeckeFE.prime_conj_piZ in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/8ec807114805afd96d90c468ec2cf40c6f9cc634/ZInQKernel/Contrib/HeckeFE/Basic.lean#L2581" aria-label="View ZInQ.Contrib.HeckeFE.p_eq_mul in Lean source" title="View ZInQ.Contrib.HeckeFE.p_eq_mul in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/8ec807114805afd96d90c468ec2cf40c6f9cc634/ZInQKernel/Contrib/HeckeFE/Basic.lean#L2585" aria-label="View ZInQ.Contrib.HeckeFE.split_dvd in Lean source" title="View ZInQ.Contrib.HeckeFE.split_dvd in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/8ec807114805afd96d90c468ec2cf40c6f9cc634/ZInQKernel/Contrib/HeckeFE/Basic.lean#L2612" aria-label="View ZInQ.Contrib.HeckeFE.sum_normFiber_prime in Lean source" title="View ZInQ.Contrib.HeckeFE.sum_normFiber_prime in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a></span><a class="bp-source-link" href="https://github.com/Deicyde/diophantine-z-q/blob/8ec807114805afd96d90c468ec2cf40c6f9cc634/blueprint/roadmap/rank/literature/hecke/gaussian/norm-fibres-split.md" aria-label="Edit the Markdown source for The Gaussian primes above a split prime" title="Edit the Markdown source for The Gaussian primes above a split prime"><svg class="bp-source-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4h9l7 7v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M13 4v7h7"/></svg></a><a class="bp-permalink" href="#norm-fibres-split" aria-label="Link to The Gaussian primes above a split prime" data-search-exclude>#</a><span class="bp-mark" title="fully proved" data-search-exclude>✓<span class="bp-mark-label">fully proved</span></span>
+</h4>
+<div class="bp-search-names" hidden="hidden">ZInQ.Contrib.HeckeFE.piZ ZInQ.Contrib.HeckeFE.split_ne ZInQ.Contrib.HeckeFE.norm_piZ ZInQ.Contrib.HeckeFE.norm_conj_piZ ZInQ.Contrib.HeckeFE.not_conj_dvd ZInQ.Contrib.HeckeFE.prime_piZ ZInQ.Contrib.HeckeFE.prime_conj_piZ ZInQ.Contrib.HeckeFE.p_eq_mul ZInQ.Contrib.HeckeFE.split_dvd ZInQ.Contrib.HeckeFE.sum_normFiber_prime</div>
+<div class="bp-thmcontent">
+<p>Notation of <a href="#norm-fibres">Gaussian integers as pairs</a>: <span class="arithmatex">\(A_n\)</span> is the set of Gaussian integers of
+norm <span class="arithmatex">\(n\)</span> and <span class="arithmatex">\(U\)</span> the set of the four units.</p>
+<p>Let <span class="arithmatex">\(p\equiv1\pmod4\)</span> be prime and <span class="arithmatex">\(a,b\)</span> natural numbers with <span class="arithmatex">\(a^2+b^2=p\)</span>; put <span class="arithmatex">\(\pi=a+bi\)</span>. Then:
+(a) <span class="arithmatex">\(a\ne0\)</span>, <span class="arithmatex">\(b\ne0\)</span> and <span class="arithmatex">\(a\ne b\)</span>; (b) <span class="arithmatex">\(N(\pi)=N(\bar\pi)=p\)</span>; (c) <span class="arithmatex">\(\bar\pi\nmid\pi\)</span>; (d) <span class="arithmatex">\(\pi\)</span> and
+<span class="arithmatex">\(\bar\pi\)</span> are prime elements of <span class="arithmatex">\(\mathbb Z[i]\)</span>; (e) <span class="arithmatex">\(p=\pi\bar\pi\)</span>; (f) every
+<span class="arithmatex">\(\gamma\in\mathbb Z[i]\)</span> with <span class="arithmatex">\(p\mid N(\gamma)\)</span> is divisible by <span class="arithmatex">\(\pi\)</span> or by <span class="arithmatex">\(\bar\pi\)</span>, and by both
+exactly when <span class="arithmatex">\(p\mid\gamma\)</span>; (g) for every <span class="arithmatex">\(f:\mathbb Z^2\to\mathbb C\)</span>,
+$<span class="arithmatex">\(\sum_{\alpha\in A_p}f(\alpha)=\sum_{e\in U}f(e\pi)+\sum_{e\in U}f(e\bar\pi).\)</span>$</p>
+<p><strong>Proof sketch.</strong> (a) <span class="arithmatex">\(a=0\)</span> or <span class="arithmatex">\(b=0\)</span> makes <span class="arithmatex">\(p\)</span> a square; <span class="arithmatex">\(a=b\)</span> makes <span class="arithmatex">\(p=2a^2\)</span> even. (b), (e) Direct. (c) If
+<span class="arithmatex">\(\bar\pi\mid\pi\)</span>, equal norms make the quotient a unit; each of the four units contradicts (a). (d)
+By <a href="#norm-fibres-primes">norm fibres at primes</a> (3). (f) <span class="arithmatex">\(\pi\)</span> divides <span class="arithmatex">\(p\mid N(\gamma)=\gamma\bar\gamma\)</span>, so <span class="arithmatex">\(\pi\mid\gamma\)</span> or
+<span class="arithmatex">\(\pi\mid\bar\gamma\)</span>, the latter meaning <span class="arithmatex">\(\bar\pi\mid\gamma\)</span>. If both divide <span class="arithmatex">\(\gamma\)</span>, then, being
+non-associate primes by (c), their product <span class="arithmatex">\(p\)</span> does; the converse is (e). (g) By (f) every element
+of <span class="arithmatex">\(A_p\)</span> is <span class="arithmatex">\(e\pi\)</span> or <span class="arithmatex">\(e\bar\pi\)</span> with <span class="arithmatex">\(N(e)=1\)</span>, so <span class="arithmatex">\(e\in U\)</span>; the two sets <span class="arithmatex">\(U\pi\)</span> and <span class="arithmatex">\(U\bar\pi\)</span> are
+disjoint by (c), and <span class="arithmatex">\(e\mapsto e\pi\)</span> is injective.</p>
+</div>
+<div class="bp-lean-source">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> piZ (a b : ℕ) : ℤ × ℤ := ((a : ℤ), (b : ℤ))</code></pre>
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> split_ne : a ≠ 0 ∧ b ≠ 0 ∧ a ≠ b</code></pre>
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> norm_piZ : (<a class="bp-lean-ref" href="#norm-fibres-split" data-lean-name="ZInQ.Contrib.HeckeFE.piZ">piZ</a> a b).1 ^ 2 + (<a class="bp-lean-ref" href="#norm-fibres-split" data-lean-name="ZInQ.Contrib.HeckeFE.piZ">piZ</a> a b).2 ^ 2 = p</code></pre>
+<div class="bp-lean-names" hidden="hidden">
+<div data-lean-name="ZInQ.Contrib.HeckeFE.piZ">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> piZ (a b : ℕ) : ℤ × ℤ := ((a : ℤ), (b : ℤ))</code></pre>
+<p class="bp-lean-where">ZInQKernel/Contrib/HeckeFE/Basic.lean:2550</p>
+</div>
+</div>
+</div>
+<div class="bp-thmnotes">
+<div class="bp-notes-heading">
+<h6 id="sources_3">Sources</h6>
+</div>
+<div class="bp-search-text" hidden="hidden">Sources</div>
+<ul>
+<li><a href="../../../../../sources/hecke-locators.html#arithmetic-of-the-gaussian-integers">Arithmetic of the Gaussian integers</a></li>
+</ul>
+</div>
+<details class="bp-dependencies">
+<summary>Uses 2 · Used by 2</summary>
+<div class="bp-dependency-body">
+<div class="bp-row"><span class="bp-key">Statement uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#norm-fibres">Gaussian integers as pairs, norms and units</a></span></div>
+<div class="bp-row"><span class="bp-key">Proof uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#norm-fibres-primes">Gaussian integers whose norm is a prime power</a></span></div>
+<div class="bp-row"><span class="bp-key">Used by</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="../gauss/index.html#gauss-point-count-holds">Gauss&#x27;s point count holds</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#hecke-split-recursion">The Hecke relation at prime powers</a></span></div>
+</div>
+</details>
+</div>
+<div class="bp-thmwrapper theorem-style-definition bp-fully_proved" data-autoform-node-id="rank/literature/hecke/gaussian/primary-unit">
+<h4 class="bp-thmheading" id="primary-unit">
+<span class="bp-thmcaption" data-search-exclude>Definition</span><span class="bp-thmtitle">The primary unit of a Gaussian integer modulo 4</span><span class="bp-code-links"><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/8ec807114805afd96d90c468ec2cf40c6f9cc634/ZInQKernel/Contrib/HeckeFE/Basic.lean#L443" aria-label="View ZInQ.Contrib.HeckeFE.unitOf in Lean source" title="View ZInQ.Contrib.HeckeFE.unitOf in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/8ec807114805afd96d90c468ec2cf40c6f9cc634/ZInQKernel/Contrib/HeckeFE/Basic.lean#L1072" aria-label="View ZInQ.Contrib.HeckeFE.unitG in Lean source" title="View ZInQ.Contrib.HeckeFE.unitG in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/8ec807114805afd96d90c468ec2cf40c6f9cc634/ZInQKernel/Contrib/HeckeFE/Basic.lean#L1079" aria-label="View ZInQ.Contrib.HeckeFE.unitOf_eq_unitG in Lean source" title="View ZInQ.Contrib.HeckeFE.unitOf_eq_unitG in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/8ec807114805afd96d90c468ec2cf40c6f9cc634/ZInQKernel/Contrib/HeckeFE/Basic.lean#L1084" aria-label="View ZInQ.Contrib.HeckeFE.unitG_mul in Lean source" title="View ZInQ.Contrib.HeckeFE.unitG_mul in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/8ec807114805afd96d90c468ec2cf40c6f9cc634/ZInQKernel/Contrib/HeckeFE/Basic.lean#L2029" aria-label="View ZInQ.Contrib.HeckeFE.unitOf_eq_zero_of_even in Lean source" title="View ZInQ.Contrib.HeckeFE.unitOf_eq_zero_of_even in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/8ec807114805afd96d90c468ec2cf40c6f9cc634/ZInQKernel/Contrib/HeckeAll/Continuation.lean#L202" aria-label="View ZInQ.Contrib.HeckeAll.unitG_eq_zero_of_two_mul in Lean source" title="View ZInQ.Contrib.HeckeAll.unitG_eq_zero_of_two_mul in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/8ec807114805afd96d90c468ec2cf40c6f9cc634/ZInQKernel/Contrib/GaussFE/FunctionalEquation5.lean#L31" aria-label="View ZInQ.Contrib.GaussFE.unitOf_primary in Lean source" title="View ZInQ.Contrib.GaussFE.unitOf_primary in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a></span><a class="bp-source-link" href="https://github.com/Deicyde/diophantine-z-q/blob/8ec807114805afd96d90c468ec2cf40c6f9cc634/blueprint/roadmap/rank/literature/hecke/gaussian/primary-unit.md" aria-label="Edit the Markdown source for The primary unit of a Gaussian integer modulo 4" title="Edit the Markdown source for The primary unit of a Gaussian integer modulo 4"><svg class="bp-source-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4h9l7 7v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M13 4v7h7"/></svg></a><a class="bp-permalink" href="#primary-unit" aria-label="Link to The primary unit of a Gaussian integer modulo 4" data-search-exclude>#</a><span class="bp-mark" title="fully proved" data-search-exclude>✓<span class="bp-mark-label">fully proved</span></span>
+</h4>
+<div class="bp-search-names" hidden="hidden">ZInQ.Contrib.HeckeFE.unitOf ZInQ.Contrib.HeckeFE.unitG ZInQ.Contrib.HeckeFE.unitOf_eq_unitG ZInQ.Contrib.HeckeFE.unitG_mul ZInQ.Contrib.HeckeFE.unitOf_eq_zero_of_even ZInQ.Contrib.HeckeAll.unitG_eq_zero_of_two_mul ZInQ.Contrib.GaussFE.unitOf_primary</div>
+<div class="bp-thmcontent">
+<p>For <span class="arithmatex">\((a,b)\in(\mathbb Z/4)^2\)</span> the <em>primary unit</em> <span class="arithmatex">\(u(a,b)\in\{0,\pm1,\pm i\}\)</span> is given by the table
+$<span class="arithmatex">\(u(a,b)=\begin{cases}1&amp;(a,b)\in\{(1,0),(3,2)\},\\-1&amp;(a,b)\in\{(3,0),(1,2)\},\\
+i&amp;(a,b)\in\{(0,3),(2,1)\},\\-i&amp;(a,b)\in\{(0,1),(2,3)\},\\0&amp;\text{otherwise.}\end{cases}\)</span>$
+The same table with values in <span class="arithmatex">\(\mathbb Z[i]\)</span> defines <span class="arithmatex">\(u_G(a,b)\)</span>. For a Gaussian integer
+<span class="arithmatex">\(\alpha=x+yi\)</span>, <span class="arithmatex">\(u(\alpha)\)</span> means <span class="arithmatex">\(u(x\bmod4,\,y\bmod4)\)</span>. For each <span class="arithmatex">\(\alpha\)</span> with <span class="arithmatex">\(x+y\)</span> odd, the table
+lists the unit <span class="arithmatex">\(u\)</span> with <span class="arithmatex">\(u\alpha\equiv1\pmod{2+2i}\)</span>; this description is motivation only, and only
+the facts below are used.</p>
+<ol>
+<li><span class="arithmatex">\(u(a,b)\)</span> is the image of <span class="arithmatex">\(u_G(a,b)\)</span> in <span class="arithmatex">\(\mathbb C\)</span>.</li>
+<li><span class="arithmatex">\(u_G\)</span> is multiplicative for the Gaussian product modulo <span class="arithmatex">\(4\)</span>: for all <span class="arithmatex">\(a,b,c,e\in\mathbb Z/4\)</span>,
+   <span class="arithmatex">\(u_G(ac-be,\,ae+bc)=u_G(a,b)\,u_G(c,e)\)</span>.</li>
+<li>If the least residues of <span class="arithmatex">\(a\)</span> and <span class="arithmatex">\(b\)</span> have even sum, then <span class="arithmatex">\(u(a,b)=0\)</span>.</li>
+<li>If <span class="arithmatex">\(2(a^2+b^2)=0\)</span> in <span class="arithmatex">\(\mathbb Z/4\)</span>, then <span class="arithmatex">\(u_G(a,b)=0\)</span>.</li>
+<li>If <span class="arithmatex">\(x\equiv1\)</span> and <span class="arithmatex">\(y\equiv0\pmod4\)</span>, or <span class="arithmatex">\(x\equiv3\)</span> and <span class="arithmatex">\(y\equiv2\pmod4\)</span>, then <span class="arithmatex">\(u(x+yi)=1\)</span>.</li>
+</ol>
+<p><strong>Proof sketch.</strong> Each statement is a finite check over the residues modulo <span class="arithmatex">\(4\)</span> (<span class="arithmatex">\(256\)</span> cases
+for (2)).</p>
+</div>
+<div class="bp-lean-source">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> unitOf (t : ZMod 4 × ZMod 4) : ℂ :=
+  <span class="bp-lean-keyword">if</span> t = (1, 0) ∨ t = (3, 2) <span class="bp-lean-keyword">then</span> 1
+  <span class="bp-lean-keyword">else</span> <span class="bp-lean-keyword">if</span> t = (3, 0) ∨ t = (1, 2) <span class="bp-lean-keyword">then</span> -1
+  <span class="bp-lean-keyword">else</span> <span class="bp-lean-keyword">if</span> t = (0, 3) ∨ t = (2, 1) <span class="bp-lean-keyword">then</span> I
+  <span class="bp-lean-keyword">else</span> <span class="bp-lean-keyword">if</span> t = (0, 1) ∨ t = (2, 3) <span class="bp-lean-keyword">then</span> -I
+  <span class="bp-lean-keyword">else</span> 0</code></pre>
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> unitG (t : ZMod 4 × ZMod 4) : GaussianInt :=
+  <span class="bp-lean-keyword">if</span> t = (1, 0) ∨ t = (3, 2) <span class="bp-lean-keyword">then</span> 1
+  <span class="bp-lean-keyword">else</span> <span class="bp-lean-keyword">if</span> t = (3, 0) ∨ t = (1, 2) <span class="bp-lean-keyword">then</span> -1
+  <span class="bp-lean-keyword">else</span> <span class="bp-lean-keyword">if</span> t = (0, 3) ∨ t = (2, 1) <span class="bp-lean-keyword">then</span> ⟨0, 1⟩
+  <span class="bp-lean-keyword">else</span> <span class="bp-lean-keyword">if</span> t = (0, 1) ∨ t = (2, 3) <span class="bp-lean-keyword">then</span> ⟨0, -1⟩
+  <span class="bp-lean-keyword">else</span> 0</code></pre>
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> unitOf_eq_unitG (t : ZMod 4 × ZMod 4) : <a class="bp-lean-ref" href="#primary-unit" data-lean-name="ZInQ.Contrib.HeckeFE.unitOf">unitOf</a> t = ((unitG t : GaussianInt) : ℂ)</code></pre>
+<div class="bp-lean-names" hidden="hidden">
+<div data-lean-name="ZInQ.Contrib.HeckeFE.unitOf">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> unitOf (t : ZMod 4 × ZMod 4) : ℂ :=
+  <span class="bp-lean-keyword">if</span> t = (1, 0) ∨ t = (3, 2) <span class="bp-lean-keyword">then</span> 1
+  <span class="bp-lean-keyword">else</span> <span class="bp-lean-keyword">if</span> t = (3, 0) ∨ t = (1, 2) <span class="bp-lean-keyword">then</span> -1
+  <span class="bp-lean-keyword">else</span> <span class="bp-lean-keyword">if</span> t = (0, 3) ∨ t = (2, 1) <span class="bp-lean-keyword">then</span> I
+  <span class="bp-lean-keyword">else</span> <span class="bp-lean-keyword">if</span> t = (0, 1) ∨ t = (2, 3) <span class="bp-lean-keyword">then</span> -I
+  <span class="bp-lean-keyword">else</span> 0</code></pre>
+<p class="bp-lean-where">ZInQKernel/Contrib/HeckeFE/Basic.lean:443</p>
+</div>
+</div>
+</div>
+<div class="bp-thmnotes">
+<div class="bp-notes-heading">
+<h6 id="sources_4">Sources</h6>
+</div>
+<div class="bp-search-text" hidden="hidden">Sources</div>
+<ul>
+<li><a href="../../../../../sources/hecke-locators.html#deuring-and-the-hecke-character">Deuring and the Hecke character</a></li>
+</ul>
+</div>
+<details class="bp-dependencies">
+<summary>Used by 9</summary>
+<div class="bp-dependency-body">
+<div class="bp-row"><span class="bp-key">Used by</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="../deuring/index.html#deuring-small-primes">Deuring&#x27;s identity at the primes <span class="arithmatex">\(2\)</span>, <span class="arithmatex">\(p\mid d\)</span> and <span class="arithmatex">\(p\equiv3\pmod4\)</span></a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../every-d/index.html#continuation-squarefree">The continuation of <span class="arithmatex">\(L(C_d,s)\)</span> for every squarefree <span class="arithmatex">\(d\)</span>, from Gauss&#x27;s point count</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../fourier/index.html#fourier-factorization">The Fourier transform of <span class="arithmatex">\(\omega_d\)</span> splits into a 2-part and an odd part</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../fourier/index.html#fourier-two-part">The 2-part of the Fourier transform</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../gauss/index.html#gauss-point-count">Gauss&#x27;s point count on <span class="arithmatex">\(y^2=x^3-x\)</span></a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="../gauss/index.html#gauss-point-count-holds">Gauss&#x27;s point count holds</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#hecke-character">The Hecke character <span class="arithmatex">\(\psi_d\)</span></a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#hecke-coefficients">The coefficients of the Hecke L-series <span class="arithmatex">\(L(\psi_d,s)\)</span></a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#hecke-coefficients-non-split">The Hecke coefficients at the primes that do not split</a></span></div>
+</div>
+</details>
+</div>
+<div class="bp-thmwrapper theorem-style-definition bp-fully_proved" data-autoform-node-id="rank/literature/hecke/gaussian/hecke-character">
+<h4 class="bp-thmheading" id="hecke-character">
+<span class="bp-thmcaption" data-search-exclude>Definition</span><span class="bp-thmtitle">The Hecke character <span class="arithmatex">\(\psi_d\)</span></span><span class="bp-code-links"><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/8ec807114805afd96d90c468ec2cf40c6f9cc634/ZInQKernel/Contrib/HeckeFE/Basic.lean#L1092" aria-label="View ZInQ.Contrib.HeckeFE.psi in Lean source" title="View ZInQ.Contrib.HeckeFE.psi in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/8ec807114805afd96d90c468ec2cf40c6f9cc634/ZInQKernel/Contrib/HeckeFE/Basic.lean#L452" aria-label="View ZInQ.Contrib.HeckeFE.cdChar in Lean source" title="View ZInQ.Contrib.HeckeFE.cdChar in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/8ec807114805afd96d90c468ec2cf40c6f9cc634/ZInQKernel/Contrib/HeckeFE/Basic.lean#L456" aria-label="View ZInQ.Contrib.HeckeFE.cdChar_intCast in Lean source" title="View ZInQ.Contrib.HeckeFE.cdChar_intCast in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/8ec807114805afd96d90c468ec2cf40c6f9cc634/ZInQKernel/Contrib/HeckeFE/Basic.lean#L1096" aria-label="View ZInQ.Contrib.HeckeFE.psi_mul in Lean source" title="View ZInQ.Contrib.HeckeFE.psi_mul in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/8ec807114805afd96d90c468ec2cf40c6f9cc634/ZInQKernel/Contrib/HeckeFE/Basic.lean#L1115" aria-label="View ZInQ.Contrib.HeckeFE.psi_units in Lean source" title="View ZInQ.Contrib.HeckeFE.psi_units in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/8ec807114805afd96d90c468ec2cf40c6f9cc634/ZInQKernel/Contrib/HeckeFE/Basic.lean#L1128" aria-label="View ZInQ.Contrib.HeckeFE.psi_unit_mul in Lean source" title="View ZInQ.Contrib.HeckeFE.psi_unit_mul in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/8ec807114805afd96d90c468ec2cf40c6f9cc634/ZInQKernel/Contrib/HeckeFE/Basic.lean#L2522" aria-label="View ZInQ.Contrib.HeckeFE.psi_gmul_unit in Lean source" title="View ZInQ.Contrib.HeckeFE.psi_gmul_unit in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/8ec807114805afd96d90c468ec2cf40c6f9cc634/ZInQKernel/Contrib/HeckeFE/Basic.lean#L2464" aria-label="View ZInQ.Contrib.HeckeFE.psi_split_prime in Lean source" title="View ZInQ.Contrib.HeckeFE.psi_split_prime in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a></span><a class="bp-source-link" href="https://github.com/Deicyde/diophantine-z-q/blob/8ec807114805afd96d90c468ec2cf40c6f9cc634/blueprint/roadmap/rank/literature/hecke/gaussian/hecke-character.md" aria-label="Edit the Markdown source for The Hecke character $\psi_d$" title="Edit the Markdown source for The Hecke character $\psi_d$"><svg class="bp-source-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4h9l7 7v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M13 4v7h7"/></svg></a><a class="bp-permalink" href="#hecke-character" aria-label="Link to The Hecke character ψ_d" data-search-exclude>#</a><span class="bp-mark" title="fully proved" data-search-exclude>✓<span class="bp-mark-label">fully proved</span></span>
+</h4>
+<div class="bp-search-names" hidden="hidden">ZInQ.Contrib.HeckeFE.psi ZInQ.Contrib.HeckeFE.cdChar ZInQ.Contrib.HeckeFE.cdChar_intCast ZInQ.Contrib.HeckeFE.psi_mul ZInQ.Contrib.HeckeFE.psi_units ZInQ.Contrib.HeckeFE.psi_unit_mul ZInQ.Contrib.HeckeFE.psi_gmul_unit ZInQ.Contrib.HeckeFE.psi_split_prime</div>
+<div class="bp-thmcontent">
+<p>For an integer <span class="arithmatex">\(a\)</span> and a natural number <span class="arithmatex">\(n\)</span>, <span class="arithmatex">\(\left(\frac an\right)\)</span> is the Jacobi symbol: the
+product of the Legendre symbols <span class="arithmatex">\(\left(\frac ap\right)\)</span> over the prime factors <span class="arithmatex">\(p\)</span> of <span class="arithmatex">\(n\)</span> counted
+with multiplicity, where <span class="arithmatex">\(\left(\frac a2\right)\)</span> is <span class="arithmatex">\(1\)</span> for odd <span class="arithmatex">\(a\)</span> and <span class="arithmatex">\(0\)</span> for even <span class="arithmatex">\(a\)</span>, and the
+empty product (for <span class="arithmatex">\(n=0,1\)</span>) is <span class="arithmatex">\(1\)</span>. Let <span class="arithmatex">\(d\)</span> be a natural number and <span class="arithmatex">\(u\)</span> the
+<a href="#primary-unit">primary unit</a>. Gaussian integers are pairs as in
+<a href="#norm-fibres">Gaussian integers as pairs</a>. The <em>Hecke character</em> <span class="arithmatex">\(\psi_d\)</span> is the function on
+<span class="arithmatex">\(\mathbb Z[i]\)</span>
+$<span class="arithmatex">\(\psi_d(\alpha)=\left(\frac{N(\alpha)}{d}\right)u(\alpha)\,\alpha .\)</span>$
+Its finite part is the function <span class="arithmatex">\(\omega_d\)</span> on <span class="arithmatex">\((\mathbb Z/4d)^2\)</span>
+$<span class="arithmatex">\(\omega_d(x)=\left(\frac{\tilde x_1^2+\tilde x_2^2}{d}\right)u(\tilde x_1\bmod4,\ \tilde x_2\bmod4),\)</span>$
+where <span class="arithmatex">\(\tilde x_1,\tilde x_2\in\{0,\dots,4d-1\}\)</span> are the least residues of the coordinates of <span class="arithmatex">\(x\)</span>.</p>
+<ol>
+<li>If <span class="arithmatex">\(d\ne0\)</span>, then <span class="arithmatex">\(\omega_d(\alpha\bmod4d)=\left(\frac{N(\alpha)}{d}\right)u(\alpha)\)</span> for every
+   <span class="arithmatex">\(\alpha\in\mathbb Z^2\)</span>; so <span class="arithmatex">\(\psi_d(\alpha)=\omega_d(\alpha\bmod4d)\,\alpha\)</span>.</li>
+<li><span class="arithmatex">\(\psi_d(\alpha\beta)=\psi_d(\alpha)\,\psi_d(\beta)\)</span> for all <span class="arithmatex">\(\alpha,\beta\in\mathbb Z[i]\)</span>.</li>
+<li><span class="arithmatex">\(\psi_d(1)=\psi_d(-1)=\psi_d(i)=\psi_d(-i)=1\)</span>. Hence <span class="arithmatex">\(\psi_d(i\alpha)=\psi_d(-\alpha)=\psi_d(\alpha)\)</span>,
+   and <span class="arithmatex">\(\psi_d(e\alpha)=\psi_d(\alpha)\)</span> for every unit <span class="arithmatex">\(e\)</span>.</li>
+<li>If <span class="arithmatex">\(p\equiv1\pmod4\)</span> is prime and <span class="arithmatex">\(p\nmid d\)</span>, then <span class="arithmatex">\(\psi_d(p)=p\)</span>.</li>
+</ol>
+<p><strong>Proof sketch.</strong> (1) The Jacobi symbol depends on its numerator modulo <span class="arithmatex">\(d\)</span>, and <span class="arithmatex">\(u\)</span> on residues
+modulo <span class="arithmatex">\(4\)</span>; both are determined modulo <span class="arithmatex">\(4d\)</span>.</p>
+<p>(2) The norm is multiplicative, the Jacobi symbol is multiplicative in its numerator, <span class="arithmatex">\(u\)</span> is
+multiplicative (<a href="#primary-unit">primary unit</a> (1), (2)), and so is <span class="arithmatex">\(\alpha\mapsto\alpha\)</span>.</p>
+<p>(3) <span class="arithmatex">\(\left(\frac1d\right)=1\)</span>, and the table gives <span class="arithmatex">\(u(1)=1\)</span>, <span class="arithmatex">\(u(-1)=-1\)</span>, <span class="arithmatex">\(u(i)=-i\)</span>, <span class="arithmatex">\(u(-i)=i\)</span>, so
+<span class="arithmatex">\(u(e)e=1\)</span> for each unit. The rest follows from (2).</p>
+<p>(4) <span class="arithmatex">\(\left(\frac{p^2}{d}\right)=1\)</span> because <span class="arithmatex">\(p\)</span> is coprime to <span class="arithmatex">\(d\)</span>, and <span class="arithmatex">\(u(p)=u(1,0)=1\)</span> because
+<span class="arithmatex">\(p\equiv1\pmod4\)</span>.</p>
+</div>
+<div class="bp-lean-source">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">noncomputable</span> <span class="bp-lean-keyword">def</span> psi (d : ℕ) (p : ℤ × ℤ) : ℂ :=
+  (jacobiSym (p.1 ^ 2 + p.2 ^ 2) d : ℂ) * <a class="bp-lean-ref" href="#primary-unit" data-lean-name="ZInQ.Contrib.HeckeFE.unitOf">unitOf</a> ((p.1 : ZMod 4), (p.2 : ZMod 4)) * <a class="bp-lean-ref" href="../theta/index.html#lattice-series" data-lean-name="ZInQ.Contrib.HeckeFE.gz">gz</a> 0 0 p</code></pre>
+<pre class="bp-lean"><code><span class="bp-lean-keyword">noncomputable</span> <span class="bp-lean-keyword">def</span> cdChar (d : ℕ) (x : ZMod (4 * d) × ZMod (4 * d)) : ℂ :=
+  (jacobiSym ((x.1.val : ℤ) ^ 2 + (x.2.val : ℤ) ^ 2) d : ℂ) *
+    <a class="bp-lean-ref" href="#primary-unit" data-lean-name="ZInQ.Contrib.HeckeFE.unitOf">unitOf</a> (((x.1.val : ℤ) : ZMod 4), ((x.2.val : ℤ) : ZMod 4))</code></pre>
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> cdChar_intCast {d : ℕ} [NeZero d] (p : ℤ × ℤ) :
+    <a class="bp-lean-ref" href="#hecke-character" data-lean-name="ZInQ.Contrib.HeckeFE.cdChar">cdChar</a> d ((p.1 : ZMod (4 * d)), (p.2 : ZMod (4 * d))) =
+      (jacobiSym (p.1 ^ 2 + p.2 ^ 2) d : ℂ) * <a class="bp-lean-ref" href="#primary-unit" data-lean-name="ZInQ.Contrib.HeckeFE.unitOf">unitOf</a> ((p.1 : ZMod 4), (p.2 : ZMod 4))</code></pre>
+<div class="bp-lean-names" hidden="hidden">
+<div data-lean-name="ZInQ.Contrib.HeckeFE.unitOf">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> unitOf (t : ZMod 4 × ZMod 4) : ℂ :=
+  <span class="bp-lean-keyword">if</span> t = (1, 0) ∨ t = (3, 2) <span class="bp-lean-keyword">then</span> 1
+  <span class="bp-lean-keyword">else</span> <span class="bp-lean-keyword">if</span> t = (3, 0) ∨ t = (1, 2) <span class="bp-lean-keyword">then</span> -1
+  <span class="bp-lean-keyword">else</span> <span class="bp-lean-keyword">if</span> t = (0, 3) ∨ t = (2, 1) <span class="bp-lean-keyword">then</span> I
+  <span class="bp-lean-keyword">else</span> <span class="bp-lean-keyword">if</span> t = (0, 1) ∨ t = (2, 3) <span class="bp-lean-keyword">then</span> -I
+  <span class="bp-lean-keyword">else</span> 0</code></pre>
+<p class="bp-lean-where">ZInQKernel/Contrib/HeckeFE/Basic.lean:443</p>
+</div>
+<div data-lean-name="ZInQ.Contrib.HeckeFE.gz">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">noncomputable</span> <span class="bp-lean-keyword">def</span> gz (a b : ℝ) (p : ℤ × ℤ) : ℂ := ((p.1 : ℂ) + a) + ((p.2 : ℂ) + b) * I</code></pre>
+<p class="bp-lean-where">ZInQKernel/Contrib/HeckeFE/Basic.lean:188</p>
+</div>
+<div data-lean-name="ZInQ.Contrib.HeckeFE.cdChar">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">noncomputable</span> <span class="bp-lean-keyword">def</span> cdChar (d : ℕ) (x : ZMod (4 * d) × ZMod (4 * d)) : ℂ :=
+  (jacobiSym ((x.1.val : ℤ) ^ 2 + (x.2.val : ℤ) ^ 2) d : ℂ) *
+    unitOf (((x.1.val : ℤ) : ZMod 4), ((x.2.val : ℤ) : ZMod 4))</code></pre>
+<p class="bp-lean-where">ZInQKernel/Contrib/HeckeFE/Basic.lean:452</p>
+</div>
+</div>
+</div>
+<div class="bp-thmnotes">
+<div class="bp-notes-heading">
+<h6 id="sources_5">Sources</h6>
+</div>
+<div class="bp-search-text" hidden="hidden">Sources</div>
+<ul>
+<li><a href="../../../../../sources/hecke-locators.html#deuring-and-the-hecke-character">Deuring and the Hecke character</a></li>
+</ul>
+</div>
+<details class="bp-dependencies">
+<summary>Uses 2 · Used by 10</summary>
+<div class="bp-dependency-body">
+<div class="bp-row"><span class="bp-key">Statement uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#primary-unit">The primary unit of a Gaussian integer modulo 4</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#norm-fibres">Gaussian integers as pairs, norms and units</a></span></div>
+<div class="bp-row"><span class="bp-key">Used by</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="../index.html#continuation-of-deuring">The continuation of <span class="arithmatex">\(L(C_d,s)\)</span> from Deuring&#x27;s identity</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../every-d/index.html#quadratic-twist-coefficients">The coefficients of <span class="arithmatex">\(C_d\)</span> as a quadratic twist of <span class="arithmatex">\(C_1\)</span></a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../fourier/index.html#fourier-factorization">The Fourier transform of <span class="arithmatex">\(\omega_d\)</span> splits into a 2-part and an odd part</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../fourier/index.html#fourier-identity">The Fourier identity for <span class="arithmatex">\(\omega_d\)</span></a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="../index.html#functional-equation-of-deuring">The functional equation from Deuring&#x27;s identity and the Fourier identity</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../gauss/index.html#gauss-point-count-holds">Gauss&#x27;s point count holds</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#hecke-coefficients">The coefficients of the Hecke L-series <span class="arithmatex">\(L(\psi_d,s)\)</span></a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#hecke-coefficients-non-split">The Hecke coefficients at the primes that do not split</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#hecke-multiplicative">The Hecke coefficients are multiplicative</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#hecke-split-recursion">The Hecke relation at prime powers</a></span></div>
+</div>
+</details>
+</div>
+<div class="bp-thmwrapper theorem-style-definition bp-fully_proved" data-autoform-node-id="rank/literature/hecke/gaussian/hecke-coefficients">
+<h4 class="bp-thmheading" id="hecke-coefficients">
+<span class="bp-thmcaption" data-search-exclude>Definition</span><span class="bp-thmtitle">The coefficients of the Hecke L-series <span class="arithmatex">\(L(\psi_d,s)\)</span></span><span class="bp-code-links"><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/8ec807114805afd96d90c468ec2cf40c6f9cc634/ZInQKernel/Contrib/HeckeFE/Basic.lean#L473" aria-label="View ZInQ.Contrib.HeckeFE.heckeCoeff in Lean source" title="View ZInQ.Contrib.HeckeFE.heckeCoeff in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/8ec807114805afd96d90c468ec2cf40c6f9cc634/ZInQKernel/Contrib/HeckeFE/Basic.lean#L1110" aria-label="View ZInQ.Contrib.HeckeFE.heckeCoeff_eq_sum_psi in Lean source" title="View ZInQ.Contrib.HeckeFE.heckeCoeff_eq_sum_psi in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/8ec807114805afd96d90c468ec2cf40c6f9cc634/ZInQKernel/Contrib/HeckeFE/Basic.lean#L2396" aria-label="View ZInQ.Contrib.HeckeFE.heckeCoeff_zero in Lean source" title="View ZInQ.Contrib.HeckeFE.heckeCoeff_zero in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/8ec807114805afd96d90c468ec2cf40c6f9cc634/ZInQKernel/Contrib/HeckeFE/Basic.lean#L1937" aria-label="View ZInQ.Contrib.HeckeFE.heckeCoeff_one in Lean source" title="View ZInQ.Contrib.HeckeFE.heckeCoeff_one in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/8ec807114805afd96d90c468ec2cf40c6f9cc634/ZInQKernel/Contrib/HeckeFE/Basic.lean#L1587" aria-label="View ZInQ.Contrib.HeckeFE.heckeCoeff_prime_twist in Lean source" title="View ZInQ.Contrib.HeckeFE.heckeCoeff_prime_twist in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a></span><a class="bp-source-link" href="https://github.com/Deicyde/diophantine-z-q/blob/8ec807114805afd96d90c468ec2cf40c6f9cc634/blueprint/roadmap/rank/literature/hecke/gaussian/hecke-coefficients.md" aria-label="Edit the Markdown source for The coefficients of the Hecke L-series $L(\psi_d,s)$" title="Edit the Markdown source for The coefficients of the Hecke L-series $L(\psi_d,s)$"><svg class="bp-source-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4h9l7 7v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M13 4v7h7"/></svg></a><a class="bp-permalink" href="#hecke-coefficients" aria-label="Link to The coefficients of the Hecke L-series L(ψ_d,s)" data-search-exclude>#</a><span class="bp-mark" title="fully proved" data-search-exclude>✓<span class="bp-mark-label">fully proved</span></span>
+</h4>
+<div class="bp-search-names" hidden="hidden">ZInQ.Contrib.HeckeFE.heckeCoeff ZInQ.Contrib.HeckeFE.heckeCoeff_eq_sum_psi ZInQ.Contrib.HeckeFE.heckeCoeff_zero ZInQ.Contrib.HeckeFE.heckeCoeff_one ZInQ.Contrib.HeckeFE.heckeCoeff_prime_twist</div>
+<div class="bp-thmcontent">
+<p>For natural numbers <span class="arithmatex">\(d\)</span> and <span class="arithmatex">\(n\)</span> the <em>Hecke coefficient</em> is
+$<span class="arithmatex">\(\lambda_d(n)=\frac14\sum_{\alpha\in A_n}\left(\frac{N(\alpha)}{d}\right)u(\alpha)\,\alpha
+=\frac14\sum_{\alpha\in A_n}\psi_d(\alpha),\)</span>$
+with <span class="arithmatex">\(A_n\)</span> the <a href="#norm-fibres">Gaussian integers of norm <span class="arithmatex">\(n\)</span></a>, <span class="arithmatex">\(u\)</span> the
+<a href="#primary-unit">primary unit</a> and <span class="arithmatex">\(\psi_d\)</span> the <a href="#hecke-character">Hecke character</a>. The factor
+<span class="arithmatex">\(\frac14\)</span> accounts for the four generators of each ideal of <span class="arithmatex">\(\mathbb Z[i]\)</span>; the Dirichlet series
+with these coefficients is the Hecke L-series <span class="arithmatex">\(L(\psi_d,s)\)</span> (motivation only; no L-series of a
+Hecke character is defined here).</p>
+<ol>
+<li><span class="arithmatex">\(\lambda_d(0)=0\)</span> and <span class="arithmatex">\(\lambda_d(1)=1\)</span>.</li>
+<li>For all natural numbers <span class="arithmatex">\(d\)</span> and <span class="arithmatex">\(p\)</span>, <span class="arithmatex">\(\lambda_d(p)=\left(\frac pd\right)\lambda_1(p)\)</span>.</li>
+</ol>
+<p><strong>Proof sketch.</strong> (1) <span class="arithmatex">\(A_0=\{0\}\)</span>, whose term is <span class="arithmatex">\(0\)</span>. <span class="arithmatex">\(A_1\)</span> is the set of the four units, on which
+<span class="arithmatex">\(\psi_d=1\)</span> (<a href="#hecke-character">Hecke character</a> (3)), so the sum is <span class="arithmatex">\(4\)</span>.</p>
+<p>(2) Every <span class="arithmatex">\(\alpha\in A_p\)</span> has <span class="arithmatex">\(N(\alpha)=p\)</span>, so the symbol <span class="arithmatex">\(\left(\frac{N(\alpha)}d\right)\)</span> is the
+constant <span class="arithmatex">\(\left(\frac pd\right)\)</span>; and <span class="arithmatex">\(\left(\frac{N(\alpha)}1\right)=1\)</span>.</p>
+</div>
+<div class="bp-lean-source">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">noncomputable</span> <span class="bp-lean-keyword">def</span> heckeCoeff (d n : ℕ) : ℂ :=
+  (1 / 4) * ∑ p ∈ <a class="bp-lean-ref" href="#norm-fibres" data-lean-name="ZInQ.Contrib.HeckeFE.normFiber">normFiber</a> n,
+    (jacobiSym (p.1 ^ 2 + p.2 ^ 2) d : ℂ) * <a class="bp-lean-ref" href="#primary-unit" data-lean-name="ZInQ.Contrib.HeckeFE.unitOf">unitOf</a> ((p.1 : ZMod 4), (p.2 : ZMod 4)) * <a class="bp-lean-ref" href="../theta/index.html#lattice-series" data-lean-name="ZInQ.Contrib.HeckeFE.gz">gz</a> 0 0 p</code></pre>
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> heckeCoeff_eq_sum_psi (d n : ℕ) :
+    <a class="bp-lean-ref" href="#hecke-coefficients" data-lean-name="ZInQ.Contrib.HeckeFE.heckeCoeff">heckeCoeff</a> d n = (1 / 4) * ∑ p ∈ <a class="bp-lean-ref" href="#norm-fibres" data-lean-name="ZInQ.Contrib.HeckeFE.normFiber">normFiber</a> n, <a class="bp-lean-ref" href="#hecke-character" data-lean-name="ZInQ.Contrib.HeckeFE.psi">psi</a> d p</code></pre>
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> heckeCoeff_zero (d : ℕ) : <a class="bp-lean-ref" href="#hecke-coefficients" data-lean-name="ZInQ.Contrib.HeckeFE.heckeCoeff">heckeCoeff</a> d 0 = 0</code></pre>
+<div class="bp-lean-names" hidden="hidden">
+<div data-lean-name="ZInQ.Contrib.HeckeFE.normFiber">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> normFiber (n : ℕ) : Finset (ℤ × ℤ) :=
+  ((Finset.Icc (-(n : ℤ)) n) ×ˢ (Finset.Icc (-(n : ℤ)) n)).filter
+    (<span class="bp-lean-keyword">fun</span> p =&gt; p.1 ^ 2 + p.2 ^ 2 = n)</code></pre>
+<p class="bp-lean-where">ZInQKernel/Contrib/HeckeFE/Basic.lean:386</p>
+</div>
+<div data-lean-name="ZInQ.Contrib.HeckeFE.unitOf">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> unitOf (t : ZMod 4 × ZMod 4) : ℂ :=
+  <span class="bp-lean-keyword">if</span> t = (1, 0) ∨ t = (3, 2) <span class="bp-lean-keyword">then</span> 1
+  <span class="bp-lean-keyword">else</span> <span class="bp-lean-keyword">if</span> t = (3, 0) ∨ t = (1, 2) <span class="bp-lean-keyword">then</span> -1
+  <span class="bp-lean-keyword">else</span> <span class="bp-lean-keyword">if</span> t = (0, 3) ∨ t = (2, 1) <span class="bp-lean-keyword">then</span> I
+  <span class="bp-lean-keyword">else</span> <span class="bp-lean-keyword">if</span> t = (0, 1) ∨ t = (2, 3) <span class="bp-lean-keyword">then</span> -I
+  <span class="bp-lean-keyword">else</span> 0</code></pre>
+<p class="bp-lean-where">ZInQKernel/Contrib/HeckeFE/Basic.lean:443</p>
+</div>
+<div data-lean-name="ZInQ.Contrib.HeckeFE.gz">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">noncomputable</span> <span class="bp-lean-keyword">def</span> gz (a b : ℝ) (p : ℤ × ℤ) : ℂ := ((p.1 : ℂ) + a) + ((p.2 : ℂ) + b) * I</code></pre>
+<p class="bp-lean-where">ZInQKernel/Contrib/HeckeFE/Basic.lean:188</p>
+</div>
+<div data-lean-name="ZInQ.Contrib.HeckeFE.heckeCoeff">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">noncomputable</span> <span class="bp-lean-keyword">def</span> heckeCoeff (d n : ℕ) : ℂ :=
+  (1 / 4) * ∑ p ∈ normFiber n,
+    (jacobiSym (p.1 ^ 2 + p.2 ^ 2) d : ℂ) * unitOf ((p.1 : ZMod 4), (p.2 : ZMod 4)) * gz 0 0 p</code></pre>
+<p class="bp-lean-where">ZInQKernel/Contrib/HeckeFE/Basic.lean:473</p>
+</div>
+<div data-lean-name="ZInQ.Contrib.HeckeFE.psi">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">noncomputable</span> <span class="bp-lean-keyword">def</span> psi (d : ℕ) (p : ℤ × ℤ) : ℂ :=
+  (jacobiSym (p.1 ^ 2 + p.2 ^ 2) d : ℂ) * unitOf ((p.1 : ZMod 4), (p.2 : ZMod 4)) * gz 0 0 p</code></pre>
+<p class="bp-lean-where">ZInQKernel/Contrib/HeckeFE/Basic.lean:1092</p>
+</div>
+</div>
+</div>
+<div class="bp-thmnotes">
+<div class="bp-notes-heading">
+<h6 id="sources_6">Sources</h6>
+</div>
+<div class="bp-search-text" hidden="hidden">Sources</div>
+<ul>
+<li><a href="../../../../../sources/hecke-locators.html#deuring-and-the-hecke-character">Deuring and the Hecke character</a></li>
+</ul>
+</div>
+<details class="bp-dependencies">
+<summary>Uses 3 · Used by 8</summary>
+<div class="bp-dependency-body">
+<div class="bp-row"><span class="bp-key">Statement uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#norm-fibres">Gaussian integers as pairs, norms and units</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#primary-unit">The primary unit of a Gaussian integer modulo 4</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#hecke-character">The Hecke character <span class="arithmatex">\(\psi_d\)</span></a></span></div>
+<div class="bp-row"><span class="bp-key">Used by</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../deuring/index.html#deuring-identity">Deuring&#x27;s identity for <span class="arithmatex">\(C_d\)</span></a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../deuring/index.html#deuring-of-euler-product">Deuring&#x27;s identity from the Euler product and the split primes</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../deuring/index.html#deuring-small-primes">Deuring&#x27;s identity at the primes <span class="arithmatex">\(2\)</span>, <span class="arithmatex">\(p\mid d\)</span> and <span class="arithmatex">\(p\equiv3\pmod4\)</span></a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="../deuring/index.html#gauss-split-twist">The split primes for <span class="arithmatex">\(C_d\)</span> from the curve <span class="arithmatex">\(y^2=x^3-x\)</span></a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#hecke-coefficients-non-split">The Hecke coefficients at the primes that do not split</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#hecke-euler-product">The Euler product of <span class="arithmatex">\(L(\psi_d,s)\)</span></a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#hecke-multiplicative">The Hecke coefficients are multiplicative</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#hecke-split-recursion">The Hecke relation at prime powers</a></span></div>
+</div>
+</details>
+</div>
+<div class="bp-thmwrapper theorem-style-plain bp-fully_proved" data-autoform-node-id="rank/literature/hecke/gaussian/hecke-coefficients-non-split">
+<h4 class="bp-thmheading" id="hecke-coefficients-non-split">
+<span class="bp-thmcaption" data-search-exclude>Theorem</span><span class="bp-thmtitle">The Hecke coefficients at the primes that do not split</span><span class="bp-code-links"><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/8ec807114805afd96d90c468ec2cf40c6f9cc634/ZInQKernel/Contrib/HeckeFE/Basic.lean#L2038" aria-label="View ZInQ.Contrib.HeckeFE.heckeCoeff_two_pow in Lean source" title="View ZInQ.Contrib.HeckeFE.heckeCoeff_two_pow in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/8ec807114805afd96d90c468ec2cf40c6f9cc634/ZInQKernel/Contrib/HeckeFE/Basic.lean#L2057" aria-label="View ZInQ.Contrib.HeckeFE.heckeCoeff_pow_of_dvd in Lean source" title="View ZInQ.Contrib.HeckeFE.heckeCoeff_pow_of_dvd in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/8ec807114805afd96d90c468ec2cf40c6f9cc634/ZInQKernel/Contrib/HeckeFE/Basic.lean#L1975" aria-label="View ZInQ.Contrib.HeckeFE.heckeCoeff_prime_of_dvd in Lean source" title="View ZInQ.Contrib.HeckeFE.heckeCoeff_prime_of_dvd in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/8ec807114805afd96d90c468ec2cf40c6f9cc634/ZInQKernel/Contrib/HeckeFE/Basic.lean#L2112" aria-label="View ZInQ.Contrib.HeckeFE.heckeCoeff_inert in Lean source" title="View ZInQ.Contrib.HeckeFE.heckeCoeff_inert in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a></span><a class="bp-source-link" href="https://github.com/Deicyde/diophantine-z-q/blob/8ec807114805afd96d90c468ec2cf40c6f9cc634/blueprint/roadmap/rank/literature/hecke/gaussian/hecke-coefficients-non-split.md" aria-label="Edit the Markdown source for The Hecke coefficients at the primes that do not split" title="Edit the Markdown source for The Hecke coefficients at the primes that do not split"><svg class="bp-source-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4h9l7 7v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M13 4v7h7"/></svg></a><a class="bp-permalink" href="#hecke-coefficients-non-split" aria-label="Link to The Hecke coefficients at the primes that do not split" data-search-exclude>#</a><span class="bp-mark" title="fully proved" data-search-exclude>✓<span class="bp-mark-label">fully proved</span></span>
+</h4>
+<div class="bp-search-names" hidden="hidden">ZInQ.Contrib.HeckeFE.heckeCoeff_two_pow ZInQ.Contrib.HeckeFE.heckeCoeff_pow_of_dvd ZInQ.Contrib.HeckeFE.heckeCoeff_prime_of_dvd ZInQ.Contrib.HeckeFE.heckeCoeff_inert</div>
+<div class="bp-thmcontent">
+<p>Let <span class="arithmatex">\(\lambda_d(n)\)</span> be the <a href="#hecke-coefficients">Hecke coefficients</a>.</p>
+<ol>
+<li>For every natural number <span class="arithmatex">\(d\)</span> and every <span class="arithmatex">\(m\ge1\)</span>, <span class="arithmatex">\(\lambda_d(2^m)=0\)</span>.</li>
+<li>If <span class="arithmatex">\(d\)</span> is odd, <span class="arithmatex">\(p\)</span> is a prime dividing <span class="arithmatex">\(d\)</span> and <span class="arithmatex">\(m\ge1\)</span>, then <span class="arithmatex">\(\lambda_d(p^m)=0\)</span>.</li>
+<li>If <span class="arithmatex">\(d\)</span> is odd and squarefree and <span class="arithmatex">\(p\)</span> is a prime with <span class="arithmatex">\(p\mid2d\)</span>, then <span class="arithmatex">\(\lambda_d(p)=0\)</span>.</li>
+<li>If <span class="arithmatex">\(p\equiv3\pmod4\)</span> is prime, <span class="arithmatex">\(p\nmid d\)</span> and <span class="arithmatex">\(k\ge0\)</span>, then
+   <span class="arithmatex">\(\lambda_d(p^{k+2})=-p\,\lambda_d(p^k)\)</span>.</li>
+</ol>
+<p><strong>Proof sketch.</strong> (1) If <span class="arithmatex">\(N(\alpha)=a^2+b^2\)</span> is even, then <span class="arithmatex">\(a+b\)</span> is even and <span class="arithmatex">\(u(\alpha)=0\)</span>
+(<a href="#primary-unit">primary unit</a> (3)), so every term vanishes.</p>
+<p>(2) For <span class="arithmatex">\(\alpha\in A_{p^m}\)</span>, <span class="arithmatex">\(p^m\)</span> and <span class="arithmatex">\(d\)</span> have the common factor <span class="arithmatex">\(p\)</span>, so
+<span class="arithmatex">\(\left(\frac{N(\alpha)}d\right)=\left(\frac{p^m}d\right)=0\)</span>.</p>
+<p>(3) By <a href="../deuring/index.html#deuring-small-primes">Deuring's identity at the small primes</a> (5) and (6),
+<span class="arithmatex">\(\lambda_d(p)\)</span> equals the coefficient <span class="arithmatex">\(c_d(p)\)</span> of <span class="arithmatex">\(L(C_d,s)\)</span> at <span class="arithmatex">\(p\)</span>, which is <span class="arithmatex">\(0\)</span> for <span class="arithmatex">\(p\mid2d\)</span>
+(<a href="../../l-function-cd/index.html#prime-coefficients">the coefficients at primes</a>).</p>
+<p>(4) By <a href="#norm-fibres-primes">norm fibres at primes</a> (2), <span class="arithmatex">\(A_{p^{k+2}}=\{p\beta:\beta\in A_{p^k}\}\)</span>,
+and <span class="arithmatex">\(\beta\mapsto p\beta\)</span> is injective. By the <a href="#hecke-character">Hecke character</a> (2),
+<span class="arithmatex">\(\psi_d(p\beta)=\psi_d(p)\psi_d(\beta)\)</span>, and <span class="arithmatex">\(\psi_d(p)=\left(\frac{p^2}d\right)u(p)\,p=-p\)</span>: the
+symbol is <span class="arithmatex">\(1\)</span> as <span class="arithmatex">\(p\nmid d\)</span>, and <span class="arithmatex">\(u(p)=u(3,0)=-1\)</span> as <span class="arithmatex">\(p\equiv3\pmod4\)</span>.</p>
+</div>
+<div class="bp-lean-source">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> heckeCoeff_two_pow (d : ℕ) {m : ℕ} (hm : 1 ≤ m) : <a class="bp-lean-ref" href="#hecke-coefficients" data-lean-name="ZInQ.Contrib.HeckeFE.heckeCoeff">heckeCoeff</a> d (2 ^ m) = 0</code></pre>
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> heckeCoeff_pow_of_dvd {d p : ℕ} (hd : Odd d) (hp : p.Prime) (hpd : p ∣ d) {m : ℕ}
+    (hm : 1 ≤ m) : <a class="bp-lean-ref" href="#hecke-coefficients" data-lean-name="ZInQ.Contrib.HeckeFE.heckeCoeff">heckeCoeff</a> d (p ^ m) = 0</code></pre>
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> heckeCoeff_prime_of_dvd {d p : ℕ} (hd : Odd d) (hsq : Squarefree d) (hp : p.Prime)
+    (h : p ∣ 2 * d) : <a class="bp-lean-ref" href="#hecke-coefficients" data-lean-name="ZInQ.Contrib.HeckeFE.heckeCoeff">heckeCoeff</a> d p = 0</code></pre>
+<div class="bp-lean-names" hidden="hidden">
+<div data-lean-name="ZInQ.Contrib.HeckeFE.heckeCoeff">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">noncomputable</span> <span class="bp-lean-keyword">def</span> heckeCoeff (d n : ℕ) : ℂ :=
+  (1 / 4) * ∑ p ∈ normFiber n,
+    (jacobiSym (p.1 ^ 2 + p.2 ^ 2) d : ℂ) * unitOf ((p.1 : ZMod 4), (p.2 : ZMod 4)) * gz 0 0 p</code></pre>
+<p class="bp-lean-where">ZInQKernel/Contrib/HeckeFE/Basic.lean:473</p>
+</div>
+</div>
+</div>
+<div class="bp-thmnotes">
+<div class="bp-notes-heading">
+<h6 id="sources_7">Sources</h6>
+</div>
+<div class="bp-search-text" hidden="hidden">Sources</div>
+<ul>
+<li><a href="../../../../../sources/hecke-locators.html#deuring-and-the-hecke-character">Deuring and the Hecke character</a></li>
+</ul>
+</div>
+<details class="bp-dependencies">
+<summary>Uses 6 · Used by 2</summary>
+<div class="bp-dependency-body">
+<div class="bp-row"><span class="bp-key">Statement uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#hecke-coefficients">The coefficients of the Hecke L-series <span class="arithmatex">\(L(\psi_d,s)\)</span></a></span></div>
+<div class="bp-row"><span class="bp-key">Proof uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#primary-unit">The primary unit of a Gaussian integer modulo 4</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#hecke-character">The Hecke character <span class="arithmatex">\(\psi_d\)</span></a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#norm-fibres-primes">Gaussian integers whose norm is a prime power</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="../deuring/index.html#deuring-small-primes">Deuring&#x27;s identity at the primes <span class="arithmatex">\(2\)</span>, <span class="arithmatex">\(p\mid d\)</span> and <span class="arithmatex">\(p\equiv3\pmod4\)</span></a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="../../l-function-cd/index.html#prime-coefficients">The coefficients of <span class="arithmatex">\(L(C_d,s)\)</span> at primes as point counts</a></span></div>
+<div class="bp-row"><span class="bp-key">Used by</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#hecke-euler-product">The Euler product of <span class="arithmatex">\(L(\psi_d,s)\)</span></a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#hecke-split-recursion">The Hecke relation at prime powers</a></span></div>
+</div>
+</details>
+</div>
+<div class="bp-thmwrapper theorem-style-plain bp-fully_proved" data-autoform-node-id="rank/literature/hecke/gaussian/hecke-multiplicative">
+<h4 class="bp-thmheading" id="hecke-multiplicative">
+<span class="bp-thmcaption" data-search-exclude>Theorem</span><span class="bp-thmtitle">The Hecke coefficients are multiplicative</span><span class="bp-code-links"><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/8ec807114805afd96d90c468ec2cf40c6f9cc634/ZInQKernel/Contrib/HeckeFE/Basic.lean#L1926" aria-label="View ZInQ.Contrib.HeckeFE.HeckeMult in Lean source" title="View ZInQ.Contrib.HeckeFE.HeckeMult in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/8ec807114805afd96d90c468ec2cf40c6f9cc634/ZInQKernel/Contrib/HeckeFE/Basic.lean#L2408" aria-label="View ZInQ.Contrib.HeckeFE.heckeMult in Lean source" title="View ZInQ.Contrib.HeckeFE.heckeMult in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a></span><a class="bp-source-link" href="https://github.com/Deicyde/diophantine-z-q/blob/8ec807114805afd96d90c468ec2cf40c6f9cc634/blueprint/roadmap/rank/literature/hecke/gaussian/hecke-multiplicative.md" aria-label="Edit the Markdown source for The Hecke coefficients are multiplicative" title="Edit the Markdown source for The Hecke coefficients are multiplicative"><svg class="bp-source-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4h9l7 7v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M13 4v7h7"/></svg></a><a class="bp-permalink" href="#hecke-multiplicative" aria-label="Link to The Hecke coefficients are multiplicative" data-search-exclude>#</a><span class="bp-mark" title="fully proved" data-search-exclude>✓<span class="bp-mark-label">fully proved</span></span>
+</h4>
+<div class="bp-search-names" hidden="hidden">ZInQ.Contrib.HeckeFE.HeckeMult ZInQ.Contrib.HeckeFE.heckeMult</div>
+<div class="bp-thmcontent">
+<p>For a natural number <span class="arithmatex">\(d\)</span>, the Hecke coefficients are <em>multiplicative</em> if
+<span class="arithmatex">\(\lambda_d(mn)=\lambda_d(m)\lambda_d(n)\)</span> for all coprime natural numbers <span class="arithmatex">\(m,n\)</span>, where <span class="arithmatex">\(\lambda_d\)</span> are
+the <a href="#hecke-coefficients">Hecke coefficients</a>.</p>
+<p>For every natural number <span class="arithmatex">\(d\)</span> the Hecke coefficients are multiplicative.</p>
+<p><strong>Proof sketch.</strong> If <span class="arithmatex">\(m=0\)</span>, coprimality forces <span class="arithmatex">\(n=1\)</span>, and <span class="arithmatex">\(\lambda_d(1)=1\)</span>
+(<a href="#hecke-coefficients">Hecke coefficients</a> (1)); likewise if <span class="arithmatex">\(n=0\)</span>. Let <span class="arithmatex">\(m,n&gt;0\)</span>. Expand
+<span class="arithmatex">\(\bigl(\sum_{A_m}\psi_d\bigr)\bigl(\sum_{A_n}\psi_d\bigr)\)</span> as a sum over <span class="arithmatex">\(A_m\times A_n\)</span> of
+<span class="arithmatex">\(\psi_d(\alpha)\psi_d(\beta)=\psi_d(\alpha\beta)\)</span> (<a href="#hecke-character">Hecke character</a> (2)).
+Multiplication maps <span class="arithmatex">\(A_m\times A_n\)</span> into <span class="arithmatex">\(A_{mn}\)</span>
+(<a href="#norm-fibres">Gaussian integers as pairs</a> (3)) with fibres of exactly four elements
+(<a href="#norm-fibres-coprime">coprime norms</a> (2)), so the product equals <span class="arithmatex">\(4\sum_{A_{mn}}\psi_d\)</span>.
+Dividing by <span class="arithmatex">\(16\)</span> gives <span class="arithmatex">\(\lambda_d(m)\lambda_d(n)=\lambda_d(mn)\)</span>.</p>
+</div>
+<div class="bp-lean-source">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> HeckeMult (d : ℕ) : <span class="bp-lean-keyword">Prop</span> :=
+  ∀ m n : ℕ, Nat.Coprime m n → <a class="bp-lean-ref" href="#hecke-coefficients" data-lean-name="ZInQ.Contrib.HeckeFE.heckeCoeff">heckeCoeff</a> d (m * n) = <a class="bp-lean-ref" href="#hecke-coefficients" data-lean-name="ZInQ.Contrib.HeckeFE.heckeCoeff">heckeCoeff</a> d m * <a class="bp-lean-ref" href="#hecke-coefficients" data-lean-name="ZInQ.Contrib.HeckeFE.heckeCoeff">heckeCoeff</a> d n</code></pre>
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> heckeMult (d : ℕ) : <a class="bp-lean-ref" href="#hecke-multiplicative" data-lean-name="ZInQ.Contrib.HeckeFE.HeckeMult">HeckeMult</a> d</code></pre>
+<div class="bp-lean-names" hidden="hidden">
+<div data-lean-name="ZInQ.Contrib.HeckeFE.heckeCoeff">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">noncomputable</span> <span class="bp-lean-keyword">def</span> heckeCoeff (d n : ℕ) : ℂ :=
+  (1 / 4) * ∑ p ∈ normFiber n,
+    (jacobiSym (p.1 ^ 2 + p.2 ^ 2) d : ℂ) * unitOf ((p.1 : ZMod 4), (p.2 : ZMod 4)) * gz 0 0 p</code></pre>
+<p class="bp-lean-where">ZInQKernel/Contrib/HeckeFE/Basic.lean:473</p>
+</div>
+<div data-lean-name="ZInQ.Contrib.HeckeFE.HeckeMult">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> HeckeMult (d : ℕ) : <span class="bp-lean-keyword">Prop</span> :=
+  ∀ m n : ℕ, Nat.Coprime m n → heckeCoeff d (m * n) = heckeCoeff d m * heckeCoeff d n</code></pre>
+<p class="bp-lean-where">ZInQKernel/Contrib/HeckeFE/Basic.lean:1926</p>
+</div>
+</div>
+</div>
+<div class="bp-thmnotes">
+<div class="bp-notes-heading">
+<h6 id="sources_8">Sources</h6>
+</div>
+<div class="bp-search-text" hidden="hidden">Sources</div>
+<ul>
+<li><a href="../../../../../sources/hecke-locators.html#deuring-and-the-hecke-character">Deuring and the Hecke character</a></li>
+</ul>
+</div>
+<details class="bp-dependencies">
+<summary>Uses 4 · Used by 3</summary>
+<div class="bp-dependency-body">
+<div class="bp-row"><span class="bp-key">Statement uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#hecke-coefficients">The coefficients of the Hecke L-series <span class="arithmatex">\(L(\psi_d,s)\)</span></a></span></div>
+<div class="bp-row"><span class="bp-key">Proof uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#hecke-character">The Hecke character <span class="arithmatex">\(\psi_d\)</span></a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#norm-fibres">Gaussian integers as pairs, norms and units</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#norm-fibres-coprime">Factoring a Gaussian integer along coprime norms</a></span></div>
+<div class="bp-row"><span class="bp-key">Used by</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../index.html#both-from-gauss-count">Hecke&#x27;s continuation for <span class="arithmatex">\(d\equiv5\pmod8\)</span> and the functional equation from Gauss&#x27;s point count</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../index.html#certified-rank-of-gauss-count">CR₃^TYZ_Cl,Rk from reading A, Gross–Zagier and Gauss&#x27;s point count</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#hecke-euler-product">The Euler product of <span class="arithmatex">\(L(\psi_d,s)\)</span></a></span></div>
+</div>
+</details>
+</div>
+<div class="bp-thmwrapper theorem-style-plain bp-fully_proved" data-autoform-node-id="rank/literature/hecke/gaussian/hecke-split-recursion">
+<h4 class="bp-thmheading" id="hecke-split-recursion">
+<span class="bp-thmcaption" data-search-exclude>Theorem</span><span class="bp-thmtitle">The Hecke relation at prime powers</span><span class="bp-code-links"><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/8ec807114805afd96d90c468ec2cf40c6f9cc634/ZInQKernel/Contrib/HeckeFE/Basic.lean#L2143" aria-label="View ZInQ.Contrib.HeckeFE.HeckePrimePowSplit in Lean source" title="View ZInQ.Contrib.HeckeFE.HeckePrimePowSplit in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/8ec807114805afd96d90c468ec2cf40c6f9cc634/ZInQKernel/Contrib/HeckeFE/Basic.lean#L2678" aria-label="View ZInQ.Contrib.HeckeFE.heckePrimePowSplit in Lean source" title="View ZInQ.Contrib.HeckeFE.heckePrimePowSplit in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/8ec807114805afd96d90c468ec2cf40c6f9cc634/ZInQKernel/Contrib/HeckeFE/Basic.lean#L1930" aria-label="View ZInQ.Contrib.HeckeFE.HeckePrimePow in Lean source" title="View ZInQ.Contrib.HeckeFE.HeckePrimePow in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/8ec807114805afd96d90c468ec2cf40c6f9cc634/ZInQKernel/Contrib/HeckeFE/Basic.lean#L2148" aria-label="View ZInQ.Contrib.HeckeFE.heckePrimePow_of_split in Lean source" title="View ZInQ.Contrib.HeckeFE.heckePrimePow_of_split in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a></span><a class="bp-source-link" href="https://github.com/Deicyde/diophantine-z-q/blob/8ec807114805afd96d90c468ec2cf40c6f9cc634/blueprint/roadmap/rank/literature/hecke/gaussian/hecke-split-recursion.md" aria-label="Edit the Markdown source for The Hecke relation at prime powers" title="Edit the Markdown source for The Hecke relation at prime powers"><svg class="bp-source-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4h9l7 7v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M13 4v7h7"/></svg></a><a class="bp-permalink" href="#hecke-split-recursion" aria-label="Link to The Hecke relation at prime powers" data-search-exclude>#</a><span class="bp-mark" title="fully proved" data-search-exclude>✓<span class="bp-mark-label">fully proved</span></span>
+</h4>
+<div class="bp-search-names" hidden="hidden">ZInQ.Contrib.HeckeFE.HeckePrimePowSplit ZInQ.Contrib.HeckeFE.heckePrimePowSplit ZInQ.Contrib.HeckeFE.HeckePrimePow ZInQ.Contrib.HeckeFE.heckePrimePow_of_split</div>
+<div class="bp-thmcontent">
+<p>Let <span class="arithmatex">\(d\)</span> be a natural number and <span class="arithmatex">\(\lambda_d\)</span> the <a href="#hecke-coefficients">Hecke coefficients</a>.</p>
+<ul>
+<li>The <em>Hecke relation at the split primes</em> holds for <span class="arithmatex">\(d\)</span> if for every prime <span class="arithmatex">\(p\equiv1\pmod4\)</span> with
+  <span class="arithmatex">\(p\nmid d\)</span> and every <span class="arithmatex">\(k\ge0\)</span>,
+  $<span class="arithmatex">\(\lambda_d(p^{k+2})=\lambda_d(p)\lambda_d(p^{k+1})-p\,\lambda_d(p^k).\)</span>$</li>
+<li>
+<p>The <em>Hecke relation at all primes</em> holds for <span class="arithmatex">\(d\)</span> if for every prime <span class="arithmatex">\(p\)</span> and every <span class="arithmatex">\(k\ge0\)</span>,
+  $<span class="arithmatex">\(\lambda_d(p^{k+2})=\lambda_d(p)\lambda_d(p^{k+1})-b_p\,\lambda_d(p^k),\qquad
+  b_p=\begin{cases}0&amp;p\mid2d,\\p&amp;p\nmid2d.\end{cases}\)</span>$</p>
+</li>
+<li>
+<p>The Hecke relation at the split primes holds for every natural number <span class="arithmatex">\(d\)</span>.</p>
+</li>
+<li>If <span class="arithmatex">\(d\)</span> is odd and squarefree and the Hecke relation at the split primes holds for <span class="arithmatex">\(d\)</span>, then the
+   Hecke relation at all primes holds for <span class="arithmatex">\(d\)</span>.</li>
+</ul>
+<p><strong>Proof sketch.</strong> (1) Let <span class="arithmatex">\(p\equiv1\pmod4\)</span>, <span class="arithmatex">\(p\nmid d\)</span>. Write <span class="arithmatex">\(p=a^2+b^2\)</span> (Fermat) and
+<span class="arithmatex">\(\pi=a+bi\)</span>. By <a href="#norm-fibres-split">the Gaussian primes above a split prime</a> (g) and the invariance of <span class="arithmatex">\(\psi_d\)</span>
+under units (<a href="#hecke-character">Hecke character</a> (3)),
+<span class="arithmatex">\(\sum_{A_p}\psi_d=4\psi_d(\pi)+4\psi_d(\bar\pi)\)</span>. By multiplicativity of <span class="arithmatex">\(\psi_d\)</span> and norm fibres at
+primes (4), <span class="arithmatex">\(\psi_d(\pi)\sum_{A_{p^{k+1}}}\psi_d\)</span> is the sum of <span class="arithmatex">\(\psi_d\)</span> over the elements of
+<span class="arithmatex">\(A_{p^{k+2}}\)</span> divisible by <span class="arithmatex">\(\pi\)</span>, and likewise for <span class="arithmatex">\(\bar\pi\)</span>. Every element of <span class="arithmatex">\(A_{p^{k+2}}\)</span> is
+divisible by <span class="arithmatex">\(\pi\)</span> or <span class="arithmatex">\(\bar\pi\)</span>, by both exactly when it is divisible by <span class="arithmatex">\(p\)</span> (the Gaussian primes above a split prime
+(f)), and the elements divisible by <span class="arithmatex">\(p\)</span> are <span class="arithmatex">\(p\delta\)</span>, <span class="arithmatex">\(\delta\in A_{p^k}\)</span> (norm fibres at primes
+(4) with <span class="arithmatex">\(z=p\)</span>, of norm <span class="arithmatex">\(p^2\)</span>), with <span class="arithmatex">\(\psi_d(p\delta)=p\,\psi_d(\delta)\)</span> (Hecke character (4)). Inclusion–exclusion
+gives
+$<span class="arithmatex">\(\Bigl(\sum_{A_p}\psi_d\Bigr)\Bigl(\sum_{A_{p^{k+1}}}\psi_d\Bigr)
+=4\Bigl(\sum_{A_{p^{k+2}}}\psi_d+p\sum_{A_{p^k}}\psi_d\Bigr),\)</span>$
+and dividing by <span class="arithmatex">\(16\)</span> gives the relation.</p>
+<p>(2) Let <span class="arithmatex">\(p\)</span> be prime. If <span class="arithmatex">\(p\mid2d\)</span>, then <span class="arithmatex">\(\lambda_d(p)=0\)</span> and <span class="arithmatex">\(\lambda_d(p^{k+2})=0\)</span>
+(<a href="#hecke-coefficients-non-split">non-split primes</a> (3), and (1) for <span class="arithmatex">\(p=2\)</span> or (2) for <span class="arithmatex">\(p\mid d\)</span>),
+so both sides vanish. If <span class="arithmatex">\(p\nmid2d\)</span> and <span class="arithmatex">\(p\equiv1\pmod4\)</span>, this is the hypothesis. If <span class="arithmatex">\(p\equiv3\pmod4\)</span>,
+then <span class="arithmatex">\(\lambda_d(p)=0\)</span> because <span class="arithmatex">\(A_p\)</span> is empty (<a href="#norm-fibres-primes">norm fibres at primes</a> (1)),
+and non-split primes (4) gives the relation.</p>
+</div>
+<div class="bp-lean-source">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> HeckePrimePowSplit (d : ℕ) : <span class="bp-lean-keyword">Prop</span> :=
+  ∀ p : ℕ, p.Prime → p % 4 = 1 → ¬ p ∣ d → ∀ k : ℕ,
+    <a class="bp-lean-ref" href="#hecke-coefficients" data-lean-name="ZInQ.Contrib.HeckeFE.heckeCoeff">heckeCoeff</a> d (p ^ (k + 2)) = <a class="bp-lean-ref" href="#hecke-coefficients" data-lean-name="ZInQ.Contrib.HeckeFE.heckeCoeff">heckeCoeff</a> d p * <a class="bp-lean-ref" href="#hecke-coefficients" data-lean-name="ZInQ.Contrib.HeckeFE.heckeCoeff">heckeCoeff</a> d (p ^ (k + 1)) -
+      (p : ℂ) * <a class="bp-lean-ref" href="#hecke-coefficients" data-lean-name="ZInQ.Contrib.HeckeFE.heckeCoeff">heckeCoeff</a> d (p ^ k)</code></pre>
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> heckePrimePowSplit (d : ℕ) : <a class="bp-lean-ref" href="#hecke-split-recursion" data-lean-name="ZInQ.Contrib.HeckeFE.HeckePrimePowSplit">HeckePrimePowSplit</a> d</code></pre>
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> HeckePrimePow (d : ℕ) : <span class="bp-lean-keyword">Prop</span> :=
+  ∀ p : ℕ, p.Prime → ∀ k : ℕ, <a class="bp-lean-ref" href="#hecke-coefficients" data-lean-name="ZInQ.Contrib.HeckeFE.heckeCoeff">heckeCoeff</a> d (p ^ (k + 2)) =
+    <a class="bp-lean-ref" href="#hecke-coefficients" data-lean-name="ZInQ.Contrib.HeckeFE.heckeCoeff">heckeCoeff</a> d p * <a class="bp-lean-ref" href="#hecke-coefficients" data-lean-name="ZInQ.Contrib.HeckeFE.heckeCoeff">heckeCoeff</a> d (p ^ (k + 1)) -
+      (<span class="bp-lean-keyword">if</span> p ∣ 2 * d <span class="bp-lean-keyword">then</span> 0 <span class="bp-lean-keyword">else</span> (p : ℂ)) * <a class="bp-lean-ref" href="#hecke-coefficients" data-lean-name="ZInQ.Contrib.HeckeFE.heckeCoeff">heckeCoeff</a> d (p ^ k)</code></pre>
+<div class="bp-lean-names" hidden="hidden">
+<div data-lean-name="ZInQ.Contrib.HeckeFE.heckeCoeff">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">noncomputable</span> <span class="bp-lean-keyword">def</span> heckeCoeff (d n : ℕ) : ℂ :=
+  (1 / 4) * ∑ p ∈ normFiber n,
+    (jacobiSym (p.1 ^ 2 + p.2 ^ 2) d : ℂ) * unitOf ((p.1 : ZMod 4), (p.2 : ZMod 4)) * gz 0 0 p</code></pre>
+<p class="bp-lean-where">ZInQKernel/Contrib/HeckeFE/Basic.lean:473</p>
+</div>
+<div data-lean-name="ZInQ.Contrib.HeckeFE.HeckePrimePowSplit">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> HeckePrimePowSplit (d : ℕ) : <span class="bp-lean-keyword">Prop</span> :=
+  ∀ p : ℕ, p.Prime → p % 4 = 1 → ¬ p ∣ d → ∀ k : ℕ,
+    heckeCoeff d (p ^ (k + 2)) = heckeCoeff d p * heckeCoeff d (p ^ (k + 1)) -
+      (p : ℂ) * heckeCoeff d (p ^ k)</code></pre>
+<p class="bp-lean-where">ZInQKernel/Contrib/HeckeFE/Basic.lean:2143</p>
+</div>
+</div>
+</div>
+<div class="bp-thmnotes">
+<div class="bp-notes-heading">
+<h6 id="sources_9">Sources</h6>
+</div>
+<div class="bp-search-text" hidden="hidden">Sources</div>
+<ul>
+<li><a href="../../../../../sources/hecke-locators.html#deuring-and-the-hecke-character">Deuring and the Hecke character</a></li>
+<li><a href="../../../../../sources/hecke-locators.html#arithmetic-of-the-gaussian-integers">Arithmetic of the Gaussian integers</a></li>
+</ul>
+</div>
+<details class="bp-dependencies">
+<summary>Uses 5 · Used by 3</summary>
+<div class="bp-dependency-body">
+<div class="bp-row"><span class="bp-key">Statement uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#hecke-coefficients">The coefficients of the Hecke L-series <span class="arithmatex">\(L(\psi_d,s)\)</span></a></span></div>
+<div class="bp-row"><span class="bp-key">Proof uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#norm-fibres-primes">Gaussian integers whose norm is a prime power</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#norm-fibres-split">The Gaussian primes above a split prime</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#hecke-character">The Hecke character <span class="arithmatex">\(\psi_d\)</span></a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#hecke-coefficients-non-split">The Hecke coefficients at the primes that do not split</a></span></div>
+<div class="bp-row"><span class="bp-key">Used by</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../index.html#both-from-gauss-count">Hecke&#x27;s continuation for <span class="arithmatex">\(d\equiv5\pmod8\)</span> and the functional equation from Gauss&#x27;s point count</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../index.html#certified-rank-of-gauss-count">CR₃^TYZ_Cl,Rk from reading A, Gross–Zagier and Gauss&#x27;s point count</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#hecke-euler-product">The Euler product of <span class="arithmatex">\(L(\psi_d,s)\)</span></a></span></div>
+</div>
+</details>
+</div>
+<div class="bp-thmwrapper theorem-style-plain bp-fully_proved" data-autoform-node-id="rank/literature/hecke/gaussian/quadratic-power-series">
+<h4 class="bp-thmheading" id="quadratic-power-series">
+<span class="bp-thmcaption" data-search-exclude>Lemma</span><span class="bp-thmtitle">Inverses of quadratic power series</span><span class="bp-code-links"><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/8ec807114805afd96d90c468ec2cf40c6f9cc634/ZInQKernel/Contrib/HeckeFE/Basic.lean#L1945" aria-label="View ZInQ.Contrib.HeckeFE.coeff_inv_quadratic in Lean source" title="View ZInQ.Contrib.HeckeFE.coeff_inv_quadratic in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/8ec807114805afd96d90c468ec2cf40c6f9cc634/ZInQKernel/Contrib/HeckeFE/Basic.lean#L965" aria-label="View ZInQ.Contrib.HeckeFE.map_invOfUnit_one in Lean source" title="View ZInQ.Contrib.HeckeFE.map_invOfUnit_one in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/8ec807114805afd96d90c468ec2cf40c6f9cc634/ZInQKernel/Contrib/HeckeAll/Continuation.lean#L126" aria-label="View ZInQ.Contrib.HeckeAll.coeff_twist_quadratic in Lean source" title="View ZInQ.Contrib.HeckeAll.coeff_twist_quadratic in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a></span><a class="bp-source-link" href="https://github.com/Deicyde/diophantine-z-q/blob/8ec807114805afd96d90c468ec2cf40c6f9cc634/blueprint/roadmap/rank/literature/hecke/gaussian/quadratic-power-series.md" aria-label="Edit the Markdown source for Inverses of quadratic power series" title="Edit the Markdown source for Inverses of quadratic power series"><svg class="bp-source-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4h9l7 7v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M13 4v7h7"/></svg></a><a class="bp-permalink" href="#quadratic-power-series" aria-label="Link to Inverses of quadratic power series" data-search-exclude>#</a><span class="bp-mark" title="fully proved" data-search-exclude>✓<span class="bp-mark-label">fully proved</span></span>
+</h4>
+<div class="bp-search-names" hidden="hidden">ZInQ.Contrib.HeckeFE.coeff_inv_quadratic ZInQ.Contrib.HeckeFE.map_invOfUnit_one ZInQ.Contrib.HeckeAll.coeff_twist_quadratic</div>
+<div class="bp-thmcontent">
+<p>For a power series <span class="arithmatex">\(\varphi\)</span> with constant coefficient <span class="arithmatex">\(1\)</span>, <span class="arithmatex">\(\varphi^{-1}\)</span> is its inverse in the
+ring of formal power series, and <span class="arithmatex">\([T^k]\)</span> takes the coefficient of <span class="arithmatex">\(T^k\)</span>.</p>
+<ol>
+<li>For complex <span class="arithmatex">\(a,b\)</span>, the coefficients <span class="arithmatex">\(\psi_k=[T^k]\,(1-aT+bT^2)^{-1}\)</span> satisfy <span class="arithmatex">\(\psi_0=1\)</span>,
+   <span class="arithmatex">\(\psi_1=a\)</span> and <span class="arithmatex">\(\psi_{k+2}=a\psi_{k+1}-b\psi_k\)</span> for every <span class="arithmatex">\(k\ge0\)</span>.</li>
+<li>Let <span class="arithmatex">\(f:R\to S\)</span> be a homomorphism of commutative rings and <span class="arithmatex">\(\varphi\)</span> a power series over <span class="arithmatex">\(R\)</span> with
+   constant coefficient <span class="arithmatex">\(1\)</span>. Applying <span class="arithmatex">\(f\)</span> to the coefficients of <span class="arithmatex">\(\varphi^{-1}\)</span> gives the inverse
+   of the series obtained by applying <span class="arithmatex">\(f\)</span> to the coefficients of <span class="arithmatex">\(\varphi\)</span>.</li>
+<li>For complex <span class="arithmatex">\(\varepsilon,b,q\)</span> with <span class="arithmatex">\(\varepsilon^2=1\)</span> and every <span class="arithmatex">\(k\ge0\)</span>,
+   $<span class="arithmatex">\([T^k]\,(1-\varepsilon bT+qT^2)^{-1}=\varepsilon^k\,[T^k]\,(1-bT+qT^2)^{-1}.\)</span>$</li>
+</ol>
+<p><strong>Proof sketch.</strong> (1) Compare coefficients in <span class="arithmatex">\((1-aT+bT^2)\cdot(1-aT+bT^2)^{-1}=1\)</span>.</p>
+<p>(2) The image of <span class="arithmatex">\(\varphi^{-1}\)</span> is a left inverse of the image of <span class="arithmatex">\(\varphi\)</span>, and the inverse of a
+series with constant coefficient <span class="arithmatex">\(1\)</span> is unique.</p>
+<p>(3) Induction on <span class="arithmatex">\(k\)</span>, proving the statement for <span class="arithmatex">\(k\)</span> and <span class="arithmatex">\(k+1\)</span> together: both sides satisfy the
+recursion of (1) with <span class="arithmatex">\(a=\varepsilon b\)</span>, since <span class="arithmatex">\(\varepsilon^{k+2}=\varepsilon^k\)</span>; the cases
+<span class="arithmatex">\(k=0,1\)</span> are <span class="arithmatex">\(\psi_0=1\)</span> and <span class="arithmatex">\(\psi_1=\varepsilon b\)</span>.</p>
+</div>
+<div class="bp-lean-source">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> coeff_inv_quadratic (a b : ℂ) :
+    <span class="bp-lean-keyword">let</span> ψ := PowerSeries.invOfUnit (((1 - Polynomial.C a * Polynomial.X +
+      Polynomial.C b * Polynomial.X ^ 2 : Polynomial ℂ)) : PowerSeries ℂ) 1
+    PowerSeries.coeff 0 ψ = 1 ∧ PowerSeries.coeff 1 ψ = a ∧
+      ∀ k : ℕ, PowerSeries.coeff (k + 2) ψ =
+        a * PowerSeries.coeff (k + 1) ψ - b * PowerSeries.coeff k ψ</code></pre>
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> map_invOfUnit_one {R S : <span class="bp-lean-keyword">Type</span>*} [CommRing R] [CommRing S] (f : R →+* S)
+    (φ : PowerSeries R) (h : PowerSeries.constantCoeff φ = 1) :
+    PowerSeries.map f (PowerSeries.invOfUnit φ 1) =
+      PowerSeries.invOfUnit (PowerSeries.map f φ) 1</code></pre>
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> coeff_twist_quadratic (ε b q : ℂ) (hε : ε ^ 2 = 1) (k : ℕ) :
+    PowerSeries.coeff k (PowerSeries.invOfUnit (((1 - Polynomial.C (ε * b) * Polynomial.X +
+      Polynomial.C q * Polynomial.X ^ 2 : Polynomial ℂ)) : PowerSeries ℂ) 1) =
+    ε ^ k * PowerSeries.coeff k (PowerSeries.invOfUnit (((1 - Polynomial.C b * Polynomial.X +
+      Polynomial.C q * Polynomial.X ^ 2 : Polynomial ℂ)) : PowerSeries ℂ) 1)</code></pre>
+</div>
+<div class="bp-thmnotes">
+<div class="bp-notes-heading">
+<h6 id="sources_10">Sources</h6>
+</div>
+<div class="bp-search-text" hidden="hidden">Sources</div>
+<ul>
+<li><a href="../../../../../sources/hecke-locators.html#deuring-and-the-hecke-character">Deuring and the Hecke character</a></li>
+</ul>
+</div>
+<details class="bp-dependencies">
+<summary>Used by 3</summary>
+<div class="bp-dependency-body">
+<div class="bp-row"><span class="bp-key">Used by</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="../deuring/index.html#deuring-of-euler-product">Deuring&#x27;s identity from the Euler product and the split primes</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="../every-d/index.html#quadratic-twist-coefficients">The coefficients of <span class="arithmatex">\(C_d\)</span> as a quadratic twist of <span class="arithmatex">\(C_1\)</span></a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#hecke-euler-product">The Euler product of <span class="arithmatex">\(L(\psi_d,s)\)</span></a></span></div>
+</div>
+</details>
+</div>
+<div class="bp-thmwrapper theorem-style-plain bp-fully_proved" data-autoform-node-id="rank/literature/hecke/gaussian/hecke-euler-product">
+<h4 class="bp-thmheading" id="hecke-euler-product">
+<span class="bp-thmcaption" data-search-exclude>Theorem</span><span class="bp-thmtitle">The Euler product of <span class="arithmatex">\(L(\psi_d,s)\)</span></span><span class="bp-code-links"><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/8ec807114805afd96d90c468ec2cf40c6f9cc634/ZInQKernel/Contrib/HeckeFE/Basic.lean#L954" aria-label="View ZInQ.Contrib.HeckeFE.heckeEulerPoly in Lean source" title="View ZInQ.Contrib.HeckeFE.heckeEulerPoly in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/8ec807114805afd96d90c468ec2cf40c6f9cc634/ZInQKernel/Contrib/HeckeFE/Basic.lean#L960" aria-label="View ZInQ.Contrib.HeckeFE.HeckeEuler in Lean source" title="View ZInQ.Contrib.HeckeFE.HeckeEuler in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/8ec807114805afd96d90c468ec2cf40c6f9cc634/ZInQKernel/Contrib/HeckeFE/Basic.lean#L1988" aria-label="View ZInQ.Contrib.HeckeFE.heckeEuler_of_mult_primePow in Lean source" title="View ZInQ.Contrib.HeckeFE.heckeEuler_of_mult_primePow in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/8ec807114805afd96d90c468ec2cf40c6f9cc634/ZInQKernel/Contrib/HeckeFE/Basic.lean#L2746" aria-label="View ZInQ.Contrib.HeckeFE.heckeEuler_of_odd in Lean source" title="View ZInQ.Contrib.HeckeFE.heckeEuler_of_odd in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a></span><a class="bp-source-link" href="https://github.com/Deicyde/diophantine-z-q/blob/8ec807114805afd96d90c468ec2cf40c6f9cc634/blueprint/roadmap/rank/literature/hecke/gaussian/hecke-euler-product.md" aria-label="Edit the Markdown source for The Euler product of $L(\psi_d,s)$" title="Edit the Markdown source for The Euler product of $L(\psi_d,s)$"><svg class="bp-source-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4h9l7 7v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M13 4v7h7"/></svg></a><a class="bp-permalink" href="#hecke-euler-product" aria-label="Link to The Euler product of L(ψ_d,s)" data-search-exclude>#</a><span class="bp-mark" title="fully proved" data-search-exclude>✓<span class="bp-mark-label">fully proved</span></span>
+</h4>
+<div class="bp-search-names" hidden="hidden">ZInQ.Contrib.HeckeFE.heckeEulerPoly ZInQ.Contrib.HeckeFE.HeckeEuler ZInQ.Contrib.HeckeFE.heckeEuler_of_mult_primePow ZInQ.Contrib.HeckeFE.heckeEuler_of_odd</div>
+<div class="bp-thmcontent">
+<p>For natural numbers <span class="arithmatex">\(d\)</span> and <span class="arithmatex">\(p\)</span>, the <em>Hecke Euler polynomial</em> is the complex polynomial
+$<span class="arithmatex">\(H_{d,p}(T)=\begin{cases}1&amp;p\mid2d,\\1-\lambda_d(p)T+pT^2&amp;p\nmid2d,\end{cases}\)</span>$
+with <span class="arithmatex">\(\lambda_d\)</span> the <a href="#hecke-coefficients">Hecke coefficients</a>. The Hecke coefficients have the
+<em>Euler product</em> for <span class="arithmatex">\(d\)</span> if for every <span class="arithmatex">\(n\ge1\)</span>
+$<span class="arithmatex">\(\lambda_d(n)=\prod_{p^k\parallel n}[T^k]\,H_{d,p}(T)^{-1}.\)</span>$</p>
+<ol>
+<li>If <span class="arithmatex">\(d\)</span> is odd and squarefree, the Hecke coefficients are
+   <a href="#hecke-multiplicative">multiplicative</a> and the
+   <a href="#hecke-split-recursion">Hecke relation at all primes</a> holds for <span class="arithmatex">\(d\)</span>, then the Euler product
+   holds for <span class="arithmatex">\(d\)</span>.</li>
+<li>If <span class="arithmatex">\(d\)</span> is odd and squarefree, the Euler product holds for <span class="arithmatex">\(d\)</span>.</li>
+</ol>
+<p><strong>Proof sketch.</strong> (1) Multiplicativity and <span class="arithmatex">\(\lambda_d(1)=1\)</span> write <span class="arithmatex">\(\lambda_d(n)\)</span> as the product of
+<span class="arithmatex">\(\lambda_d(p^k)\)</span> over <span class="arithmatex">\(p^k\parallel n\)</span>, so it suffices to show
+<span class="arithmatex">\(\lambda_d(p^k)=[T^k]H_{d,p}(T)^{-1}\)</span>. Put <span class="arithmatex">\(b_p=0\)</span> for <span class="arithmatex">\(p\mid2d\)</span> and <span class="arithmatex">\(b_p=p\)</span> otherwise. Then
+<span class="arithmatex">\(H_{d,p}=1-\lambda_d(p)T+b_pT^2\)</span> in both cases, since <span class="arithmatex">\(\lambda_d(p)=0\)</span> for <span class="arithmatex">\(p\mid2d\)</span>
+(<a href="#hecke-coefficients-non-split">non-split primes</a> (3)). The coefficients of
+<span class="arithmatex">\((1-\lambda_d(p)T+b_pT^2)^{-1}\)</span> satisfy <span class="arithmatex">\(\psi_0=1\)</span>, <span class="arithmatex">\(\psi_1=\lambda_d(p)\)</span> and
+<span class="arithmatex">\(\psi_{k+2}=\lambda_d(p)\psi_{k+1}-b_p\psi_k\)</span> (<a href="#quadratic-power-series">quadratic power series</a>
+(1)), as do <span class="arithmatex">\(\lambda_d(p^k)\)</span> by the Hecke relation; induction on <span class="arithmatex">\(k\)</span>.</p>
+<p>(2) By (1): the Hecke coefficients are multiplicative for every <span class="arithmatex">\(d\)</span>, the Hecke relation at the split
+primes holds for every <span class="arithmatex">\(d\)</span>, and for odd squarefree <span class="arithmatex">\(d\)</span> it extends to all primes
+(<a href="#hecke-split-recursion">the Hecke relation</a> (1), (2)).</p>
+</div>
+<div class="bp-lean-source">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">noncomputable</span> <span class="bp-lean-keyword">def</span> heckeEulerPoly (d p : ℕ) : Polynomial ℂ :=
+  <span class="bp-lean-keyword">if</span> p ∣ 2 * d <span class="bp-lean-keyword">then</span> 1
+  <span class="bp-lean-keyword">else</span> 1 - Polynomial.C (<a class="bp-lean-ref" href="#hecke-coefficients" data-lean-name="ZInQ.Contrib.HeckeFE.heckeCoeff">heckeCoeff</a> d p) * Polynomial.X + Polynomial.C (p : ℂ) * Polynomial.X ^ 2</code></pre>
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> HeckeEuler (d : ℕ) : <span class="bp-lean-keyword">Prop</span> :=
+  ∀ n : ℕ, n ≠ 0 → <a class="bp-lean-ref" href="#hecke-coefficients" data-lean-name="ZInQ.Contrib.HeckeFE.heckeCoeff">heckeCoeff</a> d n = n.factorization.prod <span class="bp-lean-keyword">fun</span> p k =&gt;
+    PowerSeries.coeff k (PowerSeries.invOfUnit ((heckeEulerPoly d p : Polynomial ℂ) :
+      PowerSeries ℂ) 1)</code></pre>
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> heckeEuler_of_mult_primePow {d : ℕ} (hd : Odd d) (hsq : Squarefree d) (hM : <a class="bp-lean-ref" href="#hecke-multiplicative" data-lean-name="ZInQ.Contrib.HeckeFE.HeckeMult">HeckeMult</a> d)
+    (hP : <a class="bp-lean-ref" href="#hecke-split-recursion" data-lean-name="ZInQ.Contrib.HeckeFE.HeckePrimePow">HeckePrimePow</a> d) : <a class="bp-lean-ref" href="#hecke-euler-product" data-lean-name="ZInQ.Contrib.HeckeFE.HeckeEuler">HeckeEuler</a> d</code></pre>
+<div class="bp-lean-names" hidden="hidden">
+<div data-lean-name="ZInQ.Contrib.HeckeFE.heckeCoeff">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">noncomputable</span> <span class="bp-lean-keyword">def</span> heckeCoeff (d n : ℕ) : ℂ :=
+  (1 / 4) * ∑ p ∈ normFiber n,
+    (jacobiSym (p.1 ^ 2 + p.2 ^ 2) d : ℂ) * unitOf ((p.1 : ZMod 4), (p.2 : ZMod 4)) * gz 0 0 p</code></pre>
+<p class="bp-lean-where">ZInQKernel/Contrib/HeckeFE/Basic.lean:473</p>
+</div>
+<div data-lean-name="ZInQ.Contrib.HeckeFE.HeckeMult">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> HeckeMult (d : ℕ) : <span class="bp-lean-keyword">Prop</span> :=
+  ∀ m n : ℕ, Nat.Coprime m n → heckeCoeff d (m * n) = heckeCoeff d m * heckeCoeff d n</code></pre>
+<p class="bp-lean-where">ZInQKernel/Contrib/HeckeFE/Basic.lean:1926</p>
+</div>
+<div data-lean-name="ZInQ.Contrib.HeckeFE.HeckePrimePow">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> HeckePrimePow (d : ℕ) : <span class="bp-lean-keyword">Prop</span> :=
+  ∀ p : ℕ, p.Prime → ∀ k : ℕ, heckeCoeff d (p ^ (k + 2)) =
+    heckeCoeff d p * heckeCoeff d (p ^ (k + 1)) -
+      (<span class="bp-lean-keyword">if</span> p ∣ 2 * d <span class="bp-lean-keyword">then</span> 0 <span class="bp-lean-keyword">else</span> (p : ℂ)) * heckeCoeff d (p ^ k)</code></pre>
+<p class="bp-lean-where">ZInQKernel/Contrib/HeckeFE/Basic.lean:1930</p>
+</div>
+<div data-lean-name="ZInQ.Contrib.HeckeFE.HeckeEuler">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> HeckeEuler (d : ℕ) : <span class="bp-lean-keyword">Prop</span> :=
+  ∀ n : ℕ, n ≠ 0 → heckeCoeff d n = n.factorization.prod <span class="bp-lean-keyword">fun</span> p k =&gt;
+    PowerSeries.coeff k (PowerSeries.invOfUnit ((heckeEulerPoly d p : Polynomial ℂ) :
+      PowerSeries ℂ) 1)</code></pre>
+<p class="bp-lean-where">ZInQKernel/Contrib/HeckeFE/Basic.lean:960</p>
+</div>
+</div>
+</div>
+<div class="bp-thmnotes">
+<div class="bp-notes-heading">
+<h6 id="sources_11">Sources</h6>
+</div>
+<div class="bp-search-text" hidden="hidden">Sources</div>
+<ul>
+<li><a href="../../../../../sources/hecke-locators.html#deuring-and-the-hecke-character">Deuring and the Hecke character</a></li>
+</ul>
+</div>
+<details class="bp-dependencies">
+<summary>Uses 5 · Used by 4</summary>
+<div class="bp-dependency-body">
+<div class="bp-row"><span class="bp-key">Statement uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#hecke-coefficients">The coefficients of the Hecke L-series <span class="arithmatex">\(L(\psi_d,s)\)</span></a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#hecke-multiplicative">The Hecke coefficients are multiplicative</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#hecke-split-recursion">The Hecke relation at prime powers</a></span></div>
+<div class="bp-row"><span class="bp-key">Proof uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#hecke-coefficients-non-split">The Hecke coefficients at the primes that do not split</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#quadratic-power-series">Inverses of quadratic power series</a></span></div>
+<div class="bp-row"><span class="bp-key">Used by</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="../index.html#both-from-gauss-count">Hecke&#x27;s continuation for <span class="arithmatex">\(d\equiv5\pmod8\)</span> and the functional equation from Gauss&#x27;s point count</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../index.html#continuation-of-deuring">The continuation of <span class="arithmatex">\(L(C_d,s)\)</span> from Deuring&#x27;s identity</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="../deuring/index.html#deuring-from-gauss-count">Deuring&#x27;s identity for <span class="arithmatex">\(d\equiv1\pmod4\)</span> from Gauss&#x27;s point count</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../deuring/index.html#deuring-of-euler-product">Deuring&#x27;s identity from the Euler product and the split primes</a></span></div>
+</div>
+</details>
+</div>
+<div class="bp-progress-overview">
+<div class="bp-progress-states"><span class="bp-progress-state" title="Proved, and every prerequisite is fully proved too."><span class="bp-swatch bp-swatch-fully_proved"></span><strong>12</strong> fully proved</span></div>
+</div>
+</div>
+<p><link rel="stylesheet" href="../../../../../stylesheets/blueprint-dag.css" data-autoform-dag-style></p>
+<div class="bp-dag-viewer" data-catalog-src="../../../../../dependencies/index.json" data-graph-src="../../../../../dependencies/scopes/rank/literature/hecke/gaussian.json" data-page-href="index.html" data-scope-id="rank/literature/hecke/gaussian">
+<p class="bp-dag-loading" hidden="hidden" role="status">Loading dependency explorer…</p>
+<div class="bp-dag-fallback">
+    <p>The dependency explorer needs JavaScript and its graph data.</p>
+    <p><a href="../../../../../dependencies/index.json">Download the complete graph data</a>.</p>
+  </div>
+</div>
+<script defer="defer" src="../../../../../javascripts/blueprint-dag.js"></script>
+</div>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+<footer class="md-footer">
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+        Developed with
+        <a href="https://github.com/facebookresearch/autoform-bot">AutoformBot</a>.
+        
+        <a href="https://github.com/Deicyde/diophantine-z-q">Formalization source</a>.
+        
+      </div>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../../../..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.sections", "navigation.prune", "navigation.indexes", "navigation.top", "toc.follow", "search.suggest"], "search": "../../../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../../../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+        <script src="../../../../../javascripts/mathjax.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.js"></script>
+      
+        <script src="../../../../../javascripts/blueprint-mermaid.js"></script>
+      
+        <script src="../../../../../javascripts/blueprint-live.js"></script>
+      
+    
+  </body>
+</html>
