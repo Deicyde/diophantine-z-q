@@ -1,5 +1,6 @@
 import ZInQKernel.HDecomp.Objects
 import ZInQKernel.Contrib.AbVarBC.Points
+import ZInQKernel.Contrib.AbVarBC.Tangent
 
 /-!
 # av-split, row H-24 (`PkgI2.ReductionTorsionBijective`, T4, I2-Red)
@@ -440,7 +441,123 @@ theorem reductionTorsionBijective_of (hE : MulEtaleAbelianScheme) (hU : Unramifi
     apply G_injective 𝒜 e
     rw [← hb1, hba, hx]
 
+/-! ## 7. The GLUE `HenselEtaleLift` from Stacks 04GG -/
+
+open ZInQ.Contrib.AbVarBC.Tangent in
+/-- **`HenselEtaleLift` from the leaf `StacksHenselEtaleSection` (proved).** Affine opens
+`U ∋ f(a₀(s))`, `V ∋ a₀(s)`, `V ⊆ f⁻¹U`; `b`, `a₀` become ring maps `φ : Γ(U) → R`,
+`ψ₀ : Γ(V) → κ` (task g9-abvarbc's `ptRing`); Stacks 04GG for the étale `R`-algebra
+`S = R ⊗_{Γ(U)} Γ(V)` at the kernel `𝔮` of `S → κ` gives `τ : S → R`, and `ψ = τ ∘ (1 ⊗ -)`
+defines the lift. -/
+theorem henselEtaleLift_of_stacks (hS : StacksHenselEtaleSection) : HenselEtaleLift := by
+  intro R _ _ X Y f _ b a₀ hc
+  haveI : IsLocalHom (CommRingCat.ofHom (IsLocalRing.residue R)).hom := by
+    change IsLocalHom (IsLocalRing.residue R); infer_instance
+  set s : Spec (.of (IsLocalRing.ResidueField R)) :=
+    IsLocalRing.closedPoint (IsLocalRing.ResidueField R) with hs
+  obtain ⟨_, ⟨U, hU, rfl⟩, hyU, -⟩ :=
+    Y.isBasis_affineOpens.exists_subset_of_mem_open (Set.mem_univ (f (a₀ s))) isOpen_univ
+  obtain ⟨_, ⟨V, hV, rfl⟩, hxV, hVU⟩ :=
+    X.isBasis_affineOpens.exists_subset_of_mem_open (show a₀ s ∈ f ⁻¹ᵁ U from hyU)
+      (f ⁻¹ᵁ U).isOpen
+  have hres : (Spec.map (CommRingCat.ofHom (IsLocalRing.residue R))) s =
+      IsLocalRing.closedPoint R := Spec_closedPoint
+  have hfs : (a₀ ≫ f) s = b (IsLocalRing.closedPoint R) := by
+    rw [hc, Scheme.Hom.comp_apply, hres]
+  have hb : b (IsLocalRing.closedPoint R) ∈ U := by
+    rw [← hfs]; exact hyU
+  have hxV' : a₀ (IsLocalRing.closedPoint (IsLocalRing.ResidueField R)) ∈ V := hxV
+  have hp1 : (a₀ ≫ f) (IsLocalRing.closedPoint (IsLocalRing.ResidueField R)) ∈ U := hyU
+  have hp2 : (Spec.map (CommRingCat.ofHom (IsLocalRing.residue R)) ≫ b)
+      (IsLocalRing.closedPoint (IsLocalRing.ResidueField R)) ∈ U := by
+    rw [← hc]; exact hp1
+  set φ : Γ(Y, U) ⟶ CommRingCat.of R := ptRing b hb with hφ
+  set ψ₀ : Γ(X, V) ⟶ CommRingCat.of (IsLocalRing.ResidueField R) := ptRing a₀ hxV' with hψ₀
+  set θ := f.appLE U V hVU with hθ
+  have hcomp : θ ≫ ψ₀ = φ ≫ CommRingCat.ofHom (IsLocalRing.residue R) := by
+    have h1 := ptRing_comp hV f hU hVU a₀ hxV' hp1
+    have h2 := ptRing_specMap_comp hU (CommRingCat.ofHom (IsLocalRing.residue R)) b hb hp2
+    rw [← h1, ← h2]
+    exact ptRing_congr hc _ _
+  -- the ring-level situation
+  letI : Algebra Γ(Y, U) R := φ.hom.toAlgebra
+  letI : Algebra Γ(Y, U) Γ(X, V) := θ.hom.toAlgebra
+  haveI : Algebra.Etale Γ(Y, U) Γ(X, V) :=
+    HasRingHomProperty.appLE (P := @Etale) f ‹Etale f› ⟨U, hU⟩ ⟨V, hV⟩ hVU
+  letI : Algebra Γ(Y, U) (IsLocalRing.ResidueField R) :=
+    (φ ≫ CommRingCat.ofHom (IsLocalRing.residue R)).hom.toAlgebra
+  haveI : IsScalarTower Γ(Y, U) R (IsLocalRing.ResidueField R) :=
+    IsScalarTower.of_algebraMap_eq (fun _ => rfl)
+  let g₁ : Γ(X, V) →ₐ[Γ(Y, U)] IsLocalRing.ResidueField R :=
+    { ψ₀.hom with
+      commutes' := fun c => congrArg (fun t => t.hom c) hcomp }
+  let χ : TensorProduct Γ(Y, U) R Γ(X, V) →ₐ[R] IsLocalRing.ResidueField R :=
+    Algebra.TensorProduct.lift (Algebra.ofId R _) g₁ (fun _ _ => Commute.all _ _)
+  let q : Ideal (TensorProduct Γ(Y, U) R Γ(X, V)) := RingHom.ker χ
+  haveI : q.IsPrime := RingHom.ker_isPrime χ
+  have hχr : ∀ r : R, χ (algebraMap R _ r) = IsLocalRing.residue R r := fun r => χ.commutes r
+  have hq1 : q.comap (algebraMap R _) = IsLocalRing.maximalIdeal R := by
+    ext r
+    simp only [Ideal.mem_comap, q, RingHom.mem_ker, hχr]
+    exact IsLocalRing.residue_eq_zero_iff r
+  have hq2 : Function.Surjective ((Ideal.Quotient.mk q).comp (algebraMap R _)) := by
+    intro t
+    obtain ⟨u, rfl⟩ := Ideal.Quotient.mk_surjective t
+    obtain ⟨r, hr⟩ := IsLocalRing.residue_surjective (χ u)
+    refine ⟨r, ?_⟩
+    simp only [RingHom.comp_apply]
+    rw [Ideal.Quotient.eq]
+    change χ (algebraMap R _ r - u) = 0
+    rw [map_sub, hχr, hr, sub_self]
+  obtain ⟨τ, hτ⟩ := hS R (TensorProduct Γ(Y, U) R Γ(X, V)) q hq1 hq2
+  -- `res ∘ τ = χ`
+  have hkey : ∀ u, IsLocalRing.residue R (τ u) = χ u := by
+    intro u
+    obtain ⟨r, hr⟩ := hq2 (Ideal.Quotient.mk q u)
+    have hmem : algebraMap R _ r - u ∈ q := Ideal.Quotient.eq.mp hr
+    have h1 : χ (algebraMap R _ r - u) = 0 := hmem
+    have h2 : τ (algebraMap R _ r - u) ∈ IsLocalRing.maximalIdeal R := by
+      rw [hτ] at hmem; exact hmem
+    rw [map_sub, hχr, sub_eq_zero] at h1
+    have h3 := (IsLocalRing.residue_eq_zero_iff _).mpr h2
+    rw [map_sub, τ.commutes, Algebra.algebraMap_self, RingHom.id_apply, map_sub,
+      sub_eq_zero] at h3
+    rw [← h3, h1]
+  let ψ : Γ(X, V) ⟶ CommRingCat.of R :=
+    CommRingCat.ofHom (τ.toRingHom.comp
+      (Algebra.TensorProduct.includeRight (R := Γ(Y, U)) (A := R)).toRingHom)
+  have hψθ : θ ≫ ψ = φ := by
+    ext c
+    change τ (Algebra.TensorProduct.includeRight (algebraMap Γ(Y, U) Γ(X, V) c)) = φ c
+    rw [AlgHom.commutes, IsScalarTower.algebraMap_apply Γ(Y, U) R, τ.commutes]
+    rfl
+  have hψres : ψ ≫ CommRingCat.ofHom (IsLocalRing.residue R) = ψ₀ := by
+    ext c
+    change IsLocalRing.residue R (τ (1 ⊗ₜ c)) = ψ₀ c
+    rw [hkey]
+    change Algebra.TensorProduct.lift (Algebra.ofId R _) g₁ _ (1 ⊗ₜ c) = _
+    rw [Algebra.TensorProduct.lift_tmul, map_one, _root_.one_mul]
+    rfl
+  refine ⟨ofRing hV ψ, ?_, ?_⟩
+  · show (Spec.map ψ ≫ hV.fromSpec) ≫ f = b
+    rw [Category.assoc, ← IsAffineOpen.SpecMap_appLE_fromSpec f hU hV hVU,
+      ← Category.assoc, ← Spec.map_comp, ← hθ, hψθ]
+    conv_rhs => rw [eq_ofRing_ptRing hU b hb]
+    rfl
+  · show Spec.map (CommRingCat.ofHom (IsLocalRing.residue R)) ≫ Spec.map ψ ≫ hV.fromSpec = a₀
+    rw [← Category.assoc, ← Spec.map_comp, hψres]
+    conv_rhs => rw [eq_ofRing_ptRing hV a₀ hxV']
+    rfl
+
+/-- **Row H-24 from the three leaves (proved).** -/
+theorem reductionTorsionBijective_of_leaves (hE : MulEtaleAbelianScheme)
+    (hU : UnramifiedSectionsEq) (hS : StacksHenselEtaleSection) :
+    PkgI2.ReductionTorsionBijective.{0} :=
+  reductionTorsionBijective_of hE hU (henselEtaleLift_of_stacks hS)
+
 end AvSplit.T4
 
 #print axioms AvSplit.T4.henselian_of_isAlgClosed
 #print axioms AvSplit.T4.reductionTorsionBijective_of
+#print axioms AvSplit.T4.henselEtaleLift_of_stacks
+#print axioms AvSplit.T4.reductionTorsionBijective_of_leaves
