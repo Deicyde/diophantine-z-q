@@ -165,3 +165,8 @@ after `lake build ZInQKernel.Contrib.R10.Amend ZInQKernel.Contrib.AbVarBC.Dim` (
   `t23_all_of_bdrInvariants : (∀ p, BdRInvariants p) → ∀ p, T23_FontaineClosure p`.
 - `hodge_rows_of_leaves` now takes `∀ p, BdRInvariants p` instead of `∀ p, FontaineDRTannakian p`.
 - COMPILED 11-14, standard axioms. VERIFIED.
+
+## Final check (11-14 05:51)
+- `lake env lean scratch/hodge-split/HodgeSplit.lean`: no errors; 19 `#print axioms` lines, all
+  [propext, Classical.choice, Quot.sound]; no `sorry`, no `axiom` in the file (grep). VERIFIED.
+- Open: EigenformHTNew (H-10 newform case = Kato; not statable), H-9 (Pan, Berger need B_st).
