@@ -13,3 +13,16 @@ after `lake build ZInQKernel.Contrib.R10.Amend ZInQKernel.Contrib.AbVarBC.Dim` (
   entries; g9-derham's `liftGL`), finite descent (g9-derham's `descent_finrank`, Speiser — replaces
   Hilbert 90 of the row's citation).
 - COMPILED 03:50: axioms [propext, Classical.choice, Quot.sound]. VERIFIED.
+- File renamed FiniteImage.lean → HodgeSplit.lean (single growing file; scratch files cannot import each other).
+
+## H-8 `ZInQ.Contrib.R10.DeRhamComparisonHT` (HodgeSplit.lean §6)
+- Row imported from ZInQKernel/Contrib/R10/Amend.lean (unchanged).
+- LEAVES: `HodgeTateDecompAbVar` (ℂ_p ⊗ V_p(A) ≅ ℂ_p(1)^g ⊕ ℂ_p^g, G_F-equivariant, g = dim A; Fontaine 1982
+  Invent. 65 / Tate 1967 §4 / Faltings 1988; UNVERIFIED locators; bases chosen), `TateTwistInvariants`,
+  `AxSenTate` (shared with H-52), `DeRhamH1AbVar` (IsDeRhamOver of V_p(A): "H¹_ét = V_p(A)^∨ is de Rham",
+  Faltings 1989/Tsuji/Scholze Cor 1.8; H¹_ét replaced by V^∨ since étale cohomology is not in Mathlib).
+- GLUE proved: `range_gfToGqp_eq` (image of G_F is G_{F'} for any finite F, not only Galois),
+  `htSpaceOver_eq_map` (Hom_{G_F}(V, ℂ_p(j)) ≅ (ℂ_p(j−1)^{G_F})^g × (ℂ_p(j)^{G_F})^g through e),
+  `htMultOver_of_decomp` (multiplicity g·([w=0]+[w=−1])), `dim_finite_I4` (abvar-bc's dim_finite transported).
+- PROOF `deRhamComparisonHT_of_leaves : HodgeTateDecompAbVar → TateTwistInvariants → AxSenTate →
+  DeRhamH1AbVar → ZInQ.Contrib.R10.DeRhamComparisonHT`. COMPILED 04:30, standard axioms. VERIFIED.
