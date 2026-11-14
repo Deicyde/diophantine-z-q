@@ -15,10 +15,11 @@ sorry, axioms `[propext, Classical.choice, Quot.sound]`, VERIFIED by compilation
   algebraically closed throughout).
 - **T7** ⇐ `CharPolyIndepOfEllAlgClosed`: the same statement over algebraically closed fields
   only, a consequence of Mumford §19 Thm 4 (it drops `deg P = 2g` and `P(n) = deg(n − φ)`).
-- **T8** ⇐ `PoincareComplement` ∧ `ImageFactorization` ∧ `SimpleSurjIsogeny`. The first is
-  Poincaré's theorem in its published complement form (Milne 1986 Prop. 12.1; Mumford §19 Thm 1),
-  weakened. The other two are textbook facts on images and kernels of homomorphisms (GLUE-level
-  composites, §3.3).
+- **T8** ⇐ `PoincareComplement` ∧ `ImageFactorization` ∧ `SimpleSurjIsogeny`, and also
+  ⇐ `PoincareComplement` ∧ `SimpleImageIsogeny` (the last is the two glue Props combined, and
+  follows from them). `PoincareComplement` is Poincaré's theorem in its published complement form
+  (Milne 1986 Prop. 12.1; Mumford §19 Thm 1), weakened. The others are textbook facts on images and
+  kernels of homomorphisms (GLUE-level composites, §3.3).
 
 The fields are not proved outright: each reduced Prop is still a theorem of the textbook theory
 of abelian varieties, and Mathlib 4.35 cannot even build a nonzero abelian variety (see
@@ -39,6 +40,12 @@ theorem ZInQ.Contrib.AVB1.charPolyIndepOfEll_of_algClosed
 theorem ZInQ.Contrib.AVB1.poincareReducibility_of_pieces
     (hP : ZInQ.Contrib.AVB1.PoincareComplement) (hI : ZInQ.Contrib.AVB1.ImageFactorization)
     (hS : ZInQ.Contrib.AVB1.SimpleSurjIsogeny) : PkgI3.PoincareReducibility
+theorem ZInQ.Contrib.AVB1.poincareReducibility_of_simpleImage
+    (hP : ZInQ.Contrib.AVB1.PoincareComplement) (hSI : ZInQ.Contrib.AVB1.SimpleImageIsogeny) :
+    PkgI3.PoincareReducibility
+theorem ZInQ.Contrib.AVB1.simpleImageIsogeny_of_pieces
+    (hI : ZInQ.Contrib.AVB1.ImageFactorization) (hS : ZInQ.Contrib.AVB1.SimpleSurjIsogeny) :
+    ZInQ.Contrib.AVB1.SimpleImageIsogeny
 -- BaseChange.lean (glue, Mathlib-level)
 noncomputable def ZInQ.Contrib.AVB1.bcHom (L) (A B : PkgI3.AbVar K) :
     A.Hom B →+ (A.baseChange L).Hom (B.baseChange L)
@@ -59,6 +66,8 @@ theorem ZInQ.Contrib.AVB1.tateBC_bijective_closure (A : PkgI3.AbVar K) (ℓ : �
 'ZInQ.Contrib.AVB1.bcHom_injective' depends on axioms: [propext, Classical.choice, Quot.sound]
 'ZInQ.Contrib.AVB1.tateBC_bijective_closure' depends on axioms: [propext, Classical.choice, Quot.sound]
 'ZInQ.Contrib.AVB1.poincareReducibility_of_pieces' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.AVB1.poincareReducibility_of_simpleImage' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.AVB1.simpleImageIsogeny_of_pieces' depends on axioms: [propext, Classical.choice, Quot.sound]
 ```
 
 Single-file check over leaf-fold3's objects (scratch/av-b1/mk_check.py builds
@@ -71,6 +80,11 @@ theorem HDec.AVB1Check.t6_of_algClosed (h : HomFreeFiniteAlgClosed) : PkgI3.HomF
 theorem HDec.AVB1Check.t7_of_algClosed (h : CharPolyIndepOfEllAlgClosed) : PkgI3.CharPolyIndepOfEll
 theorem HDec.AVB1Check.t8_of_pieces (hP : PoincareComplement) (hI : ImageFactorization)
     (hS : SimpleSurjIsogeny) : PkgI3.PoincareReducibility
+theorem HDec.AVB1Check.t8_of_simpleImage (hP : PoincareComplement) (hSI : SimpleImageIsogeny) :
+    PkgI3.PoincareReducibility
+theorem HDec.AVB1Check.t6_t7_t8_of_avb1' (h6 : HomFreeFiniteAlgClosed)
+    (h7 : CharPolyIndepOfEllAlgClosed) (hP : PoincareComplement) (hSI : SimpleImageIsogeny) :
+    PkgI3.HomFreeFinite ∧ PkgI3.CharPolyIndepOfEll ∧ PkgI3.PoincareReducibility
 theorem HDec.AVB1Check.t6_t7_t8_of_avb1 (h6 : HomFreeFiniteAlgClosed)
     (h7 : CharPolyIndepOfEllAlgClosed) (hP : PoincareComplement) (hI : ImageFactorization)
     (hS : SimpleSurjIsogeny) :
@@ -171,6 +185,13 @@ def SimpleSurjIsogeny : Prop :=
   ∀ (k : Type) [Field k] [CharZero k] (A B : _root_.PkgI3.AbVar k), _root_.PkgI3.EndDivision A →
     ∀ h : _root_.PkgI3.AbVar.Hom A B, h ≠ 0 → Surjective h.hom.left →
       _root_.PkgI3.AbVar.IsIsogenyMor h.hom
+
+def SimpleImageIsogeny : Prop :=
+  ∀ (k : Type) [Field k] [CharZero k] (A J : _root_.PkgI3.AbVar k), _root_.PkgI3.EndDivision A →
+    ∀ f : _root_.PkgI3.AbVar.Hom A J, f ≠ 0 →
+    ∃ (B : _root_.PkgI3.AbVar k) (h : _root_.PkgI3.AbVar.Hom A B)
+      (i : _root_.PkgI3.AbVar.Hom B J),
+      _root_.PkgI3.AbVar.IsIsogenyMor h.hom ∧ IsClosedImmersion i.hom.left ∧ f.hom = h.hom ≫ i.hom
 ```
 
 - `PoincareComplement` (LEAF, published theorem, weakened). J. S. Milne, *Abelian varieties*, in
@@ -192,6 +213,10 @@ def SimpleSurjIsogeny : Prop :=
   Thm 1 Cor. 1, UNVERIFIED) a nonzero endomorphism of `A` with image in `C`, not surjective,
   contradicting `EndDivision A`; so `ker h` is finite, and a surjective homomorphism with finite
   kernel is finite (Milne 1986 Prop. 7.1 / Mumford §6, UNVERIFIED).
+
+- `SimpleImageIsogeny` (GLUE-level composite; true): a nonzero homomorphism out of a simple
+  abelian variety is an isogeny onto its image. It is `ImageFactorization` and `SimpleSurjIsogeny`
+  together (`simpleImageIsogeny_of_pieces`, proved), stated only where T8 needs it.
 
 Why "strictly smaller": `PoincareComplement` is the published theorem the docs cite for T8
 (h-decomposition.md row T8: "Milne Prop. 12.1"), not T8's derived form; the two glue Props
@@ -228,6 +253,8 @@ of quasi-finite proper maps, and neither exists for the kernel's `AbVar` in Math
 ## 6. For the next fold
 
 Replacing t6, t7, t8 in `OpenTextbookLeaves3` by `HomFreeFiniteAlgClosed`,
-`CharPolyIndepOfEllAlgClosed`, `PoincareComplement`, `ImageFactorization`, `SimpleSurjIsogeny`
-(`HDec.AVB1Check.t6_t7_t8_of_avb1`) turns 3 fields into 5. The gain is faithfulness (T6 and T7
+`CharPolyIndepOfEllAlgClosed`, `PoincareComplement`, `SimpleImageIsogeny`
+(`HDec.AVB1Check.t6_t7_t8_of_avb1'`) turns 3 fields into 4 (3 LEAF + 1 GLUE); with
+`ImageFactorization`, `SimpleSurjIsogeny` instead of `SimpleImageIsogeny`
+(`HDec.AVB1Check.t6_t7_t8_of_avb1`), into 5. The gain is faithfulness (T6 and T7
 become Mumford's statements verbatim; T8's published core is separated from glue), not the count.
