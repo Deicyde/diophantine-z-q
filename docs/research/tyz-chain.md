@@ -20,7 +20,13 @@ theorem ZInQ.Contrib.TYZChain.tyzThm35ReadingA_of_leaves
     ZInQ.Literature.TYZThm35ReadingA
 ```
 
-STATUS-PLACEHOLDER
+**VERIFIED**: `lake build ZInQKernel.Contrib.TYZChain.Main` succeeds (as do `…TYZChain.ModFn` and
+`…TYZChain.SSExponent`), no `sorry`, no `axiom`; `#print axioms` gives
+`[propext, Classical.choice, Quot.sound]` for the main theorem and for all 80 other audited theorems
+(`scratch/tyz-chain/Check.out`); `#check` prints exactly the five hypotheses below, with
+`TYZThm11Integral`, `TYZLemma29Mod2`, `IsTYZLcal` from `ZInQ.Contrib.TYZDecomp`,
+`ShimuraReciprocityModFn` from `ZInQ.Contrib.TYZGenus.Shimura`, `SqrtTwoNotInHHprime` from
+`ZInQ.Contrib.TYZGenus.T318` and `TYZThm33Pinned` from `ZInQ.Contrib.TYZGenus.TYZ35`.
 
 | # | hypothesis | kind | content | source of the statement | Lean definition |
 |---|---|---|---|---|---|
@@ -52,14 +58,23 @@ Notes on the leaves (from the source reports, not re-checked here):
 
 | module | source | lines | content |
 |---|---|---|---|
-| `TYZChain/Bridge.lean` | `scratch/cm-bridge/Bridge.lean` lines 24–3213 | ~3200 | cm-bridge §0–§15, namespace `ZInQ.Contrib.TYZGenus.CMBridge` |
-| `TYZChain/L321.lean` | `scratch/tyz-321/L321.lean` lines 3214–5477 | ~2260 | tyz-321 §16a (`T321B.betaOneLiftExists`) and §16 (`T321.lemma321Five_of_shimuraModFn'`) |
-| `TYZChain/Thm35.lean` | `scratch/tyz-35/Final.lean` lines 3204–3915 | ~710 | tyz-35 §T (leaf `TYZThm33Pinned`), §G (`thm35First_of_lcal_thm33`), namespace `…TYZ35` |
-| `TYZChain/Lemma318.lean` | `scratch/tyz-318/Lemma318.lean` | ~1730 | tyz-318: `T318.package_lemma318Literal_HHprime_of_sqrtTwoNotIn` |
-| `TYZChain/Lcal.lean` | `scratch/tyz-lcal/TYZLcal.lean` | ~920 | tyz-lcal: `TYZLcal.tyzLcalOne_of_leaves` |
-| `TYZChain/ModFn.lean` | `scratch/shimura-modfn/ModFn.lean` | ~690 | shimura-modfn (not used by `Main`) |
-| `TYZChain/SSExponent.lean` | `scratch/ss-exponent/SSExponent.lean` | ~690 | ss-exponent: `SupersingularExponentA` proved (not used by `Main`) |
-| `TYZChain/Main.lean` | new | ~80 | `tyzThm35ReadingA_of_leaves` |
+| `TYZChain/Bridge.lean` | `scratch/cm-bridge/Bridge.lean` lines 24–3213, minus copies of tyz-cm (below) | 3146 | cm-bridge §0–§15, namespace `ZInQ.Contrib.TYZGenus.CMBridge` |
+| `TYZChain/L321.lean` | `scratch/tyz-321/L321.lean` lines 3214–5477, minus a copy of `Chebotarev/FrobeniusDenseOfExists` | 2166 | tyz-321 §16a (`T321B.betaOneLiftExists`) and §16 (`T321.lemma321Five_of_shimuraModFn'`) |
+| `TYZChain/Thm35.lean` | `scratch/tyz-35/Final.lean` lines 3204–3915 | 738 | tyz-35 §T (leaf `TYZThm33Pinned`), §G (`thm35First_of_lcal_thm33`), namespace `…TYZ35` |
+| `TYZChain/Lemma318.lean` | `scratch/tyz-318/Lemma318.lean` | 1741 | tyz-318: `T318.package_lemma318Literal_HHprime_of_sqrtTwoNotIn` |
+| `TYZChain/Lcal.lean` | `scratch/tyz-lcal/TYZLcal.lean` | 926 | tyz-lcal: `TYZLcal.tyzLcalOne_of_leaves` |
+| `TYZChain/ModFn.lean` | `scratch/shimura-modfn/ModFn.lean`, minus copies of tyz-cm | 675 | shimura-modfn (not used by `Main`) |
+| `TYZChain/SSExponent.lean` | `scratch/ss-exponent/SSExponent.lean`, minus a copy of tyz-318's §S | 434 | ss-exponent: `SupersingularExponentA` proved, linked to tyz-318's copy of the leaf (not used by `Main`) |
+| `TYZChain/Main.lean` | new | 68 | `tyzThm35ReadingA_of_leaves` |
+
+Total 9894 lines, against 16744 in the seven source files (the difference is the three copies of
+cm-bridge's file and the copies listed below).
+
+Import graph: `Main` ← `Thm35`, `L321`, `Lemma318`, `Lcal`; `Thm35`, `L321` ← `Bridge`; `SSExponent` ←
+`Lemma318`. External imports: `TYZGenus.RingClassBridge`, `TYZGenus.ShimuraFricke` (Bridge),
+`Chebotarev.FrobeniusDenseOfExists` (L321; it starts with `import Mathlib`, so `Main` imports all of
+Mathlib), `TYZGenus.RingClassTwo` and Tau Ceti's `TorsionReduction` (Lemma318), `TYZDecomp.Leaves`,
+`HeckeAll.Continuation`, `GaussFE.FunctionalEquation5` (Lcal), `TYZGenus.ShimuraMain` (ModFn).
 
 **No copies between the new modules** (VERIFIED by `diff`, log entry 00:21):
 
@@ -76,15 +91,30 @@ Notes on the leaves (from the source reports, not re-checked here):
   either those constants or local verbatim copies checked `rfl`-equal to them inside the files
   (`T318.lemma318Literal_eq`, `ShimuraModFnTask.shimuraReciprocityModFn_eq`).
 
-Remaining internal duplication, left as it was in the sources (SPECULATIVE that it is worth removing):
+**Copies of existing Contrib declarations replaced by imports** (each VERIFIED identical by `diff` or
+by the source's own `rfl` check before removal, and rebuilt afterwards):
 
-* `T321B` (in `L321.lean`) contains about 120 lines copied from
-  `ZInQKernel/Contrib/Chebotarev/FrobeniusDenseOfExists.lean` (absolute Frobenius elements: `Zbar`,
-  `toZbar`, `FrobOn`, `frobExistsFinite`, `frobExistsAt_of_finite`). The types agree (`GQ` and `GalQ` are
-  both the abbreviation `AlgebraicClosure ℚ ≃ₐ[ℚ] AlgebraicClosure ℚ`), but that module starts with
-  `import Mathlib` and `import ZInQKernel.HDecomp.Conductor.I6Base`. IMPORT-PLACEHOLDER
-* `T318SS` (in `Lemma318.lean`) and `SSExponent` share the elementary supersingular-count sections
-  (`Count`, `IMap`, `Frob`); they live in different namespaces and the chain does not use `SSExponent`.
+* `L321.lean`: tyz-321's §16a contained about 130 lines copied from
+  `ZInQKernel/Contrib/Chebotarev/FrobeniusDenseOfExists.lean` (`Zbar`, `toZbar`, `toZbar_coe`,
+  `card_quot`, `FrobOn`, `FrobExistsFinite`, `FrobExistsAt`, `frobOn_anti`, `isClosed_frobOn`,
+  `frobExistsAt_of_finite`, `frobExistsFinite`, the instance `IsGalois ℚ Qbar`), identical up to
+  `GQ ↦ GalQ` (both are the abbreviation `AlgebraicClosure ℚ ≃ₐ[ℚ] AlgebraicClosure ℚ`) and docstrings.
+  Now `import ZInQKernel.Contrib.Chebotarev.FrobeniusDenseOfExists` and a selective
+  `open ZInQ.Contrib.ChebFD.C10 (…)`.
+* `Bridge.lean` §14: cm-bridge's verbatim copies of tyz-cm's `kappa`, `idealMeetOrder`, `idealLat`,
+  `discOf`, `ShimuraReciprocityPic` (namespace `TyzCm`, checked `rfl`-equal by cm-bridge) and of the
+  helpers `sqrt_mul_self_C`, `kappaRoot`, `kappaAlg`, `kappaAlg_apply`, `kappaZ`, `kappaLin`,
+  `kappaLin_apply` (identical to `TYZGenus/ShimuraZn.lean` lines 41–66) are replaced by a selective
+  `open ZInQ.Contrib.TYZGenus.Shimura (…)`; `TyzCm.ShimuraReciprocityPic` became
+  `Shimura.ShimuraReciprocityPic` in the two statements that named it.
+* `ModFn.lean` §0: the verbatim copies of `Shimura.IsRatModFn` and `Shimura.ShimuraReciprocityModFn`
+  are replaced by the originals (selective `open`).
+* `SSExponent.lean`: its §1–§3 (`#E(F_p) = p + 1`, `[i]`, Frobenius, `Ek`; 275 lines) were a verbatim copy
+  of tyz-318's §S; it now imports `TYZChain.Lemma318` and opens `T318SS`.
+
+**Copies kept on purpose**: the statement copies with `rfl` checks against the kernel's `Package` /
+`CM` Props (cm-bridge §0 `Copy.*`, tyz-318's `T318.Lemma318Literal`). They are checks of faithfulness,
+not used as substitutes (the theorems used by `Main` conclude the `Package` Props).
 
 ## 2. How `Main` assembles the chain
 
@@ -115,4 +145,20 @@ tyzThm35ReadingA_of_leaves h11 h29 hS h2 h33 :=
 
 ## 4. Status of parallel tasks
 
-SQRT2-PLACEHOLDER
+* tyz-318, shimura-modfn, tyz-321, ss-exponent: merged (all had reports), clean merges.
+* sqrt2-glue (works on hypothesis 4, `SqrtTwoNotInHHprime`): at the time of writing its branch has a
+  reduction `SigmaLift ⇐ FrobNormLaw + NormSigma` and no report; not merged (SQRT2-STATUS).
+* The task brief mentions cm-bridge's headline with `h5 : Lemma321Five`; that hypothesis is gone
+  (tyz-321).
+
+## 5. What remains on the TYZ side
+
+* The four leaves 1, 2, 3, 5 (literature; to be formalized or accepted). HUMAN CHECK of leaf 5's
+  passage from the printed Theorem 3.3 to the pinned form (its docstring) is still outstanding, and
+  no TYZ line number was re-read in this task (the source is not on this host).
+* The glue 4 (`√2 ∉ ℍ'_n` for general `n`): tyz-318 report §3.2 (Route A) and task sqrt2-glue.
+* Integration: the modules are new files only; `ZInQKernel/Contrib/AllContrib.lean` was not edited (the
+  rules forbid editing existing files), so `lake build ZInQKernel` does not build them until someone
+  adds `import ZInQKernel.Contrib.TYZChain.Main` (and `ModFn`, `SSExponent`) there.
+* No provider for `ZInQ.Contrib.tyzThm35ReadingA` can be registered from this theorem until all five
+  hypotheses are theorems.
