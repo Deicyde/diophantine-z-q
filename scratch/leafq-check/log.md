@@ -91,3 +91,8 @@ Y3Connected 97479, ValenceBoundGammaStar 113443, CMDescends 114469, GammaStarGen
   `tendsto_cobounded_of_meromorphicOrderAt_neg`, continuity of f in OnePoint ℂ. G20 ≢ 0 from the surjectivity
   clause. i√3, √2+i inequivalent via G8's automorphy. 18 s.
 - Fold: `OpenAddedLeaves10`, `sixContactMin_of_open10` (65 fields), 22 s, standard axioms.
+
+## Final state (2026-11-14 ~01:55)
+- canonical fold: `HDec.HSyn.sixContactMin_of_open10` (Fold.lean, over leaf-fold4's chain): 26 + 19 + 19 + 1 = 65
+  fields; LEAF? 4 (thetaRatiosAlgebraic, qmHauptmodulBase3, x6ConicModel, y3Connected); new LEAFs
+  valenceFormulaGammaStar, stQM. All checks above re-run after the last edits: 0 errors, standard axioms.
