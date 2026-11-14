@@ -847,6 +847,46 @@ theorem omegaInt_ge_two : 2 ≤ ZInQ.Contrib.TYZDecomp.omegaInt := by
   exact one_div_le_one_div_of_le (Real.sqrt_pos.mpr hpos) (Real.sqrt_le_sqrt (by linarith))
 
 
+/-! ## §9. `TYZLemma29Mod2` depends only on the parity of `𝓛` -/
+
+open ZInQ.Contrib.PSide in
+/-- `LemmaTwoEight` reads `ℓ` only modulo 2 on the squarefree classes `1, 3`. -/
+theorem lemmaTwoEight_congr {ℓ ℓ' : ℕ → ℤ}
+    (h : ∀ m : ℕ, Squarefree m → (m % 8 = 1 ∨ m % 8 = 3) → ((ℓ m : ℤ) : ZMod 2) = ℓ' m)
+    (hℓ : LemmaTwoEight ℓ) : LemmaTwoEight ℓ' := by
+  constructor
+  · intro m hsq hm1 hm
+    rw [← hℓ.1 m hsq hm1 hm]
+    push_cast
+    refine Finset.sum_congr rfl fun d hd => ?_
+    simp only [Finset.mem_filter, Nat.mem_divisors] at hd
+    obtain ⟨⟨hdm, -⟩, hd8, -⟩ := hd
+    have hq8 : m / d % 8 = 1 := by rw [div_mod8_of hdm hm hd8 (Or.inl rfl)]
+    rw [h d (hsq.squarefree_of_dvd hdm) (Or.inl hd8),
+      h (m / d) (hsq.squarefree_of_dvd (Nat.div_dvd_of_dvd hdm)) (Or.inl hq8)]
+  · intro m hsq hm
+    rw [← hℓ.2 m hsq hm]
+    push_cast
+    refine Finset.sum_congr rfl fun d hd => ?_
+    simp only [Finset.mem_filter, Nat.mem_divisors] at hd
+    obtain ⟨⟨hdm, -⟩, hd8⟩ := hd
+    have hq8 : m / d % 8 = 3 := by rw [div_mod8_of hdm hm hd8 (Or.inl rfl)]
+    rw [h d (hsq.squarefree_of_dvd hdm) (Or.inl hd8),
+      h (m / d) (hsq.squarefree_of_dvd (Nat.div_dvd_of_dvd hdm)) (Or.inr hq8)]
+
+theorem parity_eq_of_sq {a b : ℤ} (h : (a : ℂ) ^ 2 = (b : ℂ) ^ 2) : ((a : ℤ) : ZMod 2) = b := by
+  have h' : a ^ 2 = b ^ 2 := by exact_mod_cast h
+  rcases sq_eq_sq_iff_eq_or_eq_neg.mp h' with h1 | h1
+  · rw [h1]
+  · rw [h1, Int.cast_neg, ZMod.neg_eq_self_mod_two]
+
+/-- **The leaf `TYZLemma29Mod2` is the congruence for one sign choice**: given integrality, the
+universally quantified sign choice `ℓ` is immaterial. -/
+theorem lemma29Mod2_iff (h11 : TYZThm11Integral) :
+    TYZLemma29Mod2 ↔ LemmaTwoEight (ellOf h11) :=
+  ⟨fun h => h _ (ellOf_sq h11), fun h ℓ hℓ => lemmaTwoEight_congr
+    (fun m hsq hcl => parity_eq_of_sq ((ellOf_sq h11 m hsq hcl).trans (hℓ m hsq hcl).symm)) h⟩
+
 /-! ## §8. The final results -/
 
 /-- **The bound `LValOneBound` holds**: `‖L(C₁,1)‖ ≤ 3.35 < 4.5 ≤ (9/4)·omegaInt`. -/
@@ -882,3 +922,4 @@ end ZInQ.Contrib.TYZLcal
 #print axioms ZInQ.Contrib.TYZLcal.tyzLcalOne_of_leaves
 #print axioms ZInQ.Contrib.TYZLcal.tyzThm35ReadingA_of_three_leaves
 #print axioms ZInQ.Contrib.TYZLcal.genusPackage_iff_readingA_of_two
+#print axioms ZInQ.Contrib.TYZLcal.lemma29Mod2_iff

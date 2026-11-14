@@ -45,3 +45,18 @@ Task: the three L-leaves `TYZThm11Integral`, `TYZLcalOne`, `TYZLemma29Mod2`
 - **`tyzLcalOne_of_leaves (h11 : TYZThm11Integral) (h29 : TYZLemma29Mod2) : TYZLcalOne`**.
 - `tyzThm35ReadingA_of_three_leaves (h11) (h29) (hG : TYZGenusPackage) : TYZThm35ReadingA`.
 - `genusPackage_iff_readingA_of_two (h11) (h29) : TYZGenusPackage ↔ TYZThm35ReadingA`.
+
+## L3. §9 sign independence (compiled 23:15, same file, standard axioms)
+- `lemmaTwoEight_congr`: LemmaTwoEight ℓ → LemmaTwoEight ℓ' if ℓ ≡ ℓ' (mod 2) on squarefree classes 1, 3.
+- `parity_eq_of_sq`, `lemma29Mod2_iff (h11) : TYZLemma29Mod2 ↔ LemmaTwoEight (ellOf h11)`. VERIFIED.
+
+## F. Findings on the three statements
+- F1 `TYZThm11Integral`: a consequence of TYZ Theorem 1.1 (integrality) on odd n ≡ 1,3, n = 1 included (Theorem 1.1
+  covers n = 1, nt-tyz §1.2). Normalisation 2^{2k-3}, Ω_m = (2/√m)∫ pinned numerically: integer squares on 30 inputs,
+  agreeing with Tunnell (|𝓛| = |a_T|/2^k) and with rv-pn-encoding's Tunnell check (A−2B)/2^{k+1}. Over Mathlib's
+  L-series = true L(C_m,s) (HeckeAll/LocalCd: model minimal everywhere, additive at p | 2m). Not stronger. Genuinely TYZ.
+- F2 `TYZLcalOne`: NOT an independent leaf: `tyzLcalOne_of_leaves` derives it from F1 (m = 1, 3) and F3 (m = 3).
+- F3 `TYZLemma29Mod2`: consequence of TYZ Lemma 2.9 + Prop 2.3 mod 2; at m = 3 the printed Lemma 2.9 and Theorem 2.1
+  differ by w_K = 3 (rv-nt-tyz B1) — odd, so the mod-2 leaf holds under either. Universal ℓ immaterial
+  (`lemma29Mod2_iff`). Genuinely TYZ (L-values mod 2 vs class numbers); no reduction from definitions/PSide found:
+  PSide's results are about a_p, which do not determine L(C_m,1) mod 2 without the Waldspurger input.
