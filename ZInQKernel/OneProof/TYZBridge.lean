@@ -3213,35 +3213,3 @@ theorem tyzThm35ReadingA_of_lcal_shimuraModFn_lemma318_thm35First_lemma321Five
 end ZInQ.Contrib.TYZGenus.CMBridge
 
 /-! ## Axiom audit (output in `scratch/cm-bridge/audit-out.txt`) -/
-open ZInQ.Contrib.TYZGenus.CMBridge in
-open ZInQ.Contrib.TYZGenus.CMBridge in
-open ZInQ.Contrib.TYZGenus.CMBridge in
-open ZInQ.Contrib.TYZGenus.CMBridge in
-open ZInQ.Contrib.TYZGenus.CMBridge in
-open ZInQ.Contrib.TYZGenus.CMBridge in
-open ZInQ.Contrib.TYZGenus.CMBridge in
-open ZInQ.Contrib.TYZGenus.CMBridge in
-open ZInQ.Contrib.TYZGenus.CMBridge in
-open ZInQ.Contrib.TYZGenus.CMBridge in
-open ZInQ.Contrib.TYZGenus.CMBridge in
-open ZInQ.Contrib.TYZGenus.CMBridge in
-open ZInQ.Contrib.TYZGenus.CMBridge in
-open ZInQ.Contrib.TYZGenus.CMBridge in
-open ZInQ.Contrib.TYZGenus.CMBridge in
-open ZInQ.Contrib.TYZGenus.CMBridge in
-open ZInQ.Contrib.TYZGenus.CMBridge in
-open ZInQ.Contrib.TYZGenus.CMBridge in
-open ZInQ.Contrib.TYZGenus.CMBridge in
-open ZInQ.Contrib.TYZGenus.CMBridge in
-open ZInQ.Contrib.TYZGenus.CMBridge in
-open ZInQ.Contrib.TYZGenus.CMBridge in
-open ZInQ.Contrib.TYZGenus.CMBridge in
-open ZInQ.Contrib.TYZGenus.CMBridge in
-open ZInQ.Contrib.TYZGenus.CMBridge in
-open ZInQ.Contrib.TYZGenus.CMBridge in
-open ZInQ.Contrib.TYZGenus.CMBridge in
-open ZInQ.Contrib.TYZGenus.CMBridge in
-open ZInQ.Contrib.TYZGenus.CMBridge in
-open ZInQ.Contrib.TYZGenus.CMBridge in
-open ZInQ.Contrib.TYZGenus.CMBridge in
-open ZInQ.Contrib.TYZGenus.CMBridge in
