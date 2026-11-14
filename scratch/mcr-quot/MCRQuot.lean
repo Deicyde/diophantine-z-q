@@ -6389,6 +6389,90 @@ theorem modelCoordinateResidue_of_mcrQuot'' (hAF : ProperCurveAF) (hQE : FiniteQ
 
 end MCRQuot
 
+/-! ════════════════════════════════════════════════════════════════════════════════════════════
+# mcr-quot, part 10: proofs of some of the new glue Props
+════════════════════════════════════════════════════════════════════════════════════════════ -/
+
+noncomputable section
+
+namespace MCRQuot
+
+open Polynomial CategoryTheory AlgebraicGeometry Limits LeafQM LeafQM.AV VertWitness HeckeRestNV
+open G0ModField PropTSRed PropTSGlue ModelGlue MCRGlue LeafQM.AV.Pin PkgI3
+open scoped Pointwise
+
+/-! ## (C1a) `GQuotientPointOrbits`, proved -/
+
+/-- **(C1a) proved: the points over a point of an SGA 1 quotient form one orbit.** On an affine
+`W ⊆ Z` with `U = q⁻¹W`, the primes of `x, x'` lie over the same prime of `Γ(Z, W) = Γ(X, U)^G`
+(`comap_primeIdealOf_appLE`), so they differ by `g ∈ G` (`exists_smul_of_under_eq`), and the
+prime of `g x` is the `g`-translate of the prime of `x`. -/
+theorem gQuotientPointOrbits : GQuotientPointOrbits := by
+  intro X Z G q hfin hq x x' hxx
+  have hq' := hq
+  obtain ⟨hinv, haff, hsec⟩ := hq
+  obtain ⟨_, ⟨W, hW : IsAffineOpen W, rfl⟩, hxW, -⟩ :=
+    Z.isBasis_affineOpens.exists_subset_of_mem_open (Set.mem_univ (q x)) isOpen_univ
+  set U := q ⁻¹ᵁ W with hUdef
+  have hU : IsAffineOpen U := hW.preimage q
+  have hx : x ∈ U := hxW
+  have hx' : x' ∈ U := by
+    change q x' ∈ W
+    rw [← hxx]; exact hxW
+  letI : MulSemiringAction G Γ(X, U) := secAction hinv W
+  letI : Algebra Γ(Z, W) Γ(X, U) := (q.app W).hom.toAlgebra
+  haveI : SMulCommClass G Γ(Z, W) Γ(X, U) := by
+    constructor
+    intro g a b
+    change secMap _ _ W (q.app W a * b) = q.app W a * secMap _ _ W b
+    rw [map_mul, secMap_app]
+  haveI : Algebra.IsInvariant Γ(Z, W) Γ(X, U) G := by
+    constructor
+    intro b hb
+    have hmem : b ∈ Set.range (q.app W) := by
+      rw [(hsec W hW).2]
+      intro g hg
+      have := hb ⟨g⁻¹, G.inv_mem hg⟩
+      change secMap _ _ W b = b at this
+      rw [secMap_congr (f' := g.asIso.hom) (by simp) _ (hinv g hg)] at this
+      exact this
+    obtain ⟨a, ha⟩ := hmem
+    exact ⟨a, ha⟩
+  have hcomap : ∀ (u : X) (hu : u ∈ U),
+      (hU.primeIdealOf ⟨u, hu⟩).asIdeal.under Γ(Z, W) = (hW.primeIdealOf ⟨q u, hu⟩).asIdeal := by
+    intro u hu
+    have e := IsAffineOpen.comap_primeIdealOf_appLE (f := q) W hW U hU le_rfl hu
+    rw [← e]
+    change Ideal.comap (q.app W).hom _ = Ideal.comap (q.appLE W U le_rfl).hom _
+    rw [Scheme.Hom.app_eq_appLE]
+  have hunder : (hU.primeIdealOf ⟨x, hx⟩).asIdeal.under Γ(Z, W) =
+      (hU.primeIdealOf ⟨x', hx'⟩).asIdeal.under Γ(Z, W) := by
+    rw [hcomap, hcomap]
+    congr 3
+  obtain ⟨g, hg⟩ := Algebra.IsInvariant.exists_smul_of_under_eq Γ(Z, W) Γ(X, U) G _ _ hunder
+  have hgx : (g : Aut X).asIso.hom x ∈ U := by
+    change q ((g : Aut X).asIso.hom x) ∈ W
+    rw [← Scheme.Hom.comp_apply, hinv g g.2]; exact hxW
+  have e3 := IsAffineOpen.comap_primeIdealOf_appLE (f := (g : Aut X).asIso.hom) U hU U hU
+    (preimage_le_of_comp_eq (hinv g g.2) W) hx
+  have hpr : hU.primeIdealOf ⟨x', hx'⟩ = hU.primeIdealOf ⟨(g : Aut X).asIso.hom x, hgx⟩ := by
+    apply PrimeSpectrum.ext
+    rw [hg, ← e3]
+    ext b
+    rw [Ideal.mem_pointwise_smul_iff_inv_smul_mem]
+    change secMap _ _ W b ∈ _ ↔ _
+    rw [secMap_congr (f' := (g : Aut X).asIso.hom) (by simp) _ (hinv g g.2)]
+    rfl
+  have e4 := congrArg hU.fromSpec hpr
+  rw [IsAffineOpen.fromSpec_primeIdealOf, IsAffineOpen.fromSpec_primeIdealOf] at e4
+  have e5 : x' = (g : Aut X).asIso.hom x := e4
+  refine ⟨(g : Aut X)⁻¹, G.inv_mem g.2, ?_⟩
+  simp only [Aut.inv_asIso, Iso.symm_hom]
+  rw [e5, ← Scheme.Hom.comp_apply, Iso.hom_inv_id]
+  rfl
+
+end MCRQuot
+
 #print axioms MCRQuot.exists_unit_congr
 #print axioms MCRQuot.mem_orbit_of_twistEq
 #print axioms MCRQuot.twistEq_of_mem_fibreAut
