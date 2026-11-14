@@ -1,0 +1,179 @@
+
+/-! ════════════════════════════════════════════════════════════════════════════════════════════
+# mcr-quot, part 22: (B-desc-map) `QuotientDescendsMapQ` proved
+════════════════════════════════════════════════════════════════════════════════════════════ -/
+
+noncomputable section
+
+namespace MCRQuot
+
+open Polynomial CategoryTheory AlgebraicGeometry Limits LeafQM LeafQM.AV VertWitness HeckeRestNV
+open G0ModField PropTSRed PropTSGlue ModelGlue MCRGlue LeafQM.AV.Pin PkgI3
+open TopologicalSpace Opposite
+
+/-- The inclusion of the generic fibre `𝒴_ℚ → 𝒴`. -/
+abbrev genJ {p : ℕ} [Fact p.Prime] (𝒴 : Over (Spec (CommRingCat.of (Zloc p)))) :
+    (genFib 𝒴).left ⟶ 𝒴.left :=
+  pullback.fst 𝒴.hom (specRatToZloc p)
+
+instance isOpenImmersion_genJ {p : ℕ} [Fact p.Prime] (𝒴 : Over (Spec (CommRingCat.of (Zloc p)))) :
+    IsOpenImmersion (genJ 𝒴) :=
+  MorphismProperty.pullback_fst (P := @IsOpenImmersion) _ _ (isOpenImmersion_specRatToZloc p)
+
+theorem ev_congr {K : Type} [Field K] {X : Scheme.{0}} {y y' : Spec (CommRingCat.of K) ⟶ X}
+    (h : y = y') {O : X.Opens} (hx : ptOf y ∈ O) (hx' : ptOf y' ∈ O) (s : Γ(X, O)) :
+    ev y hx s = ev y' hx' s := by
+  subst h; rfl
+
+theorem ev_appLE {K : Type} [Field K] {X Y : Scheme.{0}} (h : Y ⟶ X)
+    (y : Spec (CommRingCat.of K) ⟶ Y) {O : X.Opens} {O' : Y.Opens} (e : O' ≤ h ⁻¹ᵁ O)
+    (hy : ptOf y ∈ O') (hy' : ptOf (y ≫ h) ∈ O) (s : Γ(X, O)) :
+    ev y hy (h.appLE O O' e s) = ev (y ≫ h) hy' s := by
+  rw [ImagePlane.ev_comp y h hy' s]
+  change ev y hy (Y.presheaf.map (homOfLE e).op (h.app O s)) = _
+  exact ev_res y e hy (h.app O s)
+
+section Invariance
+
+variable {p : ℕ} [Fact p.Prime] {𝒴 : Over (Spec (CommRingCat.of (Zloc p)))}
+  (hS : SmoothOfRelativeDimension 1 𝒴.hom) {G : Subgroup (Aut 𝒴.left)}
+  (hover : ∀ g ∈ G, g.asIso.hom ≫ 𝒴.hom = 𝒴.hom) (σ : ToP1 (genFib 𝒴).left)
+  (hσ : ∀ (s s' : fieldPt Qbar ⟶ genFib 𝒴) (g : Aut 𝒴.left), g ∈ G →
+    s'.left ≫ pullback.fst 𝒴.hom (specRatToZloc p) =
+      s.left ≫ pullback.fst 𝒴.hom (specRatToZloc p) ≫ g.asIso.hom →
+    σ.val (K := Qbar) s.left = σ.val (K := Qbar) s'.left)
+
+include hS in
+/-- Closed points of the generic fibre give `ℚ̄`-points; the generic fibre is Jacobson. -/
+theorem genFib_jacobson : JacobsonSpace (genFib 𝒴).left := by
+  haveI : SmoothOfRelativeDimension 1 (genFib 𝒴).hom := genFib_smooth 𝒴 hS
+  haveI : Smooth (genFib 𝒴).hom := SmoothOfRelativeDimension.smooth 1 _
+  exact LocallyOfFiniteType.jacobsonSpace (genFib 𝒴).hom
+
+include hS hσ in
+/-- **The pushed-forward chart `U` is `G`-stable** (closed points carry `ℚ̄`-points). -/
+theorem pushU_stable (g : Aut 𝒴.left) (hg : g ∈ G) (x : 𝒴.left)
+    (hx : x ∈ (pushToP1In (genJ 𝒴) σ).U) : g.asIso.hom x ∈ (pushToP1In (genJ 𝒴) σ).U := by
+  haveI := genFib_jacobson hS
+  haveI : SmoothOfRelativeDimension 1 (genFib 𝒴).hom := genFib_smooth 𝒴 hS
+  haveI : Smooth (genFib 𝒴).hom := SmoothOfRelativeDimension.smooth 1 _
+  by_contra hgx
+  set j := genJ 𝒴 with hj
+  set σX := pushToP1In j σ with hσX
+  let S : Set (genFib 𝒴).left :=
+    j ⁻¹' (σX.U : Set 𝒴.left) ∩ (j ≫ g.asIso.hom) ⁻¹' (σX.U : Set 𝒴.left)ᶜ
+  have hSlc : IsLocallyClosed S :=
+    ((σX.U.isOpen.preimage j.continuous).isLocallyClosed).inter
+      ((σX.U.isOpen.isClosed_compl.preimage (j ≫ g.asIso.hom).continuous).isLocallyClosed)
+  obtain ⟨y, hy⟩ : x ∈ Set.range j := j.image_le_opensRange _ hx
+  have hne : S.Nonempty := ⟨y, by rw [← hy] at hx hgx; exact ⟨hx, hgx⟩⟩
+  obtain ⟨c, hcS, hcc⟩ := nonempty_inter_closedPoints hne hSlc
+  obtain ⟨emb, s, hs⟩ := exists_qbarPt (genFib 𝒴) c (mem_closedPoints_iff.mp hcc)
+  have hpts : ptOf s.left = c := by
+    change (Scheme.SpecToEquivOfField Qbar _ s.left).1 = c
+    rw [hs, Equiv.apply_symm_apply]
+  obtain ⟨s', hs'⟩ := genFib_pt 𝒴 (s.left ≫ j ≫ g.asIso.hom)
+  have hv := hσ s s' g hg hs'
+  have hcU : c ∈ σ.U := by
+    have h1 := hcS.1
+    change j c ∈ j ''ᵁ σ.U at h1
+    obtain ⟨c', hc', he⟩ := h1
+    rwa [← j.isOpenEmbedding.injective he]
+  have hs'U : ptOf s'.left ∉ σ.U := by
+    intro h
+    apply hcS.2
+    have e1 : j (ptOf s'.left) = (j ≫ g.asIso.hom) c := by
+      rw [← hpts]
+      change qbarPoint (s'.left ≫ j) = qbarPoint ((s.left ≫ j) ≫ g.asIso.hom)
+      exact congrArg _ (hs'.trans (Category.assoc _ _ _).symm)
+    change (j ≫ g.asIso.hom) c ∈ (j ''ᵁ σ.U : Set 𝒴.left)
+    rw [← e1]
+    exact ⟨_, h, rfl⟩
+  rw [val_of_mem σ s.left (hpts ▸ hcU), val_of_not_mem σ s'.left hs'U] at hv
+  exact OnePoint.coe_ne_infty _ hv
+
+include hS hover hσ in
+theorem pushU_stable_iff (g : Aut 𝒴.left) (hg : g ∈ G) (x : 𝒴.left) :
+    g.asIso.hom x ∈ (pushToP1In (genJ 𝒴) σ).U ↔ x ∈ (pushToP1In (genJ 𝒴) σ).U := by
+  constructor
+  · intro h
+    have := pushU_stable hS σ hσ g⁻¹ (G.inv_mem hg) _ h
+    have e : (g⁻¹).asIso.hom (g.asIso.hom x) = x := by
+      simp only [Aut.inv_asIso, Iso.symm_hom]
+      rw [← Scheme.Hom.comp_apply, Iso.hom_inv_id]
+      rfl
+    rwa [e] at this
+  · exact pushU_stable hS σ hσ g hg x
+
+include hS hover hσ in
+/-- **The pushed-forward function `f` is `G`-invariant** (`𝒴` reduced; a nonzero difference
+would be nonzero at a closed point of the generic fibre, i.e. at a `ℚ̄`-point). -/
+theorem pushF_invariant (g : Aut 𝒴.left) (hg : g ∈ G) :
+    g.asIso.hom.appLE (pushToP1In (genJ 𝒴) σ).U (pushToP1In (genJ 𝒴) σ).U
+      (fun x hx => (pushU_stable_iff hS hover σ hσ g hg x).2 hx) (pushToP1In (genJ 𝒴) σ).f =
+      (pushToP1In (genJ 𝒴) σ).f := by
+  haveI := genFib_jacobson hS
+  haveI : SmoothOfRelativeDimension 1 (genFib 𝒴).hom := genFib_smooth 𝒴 hS
+  haveI : Smooth (genFib 𝒴).hom := SmoothOfRelativeDimension.smooth 1 _
+  haveI : Smooth 𝒴.hom := SmoothOfRelativeDimension.smooth 1 𝒴.hom
+  haveI : IsReduced 𝒴.left := isReduced_of_smooth_zloc 𝒴
+  set j := genJ 𝒴 with hj
+  set σX := pushToP1In j σ with hσX
+  set d := g.asIso.hom.appLE σX.U σX.U
+      (fun x hx => (pushU_stable_iff hS hover σ hσ g hg x).2 hx) σX.f - σX.f with hd
+  rw [← sub_eq_zero, ← hd, ← basicOpen_eq_bot_iff]
+  by_contra hne
+  obtain ⟨x, hx⟩ : ((𝒴.left.basicOpen d : 𝒴.left.Opens) : Set 𝒴.left).Nonempty := by
+    by_contra h0
+    apply hne
+    ext1
+    simpa [Set.not_nonempty_iff_eq_empty] using h0
+  have hxU : x ∈ σX.U := 𝒴.left.basicOpen_le d hx
+  obtain ⟨y, hy⟩ : x ∈ Set.range j := j.image_le_opensRange _ hxU
+  let B : Set (genFib 𝒴).left := j ⁻¹' (𝒴.left.basicOpen d : Set 𝒴.left)
+  have hBo : IsOpen B := (𝒴.left.basicOpen d).isOpen.preimage j.continuous
+  have hyB : y ∈ B := by
+    change j y ∈ (𝒴.left.basicOpen d : Set 𝒴.left)
+    rw [hy]; exact hx
+  obtain ⟨c, hcB, hcc⟩ := nonempty_inter_closedPoints ⟨y, hyB⟩ hBo.isLocallyClosed
+  obtain ⟨emb, s, hs⟩ := exists_qbarPt (genFib 𝒴) c (mem_closedPoints_iff.mp hcc)
+  let t : Spec (CommRingCat.of Qbar) ⟶ (genFib 𝒴).left := s.left
+  have hpts : ptOf t = c := by
+    change (Scheme.SpecToEquivOfField Qbar _ s.left).1 = c
+    rw [hs, Equiv.apply_symm_apply]
+  have hcX : j c ∈ σX.U := 𝒴.left.basicOpen_le d hcB
+  have hcU : c ∈ σ.U := by
+    obtain ⟨c', hc', he⟩ := hcX
+    rwa [← j.isOpenEmbedding.injective he]
+  obtain ⟨s', hs'⟩ := genFib_pt 𝒴 (t ≫ j ≫ g.asIso.hom)
+  let t' : Spec (CommRingCat.of Qbar) ⟶ (genFib 𝒴).left := s'.left
+  have hs't : t' ≫ j = t ≫ j ≫ g.asIso.hom := hs'
+  have hv : σ.val t = σ.val t' := hσ s s' g hg hs'
+  have hgc : g.asIso.hom (j c) ∈ σX.U := (pushU_stable_iff hS hover σ hσ g hg _).2 hcX
+  have hs'X : ptOf (t' ≫ j) ∈ σX.U := by
+    have e2 : qbarPoint (t' ≫ j) = g.asIso.hom (j (ptOf t)) := congrArg qbarPoint hs't
+    change qbarPoint (t' ≫ j) ∈ _
+    rw [e2, hpts]; exact hgc
+  have hs'U : ptOf t' ∈ σ.U := by
+    obtain ⟨c', hc', he⟩ := hs'X
+    have : c' = ptOf t' := j.isOpenEmbedding.injective (he.trans rfl)
+    rwa [← this]
+  have hsX : ptOf (t ≫ j) ∈ σX.U := by
+    change j (ptOf t) ∈ _; rw [hpts]; exact hcX
+  rw [val_of_mem σ t (hpts ▸ hcU), val_of_mem σ t' hs'U] at hv
+  have hv' := OnePoint.coe_injective hv
+  have hdx : ptOf (t ≫ j) ∈ 𝒴.left.basicOpen d := by
+    change j (ptOf t) ∈ _; rw [hpts]; exact hcB
+  apply (ev_eq_zero_iff (t ≫ j) hsX d).1 _ hdx
+  rw [hd, map_sub, sub_eq_zero]
+  have hgX : ptOf ((t ≫ j) ≫ g.asIso.hom) ∈ σX.U := by
+    rw [Category.assoc, ← hs't]; exact hs'X
+  rw [ev_appLE (O := σX.U) (O' := σX.U) g.asIso.hom (t ≫ j)
+    (fun x hx => (pushU_stable_iff hS hover σ hσ g hg x).2 hx) hsX hgX]
+  rw [ev_congr (show (t ≫ j) ≫ g.asIso.hom = t' ≫ j by rw [Category.assoc, hs't]) hgX hs'X]
+  rw [ev_pushToP1In j σ t' hs'U hs'X, ev_pushToP1In j σ t (hpts ▸ hcU) hsX]
+  exact hv'.symm
+
+end Invariance
+
+end MCRQuot
