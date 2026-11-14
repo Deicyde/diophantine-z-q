@@ -45,3 +45,21 @@ file here is self-contained (`import Mathlib`), with the needed definitions copi
   inequality leaf `ValenceFormulaCocompact`).
 - `qmHauptmodulBase3_of_leaves : PkgI1.ThetaModularity → ValenceFormulaCocompactEq → ShimizuCovolumeO1 →
   Value24.IgusaCMValue24 → QMHauptmodulBase3` (H-88). Axioms standard.
+
+## (d) coarse-witness comparison — `ModuliCompare.lean` (VERIFIED, compiled over the chain copy, exit 0, 44 s)
+- ModuliSplit.lean verbatim (compiles unchanged over the chain copy) + additions; `CurveBijIso` copied
+  verbatim from curve-split's CurveBij.lean (proved there outright: `CurveSplit.curveBijIso`).
+- GLUE `CoarseFactor` (a morphism X → X' compatible with Ψ, Ψ' between coarse witnesses over the same fine
+  witness: descent of fY' along the finite surjective fY onto the normal X; SGA 1 V.1). `CoarseCompare`
+  (isomorphism) and `coarseCompare_of : CoarseFactor → CurveBijIso → CoarseCompare`.
+- `x6Props_transport` (along a fine comparison iso). LEAF-forms on one witness (existential):
+  `CanonicalCoarseX6`, `BabaGranathX6`, `GonzalezRotgerX6`, `ConicCanonical`, `ConnectedCanonical`.
+- `coarseX6OfFine_of : CanonicalCoarseX6 → CoarseX6OfFine` (no new glue, compare_iso only);
+  `hauptmodulOfX6_of : BabaGranathX6 → CoarseCompare → HauptmodulOfX6`;
+  `residueOfX6_of : GonzalezRotgerX6 → CoarseCompare → ResidueOfX6` (chain's residueImage_comp_iso);
+  GLUE `HauptmodulUniqueX6` (MobiusGlue at X₆ level) and
+  `conicOfWitness_of : ConicCanonical → CoarseCompare → HauptmodulUniqueX6 → ConicOfWitness`;
+  `connectedOfFine_of_canonical : ConnectedCanonical → ConnectedOfFine`.
+- Rows: `r1r2fpRep_of_canonical` (H-1: CanonicalModelY3, CanonicalCoarseX6, BabaGranathX6,
+  GonzalezRotgerX6, ReciprocityOfFine, CoarseFactor, CurveBijIso), `x6ConicModel_of_canonical` (H-43).
+  All axioms standard.

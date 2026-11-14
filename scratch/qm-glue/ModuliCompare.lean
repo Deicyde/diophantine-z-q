@@ -708,7 +708,25 @@ theorem x6ConicModel_of_canonical (hR : LeafAdopt.R1R2fpRep) (hC : ConicCanonica
     (hCB : ModelGlue.CurveBijIso) (hU : HauptmodulUniqueX6) : X6Kummer.X6ConicModel :=
   x6ConicModel_of hR (conicOfWitness_of hC (coarseCompare_of hF hCB) hU)
 
+/-! ## H-59: connectedness on every fine witness from one (the fine comparison suffices) -/
+
+/-- **LEAF-form (Deligne's `π₀` on the canonical model `Y₃`).** Some fine witness is connected (this is the
+row `TSHecke.Y3Connected` itself; Deligne, Bourbaki 389 §§2-3, Milne §13; locators UNVERIFIED). -/
+def ConnectedCanonical : Prop :=
+  ∃ (Y : Over (Spec (CommRingCat.of ℚ))) (Φ : PtEquiv Y), R1fpProps Y Φ ∧ ConnectedSpace Y.left
+
+/-- **`ConnectedOfFine` from one connected witness** (`compare_iso` and a homeomorphism). -/
+theorem connectedOfFine_of_canonical (h : ConnectedCanonical) : ConnectedOfFine := by
+  intro Y' Φ' h1'
+  obtain ⟨Y, Φ, h1, hc⟩ := h
+  obtain ⟨g, -⟩ := compare_iso h1 h1'
+  have e : Y'.left ≅ Y.left := (Over.forget _).mapIso g
+  exact (Scheme.homeoOfIso e).connectedSpace_iff.2 hc
+
 end HDec.QMSplit.Moduli
+
+#print axioms HDec.QMSplit.Moduli.connectedOfFine_of_canonical
+
 
 #print axioms HDec.QMSplit.Moduli.conicOfWitness_of
 #print axioms HDec.QMSplit.Moduli.x6ConicModel_of_canonical
