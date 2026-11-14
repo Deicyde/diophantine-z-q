@@ -797,6 +797,147 @@ theorem dimJ1Le_of_rh_fi (h1 : DimJacobianEqGenus) (hRH : RiemannHurwitzQj)
 
 end Glue4
 
+/-! ## `FundamentalIdentityQj` from Mathlib's fundamental identity for Dedekind domains -/
+
+section Glue5
+
+open IsDedekindDomain
+
+variable {F : Type} [Field F] [Algebra Qj F] [Algebra ℚ F] [Algebra (Polynomial ℚ) F]
+  [IsScalarTower (Polynomial ℚ) Qj F]
+
+/-- The coordinate `j` in `F`. -/
+abbrev sF : F := algebraMap Qj F RatFunc.X
+
+theorem algebraMap_poly_eq (p : Polynomial ℚ) :
+    algebraMap (Polynomial ℚ) F p = Polynomial.aeval (sF : F) p := by
+  rw [IsScalarTower.algebraMap_apply (Polynomial ℚ) Qj F]
+  have h2 : (algebraMap Qj F).comp (algebraMap (Polynomial ℚ) Qj) =
+      (Polynomial.aeval (sF : F)).toRingHom := by
+    refine Polynomial.ringHom_ext' (RingHom.ext_rat _ _) ?_
+    simp [RatFunc.algebraMap_X]
+  exact congrArg (fun φ : Polynomial ℚ →+* F => φ p) h2
+
+/-- The integral closure of `ℚ[j]` lies in every place containing `j`. -/
+theorem intCl_mem (P : Place F) (hs : (sF : F) ∈ P.w) (r : integralClosure (Polynomial ℚ) F) :
+    (r : F) ∈ P.w := by
+  have hpoly : ∀ p : Polynomial ℚ, algebraMap (Polynomial ℚ) F p ∈ P.w := fun p => by
+    rw [algebraMap_poly_eq]; exact aeval_mem P hs p
+  let φ : Polynomial ℚ →+* P.w := (algebraMap (Polynomial ℚ) F).codRestrict P.w.toSubring hpoly
+  obtain ⟨x, hx⟩ := r
+  obtain ⟨p, hpm, hp⟩ := hx
+  have hint : IsIntegral P.w x := ⟨p.map φ, hpm.map φ, by
+    rw [Polynomial.eval₂_map]; exact hp⟩
+  obtain ⟨y, hy⟩ := IsIntegrallyClosed.isIntegral_iff.mp hint
+  show x ∈ P.w
+  rw [← hy]; exact y.2
+
+theorem isSeparable_Qj [FiniteDimensional Qj F] : Algebra.IsSeparable Qj F :=
+  Algebra.IsAlgebraic.isSeparable_of_perfectField
+
+theorem isDedekind_intCl [FiniteDimensional Qj F] :
+    IsDedekindDomain (integralClosure (Polynomial ℚ) F) :=
+  haveI := isSeparable_Qj (F := F)
+  integralClosure.isDedekindDomain (Polynomial ℚ) Qj F
+
+theorem isFractionRing_intCl [FiniteDimensional Qj F] :
+    IsFractionRing (integralClosure (Polynomial ℚ) F) F :=
+  haveI := isSeparable_Qj (F := F)
+  IsIntegralClosure.isFractionRing_of_finite_extension (Polynomial ℚ) Qj F _
+
+attribute [local instance] isDedekind_intCl isFractionRing_intCl
+
+variable [FiniteDimensional Qj F]
+
+local notation "OF" => integralClosure (Polynomial ℚ) F
+
+/-- The center on `OF` of a place containing `j`, a height-one prime. -/
+noncomputable def centerHS (P : Place F) (hs : (sF : F) ∈ P.w) : HeightOneSpectrum OF where
+  asIdeal := (IsLocalRing.maximalIdeal P.w).comap
+    ((OF).val.toRingHom.codRestrict P.w.toSubring (intCl_mem P hs))
+  isPrime := Ideal.comap_isPrime _ _
+  ne_bot := by
+    intro hbot
+    apply P.ne_top
+    refine eq_top_iff.mpr fun x _ => ?_
+    obtain ⟨a, b, hb, rfl⟩ := IsFractionRing.div_surjective (A := OF) x
+    have hb0 : (b : F) ∉ P.w.nonunits := by
+      intro h
+      have : b ∈ (IsLocalRing.maximalIdeal P.w).comap
+          ((OF).val.toRingHom.codRestrict P.w.toSubring (intCl_mem P hs)) := by
+        rw [Ideal.mem_comap, ← ValuationSubring.coe_mem_nonunits_iff]; exact h
+      rw [hbot, Ideal.mem_bot] at this
+      exact nonZeroDivisors.coe_ne_zero ⟨b, hb⟩ this
+    rw [ValuationSubring.mem_nonunits_iff_or] at hb0
+    push_neg at hb0
+    rw [div_eq_mul_inv]
+    exact Subring.mul_mem _ (intCl_mem P hs a) hb0.2
+
+theorem mem_centerHS (P : Place F) (hs : (sF : F) ∈ P.w) (r : OF) :
+    r ∈ (centerHS P hs).asIdeal ↔ (r : F) ∈ P.w.nonunits := by
+  change r ∈ Ideal.comap _ _ ↔ _
+  rw [Ideal.mem_comap, ← ValuationSubring.coe_mem_nonunits_iff]
+  rfl
+
+/-- A place containing `j` is the valuation ring of its center. -/
+theorem w_eq_valuationSubring (P : Place F) (hs : (sF : F) ∈ P.w) :
+    P.w = ((centerHS P hs).valuation F).valuationSubring := by
+  rw [← HeightOneSpectrum.valuationSubringAtPrime_eq_valuationSubring]
+  symm
+  refine ValuationSubring.eq_of_le_of_ne_top _ ?_ P.ne_top
+  rintro x hx
+  obtain ⟨a, b, hb, rfl⟩ := hx
+  have hb0 : (b : F) ∉ P.w.nonunits := (mem_centerHS P hs b).not.mp hb
+  rw [ValuationSubring.mem_nonunits_iff_or] at hb0
+  push_neg at hb0
+  exact Subring.mul_mem _ (intCl_mem P hs a) hb0.2
+
+/-- The place of a height-one prime of `OF`. -/
+noncomputable def placeOf (w : HeightOneSpectrum OF) : Place F where
+  w := (w.valuation F).valuationSubring
+  ne_top := by
+    simp only [ne_eq, Valuation.valuationSubring_eq_top_iff, not_not]; infer_instance
+  rat_mem c := by
+    have hr : ((Polynomial.C c : Polynomial ℚ) : Polynomial ℚ) ∈ (⊤ : Subalgebra (Polynomial ℚ) (Polynomial ℚ)) :=
+      trivial
+    let r : OF := algebraMap (Polynomial ℚ) OF (Polynomial.C c)
+    have : algebraMap ℚ F c = algebraMap OF F r := by
+      change _ = algebraMap (Polynomial ℚ) F (Polynomial.C c)
+      rw [algebraMap_poly_eq, Polynomial.aeval_C]
+    rw [this]
+    exact (Valuation.mem_valuationSubring_iff _ _).mpr (HeightOneSpectrum.valuation_le_one _ _)
+
+theorem sF_mem_placeOf (w : HeightOneSpectrum OF) : (sF : F) ∈ (placeOf w).w := by
+  have : (sF : F) = algebraMap OF F (algebraMap (Polynomial ℚ) OF Polynomial.X) := by
+    change _ = algebraMap (Polynomial ℚ) F Polynomial.X
+    rw [algebraMap_poly_eq, Polynomial.aeval_X]
+  rw [this]
+  exact (Valuation.mem_valuationSubring_iff _ _).mpr (HeightOneSpectrum.valuation_le_one _ _)
+
+theorem placeOf_centerHS (P : Place F) (hs : (sF : F) ∈ P.w) : placeOf (centerHS P hs) = P :=
+  Place.ext' (w_eq_valuationSubring P hs).symm
+
+theorem centerHS_placeOf (w : HeightOneSpectrum OF) :
+    centerHS (placeOf w) (sF_mem_placeOf w) = w := by
+  ext r
+  rw [mem_centerHS, ValuationSubring.mem_nonunits_iff_or,
+    ← HeightOneSpectrum.valuation_lt_one_iff_mem (K := F)]
+  change (r : F) = 0 ∨ ((r : F))⁻¹ ∉ (w.valuation F).valuationSubring ↔ _
+  rw [Valuation.mem_valuationSubring_iff, map_inv₀, not_le]
+  by_cases hr : (r : F) = 0
+  · have : algebraMap OF F r = 0 := hr
+    simp [hr, this]
+  · have h0 : w.valuation F (algebraMap OF F r) ≠ 0 := by
+      rw [Valuation.ne_zero_iff]; exact hr
+    change _ ↔ w.valuation F (r : F) < 1
+    rw [one_lt_inv_iff₀]
+    simp only [hr, false_or]
+    constructor
+    · intro h; exact h.2
+    · intro h; exact ⟨zero_lt_iff.mpr h0, h⟩
+
+end Glue5
+
 end CurveSplit
 
 #print axioms CurveSplit.genusX1Le_of_genusX1Field
