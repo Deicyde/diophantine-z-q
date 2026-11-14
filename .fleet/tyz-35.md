@@ -13,9 +13,13 @@ and TYZ's induction (L2343–2380). Main theorems `thm35First_of_thm33`, `thm35F
 **Compiles.** Both files: 0 errors, no sorry; axioms `[propext, Classical.choice, Quot.sound]`
 (audit-out.txt). Builds: `RingClassBridge`, `ShimuraFricke` (clean).
 
-**Remains.** The leaf `TYZThm33Pinned` (needs heights + explicit Gross–Zagier/YZZ + Kolyvagin). HUMAN
-CHECK against Period7.tex (not on this host): TYZ's choice of representatives Φ in `P_χ` (the `∀ f` form
-relies on `σ_ϖ²` adding `τ(1)` to `z_n`, tyz-t1 §3.1), the convention for `χ_{d₀,d₁}` (pure-Python
-check `convention.py`: 0 mismatches on 26 n), `h₂`. No PARI on this host (`~/pyenv` missing), so no new
-Heegner-point numerics; the n ≡ 7 cross-level part of Theorem 3.3 has never been tested numerically.
-Report: docs/research/tyz-35.md.
+**Numerics (pure Python; no PARI on this host).** `heeg7.py`: the n ≡ 7 cross-level part of the leaf
+(pairs (7,1), (5,3), ε = i) holds on 27 n ≤ 903, 43 pairs, 0 mismatches (first test of that part);
+`fibre5.py`: conjugates in each fibre of Pic(ℤ[4√−n]) → Cl(K_n) agree mod torsion (27 n ≡ 5, 648 pairs),
+so `P_χ` does not depend on the lifts; `convention.py`: character convention = tyz-t1's.
+
+**Review.** Independent AI statement review: no blocking findings; doc fixes applied (report §7).
+
+**Remains.** The leaf `TYZThm33Pinned` itself (needs Néron–Tate heights + explicit Gross–Zagier/YZZ +
+Kolyvagin). HUMAN CHECK against Period7.tex (not on this host): TYZ's choice of Φ in `P_χ`, the
+convention for `χ_{d₀,d₁}` (coupled to the `[i]`-sign of `tyzZn`), `h₂`. Report: docs/research/tyz-35.md.
