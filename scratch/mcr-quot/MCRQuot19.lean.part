@@ -1,0 +1,106 @@
+
+/-! ════════════════════════════════════════════════════════════════════════════════════════════
+# mcr-quot, part 19: descent of invariant sections through an SGA 1 quotient (any open)
+════════════════════════════════════════════════════════════════════════════════════════════ -/
+
+noncomputable section
+
+namespace MCRQuot
+
+open Polynomial CategoryTheory AlgebraicGeometry Limits LeafQM LeafQM.AV VertWitness HeckeRestNV
+open G0ModField PropTSRed PropTSGlue ModelGlue MCRGlue LeafQM.AV.Pin PkgI3
+open TopologicalSpace Opposite
+
+section Descent
+
+variable {X Z : Scheme.{0}} {G : Subgroup (Aut X)} {q : X ⟶ Z}
+
+/-- Restriction commutes with pulling back sections along `q`. -/
+theorem app_map_eq {W W' : Z.Opens} (h : W ≤ W') (t : Γ(Z, W')) :
+    q.app W (Z.presheaf.map (homOfLE h).op t) =
+      X.presheaf.map (homOfLE (show q ⁻¹ᵁ W ≤ q ⁻¹ᵁ W' from fun _ hx => h hx)).op (q.app W' t) := by
+  have n := ConcreteCategory.congr_hom (q.naturality (homOfLE h).op) t
+  simp only [ConcreteCategory.comp_apply] at n
+  exact n
+
+/-- `secMap` commutes with restriction. -/
+theorem secMap_map (f : X ⟶ X) (hf : f ≫ q = q) {W W' : Z.Opens} (h : W ≤ W')
+    (s : Γ(X, q ⁻¹ᵁ W')) :
+    secMap f hf W (X.presheaf.map (homOfLE (show q ⁻¹ᵁ W ≤ q ⁻¹ᵁ W' from fun _ hx => h hx)).op s) =
+      X.presheaf.map (homOfLE (show q ⁻¹ᵁ W ≤ q ⁻¹ᵁ W' from fun _ hx => h hx)).op (secMap f hf W' s) := by
+  simp only [secMap]
+  rw [← ConcreteCategory.comp_apply, ← ConcreteCategory.comp_apply, Scheme.Hom.map_appLE,
+    Scheme.Hom.appLE_map]
+
+/-- **Pulling back sections along an SGA 1 quotient is injective over every open.** -/
+theorem app_injective_of_isGQuotient (hq : IsGQuotient G q) (W' : Z.Opens) :
+    Function.Injective (q.app W') := by
+  rw [injective_iff_map_eq_zero]
+  intro t ht
+  apply TopCat.Presheaf.section_ext Z.sheaf W'
+  intro z hz
+  obtain ⟨_, ⟨W, hW, rfl⟩, hzW, hWW'⟩ :=
+    Z.isBasis_affineOpens.exists_subset_of_mem_open hz W'.isOpen
+  have hle : W ≤ W' := hWW'
+  have n := app_map_eq (q := q) hle t
+  rw [ht, map_zero] at n
+  have h0 : Z.presheaf.map (homOfLE hle).op t = 0 :=
+    (hq.2.2 W hW).1 (n.trans (map_zero _).symm)
+  have e := Z.presheaf.germ_res_apply (homOfLE hle) z hzW t
+  rw [h0, map_zero] at e
+  change Z.presheaf.germ W' z hz t = Z.presheaf.germ W' z hz 0
+  rw [← e, map_zero]
+
+/-- **Invariant sections over any open descend through an SGA 1 quotient** (glue over an affine
+cover from the affine case, which is the definition of `IsGQuotient`). -/
+theorem exists_descend_section (hq : IsGQuotient G q) (W' : Z.Opens) (s : Γ(X, q ⁻¹ᵁ W'))
+    (hs : ∀ (g : Aut X) (hg : g ∈ G), secMap g.asIso.hom (hq.1 g hg) W' s = s) :
+    ∃ t : Γ(Z, W'), q.app W' t = s := by
+  have key : ∀ z : W', ∃ W : Z.Opens, IsAffineOpen W ∧ z.1 ∈ W ∧ W ≤ W' := by
+    intro z
+    obtain ⟨_, ⟨W, hW, rfl⟩, hzW, hWW'⟩ :=
+      Z.isBasis_affineOpens.exists_subset_of_mem_open z.2 W'.isOpen
+    exact ⟨W, hW, hzW, hWW'⟩
+  choose Wf hWf hzWf hWfle using key
+  have hloc : ∀ z : W', ∃ tz : Γ(Z, Wf z), q.app (Wf z) tz =
+      X.presheaf.map (homOfLE (show q ⁻¹ᵁ Wf z ≤ q ⁻¹ᵁ W' from fun _ hx => hWfle z hx)).op s := by
+    intro z
+    have hr := (hq.2.2 (Wf z) (hWf z)).2
+    have hmem : X.presheaf.map (homOfLE (show q ⁻¹ᵁ Wf z ≤ q ⁻¹ᵁ W' from
+        fun _ hx => hWfle z hx)).op s ∈ Set.range (q.app (Wf z)) := by
+      rw [hr]
+      intro g hg
+      have := secMap_map (q := q) g.asIso.hom (hq.1 g hg) (hWfle z) s
+      change secMap g.asIso.hom (hq.1 g hg) (Wf z) _ = _
+      rw [secMap_congr rfl _ (hq.1 g hg), this, hs g hg]
+    obtain ⟨tz, htz⟩ := hmem
+    exact ⟨tz, htz⟩
+  choose tz htz using hloc
+  have hcompat : TopCat.Presheaf.IsCompatible Z.sheaf.1 Wf tz := by
+    intro i j
+    apply app_injective_of_isGQuotient hq (Wf i ⊓ Wf j)
+    change q.app _ (Z.presheaf.map (homOfLE inf_le_left).op (tz i)) =
+      q.app _ (Z.presheaf.map (homOfLE inf_le_right).op (tz j))
+    rw [app_map_eq, app_map_eq, htz i, htz j, ← ConcreteCategory.comp_apply,
+      ← ConcreteCategory.comp_apply, ← Functor.map_comp, ← Functor.map_comp]
+    rfl
+  obtain ⟨t0, ht, -⟩ := Z.sheaf.existsUnique_gluing' Wf W' (fun i => homOfLE (hWfle i))
+    (fun z hz => Opens.mem_iSup.2 ⟨⟨z, hz⟩, hzWf ⟨z, hz⟩⟩) tz hcompat
+  let t : Γ(Z, W') := t0
+  have ht' : ∀ z : W', Z.presheaf.map (homOfLE (hWfle z)).op t = tz z := ht
+  refine ⟨t, ?_⟩
+  apply TopCat.Presheaf.section_ext X.sheaf (q ⁻¹ᵁ W')
+  intro x hx
+  let z : W' := ⟨q x, hx⟩
+  have hxz : x ∈ q ⁻¹ᵁ Wf z := hzWf z
+  have hle' : q ⁻¹ᵁ Wf z ≤ q ⁻¹ᵁ W' := fun _ hy => hWfle z hy
+  change X.presheaf.germ _ x hx (q.app W' t) = X.presheaf.germ _ x hx s
+  rw [← X.presheaf.germ_res_apply (homOfLE hle') x hxz (q.app W' t),
+    ← X.presheaf.germ_res_apply (homOfLE hle') x hxz s]
+  have e1 : X.presheaf.map (homOfLE hle').op (q.app W' t) =
+      q.app (Wf z) (Z.presheaf.map (homOfLE (hWfle z)).op t) := (app_map_eq (hWfle z) t).symm
+  rw [e1, ht' z, htz z]
+
+end Descent
+
+end MCRQuot

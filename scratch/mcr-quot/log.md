@@ -223,3 +223,9 @@ standard; no sorry in the parts)
   does not even need `IsFinite q` or properness. Composition order in `cMStabInvolution_of`
   (`ι = g_α * g_u`, points move by `g_u` then `g_α`) matches `T = twist α ∘ rightMul u` (the
   compiled proof confirms it).
+
+## Step 18 (11:50) — VERIFIED (parts 1-19; exit 0; compile19_out.txt)
+- Part 19 (towards `QuotientDescendsMapQ`): `app_injective_of_isGQuotient` (pullback of sections
+  along an SGA 1 quotient is injective over every open; germs + affine case),
+  `exists_descend_section` (invariant sections over any open descend; affine cover + sheaf gluing
+  `existsUnique_gluing'`), helpers `app_map_eq`, `secMap_map`.

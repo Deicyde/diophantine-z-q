@@ -45,3 +45,5 @@
 #print axioms MCRQuot.exists_lift_qbar
 #print axioms MCRQuot.quotientDescendsQ_of
 #print axioms MCRQuot.modelCoordinateResidue_final7
+#print axioms MCRQuot.app_injective_of_isGQuotient
+#print axioms MCRQuot.exists_descend_section
