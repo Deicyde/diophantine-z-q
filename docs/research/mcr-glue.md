@@ -136,6 +136,23 @@ argument, given in the docstring. The project may prefer to split these.
     `H₁ × H₂` acting on `𝒴₁ ⊔ 𝒴₂` is a counterexample.
 
 `isGQuotient_bot_id` (compiled) checks that the quotient definition used by L2 and L3 is
+
+**Independent review** (a separate model read the Lean text of every leaf and glue Prop, against
+the Mathlib definitions; not compiled; no human review). It found no false, vacuous or
+mis-encoded statement.
+
+- It confirmed that `IsGQuotient` pins down the SGA 1 quotient and that `IsP1Coordinate`
+  characterizes an isomorphism onto `P¹`.
+- It noted that the "over `ℤ_(p)`" hypotheses on automorphisms are automatic, since
+  `Spec ℤ_(p) → Spec ℤ` is a monomorphism. This is harmless.
+- It asked for four docstring completions, now made and recompiled:
+  - L1: reduce to connected components first;
+  - L2: the Artin–Tate step behind finiteness of `q`;
+  - L3: separatedness of `X/G`;
+  - L6: replace the proof sketch by the cotangent-plane (Maschke) argument.
+- It flagged that `𝒴_ℚ` is probably not geometrically connected (two geometric components over
+  `ℚ(√−3)`). None of `ModelIntegral`, `ModelFunctionField`, `CurveBijIso` or the leaves assumes
+  geometric connectedness. Glue A, B and C1 need only that `𝒴_ℚ` is integral.
 satisfiable.
 
 ## 4. The glue (statements, not proved)

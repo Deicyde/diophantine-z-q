@@ -82,7 +82,9 @@ theorem fibreAut_over {p : ℕ} [Fact p.Prime] (𝒴 : Over (Spec (CommRingCat.o
 /-! ## The leaves (published; locators UNVERIFIED: no network) -/
 
 /-- **Leaf (L1): finite sets of points of a proper smooth curve over `ℤ_(p)` lie in an affine
-open.** A proper flat regular (here smooth) curve over a DVR is projective (S. Lichtenbaum,
+open.** Each connected component of `𝒴` is integral and dominates `Spec ℤ_(p)` (flatness), and
+there are finitely many (properness). A proper flat regular (here smooth) curve over a DVR is
+projective (S. Lichtenbaum,
 *Curves over discrete valuation rings*, Amer. J. Math. 90 (1968), Thm. 2.8; Q. Liu, *Algebraic
 Geometry and Arithmetic Curves*, Thm. 8.3.16), and in a scheme projective over an affine scheme
 every finite set of points lies in an affine open (EGA II 4.5.4; Liu Prop. 3.3.36). Locators
@@ -96,7 +98,9 @@ def ProperCurveAF : Prop :=
 Cor. 1.5; locators UNVERIFIED). Let `X` be proper over `S = Spec ℤ_(p)` and `G` a finite group of
 `S`-automorphisms of `X` such that every finite set of points (in particular every orbit) lies in
 an affine open. Then the quotient `q : X → X/G` exists over `S` (`IsGQuotient`), and `q` is
-integral (SGA 1 V 1.1) and of finite type, hence finite. The leaf only asserts the case of a
+integral (SGA 1 V 1.1); over affines `B` is of finite type over the Noetherian `ℤ_(p)` and
+integral over `B^G`, so `B^G` is of finite type (Artin–Tate) and `B` is finite over `B^G`: `q`
+is finite. The leaf only asserts the case of a
 proper `X` over `ℤ_(p)`. -/
 def FiniteQuotientExists : Prop :=
   ∀ (p : ℕ) [Fact p.Prime] (𝒴 : Over (Spec (CommRingCat.of (Zloc p)))), IsProper 𝒴.hom →
@@ -110,8 +114,9 @@ def FiniteQuotientExists : Prop :=
 `|G|⁻¹ Σ g` splits `𝒪_X → (𝒪_X)^G`; SGA 1 Exp. V, Prop. 1.9; D. Mumford, *Abelian Varieties*,
 §7, Thm. 3; locators UNVERIFIED), so the fibres of `X/G` are `X_s/G`, normal curves over the
 perfect fields `𝔽_p` and `ℚ`, hence smooth; `X/G` is flat over `ℤ_(p)` (torsion-free), so smooth
-over `ℤ_(p)` (EGA IV 17.5.1), and proper (the image of a proper scheme under the surjective `q`,
-separated and of finite type). -/
+over `ℤ_(p)` (EGA IV 17.5.1), and proper (the image of a proper scheme under the surjective `q`; separated because
+`X ×_S X → Z ×_S Z` is integral and surjective and the preimage of `Δ_Z` is the union of the
+graphs of the `g ∈ G`; of finite type by Artin–Tate). -/
 def TameQuotientSmooth : Prop :=
   ∀ (p : ℕ) [Fact p.Prime] (𝒴 𝒵 : Over (Spec (CommRingCat.of (Zloc p)))) (q : 𝒴 ⟶ 𝒵),
     IsProper 𝒴.hom → SmoothOfRelativeDimension 1 𝒴.hom →
@@ -152,11 +157,13 @@ def TameFixedPointsDisjoint : Prop :=
 /-- **Leaf (L6): tame inertia groups are cyclic.** For `𝒴` proper and smooth of relative
 dimension 1 over `ℤ_(p)`, a finite group `H` of automorphisms over `ℤ_(p)` with `p ∤ |H|` whose
 nontrivial elements fix only finitely many `ℚ̄`-points, and a point `w` fixed by every element of
-`H` with trivial action on `κ(w)`, `H` is cyclic. (`H` acts faithfully on the component of the
-special fibre through `w` (Leaf L5's smoothness of fixed loci), and the inertia group of a tame
-action at a point of a smooth curve embeds in `κ(w)^×` through its action on the cotangent line:
-J.-P. Serre, *Local Fields*, Ch. IV §2, Cor. 1 of Prop. 7; locators UNVERIFIED. For `w` in the
-generic fibre this is the same statement in characteristic 0.) -/
+`H` with trivial action on `κ(w)`, `H` is cyclic. (Faithfulness: an element trivial near `w` is trivial on the connected component
+through `w`, which has infinitely many `ℚ̄`-points. At a closed point `w` of the special fibre,
+`p ∈ 𝔪 ∖ 𝔪²` (smoothness); by Maschke `𝔪/𝔪² = ⟨p̄⟩ ⊕ T` with `T` a line on which `H` acts by a
+character `χ : H → κ(w)^×`; `ker χ` acts unipotently on `gr 𝒪_w`, hence trivially (order prime to
+`p`), hence is trivial; so `H ↪ κ(w)^×` is cyclic. This is the argument of J.-P. Serre, *Local
+Fields*, Ch. IV §2, Cor. 1 of Prop. 7 (locator UNVERIFIED). At generic points `H` is trivial; at
+closed points of the generic fibre the same argument works in characteristic 0.) -/
 def TameInertiaCyclic : Prop :=
   ∀ (p : ℕ) [Fact p.Prime] (𝒴 : Over (Spec (CommRingCat.of (Zloc p)))),
     IsProper 𝒴.hom → SmoothOfRelativeDimension 1 𝒴.hom →

@@ -53,3 +53,9 @@ Target: `ModelGlue.ModelCoordinateResidue` (scratch/model-glue/ModelGlue6.lean, 
 - `hecke_mem_fibreAut`: sanity check, `fibreAut` contains automorphisms inducing every `twist α`
   and `rightMul u` (IsShimuraModel clauses 6-7); helpers `qmIsoOfIso`, `autOfOverIso`.
 - docs/research/mcr-glue.md written (verdict, table, leaves, glue, remains).
+
+## Step 6 (06:20) — VERIFIED (recompiled; exit 0; compile5_out.txt; verbatim_check ALL OK)
+- Independent model review of the leaf/glue statements: no false, vacuous or mis-encoded Prop.
+  Docstring completions applied: L1 (components), L2 (Artin–Tate ⇒ q finite), L3 (separatedness),
+  L6 (cotangent-plane/Maschke argument). Note: 𝒴_ℚ likely not geometrically connected; nothing
+  used assumes geometric connectedness.
