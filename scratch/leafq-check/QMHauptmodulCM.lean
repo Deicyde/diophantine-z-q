@@ -322,4 +322,154 @@ theorem orbit4 : ∀ w, EN 1 w → ∃ g gi, NormData g gi ∧ g * by4 * gi = w 
     nlinarith [mul_nonneg (sub_nonneg.2 c1) (sub_nonneg.2 c4),
       mul_nonneg (sub_nonneg.2 c2) (sub_nonneg.2 c3)]
 
+/-! ### Orbit of `j` (`w² = −3`) -/
+
+theorem orbit3 : ∀ w, EN 3 w → ∃ g gi, NormData g gi ∧ g * bj * gi = w := by
+  have hb : 0 < form bj bj := by norm_num [form, bj]
+  have hb' : 0 < bj.imJ := by norm_num [bj]
+  refine orbit_of_descent (EN 3) (fun w => form w bj) bj ?_ ?_ ?_
+  · intro w ⟨hO, hsq, hJ⟩
+    obtain ⟨hre, hqf⟩ := pure_of_sqN 3 (by norm_num) hsq
+    obtain ⟨n0, n1, n3, hc, hb1, hd⟩ := pure_coords hO hre
+    refine nat_of_int (m := -3 * n0) ?_ (form_pos (by rw [hqf]; norm_num) hb hJ hb')
+    simp only [form, bj]; rw [hc]; push_cast; ring
+  · intro w ⟨hO, hsq, hJ⟩ hle
+    obtain ⟨hre, hqf⟩ := pure_of_sqN 3 (by norm_num) hsq
+    simp only [form, bj] at hle hqf
+    norm_num at hle
+    have h3 : w.imJ ≤ 1 := by linarith
+    have h1 : w.imI = 0 := by nlinarith [sq_nonneg w.imI, sq_nonneg w.imK]
+    have h2 : w.imK = 0 := by nlinarith [sq_nonneg w.imI, sq_nonneg w.imK]
+    have h4 : w.imJ = 1 := by nlinarith [sq_nonneg w.imI, sq_nonneg w.imK]
+    ext <;> simp [bj, hre, h1, h2, h4]
+  · intro w hw hlt
+    obtain ⟨hO, hsq, hJ⟩ := hw
+    obtain ⟨hre, hqf⟩ := pure_of_sqN 3 (by norm_num) hsq
+    obtain ⟨n0, n1, n3, hc, hb1, hd⟩ := pure_coords hO hre
+    have h2 : 2 ≤ w.imJ := by
+      have h1 : form bj bj = 3 := by norm_num [form, bj]
+      simp only [form, bj] at hlt; norm_num at hlt
+      rw [hc] at hlt ⊢
+      have : (1 : ℤ) < -n0 := by exact_mod_cast (show (1 : ℚ) < -(n0 : ℚ) by linarith)
+      exact_mod_cast (show (2 : ℤ) ≤ -n0 by omega)
+    have e1 : ∀ v : PkgI1.B, v.re = 0 → form (a4 * v * a4i) bj = form v ⟨0, 3, 3, -1⟩ := by
+      intro v hv; simp [form, bj, a4, a4i, hv]; ring
+    have e2 : ∀ v : PkgI1.B, v.re = 0 → form (a4i * v * a4) bj = form v ⟨0, 3, 3, 1⟩ := by
+      intro v hv; simp [form, bj, a4, a4i, hv]; ring
+    have e3 : ∀ v : PkgI1.B, v.re = 0 →
+        form (a4 * a6 * v * (a6i * a4i)) bj = form v ⟨0, 0, 3, -2⟩ := by
+      intro v hv; simp [form, bj, a6, a6i, a4, a4i, hv]; ring
+    have e4 : ∀ v : PkgI1.B, v.re = 0 →
+        form (a4i * a6i * v * (a6 * a4)) bj = form v ⟨0, 0, 3, 2⟩ := by
+      intro v hv; simp [form, bj, a6, a6i, a4, a4i, hv]; ring
+    have e5 : ∀ v : PkgI1.B, v.re = 0 →
+        form (a4 * a6 * a6 * v * (a6i * (a6i * a4i))) bj = form v ⟨0, -3, 3, -1⟩ := by
+      intro v hv; simp [form, bj, a6, a6i, a4, a4i, hv]; ring
+    have e6 : ∀ v : PkgI1.B, v.re = 0 →
+        form (a4i * a6i * a6i * v * (a6 * (a6 * a4))) bj = form v ⟨0, -3, 3, 1⟩ := by
+      intro v hv; simp [form, bj, a6, a6i, a4, a4i, hv]; ring
+    have hw : EN 3 w := ⟨hO, hsq, hJ⟩
+    by_cases c1 : form w ⟨0, 3, 3, -1⟩ < form w bj
+    · exact ⟨_, _, nd_a4, EN_conj (by norm_num : (0:ℚ) < 3) nd_a4 (by norm_num [form]) (by norm_num) hb hb' e1 hw,
+        by rw [e1 w hre]; exact c1⟩
+    by_cases c2 : form w ⟨0, 3, 3, 1⟩ < form w bj
+    · exact ⟨_, _, nd_a4.symm, EN_conj (by norm_num : (0:ℚ) < 3) nd_a4.symm (by norm_num [form]) (by norm_num) hb hb' e2 hw,
+        by rw [e2 w hre]; exact c2⟩
+    by_cases c3 : form w ⟨0, 0, 3, -2⟩ < form w bj
+    · exact ⟨_, _, (nd_a4.mul nd_a6), EN_conj (by norm_num : (0:ℚ) < 3) (nd_a4.mul nd_a6) (by norm_num [form]) (by norm_num) hb hb' e3 hw,
+        by rw [e3 w hre]; exact c3⟩
+    by_cases c4 : form w ⟨0, 0, 3, 2⟩ < form w bj
+    · exact ⟨_, _, (nd_a4.symm.mul nd_a6.symm), EN_conj (by norm_num : (0:ℚ) < 3) (nd_a4.symm.mul nd_a6.symm) (by norm_num [form]) (by norm_num) hb hb' e4 hw,
+        by rw [e4 w hre]; exact c4⟩
+    by_cases c5 : form w ⟨0, -3, 3, -1⟩ < form w bj
+    · exact ⟨_, _, ((nd_a4.mul nd_a6).mul nd_a6), EN_conj (by norm_num : (0:ℚ) < 3) ((nd_a4.mul nd_a6).mul nd_a6) (by norm_num [form]) (by norm_num) hb hb' e5 hw,
+        by rw [e5 w hre]; exact c5⟩
+    by_cases c6 : form w ⟨0, -3, 3, 1⟩ < form w bj
+    · exact ⟨_, _, ((nd_a4.symm.mul nd_a6.symm).mul nd_a6.symm), EN_conj (by norm_num : (0:ℚ) < 3) ((nd_a4.symm.mul nd_a6.symm).mul nd_a6.symm) (by norm_num [form]) (by norm_num) hb hb' e6 hw,
+        by rw [e6 w hre]; exact c6⟩
+    exfalso
+    push_neg at c1 c2 c3 c4 c5 c6
+    simp only [form, bj] at c1 c2 c3 c4 c5 c6 hqf
+    have h1 : 0 ≤ -w.imI + w.imJ + w.imK := by linarith
+    have h2' : 0 ≤ -w.imI + w.imJ - w.imK := by linarith
+    have h3 : 0 ≤ w.imJ + 2 * w.imK := by linarith
+    have h4 : 0 ≤ w.imJ - 2 * w.imK := by linarith
+    have h5 : 0 ≤ w.imI + w.imJ + w.imK := by linarith
+    have h6 : 0 ≤ w.imI + w.imJ - w.imK := by linarith
+    have : w.imJ ^ 2 ≤ -2 * w.imI ^ 2 + 3 * w.imJ ^ 2 - 6 * w.imK ^ 2 := by
+      nlinarith [mul_nonneg h1 h6, mul_nonneg h2' h5, mul_nonneg h3 h4, mul_nonneg h1 h2',
+        mul_nonneg h5 h6, mul_nonneg h1 h5, mul_nonneg h2' h6, mul_nonneg h3 h1, mul_nonneg h3 h2',
+        mul_nonneg h3 h5, mul_nonneg h3 h6, mul_nonneg h4 h1, mul_nonneg h4 h2', mul_nonneg h4 h5,
+        mul_nonneg h4 h6]
+    nlinarith
+
+/-! ### Orbit of `μ = 2j + ij` (`w² = −6`) -/
+
+theorem orbit24 : ∀ w, EN 6 w → ∃ g gi, NormData g gi ∧ g * mu * gi = w := by
+  have hb : 0 < form mu mu := by norm_num [form, mu]
+  have hb' : 0 < mu.imJ := by norm_num [mu]
+  refine orbit_of_descent (EN 6) (fun w => form w mu) mu ?_ ?_ ?_
+  · intro w ⟨hO, hsq, hJ⟩
+    obtain ⟨hre, hqf⟩ := pure_of_sqN 6 (by norm_num) hsq
+    obtain ⟨n0, n1, n3, hc, hb1, hd⟩ := pure_coords hO hre
+    refine nat_of_int (m := -6 * n0 - 3 * n3) ?_ (form_pos (by rw [hqf]; norm_num) hb hJ hb')
+    simp only [form, mu]; rw [hc, hd]; push_cast; ring
+  · intro w ⟨hO, hsq, hJ⟩ hle
+    obtain ⟨hre, hqf⟩ := pure_of_sqN 6 (by norm_num) hsq
+    simp only [form, mu] at hle hqf
+    norm_num at hle
+    have hcd : w.imJ ≤ w.imK + 1 := by linarith
+    have hsq3 : w.imJ ^ 2 ≤ (w.imK + 1) ^ 2 := by
+      have := mul_self_le_mul_self hJ.le hcd; nlinarith
+    have h1 : w.imI = 0 := by nlinarith [sq_nonneg w.imI, sq_nonneg (w.imK - 1)]
+    have h2 : w.imK = 1 := by nlinarith [sq_nonneg w.imI, sq_nonneg (w.imK - 1)]
+    have h4 : w.imJ = 2 := by
+      rw [h1, h2] at hqf; nlinarith
+    ext <;> simp [mu, hre, h1, h2, h4]
+  · intro w hw hlt
+    obtain ⟨hO, hsq, hJ⟩ := hw
+    obtain ⟨hre, hqf⟩ := pure_of_sqN 6 (by norm_num) hsq
+    obtain ⟨n0, n1, n3, hc, hb1, hd⟩ := pure_coords hO hre
+    have h2 : 3 ≤ 2 * w.imJ - 2 * w.imK := by
+      simp only [form, mu] at hlt; norm_num at hlt
+      rw [hc, hd] at hlt ⊢
+      have : (2 : ℤ) < -2 * n0 - n3 := by
+        exact_mod_cast (show (2 : ℚ) < -2 * (n0 : ℚ) - n3 by linarith)
+      have h3 : (3 : ℤ) ≤ -2 * n0 - n3 := by omega
+      have : (3 : ℚ) ≤ -2 * (n0 : ℚ) - n3 := by exact_mod_cast h3
+      linarith
+    have e1 : ∀ v : PkgI1.B, v.re = 0 → form (a6 * v * a6i) mu = form v ⟨0, 3/2, 2, 1/2⟩ := by
+      intro v hv; simp [form, mu, a6, a6i, hv]; ring
+    have e2 : ∀ v : PkgI1.B, v.re = 0 → form (a6i * v * a6) mu = form v ⟨0, -3/2, 2, 1/2⟩ := by
+      intro v hv; simp [form, mu, a6, a6i, hv]; ring
+    have e3 : ∀ v : PkgI1.B, v.re = 0 →
+        form (a4 * a6i * a6i * v * (a6 * (a6 * a4i))) mu = form v ⟨0, 3/2, 4, 5/2⟩ := by
+      intro v hv; simp [form, mu, a6, a6i, a4, a4i, hv]; ring
+    have e4 : ∀ v : PkgI1.B, v.re = 0 →
+        form (a6 * mu * v * (mui * a6i)) mu = form v ⟨0, -3/2, 4, 5/2⟩ := by
+      intro v hv; simp [form, mu, mui, a6, a6i, hv]; ring
+    have hw : EN 6 w := ⟨hO, hsq, hJ⟩
+    by_cases c1 : form w ⟨0, 3/2, 2, 1/2⟩ < form w mu
+    · exact ⟨_, _, nd_a6, EN_conj (by norm_num : (0:ℚ) < 6) nd_a6 (by norm_num [form]) (by norm_num) hb hb' e1 hw,
+        by rw [e1 w hre]; exact c1⟩
+    by_cases c2 : form w ⟨0, -3/2, 2, 1/2⟩ < form w mu
+    · exact ⟨_, _, nd_a6.symm, EN_conj (by norm_num : (0:ℚ) < 6) nd_a6.symm (by norm_num [form]) (by norm_num) hb hb' e2 hw,
+        by rw [e2 w hre]; exact c2⟩
+    by_cases c3 : form w ⟨0, 3/2, 4, 5/2⟩ < form w mu
+    · exact ⟨_, _, ((nd_a4.mul nd_a6.symm).mul nd_a6.symm), EN_conj (by norm_num : (0:ℚ) < 6) ((nd_a4.mul nd_a6.symm).mul nd_a6.symm) (by norm_num [form]) (by norm_num) hb hb' e3 hw,
+        by rw [e3 w hre]; exact c3⟩
+    by_cases c4 : form w ⟨0, -3/2, 4, 5/2⟩ < form w mu
+    · exact ⟨_, _, (nd_a6.mul nd_mu), EN_conj (by norm_num : (0:ℚ) < 6) (nd_a6.mul nd_mu) (by norm_num [form]) (by norm_num) hb hb' e4 hw,
+        by rw [e4 w hre]; exact c4⟩
+    exfalso
+    push_neg at c1 c2 c3 c4
+    simp only [form, mu] at c1 c2 c3 c4 hqf
+    have h1 : 0 ≤ -w.imI + w.imK := by linarith
+    have h2' : 0 ≤ w.imI + w.imK := by linarith
+    have h3 : 0 ≤ -w.imI + 2 * w.imJ - 3 * w.imK := by linarith
+    have h4 : 0 ≤ w.imI + 2 * w.imJ - 3 * w.imK := by linarith
+    have : 3 * (w.imJ - w.imK) ^ 2 ≤ -2 * w.imI ^ 2 + 3 * w.imJ ^ 2 - 6 * w.imK ^ 2 := by
+      nlinarith [mul_nonneg h1 h4, mul_nonneg h2' h3, sq_nonneg w.imI]
+    nlinarith
+
 end HDec.LeafQCheck.HM
