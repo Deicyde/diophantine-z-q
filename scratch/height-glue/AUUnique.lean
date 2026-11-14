@@ -144,4 +144,202 @@ theorem exists_linearEquiv_comp_eq {V W : Type*} [AddCommGroup V] [Module ℂ V]
     LinearMap.mem_ker.mp (k a).2, LinearMap.mem_ker.mp a.2, ← he₁, LinearEquiv.apply_symm_apply,
     he₂]
 
+/-! ## Every analytic uniformization factors linearly through a full-lattice one -/
+
+section Factor
+
+variable {K : Type} [Field K] {A : AbVar K} {L : Type} [Field L] [NumberField L] [Algebra K L]
+variable {𝒢 : GroupModel A L} {τ : L →+* ℂ}
+
+/-- **Factorization.** If `anTop` is Hausdorff and `Φ₀` is an analytic uniformization with a full
+lattice `Λ₀` that is immersive at `0`, then every analytic uniformization `Φ` (of any dimension
+`g`, no lattice hypothesis) is `Φ₀ ∘ M` for a surjective `ℂ`-linear `M : ℂ^g → ℂ^{g₀}`. -/
+theorem exists_linear_factor (hT2 : @T2Space (𝒢.Pts τ) (anTop 𝒢 τ)) {g₀ : ℕ}
+    (Λ₀ : Submodule ℤ (Fin g₀ → ℂ)) [DiscreteTopology Λ₀] [IsZLattice ℝ Λ₀]
+    {Φ₀ : (Fin g₀ → ℂ) → 𝒢.Pts τ} (h₀ : 𝒢.IsAnalyticUniformization τ Λ₀ Φ₀)
+    (him : IsImmersiveAtZero 𝒢 τ Φ₀) {g : ℕ} {Λ : Submodule ℤ (Fin g → ℂ)}
+    {Φ : (Fin g → ℂ) → 𝒢.Pts τ} (h : 𝒢.IsAnalyticUniformization τ Λ Φ) :
+    ∃ M : (Fin g → ℂ) →ₗ[ℂ] (Fin g₀ → ℂ), Function.Surjective M ∧ ∀ z, Φ z = Φ₀ (M z) := by
+  letI := anTop 𝒢 τ
+  let S : AddSubgroup (Fin g₀ → ℂ) := Λ₀.toAddSubgroup
+  have hS : IsDiscrete (S : Set (Fin g₀ → ℂ)) :=
+    isDiscrete_iff_discreteTopology.mpr ‹DiscreteTopology Λ₀›
+  have hcov : IsCoveringMap (QuotientAddGroup.mk : (Fin g₀ → ℂ) → (Fin g₀ → ℂ) ⧸ S) :=
+    (AddSubgroup.isAddQuotientCoveringMap_of_comm S hS).isCoveringMap
+  have hcpt : CompactSpace ((Fin g₀ → ℂ) ⧸ S) := by
+    have := IsZLattice.isCompact_range_of_periodic Λ₀
+      (QuotientAddGroup.mk : (Fin g₀ → ℂ) → (Fin g₀ → ℂ) ⧸ S) continuous_quot_mk
+      (fun z w hw => QuotientAddGroup.eq.mpr (by
+        rw [neg_add_rev, add_assoc, neg_add_cancel, add_zero]; exact S.neg_mem hw))
+    rw [QuotientAddGroup.mk_surjective.range_eq] at this
+    exact isCompact_univ_iff.mp this
+  -- the induced bijection `ℂ^{g₀}/Λ₀ → 𝒢(ℂ)_τ`
+  let φ : (Fin g₀ → ℂ) ⧸ S → 𝒢.Pts τ := Quotient.lift (s := QuotientAddGroup.leftRel S) Φ₀
+    (fun a b hab => by
+      rw [au_eq_iff h₀]
+      have := QuotientAddGroup.leftRel_apply.mp hab
+      rw [← neg_neg (a - b), neg_sub, ← neg_add_eq_sub]
+      exact Λ₀.neg_mem this)
+  have hφc : Continuous φ := (continuous_of_isAnalyticUniformization 𝒢 τ h₀).quotient_lift _
+  have hφi : Function.Injective φ := by
+    intro x y hxy
+    induction x using Quotient.inductionOn with | h a => ?_
+    induction y using Quotient.inductionOn with | h b => ?_
+    apply Quotient.sound
+    refine QuotientAddGroup.leftRel_apply.mpr ?_
+    rw [neg_add_eq_sub]
+    exact (au_eq_iff h₀ b a).mp hxy.symm
+  have hφs : Function.Surjective φ := fun p => by
+    obtain ⟨a, ha⟩ := h₀.2.2.1 p
+    exact ⟨QuotientAddGroup.mk a, ha⟩
+  let e : (Fin g₀ → ℂ) ⧸ S ≃ₜ 𝒢.Pts τ :=
+    Continuous.homeoOfEquivCompactToT2 (f := Equiv.ofBijective φ ⟨hφi, hφs⟩) hφc
+  have he : ∀ x, e (QuotientAddGroup.mk x) = Φ₀ x := fun x => rfl
+  -- lift `Φ` through the covering
+  let ψ : C(Fin g → ℂ, (Fin g₀ → ℂ) ⧸ S) :=
+    ⟨fun z => e.symm (Φ z), e.symm.continuous.comp (continuous_of_isAnalyticUniformization 𝒢 τ h)⟩
+  obtain ⟨F, ⟨hF0, hF⟩, -⟩ := hcov.existsUnique_continuousMap_lifts ψ 0 0 (by
+    show (QuotientAddGroup.mk 0 : (Fin g₀ → ℂ) ⧸ S) = e.symm (Φ 0)
+    rw [Homeomorph.eq_symm_apply, he, au_map_zero h₀, au_map_zero h])
+  have hΦF : ∀ z, Φ z = Φ₀ (F z) := by
+    intro z
+    have h1 : (QuotientAddGroup.mk (F z) : (Fin g₀ → ℂ) ⧸ S) = e.symm (Φ z) := congrFun hF z
+    rw [← he, h1, e.apply_symm_apply]
+  -- additivity
+  have hmem : ∀ z w, F (z + w) - (F z + F w) ∈ Λ₀ := fun z w =>
+    (au_eq_iff h₀ _ _).1 (by rw [← hΦF, h.1, hΦF, hΦF, ← h₀.1])
+  let D : (Fin g → ℂ) × (Fin g → ℂ) → Λ₀ := fun p => ⟨_, hmem p.1 p.2⟩
+  have hD : Continuous D := Continuous.subtype_mk
+    ((F.continuous.comp (continuous_fst.add continuous_snd)).sub
+      ((F.continuous.comp continuous_fst).add (F.continuous.comp continuous_snd))) _
+  have hadd : ∀ z w, F (z + w) = F z + F w := by
+    intro z w
+    have h2 := congrArg Subtype.val
+      (PreconnectedSpace.constant inferInstance hD (x := (z, w)) (y := (0, 0)))
+    simp only [D, add_zero, hF0, sub_zero] at h2
+    exact sub_eq_zero.mp h2
+  let Fp : (Fin g → ℂ) →+ (Fin g₀ → ℂ) := AddMonoidHom.mk' F hadd
+  let M₀ : (Fin g → ℂ) →L[ℝ] (Fin g₀ → ℂ) := Fp.toRealLinearMap F.continuous
+  have hM₀ : ∀ z, M₀ z = F z := fun z => rfl
+  have hr : ∀ (r : ℝ) x, F (r • x) = r • F x := fun r x => map_real_smul Fp F.continuous r x
+  -- `ℂ`-linearity from the immersion at `0`
+  have hI : ∀ v, F (Complex.I • v) = Complex.I • F v := by
+    intro v
+    by_contra hne
+    obtain ⟨U, s, h0U, hd⟩ := him _ (sub_ne_zero.mpr hne)
+    set F₀ := fun x => 𝒢.evalAt (Φ₀ x) U s with hF₀
+    set G := fun z => 𝒢.evalAt (Φ z) U s with hG
+    have hdiff₀ : DifferentiableAt ℂ F₀ 0 :=
+      ((h₀.2.2.2.2 U s) 0 h0U).differentiableAt ((h₀.2.2.2.1 U).mem_nhds h0U)
+    have h0U' : (0 : Fin g → ℂ) ∈ 𝒢.dom Φ U := by
+      show ⊤ ≤ (Φ 0).left ⁻¹ᵁ U
+      rw [hΦF, hF0]; exact h0U
+    have hdiff : DifferentiableAt ℂ G 0 :=
+      ((h.2.2.2.2 U s) 0 h0U').differentiableAt ((h.2.2.2.1 U).mem_nhds h0U')
+    have e1 : HasFDerivAt G ((fderiv ℂ G 0).restrictScalars ℝ) 0 :=
+      hdiff.hasFDerivAt.restrictScalars ℝ
+    have e2 : HasFDerivAt G (((fderiv ℂ F₀ 0).restrictScalars ℝ).comp M₀) 0 := by
+      have hf : G = F₀ ∘ M₀ := funext fun z => by simp only [hG, hF₀, Function.comp_apply, hM₀, hΦF]
+      rw [hf]
+      have : HasFDerivAt F₀ ((fderiv ℂ F₀ 0).restrictScalars ℝ) (M₀ 0) := by
+        rw [hM₀, hF0]; exact hdiff₀.hasFDerivAt.restrictScalars ℝ
+      exact this.comp 0 M₀.hasFDerivAt
+    have heq := e1.unique e2
+    have k1 := congrArg (fun T => T (Complex.I • v)) heq
+    have k2 := congrArg (fun T => T v) heq
+    simp only [ContinuousLinearMap.coe_restrictScalars', ContinuousLinearMap.coe_comp,
+      Function.comp_apply, hM₀] at k1 k2
+    apply hd
+    rw [map_sub, ← k1, map_smul (fderiv ℂ F₀ 0), ← k2, ← map_smul (fderiv ℂ G 0), sub_self]
+  have hsmul : ∀ (c : ℂ) z, F (c • z) = c • F z := by
+    intro c z
+    have hc : ∀ {V : Type} [AddCommGroup V] [Module ℂ V] (y : V),
+        c • y = (c.re : ℝ) • y + (c.im : ℝ) • (Complex.I • y) := by
+      intro V _ _ y
+      conv_lhs => rw [← Complex.re_add_im c]
+      rw [add_smul, mul_smul, Complex.coe_smul, Complex.coe_smul]
+    rw [hc z, hadd, hr, hr, hI, ← hc]
+  let M : (Fin g → ℂ) →ₗ[ℂ] (Fin g₀ → ℂ) :=
+    { toFun := F, map_add' := hadd, map_smul' := hsmul }
+  have hMF : ∀ z, M z = F z := fun z => rfl
+  refine ⟨M, ?_, fun z => by rw [hMF, hΦF]⟩
+  -- surjectivity (Baire)
+  have hrange : ∀ x, ∃ z, x - M z ∈ Λ₀ := fun x => by
+    obtain ⟨z, hz⟩ := h.2.2.1 (Φ₀ x)
+    exact ⟨z, (au_eq_iff h₀ _ _).1 (by rw [hMF, ← hΦF, hz])⟩
+  rw [← LinearMap.range_eq_top]
+  let W := LinearMap.range M
+  have hWc : IsClosed (W : Set (Fin g₀ → ℂ)) := W.closed_of_finiteDimensional
+  haveI : Countable Λ₀ := countable_of_Lindelof_of_discrete
+  let f : Λ₀ → Set (Fin g₀ → ℂ) := fun l => Homeomorph.addLeft (l : Fin g₀ → ℂ) '' (W : Set _)
+  have hfc : ∀ l, IsClosed (f l) := fun l => (Homeomorph.addLeft _).isClosedMap _ hWc
+  have hfU : ⋃ l, f l = Set.univ := by
+    refine Set.eq_univ_of_forall fun x => ?_
+    obtain ⟨z, hz⟩ := hrange x
+    exact Set.mem_iUnion.mpr ⟨⟨_, hz⟩, M z, LinearMap.mem_range_self M z, by
+      simp [Homeomorph.coe_addLeft]⟩
+  obtain ⟨l, hl⟩ := nonempty_interior_of_iUnion_of_closed hfc hfU
+  rw [← Homeomorph.image_interior] at hl
+  exact (W.restrictScalars ℝ).eq_top_of_nonempty_interior' (hl.of_image) |>
+    fun h => by
+      rw [eq_top_iff] at h ⊢
+      exact fun x _ => h (Submodule.mem_top (x := x))
+
+end Factor
+
+/-! ## The kernel Prop -/
+
+/-- **`AnalyticUniformizationUnique` (kernel AN3U) from the two leaves.** -/
+theorem analyticUniformizationUnique_of (hE : ImmersiveUniformizationExists)
+    (hT : AnalyticPointsT2) : AnalyticUniformizationUnique := by
+  intro K _ A L _ _ _ 𝒢 τ g Λ Λ' Φ Φ' h h'
+  obtain ⟨g₀, Λ₀, Φ₀, hd, hl, h₀, him⟩ := hE K A L 𝒢 τ
+  obtain ⟨M, hMs, hM⟩ := exists_linear_factor (hT K A L 𝒢 τ) Λ₀ h₀ him h
+  obtain ⟨M', hMs', hM'⟩ := exists_linear_factor (hT K A L 𝒢 τ) Λ₀ h₀ him h'
+  obtain ⟨T, hT⟩ := exists_linearEquiv_comp_eq M M' hMs hMs'
+  have hΦ : ∀ z, Φ' z = Φ (T z) := fun z => by rw [hM', hM, hT]
+  refine ⟨T, hΦ, fun z => ?_⟩
+  rw [← h'.2.1, ← h.2.1, hΦ]
+
+/-- **Corollary: every full-lattice analytic uniformization is immersive at `0`** (from the same
+two leaves): uniqueness transports the immersion clause along `T`. -/
+theorem isImmersiveAtZero_of (hE : ImmersiveUniformizationExists) (hT : AnalyticPointsT2)
+    {K : Type} [Field K] {A : AbVar K} {L : Type} [Field L] [NumberField L] [Algebra K L]
+    (𝒢 : GroupModel A L) (τ : L →+* ℂ) {g : ℕ} {Λ : Submodule ℤ (Fin g → ℂ)}
+    {Φ : (Fin g → ℂ) → 𝒢.Pts τ} [DiscreteTopology Λ] [IsZLattice ℝ Λ]
+    (h : 𝒢.IsAnalyticUniformization τ Λ Φ) : IsImmersiveAtZero 𝒢 τ Φ := by
+  obtain ⟨g₀, Λ₀, Φ₀, hd, hl, h₀, him⟩ := hE K A L 𝒢 τ
+  obtain ⟨M, hMs, hM⟩ := exists_linear_factor (hT K A L 𝒢 τ) Λ₀ h₀ him h
+  -- `M` is injective: its kernel lies in the discrete `Λ` and is a `ℂ`-subspace
+  have hMi : Function.Injective M := by
+    rw [← LinearMap.ker_eq_bot, Submodule.eq_bot_iff]
+    intro v hv
+    have hsub : ∀ t : ℝ, (t : ℂ) • v ∈ Λ := fun t => by
+      rw [← h.2.1, hM, map_smul, LinearMap.mem_ker.mp hv, smul_zero, au_map_zero h₀]
+    by_contra hv0
+    -- the image of `ℝ` in the discrete `Λ` is a connected subset, hence a point
+    let c : ℝ → Λ := fun t => ⟨(t : ℂ) • v, hsub t⟩
+    have hc : Continuous c := Continuous.subtype_mk
+      ((Complex.continuous_ofReal).smul continuous_const) _
+    have := congrArg Subtype.val (PreconnectedSpace.constant inferInstance hc (x := 1) (y := 0))
+    simp [c] at this
+    exact hv0 this
+  intro v hv
+  obtain ⟨U, s, h0U, hd'⟩ := him (M v) (fun h0 => hv (hMi (by rw [h0, map_zero])))
+  have h0U' : (0 : Fin g → ℂ) ∈ 𝒢.dom Φ U := by
+    show ⊤ ≤ (Φ 0).left ⁻¹ᵁ U
+    rw [hM, map_zero]; exact h0U
+  refine ⟨U, s, h0U', ?_⟩
+  have hdiff₀ : DifferentiableAt ℂ (fun x => 𝒢.evalAt (Φ₀ x) U s) (M 0) := by
+    rw [map_zero]
+    exact ((h₀.2.2.2.2 U s) 0 h0U).differentiableAt ((h₀.2.2.2.1 U).mem_nhds h0U)
+  have hcomp : (fun z => 𝒢.evalAt (Φ z) U s) = (fun x => 𝒢.evalAt (Φ₀ x) U s) ∘
+      (LinearMap.toContinuousLinearMap M) := funext fun z => by simp [hM]
+  rw [hcomp, fderiv_comp 0 (by simpa using hdiff₀)
+    (LinearMap.toContinuousLinearMap M).differentiableAt, ContinuousLinearMap.fderiv, map_zero]
+  exact hd'
+
+#print axioms analyticUniformizationUnique_of
+#print axioms isImmersiveAtZero_of
+
 end ZInQ.HeightGlue
