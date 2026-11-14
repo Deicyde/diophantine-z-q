@@ -776,4 +776,193 @@ theorem isIso_of_points {Z W : Scheme.{0}} (p : Z ⟶ W) (sW : W ⟶ SpecK ℚ)
 
 end Sch
 
+section Main
+
+open LeafQM.AV
+
+/-- `IsFinite` is local at the target (the instance is not found by type class search, the affine
+property being a non-`outParam`). -/
+theorem isZariskiLocalAtTarget_isFinite : IsZariskiLocalAtTarget @IsFinite.{0} :=
+  @HasAffineProperty.instIsZariskiLocalAtTarget _ _
+    IsFinite.instHasAffinePropertyAndIsAffineFiniteCarrierObjOppositeOpensCarrierCarrierCommRingCatPresheafOpOpensTopHomAppTop
+
+/-- Any two morphisms `Spec K ⟶ Spec ℚ` agree. -/
+theorem specQ_hom_ext {K : Type} [Field K] (u v : Spec (CommRingCat.of K) ⟶ Spec (CommRingCat.of ℚ)) :
+    u = v := by
+  rw [← Spec.map_preimage u, ← Spec.map_preimage v]
+  congr 1
+  ext1
+  exact Subsingleton.elim _ _
+
+/-- A scheme morphism `Spec ℚ̄ ⟶ X.left` as a `ℚ̄`-point over `ℚ`. -/
+def toPt {X : Over (Spec (CommRingCat.of ℚ))} (c : Spec (CommRingCat.of Qbar) ⟶ X.left) :
+    fieldPt Qbar ⟶ X :=
+  Over.homMk c (specQ_hom_ext _ _)
+
+/-- The scheme-theoretic image of a reduced scheme is reduced. -/
+theorem isReduced_image {Y P : Scheme.{0}} (g : Y ⟶ P) [QuasiCompact g] [IsReduced Y] :
+    IsReduced g.image := by
+  have : ∀ z : g.image, _root_.IsReduced (g.image.presheaf.stalk z) := by
+    intro z
+    obtain ⟨_, ⟨U, hU, rfl⟩, hzU, -⟩ :=
+      P.isBasis_affineOpens.exists_subset_of_mem_open (Set.mem_univ (g.imageι z)) isOpen_univ
+    let V : g.image.Opens := g.imageι ⁻¹ᵁ U
+    have hV : IsAffineOpen V := hU.preimage g.imageι
+    have hred : _root_.IsReduced Γ(g.image, V) :=
+      isReduced_of_injective _ (Scheme.Hom.toImage_app_injective g ⟨U, hU⟩)
+    let z' : V := ⟨z, hzU⟩
+    have hloc := hV.isLocalization_stalk z'
+    let _ := TopCat.Presheaf.algebra_section_stalk g.image.presheaf z'
+    exact isReduced_localizationPreserves (hV.primeIdealOf z').asIdeal.primeCompl
+      (g.image.presheaf.stalk z') hred
+  exact isReduced_of_isReduced_stalk _
+
+/-- **GLUE (algebraic geometry of curves over `ℚ`; descent along a surjective morphism).** Let `Y`, `X`,
+`X'` be proper smooth curves over `ℚ`, `f : Y → X` surjective on `ℚ̄`-points and `f' : Y → X'` constant on
+the `ℚ̄`-fibres of `f`. Then `f' = f ≫ h` for some `h : X → X'`. (In characteristic 0; textbook: the
+scheme-theoretic image `Z` of `(f, f') : Y → X × X'` maps finitely and bijectively, with trivial residue
+extensions at closed points, onto the normal curve `X`, hence isomorphically; `h = pr₂ ∘ (pr₁|_Z)⁻¹`.) -/
+def FactorThroughSurj : Prop :=
+  ∀ (Y X X' : Over (Spec (CommRingCat.of ℚ))), IsProper Y.hom → SmoothOfRelativeDimension 1 Y.hom →
+    IsProper X.hom → SmoothOfRelativeDimension 1 X.hom → IsProper X'.hom →
+    SmoothOfRelativeDimension 1 X'.hom → ∀ (f : Y ⟶ X) (f' : Y ⟶ X'),
+    (∀ x : fieldPt Qbar ⟶ X, ∃ y : fieldPt Qbar ⟶ Y, y ≫ f = x) →
+    (∀ y y' : fieldPt Qbar ⟶ Y, y ≫ f = y' ≫ f → y ≫ f' = y' ≫ f') →
+      ∃ h : X ⟶ X', f ≫ h = f'
+
+/-- **`FactorThroughSurj` is a theorem.** -/
+theorem factorThroughSurj : FactorThroughSurj := by
+  intro Y X X' hPY hSY hPX hSX hPX' hSX' f f' hsurj hconst
+  haveI := hPY; haveI := hSY; haveI := hPX; haveI := hSX; haveI := hPX'; haveI := hSX'
+  haveI : Smooth Y.hom := SmoothOfRelativeDimension.smooth 1 Y.hom
+  haveI : IsReduced Y.left := isReduced_of_smooth Y.hom
+  let g : Y.left ⟶ pullback X.hom X'.hom :=
+    pullback.lift f.left f'.left (by rw [Over.w f, Over.w f'])
+  have hgfst : g ≫ pullback.fst X.hom X'.hom = f.left := pullback.lift_fst _ _ _
+  have hgsnd : g ≫ pullback.snd X.hom X'.hom = f'.left := pullback.lift_snd _ _ _
+  haveI : IsProper (g ≫ pullback.fst X.hom X'.hom) := by
+    rw [hgfst]
+    have : IsProper (f.left ≫ X.hom) := by rw [Over.w f]; infer_instance
+    exact IsProper.of_comp f.left X.hom
+  haveI : IsProper g := IsProper.of_comp g (pullback.fst X.hom X'.hom)
+  let Z := g.image
+  let t : Y.left ⟶ Z := g.toImage
+  let ι : Z ⟶ pullback X.hom X'.hom := g.imageι
+  have htι : t ≫ ι = g := g.toImage_imageι
+  let p : Z ⟶ X.left := ι ≫ pullback.fst X.hom X'.hom
+  have htp : t ≫ p = f.left := by
+    show t ≫ ι ≫ _ = _
+    rw [← Category.assoc, htι, hgfst]
+  haveI : IsReduced Z := isReduced_image g
+  haveI : IsProper p := by
+    show IsProper (ι ≫ pullback.fst X.hom X'.hom)
+    infer_instance
+  haveI : LocallyOfFiniteType (p ≫ X.hom) := inferInstance
+  haveI : JacobsonSpace Z := LocallyOfFiniteType.jacobsonSpace (p ≫ X.hom)
+  haveI : CompactSpace X.left := QuasiCompact.compactSpace_of_compactSpace X.hom
+  -- `t` is surjective and locally of finite type
+  haveI : LocallyOfFiniteType t := by
+    have : t ≫ (p ≫ X.hom) = Y.hom := by
+      rw [← Category.assoc, htp, Over.w f]
+    have : LocallyOfFiniteType (t ≫ (p ≫ X.hom)) := by rw [this]; infer_instance
+    exact locallyOfFiniteType_of_comp t (p ≫ X.hom)
+  haveI : Surjective t := by
+    have : IsProper t := by
+      have : t ≫ (p ≫ X.hom) = Y.hom := by
+        rw [← Category.assoc, htp, Over.w f]
+      have : IsProper (t ≫ (p ≫ X.hom)) := by rw [this]; infer_instance
+      exact IsProper.of_comp t (p ≫ X.hom)
+    refine ⟨fun z => ?_⟩
+    have hd : DenseRange t := t.denseRange
+    have hc : IsClosed (Set.range t) := t.isClosedMap.isClosed_range
+    have : z ∈ Set.range t := by rw [← hc.closure_eq, hd.closure_range]; trivial
+    exact this
+  -- `ℚ̄`-points
+  have hI : ∀ a b : Spec (CommRingCat.of Qbar) ⟶ Z, a ≫ p = b ≫ p → a = b := by
+    intro a b hab
+    obtain ⟨ya, hya⟩ := exists_lift_of_surjective t a
+    obtain ⟨yb, hyb⟩ := exists_lift_of_surjective t b
+    have hf : toPt (X := Y) ya ≫ f = toPt (X := Y) yb ≫ f := by
+      ext1
+      show ya ≫ f.left = yb ≫ f.left
+      rw [← htp, ← Category.assoc, hya, hab, ← hyb, Category.assoc]
+    have hf' := congrArg CommaMorphism.left (hconst _ _ hf)
+    change ya ≫ f'.left = yb ≫ f'.left at hf'
+    apply (cancel_mono ι).mp
+    apply pullback.hom_ext
+    · show a ≫ p = b ≫ p
+      exact hab
+    · rw [← hya, ← hyb]
+      simp only [Category.assoc, reassoc_of% htι, hgsnd, hf']
+  have hS : ∀ c : Spec (CommRingCat.of Qbar) ⟶ X.left, ∃ a, a ≫ p = c := by
+    intro c
+    obtain ⟨y, hy⟩ := hsurj (toPt c)
+    refine ⟨y.left ≫ t, (Category.assoc _ _ _).trans ?_⟩
+    rw [htp]
+    exact congrArg CommaMorphism.left hy
+  -- closed fibres are single points
+  have hpt : ∀ z₁ z₂ : Z, IsClosed ({z₁} : Set Z) → IsClosed ({z₂} : Set Z) → p z₁ = p z₂ →
+      z₁ = z₂ := by
+    intro z₁ z₂ h₁ h₂ e
+    let u : ↥(Spec (CommRingCat.of Qbar)) :=
+      ((IsLocalRing.closedPoint Qbar : PrimeSpectrum Qbar) : ↥(Spec (CommRingCat.of Qbar)))
+    obtain ⟨a₁, -, ha₁⟩ := exists_lift_at (p ≫ X.hom) (fieldPt Qbar).hom z₁ h₁ u
+      (Subsingleton.elim _ _)
+    obtain ⟨a₂, ha₂p, ha₂⟩ := exists_lift_at p (a₁ ≫ p) z₂ h₂ u
+      (by
+        have h1 : (a₁ ≫ p) u = p z₁ := by rw [Scheme.Hom.comp_apply, ha₁]
+        exact (h1.trans e).symm)
+    rw [← ha₁, ← ha₂, hI a₂ a₁ ha₂p]
+  have hfib : ∀ s : X.left, IsClosed ({s} : Set X.left) → (p ⁻¹' {s}).Subsingleton := by
+    intro s hs
+    have hF : IsClosed (p ⁻¹' {s}) := hs.preimage p.continuous
+    have hsub : (p ⁻¹' {s} ∩ closedPoints Z).Subsingleton := by
+      rintro z₁ ⟨hz₁, hc₁⟩ z₂ ⟨hz₂, hc₂⟩
+      exact hpt z₁ z₂ hc₁ hc₂ (hz₁.trans hz₂.symm)
+    rw [← closure_inter_closedPoints hF]
+    rcases hsub.eq_empty_or_singleton with h | ⟨z, hz⟩
+    · rw [h, closure_empty]; exact Set.subsingleton_empty
+    · rw [hz]
+      have hzc : z ∈ closedPoints Z := (hz ▸ Set.mem_singleton z).2
+      rw [(mem_closedPoints_iff.mp hzc).closure_eq]
+      exact Set.subsingleton_singleton
+  -- `p` is finite
+  haveI : IsFinite p := by
+    have hloc : ∀ s : closedPoints X.left, ∃ U : X.left.Opens, s.1 ∈ U ∧ IsFinite (p ∣_ U) := by
+      intro s
+      have H : (g '' ((g ≫ pullback.fst X.hom X'.hom) ⁻¹' {s.1})).Finite := by
+        refine ((hfib s.1 (mem_closedPoints_iff.mp s.2)).image ι).finite.subset ?_
+        rintro _ ⟨y, hy, rfl⟩
+        refine ⟨t y, ?_, ?_⟩
+        · show p (t y) = s.1
+          rw [← Scheme.Hom.comp_apply, htp, ← hgfst]; exact hy
+        · rw [← Scheme.Hom.comp_apply, htι]
+      exact exists_finite_imageι_comp_morphismRestrict_of_finite_image_preimage g
+        (pullback.fst X.hom X'.hom) s.1 H
+    choose U hU hfin using hloc
+    haveI := isZariskiLocalAtTarget_isFinite
+    refine IsZariskiLocalAtTarget.of_iSup_eq_top (P := @IsFinite) U ?_ hfin
+    rw [eq_top_iff]
+    intro x _
+    haveI : JacobsonSpace X.left := LocallyOfFiniteType.jacobsonSpace X.hom
+    obtain ⟨s, hs, hsc⟩ := nonempty_inter_closedPoints ⟨x, subset_closure (Set.mem_singleton x)⟩
+      isClosed_closure.isLocallyClosed
+    have hxs : x ⤳ s := specializes_iff_mem_closure.mpr hs
+    exact TopologicalSpace.Opens.mem_iSup.mpr
+      ⟨⟨s, hsc⟩, hxs.mem_open (U ⟨s, hsc⟩).2 (hU ⟨s, hsc⟩)⟩
+  have hiso : IsIso p := isIso_of_points (Ω := Qbar) p X.hom hI hS
+  refine ⟨Over.homMk (inv p ≫ ι ≫ pullback.snd X.hom X'.hom) ?_, ?_⟩
+  · show (inv p ≫ ι ≫ pullback.snd X.hom X'.hom) ≫ X'.hom = X.hom
+    rw [Category.assoc, Category.assoc, ← pullback.condition, ← Category.assoc ι,
+      show ι ≫ pullback.fst X.hom X'.hom = p from rfl, IsIso.inv_hom_id_assoc]
+  · ext1
+    show f.left ≫ inv p ≫ ι ≫ pullback.snd X.hom X'.hom = f'.left
+    rw [← htp, Category.assoc, IsIso.hom_inv_id_assoc, ← Category.assoc, htι, hgsnd]
+
+end Main
+
 end CoarseFactorAG
+
+#print axioms CoarseFactorAG.bijective_of_points
+#print axioms CoarseFactorAG.isIso_of_points
+#print axioms CoarseFactorAG.factorThroughSurj
