@@ -12,6 +12,10 @@
 'VertWitness.modelGaussGlue_of' depends on axioms: [propext, Classical.choice, Quot.sound]
 'VertWitness.heckeVertWitness_of_goodReduction'' depends on axioms: [propext, Classical.choice, Quot.sound]
 'VertWitness.heckeVertWitness_of_goodReduction''' depends on axioms: [propext, Classical.choice, Quot.sound]
+'VertWitness.intPolyAlg_eq_eval₂' depends on axioms: [propext, Classical.choice, Quot.sound]
+'VertWitness.modelCoordinateGlue_of' depends on axioms: [propext, Classical.choice, Quot.sound]
+'VertWitness.heckeVertWitness_of_goodReduction₃' depends on axioms: [propext, Classical.choice, Quot.sound]
 'VertWitnessAll.coverModelOfHecke_of_goodReduction' depends on axioms: [propext, Classical.choice, Quot.sound]
 'VertWitnessAll.propTSAll_of_goodReduction' depends on axioms: [propext, Classical.choice, Quot.sound]
-real	0m57.001s
+'VertWitnessAll.coverModelOfHecke_of_goodReduction₃' depends on axioms: [propext, Classical.choice, Quot.sound]
+real	0m57.657s

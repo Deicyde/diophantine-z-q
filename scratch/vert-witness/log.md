@@ -53,3 +53,16 @@ Axioms standard (compile_all.txt). Copy check: `cmp` of NoVert.lean lines 1-1265
   ModelCoordinateGlue TRUE (fix: disjointness of CM sections via finite étale fixed loci, not
   Hurwitz — applied); VertGauss/VertDVR no hidden triviality.
 - cmp: VertWitness.lean lines 1-1265 = NoVert.lean 1-1265; VertAll.lean lines 1-9854 = HeckeRestAll.lean.
+
+## Step 5 (18:35) — VERIFIED (VertWitness.lean and VertAll.lean, 0 errors; VertAll 58 s)
+Split of `ModelCoordinateGlue` into
+- `CoordFibres 𝒴 𝒜 ρ` (R2fp-type clauses for ρ : ToP1 𝒴.left on ℚ̄-points, via IsFibreOf),
+- glue (d) `ModelCoordinate`: ∃ ρ with CoordFibres, regular at every ξ (DVR, 𝔪 = (p)) with
+  `f(germ ρ.f) ∈ 𝔪_ξ ↔ f ∈ pℤ[X]`,
+- glue (b) `ModelComparison`: ∀ ρ with CoordFibres, ∀ ξ ∈ ρ.U, ∃ ι : stalk ξ ↪ E, Frac = E,
+  ι(germ ρ.f) = X,
+- `intPolyAlg_eq_eval₂`, `modelCoordinateGlue_of : ModelCoordinate → ModelComparison →
+  ModelCoordinateGlue` (compiled),
+- `heckeVertWitness_of_goodReduction₃ (hL) (hU) (hD) (hB) : HeckeVertWitness`,
+- `VertWitnessAll.coverModelOfHecke_of_goodReduction₃` (compiled).
+(`Π` is a reserved token; the map is named `ρ`.)

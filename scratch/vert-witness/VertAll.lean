@@ -10357,6 +10357,99 @@ theorem heckeVertWitness_of_goodReduction'' (hL : ShimuraGoodReduction)
     (hU : SpecialFibreUniformizer) (hBD : ModelCoordinateGlue) : HeckeVertWitness :=
   heckeVertWitness_of_goodReduction' hL (specialFibreDVR_of_uniformizer hU) hBD
 
+/-! ### Splitting `ModelCoordinateGlue`: the coordinate on the model, and the comparison -/
+
+/-- **R2-type clauses for a map `ρ : 𝒴 → P¹` on the `ℚ̄`-points of the model** (the shape of
+`R2fpProps`, with `IsFibreOf 𝒜` in place of `Φ`): two `ℚ̄`-points have the same `ρ`-value iff their
+QM pairs are `Aut(𝒪)`-twists of each other, and the CM points of discriminants `−4, −3, −24` go to
+`0, ∞, −16/27`. -/
+def CoordFibres {p : ℕ} [Fact p.Prime] (𝒴 : Over (Spec (CommRingCat.of (Zloc p))))
+    (𝒜 : QMFamily 𝒴.left) (ρ : ToP1 𝒴.left) : Prop :=
+  ∀ (y y' : Spec (CommRingCat.of Qbar) ⟶ 𝒴.left) (P Q : QML3 Qbar),
+    IsFibreOf 𝒜 y P → IsFibreOf 𝒜 y' Q →
+      (ρ.val y = ρ.val y' ↔ ∃ α : LeafQM.O ≃+* LeafQM.O, Nonempty (QMIso (P.q.twist α) Q.q)) ∧
+      (HasCM4 P.q → ρ.val y = OnePoint.some 0) ∧
+      (HasCM3 P.q → ρ.val y = OnePoint.infty) ∧
+      (HasCM24 P.q → ρ.val y = OnePoint.some (-16 / 27))
+
+/-- **Glue (d), the coordinate on the model (route GR, not proved).** Given the smooth model at
+`p > 324` and a triple with R1fp, R1hecke, R2fp, there is a morphism `ρ : 𝒴 → P¹` over `ℤ_(p)`
+with the R2-type clauses on `ℚ̄`-points, regular at every point `ξ` whose stalk is a DVR with
+maximal ideal `(p)` (the generic points of the components of the special fibre), with
+transcendental reduction there: `f(ρ) ∈ 𝔪_ξ ⟺ f ∈ p ℤ[X]` for `f ∈ ℤ[X]`. (Proof outline: `ρ` is
+the coordinate of the tame quotient `𝒵 = 𝒴/G' ≅ P¹_{ℤ_(p)}` normalized by the three CM
+sections, which are pairwise disjoint mod `p`; see docs/research/vert-witness.md §4.3 (d).) -/
+def ModelCoordinate : Prop :=
+  ∀ (p : ℕ) [Fact p.Prime], 324 < p →
+    ∀ (𝒴 : Over (Spec (CommRingCat.of (Zloc p)))) (𝒜 : QMFamily 𝒴.left), IsShimuraModel p 𝒴 𝒜 →
+    ∀ (Y : Over (Spec (CommRingCat.of ℚ))) (Φ : PtEquiv Y) (π : ToP1 Y.left),
+      R1fpProps Y Φ → R1heckeProps Y Φ → R2fpProps Y Φ π →
+    ∃ ρ : ToP1 𝒴.left, CoordFibres 𝒴 𝒜 ρ ∧
+      ∀ (ξ : 𝒴.left) (_ : IsDomain (𝒴.left.presheaf.stalk ξ)),
+        IsDiscreteValuationRing (𝒴.left.presheaf.stalk ξ) →
+        IsLocalRing.maximalIdeal (𝒴.left.presheaf.stalk ξ) =
+          Ideal.span {(p : 𝒴.left.presheaf.stalk ξ)} →
+        ∃ hξ : ξ ∈ ρ.U, ∀ f : ℤ[X],
+          (f.eval₂ (Int.castRingHom _) (𝒴.left.presheaf.germ ρ.U ξ hξ ρ.f) ∈
+              IsLocalRing.maximalIdeal (𝒴.left.presheaf.stalk ξ) ↔ f ∈ vertPrime p)
+
+/-- **Glue (b), comparison of function fields (route GR, not proved).** Given the smooth model at
+`p > 324`, a triple with R1fp, R1hecke, R2fp, a morphism `ρ : 𝒴 → P¹` with the R2-type clauses,
+a point `ξ ∈ ρ.U`, and any finite Galois `E/ℚ(X)` with the normalization chart, the stalk at `ξ`
+embeds in `E` with fraction field `E`, sending the germ of `ρ` to `X`. (Proof outline:
+`R1univProps` classifies `𝒴_ℚ` by `g : 𝒴_ℚ → Y`, bijective on `ℚ̄`-points, hence an isomorphism of
+smooth proper curves; `Y` is irreducible, so `𝒴` is integral with function field
+`ℚ(Y) = Frac B = E`; `ρ|_{𝒴_ℚ}` and `π ∘ g` have the same fibres (twist classes, R2fp and
+`CoordFibres`) and the same values at the three CM orbits, so both induce isomorphisms
+`𝒴_ℚ/G' ≅ P¹` differing by a Möbius map fixing `0, ∞, −16/27`, i.e. they are equal; Mathlib's
+`IsFractionRing (X.presheaf.stalk x) X.functionField` for integral `X`.) -/
+def ModelComparison : Prop :=
+  ∀ (p : ℕ) [Fact p.Prime], 324 < p →
+    ∀ (𝒴 : Over (Spec (CommRingCat.of (Zloc p)))) (𝒜 : QMFamily 𝒴.left), IsShimuraModel p 𝒴 𝒜 →
+    ∀ (Y : Over (Spec (CommRingCat.of ℚ))) (Φ : PtEquiv Y) (π : ToP1 Y.left),
+      R1fpProps Y Φ → R1heckeProps Y Φ → R2fpProps Y Φ π →
+    ∀ ρ : ToP1 𝒴.left, CoordFibres 𝒴 𝒜 ρ →
+    ∀ (ξ : 𝒴.left) (hξ : ξ ∈ ρ.U),
+    ∀ (E : Type) [Field E] [Algebra (RatFunc ℚ) E] [Algebra ℚ[X] E]
+      [IsScalarTower ℚ[X] (RatFunc ℚ) E] [FiniteDimensional (RatFunc ℚ) E]
+      [IsGalois (RatFunc ℚ) E], NormalizationModel Y π E →
+      ∃ ι : 𝒴.left.presheaf.stalk ξ →+* E, Function.Injective ι ∧
+        (∀ x : E, ∃ a b : 𝒴.left.presheaf.stalk ξ, b ≠ 0 ∧ x * ι b = ι a) ∧
+        ι (𝒴.left.presheaf.germ ρ.U ξ hξ ρ.f) = algebraMap ℚ[X] E X
+
+/-- `ℤ[X] → E` (through `ℚ[X]`) is evaluation at `X`. -/
+theorem intPolyAlg_eq_eval₂ (E : Type) [Field E] [Algebra ℚ[X] E] (f : ℤ[X]) :
+    letI := intPolyAlg E
+    algebraMap ℤ[X] E f = f.eval₂ (Int.castRingHom E) (algebraMap ℚ[X] E X) := by
+  letI := intPolyAlg E
+  have key : ((algebraMap ℚ[X] E).comp (Polynomial.mapRingHom (Int.castRingHom ℚ))) =
+      Polynomial.eval₂RingHom (Int.castRingHom E) (algebraMap ℚ[X] E X) :=
+    Polynomial.ringHom_ext (fun a => by simp) (by simp)
+  exact congrArg (fun φ : ℤ[X] →+* E => φ f) key
+
+/-- **`ModelCoordinateGlue` from the coordinate (d) and the comparison (b)** (compiled). -/
+theorem modelCoordinateGlue_of (hD : ModelCoordinate) (hB : ModelComparison) :
+    ModelCoordinateGlue := by
+  intro p _ hp324 𝒴 𝒜 hM ξ hdom hdvr hmax Y Φ π h1 hh h2 E _ _ _ _ _ _ hN
+  letI := intPolyAlg E
+  obtain ⟨ρ, hρ, hreg⟩ := hD p hp324 𝒴 𝒜 hM Y Φ π h1 hh h2
+  obtain ⟨hξ, htr⟩ := hreg ξ hdom hdvr hmax
+  obtain ⟨ι, hinj, hfrac, hX⟩ := hB p hp324 𝒴 𝒜 hM Y Φ π h1 hh h2 ρ hρ ξ hξ E hN
+  refine ⟨ι, hinj, hfrac, fun f => ⟨f.eval₂ (Int.castRingHom _)
+    (𝒴.left.presheaf.germ ρ.U ξ hξ ρ.f), ?_, htr f⟩⟩
+  rw [Polynomial.hom_eval₂, hX, intPolyAlg_eq_eval₂]
+  congr 1
+  exact RingHom.ext_int _ _
+
+/-- **`HeckeVertWitness` from the leaf and three glue Props** (compiled):
+`SpecialFibreUniformizer` (scheme theory), `ModelCoordinate` (the coordinate on the model, tame
+quotient) and `ModelComparison` (function fields). -/
+theorem heckeVertWitness_of_goodReduction₃ (hL : ShimuraGoodReduction)
+    (hU : SpecialFibreUniformizer) (hD : ModelCoordinate) (hB : ModelComparison) :
+    HeckeVertWitness :=
+  heckeVertWitness_of_goodReduction' hL (specialFibreDVR_of_uniformizer hU)
+    (modelCoordinateGlue_of hD hB)
+
 end VertWitness
 
 end
@@ -10373,6 +10466,9 @@ end
 #print axioms VertWitness.modelGaussGlue_of
 #print axioms VertWitness.heckeVertWitness_of_goodReduction'
 #print axioms VertWitness.heckeVertWitness_of_goodReduction''
+#print axioms VertWitness.intPolyAlg_eq_eval₂
+#print axioms VertWitness.modelCoordinateGlue_of
+#print axioms VertWitness.heckeVertWitness_of_goodReduction₃
 
 /-! ════════════════════════════════════════════════════════════════════════════════════════════
 # vert-witness: the composites over hecke-rest's `HeckeRestAll.lean`
@@ -10412,9 +10508,20 @@ theorem propTSAll_of_goodReduction (t2 : PkgI2.AbhyankarDVR.{0}) (hR : R1R2fp)
   HeckeRestAll.propTSAll_of_heckeRest t2 hR hM hSN hC hKA hO hVF hAI hOI hVI hconn hT hA hS hW
     (heckeVertWitness_of_goodReduction'' hL hU hBD)
 
+/-- **`CoverModelOfHecke` from the leaves and the three GR glue Props** (compiled):
+`SpecialFibreUniformizer`, `ModelCoordinate` (d), `ModelComparison` (b). -/
+theorem coverModelOfHecke_of_goodReduction₃ (hconn : Y3Connected) (hRR : R1R2fp)
+    (hT : ObjBridge.TorsionStructure)
+    (hA : HeckeRest.QMAutCard) (hS : HeckeRest.SerreRigidity3) (hW : HeckeRest.ALFixedPoints)
+    (hL : ShimuraGoodReduction) (hU : SpecialFibreUniformizer) (hD : ModelCoordinate)
+    (hB : ModelComparison) : CoverModelOfHecke :=
+  HeckeRestAll.coverModelOfHecke_of_heckeRest hconn hRR hT hA hS hW
+    (heckeVertWitness_of_goodReduction₃ hL hU hD hB)
+
 end VertWitnessAll
 
 end
 
 #print axioms VertWitnessAll.coverModelOfHecke_of_goodReduction
 #print axioms VertWitnessAll.propTSAll_of_goodReduction
+#print axioms VertWitnessAll.coverModelOfHecke_of_goodReduction₃

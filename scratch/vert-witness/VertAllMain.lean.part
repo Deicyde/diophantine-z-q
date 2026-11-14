@@ -37,9 +37,20 @@ theorem propTSAll_of_goodReduction (t2 : PkgI2.AbhyankarDVR.{0}) (hR : R1R2fp)
   HeckeRestAll.propTSAll_of_heckeRest t2 hR hM hSN hC hKA hO hVF hAI hOI hVI hconn hT hA hS hW
     (heckeVertWitness_of_goodReduction'' hL hU hBD)
 
+/-- **`CoverModelOfHecke` from the leaves and the three GR glue Props** (compiled):
+`SpecialFibreUniformizer`, `ModelCoordinate` (d), `ModelComparison` (b). -/
+theorem coverModelOfHecke_of_goodReduction₃ (hconn : Y3Connected) (hRR : R1R2fp)
+    (hT : ObjBridge.TorsionStructure)
+    (hA : HeckeRest.QMAutCard) (hS : HeckeRest.SerreRigidity3) (hW : HeckeRest.ALFixedPoints)
+    (hL : ShimuraGoodReduction) (hU : SpecialFibreUniformizer) (hD : ModelCoordinate)
+    (hB : ModelComparison) : CoverModelOfHecke :=
+  HeckeRestAll.coverModelOfHecke_of_heckeRest hconn hRR hT hA hS hW
+    (heckeVertWitness_of_goodReduction₃ hL hU hD hB)
+
 end VertWitnessAll
 
 end
 
 #print axioms VertWitnessAll.coverModelOfHecke_of_goodReduction
 #print axioms VertWitnessAll.propTSAll_of_goodReduction
+#print axioms VertWitnessAll.coverModelOfHecke_of_goodReduction₃
