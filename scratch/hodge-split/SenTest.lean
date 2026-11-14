@@ -2133,7 +2133,8 @@ theorem Ysp_linearIndependent (hT : TateTwistInvariants) (hA : AxSenTate)
     {E : IntermediateField ℚ_[p] (PadicAlgCl p)} (ρ : GQp p →* GL (Fin n) E)
     {ι : Type*} [Fintype ι] [DecidableEq ι] (j : ι → ℤ) (y : ι → (Fin n → ℂ_[p]))
     (hy : ∀ k, y k ∈ Ysp p ρ (j k) K)
-    (hind : ∀ j₀, LinearIndependent K (fun k : {k // j k = j₀} => y k)) :
+    (hind : ∀ (j₀ : ℤ) (a : ι → K), (∀ k, j k ≠ j₀ → a k = 0) → ∑ k, a k • y k = 0 →
+      ∀ k, a k = 0) :
     LinearIndependent ℂ_[p] y := by
   rw [Fintype.linearIndependent_iff]
   suffices H : ∀ (s : Finset ι) (b : ι → ℂ_[p]), (∀ k ∉ s, b k = 0) → ∑ k, b k • y k = 0 →
@@ -2196,20 +2197,22 @@ theorem Ysp_linearIndependent (hT : TateTwistInvariants) (hA : AxSenTate)
     refine ⟨a, ?_⟩
     rw [ha, IsScalarTower.algebraMap_apply K (PadicAlgCl p) ℂ_[p], ← PadicComplex.coe_eq]
     rfl
-  choose a ha using fun k : {k // j k = j k₀} => hKval k.1 k.2
-  have hsum : ∑ k : {k // j k = j k₀}, a k • y k = 0 := by
-    have e1 : ∀ k : {k // j k = j k₀}, a k • y k = b' k • y k := by
-      intro k; rw [ha k, algebraMap_smul]
-    simp only [e1]
-    rw [← hb', ← Finset.sum_subtype (Finset.univ.filter fun k => j k = j k₀) (by simp)
-      (fun k => b' k • y k), Finset.sum_filter]
+  classical
+  let a : ι → K := fun k => if h : j k = j k₀ then (hKval k h).choose else 0
+  have ha : ∀ k, j k = j k₀ → b' k = algebraMap K ℂ_[p] (a k) := by
+    intro k hk
+    simp only [a, dif_pos hk]
+    exact (hKval k hk).choose_spec
+  have hsum : ∑ k, a k • y k = 0 := by
+    rw [← hb']
     refine Finset.sum_congr rfl fun k _ => ?_
-    split_ifs with h
-    · rfl
-    · rw [hzero k h, zero_smul]
-  have := Fintype.linearIndependent_iff.mp (hind (j k₀)) a hsum ⟨k₀, rfl⟩
-  have h1 := ha ⟨k₀, rfl⟩
-  rw [this, map_zero, hb'k₀] at h1
+    by_cases h : j k = j k₀
+    · rw [ha k h, algebraMap_smul]
+    · simp only [a, dif_neg h, zero_smul]
+      rw [hzero k h, zero_smul]
+  have h0 := hind (j k₀) a (fun k hk => by simp [a, dif_neg hk]) hsum k₀
+  have h1 := ha k₀ rfl
+  rw [h0, map_zero, hb'k₀] at h1
   exact one_ne_zero h1
 
 end SenSec
@@ -2509,15 +2512,13 @@ theorem Ysp_finiteDimensional (hT : TateTwistInvariants) (hA : AxSenTate)
   -- the vectors of `s` are `ℂ_p`-independent
   have hli : LinearIndependent ℂ_[p] (fun x : s => ((x : Ysp p ρ i K) : Fin n → ℂ_[p])) := by
     refine Ysp_linearIndependent p hT hA K ρ (fun _ => i) _ (fun x => (x : Ysp p ρ i K).2) ?_
-    intro j₀
-    by_cases hj : i = j₀
-    · subst hj
-      have h1 : LinearIndependent K ((Ysp p ρ i K).subtype ∘ fun x : s => (x : Ysp p ρ i K)) :=
-        LinearIndependent.map' hs (Ysp p ρ i K).subtype (Submodule.ker_subtype _)
-      have h2 := h1.comp (fun k : {k : s // i = i} => k.1) (fun a b h => Subtype.ext h)
-      exact h2
-    · haveI : IsEmpty {k : s // i = j₀} := ⟨fun k => hj k.2⟩
-      exact linearIndependent_empty_type
+    intro j₀ a _ hsum
+    have h1 : ∑ k : s, a k • (k : Ysp p ρ i K) = 0 := by
+      apply Subtype.ext
+      rw [Submodule.coe_sum, Submodule.coe_zero]
+      simp only [Submodule.coe_smul]
+      exact hsum
+    exact Fintype.linearIndependent_iff.mp hs a h1
   calc s.card = Fintype.card s := (Fintype.card_coe s).symm
     _ ≤ Module.finrank ℂ_[p] (Fin n → ℂ_[p]) := hli.fintype_card_le_finrank
     _ = n := Module.finrank_fin_fun _
