@@ -6,7 +6,8 @@ H-51 `SenTwist` follow from seven leaves:
 - Tate 1967 §3.3 Thms 1–2 (`AxSenTate`, `TateTwistInvariants`);
 - the Hodge–Tate decomposition of `V_p(A)` (Fontaine 1982);
 - the de Rham property of `H¹ = V_p(A)^∨` with the printed `D_dR`;
-- Fontaine's Tannakian theorem for de Rham representations (printed `D_dR(V)`, matrix form);
+- `B_dR^{G_ℚp} = ℚ_p` (Fontaine); Fontaine's Tannakian theorem for `B_dR`, which T23 is, is proved
+  from it;
 - Diamond–Shurman Thms 9.6.5 (Deligne) and 9.6.6 (Deligne–Serre).
 
 H-10 `EigenformHT` is a theorem from its newform case `EigenformHTNew` (Kato's theorem, transported and

@@ -349,7 +349,8 @@ def HodgeTateDecompAbVar : Prop :=
           ((fun k => cycPow p (gfToGqp p F σ) 1 • cpAct p (gfToGqp p F σ) ((e x).1 k)),
             (fun k => cpAct p (gfToGqp p F σ) ((e x).2 k)))
 
-/-- **LEAF (the de Rham comparison for `H¹` of an abelian variety, in Tate-module form).**
+/-- **The de Rham comparison for `H¹` of an abelian variety, Hom form** (intermediate; follows from the
+leaf `DeRhamH1AbVarT` of §15 and the Hodge–Tate decomposition, `deRhamComparisonHT_of_leavesT`).
 Published: `H¹_ét(A_{F̄}, ℚ_p)` is de Rham (Fontaine 1982 for abelian varieties; Faltings, *Crystalline
 cohomology and p-adic Galois representations* (1989); Tsuji, Invent. Math. 137 (1999);
 Scholze, Forum Math. Pi 1 (2013), Cor. 1.8; locators UNVERIFIED except Scholze's wording, VERIFIED
@@ -767,7 +768,8 @@ def ddrStd {n : ℕ} (ρ : GQp p →* GL (Fin n) ℚ_[p]) : Submodule ℚ_[p] (F
 def IsDeRhamStd {n : ℕ} (ρ : GQp p →* GL (Fin n) ℚ_[p]) : Prop :=
   finrank ℚ_[p] (ddrStd p ρ) = n
 
-/-- **LEAF (Fontaine: de Rham representations form a Tannakian subcategory).** Fontaine,
+/-- **Fontaine: de Rham representations form a Tannakian subcategory** (intermediate statement; proved
+from the leaf `BdRInvariants` in §19, `fontaineDRTannakian_of_bdrInvariants`). Fontaine,
 *Le corps des périodes p-adiques*, Astérisque 223 (1994), Exp. II, and *Représentations p-adiques
 semi-stables*, same volume, Exp. III, §1.5 (for a `(ℚ_p, G)`-regular ring `B`, the `B`-admissible
 representations are stable under subobjects, quotients, direct sums, tensor products and duals)
@@ -1131,7 +1133,7 @@ def DSThm966 : Prop :=
           (ρ σ : Matrix (Fin 2) (Fin 2) ℂ).trace = ZInQ.Contrib.G9.PkgI4.coeff g p ∧
           (ρ σ : Matrix (Fin 2) (Fin 2) ℂ).det = χ (p : ZMod N)
 
-/-- **GLUE (semisimplification in dimension 2; STANDARD, not proved here).** A continuous
+/-- **GLUE (semisimplification in dimension 2), proved in §14 (`semisimplification2_proof`).** A continuous
 `ρ : G_ℚ → GL₂(ℚ̄_ℓ)` has a continuous semisimple `ρ^ss` with the same characteristic polynomials,
 unramified wherever `ρ` is. Needs: if `ρ` has an invariant line, conjugate it to upper triangular
 form `(χ₁ ∗; 0 χ₂)` and take `diag(χ₁, χ₂)` (continuity of `χᵢ` from the entries; trivial on
@@ -1140,7 +1142,7 @@ def Semisimplification2 : Prop :=
   ∀ (ℓ : ℕ) [Fact ℓ.Prime] (ρ : GaloisRep ℓ 2), ∃ ρ' : GaloisRep ℓ 2, ρ'.IsSemisimple ∧
     (∀ σ, (ρ'.mat σ).charpoly = (ρ.mat σ).charpoly) ∧ ∀ p, ρ.UnramifiedAt p → ρ'.UnramifiedAt p
 
-/-- **GLUE (the determinant from its values at Frobenius; not proved here).** If a continuous
+/-- **GLUE (the determinant from its values at Frobenius), proved in §17 (`detFromFrobenius_proof`).** If a continuous
 `ρ : G_ℚ → GL₂(ℚ̄_ℓ)` has `det ρ(Frob_p) = χ(p) p^{k−1}` at the arithmetic Frobenius elements of
 every `p ∤ Nℓ`, then `det ρ = ε χ_ℓ^{k−1}` with `ε` of finite image. Needs: `ε := det ρ · χ_ℓ^{1−k}`
 is continuous and equals `χ(Frob_p)` at those Frobenius elements (`χ_ℓ(Frob_p) = p`, Mathlib's
@@ -1156,7 +1158,8 @@ def DetFromFrobenius : Prop :=
     ∃ ε : ZInQ.Contrib.G9.PkgI4.GQ →* (PadicAlgCl ℓ)ˣ, (Set.range ε).Finite ∧
       ∀ σ, (ρ.mat σ).det = ((ε σ * G0Galois.cycQ ℓ σ ^ (k - 1) : (PadicAlgCl ℓ)ˣ) : PadicAlgCl ℓ)
 
-/-- **GLUE (an Artin representation as a semisimple `ℓ`-adic one; not proved here).** From
+/-- **GLUE (an Artin representation as a semisimple `ℓ`-adic one), proved in §17
+(`artinTransport_proof`).** From
 Deligne–Serre's complex `ρ_f` (finite image), a semisimple `ρ : G_ℚ → GL₂(ℚ̄_ℓ)` attached to `f`
 with `det ρ` of finite image. Needs: a finite subgroup of `GL₂(ℂ)` is conjugate into `GL₂(ℚ̄)`
 (its character values are algebraic and it is realizable over a cyclotomic field: Brauer), then
@@ -1240,13 +1243,13 @@ def IsConj {ℓ : ℕ} [Fact ℓ.Prime] {n : ℕ} (r ρ' : GaloisRep ℓ n) : Pr
   ∃ P : GL (Fin n) (PadicAlgCl ℓ), ∀ σ, r.toHom σ = P * ρ'.toHom σ * P⁻¹
 
 /-- **GLUE `HTConj` (g12-det's `G0Galois.HTConj`, verbatim; about the definition
-`LocalHasHTWeights`).** Hodge–Tate weights are invariant under conjugation. Proved below
+`LocalHasHTWeights`).** Hodge–Tate weights are invariant under conjugation. Proved in §12
 (`htConj_proof`). -/
 def HTConj : Prop :=
   ∀ (ℓ : ℕ) [Fact ℓ.Prime] (n : ℕ) (r ρ' : GaloisRep ℓ n) (S : Multiset ℤ),
     IsConj r ρ' → r.HasHTWeightsAtSelf ℓ S → ρ'.HasHTWeightsAtSelf ℓ S
 
-/-- **GLUE (Chebotarev density with Brauer–Nesbitt; STANDARD, not proved here).** Two semisimple
+/-- **GLUE (Chebotarev density with Brauer–Nesbitt), proved in §13 (`attachedConj_proof`).** Two semisimple
 `ρ, ρ' : G_ℚ → GL₂(ℚ̄_ℓ)`, unramified and with equal traces at the arithmetic Frobenius elements of
 all primes outside a finite set, are conjugate. Needs: Frobenius elements are dense (Chebotarev,
 the kernel's T18 `ZInQKernel/Contrib`), continuity of `tr`, and Brauer–Nesbitt for semisimple
@@ -1349,8 +1352,8 @@ def IsHTCharWt {p : ℕ} [Fact p.Prime] (ψ : GaloisChar p) (s : ℤ) : Prop :=
   ∃ c : ℂ_[p], c ≠ 0 ∧ ∀ σ : GQp p,
     cpAct p σ c = cycPow p σ (-s) • (((ψ.toHom (decomp p σ) : PadicAlgCl p)) : ℂ_[p]) * c
 
-/-- **GLUE S1 (a twist between Hodge–Tate representations is by a Hodge–Tate character; not proved
-here).** Needs: the Hodge–Tate decomposition criterion (`V` Hodge–Tate iff
+/-- **GLUE S1 (a twist between Hodge–Tate representations is by a Hodge–Tate character).** Superseded:
+`senTwist_of_tate` (§16) proves the row without it. Needs: the Hodge–Tate decomposition criterion (`V` Hodge–Tate iff
 `⊕_i ℂ_p(−i) ⊗ (ℂ_p(i) ⊗ V)^G ≅ ℂ_p ⊗ V`; Serre 1967 / Tate 1967 §3.3 / Brinon–Conrad §2.2-2.4,
 built on Tate's theorems of §1), applied embedding by embedding of the coefficient field, and
 "a nonzero `G`-map `ℂ_p(ψ) → ℂ_p(j)` is an isomorphism". -/
@@ -1359,7 +1362,7 @@ def HTCharOfTwist : Prop :=
     0 < n → G0Galois.IsTwist ρ' ψ ρ → Multiset.card S = n → Multiset.card S' = n →
     ρ.HasHTWeightsAtSelf p S → ρ'.HasHTWeightsAtSelf p S' → ∃ s : ℤ, IsHTCharWt ψ s
 
-/-- **GLUE S2 (twisting by `ℂ_p(s)` shifts the weights by `−s`; not proved here).** Needs: on the
+/-- **GLUE S2 (twisting by `ℂ_p(s)` shifts the weights by `−s`).** Superseded by §16. Needs: on the
 component of `Hom_{ℚ_p}(Eⁿ, ℂ_p)` for each embedding `τ : E → ℂ_p` (`E`-semilinear maps), `φ ↦ c_τ φ`
 identifies `H_i(ψ ⊗ ρ)` with `H_{i−s}(ρ)`, where `c_τ = g(c)` for `g ∈ G_{ℚ_p}` with `g|_E = τ`
 (`ψ` is a character, so `ψ(g⁻¹σg) = ψ(σ)`). -/
