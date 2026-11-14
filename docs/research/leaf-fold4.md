@@ -3,10 +3,11 @@
 Task leaf-fold4, 2026-11-13. Base 8ec80711 (fork main after w47), with origin/wip/leaf-fold3 (f7951690),
 period-glue (7e1531df), zariski-conn (3802f2bc), t5-torsion (58ac8d0b), homlattice (89a1fc02),
 kerwild-fix (f596943a), frobchain-contrib (f4bf0b72) and hecke-rest (6c2c1d76) merged; spread-out
-(aa304ed7) was already in the base. origin/wip/vert-witness and origin/wip/t40-clash did not exist
-during the run (no report to merge). Lean: `scratch/leaf-fold4/` (build order `BUILD.md`, `chain.sh`,
+(aa304ed7) was already in the base. origin/wip/t40-clash (46595da1) was merged at 18:35 when its report
+appeared; origin/wip/vert-witness (2f557240) was read but not merged (§1.2, §6). Lean: `scratch/leaf-fold4/` (build order `BUILD.md`, `chain.sh`,
 `assemble.sh`; results log `log.md`). No file under `ZInQKernel/`, `blueprint/`, `scratch/h-decomposition/`
-or `docs/research/h-decomposition.md`, and no other task's file, was edited. Model work, no human review.
+or `docs/research/h-decomposition.md`, and no other task's file, was edited by this task (the merged
+t40-clash branch carries its own one-file change to the kernel's vendored Tau Ceti Backport `Units` file). Model work, no human review.
 
 Marks: **VERIFIED** = compiled, or read in a file. **STANDARD** = published, with a reference.
 **SPECULATIVE** = a judgement. **UNVERIFIED** = a theorem number or locator recalled without a source
@@ -37,7 +38,7 @@ The hypotheses are 66 named Props; none is an `opaque` placeholder.
 
 | | research | textbook | added (LEAF / LEAF?) | glue | total |
 |---|---|---|---|---|---|
-| leaf-fold3 | 26 | 20 | 16 (11 / 5) | 6 | 68 |
+| leaf-fold3 | 26 | 20 | 16 | 6 | 68 |
 | leaf-fold4 | 26 | 19 | 20 (13 / 7) | **1** | **66** |
 
 Glue falls from 6 to 1 (five glue fields closed: three proved outright, two reduced to leaves). The
@@ -46,7 +47,8 @@ literature side goes from 62 to 65: four leaf fields leave (T26 and `DivisiblePo
 Zariski's theorem in its published form) and seven enter (Zariski's connectedness theorem, three EGA IV
 statements under N1-g1, and period-map/period-glue's `CMDescends`, `GammaStarGen`, `ValenceBoundGammaStar`).
 The one remaining glue Prop, `HeckeVertWitness`, is equivalent to hecke-rest's `HeckeNoVertRam` (Lemma NV);
-the parallel task vert-witness is working on it.
+vert-witness reduces it to one leaf (good reduction of `Y₃`) and three glue Props, which would not lower the
+glue count (§1.2).
 
 ### 1.1 What changed (each item is a theorem in `scratch/leaf-fold4/partsF/d95_fold4.lean`)
 
@@ -90,7 +92,6 @@ the parallel task vert-witness is working on it.
   surjectivity of `T_ℓ A → A(K̄)[ℓᵏ]`; `tatePairingZl_of_leaves4` is that proof verbatim with the surjectivity
   taken from T5 (`T5Torsion.TateFree.tate_surj_of_torsionStructure`), and `gluePieces_of_open4` is leaf-fold3's
   `gluePieces_of_open3` with `detTate_of_leaves4` in its place (`mk_d95_glue.py`, the replacements listed there) (−1).
-
 - `t40` (T40) is replaced by its kernel source `X0Transitive` (t40-igusa): after merging t40-clash (which
   removes the duplicate Tau Ceti lemmas from the Backport `Units` file), `ZInQKernel.Contrib.RLeaf.T40` imports
   next to the chain, and `t40_of_x0Transitive4` is the kernel's `ZInQ.RLeaf.x1RationalCusp_of_x0Transitive`
