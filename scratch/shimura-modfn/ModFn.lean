@@ -25,6 +25,8 @@ Task shimura-modfn (2026-11-14). Report: `docs/research/shimura-modfn.md`; log:
 No `sorry`, no `axiom`.
 -/
 
+set_option maxRecDepth 8000
+
 noncomputable section
 
 namespace ZInQ.Contrib.TYZGenus.ShimuraModFnTask
@@ -129,22 +131,23 @@ def MainTheoremCMj : Prop :=
 
 theorem latH_tauH {N : ℕ} {D : ℤ} (Q : HeegnerForm N D) : latH Q.tauH = Q.lat := rfl
 
-theorem HeegnerForm.N_pos {N : ℕ} {D : ℤ} (Q : HeegnerForm N D) : 0 < N := by
+theorem heegnerForm_N_pos {N : ℕ} {D : ℤ} (Q : HeegnerForm N D) : 0 < N := by
   rcases Nat.eq_zero_or_pos N with h | h
   · exfalso
-    have h1 := Q.N_dvd
+    obtain ⟨k, hk⟩ := Q.N_dvd
     have h2 := Q.A_pos
-    rw [h, Nat.cast_zero, zero_dvd_iff] at h1
+    have h0 : (N : ℤ) = 0 := by exact_mod_cast h
+    rw [h0, zero_mul] at hk
     omega
   · exact h
 
 theorem latH_scaleH {N : ℕ} {D : ℤ} (Q : HeegnerForm N D) :
     latH (scaleH N Q.tauH) = Q.latN.map (LinearMap.mulLeft ℤ (N : ℂ)) := by
-  have hN := Q.N_pos
+  have hN := heegnerForm_N_pos Q
   have hN0 : (N : ℂ) ≠ 0 := by exact_mod_cast hN.ne'
   rw [latH, scaleH, dif_pos hN, HeegnerForm.latN, Submodule.map_span, Set.image_pair]
   congr 1
-  simp only [LinearMap.mulLeft_apply, UpperHalfPlane.coe_mk]
+  simp only [LinearMap.mulLeft_apply]
   rw [mul_one_div_cancel hN0]
   rfl
 
@@ -259,9 +262,7 @@ theorem reciprocity_of_rep (hj : MainTheoremCMj) {N : ℕ} (g : UpperHalfPlane �
       ιCA (MvPolynomial.aeval ![x, y] P) = evalJ N P τ := by
     intro P x y τ hx hy
     rw [MvPolynomial.comp_aeval_apply, ιCA_comp_vec, evalJ]
-    congr 2
-    · exact hx
-    · exact hy
+    rw [show ιCA x = jInv τ from hx, show ιCA y = jInv (scaleH N τ) from hy]
   have hgal : ∀ (P : MvPolynomial (Fin 2) ℚ) (x y : Qbar),
       ρ (MvPolynomial.aeval ![x, y] P) = MvPolynomial.aeval ![ρ x, ρ y] P := by
     intro P x y
@@ -320,6 +321,18 @@ root of `Φ_N(j(τ), Y) = ∏_{(a,b)} (Y − j((aτ + b)/d))`, i.e. exactly one 
 def IsIsolated (N : ℕ) (τ : UpperHalfPlane) : Prop :=
   ((isogIdx N).filter (fun p => jInv (isogPt N p τ) = jInv (scaleH N τ))).card = 1
 
+/-- For `N = 1` every point is isolated (`Φ₁ = Y − X`). -/
+theorem isIsolated_one (τ : UpperHalfPlane) : IsIsolated 1 τ := by
+  classical
+  have hidx : isogIdx 1 = {(1, 0)} := by decide
+  have hpt : isogPt 1 (1, 0) τ = scaleH 1 τ := by
+    rw [isogPt, dif_pos (by norm_num), scaleH, dif_pos (by norm_num)]
+    ext
+    simp
+  unfold IsIsolated
+  rw [hidx, Finset.filter_singleton, if_pos (by rw [hpt])]
+  rfl
+
 /-- **Non-CM leaf RAT-X0 (`ℚ(X₀(N)) = ℚ(j, j_N)` with the conductor bound).** For `N ≥ 1` and
 `g ∈ ℚ(X₀(N))` regular on `ℍ` (`IsRatModFn N g`) there are `A, B ∈ ℚ[X, Y]` with
 `B(j, j_N)·g = A(j, j_N)` on `ℍ` and `B(j(τ), j(Nτ)) ≠ 0` at every isolated point `τ`.
@@ -356,7 +369,7 @@ theorem shimuraReciprocityModFn_isolated (hj : MainTheoremCMj) (hR : RatX0Rep) :
         IsIsolated N Q.tauH →
         ∃ a a' : Qbar, ιC a = g Q.tauH ∧ ιC a' = g Q'.tauH ∧ ρ a = a' := by
   intro N g hg m f _ _ hsq e he J ρ hρ D hD Q Q' c hL hLN hiso
-  obtain ⟨A, B, hrep, hB⟩ := hR N Q.N_pos g hg
+  obtain ⟨A, B, hrep, hB⟩ := hR N (heegnerForm_N_pos Q) g hg
   exact reciprocity_of_rep hj g A B hrep hsq e he J ρ hρ hD Q Q' c hL hLN (hB _ hiso)
 
 /-- **Leaf SHIMURA-MODFN-SINGULAR (the level-structure part).** `ShimuraReciprocityModFn`
@@ -406,3 +419,10 @@ theorem singular_of_shimuraReciprocityModFn (h : ShimuraReciprocityModFn) :
   exact h N g hg m f hsq e he J ρ hρ D hD Q Q' c hL hLN
 
 end ZInQ.Contrib.TYZGenus.ShimuraModFnTask
+
+#print axioms ZInQ.Contrib.TYZGenus.ShimuraModFnTask.shimuraReciprocityModFn_of_split
+#print axioms ZInQ.Contrib.TYZGenus.ShimuraModFnTask.shimuraReciprocityModFn_isolated
+#print axioms ZInQ.Contrib.TYZGenus.ShimuraModFnTask.reciprocity_of_rep
+#print axioms ZInQ.Contrib.TYZGenus.ShimuraModFnTask.jPair_reciprocity
+#print axioms ZInQ.Contrib.TYZGenus.ShimuraModFnTask.isIsolated_one
+#print axioms ZInQ.Contrib.TYZGenus.ShimuraModFnTask.shimuraReciprocityModFn_eq

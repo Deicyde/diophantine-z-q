@@ -21,3 +21,17 @@ Task: `Shimura.ShimuraReciprocityModFn` (tyz-cm, `ZInQKernel/Contrib/TYZGenus/Sh
   `n = 7, 15, 47` (exactly the `n` with `[𝔭₂]^{10} = 1`, cf. cm-bridge §1). ISOLATED (mult 1):
   `tyzForm`, `tyzForm'` for `n = 5, 13, 21, 29, 37, 53, 61`; class-7 for `n = 23, 31, 39, 55`.
   (31 forms checked.)
+
+## 2026-11-13 23:35 ModFn.lean §0–§4 compiles
+
+* `lake build ZInQKernel.Contrib.TYZGenus.ShimuraMain`: OK (10293 jobs).
+* `lake env lean scratch/shimura-modfn/ModFn.lean`: 0 errors (VERIFIED; output
+  `compile-ModFn.out`). Axioms of `shimuraReciprocityModFn_of_split`, `…_isolated`,
+  `reciprocity_of_rep`, `jPair_reciprocity`, `isIsolated_one`, `shimuraReciprocityModFn_eq`:
+  `[propext, Classical.choice, Quot.sound]`.
+* Statements: `MainTheoremCMj` (leaf CM-J), `RatX0Rep` (non-CM leaf), `ShimuraReciprocityModFnSingular`
+  (restriction of the leaf to non-isolated points); `shimuraReciprocityModFn_of_split`:
+  `MainTheoremCMj → RatX0Rep → ShimuraReciprocityModFnSingular → ShimuraReciprocityModFn`.
+* Pitfall: `MainTheoremCMj` needs `κ(O)`-stability of `⟨1, τ'⟩` (else `κ(𝔟)L' = cL` only fixes `O·L'`;
+  `𝔟 = O`, `L = O`, `L' = ⟨1, 2τ⟩` would make it false).
+* `set_option maxRecDepth 8000` needed to elaborate the copied statement.
