@@ -1,0 +1,499 @@
+{
+  "schema": "c07-frobenius-source-publication-v1",
+  "objects": {
+    "fork_revision": "8ec807114805afd96d90c468ec2cf40c6f9cc634",
+    "path": "ZInQKernel/HDecomp/Objects.lean",
+    "git_blob": "2f4e4818392ffd810b3aaad227f71228febcedd3",
+    "sha256": "bf2519646471349e64f5e3069a69c6946ed8f3a7bbfb34123e681b8d581ba6f3"
+  },
+  "pins": {
+    "lean": "eb6cafb7290e8bd5f2937522d8d804f58f02bafc",
+    "mathlib": "56a005855ea17e0b0958f73ec801ae140b0a1679",
+    "stacks": "c496df0d9beea9deaeabcea8492605f9a0a2313b"
+  },
+  "fresh_scoped_compilation_and_audit": {
+    "implementation_modules": 9,
+    "probes": 9,
+    "named_implementation_declarations": 61,
+    "proved_probe_fixture_declarations": 1,
+    "software_controls_passed": 26,
+    "full_root_or_canonical_pairing_validation": false
+  },
+  "groups": [
+    {
+      "implementation": "C10Frobenius.lean",
+      "probe": "Check.lean",
+      "implementation_declarations": 9,
+      "declaration_reports": {
+        "C10Frobenius.relativeNatTrans": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ],
+        "C10Frobenius.twistMonoidal": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ],
+        "C10Frobenius.relativeGroupNatTrans": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ],
+        "C10Frobenius.groupTwist": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ],
+        "C10Frobenius.relativeHom": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ],
+        "C10Frobenius.relativeHom_hom": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ],
+        "C10Frobenius.isMonHom_relativeFrobenius": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ],
+        "C10Frobenius.relativeHom_naturality": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ],
+        "C10Frobenius.relativeHom_onPoints": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ]
+      }
+    },
+    {
+      "implementation": "C10PrimeField.lean",
+      "probe": "CheckPrimeField.lean",
+      "implementation_declarations": 11,
+      "declaration_reports": {
+        "C10Frobenius.PrimeField.baseFrobenius_eq_id": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ],
+        "C10Frobenius.PrimeField.twistIso": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ],
+        "C10Frobenius.PrimeField.twistIso_hom_left": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ],
+        "C10Frobenius.PrimeField.groupTwistIso": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ],
+        "C10Frobenius.PrimeField.groupTwistIso_hom_left": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ],
+        "C10Frobenius.PrimeField.endomorphism": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ],
+        "C10Frobenius.PrimeField.endomorphism_left": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ],
+        "C10Frobenius.PrimeField.endomorphism_hom_eq_geometricFrobenius": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ],
+        "C10Frobenius.PrimeField.isMonHom_geometricFrobenius": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ],
+        "C10Frobenius.PrimeField.endomorphism_naturality": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ],
+        "C10Frobenius.PrimeField.endomorphism_onPoints": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ]
+      }
+    },
+    {
+      "implementation": "C10FiniteField.lean",
+      "probe": "CheckFiniteField.lean",
+      "implementation_declarations": 9,
+      "declaration_reports": {
+        "C10Frobenius.FiniteField.geometric_naturality": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ],
+        "C10Frobenius.FiniteField.geometricNatTrans": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ],
+        "C10Frobenius.FiniteField.geometricGroupNatTrans": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ],
+        "C10Frobenius.FiniteField.endomorphism": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ],
+        "C10Frobenius.FiniteField.endomorphism_hom": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ],
+        "C10Frobenius.FiniteField.isMonHom_geometricFrobenius": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ],
+        "C10Frobenius.FiniteField.endomorphism_naturality": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ],
+        "C10Frobenius.FiniteField.endomorphism_onPoints": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ],
+        "C10Frobenius.FiniteField.endomorphism_appTop": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ]
+      }
+    },
+    {
+      "implementation": "C10FieldPoints.lean",
+      "probe": "CheckFieldPoints.lean",
+      "implementation_declarations": 7,
+      "declaration_reports": {
+        "C10Frobenius.FieldPoints.arithmeticFrobenius_specMap": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ],
+        "C10Frobenius.FieldPoints.endomorphism_onFieldPoints": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ],
+        "C10Frobenius.FieldPoints.fieldAutomorphismIso": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ],
+        "C10Frobenius.FieldPoints.arithmeticPointEquiv": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ],
+        "C10Frobenius.FieldPoints.arithmeticPointEquiv_apply": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ],
+        "C10Frobenius.FieldPoints.endomorphism_eq_arithmeticPointEquiv": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ],
+        "C10Frobenius.FieldPoints.endomorphism_bijective_onFieldPoints": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ]
+      }
+    },
+    {
+      "implementation": "C10TorsionAction.lean",
+      "probe": "CheckTorsionAction.lean",
+      "implementation_declarations": 4,
+      "declaration_reports": {
+        "C10Frobenius.TorsionAction.endomorphism_pow_eq_one_iff": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ],
+        "C10Frobenius.TorsionAction.endomorphism_bijOn_nTorsion": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ],
+        "C10Frobenius.TorsionAction.torsionPointEquiv": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ],
+        "C10Frobenius.TorsionAction.torsionPointEquiv_apply": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ]
+      }
+    },
+    {
+      "implementation": "C10FrobeniusGeometry.lean",
+      "probe": "CheckFrobeniusGeometry.lean",
+      "implementation_declarations": 5,
+      "declaration_reports": {
+        "C10Frobenius.Geometry.absolutePower_universalHomeomorphism": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ],
+        "C10Frobenius.Geometry.endomorphism_universalHomeomorphism": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ],
+        "C10Frobenius.Geometry.endomorphism_surjective": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ],
+        "C10Frobenius.Geometry.endomorphism_isFinite": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ],
+        "C10Frobenius.Geometry.endomorphism_finiteSurjective_of_proper": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ]
+      }
+    },
+    {
+      "implementation": "C10AbVarFrobenius.lean",
+      "probe": "CheckAbVarFrobenius.lean",
+      "implementation_declarations": 6,
+      "declaration_reports": {
+        "C10Frobenius.NativeAbVar.twistIsAbelianVariety": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ],
+        "C10Frobenius.NativeAbVar.twist": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ],
+        "C10Frobenius.NativeAbVar.toGrp_twist": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ],
+        "C10Frobenius.NativeAbVar.hom": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ],
+        "C10Frobenius.NativeAbVar.hom_hom": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ],
+        "C10Frobenius.NativeAbVar.hom_isIsogeny": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ]
+      }
+    },
+    {
+      "implementation": "C10AbVarFiniteField.lean",
+      "probe": "CheckAbVarFiniteField.lean",
+      "implementation_declarations": 3,
+      "declaration_reports": {
+        "C10Frobenius.NativeFiniteField.endomorphism": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ],
+        "C10Frobenius.NativeFiniteField.endomorphism_hom": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ],
+        "C10Frobenius.NativeFiniteField.endomorphism_isIsogeny": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ]
+      }
+    },
+    {
+      "implementation": "C10AbVarPointAction.lean",
+      "probe": "CheckAbVarPointAction.lean",
+      "implementation_declarations": 7,
+      "declaration_reports": {
+        "C10Frobenius.NativePointAction.ptMap_apply": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ],
+        "C10Frobenius.NativePointAction.ptMap_eq_galAct": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ],
+        "C10Frobenius.NativePointAction.arithmeticGal": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ],
+        "C10Frobenius.NativePointAction.arithmeticGal_apply": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ],
+        "C10Frobenius.NativePointAction.ptMap_eq_galAct_arithmeticGal": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ],
+        "C10Frobenius.NativePointAction.homT_eq_galT": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ],
+        "C10Frobenius.NativePointAction.homT_baseChange_eq_galRep": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ],
+        "coefficientFivePrime": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ]
+      }
+    }
+  ],
+  "source_files": {
+    "scratch/c10-frobenius/C10Frobenius.lean": {
+      "bytes": 3218,
+      "sha256": "4946d5972b8678768a13f118ce5acc5162fd839838dc1db309202eba4f54c744"
+    },
+    "scratch/c10-frobenius/Check.lean": {
+      "bytes": 743,
+      "sha256": "88668cbd5de43d5f330b63c2e2b61fa50787dc705f61f7166a3e4334945ce2cb"
+    },
+    "scratch/c10-frobenius/C10PrimeField.lean": {
+      "bytes": 5172,
+      "sha256": "85dfc1f322aa03b2f74b9768d43a054ac6395d948000ff03cfe520952a565ae2"
+    },
+    "scratch/c10-frobenius/CheckPrimeField.lean": {
+      "bytes": 1520,
+      "sha256": "53b2e44c67de6bde7b3442835153ecf4431217200725f461c7c991298671e99f"
+    },
+    "scratch/c10-frobenius/C10FiniteField.lean": {
+      "bytes": 3690,
+      "sha256": "6015e8e5b42c1768d29769c5bf5f471f4f69f18d9aabb342962135a366c1ba06"
+    },
+    "scratch/c10-frobenius/CheckFiniteField.lean": {
+      "bytes": 1984,
+      "sha256": "fd957b7d6aab2abd5fcd3cd92e3dceee16487a672d21683ce0ccca81b03c02e8"
+    },
+    "scratch/c10-frobenius/C10FieldPoints.lean": {
+      "bytes": 4158,
+      "sha256": "86ded020d1fe728d36b205313890b180f1c459be5b35937ed06c51f46e4d1fa6"
+    },
+    "scratch/c10-frobenius/CheckFieldPoints.lean": {
+      "bytes": 2236,
+      "sha256": "2c153d3fb86ea2e8eeb4d1e5f46ac2027938d7c627c2d02ba29bcc0b575cb162"
+    },
+    "scratch/c10-frobenius/C10TorsionAction.lean": {
+      "bytes": 2880,
+      "sha256": "7cfc6ba8ecaf191f93f2842ef4ff76d344e5a2224a5cf38c95a04a42af73a8d8"
+    },
+    "scratch/c10-frobenius/CheckTorsionAction.lean": {
+      "bytes": 2052,
+      "sha256": "554c89428ed730f37d7f37e9d979699c30f98d4ea49cd0a288fb99f52bb2f42c"
+    },
+    "scratch/c10-frobenius/C10FrobeniusGeometry.lean": {
+      "bytes": 3232,
+      "sha256": "8256415ff4e1460418cfd3179b79dae4ee23f6ab55ed768cffb07da23e1d3f79"
+    },
+    "scratch/c10-frobenius/CheckFrobeniusGeometry.lean": {
+      "bytes": 1778,
+      "sha256": "3c411bcc5c4bc0305ac5325a49ba77f4bcda9e57a1d5d2e44e53384eb65a79c8"
+    },
+    "scratch/c10-frobenius/C10AbVarFrobenius.lean": {
+      "bytes": 3197,
+      "sha256": "d7b990f51976cfb9bf663377217a57d2b13b49aba2bb1f347a86873963cf27ac"
+    },
+    "scratch/c10-frobenius/CheckAbVarFrobenius.lean": {
+      "bytes": 1592,
+      "sha256": "0c47ed47d99c227253bf52451d57f592b95c74469ea0c75e1f90212f73c05551"
+    },
+    "scratch/c10-frobenius/C10AbVarFiniteField.lean": {
+      "bytes": 1511,
+      "sha256": "ec5f9b59a093d7b175d707f422e7105b2d96ae4d6bdf4c298ffb7ced711dc654"
+    },
+    "scratch/c10-frobenius/CheckAbVarFiniteField.lean": {
+      "bytes": 2015,
+      "sha256": "4ba0e44397ffb5d50d49d88508fb6bf1193b36ab82a03639a1ff9c6028b891f1"
+    },
+    "scratch/c10-frobenius/C10AbVarPointAction.lean": {
+      "bytes": 3604,
+      "sha256": "34e113c2269a96cb0f3bfa66f6dd997a2992bc2200a4f562f62459ee1040e03e"
+    },
+    "scratch/c10-frobenius/CheckAbVarPointAction.lean": {
+      "bytes": 2887,
+      "sha256": "2d2c38fac6d31c7cc3707fc192849751238919f2d586dd94f2e2ed5f84766c09"
+    },
+    "scratch/c10-frobenius/README.md": {
+      "bytes": 5036,
+      "sha256": "fa620c27a562aa91ccb897125df42341b5158b244e6f17e846450c54e2a4f22c"
+    },
+    "scratch/c10-frobenius/scripts/check_cached.py": {
+      "bytes": 3063,
+      "sha256": "1bed7d0a56e5fd52086cf95a557a9e1ad9502100ccb82d96444fe367a592fc60"
+    },
+    "scratch/c10-frobenius/scripts/test_check_cached.py": {
+      "bytes": 6096,
+      "sha256": "fcec54934efe0180c2670528800706f620ddf66695045aba2e04dd358ed92da0"
+    },
+    "scratch/c10-frobenius/scripts/audit_axiom_output.py": {
+      "bytes": 2338,
+      "sha256": "352aa3211e47326a44743eb7a6508ef57f718e0c36a619d671f77220adccbba1"
+    },
+    "scratch/c10-frobenius/scripts/test_audit_axiom_output.py": {
+      "bytes": 2121,
+      "sha256": "32e2973b5f8b18f6b11ccffc289040aaeeee23b2620a77d04affd5e52232c049"
+    },
+    "scratch/c10-frobenius/scripts/bank_source_increment.py": {
+      "bytes": 3583,
+      "sha256": "01c8a9e75adc628f1c9c73350e118c52d09940d7e6bdac7b4dfe4534d2b037a0"
+    },
+    "scratch/c10-frobenius/scripts/test_bank_source_increment.py": {
+      "bytes": 2890,
+      "sha256": "09e1110a8bc20304fa8e821fb61b65e622c281c135451fd64e5f54e6b5835c3a"
+    }
+  }
+}
