@@ -396,7 +396,7 @@ jobs:
                   elif message.get('role') == 'assistant' and isinstance(content, list):
                       for block in content:
                           if (block.get('type') == 'server_tool_use' and block.get('name') in used
-                                  and block.get('caller', {}).get('type', 'direct') == 'direct'):
+                                  and (block.get('caller') or {}).get('type', 'direct') == 'direct'):
                               used[block['name']] += 1  # Failed/pending calls count conservatively.
               return {'direct_this_turn': {name: max(0, cap - used[name]) for name, cap in WEB_MAX_USES.items()},
                       'programmatic_next_request_maximum': dict(WEB_MAX_USES),

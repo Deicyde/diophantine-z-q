@@ -628,6 +628,24 @@ class Transport(unittest.TestCase):
         self.assertGreaterEqual(gate.context_units('fable', body), gate.WEB_BINARY_RESULT_RESERVE)
         self.assertLess(gate.context_units('fable', body), gate.request_size(body))
 
+    def test_web_allowance_omitted_direct_null_and_programmatic_callers(self):
+        cases = [
+            ('omitted', {}, 1),
+            ('direct', {'caller': {'type': 'direct'}}, 1),
+            ('null', {'caller': None}, 1),
+            ('programmatic', {'caller': {'type': 'code_execution_20260120', 'tool_id': 'c'}}, 0),
+        ]
+        for name, cap in gate.WEB_MAX_USES.items():
+            for label, caller, consumed in cases:
+                with self.subTest(tool=name, caller=label):
+                    block = {'type': 'server_tool_use', 'id': 'web', 'name': name, 'input': {}, **caller}
+                    messages = [{'role': 'user', 'content': 'Review'},
+                                {'role': 'assistant', 'content': [block]}]
+                    allowance = gate.web_allowance('fable', messages)
+                    expected = {**gate.WEB_MAX_USES, name: cap - consumed}
+                    self.assertEqual(allowance['direct_this_turn'], expected)
+                    self.assertEqual(allowance['programmatic_next_request_maximum'], gate.WEB_MAX_USES)
+
     def test_web_allowance_distinguishes_direct_and_programmatic_and_resets(self):
         direct = {'type': 'server_tool_use', 'id': 'd', 'name': 'web_fetch', 'input': {}}
         programmatic = {**direct, 'id': 'p', 'caller': {'type': 'code_execution_20260120', 'tool_id': 'c'}}
