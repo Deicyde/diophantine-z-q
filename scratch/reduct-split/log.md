@@ -56,3 +56,4 @@ Setup: compile checks with `scratch/reduct-split/chk.sh FILE` = `lean` with LEAN
   IsogenyBaseChangeDeg` PROVED (φ_L finite/surjective via CloudW01's `overPullback_isPullback`; Nat.card equality via
   bcPt and extPt). `faltingsLemma5BC_final : HeightSplit.FaltingsLemma5 → HeightSplit.FaltingsLemma5BC`. Axioms standard.
   VERIFIED.
+- 12:11 §18: bundles `ReductLeaves` (8 published-form leaves), `ReductGlue` (4 glue), `rows_of_leaves` giving all seven split rows (+ HeightSplit.FaltingsLemma5 for faltingsLemma5BC). Axioms standard. VERIFIED.

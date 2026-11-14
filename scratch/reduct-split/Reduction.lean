@@ -1599,6 +1599,41 @@ theorem faltingsLemma5BC_final (hF : ZInQ.HeightSplit.FaltingsLemma5) :
 
 end IsogBC
 
+/-! ## §18. The bundles: published-form leaves and the remaining glue, and all seven rows -/
+
+/-- The published theorems used (each in printed form, or a specialization read off the display). -/
+structure ReductLeaves : Prop where
+  neronDVR : NeronSchemeModelExistsDVR
+  sga7_3_5 : SemistableUnipotent
+  sga7_4_7 : RaynaudSemistable
+  sga7_3_6 : SemistableReductionDVR
+  sga7_3_3a : SemistablePersistsDVR
+  sga7_3_3b : IdentityComponentBaseChangeDVR
+  serreTate2 : SerreTateThm2
+  mumford : AvSplit.MumfordTorsionAlgClosed
+
+/-- The remaining project glue (each with a docstring saying what it needs). -/
+structure ReductGlue : Prop where
+  fixedTorsionImperfect : FixedTorsionRationalImperfect
+  localGlobal : SemistableLocalGlobal
+  almostAll : SemistableAlmostAll
+  ss2LocalGlobal : SemistableNeronBaseChangeLocalGlobal
+
+/-- **All seven split rows** (t10 is not split; `faltingsLemma5BC` also uses the base-field form
+`HeightSplit.FaltingsLemma5`). -/
+theorem rows_of_leaves (l : ReductLeaves) (g : ReductGlue) (hF5 : ZInQ.HeightSplit.FaltingsLemma5) :
+    PkgI2.RaynaudCriterion.{0} ∧ PkgI2.SerreTatePotentialGood.{0} ∧
+      PkgI2.GrothendieckMonodromy.{0} ∧ ZInQ.HeightSplit.SemistableReductionThm ∧
+      ZInQ.HeightSplit.SemistableNeronBaseChange ∧ ZInQ.HeightSplit.SemistablePersists ∧
+      ZInQ.HeightSplit.FaltingsLemma5BC :=
+  ⟨raynaudCriterion_final' l.sga7_4_7 l.sga7_3_5 l.neronDVR l.mumford g.fixedTorsionImperfect,
+   serreTatePotentialGood_final l.serreTate2 l.mumford,
+   grothendieckMonodromy_final' l.sga7_3_6 l.sga7_3_5 l.neronDVR l.mumford,
+   semistableReductionThm_final l.sga7_3_6 l.sga7_3_3a l.neronDVR g.localGlobal g.almostAll,
+   semistableNeronBaseChange_of_leaves l.sga7_3_3b g.localGlobal g.ss2LocalGlobal,
+   semistablePersists_final l.sga7_3_3a l.neronDVR g.localGlobal,
+   faltingsLemma5BC_final hF5⟩
+
 end ReductSplit
 
 #print axioms ReductSplit.raynaudCriterion_of_leaves
@@ -1619,3 +1654,4 @@ end ReductSplit
 #print axioms ReductSplit.dvrFiniteExtension
 #print axioms ReductSplit.grothendieckMonodromy_final'
 #print axioms ReductSplit.faltingsLemma5BC_final
+#print axioms ReductSplit.rows_of_leaves
