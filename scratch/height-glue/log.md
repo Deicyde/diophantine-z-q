@@ -69,3 +69,6 @@
   (conjugation stabilizes R via integrality of x + x̄; eigenvalue ring map; N-scaling).
 - QMCorr.lean: QMUniformizationC docstring locators revised after independent review (Shimura 1963,
   Hashimoto 1995, Rotger 2004, Voight Ch. 43; bundled standard facts noted as RISK).
+- QMCorr.lean §0 now the whole R5Count.lean namespace block (verbatim, `diff` identical, VERIFIED);
+  QMEmb.lean adds `r5fpCount_of_leaves (hE : EichlerOptimalEmbeddingCount) (hD) (hU) : R5fpCount`.
+  Both files exit 0, axioms standard.

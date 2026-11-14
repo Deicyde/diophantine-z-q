@@ -816,4 +816,10 @@ theorem qmPairEmbeddingCorrespondence_of_leaves (hD : QMDescentCM) (hU : QMUnifo
     QMPairEmbeddingCorrespondence :=
   qmPairEmbeddingCorrespondence_of hD hU cmPointEmbeddingCorrespondence
 
+/-- **The row H-3 (`R5fpCount`) from Eichler's count and the two QM leaves** (height-split's
+`r5fpCount_of` with the correspondence supplied). -/
+theorem r5fpCount_of_leaves (hE : EichlerOptimalEmbeddingCount) (hD : QMDescentCM)
+    (hU : QMUniformizationC) : LeafQM.AV.R5fpCount :=
+  r5fpCount_of hE (qmPairEmbeddingCorrespondence_of_leaves hD hU)
+
 end ZInQ.HeightGlue.QM

@@ -2,9 +2,9 @@ import ZInQKernel.HDecomp.QM.Leaves
 
 /-! # height-glue: `QMPairEmbeddingCorrespondence` (height-split, H-3) reduced
 
-§0 is a verbatim copy of `scratch/height-split/R5Count.lean` (task height-split) from
-`namespace ZInQ.HeightSplit.R5` up to its definition of `QMPairEmbeddingCorrespondence` (the
-glue Prop, never restated). §1 onward is new. -/
+§0 is a verbatim copy of `scratch/height-split/R5Count.lean` (task height-split), its whole
+`namespace ZInQ.HeightSplit.R5` block: the glue Prop `QMPairEmbeddingCorrespondence` (never
+restated), the leaf `EichlerOptimalEmbeddingCount` and `r5fpCount_of`. §1 onward is new. -/
 
 namespace ZInQ.HeightSplit.R5
 
@@ -81,6 +81,36 @@ def QMPairEmbeddingCorrespondence : Prop :=
     Module.finrank ℚ k = 2 →
     ∀ R : Subring k, R ≤ (integralClosure ℤ k).toSubring → Nat.Coprime (conductor R) 6 →
       Nonempty (QMClasses k R ≃ Quotient (embSetoid k R))
+
+omit [NumberField k] in
+/-- A nonzero Eichler factor is `2^{[p inert]}`. -/
+theorem eichlerFactor_eq_of_ne_zero (p : 𝓞 k) (h : eichlerFactor k p ≠ 0) :
+    eichlerFactor k p = 2 ^ (by classical exact if (Ideal.span {p}).IsPrime then 1 else 0) := by
+  classical
+  unfold eichlerFactor at h ⊢
+  by_cases hp : (Ideal.span {p}).IsPrime
+  · simp [hp]
+  · by_cases hr : ∃ P : Ideal (𝓞 k), P.IsPrime ∧ Ideal.span {p} = P ^ 2
+    · simp [hp, hr]
+    · simp [hp, hr] at h
+
+/-- **H-3: the row `R5fpCount` from Eichler's count and the moduli correspondence.** -/
+theorem r5fpCount_of (hE : EichlerOptimalEmbeddingCount) (hC : QMPairEmbeddingCorrespondence) :
+    R5fpCount := by
+  classical
+  intro k _ _ _ hk R hR hc hex
+  obtain ⟨e⟩ := hC k hk R hR hc
+  obtain ⟨hfin, hcard⟩ := hE k hk R hR hc
+  obtain ⟨P, hP⟩ := hex
+  have hne : Nonempty (Quotient (embSetoid k R)) := ⟨e ⟨Quotient.mk _ P, P, rfl, hP⟩⟩
+  have hpos : 0 < Nat.card (Quotient (embSetoid k R)) := Nat.card_pos
+  have hcongr : Nat.card (QMClasses k R) = Nat.card (Quotient (embSetoid k R)) := Nat.card_congr e
+  show Nat.card (QMClasses k R) = _
+  rw [hcongr, hcard]
+  rw [hcard] at hpos
+  have h2 : eichlerFactor k 2 ≠ 0 := fun h => by simp [h] at hpos
+  have h3 : eichlerFactor k 3 ≠ 0 := fun h => by simp [h] at hpos
+  rw [eichlerFactor_eq_of_ne_zero k 2 h2, eichlerFactor_eq_of_ne_zero k 3 h3, inertCount6, pow_add]
 
 end ZInQ.HeightSplit.R5
 
