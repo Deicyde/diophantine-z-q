@@ -4127,7 +4127,8 @@ model at `p > 324` and a triple with R1fp, R1hecke, R2fp. (Outline: `𝒴` is in
 field `E` (model-glue: `ModelIntegral`, `ModelFunctionField` from T5 and `CurveBijIso`); an
 automorphism over `ℤ_(p)` is determined by its action on `E` (`𝒴` reduced, separated); a
 fibre-preserving one fixes the germ `X` of the coordinate (`CoordFibres`, Möbius rigidity as in
-`val_eq_of_same_fibres`), so `fibreAut ↪ Gal(E/ℚ(X))`, of order `[E : ℚ(X)] ≤ 324 < p`.) -/
+`val_eq_of_same_fibres`), so `fibreAut ↪ Gal(E/ℚ(X))`, whose order `[E : ℚ(X)]` divides
+`|Γ'| = 144 = 2⁴3²` (h-b1 M3; `CoverBranchData`), so is prime to every `p > 324`.) -/
 def FibreAutTame : Prop :=
   ∀ (p : ℕ) [Fact p.Prime], 324 < p →
     ∀ (𝒴 : Over (Spec (CommRingCat.of (Zloc p)))) (𝒜 : QMFamily 𝒴.left), IsShimuraModel p 𝒴 𝒜 →
