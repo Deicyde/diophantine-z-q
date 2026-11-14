@@ -196,8 +196,159 @@ theorem dim_eq_of_iso {B A : PkgI3.AbVar ℂ} (e : PkgI3.AbVar.Hom B A) (e' : Pk
 section Glue2
 
 
+
+/-- **The descended data** (glue, proved). -/
+theorem descend_main (hST : STQM) (hR : ZInQ.LeafPush2.T11b_Rigidity) (hTD : TorsionDescends)
+    (hRep : LeafAdopt.R1R2fpRep) (Q : QML3 ℂ) (hcm : HasCM4 Q.q ∨ HasCM3 Q.q ∨ HasCM24 Q.q) :
+    ∃ (ιe : Qbar →+* ℂ) (P : QML3 Qbar) (Q' : QML3 ℂ)
+      (κ : PkgI3.AbVar.End Q.A →+* PkgI3.AbVar.End P.A),
+      IsBaseChangeOf ιe P Q' ∧ Nonempty (QMIso Q.q Q'.q) ∧ ∀ a, κ (Q.q.iota a) = P.q.iota a := by
+  obtain ⟨ιe, A₀, e, e', h1, h2⟩ := hST Q.A Q.q Q.surface hcm
+  let β := RingEquiv.ofBijective (endBCe ιe A₀) (endBCe_bijective ιe A₀ hR)
+  let κ : PkgI3.AbVar.End Q.A →+* PkgI3.AbVar.End A₀ := β.symm.toRingHom.comp (conjE e e' h1 h2)
+  have hβκ : ∀ f, endBCe ιe A₀ (κ f) = conjE e e' h1 h2 f := fun f => β.apply_symm_apply _
+  have κinj : Function.Injective κ := β.symm.injective.comp (conjE_injective e e' h1 h2)
+  let q₀ : QMStr A₀ := ⟨κ.comp Q.q.iota, κinj.comp Q.q.injective⟩
+  have hdim : A₀.dim = 2 := by
+    have := dim_eq_of_iso e e' h1 h2
+    rw [← Q.surface, ← this]
+    exact (@PkgI3.AbVar.dim_baseChange Qbar _ A₀ ℂ _ ιe.toAlgebra).symm
+  -- the level structure
+  let v : (bcC ιe A₀).Pt ℂ := Additive.toMul (Q.e.eta 1) ≫ e'.hom
+  have hv3 : v ^ 3 = 1 := by
+    have h30 : Q.e.eta 3 = 0 := (Q.e.ker 3).2 ⟨1, by rw [_root_.mul_one]⟩
+    have h3 : (Additive.toMul (Q.e.eta 1)) ^ 3 = 1 := by
+      rw [← toMul_nsmul, ← map_nsmul, nsmul_eq_mul, _root_.mul_one]
+      push_cast
+      rw [h30]; rfl
+    change (IsMonHom.monoidHom e'.hom _ (Additive.toMul (Q.e.eta 1))) ^ 3 = 1
+    rw [← map_pow, h3, map_one]
+  obtain ⟨v₀, hv₀, huniq⟩ := hTD ιe A₀ v 3 (by norm_num) hv3
+  let η₀ : LeafQM.O →+ Additive (A₀.Pt Qbar) :=
+    { toFun := fun a => qmAct q₀ Qbar a (Additive.ofMul v₀)
+      map_zero' := by rw [map_zero]; rfl
+      map_add' := fun a b => by rw [map_add]; rfl }
+  have hη₀ : ∀ a, Additive.toMul (η₀ a) = v₀ ≫ (q₀.iota a).hom := fun a => rfl
+  have lin : ∀ a b : LeafQM.O, η₀ (a * b) = qmAct q₀ Qbar a (η₀ b) := fun a b => by
+    change qmAct q₀ Qbar (a * b) _ = _
+    rw [map_mul]; rfl
+  have ker : ∀ a : LeafQM.O, η₀ a = 0 ↔ ∃ b : LeafQM.O, a = 3 * b := by
+    intro a
+    have hw : v ≫ (endBCe ιe A₀ (q₀.iota a)).hom = Additive.toMul (Q.e.eta a) ≫ e'.hom := by
+      rw [show q₀.iota a = κ (Q.q.iota a) from rfl, hβκ, conjE_hom]
+      have hl := Q.e.linear a 1
+      rw [_root_.mul_one] at hl
+      have : Additive.toMul (Q.e.eta a) = Additive.toMul (Q.e.eta 1) ≫ (Q.q.iota a).hom := by
+        rw [hl]; rfl
+      rw [this]
+      simp only [v, Category.assoc]
+      rw [reassoc_of% h2]
+    have hcorr := endBCe_corr ιe A₀ (q₀.iota a) hv₀
+    constructor
+    · intro h0
+      have h0' : v₀ ≫ (q₀.iota a).hom = 1 := by rw [← hη₀, h0]; rfl
+      have h1' : v ≫ (endBCe ιe A₀ (q₀.iota a)).hom = 1 :=
+        ptC_ext ιe A₀ (by rw [hcorr, h0', one_corr])
+      rw [hw] at h1'
+      have h3 : Additive.toMul (Q.e.eta a) = 1 := by
+        have := congrArg (· ≫ e.hom) h1'
+        simp only [Category.assoc, h2, Category.comp_id] at this
+        rw [this, MonObj.one_comp]
+      exact (Q.e.ker a).1 h3
+    · intro hb
+      have h3 : Q.e.eta a = 0 := (Q.e.ker a).2 hb
+      have h1' : v ≫ (endBCe ιe A₀ (q₀.iota a)).hom = 1 := by
+        rw [hw, show Additive.toMul (Q.e.eta a) = 1 from congrArg Additive.toMul h3, MonObj.one_comp]
+      obtain ⟨_, _, hu1⟩ := hTD ιe A₀ 1 1 one_pos (one_pow _)
+      have e1 := hu1 (v₀ ≫ (q₀.iota a).hom) (by rw [← h1']; exact hcorr)
+      have e2 := hu1 1 (one_corr ιe A₀)
+      have : Additive.toMul (η₀ a) = 1 := by rw [hη₀, e1, ← e2]
+      exact congrArg Additive.ofMul this
+  let P : QML3 Qbar := ⟨A₀, hdim, q₀, ⟨η₀, lin, ker⟩⟩
+  -- the base change from R1fp's naturality
+  obtain ⟨Y, Φ, X, Ψ, fY, π₆, hR1, -⟩ := hRep
+  obtain ⟨Q', -, hBC⟩ := hR1.2.2.2.1 Qbar ℂ ιe.toRatAlgHom ((Φ Qbar).symm (M3.mk P)) P (by simp)
+  have hBC' : IsBaseChangeOf ιe P Q' := hBC
+  refine ⟨ιe, P, Q', κ, hBC', ?_, fun a => rfl⟩
+  obtain ⟨g', hg', hι', hl'⟩ := hBC'
+  -- comparison `Q'.A ≅ A₀ ×_{ℚ̄} ℂ`
+  let θ : Q'.A.X ⟶ (bcC ιe A₀).X :=
+    Over.homMk ((bc_isPullback ιe A₀).lift g' Q'.A.X.hom hg'.w) ((bc_isPullback ιe A₀).lift_snd _ _ _)
+  let θ' : (bcC ιe A₀).X ⟶ Q'.A.X :=
+    Over.homMk (hg'.lift (fstC ιe A₀) (bcC ιe A₀).X.hom (bc_isPullback ιe A₀).w) (hg'.lift_snd _ _ _)
+  have hθ : θ.left ≫ fstC ιe A₀ = g' := (bc_isPullback ιe A₀).lift_fst _ _ _
+  have hθ' : θ'.left ≫ g' = fstC ιe A₀ := hg'.lift_fst _ _ _
+  have hθθ' : θ ≫ θ' = 𝟙 _ := by
+    ext1
+    exact hg'.hom_ext (by rw [Over.comp_left, Category.assoc, hθ', hθ]; simp)
+      (by rw [Over.comp_left, Category.assoc, Over.w θ', Over.w θ]; simp)
+  have hθ'θ : θ' ≫ θ = 𝟙 _ := by
+    ext1
+    exact (bc_isPullback ιe A₀).hom_ext (by rw [Over.comp_left, Category.assoc, hθ, hθ']; simp)
+      (by rw [Over.comp_left, Category.assoc, Over.w θ, Over.w θ']; simp)
+  have hη : η[Q'.A.X] ≫ θ = η[(bcC ιe A₀).X] := by
+    ext1
+    refine (bc_isPullback ιe A₀).hom_ext ?_ ?_
+    · rw [Over.comp_left, Category.assoc, hθ, PeriodGlue.eta_comp hl', eta_bc_fst]
+    · rw [Over.comp_left, Category.assoc, Over.w θ, Over.w η[Q'.A.X], Over.w η[(bcC ιe A₀).X]]
+  have hη' : η[(bcC ιe A₀).X] ≫ θ' = η[Q'.A.X] := by
+    rw [← hη, Category.assoc, hθθ', Category.comp_id]
+  haveI : IsMonHom θ :=
+    _root_.HDec.PeriodGlue.MulRigidity.isMonHom_of_geometricallyIntegral Q'.A.X (bcC ιe A₀).X θ hη
+  haveI : IsMonHom θ' :=
+    _root_.HDec.PeriodGlue.MulRigidity.isMonHom_of_geometricallyIntegral (bcC ιe A₀).X Q'.A.X θ' hη'
+  let qC : QMStr (bcC ιe A₀) :=
+    ⟨(endBCe ιe A₀).comp q₀.iota, (endBCe_bijective ιe A₀ hR).1.comp q₀.injective⟩
+  let iso1 : QMIso Q.q qC :=
+    { φ := e'
+      ψ := e
+      left := h2
+      right := h1
+      equivariant := fun a => by
+        change _ = e'.hom ≫ (endBCe ιe A₀ (κ (Q.q.iota a))).hom
+        rw [hβκ, conjE_hom, reassoc_of% h2] }
+  let iso2 : QMIso Q'.q qC :=
+    { φ := PkgI3.AbVar.Hom.mk' θ
+      ψ := PkgI3.AbVar.Hom.mk' θ'
+      left := by simpa using hθθ'
+      right := by simpa using hθ'θ
+      equivariant := fun a => by
+        simp only [PkgI3.AbVar.Hom.hom_mk']
+        ext1
+        refine (bc_isPullback ιe A₀).hom_ext ?_ ?_
+        · change ((Q'.q.iota a).hom.left ≫ θ.left) ≫ fstC ιe A₀ =
+            (θ.left ≫ (endBCe ιe A₀ (q₀.iota a)).hom.left) ≫ fstC ιe A₀
+          rw [Category.assoc, hθ, hι' a, Category.assoc, endBCe_fst, ← Category.assoc, hθ]
+        · simp [Over.w] }
+  exact ⟨iso1.trans iso2.symm⟩
+
+/-- **`CMDescends` from `STQM`, `T11b_Rigidity`, `TorsionDescends` and `R1R2fpRep` (proved).** -/
+theorem cmDescends_of (hST : STQM) (hR : ZInQ.LeafPush2.T11b_Rigidity) (hTD : TorsionDescends)
+    (hRep : LeafAdopt.R1R2fpRep) : CMDescends := by
+  intro Q
+  have com_of : ∀ (P : QML3 Qbar) (κ : PkgI3.AbVar.End Q.A →+* PkgI3.AbVar.End P.A),
+      (∀ a, κ (Q.q.iota a) = P.q.iota a) → ∀ φ ∈ com Q.q, κ φ ∈ com P.q := by
+    intro P κ hκ φ hφ
+    rw [com, Subring.mem_centralizer_iff] at hφ ⊢
+    rintro _ ⟨a, rfl⟩
+    rw [← hκ, ← map_mul, ← map_mul, hφ _ ⟨a, rfl⟩]
+  refine ⟨fun h => ?_, fun h => ?_, fun h => ?_⟩
+  · obtain ⟨ιe, P, Q', κ, hBC, hiso, hκ⟩ := descend_main hST hR hTD hRep Q (Or.inl h)
+    obtain ⟨φ, hφ, hφ2⟩ := h
+    exact ⟨ιe, P, Q', hBC, ⟨κ φ, com_of P κ hκ φ hφ, by rw [← map_mul, hφ2, map_neg, map_one]⟩, hiso⟩
+  · obtain ⟨ιe, P, Q', κ, hBC, hiso, hκ⟩ := descend_main hST hR hTD hRep Q (Or.inr (Or.inl h))
+    obtain ⟨φ, hφ, hφ2⟩ := h
+    exact ⟨ιe, P, Q', hBC, ⟨κ φ, com_of P κ hκ φ hφ, by
+      rw [← map_mul, ← map_sub, ← map_one κ, ← map_add, hφ2, map_zero]⟩, hiso⟩
+  · obtain ⟨ιe, P, Q', κ, hBC, hiso, hκ⟩ := descend_main hST hR hTD hRep Q (Or.inr (Or.inr h))
+    obtain ⟨φ, hφ, hφ2⟩ := h
+    exact ⟨ιe, P, Q', hBC, ⟨κ φ, com_of P κ hκ φ hφ, by rw [← map_mul, hφ2, map_neg, map_ofNat]⟩,
+      hiso⟩
+
 end Glue2
 
 end LeafQCheck
 
 end HDec.HSyn.G0Split.FibreQM.PeriodMapH
+
+#print axioms HDec.HSyn.G0Split.FibreQM.PeriodMapH.LeafQCheck.cmDescends_of

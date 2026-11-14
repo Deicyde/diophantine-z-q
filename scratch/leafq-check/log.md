@@ -53,3 +53,13 @@ Y3Connected 97479, ValenceBoundGammaStar 113443, CMDescends 114469, GammaStarGen
 - `ThetaRatiosAlgebraic.lean`, `X6ConicModel.lean`, `Y3Connected.lean`, `CMDescends.lean` (import TailK;
   docstring + body verbatim in `<ns>.LeafQCheckCopy`, `copy_iff : copy ↔ chain Prop := Iff.rfl`): each
   exit 0 (4-5 s) via chk.sh.
+
+## CMDescends: REDUCED (VERIFIED, compiled over the chain)
+- `CMDescendsGlue.lean` (import TailK): `cmDescends_of : STQM → T11b_Rigidity → TorsionDescends →
+  LeafAdopt.R1R2fpRep → CMDescends`, axioms standard, 7 s.
+  - `STQM` (LEAF, Shimura–Taniyama): QM surface over ℂ with CM (HasCM4/3/24) ≅ A₀ ×_{ℚ̄,ιe} ℂ as abelian varieties.
+  - `TorsionDescends` (LEAF, textbook; also provable from T5 + injectivity): torsion ℂ-points of A₀_ℂ come
+    from unique ℚ̄-points.
+  - glue: ι₀ = endBC⁻¹ ∘ conj_e ∘ ι (T11b gives endBC bijective), level η₀(a) = ι₀(a)·v₀ with v₀ the
+    descent of e'(η(1)), Q' from R1fp's naturality clause, Q'.A ≅ A₀_ℂ by the pullback property +
+    rigidity (`isMonHom_of_geometricallyIntegral`), CM transported by the ring hom κ.
