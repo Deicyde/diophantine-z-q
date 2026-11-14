@@ -264,3 +264,34 @@ run_cmd do
         all := all.push s!"{mi.getD "?"} {c} ({fs.size} fields): {un}"
   IO.FS.writeFile "scratch/one-proof/unused-all.txt" ("\n".intercalate (all.qsort (· < ·)).toList ++ "\n")
   logInfo m!"PRUNE bundles with unused fields: {all.size}"
+  -- the prune set: everything the unused top fields feed (all of it is unused too)
+  let mut fwd : Std.HashMap Node (Array Node) := {}
+  for (dst, srcs) in st.edges.toList do
+    for src in srcs do fwd := fwd.insert src ((fwd.getD src #[]).push dst)
+  let mut reach : Std.HashSet Node := {}
+  let mut q : Array Node := #[]
+  for s in tops do
+    let fs := fieldNames env s
+    for j in [:fs.size] do
+      if !used.contains (.field s j) then
+        reach := reach.insert (.field s j)
+        q := q.push (.field s j)
+  while !q.isEmpty do
+    let n := q.back!
+    q := q.pop
+    for d in fwd.getD n #[] do
+      if !reach.contains d then
+        reach := reach.insert d
+        q := q.push d
+  let mut ps : Array String := #[]
+  for n in reach.toList do
+    match n with
+    | .field s j =>
+      let mi := (env.getModuleIdxFor? s).map (fun i => toString env.header.modules[i.toNat]!.module)
+      ps := ps.push s!"FIELD {mi.getD "?"} {s}.{(fieldNames env s)[j]!}"
+    | .const c =>
+      if isOneProofModule env c then
+        let mi := (env.getModuleIdxFor? c).map (fun i => toString env.header.modules[i.toNat]!.module)
+        ps := ps.push s!"CONST {mi.getD "?"} {c}{if used.contains n then " (USED!)" else ""}"
+  IO.FS.writeFile "scratch/one-proof/prune-set.txt" ("\n".intercalate (ps.qsort (· < ·)).toList ++ "\n")
+  logInfo m!"PRUNE prune set: {ps.size} entries"
