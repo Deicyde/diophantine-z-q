@@ -2,3 +2,5 @@
 # Assemble ModelGlue.lean: scratch/vert-witness/VertWitness.lean (verbatim, whole file) + ModelGlue.lean.part.
 cd "$(dirname "$0")"
 cat ../vert-witness/VertWitness.lean ModelGlue.lean.part > ModelGlue.lean
+# ModelGlue2.lean: extra import of the proved Möbius curve facts, then the same + step 2.
+{ echo "import ZInQKernel.Contrib.Mobius.Main"; cat ../vert-witness/VertWitness.lean ModelGlue.lean.part ModelGlue2.lean.part; } > ModelGlue2.lean

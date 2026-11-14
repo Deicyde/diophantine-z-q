@@ -18,3 +18,20 @@ Layout: `ModelGlue.lean` = `scratch/vert-witness/VertWitness.lean` (whole file, 
 - composites `modelCoordinateGlue_of_parts`, `heckeVertWitness_of_parts`.
 - All 7 `#print axioms`: [propext, Classical.choice, Quot.sound]. No sorry in the part file.
 - cmp: ModelGlue.lean lines 1-2140 = scratch/vert-witness/VertWitness.lean: identical.
+
+## Step 2 (21:29) — VERIFIED (ModelGlue2.lean: lake env lean exit 0, ~50 s; compile2_out.txt)
+`ModelGlue2.lean` = `import ZInQKernel.Contrib.Mobius.Main` + VertWitness.lean (verbatim; cmp of
+lines 2-2141: identical) + ModelGlue.lean.part + ModelGlue2.lean.part.
+- glue `ModelGenericFibre` (textbook: base change of 𝒴 to ℚ, proper smooth curve S, j : S → 𝒴
+  bijective on ℚ̄-points).
+- `coordFibres_val_eq (hT : TwistClassFinite) (hG : ModelGenericFibre) (hM) (hCM) (hρ) (hρ') y :
+  ρ.val y = ρ'.val y` — Möbius rigidity on ℚ̄-points, from the proved `LeafQM.AV.Pin.curveFacts`
+  (argument of `Pin.mobiusGlue_of_curveFacts` on S; finiteness of fibres from leaf clause 4 +
+  TwistClassFinite).
+- glue `GermOfQbarValues` (Jacobson density: equal ℚ̄-values ⇒ equal germs at η on integral 𝒴).
+- glue `ModelFunctionFieldExists` (∃ one ρ₀ with CoordFibres and κ(ρ₀) = X).
+- `modelFunctionField_of : TwistClassFinite → ModelGenericFibre → GermOfQbarValues →
+  ModelFunctionFieldExists → ModelFunctionField`;
+  `modelComparison_of_parts (hT : ObjBridge.TorsionStructure) (hI) (hG) (hJ) (hE) : ModelComparison`;
+  `heckeVertWitness_of_parts₂`.
+- All 11 `#print axioms`: [propext, Classical.choice, Quot.sound].

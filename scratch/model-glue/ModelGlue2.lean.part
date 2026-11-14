@@ -1,0 +1,194 @@
+
+/-! ════════════════════════════════════════════════════════════════════════════════════════════
+# model-glue, step 2: Möbius rigidity for `CoordFibres` (needs `ZInQKernel.Contrib.Mobius.Main`)
+
+`ModelGlue2.lean` = `import ZInQKernel.Contrib.Mobius.Main` + `VertWitness.lean` (verbatim) +
+`ModelGlue.lean.part` + this part. `ModelFunctionField` is reduced to
+`ModelFunctionFieldExists` (one coordinate with the function-field property), the textbook glue
+`ModelGenericFibre` (base change to `ℚ`) and `GermOfQbarValues` (Jacobson density), using the
+proved curve facts `LeafQM.AV.Pin.curveFacts` and `TwistClassFinite` (from the leaf T5).
+════════════════════════════════════════════════════════════════════════════════════════════ -/
+
+noncomputable section
+
+namespace ModelGlue
+
+open Polynomial CategoryTheory AlgebraicGeometry Limits LeafQM.AV VertWitness HeckeRestNV
+open LeafQM.AV.Pin G0ModField PropTSRed PropTSGlue
+
+/-- **Textbook glue: the generic fibre** (base change; STANDARD: properness and smoothness of
+relative dimension `1` are stable under base change, and `ℚ̄`-points of `𝒴 ×_{ℤ_(p)} ℚ` are the
+`ℚ̄`-points of `𝒴`, since `Hom(ℤ_(p), ℚ̄)` is a singleton; EGA II 5.4.2, EGA IV 17.3.3, locators
+UNVERIFIED; not proved here). For a proper smooth curve `𝒴` over `ℤ_(p)` there is a proper smooth
+curve `S` over `ℚ` with `j : S → 𝒴` inducing a bijection on `ℚ̄`-points. -/
+def ModelGenericFibre : Prop :=
+  ∀ (p : ℕ) [Fact p.Prime] (𝒴 : Over (Spec (CommRingCat.of (Zloc p)))),
+    IsProper 𝒴.hom → SmoothOfRelativeDimension 1 𝒴.hom →
+    ∃ (S : Over (Spec (CommRingCat.of ℚ))) (j : S.left ⟶ 𝒴.left),
+      IsProper S.hom ∧ SmoothOfRelativeDimension 1 S.hom ∧
+      (∀ y : Spec (CommRingCat.of Qbar) ⟶ 𝒴.left, ∃ s : fieldPt Qbar ⟶ S, s.left ≫ j = y) ∧
+      ∀ s s' : fieldPt Qbar ⟶ S, s.left ≫ j = s'.left ≫ j → s = s'
+
+/-- **Möbius rigidity of `CoordFibres` on `ℚ̄`-points** (compiled, from the proved curve facts
+`curveFacts`, `TwistClassFinite`, `ModelGenericFibre` and the leaf's clauses): two maps
+`ρ, ρ' : 𝒴 → P¹` with `CoordFibres` take the same value at every `ℚ̄`-point. (The argument of
+`Pin.mobiusGlue_of_curveFacts`, on the generic fibre: `ρ' = R ∘ ρ` with `R` injective on `ℚ̄`,
+so Möbius, fixing `0, ∞, −16/27`.) -/
+theorem coordFibres_val_eq (hT : TwistClassFinite) (hG : ModelGenericFibre) {p : ℕ}
+    [Fact p.Prime] {𝒴 : Over (Spec (CommRingCat.of (Zloc p)))} {𝒜 : QMFamily 𝒴.left}
+    (hM : IsShimuraModel p 𝒴 𝒜) (hCM : CMObjectsExist) {ρ ρ' : ToP1 𝒴.left}
+    (hρ : CoordFibres 𝒴 𝒜 ρ) (hρ' : CoordFibres 𝒴 𝒜 ρ')
+    (y : Spec (CommRingCat.of Qbar) ⟶ 𝒴.left) : ρ.val y = ρ'.val y := by
+  obtain ⟨S, j, hprop, hsm, hpts, hinjpt⟩ := hG p 𝒴 hM.1 hM.2.1
+  obtain ⟨-, -, hfib, hinjM, hsurjM, -, -, -⟩ := hM
+  set σ : ToP1 S.left := ρ.comp j
+  set σ' : ToP1 S.left := ρ'.comp j
+  have hσ : ∀ s : fieldPt Qbar ⟶ S, σ.val (K := Qbar) s.left = ρ.val (s.left ≫ j) :=
+    fun s => ToP1.val_comp_right ρ j s.left
+  have hσ' : ∀ s : fieldPt Qbar ⟶ S, σ'.val (K := Qbar) s.left = ρ'.val (s.left ≫ j) :=
+    fun s => ToP1.val_comp_right ρ' j s.left
+  have hP : ∀ s : fieldPt Qbar ⟶ S, ∃ P : QML3 Qbar, IsFibreOf 𝒜 (s.left ≫ j) P :=
+    fun s => hfib Qbar (s.left ≫ j)
+  choose Pof hPof using hP
+  -- the two maps have the same fibres
+  have hrel : ∀ s₁ s₂ : fieldPt Qbar ⟶ S, σ.val (K := Qbar) s₁.left = σ.val (K := Qbar) s₂.left
+      ↔ σ'.val (K := Qbar) s₁.left = σ'.val (K := Qbar) s₂.left := by
+    intro s₁ s₂
+    rw [hσ, hσ, hσ', hσ', (hρ _ _ _ _ (hPof s₁) (hPof s₂)).1, (hρ' _ _ _ _ (hPof s₁) (hPof s₂)).1]
+  -- CM points on `S`
+  have hcm : ∀ P : QML3 Qbar, ∃ s : fieldPt Qbar ⟶ S, IsFibreOf 𝒜 (s.left ≫ j) P := by
+    intro P
+    obtain ⟨y, hy⟩ := hsurjM P
+    obtain ⟨s, hs⟩ := hpts y
+    exact ⟨s, hs ▸ hy⟩
+  obtain ⟨⟨P₄, c₄⟩, ⟨P₃, c₃⟩, ⟨P₂, c₂⟩⟩ := hCM
+  obtain ⟨y₄, f₄⟩ := hcm P₄
+  obtain ⟨y₃, f₃⟩ := hcm P₃
+  obtain ⟨y₂, f₂⟩ := hcm P₂
+  have σ₄ : σ.val (K := Qbar) y₄.left = OnePoint.some 0 := by
+    rw [hσ]; exact (hρ _ _ _ _ f₄ f₄).2.1 c₄
+  have π₄ : σ'.val (K := Qbar) y₄.left = OnePoint.some 0 := by
+    rw [hσ']; exact (hρ' _ _ _ _ f₄ f₄).2.1 c₄
+  have σ₃ : σ.val (K := Qbar) y₃.left = OnePoint.infty := by
+    rw [hσ]; exact (hρ _ _ _ _ f₃ f₃).2.2.1 c₃
+  have π₃ : σ'.val (K := Qbar) y₃.left = OnePoint.infty := by
+    rw [hσ']; exact (hρ' _ _ _ _ f₃ f₃).2.2.1 c₃
+  have σ₂ : σ.val (K := Qbar) y₂.left = OnePoint.some (-16 / 27) := by
+    rw [hσ]; exact (hρ _ _ _ _ f₂ f₂).2.2.2 c₂
+  have π₂ : σ'.val (K := Qbar) y₂.left = OnePoint.some (-16 / 27) := by
+    rw [hσ']; exact (hρ' _ _ _ _ f₂ f₂).2.2.2 c₂
+  -- finite fibres
+  have hmkinj : Function.Injective (fun s : fieldPt Qbar ⟶ S => M3.mk (Pof s)) := by
+    intro s s' h
+    exact hinjpt s s' (hinjM _ _ _ _ (hPof s) (hPof s') h)
+  have hfin : ∀ s : fieldPt Qbar ⟶ S, {s' : fieldPt Qbar ⟶ S |
+      σ.val (K := Qbar) s'.left = σ.val (K := Qbar) s.left}.Finite := by
+    intro s
+    refine ((hT (Pof s)).preimage (Set.injOn_of_injective hmkinj)).subset ?_
+    intro s' hs'
+    have e : σ.val (K := Qbar) s.left = σ.val (K := Qbar) s'.left := hs'.symm
+    rw [hσ, hσ] at e
+    exact ⟨Pof s', rfl, ((hρ _ _ _ _ (hPof s) (hPof s')).1).1 e⟩
+  obtain ⟨y₀, -⟩ := hcm P₄
+  have hsurj := curveFacts.2 S hprop hsm ⟨y₀⟩ σ hfin
+  obtain ⟨F, G, hcop, hFG⟩ := curveFacts.1 S hprop hsm σ σ' (fun s₁ s₂ h => (hrel s₁ s₂).1 h)
+  have hinj : ∀ s t : Qbar, Mob.ratEval F G s = Mob.ratEval F G t → s = t := by
+    intro s t hst
+    obtain ⟨ys, hys⟩ := hsurj (OnePoint.some s)
+    obtain ⟨yt, hyt⟩ := hsurj (OnePoint.some t)
+    have e : σ'.val (K := Qbar) ys.left = σ'.val (K := Qbar) yt.left := by
+      rw [hFG ys s hys, hFG yt t hyt, hst]
+    have := (hrel ys yt).2 e
+    rw [hys, hyt] at this
+    exact OnePoint.coe_injective this
+  have hdeg := Mob.natDegree_le_one_of_injective hcop hinj
+  have hpole : ∀ t, Mob.ratEval F G t ≠ OnePoint.infty := by
+    intro t ht
+    obtain ⟨yt, hyt⟩ := hsurj (OnePoint.some t)
+    have e : σ'.val (K := Qbar) yt.left = σ'.val (K := Qbar) y₃.left := by
+      rw [hFG yt t hyt, ht, π₃]
+    have := (hrel yt y₃).2 e
+    rw [hyt, σ₃] at this
+    exact OnePoint.coe_ne_infty t this
+  have h0 : Mob.ratEval F G 0 = OnePoint.some 0 := by rw [← hFG y₄ 0 σ₄, π₄]
+  have hc : Mob.ratEval F G (-16 / 27) = OnePoint.some (-16 / 27) := by
+    rw [← hFG y₂ _ σ₂, π₂]
+  have hid := Mob.ratEval_eq_self hdeg.1 hpole h0 (by norm_num) hc
+  -- conclusion on `S`, then on `𝒴`
+  have hS : ∀ s : fieldPt Qbar ⟶ S, σ'.val (K := Qbar) s.left = σ.val (K := Qbar) s.left := by
+    intro s
+    by_cases hinf : σ.val (K := Qbar) s.left = OnePoint.infty
+    · rw [hinf, ← π₃]
+      exact (hrel s y₃).1 (by rw [hinf, σ₃])
+    · obtain ⟨t, ht⟩ := OnePoint.ne_infty_iff_exists.mp hinf
+      rw [← ht, hFG s t ht.symm, hid t]
+  obtain ⟨s, rfl⟩ := hpts y
+  have e := hS s
+  rw [hσ, hσ'] at e
+  exact e.symm
+
+/-- **Glue (Jacobson density on the model; not proved).** On an integral proper smooth curve `𝒴`
+over `ℤ_(p)`, two maps to `P¹` with the same value at every `ℚ̄`-point have the same germ at the
+generic point. (The generic fibre `𝒴_ℚ = 𝒴[1/p]` is a nonempty open of finite type over `ℚ`,
+hence Jacobson, so the closed points (all `ℚ̄`-points up to `Gal(ℚ̄/ℚ)`) are dense in
+`ρ.U ∩ ρ'.U ∩ 𝒴_ℚ`; there `ρ.f − ρ'.f` vanishes at every closed point, so it is zero on the
+reduced scheme `𝒴`; Stacks 01P4, 00GA, locators UNVERIFIED.) -/
+def GermOfQbarValues : Prop :=
+  ∀ (p : ℕ) [Fact p.Prime] (𝒴 : Over (Spec (CommRingCat.of (Zloc p)))),
+    IsProper 𝒴.hom → SmoothOfRelativeDimension 1 𝒴.hom → ∀ (_ : IsIntegral 𝒴.left)
+    (ρ ρ' : ToP1 𝒴.left), (∀ y : Spec (CommRingCat.of Qbar) ⟶ 𝒴.left, ρ.val y = ρ'.val y) →
+    ∀ (hη : genericPoint 𝒴.left ∈ ρ.U) (hη' : genericPoint 𝒴.left ∈ ρ'.U),
+      𝒴.left.presheaf.germ ρ.U (genericPoint 𝒴.left) hη ρ.f =
+        𝒴.left.presheaf.germ ρ'.U (genericPoint 𝒴.left) hη' ρ'.f
+
+/-- **Glue (b2'), one coordinate with the function-field property** (route GR; not proved;
+strictly weaker than `ModelFunctionField`: one `ρ₀` instead of every `ρ`). Given the smooth model
+(integral), CM objects, a triple with R1fp, R1hecke, R2fp and `E` with the chart, some `ρ₀` with
+`CoordFibres`, defined at `η`, has `κ(ρ₀) = X` for a surjection `κ : ℚ(𝒴) → E`. (`ρ₀` is the
+coordinate of `ModelCoordinateResidue`; `κ` is `ℚ(𝒴) = ℚ(𝒴_ℚ) ≅ ℚ(Y) = Frac B = E` through the
+isomorphism `𝒴_ℚ ≅ Y` given by `R1univProps`, and `κ(ρ₀) = π ∘ g` is `X` by the rigidity above
+applied on `Y`; docs/research/vert-witness.md §4.3 (b).) -/
+def ModelFunctionFieldExists : Prop :=
+  ∀ (p : ℕ) [Fact p.Prime], 324 < p →
+    ∀ (𝒴 : Over (Spec (CommRingCat.of (Zloc p)))) (𝒜 : QMFamily 𝒴.left), IsShimuraModel p 𝒴 𝒜 →
+    CMObjectsExist →
+    ∀ (Y : Over (Spec (CommRingCat.of ℚ))) (Φ : PtEquiv Y) (π : ToP1 Y.left),
+      R1fpProps Y Φ → R1heckeProps Y Φ → R2fpProps Y Φ π →
+    ∀ (_ : IsIntegral 𝒴.left),
+    ∀ (E : Type) [Field E] [Algebra (RatFunc ℚ) E] [Algebra ℚ[X] E]
+      [IsScalarTower ℚ[X] (RatFunc ℚ) E] [FiniteDimensional (RatFunc ℚ) E]
+      [IsGalois (RatFunc ℚ) E], NormalizationModel Y π E →
+      ∃ ρ₀ : ToP1 𝒴.left, CoordFibres 𝒴 𝒜 ρ₀ ∧ ∃ hη : genericPoint 𝒴.left ∈ ρ₀.U,
+        ∃ κ : 𝒴.left.functionField →+* E, Function.Surjective κ ∧
+          κ (𝒴.left.presheaf.germ ρ₀.U (genericPoint 𝒴.left) hη ρ₀.f) = algebraMap ℚ[X] E X
+
+/-- **`ModelFunctionField` from the finer glue** (compiled; Möbius rigidity `coordFibres_val_eq`). -/
+theorem modelFunctionField_of (hT : TwistClassFinite) (hG : ModelGenericFibre)
+    (hJ : GermOfQbarValues) (hE : ModelFunctionFieldExists) : ModelFunctionField := by
+  intro p _ hp 𝒴 𝒜 hM hCM Y Φ π h1 hh h2 hI ρ hρ hη E _ _ _ _ _ _ hN
+  obtain ⟨ρ₀, hρ₀, hη₀, κ, hκs, hκX⟩ := hE p hp 𝒴 𝒜 hM hCM Y Φ π h1 hh h2 hI E hN
+  refine ⟨κ, hκs, ?_⟩
+  rw [hJ p 𝒴 hM.1 hM.2.1 hI ρ ρ₀ (coordFibres_val_eq hT hG hM hCM hρ hρ₀) hη hη₀]
+  exact hκX
+
+/-- **`ModelComparison` from the finer glue and the leaf T5** (compiled). -/
+theorem modelComparison_of_parts (hT : ObjBridge.TorsionStructure) (hI : ModelIntegral)
+    (hG : ModelGenericFibre) (hJ : GermOfQbarValues) (hE : ModelFunctionFieldExists) :
+    ModelComparison :=
+  modelComparison_of hI (modelFunctionField_of (twistClassFinite hT) hG hJ hE)
+
+/-- **`HeckeVertWitness` from the leaves and the finest glue** (compiled). -/
+theorem heckeVertWitness_of_parts₂ (hL : ShimuraGoodReduction) (hRR : R1R2fp)
+    (hSR : SmoothFibreReduced) (hT : ObjBridge.TorsionStructure) (hD : ModelCoordinateResidue)
+    (hI : ModelIntegral) (hG : ModelGenericFibre) (hJ : GermOfQbarValues)
+    (hE : ModelFunctionFieldExists) : HeckeVertWitness :=
+  heckeVertWitness_of_parts hL hRR hSR hD hI (modelFunctionField_of (twistClassFinite hT) hG hJ hE)
+
+end ModelGlue
+
+end
+
+#print axioms ModelGlue.coordFibres_val_eq
+#print axioms ModelGlue.modelFunctionField_of
+#print axioms ModelGlue.modelComparison_of_parts
+#print axioms ModelGlue.heckeVertWitness_of_parts₂

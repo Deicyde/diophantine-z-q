@@ -1,0 +1,418 @@
+scratch/model-glue/ModelGlue2.lean:961:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/model-glue/ModelGlue2.lean:962:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/model-glue/ModelGlue2.lean:964:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/model-glue/ModelGlue2.lean:967:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/model-glue/ModelGlue2.lean:982:2: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/model-glue/ModelGlue2.lean:989:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/model-glue/ModelGlue2.lean:1035:2: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/model-glue/ModelGlue2.lean:1036:2: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/model-glue/ModelGlue2.lean:1037:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/model-glue/ModelGlue2.lean:1041:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/model-glue/ModelGlue2.lean:1090:25: warning: `Prime.not_unit` has been deprecated: Use `Prime.not_isUnit` instead
+scratch/model-glue/ModelGlue2.lean:1114:2: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/model-glue/ModelGlue2.lean:1115:2: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/model-glue/ModelGlue2.lean:1116:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/model-glue/ModelGlue2.lean:1120:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/model-glue/ModelGlue2.lean:1122:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/model-glue/ModelGlue2.lean:1125:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/model-glue/ModelGlue2.lean:1127:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/model-glue/ModelGlue2.lean:1130:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/model-glue/ModelGlue2.lean:1131:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/model-glue/ModelGlue2.lean:1169:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/model-glue/ModelGlue2.lean:1178:6: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/model-glue/ModelGlue2.lean:1186:8: warning: `IsLocalization.map_comap` has been deprecated: Use `IsLocalization.map_under` instead
+
+Hint: Replace the deprecated name:
+  IsLocalization.map_c̵o̵m̵a̵p̵u̲n̲d̲e̲r̲
+scratch/model-glue/ModelGlue2.lean:1208:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/model-glue/ModelGlue2.lean:1316:2: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/model-glue/ModelGlue2.lean:1327:2: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/model-glue/ModelGlue2.lean:1333:2: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/model-glue/ModelGlue2.lean:1334:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/model-glue/ModelGlue2.lean:1542:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/model-glue/ModelGlue2.lean:1561:2: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/model-glue/ModelGlue2.lean:1582:2: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/model-glue/ModelGlue2.lean:1700:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/model-glue/ModelGlue2.lean:1709:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/model-glue/ModelGlue2.lean:1757:2: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/model-glue/ModelGlue2.lean:1758:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/model-glue/ModelGlue2.lean:1803:14: warning: `IsLocalization.AtPrime.comap_maximalIdeal` has been deprecated: Use `IsLocalization.AtPrime.under_maximalIdeal` instead
+
+Hint: Replace the deprecated name:
+  I̵s̵L̵o̵c̵a̵l̵i̵z̵a̵t̵i̵o̵n̵.̵A̵t̵P̵r̵i̵m̵e̵.̵c̵o̵m̵a̵p̵_̵m̵a̵x̵i̵m̵a̵l̵I̵d̵e̵a̵l̵I̲s̲L̲o̲c̲a̲l̲i̲z̲a̲t̲i̲o̲n̲.̲A̲t̲P̲r̲i̲m̲e̲.̲u̲n̲d̲e̲r̲_̲m̲a̲x̲i̲m̲a̲l̲I̲d̲e̲a̲l̲
+scratch/model-glue/ModelGlue2.lean:1857:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/model-glue/ModelGlue2.lean:1858:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/model-glue/ModelGlue2.lean:1859:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/model-glue/ModelGlue2.lean:1892:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/model-glue/ModelGlue2.lean:1899:2: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/model-glue/ModelGlue2.lean:1901:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/model-glue/ModelGlue2.lean:1929:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/model-glue/ModelGlue2.lean:1930:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/model-glue/ModelGlue2.lean:1938:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/model-glue/ModelGlue2.lean:1939:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/model-glue/ModelGlue2.lean:2073:2: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/model-glue/ModelGlue2.lean:2083:2: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+'HeckeRestNV.heckeNoVertRam_of_local' depends on axioms: [propext, Classical.choice, Quot.sound]
+'VertWitness.vertLocalWitness_of_gauss' depends on axioms: [propext, Classical.choice, Quot.sound]
+'VertWitness.cmObjectsExist_of_R1R2fp' depends on axioms: [propext, Classical.choice, Quot.sound]
+'VertWitness.vertUnramWitness_of_gauss' depends on axioms: [propext, Classical.choice, Quot.sound]
+'VertWitness.heckeVertWitness_of_gauss' depends on axioms: [propext, Classical.choice, Quot.sound]
+'VertWitness.heckeVertWitness_of_goodReduction' depends on axioms: [propext, Classical.choice, Quot.sound]
+'VertWitness.heckeNoVertRam_of_goodReduction' depends on axioms: [propext, Classical.choice, Quot.sound]
+'VertWitness.vertGaussWitness_of_DVR' depends on axioms: [propext, Classical.choice, Quot.sound]
+'VertWitness.dvr_of_maximalIdeal_eq_span' depends on axioms: [propext, Classical.choice, Quot.sound]
+'VertWitness.specialFibreDVR_of_uniformizer' depends on axioms: [propext, Classical.choice, Quot.sound]
+'VertWitness.modelGaussGlue_of' depends on axioms: [propext, Classical.choice, Quot.sound]
+'VertWitness.heckeVertWitness_of_goodReduction'' depends on axioms: [propext, Classical.choice, Quot.sound]
+'VertWitness.heckeVertWitness_of_goodReduction''' depends on axioms: [propext, Classical.choice, Quot.sound]
+'VertWitness.intPolyAlg_eq_eval₂' depends on axioms: [propext, Classical.choice, Quot.sound]
+'VertWitness.modelCoordinateGlue_of' depends on axioms: [propext, Classical.choice, Quot.sound]
+'VertWitness.heckeVertWitness_of_goodReduction₃' depends on axioms: [propext, Classical.choice, Quot.sound]
+'VertWitness.natCast_mem_nonZeroDivisors_stalk' depends on axioms: [propext, Classical.choice, Quot.sound]
+'VertWitness.specialFibreUniformizer_of_maxIdeal' depends on axioms: [propext, Classical.choice, Quot.sound]
+'VertWitness.maximalIdeal_eq_map_of_mem_minimalPrimes' depends on axioms: [propext, Classical.choice, Quot.sound]
+'VertWitness.specialFibreMaxIdeal_of' depends on axioms: [propext, Classical.choice, Quot.sound]
+'VertWitness.heckeVertWitness_of_maxIdeal' depends on axioms: [propext, Classical.choice, Quot.sound]
+'VertWitness.heckeVertWitness_of_leaves' depends on axioms: [propext, Classical.choice, Quot.sound]
+scratch/model-glue/ModelGlue2.lean:2311:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/model-glue/ModelGlue2.lean:2326:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+'ModelGlue.intCast_mem_maximalIdeal_iff' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ModelGlue.mem_maximalIdeal_iff_of_transcendental' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ModelGlue.modelCoordinate_of_residue' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ModelGlue.stalk_embedding_of_functionField' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ModelGlue.modelComparison_of' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ModelGlue.modelCoordinateGlue_of_parts' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ModelGlue.heckeVertWitness_of_parts' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ModelGlue.coordFibres_val_eq' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ModelGlue.modelFunctionField_of' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ModelGlue.modelComparison_of_parts' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ModelGlue.heckeVertWitness_of_parts₂' depends on axioms: [propext, Classical.choice, Quot.sound]
