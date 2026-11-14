@@ -9,3 +9,16 @@
 - 07:01 base build done (`lake build +ZInQKernel.OneProof.Main`, exit 0; the chain LPrefix..TailO was rebuilt since
   kernel modules it imports were out of date, ~15 min). DumpCompact (copy in scratch/leaf-fold7/) before any change:
   8594 OneProof constants hashed -> hashes_before.txt; frozenTarget axioms standard.
+- 07:05-07:40 side modules compiled one at a time with `lake build ZInQKernel.OneProof.H.TailX` for X = P (av-glue,
+  20 s), Q (av-split, with the kernel module FrobChain.Rigidity imported in place of its verbatim MulRigidity copy,
+  27 s), R (curve-split, 12 s), S+T (hodge-split halves, 71 s), U (qm-split over the chain, 57 s), W (mcr-glue
+  parts 1-3 over the chain, 11 s): all exit 0 at the first try.
+- TailV (hodge transports): FiniteImageHT, SenTwist, R14Det, T23 accepted by unfolding (GaloisRep/GaloisChar
+  converted field by field). R10 (`DeRhamComparisonHT`) timed out at whnf (4M heartbeats): the chain's
+  `PkgI4.I3.AbVar.galRep` and G9's are on Tate modules with separately defined `Module ℤ_[p]` instances; the
+  predicates `IsDeRhamOver`/`htMultOver` agree for the same representation (Iff.rfl, fast), but the two `galRep`s do
+  not unify in reasonable time. r10 left unfolded for now.
+- TailX (bundles, `sixContactMin_of_open7`) compiled at the first try; Main switched to it.
+  `lake build +ZInQKernel.OneProof.Main`: exit 0; `#print axioms ZInQ.OneProof.frozenTarget`: propext,
+  Classical.choice, Quot.sound. DumpCompact after: 9934 constants; cmp_hashes.py: 0 removed, 1 changed
+  (frozenTarget itself, the statement change), 1340 new, all in TailP-TailX (cmp_hashes_out.txt).
