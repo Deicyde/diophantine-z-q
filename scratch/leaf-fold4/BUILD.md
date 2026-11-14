@@ -1,17 +1,26 @@
-# leaf-fold3: how Leaves3.lean is built
+# leaf-fold4: how Leaves4.lean is built
 
-parts/ is leaf-fold2's parts/ (already the output of leaf-fold2's scripts mk_parts.py ... mk_unifdims.py,
-see scratch/leaf-fold2/BUILD.md; those scripts are copied here for the record and need not be re-run).
+This directory is leaf-fold3's build (scratch/leaf-fold3/BUILD.md) plus the steps below. parts/ and partsF/c10-c85
+are leaf-fold3's outputs (c80 regenerated, step 1).
 
-Order (run from scratch/leaf-fold3):
-1. `python3 mk_g7bound.py`  g0-assemble3's G7Data bound `[L:ℚ] ≤ D` in parts 75, z85, z86 (run once on leaf-fold2's parts)
-2. `python3 mk_lf3.py`      partsF/c10, c20, c40, c50, c60, c70, c75 and LF3Cot.lean.src (c30, d90 are hand-written)
-3. `python3 mk_propts.py`   partsF/c80_propts.lean (Prop. TS: prop-ts, prop-ts-glue, ts-kummer, kummer-comp, hecke-rest)
-4. `python3 mk_ltlocal.py`  partsF/c85_ltlocal.lean (lt-local, unram-roots, frob-pieces; deduplicated against the chain)
-5. `./assemble.sh`          olean/*.lean chain sources and the flat file Leaves3.lean (runs mk_prefix.py: issue #2 items)
+Order (run from scratch/leaf-fold4):
+1. `python3 mk_propts.py`     partsF/c80_propts.lean, re-run on the merged hecke-rest/HeckeRestAll.lean (final version,
+                               which proves ChartProper and ChartQuasiFinite). partsF/d90_fold3.lean: the one call of
+                               `coverModelOfHecke_of_heckeRest` adjusted by hand (hP, hQ dropped).
+2. `python3 mk_periodglue.py` partsF/c90_periodglue.lean (period-map's parts light/theta/siegel/order/heavy, period-glue's
+                               BCU, QMTwist, PiTwist, S8, W8, SFA, final_part; uses mk_propts_walk.py = mk_propts.py's walk())
+3. partsF/d95_fold4.lean      hand-written (bundles OpenTextbookLeaves4, OpenAddedLeaves4, OpenGlue4 and
+                               sixContactMin_of_open4); `python3 mk_d95_glue.py` was run once on the draft to insert
+                               gluePieces_of_open4 (from d90's gluePieces_of_open3) and tatePairingZl_of_leaves4 /
+                               detTate_of_leaves4; do not re-run it on the current file.
+4. `./assemble.sh`            olean/*.lean chain sources (new: LF4T5 = scratch/t5-torsion/T5Full.lean verbatim, TailJ = c90,
+                               TailK = d95) and the flat file Leaves4.lean.
 
-Check: `./chain.sh` compiles the olean chain LPrefix → TailA-D → LF2Stalks, LF2UnifRoot, LF2SmoothDim,
-LF2UnramConj, LF3Cot → TailE → TailF → TailG → TailH → TailI (one Lean process at a time; `./chain.sh TailF`
-restarts from a module). Or the flat file: `lake env lean scratch/leaf-fold3/Leaves3.lean` (one process).
-Build first: `lake build` of the modules in the `import` lines of olean/LPrefix.lean, olean/TailE.lean and
-olean/TailF.lean (kernel Contrib T14, T28, RLeaf, Mobius, Dim, HodgeBC2, TwistDescent, FrobPieces, TauCeti LocalField).
+Build first (one Lean process): `lake build` of the modules in the `import ZInQKernel…` lines of olean/*.lean
+(as leaf-fold3, plus Contrib.ZariskiConn.Basic, Contrib.SpreadOut.NumberField, Contrib.RLeaf.T40 and the imports of
+scratch/t5-torsion/T5Full.lean). Contrib.RLeaf.T40 needs t40-clash's fix of the Tau Ceti Backport Units file (merged).
+
+Check: `./chain.sh` compiles LPrefix → TailA-D → LF2Stalks, LF2UnifRoot, LF2SmoothDim, LF2UnramConj, LF3Cot → TailE →
+TailF → TailG → TailH → TailI → LF4T5 → TailJ → TailK (`./chain.sh TailJ` restarts from a module), then
+`./ctail.sh Check4.lean` (conclusion is the kernel's `ZInQ.SixContactMin`; dependency closure). Or the flat file:
+`lake env lean scratch/leaf-fold4/Leaves4.lean` from the repository root (one process, about 18 minutes).

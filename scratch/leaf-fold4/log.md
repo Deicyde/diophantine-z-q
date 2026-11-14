@@ -46,3 +46,12 @@
 - 18:35 merged origin/wip/t40-clash (46595da1; report present; it edits the kernel's Tau Ceti Backport
   Units file only). vert-witness's report (2f557240) read: it reduces HeckeVertWitness to 1 leaf + 3 glue, so it
   is a count variant only (glue 1 -> 3), not folded.
+
+## 18:51-18:58 T40 fold, VERIFIED
+- `lake build ZInQKernel.Contrib.RLeaf.T40` after the t40-clash merge: builds. The chain's oleans stayed valid (no
+  chain import depends on the Backport Units file).
+- d95: field `t40 : X1Belyi.X1RationalCusp` replaced by `x0Transitive : ZInQ.RLeaf.X0Transitive`;
+  `t40_of_x0Transitive4 := ZInQ.RLeaf.x1RationalCusp_of_x0Transitive` (accepted for the chain's X1RationalCusp copy).
+  TailK 14 s, 0 errors, 18 axiom lines standard. Check4: closure 183 500, contains x1RationalCusp_of_x0Transitive,
+  no sorryAx. Same count (66).
+- Flat run 2 started 18:58 (Leaves4.lean md5 e7ec3222a537…, 118 476 lines; header now imports Contrib.RLeaf.T40).

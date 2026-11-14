@@ -29,7 +29,7 @@ The hypotheses are 66 named Props; none is an `opaque` placeholder.
 | bundle | fields | kind |
 |---|---|---|
 | `OpenResearchLeaves2` | 26 | research-level leaves (unchanged since leaf-fold2) |
-| `OpenTextbookLeaves4` | 19 | textbook leaves (leaf-fold3's 20 without T26) |
+| `OpenTextbookLeaves4` | 19 | textbook leaves (leaf-fold3's 20 without T26; T40 replaced by `X0Transitive`) |
 | `OpenAddedLeaves4` | 20 | leaves introduced by reductions: 13 LEAF, 7 LEAF? |
 | `OpenGlue4` | 1 | glue to be proved by the project: `HeckeVertWitness` |
 
@@ -91,13 +91,18 @@ the parallel task vert-witness is working on it.
   taken from T5 (`T5Torsion.TateFree.tate_surj_of_torsionStructure`), and `gluePieces_of_open4` is leaf-fold3's
   `gluePieces_of_open3` with `detTate_of_leaves4` in its place (`mk_d95_glue.py`, the replacements listed there) (−1).
 
+- `t40` (T40) is replaced by its kernel source `X0Transitive` (t40-igusa): after merging t40-clash (which
+  removes the duplicate Tau Ceti lemmas from the Backport `Units` file), `ZInQKernel.Contrib.RLeaf.T40` imports
+  next to the chain, and `t40_of_x0Transitive4` is the kernel's `ZInQ.RLeaf.x1RationalCusp_of_x0Transitive`
+  (same count; the leaf is now the more basic published statement).
+
 **How the kernel's theorems are used over the chain's copies.** The chain's structures are copies inside
 `namespace HDec` (`HDec.PkgI3.AbVar`, `HDec.LeafQM.O`, …), nominally different from the kernel's. Lean
 accepted every one of the following by definitional unfolding, with no proof work (VERIFIED, TailK): the kernel's
 `autOInnerFinite` (over `_root_.LeafQM.O`) as this file's `AutOInnerFinite`; `leafSkolemNoether`;
 `properSmoothGenConnected_of_zariskiConnectedness` as `FrobPiecesNeron.ProperSmoothGenConnected` (both over
 Mathlib only); `NF.abVarSpreadsOut_of_ega … (toAbVarK4 B)` as `AbVarSpreadsOut … B`; T5 and T26 across the
-two `PkgI2`/`PkgI3` copies. The dependency closure check (§5) confirms the kernel constants are the ones used.
+two `PkgI2`/`PkgI3` copies; `x1RationalCusp_of_x0Transitive` as this file's `X1Belyi.X1RationalCusp`. The dependency closure check (§5) confirms the kernel constants are the ones used.
 
 ### 1.2 Count variants
 
@@ -153,7 +158,7 @@ task" names the last task that changed the field's statement or role. SPEC = tru
 | `h5fin : ZInQ.DefFaltings.StableHeightFinite` | H5, finiteness half (stable Faltings height) | h5-glue | no |
 
 
-### 2.2 `OpenTextbookLeaves4` (19, all LEAF; leaf-fold3's 20 without `t26`)
+### 2.2 `OpenTextbookLeaves4` (19, all LEAF; leaf-fold3's 20 without `t26`, with `t40` replaced by `x0Transitive`)
 
 | field | content and source | last task | SPEC |
 |---|---|---|---|
@@ -174,7 +179,7 @@ task" names the last task that changed the field's statement or role. SPEC = tru
 | `t34 : LeafModCurves.DimJ1Genus` | T34, `dim J₁(N) = genus` | leaf-modcurves | no |
 | `t35 : ZInQ.LeafPush2.UniformizationExists` | T35, `A(ℂ) ≅ ℂ^g/Λ` | leaf-push2 | no |
 | `t38 : X1Belyi.CurveOfFunctionFieldQ` | T38, curves from function fields | x1-belyi | no |
-| `t40 : X1Belyi.X1RationalCusp` | T40, `K_N` has a degree-one place. In the kernel it follows from `X0Transitive` (Galois transitive on the cyclic subgroups of order `N` of the generic `E_j`, i.e. `X₀(N)` irreducible over `ℚ(j)`; t40-igusa), which could replace it (§1.1: Tau Ceti import clash) | x1-belyi, rleaf-elliptic, t40-igusa | no |
+| `x0Transitive : ZInQ.RLeaf.X0Transitive` | `X₀(N)` irreducible over `ℚ(j)`: Galois is transitive on the cyclic subgroups of order `N` of the generic `E_j` (Lang, *Elliptic functions* Ch. 5 §2 Thm 3; Cox Thm 11.18; Shimura 1971 §6.1; t40-igusa). Replaces T40 (`X1Belyi.X1RationalCusp`, `K_N` has a degree-one place), now the kernel's theorem `ZInQ.RLeaf.x1RationalCusp_of_x0Transitive` (`t40_of_x0Transitive4`), importable since t40-clash | t40-igusa, t40-clash; folded by leaf-fold4 | no |
 | `t41 : ZInQ.H5Neron.NeronModelExists` | T41, Néron models exist (BLR) | h5-neron | no |
 
 
@@ -224,7 +229,7 @@ The 65 leaves (26 + 19 + 20) fall into nine groups. Counts are of bundle fields.
 | **D. Faltings 1983 and Faltings heights** (Faltings; Gaudron–Rémond; Bost; Pazuki; Javanpeykar) | 8 | `r9a`, `r9b`, `r18`, `r19`, `r20`, `r21`, `r22`, `h5fin` |
 | **E. p-adic Hodge theory** (Faltings 1988; Tate 1967; Sen 1980; Fontaine; Berger; Pan) | 6 | `r10`, `r11r12`, `r13`, `t23`, `senTwist`, `finiteImageHT` |
 | **F. Galois representations of modular forms** (Shimura 1971; Deligne 1971; Deligne–Serre; Carayol 1986; Eichler–Shimura) | 5 | `r14`, `r15`, `r16`, `r17`, `t24` |
-| **G. Modular and algebraic curves** (Jacobians; `X₀(N)`, `X₁(N)`; function fields of curves) | 4 | `t33`, `t34`, `t38`, @@T40@@ |
+| **G. Modular and algebraic curves** (Jacobians; `X₀(N)`, `X₁(N)`; function fields of curves) | 4 | `t33`, `t34`, `t38`, `x0Transitive` (T40 from it) |
 | total | **65** | |
 
 So `SixContactMin` follows, by a compiled Lean proof, from these nine bodies of published mathematics and the
@@ -257,12 +262,12 @@ counts) are stale in the same way; leaf-fold4.md §2 is the current list.
 (625 s) → `TailA`-`TailD` → `LF2Stalks`, `LF2UnifRoot`, `LF2SmoothDim`, `LF2UnramConj`, `LF3Cot` → `TailE` →
 `TailF` → `TailG` (c80 with hecke-rest's curve proofs) → `TailH` → `TailI` (leaf-fold3's d90) → `LF4T5`
 (t5-torsion's `T5Full.lean`, root namespace) → `TailJ` (c90, period-map + period-glue) → `TailK` (d95, the
-bundles): every module 0 errors, no `sorry`. The 17 `#print axioms` lines of `TailK` all read
+bundles): every module 0 errors, no `sorry`. The 18 `#print axioms` lines of `TailK` all read
 `[propext, Classical.choice, Quot.sound]` (VERIFIED).
 
 **Kernel conclusion and dependency closure** (`olean/Check4.lean`, 28 s): `example : (∀ r t l g,
 _root_.ZInQ.SixContactMin) := HDec.HSyn.sixContactMin_of_open4` compiles. The closure of
-`HDec.HSyn.sixContactMin_of_open4` has 181 113 constants. It contains `HeckeRestCurve.chartProper`,
+`HDec.HSyn.sixContactMin_of_open4` has 183 500 constants. It contains `ZInQ.RLeaf.x1RationalCusp_of_x0Transitive`, `HeckeRestCurve.chartProper`,
 `chartQuasiFinite_of_proper`, period-glue's `s8Nonzero_proof`, `sphereFactorAffine_proof`,
 `baseChangeClassUnique_proof`, `piTwistC_of`, `qmTwistLattice_of'`, `s8WeightExact_of`, the kernel's
 `LeafQM.AV.Pin.autOInnerFinite`, `TSkolemKW.leafSkolemNoether`,
