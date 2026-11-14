@@ -420,4 +420,110 @@ theorem not_real_root (hl : lam * lam + P * lam + Q = 0) (hP : conj P = P) (hQ :
 
 end Roots
 
+/-! ## §8. The normalized fixed point of an embedding `k → B` -/
+
+/-- The data fixed once and for all: a non-rational root `y` of `X² + PX + Q` (`P, Q ∈ ℤ`) and an
+embedding `σ : k → ℂ`. -/
+structure Gen (k : Type) [Field k] where
+  y : k
+  hy : ∀ r : ℚ, y ≠ r
+  P : ℤ
+  Q : ℤ
+  hq : y * y + P * y + Q = 0
+  σ : k →+* ℂ
+
+section FixedPoint
+
+variable {k : Type} [Field k] [NumberField k] [NumberField.IsTotallyComplex k]
+variable (hk : Module.finrank ℚ k = 2) (G : Gen k)
+
+/-- `λ = σ(y)`. -/
+noncomputable def Gen.lam : ℂ := G.σ G.y
+
+theorem Gen.lam_quad : G.lam * G.lam + (G.P : ℂ) * G.lam + G.Q = 0 := by
+  have := congrArg G.σ G.hq
+  simpa [Gen.lam, map_add, map_mul, map_intCast] using this
+
+include hk in
+theorem Gen.lam_im : G.lam.im ≠ 0 := im_ne_zero_of_gen hk G.hy G.σ
+
+theorem conj_intCast' (n : ℤ) : conj (n : ℂ) = n := by simp
+
+/-- The two entry equations of `ρ(φ y)² + P ρ(φ y) + Q = 0`. -/
+theorem phi_entries (φ : k →ₐ[ℚ] B) :
+    rho (φ G.y) 0 0 * rho (φ G.y) 0 0 + rho (φ G.y) 0 1 * rho (φ G.y) 1 0 +
+        G.P * rho (φ G.y) 0 0 + G.Q = 0 ∧
+      rho (φ G.y) 1 0 * rho (φ G.y) 0 0 + rho (φ G.y) 1 1 * rho (φ G.y) 1 0 +
+        G.P * rho (φ G.y) 1 0 = 0 := by
+  have h := congrArg (fun x => rho (φ x)) G.hq
+  simp only [map_add, map_mul, map_intCast, map_zero] at h
+  have h00 := congrFun (congrFun h 0) 0
+  have h10 := congrFun (congrFun h 1) 0
+  simp [Matrix.mul_apply, Fin.sum_univ_two, Matrix.intCast_apply] at h00 h10
+  exact ⟨by linear_combination h00, by linear_combination h10⟩
+
+include hk in
+theorem phi_c_ne_zero (φ : k →ₐ[ℚ] B) : rho (φ G.y) 1 0 ≠ 0 := by
+  intro hc
+  have h00 := (phi_entries G φ).1
+  rw [hc, mul_zero, add_zero] at h00
+  exact not_real_root G.lam_quad (conj_intCast' _) (conj_intCast' _) (G.lam_im hk) h00
+    (conj_rho _ 0 0)
+
+/-- **The normalized fixed point** `τ_φ = (λ − d)/c` of `ρ(φ(k^×))`. -/
+noncomputable def fpt (φ : k →ₐ[ℚ] B) : ℂ := (G.lam - rho (φ G.y) 1 1) / rho (φ G.y) 1 0
+
+include hk in
+theorem fpt_eig_gen (φ : k →ₐ[ℚ] B) :
+    rho (φ G.y) *ᵥ ![fpt G φ, 1] = G.lam • ![fpt G φ, 1] := by
+  have hc := phi_c_ne_zero hk G φ
+  obtain ⟨e00, e10⟩ := phi_entries G φ
+  have hsum : rho (φ G.y) 0 0 + rho (φ G.y) 1 1 + G.P = 0 := by
+    have : rho (φ G.y) 1 0 * (rho (φ G.y) 0 0 + rho (φ G.y) 1 1 + G.P) = 0 := by
+      linear_combination e10
+    exact (mul_eq_zero.mp this).resolve_left hc
+  rw [eig_iff]
+  unfold fpt
+  constructor
+  · field_simp
+    linear_combination e00 - G.lam_quad + (G.lam - rho (φ G.y) 0 0) * hsum
+  · field_simp
+    ring
+
+include hk in
+theorem fpt_im (φ : k →ₐ[ℚ] B) : (fpt G φ).im ≠ 0 := by
+  intro h
+  have hr : conj (fpt G φ) = fpt G φ := Complex.conj_eq_iff_im.mpr h
+  have h2 := ((eig_iff _ _ _).mp (fpt_eig_gen hk G φ)).2
+  apply G.lam_im hk
+  apply Complex.conj_eq_iff_im.mp
+  rw [← h2]
+  simp only [map_add, map_mul, conj_rho, hr]
+
+include hk in
+theorem fpt_unique (φ : k →ₐ[ℚ] B) {τ : ℂ} (h : rho (φ G.y) *ᵥ ![τ, 1] = G.lam • ![τ, 1]) :
+    τ = fpt G φ := by
+  have hc := phi_c_ne_zero hk G φ
+  have h2 := ((eig_iff _ _ _).mp h).2
+  unfold fpt
+  field_simp
+  linear_combination h2
+
+include hk in
+/-- `ρ(φ x)(τ_φ, 1)ᵀ = σ(x)(τ_φ, 1)ᵀ` for every `x ∈ k`. -/
+theorem fpt_eig (φ : k →ₐ[ℚ] B) (x : k) :
+    rho (φ x) *ᵥ ![fpt G φ, 1] = G.σ x • ![fpt G φ, 1] := by
+  obtain ⟨r, t, rfl⟩ := exists_rat_repr hk G.hy x
+  have hφ : φ ((r : k) + t * G.y) = algebraMap ℚ B r + t • φ G.y := by
+    rw [map_add, map_mul, ← map_ratCast (algebraMap ℚ k) r, AlgHom.commutes,
+      ← map_ratCast (algebraMap ℚ k) t, AlgHom.commutes, Algebra.smul_def]
+    simp
+  rw [hφ, map_add, map_smul, AlgHom.commutes, add_mulVec, smul_mulVec, fpt_eig_gen hk G φ,
+    Algebra.algebraMap_eq_smul_one, smul_mulVec, one_mulVec]
+  have hσ : G.σ ((r : k) + t * G.y) = (r : ℂ) + (t : ℂ) * G.lam := by
+    simp [Gen.lam, map_ratCast]
+  rw [hσ, add_smul, mul_smul, Rat.cast_smul_eq_qsmul, Rat.cast_smul_eq_qsmul]
+
+end FixedPoint
+
 end ZInQ.HeightGlue.QM
