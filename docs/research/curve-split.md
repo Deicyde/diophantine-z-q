@@ -2,7 +2,7 @@
 
 Task curve-split (2026-11-14). Base: `cba8157f` (fork main after w54 and frontier r3).
 Lean files: `scratch/curve-split/` (`X0Split.lean`, `CurvesGSplit.lean`, `CurveBij.lean`,
-`GenusBound.lean`); results log `scratch/curve-split/log.md`. Every Lean claim below was compiled
+`GenusBound.lean`, `ShimuraGR.lean`); results log `scratch/curve-split/log.md`. Every Lean claim below was compiled
 with `lake env lean` on Lean 4.35.0 / Mathlib v4.35.0, and `#print axioms` reports only `propext`,
 `Classical.choice`, `Quot.sound` (VERIFIED). Theorem numbers of printed sources are from memory
 and UNVERIFIED (no network) unless a locator file is cited.
@@ -48,7 +48,7 @@ No row statement was changed, and no row was found false or vacuous.
 | H-79 `GenusX1Field` | GLUE (lit-composite: Shimura Prop. 6.9, Prop. 1.40, base change of `H⁰(Ω¹)`) | the row itself: none possible today (no `Γ₁(N)\ℍ*` in Lean). For its only use (`dim J₁(N) ≤ N²`): `CurveSplit.RiemannHurwitzQj` (Stichtenoth Thm 3.4.13 with Dedekind's different theorem 3.5.1, the genus as holomorphic differentials) and `CurveSplit.FundamentalIdentityQj` (Stichtenoth Thm 3.1.11 at `j = 0, 1728, ∞`), with `X0Transitive` (H-41) and the kernel's `DimJacobianEqGenus` | none (`BelyiGenusBound` and the uniformizers proved) | `CurveSplit.dimJ1Le_of_rh_fi`, `CurveSplit.belyiGenusBound_of_rh_fi`, `CurveSplit.exists_uniformizer`, `CurveSplit.genusX1Le_of_belyi`, `CurveSplit.genusX1Le_of_genusX1Field` (`GenusBound.lean`) |
 | H-81 `NormalCurveSmoothQ` | GLUE (Stacks 00TV, 0B8X) | `CurveSplit.RegularSmoothPerfect` (Stacks 00TV: a finite type algebra over a perfect field is smooth at a prime with regular local ring) | none | `CurveSplit.normalCurveSmoothQ_of_regularSmooth` (`CurvesGSplit.lean`) |
 | H-82 `GeomConnectedOfConstantFieldQ` | GLUE (`Γ(X,𝒪) = ℚ`, Stacks 0FD1) | `ZariskiConn.ZariskiConnectedness` (kernel; EGA III₁ 4.3.1 with 4.3.4) | none | `CurveSplit.geomConnectedOfConstantFieldQ_of_zariski` (`CurvesGSplit.lean`) |
-| H-83 `ShimuraGoodReduction` | GLUE (lit-composite: Morita, Carayol, Kottwitz, Buzzard) | none possible today (no abelian schemes over a base) | see §3.6 | none |
+| H-83 `ShimuraGoodReduction` | GLUE (lit-composite: Morita, Carayol, Kottwitz, Buzzard) | none possible today (no abelian schemes over a base) | see §3.6; the guard clause is redundant | `CurveSplit.shimuraGoodReduction_of_noGuard : R1R2fp → ShimuraGoodReductionNoGuard → ShimuraGoodReduction` (`ShimuraGR.lean`) |
 | H-85 `CurveBijIso` | GLUE (generic smoothness and a degree count) | **none** (Mathlib only). Also proved from published leaves: (a) `CurveSplit.BijToNormalIsIso` (Springer, *LAG* Cor. 5.2.8), (b) `CurveSplit.DegreeGeneralFibre` (Humphreys §4.6) with `CurveSplit.ZMTOriginal` (Mumford *Red Book* III §9; proved: `CurveSplit.zmtOriginal`) | none | **`CurveSplit.curveBijIso`** (no hypotheses); also `curveBijIso_of_leaf`, `curveBijIso_of_degree`, `curveBijIso_of_zmt` (`CurveBij.lean`) |
 
 ## 3. The rows
@@ -318,6 +318,13 @@ pitfall the task forbids ("abstract structures invented for the purpose").
 * the guard follows from surjectivity and the existence of one object over `ℚ̄` (for example
   `CMObjectsExist`, derived from `R1R2fp`).
 
+In Lean (`ShimuraGR.lean`, the row and its dependencies copied verbatim): the guard clause is
+redundant. `isShimuraModel_iff` shows `IsShimuraModel ↔ IsShimuraModelNoGuard` once one object over
+`ℚ̄` exists, and one exists by the kernel's bundle leaf `R1R2fp` (via the copied
+`cmObjectsExist_of_R1R2fp`). So `shimuraGoodReduction_of_noGuard : R1R2fp →
+ShimuraGoodReductionNoGuard → ShimuraGoodReduction`, and the published-form leaf, once stated,
+needs no guard.
+
 The review recorded in `docs/research/vert-witness.md` §6.1 judged the Lean form a weaker
 consequence of representability, and that review stands. The remaining human check, from the
 frontier, is whether the cited theorems cover level 3 at `3 ∣ D`. Kottwitz needs only `K_p`
@@ -330,9 +337,10 @@ hyperspecial at `p ≠ 3`, so it should; this is UNVERIFIED.
 | `scratch/curve-split/X0Split.lean` | H-41 from `IgusaSL2X` / `IgusaGL2` | compiled, standard axioms |
 | `scratch/curve-split/CurvesGSplit.lean` | H-81 from `RegularSmoothPerfect`; H-82 from `ZariskiConnectedness` | compiled, standard axioms |
 | `scratch/curve-split/CurveBij.lean` | `CurveBijIso` (verbatim); Part A (descent), Part B (leaf (a)), Part B' (ZMT and the degree formula), Part C (`zmtOriginal`), Part D (`curveBijIso`, no leaf) | compiled, standard axioms |
+| `scratch/curve-split/ShimuraGR.lean` | H-83 copied (verbatim); guard clause redundant given `R1R2fp` | compiled, standard axioms |
 | `scratch/curve-split/GenusBound.lean` | H-79 consumers: `GenusX1Le`, `DimJ1Le`, `BelyiGenusBound` from Riemann–Hurwitz and the fundamental identity, `exists_uniformizer` | compiled, standard axioms |
 
-All four files import only `ZInQKernel/` modules (built with `lake build` for the imported
+All five files import only `ZInQKernel/` modules (built with `lake build` for the imported
 modules) and Mathlib. No scratch file imports another. `CurveBij.lean` contains copies of two
 lemmas of `scratch/curve-glue/CIproof.lean.part` (`isDomain_of_dim_one`,
 `irreducibleComponent_eq_of_isDomain_stalk`).
