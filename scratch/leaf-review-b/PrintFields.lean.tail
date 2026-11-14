@@ -1,0 +1,28 @@
+
+/-! leaf-review-b: appended to `scratch/leaf-fold3/Leaves3.lean` by `run_check.sh`.
+Prints, for each field of the four open bundles, its type (full names) and the body of the
+head definition of that type. -/
+
+open Lean Elab Command Meta in
+elab "#lrb_fields " n:ident : command => do
+  let env ← getEnv
+  let some info := getStructureInfo? env n.getId | throwError "no structure {n.getId}"
+  for f in info.fieldNames do
+    let proj := n.getId ++ f
+    let some ci := env.find? proj | continue
+    liftTermElabM do
+      let msg ← forallTelescope ci.type fun _ body => do
+        let hd ← forallTelescope body fun _ b => pure b.getAppFn
+        let mut m := m!"FIELD {f} : {body}"
+        if let some c := hd.constName? then
+          if let some (.defnInfo d) := env.find? c then
+            m := m ++ m!"\nHEAD {c} ({d.levelParams}) :=\n{d.value}"
+        pure m
+      logInfo msg
+
+set_option pp.fullNames true
+set_option pp.universes true
+set_option pp.proofs true
+#lrb_fields HDec.HSyn.OpenTextbookLeaves3
+#lrb_fields HDec.HSyn.OpenResearchLeaves2
+#lrb_fields HDec.HSyn.OpenAddedLeaves3
