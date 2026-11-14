@@ -13,6 +13,14 @@ rev = "v4.35.0"
 name = "z_in_q"
 path = "lean"
 
+# Tau Ceti (TauCetiProject/TauCeti, Apache-2.0) at a fork commit that ports it to this
+# repository's Mathlib (v4.35.0): its upstream commit 5a01f5fe plus the compatibility edits and
+# backports listed in the commit message (Deicyde/TauCeti, branch z-in-q-v4.35.0).
+[[require]]
+name = "TauCeti"
+git = "https://github.com/Deicyde/TauCeti"
+rev = "86b925445ee0dd6b6fa26d67fc45cfeb6fcdc60f"
+
 [[lean_lib]]
 name = "ZInQKernel"
 

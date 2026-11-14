@@ -3,6 +3,18 @@
  "packagesDir": ".lake/packages",
  "packages": [
   {
+   "url": "https://github.com/Deicyde/TauCeti",
+   "type": "git",
+   "subDir": null,
+   "scope": "",
+   "rev": "86b925445ee0dd6b6fa26d67fc45cfeb6fcdc60f",
+   "name": "TauCeti",
+   "manifestFile": "lake-manifest.json",
+   "inputRev": "86b925445ee0dd6b6fa26d67fc45cfeb6fcdc60f",
+   "inherited": false,
+   "configFile": "lakefile.toml"
+  },
+  {
    "type": "path",
    "scope": "",
    "name": "z_in_q",
