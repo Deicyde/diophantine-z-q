@@ -242,9 +242,9 @@ run_cmd do
       -- the field's type, read off its projection function
       let ty ← match env.find? (s ++ fs[j]!) with
         | some ci => do
-          let mut t := ci.type
-          while t.isForall do t := t.bindingBody!
-          let fmt ← liftTermElabM <| Meta.ppExpr (if t.hasLooseBVars then ci.type else t)
+          let mut ft := ci.type
+          while ft.isForall do ft := ft.bindingBody!
+          let fmt ← liftTermElabM <| Meta.ppExpr (if ft.hasLooseBVars then ci.type else ft)
           pure ((toString fmt).replace "\n" " ")
         | none => pure "?"
       lines := lines.push s!"{if isUsed then "USED  " else "UNUSED"} {fs[j]!} : {ty}"
