@@ -156,4 +156,73 @@ theorem lValOne_one_eq : ZInQ.Contrib.TYZDecomp.lValOne 1 =
   push_cast
   norm_num
 
+/-! ## §4. Numerical bounds for `exp` -/
+
+theorem exp_neg_le_of {y c : ℝ} (hc : 0 < c) (h : c ≤ Real.exp y) : Real.exp (-y) ≤ 1 / c := by
+  rw [Real.exp_neg, inv_eq_one_div]; exact one_div_le_one_div_of_le hc h
+
+theorem exp_nat_ge (k : ℕ) : (2.718 : ℝ) ^ k ≤ Real.exp k := by
+  have h1 := Real.exp_one_gt_d9
+  have : Real.exp (k : ℝ) = Real.exp 1 ^ k := by rw [← Real.exp_nat_mul]; ring_nf
+  rw [this]
+  exact pow_le_pow_left₀ (by norm_num) (by linarith) k
+
+theorem exp_quad_ge {y : ℝ} (hy : 0 ≤ y) : 1 + y + y ^ 2 / 2 ≤ Real.exp y :=
+  Real.quadratic_le_exp_of_nonneg hy
+
+theorem pi_gt' : (3.14 : ℝ) < π := Real.pi_gt_d2
+theorem pi_lt' : π < (3.15 : ℝ) := Real.pi_lt_d2
+
+/-- `e^{−π} ≤ 1/20`. -/
+theorem exp_neg_pi_le : Real.exp (-π) ≤ 1 / 20 := by
+  have h := exp_nat_ge 3
+  have : Real.exp 3 ≤ Real.exp π := Real.exp_le_exp.mpr (by linarith [pi_gt'])
+  refine exp_neg_le_of (by norm_num) ?_
+  push_cast at h; nlinarith
+
+/-- `e^{−π/4} ≤ 0.48`. -/
+theorem exp_neg_pi_div_four_le : Real.exp (-(π / 4)) ≤ 0.48 := by
+  have hp := pi_gt'
+  have h := exp_quad_ge (y := π / 4) (by positivity)
+  have : (0.48 : ℝ) = 1 / (1 / 0.48) := by norm_num
+  rw [this]; refine exp_neg_le_of (by norm_num) ?_
+  nlinarith
+
+/-- `e^{−π/16} ≤ 0.83`. -/
+theorem exp_neg_pi_div_sixteen_le : Real.exp (-(π / 16)) ≤ 0.83 := by
+  have hp := pi_gt'
+  have h := exp_quad_ge (y := π / 16) (by positivity)
+  have : (0.83 : ℝ) = 1 / (1 / 0.83) := by norm_num
+  rw [this]; refine exp_neg_le_of (by norm_num) ?_
+  nlinarith
+
+/-- `e^{−9π/16} ≤ 0.18`. -/
+theorem exp_neg_nine_pi_div_sixteen_le : Real.exp (-(9 * π / 16)) ≤ 0.18 := by
+  have hp := pi_gt'
+  have h1 := exp_nat_ge 1
+  have h := exp_quad_ge (y := 9 * π / 16 - 1) (by linarith)
+  have hsplit : Real.exp (9 * π / 16) = Real.exp 1 * Real.exp (9 * π / 16 - 1) := by
+    rw [← Real.exp_add]; ring_nf
+  have : (0.18 : ℝ) = 1 / (1 / 0.18) := by norm_num
+  rw [this]; refine exp_neg_le_of (by norm_num) ?_
+  rw [hsplit]
+  push_cast at h1
+  have hu : (0.766 : ℝ) ≤ 9 * π / 16 - 1 := by linarith
+  have h2 : (2.059 : ℝ) ≤ Real.exp (9 * π / 16 - 1) := by nlinarith
+  nlinarith
+
+/-- `e^{−3π/2} ≤ 1/50`. -/
+theorem exp_neg_three_pi_div_two_le : Real.exp (-(3 * π / 2)) ≤ 1 / 50 := by
+  have h := exp_nat_ge 4
+  have : Real.exp 4 ≤ Real.exp (3 * π / 2) := Real.exp_le_exp.mpr (by linarith [pi_gt'])
+  refine exp_neg_le_of (by norm_num) ?_
+  push_cast at h; nlinarith
+
+/-- `e^{−5π/2} ≤ 1/1000`. -/
+theorem exp_neg_five_pi_div_two_le : Real.exp (-(5 * π / 2)) ≤ 1 / 1000 := by
+  have h := exp_nat_ge 7
+  have : Real.exp 7 ≤ Real.exp (5 * π / 2) := Real.exp_le_exp.mpr (by linarith [pi_gt'])
+  refine exp_neg_le_of (by norm_num) ?_
+  push_cast at h; nlinarith
+
 end ZInQ.Contrib.TYZLcal
