@@ -132,3 +132,14 @@ after `lake build ZInQKernel.Contrib.R10.Amend ZInQKernel.Contrib.AbVarBC.Dim` (
 - PROVED `isDeRhamOver_iff_tensor_dual` (B_dR ⊗ V^∨ ≅ Hom(V, B_dR) via dualTensorHomEquiv, equivariant),
   `finiteDimensional_of_decomp`, `deRhamComparisonHT_of_leavesT : HodgeTateDecompAbVar → TateTwistInvariants
   → AxSenTate → DeRhamH1AbVarT → DeRhamComparisonHT`. COMPILED 11-14, standard axioms. VERIFIED.
+
+## H-51 closed: `senTwist_of_tate : TateTwistInvariants → AxSenTate → G0Galois.SenTwist` (HodgeSplit.lean §16)
+- Route over G_E (E finite Galois ⊇ entries, ψ values) with coordinate spaces
+  Ysp ρ i K = {y ∈ ℂ_pⁿ | ρ(σ)ᵀ y = χ(σ)^i σ(y), σ ∈ G_K} (K-subspaces):
+  (T) `Ysp_linearIndependent` (Tate–Sen minimal-relation argument, Tate + Ax–Sen–Tate for K);
+  `Ysp_finiteDimensional` (dim_K ≤ n); `exists_basis_Ysp` (Σ dim = n ⇒ union of K-bases is a ℂ_p-basis);
+  (B) `finrank_htSpace_eq_Ysp` (Dedekind coordinates `LamC` bijective via linearIndependent_monoidHom + ℂ_p-dims;
+  `LamC_mem_iff`; conjugation iso `finrank_Ysp_rhoTau`; descent_finrank) and `htMult_eq_finrank_Ysp`;
+  (X) `exists_twist_scalar` (σ(β) = ψ(σ)⁻¹ χ(σ)^s β on G_E); (M) `finrank_Ysp_twist`.
+- No Sen operator and no glue: the open glue S1/S2 of the earlier reduction are bypassed (S3 still proved).
+- COMPILED 11-14 (whole HodgeSplit.lean 42 s), standard axioms. VERIFIED.
