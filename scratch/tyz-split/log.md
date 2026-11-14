@@ -22,3 +22,15 @@
   `Q d ∈ A(K_d)^-` and the vanishing clause), glue proved, `tyzThm33Pinned_of_tyzThm33`,
   `tyzThm35ReadingA_of_printedThm33`. Compiled 07:40: 0 errors, no sorry; axioms
   [propext, Classical.choice, Quot.sound] (VERIFIED, output `T11.out`).
+
+## T-5 (`Shimura.ShimuraReciprocityModFn`)
+- Lean `scratch/tyz-split/T5.lean`: moduli coordinates `modCoord N τ` (j and elementary symmetric
+  functions of Weber values `h(k/N)`, over Mathlib's `PeriodPair.weierstrassP`, `g₂`, `g₃`);
+  GLUE `CMModuli` (CM part), GLUE `X0RatStructure` (modular-curve part, no CM);
+  `shimuraReciprocityModFn_of_split : CMModuli → X0RatStructure → ShimuraReciprocityModFn`.
+  Compiled 07:25: 0 errors, no sorry, axioms [propext, Classical.choice, Quot.sound] (VERIFIED).
+- No printed form of Shimura reciprocity (Shimura 1971 Thm 5.4 / Thm 6.31, Gross 1984 §3) is
+  statable over current Lean definitions: 5.4 needs the idelic Artin map `[s,K]` on `K^ab` and the
+  action of finite ideles on lattices of `K`; 6.31 also needs Shimura's `τ : GL₂(𝔸_f) → Aut(𝔉)`;
+  Gross's form needs `X₀(N)` as a curve over `ℚ`. (Tau Ceti in the kernel has a global class
+  formation with `absoluteArtinMap`, so `[s,K]` is definable in principle; not attempted.)
