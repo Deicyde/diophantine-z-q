@@ -135,4 +135,98 @@ theorem exists_eq_of_commute {β b : B} (hβ : ∀ r : ℚ, β ≠ (r : B)) (h :
   · refine ⟨b.re - b.imK / β.imK * β.re, b.imK / β.imK, ?_⟩
     ext <;> simp <;> field_simp <;> linarith
 
+
+/-! ## §5. The imaginary quadratic field: coordinates, lifts, conjugation -/
+
+section Field
+
+variable {k : Type} [Field k] [NumberField k]
+
+/-- Every element of a quadratic field is `r + s y` for a non-rational `y`. -/
+theorem exists_rat_repr (hk : Module.finrank ℚ k = 2) {y : k} (hy : ∀ r : ℚ, y ≠ r) (x : k) :
+    ∃ r s : ℚ, x = r + s * y := by
+  have hli : LinearIndependent ℚ ![(1 : k), y] := by
+    rw [LinearIndependent.pair_iff]
+    intro a t h
+    by_cases ht : t = 0
+    · subst ht
+      simp only [zero_smul, add_zero, smul_eq_zero, one_ne_zero, or_false] at h
+      exact ⟨h, rfl⟩
+    · exfalso
+      apply hy (-a / t)
+      rw [Rat.smul_def, Rat.smul_def, mul_one] at h
+      push_cast
+      field_simp
+      linear_combination h
+  have hsp := hli.span_eq_top_of_card_eq_finrank' (by simp [hk])
+  have hx : x ∈ Submodule.span ℚ (Set.range ![(1 : k), y]) := hsp ▸ Submodule.mem_top
+  have hr : Set.range ![(1 : k), y] = {1, y} := by
+    ext z; simp only [Set.mem_range, Fin.exists_fin_two, Matrix.cons_val_zero, Matrix.cons_val_one,
+      Set.mem_insert_iff, Set.mem_singleton_iff]; tauto
+  rw [hr] at hx
+  obtain ⟨r, t, hrt⟩ := Submodule.mem_span_pair.mp hx
+  exact ⟨r, t, by rw [← hrt, Rat.smul_def, Rat.smul_def, mul_one]⟩
+
+theorem repr_unique {y : k} (hy : ∀ r : ℚ, y ≠ r) {r s r' s' : ℚ}
+    (h : (r : k) + s * y = r' + s' * y) : r = r' ∧ s = s' := by
+  by_cases hs : s = s'
+  · subst hs
+    refine ⟨?_, rfl⟩
+    exact_mod_cast add_right_cancel h
+  · exfalso
+    apply hy ((r' - r) / (s - s'))
+    have hs' : ((s : k) - s') ≠ 0 := by
+      rw [sub_ne_zero]; exact_mod_cast hs
+    push_cast
+    field_simp
+    linear_combination h
+
+variable {A : Type*} [Ring A] [Algebra ℚ A]
+
+/-- **The `ℚ`-algebra map `k → A` sending a non-rational `y` (root of `X² + PX + Q`) to a root `b`
+of the same polynomial.** Built from the basis `(1, y)`. -/
+noncomputable def liftQuad (hk : Module.finrank ℚ k = 2) {y : k} (hy : ∀ r : ℚ, y ≠ r)
+    {P Q : ℚ} (hyq : y * y + P * y + Q = 0) (b : A)
+    (hb : b * b + P • b + algebraMap ℚ A Q = 0) : k →ₐ[ℚ] A :=
+  let x0 : ∀ x : k, ℚ := fun x => (exists_rat_repr hk hy x).choose
+  let x1 : ∀ x : k, ℚ := fun x => (exists_rat_repr hk hy x).choose_spec.choose
+  have hx : ∀ x : k, x = (x0 x : k) + (x1 x : k) * y := fun x =>
+    (exists_rat_repr hk hy x).choose_spec.choose_spec
+  have hcoord : ∀ (x : k) (r s : ℚ), x = (r : k) + s * y → x0 x = r ∧ x1 x = s := fun x r s h =>
+    repr_unique hy ((hx x).symm.trans h)
+  let F : k → A := fun x => algebraMap ℚ A (x0 x) + x1 x • b
+  have hF : ∀ r s : ℚ, F ((r : k) + s * y) = algebraMap ℚ A r + s • b := fun r s => by
+    obtain ⟨h0, h1⟩ := hcoord _ r s rfl
+    simp only [F, h0, h1]
+  { toFun := F
+    map_one' := by
+      have : (1 : k) = ((1 : ℚ) : k) + ((0 : ℚ) : k) * y := by push_cast; ring
+      rw [this, hF]; simp
+    map_mul' := fun x x' => by
+      rw [hx x, hx x']
+      set r := x0 x; set s := x1 x; set r' := x0 x'; set s' := x1 x'
+      have e : ((r : k) + s * y) * ((r' : k) + s' * y) =
+          ((r * r' - s * s' * Q : ℚ) : k) + ((r * s' + r' * s - s * s' * P : ℚ) : k) * y := by
+        push_cast; linear_combination (s * s' : k) * hyq
+      rw [e, hF, hF, hF]
+      have hb' : b * b = -(P • b) - Q • (1 : A) := by
+        rw [Algebra.algebraMap_eq_smul_one] at hb
+        rw [← sub_eq_zero, ← hb]; abel
+      simp only [Algebra.algebraMap_eq_smul_one, add_mul, mul_add, smul_mul_assoc, mul_smul_comm,
+        one_mul, mul_one, smul_smul, hb', smul_sub, smul_neg]
+      module
+    map_zero' := by
+      have : (0 : k) = ((0 : ℚ) : k) + ((0 : ℚ) : k) * y := by push_cast; ring
+      rw [this, hF]; simp
+    map_add' := fun x x' => by
+      rw [hx x, hx x']
+      have e : ((x0 x : k) + x1 x * y) + ((x0 x' : k) + x1 x' * y) =
+          ((x0 x + x0 x' : ℚ) : k) + ((x1 x + x1 x' : ℚ) : k) * y := by push_cast; ring
+      rw [e, hF, hF, hF, map_add, add_smul]; abel
+    commutes' := fun r => by
+      have : (algebraMap ℚ k r) = (r : k) + ((0 : ℚ) : k) * y := by simp
+      rw [this, hF]; simp }
+
+end Field
+
 end ZInQ.HeightGlue.QM
