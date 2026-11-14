@@ -61,3 +61,9 @@ Task: `Shimura.ShimuraReciprocityModFn` (tyz-cm, `ZInQKernel/Contrib/TYZGenus/Sh
   2415, 3007, 3135, 3255, 3367, 3471, 3567, 3655, 3927, 4015, 4047, 4071, 4087`.
 * Cross-check against the direct multiplicity count (`class7_crosscheck.out`, 12 values of `n` in
   71…167): 12/12 agree.
+
+## 2026-11-14 01:00 review
+
+* Independent AI review (read-only): `MainTheoremCMj` TRUE, `RatX0Rep` TRUE, singular-point claim
+  SOUND (needs only `x(τ_Q) ∉ ℝ`: `[32,−10,1]` is a different point with the same `(j, j₃₂)`),
+  §1 derivation CORRECT. No blocking finding. Recorded in report §5.

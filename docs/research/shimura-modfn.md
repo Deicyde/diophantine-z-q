@@ -248,3 +248,28 @@ need lower bounds on differences of CM `j`-values.
   (factorization of `J`, multiplicativity of `J ↦ J ∩ O` for ideals prime to `f`, products of
   Artin symbols). The class form stated here is Shimura's standard form, so this passage is
   optional.
+
+## 5. Review
+
+Independent statement review: an AI subagent, read-only, no Lean, 2026-11-14; no human review.
+Questions and verdicts:
+
+1. `MainTheoremCMj`: **TRUE**. The Artin direction is right: `E^{Frob_𝔭} ≅ ℂ/𝔭⁻¹𝔞`, via
+   reduction mod `𝔓` and the purely inseparable isogeny. The orientation of `e` matches `kappa`.
+   The `κ(O)`-stability hypotheses are needed and sufficient: `L'` has the same order as `L`, and
+   `Art_O(𝔟)|_{H_{O'}} = Art_{O'}(𝔟O')`. `c = 0` is impossible because Tau Ceti's
+   `integralIdealsPrimeTo` contains only nonzero ideals. The statement is not vacuous.
+2. `RatX0Rep`: **TRUE**. `isogIdx` is Cox's index set of size `ψ(N)`, and the junk branches of
+   `isogPt` and `scaleH` never occur. `IsIsolated` is exactly "`j(Nτ)` is a simple root".
+3. Singular-point claim: **SOUND**. The reviewer gave an argument that needs only that `x(τ_Q)` is
+   not real. `[32, −10, 1]` gives a different point of `X₀(32)`, because `B mod 2N` is a
+   `Γ₀(N)`-invariant (10 vs 54 mod 64). It has the same `(j, j₃₂) = (255³, 255³)`, and
+   `x(−τ̄) = conj x(τ)` because `x` has a rational `q`-expansion. So no `A/B`, even over `ℂ`, is
+   regular there. Intermediate `j(2^k τ)` do not help either: every lattice in the chain has order
+   `ℤ[√−7]` or `𝓞_K`, both of class number 1, so all their `j`-values are rational.
+4. §1 derivation: **CORRECT**, with no hidden extra strength. The cases where `L_N` has a larger
+   order are covered. Relying on Shimura's theorem rather than Gross's is right for forms such as
+   `[32, 10, 1]` with `f ∣ N`.
+
+Minor point: Cox may state the `j`-part as Thm. 11.36 rather than Cor. 11.37. Both numbers are
+UNVERIFIED and the content is unchanged.
