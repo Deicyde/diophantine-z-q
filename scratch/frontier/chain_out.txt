@@ -1,46 +1,43 @@
 ===== scenario A
 edge check mismatches: 0
-open nodes: 79
-  ALFixedPoints                                 GluePieces5.alFixedPoints
-  CMDescends                                    GluePieces5.cmDescends
-  CMOptimalEmbedding                            GluePieces5.cmOptimalEmbedding
+open nodes: 75
+  ALFixedPoints                                 OpenAddedLeaves4.alFixedPoints
+  CMDescends                                    OpenAddedLeaves4.cmDescends
+  CMOptimalEmbedding                            OpenAddedLeaves4.cmOptimalEmbedding
   CarayolR17'                                   OpenResearchLeaves2.r17
-  CharPolyIndepOfEll                            OpenTextbookLeaves5.t7
-  CurveOfFunctionFieldQ                         OpenTextbookLeaves5.t38
+  CharPolyIndepOfEll                            OpenTextbookLeaves4.t7
+  CurveOfFunctionFieldQ                         OpenTextbookLeaves4.t38
   DeRhamComparisonHT                            OpenResearchLeaves2.r10
   DeligneSerreConseq                            OpenResearchLeaves2.r15
-  DimJ1Genus                                    OpenTextbookLeaves5.t34
-  DivisiblePoints                               GluePieces5.divisiblePoints
-  EGAIV_17_7_8_ii                               GluePieces5.egaIV_17_7_8_ii
-  EGAIV_8_10_5_xii                              GluePieces5.egaIV_8_10_5_xii
-  EGAIV_8_8_2_ii                                GluePieces5.egaIV_8_8_2_ii
+  DimJ1Genus                                    OpenTextbookLeaves4.t34
+  EGAIV_17_7_8_ii                               OpenAddedLeaves4.egaIV_17_7_8_ii
+  EGAIV_8_10_5_xii                              OpenAddedLeaves4.egaIV_8_10_5_xii
+  EGAIV_8_8_2_ii                                OpenAddedLeaves4.egaIV_8_8_2_ii
   EigenformHT                                   OpenResearchLeaves2.r13
-  EigenformTwist                                OpenTextbookLeaves5.t24
+  EigenformTwist                                OpenTextbookLeaves4.t24
   FHNonvanishing                                -
   FaltingsSemisimple                            OpenResearchLeaves2.r9a
   FaltingsTate                                  OpenResearchLeaves2.r9b
-  FiniteImageHT                                 GluePieces5.finiteImageHT
-  GammaStarGen                                  GluePieces5.gammaStarGen
+  FiniteImageHT                                 OpenAddedLeaves4.finiteImageHT
+  GammaStarGen                                  OpenAddedLeaves4.gammaStarGen
   GrossZagierHeegner                            -
   GrothendieckMonodromy                         OpenResearchLeaves2.r8  [never projected]
-  HeckeVertWitness                              GluePieces5.heckeVertWitness
-  HomFreeFinite                                 OpenTextbookLeaves5.t6
-  HomLatticeCorr                                GluePieces5.homLatticeCorr
-  IsogenyQuasiInverse                           GluePieces5.isogenyQuasiInverse
-  JacobianExists                                OpenTextbookLeaves5.t33
+  HeckeVertWitness                              OpenGlue4.heckeVertWitness
+  HomFreeFinite                                 OpenTextbookLeaves4.t6
+  HomLatticeCorr                                OpenTextbookLeaves4.homLatticeCorr
+  IsogenyQuasiInverse                           OpenAddedLeaves4.isogenyQuasiInverse
+  JacobianExists                                OpenTextbookLeaves4.t33
   Lemma318Literal                               -
   Lemma321Five                                  -
-  NeronMappingAbelianScheme                     GluePieces5.neronMappingAbelianScheme
-  NeronModelExists                              OpenTextbookLeaves5.t41
+  NeronMappingAbelianScheme                     OpenTextbookLeaves4.t3
+  NeronModelExists                              OpenTextbookLeaves4.t41
   NeronOggShafarevich                           OpenResearchLeaves2.r7a
   PanBerger                                     OpenResearchLeaves2.r11r12
-  PiTwistC                                      GluePieces5.piTwistC
-  PoincareReducibility                          OpenTextbookLeaves5.t8
-  ProperSmoothGenConnected                      GluePieces5.properSmoothGenConnected
-  QMAutCard                                     GluePieces5.qmAutCard
-  QMClassNumberOne                              GluePieces5.qmClassNumberOne
-  QMDichotomyYu                                 OpenTextbookLeaves5.t27
-  QMHauptmodul                                  GluePieces5.qmHauptmodul
+  PoincareReducibility                          OpenTextbookLeaves4.t8
+  QMAutCard                                     OpenAddedLeaves4.qmAutCard
+  QMClassNumberOne                              OpenAddedLeaves4.qmClassNumberOne
+  QMDichotomyYu                                 OpenTextbookLeaves4.t27
+  QMHauptmodul                                  OpenAddedLeaves4.qmHauptmodul
   R03_LinYang                                   OpenResearchLeaves2.r3  [never projected]
   R14Det                                        OpenResearchLeaves2.r14
   R16_EichlerShimuraJ1'                         OpenResearchLeaves2.r16
@@ -55,72 +52,74 @@ open nodes: 79
   R5fp                                          OpenResearchLeaves2.r5  [never projected]
   R5fpCount                                     OpenResearchLeaves2.r5count
   RaynaudCriterion                              OpenResearchLeaves2.r6
-  ReductionTorsionBijective                     GluePieces5.reductionTorsionBijective
-  SenTwist                                      GluePieces5.senTwist
-  SerreRigidity3                                GluePieces5.serreRigidity3
+  ReductionTorsionBijective                     OpenTextbookLeaves4.t4
+  SenTwist                                      OpenAddedLeaves4.senTwist
+  SerreRigidity3                                OpenAddedLeaves4.serreRigidity3
   SerreTatePotentialGood                        OpenResearchLeaves2.r7b  [never projected]
   ShimuraReciprocityModFn                       -
-  SphereFactorAffine                            GluePieces5.sphereFactorAffine
   StableHeightFinite                            OpenResearchLeaves2.h5fin
-  T09_SymmIsogenyExists                         GluePieces5.t09SymmIsogenyExists
-  T09_WeilPairing                               OpenTextbookLeaves5.t9
-  T10_TateDuality                               OpenTextbookLeaves5.t10  [never projected]
-  T11b_Rigidity                                 OpenTextbookLeaves5.t11b
-  T23_FontaineClosure                           OpenTextbookLeaves5.t23
+  T09_SymmIsogenyExists                         OpenAddedLeaves4.t09SymmIsogenyExists
+  T09_WeilPairing                               OpenTextbookLeaves4.t9
+  T10_TateDuality                               OpenTextbookLeaves4.t10  [never projected]
+  T11b_Rigidity                                 OpenTextbookLeaves4.t11b
+  T23_FontaineClosure                           OpenTextbookLeaves4.t23
   TYZLcalOne                                    -
   TYZLemma29Mod2                                -
   TYZThm11Integral                              -
-  TateModuleFree                                OpenTextbookLeaves5.t26
   ThetaModularity                               OpenResearchLeaves2.r4
-  ThetaRatiosAlgebraic                          GluePieces5.thetaRatiosAlgebraic
+  ThetaRatiosAlgebraic                          OpenAddedLeaves4.thetaRatiosAlgebraic
   Thm35First                                    -
-  TorsionStructure                              OpenTextbookLeaves5.t5
-  UniformizationExists                          OpenTextbookLeaves5.t35
-  ValenceBoundGammaStar                         GluePieces5.valenceBoundGammaStar
-  X1RationalCusp                                OpenTextbookLeaves5.t40
-  X6ConicModel                                  GluePieces5.x6ConicModel
-  Y3Connected                                   GluePieces5.y3Connected
+  TorsionStructure                              OpenTextbookLeaves4.t5
+  UniformizationExists                          OpenTextbookLeaves4.t35
+  ValenceBoundGammaStar                         OpenAddedLeaves4.valenceBoundGammaStar
+  X0Transitive                                  OpenTextbookLeaves4.x0Transitive
+  X6ConicModel                                  OpenAddedLeaves4.x6ConicModel
+  Y3Connected                                   OpenAddedLeaves4.y3Connected
+  ZariskiConnectedness                          OpenAddedLeaves4.zariskiConnectedness
 ===== scenario F
 edge check mismatches: 0
-open nodes: 76
-  ALFixedPoints                                 GluePieces5.alFixedPoints
-  CMDescends                                    GluePieces5.cmDescends
-  CMOptimalEmbedding                            GluePieces5.cmOptimalEmbedding
+open nodes: 78
+  ALFixedPoints                                 OpenAddedLeaves4.alFixedPoints
+  CMDescends                                    OpenAddedLeaves4.cmDescends
+  CMOptimalEmbedding                            OpenAddedLeaves4.cmOptimalEmbedding
   CarayolR17'                                   OpenResearchLeaves2.r17
-  CharPolyIndepOfEll                            OpenTextbookLeaves5.t7
-  CurveOfFunctionFieldQ                         OpenTextbookLeaves5.t38
+  CharPolyIndepOfEllAlgClosed                   -
+  CurveBijIso                                   -
   DeRhamComparisonHT                            OpenResearchLeaves2.r10
   DeligneSerreConseq                            OpenResearchLeaves2.r15
-  DimJ1Genus                                    OpenTextbookLeaves5.t34
-  DivisiblePoints                               GluePieces5.divisiblePoints
-  EGAIV_17_7_8_ii                               GluePieces5.egaIV_17_7_8_ii
-  EGAIV_8_10_5_xii                              GluePieces5.egaIV_8_10_5_xii
-  EGAIV_8_8_2_ii                                GluePieces5.egaIV_8_8_2_ii
+  DimJacobianEqGenus                            -
+  EGAIV_17_7_8_ii                               OpenAddedLeaves4.egaIV_17_7_8_ii
+  EGAIV_8_10_5_xii                              OpenAddedLeaves4.egaIV_8_10_5_xii
+  EGAIV_8_8_2_ii                                OpenAddedLeaves4.egaIV_8_8_2_ii
   EigenformHT                                   OpenResearchLeaves2.r13
-  EigenformTwist                                OpenTextbookLeaves5.t24
+  EigenformTwist                                OpenTextbookLeaves4.t24
   FHNonvanishing                                -
   FaltingsSemisimple                            OpenResearchLeaves2.r9a
   FaltingsTate                                  OpenResearchLeaves2.r9b
-  FiniteImageHT                                 GluePieces5.finiteImageHT
-  GammaStarGen                                  GluePieces5.gammaStarGen
+  FiniteImageHT                                 OpenAddedLeaves4.finiteImageHT
+  GammaStarGen                                  OpenAddedLeaves4.gammaStarGen
+  GenusX1Field                                  -
+  GeomConnectedOfConstantFieldQ                 -
   GrossZagierHeegner                            -
   GrothendieckMonodromy                         OpenResearchLeaves2.r8  [never projected]
-  HeckeVertWitness                              GluePieces5.heckeVertWitness
-  HomFreeFinite                                 OpenTextbookLeaves5.t6
-  HomLatticeCorr                                GluePieces5.homLatticeCorr
-  IsogenyQuasiInverse                           GluePieces5.isogenyQuasiInverse
-  JacobianExists                                OpenTextbookLeaves5.t33
+  HomFreeFiniteAlgClosed                        -
+  HomLatticeCorr                                OpenTextbookLeaves4.homLatticeCorr
+  ImageFactorization                            -
+  IsogenyQuasiInverse                           OpenAddedLeaves4.isogenyQuasiInverse
+  JacobianExists                                OpenTextbookLeaves4.t33
   Lemma318Literal                               -
-  Lemma321Five                                  -
-  NeronMappingAbelianScheme                     GluePieces5.neronMappingAbelianScheme
-  NeronModelExists                              OpenTextbookLeaves5.t41
+  ModelCoordinateResidue                        -
+  NeronMappingAbelianSchemeSurj                 -
   NeronOggShafarevich                           OpenResearchLeaves2.r7a
+  NeronSchemeExtensionExists                    -
+  NormalCurveSmoothQ                            -
+  NormalModelOfFunctionFieldQ                   -
   PanBerger                                     OpenResearchLeaves2.r11r12
-  PoincareReducibility                          OpenTextbookLeaves5.t8
-  QMAutCard                                     GluePieces5.qmAutCard
-  QMClassNumberOne                              GluePieces5.qmClassNumberOne
-  QMDichotomyYu                                 OpenTextbookLeaves5.t27
-  QMHauptmodul                                  GluePieces5.qmHauptmodul
+  PoincareComplement                            -
+  QMAutCard                                     OpenAddedLeaves4.qmAutCard
+  QMClassNumberOne                              OpenAddedLeaves4.qmClassNumberOne
+  QMDichotomyYu                                 OpenTextbookLeaves4.t27
+  QMHauptmodul                                  OpenAddedLeaves4.qmHauptmodul
   R03_LinYang                                   OpenResearchLeaves2.r3  [never projected]
   R14Det                                        OpenResearchLeaves2.r14
   R16_EichlerShimuraJ1'                         OpenResearchLeaves2.r16
@@ -135,36 +134,41 @@ open nodes: 76
   R5fp                                          OpenResearchLeaves2.r5  [never projected]
   R5fpCount                                     OpenResearchLeaves2.r5count
   RaynaudCriterion                              OpenResearchLeaves2.r6
-  ReductionTorsionBijective                     GluePieces5.reductionTorsionBijective
-  SenTwist                                      GluePieces5.senTwist
-  SerreRigidity3                                GluePieces5.serreRigidity3
+  ReductionTorsionBijective                     OpenTextbookLeaves4.t4
+  SenTwist                                      OpenAddedLeaves4.senTwist
   SerreTatePotentialGood                        OpenResearchLeaves2.r7b  [never projected]
+  ShimuraGoodReduction                          -
   ShimuraReciprocityModFn                       -
+  SimpleSurjIsogeny                             -
   StableHeightFinite                            OpenResearchLeaves2.h5fin
-  T09_SymmIsogenyExists                         GluePieces5.t09SymmIsogenyExists
-  T09_WeilPairing                               OpenTextbookLeaves5.t9
-  T10_TateDuality                               OpenTextbookLeaves5.t10  [never projected]
-  T11b_Rigidity                                 OpenTextbookLeaves5.t11b
-  T23_FontaineClosure                           OpenTextbookLeaves5.t23
-  TYZLcalOne                                    -
+  T09_SymmIsogenyExists                         OpenAddedLeaves4.t09SymmIsogenyExists
+  T10_TateDuality                               OpenTextbookLeaves4.t10  [never projected]
+  T11bExists                                    -
+  T23_FontaineClosure                           OpenTextbookLeaves4.t23
   TYZLemma29Mod2                                -
   TYZThm11Integral                              -
+  TYZThm33Pinned                                -
   ThetaModularity                               OpenResearchLeaves2.r4
-  ThetaRatiosAlgebraic                          GluePieces5.thetaRatiosAlgebraic
-  Thm35First                                    -
-  TorsionStructure                              OpenTextbookLeaves5.t5
-  UniformizationExists                          OpenTextbookLeaves5.t35
-  ValenceBoundGammaStar                         GluePieces5.valenceBoundGammaStar
-  X0Transitive                                  -
-  X6ConicModel                                  GluePieces5.x6ConicModel
-  Y3Connected                                   GluePieces5.y3Connected
-  ZariskiConnectedness                          -
-def-text comparison (proved/reduced Prop vs assemble-port's def; edges on the F route only):
-  X1RationalCusp                      identical
-  SphereFactorAffine                  identical
-  PiTwistC                            identical
-  ProperSmoothGenConnected            identical
-  TateModuleFree                      identical
+  ThetaRatiosAlgebraic                          OpenAddedLeaves4.thetaRatiosAlgebraic
+  TorsionStructure                              OpenTextbookLeaves4.t5
+  UniformizationExists                          OpenTextbookLeaves4.t35
+  ValenceBoundGammaStar                         OpenAddedLeaves4.valenceBoundGammaStar
+  X0Transitive                                  OpenTextbookLeaves4.x0Transitive
+  X6ConicModel                                  OpenAddedLeaves4.x6ConicModel
+  Y3Connected                                   OpenAddedLeaves4.y3Connected
+  ZariskiConnectedness                          OpenAddedLeaves4.zariskiConnectedness
+def-text comparison (proved/reduced Prop vs leaf-fold4's def; edges on the F route only):
+  HomFreeFinite                       identical
+  CharPolyIndepOfEll                  identical
+  PoincareReducibility                identical
+  T09_WeilPairing                     identical
+  SerreRigidity3                      identical
+  T11b_Rigidity                       identical
+  CurveOfFunctionFieldQ               identical
+  DimJ1Genus                          identical
+  NeronMappingAbelianScheme           identical
+  NeronModelExists                    identical
+  HeckeVertWitness                    identical
 route T inputs and kernel leaf copies (def text vs g0-assemble3, and pairwise):
   LinkedTateLocal      3d1b90b5:scratch/lt-local/LtLocal4.lean: identical
   G7Data               3d1b90b5:scratch/lt-local/LtLocal4.lean: identical
@@ -180,6 +184,13 @@ route T inputs and kernel leaf copies (def text vs g0-assemble3, and pairwise):
   CharPolyIndepOfEll   HEAD:ZInQKernel/HDecomp/Objects.lean: identical
   TateBridge35         60340bed:scratch/frob-pieces/FrobPiecesFull.lean vs 3d1b90b5:scratch/lt-local/LtLocal4.lean: identical
   UnramRoots           b066d686:scratch/unram-roots/UnramRoots.lean vs 3d1b90b5:scratch/lt-local/LtLocal4.lean: identical
-doc rows: 70 (70 distinct heads); F open minus never-projected: 70
+  SmoothFibreReduced   82abd02c:ZInQKernel/Contrib/SmoothFibre/Statement.lean vs HEAD:scratch/vert-witness/VertWitness.lean: identical
+  ModelCoordinate      c6231df7:scratch/model-glue/ModelGlue6.lean vs HEAD:scratch/vert-witness/VertWitness.lean: identical
+  ModelComparison      c6231df7:scratch/model-glue/ModelGlue6.lean vs HEAD:scratch/vert-witness/VertWitness.lean: identical
+  ShimuraGoodReduction c6231df7:scratch/model-glue/ModelGlue6.lean vs HEAD:scratch/vert-witness/VertWitness.lean: identical
+  Lemma321Five         521eacc0:scratch/tyz-321/L321.lean vs HEAD:scratch/frontier/TYZChain.lean: identical
+  ShimuraReciprocityModFn HEAD:ZInQKernel/Contrib/TYZGenus/ShimuraModFn.lean vs HEAD:scratch/frontier/TYZChain.lean: identical
+  Thm35First           a8101726:scratch/tyz-35/Thm35.lean vs HEAD:scratch/frontier/TYZChain.lean: identical
+doc rows: 72 (72 distinct heads); F open minus never-projected: 72
   in chain, not in doc: []
   in doc, not in chain: []

@@ -34,3 +34,13 @@ Task frontier, 2026-11-13. Inventory of the open Props on the path to `ZInQ.Froz
 - 15:40 refresh. H base → assemble-port 92a27877 (final; flat check 1126 s REPORTED; 26+17+27 fields; HomLatticeCorr replaces T11(a), homLinearLift, t11aRiemannHom). A 79 open; F 76 = 70 listed (21 LEAF, 49 GLUE) + 6 never projected; 5/5 route def texts identical; doc check equal.
 - 16:40 refresh: no new results; integrator's wip/one-proof 1e30d4b2 adds ZInQ.OneProof.frozenTarget (C4 olean chain + TopChain.lean) — noted in §1, §6.3.
 - 17:35 final check: no branch moved since 16:40 except this one; list final at 70 (21 LEAF, 49 GLUE). chain.py: A 79, F 76, 0 mismatches; doc check equal.
+
+## Refresh r2 (2026-11-14, on the Mac; text checks only, no Lean run)
+- Base: wip/integrate-w51 71dc3f1b (which merged wip/frontier d8c95123), then fork main 67c2daf9 (w52) merged. All fork branches fetched; chain.py run from the repository root.
+- chain.py's ts-kummer revision d9c06585 is not on the fork (the 17:35 run read a host-local copy); replaced by ts-kummer final 1bbe3543 (same six theorems; edges off the route since leaf-fold4).
+- H base switched from assemble-port C4 (92a27877) to leaf-fold4's `HDec.HSyn.sixContactMin_of_open4` (9dcf1ca8, flat file md5 6bbeb639; main's copy differs by six docstring lines, e5e79f24). Scenario A: 0 mismatches, 75 open (66 fields + 9 TYZ/GZ), 69 projected. VERIFIED: the 60 projected H fields equal the 17:35 list's 61 H rows minus `DivisiblePoints`.
+- New H edges (signatures VERIFIED; def texts identical to leaf-fold4's, 11 of 11): av-b1 (T6, T7, T8), av-b2 (T9, Serre's lemma, T11(b)), neron-c (T3, T41), curves-g (T34, T38), vert-witness (`HeckeVertWitness`), smooth-fibre (`SmoothFibreReduced` proved), model-glue (`ModelCoordinate`, `ModelComparison`). Pairwise def checks: smooth-fibre vs vert-witness, model-glue vs vert-witness, identical.
+- New TYZ edges: tyz-lcal (`TYZLcalOne` proved from T-1, T-3), tyz-321 (`Lemma321Five` proved from the CM leaf), tyz-35 (`Thm35First` from `TYZThm33Pinned`). Def texts vs TYZChain.lean identical (L-leaves are kernel constants in both). Not folded: tyz-318 (T-4 leaf traded for glue `SqrtTwoNotInHHprime`), shimura-modfn (split of T-5; report keeps the leaf).
+- Scenario F: 0 mismatches over 72 theorem edges; 78 open = 72 listed (23 LEAF, 49 GLUE) + 6 never projected; `chain.py doc` equal (72 rows).
+- Reviews read: leaf-review-a (21 fields, all CONSEQUENCE), leaf-review-b (41 fields: 8 PUBLISHED-FORM, 33 CONSEQUENCE). Five open rows LEAF here vs CONSEQUENCE there (H-3, H-16, H-21, H-25, H-38): left for a human.
+- docs/research/frontier.md rewritten for r2 (generator kept outside the repository); row numbers kept, retired rows listed, new rows H-70..H-85 and T-11.
