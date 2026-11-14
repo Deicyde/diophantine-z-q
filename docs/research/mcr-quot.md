@@ -10,20 +10,27 @@ Task mcr-quot, 2026-11-14 (two runs; the second resumed from `scratch/mcr-quot/l
 - C2 `CoordinateFromSections`.
 
 Lean file: `scratch/mcr-quot/MCRQuot.lean`. It is `MCRGlue.lean` verbatim (the whole file),
-followed by the parts `MCRQuot1.lean.part` … `MCRQuot18.lean.part` in the order of `build.sh`.
+followed by the parts `MCRQuot1.lean.part` … `MCRQuot22.lean.part` in the order of `build.sh`.
 
 ## 1. Main result
 
-**C2 is proved from A and T5. A is proved from T5 and two textbook-level inputs. C1 is proved from
-A, the same inputs and one object-level glue Prop on CM points. B is reduced to two glue Props.**
-All of this is by compiled Lean proofs. No target statement was changed.
+**All four targets are proved by compiled Lean from leaves plus two remaining glue Props.**
+
+- **C2** is proved from A and T5.
+- **A** is proved from T5 and the textbook-level inputs `CurveBijIso` and `ModelYIrreducible`.
+- **C1** is proved from A, those same inputs, and one object-level glue Prop on CM points
+  (`CMStabObj`).
+- **B** is proved from A, T5, L3 and one glue Prop, the `P¹` case of `CurveBijIso` stated by charts
+  (`ToP1BijIsCoordinateQ`).
+
+No target statement was changed.
 
 | Target | Compiled theorem | Remaining inputs |
 |---|---|---|
 | C2 `CoordinateFromSections` | `coordinateFromSections_of''` | A (used only for `Finite (fibreAut 𝒴 𝒜)`), T5 |
 | A `FibreAutTame` | `fibreAutTame_of''` + `fibreAutFixFinite_of'` | T5, `CurveBijIso`, `ModelYIrreducible` |
 | C1 `CMSectionsDisjoint` | `cMSectionsDisjoint_of''` + `cMStabInvolution_of` | A, `CurveBijIso`, `ModelYIrreducible`, (C1b-obj) `CMStabObj` |
-| B `GenericQuotientP1` | `genericQuotientP1_of` + `quotientDescendsQ_of` | A, T5, L3, (B-desc-map) `QuotientDescendsMapQ`, (B-iso) `ToP1BijIsCoordinateQ` |
+| B `GenericQuotientP1` | `genericQuotientP1_of'` | A, T5, L3, (B-iso) `ToP1BijIsCoordinateQ` |
 
 Notes on the inputs:
 
@@ -36,12 +43,11 @@ Notes on the inputs:
 The final composite (namespace `MCRQuot`):
 
 ```lean
-theorem modelCoordinateResidue_final7
+theorem modelCoordinateResidue_final8
     (hAF : ProperCurveAF) (hQE : FiniteQuotientExists) (hTS : TameQuotientSmooth)
     (hP1 : SmoothModelOfP1) (hFix : TameFixedPointsDisjoint) (hCyc : TameInertiaCyclic)
     (hT : ObjBridge.TorsionStructure) (hC : CurveBijIso) (hCov : CoverModelOfHeckeN)
-    (hDm : QuotientDescendsMapQ) (hB : ToP1BijIsCoordinateQ) (hO : CMStabObj) :
-    ModelCoordinateResidue
+    (hB : ToP1BijIsCoordinateQ) (hO : CMStabObj) : ModelCoordinateResidue
 ```
 
 Its hypotheses fall into four groups:
@@ -49,20 +55,18 @@ Its hypotheses fall into four groups:
 - mcr-glue's leaves L1–L6;
 - the textbook leaves T5 and `CurveBijIso`;
 - the decomposition's existing glue `CoverModelOfHeckeN`;
-- **three new glue Props of this task**:
-  - (B-desc-map) `QuotientDescendsMapQ`: descent of an orbit-invariant map to `P¹` through the
-    quotient;
+- **two new glue Props of this task**:
   - (B-iso) `ToP1BijIsCoordinateQ`: the `P¹` case of `CurveBijIso`, stated by charts;
   - (C1b-obj) `CMStabObj`: each CM class is fixed by a Hecke operation of order exactly 2 on
     classes, a statement about QM objects over `ℚ̄` with no schemes in it.
 
-The earlier composites `modelCoordinateResidue_final4` … `final6` are the intermediate forms.
+The earlier composites `modelCoordinateResidue_final4` … `final7` are the intermediate forms.
 
-VERIFIED: `lake env lean scratch/mcr-quot/MCRQuot.lean` exits 0 in about 27 s (output in
-`compile18_out.txt`).
+VERIFIED: `lake env lean scratch/mcr-quot/MCRQuot.lean` exits 0 in about 30 s (output in
+`compile22_out.txt`).
 
 - The parts contain no `sorry` and no `axiom`.
-- All 46 `#print axioms` of `MCRQuot` declarations (part 9) read
+- All 54 `#print axioms` of `MCRQuot` declarations (part 9) read
   `[propext, Classical.choice, Quot.sound]`.
 
 ## 2. What was proved (all compiled, namespace `MCRQuot`)
@@ -76,6 +80,7 @@ VERIFIED: `lake env lean scratch/mcr-quot/MCRQuot.lean` exits 0 in about 27 s (o
 | (C1a) `GQuotientPointOrbits` | the points over a point of an SGA 1 quotient form one orbit | `gQuotientPointOrbits` (part 10, first run) |
 | (C1d) `QbarPointsConjugate` | two `ℚ̄`-points with the same underlying point are Galois conjugate | `qbarPointsConjugate` (part 10, first run) |
 | (A-count) `TwistClassCard` | a twist class has at most 324 isomorphism classes | `twistClassCard` from T5 (part 11, first run) |
+| (B-desc) `QuotientDescendsQ` | an orbit-invariant `σ : 𝒴_ℚ → P¹` descends through the SGA 1 quotient to `𝒵_ℚ`, and `ℚ̄`-points of `𝒵_ℚ` lift | `quotientDescendsQ` (parts 18–22), described in §2.5 |
 | (A-dim) `CurveClosedQbarFinite` | for `𝒴` integral, proper, smooth of relative dimension 1 over `ℤ_(p)`: a closed `Z ∌ η` carries finitely many `ℚ̄`-points | `curveClosedQbarFinite` (part 16), described below |
 
 How `curveClosedQbarFinite` is proved:
@@ -152,16 +157,27 @@ How `translate` is built:
     `Γ(W) = Γ(q⁻¹W)^G ⊆ Γ(q⁻¹W)`. `exists_lift_qbar` uses that the fibre `X ×_Z Spec ℚ̄` is finite
     and nonempty, so it has a closed point, which is a `ℚ̄`-point (Mathlib's
     `pointOfClosedPoint`).
-  - The descent half remains, as `QuotientDescendsMapQ`.
+  - The descent half `QuotientDescendsMapQ` is proved too (§2.5).
 - **B**, by `genericQuotientP1_of`: `π ∘ g` descends to `𝒵_ℚ` (B-desc) and is bijective on
   `ℚ̄`-points, hence a coordinate (B-iso).
 
-## 3. What remains: three new glue Props
+### 2.5 Quotients of maps to `P¹` (parts 19–22)
+
+| Declaration | Content |
+|---|---|
+| `app_injective_of_isGQuotient` | `q^*` is injective over every open (germs, from the affine case) |
+| `exists_descend_section` | invariant sections over any open descend (affine cover, `existsUnique_gluing'`) |
+| `ToP1In`, `imgOpen`, `preimage_imgOpen` | maps to `P¹` on an open; images of `G`-stable opens are open and saturated (`q` closed, orbits) |
+| **`exists_descend_toP1In`** | a `G`-invariant map to `P¹` on `q⁻¹O` descends to `O` |
+| `pushToP1In`, `pullToP1`, `app_injective_of_le_range` | transport of maps to `P¹` along the open immersions `𝒴_ℚ → 𝒴`, `𝒵_ℚ → 𝒵` |
+| `pushU_stable_iff`, `pushF_invariant` | invariance of the charts and functions as scheme data, from invariance of values at `ℚ̄`-points: a failure would show at a closed point of the Jacobson generic fibre, hence at a `ℚ̄`-point (`exists_qbarPt`); `𝒴` is reduced (`isReduced_of_smooth_zloc`) |
+| **`quotientDescendsMapQ`**, **`quotientDescendsQ`** | (B-desc) proved |
+
+## 3. What remains: two new glue Props
 
 | Name | Statement (informal) | Kind | Why not proved here |
 |---|---|---|---|
-| (B-desc-map) `QuotientDescendsMapQ` | an orbit-invariant `σ : 𝒴_ℚ → P¹` descends through the SGA 1 quotient to `σ' : 𝒵_ℚ → P¹` (values agree on `ℚ̄`-points) | glue (quotients; SGA 1 Exp. V §1, locator UNVERIFIED) | needs `σ` invariant as a morphism (density on the reduced `𝒴_ℚ`), open images of saturated opens, and descent of invariant sections over non-affine opens (sheaf gluing) |
-| (B-iso) `ToP1BijIsCoordinateQ` | a map to `P¹` of a proper smooth `ℚ`-curve that is bijective on `ℚ̄`-points is an isomorphism by charts | the `P¹` case of the textbook leaf `CurveBijIso`, stated by charts | Mathlib 4.35 has `Proj` with `IsProper (Proj.toSpecZero 𝒜)`, but no `P¹` with smoothness and no gluing of a morphism from charts; with those, B-iso would follow from `CurveBijIso` |
+| (B-iso) `ToP1BijIsCoordinateQ` | a map to `P¹` of a proper smooth `ℚ`-curve that is bijective on `ℚ̄`-points is an isomorphism by charts | the `P¹` case of the textbook leaf `CurveBijIso`, stated by charts | Mathlib 4.35 has `Proj` with `IsProper (Proj.toSpecZero 𝒜)`, but no `P¹` with smoothness of relative dimension 1 and no gluing of a morphism to `Proj` from the two charts; with those, B-iso would follow from `CurveBijIso` |
 | (C1b-obj) `CMStabObj` | a CM object's class is fixed by some `T = twist α ∘ rightMul u` with `T ∘ T = id` on `M3 ℚ̄` and `T ≠ id` | glue (QM with CM; elliptic points of orders 4, 6, 2, Baba–Granath §3.1, locator UNVERIFIED) | see below |
 
 Why (C1b-obj) is not proved here (SPECULATIVE analysis, not compiled):
@@ -221,5 +237,5 @@ Why (C1b-obj) is not proved here (SPECULATIVE analysis, not compiled):
 ```
 lake build ZInQKernel.Contrib.Mobius.Main ZInQKernel.HDecomp.QM.Pin ZInQKernel.HDecomp.Descent.B2Glue
 scratch/mcr-quot/build.sh                      # regenerates MCRQuot.lean from the parts
-lake env lean scratch/mcr-quot/MCRQuot.lean    # exit 0, ~27 s; compile18_out.txt
+lake env lean scratch/mcr-quot/MCRQuot.lean    # exit 0, ~30 s; compile22_out.txt
 ```
