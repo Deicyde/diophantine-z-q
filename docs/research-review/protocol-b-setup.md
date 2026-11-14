@@ -1,7 +1,12 @@
 # Protocol B setup and test checklist
 
-Status: prepared, inactive, awaiting review of the repairs and a live test.
-No API keys are included in this repository. The old controller stays retired.
+Status: the owner activated Protocol B for future pull requests on November 13,
+2026, America/Los_Angeles. Astra's authenticated readback at 18:57 PST that day
+(November 14, 02:57 UTC) observed live mode and the App-pinned requirement.
+See the [settings evidence and limits](reviews/activation-2026-11-13/README.md)
+and [pre-activation review record](reviews/pre-activation-reviews.md). This is
+operator-reported deployment evidence, not a claim that every setup or test
+below has been independently demonstrated. The old controller stays retired.
 
 ## Identity and credentials
 
@@ -11,8 +16,9 @@ only on `elliotglazer/diophantine-z-q`. It needs no webhook, code-write permissi
 or external server. The retired App identity can instead be reused after
 rotating its key, deleting its old keys, removing any other installations and
 confirming the old controller cannot use the new key. Do not reuse the retired
-controller's key. These setup operations require the owner's authorization;
-this document does not assert they have been performed.
+controller's key. These setup operations require the owner's authorization.
+The dated readback records the App ID and Environment branch restriction; it
+does not establish key rotation, other installations, or absence of key copies.
 
 Create a GitHub Environment named `protocol-b`. Restrict its deployment branches
 to the default branch, `main`. Do not permit arbitrary branches or tags. Put:
@@ -216,6 +222,48 @@ and states that affected claims are **not outside reviewed**.
 
 The workflow checks these merge settings before requesting auto-merge. It
 cannot configure them itself. It never bypasses the ruleset.
+
+## Live-test scope and deferred cases
+
+The owner selected PR69 for the initial live tests: a correct lemma, a deliberate
+error, an authorized override of every finding, and repair of the lemma. Each
+test must be reported from its actual App check and reviewer records. A same-name
+check is excluded at activation by reading back the ruleset's App integration ID.
+
+Observed on November 13, 2026, America/Los_Angeles (PST). The later rows are
+November 14 in UTC. Exact UTC times, heads and preserved App outputs are in the
+[live-test evidence](reviews/activation-2026-11-13/README.md#live-test-evidence).
+
+| Case and run ID | App evidence | Published reviewer evidence and result |
+|---|---|---|
+| Correct lemma, `43527659588` | [132237414556](https://github.com/elliotglazer/diophantine-z-q/runs/132237414556) | [Astra](https://github.com/elliotglazer/diophantine-z-q/pull/69#issuecomment-6867595525) and [Fable](https://github.com/elliotglazer/diophantine-z-q/pull/69#issuecomment-6867587047) accepted; App success. |
+| Deliberate false lemma, `43540895723` | [132281047204](https://github.com/elliotglazer/diophantine-z-q/runs/132281047204) | [Astra](https://github.com/elliotglazer/diophantine-z-q/pull/69#issuecomment-6869397404) and [Fable](https://github.com/elliotglazer/diophantine-z-q/pull/69#issuecomment-6869390780) requested changes; App failure with four full finding IDs. |
+| Authorized overrides, final run `43541825778` | [132283952957](https://github.com/elliotglazer/diophantine-z-q/runs/132283952957) | No new reviewer verdict: the App used the completed rejection reports above, named `elliotglazer`, and marked the affected claims **not outside reviewed**. All four findings were covered. |
+| Repaired lemma, `43542130192` | [132284917858](https://github.com/elliotglazer/diophantine-z-q/runs/132284917858) | [Astra](https://github.com/elliotglazer/diophantine-z-q/pull/69#issuecomment-6869581747) and [Fable](https://github.com/elliotglazer/diophantine-z-q/pull/69#issuecomment-6869577863) accepted and each marked all four findings resolved; App success without an override. |
+
+The four override review steps lasted 6, 5, 5 and 9 seconds. Their App outputs
+show the first three blocked for incomplete coverage and the last successful.
+The [preserved timing records and historical override branch](reviews/activation-2026-11-13/README.md#override-execution-evidence)
+support the operator's zero-model-calls observation: that branch reads existing
+App decisions and does not invoke either model. The downloaded artifacts also
+contain no model-turn records. Short duration alone would not prove zero calls;
+this is execution-path evidence, not independent provider billing telemetry.
+
+The owner deferred live tests of an interrupted run, an unauthorized override,
+and a real Anthropic `pause_turn`. A branch/tag workflow attempting to obtain
+the Environment keys has also not been tested. The App pin was read back, but
+a deliberate forged-check merge attempt was not run. At this snapshot, a
+successful protected live merge and its post-merge workflow trigger have not
+yet been observed: PR87 is the activation test and PR88 used owner bypass.
+The broader checklist remains a list of obligations and coverage to pursue,
+not a claim that these omitted tests passed. The owner activated with these
+recorded limitations; the pre-activation review requirement was not deleted.
+
+GitHub has announced a default restriction on public `pull_request_target`
+workflows from December 2, 2026. The repository's future Actions-policy setting
+has not been verified here. If automatic triggers are restricted, collaborators
+can request `/protocol-b review` or use the default-branch manual dispatch;
+an absent App acceptance still blocks the protected merge.
 
 ## Reproducing offline checks
 
