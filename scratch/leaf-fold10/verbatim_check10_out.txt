@@ -1,0 +1,4 @@
+TailZ10 imports: ['import ZInQKernel.OneProof.H.TailZ9', 'import ZInQKernel.Contrib.CurvesG.GenusSplit', 'import ZInQKernel.Contrib.CloudW07JacobiansCurves.JacobianExists', 'import ZInQKernel.Contrib.CloudW07JacobiansCurves.Jacobian.AlgebraicGeometry.Curve.CanonicalDegree', 'import ZInQKernel.Contrib.Dim.SmoothStalk', 'import ZInQKernel.Contrib.Dim.Basic']
+source imports present: True
+body is a suffix block of TailZ10: True
+dropped lines: ['example : ZInQ.Contrib.CurvesG.DimJacobianEqGenus := ModularSplit.DimJac.dimJacobianEqGenus', '#print axioms ModularSplit.DimJac.h0DifferentialsEqHolo', '#print axioms ModularSplit.DimJac.dimJacobianEqGenus']
