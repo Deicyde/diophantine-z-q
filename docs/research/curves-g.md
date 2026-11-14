@@ -39,7 +39,22 @@ theorem dimJ1Genus_of_split (h1 : DimJacobianEqGenus) (h2 : GenusX1Field) :
     LeafModCurves.DimJ1Genus
 ```
 
-PLACEHOLDER-AXIOMS
+**Axioms** (VERIFIED, `scratch/curves-g/axioms_contrib_out.txt`, `lake env lean scratch/curves-g/AxiomsContrib.lean`
+exit 0): each of `hom_to_specQ_ext`, `residueToRat`, `nonempty_ratPt_of_place`, `curveOfFunctionFieldQ_of_noPoint`,
+`curveOfFunctionFieldQNoPoint_of_split`, `curveOfFunctionFieldQ_of_split`, `dimJ1Genus_of_split`
+`depends on axioms: [propext, Classical.choice, Quot.sound]`. The same file compiles
+`example : CurveOfFunctionFieldQNoPoint → X1Belyi.CurveOfFunctionFieldQ := curveOfFunctionFieldQ_of_noPoint`
+and the analogous `example`s for the two splits, against the kernel owners' definitions.
+
+**Effect on leaf-fold3's count.** In `OpenTextbookLeaves3` the field `t38` is replaced by `t38a`, `t38b`, `t38c`
+and `t34` by `t34a`, `t34b`: `HDec.HSyn.sixContactMin_of_openG` (single-file check, §5) derives the kernel's
+`ZInQ.SixContactMin` from the bundle `OpenTextbookLeavesG`. The number of open Props rises from 68 to 71, but
+none of the new ones is a composite through `X₁(N)` any more except `GenusX1Field`, and the point clause of T38 is
+gone. `t33` is unchanged.
+
+**What remains open in group G** (excluding T40): `JacobianExists ℚ` (T33, LEAF), `DimJacobianEqGenus`,
+`GenusX1Field` (from T34), `NormalModelOfFunctionFieldQ`, `NormalCurveSmoothQ`, `GeomConnectedOfConstantFieldQ`
+(from T38). None of them is proved here.
 
 ## 2. t38: `X1Belyi.CurveOfFunctionFieldQ`
 
@@ -195,8 +210,54 @@ Jacobians (tc-survey: T33 not found). frontier.md classes it **LEAF** (H-36), wh
 
 ## 5. Checks
 
-PLACEHOLDER-CHECKS
+**Kernel modules** (VERIFIED): `lake build ZInQKernel.Contrib.CurvesG.RatPoint` (27 s), `.GenusSplit`, `.CurveSplit`
+(26 s): 0 errors, no `sorry`. Each imports only kernel modules (`ZInQKernel.HDecomp.ModCurves.X1Belyi` resp.
+`.Leaves`) and Mathlib. `scratch/curves-g/AxiomsContrib.lean`: exit 0, axioms as in §1.
+
+**Single-file check** (VERIFIED): `python3 scratch/curves-g/assemble.py` writes `scratch/curves-g/part_g3.lean`
+(306 lines: the bodies of the three Contrib files, verbatim, in `namespace HDec.CurvesG3` so that
+`LeafModCurves`, `X1Belyi`, `PkgI3` resolve to the flat file's copies, which Lean's "Ambiguous namespace" warnings
+confirm; the field lines of leaf-fold3's `OpenTextbookLeaves3`, verbatim from `partsF/d90_fold3.lean`, with `t34`,
+`t38` replaced; `textbookLeaves3_of_G`, `sixContactMin_of_openG`) and `scratch/curves-g/CurvesG3.lean` =
+leaf-fold3's `Leaves3.lean` (md5 703c1618…, unchanged) + the part (111 132 lines; regenerated, not committed).
+`lake env lean scratch/curves-g/CurvesG3.lean`: **exit 0, 0 errors, no `sorry`, 17 min 17 s, max RSS 15.5 GB**
+(close to the 16 GB cap). All 295 `#print axioms` reports read `[propext, Classical.choice, Quot.sound]` (290 on one
+line, 5 line-wrapped, all in leaf-fold3's text). The part's seven:
+`HDec.CurvesG3.nonempty_ratPt_of_place`, `.curveOfFunctionFieldQ_of_noPoint`,
+`.curveOfFunctionFieldQNoPoint_of_split`, `.curveOfFunctionFieldQ_of_split`, `.dimJ1Genus_of_split`,
+`HDec.HSyn.textbookLeaves3_of_G`, `HDec.HSyn.sixContactMin_of_openG`. The part also compiles
+`example : ∀ (_ : OpenResearchLeaves2) (_ : OpenTextbookLeavesG) (_ : OpenAddedLeaves3) (_ : OpenGlue3),
+_root_.ZInQ.SixContactMin := HDec.HSyn.sixContactMin_of_openG` (the kernel's `SixContactMin`), and `example`s whose
+types are the flat file's own `X1Belyi.CurveOfFunctionFieldQ` and `LeafModCurves.DimJ1Genus` (the bundle's field
+types), so the proved Props are the fields themselves.
+
+```lean
+theorem HDec.HSyn.sixContactMin_of_openG (r : OpenResearchLeaves2) (t : OpenTextbookLeavesG)
+    (l : OpenAddedLeaves3) (g : OpenGlue3) : ZInQ.SixContactMin
+```
+
+An earlier run (with T38 only weakened to `CurveOfFunctionFieldQNoPoint`) failed only on the final root `example`
+(binder types not inferable); fixed (log.md).
+
+**Verbatim** (VERIFIED, `python3 scratch/curves-g/py/verbatim_check.py`, output `py/verbatim_check_out.txt`): the
+code (docstring stripped) of 26 declarations, the three field Props and every definition they use, occurs verbatim
+in `Leaves3.lean` in the kernel owners' text: ALL VERBATIM (the docstrings of `Ej` and `DimJ1Genus` differ). So
+the kernel-level theorems (`ZInQKernel/Contrib/CurvesG/`) and the flat-file theorems prove the same text.
+
+**Genus formula** (VERIFIED computed): bp-modcurves' `genus_check.py`, 30/30 `ok` for `N ≤ 30`.
+
+**Licence**: no Tau Ceti file vendored or changed; `diffcheck2.py`: MOD-UNNOTED 0, NOTE-ONLY 0.
 
 ## 6. Proposals (not applied)
 
-PLACEHOLDER-PROPOSALS
+1. **T34 is stronger than the chain needs** (VERIFIED by grep, §3): every consumer uses only `dim J₁(N) ≤ N²`.
+   Proposed replacement for the field `t34` (the conclusion of the kernel's `LeafModCurves.dim_J1_le`, so
+   `dim_J1_le h` proves it from the present field):
+   ```lean
+   def DimJ1LeSq : Prop :=
+     ∀ (N : ℕ) (J : AbVar ℚ), 0 < N → IsJ1 N J → ∃ g : ℕ, J.dim = (g : WithBot ℕ∞) ∧ g ≤ N ^ 2
+   ```
+   With the split of §3 the matching weakening of `GenusX1Field` is
+   `∀ N P, 0 < N → addOrderOf P = N → fieldGenus (fieldX1 P) ≤ N ^ 2`. This changes no proof difficulty
+   (the bound still needs the genus formula or Riemann–Hurwitz), only the size of what is assumed. Not applied.
+2. No statement of t33, t34 or t38 is wrong; no other change proposed.

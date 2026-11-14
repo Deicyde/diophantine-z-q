@@ -45,3 +45,7 @@ t34 (`LeafModCurves.DimJ1Genus`), t38 (`X1Belyi.CurveOfFunctionFieldQ`). Owner f
 - 18:42 `CurveSplit.lean` built (26 s, 0 errors): `curveOfFunctionFieldQNoPoint_of_split`,
   `curveOfFunctionFieldQ_of_split`, standard axioms (axioms_contrib_out.txt). assemble.py now folds t38 as
   t38a/t38b/t38c.
+- 18:58 flat run 2 (Leaves3 + part_g3 with t34a/t34b, t38a/t38b/t38c): EXIT 0, 0 errors, no sorry, 17:17 wall,
+  max RSS 15.5 GB. 295 `#print axioms` all standard (5 line-wrapped, leaf-fold3's). `sixContactMin_of_openG`
+  standard axioms. VERIFIED.
+- diffcheck2: MOD-UNNOTED 0, NOTE-ONLY 0 (nothing vendored).
