@@ -40,8 +40,7 @@ multiplication every `σ ∈ Aut(ℂ/H_D)` fixes the isomorphism class of the pa
 `g(τ_Q)`; so `g(τ_Q) ∈ H_D`.
 Sources (refereed, textbook; numbers UNVERIFIED, from memory): Shimura, *Introduction to the
 arithmetic theory of automorphic functions* (1971), Thm. 5.7 (`K(j(𝔞)) = H_O`), Prop. 6.9 /
-Thm. 6.23 (`ℚ(X₀(N)) = ℚ(j, j_N)`, rational structure) and §6.8 (values at CM points); Gross,
-*Heegner points on `X₀(N)`* (Durham 1983), 1984, §1–§3; Cox, *Primes of the form x² + ny²*,
+Thm. 6.23 (`ℚ(X₀(N)) = ℚ(j, j_N)`, rational structure) and §6.8 (values at CM points); Cox, *Primes of the form x² + ny²*,
 Thm. 11.1 and §11.C (`j(τ), j(Nτ)` at CM points). No Heegner condition `(f, N) = 1` is needed
 (`H_{O'} ⊆ H_D`). This statement is weaker than `ShimuraReciprocityModFn`
 (`cmValueRingClass_of_modFn`). -/

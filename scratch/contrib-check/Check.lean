@@ -35,6 +35,7 @@ import ZInQKernel.Contrib.GZStatements.Hensel
 import ZInQKernel.Contrib.TauCeti.NumberTheory.ClassFieldTheory.ClassFields.KroneckerWeber
 import ZInQKernel.Contrib.AVB1.Poincare
 import ZInQKernel.Contrib.AVB1.AlgClosed
+import ZInQKernel.Contrib.KroneckerWeber.Basic
 
 /-! The two closed providers fed into the unchanged headline theorem: Theorem 1.1 from
 `SixContactMin`, `TYZThm35ReadingA` and `GrossZagier` alone. -/
