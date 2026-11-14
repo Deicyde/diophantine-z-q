@@ -1,4 +1,4 @@
-### OpenResearchLeaves9 (28 fields)
+### OpenResearchLeaves9 (30 fields)
 
 | field | Lean type | strict kind | form | source | last task | replaces |
 |---|---|---|---|---|---|---|
@@ -10,8 +10,6 @@
 | `r5count` | `LeafQM.AV.R5fpCount` | GLUE (c) | consequence of one theorem | Gonzalez-Rotger 2006 Prop. 5.6 (count 2^b(R) h(R)) | leaf-qm-fp |  |
 | `r6` | `_root_.PkgI2.RaynaudCriterion.{0}` | GLUE (c) | consequence of one theorem | SGA 7 IX Prop. 4.7 (Silverberg-Zarhin Thm 3.5) | pkg-I2 |  |
 | `r7a` | `_root_.PkgI2.NeronOggShafarevich.{0}` | LEAF | published form | Serre-Tate 1968 Thm 1 | pkg-I2 |  |
-| `r7b` | `_root_.PkgI2.SerreTatePotentialGood.{0}` | GLUE (c) | consequence of one theorem | Serre-Tate 1968 Thm 2 / Cor. 2 | pkg-I2 |  |
-| `r8` | `_root_.PkgI2.GrothendieckMonodromy.{0}` | GLUE (c) | consequence of one theorem | SGA 7 IX 3.6 | pkg-I2 |  |
 | `r9a` | `_root_.PkgI3.FaltingsSemisimple` | LEAF | published form | Faltings 1983 Satz 3 | pkg-I3 |  |
 | `r9b` | `_root_.PkgI3.FaltingsTate` | LEAF | published form | Faltings 1983 Satz 4, Kor. 1 | pkg-I3 |  |
 | `hodgeTateDecompAbVar` | `_root_.ZInQ.Contrib.HodgeSplit.HodgeTateDecompAbVar` | LEAF | published form (specialization) | C_p (x) V_p(A) = C_p(1)^g + C_p^g, G_F-equivariant (Fontaine, Invent. Math. 65 (1982); Tate 1967 4; Faltings 1988), bases of the two g-dimensional spaces chosen | hodge-split; folded by leaf-fold7 | r10 (composite), with deRhamH1AbVarT and Tate's two theorems |
@@ -30,6 +28,10 @@
 | `faltingsLemma5BC` | `_root_.ZInQ.HeightSplit.FaltingsLemma5BC` | GLUE (c) | consequence of one theorem | Faltings 1983 Lemma 5 in the semistable inequality form (Pazuki 2012 Rem. 2.3; Raynaud, Asterisque 127 VII Cor. 2.1.3 is the operative source, height-split §8), applied over every number field L above K | height-split; folded by leaf-fold8 | r20 |
 | `pazukiCor13Upper` | `_root_.ZInQ.HeightSplit.PazukiCor13Upper` | LEAF | published form (half) | Pazuki, Bull. SMF 140 (2012) Cor. 1.3(2), upper half (read by the audit; RISK: Pazuki's level-2 coordinates, height-split §8) | height-split; folded by leaf-fold8 | r22 |
 | `gaudronRemondThm14` | `_root_.ZInQ.HeightSplit.GaudronRemondThm14` | LEAF | published form | Gaudron-Remond, Duke Math. J. 163 (2014) Thm 1.4 (read by the audit), over the published stable height | height-split; folded by leaf-fold8 | r19 (same statement over the kernel infimum) |
+| `serreTateThm2` | `_root_.ReductSplit.SerreTateThm2` | LEAF | published form | Serre-Tate, Ann. of Math. 88 (1968) Thm 2: potential good reduction iff the image of inertia on T_l A is finite (RISK: if printed for complete K, a consequence; reduct-split §5) | reduct-split; folded by leaf-fold9 | r7b (consequence), with mumfordTorsionAlgClosed |
+| `semistableReductionDVR` | `_root_.ReductSplit.SemistableReductionDVR` | LEAF | published form (specialization) | SGA 7 I Exp. IX Thm 3.6 over a DVR: A_K' semistable at every place above O for a finite K' (print: finite separable) | reduct-split; folded by leaf-fold9 | r8 (consequence), with the next two and mumfordTorsionAlgClosed |
+| `semistableUnipotent` | `_root_.ReductSplit.SemistableUnipotent` | LEAF | published form (weakest reading) | SGA 7 I Exp. IX Prop. 3.5, semistable => (sigma-1)^2 = 0 on T_l for sigma in inertia, one sigma at a time | reduct-split; folded by leaf-fold9 | r8 |
+| `neronSchemeModelExistsDVR` | `_root_.ReductSplit.NeronSchemeModelExistsDVR` | LEAF | published form | BLR, Neron models, 1.4 Thm 3 over a DVR, scheme form (no group law) | reduct-split; folded by leaf-fold9 | r8 |
 
 ### OpenTextbookLeaves9 (18 fields)
 

@@ -48,3 +48,16 @@
   TailZ5/TailZ6; Check9: 61 fields (28+18+14+1), closure 212153, no sorryAx; verbatim_check9 True/True.
 - Counts: 61 fields, strict 37/24, lenient 51/10.
 - reduct-split, shimura-split: still no .fleet report (12:15).
+
+## 12:30 fold (4) reduct-split (its .fleet report appeared 12:24) — VERIFIED
+- `git merge origin/wip/reduct-split` (clean). Folded r7b (SerreTateThm2 + existing mumfordTorsionAlgClosed) and r8
+  (SemistableReductionDVR, SemistableUnipotent, NeronSchemeModelExistsDVR + mumfordTorsionAlgClosed), no glue:
+  strict GLUE -2, 4 published-form leaves added.
+- Not folded: r6 (c -> pub + glue FixedTorsionRationalImperfect: strict 0, lenient +1); SS1/SS3 (c -> pub + glue
+  SemistableLocalGlobal [+ SemistableAlmostAll]: strict 0, lenient +2); SS2 (c -> pub + 2 glue: rises);
+  faltingsLemma5BC (c -> FaltingsLemma5, c: neutral); t10 not split.
+- Layout: TailZ5 lemmas (14 KB), TailZ6 = R15 verbatim (8 KB), TailZ7 = Reduction.lean verbatim with its imports
+  (88 KB), TailZ8 = bundles (8.5 KB). Main imports TailZ8.
+- Main build exit 0, frozenTarget standard axioms; DumpCompact 11119, 0 removed, 1 changed, 288 new (TailZ5-Z8);
+  Check9: 63 fields (30+18+14+1), closure 212238, no sorryAx; verbatim_check9 all True.
+- Counts: 63 fields, strict 41/22, lenient 53/10.

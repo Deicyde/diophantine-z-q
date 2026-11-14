@@ -55,6 +55,8 @@ run_cmd do
 #print axioms HDec.HSyn.r1rec_of_rep
 #print axioms HDec.HSyn.r5fp_of_rep
 #print axioms ModularSplit.deligneSerreConseq_of_ds
+#print axioms ReductSplit.serreTatePotentialGood_final
+#print axioms ReductSplit.grothendieckMonodromy_final'
 #print axioms ZInQ.LeafFold9.fieldOfModuli3_le
 #print axioms ZInQ.LeafFold9.residueImage_eq_fieldOfModuliPair
 #print axioms ZInQ.LeafFold9.qmIso_of_isBaseChangeOfPair

@@ -16,7 +16,20 @@ def fields(name):
     return out
 
 DROP_R = {'r1rec': 'r1rec_of_rep r.r1r2', 'r5': 'r5fp_of_rep r.r1r2',
-          'r15': '_root_.ModularSplit.deligneSerreConseq_of_ds r.dsThm966'}
+          'r15': '_root_.ModularSplit.deligneSerreConseq_of_ds r.dsThm966',
+          'r7b': '_root_.ReductSplit.serreTatePotentialGood_final r.serreTateThm2 t.mumfordTorsionAlgClosed',
+          'r8': "_root_.ReductSplit.grothendieckMonodromy_final' r.semistableReductionDVR r.semistableUnipotent\n    r.neronSchemeModelExistsDVR t.mumfordTorsionAlgClosed"}
+NEW_R = '''  /-- reduct-split, r7b: Serre–Tate 1968 Thm 2 as printed (potential good reduction iff the image of inertia on
+  `T_ℓ A` is finite; RISK: if printed for complete `K`, a consequence). -/
+  serreTateThm2 : _root_.ReductSplit.SerreTateThm2
+  /-- reduct-split, r8: SGA 7 IX Thm 3.6 over a DVR (semistable reduction after a finite extension, at every place
+  above `O`). -/
+  semistableReductionDVR : _root_.ReductSplit.SemistableReductionDVR
+  /-- reduct-split, r8: SGA 7 IX Prop. 3.5, "semistable ⇒ `(σ - 1)² = 0` on `T_ℓ`" (weakest reading). -/
+  semistableUnipotent : _root_.ReductSplit.SemistableUnipotent
+  /-- reduct-split, r8: BLR §1.4 Thm 3 over a DVR (scheme form). -/
+  neronSchemeModelExistsDVR : _root_.ReductSplit.NeronSchemeModelExistsDVR'''
+NEW_R_NAMES = ['serreTateThm2', 'semistableReductionDVR', 'semistableUnipotent', 'neronSchemeModelExistsDVR']
 DROP_T = {'t33': '_root_.ZInQ.Contrib.CloudW07JacobiansCurves.JacobianExists_proof',
           'normalModelOfFunctionFieldQ': '_root_.ZInQ.Contrib.CloudW07JacobiansCurves.NormalModelOfFunctionFieldQ_proof'}
 rf, tf = fields('OpenResearchLeaves8'), fields('OpenTextbookLeaves8')
@@ -90,16 +103,39 @@ z5 = ''.join(out)
 r15 = open('scratch/modular-split/R15.lean').read().split('\n')
 assert r15[0] == 'import ZInQKernel.OneProof.H.TailT' and r15[1] == 'import ZInQKernel.OneProof.H.LPrefix'
 r15body = '\n'.join(l for l in r15[2:] if not l.startswith('#print')).strip('\n')
-out = ['''import ZInQKernel.OneProof.H.TailZ5
+z6 = '''import ZInQKernel.OneProof.H.TailZ5
 
-/-! # OneProof H, leaf-fold9 (bundles): `sixContactMin_of_open9`
+/-! # OneProof H, leaf-fold9: modular-split's row r15
 
-First, modular-split's `scratch/modular-split/R15.lean` verbatim after its two import lines (`#print` dropped):
-`ModularSplit.deligneSerreConseq_of_ds : DSThm966 → HDec.HSyn.DeligneSerreConseq` (row r15 from Deligne–Serre's
-printed theorem, already the field `dsThm966`). Then the bundles `OpenResearchLeaves9`, `OpenTextbookLeaves9`, the
-maps to leaf-fold8's bundles and `sixContactMin_of_open9`. -/
+modular-split's `scratch/modular-split/R15.lean` verbatim after its two import lines (`TailT`, `LPrefix`, both below
+this module; `#print` dropped): `ModularSplit.deligneSerreConseq_of_ds : DSThm966 → HDec.HSyn.DeligneSerreConseq`
+(row r15 from Deligne–Serre's printed theorem, already the field `dsThm966`). -/
 
-''' + r15body + '''
+''' + r15body + '\n'
+red = open('scratch/reduct-split/Reduction.lean').read().split('\n')
+nimp = 0
+while red[nimp].startswith('import'):
+    nimp += 1
+redimports = '\n'.join(red[:nimp])
+redbody = '\n'.join(l for l in red[nimp:] if not l.startswith('#print')).strip('\n')
+z7 = redimports + '''
+
+/-! # OneProof H, leaf-fold9: reduct-split's `Reduction.lean`
+
+reduct-split's `scratch/reduct-split/Reduction.lean` verbatim (its imports kept; `#print` dropped). It proves the
+rows r7b (`serreTatePotentialGood_final`) and r8 (`grothendieckMonodromy_final'`) from published-form leaves; the
+rest of the file (r6, SS1-SS3, faltingsLemma5BC with their glue) is not used by the bundles. -/
+
+''' + redbody + '\n'
+out = ['''import ZInQKernel.OneProof.H.TailZ6
+import ZInQKernel.OneProof.H.TailZ7
+
+/-! # OneProof H, leaf-fold9: the bundles and `sixContactMin_of_open9`
+
+The bundles `OpenResearchLeaves9`, `OpenTextbookLeaves9`, the maps to leaf-fold8's bundles and
+`sixContactMin_of_open9`. The proofs used are in `TailZ5` (this task: `r1rec`, `r5` from `r1r2`), `TailZ6`
+(modular-split: `r15`), `TailZ7` (reduct-split: `r7b`, `r8`) and the CloudW07 modules (`t33`,
+`normalModelOfFunctionFieldQ`). docs/research/leaf-fold9.md lists every field. -/
 
 namespace HDec
 
@@ -110,12 +146,12 @@ open CategoryTheory AlgebraicGeometry Limits
 /-! ## The bundles -/
 
 ''']
-out.append('/-- **The research leaves still open** (leaf-fold9): leaf-fold8\'s `OpenResearchLeaves8` without `r1rec`, `r5`\n(proved from `r1r2`, `r1rec_of_rep`, `r5fp_of_rep`) and `r15` (proved from `dsThm966`, modular-split\'s\n`deligneSerreConseq_of_ds`). %d fields. -/\nstructure OpenResearchLeaves9 : Prop where\n' % (len(rf) - len(DROP_R)))
-out.append('\n'.join(b for k, b in rf if k not in DROP_R) + '\n\n')
+out.append('/-- **The research leaves still open** (leaf-fold9): leaf-fold8\'s `OpenResearchLeaves8` without `r1rec`, `r5`\n(proved from `r1r2`, `r1rec_of_rep`, `r5fp_of_rep`) and `r15` (proved from `dsThm966`, modular-split\'s\n`deligneSerreConseq_of_ds`), and `r7b`, `r8` replaced by reduct-split\'s four published-form leaves\n(`ReductSplit.serreTatePotentialGood_final`, `grothendieckMonodromy_final\'`). %d fields. -/\nstructure OpenResearchLeaves9 : Prop where\n' % (len(rf) - len(DROP_R) + len(NEW_R_NAMES)))
+out.append('\n'.join(b for k, b in rf if k not in DROP_R) + '\n' + NEW_R + '\n\n')
 out.append('/-- **The textbook leaves still open** (leaf-fold9): leaf-fold8\'s `OpenTextbookLeaves8` without `t33` and\n`normalModelOfFunctionFieldQ` (proved by cloud PR #11, `ZInQKernel/Contrib/CloudW07JacobiansCurves/`). %d fields. -/\nstructure OpenTextbookLeaves9 : Prop where\n' % (len(tf) - len(DROP_T)))
 out.append('\n'.join(b for k, b in tf if k not in DROP_T) + '\n\n')
 out.append('/-! ## From the new bundles to leaf-fold8\'s -/\n\n')
-out.append('/-- leaf-fold8\'s research bundle from leaf-fold9\'s. -/\ntheorem researchLeaves8_of_open9 (r : OpenResearchLeaves9) : OpenResearchLeaves8 where\n')
+out.append('/-- leaf-fold8\'s research bundle from leaf-fold9\'s. -/\ntheorem researchLeaves8_of_open9 (r : OpenResearchLeaves9) (t : OpenTextbookLeaves9) : OpenResearchLeaves8 where\n')
 out.append('\n'.join('  %s := %s' % (k, DROP_R.get(k, 'r.' + k)) for k, _ in rf) + '\n\n')
 out.append('/-- leaf-fold8\'s textbook bundle from leaf-fold9\'s. -/\ntheorem textbookLeaves8_of_open9 (t : OpenTextbookLeaves9) : OpenTextbookLeaves8 where\n')
 out.append('\n'.join('  %s := %s' % (k, DROP_T.get(k, 't.' + k)) for k, _ in tf) + '\n\n')
@@ -125,12 +161,14 @@ out.append('''/-- **G0 with only the open leaves and the open glue** (leaf-fold9
 `docs/research/leaf-fold9.md` §2. -/
 theorem sixContactMin_of_open9 (r : OpenResearchLeaves9) (t : OpenTextbookLeaves9) (l : OpenAddedLeaves8)
     (g : OpenGlue7) : ZInQ.SixContactMin :=
-  sixContactMin_of_open8 (researchLeaves8_of_open9 r) (textbookLeaves8_of_open9 t) l g
+  sixContactMin_of_open8 (researchLeaves8_of_open9 r t) (textbookLeaves8_of_open9 t) l g
 
 end HSyn
 
 end HDec
-''' % (len(rf) - len(DROP_R), len(tf) - len(DROP_T)))
+''' % (len(rf) - len(DROP_R) + len(NEW_R_NAMES), len(tf) - len(DROP_T)))
 open('ZInQKernel/OneProof/H/TailZ5.lean', 'w').write(z5)
-open('ZInQKernel/OneProof/H/TailZ6.lean', 'w').write(''.join(out))
-print('written', len(z5), sum(len(x) for x in out), 'bytes')
+open('ZInQKernel/OneProof/H/TailZ6.lean', 'w').write(z6)
+open('ZInQKernel/OneProof/H/TailZ7.lean', 'w').write(z7)
+open('ZInQKernel/OneProof/H/TailZ8.lean', 'w').write(''.join(out))
+print('written', len(z5), len(z6), len(z7), sum(len(x) for x in out), 'bytes')

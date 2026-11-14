@@ -1,2 +1,3 @@
 R15 body in TailZ6 (one block): True
 Lemmas part in TailZ5: True ; Lemmas part = test file minus imports: True
+Reduction body in TailZ7 (one block): True ; same imports: True

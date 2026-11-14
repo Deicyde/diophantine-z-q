@@ -15,8 +15,8 @@ Hint: The binding can be removed (if unused) or named `_` (if used implicitly). 
   [apply] _g
 Note: This linter can be disabled with `set_option linter.unusedVariables false`
 'HDec.HSyn.sixContactMin_of_open9' depends on axioms: [propext, Classical.choice, Quot.sound]
-closure: 212153 constants; sorryAx in closure: false
-HDec.HSyn.OpenResearchLeaves9 (28 fields)
+closure: 212238 constants; sorryAx in closure: false
+HDec.HSyn.OpenResearchLeaves9 (30 fields)
 r1r2 : HDec.LeafAdopt.R1R2fpRep [ZInQKernel.OneProof.H.LPrefix]
 shimuraFamily : HDec.QMSplit.Moduli.ShimuraFamily [ZInQKernel.OneProof.H.TailU]
 r3 : ZInQ.LeafPush2.R03_LinYang [ZInQKernel.HDecomp.LeafPush2.R3] K
@@ -25,8 +25,6 @@ igusaChi10 : HDec.QMSplit.Theta.IgusaChi10 [ZInQKernel.OneProof.H.TailU]
 r5count : LeafQM.AV.R5fpCount [ZInQKernel.HDecomp.QM.Leaves] K
 r6 : PkgI2.RaynaudCriterion [ZInQKernel.HDecomp.Objects] K
 r7a : PkgI2.NeronOggShafarevich [ZInQKernel.HDecomp.Objects] K
-r7b : PkgI2.SerreTatePotentialGood [ZInQKernel.HDecomp.Objects] K
-r8 : PkgI2.GrothendieckMonodromy [ZInQKernel.HDecomp.Objects] K
 r9a : PkgI3.FaltingsSemisimple [ZInQKernel.HDecomp.Objects] K
 r9b : PkgI3.FaltingsTate [ZInQKernel.HDecomp.Objects] K
 hodgeTateDecompAbVar : ZInQ.Contrib.HodgeSplit.HodgeTateDecompAbVar [ZInQKernel.OneProof.H.TailS]
@@ -45,6 +43,10 @@ javanpeykarBound : ZInQ.HeightSplit.JavanpeykarBound [ZInQKernel.OneProof.H.Tail
 faltingsLemma5BC : ZInQ.HeightSplit.FaltingsLemma5BC [ZInQKernel.OneProof.H.TailY]
 pazukiCor13Upper : ZInQ.HeightSplit.PazukiCor13Upper [ZInQKernel.OneProof.H.TailY]
 gaudronRemondThm14 : ZInQ.HeightSplit.GaudronRemondThm14 [ZInQKernel.OneProof.H.TailY]
+serreTateThm2 : ReductSplit.SerreTateThm2 [ZInQKernel.OneProof.H.TailZ7]
+semistableReductionDVR : ReductSplit.SemistableReductionDVR [ZInQKernel.OneProof.H.TailZ7]
+semistableUnipotent : ReductSplit.SemistableUnipotent [ZInQKernel.OneProof.H.TailZ7]
+neronSchemeModelExistsDVR : ReductSplit.NeronSchemeModelExistsDVR [ZInQKernel.OneProof.H.TailZ7]
 HDec.HSyn.OpenTextbookLeaves9 (18 fields)
 mulEtaleAbelianScheme : AvSplit.T4.MulEtaleAbelianScheme [ZInQKernel.OneProof.H.TailQ]
 mumfordTorsionAlgClosed : AvSplit.MumfordTorsionAlgClosed [ZInQKernel.OneProof.H.TailQ]
@@ -81,7 +83,7 @@ shimizuCovolumeO1 : HDec.LeafQCheck.HM.QMSplit.ShimizuCovolumeO1 [ZInQKernel.One
 igusaCMValue24 : HDec.LeafQCheck.HM.QMSplit.Value24.IgusaCMValue24 [ZInQKernel.OneProof.H.TailZ3]
 HDec.HSyn.OpenGlue7 (1 fields)
 quotientP1Coordinate : HDec.MCRGlue.QuotientP1Coordinate [ZInQKernel.OneProof.H.TailW]
-fields: 61; head constant declared outside ZInQKernel.OneProof: 20
+fields: 63; head constant declared outside ZInQKernel.OneProof: 18
 'ZInQ.Contrib.CloudW07JacobiansCurves.JacobianExists_proof' depends on axioms: [propext, Classical.choice, Quot.sound]
 'ZInQ.Contrib.CloudW07JacobiansCurves.NormalModelOfFunctionFieldQ_proof' depends on axioms: [propext,
  Classical.choice,
@@ -89,6 +91,8 @@ fields: 61; head constant declared outside ZInQKernel.OneProof: 20
 'HDec.HSyn.r1rec_of_rep' depends on axioms: [propext, Classical.choice, Quot.sound]
 'HDec.HSyn.r5fp_of_rep' depends on axioms: [propext, Classical.choice, Quot.sound]
 'ModularSplit.deligneSerreConseq_of_ds' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ReductSplit.serreTatePotentialGood_final' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ReductSplit.grothendieckMonodromy_final'' depends on axioms: [propext, Classical.choice, Quot.sound]
 'ZInQ.LeafFold9.fieldOfModuli3_le' depends on axioms: [propext, Classical.choice, Quot.sound]
 'ZInQ.LeafFold9.residueImage_eq_fieldOfModuliPair' depends on axioms: [propext, Classical.choice, Quot.sound]
 'ZInQ.LeafFold9.qmIso_of_isBaseChangeOfPair' depends on axioms: [propext, Classical.choice, Quot.sound]

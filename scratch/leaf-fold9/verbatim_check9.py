@@ -9,3 +9,10 @@ test = open('scratch/leaf-fold9/test/R1recT.lean').read()
 z5 = open('ZInQKernel/OneProof/H/TailZ5.lean').read()
 print('Lemmas part in TailZ5:', z5.count(lem) == 1, '; Lemmas part = test file minus imports:',
       lem in test and all(l.startswith('import') or not l.strip() for l in test.replace(lem, '').split('\n')))
+red = open('scratch/reduct-split/Reduction.lean').read().split('\n')
+n = 0
+while red[n].startswith('import'):
+    n += 1
+rbody = '\n'.join(l for l in red[n:] if not l.startswith('#print')).strip('\n')
+z7 = open('ZInQKernel/OneProof/H/TailZ7.lean').read()
+print('Reduction body in TailZ7 (one block):', z7.count(rbody) == 1, '; same imports:', z7.split('\n')[:n] == red[:n])

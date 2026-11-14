@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """leaf-fold9: the field table of the new bundles (run from the repository root).
 
-Reads leaf-fold8's `scratch/leaf-fold8/fields8.tsv`, drops the 5 fields leaf-fold9 removes (no field is added),
+Reads leaf-fold8's `scratch/leaf-fold8/fields8.tsv`, drops the 7 fields leaf-fold9 removes, adds reduct-split's 4 leaves,
 writes `scratch/leaf-fold9/fields9.tsv` and the markdown tables `fields9_tables.md`, and prints the counts after
 each fold."""
 import csv
@@ -13,8 +13,25 @@ REMOVED = {
     'r1r2-bridge (r1rec, r5 from r1r2)': [('R', 'r1rec'), ('R', 'r5')],
     'cloud PR #11 (t33, normalModelOfFunctionFieldQ)': [('T', 't33'), ('T', 'normalModelOfFunctionFieldQ')],
     'modular-split (r15 from dsThm966)': [('R', 'r15')],
+    'reduct-split (r7b, r8 from published-form leaves)': [('R', 'r7b'), ('R', 'r8')],
 }
 ADDED = {k: [] for k in REMOVED}
+RS = '_root_.ReductSplit.'
+ADDED['reduct-split (r7b, r8 from published-form leaves)'] = [
+    ('R', 'serreTateThm2', RS + 'SerreTateThm2', 'published form',
+     'Serre-Tate, Ann. of Math. 88 (1968) Thm 2: potential good reduction iff the image of inertia on T_l A is finite '
+     '(RISK: if printed for complete K, a consequence; reduct-split §5)', 'reduct-split; folded by leaf-fold9',
+     'r7b (consequence), with mumfordTorsionAlgClosed'),
+    ('R', 'semistableReductionDVR', RS + 'SemistableReductionDVR', 'published form (specialization)',
+     'SGA 7 I Exp. IX Thm 3.6 over a DVR: A_K\' semistable at every place above O for a finite K\' (print: finite '
+     'separable)', 'reduct-split; folded by leaf-fold9', 'r8 (consequence), with the next two and mumfordTorsionAlgClosed'),
+    ('R', 'semistableUnipotent', RS + 'SemistableUnipotent', 'published form (weakest reading)',
+     'SGA 7 I Exp. IX Prop. 3.5, semistable => (sigma-1)^2 = 0 on T_l for sigma in inertia, one sigma at a time',
+     'reduct-split; folded by leaf-fold9', 'r8'),
+    ('R', 'neronSchemeModelExistsDVR', RS + 'NeronSchemeModelExistsDVR', 'published form',
+     'BLR, Neron models, 1.4 Thm 3 over a DVR, scheme form (no group law)', 'reduct-split; folded by leaf-fold9',
+     'r8'),
+]
 ORDER = list(REMOVED)
 BUNDLES = [('R', 'OpenResearchLeaves9'), ('T', 'OpenTextbookLeaves9'), ('A', 'OpenAddedLeaves8'),
            ('G', 'OpenGlue7')]
