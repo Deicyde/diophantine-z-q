@@ -186,8 +186,9 @@ with `K_p = 𝒪_p^× ≅ GL₂(ℤ_p)` for a prime `p ∤ D`, the moduli proble
 `𝒪`-action (and, in the PEL form, a principal polarization of the fixed Rosati type) and
 `K`-level structure, on `ℤ_(p)`-schemes, is representable by a smooth proper curve over `ℤ_(p)`
 whose generic fibre is the Shimura curve `Sh_K` over `ℚ`.
-- R. Kottwitz, *Points on some Shimura varieties over finite fields*, J. AMS 5 (1992), §5
-  (UNVERIFIED): PEL moduli with neat `K^p` and hyperspecial `K_p` are smooth over `𝒪_{E,(p)}`;
+- R. Kottwitz, *Points on some Shimura varieties over finite fields*, J. AMS 5 (1992), 373-444,
+  §5 (bibliographic identity established in docs/research/locators.md row R1; §5 itself unread,
+  UNVERIFIED): PEL moduli with neat `K^p` and hyperspecial `K_p` are smooth over `𝒪_{E,(p)}`;
   proper when `B` is a division algebra. This covers the level `K₃` at `3 ∣ D` (`3 ≠ p`).
 - K. Buzzard, *Integral models of certain Shimura curves*, Duke Math. J. 87 (1997), §1-§4
   (UNVERIFIED): the polarization-free moduli of `(A, ι)` with level structure over `ℤ[1/DN]`.

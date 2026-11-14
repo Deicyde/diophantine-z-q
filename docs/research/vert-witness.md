@@ -159,7 +159,7 @@ over `ℚ` of discriminant `D`, a maximal order `𝒪`, and a neat level `K` tha
 representable over `ℤ_(p)` by a smooth proper curve. Polarized (PEL) or not depends on the
 source. Sources:
 
-- Kottwitz, J. AMS 5 (1992), §5: smooth PEL moduli for neat `K^p` and hyperspecial `K_p`,
+- Kottwitz, J. AMS 5 (1992), 373-444, §5 (the bibliographic identity is established in locators.md row R1; §5 itself was unread by that audit): smooth PEL moduli for neat `K^p` and hyperspecial `K_p`,
   proper for division `B`. This covers level at `3 ∣ D`, since `3 ≠ p`. Cite it first.
 - Buzzard, Duke 87 (1997): the polarization-free problem over `ℤ[1/DN]`.
 - Morita, Hokkaido Math. J. 10 (1981): good reduction at `p ∤ D·level`.
