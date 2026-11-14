@@ -228,6 +228,51 @@ def NeronMetrizable : Prop :=
     [Algebra K L] (𝒩 : GroupModel A L), 𝒩.IsNeronModel →
     ∃ (g : ℕ) (M : MetrizedModel A L g), M.model = 𝒩
 
+/-- **Glue `UniformizationDim`.** The dimension `g` of an analytic uniformization `ℂ^g → 𝒢(ℂ)_τ` of
+a group model of `A_L` with kernel a full lattice is `dim A` (the complex Lie group `A_τ(ℂ)` has
+complex dimension `dim A`; `Φ` induces a continuous bijection from the compact torus `ℂ^g/Λ`).
+The lattice hypotheses are needed: without them `Φ₀ ∘ pr : ℂ^{g+1} → 𝒢(ℂ)_τ` would be a
+uniformization with kernel `Λ₀ × ℂ`. Needs: the analytic topology on `𝒢(ℂ)_τ` and its manifold
+structure from regular functions (smoothness of relative dimension `dim A`, Jacobian criterion) and
+invariance of domain. -/
+def UniformizationDim : Prop :=
+  ∀ (K : Type) [Field K] (A : PkgI3.AbVar K) (L : Type) [Field L] [NumberField L] [Algebra K L]
+    (𝒢 : GroupModel A L) (τ : L →+* ℂ) (g : ℕ) (Λ : Submodule ℤ (Fin g → ℂ))
+    (Φ : (Fin g → ℂ) → 𝒢.Pts τ), ∀ _ : DiscreteTopology Λ, IsZLattice ℝ Λ →
+    𝒢.IsAnalyticUniformization τ Λ Φ → A.dim = (g : WithBot ℕ∞)
+
+/-- **Glue `MetrizationOfUniformization`.** A group model of `A_L` with an analytic uniformization of
+dimension `g = dim A` (lattice a full `ℤ`-lattice) at every `τ` carries a metrization of dimension
+`g`. Needs: the kernel's `HodgeLatticeTheorem` (proved, `ZInQ.Contrib.Dim.hodgeLatticeTheorem`) for
+the lattice `⋀^g ω_𝒢`; the coefficient map `coeff_τ : L ⊗ ⋀^g(𝔪/𝔪²) → ℂ`, `τ`-semilinear, from
+`f ↦ d(f ∘ Φ)_0` (independent of the representative of the germ, `𝓞_L`-linear through `τ`, zero on
+`𝔪²` by the product rule since `f(Φ(0)) = 0`), whose `g`-th exterior power is `jacDet Φ`; and
+`coeff_τ ≠ 0` (regular functions with independent differentials are local coordinates, so the
+Jacobian at `0` is invertible). -/
+def MetrizationOfUniformization : Prop :=
+  ∀ (K : Type) [Field K] [NumberField K] (A : PkgI3.AbVar K) (L : Type) [Field L] [NumberField L]
+    [Algebra K L] (𝒢 : GroupModel A L) (g : ℕ), A.dim = (g : WithBot ℕ∞) →
+    (∀ τ : L →+* ℂ, ∃ (Λ : Submodule ℤ (Fin g → ℂ)) (Φ : (Fin g → ℂ) → 𝒢.Pts τ),
+      ∃ _ : DiscreteTopology Λ, IsZLattice ℝ Λ ∧ 𝒢.IsAnalyticUniformization τ Λ Φ) →
+    ∃ M : MetrizedModel A L g, M.model = 𝒢
+
+/-- **`NeronMetrizable` from the kernel's AN3 existence and the two construction glues.** In fact
+every group model is metrizable (the Néron property is not used). -/
+theorem neronMetrizable_of (hE : AnalyticUniformizationExists) (hD : UniformizationDim)
+    (hM : MetrizationOfUniformization) : NeronMetrizable := by
+  intro K _ _ A L _ _ _ 𝒩 _
+  obtain ⟨τ₀⟩ : Nonempty (L →+* ℂ) := ⟨(IsAlgClosed.lift : L →ₐ[ℚ] ℂ).toRingHom⟩
+  obtain ⟨g, Λ₀, Φ₀, hd₀, hz₀, hΦ₀⟩ := hE K A L 𝒩 τ₀
+  have hg : A.dim = (g : WithBot ℕ∞) := hD K A L 𝒩 τ₀ g Λ₀ Φ₀ hd₀ hz₀ hΦ₀
+  obtain ⟨M, hM'⟩ := hM K A L 𝒩 g hg (fun τ => by
+    obtain ⟨g', Λ, Φ, hd, hz, hΦ⟩ := hE K A L 𝒩 τ
+    have hg' : g' = g := by
+      have := (hD K A L 𝒩 τ g' Λ Φ hd hz hΦ).symm.trans hg
+      exact_mod_cast this
+    subst hg'
+    exact ⟨Λ, Φ, hd, hz, hΦ⟩)
+  exact ⟨g, M, hM'⟩
+
 /-- **Glue `MetrizedDimUnique`.** Two metrizations of the same group model have the same `g`.
 Needs: for `τ : L → ℂ`, `Φ : ℂ^g → 𝒢(ℂ)_τ` is a surjective homomorphism with kernel a full lattice
 `Λ` (`IsZLattice ℝ`, rank `2g`), so `#𝒢(ℂ)_τ[2] = #(½Λ/Λ) = 2^{2g}`; the same count for `g'` gives
@@ -842,3 +887,4 @@ end ZInQ.HeightSplit
 #print axioms ZInQ.HeightSplit.r19_of_leaves
 #print axioms ZInQ.HeightSplit.isStableFaltingsHeight_zero
 #print axioms ZInQ.HeightSplit.semistableNeronBaseChange_zero
+#print axioms ZInQ.HeightSplit.neronMetrizable_of

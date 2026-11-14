@@ -59,3 +59,8 @@ with `lake env lean` (one process at a time). Marks: VERIFIED / STANDARD / SPECU
   (`IsStableFaltingsHeight (AbVar.zero K) 0`), `semistableReductionThm_zero`, `semistablePersists_zero`,
   `semistableNeronBaseChange_zero`. So the new definitions are satisfiable as written (torus/abelian
   part not exercised). Axioms standard.
+- `NeronMetrizable` reduced (VERIFIED, compiled): `neronMetrizable_of : AnalyticUniformizationExists
+  (kernel Prop, AN3 existence) → UniformizationDim → MetrizationOfUniformization → NeronMetrizable`.
+  Finding while stating: `UniformizationDim` is false without the lattice hypotheses
+  (`Φ₀ ∘ pr : ℂ^{g+1} → 𝒢(ℂ)_τ` has kernel `Λ₀ × ℂ`), so it carries `DiscreteTopology Λ` and
+  `IsZLattice ℝ Λ` (as the kernel's `AnalyticUniformizationExists` and `HodgeData` do).
