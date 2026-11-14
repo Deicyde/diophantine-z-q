@@ -10,8 +10,8 @@ this host, no copy of the books).
 
 ## 1. Main result
 
-**Four of the seven rows are now theorems from published-form leaves only** (H-24, H-25, H-38, H-54), with no
-glue left; **one row is reduced** (H-69: its published input, Birkenhake–Lange Prop. 1.2.1, is already a kernel
+**Four of the seven rows are now theorems from published-form leaves only** (H-24, H-25, H-38, H-54), one leaf
+each and no glue left; **one row is reduced** (H-69: its published input, Birkenhake–Lange Prop. 1.2.1, is already a kernel
 theorem; two analytic glue Props remain); **two rows cannot be split** over Mathlib's definitions today (H-53 needs
 the dual abelian variety, H-78 needs `H¹(X, 𝒪_X)` or `Ω¹_X` on schemes), and both are reported with the
 decomposition on paper and what is missing. No row statement was changed; none was found false, vacuous or
@@ -22,7 +22,7 @@ at the end of each file; outputs in the log).
 
 | row | old form (r3) | new leaves (published form, source) | new glue | Lean name of the proof |
 |---|---|---|---|---|
-| H-24 `t4 : PkgI2.ReductionTorsionBijective` | GLUE, consequence of Serre–Tate 1968 §1 | (a) `AvSplit.T4.MulEtaleAbelianScheme`: `[m]` on an abelian scheme over `Spec O` is étale if `m ∈ O×` (BLR, *Néron models*, §7.3 Lemma 2; Mumford, GIT §6; UNVERIFIED locators); (b) `AvSplit.T4.UnramifiedSectionsEq`: two `S`-morphisms from a connected scheme to an unramified separated `S`-scheme agreeing at a point (with residue fields) are equal (Stacks, Morphisms, Lemma 29.35.17; EGA IV 17.4.9; UNVERIFIED); (c) `AvSplit.T4.StacksHenselEtaleSection`: étale algebras over a henselian local ring have sections through rational primes (Stacks 04GG, (1)⇒(8); item number UNVERIFIED) | none: `HenselEtaleLift` (scheme form of Hensel) and `henselian_of_isAlgClosed` are proved | `AvSplit.T4.reductionTorsionBijective_of_leaves` (`scratch/av-split/T4.lean`) |
+| H-24 `t4 : PkgI2.ReductionTorsionBijective` | GLUE, consequence of Serre–Tate 1968 §1 | `AvSplit.T4.MulEtaleAbelianScheme`: `[m]` on an abelian scheme over `Spec O` is étale if `m ∈ O×` (BLR, *Néron models*, §7.3 Lemma 2; Mumford, GIT §6; UNVERIFIED locators) | none: the two other inputs, Stacks Morphisms 29.35.17 (unramified separated: maps agreeing at a point agree) and Stacks 04GG (sections of étale algebras over henselian rings), are **proved from Mathlib** here, as are the scheme form of Hensel and `w` henselian | `AvSplit.T4.reductionTorsionBijective_of_mulEtale` (`scratch/av-split/T4.lean`) |
 | H-25 `t5 : PkgI2.TorsionStructure` | GLUE, consequence of Mumford §4 App. 2 | `AvSplit.MumfordTorsionAlgClosed`: over an algebraically closed `k`, `A(k)[n] ≅ (ℤ/n)^{2g}` for `char k ∤ n` (Mumford, *Abelian varieties*, §4, Application 2 (iv); UNVERIFIED) | none | `AvSplit.torsionStructure_of_mumford` (`T5Isog.lean`) |
 | H-38 `t35 : ZInQ.LeafPush2.UniformizationExists` | GLUE, consequence of Mumford §1 with GAGA | `AvSplit.MumfordUniformizationC`: the row at `K = ℂ`, `σ = id` (Mumford §1 for Serre's `X^an`, GAGA §2; UNVERIFIED) | none | `AvSplit.uniformizationExists_of_mumford` (`T35.lean`) |
 | H-54 `isogenyQuasiInverse : WeilPairing.IsogenyQuasiInverse` | GLUE, consequence of Mumford §7-8 | `AvSplit.MilneIsogenyQuasiInverse`: `fg = [d]`, `gf = [d]` as morphisms, some `d ≥ 1` (Milne, *Abelian varieties* (1986), Rem. 8.4; Milne's notes Prop. 7.1; Mumford §7; UNVERIFIED) | none | `AvSplit.isogenyQuasiInverse_of_milne` (`T5Isog.lean`) |
@@ -31,8 +31,8 @@ at the end of each file; outputs in the log).
 | H-78 `ZInQ.Contrib.CurvesG.DimJacobianEqGenus` | GLUE, composite of Milne JV Prop. 2.1 with Serre duality | not splittable over Mathlib definitions (§4.2) | stays GLUE | — |
 
 **Effect on the count of frontier r3** (strict: LEAF = published form). H-24, H-25, H-38, H-54 (4 GLUE) are replaced by
-6 LEAF (3 + 1 + 1 + 1); H-69 (1 GLUE) by 2 GLUE; H-53, H-78 unchanged. If nothing else changes, 70 Props (17 LEAF,
-53 GLUE) become **73 Props: 23 LEAF, 50 GLUE** (SPECULATIVE until an integration fold checks that none of the six new
+4 LEAF (one each); H-69 (1 GLUE) by 2 GLUE; H-53, H-78 unchanged. If nothing else changes, 70 Props (17 LEAF,
+53 GLUE) become **71 Props: 21 LEAF, 50 GLUE** (SPECULATIVE until an integration fold checks that none of the four new
 leaves duplicates an existing row).
 
 **Universes.** `PkgI2.ReductionTorsionBijective` and `PkgI2.TorsionStructure` are universe-polymorphic
@@ -100,52 +100,64 @@ exponential) for Serre's analytification, whose defining properties give the two
 `cEvalAt (bcPt p) U s = cEvalAt p (π⁻¹U) (π^* s)` (`Scheme.Hom.comp_appLE`). The converse is immediate, so the leaf and
 the row are equivalent.
 
-### 2.4 H-24 (T4): `ReductionTorsionBijective` from three leaves
+### 2.4 H-24 (T4): `ReductionTorsionBijective` from one leaf
 
 ```lean
 def MulEtaleAbelianScheme : Prop :=
   ∀ (O : Type) [CommRing O] (𝒜 : Grp (Over (Spec (.of O)))) [IsAbelianScheme 𝒜] (m : ℕ),
     IsUnit (m : O) → Etale ((𝟙 𝒜.X ^ m : 𝒜.X ⟶ 𝒜.X).left)
-def UnramifiedSectionsEq : Prop :=
+theorem reductionTorsionBijective_of_mulEtale (hE : MulEtaleAbelianScheme) :
+    PkgI2.ReductionTorsionBijective.{0}
+```
+
+The leaf is the standard statement for abelian schemes (`[n]` is finite flat of degree `n^{2g}`, étale when `n` is
+invertible on the base; BLR §7.3 Lemma 2, Mumford GIT §6, Katz–Mazur Thm 2.3.1 for `g = 1`; locators UNVERIFIED),
+here over an affine base and with "abelian scheme" as in the kernel's `IsAbelianScheme` (proper, smooth,
+geometrically connected fibres; Mumford GIT Def. 6.1). It is used twice: `[m]` étale, and `[m]` unramified.
+
+Two further published inputs of the derivation were first stated as leaves and are now **theorems from Mathlib**
+(VERIFIED, `T4.lean`):
+
+```lean
+def UnramifiedSectionsEq : Prop :=          -- Stacks, Morphisms, Lemma 29.35.17 (UNVERIFIED number)
   ∀ (X Y S : Scheme.{0}) (π : Y ⟶ S) [IsSeparated π] [LocallyOfFiniteType π]
     [FormallyUnramified π] (a b : X ⟶ Y), ConnectedSpace X → a ≫ π = b ≫ π →
     ∀ x : X, X.fromSpecResidueField x ≫ a = X.fromSpecResidueField x ≫ b → a = b
-def StacksHenselEtaleSection : Prop :=
+theorem unramifiedSectionsEq : UnramifiedSectionsEq
+def StacksHenselEtaleSection : Prop :=      -- Stacks 04GG, (1) ⇒ (8) (UNVERIFIED item number)
   ∀ (R : Type) [CommRing R] [HenselianLocalRing R] (S : Type) [CommRing S] [Algebra R S]
     [Algebra.Etale R S] (q : Ideal S) [q.IsPrime],
     q.comap (algebraMap R S) = IsLocalRing.maximalIdeal R →
     Function.Surjective ((Ideal.Quotient.mk q).comp (algebraMap R S)) →
     ∃ τ : S →ₐ[R] R, q = (IsLocalRing.maximalIdeal R).comap τ
-theorem reductionTorsionBijective_of_leaves (hE : MulEtaleAbelianScheme)
-    (hU : UnramifiedSectionsEq) (hS : StacksHenselEtaleSection) : PkgI2.ReductionTorsionBijective.{0}
+theorem stacksHenselEtaleSection : StacksHenselEtaleSection
 ```
 
-Fidelity of the leaves (SPECULATIVE judgements, sources UNVERIFIED): (a) is the standard statement for abelian
-schemes (`[n]` is finite flat of degree `n^{2g}`, étale when `n` is invertible on the base), here over an affine
-base and with "abelian scheme" as in the kernel's `IsAbelianScheme` (proper, smooth, geometrically connected
-fibres; Mumford GIT Def. 6.1). (b) encodes the printed hypothesis "`a(x) = b(x)` and the two maps
-`κ(a(x)) → κ(x)` agree" as equality of the composites with `Spec κ(x) → X` (Mathlib's
-`Scheme.fromSpecResidueField`; the two are equivalent by `Scheme.SpecToEquivOfField`); unramified = formally
-unramified and locally of finite type (Stacks' definition). (c) states "`κ = κ(𝔮)`" as "`R → S/𝔮` is onto", which
-implies it (`R/𝔪 ⊆ S/𝔮 ⊆ κ(𝔮)`); Mathlib's `HenselianLocalRing` is Stacks' Def. 10.153.1.
+`unramifiedSectionsEq`: the diagonal of an unramified separated `π` is an open (Mathlib
+`isOpenImmersion_diagonal`) and closed immersion, so the preimage of its image under `(a, b)` is clopen, contains
+`x`, hence is all of `X`, and `(a, b)` factors through the diagonal. `stacksHenselEtaleSection`: Mathlib's local
+structure theorem `Algebra.IsEtaleAt.exists_isStandardEtale` (Stacks 00UE) gives `f ∉ 𝔮` with `S_f ≅ R[X]_g/(P)`
+standard étale; with `χ : S → S/𝔮 ≅ R/𝔪` lift the image of `X` to `a ∈ R`; `P(a) ∈ 𝔪`, `P'(a)` a unit, Hensel gives a
+root `α ≡ a` with `g(α)` a unit; `X ↦ α` defines `τ`, and `res ∘ τ = χ` (two `R`-algebra maps out of `S_f` agreeing on
+`X`), so `τ⁻¹(𝔪) = 𝔮`.
 
-Proof (VERIFIED, `T4.lean`):
+Proof of the row (VERIFIED, `T4.lean`):
 1. `G : A(K̄) ≃* 𝒜(K̄/O)` through `e` and `Over.mapPullbackAdj` (`G_injective`, `G_surjective`, multiplicative by
    alg-frob-red's `pb_symm_mul`, copied); `IsReductionOf x y ⟺ ∃ x' ∈ 𝒜(w), ι^* x' = G x ∧ ρ^* x' = y`
    (`isRed_iff`).
 2. `ι^* : 𝒜(w) → 𝒜(K̄/O)` is bijective: Mathlib's valuative criteria (`IsSeparated.valuativeCriterion`,
    `UniversallyClosed.eq_valuativeCriterion`) for the proper `𝒜 → Spec O` and the valuation ring `w ⊆ K̄`.
 3. `ρ^*` (restriction to `Spec κ(w)`) is injective on `m`-torsion (`rho_inj`): for `a^m = b^m = 1`,
-   `a ≫ [m] = b ≫ [m]`, `[m]` is étale (a), hence unramified and (being over the separated `𝒜 → Spec O`)
+   `a ≫ [m] = b ≫ [m]`, `[m]` is étale (leaf), hence unramified and (being over the separated `𝒜 → Spec O`)
    separated; `Spec w` is connected; `a`, `b` agree on `Spec κ(w) → Spec w`, which factors through
-   `Spec κ(closed point)` by an epimorphism; leaf (b).
+   `Spec κ(closed point)` by an epimorphism; `unramifiedSectionsEq`.
 4. `ρ^*` is onto the `m`-torsion of `𝒜(κ(w))` (`rho_surj`): `w` is henselian (`henselian_of_isAlgClosed`, proved:
-   monic polynomials split over `K̄` with roots integral over `w`, hence in `w`), `[m]` is étale (a), and the scheme
+   monic polynomials split over `K̄` with roots integral over `w`, hence in `w`), `[m]` is étale (leaf), and the scheme
    form of Hensel's lemma `HenselEtaleLift` lifts `y : Spec κ(w) → 𝒜` over the unit section.
-5. `HenselEtaleLift` from (c) (`henselEtaleLift_of_stacks`): affine opens `U ∋ f(a₀(s))`, `V ∋ a₀(s)`, `V ⊆ f⁻¹U`;
-   `b`, `a₀` as ring maps `Γ(U) → R`, `Γ(V) → κ` (g9-abvarbc's `ptRing`, kernel); `S = R ⊗_{Γ(U)} Γ(V)` is étale over
-   `R` (Mathlib `Algebra.Etale.baseChange`); `𝔮 = ker(S → κ)`; (c) gives `τ`; `res ∘ τ = (S → κ)` because both kill
-   `𝔮` and `R → S/𝔮` is onto.
+5. `HenselEtaleLift` from `stacksHenselEtaleSection` (`henselEtaleLift_of_stacks`): affine opens `U ∋ f(a₀(s))`,
+   `V ∋ a₀(s)`, `V ⊆ f⁻¹U`; `b`, `a₀` as ring maps `Γ(U) → R`, `Γ(V) → κ` (g9-abvarbc's `ptRing`, kernel);
+   `S = R ⊗_{Γ(U)} Γ(V)` is étale over `R` (Mathlib `Algebra.Etale.baseChange`); `𝔮 = ker(S → κ)`; Stacks 04GG gives
+   `τ`; `res ∘ τ = (S → κ)` because both kill `𝔮` and `R → S/𝔮` is onto.
 6. Assembly (`reductionTorsionBijective_of`): both `∃!` clauses from 1-4.
 
 ## 3. H-69: what remains of `HomLatticeCorr`
@@ -236,5 +248,5 @@ kernel modules (build artifacts reused from the leaf-fold6 worktree, same `ZInQK
 |---|---|
 | `T5Isog.lean` | `AvSplit.torsionStructure_of_mumford`, `AvSplit.isogenyQuasiInverse_of_milne` |
 | `T35.lean` | `AvSplit.uniformizationExists_of_mumford`, `AvSplit.mumford_of_uniformizationExists` |
-| `T4.lean` | `AvSplit.T4.henselian_of_isAlgClosed`, `AvSplit.T4.reductionTorsionBijective_of`, `AvSplit.T4.henselEtaleLift_of_stacks`, `AvSplit.T4.reductionTorsionBijective_of_leaves` |
+| `T4.lean` | `AvSplit.T4.henselian_of_isAlgClosed`, `AvSplit.T4.reductionTorsionBijective_of`, `AvSplit.T4.henselEtaleLift_of_stacks`, `AvSplit.T4.reductionTorsionBijective_of_leaves`, `AvSplit.T4.unramifiedSectionsEq`, `AvSplit.T4.stacksHenselEtaleSection`, `AvSplit.T4.reductionTorsionBijective_of_mulEtale` |
 | `HomLattice.lean` | `AvSplit.HomLattice.homLinearLift_of`, `AvSplit.HomLattice.homLatticeCorr_of` |
