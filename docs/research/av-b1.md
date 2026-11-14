@@ -93,7 +93,7 @@ example (t : HSyn.OpenTextbookLeaves3) :
     PkgI3.HomFreeFinite ∧ PkgI3.CharPolyIndepOfEll ∧ PkgI3.PoincareReducibility := ⟨t.t6, t.t7, t.t8⟩
 ```
 
-Outcome of the flat run: §5.
+Flat run: exit 0, no sorry, standard axioms (§5).
 
 ## 2. The glue (BaseChange.lean, AlgClosed.lean, Poincare.lean)
 
@@ -246,9 +246,13 @@ of quasi-finite proper maps, and neither exists for the kernel's `AbVar` in Math
 
 - `lake build ZInQKernel.Contrib.AVB1.BaseChange`, `.AlgClosed`, `.Poincare`: success.
 - `scratch/av-b1/Axioms1.lean`: the five `#print axioms` above.
-- Flat single file `scratch/av-b1/AVB1Check.lean` (111 374 lines; md5 in
-  `scratch/av-b1/check.md5`; regenerate with `python3 scratch/av-b1/mk_check.py`): see
-  `scratch/av-b1/log.md` for the exit code, time and `#print axioms` output.
+- Flat single file `scratch/av-b1/AVB1Check.lean` (md5 `9a77a965…`, `scratch/av-b1/check.md5`;
+  regenerate with `python3 scratch/av-b1/mk_check.py`; not committed, ~5.9 MB):
+  `lake env lean` **exit 0 in 1027 s, 0 errors, no sorry**, 301 `#print axioms` reports. The 13
+  av-b1 reports (`scratch/av-b1/check_axioms_run3.txt`) are all
+  `[propext, Classical.choice, Quot.sound]`, among them `HDec.AVB1Check.t6_of_algClosed`,
+  `t7_of_algClosed`, `t8_of_pieces`, `t8_of_simpleImage`, `t6_t7_t8_of_avb1`, `t6_t7_t8_of_avb1'`
+  (VERIFIED).
 
 ## 6. For the next fold
 

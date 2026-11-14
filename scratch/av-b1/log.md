@@ -33,3 +33,12 @@ scratch/leaf-fold3/Leaves3.lean under `HDec.PkgI3`).
 - `lake env lean scratch/av-b1/AVB1Check.lean` (660161e571cb…): EXIT 0 in 1027 s, 0 errors,
   no sorry; 297 axiom reports, all [propext, Classical.choice, Quot.sound], incl.
   HDec.AVB1Check.{t6_of_algClosed, t7_of_algClosed, t8_of_pieces, t6_t7_t8_of_avb1} (VERIFIED).
+
+## 19:19 PST — flat run 3 (adds SimpleImageIsogeny route)
+- Poincare.lean: `SimpleImageIsogeny` (GLUE), `simpleImageIsogeny_of_pieces`,
+  `poincareReducibility_of_simpleImage : PoincareComplement → SimpleImageIsogeny → PkgI3.PoincareReducibility`
+  (lake build OK, Axioms1.lean standard three, VERIFIED).
+- `lake env lean scratch/av-b1/AVB1Check.lean` (md5 9a77a965…): EXIT 0 in 1027 s, 0 errors, no sorry, 301 axiom
+  reports; the 13 AVB1 ones (check_axioms_run3.txt) all [propext, Classical.choice, Quot.sound], incl.
+  HDec.AVB1Check.{t6_of_algClosed, t7_of_algClosed, t8_of_pieces, t8_of_simpleImage, t6_t7_t8_of_avb1,
+  t6_t7_t8_of_avb1'} (VERIFIED). AVB1Check.lean and check_out.txt are not committed (regenerate: mk_check.py).
