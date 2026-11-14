@@ -418,6 +418,269 @@ theorem singular_of_shimuraReciprocityModFn (h : ShimuraReciprocityModFn) :
   intro N g hg m f _ _ hsq e he J ρ hρ D hD Q Q' c hL hLN _
   exact h N g hg m f hsq e he J ρ hρ D hD Q Q' c hL hLN
 
+/-! ## §5. `j` and `j_N` are rational modular functions (q-expansion bookkeeping, proved) -/
+
+section JRational
+open Metric Filter
+
+theorem E4_smul (γ : Matrix.SpecialLinearGroup (Fin 2) ℤ) (w : UpperHalfPlane) :
+    ModularForm.E₄ (γ • w) = UpperHalfPlane.denom γ w ^ 4 * ModularForm.E₄ w := by
+  have h := SlashInvariantForm.slash_action_eqn'' (k := 4) ModularForm.E₄
+    (γ := (γ : GL (Fin 2) ℝ)) (MonoidHom.mem_range.2 ⟨γ, rfl⟩) w
+  rw [ModularGroup.sl_moeb]
+  exact h
+
+theorem discriminant_smul (γ : Matrix.SpecialLinearGroup (Fin 2) ℤ) (w : UpperHalfPlane) :
+    ModularForm.discriminant (γ • w) =
+      UpperHalfPlane.denom γ w ^ 12 * ModularForm.discriminant w :=
+  Shimura.eta_pow_smul γ w
+
+/-- **`j` is `SL₂(ℤ)`-invariant.** -/
+theorem jInv_smul (γ : Matrix.SpecialLinearGroup (Fin 2) ℤ) (τ : UpperHalfPlane) :
+    jInv (γ • τ) = jInv τ := by
+  have hd : UpperHalfPlane.denom γ τ ≠ 0 := UpperHalfPlane.denom_ne_zero _ _
+  have h0 := ModularForm.discriminant_ne_zero τ
+  unfold jInv
+  rw [E4_smul, discriminant_smul]
+  field_simp
+
+/-- `E₄` as a function of `q` (Mathlib's `cuspFunction` at the cusp `∞`, width 1). -/
+def FE4 : ℂ → ℂ := UpperHalfPlane.cuspFunction 1 ModularForm.E₄
+
+theorem qParam_one (τ : UpperHalfPlane) :
+    Function.Periodic.qParam 1 (τ : ℂ) = cexp (2 * Real.pi * I * τ) := by
+  simp [Function.Periodic.qParam]
+
+theorem FE4_q (τ : UpperHalfPlane) : FE4 (cexp (2 * Real.pi * I * τ)) = ModularForm.E₄ τ := by
+  rw [← qParam_one]
+  exact SlashInvariantFormClass.eq_cuspFunction ModularForm.E₄ τ one_mem_strictPeriods_SL
+    one_ne_zero
+
+theorem differentiableOn_FE4 : DifferentiableOn ℂ FE4 (ball (0 : ℂ) 1) := fun _ hq =>
+  (ModularFormClass.differentiableAt_cuspFunction ModularForm.E₄ one_pos
+    one_mem_strictPeriods_SL (mem_ball_zero_iff.1 hq)).differentiableWithinAt
+
+theorem two_mem_Qc : (2 : ℂ) ∈ Shimura.Qc := ⟨2, by simp⟩
+
+theorem isRatAt_FE4 : Shimura.IsRatAt FE4 := by
+  have han : AnalyticAt ℂ FE4 0 :=
+    ModularFormClass.analyticAt_cuspFunction_zero ModularForm.E₄ one_pos one_mem_strictPeriods_SL
+  refine ⟨fun n => han.contDiffAt, fun n => ?_⟩
+  have hc := EisensteinSeries.E_qExpansion_coeff (k := 4) (by norm_num) ⟨2, rfl⟩ n
+  rw [UpperHalfPlane.qExpansion_coeff] at hc
+  have hn : (n.factorial : ℂ) ≠ 0 := by exact_mod_cast n.factorial_ne_zero
+  have he : iteratedDeriv n FE4 0 = n.factorial *
+      (if n = 0 then 1 else -(2 * ((4 : ℕ) : ℂ) / (bernoulli 4 : ℂ)) * (ArithmeticFunction.sigma (4 - 1) n : ℂ)) := by
+    rw [← hc]
+    unfold FE4
+    field_simp
+  rw [he]
+  refine Shimura.Qc.mul_mem (Shimura.natCast_mem_Qc _) ?_
+  split_ifs
+  · exact Shimura.Qc.one_mem
+  · exact Shimura.Qc.mul_mem (Shimura.Qc.neg_mem (Shimura.Qc.div_mem
+      (Shimura.Qc.mul_mem two_mem_Qc (Shimura.natCast_mem_Qc 4)) (Shimura.ratCast_mem_Qc _)))
+      (Shimura.natCast_mem_Qc _)
+
+/-- `q·j(τ)` as a function of `q`: `E₄(q)³/∏(1 − qⁿ)²⁴`. -/
+def Gj (q : ℂ) : ℂ := FE4 q ^ 3 / Shimura.pd 1 q ^ 24
+
+theorem isRatAt_Gj : Shimura.IsRatAt Gj :=
+  (isRatAt_FE4.pow 3).div ((Shimura.isRatAt_pd one_pos).pow 24)
+    (by simp [Shimura.pd_zero 1 one_pos])
+
+theorem differentiableOn_Gj : DifferentiableOn ℂ Gj (ball (0 : ℂ) 1) :=
+  (differentiableOn_FE4.pow 3).div ((Shimura.differentiableOn_pd one_pos).pow 24)
+    (fun _ hq => pow_ne_zero _ (Shimura.pd_ne_zero one_pos hq))
+
+theorem discriminant_eq_pd (τ : UpperHalfPlane) :
+    ModularForm.discriminant τ =
+      cexp (2 * Real.pi * I * τ) * Shimura.pd 1 (cexp (2 * Real.pi * I * τ)) ^ 24 := by
+  show ModularForm.eta (τ : ℂ) ^ 24 = _
+  rw [Shimura.eta_eq_prodF, mul_pow, Shimura.pd, pow_one]
+  congr 1
+  rw [Function.Periodic.qParam, ← Complex.exp_nat_mul]
+  congr 1
+  push_cast
+  ring
+
+theorem Gj_q (τ : UpperHalfPlane) :
+    Gj (cexp (2 * Real.pi * I * τ)) = cexp (2 * Real.pi * I * τ) * jInv τ := by
+  have hq : cexp (2 * Real.pi * I * τ) ≠ 0 := Complex.exp_ne_zero _
+  have hp : Shimura.pd 1 (cexp (2 * Real.pi * I * τ)) ≠ 0 :=
+    Shimura.pd_ne_zero one_pos (Shimura.q_mem_ball τ)
+  rw [Gj, FE4_q, jInv, discriminant_eq_pd]
+  field_simp
+
+/-- **Rational `q`-expansion of `j`**: `q·j(τ) = Σ aₙ qⁿ` on `ℍ`, `aₙ ∈ ℚ`. -/
+theorem jInv_qexp : ∃ a : ℕ → ℚ, ∀ τ : UpperHalfPlane,
+    HasSum (fun n : ℕ => (a n : ℂ) * cexp (2 * Real.pi * I * τ) ^ n)
+      (cexp (2 * Real.pi * I * τ) ^ 1 * jInv τ) := by
+  obtain ⟨a, ha⟩ := Shimura.exists_rat_hasSum differentiableOn_Gj isRatAt_Gj
+  refine ⟨a, fun τ => ?_⟩
+  rw [pow_one, ← Gj_q]
+  exact ha _ (Shimura.q_mem_ball τ)
+
+theorem norm_q (τ : UpperHalfPlane) :
+    ‖cexp (2 * Real.pi * I * τ)‖ = Real.exp (-(2 * Real.pi * τ.im)) := by
+  rw [Complex.norm_exp]
+  congr 1
+  simp [Complex.mul_re, Complex.mul_im]
+
+/-- **`|j(τ)| ≤ C·e^{2π Im τ}` for `Im τ ≥ 1`.** -/
+theorem jInv_bound : ∃ C : ℝ, ∀ τ : UpperHalfPlane, 1 ≤ τ.im →
+    ‖jInv τ‖ ≤ C * Real.exp (2 * Real.pi * τ.im) := by
+  have hr1 : Real.exp (-(2 * Real.pi)) < 1 := by
+    rw [← Real.exp_zero]; exact Real.exp_lt_exp.2 (by nlinarith [Real.pi_pos])
+  have hsub : closedBall (0 : ℂ) (Real.exp (-(2 * Real.pi))) ⊆ ball 0 1 :=
+    closedBall_subset_ball hr1
+  obtain ⟨C, hC⟩ := (isCompact_closedBall (0 : ℂ) (Real.exp (-(2 * Real.pi)))).exists_bound_of_continuousOn
+    (differentiableOn_Gj.continuousOn.mono hsub)
+  refine ⟨C, fun τ hτ => ?_⟩
+  have hqb : cexp (2 * Real.pi * I * τ) ∈ closedBall (0 : ℂ) (Real.exp (-(2 * Real.pi))) :=
+    mem_closedBall_zero_iff.2 (Shimura.norm_q_le τ hτ)
+  have h1 := hC _ hqb
+  rw [Gj_q, norm_mul, norm_q] at h1
+  have hE : Real.exp (-(2 * Real.pi * τ.im)) * Real.exp (2 * Real.pi * τ.im) = 1 := by
+    rw [← Real.exp_add]; simp
+  have hpos := Real.exp_pos (2 * Real.pi * τ.im)
+  calc ‖jInv τ‖ = Real.exp (-(2 * Real.pi * τ.im)) * ‖jInv τ‖ * Real.exp (2 * Real.pi * τ.im) := by
+        rw [mul_comm (Real.exp _) ‖jInv τ‖, mul_assoc, hE, mul_one]
+    _ ≤ C * Real.exp (2 * Real.pi * τ.im) := mul_le_mul_of_nonneg_right h1 hpos.le
+
+theorem bigO_of_bound {F : UpperHalfPlane → ℂ} {C : ℝ} {k : ℕ} (T : ℝ)
+    (h : ∀ τ : UpperHalfPlane, T ≤ τ.im → ‖F τ‖ ≤ C * Real.exp (2 * Real.pi * k * τ.im)) :
+    F =O[UpperHalfPlane.atImInfty] fun τ => Real.exp (2 * Real.pi * k * τ.im) := by
+  refine Asymptotics.IsBigO.of_bound C ?_
+  rw [Filter.eventually_iff, UpperHalfPlane.atImInfty_mem]
+  refine ⟨T, fun τ hτ => ?_⟩
+  simp only [Set.mem_setOf_eq, Real.norm_eq_abs, abs_of_pos (Real.exp_pos _)]
+  exact h τ hτ
+
+/-- **`j ∈ ℚ(X₀(N))` (no poles on `ℍ`), for every `N`.** -/
+theorem isRatModFn_jInv (N : ℕ) : IsRatModFn N jInv := by
+  obtain ⟨C, hC⟩ := jInv_bound
+  obtain ⟨a, ha⟩ := jInv_qexp
+  refine ⟨fun γ _ τ => jInv_smul γ τ, fun γ => ⟨1, ?_⟩, ⟨1, a, ha⟩⟩
+  simp_rw [jInv_smul]
+  refine bigO_of_bound (C := C) 1 fun τ hτ => ?_
+  simpa using hC τ hτ
+
+theorem coe_scaleH {N : ℕ} (hN : 0 < N) (τ : UpperHalfPlane) :
+    ((scaleH N τ : UpperHalfPlane) : ℂ) = (N : ℂ) * τ := by
+  rw [scaleH, dif_pos hN]
+
+theorem scaleH_gamma0 {N : ℕ} (hN : 0 < N) (γ : Matrix.SpecialLinearGroup (Fin 2) ℤ)
+    (hγ : γ ∈ CongruenceSubgroup.Gamma0 N) (τ : UpperHalfPlane) :
+    ∃ γ' : Matrix.SpecialLinearGroup (Fin 2) ℤ, scaleH N (γ • τ) = γ' • scaleH N τ := by
+  rw [CongruenceSubgroup.Gamma0_mem] at hγ
+  obtain ⟨c', hc'⟩ := (ZMod.intCast_zmod_eq_zero_iff_dvd _ _).1 hγ
+  have hdet : γ 0 0 * γ 1 1 - γ 0 1 * γ 1 0 = 1 := by
+    have := γ.det_coe; rw [Matrix.det_fin_two] at this; exact this
+  let γ' : Matrix.SpecialLinearGroup (Fin 2) ℤ :=
+    ⟨!![γ 0 0, N * γ 0 1; c', γ 1 1], by
+      rw [Matrix.det_fin_two_of]; rw [hc'] at hdet; linear_combination hdet⟩
+  refine ⟨γ', ?_⟩
+  apply UpperHalfPlane.ext
+  rw [coe_scaleH hN, UpperHalfPlane.coe_specialLinearGroup_apply,
+    UpperHalfPlane.coe_specialLinearGroup_apply, coe_scaleH hN]
+  simp only [γ', Matrix.of_apply, Matrix.cons_val',
+    Matrix.cons_val_zero, Matrix.cons_val_one, Matrix.empty_val', Matrix.cons_val_fin_one,
+    algebraMap_int_eq, eq_intCast]
+  have hden : ((γ 1 0 : ℝ) : ℂ) * τ + ((γ 1 1 : ℝ) : ℂ) ≠ 0 := by
+    have := UpperHalfPlane.denom_ne_zero (γ : GL (Fin 2) ℝ) τ
+    simpa [ModularGroup.denom_apply] using this
+  have hc'C : ((γ 1 0 : ℝ) : ℂ) = (N : ℂ) * (c' : ℂ) := by
+    rw [hc']; push_cast; ring
+  have hden' : ((c' : ℝ) : ℂ) * ((N : ℂ) * τ) + ((γ 1 1 : ℝ) : ℂ) ≠ 0 := by
+    convert hden using 1
+    rw [hc'C]; push_cast; ring
+  have hc'C2 : ((γ 1 0 : ℤ) : ℂ) = (N : ℂ) * (c' : ℂ) := by
+    rw [hc']; push_cast; ring
+  rw [mul_div_assoc', div_eq_div_iff hden hden']
+  push_cast
+  rw [hc'C2]
+  ring
+
+/-- **`j_N = j(N·)` is invariant under `Γ₀(N)`.** -/
+theorem jN_gamma0 {N : ℕ} (hN : 0 < N) (γ : Matrix.SpecialLinearGroup (Fin 2) ℤ)
+    (hγ : γ ∈ CongruenceSubgroup.Gamma0 N) (τ : UpperHalfPlane) :
+    jInv (scaleH N (γ • τ)) = jInv (scaleH N τ) := by
+  obtain ⟨γ', h⟩ := scaleH_gamma0 hN γ hγ τ
+  rw [h, jInv_smul]
+
+/-- **Growth of `j_N` at every cusp**: `j(Nγτ) = O(e^{2πN Im τ})`. -/
+theorem jN_growth {N : ℕ} (hN : 0 < N) (γ : Matrix.SpecialLinearGroup (Fin 2) ℤ) :
+    (fun τ : UpperHalfPlane => jInv (scaleH N (γ • τ))) =O[UpperHalfPlane.atImInfty]
+      fun τ => Real.exp (2 * Real.pi * N * τ.im) := by
+  obtain ⟨C, hC⟩ := jInv_bound
+  refine bigO_of_bound (C := |C|) N fun τ hτ => ?_
+  obtain ⟨γ', w, hw, h1, h2⟩ := Shimura.exists_smul_decomp hN γ τ
+  have hsw : scaleH N (γ • τ) = γ' • w := by
+    apply UpperHalfPlane.ext
+    rw [coe_scaleH hN]
+    exact hw
+  rw [hsw, jInv_smul]
+  have hNR : (0 : ℝ) < N := by exact_mod_cast hN
+  have hw1 : 1 ≤ w.im := le_trans (by rw [le_div_iff₀ hNR]; linarith) h1
+  calc ‖jInv w‖ ≤ C * Real.exp (2 * Real.pi * w.im) := hC w hw1
+    _ ≤ |C| * Real.exp (2 * Real.pi * w.im) :=
+        mul_le_mul_of_nonneg_right (le_abs_self C) (Real.exp_pos _).le
+    _ ≤ |C| * Real.exp (2 * Real.pi * N * τ.im) := by
+        have hpi := Real.pi_pos
+        have hle : 2 * Real.pi * w.im ≤ 2 * Real.pi * N * τ.im := by nlinarith
+        exact mul_le_mul_of_nonneg_left (Real.exp_le_exp.2 hle) (abs_nonneg C)
+
+theorem q_scaleH {N : ℕ} (hN : 0 < N) (τ : UpperHalfPlane) :
+    cexp (2 * Real.pi * I * (scaleH N τ : ℂ)) = cexp (2 * Real.pi * I * τ) ^ N := by
+  rw [coe_scaleH hN, ← Complex.exp_nat_mul]
+  congr 1
+  ring
+
+/-- **`j_N = j(N·) ∈ ℚ(X₀(N))`** (no poles on `ℍ`), `N ≥ 1`. -/
+theorem isRatModFn_jN {N : ℕ} (hN : 0 < N) : IsRatModFn N fun τ => jInv (scaleH N τ) := by
+  obtain ⟨a, ha⟩ := jInv_qexp
+  refine ⟨fun γ hγ τ => jN_gamma0 hN γ hγ τ, fun γ => ⟨N, jN_growth hN γ⟩, ?_⟩
+  classical
+  refine ⟨N, fun m => if N ∣ m then a (m / N) else 0, fun τ => ?_⟩
+  set q := cexp (2 * Real.pi * I * τ)
+  have hinj : Function.Injective fun n : ℕ => N * n := fun x y h =>
+    Nat.eq_of_mul_eq_mul_left hN h
+  have hz : ∀ x ∉ Set.range (fun n : ℕ => N * n),
+      (fun m : ℕ => (((if N ∣ m then a (m / N) else 0 : ℚ)) : ℂ) * q ^ m) x = 0 := by
+    intro x hx
+    have : ¬ N ∣ x := fun ⟨k, hk⟩ => hx ⟨k, hk.symm⟩
+    simp [this]
+  refine (hinj.hasSum_iff hz).1 ?_
+  have h1 := ha (scaleH N τ)
+  rw [q_scaleH hN, pow_one] at h1
+  convert h1 using 1
+  funext n
+  simp only [Function.comp, Nat.dvd_mul_right, if_true, Nat.mul_div_cancel_left _ hN, pow_mul]
+  rfl
+
+/-- **Consistency: the `j`-part at Heegner pairs follows from `ShimuraReciprocityModFn`**
+(apply it to `g = j` and `g = j_N`, both in `ℚ(X₀(N))`). So on Heegner lattices the new leaf
+`MainTheoremCMj` asks for nothing beyond tyz-cm's leaf. -/
+theorem jPair_of_modFn (hS : ShimuraReciprocityModFn) {m f : ℕ} [NeZero m] [NeZero f]
+    (hsq : Squarefree m) (e : SeparableClosure (QNeg m) →ₐ[ℚ] Qbar)
+    (he : ιC (e (algebraMap (QNeg m) (SeparableClosure (QNeg m)) QuadraticAlgebra.omega)) =
+      I * (Real.sqrt m : ℂ))
+    (J : integralIdealsPrimeTo (conductorOrder (QNeg m) f).conductorModulus) (ρ : GalQ)
+    (hρ : ∀ x : ringClassField (conductorOrder (QNeg m) f),
+      ρ (e x) = e (ringClassArtinEquiv (conductorOrder (QNeg m) f)
+        ((conductorOrder (QNeg m) f).picClass J) x))
+    {N : ℕ} {D : ℤ} (hD : D = discOf m f) (Q Q' : HeegnerForm N D) (c : ℂ)
+    (hL : idealLat m f J * Q'.lat = Q.lat.map (LinearMap.mulLeft ℤ c))
+    (hLN : idealLat m f J * Q'.latN = Q.latN.map (LinearMap.mulLeft ℤ c)) :
+    (∃ a a' : Qbar, ιC a = jInv Q.tauH ∧ ιC a' = jInv Q'.tauH ∧ ρ a = a') ∧
+    (∃ b b' : Qbar, ιC b = jInv (scaleH N Q.tauH) ∧ ιC b' = jInv (scaleH N Q'.tauH) ∧ ρ b = b') :=
+  ⟨hS N jInv (isRatModFn_jInv N) m f hsq e he J ρ hρ D hD Q Q' c hL hLN,
+    hS N (fun τ => jInv (scaleH N τ)) (isRatModFn_jN (heegnerForm_N_pos Q)) m f hsq e he J ρ hρ
+      D hD Q Q' c hL hLN⟩
+
+end JRational
+
 end ZInQ.Contrib.TYZGenus.ShimuraModFnTask
 
 #print axioms ZInQ.Contrib.TYZGenus.ShimuraModFnTask.shimuraReciprocityModFn_of_split
@@ -426,3 +689,6 @@ end ZInQ.Contrib.TYZGenus.ShimuraModFnTask
 #print axioms ZInQ.Contrib.TYZGenus.ShimuraModFnTask.jPair_reciprocity
 #print axioms ZInQ.Contrib.TYZGenus.ShimuraModFnTask.isIsolated_one
 #print axioms ZInQ.Contrib.TYZGenus.ShimuraModFnTask.shimuraReciprocityModFn_eq
+#print axioms ZInQ.Contrib.TYZGenus.ShimuraModFnTask.isRatModFn_jInv
+#print axioms ZInQ.Contrib.TYZGenus.ShimuraModFnTask.isRatModFn_jN
+#print axioms ZInQ.Contrib.TYZGenus.ShimuraModFnTask.jPair_of_modFn

@@ -35,3 +35,17 @@ Task: `Shimura.ShimuraReciprocityModFn` (tyz-cm, `ZInQKernel/Contrib/TYZGenus/Sh
 * Pitfall: `MainTheoremCMj` needs `κ(O)`-stability of `⟨1, τ'⟩` (else `κ(𝔟)L' = cL` only fixes `O·L'`;
   `𝔟 = O`, `L = O`, `L' = ⟨1, 2τ⟩` would make it false).
 * `set_option maxRecDepth 8000` needed to elaborate the copied statement.
+
+## 2026-11-14 00:05 §5 q-expansion bookkeeping compiles
+
+* `isRatModFn_jInv N : IsRatModFn N jInv` (`SL₂(ℤ)`-invariance from Mathlib's slash invariance of
+  `E₄` and tyz-cm's `eta_pow_smul`; rational `q`-expansion `q·j = E₄(q)³/∏(1−qⁿ)²⁴` from Mathlib's
+  `E_qExpansion_coeff` + tyz-cm's `IsRatAt` calculus; growth `|j| ≤ C e^{2π Im τ}` for `Im τ ≥ 1` by
+  compactness).
+* `isRatModFn_jN (hN : 0 < N) : IsRatModFn N (fun τ => jInv (scaleH N τ))` (`Γ₀(N)`-invariance via
+  `γ' = [[a, Nb], [c/N, d]]`; growth at every cusp via tyz-cm's Hermite decomposition
+  `exists_smul_decomp`; `q`-expansion reindexed by `Function.Injective.hasSum_iff`).
+* `jPair_of_modFn : ShimuraReciprocityModFn → (j-part at Heegner pairs)` — consistency: on Heegner
+  lattices `MainTheoremCMj` asks nothing beyond tyz-cm's leaf.
+* Compile: 0 errors, no `sorryAx`; 9 `#print axioms` all `[propext, Classical.choice, Quot.sound]`
+  (VERIFIED, `compile-ModFn.out`).
