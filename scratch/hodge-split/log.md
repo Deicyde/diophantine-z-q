@@ -77,3 +77,13 @@ after `lake build ZInQKernel.Contrib.R10.Amend ZInQKernel.Contrib.AbVarBC.Dim` (
 - PROVED `senTwist_of_glue : HTCharOfTwist → HTTwistShift → HTWeightsUnique → SenTwist`.
   S1 HTCharOfTwist (ψ|G_{ℚ_p} ≅ ℂ_p(s), s ∈ ℤ), S2 HTTwistShift (twist by ℂ_p(s) shifts weights by −s):
   GLUE not proved; S3 HTWeightsUnique (coefficient-field independence): to be proved. COMPILED.
+
+## Glue proved: coefficient-field independence (§12)
+- `htMult_eq_of_le` (enlarging E does not change htMult; core `dsp_finrank_extend`: Eⁿ' ≅ (Eⁿ)^[E':E]
+  equivariantly via an E-basis of E', then g9-derham's finrank_Dsp_congr and DspPiEquiv; no finiteness needed:
+  `finrank_fun_eq` via cardinal rank), `htMult_eq_of_lifts`, `htMult_conj`.
+- `htWeightsUnique_proof : HTWeightsUnique` (glue S3 of H-51) and `htConj_proof : HTConj` (g12-det's glue,
+  used by H-10's reduction and by g12-det's G12Weight). COMPILED 11-14, standard axioms. VERIFIED.
+- Instance pitfall: `Algebra ↥E ↥E'` for intermediate fields via letI makes `Module.Free ↥E ↥E'` search time
+  out; fix: state the count over abstract fields (`dsp_finrank_extend`) and add `letI mod := alg.toModule`,
+  `haveI := Module.Free.of_divisionRing E E'` before `Module.finrank_mul_finrank`.
