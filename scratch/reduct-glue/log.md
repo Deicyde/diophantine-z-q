@@ -1,0 +1,16 @@
+# reduct-glue results log
+
+Setup: `Base.lean` = verbatim copy of `scratch/reduct-split/Reduction.lean` (namespace `ReductSplit`); new work in
+`Body.lean` (namespace `ReductGlue`, during development imports `ReductSplitBase` = Base compiled to /tmp/rglib with
+`lake env lean -o`); `mk.sh` concatenates both into the deliverable `ReductGlue.lean` (imports kernel modules only).
+Kernel deps built in the worktree with `lake build` (all up to date). One Lean process at a time.
+
+## Compile outcomes
+- 12:29 Base.lean (copy) compiles, 15 s, all reduct-split `#print axioms` standard. VERIFIED.
+- 12:55 Body §1: `mem_range_of_isSeparable_of_fixed` (separable + Aut(K̄/K)-fixed ⇒ in K: separable closure is Galois,
+  `AlgEquiv.liftNormal`, `InfiniteGalois.mem_range_algebraMap_iff_fixed`); `isSeparable_of_etale` (image of an étale
+  K-algebra in K̄ is separable: image is an intermediate field, `FormallyUnramified.of_surjective`,
+  `FormallyUnramified.isSeparable`); `exists_rational_of_fixed_etale` (fixed K̄-point of an étale K-scheme is rational);
+  `fixedTorsionRational_of_mulEtale : AvSplit.T4.MulEtaleAbelianScheme → FixedTorsionRational` (A[m] := pullback of
+  [m] along the unit section, étale by base change); hence glue **`FixedTorsionRationalImperfect` PROVED** from the
+  bundle leaf `MulEtaleAbelianScheme` (BLR 7.3/2), and `raynaudCriterion_leaves` (r6 from leaves only). OK. VERIFIED.
