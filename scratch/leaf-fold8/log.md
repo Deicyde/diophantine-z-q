@@ -31,3 +31,6 @@
   `lake build +ZInQKernel.OneProof.Main`: exit 0; `#print axioms ZInQ.OneProof.frozenTarget`: propext,
   Classical.choice, Quot.sound. DumpCompact after: 10831; cmp_hashes.py: 0 removed, 1 changed (frozenTarget), 878
   new, all in TailY-TailZ4 and TYZSplit.
+- 09:15 Check8.lean: sixContactMin_of_open8 axioms standard; closure 193116 constants, no sorryAx; 66 fields
+  (31 + 20 + 14 + 1), 24 with a kernel head constant; the six Contrib proofs and tyzThm33Pinned_of_tyzThm33
+  have standard axioms (check8_result.txt).
