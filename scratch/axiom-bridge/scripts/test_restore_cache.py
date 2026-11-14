@@ -101,7 +101,9 @@ class RestoreTests(unittest.TestCase):
         return restore_cache.load_metadata(path), parts
 
     def test_committed_metadata_is_upstream_and_unchanged_bytes(self):
-        meta = restore_cache.load_metadata(COMMITTED)
+        # The original released v1 bytes remain a permanent regression, even
+        # after the active cache metadata points at the expanded v2 release.
+        meta = restore_cache.load_metadata(COMMITTED.with_name("axiom-cache-v1.json"))
         self.assertEqual(meta["repository"], "elliotglazer/diophantine-z-q")
         self.assertEqual(meta["archive_sha256"],
                          "4f54433701085fcb631670ff72bff07cf26ab3d47420592b3df5488fe8af8a3a")
@@ -109,6 +111,21 @@ class RestoreTests(unittest.TestCase):
             "ae4657e24c0da6995e014bbabb164a0ae26671080b18fcbd38b61e0122b2ae99",
             "f365d710f828b1335032afe774b2d7fc24004bd9241d11e94795e19471c7bd78"])
         self.assertEqual(meta["historical_origin"]["repository"], "Deicyde/diophantine-z-q")
+
+    def test_expanded_v2_metadata_has_exact_new_bytes_and_original_pins(self):
+        meta = restore_cache.load_metadata(COMMITTED)
+        original = restore_cache.load_metadata(COMMITTED.with_name("axiom-cache-v1.json"))
+        self.assertEqual(meta["repository"], "elliotglazer/diophantine-z-q")
+        self.assertEqual(meta["release_tag"], "axiom-cache-v2")
+        self.assertEqual(meta["archive_sha256"],
+                         "509fa79d5b60fcdc22e4f9bb4bc732d0caf489a9d3510841544763032aab2ad2")
+        self.assertEqual([p["sha256"] for p in meta["parts"]], [
+            "dfe6f1d3945adf1e9d49026644f567f8b2179435057ab39669a07148f1cc43e6",
+            "05f95d89086e8552675922f908ba646010603fbdf6192ff6ea8df354eacdb9fb"])
+        self.assertEqual(meta["cache_manifest"], original["cache_manifest"])
+        self.assertEqual(meta["coverage"], [
+            "original-nine-bridge-dependencies", "TateConsumers-dependencies",
+            "FrobeniusAdapters-dependencies"])
 
     def test_rejects_other_repository_and_bad_parts(self):
         base = json.loads(COMMITTED.read_text())

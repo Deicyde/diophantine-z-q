@@ -9,13 +9,15 @@ on:
     branches: [main]
     paths:
       - 'scratch/axiom-bridge/**'
+      - 'scratch/c10-frobenius/**'
       - '.github/workflows/axiom-bridge.yml'
-      - '.github/axiom-cache.json'
+      - '.github/axiom-cache*.json'
   pull_request:
     paths:
       - 'scratch/axiom-bridge/**'
+      - 'scratch/c10-frobenius/**'
       - '.github/workflows/axiom-bridge.yml'
-      - '.github/axiom-cache.json'
+      - '.github/axiom-cache*.json'
 
 permissions:
   contents: read
@@ -128,6 +130,29 @@ jobs:
           # The helper deletes only verified part files after successful extraction.
           df -h /
 
+      - name: Require measured source-build memory headroom
+        working-directory: scratch/axiom-bridge
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          from pathlib import Path
+          import json
+          mem = {line.split(':')[0]: int(line.split()[1]) * 1024
+                 for line in Path('/proc/meminfo').read_text().splitlines()
+                 if line.startswith(('MemTotal:', 'MemAvailable:'))}
+          # Measured local full-source process-group peak + 1 GiB safety margin.
+          # The separate ~25 GiB duplicate-import TC0 fixture is not this CI job.
+          required = 13533192192 + 1073741824
+          cap_path = Path('/sys/fs/cgroup/memory.max')
+          cap_text = cap_path.read_text().strip() if cap_path.exists() else 'unavailable'
+          print(json.dumps({'memory': mem, 'cgroup_memory_max': cap_text,
+                            'required_available_bytes': required}, indent=2))
+          if mem['MemAvailable'] < required:
+              raise SystemExit('Insufficient measured bridge source-build headroom')
+          if cap_text.isdigit() and int(cap_text) < required:
+              raise SystemExit('Cgroup limit below measured bridge source-build headroom')
+          PY
+
       - name: Fail fast if any required Axiom artifact needs rebuilding
         working-directory: scratch/axiom-bridge
         run: |
@@ -136,14 +161,22 @@ jobs:
           # +module selects leanArts, including olean companions and C/IR outputs.
           lake --no-cache --no-build --fail-fast build \
             +Mordell.Jacobian.Existence +Mordell.Jacobian.Dimension \
-            +Mordell.AbelianVariety.GoodReduction 2>&1 | tee ci-logs/cache-preflight.log
+            +Mordell.AbelianVariety.GoodReduction \
+            +Mordell.AbelianVariety.Reduction.Basic \
+            +StacksFrontier.Algebra.Group.TateModule \
+            +StacksFrontier.AlgebraicGeometry.GroupScheme.AbelianVariety.TateModule \
+            +StacksFrontier.AlgebraicGeometry.GroupScheme.OverField.AbelianVariety \
+            +StacksFrontier.AlgebraicGeometry.Picard.FrobeniusTorsion \
+            +StacksFrontier.AlgebraicGeometry.Variety.Frobenius.Twist \
+            2>&1 | tee ci-logs/cache-preflight.log
 
       - name: Build the bridge with one compiler
         working-directory: scratch/axiom-bridge
         run: |
           set -euo pipefail
           /usr/bin/time -v -o ci-logs/bridge.time \
-            python3 scripts/measure.py --jobs 1 --label ci-cache AxiomBridge \
+            python3 scripts/measure.py --jobs 1 --label ci-cache \
+              AxiomBridge TateConsumers FrobeniusAdapters FrobeniusAdapterChecks \
             | tee ci-logs/build-summary.log
 
       - name: Audit all nine theorem axiom reports
@@ -155,13 +188,22 @@ jobs:
           python3 scripts/check_axiom_output.py ci-logs/axioms.log \
             | tee ci-logs/axioms.json
 
+      - name: Audit opt-in consumer types and axiom reports
+        working-directory: scratch/axiom-bridge
+        run: |
+          set -euo pipefail
+          /usr/bin/time -v -o ci-logs/components.time \
+            lake env lean ComponentCheck.lean | tee ci-logs/components.log
+          python3 scripts/check_component_axioms.py ci-logs/components.log \
+            | tee ci-logs/components.json
+
       - name: Print peak RSS and final disk usage
         if: always()
         run: |
           set -euo pipefail
           logs="$GITHUB_WORKSPACE/scratch/axiom-bridge/ci-logs"
           if [[ -d "$logs" ]]; then
-            for phase in bridge axioms; do
+            for phase in bridge axioms components; do
               if [[ -f "$logs/$phase.time" ]]; then
                 echo "$phase:"
                 grep 'Maximum resident set size' "$logs/$phase.time" || true

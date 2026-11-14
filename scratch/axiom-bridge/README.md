@@ -2,15 +2,17 @@
 
 This is a separate Lake package. It does not change the repository-root
 `lakefile.toml`, `lake-manifest.json`, `lean-toolchain`, `KERNEL_CONTRACT.json`,
-kernel checker, default target (`ZInQKernel`) or any existing workflow.
+kernel checker, default target (`ZInQKernel`) or any existing required workflow.
+Its separate optional cache workflow checks the explicitly requested consumers.
 
 The PkgI2 objects come from the existing upstream module
 `ZInQKernel.HDecomp.Objects` (`PkgI2.IsAbelianVariety`, `PkgI2.IsAbelianScheme`,
 `PkgI2.HasGoodReduction`). The root package is required by path, so its existing
 `ZInQKernel` library makes that module importable; no new root library, copied
 definition, extra axiom, admitted proof or extra premise is introduced. Building
-the bridge compiles only `ZInQKernel.HDecomp.Objects` from the root package (its
-imports are Mathlib modules), not the root default target.
+the original nine-theorem bridge compiles only `ZInQKernel.HDecomp.Objects` from
+this package. The opt-in native-continuity companion additionally imports the
+existing `ZInQKernel.HDecomp.C10.C10`; neither build invokes the root default target.
 
 ## Pins
 
@@ -21,8 +23,8 @@ imports are Mathlib modules), not the root default target.
 
 ## Build and audit
 
-A cold build of the Stacks/Mordell closure takes hours (12,769 modules), so use
-the verified dependency cache described in [CACHE.md](CACHE.md). With elan
+An uncached Stacks/Mordell dependency build takes hours, so use the pinned verified
+expanded cache described in [CACHE.md](CACHE.md). With elan
 installed, `zstd`, and the two cache parts plus `SHA256SUMS` downloaded into a
 directory of your choice (`$CACHE_DIR` below), run from this directory:
 
@@ -37,10 +39,18 @@ python3 scripts/restore_cache.py --metadata ../../.github/axiom-cache.json \
 # Fails instead of compiling if any cached dependency output is missing or stale.
 lake --no-cache --no-build --fail-fast build \
   +Mordell.Jacobian.Existence +Mordell.Jacobian.Dimension \
-  +Mordell.AbelianVariety.GoodReduction
-lake build AxiomBridge
+  +Mordell.AbelianVariety.GoodReduction \
+  +Mordell.AbelianVariety.Reduction.Basic \
+  +StacksFrontier.Algebra.Group.TateModule \
+  +StacksFrontier.AlgebraicGeometry.GroupScheme.AbelianVariety.TateModule \
+  +StacksFrontier.AlgebraicGeometry.GroupScheme.OverField.AbelianVariety \
+  +StacksFrontier.AlgebraicGeometry.Picard.FrobeniusTorsion \
+  +StacksFrontier.AlgebraicGeometry.Variety.Frobenius.Twist
+lake build AxiomBridge TateConsumers FrobeniusAdapters FrobeniusAdapterChecks
 lake env lean Check.lean | tee axioms.log
 python3 scripts/check_axiom_output.py axioms.log
+lake env lean ComponentCheck.lean | tee components.log
+python3 scripts/check_component_axioms.py components.log
 ```
 
 The restore helper deletes the downloaded parts after a successful restore.
@@ -78,6 +88,26 @@ modularity, or the six-contact estimate itself. Jacobian existence is conditiona
 on a supplied curve with a degree-one divisor; a positive-genus instance is needed
 to obtain a nonzero abelian variety from its dimension theorem. A passing build
 and axiom audit is a structural check, not acceptance of any manuscript argument.
+
+## Opt-in Tate and native-continuity consumers
+
+`TateConsumers` preserves the checked standalone module names. Its point bridge
+uses the actual same-field pullback adjunction, and its Tate comparison preserves
+the original scalar and sequence maps. It supplies the full original
+`PkgI3.TateModuleFree` (free, finite, rank `2 * A.dim`) and finite-dimensionality of
+the actual rational Tate space. Native matrix/trace continuity reuses the existing
+canonical-Objects proof with those actual module properties, not caller assumptions.
+
+`FrobeniusAdapters` and `FrobeniusAdapterChecks` preserve the frozen four
+implementation/four-probe source paths. They provide relative/prime/finite-field
+and coordinate-point packaging only. The subsequent torsion/finiteness supplements
+are not included in this snapshot. None of these results supplies all C10
+representation/descent/common-trace/semisimplicity or reduction squares, H, height
+assembly, or a complete Hilbert10 proof. Root default dependencies remain isolated.
+
+The dedicated private trust-zero full-type/body/control evidence and source review
+are separate from this lightweight public CI statement/axiom check; do not infer
+full imported-library replay or manuscript acceptance from either.
 
 ## Resource measurements
 

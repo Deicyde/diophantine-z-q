@@ -1,3 +1,44 @@
+# Expanded optional cache v2 — current source revision
+
+The active committed metadata now points to a new `axiom-cache-v2` engineering
+cache. Original v1 remains immutable and its exact metadata is retained in
+`.github/axiom-cache-v1.json`, with the original hash assertions kept as tests.
+
+V2 includes the real-Lake canonical dependency artifacts needed by the opt-in
+TateConsumers and frozen Frobenius adapters. All build outputs are retained; only
+regenerable setup JSON is omitted. Pins and the default root dependencies are
+unchanged. Strict part/whole hashing, streamed safe restore and no-build
+preflights still fail rather than fall back to cold Axiom compilation.
+
+Actual local tests verified a clean restore of195978 entries/8960389120 tar bytes,
+all original and expanded Axiom dependency targets up to date, and a source-cold
+consumer build22modules/zero Stacks-or-Mordell compilers followed by a warm
+no-build replay of all four targets. This does not replace actual new-head CI.
+The separate duplicate-import trust-zero proof fixture is recorded locally; CI
+performs source/type/axiom checks with measured memory-headroom logging rather
+than silently assuming the roughly25GiB fixture fits a standard runner.
+
+Current optional targets:
+
+```sh
+cd scratch/axiom-bridge
+lake build AxiomBridge TateConsumers FrobeniusAdapters FrobeniusAdapterChecks
+lake env lean Check.lean
+lake env lean ComponentCheck.lean
+```
+
+The workflow covers the Frobenius source paths and all companion targets. It
+remains optional, read-only in permissions, and independent of root required CI,
+main-proof acceptance and Hilbert10 completion. No later torsion/finiteness
+supplement or wholesale PR62/root-definition repair is folded into this snapshot.
+
+---
+
+## Preserved historical v1 report
+
+The report below applies to the original v1 cache/snapshot, not automatically
+to the new consumers or current CI run.
+
 # Optional cache-backed Axiom bridge check
 
 `.github/workflows/axiom-bridge.yml` is a **separate, optional engineering check**.
