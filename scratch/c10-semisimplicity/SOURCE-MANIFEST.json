@@ -1,0 +1,142 @@
+{
+  "schema": "c10-semisimplicity-source-snapshot/v1",
+  "base": "fb2f78e143af2f6de71ca43e37498c229cde1c6b",
+  "lean": "leanprover/lean4:v4.35.0",
+  "mathlib": "56a005855ea17e0b0958f73ec801ae140b0a1679",
+  "default_or_required_workflow_changes": false,
+  "is_main_or_App_acceptance": false,
+  "files": [
+    {
+      "path": "scratch/c10-semisimplicity/S1Twist.lean",
+      "sha256": "fcec8521d826eba939f9a4261310c307ba30cde0c2c805ab516d50c30f43ff0c",
+      "bytes": 6868,
+      "gitblob": "3e2eeb70e654b8507c5d2e17d01a01ee69452828",
+      "original_module_name_preserved": true
+    },
+    {
+      "path": "scratch/c10-semisimplicity/S2RelativeMaschke.lean",
+      "sha256": "8cf5e972c1e2b27bbfed0294f0b7f3d4c7582814f38d8dba048984838e2b1131",
+      "bytes": 9974,
+      "gitblob": "cb54994e9cd0837332e28a10cb8293b9f788ff01",
+      "original_module_name_preserved": true
+    },
+    {
+      "path": "scratch/c10-semisimplicity/S1Mapped.lean",
+      "sha256": "4b599dcd32330b9d4c5512b7a62ce8c400f6624185b98287941b21c968265802",
+      "bytes": 9142,
+      "gitblob": "a5c58c40c3b576f8f643b3901804c1c976c27430",
+      "original_module_name_preserved": true
+    },
+    {
+      "path": "scratch/c10-semisimplicity/S1Checks.lean",
+      "sha256": "425cbfa346409311eda723c0ceb8609e294d4b56cf738b3f7bee7194dd3dd52e",
+      "bytes": 6373,
+      "gitblob": "1903c6ea22d0fc9c9965f3aa72e73d24280a9c55",
+      "original_module_name_preserved": true
+    },
+    {
+      "path": "scratch/c10-semisimplicity/S2Fill.lean",
+      "sha256": "3954352f208c66eb20d993506c540957bc2547d6e419a75aba49bddefbe8e29b",
+      "bytes": 7284,
+      "gitblob": "eec2ccbd94723470f20d39ee708b44233e116354",
+      "original_module_name_preserved": true
+    },
+    {
+      "path": "scratch/c10-semisimplicity/neg/S1Necessity.lean",
+      "sha256": "4e3df347b5faf62500210bfd4f62c02b59d01dc65202654769dcfc225339c137",
+      "bytes": 1851,
+      "gitblob": "314b5b37f7b62a54ad7db82a28a301c243fcdaf1",
+      "original_module_name_preserved": true
+    },
+    {
+      "path": "scratch/c10-semisimplicity/neg/BadS1ZeroScalar.lean",
+      "sha256": "96c04130fa97d97dfee2971544fcf5ff385433ea17001cbea3bbc52be0bb98ed",
+      "bytes": 604,
+      "gitblob": "225116ef1eabb430b955418dae6a8dc7702cdc2f",
+      "original_module_name_preserved": true
+    },
+    {
+      "path": "scratch/c10-semisimplicity/neg/BadS1NoNumberField.lean",
+      "sha256": "6d104d408035d050d81c561eb169f0660f5038fc36ff6d8938beb2ff4f341291",
+      "bytes": 385,
+      "gitblob": "529a9bcd7dc4ac7a082ca3f261862ad0072c9a3d",
+      "original_module_name_preserved": true
+    },
+    {
+      "path": "scratch/c10-semisimplicity/neg/BadS1HelperNoNumberField.lean",
+      "sha256": "ed359a2fb76275c50e4a9b22cd7e9e8fcad8e69556514d24fccb99a59afa2b4e",
+      "bytes": 2409,
+      "gitblob": "6bd51fc8318ad14e7763126c62b7701c253497bd",
+      "original_module_name_preserved": true
+    },
+    {
+      "path": "scratch/c10-semisimplicity/neg/HelperAppliesOverQ.lean",
+      "sha256": "b34d8caea6848186d536de8d8c7b3e7338142b9f494bad2155a4ed28d28d8d19",
+      "bytes": 2382,
+      "gitblob": "7d0aa569fbc31d15603b09142303a885887a23b0",
+      "original_module_name_preserved": true
+    },
+    {
+      "path": "scratch/c10-semisimplicity/neg/NegS2.lean",
+      "sha256": "2d3bab4868c76f523a809566974a312f172f1bea6f4c3bf984569d98e87bbac1",
+      "bytes": 7374,
+      "gitblob": "de3520d9cb7783e21869ed9306cbfa8a73a90fc9",
+      "original_module_name_preserved": true
+    },
+    {
+      "path": "scratch/c10-semisimplicity/CoreCheck.lean",
+      "sha256": "06f050090b299d392b4ba23bd7e99020454fa70b9a5429175c50f9b2ace7c13a",
+      "bytes": 2001,
+      "gitblob": "44511760a095632db1bfd05bfcaccd3f4b679c9c",
+      "role": "generic check fixture"
+    },
+    {
+      "path": "scratch/c10-semisimplicity/README.md",
+      "sha256": "d62310c0a1056d95c56c4b614bbda9f34c198b589d11da9bdc75d47f952c1854",
+      "bytes": 4792,
+      "gitblob": "98c78fafc5ef4fb3130d16b55a8942800a84de83",
+      "role": "source scope and reproduction instructions"
+    }
+  ],
+  "dependency_sources": [
+    {
+      "path": "ZInQKernel/HDecomp/C10/Link.lean",
+      "revision": "e303a42543e9adf89aa70075372b622f4870a770",
+      "sha256": "0c72f9e57e7557aa61dd7c1fc847111f639d7b86105b9939aabb46e1e7e81b55"
+    },
+    {
+      "path": "ZInQKernel/HDecomp/I3Linalg/C2.lean",
+      "revision": "e303a42543e9adf89aa70075372b622f4870a770",
+      "sha256": "365d409cde18016e314d4a867c5aad057d99ff91ed8ca5e4e93439fd015c22c4"
+    }
+  ],
+  "dependency_copies_installed_by_snapshot": false,
+  "local_replay": {
+    "mode": "Ordinary serial -j1 compile of this destination against pinned, prebuilt Mathlib/project outputs and the selected PR62 modules",
+    "phases": 12,
+    "phase_attempts": 13,
+    "positive_phases": 9,
+    "intended_rejections": 3,
+    "rejection_causes_verified": 3,
+    "retained_attempt_boundary": "The class-only NumberField fixture first failed before its mapped import was available; its intended NumberField synthesis rejection was verified by a later isolated rerun. Both attempts are retained.",
+    "printed_axiom_reports_checked": 25,
+    "permitted_axioms": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "all_imported_library_proofs_replayed": false
+  },
+  "open_arithmetic_inputs": [
+    "global number field and abelian variety",
+    "actual group map and finite-index identification",
+    "global Tate-action comparison and scalar datum",
+    "modular semisimplicity",
+    "continuity",
+    "C9",
+    "actual Frobenius squares",
+    "original hM"
+  ],
+  "no_bundle_nonvacuity_or_C10_Hilbert10_closure": true,
+  "historical_headers_preserved": "Private/S2-future header wording records authoring cutoffs; README distinguishes S1 interface from S2Fill proof."
+}
