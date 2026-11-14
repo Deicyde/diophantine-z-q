@@ -46,3 +46,9 @@ Row sources (VERIFIED, read): definitions read in ~/dzq-wt/leaf-fold4/scratch/le
 - Glue: ℤ case impossible (an order of finite index contains a non-rational element: `order_spans` via
   `exists_integral_multiple` + `AddSubgroup.nsmul_index_mem`); k case: R' ≅ com ≅ Φ⁻¹(𝒪) extends to
   fraction fields (`isFractionRing_of_mul_mem`, `IsFractionRing.ringEquivOfRingEquiv`), φ = Φ ∘ σ.
+
+## H-2 `r4 : PkgI1.ThetaModularity`: SPLIT into two published-form leaves (VERIFIED, compiled)
+- `scratch/qm-split/ThetaSplit.lean`: LEAFs `IgusaPsi4` (ψ₄ = 2⁻²Σθ⁸ weight 4 for Sp₄(ℤ)), `IgusaChi10`
+  (χ₁₀ = −2⁻¹⁴∏θ² weight 10); `thetaModularity_of : IgusaPsi4 → IgusaChi10 → ThetaModularity` (constants
+  cleared). Axioms standard, 4 s. Caveat in docstrings: Igusa defines ψ₄ as an Eisenstein series and prints
+  the theta expression as a theorem (pages UNVERIFIED).
