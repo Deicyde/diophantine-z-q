@@ -72,3 +72,12 @@
 - QMCorr.lean §0 now the whole R5Count.lean namespace block (verbatim, `diff` identical, VERIFIED);
   QMEmb.lean adds `r5fpCount_of_leaves (hE : EichlerOptimalEmbeddingCount) (hD) (hU) : R5fpCount`.
   Both files exit 0, axioms standard.
+- QMFull.lean (build_full.py: imports QM.Leaves, LeafPush2.T, Contrib.AbVarBC.Dim + QMCorr + part_emb
+  + part_desc) exit 0, axioms standard (VERIFIED):
+  `qmPairEmbeddingCorrespondence_of_t11b (hT : LeafPush2.T11b_Rigidity) (hCM : CMDescent)
+  (hU : QMUniformizationC)` and `r5fpCount_of_t11b (hE : EichlerOptimalEmbeddingCount) hT hCM hU :
+  R5fpCount`. New: `endBC` (copied from alg-frob-red/bp-qmmoduli), `bcPair` (base change of QM pairs,
+  ι injective by T11b uniqueness), `nonempty_com_bc` (End_𝒪(P_ℂ) ≅ End_𝒪(P)),
+  `nonempty_qmIso_bc_iff`, leaf `CMDescent` (Shimura–Taniyama, iso-to-base-change form).
+  => QMDescentCM is no longer needed: H-3 rests on Eichler, T11b (kernel textbook leaf), CMDescent,
+  QMUniformizationC.
