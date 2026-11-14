@@ -192,3 +192,13 @@ standard; no sorry in the parts)
   the involution is an Atkin–Lehner-type twist) and the CM24 case (`φ² = −6`, no unit; involution
   `ι(ij)⁻¹φ` requires integrality in `End A`) need the structure of `End(A)` at CM points, which is
   not among the leaves: C1b is QM-with-CM theory beyond T5.
+
+## Step 15 (10:55) — VERIFIED (parts 1-17 + 9; exit 0; compile17_out.txt; standard axioms)
+- **(C1b) reduced**: `MCRQuot.cMStabInvolution_of (hC : CurveBijIso) (hYI : ModelYIrreducible)
+  (hO : CMStabObj) : CMStabInvolution`. New glue `CMStabObj` (object level, no schemes): a CM
+  object's class is fixed by some `T = twist α ∘ rightMul u` with `T ∘ T = id` on `M3 ℚ̄` and
+  `T ≠ id`. Scheme part: `ι = g_α * g_u` (`hecke_mem_fibreAut`), moduli injectivity, fibre
+  uniqueness via `exists_genFib_to_Y`, `eq_one_of_fixes_all` (from `fibreAutFixFinite_of'` and
+  `infinite_qbarPoints`).
+- **Final composite `modelCoordinateResidue_final6`**: L1-L6 + T5 + CurveBijIso +
+  CoverModelOfHeckeN + (B-desc) + (B-iso) + (C1b-obj) `CMStabObj` ⇒ `ModelCoordinateResidue`.

@@ -38,3 +38,6 @@
 #print axioms MCRQuot.modelCoordinateResidue_final4
 #print axioms MCRQuot.modelYIrreducible_of_coverModelN
 #print axioms MCRQuot.modelCoordinateResidue_final5
+#print axioms MCRQuot.eq_one_of_fixes_all
+#print axioms MCRQuot.cMStabInvolution_of
+#print axioms MCRQuot.modelCoordinateResidue_final6
