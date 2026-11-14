@@ -654,7 +654,65 @@ theorem r1r2fpRep_of_canonical (hE : CanonicalModelY3) (hC : CanonicalCoarseX6) 
   r1r2fpRep_of' hE (coarseX6OfFine_of hC) (hauptmodulOfX6_of hB (coarseCompare_of hF hCB)) hR
     (residueOfX6_of hG (coarseCompare_of hF hCB))
 
+/-! ## H-43: the conic model on every witness -/
+
+/-- **GLUE (uniqueness of the normalized Hauptmodul on `X₆`; `MobiusGlue` at the level of `X₆`).** Two maps
+`π, π' : X₆ → P¹` with the fibre and CM clauses of `R2X6Props` (and CM points of the three kinds) agree on
+`ℚ̄`-points: both are the quotient `X₆ → X₆/W` followed by an isomorphism `X₆/W ≅ P¹`, so `π' = h ∘ π` with
+`h` an automorphism of `P¹` (a Möbius map) fixing `0, ∞, −16/27`, hence `h = id`. The `Y`-level analogue is
+the chain's `MobiusGlue` (LPrefix, "argued, not compiled"). Algebraic geometry of curves, not done here. -/
+def HauptmodulUniqueX6 : Prop :=
+  ∀ (Y : Over (Spec (CommRingCat.of ℚ))) (Φ : PtEquiv Y) (X : Over (Spec (CommRingCat.of ℚ)))
+    (Ψ : (fieldPt Qbar ⟶ X) ≃ Quotient (pairSetoid Qbar)) (fY : Y ⟶ X) (π π' : ToP1 X.left),
+    R1fpProps Y Φ → X6Props Y Φ X Ψ fY → R2X6Props X Ψ π → R2X6Props X Ψ π' → CMExists X Ψ →
+      ∀ x : fieldPt Qbar ⟶ X, π.val (K := Qbar) x.left = π'.val (K := Qbar) x.left
+
+/-- **LEAF-form (Kurihara, Elkies on the canonical model).** Some witness of the full clause list has the
+conic model. Kurihara, J. Fac. Sci. Univ. Tokyo 25 (1979); Elkies, ANTS-III, LNCS 1423 (1998), §3;
+locators UNVERIFIED (see `X6Kummer.X6ConicModel`'s docstring for the derivation of the stated form). -/
+def ConicCanonical : Prop :=
+  ∃ (Y : Over (Spec (CommRingCat.of ℚ))) (Φ : PtEquiv Y) (X : Over (Spec (CommRingCat.of ℚ)))
+    (Ψ : (fieldPt Qbar ⟶ X) ≃ Quotient (pairSetoid Qbar)) (fY : Y ⟶ X) (π₆ : ToP1 X.left),
+    FS5NoCM.R1R2fpFullProps Y Φ X Ψ fY π₆ ∧ X6Kummer.ConicModel X π₆
+
+/-- **`ConicOfWitness` from the canonical conic model, the coarse comparison and the uniqueness of the
+Hauptmodul.** -/
+theorem conicOfWitness_of (hC : ConicCanonical) (hK : CoarseCompare) (hU : HauptmodulUniqueX6) :
+    ConicOfWitness := by
+  intro Y Φ X Ψ fY π₆ hfull
+  obtain ⟨h1f, -, h6, h2, hcm, -, -, -⟩ := hfull
+  have h1 : R1fpProps Y Φ := h1f
+  obtain ⟨Y₀, Φ₀, X₀, Ψ₀, fY₀, π₀, ⟨h1f₀, -, h6₀, h2₀, -, -, -, -⟩, e₀, he₀g, he₀p, he₀i⟩ := hC
+  have h1₀ : R1fpProps Y₀ Φ₀ := h1f₀
+  obtain ⟨g, hg⟩ := compare_iso h1₀ h1
+  obtain ⟨k, hk⟩ := hK Y Φ X X₀ Ψ Ψ₀ fY (g.hom ≫ fY₀) h1 h6 (x6Props_transport g hg h6₀)
+  have hval : ∀ x : fieldPt Qbar ⟶ X,
+      (π₀.comp k.hom.left).val (K := Qbar) x.left = π₀.val (K := Qbar) (x ≫ k.hom).left := by
+    intro x; exact ToP1.val_comp_right (K := Qbar) π₀ k.hom.left x.left
+  have h2' : R2X6Props X Ψ (π₀.comp k.hom.left) := by
+    intro x x' P Q hP hQ
+    have := h2₀ (x ≫ k.hom) (x' ≫ k.hom) P Q ((hk x).trans hP) ((hk x').trans hQ)
+    simpa only [hval] using this
+  have hagree : ∀ x : fieldPt Qbar ⟶ X, π₆.val (K := Qbar) x.left = π₀.val (K := Qbar) (x ≫ k.hom).left :=
+    fun x => (hU Y Φ X Ψ fY π₆ _ h1 h6 h2 h2' hcm x).trans (hval x)
+  let post : (fieldPt Qbar ⟶ X) ≃ (fieldPt Qbar ⟶ X₀) :=
+    ⟨fun x => x ≫ k.hom, fun x => x ≫ k.inv, fun x => by simp, fun x => by simp⟩
+  refine ⟨post.trans e₀, fun σ x => ?_, fun x p hp => ?_, fun x b hb => ?_⟩
+  · show e₀ ((fieldMap (σ : Qbar →ₐ[ℚ] Qbar) ≫ x) ≫ k.hom) = X6Kummer.conicGal σ (e₀ (x ≫ k.hom))
+    rw [Category.assoc]; exact he₀g σ (x ≫ k.hom)
+  · rw [hagree]; exact he₀p (x ≫ k.hom) p hp
+  · rw [hagree]; exact he₀i (x ≫ k.hom) b hb
+
+/-- **Row H-43 from the bundle leaf `r1r2`, the canonical conic model and the two pieces of glue.** -/
+theorem x6ConicModel_of_canonical (hR : LeafAdopt.R1R2fpRep) (hC : ConicCanonical) (hF : CoarseFactor)
+    (hCB : ModelGlue.CurveBijIso) (hU : HauptmodulUniqueX6) : X6Kummer.X6ConicModel :=
+  x6ConicModel_of hR (conicOfWitness_of hC (coarseCompare_of hF hCB) hU)
+
 end HDec.QMSplit.Moduli
+
+#print axioms HDec.QMSplit.Moduli.conicOfWitness_of
+#print axioms HDec.QMSplit.Moduli.x6ConicModel_of_canonical
+
 
 #print axioms HDec.QMSplit.Moduli.coarseCompare_of
 #print axioms HDec.QMSplit.Moduli.coarseX6OfFine_of
