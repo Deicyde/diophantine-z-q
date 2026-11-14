@@ -251,4 +251,52 @@ lemma exists_glue (T : X.Opens)
       exact compat _ _ W i.2.1 j.2.1 hW i.2.2.1 j.2.2.1 hWne i.2.2.2 j.2.2.2 _ _)
   exact ⟨s, fun V hV hne hVT => hs ⟨V, hV, hne, hVT⟩⟩
 
+
+/-- The image of `Φ_U` lies in `regularAt F w` as soon as `ψ_U(Γ(X, U)) ⊆ w`. -/
+lemma Φ_mem_regularAt (U : X.Opens) (hU : IsAffineOpen U) (hne : (U : Set X).Nonempty)
+    (w : ValuationSubring F) (hw : ∀ a, ψ e U hne a ∈ w) (s : Γ(g.relativeDifferentials, U)) :
+    Φ g e U hU hne s ∈ ZInQ.Contrib.CurvesG.regularAt F w := by
+  induction s using induction_affine U hU with
+  | h0 => rw [map_zero]; exact zero_mem _
+  | hadd x y hx hy => rw [map_add]; exact add_mem hx hy
+  | hgen a b =>
+    rw [Φ_smul_D]
+    exact AddSubgroup.subset_closure ⟨_, _, hw a, hw b, rfl⟩
+
+/-- **GLUE (named): every place of the function field of a proper integral `ℚ`-scheme has a center.**
+For `X` integral and proper over `ℚ` and a valuation subring `w` of the function field containing `ℚ`,
+some local ring `𝒪_{X,x}` maps into `w` (valuative criterion of properness, Mathlib
+`IsProper.eq_valuativeCriterion`; Hartshorne II.4.7, UNVERIFIED number). -/
+def ValuationCenter : Prop :=
+  ∀ (X : Scheme.{0}) [IsIntegral X] (g : X ⟶ Spec (CommRingCat.of ℚ)) [IsProper g]
+    (w : ValuationSubring X.functionField), (∀ q : ℚ, (q : X.functionField) ∈ w) →
+    ∃ x : X, ∀ a : X.presheaf.stalk x, algebraMap (X.presheaf.stalk x) X.functionField a ∈ w
+
+lemma ΦG_mem_holo (hC : ValuationCenter) [IsProper g] (s : Γ(g.relativeDifferentials, ⊤)) :
+    ΦG g e s ∈ ZInQ.Contrib.CurvesG.holoDiff F := by
+  refine Submodule.subset_span (fun w hw => ?_)
+  obtain ⟨x, hx⟩ := hC X g (w.comap e.toRingHom) (fun q => by
+    rw [ValuationSubring.mem_comap]
+    simpa [map_ratCast] using hw q)
+  obtain ⟨_, ⟨V, hV, rfl⟩, hxV, -⟩ :=
+    X.isBasis_affineOpens.exists_subset_of_mem_open (Set.mem_univ x) isOpen_univ
+  have hne : (V : Set X).Nonempty := ⟨x, hxV⟩
+  rw [ΦG_eq V hV hne]
+  refine Φ_mem_regularAt V hV hne w (fun a => ?_) _
+  haveI : Nonempty V := hne.to_subtype
+  have := hx (X.presheaf.germ V x hxV a)
+  rw [ValuationSubring.mem_comap, Scheme.algebraMap_germ_eq_germToFunctionField] at this
+  exact this
+
+/-- **Stalks at closed points of a smooth curve are valuation rings** (proved: regular local of
+dimension one, `ZInQ.Contrib.Dim.finrank_cotangentSpace_of_smoothOfRelativeDimension` and Mathlib's
+DVR TFAE). -/
+lemma valuationRing_stalk [SmoothOfRelativeDimension 1 g] (x : X) (hx : IsClosed ({x} : Set X)) :
+    ValuationRing (X.presheaf.stalk x) := by
+  have : Smooth g := SmoothOfRelativeDimension.smooth 1 g
+  have : IsLocallyNoetherian X := LocallyOfFiniteType.isLocallyNoetherian g
+  have h := ZInQ.Contrib.Dim.finrank_cotangentSpace_of_smoothOfRelativeDimension g 1 x hx
+  exact ((tfae_of_isNoetherianRing_of_isLocalRing_of_isDomain
+    (X.presheaf.stalk x)).out 6 2).mp h.le
+
 end DimJacGlue
