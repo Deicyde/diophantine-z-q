@@ -95,7 +95,7 @@ outright. The GR route is the one carried out here.
 | File | Contents | Time |
 |---|---|---|
 | `VertWitness.lean` | `scratch/hecke-rest/NoVert.lean` lines 1-1265 (verbatim; `cmp` checked), then `VertMain.lean.part` | ~12 s |
-| `VertAll.lean` | all of `scratch/hecke-rest/HeckeRestAll.lean` (verbatim; `cmp` checked) + `VertMain.lean.part` + `VertAllMain.lean.part` (the two composites) | ~60-80 s |
+| `VertAll.lean` | all of `scratch/hecke-rest/HeckeRestAll.lean` (verbatim; `cmp` checked) + `VertMain.lean.part` + `VertAllMain.lean.part` (three composites) | ~60-80 s |
 
 - `assemble.sh` builds both files.
 - `compile_out.txt` and `compile_all.txt` hold the `#print axioms` lines. Every new declaration
