@@ -53,3 +53,9 @@ TYZ Lemma `torsion2` (Lemma 3.18): torsion of `A(ℍ'_n)` is killed by `2(1+[i])
   only divisor d₀ ≡ 5 (8) of n (ℍ'_n = H'_n; ring-class `not_adjSqrt_two_le_Hprime` transported through `embed n`);
   `lemma318_at` (per-n form) and `lemma318_at_single`: TYZ Lemma torsion2 at such n from the leaf
   `SupersingularExponentA` alone. Axioms standard.
+- [VERIFIED, computed, scratch/tyz-318/trace_check.py, exact rational arithmetic] Route A element for √2 ∉ ℍ'_n:
+  β = i∏_{q|n}(1+√q*)/2, α = 1+2β ∈ 𝓞_{L_n(i)}: Tr_{F/K_{d₀}}(β) = √−d₀, N_{F/K_{d₀}}(α) ≡ 1+2√−d₀ (mod 4),
+  N(α)(3−2√−d₀) ∈ ℤ+4𝓞_K, for n ∈ {5,13,21,85,165,205,357,1365} and all d₀ ∣ n, d₀ ≡ 5 (8) (15 pairs). ALL OK.
+  (The script's list also contained 1105, which is ≡ 1 (mod 8) and was filtered out.)
+- Route A (report §3.2) not formalized: needs multiquadratic Galois/norm computations in L_n(i), Chebotarev over
+  L_n(i) for Pic(ℤ+4𝓞_F) (Tau Ceti has the tools), Frobenius transport. SPECULATIVE estimate 1–2 tasks.
