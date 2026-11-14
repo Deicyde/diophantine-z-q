@@ -41,6 +41,12 @@ import ZInQKernel.Contrib.TYZChain.Headline
 import ZInQKernel.Contrib.TYZChain.ModFn
 import ZInQKernel.Contrib.TYZChain.SSExponent
 import ZInQKernel.Contrib.TYZChain.Sqrt2Glue
+import ZInQKernel.Contrib.CloudW06PoincareRigidity.T11bExists
+import ZInQKernel.Contrib.CloudW08EigenformTwists.EigenformTwist
+import ZInQKernel.Contrib.CloudW02Connectedness.Basic
+import ZInQKernel.Contrib.CloudW01Spread.Smooth
+import ZInQKernel.Contrib.CloudW01Spread.FinitePresentation
+import ZInQKernel.Contrib.CloudW03NeronSurj.Main
 
 /-! The two closed providers fed into the unchanged headline theorem: Theorem 1.1 from
 `SixContactMin`, `TYZThm35ReadingA` and `GrossZagier` alone. -/
@@ -272,3 +278,10 @@ theorem contribCheck_headline (hH : ZInQ.SixContactMin) (hA : ZInQ.Literature.TY
 #print axioms ZInQ.Contrib.SSExponent.supersingularExponentA
 #print axioms ZInQ.Contrib.SSExponent.t318_supersingularExponentA
 #print axioms ZInQ.Contrib.SSExponent.lemma318Literal_HHprime_of_sqrtTwoNotIn_ss
+-- cloud workers (w57)
+#print axioms ZInQ.Contrib.CloudW06PoincareRigidity.T11bExists_proof
+#print axioms ZInQ.Contrib.CloudW08EigenformTwists.EigenformTwist_proof
+#print axioms ZariskiConn.ZariskiConnectedness_proof
+#print axioms ZInQ.Contrib.SpreadOut.EGAIV_17_7_8_ii_proof
+#print axioms ZInQ.Contrib.SpreadOut.EGAIV_8_8_2_ii_proof
+#print axioms ZInQ.Contrib.NeronC.NeronMappingAbelianSchemeSurj_proof
