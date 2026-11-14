@@ -197,6 +197,58 @@ section Glue2
 
 
 
+/-- `#A(k)[n] = n^{2g}` over an algebraically closed field of characteristic 0, from T5. -/
+theorem card_torsion_algClosed (hT : PkgI2.TorsionStructure.{0}) {k : Type} [Field k] [IsAlgClosed k]
+    [CharZero k] (A : PkgI3.AbVar k) (g : ℕ) (hg : A.dim = g) (n : ℕ) (hn : 0 < n) :
+    Nat.card {x : A.Pt k // x ^ n = 1} = n ^ (2 * g) := by
+  obtain ⟨e, -⟩ := hT k (ObjBridge.toGrp A) g n hg hn (by exact_mod_cast hn.ne')
+  let φ : AlgebraicClosure k ≃ₐ[k] k :=
+    (AlgEquiv.ofBijective (Algebra.ofId k (AlgebraicClosure k))
+      IsAlgClosed.algebraMap_bijective_of_isIntegral).symm
+  have h1 : Nat.card {x : A.Pt (AlgebraicClosure k) // x ^ n = 1} = n ^ (2 * g) := by
+    have : Nat.card {x : A.Pt (AlgebraicClosure k) // x ^ n = 1} =
+        Nat.card (PkgI2.torsion (ObjBridge.toGrp A) (AlgebraicClosure k) n) := rfl
+    rw [this, Nat.card_congr e, Nat.card_fun, Nat.card_zmod, Nat.card_eq_fintype_card,
+      Fintype.card_fin]
+  rw [← h1]
+  exact Nat.card_congr ((UnramTate.trPt A φ).toEquiv.subtypeEquiv (fun x => by
+    change x ^ n = 1 ↔ (UnramTate.trPt A φ x) ^ n = 1
+    rw [← map_pow, MulEquiv.map_eq_one_iff])).symm
+
+/-- **`TorsionDescends` from T5 (proved).** `A₀(ℚ̄)[n] → A₀,ℂ(ℂ)[n]` is injective between sets of
+`n^{2g}` elements. -/
+theorem torsionDescends_of_t5 (hT : PkgI2.TorsionStructure.{0}) : TorsionDescends := by
+  intro ιe A₀ v n hn hv
+  letI : Algebra Qbar ℂ := ιe.toAlgebra
+  obtain ⟨g, hg⟩ := PkgI3.AbVar.dim_finite A₀
+  let κ : Qbar →ₐ[Qbar] ℂ := Algebra.ofId Qbar ℂ
+  let ψ : A₀.Pt Qbar →* (bcC ιe A₀).Pt ℂ :=
+    (E1Sub.bcPt ℂ A₀ ℂ).comp (ZInQ.Contrib.AbVarBC.extPt A₀ κ)
+  have hψfst : ∀ p, (ψ p).left ≫ fstC ιe A₀ = Spec.map (CommRingCat.ofHom ιe) ≫ p.left := by
+    intro p
+    change (E1Sub.bcPt ℂ A₀ ℂ (ZInQ.Contrib.AbVarBC.extPt A₀ κ p)).left ≫ _ = _
+    erw [E1Sub.bcPt_fst]
+    rw [ZInQ.Contrib.AbVarBC.extPt_apply, Over.comp_left, ZInQ.Contrib.AbVarBC.extHom_left]
+    rfl
+  have hψinj : Function.Injective ψ :=
+    (E1Sub.bcPt_injective A₀ ℂ).comp (ZInQ.Contrib.AbVarBC.extPt_injective A₀ κ)
+  let ψn : {x : A₀.Pt Qbar // x ^ n = 1} → {x : (bcC ιe A₀).Pt ℂ // x ^ n = 1} :=
+    fun x => ⟨ψ x.1, by rw [← map_pow, x.2, map_one]⟩
+  have hinj : Function.Injective ψn := fun x y h => Subtype.ext (hψinj (congrArg Subtype.val h))
+  have c0 := card_torsion_algClosed hT A₀ g hg n hn
+  have c1 := card_torsion_algClosed hT (bcC ιe A₀) g
+    ((@PkgI3.AbVar.dim_baseChange Qbar _ A₀ ℂ _ ιe.toAlgebra).trans hg) n hn
+  haveI : Finite {x : (bcC ιe A₀).Pt ℂ // x ^ n = 1} :=
+    Nat.finite_of_card_ne_zero (by rw [c1]; positivity)
+  have hbij : Function.Bijective ψn := hinj.bijective_of_nat_card_le (by rw [c0, c1])
+  obtain ⟨⟨v₀, hv₀⟩, hψv⟩ := hbij.2 ⟨v, hv⟩
+  have hψv' : ψ v₀ = v := congrArg Subtype.val hψv
+  refine ⟨v₀, by rw [← hψv']; exact hψfst v₀, fun v₀' hv₀' => hψinj ?_⟩
+  rw [hψv']
+  apply ptC_ext ιe A₀
+  rw [hψfst]
+  exact hv₀'.symm
+
 /-- **The descended data** (glue, proved). -/
 theorem descend_main (hST : STQM) (hR : ZInQ.LeafPush2.T11b_Rigidity) (hTD : TorsionDescends)
     (hRep : LeafAdopt.R1R2fpRep) (Q : QML3 ℂ) (hcm : HasCM4 Q.q ∨ HasCM3 Q.q ∨ HasCM24 Q.q) :
@@ -352,3 +404,4 @@ end LeafQCheck
 end HDec.HSyn.G0Split.FibreQM.PeriodMapH
 
 #print axioms HDec.HSyn.G0Split.FibreQM.PeriodMapH.LeafQCheck.cmDescends_of
+#print axioms HDec.HSyn.G0Split.FibreQM.PeriodMapH.LeafQCheck.torsionDescends_of_t5
