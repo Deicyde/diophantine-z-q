@@ -123,3 +123,9 @@ Row sources (VERIFIED, read): definitions read in ~/dzq-wt/leaf-fold4/scratch/le
   families classified by R1univProps; inverse from twist α.symm, rightMul u⁻¹; `isoTwistSymm`, `isoRightMulOne`
   need maxHeartbeats 2·10⁶); `r1bTransport_proof`. `r1r2fpRep_of'` (H-1 without HeckeOfFine), `r1b_of'`
   (H-20 from ShimuraFamily alone). Axioms standard; 42 s.
+
+## Covolume glue split (VERIFIED, compiled)
+- `Valence.lean`, `Haupt.lean`: LEAF `ShimizuCovolumeO1` (Γ¹ = ι(𝒪¹) cocompact Fuchsian with a fundamental
+  domain of area 2π/3; Shimura 1971 Prop. 9.2, Shimizu 1965, Voight 39.1.13; UNVERIFIED) and project GLUE
+  `GammaStarFromO1 : ShimizuCovolumeO1 → GammaStarCocompactArea` (index 4, finite-index supergroup, comparison of
+  fundamental domains). `valenceFormulaGammaStar_of_shimizu` (H-87), `qmHauptmodulBase3_of_shimizu` (H-88).

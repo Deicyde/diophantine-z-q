@@ -3169,6 +3169,38 @@ theorem valenceFormulaGammaStar_of_eq : HDec.LeafQCheck.VB.ValenceFormulaGammaSt
   have := (hV Γs hFuchs s hs m F hF hne haut).2.2 T hT
   rwa [hvol, arith] at this
 
+
+/-! ### The covolume glue split: Shimizu's formula for `𝒪¹` (LEAF) and the passage to `Γ*` (GLUE) -/
+
+/-- `Γ¹ = ι(𝒪¹)`: the images of the norm-one units of `𝒪` (`det ι(x) = nrd(x)`). -/
+def Gamma1 : Set (GL (Fin 2) ℝ) :=
+  {γ | ∃ x : PkgI1.B, PkgI1.InO x ∧ (γ : Matrix (Fin 2) (Fin 2) ℝ) = PkgI1.iota x ∧
+    (γ : Matrix (Fin 2) (Fin 2) ℝ).det = 1}
+
+/-- **LEAF (Shimura; Shimizu's volume formula).** `Γ¹ = ι(𝒪¹)`, for the maximal order `𝒪` of the indefinite
+division algebra `B` of discriminant `6`, is a cocompact Fuchsian group, with a fundamental domain of
+hyperbolic area `(π/3) ∏_{p | 6} (p − 1) = 2π/3`. Shimura, *Introduction to the arithmetic theory of
+automorphic functions*, 1971, Prop. 9.2 (cocompactness); H. Shimizu, *On zeta functions of quaternion
+algebras*, Ann. of Math. 81 (1965) (volume); Vignéras, *Arithmétique des algèbres de quaternions*, LNM 800,
+IV §1; Voight, *Quaternion algebras*, Thm 39.1.13; locators UNVERIFIED. -/
+def ShimizuCovolumeO1 : Prop :=
+  IsCocompactFuchsian Gamma1 ∧
+    ∃ s, IsFundDomain Gamma1 s ∧ MeasureTheory.volume s = ENNReal.ofReal (2 * Real.pi / 3)
+
+/-- **GLUE (from `𝒪¹` to `Γ*`).** Shimizu's statement for `Γ¹` gives `GammaStarCocompactArea`. What it needs:
+`Γ¹ ⊆ Γ*`, the index `[Γ* : ℚ^×Γ¹] = 4` of the Möbius groups (`N_B(𝒪)⁺/ℚ^×𝒪^×₊ ≅ W`, representatives
+`1, x₄, x₆, x₄x₆` up to `𝒪¹`; `GammaStarGen` and the chain's `tt` representatives), proper discontinuity and
+cocompactness of a finite-index supergroup, and the comparison of fundamental domains (area divided by the
+index). Project glue (measure theory and an index computation). -/
+def GammaStarFromO1 : Prop := ShimizuCovolumeO1 → GammaStarCocompactArea
+
+include hT hV hC in
+/-- **Row H-88 from published leaves and project glue**: the valence formula, Shimizu's volume formula, the
+glue from `𝒪¹` to `Γ*`, the CM value (and the bundle leaf `r4`). -/
+theorem qmHauptmodulBase3_of_shimizu (hS : ShimizuCovolumeO1) (hG : GammaStarFromO1) :
+    QMHauptmodulBase3 :=
+  qmHauptmodulBase3_of' hT hV (hG hS) hC
+
 end
 
 end HDec.LeafQCheck.HM.QMSplit
@@ -3177,3 +3209,4 @@ end HDec.LeafQCheck.HM.QMSplit
 #print axioms HDec.LeafQCheck.HM.QMSplit.valenceFormulaGammaStar_of_eq
 #print axioms HDec.LeafQCheck.HM.QMSplit.ellipticOrderDvd_proof
 #print axioms HDec.LeafQCheck.HM.QMSplit.qmHauptmodulBase3_of'
+#print axioms HDec.LeafQCheck.HM.QMSplit.qmHauptmodulBase3_of_shimizu
