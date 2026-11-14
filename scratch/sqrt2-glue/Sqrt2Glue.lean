@@ -574,4 +574,160 @@ theorem eq_pow_of_congr {Q : Ideal (𝓞 L)} [hQ : Q.IsPrime] [Algebra.IsUnramif
 
 end FrobPow
 
+/-! ## §6. Transport `H_{d,4} ≅ H̄_{d,4}` and the Frobenius over `F` on `H_{d,4}` -/
+
+section Transport
+
+variable {d : ℕ} [NeZero d]
+
+/-- `H_{d,4} ≅ H̄_{d,4} ⊂ ℚ̄` through `embed d`. -/
+def psi4 (d : ℕ) [NeZero d] : ((H4 d).restrictScalars ℚ) ≃ₐ[ℚ] H4bar d :=
+  (IntermediateField.equivMap ((H4 d).restrictScalars ℚ) (embed d)).trans
+    (IntermediateField.equivOfEq (H4bar_eq_map (d := d)).symm)
+
+theorem psi4_apply (y : (H4 d).restrictScalars ℚ) :
+    ((psi4 d y : H4bar d) : Qbar) = embed d (y : SeparableClosure (QNeg d)) := rfl
+
+instance instNormalH4bar : Normal ℚ (H4bar d) := normal_H4bar d
+
+/-- `h ∈ Gal(ℚ̄/ℚ)` transported to a `ℚ`-automorphism of `H_{d,4}`. -/
+def tauQ4 (h : Qbar ≃ₐ[ℚ] Qbar) : ((H4 d).restrictScalars ℚ) ≃ₐ[ℚ] ((H4 d).restrictScalars ℚ) :=
+  ((psi4 d).trans (h.restrictNormal (H4bar d))).trans (psi4 d).symm
+
+theorem psi4_tauQ4 (h : Qbar ≃ₐ[ℚ] Qbar) (y : (H4 d).restrictScalars ℚ) :
+    ((psi4 d (tauQ4 (d := d) h y) : H4bar d) : Qbar) = h ((psi4 d y : H4bar d) : Qbar) := by
+  simp only [tauQ4, AlgEquiv.trans_apply, AlgEquiv.apply_symm_apply]
+  exact AlgEquiv.restrictNormal_commutes h (H4bar d) (psi4 d y)
+
+/-- If `h` fixes `kEmb d (K_d)`, its transport is a `K_d`-automorphism of `H_{d,4}`. -/
+def tau4 (h : Qbar ≃ₐ[ℚ] Qbar) (hK : ∀ k, h (kEmb d k) = kEmb d k) : Gal(H4 d / QNeg d) :=
+  AlgEquiv.ofRingEquiv (f := (tauQ4 (d := d) h).toRingEquiv) (fun c => by
+    apply Subtype.ext
+    apply (embed d).injective
+    have e := psi4_tauQ4 (d := d) h
+      (⟨algebraMap (QNeg d) (SeparableClosure (QNeg d)) c, (H4 d).algebraMap_mem c⟩ :
+        (H4 d).restrictScalars ℚ)
+    rw [psi4_apply, psi4_apply] at e
+    exact e.trans (hK c))
+
+theorem coe_tau4 (h : Qbar ≃ₐ[ℚ] Qbar) (hK : ∀ k, h (kEmb d k) = kEmb d k) (y : H4 d) :
+    ((tau4 h hK y : H4 d) : SeparableClosure (QNeg d)) =
+      ((tauQ4 (d := d) h y : (H4 d).restrictScalars ℚ) : SeparableClosure (QNeg d)) := rfl
+
+theorem classOf_pow {J : Ideal (𝓞 (QNeg d))} (hJ : J ∈ integralIdealsPrimeTo (O4 d).conductorModulus)
+    (k : ℕ) : classOf (J ^ k) = classOf J ^ k := by
+  induction k with
+  | zero => rw [pow_zero, pow_zero, Ideal.one_eq_top, classOf_top]
+  | succ k ih =>
+    have hk : J ^ k ∈ integralIdealsPrimeTo (O4 d).conductorModulus := Submonoid.pow_mem _ hJ k
+    rw [pow_succ, classOf_mul hk hJ, ih, pow_succ]
+
+end Transport
+
+/-- **The Frobenius over `F` on `H_{d,4}`**: let `F ⊂ M ⊂ ℚ̄` be number fields with `K_d ⊂ F` and
+`H̄_{d,4} ⊂ M`, `𝔔` a prime of `𝓞_M` over a nonzero prime `P ∌ 2` of `𝓞_F`, and `h ∈ Gal(ℚ̄/F)`
+acting as `x ↦ x^{N P}` modulo `𝔔` on `𝓞_M`. Then `h` acts on `H̄_{d,4}` as the Artin symbol of
+`N_{F/K_d}(P) = 𝔭^f`. -/
+theorem frob_on_H4 (F M : IntermediateField ℚ Qbar) [FiniteDimensional ℚ F] [FiniteDimensional ℚ M]
+    (hFM : F ≤ M) (d : ℕ) [NeZero d] (hK : ∀ k, kEmb d k ∈ F) (hHM : H4bar d ≤ M)
+    (h : Qbar ≃ₐ[ℚ] Qbar) (hfix : ∀ x ∈ F, h x = x) (𝔔 : Ideal (𝓞 M)) [𝔔.IsPrime]
+    (P : Ideal (𝓞 F)) [hP : P.IsPrime] (hP0 : P ≠ ⊥) (hP2 : (2 : 𝓞 F) ∉ P)
+    (hPQ : ∀ a : 𝓞 F, a ∈ P ↔
+      RingOfIntegers.mapRingHom (IntermediateField.inclusion hFM).toRingHom a ∈ 𝔔)
+    (hfrob : ∀ x b : 𝓞 M, ((b : M) : Qbar) =
+      h ((x : M) : Qbar) - ((x : M) : Qbar) ^ Nat.card (𝓞 F ⧸ P) → b ∈ 𝔔) :
+    ∀ y : H4 d, h (embed d (y : SeparableClosure (QNeg d))) =
+      embed d ((artin4 d (classOf (relNormK F d P)) y : H4 d) : SeparableClosure (QNeg d)) := by
+  haveI : NumberField F := ⟨⟩
+  haveI : NumberField M := ⟨⟩
+  letI : Algebra (QNeg d) F := (iotaK F d hK).toRingHom.toAlgebra
+  have hKfix : ∀ k, h (kEmb d k) = kEmb d k := fun k => hfix _ (hK k)
+  obtain ⟨τ, hτval⟩ : ∃ τ : Gal(H4 d / QNeg d), ∀ y : H4 d,
+      embed d ((τ y : H4 d) : SeparableClosure (QNeg d)) =
+        h (embed d ((y : H4 d) : SeparableClosure (QNeg d))) :=
+    ⟨tau4 h hKfix, fun y => psi4_tauQ4 (d := d) h (y : H4 d)⟩
+  let ψ : 𝓞 (H4 d) →+* 𝓞 M := RingOfIntegers.mapRingHom
+    ((IntermediateField.inclusion hHM).toRingHom.comp (psi4 d).toRingHom)
+  have hψ : ∀ y : 𝓞 (H4 d), (((ψ y : 𝓞 M) : M) : Qbar) =
+      embed d ((y : H4 d) : SeparableClosure (QNeg d)) := fun y => rfl
+  set Q' := 𝔔.comap ψ with hQ'
+  haveI : Q'.IsPrime := Ideal.comap_isPrime _ _
+  set q := Nat.card (𝓞 F ⧸ P) with hqdef
+  -- the congruence for `τ`
+  have hτ : ∀ y : 𝓞 (H4 d), τ • y - y ^ q ∈ Q' := by
+    intro y
+    rw [hQ', Ideal.mem_comap]
+    apply hfrob (ψ y) (ψ (τ • y - y ^ q))
+    have e1 : (((ψ (τ • y) : 𝓞 M) : M) : Qbar) = h (((ψ y : 𝓞 M) : M) : Qbar) := by
+      rw [hψ, hψ]
+      exact hτval (y : H4 d)
+    rw [map_sub, map_pow]
+    push_cast
+    rw [e1]
+  -- the prime `𝔭` of `𝓞_{K_d}` below
+  set 𝔭 := Q'.under (𝓞 (QNeg d)) with h𝔭def
+  have hιeq : ∀ k : 𝓞 (QNeg d),
+      RingOfIntegers.mapRingHom (IntermediateField.inclusion hFM).toRingHom
+        (algebraMap (𝓞 (QNeg d)) (𝓞 F) k) = ψ (algebraMap (𝓞 (QNeg d)) (𝓞 (H4 d)) k) := by
+    intro k
+    apply RingOfIntegers.ext
+    apply Subtype.ext
+    rfl
+  have hP𝔭 : P.under (𝓞 (QNeg d)) = 𝔭 := by
+    ext k
+    rw [Ideal.under_def, Ideal.mem_comap, hPQ, hιeq, h𝔭def, Ideal.under_def, Ideal.mem_comap,
+      hQ', Ideal.mem_comap]
+  haveI : P.LiesOver 𝔭 := ⟨hP𝔭.symm⟩
+  have h2𝔭 : (2 : 𝓞 (QNeg d)) ∉ 𝔭 := by
+    rw [← hP𝔭, Ideal.under_def, Ideal.mem_comap, map_ofNat]; exact hP2
+  have h𝔭0 : 𝔭 ≠ ⊥ := by rw [← hP𝔭]; exact Ideal.under_ne_bot _ hP0
+  haveI h𝔭prime : 𝔭.IsPrime := Ideal.comap_isPrime _ _
+  haveI h𝔭max : 𝔭.IsMaximal := h𝔭prime.isMaximal h𝔭0
+  haveI : P.IsMaximal := hP.isMaximal hP0
+  -- the relative norm and the exponent
+  have hrel : relNormK F d P = 𝔭 ^ P.inertiaDeg (𝓞 (QNeg d)) := by
+    simp only [relNormK, dif_pos (And.intro hK ‹FiniteDimensional ℚ F›)]
+    exact Ideal.relNorm_eq_pow_of_isMaximal P 𝔭
+  have hq : q = Nat.card (𝓞 (QNeg d) ⧸ 𝔭) ^ P.inertiaDeg (𝓞 (QNeg d)) := by
+    have := Ideal.cardQuot_pow_inertiaDeg 𝔭 P
+    rw [Submodule.cardQuot_apply, Submodule.cardQuot_apply] at this
+    exact this.symm
+  -- the class of `𝔭`
+  have hco : IsCoprime 𝔭 (Ideal.span {(2 : 𝓞 (QNeg d))}) := by
+    rw [Ideal.isCoprime_iff_sup_eq]
+    by_contra hne
+    have := h𝔭max.eq_of_le hne le_sup_left
+    exact h2𝔭 (this ▸ Ideal.mem_sup_right (Ideal.mem_span_singleton_self _))
+  have h𝔭mem := mem_primeTo_of_isCoprime_two hco
+  set f := P.inertiaDeg (𝓞 (QNeg d))
+  have hclass : classOf (relNormK F d P) = (O4 d).picClass ⟨𝔭, h𝔭mem⟩ ^ f := by
+    rw [hrel, classOf_pow h𝔭mem, classOf_of_mem h𝔭mem]
+  -- Frobenius at `Q'` and unramifiedness
+  haveI : ((⟨𝔭, h𝔭mem⟩ : integralIdealsPrimeTo (O4 d).conductorModulus) :
+    Ideal (𝓞 (QNeg d))).IsMaximal := h𝔭max
+  haveI : Q'.LiesOver ((⟨𝔭, h𝔭mem⟩ : integralIdealsPrimeTo (O4 d).conductorModulus) :
+    Ideal (𝓞 (QNeg d))) := ⟨rfl⟩
+  have hφ := isArithFrobAt_ringClassArtinEquiv_picClass (O4 d) ⟨𝔭, h𝔭mem⟩ Q'
+  have hndvd : ¬ (⟨𝔭, h𝔭prime, h𝔭0⟩ : IsDedekindDomain.HeightOneSpectrum (𝓞 (QNeg d))).asIdeal ∣
+      (O4 d).conductor := by
+    intro hdvd
+    rw [Ideal.dvd_iff_le] at hdvd
+    have h1 := ((mem_integralIdealsPrimeTo_conductorModulus_iff (O := O4 d)).mp h𝔭mem).2
+    rw [sup_eq_left.mpr hdvd] at h1
+    exact h𝔭max.ne_top h1
+  haveI : Q'.LiesOver (⟨𝔭, h𝔭prime, h𝔭0⟩ :
+    IsDedekindDomain.HeightOneSpectrum (𝓞 (QNeg d))).asIdeal := ⟨rfl⟩
+  haveI : Algebra.IsUnramifiedAt (𝓞 (QNeg d)) Q' :=
+    isUnramifiedAt_ringClassField (O4 d) hndvd Q'
+  have hτ' : ∀ x : 𝓞 (H4 d), τ • x - x ^ (Nat.card (𝓞 (QNeg d) ⧸ Q'.under (𝓞 (QNeg d))) ^ f) ∈ Q' := by
+    intro x
+    have e : Nat.card (𝓞 (QNeg d) ⧸ Q'.under (𝓞 (QNeg d))) ^ f = q := hq.symm
+    rw [e]
+    exact hτ x
+  have hτφ : τ = ringClassArtinEquiv (O4 d) ((O4 d).picClass ⟨𝔭, h𝔭mem⟩) ^ f :=
+    eq_pow_of_congr (K := QNeg d) (L := H4 d) (Q := Q') hφ f hτ'
+  intro y
+  rw [show artin4 d = ringClassArtinEquiv (O4 d) from rfl, hclass, map_pow, ← hτφ]
+  exact (hτval y).symm
+
 end ZInQ.Contrib.TYZGenus.Sqrt2Glue
