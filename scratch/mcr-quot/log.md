@@ -111,3 +111,16 @@ C2 `CoordinateFromSections` of `scratch/mcr-glue/MCRGlue.lean` (copied verbatim 
 - **Final composite `MCRQuot.modelCoordinateResidue_final`**: L1-L6 + T5 + (A-fix), (B-desc),
   (B-iso), (C1b), (C1c), (C2-T) ⇒ `ModelCoordinateResidue`. Also `fibreAutTame_of'` (A from T5 +
   A-fix) and `cMSectionsDisjoint_of'` (C1 from A, A-fix, C1b, C1c).
+
+## Step 8 (08:30) — independent statement review (model, read-only, not compiled)
+- A separate model read the Lean text of every new glue Prop (`P1ThreePoints`, `P1Translate`,
+  `FibreAutFixFinite`, `TwistClassCard`, `GQuotientPointOrbits`, `CMStabInvolution`,
+  `StabFixesClosure`, `QbarPointsConjugate`, `QuotientDescendsQ`, `ToP1BijIsCoordinateQ`,
+  helper `FixesFieldPointsOn`) against the definitions. Verdict: all TRUE except
+  `QuotientDescendsQ`, true where applied but stated for arbitrary `𝒴` (the descent of a map
+  known only by its `ℚ̄`-values needs `𝒴_ℚ` reduced of finite type). Fix applied: added
+  `IsProper 𝒴.hom → SmoothOfRelativeDimension 1 𝒴.hom →` to `QuotientDescendsQ` (weaker Prop);
+  `genericQuotientP1_of` passes `hM.1 hM.2.1`. Recompiled: exit 0.
+- Review notes kept for the report: (C1c) needs neither EGA IV 8.13.1 nor smoothness (the closure
+  is `Spec R`, `R` a domain with fraction field `κ(x)`); (C1b) stabilizers are cyclic of order
+  4, 6, 2 with involutions the images of `i`, `√−3`, `√−6`.

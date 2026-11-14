@@ -5823,8 +5823,8 @@ theorem genFibMap_fst {p : ℕ} [Fact p.Prime] {𝒴 𝒵 : Over (Spec (CommRing
 
 /-- **Glue (B-desc): an orbit-invariant coordinate on `𝒴_ℚ` descends to the quotient**
 (scheme theory of quotients; SGA 1 Exp. V §1 (locators UNVERIFIED), no new literature). For the
-SGA 1 quotient `q : 𝒴 → 𝒵` over `ℤ_(p)` by a finite group `G` of `ℤ_(p)`-automorphisms with `q`
-finite, a map `σ : 𝒴_ℚ → P¹` whose values on `ℚ̄`-points are constant on `G`-orbits factors
+SGA 1 quotient `q : 𝒴 → 𝒵` over `ℤ_(p)` of a proper smooth relative curve `𝒴` by a finite group
+`G` of `ℤ_(p)`-automorphisms with `q` finite, a map `σ : 𝒴_ℚ → P¹` whose values on `ℚ̄`-points are constant on `G`-orbits factors
 through `𝒵_ℚ`, and every `ℚ̄`-point of `𝒵_ℚ` comes from `𝒴_ℚ`. (Outline: `𝒵_ℚ = 𝒴_ℚ/G`, since
 the formation of invariants commutes with the localization `ℤ_(p) → ℚ`; `σ` is `G`-invariant as a
 morphism, its values on the dense set of `ℚ̄`-points of the reduced `𝒴_ℚ` being invariant; so the
@@ -5833,7 +5833,8 @@ opens `σ⁻¹(t ≠ ∞)`, `σ⁻¹(t ≠ 0)` are `G`-stable and saturated, the
 `q` is integral and surjective, so `ℚ̄`-points lift.) -/
 def QuotientDescendsQ : Prop :=
   ∀ (p : ℕ) [Fact p.Prime] (𝒴 𝒵 : Over (Spec (CommRingCat.of (Zloc p)))) (q : 𝒴 ⟶ 𝒵)
-    (G : Subgroup (Aut 𝒴.left)), Finite G → (∀ g ∈ G, g.asIso.hom ≫ 𝒴.hom = 𝒴.hom) →
+    (G : Subgroup (Aut 𝒴.left)), IsProper 𝒴.hom → SmoothOfRelativeDimension 1 𝒴.hom →
+    Finite G → (∀ g ∈ G, g.asIso.hom ≫ 𝒴.hom = 𝒴.hom) →
     IsGQuotient G q.left → IsFinite q.left →
     ∀ σ : ToP1 (genFib 𝒴).left,
       (∀ (s s' : fieldPt Qbar ⟶ genFib 𝒴) (g : Aut 𝒴.left), g ∈ G →
@@ -5894,7 +5895,7 @@ theorem genericQuotientP1_of (hA : FibreAutTame) (hT : ObjBridge.TorsionStructur
     refine (hrel s s').2 (twistEq_of_mem_fibreAut hM huniq hh (s.left ≫ j) _ _ (hfib _) ?_)
     exact (congrArg (fun t => IsFibreOf 𝒜 t (fib (s'.left ≫ j)))
       (e.trans (Category.assoc _ _ _).symm)).mp (hfib _)
-  obtain ⟨σ', hσ', hlift⟩ := hD p 𝒴 𝒵 q (fibreAut 𝒴 𝒜) hfin (fibreAut_over 𝒴 𝒜) hq hqf σ hinvσ
+  obtain ⟨σ', hσ', hlift⟩ := hD p 𝒴 𝒵 q (fibreAut 𝒴 𝒜) hM.1 hM.2.1 hfin (fibreAut_over 𝒴 𝒜) hq hqf σ hinvσ
   refine ⟨σ', hB (genFib 𝒵) (genFib_isProper 𝒵 hZp) (genFib_smooth 𝒵 hZs) σ' ⟨?_, ?_⟩⟩
   · intro t t' htt
     obtain ⟨s, rfl⟩ := hlift t
@@ -6772,6 +6773,67 @@ theorem tS_compat :
   · have := res_inv_mul (inf_le_right : tDV ρ E ⊓ tDU ρ E ≤ tDU ρ E) (uF ρ E)
     rw [uF_val, res_res] at this
     exact this
+
+/-- `g' = 1/(t + E)` on `V' = D_V(1 + E g) ∪ D_U(f + E)`, glued. -/
+def tg : Γ(X, tDV ρ E ⊔ tDU ρ E) :=
+  (X.sheaf.objSupIsoProdEqLocus (tDV ρ E) (tDU ρ E)).inv ⟨(tS1 ρ E, tS2 ρ E), tS_compat ρ E⟩
+
+theorem tg_res_DV : res (le_sup_left : tDV ρ E ≤ tDV ρ E ⊔ tDU ρ E) (tg ρ E) = tS1 ρ E :=
+  TopCat.Sheaf.objSupIsoProdEqLocus_inv_fst X.sheaf _ _ _
+
+theorem tg_res_DU : res (le_sup_right : tDU ρ E ≤ tDV ρ E ⊔ tDU ρ E) (tg ρ E) = tS2 ρ E :=
+  TopCat.Sheaf.objSupIsoProdEqLocus_inv_snd X.sheaf _ _ _
+
+theorem U_inf_tDV_le : ρ.U ⊓ tDV ρ E ≤ tDU ρ E := by
+  intro x hx
+  have hW : ρ.U ⊓ tDV ρ E ≤ ρ.U ⊓ ρ.V := inf_le_inf_left _ (tDV_le ρ E)
+  have h1 := g_mul_tF ρ E hW
+  have h2 : x ∈ X.basicOpen (res (hW.trans inf_le_right) (tG ρ E)) := by
+    rw [basicOpen_res_of_le]; exact ⟨hx, hx.2⟩
+  rw [← h1, Scheme.basicOpen_mul] at h2
+  have h3 := h2.2
+  rw [basicOpen_res_of_le] at h3
+  exact h3.2
+  where basicOpen_res_of_le {O O' : X.Opens} (h : O' ≤ O) (s : Γ(X, O)) :
+      X.basicOpen (res h s) = O' ⊓ X.basicOpen s := Scheme.basicOpen_res X s (homOfLE h).op
+
+theorem tF_basicOpen : X.basicOpen (tF ρ E) = ρ.U ⊓ (tDV ρ E ⊔ tDU ρ E) := by
+  apply le_antisymm
+  · exact le_inf (tDU_le ρ E) le_sup_right
+  · rintro x ⟨hU, hx⟩
+    rcases hx with h | h
+    · exact U_inf_tDV_le ρ E ⟨hU, h⟩
+    · exact h
+
+/-- **The translated coordinate `ρ + E`.** -/
+def translate : ToP1 X where
+  U := ρ.U
+  V := tDV ρ E ⊔ tDU ρ E
+  cover := by
+    apply eq_top_iff.mpr
+    intro x _
+    by_cases hU : x ∈ ρ.U
+    · exact Or.inl hU
+    · have hV : x ∈ ρ.V := mem_V_of_not_mem_U ρ hU
+      have hg : x ∉ X.basicOpen ρ.g := by rw [ρ.basicOpen_g]; exact fun h => hU h.1
+      exact Or.inr (Or.inl (mem_basicOpen_one_add (res le_top E) ρ.g hV hg))
+  f := tF ρ E
+  g := tg ρ E
+  inv := by
+    refine X.sheaf.eq_of_locally_eq₂ (homOfLE (le_inf inf_le_left (inf_le_right.trans le_sup_left) :
+        ρ.U ⊓ tDV ρ E ≤ ρ.U ⊓ (tDV ρ E ⊔ tDU ρ E)))
+      (homOfLE (le_inf (tDU_le ρ E) le_sup_right : tDU ρ E ≤ ρ.U ⊓ (tDV ρ E ⊔ tDU ρ E)))
+      ?_ _ _ ?_ ?_
+    · rintro x ⟨hU, hx⟩
+      rcases hx with h | h
+      · exact Or.inl ⟨hU, h⟩
+      · exact Or.inr h
+    · sorry
+    · sorry
+  basicOpen_f := tF_basicOpen ρ E
+  basicOpen_g := by
+    rw [← tF_basicOpen]
+    sorry
 
 end Translate
 

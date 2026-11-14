@@ -25,8 +25,8 @@ theorem genFibMap_fst {p : ℕ} [Fact p.Prime] {𝒴 𝒵 : Over (Spec (CommRing
 
 /-- **Glue (B-desc): an orbit-invariant coordinate on `𝒴_ℚ` descends to the quotient**
 (scheme theory of quotients; SGA 1 Exp. V §1 (locators UNVERIFIED), no new literature). For the
-SGA 1 quotient `q : 𝒴 → 𝒵` over `ℤ_(p)` by a finite group `G` of `ℤ_(p)`-automorphisms with `q`
-finite, a map `σ : 𝒴_ℚ → P¹` whose values on `ℚ̄`-points are constant on `G`-orbits factors
+SGA 1 quotient `q : 𝒴 → 𝒵` over `ℤ_(p)` of a proper smooth relative curve `𝒴` by a finite group
+`G` of `ℤ_(p)`-automorphisms with `q` finite, a map `σ : 𝒴_ℚ → P¹` whose values on `ℚ̄`-points are constant on `G`-orbits factors
 through `𝒵_ℚ`, and every `ℚ̄`-point of `𝒵_ℚ` comes from `𝒴_ℚ`. (Outline: `𝒵_ℚ = 𝒴_ℚ/G`, since
 the formation of invariants commutes with the localization `ℤ_(p) → ℚ`; `σ` is `G`-invariant as a
 morphism, its values on the dense set of `ℚ̄`-points of the reduced `𝒴_ℚ` being invariant; so the
@@ -35,7 +35,8 @@ opens `σ⁻¹(t ≠ ∞)`, `σ⁻¹(t ≠ 0)` are `G`-stable and saturated, the
 `q` is integral and surjective, so `ℚ̄`-points lift.) -/
 def QuotientDescendsQ : Prop :=
   ∀ (p : ℕ) [Fact p.Prime] (𝒴 𝒵 : Over (Spec (CommRingCat.of (Zloc p)))) (q : 𝒴 ⟶ 𝒵)
-    (G : Subgroup (Aut 𝒴.left)), Finite G → (∀ g ∈ G, g.asIso.hom ≫ 𝒴.hom = 𝒴.hom) →
+    (G : Subgroup (Aut 𝒴.left)), IsProper 𝒴.hom → SmoothOfRelativeDimension 1 𝒴.hom →
+    Finite G → (∀ g ∈ G, g.asIso.hom ≫ 𝒴.hom = 𝒴.hom) →
     IsGQuotient G q.left → IsFinite q.left →
     ∀ σ : ToP1 (genFib 𝒴).left,
       (∀ (s s' : fieldPt Qbar ⟶ genFib 𝒴) (g : Aut 𝒴.left), g ∈ G →
@@ -96,7 +97,7 @@ theorem genericQuotientP1_of (hA : FibreAutTame) (hT : ObjBridge.TorsionStructur
     refine (hrel s s').2 (twistEq_of_mem_fibreAut hM huniq hh (s.left ≫ j) _ _ (hfib _) ?_)
     exact (congrArg (fun t => IsFibreOf 𝒜 t (fib (s'.left ≫ j)))
       (e.trans (Category.assoc _ _ _).symm)).mp (hfib _)
-  obtain ⟨σ', hσ', hlift⟩ := hD p 𝒴 𝒵 q (fibreAut 𝒴 𝒜) hfin (fibreAut_over 𝒴 𝒜) hq hqf σ hinvσ
+  obtain ⟨σ', hσ', hlift⟩ := hD p 𝒴 𝒵 q (fibreAut 𝒴 𝒜) hM.1 hM.2.1 hfin (fibreAut_over 𝒴 𝒜) hq hqf σ hinvσ
   refine ⟨σ', hB (genFib 𝒵) (genFib_isProper 𝒵 hZp) (genFib_smooth 𝒵 hZs) σ' ⟨?_, ?_⟩⟩
   · intro t t' htt
     obtain ⟨s, rfl⟩ := hlift t
