@@ -1,9 +1,8 @@
 # hodge-split: the p-adic Hodge theory rows of the frontier, split into published forms
 
 Task hodge-split, 2026-11-14. Base: cba8157f (frontier r3). Lean: `scratch/hodge-split/HodgeSplit.lean`
-(main file) and `scratch/hodge-split/Companion.lean` (the parts that need the kernel's Chebotarev and
-Brauer–Nesbitt modules; separate because importing `ZInQKernel.HDecomp` makes the opened `PkgI4` names
-of the main file ambiguous). Results log: `scratch/hodge-split/log.md`. Model work, no human review.
+(one file; main theorem `hodge_rows_of_leaves`). Results log: `scratch/hodge-split/log.md`. Model work,
+no human review.
 
 Marks: **VERIFIED** (compiled here, or read in a named file), **UNVERIFIED** (a theorem number or locator
 from memory or from earlier reports; this host has no network and no copy of the papers).
@@ -37,15 +36,19 @@ The seven published-form leaves that now carry these rows:
 
 | row | old form (frontier r3) | new leaves (published form, source) | new glue (all proved unless marked) | Lean name of the proof |
 |---|---|---|---|---|
-| H-52 `G0Galois.FiniteImageHT` | composite (Tate 1967, Ax–Sen–Tate, Hilbert 90) | `TateTwistInvariants`, `AxSenTate` | open kernel, finite coefficient field, Speiser descent (replaces Hilbert 90) | `finiteImageHT_of_tate` (main) |
-| H-32 `∀ p, PkgI4.T23_FontaineClosure p` | consequence (form on `V^∨`) | `FontaineDRTannakian p` (on `V`, printed `D_dR`) | `isDeRham_iff_std : IsDeRham ρ ↔ IsDeRhamStd ρ^∨`; clause (i) outright | `t23_all_of_fontaine` (main) |
-| H-8 `ZInQ.Contrib.R10.DeRhamComparisonHT` | composite (Faltings, Tate, T10, HT clause) | `HodgeTateDecompAbVar`, `TateTwistInvariants`, `AxSenTate`, `DeRhamH1AbVarT` | `Hom_{G_F}(V, ℂ_p(j)) ≅ (ℂ_p(j−1)^{G_F})^g × (ℂ_p(j)^{G_F})^g`; image of `G_F` for any finite `F`; `dim A ∈ ℕ`; `(B_dR ⊗ V^∨)^G ≅ Hom_G(V, B_dR)`; `dim V_p(A) < ∞` | `deRhamComparisonHT_of_leavesT` (main; `deRhamComparisonHT_of_leaves` with the Hom-form leaf) |
-| H-22 `G0Galois.R14Det` | composite (Shimura, Deligne, Deligne–Serre) | `DSThm965`, `DSThm966` | weight split; `Semisimplification2`; `DetFromFrobenius` (T18, cyclotomic characters); `ArtinTransport` (Nullstellensatz specialization, Maschke) | `r14Det_of_printed` (companion) |
-| H-51 `G0Galois.SenTwist` | consequence (Sen 1980) | `TateTwistInvariants`, `AxSenTate` | Tate–Sen independence; Dedekind coordinates and descent (bridge to pkg-I4's `htMult`); twist scalar; coefficient-field independence | `senTwist_of_tate` (main) |
-| H-10 `PkgI4.EigenformHT` | consequence (Kato, after dualization) | none statable (Kato's `V_{F_λ}(f)` is étale cohomology); uses the kernel's I4-L5 `NewformOfEigenform` and `DSThm965`, `DSThm966` | `EigenformHTNew` (**open**: Kato for newforms, transported and dualized); `AttachedConj` (T18, T19); `HTConj` | `eigenformHT_of_kato_ds` (companion) |
-| H-9 `PkgI4.PanBerger` | composite (Pan + Berger) | none statable (both need `B_st`) | — | `panBerger_of_templates` (main; composition for every predicate `IsPst`) |
+| H-52 `G0Galois.FiniteImageHT` | composite (Tate 1967, Ax–Sen–Tate, Hilbert 90) | `TateTwistInvariants`, `AxSenTate` | open kernel, finite coefficient field, Speiser descent (replaces Hilbert 90) | `finiteImageHT_of_tate` |
+| H-32 `∀ p, PkgI4.T23_FontaineClosure p` | consequence (form on `V^∨`) | `FontaineDRTannakian p` (on `V`, printed `D_dR`) | `isDeRham_iff_std : IsDeRham ρ ↔ IsDeRhamStd ρ^∨`; clause (i) outright | `t23_all_of_fontaine` |
+| H-8 `ZInQ.Contrib.R10.DeRhamComparisonHT` | composite (Faltings, Tate, T10, HT clause) | `HodgeTateDecompAbVar`, `TateTwistInvariants`, `AxSenTate`, `DeRhamH1AbVarT` | `Hom_{G_F}(V, ℂ_p(j)) ≅ (ℂ_p(j−1)^{G_F})^g × (ℂ_p(j)^{G_F})^g`; image of `G_F` for any finite `F`; `dim A ∈ ℕ`; `(B_dR ⊗ V^∨)^G ≅ Hom_G(V, B_dR)`; `dim V_p(A) < ∞` | `deRhamComparisonHT_of_leavesT` (`deRhamComparisonHT_of_leaves` with the Hom-form leaf) |
+| H-22 `G0Galois.R14Det` | composite (Shimura, Deligne, Deligne–Serre) | `DSThm965`, `DSThm966` | weight split; `Semisimplification2`; `DetFromFrobenius` (T18, cyclotomic characters); `ArtinTransport` (Nullstellensatz specialization, Maschke) | `r14Det_of_printed` |
+| H-51 `G0Galois.SenTwist` | consequence (Sen 1980) | `TateTwistInvariants`, `AxSenTate` | Tate–Sen independence; Dedekind coordinates and descent (bridge to pkg-I4's `htMult`); twist scalar; coefficient-field independence | `senTwist_of_tate` |
+| H-10 `PkgI4.EigenformHT` | consequence (Kato, after dualization) | none statable (Kato's `V_{F_λ}(f)` is étale cohomology); uses the kernel's I4-L5 `NewformOfEigenform` and `DSThm965`, `DSThm966` | `EigenformHTNew` (**open**: Kato for newforms, transported and dualized); `AttachedConj` (T18, T19); `HTConj` | `eigenformHT_of_kato_ds` |
+| H-9 `PkgI4.PanBerger` | composite (Pan + Berger) | none statable (both need `B_st`) | — | `panBerger_of_templates` (composition for every predicate `IsPst`) |
 
-All names are in namespace `ZInQ.Contrib.HodgeSplit`.
+All names are in namespace `ZInQ.Contrib.HodgeSplit`. One theorem collects six rows:
+`hodge_rows_of_leaves : TateTwistInvariants → AxSenTate → HodgeTateDecompAbVar → DeRhamH1AbVarT →
+(∀ p, FontaineDRTannakian p) → DSThm965 → DSThm966 → EigenformHTNew → NewformOfEigenform →
+FiniteImageHT ∧ (∀ p, T23_FontaineClosure p) ∧ DeRhamComparisonHT ∧ R14Det ∧ SenTwist ∧ EigenformHT`
+(VERIFIED).
 
 ## 3. Row by row
 
@@ -99,26 +102,26 @@ for the Tate module (Fontaine 1982; Tate 1967 for good reduction) with bases of 
 ### H-22 `R14Det`: done from Diamond–Shurman's two printed theorems
 
 `r14Det_of_ds : DSThm965 → DSThm966 → Semisimplification2 → DetFromFrobenius → ArtinTransport → R14Det`
-(main file), and `r14Det_of_printed` (companion) with all three glue Props proved, through the weight split `r14Det_of_wt` (Shimura's `k = 2` case is not needed: Deligne covers
+(main file), and `r14Det_of_printed` with all three glue Props proved, through the weight split `r14Det_of_wt` (Shimura's `k = 2` case is not needed: Deligne covers
 `k ≥ 2`). The leaves are Diamond–Shurman's statements with the coefficients extended along
 `K_{f,λ} → ℚ̄_ℓ` (given by `ιL ∘ ιC⁻¹`); they contain no semisimplicity and no global determinant.
 Proved glue:
-- `semisimplification2_proof` (main file): a non-semisimple 2-dimensional `ρ` has an invariant line; in a
+- `semisimplification2_proof`: a non-semisimple 2-dimensional `ρ` has an invariant line; in a
   basis through it `ρ = (a ∗; 0 d)`, and `diag(a, d)` is continuous, semisimple, with the same
   characteristic polynomials and unramified wherever `ρ` is.
-- `detFromFrobenius_proof` (companion): `ε := det ρ · χ_ℓ^{1−k}` agrees with the nebentypus character
+- `detFromFrobenius_proof`: `ε := det ρ · χ_ℓ^{1−k}` agrees with the nebentypus character
   `ε₀ = ιL ∘ ιC⁻¹ ∘ χ ∘ (G_ℚ → (ℤ/N)^×)` at all arithmetic Frobenius elements outside `Nℓ`, both are
   continuous, so they are equal by the kernel's T18 (`C9Rhof.eq_of_eq_on_arithFrob`). Ingredients proved
   here: an arithmetic Frobenius at `v ∣ p` raises roots of unity of order prime to `p` to the `p`-th power
   (`arithFrob_pow_of_rootOfUnity`, a valuation argument), hence `χ_ℓ(Frob_p) = p` and the mod-`N`
   cyclotomic character of `Frob_p` is `p`; `ιC` is a bijection on roots of unity; continuity of `ε₀`
   (trivial on `Gal(ℚ̄/ℚ(μ_N))`) and of `χ_ℓ` (Mathlib's `cyclotomicCharacter.continuous`).
-- `artinTransport_proof` (companion): the entries of Deligne–Serre's `ρ_f` generate a finitely
+- `artinTransport_proof`: the entries of Deligne–Serre's `ρ_f` generate a finitely
   generated `ιC(ℚ̄)`-algebra; a Nullstellensatz point gives a ring map to `ℚ̄` that is `ιC⁻¹` on
   `ιC(ℚ̄)`; then `ιL`. Traces at Frobenius are sums of roots of unity, so they lie in `ιC(ℚ̄)`;
   semisimplicity by Maschke on the finite image; `ε = det`; every prime has an arithmetic Frobenius
   (the kernel's Chebotarev files).
-So `r14Det_of_printed : DSThm965 → DSThm966 → G0Galois.R14Det` (companion, VERIFIED).
+So `r14Det_of_printed : DSThm965 → DSThm966 → G0Galois.R14Det` (VERIFIED).
 
 ### H-51 `SenTwist`: done from Tate's two theorems
 
@@ -145,10 +148,10 @@ needed.
 Kato's theorem (Astérisque 295, §§9.2–9.4) is about Kato's `V_{F_λ}(f)`, built from étale cohomology of
 modular curves; it cannot be a leaf over Mathlib today. Proved: `eigenformHT_of_new : EigenformHTNew →
 NewformOfEigenform → EigenformRepExists → AttachedConj → HTConj → EigenformHT` (VERIFIED), and both glue
-Props `AttachedConj` (companion: semisimple reps with equal Frobenius traces outside a finite set are
+Props `AttachedConj` ( semisimple reps with equal Frobenius traces outside a finite set are
 conjugate, from the kernel's T18 and T19 via `C9Rhof.iso_of_arithFrob`) and `HTConj` (g12-det's glue:
 Hodge–Tate weights are invariant under conjugation by `GL_n(ℚ̄_p)`). So `eigenformHT_of_kato_ds : EigenformHTNew → NewformOfEigenform → DSThm965 → DSThm966 → EigenformHT`
-(companion, VERIFIED): `EigenformHT` follows from the kernel's leaf I4-L5, the two printed leaves of
+(VERIFIED): `EigenformHT` follows from the kernel's leaf I4-L5, the two printed leaves of
 H-22, and the open `EigenformHTNew` (Kato for newforms, transported to any semisimple attached `ρ` and
 dualized).
 
@@ -179,10 +182,11 @@ arithmetic-Frobenius trace form; the conversion needs `det ρ_f(Frob_q) = χ(q)q
 lake build ZInQKernel.Contrib.R10.Amend ZInQKernel.Contrib.AbVarBC.Dim \
   ZInQKernel.HDecomp.ModCurves.C9 ZInQKernel.HDecomp.Textbook.C10Closed \
   ZInQKernel.Contrib.Chebotarev.FrobeniusDense
-lake env lean scratch/hodge-split/HodgeSplit.lean     # ~25 s
-lake env lean scratch/hodge-split/Companion.lean      # ~30 s
+lake env lean scratch/hodge-split/HodgeSplit.lean     # ~45 s
 ```
-Each file ends with `#print axioms` for its main theorems.
+The file ends with `#print axioms` for every main theorem (all `[propext, Classical.choice, Quot.sound]`).
+It writes pkg-I4's names in full (`ZInQ.Contrib.G9.PkgI4.*`) because `ZInQKernel.HDecomp` has its own
+root-level `PkgI4`, which would make the short names ambiguous.
 
 ## 6. What remains
 
