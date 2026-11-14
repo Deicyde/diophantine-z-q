@@ -5,7 +5,7 @@ import ZInQKernel.MainLiterature
 /-!
 # TYZ chain: the headline theorem with the TYZ side replaced by its leaves
 
-Task tyz-chain (2026-11-14). `TYZChainLeaves` bundles the five hypotheses of
+Task tyz-chain (2026-11-14). `TYZChainLeaves` bundles the four hypotheses (all leaves) of
 `tyzThm35ReadingA_of_leaves` (for an assembly that takes structures of leaves), and
 `frozenTarget_of_sixContactMin_grossZagier_tyzChainLeaves` is the fork's headline
 (`ZInQ.exists_bounded_integer_polynomial_defining_integers_of_sixContactMin_tyzThm35ReadingA_heckeContinuation_functionalEquation5_grossZagier`)
@@ -19,7 +19,7 @@ namespace ZInQ.Contrib.TYZChain
 
 open ZInQ.Contrib.TYZDecomp ZInQ.Contrib.TYZGenus
 
-/-- **The remaining TYZ-side hypotheses** (see `tyzThm35ReadingA_of_leaves` for sources). -/
+/-- **The remaining TYZ-side hypotheses (four leaves, no glue)** (see `tyzThm35ReadingA_of_leaves` for sources). -/
 structure TYZChainLeaves : Prop where
   /-- LEAF: TYZ Theorem 1.1, first assertion, odd case (`𝓛(m) ∈ ℤ`). -/
   thm11Integral : TYZThm11Integral
@@ -28,14 +28,12 @@ structure TYZChainLeaves : Prop where
   /-- LEAF (textbook): main theorem of complex multiplication for rational modular functions on
   `X₀(N)` at Heegner points (Shimura 1971 Thm. 5.4 + canonical model; Gross 1984 §3; UNVERIFIED). -/
   shimuraModFn : Shimura.ShimuraReciprocityModFn
-  /-- GLUE: `√2 ∉ ℍ'_n` (TYZ's Step 3 in the proof of Lemma 3.18). -/
-  sqrtTwoNotIn : T318.SqrtTwoNotInHHprime
   /-- LEAF: TYZ Theorem 3.3 with Lemma 3.14 for the pinned CM points, every sign choice of `𝓛`. -/
   thm33Pinned : ∀ ℓ : ℕ → ℤ, IsTYZLcal ℓ → TYZ35.TYZThm33Pinned ℓ
 
 /-- Reading A from the bundled leaves. -/
 theorem tyzThm35ReadingA_of_tyzChainLeaves (t : TYZChainLeaves) : ZInQ.Literature.TYZThm35ReadingA :=
-  tyzThm35ReadingA_of_leaves t.thm11Integral t.lemma29Mod2 t.shimuraModFn t.sqrtTwoNotIn t.thm33Pinned
+  tyzThm35ReadingA_of_leaves t.thm11Integral t.lemma29Mod2 t.shimuraModFn t.thm33Pinned
 
 /-- **Theorem 1.1 ("ℤ is Diophantine in ℚ", `ZInQ.FrozenTarget`) from `SixContactMin`, Gross–Zagier
 and the TYZ-side leaves**: the fork's headline with `TYZThm35ReadingA` replaced by
