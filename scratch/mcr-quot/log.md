@@ -16,3 +16,14 @@ C2 `CoordinateFromSections` of `scratch/mcr-glue/MCRGlue.lean` (copied verbatim 
   automorphisms) in `Mathlib/RingTheory/Invariant/Basic.lean`.
 - Computation (py/units.py, VERIFIED): all 72 classes of `(𝒪/3𝒪)^×` (coordinates in the basis
   `1, i, (1+j)/2, (i+k)/2`) contain a unit of `𝒪` (reduced norm ±1) with coordinates in [-3,3].
+
+## Step 1 (07:45) — VERIFIED (MCRQuot.lean = MCRGlue.lean + parts 1-2; exit 0)
+- `MCRQuot.exists_unit_congr`: `u₀ ∈ 𝒪` invertible mod `3𝒪` ⇒ some `u ∈ 𝒪^×` with `u ≡ u₀ mod 3𝒪`
+  (`𝒪^× ↠ (𝒪/3𝒪)^×`), from `unit_table` (81 cases by `fin_cases`, witnesses from py/units.py,
+  checked by `decide`) and the norm form `nrdZ` (`nrdZ_mul`, by `ring`).
+- `MCRQuot.TwistEq` (twist-equivalence of objects) with `trans'`, `symm'`, `twistEq_of_iso`.
+- `MCRQuot.twistEq_of_mem_fibreAut`: given uniqueness of fibres at `ℚ̄`-points, elements of
+  `fibreAut` preserve twist classes (closure induction).
+- `MCRQuot.mem_orbit_of_twistEq` (T5 `TorsionStructure` as hypothesis): two `ℚ̄`-points with
+  twist-equivalent fibres differ by an element of `fibreAut` (Hecke clauses + `Level3.torsor`
+  + `exists_unit_congr` + moduli injectivity).

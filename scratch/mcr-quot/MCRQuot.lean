@@ -4562,3 +4562,323 @@ theorem hecke_mem_fibreAut {p : ℕ} [Fact p.Prime] {𝒴 : Over (Spec (CommRing
 end MCRGlue
 
 #print axioms MCRGlue.hecke_mem_fibreAut
+
+/-! ════════════════════════════════════════════════════════════════════════════════════════════
+# mcr-quot, part 1: `𝒪^× ↠ (𝒪/3𝒪)^×` and the transitivity of the Hecke automorphisms on twist
+classes
+════════════════════════════════════════════════════════════════════════════════════════════ -/
+
+noncomputable section
+
+namespace MCRQuot
+
+open Polynomial CategoryTheory AlgebraicGeometry Limits LeafQM LeafQM.AV VertWitness HeckeRestNV
+open G0ModField PropTSRed PropTSGlue ModelGlue MCRGlue
+
+/-! ## Units of `𝒪` modulo 3 (a finite computation) -/
+
+/-- The reduced norm of `ofInt n` (an integer form). -/
+def nrdZ (n : Fin 4 → ℤ) : ℤ :=
+  n 0 ^ 2 + n 0 * n 2 + n 2 ^ 2 - 2 * n 1 ^ 2 - 2 * n 1 * n 3 - 2 * n 3 ^ 2
+
+theorem nrdZ_mul (n m : Fin 4 → ℤ) : nrdZ (mulCoord n m) = nrdZ n * nrdZ m := by
+  simp [nrdZ, mulCoord]
+  ring
+
+/-- **The unit table** (computed by `py/units.py`): every class of `(ℤ/3)⁴` of nonzero norm mod 3
+contains a unit `ofInt n` of `𝒪` (inverse `ofInt m`). -/
+theorem unit_table : ∀ a b c d : ZMod 3,
+    a ^ 2 + a * c + c ^ 2 - 2 * b ^ 2 - 2 * b * d - 2 * d ^ 2 ≠ 0 →
+    ∃ n m : Fin 4 → ℤ, mulCoord n m = ![1, 0, 0, 0] ∧ mulCoord m n = ![1, 0, 0, 0] ∧
+      ((n 0 : ℤ) : ZMod 3) = a ∧ ((n 1 : ℤ) : ZMod 3) = b ∧ ((n 2 : ℤ) : ZMod 3) = c ∧
+      ((n 3 : ℤ) : ZMod 3) = d := by
+  intro a b c d
+  fin_cases a <;> fin_cases b <;> fin_cases c <;> fin_cases d
+  · intro h; exact (h (by decide)).elim
+  · exact fun _ => ⟨![-3, 0, 0, -2], ![-3, 0, 0, 2], by decide, by decide, rfl, rfl, rfl, rfl⟩
+  · exact fun _ => ⟨![-3, 0, 0, 2], ![-3, 0, 0, -2], by decide, by decide, rfl, rfl, rfl, rfl⟩
+  · exact fun _ => ⟨![0, 0, 1, 0], ![1, 0, -1, 0], by decide, by decide, rfl, rfl, rfl, rfl⟩
+  · exact fun _ => ⟨![0, 0, 1, 1], ![-1, 0, 1, 1], by decide, by decide, rfl, rfl, rfl, rfl⟩
+  · exact fun _ => ⟨![0, 0, 1, -1], ![-1, 0, 1, -1], by decide, by decide, rfl, rfl, rfl, rfl⟩
+  · exact fun _ => ⟨![0, 0, -1, 0], ![-1, 0, 1, 0], by decide, by decide, rfl, rfl, rfl, rfl⟩
+  · exact fun _ => ⟨![0, 0, -1, 1], ![1, 0, -1, 1], by decide, by decide, rfl, rfl, rfl, rfl⟩
+  · exact fun _ => ⟨![0, 0, -1, -1], ![1, 0, -1, -1], by decide, by decide, rfl, rfl, rfl, rfl⟩
+  · exact fun _ => ⟨![-3, -2, 0, 0], ![-3, 2, 0, 0], by decide, by decide, rfl, rfl, rfl, rfl⟩
+  · intro h; exact (h (by decide)).elim
+  · exact fun _ => ⟨![-3, -2, 0, 2], ![-3, 2, 0, -2], by decide, by decide, rfl, rfl, rfl, rfl⟩
+  · exact fun _ => ⟨![0, 1, 1, 0], ![-1, 1, 1, 0], by decide, by decide, rfl, rfl, rfl, rfl⟩
+  · exact fun _ => ⟨![-3, 1, 1, 1], ![-2, -1, -1, -1], by decide, by decide, rfl, rfl, rfl, rfl⟩
+  · exact fun _ => ⟨![0, 1, 1, -1], ![-1, 1, 1, -1], by decide, by decide, rfl, rfl, rfl, rfl⟩
+  · exact fun _ => ⟨![0, 1, -1, 0], ![1, 1, -1, 0], by decide, by decide, rfl, rfl, rfl, rfl⟩
+  · exact fun _ => ⟨![3, 1, -1, 1], ![2, -1, 1, -1], by decide, by decide, rfl, rfl, rfl, rfl⟩
+  · exact fun _ => ⟨![0, 1, -1, -1], ![1, 1, -1, -1], by decide, by decide, rfl, rfl, rfl, rfl⟩
+  · exact fun _ => ⟨![-3, 2, 0, 0], ![-3, -2, 0, 0], by decide, by decide, rfl, rfl, rfl, rfl⟩
+  · exact fun _ => ⟨![-3, 2, 0, -2], ![-3, -2, 0, 2], by decide, by decide, rfl, rfl, rfl, rfl⟩
+  · intro h; exact (h (by decide)).elim
+  · exact fun _ => ⟨![0, -1, 1, 0], ![-1, -1, 1, 0], by decide, by decide, rfl, rfl, rfl, rfl⟩
+  · exact fun _ => ⟨![0, -1, 1, 1], ![-1, -1, 1, 1], by decide, by decide, rfl, rfl, rfl, rfl⟩
+  · exact fun _ => ⟨![-3, -1, 1, -1], ![-2, 1, -1, 1], by decide, by decide, rfl, rfl, rfl, rfl⟩
+  · exact fun _ => ⟨![0, -1, -1, 0], ![1, -1, -1, 0], by decide, by decide, rfl, rfl, rfl, rfl⟩
+  · exact fun _ => ⟨![0, -1, -1, 1], ![1, -1, -1, 1], by decide, by decide, rfl, rfl, rfl, rfl⟩
+  · exact fun _ => ⟨![3, -1, -1, -1], ![2, 1, 1, 1], by decide, by decide, rfl, rfl, rfl, rfl⟩
+  · exact fun _ => ⟨![1, 0, 0, 0], ![1, 0, 0, 0], by decide, by decide, rfl, rfl, rfl, rfl⟩
+  · exact fun _ => ⟨![1, 0, 0, 1], ![-1, 0, 0, 1], by decide, by decide, rfl, rfl, rfl, rfl⟩
+  · exact fun _ => ⟨![1, 0, 0, -1], ![-1, 0, 0, -1], by decide, by decide, rfl, rfl, rfl, rfl⟩
+  · intro h; exact (h (by decide)).elim
+  · exact fun _ => ⟨![1, 0, 1, 1], ![2, 0, -1, -1], by decide, by decide, rfl, rfl, rfl, rfl⟩
+  · exact fun _ => ⟨![1, 0, 1, -1], ![2, 0, -1, 1], by decide, by decide, rfl, rfl, rfl, rfl⟩
+  · exact fun _ => ⟨![1, 0, -1, 0], ![0, 0, 1, 0], by decide, by decide, rfl, rfl, rfl, rfl⟩
+  · exact fun _ => ⟨![1, 0, -1, 1], ![0, 0, -1, 1], by decide, by decide, rfl, rfl, rfl, rfl⟩
+  · exact fun _ => ⟨![1, 0, -1, -1], ![0, 0, -1, -1], by decide, by decide, rfl, rfl, rfl, rfl⟩
+  · exact fun _ => ⟨![1, 1, 0, 0], ![-1, 1, 0, 0], by decide, by decide, rfl, rfl, rfl, rfl⟩
+  · exact fun _ => ⟨![1, 1, -3, 1], ![-2, -1, 3, -1], by decide, by decide, rfl, rfl, rfl, rfl⟩
+  · exact fun _ => ⟨![1, 1, 0, -1], ![-1, 1, 0, -1], by decide, by decide, rfl, rfl, rfl, rfl⟩
+  · exact fun _ => ⟨![1, 1, 1, 0], ![2, -1, -1, 0], by decide, by decide, rfl, rfl, rfl, rfl⟩
+  · intro h; exact (h (by decide)).elim
+  · exact fun _ => ⟨![1, 1, 1, -1], ![2, -1, -1, 1], by decide, by decide, rfl, rfl, rfl, rfl⟩
+  · exact fun _ => ⟨![1, 1, -1, 0], ![0, 1, -1, 0], by decide, by decide, rfl, rfl, rfl, rfl⟩
+  · exact fun _ => ⟨![-2, 1, -1, 1], ![-3, -1, 1, -1], by decide, by decide, rfl, rfl, rfl, rfl⟩
+  · exact fun _ => ⟨![1, 1, -1, -1], ![0, 1, -1, -1], by decide, by decide, rfl, rfl, rfl, rfl⟩
+  · exact fun _ => ⟨![1, -1, 0, 0], ![-1, -1, 0, 0], by decide, by decide, rfl, rfl, rfl, rfl⟩
+  · exact fun _ => ⟨![1, -1, 0, 1], ![-1, -1, 0, 1], by decide, by decide, rfl, rfl, rfl, rfl⟩
+  · exact fun _ => ⟨![1, -1, -3, -1], ![-2, 1, 3, 1], by decide, by decide, rfl, rfl, rfl, rfl⟩
+  · exact fun _ => ⟨![1, -1, 1, 0], ![2, 1, -1, 0], by decide, by decide, rfl, rfl, rfl, rfl⟩
+  · exact fun _ => ⟨![1, -1, 1, 1], ![2, 1, -1, -1], by decide, by decide, rfl, rfl, rfl, rfl⟩
+  · intro h; exact (h (by decide)).elim
+  · exact fun _ => ⟨![1, -1, -1, 0], ![0, -1, -1, 0], by decide, by decide, rfl, rfl, rfl, rfl⟩
+  · exact fun _ => ⟨![1, -1, -1, 1], ![0, -1, -1, 1], by decide, by decide, rfl, rfl, rfl, rfl⟩
+  · exact fun _ => ⟨![-2, -1, -1, -1], ![-3, 1, 1, 1], by decide, by decide, rfl, rfl, rfl, rfl⟩
+  · exact fun _ => ⟨![-1, 0, 0, 0], ![-1, 0, 0, 0], by decide, by decide, rfl, rfl, rfl, rfl⟩
+  · exact fun _ => ⟨![-1, 0, 0, 1], ![1, 0, 0, 1], by decide, by decide, rfl, rfl, rfl, rfl⟩
+  · exact fun _ => ⟨![-1, 0, 0, -1], ![1, 0, 0, -1], by decide, by decide, rfl, rfl, rfl, rfl⟩
+  · exact fun _ => ⟨![-1, 0, 1, 0], ![0, 0, -1, 0], by decide, by decide, rfl, rfl, rfl, rfl⟩
+  · exact fun _ => ⟨![-1, 0, 1, 1], ![0, 0, 1, 1], by decide, by decide, rfl, rfl, rfl, rfl⟩
+  · exact fun _ => ⟨![-1, 0, 1, -1], ![0, 0, 1, -1], by decide, by decide, rfl, rfl, rfl, rfl⟩
+  · intro h; exact (h (by decide)).elim
+  · exact fun _ => ⟨![-1, 0, -1, 1], ![-2, 0, 1, -1], by decide, by decide, rfl, rfl, rfl, rfl⟩
+  · exact fun _ => ⟨![-1, 0, -1, -1], ![-2, 0, 1, 1], by decide, by decide, rfl, rfl, rfl, rfl⟩
+  · exact fun _ => ⟨![-1, 1, 0, 0], ![1, 1, 0, 0], by decide, by decide, rfl, rfl, rfl, rfl⟩
+  · exact fun _ => ⟨![-1, 1, 3, 1], ![2, -1, -3, -1], by decide, by decide, rfl, rfl, rfl, rfl⟩
+  · exact fun _ => ⟨![-1, 1, 0, -1], ![1, 1, 0, -1], by decide, by decide, rfl, rfl, rfl, rfl⟩
+  · exact fun _ => ⟨![-1, 1, 1, 0], ![0, 1, 1, 0], by decide, by decide, rfl, rfl, rfl, rfl⟩
+  · exact fun _ => ⟨![-1, 1, -2, 1], ![-3, -1, 2, -1], by decide, by decide, rfl, rfl, rfl, rfl⟩
+  · exact fun _ => ⟨![-1, 1, 1, -1], ![0, 1, 1, -1], by decide, by decide, rfl, rfl, rfl, rfl⟩
+  · exact fun _ => ⟨![-1, 1, -1, 0], ![-2, -1, 1, 0], by decide, by decide, rfl, rfl, rfl, rfl⟩
+  · intro h; exact (h (by decide)).elim
+  · exact fun _ => ⟨![-1, 1, -1, -1], ![-2, -1, 1, 1], by decide, by decide, rfl, rfl, rfl, rfl⟩
+  · exact fun _ => ⟨![-1, -1, 0, 0], ![1, -1, 0, 0], by decide, by decide, rfl, rfl, rfl, rfl⟩
+  · exact fun _ => ⟨![-1, -1, 0, 1], ![1, -1, 0, 1], by decide, by decide, rfl, rfl, rfl, rfl⟩
+  · exact fun _ => ⟨![-1, -1, 3, -1], ![2, 1, -3, 1], by decide, by decide, rfl, rfl, rfl, rfl⟩
+  · exact fun _ => ⟨![-1, -1, 1, 0], ![0, -1, 1, 0], by decide, by decide, rfl, rfl, rfl, rfl⟩
+  · exact fun _ => ⟨![-1, -1, 1, 1], ![0, -1, 1, 1], by decide, by decide, rfl, rfl, rfl, rfl⟩
+  · exact fun _ => ⟨![-1, -1, -2, -1], ![-3, 1, 2, 1], by decide, by decide, rfl, rfl, rfl, rfl⟩
+  · exact fun _ => ⟨![-1, -1, -1, 0], ![-2, 1, 1, 0], by decide, by decide, rfl, rfl, rfl, rfl⟩
+  · exact fun _ => ⟨![-1, -1, -1, 1], ![-2, 1, 1, -1], by decide, by decide, rfl, rfl, rfl, rfl⟩
+  · intro h; exact (h (by decide)).elim
+
+theorem nrdZ_mod3 (nc : Fin 4 → ℤ) :
+    ((nrdZ (fun i => (![1, 0, 0, 0] : Fin 4 → ℤ) i + 3 * nc i) : ℤ) : ZMod 3) = 1 := by
+  have h3 : (3 : ZMod 3) = 0 := rfl
+  simp [nrdZ, h3]
+
+/-- **`𝒪^× ↠ (𝒪/3𝒪)^×`**: an element of `𝒪` invertible modulo `3𝒪` is congruent modulo `3𝒪` to a
+unit of `𝒪` (the unit table). -/
+theorem exists_unit_congr (u₀ v₀ : O) (h : ∃ c : O, v₀ * u₀ - 1 = 3 * c) :
+    ∃ u : Oˣ, ∃ c : O, (u : O) - u₀ = 3 * c := by
+  obtain ⟨nu, hnu⟩ := u₀.2
+  obtain ⟨nv, hnv⟩ := v₀.2
+  obtain ⟨c, hc⟩ := h
+  obtain ⟨nc, hnc⟩ := c.2
+  have h33 : ((3 : O) : B) = 3 := map_ofNat O.subtype 3
+  have hcB : (v₀ : B) * u₀ - 1 = 3 * c := by
+    have := congrArg Subtype.val hc
+    simpa [h33] using this
+  have key : mulCoord nv nu = fun i => (![1, 0, 0, 0] : Fin 4 → ℤ) i + 3 * nc i := by
+    have e : ofInt (mulCoord nv nu) - ofInt ![1, 0, 0, 0] = ofInt (fun i => 3 * nc i) := by
+      rw [← ofInt_mul, ofInt_one, ← AV.three_mul_ofInt, ← hnu, ← hnv, ← hnc, hcB]
+    rw [AV.ofInt_sub] at e
+    have e2 := AV.ofInt_injective e
+    funext i
+    have := congrFun e2 i
+    simp only [Pi.sub_apply] at this
+    omega
+  have hN : ((nrdZ nu : ℤ) : ZMod 3) ≠ 0 := by
+    intro h0
+    have e := nrdZ_mul nv nu
+    rw [key] at e
+    have e3 := congrArg (fun z : ℤ => (z : ZMod 3)) e
+    simp only [nrdZ_mod3, Int.cast_mul, h0, mul_zero] at e3
+    exact one_ne_zero e3
+  have hN' : ((nu 0 : ℤ) : ZMod 3) ^ 2 + (nu 0 : ZMod 3) * (nu 2 : ZMod 3) +
+      (nu 2 : ZMod 3) ^ 2 - 2 * (nu 1 : ZMod 3) ^ 2 - 2 * (nu 1 : ZMod 3) * (nu 3 : ZMod 3) -
+      2 * (nu 3 : ZMod 3) ^ 2 ≠ 0 := by
+    have : ((nrdZ nu : ℤ) : ZMod 3) = ((nu 0 : ℤ) : ZMod 3) ^ 2 + (nu 0 : ZMod 3) * (nu 2 : ZMod 3) +
+      (nu 2 : ZMod 3) ^ 2 - 2 * (nu 1 : ZMod 3) ^ 2 - 2 * (nu 1 : ZMod 3) * (nu 3 : ZMod 3) -
+      2 * (nu 3 : ZMod 3) ^ 2 := by simp [nrdZ]
+    rwa [← this]
+  obtain ⟨n, m, hnm, hmn, h0, h1, h2, h3⟩ := unit_table _ _ _ _ hN'
+  have hdiv : ∀ i, (3 : ℤ) ∣ n i - nu i := by
+    intro i
+    have hi : ((nu i : ℤ) : ZMod 3) = ((n i : ℤ) : ZMod 3) := by
+      fin_cases i
+      · exact h0.symm
+      · exact h1.symm
+      · exact h2.symm
+      · exact h3.symm
+    exact_mod_cast (ZMod.intCast_eq_intCast_iff_dvd_sub _ _ 3).1 hi
+  choose k hk using hdiv
+  let u : Oˣ :=
+    { val := ⟨ofInt n, ⟨n, rfl⟩⟩
+      inv := ⟨ofInt m, ⟨m, rfl⟩⟩
+      val_inv := by
+        apply Subtype.ext
+        change ofInt n * ofInt m = 1
+        rw [ofInt_mul, hnm, ofInt_one]
+      inv_val := by
+        apply Subtype.ext
+        change ofInt m * ofInt n = 1
+        rw [ofInt_mul, hmn, ofInt_one] }
+  refine ⟨u, ⟨ofInt k, ⟨k, rfl⟩⟩, ?_⟩
+  apply Subtype.ext
+  change ofInt n - (u₀ : B) = ((3 : O) : B) * ofInt k
+  rw [hnu, h33, AV.ofInt_sub, AV.three_mul_ofInt]
+  congr 1
+  funext i
+  simp [hk i]
+
+end MCRQuot
+
+/-! ════════════════════════════════════════════════════════════════════════════════════════════
+# mcr-quot, part 2: twist classes are the `fibreAut`-orbits on `ℚ̄`-points
+════════════════════════════════════════════════════════════════════════════════════════════ -/
+
+noncomputable section
+
+namespace MCRQuot
+
+open Polynomial CategoryTheory AlgebraicGeometry Limits LeafQM LeafQM.AV VertWitness HeckeRestNV
+open G0ModField PropTSRed PropTSGlue ModelGlue MCRGlue LeafQM.AV.Pin PkgI3
+
+variable {K : Type} [Field K]
+
+/-- Twist-equivalence of level-3 objects: their QM pairs are `Aut(𝒪)`-twists of each other (the
+relation of `CoordFibres`). -/
+def TwistEq (P P' : QML3 K) : Prop := ∃ α : O ≃+* O, Nonempty (QMIso (P.q.twist α) P'.q)
+
+/-- A QM isomorphism `ι ∘ γ ≅ ι` when `γ` is the identity pointwise. -/
+def twistIdIso {A : AbVar K} (q : QMStr A) (γ : O ≃+* O) (hγ : ∀ a, γ a = a) :
+    QMIso (q.twist γ) q where
+  φ := 1
+  ψ := 1
+  left := (QMIso.refl q).left
+  right := (QMIso.refl q).right
+  equivariant a := by
+    change (q.iota (γ a)).hom ≫ _ = _ ≫ (q.iota a).hom
+    rw [hγ a]
+    exact (QMIso.refl q).equivariant a
+
+/-- Twisting a QM isomorphism. -/
+def twistIso {A A' : AbVar K} {q : QMStr A} {q' : QMStr A'} (f : QMIso q q') (β : O ≃+* O) :
+    QMIso (q.twist β) (q'.twist β) where
+  φ := f.φ
+  ψ := f.ψ
+  left := f.left
+  right := f.right
+  equivariant a := f.equivariant (β a)
+
+/-- `(ι ∘ α) ∘ β = ι ∘ (α ∘ β)`. -/
+def twistTwistIso {A : AbVar K} (q : QMStr A) (α β : O ≃+* O) :
+    QMIso (q.twist (β.trans α)) ((q.twist α).twist β) where
+  φ := 1
+  ψ := 1
+  left := (QMIso.refl q).left
+  right := (QMIso.refl q).right
+  equivariant a := (QMIso.refl ((q.twist α).twist β)).equivariant a
+
+theorem twistEq_of_qmIso {P P' : QML3 K} (f : QMIso P.q P'.q) : TwistEq P P' :=
+  ⟨RingEquiv.refl O, ⟨(twistIdIso P.q _ fun _ => rfl).trans f⟩⟩
+
+theorem twistEq_of_iso {P P' : QML3 K} (f : P.Iso P') : TwistEq P P' :=
+  twistEq_of_qmIso (qmIsoOfIso f)
+
+theorem TwistEq.trans' {P R S : QML3 K} (h1 : TwistEq P R) (h2 : TwistEq R S) : TwistEq P S := by
+  obtain ⟨α, ⟨f⟩⟩ := h1
+  obtain ⟨β, ⟨g⟩⟩ := h2
+  exact ⟨β.trans α, ⟨((twistTwistIso P.q α β).trans (twistIso f β)).trans g⟩⟩
+
+theorem TwistEq.symm' {P R : QML3 K} (h : TwistEq P R) : TwistEq R P := by
+  obtain ⟨α, ⟨f⟩⟩ := h
+  refine ⟨α.symm, ⟨(twistIso f.symm α.symm).trans ?_⟩⟩
+  exact ((twistTwistIso P.q α α.symm).symm).trans
+    (twistIdIso P.q _ fun a => RingEquiv.apply_symm_apply α a)
+
+/-- **Orbits lie in twist classes**: if fibres at a `ℚ̄`-point are unique up to isomorphism, every
+element of `fibreAut` moves a point within its twist class. -/
+theorem twistEq_of_mem_fibreAut {p : ℕ} [Fact p.Prime] {𝒴 : Over (Spec (CommRingCat.of (Zloc p)))}
+    {𝒜 : QMFamily 𝒴.left} (hM : IsShimuraModel p 𝒴 𝒜)
+    (huniq : ∀ (y : Spec (CommRingCat.of Qbar) ⟶ 𝒴.left) (P P' : QML3 Qbar),
+      IsFibreOf 𝒜 y P → IsFibreOf 𝒜 y P' → M3.mk P = M3.mk P')
+    {h : Aut 𝒴.left} (hh : h ∈ fibreAut 𝒴 𝒜) :
+    ∀ (y : Spec (CommRingCat.of Qbar) ⟶ 𝒴.left) (P P' : QML3 Qbar),
+      IsFibreOf 𝒜 y P → IsFibreOf 𝒜 (y ≫ h.asIso.hom) P' → TwistEq P P' := by
+  induction hh using Subgroup.closure_induction with
+  | mem x hx => exact hx.2
+  | one =>
+    intro y P P' hP hP'
+    have hP'' : IsFibreOf 𝒜 y P' := by simpa using hP'
+    obtain ⟨f⟩ := Quotient.exact (s := isoSetoid Qbar) (huniq y P P' hP hP'')
+    exact twistEq_of_iso f
+  | mul x z _ _ hx hz =>
+    intro y P P' hP hP'
+    obtain ⟨R, hR⟩ := hM.2.2.1 Qbar (y ≫ z.asIso.hom)
+    have hP2 : IsFibreOf 𝒜 ((y ≫ z.asIso.hom) ≫ x.asIso.hom) P' := by
+      simpa [Category.assoc] using hP'
+    exact (hz y P R hP hR).trans' (hx _ R P' hR hP2)
+  | inv x _ hx =>
+    intro y P P' hP hP'
+    have hP2 : IsFibreOf 𝒜 ((y ≫ x⁻¹.asIso.hom) ≫ x.asIso.hom) P := by
+      simpa [Category.assoc] using hP
+    exact (hx _ P' P hP' hP2).symm'
+
+/-- **Twist classes lie in orbits** (from the Hecke clauses of `IsShimuraModel`, the level torsor
+`Level3.torsor` (needs the kernel's textbook leaf `TorsionStructure`, T5) and
+`𝒪^× ↠ (𝒪/3𝒪)^×` (`exists_unit_congr`, proved)). -/
+theorem mem_orbit_of_twistEq (hT : ObjBridge.TorsionStructure) {p : ℕ} [Fact p.Prime]
+    {𝒴 : Over (Spec (CommRingCat.of (Zloc p)))} {𝒜 : QMFamily 𝒴.left} (hM : IsShimuraModel p 𝒴 𝒜)
+    (y y' : Spec (CommRingCat.of Qbar) ⟶ 𝒴.left) (P P' : QML3 Qbar)
+    (hP : IsFibreOf 𝒜 y P) (hP' : IsFibreOf 𝒜 y' P') (hTE : TwistEq P P') :
+    ∃ h ∈ fibreAut 𝒴 𝒜, y' = y ≫ h.asIso.hom := by
+  obtain ⟨α, ⟨f⟩⟩ := hTE
+  obtain ⟨htw, hru⟩ := hecke_mem_fibreAut hM
+  obtain ⟨g1, hg1G, hg1⟩ := htw α
+  obtain ⟨P1, hP1⟩ := hM.2.2.1 Qbar (y ≫ g1.asIso.hom)
+  have e1 : M3.mk P1 = M3.mk (P.twist α) := by rw [← M3.twist_mk]; exact hg1 y P P1 hP hP1
+  obtain ⟨i1⟩ := Quotient.exact (s := isoSetoid Qbar) e1
+  let f1 : QMIso P1.q P'.q := (qmIsoOfIso i1).trans f
+  let e' : Level3 P1.q := transportLevel f1.symm P'.e
+  have hiso : P'.Iso ⟨P1.A, P1.surface, P1.q, e'⟩ := QML3.isoTransport P' P1.surface f1.symm
+  obtain ⟨u₀, v₀, hvu, hlin⟩ := Level3.torsor hT P1 e'
+  obtain ⟨u, c, hc⟩ := exists_unit_congr u₀ v₀ hvu
+  have heq : P1.rightMul u = ⟨P1.A, P1.surface, P1.q, e'⟩ := by
+    simp only [QML3.rightMul, QML3.mk.injEq, heq_eq_eq, true_and]
+    apply Level3.ext'
+    refine DFunLike.ext _ _ fun a => ?_
+    change P1.e.eta (a * u) = e'.eta a
+    rw [hlin a, P1.e.eq_iff]
+    refine ⟨a * c, ?_⟩
+    calc a * (u : O) - a * u₀ = a * ((u : O) - u₀) := by noncomm_ring
+      _ = a * (3 * c) := by rw [hc]
+      _ = 3 * (a * c) := by noncomm_ring
+  obtain ⟨g2, hg2G, hg2⟩ := hru u
+  obtain ⟨P2, hP2⟩ := hM.2.2.1 Qbar ((y ≫ g1.asIso.hom) ≫ g2.asIso.hom)
+  have e2 : M3.mk P2 = M3.mk P' := by
+    rw [hg2 _ P1 P2 hP1 hP2]
+    change M3.mk (P1.rightMul u) = M3.mk P'
+    rw [heq]
+    exact Quotient.sound ⟨hiso.symm⟩
+  have hy := hM.2.2.2.1 _ y' P2 P' hP2 hP' e2
+  refine ⟨g2 * g1, Subgroup.mul_mem _ hg2G hg1G, ?_⟩
+  rw [← hy]
+  simp [Category.assoc]
+
+end MCRQuot
