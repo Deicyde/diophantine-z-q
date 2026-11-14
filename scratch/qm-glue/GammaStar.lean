@@ -1179,4 +1179,116 @@ theorem fix_null {γ : GL (Fin 2) ℝ} (hd : 0 < (γ : Matrix (Fin 2) (Fin 2) �
     (hne : (fun z : UpperHalfPlane => γ • z) ≠ id) : volume {z : UpperHalfPlane | γ • z = z} = 0 :=
   (fix_finite hd hne).measure_zero _
 
+section Domain
+
+variable (s : Set UpperHalfPlane)
+
+/-- `t₀`: the points of `s` that are lexicographically minimal among their `Γ*`-translates in `s`. -/
+def t0 : Set UpperHalfPlane := s ∩ ⋂ γ ∈ Γs, {z | γ • z ∈ s → lexle z (γ • z)}
+
+/-- `N`: the points whose `Γ*`-orbit misses `t₀` (a null set). -/
+def Nset : Set UpperHalfPlane := ⋂ γ ∈ Γs, {z | γ • z ∉ t0 s}
+
+/-- The fundamental domain of `Γ*`. -/
+def tdom : Set UpperHalfPlane := t0 s ∪ Nset s
+
+/-- Points with two distinct `Γ¹`-equivalent translates in `s` (a null set). -/
+def Bad : Set UpperHalfPlane :=
+  ⋃ γ ∈ Γs, ⋃ h ∈ {h : GL (Fin 2) ℝ | h ∈ Gamma1 ∧ (fun z : UpperHalfPlane => h • z) ≠ id},
+    (fun z : UpperHalfPlane => γ • z) ⁻¹' (s ∩ (fun z : UpperHalfPlane => h • z) ⁻¹' s)
+
+variable {s}
+
+theorem t0_measurable (hs : MeasurableSet s) : MeasurableSet (t0 s) := by
+  refine hs.inter (MeasurableSet.biInter gs_countable fun γ _ => ?_)
+  have e : {z : UpperHalfPlane | γ • z ∈ s → lexle z (γ • z)} =
+      ((fun z : UpperHalfPlane => γ • z) ⁻¹' s)ᶜ ∪ {z | lexle z (γ • z)} := by
+    ext z; simp only [Set.mem_setOf_eq, Set.mem_union, Set.mem_compl_iff, Set.mem_preimage]; tauto
+  rw [e]
+  exact (((continuous_const_smul γ).measurable hs).compl).union (measurableSet_lexle γ)
+
+theorem Nset_measurable (hs : MeasurableSet s) : MeasurableSet (Nset s) :=
+  MeasurableSet.biInter gs_countable fun γ _ =>
+    ((continuous_const_smul γ).measurable (t0_measurable hs)).compl
+
+theorem bad_null (hsd : ∀ γ ∈ Gamma1, (fun z : UpperHalfPlane => γ • z) ≠ id →
+    volume (s ∩ (fun z : UpperHalfPlane => γ • z) ⁻¹' s) = 0) : volume (Bad s) = 0 := by
+  refine (measure_biUnion_null_iff gs_countable).2 fun γ _ => ?_
+  refine (measure_biUnion_null_iff (g1_countable.mono fun h hh => hh.1)).2 fun h hh => ?_
+  rw [measure_preimage_smul]
+  exact hsd h hh.1 hh.2
+
+/-- `N ⊆ Bad`: if no point of the orbit of `z` lies in `Bad`, then the orbit meets `s` in at most four
+points (one per coset), and its lexicographic minimum lies in `t₀`. -/
+theorem Nset_sub_bad (hcov : ∀ z, ∃ γ ∈ Gamma1, γ • z ∈ s) : Nset s ⊆ Bad s := by
+  intro z hzN
+  by_contra hzB
+  set S := {w : UpperHalfPlane | w ∈ s ∧ ∃ γ ∈ Γs, w = γ • z} with hS
+  have hsub : S ⊆ ⋃ i : Fin 4, {w : UpperHalfPlane | w ∈ s ∧ ∃ h ∈ Gamma1, w = h • (g4 i • z)} := by
+    rintro w ⟨hw, γ, hγ, rfl⟩
+    obtain ⟨i, h, hh, hz⟩ := cover_mob hγ
+    refine Set.mem_iUnion.2 ⟨i, hw, g4 i * h * (g4 i)⁻¹, conj_g4 i hh, ?_⟩
+    rw [hz, mul_smul, mul_smul, inv_smul_smul]
+  have hsing : ∀ i : Fin 4,
+      {w : UpperHalfPlane | w ∈ s ∧ ∃ h ∈ Gamma1, w = h • (g4 i • z)}.Subsingleton := by
+    rintro i w1 ⟨hw1, h1, hh1, rfl⟩ w2 ⟨hw2, h2, hh2, rfl⟩
+    by_contra hne
+    apply hzB
+    refine Set.mem_iUnion₂.2 ⟨h1 * g4 i, gs_mul (gamma1_sub hh1) (g4_mem i),
+      Set.mem_iUnion₂.2 ⟨h2 * h1⁻¹, ⟨mul_mem_gamma1 hh2 (inv_mem_gamma1 hh1), ?_⟩, ?_⟩⟩
+    · intro hid
+      apply hne
+      have := congrFun hid (h1 • g4 i • z)
+      simp only [id, mul_smul, inv_smul_smul] at this
+      exact this.symm
+    · show (h1 * g4 i) • z ∈ s ∧ (h2 * h1⁻¹) • ((h1 * g4 i) • z) ∈ s
+      simp only [mul_smul, inv_smul_smul]
+      exact ⟨hw1, hw2⟩
+  have hfin : S.Finite := (Set.finite_iUnion fun i => (hsing i).finite).subset hsub
+  have hSne : S.Nonempty := by
+    obtain ⟨h, hh, hhz⟩ := hcov z
+    exact ⟨h • z, hhz, h, gamma1_sub hh, rfl⟩
+  obtain ⟨w, ⟨hw, γ0, hγ0, rfl⟩, hmin⟩ :=
+    Set.exists_min_image S (fun w : UpperHalfPlane => toLex (w.re, w.im)) hfin hSne
+  have hmem : γ0 • z ∈ t0 s := by
+    refine ⟨hw, Set.mem_iInter₂.2 fun γ hγ => ?_⟩
+    intro hγs
+    rw [lexle_iff]
+    exact hmin _ ⟨hγs, γ * γ0, gs_mul hγ hγ0, by rw [mul_smul]⟩
+  exact (Set.mem_iInter₂.1 hzN γ0 hγ0) hmem
+
+/-- **`tdom s` is a fundamental domain of `Γ*`.** -/
+theorem tdom_fund (hS : IsFundDomain Gamma1 s) : IsFundDomain Γs (tdom s) := by
+  obtain ⟨hsm, hcov, hsd⟩ := hS
+  have hN0 : volume (Nset s) = 0 := measure_mono_null (Nset_sub_bad hcov) (bad_null hsd)
+  refine ⟨(t0_measurable hsm).union (Nset_measurable hsm), fun z => ?_, fun γ hγ hne => ?_⟩
+  · by_cases hz : z ∈ Nset s
+    · exact ⟨1, gs_one, by rw [one_smul]; exact Or.inr hz⟩
+    · simp only [Nset, Set.mem_iInter₂, Set.mem_setOf_eq, not_forall, not_not] at hz
+      obtain ⟨γ, hγ, h⟩ := hz
+      exact ⟨γ, hγ, Or.inl h⟩
+  · refine measure_mono_null (t := ({z | γ • z = z} ∪ Nset s) ∪
+      (fun z : UpperHalfPlane => γ • z) ⁻¹' Nset s) ?_ ?_
+    · rintro z ⟨hz1 | hz1, hz2 | hz2⟩
+      · left; left
+        have h1 : lexle z (γ • z) := Set.mem_iInter₂.1 hz1.2 γ hγ hz2.1
+        have h2 : lexle (γ • z) z := by
+          have := Set.mem_iInter₂.1 hz2.2 γ⁻¹ (gs_inv hγ)
+          simp only [Set.mem_setOf_eq, inv_smul_smul] at this
+          exact this hz1.1
+        exact (lexle_antisymm h1 h2).symm
+      · right; exact hz2
+      · left; right; exact hz1
+      · left; right; exact hz1
+    · exact measure_union_null (measure_union_null (fix_null (det_pos_of_mem hγ) hne) hN0)
+        (by rw [measure_preimage_smul]; exact hN0)
+
+theorem tdom_ae (hS : IsFundDomain Gamma1 s) : volume (tdom s) = volume (t0 s) := by
+  obtain ⟨hsm, hcov, hsd⟩ := hS
+  have hN0 : volume (Nset s) = 0 := measure_mono_null (Nset_sub_bad hcov) (bad_null hsd)
+  exact le_antisymm ((measure_union_le _ _).trans (by rw [hN0, add_zero]))
+    (measure_mono Set.subset_union_left)
+
+end Domain
+
 end HDec.LeafQCheck.QMglue
