@@ -32,6 +32,9 @@ import ZInQKernel.Contrib.GZStatements.Weak
 import ZInQKernel.Contrib.GZStatements.Level
 import ZInQKernel.Contrib.GZStatements.Compat
 import ZInQKernel.Contrib.GZStatements.Hensel
+import ZInQKernel.Contrib.TauCeti.NumberTheory.ClassFieldTheory.ClassFields.KroneckerWeber
+import ZInQKernel.Contrib.AVB1.Poincare
+import ZInQKernel.Contrib.AVB1.AlgClosed
 
 /-! The two closed providers fed into the unchanged headline theorem: Theorem 1.1 from
 `SixContactMin`, `TYZThm35ReadingA` and `GrossZagier` alone. -/
@@ -166,3 +169,16 @@ theorem contribCheck_headline (hH : ZInQ.SixContactMin) (hA : ZInQ.Literature.TY
 #print axioms chiD_prime
 #print axioms chiD_two
 #print axioms exists_sq_mod_four_mul_of_heegnerHyp
+#print axioms ZInQ.Contrib.KroneckerWeber.isAbelianGalois_of_comm
+#print axioms ZInQ.Contrib.KroneckerWeber.exists_pos_algHom_cyclotomicField
+#print axioms ZInQ.Contrib.KroneckerWeber.hSynKroneckerWeber
+#print axioms ZInQ.Contrib.KroneckerWeber.glueKroneckerWeber
+#print axioms ZInQ.Contrib.KroneckerWeber.kroneckerWeberCyclic_of_kroneckerWeber
+#print axioms ZInQ.Contrib.KroneckerWeber.kroneckerWeber_cyclic
+#print axioms ZInQ.Contrib.AVB1.homFreeFinite_of_algClosed
+#print axioms ZInQ.Contrib.AVB1.charPolyIndepOfEll_of_algClosed
+#print axioms ZInQ.Contrib.AVB1.bcHom_injective
+#print axioms ZInQ.Contrib.AVB1.tateBC_bijective_closure
+#print axioms ZInQ.Contrib.AVB1.poincareReducibility_of_pieces
+#print axioms ZInQ.Contrib.AVB1.poincareReducibility_of_simpleImage
+#print axioms ZInQ.Contrib.AVB1.simpleImageIsogeny_of_pieces
