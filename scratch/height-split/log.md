@@ -31,3 +31,12 @@ with `lake env lean` (one process at a time). Marks: VERIFIED / STANDARD / SPECU
   `stableHeightFinite_of` (H-19), `r21_of_leaves` (H-17), `grBostBound_of_bost`
   (`log(2π)+log π < 3`), `r18_of_leaves` (H-14), `r20_of_leaves` (H-16), `r22_of_leaves` (H-18),
   `absLogHeight_le_absLogHeightL2`, `pazuki_upper_of_two_sided`.
+
+## R5Count.lean (04:00-04:20)
+- `scratch/height-split/R5Count.lean` imports `ZInQKernel.HDecomp.QM.Leaves`; `lake env lean`: exit 0,
+  no errors (VERIFIED, ~6 s). `#print axioms r5fpCount_of`: `[propext, Classical.choice, Quot.sound]`.
+- New definitions: `OptEmb` (optimal embeddings `k → B`, `φ⁻¹(O) = R`), `embSetoid` (conjugacy by
+  `Oˣ`; equivalence proved), `eichlerFactor` (2 inert / 1 ramified / 0 otherwise), `QMClasses`.
+- Leaf `EichlerOptimalEmbeddingCount` (Eichler 1955 / Vignéras III 5.11-5.12 / Voight ch. 30, numbers
+  UNVERIFIED; caveat: some sources count mod O¹ with factor 2). Glue `QMPairEmbeddingCorrespondence`
+  (Shimura uniformization; an Equiv). Proved `r5fpCount_of : Eichler → Correspondence → R5fpCount`.
