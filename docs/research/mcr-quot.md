@@ -10,18 +10,19 @@ Task mcr-quot, 2026-11-14 (two runs; the second resumed from `scratch/mcr-quot/l
 - C2 `CoordinateFromSections`.
 
 Lean file: `scratch/mcr-quot/MCRQuot.lean`. It is `MCRGlue.lean` verbatim (the whole file),
-followed by the parts `MCRQuot1.lean.part` … `MCRQuot22.lean.part` in the order of `build.sh`.
+followed by the parts `MCRQuot1.lean.part` … `MCRQuot23.lean.part` in the order of `build.sh`.
 
 ## 1. Main result
 
-**All four targets are proved by compiled Lean from leaves plus two remaining glue Props.**
+**All four targets are proved by compiled Lean from leaves, one existing glue Prop of the
+decomposition, and two new glue Props.**
 
 - **C2** is proved from A and T5.
 - **A** is proved from T5 and the textbook-level inputs `CurveBijIso` and `ModelYIrreducible`.
-- **C1** is proved from A, those same inputs, and one object-level glue Prop on CM points
-  (`CMStabObj`).
-- **B** is proved from A, T5, L3 and one glue Prop, the `P¹` case of `CurveBijIso` stated by charts
-  (`ToP1BijIsCoordinateQ`).
+- **C1** is proved from A, those same inputs, and one object-level glue Prop on CM points,
+  `CMStabObj`.
+- **B** is proved from A, T5, L3, `CurveBijIso` and one foundational glue Prop, `P1SchemeQ`: the
+  projective line over `ℚ` exists, is proper and smooth, and represents maps to `P¹` by charts.
 
 No target statement was changed.
 
@@ -30,7 +31,7 @@ No target statement was changed.
 | C2 `CoordinateFromSections` | `coordinateFromSections_of''` | A (used only for `Finite (fibreAut 𝒴 𝒜)`), T5 |
 | A `FibreAutTame` | `fibreAutTame_of''` + `fibreAutFixFinite_of'` | T5, `CurveBijIso`, `ModelYIrreducible` |
 | C1 `CMSectionsDisjoint` | `cMSectionsDisjoint_of''` + `cMStabInvolution_of` | A, `CurveBijIso`, `ModelYIrreducible`, (C1b-obj) `CMStabObj` |
-| B `GenericQuotientP1` | `genericQuotientP1_of'` | A, T5, L3, (B-iso) `ToP1BijIsCoordinateQ` |
+| B `GenericQuotientP1` | `genericQuotientP1_of''` | A, T5, L3, `CurveBijIso`, (B-P¹) `P1SchemeQ` |
 
 Notes on the inputs:
 
@@ -43,11 +44,11 @@ Notes on the inputs:
 The final composite (namespace `MCRQuot`):
 
 ```lean
-theorem modelCoordinateResidue_final8
+theorem modelCoordinateResidue_final9
     (hAF : ProperCurveAF) (hQE : FiniteQuotientExists) (hTS : TameQuotientSmooth)
     (hP1 : SmoothModelOfP1) (hFix : TameFixedPointsDisjoint) (hCyc : TameInertiaCyclic)
     (hT : ObjBridge.TorsionStructure) (hC : CurveBijIso) (hCov : CoverModelOfHeckeN)
-    (hB : ToP1BijIsCoordinateQ) (hO : CMStabObj) : ModelCoordinateResidue
+    (hP : P1SchemeQ) (hO : CMStabObj) : ModelCoordinateResidue
 ```
 
 Its hypotheses fall into four groups:
@@ -56,17 +57,21 @@ Its hypotheses fall into four groups:
 - the textbook leaves T5 and `CurveBijIso`;
 - the decomposition's existing glue `CoverModelOfHeckeN`;
 - **two new glue Props of this task**:
-  - (B-iso) `ToP1BijIsCoordinateQ`: the `P¹` case of `CurveBijIso`, stated by charts;
+  - (B-P¹) `P1SchemeQ`: foundations. There is a proper scheme `P` over `ℚ`, smooth of relative
+    dimension 1, with polynomial charts `τ`, such that every `σ : ToP1 Z` is `τ ∘ m` for some
+    `m : Z → P`. This is `Proj ℚ[X₀, X₁]`; Mathlib 4.35 has `Proj` and its properness, but not
+    this functor of points.
   - (C1b-obj) `CMStabObj`: each CM class is fixed by a Hecke operation of order exactly 2 on
     classes, a statement about QM objects over `ℚ̄` with no schemes in it.
 
-The earlier composites `modelCoordinateResidue_final4` … `final7` are the intermediate forms.
+The earlier composites `modelCoordinateResidue_final4` … `final8` are the intermediate forms.
+`final8` takes (B-iso) `ToP1BijIsCoordinateQ` in place of `P1SchemeQ`.
 
 VERIFIED: `lake env lean scratch/mcr-quot/MCRQuot.lean` exits 0 in about 30 s (output in
-`compile22_out.txt`).
+`compile23_out.txt`).
 
 - The parts contain no `sorry` and no `axiom`.
-- All 54 `#print axioms` of `MCRQuot` declarations (part 9) read
+- All 57 `#print axioms` of `MCRQuot` declarations (part 9) read
   `[propext, Classical.choice, Quot.sound]`.
 
 ## 2. What was proved (all compiled, namespace `MCRQuot`)
@@ -173,12 +178,27 @@ How `translate` is built:
 | `pushU_stable_iff`, `pushF_invariant` | invariance of the charts and functions as scheme data, from invariance of values at `ℚ̄`-points: a failure would show at a closed point of the Jacobson generic fibre, hence at a `ℚ̄`-point (`exists_qbarPt`); `𝒴` is reduced (`isReduced_of_smooth_zloc`) |
 | **`quotientDescendsMapQ`**, **`quotientDescendsQ`** | (B-desc) proved |
 
+### 2.6 (B-iso) from `CurveBijIso` and `P1SchemeQ` (part 23)
+
+`toP1BijIsCoordinateQ_of` proves (B-iso) as follows.
+
+1. Write `σ = τ ∘ m`, using `P1SchemeQ`.
+2. `m` is bijective on `ℚ̄`-points. Injectivity comes from `σ`. Surjectivity comes from `σ`
+   together with the injectivity of `τ` on field points (`val_injective_of_isP1CoordinateQ`, via
+   `eq_of_ev_eq_chartQ`).
+3. So `m` is an isomorphism, by `CurveBijIso`.
+4. The polynomial charts of `τ` transport to `σ` (`bijective_eval₂_transport`, using
+   `IsAffineOpen.preimage`).
+
 ## 3. What remains: two new glue Props
 
 | Name | Statement (informal) | Kind | Why not proved here |
 |---|---|---|---|
-| (B-iso) `ToP1BijIsCoordinateQ` | a map to `P¹` of a proper smooth `ℚ`-curve that is bijective on `ℚ̄`-points is an isomorphism by charts | the `P¹` case of the textbook leaf `CurveBijIso`, stated by charts | Mathlib 4.35 has `Proj` with `IsProper (Proj.toSpecZero 𝒜)`, but no `P¹` with smoothness of relative dimension 1 and no gluing of a morphism to `Proj` from the two charts; with those, B-iso would follow from `CurveBijIso` |
+| (B-P¹) `P1SchemeQ` | `P¹_ℚ` exists as a proper, smooth (relative dimension 1) `ℚ`-scheme with polynomial charts `τ`, and every `σ : ToP1 Z` factors as `τ ∘ m` | glue (foundations; Hartshorne II.7.1, EGA II 4.2.4, locators UNVERIFIED) | `P = Proj ℚ[X₀, X₁]`. Still needed: `HomogeneousLocalization.Away` at `X₀` as `ℚ[X₁/X₀]` (smoothness, charts), and gluing `m` from the two charts with control of `m⁻¹ D₊(X₀)` |
 | (C1b-obj) `CMStabObj` | a CM object's class is fixed by some `T = twist α ∘ rightMul u` with `T ∘ T = id` on `M3 ℚ̄` and `T ≠ id` | glue (QM with CM; elliptic points of orders 4, 6, 2, Baba–Granath §3.1, locator UNVERIFIED) | see below |
+
+The intermediate glue (B-iso) `ToP1BijIsCoordinateQ` (the `P¹` case of `CurveBijIso`) is no longer
+an input; §2.6 proves it from `CurveBijIso` and `P1SchemeQ`.
 
 Why (C1b-obj) is not proved here (SPECULATIVE analysis, not compiled):
 
@@ -237,5 +257,5 @@ Why (C1b-obj) is not proved here (SPECULATIVE analysis, not compiled):
 ```
 lake build ZInQKernel.Contrib.Mobius.Main ZInQKernel.HDecomp.QM.Pin ZInQKernel.HDecomp.Descent.B2Glue
 scratch/mcr-quot/build.sh                      # regenerates MCRQuot.lean from the parts
-lake env lean scratch/mcr-quot/MCRQuot.lean    # exit 0, ~30 s; compile22_out.txt
+lake env lean scratch/mcr-quot/MCRQuot.lean    # exit 0, ~30 s; compile23_out.txt
 ```
