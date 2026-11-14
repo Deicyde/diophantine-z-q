@@ -33,7 +33,12 @@ proves the bridge between fields of moduli and residue fields. leaf-qm-fp §2.4 
   * the orbit computation for `y3Connected`;
   * the GAGA-level step for `shimuraFamily`;
   * the surjectivity clause of Baba–Granath;
+  * the existence of level-3 structures over `ℚ̄`: coarse-factor's `PairsLift`, proved from T5 by a computation
+    in `𝒪/3𝒪` (`PairsLift.lean`);
   * the coarse comparison, `HeckeOfFine`, and transports.
+* **One bundle gives six rows** (VERIFIED): `rows_of_shimuraSplitLeaves : ShimuraSplitLeaves → R1R2fpRep ∧ R1rec ∧
+  R5fp ∧ R5fpCount ∧ Y3Connected ∧ X6ConicModel`. The bundle has nine fields, T5 among them. `shimuraFamily` is
+  proved from `ShimuraHolFamily` in `ShimuraFam.lean`.
 * **Finding** (VERIFIED by `Iff.rfl`). qm-glue's LEAF-form `ConicCanonical` is the row `X6Kummer.X6ConicModel`
   verbatim, so H-43 had not been reduced; `ConnectedCanonical` is likewise the row `TSHecke.Y3Connected`.
   * H-43 now rests on `r1r2`, T5 and a smaller leaf `ElkiesConicX6`. That leaf is the conic model and Hauptmodul of
@@ -61,7 +66,7 @@ than the print together with R1. Every locator below is UNVERIFIED unless marked
 
 | row | old form | new leaves (form; source) | new glue (status) | Lean name of the proof |
 |---|---|---|---|---|
-| `r1r2` `R1R2fpRep` | GLUE (comp) | `DeligneComponentsX6` (c: Deligne π₀ at level `𝒪̂^×`; Bourbaki 389 §§2-3, PSPM 33 2.6.3); `GeomConnOfAlgClosure` (textbook, published form weakened by a properness hypothesis: EGA IV 4.5, Stacks 0389); `PairsLift` (c: every QM pair over `ℚ̄` has a level-3 structure, from `A[3] ≅ 𝒪/3𝒪`); `BabaGranathX6'` (c: Baba–Granath Thm 2.1, Lemma 3.1, §3.1 table, audit YES); `ReciprocityCanonical` (c: Shimura reciprocity on points, Shimura 1967 Main Thm II, Deligne 1971 §3); `GonzalezRotgerX6` (canonical model: GR 2006 Thm 5.12, audit YES) | `HeckeOfFine` (proved, qm-split); `CoarseFactor`, `CurveBijIso` (proved, coarse-factor, curve-split); surjectivity of `π₆` (proved here: `surj_of_fibre`); `ReciprocityOfFine`, `ResidueOfX6` (proved here from the object forms via the bridge); `canonicalCoarseX6_of`, `geomConnX6_of` (proved) | `HDec.QMSplit.Moduli.r1r2fpRep_of_printed` (`Rows.lean`); variants `r1r2fpRep_of_split6` (with `R1rec`, `R5fp`), `r1r2fpRep_of_split` |
+| `r1r2` `R1R2fpRep` | GLUE (comp) | `DeligneComponentsX6` (c: Deligne π₀ at level `𝒪̂^×`; Bourbaki 389 §§2-3, PSPM 33 2.6.3); `GeomConnOfAlgClosure` (textbook, published form weakened by a properness hypothesis: EGA IV 4.5, Stacks 0389); T5 (bundle, `A(k̄)[n] ≅ (ℤ/n)^{2g}`); `BabaGranathX6'` (c: Baba–Granath Thm 2.1, Lemma 3.1, §3.1 table, audit YES); `ReciprocityCanonical` (c: Shimura reciprocity on points, Shimura 1967 Main Thm II, Deligne 1971 §3); `GonzalezRotgerX6` (canonical model: GR 2006 Thm 5.12, audit YES) | `HeckeOfFine` (proved, qm-split); `CoarseFactor`, `CurveBijIso` (proved, coarse-factor, curve-split); `PairsLift` (proved here from T5: `pairsLift_of_T5`); surjectivity of `π₆` (proved here: `surj_of_fibre`); `ReciprocityOfFine`, `ResidueOfX6` (proved here from the object forms via the bridge); `canonicalCoarseX6_of`, `geomConnX6_of` (proved) | `HDec.QMSplit.Moduli.r1r2fpRep_of_printed_t5` (`Rows.lean`); variants `r1r2fpRep_of_printed` (with `PairsLift`), `r1r2fpRep_of_split6` (with `R1rec`, `R5fp`), `r1r2fpRep_of_split` |
 | `r1rec` `R1rec` | GLUE (c) | **none** | the bridge `fieldOfModuli3_eq_residueImage` (proved) | `HDec.QMSplit.Moduli.r1rec_of_r1r2 : R1R2fpRep → R1rec`; also `r1rec_of_reciprocityCanonical` |
 | `r5` `R5fp` | GLUE (c) | **none** | the bridge `fieldOfModuliPair_eq_residueImage` (proved) | `HDec.QMSplit.Moduli.r5fp_of_r1r2 : R1R2fpRep → R5fp`; also `ShimuraSplit.r5fp_of_point` from `GonzalezRotgerX6` |
 | `r5count` `R5fpCount` | GLUE (c) | `GonzalezRotgerCountX6` (canonical model: GR 2006 Prop. 5.6 at `(D,N) = (6,1)`, `#CM(R) = 2^{b} h(R)` on the points of `X₀(6,1)`, audit read Prop. 5.6) | transport through the moduli bijection `Ψ` (proved) | `HDec.QMSplit.Moduli.r5fpCount_of_points` (`ShimuraSplit.r5fpCount_of_points`) |
@@ -121,22 +126,36 @@ than the print together with R1. Every locator below is UNVERIFIED unless marked
   * a map with finite fibres from a proper smooth curve over `ℚ` with a `ℚ̄`-point to `P¹` is onto `P¹(ℚ̄)` (the
     kernel's `Pin.curveFacts.2 = CurveSurj`, image-plane).
 
+* `PairsLift` is proved from T5 (`PairsLift.lean`, `pairsLift_of_T5`). Write `j ∈ 𝒪` with `j² = −3`.
+  * *Algebra of `𝒪/3𝒪`.*
+    * If `3 ∤ nrd(a)`, then `(nrd(a)·ā)·a = nrd(a)² ≡ 1 (mod 3𝒪)` (`left_inv_mod3`).
+    * If `3 | nrd(a)`, then `a j ∈ 3𝒪` (`mul_oj_of_dvd`, from the kernel's `three_dvd_mulCoord_ej`). Hence
+      `a = b j` with `b ∈ 𝒪`.
+  * *A good point.* Some `v ∈ A(ℚ̄)` has `3v = 0` and `jv ≠ 0` (`exists_good_point`). Otherwise, for `9w = 0` we
+    get `jw ∈ A[3]` and `3w = −j²w = 0`, so `A[9] = A[3]`. That contradicts T5's counts `9⁴ > 3⁴`. Points over
+    `ℚ̄` and over its algebraic closure agree (`bcPt_surjective_algClosed`).
+  * *The level structure.* Put `η(a) = a·v`. If `a·v = 0` and `a ∉ 3𝒪`, the two cases above force `v = 0` or
+    `jv = 0` (`ker_of_good`). So `η` has kernel exactly `3𝒪` (`exists_level3`).
+  * The degree input `deg ι(b) = nrd(b)²` that the earlier analysis called for is not needed: the relation
+    `j² = −3` and the count of `A[9]` replace it.
+
 **Result.**
 
 ```lean
-theorem HDec.QMSplit.Moduli.r1r2fpRep_of_printed (hD : DeligneComponentsX6) (hE : GeomConnOfAlgClosure)
-    (hL : PairsLift) (hB : BabaGranathX6') (hR : ReciprocityCanonical) (hG : GonzalezRotgerX6) :
-    LeafAdopt.R1R2fpRep
+theorem HDec.QMSplit.Moduli.r1r2fpRep_of_printed_t5 (hD : DeligneComponentsX6) (hE : GeomConnOfAlgClosure)
+    (hT : PkgI2.TorsionStructure.{0}) (hB : BabaGranathX6') (hR : ReciprocityCanonical)
+    (hG : GonzalezRotgerX6) : LeafAdopt.R1R2fpRep
 ```
+
+T5 is not a new hypothesis. The chain derives it from the bundle's textbook leaves (`LF4T5`,
+`T5Torsion.torsionStructure_of_torsionCard`), and the kernel's `MobiusGlue` already uses it.
 
 **Forms (SPECULATIVE readings).**
 * `GonzalezRotgerX6` is the printed Thm 5.12 on `X₀(6,1)` with the audited reading of `D(R)`.
 * `GeomConnOfAlgClosure` is a textbook criterion, stated weaker than print (with `IsProper` added).
-* The other four are consequences:
+* The other three are consequences:
   * `DeligneComponentsX6`: Deligne's `π₀` display together with `nrd(𝒪̂^×) = ℤ̂^×` and `𝔸_f^× = ℚ^×_{>0}ℤ̂^×`;
-  * `PairsLift`: `|A[3]| = 81` (Mumford §4) together with `deg ι(b) = nrd(b)²`, which make `A[3]` free of rank one
-    over `𝒪/3𝒪`;
-  * `BabaGranathX6'`: Thm 2.1 together with the §3.1 elliptic-order table;
+  * `BabaGranathX6'`: Thm 2.1 together with Lemma 3.1 and the §3.1 elliptic-order table;
   * `ReciprocityCanonical`: the unramified-above-5 conclusion is a consequence of reciprocity.
 * All of them carry the moduli witness (R1, Lemma QP), as before.
 
@@ -230,10 +249,6 @@ published-form split needs:
 Not attempted.
 
 **Remaining glue and leaf-forms.**
-* `PairsLift` is a consequence. A Lean proof would need, beyond T5 (`|A[3]| = 81`), either `deg ι(b) = nrd(b)²`
-  or "a homomorphism killing `A[n]` factors through `[n]`" (Mumford §7, UNVERIFIED); neither is in the project.
-  Given that, the rest is a finite computation in `𝒪/3𝒪`, a local ring with residue field `𝔽₉`: `A[3]` is free
-  of rank one iff the uniformizer does not kill it.
 * `DeligneComponentsX6` and `DeligneComponentsY3` both specialize one theorem (Deligne's `π₀`). The specialization
   computations (`nrd(K)`) need local quaternion algebras.
 * `ElkiesConicX6`, `BabaGranathX6'` and `ReciprocityCanonical` are consequences, as described above.
@@ -244,23 +259,26 @@ Not attempted.
 * `r1r2`, `r3`, `y3Connected` comp;
 * `r1rec`, `r5`, `r5count`, `shimuraFamily`, `x6ConicModel` c.
 
-**After**, if folded with `r1r2fpRep_of_printed`: 11 fields. `r1rec` and `r5` are dropped as theorems.
+**After**, if folded with `rows_of_shimuraSplitLeaves` and `shimuraFamily_of_hol`: 10 fields. `r1rec` and `r5`
+are dropped as theorems, and T5 comes from the existing textbook leaves.
 * **4 published form:**
   * `GonzalezRotgerX6`, `GonzalezRotgerCountX6`, on the canonical model;
   * `ShimuraHolFamily`;
-  * `GeomConnOfAlgClosure`, weakened.
-* **6 consequences:** `DeligneComponentsX6`, `DeligneComponentsY3`, `PairsLift`, `BabaGranathX6'`,
-  `ReciprocityCanonical`, `ElkiesConicX6`.
+  * `GeomConnOfAlgClosure`, a textbook criterion, weakened.
+* **5 consequences:** `DeligneComponentsX6`, `DeligneComponentsY3`, `BabaGranathX6'`, `ReciprocityCanonical`,
+  `ElkiesConicX6`.
 * **1 composite:** `r3`.
 
 | | fields | strict LEAF / GLUE | lenient LEAF / GLUE |
 |---|---|---|---|
 | before | 8 | 0 / 8 | 5 / 3 |
-| after | 11 | 4 / 7 | 10 / 1 |
+| after | 10 | 4 / 6 | 9 / 1 |
 
-T5 is already a bundle field (from `mumfordTorsionAlgClosed`).
+`DeligneComponentsX6` and `DeligneComponentsY3` are two specializations of one theorem (Deligne's `π₀`).
+`ElkiesConicX6` is Elkies' §3 statement after a change of coordinates (SPECULATIVE reading). It is counted as a
+consequence of one theorem; leaf-fold8 listed Kurihara as a second source.
 
-**Smaller fold.** Keeping `r1r2` as a field and adding only the derived rows:
+**Smaller fold.** Keep `r1r2` as a field and add only the derived rows:
 * `r1rec`, `r5` are dropped;
 * `r5count`, `shimuraFamily`, `y3Connected`, `x6ConicModel` are replaced by one new leaf each.
 
@@ -274,15 +292,16 @@ That gives 7 fields, strict 2 / 5 (published: `GonzalezRotgerCountX6`, `ShimuraH
 | `Y3Conn.lean` | §3.5 (kernel imports only) | 0 errors |
 | `Count.lean` | §3.3 (kernel imports only) | 0 errors |
 | `BG.lean` | surjectivity of `π₆` (kernel `Contrib.Mobius.ImagePlane`) | 0 errors |
+| `PairsLift.lean` | `PairsLift` from T5 (kernel `Contrib.Mobius.Glue`) | 0 errors |
 | `parts/RowsNew.lean` | the chain-level row theorems (§3.2, §3.6 and the qualified `example`s) | via `Rows.lean` |
-| `Rows.lean` | generated by `mk_rows.py`. Part 1 is `scratch/coarse-factor/Discharge.lean` verbatim (qm-glue's `ModuliCompare.lean` with coarse-factor's `CoarseFactor`, curve-split's `curveBijIso`). Parts 2-5 are the four files above, verbatim. Part 6 is `parts/RowsNew.lean`. Imports are merged. | 0 errors, 1 min 32 s; `rows_result.txt` has 51 axiom lines, all standard |
+| `Rows.lean` | generated by `mk_rows.py`. Part 1 is `scratch/coarse-factor/Discharge.lean` verbatim (qm-glue's `ModuliCompare.lean` with coarse-factor's `CoarseFactor`, curve-split's `curveBijIso`). Parts 2-6 are the five files above, verbatim. Part 7 is `parts/RowsNew.lean`. Imports are merged. | 0 errors, about 1.5 min; `rows_result.txt` has 55 axiom lines, all standard |
 | `ShimuraFam.lean` | §3.4 (imports `ZInQKernel.OneProof.H.TailU`) | 0 errors, ~40 s; `shimurafam_result.txt` |
 
 **Build note.** `.lake/build` and `lean/.lake/build` were copied (reflink) from `~/dzq-check2`, which is at the same
 commit 5da857b0 with the OneProof chain built through TailX.
 
 **Integration notes.**
-* `Bridge.lean`, `Y3Conn.lean`, `Count.lean` and `BG.lean` import only kernel modules and could move to
+* `Bridge.lean`, `Y3Conn.lean`, `Count.lean`, `BG.lean` and `PairsLift.lean` import only kernel modules and could move to
   `ZInQKernel/Contrib/` unchanged.
 * `Rows.lean` Part 1 re-declares qm-split's `HDec.QMSplit.Moduli` constants. TailU already contains them, so a fold
   over TailU must drop Part 1's qm-split prefix and keep qm-glue's and coarse-factor's additions. This is also why
