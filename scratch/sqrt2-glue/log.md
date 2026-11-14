@@ -34,3 +34,14 @@ Product of Frobenius lifts over the prime factorization of α𝓞_F.
 - [VERIFIED, compiled 00:42] §7 **`frobNormLaw : FrobNormLaw`** (no hypotheses): M = F ⊔ ⨆_{d∈D} H̄_{d,4}, Mathlib Frobenius
   `IsArithFrobAt.exists_of_isInvariant` over 𝓞_F in Gal(M/F) at a prime 𝔔 over P, lifted by `liftNormal`, then
   `frob_on_H4`. **`sqrtTwoNotInHHprime_of_normSigma : NormSigma → SqrtTwoNotInHHprime`**. Axioms standard.
+- [VERIFIED, compiled 00:47] §8 `classOf_span_congr` (class of 1 + 2ε√−d + 4γ is σ_{1+2ϖ}), `NormCongr` (GLUE Prop),
+  `normSigma_of : NormCongr → NormSigma`.
+- [VERIFIED, compiled ~00:55] §9–§11 arithmetic (`pstar`, `prod_pstar_primeFactors`, `not_sq_of_mul`), `trace_eq_zero_of_sq`
+  (Tr x = 0 if x² ∈ K, x ∉ K), `finrank_adjoin_sq_le` ([ℚ(T):ℚ] ≤ 2^#T), `prod_one_add_two`, `norm_one_add_two_mul`
+  (N(1+2β) = 1 + 2Tr β + 4γ, γ integral; via embeddings into an algebraic closure), `trace_sum_sq`.
+- [VERIFIED, compiled ~01:00] §12 `sQ`, `xS`, `betaQ` (= i∏(1+√p*)/2), integrality, `kEmb_ne_xS` (x_S ∉ K_{d₀} unless
+  S = primes of d₀; rational-square arguments), `finrank_Lni_le` ([L_n(i):ℚ] ≤ 2^{ω(n)+1}), **`normCongr_at`**
+  (Tr β = (N/2^r)ε√−d₀ with N = [L_n(i):K_{d₀}] ≤ 2^r; integrality of the trace forces N = 2^r; then the norm congruence).
+- [VERIFIED, compiled ~01:05] §13 **`normCongr : NormCongr`, `normSigma`, `sigmaLift : SigmaLift`,
+  `sqrtTwoNotInHHprime : SqrtTwoNotInHHprime`** — no hypotheses; `#print axioms` = [propext, Classical.choice, Quot.sound];
+  no `sorry` in the file.

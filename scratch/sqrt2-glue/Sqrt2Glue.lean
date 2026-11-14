@@ -1332,10 +1332,232 @@ theorem kEmb_ne_xS {n d₀ : ℕ} [NeZero d₀] (hsq : Squarefree n) (hd : d₀ 
         rw [hc']; ring
       exact prod_pstar_not_sq hSp (by simp) hpS (Finset.notMem_empty p) (Or.inr rfl) _ key
 
+
+theorem finrank_Lni_le {n : ℕ} (hn : n % 8 = 5) (hsq : Squarefree n) :
+    Module.finrank ℚ (Lni n) ≤ 2 ^ (n.primeFactors.card + 1) := by
+  classical
+  set T : Finset Qbar := insert iQ (n.primeFactors.image sqrtQ) with hT
+  have hTsq : ∀ t ∈ T, ∃ c : ℚ, t ^ 2 = algebraMap ℚ Qbar c := by
+    intro t ht
+    rcases Finset.mem_insert.mp ht with rfl | ht
+    · exact ⟨-1, by rw [iQ_sq]; simp⟩
+    · obtain ⟨p, -, rfl⟩ := Finset.mem_image.mp ht
+      exact ⟨p, by rw [sqrtQ_sq]; simp⟩
+  obtain ⟨hfd, hle⟩ := finrank_adjoin_sq_le T hTsq
+  have hsub : Lni n ≤ IntermediateField.adjoin ℚ (T : Set Qbar) := by
+    rw [Lni, IntermediateField.adjoin_le_iff]
+    rintro x (hx | ⟨p, hp, hx⟩)
+    · have hx' : x ^ 2 = iQ ^ 2 := by rw [iQ_sq]; exact hx
+      have hi : iQ ∈ IntermediateField.adjoin ℚ (T : Set Qbar) :=
+        IntermediateField.subset_adjoin _ _ (Finset.mem_coe.mpr (Finset.mem_insert_self _ _))
+      rcases sq_eq_sq_iff_eq_or_eq_neg.mp hx' with e | e
+      · rw [e]; exact hi
+      · rw [e]; exact (IntermediateField.adjoin ℚ (T : Set Qbar)).neg_mem hi
+    · have hx' : x ^ 2 = sqrtQ p ^ 2 := by rw [sqrtQ_sq]; exact hx
+      have hi : sqrtQ p ∈ IntermediateField.adjoin ℚ (T : Set Qbar) :=
+        IntermediateField.subset_adjoin _ _
+          (Finset.mem_coe.mpr (Finset.mem_insert_of_mem (Finset.mem_image_of_mem _ hp)))
+      rcases sq_eq_sq_iff_eq_or_eq_neg.mp hx' with e | e
+      · rw [e]; exact hi
+      · rw [e]; exact (IntermediateField.adjoin ℚ (T : Set Qbar)).neg_mem hi
+  haveI := hfd
+  calc Module.finrank ℚ (Lni n) ≤ Module.finrank ℚ (IntermediateField.adjoin ℚ (T : Set Qbar)) :=
+        IntermediateField.finrank_le_of_le_right hsub
+    _ ≤ 2 ^ T.card := hle
+    _ ≤ 2 ^ (n.primeFactors.card + 1) :=
+        Nat.pow_le_pow_right two_pos ((Finset.card_insert_le _ _).trans
+          (Nat.succ_le_succ Finset.card_image_le))
+
+/-- **The norm congruence at one `d₀`**: `N_{L_n(i)/K_{d₀}}(α𝓞) = (1 + 2ε√−d₀ + 4γ)𝓞_{K_{d₀}}`. -/
+theorem normCongr_at {n : ℕ} (hn : n % 8 = 5) (hsq : Squarefree n) {d₀ : ℕ} [NeZero d₀]
+    (hd : d₀ ∈ n.divisors) (hd5 : d₀ % 8 = 5) (αO : 𝓞 (Lni n))
+    (hα : ((αO : Lni n) : Qbar) = 1 + 2 * betaQ n) :
+    ∃ ε : ℤ, (ε = 1 ∨ ε = -1) ∧ ∃ γ : 𝓞 (QNeg d₀), relNormK (Lni n) d₀ (Ideal.span {αO}) =
+      Ideal.span {1 + 2 * (ε : 𝓞 (QNeg d₀)) * sqrtNeg d₀ + 4 * γ} := by
+  haveI hFD : FiniteDimensional ℚ (Lni n) := finiteDimensional_Lni hn hsq
+  haveI : NumberField (Lni n) := ⟨⟩
+  have hdn : d₀ ∣ n := Nat.dvd_of_mem_divisors hd
+  have hK := kEmb_mem_Lni (d₀ := d₀) hsq hdn
+  letI : Algebra (QNeg d₀) (Lni n) := (iotaK (Lni n) d₀ hK).toRingHom.toAlgebra
+  haveI : IsScalarTower ℚ (QNeg d₀) (Lni n) :=
+    IsScalarTower.of_algebraMap_eq (fun q => ((iotaK (Lni n) d₀ hK).commutes q).symm)
+  haveI : FiniteDimensional (QNeg d₀) (Lni n) :=
+    Module.Finite.of_restrictScalars_finite ℚ (QNeg d₀) (Lni n)
+  have hval : ∀ k : QNeg d₀, ((algebraMap (QNeg d₀) (Lni n) k : Lni n) : Qbar) = kEmb d₀ k :=
+    fun k => rfl
+  set P := n.primeFactors with hP
+  set r := P.card with hr
+  have hD₀P : d₀.primeFactors ⊆ P := Nat.primeFactors_mono hdn (by omega)
+  have hd4 : d₀ % 4 = 1 := by omega
+  -- the elements `x_S` and `β` of `F`
+  let xF : Finset ℕ → Lni n := fun S => if h : S ⊆ P then ⟨xS S, xS_mem h⟩ else 0
+  have hxF : ∀ S ∈ P.powerset, ((xF S : Lni n) : Qbar) = xS S := fun S hS => by
+    simp only [xF, dif_pos (Finset.mem_powerset.mp hS)]
+  set βF : Lni n := ⟨betaQ n, betaQ_mem n⟩ with hβFdef
+  have hβF : βF = algebraMap (QNeg d₀) (Lni n) (algebraMap ℚ (QNeg d₀) ((1 / 2) ^ r)) *
+      ∑ S ∈ P.powerset, xF S := by
+    apply Subtype.ext
+    show betaQ n = (((algebraMap (QNeg d₀) (Lni n) (algebraMap ℚ (QNeg d₀) ((1 / 2) ^ r)) *
+      ∑ S ∈ P.powerset, xF S : Lni n)) : Qbar)
+    rw [IntermediateField.coe_mul, hval, AlgHom.commutes]
+    have hsum : ((∑ S ∈ P.powerset, xF S : Lni n) : Qbar) = ∑ S ∈ P.powerset, ((xF S : Lni n) : Qbar) :=
+      map_sum (Lni n).val xF P.powerset
+    rw [hsum, Finset.sum_congr rfl hxF, betaQ_eq]
+    simp only [one_div, inv_pow, map_pow, map_inv₀, map_ofNat]
+    rfl
+  -- `x_{D₀} = ε √−d₀`
+  have hw2 : (kEmb d₀ QuadraticAlgebra.omega) ^ 2 = -(d₀ : Qbar) := by
+    rw [← map_pow, sq, QuadraticAlgebra.omega_mul_omega_eq_algebraMap]; simp
+  have hxD : xS d₀.primeFactors ^ 2 = (kEmb d₀ QuadraticAlgebra.omega) ^ 2 := by
+    rw [xS_sq, hw2, prod_pstar_primeFactors (hsq.squarefree_of_dvd hdn) hd4]; push_cast; ring
+  obtain ⟨ε, hε, hxDε⟩ : ∃ ε : ℤ, (ε = 1 ∨ ε = -1) ∧
+      xS d₀.primeFactors = kEmb d₀ ((ε : QNeg d₀) * QuadraticAlgebra.omega) := by
+    rcases sq_eq_sq_iff_eq_or_eq_neg.mp hxD with e | e
+    · exact ⟨1, Or.inl rfl, by rw [e]; simp⟩
+    · exact ⟨-1, Or.inr rfl, by rw [e]; simp⟩
+  -- the trace of `β`
+  set N := Module.finrank (QNeg d₀) (Lni n) with hN
+  have htr : Algebra.trace (QNeg d₀) (Lni n) βF = algebraMap ℚ (QNeg d₀) ((1 / 2) ^ r) *
+      (N • ((ε : QNeg d₀) * QuadraticAlgebra.omega)) := by
+    rw [hβF]
+    apply trace_sum_sq P.powerset xF d₀.primeFactors (Finset.mem_powerset.mpr hD₀P)
+    · apply Subtype.ext
+      rw [hxF _ (Finset.mem_powerset.mpr hD₀P), hval, hxDε]
+    · intro S hS hSD
+      refine ⟨⟨algebraMap ℚ (QNeg d₀) (-((∏ p ∈ S, pstar p : ℤ) : ℚ)), ?_⟩, ?_⟩
+      · apply Subtype.ext
+        rw [IntermediateField.coe_pow, hxF S hS, xS_sq, hval, AlgHom.commutes, map_neg, map_intCast]
+      · rintro ⟨k, hk⟩
+        have h1 : ((algebraMap (QNeg d₀) (Lni n) k : Lni n) : Qbar) = ((xF S : Lni n) : Qbar) :=
+          congrArg Subtype.val hk
+        rw [hval, hxF S hS] at h1
+        exact kEmb_ne_xS hsq hdn hd4 (Finset.mem_powerset.mp hS) hSD k h1
+  -- integrality
+  have hβint : IsIntegral ℤ βF := by
+    have h1 : IsIntegral ℤ (algebraMap (Lni n) Qbar βF) := isIntegral_betaQ (by omega)
+    exact isIntegral_algebraMap_iff.mp h1
+  have htrint : IsIntegral ℤ (Algebra.trace (QNeg d₀) (Lni n) βF) := Algebra.isIntegral_trace hβint
+  -- `[F : K_{d₀}] = 2^r`
+  have hNle : N ≤ 2 ^ r := by
+    have h1 := finrank_Lni_le hn hsq
+    rw [← hP, ← hr] at h1
+    have h2 := Module.finrank_mul_finrank ℚ (QNeg d₀) (Lni n)
+    rw [QuadraticAlgebra.finrank_eq_two] at h2
+    rw [← h2, pow_succ] at h1
+    omega
+  have hε2 : (ε : ℚ) ^ 2 = 1 := by rcases hε with rfl | rfl <;> norm_num
+  have hNdvd : 2 ^ r ∣ N := by
+    set c : ℚ := (1 / 2) ^ r * N * ε with hc
+    have hy : Algebra.trace (QNeg d₀) (Lni n) βF = algebraMap ℚ (QNeg d₀) c * QuadraticAlgebra.omega := by
+      rw [htr, nsmul_eq_mul, hc, map_mul, map_mul, map_natCast, map_intCast]; ring
+    have hy2 : (Algebra.trace (QNeg d₀) (Lni n) βF) ^ 2 =
+        algebraMap ℚ (QNeg d₀) (-(d₀ : ℚ) * c ^ 2) := by
+      rw [hy, mul_pow, sq QuadraticAlgebra.omega, QuadraticAlgebra.omega_mul_omega_eq_algebraMap]
+      simp only [map_mul, map_neg, map_pow, map_natCast, map_zero, zero_mul, mul_zero, add_zero,
+        zero_smul]
+      ring
+    have hint2 : IsIntegral ℤ (algebraMap ℚ (QNeg d₀) (-(d₀ : ℚ) * c ^ 2)) := hy2 ▸ htrint.pow 2
+    have hint3 : IsIntegral ℤ (-(d₀ : ℚ) * c ^ 2) := isIntegral_algebraMap_iff.mp hint2
+    obtain ⟨m, hm⟩ := IsIntegrallyClosed.isIntegral_iff.mp hint3
+    have hm' : (m : ℚ) = -(d₀ : ℚ) * c ^ 2 := by rw [← hm]; simp
+    have h2r : ((1 : ℚ) / 2) ^ r * 2 ^ r = 1 := by rw [← mul_pow]; norm_num
+    have hq : (m : ℚ) * 4 ^ r = -((d₀ : ℚ) * (N : ℚ) ^ 2) := by
+      have h4 : (4 : ℚ) ^ r = (2 ^ r) ^ 2 := by rw [← pow_mul, mul_comm, pow_mul]; norm_num
+      rw [hm', h4, hc]
+      calc -(d₀ : ℚ) * ((1 / 2) ^ r * N * ε) ^ 2 * (2 ^ r) ^ 2 =
+          -(d₀ : ℚ) * N ^ 2 * ε ^ 2 * ((1 / 2) ^ r * 2 ^ r) ^ 2 := by ring
+        _ = -((d₀ : ℚ) * (N : ℚ) ^ 2) := by rw [hε2, h2r]; ring
+    have hz : m * 4 ^ r = -((d₀ : ℤ) * (N : ℤ) ^ 2) := by exact_mod_cast hq
+    have hdvdZ : ((4 ^ r : ℕ) : ℤ) ∣ ((d₀ * N ^ 2 : ℕ) : ℤ) := ⟨-m, by push_cast; linarith⟩
+    have hdvdN : 4 ^ r ∣ d₀ * N ^ 2 := Int.natCast_dvd_natCast.mp hdvdZ
+    have hcop : Nat.Coprime (4 ^ r) d₀ := by
+      apply Nat.Coprime.pow_left
+      have : Nat.Coprime 2 d₀ := Nat.coprime_two_left.mpr (Nat.odd_iff.mpr (by omega))
+      have h4 : (4 : ℕ) = 2 ^ 2 := by norm_num
+      rw [h4]; exact Nat.Coprime.pow_left 2 this
+    have h1 : 4 ^ r ∣ N ^ 2 := hcop.dvd_of_dvd_mul_left hdvdN
+    have h2 : (2 ^ r) ^ 2 ∣ N ^ 2 := by
+      rw [← pow_mul, mul_comm, pow_mul]; norm_num; exact h1
+    exact (UniqueFactorizationMonoid.pow_dvd_pow_iff_dvd two_ne_zero).mp h2
+  have hNeq : N = 2 ^ r := le_antisymm hNle (Nat.le_of_dvd Module.finrank_pos hNdvd)
+  have htr' : Algebra.trace (QNeg d₀) (Lni n) βF = (ε : QNeg d₀) * QuadraticAlgebra.omega := by
+    rw [htr, hNeq, nsmul_eq_mul, ← mul_assoc]
+    have : algebraMap ℚ (QNeg d₀) ((1 / 2) ^ r) * ((2 ^ r : ℕ) : QNeg d₀) = 1 := by
+      rw [← map_natCast (algebraMap ℚ (QNeg d₀)), ← map_mul]
+      push_cast
+      rw [← mul_pow]; norm_num
+    rw [this, one_mul]
+  -- the norm
+  obtain ⟨γK, hγint, hnorm⟩ := norm_one_add_two_mul (K := QNeg d₀) βF hβint
+  obtain ⟨γ, hγ⟩ : ∃ γ : 𝓞 (QNeg d₀), algebraMap (𝓞 (QNeg d₀)) (QNeg d₀) γ = γK :=
+    ⟨⟨γK, hγint⟩, rfl⟩
+  refine ⟨ε, hε, γ, ?_⟩
+  simp only [relNormK, dif_pos (And.intro hK hFD)]
+  rw [Ideal.relNorm_singleton]
+  have hαF : algebraMap (𝓞 (Lni n)) (Lni n) αO = 1 + 2 * βF := by
+    apply Subtype.ext
+    show ((αO : Lni n) : Qbar) = _
+    rw [hα]; push_cast; rfl
+  have key : Algebra.intNorm (𝓞 (QNeg d₀)) (𝓞 (Lni n)) αO =
+      1 + 2 * (ε : 𝓞 (QNeg d₀)) * sqrtNeg d₀ + 4 * γ := by
+    apply FaithfulSMul.algebraMap_injective (𝓞 (QNeg d₀)) (QNeg d₀)
+    rw [Algebra.algebraMap_intNorm (K := QNeg d₀) (L := Lni n), hαF, hnorm, htr']
+    have e1 : algebraMap (𝓞 (QNeg d₀)) (QNeg d₀) (sqrtNeg d₀) = QuadraticAlgebra.omega := rfl
+    rw [map_add, map_add, map_mul, map_mul, map_mul, map_one, map_ofNat, map_ofNat, map_intCast,
+      e1, hγ]
+    ring
+  rw [key]
+
 end Multiquad
+
+/-! ## §13. `NormCongr`, `NormSigma`, `SigmaLift` and `SqrtTwoNotInHHprime` hold -/
+
+/-- `β ∈ 𝓞_{L_n(i)}` for odd `n`. -/
+def betaO (n : ℕ) (hn : n % 2 = 1) : 𝓞 (Lni n) :=
+  ⟨⟨betaQ n, betaQ_mem n⟩, (isIntegral_algebraMap_iff (B := Qbar)).mp (isIntegral_betaQ hn)⟩
+
+theorem coe_betaO (n : ℕ) (hn : n % 2 = 1) : (((betaO n hn : 𝓞 (Lni n)) : Lni n) : Qbar) = betaQ n :=
+  rfl
+
+/-- **`NormCongr` holds**, with `α = 1 + 2β`, `β = i∏_{q∣n}(1 + √q*)/2`. -/
+theorem normCongr : NormCongr := by
+  intro n hn hsq
+  have hn2 : n % 2 = 1 := by omega
+  set βO := betaO n hn2 with hβO
+  have h22 : (((2 : 𝓞 (Lni n)) : Lni n) : Qbar) = 2 := by
+    have : ((2 : 𝓞 (Lni n)) : Lni n) = 2 := map_ofNat (algebraMap (𝓞 (Lni n)) (Lni n)) 2
+    rw [this]; exact map_ofNat (Lni n).val 2
+  refine ⟨1 + 2 * βO, ?_, ⟨1, -βO, by ring⟩, ?_⟩
+  · intro h0
+    have h1 : (((1 + 2 * βO : 𝓞 (Lni n)) : Lni n) : Qbar) = 0 := by rw [h0]; rfl
+    push_cast at h1
+    rw [h22, hβO, coe_betaO] at h1
+    have h2 : betaQ n = algebraMap ℚ Qbar (-1 / 2) := by
+      rw [map_div₀, map_neg, map_one, map_ofNat]; linear_combination h1 / 2
+    have h3 : IsIntegral ℤ (algebraMap ℚ Qbar (-1 / 2)) := h2 ▸ isIntegral_betaQ hn2
+    have h4 : IsIntegral ℤ ((-1 / 2 : ℚ)) := isIntegral_algebraMap_iff.mp h3
+    obtain ⟨m, hm⟩ := IsIntegrallyClosed.isIntegral_iff.mp h4
+    have hm' : (m : ℚ) * 2 = -1 := by
+      have : (m : ℚ) = -1 / 2 := by rw [← hm]; simp
+      rw [this]; norm_num
+    have : m * 2 = -1 := by exact_mod_cast hm'
+    omega
+  · intro d₀ hd₀ hd₀5 hd₀0
+    apply normCongr_at hn hsq hd₀ hd₀5
+    push_cast
+    rw [h22, hβO, coe_betaO]
+
+theorem normSigma : NormSigma := normSigma_of normCongr
+
+theorem sigmaLift : SigmaLift := sigmaLift_of frobNormLaw normSigma
+
+/-- **`√2 ∉ ℍ'_n` (`SqrtTwoNotInHHprime`), proved** (no hypotheses). -/
+theorem sqrtTwoNotInHHprime : SqrtTwoNotInHHprime := sqrtTwoNotInHHprime_of_sigmaLift sigmaLift
 
 end ZInQ.Contrib.TYZGenus.Sqrt2Glue
 
 #print axioms ZInQ.Contrib.TYZGenus.Sqrt2Glue.sigmaLift_of
 #print axioms ZInQ.Contrib.TYZGenus.Sqrt2Glue.frobNormLaw
 #print axioms ZInQ.Contrib.TYZGenus.Sqrt2Glue.sqrtTwoNotInHHprime_of_normSigma
+#print axioms ZInQ.Contrib.TYZGenus.Sqrt2Glue.sqrtTwoNotInHHprime
+#print axioms ZInQ.Contrib.TYZGenus.Sqrt2Glue.sigmaLift
