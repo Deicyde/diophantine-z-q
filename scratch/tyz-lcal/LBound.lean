@@ -339,4 +339,159 @@ theorem abs_oddKernel_quarter_le {x : ℝ} (hx : 1 ≤ x) :
           ≤ ((m : ℝ) + 3 / 4) * (E * e2 * q2 ^ m) := by gcongr
         _ = E * e2 * (((m : ℝ) + 3 / 4) * q2 ^ m) := by ring
 
+/-- The majorant `Σ_n e^{−π n² x} ≤ 21/19` (`x ≥ 1`), termwise. -/
+theorem gauss_term_le {x : ℝ} (hx : 1 ≤ x) (n : ℤ) :
+    Real.exp (-π * (n : ℝ) ^ 2 * x) ≤
+      zmaj (fun m => Real.exp (-π) ^ m) (fun m => Real.exp (-π) * Real.exp (-π) ^ m) n := by
+  have hpi := Real.pi_pos
+  rcases int_cases' n with ⟨m, rfl⟩ | ⟨m, rfl⟩
+  · rw [zmaj_nat, exp_pow_eq]
+    simp only [Int.cast_natCast]
+    refine Real.exp_le_exp.mpr ?_
+    have hm := nat_sq_ge m
+    have hm0 : (0 : ℝ) ≤ m := Nat.cast_nonneg m
+    have : 0 ≤ (m : ℝ) ^ 2 * (x - 1) := mul_nonneg (by positivity) (by linarith)
+    nlinarith
+  · rw [zmaj_neg, exp_pow_eq, ← Real.exp_add]
+    push_cast
+    refine Real.exp_le_exp.mpr ?_
+    have hm := nat_sq_ge m
+    have hm0 : (0 : ℝ) ≤ m := Nat.cast_nonneg m
+    have : 0 ≤ ((m : ℝ) + 1) ^ 2 * (x - 1) := mul_nonneg (by positivity) (by linarith)
+    nlinarith
+
+theorem hasSum_gauss_maj :
+    HasSum (zmaj (fun m => Real.exp (-π) ^ m) (fun m => Real.exp (-π) * Real.exp (-π) ^ m))
+      ((1 - Real.exp (-π))⁻¹ + Real.exp (-π) * (1 - Real.exp (-π))⁻¹) := by
+  have hr := exp_neg_pi_le
+  have h0 : 0 ≤ Real.exp (-π) := (Real.exp_pos _).le
+  exact hasSum_zmaj (hasSum_geometric_of_lt_one h0 (by linarith))
+    ((hasSum_geometric_of_lt_one h0 (by linarith)).mul_left _)
+
+theorem gauss_maj_le : (1 - Real.exp (-π))⁻¹ + Real.exp (-π) * (1 - Real.exp (-π))⁻¹ ≤ 1.11 := by
+  have hr := exp_neg_pi_le
+  have h0 : 0 ≤ Real.exp (-π) := (Real.exp_pos _).le
+  have hpos : 0 < 1 - Real.exp (-π) := by linarith
+  rw [← one_add_mul, ← div_eq_mul_inv, div_le_iff₀ hpos]
+  nlinarith
+
+/-- **`|evenKernel 0 x| ≤ 1.11`** for `x ≥ 1`. -/
+theorem abs_evenKernel_zero_le {x : ℝ} (hx : 1 ≤ x) :
+    |evenKernel ((0 : ℝ) : UnitAddCircle) x| ≤ 1.11 := by
+  have key := HasSum.norm_le_of_bounded (hasSum_int_evenKernel 0 (by linarith : 0 < x))
+    hasSum_gauss_maj (fun n => by
+      rw [Real.norm_of_nonneg (Real.exp_pos _).le, add_zero]; exact gauss_term_le hx n)
+  rw [Real.norm_eq_abs] at key
+  exact key.trans gauss_maj_le
+
+/-- **`|cosKernel b x| ≤ 1.11`** for `x ≥ 1`. -/
+theorem abs_cosKernel_le (b : ℝ) {x : ℝ} (hx : 1 ≤ x) : |cosKernel (b : UnitAddCircle) x| ≤ 1.11 := by
+  have key := HasSum.norm_le_of_bounded (hasSum_int_cosKernel b (by linarith : 0 < x))
+    hasSum_gauss_maj (fun n => by
+      rw [norm_mul, show (2 * π * I * b * n : ℂ) = 2 * π * I * ((b * n : ℝ) : ℂ) by push_cast; ring,
+        norm_cexp_two_pi_I, one_mul, Complex.norm_real, Real.norm_of_nonneg (Real.exp_pos _).le]
+      exact gauss_term_le hx n)
+  rw [Complex.norm_real, Real.norm_eq_abs] at key
+  exact key.trans gauss_maj_le
+
+/-- **`|evenKernel (1/2) x| ≤ 1.11`** for `x ≥ 1`. -/
+theorem abs_evenKernel_half_le {x : ℝ} (hx : 1 ≤ x) :
+    |evenKernel ((1 / 2 : ℝ) : UnitAddCircle) x| ≤ 1.11 := by
+  have hr := exp_neg_pi_le
+  have h4 := exp_neg_pi_div_four_le
+  have h0 : 0 ≤ Real.exp (-π) := (Real.exp_pos _).le
+  have h40 : 0 ≤ Real.exp (-(π / 4)) := (Real.exp_pos _).le
+  have hpi := Real.pi_pos
+  set A : ℕ → ℝ := fun m => Real.exp (-(π / 4)) * Real.exp (-π) ^ m
+  have hA := (hasSum_geometric_of_lt_one h0 (by linarith)).mul_left (Real.exp (-(π / 4)))
+  have key := HasSum.norm_le_of_bounded (hasSum_int_evenKernel (1 / 2) (by linarith : 0 < x))
+    (hasSum_zmaj hA hA) (fun n => ?_)
+  · rw [Real.norm_eq_abs] at key
+    refine key.trans ?_
+    have hpos : 0 < 1 - Real.exp (-π) := by linarith
+    rw [← mul_add, ← two_mul, ← div_eq_mul_inv, mul_div_assoc', div_le_iff₀ hpos]
+    nlinarith
+  · rw [Real.norm_of_nonneg (Real.exp_pos _).le]
+    rcases int_cases' n with ⟨m, rfl⟩ | ⟨m, rfl⟩
+    · rw [zmaj_nat]
+      simp only [Int.cast_natCast]
+      rw [exp_pow_eq, ← Real.exp_add]
+      refine Real.exp_le_exp.mpr ?_
+      have hm := nat_sq_ge m
+      have hm0 : (0 : ℝ) ≤ m := Nat.cast_nonneg m
+      have : 0 ≤ ((m : ℝ) + 1 / 2) ^ 2 * (x - 1) := mul_nonneg (by positivity) (by linarith)
+      nlinarith
+    · rw [zmaj_neg]
+      push_cast
+      rw [exp_pow_eq, ← Real.exp_add]
+      refine Real.exp_le_exp.mpr ?_
+      have hm := nat_sq_ge m
+      have hm0 : (0 : ℝ) ≤ m := Nat.cast_nonneg m
+      have : 0 ≤ ((m : ℝ) + 1 / 2) ^ 2 * (x - 1) := mul_nonneg (by positivity) (by linarith)
+      nlinarith
+
+/-- **`|sinKernel a x| ≤ 0.112 e^{−π(x−1)}`** for `x ≥ 1`. -/
+theorem abs_sinKernel_le (a : ℝ) {x : ℝ} (hx : 1 ≤ x) :
+    |sinKernel (a : UnitAddCircle) x| ≤ 0.112 * Real.exp (-π * (x - 1)) := by
+  set E := Real.exp (-π * (x - 1)) with hE
+  set r := Real.exp (-π)
+  have hr : r ≤ 1 / 20 := exp_neg_pi_le
+  have h0 : 0 ≤ r := (Real.exp_pos _).le
+  have hE0 : 0 ≤ E := (Real.exp_pos _).le
+  have hpi := Real.pi_pos
+  set A : ℕ → ℝ := fun m => E * ((m : ℝ) * r ^ m)
+  set B : ℕ → ℝ := fun m => E * r * (((m : ℝ) + 1) * r ^ m)
+  have hA := (hasSum_coe_mul_geometric_of_norm_lt_one (𝕜 := ℝ)
+    (by rw [Real.norm_of_nonneg h0]; linarith)).mul_left E
+  have hB := (hasSum_lin_geom h0 (by linarith) 1).mul_left (E * r)
+  have key := HasSum.norm_le_of_bounded (hasSum_int_sinKernel a (by linarith : 0 < x))
+    (hasSum_zmaj hA hB) (fun n => ?_)
+  · rw [Complex.norm_real, Real.norm_eq_abs] at key
+    refine key.trans ?_
+    have hpos : 0 < 1 - r := by linarith
+    have hS : r / (1 - r) ^ 2 + r * (r / (1 - r) ^ 2 + 1 * (1 - r)⁻¹) = 2 * r / (1 - r) ^ 2 := by
+      field_simp; ring
+    have hS2 : 2 * r / (1 - r) ^ 2 ≤ 0.112 := by
+      rw [div_le_iff₀ (by positivity)]; nlinarith
+    calc E * (r / (1 - r) ^ 2) + E * r * (r / (1 - r) ^ 2 + 1 * (1 - r)⁻¹)
+        = E * (r / (1 - r) ^ 2 + r * (r / (1 - r) ^ 2 + 1 * (1 - r)⁻¹)) := by ring
+      _ ≤ E * 0.112 := by rw [hS]; exact mul_le_mul_of_nonneg_left hS2 hE0
+      _ = 0.112 * E := by ring
+  · have hnorm : ‖-I * (n : ℂ) * cexp (2 * π * I * a * n) * Real.exp (-π * (n : ℝ) ^ 2 * x)‖ =
+        |(n : ℝ)| * Real.exp (-π * (n : ℝ) ^ 2 * x) := by
+      rw [norm_mul, norm_mul, norm_mul, norm_neg, Complex.norm_I, one_mul,
+        show (2 * π * I * a * n : ℂ) = 2 * π * I * ((a * n : ℝ) : ℂ) by push_cast; ring,
+        norm_cexp_two_pi_I, mul_one, Complex.norm_real, Real.norm_of_nonneg (Real.exp_pos _).le,
+        show ((n : ℂ)) = ((n : ℝ) : ℂ) by push_cast; rfl, Complex.norm_real, Real.norm_eq_abs]
+    rw [hnorm]
+    rcases int_cases' n with ⟨m, rfl⟩ | ⟨m, rfl⟩
+    · rw [zmaj_nat]
+      simp only [Int.cast_natCast]
+      have hm := nat_sq_ge m
+      have hm0 : (0 : ℝ) ≤ m := Nat.cast_nonneg m
+      rw [abs_of_nonneg hm0]
+      rcases Nat.eq_zero_or_pos m with h | h
+      · subst h; simp
+      have hm1 : (1 : ℝ) ≤ m := by exact_mod_cast h
+      have hexp : Real.exp (-π * (m : ℝ) ^ 2 * x) ≤ E * r ^ m := by
+        rw [exp_pow_eq, hE, ← Real.exp_add]
+        refine Real.exp_le_exp.mpr ?_
+        have : 0 ≤ ((m : ℝ) ^ 2 - 1) * (x - 1) := mul_nonneg (by nlinarith) (by linarith)
+        nlinarith
+      calc (m : ℝ) * Real.exp (-π * (m : ℝ) ^ 2 * x) ≤ (m : ℝ) * (E * r ^ m) := by gcongr
+        _ = E * ((m : ℝ) * r ^ m) := by ring
+    · rw [zmaj_neg]
+      push_cast
+      have hm := nat_sq_ge m
+      have hm0 : (0 : ℝ) ≤ m := Nat.cast_nonneg m
+      rw [abs_neg, abs_of_nonneg (by positivity : (0 : ℝ) ≤ m + 1)]
+      have hexp : Real.exp (-π * (-((m : ℝ) + 1)) ^ 2 * x) ≤ E * r * r ^ m := by
+        rw [exp_pow_eq, hE, ← Real.exp_add, ← Real.exp_add]
+        refine Real.exp_le_exp.mpr ?_
+        have : 0 ≤ (((m : ℝ) + 1) ^ 2 - 1) * (x - 1) := mul_nonneg (by nlinarith) (by linarith)
+        nlinarith
+      calc ((m : ℝ) + 1) * Real.exp (-π * (-((m : ℝ) + 1)) ^ 2 * x)
+          ≤ ((m : ℝ) + 1) * (E * r * r ^ m) := by gcongr
+        _ = E * r * (((m : ℝ) + 1) * r ^ m) := by ring
+
 end ZInQ.Contrib.TYZLcal
