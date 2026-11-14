@@ -5977,6 +5977,49 @@ theorem fromSpec_ker_mem_closure {X : Scheme.{0}} {W : X.Opens} (hW : IsAffineOp
     exact hs (hker s ((ev_eq_zero_iff z hz s).2 hn))
   exact ⟨ptOf z, hsle hzs, rfl⟩
 
+/-- **Disjoint closures force distinct reductions** (in a polynomial chart `W` of `𝒵`, values
+`a, a' ∈ ℤ_(p)`): `a − a'` is a unit. Otherwise the point of `W` over `(p, h − a)` lies in both
+closures. -/
+theorem isUnit_sub_of_disjoint (𝒵 : Over (Spec (CommRingCat.of (Zloc p)))) {W : 𝒵.left.Opens}
+    (hW : IsAffineOpen W) (h : Γ(𝒵.left, W))
+    (hb : Function.Bijective (eval₂RingHom (baseToSections 𝒵 W) h))
+    (z z' : Spec (CommRingCat.of Qbar) ⟶ 𝒵.left) (hz : ptOf z ∈ W) (hz' : ptOf z' ∈ W)
+    (a a' : Zloc p) (ha : ev z hz h = iq p a) (ha' : ev z' hz' h = iq p a')
+    (hd : Disjoint (closure ({ptOf z} : Set 𝒵.left)) (closure {ptOf z'})) : IsUnit (a - a') := by
+  by_contra hnu
+  let e : (Zloc p)[X] ≃+* Γ(𝒵.left, W) := RingEquiv.ofBijective _ hb
+  let ψ : Zloc p → (Γ(𝒵.left, W) →+* IsLocalRing.ResidueField (Zloc p)) := fun b =>
+    (IsLocalRing.residue (Zloc p)).comp ((Polynomial.evalRingHom b).comp e.symm.toRingHom)
+  have hres : IsLocalRing.residue (Zloc p) a = IsLocalRing.residue (Zloc p) a' := by
+    rw [← sub_eq_zero, ← map_sub, IsLocalRing.residue_eq_zero_iff, IsLocalRing.mem_maximalIdeal]
+    exact hnu
+  have hψ : ψ a = ψ a' := by
+    ext s
+    simp only [ψ, RingHom.coe_comp, Function.comp_apply, coe_evalRingHom]
+    rw [← Polynomial.eval₂_at_apply, ← Polynomial.eval₂_at_apply, hres]
+  have hev : ∀ (b : Zloc p) (zz : Spec (CommRingCat.of Qbar) ⟶ 𝒵.left) (hzz : ptOf zz ∈ W),
+      ev zz hzz h = iq p b → ∀ P : (Zloc p)[X], ev zz hzz (e P) = iq p (P.eval b) := by
+    intro b zz hzz hbz P
+    change ev zz hzz (eval₂RingHom (baseToSections 𝒵 W) h P) = _
+    rw [coe_eval₂RingHom, Polynomial.hom_eval₂, hbz,
+      zloc_ringHom_ext ((ev zz hzz).comp (baseToSections 𝒵 W)) ((iq p).comp (RingHom.id _)),
+      ← Polynomial.hom_eval₂]
+    rfl
+  have hker : ∀ (b : Zloc p) (zz : Spec (CommRingCat.of Qbar) ⟶ 𝒵.left) (hzz : ptOf zz ∈ W),
+      ev zz hzz h = iq p b → ∀ s, ev zz hzz s = 0 → ψ b s = 0 := by
+    intro b zz hzz hbz s hs
+    obtain ⟨P, rfl⟩ := e.surjective s
+    rw [hev b zz hzz hbz P, ← map_zero (iq p)] at hs
+    have h0 : P.eval b = 0 := iq_injective hs
+    simp only [ψ, RingHom.coe_comp, Function.comp_apply, RingEquiv.toRingHom_eq_coe,
+      RingEquiv.coe_toRingHom, RingEquiv.symm_apply_apply, coe_evalRingHom, h0, map_zero]
+  have h1 := fromSpec_ker_mem_closure hW (ψ a) z hz (hker a z hz ha)
+  have h2 := fromSpec_ker_mem_closure hW (ψ a') z' hz' (hker a' z' hz' ha')
+  have hpt : (⟨RingHom.ker (ψ a'), RingHom.ker_isPrime _⟩ : PrimeSpectrum Γ(𝒵.left, W)) =
+      ⟨RingHom.ker (ψ a), RingHom.ker_isPrime _⟩ := PrimeSpectrum.ext (by rw [hψ])
+  rw [hpt] at h2
+  exact Set.disjoint_left.mp hd h1 h2
+
 end MCRQuot
 
 #print axioms MCRQuot.exists_unit_congr
