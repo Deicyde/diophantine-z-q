@@ -73,3 +73,30 @@
 - Faithfulness check rerun with the FrobChain modules (now importable): 3144 of 3262 FAITHFUL, 93 divergent,
   25 non-declarations. kept.txt = 93 divergent + 272 G9 (365 names). TailA/TailC regenerated with the smaller KEPT
   set: TailA 291 deleted, TailC 316 deleted. LPrefix..TailE rebuild: success (5m49s).
+
+## TailF-TailK, Main (2026-11-14 ~00:40)
+- TailF: 45 deleted, builds (45s). TailG: 32 deleted, builds. TailH: 197 deleted; `attribute [instance] AbVar.grp ...`
+  (re-attributing the removed DefFaltings.AbVar copy's fields) dropped in `fixes/TailH.py`; builds.
+- TailI, TailJ, TailK: no rows; add_opens only (TailJ 31 alias lines).
+- `lake build +ZInQKernel.OneProof.Main`: success (11864 jobs);
+  `'ZInQ.OneProof.frozenTarget' depends on axioms: [propext, Classical.choice, Quot.sound]`.
+- Declaration counts per module: `scratch/one-proof/counts.md` (7306 -> 4355, 2951 removed).
+
+## Step 3: hypotheses
+- `scratch/one-proof/PrintFields.lean` prints the 66 fields of the four bundles with their types; run on the original
+  chain (/tmp/opd_orig) and on the new one: `fields_before.tsv`, `fields_after.tsv`. Same 66 fields in the same
+  order; 29 field types changed from `HDec.X` to the kernel's `X` (each a FAITHFUL copy, i.e. defeq after renaming),
+  37 unchanged (H-only definitions or KEPT copies). frozenTarget's 9 TYZ/GZ hypotheses are kernel names already
+  (unchanged).
+
+## Step 4: discharge search
+- `scratch/one-proof/SearchProofs.lean` (imports Main + the 78 kernel modules that mention a field/hypothesis Prop
+  name): for each bundle field and each frozenTarget hypothesis, every non-HDec theorem whose type is the Prop
+  (syntactic or `isDefEq`, same head constant). Result `search_proofs.tsv`: no theorem found for any of the 66 fields
+  or the 9 TYZ/GZ hypotheses (grep cross-check: only `X1Belyi.TorsionStructure` is proved, not `PkgI2.TorsionStructure`;
+  `GenusPointLeafCM` appears in no theorem statement). No `frozenTarget_v2` added (nothing to supply).
+- Correction (00:55): 20 map rows had names with a bogus prefix "`ZInQ.Contrib.AbVarBC`.." (a comment line
+  "namespace `ZInQ.Contrib.AbVarBC`." read as a namespace, in H and kernel alike); `String.toName` failed on them so
+  the checker had not compared them. Rerun with the prefix stripped (`faith_mapped.txt`): all 20 FAITHFUL; the
+  divergent set is unchanged (93). Final: 3164 FAITHFUL, 93 divergent, 5 non-declarations (rows in comments).
+- Row accounting: 3311 = 2941 removed (2892 HDec + 49 root) + 365 KEPT + 5 in comments.

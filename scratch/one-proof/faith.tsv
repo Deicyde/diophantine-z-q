@@ -3239,24 +3239,24 @@ ZInQ.LeafPush2.onQMLocus_of_linYangTuple	FAITHFUL
 ZInQ.LeafPush2.pazukiC2	FAITHFUL	
 ZInQ.LeafPush2.sextic	FAITHFUL	
 ZInQ.LeafPush2.thetaConst	FAITHFUL	
-[anonymous]	DIVERGENT	no HDec constant (rnd 1)
-[anonymous]	DIVERGENT	no HDec constant (rnd 1)
-[anonymous]	DIVERGENT	no HDec constant (rnd 1)
-[anonymous]	DIVERGENT	no HDec constant (rnd 1)
-[anonymous]	DIVERGENT	no HDec constant (rnd 1)
-[anonymous]	DIVERGENT	no HDec constant (rnd 1)
-[anonymous]	DIVERGENT	no HDec constant (rnd 1)
-[anonymous]	DIVERGENT	no HDec constant (rnd 1)
-[anonymous]	DIVERGENT	no HDec constant (rnd 1)
-[anonymous]	DIVERGENT	no HDec constant (rnd 1)
-[anonymous]	DIVERGENT	no HDec constant (rnd 1)
-[anonymous]	DIVERGENT	no HDec constant (rnd 1)
-[anonymous]	DIVERGENT	no HDec constant (rnd 1)
-[anonymous]	DIVERGENT	no HDec constant (rnd 1)
-[anonymous]	DIVERGENT	no HDec constant (rnd 1)
-[anonymous]	DIVERGENT	no HDec constant (rnd 1)
-[anonymous]	DIVERGENT	no HDec constant (rnd 1)
-[anonymous]	DIVERGENT	no HDec constant (rnd 1)
-[anonymous]	DIVERGENT	no HDec constant (rnd 1)
-[anonymous]	DIVERGENT	no HDec constant (rnd 1)
+ZInQ.Contrib.AbVarBC.bcPt	FAITHFUL	
+ZInQ.Contrib.AbVarBC.bcPt_galAct	FAITHFUL	
+ZInQ.Contrib.AbVarBC.epi_extHom	FAITHFUL	
+ZInQ.Contrib.AbVarBC.epi_spec_map_field	FAITHFUL	
+ZInQ.Contrib.AbVarBC.extHom	FAITHFUL	
+ZInQ.Contrib.AbVarBC.extHom_left	FAITHFUL	
+ZInQ.Contrib.AbVarBC.extPt	FAITHFUL	
+ZInQ.Contrib.AbVarBC.extPt_apply	FAITHFUL	
+ZInQ.Contrib.AbVarBC.extPt_galAct	FAITHFUL	
+ZInQ.Contrib.AbVarBC.extPt_injective	FAITHFUL	
+ZInQ.Contrib.AbVarBC.homEquiv_mul	FAITHFUL	
+ZInQ.Contrib.AbVarBC.ptMapIso	FAITHFUL	
+ZInQ.Contrib.AbVarBC.sK	FAITHFUL	
+ZInQ.Contrib.AbVarBC.specMap_comp_sK	FAITHFUL	
+ZInQ.Contrib.AbVarBC.trHom	FAITHFUL	
+ZInQ.Contrib.AbVarBC.trHom_comp_symm	FAITHFUL	
+ZInQ.Contrib.AbVarBC.trHom_left	FAITHFUL	
+ZInQ.Contrib.AbVarBC.trHom_symm_comp	FAITHFUL	
+ZInQ.Contrib.AbVarBC.trPt	FAITHFUL	
+ZInQ.Contrib.AbVarBC.trPt_galAct	FAITHFUL	
 field	DIVERGENT	no HDec constant (rnd 1)
