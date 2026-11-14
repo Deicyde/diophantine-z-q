@@ -526,4 +526,102 @@ theorem fpt_eig (φ : k →ₐ[ℚ] B) (x : k) :
 
 end FixedPoint
 
+/-! ## §9. Optimal embeddings and CM points -/
+
+section Corr
+
+variable {k : Type} [Field k] [NumberField k] [NumberField.IsTotallyComplex k]
+variable (hk : Module.finrank ℚ k = 2) (G : Gen k)
+
+theorem phi_ratCast (φ : k →ₐ[ℚ] B) (r : ℚ) : φ (r : k) = (r : B) := by
+  rw [← map_ratCast (algebraMap ℚ k) r, AlgHom.commutes, QuaternionAlgebra.coe_algebraMap]
+  simp
+
+theorem phi_repr (φ : k →ₐ[ℚ] B) (r t : ℚ) : φ ((r : k) + t * G.y) = (r : B) + t • φ G.y := by
+  rw [map_add, map_mul, phi_ratCast, phi_ratCast, ← QuaternionAlgebra.coe_algebraMap,
+    ← Algebra.smul_def]
+
+theorem phi_y_not_scalar (φ : k →ₐ[ℚ] B) : ∀ r : ℚ, φ G.y ≠ (r : B) := by
+  intro r h
+  apply G.hy r
+  apply φ.toRingHom.injective
+  show φ G.y = φ (r : k)
+  rw [h, phi_ratCast]
+
+include hk in
+/-- **(i)** For an optimal `φ`, `𝒪_{τ_φ} = φ(R) ≅ R`. -/
+theorem nonempty_ordAt_fpt (R : Subring k) (φ : k →ₐ[ℚ] B) (hopt : ∀ x, φ x ∈ O ↔ x ∈ R) :
+    Nonempty (ordAt (fpt G φ) ≃+* R) := by
+  let f : R →+* ordAt (fpt G φ) :=
+    { toFun := fun x => ⟨φ x, (hopt x).mpr x.2, G.σ x, fpt_eig hk G φ x⟩
+      map_one' := Subtype.ext (by simp)
+      map_mul' := fun a b => Subtype.ext (by simp)
+      map_zero' := Subtype.ext (by simp)
+      map_add' := fun a b => Subtype.ext (by simp) }
+  have hinj : Function.Injective f := fun a b hab =>
+    Subtype.ext (φ.toRingHom.injective (congrArg Subtype.val hab))
+  have hsurj : Function.Surjective f := by
+    rintro ⟨b, hbO, μ, hμ⟩
+    have hcomm := commute_of_eig (fpt_im hk G φ) hμ (fpt_eig_gen hk G φ)
+    obtain ⟨r, t, hrt⟩ := exists_eq_of_commute (phi_y_not_scalar G φ) hcomm
+    have hφx : φ ((r : k) + t * G.y) = b := by rw [phi_repr, hrt]
+    have hxR : (r : k) + t * G.y ∈ R := (hopt _).mp (hφx ▸ hbO)
+    exact ⟨⟨_, hxR⟩, Subtype.ext hφx⟩
+  exact ⟨(RingEquiv.ofBijective f ⟨hinj, hsurj⟩).symm⟩
+
+theorem rho_unit_mul_inv (u : (↥O)ˣ) :
+    rho ((u : ↥O) : B) * rho (((u⁻¹ : (↥O)ˣ) : ↥O) : B) = 1 := by
+  rw [← map_mul, ← Subring.coe_mul, ← Units.val_mul, mul_inv_cancel, Units.val_one,
+    Subring.coe_one, map_one]
+
+include hk in
+/-- **(ii) Equivariance**: `τ_{uφu⁻¹} = u·τ_φ`. -/
+theorem cmRel_fpt_conj (φ ψ : k →ₐ[ℚ] B) (u : (↥O)ˣ)
+    (hu : ∀ x, ψ x = ((u : ↥O) : B) * φ x * (((u⁻¹ : (↥O)ˣ) : ↥O) : B)) :
+    rho ((u : ↥O) : B) *ᵥ ![fpt G φ, 1] = (rho ((u : ↥O) : B) *ᵥ ![fpt G φ, 1]) 1 •
+      ![fpt G ψ, 1] ∧ (rho ((u : ↥O) : B) *ᵥ ![fpt G φ, 1]) 1 ≠ 0 := by
+  set w := rho ((u : ↥O) : B) *ᵥ ![fpt G φ, 1] with hwdef
+  have hw : rho (ψ G.y) *ᵥ w = G.lam • w := by
+    rw [hu, map_mul, map_mul, hwdef, mulVec_mulVec, mul_assoc, mul_assoc, rho_unit_inv_mul,
+      mul_one, ← mulVec_mulVec, fpt_eig_gen hk G φ, mulVec_smul]
+  have hc' := phi_c_ne_zero hk G ψ
+  have hw1 : w 1 ≠ 0 := by
+    intro h1
+    have e1 := congrFun hw 1
+    simp only [mulVec, dotProduct, Fin.sum_univ_two, Pi.smul_apply, smul_eq_mul, h1, mul_zero,
+      add_zero] at e1
+    have hw0 : w 0 = 0 := (mul_eq_zero.mp e1).resolve_left hc'
+    have hw00 : w = 0 := by funext i; fin_cases i <;> simp [hw0, h1]
+    have hv : ![fpt G φ, (1 : ℂ)] = 0 := by
+      have e : rho (((u⁻¹ : (↥O)ˣ) : ↥O) : B) *ᵥ w = ![fpt G φ, 1] := by
+        rw [hwdef, mulVec_mulVec, rho_unit_inv_mul, one_mulVec]
+      rw [← e, hw00, mulVec_zero]
+    simpa using congrFun hv 1
+  refine ⟨?_, hw1⟩
+  have hwv : w = w 1 • ![w 0 / w 1, 1] := by
+    funext i; fin_cases i <;> simp [hw1]; field_simp
+  have heig : rho (ψ G.y) *ᵥ ![w 0 / w 1, 1] = G.lam • ![w 0 / w 1, 1] := by
+    have := hw
+    rw [hwv, mulVec_smul, smul_comm] at this
+    exact smul_right_injective _ hw1 this
+  rw [← fpt_unique hk G ψ heig]
+  exact hwv
+
+include hk in
+/-- **(iii)** If `τ_ψ = u·τ_φ` then `ψ = uφu⁻¹`. -/
+theorem conj_of_cmRel (φ ψ : k →ₐ[ℚ] B) (u : (↥O)ˣ) (c : ℂ) (hc : c ≠ 0)
+    (h : rho ((u : ↥O) : B) *ᵥ ![fpt G φ, 1] = c • ![fpt G ψ, 1]) (x : k) :
+    ψ x = ((u : ↥O) : B) * φ x * (((u⁻¹ : (↥O)ˣ) : ↥O) : B) := by
+  have hinv : rho (((u⁻¹ : (↥O)ˣ) : ↥O) : B) *ᵥ ![fpt G ψ, 1] = c⁻¹ • ![fpt G φ, 1] := by
+    have := congrArg (fun z => rho (((u⁻¹ : (↥O)ˣ) : ↥O) : B) *ᵥ z) h
+    simp only [mulVec_mulVec, rho_unit_inv_mul, one_mulVec, mulVec_smul] at this
+    rw [this, smul_smul, inv_mul_cancel₀ hc, one_smul]
+  refine eq_of_eig (fpt_im hk G ψ) (fpt_eig hk G ψ x) ?_
+  rw [map_mul, map_mul, ← mulVec_mulVec, ← mulVec_mulVec, hinv, mulVec_smul, fpt_eig hk G φ x,
+    mulVec_smul, mulVec_smul, h, smul_smul, smul_smul]
+  congr 1
+  field_simp
+
+end Corr
+
 end ZInQ.HeightGlue.QM
