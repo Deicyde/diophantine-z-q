@@ -10,17 +10,19 @@
   unfold.
 - **CloudW07.** `lake build ZInQKernel.Contrib.CloudW07JacobiansCurves.JacobianExists …NormalModel` exits 0, taking
   about 18 min.
+- **modular-split.** Merged with `git merge origin/wip/modular-split` (clean, after its `.fleet` report). `TailZ6`
+  (with `R15.lean`) and the new `Main` built at the first try.
 - **TailZ5.** `lake build ZInQKernel.OneProof.H.TailZ5` succeeds, about 80 s, after one fix in `r5fp_of_rep`.
   - Rewriting `residueImage x = fieldOfModuliPair P` inside `R5ptProps`' conclusion gives a "motive is not type
     correct" error (an auxiliary proof term of `R5ptProps` depends on the field).
   - The fix transports the degree and the embedding along `IntermediateField.equivOfEq`.
 - **Main.** `lake build +ZInQKernel.OneProof.Main` exits 0. `#print axioms ZInQ.OneProof.frozenTarget` gives
   `[propext, Classical.choice, Quot.sound]`.
-- **Hashes after.** 10907 constants. `cmp_hashes.py` reports 0 removed and 1 changed (`frozenTarget`). The 76 new
-  constants are all in `TailZ5`.
-- **Check9.lean.** Conclusion; closure (212 147 constants, no `sorryAx`); head constant and module of all 62 fields;
+- **Hashes after.** 10917 constants. `cmp_hashes.py` reports 0 removed and 1 changed (`frozenTarget`). The 86 new
+  constants are all in `TailZ5` and `TailZ6`.
+- **Check9.lean.** Conclusion; closure (212 153 constants, no `sorryAx`); head constant and module of all 61 fields;
   axioms of the CloudW07 proofs and the bridge theorems; the full types of `r1rec_of_rep` and `r5fp_of_rep`.
-- **Module size.** TailZ5 is 20.6 KB.
+- **Module size.** TailZ5 is 14 KB and TailZ6 is 15 KB.
 
 **No statement of a leaf, row or glue Prop was changed.**
 - Every kept field keeps its type.
@@ -64,17 +66,12 @@ In either case, neither count may rise.
   - But the same bridge proves `r1rec` and `r5` from `r1r2` (−2 strict), and the two uses exclude each other.
   - So the fold that pays is the one taken: keep `r1r2`, drop `r1rec` and `r5`. `CoarseFactor` is proved
     (coarse-factor) but enters no field.
-- **(4) Branches without a `.fleet` report when this step was reached** (§7 has the final state):
-  - reduct-split: `r6`, `r8` from SGA 7 IX leaves plus glue; `r7b` from Serre–Tate Thm 2 plus glue;
-  - shimura-split: the same residue-field / field-of-moduli bridge as §1.1, reached independently;
-  - modular-split: `r15` proved from `DSThm966`; `r17` and `eigenformHTNew` reduced.
-- **`dimJacobianEqGenus` (lead, not attempted).** The vendored CloudW07 library proves
-  `finrankH_relativeDifferentials_zero_eq_genus` (`h⁰(Ω) = ` arithmetic genus, by Serre duality) and has the Albanese
-  property.
-  - The field is stated over the project's `fieldGenus F`, the dimension of holomorphic differentials of the
-    function field.
-  - A proof would still need the tangent space of the Jacobian and the comparison of `Γ(X, Ω)` with differentials
-    of `F`.
+- **(4) modular-split, the parts not folded.**
+  - `dimJacobianEqGenus` (comp) would become the project glue `H0DifferentialsEqHolo`. That is a real gain, since no
+    literature is left, but neither count drops.
+  - `r17` (c) would become `CarayolRealization` (c): neutral.
+  - `eigenformHTNew` (c) would become `KatoRealizationCoh` (c) and the glue `HTDual`: strict +1.
+- **(4) reduct-split, shimura-split:** see §7.
 - **H-3 `r5count`, H-44 `thetaRatiosAlgebraic`, TYZ T-5 `hS`.** Unchanged from leaf-fold8 §5.
 
 ## 6. `frozenTarget`: removed and added hypotheses
@@ -86,10 +83,12 @@ In either case, neither count may rise.
 
 **TYZ / GZ.** `h11`, `h29`, `hS`, `h33`, `hL2`, `hL3` are unchanged.
 
-**Fields removed (4), all proved, none replaced:**
+**Fields removed (5), all proved, none replaced:**
 - research `r1rec` (`LeafQM.AV.R1rec`) and `r5` (`LeafQM.AV.R5fp`): proved from the research field `r1r2`
   (`r1rec_of_rep`, `r5fp_of_rep`);
 - textbook `t33` (`LeafModCurves.JacobianExists ℚ`) and `normalModelOfFunctionFieldQ`: proved by cloud worker W07
-  (PR #11).
+  (PR #11);
+- research `r15` (`DeligneSerreConseq`): proved from the research field `dsThm966` (modular-split,
+  `ModularSplit.deligneSerreConseq_of_ds`).
 
 **Fields added:** none.
