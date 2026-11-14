@@ -607,6 +607,114 @@ theorem reductionTorsionBijective_of_leaves' (hE : MulEtaleAbelianScheme)
     (hS : StacksHenselEtaleSection) : PkgI2.ReductionTorsionBijective.{0} :=
   reductionTorsionBijective_of_leaves hE unramifiedSectionsEq hS
 
+/-! ## 9. Leaf (c) is a theorem of Mathlib (via the local structure of étale algebras) -/
+
+open Polynomial in
+/-- **`StacksHenselEtaleSection` holds (proved from Mathlib).** Mathlib's local structure theorem
+(`Algebra.IsEtaleAt.exists_isStandardEtale`, Stacks 00UE) gives `f ∉ 𝔮` with `S_f` standard étale,
+`S_f ≅ R[X]_g/(P)` (`P` monic, `P'` invertible). With `χ : S → S/𝔮 ≅ R/𝔪`, pick `a ∈ R` lifting
+the image of `X`; then `P(a) ∈ 𝔪`, `P'(a)` is a unit, Hensel gives a root `α ≡ a`, `g(α)` is a unit,
+and `X ↦ α` defines `τ : S → S_f → R`; `res ∘ τ = χ` (both are `R`-algebra maps out of `S_f`
+agreeing on `X`), so `τ⁻¹(𝔪) = ker χ = 𝔮`. -/
+theorem stacksHenselEtaleSection : StacksHenselEtaleSection := by
+  intro R _ _ S _ _ _ q _ hq1 hq2
+  classical
+  set m := IsLocalRing.maximalIdeal R with hm
+  haveI hmax : m.IsMaximal := IsLocalRing.maximalIdeal.isMaximal R
+  letI : Field (R ⧸ m) := Ideal.Quotient.field m
+  -- `χ : S → S/𝔮 ≅ R/𝔪`
+  let jq : R ⧸ m →+* S ⧸ q := Ideal.quotientMap q (algebraMap R S) hq1.ge
+  have hjqinj : Function.Injective jq := Ideal.quotientMap_injective' hq1.le
+  have hjqsurj : Function.Surjective jq := by
+    intro t
+    obtain ⟨r, hr⟩ := hq2 t
+    exact ⟨Ideal.Quotient.mk m r, by rw [Ideal.quotientMap_mk]; exact hr⟩
+  let ejq : R ⧸ m ≃+* S ⧸ q := RingEquiv.ofBijective jq ⟨hjqinj, hjqsurj⟩
+  let χ0 : S →+* R ⧸ m := ejq.symm.toRingHom.comp (Ideal.Quotient.mk q)
+  have hχr : ∀ r : R, χ0 (algebraMap R S r) = Ideal.Quotient.mk m r := by
+    intro r
+    apply ejq.injective
+    show ejq (ejq.symm (Ideal.Quotient.mk q (algebraMap R S r))) = _
+    rw [RingEquiv.apply_symm_apply]
+    show _ = jq (Ideal.Quotient.mk m r)
+    rw [Ideal.quotientMap_mk]
+  have hχker : ∀ s, χ0 s = 0 ↔ s ∈ q := by
+    intro s
+    rw [← Ideal.Quotient.eq_zero_iff_mem]
+    show ejq.symm (Ideal.Quotient.mk q s) = 0 ↔ _
+    rw [map_eq_zero_iff _ ejq.symm.injective]
+  let χ : S →ₐ[R] R ⧸ m := { χ0 with commutes' := hχr }
+  -- local structure
+  haveI : Algebra.IsEtaleAt R q := inferInstance
+  obtain ⟨f, hfq, hstd⟩ := Algebra.IsEtaleAt.exists_isStandardEtale (R := R) q
+  obtain ⟨Pr⟩ := hstd.nonempty_standardEtalePresentation
+  have hχf : IsUnit (χ f) := isUnit_iff_ne_zero.mpr fun h => hfq ((hχker f).1 h)
+  let χ' : Localization.Away f →ₐ[R] R ⧸ m := IsLocalization.Away.liftAlgHom f hχf
+  have hχ' : ∀ s, χ' (algebraMap S (Localization.Away f) s) = χ s := fun s =>
+    IsLocalization.Away.lift_eq f hχf s
+  obtain ⟨a, ha⟩ := Ideal.Quotient.mk_surjective (χ' Pr.x)
+  have hev : ∀ (b : R) (p : R[X]), Ideal.Quotient.mk m (p.eval b) =
+      aeval (Ideal.Quotient.mk m b) p := by
+    intro b p
+    rw [← Ideal.Quotient.algebraMap_eq, Polynomial.aeval_algebraMap_apply,
+      Polynomial.coe_aeval_eq_eval]
+  have hevx : ∀ p : R[X], Ideal.Quotient.mk m (p.eval a) = χ' (aeval Pr.x p) := by
+    intro p
+    rw [hev, ha, Polynomial.aeval_algHom_apply]
+  have h1 : Pr.f.eval a ∈ m := by
+    rw [← Ideal.Quotient.eq_zero_iff_mem, hevx, Pr.hasMap.1, map_zero]
+  have h2 : IsUnit (Pr.f.derivative.eval a) := by
+    have hu := (Pr.hasMap.isUnit_derivative_f).map χ'
+    rw [← hevx] at hu
+    by_contra hna
+    have : Pr.f.derivative.eval a ∈ m := (IsLocalRing.mem_maximalIdeal _).mpr hna
+    rw [← Ideal.Quotient.eq_zero_iff_mem] at this
+    rw [this] at hu
+    exact not_isUnit_zero hu
+  obtain ⟨α, hroot, hαa⟩ := HenselianLocalRing.is_henselian Pr.f Pr.monic_f a h1 h2
+  have hαres : Ideal.Quotient.mk m α = Ideal.Quotient.mk m a :=
+    Ideal.Quotient.eq.mpr hαa
+  have hg : IsUnit (aeval α Pr.g) := by
+    rw [Polynomial.coe_aeval_eq_eval]
+    have hu := Pr.hasMap.2.map χ'
+    rw [← hevx] at hu
+    have e1 : Ideal.Quotient.mk m (Pr.g.eval α) = Ideal.Quotient.mk m (Pr.g.eval a) := by
+      rw [hev, hev, hαres]
+    rw [← e1] at hu
+    by_contra hna
+    have : Pr.g.eval α ∈ m := (IsLocalRing.mem_maximalIdeal _).mpr hna
+    rw [← Ideal.Quotient.eq_zero_iff_mem] at this
+    rw [this] at hu
+    exact not_isUnit_zero hu
+  have hmap : Pr.HasMap α := ⟨by rw [Polynomial.coe_aeval_eq_eval]; exact hroot, hg⟩
+  let τ' : Localization.Away f →ₐ[R] R :=
+    ((StandardEtalePair.lift (P := Pr.P) α hmap)).comp Pr.equivRing.toAlgHom
+  have hτ'x : τ' Pr.x = α := by
+    show (StandardEtalePair.lift (P := Pr.P) α hmap) (Pr.equivRing Pr.x) = α
+    rw [Pr.equivRing_x, StandardEtalePair.lift_X]
+  let τ : S →ₐ[R] R := τ'.comp (IsScalarTower.toAlgHom R S (Localization.Away f))
+  have hcomp : (Ideal.Quotient.mkₐ R m).comp τ' = χ' := by
+    apply Pr.hom_ext
+    rw [AlgHom.comp_apply, hτ'x, Ideal.Quotient.mkₐ_eq_mk, hαres, ha]
+  refine ⟨τ, ?_⟩
+  ext s
+  rw [Ideal.mem_comap]
+  have key : Ideal.Quotient.mk m (τ s) = χ s := by
+    have := congrArg (fun φ : Localization.Away f →ₐ[R] R ⧸ m =>
+      φ (algebraMap S (Localization.Away f) s)) hcomp
+    simp only [AlgHom.comp_apply, Ideal.Quotient.mkₐ_eq_mk] at this
+    rw [hχ'] at this
+    exact this
+  have hiff : τ s ∈ m ↔ s ∈ q := by
+    rw [← Ideal.Quotient.eq_zero_iff_mem, key]
+    exact hχker s
+  exact hiff.symm
+
+/-- **Row H-24 from the single leaf (a) (proved).** -/
+theorem reductionTorsionBijective_of_mulEtale (hE : MulEtaleAbelianScheme) :
+    PkgI2.ReductionTorsionBijective.{0} :=
+  reductionTorsionBijective_of_leaves hE unramifiedSectionsEq stacksHenselEtaleSection
+
 end AvSplit.T4
 
 #print axioms AvSplit.T4.henselian_of_isAlgClosed
@@ -615,3 +723,5 @@ end AvSplit.T4
 #print axioms AvSplit.T4.reductionTorsionBijective_of_leaves
 #print axioms AvSplit.T4.unramifiedSectionsEq
 #print axioms AvSplit.T4.reductionTorsionBijective_of_leaves'
+#print axioms AvSplit.T4.stacksHenselEtaleSection
+#print axioms AvSplit.T4.reductionTorsionBijective_of_mulEtale

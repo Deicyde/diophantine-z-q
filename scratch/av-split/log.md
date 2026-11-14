@@ -31,3 +31,8 @@ Base cba8157f (wip/av-split). Build artifacts: copied .lake/build from ~/dzq-wt/
 ## 04:15 report draft docs/research/av-split.md
 - Checked by grep: Mathlib v4.35 has no Pic / line bundles / sheaf of differentials on schemes (Mathlib/AlgebraicGeometry: Modules/{Presheaf,Sheaf,Tilde}.lean only); sheaf cohomology `CategoryTheory.Sheaf.H` (abelian groups). VERIFIED.
 - H-53, H-78: reported as not splittable over Mathlib definitions (stay GLUE).
+
+## 03:52 T4.lean: leaves (b), (c) proved from Mathlib
+- `AvSplit.T4.unramifiedSectionsEq : UnramifiedSectionsEq` — proved (Mathlib `isOpenImmersion_diagonal`, separated ⇒ closed diagonal, clopen preimage, `IsOpenImmersion.lift`). Standard axioms. VERIFIED.
+- `AvSplit.T4.stacksHenselEtaleSection : StacksHenselEtaleSection` — proved (Mathlib `Algebra.IsEtaleAt.exists_isStandardEtale` (Stacks 00UE), `StandardEtalePresentation`, `HenselianLocalRing.is_henselian`). Standard axioms. VERIFIED.
+- `AvSplit.T4.reductionTorsionBijective_of_mulEtale : MulEtaleAbelianScheme → PkgI2.ReductionTorsionBijective.{0}`. Standard axioms. VERIFIED. Row H-24 now rests on ONE leaf.
