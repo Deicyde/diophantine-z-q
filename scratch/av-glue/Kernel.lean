@@ -289,13 +289,13 @@ theorem isOpen_connectedComponent_of_noetherian {X : Type*} [TopologicalSpace X]
     isClosed_of_mem_irreducibleComponents Z hZ.1
 
 /-- **LEAF (Stacks, Varieties, Lemma 33.7.14, Tag 04KV; UNVERIFIED locator).** A connected
-scheme locally of finite type over a field `k` with a `k`-rational point is geometrically
-connected. (Stacks states it without the finiteness hypothesis and with "a point `x` such that `k`
+scheme of finite type over a field `k` with a `k`-rational point is geometrically
+connected. (Stacks states it without the finiteness hypotheses and with "a point `x` such that `k`
 is algebraically closed in `κ(x)`"; a `k`-rational point is such a point, so this is a
 consequence, never stronger.) -/
 def GeomConnOfRationalPoint : Prop :=
   ∀ (k : Type) [Field k] (X : Scheme.{0}) (f : X ⟶ Spec (CommRingCat.of k))
-    (s : Spec (CommRingCat.of k) ⟶ X), s ≫ f = 𝟙 _ → LocallyOfFiniteType f →
+    (s : Spec (CommRingCat.of k) ⟶ X), s ≫ f = 𝟙 _ → LocallyOfFiniteType f → QuasiCompact f →
     ConnectedSpace X → GeometricallyConnected f
 
 /-- **LEAF (group schemes are equidimensional; Stacks, Groupoids, Lemma 39.8.? "`G` is
@@ -433,8 +433,10 @@ variable (hG : GeomConnOfRationalPoint) (hC : CartierSmooth')
 
 include hG in
 theorem geomConn_cov : GeometricallyConnected (covOver h).hom := by
-  refine hG k (covOver h).left (covOver h).hom (oneCov h).left (Over.w (oneCov h)) ?_ inferInstance
-  dsimp only [covOver, Over.mk_hom]; infer_instance
+  refine hG k (covOver h).left (covOver h).hom (oneCov h).left (Over.w (oneCov h)) ?_ ?_
+    inferInstance
+  · change LocallyOfFiniteType ((U0 h).ι ≫ (kerOver h).hom); infer_instance
+  · change QuasiCompact ((U0 h).ι ≫ (kerOver h).hom); infer_instance
 
 lemma one_eq_eta : (1 : 𝟙_ (Over (Spec (CommRingCat.of k))) ⟶ kerOver h) = η[kerOver h] := by
   rw [Hom.one_def, show toUnit (𝟙_ (Over (Spec (CommRingCat.of k)))) = 𝟙 _
