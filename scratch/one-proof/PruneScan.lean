@@ -182,24 +182,23 @@ run_cmd do
   let env ← getEnv
   let root := `ZInQ.OneProof.frozenTarget
   let cl := closure env root
-  -- relevant = constants of the closure from which a bundle seed is reachable
-  let mut rev : Std.HashMap Name (Array Name) := {}
-  let mut relevant : NameSet := {}
-  let mut todo : Array Name := #[]
-  for c in cl do
-    if let some ci := env.find? c then
-      let deps := ci.type.getUsedConstants ++ ((constValue? ci).map (·.getUsedConstants)).getD #[]
-      for d in deps do rev := rev.insert d ((rev.getD d #[]).push c)
-    if touchesBundle env c then
-      relevant := relevant.insert c
-      todo := todo.push c
-  while !todo.isEmpty do
-    let d := todo.back!
-    todo := todo.pop
-    for c in rev.getD d #[] do
-      if !relevant.contains c then
-        relevant := relevant.insert c
-        todo := todo.push c
+  -- relevant = constants of the closure from which a bundle seed is reachable (post-order DFS)
+  let deps (c : Name) : Array Name := match env.find? c with
+    | some ci => ci.type.getUsedConstants ++ ((constValue? ci).map (·.getUsedConstants)).getD #[]
+    | none => #[]
+  let mut memo : Std.HashMap Name Bool := {}
+  let mut stack : Array (Name × Bool) := #[(root, false)]
+  while !stack.isEmpty do
+    let (c, done) := stack.back!
+    stack := stack.pop
+    if memo.contains c then continue
+    if done then
+      memo := memo.insert c (touchesBundle env c || (deps c).any fun d => memo.getD d false)
+    else
+      stack := stack.push (c, true)
+      for d in deps c do
+        if !memo.contains d then stack := stack.push (d, false)
+  let relevant : NameSet := memo.fold (fun acc c r => if r then acc.insert c else acc) {}
   let mut st : St := {}
   let mut visited := 0
   for c in cl do
