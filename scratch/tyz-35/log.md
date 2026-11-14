@@ -18,3 +18,15 @@ Only classes 5, 7 occur in the recursion; ℓ is only read on classes 1, 3 (squa
 `ℓ n = 0` ⇔ no continuation of `L(E_n,s)` of order ≤ 1 at 1 (`IsTYZLcal`).
 This is TYZ Theorem 3.5, first assertion (`P(n)` represents `𝒫(n)`, and `𝒫(n) = 0` if `𝓛(n) = 0`),
 for the pinned points; TYZ prove it (L2343–2380) from Theorem 3.3 by the character formula and induction.
+
+## 2026-11-13 23:40 leaf + glue drafted
+- Leaf `TYZThm33Pinned ℓ` (TYZ Thm 3.3 + Lemma 3.14 for the pinned CM points; ∃ Q, m, ε global,
+  `P_χ` over lift families `f`, characters `χ_T = Π_{q∈T} χ_q`, `T = primes of gmap(n,d₁)`).
+- Glue `thm35First_of_thm33 : ℓ 1 = 1 → TYZThm33Pinned ℓ → Thm35First ℓ tyzZ` drafted (character
+  formula, genus product formula for n ≡ 3 (4), divisor/subset bijection, level identity, induction).
+- Python/PARI: `~/pyenv/bin/python` does not exist on this host and cypari2 is not in the uv cache
+  (offline) → no Heegner-point numerics possible here. Pure-Python check instead:
+  `convention.py` → `convention.out`: the leaf's χ_{d₀,d₁} (Jacobi `(m/gmap)`) equals tyz-t1's
+  `χ_{d₁} ↔ K(√d₁)` for n ≡ 5, equals the character of the unramified `K(√±d₁)` for n ≡ 7, is a class
+  invariant, and `χ_T = χ_{T^c}` for n ≡ 7: 0 mismatches over 26 values of n (VERIFIED computed).
+- First `lake build ...RingClassBridge` killed by the 10-min background limit; restarted.
