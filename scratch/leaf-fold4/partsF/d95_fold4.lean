@@ -4,11 +4,12 @@ Task leaf-fold4, 2026-11-13. Everything above this part is leaf-fold3's `Leaves3
 from hecke-rest's final `HeckeRestAll.lean`, which proves `ChartProper` and `ChartQuasiFinite`) and part
 c90 (`mk_periodglue.py`: period-map's parts and period-glue's six files). The kernel modules
 `ZInQKernel.Contrib.ZariskiConn.Basic` (zariski-conn) and `ZInQKernel.Contrib.SpreadOut.NumberField`
-(spread-out) and the root module `LF4T5` (t5-torsion's `T5Full.lean`, verbatim) are imported.
+(spread-out), `ZInQKernel.Contrib.RLeaf.T40` (t40-igusa; importable after t40-clash) and the root module `LF4T5` (t5-torsion's `T5Full.lean`, verbatim) are imported.
 
-`sixContactMin_of_open4` is proved by building leaf-fold3's four bundles from the new ones and applying
-`sixContactMin_of_open3`; each field of an old bundle that is no longer a hypothesis is a theorem below,
-whose type is this file's own Prop, so Lean checks that the statements agree. -/
+`sixContactMin_of_open4` is proved like leaf-fold3's `sixContactMin_of_open3`, through `gluePieces_of_open4`
+(leaf-fold3's `gluePieces_of_open3` with the fields closed here replaced by theorems, and `DetTate` without
+`DivisiblePoints`); each former hypothesis is a theorem below whose type is this file's own Prop, so Lean
+checks that the statements agree. -/
 
 noncomputable section
 
@@ -171,6 +172,7 @@ structure OpenTextbookLeaves4 : Prop where
   `ValenceBoundGammaStar` (with R4, `qmDenZeroCM3_of_leaves4`);
 * `properSmoothGenConnected` (LEAF?) replaced by Zariski's connectedness theorem in its published form
   (zariski-conn);
+* `divisiblePoints` dropped (G12's `DetTate` now uses T5, `detTate_of_leaves4`);
 * new: period-map's leaf candidate `CMDescends` (for `PeriodMapGlue`) and spread-out's three EGA IV
   leaves (for `AbVarSpreadsOut`). -/
 structure OpenAddedLeaves4 : Prop where
