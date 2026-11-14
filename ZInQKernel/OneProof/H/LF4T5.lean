@@ -1,0 +1,1643 @@
+import ZInQKernel.Contrib.TauCeti.GroupTheory.FiniteAbelian.RankTwo
+import ZInQKernel.Contrib.TauCeti.Algebra.Module.Torsion.Decomposition
+import ZInQKernel.Contrib.TauCeti.Algebra.Group.Equiv.Pi
+import ZInQKernel.Contrib.TauCeti.Data.ZMod.Torsion
+import Mathlib.Algebra.DirectSum.Decomposition
+import Mathlib.Data.ZMod.QuotientRing
+import Mathlib.Algebra.Module.ZLattice.Basic
+import Mathlib.Analysis.Complex.Basic
+import Mathlib.LinearAlgebra.Complex.FiniteDimensional
+import Mathlib.Data.ZMod.Basic
+import ZInQKernel.Contrib.AbVarBC.Main
+import ZInQKernel.HDecomp.LeafPush2.T
+import ZInQKernel.Contrib.Mobius.Main
+import Mathlib.FieldTheory.Finiteness
+import ZInQKernel.Contrib.AbVarBC.Dim
+import ZInQKernel.HDecomp.Objects
+import Mathlib.AlgebraicGeometry.Morphisms.FormallyUnramified
+import Mathlib.RingTheory.Etale.Field
+import Mathlib.RingTheory.TotallySplit
+
+/-!
+# t5-torsion: the textbook leaf T5 (`PkgI2.TorsionStructure`, Mumford §4) reduced
+
+Parts 1-3 are concatenated from `GroupGlue.lean`, `Torus.lean`, `Descent.lean` of this directory
+(scratch files cannot import each other); part 4 is the assembly. Main results:
+* `T5Torsion.torsionStructure_of_torsionCard : TorsionCard.{u} → PkgI2.TorsionStructure.{u}`;
+* `T5Torsion.torsionStructureC_of_uniformization : ZInQ.LeafPush2.UniformizationExists →
+  TorsionStructureC` (T5 for every field with an embedding into `ℂ`, from T35 alone);
+* `T5Torsion.torsionCard_of_uniformization` (the count for subfields of `ℂ`, from T35).
+No `sorry`, no `axiom`.
+-/
+
+/-!
+# t5-torsion, part 1: the group-theoretic glue (rank `r` structure from torsion counts)
+
+Generalizes Tau Ceti's rank-two lemmas (vendored in `ZInQKernel/Contrib/TauCeti/`, Apache-2.0,
+`GroupTheory/FiniteAbelian/RankTwo.lean` and
+`AlgebraicGeometry/EllipticCurve/Isogeny/MulByInt/Torsion/Structure.lean`) from rank `2` to rank
+`r`; the proofs follow theirs.
+-/
+
+set_option linter.style.haveILetI false
+
+namespace T5Torsion
+
+open scoped DirectSum
+
+/-- **Rank-`r` prime-power characterisation.** An abelian group killed by `p ^ k`, with
+order `p ^ (r * k)` and `p ^ r` elements killed by `p`, is `(ZMod (p ^ k))^r`. -/
+theorem nonempty_addEquiv_pi_zmod_primePow {G : Type*} [AddCommGroup G] {p k r : ℕ}
+    (hp : p.Prime)
+    (hpow : ∀ x : G, p ^ k • x = 0)
+    (hcard : Nat.card G = p ^ (r * k))
+    (hcardp : Nat.card (AddSubgroup.torsionBy G (p : ℤ)) = p ^ r) :
+    Nonempty (G ≃+ (Fin r → ZMod (p ^ k))) := by
+  classical
+  have : Finite G := Nat.finite_of_card_ne_zero (hcard ▸ pow_ne_zero _ hp.ne_zero)
+  obtain ⟨ι, hι, n, hn, ⟨e⟩⟩ := AddCommGroup.equiv_directSum_zmod_of_finite' G
+  let E : G ≃+ (∀ i : ι, ZMod (n i)) := e.trans (DirectSum.addEquivProd _)
+  have hn_dvd (i : ι) : n i ∣ p ^ k := by
+    let x : (j : ι) → ZMod (n j) := Function.update 0 i 1
+    have hx : p ^ k • x = 0 := by
+      simpa using congrArg E (hpow (E.symm x))
+    have hxi := congrFun hx i
+    have hxi' : ((p ^ k : ℕ) : ZMod (n i)) = 0 := by
+      simpa [x, nsmul_eq_mul] using hxi
+    exact (ZMod.natCast_eq_zero_iff (p ^ k) (n i)).mp hxi'
+  choose a ha_le ha using fun i ↦ (Nat.dvd_prime_pow hp).mp (hn_dvd i)
+  have ha_pos (i : ι) : 0 < a i := by
+    rw [Nat.pos_iff_ne_zero]
+    intro hai
+    simpa [ha i, hai] using hn i
+  have hcard_prod : ∏ i, n i = p ^ (r * k) := by
+    rw [← hcard, Nat.card_congr E.toEquiv, Nat.card_pi]
+    simp only [Nat.card_zmod]
+  have hcard_torsion_pi :
+      Nat.card (AddSubgroup.torsionBy (∀ i : ι, ZMod (n i)) (p : ℤ)) = p ^ Fintype.card ι := by
+    rw [Nat.card_congr (TauCeti.AddSubgroup.torsionByPiEquiv (fun i ↦ ZMod (n i)) (p : ℤ)).toEquiv,
+      Nat.card_pi]
+    let : NeZero p := ⟨hp.ne_zero⟩
+    calc
+      ∏ i, Nat.card (AddSubgroup.torsionBy (ZMod (n i)) (p : ℤ)) = ∏ _i : ι, p := by
+        apply Finset.prod_congr rfl
+        intro i _hi
+        rw [ha i]
+        obtain ⟨j, hj⟩ := Nat.exists_eq_succ_of_ne_zero (ha_pos i).ne'
+        rw [hj]
+        simpa only [Nat.card_zmod] using
+          Nat.card_congr (TauCeti.zmodTorsionByEquiv p j).symm.toEquiv
+      _ = p ^ Fintype.card ι := by simp
+  have hιcard : Fintype.card ι = r := by
+    have ht : p ^ Fintype.card ι = p ^ r := by
+      rw [← hcard_torsion_pi, ← hcardp]
+      exact Nat.card_congr (AddEquiv.torsionByCongr E (p : ℤ)).symm.toEquiv
+    exact Nat.pow_right_injective hp.two_le ht
+  have hsum : ∑ i, a i = r * k := by
+    apply Nat.pow_right_injective hp.two_le
+    dsimp only
+    rw [← Finset.prod_pow_eq_pow_sum Finset.univ a p]
+    simp only [← ha, hcard_prod]
+  have ha_eq (i : ι) : a i = k := by
+    apply le_antisymm (ha_le i)
+    by_contra hki
+    have hai : a i < k := Nat.lt_of_not_ge hki
+    have hlt : ∑ j, a j < ∑ _j : ι, k :=
+      Finset.sum_lt_sum (fun j _ ↦ ha_le j) ⟨i, Finset.mem_univ i, hai⟩
+    simp only [Finset.sum_const, Finset.card_univ, hιcard, smul_eq_mul] at hlt
+    omega
+  let rι : ι ≃ Fin r := Fintype.equivFinOfCardEq hιcard
+  exact ⟨E |>.trans (AddEquiv.piCongrRight fun i ↦
+      (ZMod.ringEquivCongr (by rw [ha i, ha_eq i])).toAddEquiv) |>.trans
+      (AddEquiv.arrowCongr rι (AddEquiv.refl (ZMod (p ^ k))))⟩
+
+open scoped Classical in
+/-- A primary component of `A[N]` is `(ZMod q)^r`, given the counts `#A[m] = m^r` for `m ∣ N`. -/
+noncomputable def primePowerComponentEquiv {A : Type*} [AddCommGroup A] (N r : ℕ) [NeZero N]
+    (hcount : ∀ m : ℕ, m ∣ N → Nat.card (AddSubgroup.torsionBy A (m : ℤ)) = m ^ r)
+    (p : N.primeFactors) :
+    let q := (p : ℕ) ^ N.factorization p
+    Submodule.torsionBy ℤ (AddSubgroup.torsionBy A (N : ℤ)) (q : ℤ) ≃+
+      (Fin r → ZMod q) := by
+  let G := AddSubgroup.torsionBy A (N : ℤ)
+  let q := (p : ℕ) ^ N.factorization p
+  have hN0 : N ≠ 0 := NeZero.ne N
+  have hq_dvd : q ∣ N :=
+    (Nat.prime_of_mem_primeFactors p.2).pow_dvd_iff_le_factorization hN0 |>.2 le_rfl
+  have hp_dvd_q : (p : ℕ) ∣ q := by
+    apply dvd_pow_self
+    exact (Nat.Prime.factorization_pos_of_dvd (Nat.prime_of_mem_primeFactors p.2) hN0
+      (Nat.dvd_of_mem_primeFactors p.2)).ne'
+  let e : Submodule.torsionBy ℤ G (q : ℤ) ≃+
+      AddSubgroup.torsionBy A (q : ℤ) :=
+        TauCeti.AddSubgroup.torsionByTorsionByEquiv (by exact_mod_cast hq_dvd)
+  have hpow (x : Submodule.torsionBy ℤ G (q : ℤ)) : q • x = 0 :=
+    AddSubgroup.torsionBy.nsmul x
+  have hcardq : Nat.card (Submodule.torsionBy ℤ G (q : ℤ)) = q ^ r := by
+    rw [Nat.card_congr e.toEquiv]
+    exact hcount q hq_dvd
+  have hcardp : Nat.card
+      (AddSubgroup.torsionBy (Submodule.torsionBy ℤ G (q : ℤ)) (p : ℤ)) = p ^ r := by
+    let ep := (AddEquiv.torsionByCongr e p).trans
+      (TauCeti.AddSubgroup.torsionByTorsionByEquiv (by exact_mod_cast hp_dvd_q))
+    rw [Nat.card_congr ep.toEquiv]
+    exact hcount p (dvd_trans hp_dvd_q hq_dvd)
+  have hcardq' : Nat.card (Submodule.torsionBy ℤ G (q : ℤ)) =
+      p ^ (r * N.factorization p) := by
+    rw [hcardq]
+    dsimp only [q]
+    rw [← pow_mul, mul_comm]
+  exact (nonempty_addEquiv_pi_zmod_primePow
+    (Nat.prime_of_mem_primeFactors p.2) hpow hcardq' hcardp).some
+
+/-- **Structure from counts.** If `#A[m] = m^r` for every `m ∣ N` (`N ≥ 1`), then
+`A[N] ≃+ (ZMod N)^r`. -/
+theorem nonempty_torsionBy_addEquiv_pi {A : Type*} [AddCommGroup A] (N r : ℕ) (hN0 : N ≠ 0)
+    (hcount : ∀ m : ℕ, m ∣ N → Nat.card (AddSubgroup.torsionBy A (m : ℤ)) = m ^ r) :
+    Nonempty (AddSubgroup.torsionBy A (N : ℤ) ≃+ (Fin r → ZMod N)) := by
+  classical
+  haveI : NeZero N := ⟨hN0⟩
+  let G := AddSubgroup.torsionBy A (N : ℤ)
+  let q : ℕ → ℕ := fun p ↦ p ^ N.factorization p
+  let componentEquiv (p : N.primeFactors) :
+      Submodule.torsionBy ℤ G (q p : ℤ) ≃+ (Fin r → ZMod (q p)) :=
+    primePowerComponentEquiv N r hcount p
+  have hinternal : DirectSum.IsInternal fun p : N.primeFactors ↦
+      Submodule.torsionBy ℤ G (q p : ℤ) :=
+    TauCeti.AddSubgroup.torsionBy_primeFactors_isInternal N hN0
+  letI := hinternal.chooseDecomposition
+  let primary : G ≃+ (∀ p : N.primeFactors, Fin r → ZMod (q p)) :=
+    (DirectSum.decomposeAddEquiv fun p : N.primeFactors ↦
+      Submodule.torsionBy ℤ G (q p : ℤ)).trans <|
+      (DFinsupp.mapRange.addEquiv componentEquiv).trans (DirectSum.addEquivProd _)
+  let comm : (∀ p : N.primeFactors, Fin r → ZMod (q p)) ≃+
+      (Fin r → ∀ p : N.primeFactors, ZMod (q p)) :=
+    { Equiv.piComm _ with map_add' := fun _ _ ↦ rfl }
+  let crt : (∀ p : N.primeFactors, ZMod (q p)) ≃+ ZMod N :=
+    (ZMod.equivPi (n := N) hN0).symm.toAddEquiv
+  exact ⟨primary.trans (comm.trans (AddEquiv.piCongrRight fun _ ↦ crt))⟩
+
+end T5Torsion
+
+
+
+/-!
+# t5-torsion, part 2: `n`-torsion of a group uniformized by `E / Λ`
+
+If `Φ : E → P` is a surjective homomorphism (written multiplicatively on `P`) with kernel a full
+lattice `Λ` of the real space `E`, then `P` has exactly `n ^ dim_ℝ E` elements `x` with `xⁿ = 1`.
+-/
+
+set_option linter.style.haveILetI false
+set_option linter.unusedSectionVars false
+
+namespace T5Torsion
+
+open Module
+
+section Torus
+
+variable {E : Type*} [NormedAddCommGroup E] [NormedSpace ℝ E] [FiniteDimensional ℝ E]
+  (Λ : Submodule ℤ E) [DiscreteTopology Λ] [IsZLattice ℝ Λ]
+  {P : Type*} [Group P] (Φ : E → P)
+
+theorem map_nsmul_of_add (hadd : ∀ z w, Φ (z + w) = Φ z * Φ w) (n : ℕ) (z : E) :
+    Φ (n • z) = Φ z ^ n := by
+  have h0 : Φ 0 = 1 := by
+    have := hadd 0 0
+    rw [add_zero] at this
+    exact (mul_eq_left.mp this.symm)
+  induction n with
+  | zero => simp [h0]
+  | succ n ih => rw [succ_nsmul, hadd, ih, pow_succ]
+
+theorem eq_iff_sub_mem (hadd : ∀ z w, Φ (z + w) = Φ z * Φ w) (hker : ∀ z, Φ z = 1 ↔ z ∈ Λ)
+    (z w : E) : Φ z = Φ w ↔ z - w ∈ Λ := by
+  rw [← hker]
+  have h := hadd (z - w) w
+  rw [sub_add_cancel] at h
+  constructor
+  · intro hzw
+    rw [hzw] at h
+    exact (mul_eq_right.mp h.symm)
+  · intro h1
+    rw [h, h1, one_mul]
+
+/-- Membership in `Λ` through the coordinates in a `ℤ`-basis of `Λ`. -/
+theorem mem_iff_repr {ι : Type*} (b : Basis ι ℤ Λ) (z : E) :
+    z ∈ Λ ↔ ∀ i, (b.ofZLatticeBasis ℝ Λ).repr z i ∈ Set.range (algebraMap ℤ ℝ) := by
+  conv_lhs => rw [← b.ofZLatticeBasis_span ℝ]
+  exact (b.ofZLatticeBasis ℝ Λ).mem_span_iff_repr_mem ℤ z
+
+/-- **Torsion of a uniformized group.** -/
+theorem natCard_pow_eq_one (hadd : ∀ z w, Φ (z + w) = Φ z * Φ w)
+    (hker : ∀ z, Φ z = 1 ↔ z ∈ Λ) (hsurj : Function.Surjective Φ) (n : ℕ) (hn : 0 < n) :
+    Nat.card {x : P // x ^ n = 1} = n ^ finrank ℝ E := by
+  classical
+  haveI : NeZero n := ⟨hn.ne'⟩
+  have : Module.Finite ℤ Λ := ZLattice.module_finite ℝ Λ
+  have : Module.Free ℤ Λ := ZLattice.module_free ℝ Λ
+  let b := Module.Free.chooseBasis ℤ Λ
+  let ι := Module.Free.ChooseBasisIndex ℤ Λ
+  let B := b.ofZLatticeBasis ℝ Λ
+  have hBi (i : ι) : B i ∈ Λ := by
+    rw [show B i = b i from b.ofZLatticeBasis_apply ℝ Λ i]
+    exact (b i).2
+  have hnR : (n : ℝ) ≠ 0 := by exact_mod_cast hn.ne'
+  let zc : (ι → ZMod n) → E := fun c => ∑ i, (((c i).val : ℝ) / n) • B i
+  have hrepr (c : ι → ZMod n) (i : ι) : B.repr (zc c) i = ((c i).val : ℝ) / n := by
+    simp [zc, Finsupp.single_apply]
+  let f : (ι → ZMod n) → {x : P // x ^ n = 1} := fun c => ⟨Φ (zc c), by
+    rw [← map_nsmul_of_add Φ hadd, hker, mem_iff_repr Λ b]
+    intro i
+    refine ⟨((c i).val : ℤ), ?_⟩
+    rw [map_nsmul, Finsupp.smul_apply, hrepr, nsmul_eq_mul]
+    simp only [algebraMap_int_eq, eq_intCast, Int.cast_natCast]
+    field_simp⟩
+  have hf : Function.Bijective f := by
+    constructor
+    · intro c c' h
+      have h1 : Φ (zc c) = Φ (zc c') := congrArg Subtype.val h
+      rw [eq_iff_sub_mem Λ Φ hadd hker, mem_iff_repr Λ b] at h1
+      funext i
+      obtain ⟨m, hm⟩ := h1 i
+      rw [map_sub, Finsupp.sub_apply, hrepr, hrepr] at hm
+      simp only [algebraMap_int_eq, eq_intCast] at hm
+      have hlt := ZMod.val_lt (c i)
+      have hlt' := ZMod.val_lt (c' i)
+      have hm' : (m : ℝ) * n = (c i).val - (c' i).val := by
+        rw [hm]; field_simp
+      have hmZ : m * (n : ℤ) = ((c i).val : ℤ) - (c' i).val := by exact_mod_cast hm'
+      have hm0 : m = 0 := by
+        rcases lt_trichotomy m 0 with h | h | h
+        · nlinarith
+        · exact h
+        · nlinarith
+      rw [hm0, zero_mul] at hmZ
+      exact ZMod.val_injective n (by omega)
+    · rintro ⟨x, hx⟩
+      obtain ⟨z, rfl⟩ := hsurj x
+      have h1 : Φ (n • z) = 1 := by rw [map_nsmul_of_add Φ hadd, hx]
+      rw [hker, mem_iff_repr Λ b] at h1
+      choose m hm using h1
+      refine ⟨fun i => (m i : ZMod n), Subtype.ext ?_⟩
+      change Φ (zc _) = Φ z
+      rw [eq_iff_sub_mem Λ Φ hadd hker, mem_iff_repr Λ b]
+      intro i
+      refine ⟨-(m i / n), ?_⟩
+      have hmi := hm i
+      rw [map_nsmul, Finsupp.smul_apply, nsmul_eq_mul] at hmi
+      simp only [algebraMap_int_eq, eq_intCast] at hmi ⊢
+      rw [map_sub, Finsupp.sub_apply, hrepr]
+      have hv : (((m i : ZMod n)).val : ℤ) = m i % n := ZMod.val_intCast (m i)
+      have hv' : ((((m i : ZMod n)).val : ℕ) : ℝ) = ((m i % n : ℤ) : ℝ) := by exact_mod_cast hv
+      rw [hv']
+      have hdiv : ((m i % n : ℤ) : ℝ) = (m i : ℝ) - n * ((m i / n : ℤ) : ℝ) := by
+        have := Int.emod_def (m i) n
+        rw [this]; push_cast; ring
+      rw [hdiv, hmi]
+      field_simp
+      push_cast
+      ring
+  rw [← Nat.card_congr (Equiv.ofBijective f hf), Nat.card_fun, Nat.card_zmod,
+    Nat.card_eq_fintype_card, ← Module.finrank_eq_card_basis B]
+
+end Torus
+
+theorem finrank_real_fin_complex (g : ℕ) : finrank ℝ (Fin g → ℂ) = 2 * g := by
+  rw [Module.finrank_pi_fintype, Finset.sum_const, Finset.card_univ, Fintype.card_fin,
+    Complex.finrank_real_complex, smul_eq_mul, mul_comm]
+
+end T5Torsion
+
+
+
+/-!
+# t5-torsion, part 3: torsion points along `K̄ → Ω₂` (characteristic 0)
+-/
+
+open CategoryTheory AlgebraicGeometry Limits MonoidalCategory CartesianMonoidalCategory MonObj
+
+set_option linter.style.haveILetI false
+set_option linter.unusedSectionVars false
+
+namespace T5Torsion
+
+open ZInQ.Contrib.AbVarBC
+
+section Desc
+
+variable {K : Type} [Field K] (A : PkgI3.AbVar K)
+  {Ω Ω₂ : Type} [Field Ω] [IsAlgClosed Ω] [Algebra K Ω] [Field Ω₂] [Algebra K Ω₂]
+
+/-- **Lifting `N`-torsion points along `κ : Ω → Ω₂`** when `[N]` is finite (adapted from
+`ZInQ.Contrib.AbVarBC.torsionDescends_of_isFinite`). -/
+theorem exists_extPt_eq (κ : Ω →ₐ[K] Ω₂) (N : ℕ)
+    (hfin : IsFinite ((((N : ℤ)) : PkgI3.AbVar.End A).hom.left))
+    (q : A.Pt Ω₂) (hq : q ^ N = 1) : ∃ p : A.Pt Ω, extPt A κ p = q := by
+  have h1 : q ≫ ((N : ℤ) : PkgI3.AbVar.End A).hom = 1 := by rw [comp_natCast_hom, hq]
+  let fN : A.X.left ⟶ A.X.left := ((N : ℤ) : PkgI3.AbVar.End A).hom.left
+  let e : Spec (CommRingCat.of K) ⟶ A.X.left := η[A.X].left
+  have hq0 : q.left ≫ fN = Spec.map (CommRingCat.ofHom (algebraMap K Ω₂)) ≫ e := by
+    have h2 := congrArg (fun f => f.left) h1
+    simp only [Over.comp_left, Hom.one_def] at h2
+    exact h2
+  have hfN : IsFinite fN := hfin
+  let z : Spec (CommRingCat.of Ω₂) ⟶ pullback fN e :=
+    pullback.lift q.left (Spec.map (CommRingCat.ofHom (algebraMap K Ω₂))) hq0
+  obtain ⟨p0, hp0, hp0g⟩ :=
+    exists_lift_of_isFinite κ (pullback.snd fN e) z (pullback.lift_snd _ _ _)
+  have hfst : pullback.fst fN e ≫ A.X.hom = pullback.snd fN e := by
+    have hw : fN ≫ A.X.hom = A.X.hom := Over.w ((N : ℤ) : PkgI3.AbVar.End A).hom
+    have he : e ≫ A.X.hom = 𝟙 _ := Over.w η[A.X]
+    rw [← hw, ← Category.assoc, pullback.condition, Category.assoc, he, Category.comp_id]
+  let p : A.Pt Ω := Over.homMk (p0 ≫ pullback.fst fN e) (by
+    change (p0 ≫ pullback.fst fN e) ≫ A.X.hom = _
+    rw [Category.assoc, hfst, hp0g]
+    rfl)
+  refine ⟨p, ?_⟩
+  apply Over.OverMorphism.ext
+  change Spec.map (CommRingCat.ofHom (κ : Ω →+* Ω₂)) ≫ p0 ≫ pullback.fst fN e = q.left
+  rw [← Category.assoc, hp0]
+  exact pullback.lift_fst _ _ _
+
+/-- **`#A(Ω)[n] = #A(Ω₂)[n]`** in characteristic `0`, for `Ω` algebraically closed. -/
+theorem natCard_torsion_eq_of_ext [CharZero K] (κ : Ω →ₐ[K] Ω₂) (n : ℕ) (hn : 0 < n) :
+    Nat.card {p : A.Pt Ω // p ^ n = 1} = Nat.card {q : A.Pt Ω₂ // q ^ n = 1} := by
+  have hfin : IsFinite ((((n : ℤ)) : PkgI3.AbVar.End A).hom.left) :=
+    (mulIsogeny K A (n : ℤ) (by exact_mod_cast hn.ne')).1
+  let f : {p : A.Pt Ω // p ^ n = 1} → {q : A.Pt Ω₂ // q ^ n = 1} := fun p =>
+    ⟨extPt A κ p.1, by rw [← map_pow, p.2, map_one]⟩
+  have hf : Function.Bijective f := by
+    refine ⟨fun p p' h => Subtype.ext (extPt_injective A κ (congrArg Subtype.val h)), ?_⟩
+    rintro ⟨q, hq⟩
+    obtain ⟨p, hp⟩ := exists_extPt_eq A κ n hfin q hq
+    refine ⟨⟨p, extPt_injective A κ ?_⟩, Subtype.ext hp⟩
+    rw [map_pow, hp, hq, map_one]
+  exact Nat.card_congr (Equiv.ofBijective f hf)
+
+end Desc
+
+end T5Torsion
+
+
+/-! ## Part 4: assembly over the kernel's objects -/
+
+namespace T5Torsion
+
+open CategoryTheory AlgebraicGeometry Limits MonoidalCategory CartesianMonoidalCategory MonObj
+open PkgI2 (IsAbelianVariety torsion Pts)
+
+universe u
+
+/-- **Leaf candidate T5-card (number of `n`-torsion points).** For an abelian variety `A` of
+dimension `g` over a field `K` and `n ≥ 1` invertible in `K`, `A(K̄)` has exactly `n^{2g}`
+points killed by `n`. Mumford, *Abelian varieties* (1970), §4, after the theorem of the cube:
+`deg [n] = n^{2g}` and `[n]` separable when `char K ∤ n`, whence `#A[n] = n^{2g}` (locators
+UNVERIFIED: the degree is §6 Application 2 in the 2nd edition, the corollary `X_n ≅ (ℤ/n)^{2g}`
+follows it). A consequence of the published statement `X_n ≅ (ℤ/n)^{2g}` (take cardinalities). -/
+def TorsionCard : Prop :=
+  ∀ (K : Type u) [Field K] (A : Grp (Over (Spec (.of K)))) [IsAbelianVariety A] (g n : ℕ),
+    topologicalKrullDim A.X.left = (g : WithBot ℕ∞) → 0 < n → (n : K) ≠ 0 →
+      Nat.card (torsion A (AlgebraicClosure K) n) = n ^ (2 * g)
+
+section Glue
+
+variable {K : Type u} [Field K] (A : Grp (Over (Spec (.of K)))) [IsAbelianVariety A]
+  (L : Type u) [CommRing L] [Algebra K L]
+
+instance isCommMonObjU : IsCommMonObj A.X :=
+  haveI := PkgI2.IsAbelianVariety.proper (A := A)
+  haveI := PkgI2.IsAbelianVariety.geomIntegral (A := A)
+  isCommMonObj_of_isProper_of_geometricallyIntegral A.X
+
+/-- The points as an additive commutative group. -/
+noncomputable instance ptsAddCommGroup : AddCommGroup (Additive (Pts A L)) :=
+  @Additive.addCommGroup _ (Hom.commGroup (G := A.X))
+
+/-- `torsion A L m` is the `m`-torsion subgroup of `Additive (A(L))`. -/
+def torsionEquiv (m : ℕ) :
+    torsion A L m ≃ AddSubgroup.torsionBy (Additive (Pts A L)) (m : ℤ) where
+  toFun x := ⟨Additive.ofMul x.1, by
+    refine (Submodule.mem_torsionBy_iff _ _).2 ?_
+    rw [natCast_zsmul]
+    exact congrArg Additive.ofMul x.2⟩
+  invFun y := ⟨Additive.toMul y.1, by
+    have h := (Submodule.mem_torsionBy_iff _ _).1 y.2
+    rw [natCast_zsmul] at h
+    exact congrArg Additive.toMul h⟩
+  left_inv _ := rfl
+  right_inv _ := rfl
+
+/-- **The structure of `A[n]` from the counts `#A[m] = m^{2g}`, `m ∣ n`** (pure algebra). -/
+theorem exists_torsion_equiv_of_counts (g n : ℕ) (hn : 0 < n)
+    (hc : ∀ m : ℕ, m ∣ n → Nat.card (torsion A L m) = m ^ (2 * g)) :
+    ∃ e : torsion A L n ≃ (Fin (2 * g) → ZMod n),
+      ∀ x y : torsion A L n, ∀ h : x.1 * y.1 ∈ torsion A L n, e ⟨x.1 * y.1, h⟩ = e x + e y := by
+  obtain ⟨E⟩ := nonempty_torsionBy_addEquiv_pi (A := Additive (Pts A L)) n (2 * g) hn.ne'
+    (fun m hm => by rw [← Nat.card_congr (torsionEquiv A L m)]; exact hc m hm)
+  refine ⟨(torsionEquiv A L n).trans E.toEquiv, fun x y h => ?_⟩
+  change E (torsionEquiv A L n ⟨x.1 * y.1, h⟩) = E (torsionEquiv A L n x) + E (torsionEquiv A L n y)
+  rw [← map_add]
+  rfl
+
+end Glue
+
+/-- **T5 from the count `TorsionCard`** (glue, proved). -/
+theorem torsionStructure_of_torsionCard (h : TorsionCard.{u}) : PkgI2.TorsionStructure.{u} := by
+  intro K _ A _ g n hg hn hnK
+  refine exists_torsion_equiv_of_counts A (AlgebraicClosure K) g n hn (fun m hm => ?_)
+  obtain ⟨k, rfl⟩ := hm
+  have hm0 : 0 < m := Nat.pos_of_mul_pos_right hn
+  refine h K A g m hg hm0 ?_
+  push_cast at hnK
+  exact left_ne_zero_of_mul hnK
+
+/-- **T5 restricted to subfields of `ℂ`**: `PkgI2.TorsionStructure` for fields `K` with a ring
+embedding `σ : K → ℂ` (so characteristic `0`). -/
+def TorsionStructureC : Prop :=
+  ∀ (K : Type) [Field K] (_ : K →+* ℂ) (A : Grp (Over (Spec (.of K)))) [IsAbelianVariety A]
+    (g n : ℕ), topologicalKrullDim A.X.left = (g : WithBot ℕ∞) → 0 < n →
+      ∃ e : torsion A (AlgebraicClosure K) n ≃ (Fin (2 * g) → ZMod n),
+        ∀ x y : torsion A (AlgebraicClosure K) n,
+          ∀ h : x.1 * y.1 ∈ torsion A (AlgebraicClosure K) n, e ⟨x.1 * y.1, h⟩ = e x + e y
+
+/-- **`#A(K̄)[n] = n^{2g}` for `K ⊆ ℂ`, from the textbook leaf T35** (`UniformizationExists`,
+already `TextbookLeaves.t35`) and Mathlib (`MulIsogeny` is proved in `Contrib/AbVarBC`). -/
+theorem natCard_torsion_of_uniformization (hU : ZInQ.LeafPush2.UniformizationExists)
+    {K : Type} [Field K] (σ : K →+* ℂ) (A : PkgI3.AbVar K) (g n : ℕ)
+    (hg : A.dim = (g : WithBot ℕ∞)) (hn : 0 < n) :
+    Nat.card {p : A.Pt (AlgebraicClosure K) // p ^ n = 1} = n ^ (2 * g) := by
+  haveI : CharZero K := RingHom.charZero σ
+  letI : Algebra K ℂ := σ.toAlgebra
+  let κ : AlgebraicClosure K →ₐ[K] ℂ := IsAlgClosed.lift
+  rw [natCard_torsion_eq_of_ext A κ n hn]
+  obtain ⟨Λ, Φ, hdisc, hlat, hadd, hker, hsurj, -, -⟩ := hU K A σ g hg
+  have h := natCard_pow_eq_one Λ Φ hadd hker hsurj n hn
+  rw [finrank_real_fin_complex] at h
+  exact h
+
+/-- **T5 for subfields of `ℂ` from T35** (no other leaf). -/
+theorem torsionStructureC_of_uniformization (hU : ZInQ.LeafPush2.UniformizationExists) :
+    TorsionStructureC := by
+  intro K _ σ A _ g n hg hn
+  refine exists_torsion_equiv_of_counts A (AlgebraicClosure K) g n hn (fun m hm => ?_)
+  have hm0 : 0 < m := Nat.pos_of_dvd_of_pos hm hn
+  exact natCard_torsion_of_uniformization hU σ (ObjBridge.ofGrp A) g m hg hm0
+
+/-- **`TorsionCard` for subfields of `ℂ` from T35.** -/
+theorem torsionCard_of_uniformization (hU : ZInQ.LeafPush2.UniformizationExists)
+    {K : Type} [Field K] (σ : K →+* ℂ) (A : Grp (Over (Spec (.of K)))) [IsAbelianVariety A]
+    (g n : ℕ) (hg : topologicalKrullDim A.X.left = (g : WithBot ℕ∞)) (hn : 0 < n) :
+    Nat.card (torsion A (AlgebraicClosure K) n) = n ^ (2 * g) :=
+  natCard_torsion_of_uniformization hU σ (ObjBridge.ofGrp A) g n hg hn
+
+end T5Torsion
+
+#print axioms T5Torsion.torsionStructure_of_torsionCard
+#print axioms T5Torsion.torsionStructureC_of_uniformization
+#print axioms T5Torsion.torsionCard_of_uniformization
+
+/-! ## Part 4b: full T5 from T35 and the count on fields that do not embed in `ℂ` -/
+
+namespace T5Torsion
+
+open CategoryTheory AlgebraicGeometry Limits MonoidalCategory CartesianMonoidalCategory MonObj
+open PkgI2 (IsAbelianVariety torsion Pts)
+
+/-- **`TorsionCard` on the fields with no ring embedding into `ℂ`** (positive characteristic, or
+characteristic `0` of transcendence degree `> 𝔠`). The restriction of `TorsionCard` (Mumford §4)
+to these fields: a consequence of the published statement. -/
+def TorsionCardNonC : Prop :=
+  ∀ (K : Type) [Field K], IsEmpty (K →+* ℂ) →
+    ∀ (A : Grp (Over (Spec (.of K)))) [IsAbelianVariety A] (g n : ℕ),
+      topologicalKrullDim A.X.left = (g : WithBot ℕ∞) → 0 < n → (n : K) ≠ 0 →
+        Nat.card (torsion A (AlgebraicClosure K) n) = n ^ (2 * g)
+
+/-- **`TorsionCard` from T35 and `TorsionCardNonC`** (case split on the existence of `K → ℂ`). -/
+theorem torsionCard_of_uniformization_of_nonC (hU : ZInQ.LeafPush2.UniformizationExists)
+    (hN : TorsionCardNonC) : TorsionCard.{0} := by
+  intro K _ A _ g n hg hn hnK
+  rcases isEmpty_or_nonempty (K →+* ℂ) with h | h
+  · exact hN K h A g n hg hn hnK
+  · exact torsionCard_of_uniformization hU h.some A g n hg hn
+
+/-- **Full T5 (`PkgI2.TorsionStructure.{0}` = `TextbookLeaves.t5`) from T35 and
+`TorsionCardNonC`.** -/
+theorem torsionStructure_of_uniformization_of_nonC (hU : ZInQ.LeafPush2.UniformizationExists)
+    (hN : TorsionCardNonC) : PkgI2.TorsionStructure.{0} :=
+  torsionStructure_of_torsionCard (torsionCard_of_uniformization_of_nonC hU hN)
+
+/-- **T5 at one field with an embedding into `ℂ`, in the exact shape of the kernel's use**
+`hT K A g n hdim hn hnK` (drop-in for consumers that apply T5 at `ℚ̄`, a subfield of `ℚ̄`, or a
+number field). -/
+theorem torsionStructureAt (hU : ZInQ.LeafPush2.UniformizationExists) {K : Type} [Field K]
+    (σ : K →+* ℂ) (A : Grp (Over (Spec (.of K)))) [IsAbelianVariety A] (g n : ℕ)
+    (hg : topologicalKrullDim A.X.left = (g : WithBot ℕ∞)) (hn : 0 < n) (_ : (n : K) ≠ 0) :
+    ∃ e : torsion A (AlgebraicClosure K) n ≃ (Fin (2 * g) → ZMod n),
+      ∀ x y : torsion A (AlgebraicClosure K) n,
+        ∀ h : x.1 * y.1 ∈ torsion A (AlgebraicClosure K) n, e ⟨x.1 * y.1, h⟩ = e x + e y :=
+  torsionStructureC_of_uniformization hU K σ A g n hg hn
+
+end T5Torsion
+
+#print axioms T5Torsion.torsionStructure_of_uniformization_of_nonC
+#print axioms T5Torsion.torsionStructureAt
+
+/-! ## Part 5: the kernel's `MobiusGlue` from T35 alone
+
+mobius-contrib proved `MobiusGlue` from T5 (`ObjBridge.TorsionStructure`), but T5 enters only
+through `LeafQM.AV.Level3.onto` at `K = ℚ̄`, `g = 2`, `n = 3`. `ℚ̄` embeds into `ℂ`, so
+`T5Torsion.TorsionStructureC` (proved above from T35) suffices. The four theorems below are copies
+of `Level3.onto`, `Level3.range_le`, `Level3.torsor` (ZInQKernel/HDecomp/QM/Structures.lean) and of
+`level3_finite`, `twistClassFinite_of` (ZInQKernel/Contrib/Mobius/Glue.lean) with the hypothesis
+`hT : ObjBridge.TorsionStructure` replaced by `hC : TorsionStructureC` and an embedding `σ`. -/
+
+namespace LeafQM.AV
+
+open CategoryTheory AlgebraicGeometry Limits MonoidalCategory CartesianMonoidalCategory MonObj
+open PkgI3 ObjBridge
+
+section OntoC
+
+variable {K : Type} [Field K]
+
+/-- Copy of `Level3.onto` with `TorsionStructureC` and `σ : K → ℂ`. -/
+theorem Level3.ontoC (hC : T5Torsion.TorsionStructureC) (σ : K →+* ℂ) (P : QML3 K)
+    (x : PkgI2.Pts (toGrp P.A) (AlgebraicClosure K)) (hx : x ^ 3 = 1) :
+    ∃ a : O, bcPt P.A (Additive.toMul (P.e.eta a)) = x := by
+  have hdim : topologicalKrullDim (toGrp P.A).X.left = ((2 : ℕ) : WithBot ℕ∞) := by
+    change P.A.dim = _
+    rw [P.surface]; rfl
+  obtain ⟨e, -⟩ := hC K σ (toGrp P.A) 2 3 hdim (by norm_num)
+  let F : (Fin 4 → ZMod 3) → PkgI2.torsion (toGrp P.A) (AlgebraicClosure K) 3 := fun c =>
+    ⟨bcPt P.A (Additive.toMul (P.e.eta (liftO c))), P.e.bcPt_pow_three _⟩
+  have hF : Function.Injective F := by
+    intro c c' h
+    have h1 : bcPt P.A (Additive.toMul (P.e.eta (liftO c))) =
+        bcPt P.A (Additive.toMul (P.e.eta (liftO c'))) := congrArg Subtype.val h
+    have h2 := Additive.toMul.injective (bcPt_injective P.A h1)
+    obtain ⟨d, hd⟩ := (P.e.eq_iff _ _).1 h2
+    obtain ⟨k, hk⟩ := d.2
+    have h3 : ofInt (fun i => ((c i).val : ℤ)) - ofInt (fun i => ((c' i).val : ℤ)) =
+        3 * ofInt k := by
+      have := congrArg Subtype.val hd
+      have h33 : ((3 : O) : B) = 3 := map_ofNat O.subtype 3
+      simp only [liftO, hk, AddSubgroupClass.coe_sub, MulMemClass.coe_mul, h33] at this
+      exact this
+    rw [ofInt_sub, three_mul_ofInt] at h3
+    have h4 := ofInt_injective h3
+    funext i
+    have h5 := congrFun h4 i
+    simp only [Pi.sub_apply] at h5
+    have h6 : (((c i).val : ℤ) : ZMod 3) - (((c' i).val : ℤ) : ZMod 3) = 0 := by
+      rw [← Int.cast_sub, h5]; push_cast
+      rw [show (3 : ZMod 3) = 0 from rfl, zero_mul]
+    simpa [sub_eq_zero] using h6
+  have hbij : Function.Bijective (e ∘ F) :=
+    (Fintype.bijective_iff_injective_and_card _).2 ⟨e.injective.comp hF, by simp⟩
+  obtain ⟨c, hc⟩ := hbij.2 (e ⟨x, hx⟩)
+  exact ⟨liftO c, congrArg Subtype.val (e.injective hc)⟩
+
+/-- Copy of `Level3.range_le`. -/
+theorem Level3.range_leC (hC : T5Torsion.TorsionStructureC) (σ : K →+* ℂ) (P : QML3 K)
+    (e' : Level3 P.q) (a : O) : ∃ b : O, e'.eta a = P.e.eta b := by
+  obtain ⟨b, hb⟩ := Level3.ontoC hC σ P _ (e'.bcPt_pow_three a)
+  exact ⟨b, (Additive.toMul.injective (bcPt_injective P.A hb)).symm⟩
+
+/-- Copy of `Level3.torsor`. -/
+theorem Level3.torsorC (hC : T5Torsion.TorsionStructureC) (σ : K →+* ℂ) (P : QML3 K)
+    (e' : Level3 P.q) :
+    ∃ u₀ v₀ : O, (∃ c : O, v₀ * u₀ - 1 = 3 * c) ∧ ∀ a : O, e'.eta a = P.e.eta (a * u₀) :=
+  Level3.exists_mul_of_range_le P.e e' (Level3.range_leC hC σ P e')
+    (Level3.range_leC hC σ ⟨P.A, P.surface, P.q, e'⟩ P.e)
+
+end OntoC
+
+namespace Pin
+
+section FiniteTwistC
+
+variable {K : Type} [Field K]
+
+/-- Copy of `level3_finite`. -/
+theorem level3_finiteC (hC : T5Torsion.TorsionStructureC) (σ : K →+* ℂ) {A : AbVar K}
+    (s : A.dim = 2) (q : QMStr A) : Finite (Level3 q) := by
+  rcases isEmpty_or_nonempty (Level3 q) with h | h
+  · infer_instance
+  · obtain ⟨e₀⟩ := h
+    have key : ∀ e : Level3 q, ∃ c : Fin 4 → ZMod 3, ∀ a : O,
+        e.eta a = e₀.eta (a * liftO c) := by
+      intro e
+      obtain ⟨u₀, -, -, hu⟩ := Level3.torsorC hC σ ⟨A, s, q, e₀⟩ e
+      obtain ⟨c, k, hk⟩ := exists_liftO_congr u₀
+      refine ⟨c, fun a => (hu a).trans ((e₀.eq_iff _ _).2 ⟨a * k, ?_⟩)⟩
+      calc a * u₀ - a * liftO c = a * (u₀ - liftO c) := by noncomm_ring
+        _ = a * (3 * k) := by rw [hk]
+        _ = 3 * (a * k) := by noncomm_ring
+    choose f hf using key
+    refine Finite.of_injective f fun e e' h => Level3.ext' ?_
+    ext a
+    rw [hf e a, hf e' a, h]
+
+end FiniteTwistC
+
+/-- An embedding `ℚ̄ → ℂ`. -/
+noncomputable def qbarToC : Qbar →+* ℂ :=
+  (IsAlgClosed.lift : AlgebraicClosure ℚ →ₐ[ℚ] ℂ).toRingHom
+
+/-- Copy of `twistClassFinite_of`. -/
+theorem twistClassFinite_ofC (hC : T5Torsion.TorsionStructureC) (hA : AutOInnerFinite) :
+    TwistClassFinite := by
+  obtain ⟨T, hTfin, hTα⟩ := hA
+  intro P
+  let R : (O ≃+* O) → Set (M3 Qbar) := fun t =>
+    Set.range (fun e : Level3 (P.q.twist t) => M3.mk ⟨P.A, P.surface, P.q.twist t, e⟩)
+  have hR : ∀ t, (R t).Finite := fun t => by
+    have := level3_finiteC hC qbarToC P.surface (P.q.twist t)
+    exact Set.finite_range _
+  refine (hTfin.biUnion fun t _ => hR t).subset ?_
+  rintro m ⟨Q, rfl, α, ⟨f⟩⟩
+  obtain ⟨t, ht, v, hv⟩ := hTα α
+  let h : QMIso Q.q (P.q.twist t) := ((conjUnitIso P.q t α v hv).trans f).symm
+  refine Set.mem_biUnion ht ⟨transportLevel h Q.e, ?_⟩
+  exact Quotient.sound ⟨(QML3.isoTransport Q P.surface h).symm⟩
+
+/-- **`TwistClassFinite` from T35.** -/
+theorem twistClassFinite_of_T35 (hU : ZInQ.LeafPush2.UniformizationExists) : TwistClassFinite :=
+  twistClassFinite_ofC (T5Torsion.torsionStructureC_of_uniformization hU) autOInnerFinite
+
+/-- **The kernel's `MobiusGlue` from the textbook leaf T35 (`UniformizationExists`,
+`TextbookLeaves.t35`) alone**: this discharges the field `mobius` of `HSyn.GluePiecesPin`
+without T5. -/
+theorem mobiusGlue_of_T35 (hU : ZInQ.LeafPush2.UniformizationExists) : MobiusGlue :=
+  mobiusGlue_of_curveFacts curveFacts.1 curveFacts.2 (twistClassFinite_of_T35 hU)
+
+end Pin
+
+end LeafQM.AV
+
+#print axioms LeafQM.AV.Pin.mobiusGlue_of_T35
+
+/-! ## Part 6: glue A6 (good reduction of QM surfaces) with T5 replaced by T35
+
+Copies of `GlueA6Alg.goodReduction_of_QM_rational3_of_alg`, `goodReduction_of_QM_rational3'`
+(ZInQKernel/HDecomp/A6/A6.lean) and `LeafQM.AV.hrat`, `LeafQM.AV.QML3.goodReduction`
+(ZInQKernel/HDecomp/QM/Structures.lean): the hypothesis `hTors : TorsionStructure` becomes T35
+and an embedding `τ : K → ℂ` (every use in the H proof is at a number field, which has one). -/
+
+namespace GlueA6Alg
+
+open CategoryTheory AlgebraicGeometry Limits
+open scoped CategoryTheory.MonObj
+open PkgI2
+
+section GlueC
+
+variable {K : Type} [Field K]
+
+/-- Copy of `goodReduction_of_QM_rational3_of_alg` with T35 and `τ : K → ℂ` for T5. -/
+theorem goodReduction_of_QM_rational3_C (hNOS : NeronOggShafarevich.{0})
+    (hRay : RaynaudCriterion.{0}) (hU : ZInQ.LeafPush2.UniformizationExists) (τ : K →+* ℂ)
+    (O : ValuationSubring K) [IsDiscreteValuationRing O]
+    (w : ValuationSubring (AlgebraicClosure K))
+    (hw : w.comap (algebraMap K (AlgebraicClosure K)) = O)
+    (A : Grp (Over (Spec (.of K)))) [IsAbelianVariety A]
+    (hdim : topologicalKrullDim A.X.left = ((2 : ℕ) : WithBot ℕ∞))
+    (I J : A ⟶ A)
+    (hI : ∀ x : Pts A (AlgebraicClosure K), (x ≫ I.hom.hom) ≫ I.hom.hom = x ^ 2)
+    (hJ : ∀ x : Pts A (AlgebraicClosure K), (x ≫ J.hom.hom) ≫ J.hom.hom * x ^ 3 = 1)
+    (hIJ : ∀ x : Pts A (AlgebraicClosure K),
+      (x ≫ I.hom.hom) ≫ J.hom.hom * (x ≫ J.hom.hom) ≫ I.hom.hom = 1)
+    (h3 : IsUnit (3 : O))
+    (hrat : ∀ σ : AlgebraicClosure K ≃ₐ[K] AlgebraicClosure K,
+      ∀ x ∈ torsion A (AlgebraicClosure K) 3, galAct A σ x = x) :
+    HasGoodReduction A O := by
+  have : IsProper A.X.hom := IsAbelianVariety.proper
+  have : GeometricallyIntegral A.X.hom := IsAbelianVariety.geomIntegral
+  have : IsCommMonObj A.X := isCommMonObj_of_isProper_of_geometricallyIntegral A.X
+  have h3' : IsUnit ((3 : ℕ) : O) := by exact_mod_cast h3
+  have h3K : ((3 : ℕ) : K) ≠ 0 := by
+    intro h
+    apply h3.ne_zero
+    apply Subtype.val_injective
+    have h' : (3 : K) = 0 := by exact_mod_cast h
+    have e3 : ((3 : O) : K) = 3 := rfl
+    rw [e3, h']
+    rfl
+  have key : ∀ k : ℕ, 1 ≤ k → InertiaTrivialOn A w (3 ^ k) := by
+    intro k hk σ hσ x hx
+    obtain ⟨e, he⟩ := T5Torsion.torsionStructureAt hU τ A 2 (3 ^ (2 * k)) hdim (by positivity)
+      (by rw [Nat.cast_pow]; exact pow_ne_zero _ h3K)
+    exact quatUnipotentTrivial (Pts A (AlgebraicClosure K)) k hk (endPts A I) (endPts A J)
+      (galHomPts A σ)
+      hI hJ hIJ (fun x => by
+        simp only [galHomPts, endPts, MonoidHom.coe_mk, OneHom.coe_mk, galAct, Category.assoc])
+      (fun x => by
+        simp only [galHomPts, endPts, MonoidHom.coe_mk, OneHom.coe_mk, galAct, Category.assoc])
+      ⟨e, he⟩ (fun y hy => hRay K O w hw A 3 le_rfl h3' hrat σ hσ 3 Nat.prime_three h3'
+        (2 * k) y hy) x hx
+  refine (hNOS K O w hw A).2.mpr ?_
+  refine Set.infinite_of_injective_forall_mem (f := fun k : ℕ => 3 ^ (k + 1)) ?_ ?_
+  · intro a b hab
+    simpa using (Nat.pow_right_injective (by norm_num : 2 ≤ 3) hab)
+  · intro k
+    refine ⟨by positivity, ?_, key (k + 1) (by omega)⟩
+    rw [Nat.cast_pow]; exact h3'.pow _
+
+/-- Copy of `goodReduction_of_QM_rational3'` (no auxiliary `w`). -/
+theorem goodReduction_of_QM_rational3_C' (hNOS : NeronOggShafarevich.{0})
+    (hRay : RaynaudCriterion.{0}) (hU : ZInQ.LeafPush2.UniformizationExists) (τ : K →+* ℂ)
+    (O : ValuationSubring K) [IsDiscreteValuationRing O]
+    (A : Grp (Over (Spec (.of K)))) [IsAbelianVariety A]
+    (hdim : topologicalKrullDim A.X.left = ((2 : ℕ) : WithBot ℕ∞))
+    (I J : A ⟶ A)
+    (hI : ∀ x : Pts A (AlgebraicClosure K), (x ≫ I.hom.hom) ≫ I.hom.hom = x ^ 2)
+    (hJ : ∀ x : Pts A (AlgebraicClosure K), (x ≫ J.hom.hom) ≫ J.hom.hom * x ^ 3 = 1)
+    (hIJ : ∀ x : Pts A (AlgebraicClosure K),
+      (x ≫ I.hom.hom) ≫ J.hom.hom * (x ≫ J.hom.hom) ≫ I.hom.hom = 1)
+    (h3 : IsUnit (3 : O))
+    (hrat : ∀ σ : AlgebraicClosure K ≃ₐ[K] AlgebraicClosure K,
+      ∀ x ∈ torsion A (AlgebraicClosure K) 3, galAct A σ x = x) :
+    HasGoodReduction A O := by
+  obtain ⟨w, hw⟩ := Alg.exists_valuationSubring_comap_eq (L := AlgebraicClosure K) O
+  exact goodReduction_of_QM_rational3_C hNOS hRay hU τ O w hw A hdim I J hI hJ hIJ h3 hrat
+
+end GlueC
+
+end GlueA6Alg
+
+namespace LeafQM.AV
+
+open CategoryTheory AlgebraicGeometry Limits MonoidalCategory CartesianMonoidalCategory MonObj
+open PkgI3 ObjBridge
+
+section A6C
+
+variable {K : Type} [Field K]
+
+/-- Copy of `hrat`: all of `A[3]` is Galois-fixed (from `Level3.ontoC`). -/
+theorem hratC (P : QML3 K) (hU : ZInQ.LeafPush2.UniformizationExists) (τ : K →+* ℂ)
+    (σ : AlgebraicClosure K ≃ₐ[K] AlgebraicClosure K)
+    (x : PkgI2.Pts (toGrp P.A) (AlgebraicClosure K))
+    (hx : x ∈ PkgI2.torsion (toGrp P.A) (AlgebraicClosure K) 3) :
+    PkgI2.galAct (toGrp P.A) σ x = x := by
+  obtain ⟨a, rfl⟩ := Level3.ontoC (T5Torsion.torsionStructureC_of_uniformization hU) τ P x hx
+  exact galAct_bcPt P σ _
+
+/-- **Copy of `QML3.goodReduction` with T35 and `τ : K → ℂ` in place of T5.** -/
+theorem QML3.goodReductionC (hNOS : PkgI2.NeronOggShafarevich.{0})
+    (hRay : PkgI2.RaynaudCriterion.{0}) (hU : ZInQ.LeafPush2.UniformizationExists)
+    (τ : K →+* ℂ) (P : QML3 K)
+    (Ov : ValuationSubring K) [IsDiscreteValuationRing Ov] (h3 : IsUnit (3 : Ov)) :
+    PkgI2.HasGoodReduction (toGrp P.A) Ov := by
+  have hdim : topologicalKrullDim (toGrp P.A).X.left = ((2 : ℕ) : WithBot ℕ∞) := P.surface
+  exact GlueA6Alg.goodReduction_of_QM_rational3_C' hNOS hRay hU τ Ov (toGrp P.A) hdim
+    (grpOfHom (P.q.iota oi)) (grpOfHom (P.q.iota oj)) (hI P) (hJ P) (hIJ P) h3
+    (hratC P hU τ)
+
+end A6C
+
+end LeafQM.AV
+
+#print axioms LeafQM.AV.QML3.goodReductionC
+
+/-! ## Part 7: the assembly's two torsion-count consumers from T35
+
+`TorsionBound3` (scratch/g0-assemble2/G0Assemble2.lean:56478, proved there from T5 by
+`torsionBound3_of`) and `TorsionCountPts` (G0Assemble2.lean:59755, proved there from T5 by
+`torsionCountPts_of_leaf`) are copied verbatim (with `tors`, `TorsCount`, `IF`, `PtQ`) and proved
+from T35. -/
+
+namespace T5Torsion
+
+open CategoryTheory AlgebraicGeometry Limits MonoidalCategory CartesianMonoidalCategory MonObj
+
+/-- **`#A(Ω)[n] = n^{2g}`** for `K → ℂ` and any algebraically closed field `Ω ⊇ K`, from T35. -/
+theorem natCard_torsion_algClosed (hU : ZInQ.LeafPush2.UniformizationExists)
+    {K : Type} [Field K] (σ : K →+* ℂ) (A : PkgI3.AbVar K) (g n : ℕ)
+    (hg : A.dim = (g : WithBot ℕ∞)) (hn : 0 < n)
+    (Ω : Type) [Field Ω] [IsAlgClosed Ω] [Algebra K Ω] :
+    Nat.card {p : A.Pt Ω // p ^ n = 1} = n ^ (2 * g) := by
+  haveI : CharZero K := RingHom.charZero σ
+  let κ : AlgebraicClosure K →ₐ[K] Ω := IsAlgClosed.lift
+  rw [← natCard_torsion_eq_of_ext A κ n hn]
+  exact natCard_torsion_of_uniformization hU σ A g n hg hn
+
+namespace Pin
+
+/-- An embedding `ℚ̄ → ℂ`. -/
+noncomputable def qbarToC' : AlgebraicClosure ℚ →+* ℂ :=
+  (IsAlgClosed.lift : AlgebraicClosure ℚ →ₐ[ℚ] ℂ).toRingHom
+
+end Pin
+
+namespace AssemblyCopies
+
+/-- Copy (G0Assemble2.lean:56478). -/
+def TorsionBound3 : Prop :=
+  ∀ A : PkgI3.AbVar (AlgebraicClosure ℚ), A.dim = 2 →
+    ∃ s : Finset (Additive (A.Pt (AlgebraicClosure ℚ))), s.card ≤ 81 ∧
+      ∀ x : Additive (A.Pt (AlgebraicClosure ℚ)), 3 • x = 0 → x ∈ s
+
+/-- Copy (G0Assemble2.lean:59328). -/
+abbrev tors (V : Type*) [AddCommGroup V] (n : ℕ) : AddSubgroup V := (n • AddMonoidHom.id V).ker
+
+/-- Copy (G0Assemble2.lean:59332). -/
+def TorsCount (V : Type*) [AddCommGroup V] : Prop :=
+  ∀ n : ℕ, 0 < n → Nat.card (tors V n) = n ^ 4
+
+/-- Copy (G0Assemble2.lean:39671). -/
+abbrev IF : Type := IntermediateField ℚ (AlgebraicClosure ℚ)
+
+/-- Copy (G0Assemble2.lean:39726). -/
+abbrev PtQ (L : IF) (A : PkgI3.AbVar L) : Type := Additive (A.Pt (AlgebraicClosure ℚ))
+
+/-- Copy (G0Assemble2.lean:59755). -/
+def TorsionCountPts : Prop :=
+  ∀ (L : IF) (A : PkgI3.AbVar L), A.dim = 2 → TorsCount (PtQ L A)
+
+/-- `n`-torsion of `Additive (A.Pt Ω)` as the multiplicative `n`-torsion. -/
+def torsAddEquiv {K : Type} [Field K] (A : PkgI3.AbVar K) (Ω : Type) [Field Ω] [Algebra K Ω]
+    (n : ℕ) : tors (Additive (A.Pt Ω)) n ≃ {p : A.Pt Ω // p ^ n = 1} where
+  toFun x := ⟨Additive.toMul x.1, by
+    have h : (n • AddMonoidHom.id (Additive (A.Pt Ω))) x.1 = 0 := AddMonoidHom.mem_ker.1 x.2
+    exact congrArg Additive.toMul h⟩
+  invFun p := ⟨Additive.ofMul p.1, AddMonoidHom.mem_ker.2 (congrArg Additive.ofMul p.2)⟩
+  left_inv _ := rfl
+  right_inv _ := rfl
+
+/-- **`TorsionCountPts` from T35.** -/
+theorem torsionCountPts_of_T35 (hU : ZInQ.LeafPush2.UniformizationExists) : TorsionCountPts := by
+  intro L A hA n hn
+  let σ : L →+* ℂ := (Pin.qbarToC').comp (L.val : L →+* AlgebraicClosure ℚ)
+  rw [Nat.card_congr (torsAddEquiv A (AlgebraicClosure ℚ) n)]
+  exact natCard_torsion_algClosed hU σ A 2 n (by rw [hA]; rfl) hn (AlgebraicClosure ℚ)
+
+/-- **`TorsionBound3` from T35.** -/
+theorem torsionBound3_of_T35 (hU : ZInQ.LeafPush2.UniformizationExists) : TorsionBound3 := by
+  classical
+  intro A hA
+  let σ : AlgebraicClosure ℚ →+* ℂ := Pin.qbarToC'
+  have hc : Nat.card (tors (Additive (A.Pt (AlgebraicClosure ℚ))) 3) = 81 := by
+    rw [Nat.card_congr (torsAddEquiv A (AlgebraicClosure ℚ) 3)]
+    exact natCard_torsion_algClosed hU σ A 2 3 (by rw [hA]; rfl) (by norm_num)
+      (AlgebraicClosure ℚ)
+  haveI : Finite (tors (Additive (A.Pt (AlgebraicClosure ℚ))) 3) :=
+    Nat.finite_of_card_ne_zero (by rw [hc]; norm_num)
+  have hfin : ((tors (Additive (A.Pt (AlgebraicClosure ℚ))) 3 :
+      AddSubgroup (Additive (A.Pt (AlgebraicClosure ℚ)))) :
+        Set (Additive (A.Pt (AlgebraicClosure ℚ)))).Finite :=
+    Set.toFinite _
+  refine ⟨hfin.toFinset, ?_, fun x hx => hfin.mem_toFinset.mpr ?_⟩
+  · rw [← Set.ncard_eq_toFinset_card _ hfin, ← Nat.card_coe_set_eq]
+    exact (show Nat.card (tors (Additive (A.Pt (AlgebraicClosure ℚ))) 3) ≤ 81 from hc.le)
+  · exact AddMonoidHom.mem_ker.2 hx
+
+end AssemblyCopies
+
+end T5Torsion
+
+#print axioms T5Torsion.AssemblyCopies.torsionCountPts_of_T35
+#print axioms T5Torsion.AssemblyCopies.torsionBound3_of_T35
+
+
+/-! ## Part 8: the Tate module from the counts (= Tate.lean) -/
+
+/-!
+# t5-torsion, part 8: the Tate module from the torsion counts
+
+`T5Torsion.TateFree.tate_linearEquiv`: if an abelian group `M` has `#M[ℓⁿ] = ℓ^{nr}` for every
+`n`, then `T_ℓ M ≃ ℤ_ℓ^r` (the kernel's `PkgI3.Tate.T`). Hence the textbook leaf T26
+(`PkgI3.TateModuleFree`) follows from T5 (`PkgI2.TorsionStructure`).
+-/
+
+set_option linter.style.haveILetI false
+set_option linter.unusedSectionVars false
+
+namespace T5Torsion.TateFree
+
+open PkgI3.Tate
+
+variable {ℓ : ℕ} [hℓ : Fact ℓ.Prime] {M : Type*} [AddCommGroup M]
+
+/-- `M[ℓⁿ]`. -/
+abbrev tb (ℓ : ℕ) (M : Type*) [AddCommGroup M] (n : ℕ) : AddSubgroup M :=
+  AddSubgroup.torsionBy M ((ℓ ^ n : ℕ) : ℤ)
+
+theorem mem_tb {n : ℕ} {x : M} : x ∈ tb ℓ M n ↔ ℓ ^ n • x = 0 :=
+  AddSubgroup.torsionBy.nsmul_iff
+
+theorem pow_smul_add {x : ℕ → M} (hx : x ∈ T ℓ M) (m k : ℕ) : ℓ ^ k • x (m + k) = x m := by
+  induction k with
+  | zero => simp
+  | succ k ih => rw [pow_succ, mul_smul, ← add_assoc, hx.2 (m + k), ih]
+
+section Counts
+
+variable (r : ℕ) (hcard : ∀ n : ℕ, Nat.card (tb ℓ M n) = ℓ ^ (n * r))
+include hcard
+
+theorem finite_tb (n : ℕ) : Finite (tb ℓ M n) :=
+  Nat.finite_of_card_ne_zero (by rw [hcard n]; exact pow_ne_zero _ hℓ.out.ne_zero)
+
+/-- Multiplication by `ℓ` maps `M[ℓⁿ⁺¹]` onto `M[ℓⁿ]` (counting). -/
+theorem exists_lift (n : ℕ) (y : M) (hy : ℓ ^ n • y = 0) :
+    ∃ x : M, ℓ ^ (n + 1) • x = 0 ∧ ℓ • x = y := by
+  let f : tb ℓ M (n + 1) →+ tb ℓ M n :=
+    { toFun := fun x => ⟨ℓ • x.1, mem_tb.2 (by
+        rw [← mul_smul, ← pow_succ]; exact mem_tb.1 x.2)⟩
+      map_zero' := by ext; simp
+      map_add' := fun a b => by ext; simp }
+  haveI := finite_tb r hcard (n + 1)
+  haveI := finite_tb r hcard n
+  have hker : Nat.card f.ker = ℓ ^ r := by
+    rw [show ℓ ^ r = ℓ ^ (1 * r) by rw [_root_.one_mul], ← hcard 1]
+    refine Nat.card_congr
+      { toFun := fun x => ⟨x.1.1, mem_tb.2 (by
+          have h : (f x.1).1 = 0 := congrArg Subtype.val (AddMonoidHom.mem_ker.1 x.2)
+          rw [pow_one]; exact h)⟩
+        invFun := fun y => ⟨⟨y.1, mem_tb.2 (by
+          have h := mem_tb.1 y.2
+          rw [pow_one] at h
+          rw [pow_succ, mul_smul, h, smul_zero])⟩, AddMonoidHom.mem_ker.2 (by
+          ext
+          have h := mem_tb.1 y.2
+          rw [pow_one] at h
+          simpa [f] using h)⟩
+        left_inv := fun _ => rfl
+        right_inv := fun _ => rfl }
+  have hrange : Nat.card f.range = Nat.card (tb ℓ M n) := by
+    have h1 := AddSubgroup.card_mul_index f.ker
+    rw [AddSubgroup.index_ker, hker, hcard (n + 1)] at h1
+    rw [hcard n]
+    have hpos : 0 < ℓ ^ r := pow_pos hℓ.out.pos r
+    have : ℓ ^ ((n + 1) * r) = ℓ ^ r * ℓ ^ (n * r) := by rw [← pow_add]; ring_nf
+    rw [this] at h1
+    exact Nat.eq_of_mul_eq_mul_left hpos h1
+  have htop : f.range = ⊤ := AddSubgroup.eq_top_of_card_eq _ hrange
+  obtain ⟨x, hx⟩ := (AddMonoidHom.range_eq_top.1 htop) ⟨y, mem_tb.2 hy⟩
+  exact ⟨x.1, mem_tb.1 x.2, congrArg Subtype.val hx⟩
+
+/-- Every `y ∈ M[ℓ]` is the first term of an element of `T_ℓ M`. -/
+theorem exists_tate_lift (y : M) (hy : ℓ • y = 0) : ∃ x : T ℓ M, x.1 1 = y := by
+  let g : (k : ℕ) → {z : M // ℓ ^ (k + 1) • z = 0} := fun k =>
+    Nat.rec ⟨y, by simpa using hy⟩
+      (fun k z => ⟨(exists_lift r hcard (k + 1) z.1 z.2).choose,
+        (exists_lift r hcard (k + 1) z.1 z.2).choose_spec.1⟩) k
+  have hg : ∀ k, ℓ • (g (k + 1)).1 = (g k).1 := fun k =>
+    (exists_lift r hcard (k + 1) (g k).1 (g k).2).choose_spec.2
+  let x : ℕ → M := fun m => Nat.casesOn m 0 (fun k => (g k).1)
+  have hx : x ∈ T ℓ M := by
+    refine ⟨rfl, fun m => ?_⟩
+    cases m with
+    | zero => simpa [x, g] using hy
+    | succ k => exact hg k
+  exact ⟨⟨x, hx⟩, rfl⟩
+
+end Counts
+
+theorem zsmul_emod_of {m : ℕ} {z : M} (hz : m • z = 0) (c : ℤ) : (c % m) • z = c • z := by
+  conv_rhs => rw [← Int.emod_add_mul_ediv c m]
+  rw [add_zsmul, mul_comm, mul_zsmul, natCast_zsmul, hz, zsmul_zero, add_zero]
+
+/-- The map `ℤ_ℓ^r → T_ℓ M`, `a ↦ ∑ aᵢ Xᵢ`, at level `n`. -/
+theorem lc_apply {r : ℕ} (X : Fin r → T ℓ M) (a : Fin r → ℤ_[ℓ]) (n : ℕ) :
+    (Fintype.linearCombination ℤ_[ℓ] X a).1 n =
+      ∑ i, (PadicInt.toZModPow n (a i)).val • (X i).1 n := by
+  rw [Fintype.linearCombination_apply]
+  let E : T ℓ M →+ M := (Pi.evalAddMonoidHom (fun _ : ℕ => M) n).comp (T ℓ M).subtype
+  change E (∑ i, a i • X i) = _
+  rw [map_sum]
+  rfl
+
+section Main
+
+variable (r : ℕ) (hcard : ∀ n : ℕ, Nat.card (tb ℓ M n) = ℓ ^ (n * r))
+include hcard
+
+omit hcard in
+/-- A finite `𝔽_ℓ`-space of order `ℓ^r` has `r` elements independent over `ℤ` modulo `ℓ`. -/
+theorem basis_of_card {V : Type*} [AddCommGroup V] [Module (ZMod ℓ) V] [Finite V]
+    (hc : Nat.card V = ℓ ^ r) :
+    ∃ e : Fin r → V, ∀ c : Fin r → ℤ, ∑ i, c i • e i = 0 → ∀ i, (ℓ : ℤ) ∣ c i := by
+  haveI : NeZero ℓ := ⟨hℓ.out.ne_zero⟩
+  haveI hfin : Module.Finite (ZMod ℓ) V := Module.Finite.of_finite
+  have h1 := Module.natCard_eq_pow_finrank (K := ZMod ℓ) (V := V)
+  have hfr : Module.finrank (ZMod ℓ) V = r := by
+    rw [hc, Nat.card_zmod] at h1
+    exact (Nat.pow_right_injective hℓ.out.two_le h1).symm
+  let b : Module.Basis (Fin r) (ZMod ℓ) V := Module.finBasisOfFinrankEq (ZMod ℓ) V hfr
+  refine ⟨fun i => b i, fun c hc i => ?_⟩
+  have hc' : ∑ j, (c j : ZMod ℓ) • b j = 0 := by
+    simp only [Int.cast_smul_eq_zsmul]
+    exact hc
+  have := Fintype.linearIndependent_iff.mp b.linearIndependent (fun j => (c j : ZMod ℓ)) hc' i
+  exact (ZMod.intCast_zmod_eq_zero_iff_dvd (c i) ℓ).mp this
+
+/-- An `𝔽_ℓ`-basis of `M[ℓ]`, as elements of `M` with the independence over `ℤ` modulo `ℓ`. -/
+theorem exists_basis : ∃ e : Fin r → M, (∀ i, ℓ • e i = 0) ∧
+    ∀ c : Fin r → ℤ, ∑ i, c i • e i = 0 → ∀ i, (ℓ : ℤ) ∣ c i := by
+  have hV : ∀ x : tb ℓ M 1, ℓ • x = 0 := fun x => Subtype.ext (by
+    have h := mem_tb.1 x.2
+    rw [pow_one] at h
+    simpa using h)
+  haveI : NeZero ℓ := ⟨hℓ.out.ne_zero⟩
+  haveI : Finite (tb ℓ M 1) := finite_tb r hcard 1
+  obtain ⟨e, he⟩ := @basis_of_card ℓ _ r (tb ℓ M 1) _ (AddCommGroup.zmodModule hV) _
+    (by rw [hcard 1, _root_.one_mul])
+  refine ⟨fun i => (e i).1, fun i => by
+    have h := mem_tb.1 (e i).2
+    rwa [pow_one] at h, fun c hc i => he c (Subtype.ext ?_) i⟩
+  rw [AddSubgroup.val_finsetSum]
+  simpa using hc
+
+variable {r} (e : Fin r → M) (he : ∀ i, ℓ • e i = 0)
+  (hind : ∀ c : Fin r → ℤ, ∑ i, c i • e i = 0 → ∀ i, (ℓ : ℤ) ∣ c i)
+  (X : Fin r → T ℓ M) (hX : ∀ i, (X i).1 1 = e i)
+include hind hX
+
+/-- Independence at level `n`. -/
+theorem dvd_of_sum_eq_zero (n : ℕ) :
+    ∀ c : Fin r → ℤ, ∑ i, c i • (X i).1 n = 0 → ∀ i, (ℓ : ℤ) ^ n ∣ c i := by
+  induction n with
+  | zero => intro c _ i; simp
+  | succ n ih =>
+    intro c hc
+    have h1 : ∑ i, c i • e i = 0 := by
+      have h := congrArg (fun z => ℓ ^ n • z) hc
+      simp only [smul_zero, Finset.smul_sum] at h
+      rw [← h]
+      refine Finset.sum_congr rfl fun i _ => ?_
+      rw [smul_comm, show n + 1 = 1 + n by ring, pow_smul_add (X i).2 1 n, hX]
+    choose d hd using fun i => hind c h1 i
+    have h2 : ∑ i, d i • (X i).1 n = 0 := by
+      rw [← hc]
+      refine Finset.sum_congr rfl fun i _ => ?_
+      rw [hd i, mul_comm, mul_zsmul, natCast_zsmul, (X i).2.2 n]
+    intro i
+    obtain ⟨k, hk⟩ := ih d h2 i
+    rw [hd i, hk, pow_succ]
+    exact ⟨k, by ring⟩
+
+/-- Every `y ∈ M[ℓⁿ]` is a `ℤ`-combination of the `X i` at level `n`. -/
+theorem exists_coeffs (n : ℕ) (y : M) (hy : ℓ ^ n • y = 0) :
+    ∃ c : Fin r → ℤ, ∑ i, c i • (X i).1 n = y := by
+  haveI := finite_tb r hcard n
+  let F : (Fin r → ZMod (ℓ ^ n)) → tb ℓ M n := fun c =>
+    ⟨∑ i, ((c i).val : ℤ) • (X i).1 n, mem_tb.2 (by
+      rw [Finset.smul_sum]
+      refine Finset.sum_eq_zero fun i _ => ?_
+      rw [smul_comm, pow_smul_eq_zero (X i).2 n, smul_zero])⟩
+  have hF : Function.Injective F := by
+    intro c c' h
+    have h1 : ∑ i, (((c i).val : ℤ) - (c' i).val) • (X i).1 n = 0 := by
+      simp only [sub_smul, Finset.sum_sub_distrib]
+      exact sub_eq_zero.2 (congrArg Subtype.val h)
+    funext i
+    have h2 := dvd_of_sum_eq_zero hcard e hind X hX n _ h1 i
+    have h3 : (((c' i).val : ℤ) : ZMod (ℓ ^ n)) = (((c i).val : ℤ) : ZMod (ℓ ^ n)) := by
+      rw [ZMod.intCast_eq_intCast_iff_dvd_sub]
+      exact_mod_cast h2
+    simpa using h3.symm
+  have hbij : Function.Bijective F := hF.bijective_of_nat_card_le (by
+    rw [hcard n, Nat.card_fun, Nat.card_zmod, Nat.card_eq_fintype_card, Fintype.card_fin,
+      ← pow_mul])
+  obtain ⟨c, hc⟩ := hbij.2 ⟨y, mem_tb.2 hy⟩
+  exact ⟨fun i => ((c i).val : ℤ), congrArg Subtype.val hc⟩
+
+/-- **`T_ℓ M ≅ ℤ_ℓ^r`.** -/
+theorem lc_bijective : Function.Bijective (Fintype.linearCombination ℤ_[ℓ] X) := by
+  constructor
+  · rw [← LinearMap.ker_eq_bot, LinearMap.ker_eq_bot']
+    intro a ha
+    funext i
+    rw [← PadicInt.ext_of_toZModPow]
+    intro n
+    have h0 : ∑ j, (((PadicInt.toZModPow n (a j)).val : ℕ) : ℤ) • (X j).1 n = 0 := by
+      have := congrArg (fun x : T ℓ M => x.1 n) ha
+      rw [lc_apply X] at this
+      refine (Finset.sum_congr rfl fun j _ => natCast_zsmul _ _).trans ?_
+      rw [this]
+      rfl
+    obtain ⟨k, hk⟩ := dvd_of_sum_eq_zero hcard e hind X hX n _ h0 i
+    have hlt := ZMod.val_lt (PadicInt.toZModPow n (a i))
+    have hk' : (PadicInt.toZModPow n (a i)).val = ℓ ^ n * k.toNat := by
+      have hk0 : 0 ≤ k := by
+        by_contra hneg
+        have : ((ℓ : ℤ) ^ n) * k < 0 :=
+          mul_neg_of_pos_of_neg (pow_pos (by exact_mod_cast hℓ.out.pos) n) (lt_of_not_ge hneg)
+        omega
+      have : ((PadicInt.toZModPow n (a i)).val : ℤ) = ((ℓ ^ n * k.toNat : ℕ) : ℤ) := by
+        push_cast; rw [Int.toNat_of_nonneg hk0]; exact hk
+      exact_mod_cast this
+    have hval : (PadicInt.toZModPow n (a i)).val = 0 := by
+      rcases Nat.eq_zero_or_pos k.toNat with h | h
+      · rw [hk', h, mul_zero]
+      · exfalso
+        have : ℓ ^ n ≤ ℓ ^ n * k.toNat := Nat.le_mul_of_pos_right _ h
+        omega
+    rw [ZMod.val_eq_zero] at hval
+    rw [hval, Pi.zero_apply, map_zero]
+  · intro y
+    choose c hc using fun n => exists_coeffs hcard e hind X hX n (y.1 n) (pow_smul_eq_zero y.2 n)
+    have hcomp : ∀ i n, (ℓ : ℤ) ^ n ∣ c (n + 1) i - c n i := by
+      intro i n
+      refine dvd_of_sum_eq_zero hcard e hind X hX n (fun j => c (n + 1) j - c n j) ?_ i
+      simp only [sub_smul, Finset.sum_sub_distrib, hc n]
+      rw [sub_eq_zero, ← y.2.2 n, ← hc (n + 1), Finset.smul_sum]
+      refine Finset.sum_congr rfl fun j _ => ?_
+      rw [← (X j).2.2 n, smul_comm]
+    let a : Fin r → ℤ_[ℓ] := fun i =>
+      PadicInt.ofIntSeq _ (PadicInt.isCauSeq_padicNorm_of_pow_dvd_sub (fun n => c n i) ℓ
+        (hcomp i))
+    have ha : ∀ i n, PadicInt.toZModPow n (a i) = (c n i : ZMod (ℓ ^ n)) := fun i n =>
+      PadicInt.toZModPow_ofIntSeq_of_pow_dvd_sub (fun n => c n i) ℓ (hcomp i) n
+    refine ⟨a, Subtype.ext (funext fun n => ?_)⟩
+    rw [lc_apply X, ← hc n]
+    refine Finset.sum_congr rfl fun i _ => ?_
+    rw [ha, ← natCast_zsmul, ZMod.val_intCast]
+    exact zsmul_emod_of (pow_smul_eq_zero (X i).2 n) (c n i)
+
+end Main
+
+/-- **The Tate module from the counts**: `#M[ℓⁿ] = ℓ^{nr}` for all `n` gives `T_ℓ M ≃ ℤ_ℓ^r`. -/
+theorem tate_linearEquiv (r : ℕ) (hcard : ∀ n : ℕ, Nat.card (tb ℓ M n) = ℓ ^ (n * r)) :
+    Nonempty (T ℓ M ≃ₗ[ℤ_[ℓ]] (Fin r → ℤ_[ℓ])) := by
+  obtain ⟨e, he, hind⟩ := exists_basis r hcard
+  choose X hX using fun i => exists_tate_lift r hcard (e i) (he i)
+  exact ⟨(LinearEquiv.ofBijective _ (lc_bijective hcard e hind X hX)).symm⟩
+
+end T5Torsion.TateFree
+
+/-! ## T26 (`PkgI3.TateModuleFree`) from T5 (`PkgI2.TorsionStructure`) -/
+
+namespace T5Torsion.TateFree
+
+open CategoryTheory AlgebraicGeometry Limits MonoidalCategory CartesianMonoidalCategory MonObj
+
+/-- `torsion (toGrp A) K̄ m` is `M[m]` for `M = Additive A(K̄)`. -/
+def torsionEquivTb {k : Type} [Field k] (A : PkgI3.AbVar k) (ℓ n : ℕ) [Fact ℓ.Prime] :
+    PkgI2.torsion (ObjBridge.toGrp A) (AlgebraicClosure k) (ℓ ^ n) ≃
+      tb ℓ (Additive (A.Pt (AlgebraicClosure k))) n where
+  toFun x := ⟨Additive.ofMul x.1, mem_tb.2 (congrArg Additive.ofMul x.2)⟩
+  invFun y := ⟨Additive.toMul y.1, congrArg Additive.toMul (mem_tb.1 y.2)⟩
+  left_inv _ := rfl
+  right_inv _ := rfl
+
+/-- **T26 at one field from T5 at that field.** -/
+theorem tateModuleFree_at {k : Type} [Field k]
+    (hT : ∀ (A : Grp (Over (Spec (.of k)))) [PkgI2.IsAbelianVariety A] (g n : ℕ),
+      topologicalKrullDim A.X.left = (g : WithBot ℕ∞) → 0 < n → (n : k) ≠ 0 →
+        ∃ e : PkgI2.torsion A (AlgebraicClosure k) n ≃ (Fin (2 * g) → ZMod n),
+          ∀ x y : PkgI2.torsion A (AlgebraicClosure k) n,
+            ∀ h : x.1 * y.1 ∈ PkgI2.torsion A (AlgebraicClosure k) n, e ⟨x.1 * y.1, h⟩ = e x + e y)
+    (A : PkgI3.AbVar k) (ℓ : ℕ) [Fact ℓ.Prime] (hℓk : (ℓ : k) ≠ 0) :
+    Module.Free ℤ_[ℓ] (A.T ℓ) ∧ Module.Finite ℤ_[ℓ] (A.T ℓ) ∧
+      ((Module.finrank ℤ_[ℓ] (A.T ℓ) : ℕ∞) : WithBot ℕ∞) = 2 * A.dim := by
+  obtain ⟨g, hg⟩ := PkgI3.AbVar.dim_finite A
+  have hcard : ∀ n : ℕ, Nat.card (tb ℓ (Additive (A.Pt (AlgebraicClosure k))) n) =
+      ℓ ^ (n * (2 * g)) := by
+    intro n
+    obtain ⟨e, -⟩ := hT (ObjBridge.toGrp A) g (ℓ ^ n) hg
+      (pow_pos (Fact.out : ℓ.Prime).pos n) (by push_cast; exact pow_ne_zero _ hℓk)
+    rw [← Nat.card_congr (torsionEquivTb A ℓ n), Nat.card_congr e, Nat.card_fun, Nat.card_zmod,
+      Nat.card_eq_fintype_card, Fintype.card_fin, ← pow_mul]
+  obtain ⟨E⟩ := tate_linearEquiv (2 * g) hcard
+  refine ⟨Module.Free.of_equiv E.symm, Module.Finite.equiv E.symm, ?_⟩
+  rw [E.finrank_eq, Module.finrank_fin_fun]
+  rw [hg]
+  norm_cast
+
+/-- **T26 from T5**: `T_ℓ(A)` is free of rank `2 dim A` over `ℤ_ℓ` for `ℓ ≠ char k`. -/
+theorem tateModuleFree_of_torsionStructure (hT : PkgI2.TorsionStructure.{0}) :
+    PkgI3.TateModuleFree := fun k _ A ℓ _ hℓk => tateModuleFree_at (hT k) A ℓ hℓk
+
+end T5Torsion.TateFree
+
+
+
+/-! ## Part 9: T26 corollaries -/
+
+namespace T5Torsion
+
+/-- **T26 restricted to fields with an embedding into `ℂ`** (`PkgI3.TateModuleFree` with
+`(ℓ : k) ≠ 0` replaced by `σ : k →+* ℂ`). -/
+def TateModuleFreeC : Prop :=
+  ∀ (k : Type) [Field k] (_ : k →+* ℂ) (A : PkgI3.AbVar k) (ℓ : ℕ) [Fact ℓ.Prime],
+    Module.Free ℤ_[ℓ] (A.T ℓ) ∧ Module.Finite ℤ_[ℓ] (A.T ℓ) ∧
+      ((Module.finrank ℤ_[ℓ] (A.T ℓ) : ℕ∞) : WithBot ℕ∞) = 2 * A.dim
+
+/-- **T26 for subfields of `ℂ` from T35 alone.** -/
+theorem tateModuleFreeC_of_uniformization (hU : ZInQ.LeafPush2.UniformizationExists) :
+    TateModuleFreeC := fun k _ σ A ℓ _ =>
+  haveI : CharZero k := RingHom.charZero σ
+  TateFree.tateModuleFree_at (fun B _ g n hg hn hnk => torsionStructureAt hU σ B g n hg hn hnk)
+    A ℓ (Nat.cast_ne_zero.2 (Fact.out : ℓ.Prime).ne_zero)
+
+/-- **T26 from `TorsionCard`.** -/
+theorem tateModuleFree_of_torsionCard (h : TorsionCard.{0}) : PkgI3.TateModuleFree :=
+  TateFree.tateModuleFree_of_torsionStructure (torsionStructure_of_torsionCard h)
+
+/-- **T26 (all fields) from T35 and `TorsionCardNonC`.** -/
+theorem tateModuleFree_of_uniformization_of_nonC (hU : ZInQ.LeafPush2.UniformizationExists)
+    (hN : TorsionCardNonC) : PkgI3.TateModuleFree :=
+  TateFree.tateModuleFree_of_torsionStructure (torsionStructure_of_uniformization_of_nonC hU hN)
+
+end T5Torsion
+
+#print axioms T5Torsion.TateFree.tateModuleFree_of_torsionStructure
+#print axioms T5Torsion.tateModuleFreeC_of_uniformization
+#print axioms T5Torsion.tateModuleFree_of_torsionCard
+#print axioms T5Torsion.tateModuleFree_of_uniformization_of_nonC
+
+/-! ## Part 10: embeddings into `ℂ` for the consumers' fields, and T5 on number fields -/
+
+namespace T5Torsion
+
+open CategoryTheory AlgebraicGeometry Limits MonoidalCategory CartesianMonoidalCategory MonObj
+open PkgI2 (IsAbelianVariety torsion)
+
+/-- A ring embedding of a number field into `ℂ`. -/
+noncomputable def numberFieldToC (K : Type) [Field K] [NumberField K] : K →+* ℂ :=
+  (IsAlgClosed.lift : K →ₐ[ℚ] ℂ).toRingHom
+
+/-- A ring embedding of a subfield of `ℚ̄` into `ℂ`. -/
+noncomputable def subfieldQbarToC (L : IntermediateField ℚ (AlgebraicClosure ℚ)) : L →+* ℂ :=
+  Pin.qbarToC'.comp (L.val : L →+* AlgebraicClosure ℚ)
+
+/-- **T5 over number fields, from T35** (drop-in for lt-local's `torsGL_of_leaf`, whose `K` is a
+number field). -/
+theorem torsionStructure_numberField (hU : ZInQ.LeafPush2.UniformizationExists)
+    (K : Type) [Field K] [NumberField K] (A : Grp (Over (Spec (.of K)))) [IsAbelianVariety A]
+    (g n : ℕ) (hg : topologicalKrullDim A.X.left = (g : WithBot ℕ∞)) (hn : 0 < n) :
+    ∃ e : torsion A (AlgebraicClosure K) n ≃ (Fin (2 * g) → ZMod n),
+      ∀ x y : torsion A (AlgebraicClosure K) n,
+        ∀ h : x.1 * y.1 ∈ torsion A (AlgebraicClosure K) n, e ⟨x.1 * y.1, h⟩ = e x + e y :=
+  torsionStructureC_of_uniformization hU K (numberFieldToC K) A g n hg hn
+
+/-- **T5 over subfields of `ℚ̄`, from T35** (the assemblies' `IF`). -/
+theorem torsionStructure_subfieldQbar (hU : ZInQ.LeafPush2.UniformizationExists)
+    (L : IntermediateField ℚ (AlgebraicClosure ℚ)) (A : Grp (Over (Spec (.of L))))
+    [IsAbelianVariety A] (g n : ℕ) (hg : topologicalKrullDim A.X.left = (g : WithBot ℕ∞))
+    (hn : 0 < n) :
+    ∃ e : torsion A (AlgebraicClosure L) n ≃ (Fin (2 * g) → ZMod n),
+      ∀ x y : torsion A (AlgebraicClosure L) n,
+        ∀ h : x.1 * y.1 ∈ torsion A (AlgebraicClosure L) n, e ⟨x.1 * y.1, h⟩ = e x + e y :=
+  torsionStructureC_of_uniformization hU L (subfieldQbarToC L) A g n hg hn
+
+end T5Torsion
+
+#print axioms T5Torsion.torsionStructure_numberField
+#print axioms T5Torsion.torsionStructure_subfieldQbar
+
+/-! ## Part 11: `T_ℓ A → A[ℓᵏ]` is onto, from T5 (replaces the leaf `DivisiblePoints` in G12) -/
+
+namespace T5Torsion.TateFree
+
+open PkgI3.Tate
+
+section LiftLevel
+
+variable {ℓ : ℕ} [hℓ : Fact ℓ.Prime] {M : Type*} [AddCommGroup M]
+
+/-- **Every `t ∈ M[ℓᵏ]` is the `k`-th term of an element of `T_ℓ M`**, given the counts. -/
+theorem exists_tate_lift_level (r : ℕ) (hcard : ∀ n : ℕ, Nat.card (tb ℓ M n) = ℓ ^ (n * r))
+    (k : ℕ) (t : M) (ht : ℓ ^ k • t = 0) : ∃ y : T ℓ M, y.1 k = t := by
+  let s : (j : ℕ) → {z : M // ℓ ^ (k + j) • z = 0} := fun j =>
+    Nat.rec ⟨t, ht⟩
+      (fun j z => ⟨(exists_lift r hcard (k + j) z.1 z.2).choose,
+        (exists_lift r hcard (k + j) z.1 z.2).choose_spec.1⟩) j
+  have hs : ∀ j, ℓ • (s (j + 1)).1 = (s j).1 := fun j =>
+    (exists_lift r hcard (k + j) (s j).1 (s j).2).choose_spec.2
+  have hpow : ∀ j, ℓ ^ j • (s j).1 = t := by
+    intro j
+    induction j with
+    | zero => simp [s]
+    | succ j ih => rw [pow_succ, mul_smul, hs j, ih]
+  refine ⟨⟨fun j => ℓ ^ k • (s j).1, ?_, fun j => ?_⟩, ?_⟩
+  · change ℓ ^ k • t = 0
+    exact ht
+  · change ℓ • ℓ ^ k • (s (j + 1)).1 = ℓ ^ k • (s j).1
+    rw [smul_comm, hs j]
+  · exact hpow k
+
+end LiftLevel
+
+/-- **`T_ℓ A → A(K̄)[ℓᵏ]` is onto, from T5 at `K`**, in the exact form of the hypothesis `hsurj`
+of G0Assemble3's `WeilPairing.tatePairing_left_ker` / `det_galRep_sq` (there supplied by
+`tate_surj (hD K A ℓ _)` from the leaf `DivisiblePoints`). -/
+theorem tate_surj_at {k : Type} [Field k]
+    (hT : ∀ (A : Grp (Over (Spec (.of k)))) [PkgI2.IsAbelianVariety A] (g n : ℕ),
+      topologicalKrullDim A.X.left = (g : WithBot ℕ∞) → 0 < n → (n : k) ≠ 0 →
+        ∃ e : PkgI2.torsion A (AlgebraicClosure k) n ≃ (Fin (2 * g) → ZMod n),
+          ∀ x y : PkgI2.torsion A (AlgebraicClosure k) n,
+            ∀ h : x.1 * y.1 ∈ PkgI2.torsion A (AlgebraicClosure k) n, e ⟨x.1 * y.1, h⟩ = e x + e y)
+    (A : PkgI3.AbVar k) (ℓ : ℕ) [Fact ℓ.Prime] (hℓk : (ℓ : k) ≠ 0) :
+    ∀ (m : ℕ) (t : Additive (A.Pt (AlgebraicClosure k))), ℓ ^ m • t = 0 →
+      ∃ y : A.T ℓ, y.1 m = t := by
+  obtain ⟨g, hg⟩ := PkgI3.AbVar.dim_finite A
+  have hcard : ∀ n : ℕ, Nat.card (tb ℓ (Additive (A.Pt (AlgebraicClosure k))) n) =
+      ℓ ^ (n * (2 * g)) := by
+    intro n
+    obtain ⟨e, -⟩ := hT (ObjBridge.toGrp A) g (ℓ ^ n) hg
+      (pow_pos (Fact.out : ℓ.Prime).pos n) (by push_cast; exact pow_ne_zero _ hℓk)
+    rw [← Nat.card_congr (torsionEquivTb A ℓ n), Nat.card_congr e, Nat.card_fun, Nat.card_zmod,
+      Nat.card_eq_fintype_card, Fintype.card_fin, ← pow_mul]
+  exact exists_tate_lift_level (2 * g) hcard
+
+/-- **The same from the bundle's T5** (`TextbookLeaves.t5`). -/
+theorem tate_surj_of_torsionStructure (hT : PkgI2.TorsionStructure.{0}) (K : Type) [Field K]
+    (A : PkgI3.AbVar K) (ℓ : ℕ) [Fact ℓ.Prime] (hℓK : (ℓ : K) ≠ 0) :
+    ∀ (m : ℕ) (t : Additive (A.Pt (AlgebraicClosure K))), ℓ ^ m • t = 0 →
+      ∃ y : A.T ℓ, y.1 m = t :=
+  tate_surj_at (hT K) A ℓ hℓK
+
+end T5Torsion.TateFree
+
+#print axioms T5Torsion.TateFree.tate_surj_of_torsionStructure
+
+namespace T5Torsion
+
+/-- **`T_ℓ A → A(K̄)[ℓᵏ]` is onto for an abelian variety over a number field, from T35 alone**:
+the drop-in for `tate_surj (hD K A ℓ _)` in G0Assemble3's `tatePairingZl_of_leaves`, whose `K`
+is a number field (`TatePairingZl`). With it the `GluePieces4` leaf `divisiblePoints` is not
+needed. -/
+theorem tate_surj_numberField (hU : ZInQ.LeafPush2.UniformizationExists) (K : Type) [Field K]
+    [NumberField K] (A : PkgI3.AbVar K) (ℓ : ℕ) [Fact ℓ.Prime] :
+    ∀ (m : ℕ) (t : Additive (A.Pt (AlgebraicClosure K))), ℓ ^ m • t = 0 →
+      ∃ y : A.T ℓ, y.1 m = t :=
+  TateFree.tate_surj_at (fun B _ g n hg hn _ => torsionStructure_numberField hU K B g n hg hn) A ℓ
+    (Nat.cast_ne_zero.2 (Fact.out : ℓ.Prime).ne_zero)
+
+end T5Torsion
+
+#print axioms T5Torsion.tate_surj_numberField
+
+
+/-! ## Part 12: the count from the degree (= Degree.lean) -/
+
+/-!
+# t5-torsion, part 12: the count `#A(K̄)[n] = n^{2g}` from `deg [n] = n^{2g}` and separability
+
+Mumford's route (§4, Application 2; §6): the kernel `A[n] = [n]⁻¹(0)` is a finite `K`-scheme of
+degree `n^{2g}`, unramified (hence étale) when `[n]` is; an étale `K`-algebra of dimension `d` has
+exactly `d` points over an algebraically closed field. In characteristic `0`, `[n]` is unramified
+by the kernel's proved `MulRigidity.mulUnramified_of_kerUnitOpen kerUnitOpen`.
+-/
+
+open CategoryTheory AlgebraicGeometry Limits MonoidalCategory CartesianMonoidalCategory MonObj
+
+open scoped TensorProduct
+
+set_option linter.style.haveILetI false
+set_option linter.unusedSectionVars false
+
+namespace T5Torsion.Degree
+
+/-! ## §1 Points of a finite étale algebra -/
+
+/-- **An étale `K`-algebra of dimension `d` has `d` points in an algebraically closed field.** -/
+theorem natCard_algHom_eq_finrank {K R Ω : Type} [Field K] [CommRing R] [Algebra K R]
+    [Module.Finite K R] [Algebra.FormallyUnramified K R] [Field Ω] [IsAlgClosed Ω] [Algebra K Ω] :
+    Nat.card (R →ₐ[K] Ω) = Module.finrank K R := by
+  haveI : Algebra.EssFiniteType Ω (Ω ⊗[K] R) := inferInstance
+  haveI : Algebra.FormallyUnramified Ω (Ω ⊗[K] R) := inferInstance
+  haveI : Algebra.FormallyEtale Ω (Ω ⊗[K] R) :=
+    Algebra.FormallyEtale.iff_formallyUnramified_of_field.2 inferInstance
+  rw [Nat.card_congr (AlgHom.liftEquiv K Ω R Ω),
+    Nat.card_congr (Algebra.IsFiniteSplit.algHomEquivPrimeSpectrum Ω (Ω ⊗[K] R)),
+    ← Module.finrank_baseChange (R := Ω) (S := K) (M' := R),
+    (Algebra.FormallyEtale.equivPiOfIsSepClosed Ω (Ω ⊗[K] R)).toLinearEquiv.finrank_eq]
+  haveI : Finite (PrimeSpectrum (Ω ⊗[K] R)) := by
+    haveI := Algebra.FormallyUnramified.finite_of_free Ω (Ω ⊗[K] R)
+    haveI : IsArtinianRing (Ω ⊗[K] R) := isArtinian_of_tower Ω inferInstance
+    infer_instance
+  haveI := Fintype.ofFinite (PrimeSpectrum (Ω ⊗[K] R))
+  rw [Module.finrank_fintype_fun_eq_card, Nat.card_eq_fintype_card]
+
+/-! ## §2 The kernel `A[n]` and its points -/
+
+variable {K : Type} [Field K] (A : PkgI3.AbVar K)
+
+/-- `[n] : A → A` as a morphism of schemes. -/
+noncomputable abbrev mulN (n : ℕ) : A.X.left ⟶ A.X.left :=
+  (((n : ℤ) : PkgI3.AbVar.End A).hom).left
+
+/-- The unit section `Spec K → A`. -/
+noncomputable abbrev unitS : Spec (CommRingCat.of K) ⟶ A.X.left := η[A.X].left
+
+/-- **The kernel `A[n] = [n]⁻¹(0)`** (scheme-theoretic fibre of `[n]` over the origin). -/
+noncomputable abbrev kerN (n : ℕ) : Scheme := pullback (mulN A n) (unitS A)
+
+/-- Its structure map to `Spec K`. -/
+noncomputable abbrev kerToK (n : ℕ) : kerN A n ⟶ Spec (CommRingCat.of K) :=
+  pullback.snd (mulN A n) (unitS A)
+
+theorem fst_comp_hom (n : ℕ) :
+    pullback.fst (mulN A n) (unitS A) ≫ A.X.hom = kerToK A n := by
+  have hw : mulN A n ≫ A.X.hom = A.X.hom := Over.w ((n : ℤ) : PkgI3.AbVar.End A).hom
+  have he : unitS A ≫ A.X.hom = 𝟙 _ := Over.w η[A.X]
+  rw [← hw, ← Category.assoc, pullback.condition, Category.assoc, he, Category.comp_id]
+
+variable (Ω : Type) [Field Ω] [Algebra K Ω]
+
+/-- `Spec Ω → Spec K`. -/
+noncomputable abbrev sΩ : Spec (CommRingCat.of Ω) ⟶ Spec (CommRingCat.of K) :=
+  Spec.map (CommRingCat.ofHom (algebraMap K Ω))
+
+/-- **`A(Ω)[n]` = the `Ω`-points of the kernel over `K`.** -/
+theorem natCard_torsion_eq_kerPts (n : ℕ) :
+    Nat.card {x : A.Pt Ω // x ^ n = 1} =
+      Nat.card {z : Spec (CommRingCat.of Ω) ⟶ kerN A n // z ≫ kerToK A n = sΩ Ω} := by
+  have hcond : ∀ x : A.Pt Ω, x ^ n = 1 → x.left ≫ mulN A n = sΩ Ω ≫ unitS A := by
+    intro x hx
+    have h1 : x ≫ ((n : ℤ) : PkgI3.AbVar.End A).hom = 1 := by
+      rw [ZInQ.Contrib.AbVarBC.comp_natCast_hom, hx]
+    have h2 := congrArg (fun f => f.left) h1
+    simp only [Over.comp_left, Hom.one_def] at h2
+    exact h2
+  let F : {x : A.Pt Ω // x ^ n = 1} →
+      {z : Spec (CommRingCat.of Ω) ⟶ kerN A n // z ≫ kerToK A n = sΩ Ω} := fun x =>
+    ⟨pullback.lift x.1.left (sΩ Ω) (hcond x.1 x.2), pullback.lift_snd _ _ _⟩
+  have hF : Function.Bijective F := by
+    constructor
+    · intro x y h
+      have h1 := congrArg (fun z => z.1 ≫ pullback.fst (mulN A n) (unitS A)) h
+      have hx : (F x).1 ≫ pullback.fst (mulN A n) (unitS A) = x.1.left := pullback.lift_fst _ _ _
+      have hy : (F y).1 ≫ pullback.fst (mulN A n) (unitS A) = y.1.left := pullback.lift_fst _ _ _
+      exact Subtype.ext (Over.OverMorphism.ext (hx.symm.trans (h1.trans hy)))
+    · rintro ⟨z, hz⟩
+      let x : A.Pt Ω := Over.homMk (z ≫ pullback.fst (mulN A n) (unitS A)) (by
+        change (z ≫ pullback.fst (mulN A n) (unitS A)) ≫ A.X.hom = _
+        rw [Category.assoc, fst_comp_hom, hz]
+        rfl)
+      have hx : x ^ n = 1 := by
+        rw [← ZInQ.Contrib.AbVarBC.comp_natCast_hom]
+        apply Over.OverMorphism.ext
+        simp only [Over.comp_left, Hom.one_def]
+        change (z ≫ pullback.fst (mulN A n) (unitS A)) ≫ mulN A n = _
+        rw [Category.assoc, pullback.condition, ← Category.assoc, hz]
+        rfl
+      refine ⟨⟨x, hx⟩, Subtype.ext ?_⟩
+      apply pullback.hom_ext
+      · exact (pullback.lift_fst _ _ _).trans rfl
+      · exact (pullback.lift_snd _ _ _).trans hz.symm
+  exact Nat.card_congr (Equiv.ofBijective F hF)
+
+/-- **`Ω`-points of `Spec R` over `K` = `K`-algebra maps `R → Ω`.** -/
+theorem natCard_specPts (R : CommRingCat.{0}) (φ : CommRingCat.of K ⟶ R) :
+    letI := φ.hom.toAlgebra
+    Nat.card {w : Spec (CommRingCat.of Ω) ⟶ Spec R // w ≫ Spec.map φ = sΩ Ω} =
+      Nat.card (R →ₐ[K] Ω) := by
+  letI := φ.hom.toAlgebra
+  let F : (R →ₐ[K] Ω) → {w : Spec (CommRingCat.of Ω) ⟶ Spec R // w ≫ Spec.map φ = sΩ Ω} :=
+    fun f => ⟨Spec.map (CommRingCat.ofHom f.toRingHom), by
+      rw [← Spec.map_comp]
+      congr 1
+      ext c
+      exact f.commutes c⟩
+  have hF : Function.Bijective F := by
+    constructor
+    · intro f f' h
+      have h1 := Spec.map_injective (congrArg Subtype.val h)
+      ext r
+      exact congrArg (fun ψ : R ⟶ CommRingCat.of Ω => ψ r) h1
+    · rintro ⟨w, hw⟩
+      let ψ := Spec.preimage w
+      have hψ : Spec.map ψ = w := Spec.map_preimage w
+      have hcomp : φ ≫ ψ = CommRingCat.ofHom (algebraMap K Ω) := by
+        apply Spec.map_injective
+        rw [Spec.map_comp, hψ, hw]
+      let f : R →ₐ[K] Ω :=
+        { ψ.hom with
+          commutes' := fun c => congrArg (fun χ : CommRingCat.of K ⟶ CommRingCat.of Ω => χ c)
+            hcomp }
+      exact ⟨f, Subtype.ext hψ⟩
+  exact (Nat.card_congr (Equiv.ofBijective F hF)).symm
+
+/-! ## §3 The leaves and the count -/
+
+/-- **Leaf candidate `KernelDegree` (`deg [n] = n^{2g}`, fibre form).** For an abelian variety of
+dimension `g` over `K` and `n ≥ 1` invertible in `K`, the kernel `A[n] = [n]⁻¹(0)` is affine,
+`Spec R` with `R` a `K`-algebra of dimension `n^{2g}`. Mumford, *Abelian varieties*, §6
+Application 2 (`deg n_X = n^{2g}`) with flatness of isogenies (§7), so every fibre has length
+`n^{2g}` (locators UNVERIFIED). A consequence of the published statements. -/
+def KernelDegree : Prop :=
+  ∀ (K : Type) [Field K] (A : PkgI3.AbVar K) (g n : ℕ), A.dim = (g : WithBot ℕ∞) → 0 < n →
+    (n : K) ≠ 0 →
+    ∃ (R : CommRingCat.{0}) (φ : CommRingCat.of K ⟶ R) (e : kerN A n ≅ Spec R),
+      e.hom ≫ Spec.map φ = kerToK A n ∧
+        (letI := φ.hom.toAlgebra; Module.finrank K R = n ^ (2 * g))
+
+/-- **Leaf candidate `MulUnramifiedAll` (separability of `[n]`).** `[n]` is unramified when `n` is
+invertible in `K` (Mumford §4 / §6 Application 2: `n_X` separable iff `char k ∤ n`; Milne,
+*Abelian varieties*, Thm 8.2; locators UNVERIFIED). Proved in characteristic `0` (below). -/
+def MulUnramifiedAll : Prop :=
+  ∀ (K : Type) [Field K] (A : PkgI3.AbVar K) (n : ℕ), 0 < n → (n : K) ≠ 0 →
+    FormallyUnramified (mulN A n)
+
+/-- **The count from the degree and separability** (glue). -/
+theorem natCard_torsion_of_degree (hD : KernelDegree) {K : Type} [Field K] (A : PkgI3.AbVar K)
+    (g n : ℕ) (hg : A.dim = (g : WithBot ℕ∞)) (hn : 0 < n) (hnK : (n : K) ≠ 0)
+    (hU : FormallyUnramified (mulN A n)) :
+    Nat.card {x : A.Pt (AlgebraicClosure K) // x ^ n = 1} = n ^ (2 * g) := by
+  obtain ⟨R, φ, e, he, hrank⟩ := hD K A g n hg hn hnK
+  letI := φ.hom.toAlgebra
+  have hsnd : FormallyUnramified (kerToK A n) :=
+    MorphismProperty.IsStableUnderBaseChange.of_isPullback (P := @FormallyUnramified)
+      (IsPullback.of_hasPullback (mulN A n) (unitS A)) hU
+  have hφU : FormallyUnramified (Spec.map φ) := by
+    have hsq : CommSq e.inv (Spec.map φ) (kerToK A n) (𝟙 _) :=
+      ⟨by rw [Category.comp_id, ← he, Iso.inv_hom_id_assoc]⟩
+    exact MorphismProperty.IsStableUnderBaseChange.of_isPullback (P := @FormallyUnramified)
+      (IsPullback.of_horiz_isIso hsq) hsnd
+  have hRU : Algebra.FormallyUnramified K R := by
+    have := (HasRingHomProperty.Spec_iff (P := @FormallyUnramified)).mp hφU
+    exact this
+  have hpos : 0 < Module.finrank K R := by rw [hrank]; positivity
+  haveI : Module.Finite K R := Module.finite_of_finrank_pos hpos
+  rw [natCard_torsion_eq_kerPts]
+  have h2 : Nat.card {z : Spec (CommRingCat.of (AlgebraicClosure K)) ⟶ kerN A n //
+      z ≫ kerToK A n = sΩ (AlgebraicClosure K)} =
+      Nat.card {w : Spec (CommRingCat.of (AlgebraicClosure K)) ⟶ Spec R //
+        w ≫ Spec.map φ = sΩ (AlgebraicClosure K)} := by
+    refine Nat.card_congr
+      { toFun := fun z => ⟨z.1 ≫ e.hom, by rw [Category.assoc, he]; exact z.2⟩
+        invFun := fun w => ⟨w.1 ≫ e.inv, by rw [Category.assoc, ← he, e.inv_hom_id_assoc]; exact w.2⟩
+        left_inv := fun z => Subtype.ext (by simp)
+        right_inv := fun w => Subtype.ext (by simp) }
+  rw [h2, natCard_specPts, natCard_algHom_eq_finrank, hrank]
+
+/-- **`[n]` is unramified in characteristic `0`** (the kernel's `kerUnitOpen`). -/
+theorem mulUnramified_charZero [CharZero K] (n : ℕ) (hn : 0 < n) :
+    FormallyUnramified (mulN A n) :=
+  ZInQ.Contrib.AbVarBC.MulRigidity.mulUnramified_of_kerUnitOpen ZInQ.Contrib.AbVarBC.kerUnitOpen
+    K A (n : ℤ) (by exact_mod_cast hn.ne')
+
+/-- **The count in characteristic `0` from `KernelDegree` alone.** -/
+theorem natCard_torsion_of_degree_charZero (hD : KernelDegree) [CharZero K] (g n : ℕ)
+    (hg : A.dim = (g : WithBot ℕ∞)) (hn : 0 < n) :
+    Nat.card {x : A.Pt (AlgebraicClosure K) // x ^ n = 1} = n ^ (2 * g) :=
+  natCard_torsion_of_degree hD A g n hg hn (Nat.cast_ne_zero.2 hn.ne')
+    (mulUnramified_charZero A n hn)
+
+end T5Torsion.Degree
+
+
+/-! ## Part 13: full T5 from `deg [n] = n^{2g}` and separability in positive characteristic -/
+
+namespace T5Torsion
+
+open CategoryTheory AlgebraicGeometry Limits MonoidalCategory CartesianMonoidalCategory MonObj
+open PkgI2 (IsAbelianVariety torsion)
+open Degree
+
+/-- **Leaf candidate `MulUnramifiedPosChar`**: `MulUnramifiedAll` in positive characteristic only
+(Mumford §4 / §6 Application 2: `n_X` is separable iff `char k ∤ n`; Milne, *Abelian varieties*,
+Thm 8.2; locators UNVERIFIED). The characteristic-`0` case is proved (`mulUnramified_charZero`). -/
+def MulUnramifiedPosChar : Prop :=
+  ∀ (K : Type) [Field K] (A : PkgI3.AbVar K) (n : ℕ), 0 < n → (n : K) ≠ 0 → ¬ CharZero K →
+    FormallyUnramified (mulN A n)
+
+/-- **`TorsionCard` from `KernelDegree` and `MulUnramifiedPosChar`.** -/
+theorem torsionCard_of_degree (hD : KernelDegree) (hP : MulUnramifiedPosChar) :
+    TorsionCard.{0} := by
+  intro K _ A _ g n hg hn hnK
+  have hU : FormallyUnramified (mulN (ObjBridge.ofGrp A) n) := by
+    by_cases h0 : CharZero K
+    · haveI := h0
+      exact mulUnramified_charZero (ObjBridge.ofGrp A) n hn
+    · exact hP K (ObjBridge.ofGrp A) n hn hnK h0
+  exact natCard_torsion_of_degree hD (ObjBridge.ofGrp A) g n hg hn hnK hU
+
+/-- **Full T5 from `KernelDegree` (Mumford §6 App. 2) and `MulUnramifiedPosChar`.** -/
+theorem torsionStructure_of_degree (hD : KernelDegree) (hP : MulUnramifiedPosChar) :
+    PkgI2.TorsionStructure.{0} :=
+  torsionStructure_of_torsionCard (torsionCard_of_degree hD hP)
+
+/-- **Full T26 from the same two leaves.** -/
+theorem tateModuleFree_of_degree (hD : KernelDegree) (hP : MulUnramifiedPosChar) :
+    PkgI3.TateModuleFree :=
+  TateFree.tateModuleFree_of_torsionStructure (torsionStructure_of_degree hD hP)
+
+/-- T5 in characteristic `0`. -/
+def TorsionStructureCharZero : Prop :=
+  ∀ (K : Type) [Field K] [CharZero K] (A : Grp (Over (Spec (.of K)))) [IsAbelianVariety A]
+    (g n : ℕ), topologicalKrullDim A.X.left = (g : WithBot ℕ∞) → 0 < n →
+      ∃ e : torsion A (AlgebraicClosure K) n ≃ (Fin (2 * g) → ZMod n),
+        ∀ x y : torsion A (AlgebraicClosure K) n,
+          ∀ h : x.1 * y.1 ∈ torsion A (AlgebraicClosure K) n, e ⟨x.1 * y.1, h⟩ = e x + e y
+
+/-- **T5 in characteristic `0` from `KernelDegree` alone** (separability is proved). -/
+theorem torsionStructureCharZero_of_degree (hD : KernelDegree) : TorsionStructureCharZero := by
+  intro K _ _ A _ g n hg hn
+  refine exists_torsion_equiv_of_counts A (AlgebraicClosure K) g n hn (fun m hm => ?_)
+  have hm0 : 0 < m := Nat.pos_of_dvd_of_pos hm hn
+  exact natCard_torsion_of_degree_charZero (ObjBridge.ofGrp A) hD g m hg hm0
+
+end T5Torsion
+
+#print axioms T5Torsion.torsionStructure_of_degree
+#print axioms T5Torsion.tateModuleFree_of_degree
+#print axioms T5Torsion.torsionStructureCharZero_of_degree
