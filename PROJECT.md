@@ -25,18 +25,17 @@ it does not claim cryptographic verification of a provider's internal model.
 
 ## Deployment state
 
-The Protocol B workflow is being prepared. It is inactive unless explicitly
-enabled by the repository owner. Its presence does not establish that this
-repository or its historical claims have completed Protocol B review. The
-[current contributor guide](docs/research-review/README.md) remains authoritative.
+Protocol B is active for future pull requests. The public repository requires
+the designated App's `Protocol B / review` check together with its computation
+checks. The [current contributor guide](docs/research-review/README.md) describes
+the review requirement and the collaborator override path. Activation does not
+retroactively certify the repository's historical claims.
 
-Before activation, a reviewer outside the author's model family must review the
-workflow and instructions, and a designated throwaway PR must pass an end-to-end
-test with both model APIs. The owner then approves activation. The App key and
-two API keys belong in the `protocol-b` GitHub Environment, restricted to the
-default branch. They must not be repository-level secrets or appear in files or
-PRs. The [setup and test checklist](docs/research-review/protocol-b-setup.md)
-specifies the App identity, secret names and activation steps.
+The App key and two model API keys belong in the `protocol-b` GitHub Environment,
+restricted to the default branch. They must not be repository-level secrets or
+appear in files or PRs. The [setup and test checklist](docs/research-review/protocol-b-setup.md)
+specifies the App identity, secret names, activation checks and deferred tests.
+The retired controller and local runner are not used.
 
 Use the existing theorem-application inventory and findings history during the
 transition. Their distillation and archival are separate work; this gate does

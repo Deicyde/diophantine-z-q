@@ -1,6 +1,6 @@
 # Protocol B setup and test checklist
 
-Status: prepared, inactive, awaiting review of the repairs and a live test.
+Status: active for future pull requests, with the test limitations recorded below.
 No API keys are included in this repository. The old controller stays retired.
 
 ## Identity and credentials
@@ -183,6 +183,26 @@ and states that affected claims are **not outside reviewed**.
 
 The workflow checks these merge settings before requesting auto-merge. It
 cannot configure them itself. It never bypasses the ruleset.
+
+## Live-test scope and deferred cases
+
+The owner selected PR69 for the initial live tests: a correct lemma, a deliberate
+error, an authorized override of every finding, and repair of the lemma. Each
+test must be reported from its actual App check and reviewer records. A same-name
+check is excluded at activation by reading back the ruleset's App integration ID.
+
+Observed on November 13, 2026, in the repository's designated test mode:
+
+| Case | Workflow evidence | Result |
+|---|---|---|
+| Deliberate false lemma | [43540895723](https://github.com/elliotglazer/diophantine-z-q/actions/runs/43540895723) | Both reviewers requested changes; the App rejected the head and listed all four full finding IDs. |
+| Authorized overrides | [43541825778](https://github.com/elliotglazer/diophantine-z-q/actions/runs/43541825778) | The App passed after all four findings were covered, named `elliotglazer`, and marked affected claims not outside reviewed. All four override-triggered runs made zero model calls. Earlier partial-coverage runs remained blocked. |
+| Repaired lemma | [43542130192](https://github.com/elliotglazer/diophantine-z-q/actions/runs/43542130192) | Both reviewers accepted and each marked all four findings resolved. The App passed the new head without an override. |
+
+The owner deferred live tests of an interrupted run, an unauthorized override,
+and a real Anthropic `pause_turn`. Those cases are not established by the initial
+live tests. The broader checklist above records coverage to pursue; it is not a
+claim that every listed case has already passed.
 
 ## Reproducing offline checks
 
