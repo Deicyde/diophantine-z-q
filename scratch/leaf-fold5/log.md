@@ -54,3 +54,11 @@
   343 `#print axioms` reports (joined over wrapped lines), all `[propext, Classical.choice, Quot.sound]`, including
   `HDec.HSyn.sixContactMin_of_open5`.
 - Report docs/research/leaf-fold5.md written (00:30-00:45).
+
+## 00:50-01:20 more kernel Props, VERIFIED
+- Probe7/8/9 (files in olean/): R17 (GaloisRep rebuilt), R16 (needs 8M heartbeats, ~390 s), R3 (QMStr rebuilt, 7 s),
+  T10, HomLatticeCorr (kernel Contrib/HomUnify/Corr), T24 (kernel HDecomp/ModCurves/C9, accepted as is) all compile.
+  Added to part e40; three kernel modules imported (built with lake, kernel_targets.txt). TailM 450 s, TailN 5 s, 0
+  errors, 34 axiom lines standard; Check5: closure 184 361, no sorryAx; 33 fields are kernel constants.
+- py/verbatim_check.py: ALL OK (part e10's leaf/glue statements = sources; HeckeVertWitness etc. = leaf-fold4's c80).
+- 01:16 flat run 2 started on the final text (md5 in flat2.md5).

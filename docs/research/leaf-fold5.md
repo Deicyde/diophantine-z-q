@@ -283,6 +283,11 @@ the eight new kernel imports in its header and the three new bodies appended): `
 | `parts/e30_kernel.lean`, `e40_kernelfields.lean`, `e90_fold5.lean` | hand-written transports and bundles | §1.1 |
 
 **No statement of a remaining leaf or glue Prop was changed.** Every field type is a source file's own definition.
+`python3 py/verbatim_check.py` (output `py/verbatim_check_out.txt`): `ShimuraGoodReduction`, `IsShimuraModel`,
+`ShimuraSmoothModel`, `CMObjectsExist`, `CoordFibres`, `SmoothFibreReduced`, `ModelCoordinate`, `ModelComparison`,
+`ModelCoordinateResidue`, `CurveBijIso` and the two composites have their sources' text in part e10, and
+`HeckeVertWitness`, `VertUnramWitness`, `NormalizationModel` have the same text in vert-witness's prefix (which
+model-glue compiled against) and in leaf-fold4's part c80 (the chain's): ALL OK (VERIFIED).
 
 ## 5. Not folded, and why
 
