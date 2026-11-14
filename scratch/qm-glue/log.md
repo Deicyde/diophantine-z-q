@@ -35,3 +35,13 @@ file here is self-contained (`import Mathlib`), with the needed definitions copi
   points off Bad), Bad null; t₀ ∩ γ⁻¹t₀ ⊆ Fix γ, finite (`fix_finite`, polynomial roots), points null.
 - Area: `Fdom t = ⋃ r_i⁻¹ t` is a Mathlib `IsFundamentalDomain` of the Möbius group of Γ¹ (`Fdom_fund`),
   so vol s = vol Fdom = 4 vol t (`IsFundamentalDomain.measure_eq`, `Fdom_volume`), vol t = π/6.
+
+## Rows H-87, H-88 over the chain — `HauptGlue.lean` (VERIFIED, compiled over the chain copy, exit 0, 32 s)
+- Chain: leaf-fold4's olean chain as compiled by leaf-fold6 (TailK etc.), copied with leaf-fold6's kernel and
+  z_in_q oleans to ~/qmg-olean; `chk.sh`. qm-split's Haupt.lean compiles unchanged over it (27 s).
+- HauptGlue.lean = Haupt.lean verbatim + GammaStar.lean §1-§5 (minus duplicated parts) + ThetaValue24's proofs.
+- `HDec.LeafQCheck.HM.QMSplit.valenceFormulaGammaStar_of_leaves : ValenceFormulaCocompactEq →
+  ShimizuCovolumeO1 → HDec.LeafQCheck.VB.ValenceFormulaGammaStar` (H-87; also `_of_leaves'` from Valence.lean's
+  inequality leaf `ValenceFormulaCocompact`).
+- `qmHauptmodulBase3_of_leaves : PkgI1.ThetaModularity → ValenceFormulaCocompactEq → ShimizuCovolumeO1 →
+  Value24.IgusaCMValue24 → QMHauptmodulBase3` (H-88). Axioms standard.
