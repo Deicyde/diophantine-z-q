@@ -24,16 +24,18 @@ def ModelYIrreducible : Prop :=
 
 /-- **Glue (A-fix-dim): a closed subset of an integral relative curve over `ℤ_(p)` that misses the
 generic point carries only finitely many `ℚ̄`-points** (dimension theory of curves; no
-literature). For `𝒴` integral and smooth of relative dimension 1 over `ℤ_(p)` and `Z ⊆ 𝒴` closed
+literature). For `𝒴` integral, proper and smooth of relative dimension 1 over `ℤ_(p)` and `Z ⊆ 𝒴` closed
 with `η ∉ Z`, only finitely many `ℚ̄`-points of `𝒴` have their point in `Z`. (Outline: `ℚ̄`-points
 lie on the generic fibre `𝒴_ℚ`, an integral curve over `ℚ`; by `smoothStalkDimOne` every point of
 `Z ∩ 𝒴_ℚ` is closed (a non-closed point `x ≠ η` would give a chain `η ⤳ x ⤳ z` of length 2 below a
 closed point `z`), so the closed set `Z ∩ 𝒴_ℚ` of the Noetherian space `𝒴_ℚ` is finite; each closed
 point has a residue field finite over `ℚ` (Zariski's lemma), hence finitely many embeddings into
-`ℚ̄`.) -/
+`ℚ̄`.) Properness (only quasi-compactness is used) cannot be dropped: the affine line with
+infinitely many doubled points is integral and smooth, and its doubled points form an infinite
+closed set missing the generic point. -/
 def CurveClosedQbarFinite : Prop :=
   ∀ (p : ℕ) [Fact p.Prime] (𝒴 : Over (Spec (CommRingCat.of (Zloc p)))),
-    SmoothOfRelativeDimension 1 𝒴.hom → ∀ (_ : IsIntegral 𝒴.left) (Z : Set 𝒴.left),
+    IsProper 𝒴.hom → SmoothOfRelativeDimension 1 𝒴.hom → ∀ (_ : IsIntegral 𝒴.left) (Z : Set 𝒴.left),
     IsClosed Z → genericPoint 𝒴.left ∉ Z →
     {y : Spec (CommRingCat.of Qbar) ⟶ 𝒴.left | qbarPoint y ∈ Z}.Finite
 
@@ -111,7 +113,7 @@ theorem fibreAutFixFinite_of (hC : CurveBijIso) (hYI : ModelYIrreducible)
     rw [← Over.comp_left, equalizer.lift_ι]
     rfl
   by_contra hη
-  exact hinf ((hF p 𝒴 hM.2.1 inferInstance _ hcl hη).subset (fun y hy => hfix y hy))
+  exact hinf ((hF p 𝒴 hM.1 hM.2.1 inferInstance _ hcl hη).subset (fun y hy => hfix y hy))
 
 /-- **Glue A from T5, `CurveBijIso`, `ModelYIrreducible`, `CurveClosedQbarFinite`.** -/
 theorem fibreAutTame_of'' (hT : ObjBridge.TorsionStructure) (hC : CurveBijIso)

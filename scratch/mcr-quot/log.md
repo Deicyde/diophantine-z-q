@@ -166,3 +166,16 @@ standard; no sorry in the parts)
   components; SPECULATIVE reading, locator UNVERIFIED).
 - `fibreAutTame_of''`, `modelCoordinateResidue_final3` (L1-L6, T5, CurveBijIso, ModelYIrreducible,
   CurveClosedQbarFinite, B-desc, B-iso, C1b).
+
+## Step 13 (10:10) — VERIFIED (parts 1-16 + 9; exit 0; compile16_out.txt; standard axioms)
+- `CurveClosedQbarFinite` amended (own glue): added `IsProper 𝒴.hom` (without quasi-compactness it
+  is false: 𝔸¹ with infinitely many doubled points). `fibreAutFixFinite_of` passes `hM.1`.
+- **(A-fix-dim) proved**: `MCRQuot.curveClosedQbarFinite : CurveClosedQbarFinite`. Pieces:
+  `finite_residueField_of_isClosed` (Zariski via `isClosed_singleton_iff_isClosedImmersion` +
+  `HasRingHomProperty.Spec_iff` + `finite_of_finite_type_of_isJacobsonRing`),
+  `finite_qbarPts_over_closed`, `finite_of_isClosed_of_closedPoints` (Noetherian + quasi-sober),
+  closedness of points of `Z ∩ 𝒴_ℚ` from `smoothStalkDimOne` + `ringKrullDim_stalk_eq_coheight`
+  + `Order.coheight_add_one_le`.
+- `fibreAutFixFinite_of' (hC : CurveBijIso) (hYI : ModelYIrreducible) : FibreAutFixFinite`.
+- **Final composite `modelCoordinateResidue_final4`**: L1-L6 + T5 + CurveBijIso +
+  ModelYIrreducible + (B-desc) + (B-iso) + (C1b) ⇒ `ModelCoordinateResidue`.

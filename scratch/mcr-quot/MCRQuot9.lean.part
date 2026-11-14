@@ -33,3 +33,6 @@
 #print axioms MCRQuot.fibreAutFixFinite_of
 #print axioms MCRQuot.fibreAutTame_of''
 #print axioms MCRQuot.modelCoordinateResidue_final3
+#print axioms MCRQuot.curveClosedQbarFinite
+#print axioms MCRQuot.fibreAutFixFinite_of'
+#print axioms MCRQuot.modelCoordinateResidue_final4
