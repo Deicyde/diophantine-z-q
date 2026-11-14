@@ -38,3 +38,16 @@
     (Contrib.Dim.hodgeLatticeTheorem + unif-dims' jacDetDescends + metrization2's jacDetNondegenerate).
   * `neronMetrizable_of_t35`, `heightGlue_of_t35 (hT35) : HeightGlue` (all four height-split glue
     Props from T35 = TextbookLeaves.t35), `heightGlue_of_exists_dim`.
+
+## QMPairEmbeddingCorrespondence (QMCorr.lean)
+- QMCorr.lean compiles (VERIFIED; imports ZInQKernel.HDecomp.QM.Leaves; §0 verbatim copy of
+  R5Count.lean definitions extracted by script). `qmPairEmbeddingCorrespondence_of (hD :
+  QMDescentCM) (hU : QMUniformizationC) (hC : CMPointEmbeddingCorrespondence) :
+  QMPairEmbeddingCorrespondence`, axioms standard.
+  New definitions: `rho : B →ₐ[ℚ] M₂(ℂ)` (i ↦ diag(√2,−√2), j ↦ [[0,−3],[1,0]], basis identities
+  proved), `HalfPlanes = ℂ∖ℝ`, `cmSetoid` (𝒪^×-orbits via ρ, equivalence proved), `ordAt τ`
+  (CM order, a Subring of B, proved).
+  Leaves: QMUniformizationC (Shimura 1967 moduli of QM surfaces over ℂ: classes ≃ 𝒪^×\(ℂ∖ℝ),
+  End_𝒪 ≅ 𝒪_τ), QMDescentCM (base change ℚ̄→ℂ: exists, preserves End_𝒪, reflects iso (rigidity),
+  CM pairs descend (Shimura–Taniyama)). Glue: CMPointEmbeddingCorrespondence (normalized optimal
+  embeddings; quaternion arithmetic), unproved.
