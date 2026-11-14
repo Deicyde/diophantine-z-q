@@ -1188,6 +1188,201 @@ theorem r14Det_of_ds (hD : DSThm965) (hDS : DSThm966) (hS : Semisimplification2)
 
 end R14
 
+
+/-! ## §9. H-9: `PkgI4.PanBerger` (Pan + Berger)
+
+Imported from `ZInQKernel/Contrib/G9/I4Layer.lean` (`PanBerger = PanFor LocalIsDeRham`). Pan's
+Theorem 1.0.4 and Berger's Théorème 0.7 both involve "potentially semistable", which needs `B_st`
+(hence `B_cris`); Mathlib has `BDeRhamPlus`/`BDeRham` but neither `B_cris` nor `B_st`. So neither
+theorem can be a leaf over genuine definitions today. What is proved: for **every** predicate
+`IsPst`, Pan's template and Berger's template compose to `PanBerger`; the composite becomes a
+theorem from two published-form leaves as soon as `IsPst` is instantiated by a genuine
+potentially-semistable predicate (built on a genuine `B_st`). -/
+
+section PanBergerSec
+
+/-- **H-9 from the two templates (any `IsPst`).** The continuity Berger needs is that of
+`ρ|_{G_{ℚ_p}}` (Mathlib's `Field.absoluteGaloisGroup.map` is continuous). -/
+theorem panBerger_of_templates (IsPst : LocalPred) (hP : PanFor IsPst) (hB : BergerDR IsPst) :
+    PanBerger := by
+  intro p _ hp ρ hirr hfr hdr hodd hdist
+  exact hP p hp ρ hirr hfr (hB p 2 (ρ.restrictLocal p) (continuous_restrictLocal p ρ) hdr) hodd hdist
+
+end PanBergerSec
+
+/-! ## §10. H-10: `PkgI4.EigenformHT` (Kato, after dualization)
+
+Imported from `I4Layer.lean`. Kato's theorem (Astérisque 295 (2004), §§9.2-9.4, (9.2.2)) is about
+Kato's `V_{F_λ}(f)`, a quotient of the étale cohomology of a modular curve with coefficients (or of
+a Kuga–Sato variety), defined only for newforms; étale cohomology is not in Mathlib, so the printed
+statement cannot be a leaf today. Proved here: the reduction from eigenforms of any level to
+newforms (`eigenformHT_of_new`), from the kernel's leaf `NewformOfEigenform` (I4-L5), R14
+(`EigenformRepExists`, which `R14Det` implies) and two standard glue Props (Chebotarev with
+Brauer–Nesbitt; invariance of Hodge–Tate weights under conjugation, g12-det's `HTConj`). What is
+left, `EigenformHTNew`, is Kato's theorem for newforms transported to every semisimple `ρ`
+attached to `f` and dualized. -/
+
+section EigenformHTSec
+
+open PkgI4 (GaloisRep GaloisChar)
+
+/-- `r` and `ρ'` are conjugate by a fixed matrix (g12-det's `G0Galois.IsConj`, verbatim). -/
+def IsConj {ℓ : ℕ} [Fact ℓ.Prime] {n : ℕ} (r ρ' : GaloisRep ℓ n) : Prop :=
+  ∃ P : GL (Fin n) (PadicAlgCl ℓ), ∀ σ, r.toHom σ = P * ρ'.toHom σ * P⁻¹
+
+/-- **GLUE `HTConj` (g12-det's `G0Galois.HTConj`, verbatim; about the definition
+`LocalHasHTWeights`).** Hodge–Tate weights are invariant under conjugation. Proved below
+(`htConj_proof`). -/
+def HTConj : Prop :=
+  ∀ (ℓ : ℕ) [Fact ℓ.Prime] (n : ℕ) (r ρ' : GaloisRep ℓ n) (S : Multiset ℤ),
+    IsConj r ρ' → r.HasHTWeightsAtSelf ℓ S → ρ'.HasHTWeightsAtSelf ℓ S
+
+/-- **GLUE (Chebotarev density with Brauer–Nesbitt; STANDARD, not proved here).** Two semisimple
+`ρ, ρ' : G_ℚ → GL₂(ℚ̄_ℓ)`, unramified and with equal traces at the arithmetic Frobenius elements of
+all primes outside a finite set, are conjugate. Needs: Frobenius elements are dense (Chebotarev,
+the kernel's T18 `ZInQKernel/Contrib`), continuity of `tr`, and Brauer–Nesbitt for semisimple
+representations of a group over a field of characteristic `0` (T19). -/
+def AttachedConj : Prop :=
+  ∀ (ℓ : ℕ) [Fact ℓ.Prime] (ρ ρ' : GaloisRep ℓ 2) (S : Finset ℕ),
+    ρ.IsSemisimple → ρ'.IsSemisimple →
+    (∀ p : ℕ, p.Prime → p ∉ S → ρ.UnramifiedAt p ∧ ρ'.UnramifiedAt p ∧
+      ∀ (v : ValuationSubring PkgI4.Qbar) (σ : PkgI4.GQ), PkgI4.LiesOver v p →
+        PkgI4.IsArithFrob σ v p → (ρ.mat σ).trace = (ρ'.mat σ).trace) →
+    IsConj ρ ρ'
+
+/-- **The newform case of R13 (GLUE: Kato's theorem for newforms, transported and dualized).**
+`EigenformHT` restricted to newforms. Needs, beyond Kato's printed statement (de Rham at `ℓ` with
+Hodge–Tate weights `0, k − 1` for `V_{F_λ}(f)`, cohomological normalization): the identification of
+any semisimple `ρ` attached to `f` (arithmetic Frobenius, trace `a_p`) with `V_{F_λ}(f)^∨`
+(Chebotarev and Brauer–Nesbitt), and the negation of Hodge–Tate weights under duals. Not a leaf:
+`V_{F_λ}(f)` is not definable in Mathlib today. -/
+def EigenformHTNew : Prop :=
+  ∀ (ℓ : ℕ) [Fact ℓ.Prime] (ιC : PkgI4.Qbar →ₐ[ℚ] ℂ) (ιL : PkgI4.Qbar →ₐ[ℚ] PadicAlgCl ℓ)
+    (N : ℕ) (k : ℤ) (χ : DirichletCharacter ℂ N) (f : PkgI4.CF N k) (ρ : GaloisRep ℓ 2),
+    0 < N → 2 ≤ k → PkgI4.IsNewform f χ → ρ.IsSemisimple → ρ.AttachedTo ιC ιL f →
+    ρ.HasHTWeightsAtSelf ℓ {0, 1 - k}
+
+/-- **H-10 reduced to the newform case.** -/
+theorem eigenformHT_of_new (hNew : EigenformHTNew) (hL5 : NewformOfEigenform)
+    (hR : EigenformRepExists) (hAC : AttachedConj) (hHC : HTConj) : EigenformHT := by
+  intro ℓ _ ιC ιL M k χ g ρ hM hk hg hss hatt
+  obtain ⟨N, χ', f, hN, hNM, hf, hcoef⟩ := hL5 M k χ g hM hg
+  obtain ⟨ρf, hssf, hattf⟩ := hR ℓ ιC ιL N k χ' f hN (by omega) hf.1
+  have hHT := hNew ℓ ιC ιL N k χ' f ρf hN hk hf hssf hattf
+  -- `ρf` and `ρ` agree at Frobenius outside the primes dividing `M ℓ`
+  have hconj : IsConj ρf ρ := by
+    refine hAC ℓ ρf ρ (M * ℓ).primeFactors hssf hss fun p hp hpS => ?_
+    have hpM : ¬ p ∣ M * ℓ := by
+      intro h
+      exact hpS (Nat.mem_primeFactors.mpr ⟨hp, h, by
+        exact Nat.mul_ne_zero (by omega) (Fact.out : ℓ.Prime).ne_zero⟩)
+    have hpN : ¬ p ∣ N * ℓ := fun h => hpM (by
+      rcases (Nat.Prime.dvd_mul hp).mp h with h1 | h1
+      · exact Dvd.dvd.mul_right (h1.trans hNM) ℓ
+      · exact Dvd.dvd.mul_left h1 M)
+    obtain ⟨hu, α, hα, htr⟩ := hatt p hp hpM
+    obtain ⟨huf, αf, hαf, htrf⟩ := hattf p hp hpN
+    have hpM' : ¬ p ∣ M := fun h => hpM (Dvd.dvd.mul_right h ℓ)
+    have heq : αf = α := by
+      apply ιC.toRingHom.injective
+      change ιC αf = ιC α
+      rw [hαf, hα, hcoef p hp hpM']
+    refine ⟨huf, hu, fun v σ hv hσ => ?_⟩
+    rw [htrf v σ hv hσ, htr v σ hv hσ, heq]
+  exact hHC ℓ 2 ρf ρ _ hconj hHT
+
+end EigenformHTSec
+
+/-! ## §11. H-51: `G0Galois.SenTwist`
+
+The row, copied verbatim (Leaves5.lean l.50905-50907 `IsTwist`, l.50952-50958 `SenTwist`). Sen's
+theory (the Sen operator) is not in Mathlib, so Sen 1980 cannot be a leaf over genuine definitions.
+The argument through Tate's theorems (§1) instead: `ρ` and `ψ ⊗ ρ` Hodge–Tate give
+`ℂ_p(ψ) ⊗ ⊕ ℂ_p(−w) ≅ ⊕ ℂ_p(−w')`, so `ℂ_p(ψ) ≅ ℂ_p(s)` with `s ∈ ℤ` (a nonzero map between
+one-dimensional twists), and twisting by `ℂ_p(s)` shifts all weights by `−s`. It is split into three
+glue Props; the third (independence of the coefficient field) is proved below. -/
+
+namespace G0Galois
+
+open PkgI4 (GaloisRep GaloisChar)
+
+/-- `ρ'` is the twist `ψ ⊗ ρ`: `ρ'(σ) = ψ(σ) ρ(σ)`. -/
+def IsTwist {ℓ : ℕ} [Fact ℓ.Prime] {n : ℕ} (ρ' : GaloisRep ℓ n) (ψ : GaloisChar ℓ)
+    (ρ : GaloisRep ℓ n) : Prop :=
+  ∀ σ, ρ'.mat σ = (ψ.toHom σ : PadicAlgCl ℓ) • ρ.mat σ
+
+/-- **Sen weights of a twist (LEAF; Sen, *Continuous cohomology and p-adic Galois
+representations*, Invent. Math. 62 (1980), §2 Thm 4 and Cor. (Hodge–Tate iff the Sen operator `Θ`
+is semisimple with integer eigenvalues, the Hodge–Tate weights), with
+`Θ_{ψ⊗V} = Θ_ψ + Θ_V` (Sen 1980 §2; Fontaine–Ouyang, *Theory of p-adic Galois representations*,
+§2.4-2.5); numbering UNVERIFIED).** If `ρ` and `ρ' = ψ ⊗ ρ` (restricted to `G_{ℚ_p}`) are both
+Hodge–Tate, with weight multisets `S`, `S'` of full size `n`, then `S' = S + s` for an integer
+`s`. Consequence of the published theorems: the Sen operators satisfy `Θ_{ρ'} = Θ_ρ + s_ψ`, both
+are semisimple with eigenvalue multisets `S`, `S'`, so `S' = S + s_ψ` in `ℂ_p`, and `s_ψ ∈ ℤ`
+when `n ≥ 1` (for `n = 0`, `s = 0`). (Full size is needed: `HasHTWeights S` with `card S < n`
+holds for non-Hodge–Tate `ρ`, and then the statement fails.) -/
+def SenTwist : Prop :=
+  ∀ (p : ℕ) [Fact p.Prime] (n : ℕ) (ρ ρ' : GaloisRep p n) (ψ : GaloisChar p)
+    (S S' : Multiset ℤ),
+    IsTwist ρ' ψ ρ → Multiset.card S = n → Multiset.card S' = n →
+    ρ.HasHTWeightsAtSelf p S → ρ'.HasHTWeightsAtSelf p S' →
+    ∃ s : ℤ, S' = S.map (· + s)
+
+end G0Galois
+
+section SenTwistSec
+
+open PkgI4 (GaloisRep GaloisChar)
+
+/-- `ψ|_{G_{ℚ_p}} ≅ ℂ_p(s)`: some `c ≠ 0` in `ℂ_p` with `σ(c) = ψ(σ) χ(σ)^{−s} c`, i.e. the basis
+`e = c f` of `ℂ_p(ψ)` in terms of a basis `f` of `ℂ_p(s)`. -/
+def IsHTCharWt {p : ℕ} [Fact p.Prime] (ψ : GaloisChar p) (s : ℤ) : Prop :=
+  ∃ c : ℂ_[p], c ≠ 0 ∧ ∀ σ : GQp p,
+    cpAct p σ c = cycPow p σ (-s) • (((ψ.toHom (decomp p σ) : PadicAlgCl p)) : ℂ_[p]) * c
+
+/-- **GLUE S1 (a twist between Hodge–Tate representations is by a Hodge–Tate character; not proved
+here).** Needs: the Hodge–Tate decomposition criterion (`V` Hodge–Tate iff
+`⊕_i ℂ_p(−i) ⊗ (ℂ_p(i) ⊗ V)^G ≅ ℂ_p ⊗ V`; Serre 1967 / Tate 1967 §3.3 / Brinon–Conrad §2.2-2.4,
+built on Tate's theorems of §1), applied embedding by embedding of the coefficient field, and
+"a nonzero `G`-map `ℂ_p(ψ) → ℂ_p(j)` is an isomorphism". -/
+def HTCharOfTwist : Prop :=
+  ∀ (p : ℕ) [Fact p.Prime] (n : ℕ) (ρ ρ' : GaloisRep p n) (ψ : GaloisChar p) (S S' : Multiset ℤ),
+    0 < n → G0Galois.IsTwist ρ' ψ ρ → Multiset.card S = n → Multiset.card S' = n →
+    ρ.HasHTWeightsAtSelf p S → ρ'.HasHTWeightsAtSelf p S' → ∃ s : ℤ, IsHTCharWt ψ s
+
+/-- **GLUE S2 (twisting by `ℂ_p(s)` shifts the weights by `−s`; not proved here).** Needs: on the
+component of `Hom_{ℚ_p}(Eⁿ, ℂ_p)` for each embedding `τ : E → ℂ_p` (`E`-semilinear maps), `φ ↦ c_τ φ`
+identifies `H_i(ψ ⊗ ρ)` with `H_{i−s}(ρ)`, where `c_τ = g(c)` for `g ∈ G_{ℚ_p}` with `g|_E = τ`
+(`ψ` is a character, so `ψ(g⁻¹σg) = ψ(σ)`). -/
+def HTTwistShift : Prop :=
+  ∀ (p : ℕ) [Fact p.Prime] (n : ℕ) (ρ ρ' : GaloisRep p n) (ψ : GaloisChar p) (S : Multiset ℤ)
+    (s : ℤ), G0Galois.IsTwist ρ' ψ ρ → IsHTCharWt ψ s → ρ.HasHTWeightsAtSelf p S →
+    ρ'.HasHTWeightsAtSelf p (S.map (· - s))
+
+/-- **GLUE S3 (the weight multiset does not depend on the coefficient field).** Proved below
+(`htWeightsUnique_proof`). -/
+def HTWeightsUnique : Prop :=
+  ∀ (p : ℕ) [Fact p.Prime] (n : ℕ) (ρ : GQp p →* GL (Fin n) (PadicAlgCl p)) (S S' : Multiset ℤ),
+    LocalHasHTWeights p ρ S → LocalHasHTWeights p ρ S' → S = S'
+
+/-- **H-51 from the three glue Props.** -/
+theorem senTwist_of_glue (h1 : HTCharOfTwist) (h2 : HTTwistShift) (h3 : HTWeightsUnique) :
+    G0Galois.SenTwist := by
+  intro p _ n ρ ρ' ψ S S' htw hS hS' hρ hρ'
+  rcases Nat.eq_zero_or_pos n with hn | hn
+  · subst hn
+    refine ⟨0, ?_⟩
+    rw [Multiset.card_eq_zero] at hS hS'
+    simp [hS, hS']
+  obtain ⟨s, hs⟩ := h1 p n ρ ρ' ψ S S' hn htw hS hS' hρ hρ'
+  have h := h2 p n ρ ρ' ψ S s htw hs hρ
+  refine ⟨-s, ?_⟩
+  have := h3 p n (ρ'.restrictLocal p) _ _ hρ' h
+  rw [this]
+  congr 1
+
+end SenTwistSec
+
 end
 
 end ZInQ.Contrib.HodgeSplit
@@ -1196,3 +1391,6 @@ end ZInQ.Contrib.HodgeSplit
 #print axioms ZInQ.Contrib.HodgeSplit.deRhamComparisonHT_of_leaves
 #print axioms ZInQ.Contrib.HodgeSplit.t23_all_of_fontaine
 #print axioms ZInQ.Contrib.HodgeSplit.r14Det_of_ds
+#print axioms ZInQ.Contrib.HodgeSplit.panBerger_of_templates
+#print axioms ZInQ.Contrib.HodgeSplit.eigenformHT_of_new
+#print axioms ZInQ.Contrib.HodgeSplit.senTwist_of_glue

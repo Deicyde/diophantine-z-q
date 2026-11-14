@@ -53,3 +53,27 @@ after `lake build ZInQKernel.Contrib.R10.Amend ZInQKernel.Contrib.AbVarBC.Dim` (
   `ArtinTransport` (DSThm966 → R14DetWt1: finite subgroup of GL₂(ℂ) realized over ℚ̄, then ιL; Maschke).
 - PROVED `r14DetWtGe2_of_ds`, `r14Det_of_ds : DSThm965 → DSThm966 → Semisimplification2 →
   DetFromFrobenius → ArtinTransport → R14Det`. COMPILED 05:25, standard axioms. VERIFIED.
+
+## H-9 `PkgI4.PanBerger` (§9)
+- FINDING: Pan 2022 Thm 1.0.4 and Berger 2002 Thm 0.7 both need "potentially semistable" = B_st-admissible;
+  Mathlib 4.35 has BDeRhamPlus/BDeRham but no B_cris/B_st (VERIFIED by grep of .lake/packages/mathlib: no
+  BCris/BSt). Neither can be a leaf over genuine definitions today.
+- PROVED `panBerger_of_templates (IsPst) : PanFor IsPst → BergerDR IsPst → PanBerger` (for every IsPst;
+  continuity of ρ|G_{ℚ_p} from Mathlib's continuous absoluteGaloisGroup.map). COMPILED, standard axioms.
+- Pan's printed conclusion "ρ ≅ ρ_f ⊗ ψ" (geometric Frobenius) vs PanFor's arithmetic trace form:
+  conversion needs det ρ_f(Frob) = χ(q)q^{k−1} and ā_q = χ̄(q)a_q (not formalized; noted in report).
+
+## H-10 `PkgI4.EigenformHT` (§10)
+- FINDING: Kato's theorem is about V_{F_λ}(f) (étale cohomology of modular curves/Kuga–Sato), not definable
+  in Mathlib; no published-form leaf possible today.
+- PROVED `eigenformHT_of_new : EigenformHTNew → NewformOfEigenform → EigenformRepExists → AttachedConj →
+  HTConj → EigenformHT` (reduction from any level to newforms). EigenformHTNew = newform case (GLUE:
+  Kato transported + dualized); AttachedConj (GLUE: Chebotarev + Brauer–Nesbitt); HTConj (g12-det's glue,
+  verbatim; to be proved below). COMPILED, standard axioms.
+
+## H-51 `G0Galois.SenTwist` (§11)
+- Row copied verbatim (IsTwist l.50905, SenTwist l.50952 of Leaves5.lean).
+- FINDING: Sen operator not in Mathlib; Sen 1980 cannot be a leaf. Route through Tate's theorems instead.
+- PROVED `senTwist_of_glue : HTCharOfTwist → HTTwistShift → HTWeightsUnique → SenTwist`.
+  S1 HTCharOfTwist (ψ|G_{ℚ_p} ≅ ℂ_p(s), s ∈ ℤ), S2 HTTwistShift (twist by ℂ_p(s) shifts weights by −s):
+  GLUE not proved; S3 HTWeightsUnique (coefficient-field independence): to be proved. COMPILED.
