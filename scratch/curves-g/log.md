@@ -38,3 +38,10 @@ t34 (`LeafModCurves.DimJ1Genus`), t38 (`X1Belyi.CurveOfFunctionFieldQ`). Owner f
 - 18:21 first flat run failed at once: upstream `ZInQ.*` helper oleans (lean/) not built in this worktree;
   `lake build` of the 29 ZInQKernel imports of Leaves3.lean fixed it (9 s).
 - 18:22 CurveSplit.lean drafted ((A), (B), (C) for T38NoPoint); compile after the flat run.
+- 18:39 flat run 1 (Leaves3 + part with t38np): 17:51 wall, max RSS 14.9 GB; 4 errors, all in the final root
+  `example (∀ r t l g, …)` (binder types not inferable); every curves-g theorem and `sixContactMin_of_openG`
+  compiled, their `#print axioms` standard three. `open LeafModCurves X1Belyi` inside `HDec.CurvesG3` resolves to
+  the HDec copies (Lean's "Ambiguous namespace" warning says so). Fixed the example with explicit binder types.
+- 18:42 `CurveSplit.lean` built (26 s, 0 errors): `curveOfFunctionFieldQNoPoint_of_split`,
+  `curveOfFunctionFieldQ_of_split`, standard axioms (axioms_contrib_out.txt). assemble.py now folds t38 as
+  t38a/t38b/t38c.

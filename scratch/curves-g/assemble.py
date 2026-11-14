@@ -89,7 +89,9 @@ end HSyn
 
 end HDec
 
-example : (∀ r t l g, _root_.ZInQ.SixContactMin) := HDec.HSyn.sixContactMin_of_openG
+example : ∀ (_ : HDec.HSyn.OpenResearchLeaves2) (_ : HDec.HSyn.OpenTextbookLeavesG)
+    (_ : HDec.HSyn.OpenAddedLeaves3) (_ : HDec.HSyn.OpenGlue3), _root_.ZInQ.SixContactMin :=
+  HDec.HSyn.sixContactMin_of_openG
 
 #print axioms HDec.CurvesG3.nonempty_ratPt_of_place
 #print axioms HDec.CurvesG3.curveOfFunctionFieldQ_of_noPoint
