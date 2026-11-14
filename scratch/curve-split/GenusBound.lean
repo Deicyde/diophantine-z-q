@@ -1149,6 +1149,98 @@ theorem fundamentalIdentity_fin (a : ℚ) :
 
 end Glue5
 
+section Twist
+
+theorem invX_hφ : (nonZeroDivisors (Polynomial ℚ)) ≤
+    (nonZeroDivisors Qj).comap (Polynomial.aeval (RatFunc.X⁻¹ : Qj) : Polynomial ℚ →ₐ[ℚ] Qj).toRingHom := by
+  intro p hp
+  rw [Submonoid.mem_comap, mem_nonZeroDivisors_iff_ne_zero]
+  intro h0
+  have h : IsAlgebraic ℚ (RatFunc.X⁻¹ : Qj) := ⟨p, nonZeroDivisors.ne_zero hp, h0⟩
+  apply RatFunc.transcendental_X (K := ℚ)
+  convert IsAlgebraic.inv_iff.mp h
+  exact Subsingleton.elim _ _
+
+/-- `j ↦ 1/j` on `ℚ(j)`. -/
+noncomputable def invXHom : Qj →+* Qj :=
+  RatFunc.liftRingHom (Polynomial.aeval (RatFunc.X⁻¹ : Qj) : Polynomial ℚ →ₐ[ℚ] Qj).toRingHom invX_hφ
+
+theorem invXHom_algebraMap (p : Polynomial ℚ) :
+    invXHom (algebraMap (Polynomial ℚ) Qj p) = Polynomial.aeval (RatFunc.X⁻¹ : Qj) p := by
+  have := RatFunc.liftRingHom_apply_div'
+    (φ := (Polynomial.aeval (RatFunc.X⁻¹ : Qj) : Polynomial ℚ →ₐ[ℚ] Qj).toRingHom)
+    (hφ := invX_hφ) p 1
+  simpa [invXHom] using this
+
+theorem invXHom_X : invXHom (RatFunc.X : Qj) = RatFunc.X⁻¹ := by
+  have := invXHom_algebraMap Polynomial.X
+  rwa [RatFunc.algebraMap_X, Polynomial.aeval_X] at this
+
+theorem invXHom_invXHom (x : Qj) : invXHom (invXHom x) = x := by
+  have h : (invXHom.comp invXHom).comp (algebraMap (Polynomial ℚ) Qj) =
+      (RingHom.id Qj).comp (algebraMap (Polynomial ℚ) Qj) := by
+    refine Polynomial.ringHom_ext' (RingHom.ext_rat _ _) ?_
+    simp only [RingHom.coe_comp, Function.comp_apply, RingHom.id_apply, RatFunc.algebraMap_X,
+      invXHom_X, map_inv₀, inv_inv]
+  exact congrArg (fun φ : Qj →+* Qj => φ x)
+    (IsLocalization.ringHom_ext (nonZeroDivisors (Polynomial ℚ)) h)
+
+/-- `j ↦ 1/j` as a ring automorphism. -/
+noncomputable def invXEquiv : Qj ≃+* Qj :=
+  RingEquiv.ofRingHom invXHom invXHom
+    (RingHom.ext fun x => invXHom_invXHom x) (RingHom.ext fun x => invXHom_invXHom x)
+
+variable {F : Type} [Field F] [Algebra Qj F] [Algebra ℚ F] [FiniteDimensional Qj F]
+
+/-- The twisted `ℚ(j)`-algebra structure `c · x = (1/j ↦ ...)`: `j` acts as `1/j`. -/
+@[reducible] noncomputable def twistAlg : Algebra Qj F :=
+  ((algebraMap Qj F).comp invXEquiv.toRingHom).toAlgebra
+
+theorem twist_finrank :
+    @Module.finrank Qj F _ _ (twistAlg (F := F)).toModule = Module.finrank Qj F :=
+  @Algebra.finrank_eq_of_equiv_equiv Qj F _ _ (twistAlg (F := F)) Qj F _ _ _ invXEquiv
+    (RingEquiv.refl F) rfl
+
+theorem twist_finiteDimensional : @FiniteDimensional Qj F _ _ (twistAlg (F := F)).toModule := by
+  have h0 : 0 < @Module.finrank Qj F _ _ (twistAlg (F := F)).toModule := by
+    rw [twist_finrank]; exact Module.finrank_pos
+  exact @FiniteDimensional.of_finrank_pos Qj F _ _ (twistAlg (F := F)).toModule h0
+
+theorem twist_ramIdx (P : Place F) : @Place.ramIdx F _ (twistAlg (F := F)) _ P = P.ramIdx := by
+  unfold Place.ramIdx
+  congr 2
+  ext x
+  constructor
+  · rintro ⟨y, rfl⟩
+    exact ⟨Units.map invXEquiv.toRingHom.toMonoidHom y, Units.ext rfl⟩
+  · rintro ⟨y, rfl⟩
+    refine ⟨Units.map invXEquiv.toRingHom.toMonoidHom y, Units.ext ?_⟩
+    change (algebraMap Qj F) (invXEquiv (invXEquiv (y : Qj))) = _
+    rw [show invXEquiv (invXEquiv (y : Qj)) = (y : Qj) from invXHom_invXHom _]
+    rfl
+
+end Twist
+
+section FI
+
+variable {F : Type} [Field F] [Algebra Qj F] [Algebra ℚ F]
+
+theorem mul_rat_mem_iff (P : Place F) {c : ℚ} (hc : c ≠ 0) (x : F) :
+    (algebraMap ℚ F c * x ∈ P.w ↔ x ∈ P.w) ∧
+      (algebraMap ℚ F c * x ∈ P.w.nonunits ↔ x ∈ P.w.nonunits) := by
+  have hv : P.w.valuation (algebraMap ℚ F c) = 1 := by
+    have h1 := (P.w.valuation_le_one_iff _).mpr (P.rat_mem c)
+    have h2 := (P.w.valuation_le_one_iff _).mpr (P.rat_mem c⁻¹)
+    rw [map_inv₀, map_inv₀] at h2
+    have h0 : P.w.valuation (algebraMap ℚ F c) ≠ 0 := by
+      rw [Valuation.ne_zero_iff, map_ne_zero_iff _ (algebraMap ℚ F).injective]; exact hc
+    exact le_antisymm h1 ((inv_le_one₀ (zero_lt_iff.mpr h0)).mp h2)
+  refine ⟨?_, ?_⟩
+  · rw [← P.w.valuation_le_one_iff, ← P.w.valuation_le_one_iff, map_mul, hv, one_mul]
+  · rw [ValuationSubring.mem_nonunits_iff, ValuationSubring.mem_nonunits_iff, map_mul, hv, one_mul]
+
+end FI
+
 end CurveSplit
 
 #print axioms CurveSplit.genusX1Le_of_genusX1Field
