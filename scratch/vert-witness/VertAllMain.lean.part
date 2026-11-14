@@ -22,7 +22,7 @@ theorem coverModelOfHecke_of_goodReduction (hconn : Y3Connected) (hRR : R1R2fp)
     (hL : ShimuraGoodReduction) (hU : SpecialFibreUniformizer) (hBD : ModelCoordinateGlue) :
     CoverModelOfHecke :=
   HeckeRestAll.coverModelOfHecke_of_heckeRest hconn hRR hT hA hS hW
-    (heckeVertWitness_of_goodReduction'' hL hU hBD)
+    (heckeVertWitness_of_goodReduction'' hL hRR hU hBD)
 
 /-- **`PropTSAll` from the leaves and the two GR glue Props** (compiled). -/
 theorem propTSAll_of_goodReduction (t2 : PkgI2.AbhyankarDVR.{0}) (hR : R1R2fp)
@@ -35,7 +35,7 @@ theorem propTSAll_of_goodReduction (t2 : PkgI2.AbhyankarDVR.{0}) (hR : R1R2fp)
     (hL : ShimuraGoodReduction) (hU : SpecialFibreUniformizer) (hBD : ModelCoordinateGlue) :
     PropTSAll :=
   HeckeRestAll.propTSAll_of_heckeRest t2 hR hM hSN hC hKA hO hVF hAI hOI hVI hconn hT hA hS hW
-    (heckeVertWitness_of_goodReduction'' hL hU hBD)
+    (heckeVertWitness_of_goodReduction'' hL hR hU hBD)
 
 /-- **`CoverModelOfHecke` from the leaves and the three GR glue Props** (compiled):
 `SpecialFibreUniformizer`, `ModelCoordinate` (d), `ModelComparison` (b). -/
@@ -45,7 +45,7 @@ theorem coverModelOfHecke_of_goodReduction₃ (hconn : Y3Connected) (hRR : R1R2f
     (hL : ShimuraGoodReduction) (hU : SpecialFibreUniformizer) (hD : ModelCoordinate)
     (hB : ModelComparison) : CoverModelOfHecke :=
   HeckeRestAll.coverModelOfHecke_of_heckeRest hconn hRR hT hA hS hW
-    (heckeVertWitness_of_goodReduction₃ hL hU hD hB)
+    (heckeVertWitness_of_goodReduction₃ hL hRR hU hD hB)
 
 end VertWitnessAll
 

@@ -54,7 +54,7 @@ Axioms standard (compile_all.txt). Copy check: `cmp` of NoVert.lean lines 1-1265
   Hurwitz — applied); VertGauss/VertDVR no hidden triviality.
 - cmp: VertWitness.lean lines 1-1265 = NoVert.lean 1-1265; VertAll.lean lines 1-9854 = HeckeRestAll.lean.
 
-## Step 5 (18:35) — VERIFIED (VertWitness.lean and VertAll.lean, 0 errors; VertAll 58 s)
+## Step 5 (18:22) — VERIFIED (VertWitness.lean and VertAll.lean, 0 errors; VertAll 58 s)
 Split of `ModelCoordinateGlue` into
 - `CoordFibres 𝒴 𝒜 ρ` (R2fp-type clauses for ρ : ToP1 𝒴.left on ℚ̄-points, via IsFibreOf),
 - glue (d) `ModelCoordinate`: ∃ ρ with CoordFibres, regular at every ξ (DVR, 𝔪 = (p)) with
@@ -66,3 +66,13 @@ Split of `ModelCoordinateGlue` into
 - `heckeVertWitness_of_goodReduction₃ (hL) (hU) (hD) (hB) : HeckeVertWitness`,
 - `VertWitnessAll.coverModelOfHecke_of_goodReduction₃` (compiled).
 (`Π` is a reserved token; the map is named `ρ`.)
+
+## Step 6 (18:25) — VERIFIED (both files 0 errors; VertAll 57 s)
+- `CMObjectsExist` (CM objects of the three types over ℚ̄) and
+  `cmObjectsExist_of_R1R2fp : R1R2fp → CMObjectsExist` (compiled: CMExists + X6Surj + X6Props + of_iso).
+- `CMObjectsExist →` threaded as a hypothesis into ModelGaussGlue, ModelCoordinateGlue,
+  ModelCoordinate, ModelComparison (the coordinate's normalization by the three CM orbits needs
+  CM points; otherwise the CM clauses of CoordFibres/R2fp would be vacuous and (b) unprovable
+  as a closed theorem).
+- Composites now take `hRR : R1R2fp` (a bundle leaf):
+  `heckeVertWitness_of_goodReduction₃ (hL) (hRR) (hU) (hD) (hB) : HeckeVertWitness`, etc.

@@ -2,6 +2,7 @@
 'HeckeRestNV.heckeNoVertRam_of_local' depends on axioms: [propext, Classical.choice, Quot.sound]
 'HeckeRestNV.heckeNoVertRam_of_local' depends on axioms: [propext, Classical.choice, Quot.sound]
 'VertWitness.vertLocalWitness_of_gauss' depends on axioms: [propext, Classical.choice, Quot.sound]
+'VertWitness.cmObjectsExist_of_R1R2fp' depends on axioms: [propext, Classical.choice, Quot.sound]
 'VertWitness.vertUnramWitness_of_gauss' depends on axioms: [propext, Classical.choice, Quot.sound]
 'VertWitness.heckeVertWitness_of_gauss' depends on axioms: [propext, Classical.choice, Quot.sound]
 'VertWitness.heckeVertWitness_of_goodReduction' depends on axioms: [propext, Classical.choice, Quot.sound]
@@ -18,4 +19,4 @@
 'VertWitnessAll.coverModelOfHecke_of_goodReduction' depends on axioms: [propext, Classical.choice, Quot.sound]
 'VertWitnessAll.propTSAll_of_goodReduction' depends on axioms: [propext, Classical.choice, Quot.sound]
 'VertWitnessAll.coverModelOfHecke_of_goodReduction₃' depends on axioms: [propext, Classical.choice, Quot.sound]
-real	0m57.657s
+real	0m57.271s
