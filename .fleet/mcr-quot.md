@@ -2,7 +2,7 @@
 
 **Result.** All four glue Props that mcr-glue left under `ModelCoordinateResidue` are proved by
 compiled Lean from leaves, one existing glue Prop and **two** new glue Props (`scratch/mcr-quot/MCRQuot.lean`,
-exit 0, about 30 s, no sorry, 57 `#print axioms` all standard):
+exit 0, about 30 s, no sorry, 58 `#print axioms` all standard):
 
 - **C2 `CoordinateFromSections`** is proved from A and T5. This includes `P1Translate`:
   translations of `P¹_{ℤ_(p)}` by charts, with the new chart affine and the polynomial-ring
@@ -21,7 +21,8 @@ exit 0, about 30 s, no sorry, 57 `#print axioms` all standard):
   is proved from `CurveBijIso` and `P1SchemeQ`.
 
 Final composite: `MCRQuot.modelCoordinateResidue_final9`. Its inputs are L1–L6, T5,
-`CurveBijIso`, `CoverModelOfHeckeN`, `P1SchemeQ` and `CMStabObj`.
+`CurveBijIso`, `CoverModelOfHeckeN`, `P1SchemeQ` and `CMStabObj`. Downstream,
+`heckeVertWitness_of_mcrQuot` gives model-glue's `HeckeVertWitness`.
 
 **Findings.**
 

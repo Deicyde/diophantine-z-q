@@ -8693,6 +8693,31 @@ theorem modelCoordinateResidue_final9 (hAF : ProperCurveAF) (hQE : FiniteQuotien
 
 end MCRQuot
 
+/-! ════════════════════════════════════════════════════════════════════════════════════════════
+# mcr-quot, part 24: the downstream composite (`HeckeVertWitness`)
+════════════════════════════════════════════════════════════════════════════════════════════ -/
+
+noncomputable section
+
+namespace MCRQuot
+
+open Polynomial CategoryTheory AlgebraicGeometry Limits LeafQM LeafQM.AV VertWitness HeckeRestNV
+open G0ModField PropTSRed PropTSGlue ModelGlue MCRGlue LeafQM.AV.Pin PkgI3
+
+/-- **`HeckeVertWitness` (model-glue's target) from the leaves and the two new glue Props of this
+task**: `ShimuraGoodReduction`, `R1R2fp`, T5, `CurveBijIso`, mcr-glue's leaves L1-L6, the
+decomposition's glue `CoverModelOfHeckeN`, and `P1SchemeQ`, `CMStabObj`
+(`ModelGlue.heckeVertWitness_of_curveBijIso` with `modelCoordinateResidue_final9`). -/
+theorem heckeVertWitness_of_mcrQuot (hL : ShimuraGoodReduction) (hRR : R1R2fp)
+    (hT : ObjBridge.TorsionStructure) (hC : CurveBijIso) (hAF : ProperCurveAF)
+    (hQE : FiniteQuotientExists) (hTS : TameQuotientSmooth) (hP1 : SmoothModelOfP1)
+    (hFix : TameFixedPointsDisjoint) (hCyc : TameInertiaCyclic) (hCov : CoverModelOfHeckeN)
+    (hP : P1SchemeQ) (hO : CMStabObj) : HeckeVertWitness :=
+  heckeVertWitness_of_curveBijIso hL hRR hT
+    (modelCoordinateResidue_final9 hAF hQE hTS hP1 hFix hCyc hT hC hCov hP hO) hC
+
+end MCRQuot
+
 #print axioms MCRQuot.exists_unit_congr
 #print axioms MCRQuot.mem_orbit_of_twistEq
 #print axioms MCRQuot.twistEq_of_mem_fibreAut
@@ -8750,3 +8775,4 @@ end MCRQuot
 #print axioms MCRQuot.val_injective_of_isP1CoordinateQ
 #print axioms MCRQuot.toP1BijIsCoordinateQ_of
 #print axioms MCRQuot.modelCoordinateResidue_final9
+#print axioms MCRQuot.heckeVertWitness_of_mcrQuot

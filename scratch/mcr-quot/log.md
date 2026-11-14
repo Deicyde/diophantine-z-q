@@ -269,3 +269,8 @@ standard)
   global sections (trivial line bundle), so the functor of points of `P¹` would need gluing of two
   such maps with invariance under unit rescaling plus the identification
   `HomogeneousLocalization.Away 𝒜 X₀ ≅ ℚ[t]` — not attempted (estimated > 1500 lines).
+
+## Step 23 (14:00) — VERIFIED (parts 1-24 + 9; exit 0; compile24_out.txt; 58 axioms lines
+standard; verbatim check ALL OK)
+- `MCRQuot.heckeVertWitness_of_mcrQuot`: `HeckeVertWitness` from `ShimuraGoodReduction`,
+  `R1R2fp`, T5, `CurveBijIso`, L1-L6, `CoverModelOfHeckeN`, `P1SchemeQ`, `CMStabObj`.

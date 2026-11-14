@@ -10,7 +10,7 @@ Task mcr-quot, 2026-11-14 (two runs; the second resumed from `scratch/mcr-quot/l
 - C2 `CoordinateFromSections`.
 
 Lean file: `scratch/mcr-quot/MCRQuot.lean`. It is `MCRGlue.lean` verbatim (the whole file),
-followed by the parts `MCRQuot1.lean.part` … `MCRQuot23.lean.part` in the order of `build.sh`.
+followed by the parts `MCRQuot1.lean.part` … `MCRQuot24.lean.part` in the order of `build.sh`.
 
 ## 1. Main result
 
@@ -64,17 +64,22 @@ Its hypotheses fall into four groups:
   - (C1b-obj) `CMStabObj`: each CM class is fixed by a Hecke operation of order exactly 2 on
     classes, a statement about QM objects over `ℚ̄` with no schemes in it.
 
+Downstream, `heckeVertWitness_of_mcrQuot` (part 24) gives model-glue's target
+`HeckeVertWitness`. It combines `ModelGlue.heckeVertWitness_of_curveBijIso` with `final9`, and its
+inputs are `ShimuraGoodReduction`, `R1R2fp`, T5, `CurveBijIso`, L1–L6, `CoverModelOfHeckeN`,
+`P1SchemeQ` and `CMStabObj`.
+
 The earlier composites `modelCoordinateResidue_final4` … `final8` are the intermediate forms.
 `final8` takes (B-iso) `ToP1BijIsCoordinateQ` in place of `P1SchemeQ`.
 
 VERIFIED: `lake env lean scratch/mcr-quot/MCRQuot.lean` exits 0 in about 30 s (output in
-`compile23_out.txt`).
+`compile24_out.txt`).
 
 - The parts contain no `sorry` and no `axiom`.
 - `py/verbatim_check.py` prints `ALL OK`. It checks three things: the file is
-  `MCRGlue.lean` plus the 25 parts; the four targets and `ModelCoordinateResidue` are each defined
+  `MCRGlue.lean` plus the 26 parts; the four targets and `ModelCoordinateResidue` are each defined
   once, in the prefix; and the parts contain no `sorry` or `axiom`.
-- All 57 `#print axioms` of `MCRQuot` declarations (part 9) read
+- All 58 `#print axioms` of `MCRQuot` declarations (part 9) read
   `[propext, Classical.choice, Quot.sound]`.
 
 ## 2. What was proved (all compiled, namespace `MCRQuot`)
@@ -261,5 +266,5 @@ Why (C1b-obj) is not proved here (SPECULATIVE analysis, not compiled):
 lake build ZInQKernel.Contrib.Mobius.Main ZInQKernel.HDecomp.QM.Pin ZInQKernel.HDecomp.Descent.B2Glue
 scratch/mcr-quot/build.sh                      # regenerates MCRQuot.lean from the parts
 python3 -I scratch/mcr-quot/py/verbatim_check.py scratch/mcr-quot   # ALL OK
-lake env lean scratch/mcr-quot/MCRQuot.lean    # exit 0, ~30 s; compile23_out.txt
+lake env lean scratch/mcr-quot/MCRQuot.lean    # exit 0, ~30 s; compile24_out.txt
 ```
