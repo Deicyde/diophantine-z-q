@@ -1,0 +1,355 @@
+FDRep.char_biprod
+    ZInQKernel/Contrib/TauCeti/RepresentationTheory/FDRep.lean
+    ZInQKernel/Contrib/TauCeti/RepresentationTheory/FDRep/Basic.lean
+FDRep.char_mul_of_mem_ker_left
+    ZInQKernel/Contrib/TauCeti/RepresentationTheory/FDRep.lean
+    ZInQKernel/Contrib/TauCeti/RepresentationTheory/FDRep/Basic.lean
+FDRep.char_tensorUnit
+    ZInQKernel/Contrib/TauCeti/RepresentationTheory/FDRep.lean
+    ZInQKernel/Contrib/TauCeti/RepresentationTheory/FDRep/Basic.lean
+FDRep.character_actionRes
+    ZInQKernel/Contrib/TauCeti/RepresentationTheory/FDRep.lean
+    ZInQKernel/Contrib/TauCeti/RepresentationTheory/FDRep/Basic.lean
+FDRep.character_eq_zero_of_finrank_intertwiningMap_eq_zero
+    ZInQKernel/Contrib/TauCeti/RepresentationTheory/FDRep.lean
+    ZInQKernel/Contrib/TauCeti/RepresentationTheory/FDRep/Basic.lean
+FDRep.character_forget₂_obj
+    ZInQKernel/Contrib/TauCeti/RepresentationTheory/FDRep.lean
+    ZInQKernel/Contrib/TauCeti/RepresentationTheory/FDRep/Basic.lean
+FDRep.character_of
+    ZInQKernel/Contrib/TauCeti/RepresentationTheory/FDRep.lean
+    ZInQKernel/Contrib/TauCeti/RepresentationTheory/FDRep/Basic.lean
+FDRep.character_ofShrink
+    ZInQKernel/Contrib/TauCeti/RepresentationTheory/FDRep.lean
+    ZInQKernel/Contrib/TauCeti/RepresentationTheory/FDRep/Basic.lean
+FDRep.character_of_trivial
+    ZInQKernel/Contrib/TauCeti/RepresentationTheory/FDRep.lean
+    ZInQKernel/Contrib/TauCeti/RepresentationTheory/FDRep/Basic.lean
+FDRep.character_ρ
+    ZInQKernel/Contrib/TauCeti/RepresentationTheory/FDRep.lean
+    ZInQKernel/Contrib/TauCeti/RepresentationTheory/FDRep/Basic.lean
+FDRep.finrank_forget₂_obj
+    ZInQKernel/Contrib/TauCeti/RepresentationTheory/FDRep.lean
+    ZInQKernel/Contrib/TauCeti/RepresentationTheory/FDRep/Basic.lean
+FDRep.finrank_ofShrink
+    ZInQKernel/Contrib/TauCeti/RepresentationTheory/FDRep.lean
+    ZInQKernel/Contrib/TauCeti/RepresentationTheory/FDRep/Basic.lean
+FDRep.forget₂_additive
+    ZInQKernel/Contrib/TauCeti/RepresentationTheory/FDRep.lean
+    ZInQKernel/Contrib/TauCeti/RepresentationTheory/FDRep/Basic.lean
+FDRep.forget₂_obj_tensor
+    ZInQKernel/Contrib/TauCeti/RepresentationTheory/FDRep.lean
+    ZInQKernel/Contrib/TauCeti/RepresentationTheory/FDRep/Basic.lean
+FDRep.hom_hom_hom_comm
+    ZInQKernel/Contrib/TauCeti/RepresentationTheory/FDRep.lean
+    ZInQKernel/Contrib/TauCeti/RepresentationTheory/FDRep/Basic.lean
+FDRep.isoToEquiv
+    ZInQKernel/Contrib/TauCeti/RepresentationTheory/FDRep.lean
+    ZInQKernel/Contrib/TauCeti/RepresentationTheory/FDRep/Basic.lean
+FDRep.moduleFinite_forget₂_obj
+    ZInQKernel/Contrib/TauCeti/RepresentationTheory/FDRep.lean
+    ZInQKernel/Contrib/TauCeti/RepresentationTheory/FDRep/Basic.lean
+FDRep.normal_iInf_ker
+    ZInQKernel/Contrib/TauCeti/RepresentationTheory/FDRep.lean
+    ZInQKernel/Contrib/TauCeti/RepresentationTheory/FDRep/Basic.lean
+FDRep.of
+    ZInQKernel/Contrib/TauCeti/RepresentationTheory/FDRep.lean
+    ZInQKernel/Contrib/TauCeti/RepresentationTheory/FDRep/Basic.lean
+FDRep.ofShrink
+    ZInQKernel/Contrib/TauCeti/RepresentationTheory/FDRep.lean
+    ZInQKernel/Contrib/TauCeti/RepresentationTheory/FDRep/Basic.lean
+FDRep.ofShrinkEquiv
+    ZInQKernel/Contrib/TauCeti/RepresentationTheory/FDRep.lean
+    ZInQKernel/Contrib/TauCeti/RepresentationTheory/FDRep/Basic.lean
+FDRep.of_ρ_eq_self
+    ZInQKernel/Contrib/TauCeti/RepresentationTheory/FDRep.lean
+    ZInQKernel/Contrib/TauCeti/RepresentationTheory/FDRep/Basic.lean
+FDRep.tensorUnit_ρ
+    ZInQKernel/Contrib/TauCeti/RepresentationTheory/FDRep.lean
+    ZInQKernel/Contrib/TauCeti/RepresentationTheory/FDRep/Basic.lean
+FDRep.tensor_ρ
+    ZInQKernel/Contrib/TauCeti/RepresentationTheory/FDRep.lean
+    ZInQKernel/Contrib/TauCeti/RepresentationTheory/FDRep/Basic.lean
+FDRep.toLinearEquiv_isoToEquiv
+    ZInQKernel/Contrib/TauCeti/RepresentationTheory/FDRep.lean
+    ZInQKernel/Contrib/TauCeti/RepresentationTheory/FDRep/Basic.lean
+IsCyclic.mem_range_powMonoidHom_iff
+    ZInQKernel/Contrib/TauCeti/GroupTheory/SpecificGroups/Cyclic/Basic.lean
+    ZInQKernel/Contrib/TauCeti/GroupTheory/SpecificGroups/Cyclic/PowMonoidHom.lean
+IsDedekindDomain.selmerGroup.of
+    ZInQKernel/Contrib/TauCeti/RingTheory/DedekindDomain/SInteger/SelmerGroup/Basic.lean
+    ZInQKernel/Contrib/TauCeti/RingTheory/DedekindDomain/SInteger/SelmerGroup/Radical.lean
+LinearEquiv.toFDRepIso
+    ZInQKernel/Contrib/TauCeti/RepresentationTheory/FDRep.lean
+    ZInQKernel/Contrib/TauCeti/RepresentationTheory/FDRep/Basic.lean
+MonoidHom.forget₂_map_actionRes
+    ZInQKernel/Contrib/TauCeti/RepresentationTheory/FDRep.lean
+    ZInQKernel/Contrib/TauCeti/RepresentationTheory/FDRep/Basic.lean
+NumberField.Chebotarev.`C`
+    ZInQKernel/Contrib/TauCeti/NumberTheory/Chebotarev/PrimeCounting/FixedFieldContraction.lean
+    ZInQKernel/Contrib/TauCeti/NumberTheory/Chebotarev/PrimeCounting/FrobeniusPrimeCount.lean
+NumberField.FinitePlace.mk_apply_eq_one_iff
+    ZInQKernel/Contrib/TauCeti/NumberTheory/NumberField/FinitePlace.lean
+    ZInQKernel/Contrib/TauCeti/NumberTheory/NumberField/FinitePlace/Basic.lean
+NumberField.FinitePlace.mk_apply_le_one_iff
+    ZInQKernel/Contrib/TauCeti/NumberTheory/NumberField/FinitePlace.lean
+    ZInQKernel/Contrib/TauCeti/NumberTheory/NumberField/FinitePlace/Basic.lean
+NumberField.of
+    ZInQKernel/Contrib/TauCeti/NumberTheory/NumberField/Frobenius/Tower.lean
+    ZInQKernel/Contrib/TauCeti/NumberTheory/NumberField/Units/Signature/Basic.lean
+Representation.char_prod
+    ZInQKernel/Contrib/TauCeti/RepresentationTheory/FDRep.lean
+    ZInQKernel/Contrib/TauCeti/RepresentationTheory/FDRep/Basic.lean
+Representation.char_trivial
+    ZInQKernel/Contrib/TauCeti/RepresentationTheory/FDRep.lean
+    ZInQKernel/Contrib/TauCeti/RepresentationTheory/FDRep/Basic.lean
+Subrepresentation.char_add_eq_of_isCompl
+    ZInQKernel/Contrib/TauCeti/RepresentationTheory/FDRep.lean
+    ZInQKernel/Contrib/TauCeti/RepresentationTheory/FDRep/Basic.lean
+TauCeti.ClassFieldTheory.auxiliaryKummerIdeleClassSubgroup_le_range_ideleClassNormMap_of_ramifiedSupport
+    ZInQKernel/Contrib/TauCeti/Backport/NumberTheory/ClassFieldTheory/Global/Kummer/Norm.lean
+    ZInQKernel/Contrib/TauCeti/NumberTheory/ClassFieldTheory/Global/Kummer/Norm.lean
+TauCeti.ClassFieldTheory.auxiliaryKummerIdeleSubgroup_le_range_ideleNormMap_of_ramifiedSupport
+    ZInQKernel/Contrib/TauCeti/Backport/NumberTheory/ClassFieldTheory/Global/Kummer/Norm.lean
+    ZInQKernel/Contrib/TauCeti/NumberTheory/ClassFieldTheory/Global/Kummer/Norm.lean
+TauCeti.ClassFieldTheory.exists_auxiliaryPlaces_unitLocalPowerClassMap_surjective
+    ZInQKernel/Contrib/TauCeti/Backport/NumberTheory/ClassFieldTheory/Global/Kummer/AuxiliaryPlaces.lean
+    ZInQKernel/Contrib/TauCeti/NumberTheory/ClassFieldTheory/Global/Kummer/AuxiliaryPlaces.lean
+TauCeti.ClassFieldTheory.exists_ideleSumLocalInv_eq_apply_absoluteGaloisGroupMap
+    ZInQKernel/Contrib/TauCeti/Backport/NumberTheory/ClassFieldTheory/Global/PrescribedInvariant.lean
+    ZInQKernel/Contrib/TauCeti/NumberTheory/ClassFieldTheory/Global/PrescribedInvariant.lean
+TauCeti.ClassFieldTheory.exists_ideleSumLocalInv_eq_one_div_degree_of_isCyclic
+    ZInQKernel/Contrib/TauCeti/Backport/NumberTheory/ClassFieldTheory/Global/PrescribedInvariant.lean
+    ZInQKernel/Contrib/TauCeti/NumberTheory/ClassFieldTheory/Global/PrescribedInvariant.lean
+TauCeti.ClassFieldTheory.exists_refinement_ideleLayerCorInfl_eq_index_nsmul
+    ZInQKernel/Contrib/TauCeti/Backport/NumberTheory/ClassFieldTheory/Global/PrescribedInvariant.lean
+    ZInQKernel/Contrib/TauCeti/NumberTheory/ClassFieldTheory/Global/PrescribedInvariant.lean
+TauCeti.ClassFieldTheory.exists_refinement_ideleSumLocalInv_eq
+    ZInQKernel/Contrib/TauCeti/Backport/NumberTheory/ClassFieldTheory/Global/PrescribedInvariant.lean
+    ZInQKernel/Contrib/TauCeti/NumberTheory/ClassFieldTheory/Global/PrescribedInvariant.lean
+TauCeti.ClassFieldTheory.exists_sumLocalInv_ideleLocalization_characterCarryCocycle_eq
+    ZInQKernel/Contrib/TauCeti/Backport/NumberTheory/ClassFieldTheory/Global/PrescribedInvariant.lean
+    ZInQKernel/Contrib/TauCeti/NumberTheory/ClassFieldTheory/Global/PrescribedInvariant.lean
+TauCeti.ClassFieldTheory.exists_sumLocalInv_ideleLocalization_eq
+    ZInQKernel/Contrib/TauCeti/Backport/NumberTheory/ClassFieldTheory/Global/PrescribedInvariant.lean
+    ZInQKernel/Contrib/TauCeti/NumberTheory/ClassFieldTheory/Global/PrescribedInvariant.lean
+TauCeti.ClassFieldTheory.field
+    ZInQKernel/Contrib/TauCeti/NumberTheory/ClassFieldTheory/ClassField.lean
+    ZInQKernel/Contrib/TauCeti/NumberTheory/ClassFieldTheory/ClassFields/RingClass/Field.lean
+TauCeti.ClassFieldTheory.group
+    ZInQKernel/Contrib/TauCeti/NumberTheory/ClassFieldTheory/Global/LocalArtin/Frobenius.lean
+    ZInQKernel/Contrib/TauCeti/NumberTheory/ClassFieldTheory/GlobalExistence/AbelianLayer.lean
+TauCeti.ClassFieldTheory.ideleClassNormMap_kummerField_surjective
+    ZInQKernel/Contrib/TauCeti/Backport/NumberTheory/ClassFieldTheory/Global/Kummer/Norm.lean
+    ZInQKernel/Contrib/TauCeti/NumberTheory/ClassFieldTheory/Global/Kummer/Norm.lean
+TauCeti.ClassFieldTheory.ideleClassNormMap_kummerField_surjective_of_forall_exists_mem_unit
+    ZInQKernel/Contrib/TauCeti/Backport/NumberTheory/ClassFieldTheory/Global/Kummer/Norm.lean
+    ZInQKernel/Contrib/TauCeti/NumberTheory/ClassFieldTheory/Global/Kummer/Norm.lean
+TauCeti.ClassFieldTheory.in
+    ZInQKernel/Contrib/TauCeti/NumberTheory/ClassFieldTheory/Brauer/Unramified.lean
+    ZInQKernel/Contrib/TauCeti/NumberTheory/ClassFieldTheory/Global/IdeleLocalization.lean
+TauCeti.ClassFieldTheory.index_range_ideleClassNormMap_dvd_index_auxiliaryKummerIdeleClassSubgroup_of_ramifiedSupport
+    ZInQKernel/Contrib/TauCeti/Backport/NumberTheory/ClassFieldTheory/Global/Kummer/Norm.lean
+    ZInQKernel/Contrib/TauCeti/NumberTheory/ClassFieldTheory/Global/Kummer/Norm.lean
+TauCeti.ClassFieldTheory.of
+    ZInQKernel/Contrib/TauCeti/NumberTheory/ClassFieldTheory/ClassFields/RingClass/Field.lean
+    ZInQKernel/Contrib/TauCeti/NumberTheory/ClassFieldTheory/Formation/AbsoluteArtinMap.lean
+    ZInQKernel/Contrib/TauCeti/NumberTheory/ClassFieldTheory/Global/Cyclotomic/Splitting.lean
+    ZInQKernel/Contrib/TauCeti/NumberTheory/ClassFieldTheory/Global/LocalArtin/Frobenius.lean
+    ZInQKernel/Contrib/TauCeti/NumberTheory/ClassFieldTheory/GlobalExistence/NormSubgroup.lean
+TauCeti.ContCohomology.of
+    ZInQKernel/Contrib/TauCeti/RepresentationTheory/Homological/ContCohomology/Corestriction/Transitivity.lean
+    ZInQKernel/Contrib/TauCeti/RepresentationTheory/Homological/ContCohomology/GroupCohomologyIso/Basic.lean
+    ZInQKernel/Contrib/TauCeti/RepresentationTheory/Homological/ContCohomology/LongExact.lean
+    ZInQKernel/Contrib/TauCeti/RepresentationTheory/Homological/ContCohomology/RestrictScalars.lean
+    ZInQKernel/Contrib/TauCeti/RepresentationTheory/Homological/ContCohomology/Transgression.lean
+TauCeti.GlobalNumberFields.group
+    ZInQKernel/Contrib/TauCeti/NumberTheory/NumberField/Global/RayClass/Count/Basic.lean
+    ZInQKernel/Contrib/TauCeti/NumberTheory/NumberField/Global/RayClass/Narrow/Basic.lean
+TauCeti.GlobalNumberFields.group.
+    ZInQKernel/Contrib/TauCeti/NumberTheory/NumberField/Global/RayClass/Basic.lean
+    ZInQKernel/Contrib/TauCeti/NumberTheory/NumberField/Global/RayClass/Modulus.lean
+TauCeti.GlobalNumberFields.of
+    ZInQKernel/Contrib/TauCeti/Backport/NumberTheory/NumberField/Global/Ideles/Ray/ClassQuotient.lean
+    ZInQKernel/Contrib/TauCeti/NumberTheory/NumberField/Global/RayClass/Rat.lean
+TauCeti.Isogeny.map
+    ZInQKernel/Contrib/TauCeti/AlgebraicGeometry/EllipticCurve/Isogeny/BaseChange/Basic.lean
+    ZInQKernel/Contrib/TauCeti/AlgebraicGeometry/EllipticCurve/Isogeny/Degree.lean
+TauCeti.TateCohomology.of
+    ZInQKernel/Contrib/TauCeti/RepresentationTheory/Homological/TateCohomology/Connecting/LowDegree.lean
+    ZInQKernel/Contrib/TauCeti/RepresentationTheory/Homological/TateCohomology/Cup/ChangeOfGroup.lean
+    ZInQKernel/Contrib/TauCeti/RepresentationTheory/Homological/TateCohomology/Cup/TateTheorem.lean
+TauCeti.disjoint_rootsOfUnity_unitFiltration
+    ZInQKernel/Contrib/TauCeti/NumberTheory/LocalField/UnitFiltration/Pow.lean
+    ZInQKernel/Contrib/TauCeti/NumberTheory/LocalField/UnitFiltration/Pow/Basic.lean
+TauCeti.disjoint_rootsOfUnity_unitFiltration_of_prime
+    ZInQKernel/Contrib/TauCeti/NumberTheory/LocalField/UnitFiltration/Pow.lean
+    ZInQKernel/Contrib/TauCeti/NumberTheory/LocalField/UnitFiltration/Pow/Basic.lean
+TauCeti.disjoint_rootsOfUnity_unitFiltration_one_of_isUnit
+    ZInQKernel/Contrib/TauCeti/NumberTheory/LocalField/UnitFiltration/Pow.lean
+    ZInQKernel/Contrib/TauCeti/NumberTheory/LocalField/UnitFiltration/Pow/Basic.lean
+TauCeti.map_powMonoidHom_unitFiltration
+    ZInQKernel/Contrib/TauCeti/NumberTheory/LocalField/UnitFiltration/Pow.lean
+    ZInQKernel/Contrib/TauCeti/NumberTheory/LocalField/UnitFiltration/Pow/Basic.lean
+TauCeti.map_powMonoidHom_unitFiltration_of_prime
+    ZInQKernel/Contrib/TauCeti/NumberTheory/LocalField/UnitFiltration/Pow.lean
+    ZInQKernel/Contrib/TauCeti/NumberTheory/LocalField/UnitFiltration/Pow/Basic.lean
+TauCeti.map_powMonoidHom_unitFiltration_succ_of_isUnit
+    ZInQKernel/Contrib/TauCeti/NumberTheory/LocalField/UnitFiltration/Pow.lean
+    ZInQKernel/Contrib/TauCeti/NumberTheory/LocalField/UnitFiltration/Pow/Basic.lean
+TauCeti.of
+    ZInQKernel/Contrib/TauCeti/Algebra/Group/PowerClassGroup/Basic.lean
+    ZInQKernel/Contrib/TauCeti/Algebra/GroupAction/OrbitRelQuotient.lean
+    ZInQKernel/Contrib/TauCeti/Algebra/Module/Torsion/Snake.lean
+    ZInQKernel/Contrib/TauCeti/Backport/AlgebraicGeometry/EllipticCurve/TateCurve/Uniformization.lean
+    ZInQKernel/Contrib/TauCeti/NumberTheory/LocalField/UnitFiltration/Graded.lean
+    ZInQKernel/Contrib/TauCeti/NumberTheory/LocalField/Unramified/Existence.lean
+    ZInQKernel/Contrib/TauCeti/NumberTheory/LocalField/Unramified/Factorization.lean
+    ZInQKernel/Contrib/TauCeti/NumberTheory/LocalField/Unramified/Maximal.lean
+TauCeti.powMonoidHom_unitFiltration_succ_bijective_of_isUnit
+    ZInQKernel/Contrib/TauCeti/NumberTheory/LocalField/UnitFiltration/Pow.lean
+    ZInQKernel/Contrib/TauCeti/NumberTheory/LocalField/UnitFiltration/Pow/Basic.lean
+TauCeti.pow_mem_unitFiltration_succ_iff_of_isUnit
+    ZInQKernel/Contrib/TauCeti/NumberTheory/LocalField/UnitFiltration/Pow.lean
+    ZInQKernel/Contrib/TauCeti/NumberTheory/LocalField/UnitFiltration/Pow/Basic.lean
+TauCeti.unitFiltration_le_range_powMonoidHom
+    ZInQKernel/Contrib/TauCeti/NumberTheory/LocalField/UnitFiltration/Pow.lean
+    ZInQKernel/Contrib/TauCeti/NumberTheory/LocalField/UnitFiltration/Pow/Basic.lean
+about
+    ZInQKernel/Contrib/TauCeti/Algebra/Algebra/Hom.lean
+    ZInQKernel/Contrib/TauCeti/Backport/Algebra/Algebra/Hom.lean
+and
+    ZInQKernel/Contrib/TauCeti/Algebra/Group/Conj.lean
+    ZInQKernel/Contrib/TauCeti/AlgebraicGeometry/EllipticCurve/DivisionPolynomial/ZSMul.lean
+    ZInQKernel/Contrib/TauCeti/NumberTheory/NumberField/Global/RayClass/CongruenceQuotient.lean
+    ZInQKernel/Contrib/TauCeti/RepresentationTheory/Homological/ContCohomology/Coinduced.lean
+    ZInQKernel/Contrib/TauCeti/RepresentationTheory/Simple/Basic.lean
+character
+    ZInQKernel/Contrib/TauCeti/NumberTheory/NumberField/Global/HeckeCharacter/FiniteOrder.lean
+    ZInQKernel/Contrib/TauCeti/NumberTheory/NumberField/Global/RayClass/Character/Conductor.lean
+constants
+    ZInQKernel/Contrib/TauCeti/NumberTheory/HeckeRing/Commutativity.lean
+    ZInQKernel/Contrib/TauCeti/NumberTheory/HeckeRing/Multiplication.lean
+    ZInQKernel/Contrib/TauCeti/NumberTheory/HeckeRing/One.lean
+exactly
+    ZInQKernel/Contrib/TauCeti/Algebra/Homology/ModuleCat/Basic.lean
+    ZInQKernel/Contrib/TauCeti/NumberTheory/NumberField/Global/RayClass/ClassNumber.lean
+exists
+    ZInQKernel/Contrib/TauCeti/AlgebraicGeometry/EllipticCurve/DivisionPolynomial/Universal.lean
+    ZInQKernel/Contrib/TauCeti/RepresentationTheory/Continuous/TopRep/RestrictScalars.lean
+field
+    ZInQKernel/Contrib/TYZGenus/RingClass.lean
+    ZInQKernel/Contrib/TauCeti/NumberTheory/ClassFieldTheory/ClassFields/RayClassField.lean
+    ZInQKernel/Contrib/TauCeti/NumberTheory/ClassFieldTheory/ClassFields/RingClass/Field.lean
+    ZInQKernel/Contrib/TauCeti/NumberTheory/ClassFieldTheory/GlobalExistence/NormSubgroup.lean
+formation
+    ZInQKernel/Contrib/TauCeti/NumberTheory/ClassFieldTheory/Formation/FieldArtinMap.lean
+    ZInQKernel/Contrib/TauCeti/NumberTheory/ClassFieldTheory/Local/ClassFormation.lean
+formation,
+    ZInQKernel/Contrib/TauCeti/NumberTheory/ClassFieldTheory/Local/ArtinMap.lean
+    ZInQKernel/Contrib/TauCeti/NumberTheory/ClassFieldTheory/LocalExistence/NormSubgroup.lean
+    ZInQKernel/Contrib/TauCeti/RepresentationTheory/Homological/TateCohomology/Functoriality.lean
+group
+    ZInQKernel/Contrib/TauCeti/AlgebraicGeometry/WeilDivisor/LinearSystem/Basic.lean
+    ZInQKernel/Contrib/TauCeti/NumberTheory/ClassFieldTheory/Global/Kummer/Ideles.lean
+    ZInQKernel/Contrib/TauCeti/NumberTheory/ClassFieldTheory/GlobalExistence/AbelianLayer.lean
+    ZInQKernel/Contrib/TauCeti/NumberTheory/NumberField/Global/Ideles/Ray/OpenSubgroup.lean
+    ZInQKernel/Contrib/TauCeti/NumberTheory/NumberField/Global/RayClass/Basic.lean
+    ZInQKernel/Contrib/TauCeti/NumberTheory/NumberField/Global/RayClass/Count/Basic.lean
+    ZInQKernel/Contrib/TauCeti/NumberTheory/NumberField/Kummer/SUnitRadical.lean
+group,
+    ZInQKernel/Contrib/TauCeti/AlgebraicGeometry/WeilDivisor/FractionalIdealDivisor/NthRoot.lean
+    ZInQKernel/Contrib/TauCeti/NumberTheory/ClassFieldTheory/ClassFields/RayClassField.lean
+    ZInQKernel/Contrib/TauCeti/NumberTheory/ClassFieldTheory/Global/IdeleClass/SIdeles.lean
+group.
+    ZInQKernel/Contrib/TauCeti/NumberTheory/NumberField/Global/HeckeCharacter/FiniteOrder.lean
+    ZInQKernel/Contrib/TauCeti/NumberTheory/NumberField/Global/Ideles/Norm/Basic.lean
+    ZInQKernel/Contrib/TauCeti/NumberTheory/NumberField/Kummer/SUnitRadical.lean
+in
+    ZInQKernel/Contrib/G9/Reduction.lean
+    ZInQKernel/Contrib/TauCeti/AlgebraicGeometry/EllipticCurve/Affine/FunctionField/Finrank.lean
+    ZInQKernel/Contrib/TauCeti/NumberTheory/NumberField/Units/Signature/Integer.lean
+    ZInQKernel/Contrib/TauCeti/RepresentationTheory/Homological/TateCohomology/Character.lean
+    ZInQKernel/Contrib/TauCeti/RepresentationTheory/Homological/TateCohomology/Cup/ZeroLeft.lean
+    ZInQKernel/Contrib/TauCeti/Topology/Algebra/GroupAction/InternalHom/Basic.lean
+is
+    ZInQKernel/Contrib/TauCeti/Algebra/Algebra/Tower.lean
+    ZInQKernel/Contrib/TauCeti/FieldTheory/RatFunc/Transcendental.lean
+    ZInQKernel/Contrib/TauCeti/NumberTheory/Chebotarev/FrobeniusPrimeSet.lean
+    ZInQKernel/Contrib/TauCeti/NumberTheory/ClassFieldTheory/Brauer/Basic.lean
+    ZInQKernel/Contrib/TauCeti/NumberTheory/ClassFieldTheory/Brauer/Invariant.lean
+    ZInQKernel/Contrib/TauCeti/NumberTheory/ClassFieldTheory/Formation/Tate/Cup.lean
+    ZInQKernel/Contrib/TauCeti/NumberTheory/EllipticDivisibilitySequence/ComplAux.lean
+    ZInQKernel/Contrib/TauCeti/NumberTheory/EllipticDivisibilitySequence/ReducedInvariant.lean
+    ZInQKernel/Contrib/TauCeti/RingTheory/Valuation/Continuous/Basic.lean
+map
+    ZInQKernel/Contrib/TauCeti/NumberTheory/ClassFieldTheory/ClassFields/KroneckerWeber.lean
+    ZInQKernel/Contrib/TauCeti/NumberTheory/NumberField/AutomorphismAction.lean
+of
+    ZInQKernel/Contrib/TauCeti/Algebra/AddCircle.lean
+    ZInQKernel/Contrib/TauCeti/Algebra/Module/Submodule/OrbitRelQuotient.lean
+    ZInQKernel/Contrib/TauCeti/AlgebraicGeometry/EllipticCurve/Affine/CoordinateRingMap.lean
+    ZInQKernel/Contrib/TauCeti/AlgebraicGeometry/EllipticCurve/FormalGroup/WExpansion.lean
+    ZInQKernel/Contrib/TauCeti/AlgebraicGeometry/EllipticCurve/Isogeny/Hom/Differential.lean
+    ZInQKernel/Contrib/TauCeti/AlgebraicGeometry/EllipticCurve/Projective/Prime.lean
+    ZInQKernel/Contrib/TauCeti/Backport/NumberTheory/ClassFieldTheory/Global/PrescribedInvariant.lean
+    ZInQKernel/Contrib/TauCeti/CategoryTheory/Exact/KernelCokernelPair.lean
+    ZInQKernel/Contrib/TauCeti/Data/ZMod/Units.lean
+    ZInQKernel/Contrib/TauCeti/FieldTheory/FunctionField/RiemannRoch/Principal.lean
+    ZInQKernel/Contrib/TauCeti/FieldTheory/Galois/AbsoluteGaloisGroup/DecompositionRestrict.lean
+    ZInQKernel/Contrib/TauCeti/FieldTheory/Galois/AbsoluteGaloisGroup/FiniteExtension.lean
+    ZInQKernel/Contrib/TauCeti/FieldTheory/GaloisCohomology/Kummer.lean
+    ZInQKernel/Contrib/TauCeti/GroupTheory/ExponentPrime.lean
+    ZInQKernel/Contrib/TauCeti/LinearAlgebra/Quotient/Pi/SpanSingleton.lean
+    ZInQKernel/Contrib/TauCeti/NumberTheory/ClassFieldTheory/Brauer/Cyclic.lean
+    ZInQKernel/Contrib/TauCeti/NumberTheory/ClassFieldTheory/Brauer/Formation.lean
+    ZInQKernel/Contrib/TauCeti/NumberTheory/ClassFieldTheory/Brauer/Invariant.lean
+    ZInQKernel/Contrib/TauCeti/NumberTheory/ClassFieldTheory/Formation/Basic.lean
+    ZInQKernel/Contrib/TauCeti/NumberTheory/ClassFieldTheory/Formation/Tate/Conjugation.lean
+    ZInQKernel/Contrib/TauCeti/NumberTheory/ClassFieldTheory/Global/ClassFormation.lean
+    ZInQKernel/Contrib/TauCeti/NumberTheory/ClassFieldTheory/Global/Cyclotomic/Input.lean
+    ZInQKernel/Contrib/TauCeti/NumberTheory/ClassFieldTheory/Global/IdeleClass/Level.lean
+    ZInQKernel/Contrib/TauCeti/NumberTheory/ClassFieldTheory/Global/LiftIndependence.lean
+    ZInQKernel/Contrib/TauCeti/NumberTheory/ClassFieldTheory/Global/LocalArtin/InfinitePlace.lean
+    ZInQKernel/Contrib/TauCeti/NumberTheory/ModularForms/HeckeSlash/ModularForm.lean
+    ZInQKernel/Contrib/TauCeti/NumberTheory/NumberField/Global/Counting/RayFundamentalDomain/LatticeCount.lean
+    ZInQKernel/Contrib/TauCeti/NumberTheory/NumberField/Global/Cyclotomic/RayClass.lean
+    ZInQKernel/Contrib/TauCeti/NumberTheory/NumberField/Global/Ideles/GaloisAction.lean
+    ZInQKernel/Contrib/TauCeti/NumberTheory/NumberField/Global/Orders/AwayConductor/Basic.lean
+    ZInQKernel/Contrib/TauCeti/NumberTheory/NumberField/Global/RayClass/Basic.lean
+    ZInQKernel/Contrib/TauCeti/NumberTheory/NumberField/Global/RayClass/Integral.lean
+    ZInQKernel/Contrib/TauCeti/RepresentationTheory/Homological/GroupHomology/Transfer/Abelianization.lean
+    ZInQKernel/Contrib/TauCeti/RepresentationTheory/Homological/TateCohomology/ChangeOfGroup.lean
+    ZInQKernel/Contrib/TauCeti/RepresentationTheory/Homological/TateCohomology/Cup/Character.lean
+    ZInQKernel/Contrib/TauCeti/RepresentationTheory/Homological/TateCohomology/Cup/CharacterCarry.lean
+    ZInQKernel/Contrib/TauCeti/RepresentationTheory/Homological/TateCohomology/Cup/Cyclic.lean
+    ZInQKernel/Contrib/TauCeti/RingTheory/ClassGroup/CoprimeRepresentative.lean
+    ZInQKernel/Contrib/TauCeti/RingTheory/ClassGroup/HeightOneSpectrum.lean
+    ZInQKernel/Contrib/TauCeti/RingTheory/DedekindDomain/AdicValuation/IntegersExtension.lean
+    ZInQKernel/Contrib/TauCeti/RingTheory/DedekindDomain/SInteger/ClassGroup.lean
+    ZInQKernel/Contrib/TauCeti/Topology/Algebra/Group/Profinite/Completion.lean
+    ZInQKernel/Contrib/TauCeti/Topology/Algebra/Group/Profinite/ZHat/PadicInt.lean
+    ZInQKernel/Contrib/TauCeti/Topology/Compactification/OnePoint/ProjectiveLine.lean
+on
+    ZInQKernel/Contrib/TauCeti/AlgebraicGeometry/EllipticCurve/Universal.lean
+    ZInQKernel/Contrib/TauCeti/NumberTheory/LocalField/FiniteExtension/IntermediateField.lean
+    ZInQKernel/Contrib/TauCeti/RingTheory/LocalRing/Localization.lean
+rather
+    ZInQKernel/Contrib/TauCeti/Data/Nat/Factorization/PrimePowerProd/Basic.lean
+    ZInQKernel/Contrib/TauCeti/NumberTheory/EllipticDivisibilitySequence/NormEDS.lean
+search.
+    ZInQKernel/Contrib/TauCeti/Data/Nat/Prime/Basic.lean
+    ZInQKernel/Contrib/TauCeti/NumberTheory/NumberField/LocalGlobal/Completion.lean
+step
+    ZInQKernel/Contrib/TauCeti/CategoryTheory/Limits/Shapes/Biproduct.lean
+    ZInQKernel/Contrib/TauCeti/NumberTheory/ModularForms/Newforms/Descent/Coefficient.lean
+the
+    ZInQKernel/Contrib/TauCeti/NumberTheory/ArithmeticDirichletSeries/Prime/Contraction.lean
+    ZInQKernel/Contrib/TauCeti/Topology/Algebra/Group/Subgroup.lean
+to
+    ZInQKernel/Contrib/TauCeti/AlgebraicGeometry/EllipticCurve/Isogeny/MapsInfinity.lean
+    ZInQKernel/Contrib/TauCeti/NumberTheory/ArithmeticDirichletSeries/NormCoeff.lean
+    ZInQKernel/Contrib/TauCeti/NumberTheory/NumberField/Global/RayClass/Exact.lean
+with
+    ZInQKernel/Contrib/TauCeti/GroupTheory/QuotientGroup/ThirdIso.lean
+    ZInQKernel/Contrib/TauCeti/NumberTheory/ClassFieldTheory/Formation/DescendedInvariant.lean

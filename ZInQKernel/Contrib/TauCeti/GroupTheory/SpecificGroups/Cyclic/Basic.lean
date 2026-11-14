@@ -4,6 +4,7 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: The Tau Ceti contributors
 -/
 -- Vendored from Tau Ceti (https://github.com/TauCetiProject/TauCeti, commit 5a01f5fe3621, module TauCeti.GroupTheory.SpecificGroups.Cyclic.Basic), Apache-2.0.
+-- Modified for the Z-in-Q kernel: IsCyclic.mem_range_powMonoidHom_iff removed (task stab-clash: the vendored commit-97a5b235 module ZInQKernel.Contrib.TauCeti.GroupTheory.SpecificGroups.Cyclic.PowMonoidHom declares that name with a more general statement, as Tau Ceti did at commit 97a5b235; its one user, FieldTheory/Finite/EulerCriterion.lean, now uses that version).
 module
 
 public import Mathlib.GroupTheory.SpecificGroups.Cyclic
@@ -14,9 +15,8 @@ public import Mathlib.GroupTheory.SpecificGroups.Cyclic
 For `n ≠ 0`, this file gives the standard computable enumeration of
 `Multiplicative (ZMod n)`, transported from the additive group `ZMod n`.
 It also records that an element corresponding to `1` under an equivalence with
-`Multiplicative ℤ` generates its group, and Euler's criterion for `n`-th powers in a finite cyclic
-group: when `n` divides the order `m`, an element is an `n`-th power exactly when its
-`(m / n)`-th power is trivial.
+`Multiplicative ℤ` generates its group. (Euler's criterion for `n`-th powers in a finite cyclic
+group, `IsCyclic.mem_range_powMonoidHom_iff`, is in `Cyclic/PowMonoidHom.lean`.)
 
 ## Main definitions
 
@@ -27,8 +27,6 @@ group: when `n` divides the order `m`, an element is an `n`-th power exactly whe
 * `TauCeti.mem_cyclicElements`: the enumeration exhausts the group when `n ≠ 0`.
 * `MulEquiv.zpowers_eq_top_of_apply_eq_ofAdd_one`: an element sent to `1` by an equivalence with
   `Multiplicative ℤ` generates its group.
-* `IsCyclic.mem_range_powMonoidHom_iff`: Euler's criterion for `n`-th powers in a finite cyclic
-  group.
 
 ## References
 
@@ -59,22 +57,5 @@ theorem _root_.MulEquiv.zpowers_eq_top_of_apply_eq_ofAdd_one {G : Type*} [Group 
     Subgroup.zpowers g = ⊤ :=
   (Subgroup.eq_top_iff' _).mpr fun y => ⟨(e y).toAdd,
     e.injective (by simp [hg, ← ofAdd_zsmul])⟩
-
-/-- **Euler's criterion in a finite cyclic group.** If `n` divides the order of a finite cyclic
-group `G`, then `x` is an `n`-th power exactly when `x ^ (Nat.card G / n) = 1`. -/
-theorem _root_.IsCyclic.mem_range_powMonoidHom_iff {G : Type*} [CommGroup G] [IsCyclic G]
-    [Finite G] {n : ℕ} (hn : n ∣ Nat.card G) (x : G) :
-    x ∈ (powMonoidHom n : G →* G).range ↔ x ^ (Nat.card G / n) = 1 := by
-  -- The `n`-th powers lie in the kernel of `y ↦ y ^ (Nat.card G / n)`, and both subgroups have
-  -- `Nat.card G / n` elements.
-  have hle : (powMonoidHom n : G →* G).range ≤ (powMonoidHom (Nat.card G / n) : G →* G).ker := by
-    rintro _ ⟨y, rfl⟩
-    rw [MonoidHom.mem_ker, powMonoidHom_apply, powMonoidHom_apply, ← pow_mul,
-      Nat.mul_div_cancel' hn, pow_card_eq_one']
-  have hcard : Nat.card (powMonoidHom (Nat.card G / n) : G →* G).ker ≤
-      Nat.card (powMonoidHom n : G →* G).range := by
-    rw [IsCyclic.card_powMonoidHom_ker, IsCyclic.card_powMonoidHom_range,
-      Nat.gcd_eq_right hn, Nat.gcd_eq_right (Nat.div_dvd_of_dvd hn)]
-  rw [Subgroup.eq_of_le_of_card_ge hle hcard, MonoidHom.mem_ker, powMonoidHom_apply]
 
 end TauCeti

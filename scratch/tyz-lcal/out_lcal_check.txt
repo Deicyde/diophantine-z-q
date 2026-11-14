@@ -1,0 +1,61 @@
+omegaInt: quadrature 2.622057554292, pi/AGM(1,sqrt2) 2.622057554292
+m=   1 k=0 L(C_m,1)=0.6555143886 lcalSq=1.00000000 ell=+-1 sqErr=2.2e-16 g=1 tunnell a(m)=1 |a|/2^k=1.0
+m=   3 k=1 L(C_m,1)=1.5138456348 lcalSq=1.00000000 ell=+-1 sqErr=0.0e+00 g=1 tunnell a(m)=2 |a|/2^k=1.0
+m=  11 k=1 L(C_m,1)=0.7905800988 lcalSq=1.00000000 ell=+-1 sqErr=2.2e-16 g=1 tunnell a(m)=-2 |a|/2^k=1.0
+m=  17 k=1 L(C_m,1)=2.5437694712 lcalSq=4.00000000 ell=+-2 sqErr=8.9e-16 g=2 tunnell a(m)=-4 |a|/2^k=2.0
+m=  19 k=1 L(C_m,1)=0.6015412581 lcalSq=1.00000000 ell=+-1 sqErr=2.2e-16 g=1 tunnell a(m)=-2 |a|/2^k=1.0
+m=  33 k=2 L(C_m,1)=1.8257665313 lcalSq=1.00000000 ell=+-1 sqErr=0.0e+00 g=1 tunnell a(m)=4 |a|/2^k=1.0
+m=  35 k=2 L(C_m,1)=1.7728344785 lcalSq=1.00000000 ell=+-1 sqErr=2.2e-16 g=1 tunnell a(m)=-4 |a|/2^k=1.0
+m=  41 k=1 L(C_m,1)=-0.0000000000 lcalSq=-0.00000000 ell=+-0 sqErr=1.6e-16 g=4 tunnell a(m)=0 |a|/2^k=0.0
+m=  43 k=1 L(C_m,1)=3.5987402552 lcalSq=9.00000000 ell=+-3 sqErr=1.8e-15 g=1 tunnell a(m)=6 |a|/2^k=3.0
+m=  51 k=2 L(C_m,1)=1.4686459890 lcalSq=1.00000000 ell=+-1 sqErr=0.0e+00 g=1 tunnell a(m)=4 |a|/2^k=1.0
+m=  57 k=2 L(C_m,1)=1.3892000291 lcalSq=1.00000000 ell=+-1 sqErr=2.2e-16 g=1 tunnell a(m)=4 |a|/2^k=1.0
+m=  59 k=1 L(C_m,1)=0.3413628175 lcalSq=1.00000000 ell=+-1 sqErr=6.7e-16 g=3 tunnell a(m)=2 |a|/2^k=1.0
+m=  65 k=2 L(C_m,1)=-0.0000000000 lcalSq=-0.00000000 ell=+-0 sqErr=6.7e-17 g=2 tunnell a(m)=0 |a|/2^k=0.0
+m=  67 k=1 L(C_m,1)=0.3203353145 lcalSq=1.00000000 ell=+-1 sqErr=4.4e-16 g=1 tunnell a(m)=-2 |a|/2^k=1.0
+m=  73 k=1 L(C_m,1)=1.2275544967 lcalSq=4.00000000 ell=+-2 sqErr=0.0e+00 g=2 tunnell a(m)=4 |a|/2^k=2.0
+m=  83 k=1 L(C_m,1)=0.2878082071 lcalSq=1.00000000 ell=+-1 sqErr=3.3e-16 g=3 tunnell a(m)=2 |a|/2^k=1.0
+m=  89 k=1 L(C_m,1)=1.1117501795 lcalSq=4.00000000 ell=+-2 sqErr=0.0e+00 g=6 tunnell a(m)=-4 |a|/2^k=2.0
+m=  91 k=2 L(C_m,1)=1.0994652701 lcalSq=1.00000000 ell=+-1 sqErr=0.0e+00 g=1 tunnell a(m)=-4 |a|/2^k=1.0
+m=  97 k=1 L(C_m,1)=1.0649184330 lcalSq=4.00000000 ell=+-2 sqErr=0.0e+00 g=2 tunnell a(m)=-4 |a|/2^k=2.0
+m= 105 k=3 L(C_m,1)=4.0941858536 lcalSq=1.00000000 ell=+-1 sqErr=0.0e+00 g=1 tunnell a(m)=-8 |a|/2^k=1.0
+m= 107 k=1 L(C_m,1)=2.2813548427 lcalSq=9.00000000 ell=+-3 sqErr=0.0e+00 g=3 tunnell a(m)=-6 |a|/2^k=3.0
+m= 113 k=1 L(C_m,1)=3.9465988151 lcalSq=16.00000000 ell=+-4 sqErr=3.6e-15 g=4 tunnell a(m)=8 |a|/2^k=4.0
+m= 115 k=2 L(C_m,1)=0.9780325107 lcalSq=1.00000000 ell=+-1 sqErr=1.1e-16 g=1 tunnell a(m)=-4 |a|/2^k=1.0
+m= 123 k=2 L(C_m,1)=0.9456918708 lcalSq=1.00000000 ell=+-1 sqErr=0.0e+00 g=1 tunnell a(m)=-4 |a|/2^k=1.0
+m= 129 k=2 L(C_m,1)=0.9234371800 lcalSq=1.00000000 ell=+-1 sqErr=0.0e+00 g=3 tunnell a(m)=-4 |a|/2^k=1.0
+m= 131 k=1 L(C_m,1)=2.0618120898 lcalSq=9.00000000 ell=+-3 sqErr=1.8e-15 g=5 tunnell a(m)=6 |a|/2^k=3.0
+m= 137 k=1 L(C_m,1)=0.0000000000 lcalSq=0.00000000 ell=+-0 sqErr=3.0e-17 g=4 tunnell a(m)=0 |a|/2^k=0.0
+m= 139 k=1 L(C_m,1)=0.2224000191 lcalSq=1.00000000 ell=+-1 sqErr=2.2e-16 g=3 tunnell a(m)=2 |a|/2^k=1.0
+m= 145 k=2 L(C_m,1)=0.0000000000 lcalSq=0.00000000 ell=+-0 sqErr=9.0e-18 g=2 tunnell a(m)=0 |a|/2^k=0.0
+m= 155 k=2 L(C_m,1)=3.3697396946 lcalSq=4.00000000 ell=+-2 sqErr=8.9e-16 g=2 tunnell a(m)=8 |a|/2^k=2.0
+LemmaTwoEight m=3: sum=1 g=1 ok
+LemmaTwoEight m=11: sum=1 g=1 ok
+LemmaTwoEight m=17: sum=2 g=2 ok
+LemmaTwoEight m=19: sum=1 g=1 ok
+LemmaTwoEight m=33: sum=1 g=1 ok
+LemmaTwoEight m=35: sum=1 g=1 ok
+LemmaTwoEight m=41: sum=0 g=4 ok
+LemmaTwoEight m=43: sum=3 g=1 ok
+LemmaTwoEight m=51: sum=3 g=1 ok
+LemmaTwoEight m=57: sum=1 g=1 ok
+LemmaTwoEight m=59: sum=1 g=3 ok
+LemmaTwoEight m=65: sum=0 g=2 ok
+LemmaTwoEight m=67: sum=1 g=1 ok
+LemmaTwoEight m=73: sum=2 g=2 ok
+LemmaTwoEight m=83: sum=1 g=3 ok
+LemmaTwoEight m=89: sum=2 g=6 ok
+LemmaTwoEight m=91: sum=1 g=1 ok
+LemmaTwoEight m=97: sum=2 g=2 ok
+LemmaTwoEight m=105: sum=1 g=1 ok
+LemmaTwoEight m=107: sum=3 g=3 ok
+LemmaTwoEight m=113: sum=4 g=4 ok
+LemmaTwoEight m=115: sum=1 g=1 ok
+LemmaTwoEight m=123: sum=1 g=1 ok
+LemmaTwoEight m=129: sum=1 g=3 ok
+LemmaTwoEight m=131: sum=3 g=5 ok
+LemmaTwoEight m=137: sum=0 g=4 ok
+LemmaTwoEight m=139: sum=1 g=3 ok
+LemmaTwoEight m=145: sum=0 g=2 ok
+LemmaTwoEight m=155: sum=2 g=2 ok
+LemmaTwoEight all ok: True

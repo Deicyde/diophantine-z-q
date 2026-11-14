@@ -168,7 +168,13 @@ are (paths relative to ZInQKernel/Contrib/TauCeti/):
 - Backport/NumberTheory/ModularForms/Newforms/StrongMultiplicityOne/Across.lean (task
   atkin-li: part of the module; one call adapted to a commit-5a01f5fe signature)
 - Backport/NumberTheory/ModularForms/Newforms/SupportAwayFromLevel.lean (task atkin-li: imports)
+- FieldTheory/Finite/EulerCriterion.lean (task stab-clash: uses the commit-97a5b235
+  IsCyclic.mem_range_powMonoidHom_iff of GroupTheory/SpecificGroups/Cyclic/PowMonoidHom.lean)
 - GroupTheory/GroupAction/Norm.lean
+- GroupTheory/GroupAction/Stabilizer.lean (task stab-clash: all declarations removed, as they
+  clash with GroupTheory/GroupAction/Stabilizer/Basic.lean, which is imported instead)
+- GroupTheory/SpecificGroups/Cyclic/Basic.lean (task stab-clash: IsCyclic.mem_range_powMonoidHom_iff
+  removed, as it clashes with Cyclic/PowMonoidHom.lean)
 - GroupTheory/SpecificGroups/Cyclic/PowMonoidHom.lean
 - NumberTheory/ClassFieldTheory/ClassFields/KroneckerWeber.lean
 - NumberTheory/ClassFieldTheory/ClassFields/RayClassField.lean (task ring-class)
@@ -179,20 +185,32 @@ are (paths relative to ZInQKernel/Contrib/TauCeti/):
 - NumberTheory/ClassFieldTheory/Global/AdmissibleModulus/Reciprocity.lean
 - NumberTheory/ClassFieldTheory/Global/ClassFormation.lean
 - NumberTheory/ClassFieldTheory/Global/CorestrictionLocalization.lean
+- NumberTheory/ClassFieldTheory/Global/Kummer/AuxiliaryPlaces.lean (task stab-clash: all
+  declarations removed, as they clash with the Backport/ module of the same path, imported instead)
 - NumberTheory/ClassFieldTheory/Global/Kummer/Index.lean
+- NumberTheory/ClassFieldTheory/Global/Kummer/Norm.lean (task stab-clash: all declarations
+  removed, as they clash with the Backport/ module of the same path, imported instead)
 - NumberTheory/ClassFieldTheory/Global/LocalArtin/Compatibility.lean
 - NumberTheory/ClassFieldTheory/Global/LocalArtin/Frobenius.lean
+- NumberTheory/ClassFieldTheory/Global/PrescribedInvariant.lean (task stab-clash: all
+  declarations removed, as they clash with the Backport/ module of the same path, imported instead)
 - NumberTheory/ClassFieldTheory/Global/Reciprocity.lean
 - NumberTheory/ClassFieldTheory/GlobalExistence/NormLimitation.lean
 - NumberTheory/ClassFieldTheory/GlobalExistence/AbelianLayer.lean (task ring-class)
 - NumberTheory/ClassFieldTheory/GlobalExistence/Correspondence.lean (task ring-class)
 - NumberTheory/ClassFieldTheory/GlobalExistence/Existence.lean (task ring-class)
 - NumberTheory/ClassFieldTheory/GlobalExistence/Kummer.lean (task ring-class)
+- NumberTheory/LocalField/UnitFiltration/Pow.lean (task stab-clash: all declarations removed,
+  as they clash with UnitFiltration/Pow/Basic.lean, imported instead)
 - NumberTheory/ModularForms/Basic.lean
 - NumberTheory/ModularForms/LFunction/Sign.lean
+- NumberTheory/NumberField/FinitePlace.lean (task stab-clash: all declarations removed, as
+  they clash with NumberField/FinitePlace/Basic.lean, imported instead)
 - NumberTheory/NumberField/Global/Orders/RayClass.lean (task ring-class)
 - NumberTheory/NumberField/InfinitePlace/Completion/Real.lean
 - RepresentationTheory/Cyclic/Norm.lean
+- RepresentationTheory/FDRep.lean (task stab-clash: all declarations removed, as they clash
+  with RepresentationTheory/FDRep/Basic.lean, imported instead)
 - RepresentationTheory/Homological/ContCohomology/Coinduced/Discrete.lean
 - RepresentationTheory/Homological/ContCohomology/Corestriction/Mackey/Pullback.lean
 - RepresentationTheory/Homological/GroupCohomology/PrimeIndex.lean
