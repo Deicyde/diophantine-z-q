@@ -698,11 +698,38 @@ scratch/tyz-321/L321.lean:4509:26: warning: `if_pos` has been deprecated: Use `i
 
 Hint: Replace the deprecated name:
   i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
-scratch/tyz-321/L321.lean:4530:30: warning: `if_pos` has been deprecated: Use `ite_eq_left` instead
+scratch/tyz-321/L321.lean:4699:2: warning: `simp` already closes the goal
+
+Hint: Use `simp` instead of `simpa`:
+  [apply] simp [elt]
+
+Note: This linter can be disabled with `set_option linter.unnecessarySimpa false`
+scratch/tyz-321/L321.lean:4707:12: warning: Unused tactic linter: `<;>` should be replaced with `;` or be removed.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+scratch/tyz-321/L321.lean:4707:16: warning: Unused tactic linter: `simp [e]` does nothing.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+scratch/tyz-321/L321.lean:4707:16: warning: this tactic is never executed
+
+Note: This linter can be disabled with `set_option linter.unreachableTactic false`
+scratch/tyz-321/L321.lean:4744:30: warning: Unused tactic linter: `<;>` should be replaced with `;` or be removed.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+scratch/tyz-321/L321.lean:4744:30: warning: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+scratch/tyz-321/L321.lean:4759:30: warning: Unused tactic linter: `<;>` should be replaced with `;` or be removed.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+scratch/tyz-321/L321.lean:4759:30: warning: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+scratch/tyz-321/L321.lean:4860:30: warning: `if_pos` has been deprecated: Use `ite_eq_left` instead
 
 Hint: Replace the deprecated name:
   i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
-scratch/tyz-321/L321.lean:4658:2: warning: Try this: 
+scratch/tyz-321/L321.lean:4988:2: warning: Try this: 
   haveI̵
 
 The goal is a proposition, so `have` is preferred over `haveI`.

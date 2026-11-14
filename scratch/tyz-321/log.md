@@ -39,3 +39,11 @@ Target: `CMBridge.Lemma321Five` (TYZ Lemma 3.21(1)), copied verbatim with all of
 - `lemma321Five_of_shimuraModFn (hS : Shimura.ShimuraReciprocityModFn) (hβ : BetaOneLiftExists)
    (hk : KerFixesZnMod) : Lemma321Five`.
 - Remaining inputs: `KerFixesZnMod` (Gal(H_{n,4}/H_n) moves z_n by ℤτ(1)) and `BetaOneLiftExists`.
+
+## 2026-11-14 ~00:55 compile 4 (VERIFIED, 0 errors, no sorry)
+- Kernel of Pic(O4) → Cl: `span_elt_mem`, `picClass_congr` (x ≡ a·y mod 4𝓞 ⇒ same class),
+  `odd_of_mem` (u+v even ⇒ (x)+𝔣 ⊆ 𝔭₂ ≠ ⊤), `pic_one`, `pic_sigma`, `pic_w2` (𝔞² = ((ω−1)²/2), `a_sq`),
+  `pic_omega`, `ker_cases : picToMax k = 1 → k ∈ {1, σ, w², σw²}`.
+- `kerFixesZnMod (hs : TYZSigmaFixesZn) (hw : TYZThm36OneFive) (hz : ZnOverH4) : KerFixesZnMod`.
+- **`lemma321Five_of_shimuraModFn_betaOneLift (hS : Shimura.ShimuraReciprocityModFn)
+   (hβ : BetaOneLiftExists) : Lemma321Five`.** Only remaining input: `BetaOneLiftExists`.

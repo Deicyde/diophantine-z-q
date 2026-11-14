@@ -4512,6 +4512,336 @@ theorem betaOnGenus5 : BetaOnGenus5 := by
 
 end Genus5
 
+/-! ### `KerFixesZnMod`: the kernel of `Pic(O_{n,4}) → Cl(K_n)` is `{1, σ, w², σw²}`
+
+A class in the kernel is `[(x) ∩ O]` with `x = u + v√−n ∈ 𝓞_K`, `u + v` odd (`odd_of_mem`: otherwise
+`(x) + 𝔣 ⊆ 𝔭₂`). If `x ≡ a·y (mod 4𝓞_K)` with `a ∈ ℤ` then `[(x)] = [(y)]` (`picClass_congr`: `xȳ ∈ ℤ + 4𝓞_K`).
+So the class is that of `1`, `1 + 2√−n` (`= σ`), `2 + √−n` (`= w²`, via `𝔞² = ((ω−1)²/2)`) or
+`√−n ≡ (1+2√−n)(2+√−n)` (`= σw²`) (`ker_cases`). Then `σ` fixes `z_n` (tyz-cm) and `w²` moves it by
+`τ((1+i)/2) + τ((1−i)/2) = τ(1)`. -/
+
+section KerSec
+
+open ZInQ.RouteK.Redei
+open scoped nonZeroDivisors
+
+variable {n : ℕ} [NeZero n]
+
+/-! ### The kernel of `Pic(O_{n,4}) → Cl(K_n)` -/
+
+section Ker
+
+open QuadraticAlgebra
+
+/-- `u + v√−n ∈ 𝓞_K`. -/
+abbrev elt (n : ℕ) [NeZero n] (u v : ℤ) : 𝓞 (QNeg n) := (u : 𝓞 (QNeg n)) + (v : 𝓞 (QNeg n)) * sqrtNeg n
+
+theorem coe_elt (u v : ℤ) : ((elt n u v : 𝓞 (QNeg n)) : QNeg n) = ⟨u, v⟩ := by
+  simp only [elt]; push_cast [coe_sqrtNeg]; ext <;> simp
+
+theorem eq_elt (hn4 : n % 4 = 1) (hsq : Squarefree n) (y : 𝓞 (QNeg n)) :
+    ∃ u v : ℤ, y = elt n u v := by
+  obtain ⟨u, v, hu, hv⟩ := Shimura.int_coords hn4 hsq y
+  refine ⟨u, v, RingOfIntegers.ext ?_⟩
+  rw [coe_elt]; ext <;> simp [hu, hv]
+
+theorem elt_mul_conj (u v : ℤ) : elt n u v * elt n u (-v) = ((u ^ 2 + n * v ^ 2 : ℤ) : 𝓞 (QNeg n)) := by
+  simp only [elt]; push_cast
+  linear_combination (-(v : 𝓞 (QNeg n)) ^ 2) * sqrtNeg_mul_self (d := n)
+
+theorem mem_O4_elt (a : ℤ) (z : 𝓞 (QNeg n)) : (a : 𝓞 (QNeg n)) + 4 * z ∈ (O4 n).toRingOfIntegers := by
+  rw [NumberFieldOrder.mem_toRingOfIntegers, Shimura.mem_O4_iff']
+  refine ⟨a, z, ?_⟩
+  simp only [map_add, map_mul, map_intCast, map_ofNat]
+
+theorem odd_norm {n : ℕ} (hn : n % 2 = 1) {u v : ℤ} (huv : (u + v) % 2 = 1) :
+    ∃ M : ℤ, u ^ 2 + n * v ^ 2 = 2 * M + 1 := by
+  rcases Int.emod_two_eq_zero_or_one u with hu | hu
+  · obtain ⟨a, rfl⟩ : ∃ a, u = 2 * a := ⟨u / 2, by omega⟩
+    obtain ⟨b, rfl⟩ : ∃ b, v = 2 * b + 1 := ⟨v / 2, by omega⟩
+    obtain ⟨c, hc⟩ : ∃ c, (n : ℤ) = 2 * c + 1 := ⟨n / 2, by omega⟩
+    exact ⟨2 * a ^ 2 + (2 * c + 1) * (2 * b ^ 2 + 2 * b) + c, by rw [hc]; ring⟩
+  · obtain ⟨a, rfl⟩ : ∃ a, u = 2 * a + 1 := ⟨u / 2, by omega⟩
+    obtain ⟨b, rfl⟩ : ∃ b, v = 2 * b := ⟨v / 2, by omega⟩
+    exact ⟨2 * a ^ 2 + 2 * a + 2 * n * b ^ 2, by ring⟩
+
+/-- `(u + v√−n)` with `u + v` odd is prime to the conductor of `O_{n,4}`. -/
+theorem span_elt_mem (hn : n % 8 = 5) {u v : ℤ} (huv : (u + v) % 2 = 1) :
+    Ideal.span {elt n u v} ∈ integralIdealsPrimeTo (O4 n).conductorModulus := by
+  rw [mem_integralIdealsPrimeTo_conductorModulus_iff]
+  obtain ⟨M, hM⟩ := odd_norm (n := n) (by omega) huv
+  have hN := elt_mul_conj (n := n) u v
+  refine ⟨?_, ?_⟩
+  · intro h
+    have hx : elt n u v ∈ Ideal.span {elt n u v} := Ideal.subset_span rfl
+    rw [h, Ideal.mem_bot] at hx
+    rw [hx, zero_mul, hM] at hN
+    have h1 : (((2 * M + 1 : ℤ)) : 𝓞 (QNeg n)) = ((0 : ℤ) : 𝓞 (QNeg n)) := by
+      rw [← hN]; simp
+    have := intCast_injective (n := n) h1
+    omega
+  · rw [Ideal.eq_top_iff_one]
+    -- 1 = x * (x̄ * (2M+1)) - 4 * (M * (M + 1))
+    have e : (1 : 𝓞 (QNeg n)) = elt n u v * (elt n u (-v) * ((2 * M + 1 : ℤ) : 𝓞 (QNeg n))) +
+        4 * ((-(M * (M + 1)) : ℤ) : 𝓞 (QNeg n)) := by
+      rw [← mul_assoc, hN, hM]; push_cast; ring
+    rw [e]
+    refine Ideal.add_mem _ (Ideal.mem_sup_left (Ideal.mul_mem_right _ _ (Ideal.subset_span rfl)))
+      (Ideal.mem_sup_right ?_)
+    simpa using natCast_mul_mem_conductor (QNeg n) 4 (((-(M * (M + 1)) : ℤ)) : 𝓞 (QNeg n))
+
+/-- **Congruence lemma**: if `x ≡ a·y (mod 4𝓞_K)`, `a ∈ ℤ`, then `[x ∩ O] = [y ∩ O]` in `Pic(O_{n,4})`. -/
+theorem picClass_congr (hn : n % 8 = 5) {u v u' v' : ℤ} (huv : (u + v) % 2 = 1)
+    (huv' : (u' + v') % 2 = 1) (a : ℤ) (z : 𝓞 (QNeg n))
+    (h : elt n u v = a * elt n u' v' + 4 * z) :
+    (O4 n).picClass ⟨_, span_elt_mem hn huv⟩ = (O4 n).picClass ⟨_, span_elt_mem hn huv'⟩ := by
+  have huv'' : (u' + -v') % 2 = 1 := by omega
+  have hb := span_elt_mem hn huv''
+  have hN := elt_mul_conj (n := n) u' v'
+  -- `[x][ȳ] = 1` and `[y][ȳ] = 1`
+  have hprod : ∀ {x : 𝓞 (QNeg n)} (hx : Ideal.span {x} ∈ integralIdealsPrimeTo (O4 n).conductorModulus)
+      (hxy : x * elt n u' (-v') ∈ (O4 n).toRingOfIntegers),
+      (O4 n).picClass ⟨_, hx⟩ * (O4 n).picClass ⟨_, hb⟩ = 1 := by
+    intro x hx hxy
+    rw [← map_mul]
+    have hm : (⟨_, hx⟩ : integralIdealsPrimeTo (O4 n).conductorModulus) * ⟨_, hb⟩ =
+        ⟨Ideal.span {x * elt n u' (-v')}, by
+          rw [← Ideal.span_singleton_mul_span_singleton]; exact Submonoid.mul_mem _ hx hb⟩ :=
+      Subtype.ext (Ideal.span_singleton_mul_span_singleton _ _)
+    rw [hm, picClass_eq_one_iff]
+    exact ⟨_, hxy, rfl⟩
+  have h1 := hprod (span_elt_mem hn huv) (by
+    rw [h, add_mul, mul_assoc, hN, ← Int.cast_mul, mul_assoc]
+    exact mem_O4_elt _ _)
+  have h2 := hprod (span_elt_mem hn huv') (by
+    rw [hN]
+    have := mem_O4_elt (n := n) (u' ^ 2 + n * v' ^ 2) 0
+    rwa [mul_zero, add_zero] at this)
+  exact mul_right_cancel (h1.trans h2.symm)
+
+end Ker
+
+section Ker2
+open QuadraticAlgebra
+
+theorem elt_mem_p2 {u v : ℤ} (huv : (u + v) % 2 = 0) : elt n u v ∈ p2Ideal5 n := by
+  obtain ⟨t, ht⟩ : ∃ t, u + v = 2 * t := ⟨(u + v) / 2, by omega⟩
+  have e : elt n u v = (t : 𝓞 (QNeg n)) * 2 + (v : 𝓞 (QNeg n)) * (sqrtNeg n - 1) := by
+    simp only [elt]
+    have : (u : 𝓞 (QNeg n)) = 2 * t - v := by
+      have h' : ((u : ℤ) : 𝓞 (QNeg n)) = ((2 * t - v : ℤ) : 𝓞 (QNeg n)) := by rw [← ht]; ring_nf
+      push_cast at h'; exact h'
+    rw [this]; ring
+  rw [e, p2Ideal5]
+  exact Ideal.add_mem _ (Ideal.mul_mem_left _ _ (Ideal.subset_span (by simp)))
+    (Ideal.mul_mem_left _ _ (Ideal.subset_span (by simp)))
+
+theorem conductor_le_p2 (hn : n % 8 = 5) (hsq : Squarefree n) : (O4 n).conductor ≤ p2Ideal5 n := by
+  have hn4 : n % 4 = 1 := by omega
+  intro c hc
+  rw [NumberFieldOrder.mem_conductor_iff] at hc
+  have h1 := hc 1
+  have h2 := hc (sqrtNeg n)
+  rw [Shimura.mem_O4_iff'] at h1 h2
+  obtain ⟨a, y, hy⟩ := h1
+  obtain ⟨a', y', hy'⟩ := h2
+  obtain ⟨y1, y2, hy1, hy2⟩ := Shimura.int_coords hn4 hsq y
+  obtain ⟨y1', y2', hy1', hy2'⟩ := Shimura.int_coords hn4 hsq y'
+  rw [show ((1 : 𝓞 (QNeg n)) : QNeg n) = 1 from rfl, mul_one] at hy
+  rw [hy, coe_sqrtNeg] at hy'
+  have him := congrArg QuadraticAlgebra.im hy'
+  simp [hy1, hy2, hy1', hy2'] at him
+  have ha : (a : ℚ) = 4 * (y2' - y1) := by linarith
+  have ha' : a = 4 * (y2' - y1) := by exact_mod_cast ha
+  have e : c = 2 * (2 * (((y2' - y1 : ℤ) : 𝓞 (QNeg n)) + y)) := by
+    apply RingOfIntegers.ext
+    have hcI : ∀ m : ℤ, ((m : 𝓞 (QNeg n)) : QNeg n) = m := fun m =>
+      map_intCast (algebraMap (𝓞 (QNeg n)) (QNeg n)) m
+    rw [hy, ha']; push_cast [Shimura.coeO_two, hcI]; ring
+  rw [e, p2Ideal5]
+  exact Ideal.mul_mem_right _ _ (Ideal.subset_span (by simp))
+
+theorem p2_ne_top (hn : n % 8 = 5) : p2Ideal5 n ≠ ⊤ := by
+  intro h
+  have := absNorm_p2 (n := n) hn
+  rw [h, Ideal.absNorm_top] at this
+  omega
+
+/-- A principal ideal `(u + v√−n)` prime to the conductor has `u + v` odd. -/
+theorem odd_of_mem (hn : n % 8 = 5) (hsq : Squarefree n) {u v : ℤ}
+    (h : Ideal.span {elt n u v} ∈ integralIdealsPrimeTo (O4 n).conductorModulus) :
+    (u + v) % 2 = 1 := by
+  by_contra hc
+  have hc' : (u + v) % 2 = 0 := by omega
+  rw [mem_integralIdealsPrimeTo_conductorModulus_iff] at h
+  apply p2_ne_top hn
+  rw [eq_top_iff, ← h.2]
+  exact sup_le ((Ideal.span_singleton_le_iff_mem _).2 (elt_mem_p2 hc')) (conductor_le_p2 hn hsq)
+
+end Ker2
+
+section Ker3
+open QuadraticAlgebra
+
+theorem elt_lin (a u' v' s t : ℤ) :
+    (a : 𝓞 (QNeg n)) * elt n u' v' + 4 * elt n s t = elt n (a * u' + 4 * s) (a * v' + 4 * t) := by
+  simp only [elt]; push_cast; ring
+
+theorem elt_mul (u v u' v' : ℤ) :
+    elt n u v * elt n u' v' = elt n (u * u' - n * v * v') (u * v' + v * u') := by
+  simp only [elt]; push_cast
+  linear_combination ((v : 𝓞 (QNeg n)) * v') * sqrtNeg_mul_self (d := n)
+
+theorem pic_one (hn : n % 8 = 5) :
+    (O4 n).picClass ⟨_, span_elt_mem (n := n) hn (u := 1) (v := 0) (by decide)⟩ = 1 := by
+  rw [picClass_eq_one_iff]
+  refine ⟨elt n 1 0, ?_, rfl⟩
+  simpa [elt] using mem_O4_elt (n := n) 1 0
+
+theorem pic_sigma (hn : n % 8 = 5) :
+    (O4 n).picClass ⟨_, span_elt_mem (n := n) hn (u := 1) (v := 2) (by decide)⟩ = sigmaClass n := by
+  rw [sigmaClass_eq]
+  have e : alpha n = elt n 3 2 := by simp only [alpha, elt]; push_cast; ring
+  have h1 : (O4 n).picClass ⟨_, alphaIdeal_mem⟩ =
+      (O4 n).picClass ⟨_, span_elt_mem (n := n) hn (u := 3) (v := 2) (by decide)⟩ := by
+    congr 1 <;> simp [e]
+  rw [h1]
+  exact (picClass_congr hn (u := 3) (v := 2) (u' := 1) (v' := 2) (by decide) (by decide) (-1)
+    (elt n 1 1) (by rw [elt_lin]; norm_num)).symm
+
+theorem varpi_sq (k : ℕ) (hk : n = 8 * k + 5) :
+    (sqrtNeg n - 1) * (sqrtNeg n - 1) = 2 * elt n (-4 * k - 2) (-1) := by
+  have hk' : (n : 𝓞 (QNeg n)) = 8 * (k : 𝓞 (QNeg n)) + 5 := by
+    have := congrArg (Nat.cast (R := 𝓞 (QNeg n))) hk
+    push_cast at this; exact this
+  simp only [elt]; push_cast
+  linear_combination sqrtNeg_mul_self (d := n) - hk'
+
+theorem a_sq (hn : n % 8 = 5) (k : ℕ) (hk : n = 8 * k + 5) :
+    varpiIdeal n * varpiIdeal n = Ideal.span {elt n (-4 * k - 2) (-1)} := by
+  have h2 : (Ideal.span {(2 : 𝓞 (QNeg n))}) ≠ 0 := by
+    rw [Ne, Ideal.zero_eq_bot, Ideal.span_singleton_eq_bot]; exact two_ne_zero
+  apply mul_right_cancel₀ h2
+  rw [← p2_sq hn]
+  calc varpiIdeal n * varpiIdeal n * (p2Ideal5 n * p2Ideal5 n)
+      = (varpiIdeal n * p2Ideal5 n) * (varpiIdeal n * p2Ideal5 n) := by ring
+    _ = Ideal.span {(sqrtNeg n - 1) * (sqrtNeg n - 1)} := by
+        rw [a_mul_p2 hn, Ideal.span_singleton_mul_span_singleton]
+    _ = _ := by
+        rw [varpi_sq k hk, ← Ideal.span_singleton_mul_span_singleton, mul_comm, p2_sq hn]
+
+theorem pic_w2 (hn : n % 8 = 5) :
+    (O4 n).picClass ⟨_, span_elt_mem (n := n) hn (u := 2) (v := 1) (by decide)⟩ = wClass n ^ 2 := by
+  have hb : ((-4 * ((n / 8 : ℕ) : ℤ) - 2) + -1) % 2 = 1 := by omega
+  have hk : n = 8 * (n / 8) + 5 := by omega
+  rw [wClass_eq hn, ← map_pow]
+  have h1 : (⟨_, varpiIdeal_mem hn⟩ : integralIdealsPrimeTo (O4 n).conductorModulus) ^ 2 =
+      ⟨_, span_elt_mem hn hb⟩ := Subtype.ext (by
+        show varpiIdeal n ^ 2 = _
+        rw [pow_two, a_sq hn (n / 8) hk])
+  rw [h1]
+  exact (picClass_congr hn (u' := 2) (v' := 1) hb (by decide) (-1) (elt n (-((n / 8 : ℕ) : ℤ)) 0)
+    (by rw [elt_lin]; congr 1 <;> ring)).symm
+
+theorem pic_omega (hn : n % 8 = 5) :
+    (O4 n).picClass ⟨_, span_elt_mem (n := n) hn (u := 0) (v := 1) (by decide)⟩ =
+      sigmaClass n * wClass n ^ 2 := by
+  have hb : ((1 * 2 - (n : ℤ) * 2 * 1) + (1 * 1 + 2 * 2)) % 2 = 1 := by omega
+  rw [← pic_sigma hn, ← pic_w2 hn, ← map_mul]
+  have h1 : (⟨_, span_elt_mem (n := n) hn (u := 1) (v := 2) (by decide)⟩ :
+      integralIdealsPrimeTo (O4 n).conductorModulus) *
+        ⟨_, span_elt_mem (n := n) hn (u := 2) (v := 1) (by decide)⟩ =
+      ⟨_, span_elt_mem hn hb⟩ := Subtype.ext (by
+        show Ideal.span _ * Ideal.span _ = _
+        rw [Ideal.span_singleton_mul_span_singleton, elt_mul])
+  rw [h1]
+  exact (picClass_congr hn (u' := 0) (v' := 1) hb (by decide) 1 (elt n (-4 * (n / 8 : ℕ) - 2) 1)
+    (by rw [elt_lin]; congr 1 <;> omega)).symm
+
+/-- **The kernel of `Pic(O_{n,4}) → Cl(K_n)` is `{1, σ, w², σw²}`** (for `n ≡ 5 (mod 8)`). -/
+theorem ker_cases (hn : n % 8 = 5) (hsq : Squarefree n) {k : Pic (O4 n)}
+    (hk : picToMax (O4 n) k = 1) :
+    k = 1 ∨ k = sigmaClass n ∨ k = wClass n ^ 2 ∨ k = sigmaClass n * wClass n ^ 2 := by
+  have hn4 : n % 4 = 1 := by omega
+  obtain ⟨J, rfl⟩ := (O4 n).picClass_surjective k
+  have hJ0 : (J : Ideal (𝓞 (QNeg n))) ∈ (Ideal (𝓞 (QNeg n)))⁰ := mem_nonZeroDivisors_of_ne_zero (by
+    rw [Ideal.zero_eq_bot]
+    exact ((mem_integralIdealsPrimeTo_conductorModulus_iff (O4 n)).1 J.2).1)
+  rw [picToMax_picClass (O4 n) J hJ0] at hk
+  have hk' : (ClassGroup.mk0 ⟨(J : Ideal (𝓞 (QNeg n))), hJ0⟩ : ClassGroup (𝓞 (QNeg n))) = 1 := hk
+  rw [ClassGroup.mk0_eq_one_iff] at hk'
+  obtain ⟨⟨x, hx⟩⟩ := hk'
+  obtain ⟨u, v, rfl⟩ := eq_elt hn4 hsq x
+  have hmem : Ideal.span {elt n u v} ∈ integralIdealsPrimeTo (O4 n).conductorModulus := by
+    have := J.2; rw [show (J : Ideal (𝓞 (QNeg n))) = Ideal.span {elt n u v} from hx] at this
+    exact this
+  have huv := odd_of_mem hn hsq hmem
+  have hJ : J = ⟨_, span_elt_mem hn huv⟩ := Subtype.ext hx
+  rw [hJ]
+  rcases (by omega : v % 4 = 0 ∨ v % 4 = 2 ∨ (v % 2 = 1 ∧ u % 4 = 0) ∨ (v % 2 = 1 ∧ u % 4 = 2))
+    with h | h | h | h
+  · left
+    rw [picClass_congr hn huv (u' := 1) (v' := 0) (by decide) u (elt n 0 (v / 4)) (by rw [elt_lin]; congr 1 <;> omega),
+      pic_one hn]
+  · right; left
+    rw [picClass_congr hn huv (u' := 1) (v' := 2) (by decide) u (elt n 0 ((v - 2 * u) / 4))
+      (by rw [elt_lin]; congr 1 <;> omega), pic_sigma hn]
+  · right; right; right
+    rw [picClass_congr hn huv (u' := 0) (v' := 1) (by decide) v (elt n (u / 4) 0) (by rw [elt_lin]; congr 1 <;> omega),
+      pic_omega hn]
+  · right; right; left
+    rw [picClass_congr hn huv (u' := 2) (v' := 1) (by decide) v (elt n ((u - 2 * v) / 4) 0)
+      (by rw [elt_lin]; congr 1 <;> omega), pic_w2 hn]
+
+end Ker3
+
+end KerSec
+
+section KerFix
+
+theorem acts4_one (n : ℕ) [NeZero n] : ActsAsArtin4 1 n 1 := by
+  intro x; simp
+
+/-- **Glue KER proved.** -/
+theorem kerFixesZnMod (hs : TYZSigmaFixesZn) (hw : TYZThm36OneFive) (hz : ZnOverH4) :
+    KerFixesZnMod := by
+  intro n hn0 hn hsq k hk ρ hρ
+  have hzH := hz n hn hsq
+  let P : Pic (O4 n) → Prop := fun c => ∀ ρ : GalQ, ActsAsArtin4 ρ n c →
+    ∃ j : ℤ, galPt ρ (tyzZn n) = tyzZn n + j • tauG 2
+  have hmul : ∀ c c', P c → P c' → P (c * c') := by
+    intro c c' hc hc' ρ hρ
+    obtain ⟨ρ1, h1⟩ := exists_actsAsArtin4 n c
+    obtain ⟨ρ2, h2⟩ := exists_actsAsArtin4 n c'
+    obtain ⟨j1, hj1⟩ := hc ρ1 h1
+    obtain ⟨j2, hj2⟩ := hc' ρ2 h2
+    refine ⟨j1 + j2, ?_⟩
+    rw [acts4_galPt hρ (acts4_mul h1 h2) hzH, galPt_mul, hj2, map_add, map_zsmul, galPt_tauG_two,
+      hj1, add_zsmul]
+    abel
+  have h1 : P 1 := fun ρ hρ => ⟨0, by
+    rw [acts4_galPt hρ (acts4_one n) hzH, galPt_one, zero_zsmul, add_zero]⟩
+  have hσ : P (sigmaClass n) := fun ρ hρ => ⟨0, by
+    rw [hs n hn0 hn hsq ρ hρ, zero_zsmul, add_zero]⟩
+  have hw2 : P (wClass n ^ 2) := by
+    intro ρ hρ
+    obtain ⟨ρw, hρw⟩ := exists_actsAsArtin4 n (wClass n)
+    obtain ⟨k1, hk1⟩ := hw n hn0 hn hsq ρw hρw
+    have hi := wNegatesI n hn0 hn hsq ρw hρw
+    refine ⟨1 + 2 * k1, ?_⟩
+    rw [acts4_galPt hρ (by rw [pow_two]; exact acts4_mul hρw hρw) hzH, galPt_mul, hk1, map_add,
+      map_add, hk1, map_zsmul, galPt_tauG_two, galPt_tauG_one_one_of_neg hi]
+    have h11 := tauG_one_one_add
+    rw [← h11]
+    module
+  rcases ker_cases hn hsq hk with rfl | rfl | rfl | rfl
+  · exact h1 ρ hρ
+  · exact hσ ρ hρ
+  · exact hw2 ρ hρ
+  · exact hmul _ _ hσ hw2 ρ hρ
+
+end KerFix
+
 /-! ### The main glue: `Lemma321Five` from the inputs -/
 
 section Main
@@ -4667,6 +4997,17 @@ theorem lemma321Five_of_shimuraModFn (hS : Shimura.ShimuraReciprocityModFn)
     (tyzThm36OneFive_of (Shimura.shimuraReciprocityPic_of_shimuraModFn hS)
       (cmAlgebraic_of_cmValue (Shimura.cmValueRingClass_of_modFn hS)) wNegatesI)
     hk betaOnGenus5
+
+/-- **`Lemma321Five` from tyz-cm's textbook CM leaf and `BetaOneLiftExists`.** -/
+theorem lemma321Five_of_shimuraModFn_betaOneLift (hS : Shimura.ShimuraReciprocityModFn)
+    (hβ : BetaOneLiftExists) : Lemma321Five :=
+  lemma321Five_of_shimuraModFn hS hβ
+    (kerFixesZnMod
+      (Shimura.tyzSigmaFixesZn_of (Shimura.shimuraReciprocityPic_of_shimuraModFn hS)
+        Shimura.etaModelFricke)
+      (tyzThm36OneFive_of (Shimura.shimuraReciprocityPic_of_shimuraModFn hS)
+        (cmAlgebraic_of_cmValue (Shimura.cmValueRingClass_of_modFn hS)) wNegatesI)
+      (znOverH4_of hS))
 
 end Main
 
