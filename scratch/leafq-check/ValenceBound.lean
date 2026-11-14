@@ -6,8 +6,10 @@ import Mathlib
 The Prop `HDec.HSyn.G0Split.FibreQM.PeriodMap.ValenceBoundGammaStar` (leaf-fold4's LEAF? field
 `valenceBoundGammaStar`, period-map, period-glue §5.1) and what it depends on are copied verbatim from
 `scratch/leaf-fold4/Leaves4.lean` (lines 170-235: `PkgI1` §1-§2; 113091-113092: `U`; 113426-113453:
-`ValenceBoundGammaStar` with its docstring). Below: the two published inputs as named Props
-(`ValenceFormulaGammaStar`, `EllipticOrderLe6`) and the valence count `valenceBound_of`, proved.
+`ValenceBoundGammaStar` with its docstring). Below: the published valence formula as a named Prop
+(`ValenceFormulaGammaStar`), the stabilizer bound `EllipticOrderLe6` (proved: `ellipticOrderLe6_proof`, by
+the crystallographic restriction), the valence count `valenceBound_of`, and
+`valenceBound_of_formula : ValenceFormulaGammaStar → ValenceBoundGammaStar`.
 -/
 
 namespace HDec
@@ -160,7 +162,7 @@ def ValenceFormulaGammaStar : Prop :=
       (T : Set UpperHalfPlane).Pairwise (fun z w => ∀ γ ∈ PkgI1.GammaStar, γ • z ≠ w) →
       ∑ z ∈ T, ((analyticOrderAt F (z : ℂ) : ℕ∞) : ℝ≥0∞) / (ellOrder z : ℝ≥0∞) ≤ (m : ℝ≥0∞) / 12
 
-/-- **The stabilizer bound `1 ≤ e_P ≤ 6`** (the elliptic points of `Γ*` have orders `2, 4, 6`: the
+/-- **The stabilizer bound `1 ≤ e_P ≤ 6`** (proved below, `ellipticOrderLe6_proof`; the elliptic points of `Γ*` have orders `2, 4, 6`: the
 signature `(0; 2, 4, 6)`, Takeuchi 1977; or, independently of the signature, the crystallographic
 restriction: for `γ = ι(x)` fixing `P`, `trd(x)²/nrd(x)` is the trace of conjugation by `x` on the
 lattice `𝒪`, an integer, so the rotation angle at `P` is a multiple of `π/2` or `π/3`). -/
@@ -416,6 +418,183 @@ theorem unit_cases (ζ : ℂ) (h1 : Complex.normSq ζ = 1) (k : ℤ) (hk : 2 * �
     have hi : ζ.im = 0 := by nlinarith [sq_nonneg ζ.im]
     left; exact Complex.ext (by simp [hr]) (by simp [hi])
 
+
+theorem sigma_of_pos {g : GL (Fin 2) ℝ} (hg : 0 < (g : Matrix (Fin 2) (Fin 2) ℝ).det) (w : ℂ) :
+    UpperHalfPlane.σ g w = w := by
+  have h' : 0 < g.det.val := by rwa [Matrix.GeneralLinearGroup.val_det_apply]
+  simp [UpperHalfPlane.σ, hg]
+
+theorem zeta_mul {γ γ' : GL (Fin 2) ℝ} (hd : 0 < (γ : Matrix (Fin 2) (Fin 2) ℝ).det)
+    (hd' : 0 < (γ' : Matrix (Fin 2) (Fin 2) ℝ).det) {P : UpperHalfPlane} (hP' : γ' • P = P) :
+    zeta (γ * γ') P = zeta γ P * zeta γ' P := by
+  have hden : denom (γ * γ') P = denom γ P * denom γ' P := by
+    rw [UpperHalfPlane.denom_cocycle_σ, hP', sigma_of_pos hd']
+  have h0 := denom_ne_zero γ P
+  have h0' := denom_ne_zero γ' P
+  unfold zeta
+  rw [hden, Units.val_mul, Matrix.det_mul]
+  push_cast
+  field_simp
+
+theorem zeta_inj {γ γ' : GL (Fin 2) ℝ} (hd : 0 < (γ : Matrix (Fin 2) (Fin 2) ℝ).det)
+    (hd' : 0 < (γ' : Matrix (Fin 2) (Fin 2) ℝ).det) {P : UpperHalfPlane} (hP : γ • P = P)
+    (hP' : γ' • P = P) (h : zeta γ P = zeta γ' P) (z : UpperHalfPlane) : γ • z = γ' • z := by
+  rw [zeta_eq hd hP, zeta_eq hd' hP'] at h
+  have h0 := denom_ne_zero γ P
+  have h0' := denom_ne_zero γ' P
+  rw [div_eq_div_iff h0 h0'] at h
+  -- `u v' = v u'` for `μ = u + iv`, `μ' = u' + iv'`
+  have him := congrArg Complex.im h
+  simp only [Complex.mul_im, Complex.conj_re, Complex.conj_im] at him
+  set u := (denom γ P).re
+  set v := (denom γ P).im
+  set u' := (denom γ' P).re
+  set v' := (denom γ' P).im
+  have hpar : u * v' = v * u' := by linarith
+  have hn : 0 < u ^ 2 + v ^ 2 := by
+    have := Complex.normSq_pos.2 h0; rw [Complex.normSq_apply] at this; nlinarith
+  set r := (u * u' + v * v') / (u ^ 2 + v ^ 2) with hr
+  have hu' : u' = r * u := by rw [hr]; field_simp; linear_combination (-v) * hpar
+  have hv' : v' = r * v := by rw [hr]; field_simp; linear_combination u * hpar
+  -- entries
+  obtain ⟨ha, hb⟩ := fixed_data hd hP
+  obtain ⟨ha', hb'⟩ := fixed_data hd' hP'
+  have hq := P.im_pos
+  have hc : v = (γ : Matrix (Fin 2) (Fin 2) ℝ) 1 0 * P.im := by simp [v, UpperHalfPlane.denom]
+  have hc' : v' = (γ' : Matrix (Fin 2) (Fin 2) ℝ) 1 0 * P.im := by simp [v', UpperHalfPlane.denom]
+  have hdd : u = (γ : Matrix (Fin 2) (Fin 2) ℝ) 1 0 * P.re + (γ : Matrix (Fin 2) (Fin 2) ℝ) 1 1 := by
+    simp [u, UpperHalfPlane.denom]
+  have hdd' : u' = (γ' : Matrix (Fin 2) (Fin 2) ℝ) 1 0 * P.re +
+      (γ' : Matrix (Fin 2) (Fin 2) ℝ) 1 1 := by simp [u', UpperHalfPlane.denom]
+  have e10 : (γ' : Matrix (Fin 2) (Fin 2) ℝ) 1 0 = r * (γ : Matrix (Fin 2) (Fin 2) ℝ) 1 0 := by
+    have : ((γ' : Matrix (Fin 2) (Fin 2) ℝ) 1 0 - r * (γ : Matrix (Fin 2) (Fin 2) ℝ) 1 0) * P.im = 0 := by
+      linear_combination -hc' + r * hc + hv'
+    exact sub_eq_zero.1 ((mul_eq_zero.1 this).resolve_right hq.ne')
+  have e11 : (γ' : Matrix (Fin 2) (Fin 2) ℝ) 1 1 = r * (γ : Matrix (Fin 2) (Fin 2) ℝ) 1 1 := by
+    have := hu'; rw [hdd', hdd, e10] at this; linarith
+  have e00 : (γ' : Matrix (Fin 2) (Fin 2) ℝ) 0 0 = r * (γ : Matrix (Fin 2) (Fin 2) ℝ) 0 0 := by
+    rw [ha', ha, e10, e11]; ring
+  have e01 : (γ' : Matrix (Fin 2) (Fin 2) ℝ) 0 1 = r * (γ : Matrix (Fin 2) (Fin 2) ℝ) 0 1 := by
+    rw [hb', hb, e10]; ring
+  have hr0 : r ≠ 0 := by
+    intro h0r; apply h0'; apply Complex.ext
+    · change u' = 0; rw [hu', h0r, zero_mul]
+    · change v' = 0; rw [hv', h0r, zero_mul]
+  have hdpos : 0 < γ.det.val := by rwa [Matrix.GeneralLinearGroup.val_det_apply]
+  have hdpos' : 0 < γ'.det.val := by rwa [Matrix.GeneralLinearGroup.val_det_apply]
+  apply UpperHalfPlane.ext
+  rw [UpperHalfPlane.coe_smul_of_det_pos hdpos, UpperHalfPlane.coe_smul_of_det_pos hdpos']
+  have hz0 := denom_ne_zero γ z
+  have hz0' := denom_ne_zero γ' z
+  rw [div_eq_div_iff hz0 hz0']
+  simp only [UpperHalfPlane.num, UpperHalfPlane.denom]
+  rw [e00, e01, e10, e11]
+  push_cast
+  ring
+
+theorem zeta_cases_gammaStar {γ : GL (Fin 2) ℝ} (hγ : γ ∈ PkgI1.GammaStar) {P : UpperHalfPlane}
+    (hP : γ • P = P) :
+    zeta γ P = 1 ∨ zeta γ P = -1 ∨ zeta γ P = Complex.I ∨ zeta γ P = -Complex.I ∨
+      zeta γ P = w1 ∨ zeta γ P = w2 ∨ zeta γ P = w3 ∨ zeta γ P = w4 := by
+  obtain ⟨x, ⟨z, hxz, -, hN⟩, hγx, hd⟩ := hγ
+  have hn : nrd x ≠ 0 := by
+    intro h0; rw [hγx, det_iota_eq, h0] at hd; simp at hd
+  obtain ⟨k, hk⟩ := adTrace_int hxz hN hn
+  refine unit_cases _ (zeta_normSq hd hP) k ?_
+  rw [zeta_re hd hP, hγx, det_iota_eq, iota_apply]
+  simp only [Matrix.of_apply, Matrix.cons_val', Matrix.cons_val_zero, Matrix.cons_val_one,
+    Matrix.empty_val', Matrix.cons_val_fin_one, Matrix.head_cons, Matrix.head_fin_const]
+  have hk' : (4 * (x.re : ℝ) ^ 2 / (nrd x : ℝ)) = k := by exact_mod_cast hk
+  rw [← hk']
+  ring
+
+theorem w_mul_I_re (ζ : ℂ) (hζ : ζ = w1 ∨ ζ = w2 ∨ ζ = w3 ∨ ζ = w4) (ξ : ℂ)
+    (hξ : ξ = Complex.I ∨ ξ = -Complex.I) : (ζ * ξ).re = √3 / 2 ∨ (ζ * ξ).re = -(√3 / 2) := by
+  rcases hξ with rfl | rfl <;> rcases hζ with rfl | rfl | rfl | rfl <;>
+    simp [w1, w2, w3, w4]
+
+theorem eight_re (ζ : ℂ) (h : ζ = 1 ∨ ζ = -1 ∨ ζ = Complex.I ∨ ζ = -Complex.I ∨ ζ = w1 ∨ ζ = w2 ∨
+    ζ = w3 ∨ ζ = w4) : ζ.re = 1 ∨ ζ.re = -1 ∨ ζ.re = 0 ∨ ζ.re = 1 / 2 ∨ ζ.re = -1 / 2 := by
+  rcases h with rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl <;> simp [w1, w2, w3, w4]
+
+theorem sqrt3_half_ne (t : ℝ) (ht : t = √3 / 2 ∨ t = -(√3 / 2)) :
+    ¬ (t = 1 ∨ t = -1 ∨ t = 0 ∨ t = 1 / 2 ∨ t = -1 / 2) := by
+  have s3 := sqrt3_sq
+  have hs : 0 < √3 := Real.sqrt_pos.2 (by norm_num)
+  rcases ht with rfl | rfl <;> rintro (h | h | h | h | h) <;> nlinarith
+
+/-- **`EllipticOrderLe6` is a theorem** (leafq-check; Mathlib only). -/
+theorem ellipticOrderLe6_proof : EllipticOrderLe6 := by
+  intro P
+  set S := {f : UpperHalfPlane → UpperHalfPlane //
+    ∃ γ ∈ PkgI1.GammaStar, γ • P = P ∧ f = fun z => γ • z}
+  have hdet : ∀ γ ∈ PkgI1.GammaStar, 0 < (γ : Matrix (Fin 2) (Fin 2) ℝ).det :=
+    fun γ ⟨_, _, _, hd⟩ => hd
+  -- either all multipliers lie in `μ₄` or all lie in `μ₆`
+  let m4 : Fin 4 → ℂ := ![1, -1, Complex.I, -Complex.I]
+  let m6 : Fin 6 → ℂ := ![1, -1, w1, w2, w3, w4]
+  have hZ : ∃ Z : Finset ℂ, Z.card ≤ 6 ∧
+      ∀ γ ∈ PkgI1.GammaStar, γ • P = P → zeta γ P ∈ Z := by
+    by_cases h4 : ∀ γ ∈ PkgI1.GammaStar, γ • P = P →
+        (zeta γ P = 1 ∨ zeta γ P = -1 ∨ zeta γ P = Complex.I ∨ zeta γ P = -Complex.I)
+    · refine ⟨Finset.univ.image m4, (Finset.card_image_le).trans (by simp), fun γ hγ hP => ?_⟩
+      rw [Finset.mem_image]
+      rcases h4 γ hγ hP with h | h | h | h
+      · exact ⟨0, Finset.mem_univ _, by simp [m4, h]⟩
+      · exact ⟨1, Finset.mem_univ _, by simp [m4, h]⟩
+      · exact ⟨2, Finset.mem_univ _, by simp [m4, h]⟩
+      · exact ⟨3, Finset.mem_univ _, by simp [m4, h]⟩
+    · push_neg at h4
+      obtain ⟨γ2, hγ2, hP2, h2⟩ := h4
+      have h2w : zeta γ2 P = w1 ∨ zeta γ2 P = w2 ∨ zeta γ2 P = w3 ∨ zeta γ2 P = w4 := by
+        rcases zeta_cases_gammaStar hγ2 hP2 with h | h | h | h | h
+        · exact absurd h h2.1
+        · exact absurd h h2.2.1
+        · exact absurd h h2.2.2.1
+        · exact absurd h h2.2.2.2
+        · exact h
+      refine ⟨Finset.univ.image m6, (Finset.card_image_le).trans (by simp), fun γ hγ hP => ?_⟩
+      rw [Finset.mem_image]
+      rcases zeta_cases_gammaStar hγ hP with h | h | h | h | h | h | h | h
+      · exact ⟨0, Finset.mem_univ _, by simp [m6, h]⟩
+      · exact ⟨1, Finset.mem_univ _, by simp [m6, h]⟩
+      · exfalso
+        have hm := zeta_cases_gammaStar (gammaStar_mul hγ2 hγ) (by rw [mul_smul, hP, hP2])
+        rw [zeta_mul (hdet _ hγ2) (hdet _ hγ) hP] at hm
+        exact sqrt3_half_ne _ (w_mul_I_re _ h2w _ (Or.inl h)) (eight_re _ hm)
+      · exfalso
+        have hm := zeta_cases_gammaStar (gammaStar_mul hγ2 hγ) (by rw [mul_smul, hP, hP2])
+        rw [zeta_mul (hdet _ hγ2) (hdet _ hγ) hP] at hm
+        exact sqrt3_half_ne _ (w_mul_I_re _ h2w _ (Or.inr h)) (eight_re _ hm)
+      · exact ⟨2, Finset.mem_univ _, by simp [m6, h]⟩
+      · exact ⟨3, Finset.mem_univ _, by simp [m6, h]⟩
+      · exact ⟨4, Finset.mem_univ _, by simp [m6, h]⟩
+      · exact ⟨5, Finset.mem_univ _, by simp [m6, h]⟩
+  obtain ⟨Z, hZc, hZ⟩ := hZ
+  let Ψ : S → Z := fun f => ⟨zeta (Classical.choose f.2) P,
+    hZ _ (Classical.choose_spec f.2).1 (Classical.choose_spec f.2).2.1⟩
+  have hΨ : Function.Injective Ψ := by
+    intro f f' hff
+    have h := congrArg Subtype.val hff
+    simp only [Ψ] at h
+    obtain ⟨hγ, hP, hf⟩ := Classical.choose_spec f.2
+    obtain ⟨hγ', hP', hf'⟩ := Classical.choose_spec f'.2
+    apply Subtype.ext
+    rw [hf, hf']
+    funext z
+    exact zeta_inj (hdet _ hγ) (hdet _ hγ') hP hP' h z
+  have hfin : Finite S := Finite.of_injective Ψ hΨ
+  have hne : Nonempty S :=
+    ⟨⟨fun z => (1 : GL (Fin 2) ℝ) • z, 1, one_mem_gammaStar', one_smul _ _, rfl⟩⟩
+  refine ⟨Nat.card_pos, ?_⟩
+  calc Nat.card S ≤ Nat.card Z := Nat.card_le_card_of_injective Ψ hΨ
+    _ = Z.card := Nat.card_eq_finsetCard Z
+    _ ≤ 6 := hZc
+
+/-- **`ValenceBoundGammaStar` from the valence formula alone.** -/
+theorem valenceBound_of_formula (h1 : ValenceFormulaGammaStar) : ValenceBoundGammaStar :=
+  valenceBound_of h1 ellipticOrderLe6_proof
+
 end Elliptic
 
 end HSyn.G0Split.FibreQM.PeriodMap
@@ -423,3 +602,5 @@ end HSyn.G0Split.FibreQM.PeriodMap
 end HDec
 
 #print axioms HDec.HSyn.G0Split.FibreQM.PeriodMap.valenceBound_of
+#print axioms HDec.HSyn.G0Split.FibreQM.PeriodMap.ellipticOrderLe6_proof
+#print axioms HDec.HSyn.G0Split.FibreQM.PeriodMap.valenceBound_of_formula

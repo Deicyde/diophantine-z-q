@@ -38,3 +38,12 @@ Y3Connected 97479, ValenceBoundGammaStar 113443, CMDescends 114469, GammaStarGen
   (LEAF: Σ_T ord_P/e_P ≤ m/12, valence formula + signature (0;2,4,6)), `EllipticOrderLe6`
   (0 < e_P ≤ 6), `valenceBound_of : ValenceFormulaGammaStar → EllipticOrderLe6 → ValenceBoundGammaStar`
   (the valence count), 0 errors, axioms standard.
+
+## EllipticOrderLe6: PROVED (VERIFIED, compiled)
+- `ValenceBound.lean`: `ellipticOrderLe6_proof : EllipticOrderLe6` (crystallographic restriction:
+  ζ = det γ/(cP+d)² = μ̄/μ, |ζ| = 1, 2Re ζ = 4re(x)²/nrd(x) − 2, and 4re²/nrd = trace of Ad(x) on 𝒪 ∈ ℤ
+  (`adTrace_int`, identity checked in `py/vb_adtrace.py`); ζ ∈ {±1, ±i, ±1/2 ± i√3/2}; ζ multiplicative
+  and injective on the stabilizer; (±1/2 ± i√3/2)(±i) has real part ±√3/2, not among the eight).
+- `valenceBound_of_formula : ValenceFormulaGammaStar → ValenceBoundGammaStar`. Axioms standard.
+- Fold.lean: `OpenAddedLeaves6` (valenceBoundGammaStar → valenceFormulaGammaStar), `sixContactMin_of_open6`
+  compiles over the chain (11 s), axioms standard.
