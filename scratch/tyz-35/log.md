@@ -57,3 +57,12 @@ for the pinned points; TYZ prove it (L2343–2380) from Theorem 3.3 by the chara
   mod Λ with ε = i for (5,3), 1 for (7,1): 43 contributing pairs with d₁ > 1 (32 of type (5,3)),
   𝓛(d₁) ∈ {0,1,2,3} (3 with 𝓛 = 0: P torsion as predicted); 70 complement checks χ_T = χ_{T^c} on P:
   0 mismatches (VERIFIED computed). First numerical test of the n ≡ 7 cross-level part of Thm 3.3.
+
+## 2026-11-14 ~00:10 lift-choice independence (HUMAN CHECK (a)), numerics
+- `fibre5.py` → `fibre5.out` (pure Python): for 27 squarefree n ≡ 5 (mod 8), 5 ≤ n ≤ 445, the fibres of
+  `Pic(ℤ[4√−n]) → Cl(K_n)` computed exactly (O₄-ideal of each Heegner form extended to O_K, reduced form
+  of disc −4n); all fibres have size 4; within every fibre `16(φ(τ_Q) − φ(τ_Q')) ∈ Λ` (x-conjugates agree
+  mod torsion): 0 non-torsion differences over all fibre pairs. Control: across different fibres, 1 torsion
+  difference out of 1300+ pairs (n = 445), so the test discriminates. Hence `P_χ` is independent of the lift
+  family mod torsion on this sample, i.e. the `∀ f` form of the leaf agrees with TYZ's `P_χ` for any Φ
+  (VERIFIED computed on the sample; n = 1365 not run: class search range exceeded).
