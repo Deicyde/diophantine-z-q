@@ -68,3 +68,18 @@ C2 `CoordinateFromSections` of `scratch/mcr-glue/MCRGlue.lean` (copied verbatim 
   `eq_of_involutions_cyclic`.
 - Composite **`MCRQuot.modelCoordinateResidue_of_mcrQuot`**: L1-L6 + T5 + glue B + (A-fix),
   (A-count), (C1a)-(C1d), P1ThreePoints ⇒ `ModelCoordinateResidue`.
+
+## Step 5 (13:50) — VERIFIED (parts 1-8b + 9 in build.sh order; exit 0; compile8_out.txt; all
+`#print axioms` standard; no sorry in the parts)
+- P¹ by charts over ℤ_(p): `MCRQuot.scale` (coordinate `u·ρ`, `u ∈ ℤ_(p)^×`) with
+  `isP1Coordinate_scale`, `val_scale`; inversion via the kernel's `ImagePlane.inv` with
+  `isP1Coordinate_inv`, `val_inv`.
+- `MCRQuot.fromSpec_ker_mem_closure`, **`MCRQuot.isUnit_sub_of_disjoint`**: in a polynomial chart,
+  two `ℚ̄`-points with values `a, a' ∈ ℤ_(p)` and disjoint closures have `a − a'` a unit (else the
+  point over `(p, h − a)` is in both closures).
+- New glue Prop **`MCRQuot.P1Translate`** (translations `t ↦ t + e`, `e ∈ ℤ_(p)`, preserve
+  `IsP1Coordinate`), and **`MCRQuot.p1ThreePoints_of : P1Translate → P1ThreePoints`**
+  (normalization: `∞`, then `0`, then scale; `zloc_or_inv`, `exists_infty`,
+  `integral_of_disjoint_infty`, `exists_unit_neg_16_27`).
+- `coordinateFromSections_of' (hA) (hT) (hTr : P1Translate) : CoordinateFromSections`;
+  composite `modelCoordinateResidue_of_mcrQuot'` with `P1Translate` in place of `P1ThreePoints`.

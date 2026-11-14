@@ -11,3 +11,7 @@
 #print axioms MCRQuot.residue_trivial_of_fixesOn
 #print axioms MCRQuot.cMSectionsDisjoint_of
 #print axioms MCRQuot.modelCoordinateResidue_of_mcrQuot
+#print axioms MCRQuot.isUnit_sub_of_disjoint
+#print axioms MCRQuot.p1ThreePoints_of
+#print axioms MCRQuot.coordinateFromSections_of'
+#print axioms MCRQuot.modelCoordinateResidue_of_mcrQuot'

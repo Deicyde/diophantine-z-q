@@ -198,4 +198,201 @@ theorem isUnit_sub_of_disjoint (𝒵 : Over (Spec (CommRingCat.of (Zloc p)))) {W
   rw [hpt] at h2
   exact Set.disjoint_left.mp hd h1 h2
 
+/-! ## Rational values and the normalization -/
+
+theorem zlocToRat_algebraMap (n : ℤ) : zlocToRat p (algebraMap ℤ (Zloc p) n) = n := by
+  unfold zlocToRat
+  rw [IsLocalization.lift_eq]
+  rfl
+
+/-- A rational number or its inverse lies in `ℤ_(p)`; in the second case the inverse is a
+non-unit. -/
+theorem zloc_or_inv (r : ℚ) : (∃ e : Zloc p, zlocToRat p e = r) ∨
+    (r ≠ 0 ∧ ∃ e : Zloc p, zlocToRat p e = r⁻¹ ∧ ¬ IsUnit e) := by
+  have hp : (p : ℕ).Prime := Fact.out
+  by_cases hd : (r.den : ℤ) ∈ (pIdeal p).primeCompl
+  · left
+    let u := (IsLocalization.map_units (Zloc p) (⟨r.den, hd⟩ : (pIdeal p).primeCompl)).unit
+    refine ⟨algebraMap ℤ (Zloc p) r.num * ↑u⁻¹, ?_⟩
+    rw [map_mul, zlocToRat_algebraMap, map_units_inv]
+    change (r.num : ℚ) * (zlocToRat p (algebraMap ℤ (Zloc p) r.den))⁻¹ = r
+    rw [zlocToRat_algebraMap, Int.cast_natCast, ← div_eq_mul_inv, Rat.num_div_den]
+  · right
+    have hd' : (p : ℤ) ∣ r.den := by
+      have : (r.den : ℤ) ∈ pIdeal p := by
+        simpa [Ideal.primeCompl] using hd
+      exact Ideal.mem_span_singleton.mp this
+    have hr0 : r ≠ 0 := by
+      rintro rfl
+      simp only [Rat.den_zero, Nat.cast_one] at hd'
+      exact hp.one_lt.ne' (by exact_mod_cast Int.eq_one_of_dvd_one (by positivity) hd')
+    have hnum : r.num ∈ (pIdeal p).primeCompl := by
+      intro hmem
+      have h1 : (p : ℤ) ∣ r.num := Ideal.mem_span_singleton.mp hmem
+      have hcop := r.reduced
+      have h2 : p ∣ r.num.natAbs := by
+        exact Int.ofNat_dvd_left.mp h1
+      have h3 : p ∣ r.den := by exact_mod_cast hd'
+      have h4 : p ∣ 1 := by
+        have := Nat.dvd_gcd h2 h3
+        rwa [hcop] at this
+      exact hp.one_lt.ne' (Nat.dvd_one.mp h4)
+    refine ⟨hr0, ?_⟩
+    let u := (IsLocalization.map_units (Zloc p) (⟨r.num, hnum⟩ : (pIdeal p).primeCompl)).unit
+    refine ⟨algebraMap ℤ (Zloc p) r.den * ↑u⁻¹, ?_, ?_⟩
+    · rw [map_mul, zlocToRat_algebraMap, map_units_inv]
+      change ((r.den : ℤ) : ℚ) * (zlocToRat p (algebraMap ℤ (Zloc p) r.num))⁻¹ = r⁻¹
+      rw [zlocToRat_algebraMap, Int.cast_natCast, ← div_eq_mul_inv]
+      conv_rhs => rw [← Rat.num_div_den r]
+      rw [inv_div]
+    · intro hu
+      have : IsUnit (algebraMap ℤ (Zloc p) r.den) := by
+        have := hu.mul u.isUnit
+        rwa [mul_assoc, Units.inv_mul, mul_one] at this
+      rw [IsLocalization.AtPrime.isUnit_to_map_iff (Zloc p) (pIdeal p)] at this
+      exact hd this
+
+theorem iq_apply (e : Zloc p) : iq p e = algebraMap ℚ Qbar (zlocToRat p e) := rfl
+
+theorem rat_shift (r : OnePoint ℚ) (e : Zloc p) :
+    (r.map (algebraMap ℚ Qbar)).map (fun t => t + iq p e) =
+      (r.map (fun s => s + zlocToRat p e)).map (algebraMap ℚ Qbar) := by
+  induction r using OnePoint.rec with
+  | infty => rfl
+  | coe s => simp [iq_apply]
+
+theorem recip_map_alg (r : OnePoint ℚ) :
+    ImagePlane.recip (r.map (algebraMap ℚ Qbar)) = (ImagePlane.recip r).map (algebraMap ℚ Qbar) := by
+  induction r using OnePoint.rec with
+  | infty => simp [ImagePlane.recip_infty]
+  | coe s =>
+    rw [OnePoint.map_some, ImagePlane.recip_coe, ImagePlane.recip_coe]
+    by_cases hs : s = 0
+    · simp [hs]
+    · simp [hs]
+
+theorem chart_of_val {K : Type} [Field K] {X : Scheme.{0}} (ρ : ToP1 X)
+    (z : Spec (CommRingCat.of K) ⟶ X) (t : K) (h : ρ.val z = OnePoint.some t) :
+    ∃ hz : ptOf z ∈ ρ.U, ev z hz ρ.f = t := by
+  by_cases hz : ptOf z ∈ ρ.U
+  · rw [val_of_mem ρ z hz] at h
+    exact ⟨hz, OnePoint.coe_injective h⟩
+  · rw [val_of_not_mem ρ z hz] at h
+    exact (OnePoint.infty_ne_coe t h).elim
+
+theorem isUnit_of_vals {𝒵 : Over (Spec (CommRingCat.of (Zloc p)))} {ρ : ToP1 𝒵.left}
+    (hρ : IsP1Coordinate 𝒵 ρ) (z z' : Spec (CommRingCat.of Qbar) ⟶ 𝒵.left) (a a' : Zloc p)
+    (h : ρ.val z = OnePoint.some (iq p a)) (h' : ρ.val z' = OnePoint.some (iq p a'))
+    (hd : Disjoint (closure ({ptOf z} : Set 𝒵.left)) (closure {ptOf z'})) : IsUnit (a - a') := by
+  obtain ⟨hz, hza⟩ := chart_of_val ρ z _ h
+  obtain ⟨hz', hza'⟩ := chart_of_val ρ z' _ h'
+  exact isUnit_sub_of_disjoint 𝒵 hρ.1 ρ.f hρ.2.2.1 z z' hz hz' a a' hza hza' hd
+
+theorem ne_of_disjoint {X : Scheme.{0}} {z z' : Spec (CommRingCat.of Qbar) ⟶ X}
+    (hd : Disjoint (closure ({ptOf z} : Set X)) (closure {ptOf z'})) : z ≠ z' := by
+  rintro rfl
+  exact Set.disjoint_left.mp hd (subset_closure rfl) (subset_closure rfl)
+
+/-- A rational value whose section is disjoint from the section at `∞` is in `ℤ_(p)`. -/
+theorem integral_of_disjoint_infty {𝒵 : Over (Spec (CommRingCat.of (Zloc p)))} {ρ : ToP1 𝒵.left}
+    (hρ : IsP1Coordinate 𝒵 ρ) (z zi : Spec (CommRingCat.of Qbar) ⟶ 𝒵.left)
+    (hi : ρ.val zi = OnePoint.infty) (r : OnePoint ℚ) (hr : ρ.val z = r.map (algebraMap ℚ Qbar))
+    (hd : Disjoint (closure ({ptOf z} : Set 𝒵.left)) (closure {ptOf zi})) :
+    ∃ α : Zloc p, ρ.val z = OnePoint.some (iq p α) := by
+  induction r using OnePoint.rec with
+  | infty =>
+    exact (ne_of_disjoint hd (val_injective_of_isP1Coordinate hρ z zi (hr.trans hi.symm))).elim
+  | coe s =>
+    rcases zloc_or_inv (p := p) s with ⟨e, he⟩ | ⟨hs0, e, he, hnu⟩
+    · exact ⟨e, by rw [hr, OnePoint.map_some, iq_apply, he]⟩
+    · exfalso
+      apply hnu
+      have h1 : (ImagePlane.inv ρ).val z = OnePoint.some (iq p e) := by
+        rw [val_inv, hr, OnePoint.map_some, ImagePlane.recip_coe, if_neg (by simpa using hs0),
+          iq_apply, he, map_inv₀]
+      have h2 : (ImagePlane.inv ρ).val zi = OnePoint.some (iq p 0) := by
+        rw [val_inv, hi, ImagePlane.recip_infty, map_zero]
+      simpa using isUnit_of_vals (isP1Coordinate_inv hρ) z zi e 0 h1 h2 hd
+
+/-- Step 1 of the normalization: move a rational section to `∞`, keeping rational values
+rational. -/
+theorem exists_infty (hTr : P1Translate) {𝒵 : Over (Spec (CommRingCat.of (Zloc p)))}
+    {ρ : ToP1 𝒵.left} (hρ : IsP1Coordinate 𝒵 ρ) (zi : Spec (CommRingCat.of Qbar) ⟶ 𝒵.left)
+    (b : OnePoint ℚ) (hb : ρ.val zi = b.map (algebraMap ℚ Qbar)) :
+    ∃ ρ1 : ToP1 𝒵.left, IsP1Coordinate 𝒵 ρ1 ∧ ρ1.val zi = OnePoint.infty ∧
+      ∀ (z : Spec (CommRingCat.of Qbar) ⟶ 𝒵.left) (r : OnePoint ℚ),
+        ρ.val z = r.map (algebraMap ℚ Qbar) → ∃ r' : OnePoint ℚ,
+          ρ1.val z = r'.map (algebraMap ℚ Qbar) := by
+  induction b using OnePoint.rec with
+  | infty => exact ⟨ρ, hρ, hb, fun z r h => ⟨r, h⟩⟩
+  | coe s =>
+    rcases zloc_or_inv (p := p) s with ⟨e, he⟩ | ⟨hs0, e, he, -⟩
+    · obtain ⟨ρt, hρt, hvt⟩ := hTr p 𝒵 ρ hρ (-e)
+      refine ⟨ImagePlane.inv ρt, isP1Coordinate_inv hρt, ?_, ?_⟩
+      · rw [val_inv, hvt, hb, OnePoint.map_some, OnePoint.map_some, map_neg, iq_apply, he,
+          add_neg_cancel, ImagePlane.recip_coe, if_pos rfl]
+      · intro z r h
+        exact ⟨_, by rw [val_inv, hvt, h, rat_shift, recip_map_alg]⟩
+    · obtain ⟨ρt, hρt, hvt⟩ := hTr p 𝒵 (ImagePlane.inv ρ) (isP1Coordinate_inv hρ) (-e)
+      refine ⟨ImagePlane.inv ρt, isP1Coordinate_inv hρt, ?_, ?_⟩
+      · rw [val_inv, hvt, val_inv, hb, OnePoint.map_some, ImagePlane.recip_coe,
+          if_neg (by simpa using hs0), OnePoint.map_some, map_neg, iq_apply, he, map_inv₀,
+          add_neg_cancel, ImagePlane.recip_coe, if_pos rfl]
+      · intro z r h
+        exact ⟨_, by rw [val_inv, hvt, val_inv, h, recip_map_alg, rat_shift, recip_map_alg]⟩
+
+/-- `−16/27` as a unit of `ℤ_(p)` (`p > 3`). -/
+theorem exists_unit_neg_16_27 (hp3 : 3 < p) : ∃ μ : (Zloc p)ˣ, iq p μ = -16 / 27 := by
+  have hp : (p : ℕ).Prime := Fact.out
+  have h16 : (16 : ℤ) ∈ (pIdeal p).primeCompl := by
+    intro hm
+    have h1 : (p : ℤ) ∣ 16 := Ideal.mem_span_singleton.mp hm
+    have h2 : p ∣ 2 ^ 4 := by exact_mod_cast h1
+    have := (Nat.prime_dvd_prime_iff_eq hp Nat.prime_two).mp (hp.dvd_of_dvd_pow h2)
+    omega
+  have h27 : (27 : ℤ) ∈ (pIdeal p).primeCompl := by
+    intro hm
+    have h1 : (p : ℤ) ∣ 27 := Ideal.mem_span_singleton.mp hm
+    have h2 : p ∣ 3 ^ 3 := by exact_mod_cast h1
+    have := (Nat.prime_dvd_prime_iff_eq hp Nat.prime_three).mp (hp.dvd_of_dvd_pow h2)
+    omega
+  let u16 := (IsLocalization.map_units (Zloc p) (⟨16, h16⟩ : (pIdeal p).primeCompl)).unit
+  let u27 := (IsLocalization.map_units (Zloc p) (⟨27, h27⟩ : (pIdeal p).primeCompl)).unit
+  refine ⟨-(u16 * u27⁻¹), ?_⟩
+  rw [Units.val_neg, map_neg, Units.val_mul, map_mul, map_units_inv, neg_div]
+  congr 1
+  change iq p (algebraMap ℤ (Zloc p) 16) * (iq p (algebraMap ℤ (Zloc p) 27))⁻¹ = 16 / 27
+  rw [iq_apply, iq_apply, zlocToRat_algebraMap, zlocToRat_algebraMap, div_eq_mul_inv]
+  norm_num
+
+/-- **`P1ThreePoints` from the translation glue `P1Translate`.** Move the section `z∞` to `∞`
+(`exists_infty`); then `z₀` has a value in `ℤ_(p)` (its section is disjoint from `∞`), translate
+it to `0`; then `z₁` has a unit value `γ` (disjoint from `0` and `∞`); scale by `(−16/27)/γ`. -/
+theorem p1ThreePoints_of (hTr : P1Translate) : P1ThreePoints := by
+  intro p _ hp3 𝒵 ρ₀ hρ₀ z₀ zi z₁ a b c ha hb hc d0i d01 di1
+  obtain ⟨ρ1, hρ1, hi1, hrat1⟩ := exists_infty hTr hρ₀ zi b hb
+  obtain ⟨a1, ha1⟩ := hrat1 z₀ a ha
+  obtain ⟨c1, hc1⟩ := hrat1 z₁ c hc
+  obtain ⟨α, hα⟩ := integral_of_disjoint_infty hρ1 z₀ zi hi1 a1 ha1 d0i
+  obtain ⟨ρ2, hρ2, hv2⟩ := hTr p 𝒵 ρ1 hρ1 (-α)
+  have h20 : ρ2.val z₀ = OnePoint.some (iq p 0) := by
+    rw [hv2, hα, OnePoint.map_some, map_neg, add_neg_cancel, map_zero]
+  have h2i : ρ2.val zi = OnePoint.infty := by rw [hv2, hi1]; rfl
+  have h21 : ρ2.val z₁ = (c1.map (fun s => s + zlocToRat p (-α))).map (algebraMap ℚ Qbar) := by
+    rw [hv2, hc1, rat_shift]
+  obtain ⟨γ, hγ⟩ := integral_of_disjoint_infty hρ2 z₁ zi h2i _ h21 di1.symm
+  have hγu : IsUnit γ := by
+    simpa using isUnit_of_vals hρ2 z₁ z₀ γ 0 hγ h20 d01.symm
+  obtain ⟨μ, hμ⟩ := exists_unit_neg_16_27 hp3
+  let u : (Zloc p)ˣ := μ * hγu.unit⁻¹
+  refine ⟨scale 𝒵 ρ2 u, isP1Coordinate_scale hρ2 u, ?_, ?_, ?_⟩
+  · rw [val_scale, h20, OnePoint.map_some, map_zero, mul_zero]
+  · rw [val_scale, h2i]; rfl
+  · rw [val_scale, hγ, OnePoint.map_some, ← map_mul]
+    congr 1
+    rw [← hμ]
+    congr 1
+    show (↑(μ * hγu.unit⁻¹) : Zloc p) * γ = ↑μ
+    rw [Units.val_mul, mul_assoc, IsUnit.val_inv_mul, mul_one]
+
 end MCRQuot

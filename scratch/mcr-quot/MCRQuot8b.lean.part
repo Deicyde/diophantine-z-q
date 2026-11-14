@@ -1,0 +1,22 @@
+
+namespace MCRQuot
+
+open MCRGlue ModelGlue
+
+/-- **`ModelCoordinateResidue` with `P1ThreePoints` replaced by the translation glue
+`P1Translate`** (the composite of `modelCoordinateResidue_of_mcrQuot` and `p1ThreePoints_of`). -/
+theorem modelCoordinateResidue_of_mcrQuot' (hAF : ProperCurveAF) (hQE : FiniteQuotientExists)
+    (hTS : TameQuotientSmooth) (hP1 : SmoothModelOfP1) (hFix : TameFixedPointsDisjoint)
+    (hCyc : TameInertiaCyclic) (hT : ObjBridge.TorsionStructure) (gB : GenericQuotientP1)
+    (hfix : FibreAutFixFinite) (hcnt : TwistClassCard) (hO : GQuotientPointOrbits)
+    (hI : CMStabInvolution) (hS : StabFixesClosure) (hC : QbarPointsConjugate)
+    (hTr : P1Translate) : ModelCoordinateResidue :=
+  modelCoordinateResidue_of_mcrQuot hAF hQE hTS hP1 hFix hCyc hT gB hfix hcnt hO hI hS hC
+    (p1ThreePoints_of hTr)
+
+/-- **Glue C2 from T5, glue A and the translation glue.** -/
+theorem coordinateFromSections_of' (hA : FibreAutTame) (hT : ObjBridge.TorsionStructure)
+    (hTr : P1Translate) : CoordinateFromSections :=
+  coordinateFromSections_of hA hT (p1ThreePoints_of hTr)
+
+end MCRQuot
