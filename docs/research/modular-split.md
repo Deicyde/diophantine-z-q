@@ -29,9 +29,13 @@ There are six rows. Each one was either proved, narrowed, or shown to need a def
   What is left is one existential leaf per row, `CarayolRealization` and `KatoRealization`. Each is a consequence of the
   printed theorem at the author's realization, not the printed form itself. Carayol's `σ_λ(π)` and Kato's `V_f` are
   étale-cohomology objects that cannot be defined in Mathlib.
+
+  For eigenformHTNew the dualization is also split off. `KatoRealizationCoh` is in Kato's own normalization: geometric
+  Frobenius, weights `{0, k−1}`, irreducible. The contragredient is proved to be continuous, irreducible and attached.
+  The negation of Hodge–Tate weights is a named GLUE, `HTDual`.
 - **r16 and t09: not splittable over the present definitions.** §4 says exactly which definitions are missing.
 
-All four theorems compile with only `propext`, `Classical.choice` and `Quot.sound` (**VERIFIED**: `#print axioms` at the end
+All the theorems compile with only `propext`, `Classical.choice` and `Quot.sound` (**VERIFIED**: `#print axioms` at the end
 of each file, run with `lake env lean scratch/modular-split/<file>.lean`).
 
 ## 2. Table
