@@ -17,9 +17,11 @@ this host).
    `(E, C)` (Shimura 1971, §6.7; Deligne–Rapoport), or equivalently Shimura's reciprocity law for
    values of modular functions at CM points (Shimura 1971, Thm. 6.31), specialized to `ℚ(X₀(N))`.
    All theorem numbers are UNVERIFIED. Gross 1984 §1–§3 states the Heegner-point form
-   `σ_𝔟(O, 𝔫, [𝔞]) = (O, 𝔫, [𝔞𝔟⁻¹])`, but only under `(f, N) = 1` with `O/𝔫 ≅ ℤ/N`. The Lean
-   statement has neither condition, so for the general case cite Shimura's theorem. Every
-   hypothesis was checked against the published form (§1); none is missing.
+   `σ_𝔟(O, 𝔫, [𝔞]) = (O, 𝔫, [𝔞𝔟⁻¹])` for his Heegner points, i.e. pairs where both lattices have
+   the same order and `O/𝔫 ≅ ℤ/N` (his exact conditions, including whether `(f, N) = 1` is
+   required, are recalled from memory and UNVERIFIED). The Lean statement assumes no such
+   condition (e.g. `Q = [32, 10, 1]` has `f = 2 ∣ 32`), so for the general case cite Shimura's
+   theorem. Every hypothesis was checked against the published form (§1); none is missing.
 2. **The weaker `CMValueRingClass` is not enough for every use.** It gives
    `CM.CMFieldOfDefinition` and `CMAlgebraic`. But `TYZSigmaFixesZn` (through `ShimuraZn`, class of
    `𝔟 = (3+2√−n)𝓞_K ∩ O_{n,4}`) and `TYZThm36Seven` (cm-bridge §14, class `[𝔭₂]^{−5}`) apply
@@ -92,7 +94,11 @@ Derivation from Shimura's Thm. 5.4 (all steps STANDARD; numbers UNVERIFIED):
   coarse moduli space with `τ ↦ (ℂ/⟨1, τ⟩, ⟨1/N⟩)`. Hence `σ(g(x)) = g(σx)` for every
   `g ∈ ℚ(X₀(N))` regular at `x` (Shimura §6.7; Diamond–Shurman Ch. 7). `IsRatModFn N g` is
   exactly "`g ∈ ℚ(X₀(N))` with no poles on `ℍ`". `N = 0` is vacuous, because `HeegnerForm 0 D` is
-  empty (`HeegnerForm.N_pos`, compiled).
+  empty (`heegnerForm_N_pos`, compiled). The convention matches the `ℚ`-structure: under
+  `ℂ/⟨1, τ⟩ ≅ ℂ^×/q^ℤ`, `z ↦ e^{2πiz}`, the subgroup `⟨1/N⟩` goes to `μ_N ⊂ Tate(q)`, which is
+  defined over `ℚ((q))`. So the cusp `∞` is `ℚ`-rational and "rational `q`-expansion at `∞`" is the
+  `ℚ`-structure of this moduli problem (STANDARD, Katz–Mazur / Diamond–Shurman §7.?). With
+  `⟨τ/N⟩` (↦ `q^{1/N}`) one would get the other cusp, which is rational only over `ℚ(ζ_N)`.
 * Normalization: Tau Ceti's Artin map is arithmetic, and Shimura's `[s, K]` sends a uniformizer at
   `𝔭` to the arithmetic Frobenius, giving `j(𝔞)^{Frob_𝔭} = j(𝔭⁻¹𝔞)` (Cox Cor. 11.37:
   `σ_𝔭 j(𝔞) = j(𝔭̄𝔞)`, `𝔭̄ ∼ 𝔭⁻¹`). cm-numeric and cm-bridge checked the direction numerically
@@ -145,7 +151,28 @@ theorem shimuraReciprocityModFn_of_split (hj : MainTheoremCMj) (hR : RatX0Rep)
     (hS : ShimuraReciprocityModFnSingular) : ShimuraReciprocityModFn
 theorem singular_of_shimuraReciprocityModFn : ShimuraReciprocityModFn → ShimuraReciprocityModFnSingular
 theorem isIsolated_one (τ) : IsIsolated 1 τ                 -- so for N = 1 the singular part is empty
+
+-- §5 q-expansion bookkeeping (proved): j and j_N are in the leaf's function class
+theorem jInv_smul (γ : SL(2, ℤ)) (τ) : jInv (γ • τ) = jInv τ
+theorem jInv_qexp : ∃ a : ℕ → ℚ, ∀ τ, HasSum (fun n => (a n : ℂ) * q τ ^ n) (q τ ^ 1 * jInv τ)
+theorem jInv_bound : ∃ C, ∀ τ, 1 ≤ τ.im → ‖jInv τ‖ ≤ C * Real.exp (2 * π * τ.im)
+theorem isRatModFn_jInv (N : ℕ) : IsRatModFn N jInv
+theorem isRatModFn_jN (hN : 0 < N) : IsRatModFn N fun τ => jInv (scaleH N τ)
+theorem jPair_of_modFn (hS : ShimuraReciprocityModFn) … :    -- the j-part, from tyz-cm's leaf
+    (ρ j(τ_Q) = j(τ_Q')) ∧ (ρ j(Nτ_Q) = j(Nτ_Q'))
 ```
+
+Methods for §5. `SL₂(ℤ)`-invariance comes from Mathlib's slash invariance of `E₄` (weight 4) and
+tyz-cm's `eta_pow_smul` (`Δ = η²⁴`, weight 12). The rational `q`-expansion is
+`q·j = E₄(q)³/∏(1 − qⁿ)²⁴`: `E₄(q)` is Mathlib's `cuspFunction 1 E₄`, with rational Taylor
+coefficients from Mathlib's `E_qExpansion_coeff` (`−(8/B₄)σ₃(n) = 240σ₃(n)`); `Δ = q·pd 1 q²⁴`
+uses tyz-cm's `eta_eq_prodF`. These are combined with tyz-cm's `IsRatAt` calculus and
+`exists_rat_hasSum` (`ShimuraQExp.lean`). The growth bound `|j(τ)| ≤ C e^{2π Im τ}` holds for
+`Im τ ≥ 1` because `Gj` is bounded on the compact disc `|q| ≤ e^{−2π}`. For `j_N`:
+`Γ₀(N)`-invariance uses `γ' = [[a, Nb], [c/N, d]]`. Growth at every cusp uses tyz-cm's Hermite
+decomposition `exists_smul_decomp`, with `Nγτ = γ'w` and `Im w ≥ Im τ/N`. The `q`-expansion is
+reindexed along `n ↦ Nn` (`Function.Injective.hasSum_iff`). **Consequence (`jPair_of_modFn`): on
+Heegner lattices, `MainTheoremCMj` asks for nothing that tyz-cm's leaf does not already give.**
 
 Here `evalJ N P τ = P(j(τ), j(Nτ))`. `IsIsolated N τ` means exactly one of the `ψ(N)` values
 `j((aτ+b)/d)` (`ad = N`, `0 ≤ b < d`, `gcd(a, b, d) = 1`) equals `j(Nτ)`.
