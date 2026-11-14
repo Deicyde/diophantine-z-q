@@ -444,6 +444,42 @@ theorem place_cases [FiniteDimensional Qj F] (hB : IsBelyiFunction ℚ F (tF : F
   · right; right; left
     exact ht
 
+/-- Variant of `place_cases` with uniformizers only at places containing `t`. -/
+theorem place_cases' [FiniteDimensional Qj F] (hB : IsBelyiFunction ℚ F (tF : F))
+    (hD : ∀ P : Place F, (tF : F) ∈ P.w → ∃ π : Fˣ, (π : F) ∈ P.w ∧ π ∉ P.w.unitGroup ∧
+      ∀ x : Fˣ, ∃ n : ℤ, x * π ^ (-n) ∈ P.w.unitGroup) (P : Place F) :
+    ((tF : F) ∈ P.w ∧ (tF : F) ∈ P.w.nonunits) ∨ ((tF : F) ∈ P.w ∧ (tF : F) - 1 ∈ P.w.nonunits) ∨
+      (tF : F) ∉ P.w ∨ P.ramIdx = 1 := by
+  by_cases ht : (tF : F) ∈ P.w
+  · have hpr := polyIdeal_isPrime P ht
+    obtain ⟨q, hqm, hqi, hqI⟩ := exists_monic_irreducible_mem (polyIdeal P ht)
+      (polyIdeal_ne_bot P ht hB.1)
+    have hqI' : Polynomial.aeval (tF : F) q ∈ P.w.nonunits := hqI
+    by_cases hX : q = Polynomial.X
+    · left
+      rw [hX, Polynomial.aeval_X] at hqI'
+      exact ⟨ht, hqI'⟩
+    by_cases hX1 : q = Polynomial.X - 1
+    · right; left
+      rw [hX1, map_sub, Polynomial.aeval_X, map_one] at hqI'
+      exact ⟨ht, hqI'⟩
+    right; right; right
+    have hgen := hB.2 P.w P.rat_mem ht q hqm hqi hX hX1 hqI'
+    obtain ⟨π, hπ, hπu, hdvr⟩ := hD P ht
+    set r : Qj := Polynomial.aeval (RatFunc.X / 1728 : Qj) q with hr
+    have hrq : algebraMap Qj F r = Polynomial.aeval (tF : F) q := by
+      rw [hr, algebraMap_aeval]
+    have hr0 : r ≠ 0 := by
+      intro h0
+      have : Polynomial.aeval (tF : F) q = 0 := by rw [← hrq, h0, map_zero]
+      exact hB.1 ⟨q, hqm.ne_zero, this⟩
+    refine ramIdx_eq_one P π hπ hπu hdvr r hr0 (hrq ▸ hqI') ?_
+    intro x hx
+    obtain ⟨y, hy, hxy⟩ := hgen x hx
+    exact ⟨y, hy, hrq ▸ hxy⟩
+  · right; right; left
+    exact ht
+
 /-- **`BelyiGenusBound` from Riemann–Hurwitz, the fundamental identity and the uniformizer leaf**
 (proved). -/
 theorem belyiGenusBound_of_leaves (hRH : RiemannHurwitzQj) (hFI : FundamentalIdentityQj)
@@ -530,6 +566,237 @@ theorem dimJ1Le_of_textbook (h1 : DimJacobianEqGenus) (hRH : RiemannHurwitzQj)
 
 end Glue3
 
+section Glue4
+
+variable {F : Type} [Field F] [Algebra Qj F] [Algebra ℚ F]
+
+/-- **Places containing `j` are discrete valuation rings** (proved; replaces `PlacesAreDVR` where it
+is used). With `R` the integral closure of `ℚ[j]` in `F` (a Dedekind domain with fraction field
+`F`), `R ⊆ 𝒪_P`, `𝔭 = R ∩ 𝔪_P` is a nonzero prime, and a uniformizer of the DVR `R_𝔭 ⊆ 𝒪_P` is a
+uniformizer of `𝒪_P`. -/
+theorem exists_uniformizer [FiniteDimensional Qj F] (P : Place F) (ht : (tF : F) ∈ P.w) :
+    ∃ π : Fˣ, (π : F) ∈ P.w ∧ π ∉ P.w.unitGroup ∧
+      ∀ x : Fˣ, ∃ n : ℤ, x * π ^ (-n) ∈ P.w.unitGroup := by
+  classical
+  set v := P.w.valuation
+  -- `j ∈ 𝒪_P`
+  have hs : algebraMap Qj F RatFunc.X ∈ P.w := by
+    have : algebraMap Qj F RatFunc.X = algebraMap ℚ F 1728 * (tF : F) := by
+      rw [tF, ← algebraMap_rat_comp, RingHom.comp_apply, ← map_mul]
+      congr 1
+      rw [map_ofNat]
+      field_simp
+    rw [this]
+    exact Subring.mul_mem _ (P.rat_mem _) ht
+  letI : Algebra (Polynomial ℚ) F := ((algebraMap Qj F).comp (algebraMap (Polynomial ℚ) Qj)).toAlgebra
+  have : IsScalarTower (Polynomial ℚ) Qj F := IsScalarTower.of_algebraMap_eq' rfl
+  have : Algebra.IsSeparable Qj F := Algebra.IsAlgebraic.isSeparable_of_perfectField
+  set R := integralClosure (Polynomial ℚ) F
+  have : IsDedekindDomain R := integralClosure.isDedekindDomain (Polynomial ℚ) Qj F
+  have : IsFractionRing R F :=
+    IsIntegralClosure.isFractionRing_of_finite_extension (Polynomial ℚ) Qj F R
+  -- `ℚ[j] ⊆ 𝒪_P`
+  have hpoly : ∀ p : Polynomial ℚ, algebraMap (Polynomial ℚ) F p ∈ P.w := by
+    intro p
+    have : algebraMap (Polynomial ℚ) F p = Polynomial.aeval (algebraMap Qj F RatFunc.X) p := by
+      change (algebraMap Qj F) (algebraMap (Polynomial ℚ) Qj p) = _
+      have h2 : (algebraMap Qj F).comp (algebraMap (Polynomial ℚ) Qj) =
+          (Polynomial.aeval (algebraMap Qj F RatFunc.X)).toRingHom := by
+        refine Polynomial.ringHom_ext' (RingHom.ext_rat _ _) ?_
+        simp [RatFunc.algebraMap_X]
+      exact congrArg (fun φ : Polynomial ℚ →+* F => φ p) h2
+    rw [this]
+    exact aeval_mem P hs p
+  -- `R ⊆ 𝒪_P` (valuation rings are integrally closed)
+  let φ : Polynomial ℚ →+* P.w := (algebraMap (Polynomial ℚ) F).codRestrict P.w.toSubring hpoly
+  have hRw : ∀ r : R, (r : F) ∈ P.w := by
+    rintro ⟨x, hx⟩
+    obtain ⟨p, hpm, hp⟩ := hx
+    have hint : IsIntegral P.w x := ⟨p.map φ, hpm.map φ, by
+      rw [Polynomial.eval₂_map]; exact hp⟩
+    obtain ⟨y, hy⟩ := IsIntegrallyClosed.isIntegral_iff.mp hint
+    show x ∈ P.w
+    rw [← hy]; exact y.2
+  -- the prime `𝔭 = R ∩ 𝔪_P`
+  let ψ : R →+* P.w := (R.val.toRingHom).codRestrict P.w.toSubring hRw
+  set 𝔭 : Ideal R := (IsLocalRing.maximalIdeal P.w).comap ψ with h𝔭def
+  have h𝔭prime : 𝔭.IsPrime := Ideal.comap_isPrime _ _
+  have hmem𝔭 : ∀ r : R, r ∈ 𝔭 ↔ (r : F) ∈ P.w.nonunits := by
+    intro r
+    rw [h𝔭def, Ideal.mem_comap, ← ValuationSubring.coe_mem_nonunits_iff]
+    rfl
+  have hunit : ∀ r : R, r ∉ 𝔭 → ((r : F))⁻¹ ∈ P.w := by
+    intro r hr
+    rw [hmem𝔭, ValuationSubring.mem_nonunits_iff_or] at hr
+    push_neg at hr
+    exact hr.2
+  have h𝔭ne : 𝔭 ≠ ⊥ := by
+    intro hbot
+    apply P.ne_top
+    refine eq_top_iff.mpr fun x _ => ?_
+    obtain ⟨a, b, hb, rfl⟩ := IsFractionRing.div_surjective (A := R) x
+    have hb0 : b ∉ 𝔭 := by
+      rw [hbot, Ideal.mem_bot]
+      intro h; exact nonZeroDivisors.coe_ne_zero ⟨b, hb⟩ h
+    rw [div_eq_mul_inv]
+    exact Subring.mul_mem _ (hRw a) (hunit b hb0)
+  -- the DVR `R_𝔭 ⊆ F`
+  have hle : 𝔭.primeCompl ≤ nonZeroDivisors R := Ideal.primeCompl_le_nonZeroDivisors 𝔭
+  set Rp := Localization.subalgebra.ofField F 𝔭.primeCompl hle with hRpdef
+  have : IsLocalRing Rp := IsLocalization.AtPrime.isLocalRing Rp 𝔭
+  have : IsDiscreteValuationRing Rp :=
+    IsLocalization.AtPrime.isDiscreteValuationRing_of_dedekind_domain R h𝔭ne Rp
+  have hRpw : ∀ y : Rp, (y : F) ∈ P.w := by
+    rintro ⟨y, hy⟩
+    obtain ⟨a, b, hb, rfl⟩ := hy
+    exact Subring.mul_mem _ (hRw a) (hunit b hb)
+  obtain ⟨ϖ, hϖ⟩ := IsDiscreteValuationRing.exists_irreducible Rp
+  have hϖ0 : (ϖ : F) ≠ 0 := fun h => hϖ.ne_zero (Subtype.ext h)
+  -- units of `R_𝔭` are units of `𝒪_P`
+  have hU : ∀ u : Rpˣ, v ((u : Rp) : F) = 1 := by
+    intro u
+    have h1 : v ((u : Rp) : F) ≤ 1 := (P.w.valuation_le_one_iff _).mpr (hRpw u)
+    have h2 : v (((u⁻¹ : Rpˣ) : Rp) : F) ≤ 1 := (P.w.valuation_le_one_iff _).mpr (hRpw _)
+    have h3 : ((u : Rp) : F) * (((u⁻¹ : Rpˣ) : Rp) : F) = 1 := by
+      rw [← Subalgebra.coe_mul, Units.mul_inv, Subalgebra.coe_one]
+    have h4 : v ((u : Rp) : F) * v (((u⁻¹ : Rpˣ) : Rp) : F) = 1 := by rw [← map_mul, h3, map_one]
+    by_contra hne
+    have hlt : v ((u : Rp) : F) < 1 := lt_of_le_of_ne h1 hne
+    have : v ((u : Rp) : F) * v (((u⁻¹ : Rpˣ) : Rp) : F) < 1 :=
+      lt_of_lt_of_le (mul_lt_one_of_lt_of_le hlt h2) le_rfl
+    rw [h4] at this
+    exact lt_irrefl _ this
+  refine ⟨Units.mk0 (ϖ : F) hϖ0, hRpw ϖ, ?_, ?_⟩
+  · -- `ϖ ∈ 𝔪_P`
+    rw [ValuationSubring.mem_unitGroup_iff]
+    obtain ⟨⟨a, s'⟩, hϖeq⟩ := IsLocalization.mk'_surjective (S := Rp) 𝔭.primeCompl ϖ
+    have hϖmax : ϖ ∈ IsLocalRing.maximalIdeal Rp :=
+      (IsLocalRing.mem_maximalIdeal _).mpr hϖ.not_isUnit
+    rw [← hϖeq, IsLocalization.AtPrime.mk'_mem_maximal_iff Rp 𝔭] at hϖmax
+    have hϖeq' : IsLocalization.mk' Rp a s' = ϖ := hϖeq
+    have hspec := IsLocalization.mk'_spec Rp a s'
+    rw [hϖeq'] at hspec
+    have hF : (ϖ : F) * ((s' : R) : F) = ((a : R) : F) := congrArg Subtype.val hspec
+    have ha : v ((a : R) : F) < 1 := (P.w.mem_nonunits_iff).mp ((hmem𝔭 a).mp hϖmax)
+    have hs1 : v ((s' : R) : F) = 1 := by
+      have h1 : v ((s' : R) : F) ≤ 1 := (P.w.valuation_le_one_iff _).mpr (hRw s')
+      have h2 : ((s' : R) : F) ∉ P.w.nonunits := (hmem𝔭 s').not.mp s'.2
+      rw [ValuationSubring.mem_nonunits_iff, not_lt] at h2
+      exact le_antisymm h1 h2
+    intro hv
+    have : v ((a : R) : F) = 1 := by
+      rw [← hF, map_mul, hs1, mul_one]
+      exact hv
+    rw [this] at ha
+    exact lt_irrefl _ ha
+  · intro x
+    obtain ⟨a, b, hb, hab0⟩ := IsFractionRing.div_surjective (A := Rp) (x : F)
+    have hab : ((a : Rp) : F) / ((b : Rp) : F) = x := hab0
+    have hb0 : b ≠ 0 := nonZeroDivisors.ne_zero hb
+    have ha0 : a ≠ 0 := by
+      rintro rfl
+      rw [Subalgebra.coe_zero, zero_div] at hab
+      exact x.ne_zero hab.symm
+    obtain ⟨m, u, hu⟩ := IsDiscreteValuationRing.eq_unit_mul_pow_irreducible ha0 hϖ
+    obtain ⟨n, u', hu'⟩ := IsDiscreteValuationRing.eq_unit_mul_pow_irreducible hb0 hϖ
+    refine ⟨(m : ℤ) - n, ?_⟩
+    rw [ValuationSubring.mem_unitGroup_iff]
+    have hxe : ((x * Units.mk0 (ϖ : F) hϖ0 ^ (-((m : ℤ) - n)) : Fˣ) : F) =
+        ((u : Rp) : F) * (((u' : Rp) : F))⁻¹ := by
+      rw [Units.val_mul, Units.val_zpow_eq_zpow_val, Units.val_mk0, ← hab, hu, hu']
+      push_cast
+      have hu0 : ((u' : Rp) : F) ≠ 0 := fun h => u'.ne_zero (Subtype.ext h)
+      rw [neg_sub, zpow_sub₀ hϖ0, zpow_natCast, zpow_natCast]
+      field_simp
+    rw [hxe, map_mul, map_inv₀, hU, hU, inv_one, mul_one]
+
+/-- **`BelyiGenusBound` from Riemann–Hurwitz and the fundamental identity** (proved; the uniformizers
+at the places containing `t` are `exists_uniformizer`). -/
+theorem belyiGenusBound_of_rh_fi (hRH : RiemannHurwitzQj) (hFI : FundamentalIdentityQj) :
+    BelyiGenusBound := by
+  classical
+  intro F _ _ _ _ hK hB
+  obtain ⟨hsupp, hRHeq⟩ := hRH F hK
+  set Z0 : Set (Place F) := {P | (tF : F) ∈ P.w ∧ (tF : F) ∈ P.w.nonunits} with hZ0
+  set Z1 : Set (Place F) := {P | (tF : F) ∈ P.w ∧ (tF : F) - 1 ∈ P.w.nonunits} with hZ1
+  set Zi : Set (Place F) := {P | (tF : F) ∉ P.w} with hZi
+  obtain ⟨h0, hs0⟩ := hFI F Z0 (by simp [hZ0])
+  obtain ⟨h1, hs1⟩ := hFI F Z1 (by simp [hZ1])
+  obtain ⟨hi, hsi⟩ := hFI F Zi (by simp [hZi])
+  set f : Place F → ℤ := fun P => ((P.ramIdx : ℤ) - 1) * P.deg with hf
+  set A := h0.toFinset ∪ h1.toFinset ∪ hi.toFinset with hA
+  have hsub : hsupp.toFinset ⊆ A := by
+    intro P hP
+    rw [Set.Finite.mem_toFinset, Function.mem_support] at hP
+    rcases place_cases' hB (fun P ht => exists_uniformizer P ht) P with h | h | h | h
+    · exact Finset.mem_union_left _ (Finset.mem_union_left _ ((Set.Finite.mem_toFinset _).mpr h))
+    · exact Finset.mem_union_left _ (Finset.mem_union_right _ ((Set.Finite.mem_toFinset _).mpr h))
+    · exact Finset.mem_union_right _ ((Set.Finite.mem_toFinset _).mpr h)
+    · exfalso
+      apply hP
+      show ((P.ramIdx : ℤ) - 1) * P.deg = 0
+      rw [h]
+      simp
+  have hsum : ∑ P ∈ hsupp.toFinset, f P = ∑ P ∈ A, f P :=
+    Finset.sum_subset hsub fun P _ hP => by
+      rwa [Set.Finite.mem_toFinset, Function.mem_support, not_not] at hP
+  have hd01 : Disjoint h0.toFinset h1.toFinset := by
+    rw [Finset.disjoint_left]
+    intro P hP0 hP1
+    rw [Set.Finite.mem_toFinset] at hP0 hP1
+    have h1n : (1 : F) ∈ P.w.nonunits := by
+      have := P.w.nonunits.sub_mem hP0.2 hP1.2
+      rwa [sub_sub_cancel] at this
+    rw [ValuationSubring.mem_nonunits_iff, map_one] at h1n
+    exact lt_irrefl _ h1n
+  have hd : Disjoint (h0.toFinset ∪ h1.toFinset) hi.toFinset := by
+    rw [Finset.disjoint_left]
+    intro P hP hPi
+    rw [Set.Finite.mem_toFinset] at hPi
+    rcases Finset.mem_union.mp hP with hP | hP <;> rw [Set.Finite.mem_toFinset] at hP
+    · exact hPi hP.1
+    · exact hPi hP.1
+  rw [hA, Finset.sum_union hd, Finset.sum_union hd01] at hsum
+  have hdpos : 0 < Module.finrank Qj F := Module.finrank_pos
+  have part : ∀ (Z : Set (Place F)) (hZ : Z.Finite),
+      ∑ P ∈ hZ.toFinset, P.ramIdx * P.deg = Module.finrank Qj F →
+        ∑ P ∈ hZ.toFinset, f P ≤ (Module.finrank Qj F : ℤ) - 1 := by
+    intro Z hZ hs
+    have e1 : ∑ P ∈ hZ.toFinset, f P =
+        ((∑ P ∈ hZ.toFinset, P.ramIdx * P.deg : ℕ) : ℤ) - ∑ P ∈ hZ.toFinset, (P.deg : ℤ) := by
+      push_cast
+      rw [← Finset.sum_sub_distrib]
+      refine Finset.sum_congr rfl fun P _ => ?_
+      simp only [hf]
+      ring
+    rw [e1, hs]
+    obtain ⟨P, hP, hne⟩ : ∃ P ∈ hZ.toFinset, P.ramIdx * P.deg ≠ 0 := by
+      by_contra hc
+      push_neg at hc
+      rw [Finset.sum_eq_zero hc] at hs
+      omega
+    have hdeg : 1 ≤ P.deg := Nat.pos_of_ne_zero fun h => hne (by rw [h, mul_zero])
+    have : (1 : ℤ) ≤ ∑ P ∈ hZ.toFinset, (P.deg : ℤ) :=
+      le_trans (by exact_mod_cast hdeg)
+        (Finset.single_le_sum (f := fun P : Place F => (P.deg : ℤ)) (fun P _ => by positivity) hP)
+    linarith
+  have p0 := part Z0 h0 hs0
+  have p1 := part Z1 h1 hs1
+  have pi := part Zi hi hsi
+  have key : 2 * (fieldGenus F : ℤ) + 1 ≤ Module.finrank Qj F := by
+    have := hRHeq
+    rw [hsum] at this
+    linarith
+  exact_mod_cast key
+
+/-- **`DimJ1Le` (the use of T34) from `DimJacobianEqGenus`, Riemann–Hurwitz, the fundamental
+identity and `X₀(N)`-transitivity** (proved). -/
+theorem dimJ1Le_of_rh_fi (h1 : DimJacobianEqGenus) (hRH : RiemannHurwitzQj)
+    (hFI : FundamentalIdentityQj) (h0 : ZInQ.RLeaf.X0Transitive) : DimJ1Le :=
+  dimJ1Le_of_belyi h1 (belyiGenusBound_of_rh_fi hRH hFI) h0
+
+end Glue4
+
 end CurveSplit
 
 #print axioms CurveSplit.genusX1Le_of_genusX1Field
@@ -538,3 +805,6 @@ end CurveSplit
 #print axioms CurveSplit.dimJ1Le_of_belyi
 #print axioms CurveSplit.belyiGenusBound_of_leaves
 #print axioms CurveSplit.dimJ1Le_of_textbook
+#print axioms CurveSplit.exists_uniformizer
+#print axioms CurveSplit.belyiGenusBound_of_rh_fi
+#print axioms CurveSplit.dimJ1Le_of_rh_fi

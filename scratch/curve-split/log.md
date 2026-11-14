@@ -82,3 +82,8 @@ H-85 CurveBijIso (scratch/model-glue/ModelGlue6.lean), H-83 ShimuraGoodReduction
   (finite_of_finite_type_of_isJacobsonRing + IsAlgClosed.ringHom_bijective_of_isIntegral),
   `app_bijective_of_finite_bijective`, `isIso_of_finite_bijective`, `restrict_isIso_noleaf`.
 - Verbatim check of CurveBijIso block against ModelGlue6.lean: VERIFIED (python substring test True).
+- `CurveSplit.exists_uniformizer` PROVED (places containing j are DVRs: integral closure of ℚ[j] is Dedekind,
+  R ⊆ 𝒪_P, 𝔭 = R ∩ 𝔪_P ≠ 0, uniformizer of R_𝔭 (Localization.subalgebra.ofField)). Hence
+  `CurveSplit.belyiGenusBound_of_rh_fi : RiemannHurwitzQj → FundamentalIdentityQj → BelyiGenusBound` and
+  `dimJ1Le_of_rh_fi : DimJacobianEqGenus → RiemannHurwitzQj → FundamentalIdentityQj → X0Transitive → DimJ1Le`.
+  COMPILED, standard axioms. PlacesAreDVR no longer needed.
