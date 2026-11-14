@@ -178,4 +178,89 @@ theorem orbit_of_descent (E : PkgI1.B → Prop) (meas : PkgI1.B → ℚ) (b : Pk
         _ = (si * s) * w * (si * s) := by simp only [mul_assoc]
         _ = w := by rw [h2, one_mul, mul_one]
 
+/-! ### Elements -/
+
+def a4 : PkgI1.B := ⟨1, 1, 1, 0⟩
+def a4i : PkgI1.B := ⟨1 / 2, -1 / 2, -1 / 2, 0⟩
+def a6 : PkgI1.B := ⟨-3 / 2, 0, 1 / 2, 0⟩
+def a6i : PkgI1.B := ⟨-1 / 2, 0, -1 / 6, 0⟩
+def mu : PkgI1.B := ⟨0, 0, 2, 1⟩
+def mui : PkgI1.B := ⟨0, 0, -1 / 3, -1 / 6⟩
+/-- `y = i + j` (`y² = −1`). -/
+def by4 : PkgI1.B := ⟨0, 1, 1, 0⟩
+/-- `j` (`j² = −3`). -/
+def bj : PkgI1.B := ⟨0, 0, 1, 0⟩
+
+theorem conj_a4 : ∀ w, PkgI1.InO w → PkgI1.InO (a4 * w * a4i) ∧ PkgI1.InO (a4i * w * a4) := by
+  intro w hw
+  obtain ⟨n0, n1, n2, n3, rfl⟩ := (inO_iff w).1 hw
+  constructor
+  · refine (inO_iff _).2 ⟨n0 + 2*n1 - n2, -n1 + n2 + n3, -4*n1 + 3*n2, -2*n1 + n2 - n3, ?_⟩
+    ext <;> simp [a4, a4i] <;> ring
+  · refine (inO_iff _).2 ⟨n0 + 2*n1 - n2 + 2*n3, -3*n1 + 2*n2 - 3*n3, -4*n1 + 3*n2 - 4*n3, 2*n1 - n2 + n3, ?_⟩
+    ext <;> simp [a4, a4i] <;> ring
+
+theorem conj_a6 : ∀ w, PkgI1.InO w → PkgI1.InO (a6 * w * a6i) ∧ PkgI1.InO (a6i * w * a6) := by
+  intro w hw
+  obtain ⟨n0, n1, n2, n3, rfl⟩ := (inO_iff w).1 hw
+  constructor
+  · refine (inO_iff _).2 ⟨n0, -n3, n2, n1 + n3, ?_⟩
+    ext <;> simp [a6, a6i] <;> ring
+  · refine (inO_iff _).2 ⟨n0, n1 + n3, n2, -n1, ?_⟩
+    ext <;> simp [a6, a6i] <;> ring
+
+theorem conj_mu : ∀ w, PkgI1.InO w → PkgI1.InO (mu * w * mui) ∧ PkgI1.InO (mui * w * mu) := by
+  intro w hw
+  obtain ⟨n0, n1, n2, n3, rfl⟩ := (inO_iff w).1 hw
+  constructor
+  · refine (inO_iff _).2 ⟨n0 - n2 + 2*n3, -n1 - n2 + n3, 3*n2 - 4*n3, 2*n2 - 3*n3, ?_⟩
+    ext <;> simp [mu, mui] <;> ring
+  · refine (inO_iff _).2 ⟨n0 - n2 + 2*n3, -n1 - n2 + n3, 3*n2 - 4*n3, 2*n2 - 3*n3, ?_⟩
+    ext <;> simp [mu, mui] <;> ring
+
+theorem nd_a4 : NormData a4 a4i :=
+  ⟨by ext <;> simp [a4, a4i] <;> norm_num, by ext <;> simp [a4, a4i] <;> norm_num, conj_a4,
+    by norm_num [nrd, a4]⟩
+theorem nd_a6 : NormData a6 a6i :=
+  ⟨by ext <;> simp [a6, a6i] <;> norm_num, by ext <;> simp [a6, a6i] <;> norm_num, conj_a6,
+    by norm_num [nrd, a6]⟩
+theorem nd_mu : NormData mu mui :=
+  ⟨by ext <;> simp [mu, mui] <;> norm_num, by ext <;> simp [mu, mui] <;> norm_num, conj_mu,
+    by norm_num [nrd, mu]⟩
+
+/-! ### The orbit predicate and conjugation -/
+
+/-- Pure elements `w ∈ 𝒪` with `w² = −N` on the upper sheet. -/
+def EN (N : ℚ) (w : PkgI1.B) : Prop :=
+  PkgI1.InO w ∧ w * w = -((N : ℚ) : PkgI1.B) ∧ 0 < w.imJ
+
+theorem scal_mid (s si : PkgI1.B) (q : ℚ) : s * ((q : ℚ) : PkgI1.B) * si = ((q : ℚ) : PkgI1.B) * (s * si) := by
+  ext <;> simp <;> ring
+
+theorem EN_conj {N : ℚ} (hN : 0 < N) {s si u b w : PkgI1.B} (hs : NormData s si)
+    (hu : 0 < form u u) (hu' : 0 < u.imJ) (hb : 0 < form b b) (hb' : 0 < b.imJ)
+    (hf : ∀ v : PkgI1.B, v.re = 0 → form (s * v * si) b = form v u) (hw : EN N w) :
+    EN N (s * w * si) := by
+  obtain ⟨hO, hsq, hJ⟩ := hw
+  obtain ⟨hre, hqf⟩ := pure_of_sqN N hN hsq
+  have hsq' : (s * w * si) * (s * w * si) = -((N : ℚ) : PkgI1.B) := by
+    calc (s * w * si) * (s * w * si) = s * (w * ((si * s) * (w * si))) := by simp only [mul_assoc]
+      _ = s * (w * w) * si := by rw [hs.2.1, one_mul]; simp only [mul_assoc]
+      _ = -((N : ℚ) : PkgI1.B) := by rw [hsq, mul_neg, neg_mul, scal_mid, hs.1, mul_one]
+  refine ⟨(hs.2.2.1 w hO).1, hsq', ?_⟩
+  obtain ⟨hre', hqf'⟩ := pure_of_sqN N hN hsq'
+  refine imJ_pos_of_form (by rw [hqf']; exact hN) hb hb' ?_
+  rw [hf w hre]
+  exact form_pos (by rw [hqf]; exact hN) hu hJ hu'
+
+theorem nat_of_int {x : ℚ} {m : ℤ} (h : x = m) (hp : 0 < x) : ∃ k : ℕ, x = k := by
+  have hm : 0 ≤ m := by have := h ▸ hp; exact_mod_cast this.le
+  exact ⟨m.toNat, by rw [h]; exact_mod_cast (Int.toNat_of_nonneg hm).symm⟩
+
+theorem pure_coords {w : PkgI1.B} (hw : PkgI1.InO w) (hre : w.re = 0) :
+    ∃ n0 n1 n3 : ℤ, w.imJ = -n0 ∧ w.imI = n1 + n3 / 2 ∧ w.imK = n3 / 2 := by
+  obtain ⟨n0, n1, n2, n3, rfl⟩ := (inO_iff w).1 hw
+  have h : (n2 : ℚ) = -2 * n0 := by have := hre; simp only at this; linarith
+  exact ⟨n0, n1, n3, by simp only; rw [h]; ring, rfl, rfl⟩
+
 end HDec.LeafQCheck.HM
