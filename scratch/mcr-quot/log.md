@@ -1,5 +1,8 @@
 # mcr-quot results log
 
+(Timestamps of steps 9-23 are the host clock at the corresponding commits; those of the first
+run's steps 7-8 were written ahead of the clock.)
+
 Targets: the glue Props A `FibreAutTame`, B `GenericQuotientP1`, C1 `CMSectionsDisjoint`,
 C2 `CoordinateFromSections` of `scratch/mcr-glue/MCRGlue.lean` (copied verbatim as the prefix of
 `scratch/mcr-quot/MCRQuot.lean`).
@@ -125,12 +128,12 @@ C2 `CoordinateFromSections` of `scratch/mcr-glue/MCRGlue.lean` (copied verbatim 
   is `Spec R`, `R` a domain with fraction field `κ(x)`); (C1b) stabilizers are cyclic of order
   4, 6, 2 with involutions the images of `i`, `√−3`, `√−6`.
 
-## Step 9 (08:05, resumed run) — VERIFIED (parts through 12 + 9; exit 0; compile12_out.txt; no sorry)
+## Step 9 (08:04, resumed run) — VERIFIED (parts through 12 + 9; exit 0; compile12_out.txt; no sorry)
 - Part 12: `MCRQuot.translate ρ E : ToP1 X` (for `E ∈ Γ(X, ⊤)`): `U' = U`, `f' = f + E`,
   `V' = D_V(1 + E g) ⊔ D_U(f + E)`, `g'` glued (`objSupIsoProdEqLocus`) from `g/(1+Eg)` and
   `1/(f+E)`; all `ToP1` fields proved (`tS_compat`, `U_inf_tDV_le`, `tF_basicOpen`).
 
-## Step 10 (08:15) — VERIFIED (parts 1-13 + 9; exit 0; compile13_out.txt; standard axioms)
+## Step 10 (08:07) — VERIFIED (parts 1-13 + 9; exit 0; compile13_out.txt; standard axioms)
 - **(C1c) proved**: `MCRQuot.stabFixesClosure : StabFixesClosure`. Proof: equalizer of `h` and `id`
   in `Over S` is a closed immersion (Mathlib `isClosedImmersion_equalizer_ι_left`, Stacks 01KM,
   needs only `IsSeparated 𝒴.hom`, from `IsProper`); `y` factors through it; closed range contains
@@ -138,7 +141,7 @@ C2 `CoordinateFromSections` of `scratch/mcr-glue/MCRGlue.lean` (copied verbatim 
   immersion factor; `isIso_residueFieldMap_of_closedImm`). Smoothness unused.
 - `cMSectionsDisjoint_of'' (hA) (hfix) (hI : CMStabInvolution) : CMSectionsDisjoint`.
 
-## Step 11 (08:45) — VERIFIED (parts 1-14 + 9; exit 0; compile14_out.txt; all `#print axioms`
+## Step 11 (08:18) — VERIFIED (parts 1-14 + 9; exit 0; compile14_out.txt; all `#print axioms`
 standard; no sorry in the parts)
 - **(C2-T) proved**: `MCRQuot.p1Translate : P1Translate`. Pieces (part 14): `tH = 1 − e g'`,
   `basicOpen_tg` (`D(g') = D_U(f+e)`), `basicOpen_tH` (`D(1 − e g') = D_V(1+eg)`),
@@ -152,7 +155,7 @@ standard; no sorry in the parts)
 - **Final composite `modelCoordinateResidue_final2`**: L1-L6 + T5 + (A-fix), (B-desc), (B-iso),
   (C1b) ⇒ `ModelCoordinateResidue`.
 
-## Step 12 (09:30) — VERIFIED (parts 1-15 + 9; exit 0; compile15_out.txt; standard axioms)
+## Step 12 (08:25) — VERIFIED (parts 1-15 + 9; exit 0; compile15_out.txt; standard axioms)
 - **(A-fix) reduced**: `MCRQuot.fibreAutFixFinite_of (hC : CurveBijIso) (hYI : ModelYIrreducible)
   (hF : CurveClosedQbarFinite) : FibreAutFixFinite`. `CurveBijIso` is model-glue's textbook leaf
   (in the prefix). New: input `ModelYIrreducible` (Y irreducible over ℚ), glue
@@ -167,7 +170,7 @@ standard; no sorry in the parts)
 - `fibreAutTame_of''`, `modelCoordinateResidue_final3` (L1-L6, T5, CurveBijIso, ModelYIrreducible,
   CurveClosedQbarFinite, B-desc, B-iso, C1b).
 
-## Step 13 (10:10) — VERIFIED (parts 1-16 + 9; exit 0; compile16_out.txt; standard axioms)
+## Step 13 (08:32) — VERIFIED (parts 1-16 + 9; exit 0; compile16_out.txt; standard axioms)
 - `CurveClosedQbarFinite` amended (own glue): added `IsProper 𝒴.hom` (without quasi-compactness it
   is false: 𝔸¹ with infinitely many doubled points). `fibreAutFixFinite_of` passes `hM.1`.
 - **(A-fix-dim) proved**: `MCRQuot.curveClosedQbarFinite : CurveClosedQbarFinite`. Pieces:
@@ -180,7 +183,7 @@ standard; no sorry in the parts)
 - **Final composite `modelCoordinateResidue_final4`**: L1-L6 + T5 + CurveBijIso +
   ModelYIrreducible + (B-desc) + (B-iso) + (C1b) ⇒ `ModelCoordinateResidue`.
 
-## Step 14 (10:25) — VERIFIED (exit 0; compile16_out.txt; standard axioms)
+## Step 14 (08:35) — VERIFIED (exit 0; compile16_out.txt; standard axioms)
 - `MCRQuot.modelYIrreducible_of_coverModelN (hT : TorsionStructure) (hCov : CoverModelOfHeckeN) :
   ModelYIrreducible` (the decomposition's existing glue `CoverModelOfHeckeN` (prop-ts-glue, in the
   prefix) supplies the normalization chart; `irreducible_of_chart`).
@@ -193,7 +196,7 @@ standard; no sorry in the parts)
   `ι(ij)⁻¹φ` requires integrality in `End A`) need the structure of `End(A)` at CM points, which is
   not among the leaves: C1b is QM-with-CM theory beyond T5.
 
-## Step 15 (10:55) — VERIFIED (parts 1-17 + 9; exit 0; compile17_out.txt; standard axioms)
+## Step 15 (08:40) — VERIFIED (parts 1-17 + 9; exit 0; compile17_out.txt; standard axioms)
 - **(C1b) reduced**: `MCRQuot.cMStabInvolution_of (hC : CurveBijIso) (hYI : ModelYIrreducible)
   (hO : CMStabObj) : CMStabInvolution`. New glue `CMStabObj` (object level, no schemes): a CM
   object's class is fixed by some `T = twist α ∘ rightMul u` with `T ∘ T = id` on `M3 ℚ̄` and
@@ -203,7 +206,7 @@ standard; no sorry in the parts)
 - **Final composite `modelCoordinateResidue_final6`**: L1-L6 + T5 + CurveBijIso +
   CoverModelOfHeckeN + (B-desc) + (B-iso) + (C1b-obj) `CMStabObj` ⇒ `ModelCoordinateResidue`.
 
-## Step 16 (11:20) — VERIFIED (parts 1-18 + 9; exit 0; compile18_out.txt; standard axioms)
+## Step 16 (08:46) — VERIFIED (parts 1-18 + 9; exit 0; compile18_out.txt; standard axioms)
 - (B-desc) split: `QuotientDescendsMapQ` (descent of `σ` only) and the lifting of `ℚ̄`-points,
   proved: `isGQuotient_surjective` (lying over: `Algebra.IsInvariant.isIntegral`,
   `Ideal.exists_ideal_over_prime_of_isIntegral`, `SpecMap_appLE_fromSpec`), `exists_lift_qbar`
@@ -213,7 +216,7 @@ standard; no sorry in the parts)
   CoverModelOfHeckeN + (B-desc-map) `QuotientDescendsMapQ` + (B-iso) `ToP1BijIsCoordinateQ` +
   (C1b-obj) `CMStabObj` ⇒ `ModelCoordinateResidue`.
 
-## Step 17 (11:20) — independent statement review (model, read-only, not compiled)
+## Step 17 (08:46) — independent statement review (model, read-only, not compiled)
 - Reviewed `ModelYIrreducible`, `CurveClosedQbarFinite`, `CMStabObj`, `QuotientDescendsQ`,
   `ToP1BijIsCoordinateQ`: all judged TRUE, none false or vacuous (SPECULATIVE judgements).
   Notes: `ModelYIrreducible` rests on `Y ≅ Y₃` (via R1univ; Lemma P for the polarization) and
@@ -224,19 +227,19 @@ standard; no sorry in the parts)
   (`ι = g_α * g_u`, points move by `g_u` then `g_α`) matches `T = twist α ∘ rightMul u` (the
   compiled proof confirms it).
 
-## Step 18 (11:50) — VERIFIED (parts 1-19; exit 0; compile19_out.txt)
+## Step 18 (08:53) — VERIFIED (parts 1-19; exit 0; compile19_out.txt)
 - Part 19 (towards `QuotientDescendsMapQ`): `app_injective_of_isGQuotient` (pullback of sections
   along an SGA 1 quotient is injective over every open; germs + affine case),
   `exists_descend_section` (invariant sections over any open descend; affine cover + sheaf gluing
   `existsUnique_gluing'`), helpers `app_map_eq`, `secMap_map`.
 
-## Step 19 (12:10) — VERIFIED (parts 1-20; exit 0; compile20_out.txt)
+## Step 19 (08:56) — VERIFIED (parts 1-20; exit 0; compile20_out.txt)
 - Part 20: `ToP1In X O` (map to `P¹` by charts on an open `O`), `imgOpen`, `preimage_imgOpen`
   (images of `G`-stable opens under a finite SGA 1 quotient are open and saturated; uses
   `gQuotientPointOrbits`), **`exists_descend_toP1In`**: a `G`-invariant (opens and functions)
   `ToP1In X (q⁻¹O)` descends to a `ToP1In Z O` with `q⁻¹U' = U` and `q^* f' = f`.
 
-## Step 20 (13:00) — VERIFIED (parts 1-22 + 9; exit 0; compile22_out.txt; all 54 `#print axioms`
+## Step 20 (09:07) — VERIFIED (parts 1-22 + 9; exit 0; compile22_out.txt; all 54 `#print axioms`
 standard; no sorry)
 - Part 21: `app_injective_of_le_range`, `eq_of_preimage_eq_of_le_range`, `pushToP1In` (push a
   `ToP1` forward along an open immersion, as a `ToP1In` on its range), `ev_pushToP1In`,
@@ -252,7 +255,7 @@ standard; no sorry)
   CoverModelOfHeckeN + (B-iso) `ToP1BijIsCoordinateQ` + (C1b-obj) `CMStabObj` ⇒
   `ModelCoordinateResidue`.
 
-## Step 21 (13:30) — VERIFIED (parts 1-23 + 9; exit 0; compile23_out.txt; all 57 `#print axioms`
+## Step 21 (09:12) — VERIFIED (parts 1-23 + 9; exit 0; compile23_out.txt; all 57 `#print axioms`
 standard)
 - **(B-iso) reduced**: `MCRQuot.toP1BijIsCoordinateQ_of (hC : CurveBijIso) (hP : P1SchemeQ) :
   ToP1BijIsCoordinateQ`. New foundational glue `P1SchemeQ`: a proper, smooth (rel. dim 1)
@@ -262,7 +265,7 @@ standard)
 - **Final composite `modelCoordinateResidue_final9`**: L1-L6 + T5 + CurveBijIso +
   CoverModelOfHeckeN + `P1SchemeQ` + `CMStabObj` ⇒ `ModelCoordinateResidue`.
 
-## Step 22 (13:50) — VERIFIED
+## Step 22 (09:14) — VERIFIED
 - `py/verbatim_check.py`: `MCRQuot.lean` = `MCRGlue.lean` + 25 parts; targets defined once in the
   prefix; no sorry/axiom in the parts: ALL OK.
 - Assessed `P1SchemeQ` construction: Mathlib's `Proj.fromOfGlobalSections` needs a ring map to
@@ -270,7 +273,7 @@ standard)
   such maps with invariance under unit rescaling plus the identification
   `HomogeneousLocalization.Away 𝒜 X₀ ≅ ℚ[t]` — not attempted (estimated > 1500 lines).
 
-## Step 23 (14:00) — VERIFIED (parts 1-24 + 9; exit 0; compile24_out.txt; 58 axioms lines
+## Step 23 (09:15) — VERIFIED (parts 1-24 + 9; exit 0; compile24_out.txt; 58 axioms lines
 standard; verbatim check ALL OK)
 - `MCRQuot.heckeVertWitness_of_mcrQuot`: `HeckeVertWitness` from `ShimuraGoodReduction`,
   `R1R2fp`, T5, `CurveBijIso`, L1-L6, `CoverModelOfHeckeN`, `P1SchemeQ`, `CMStabObj`.
