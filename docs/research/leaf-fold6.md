@@ -288,7 +288,7 @@ chain, joined over wrapped lines, read `[propext, Classical.choice, Quot.sound]`
   `OpenAddedLeaves5`, `OpenGlue5` or of leafq-check's `OpenAddedLeaves10` (here `OpenAddedLeavesQ10`); `t8`'s type is
   the constant `PkgI3.PoincareReducibility`: ALL MATCH. `OpenResearchLeaves5` is leaf-fold5's structure itself.
 
-**Flat file** FLAT-PLACEHOLDER
+**Flat file** `scratch/leaf-fold6/Leaves6.lean` (124 864 lines, md5 201381c16a8f…; leaf-fold5's committed `Leaves5.lean` with parts f10 and f20 appended; made by `assemble.sh`, not committed): `lake env lean scratch/leaf-fold6/Leaves6.lean` **exits 0 in 1680 s (max RSS 17.2 GB), 0 errors, no `sorry`; all 369 `#print axioms` reports read `[propext, Classical.choice, Quot.sound]`** (checked by script, joining line-wrapped reports), including `HDec.HSyn.sixContactMin_of_open6` and `sixContactMin_of_open6_poincare` (VERIFIED). The raw output contains host paths and is not committed.
 
 **Verbatim check** (`python3 py/verbatim_check6.py`, output `py/verbatim_check6_out.txt`: ALL OK, VERIFIED):
 - (A) the 41 field lines of the new structures other than `t8` have, character for character, the text of the

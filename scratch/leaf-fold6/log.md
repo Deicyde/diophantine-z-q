@@ -51,3 +51,9 @@
   the chain (joined over wrapped lines) read [propext, Classical.choice, Quot.sound]; TailO's 20 included.
 - Check6 on this chain (46 s): same results as the dev run (closure 184 758, no sorryAx, 68 fields, 32 kernel,
   FIELD TYPES: ALL MATCH); output without host paths in check6_result.txt. verbatim_check6.py re-run: ALL OK.
+
+## 03:25-03:53 flat file, VERIFIED
+- Leaves6.lean (124 864 lines, md5 in flat.md5 = Leaves5.lean + f10 + f20): `lake env lean` exit 0 in 1680 s, max RSS
+  17.2 GB, 0 errors, no sorry, 369 `#print axioms` reports (joined over wrapped lines), all standard, including
+  sixContactMin_of_open6 and sixContactMin_of_open6_poincare.
+- Report docs/research/leaf-fold6.md completed (checks section filled).
