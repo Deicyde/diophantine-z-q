@@ -33,3 +33,16 @@
   `NF.abVarSpreadsOut_of_ega … (toAbVarK4 B)` for `FrobPiecesNeron.AbVarSpreadsOut`; T5/T26 transported between
   the chain's `PkgI2`/`PkgI3` copies and the kernel's (`torsionStructureK_of4`, `tateModuleFree_of_t5'`).
 - Counts: 26 + 19 + 20 + 1 = 66 (leaf-fold3: 26 + 20 + 16 + 6 = 68).
+
+## 18:32-18:50 flat file and dependency check, VERIFIED
+- olean/Check4.lean (28 s): `example : (∀ r t l g, _root_.ZInQ.SixContactMin) := HDec.HSyn.sixContactMin_of_open4`
+  compiles; closure 181 113 constants; contains chartProper, chartQuasiFinite_of_proper, period-glue's proofs, the
+  kernel's autOInnerFinite, leafSkolemNoether, properSmoothGenConnected_of_zariskiConnectedness,
+  NF.abVarSpreadsOut_of_ega, t5-torsion's tateModuleFree_of_torsionStructure / tate_surj_of_torsionStructure;
+  not sorryAx, WeilPairing.DivisiblePoints, the old tatePairingZl_of_leaves / detTate_of_leaves,
+  gluePieces_of_open3, LGKerWild.exists_localGlue_of_tateModuleFree.
+- Flat run 1 (Leaves4.lean, 118 463 lines, md5 3cbfb09b0186…): exit 0 in 1064 s, 0 errors, no sorry, 325
+  `#print axioms` reports, all `[propext, Classical.choice, Quot.sound]` (checked by script over wrapped lines).
+- 18:35 merged origin/wip/t40-clash (46595da1; report present; it edits the kernel's Tau Ceti Backport
+  Units file only). vert-witness's report (2f557240) read: it reduces HeckeVertWitness to 1 leaf + 3 glue, so it
+  is a count variant only (glue 1 -> 3), not folded.
