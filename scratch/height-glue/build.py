@@ -5,7 +5,7 @@ metrization2), base/JacDescends_unifdims.lean (extracted from scratch/unif-dims/
 task unif-dims), AUUnique.lean (this task, without its import and final `end`), part_*.lean."""
 import sys
 D='scratch/height-glue/'
-hdr=['import ZInQKernel.HDecomp.LeafPush2.T','import ZInQKernel.Contrib.Dim.HodgeLattice','']
+hdr=['import ZInQKernel.HDecomp.LeafPush2.T','import ZInQKernel.Contrib.Dim.HodgeLattice','import ZInQKernel.HDecomp.Faltings.H5Neron','']
 k=open(D+'base/Kernel_metrization2.lean').read().split('\n')
 k=[l for l in k if not l.startswith('import ') and not l.startswith('#print')]
 j=open(D+'base/JacDescends_unifdims.lean').read().split('\n')

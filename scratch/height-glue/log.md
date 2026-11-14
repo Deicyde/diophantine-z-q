@@ -30,3 +30,11 @@
     LeafPush2.UniformizationExists)`. Axioms standard.
   => AN3U is a consequence of the kernel's AN3 existence Prop (and of T35); the two leaves of
   AUUnique.lean are no longer needed.
+- part_neron.lean added (verbatim copies of NeronMetrizable, UniformizationDim,
+  MetrizationOfUniformization, neronMetrizable_of, HeightGlue from height-split, extracted by script).
+  HeightGlue.lean exit 0, all axioms standard (VERIFIED):
+  * `uniformizationDim_of_t35 (hT35) : UniformizationDim` (factorization both ways ⇒ g = dim A).
+  * `metrizationOfUniformization : MetrizationOfUniformization` — PROVED, no hypotheses
+    (Contrib.Dim.hodgeLatticeTheorem + unif-dims' jacDetDescends + metrization2's jacDetNondegenerate).
+  * `neronMetrizable_of_t35`, `heightGlue_of_t35 (hT35) : HeightGlue` (all four height-split glue
+    Props from T35 = TextbookLeaves.t35), `heightGlue_of_exists_dim`.
