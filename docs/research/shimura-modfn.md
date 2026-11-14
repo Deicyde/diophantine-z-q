@@ -218,7 +218,17 @@ for `h = 1` all `O`-stable cyclic `32M`-isogenies of `L` have the same `j`.
 * isolated: TYZ's class-5 forms `tyzForm n`, `tyzForm' n` for `n = 5, 13, 21, 29, 37, 53, 61`, and
   class-7 for `n = 23, 31, 39, 55`.
 
-So `TYZThm36Seven`, through `ShimuraReciprocityPic` at `tyzForm7`, needs the singular part. The
+So `TYZThm36Seven`, through `ShimuraReciprocityPic` at `tyzForm7`, needs the singular part.
+
+The class-7 singular set is finite. For `tyzForm7 n` (`O = 𝓞_K`, 2 split), the only `O`-stable
+cyclic 32-isogenies of `L` are `𝔭₂⁻⁵L` and `𝔭̄₂⁻⁵L`. The others have different orders, hence
+different `j`. So the point is non-isolated iff `[𝔭₂]^{10} = 1`, iff `𝔭₂^{10} = (α)` with
+`(a² + nb²)/4 = 2^{10}` and `b ≠ 0`, which forces `n ≤ 4096`. `class7_singular.out` (VERIFIED
+computed) lists the 32 values `n = 7, 15, 47, 79, 103, 119, 127, 143, 159, 303, 319, 415, 455, 615,
+1495, 1695, 1887, 2071, 2247, 2415, 3007, 3135, 3255, 3367, 3471, 3567, 3655, 3927, 4015, 4047,
+4071, 4087`. The direct multiplicity count agrees for 12/12 values `71 ≤ n ≤ 167`
+(`class7_crosscheck.out`). So `TYZThm36Seven` needs the level-structure part only at these 32
+values of `n`, but for those it is needed. The
 class-5 uses (`CMFieldOfDefinitionTYZ`, `TYZSigmaFixesZn`) were isolated in every sampled case. A
 proof of isolatedness for all `n` is not available (SPECULATIVE whether it holds), and it would
 need lower bounds on differences of CM `j`-values.

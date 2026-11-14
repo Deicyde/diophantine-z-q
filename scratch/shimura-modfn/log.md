@@ -49,3 +49,15 @@ Task: `Shimura.ShimuraReciprocityModFn` (tyz-cm, `ZInQKernel/Contrib/TYZGenus/Sh
   lattices `MainTheoremCMj` asks nothing beyond tyz-cm's leaf.
 * Compile: 0 errors, no `sorryAx`; 9 `#print axioms` all `[propext, Classical.choice, Quot.sound]`
   (VERIFIED, `compile-ModFn.out`).
+
+## 2026-11-14 00:40 class-7 singular set is finite
+
+* Argument (STANDARD reasoning): for `tyzForm7 n` (`D = −n`, `O = 𝓞_K`, 2 split) the only `O`-stable
+  cyclic 32-isogenies of `L` are `𝔭₂⁻⁵L`, `𝔭̄₂⁻⁵L`; non-`O`-stable ones have other orders, hence other
+  `j`. So non-isolated ⟺ `[𝔭₂]^{10} = 1` ⟺ `𝔭₂^{10} = (α)`, `N(α) = (a² + nb²)/4 = 2^{10}`, `b ≠ 0`
+  ⟹ `n ≤ 4096`.
+* `class7_singular.py` → `class7_singular.out` (VERIFIED computed): 32 values
+  `n = 7, 15, 47, 79, 103, 119, 127, 143, 159, 303, 319, 415, 455, 615, 1495, 1695, 1887, 2071, 2247,
+  2415, 3007, 3135, 3255, 3367, 3471, 3567, 3655, 3927, 4015, 4047, 4071, 4087`.
+* Cross-check against the direct multiplicity count (`class7_crosscheck.out`, 12 values of `n` in
+  71…167): 12/12 agree.
