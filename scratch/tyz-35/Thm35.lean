@@ -771,14 +771,16 @@ section Glue
 
 open ZInQ.RouteK.Redei
 
+attribute [local instance] Classical.propDecidable
+
 /-! ### G.1 Torsion -/
 
 /-- The torsion points of `A(ℚ̄)`, a `ℤ[i]`-submodule. -/
 def torG : Submodule GaussianInt PtA where
   carrier := {P | IsOfFinAddOrder P}
   add_mem' ha hb := IsOfFinAddOrder.add ha hb
-  zero_mem' := isOfFinAddOrder_zero
-  smul_mem' r P hP := (DistribMulAction.toAddMonoidHom PtA r).isOfFinAddOrder hP
+  zero_mem' := IsOfFinAddOrder.zero
+  smul_mem' r P hP := (DistribSMul.toAddMonoidHom PtA r).isOfFinAddOrder hP
 
 theorem mkQ_eq_zero_iff {P : PtA} : torG.mkQ P = 0 ↔ IsOfFinAddOrder P := by
   rw [Submodule.mkQ_apply, Submodule.Quotient.mk_eq_zero]; rfl
@@ -813,16 +815,17 @@ theorem sum_gchar (hn : Odd n) (hsq : Squarefree n) (h1 : 1 < n) (c : Pic (OK n)
     rw [Finset.prod_add_one, Finset.powerset_univ]; rfl
   rw [e1]
   have hsqi := picSquares_eq_iInf_ker_chi n hn hsq h1
+  have hiff : c ∈ picSquares (OK n) ↔ ∀ q, chi n q c = 1 :=
+    (SetLike.ext_iff.mp hsqi c).trans (Subgroup.mem_iInf.trans (forall_congr' fun q => MonoidHom.mem_ker))
   split_ifs with hc
-  · rw [hsqi, Subgroup.mem_iInf] at hc
+  · rw [hiff] at hc
     have : ∀ q : n.primeFactors, sgn2 (chi n q c) + 1 = 2 := fun q => by
-      rw [MonoidHom.mem_ker.mp (hc q)]; simp [sgn2]
+      rw [hc q]; simp [sgn2]
     rw [Finset.prod_congr rfl (fun q _ => this q), Finset.prod_const, Finset.card_univ,
       Fintype.card_coe]
-  · rw [hsqi, Subgroup.mem_iInf, not_forall] at hc
+  · rw [hiff, not_forall] at hc
     obtain ⟨q, hq⟩ := hc
     apply Finset.prod_eq_zero (Finset.mem_univ q)
-    rw [MonoidHom.mem_ker] at hq
     simp [sgn2, hq]
 
 /-- **The character formula** (TYZ L998, proof of Theorem 3.5): `Σ_χ P_χ = 2^{k} Σ_{c ∈ 2Cl} z^{f c}`. -/
@@ -884,7 +887,7 @@ theorem prod_sgn_chi_eq_one (h4 : n % 4 = 3) (hsq : Squarefree n) (h1 : 1 < n) (
   rw [MonoidHom.mem_ker] at hmem
   have := congrArg Multiplicative.toAdd hmem
   rw [fourRankSum_apply] at this
-  simpa [genusMap_apply] using this
+  exact this
 
 /-! ### G.3 Subsets of primes and divisors -/
 
@@ -913,7 +916,8 @@ theorem prod_divSet (hsq : Squarefree n) {e : ℕ} (he : e ∣ n) :
   have he0 : e ≠ 0 := hsqe.ne_zero
   conv_rhs => rw [← Nat.prod_primeFactors_of_squarefree hsqe]
   rw [show (∏ q ∈ divSet n e, (q : ℕ)) =
-      ∏ p ∈ (divSet n e).map (Function.Embedding.subtype _), p from (Finset.prod_map _ _ _).symm]
+      ∏ p ∈ (divSet n e).map (Function.Embedding.subtype _), p from
+        (Finset.prod_map (divSet n e) (Function.Embedding.subtype _) (fun p : ℕ => p)).symm]
   congr 1
   ext p
   simp only [Finset.mem_map, Function.Embedding.coe_subtype, divSet, Finset.mem_filter,
@@ -928,9 +932,9 @@ theorem sum_finset_eq_sum_divisors (hsq : Squarefree n) {M : Type*} [AddCommMono
     (F : Finset n.primeFactors → M) :
     ∑ T, F T = ∑ e ∈ n.divisors, F (divSet n e) := by
   classical
-  apply Finset.sum_nbij' (fun T => ∏ q ∈ T, (q : ℕ)) (fun e => divSet n e)
+  apply Finset.sum_nbij' (fun T : Finset n.primeFactors => ∏ q ∈ T, (q : ℕ)) (fun e : ℕ => divSet n e)
   · intro T _
-    rw [Finset.mem_coe, Nat.mem_divisors]
+    rw [Nat.mem_divisors]
     refine ⟨?_, hsq.ne_zero⟩
     calc ∏ q ∈ T, (q : ℕ) ∣ ∏ q : n.primeFactors, (q : ℕ) :=
           Finset.prod_dvd_prod_of_subset _ _ _ (Finset.subset_univ T)
@@ -945,20 +949,19 @@ theorem sum_finset_eq_sum_divisors (hsq : Squarefree n) {M : Type*} [AddCommMono
 theorem divSet_div (hsq : Squarefree n) {e : ℕ} (he : e ∣ n) :
     divSet n (n / e) = (divSet n e)ᶜ := by
   classical
-  ext q
+  ext ⟨p, hp⟩
   simp only [divSet, Finset.mem_compl, Finset.mem_filter, Finset.mem_univ, true_and]
-  have hq := Nat.prime_of_mem_primeFactors q.2
-  have hqn : (q : ℕ) ∣ n := Nat.dvd_of_mem_primeFactors q.2
+  have hq := Nat.prime_of_mem_primeFactors hp
   obtain ⟨k, hk⟩ := he
   have he0 : e ≠ 0 := by rintro rfl; simp at hk; exact hsq.ne_zero hk
   have hdiv : n / e = k := by rw [hk, Nat.mul_div_cancel_left _ (Nat.pos_of_ne_zero he0)]
+  have hqn : p ∣ e * k := by rw [← hk]; exact Nat.dvd_of_mem_primeFactors hp
   rw [hdiv]
   constructor
   · intro hqk hqe
-    have : (q : ℕ) * q ∣ n := hk ▸ Nat.mul_dvd_mul hqe hqk
+    have : p * p ∣ n := by rw [hk]; exact Nat.mul_dvd_mul hqe hqk
     exact hq.one_lt.ne' (Nat.isUnit_iff.mp (hsq _ this))
   · intro hqe
-    rw [hk] at hqn
     exact (hq.dvd_mul.mp hqn).resolve_left hqe
 
 /-- For `n ≡ 3 (mod 4)` the characters of `T` and of its complement agree. -/
@@ -1067,34 +1070,40 @@ theorem sum_divisors_seven (h7 : n % 8 = 7) (G : ℕ → PtA)
     two_nsmul]
   congr 1
   symm
+  have hmem : ∀ d ∈ n.divisors, n / d ∈ n.divisors := fun d hd =>
+    Nat.mem_divisors.2 ⟨Nat.div_dvd_of_dvd (Nat.dvd_of_mem_divisors hd), NeZero.ne n⟩
   apply Finset.sum_nbij' (fun d => n / d) (fun d => n / d)
   · intro d hd
-    simp only [Finset.coe_filter, Set.mem_setOf_eq] at hd ⊢
-    obtain ⟨hd, hc⟩ := hd
-    refine ⟨Nat.mem_divisors.2 ⟨Nat.div_dvd_of_dvd (Nat.dvd_of_mem_divisors hd), NeZero.ne n⟩, ?_⟩
+    obtain ⟨hd, hc⟩ := Finset.mem_filter.mp hd
+    refine Finset.mem_filter.mpr ⟨hmem d hd, ?_⟩
     have hm := mod_lemma (div_mul_of_mem hd)
     have ha8 : (n / d) % 8 < 8 := Nat.mod_lt _ (by norm_num)
     have hb8 : d % 8 < 8 := Nat.mod_lt _ (by norm_num)
     interval_cases hx : (n / d) % 8 <;> interval_cases hy : d % 8 <;> omega
   · intro d hd
-    simp only [Finset.coe_filter, Set.mem_setOf_eq] at hd ⊢
-    obtain ⟨hd, hc⟩ := hd
-    refine ⟨Nat.mem_divisors.2 ⟨Nat.div_dvd_of_dvd (Nat.dvd_of_mem_divisors hd), NeZero.ne n⟩, ?_⟩
+    obtain ⟨hd, hc⟩ := Finset.mem_filter.mp hd
+    refine Finset.mem_filter.mpr ⟨hmem d hd, ?_⟩
     have hm := mod_lemma (div_mul_of_mem hd)
     have ha8 : (n / d) % 8 < 8 := Nat.mod_lt _ (by norm_num)
     have hb8 : d % 8 < 8 := Nat.mod_lt _ (by norm_num)
-    have hodd := odd_of_mem_divisors (n := n) (by omega) hd
     interval_cases hx : (n / d) % 8 <;> interval_cases hy : d % 8 <;> omega
   · intro d hd
-    simp only [Finset.coe_filter, Set.mem_setOf_eq] at hd
-    exact div_div_of_mem hd.1
+    exact div_div_of_mem (Finset.mem_filter.mp hd).1
   · intro d hd
-    simp only [Finset.coe_filter, Set.mem_setOf_eq] at hd
-    exact div_div_of_mem hd.1
+    exact div_div_of_mem (Finset.mem_filter.mp hd).1
   · intro d hd
-    simp only [Finset.coe_filter, Set.mem_setOf_eq] at hd
-    exact (hG d hd.1).symm
+    exact (hG d (Finset.mem_filter.mp hd).1).symm
 
+/-- `ℕ`-casts act as `nsmul`. -/
+theorem natCast_gsmul (k : ℕ) (P : PtA) : ((k : GaussianInt)) • P = k • P := by
+  first
+    | exact Nat.cast_smul_eq_nsmul GaussianInt k P
+    | (rw [gsmul_def]; simp)
+
+theorem natCast_gsmul_q (k : ℕ) (P : PtA ⧸ torG) : ((k : GaussianInt)) • P = k • P := by
+  induction k with
+  | zero => simp
+  | succ k ih => rw [Nat.cast_succ, add_smul, ih, one_smul, succ_nsmul]
 
 /-! ### G.4 A lift family whose square part is `Φ₀` -/
 
@@ -1195,9 +1204,9 @@ theorem level_identity {ℓ : ℕ → ℤ} {Q : ℕ → PtA} {m : ℕ → ℕ} {
   set k := n.primeFactors.card with hk
   set G : ℕ → PtA := fun d₁ => Pchi n f (pairSet n (n / d₁) d₁) with hG
   have hsum : ((2 ^ k : ℕ) : GaussianInt) • tyzZ n = ∑ d₁ ∈ n.divisors, G d₁ := by
-    rw [← sum_Pchi_divisors hsq hodd h1 f, sum_Pchi hn hsq h1 f, hZ, Nat.cast_smul_eq_nsmul,
-      ← natCast_zsmul ℤ]
-    push_cast; rfl
+    rw [← sum_Pchi_divisors hsq hodd h1 f, sum_Pchi hn hsq h1 f, hZ, natCast_gsmul]
+    have e2 : ((2 : ℤ) ^ k) = ((2 ^ k : ℕ) : ℤ) := by push_cast; rfl
+    rw [e2, natCast_zsmul]
   -- the contributing part
   have hcon : torG.mkQ (∑ d₁ ∈ n.divisors, G d₁) =
       (((if n % 8 = 5 then 1 else 2 : ℕ)) : GaussianInt) • torG.mkQ (∑ d₁ ∈ contrib n, G d₁) := by
@@ -1211,11 +1220,13 @@ theorem level_identity {ℓ : ℕ → ℤ} {Q : ℕ → PtA} {m : ℕ → ℕ} {
       have ho := odd_of_mem_divisors hodd hd₁.1
       exact hb h5 (n / d₁) d₁ (div_mul_of_mem hd₁.1) (by omega)
     · have h5 : ¬ n % 8 = 5 := by omega
-      rw [if_neg h5, sum_divisors_seven h7 G fun d₁ hd₁ => ?_, Nat.cast_ofNat, ← map_smul,
-        ofNat_smul_eq_nsmul (R := GaussianInt)]
+      rw [if_neg h5, sum_divisors_seven h7 G fun d₁ hd₁ => ?_, natCast_gsmul_q, map_nsmul]
       simp only [hG]
       rw [pairSet_eq, pairSet_eq, div_div_of_mem hd₁]
-      exact congrArg (fun e => Pchi n f (divSet n e)) (gmap_div (by omega) hd₁)
+      have hg := gmap_div (n := n) (by omega) hd₁
+      unfold gmap at hg
+      rw [div_div_of_mem hd₁] at hg
+      rw [hg]
   have hterm : ∀ d₁ ∈ contrib n, (bigM m n : GaussianInt) • torG.mkQ (G d₁) =
       ((2 ^ h2 n : ℕ) : GaussianInt) • torG.mkQ
         (((cofR m n d₁ : GaussianInt) * ε (n / d₁) d₁ * (ℓ d₁ : GaussianInt)) • Q (n / d₁)) := by
@@ -1223,18 +1234,16 @@ theorem level_identity {ℓ : ℕ → ℤ} {Q : ℕ → PtA} {m : ℕ → ℕ} {
     rw [contrib, Finset.mem_filter] at hd₁
     have h := ha (n / d₁) d₁ (div_mul_of_mem hd₁.1) hd₁.2
     rw [← mkQ_eq_zero_iff, map_sub, sub_eq_zero, map_smul, map_smul] at h
-    rw [bigM_eq hd₁.1, Nat.cast_mul, mul_comm, mul_smul, h, ← map_smul, ← map_smul, smul_smul,
-      smul_smul]
-    congr 2
+    rw [bigM_eq hd₁.1, Nat.cast_mul, mul_comm, mul_smul, h, map_smul, smul_smul, smul_smul]
+    congr 1
     push_cast; ring
   have hk2 : (2 ^ k : ℕ) = (if n % 8 = 5 then 1 else 2) * 2 ^ h2 n := by
     unfold h2
     rw [fourRank_card_ramSet hn]
     rcases hc with h5 | h7
-    · rw [if_neg (by omega), if_pos h5, Finset.card_insert_of_notMem
-        (fun h => ne_two_of_mem_primeFactors hn h rfl)]
+    · rw [if_neg (show ¬ n % 4 = 3 by omega), if_pos h5]
       simp [hk]
-    · rw [if_pos (by omega), if_neg (by omega)]
+    · rw [if_pos (show n % 4 = 3 by omega), if_neg (show ¬ n % 8 = 5 by omega)]
       have hpos : 0 < n.primeFactors.card := by
         obtain ⟨q⟩ := fourRank_primeFactors_nonempty h1; exact Finset.card_pos.2 ⟨q, q.2⟩
       rw [← hk] at hpos ⊢
@@ -1291,8 +1300,8 @@ theorem thm35First_of_thm33 (ℓ : ℕ → ℤ) (hℓ1 : ℓ 1 = 1) (h : TYZThm3
           · exact ⟨⟨hd, hd0'⟩, hcl⟩
       have h1F : 1 ∉ F := by simp [hF]
       rw [hcontrib, Finset.sum_insert h1F, Nat.div_one, hℓ1] at hL
-      have hstep : ∀ d₁ ∈ F, torG.mkQ ((bigM m d : GaussianInt) •
-          ((ε' (d / d₁) d₁ * (ℓ d₁ : GaussianInt)) • Pseq ℓ ε' tyzZ (d / d₁))) =
+      have hstep : ∀ d₁ ∈ F, (bigM m d : GaussianInt) • torG.mkQ
+          ((ε' (d / d₁) d₁ * (ℓ d₁ : GaussianInt)) • Pseq ℓ ε' tyzZ (d / d₁)) =
           torG.mkQ (((cofR m d d₁ : GaussianInt) * ε (d / d₁) d₁ * (ℓ d₁ : GaussianInt)) •
             Q (d / d₁)) := by
         intro d₁ hd₁
@@ -1302,30 +1311,35 @@ theorem thm35First_of_thm33 (ℓ : ℕ → ℤ) (hℓ1 : ℓ 1 = 1) (h : TYZThm3
         have hsq' : Squarefree (d / d₁) :=
           hsq.squarefree_of_dvd (Nat.div_dvd_of_dvd (Nat.dvd_of_mem_divisors hd₁d))
         have ih' := ih _ hlt' hsq' hdiv.2
-        calc torG.mkQ ((bigM m d : GaussianInt) •
-              ((ε' (d / d₁) d₁ * (ℓ d₁ : GaussianInt)) • Pseq ℓ ε' tyzZ (d / d₁)))
+        calc (bigM m d : GaussianInt) • torG.mkQ
+              ((ε' (d / d₁) d₁ * (ℓ d₁ : GaussianInt)) • Pseq ℓ ε' tyzZ (d / d₁))
             = ((ε' (d / d₁) d₁ * (ℓ d₁ : GaussianInt)) * (cofR m d d₁ : GaussianInt)) •
                 torG.mkQ ((m (d / d₁) : GaussianInt) • Pseq ℓ ε' tyzZ (d / d₁)) := by
-              rw [map_smul, map_smul, map_smul, smul_smul, smul_smul, bigM_eq hd₁d, Nat.cast_mul]
+              rw [map_smul, map_smul, smul_smul, smul_smul, bigM_eq hd₁d, Nat.cast_mul]
               congr 1; ring
           _ = torG.mkQ (((cofR m d d₁ : GaussianInt) * ε (d / d₁) d₁ * (ℓ d₁ : GaussianInt)) •
                 Q (d / d₁)) := by
-              rw [ih', hQ', map_smul, map_smul, smul_smul]
+              rw [ih']
+              simp only [hQ']
+              rw [map_smul, map_smul, smul_smul]
               congr 1
               simp only [hε']
               linear_combination ((cofR m d d₁ : GaussianInt) * ε (d / d₁) d₁ *
                 (ℓ d₁ : GaussianInt)) * hsq1 _ hdiv.2
       have hmain : torG.mkQ ((bigM m d : GaussianInt) • Pseq ℓ ε' tyzZ d) =
           (cofR m d 1 : GaussianInt) • torG.mkQ (Q' d) := by
-        rw [Pseq_eq, smul_sub, Finset.smul_sum, map_sub, map_sum, hL,
-          Finset.sum_congr rfl hstep, add_sub_cancel_right, hQ', map_smul, map_smul, smul_smul]
+        rw [Pseq_eq, map_smul, map_sub, map_sum, smul_sub, Finset.smul_sum, ← map_smul, hL,
+          Finset.sum_congr rfl hstep, add_sub_cancel_right]
+        simp only [hQ']
+        rw [map_smul, map_smul, smul_smul]
         congr 1
         push_cast; ring
       have hM : bigM m d = m d * cofR m d 1 := by
         rw [bigM_eq (Nat.one_mem_divisors.mpr hd0), Nat.div_one]
       rw [hM, Nat.cast_mul, mul_comm, mul_smul, map_smul] at hmain
-      have := quot_cancel (cofR_pos hm d 1) (sub_eq_zero.mpr hmain ▸ (smul_sub _ _ _).symm)
-      exact sub_eq_zero.mp this
+      have h0 : (cofR m d 1 : GaussianInt) • (torG.mkQ ((m d : GaussianInt) • Pseq ℓ ε' tyzZ d) -
+          torG.mkQ (Q' d)) = 0 := by rw [smul_sub, hmain, sub_self]
+      exact sub_eq_zero.mp (quot_cancel (cofR_pos hm d 1) h0)
   intro n hn hsq
   refine ⟨ε', ⟨fun d₀ d₁ _ h5 h3 => ?_, fun d₀ d₁ _ hcl => ?_⟩, fun h0 => ?_⟩
   · rcases hε53 d₀ d₁ h5 h3 with h | h <;>
@@ -1339,7 +1353,8 @@ theorem thm35First_of_thm33 (ℓ : ℕ → ℤ) (hℓ1 : ℓ 1 = 1) (h : TYZThm3
         · exact Or.inr (Or.inl ⟨h7, rfl⟩)) with h' | h' <;> simp [hε', h, h']
   · have hk := key n hsq (Or.inl hn)
     have hQn : torG.mkQ (Q' n) = 0 := by
-      rw [hQ', map_smul, mkQ_eq_zero_iff.mpr (hQ0 n hsq hn h0), smul_zero]
+      simp only [hQ']
+      rw [map_smul, mkQ_eq_zero_iff.mpr (hQ0 n hsq hn h0), smul_zero]
     rw [hQn, map_smul] at hk
     exact mkQ_eq_zero_iff.mp (quot_cancel (hm n).ne' hk)
 
@@ -1352,3 +1367,11 @@ theorem thm35First_of_lcal_thm33 (h33 : ∀ ℓ : ℕ → ℤ, IsTYZLcal ℓ →
 end Glue
 
 end ZInQ.Contrib.TYZGenus.TYZ35
+
+#print axioms ZInQ.Contrib.TYZGenus.TYZ35.thm35First_of_thm33
+#print axioms ZInQ.Contrib.TYZGenus.TYZ35.thm35First_of_lcal_thm33
+#print axioms ZInQ.Contrib.TYZGenus.TYZ35.level_identity
+#print axioms ZInQ.Contrib.TYZGenus.TYZ35.prod_sgn_chi_eq_one
+#print axioms ZInQ.Contrib.TYZGenus.TYZ35.sum_Pchi
+#print axioms ZInQ.Contrib.TYZGenus.TYZ35.exists_liftFamily
+#print axioms ZInQ.Contrib.TYZGenus.TYZ35.sum_Pchi_divisors
