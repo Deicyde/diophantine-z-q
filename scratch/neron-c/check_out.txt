@@ -1,0 +1,13 @@
+'NeronCCheck.t3_of_surj' depends on axioms: [propext, Classical.choice, Quot.sound]
+'NeronCCheck.t3_iff' depends on axioms: [propext, Classical.choice, Quot.sound]
+'NeronCCheck.t41_of_scheme' depends on axioms: [propext, Classical.choice, Quot.sound]
+'NeronCCheck.t41_iff' depends on axioms: [propext, Classical.choice, Quot.sound]
+'NeronCCheck.t41_of_extension' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.NeronC.neronSchemeExtensionExists_of_neronModelExists' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Contrib.NeronC.neronMappingAbelianScheme_injective' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.NeronC.neronMappingAbelianSchemeSurj_of_nmp' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.NeronC.neronSchemeModelExists_of_neronModelExists' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
