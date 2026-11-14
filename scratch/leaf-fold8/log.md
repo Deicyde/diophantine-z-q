@@ -34,3 +34,8 @@
 - 09:15 Check8.lean: sixContactMin_of_open8 axioms standard; closure 193116 constants, no sorryAx; 66 fields
   (31 + 20 + 14 + 1), 24 with a kernel head constant; the six Contrib proofs and tyzThm33Pinned_of_tyzThm33
   have standard axioms (check8_result.txt).
+- 09:20-09:45 field table: mk_fields8.py (fields8.tsv from leaf-fold7's fields7.tsv; counts8.md): 69 -> 71 -> 72 ->
+  66 fields; strict LEAF/GLUE 38/31 -> 41/30 -> 44/28 -> 39/27; lenient 56/13 -> 59/12 -> 61/11 -> 55/11.
+  faltingsLemma5BC counted as a consequence (height-split's own review, §8), SS1-SS3 consequences (leaf-fold7
+  §5), javanpeykarBound published (specialization).
+- Report docs/research/leaf-fold8.md (head + generated tables + tail); BUILD.md.
