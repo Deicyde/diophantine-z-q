@@ -612,12 +612,29 @@ theorem pazukiC2_nonneg : 0 ≤ pazukiC2 := by
   have : 0 < Real.log (2 ^ 4) := Real.log_pos (by norm_num)
   positivity
 
-/-- **The algebra from the printed corollary to the row's upper bound** (drop the absolute value,
-bound the minimum by `H_D ≤ X`, and `h ≤ H_Θ`). -/
-theorem pazuki_upper_of_two_sided {hΘ hD X C : ℝ} (hC : 0 ≤ C) (hX : max 1 hD ≤ X)
-    (h : |max 1 hΘ - max 1 hD / 2| ≤ C * Real.log (min (max 1 hΘ) (max 1 hD) + 2)) :
+/-- **Leaf R22-Pazuki, upper half** (read off the same display as `PazukiCor13`, the side of the
+absolute value that bounds `H_Θ` from above): `H_Θ − H_D/2 ≤ C₂ log(min(H_Θ, H_D) + 2)`. The row
+needs only this half. -/
+def PazukiCor13Upper : Prop :=
+  ∀ (K : Type) [Field K] [NumberField K] (A : PkgI3.AbVar K), A.dim = (2 : WithBot ℕ∞) →
+    ∀ x : ℝ, IsStableFaltingsHeight A x →
+    ∀ (σ : K →+* ℂ) (Λ : Submodule ℤ (Fin 2 → ℂ)) (Φ : (Fin 2 → ℂ) → CPts A σ),
+      IsUniformization σ Λ Φ →
+    ∀ Ω : Matrix (Fin 2) (Fin 2) ℂ, IsSiegel Ω → IsPeriodMatrix Λ Ω →
+    ∀ (F : Type) [Field F] [NumberField F] (emb : F →+* ℂ) (z : Char2 → F) (c : ℂ), c ≠ 0 →
+      (∀ m, emb (z m) = c * thetaConst Ω m) →
+      max 1 (absLogHeightL2 z) - max 1 (x + Real.log Real.pi) / 2 ≤
+        pazukiC2 * Real.log (min (max 1 (absLogHeightL2 z)) (max 1 (x + Real.log Real.pi)) + 2)
+
+theorem pazukiCor13Upper_of (h : PazukiCor13) : PazukiCor13Upper :=
+  fun K _ _ A hA x hx σ Λ Φ hΦ Ω hΩ hPer F _ _ emb z c hc hz =>
+    (abs_le.mp (h K A hA x hx σ Λ Φ hΦ Ω hΩ hPer F emb z c hc hz)).2
+
+/-- **The algebra from the upper half to the row's bound** (bound the minimum by `H_D ≤ X`, and
+`h ≤ H_Θ`). -/
+theorem pazuki_upper_of_upper {hΘ hD X C : ℝ} (hC : 0 ≤ C) (hX : max 1 hD ≤ X)
+    (h1 : max 1 hΘ - max 1 hD / 2 ≤ C * Real.log (min (max 1 hΘ) (max 1 hD) + 2)) :
     hΘ ≤ X / 2 + C * Real.log (X + 2) := by
-  have h1 := (abs_le.mp h).2
   have hmin : min (max 1 hΘ) (max 1 hD) ≤ X := (min_le_right _ _).trans hX
   have hpos : 0 < min (max 1 hΘ) (max 1 hD) + 2 := by
     have : (1 : ℝ) ≤ min (max 1 hΘ) (max 1 hD) := le_min (le_max_left _ _) (le_max_left _ _)
@@ -629,16 +646,22 @@ theorem pazuki_upper_of_two_sided {hΘ hD X C : ℝ} (hC : 0 ≤ C) (hX : max 1 
   have h3 : hΘ ≤ max 1 hΘ := le_max_right _ _
   linarith
 
-/-- **H-18: R22 from Pazuki's printed corollary** (two-sided, `ℓ²` theta height, Deligne's `h_D`),
-N1, SS1, SS2 (identification), the comparison sup-norm height `≤` `ℓ²`-height and the algebra.
+/-- **H-18: R22 from the upper half of Pazuki's printed corollary** (`ℓ²` theta height, Deligne's
+`h_D`), N1, SS1, SS2 (identification), the comparison sup-norm height `≤` `ℓ²`-height and the algebra.
 No glue beyond the identification leaves. -/
-theorem r22_of_leaves (hP : PazukiCor13) (hN1 : NeronModelExists)
+theorem r22_of_upper (hP : PazukiCor13Upper) (hN1 : NeronModelExists)
     (hSS1 : SemistableReductionThm) (hSS2 : SemistableNeronBaseChange) :
     LeafPush2.R22_Pazuki := by
   intro K _ _ A hA x hx X hX σ Λ Φ hΦ Ω hΩ hPer F _ _ emb z c hc hz
   have h := hP K A hA x ((isStableFaltingsHeight_iff hN1 hSS1 hSS2 A x).mpr hx) σ Λ Φ hΦ Ω hΩ hPer
     F emb z c hc hz
-  exact (absLogHeight_le_absLogHeightL2 z).trans (pazuki_upper_of_two_sided pazukiC2_nonneg hX h)
+  exact (absLogHeight_le_absLogHeightL2 z).trans (pazuki_upper_of_upper pazukiC2_nonneg hX h)
+
+/-- **H-18 from the two-sided printed corollary.** -/
+theorem r22_of_leaves (hP : PazukiCor13) (hN1 : NeronModelExists)
+    (hSS1 : SemistableReductionThm) (hSS2 : SemistableNeronBaseChange) :
+    LeafPush2.R22_Pazuki :=
+  r22_of_upper (pazukiCor13Upper_of hP) hN1 hSS1 hSS2
 
 end R22Sec
 
@@ -677,4 +700,5 @@ end ZInQ.HeightSplit
 #print axioms ZInQ.HeightSplit.r18_of_leaves
 #print axioms ZInQ.HeightSplit.r20_of_leaves
 #print axioms ZInQ.HeightSplit.r22_of_leaves
+#print axioms ZInQ.HeightSplit.r22_of_upper
 #print axioms ZInQ.HeightSplit.r19_of_leaves

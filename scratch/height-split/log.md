@@ -49,3 +49,4 @@ with `lake env lean` (one process at a time). Marks: VERIFIED / STANDARD / SPECU
 - Merged into `HeightSplit.lean` as `metrizedDimUnique : MetrizedDimUnique`; corollaries
   `stableHeightFinite_of'` (H-19 from N1, SS1, SS2, NeronMetrizable, AN3U) and `r21_of_leaves'`
   (H-17 from Bost, N1, SS1, SS2, AN3U). Full file recompiled: no errors, all axioms standard (VERIFIED).
+- 05:10 R22: added leaf `PazukiCor13Upper` (upper half of the same display), `pazukiCor13Upper_of`, `r22_of_upper`; `r22_of_leaves` now via the upper half. Recompiled clean, axioms standard (VERIFIED).
