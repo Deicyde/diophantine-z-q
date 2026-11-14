@@ -3867,6 +3867,73 @@ theorem dual_of_bdr (hB : BdRInvariants p) (ρ ρ' : GQp p →* GL (Fin n) ℚ_[
 
 end BdRSec2
 
+section BdRSec3
+
+attribute [local instance] bdrField
+
+/-- **(d) Tensor products.** -/
+theorem tensor_of_bdr (hB : BdRInvariants p) {a b : ℕ} (ρ : GQp p →* GL (Fin (a * b)) ℚ_[p])
+    (ρ₁ : GQp p →* GL (Fin a) ℚ_[p]) (ρ₂ : GQp p →* GL (Fin b) ℚ_[p])
+    (h : ∀ σ, (ρ σ : Matrix (Fin (a * b)) (Fin (a * b)) ℚ_[p]) =
+      Matrix.reindex finProdFinEquiv finProdFinEquiv
+        (Matrix.kroneckerMap (· * ·) (ρ₁ σ : Matrix (Fin a) (Fin a) ℚ_[p])
+          (ρ₂ σ : Matrix (Fin b) (Fin b) ℚ_[p])))
+    (h₁ : IsDeRhamStd p ρ₁) (h₂ : IsDeRhamStd p ρ₂) : IsDeRhamStd p ρ := by
+  obtain ⟨P₁, hP₁, hr₁⟩ := exists_matrix_of_isDeRhamStd p hB ρ₁ h₁
+  obtain ⟨P₂, hP₂, hr₂⟩ := exists_matrix_of_isDeRhamStd p hB ρ₂ h₂
+  refine isDeRhamStd_of_matrix p hB ρ
+    (Matrix.reindex finProdFinEquiv finProdFinEquiv (Matrix.kroneckerMap (· * ·) P₁ P₂)) ?_ ?_
+  · rw [Matrix.det_reindex_self]
+    rw [Matrix.det_kronecker]
+    exact mul_ne_zero (pow_ne_zero _ hP₁) (pow_ne_zero _ hP₂)
+  · intro σ
+    have hm : matB p (ρ σ : Matrix (Fin (a * b)) (Fin (a * b)) ℚ_[p]) =
+        Matrix.reindex finProdFinEquiv finProdFinEquiv
+          (Matrix.kroneckerMap (· * ·) (matB p (ρ₁ σ : Matrix (Fin a) (Fin a) ℚ_[p]))
+            (matB p (ρ₂ σ : Matrix (Fin b) (Fin b) ℚ_[p]))) := by
+      rw [h σ]; ext i j; simp [matB, Matrix.kroneckerMap_apply, map_mul]
+    have hK : (Matrix.reindex finProdFinEquiv finProdFinEquiv
+        (Matrix.kroneckerMap (· * ·) P₁ P₂)).map (bdrAct p σ) =
+        Matrix.reindex finProdFinEquiv finProdFinEquiv
+          (Matrix.kroneckerMap (· * ·) (P₁.map (bdrAct p σ)) (P₂.map (bdrAct p σ))) := by
+      ext i j; simp [Matrix.kroneckerMap_apply, map_mul]
+    rw [hm, hK, Matrix.reindex_apply, Matrix.reindex_apply, Matrix.submatrix_mul_equiv,
+      ← Matrix.reindex_apply]
+    rw [← Matrix.mul_kronecker_mul, hr₁ σ, hr₂ σ]
+
+/-- **(c) Direct sums.** -/
+theorem sum_of_bdr (hB : BdRInvariants p) {a b : ℕ} (ρ : GQp p →* GL (Fin (a + b)) ℚ_[p])
+    (ρ₁ : GQp p →* GL (Fin a) ℚ_[p]) (ρ₂ : GQp p →* GL (Fin b) ℚ_[p])
+    (h : ∀ σ, (ρ σ : Matrix (Fin (a + b)) (Fin (a + b)) ℚ_[p]) =
+      Matrix.reindex finSumFinEquiv finSumFinEquiv
+        (Matrix.fromBlocks (ρ₁ σ : Matrix (Fin a) (Fin a) ℚ_[p]) 0 0
+          (ρ₂ σ : Matrix (Fin b) (Fin b) ℚ_[p])))
+    (h₁ : IsDeRhamStd p ρ₁) (h₂ : IsDeRhamStd p ρ₂) : IsDeRhamStd p ρ := by
+  obtain ⟨P₁, hP₁, hr₁⟩ := exists_matrix_of_isDeRhamStd p hB ρ₁ h₁
+  obtain ⟨P₂, hP₂, hr₂⟩ := exists_matrix_of_isDeRhamStd p hB ρ₂ h₂
+  refine isDeRhamStd_of_matrix p hB ρ
+    (Matrix.reindex finSumFinEquiv finSumFinEquiv (Matrix.fromBlocks P₁ 0 0 P₂)) ?_ ?_
+  · rw [Matrix.det_reindex_self, Matrix.det_fromBlocks_zero₂₁]
+    exact mul_ne_zero hP₁ hP₂
+  · intro σ
+    have hm : matB p (ρ σ : Matrix (Fin (a + b)) (Fin (a + b)) ℚ_[p]) =
+        Matrix.reindex finSumFinEquiv finSumFinEquiv
+          (Matrix.fromBlocks (matB p (ρ₁ σ : Matrix (Fin a) (Fin a) ℚ_[p])) 0 0
+            (matB p (ρ₂ σ : Matrix (Fin b) (Fin b) ℚ_[p]))) := by
+      rw [h σ, matB, Matrix.reindex_apply, Matrix.reindex_apply, ← Matrix.submatrix_map,
+        Matrix.fromBlocks_map, Matrix.map_zero _ (map_zero _), Matrix.map_zero _ (map_zero _)]
+      rfl
+    have hK : (Matrix.reindex finSumFinEquiv finSumFinEquiv (Matrix.fromBlocks P₁ 0 0 P₂)).map
+        (bdrAct p σ) = Matrix.reindex finSumFinEquiv finSumFinEquiv
+          (Matrix.fromBlocks (P₁.map (bdrAct p σ)) 0 0 (P₂.map (bdrAct p σ))) := by
+      rw [Matrix.reindex_apply, Matrix.reindex_apply, ← Matrix.submatrix_map,
+        Matrix.fromBlocks_map, Matrix.map_zero _ (map_zero _), Matrix.map_zero _ (map_zero _)]
+    rw [hm, hK, Matrix.reindex_apply, Matrix.reindex_apply, Matrix.submatrix_mul_equiv,
+      Matrix.fromBlocks_multiply, hr₁ σ, hr₂ σ]
+    simp
+
+end BdRSec3
+
 end
 
 end ZInQ.Contrib.HodgeSplit
