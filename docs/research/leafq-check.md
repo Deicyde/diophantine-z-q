@@ -19,39 +19,39 @@ Every proof below compiled with no `sorry`; `#print axioms` gives `[propext, Cla
 | `GammaStarGen` | **PROVED** from Mathlib alone. It is a finite computation: a descent on the `Γ*`-orbit of `i + j` | `GammaStarGen.lean`: `gammaStarGen_proof` |
 | `ValenceBoundGammaStar` | **REDUCED** to the published valence formula `ValenceFormulaGammaStar` (LEAF). The stabilizer bound `e_P ≤ 6` (crystallographic restriction) and the valence count are proved | `ValenceBound.lean`: `valenceBound_of_formula`, `ellipticOrderLe6_proof` |
 | `CMDescends` | **REDUCED** to Shimura–Taniyama, `STQM` (LEAF), plus bundle leaves already present (`t11b`, `t5`, `r1r2`). The descent of `ι`, of the CM and of the level structure is proved; so is torsion descent from T5 | `CMDescendsGlue.lean`: `cmDescends_of`, `torsionDescends_of_t5` |
-| `QMHauptmodul` | **NARROWED** to `QMHauptmodulBase2` (still LEAF?, composite) | `QMHauptmodulCM.lean`: `qmHauptmodul_of_base2` |
+| `QMHauptmodul` | **NARROWED** to `QMHauptmodulBase3` (still LEAF?, composite): only the Hauptmodul property and the value `−16/27` remain | `QMHauptmodulCM.lean`: `qmHauptmodul_of_base2`, `base2_of_base3` |
 | `ThetaRatiosAlgebraic`, `X6ConicModel`, `Y3Connected` | unchanged: true, each a consequence of published results, not splittable in Lean today | verbatim copies, §2.5-§2.7 |
 
-Two of the `QMHauptmodul` clauses are now proved:
+Three of the `QMHauptmodul` clauses are now proved:
 - the CM points of each discriminant `−4, −3, −24` form one `Γ*`-orbit;
-- `j_θ(√2 + i) = 0`.
+- `j_θ(√2 + i) = 0`;
+- `j_θ` has a pole at `i√3`, from R4, `GammaStarGen` and the valence bound.
 
-What remains of it is the Hauptmodul property plus the values `∞` at `i√3` and `−16/27` at the order-2
-point.
+What remains of it is the Hauptmodul property plus the value `−16/27` at the order-2 point.
 
 **Fold over leaf-fold4's chain** (`scratch/leafq-check/Fold.lean`, `import TailK`, so the chain's own
 constants; 22 s, VERIFIED):
 
 ```lean
-theorem HDec.HSyn.sixContactMin_of_open9 (r : OpenResearchLeaves2) (t : OpenTextbookLeaves4)
-    (l : OpenAddedLeaves9) (g : OpenGlue4) : ZInQ.SixContactMin
+theorem HDec.HSyn.sixContactMin_of_open10 (r : OpenResearchLeaves2) (t : OpenTextbookLeaves4)
+    (l : OpenAddedLeaves10) (g : OpenGlue4) : ZInQ.SixContactMin
 ```
 
-`OpenAddedLeaves9` (19 fields) is leaf-fold4's `OpenAddedLeaves4` (20 fields) with these changes:
+`OpenAddedLeaves10` (19 fields) is leaf-fold4's `OpenAddedLeaves4` (20 fields) with these changes:
 - `gammaStarGen` deleted (proved);
 - `valenceBoundGammaStar` → `valenceFormulaGammaStar`;
 - `cmDescends` → `stQM`;
-- `qmHauptmodul` → `qmHauptmodulBase2`.
+- `qmHauptmodul` → `qmHauptmodulBase3`.
 
 An `example` checks that the conclusion is the kernel's `_root_.ZInQ.SixContactMin`. The intermediate forms
-`sixContactMin_of_open5` … `open8` (one change at a time) compile as well.
+`sixContactMin_of_open5` … `open9` (one change at a time) compile as well.
 
 | | research | textbook | added (LEAF / LEAF?) | glue | total |
 |---|---|---|---|---|---|
 | leaf-fold4 (`sixContactMin_of_open4`) | 26 | 19 | 20 (13 / 7) | 1 | 66 |
-| **leafq-check (`sixContactMin_of_open9`)** | 26 | 19 | 19 (15 / 4) | 1 | **65** |
+| **leafq-check (`sixContactMin_of_open10`)** | 26 | 19 | 19 (15 / 4) | 1 | **65** |
 
-The four remaining LEAF? fields are `thetaRatiosAlgebraic`, `qmHauptmodulBase2`, `x6ConicModel` and
+The four remaining LEAF? fields are `thetaRatiosAlgebraic`, `qmHauptmodulBase3`, `x6ConicModel` and
 `y3Connected`. The new LEAFs are `valenceFormulaGammaStar` and `stQM`.
 
 ### Verdict table (published sources; numbers UNVERIFIED)
@@ -61,7 +61,7 @@ The four remaining LEAF? fields are `thetaRatiosAlgebraic`, `qmHauptmodulBase2`,
 | `GammaStarGen` | `Γ*/ℚ^×` is the `(2,4,6)` triangle group (Takeuchi, J. Fac. Sci. Univ. Tokyo 24 (1977)); Poincaré's polygon theorem (Beardon §9.8) | consequence (composite) | **theorem** (§2.1) |
 | `ValenceBoundGammaStar` | valence formula for cocompact Fuchsian groups (Shimura 1971, Prop. 2.16 / Thm. 2.20; Rankin 1977, Thm. 4.1.4) with the signature `(0;2,4,6)` | consequence, weaker (inequality, `e_P ≤ 6`) | reduced to `ValenceFormulaGammaStar` = the published formula on finite sets, right side `m/12` (§2.2) |
 | `CMDescends` | CM abelian varieties are defined over number fields (Shimura–Taniyama 1961 §12.4; Shimura 1998, §12.4 Prop. 26); rigidity of homomorphisms (T11b); `A[n]` is constant over `ℚ̄` (T5) | consequence (composite) | reduced to `STQM` (Shimura–Taniyama for QM surfaces with CM) + bundle leaves (§2.3) |
-| `QMHauptmodul` | Lin–Yang 2020 Ex. 29 with (13)-(14); Igusa's theta expressions; Hashimoto 1995; signature of `Γ*`; Elkies 1998 §3 for the values | consequence (composite; rv-leaves-a §2.2) | narrowed to `QMHauptmodulBase2`; generation, `e_P ≤ 6`, orbit transitivity and `j_θ(√2+i) = 0` proved (§2.4) |
+| `QMHauptmodul` | Lin–Yang 2020 Ex. 29 with (13)-(14); Igusa's theta expressions; Hashimoto 1995; signature of `Γ*`; Elkies 1998 §3 for the values | consequence (composite; rv-leaves-a §2.2) | narrowed to `QMHauptmodulBase3`; generation, `e_P ≤ 6`, orbit transitivity, `j_θ(√2+i) = 0` and the pole at `i√3` proved (§2.4) |
 | `ThetaRatiosAlgebraic` | `NS(A_ℚ̄) = NS(A_ℂ)`; Shimura, Ann. Math. 102 (1975) / Duke 43 (1976), or genus-2 Torelli (Weil 1957) with Thomae (Mumford, *Tata II* IIIa §8); one even theta-null vanishes exactly on products (Igusa) | consequence (composite) | unchanged; vacuous only when `dim A ≠ 2`, which is harmless (§2.5) |
 | `X6ConicModel` | Kurihara 1979 (`X₀(6,1): x² + y² + 3 = 0`); Elkies 1998 §3 (`X*(6)`, `t`, `X₆ = X*(6)(√−t, √(3(t−1)))`) | consequence (composite, existential witness; implies `R1R2fp`) | unchanged (§2.6) |
 | `Y3Connected` | Deligne, PSPM 33 (1979) 2.1.3 and 2.6.3 (`π₀` of Shimura varieties, Galois action by reciprocity); Shimura 1970 | consequence (existential witness, transferred to every R1fp triple) | unchanged (§2.7) |
@@ -175,18 +175,25 @@ expressions, the modular embedding `Ω`, and the signature of `Γ*`.
   - `Σθ⁸ ≠ 0` there (period-glue's `s8Omega0_proof`);
   - the fixed point of `ι(i+j)` is `√2 + i` (`fixed_by4`).
 
-**What `QMHauptmodulBase2` still asserts:**
-- the Hauptmodul property (continuity, formula, fibres = orbits, surjectivity);
-- `f = ∞` at `i√3`;
-- `f = −16/27` at the order-2 point.
+- `base2_of_base3 : ThetaModularity → GammaStarGen → ValenceBoundGammaStar → QMHauptmodulBase3 →
+  QMHauptmodulBase2`, where `QMHauptmodulBase3` drops the disc −3 clause. **The pole at `i√3` is proved**:
+  - `G20 = ∏θ²∘Ω/dF¹⁰` has exact weight-20 automorphy on all of `Γ*` (`LQ20.s20WeightExact_of`):
+    period-glue's `G8` machinery with the second clause of R4, closed under `GammaStarGen`;
+  - `ord_{i√3}(Σθ⁸∘Ω) ≥ 2` (period-map's `s8OrderCM3_of`);
+  - the valence bound for `G20` at `{i√3, √2+i}`, with `G20(√2+i) = 0`, gives `ord_{i√3}(∏θ²∘Ω) ≤ 4`;
+  - so `ord(jNum∘Ω) ≤ 8 < 10 ≤ ord(jDen∘Ω)`, the meromorphic order of `jNum/jDen` is negative, and `f`
+    tends to `∞` (Mathlib's `tendsto_cobounded_of_meromorphicOrderAt_neg` and continuity of `f`);
+  - `G20 ≢ 0` follows from the leaf's own surjectivity clause;
+  - `i√3` and `√2+i` are inequivalent by `G8`'s automorphy.
 
-**Possible next steps** (not compiled; SPECULATIVE in size):
-- *The pole at `i√3`.* It follows from the valence formula already in the bundle, applied to
-  `Π = ∏θ²∘Ω` (weight 20 for `Γ*`): with `T = {τ₃, τ₄}`, `ord_{τ₃}Π/6 + 1/4 ≤ 10/12` gives
-  `ord_{τ₃}Π ≤ 3`, so `ord(Π²) ≤ 6 < 10 ≤ ord(Σ⁵)`.
-  - Two ingredients are still to be written: a weight-20 analogue of period-glue's `g8Auto_gen`, and the
-    limit argument in `OnePoint ℂ`.
-- *The value `−16/27`.* It is genuine arithmetic content (Elkies' coordinate, Lin–Yang).
+  In the fold the three inputs are the bundle's `r4`, `gammaStarGen_proof` and
+  `valenceBound_of_formula valenceFormulaGammaStar`.
+
+**What `QMHauptmodulBase3` still asserts:**
+- the Hauptmodul property: continuity, formula, fibres = orbits, surjectivity (Lin–Yang's degree-one
+  divisor statement with Igusa and the modular embedding);
+- the value `f = −16/27` at the order-2 point, which is genuine arithmetic content (Elkies' coordinate,
+  Lin–Yang).
 
 ### 2.5 `ThetaRatiosAlgebraic`
 
@@ -237,7 +244,7 @@ related by surjections (ts-hecke). The conic equation is the published content. 
 
 ## 3. What remains
 
-- **LEAF?**: `thetaRatiosAlgebraic`, `qmHauptmodulBase2`, `x6ConicModel`, `y3Connected`.
+- **LEAF?**: `thetaRatiosAlgebraic`, `qmHauptmodulBase3`, `x6ConicModel`, `y3Connected`.
 - **New LEAFs for a human check** (both up to the published statement's exact form):
   - `valenceFormulaGammaStar`: Shimura's normalization, and the signature's constant `m/12`;
   - `stQM`: up to isomorphism, as stated.
@@ -251,10 +258,10 @@ related by surjections (ts-hecke). The conic equation is the published content. 
 | `GammaStarGen.lean` | verbatim copy + `gammaStarGen_proof` | `lake env lean`, 0 errors, ~90 s |
 | `ValenceBound.lean` | verbatim copy + `ValenceFormulaGammaStar`, `ellipticOrderLe6_proof`, `valenceBound_of_formula` | `lake env lean`, 0 errors, ~100 s |
 | `QMHauptmodul.lean` | verbatim copy (PkgI1 §1-§6) | `lake env lean`, 0 errors |
-| `QMHauptmodulCM.lean` | orbits, `QMHauptmodulBase(2)`, `qmHauptmodul_of_base2` | `chk.sh`, 19 s |
+| `QMHauptmodulCM.lean` | orbits, weight-20 automorphy, `QMHauptmodulBase(2,3)`, `qmHauptmodul_of_base2`, `base2_of_base3` | `chk.sh`, 19 s |
 | `CMDescends.lean`, `ThetaRatiosAlgebraic.lean`, `X6ConicModel.lean`, `Y3Connected.lean` | verbatim copies over the chain, `copy_iff : copy ↔ chain Prop := Iff.rfl` | `chk.sh`, 4-5 s |
 | `CMDescendsGlue.lean` | `STQM`, `TorsionDescends`, `torsionDescends_of_t5`, `cmDescends_of` | `chk.sh`, 8 s |
-| `Fold.lean` | all proofs over the chain, `OpenAddedLeaves5`-`9`, `sixContactMin_of_open5`-`9` | `chk.sh`, 22 s |
+| `Fold.lean` | all proofs over the chain, `OpenAddedLeaves5`-`10`, `sixContactMin_of_open5`-`10` | `chk.sh`, 22 s |
 | `chk.sh` | `lean` with leaf-fold4's compiled chain (copied to `~/lqc-olean`, outside the repository) and leaf-fold4's lake `LEAN_PATH` | |
 | `py/` | enumeration, Dirichlet cones, certificates, words, normalizer witnesses, the `Ad`-trace identity | `~/pyenv/bin/python` |
 
