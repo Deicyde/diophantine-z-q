@@ -124,3 +124,8 @@ C2 `CoordinateFromSections` of `scratch/mcr-glue/MCRGlue.lean` (copied verbatim 
 - Review notes kept for the report: (C1c) needs neither EGA IV 8.13.1 nor smoothness (the closure
   is `Spec R`, `R` a domain with fraction field `κ(x)`); (C1b) stabilizers are cyclic of order
   4, 6, 2 with involutions the images of `i`, `√−3`, `√−6`.
+
+## Step 9 (08:05, resumed run) — VERIFIED (parts through 12 + 9; exit 0; compile12_out.txt; no sorry)
+- Part 12: `MCRQuot.translate ρ E : ToP1 X` (for `E ∈ Γ(X, ⊤)`): `U' = U`, `f' = f + E`,
+  `V' = D_V(1 + E g) ⊔ D_U(f + E)`, `g'` glued (`objSupIsoProdEqLocus`) from `g/(1+Eg)` and
+  `1/(f+E)`; all `ToP1` fields proved (`tS_compat`, `U_inf_tDV_le`, `tF_basicOpen`).

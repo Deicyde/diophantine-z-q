@@ -6784,6 +6784,10 @@ theorem tg_res_DV : res (le_sup_left : tDV ρ E ≤ tDV ρ E ⊔ tDU ρ E) (tg �
 theorem tg_res_DU : res (le_sup_right : tDU ρ E ≤ tDV ρ E ⊔ tDU ρ E) (tg ρ E) = tS2 ρ E :=
   TopCat.Sheaf.objSupIsoProdEqLocus_inv_snd X.sheaf _ _ _
 
+omit ρ E in
+theorem basicOpen_res_of_le {O O' : X.Opens} (h : O' ≤ O) (s : Γ(X, O)) :
+    X.basicOpen (res h s) = O' ⊓ X.basicOpen s := Scheme.basicOpen_res X s (homOfLE h).op
+
 theorem U_inf_tDV_le : ρ.U ⊓ tDV ρ E ≤ tDU ρ E := by
   intro x hx
   have hW : ρ.U ⊓ tDV ρ E ≤ ρ.U ⊓ ρ.V := inf_le_inf_left _ (tDV_le ρ E)
@@ -6794,8 +6798,6 @@ theorem U_inf_tDV_le : ρ.U ⊓ tDV ρ E ≤ tDU ρ E := by
   have h3 := h2.2
   rw [basicOpen_res_of_le] at h3
   exact h3.2
-  where basicOpen_res_of_le {O O' : X.Opens} (h : O' ≤ O) (s : Γ(X, O)) :
-      X.basicOpen (res h s) = O' ⊓ X.basicOpen s := Scheme.basicOpen_res X s (homOfLE h).op
 
 theorem tF_basicOpen : X.basicOpen (tF ρ E) = ρ.U ⊓ (tDV ρ E ⊔ tDU ρ E) := by
   apply le_antisymm
@@ -6828,12 +6830,43 @@ def translate : ToP1 X where
       rcases hx with h | h
       · exact Or.inl ⟨hU, h⟩
       · exact Or.inr h
-    · sorry
-    · sorry
+    · change res _ (res _ (tF ρ E) * res _ (tg ρ E)) = res _ 1
+      rw [map_mul, map_one, res_res, res_res]
+      rw [show res (_ : ρ.U ⊓ tDV ρ E ≤ tDV ρ E ⊔ tDU ρ E) (tg ρ E) =
+          res (inf_le_right : ρ.U ⊓ tDV ρ E ≤ tDV ρ E) (res le_sup_left (tg ρ E)) from
+          (res_res _ _ _).symm, tg_res_DV]
+      simp only [tS1, map_mul, res_res]
+      have h1 := g_mul_tF ρ E (W := ρ.U ⊓ tDV ρ E) (inf_le_inf_left _ (tDV_le ρ E))
+      rw [← mul_assoc, mul_comm (res _ (tF ρ E)), h1]
+      have := res_inv_mul (inf_le_right : ρ.U ⊓ tDV ρ E ≤ tDV ρ E) (uG ρ E)
+      rw [uG_val, res_res] at this
+      rw [mul_comm]; exact this
+    · change res _ (res _ (tF ρ E) * res _ (tg ρ E)) = res _ 1
+      rw [map_mul, map_one, res_res, res_res, tg_res_DU, tS2,
+        show res (_ : tDU ρ E ≤ ρ.U) (tF ρ E) = (uF ρ E : Γ(X, tDU ρ E)) from rfl,
+        Units.mul_inv]
   basicOpen_f := tF_basicOpen ρ E
   basicOpen_g := by
     rw [← tF_basicOpen]
-    sorry
+    apply le_antisymm
+    · intro x hx
+      have hxV : x ∈ tDV ρ E ⊔ tDU ρ E := Scheme.basicOpen_le _ _ hx
+      rcases hxV with h | h
+      · have h2 : x ∈ X.basicOpen (res (le_sup_left : tDV ρ E ≤ tDV ρ E ⊔ tDU ρ E) (tg ρ E)) := by
+          rw [basicOpen_res_of_le]; exact ⟨h, hx⟩
+        rw [tg_res_DV, tS1, Scheme.basicOpen_mul, basicOpen_res_of_le] at h2
+        have h3 : x ∈ X.basicOpen ρ.g := h2.1.2
+        rw [ρ.basicOpen_g] at h3
+        exact U_inf_tDV_le ρ E ⟨h3.1, h⟩
+      · exact h
+    · intro x hx
+      have h2 : X.basicOpen (res (le_sup_right : tDU ρ E ≤ tDV ρ E ⊔ tDU ρ E) (tg ρ E)) =
+          tDU ρ E := by
+        rw [tg_res_DU, tS2]; exact Scheme.basicOpen_of_isUnit _ (Units.isUnit _)
+      have h3 : x ∈ X.basicOpen (res (le_sup_right : tDU ρ E ≤ tDV ρ E ⊔ tDU ρ E) (tg ρ E)) := by
+        rw [h2]; exact hx
+      rw [basicOpen_res_of_le] at h3
+      exact h3.2
 
 end Translate
 
