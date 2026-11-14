@@ -900,6 +900,10 @@ theorem lValOneBound : LValOneBound := by
 theorem tyzLcalOne_of_leaves (h11 : TYZThm11Integral) (h29 : TYZLemma29Mod2) : TYZLcalOne :=
   lcalOne_of_leaves h11 h29 lValOneBound
 
+/-- The same with Theorem 1.1's congruence (`TYZThm11Mod2`) in place of Lemma 2.9. -/
+theorem tyzLcalOne_of_leaves' (h11 : TYZThm11Integral) (h11b : TYZThm11Mod2) : TYZLcalOne :=
+  tyzLcalOne_of_leaves h11 (lemma29Mod2_of_thm11Mod2 h11b)
+
 /-- **The premise from three leaves** (`TYZLcalOne` dropped). -/
 theorem tyzThm35ReadingA_of_three_leaves (h11 : TYZThm11Integral) (h29 : TYZLemma29Mod2)
     (hG : TYZGenusPackage) : ZInQ.Literature.TYZThm35ReadingA :=
@@ -923,3 +927,4 @@ end ZInQ.Contrib.TYZLcal
 #print axioms ZInQ.Contrib.TYZLcal.tyzThm35ReadingA_of_three_leaves
 #print axioms ZInQ.Contrib.TYZLcal.genusPackage_iff_readingA_of_two
 #print axioms ZInQ.Contrib.TYZLcal.lemma29Mod2_iff
+#print axioms ZInQ.Contrib.TYZLcal.tyzLcalOne_of_leaves'

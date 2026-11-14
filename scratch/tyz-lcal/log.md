@@ -60,3 +60,4 @@ Task: the three L-leaves `TYZThm11Integral`, `TYZLcalOne`, `TYZLemma29Mod2`
   differ by w_K = 3 (rv-nt-tyz B1) — odd, so the mod-2 leaf holds under either. Universal ℓ immaterial
   (`lemma29Mod2_iff`). Genuinely TYZ (L-values mod 2 vs class numbers); no reduction from definitions/PSide found:
   PSide's results are about a_p, which do not determine L(C_m,1) mod 2 without the Waldspurger input.
+- tyzLcalOne_of_leaves' (h11) (h11b : TYZThm11Mod2) : TYZLcalOne (compiled 23:20).

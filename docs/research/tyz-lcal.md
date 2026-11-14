@@ -1,6 +1,6 @@
 # tyz-lcal: the three L-leaves of the TYZ decomposition
 
-Task tyz-lcal, 2026-11-13/14. Lean: `scratch/tyz-lcal/TYZLcal.lean` (one file, 925 lines, imports
+Task tyz-lcal, 2026-11-13/14. Lean: `scratch/tyz-lcal/TYZLcal.lean` (one file, about 930 lines, imports
 `ZInQKernel.Contrib.TYZDecomp.Leaves`, `ZInQKernel.Contrib.HeckeAll.Continuation`,
 `ZInQKernel.Contrib.GaussFE.FunctionalEquation5`, `Mathlib.NumberTheory.NumberField.Cyclotomic.PID`;
 namespace `ZInQ.Contrib.TYZLcal`). It compiles with `lake env lean` with no errors, no warnings, no `sorry` and
@@ -114,6 +114,7 @@ theorem lValOneBound : LValOneBound
 
 ```lean
 theorem tyzLcalOne_of_leaves (h11 : TYZThm11Integral) (h29 : TYZLemma29Mod2) : TYZLcalOne
+theorem tyzLcalOne_of_leaves' (h11 : TYZThm11Integral) (h11b : TYZThm11Mod2) : TYZLcalOne
 theorem tyzThm35ReadingA_of_three_leaves (h11 : TYZThm11Integral) (h29 : TYZLemma29Mod2)
     (hG : TYZGenusPackage) : ZInQ.Literature.TYZThm35ReadingA
 theorem genusPackage_iff_readingA_of_two (h11 : TYZThm11Integral) (h29 : TYZLemma29Mod2) :
@@ -127,7 +128,7 @@ theorem lemma29Mod2_iff (h11 : TYZThm11Integral) : TYZLemma29Mod2 ↔ LemmaTwoEi
 `#print axioms` (VERIFIED, 2026-11-13 23:15) gives `[propext, Classical.choice, Quot.sound]` for each of:
 `gCl_three`, `ell_one_odd`, `lcalOne_of_leaves`, `isLContinuation_Fone`, `norm_lValOne_one_le`,
 `omegaInt_ge_two`, `lValOneBound`, `tyzLcalOne_of_leaves`, `tyzThm35ReadingA_of_three_leaves`,
-`genusPackage_iff_readingA_of_two`, `lemma29Mod2_iff`.
+`genusPackage_iff_readingA_of_two`, `lemma29Mod2_iff`, `tyzLcalOne_of_leaves'`.
 
 ### 1.1 The analytic bound, step by step
 
