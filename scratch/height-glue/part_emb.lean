@@ -622,6 +622,159 @@ theorem conj_of_cmRel (φ ψ : k →ₐ[ℚ] B) (u : (↥O)ˣ) (c : ℂ) (hc : c
   congr 1
   field_simp
 
+/-! ### (iv) Surjectivity -/
+
+theorem Gen.hq_rat : G.y * G.y + ((G.P : ℚ) : k) * G.y + ((G.Q : ℚ) : k) = 0 := by
+  push_cast; exact G.hq
+
+theorem Gen.conj_root : (-(G.P : k) - G.y) * (-(G.P : k) - G.y) + (G.P : ℚ) • (-(G.P : k) - G.y) +
+    algebraMap ℚ k (G.Q : ℚ) = 0 := by
+  rw [Rat.smul_def, eq_ratCast]
+  push_cast
+  linear_combination G.hq
+
+/-- The conjugation of `k`, `y ↦ −P − y`. -/
+noncomputable def conjK : k →ₐ[ℚ] k := liftQuad hk G.hy G.hq_rat _ G.conj_root
+
+theorem conjK_apply (r t : ℚ) :
+    conjK hk G ((r : k) + t * G.y) = ((r - t * G.P : ℚ) : k) + ((-t : ℚ) : k) * G.y := by
+  rw [conjK, liftQuad_apply, eq_ratCast, Rat.smul_def]
+  push_cast; ring
+
+theorem conjK_conjK (x : k) : conjK hk G (conjK hk G x) = x := by
+  obtain ⟨r, t, rfl⟩ := exists_rat_repr hk G.hy x
+  rw [conjK_apply, conjK_apply]
+  push_cast; ring
+
+/-- An order is stable under conjugation (`x + x̄` is a rational integer). -/
+theorem conjK_mem (R : Subring k) (hR : R ≤ (integralClosure ℤ k).toSubring) {x : k}
+    (hx : x ∈ R) : conjK hk G x ∈ R := by
+  have hi : IsIntegral ℤ x := hR hx
+  have hi2 : IsIntegral ℤ (conjK hk G x) := hi.map (conjK hk G).toRingHom.toIntAlgHom
+  obtain ⟨r, t, hrt⟩ := exists_rat_repr hk G.hy x
+  have hsum : x + conjK hk G x = ((2 * r - t * G.P : ℚ) : k) := by
+    rw [hrt, conjK_apply]; push_cast; ring
+  obtain ⟨n, hn⟩ := exists_int_of_isIntegral (k := k) (hsum ▸ hi.add hi2)
+  have : conjK hk G x = (n : k) - x := by
+    rw [eq_sub_iff_add_eq, add_comm, hsum, hn]; push_cast; rfl
+  rw [this]
+  exact R.sub_mem (intCast_mem R n) hx
+
+include hk in
+/-- Any ring map `g : R → ℂ` with `g(y) = λ` is `σ` on `R`. -/
+theorem eq_sigma_of_gen (R : Subring k) (hyR : G.y ∈ R) (g : R →+* ℂ)
+    (hg : g ⟨G.y, hyR⟩ = G.lam) (x : R) : g x = G.σ x := by
+  obtain ⟨r, t, hx⟩ := exists_rat_repr hk G.hy (x : k)
+  set N : ℕ := r.den * t.den with hN
+  have hN0 : (N : ℂ) ≠ 0 := by
+    rw [hN]; push_cast
+    exact mul_ne_zero (Nat.cast_ne_zero.mpr r.den_nz) (Nat.cast_ne_zero.mpr t.den_nz)
+  have key : (N : R) * x = ((r.num * t.den : ℤ) : R) + ((r.den * t.num : ℤ) : R) * ⟨G.y, hyR⟩ := by
+    apply Subtype.ext
+    simp only [Subring.coe_mul, Subring.coe_add, SubringClass.coe_natCast, SubringClass.coe_intCast]
+    rw [hx]
+    push_cast
+    rw [num_cast_eq r, num_cast_eq t, hN]
+    push_cast; ring
+  have hg' := congrArg g key
+  have hσ' := congrArg (fun z : R => G.σ (z : k)) key
+  simp only [map_mul, map_add, map_natCast, map_intCast, hg] at hg'
+  simp only [Subring.coe_mul, Subring.coe_add, SubringClass.coe_natCast,
+    SubringClass.coe_intCast, map_mul, map_add, map_natCast, map_intCast] at hσ'
+  have : (N : ℂ) * g x = (N : ℂ) * G.σ x := by
+    rw [hg', hσ']; rfl
+  exact mul_left_cancel₀ hN0 this
+
+/-- The eigenvalue at `(τ, 1)ᵀ`, a ring map `𝒪_τ → ℂ`. -/
+noncomputable def evHom (τ : ℂ) : ordAt τ →+* ℂ where
+  toFun b := (rho (b : B) *ᵥ ![τ, 1]) 1
+  map_one' := by simp
+  map_mul' a b := by
+    obtain ⟨_, ca, hca⟩ := a.2
+    obtain ⟨_, cb, hcb⟩ := b.2
+    simp only [Subring.coe_mul, map_mul, ← mulVec_mulVec, hcb, mulVec_smul, hca, smul_smul]
+    simp [mul_comm]
+  map_zero' := by simp
+  map_add' a b := by simp [add_mulVec]
+
+theorem evHom_spec (τ : ℂ) (b : ordAt τ) :
+    rho (b : B) *ᵥ ![τ, 1] = evHom τ b • ![τ, 1] := by
+  obtain ⟨_, c, hc⟩ := b.2
+  have : evHom τ b = c := by
+    show (rho (b : B) *ᵥ ![τ, 1]) 1 = c
+    rw [hc]; simp
+  rw [this, hc]
+
+include hk in
+/-- **(iv)** Every CM point with `𝒪_τ ≅ R` is `τ_φ` for an optimal `φ`. -/
+theorem exists_opt_of_cmPoint (R : Subring k) (hR : R ≤ (integralClosure ℤ k).toSubring)
+    (hyR : G.y ∈ R) (τ : ℂ) (hτ : τ.im ≠ 0) (e : ordAt τ ≃+* R) :
+    ∃ φ : k →ₐ[ℚ] B, (∀ x, φ x ∈ O ↔ x ∈ R) ∧ fpt G φ = τ := by
+  let h : R →+* ℂ := (evHom τ).comp e.symm.toRingHom
+  let y' : R := ⟨G.y, hyR⟩
+  have hyq' : y' * y' + (G.P : R) * y' + (G.Q : R) = 0 := Subtype.ext (by
+    simp only [Subring.coe_mul, Subring.coe_add, SubringClass.coe_intCast, y']
+    exact G.hq)
+  have hhq : h y' * h y' + (G.P : ℂ) * h y' + G.Q = 0 := by
+    have := congrArg h hyq'
+    simpa [map_add, map_mul, map_intCast] using this
+  let cR : R →+* R := (conjK hk G).toRingHom.restrict R R (fun x hx => conjK_mem hk G R hR hx)
+  have hcR : ∀ x, cR (cR x) = x := fun x => Subtype.ext (conjK_conjK hk G x)
+  obtain ⟨ε, hεε, hε⟩ : ∃ ε : R →+* R, (∀ x, ε (ε x) = x) ∧ h (ε y') = G.lam := by
+    rcases eq_or_eq_conj G.lam_quad (conj_intCast' _) (conj_intCast' _) (G.lam_im hk) hhq with
+      h1 | h1
+    · exact ⟨RingHom.id R, fun _ => rfl, h1⟩
+    · refine ⟨cR, hcR, ?_⟩
+      have hc : cR y' = -(G.P : R) - y' := by
+        apply Subtype.ext
+        have := conjK_apply hk G 0 1
+        simp only [Rat.cast_zero, zero_add, Rat.cast_one, one_mul] at this
+        show conjK hk G G.y = ((-(G.P : R) - y' : R) : k)
+        rw [this]
+        push_cast; ring
+      rw [hc, map_sub, map_neg, map_intCast, h1]
+      have hv := (vieta G.lam_quad (conj_intCast' _) (conj_intCast' _) (G.lam_im hk)).1
+      linear_combination -hv
+  have hg : ∀ x : R, h (ε x) = G.σ x := eq_sigma_of_gen hk G R hyR (h.comp ε) hε
+  set b₁ : ordAt τ := e.symm (ε y') with hb₁
+  have hb₁eig : rho (b₁ : B) *ᵥ ![τ, 1] = G.lam • ![τ, 1] := by
+    rw [evHom_spec]; congr 1
+  have hb₁q : (b₁ : B) * b₁ + (G.P : ℚ) • (b₁ : B) + algebraMap ℚ B (G.Q : ℚ) = 0 := by
+    have h0 : b₁ * b₁ + (G.P : ordAt τ) * b₁ + (G.Q : ordAt τ) = 0 := by
+      have := congrArg (fun z => e.symm (ε z)) hyq'
+      simpa [map_add, map_mul, map_intCast] using this
+    have := congrArg Subtype.val h0
+    simp only [Subring.coe_add, Subring.coe_mul, SubringClass.coe_intCast,
+      Subring.coe_zero] at this
+    rw [Algebra.smul_def, map_intCast, map_intCast]
+    exact this
+  let φ := liftQuad hk G.hy G.hq_rat (b₁ : B) hb₁q
+  have hφy : φ G.y = b₁ := liftQuad_gen hk G.hy G.hq_rat _ hb₁q
+  have hfpt : fpt G φ = τ := (fpt_unique hk G φ (by rw [hφy]; exact hb₁eig)).symm
+  refine ⟨φ, fun x => ⟨fun hx => ?_, fun hx => ?_⟩, hfpt⟩
+  · have hxo : φ x ∈ ordAt τ := ⟨hx, G.σ x, by rw [← hfpt]; exact fpt_eig hk G φ x⟩
+    set z := e ⟨φ x, hxo⟩ with hz
+    have h1 : h z = G.σ x := by
+      have hs := evHom_spec τ ⟨φ x, hxo⟩
+      have hf : rho (φ x) *ᵥ ![τ, 1] = G.σ x • ![τ, 1] := hfpt ▸ fpt_eig hk G φ x
+      have := congrFun (hs.symm.trans hf) 1
+      simp only [Pi.smul_apply, smul_eq_mul, Matrix.cons_val_one, Matrix.cons_val_zero,
+        mul_one] at this
+      show evHom τ (e.symm z) = _
+      rw [hz, RingEquiv.symm_apply_apply]
+      exact this
+    have h2 : h z = G.σ (ε z) := by
+      have := hg (ε z)
+      rwa [hεε z] at this
+    have : x = (ε z : k) := G.σ.injective (h1.symm.trans h2)
+    rw [this]; exact (ε z).2
+  · have heq : φ x = (e.symm (ε ⟨x, hx⟩) : B) := by
+      refine eq_of_eig hτ (hfpt ▸ fpt_eig hk G φ x) ?_
+      rw [evHom_spec]
+      congr 1
+      exact hg ⟨x, hx⟩
+    rw [heq]; exact (e.symm _).2.1
+
 end Corr
 
 end ZInQ.HeightGlue.QM
