@@ -33,18 +33,19 @@ model over a field where `A` has semistable reduction. Three things are new here
 As a corollary, the kernel leaf N2 (`SemistableNeronIdentityComponent`) is proved from N1 and the two
 new leaves.
 
-**A row is done when it follows from published-form leaves alone.** Two rows meet that bar:
+**A row is done when it follows from published-form leaves alone.** Three rows meet that bar:
 - **H-18** (R22, Pazuki): `r22_of_upper`.
+- **H-16** (R20, Faltings' Lemma 5): `r20_of_leaves'`, using the leaf SS3 (persistence of
+  semistability) and Lemma 5 applied to base changes.
 - **H-15** (R19, Gaudron–Rémond), outside the assignment: `r19_of_leaves`.
 
 **The other rows carry named glue:**
 
 | row | glue it still needs |
 |---|---|
-| H-14 | `NeronMetrizable` |
+| H-14 | `NeronMetrizable`, now reduced to the kernel's `AnalyticUniformizationExists` plus two construction glues, `UniformizationDim` and `MetrizationOfUniformization` (`neronMetrizable_of`) |
 | H-17 | the kernel's `AnalyticUniformizationUnique` |
-| H-19 | `NeronMetrizable` and `AnalyticUniformizationUnique` |
-| H-16 | `IsogenySemistableBaseChange` |
+| H-19 | both of the above |
 | H-3 | `QMPairEmbeddingCorrespondence` |
 
 The glue Prop `MetrizedDimUnique` (two metrizations of one model have the same `g`) was introduced
@@ -65,14 +66,14 @@ and then **proved** with a 2-torsion count (`metrizedDimUnique`).
 
 Lean names are in namespace `ZInQ.HeightSplit`; for H-3, `ZInQ.HeightSplit.R5`.
 - **Leaves:** N1 = kernel `ZInQ.H5Neron.NeronModelExists` (BLR 1.4/3); SS1 = `SemistableReductionThm`;
-  SS2 = `SemistableNeronBaseChange`.
+  SS2 = `SemistableNeronBaseChange`; SS3 = `SemistablePersists`.
 - **"Id.":** the identification `isStableFaltingsHeight_iff`, which is proved from N1, SS1 and SS2.
 - **AN3U:** the kernel's `ZInQ.DefFaltings.AnalyticUniformizationUnique` (open, complex analysis).
 
 | row | old form (frontier r3) | new leaves (published form, source) | new glue | Lean name of the proof |
 |---|---|---|---|---|
-| H-14 `r18` | `R18_Javanpeykar`: `h_F^st(J) ≤ 13·10⁶ g d⁵` over the kernel's infimum; GLUE (consequence) | `JavanpeykarBound` (Javanpeykar, ANT 8 (2014) Thm 1.1.1, specialized to curves over `K` with a `K`-rational Belyi function, over `IsStableFaltingsHeight`); N1, SS1, SS2 | `NeronMetrizable` (the `≠ ⊤` half) | `r18_of_leaves` |
-| H-16 `r20` | `R20_FaltingsLemma5`: `\|x − y\| ≤ ½ log deg φ` for real kernel heights; GLUE (consequence) | `FaltingsLemma5` (Faltings 1983 Lemma 5 / Raynaud Ast. 127 VII 2.1.3, semistable form over `𝓞_K`; UNVERIFIED, unread); N1, SS1, SS2 | `IsogenySemistableBaseChange` | `r20_of_leaves` |
+| H-14 `r18` | `R18_Javanpeykar`: `h_F^st(J) ≤ 13·10⁶ g d⁵` over the kernel's infimum; GLUE (consequence) | `JavanpeykarBound` (Javanpeykar, ANT 8 (2014) Thm 1.1.1, specialized to curves over `K` with a `K`-rational Belyi function, over `IsStableFaltingsHeight`); N1, SS1, SS2 | `NeronMetrizable` (the `≠ ⊤` half), reduced by `neronMetrizable_of` to the kernel's `AnalyticUniformizationExists` + `UniformizationDim` + `MetrizationOfUniformization` | `r18_of_leaves` |
+| H-16 `r20` | `R20_FaltingsLemma5`: `\|x − y\| ≤ ½ log deg φ` for real kernel heights; GLUE (consequence) | `FaltingsLemma5BC` (Faltings 1983 Lemma 5 / Raynaud Ast. 127 VII 2.1.3, semistable form, applied over `L ⊇ K` to `A_L, B_L, φ_L` in the kernel's encoding; the literal form over `𝓞_K`, `FaltingsLemma5`, is its case `L = K`; UNVERIFIED, unread); N1, SS1, SS2, SS3 (SGA 7 IX 3.3) | none (`r20_of_leaves'`); alternative route `r20_of_leaves` from the literal `FaltingsLemma5` + glue `IsogenySemistableBaseChange` | `r20_of_leaves'` |
 | H-17 `r21` | `R21_Bost`: `−(3/2) g ≤ h_F^st(A)` in `EReal`; GLUE (via Gaudron–Rémond §9) | `BostLowerBound` (Bost, Sém. Bourbaki 795: `h_D ≥ −(g/2) log 2π`, Deligne normalization, display UNVERIFIED); GR's printed form `GRBostBound` is derived (`grBostBound_of_bost`); N1, SS1, SS2 | AN3U (the `≠ ⊥` half); `MetrizedDimUnique` introduced and **proved** | `r21_of_leaves'` (`r21_of_leaves` with `MetrizedDimUnique` as a hypothesis) |
 | H-18 `r22` | `R22_Pazuki`: `h(z) ≤ X/2 + C₂ log(X+2)`, `X ≥ max(1, h_F + log π)`; GLUE ("hardened") | `PazukiCor13Upper` (upper half of Pazuki, Bull. SMF 140 (2012) Cor. 1.3(2), `ℓ²` theta height, Deligne's `h_D`); the two-sided `PazukiCor13` implies it; N1, SS1, SS2 | none | `r22_of_upper` (`r22_of_leaves` from the two-sided form) |
 | H-19 `h5fin` | `StableHeightFinite`: `h_F^st(A) ∉ {⊤, ⊥}`; GLUE (theorem + definition) | N1, SS1 (SGA 7 IX 3.6), SS2 (SGA 7 IX 3.3) | `NeronMetrizable`; AN3U; `MetrizedDimUnique` **proved** | `stableHeightFinite_of'` (`stableHeightFinite_of` with `MetrizedDimUnique` as a hypothesis) |
@@ -123,6 +124,9 @@ some Néron model `𝒩` of `A_L` (the kernel's `IsNeronModel`) satisfies `IsSem
   semistable Néron model `𝒩₀`. The argument is that of `H5Neron.stableFaltingsHeight_eq_neron_all`,
   with H4a, M6 and `NeronModelMinimal` from `ZInQ.Contrib.HeightBC`.
 - `isStableFaltingsHeight_unique`: the published definition does not depend on the field.
+
+- **SS3** `SemistablePersists`: semistability persists under finite extension (SGA 7 IX 3.3). Only
+  H-16 uses it.
 
 **Proved from N1, SS1 and SS2** (VERIFIED):
 - `isStableFaltingsHeight_iff`;
@@ -240,11 +244,19 @@ is the `log π` form.
   over `𝓞_K` and an isogeny `φ` over `K` give `|h(𝒩_A) − h(𝒩_B)| ≤ ½ log deg φ`.
 - **Source status.** Faltings' Lemma 5 is UNVERIFIED (unread). The inequality is the form Pazuki 2012,
   Remark 2.3, attributes to it.
-- **Glue** `IsogenySemistableBaseChange`: it moves an isogeny over `K` with published heights `x`, `y`
-  to an isogeny of the same degree over a field `L` where both sides are semistable, with Néron-model
-  heights `x`, `y`. It needs four things:
+- **Leaf** `FaltingsLemma5BC`: the same lemma applied over a number field `L ⊇ K` to `A_L`, `B_L`,
+  `φ_L`. Néron models of `A_L` are encoded as the kernel's `GroupModel A L`, and
+  `deg φ_L = #ker φ(K̄)`. The printed lemma holds over every number field, so this is an instance of
+  it. `FaltingsLemma5` is its case `L = K` (`faltingsLemma5_of_BC`).
+- **Leaf** SS3 `SemistablePersists` (SGA 7 IX 3.3): if `A_L` is semistable, so is `A_{L'}`.
+- **Proof** `r20_of_leaves'`. SS1 gives fields `L₁`, `L₂` of semistable reduction for `A` and `B`.
+  In their compositum `L`, N1 gives Néron models, which are semistable by SS3. Their heights are the
+  kernel's heights (`stableFaltingsHeight_eq_of_semistable`), and Lemma 5 applies. No glue is needed.
+- **Alternative route** `r20_of_leaves`, kept for a reader who wants the literal `𝓞_K` form. It uses
+  `FaltingsLemma5` together with the glue `IsogenySemistableBaseChange`, which moves the isogeny to a
+  common semistable field. That glue needs four things:
   - base change of isogenies, and invariance of `#ker(K̄)`;
-  - SGA 7 IX 3.3 for persistence of semistability;
+  - SGA 7 IX 3.3;
   - transport of group models along `(A_L)_L ≅ A_L`;
   - `isStableFaltingsHeight_unique`.
 
@@ -273,9 +285,11 @@ printed is UNVERIFIED; the `𝒪^×` form is the one that matches the hand check
 
 | glue | rows | what it needs |
 |---|---|---|
-| `NeronMetrizable` | H-14, H-19 | the kernel's `AnalyticUniformizationExists` (Mumford AV §1); `HodgeLatticeTheorem` (proved in `ZInQ.Contrib.Dim`); dimension of the uniformization = `dim A`; construction of the coefficient map from the differential at `0` of germs along `Φ` (well defined on `𝔪/𝔪²`, nonzero on the Hodge line) |
+| `NeronMetrizable` | H-14, H-19 | reduced (`neronMetrizable_of`) to the kernel's `AnalyticUniformizationExists` (AN3 existence, the uniformization theorem, Mumford AV §1) and the two glues below |
+| `UniformizationDim` | H-14, H-19 | a uniformization with kernel a full lattice has `g = dim A`: the analytic topology and manifold structure of `𝒢(ℂ)_τ` from regular functions, and invariance of domain. The lattice hypotheses are necessary, since `Φ₀ ∘ pr` is a degenerate uniformization of dimension `g + 1` |
+| `MetrizationOfUniformization` | H-14, H-19 | the coefficient map `coeff_τ` from `f ↦ d(f∘Φ)_0` on `𝔪/𝔪²` (independent of representatives, `τ`-semilinear, zero on `𝔪²`), with `⋀^g` equal to `jacDet Φ`, and `coeff_τ ≠ 0` (local coordinates); `HodgeLatticeTheorem` is proved in the kernel |
 | `AnalyticUniformizationUnique` (kernel) | H-17, H-19 | a holomorphic homomorphism of complex tori lifts to a linear map; needs local coordinates on `𝒢(ℂ)_τ` from regular functions (smoothness, Jacobian criterion) |
-| `IsogenySemistableBaseChange` | H-16 | see §4 |
+| `IsogenySemistableBaseChange` | (H-16, alternative route only) | see §4; not needed by `r20_of_leaves'` |
 | `QMPairEmbeddingCorrespondence` | H-3 | Shimura's uniformization of QM abelian surfaces (`H₁` free of rank one over `𝒪`, class number one); CM points are fixed points of `φ(k^×)` with `End_𝒪 ≅ φ(k) ∩ 𝒪`; descent from `ℂ` to `ℚ̄`; algebraicity of QM tori |
 | ~~`MetrizedDimUnique`~~ | H-17, H-19 | **proved** (`metrizedDimUnique`): `#𝒢(ℂ)_τ[2] = #(Λ/2Λ) = 2^{2g}`, via `AddSubgroup.index_range_nsmul` and `ZLattice.rank` |
 
@@ -299,6 +313,12 @@ All checks used `lake env lean`, one process at a time (VERIFIED).
   form, open-subgroup form, and over `K`. Each is a consequence of one printed theorem by the standard
   steps named in its docstring. A reader applying the strict classification may count them as
   consequences rather than literal forms.
-- **Non-vacuity of the new definitions** (`IsSemistable`, `IsStableFaltingsHeight`) is not
-  machine-checked; Mathlib cannot construct a nonzero abelian variety. They were written to match the
-  printed definitions.
+- **Non-vacuity of the new definitions** (`IsSemistable`, `IsStableFaltingsHeight`) is
+  machine-checked only at the zero abelian variety, the one case Mathlib can construct (§I of
+  `HeightSplit.lean`, VERIFIED):
+  - every Néron model of `AbVar.zero K` is semistable (`isSemistable_zero`);
+  - `IsStableFaltingsHeight (AbVar.zero K) 0` holds;
+  - SS1, SS2 and SS3 hold there.
+
+  This shows that the definitions are satisfiable as written. It does not exercise the torus or
+  abelian part.
