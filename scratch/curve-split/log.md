@@ -73,3 +73,12 @@ H-85 CurveBijIso (scratch/model-glue/ModelGlue6.lean), H-83 ShimuraGoodReduction
   (relative normalization of a normal Y along a birational morphism is Y: `algebraMap_integralClosure_bijective`,
   `isIntegrallyClosed_of_normal`). Hence `CurveSplit.curveBijIso_of_degree : DegreeGeneralFibre → CurveBijIso`.
   Standard axioms. VERIFIED. H-85 now rests on ONE leaf, DegreeGeneralFibre.
+- Part D COMPILED: `CurveSplit.curveBijIso : CurveBijIso` PROVED WITH NO LEAF (standard axioms, VERIFIED).
+  Key steps: `bijective_of_unramifiedAt` (finite flat injective over a domain, unramified at a prime q alone
+  over p with trivial residue extension ⇒ iso; via Mathlib localRingHom_{in,sur}jective_of_primesOver_eq_singleton,
+  rankAtStalk_isBaseChange, rankAtStalk_eq_of_le_of_finite_of_flat, algebraMap_bijective_of_rankAtStalk),
+  `isDedekindDomain_sections` (smooth integral curve ⇒ Γ over affine is Dedekind ⇒ flat), Mathlib
+  `Algebra.isUnramifiedAt_bot` (char 0 generic point), Jacobson ⇒ unramified maximal ideal, Nullstellensatz
+  (finite_of_finite_type_of_isJacobsonRing + IsAlgClosed.ringHom_bijective_of_isIntegral),
+  `app_bijective_of_finite_bijective`, `isIso_of_finite_bijective`, `restrict_isIso_noleaf`.
+- Verbatim check of CurveBijIso block against ModelGlue6.lean: VERIFIED (python substring test True).

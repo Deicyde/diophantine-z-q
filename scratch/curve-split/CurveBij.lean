@@ -1050,6 +1050,323 @@ theorem curveBijIso_of_degree (hD : DegreeGeneralFibre) : CurveBijIso :=
 
 end PartC
 
+/-! ## Part D: `CurveBijIso` with no leaf
+
+The restriction `V → W` of `h` over a component is finite and a homeomorphism. On a nonempty affine
+open `U ⊆ W`, `A = Γ(W, U)` is a Dedekind domain and `B = Γ(V, f⁻¹U)` a finite torsion-free (hence
+flat) `A`-algebra; the unramified locus of `B/A` is open and contains the generic point
+(characteristic 0, Mathlib `Algebra.isUnramifiedAt_bot`), so it contains a maximal ideal `q`; `q` is
+the only prime over `p = q ∩ A` (bijectivity on points) and `κ(q) = κ(p)` (Nullstellensatz), so
+`A_p ≅ B_q`, the rank of `B` over `A` is `1`, and `A ≅ B`. -/
+
+section PartD
+
+open IsLocalRing
+
+/-- A localization at a smaller cofinal submonoid. -/
+theorem isLocalization_of_cofinal {R S : Type*} [CommRing R] [CommRing S] [Algebra R S]
+    (M N : Submonoid R) (h₁ : M ≤ N) (h₂ : ∀ n ∈ N, ∃ m ∈ M, n ∣ m) [IsLocalization N S] :
+    IsLocalization M S := by
+  refine ⟨fun m => IsLocalization.map_units S ⟨m.1, h₁ m.2⟩, fun z => ?_, fun {x y} h => ?_⟩
+  · obtain ⟨⟨b, n⟩, hz⟩ := IsLocalization.surj N z
+    obtain ⟨m, hm, c, hc⟩ := h₂ n.1 n.2
+    refine ⟨⟨b * c, ⟨m, hm⟩⟩, ?_⟩
+    simp only at hz ⊢
+    rw [hc, map_mul, map_mul, ← mul_assoc, hz]
+  · obtain ⟨n, hn⟩ := (IsLocalization.eq_iff_exists N S).mp h
+    obtain ⟨m, hm, c, hc⟩ := h₂ n.1 n.2
+    refine ⟨⟨m, hm⟩, ?_⟩
+    simp only
+    rw [hc, mul_comm (n : R) c, mul_assoc, mul_assoc, hn]
+
+/-- **A finite flat injective algebra over a domain, unramified at a prime `q` alone over `p` with
+trivial residue extension, is an isomorphism.** -/
+theorem bijective_of_unramifiedAt {A B : Type*} [CommRing A] [CommRing B] [Algebra A B]
+    [IsDomain A] [Module.Finite A B] [Module.Flat A B]
+    (hinj : Function.Injective (algebraMap A B)) (p : Ideal A) [p.IsPrime] (q : Ideal B)
+    [q.IsPrime] [q.LiesOver p] [Algebra (Localization.AtPrime p) (Localization.AtPrime q)]
+    [IsScalarTower A (Localization.AtPrime p) (Localization.AtPrime q)]
+    (huniq : p.primesOver B = {q}) [Algebra.IsUnramifiedAt A q]
+    (hres : Function.Surjective (algebraMap p.ResidueField q.ResidueField)) :
+    Function.Bijective (algebraMap A B) := by
+  have : FaithfulSMul A B := (faithfulSMul_iff_algebraMap_injective A B).mpr hinj
+  have hinj' := Localization.localRingHom_injective_of_primesOver_eq_singleton huniq
+  have hsurj' := Localization.localRingHom_surjective_of_primesOver_eq_singleton huniq hres
+  have hbij : Function.Bijective
+      (algebraMap (Localization.AtPrime p) (Localization.AtPrime q)) := by
+    rw [Localization.AtPrime.algebraMap_eq]; exact ⟨hinj', hsurj'⟩
+  -- `B_q` is the localization of `B` at `p`
+  have hloc : IsLocalization (Algebra.algebraMapSubmonoid B p.primeCompl)
+      (Localization.AtPrime q) := by
+    refine isLocalization_of_cofinal _ q.primeCompl ?_ ?_
+    · rintro _ ⟨a, ha, rfl⟩
+      exact fun h => ha ((Ideal.mem_of_liesOver q p a).mpr h)
+    · intro n hn
+      obtain ⟨r, hr, hdvd⟩ := Ideal.exists_notMem_dvd_algebraMap_of_primesOver_eq_singleton huniq n hn
+      exact ⟨algebraMap A B r, ⟨r, hr, rfl⟩, hdvd⟩
+  have hbc := IsLocalizedModule.isBaseChange p.primeCompl (Localization.AtPrime p)
+    (IsScalarTower.toAlgHom A B (Localization.AtPrime q)).toLinearMap
+  have hrk := Module.rankAtStalk_isBaseChange hbc (IsLocalRing.closedPoint (Localization.AtPrime p))
+  have hcomap : (IsLocalRing.closedPoint (Localization.AtPrime p)).comap
+      (algebraMap A (Localization.AtPrime p)) = ⟨p, inferInstance⟩ := by
+    ext1
+    exact Localization.AtPrime.under_maximalIdeal
+  rw [hcomap] at hrk
+  have e : Localization.AtPrime q ≃ₗ[Localization.AtPrime p] Localization.AtPrime p :=
+    (LinearEquiv.ofBijective (Algebra.linearMap _ _) hbij).symm
+  rw [Module.rankAtStalk_eq_of_equiv e, Module.rankAtStalk_self] at hrk
+  apply Module.algebraMap_bijective_of_rankAtStalk
+  ext P
+  rw [Pi.one_apply]
+  have e1 := Module.rankAtStalk_eq_of_le_of_finite_of_flat' B (bot_le : (⊥ : Ideal A) ≤ P.asIdeal)
+  have e2 := Module.rankAtStalk_eq_of_le_of_finite_of_flat' B (bot_le : (⊥ : Ideal A) ≤ p)
+  rw [← e1, e2]
+  exact hrk.symm.trans (by simp)
+
+
+variable {k : Type} [Field k] [IsAlgClosed k] [CharZero k]
+
+/-- The sections of a smooth integral curve over a nonempty affine open form a Dedekind domain. -/
+theorem isDedekindDomain_sections {W : Scheme} (sW : W ⟶ SpecK k)
+    [SmoothOfRelativeDimension 1 sW] [IsIntegral W] {U : W.Opens} (hU : IsAffineOpen U)
+    [Nonempty U] : IsDedekindDomain Γ(W, U) := by
+  have : Smooth sW := SmoothOfRelativeDimension.smooth 1 sW
+  have : IsLocallyNoetherian W := LocallyOfFiniteType.isLocallyNoetherian sW
+  have : IsNoetherianRing Γ(W, U) := IsLocallyNoetherian.component_noetherian ⟨U, hU⟩
+  have : IsIntegrallyClosed Γ(W, U) := isIntegrallyClosed_of_normal (isNormal_of_integral sW) hU
+  have hsmU : SmoothOfRelativeDimension 1 (U.ι ≫ sW) := by
+    have := smoothOfRelativeDimension_comp (n := 0) (m := 1) U.ι sW
+    rwa [zero_add] at this
+  have hdU := topDim_le_one (U.ι ≫ sW)
+  have hdim : ringKrullDim Γ(W, U) ≤ 1 := by
+    have e1 : topologicalKrullDim (Spec Γ(W, U)) = ringKrullDim Γ(W, U) :=
+      PrimeSpectrum.topologicalKrullDim_eq_ringKrullDim _
+    have e2 : topologicalKrullDim U.toScheme = topologicalKrullDim (Spec Γ(W, U)) :=
+      IsHomeomorph.topologicalKrullDim_eq _ (Scheme.homeoOfIso hU.isoSpec).isHomeomorph
+    rw [← e1, ← e2]
+    exact hdU
+  have : Ring.KrullDimLE 1 Γ(W, U) := Ring.krullDimLE_iff.mpr (by exact_mod_cast hdim)
+  have : Ring.DimensionLEOne Γ(W, U) := ⟨fun hp hpp => hpp.isMaximal_of_ne_bot hp⟩
+  exact { }
+
+/-- **A finite morphism of integral curves over `k`, bijective on points, onto a smooth curve, is
+bijective on sections over nonempty affine opens** (proved). -/
+theorem app_bijective_of_finite_bijective {V W : Scheme} (sV : V ⟶ SpecK k) (sW : W ⟶ SpecK k)
+    [SmoothOfRelativeDimension 1 sW] [IsIntegral V] [IsIntegral W] (f : V ⟶ W)
+    (hf : f ≫ sW = sV) [IsFinite f] (hbij : Function.Bijective f) (U : W.Opens)
+    (hU : IsAffineOpen U) (hne : (U : Set W).Nonempty) : Function.Bijective (f.app U) := by
+  have : Smooth sW := SmoothOfRelativeDimension.smooth 1 sW
+  have : IsDominant f := ⟨hbij.2.denseRange⟩
+  have : Nonempty U := ⟨⟨hne.some, hne.some_mem⟩⟩
+  have hUf : IsAffineOpen (f ⁻¹ᵁ U) := hU.preimage f
+  let A := Γ(W, U)
+  let B := Γ(V, f ⁻¹ᵁ U)
+  letI : Algebra A B := (f.app U).hom.toAlgebra
+  -- finite
+  have hfin : Module.Finite A B := by
+    have h1 := f.isIntegral_app U hU
+    have h2 := f.finiteType_appLE hU hUf le_rfl
+    rw [Scheme.Hom.appLE_eq_app] at h2
+    exact RingHom.IsIntegral.to_finite h1 h2
+  -- injective
+  have hinj : Function.Injective (algebraMap A B) := by
+    intro a b hab
+    have key := f.germToFunctionField_functionFieldMap U
+    have key' : ∀ c : A, f.functionFieldMap (W.germToFunctionField U c) =
+        V.germToFunctionField (f ⁻¹ᵁ U) (f.app U c) := fun c => congrArg (fun g => g.hom c) key
+    have hab' : f.app U a = f.app U b := hab
+    apply Scheme.germToFunctionField_injective W U
+    apply f.functionFieldMap.hom.injective
+    change f.functionFieldMap (W.germToFunctionField U a) =
+      f.functionFieldMap (W.germToFunctionField U b)
+    rw [key', key', hab']
+  have : FaithfulSMul A B := (faithfulSMul_iff_algebraMap_injective A B).mpr hinj
+  have : IsDedekindDomain A := isDedekindDomain_sections sW hU
+  have : Module.Flat A B := inferInstance
+  have : CharZero A := charZero_of_injective_ringHom
+    ((sW.appLE ⊤ U (by simp)).hom.comp (Scheme.ΓSpecIso (CommRingCat.of k)).inv.hom).injective
+  -- an unramified maximal ideal
+  have hO := Algebra.isOpen_unramifiedLocus (R := A) (A := B)
+  have hbot : (⟨⊥, Ideal.isPrime_bot⟩ : PrimeSpectrum B) ∈ Algebra.unramifiedLocus A B :=
+    Algebra.isUnramifiedAt_bot
+  let _ : Field Γ(SpecK k, ⊤) :=
+    (ZInQ.Contrib.Dim.isField_sections_spec k ⊤ Set.univ_nonempty).toField
+  have hJA : IsJacobsonRing A := (sW.finiteType_appLE (isAffineOpen_top _) hU (by simp)).isJacobsonRing
+  have hJB : IsJacobsonRing B := isJacobsonRing_of_isIntegral (R := A)
+  have : JacobsonSpace (PrimeSpectrum B) := PrimeSpectrum.isJacobsonRing_iff_jacobsonSpace.mp hJB
+  obtain ⟨Q, hQO, hQc⟩ := nonempty_inter_closedPoints ⟨_, hbot⟩ hO.isLocallyClosed
+  have hQmax : Q.asIdeal.IsMaximal :=
+    (PrimeSpectrum.isClosed_singleton_iff_isMaximal Q).mp hQc
+  set q := Q.asIdeal with hqdef
+  set p := q.comap (algebraMap A B) with hpdef
+  have : q.LiesOver p := ⟨rfl⟩
+  have : Algebra.IsUnramifiedAt A q := hQO
+  let _ := Localization.AtPrime.algebraOfLiesOver p q
+  -- `q` is the only prime over `p`
+  have hpt : ∀ P : Spec Γ(V, f ⁻¹ᵁ U), f (hUf.fromSpec P) =
+      hU.fromSpec (Spec.map (f.app U) P) := by
+    intro P
+    have h1 := IsAffineOpen.SpecMap_appLE_fromSpec f hU hUf le_rfl
+    rw [Scheme.Hom.appLE_eq_app] at h1
+    rw [← Scheme.Hom.comp_apply, ← h1, Scheme.Hom.comp_apply]
+  have huniq : p.primesOver B = {q} := by
+    ext Q'
+    constructor
+    · rintro ⟨hQ'p, hQ'lo⟩
+      let P' : Spec Γ(V, f ⁻¹ᵁ U) := (⟨Q', hQ'p⟩ : PrimeSpectrum B)
+      let P0 : Spec Γ(V, f ⁻¹ᵁ U) := Q
+      have hcomap : Spec.map (f.app U) P' = Spec.map (f.app U) P0 := by
+        rw [Spec.map_apply, Spec.map_apply]
+        exact PrimeSpectrum.ext hQ'lo.over.symm
+      have h1 : hUf.fromSpec P' = hUf.fromSpec P0 :=
+        hbij.1 (by rw [hpt, hpt, hcomap])
+      have h2 := hUf.fromSpec.isOpenEmbedding.injective h1
+      exact congrArg PrimeSpectrum.asIdeal h2
+    · rintro rfl
+      exact ⟨inferInstance, inferInstance⟩
+  -- `κ(q) = κ(p)` (Nullstellensatz)
+  have hres : Function.Surjective (algebraMap p.ResidueField q.ResidueField) := by
+    have : IsAlgClosed Γ(SpecK k, ⊤) := IsAlgClosed.of_ringEquiv k _
+      (Scheme.ΓSpecIso (CommRingCat.of k)).symm.commRingCatIsoToRingEquiv
+    let g0 : Γ(SpecK k, ⊤) →+* A := (sW.appLE ⊤ U (by simp)).hom
+    have hg0 : g0.FiniteType := sW.finiteType_appLE (isAffineOpen_top _) hU (by simp)
+    let c : Γ(SpecK k, ⊤) →+* q.ResidueField :=
+      (algebraMap B q.ResidueField).comp ((algebraMap A B).comp g0)
+    have hcft : c.FiniteType := by
+      refine RingHom.FiniteType.comp ?_ (RingHom.FiniteType.comp ?_ hg0)
+      · exact RingHom.FiniteType.of_surjective _ (Ideal.algebraMap_residueField_surjective q)
+      · exact (RingHom.Finite.finiteType (f := algebraMap A B) hfin)
+    letI := c.toAlgebra
+    have : Algebra.FiniteType Γ(SpecK k, ⊤) q.ResidueField := hcft
+    have hcfin : Module.Finite Γ(SpecK k, ⊤) q.ResidueField :=
+      finite_of_finite_type_of_isJacobsonRing _ _
+    have hcint : c.IsIntegral := RingHom.Finite.to_isIntegral hcfin
+    have hcbij := IsAlgClosed.ringHom_bijective_of_isIntegral c hcint
+    intro z
+    obtain ⟨t, rfl⟩ := hcbij.2 z
+    refine ⟨algebraMap A p.ResidueField (g0 t), ?_⟩
+    rw [← IsScalarTower.algebraMap_apply, IsScalarTower.algebraMap_apply A B q.ResidueField]
+    rfl
+  exact bijective_of_unramifiedAt hinj p q huniq hres
+
+/-- **A finite morphism of integral curves over `k`, bijective on points, onto a smooth curve, is an
+isomorphism** (proved). -/
+theorem isIso_of_finite_bijective {V W : Scheme} (sV : V ⟶ SpecK k) (sW : W ⟶ SpecK k)
+    [SmoothOfRelativeDimension 1 sW] [IsIntegral V] [IsIntegral W] (f : V ⟶ W)
+    (hf : f ≫ sW = sV) [IsFinite f] (hbij : Function.Bijective f) : IsIso f := by
+  refine IsZariskiLocalAtTarget.of_iSup_eq_top (P := MorphismProperty.isomorphisms Scheme)
+    (fun U : {U : W.affineOpens // ((U : W.Opens) : Set W).Nonempty} => U.1.1) ?_ fun U => ?_
+  · rw [eq_top_iff]
+    intro y _
+    obtain ⟨_, ⟨U, hU, rfl⟩, hyU, -⟩ :=
+      W.isBasis_affineOpens.exists_subset_of_mem_open (Set.mem_univ y) isOpen_univ
+    exact TopologicalSpace.Opens.mem_iSup.mpr ⟨⟨⟨U, hU⟩, ⟨y, hyU⟩⟩, hyU⟩
+  · have hVa : IsAffine U.1.1.toScheme := U.1.2
+    show IsIso (f ∣_ U.1.1)
+    have hA : IsAffine (f ⁻¹ᵁ U.1.1).toScheme := U.1.2.preimage f
+    have hV' : IsAffineOpen (U.1.1.ι ''ᵁ ⊤) := by
+      rw [Scheme.Opens.ι_image_top]; exact U.1.2
+    have hne : ((U.1.1.ι ''ᵁ ⊤ : W.Opens) : Set W).Nonempty := by
+      rw [Scheme.Opens.ι_image_top]; exact U.2
+    have h1 : IsIso (f.app (U.1.1.ι ''ᵁ ⊤)) := (ConcreteCategory.isIso_iff_bijective _).mpr
+      (app_bijective_of_finite_bijective sV sW f hf hbij _ hV' hne)
+    have happ : IsIso (f ∣_ U.1.1).appTop := by
+      rw [morphismRestrict_appTop]
+      exact IsIso.comp_isIso' h1 (Functor.map_isIso _ _)
+    exact (MorphismProperty.arrow_mk_iso_iff (MorphismProperty.isomorphisms Scheme)
+      (arrowIsoSpecΓOfIsAffine (f ∣_ U.1.1))).mpr (inferInstanceAs (IsIso (Spec.map _)))
+
+/-- **The restriction of `h` over an irreducible open `W` is an isomorphism** (proved, no leaf),
+once `h` is a homeomorphism. -/
+theorem restrict_isIso_noleaf {T Z : Over (SpecK k)} [IsProper T.hom] [IsProper Z.hom]
+    [SmoothOfRelativeDimension 1 T.hom] [SmoothOfRelativeDimension 1 Z.hom] (h : T ⟶ Z)
+    (W : Z.left.Opens) (hW : IsIrreducible (W : Set Z.left)) (hhomeo : IsHomeomorph h.left) :
+    IsIso (h.left ∣_ W) := by
+  set V := h.left ⁻¹ᵁ W with hVdef
+  have hw : h.left ≫ Z.hom = T.hom := Over.w h
+  have : IsProper h.left := by
+    have : IsProper (h.left ≫ Z.hom) := by rw [hw]; infer_instance
+    exact IsProper.of_comp h.left Z.hom
+  have hsmW : SmoothOfRelativeDimension 1 (W.ι ≫ Z.hom) := by
+    have := smoothOfRelativeDimension_comp (n := 0) (m := 1) W.ι Z.hom
+    rwa [zero_add] at this
+  have hsmV : SmoothOfRelativeDimension 1 (V.ι ≫ T.hom) := by
+    have := smoothOfRelativeDimension_comp (n := 0) (m := 1) V.ι T.hom
+    rwa [zero_add] at this
+  have : Smooth (W.ι ≫ Z.hom) := SmoothOfRelativeDimension.smooth 1 _
+  have : Smooth (V.ι ≫ T.hom) := SmoothOfRelativeDimension.smooth 1 _
+  have : IrreducibleSpace W.toScheme := Subtype.irreducibleSpace hW
+  have : IsReduced W.toScheme := isReduced_of_smooth (W.ι ≫ Z.hom)
+  have hIW : IsIntegral W.toScheme := isIntegral_of_irreducibleSpace_of_isReduced _
+  have hV : IsIrreducible (V : Set T.left) := by
+    let e := hhomeo.homeomorph h.left
+    have : (V : Set T.left) = e.symm '' (W : Set Z.left) := by
+      rw [Homeomorph.image_symm]; rfl
+    rw [this]
+    exact hW.image _ e.symm.continuous.continuousOn
+  have : IrreducibleSpace V.toScheme := Subtype.irreducibleSpace hV
+  have : IsReduced V.toScheme := isReduced_of_smooth (V.ι ≫ T.hom)
+  have hIV : IsIntegral V.toScheme := isIntegral_of_irreducibleSpace_of_isReduced _
+  set f := h.left ∣_ W with hfdef
+  have hfapp : ∀ x : V.toScheme, (f x).1 = h.left x.1 := fun x =>
+    morphismRestrict_base_coe h.left W x
+  have hinj : Function.Injective f := by
+    intro a b hab
+    apply Subtype.ext
+    apply hhomeo.injective
+    rw [← hfapp, ← hfapp, hab]
+  have hsurj : Function.Surjective f := by
+    intro y
+    obtain ⟨x, hx⟩ := hhomeo.surjective y.1
+    have hxV : x ∈ V := by
+      show h.left x ∈ W
+      rw [hx]; exact y.2
+    refine ⟨(⟨x, hxV⟩ : V.toScheme), Subtype.ext ?_⟩
+    exact (hfapp _).trans hx
+  have : LocallyOfFiniteType f := inferInstance
+  have : LocallyQuasiFinite f := LocallyQuasiFinite.of_injective hinj
+  have : IsFinite f := IsFinite.of_isProper_of_locallyQuasiFinite f
+  have hcomm : f ≫ (W.ι ≫ Z.hom) = V.ι ≫ T.hom := by
+    rw [hfdef, morphismRestrict_ι_assoc, Over.w h]
+  exact isIso_of_finite_bijective (V.ι ≫ T.hom) (W.ι ≫ Z.hom) f hcomm ⟨hinj, hsurj⟩
+
+/-- **`CurveBijIsoClosed`, proved with no leaf.** -/
+theorem curveBijIsoClosed_proved : CurveBijIsoClosed := by
+  intro k _ _ _ T Z hPT hST hPZ hSZ h hb
+  have : Smooth T.hom := SmoothOfRelativeDimension.smooth 1 T.hom
+  have : Smooth Z.hom := SmoothOfRelativeDimension.smooth 1 Z.hom
+  have : JacobsonSpace T.left := LocallyOfFiniteType.jacobsonSpace T.hom
+  have : JacobsonSpace Z.left := LocallyOfFiniteType.jacobsonSpace Z.hom
+  have : CompactSpace Z.left := QuasiCompact.compactSpace_of_compactSpace Z.hom
+  have hw : h.left ≫ Z.hom = T.hom := Over.w h
+  have : IsProper h.left := by
+    have : IsProper (h.left ≫ Z.hom) := by rw [hw]; infer_instance
+    exact IsProper.of_comp h.left Z.hom
+  obtain ⟨hcp, hinj, hsurj⟩ := closedPoint_facts h hb
+  have hbij : Function.Bijective h.left :=
+    bijective_of_closedPoints h.left.continuous h.left.isClosedMap (topDim_le_one T.hom)
+      (components_disjoint T.hom) hcp hinj hsurj
+  have hhomeo : IsHomeomorph h.left :=
+    isHomeomorph_iff_continuous_isClosedMap_bijective.mpr
+      ⟨h.left.continuous, h.left.isClosedMap, hbij⟩
+  have hiso : IsIso h.left := by
+    refine IsZariskiLocalAtTarget.of_iSup_eq_top (P := MorphismProperty.isomorphisms Scheme)
+      (fun z : Z.left =>
+        (⟨irreducibleComponent z, isOpen_irreducibleComponent Z.hom z⟩ : Z.left.Opens)) ?_ ?_
+    · rw [eq_top_iff]
+      intro z _
+      exact TopologicalSpace.Opens.mem_iSup.mpr ⟨z, mem_irreducibleComponent⟩
+    · intro z
+      exact restrict_isIso_noleaf h _ isIrreducible_irreducibleComponent hhomeo
+  have : IsIso ((Over.forget _).map h) := hiso
+  exact isIso_of_reflects_iso h (Over.forget _)
+
+/-- **H-85 `ModelGlue.CurveBijIso`, proved** (no leaf: Mathlib and `ZInQKernel/` only). -/
+theorem curveBijIso : CurveBijIso :=
+  curveBijIso_of_closed curveBijIsoClosed_proved
+
+end PartD
+
 end CurveSplit
 
 #print axioms CurveSplit.curveBijIso_of_closed
@@ -1057,3 +1374,5 @@ end CurveSplit
 #print axioms CurveSplit.curveBijIso_of_zmt
 #print axioms CurveSplit.zmtOriginal
 #print axioms CurveSplit.curveBijIso_of_degree
+#print axioms CurveSplit.app_bijective_of_finite_bijective
+#print axioms CurveSplit.curveBijIso
