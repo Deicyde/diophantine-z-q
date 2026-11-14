@@ -66,11 +66,11 @@ than the print together with R1. Every locator below is UNVERIFIED unless marked
 
 | row | old form | new leaves (form; source) | new glue (status) | Lean name of the proof |
 |---|---|---|---|---|
-| `r1r2` `R1R2fpRep` | GLUE (comp) | `DeligneComponentsX6` (c: Deligne π₀ at level `𝒪̂^×`; Bourbaki 389 §§2-3, PSPM 33 2.6.3); `GeomConnOfAlgClosure` (textbook, published form weakened by a properness hypothesis: EGA IV 4.5, Stacks 0389); T5 (bundle, `A(k̄)[n] ≅ (ℤ/n)^{2g}`); `BabaGranathX6'` (c: Baba–Granath Thm 2.1, Lemma 3.1, §3.1 table, audit YES); `ReciprocityCanonical` (c: Shimura reciprocity on points, Shimura 1967 Main Thm II, Deligne 1971 §3); `GonzalezRotgerX6` (canonical model: GR 2006 Thm 5.12, audit YES) | `HeckeOfFine` (proved, qm-split); `CoarseFactor`, `CurveBijIso` (proved, coarse-factor, curve-split); `PairsLift` (proved here from T5: `pairsLift_of_T5`); surjectivity of `π₆` (proved here: `surj_of_fibre`); `ReciprocityOfFine`, `ResidueOfX6` (proved here from the object forms via the bridge); `canonicalCoarseX6_of`, `geomConnX6_of` (proved) | `HDec.QMSplit.Moduli.r1r2fpRep_of_printed_t5` (`Rows.lean`); variants `r1r2fpRep_of_printed` (with `PairsLift`), `r1r2fpRep_of_split6` (with `R1rec`, `R5fp`), `r1r2fpRep_of_split` |
+| `r1r2` `R1R2fpRep` | GLUE (comp) | `DeligneComponentsX6` (c: Deligne π₀ at level `𝒪̂^×`; Bourbaki 389 §§2-3, PSPM 33 2.6.3); `GeomConnOfAlgClosure` (textbook, published form weakened by properness and characteristic-0 hypotheses: EGA IV 4.5, Stacks 0389); T5 (bundle, `A(k̄)[n] ≅ (ℤ/n)^{2g}`); `BabaGranathX6'` (c: Baba–Granath Thm 2.1, Lemma 3.1, §3.1 table, audit YES); `ReciprocityCanonical` (c: Shimura reciprocity on points, Shimura 1967 Main Thm II, Deligne 1971 §3); `GonzalezRotgerX6` (canonical model: GR 2006 Thm 5.12, audit YES) | `HeckeOfFine` (proved, qm-split); `CoarseFactor`, `CurveBijIso` (proved, coarse-factor, curve-split); `PairsLift` (proved here from T5: `pairsLift_of_T5`); surjectivity of `π₆` (proved here: `surj_of_fibre`); `ReciprocityOfFine`, `ResidueOfX6` (proved here from the object forms via the bridge); `canonicalCoarseX6_of`, `geomConnX6_of` (proved) | `HDec.QMSplit.Moduli.r1r2fpRep_of_printed_t5` (`Rows.lean`); variants `r1r2fpRep_of_printed` (with `PairsLift`), `r1r2fpRep_of_split6` (with `R1rec`, `R5fp`), `r1r2fpRep_of_split` |
 | `r1rec` `R1rec` | GLUE (c) | **none** | the bridge `fieldOfModuli3_eq_residueImage` (proved) | `HDec.QMSplit.Moduli.r1rec_of_r1r2 : R1R2fpRep → R1rec`; also `r1rec_of_reciprocityCanonical` |
 | `r5` `R5fp` | GLUE (c) | **none** | the bridge `fieldOfModuliPair_eq_residueImage` (proved) | `HDec.QMSplit.Moduli.r5fp_of_r1r2 : R1R2fpRep → R5fp`; also `ShimuraSplit.r5fp_of_point` from `GonzalezRotgerX6` |
 | `r5count` `R5fpCount` | GLUE (c) | `GonzalezRotgerCountX6` (canonical model: GR 2006 Prop. 5.6 at `(D,N) = (6,1)`, `#CM(R) = 2^{b} h(R)` on the points of `X₀(6,1)`, audit read Prop. 5.6) | transport through the moduli bijection `Ψ` (proved) | `HDec.QMSplit.Moduli.r5fpCount_of_points` (`ShimuraSplit.r5fpCount_of_points`) |
-| `shimuraFamily` `ShimuraFamily` | GLUE (c) | `ShimuraHolFamily` (published form: Shimura 1967 Main Thm I, one holomorphic `φ : ℍ → Y₃(ℂ)` with the moduli clause; Deligne 1971 §4.15) | GAGA-level step "every `π : Y → P¹` composed with a holomorphic family is continuous and holomorphic into `P¹(ℂ)`" (proved: `holP1_of_isHolFamily`) | `HDec.QMSplit.Moduli.shimuraFamily_of_hol` (`ShimuraFam.lean`) |
+| `shimuraFamily` `ShimuraFamily` | GLUE (c) | `ShimuraHolFamily` (c: Shimura 1967 Main Thm I, one holomorphic `φ : ℍ → Y₃(ℂ)` with the moduli clause, through Deligne 1971 §4 for the `ℚ`-model with two geometric components; review §7) | GAGA-level step "every `π : Y → P¹` composed with a holomorphic family is continuous and holomorphic into `P¹(ℂ)`" (proved: `holP1_of_isHolFamily`) | `HDec.QMSplit.Moduli.shimuraFamily_of_hol` (`ShimuraFam.lean`) |
 | `y3Connected` `Y3Connected` | GLUE (comp) | `DeligneComponentsY3` (c: Deligne π₀ for `K₃`, `π₀(Y_ℚ̄) ≃ (ℤ/3)^×` with `σ` acting by Mathlib's `modularCyclotomicCharacter`; the computation `nrd(K₃) = ∏_{ℓ≠3} ℤ_ℓ^× × (1+3ℤ_3)` is not formalized) | orbit computation (proved: `y3Connected_of_deligne`: a clopen of `Y` pulls back to a Galois-stable union of components; `χ₃` is onto `{±1}`) | `HDec.QMSplit.Moduli.y3Connected_of_deligne` (`ShimuraSplit.y3Connected_of_deligne`) |
 | `x6ConicModel` `X6ConicModel` | GLUE (c) | `ElkiesConicX6` (c: Elkies 1998 §3, the coordinate `t` on `X*(6) = X₆/W` and `X₆ = X*(6)(√−t, √(3(t−1)))`, in conic coordinates; Kurihara 1979 as a check) together with the bundle's `r1r2` and T5 | `conicOfWitness_of_elkies` (proved; coarse comparison and the uniqueness of the normalized Hauptmodul from `MobiusGlue`, which the kernel proves from T5) | `HDec.QMSplit.Moduli.x6ConicModel_of_elkies_t5`; converse `elkiesConicX6_of` |
 | `r3` `R03_LinYang` | GLUE (comp) | not split (§4) | — | — |
@@ -152,7 +152,8 @@ fills the old field `t5` this way), and the kernel's `MobiusGlue` already uses i
 
 **Forms (SPECULATIVE readings).**
 * `GonzalezRotgerX6` is the printed Thm 5.12 on `X₀(6,1)` with the audited reading of `D(R)`.
-* `GeomConnOfAlgClosure` is a textbook criterion, stated weaker than print (with `IsProper` added).
+* `GeomConnOfAlgClosure` is a textbook criterion, stated weaker than print (with `IsProper` and `CharZero k`
+  added; Stacks uses a separable closure, which is the algebraic closure in characteristic 0).
 * The other three are consequences:
   * `DeligneComponentsX6`: Deligne's `π₀` display together with `nrd(𝒪̂^×) = ℤ̂^×` and `𝔸_f^× = ℚ^×_{>0}ℤ̂^×`;
   * `BabaGranathX6'`: Thm 2.1 together with Lemma 3.1 and the §3.1 elliptic-order table;
@@ -177,7 +178,9 @@ This is the standard notion: an affine open embeds in `ℂ^n` by finitely many r
 topology is the induced one (SPECULATIVE, but standard).
 
 **Leaf.** `ShimuraHolFamily` is Main Thm I in this form: **one** family, with the moduli clause of `IsR1bFamily`
-copied verbatim.
+copied verbatim. It is a consequence, not the printed form (review §7). Shimura's `V` for the level-3 group
+is one geometric component, defined over `ℚ(ζ₃)`. The moduli clause on `Y₃/ℚ` comes through Deligne §4, R1 and
+Lemma QP.
 
 **The step to every `π` (`holP1_of_isHolFamily`).**
 * `π : ToP1` is given by charts `U, V, f, g`.
@@ -187,7 +190,7 @@ copied verbatim.
 * Continuity at a pole uses `tendsto_invP1` (`w ↦ 1/w` into `P¹(ℂ)`).
 
 So the flagged composition step (qm-split: "the 'every `π`' reading is a consequence of the printed statement
-plus that composition step") is now a Lean proof, and the leaf is the printed statement.
+plus that composition step") is now a Lean proof.
 
 ### 3.5 `y3Connected` (`Y3Conn.lean`)
 
@@ -261,18 +264,17 @@ Not attempted.
 
 **After**, if folded with `rows_of_shimuraSplitLeaves` and `shimuraFamily_of_hol`: 10 fields. `r1rec` and `r5`
 are dropped as theorems, and T5 comes from the existing textbook leaves.
-* **4 published form:**
+* **3 published form:**
   * `GonzalezRotgerX6`, `GonzalezRotgerCountX6`, on the canonical model;
-  * `ShimuraHolFamily`;
   * `GeomConnOfAlgClosure`, a textbook criterion, weakened.
-* **5 consequences:** `DeligneComponentsX6`, `DeligneComponentsY3`, `BabaGranathX6'`, `ReciprocityCanonical`,
-  `ElkiesConicX6`.
+* **6 consequences:** `DeligneComponentsX6`, `DeligneComponentsY3`, `BabaGranathX6'`, `ReciprocityCanonical`,
+  `ElkiesConicX6`, `ShimuraHolFamily`.
 * **1 composite:** `r3`.
 
 | | fields | strict LEAF / GLUE | lenient LEAF / GLUE |
 |---|---|---|---|
 | before | 8 | 0 / 8 | 5 / 3 |
-| after | 10 | 4 / 6 | 9 / 1 |
+| after | 10 | 3 / 7 | 9 / 1 |
 
 `DeligneComponentsX6` and `DeligneComponentsY3` are two specializations of one theorem (Deligne's `π₀`).
 `ElkiesConicX6` is Elkies' §3 statement after a change of coordinates (SPECULATIVE reading). It is counted as a
@@ -282,7 +284,7 @@ consequence of one theorem; leaf-fold8 listed Kurihara as a second source.
 * `r1rec`, `r5` are dropped;
 * `r5count`, `shimuraFamily`, `y3Connected`, `x6ConicModel` are replaced by one new leaf each.
 
-That gives 7 fields, strict 2 / 5 (published: `GonzalezRotgerCountX6`, `ShimuraHolFamily`).
+That gives 7 fields, strict 1 / 6 (published: `GonzalezRotgerCountX6`).
 
 ## 6. Files and checks (all VERIFIED: `lake env lean`, one Lean process at a time)
 
@@ -308,3 +310,22 @@ commit 5da857b0 with the OneProof chain built through TailX.
   `ShimuraFam.lean` (over TailU) is a separate file.
 * The leaves' docstrings give their sources. Locators are UNVERIFIED except Baba–Granath Thm 2.1, GR Thm 5.12 and
   Prop. 5.6, which the audit read.
+
+## 7. Independent statement review (model, read-only; no human review)
+
+A separate model review read every new leaf against the kernel and chain definitions. It found no leaf false,
+vacuous, or stronger than its sources.
+* **`DeligneComponentsY3`: OK.**
+  * The variance of `galAct` is harmless: it is a right action, but `χ₃` has order 2 and the target is abelian.
+  * The computation `nrd(1 + 3𝒪₃) = 1 + 3ℤ₃` matches.
+* **`GonzalezRotgerCountX6`: OK.** Cross-check: Eichler's optimal-embedding count `h(R)∏_{p|6}(1 − (k/p))` gives
+  2, 2, 2 points at discriminants −4, −3, −24, matching the conic model's fibres.
+* **`IsHolFamily`: a faithful rendering of holomorphy, in both directions,** including `ℂ`-points over the generic
+  point (`regVal` is then the value of a rational function).
+* **`GeomConnOfAlgClosure`, `DeligneComponentsX6`, `BabaGranathX6'`, `ElkiesConicX6`: OK.** `elkiesConicX6_of` is
+  sound (`R1fpPropsFull` has the body of `R1fpProps`).
+
+Applied corrections (recompiled: `Rows.lean` 0 errors with 55 standard axiom lines; `ShimuraFam.lean` 0 errors):
+* `ShimuraHolFamily` is relabelled a consequence (docstring and §2, §5).
+* `GeomConnOfAlgClosure` gains `[CharZero k]` (a weakening; Stacks states the criterion with a separable closure).
+* `ReciprocityCanonical` gets a full LEAF docstring with its source and form.
