@@ -1,0 +1,120 @@
+
+/-! ════════════════════════════════════════════════════════════════════════════════════════════
+# mcr-quot, part 20: descent of a `G`-invariant map to `P¹` (on an open) through an SGA 1 quotient
+════════════════════════════════════════════════════════════════════════════════════════════ -/
+
+noncomputable section
+
+namespace MCRQuot
+
+open Polynomial CategoryTheory AlgebraicGeometry Limits LeafQM LeafQM.AV VertWitness HeckeRestNV
+open G0ModField PropTSRed PropTSGlue ModelGlue MCRGlue LeafQM.AV.Pin PkgI3
+open TopologicalSpace Opposite
+
+/-- A map to `P¹` by charts defined on the open `O` (the charts `U, V` cover `O`). -/
+structure ToP1In (X : Scheme.{0}) (O : X.Opens) where
+  U : X.Opens
+  V : X.Opens
+  cover : U ⊔ V = O
+  f : Γ(X, U)
+  g : Γ(X, V)
+  inv : X.presheaf.map (homOfLE (inf_le_left : U ⊓ V ≤ U)).op f *
+      X.presheaf.map (homOfLE (inf_le_right : U ⊓ V ≤ V)).op g = 1
+  basicOpen_f : X.basicOpen f = U ⊓ V
+  basicOpen_g : X.basicOpen g = U ⊓ V
+
+section DescentP1
+
+variable {X Z : Scheme.{0}} {G : Subgroup (Aut X)} {q : X ⟶ Z}
+
+/-- The image of a `G`-stable open under a closed quotient map, as an open. -/
+def imgOpen (q : X ⟶ Z) [UniversallyClosed q] (U : X.Opens) : Z.Opens :=
+  ⟨(q '' (U : Set X)ᶜ)ᶜ, (q.isClosedMap _ U.isOpen.isClosed_compl).isOpen_compl⟩
+
+theorem preimage_imgOpen [UniversallyClosed q] (hq : IsGQuotient G q) (hfin : Finite G)
+    (U : X.Opens) (hU : ∀ g ∈ G, ∀ x, g.asIso.hom x ∈ U ↔ x ∈ U) : q ⁻¹ᵁ imgOpen q U = U := by
+  ext x
+  change q x ∈ (q '' (U : Set X)ᶜ)ᶜ ↔ x ∈ U
+  constructor
+  · intro h
+    by_contra hx
+    exact h ⟨x, hx, rfl⟩
+  · rintro hx ⟨x', hx', hqx⟩
+    obtain ⟨g, hg, hgx⟩ := gQuotientPointOrbits X Z G q hfin hq x' x hqx
+    apply hx'
+    rw [← hgx]
+    exact (hU g hg x).2 hx
+
+theorem eq_of_preimage_eq (hs : Function.Surjective q) {A B : Z.Opens}
+    (h : q ⁻¹ᵁ A = q ⁻¹ᵁ B) : A = B := by
+  ext z
+  obtain ⟨x, rfl⟩ := hs z
+  change x ∈ q ⁻¹ᵁ A ↔ x ∈ q ⁻¹ᵁ B
+  rw [h]
+
+/-- Invariance of a pulled-back section, transported along an equality of opens. -/
+theorem secMap_eqToHom (hq : IsGQuotient G q) {g : Aut X} (hg : g ∈ G) {W : Z.Opens}
+    {U : X.Opens} (e : q ⁻¹ᵁ W = U) (hU : U ≤ g.asIso.hom ⁻¹ᵁ U) (s : Γ(X, U))
+    (hs : g.asIso.hom.appLE U U hU s = s) :
+    secMap g.asIso.hom (hq.1 g hg) W (X.presheaf.map (eqToHom e).op s) =
+      X.presheaf.map (eqToHom e).op s := by
+  simp only [secMap]
+  rw [← ConcreteCategory.comp_apply, Scheme.Hom.map_appLE]
+  conv_rhs => rw [← hs]
+  rw [← ConcreteCategory.comp_apply, Scheme.Hom.appLE_map]
+
+/-- **Descent of a `G`-invariant map to `P¹` through an SGA 1 quotient** (on the preimage of an
+open `O`). The charts are the images of the `G`-stable charts (open, `q` closed and surjective);
+the functions are the invariant sections, which descend (`exists_descend_section`); the identities
+descend by injectivity of `q.app` (`app_injective_of_isGQuotient`). -/
+theorem exists_descend_toP1In [IsFinite q] (hq : IsGQuotient G q) (hfin : Finite G) (O : Z.Opens)
+    (σ : ToP1In X (q ⁻¹ᵁ O))
+    (hU : ∀ g ∈ G, ∀ x, g.asIso.hom x ∈ σ.U ↔ x ∈ σ.U)
+    (hV : ∀ g ∈ G, ∀ x, g.asIso.hom x ∈ σ.V ↔ x ∈ σ.V)
+    (hf : ∀ (g : Aut X) (hg : g ∈ G),
+      g.asIso.hom.appLE σ.U σ.U (fun x hx => (hU g hg x).2 hx) σ.f = σ.f)
+    (hg' : ∀ (g : Aut X) (hg : g ∈ G),
+      g.asIso.hom.appLE σ.V σ.V (fun x hx => (hV g hg x).2 hx) σ.g = σ.g) :
+    ∃ σ' : ToP1In Z O, ∃ eU : q ⁻¹ᵁ σ'.U = σ.U,
+      q.app σ'.U σ'.f = X.presheaf.map (eqToHom eU).op σ.f := by
+  have hsurj := isGQuotient_surjective G q hfin hq
+  set U' := imgOpen q σ.U with hU'
+  set V' := imgOpen q σ.V with hV'
+  have eU : q ⁻¹ᵁ U' = σ.U := preimage_imgOpen hq hfin σ.U hU
+  have eV : q ⁻¹ᵁ V' = σ.V := preimage_imgOpen hq hfin σ.V hV
+  obtain ⟨f', hf'⟩ := exists_descend_section hq U' (X.presheaf.map (eqToHom eU).op σ.f)
+    (fun g hg => secMap_eqToHom hq hg eU _ σ.f (hf g hg))
+  obtain ⟨g', hg''⟩ := exists_descend_section hq V' (X.presheaf.map (eqToHom eV).op σ.g)
+    (fun g hg => secMap_eqToHom hq hg eV _ σ.g (hg' g hg))
+  have eUV : q ⁻¹ᵁ (U' ⊓ V') = σ.U ⊓ σ.V := by
+    rw [Scheme.Hom.preimage_inf, eU, eV]
+  -- pulling back restrictions
+  have hresf : q.app (U' ⊓ V') (Z.presheaf.map (homOfLE (inf_le_left : U' ⊓ V' ≤ U')).op f') =
+      X.presheaf.map (eqToHom eUV).op
+        (X.presheaf.map (homOfLE (inf_le_left : σ.U ⊓ σ.V ≤ σ.U)).op σ.f) := by
+    rw [app_map_eq, hf', ← ConcreteCategory.comp_apply, ← ConcreteCategory.comp_apply,
+      ← Functor.map_comp, ← Functor.map_comp]
+    rfl
+  have hresg : q.app (U' ⊓ V') (Z.presheaf.map (homOfLE (inf_le_right : U' ⊓ V' ≤ V')).op g') =
+      X.presheaf.map (eqToHom eUV).op
+        (X.presheaf.map (homOfLE (inf_le_right : σ.U ⊓ σ.V ≤ σ.V)).op σ.g) := by
+    rw [app_map_eq, hg'', ← ConcreteCategory.comp_apply, ← ConcreteCategory.comp_apply,
+      ← Functor.map_comp, ← Functor.map_comp]
+    rfl
+  have hbf : Z.basicOpen f' = U' ⊓ V' := by
+    apply eq_of_preimage_eq hsurj
+    rw [Scheme.preimage_basicOpen, hf', Scheme.basicOpen_res, σ.basicOpen_f, eUV]
+    exact inf_eq_right.mpr (by rw [eU]; exact inf_le_left)
+  have hbg : Z.basicOpen g' = U' ⊓ V' := by
+    apply eq_of_preimage_eq hsurj
+    rw [Scheme.preimage_basicOpen, hg'', Scheme.basicOpen_res, σ.basicOpen_g, eUV]
+    exact inf_eq_right.mpr (by rw [eV]; exact inf_le_right)
+  refine ⟨⟨U', V', ?_, f', g', ?_, hbf, hbg⟩, eU, hf'⟩
+  · apply eq_of_preimage_eq hsurj
+    rw [Scheme.Hom.preimage_sup, eU, eV, σ.cover]
+  · apply app_injective_of_isGQuotient hq (U' ⊓ V')
+    rw [map_mul, map_one, hresf, hresg, ← map_mul, σ.inv, map_one]
+
+end DescentP1
+
+end MCRQuot

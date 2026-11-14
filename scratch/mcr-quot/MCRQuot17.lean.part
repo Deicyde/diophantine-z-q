@@ -1,0 +1,117 @@
+
+/-! ════════════════════════════════════════════════════════════════════════════════════════════
+# mcr-quot, part 17: (C1b) `CMStabInvolution` reduced to a statement on QM objects over `ℚ̄`
+════════════════════════════════════════════════════════════════════════════════════════════ -/
+
+noncomputable section
+
+namespace MCRQuot
+
+open Polynomial CategoryTheory AlgebraicGeometry Limits LeafQM LeafQM.AV VertWitness HeckeRestNV
+open G0ModField PropTSRed PropTSGlue ModelGlue MCRGlue LeafQM.AV.Pin PkgI3
+
+/-- **Glue (C1b-obj): a CM object is fixed by a Hecke operation of order exactly 2 on classes**
+(QM with CM; the elliptic points of `Y₃ → P¹` have stabilizers of even order `4, 6, 2` in the
+group of Hecke operations on classes, `CoverBranchData`/`nY3`, Baba–Granath §3.1 (locator
+UNVERIFIED)). For a level-3 object `P` over `ℚ̄` with CM by `ℤ[i]`, `ℤ[ζ₃]` or `ℤ[√−6]`, some
+operation `T = twist α ∘ rightMul u` on `M3 ℚ̄` fixes the class of `P`, is an involution, and is not
+the identity. (Outline: for `ℤ[i]` take `α = id` and `u ≡ φ` on `A[3]` (`Level3.torsor`,
+`exists_unit_congr`); then `u² ≡ −1`, and `−1` acts trivially on classes. For `ℤ[ζ₃]` and
+`ℤ[√−6]` the involution is an Atkin–Lehner-type twist induced by an element of the normalizer of
+`ι(𝒪)` in `End A` (for `ℤ[√−6]`: `ι(ij)⁻¹ φ`), which needs the structure of `End A` at CM points.) -/
+def CMStabObj : Prop :=
+  ∀ P : QML3 Qbar, (HasCM4 P.q ∨ HasCM3 P.q ∨ HasCM24 P.q) →
+    ∃ (α : LeafQM.O ≃+* LeafQM.O) (u : (LeafQM.O)ˣ),
+      M3.twist α (M3.rightMul u (M3.mk P)) = M3.mk P ∧
+      (∀ m : M3 Qbar, M3.twist α (M3.rightMul u (M3.twist α (M3.rightMul u m))) = m) ∧
+      ∃ m : M3 Qbar, M3.twist α (M3.rightMul u m) ≠ m
+
+/-- **An automorphism over `ℤ_(p)` of the smooth model fixing every `ℚ̄`-point is the identity**
+(given `CurveBijIso` and `ModelYIrreducible`; through `FibreAutFixFinite` and the infinitely many
+`ℚ̄`-points). -/
+theorem eq_one_of_fixes_all (hC : CurveBijIso) (hYI : ModelYIrreducible) {p : ℕ} [Fact p.Prime]
+    (hp : 324 < p) {𝒴 : Over (Spec (CommRingCat.of (Zloc p)))} {𝒜 : QMFamily 𝒴.left}
+    (hM : IsShimuraModel p 𝒴 𝒜) {Y : Over (Spec (CommRingCat.of ℚ))} {Φ : PtEquiv Y}
+    {π : ToP1 Y.left} (h1 : R1fpProps Y Φ) (hh : R1heckeProps Y Φ) (h2 : R2fpProps Y Φ π)
+    (g : Aut 𝒴.left) (hg : g ∈ fibreAut 𝒴 𝒜)
+    (hfix : ∀ z : Spec (CommRingCat.of Qbar) ⟶ 𝒴.left, z ≫ g.asIso.hom = z) : g = 1 := by
+  by_contra hne
+  have hfin := fibreAutFixFinite_of' hC hYI p hp 𝒴 𝒜 hM Y Φ π h1 hh h2 g hg hne
+  apply infinite_qbarPoints (π := π) hM h1
+  refine hfin.subset ?_
+  intro z _
+  exact hfix z
+
+/-- **(C1b) reduced: `CMStabInvolution` from `CurveBijIso`, `ModelYIrreducible` and the
+object-level glue `CMStabObj`.** The Hecke automorphisms `g_α`, `g_u` of `IsShimuraModel` lie in
+`fibreAut` (`hecke_mem_fibreAut`); `ι = g_α ∘ g_u` acts on classes as `T`. It fixes `y` (moduli
+injectivity), `ι²` fixes every `ℚ̄`-point (`T² = id`), hence `ι² = 1` (`eq_one_of_fixes_all`), and
+`ι ≠ 1` because `T` moves the class of some object, which is the fibre at some `ℚ̄`-point. -/
+theorem cMStabInvolution_of (hC : CurveBijIso) (hYI : ModelYIrreducible) (hO : CMStabObj) :
+    CMStabInvolution := by
+  intro p _ hp 𝒴 𝒜 hM Y Φ π h1 hh h2 y P hP hCM
+  obtain ⟨α, u, hfixP, hinv, m0, hm0⟩ := hO P hCM
+  obtain ⟨htw, hru⟩ := hecke_mem_fibreAut hM
+  obtain ⟨ga, hgaG, hga⟩ := htw α
+  obtain ⟨gu, hguG, hgu⟩ := hru u
+  obtain ⟨g, hg, -⟩ := exists_genFib_to_Y hM h1
+  have huniq : ∀ (y : Spec (CommRingCat.of Qbar) ⟶ 𝒴.left) (P P' : QML3 Qbar),
+      IsFibreOf 𝒜 y P → IsFibreOf 𝒜 y P' → M3.mk P = M3.mk P' := by
+    intro y P P' hP hP'
+    obtain ⟨s, hs⟩ := genFib_pt 𝒴 y
+    rw [← hg Qbar s P ((congrArg (fun t => IsFibreOf 𝒜 t _) hs).mpr hP),
+      ← hg Qbar s P' ((congrArg (fun t => IsFibreOf 𝒜 t _) hs).mpr hP')]
+  set ι : Aut 𝒴.left := ga * gu with hιdef
+  have hιG : ι ∈ fibreAut 𝒴 𝒜 := Subgroup.mul_mem _ hgaG hguG
+  have hιhom : ι.asIso.hom = gu.asIso.hom ≫ ga.asIso.hom := rfl
+  have hact : ∀ (z : Spec (CommRingCat.of Qbar) ⟶ 𝒴.left) (Q Q' : QML3 Qbar), IsFibreOf 𝒜 z Q →
+      IsFibreOf 𝒜 (z ≫ ι.asIso.hom) Q' →
+        M3.mk Q' = M3.twist α (M3.rightMul u (M3.mk Q)) := by
+    intro z Q Q' hQ hQ'
+    obtain ⟨Q1, hQ1⟩ := hM.2.2.1 Qbar (z ≫ gu.asIso.hom)
+    have e1 := hgu z Q Q1 hQ hQ1
+    rw [hιhom, ← Category.assoc] at hQ'
+    have e2 := hga _ Q1 Q' hQ1 hQ'
+    rw [e2, e1]
+  have hfix2 : ∀ z : Spec (CommRingCat.of Qbar) ⟶ 𝒴.left, z ≫ (ι * ι).asIso.hom = z := by
+    intro z
+    obtain ⟨Q, hQ⟩ := hM.2.2.1 Qbar z
+    obtain ⟨Q1, hQ1⟩ := hM.2.2.1 Qbar (z ≫ ι.asIso.hom)
+    obtain ⟨Q2, hQ2⟩ := hM.2.2.1 Qbar ((z ≫ ι.asIso.hom) ≫ ι.asIso.hom)
+    have e1 := hact z Q Q1 hQ hQ1
+    have e2 := hact _ Q1 Q2 hQ1 hQ2
+    have e3 : M3.mk Q2 = M3.mk Q := by rw [e2, e1, hinv]
+    have := hM.2.2.2.1 _ z Q2 Q hQ2 hQ e3
+    show z ≫ (ι.asIso.hom ≫ ι.asIso.hom) = z
+    rw [← Category.assoc]
+    exact this
+  refine ⟨ι, hιG, ?_, ?_, ?_⟩
+  · intro hι1
+    obtain ⟨Q, rfl⟩ : ∃ Q : QML3 Qbar, M3.mk Q = m0 := Quotient.exists_rep m0
+    obtain ⟨z, hz⟩ := hM.2.2.2.2.1 Q
+    obtain ⟨Q1, hQ1⟩ := hM.2.2.1 Qbar (z ≫ ι.asIso.hom)
+    have e1 := hact z Q Q1 hz hQ1
+    have hz1 : z ≫ ι.asIso.hom = z := by rw [hι1]; simp
+    rw [hz1] at hQ1
+    apply hm0
+    have e2 := huniq z Q1 Q hQ1 hz
+    rw [← e1]
+    exact e2
+  · exact eq_one_of_fixes_all hC hYI hp hM h1 hh h2 _ (Subgroup.mul_mem _ hιG hιG) hfix2
+  · obtain ⟨P1, hP1⟩ := hM.2.2.1 Qbar (y ≫ ι.asIso.hom)
+    have e := hact y P P1 hP hP1
+    rw [hfixP] at e
+    exact hM.2.2.2.1 _ y P1 P hP1 hP e
+
+/-- **Main composite (after part 17): `ModelCoordinateResidue` from the leaves L1-L6, the textbook
+leaves T5 and `CurveBijIso`, the decomposition's glue `CoverModelOfHeckeN`, and the glue (B-desc)
+`QuotientDescendsQ`, (B-iso) `ToP1BijIsCoordinateQ`, (C1b-obj) `CMStabObj`.** -/
+theorem modelCoordinateResidue_final6 (hAF : ProperCurveAF) (hQE : FiniteQuotientExists)
+    (hTS : TameQuotientSmooth) (hP1 : SmoothModelOfP1) (hFix : TameFixedPointsDisjoint)
+    (hCyc : TameInertiaCyclic) (hT : ObjBridge.TorsionStructure) (hC : CurveBijIso)
+    (hCov : CoverModelOfHeckeN) (hD : QuotientDescendsQ) (hB : ToP1BijIsCoordinateQ)
+    (hO : CMStabObj) : ModelCoordinateResidue :=
+  modelCoordinateResidue_final5 hAF hQE hTS hP1 hFix hCyc hT hC hCov hD hB
+    (cMStabInvolution_of hC (modelYIrreducible_of_coverModelN hT hCov) hO)
+
+end MCRQuot

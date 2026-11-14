@@ -1,0 +1,176 @@
+
+/-! ════════════════════════════════════════════════════════════════════════════════════════════
+# mcr-quot, part 16: (A-fix-dim) `CurveClosedQbarFinite` proved (dimension theory of curves)
+════════════════════════════════════════════════════════════════════════════════════════════ -/
+
+noncomputable section
+
+namespace MCRQuot
+
+open Polynomial CategoryTheory AlgebraicGeometry Limits LeafQM LeafQM.AV VertWitness HeckeRestNV
+open G0ModField PropTSRed PropTSGlue ModelGlue MCRGlue LeafQM.AV.Pin PkgI3
+
+/-- **A closed point of a `ℚ`-scheme locally of finite type has a residue field finite over `ℚ`**
+(Zariski's lemma, Mathlib's `finite_of_finite_type_of_isJacobsonRing`, through the closed immersion
+`Spec κ(x) → X`). The `ℚ`-algebra structure is the one from the structure map. -/
+theorem finite_residueField_of_isClosed (X : Over (Spec (CommRingCat.of ℚ)))
+    [LocallyOfFiniteType X.hom] (x : X.left) (hx : IsClosed ({x} : Set X.left)) :
+    ∃ ψ : ℚ →+* X.left.residueField x,
+      @Module.Finite ℚ (X.left.residueField x) _ _ ψ.toAlgebra.toModule := by
+  haveI := isClosed_singleton_iff_isClosedImmersion.mp hx
+  have hft : LocallyOfFiniteType (X.left.fromSpecResidueField x ≫ X.hom) := inferInstance
+  set ψ := Spec.preimage (X.left.fromSpecResidueField x ≫ X.hom) with hψ
+  rw [← Spec.map_preimage (X.left.fromSpecResidueField x ≫ X.hom), ← hψ,
+    HasRingHomProperty.Spec_iff (P := @LocallyOfFiniteType)] at hft
+  letI : Algebra ℚ (X.left.residueField x) := ψ.hom.toAlgebra
+  haveI : Algebra.FiniteType ℚ (X.left.residueField x) := hft
+  exact ⟨ψ.hom, finite_of_finite_type_of_isJacobsonRing ℚ (X.left.residueField x)⟩
+
+/-- **Finitely many `ℚ̄`-points over a closed point** of a `ℚ`-scheme locally of finite type. -/
+theorem finite_qbarPts_over_closed (X : Over (Spec (CommRingCat.of ℚ)))
+    [LocallyOfFiniteType X.hom] (x : X.left) (hx : IsClosed ({x} : Set X.left)) :
+    {y : Spec (CommRingCat.of Qbar) ⟶ X.left | ptOf y = x}.Finite := by
+  obtain ⟨ψ, hfin⟩ := finite_residueField_of_isClosed X x hx
+  letI : Algebra ℚ (X.left.residueField x) := ψ.toAlgebra
+  haveI : Module.Finite ℚ (X.left.residueField x) := hfin
+  haveI : Finite (X.left.residueField x →ₐ[ℚ] Qbar) := inferInstance
+  haveI : Finite (X.left.residueField x →+* Qbar) :=
+    Finite.of_equiv _ (RingHom.equivRatAlgHom (R := X.left.residueField x) (S := Qbar)).symm
+  haveI : Finite (X.left.residueField x ⟶ CommRingCat.of Qbar) :=
+    Finite.of_injective (fun φ : X.left.residueField x ⟶ CommRingCat.of Qbar => φ.hom)
+      (fun _ _ h => CommRingCat.hom_ext h)
+  refine (Set.finite_range (fun φ : X.left.residueField x ⟶ CommRingCat.of Qbar =>
+    (Scheme.SpecToEquivOfField Qbar X.left).symm ⟨x, φ⟩)).subset ?_
+  intro y hy
+  obtain ⟨⟨x', φ⟩, rfl⟩ := (Scheme.SpecToEquivOfField Qbar X.left).symm.surjective y
+  have hx' : x' = x := by
+    have := hy
+    simp only [Set.mem_setOf_eq, ptOf, Equiv.apply_symm_apply] at this
+    exact this
+  subst hx'
+  exact ⟨φ, rfl⟩
+
+/-- In a quasi-sober Noetherian space, a closed set all of whose points are closed is finite. -/
+theorem finite_of_isClosed_of_closedPoints {α : Type*} [TopologicalSpace α]
+    [TopologicalSpace.NoetherianSpace α] [QuasiSober α] {s : Set α} (hs : IsClosed s)
+    (hpts : ∀ x ∈ s, IsClosed ({x} : Set α)) : s.Finite := by
+  obtain ⟨S, hSf, hScl, hSirr, rfl⟩ :=
+    TopologicalSpace.NoetherianSpace.exists_finite_set_isClosed_irreducible hs
+  refine Set.Finite.sUnion hSf (fun t ht => ?_)
+  have hg := (hSirr t ht).isGenericPoint_genericPoint_closure
+  rw [(hScl t ht).closure_eq] at hg
+  have hcl := hpts _ (Set.mem_sUnion.2 ⟨t, ht, hg.mem⟩)
+  refine (Set.finite_singleton (hSirr t ht).genericPoint).subset ?_
+  intro x hxt
+  rw [← hcl.closure_eq, hg.def]
+  exact hxt
+
+/-- **(A-fix-dim) `CurveClosedQbarFinite` proved.** Every point of `Z` over the generic fibre is
+closed there (`smoothStalkDimOne`: a non-closed point would give a chain of length 2 below a
+closed point), so `Z ∩ 𝒴_ℚ` is finite (Noetherian, quasi-sober), and each closed point carries
+finitely many `ℚ̄`-points (`finite_qbarPts_over_closed`). -/
+theorem curveClosedQbarFinite : CurveClosedQbarFinite := by
+  intro p _ 𝒴 hP hS hI Z hZ hη
+  haveI := hP
+  haveI := hS
+  haveI : Smooth 𝒴.hom := SmoothOfRelativeDimension.smooth 1 𝒴.hom
+  haveI := isOpenImmersion_specRatToZloc p
+  set G := genFib 𝒴 with hG
+  set j : G.left ⟶ 𝒴.left := pullback.fst 𝒴.hom (specRatToZloc p) with hj
+  haveI : IsOpenImmersion j :=
+    MorphismProperty.pullback_fst (P := @IsOpenImmersion) _ _ (isOpenImmersion_specRatToZloc p)
+  haveI : IsProper G.hom := genFib_isProper 𝒴 hP
+  haveI hGs : SmoothOfRelativeDimension 1 G.hom := genFib_smooth 𝒴 hS
+  haveI : Smooth G.hom := SmoothOfRelativeDimension.smooth 1 G.hom
+  haveI : LocallyOfFiniteType G.hom := inferInstance
+  haveI : JacobsonSpace G.left := LocallyOfFiniteType.jacobsonSpace G.hom
+  haveI : IsLocallyNoetherian G.left := LocallyOfFiniteType.isLocallyNoetherian G.hom
+  haveI : CompactSpace G.left := QuasiCompact.compactSpace_of_compactSpace G.hom
+  haveI : IsNoetherian G.left := {}
+  set Z' : Set G.left := j ⁻¹' Z with hZ'
+  have hZ'cl : IsClosed Z' := hZ.preimage j.continuous
+  obtain ⟨w, hw⟩ : ∃ w : G.left, j w = genericPoint 𝒴.left := genericPoint_mem_range 𝒴
+  -- every point of `Z'` is closed in `G`
+  have hpts : ∀ x ∈ Z', IsClosed ({x} : Set G.left) := by
+    intro x hx
+    obtain ⟨z, hzc, hzc'⟩ := nonempty_inter_closedPoints (Set.singleton_nonempty x |>.mono
+      subset_closure) isClosed_closure.isLocallyClosed
+    have hz1 : IsClosed ({z} : Set G.left) := mem_closedPoints_iff.mp hzc'
+    have hxz : x ⤳ z := specializes_iff_mem_closure.mpr hzc
+    have hwx : w ⤳ x := by
+      rw [← j.isOpenEmbedding.isInducing.specializes_iff, hw]
+      exact (genericPoint_spec 𝒴.left).specializes trivial
+    have hwx' : w ≠ x := by
+      intro h
+      apply hη
+      rw [← hw, h]
+      exact hx
+    by_contra hxc
+    have hzx : z ≠ x := by
+      intro h; subst h; exact hxc hz1
+    have hd := smoothStalkDimOne ℚ G.left G.hom hGs z hz1
+    rw [ringKrullDim_stalk_eq_coheight] at hd
+    have h1 : z < x := lt_of_le_not_ge hxz (fun h => hzx (Specializes.antisymm h hxz).eq)
+    have h2 : x < w := lt_of_le_not_ge hwx (fun h => hwx' (Specializes.antisymm h hwx).eq.symm)
+    have c1 := Order.coheight_add_one_le h1
+    have c2 := Order.coheight_add_one_le h2
+    have hd' : Order.coheight z = 1 := by exact_mod_cast hd
+    have : (2 : ℕ∞) ≤ Order.coheight z := by
+      calc (2 : ℕ∞) = 0 + 1 + 1 := by norm_num
+        _ ≤ Order.coheight w + 1 + 1 := add_le_add (add_le_add zero_le le_rfl) le_rfl
+        _ ≤ Order.coheight x + 1 := add_le_add c2 le_rfl
+        _ ≤ Order.coheight z := c1
+    rw [hd'] at this
+    exact absurd this (by decide)
+  have hfin : Z'.Finite := finite_of_isClosed_of_closedPoints hZ'cl hpts
+  have hfin2 : {y' : Spec (CommRingCat.of Qbar) ⟶ G.left | ptOf y' ∈ Z'}.Finite := by
+    refine (hfin.biUnion (fun x hx => finite_qbarPts_over_closed G x (hpts x hx))).subset ?_
+    intro y' hy'
+    exact Set.mem_biUnion hy' rfl
+  refine (hfin2.image (fun y' => y' ≫ j)).subset ?_
+  intro y hy
+  obtain ⟨s, hs⟩ := genFib_pt 𝒴 y
+  let s' : Spec (CommRingCat.of Qbar) ⟶ G.left := s.left
+  have hs' : s' ≫ j = y := hs
+  refine ⟨s', ?_, hs'⟩
+  show j (ptOf s') ∈ Z
+  have hpt : qbarPoint (s' ≫ j) = j (ptOf s') := by
+    unfold qbarPoint
+    rw [specToEquivOfField_comp_right]
+  rw [← hpt, hs']
+  exact hy
+
+/-- **(A-fix) from `CurveBijIso` and `ModelYIrreducible` alone.** -/
+theorem fibreAutFixFinite_of' (hC : CurveBijIso) (hYI : ModelYIrreducible) : FibreAutFixFinite :=
+  fibreAutFixFinite_of hC hYI curveClosedQbarFinite
+
+/-- **Main composite (after part 16): `ModelCoordinateResidue` from the leaves L1-L6, the textbook
+leaves T5 and `CurveBijIso`, the input `ModelYIrreducible`, and the glue (B-desc)
+`QuotientDescendsQ`, (B-iso) `ToP1BijIsCoordinateQ`, (C1b) `CMStabInvolution`.** -/
+theorem modelCoordinateResidue_final4 (hAF : ProperCurveAF) (hQE : FiniteQuotientExists)
+    (hTS : TameQuotientSmooth) (hP1 : SmoothModelOfP1) (hFix : TameFixedPointsDisjoint)
+    (hCyc : TameInertiaCyclic) (hT : ObjBridge.TorsionStructure) (hC : CurveBijIso)
+    (hYI : ModelYIrreducible) (hD : QuotientDescendsQ) (hB : ToP1BijIsCoordinateQ)
+    (hI : CMStabInvolution) : ModelCoordinateResidue :=
+  modelCoordinateResidue_final3 hAF hQE hTS hP1 hFix hCyc hT hC hYI curveClosedQbarFinite hD hB hI
+
+/-- **`ModelYIrreducible` from the decomposition's glue `CoverModelOfHeckeN` and T5** (the
+normalization chart of `CoverModelN` and model-glue's `irreducible_of_chart`). -/
+theorem modelYIrreducible_of_coverModelN (hT : ObjBridge.TorsionStructure)
+    (hCov : CoverModelOfHeckeN) : ModelYIrreducible := by
+  intro Y Φ π h1 hh h2
+  obtain ⟨E, i1, i2, i3, i4, i5, i6, hN, -, -⟩ := hCov Y Φ π h1 hh h2
+  exact irreducible_of_chart (twistClassFinite hT) h1 h2 E hN
+
+/-- **Main composite (after part 16, chart form): `ModelCoordinateResidue` from the leaves L1-L6,
+the textbook leaves T5 and `CurveBijIso`, the decomposition's glue `CoverModelOfHeckeN`, and the
+glue (B-desc) `QuotientDescendsQ`, (B-iso) `ToP1BijIsCoordinateQ`, (C1b) `CMStabInvolution`.** -/
+theorem modelCoordinateResidue_final5 (hAF : ProperCurveAF) (hQE : FiniteQuotientExists)
+    (hTS : TameQuotientSmooth) (hP1 : SmoothModelOfP1) (hFix : TameFixedPointsDisjoint)
+    (hCyc : TameInertiaCyclic) (hT : ObjBridge.TorsionStructure) (hC : CurveBijIso)
+    (hCov : CoverModelOfHeckeN) (hD : QuotientDescendsQ) (hB : ToP1BijIsCoordinateQ)
+    (hI : CMStabInvolution) : ModelCoordinateResidue :=
+  modelCoordinateResidue_final4 hAF hQE hTS hP1 hFix hCyc hT hC
+    (modelYIrreducible_of_coverModelN hT hCov) hD hB hI
+
+end MCRQuot
