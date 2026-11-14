@@ -106,4 +106,134 @@ theorem card_W1 (hp4 : p % 4 = 3) : Nat.card (W1 p).Point = p + 1 := by
 
 end Count
 
+/-! ## §2. `[i]` on a curve `y² = x³ + a₄x` over a field with `ι² = −1` -/
+
+section IMap
+
+variable {k : Type*} [Field k] [DecidableEq k] (C : WeierstrassCurve k)
+  (ha₁ : C.a₁ = 0) (ha₂ : C.a₂ = 0) (ha₃ : C.a₃ = 0) (ha₆ : C.a₆ = 0)
+  {ι : k} (hι : ι ^ 2 = -1)
+
+include ha₁ ha₂ ha₃ ha₆ hι
+
+theorem ι_ne_zero : ι ≠ 0 := by
+  intro h; rw [h] at hι; have : (0 : k) = -1 := by simpa using hι
+  exact one_ne_zero (neg_eq_zero.mp this.symm)
+
+theorem nonsingular_iK {x y : k} (h : C.toAffine.Nonsingular x y) :
+    C.toAffine.Nonsingular (-x) (ι * y) := by
+  have hι0 := ι_ne_zero C ha₁ ha₂ ha₃ ha₆ hι
+  rw [WeierstrassCurve.Affine.nonsingular_iff', WeierstrassCurve.Affine.equation_iff'] at h ⊢
+  simp only [ha₁, ha₂, ha₃, ha₆] at h ⊢
+  obtain ⟨he, hn⟩ := h
+  refine ⟨by linear_combination y ^ 2 * hι - he, ?_⟩
+  rcases hn with h | h
+  · left
+    intro h'
+    apply h
+    linear_combination h'
+  · right
+    intro h'
+    apply h
+    have : ι * (2 * y) = 0 := by linear_combination h'
+    rcases mul_eq_zero.mp this with h0 | h0
+    · exact absurd h0 hι0
+    · linear_combination h0
+
+/-- `[i]` : `O ↦ O`, `(x, y) ↦ (−x, ιy)`. -/
+def iK : C.toAffine.Point → C.toAffine.Point
+  | .zero => .zero
+  | .some x y h => .some (-x) (ι * y) (nonsingular_iK C ha₁ ha₂ ha₃ ha₆ hι h)
+
+theorem iK_some {x y : k} (h : C.toAffine.Nonsingular x y) :
+    iK C ha₁ ha₂ ha₃ ha₆ hι (.some x y h) = .some (-x) (ι * y) (nonsingular_iK C ha₁ ha₂ ha₃ ha₆ hι h) :=
+  rfl
+
+theorem div_iota_mul (A B : k) : A / (ι * B) = -ι * (A / B) := by
+  have hι0 := ι_ne_zero C ha₁ ha₂ ha₃ ha₆ hι
+  have hinv : ι⁻¹ = -ι := by
+    apply inv_eq_of_mul_eq_one_right
+    linear_combination -hι
+  rw [mul_comm ι B, ← div_div, div_eq_mul_inv _ ι, hinv]
+  ring
+
+theorem slope_iK (x₁ x₂ y₁ y₂ : k) :
+    C.toAffine.slope (-x₁) (-x₂) (ι * y₁) (ι * y₂) = -ι * C.toAffine.slope x₁ x₂ y₁ y₂ := by
+  have hι0 := ι_ne_zero C ha₁ ha₂ ha₃ ha₆ hι
+  by_cases hx : x₁ = x₂
+  · have hx' : -x₁ = -x₂ := by rw [hx]
+    by_cases hy : y₁ = C.toAffine.negY x₂ y₂
+    · have hy' : ι * y₁ = C.toAffine.negY (-x₂) (ι * y₂) := by
+        simp only [negY, ha₁, ha₃] at hy ⊢
+        rw [hy]; ring
+      rw [slope_of_Y_eq hx hy, slope_of_Y_eq hx' hy', mul_zero]
+    · have hy' : ι * y₁ ≠ C.toAffine.negY (-x₂) (ι * y₂) := by
+        simp only [negY, ha₁, ha₃] at hy ⊢
+        intro h
+        apply hy
+        have : ι * (y₁ - (-y₂ - 0 * x₂ - 0)) = 0 := by linear_combination h
+        rcases mul_eq_zero.mp this with h0 | h0
+        · exact absurd h0 hι0
+        · linear_combination h0
+      rw [slope_of_Y_ne hx hy, slope_of_Y_ne hx' hy']
+      simp only [negY, ha₁, ha₂, ha₃]
+      rw [show ι * y₁ - (-(ι * y₁) - 0 * -x₁ - 0) = ι * (y₁ - (-y₁ - 0 * x₁ - 0)) by ring,
+        div_iota_mul C ha₁ ha₂ ha₃ ha₆ hι]
+      congr 2
+      ring
+  · have hx' : -x₁ ≠ -x₂ := fun h => hx (neg_injective h)
+    rw [slope_of_X_ne hx, slope_of_X_ne hx']
+    rw [show -x₁ - -x₂ = -(x₁ - x₂) by ring, div_neg,
+      show ι * y₁ - ι * y₂ = ι * (y₁ - y₂) by ring]
+    ring
+
+theorem iK_add (P Q : C.toAffine.Point) :
+    iK C ha₁ ha₂ ha₃ ha₆ hι (P + Q) = iK C ha₁ ha₂ ha₃ ha₆ hι P + iK C ha₁ ha₂ ha₃ ha₆ hι Q := by
+  rcases P with _ | ⟨x₁, y₁, h₁⟩ <;> rcases Q with _ | ⟨x₂, y₂, h₂⟩
+  · rfl
+  · rfl
+  · rfl
+  · have hι0 := ι_ne_zero C ha₁ ha₂ ha₃ ha₆ hι
+    by_cases hxy : x₁ = x₂ ∧ y₁ = C.toAffine.negY x₂ y₂
+    · have hxy' : -x₁ = -x₂ ∧ ι * y₁ = C.toAffine.negY (-x₂) (ι * y₂) := by
+        refine ⟨by rw [hxy.1], ?_⟩
+        have := hxy.2
+        simp only [negY, ha₁, ha₃] at this ⊢
+        rw [this]; ring
+      rw [Point.add_of_Y_eq hxy.1 hxy.2, iK_some, iK_some, Point.add_of_Y_eq hxy'.1 hxy'.2]
+      rfl
+    · have hxy' : ¬(-x₁ = -x₂ ∧ ι * y₁ = C.toAffine.negY (-x₂) (ι * y₂)) := by
+        rintro ⟨h1, h2⟩
+        apply hxy
+        refine ⟨neg_injective h1, ?_⟩
+        simp only [negY, ha₁, ha₃] at h2 ⊢
+        have : ι * (y₁ - (-y₂ - 0 * x₂ - 0)) = 0 := by linear_combination h2
+        rcases mul_eq_zero.mp this with h0 | h0
+        · exact absurd h0 hι0
+        · linear_combination h0
+      rw [Point.add_some hxy, iK_some, iK_some, iK_some, Point.add_some hxy', Point.some.injEq]
+      have hs := slope_iK C ha₁ ha₂ ha₃ ha₆ hι x₁ x₂ y₁ y₂
+      constructor
+      · simp only [addX, ha₁, ha₂]
+        rw [hs]
+        linear_combination (-(C.toAffine.slope x₁ x₂ y₁ y₂) ^ 2) * hι
+      · simp only [addY, negAddY, addX, negY, ha₁, ha₂, ha₃]
+        rw [hs]
+        linear_combination (-ι * C.toAffine.slope x₁ x₂ y₁ y₂ ^ 3) * hι
+
+theorem iK_iK (P : C.toAffine.Point) :
+    iK C ha₁ ha₂ ha₃ ha₆ hι (iK C ha₁ ha₂ ha₃ ha₆ hι P) = -P := by
+  rcases P with _ | ⟨x, y, h⟩
+  · rfl
+  · rw [iK_some, iK_some, Point.neg_some, Point.some.injEq]
+    refine ⟨neg_neg x, ?_⟩
+    simp only [negY, ha₁, ha₃]
+    linear_combination y * hι
+
+/-- `[i]` as an additive map. -/
+def iKHom : C.toAffine.Point →+ C.toAffine.Point :=
+  AddMonoidHom.mk' (iK C ha₁ ha₂ ha₃ ha₆ hι) (iK_add C ha₁ ha₂ ha₃ ha₆ hι)
+
+end IMap
+
 end ZInQ.Contrib.TYZGenus.T318SS
