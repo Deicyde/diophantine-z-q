@@ -110,3 +110,7 @@ Row sources (VERIFIED, read): definitions read in ~/dzq-wt/leaf-fold4/scratch/le
   z → P gives ζ^n = 1 (`zeta_pow_ord`); the multipliers form a finite subgroup H ≤ ℂˣ with |H| = e_P
   (`zeta_inj`, `zeta_congr`), cyclic, exponent = e_P ∣ n). `qmHauptmodulBase3_of'` : ThetaModularity →
   ValenceFormulaCocompactEq → GammaStarCocompactArea → ThetaQuotientValue24 → QMHauptmodulBase3. Axioms standard.
+- `QMAut.lean` §8 (VERIFIED, compiled): LEAF `QMCentralizerCMC` (the same statement over ℂ, the printed
+  setting) and `qmCentralizerCM_of : QMCentralizerCMC → T11b_Rigidity → QMCentralizerCM` (base change ℚ̄ → ℂ
+  along `IsAlgClosed.lift`; End bijective by T11(b) + `endBC_injective`; centralizers correspond;
+  `dim_baseChange`). `rows_of_C`: H-61 ∧ H-63 ∧ H-42 from QMCentralizerCMC + T11b. Axioms standard.

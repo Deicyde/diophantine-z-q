@@ -505,9 +505,8 @@ algebraic curves*, Ann. of Math. 85 (1967), §§1-3 (for `A_τ = ℂ²/ι(𝒪)(
 `End_𝒪(A_τ) = Φ_τ(k) ∩ 𝒪` with `Φ_τ(k)` the commutant of the fixed point `τ`); Jordan, *Arithmetic of
 a quaternion algebra*, thesis, Harvard 1981, §3; González–Rotger, *Non-elliptic Shimura curves of genus
 one*, J. Math. Soc. Japan 58 (2006), §5 (CM points by an order `S` ↔ optimal embeddings `S ↪ 𝒪`);
-Rotger, Crelle 561 (2003), §2. Form: the printed description over `ℂ`, here over `ℚ̄`; the passage
-`ℚ̄ → ℂ` keeps `End` (T11(b), the bundle's textbook leaf) and is not re-proved here, so the `ℚ̄` form is
-a specialization only up to that comparison (flag). Not stronger: the optimal embedding is existential
+Rotger, Crelle 561 (2003), §2. Form: the printed description is over `ℂ` (`QMCentralizerCMC`, §8); this
+`ℚ̄` form is PROVED from it and the bundle's textbook leaf T11(b) in §8 (`qmCentralizerCM_of`). Not stronger: the optimal embedding is existential
 and `B ≅ B^op` preserves `𝒪`. -/
 def QMCentralizerCM : Prop :=
   ∀ (A : PkgI3.AbVar (AlgebraicClosure ℚ)), A.dim = 2 → ∀ q : LeafQM.AV.QMStr A,
@@ -1011,8 +1010,62 @@ theorem cmOptimalEmbedding_of (h : QMCentralizerCM) : HDec.FS5NoCM.CMOptimalEmbe
       have : ((ψ.symm r : R') : k') = x := σ.injective h1
       rw [← this]; exact (ψ.symm r).2
 
+/-! ## §8 The leaf in its printed setting (over `ℂ`) and the passage to `ℚ̄` by T11(b) -/
+
+/-- **LEAF (`QMCentralizerCM` over `ℂ`, the printed setting).** Same statement as `QMCentralizerCM`, for
+abelian surfaces with QM by `𝒪` over `ℂ` (Shimura 1967 §§1-3: `A_τ = ℂ²/ι(𝒪)(τ,1)ᵀ`,
+`End_𝒪(A_τ) = Φ_τ(k) ∩ 𝒪`; Jordan 1981 §3; González–Rotger 2006 §5; locators UNVERIFIED). -/
+def QMCentralizerCMC : Prop :=
+  ∀ (A : PkgI3.AbVar ℂ), A.dim = 2 → ∀ q : LeafQM.AV.QMStr A,
+    Nonempty (LeafQM.AV.com q ≃+* ℤ) ∨
+    ∃ (k : Type) (_ : Field k) (_ : NumberField k), IsTotallyComplex k ∧ Module.finrank ℚ k = 2 ∧
+      ∃ Φ : k →ₐ[ℚ] B, Nonempty (LeafQM.AV.com q ≃+* LeafQM.O.comap Φ.toRingHom)
+
+open LeafQM.AV in
+/-- **The `ℚ̄` form from the `ℂ` form and T11(b)** (the bundle's textbook leaf `T11b_Rigidity`: base change
+`ℚ̄ → ℂ` is bijective on endomorphisms). The centralizer of `ι` corresponds to that of its base change. -/
+theorem qmCentralizerCM_of (hC : QMCentralizerCMC) (hR : ZInQ.LeafPush2.T11b_Rigidity) :
+    QMCentralizerCM := by
+  intro A hA q
+  let ιe : AlgebraicClosure ℚ →ₐ[ℚ] ℂ := IsAlgClosed.lift
+  letI : Algebra (AlgebraicClosure ℚ) ℂ := ιe.toRingHom.toAlgebra
+  let e := HDec.G0ModField.KernelField.endBC A ℂ
+  have he : Function.Bijective e := by
+    refine ⟨HDec.G0ModField.KernelField.endBC_injective A ℂ, fun g => ?_⟩
+    obtain ⟨φ, ⟨hφ, hφe⟩, -⟩ := hR (AlgebraicClosure ℚ) ℂ A A g.hom inferInstance
+    exact ⟨PkgI3.AbVar.Hom.mk' φ, PkgI3.AbVar.Hom.ext' hφe⟩
+  let qC : QMStr (A.baseChange ℂ) := ⟨e.comp q.iota, he.1.comp q.injective⟩
+  have hdim : (A.baseChange ℂ).dim = 2 := by rw [PkgI3.AbVar.dim_baseChange]; exact hA
+  have hcom : com qC = (com q).map e := by
+    ext ψ
+    simp only [com, Subring.mem_centralizer_iff, Subring.mem_map, Set.mem_range]
+    constructor
+    · intro h
+      obtain ⟨φ, rfl⟩ := he.2 ψ
+      refine ⟨φ, ?_, rfl⟩
+      rintro _ ⟨a, rfl⟩
+      apply he.1
+      rw [map_mul, map_mul]
+      exact h _ ⟨a, rfl⟩
+    · rintro ⟨φ, hφ, rfl⟩ _ ⟨a, rfl⟩
+      change e (q.iota a) * e φ = e φ * e (q.iota a)
+      rw [← map_mul, ← map_mul, hφ _ ⟨a, rfl⟩]
+  let E : com q ≃+* com qC :=
+    ((RingEquiv.ofBijective e he).subringMap (s := com q)).trans (RingEquiv.subringCongr hcom.symm)
+  rcases hC (A.baseChange ℂ) hdim qC with hf | ⟨k, i1, i2, hk, hk2, Φ, hf⟩
+  · obtain ⟨f⟩ := hf; exact Or.inl ⟨E.trans f⟩
+  · obtain ⟨f⟩ := hf; exact Or.inr ⟨k, i1, i2, hk, hk2, Φ, ⟨E.trans f⟩⟩
+
+/-- **Rows H-61, H-63, H-42 from the printed `ℂ`-form of the leaf and T11(b).** -/
+theorem rows_of_C (hC : QMCentralizerCMC) (hR : ZInQ.LeafPush2.T11b_Rigidity) :
+    HDec.HeckeRest.QMAutCard ∧ HDec.HeckeRest.ALFixedPoints ∧ HDec.FS5NoCM.CMOptimalEmbedding :=
+  ⟨qmAutCard_of (qmCentralizerCM_of hC hR), alFixedPoints_of (qmCentralizerCM_of hC hR),
+    cmOptimalEmbedding_of (qmCentralizerCM_of hC hR)⟩
+
 end HDec.QMSplit.Aut
 
+#print axioms HDec.QMSplit.Aut.qmCentralizerCM_of
+#print axioms HDec.QMSplit.Aut.rows_of_C
 #print axioms HDec.QMSplit.Aut.qmAutCard_of
 #print axioms HDec.QMSplit.Aut.alFixedPoints_of
 #print axioms HDec.QMSplit.Aut.cmOptimalEmbedding_of
