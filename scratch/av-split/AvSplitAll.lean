@@ -1367,10 +1367,21 @@ def MilneIsogenyQuasiInverse : Prop :=
 theorem homP_apply {K : Type} [Field K] {A B : AbVar K} (f : Hom A B) (x : WeilPairing.P A) :
     WeilPairing.homP f x = Additive.ofMul (Additive.toMul x ≫ f.hom) := rfl
 
+/-- `q ≫ [N] = q ^ N` (g9-abvarbc's `AbVarBC.comp_natCast_hom`, restated so that this part only
+needs `PkgI3`). -/
+theorem comp_natCast_hom' {K : Type} [Field K] (A : AbVar K) {T : Over (Spec (CommRingCat.of K))}
+    (q : T ⟶ A.X) (N : ℕ) : q ≫ (((N : ℤ) : End A)).hom = q ^ N := by
+  induction N with
+  | zero =>
+    rw [Nat.cast_zero, Int.cast_zero, Hom.hom_zero, MonObj.comp_one, pow_zero]
+  | succ N ih =>
+    rw [Nat.cast_succ, Int.cast_add, Int.cast_one, Hom.hom_add, MonObj.comp_mul, ih, pow_succ]
+    congr 1
+
 /-- `x ≫ [d] = d • x` on additive points. -/
 theorem ofMul_comp_natCast {K : Type} [Field K] (A : AbVar K) (x : WeilPairing.P A) (d : ℕ) :
     Additive.ofMul (Additive.toMul x ≫ (((d : ℤ) : End A)).hom) = d • x := by
-  rw [ZInQ.Contrib.AbVarBC.comp_natCast_hom]
+  rw [comp_natCast_hom']
   rfl
 
 /-- **Row H-54 from its published-form leaf (proved).** -/

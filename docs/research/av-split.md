@@ -64,8 +64,8 @@ rows are stated at `Type`.
 copy (with its three dependencies `P`, `homP`, `IsQuasiInverse`) of `scratch/g0-assemble2/parts/a35_g12det.lean`
 L17, L100, L303-306, L400-404, over the kernel's `PkgI3`; the text of `IsogenyQuasiInverse` agrees with
 `scratch/leaf-fold5/Leaves5.lean` L49753-49755 (VERIFIED by `diff`). In leaf-fold5's flat file the row is over the
-copy `HDec.PkgI3` (verbatim text of `Objects.lean`); the proof transfers verbatim once `comp_natCast_hom`
-(`AbVarBC/Torsion.lean`, 8 lines) is available over the same `AbVar`.
+copy `HDec.PkgI3` (verbatim text of `Objects.lean`); the proof transfers verbatim (it uses only `PkgI3`; g9-abvarbc's `comp_natCast_hom` is restated in the
+file as `comp_natCast_hom'`).
 
 ## 2. The five rows that are done
 
