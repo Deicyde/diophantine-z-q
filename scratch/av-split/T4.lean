@@ -555,9 +555,63 @@ theorem reductionTorsionBijective_of_leaves (hE : MulEtaleAbelianScheme)
     PkgI2.ReductionTorsionBijective.{0} :=
   reductionTorsionBijective_of hE hU (henselEtaleLift_of_stacks hS)
 
+/-! ## 8. Leaf (b) is a theorem of Mathlib -/
+
+/-- **`UnramifiedSectionsEq` holds (proved from Mathlib).** The diagonal `Δ : Y → Y ×_S Y` of
+an unramified separated `π` is an open (`isOpenImmersion_diagonal`) and closed immersion; the
+preimage of its image under `(a, b)` is clopen, contains `x`, hence is all of the connected `X`;
+so `(a, b)` factors through `Δ` and `a = b`. (Stacks, Morphisms, Lemma 29.35.17, proof.) -/
+theorem unramifiedSectionsEq : UnramifiedSectionsEq := by
+  intro X Y S π _ _ _ a b hX hab x hx
+  let p : X ⟶ pullback π π := pullback.lift a b hab
+  let Δ : Y ⟶ pullback π π := pullback.diagonal π
+  haveI : IsClosedImmersion Δ := IsSeparated.isClosedImmersion_diagonal
+  have hopen : IsOpen (Set.range Δ) := Δ.isOpenEmbedding.isOpen_range
+  have hclosed : IsClosed (Set.range Δ) := Δ.isClosedEmbedding.isClosed_range
+  have hclopen : IsClopen (p ⁻¹' Set.range Δ) :=
+    ⟨hclosed.preimage p.continuous, hopen.preimage p.continuous⟩
+  have hfac : X.fromSpecResidueField x ≫ p = (X.fromSpecResidueField x ≫ a) ≫ Δ := by
+    apply pullback.hom_ext
+    · simp only [p, Δ, Category.assoc, pullback.lift_fst, pullback.diagonal_fst, Category.comp_id]
+    · simp only [p, Δ, Category.assoc, pullback.lift_snd, pullback.diagonal_snd, Category.comp_id]
+      exact hx.symm
+  have hxU : x ∈ p ⁻¹' Set.range Δ := by
+    let pt : Spec (X.residueField x) := IsLocalRing.closedPoint (X.residueField x)
+    refine ⟨(X.fromSpecResidueField x ≫ a) pt, ?_⟩
+    calc Δ ((X.fromSpecResidueField x ≫ a) pt) = ((X.fromSpecResidueField x ≫ a) ≫ Δ) pt :=
+          (Scheme.Hom.comp_apply _ _ _).symm
+      _ = (X.fromSpecResidueField x ≫ p) pt := by rw [hfac]
+      _ = p (X.fromSpecResidueField x pt) := Scheme.Hom.comp_apply _ _ _
+      _ = p x := by rw [Scheme.fromSpecResidueField_apply]
+  have huniv : p ⁻¹' Set.range Δ = Set.univ := hclopen.eq_univ ⟨x, hxU⟩
+  have hrange : Set.range p ⊆ Set.range Δ := by
+    rintro _ ⟨y, rfl⟩
+    have : y ∈ p ⁻¹' Set.range Δ := huniv ▸ Set.mem_univ y
+    exact this
+  let q := IsOpenImmersion.lift Δ p hrange
+  have hq : q ≫ Δ = p := IsOpenImmersion.lift_fac Δ p hrange
+  have ha : a = q := by
+    have := congrArg (· ≫ pullback.fst π π) hq
+    simp only [Category.assoc, Δ, pullback.diagonal_fst, Category.comp_id, p,
+      pullback.lift_fst] at this
+    exact this.symm
+  have hb : b = q := by
+    have := congrArg (· ≫ pullback.snd π π) hq
+    simp only [Category.assoc, Δ, pullback.diagonal_snd, Category.comp_id, p,
+      pullback.lift_snd] at this
+    exact this.symm
+  rw [ha, hb]
+
+/-- **Row H-24 from the two leaves (a), (c) (proved).** -/
+theorem reductionTorsionBijective_of_leaves' (hE : MulEtaleAbelianScheme)
+    (hS : StacksHenselEtaleSection) : PkgI2.ReductionTorsionBijective.{0} :=
+  reductionTorsionBijective_of_leaves hE unramifiedSectionsEq hS
+
 end AvSplit.T4
 
 #print axioms AvSplit.T4.henselian_of_isAlgClosed
 #print axioms AvSplit.T4.reductionTorsionBijective_of
 #print axioms AvSplit.T4.henselEtaleLift_of_stacks
 #print axioms AvSplit.T4.reductionTorsionBijective_of_leaves
+#print axioms AvSplit.T4.unramifiedSectionsEq
+#print axioms AvSplit.T4.reductionTorsionBijective_of_leaves'
