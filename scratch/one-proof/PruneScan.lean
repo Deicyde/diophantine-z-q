@@ -68,7 +68,7 @@ def closure (env : Environment) (root : Name) : Array Name := Id.run do
 structure St where
   used : Std.HashSet (Name × Nat) := {}
   edges : Std.HashMap (Name × Nat) (Array (Name × Nat)) := {}  -- (S', j) ↦ sources (S, i)
-  casesOn : Array Name := #[]
+  casesHits : Array Name := #[]
   seen : Std.HashSet Expr := {}
 
 abbrev M := StateM St
@@ -104,7 +104,7 @@ partial def visit (env : Environment) (e : Expr) (ctx : Option (Name × Nat)) : 
           return
       if let some pinfo := env.getProjectionFnInfo? fn then
         if let some (.ctorInfo cv) := env.find? pinfo.ctorName then
-          if isBundle env cv.induct && args.size > pinfo.nparams then
+          if isBundle env cv.induct && args.size > pinfo.numParams then
             record env (cv.induct, pinfo.i) ctx
             for a in args do visit env a none
             return
@@ -112,7 +112,7 @@ partial def visit (env : Environment) (e : Expr) (ctx : Option (Name × Nat)) : 
       match fn with
       | .str s last =>
         if (last == "casesOn" || last == "rec" || last == "recOn") && isBundle env s then
-          modify fun st => { st with casesOn := st.casesOn.push s }
+          modify fun st => { st with casesHits := st.casesHits.push s }
           if let some (.inductInfo iv) := env.find? s then
             if let some (.ctorInfo cv) := env.find? iv.ctors.head! then
               for j in [:cv.numFields] do addUse (s, j)
@@ -172,7 +172,7 @@ run_cmd do
     if let .const s _ := t.bindingDomain!.getAppFn then
       if isBundle env s then tops := tops.push s
     t := t.bindingBody!
-  logInfo m!"PRUNE closure={cl.size} directUses={st.used.size} edges={st.edges.size} casesOn={st.casesOn.size}"
+  logInfo m!"PRUNE closure={cl.size} directUses={st.used.size} edges={st.edges.size} casesOn={st.casesHits.size}"
   let mut total := 0
   for s in tops do
     let fs := fieldNames env s
