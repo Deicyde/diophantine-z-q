@@ -1,5 +1,6 @@
 import Mathlib
 import ZInQKernel.Contrib.AVB1.Poincare
+import ZInQKernel.Contrib.TauCeti.AlgebraicGeometry.Morphisms.Smooth.GeometricallyIntegral
 
 /-!
 # av-glue, part C: `KernelAbSubvariety` from a statement about the kernel group scheme
@@ -21,6 +22,7 @@ set_option linter.unusedSectionVars false
 
 namespace AVGlue
 
+-- BEGIN DUP (KernelAbSubvariety, verbatim from SurjIsog.lean; dropped by mk_combined.py)
 /-- (verbatim from `scratch/av-glue/SurjIsog.lean`) **LEAF (new; `(ker h)⁰_red` is an abelian
 subvariety).** See there. -/
 def KernelAbSubvariety : Prop :=
@@ -28,6 +30,8 @@ def KernelAbSubvariety : Prop :=
     (h : _root_.PkgI3.AbVar.Hom A B), ¬ LocallyQuasiFinite h.hom.left →
     ∃ (C : _root_.PkgI3.AbVar k) (j : _root_.PkgI3.AbVar.Hom C A),
       IsClosedImmersion j.hom.left ∧ 0 < C.dim ∧ j.hom ≫ h.hom = 1
+
+-- END DUP
 
 section Kernel
 
@@ -491,6 +495,71 @@ theorem kernelAbSubvariety_of_identityComponent (hK1 : KernelIdentityComponent) 
   haveI := isProper_hom'' h.hom
   exact lqf_of_ker h.hom hq
 
+
+section IdCompFinal
+
+variable {k : Type} [Field k] {A B : _root_.PkgI3.AbVar k} (h : A.X ⟶ B.X) [IsMonHom h]
+  (hG : GeomConnOfRationalPoint) (hC : CartierSmooth')
+
+instance : IsClosedImmersion (U0 h).ι := inferInstanceAs (IsClosedImmersion (jK h).left)
+
+include hC in
+theorem smooth_ker [CharZero k] : Smooth (kerOver h).hom := hC k (kerOver h) inferInstance
+
+/-- `(ker h)⁰` as an abelian variety. -/
+noncomputable abbrev covAbVar [CharZero k] : _root_.PkgI3.AbVar k :=
+  letI := covGrp h hG
+  haveI : IsProper (covOver h).hom := by
+    change IsProper ((U0 h).ι ≫ (kerOver h).hom); infer_instance
+  haveI : Smooth (kerOver h).hom := smooth_ker h hC
+  haveI : Smooth (covOver h).hom := by
+    change Smooth ((U0 h).ι ≫ (kerOver h).hom); infer_instance
+  haveI : GeometricallyConnected (covOver h).hom := geomConn_cov h hG
+  haveI : GeometricallyIntegral (covOver h).hom :=
+    TauCeti.AlgebraicGeometry.Smooth.geometricallyIntegral _
+  { X := covOver h }
+
+theorem isMonHom_jK : letI := covGrp h hG; IsMonHom (jK h) :=
+  isMonHom_grpObjOfMono (jK h) (exists_mulCov h hG).choose (exists_mulCov h hG).choose_spec
+    (oneCov h) (oneCov_jK h) (exists_invCov h).choose (exists_invCov h).choose_spec
+
+/-- If the kernel is not locally quasi-finite, it is positive-dimensional. -/
+theorem dim_ker_pos (hnot : ¬ LocallyQuasiFinite (kerOver h).hom) :
+    0 < topologicalKrullDim (kerOver h).left := by
+  by_contra h0
+  apply hnot
+  haveI : IsLocallyArtinian (kerOver h).left :=
+    IsLocallyArtinian.of_topologicalKrullDim_le_zero (not_lt.mp h0)
+  haveI : Finite (kerOver h).left :=
+    Finite.of_finite_univ (isCompact_univ.finite_of_discrete)
+  exact LocallyQuasiFinite.of_finite_preimage_singleton _ fun _ => Set.toFinite _
+
+end IdCompFinal
+
+/-- **`KernelIdentityComponent` from three published theorems**: Cartier, Stacks 04KV
+(geometric connectedness from a rational point), equidimensionality of group schemes. -/
+theorem kernelIdentityComponent_of_leaves (hC : CartierSmooth') (hG : GeomConnOfRationalPoint)
+    (hE : GroupSchemeEquidim) : KernelIdentityComponent := by
+  intro k _ _ A B h hnot
+  letI := covGrp h.hom hG
+  haveI := isMonHom_jK h.hom hG
+  refine ⟨covAbVar h.hom hG hC,
+    _root_.PkgI3.AbVar.Hom.mk' (A := covAbVar h.hom hG hC) (jK h.hom ≫ kerι h.hom), ?_, ?_, ?_⟩
+  · rw [_root_.PkgI3.AbVar.Hom.hom_mk', Over.comp_left]; infer_instance
+  · -- positivity of the dimension
+    have hpos := dim_ker_pos h.hom hnot
+    obtain ⟨Z, hZ, hsub⟩ := exists_mem_irreducibleComponents_subset_of_isIrreducible
+      {ePt h.hom} isIrreducible_singleton
+    have hZU : Z ⊆ connectedComponent (ePt h.hom) :=
+      hZ.1.isConnected.isPreconnected.subset_connectedComponent (hsub rfl)
+    have hEq := hE k (kerOver h.hom) inferInstance inferInstance Z hZ
+    have hle : topologicalKrullDim Z ≤ topologicalKrullDim (connectedComponent (ePt h.hom)) :=
+      (Topology.IsEmbedding.inclusion hZU).isInducing.topologicalKrullDim_le
+    change 0 < topologicalKrullDim (connectedComponent (ePt h.hom))
+    exact lt_of_lt_of_le (hEq ▸ hpos) hle
+  · rw [_root_.PkgI3.AbVar.Hom.hom_mk', Category.assoc, kerι_comp, MonObj.comp_one]
+
 end AVGlue
 
 #print axioms AVGlue.kernelAbSubvariety_of_identityComponent
+#print axioms AVGlue.kernelIdentityComponent_of_leaves
