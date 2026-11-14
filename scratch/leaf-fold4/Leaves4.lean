@@ -62645,7 +62645,7 @@ pull-back of `ψ₄` has its zeros only at the elliptic point `P₋₃` (so `j =
 have their only pole there), with Igusa's theta expression of `ψ₄` (R4) (locators UNVERIFIED; the
 exact divisor statement was not read). Consistent with `QMHauptmodul` (`j_θ` has its only pole at
 `P₋₃`) unless `ψ₄` and `χ₁₀` had a common zero on `Ω(ℍ)`. Numerically: `jDen(Ω(i√3)) = 0` with a
-zero of order 30 in `τ` (pkg-I1's pole of order 6 of `j_θ`). SPECULATIVE as a reading of the
+zero of order 10 in `τ` (computed by leaf-review-a; this docstring said 30 before). SPECULATIVE as a reading of the
 source. -/
 def QMDenZeroCM3 : Prop :=
   ∀ τ : UpperHalfPlane, PkgI1.jDen (PkgI1.Omega τ) = 0 →
@@ -71704,22 +71704,22 @@ open scoped MatrixGroups ModularForm
 structure ResearchLeaves3 : Prop where
   /-- R1 (a), (c), (d), `π₀(X₆) = 1` (rv-blueprints Q4), R1 at level one, R2 with biconditional CM
   clauses (Q5) and R5 on points of `X₆`, on one `Y₃`, `X₆` (leaf-qm-fp, repaired by leaf-adopt).
-  Premise (rv-qm-polar Lemma P): for a QM pair `(A, ι)` in characteristic 0 there is exactly one
+  Premise (rv-qm-polar Lemma QP): for a QM pair `(A, ι)` in characteristic 0 there is exactly one
   principal polarization whose Rosati involution is `x ↦ μ⁻¹x̄μ` on `ι(𝒪)` (`μ = 2j + ij`, the
   type fixed by the PEL datum); see the definition. Checked by model reviews (rv-qm-polar), no
   human review. -/
   r1r2 : LeafAdopt.R1R2fpRep
   -- (g0-assemble2) `r1an : R01b_ComplexUniformization` (an `opaque` placeholder) removed: unused;
   -- its concrete family form is `GluePieces3.r1bFamily` (fibre-qm-period).
-  /-- R1(d), Shimura reciprocity, object form (leaf-qm-fp; premise Lemma P, rv-qm-polar). -/
+  /-- R1(d), Shimura reciprocity, object form (leaf-qm-fp; premise Lemma QP, rv-qm-polar). -/
   r1rec : LeafQM.AV.R1rec
-  /-- R3, Lin–Yang over `ℂ`, existential and polarization-free (leaf-push2; premise Lemma P). -/
+  /-- R3, Lin–Yang over `ℂ`, existential and polarization-free (leaf-push2; premise Lemma QP). -/
   r3 : ZInQ.LeafPush2.R03_LinYang
   r4 : PkgI1.ThetaModularity
   /-- R5(ii), González–Rotger Thm 5.12, fields of moduli (= rv-blueprints' R5fpStrong, Q2;
-  premise Lemma P, rv-qm-polar). -/
+  premise Lemma QP, rv-qm-polar). -/
   r5 : LeafQM.AV.R5fp
-  /-- R5(i), González–Rotger Prop. 5.6, `#CM(R) = 2^b h(R)` (premise Lemma P, rv-qm-polar). -/
+  /-- R5(i), González–Rotger Prop. 5.6, `#CM(R) = 2^b h(R)` (premise Lemma QP, rv-qm-polar). -/
   r5count : LeafQM.AV.R5fpCount
   r6 : PkgI2.RaynaudCriterion.{0}
   r7a : PkgI2.NeronOggShafarevich.{0}
