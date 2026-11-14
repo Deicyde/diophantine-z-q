@@ -31,3 +31,13 @@ TYZ Lemma `torsion2` (Lemma 3.18): torsion of `A(ℍ'_n)` is killed by `2(1+[i])
 - GLUE `HHprimeFrobSq`: n%8=5 sqfree, p odd prime ∤ n, (−d₀/p) = −1 ∀ d₀∣n, d₀%8=5 →
   ∀ prime 𝔓 ∋ p of 𝓞(HHprime n), ∀ a, a^(p²) − a ∈ 𝔓. (ring class field theory; sketch in report §3.1)
 - GLUE `SqrtTwoNotInHHprime`: n%8=5 sqfree → ∀ s ∈ HHprime n, s² ≠ 2. (TYZ Step 3; report §3.2 sketch, SPECULATIVE)
+- [VERIFIED, compiled, 2026-11-13 ~23:55] §8 `hhprimeFrobSq_of : HprimeFrobOrderTwo → HHprimeFrobSq` (compositum step:
+  Mathlib Frobenius `IsArithFrobAt.exists_of_isInvariant`, lift to `Gal(ℚ̄/ℚ)`, `h²` fixes `L_n(i)` generators
+  (`s² ∈ ℚ`) and each `H'_{d₀}`); finer main theorem `lemma318Literal_HHprime_of'`
+  (SupersingularExponentA, HprimeFrobOrderTwo, SqrtTwoNotInHHprime); axioms standard.
+- GLUE `HprimeFrobOrderTwo`: d%8=5 sqfree, p odd prime ∤ d, (−d/p) = −1, h ∈ Gal(ℚ̄/ℚ) Frobenius on `H'_d` at a
+  prime Q ∋ p of 𝓞(Hprimebar d) → h² = 1 on `H'_d`.
+- [AI review, subagent, read-only, no Lean] the three §1 Props: all OK (true, non-vacuous, faithful); √2 sketch
+  sound; flagged: say explicitly that Artin functoriality is transported through `embed d₀` (fine since
+  `H_{d₀,4}`, `H'_{d₀}` are Galois over ℚ); `[DecidableEq k]` binder in the leaf is harmless. Not checked:
+  TYZ's Step 3 wording (needs the source; HUMAN CHECK).
