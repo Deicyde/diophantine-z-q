@@ -41,3 +41,13 @@ Base: 8ec80711 + merge of origin/wip/leaf-fold3 (f7951690). Targets: leaf-fold3 
   `Leaves3.lean`; T3, T41 verbatim in `Check.lean`: ALL OK (VERIFIED).
 - Use of T3 in leaf-fold3: only `(hN L (Ow L v) 𝒜 ℬ).2` in `fExtendGen_of_nmp` (surjective half;
   VERIFIED by reading `scratch/leaf-fold3/olean/TailH.lean`).
+
+## Final state (2026-11-13)
+
+- Module builds (`NMPInjective`, `NeronGroupAbstract`, `NeronGroup`): success; `Check.lean` exit 0,
+  9/9 axiom lines standard, 0 `sorryAx` (VERIFIED, rerun after the last edit).
+- T3: reduced to `NeronMappingAbelianSchemeSurj` (STANDARD: BLR §1.2 Prop. 8, locator UNVERIFIED).
+- T41: reduced to `NeronSchemeExtensionExists` (STANDARD: BLR §1.4 Thm. 3 + §1.2 Def. 1, UNVERIFIED).
+- Not attempted further: T3-surj needs codimension-one valuative extension + Weil's extension
+  theorem (BLR §4.4 Thm. 1, UNVERIFIED), neither in Mathlib v4.35; T41's existence half needs neron-lg's
+  unproved gluing glue.
