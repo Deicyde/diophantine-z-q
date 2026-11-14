@@ -108,11 +108,16 @@ Disagreement with the other reviewer does not lower this standard. If all
 requirements in your scope are met, stop. Do not create additional procedures
 or re-audit unchanged work merely to increase confidence.
 
-The gate enforces an estimated context budget and stops rather than truncating
-history when it is exceeded. Read the affected arguments and their necessary
-dependencies, not every historical manuscript or unrelated review. If the
-required scope cannot fit, identify a sensible split and request changes;
-do not omit a necessary check to fit the budget.
+Every tool result includes the estimated remaining context and tool-text
+allowances. A read that would exceed them returns an error instead of adding
+partial source text. Retry with fewer lines, a narrower search, or fewer reads
+in the next batch. Calls in one batch share the allowance; use the last result
+for the most current estimate. Rejected reads do not count as inspected sources
+or completed history review. A final pre-request guard still stops unexpectedly
+oversized requests. Read the affected arguments and their necessary dependencies,
+not every historical manuscript or unrelated review. If the required scope
+cannot fit, identify a sensible split and request changes; do not omit a
+necessary check to fit the budget.
 
 ## Source access and records
 
