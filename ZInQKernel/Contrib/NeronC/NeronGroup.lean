@@ -1,5 +1,6 @@
 import ZInQKernel.HDecomp.Faltings.H5Neron
 import ZInQKernel.Contrib.NeronC.NeronGroupAbstract
+import ZInQKernel.Contrib.NeronC.NMPInjective
 
 /-! # neron-c: leaf T41 reduced to the scheme-level Néron existence theorem
 
@@ -72,9 +73,57 @@ theorem neronSchemeModelExists_of_neronModelExists (h : ZInQ.H5Neron.NeronModelE
   obtain ⟨𝒩, h𝒩⟩ := h K A L
   exact ⟨𝒩.G, inferInstance, inferInstance, inferInstance, 𝒩.gen, fun Y _ => h𝒩 Y⟩
 
+/-- **`NeronSchemeExtensionExists` (LEAF; published, strictly weaker than
+`NeronSchemeModelExists`).** As `NeronSchemeModelExists`, but only the *existence* of the extension
+`Y → N` of an `L`-morphism `Y_L → A_L` is asked for; its uniqueness is automatic
+(`pullback_map_injective`: `Y` is flat over `𝓞_L`, `Spec L → Spec 𝓞_L` is scheme-theoretically
+dominant and `N` is separated). Source: as for `NeronSchemeModelExists` (BLR §1.4 Thm. 3 with §1.2
+Def. 1; locators UNVERIFIED). -/
+def NeronSchemeExtensionExists : Prop :=
+  ∀ (K : Type) [Field K] (A : AbVar K) (L : Type) [Field L] [NumberField L] [Algebra K L],
+    ∃ (N : Over (Spec (CommRingCat.of (𝓞 L)))) (_ : Smooth N.hom) (_ : IsSeparated N.hom)
+      (_ : QuasiCompact N.hom) (e : genericFibre L N ≅ (A.baseChange L).X),
+      ∀ (Y : Over (Spec (CommRingCat.of (𝓞 L)))) [Smooth Y.hom],
+        Function.Surjective fun f : Y ⟶ N =>
+          (Over.pullback (Spec.map (CommRingCat.ofHom (algebraMap (𝓞 L) L)))).map f ≫ e.hom
+
+/-- Uniqueness of extensions into a separated model, for smooth test schemes over `𝓞_L`. -/
+theorem neron_extension_injective (L : Type) [Field L] [NumberField L]
+    (N : Over (Spec (CommRingCat.of (𝓞 L)))) [IsSeparated N.hom] {B : Over (Spec (CommRingCat.of L))}
+    (e : genericFibre L N ≅ B) (Y : Over (Spec (CommRingCat.of (𝓞 L)))) [Smooth Y.hom] :
+    Function.Injective fun f : Y ⟶ N =>
+      (Over.pullback (Spec.map (CommRingCat.ofHom (algebraMap (𝓞 L) L)))).map f ≫ e.hom := by
+  have : IsSchemeTheoreticallyDominant (Spec.map (CommRingCat.ofHom (algebraMap (𝓞 L) L))) :=
+    isSchemeTheoreticallyDominant_spec_map _ (FaithfulSMul.algebraMap_injective (𝓞 L) L)
+  intro f g hfg
+  apply pullback_map_injective (Spec.map (CommRingCat.ofHom (algebraMap (𝓞 L) L))) Y N
+  exact (cancel_mono e.hom).mp hfg
+
+/-- `NeronSchemeModelExists` from the existence half alone. -/
+theorem neronSchemeModelExists_of_extension (h : NeronSchemeExtensionExists) :
+    NeronSchemeModelExists := by
+  intro K _ A L _ _ _
+  obtain ⟨N, hS, hSep, hQC, e, hN⟩ := h K A L
+  exact ⟨N, hS, hSep, hQC, e, fun Y _ => ⟨neron_extension_injective L N e Y, hN Y⟩⟩
+
+/-- **T41 from the existence half of the scheme-level Néron theorem.** -/
+theorem neronModelExists_of_extension (h : NeronSchemeExtensionExists) :
+    ZInQ.H5Neron.NeronModelExists :=
+  neronModelExists_of_scheme (neronSchemeModelExists_of_extension h)
+
+/-- Conversely, T41 gives `NeronSchemeExtensionExists` (so the reduction loses nothing). -/
+theorem neronSchemeExtensionExists_of_neronModelExists (h : ZInQ.H5Neron.NeronModelExists) :
+    NeronSchemeExtensionExists := by
+  intro K _ A L _ _ _
+  obtain ⟨N, hS, hSep, hQC, e, hN⟩ := neronSchemeModelExists_of_neronModelExists h K A L
+  exact ⟨N, hS, hSep, hQC, e, fun Y _ => (hN Y).2⟩
+
 end ZInQ.Contrib.NeronC
 
 #print axioms ZInQ.Contrib.NeronC.grpObjOfNeron
 #print axioms ZInQ.Contrib.NeronC.isMonHom_of_neron
 #print axioms ZInQ.Contrib.NeronC.neronModelExists_of_scheme
 #print axioms ZInQ.Contrib.NeronC.neronSchemeModelExists_of_neronModelExists
+#print axioms ZInQ.Contrib.NeronC.neron_extension_injective
+#print axioms ZInQ.Contrib.NeronC.neronModelExists_of_extension
+#print axioms ZInQ.Contrib.NeronC.neronSchemeExtensionExists_of_neronModelExists

@@ -1,0 +1,8 @@
+T3  PkgI2.NeronMappingAbelianScheme: 10 lines; verbatim in leaf-fold3 Leaves3.lean: True; verbatim in Check.lean: True
+dep PkgI2.IsAbelianScheme: 6 lines; verbatim in leaf-fold3 Leaves3.lean: True
+T41 ZInQ.H5Neron.NeronModelExists: 4 lines; verbatim in leaf-fold3 Leaves3.lean: True; verbatim in Check.lean: True
+dep DefFaltings.GroupModel: 15 lines; verbatim in leaf-fold3 Leaves3.lean: True
+dep DefFaltings.genericFibre: 4 lines; verbatim in leaf-fold3 Leaves3.lean: True
+dep DefFaltings.GroupModel.IsNeronModel: 6 lines; verbatim in leaf-fold3 Leaves3.lean: True
+dep PkgI3.AbVar: 9 lines; verbatim in leaf-fold3 Leaves3.lean: True
+ALL OK

@@ -53,6 +53,11 @@ theorem NeronCCheck.t41_of_scheme (h : ZInQ.Contrib.NeronC.NeronSchemeModelExist
     NeronCCheck.H5Neron.NeronModelExists :=
   ZInQ.Contrib.NeronC.neronModelExists_of_scheme h
 
+/-- T41 (verbatim copy) from the existence half of the scheme-level theorem. -/
+theorem NeronCCheck.t41_of_extension (h : ZInQ.Contrib.NeronC.NeronSchemeExtensionExists) :
+    NeronCCheck.H5Neron.NeronModelExists :=
+  ZInQ.Contrib.NeronC.neronModelExists_of_extension h
+
 /-- The copy is the kernel's statement. -/
 theorem NeronCCheck.t41_iff : NeronCCheck.H5Neron.NeronModelExists ↔
     ZInQ.H5Neron.NeronModelExists := Iff.rfl
@@ -61,6 +66,8 @@ theorem NeronCCheck.t41_iff : NeronCCheck.H5Neron.NeronModelExists ↔
 #print axioms NeronCCheck.t3_iff
 #print axioms NeronCCheck.t41_of_scheme
 #print axioms NeronCCheck.t41_iff
+#print axioms NeronCCheck.t41_of_extension
+#print axioms ZInQ.Contrib.NeronC.neronSchemeExtensionExists_of_neronModelExists
 #print axioms ZInQ.Contrib.NeronC.neronMappingAbelianScheme_injective
 #print axioms ZInQ.Contrib.NeronC.neronMappingAbelianSchemeSurj_of_nmp
 #print axioms ZInQ.Contrib.NeronC.neronSchemeModelExists_of_neronModelExists
