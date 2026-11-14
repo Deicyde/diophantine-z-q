@@ -62,3 +62,9 @@ Row sources (VERIFIED, read): definitions read in ~/dzq-wt/leaf-fold4/scratch/le
 - Glue: E_d = ℚ(√2)(√d), d ∈ {−1, −3, −6} (AdjoinRoot tower, irreducible via a real embedding, finrank 4);
   √2 ↦ 1⊗ι(i), √d ↦ 1⊗ψ (ψ = φ or 2φ − 1) into the commutative subalgebra they generate;
   End⁰ ≠ 0 by flatness of ℚ over ℤ and injectivity of n ↦ ι(n).
+
+## H-44 `ThetaRatiosAlgebraic`: SPLIT into 1 LEAF + 1 narrower GLUE (VERIFIED, compiled)
+- `scratch/qm-split/ThetaRatios.lean`: LEAF `ThetaNullNonvanishing` (genus 2: at most one even θ-null vanishes;
+  Mumford Tata II IIIa §8, Igusa 1962; UNVERIFIED); GLUE `ThetaFourthRatiosAlgebraic` (θ_m⁴/θ_{m₀}⁴ algebraic
+  for period matrices of abelian surfaces over number fields; needs Appell–Humbert/GAGA/NS invariance and
+  Thomae + Jacobi + Weil's dichotomy, or Shimura Duke 1976); `thetaRatiosAlgebraic_of`. Axioms standard, 5 s.
