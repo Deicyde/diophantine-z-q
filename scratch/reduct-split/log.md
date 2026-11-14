@@ -31,3 +31,11 @@ Setup: compile checks with `scratch/reduct-split/chk.sh FILE` = `lean` with LEAN
   `AvSplit.MumfordTorsionAlgClosed` (via kernel `AvSplit.torsionStructure_of_mumford`). All axioms standard. VERIFIED.
   => r7b DONE (published-form leaves only: Serre–Tate Thm 2 + Mumford §4). r6: one glue (FixedTorsionRational). r8: one
   glue (DVRFiniteExtension).
+- 11:46 §12 SS2: leaf `IdentityComponentBaseChangeDVR` (SGA 7 IX 3.3 second assertion, weakened to "open immersion into
+  𝒩'"), glue `SemistableNeronBaseChangeLocalGlobal` (carries the global content: identity component over 𝓞_L, gluing),
+  `semistableNeronBaseChange_of_leaves`: OK.
+- 11:52 §13 faltingsLemma5BC: `gmTransport` (group model transport along a group iso of generic fibres; generic in the iso —
+  a concrete `bcbcIso` inside the structure gave a kernel deterministic timeout, see memory note on iso chains),
+  `gmTransport_isNeronModel`, `_isSemistable` (rfl), `_height` (MetrizedModel data depend only on `model.G`), glue
+  `IsogenyBaseChangeDeg`; `faltingsLemma5BC_of_base : HeightSplit.FaltingsLemma5 → IsogenyBaseChangeDeg →
+  HeightSplit.FaltingsLemma5BC`: OK 11.8 s; all axioms standard. VERIFIED.

@@ -934,6 +934,154 @@ theorem serreTatePotentialGood_final (hST : SerreTateThm2) (hM : AvSplit.Mumford
     PkgI2.SerreTatePotentialGood.{0} :=
   serreTatePotentialGood_of_printed hST (AvSplit.torsionStructure_of_mumford hM)
 
+/-! ## §12. SS2 (`HeightSplit.SemistableNeronBaseChange`): the local SGA 7 IX 3.3 (second
+assertion) and the global glue -/
+
+/-- `O → O'` for `O' ∩ K = O`. -/
+def comapHom {K K' : Type} [Field K] [Field K'] [Algebra K K'] {O : ValuationSubring K}
+    {O' : ValuationSubring K'} (hO : O'.comap (algebraMap K K') = O) : O →+* O' :=
+  ((algebraMap K K').comp O.subtype).codRestrict O'.toSubring (fun x => by
+    have hx : (x : K) ∈ O'.comap (algebraMap K K') := by rw [hO]; exact x.2
+    exact hx)
+
+/-- **LEAF `IdentityComponentBaseChangeDVR` (SGA 7 I, Exp. IX, Prop. 3.3, second assertion; number
+UNVERIFIED).** `O ⊆ K` a discrete valuation ring, `K'/K` finite, `O' ⊆ K'` a discrete valuation ring
+over `O`, `A` with semistable reduction at `O`, `𝒩`, `𝒩'` the Néron models of `A` over `O` and of
+`A_{K'}` over `O'`. For the identity component `𝒰 = 𝒩⁰` (an open subgroup scheme of `𝒩` with
+connected generic and geometric special fibres), the base change `𝒰 ×_O O'` maps to `𝒩'` by an open
+immersion of group schemes (SGA 7: the canonical map `𝒩⁰ ×_O O' → 𝒩'⁰` is an isomorphism; here only
+"open immersion into `𝒩'`" is kept, a weakening). -/
+def IdentityComponentBaseChangeDVR : Prop :=
+  ∀ (K : Type) [Field K] (O : ValuationSubring K) [IsDiscreteValuationRing O]
+    (K' : Type) [Field K'] [Algebra K K'] [FiniteDimensional K K'] (O' : ValuationSubring K')
+    [IsDiscreteValuationRing O'] (hO : O'.comap (algebraMap K K') = O) (A : PkgI3.AbVar K),
+    HasSemistableReduction A O →
+    ∀ 𝒩 : GroupModelO A O, 𝒩.IsNeronModel →
+    ∀ 𝒩' : GroupModelO (A.baseChange K') O', 𝒩'.IsNeronModel →
+    ∀ (U : Over (Spec (CommRingCat.of O))) [GrpObj U] (i : U ⟶ 𝒩.G), IsOpenImmersion i.left →
+      IsMonHom i → ConnectedSpace ((Over.pullback (jO O)).obj U).left →
+      ConnectedSpace ((Over.pullback (Spec.map (CommRingCat.ofHom
+        (algebraMap O (ResBarO O))))).obj U).left →
+      ∃ j : (Over.pullback (Spec.map (CommRingCat.ofHom (comapHom hO)))).obj U ⟶ 𝒩'.G,
+        IsOpenImmersion j.left ∧
+        (letI : GrpObj ((Over.pullback (Spec.map (CommRingCat.ofHom (comapHom hO)))).obj U) :=
+          Functor.grpObjObj
+         IsMonHom j)
+
+/-- **GLUE `SemistableNeronBaseChangeLocalGlobal`.** The global form SS2 over `𝓞_L → 𝓞_{L'}` from the
+local SGA 7 IX 3.3. Needs: (i) the identity component `𝒩⁰` of the smooth group scheme `𝒩` over the
+Dedekind scheme `Spec 𝓞_L` is an open subgroup scheme (SGA 3 VI_B 3.10, published) and a group
+model (quasi-compactness of `𝒩⁰`); (ii) `𝒱 = 𝒩 ×_{𝓞_L} 𝓞_{L'}` and `𝒩⁰ ×_{𝓞_L} 𝓞_{L'}` as group
+models of `A_{L'}` (generic fibre `(A_L)_{L'} ≅ A_{L'}`, `bcbcIso` above); (iii) the map
+`𝒩⁰ ×_{𝓞_L} 𝓞_{L'} → 𝒩'` given by the Néron mapping property of `𝒩'`; (iv) it is an open immersion
+because it is one after localization at every maximal ideal of `𝓞_{L'}` (the leaf, with BLR §1.2
+Prop. 4 and the uniqueness of Néron models, as in `SemistableLocalGlobal`). Mathlib 4.35 has no
+identity component of a group scheme over a base. -/
+def SemistableNeronBaseChangeLocalGlobal : Prop :=
+  IdentityComponentBaseChangeDVR → SemistableLocalGlobal → ZInQ.HeightSplit.SemistableNeronBaseChange
+
+/-- **SS2 from the local SGA 7 IX 3.3 (second assertion)** and the glue. The global content (the
+identity component over `𝓞_L` and the gluing) is in the glue. -/
+theorem semistableNeronBaseChange_of_leaves (h33b : IdentityComponentBaseChangeDVR)
+    (hLG : SemistableLocalGlobal) (hG : SemistableNeronBaseChangeLocalGlobal) :
+    ZInQ.HeightSplit.SemistableNeronBaseChange :=
+  hG h33b hLG
+
+/-! ## §13. `faltingsLemma5BC` from Faltings' Lemma 5 over the base field -/
+
+section FL5
+
+open ZInQ.DefFaltings
+
+variable {K : Type} [Field K] {L : Type} [Field L] [NumberField L] [Algebra K L]
+
+/-- Transport of a group model along a group isomorphism of generic fibres (generic in the
+isomorphism, so that the kernel never unfolds a concrete one). -/
+def gmTransport {K₁ K₂ : Type} [Field K₁] [Field K₂] [Algebra K₁ L] [Algebra K₂ L]
+    {A₁ : PkgI3.AbVar K₁} {A₂ : PkgI3.AbVar K₂} (e : (A₂.baseChange L).X ≅ (A₁.baseChange L).X)
+    (he : IsMonHom e.hom) (𝒩 : GroupModel A₁ L) : GroupModel A₂ L where
+  G := 𝒩.G
+  gen := 𝒩.gen ≪≫ e.symm
+  gen_hom := by
+    letI : GrpObj (genericFibre L 𝒩.G) := Functor.grpObjObj
+    haveI := 𝒩.gen_hom
+    show IsMonHom (𝒩.gen.hom ≫ e.inv)
+    infer_instance
+
+theorem gmTransport_isNeronModel {K₁ K₂ : Type} [Field K₁] [Field K₂] [Algebra K₁ L]
+    [Algebra K₂ L] {A₁ : PkgI3.AbVar K₁} {A₂ : PkgI3.AbVar K₂}
+    (e : (A₂.baseChange L).X ≅ (A₁.baseChange L).X) (he : IsMonHom e.hom) (𝒩 : GroupModel A₁ L)
+    (h : 𝒩.IsNeronModel) : (gmTransport e he 𝒩).IsNeronModel := by
+  intro Y _
+  have hb := h Y
+  have : (fun f : Y ⟶ 𝒩.G => (Over.pullback (Spec.map (CommRingCat.ofHom
+        (algebraMap (NumberField.RingOfIntegers L) L)))).map f ≫ (𝒩.gen ≪≫ e.symm).hom) =
+      (fun g => g ≫ e.inv) ∘ (fun f : Y ⟶ 𝒩.G => (Over.pullback (Spec.map
+        (CommRingCat.ofHom (algebraMap (NumberField.RingOfIntegers L) L)))).map f ≫ 𝒩.gen.hom) := by
+    funext f
+    simp only [Iso.trans_hom, Iso.symm_hom, Function.comp_apply]
+    exact (Category.assoc _ _ _).symm
+  show Function.Bijective (fun f : Y ⟶ 𝒩.G => (Over.pullback (Spec.map (CommRingCat.ofHom
+        (algebraMap (NumberField.RingOfIntegers L) L)))).map f ≫ (𝒩.gen ≪≫ e.symm).hom)
+  rw [this]
+  exact Function.Bijective.comp
+    ⟨fun a b hab => (cancel_mono e.inv).mp hab, fun c => ⟨c ≫ e.hom, by simp⟩⟩ hb
+
+theorem gmTransport_isSemistable {K₁ K₂ : Type} [Field K₁] [Field K₂] [Algebra K₁ L]
+    [Algebra K₂ L] {A₁ : PkgI3.AbVar K₁} {A₂ : PkgI3.AbVar K₂}
+    (e : (A₂.baseChange L).X ≅ (A₁.baseChange L).X) (he : IsMonHom e.hom) (𝒩 : GroupModel A₁ L)
+    (h : ZInQ.HeightSplit.IsSemistable 𝒩) :
+    ZInQ.HeightSplit.IsSemistable (gmTransport e he 𝒩) := h
+
+/-- The height depends only on the group scheme over `𝓞_L` (every field of `MetrizedModel` other than
+`model` is about `model.G`). -/
+theorem gmTransport_height {K₁ K₂ : Type} [Field K₁] [Field K₂] [Algebra K₁ L]
+    [Algebra K₂ L] {A₁ : PkgI3.AbVar K₁} {A₂ : PkgI3.AbVar K₂}
+    (e : (A₂.baseChange L).X ≅ (A₁.baseChange L).X) (he : IsMonHom e.hom) (𝒩 : GroupModel A₁ L) :
+    (gmTransport e he 𝒩).height = 𝒩.height := by
+  apply le_antisymm
+  · refine le_iInf fun g => le_iInf fun M => le_iInf fun hM => ?_
+    subst hM
+    exact iInf_le_of_le g (iInf_le_of_le ⟨gmTransport e he M.model, M.hodge, M.lattice_eq, M.arch⟩
+      (iInf_le_of_le rfl le_rfl))
+  · refine le_iInf fun g => le_iInf fun M => le_iInf fun hM => ?_
+    obtain ⟨model, hodge, lattice_eq, arch⟩ := M
+    change model = gmTransport e he 𝒩 at hM
+    subst hM
+    exact iInf_le_of_le g (iInf_le_of_le ⟨𝒩, hodge, lattice_eq, arch⟩
+      (iInf_le_of_le rfl le_rfl))
+
+/-- A group model of `A_L` (kernel encoding `GroupModel A L`) as a group model of the abelian variety
+`A_L` over `L` (`GroupModel (A.baseChange L) L`), along `(A_L)_L ≅ A_L`. -/
+def toBC {A : PkgI3.AbVar K} (𝒩 : GroupModel A L) : GroupModel (A.baseChange L) L :=
+  gmTransport (bcbcIso A L L) (bcbcIso_isMonHom A L L) 𝒩
+
+/-- **GLUE `IsogenyBaseChangeDeg`.** For an isogeny `φ : A → B` over `K` and a number field `L ⊇ K`,
+the base change `φ_L : A_L → B_L` is an isogeny of the same degree. Needs: `φ_L =
+(Over.pullback _).map φ` is a homomorphism (monoidal functor), finite and surjective (stable under
+base change); `#ker φ_L(L̄) = #ker φ(K̄)`: `A_L(L̄) = A(L̄)` (`bcPt`), `A(K̄) → A(L̄)` injective
+(`extPt_injective`), and onto on `ker φ` because `ker φ` is finite over `K` (kernel's
+`exists_lift_of_isFinite` applied to the scheme `ker φ`, which is not constructed in the kernel). -/
+def IsogenyBaseChangeDeg : Prop :=
+  ∀ (K : Type) [Field K] [NumberField K] (A B : PkgI3.AbVar K) (φ : A.X ⟶ B.X), IsIsogeny φ →
+    ∀ (L : Type) [Field L] [NumberField L] [Algebra K L],
+      ∃ φ' : (A.baseChange L).X ⟶ (B.baseChange L).X, IsIsogeny φ' ∧ isogDeg φ' = isogDeg φ
+
+/-- **`faltingsLemma5BC` from the base-field form** (`HeightSplit.FaltingsLemma5`, Faltings' Lemma 5
+in the semistable inequality form over the field of definition) and the glue `IsogenyBaseChangeDeg`;
+the encoding of Néron models of `A_L` is handled by `toBC` (proved). -/
+theorem faltingsLemma5BC_of_base (hF : ZInQ.HeightSplit.FaltingsLemma5)
+    (hI : IsogenyBaseChangeDeg) : ZInQ.HeightSplit.FaltingsLemma5BC := by
+  intro K _ _ A B φ hφ L _ _ _ 𝒩A 𝒩B hA hB sA sB x y hx hy
+  obtain ⟨φ', hφ', hdeg⟩ := hI K A B φ hφ L
+  rw [← hdeg]
+  exact hF L (A.baseChange L) (B.baseChange L) φ' hφ' (toBC 𝒩A) (toBC 𝒩B)
+    (gmTransport_isNeronModel _ _ 𝒩A hA) (gmTransport_isNeronModel _ _ 𝒩B hB)
+    (gmTransport_isSemistable _ _ 𝒩A sA) (gmTransport_isSemistable _ _ 𝒩B sB) x y
+    ((gmTransport_height _ _ 𝒩A).trans hx) ((gmTransport_height _ _ 𝒩B).trans hy)
+
+end FL5
+
 end ReductSplit
 
 #print axioms ReductSplit.raynaudCriterion_of_leaves
@@ -945,3 +1093,5 @@ end ReductSplit
 #print axioms ReductSplit.raynaudCriterion_final
 #print axioms ReductSplit.grothendieckMonodromy_final
 #print axioms ReductSplit.serreTatePotentialGood_final
+#print axioms ReductSplit.semistableNeronBaseChange_of_leaves
+#print axioms ReductSplit.faltingsLemma5BC_of_base
