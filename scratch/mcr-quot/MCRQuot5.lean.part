@@ -1,0 +1,131 @@
+
+/-! ════════════════════════════════════════════════════════════════════════════════════════════
+# mcr-quot, part 5: glue A `FibreAutTame` from T5, a fixed-point glue and a twist-class count
+════════════════════════════════════════════════════════════════════════════════════════════ -/
+
+noncomputable section
+
+namespace MCRQuot
+
+open Polynomial CategoryTheory AlgebraicGeometry Limits LeafQM LeafQM.AV VertWitness HeckeRestNV
+open G0ModField PropTSRed PropTSGlue ModelGlue MCRGlue LeafQM.AV.Pin PkgI3
+
+/-- **Glue (A-fix): nontrivial elements of `fibreAut` fix only finitely many `ℚ̄`-points**
+(scheme theory of curves; no literature). For the smooth model `𝒴` at `p > 324` and a triple with
+R1fp, R1hecke, R2fp, every `h ≠ 1` in `fibreAut 𝒴 𝒜` fixes only finitely many `ℚ̄`-points.
+(Outline: `𝒴` is integral (model-glue's `ModelIntegral`: `𝒴_ℚ ≅ Y` by `CurveBijIso`, `Y`
+irreducible, `𝒴` reduced and flat); the fixed locus of `h` is the closed equalizer of `h` and
+`id` (`𝒴` separated); infinitely many fixed `ℚ̄`-points lie over infinitely many closed points of
+the irreducible curve `𝒴_ℚ`, so the equalizer contains the generic point, hence is all of the
+integral `𝒴`, and `h = id`.) -/
+def FibreAutFixFinite : Prop :=
+  ∀ (p : ℕ) [Fact p.Prime], 324 < p →
+    ∀ (𝒴 : Over (Spec (CommRingCat.of (Zloc p)))) (𝒜 : QMFamily 𝒴.left), IsShimuraModel p 𝒴 𝒜 →
+    ∀ (Y : Over (Spec (CommRingCat.of ℚ))) (Φ : PtEquiv Y) (π : ToP1 Y.left),
+      R1fpProps Y Φ → R1heckeProps Y Φ → R2fpProps Y Φ π →
+    ∀ h ∈ fibreAut 𝒴 𝒜, h ≠ 1 →
+      {y : Spec (CommRingCat.of Qbar) ⟶ 𝒴.left | y ≫ h.asIso.hom = y}.Finite
+
+/-- **Glue (A-count): a twist class has at most `288 = 4 · 72` isomorphism classes** (algebra of
+`𝒪` and level structures; no new literature beyond T5). (Outline: by Skolem–Noether every
+`α ∈ Aut 𝒪` is, up to conjugation by `𝒪^×` (which does not change the pair's class,
+`conjUnitIso`), one of the four automorphisms induced by `1, i, j, ij` (`NormO.T`, the
+Atkin–Lehner group), so a twist class contains at most 4 pair classes; on one pair the level
+structures are `η₀(· u₀)` with `u₀ ∈ (𝒪/3𝒪)^×` (`Level3.torsor`, given T5), 72 of them.) -/
+def TwistClassCard : Prop :=
+  ∀ P : QML3 Qbar, {m : M3 Qbar | ∃ Q : QML3 Qbar, m = M3.mk Q ∧ TwistEq P Q}.Finite ∧
+    {m : M3 Qbar | ∃ Q : QML3 Qbar, m = M3.mk Q ∧ TwistEq P Q}.ncard ≤ 288
+
+/-- The smooth model has infinitely many `ℚ̄`-points (`CurveSurj` for `π ∘ g` on `𝒴_ℚ`). -/
+theorem infinite_qbarPoints {p : ℕ} [Fact p.Prime] {𝒴 : Over (Spec (CommRingCat.of (Zloc p)))}
+    {𝒜 : QMFamily 𝒴.left} (hM : IsShimuraModel p 𝒴 𝒜) {Y : Over (Spec (CommRingCat.of ℚ))}
+    {Φ : PtEquiv Y} {π : ToP1 Y.left} (h1 : R1fpProps Y Φ) :
+    (Set.univ : Set (Spec (CommRingCat.of Qbar) ⟶ 𝒴.left)).Infinite := by
+  intro hfin
+  obtain ⟨g, -, -⟩ := exists_genFib_to_Y hM h1
+  have hfin' : (Set.univ : Set (fieldPt Qbar ⟶ genFib 𝒴)).Finite := by
+    refine Set.Finite.of_finite_image (f := fun s => s.left ≫ pullback.fst 𝒴.hom (specRatToZloc p))
+      (hfin.subset (Set.subset_univ _)) ?_
+    intro s _ s' _ h
+    exact genFib_pt_inj 𝒴 s s' h
+  obtain ⟨y0⟩ := hM.2.2.2.2.2.2.2
+  obtain ⟨s0, -⟩ := genFib_pt 𝒴 y0
+  have hsurj := curveFacts.2 (genFib 𝒴) (genFib_isProper 𝒴 hM.1) (genFib_smooth 𝒴 hM.2.1) ⟨s0⟩
+    (π.comp g.left) (fun _ => hfin'.subset (Set.subset_univ _))
+  have : (Set.univ : Set (OnePoint Qbar)).Finite := by
+    refine (hfin'.image (fun s => (π.comp g.left).val (K := Qbar) s.left)).subset ?_
+    intro t _
+    obtain ⟨s, hs⟩ := hsurj t
+    exact ⟨s, trivial, hs⟩
+  have hinf : (Set.univ : Set (OnePoint Qbar)).Infinite := by
+    refine Set.infinite_of_injective_forall_mem (f := fun n : ℕ => OnePoint.some (n : Qbar)) ?_
+      (fun _ => trivial)
+    intro m n h
+    exact_mod_cast OnePoint.coe_injective h
+  exact hinf this
+
+/-- **Glue A `FibreAutTame` from T5, (A-fix) and (A-count).** A finite subset `S` of `fibreAut`
+injects into the twist class of a `ℚ̄`-point `y` avoiding the (finitely many) fixed points of the
+`s⁻¹ t` (`s ≠ t ∈ S`), so `|S| ≤ 288`; hence `fibreAut` is finite of order `≤ 288 < 324 < p`. -/
+theorem fibreAutTame_of (hT : ObjBridge.TorsionStructure) (hfix : FibreAutFixFinite)
+    (hcnt : TwistClassCard) : FibreAutTame := by
+  intro p _ hp 𝒴 𝒜 hM hCM Y Φ π h1 hh h2
+  obtain ⟨g, hg, -⟩ := exists_genFib_to_Y hM h1
+  have huniq : ∀ (y : Spec (CommRingCat.of Qbar) ⟶ 𝒴.left) (P P' : QML3 Qbar),
+      IsFibreOf 𝒜 y P → IsFibreOf 𝒜 y P' → M3.mk P = M3.mk P' := by
+    intro y P P' hP hP'
+    obtain ⟨s, hs⟩ := genFib_pt 𝒴 y
+    rw [← hg Qbar s P ((congrArg (fun t => IsFibreOf 𝒜 t _) hs).mpr hP),
+      ← hg Qbar s P' ((congrArg (fun t => IsFibreOf 𝒜 t _) hs).mpr hP')]
+  choose fib hfib using fun y => hM.2.2.1 Qbar y
+  have hbound : ∀ S : Finset (Aut 𝒴.left), (↑S : Set (Aut 𝒴.left)) ⊆ fibreAut 𝒴 𝒜 →
+      S.card ≤ 288 := by
+    intro S hS
+    classical
+    let F : Set (Spec (CommRingCat.of Qbar) ⟶ 𝒴.left) :=
+      ⋃ s ∈ S, ⋃ t ∈ S, {y | s ≠ t ∧ y ≫ (s⁻¹ * t).asIso.hom = y}
+    have hF : F.Finite := by
+      refine Set.Finite.biUnion S.finite_toSet fun s hs => Set.Finite.biUnion S.finite_toSet
+        fun t ht => ?_
+      by_cases hst : s = t
+      · simp [hst]
+      · have hmem : s⁻¹ * t ∈ fibreAut 𝒴 𝒜 := Subgroup.mul_mem _ (Subgroup.inv_mem _ (hS hs)) (hS ht)
+        have hne : s⁻¹ * t ≠ 1 := fun h => hst (inv_mul_eq_one.mp h)
+        refine (hfix p hp 𝒴 𝒜 hM Y Φ π h1 hh h2 _ hmem hne).subset ?_
+        intro y hy
+        exact hy.2
+    obtain ⟨y, -, hyF⟩ := ((infinite_qbarPoints (π := π) hM h1).diff hF).nonempty
+    have hcl := hcnt (fib y)
+    have hmaps : ∀ s ∈ S, M3.mk (fib (y ≫ s.asIso.hom)) ∈
+        {m : M3 Qbar | ∃ Q : QML3 Qbar, m = M3.mk Q ∧ TwistEq (fib y) Q} :=
+      fun s hs => ⟨_, rfl, twistEq_of_mem_fibreAut hM huniq (hS hs) y _ _ (hfib y) (hfib _)⟩
+    have hinj : Set.InjOn (fun s : Aut 𝒴.left => M3.mk (fib (y ≫ s.asIso.hom))) ↑S := by
+      intro s hs t ht hst
+      have e : y ≫ s.asIso.hom = y ≫ t.asIso.hom :=
+        hM.2.2.2.1 _ _ _ _ (hfib _) (hfib _) hst
+      by_contra hne
+      apply hyF
+      simp only [F, Set.mem_iUnion, Set.mem_setOf_eq]
+      refine ⟨s, hs, t, ht, hne, ?_⟩
+      simp only [Aut.mul_asIso, Aut.inv_asIso, Iso.trans_hom, Iso.symm_hom]
+      rw [← Category.assoc, ← e, Category.assoc, Iso.hom_inv_id, Category.comp_id]
+    calc S.card = (↑S : Set (Aut 𝒴.left)).ncard := (Set.ncard_coe_finset S).symm
+      _ ≤ _ := Set.ncard_le_ncard_of_injOn _ hmaps hinj hcl.1
+      _ ≤ 288 := hcl.2
+  have hfinG : (fibreAut 𝒴 𝒜 : Set (Aut 𝒴.left)).Finite := by
+    by_contra hinf
+    obtain ⟨S, hS, hcard⟩ := Set.Infinite.exists_subset_card_eq hinf 289
+    have := hbound S hS
+    omega
+  haveI : Finite (fibreAut 𝒴 𝒜) := hfinG.to_subtype
+  refine ⟨this, fun hdvd => ?_⟩
+  have hpos : 0 < Nat.card (fibreAut 𝒴 𝒜) := Nat.card_pos
+  have hle : Nat.card (fibreAut 𝒴 𝒜) ≤ 288 := by
+    have e : Nat.card (fibreAut 𝒴 𝒜) = (fibreAut 𝒴 𝒜 : Set (Aut 𝒴.left)).ncard :=
+      Nat.card_coe_set_eq _
+    rw [e, Set.ncard_eq_toFinset_card _ hfinG]
+    exact hbound _ (by simp)
+  have := Nat.le_of_dvd hpos hdvd
+  omega
+
+end MCRQuot
