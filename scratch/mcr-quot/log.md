@@ -151,3 +151,18 @@ standard; no sorry in the parts)
 - `coordinateFromSections_of'' (hA : FibreAutTame) (hT : TorsionStructure) : CoordinateFromSections`.
 - **Final composite `modelCoordinateResidue_final2`**: L1-L6 + T5 + (A-fix), (B-desc), (B-iso),
   (C1b) ⇒ `ModelCoordinateResidue`.
+
+## Step 12 (09:30) — VERIFIED (parts 1-15 + 9; exit 0; compile15_out.txt; standard axioms)
+- **(A-fix) reduced**: `MCRQuot.fibreAutFixFinite_of (hC : CurveBijIso) (hYI : ModelYIrreducible)
+  (hF : CurveClosedQbarFinite) : FibreAutFixFinite`. `CurveBijIso` is model-glue's textbook leaf
+  (in the prefix). New: input `ModelYIrreducible` (Y irreducible over ℚ), glue
+  `CurveClosedQbarFinite` (closed subset of an integral smooth relative curve over ℤ_(p) missing the
+  generic point carries finitely many ℚ̄-points). Helpers `isIntegral_model` (model-glue's
+  `modelIntegral_of` argument with `ModelYIrreducible` for the chart), `eq_one_of_genericPoint_fixed`
+  (closed equalizer + `isIso_of_isClosedImmersion_of_surjective`).
+- Finding: A-fix, hence the reductions of A and C1, need the ℚ-irreducibility of `Y` (equivalently
+  of `𝒴`); the targets A, C1 do not carry the normalization chart `E` from which model-glue derives
+  it (`irreducible_of_chart`). Mathematically true for `Y₃` (π₀ ≅ (ℤ/3)^×, Galois-conjugate
+  components; SPECULATIVE reading, locator UNVERIFIED).
+- `fibreAutTame_of''`, `modelCoordinateResidue_final3` (L1-L6, T5, CurveBijIso, ModelYIrreducible,
+  CurveClosedQbarFinite, B-desc, B-iso, C1b).

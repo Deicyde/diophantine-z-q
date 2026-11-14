@@ -30,3 +30,6 @@
 #print axioms MCRQuot.p1Translate
 #print axioms MCRQuot.coordinateFromSections_of''
 #print axioms MCRQuot.modelCoordinateResidue_final2
+#print axioms MCRQuot.fibreAutFixFinite_of
+#print axioms MCRQuot.fibreAutTame_of''
+#print axioms MCRQuot.modelCoordinateResidue_final3
