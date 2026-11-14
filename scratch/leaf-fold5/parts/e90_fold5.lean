@@ -48,6 +48,74 @@ theorem t11b_of_exists5 (h : AVB2.T11bExists) : ZInQ.LeafPush2.T11b_Rigidity :=
 
 /-! ### The open statements -/
 
+/-- **The research leaves still open** (leaf-fold5): leaf-fold2's `OpenResearchLeaves2` with six fields
+restated over the kernel's own Props (`ZInQKernel/HDecomp/Objects.lean`; the chain's are copies; part e40 derives
+the chain's from the kernel's): `r6`, `r7a`, `r7b`, `r8` (PkgI2), `r9a`, `r9b` (PkgI3). Same statements. -/
+structure OpenResearchLeaves5 : Prop where
+  r1r2 : LeafAdopt.R1R2fpRep
+  /-- R1(b), concrete (family form), for the triple of the leaf bundle. -/
+  r1b : ∀ h : LeafAdopt.R1R2fpRep,
+    G0Split.FibreQM.R1bFamily (G0Split.FibreQM.ownY (LeafAdopt.R1R2fp_of_rep h))
+      (G0Split.FibreQM.ownΦ (LeafAdopt.R1R2fp_of_rep h))
+      (G0Split.FibreQM.ownπ (LeafAdopt.R1R2fp_of_rep h))
+  r1rec : LeafQM.AV.R1rec
+  r3 : ZInQ.LeafPush2.R03_LinYang
+  r4 : PkgI1.ThetaModularity
+  r5 : LeafQM.AV.R5fp
+  r5count : LeafQM.AV.R5fpCount
+  r6 : _root_.PkgI2.RaynaudCriterion.{0}
+  r7a : _root_.PkgI2.NeronOggShafarevich.{0}
+  r7b : _root_.PkgI2.SerreTatePotentialGood.{0}
+  r8 : _root_.PkgI2.GrothendieckMonodromy.{0}
+  r9a : _root_.PkgI3.FaltingsSemisimple
+  r9b : _root_.PkgI3.FaltingsTate
+  /-- R10 corrected (with multiplicity `0` off `{0, −1}`). -/
+  r10 : PkgI4.DeRhamComparisonHT
+  r11r12 : PkgI4.PanBerger
+  r13 : PkgI4.EigenformHT
+  /-- R14 corrected (with the determinant clause). -/
+  r14 : G0Galois.R14Det
+  r15 : DeligneSerreConseq
+  r16 : LeafModCurves.R16_EichlerShimuraJ1'
+  /-- R17, concrete (Carayol 1986, Thm (A)). -/
+  r17 : LadicCond.CarayolR17'
+  r18 : ZInQ.LeafPush2.R18_Javanpeykar
+  r19 : ZInQ.DefFaltings.R19_GaudronRemond
+  r20 : ZInQ.DefFaltings.R20_FaltingsLemma5
+  r21 : ZInQ.DefFaltings.R21_Bost
+  r22 : ZInQ.LeafPush2.R22_Pazuki
+  /-- H5's finiteness half (its `NeronModelMinimal` half is proved, h5-glue). -/
+  h5fin : ZInQ.DefFaltings.StableHeightFinite
+
+/-- leaf-fold2's research bundle from leaf-fold5's. -/
+theorem researchLeaves2_of_open5 (r : OpenResearchLeaves5) : OpenResearchLeaves2 where
+  r1r2 := r.r1r2
+  r1b := r.r1b
+  r1rec := r.r1rec
+  r3 := r.r3
+  r4 := r.r4
+  r5 := r.r5
+  r5count := r.r5count
+  r6 := raynaudCriterion_ofK5 r.r6
+  r7a := neronOggShafarevich_ofK5 r.r7a
+  r7b := serreTatePotentialGood_ofK5 r.r7b
+  r8 := grothendieckMonodromy_ofK5 r.r8
+  r9a := faltingsSemisimple_ofK5 r.r9a
+  r9b := faltingsTate_ofK5 r.r9b
+  r10 := r.r10
+  r11r12 := r.r11r12
+  r13 := r.r13
+  r14 := r.r14
+  r15 := r.r15
+  r16 := r.r16
+  r17 := r.r17
+  r18 := r.r18
+  r19 := r.r19
+  r20 := r.r20
+  r21 := r.r21
+  r22 := r.r22
+  h5fin := r.h5fin
+
 /-- **The textbook leaves still open** (leaf-fold5): `OpenTextbookLeaves4` with
 * `t3` (T3) replaced by its surjective half `NeronMappingAbelianSchemeSurj` (neron-c);
 * `t6`, `t7` (T6, T7) replaced by their forms over algebraically closed fields (av-b1; Mumford §19 Thms 3, 4);
@@ -56,14 +124,15 @@ theorem t11b_of_exists5 (h : AVB2.T11bExists) : ZInQ.LeafPush2.T11b_Rigidity :=
 * `t11b` (T11(b)) replaced by its existence half `T11bExists` (av-b2);
 * `t34` (T34) replaced by its two halves `DimJacobianEqGenus`, `GenusX1Field` (curves-g);
 * `t38` (T38) replaced by curves-g's three statements (A), (B), (C) (its rational-point clause is proved);
-* `t41` (T41) replaced by `NeronSchemeExtensionExists` (neron-c; the group law is proved). -/
+* `t41` (T41) replaced by `NeronSchemeExtensionExists` (neron-c; the group law is proved);
+* `t4`, `t5`, `t27`, `t33`, `t35` restated over the kernel's own Props (part e40; same statements). -/
 structure OpenTextbookLeaves5 : Prop where
   /-- neron-c, LEAF: every `K`-morphism of the generic fibres of two abelian schemes over a DVR extends
   (BLR §1.2 Prop. 8, surjective half). -/
   t3Surj : _root_.ZInQ.Contrib.NeronC.NeronMappingAbelianSchemeSurj.{0}
   /-- T4 = I2-Red, reduction is bijective on prime-to-`p` torsion. -/
-  t4 : PkgI2.ReductionTorsionBijective.{0}
-  t5 : PkgI2.TorsionStructure.{0}
+  t4 : _root_.PkgI2.ReductionTorsionBijective.{0}
+  t5 : _root_.PkgI2.TorsionStructure.{0}
   /-- av-b1, LEAF: Mumford §19 Thm 3 over an algebraically closed field. -/
   homFreeFiniteAlgClosed : _root_.ZInQ.Contrib.AVB1.HomFreeFiniteAlgClosed
   /-- av-b1, LEAF: Mumford §19 Thm 4 (consequence) over an algebraically closed field. -/
@@ -76,13 +145,13 @@ structure OpenTextbookLeaves5 : Prop where
   t11bExists : AVB2.T11bExists
   t23 : ∀ (p : ℕ) [Fact p.Prime], PkgI4.T23_FontaineClosure p
   t24 : EigenformTwist
-  t27 : PkgI3.QMDichotomyYu
-  t33 : LeafModCurves.JacobianExists ℚ
+  t27 : _root_.PkgI3.QMDichotomyYu
+  t33 : _root_.LeafModCurves.JacobianExists ℚ
   /-- curves-g: `dim Jac X = genus` for curves over `ℚ` (Milne 1986 Prop. 2.1 with Serre duality). -/
   dimJacobianEqGenus : _root_.ZInQ.Contrib.CurvesG.DimJacobianEqGenus
   /-- curves-g: the genus of `K_N` is the genus of `Γ₁(N)` (Shimura 1971 §6.7 and Prop. 1.40). -/
   genusX1Field : _root_.ZInQ.Contrib.CurvesG.GenusX1Field
-  t35 : ZInQ.LeafPush2.UniformizationExists
+  t35 : _root_.ZInQ.LeafPush2.UniformizationExists
   /-- curves-g (A): a normal proper model of a function field over `ℚ(T)` (Stacks 0BXX). -/
   normalModelOfFunctionFieldQ : _root_.ZInQ.Contrib.CurvesG.NormalModelOfFunctionFieldQ
   /-- curves-g (B): a normal integral curve locally of finite type over `ℚ` is smooth. -/
@@ -136,8 +205,8 @@ structure OpenGlue5 : Prop where
 theorem textbookLeaves4_of_open5 (t : OpenTextbookLeaves5) (l : OpenAddedLeaves5) (g : OpenGlue5) :
     OpenTextbookLeaves4 where
   t3 := t3_of_surj5 t.t3Surj
-  t4 := t.t4
-  t5 := t.t5
+  t4 := reductionTorsionBijective_ofK5 t.t4
+  t5 := torsionStructure_ofK5 t.t5
   t6 := t6_of_algClosed5 t.homFreeFiniteAlgClosed
   t7 := t7_of_algClosed5 t.charPolyIndepOfEllAlgClosed
   t8 := t8_of_simpleImage5 t.poincareComplement g.simpleImageIsogeny
@@ -147,10 +216,10 @@ theorem textbookLeaves4_of_open5 (t : OpenTextbookLeaves5) (l : OpenAddedLeaves5
   t11b := t11b_of_exists5 t.t11bExists
   t23 := t.t23
   t24 := t.t24
-  t27 := t.t27
-  t33 := t.t33
+  t27 := qmDichotomyYu_ofK5 t.t27
+  t33 := jacobianExists_ofK5 t.t33
   t34 := t34_of_split5 t.dimJacobianEqGenus t.genusX1Field
-  t35 := t.t35
+  t35 := uniformizationExists_ofK5 t.t35
   t38 := t38_of_split5 t.normalModelOfFunctionFieldQ t.normalCurveSmoothQ t.geomConnectedOfConstantFieldQ
   x0Transitive := t.x0Transitive
   t41 := t41_of_extension5 t.neronSchemeExtensionExists
@@ -168,7 +237,7 @@ theorem addedLeaves4_of_open5 (t : OpenTextbookLeaves5) (l : OpenAddedLeaves5) :
   x6ConicModel := l.x6ConicModel
   y3Connected := l.y3Connected
   qmAutCard := l.qmAutCard
-  serreRigidity3 := serreRigidity3_of_T35_5 t.t35 t.homLatticeCorr
+  serreRigidity3 := serreRigidity3_of_T35_5 (uniformizationExists_ofK5 t.t35) t.homLatticeCorr
   alFixedPoints := l.alFixedPoints
   zariskiConnectedness := l.zariskiConnectedness
   cmDescends := l.cmDescends
@@ -179,21 +248,21 @@ theorem addedLeaves4_of_open5 (t : OpenTextbookLeaves5) (l : OpenAddedLeaves5) :
   egaIV_17_7_8_ii := l.egaIV_17_7_8_ii
 
 /-- leaf-fold4's glue bundle from leaf-fold5's: `HeckeVertWitness` from leaves and `ModelCoordinateResidue`. -/
-theorem glue4_of_open5 (r : OpenResearchLeaves2) (t : OpenTextbookLeaves5) (l : OpenAddedLeaves5)
+theorem glue4_of_open5 (r : OpenResearchLeaves5) (t : OpenTextbookLeaves5) (l : OpenAddedLeaves5)
     (g : OpenGlue5) : OpenGlue4 where
-  heckeVertWitness := heckeVertWitness_of_leaves5 l.shimuraGoodReduction r.r1r2 t.t5
+  heckeVertWitness := heckeVertWitness_of_leaves5 l.shimuraGoodReduction r.r1r2 (torsionStructure_ofK5 t.t5)
     g.modelCoordinateResidue l.curveBijIso
 
 /-- **G0 with only the open leaves and the open glue** (leaf-fold5; no `sorry`, standard axioms).
 `ZInQ.SixContactMin` follows from
-* `OpenResearchLeaves2`: 26 research-level fields (unchanged);
+* `OpenResearchLeaves5`: 26 research-level fields (six restated over the kernel's Props);
 * `OpenTextbookLeaves5`: 21 textbook fields;
 * `OpenAddedLeaves5`: 21 added leaves;
 * `OpenGlue5`: 2 glue Props (`ModelCoordinateResidue`, `SimpleImageIsogeny`).
 The table of every field is `docs/research/leaf-fold5.md` §2. -/
-theorem sixContactMin_of_open5 (r : OpenResearchLeaves2) (t : OpenTextbookLeaves5)
+theorem sixContactMin_of_open5 (r : OpenResearchLeaves5) (t : OpenTextbookLeaves5)
     (l : OpenAddedLeaves5) (g : OpenGlue5) : ZInQ.SixContactMin :=
-  sixContactMin_of_open4 r (textbookLeaves4_of_open5 t l g) (addedLeaves4_of_open5 t l)
+  sixContactMin_of_open4 (researchLeaves2_of_open5 r) (textbookLeaves4_of_open5 t l g) (addedLeaves4_of_open5 t l)
     (glue4_of_open5 r t l g)
 
 end HSyn
@@ -211,6 +280,7 @@ end
 #print axioms HSyn.t34_of_split5
 #print axioms HSyn.t3_of_surj5
 #print axioms HSyn.t41_of_extension5
+#print axioms HSyn.researchLeaves2_of_open5
 #print axioms HSyn.textbookLeaves4_of_open5
 #print axioms HSyn.addedLeaves4_of_open5
 #print axioms HSyn.glue4_of_open5

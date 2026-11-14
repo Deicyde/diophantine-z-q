@@ -34,3 +34,17 @@
   abelian variety is `⟨A.X⟩`. The AVB1 transports (T6, T7, T8) and T3 were accepted at once. Second run: 29 s, 0 errors.
 - TailN: 5 s, 0 errors; all 15 `#print axioms` lines `[propext, Classical.choice, Quot.sound]`, including
   `HDec.HSyn.sixContactMin_of_open5`. Counts 26 + 21 + 21 + 2 = 70.
+
+## 00:15-00:25 Check5 and (c), VERIFIED
+- olean/Check5.lean (25 s): `example : ∀ r t l g, _root_.ZInQ.SixContactMin := HDec.HSyn.sixContactMin_of_open5`
+  compiles; closure 184 142 constants; contains the kernel's SmoothFibre, AVB1, CurvesG, NeronC, AVB2.lattice_serre
+  theorems, model-glue's and vert-witness's composites; not sorryAx, not av-b2's divisiblePoints/MulIsogenyPosChar;
+  output (no host paths) in check5_result.txt, with the head constant of every field type.
+- Probe (olean/Probe6.lean): none of the 23 chain field Props with a kernel namesake is definitionally equal to it at
+  default transparency (all quantify over copied structures/classes).
+- Part e40: the chain's Prop from the kernel's for T5, T4, R6, R7a, R7b (with `hasGoodReduction_iffK5`: the class
+  IsAbelianScheme inside HasGoodReduction is a copy), R8, R9a (needs 8M heartbeats: about 80 s of defeq on galRep),
+  R9b, T27, T35, T33. Bundles: OpenResearchLeaves5 (r6, r7a, r7b, r8, r9a, r9b over the kernel's Props) and
+  OpenTextbookLeaves5 (t4, t5, t27, t33, t35 too). TailM 110 s, TailN 5 s, 0 errors, all 28 axiom lines standard.
+- Not restated (their Props involve copied structures beyond AbVar: QML3/QMPair/QMStr (r1rec, r3, r5, r5count),
+  Faltings heights over copied GroupModel (r19-r22, h5fin), modular-curve/Galois-rep structures (r16, r17, r18)).

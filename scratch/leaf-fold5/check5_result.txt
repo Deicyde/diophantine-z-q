@@ -1,0 +1,105 @@
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+'HDec.HSyn.sixContactMin_of_open5' depends on axioms: [propext, Classical.choice, Quot.sound]
+closure size 184142
+sorryAx: false
+ZInQ.SmoothFibre.smoothFibreReduced: true
+ZInQ.SmoothFibre.isReduced_of_etale_of_isDomain: true
+HDec.ModelGlue.smoothFibreReduced_copy: false
+ZInQ.Contrib.AVB1.homFreeFinite_of_algClosed: true
+ZInQ.Contrib.AVB1.charPolyIndepOfEll_of_algClosed: true
+ZInQ.Contrib.AVB1.poincareReducibility_of_simpleImage: true
+ZInQ.Contrib.CurvesG.curveOfFunctionFieldQ_of_split: true
+ZInQ.Contrib.CurvesG.nonempty_ratPt_of_place: true
+ZInQ.Contrib.CurvesG.dimJ1Genus_of_split: true
+ZInQ.Contrib.NeronC.neronMappingAbelianScheme_of_surj: true
+ZInQ.Contrib.NeronC.neronMappingAbelianScheme_injective: true
+ZInQ.Contrib.NeronC.neronModelExists_of_extension: true
+ZInQ.Contrib.AVB2.lattice_serre: true
+HDec.AVB2.serreRigidity3_of_T35: true
+HDec.AVB2.t9_of_leaves3: true
+HDec.AVB2.t11b_of_exists: true
+HDec.AVB2.divisiblePoints_of_posChar: false
+HDec.AVB2.MulIsogenyPosChar: false
+HDec.ModelGlue.heckeVertWitness_of_curveBijIso: true
+HDec.VertWitness.heckeVertWitness_of_leaves: true
+HDec.ModelGlue.modelComparison_of_curveBijIso: true
+HDec.ModelGlue.modelCoordinate_of_residue: true
+HDec.HSyn.sixContactMin_of_open4: true
+HDec.HSyn.curveFacts5: true
+== HDec.HSyn.OpenResearchLeaves5: 26 fields
+  r1r2 : (some HDec.LeafAdopt.R1R2fpRep)
+  r1b : (some HDec.HSyn.G0Split.FibreQM.R1bFamily)
+  r1rec : (some HDec.LeafQM.AV.R1rec)
+  r3 : (some HDec.ZInQ.LeafPush2.R03_LinYang)
+  r4 : (some HDec.PkgI1.ThetaModularity)
+  r5 : (some HDec.LeafQM.AV.R5fp)
+  r5count : (some HDec.LeafQM.AV.R5fpCount)
+  r6 : (some PkgI2.RaynaudCriterion)
+  r7a : (some PkgI2.NeronOggShafarevich)
+  r7b : (some PkgI2.SerreTatePotentialGood)
+  r8 : (some PkgI2.GrothendieckMonodromy)
+  r9a : (some PkgI3.FaltingsSemisimple)
+  r9b : (some PkgI3.FaltingsTate)
+  r10 : (some HDec.PkgI4.DeRhamComparisonHT)
+  r11r12 : (some HDec.PkgI4.PanBerger)
+  r13 : (some HDec.PkgI4.EigenformHT)
+  r14 : (some HDec.G0Galois.R14Det)
+  r15 : (some HDec.HSyn.DeligneSerreConseq)
+  r16 : (some HDec.LeafModCurves.R16_EichlerShimuraJ1')
+  r17 : (some HDec.LadicCond.CarayolR17')
+  r18 : (some HDec.ZInQ.LeafPush2.R18_Javanpeykar)
+  r19 : (some HDec.ZInQ.DefFaltings.R19_GaudronRemond)
+  r20 : (some HDec.ZInQ.DefFaltings.R20_FaltingsLemma5)
+  r21 : (some HDec.ZInQ.DefFaltings.R21_Bost)
+  r22 : (some HDec.ZInQ.LeafPush2.R22_Pazuki)
+  h5fin : (some HDec.ZInQ.DefFaltings.StableHeightFinite)
+== HDec.HSyn.OpenTextbookLeaves5: 21 fields
+  t3Surj : (some ZInQ.Contrib.NeronC.NeronMappingAbelianSchemeSurj)
+  t4 : (some PkgI2.ReductionTorsionBijective)
+  t5 : (some PkgI2.TorsionStructure)
+  homFreeFiniteAlgClosed : (some ZInQ.Contrib.AVB1.HomFreeFiniteAlgClosed)
+  charPolyIndepOfEllAlgClosed : (some ZInQ.Contrib.AVB1.CharPolyIndepOfEllAlgClosed)
+  poincareComplement : (some ZInQ.Contrib.AVB1.PoincareComplement)
+  t10 : (some HDec.T10Etale.T10_TateDuality)
+  homLatticeCorr : (some HDec.HomUnify.HomLatticeCorr)
+  t11bExists : (some HDec.AVB2.T11bExists)
+  t23 : (some HDec.PkgI4.T23_FontaineClosure)
+  t24 : (some HDec.HSyn.EigenformTwist)
+  t27 : (some PkgI3.QMDichotomyYu)
+  t33 : (some LeafModCurves.JacobianExists)
+  dimJacobianEqGenus : (some ZInQ.Contrib.CurvesG.DimJacobianEqGenus)
+  genusX1Field : (some ZInQ.Contrib.CurvesG.GenusX1Field)
+  t35 : (some ZInQ.LeafPush2.UniformizationExists)
+  normalModelOfFunctionFieldQ : (some ZInQ.Contrib.CurvesG.NormalModelOfFunctionFieldQ)
+  normalCurveSmoothQ : (some ZInQ.Contrib.CurvesG.NormalCurveSmoothQ)
+  geomConnectedOfConstantFieldQ : (some ZInQ.Contrib.CurvesG.GeomConnectedOfConstantFieldQ)
+  x0Transitive : (some ZInQ.RLeaf.X0Transitive)
+  neronSchemeExtensionExists : (some ZInQ.Contrib.NeronC.NeronSchemeExtensionExists)
+== HDec.HSyn.OpenAddedLeaves5: 21 fields
+  cmOptimalEmbedding : (some HDec.FS5NoCM.CMOptimalEmbedding)
+  thetaRatiosAlgebraic : (some HDec.HSyn.G0Split.ThetaPt.ThetaRatiosAlgebraic)
+  qmHauptmodul : (some HDec.PkgI1.QMHauptmodul)
+  qmClassNumberOne : (some HDec.HSyn.G0Split.FibreQM.QMClassNumberOne)
+  senTwist : (some HDec.G0Galois.SenTwist)
+  finiteImageHT : (some HDec.G0Galois.FiniteImageHT)
+  t09SymmIsogenyExists : (some HDec.WeilPairing.T09_SymmIsogenyExists)
+  isogenyQuasiInverse : (some HDec.WeilPairing.IsogenyQuasiInverse)
+  x6ConicModel : (some HDec.X6Kummer.X6ConicModel)
+  y3Connected : (some HDec.TSHecke.Y3Connected)
+  qmAutCard : (some HDec.HeckeRest.QMAutCard)
+  alFixedPoints : (some HDec.HeckeRest.ALFixedPoints)
+  zariskiConnectedness : (some ZariskiConn.ZariskiConnectedness)
+  cmDescends : (some HDec.HSyn.G0Split.FibreQM.PeriodMapH.CMDescends)
+  gammaStarGen : (some HDec.HSyn.G0Split.FibreQM.PeriodGlue.GammaStarGen)
+  valenceBoundGammaStar : (some HDec.HSyn.G0Split.FibreQM.PeriodMap.ValenceBoundGammaStar)
+  egaIV_8_8_2_ii : (some ZInQ.Contrib.SpreadOut.EGAIV_8_8_2_ii)
+  egaIV_8_10_5_xii : (some ZInQ.Contrib.SpreadOut.EGAIV_8_10_5_xii)
+  egaIV_17_7_8_ii : (some ZInQ.Contrib.SpreadOut.EGAIV_17_7_8_ii)
+  shimuraGoodReduction : (some HDec.VertWitness.ShimuraGoodReduction)
+  curveBijIso : (some HDec.ModelGlue.CurveBijIso)
+== HDec.HSyn.OpenGlue5: 2 fields
+  modelCoordinateResidue : (some HDec.ModelGlue.ModelCoordinateResidue)
+  simpleImageIsogeny : (some ZInQ.Contrib.AVB1.SimpleImageIsogeny)
