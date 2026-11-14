@@ -169,6 +169,8 @@ are (paths relative to ZInQKernel/Contrib/TauCeti/):
   atkin-li: part of the module; one call adapted to a commit-5a01f5fe signature)
 - Backport/NumberTheory/ModularForms/Newforms/SupportAwayFromLevel.lean (task atkin-li: imports)
 - GroupTheory/GroupAction/Norm.lean
+- GroupTheory/GroupAction/Stabilizer.lean (task stab-clash: all declarations removed, as they
+  clash with GroupTheory/GroupAction/Stabilizer/Basic.lean, which is imported instead)
 - GroupTheory/SpecificGroups/Cyclic/PowMonoidHom.lean
 - NumberTheory/ClassFieldTheory/ClassFields/KroneckerWeber.lean
 - NumberTheory/ClassFieldTheory/ClassFields/RayClassField.lean (task ring-class)

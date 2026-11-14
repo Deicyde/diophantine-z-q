@@ -1,0 +1,213 @@
+FDRep.char_biprod
+    ZInQKernel/Contrib/TauCeti/RepresentationTheory/FDRep.lean
+    ZInQKernel/Contrib/TauCeti/RepresentationTheory/FDRep/Basic.lean
+FDRep.char_mul_of_mem_ker_left
+    ZInQKernel/Contrib/TauCeti/RepresentationTheory/FDRep.lean
+    ZInQKernel/Contrib/TauCeti/RepresentationTheory/FDRep/Basic.lean
+FDRep.char_tensorUnit
+    ZInQKernel/Contrib/TauCeti/RepresentationTheory/FDRep.lean
+    ZInQKernel/Contrib/TauCeti/RepresentationTheory/FDRep/Basic.lean
+FDRep.character_actionRes
+    ZInQKernel/Contrib/TauCeti/RepresentationTheory/FDRep.lean
+    ZInQKernel/Contrib/TauCeti/RepresentationTheory/FDRep/Basic.lean
+FDRep.character_eq_zero_of_finrank_intertwiningMap_eq_zero
+    ZInQKernel/Contrib/TauCeti/RepresentationTheory/FDRep.lean
+    ZInQKernel/Contrib/TauCeti/RepresentationTheory/FDRep/Basic.lean
+FDRep.character_forget₂_obj
+    ZInQKernel/Contrib/TauCeti/RepresentationTheory/FDRep.lean
+    ZInQKernel/Contrib/TauCeti/RepresentationTheory/FDRep/Basic.lean
+FDRep.character_of
+    ZInQKernel/Contrib/TauCeti/RepresentationTheory/FDRep.lean
+    ZInQKernel/Contrib/TauCeti/RepresentationTheory/FDRep/Basic.lean
+FDRep.character_ofShrink
+    ZInQKernel/Contrib/TauCeti/RepresentationTheory/FDRep.lean
+    ZInQKernel/Contrib/TauCeti/RepresentationTheory/FDRep/Basic.lean
+FDRep.character_of_trivial
+    ZInQKernel/Contrib/TauCeti/RepresentationTheory/FDRep.lean
+    ZInQKernel/Contrib/TauCeti/RepresentationTheory/FDRep/Basic.lean
+FDRep.character_ρ
+    ZInQKernel/Contrib/TauCeti/RepresentationTheory/FDRep.lean
+    ZInQKernel/Contrib/TauCeti/RepresentationTheory/FDRep/Basic.lean
+FDRep.finrank_forget₂_obj
+    ZInQKernel/Contrib/TauCeti/RepresentationTheory/FDRep.lean
+    ZInQKernel/Contrib/TauCeti/RepresentationTheory/FDRep/Basic.lean
+FDRep.finrank_ofShrink
+    ZInQKernel/Contrib/TauCeti/RepresentationTheory/FDRep.lean
+    ZInQKernel/Contrib/TauCeti/RepresentationTheory/FDRep/Basic.lean
+FDRep.forget₂_obj_tensor
+    ZInQKernel/Contrib/TauCeti/RepresentationTheory/FDRep.lean
+    ZInQKernel/Contrib/TauCeti/RepresentationTheory/FDRep/Basic.lean
+FDRep.hom_hom_hom_comm
+    ZInQKernel/Contrib/TauCeti/RepresentationTheory/FDRep.lean
+    ZInQKernel/Contrib/TauCeti/RepresentationTheory/FDRep/Basic.lean
+FDRep.isoToEquiv
+    ZInQKernel/Contrib/TauCeti/RepresentationTheory/FDRep.lean
+    ZInQKernel/Contrib/TauCeti/RepresentationTheory/FDRep/Basic.lean
+FDRep.ofShrink
+    ZInQKernel/Contrib/TauCeti/RepresentationTheory/FDRep.lean
+    ZInQKernel/Contrib/TauCeti/RepresentationTheory/FDRep/Basic.lean
+FDRep.ofShrinkEquiv
+    ZInQKernel/Contrib/TauCeti/RepresentationTheory/FDRep.lean
+    ZInQKernel/Contrib/TauCeti/RepresentationTheory/FDRep/Basic.lean
+FDRep.of_ρ_eq_self
+    ZInQKernel/Contrib/TauCeti/RepresentationTheory/FDRep.lean
+    ZInQKernel/Contrib/TauCeti/RepresentationTheory/FDRep/Basic.lean
+FDRep.tensorUnit_ρ
+    ZInQKernel/Contrib/TauCeti/RepresentationTheory/FDRep.lean
+    ZInQKernel/Contrib/TauCeti/RepresentationTheory/FDRep/Basic.lean
+FDRep.tensor_ρ
+    ZInQKernel/Contrib/TauCeti/RepresentationTheory/FDRep.lean
+    ZInQKernel/Contrib/TauCeti/RepresentationTheory/FDRep/Basic.lean
+FDRep.toLinearEquiv_isoToEquiv
+    ZInQKernel/Contrib/TauCeti/RepresentationTheory/FDRep.lean
+    ZInQKernel/Contrib/TauCeti/RepresentationTheory/FDRep/Basic.lean
+IsCyclic.mem_range_powMonoidHom_iff
+    ZInQKernel/Contrib/TauCeti/GroupTheory/SpecificGroups/Cyclic/Basic.lean
+    ZInQKernel/Contrib/TauCeti/GroupTheory/SpecificGroups/Cyclic/PowMonoidHom.lean
+LinearEquiv.toFDRepIso
+    ZInQKernel/Contrib/TauCeti/RepresentationTheory/FDRep.lean
+    ZInQKernel/Contrib/TauCeti/RepresentationTheory/FDRep/Basic.lean
+MonoidHom.comap_stabilizer_eq_ker
+    ZInQKernel/Contrib/TauCeti/GroupTheory/GroupAction/Stabilizer.lean
+    ZInQKernel/Contrib/TauCeti/GroupTheory/GroupAction/Stabilizer/Basic.lean
+MonoidHom.forget₂_map_actionRes
+    ZInQKernel/Contrib/TauCeti/RepresentationTheory/FDRep.lean
+    ZInQKernel/Contrib/TauCeti/RepresentationTheory/FDRep/Basic.lean
+MonoidHom.normal_comap_stabilizer_iff_isCancelSMul
+    ZInQKernel/Contrib/TauCeti/GroupTheory/GroupAction/Stabilizer.lean
+    ZInQKernel/Contrib/TauCeti/GroupTheory/GroupAction/Stabilizer/Basic.lean
+NumberField.FinitePlace.mk_apply_eq_one_iff
+    ZInQKernel/Contrib/TauCeti/NumberTheory/NumberField/FinitePlace.lean
+    ZInQKernel/Contrib/TauCeti/NumberTheory/NumberField/FinitePlace/Basic.lean
+NumberField.FinitePlace.mk_apply_le_one_iff
+    ZInQKernel/Contrib/TauCeti/NumberTheory/NumberField/FinitePlace.lean
+    ZInQKernel/Contrib/TauCeti/NumberTheory/NumberField/FinitePlace/Basic.lean
+Representation.char_prod
+    ZInQKernel/Contrib/TauCeti/RepresentationTheory/FDRep.lean
+    ZInQKernel/Contrib/TauCeti/RepresentationTheory/FDRep/Basic.lean
+Representation.char_trivial
+    ZInQKernel/Contrib/TauCeti/RepresentationTheory/FDRep.lean
+    ZInQKernel/Contrib/TauCeti/RepresentationTheory/FDRep/Basic.lean
+Subgroup.card_stabilizer_dvd_card_stabilizer
+    ZInQKernel/Contrib/TauCeti/GroupTheory/GroupAction/Stabilizer.lean
+    ZInQKernel/Contrib/TauCeti/GroupTheory/GroupAction/Stabilizer/Basic.lean
+Subgroup.finite_stabilizer_of_le
+    ZInQKernel/Contrib/TauCeti/GroupTheory/GroupAction/Stabilizer.lean
+    ZInQKernel/Contrib/TauCeti/GroupTheory/GroupAction/Stabilizer/Basic.lean
+Subgroup.stabilizerInclusion
+    ZInQKernel/Contrib/TauCeti/GroupTheory/GroupAction/Stabilizer.lean
+    ZInQKernel/Contrib/TauCeti/GroupTheory/GroupAction/Stabilizer/Basic.lean
+Subgroup.stabilizerInclusion_injective
+    ZInQKernel/Contrib/TauCeti/GroupTheory/GroupAction/Stabilizer.lean
+    ZInQKernel/Contrib/TauCeti/GroupTheory/GroupAction/Stabilizer/Basic.lean
+Subrepresentation.char_add_eq_of_isCompl
+    ZInQKernel/Contrib/TauCeti/RepresentationTheory/FDRep.lean
+    ZInQKernel/Contrib/TauCeti/RepresentationTheory/FDRep/Basic.lean
+TauCeti.ClassFieldTheory.auxiliaryKummerIdeleClassSubgroup_le_range_ideleClassNormMap_of_ramifiedSupport
+    ZInQKernel/Contrib/TauCeti/Backport/NumberTheory/ClassFieldTheory/Global/Kummer/Norm.lean
+    ZInQKernel/Contrib/TauCeti/NumberTheory/ClassFieldTheory/Global/Kummer/Norm.lean
+TauCeti.ClassFieldTheory.auxiliaryKummerIdeleSubgroup_le_range_ideleNormMap_of_ramifiedSupport
+    ZInQKernel/Contrib/TauCeti/Backport/NumberTheory/ClassFieldTheory/Global/Kummer/Norm.lean
+    ZInQKernel/Contrib/TauCeti/NumberTheory/ClassFieldTheory/Global/Kummer/Norm.lean
+TauCeti.ClassFieldTheory.exists_auxiliaryPlaces_unitLocalPowerClassMap_surjective
+    ZInQKernel/Contrib/TauCeti/Backport/NumberTheory/ClassFieldTheory/Global/Kummer/AuxiliaryPlaces.lean
+    ZInQKernel/Contrib/TauCeti/NumberTheory/ClassFieldTheory/Global/Kummer/AuxiliaryPlaces.lean
+TauCeti.ClassFieldTheory.exists_ideleSumLocalInv_eq_apply_absoluteGaloisGroupMap
+    ZInQKernel/Contrib/TauCeti/Backport/NumberTheory/ClassFieldTheory/Global/PrescribedInvariant.lean
+    ZInQKernel/Contrib/TauCeti/NumberTheory/ClassFieldTheory/Global/PrescribedInvariant.lean
+TauCeti.ClassFieldTheory.exists_ideleSumLocalInv_eq_one_div_degree_of_isCyclic
+    ZInQKernel/Contrib/TauCeti/Backport/NumberTheory/ClassFieldTheory/Global/PrescribedInvariant.lean
+    ZInQKernel/Contrib/TauCeti/NumberTheory/ClassFieldTheory/Global/PrescribedInvariant.lean
+TauCeti.ClassFieldTheory.exists_refinement_ideleLayerCorInfl_eq_index_nsmul
+    ZInQKernel/Contrib/TauCeti/Backport/NumberTheory/ClassFieldTheory/Global/PrescribedInvariant.lean
+    ZInQKernel/Contrib/TauCeti/NumberTheory/ClassFieldTheory/Global/PrescribedInvariant.lean
+TauCeti.ClassFieldTheory.exists_refinement_ideleSumLocalInv_eq
+    ZInQKernel/Contrib/TauCeti/Backport/NumberTheory/ClassFieldTheory/Global/PrescribedInvariant.lean
+    ZInQKernel/Contrib/TauCeti/NumberTheory/ClassFieldTheory/Global/PrescribedInvariant.lean
+TauCeti.ClassFieldTheory.exists_sumLocalInv_ideleLocalization_characterCarryCocycle_eq
+    ZInQKernel/Contrib/TauCeti/Backport/NumberTheory/ClassFieldTheory/Global/PrescribedInvariant.lean
+    ZInQKernel/Contrib/TauCeti/NumberTheory/ClassFieldTheory/Global/PrescribedInvariant.lean
+TauCeti.ClassFieldTheory.exists_sumLocalInv_ideleLocalization_eq
+    ZInQKernel/Contrib/TauCeti/Backport/NumberTheory/ClassFieldTheory/Global/PrescribedInvariant.lean
+    ZInQKernel/Contrib/TauCeti/NumberTheory/ClassFieldTheory/Global/PrescribedInvariant.lean
+TauCeti.ClassFieldTheory.ideleClassNormMap_kummerField_surjective
+    ZInQKernel/Contrib/TauCeti/Backport/NumberTheory/ClassFieldTheory/Global/Kummer/Norm.lean
+    ZInQKernel/Contrib/TauCeti/NumberTheory/ClassFieldTheory/Global/Kummer/Norm.lean
+TauCeti.ClassFieldTheory.ideleClassNormMap_kummerField_surjective_of_forall_exists_mem_unit
+    ZInQKernel/Contrib/TauCeti/Backport/NumberTheory/ClassFieldTheory/Global/Kummer/Norm.lean
+    ZInQKernel/Contrib/TauCeti/NumberTheory/ClassFieldTheory/Global/Kummer/Norm.lean
+TauCeti.ClassFieldTheory.index_range_ideleClassNormMap_dvd_index_auxiliaryKummerIdeleClassSubgroup_of_ramifiedSupport
+    ZInQKernel/Contrib/TauCeti/Backport/NumberTheory/ClassFieldTheory/Global/Kummer/Norm.lean
+    ZInQKernel/Contrib/TauCeti/NumberTheory/ClassFieldTheory/Global/Kummer/Norm.lean
+TauCeti.cardStabilizerOnOrbit
+    ZInQKernel/Contrib/TauCeti/GroupTheory/GroupAction/Stabilizer.lean
+    ZInQKernel/Contrib/TauCeti/GroupTheory/GroupAction/Stabilizer/Basic.lean
+TauCeti.cardStabilizerOnOrbit_mk
+    ZInQKernel/Contrib/TauCeti/GroupTheory/GroupAction/Stabilizer.lean
+    ZInQKernel/Contrib/TauCeti/GroupTheory/GroupAction/Stabilizer/Basic.lean
+TauCeti.cardStabilizerOnOrbit_orbitRelQuotientCongr
+    ZInQKernel/Contrib/TauCeti/GroupTheory/GroupAction/Stabilizer.lean
+    ZInQKernel/Contrib/TauCeti/GroupTheory/GroupAction/Stabilizer/Basic.lean
+TauCeti.cardStabilizerOnOrbit_orbitRelQuotientSumEquiv_symm
+    ZInQKernel/Contrib/TauCeti/GroupTheory/GroupAction/Stabilizer.lean
+    ZInQKernel/Contrib/TauCeti/GroupTheory/GroupAction/Stabilizer/Basic.lean
+TauCeti.card_stabilizer_congr
+    ZInQKernel/Contrib/TauCeti/GroupTheory/GroupAction/Stabilizer.lean
+    ZInQKernel/Contrib/TauCeti/GroupTheory/GroupAction/Stabilizer/Basic.lean
+TauCeti.card_stabilizer_coset_eq_card_stabilizer_inv_smul
+    ZInQKernel/Contrib/TauCeti/GroupTheory/GroupAction/Stabilizer.lean
+    ZInQKernel/Contrib/TauCeti/GroupTheory/GroupAction/Stabilizer/Basic.lean
+TauCeti.card_stabilizer_eq_card_ker_mul_card_stabilizer
+    ZInQKernel/Contrib/TauCeti/GroupTheory/GroupAction/Stabilizer.lean
+    ZInQKernel/Contrib/TauCeti/GroupTheory/GroupAction/Stabilizer/Basic.lean
+TauCeti.card_stabilizer_eq_card_subgroupOf_mul_card_stabilizer_map
+    ZInQKernel/Contrib/TauCeti/GroupTheory/GroupAction/Stabilizer.lean
+    ZInQKernel/Contrib/TauCeti/GroupTheory/GroupAction/Stabilizer/Basic.lean
+TauCeti.card_stabilizer_eq_card_subgroup_mul_card_stabilizer_quotient
+    ZInQKernel/Contrib/TauCeti/GroupTheory/GroupAction/Stabilizer.lean
+    ZInQKernel/Contrib/TauCeti/GroupTheory/GroupAction/Stabilizer/Basic.lean
+TauCeti.card_stabilizer_of_orbitRel
+    ZInQKernel/Contrib/TauCeti/GroupTheory/GroupAction/Stabilizer.lean
+    ZInQKernel/Contrib/TauCeti/GroupTheory/GroupAction/Stabilizer/Basic.lean
+TauCeti.card_stabilizer_smul
+    ZInQKernel/Contrib/TauCeti/GroupTheory/GroupAction/Stabilizer.lean
+    ZInQKernel/Contrib/TauCeti/GroupTheory/GroupAction/Stabilizer/Basic.lean
+TauCeti.card_stabilizer_subgroupOf
+    ZInQKernel/Contrib/TauCeti/GroupTheory/GroupAction/Stabilizer.lean
+    ZInQKernel/Contrib/TauCeti/GroupTheory/GroupAction/Stabilizer/Basic.lean
+TauCeti.disjoint_rootsOfUnity_unitFiltration
+    ZInQKernel/Contrib/TauCeti/NumberTheory/LocalField/UnitFiltration/Pow.lean
+    ZInQKernel/Contrib/TauCeti/NumberTheory/LocalField/UnitFiltration/Pow/Basic.lean
+TauCeti.disjoint_rootsOfUnity_unitFiltration_of_prime
+    ZInQKernel/Contrib/TauCeti/NumberTheory/LocalField/UnitFiltration/Pow.lean
+    ZInQKernel/Contrib/TauCeti/NumberTheory/LocalField/UnitFiltration/Pow/Basic.lean
+TauCeti.disjoint_rootsOfUnity_unitFiltration_one_of_isUnit
+    ZInQKernel/Contrib/TauCeti/NumberTheory/LocalField/UnitFiltration/Pow.lean
+    ZInQKernel/Contrib/TauCeti/NumberTheory/LocalField/UnitFiltration/Pow/Basic.lean
+TauCeti.map_powMonoidHom_unitFiltration
+    ZInQKernel/Contrib/TauCeti/NumberTheory/LocalField/UnitFiltration/Pow.lean
+    ZInQKernel/Contrib/TauCeti/NumberTheory/LocalField/UnitFiltration/Pow/Basic.lean
+TauCeti.map_powMonoidHom_unitFiltration_of_prime
+    ZInQKernel/Contrib/TauCeti/NumberTheory/LocalField/UnitFiltration/Pow.lean
+    ZInQKernel/Contrib/TauCeti/NumberTheory/LocalField/UnitFiltration/Pow/Basic.lean
+TauCeti.map_powMonoidHom_unitFiltration_succ_of_isUnit
+    ZInQKernel/Contrib/TauCeti/NumberTheory/LocalField/UnitFiltration/Pow.lean
+    ZInQKernel/Contrib/TauCeti/NumberTheory/LocalField/UnitFiltration/Pow/Basic.lean
+TauCeti.mul_inv_mem_stabilizer_of_smul_eq
+    ZInQKernel/Contrib/TauCeti/GroupTheory/GroupAction/Stabilizer.lean
+    ZInQKernel/Contrib/TauCeti/GroupTheory/GroupAction/Stabilizer/Basic.lean
+TauCeti.powMonoidHom_unitFiltration_succ_bijective_of_isUnit
+    ZInQKernel/Contrib/TauCeti/NumberTheory/LocalField/UnitFiltration/Pow.lean
+    ZInQKernel/Contrib/TauCeti/NumberTheory/LocalField/UnitFiltration/Pow/Basic.lean
+TauCeti.pow_mem_unitFiltration_succ_iff_of_isUnit
+    ZInQKernel/Contrib/TauCeti/NumberTheory/LocalField/UnitFiltration/Pow.lean
+    ZInQKernel/Contrib/TauCeti/NumberTheory/LocalField/UnitFiltration/Pow/Basic.lean
+TauCeti.stabilizer_eq_bot_of_disjoint_smul
+    ZInQKernel/Contrib/TauCeti/GroupTheory/GroupAction/Stabilizer.lean
+    ZInQKernel/Contrib/TauCeti/GroupTheory/GroupAction/Stabilizer/Basic.lean
+TauCeti.stabilizer_finset_eq_bot_of_prime_card
+    ZInQKernel/Contrib/TauCeti/GroupTheory/GroupAction/Stabilizer.lean
+    ZInQKernel/Contrib/TauCeti/GroupTheory/GroupAction/Stabilizer/Basic.lean
+TauCeti.unitFiltration_le_range_powMonoidHom
+    ZInQKernel/Contrib/TauCeti/NumberTheory/LocalField/UnitFiltration/Pow.lean
+    ZInQKernel/Contrib/TauCeti/NumberTheory/LocalField/UnitFiltration/Pow/Basic.lean
