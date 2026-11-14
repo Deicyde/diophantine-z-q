@@ -1,34 +1,34 @@
-scratch/frontier/TYZChain.lean:879:34: warning: `if_pos` has been deprecated: Use `ite_eq_left` instead
+scratch/frontier/TYZChain.lean:881:34: warning: `if_pos` has been deprecated: Use `ite_eq_left` instead
 
 Hint: Replace the deprecated name:
   i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
-scratch/frontier/TYZChain.lean:921:34: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
+scratch/frontier/TYZChain.lean:923:34: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
 
 Hint: Replace the deprecated name:
   i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
-scratch/frontier/TYZChain.lean:939:52: warning: Unused tactic linter: `push_cast` does nothing.
+scratch/frontier/TYZChain.lean:941:52: warning: Unused tactic linter: `push_cast` does nothing.
 
 Note: This linter can be disabled with `set_option linter.unusedTactic false`
-scratch/frontier/TYZChain.lean:1067:81: warning: `if_pos` has been deprecated: Use `ite_eq_left` instead
+scratch/frontier/TYZChain.lean:1069:81: warning: `if_pos` has been deprecated: Use `ite_eq_left` instead
 
 Hint: Replace the deprecated name:
   i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
-scratch/frontier/TYZChain.lean:1512:8: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
+scratch/frontier/TYZChain.lean:1514:8: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
 
 Hint: Replace the deprecated name:
   i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
-scratch/frontier/TYZChain.lean:1512:20: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
+scratch/frontier/TYZChain.lean:1514:20: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
 
 Hint: Replace the deprecated name:
   i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
-scratch/frontier/TYZChain.lean:1815:4: warning: `push_neg` has been deprecated. Prefer using `push Not` instead.
+scratch/frontier/TYZChain.lean:1817:4: warning: `push_neg` has been deprecated. Prefer using `push Not` instead.
 If you'd rather continue using `push_neg` in your project, you can implement it as follows:
 ```
 open Lean.Parser.Tactic in
 macro "push_neg" cfg:optConfig loc:(location)? : tactic =>
   `(tactic| push $cfg:optConfig Not $[$loc]?)
 ```
-scratch/frontier/TYZChain.lean:1843:19: warning: This simp argument is unused:
+scratch/frontier/TYZChain.lean:1845:19: warning: This simp argument is unused:
   Matrix.SpecialLinearGroup.coe_mk
 
 Hint: Omit it from the simp argument list.
@@ -36,7 +36,7 @@ Hint: Omit it from the simp argument list.
     Matrix.empty_val', Matrix.cons_val_fin_one, algebraMap_int_eq, eq_intCast, Int.cast_id]
 
 Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
-scratch/frontier/TYZChain.lean:1845:37: warning: This simp argument is unused:
+scratch/frontier/TYZChain.lean:1847:37: warning: This simp argument is unused:
   Int.cast_id
 
 Hint: Omit it from the simp argument list.
@@ -44,26 +44,47 @@ Hint: Omit it from the simp argument list.
     Matrix.cons_val_one, Matrix.empty_val', Matrix.cons_val_fin_one, algebraMap_int_eq, eq_intCast]
 
 Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
-scratch/frontier/TYZChain.lean:1908:8: warning: This simp argument is unused:
+scratch/frontier/TYZChain.lean:1910:8: warning: This simp argument is unused:
   Complex.div_re
 
 Hint: Omit it from the simp argument list.
   [apply] simp [Complex.mul_re, Complex.mul_im]
 
 Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
-scratch/frontier/TYZChain.lean:1938:13: warning: `Set.mem_setOf_eq` has been deprecated: Use `Set.mem_ofPred_eq` instead
+scratch/frontier/TYZChain.lean:1940:13: warning: `Set.mem_setOf_eq` has been deprecated: Use `Set.mem_ofPred_eq` instead
 
 Hint: Replace the deprecated name:
   S̵e̵t̵.̵m̵e̵m̵_̵s̵e̵t̵O̵f̵_̵e̵q̵S̲e̲t̲.̲m̲e̲m̲_̲o̲f̲P̲r̲e̲d̲_̲e̲q̲
-scratch/frontier/TYZChain.lean:2009:13: warning: `Set.mem_setOf_eq` has been deprecated: Use `Set.mem_ofPred_eq` instead
+scratch/frontier/TYZChain.lean:2011:13: warning: `Set.mem_setOf_eq` has been deprecated: Use `Set.mem_ofPred_eq` instead
 
 Hint: Replace the deprecated name:
   S̵e̵t̵.̵m̵e̵m̵_̵s̵e̵t̵O̵f̵_̵e̵q̵S̲e̲t̲.̲m̲e̲m̲_̲o̲f̲P̲r̲e̲d̲_̲e̲q̲
-scratch/frontier/TYZChain.lean:2339:81: warning: `if_pos` has been deprecated: Use `ite_eq_left` instead
+scratch/frontier/TYZChain.lean:2341:81: warning: `if_pos` has been deprecated: Use `ite_eq_left` instead
 
 Hint: Replace the deprecated name:
   i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
-scratch/frontier/TYZChain.lean:3047:2: warning: Try this: 
+scratch/frontier/TYZChain.lean:2510:8: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+scratch/frontier/TYZChain.lean:2531:25: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+scratch/frontier/TYZChain.lean:2550:6: warning: `push_neg` has been deprecated. Prefer using `push Not` instead.
+If you'd rather continue using `push_neg` in your project, you can implement it as follows:
+```
+open Lean.Parser.Tactic in
+macro "push_neg" cfg:optConfig loc:(location)? : tactic =>
+  `(tactic| push $cfg:optConfig Not $[$loc]?)
+```
+Try this:
+  [apply] ring_nf
+  
+  The `ring` tactic failed to close the goal. Use `ring_nf` to obtain a normal form.
+    
+  Note that `ring` works primarily in *commutative* rings. If you have a noncommutative ring, abelian group or module, consider using `noncomm_ring`, `abel` or `module` instead.
+scratch/frontier/TYZChain.lean:4495:2: warning: Try this: 
   haveI̵
 
 The goal is a proposition, so `have` is preferred over `haveI`.
@@ -71,7 +92,7 @@ The difference between `have` and `haveI` is that `haveI` inlines the value.
 But this is not relevant for proofs because of proof irrelevance.
 
 Note: This linter can be disabled with `set_option linter.style.haveILetI false`
-scratch/frontier/TYZChain.lean:3056:2: warning: Try this: 
+scratch/frontier/TYZChain.lean:4504:2: warning: Try this: 
   haveI̵
 
 The goal is a proposition, so `have` is preferred over `haveI`.
@@ -79,7 +100,7 @@ The difference between `have` and `haveI` is that `haveI` inlines the value.
 But this is not relevant for proofs because of proof irrelevance.
 
 Note: This linter can be disabled with `set_option linter.style.haveILetI false`
-scratch/frontier/TYZChain.lean:3167:2: warning: Try this: 
+scratch/frontier/TYZChain.lean:4615:2: warning: Try this: 
   letI̵
 
 The goal is a proposition, so `let` is preferred over `letI`.
@@ -87,7 +108,7 @@ The difference between `let` and `letI` is that `letI` inlines the value.
 But this is not relevant for proofs because of proof irrelevance.
 
 Note: This linter can be disabled with `set_option linter.style.haveILetI false`
-scratch/frontier/TYZChain.lean:3168:2: warning: Try this: 
+scratch/frontier/TYZChain.lean:4616:2: warning: Try this: 
   haveI̵
 
 The goal is a proposition, so `have` is preferred over `haveI`.
@@ -95,7 +116,7 @@ The difference between `have` and `haveI` is that `haveI` inlines the value.
 But this is not relevant for proofs because of proof irrelevance.
 
 Note: This linter can be disabled with `set_option linter.style.haveILetI false`
-scratch/frontier/TYZChain.lean:3169:2: warning: Try this: 
+scratch/frontier/TYZChain.lean:4617:2: warning: Try this: 
   letI̵
 
 The goal is a proposition, so `let` is preferred over `letI`.
@@ -103,11 +124,11 @@ The difference between `let` and `letI` is that `letI` inlines the value.
 But this is not relevant for proofs because of proof irrelevance.
 
 Note: This linter can be disabled with `set_option linter.style.haveILetI false`
-scratch/frontier/TYZChain.lean:3214:8: warning: `if_pos` has been deprecated: Use `ite_eq_left` instead
+scratch/frontier/TYZChain.lean:4662:8: warning: `if_pos` has been deprecated: Use `ite_eq_left` instead
 
 Hint: Replace the deprecated name:
   i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
-scratch/frontier/TYZChain.lean:3336:2: warning: Try this: 
+scratch/frontier/TYZChain.lean:4784:2: warning: Try this: 
   haveI̵
 
 The goal is a proposition, so `have` is preferred over `haveI`.
@@ -115,7 +136,7 @@ The difference between `have` and `haveI` is that `haveI` inlines the value.
 But this is not relevant for proofs because of proof irrelevance.
 
 Note: This linter can be disabled with `set_option linter.style.haveILetI false`
-scratch/frontier/TYZChain.lean:3377:2: warning: Try this: 
+scratch/frontier/TYZChain.lean:4825:2: warning: Try this: 
   haveI̵
 
 The goal is a proposition, so `have` is preferred over `haveI`.
@@ -123,7 +144,7 @@ The difference between `have` and `haveI` is that `haveI` inlines the value.
 But this is not relevant for proofs because of proof irrelevance.
 
 Note: This linter can be disabled with `set_option linter.style.haveILetI false`
-scratch/frontier/TYZChain.lean:3487:2: warning: Try this: 
+scratch/frontier/TYZChain.lean:4951:2: warning: Try this: 
   haveI̵
 
 The goal is a proposition, so `have` is preferred over `haveI`.
@@ -131,11 +152,11 @@ The difference between `have` and `haveI` is that `haveI` inlines the value.
 But this is not relevant for proofs because of proof irrelevance.
 
 Note: This linter can be disabled with `set_option linter.style.haveILetI false`
-scratch/frontier/TYZChain.lean:3547:12: warning: `dif_neg` has been deprecated: Use `dite_eq_right` instead
+scratch/frontier/TYZChain.lean:5011:12: warning: `dif_neg` has been deprecated: Use `dite_eq_right` instead
 
 Hint: Replace the deprecated name:
   d̵i̵f̵_̵n̵e̵g̵d̲i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
-scratch/frontier/TYZChain.lean:3555:2: warning: Try this: 
+scratch/frontier/TYZChain.lean:5019:2: warning: Try this: 
   haveI̵
 
 The goal is a proposition, so `have` is preferred over `haveI`.
@@ -143,15 +164,15 @@ The difference between `have` and `haveI` is that `haveI` inlines the value.
 But this is not relevant for proofs because of proof irrelevance.
 
 Note: This linter can be disabled with `set_option linter.style.haveILetI false`
-scratch/frontier/TYZChain.lean:3628:10: warning: `if_pos` has been deprecated: Use `ite_eq_left` instead
+scratch/frontier/TYZChain.lean:5092:10: warning: `if_pos` has been deprecated: Use `ite_eq_left` instead
 
 Hint: Replace the deprecated name:
   i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
-scratch/frontier/TYZChain.lean:3633:10: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
+scratch/frontier/TYZChain.lean:5097:10: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
 
 Hint: Replace the deprecated name:
   i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
-scratch/frontier/TYZChain.lean:3688:2: warning: Try this: 
+scratch/frontier/TYZChain.lean:5152:2: warning: Try this: 
   letI̵
 
 The goal is a proposition, so `let` is preferred over `letI`.
@@ -159,7 +180,7 @@ The difference between `let` and `letI` is that `letI` inlines the value.
 But this is not relevant for proofs because of proof irrelevance.
 
 Note: This linter can be disabled with `set_option linter.style.haveILetI false`
-scratch/frontier/TYZChain.lean:3709:2: warning: Try this: 
+scratch/frontier/TYZChain.lean:5173:2: warning: Try this: 
   letI̵
 
 The goal is a proposition, so `let` is preferred over `letI`.
@@ -167,7 +188,7 @@ The difference between `let` and `letI` is that `letI` inlines the value.
 But this is not relevant for proofs because of proof irrelevance.
 
 Note: This linter can be disabled with `set_option linter.style.haveILetI false`
-scratch/frontier/TYZChain.lean:3710:2: warning: Try this: 
+scratch/frontier/TYZChain.lean:5174:2: warning: Try this: 
   haveI̵
 
 The goal is a proposition, so `have` is preferred over `haveI`.
@@ -175,7 +196,7 @@ The difference between `have` and `haveI` is that `haveI` inlines the value.
 But this is not relevant for proofs because of proof irrelevance.
 
 Note: This linter can be disabled with `set_option linter.style.haveILetI false`
-scratch/frontier/TYZChain.lean:3711:2: warning: Try this: 
+scratch/frontier/TYZChain.lean:5175:2: warning: Try this: 
   letI̵
 
 The goal is a proposition, so `let` is preferred over `letI`.
@@ -183,11 +204,11 @@ The difference between `let` and `letI` is that `letI` inlines the value.
 But this is not relevant for proofs because of proof irrelevance.
 
 Note: This linter can be disabled with `set_option linter.style.haveILetI false`
-scratch/frontier/TYZChain.lean:3729:8: warning: `if_pos` has been deprecated: Use `ite_eq_left` instead
+scratch/frontier/TYZChain.lean:5193:8: warning: `if_pos` has been deprecated: Use `ite_eq_left` instead
 
 Hint: Replace the deprecated name:
   i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
-scratch/frontier/TYZChain.lean:3855:2: warning: Try this: 
+scratch/frontier/TYZChain.lean:5319:2: warning: Try this: 
   haveI̵
 
 The goal is a proposition, so `have` is preferred over `haveI`.
@@ -195,7 +216,7 @@ The difference between `have` and `haveI` is that `haveI` inlines the value.
 But this is not relevant for proofs because of proof irrelevance.
 
 Note: This linter can be disabled with `set_option linter.style.haveILetI false`
-scratch/frontier/TYZChain.lean:3868:2: warning: Try this: 
+scratch/frontier/TYZChain.lean:5332:2: warning: Try this: 
   letI̵
 
 The goal is a proposition, so `let` is preferred over `letI`.
@@ -203,7 +224,7 @@ The difference between `let` and `letI` is that `letI` inlines the value.
 But this is not relevant for proofs because of proof irrelevance.
 
 Note: This linter can be disabled with `set_option linter.style.haveILetI false`
-scratch/frontier/TYZChain.lean:3869:2: warning: Try this: 
+scratch/frontier/TYZChain.lean:5333:2: warning: Try this: 
   haveI̵
 
 The goal is a proposition, so `have` is preferred over `haveI`.
@@ -211,7 +232,7 @@ The difference between `have` and `haveI` is that `haveI` inlines the value.
 But this is not relevant for proofs because of proof irrelevance.
 
 Note: This linter can be disabled with `set_option linter.style.haveILetI false`
-scratch/frontier/TYZChain.lean:3870:2: warning: Try this: 
+scratch/frontier/TYZChain.lean:5334:2: warning: Try this: 
   letI̵
 
 The goal is a proposition, so `let` is preferred over `letI`.
@@ -219,43 +240,43 @@ The difference between `let` and `letI` is that `letI` inlines the value.
 But this is not relevant for proofs because of proof irrelevance.
 
 Note: This linter can be disabled with `set_option linter.style.haveILetI false`
-scratch/frontier/TYZChain.lean:3986:19: warning: `if_true` has been deprecated: Use `ite_true` instead
+scratch/frontier/TYZChain.lean:5450:19: warning: `if_true` has been deprecated: Use `ite_true` instead
 
 Hint: Replace the deprecated name:
   i̵f̵_̵t̵r̵u̵e̵i̲t̲e̲_̲t̲r̲u̲e̲
-scratch/frontier/TYZChain.lean:3988:21: warning: `if_false` has been deprecated: Use `ite_false` instead
+scratch/frontier/TYZChain.lean:5452:21: warning: `if_false` has been deprecated: Use `ite_false` instead
 
 Hint: Replace the deprecated name:
   i̵f̵_̵f̵a̵l̵s̵e̵i̲t̲e̲_̲f̲a̲l̲s̲e̲
-scratch/frontier/TYZChain.lean:3992:19: warning: `if_false` has been deprecated: Use `ite_false` instead
+scratch/frontier/TYZChain.lean:5456:19: warning: `if_false` has been deprecated: Use `ite_false` instead
 
 Hint: Replace the deprecated name:
   i̵f̵_̵f̵a̵l̵s̵e̵i̲t̲e̲_̲f̲a̲l̲s̲e̲
-scratch/frontier/TYZChain.lean:3994:21: warning: `if_false` has been deprecated: Use `ite_false` instead
+scratch/frontier/TYZChain.lean:5458:21: warning: `if_false` has been deprecated: Use `ite_false` instead
 
 Hint: Replace the deprecated name:
   i̵f̵_̵f̵a̵l̵s̵e̵i̲t̲e̲_̲f̲a̲l̲s̲e̲
-scratch/frontier/TYZChain.lean:3998:19: warning: `if_true` has been deprecated: Use `ite_true` instead
+scratch/frontier/TYZChain.lean:5462:19: warning: `if_true` has been deprecated: Use `ite_true` instead
 
 Hint: Replace the deprecated name:
   i̵f̵_̵t̵r̵u̵e̵i̲t̲e̲_̲t̲r̲u̲e̲
-scratch/frontier/TYZChain.lean:4000:21: warning: `if_false` has been deprecated: Use `ite_false` instead
+scratch/frontier/TYZChain.lean:5464:21: warning: `if_false` has been deprecated: Use `ite_false` instead
 
 Hint: Replace the deprecated name:
   i̵f̵_̵f̵a̵l̵s̵e̵i̲t̲e̲_̲f̲a̲l̲s̲e̲
-scratch/frontier/TYZChain.lean:4004:19: warning: `if_false` has been deprecated: Use `ite_false` instead
+scratch/frontier/TYZChain.lean:5468:19: warning: `if_false` has been deprecated: Use `ite_false` instead
 
 Hint: Replace the deprecated name:
   i̵f̵_̵f̵a̵l̵s̵e̵i̲t̲e̲_̲f̲a̲l̲s̲e̲
-scratch/frontier/TYZChain.lean:4006:21: warning: `if_false` has been deprecated: Use `ite_false` instead
+scratch/frontier/TYZChain.lean:5470:21: warning: `if_false` has been deprecated: Use `ite_false` instead
 
 Hint: Replace the deprecated name:
   i̵f̵_̵f̵a̵l̵s̵e̵i̲t̲e̲_̲f̲a̲l̲s̲e̲
-scratch/frontier/TYZChain.lean:4046:31: warning: `if_pos` has been deprecated: Use `ite_eq_left` instead
+scratch/frontier/TYZChain.lean:5510:31: warning: `if_pos` has been deprecated: Use `ite_eq_left` instead
 
 Hint: Replace the deprecated name:
   i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
-scratch/frontier/TYZChain.lean:4088:6: warning: Try this: 
+scratch/frontier/TYZChain.lean:5552:6: warning: Try this: 
   haveI̵
 
 The goal is a proposition, so `have` is preferred over `haveI`.
@@ -263,41 +284,41 @@ The difference between `have` and `haveI` is that `haveI` inlines the value.
 But this is not relevant for proofs because of proof irrelevance.
 
 Note: This linter can be disabled with `set_option linter.style.haveILetI false`
-scratch/frontier/TYZChain.lean:4099:10: warning: `if_pos` has been deprecated: Use `ite_eq_left` instead
+scratch/frontier/TYZChain.lean:5563:10: warning: `if_pos` has been deprecated: Use `ite_eq_left` instead
 
 Hint: Replace the deprecated name:
   i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
-scratch/frontier/TYZChain.lean:4099:30: warning: `if_pos` has been deprecated: Use `ite_eq_left` instead
+scratch/frontier/TYZChain.lean:5563:30: warning: `if_pos` has been deprecated: Use `ite_eq_left` instead
 
 Hint: Replace the deprecated name:
   i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
-scratch/frontier/TYZChain.lean:4101:10: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
+scratch/frontier/TYZChain.lean:5565:10: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
 
 Hint: Replace the deprecated name:
   i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
-scratch/frontier/TYZChain.lean:4101:43: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
+scratch/frontier/TYZChain.lean:5565:43: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
 
 Hint: Replace the deprecated name:
   i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
-scratch/frontier/TYZChain.lean:4042:18: warning: This simp argument is unused:
+scratch/frontier/TYZChain.lean:5506:18: warning: This simp argument is unused:
   hlt
 
 Hint: Omit it from the simp argument list.
   [apply] simp [h2, h8, NeZero.ne n]
 
 Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
-scratch/frontier/TYZChain.lean:4075:26: warning: This simp argument is unused:
+scratch/frontier/TYZChain.lean:5539:26: warning: This simp argument is unused:
   r
 
 Hint: Omit it from the simp argument list.
   [apply] simp
 
 Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
-scratch/frontier/TYZChain.lean:4128:68: warning: `Subgroup.normal_of_comm` has been deprecated: Use `Subgroup.normal_of_isMulCommutative` instead
+scratch/frontier/TYZChain.lean:5592:68: warning: `Subgroup.normal_of_comm` has been deprecated: Use `Subgroup.normal_of_isMulCommutative` instead
 
 Hint: Replace the deprecated name:
   S̵u̵b̵g̵r̵o̵u̵p̵.̵n̵o̵r̵m̵a̵l̵_̵o̵f̵_̵c̵o̵m̵m̵S̲u̲b̲g̲r̲o̲u̲p̲.̲n̲o̲r̲m̲a̲l̲_̲o̲f̲_̲i̲s̲M̲u̲l̲C̲o̲m̲m̲u̲t̲a̲t̲i̲v̲e̲
-scratch/frontier/TYZChain.lean:4174:2: warning: Try this: 
+scratch/frontier/TYZChain.lean:5638:2: warning: Try this: 
   letI̵
 
 The goal is a proposition, so `let` is preferred over `letI`.
@@ -305,7 +326,7 @@ The difference between `let` and `letI` is that `letI` inlines the value.
 But this is not relevant for proofs because of proof irrelevance.
 
 Note: This linter can be disabled with `set_option linter.style.haveILetI false`
-scratch/frontier/TYZChain.lean:4175:2: warning: Try this: 
+scratch/frontier/TYZChain.lean:5639:2: warning: Try this: 
   haveI̵
 
 The goal is a proposition, so `have` is preferred over `haveI`.
@@ -313,7 +334,7 @@ The difference between `have` and `haveI` is that `haveI` inlines the value.
 But this is not relevant for proofs because of proof irrelevance.
 
 Note: This linter can be disabled with `set_option linter.style.haveILetI false`
-scratch/frontier/TYZChain.lean:4176:2: warning: Try this: 
+scratch/frontier/TYZChain.lean:5640:2: warning: Try this: 
   letI̵
 
 The goal is a proposition, so `let` is preferred over `letI`.
@@ -321,28 +342,294 @@ The difference between `let` and `letI` is that `letI` inlines the value.
 But this is not relevant for proofs because of proof irrelevance.
 
 Note: This linter can be disabled with `set_option linter.style.haveILetI false`
-scratch/frontier/TYZChain.lean:4259:11: warning: `if_pos` has been deprecated: Use `ite_eq_left` instead
+scratch/frontier/TYZChain.lean:5723:11: warning: `if_pos` has been deprecated: Use `ite_eq_left` instead
 
 Hint: Replace the deprecated name:
   i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
-scratch/frontier/TYZChain.lean:4277:11: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
+scratch/frontier/TYZChain.lean:5741:11: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
 
 Hint: Replace the deprecated name:
   i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
-scratch/frontier/TYZChain.lean:4350:30: warning: This simp argument is unused:
+scratch/frontier/TYZChain.lean:5814:30: warning: This simp argument is unused:
   RingOfIntegers.coe_eq_algebraMap
 
 Hint: Omit it from the simp argument list.
   [apply] simp only [u, θ, map_sub, algebraMap_thetaO, theta_eq, map_natCast]
 
 Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
-scratch/frontier/TYZChain.lean:4353:31: warning: This simp argument is unused:
+scratch/frontier/TYZChain.lean:5817:31: warning: This simp argument is unused:
   RingOfIntegers.coe_eq_algebraMap
 
 Hint: Omit it from the simp argument list.
   [apply] simp only [ub, θ, map_sub, algebraMap_thetaO, theta_eq, map_natCast, map_one]
 
 Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+scratch/frontier/TYZChain.lean:6027:0: warning: automatically included section variable(s) unused in theorem `ZInQ.Contrib.TYZGenus.CMBridge.kappa_oneN32`:
+  [NeZero n]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [NeZero n] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+scratch/frontier/TYZChain.lean:6030:0: warning: automatically included section variable(s) unused in theorem `ZInQ.Contrib.TYZGenus.CMBridge.lat_eq_map'`:
+  [NeZero n]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [NeZero n] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+scratch/frontier/TYZChain.lean:6159:0: warning: automatically included section variable(s) unused in theorem `ZInQ.Contrib.TYZGenus.CMBridge.tyzForm7_tau`:
+  [NeZero n]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [NeZero n] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+scratch/frontier/TYZChain.lean:6164:6: warning: Unused tactic linter: `ring` does nothing.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+scratch/frontier/TYZChain.lean:6166:0: warning: automatically included section variable(s) unused in theorem `ZInQ.Contrib.TYZGenus.CMBridge.tyzForm7_conj_tau`:
+  [NeZero n]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [NeZero n] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+scratch/frontier/TYZChain.lean:6171:6: warning: Unused tactic linter: `ring` does nothing.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+scratch/frontier/TYZChain.lean:6173:0: warning: automatically included section variable(s) unused in theorem `ZInQ.Contrib.TYZGenus.CMBridge.tyzForm7'_tau`:
+  [NeZero n]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [NeZero n] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+scratch/frontier/TYZChain.lean:6179:0: warning: automatically included section variable(s) unused in theorem `ZInQ.Contrib.TYZGenus.CMBridge.tyzForm7'_conj_tau`:
+  [NeZero n]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [NeZero n] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+scratch/frontier/TYZChain.lean:6187:0: warning: automatically included section variable(s) unused in theorem `ZInQ.Contrib.TYZGenus.CMBridge.ubK_mul_tK`:
+  [NeZero n]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [NeZero n] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+scratch/frontier/TYZChain.lean:6193:0: warning: automatically included section variable(s) unused in theorem `ZInQ.Contrib.TYZGenus.CMBridge.neg_uK_mul_tbK`:
+  [NeZero n]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [NeZero n] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+scratch/frontier/TYZChain.lean:6245:25: warning: Unused tactic linter: `<;>` should be replaced with `;` or be removed.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+scratch/frontier/TYZChain.lean:6245:25: warning: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+scratch/frontier/TYZChain.lean:6260:43: warning: This simp argument is unused:
+  QuadraticAlgebra.re_one
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [ubK, hs, ht, zsmul_eq_mul, QuadraticAlgebra.im_one, QuadraticAlgebra.re_ofNat,
+    QuadraticAlgebra.im_ofNat, QuadraticAlgebra.re_intCast, QuadraticAlgebra.im_intCast]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+scratch/frontier/TYZChain.lean:6260:68: warning: This simp argument is unused:
+  QuadraticAlgebra.im_one
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [ubK, hs, ht, zsmul_eq_mul, QuadraticAlgebra.re_one, QuadraticAlgebra.re_ofNat,
+    QuadraticAlgebra.im_ofNat, QuadraticAlgebra.re_intCast, QuadraticAlgebra.im_intCast]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+scratch/frontier/TYZChain.lean:6261:4: warning: This simp argument is unused:
+  QuadraticAlgebra.re_ofNat
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [ubK, hs, ht, zsmul_eq_mul, QuadraticAlgebra.re_one, QuadraticAlgebra.im_one, QuadraticAlgebra.im_ofNat,
+    QuadraticAlgebra.re_intCast, QuadraticAlgebra.im_intCast]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+scratch/frontier/TYZChain.lean:6261:31: warning: This simp argument is unused:
+  QuadraticAlgebra.im_ofNat
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [ubK, hs, ht, zsmul_eq_mul, QuadraticAlgebra.re_one, QuadraticAlgebra.im_one, QuadraticAlgebra.re_ofNat,
+    QuadraticAlgebra.re_intCast, QuadraticAlgebra.im_intCast]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+scratch/frontier/TYZChain.lean:6274:4: warning: This simp argument is unused:
+  QuadraticAlgebra.re_ofNat
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [uK, hs, ht, zsmul_eq_mul, QuadraticAlgebra.re_one, QuadraticAlgebra.im_one, QuadraticAlgebra.im_ofNat,
+    QuadraticAlgebra.re_intCast, QuadraticAlgebra.im_intCast]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+scratch/frontier/TYZChain.lean:6274:31: warning: This simp argument is unused:
+  QuadraticAlgebra.im_ofNat
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [uK, hs, ht, zsmul_eq_mul, QuadraticAlgebra.re_one, QuadraticAlgebra.im_one, QuadraticAlgebra.re_ofNat,
+    QuadraticAlgebra.re_intCast, QuadraticAlgebra.im_intCast]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+scratch/frontier/TYZChain.lean:6285:43: warning: This simp argument is unused:
+  QuadraticAlgebra.re_one
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [ubK, hs, ht, zsmul_eq_mul, QuadraticAlgebra.im_one, QuadraticAlgebra.re_ofNat,
+    QuadraticAlgebra.im_ofNat, QuadraticAlgebra.re_intCast, QuadraticAlgebra.im_intCast]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+scratch/frontier/TYZChain.lean:6285:68: warning: This simp argument is unused:
+  QuadraticAlgebra.im_one
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [ubK, hs, ht, zsmul_eq_mul, QuadraticAlgebra.re_one, QuadraticAlgebra.re_ofNat,
+    QuadraticAlgebra.im_ofNat, QuadraticAlgebra.re_intCast, QuadraticAlgebra.im_intCast]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+scratch/frontier/TYZChain.lean:6317:6: warning: Unused tactic linter: `linear_combination (-t / 128 : ℚ) * h` does nothing.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+scratch/frontier/TYZChain.lean:6318:6: warning: Unused tactic linter: `linear_combination (t / 256 : ℚ) * h` does nothing.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+scratch/frontier/TYZChain.lean:6319:6: warning: Unused tactic linter: `linear_combination (-t / 256 : ℚ) * h` does nothing.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+scratch/frontier/TYZChain.lean:6320:6: warning: Unused tactic linter: `linear_combination (t / 64 : ℚ) * h` does nothing.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+scratch/frontier/TYZChain.lean:6321:6: warning: Unused tactic linter: `linear_combination (-t / 64 : ℚ) * h` does nothing.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+scratch/frontier/TYZChain.lean:6317:6: warning: this tactic is never executed
+
+Note: This linter can be disabled with `set_option linter.unreachableTactic false`
+scratch/frontier/TYZChain.lean:6318:6: warning: this tactic is never executed
+
+Note: This linter can be disabled with `set_option linter.unreachableTactic false`
+scratch/frontier/TYZChain.lean:6319:6: warning: this tactic is never executed
+
+Note: This linter can be disabled with `set_option linter.unreachableTactic false`
+scratch/frontier/TYZChain.lean:6320:6: warning: this tactic is never executed
+
+Note: This linter can be disabled with `set_option linter.unreachableTactic false`
+scratch/frontier/TYZChain.lean:6321:6: warning: this tactic is never executed
+
+Note: This linter can be disabled with `set_option linter.unreachableTactic false`
+scratch/frontier/TYZChain.lean:6342:42: warning: This simp argument is unused:
+  QuadraticAlgebra.re_one
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [uK, hs, ht, zsmul_eq_mul, QuadraticAlgebra.im_one, QuadraticAlgebra.re_ofNat, QuadraticAlgebra.im_ofNat,
+    QuadraticAlgebra.re_intCast, QuadraticAlgebra.im_intCast]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+scratch/frontier/TYZChain.lean:6342:67: warning: This simp argument is unused:
+  QuadraticAlgebra.im_one
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [uK, hs, ht, zsmul_eq_mul, QuadraticAlgebra.re_one, QuadraticAlgebra.re_ofNat, QuadraticAlgebra.im_ofNat,
+    QuadraticAlgebra.re_intCast, QuadraticAlgebra.im_intCast]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+scratch/frontier/TYZChain.lean:6343:4: warning: This simp argument is unused:
+  QuadraticAlgebra.re_ofNat
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [uK, hs, ht, zsmul_eq_mul, QuadraticAlgebra.re_one, QuadraticAlgebra.im_one, QuadraticAlgebra.im_ofNat,
+    QuadraticAlgebra.re_intCast, QuadraticAlgebra.im_intCast]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+scratch/frontier/TYZChain.lean:6343:31: warning: This simp argument is unused:
+  QuadraticAlgebra.im_ofNat
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [uK, hs, ht, zsmul_eq_mul, QuadraticAlgebra.re_one, QuadraticAlgebra.im_one, QuadraticAlgebra.re_ofNat,
+    QuadraticAlgebra.re_intCast, QuadraticAlgebra.im_intCast]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+scratch/frontier/TYZChain.lean:6348:6: warning: Unused tactic linter: `linear_combination (-t / 128 : ℚ) * h` does nothing.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+scratch/frontier/TYZChain.lean:6349:6: warning: Unused tactic linter: `linear_combination (t / 256 : ℚ) * h` does nothing.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+scratch/frontier/TYZChain.lean:6350:6: warning: Unused tactic linter: `linear_combination (-t / 256 : ℚ) * h` does nothing.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+scratch/frontier/TYZChain.lean:6351:6: warning: Unused tactic linter: `linear_combination (t / 64 : ℚ) * h` does nothing.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+scratch/frontier/TYZChain.lean:6352:6: warning: Unused tactic linter: `linear_combination (-t / 64 : ℚ) * h` does nothing.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+scratch/frontier/TYZChain.lean:6348:6: warning: this tactic is never executed
+
+Note: This linter can be disabled with `set_option linter.unreachableTactic false`
+scratch/frontier/TYZChain.lean:6349:6: warning: this tactic is never executed
+
+Note: This linter can be disabled with `set_option linter.unreachableTactic false`
+scratch/frontier/TYZChain.lean:6350:6: warning: this tactic is never executed
+
+Note: This linter can be disabled with `set_option linter.unreachableTactic false`
+scratch/frontier/TYZChain.lean:6351:6: warning: this tactic is never executed
+
+Note: This linter can be disabled with `set_option linter.unreachableTactic false`
+scratch/frontier/TYZChain.lean:6352:6: warning: this tactic is never executed
+
+Note: This linter can be disabled with `set_option linter.unreachableTactic false`
+scratch/frontier/TYZChain.lean:6373:20: warning: Unused tactic linter: `<;>` should be replaced with `;` or be removed.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+scratch/frontier/TYZChain.lean:6373:20: warning: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+scratch/frontier/TYZChain.lean:6431:19: warning: This simp argument is unused:
+  RingOfIntegers.coe_eq_algebraMap
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [map_add, map_mul, map_intCast, alg_uO hn, alg_ubO hn, alg32]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+scratch/frontier/TYZChain.lean:6477:19: warning: This simp argument is unused:
+  RingOfIntegers.coe_eq_algebraMap
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [map_add, map_mul, map_intCast, alg_uO hn, alg_ubO hn, alg32]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+scratch/frontier/TYZChain.lean:6507:19: warning: This simp argument is unused:
+  RingOfIntegers.coe_eq_algebraMap
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [map_add, map_mul, map_sub, map_neg, map_intCast, alg_uO hn, alg_ubO hn, alg32]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+scratch/frontier/TYZChain.lean:6558:19: warning: This simp argument is unused:
+  RingOfIntegers.coe_eq_algebraMap
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [map_add, map_mul, map_sub, map_neg, map_intCast, alg_uO hn, alg_ubO hn, alg32]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+scratch/frontier/TYZChain.lean:6751:24: warning: `dif_pos` has been deprecated: Use `dite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  d̵i̵f̵_̵p̵o̵s̵d̲i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+scratch/frontier/TYZChain.lean:6751:36: warning: `if_pos` has been deprecated: Use `ite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+scratch/frontier/TYZChain.lean:6767:24: warning: `dif_pos` has been deprecated: Use `dite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  d̵i̵f̵_̵p̵o̵s̵d̲i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+scratch/frontier/TYZChain.lean:6767:36: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
 'ZInQ.Contrib.TYZGenus.CMBridge.tyzDelta_spec' depends on axioms: [propext, Classical.choice, Quot.sound]
 'ZInQ.Contrib.TYZGenus.CMBridge.exists_actsAsArtinO' depends on axioms: [propext, Classical.choice, Quot.sound]
 'ZInQ.Contrib.TYZGenus.CMBridge.lemma321_of' depends on axioms: [propext, Classical.choice, Quot.sound]
@@ -376,6 +663,17 @@ Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
 'ZInQ.Contrib.TYZGenus.CMBridge.normP2' depends on axioms: [propext, Classical.choice, Quot.sound]
 'ZInQ.Contrib.TYZGenus.CMBridge.lemma321Seven_of'' depends on axioms: [propext, Classical.choice, Quot.sound]
 'ZInQ.Contrib.TYZGenus.CMBridge.tyzThm35ReadingA_of_ringClassD_sigmaShiftsF0_lemma318_thm35First_lemma321Five_thm36Seven' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Contrib.TYZGenus.CMBridge.tyzThm36Seven_of' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.TYZGenus.CMBridge.tyzThm35ReadingA_of_ringClassD_sigmaFixesZn_lemma318_thm35First_lemma321Five_shimura' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Contrib.TYZGenus.CMBridge.cmAlgebraic_of_cmValue' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.TYZGenus.CMBridge.tyzThm36Seven_of_shimuraModFn' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Contrib.TYZGenus.CMBridge.tyzThm35ReadingA_of_lcal_shimuraModFn_lemma318_thm35First_lemma321Five' depends on axioms: [propext,
  Classical.choice,
  Quot.sound]
 'ZInQ.Frontier.tyzThm35ReadingA_of_open' depends on axioms: [propext, Classical.choice, Quot.sound]

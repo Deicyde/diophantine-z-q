@@ -26,6 +26,7 @@ import chainlib as c
 MAIN = "HEAD"
 G3 = ("357f5d9e", "scratch/g0-assemble3/G0Assemble3.lean")
 B5 = ("93a1e33c", "scratch/cpts-transport/Bundle5.lean")
+AP = ("92a27877", "scratch/assemble-port/AssemblePort.lean")  # assemble-port final flat check (27 glue fields, 1126 s)
 
 # ---------------------------------------------------------------- edges
 # (concl, short theorem name, rev, file, [hyp heads], scenario set, note)
@@ -39,12 +40,11 @@ def edge(concl, thm, rev, path, hyps, sc="AF", note="", deffile=None):
 # --- top (compiled here): scratch/frontier/TYZChain.lean, which contains tyz-cm's and cm-bridge's
 # reductions verbatim; both scenarios use it.  (TopChain.lean is the fork-main-only variant.)
 edge("FrozenTarget", "frozenTarget_of_open", MAIN, "scratch/frontier/TYZChain.lean",
-     ["SixContactMin", "TYZThm11Integral", "TYZLcalOne", "TYZLemma29Mod2", "CMValueRingClass",
-      "EtaModelInvariant", "TYZSigmaShiftsF0", "Lemma318Literal", "Thm35First", "Lemma321Five", "TYZThm36Seven",
-      "FHNonvanishing", "GrossZagierHeegner"])
+     ["SixContactMin", "TYZThm11Integral", "TYZLcalOne", "TYZLemma29Mod2", "ShimuraReciprocityModFn",
+      "Lemma318Literal", "Thm35First", "Lemma321Five", "FHNonvanishing", "GrossZagierHeegner"])
 
 # --- H
-edge("SixContactMin", "sixContactMin_of_leaves5", *B5, ["ResearchLeaves4", "TextbookLeaves", "GluePieces5"])
+edge("SixContactMin", "sixContactMin_of_leaves5", *AP, ["OpenResearchLeaves2", "OpenTextbookLeaves5", "GluePieces5"])
 # textbook fields proved in Contrib (kernel world) -- F only (in W0 they are bundle fields)
 KDEF = {"AbhyankarDVR": "Objects.lean", "BrauerHasse2C": "Conductor/I6Base.lean",
         "BrauerReciprocity2C": "Conductor/I6Base.lean", "LocalH2CardC": "Conductor/I6Base.lean",
@@ -72,24 +72,29 @@ for fld, thm, path in [
 edge("X1Leaves", None, None, None, ["CurveOfFunctionFieldQ", "X1RationalCusp"], "F",
      "T36 (`ZInQ.RLeaf.t36_torsionStructure`), T37 (`ZInQ.RLeaf.T37.t37_goodReductionUnramified`) proved on main; "
      "T39 from T40 (`ZInQ.RLeaf.x1ConstantField_of_x1RationalCusp`, main). Not a single theorem: textual split.")
-edge("X1RationalCusp", "x1RationalCusp_of_igusaTransitive", "c87d3b9b", "ZInQKernel/Contrib/RLeaf/TateCusp.lean",
-     ["IgusaTransitive"], "F", deffile="ZInQKernel/HDecomp/ModCurves/X1Belyi.lean")
+edge("X1RationalCusp", "x1RationalCusp_of_x0_tateMuN", "e9b071d6", "ZInQKernel/Contrib/RLeaf/T40.lean",
+     ["X0Transitive", "TateMuN"], "F", deffile="ZInQKernel/HDecomp/ModCurves/X1Belyi.lean")
+edge("TateMuN", "_root_.ZInQ.RLeaf.tateMuN", "7ed2ca99", "ZInQKernel/Contrib/RLeaf/TateCuspMuN.lean", [], "F")
 # GluePieces5 fields, F
 HBC = ("116dc2f2", "scratch/hodge-bc2/OmegaBC.lean")
 edge("HodgeBCInjective", "hodgeBCInjective", "116dc2f2", "scratch/hodge-bc2/HodgeBCInjective.lean", [], "F")
 edge("OmegaBaseChange", "omegaBaseChange", "116dc2f2", "scratch/hodge-bc2/IntegrationBC.lean", [], "F")
 PM = "scratch/period-map/DevHeavy.lean"
 edge("S8Nonzero", "s8Nonzero_proof", "cbe9fe4c", "scratch/period-glue/S8.lean", [], "F", deffile=PM)
-edge("SphereFactorAffine", "sphereFactorAffine_proof", "80af6547", "scratch/period-glue/part_sphere.lean", [], "F",
-     "proof on period-glue-b, a branch stopped at 10:12 (its last commit is an unchecked snapshot; 80af6547 itself is checked)",
-     deffile="scratch/period-glue/PGLight.lean")
+edge("SphereFactorAffine", "sphereFactorAffine_proof", "7e1531df", "scratch/period-glue/SFA.lean", [], "F",
+     "period-glue final", deffile="scratch/period-map/DevHeavy.lean")
 edge("PiTwistC", "piTwistC_of", "cbe9fe4c", "scratch/period-glue/PiTwist.lean",
      ["Over", "PtEquiv", "ToP1", "R1fpProps", "R2fpProps", "TwistOrbitFinite", "FibreTransferC"], "F",
      "instantiated at the triple chosen from R1R2fpRep (r1r2): Y, Φ, π, R1fpProps, R2fpProps come from r1r2", deffile=PM)
-for d in ["Over", "PtEquiv", "ToP1", "R1fpProps", "R2fpProps", "R1R2fp"]:
+for d in ["Over", "PtEquiv", "ToP1", "R1fpProps", "R2fpProps", "R1heckeProps", "R1R2fp"]:
     edge(d, None, None, None, ["R1R2fpRep"], "F", "data/clauses extracted from the research leaf r1r2 (R1R2fp_of_rep, Classical.choice)")
-edge("QMTwistLattice", "qmTwistLattice_of", "cbe9fe4c", "scratch/period-glue/QMTwist.lean",
-     ["T11aRiemannHom", "QMLatticeTwistAlg"], "F", deffile=PM)
+edge("QMTwistLattice", "qmTwistLattice_of'", "7e1531df", "scratch/period-glue/QMTwist.lean",
+     ["T11aRiemannHom", "LeafSkolemNoether"], "F", deffile=PM)
+edge("LeafSkolemNoether", "leafSkolemNoether", MAIN, "ZInQKernel/HDecomp/Textbook/SkolemNoether.lean", [], "F")
+edge("TwistOrbitFinite", "twistOrbitFinite_of'", "7e1531df", "scratch/period-glue/PiTwist.lean",
+     ["Over", "PtEquiv", "R1heckeProps", "TorsionStructure", "AutOInnerFinite"], "F")
+edge("FibreTransferC", "fibreTransferC_proof", "7e1531df", "scratch/period-glue/PiTwist.lean", ["Over", "ToP1"], "F")
+edge("AutOInnerFinite", "autOInnerFinite", MAIN, "scratch/aut-o-finite/AutOFinite.lean", [], "F")
 edge("S8WeightExact", "s8WeightExact_of", "cbe9fe4c", "scratch/period-glue/W8.lean",
      ["ThetaModularity", "GammaStarGen"], "F", deffile=PM)
 PTS = ("3d41b3d5", "scratch/prop-ts-glue/PropTSGlue.lean")
@@ -100,6 +105,11 @@ for p, t in [("KummerAbhyankarFinGlue", "kummerAbhyankarFinGlue"), ("KummerOther
              ("KummerVerticalFin", "kummerVerticalFin"), ("KummerAbhyankarInfGlue", "kummerAbhyankarInfGlue"),
              ("KummerOtherBranchInf", "kummerOtherBranchInf"), ("KummerVerticalInf", "kummerVerticalInf")]:
     edge(p, t, *TSK, [], "F")
+edge("KummerCompositum", "kummerCompositum", "1bbe3543", "scratch/ts-kummer/KummerTS.lean", [], "F")
+HR = ("6c2c1d76", "scratch/hecke-rest/HeckeRestAll.lean")
+edge("CurveNormChart", "curveNormChart", *HR, [], "F")
+edge("CurveChartInf", "curveChartInf", *HR, [], "F")
+edge("HeckeFibreSizes", "heckeFibreSizes_of", *HR, ["TorsionStructure", "QMAutCard", "SerreRigidity3", "ALFixedPoints"], "F")
 TSH = ("ff8e6731", "scratch/ts-hecke/TSHecke.lean")
 edge("HeckeDegree", "heckeDegree_of_torsion", *TSH, ["TorsionStructure"], "F")
 edge("HeckeIrreducible", "heckeIrreducible_of_connected", *TSH, ["Y3Connected"], "F")
@@ -111,7 +121,7 @@ GR = ("53ba766f", "scratch/lt-goodred/GoodRed.lean")
 edge("GoodRedTorsion", "goodRedTorsion", *GR, [], "F")
 edge("QMEndRank", "qmEndRank_of_leaves", *GR, ["HomFreeFinite", "QMDichotomyYu"], "F")
 # route T for the linked-Tate block: LinkedTateLocal replaces fields linkedFrob, kernelFieldBreaks, tateRamAtThree
-edge("LinkedFrob+KernelFieldBreaks+TateRamAtThree", "linkedTateLocal_of_tateBridge35", "3d1b90b5",
+edge("UpperBreakBound+BetaSignAtTwo", "linkedTateLocal_of_tateBridge35", "3d1b90b5",
      "scratch/lt-local/LtLocal4.lean",
      ["RaynaudCriterion", "TorsionStructure", "UnramRoots", "UnramRoots", "TateBridge35", "FibreSimple", "QMEndRank"],
      "F", "route T: proves g0-assemble2's `LinkedTateLocal`, which g0-assemble3 rebuilt from the three fields; "
@@ -120,8 +130,14 @@ edge("UnramRoots", "unramRoots", "b066d686", "scratch/unram-roots/UnramRoots.lea
 edge("TateBridge35", "tateBridge35_of_neron_nmp", "60340bed", "scratch/frob-pieces/FrobPiecesFull.lean",
      ["TateModuleFree", "AbVarSpreadsOut", "ProperSmoothGenConnected", "ReductionTorsionBijective",
       "NeronMappingAbelianScheme"], "F")
+edge("ProperSmoothGenConnected", "properSmoothGenConnected_of_zariskiConnectedness", "3802f2bc",
+     "ZInQKernel/Contrib/ZariskiConn/Basic.lean", ["ZariskiConnectedness"], "F", deffile="scratch/frob-pieces/FrobPiecesFull.lean")
+edge("AbVarSpreadsOut", "frobPiecesNeron_abVarSpreadsOut", "aa304ed7", "scratch/spread-out/SpreadOutFull.lean",
+     ["EGAIV_8_8_2_ii", "EGAIV_8_10_5_xii", "EGAIV_17_7_8_ii"], "F")
 edge("FibreSimple", None, None, None, [], "F", "derived inside g0-assemble3's `gluePieces_of_gluePieces4` (not an open Prop)")
 edge("TwistDescent", "twistDescent", "fdd133f1", "scratch/twist-descent/Dev.lean", [], "F")
+edge("TateModuleFree", "tateModuleFree_of_torsionStructure", "58ac8d0b", "scratch/t5-torsion/Tate.lean",
+     ["TorsionStructure"], "F", deffile="ZInQKernel/HDecomp/Objects.lean")
 # field 3 bypassed by T35 in the HDec world (leaf-fold2)
 edge("AnalyticUniformizationOfDim", "productMetrizationOfProductUnif_of_t35", "b38ee0c4",
      "scratch/leaf-fold2/parts/b20_fold.lean", ["UniformizationExists"], "F",
@@ -129,14 +145,14 @@ edge("AnalyticUniformizationOfDim", "productMetrizationOfProductUnif_of_t35", "b
 
 # ---------------------------------------------------------------- bundles
 STRUCTS = {
-    "ResearchLeaves4": (G3, "ResearchLeaves4"),
-    "TextbookLeaves": (G3, "TextbookLeaves"),
-    "GluePieces5": (B5, "GluePieces5"),
+    "OpenResearchLeaves2": (AP, "OpenResearchLeaves2"),
+    "OpenTextbookLeaves5": (AP, "OpenTextbookLeaves5"),
+    "GluePieces5": (AP, "GluePieces5"),
 }
 # fields never projected on the route (h-leaves agent, grep of the flat file; g0-assemble3 §6)
-UNUSED = {"r1rec", "r3", "r4", "r5", "r7b", "r8", "t1", "t3", "t4", "t10", "t16b", "t20", "t21", "t28", "t29a", "t29b"}
+UNUSED = {"r1rec", "r3", "r5", "r7b", "r8", "t10"}  # never projected in g0-assemble3; assemble-port has the same consumers
 # fields that become used on route F (an F edge takes them as hypotheses)
-USED_IN_F = {"r4", "t3", "t4"}
+USED_IN_F = set()
 
 # ---------------------------------------------------------------- classification of open nodes (the report's list)
 # label -> (premise, strict class)
@@ -223,8 +239,10 @@ def expand(sc):
         fl = c.structure_fields(c.show(rev, path), short)
         fields[sname] = [(f, head_of_type(t)) for f, t in fl]
     # F: the three linked-Tate fields are replaced together by route T
-    route_T = {"LinkedFrob", "KernelFieldBreaks", "TateRamAtThree"}
+    route_T = {"UpperBreakBound", "BetaSignAtTwo"}
+    global REACHED
     seen, open_, rows = set(), [], []
+    REACHED = seen
     stack = [("FrozenTarget", "root")]
     while stack:
         node, src = stack.pop()
@@ -235,7 +253,7 @@ def expand(sc):
             for f, h in fields[node]:
                 rows.append((node, f, h))
                 if sc == "F" and h in route_T:
-                    stack.append(("LinkedFrob+KernelFieldBreaks+TateRamAtThree", f"{node}.{f}"))
+                    stack.append(("UpperBreakBound+BetaSignAtTwo", f"{node}.{f}"))
                     continue
                 stack.append((h, f"{node}.{f}"))
             continue
@@ -249,13 +267,18 @@ def expand(sc):
     return open_, rows
 
 
+REACHED = set()
+
+
 def defcheck():
     """Compare def texts of bundle-field Props proved in another file (check 3)."""
-    g3 = c.show(*G3)
+    g3 = c.show(*AP)
     out = []
     for e in E:
         if "F" not in e["sc"] or e["thm"] is None or "+" in e["concl"]:
             continue
+        if e["concl"] not in REACHED:
+            continue  # edge not on the scenario-F route
         if e["rev"] == MAIN and not e["deffile"]:
             continue
         name = c.short_of(e["concl"])
@@ -293,7 +316,7 @@ def main():
                 tag = "  [never projected]"
             print(f"  {n:45s} {where}{tag}")
         if sc == "F":
-            print("def-text comparison (proved field vs g0-assemble3's def):")
+            print("def-text comparison (proved/reduced Prop vs assemble-port's def; edges on the F route only):")
             for name, r in defcheck():
                 print(f"  {name:35s} {r}")
             print("route T inputs and kernel leaf copies (def text vs g0-assemble3, and pairwise):")
@@ -315,7 +338,7 @@ PAIR_DEFS = [(("60340bed", "scratch/frob-pieces/FrobPiecesFull.lean"), ("3d1b90b
 
 
 def extra_defcheck():
-    g3 = c.show(*G3)
+    g3 = c.show(*AP)
     for rev, path, names in EXTRA_DEFS:
         t = c.show(rev, path)
         for n in names:

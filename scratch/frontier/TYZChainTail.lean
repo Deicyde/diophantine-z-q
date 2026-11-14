@@ -63,32 +63,26 @@ namespace ZInQ.Frontier
 
 open ZInQ.Contrib.TYZDecomp ZInQ.Contrib.TYZGenus.Package ZInQ.Contrib.TYZGenus.RingClass
 
-/-- **TYZ reading A from the open TYZ Props of the finest reduction** (tyz-cm's
-`cmFieldOfDefinition_of_cmValue` and cm-bridge's final theorem). -/
+/-- **TYZ reading A from the open TYZ Props of the finest reduction** (cm-bridge's headline, which
+uses tyz-cm's reduction of the CM leaves to `ShimuraReciprocityModFn`). -/
 theorem tyzThm35ReadingA_of_open (h11 : TYZThm11Integral) (h1 : TYZLcalOne) (h29 : TYZLemma29Mod2)
-    (hV : ZInQ.Contrib.TYZGenus.Shimura.CMValueRingClass)
-    (hI : ZInQ.Contrib.TYZGenus.X0.EtaModelInvariant)
-    (hsh : ZInQ.Contrib.TYZGenus.CMBridge.TYZSigmaShiftsF0) (h318 : Lemma318Literal HHprime)
+    (hS : ZInQ.Contrib.TYZGenus.Shimura.ShimuraReciprocityModFn) (h318 : Lemma318Literal HHprime)
     (h35 : ∀ ℓ : ℕ → ℤ, IsTYZLcal ℓ → Thm35First ℓ ZInQ.Contrib.TYZGenus.CMBridge.tyzZ)
-    (h5 : ZInQ.Contrib.TYZGenus.CMBridge.Lemma321Five)
-    (h36 : ZInQ.Contrib.TYZGenus.CMBridge.TYZThm36Seven) :
+    (h5 : ZInQ.Contrib.TYZGenus.CMBridge.Lemma321Five) :
     ZInQ.Literature.TYZThm35ReadingA :=
-  ZInQ.Contrib.TYZGenus.CMBridge.tyzThm35ReadingA_of_ringClassD_sigmaShiftsF0_lemma318_thm35First_lemma321Five_thm36Seven
-    h11 h1 h29 (ZInQ.Contrib.TYZGenus.Shimura.cmFieldOfDefinition_of_cmValue hV hI) hsh h318 h35 h5 h36
+  ZInQ.Contrib.TYZGenus.CMBridge.tyzThm35ReadingA_of_lcal_shimuraModFn_lemma318_thm35First_lemma321Five
+    h11 h1 h29 hS h318 h35 h5
 
-/-- **`ZInQ.FrozenTarget` from H, the 10 open TYZ Props and the 2 open GZ Props.** -/
+/-- **`ZInQ.FrozenTarget` from H, the 7 open TYZ Props and the 2 open GZ Props.** -/
 theorem frozenTarget_of_open (hH : ZInQ.SixContactMin)
     (h11 : TYZThm11Integral) (h1 : TYZLcalOne) (h29 : TYZLemma29Mod2)
-    (hV : ZInQ.Contrib.TYZGenus.Shimura.CMValueRingClass)
-    (hI : ZInQ.Contrib.TYZGenus.X0.EtaModelInvariant)
-    (hsh : ZInQ.Contrib.TYZGenus.CMBridge.TYZSigmaShiftsF0) (h318 : Lemma318Literal HHprime)
+    (hS : ZInQ.Contrib.TYZGenus.Shimura.ShimuraReciprocityModFn) (h318 : Lemma318Literal HHprime)
     (h35 : ∀ ℓ : ℕ → ℤ, IsTYZLcal ℓ → Thm35First ℓ ZInQ.Contrib.TYZGenus.CMBridge.tyzZ)
     (h5 : ZInQ.Contrib.TYZGenus.CMBridge.Lemma321Five)
-    (h36 : ZInQ.Contrib.TYZGenus.CMBridge.TYZThm36Seven)
     (hL2 : ZInQ.GZDecomp.FHNonvanishing) (hL3 : ZInQ.GZDecomp.GrossZagierHeegner) :
     ZInQ.FrozenTarget :=
   ZInQ.GZDecomp.frozenTarget_of_sixContactMin_tyzThm35ReadingA_gzLeaves hH
-    (tyzThm35ReadingA_of_open h11 h1 h29 hV hI hsh h318 h35 h5 h36)
+    (tyzThm35ReadingA_of_open h11 h1 h29 hS h318 h35 h5)
     ZInQ.GZTheta.Frontier.heckeThetaNewform hL2 hL3
 
 end ZInQ.Frontier

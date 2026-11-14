@@ -3,8 +3,10 @@ import ZInQKernel.Contrib.GZTheta.NewCMProof
 import ZInQKernel.Contrib.GZTheta.New32
 import ZInQKernel.Contrib.GZTheta.Final
 import ZInQKernel.Contrib.GZDecomp.Decomp
+import ZInQKernel.Contrib.GZTheta.Eta
+import ZInQKernel.Contrib.GZTheta.JacobiGauss
 
--- ===== verbatim body of ZInQKernel/Contrib/TYZGenus/ShimuraRecip.lean @ 66d92d11 (imports dropped) =====
+-- ===== verbatim body of ZInQKernel/Contrib/TYZGenus/ShimuraRecip.lean @ ed50dc33 (imports dropped) =====
 
 /-!
 # tyz-cm: Shimura reciprocity for Heegner points on `X₀(32) = A` (the leaf)
@@ -93,7 +95,7 @@ end ZInQ.Contrib.TYZGenus.Shimura
 
 end  -- closes the file's top-level `noncomputable section`
 
--- ===== verbatim body of ZInQKernel/Contrib/TYZGenus/ShimuraZn.lean @ 66d92d11 (imports dropped) =====
+-- ===== verbatim body of ZInQKernel/Contrib/TYZGenus/ShimuraZn.lean @ ed50dc33 (imports dropped) =====
 
 /-!
 # tyz-cm: `σ_{1+2ϖ}` fixes `z_n` (TYZ Corollary 3.9 / Theorem 3.6) from Shimura reciprocity
@@ -704,7 +706,7 @@ end ZInQ.Contrib.TYZGenus.Shimura
 
 end  -- closes the file's top-level `noncomputable section`
 
--- ===== verbatim body of ZInQKernel/Contrib/TYZGenus/ShimuraField.lean @ 66d92d11 (imports dropped) =====
+-- ===== verbatim body of ZInQKernel/Contrib/TYZGenus/ShimuraField.lean @ ed50dc33 (imports dropped) =====
 
 /-!
 # tyz-cm: the CM leaf `CM.CMFieldOfDefinition ringClassFieldD` from the main theorem of CM
@@ -1131,7 +1133,7 @@ end ZInQ.Contrib.TYZGenus.Shimura
 
 end  -- closes the file's top-level `noncomputable section`
 
--- ===== verbatim body of ZInQKernel/Contrib/TYZGenus/ShimuraModFn.lean @ 66d92d11 (imports dropped) =====
+-- ===== verbatim body of ZInQKernel/Contrib/TYZGenus/ShimuraModFn.lean @ ed50dc33 (imports dropped) =====
 
 /-!
 # tyz-cm: Shimura reciprocity for modular functions on `Γ₀(N)` (the leaf) and its `X₀(32)` instance
@@ -1323,7 +1325,7 @@ end ZInQ.Contrib.TYZGenus.Shimura
 
 end  -- closes the file's top-level `noncomputable section`
 
--- ===== verbatim body of ZInQKernel/Contrib/TYZGenus/ShimuraQExp.lean @ 66d92d11 (imports dropped) =====
+-- ===== verbatim body of ZInQKernel/Contrib/TYZGenus/ShimuraQExp.lean @ ed50dc33 (imports dropped) =====
 
 /-!
 # tyz-cm: the rational `q`-expansions of x0-32's coordinate functions `x, y` (proved)
@@ -1706,7 +1708,7 @@ end ZInQ.Contrib.TYZGenus.Shimura
 
 end  -- closes the file's top-level `noncomputable section`
 
--- ===== verbatim body of ZInQKernel/Contrib/TYZGenus/ShimuraCusp.lean @ 66d92d11 (imports dropped) =====
+-- ===== verbatim body of ZInQKernel/Contrib/TYZGenus/ShimuraCusp.lean @ ed50dc33 (imports dropped) =====
 
 /-!
 # tyz-cm: x0-32's coordinate functions `x, y` are meromorphic at every cusp (proved)
@@ -2184,7 +2186,7 @@ end ZInQ.Contrib.TYZGenus.Shimura
 
 end  -- closes the file's top-level `noncomputable section`
 
--- ===== verbatim body of ZInQKernel/Contrib/TYZGenus/ShimuraMain.lean @ 66d92d11 (imports dropped) =====
+-- ===== verbatim body of ZInQKernel/Contrib/TYZGenus/ShimuraMain.lean @ ed50dc33 (imports dropped) =====
 
 /-!
 # tyz-cm: main results — the CM leaf from the field-of-definition theorem for `ℚ(X₀(N))`
@@ -2381,7 +2383,1453 @@ end ZInQ.Contrib.TYZGenus.Shimura
 
 end  -- closes the file's top-level `noncomputable section`
 
--- ===== verbatim body of scratch/cm-bridge/Bridge.lean @ 68d27814 (imports dropped) =====
+-- ===== verbatim body of ZInQKernel/Contrib/TYZGenus/ShimuraEtaInv.lean @ ed50dc33 (imports dropped) =====
+
+/-!
+# tyz-cm: `Γ₀(32)`-invariance of x0-32's `y` and `(x − 2)²` (proved), and of `x` from the curve
+# equation
+
+Task tyz-cm (2026-11-13). Report: `docs/research/tyz-cm.md`; log: `scratch/tyz-cm/log.md`.
+Owner of this file: tyz-cm.
+
+* **Closed form of the `η²` multiplier** (`etaSqExp_closed`): gz-theta's Euclidean exponent
+  `etaSqExp` (`η(γz)² = ζ^{φ(γ)}(cz + d)η(z)²`, `ζ = e^{πi/6}`, `GZTheta/Eta.lean`) satisfies
+  `φ(γ) ≡ (a − 2d)c − bd(c² − 1) + 3d − 3 (mod 12)` for `d` odd and
+  `φ(γ) ≡ (a + d)c − bd(c² − 1) − 3c (mod 12)` for `c` odd (Petersson's formula, squared). Proof:
+  induction along the Euclidean recursion; each step is a polynomial congruence mod 12, checked in
+  `ZMod 4` and `ZMod 3` by `decide`.
+* For `γ ∈ Γ₀(32)` and `δ ∣ 32`: `η(δγτ)² = ζ^{X_δ}(cτ + d)η(δτ)²`; the exponents combine to
+  `−36bd` for `y` and to `12(2k(a − 2d) − bd(64k² + 4))` for `(x − 2)²` (`c = 32k`), so
+  `y∘γ = y` (`yC_gamma0`) and `(x∘γ − 2)² = (x − 2)²` (`xC_sub_two_sq_gamma0`), unconditionally.
+* With x0-32's leaf `X0.EtaModelEquation` (`y² = x³ + 4x`): `x∘γ − 2 = ±(x − 2)` on the connected
+  `ℍ`, and the sign `−1` would force `2x³ − 12x² + 56x − 80 = 0` on `ℍ`, contradicting
+  `|x(it)| → ∞`. Hence `etaModelInvariant_of_equation : X0.EtaModelEquation → X0.EtaModelInvariant`
+  and the CM leaf from `CMValueRingClass` and `X0.EtaModelEquation`.
+
+No `sorry`, no `axiom`.
+-/
+
+noncomputable section
+
+namespace ZInQ.Contrib.TYZGenus.Shimura
+
+open Complex Filter Topology
+open ZInQ.GZTheta (etaSqExp zeta12 zeta12_ne_zero zeta12_zpow_emod eta_sq_mobius
+  mobius_denom_ne_zero mobius_im_pos)
+
+/-! ## The closed form of `etaSqExp` modulo 12 -/
+
+/-- `X(a, b, c, d) = (a − 2d)c − bd(c² − 1) + 3d − 3`. -/
+def XfR {R : Type*} [CommRing R] (a b c d : R) : R :=
+  (a - 2 * d) * c - b * d * (c ^ 2 - 1) + 3 * d - 3
+
+/-- `Y(a, b, c, d) = (a + d)c − bd(c² − 1) − 3c`. -/
+def YfR {R : Type*} [CommRing R] (a b c d : R) : R :=
+  (a + d) * c - b * d * (c ^ 2 - 1) - 3 * c
+
+theorem XfR_intCast (n : ℕ) (a b c d : ℤ) :
+    ((XfR a b c d : ℤ) : ZMod n) = XfR (a : ZMod n) (b : ZMod n) (c : ZMod n) (d : ZMod n) := by
+  simp only [XfR]; push_cast; ring
+
+theorem YfR_intCast (n : ℕ) (a b c d : ℤ) :
+    ((YfR a b c d : ℤ) : ZMod n) = YfR (a : ZMod n) (b : ZMod n) (c : ZMod n) (d : ZMod n) := by
+  simp only [YfR]; push_cast; ring
+
+theorem dvd12_of {P : ℤ} (h4 : ((P : ℤ) : ZMod 4) = 0) (h3 : ((P : ℤ) : ZMod 3) = 0) :
+    (12 : ℤ) ∣ P := by
+  have a := (ZMod.intCast_zmod_eq_zero_iff_dvd P 4).1 h4
+  have b := (ZMod.intCast_zmod_eq_zero_iff_dvd P 3).1 h3
+  omega
+
+theorem odd_cast4 {d : ℤ} (hd : d % 2 = 1) : (d : ZMod 4) = 1 ∨ (d : ZMod 4) = 3 := by
+  have h : d % 4 = 1 ∨ d % 4 = 3 := by omega
+  rw [← ZMod.intCast_mod d 4]
+  rcases h with h | h <;> rw [show ((4 : ℕ) : ℤ) = 4 by norm_num, h]
+  · left; rfl
+  · right; rfl
+
+theorem cast_det {n : ℕ} {c d r b : ℤ} (h : d * r - c * b = 1) :
+    (d : ZMod n) * r - c * b = 1 := by
+  have := congrArg (fun x : ℤ => (x : ZMod n)) h
+  push_cast at this
+  exact this
+
+section Steps
+variable (c d q r b : ℤ)
+
+theorem step_dX (h : d * r - c * b = 1) (hd : d % 2 = 1) (hb : b % 2 = 1) :
+    (12 : ℤ) ∣ XfR (c * q + r) (b + q * d) c d - (q - 3 + XfR c d (-r) (-b)) := by
+  have k4 : ∀ c d q r b : ZMod 4, d * r - c * b = 1 → (d = 1 ∨ d = 3) → (b = 1 ∨ b = 3) →
+      XfR (c * q + r) (b + q * d) c d - (q - 3 + XfR c d (-r) (-b)) = 0 := by decide
+  have k3 : ∀ c d q r b : ZMod 3, d * r - c * b = 1 →
+      XfR (c * q + r) (b + q * d) c d - (q - 3 + XfR c d (-r) (-b)) = 0 := by decide
+  refine dvd12_of ?_ ?_
+  · push_cast [XfR_intCast]; exact k4 _ _ _ _ _ (cast_det h) (odd_cast4 hd) (odd_cast4 hb)
+  · push_cast [XfR_intCast]; exact k3 _ _ _ _ _ (cast_det h)
+
+theorem step_dY (h : d * r - c * b = 1) (hd : d % 2 = 1) (hr : r % 2 = 1) :
+    (12 : ℤ) ∣ XfR (c * q + r) (b + q * d) c d - (q - 3 + YfR c d (-r) (-b)) := by
+  have k4 : ∀ c d q r b : ZMod 4, d * r - c * b = 1 → (d = 1 ∨ d = 3) → (r = 1 ∨ r = 3) →
+      XfR (c * q + r) (b + q * d) c d - (q - 3 + YfR c d (-r) (-b)) = 0 := by decide
+  have k3 : ∀ c d q r b : ZMod 3, d * r - c * b = 1 →
+      XfR (c * q + r) (b + q * d) c d - (q - 3 + YfR c d (-r) (-b)) = 0 := by decide
+  refine dvd12_of ?_ ?_
+  · push_cast [XfR_intCast, YfR_intCast]
+    exact k4 _ _ _ _ _ (cast_det h) (odd_cast4 hd) (odd_cast4 hr)
+  · push_cast [XfR_intCast, YfR_intCast]; exact k3 _ _ _ _ _ (cast_det h)
+
+theorem step_cX (h : d * r - c * b = 1) (hc : c % 2 = 1) (hb : b % 2 = 1) :
+    (12 : ℤ) ∣ YfR (c * q + r) (b + q * d) c d - (q - 3 + XfR c d (-r) (-b)) := by
+  have k4 : ∀ c d q r b : ZMod 4, d * r - c * b = 1 → (c = 1 ∨ c = 3) → (b = 1 ∨ b = 3) →
+      YfR (c * q + r) (b + q * d) c d - (q - 3 + XfR c d (-r) (-b)) = 0 := by decide
+  have k3 : ∀ c d q r b : ZMod 3, d * r - c * b = 1 →
+      YfR (c * q + r) (b + q * d) c d - (q - 3 + XfR c d (-r) (-b)) = 0 := by decide
+  refine dvd12_of ?_ ?_
+  · push_cast [XfR_intCast, YfR_intCast]
+    exact k4 _ _ _ _ _ (cast_det h) (odd_cast4 hc) (odd_cast4 hb)
+  · push_cast [XfR_intCast, YfR_intCast]; exact k3 _ _ _ _ _ (cast_det h)
+
+theorem step_cY (h : d * r - c * b = 1) (hc : c % 2 = 1) (hr : r % 2 = 1) :
+    (12 : ℤ) ∣ YfR (c * q + r) (b + q * d) c d - (q - 3 + YfR c d (-r) (-b)) := by
+  have k4 : ∀ c d q r b : ZMod 4, d * r - c * b = 1 → (c = 1 ∨ c = 3) → (r = 1 ∨ r = 3) →
+      YfR (c * q + r) (b + q * d) c d - (q - 3 + YfR c d (-r) (-b)) = 0 := by decide
+  have k3 : ∀ c d q r b : ZMod 3, d * r - c * b = 1 →
+      YfR (c * q + r) (b + q * d) c d - (q - 3 + YfR c d (-r) (-b)) = 0 := by decide
+  refine dvd12_of ?_ ?_
+  · push_cast [YfR_intCast]; exact k4 _ _ _ _ _ (cast_det h) (odd_cast4 hc) (odd_cast4 hr)
+  · push_cast [YfR_intCast]; exact k3 _ _ _ _ _ (cast_det h)
+
+end Steps
+
+/-- Base case `c = 0`. -/
+theorem etaSqExp_base (a b d : ℤ) (h : a * d - b * 0 = 1) :
+    (12 : ℤ) ∣ XfR a b 0 d - (if a = 1 then b else 6 - b) := by
+  have had : a * d = 1 := by simpa using h
+  rcases Int.eq_one_or_neg_one_of_mul_eq_one' had with ⟨rfl, rfl⟩ | ⟨rfl, rfl⟩
+  · simp [XfR]
+  · rw [if_neg (by decide)]
+    exact ⟨-1, by simp [XfR]; ring⟩
+
+/-- **Closed form of gz-theta's `η²` exponent modulo 12** (Petersson's formula, squared). -/
+theorem etaSqExp_closed : ∀ (fuel : ℕ) (a b c d : ℤ), c.natAbs ≤ fuel → a * d - b * c = 1 →
+    (d % 2 = 1 → (12 : ℤ) ∣ XfR a b c d - etaSqExp fuel a b c d) ∧
+    (c % 2 = 1 → (12 : ℤ) ∣ YfR a b c d - etaSqExp fuel a b c d) := by
+  intro fuel
+  induction fuel with
+  | zero =>
+    intro a b c d hc h
+    have hc0 : c = 0 := by omega
+    subst hc0
+    refine ⟨fun _ => ?_, fun h' => by simp at h'⟩
+    simpa [etaSqExp] using etaSqExp_base a b d h
+  | succ n ih =>
+    intro a b c d hc h
+    by_cases hc0 : c = 0
+    · subst hc0
+      refine ⟨fun _ => ?_, fun h' => by simp at h'⟩
+      simpa [etaSqExp] using etaSqExp_base a b d h
+    simp only [etaSqExp, if_neg hc0]
+    set q := a / c with hq
+    set r := a % c with hr
+    set b' := b - q * d with hb'
+    have hqr : c * q + r = a := Int.mul_ediv_add_emod a c
+    have hr0 : 0 ≤ r := Int.emod_nonneg a hc0
+    have hrc : r < (c.natAbs : ℤ) := Int.emod_lt a hc0
+    have hdet3 : c * -b' - d * -r = 1 := by
+      rw [hb']; rw [← hqr] at h; linear_combination h
+    have hdet' : d * r - c * b' = 1 := by linear_combination hdet3
+    have hc3 : (-r).natAbs ≤ n := by
+      rw [Int.natAbs_neg]
+      have h1 : (r.natAbs : ℤ) = r := Int.natAbs_of_nonneg hr0
+      have h2 : (c.natAbs : ℤ) ≤ (n : ℤ) + 1 := by exact_mod_cast hc
+      omega
+    obtain ⟨ihX, ihY⟩ := ih c d (-r) (-b') hc3 hdet3
+    have hb : b = b' + q * d := by rw [hb']; ring
+    have hpar : b' % 2 = 1 ∨ r % 2 = 1 := by
+      by_contra hne
+      push_neg at hne
+      have h1 : b' % 2 = 0 := by omega
+      have h2 : r % 2 = 0 := by omega
+      obtain ⟨s, hs⟩ := Int.dvd_of_emod_eq_zero h1
+      obtain ⟨t, ht⟩ := Int.dvd_of_emod_eq_zero h2
+      rw [hs, ht] at hdet'
+      have h3 : (2 : ℤ) * (d * t - c * s) = 1 := by linear_combination hdet'
+      omega
+    have e1 : XfR a b c d = XfR (c * q + r) (b' + q * d) c d := by rw [hqr, ← hb]
+    have e2 : YfR a b c d = YfR (c * q + r) (b' + q * d) c d := by rw [hqr, ← hb]
+    refine ⟨fun hd => ?_, fun hcodd => ?_⟩
+    · rw [e1]
+      rcases hpar with hb1 | hr1
+      · have h3 := ihX (by omega)
+        have h4 := step_dX c d q r b' hdet' hd hb1
+        have := dvd_add h4 h3
+        convert this using 1; ring
+      · have h3 := ihY (by omega)
+        have h4 := step_dY c d q r b' hdet' hd hr1
+        have := dvd_add h4 h3
+        convert this using 1; ring
+    · rw [e2]
+      rcases hpar with hb1 | hr1
+      · have h3 := ihX (by omega)
+        have h4 := step_cX c d q r b' hdet' hcodd hb1
+        have := dvd_add h4 h3
+        convert this using 1; ring
+      · have h3 := ihY (by omega)
+        have h4 := step_cY c d q r b' hdet' hcodd hr1
+        have := dvd_add h4 h3
+        convert this using 1; ring
+
+/-- `ζ^m = ζ^n` when `12 ∣ m − n`. -/
+theorem zeta12_zpow_congr {m n : ℤ} (h : (12 : ℤ) ∣ m - n) : zeta12 ^ m = zeta12 ^ n := by
+  rw [zeta12_zpow_emod m, zeta12_zpow_emod n]
+  congr 1
+  omega
+
+/-! ## `η(δγτ)²` for `γ ∈ Γ₀(32)` -/
+
+theorem etaD_sq_smul {δ : ℕ} (hδ : 0 < δ) (γ : Matrix.SpecialLinearGroup (Fin 2) ℤ) {k : ℤ}
+    (hk : γ 1 0 = δ * k) (hd : γ 1 1 % 2 = 1) (τ : UpperHalfPlane) :
+    X0.etaD δ ((γ • τ : UpperHalfPlane) : ℂ) ^ 2 =
+      zeta12 ^ (XfR (γ 0 0) (δ * γ 0 1) k (γ 1 1)) * ((γ 1 0 : ℂ) * τ + γ 1 1) *
+        X0.etaD δ τ ^ 2 := by
+  have hdet0 : γ 0 0 * γ 1 1 - γ 0 1 * γ 1 0 = 1 := by
+    have := γ.det_coe; rw [Matrix.det_fin_two] at this; exact this
+  have hdet : γ 0 0 * γ 1 1 - (δ * γ 0 1) * k = 1 := by
+    have h' := hdet0; rw [hk] at h'; linear_combination h'
+  have hz : 0 < ((δ : ℂ) * τ).im := by
+    simp only [Complex.mul_im, Complex.natCast_re, Complex.natCast_im, zero_mul, add_zero]
+    have := τ.im_pos
+    have : (0 : ℝ) < δ := by exact_mod_cast hδ
+    show 0 < (δ : ℝ) * τ.im
+    positivity
+  have hm := eta_sq_mobius k.natAbs (γ 0 0) (δ * γ 0 1) k (γ 1 1) le_rfl hdet ((δ : ℂ) * τ) hz
+  have hkC : (γ 1 0 : ℂ) = δ * k := by exact_mod_cast hk
+  have hden := mobius_denom_ne_zero hdet0 τ.im_pos
+  have hcoe : ((γ • τ : UpperHalfPlane) : ℂ) =
+      ((γ 0 0 : ℂ) * τ + γ 0 1) / ((γ 1 0 : ℂ) * τ + γ 1 1) := by
+    rw [UpperHalfPlane.coe_specialLinearGroup_apply]
+    simp
+  have harg : (δ : ℂ) * ((γ • τ : UpperHalfPlane) : ℂ) =
+      ((γ 0 0 : ℂ) * (δ * τ) + ((δ * γ 0 1 : ℤ) : ℂ)) / ((k : ℂ) * (δ * τ) + γ 1 1) := by
+    rw [hcoe]
+    have hden' : (k : ℂ) * (δ * τ) + γ 1 1 = (γ 1 0 : ℂ) * τ + γ 1 1 := by rw [hkC]; ring
+    rw [hden']
+    push_cast
+    field_simp
+  have hfac : (k : ℂ) * (δ * τ) + γ 1 1 = (γ 1 0 : ℂ) * τ + γ 1 1 := by rw [hkC]; ring
+  have hexp : zeta12 ^ (etaSqExp k.natAbs (γ 0 0) (δ * γ 0 1) k (γ 1 1)) =
+      zeta12 ^ (XfR (γ 0 0) (δ * γ 0 1) k (γ 1 1)) := by
+    apply zeta12_zpow_congr
+    have := (etaSqExp_closed k.natAbs (γ 0 0) (δ * γ 0 1) k (γ 1 1) le_rfl hdet).1 hd
+    rw [← dvd_neg]; convert this using 1; ring
+  unfold X0.etaD
+  rw [harg, hm, hexp, hfac]
+
+/-- For `γ ∈ Γ₀(32)`: `c = 32k` and `d` odd. -/
+theorem gamma0_32_data {γ : Matrix.SpecialLinearGroup (Fin 2) ℤ}
+    (hγ : γ ∈ CongruenceSubgroup.Gamma0 32) :
+    ∃ k : ℤ, γ 1 0 = 32 * k ∧ γ 1 1 % 2 = 1 := by
+  rw [CongruenceSubgroup.Gamma0_mem] at hγ
+  obtain ⟨k, hk⟩ := (ZMod.intCast_zmod_eq_zero_iff_dvd (γ 1 0) 32).1 hγ
+  refine ⟨k, by exact_mod_cast hk, ?_⟩
+  have hdet0 : γ 0 0 * γ 1 1 - γ 0 1 * γ 1 0 = 1 := by
+    have := γ.det_coe; rw [Matrix.det_fin_two] at this; exact this
+  rw [hk] at hdet0
+  have hodd : Odd (γ 0 0 * γ 1 1) := ⟨16 * (γ 0 1 * k), by push_cast at hdet0; linear_combination hdet0⟩
+  have := (Int.odd_mul.1 hodd).2
+  exact Int.odd_iff.1 this
+
+/-! ## `y` and `(x − 2)²` are `Γ₀(32)`-invariant -/
+
+/-- **`y` is `Γ₀(32)`-invariant** (unconditional). -/
+theorem yC_gamma0 (γ : Matrix.SpecialLinearGroup (Fin 2) ℤ)
+    (hγ : γ ∈ CongruenceSubgroup.Gamma0 32) (τ : UpperHalfPlane) :
+    X0.yC ((γ • τ : UpperHalfPlane) : ℂ) = X0.yC τ := by
+  obtain ⟨k, hk, hd⟩ := gamma0_32_data hγ
+  set a := γ 0 0
+  set b := γ 0 1
+  set d := γ 1 1
+  set L : ℂ := (γ 1 0 : ℂ) * τ + d
+  have hL : L ≠ 0 := by
+    have hdet0 : γ 0 0 * γ 1 1 - γ 0 1 * γ 1 0 = 1 := by
+      have := γ.det_coe; rw [Matrix.det_fin_two] at this; exact this
+    exact mobius_denom_ne_zero hdet0 τ.im_pos
+  have h4 := etaD_sq_smul (δ := 4) (by norm_num) γ (k := 8 * k) (by rw [hk]; push_cast; ring) hd τ
+  have h8 := etaD_sq_smul (δ := 8) (by norm_num) γ (k := 4 * k) (by rw [hk]; push_cast; ring) hd τ
+  have h16 := etaD_sq_smul (δ := 16) (by norm_num) γ (k := 2 * k) (by rw [hk]; push_cast; ring) hd τ
+  have h32 := etaD_sq_smul (δ := 32) (by norm_num) γ (k := k) (by rw [hk]; push_cast; ring) hd τ
+  set A4 := zeta12 ^ (XfR a ((4 : ℕ) * b) (8 * k) d)
+  set A8 := zeta12 ^ (XfR a ((8 : ℕ) * b) (4 * k) d)
+  set A16 := zeta12 ^ (XfR a ((16 : ℕ) * b) (2 * k) d)
+  set A32 := zeta12 ^ (XfR a ((32 : ℕ) * b) k d)
+  have hA4 : A4 ≠ 0 := zpow_ne_zero _ zeta12_ne_zero
+  have hA32 : A32 ≠ 0 := zpow_ne_zero _ zeta12_ne_zero
+  have hratio : A8 ^ 2 * A16 / (A4 * A32 ^ 2) = 1 := by
+    rw [div_eq_one_iff_eq (mul_ne_zero hA4 (pow_ne_zero _ hA32))]
+    simp only [A4, A8, A16, A32, ← zpow_natCast, ← zpow_mul, ← zpow_add₀ zeta12_ne_zero]
+    apply zeta12_zpow_congr
+    exact ⟨-3 * b * d, by simp only [XfR]; push_cast; ring⟩
+  set E4 := X0.etaD 4 τ ^ 2
+  set E8 := X0.etaD 8 τ ^ 2
+  set E16 := X0.etaD 16 τ ^ 2
+  set E32 := X0.etaD 32 τ ^ 2
+  have hE4 : E4 ≠ 0 := pow_ne_zero _ (X0.etaD_ne_zero (by norm_num) τ)
+  have hE32 : E32 ≠ 0 := pow_ne_zero _ (X0.etaD_ne_zero (by norm_num) τ)
+  have hy : ∀ z : ℂ, X0.yC z = -((X0.etaD 8 z ^ 2) ^ 2 * X0.etaD 16 z ^ 2 /
+      (X0.etaD 4 z ^ 2 * (X0.etaD 32 z ^ 2) ^ 2)) := fun z => by unfold X0.yC; ring
+  rw [hy, hy, h4, h8, h16, h32]
+  calc -((A8 * L * E8) ^ 2 * (A16 * L * E16) / ((A4 * L * E4) * (A32 * L * E32) ^ 2))
+      = -((A8 ^ 2 * A16 / (A4 * A32 ^ 2)) * (E8 ^ 2 * E16 / (E4 * E32 ^ 2))) := by
+        field_simp
+    _ = -(E8 ^ 2 * E16 / (E4 * E32 ^ 2)) := by rw [hratio, one_mul]
+
+/-- **`(x − 2)²` is `Γ₀(32)`-invariant** (unconditional). -/
+theorem xC_sub_two_sq_gamma0 (γ : Matrix.SpecialLinearGroup (Fin 2) ℤ)
+    (hγ : γ ∈ CongruenceSubgroup.Gamma0 32) (τ : UpperHalfPlane) :
+    (X0.xC ((γ • τ : UpperHalfPlane) : ℂ) - 2) ^ 2 = (X0.xC τ - 2) ^ 2 := by
+  obtain ⟨k, hk, hd⟩ := gamma0_32_data hγ
+  set a := γ 0 0
+  set b := γ 0 1
+  set d := γ 1 1
+  set L : ℂ := (γ 1 0 : ℂ) * τ + d
+  have hL : L ≠ 0 := by
+    have hdet0 : γ 0 0 * γ 1 1 - γ 0 1 * γ 1 0 = 1 := by
+      have := γ.det_coe; rw [Matrix.det_fin_two] at this; exact this
+    exact mobius_denom_ne_zero hdet0 τ.im_pos
+  have h2 := etaD_sq_smul (δ := 2) (by norm_num) γ (k := 16 * k) (by rw [hk]; push_cast; ring) hd τ
+  have h4 := etaD_sq_smul (δ := 4) (by norm_num) γ (k := 8 * k) (by rw [hk]; push_cast; ring) hd τ
+  have h16 := etaD_sq_smul (δ := 16) (by norm_num) γ (k := 2 * k) (by rw [hk]; push_cast; ring) hd τ
+  have h32 := etaD_sq_smul (δ := 32) (by norm_num) γ (k := k) (by rw [hk]; push_cast; ring) hd τ
+  set A2 := zeta12 ^ (XfR a ((2 : ℕ) * b) (16 * k) d)
+  set A4 := zeta12 ^ (XfR a ((4 : ℕ) * b) (8 * k) d)
+  set A16 := zeta12 ^ (XfR a ((16 : ℕ) * b) (2 * k) d)
+  set A32 := zeta12 ^ (XfR a ((32 : ℕ) * b) k d)
+  have hA4 : A4 ≠ 0 := zpow_ne_zero _ zeta12_ne_zero
+  have hA32 : A32 ≠ 0 := zpow_ne_zero _ zeta12_ne_zero
+  have hratio : A2 ^ 2 * A16 / (A4 * A32 ^ 2) = 1 := by
+    rw [div_eq_one_iff_eq (mul_ne_zero hA4 (pow_ne_zero _ hA32))]
+    simp only [A2, A4, A16, A32, ← zpow_natCast, ← zpow_mul, ← zpow_add₀ zeta12_ne_zero]
+    apply zeta12_zpow_congr
+    exact ⟨2 * k * (a - 2 * d) - b * d * (64 * k ^ 2 + 4), by simp only [XfR]; push_cast; ring⟩
+  set E2 := X0.etaD 2 τ ^ 2
+  set E4 := X0.etaD 4 τ ^ 2
+  set E16 := X0.etaD 16 τ ^ 2
+  set E32 := X0.etaD 32 τ ^ 2
+  have hE4 : E4 ≠ 0 := pow_ne_zero _ (X0.etaD_ne_zero (by norm_num) τ)
+  have hE32 : E32 ≠ 0 := pow_ne_zero _ (X0.etaD_ne_zero (by norm_num) τ)
+  have hx : ∀ z : ℂ, (X0.xC z - 2) ^ 2 = (X0.etaD 2 z ^ 2) ^ 2 * X0.etaD 16 z ^ 2 /
+      (X0.etaD 4 z ^ 2 * (X0.etaD 32 z ^ 2) ^ 2) := fun z => by unfold X0.xC; ring
+  rw [hx, hx, h2, h4, h16, h32]
+  calc (A2 * L * E2) ^ 2 * (A16 * L * E16) / ((A4 * L * E4) * (A32 * L * E32) ^ 2)
+      = (A2 ^ 2 * A16 / (A4 * A32 ^ 2)) * (E2 ^ 2 * E16 / (E4 * E32 ^ 2)) := by
+        field_simp
+    _ = E2 ^ 2 * E16 / (E4 * E32 ^ 2) := by rw [hratio, one_mul]
+
+/-! ## `x` is `Γ₀(32)`-invariant, given the curve equation -/
+
+theorem xC_sub_two_ne_zero (z : UpperHalfPlane) : X0.xC z - 2 ≠ 0 := by
+  have : X0.xC z - 2 = X0.etaD 2 z ^ 2 * X0.etaD 16 z / (X0.etaD 4 z * X0.etaD 32 z ^ 2) := by
+    unfold X0.xC; ring
+  rw [this]
+  have := X0.etaD_ne_zero (d := 2) (by norm_num) z
+  have := X0.etaD_ne_zero (d := 4) (by norm_num) z
+  have := X0.etaD_ne_zero (d := 16) (by norm_num) z
+  have := X0.etaD_ne_zero (d := 32) (by norm_num) z
+  positivity
+
+/-- **`x` is `Γ₀(32)`-invariant, given `y² = x³ + 4x`.** -/
+theorem xC_gamma0 (hEq : X0.EtaModelEquation) (γ : Matrix.SpecialLinearGroup (Fin 2) ℤ)
+    (hγ : γ ∈ CongruenceSubgroup.Gamma0 32) (τ : UpperHalfPlane) :
+    X0.xC ((γ • τ : UpperHalfPlane) : ℂ) = X0.xC τ := by
+  set S : Set ℂ := {z : ℂ | 0 < z.im}
+  have hS : IsPreconnected S := (convex_halfSpace_im_gt 0).isPreconnected
+  have hdet0 : γ 0 0 * γ 1 1 - γ 0 1 * γ 1 0 = 1 := by
+    have := γ.det_coe; rw [Matrix.det_fin_two] at this; exact this
+  set M : ℂ → ℂ := fun z => ((γ 0 0 : ℂ) * z + γ 0 1) / ((γ 1 0 : ℂ) * z + γ 1 1)
+  have hcoe : ∀ τ' : UpperHalfPlane, ((γ • τ' : UpperHalfPlane) : ℂ) = M τ' := by
+    intro τ'
+    rw [UpperHalfPlane.coe_specialLinearGroup_apply]
+    simp [M]
+  set f : ℂ → ℂ := fun z => X0.xC (M z) - 2
+  set g : ℂ → ℂ := fun z => X0.xC z - 2
+  have hg : ContinuousOn g S := by
+    intro z hz
+    exact ((X0.differentiableAt_xC ⟨z, hz⟩).continuousAt.sub continuousAt_const).continuousWithinAt
+  have hf : ContinuousOn f S := by
+    intro z hz
+    have hMc : ContinuousAt M z := by
+      apply ContinuousAt.div (by fun_prop) (by fun_prop)
+      exact mobius_denom_ne_zero hdet0 hz
+    have hMz : 0 < (M z).im := mobius_im_pos hdet0 hz
+    have hx : ContinuousAt X0.xC (M z) := (X0.differentiableAt_xC ⟨M z, hMz⟩).continuousAt
+    exact ((hx.comp hMc).sub continuousAt_const).continuousWithinAt
+  have hsq : Set.EqOn (f ^ 2) (g ^ 2) S := by
+    intro z hz
+    have := xC_sub_two_sq_gamma0 γ hγ ⟨z, hz⟩
+    rw [hcoe] at this
+    simpa [f, g] using this
+  have hne : ∀ {z : ℂ}, z ∈ S → g z ≠ 0 := fun {z} hz => xC_sub_two_ne_zero ⟨z, hz⟩
+  rcases hS.eq_or_eq_neg_of_sq_eq hf hg hsq hne with h | h
+  · have := h τ.im_pos
+    simp only [f, g] at this
+    rw [hcoe]
+    linear_combination this
+  · exfalso
+    -- `x∘γ = 4 − x` on `ℍ` contradicts the curve equation at a point with `|x| ≥ 10`
+    have hrel : ∀ τ' : UpperHalfPlane,
+        2 * X0.xC τ' ^ 3 - 12 * X0.xC τ' ^ 2 + 56 * X0.xC τ' - 80 = 0 := by
+      intro τ'
+      have h1 := h τ'.im_pos
+      simp only [f, g, Pi.neg_apply] at h1
+      have hxg : X0.xC ((γ • τ' : UpperHalfPlane) : ℂ) = 4 - X0.xC τ' := by
+        rw [hcoe]; linear_combination h1
+      have e1 := hEq (γ • τ')
+      have e2 := hEq τ'
+      rw [yC_gamma0 γ hγ τ', hxg] at e1
+      linear_combination e1 - e2
+    have hev := (X0.tendsto_norm_xC_atTop.eventually_ge_atTop 10).and
+      (eventually_ge_atTop (1 : ℝ))
+    obtain ⟨t, ht, ht1⟩ := hev.exists
+    have him : 0 < ((t : ℂ) * I).im := by simp; linarith
+    have hr := hrel ⟨(t : ℂ) * I, him⟩
+    set X := X0.xC ((t : ℂ) * I)
+    change 2 * X ^ 3 - 12 * X ^ 2 + 56 * X - 80 = 0 at hr
+    have hX : 10 ≤ ‖X‖ := ht
+    have h3 : ‖2 * X ^ 3‖ ≤ ‖12 * X ^ 2‖ + ‖56 * X‖ + 80 := by
+      have : 2 * X ^ 3 = 12 * X ^ 2 - 56 * X + 80 := by linear_combination hr
+      rw [this]
+      calc ‖12 * X ^ 2 - 56 * X + 80‖ ≤ ‖12 * X ^ 2 - 56 * X‖ + ‖(80 : ℂ)‖ := norm_add_le _ _
+        _ ≤ ‖12 * X ^ 2‖ + ‖56 * X‖ + ‖(80 : ℂ)‖ := by gcongr; exact norm_sub_le _ _
+        _ = ‖12 * X ^ 2‖ + ‖56 * X‖ + 80 := by norm_num
+    simp only [norm_mul, norm_pow, Complex.norm_ofNat] at h3
+    nlinarith [sq_nonneg ‖X‖]
+
+/-- **`X0.EtaModelInvariant` from `X0.EtaModelEquation`.** -/
+theorem etaModelInvariant_of_equation (hEq : X0.EtaModelEquation) : X0.EtaModelInvariant :=
+  fun γ hγ τ => ⟨xC_gamma0 hEq γ hγ τ, yC_gamma0 γ hγ τ⟩
+
+/-- **The CM leaf from `CMValueRingClass` and x0-32's curve-equation leaf.** -/
+theorem cmFieldOfDefinition_of_cmValue_eq (hV : CMValueRingClass) (hEq : X0.EtaModelEquation) :
+    ZInQ.Contrib.TYZGenus.CM.CMFieldOfDefinition RingClass.ringClassFieldD :=
+  cmFieldOfDefinition_of_cmValue hV (etaModelInvariant_of_equation hEq)
+
+end ZInQ.Contrib.TYZGenus.Shimura
+
+end  -- closes the file's top-level `noncomputable section`
+
+-- ===== verbatim body of ZInQKernel/Contrib/TYZGenus/ShimuraTheta.lean @ ed50dc33 (imports dropped) =====
+
+/-!
+# tyz-cm: `x = η(16τ)⁶/(η(8τ)²η(32τ)⁴)` and the `Γ₀(32)`-invariance of `x, y` (proved)
+
+Task tyz-cm (2026-11-13). Report: `docs/research/tyz-cm.md`; log: `scratch/tyz-cm/log.md`.
+Owner of this file: tyz-cm.
+
+**Main result**: `etaModelInvariant : X0.EtaModelInvariant` (x0-32's leaf, proved), hence
+`cmFieldOfDefinition_of_cmValueRingClass : CMValueRingClass → CM.CMFieldOfDefinition ringClassFieldD`.
+
+Proof of the eta identity `x = η(16τ)⁶/(η(8τ)²η(32τ)⁴)` (`xC_eq_even`), with `Q = e^{2πiτ}`,
+`θ₀₀(τ') = θ(0; τ')`, `θ₀₁(τ') = θ(1/2; τ')` and `θ(8τ; 16τ) = Q⁻²·θ₁₀(16τ)` (Mathlib's
+`jacobiTheta₂`), and gz-theta's Jacobi triple product (`jacobiTheta₂_eq_jtpP`):
+* `θ₀₁(4τ) = ∏(1 − Q^{4n+4})(1 − Q^{4n+2})² = η(2τ)²/η(4τ)`;
+* `θ₀₀(16τ) = A C²`, `θ(8τ; 16τ) = 2 A B²`, with `A = ∏(1 − Q^{16n+16})`, `B = ∏(1 + Q^{16n+16})`,
+  `C = ∏(1 + Q^{16n+8})`; and `η(8τ) ∼ D A`, `η(32τ) ∼ A B` with `D = ∏(1 − Q^{16n+8})`;
+* Euler: `B C D = 1`;
+* splitting `Σ (−1)ⁿ Q^{2n²}` by the parity of `n`: `θ₀₁(4τ) = θ₀₀(16τ) − Q²θ(8τ; 16τ)`.
+Then `x = η(16)⁶/(η(8)²η(32)⁴)` has only even exponents, and gz-theta's `η²` multiplier in closed
+form (`ShimuraEtaInv.lean`) gives the exponent `3X₁₆ − X₈ − 2X₃₂ = −24bd ≡ 0 (mod 12)`.
+
+No `sorry`, no `axiom`.
+-/
+
+noncomputable section
+
+namespace ZInQ.Contrib.TYZGenus.Shimura
+
+open Complex Filter Topology
+open scoped Real
+open ZInQ.GZTheta (gp gp_mul_gp gp_even_mul_odd gp_pow multipliable_geom_lin jtpA jtpA_ne_zero
+  jtpA_eq_gp jtpB_eq_gp jtpP qJ eJ jacobiTheta₂_eq_jtpP jtpP_half_eq_gp zeta12 zeta12_ne_zero
+  mobius_denom_ne_zero)
+
+section Products
+variable {q : ℂ}
+
+theorem gp_mul_neg (hq : ‖q‖ < 1) (k m : ℕ) (hk : 0 < k) :
+    gp q (-1) k m * gp q 1 k m = gp q (-1) (2 * k) (2 * m) := by
+  rw [gp_mul_gp hq _ _ _ _ hk]
+  unfold gp
+  exact tprod_congr fun n => by ring
+
+end Products
+
+variable {τ : ℂ}
+
+/-- `Q = e^{2πiτ}`. -/
+irreducible_def Qt (τ : ℂ) : ℂ := cexp (2 * π * I * τ)
+
+theorem norm_Qt_lt_one (hτ : 0 < τ.im) : ‖Qt τ‖ < 1 := by
+  rw [Qt_def, Complex.norm_exp]
+  have : (2 * (π : ℂ) * I * τ).re = -(2 * π * τ.im) := by simp [Complex.mul_re, Complex.mul_im]
+  rw [this, ← Real.exp_zero]
+  exact Real.exp_lt_exp.2 (by nlinarith [Real.pi_pos])
+
+theorem Qt_ne_zero (τ : ℂ) : Qt τ ≠ 0 := by rw [Qt_def]; exact Complex.exp_ne_zero _
+
+theorem qJ_mul_nat (k : ℕ) (τ : ℂ) : qJ ((2 * k : ℕ) * τ) = Qt τ ^ k := by
+  rw [qJ, Qt_def, ← Complex.exp_nat_mul]; push_cast; ring_nf
+
+theorem eJ_mul_nat (k : ℕ) (τ : ℂ) : eJ ((k : ℕ) * τ) = Qt τ ^ k := by
+  rw [eJ, Qt_def, ← Complex.exp_nat_mul]; ring_nf
+
+/-! ## Theta series as products -/
+
+/-- `θ₀₁(4τ) = ∏(1 − Q^{4n+4})(1 − Q^{4n+2})²`. -/
+theorem theta01_four (hτ : 0 < τ.im) :
+    jacobiTheta₂ (1 / 2) (4 * τ) = gp (Qt τ) (-1) 4 4 * gp (Qt τ) (-1) 4 2 ^ 2 := by
+  have h4 : 0 < (4 * τ).im := by simp; linarith
+  rw [jacobiTheta₂_eq_jtpP h4, jtpP_half_eq_gp,
+    show (4 : ℂ) * τ = ((2 * 2 : ℕ) : ℂ) * τ by norm_num, qJ_mul_nat, gp_pow, gp_pow]
+  norm_num
+  ring
+
+/-- `θ₀₀(16τ) = A C²`. -/
+theorem theta00_sixteen (hτ : 0 < τ.im) :
+    jacobiTheta₂ 0 (16 * τ) = gp (Qt τ) (-1) 16 16 * gp (Qt τ) 1 16 8 ^ 2 := by
+  have h16 : 0 < (16 * τ).im := by simp; linarith
+  rw [jacobiTheta₂_eq_jtpP h16]
+  unfold jtpP
+  rw [jtpA_eq_gp, jtpB_eq_gp, jtpB_eq_gp, neg_zero,
+    show (16 : ℂ) * τ = ((2 * 8 : ℕ) : ℂ) * τ by norm_num, qJ_mul_nat,
+    show eJ 0 = 1 by simp [eJ], gp_pow, gp_pow]
+  norm_num
+  ring
+
+theorem gp_shift (_hq : q ≠ 0) (c : ℂ) (k m j : ℕ) :
+    gp q (c * q ^ j) k m = gp q c k (m + j) := by
+  unfold gp
+  exact tprod_congr fun n => by ring
+
+/-- `θ(8τ; 16τ) = 2 A B²`. -/
+theorem theta_eight_sixteen (hτ : 0 < τ.im) :
+    jacobiTheta₂ (8 * τ) (16 * τ) = 2 * gp (Qt τ) (-1) 16 16 * gp (Qt τ) 1 16 16 ^ 2 := by
+  have h16 : 0 < (16 * τ).im := by simp; linarith
+  have hq := norm_Qt_lt_one hτ
+  have hQ := Qt_ne_zero τ
+  rw [jacobiTheta₂_eq_jtpP h16]
+  unfold jtpP
+  rw [jtpA_eq_gp, jtpB_eq_gp, jtpB_eq_gp,
+    show (16 : ℂ) * τ = ((2 * 8 : ℕ) : ℂ) * τ by norm_num, qJ_mul_nat,
+    show -((8 : ℂ) * τ) = -(((8 : ℕ) : ℂ) * τ) by norm_num,
+    show (8 : ℂ) * τ = ((8 : ℕ) : ℂ) * τ by norm_num, ZInQ.GZTheta.eJ_neg, eJ_mul_nat,
+    gp_pow, gp_pow, gp_pow]
+  -- `∏(1 + Q⁸ Q^{16n+8}) = B`
+  have hB : gp (Qt τ) (Qt τ ^ 8) (8 * 2) (8 * 1) = gp (Qt τ) 1 16 16 := by
+    have := gp_shift hQ 1 16 8 8
+    rw [one_mul] at this
+    norm_num at this ⊢
+    exact this
+  -- `∏(1 + Q⁻⁸ Q^{16n+8}) = ∏(1 + Q^{16n}) = 2 B`
+  have hB' : gp (Qt τ) (Qt τ ^ 8)⁻¹ (8 * 2) (8 * 1) = 2 * gp (Qt τ) 1 16 16 := by
+    have e1 : gp (Qt τ) (Qt τ ^ 8)⁻¹ (8 * 2) (8 * 1) = gp (Qt τ) 1 16 0 := by
+      unfold gp
+      refine tprod_congr fun n => ?_
+      have : (Qt τ ^ 8)⁻¹ * Qt τ ^ (8 * 2 * n + 8 * 1) = Qt τ ^ (16 * n + 0) := by
+        rw [show 8 * 2 * n + 8 * 1 = 8 + 16 * n by ring, pow_add, ← mul_assoc,
+          inv_mul_cancel₀ (pow_ne_zero _ hQ), one_mul, add_zero]
+      rw [this, one_mul]
+    rw [e1]
+    have hm1 : Multipliable (fun n : ℕ => 1 + 1 * Qt τ ^ (16 * (n + 1) + 0)) :=
+      (multipliable_geom_lin hq 1 16 16 (by norm_num)).congr fun n => by ring_nf
+    have h := tprod_eq_zero_mul' (f := fun n : ℕ => 1 + 1 * Qt τ ^ (16 * n + 0)) hm1
+    beta_reduce at h
+    unfold gp
+    rw [h]
+    congr 1
+    rw [mul_zero, add_zero, pow_zero, mul_one]; norm_num
+  rw [hB, hB']
+  norm_num
+  ring
+
+/-! ## The parity split `θ₀₁(4τ) = θ₀₀(16τ) − Q² θ(8τ; 16τ)` -/
+
+theorem theta_parity (hτ : 0 < τ.im) :
+    jacobiTheta₂ (1 / 2) (4 * τ) =
+      jacobiTheta₂ 0 (16 * τ) - Qt τ ^ 2 * jacobiTheta₂ (8 * τ) (16 * τ) := by
+  have h4 : 0 < (4 * τ).im := by simp; linarith
+  have h16 : 0 < (16 * τ).im := by simp; linarith
+  set f : ℤ → ℂ := fun n => jacobiTheta₂_term n (1 / 2) (4 * τ) with hfdef
+  have hf : HasSum f (jacobiTheta₂ (1 / 2) (4 * τ)) := hasSum_jacobiTheta₂_term _ h4
+  have he : HasSum (f ∘ fun m : ℤ => 2 * m) (jacobiTheta₂ 0 (16 * τ)) := by
+    refine (hasSum_jacobiTheta₂_term 0 h16).congr_fun fun m => ?_
+    simp only [Function.comp_apply, hfdef, jacobiTheta₂_term]
+    have : 2 * (π : ℂ) * I * ((2 * m : ℤ) : ℂ) * (1 / 2) + π * I * ((2 * m : ℤ) : ℂ) ^ 2 * (4 * τ) =
+        (2 * π * I * (m : ℂ) * 0 + π * I * (m : ℂ) ^ 2 * (16 * τ)) + (m : ℂ) * (2 * π * I) := by
+      push_cast; ring
+    rw [this, Complex.exp_add, Complex.exp_int_mul_two_pi_mul_I, mul_one]
+  have ho : HasSum (f ∘ fun m : ℤ => 2 * m + 1)
+      (-(Qt τ ^ 2) * jacobiTheta₂ (8 * τ) (16 * τ)) := by
+    refine ((hasSum_jacobiTheta₂_term (8 * τ) h16).mul_left (-(Qt τ ^ 2))).congr_fun fun m => ?_
+    simp only [Function.comp_apply, hfdef, jacobiTheta₂_term, Qt_def]
+    rw [← Complex.exp_nat_mul, neg_mul, ← Complex.exp_add]
+    have : 2 * (π : ℂ) * I * ((2 * m + 1 : ℤ) : ℂ) * (1 / 2) +
+        π * I * ((2 * m + 1 : ℤ) : ℂ) ^ 2 * (4 * τ) =
+        (((2 : ℕ) : ℂ) * (2 * π * I * τ) + (2 * π * I * (m : ℂ) * (8 * τ) +
+          π * I * (m : ℂ) ^ 2 * (16 * τ))) + (π * I + (m : ℂ) * (2 * π * I)) := by
+      push_cast; ring
+    rw [this, Complex.exp_add _ (π * I + (m : ℂ) * (2 * π * I)), Complex.exp_add (π * I),
+      Complex.exp_int_mul_two_pi_mul_I, Complex.exp_pi_mul_I]
+    ring
+  have hcompl : IsCompl (Set.range fun m : ℤ => 2 * m) (Set.range fun m : ℤ => 2 * m + 1) := by
+    rw [isCompl_iff, disjoint_iff, codisjoint_iff]
+    constructor
+    · ext n
+      simp only [Set.inf_eq_inter, Set.mem_inter_iff, Set.mem_range, Set.bot_eq_empty,
+        Set.mem_empty_iff_false, iff_false, not_and, forall_exists_index]
+      rintro a rfl ⟨b, hb⟩
+      omega
+    · ext n
+      simp only [Set.sup_eq_union, Set.mem_union, Set.mem_range, Set.top_eq_univ, Set.mem_univ,
+        iff_true]
+      rcases Int.even_or_odd' n with ⟨k, rfl | rfl⟩
+      · exact Or.inl ⟨k, rfl⟩
+      · exact Or.inr ⟨k, rfl⟩
+  have he' := (Function.Injective.hasSum_range_iff (f := f)
+    (g := fun m : ℤ => 2 * m) (fun a b h => by simpa using h)).mpr he
+  have ho' := (Function.Injective.hasSum_range_iff (f := f)
+    (g := fun m : ℤ => 2 * m + 1) (fun a b h => by simpa using h)).mpr ho
+  have := HasSum.add_isCompl (f := f) hcompl he' ho'
+  rw [hf.unique this]
+  ring
+
+/-! ## Euler's identity `B C D = 1` and the products of `η(8τ), η(32τ)` -/
+
+theorem euler_BCD (hτ : 0 < τ.im) :
+    gp (Qt τ) 1 16 16 * gp (Qt τ) 1 16 8 * gp (Qt τ) (-1) 16 8 = 1 := by
+  have hq := norm_Qt_lt_one hτ
+  -- `C D = G(−1, 32, 16)`
+  have hCD : gp (Qt τ) 1 16 8 * gp (Qt τ) (-1) 16 8 = gp (Qt τ) (-1) 32 16 := by
+    rw [mul_comm, gp_mul_neg hq 16 8 (by norm_num)]
+  -- `G(−1,16,16) = G(−1,32,16) G(−1,32,32)`
+  have hsplit := gp_even_mul_odd hq (-1) 16 16 (by norm_num)
+  norm_num at hsplit
+  -- `G(−1,16,16) B = G(−1,32,32)`
+  have hAB := gp_mul_neg hq 16 16 (by norm_num)
+  norm_num at hAB
+  -- `G(−1,32,32) = jtpA(32τ) ≠ 0`
+  have h32 : 0 < (32 * τ).im := by simp; linarith
+  have hne : gp (Qt τ) (-1) 32 32 ≠ 0 := by
+    have := jtpA_ne_zero h32
+    rw [jtpA_eq_gp, show (32 : ℂ) * τ = ((2 * 16 : ℕ) : ℂ) * τ by norm_num, qJ_mul_nat,
+      gp_pow] at this
+    norm_num at this
+    exact this
+  have key : (gp (Qt τ) 1 16 16 * gp (Qt τ) (-1) 32 16 - 1) * gp (Qt τ) (-1) 32 32 = 0 := by
+    linear_combination (gp (Qt τ) 1 16 16) * hsplit + hAB
+  rw [mul_assoc, hCD]
+  have := (mul_eq_zero.1 key).resolve_right hne
+  linear_combination this
+
+/-! ## The eta identity `x = η(16τ)⁶/(η(8τ)²η(32τ)⁴)` -/
+
+theorem eta_eq_gp (k : ℕ) (τ : ℂ) :
+    ModularForm.eta ((k : ℂ) * τ) = X0.wz τ ^ k * gp (Qt τ) (-1) k k := by
+  rw [← X0.etaD, X0.etaD_eq'']
+  congr 1
+  unfold X0.pF X0.prodF gp
+  refine tprod_congr fun n => ?_
+  rw [show Function.Periodic.qParam 1 ((k : ℂ) * τ) = Qt τ ^ k by
+    rw [Function.Periodic.qParam, Qt_def, ← Complex.exp_nat_mul]; congr 1; push_cast; ring]
+  rw [← pow_mul]
+  ring_nf
+
+theorem wz_pow_48 (τ : ℂ) : X0.wz τ ^ 48 = Qt τ ^ 2 := by
+  rw [show 48 = 24 * 2 by norm_num, pow_mul, X0.wz_pow_24, Qt_def]
+
+/-- **The eta identity**: `x(τ) = η(16τ)⁶/(η(8τ)²η(32τ)⁴)` on `ℍ`. -/
+theorem xC_eq_even (τ : UpperHalfPlane) :
+    X0.xC τ = X0.etaD 16 τ ^ 6 / (X0.etaD 8 τ ^ 2 * X0.etaD 32 τ ^ 4) := by
+  have hτ := τ.im_pos
+  have hq := norm_Qt_lt_one hτ
+  have hG2 : gp (Qt τ) (-1) 2 2 = gp (Qt τ) (-1) 4 2 * gp (Qt τ) (-1) 4 4 := by
+    have := gp_even_mul_odd hq (-1) 2 2 (by norm_num); norm_num at this; rw [← this]
+  have hG8 : gp (Qt τ) (-1) 8 8 = gp (Qt τ) (-1) 16 8 * gp (Qt τ) (-1) 16 16 := by
+    have := gp_even_mul_odd hq (-1) 8 8 (by norm_num); norm_num at this; rw [← this]
+  have hG32 : gp (Qt τ) (-1) 32 32 = gp (Qt τ) (-1) 16 16 * gp (Qt τ) 1 16 16 := by
+    have := gp_mul_neg hq 16 16 (by norm_num); norm_num at this; rw [← this]
+  have hpar : gp (Qt τ) (-1) 4 2 ^ 2 * gp (Qt τ) (-1) 4 4 =
+      gp (Qt τ) (-1) 16 16 * gp (Qt τ) 1 16 8 ^ 2 -
+        2 * Qt τ ^ 2 * gp (Qt τ) (-1) 16 16 * gp (Qt τ) 1 16 16 ^ 2 := by
+    have := theta_parity hτ
+    rw [theta01_four hτ, theta00_sixteen hτ, theta_eight_sixteen hτ] at this
+    linear_combination this
+  have heul := euler_BCD hτ
+  have e2 := eta_eq_gp 2 τ
+  have e4 := eta_eq_gp 4 τ
+  have e8 := eta_eq_gp 8 τ
+  have e16 := eta_eq_gp 16 τ
+  have e32 := eta_eq_gp 32 τ
+  have n8 := X0.etaD_ne_zero (d := 8) (by norm_num) τ
+  have n32 := X0.etaD_ne_zero (d := 32) (by norm_num) τ
+  have n4 := X0.etaD_ne_zero (d := 4) (by norm_num) τ
+  have h48 := wz_pow_48 (τ : ℂ)
+  rw [eq_div_iff (mul_ne_zero (pow_ne_zero _ n8) (pow_ne_zero _ n32))]
+  unfold X0.xC
+  rw [div_add' _ _ _ (mul_ne_zero n4 (pow_ne_zero _ n32)), div_mul_eq_mul_div,
+    div_eq_iff (mul_ne_zero n4 (pow_ne_zero _ n32))]
+  simp only [X0.etaD]
+  rw [e2, e4, e8, e16, e32, hG2, hG8, hG32]
+  set w := X0.wz (τ : ℂ)
+  set A := gp (Qt τ) (-1) 16 16
+  set B := gp (Qt τ) 1 16 16
+  set C := gp (Qt τ) 1 16 8
+  set D := gp (Qt τ) (-1) 16 8
+  set P := gp (Qt τ) (-1) 4 2
+  set G4 := gp (Qt τ) (-1) 4 4
+  linear_combination (w ^ 164 * G4 * A ^ 7 * D ^ 2 * B ^ 4) * hpar +
+    (w ^ 164 * G4 * A ^ 7 * D ^ 2 * B ^ 4 * 2 * A * B ^ 2) * h48 +
+    (w ^ 164 * G4 * A ^ 8 * B ^ 2 * (B * C * D + 1)) * heul
+
+/-! ## `x` is `Γ₀(32)`-invariant; `X0.EtaModelInvariant` -/
+
+/-- **`x` is `Γ₀(32)`-invariant** (unconditional). -/
+theorem xC_gamma0' (γ : Matrix.SpecialLinearGroup (Fin 2) ℤ)
+    (hγ : γ ∈ CongruenceSubgroup.Gamma0 32) (τ : UpperHalfPlane) :
+    X0.xC ((γ • τ : UpperHalfPlane) : ℂ) = X0.xC τ := by
+  rw [xC_eq_even (γ • τ), xC_eq_even τ]
+  obtain ⟨k, hk, hd⟩ := gamma0_32_data hγ
+  set a := γ 0 0
+  set b := γ 0 1
+  set d := γ 1 1
+  set L : ℂ := (γ 1 0 : ℂ) * τ + d
+  have hL : L ≠ 0 := by
+    have hdet0 : γ 0 0 * γ 1 1 - γ 0 1 * γ 1 0 = 1 := by
+      have := γ.det_coe; rw [Matrix.det_fin_two] at this; exact this
+    exact mobius_denom_ne_zero hdet0 τ.im_pos
+  have h8 := etaD_sq_smul (δ := 8) (by norm_num) γ (k := 4 * k) (by rw [hk]; push_cast; ring) hd τ
+  have h16 := etaD_sq_smul (δ := 16) (by norm_num) γ (k := 2 * k) (by rw [hk]; push_cast; ring) hd τ
+  have h32 := etaD_sq_smul (δ := 32) (by norm_num) γ (k := k) (by rw [hk]; push_cast; ring) hd τ
+  set A8 := zeta12 ^ (XfR a ((8 : ℕ) * b) (4 * k) d)
+  set A16 := zeta12 ^ (XfR a ((16 : ℕ) * b) (2 * k) d)
+  set A32 := zeta12 ^ (XfR a ((32 : ℕ) * b) k d)
+  have hA8 : A8 ≠ 0 := zpow_ne_zero _ zeta12_ne_zero
+  have hA32 : A32 ≠ 0 := zpow_ne_zero _ zeta12_ne_zero
+  have hratio : A16 ^ 3 / (A8 * A32 ^ 2) = 1 := by
+    rw [div_eq_one_iff_eq (mul_ne_zero hA8 (pow_ne_zero _ hA32))]
+    simp only [A8, A16, A32, ← zpow_natCast, ← zpow_mul, ← zpow_add₀ zeta12_ne_zero]
+    apply zeta12_zpow_congr
+    exact ⟨-2 * b * d, by simp only [XfR]; push_cast; ring⟩
+  set E8 := X0.etaD 8 τ ^ 2
+  set E16 := X0.etaD 16 τ ^ 2
+  set E32 := X0.etaD 32 τ ^ 2
+  have hE8 : E8 ≠ 0 := pow_ne_zero _ (X0.etaD_ne_zero (by norm_num) τ)
+  have hE32 : E32 ≠ 0 := pow_ne_zero _ (X0.etaD_ne_zero (by norm_num) τ)
+  have hx : ∀ z : ℂ, X0.etaD 16 z ^ 6 / (X0.etaD 8 z ^ 2 * X0.etaD 32 z ^ 4) =
+      (X0.etaD 16 z ^ 2) ^ 3 / (X0.etaD 8 z ^ 2 * (X0.etaD 32 z ^ 2) ^ 2) := fun z => by ring
+  rw [hx, hx, h8, h16, h32]
+  calc (A16 * L * E16) ^ 3 / ((A8 * L * E8) * (A32 * L * E32) ^ 2)
+      = (A16 ^ 3 / (A8 * A32 ^ 2)) * (E16 ^ 3 / (E8 * E32 ^ 2)) := by
+        field_simp
+    _ = E16 ^ 3 / (E8 * E32 ^ 2) := by rw [hratio, one_mul]
+
+/-- **x0-32's leaf `X0.EtaModelInvariant`, proved.** -/
+theorem etaModelInvariant : X0.EtaModelInvariant :=
+  fun γ hγ τ => ⟨xC_gamma0' γ hγ τ, yC_gamma0 γ hγ τ⟩
+
+/-! ## The main results with `EtaModelInvariant` discharged -/
+
+/-- **MAIN RESULT of tyz-cm: the CM leaf `CM.CMFieldOfDefinition ringClassFieldD` from the one
+textbook leaf `CMValueRingClass`.** -/
+theorem cmFieldOfDefinition_of_cmValueRingClass (hV : CMValueRingClass) :
+    ZInQ.Contrib.TYZGenus.CM.CMFieldOfDefinition RingClass.ringClassFieldD :=
+  cmFieldOfDefinition_of_cmValue hV etaModelInvariant
+
+/-- **`Package.CMFieldOfDefinitionTYZ` from `CMValueRingClass`.** -/
+theorem cmFieldTYZ_of_cmValueRingClass (hV : CMValueRingClass) :
+    ZInQ.Contrib.TYZGenus.Package.CMFieldOfDefinitionTYZ :=
+  cmFieldTYZ_of_cmValue hV etaModelInvariant
+
+/-- **The CM leaf from Gross's form of the main theorem of CM** (`ShimuraReciprocityModFn`). -/
+theorem cmFieldOfDefinition_of_shimuraModFn (hS : ShimuraReciprocityModFn) :
+    ZInQ.Contrib.TYZGenus.CM.CMFieldOfDefinition RingClass.ringClassFieldD :=
+  cmFieldOfDefinition_of_cmValueRingClass (cmValueRingClass_of_modFn hS)
+
+/-- **`ShimuraReciprocityPic` (the leaf of `ShimuraRecip.lean`, used by `ShimuraZn.lean`) from
+`ShimuraReciprocityModFn` alone.** -/
+theorem shimuraReciprocityPic_of_shimuraModFn (hS : ShimuraReciprocityModFn) :
+    ShimuraReciprocityPic :=
+  shimuraReciprocityPic_of_modFn hS etaModelInvariant
+
+open ZInQ.Contrib.TYZDecomp ZInQ.Contrib.TYZGenus.Package in
+/-- **Reading A of TYZ Theorem 3.5 with the CM field-of-definition leaf replaced by
+`CMValueRingClass`** (`TYZSigmaFixesZn` stays a hypothesis: task cm-numeric). -/
+theorem tyzThm35ReadingA_of_cmValueRingClass (h11 : TYZThm11Integral) (h1 : TYZLcalOne)
+    (h29 : TYZLemma29Mod2) (hV : CMValueRingClass) (hs : TYZSigmaFixesZn)
+    (h318 : Lemma318Literal RingClass.HHprime)
+    (hG : ∀ ℓ : ℕ → ℤ, IsTYZLcal ℓ → GenusPointLeafCM ℓ) : ZInQ.Literature.TYZThm35ReadingA :=
+  tyzThm35ReadingA_of_cmValue h11 h1 h29 hV etaModelInvariant hs h318 hG
+
+end ZInQ.Contrib.TYZGenus.Shimura
+
+end  -- closes the file's top-level `noncomputable section`
+
+-- ===== verbatim body of ZInQKernel/Contrib/TYZGenus/ShimuraThetaDup.lean @ ed50dc33 (imports dropped) =====
+
+/-!
+# tyz-cm: theta duplication formulas and x0-32's curve equation `y² = x³ + 4x` (proved)
+
+Task tyz-cm (2026-11-13). Report: `docs/research/tyz-cm.md`; log: `scratch/tyz-cm/log.md`.
+Owner of this file: tyz-cm.
+
+**Main result**: `etaModelEquation : X0.EtaModelEquation` (x0-32's leaf X0-EQ, proved).
+
+* Duplication formulas for Mathlib's `jacobiTheta₂` (`Im τ > 0`):
+  `θ(0;τ)² = θ(0;2τ)² + e^{πiτ}θ(τ;2τ)²` (`theta_dup_zero`) and
+  `θ(τ/2;τ)² = 2θ(0;2τ)θ(τ;2τ)` (`theta_dup_half`): the double series `Σ_{m,n}` is split along
+  `(m, n) = (s + t, s − t)` and `(m, n) = (s + t + 1, s − t)`.
+* With `Q = e^{2πiτ}`, `T₀ = θ(0;16τ)`, `T₁ = θ(8τ;16τ)`, `R₁ = θ(2τ;4τ)`:
+  `x = 2T₀/(Q²T₁)` (`xC_theta`) and `y = −R₁²/(Q³T₁²)` (`yC_theta`), from the product forms
+  (gz-theta's triple product) and Euler's identity; then
+  `R₁⁴ = 8T₀T₁(T₀² + Q⁴T₁²)` by the duplication formulas at `4τ` and `8τ`, which is
+  `y² = x³ + 4x`.
+
+No `sorry`, no `axiom`.
+-/
+
+noncomputable section
+
+namespace ZInQ.Contrib.TYZGenus.Shimura
+
+open Complex Filter Topology
+open scoped Real
+open ZInQ.GZTheta (gp gp_mul_gp gp_even_mul_odd gp_pow multipliable_geom_lin jtpA jtpA_ne_zero
+  jtpA_eq_gp jtpB_eq_gp jtpP qJ eJ jacobiTheta₂_eq_jtpP)
+
+variable {τ : ℂ}
+
+/-! ## Products of theta series and the parity split of `ℤ²` -/
+
+theorem summable_norm_theta_term (z : ℂ) (hτ : 0 < τ.im) :
+    Summable fun n : ℤ => ‖jacobiTheta₂_term n z τ‖ := by
+  refine (summable_pow_mul_jacobiTheta₂_term_bound |z.im| hτ 0).of_nonneg_of_le
+    (fun _ => norm_nonneg _) fun n => ?_
+  simpa only [pow_zero, one_mul] using norm_jacobiTheta₂_term_le hτ le_rfl le_rfl n
+
+theorem hasSum_theta_mul {z w τ' : ℂ} (hτ : 0 < τ.im) (hτ' : 0 < τ'.im) :
+    HasSum (fun p : ℤ × ℤ => jacobiTheta₂_term p.1 z τ * jacobiTheta₂_term p.2 w τ')
+      (jacobiTheta₂ z τ * jacobiTheta₂ w τ') :=
+  HasSum.mul (f := fun n : ℤ => jacobiTheta₂_term n z τ) (g := fun n : ℤ => jacobiTheta₂_term n w τ')
+    (hasSum_jacobiTheta₂_term z hτ) (hasSum_jacobiTheta₂_term w hτ')
+    (summable_mul_of_summable_norm (f := fun n : ℤ => jacobiTheta₂_term n z τ)
+      (g := fun n : ℤ => jacobiTheta₂_term n w τ')
+      (summable_norm_theta_term z hτ) (summable_norm_theta_term w hτ'))
+
+/-- `(s, t) ↦ (s + t, s − t)`. -/
+def evI (p : ℤ × ℤ) : ℤ × ℤ := (p.1 + p.2, p.1 - p.2)
+
+/-- `(s, t) ↦ (s + t + 1, s − t)`. -/
+def odI (p : ℤ × ℤ) : ℤ × ℤ := (p.1 + p.2 + 1, p.1 - p.2)
+
+theorem evI_injective : Function.Injective evI := by
+  intro p q h
+  simp only [evI, Prod.mk.injEq] at h
+  ext <;> omega
+
+theorem odI_injective : Function.Injective odI := by
+  intro p q h
+  simp only [odI, Prod.mk.injEq] at h
+  ext <;> omega
+
+theorem isCompl_evI_odI : IsCompl (Set.range evI) (Set.range odI) := by
+  rw [isCompl_iff, disjoint_iff, codisjoint_iff]
+  constructor
+  · ext p
+    simp only [Set.inf_eq_inter, Set.mem_inter_iff, Set.mem_range, Set.bot_eq_empty,
+      Set.mem_empty_iff_false, iff_false, not_and, forall_exists_index]
+    rintro a rfl ⟨b, hb⟩
+    simp only [evI, odI, Prod.mk.injEq] at hb
+    omega
+  · ext p
+    simp only [Set.sup_eq_union, Set.mem_union, Set.mem_range, Set.top_eq_univ, Set.mem_univ,
+      iff_true]
+    obtain ⟨m, n⟩ := p
+    rcases Int.emod_two_eq_zero_or_one (m + n) with h | h
+    · left
+      exact ⟨((m + n) / 2, (m - n) / 2), by simp only [evI, Prod.mk.injEq]; omega⟩
+    · right
+      exact ⟨((m + n - 1) / 2, (m - n - 1) / 2), by simp only [odI, Prod.mk.injEq]; omega⟩
+
+theorem eq_add_of_split {F : ℤ × ℤ → ℂ} {a b c : ℂ} (hF : HasSum F a) (h1 : HasSum (F ∘ evI) b)
+    (h2 : HasSum (F ∘ odI) c) : a = b + c := by
+  have h1' := (Function.Injective.hasSum_range_iff (f := F) evI_injective).mpr h1
+  have h2' := (Function.Injective.hasSum_range_iff (f := F) odI_injective).mpr h2
+  exact hF.unique (HasSum.add_isCompl isCompl_evI_odI h1' h2')
+
+/-! ## The duplication formulas -/
+
+/-- **`θ(0;τ)² = θ(0;2τ)² + e^{πiτ}θ(τ;2τ)²`.** -/
+theorem theta_dup_zero (hτ : 0 < τ.im) :
+    jacobiTheta₂ 0 τ ^ 2 = jacobiTheta₂ 0 (2 * τ) ^ 2 + cexp (π * I * τ) * jacobiTheta₂ τ (2 * τ) ^ 2 := by
+  have h2 : 0 < (2 * τ).im := by simp; linarith
+  have hF := hasSum_theta_mul (z := 0) (w := 0) hτ hτ
+  have h1 : HasSum ((fun p : ℤ × ℤ => jacobiTheta₂_term p.1 0 τ * jacobiTheta₂_term p.2 0 τ) ∘ evI)
+      (jacobiTheta₂ 0 (2 * τ) * jacobiTheta₂ 0 (2 * τ)) := by
+    refine (hasSum_theta_mul (z := 0) (w := 0) h2 h2).congr_fun fun p => ?_
+    simp only [Function.comp_apply, evI, jacobiTheta₂_term, ← Complex.exp_add]
+    congr 1; push_cast; ring
+  have h3 : HasSum ((fun p : ℤ × ℤ => jacobiTheta₂_term p.1 0 τ * jacobiTheta₂_term p.2 0 τ) ∘ odI)
+      (cexp (π * I * τ) * (jacobiTheta₂ τ (2 * τ) * jacobiTheta₂ τ (2 * τ))) := by
+    refine ((hasSum_theta_mul (z := τ) (w := τ) h2 h2).mul_left (cexp (π * I * τ))).congr_fun
+      fun p => ?_
+    simp only [Function.comp_apply, odI, jacobiTheta₂_term, ← Complex.exp_add]
+    congr 1; push_cast; ring
+  have := eq_add_of_split hF h1 h3
+  rw [sq, sq, sq, this]
+
+/-- **`θ(τ/2;τ)² = 2θ(0;2τ)θ(τ;2τ)`.** -/
+theorem theta_dup_half (hτ : 0 < τ.im) :
+    jacobiTheta₂ (τ / 2) τ ^ 2 = 2 * jacobiTheta₂ 0 (2 * τ) * jacobiTheta₂ τ (2 * τ) := by
+  have h2 : 0 < (2 * τ).im := by simp; linarith
+  have hF := hasSum_theta_mul (z := τ / 2) (w := τ / 2) hτ hτ
+  have h1 : HasSum
+      ((fun p : ℤ × ℤ => jacobiTheta₂_term p.1 (τ / 2) τ * jacobiTheta₂_term p.2 (τ / 2) τ) ∘ evI)
+      (jacobiTheta₂ τ (2 * τ) * jacobiTheta₂ 0 (2 * τ)) := by
+    refine (hasSum_theta_mul (z := τ) (w := 0) h2 h2).congr_fun fun p => ?_
+    simp only [Function.comp_apply, evI, jacobiTheta₂_term, ← Complex.exp_add]
+    congr 1; push_cast; ring
+  have h3 : HasSum
+      ((fun p : ℤ × ℤ => jacobiTheta₂_term p.1 (τ / 2) τ * jacobiTheta₂_term p.2 (τ / 2) τ) ∘ odI)
+      (jacobiTheta₂ 0 (2 * τ) * jacobiTheta₂ τ (2 * τ)) := by
+    have hp := hasSum_theta_mul (z := 0) (w := τ) h2 h2
+    let e : ℤ × ℤ ≃ ℤ × ℤ := (Equiv.addRight (1 : ℤ)).prodCongr (Equiv.refl ℤ)
+    rw [← e.hasSum_iff] at hp
+    refine hp.congr_fun fun p => ?_
+    simp only [Function.comp_apply, odI, e, Equiv.prodCongr_apply, Equiv.coe_addRight,
+      Equiv.coe_refl, Prod.map_fst, Prod.map_snd, id, jacobiTheta₂_term, ← Complex.exp_add]
+    congr 1; push_cast; ring
+  have := eq_add_of_split hF h1 h3
+  rw [sq, this]; ring
+
+/-! ## `x` and `y` through theta values -/
+
+/-- `θ(kτ; 2kτ) = 2·∏(1 − Q^{2kn+2k})·∏(1 + Q^{2kn+2k})²`. -/
+theorem theta_k_2k (hτ : 0 < τ.im) (k : ℕ) (hk : 0 < k) :
+    jacobiTheta₂ ((k : ℂ) * τ) ((2 * k : ℕ) * τ) =
+      2 * gp (Qt τ) (-1) (2 * k) (2 * k) * gp (Qt τ) 1 (2 * k) (2 * k) ^ 2 := by
+  have h2k : 0 < (((2 * k : ℕ) : ℂ) * τ).im := by
+    simp only [Complex.mul_im, Complex.natCast_re, Complex.natCast_im, zero_mul, add_zero]
+    have : (0 : ℝ) < ((2 * k : ℕ) : ℝ) := by exact_mod_cast (by omega : 0 < 2 * k)
+    positivity
+  have hq := norm_Qt_lt_one hτ
+  have hQ := Qt_ne_zero τ
+  rw [jacobiTheta₂_eq_jtpP h2k]
+  unfold jtpP
+  rw [jtpA_eq_gp, jtpB_eq_gp, jtpB_eq_gp, qJ_mul_nat,
+    show -((k : ℂ) * τ) = -(((k : ℕ) : ℂ) * τ) by norm_num, ZInQ.GZTheta.eJ_neg, eJ_mul_nat,
+    gp_pow, gp_pow, gp_pow]
+  have hB : gp (Qt τ) (Qt τ ^ k) (k * 2) (k * 1) = gp (Qt τ) 1 (2 * k) (2 * k) := by
+    unfold gp
+    exact tprod_congr fun n => by ring
+  have hB' : gp (Qt τ) (Qt τ ^ k)⁻¹ (k * 2) (k * 1) = 2 * gp (Qt τ) 1 (2 * k) (2 * k) := by
+    have e1 : gp (Qt τ) (Qt τ ^ k)⁻¹ (k * 2) (k * 1) = gp (Qt τ) 1 (2 * k) 0 := by
+      unfold gp
+      refine tprod_congr fun n => ?_
+      have : (Qt τ ^ k)⁻¹ * Qt τ ^ (k * 2 * n + k * 1) = Qt τ ^ (2 * k * n + 0) := by
+        rw [show k * 2 * n + k * 1 = k + 2 * k * n by ring, pow_add, ← mul_assoc,
+          inv_mul_cancel₀ (pow_ne_zero _ hQ), one_mul, add_zero]
+      rw [this, one_mul]
+    rw [e1]
+    have hm1 : Multipliable (fun n : ℕ => 1 + 1 * Qt τ ^ (2 * k * (n + 1) + 0)) :=
+      (multipliable_geom_lin hq 1 (2 * k) (2 * k) (by omega)).congr fun n => by ring_nf
+    have h := tprod_eq_zero_mul' (f := fun n : ℕ => 1 + 1 * Qt τ ^ (2 * k * n + 0)) hm1
+    beta_reduce at h
+    unfold gp
+    rw [h]
+    congr 1
+    rw [mul_zero, add_zero, pow_zero, mul_one]; norm_num
+  rw [hB, hB']
+  ring
+
+theorem gp_A_ne_zero (hτ : 0 < τ.im) (k : ℕ) (hk : 0 < k) : gp (Qt τ) (-1) (2 * k) (2 * k) ≠ 0 := by
+  have h2k : 0 < (((2 * k : ℕ) : ℂ) * τ).im := by
+    simp only [Complex.mul_im, Complex.natCast_re, Complex.natCast_im, zero_mul, add_zero]
+    have : (0 : ℝ) < ((2 * k : ℕ) : ℝ) := by exact_mod_cast (by omega : 0 < 2 * k)
+    positivity
+  have := jtpA_ne_zero h2k
+  rw [jtpA_eq_gp, qJ_mul_nat, gp_pow] at this
+  rwa [show k * 2 = 2 * k by ring] at this
+
+theorem xC_theta (τ : UpperHalfPlane) :
+    X0.xC τ = 2 * jacobiTheta₂ 0 (16 * τ) /
+      (Qt τ ^ 2 * jacobiTheta₂ (8 * τ) (16 * τ)) := by
+  have hτ := τ.im_pos
+  have hq := norm_Qt_lt_one hτ
+  have hQ := Qt_ne_zero (τ : ℂ)
+  have hG8 : gp (Qt τ) (-1) 8 8 = gp (Qt τ) (-1) 16 8 * gp (Qt τ) (-1) 16 16 := by
+    have := gp_even_mul_odd hq (-1) 8 8 (by norm_num); norm_num at this; rw [← this]
+  have hG32 : gp (Qt τ) (-1) 32 32 = gp (Qt τ) (-1) 16 16 * gp (Qt τ) 1 16 16 := by
+    have := gp_mul_neg hq 16 16 (by norm_num); norm_num at this; rw [← this]
+  have heul := euler_BCD hτ
+  have hA := gp_A_ne_zero hτ 8 (by norm_num)
+  norm_num at hA
+  have hB : gp (Qt τ) 1 16 16 ≠ 0 := fun h => by rw [h] at heul; simp at heul
+  rw [xC_eq_even, theta00_sixteen hτ, theta_eight_sixteen hτ]
+  simp only [X0.etaD]
+  rw [eta_eq_gp 8, eta_eq_gp 16, eta_eq_gp 32, hG8, hG32]
+  have h48 := wz_pow_48 (τ : ℂ)
+  have hw := X0.wz_ne_zero (τ : ℂ)
+  set w := X0.wz (τ : ℂ)
+  set A := gp (Qt τ) (-1) 16 16
+  set B := gp (Qt τ) 1 16 16
+  set C := gp (Qt τ) 1 16 8
+  set D := gp (Qt τ) (-1) 16 8
+  have hD : D ≠ 0 := fun h => by rw [h] at heul; simp at heul
+  rw [div_eq_div_iff (mul_ne_zero (pow_ne_zero _ (mul_ne_zero (pow_ne_zero _ hw) (mul_ne_zero hD hA)))
+    (pow_ne_zero _ (mul_ne_zero (pow_ne_zero _ hw) (mul_ne_zero hA hB))))
+    (mul_ne_zero (pow_ne_zero _ hQ) (mul_ne_zero (mul_ne_zero two_ne_zero hA) (pow_ne_zero _ hB)))]
+  linear_combination (-2 * w ^ 96 * A ^ 7 * B ^ 2) * h48 +
+    (-2 * w ^ 96 * A ^ 7 * B ^ 2 * w ^ 48 * (B * C * D + 1)) * heul
+
+theorem theta_two_four (hτ : 0 < τ.im) :
+    jacobiTheta₂ (2 * τ) (4 * τ) = 2 * gp (Qt τ) (-1) 4 4 * gp (Qt τ) 1 4 4 ^ 2 := by
+  have := theta_k_2k hτ 2 (by norm_num)
+  norm_num at this
+  exact this
+
+theorem yC_theta (τ : UpperHalfPlane) :
+    X0.yC τ = -(jacobiTheta₂ (2 * τ) (4 * τ) ^ 2 /
+      (Qt τ ^ 3 * jacobiTheta₂ (8 * τ) (16 * τ) ^ 2)) := by
+  have hτ := τ.im_pos
+  have hq := norm_Qt_lt_one hτ
+  have hQ := Qt_ne_zero (τ : ℂ)
+  have hG8 : gp (Qt τ) (-1) 8 8 = gp (Qt τ) (-1) 16 8 * gp (Qt τ) (-1) 16 16 := by
+    have := gp_even_mul_odd hq (-1) 8 8 (by norm_num); norm_num at this; rw [← this]
+  have hG32 : gp (Qt τ) (-1) 32 32 = gp (Qt τ) (-1) 16 16 * gp (Qt τ) 1 16 16 := by
+    have := gp_mul_neg hq 16 16 (by norm_num); norm_num at this; rw [← this]
+  have hGG : gp (Qt τ) (-1) 4 4 * gp (Qt τ) 1 4 4 = gp (Qt τ) (-1) 16 8 * gp (Qt τ) (-1) 16 16 := by
+    rw [← hG8]; have := gp_mul_neg hq 4 4 (by norm_num); norm_num at this; exact this
+  have heul := euler_BCD hτ
+  have hA := gp_A_ne_zero hτ 8 (by norm_num)
+  norm_num at hA
+  have hB : gp (Qt τ) 1 16 16 ≠ 0 := fun h => by rw [h] at heul; simp at heul
+  have hG4 := gp_A_ne_zero hτ 2 (by norm_num)
+  norm_num at hG4
+  unfold X0.yC
+  rw [theta_two_four hτ, theta_eight_sixteen hτ]
+  simp only [X0.etaD]
+  rw [eta_eq_gp 4, eta_eq_gp 8, eta_eq_gp 16, eta_eq_gp 32, hG8, hG32]
+  have h72 : X0.wz (τ : ℂ) ^ 72 = Qt τ ^ 3 := by
+    rw [show 72 = 24 * 3 by norm_num, pow_mul, X0.wz_pow_24, Qt_def]
+  have hw := X0.wz_ne_zero (τ : ℂ)
+  set w := X0.wz (τ : ℂ)
+  set A := gp (Qt τ) (-1) 16 16
+  set B := gp (Qt τ) 1 16 16
+  set D := gp (Qt τ) (-1) 16 8
+  set G4 := gp (Qt τ) (-1) 4 4
+  set G144 := gp (Qt τ) 1 4 4
+  congr 1
+  rw [div_eq_div_iff (mul_ne_zero (pow_ne_zero _ (mul_ne_zero (pow_ne_zero _ hw) hG4))
+    (pow_ne_zero _ (mul_ne_zero (pow_ne_zero _ hw) (mul_ne_zero hA hB))))
+    (mul_ne_zero (pow_ne_zero _ hQ) (pow_ne_zero _ (mul_ne_zero (mul_ne_zero two_ne_zero hA)
+      (pow_ne_zero _ hB))))]
+  linear_combination (-4 * A ^ 8 * B ^ 4 * D ^ 4 * w ^ 64) * h72 +
+    (-4 * w ^ 136 * A ^ 4 * B ^ 4 * ((G4 * G144) ^ 3 + (G4 * G144) ^ 2 * (D * A) +
+      (G4 * G144) * (D * A) ^ 2 + (D * A) ^ 3)) * hGG
+
+/-- **x0-32's leaf `X0.EtaModelEquation` (`y² = x³ + 4x` on `ℍ`), proved.** -/
+theorem etaModelEquation : X0.EtaModelEquation := by
+  intro τ
+  have hτ := τ.im_pos
+  have h4 : 0 < (4 * (τ : ℂ)).im := by simp; linarith
+  have h8 : 0 < (8 * (τ : ℂ)).im := by simp; linarith
+  have hQ := Qt_ne_zero (τ : ℂ)
+  have hT1 : jacobiTheta₂ (8 * (τ : ℂ)) (16 * τ) ≠ 0 := by
+    rw [theta_eight_sixteen hτ]
+    have heul := euler_BCD hτ
+    have hA := gp_A_ne_zero hτ 8 (by norm_num)
+    norm_num at hA
+    have hB : gp (Qt τ) 1 16 16 ≠ 0 := fun h => by rw [h] at heul; simp at heul
+    exact mul_ne_zero (mul_ne_zero two_ne_zero hA) (pow_ne_zero _ hB)
+  have d1a := theta_dup_half h8
+  have d1b := theta_dup_half h4
+  have d2 := theta_dup_zero h8
+  rw [show 8 * (τ : ℂ) / 2 = 4 * τ by ring, show 2 * (8 * (τ : ℂ)) = 16 * τ by ring] at d1a
+  rw [show 4 * (τ : ℂ) / 2 = 2 * τ by ring, show 2 * (4 * (τ : ℂ)) = 8 * τ by ring] at d1b
+  rw [show 2 * (8 * (τ : ℂ)) = 16 * τ by ring,
+    show cexp (π * I * (8 * (τ : ℂ))) = Qt τ ^ 4 by
+      rw [Qt_def, ← Complex.exp_nat_mul]; congr 1; push_cast; ring] at d2
+  rw [yC_theta, xC_theta]
+  set T0 := jacobiTheta₂ 0 (16 * (τ : ℂ))
+  set T1 := jacobiTheta₂ (8 * (τ : ℂ)) (16 * τ)
+  set S0 := jacobiTheta₂ 0 (8 * (τ : ℂ))
+  set S1 := jacobiTheta₂ (4 * (τ : ℂ)) (8 * τ)
+  set R1 := jacobiTheta₂ (2 * (τ : ℂ)) (4 * τ)
+  set Q := Qt (τ : ℂ)
+  have hR4 : R1 ^ 4 = 8 * T0 * T1 * (T0 ^ 2 + Q ^ 4 * T1 ^ 2) := by
+    linear_combination (R1 ^ 2 + 2 * S0 * S1) * d1b + 4 * S1 ^ 2 * d2 +
+      4 * (T0 ^ 2 + Q ^ 4 * T1 ^ 2) * d1a
+  have e1 : (-(R1 ^ 2 / (Q ^ 3 * T1 ^ 2))) ^ 2 = R1 ^ 4 / (Q ^ 6 * T1 ^ 4) := by
+    field_simp
+  have e2 : (2 * T0 / (Q ^ 2 * T1)) ^ 3 + 4 * (2 * T0 / (Q ^ 2 * T1)) =
+      8 * T0 * T1 * (T0 ^ 2 + Q ^ 4 * T1 ^ 2) / (Q ^ 6 * T1 ^ 4) := by
+    field_simp
+    ring
+  rw [e1, e2, hR4]
+
+end ZInQ.Contrib.TYZGenus.Shimura
+
+end  -- closes the file's top-level `noncomputable section`
+
+-- ===== verbatim body of ZInQKernel/Contrib/TYZGenus/ShimuraFricke.lean @ ed50dc33 (imports dropped) =====
+
+/-!
+# tyz-cm: the Fricke involution on x0-32's model (`X0.EtaModelFricke`, proved)
+
+Task tyz-cm (2026-11-13). Report: `docs/research/tyz-cm.md`; log: `scratch/tyz-cm/log.md`.
+Owner of this file: tyz-cm.
+
+**Main result**: `etaModelFricke : X0.EtaModelFricke` (`φ(−1/(32τ)) + φ(τ) = T = (2, −4)`).
+
+With `Q = e^{2πiτ}` and the theta constants `a = θ₀₀(16τ) = θ(0;16τ)`, `b = θ₁₀(16τ) = Q²θ(8τ;16τ)`,
+`p = θ₀₀(8τ) = θ(0;8τ)`, `r = θ₁₀(8τ) = Qθ(4τ;8τ)`:
+* `x = 2a/b`, `y = −2pr/b²` (`ShimuraThetaDup.lean`), and, from x0-32's eta forms of
+  `x(−1/(32τ))`, `y(−1/(32τ))` (`X0.xC_fricke`, `X0.yC_fricke`) and the product forms,
+  `x' = 2 + 4r/(p − r)`, `y' = −4(a² − b²)/(p − r)²` (`θ₀₁(2τ) = p − r` by a parity split,
+  `θ₀₁(8τ)² = a² − b²` by a duplication formula);
+* `p² = a² + b²`, `r² = 2ab` (duplication formulas);
+* the chord construction of `T + (−P)`, `P = (x, y)`, gives `(x', y')`: two polynomial identities
+  in the ideal `(p² − a² − b², r² − 2ab)` (cofactors computed with sympy,
+  `scratch/tyz-cm/fricke_cof.py`).
+
+No `sorry`, no `axiom`.
+-/
+
+noncomputable section
+
+namespace ZInQ.Contrib.TYZGenus.Shimura
+
+open Complex Filter Topology
+open scoped Real
+open ZInQ.GZTheta (gp gp_mul_gp gp_even_mul_odd gp_pow multipliable_geom_lin jtpA jtpA_ne_zero
+  jtpA_eq_gp jtpB_eq_gp jtpP qJ eJ jacobiTheta₂_eq_jtpP jtpP_half_eq_gp)
+
+variable {τ : ℂ}
+
+/-! ## Two more theta identities -/
+
+/-- **`θ(1/2;τ)² = θ(0;2τ)² − e^{πiτ}θ(τ;2τ)²`.** -/
+theorem theta_dup_half_sign (hτ : 0 < τ.im) :
+    jacobiTheta₂ (1 / 2) τ ^ 2 =
+      jacobiTheta₂ 0 (2 * τ) ^ 2 - cexp (π * I * τ) * jacobiTheta₂ τ (2 * τ) ^ 2 := by
+  have h2 : 0 < (2 * τ).im := by simp; linarith
+  have hF := hasSum_theta_mul (z := 1 / 2) (w := 1 / 2) hτ hτ
+  have h1 : HasSum
+      ((fun p : ℤ × ℤ => jacobiTheta₂_term p.1 (1 / 2) τ * jacobiTheta₂_term p.2 (1 / 2) τ) ∘ evI)
+      (jacobiTheta₂ 0 (2 * τ) * jacobiTheta₂ 0 (2 * τ)) := by
+    refine (hasSum_theta_mul (z := 0) (w := 0) h2 h2).congr_fun fun p => ?_
+    simp only [Function.comp_apply, evI, jacobiTheta₂_term, ← Complex.exp_add]
+    have : 2 * (π : ℂ) * I * ((p.1 + p.2 : ℤ) : ℂ) * (1 / 2) + π * I * ((p.1 + p.2 : ℤ) : ℂ) ^ 2 * τ +
+        (2 * π * I * ((p.1 - p.2 : ℤ) : ℂ) * (1 / 2) + π * I * ((p.1 - p.2 : ℤ) : ℂ) ^ 2 * τ) =
+        (2 * π * I * (p.1 : ℂ) * 0 + π * I * (p.1 : ℂ) ^ 2 * (2 * τ) +
+          (2 * π * I * (p.2 : ℂ) * 0 + π * I * (p.2 : ℂ) ^ 2 * (2 * τ))) + (p.1 : ℂ) * (2 * π * I) := by
+      push_cast; ring
+    rw [this, Complex.exp_add _ ((p.1 : ℂ) * (2 * π * I)), Complex.exp_int_mul_two_pi_mul_I, mul_one]
+  have h3 : HasSum
+      ((fun p : ℤ × ℤ => jacobiTheta₂_term p.1 (1 / 2) τ * jacobiTheta₂_term p.2 (1 / 2) τ) ∘ odI)
+      (-cexp (π * I * τ) * (jacobiTheta₂ τ (2 * τ) * jacobiTheta₂ τ (2 * τ))) := by
+    refine ((hasSum_theta_mul (z := τ) (w := τ) h2 h2).mul_left (-cexp (π * I * τ))).congr_fun
+      fun p => ?_
+    simp only [Function.comp_apply, odI, jacobiTheta₂_term, ← Complex.exp_add]
+    have : 2 * (π : ℂ) * I * ((p.1 + p.2 + 1 : ℤ) : ℂ) * (1 / 2) +
+        π * I * ((p.1 + p.2 + 1 : ℤ) : ℂ) ^ 2 * τ +
+        (2 * π * I * ((p.1 - p.2 : ℤ) : ℂ) * (1 / 2) + π * I * ((p.1 - p.2 : ℤ) : ℂ) ^ 2 * τ) =
+        (π * I * τ + (2 * π * I * (p.1 : ℂ) * τ + π * I * (p.1 : ℂ) ^ 2 * (2 * τ) +
+          (2 * π * I * (p.2 : ℂ) * τ + π * I * (p.2 : ℂ) ^ 2 * (2 * τ)))) +
+          (π * I + (p.1 : ℂ) * (2 * π * I)) := by
+      push_cast; ring
+    rw [this, Complex.exp_add _ (π * I + (p.1 : ℂ) * (2 * π * I)), Complex.exp_add (π * I),
+      Complex.exp_int_mul_two_pi_mul_I, Complex.exp_pi_mul_I]
+    rw [Complex.exp_add (π * I * τ)]
+    ring
+  have := eq_add_of_split hF h1 h3
+  rw [sq, this]; ring
+
+/-- **Parity split `θ(1/2;τ) = θ(0;4τ) − e^{πiτ}θ(2τ;4τ)`.** -/
+theorem theta_parity_gen (hτ : 0 < τ.im) :
+    jacobiTheta₂ (1 / 2) τ = jacobiTheta₂ 0 (4 * τ) - cexp (π * I * τ) * jacobiTheta₂ (2 * τ) (4 * τ) := by
+  have h4 : 0 < (4 * τ).im := by simp; linarith
+  set f : ℤ → ℂ := fun n => jacobiTheta₂_term n (1 / 2) τ with hfdef
+  have hf : HasSum f (jacobiTheta₂ (1 / 2) τ) := hasSum_jacobiTheta₂_term _ hτ
+  have he : HasSum (f ∘ fun m : ℤ => 2 * m) (jacobiTheta₂ 0 (4 * τ)) := by
+    refine (hasSum_jacobiTheta₂_term 0 h4).congr_fun fun m => ?_
+    simp only [Function.comp_apply, hfdef, jacobiTheta₂_term]
+    have : 2 * (π : ℂ) * I * ((2 * m : ℤ) : ℂ) * (1 / 2) + π * I * ((2 * m : ℤ) : ℂ) ^ 2 * τ =
+        (2 * π * I * (m : ℂ) * 0 + π * I * (m : ℂ) ^ 2 * (4 * τ)) + (m : ℂ) * (2 * π * I) := by
+      push_cast; ring
+    rw [this, Complex.exp_add, Complex.exp_int_mul_two_pi_mul_I, mul_one]
+  have ho : HasSum (f ∘ fun m : ℤ => 2 * m + 1)
+      (-cexp (π * I * τ) * jacobiTheta₂ (2 * τ) (4 * τ)) := by
+    refine ((hasSum_jacobiTheta₂_term (2 * τ) h4).mul_left (-cexp (π * I * τ))).congr_fun
+      fun m => ?_
+    simp only [Function.comp_apply, hfdef, jacobiTheta₂_term]
+    rw [neg_mul, ← Complex.exp_add]
+    have : 2 * (π : ℂ) * I * ((2 * m + 1 : ℤ) : ℂ) * (1 / 2) +
+        π * I * ((2 * m + 1 : ℤ) : ℂ) ^ 2 * τ =
+        (π * I * τ + (2 * π * I * (m : ℂ) * (2 * τ) + π * I * (m : ℂ) ^ 2 * (4 * τ))) +
+          (π * I + (m : ℂ) * (2 * π * I)) := by
+      push_cast; ring
+    rw [this, Complex.exp_add _ (π * I + (m : ℂ) * (2 * π * I)), Complex.exp_add (π * I),
+      Complex.exp_int_mul_two_pi_mul_I, Complex.exp_pi_mul_I]
+    ring
+  have hcompl : IsCompl (Set.range fun m : ℤ => 2 * m) (Set.range fun m : ℤ => 2 * m + 1) := by
+    rw [isCompl_iff, disjoint_iff, codisjoint_iff]
+    constructor
+    · ext n
+      simp only [Set.inf_eq_inter, Set.mem_inter_iff, Set.mem_range, Set.bot_eq_empty,
+        Set.mem_empty_iff_false, iff_false, not_and, forall_exists_index]
+      rintro a rfl ⟨b, hb⟩
+      omega
+    · ext n
+      simp only [Set.sup_eq_union, Set.mem_union, Set.mem_range, Set.top_eq_univ, Set.mem_univ,
+        iff_true]
+      rcases Int.even_or_odd' n with ⟨k, rfl | rfl⟩
+      · exact Or.inl ⟨k, rfl⟩
+      · exact Or.inr ⟨k, rfl⟩
+  have he' := (Function.Injective.hasSum_range_iff (f := f)
+    (g := fun m : ℤ => 2 * m) (fun a b h => by simpa using h)).mpr he
+  have ho' := (Function.Injective.hasSum_range_iff (f := f)
+    (g := fun m : ℤ => 2 * m + 1) (fun a b h => by simpa using h)).mpr ho
+  have := HasSum.add_isCompl (f := f) hcompl he' ho'
+  rw [hf.unique this]
+  ring
+
+/-! ## Product forms at `2τ` and `8τ` -/
+
+theorem theta_half_two (hτ : 0 < τ.im) :
+    jacobiTheta₂ (1 / 2) (2 * τ) = gp (Qt τ) (-1) 2 2 * gp (Qt τ) (-1) 2 1 ^ 2 := by
+  have h2 : 0 < (2 * τ).im := by simp; linarith
+  rw [jacobiTheta₂_eq_jtpP h2, jtpP_half_eq_gp,
+    show (2 : ℂ) * τ = ((2 * 1 : ℕ) : ℂ) * τ by norm_num, qJ_mul_nat, pow_one]
+  ring
+
+theorem theta_half_eight (hτ : 0 < τ.im) :
+    jacobiTheta₂ (1 / 2) (8 * τ) = gp (Qt τ) (-1) 8 8 * gp (Qt τ) (-1) 8 4 ^ 2 := by
+  have h8 : 0 < (8 * τ).im := by simp; linarith
+  rw [jacobiTheta₂_eq_jtpP h8, jtpP_half_eq_gp,
+    show (8 : ℂ) * τ = ((2 * 4 : ℕ) : ℂ) * τ by norm_num, qJ_mul_nat, gp_pow, gp_pow]
+  norm_num
+  ring
+
+theorem theta_four_eight (hτ : 0 < τ.im) :
+    jacobiTheta₂ (4 * τ) (8 * τ) = 2 * gp (Qt τ) (-1) 8 8 * gp (Qt τ) 1 8 8 ^ 2 := by
+  have := theta_k_2k hτ 4 (by norm_num)
+  norm_num at this
+  exact this
+
+/-! ## The coordinates of `φ(−1/(32τ))` through theta values -/
+
+theorem cexp_pi_two (τ : ℂ) : cexp (π * I * (2 * τ)) = Qt τ := by
+  rw [Qt_def]; congr 1; ring
+
+theorem cexp_pi_eight (τ : ℂ) : cexp (π * I * (8 * τ)) = Qt τ ^ 4 := by
+  rw [Qt_def, ← Complex.exp_nat_mul]; congr 1; push_cast; ring
+
+theorem xC_fricke_theta (τ : UpperHalfPlane) :
+    X0.xC (-1 / (32 * (τ : ℂ))) = 2 + 4 * (Qt τ * jacobiTheta₂ (4 * τ) (8 * τ)) /
+      (jacobiTheta₂ 0 (8 * τ) - Qt τ * jacobiTheta₂ (4 * τ) (8 * τ)) := by
+  have hτ := τ.im_pos
+  have hq := norm_Qt_lt_one hτ
+  have h2 : 0 < (2 * (τ : ℂ)).im := by simp; linarith
+  have hpar := theta_parity_gen h2
+  rw [show 4 * (2 * (τ : ℂ)) = 8 * τ by ring, show 2 * (2 * (τ : ℂ)) = 4 * τ by ring,
+    cexp_pi_two] at hpar
+  rw [X0.xC_fricke, ← hpar, theta_half_two hτ, theta_four_eight hτ]
+  have hG1 : gp (Qt τ) (-1) 1 1 = gp (Qt τ) (-1) 2 1 * gp (Qt τ) (-1) 2 2 := by
+    have := gp_even_mul_odd hq (-1) 1 1 (by norm_num); norm_num at this; rw [← this]
+  have hG16 : gp (Qt τ) (-1) 16 16 = gp (Qt τ) (-1) 8 8 * gp (Qt τ) 1 8 8 := by
+    have := gp_mul_neg hq 8 8 (by norm_num); norm_num at this; rw [← this]
+  simp only [X0.etaD]
+  have e1 := eta_eq_gp 1 τ
+  rw [Nat.cast_one, one_mul] at e1
+  rw [show ((1 : ℕ) : ℂ) * (τ : ℂ) = τ by simp, e1, eta_eq_gp 2, eta_eq_gp 8, eta_eq_gp 16,
+    hG1, hG16]
+  have h24 : X0.wz (τ : ℂ) ^ 24 = Qt τ := by rw [X0.wz_pow_24, Qt_def]
+  have hw := X0.wz_ne_zero (τ : ℂ)
+  have hG2 := gp_A_ne_zero hτ 1 (by norm_num)
+  have hG8 := gp_A_ne_zero hτ 4 (by norm_num)
+  norm_num at hG2 hG8
+  have hB1 : gp (Qt τ) (-1) 2 1 ≠ 0 := by
+    intro h
+    have := X0.etaD_ne_zero (d := 1) (by norm_num) τ
+    simp only [X0.etaD, Nat.cast_one, one_mul] at this
+    rw [e1, hG1, h] at this
+    simp at this
+  set w := X0.wz (τ : ℂ)
+  set G21 := gp (Qt τ) (-1) 2 1
+  set G2 := gp (Qt τ) (-1) 2 2
+  set G8 := gp (Qt τ) (-1) 8 8
+  set G188 := gp (Qt τ) 1 8 8
+  rw [← h24]
+  field_simp
+  ring
+
+theorem yC_fricke_theta (τ : UpperHalfPlane) :
+    X0.yC (-1 / (32 * (τ : ℂ))) = -(4 * jacobiTheta₂ (1 / 2) (8 * τ) ^ 2 /
+      (jacobiTheta₂ 0 (8 * τ) - Qt τ * jacobiTheta₂ (4 * τ) (8 * τ)) ^ 2) := by
+  have hτ := τ.im_pos
+  have hq := norm_Qt_lt_one hτ
+  have h2 : 0 < (2 * (τ : ℂ)).im := by simp; linarith
+  have hpar := theta_parity_gen h2
+  rw [show 4 * (2 * (τ : ℂ)) = 8 * τ by ring, show 2 * (2 * (τ : ℂ)) = 4 * τ by ring,
+    cexp_pi_two] at hpar
+  rw [X0.yC_fricke, ← hpar, theta_half_two hτ, theta_half_eight hτ]
+  have hG1 : gp (Qt τ) (-1) 1 1 = gp (Qt τ) (-1) 2 1 * gp (Qt τ) (-1) 2 2 := by
+    have := gp_even_mul_odd hq (-1) 1 1 (by norm_num); norm_num at this; rw [← this]
+  have hG4 : gp (Qt τ) (-1) 4 4 = gp (Qt τ) (-1) 8 4 * gp (Qt τ) (-1) 8 8 := by
+    have := gp_even_mul_odd hq (-1) 4 4 (by norm_num); norm_num at this; rw [← this]
+  simp only [X0.etaD]
+  have e1 := eta_eq_gp 1 τ
+  rw [Nat.cast_one, one_mul] at e1
+  rw [show ((1 : ℕ) : ℂ) * (τ : ℂ) = τ by simp, e1, eta_eq_gp 2, eta_eq_gp 4, eta_eq_gp 8,
+    hG1, hG4]
+  have hw := X0.wz_ne_zero (τ : ℂ)
+  have hG2 := gp_A_ne_zero hτ 1 (by norm_num)
+  have hG8 := gp_A_ne_zero hτ 4 (by norm_num)
+  norm_num at hG2 hG8
+  have hB1 : gp (Qt τ) (-1) 2 1 ≠ 0 := by
+    intro h
+    have := X0.etaD_ne_zero (d := 1) (by norm_num) τ
+    simp only [X0.etaD, Nat.cast_one, one_mul] at this
+    rw [e1, hG1, h] at this
+    simp at this
+  set w := X0.wz (τ : ℂ)
+  congr 1
+  field_simp
+
+/-! ## The chord identities -/
+
+section Alg
+variable {a b p r : ℂ}
+
+theorem fricke_I1 (hp : p ^ 2 = a ^ 2 + b ^ 2) (hr : r ^ 2 = 2 * a * b) (hb : b ≠ 0)
+    (hab : a - b ≠ 0) (hpr : p - r ≠ 0) :
+    ((2 * b ^ 2 + p * r) / (b * (a - b))) ^ 2 - 2 - 2 * a / b = 2 + 4 * r / (p - r) := by
+  rw [← sub_eq_zero]
+  have key : ((2 * b ^ 2 + p * r) / (b * (a - b))) ^ 2 - 2 - 2 * a / b - (2 + 4 * r / (p - r)) =
+      (-2*a^3*b*p + 2*a^3*b*r - 4*a^2*b^2*r + 6*a*b^3*p + 2*a*b^3*r - 4*b^4*r + 4*b^2*p^2*r
+        - 4*b^2*p*r^2 + p^3*r^2 - p^2*r^3) / (b ^ 2 * (a - b) ^ 2 * (p - r)) := by
+    field_simp
+    ring
+  rw [key, div_eq_zero_iff]
+  left
+  linear_combination (r * (4 * b ^ 2 + p * r - r ^ 2)) * hp +
+    (a ^ 2 * p - a ^ 2 * r - 3 * b ^ 2 * p - b ^ 2 * r) * hr
+
+theorem fricke_I2 (hp : p ^ 2 = a ^ 2 + b ^ 2) (hr : r ^ 2 = 2 * a * b) (hb : b ≠ 0)
+    (hab : a - b ≠ 0) (hpr : p - r ≠ 0) :
+    -((2 * b ^ 2 + p * r) / (b * (a - b)) * ((2 + 4 * r / (p - r)) - 2) - 4) =
+      -(4 * (a ^ 2 - b ^ 2) / (p - r) ^ 2) := by
+  rw [← sub_eq_zero]
+  have key : -((2 * b ^ 2 + p * r) / (b * (a - b)) * ((2 + 4 * r / (p - r)) - 2) - 4) -
+      -(4 * (a ^ 2 - b ^ 2) / (p - r) ^ 2) =
+      (4*a^3*b - 4*a^2*b^2 - 4*a*b^3 + 4*a*b*p^2 - 8*a*b*p*r + 4*a*b*r^2 + 4*b^4 - 4*b^2*p^2
+        + 4*b^2*r^2 - 4*p^2*r^2 + 4*p*r^3) / (b * (a - b) * (p - r) ^ 2) := by
+    field_simp
+    ring
+  rw [key, div_eq_zero_iff]
+  left
+  linear_combination (-4 * (-a * b + b ^ 2 + r ^ 2)) * hp + (4 * (-a ^ 2 + a * b + p * r)) * hr
+
+end Alg
+
+/-! ## `X0.EtaModelFricke` -/
+
+theorem curveAC_a₂ : X0.curveAC.a₂ = 0 := by
+  simp [X0.curveAC, ZInQ.Contrib.TYZDecomp.CurveA.curveA, ZInQ.shortCurve,
+    WeierstrassCurve.baseChange]
+
+/-- **x0-32's leaf `X0.EtaModelFricke`, proved**: `φ(−1/(32τ)) + φ(τ) = T = (2, −4)`. -/
+theorem etaModelFricke : X0.EtaModelFricke := by
+  intro τ τ' hτ'
+  have hτ := τ.im_pos
+  have h4 : 0 < (4 * (τ : ℂ)).im := by simp; linarith
+  have h8 : 0 < (8 * (τ : ℂ)).im := by simp; linarith
+  obtain ⟨h, hP⟩ := X0.phiC_eq_some etaModelEquation τ
+  obtain ⟨h', hP'⟩ := X0.phiC_eq_some etaModelEquation τ'
+  have hQ := Qt_ne_zero (τ : ℂ)
+  -- duplication formulas
+  have d1a := theta_dup_half h8
+  have d1b := theta_dup_half h4
+  have d2 := theta_dup_zero h8
+  have d3 := theta_dup_half_sign h8
+  rw [show 8 * (τ : ℂ) / 2 = 4 * τ by ring, show 2 * (8 * (τ : ℂ)) = 16 * τ by ring] at d1a
+  rw [show 4 * (τ : ℂ) / 2 = 2 * τ by ring, show 2 * (4 * (τ : ℂ)) = 8 * τ by ring] at d1b
+  rw [show 2 * (8 * (τ : ℂ)) = 16 * τ by ring, cexp_pi_eight] at d2 d3
+  have hT1 : jacobiTheta₂ (8 * (τ : ℂ)) (16 * τ) ≠ 0 := by
+    rw [theta_eight_sixteen hτ]
+    have heul := euler_BCD hτ
+    have hA := gp_A_ne_zero hτ 8 (by norm_num)
+    norm_num at hA
+    have hB : gp (Qt τ) 1 16 16 ≠ 0 := fun h => by rw [h] at heul; simp at heul
+    exact mul_ne_zero (mul_ne_zero two_ne_zero hA) (pow_ne_zero _ hB)
+  have hx := xC_theta τ
+  have hy := yC_theta τ
+  have hx' := xC_fricke_theta τ
+  have hy' := yC_fricke_theta τ
+  rw [← hτ'] at hx' hy'
+  have hx2 := xC_sub_two_ne_zero τ
+  have hx2' := xC_sub_two_ne_zero τ'
+  set a := jacobiTheta₂ 0 (16 * (τ : ℂ))
+  set T1 := jacobiTheta₂ (8 * (τ : ℂ)) (16 * τ)
+  set p := jacobiTheta₂ 0 (8 * (τ : ℂ))
+  set S1 := jacobiTheta₂ (4 * (τ : ℂ)) (8 * τ)
+  set R1 := jacobiTheta₂ (2 * (τ : ℂ)) (4 * τ)
+  set U := jacobiTheta₂ (1 / 2) (8 * (τ : ℂ))
+  set Q := Qt (τ : ℂ)
+  set b := Q ^ 2 * T1 with hbdef
+  set r := Q * S1 with hrdef
+  have hb : b ≠ 0 := mul_ne_zero (pow_ne_zero _ hQ) hT1
+  have hp : p ^ 2 = a ^ 2 + b ^ 2 := by rw [d2]; ring
+  have hr : r ^ 2 = 2 * a * b := by rw [hrdef, hbdef, mul_pow, d1a]; ring
+  have hxa : X0.xC τ = 2 * a / b := hx
+  have hya : X0.yC τ = -(2 * p * r / b ^ 2) := by
+    rw [hy, d1b, hbdef, hrdef]; field_simp
+  have hab : a - b ≠ 0 := by
+    intro h0
+    apply hx2
+    rw [hxa, show a = b by linear_combination h0, mul_div_assoc, div_self hb]; ring
+  have hpr : p - r ≠ 0 := by
+    intro h0
+    apply hx2'
+    rw [hx', h0, div_zero]; ring
+  have hxa' : X0.xC τ' = 2 + 4 * r / (p - r) := hx'
+  have hya' : X0.yC τ' = -(4 * (a ^ 2 - b ^ 2) / (p - r) ^ 2) := by
+    rw [hy', d3, hbdef]; ring
+  have key : X0.phiC τ' = X0.ptTC + -X0.phiC τ := by
+    rw [hP, hP', WeierstrassCurve.Affine.Point.neg_some, X0.ptTC,
+      WeierstrassCurve.Affine.Point.add_of_X_ne (fun h0 => hx2 (by rw [← h0]; ring))]
+    simp only [WeierstrassCurve.Affine.Point.some.injEq]
+    have hne : (2 : ℂ) ≠ X0.xC τ := fun h0 => hx2 (by rw [← h0]; ring)
+    rw [negY_AC, WeierstrassCurve.Affine.slope_of_X_ne hne]
+    simp only [WeierstrassCurve.Affine.addX, WeierstrassCurve.Affine.addY,
+      WeierstrassCurve.Affine.negAddY, negY_AC, curveAC_a₁, curveAC_a₂, zero_mul, add_zero,
+      sub_zero]
+    have hℓ : (-4 - -X0.yC τ) / (2 - X0.xC τ) = (2 * b ^ 2 + p * r) / (b * (a - b)) := by
+      rw [hxa, hya]
+      have : (2 : ℂ) - 2 * a / b = -(2 * (a - b) / b) := by field_simp; ring
+      rw [this]
+      field_simp
+      ring
+    rw [hℓ, hxa, hxa', hya', fricke_I1 hp hr hb hab hpr]
+    refine ⟨rfl, ?_⟩
+    linear_combination (-1 : ℂ) * fricke_I2 hp hr hb hab hpr
+  rw [key, neg_add_cancel_right]
+
+end ZInQ.Contrib.TYZGenus.Shimura
+
+end  -- closes the file's top-level `noncomputable section`
+
+-- ===== verbatim body of scratch/cm-bridge/Bridge.lean @ ed50dc33 (imports dropped) =====
 
 /-!
 # cm-bridge: cm-numeric's class-7 file rewired to ring class field theory
@@ -3421,24 +4869,38 @@ theorem IsComplexConj.ne_omega {γ : GalQ} (hγ : IsComplexConj γ) (n : ℕ) [N
   have hn : (0 : ℝ) < n := by exact_mod_cast Nat.pos_of_ne_zero (NeZero.ne n)
   nlinarith [sq_nonneg r]
 
+/-- The orientation of `K_n ⊂ ℚ̄ ⊂ ℂ` (through ring-class's arbitrary `embed n` and `CM`'s `ιC`):
+`ιC(embed(√−n)) = +i√n`. -/
+def PosOrient (n : ℕ) [NeZero n] : Prop :=
+  0 < (ιC (embed n (algebraMap (QNeg n) (SeparableClosure (QNeg n)) QuadraticAlgebra.omega))).im
+
+open Classical in
 /-- TYZ's place `v₂` for `n ≡ 7 (mod 8)` (Theorem 3.6(3), L1424–1425: the place above 2 with
-`v₂(√−n − δ) ≥ 6`): the prime `𝔭₂ = (2, (√−n − δ)/2)` of `𝓞_{K_n}`, `δ = tyzDelta n`,
-`(√−n − δ)/2 = θ − (δ+1)/2`, `θ = (1 + √−n)/2`. (`⊤` if `n % 4 ≠ 3`.) The binary form of `[𝔭₂]` is
-`[2, δ mod 4, ·]` (used in `thm36_7.py`). -/
+`v₂(√−n − δ) ≥ 6`), **oriented through `ιC`**: the prime of `𝓞_{K_n}` whose image in `ℂ` is
+`(2, (i√n − δ)/2)`, `δ = tyzDelta n`, i.e. `(2, (√−n − δ)/2) = (2, θ − (δ+1)/2)` if
+`ιC(embed √−n) = +i√n` and its conjugate `(2, (−√−n − δ)/2) = (2, 1 − θ − (δ+1)/2)` otherwise
+(`θ = (1 + √−n)/2`). The orientation matters: with the conjugate prime the statement
+`TYZThm36Seven` is false (`thm36_7.out`, "wrong sign"); the numerical check uses `√−n ↦ i√n` and the
+form `[2, δ mod 4, ·]` of `(2, (i√n − δ)/2)`. (`⊤` if `n % 4 ≠ 3`.) -/
 def p2Ideal (n : ℕ) [NeZero n] : Ideal (𝓞 (QNeg n)) :=
   if h : n % 4 = 3 then
-    Ideal.span {2, ZInQ.RouteK.Redei.thetaO n h - (((tyzDelta n + 1) / 2 : ℕ) : 𝓞 (QNeg n))}
+    if PosOrient n then
+      Ideal.span {2, ZInQ.RouteK.Redei.thetaO n h - (((tyzDelta n + 1) / 2 : ℕ) : 𝓞 (QNeg n))}
+    else
+      Ideal.span {2, 1 - ZInQ.RouteK.Redei.thetaO n h - (((tyzDelta n + 1) / 2 : ℕ) : 𝓞 (QNeg n))}
   else ⊤
 
 theorem p2Ideal_mem (n : ℕ) [NeZero n] : p2Ideal n ∈ (Ideal (𝓞 (QNeg n)))⁰ := by
   apply mem_nonZeroDivisors_of_ne_zero
-  unfold p2Ideal
-  split_ifs with h
-  · intro h0
-    have h2 : (2 : 𝓞 (QNeg n)) ∈ Ideal.span {2, ZInQ.RouteK.Redei.thetaO n h -
-        (((tyzDelta n + 1) / 2 : ℕ) : 𝓞 (QNeg n))} := Ideal.subset_span (by simp)
+  have key : ∀ x : 𝓞 (QNeg n), Ideal.span {2, x} ≠ 0 := by
+    intro x h0
+    have h2 : (2 : 𝓞 (QNeg n)) ∈ Ideal.span {2, x} := Ideal.subset_span (by simp)
     rw [h0, Ideal.zero_eq_bot, Ideal.mem_bot] at h2
     exact two_ne_zero h2
+  unfold p2Ideal
+  split_ifs
+  · exact key _
+  · exact key _
   · exact top_ne_bot
 
 /-- The class `[𝔭₂] ∈ Cl(K_n) = Pic(𝓞_{K_n})`. -/
@@ -3447,7 +4909,9 @@ def p2Class (n : ℕ) [NeZero n] : Pic (OK n) :=
 
 /-- **Leaf TYZ-3.6(3) (Galois action on TYZ's class-7 CM point)**: for squarefree `n ≡ 7 (mod 8)`,
 complex conjugation `γ` and any `ρ ∈ Gal(ℚ̄/ℚ)` acting on the Hilbert class field `H_n` as the
-(arithmetic) Artin symbol of `[𝔭₂]^{−5}`: `γ(z_n) + ρ(z_n) = τ(1/2)`. TYZ Theorem 3.6(3) (L1424–1427,
+(arithmetic) Artin symbol of `[𝔭₂]^{−5}`, `𝔭₂` the prime with image `(2, (i√n − δ)/2)` in `ℂ`
+(`p2Ideal`, oriented through `ιC`; independent review 2026-11-13 found that an unoriented `𝔭₂` makes
+the statement depend on the arbitrary `embed n`): `γ(z_n) + ρ(z_n) = τ(1/2)`. TYZ Theorem 3.6(3) (L1424–1427,
 VERIFIED read): `z̄_n + z_n^{σ_{ϖ^5}} = τ(1/2)` with `ϖ ∈ K_{n,2}`, `v₂(ϖ) = 1`, `v₂'(ϖ) = 0`, and `σ`
 the geometric Artin map (L1247–1250), so `σ_{ϖ^5}|_{H_n} = Art([𝔭₂])^{−5}`. Refereed. Numerically
 VERIFIED for the 12 squarefree `n ≡ 7 (mod 8)`, `7 ≤ n ≤ 103` (`thm36_7.out`); the opposite sign
@@ -4353,8 +5817,11 @@ theorem normP2 : NormP2 := by
     simp only [ub, θ, map_sub, RingOfIntegers.coe_eq_algebraMap, algebraMap_thetaO, theta_eq, map_natCast,
       map_one]
     simp [QuadraticAlgebra.im_one]; norm_num
-  have hP : p2Ideal n = Ideal.span {2, u} := by
-    simp only [p2Ideal, h3, ↓reduceDIte]; rfl
+  have hP : p2Ideal n = Ideal.span {2, u} ∨ p2Ideal n = Ideal.span {2, ub} := by
+    unfold p2Ideal
+    split_ifs
+    · left; rfl
+    · right; rfl
   have hmul : Ideal.span {2, u} * Ideal.span {2, ub} = Ideal.span {(2 : 𝓞 (QNeg n))} := by
     apply le_antisymm
     · rw [Ideal.mul_le]
@@ -4402,11 +5869,15 @@ theorem normP2 : NormP2 := by
   rw [map_mul, hN2] at hab
   have ha1 : Ideal.absNorm (Ideal.span {2, u}) ≠ 1 := fun h => hne1 (Ideal.absNorm_eq_one_iff.1 h)
   have hb1 : Ideal.absNorm (Ideal.span {2, ub}) ≠ 1 := fun h => hne2 (Ideal.absNorm_eq_one_iff.1 h)
-  rw [hP]
   set a := Ideal.absNorm (Ideal.span {2, u})
   set b := Ideal.absNorm (Ideal.span {2, ub})
   have ha4 : a ≤ 4 := Nat.le_of_dvd (by norm_num) ⟨b, hab.symm⟩
-  interval_cases a <;> omega
+  have hb4 : b ≤ 4 := Nat.le_of_dvd (by norm_num) ⟨a, by rw [mul_comm]; exact hab.symm⟩
+  have ha2 : a = 2 := by interval_cases a <;> omega
+  have hb2 : b = 2 := by interval_cases b <;> omega
+  rcases hP with hP | hP
+  · rw [hP]; exact ha2
+  · rw [hP]; exact hb2
 
 end NormTwo
 
@@ -4429,6 +5900,1040 @@ theorem tyzThm35ReadingA_of_cmLeaves7' (h11 : TYZThm11Integral) (h1 : TYZLcalOne
     (lemma321Seven_of (cmFieldOfDefinition7_of hcm) h36 hb)
 
 
+
+/-! ## §14. `TYZThm36Seven` from Shimura reciprocity, the Fricke involution and algebraicity
+
+TYZ's proof of Theorem 3.6(3) (L1799–1855: Prop. 3.9, `j ϖ^5 ∈ W·U₀(32)_2`) in Gross's language:
+`Art([𝔭₂]^{−5})` sends the Heegner point of `Q = [(n+δ²)/4, δ, 1]` (class `[1]`) to that of
+`Q' = [32, δ, (n+δ²)/128]` (class `[𝔭₂]^5`), and `τ_{Q'} = W τ_{Q̄}`, `W τ = −1/(32τ)`, so
+`z_{Q'} = T − z̄_n` by the Fricke leaf. Inputs: tyz-cm's leaf `ShimuraReciprocityPic` (copied verbatim
+below), x0-32's leaf `X0.EtaModelFricke`, cm-points' leaf `CM.CMAlgebraic` (the Heegner points exist
+as algebraic points; `TYZThm36Seven` is not junk-safe) and cm-points' theorem `cmComplexConj`.
+Numerical backbone: `plan36.out`. -/
+
+namespace TyzCm
+
+open ZInQ.Contrib.TYZDecomp.CurveA ZInQ.Contrib.TYZGenus.CM ZInQ.Contrib.TYZGenus.RingClass
+  ZInQ.RouteK.Rank5b NumberField TauCeti.GlobalNumberFields TauCeti.ClassFieldTheory Complex
+
+/-! Verbatim copy of tyz-cm's leaf and its definitions (branch `wip/tyz-cm`, commit `66d92d11`,
+`ZInQKernel/Contrib/TYZGenus/ShimuraRecip.lean`, namespace `ZInQ.Contrib.TYZGenus.Shimura`). -/
+
+
+/-- The normalized complex embedding `κ : ℚ(√−m) → ℂ`, `a + b√−m ↦ a + b·i√m` (as a function). -/
+def kappa (m : ℕ) (x : QNeg m) : ℂ := (x.re : ℂ) + (x.im : ℂ) * (I * (Real.sqrt m : ℂ))
+
+/-- The set `J ∩ O ⊂ K` for an ideal `J` of `𝓞_K` and the order `O = ℤ + f𝓞_K`. -/
+def idealMeetOrder (m f : ℕ) [NeZero m] [NeZero f] (J : Ideal (𝓞 (QNeg m))) : Set (QNeg m) :=
+  {x | x ∈ (conductorOrder (QNeg m) f).toSubalgebra ∧ ∃ y ∈ J, (y : QNeg m) = x}
+
+/-- The lattice `κ(J ∩ O) ⊂ ℂ` (the `ℤ`-span of the image; `J ∩ O` is already a `ℤ`-module). -/
+def idealLat (m f : ℕ) [NeZero m] [NeZero f] (J : Ideal (𝓞 (QNeg m))) : Submodule ℤ ℂ :=
+  Submodule.span ℤ (kappa m '' idealMeetOrder m f J)
+
+/-- The discriminant `f²·d_K` of `ℤ + f𝓞_K` in `K = ℚ(√−m)`, `m` squarefree:
+`d_K = −m` for `m ≡ 3 (mod 4)` and `d_K = −4m` otherwise. -/
+def discOf (m f : ℕ) : ℤ := if m % 4 = 3 then -((f : ℤ) ^ 2 * m) else -(4 * (f : ℤ) ^ 2 * m)
+
+/-- **Leaf SHIMURA-PIC (main theorem of complex multiplication for Heegner points of `X₀(32)`,
+Gross's form).** Let `K = ℚ(√−m)` (`m` squarefree), `O = ℤ + f𝓞_K` the order of discriminant `D`,
+`H_O` its ring class field, and `e : Kˢ → ℚ̄` an embedding inducing on `K` the normalized complex
+embedding `√−m ↦ i√m` (through cm-points' `ιC : ℚ̄ → ℂ`). Let `J` be an ideal of `𝓞_K` prime to
+`f`, and `ρ ∈ Gal(ℚ̄/ℚ)` an automorphism acting on `e(H_O)` as the Artin symbol of the class of
+`J ∩ O`. Then for Heegner forms `Q, Q'` of level 32 and discriminant `D` whose pairs of lattices
+satisfy `κ(J ∩ O)·(⟨1,τ_{Q'}⟩, ⟨1/32,τ_{Q'}⟩) = c·(⟨1,τ_Q⟩, ⟨1/32,τ_Q⟩)` for one `c ∈ ℂ`
+(i.e. `(L', L'_N) = c·(J∩O)⁻¹(L, L_N)`), `ρ` maps the Heegner point of `Q` to that of `Q'`:
+`Art(𝔟)(𝒪, 𝔫, [𝔞]) = (𝒪, 𝔫, [𝔟⁻¹𝔞])`.
+
+Sources (refereed; theorem numbers UNVERIFIED, from memory, no network on this host):
+the main theorem of complex multiplication, Shimura, *Introduction to the arithmetic theory of
+automorphic functions* (1971), Thm. 5.4 (`E^{[s,K]} ≅ ℂ/s⁻¹𝔞`, with the action on torsion
+`f(t)^σ = f'(s⁻¹t)`, which gives the action on the cyclic subgroup `L_N/L`); Silverman, *Advanced
+topics in the arithmetic of elliptic curves*, GTM 151, Thm. II.8.2; Gross, *Heegner points on
+`X₀(N)`*, in *Modular forms* (Durham 1983), 1984, §3 (`σ_𝔟(𝒪, 𝔫, [𝔞]) = (𝒪, 𝔫, [𝔞𝔟⁻¹])`);
+Cox, *Primes of the form x² + ny²*, Thm. 11.1 and Cor. 11.37 (the `j`-part). Normalization: the
+idele `s` with `s_𝔭` a uniformizer has `[s, K] = ` arithmetic Frobenius (Tau Ceti's Artin map), so
+`Art(J)` corresponds to `s⁻¹𝔞 = J⁻¹𝔞`. The theorem holds for every lattice pair (Shimura's form
+needs no condition on the orders of `L` and `L_N`), so no Heegner condition `(f, 32) = 1` is
+needed. It is stated through x0-32's eta-quotient model `X0.phiC` and cm-points' `ιC`, so it is
+true because (and only if) that model is the `ℚ`-rational modular parametrization of `X₀(32)`
+(x0-32's leaves `X0.X0AnalyticModel`; Shimura 1971 Ch. 6–7 for the canonical model). -/
+def ShimuraReciprocityPic : Prop :=
+  ∀ (m f : ℕ) [NeZero m] [NeZero f], Squarefree m →
+    ∀ (e : SeparableClosure (QNeg m) →ₐ[ℚ] Qbar),
+      ιC (e (algebraMap (QNeg m) (SeparableClosure (QNeg m)) QuadraticAlgebra.omega)) =
+        I * (Real.sqrt m : ℂ) →
+    ∀ (J : integralIdealsPrimeTo (conductorOrder (QNeg m) f).conductorModulus) (ρ : GalQ),
+      (∀ x : ringClassField (conductorOrder (QNeg m) f),
+        ρ (e x) = e (ringClassArtinEquiv (conductorOrder (QNeg m) f)
+          ((conductorOrder (QNeg m) f).picClass J) x)) →
+    ∀ (D : ℤ), D = discOf m f → ∀ (Q Q' : HeegnerForm 32 D) (c : ℂ),
+      idealLat m f J * Q'.lat = Q.lat.map (LinearMap.mulLeft ℤ c) →
+      idealLat m f J * Q'.latN = Q.latN.map (LinearMap.mulLeft ℤ c) →
+      galPt ρ (heegnerPt Q) = heegnerPt Q'
+
+end TyzCm
+
+section Thm36
+
+open TyzCm Complex
+open scoped nonZeroDivisors
+
+/-! Helpers copied from tyz-cm's `ShimuraZn.lean` (same branch). -/
+
+theorem sqrt_mul_self_C (m : ℕ) : (Real.sqrt m : ℂ) * Real.sqrt m = m := by
+  rw [← Complex.ofReal_mul, Real.mul_self_sqrt (Nat.cast_nonneg m)]; simp
+
+/-- `i√m` as a root of `X² + m` in `ℂ`. -/
+def kappaRoot (m : ℕ) : {u : ℂ // u * u = (-(m : ℚ)) • (1 : ℂ) + (0 : ℚ) • u} :=
+  ⟨I * Real.sqrt m, by
+    rw [show I * (Real.sqrt m : ℂ) * (I * Real.sqrt m) = (I * I) * (Real.sqrt m * Real.sqrt m) by ring,
+      I_mul_I, sqrt_mul_self_C]
+    simp [Rat.smul_def]⟩
+
+/-- `κ` as a `ℚ`-algebra map. -/
+def kappaAlg (m : ℕ) : QNeg m →ₐ[ℚ] ℂ := QuadraticAlgebra.lift (kappaRoot m)
+
+theorem kappaAlg_apply (m : ℕ) (x : QNeg m) : kappaAlg m x = kappa m x := by
+  simp [kappaAlg, kappa, kappaRoot, Rat.smul_def]
+
+/-- `κ` as a `ℤ`-algebra map. -/
+def kappaZ (m : ℕ) : QNeg m →ₐ[ℤ] ℂ := (kappaAlg m).restrictScalars ℤ
+
+/-- `κ` as a `ℤ`-linear map. -/
+def kappaLin (m : ℕ) : QNeg m →ₗ[ℤ] ℂ := (kappaZ m).toLinearMap
+
+theorem kappaLin_apply (m : ℕ) (x : QNeg m) : kappaLin m x = kappa m x := kappaAlg_apply m x
+
+theorem kappaLin_one (m : ℕ) : kappaLin m 1 = 1 := map_one (kappaZ m)
+
+theorem map_mulLeft_span_pair (m : ℕ) (c a b : QNeg m) :
+    ((Submodule.span ℤ {a, b}).map (kappaLin m)).map (LinearMap.mulLeft ℤ (kappa m c)) =
+      (Submodule.span ℤ {c * a, c * b}).map (kappaLin m) := by
+  simp only [Submodule.map_span, Set.image_pair, LinearMap.mulLeft_apply, kappaLin_apply]
+  rw [← kappaAlg_apply, ← kappaAlg_apply, ← kappaAlg_apply, ← kappaAlg_apply, ← kappaAlg_apply,
+    map_mul, map_mul]
+
+variable {n : ℕ} [NeZero n]
+
+/-- `1/32 ∈ K`. -/
+def oneN32 (n : ℕ) : QNeg n := ⟨1 / 32, 0⟩
+
+omit [NeZero n] in
+@[simp] theorem oneN32_re : (oneN32 n).re = 1 / 32 := rfl
+omit [NeZero n] in
+@[simp] theorem oneN32_im : (oneN32 n).im = 0 := rfl
+
+theorem kappa_oneN32 : kappaLin n (oneN32 n) = 1 / ((32 : ℕ) : ℂ) := by
+  rw [kappaLin_apply, kappa]; simp
+
+theorem lat_eq_map' {D : ℤ} (Q : HeegnerForm 32 D) (t : QNeg n) (ht : Q.tau = kappa n t) :
+    Q.lat = (Submodule.span ℤ {1, t}).map (kappaLin n) := by
+  rw [HeegnerForm.lat, Submodule.map_span, Set.image_pair, kappaLin_one, kappaLin_apply, ht]
+
+theorem latN_eq_map' {D : ℤ} (Q : HeegnerForm 32 D) (t : QNeg n) (ht : Q.tau = kappa n t) :
+    Q.latN = (Submodule.span ℤ {oneN32 n, t}).map (kappaLin n) := by
+  rw [HeegnerForm.latN, Submodule.map_span, Set.image_pair, kappa_oneN32, kappaLin_apply, ht]
+
+/-- **Integer coordinates in `𝓞_K`, `n ≡ 3 (mod 4)` squarefree**: `y = (s + t√−n)/2`, `s ≡ t (2)`. -/
+theorem int_coords3 (hn : n % 4 = 3) (hsq : Squarefree n) (y : 𝓞 (QNeg n)) :
+    ∃ s t : ℤ, (y : QNeg n).re = s / 2 ∧ (y : QNeg n).im = t / 2 ∧ ∃ k : ℤ, s = t + 2 * k := by
+  obtain ⟨a, ha⟩ := exists_two_re y
+  obtain ⟨b, hb⟩ := exists_two_re (y * sqrtNeg n)
+  have hN := normZ_eq_re_im y
+  set N := Algebra.norm ℤ y
+  set r := (y : QNeg n).re
+  set s := (y : QNeg n).im
+  have hb' : 2 * (-(n : ℚ) * s) = b := by
+    rw [← hb]; simp [coe_sqrtNeg, s]
+  have hnt : (n : ℚ) * (2 * s) = -b := by linarith
+  have h4 : (a : ℚ) ^ 2 + n * (2 * s) ^ 2 = 4 * N := by
+    rw [hN, ← ha]; ring
+  have hdiv : (n : ℤ) ∣ b ^ 2 := by
+    refine ⟨a ^ 2 * 0 + (4 * N - a ^ 2), ?_⟩
+    have : (b : ℚ) ^ 2 = n * (4 * N - a ^ 2) := by
+      have : (b : ℚ) ^ 2 = (n * (2 * s)) ^ 2 := by rw [hnt]; ring
+      rw [this]; linear_combination (n : ℚ) * h4
+    exact_mod_cast (by rw [this]; ring : (b : ℚ) ^ 2 = n * (a ^ 2 * 0 + (4 * N - a ^ 2)))
+  have hsqZ : Squarefree (n : ℤ) := Int.squarefree_natCast.mpr hsq
+  obtain ⟨t, ht⟩ := (hsqZ.dvd_pow_iff_dvd two_ne_zero).1 hdiv
+  have hn0 : (n : ℚ) ≠ 0 := by exact_mod_cast NeZero.ne n
+  have hs2 : 2 * s = -t := by
+    have : (n : ℚ) * (2 * s) = n * (-t) := by rw [hnt, ht]; push_cast; ring
+    exact mul_left_cancel₀ hn0 this
+  have hZ : a ^ 2 + (n : ℤ) * t ^ 2 = 4 * N := by
+    have : (a : ℚ) ^ 2 + n * t ^ 2 = 4 * N := by rw [← h4, hs2]; ring
+    exact_mod_cast this
+  have hn' : (n : ℤ) = 4 * ((n : ℤ) / 4) + 3 := by omega
+  have hpar : 2 ∣ a + t := by
+    rw [hn'] at hZ
+    obtain ⟨k, hk | hk⟩ := Int.even_or_odd' a <;> obtain ⟨l, hl | hl⟩ := Int.even_or_odd' t <;>
+      subst hk hl
+    · exact ⟨k + l, by ring⟩
+    · exfalso; ring_nf at hZ; omega
+    · exfalso; ring_nf at hZ; omega
+    · exact ⟨k + l + 1, by ring⟩
+  obtain ⟨k, hk⟩ := hpar
+  refine ⟨a, -t, by rw [← ha]; ring, by push_cast; linarith, k, by linarith⟩
+
+end Thm36
+
+
+section Thm36b
+
+open TyzCm Complex
+open scoped nonZeroDivisors
+
+variable {n : ℕ} [NeZero n]
+
+theorem int_dvd_n_delta {n : ℕ} (hn : n % 8 = 7) : (128 : ℤ) ∣ (n : ℤ) + (tyzDelta n : ℤ) ^ 2 :=
+  tyzDelta_dvd hn
+
+theorem delta_odd {n : ℕ} (hn : n % 8 = 7) : ∃ d : ℤ, (tyzDelta n : ℤ) = 2 * d + 1 := by
+  have h := tyzDelta_dvd hn
+  obtain ⟨d, hd | hd⟩ := Int.even_or_odd' (tyzDelta n : ℤ)
+  · exfalso
+    rw [hd] at h
+    obtain ⟨c, hc⟩ := h
+    have : (n : ℤ) = 128 * c - 4 * d ^ 2 := by linear_combination hc
+    omega
+  · exact ⟨d, hd⟩
+
+/-- `Q' = [32, δ, (n+δ²)/128]` (level 32, discriminant `−n`; class `[𝔭₂]^5`, `τ_{Q'} = W τ_{Q̄}`). -/
+def tyzForm7' (n : ℕ) (hn : n % 8 = 7) : HeegnerForm 32 (-(n : ℤ)) where
+  A := 32
+  B := tyzDelta n
+  C := ((n : ℤ) + (tyzDelta n : ℤ) ^ 2) / 128
+  A_pos := by norm_num
+  N_dvd := by norm_num
+  disc := by
+    have := tyzDelta_dvd hn
+    omega
+  D_neg := by
+    have : (0 : ℤ) < n := by have : 0 < n := by omega
+                             exact_mod_cast this
+    omega
+  primitive := by
+    obtain ⟨d, hd⟩ := delta_odd hn
+    have h2 : IsCoprime (2 : ℤ) (tyzDelta n : ℤ) := ⟨-d, 1, by rw [hd]; ring⟩
+    have h32 : Int.gcd 32 (tyzDelta n : ℤ) = 1 :=
+      Int.isCoprime_iff_gcd_eq_one.1 (by simpa using h2.pow_left (m := 5))
+    rw [h32]; simp
+
+/-- `A = (n + δ²)/4 ∈ ℤ`. -/
+abbrev A7 (n : ℕ) : ℤ := ((n : ℤ) + (tyzDelta n : ℤ) ^ 2) / 4
+/-- `N₄ = (n + δ²)/128 ∈ ℤ`. -/
+abbrev N7 (n : ℕ) : ℤ := ((n : ℤ) + (tyzDelta n : ℤ) ^ 2) / 128
+
+theorem four_A7 {n : ℕ} (hn : n % 8 = 7) : 4 * A7 n = (n : ℤ) + (tyzDelta n : ℤ) ^ 2 := by
+  have := tyzDelta_dvd hn; simp only [A7]; omega
+
+theorem A7_eq {n : ℕ} (hn : n % 8 = 7) : A7 n = 32 * N7 n := by
+  have := tyzDelta_dvd hn; simp only [A7, N7]; omega
+
+theorem A7_pos {n : ℕ} (hn : n % 8 = 7) : (0 : ℚ) < A7 n := by
+  have h := four_A7 hn
+  have : (0 : ℤ) < n := by have : 0 < n := by omega
+                           exact_mod_cast this
+  have : (0 : ℤ) < A7 n := by nlinarith [sq_nonneg (tyzDelta n : ℤ)]
+  exact_mod_cast this
+
+/-! Elements of `K = ℚ(√−n)` (coordinates `⟨re, im⟩`, `ω = √−n`). -/
+
+/-- `u = (√−n − δ)/2`. -/
+def uK (n : ℕ) : QNeg n := ⟨-(tyzDelta n : ℚ) / 2, 1 / 2⟩
+/-- `ū = (−√−n − δ)/2`. -/
+def ubK (n : ℕ) : QNeg n := ⟨-(tyzDelta n : ℚ) / 2, -1 / 2⟩
+/-- `τ_Q = (−δ + √−n)/(2A)`. -/
+def tK (n : ℕ) : QNeg n := ⟨-(tyzDelta n : ℚ) / (2 * A7 n), 1 / (2 * A7 n)⟩
+/-- `τ_{Q̄} = (δ + √−n)/(2A)`. -/
+def tbK (n : ℕ) : QNeg n := ⟨(tyzDelta n : ℚ) / (2 * A7 n), 1 / (2 * A7 n)⟩
+/-- `τ_{Q'} = (−δ + √−n)/64`. -/
+def t'K (n : ℕ) : QNeg n := ⟨-(tyzDelta n : ℚ) / 64, 1 / 64⟩
+/-- `τ_{Q̄'} = (δ + √−n)/64`. -/
+def tb'K (n : ℕ) : QNeg n := ⟨(tyzDelta n : ℚ) / 64, 1 / 64⟩
+
+theorem sqrt_negn (n : ℕ) : Real.sqrt (-(((-(n : ℤ)) : ℤ) : ℝ)) = Real.sqrt n := by
+  congr 1; push_cast; ring
+
+theorem tyzForm7_tau (hn : n % 8 = 7) : (tyzForm7 n hn).tau = kappa n (tK n) := by
+  have hA : (A7 n : ℂ) ≠ 0 := by exact_mod_cast (A7_pos hn).ne'
+  simp only [HeegnerForm.tau, cmPoint, tyzForm7, kappa, tK, sqrt_negn]
+  push_cast
+  field_simp
+  try ring
+
+theorem tyzForm7_conj_tau (hn : n % 8 = 7) : (tyzForm7 n hn).conj.tau = kappa n (tbK n) := by
+  have hA : (A7 n : ℂ) ≠ 0 := by exact_mod_cast (A7_pos hn).ne'
+  simp only [HeegnerForm.tau, HeegnerForm.conj, cmPoint, tyzForm7, kappa, tbK, sqrt_negn]
+  push_cast
+  field_simp
+  try ring
+
+theorem tyzForm7'_tau (hn : n % 8 = 7) : (tyzForm7' n hn).tau = kappa n (t'K n) := by
+  simp only [HeegnerForm.tau, cmPoint, tyzForm7', kappa, t'K, sqrt_negn]
+  push_cast
+  field_simp
+  try ring
+
+theorem tyzForm7'_conj_tau (hn : n % 8 = 7) : (tyzForm7' n hn).conj.tau = kappa n (tb'K n) := by
+  simp only [HeegnerForm.tau, HeegnerForm.conj, cmPoint, tyzForm7', kappa, tb'K, sqrt_negn]
+  push_cast
+  field_simp
+  try ring
+
+/-! Relations in `K`. -/
+
+theorem ubK_mul_tK (hn : n % 8 = 7) : ubK n * tK n = 1 := by
+  have h4 : (4 : ℚ) * A7 n = n + (tyzDelta n : ℚ) ^ 2 := by exact_mod_cast four_A7 hn
+  have hA : (A7 n : ℚ) ≠ 0 := (A7_pos hn).ne'
+  ext <;> simp [ubK, tK, QuadraticAlgebra.re_one, QuadraticAlgebra.im_one] <;> field_simp <;>
+    first | linear_combination (-1 : ℚ) * h4 | linear_combination h4 | linear_combination (-1/2 : ℚ) * h4 | linear_combination (1/2 : ℚ) * h4 | ring1
+
+theorem neg_uK_mul_tbK (hn : n % 8 = 7) : -uK n * tbK n = 1 := by
+  have h4 : (4 : ℚ) * A7 n = n + (tyzDelta n : ℚ) ^ 2 := by exact_mod_cast four_A7 hn
+  have hA : (A7 n : ℚ) ≠ 0 := (A7_pos hn).ne'
+  ext <;> simp [uK, tbK, QuadraticAlgebra.re_one, QuadraticAlgebra.im_one] <;> field_simp <;>
+    first | linear_combination (-1 : ℚ) * h4 | linear_combination h4 | linear_combination (-1/2 : ℚ) * h4 | linear_combination (1/2 : ℚ) * h4 | ring1
+
+theorem thirtytwo_t'K : (32 : QNeg n) * t'K n = uK n := by
+  ext <;> simp [uK, t'K, QuadraticAlgebra.re_ofNat, QuadraticAlgebra.im_ofNat] <;> ring
+
+theorem thirtytwo_tb'K : (32 : QNeg n) * tb'K n = -ubK n := by
+  ext <;> simp [ubK, tb'K, QuadraticAlgebra.re_ofNat, QuadraticAlgebra.im_ofNat] <;> ring
+
+theorem ubK_mul_t'K (hn : n % 8 = 7) : ubK n * t'K n = (N7 n : QNeg n) := by
+  have h4 : (4 : ℚ) * A7 n = n + (tyzDelta n : ℚ) ^ 2 := by exact_mod_cast four_A7 hn
+  have hA : (A7 n : ℚ) = 32 * N7 n := by exact_mod_cast A7_eq hn
+  ext <;> simp [ubK, t'K] <;>
+    first | linear_combination (-1/128 : ℚ) * h4 + (1/32 : ℚ) * hA | linear_combination (1/128 : ℚ) * h4 - (1/32 : ℚ) * hA | linear_combination (-1/64 : ℚ) * h4 + (1/16 : ℚ) * hA | linear_combination (1/64 : ℚ) * h4 - (1/16 : ℚ) * hA | ring1
+
+theorem uK_mul_tb'K (hn : n % 8 = 7) : uK n * tb'K n = -(N7 n : QNeg n) := by
+  have h4 : (4 : ℚ) * A7 n = n + (tyzDelta n : ℚ) ^ 2 := by exact_mod_cast four_A7 hn
+  have hA : (A7 n : ℚ) = 32 * N7 n := by exact_mod_cast A7_eq hn
+  ext <;> simp [uK, tb'K] <;>
+    first | linear_combination (-1/128 : ℚ) * h4 + (1/32 : ℚ) * hA | linear_combination (1/128 : ℚ) * h4 - (1/32 : ℚ) * hA | linear_combination (-1/64 : ℚ) * h4 + (1/16 : ℚ) * hA | linear_combination (1/64 : ℚ) * h4 - (1/16 : ℚ) * hA | ring1
+
+end Thm36b
+
+
+section Thm36c
+
+open TyzCm Complex
+open scoped nonZeroDivisors
+
+variable {n : ℕ} [NeZero n]
+
+theorem n_delta_q {n : ℕ} (hn : n % 8 = 7) : (n : ℚ) + (tyzDelta n : ℚ) ^ 2 = 128 * N7 n := by
+  have h1 : (4 : ℚ) * A7 n = n + (tyzDelta n : ℚ) ^ 2 := by exact_mod_cast four_A7 hn
+  have h2 : (A7 n : ℚ) = 32 * N7 n := by exact_mod_cast A7_eq hn
+  linarith
+
+theorem ubK_sq (hn : n % 8 = 7) :
+    ubK n * ubK n = -(tyzDelta n : QNeg n) * ubK n - 32 * (N7 n : QNeg n) := by
+  have h := n_delta_q hn
+  ext <;> simp [ubK, QuadraticAlgebra.re_ofNat, QuadraticAlgebra.im_ofNat] <;>
+    first | linear_combination (1/4 : ℚ) * h | linear_combination (-1/4 : ℚ) * h | ring1
+
+theorem uK_sq (hn : n % 8 = 7) :
+    uK n * uK n = -(tyzDelta n : QNeg n) * uK n - 32 * (N7 n : QNeg n) := by
+  have h := n_delta_q hn
+  ext <;> simp [uK, QuadraticAlgebra.re_ofNat, QuadraticAlgebra.im_ofNat] <;>
+    first | linear_combination (1/4 : ℚ) * h | linear_combination (-1/4 : ℚ) * h | ring1
+
+theorem uK_add_ubK : uK n + ubK n = -(tyzDelta n : QNeg n) := by
+  ext <;> simp [uK, ubK] <;> ring
+
+omit [NeZero n] in
+theorem mem_span_pair_of' {a b x : QNeg n} (p q : ℤ) (h : x = p • a + q • b) :
+    x ∈ Submodule.span ℤ ({a, b} : Set (QNeg n)) :=
+  Submodule.mem_span_pair.2 ⟨p, q, h.symm⟩
+
+/-- `𝓞_K = ℤ + ℤū` (`n ≡ 7 (mod 8)`). -/
+theorem coe_mem_span_ubK (hn : n % 8 = 7) (hsq : Squarefree n) (z : 𝓞 (QNeg n)) :
+    (z : QNeg n) ∈ Submodule.span ℤ ({ubK n, 1} : Set (QNeg n)) := by
+  obtain ⟨s, t, hs, ht, k, hk⟩ := int_coords3 (by omega) hsq z
+  obtain ⟨d, hd⟩ := delta_odd hn
+  refine mem_span_pair_of' (-t) (k - t * d) ?_
+  have hdq : (tyzDelta n : ℚ) = 2 * d + 1 := by exact_mod_cast hd
+  have hkq : (s : ℚ) = t + 2 * k := by exact_mod_cast hk
+  ext <;> simp [ubK, hs, ht, zsmul_eq_mul, QuadraticAlgebra.re_one, QuadraticAlgebra.im_one,
+    QuadraticAlgebra.re_ofNat, QuadraticAlgebra.im_ofNat, QuadraticAlgebra.re_intCast,
+    QuadraticAlgebra.im_intCast] <;>
+    (try rw [hdq]) <;> (try rw [hkq]) <;> ring
+
+/-- `𝓞_K = ℤ + ℤu`. -/
+theorem coe_mem_span_uK (hn : n % 8 = 7) (hsq : Squarefree n) (z : 𝓞 (QNeg n)) :
+    (z : QNeg n) ∈ Submodule.span ℤ ({-uK n, 1} : Set (QNeg n)) := by
+  obtain ⟨s, t, hs, ht, k, hk⟩ := int_coords3 (by omega) hsq z
+  obtain ⟨d, hd⟩ := delta_odd hn
+  refine mem_span_pair_of' (-t) (k + t * (d + 1)) ?_
+  have hdq : (tyzDelta n : ℚ) = 2 * d + 1 := by exact_mod_cast hd
+  have hkq : (s : ℚ) = t + 2 * k := by exact_mod_cast hk
+  ext <;> simp [uK, hs, ht, zsmul_eq_mul, QuadraticAlgebra.re_one, QuadraticAlgebra.im_one,
+    QuadraticAlgebra.re_ofNat, QuadraticAlgebra.im_ofNat, QuadraticAlgebra.re_intCast,
+    QuadraticAlgebra.im_intCast] <;>
+    (try rw [hdq]) <;> (try rw [hkq]) <;> ring
+
+theorem coe_mem_span_ubK32 (hn : n % 8 = 7) (hsq : Squarefree n) (z : 𝓞 (QNeg n)) :
+    (z : QNeg n) ∈ Submodule.span ℤ ({ubK n * oneN32 n, 1} : Set (QNeg n)) := by
+  obtain ⟨s, t, hs, ht, k, hk⟩ := int_coords3 (by omega) hsq z
+  obtain ⟨d, hd⟩ := delta_odd hn
+  refine mem_span_pair_of' (-32 * t) (k - t * d) ?_
+  have hdq : (tyzDelta n : ℚ) = 2 * d + 1 := by exact_mod_cast hd
+  have hkq : (s : ℚ) = t + 2 * k := by exact_mod_cast hk
+  ext <;> simp [ubK, hs, ht, zsmul_eq_mul, QuadraticAlgebra.re_one, QuadraticAlgebra.im_one,
+    QuadraticAlgebra.re_ofNat, QuadraticAlgebra.im_ofNat, QuadraticAlgebra.re_intCast,
+    QuadraticAlgebra.im_intCast] <;>
+    (try rw [hdq]) <;> (try rw [hkq]) <;> ring
+
+theorem coe_mem_span_uK32 (hn : n % 8 = 7) (hsq : Squarefree n) (z : 𝓞 (QNeg n)) :
+    (z : QNeg n) ∈ Submodule.span ℤ ({-uK n * oneN32 n, 1} : Set (QNeg n)) := by
+  obtain ⟨s, t, hs, ht, k, hk⟩ := int_coords3 (by omega) hsq z
+  obtain ⟨d, hd⟩ := delta_odd hn
+  refine mem_span_pair_of' (-32 * t) (k + t * (d + 1)) ?_
+  have hdq : (tyzDelta n : ℚ) = 2 * d + 1 := by exact_mod_cast hd
+  have hkq : (s : ℚ) = t + 2 * k := by exact_mod_cast hk
+  ext <;> simp [uK, hs, ht, zsmul_eq_mul, QuadraticAlgebra.re_one, QuadraticAlgebra.im_one,
+    QuadraticAlgebra.re_ofNat, QuadraticAlgebra.im_ofNat, QuadraticAlgebra.re_intCast,
+    QuadraticAlgebra.im_intCast] <;>
+    (try rw [hdq]) <;> (try rw [hkq]) <;> ring
+
+theorem coe_mul_mem_span_ubK32 (hn : n % 8 = 7) (hsq : Squarefree n) (z : 𝓞 (QNeg n)) :
+    (z : QNeg n) * (ubK n * oneN32 n) ∈ Submodule.span ℤ ({ubK n * oneN32 n, 1} : Set (QNeg n)) := by
+  obtain ⟨s, t, hs, ht, k, hk⟩ := int_coords3 (by omega) hsq z
+  obtain ⟨d, hd⟩ := delta_odd hn
+  have hdq : (tyzDelta n : ℚ) = 2 * d + 1 := by exact_mod_cast hd
+  have hkq : (s : ℚ) = t + 2 * k := by exact_mod_cast hk
+  have h := n_delta_q hn
+  rw [hdq] at h
+  refine mem_span_pair_of' (k - t * d + t * (2 * d + 1)) (t * N7 n) ?_
+  ext <;> simp [ubK, hs, ht, zsmul_eq_mul, QuadraticAlgebra.re_one, QuadraticAlgebra.im_one,
+    QuadraticAlgebra.re_ofNat, QuadraticAlgebra.im_ofNat, QuadraticAlgebra.re_intCast,
+    QuadraticAlgebra.im_intCast] <;> (try rw [hkq]) <;> (try rw [hdq]) <;>
+    first
+    | ring1
+    | linear_combination (t / 128 : ℚ) * h
+    | linear_combination (-t / 128 : ℚ) * h
+    | linear_combination (t / 256 : ℚ) * h
+    | linear_combination (-t / 256 : ℚ) * h
+    | linear_combination (t / 64 : ℚ) * h
+    | linear_combination (-t / 64 : ℚ) * h
+
+end Thm36c
+
+
+section Thm36d
+
+open TyzCm Complex
+open scoped nonZeroDivisors Pointwise
+
+variable {n : ℕ} [NeZero n]
+
+theorem coe_mul_mem_span_uK32 (hn : n % 8 = 7) (hsq : Squarefree n) (z : 𝓞 (QNeg n)) :
+    (z : QNeg n) * (-uK n * oneN32 n) ∈ Submodule.span ℤ ({-uK n * oneN32 n, 1} : Set (QNeg n)) := by
+  obtain ⟨s, t, hs, ht, k, hk⟩ := int_coords3 (by omega) hsq z
+  obtain ⟨d, hd⟩ := delta_odd hn
+  have hdq : (tyzDelta n : ℚ) = 2 * d + 1 := by exact_mod_cast hd
+  have hkq : (s : ℚ) = t + 2 * k := by exact_mod_cast hk
+  have h := n_delta_q hn
+  rw [hdq] at h
+  refine mem_span_pair_of' (k - t * d) (t * N7 n) ?_
+  ext <;> simp [uK, hs, ht, zsmul_eq_mul, QuadraticAlgebra.re_one, QuadraticAlgebra.im_one,
+    QuadraticAlgebra.re_ofNat, QuadraticAlgebra.im_ofNat, QuadraticAlgebra.re_intCast,
+    QuadraticAlgebra.im_intCast] <;> (try rw [hkq]) <;> (try rw [hdq]) <;>
+    first
+    | ring1
+    | linear_combination (t / 128 : ℚ) * h
+    | linear_combination (-t / 128 : ℚ) * h
+    | linear_combination (t / 256 : ℚ) * h
+    | linear_combination (-t / 256 : ℚ) * h
+    | linear_combination (t / 64 : ℚ) * h
+    | linear_combination (-t / 64 : ℚ) * h
+
+/-- `m = (δ+1)/2`. -/
+abbrev m7 (n : ℕ) : ℕ := (tyzDelta n + 1) / 2
+
+theorem two_m7 {n : ℕ} (hn : n % 8 = 7) : (2 * m7 n : ℚ) = tyzDelta n + 1 := by
+  obtain ⟨d, hd⟩ := delta_odd hn
+  have h : 2 * m7 n = tyzDelta n + 1 := by simp only [m7]; omega
+  exact_mod_cast h
+
+/-- `u = θ − m = (√−n − δ)/2 ∈ 𝓞_K`. -/
+def uO (n : ℕ) [NeZero n] (h3 : n % 4 = 3) : 𝓞 (QNeg n) :=
+  ZInQ.RouteK.Redei.thetaO n h3 - (m7 n : 𝓞 (QNeg n))
+/-- `ū = 1 − θ − m = (−√−n − δ)/2 ∈ 𝓞_K`. -/
+def ubO (n : ℕ) [NeZero n] (h3 : n % 4 = 3) : 𝓞 (QNeg n) :=
+  1 - ZInQ.RouteK.Redei.thetaO n h3 - (m7 n : 𝓞 (QNeg n))
+
+theorem alg_uO (hn : n % 8 = 7) :
+    algebraMap (𝓞 (QNeg n)) (QNeg n) (uO n (by omega)) = uK n := by
+  have h := two_m7 hn
+  simp only [uO, map_sub, ZInQ.RouteK.Redei.algebraMap_thetaO, ZInQ.RouteK.Redei.theta_eq, map_natCast]
+  ext <;> simp [uK] <;> linarith
+
+theorem alg_ubO (hn : n % 8 = 7) :
+    algebraMap (𝓞 (QNeg n)) (QNeg n) (ubO n (by omega)) = ubK n := by
+  have h := two_m7 hn
+  simp only [ubO, map_sub, map_one, ZInQ.RouteK.Redei.algebraMap_thetaO, ZInQ.RouteK.Redei.theta_eq,
+    map_natCast]
+  ext <;> simp [ubK, QuadraticAlgebra.re_one, QuadraticAlgebra.im_one] <;> linarith
+
+theorem coe_mem_meet {J : Ideal (𝓞 (QNeg n))} {y : 𝓞 (QNeg n)} (hy : y ∈ J) :
+    (y : QNeg n) ∈ idealMeetOrder n 1 J :=
+  ⟨⟨0, y, by simp⟩, y, hy, rfl⟩
+
+omit [NeZero n] in
+theorem mem_span_mul_four' {S T : Set (QNeg n)} (s₀ s₁ t₀ t₁ : QNeg n) (hs₀ : s₀ ∈ S)
+    (hs₁ : s₁ ∈ S) (ht₀ : t₀ ∈ T) (ht₁ : t₁ ∈ T) {x : QNeg n} (a b c d : ℤ)
+    (h : x = a • (s₀ * t₀) + b • (s₀ * t₁) + c • (s₁ * t₀) + d • (s₁ * t₁)) :
+    x ∈ Submodule.span ℤ (S * T) := by
+  rw [h]
+  have hm : ∀ {s t : QNeg n}, s ∈ S → t ∈ T → s * t ∈ Submodule.span ℤ (S * T) :=
+    fun hs ht => Submodule.subset_span (Set.mul_mem_mul hs ht)
+  exact Submodule.add_mem _ (Submodule.add_mem _ (Submodule.add_mem _
+    (Submodule.smul_mem _ _ (hm hs₀ ht₀)) (Submodule.smul_mem _ _ (hm hs₀ ht₁)))
+    (Submodule.smul_mem _ _ (hm hs₁ ht₀))) (Submodule.smul_mem _ _ (hm hs₁ ht₁))
+
+theorem bezout32 {n : ℕ} (hn : n % 8 = 7) : ∃ a b : ℤ, a * 32 + b * (tyzDelta n : ℤ) = 1 := by
+  obtain ⟨d, hd⟩ := delta_odd hn
+  have h2 : IsCoprime (2 : ℤ) (tyzDelta n : ℤ) := ⟨-d, 1, by rw [hd]; ring⟩
+  obtain ⟨a, b, hab⟩ := h2.pow_left (m := 5)
+  exact ⟨a, b, by norm_num at hab; linarith⟩
+
+theorem thirtytwo_oneN32 : (32 : QNeg n) * oneN32 n = 1 := by
+  ext <;> simp [QuadraticAlgebra.re_ofNat, QuadraticAlgebra.im_ofNat, QuadraticAlgebra.re_one,
+    QuadraticAlgebra.im_one]
+
+/-- `𝔭̄₂^5 = (32, ū)` and `𝔭₂^5 = (32, u)` as ideals of `𝓞_K` (generators). -/
+abbrev Jub (n : ℕ) [NeZero n] (h3 : n % 4 = 3) : Ideal (𝓞 (QNeg n)) :=
+  Ideal.span {(32 : 𝓞 (QNeg n)), ubO n h3}
+abbrev Ju (n : ℕ) [NeZero n] (h3 : n % 4 = 3) : Ideal (𝓞 (QNeg n)) :=
+  Ideal.span {(32 : 𝓞 (QNeg n)), uO n h3}
+
+theorem alg32 : algebraMap (𝓞 (QNeg n)) (QNeg n) 32 = 32 := map_ofNat _ 32
+
+theorem latK7 (hn : n % 8 = 7) (hsq : Squarefree n) :
+    Submodule.span ℤ (idealMeetOrder n 1 (Jub n (by omega))) * Submodule.span ℤ {1, t'K n} =
+      Submodule.span ℤ {ubK n * 1, ubK n * tK n} := by
+  rw [Submodule.span_mul_span, mul_one, ubK_mul_tK hn]
+  apply le_antisymm
+  · rw [Submodule.span_le]
+    rintro _ ⟨x, ⟨-, y, hyJ, rfl⟩, t, ht, rfl⟩
+    dsimp only
+    simp only [Set.mem_insert_iff, Set.mem_singleton_iff] at ht
+    rcases ht with rfl | rfl
+    · rw [mul_one]; exact coe_mem_span_ubK hn hsq y
+    · obtain ⟨α, β, hαβ⟩ := Ideal.mem_span_pair.1 hyJ
+      have e : (y : QNeg n) * t'K n =
+          ((α * uO n (by omega) + β * (N7 n : 𝓞 (QNeg n)) : 𝓞 (QNeg n)) : QNeg n) := by
+        rw [← hαβ]
+        simp only [RingOfIntegers.coe_eq_algebraMap, map_add, map_mul, map_intCast, alg_uO hn,
+          alg_ubO hn, alg32]
+        rw [add_mul, mul_assoc, mul_assoc, thirtytwo_t'K, ubK_mul_t'K hn]
+      rw [e]; exact coe_mem_span_ubK hn hsq _
+  · rw [Submodule.span_le]
+    rintro _ (rfl | rfl)
+    · refine Submodule.subset_span ⟨_, coe_mem_meet (Ideal.subset_span (Set.mem_insert_of_mem _ rfl) :
+        ubO n (by omega) ∈ Jub n (by omega)), 1, Set.mem_insert _ _, ?_⟩
+      dsimp only
+      rw [mul_one, RingOfIntegers.coe_eq_algebraMap, alg_ubO hn]
+    · obtain ⟨a, b, hab⟩ := bezout32 hn
+      have habK : (a : QNeg n) * 32 + (b : QNeg n) * (tyzDelta n : QNeg n) = 1 := by
+        have := congrArg (Int.cast : ℤ → QNeg n) hab
+        push_cast at this
+        exact this
+      have h32 : ((32 : 𝓞 (QNeg n)) : QNeg n) = 32 := alg32
+      have hub : ((ubO n (by omega) : 𝓞 (QNeg n)) : QNeg n) = ubK n := alg_ubO hn
+      refine mem_span_mul_four' (S := idealMeetOrder n 1 (Jub n (by omega))) (T := {1, t'K n})
+        ((32 : 𝓞 (QNeg n)) : QNeg n) ((ubO n (by omega) : 𝓞 (QNeg n)) : QNeg n) 1 (t'K n)
+        (coe_mem_meet (Ideal.subset_span (Set.mem_insert _ _) : (32 : 𝓞 (QNeg n)) ∈ Jub n (by omega)))
+        (coe_mem_meet (Ideal.subset_span (Set.mem_insert_of_mem _ rfl) : ubO n (by omega) ∈ Jub n (by omega)))
+        (Set.mem_insert _ _) (Set.mem_insert_of_mem _ rfl) a (-b) (-b) 0 ?_
+      rw [h32, hub, thirtytwo_t'K]
+      simp only [zsmul_eq_mul, mul_one, Int.cast_neg, Int.cast_zero, zero_mul, add_zero]
+      linear_combination (-1 : QNeg n) * habK + (b : QNeg n) * (uK_add_ubK (n := n))
+
+theorem latNK7 (hn : n % 8 = 7) (hsq : Squarefree n) :
+    Submodule.span ℤ (idealMeetOrder n 1 (Jub n (by omega))) * Submodule.span ℤ {oneN32 n, t'K n} =
+      Submodule.span ℤ {ubK n * oneN32 n, ubK n * tK n} := by
+  rw [Submodule.span_mul_span, ubK_mul_tK hn]
+  apply le_antisymm
+  · rw [Submodule.span_le]
+    rintro _ ⟨x, ⟨-, y, hyJ, rfl⟩, t, ht, rfl⟩
+    dsimp only
+    simp only [Set.mem_insert_iff, Set.mem_singleton_iff] at ht
+    obtain ⟨α, β, hαβ⟩ := Ideal.mem_span_pair.1 hyJ
+    rcases ht with rfl | rfl
+    · have e : (y : QNeg n) * oneN32 n = (α : QNeg n) + (β : QNeg n) * (ubK n * oneN32 n) := by
+        rw [← hαβ]
+        simp only [RingOfIntegers.coe_eq_algebraMap, map_add, map_mul, alg_ubO hn, alg32]
+        rw [add_mul, mul_assoc, thirtytwo_oneN32, mul_one, mul_assoc]
+      rw [e]
+      exact Submodule.add_mem _ (coe_mem_span_ubK32 hn hsq α) (coe_mul_mem_span_ubK32 hn hsq β)
+    · have e : (y : QNeg n) * t'K n =
+          ((α * uO n (by omega) + β * (N7 n : 𝓞 (QNeg n)) : 𝓞 (QNeg n)) : QNeg n) := by
+        rw [← hαβ]
+        simp only [RingOfIntegers.coe_eq_algebraMap, map_add, map_mul, map_intCast, alg_uO hn,
+          alg_ubO hn, alg32]
+        rw [add_mul, mul_assoc, mul_assoc, thirtytwo_t'K, ubK_mul_t'K hn]
+      rw [e]; exact coe_mem_span_ubK32 hn hsq _
+  · rw [Submodule.span_le]
+    rintro _ (rfl | rfl)
+    · refine Submodule.subset_span ⟨_, coe_mem_meet (Ideal.subset_span (Set.mem_insert_of_mem _ rfl) :
+        ubO n (by omega) ∈ Jub n (by omega)), oneN32 n, Set.mem_insert _ _, ?_⟩
+      dsimp only
+      rw [RingOfIntegers.coe_eq_algebraMap, alg_ubO hn]
+    · refine Submodule.subset_span ⟨_, coe_mem_meet (Ideal.subset_span (Set.mem_insert _ _) :
+        (32 : 𝓞 (QNeg n)) ∈ Jub n (by omega)), oneN32 n, Set.mem_insert _ _, ?_⟩
+      dsimp only
+      rw [RingOfIntegers.coe_eq_algebraMap, alg32, thirtytwo_oneN32]
+
+theorem latK7c (hn : n % 8 = 7) (hsq : Squarefree n) :
+    Submodule.span ℤ (idealMeetOrder n 1 (Ju n (by omega))) * Submodule.span ℤ {1, tb'K n} =
+      Submodule.span ℤ {-uK n * 1, -uK n * tbK n} := by
+  rw [Submodule.span_mul_span, mul_one, neg_uK_mul_tbK hn]
+  apply le_antisymm
+  · rw [Submodule.span_le]
+    rintro _ ⟨x, ⟨-, y, hyJ, rfl⟩, t, ht, rfl⟩
+    dsimp only
+    simp only [Set.mem_insert_iff, Set.mem_singleton_iff] at ht
+    rcases ht with rfl | rfl
+    · rw [mul_one]; exact coe_mem_span_uK hn hsq y
+    · obtain ⟨α, β, hαβ⟩ := Ideal.mem_span_pair.1 hyJ
+      have e : (y : QNeg n) * tb'K n =
+          ((-(α * ubO n (by omega)) - β * (N7 n : 𝓞 (QNeg n)) : 𝓞 (QNeg n)) : QNeg n) := by
+        rw [← hαβ]
+        simp only [RingOfIntegers.coe_eq_algebraMap, map_add, map_mul, map_sub, map_neg,
+          map_intCast, alg_uO hn, alg_ubO hn, alg32]
+        rw [add_mul, mul_assoc, mul_assoc, thirtytwo_tb'K, uK_mul_tb'K hn]
+        ring
+      rw [e]; exact coe_mem_span_uK hn hsq _
+  · rw [Submodule.span_le]
+    rintro _ (rfl | rfl)
+    · have hm : uK n ∈ Submodule.span ℤ (idealMeetOrder n 1 (Ju n (by omega)) * {1, tb'K n}) :=
+        Submodule.subset_span ⟨_, coe_mem_meet (Ideal.subset_span (Set.mem_insert_of_mem _ rfl) :
+          uO n (by omega) ∈ Ju n (by omega)), 1, Set.mem_insert _ _, by
+            dsimp only
+            rw [mul_one, RingOfIntegers.coe_eq_algebraMap, alg_uO hn]⟩
+      exact Submodule.neg_mem _ hm
+    · obtain ⟨a, b, hab⟩ := bezout32 hn
+      have habK : (a : QNeg n) * 32 + (b : QNeg n) * (tyzDelta n : QNeg n) = 1 := by
+        have := congrArg (Int.cast : ℤ → QNeg n) hab
+        push_cast at this
+        exact this
+      have h32 : ((32 : 𝓞 (QNeg n)) : QNeg n) = 32 := alg32
+      have hu : ((uO n (by omega) : 𝓞 (QNeg n)) : QNeg n) = uK n := alg_uO hn
+      refine mem_span_mul_four' (S := idealMeetOrder n 1 (Ju n (by omega))) (T := {1, tb'K n})
+        ((32 : 𝓞 (QNeg n)) : QNeg n) ((uO n (by omega) : 𝓞 (QNeg n)) : QNeg n) 1 (tb'K n)
+        (coe_mem_meet (Ideal.subset_span (Set.mem_insert _ _) : (32 : 𝓞 (QNeg n)) ∈ Ju n (by omega)))
+        (coe_mem_meet (Ideal.subset_span (Set.mem_insert_of_mem _ rfl) : uO n (by omega) ∈ Ju n (by omega)))
+        (Set.mem_insert _ _) (Set.mem_insert_of_mem _ rfl) a b (-b) 0 ?_
+      rw [h32, hu, thirtytwo_tb'K]
+      simp only [zsmul_eq_mul, mul_one, Int.cast_neg, Int.cast_zero, zero_mul, add_zero]
+      linear_combination (-1 : QNeg n) * habK + (b : QNeg n) * (uK_add_ubK (n := n))
+
+theorem latNK7c (hn : n % 8 = 7) (hsq : Squarefree n) :
+    Submodule.span ℤ (idealMeetOrder n 1 (Ju n (by omega))) * Submodule.span ℤ {oneN32 n, tb'K n} =
+      Submodule.span ℤ {-uK n * oneN32 n, -uK n * tbK n} := by
+  rw [Submodule.span_mul_span, neg_uK_mul_tbK hn]
+  apply le_antisymm
+  · rw [Submodule.span_le]
+    rintro _ ⟨x, ⟨-, y, hyJ, rfl⟩, t, ht, rfl⟩
+    dsimp only
+    simp only [Set.mem_insert_iff, Set.mem_singleton_iff] at ht
+    obtain ⟨α, β, hαβ⟩ := Ideal.mem_span_pair.1 hyJ
+    rcases ht with rfl | rfl
+    · have e : (y : QNeg n) * oneN32 n =
+          (α : QNeg n) + ((-β : 𝓞 (QNeg n)) : QNeg n) * (-uK n * oneN32 n) := by
+        rw [← hαβ]
+        simp only [RingOfIntegers.coe_eq_algebraMap, map_add, map_mul, map_neg, alg_uO hn, alg32]
+        rw [add_mul, mul_assoc, thirtytwo_oneN32, mul_one]
+        ring
+      rw [e]
+      exact Submodule.add_mem _ (coe_mem_span_uK32 hn hsq α) (coe_mul_mem_span_uK32 hn hsq _)
+    · have e : (y : QNeg n) * tb'K n =
+          ((-(α * ubO n (by omega)) - β * (N7 n : 𝓞 (QNeg n)) : 𝓞 (QNeg n)) : QNeg n) := by
+        rw [← hαβ]
+        simp only [RingOfIntegers.coe_eq_algebraMap, map_add, map_mul, map_sub, map_neg,
+          map_intCast, alg_uO hn, alg_ubO hn, alg32]
+        rw [add_mul, mul_assoc, mul_assoc, thirtytwo_tb'K, uK_mul_tb'K hn]
+        ring
+      rw [e]; exact coe_mem_span_uK32 hn hsq _
+  · rw [Submodule.span_le]
+    rintro _ (rfl | rfl)
+    · have hm : uK n * oneN32 n ∈
+          Submodule.span ℤ (idealMeetOrder n 1 (Ju n (by omega)) * {oneN32 n, tb'K n}) :=
+        Submodule.subset_span ⟨_, coe_mem_meet (Ideal.subset_span (Set.mem_insert_of_mem _ rfl) :
+          uO n (by omega) ∈ Ju n (by omega)), oneN32 n, Set.mem_insert _ _, by
+            dsimp only
+            rw [RingOfIntegers.coe_eq_algebraMap, alg_uO hn]⟩
+      rw [neg_mul]
+      exact Submodule.neg_mem _ hm
+    · refine Submodule.subset_span ⟨_, coe_mem_meet (Ideal.subset_span (Set.mem_insert _ _) :
+        (32 : 𝓞 (QNeg n)) ∈ Ju n (by omega)), oneN32 n, Set.mem_insert _ _, ?_⟩
+      dsimp only
+      rw [RingOfIntegers.coe_eq_algebraMap, alg32, thirtytwo_oneN32]
+
+end Thm36d
+
+
+section Thm36e
+
+open TyzCm Complex
+open scoped nonZeroDivisors Pointwise
+
+/-! General ideal identities in a commutative ring (for `𝔭₂𝔭̄₂ = (2)` and `𝔭₂^5 = (32, u)`). -/
+
+theorem span_two_mul_span_two {R : Type*} [CommRing R] (g g' m N : R) (h1 : g + g' + 2 * m = 1)
+    (h2 : g * g' = 32 * N) :
+    Ideal.span {2, g} * Ideal.span {2, g'} = Ideal.span {(2 : R)} := by
+  apply le_antisymm
+  · rw [Ideal.mul_le]
+    intro x hx y hy
+    obtain ⟨a, b, rfl⟩ := Ideal.mem_span_pair.1 hx
+    obtain ⟨c, d, rfl⟩ := Ideal.mem_span_pair.1 hy
+    rw [Ideal.mem_span_singleton]
+    refine ⟨a * c * 2 + a * d * g' + b * c * g + b * d * 16 * N, ?_⟩
+    linear_combination (b * d) * h2
+  · rw [Ideal.span_singleton_le_iff_mem]
+    have e1 : g * 2 ∈ Ideal.span {2, g} * Ideal.span {2, g'} :=
+      Ideal.mul_mem_mul (Ideal.subset_span (Set.mem_insert_of_mem _ rfl))
+        (Ideal.subset_span (Set.mem_insert _ _))
+    have e2 : 2 * g' ∈ Ideal.span {2, g} * Ideal.span {2, g'} :=
+      Ideal.mul_mem_mul (Ideal.subset_span (Set.mem_insert _ _))
+        (Ideal.subset_span (Set.mem_insert_of_mem _ rfl))
+    have e4 : 2 * 2 ∈ Ideal.span {2, g} * Ideal.span {2, g'} :=
+      Ideal.mul_mem_mul (Ideal.subset_span (Set.mem_insert _ _)) (Ideal.subset_span (Set.mem_insert _ _))
+    have := add_mem (add_mem e1 e2) (Ideal.mul_mem_right m _ e4)
+    convert this using 1
+    linear_combination (-2 : R) * h1
+
+theorem span_two_pow_le {R : Type*} [CommRing R] (g : R) (k : ℕ) :
+    Ideal.span {2, g} ^ (k + 1) ≤ Ideal.span {(2 : R) ^ (k + 1), g} := by
+  induction k with
+  | zero => simp
+  | succ k ih =>
+    rw [pow_succ]
+    refine le_trans (Ideal.mul_mono_left ih) ?_
+    rw [Ideal.mul_le]
+    intro x hx y hy
+    obtain ⟨a, b, rfl⟩ := Ideal.mem_span_pair.1 hx
+    obtain ⟨c, d, rfl⟩ := Ideal.mem_span_pair.1 hy
+    rw [Ideal.mem_span_pair]
+    exact ⟨a * c, a * d * 2 ^ (k + 1) + b * c * 2 + b * d * g, by ring⟩
+
+theorem span_two_pow_five {R : Type*} [CommRing R] (g g' m N : R) (h1 : g + g' + 2 * m = 1)
+    (h2 : g * g' = 32 * N) :
+    Ideal.span {2, g} ^ 5 = Ideal.span {(32 : R), g} := by
+  apply le_antisymm
+  · have := span_two_pow_le g 4
+    norm_num at this
+    exact this
+  · rw [Ideal.span_le, Set.insert_subset_iff, Set.singleton_subset_iff]
+    have hI2 : (2 : R) ∈ Ideal.span {2, g} := Ideal.subset_span (Set.mem_insert _ _)
+    have hIg : g ∈ Ideal.span {2, g} := Ideal.subset_span (Set.mem_insert_of_mem _ rfl)
+    have h32 : (32 : R) ∈ Ideal.span {2, g} ^ 5 := by
+      have := Ideal.pow_mem_pow hI2 5
+      norm_num at this
+      exact this
+    refine ⟨h32, ?_⟩
+    have hw : g + 2 * m ∈ Ideal.span {2, g} :=
+      add_mem hIg (Ideal.mul_mem_right m _ hI2)
+    have key : g = 32 * N * (1 + (g + 2 * m) + (g + 2 * m) ^ 2 + (g + 2 * m) ^ 3) +
+        g * (g + 2 * m) ^ 4 := by
+      linear_combination (1 + (g + 2 * m) + (g + 2 * m) ^ 2 + (g + 2 * m) ^ 3) * h2 -
+        g * (1 + (g + 2 * m) + (g + 2 * m) ^ 2 + (g + 2 * m) ^ 3) * h1
+    have hmem : 32 * N * (1 + (g + 2 * m) + (g + 2 * m) ^ 2 + (g + 2 * m) ^ 3) +
+        g * (g + 2 * m) ^ 4 ∈ Ideal.span {2, g} ^ 5 := by
+      refine add_mem ?_ ?_
+      · rw [mul_assoc]; exact Ideal.mul_mem_right _ _ h32
+      · rw [show (5 : ℕ) = 4 + 1 from rfl, pow_succ' (Ideal.span {2, g}) 4]
+        exact Ideal.mul_mem_mul hIg (Ideal.pow_mem_pow hw 4)
+    rw [← key] at hmem
+    exact hmem
+
+end Thm36e
+
+
+section Thm36f
+
+open TyzCm Complex
+open scoped nonZeroDivisors Pointwise
+
+variable {n : ℕ} [NeZero n]
+
+theorem toC_ptT : toC Package.ptT = X0.ptTC := by
+  simp [toC, Package.ptT, X0.ptTC, WeierstrassCurve.Affine.Point.map, map_ofNat]
+
+theorem IsComplexConj.galPt_galPt {γ : GalQ} (hγ : IsComplexConj γ) (P : PtA) :
+    galPt γ (galPt γ P) = P := by
+  rw [← galPt_mul]
+  rcases P with _ | ⟨x, y, h⟩
+  · rfl
+  · obtain ⟨h', e'⟩ := galPt_some (γ * γ) h
+    rw [e', WeierstrassCurve.Affine.Point.some.injEq]
+    exact ⟨hγ.mul_self x, hγ.mul_self y⟩
+
+theorem t'K_mul_tbK (hn : n % 8 = 7) : t'K n * (32 * tbK n) = -1 := by
+  have h4 : (4 : ℚ) * A7 n = n + (tyzDelta n : ℚ) ^ 2 := by exact_mod_cast four_A7 hn
+  have hA : (A7 n : ℚ) ≠ 0 := (A7_pos hn).ne'
+  ext <;> simp [t'K, tbK, QuadraticAlgebra.re_one, QuadraticAlgebra.im_one,
+    QuadraticAlgebra.re_ofNat, QuadraticAlgebra.im_ofNat] <;> field_simp <;>
+    first | linear_combination (32 : ℚ) * h4 | linear_combination (-32 : ℚ) * h4 |
+      linear_combination (-1 : ℚ) * h4 | linear_combination h4 | ring1
+
+/-- **The Fricke step**: `z_{Q'} = T − z_{Q̄}` (`τ_{Q'} = −1/(32 τ_{Q̄})`). -/
+theorem heegnerPt_tyzForm7' (hF : X0.EtaModelFricke) (hA : CMAlgebraic) (hn : n % 8 = 7) :
+    heegnerPt (tyzForm7' n hn) = Package.ptT - heegnerPt (tyzForm7 n hn).conj := by
+  have hex := hA _ (tyzForm7 n hn).conj
+  have hW : ((tyzForm7' n hn).tauH : ℂ) = -1 / (32 * ((tyzForm7 n hn).conj.tauH : ℂ)) := by
+    have h1 : ((tyzForm7' n hn).tauH : ℂ) = kappaAlg n (t'K n) := by
+      rw [kappaAlg_apply, ← tyzForm7'_tau hn]; rfl
+    have h2 : ((tyzForm7 n hn).conj.tauH : ℂ) = kappaAlg n (tbK n) := by
+      rw [kappaAlg_apply, ← tyzForm7_conj_tau hn]; rfl
+    have hne : (32 * ((tyzForm7 n hn).conj.tauH : ℂ)) ≠ 0 := by
+      intro h0
+      have := congrArg Complex.im h0
+      simp at this
+      exact (tyzForm7 n hn).conj.tauH.im_pos.ne' this
+    rw [eq_div_iff hne, h1, h2]
+    have := congrArg (kappaAlg n) (t'K_mul_tbK hn)
+    simpa [map_ofNat] using this
+  have hfr := hF _ _ hW
+  apply heegnerPt_eq
+  rw [map_sub, toC_heegnerPt _ hex, toC_ptT, ← hfr]
+  abel
+
+theorem uO_mul_ubO (hn : n % 8 = 7) :
+    uO n (by omega) * ubO n (by omega) = 32 * (N7 n : 𝓞 (QNeg n)) := by
+  apply RingOfIntegers.ext
+  have h := n_delta_q hn
+  change algebraMap (𝓞 (QNeg n)) (QNeg n) (uO n _ * ubO n _) =
+    algebraMap (𝓞 (QNeg n)) (QNeg n) (32 * (N7 n : 𝓞 (QNeg n)))
+  rw [map_mul, map_mul, alg_uO hn, alg_ubO hn, map_ofNat, map_intCast]
+  ext <;> simp [uK, ubK, QuadraticAlgebra.re_ofNat, QuadraticAlgebra.im_ofNat] <;>
+    first | linear_combination (1/4 : ℚ) * h | linear_combination (-1/4 : ℚ) * h | ring1
+
+theorem uO_add_ubO (h3 : n % 4 = 3) : uO n h3 + ubO n h3 + 2 * (m7 n : 𝓞 (QNeg n)) = 1 := by
+  simp only [uO, ubO]; ring
+
+theorem mk0_inv_of_mul {I I' : Ideal (𝓞 (QNeg n))} (hI : I ∈ (Ideal (𝓞 (QNeg n)))⁰)
+    (hI' : I' ∈ (Ideal (𝓞 (QNeg n)))⁰) (h : I * I' = Ideal.span {(2 : 𝓞 (QNeg n))}) :
+    (ClassGroup.mk0 ⟨I', hI'⟩ : ClassGroup (𝓞 (QNeg n))) = (ClassGroup.mk0 ⟨I, hI⟩)⁻¹ := by
+  apply eq_inv_of_mul_eq_one_right
+  rw [← map_mul]
+  have h2 : (⟨I, hI⟩ : (Ideal (𝓞 (QNeg n)))⁰) * ⟨I', hI'⟩ =
+      ⟨Ideal.span {(2 : 𝓞 (QNeg n))}, by rw [← h]; exact Submonoid.mul_mem _ hI hI'⟩ := Subtype.ext h
+  rw [h2, ClassGroup.mk0_eq_one_iff]
+  exact ⟨⟨2, rfl⟩⟩
+
+theorem mk0_pow_five {I J : Ideal (𝓞 (QNeg n))} (hI : I ∈ (Ideal (𝓞 (QNeg n)))⁰)
+    (hJ : J ∈ (Ideal (𝓞 (QNeg n)))⁰) (h : I ^ 5 = J) :
+    (ClassGroup.mk0 ⟨J, hJ⟩ : ClassGroup (𝓞 (QNeg n))) = (ClassGroup.mk0 ⟨I, hI⟩) ^ 5 := by
+  rw [← map_pow]
+  congr 1
+  exact Subtype.ext (by rw [SubmonoidClass.coe_pow]; exact h.symm)
+
+theorem span2_mem (g : 𝓞 (QNeg n)) : Ideal.span {2, g} ∈ (Ideal (𝓞 (QNeg n)))⁰ := by
+  apply mem_nonZeroDivisors_of_ne_zero
+  intro h0
+  have h2 : (2 : 𝓞 (QNeg n)) ∈ Ideal.span {2, g} := Ideal.subset_span (Set.mem_insert _ _)
+  rw [h0, Ideal.zero_eq_bot, Ideal.mem_bot] at h2
+  exact two_ne_zero h2
+
+/-- The class `[𝔭₂]^{−5}` is the class of `(32, ū)` (positive orientation) resp. `(32, u)`. -/
+theorem p2Class_inv_pow_five_pos (hn : n % 8 = 7) (hpos : PosOrient n)
+    (h0 : Jub n (by omega) ∈ (Ideal (𝓞 (QNeg n)))⁰) :
+    (p2Class n)⁻¹ ^ 5 = (ClassGroup.mk0 ⟨Jub n (by omega), h0⟩ : ClassGroup (𝓞 (QNeg n))) := by
+  have h3 : n % 4 = 3 := by omega
+  have hp : p2Ideal n = Ideal.span {2, uO n h3} := by
+    unfold p2Ideal; rw [dif_pos h3, if_pos hpos]; rfl
+  have hc : p2Class n = (ClassGroup.mk0 ⟨Ideal.span {2, uO n h3}, span2_mem _⟩ :
+      ClassGroup (𝓞 (QNeg n))) := by
+    unfold p2Class; congr 1; exact Subtype.ext hp
+  have hmul := span_two_mul_span_two (uO n h3) (ubO n h3) (m7 n) (N7 n) (uO_add_ubO h3)
+    (uO_mul_ubO hn)
+  have hpow := span_two_pow_five (ubO n h3) (uO n h3) (m7 n) (N7 n)
+    (by rw [add_comm (ubO n h3)]; exact uO_add_ubO h3) (by rw [mul_comm]; exact uO_mul_ubO hn)
+  rw [mk0_pow_five (span2_mem _) h0 hpow, mk0_inv_of_mul (span2_mem _) (span2_mem _) hmul, hc]
+  rfl
+
+theorem p2Class_inv_pow_five_neg (hn : n % 8 = 7) (hpos : ¬ PosOrient n)
+    (h0 : Ju n (by omega) ∈ (Ideal (𝓞 (QNeg n)))⁰) :
+    (p2Class n)⁻¹ ^ 5 = (ClassGroup.mk0 ⟨Ju n (by omega), h0⟩ : ClassGroup (𝓞 (QNeg n))) := by
+  have h3 : n % 4 = 3 := by omega
+  have hp : p2Ideal n = Ideal.span {2, ubO n h3} := by
+    unfold p2Ideal; rw [dif_pos h3, if_neg hpos]; rfl
+  have hc : p2Class n = (ClassGroup.mk0 ⟨Ideal.span {2, ubO n h3}, span2_mem _⟩ :
+      ClassGroup (𝓞 (QNeg n))) := by
+    unfold p2Class; congr 1; exact Subtype.ext hp
+  have hmul := span_two_mul_span_two (ubO n h3) (uO n h3) (m7 n) (N7 n)
+    (by rw [add_comm (ubO n h3)]; exact uO_add_ubO h3) (by rw [mul_comm]; exact uO_mul_ubO hn)
+  have hpow := span_two_pow_five (uO n h3) (ubO n h3) (m7 n) (N7 n) (uO_add_ubO h3)
+    (uO_mul_ubO hn)
+  rw [mk0_pow_five (span2_mem _) h0 hpow, mk0_inv_of_mul (span2_mem _) (span2_mem _) hmul, hc]
+  rfl
+
+theorem acts_transport (e : SeparableClosure (QNeg n) →ₐ[ℚ] Qbar) (ρ : GalQ)
+    (O : TauCeti.GlobalNumberFields.NumberFieldOrder (QNeg n))
+    (hO : O = TauCeti.GlobalNumberFields.maximalNumberFieldOrder (QNeg n))
+    (J : Ideal (𝓞 (QNeg n))) (hJO : J ∈ TauCeti.GlobalNumberFields.integralIdealsPrimeTo O.conductorModulus)
+    (hJ0 : J ∈ (Ideal (𝓞 (QNeg n)))⁰)
+    (h : ∀ x : hilbertField n, ρ (e (x : SeparableClosure (QNeg n))) =
+      e ((TauCeti.ClassFieldTheory.ringClassArtinEquiv (OK n)
+        (ClassGroup.mk0 ⟨J, hJ0⟩ : ClassGroup (𝓞 (QNeg n))) x : hilbertField n) :
+          SeparableClosure (QNeg n))) :
+    ∀ x : TauCeti.ClassFieldTheory.ringClassField O, ρ (e (x : SeparableClosure (QNeg n))) =
+      e ((TauCeti.ClassFieldTheory.ringClassArtinEquiv O (O.picClass ⟨J, hJO⟩) x :
+        TauCeti.ClassFieldTheory.ringClassField O) : SeparableClosure (QNeg n)) := by
+  subst hO
+  intro x
+  rw [picClass_maximal ⟨J, hJO⟩ hJ0]
+  exact h x
+
+theorem J_mem_primeTo (J : Ideal (𝓞 (QNeg n))) (hJ : (32 : 𝓞 (QNeg n)) ∈ J) :
+    J ∈ TauCeti.GlobalNumberFields.integralIdealsPrimeTo
+      (conductorOrder (QNeg n) 1).conductorModulus := by
+  rw [TauCeti.GlobalNumberFields.NumberFieldOrder.mem_integralIdealsPrimeTo_conductorModulus_iff]
+  refine ⟨fun h => ?_, ?_⟩
+  · rw [h, Ideal.mem_bot] at hJ
+    have h' := congrArg (algebraMap (𝓞 (QNeg n)) (QNeg n)) hJ
+    rw [map_ofNat, map_zero] at h'
+    norm_num at h'
+  · rw [(TauCeti.GlobalNumberFields.NumberFieldOrder.conductor_eq_top_iff _).2 (conductorOrder_one _)]
+    exact sup_top_eq _
+
+theorem J_mem_nzd (J : Ideal (𝓞 (QNeg n))) (hJ : (32 : 𝓞 (QNeg n)) ∈ J) :
+    J ∈ (Ideal (𝓞 (QNeg n)))⁰ := by
+  apply mem_nonZeroDivisors_of_ne_zero
+  intro h
+  rw [h, Ideal.zero_eq_bot, Ideal.mem_bot] at hJ
+  have h' := congrArg (algebraMap (𝓞 (QNeg n)) (QNeg n)) hJ
+  rw [map_ofNat, map_zero] at h'
+  norm_num at h'
+
+theorem ιC_omega_cases (n : ℕ) [NeZero n] :
+    ιC (embed n (algebraMap (QNeg n) (SeparableClosure (QNeg n)) QuadraticAlgebra.omega)) =
+        I * (Real.sqrt n : ℂ) ∨
+      ιC (embed n (algebraMap (QNeg n) (SeparableClosure (QNeg n)) QuadraticAlgebra.omega)) =
+        -(I * (Real.sqrt n : ℂ)) := by
+  set z := ιC (embed n (algebraMap (QNeg n) (SeparableClosure (QNeg n)) QuadraticAlgebra.omega))
+  have hz : z ^ 2 = -(n : ℂ) := by
+    simp only [z]
+    rw [← map_pow, ← map_pow, ← map_pow]
+    simp [QuadraticAlgebra.omega_pow_two_eq_add]
+  have hs : (I * (Real.sqrt n : ℂ)) ^ 2 = -(n : ℂ) := by
+    rw [mul_pow, I_sq, ← Complex.ofReal_pow, Real.sq_sqrt (Nat.cast_nonneg n)]; simp
+  rcases sq_eq_sq_iff_eq_or_eq_neg.1 (hz.trans hs.symm) with h | h
+  · exact Or.inl h
+  · exact Or.inr h
+
+/-- **`TYZThm36Seven` from Shimura reciprocity (tyz-cm), the Fricke involution (x0-32) and
+algebraicity of CM points (cm-points).** -/
+theorem tyzThm36Seven_of (hS : ShimuraReciprocityPic) (hF : X0.EtaModelFricke)
+    (hA : CMAlgebraic) : TYZThm36Seven := by
+  intro n _ hn hsq γ ρ hγ hρ
+  have h3 : n % 4 = 3 := by omega
+  have hD : -(n : ℤ) = discOf n 1 := by simp [discOf, h3]
+  have hfr := heegnerPt_tyzForm7' hF hA hn
+  have hconj : galPt γ (heegnerPt (tyzForm7 n hn)) = heegnerPt (tyzForm7 n hn).conj :=
+    cmComplexConj γ hγ _ _
+  have hz : tyzZ7 n = heegnerPt (tyzForm7 n hn) := by simp [tyzZ7, hn]
+  rw [hz, hconj, tauG_apply, one_smul]
+  have hsqrt : (0 : ℝ) < Real.sqrt n := Real.sqrt_pos.2 (by exact_mod_cast Nat.pos_of_ne_zero (NeZero.ne n))
+  by_cases hpos : PosOrient n
+  · have he : ιC (embed n (algebraMap (QNeg n) (SeparableClosure (QNeg n)) QuadraticAlgebra.omega)) =
+        I * (Real.sqrt n : ℂ) := by
+      rcases ιC_omega_cases n with h | h
+      · exact h
+      · exfalso; unfold PosOrient at hpos; rw [h] at hpos; simp at hpos; linarith
+    have hJ32 : (32 : 𝓞 (QNeg n)) ∈ Jub n h3 := Ideal.subset_span (Set.mem_insert _ _)
+    have hJO := J_mem_primeTo _ hJ32
+    have hJ0 := J_mem_nzd _ hJ32
+    have hc := p2Class_inv_pow_five_pos hn hpos hJ0
+    have hρe := acts_transport (embed n) ρ (conductorOrder (QNeg n) 1) (conductorOrder_one _)
+      (Jub n h3) hJO hJ0 (by intro x; rw [← hc]; exact hρ x)
+    have hlat : idealLat n 1 (Jub n h3) * (tyzForm7' n hn).lat =
+        (tyzForm7 n hn).lat.map (LinearMap.mulLeft ℤ (kappa n (ubK n))) := by
+      rw [show idealLat n 1 (Jub n h3) = (Submodule.span ℤ (idealMeetOrder n 1 (Jub n h3))).map
+          (kappaLin n) by
+        rw [idealLat, show kappa n = kappaLin n from funext fun x => (kappaLin_apply n x).symm,
+          Submodule.span_image],
+        lat_eq_map' _ (t'K n) (tyzForm7'_tau hn), lat_eq_map' _ (tK n) (tyzForm7_tau hn),
+        map_mulLeft_span_pair, kappaLin, ← Submodule.map_mul, latK7 hn hsq]
+    have hlatN : idealLat n 1 (Jub n h3) * (tyzForm7' n hn).latN =
+        (tyzForm7 n hn).latN.map (LinearMap.mulLeft ℤ (kappa n (ubK n))) := by
+      rw [show idealLat n 1 (Jub n h3) = (Submodule.span ℤ (idealMeetOrder n 1 (Jub n h3))).map
+          (kappaLin n) by
+        rw [idealLat, show kappa n = kappaLin n from funext fun x => (kappaLin_apply n x).symm,
+          Submodule.span_image],
+        latN_eq_map' _ (t'K n) (tyzForm7'_tau hn), latN_eq_map' _ (tK n) (tyzForm7_tau hn),
+        map_mulLeft_span_pair, kappaLin, ← Submodule.map_mul, latNK7 hn hsq]
+    have hrec := hS n 1 hsq (embed n) he ⟨_, hJO⟩ ρ hρe (-(n : ℤ)) hD (tyzForm7 n hn)
+      (tyzForm7' n hn) (kappa n (ubK n)) hlat hlatN
+    rw [hrec, hfr]; abel
+  · have hneg : ιC (embed n (algebraMap (QNeg n) (SeparableClosure (QNeg n)) QuadraticAlgebra.omega)) =
+        -(I * (Real.sqrt n : ℂ)) := by
+      rcases ιC_omega_cases n with h | h
+      · exfalso; apply hpos; unfold PosOrient; rw [h]; simpa using hsqrt
+      · exact h
+    let e : SeparableClosure (QNeg n) →ₐ[ℚ] Qbar := (γ : Qbar →ₐ[ℚ] Qbar).comp (embed n)
+    have he : ιC (e (algebraMap (QNeg n) (SeparableClosure (QNeg n)) QuadraticAlgebra.omega)) =
+        I * (Real.sqrt n : ℂ) := by
+      change ιC (γ (embed n _)) = _
+      rw [hγ, hneg]; simp
+    have hJ32 : (32 : 𝓞 (QNeg n)) ∈ Ju n h3 := Ideal.subset_span (Set.mem_insert _ _)
+    have hJO := J_mem_primeTo _ hJ32
+    have hJ0 := J_mem_nzd _ hJ32
+    have hc := p2Class_inv_pow_five_neg hn hpos hJ0
+    have hρ'0 : ∀ x : hilbertField n, (γ * ρ * γ⁻¹) (e (x : SeparableClosure (QNeg n))) =
+        e ((TauCeti.ClassFieldTheory.ringClassArtinEquiv (OK n)
+          (ClassGroup.mk0 ⟨Ju n h3, hJ0⟩ : ClassGroup (𝓞 (QNeg n))) x : hilbertField n) :
+            SeparableClosure (QNeg n)) := by
+      intro x
+      have hx : ρ (embed n (x : SeparableClosure (QNeg n))) =
+          embed n ((TauCeti.ClassFieldTheory.ringClassArtinEquiv (OK n)
+            (ClassGroup.mk0 ⟨Ju n h3, hJ0⟩ : ClassGroup (𝓞 (QNeg n))) x : hilbertField n) :
+              SeparableClosure (QNeg n)) := by
+        rw [← hc]; exact hρ x
+      change (γ * ρ * γ⁻¹) (γ (embed n x)) = γ (embed n _)
+      rw [AlgEquiv.mul_apply, AlgEquiv.mul_apply,
+        show γ⁻¹ (γ (embed n x)) = embed n x from γ.symm_apply_apply _, hx]
+    have hρe := acts_transport e (γ * ρ * γ⁻¹) (conductorOrder (QNeg n) 1) (conductorOrder_one _)
+      (Ju n h3) hJO hJ0 hρ'0
+    have hlat : idealLat n 1 (Ju n h3) * (tyzForm7' n hn).conj.lat =
+        (tyzForm7 n hn).conj.lat.map (LinearMap.mulLeft ℤ (kappa n (-uK n))) := by
+      rw [show idealLat n 1 (Ju n h3) = (Submodule.span ℤ (idealMeetOrder n 1 (Ju n h3))).map
+          (kappaLin n) by
+        rw [idealLat, show kappa n = kappaLin n from funext fun x => (kappaLin_apply n x).symm,
+          Submodule.span_image],
+        lat_eq_map' _ (tb'K n) (tyzForm7'_conj_tau hn), lat_eq_map' _ (tbK n) (tyzForm7_conj_tau hn),
+        map_mulLeft_span_pair, kappaLin, ← Submodule.map_mul, latK7c hn hsq]
+    have hlatN : idealLat n 1 (Ju n h3) * (tyzForm7' n hn).conj.latN =
+        (tyzForm7 n hn).conj.latN.map (LinearMap.mulLeft ℤ (kappa n (-uK n))) := by
+      rw [show idealLat n 1 (Ju n h3) = (Submodule.span ℤ (idealMeetOrder n 1 (Ju n h3))).map
+          (kappaLin n) by
+        rw [idealLat, show kappa n = kappaLin n from funext fun x => (kappaLin_apply n x).symm,
+          Submodule.span_image],
+        latN_eq_map' _ (tb'K n) (tyzForm7'_conj_tau hn), latN_eq_map' _ (tbK n) (tyzForm7_conj_tau hn),
+        map_mulLeft_span_pair, kappaLin, ← Submodule.map_mul, latNK7c hn hsq]
+    have hrec := hS n 1 hsq e he ⟨_, hJO⟩ (γ * ρ * γ⁻¹) hρe (-(n : ℤ)) hD (tyzForm7 n hn).conj
+      (tyzForm7' n hn).conj (kappa n (-uK n)) hlat hlatN
+    have h1 : galPt (γ * ρ * γ⁻¹) (heegnerPt (tyzForm7 n hn).conj) =
+        galPt γ (galPt ρ (heegnerPt (tyzForm7 n hn))) := by
+      rw [← hconj, ← galPt_mul, show γ * ρ * γ⁻¹ * γ = γ * ρ by group, galPt_mul]
+    have h2 : heegnerPt (tyzForm7' n hn).conj = Package.ptT - heegnerPt (tyzForm7 n hn) := by
+      rw [← cmComplexConj γ hγ _ (tyzForm7' n hn), hfr, map_sub, Package.galPt_ptT, ← hconj,
+        hγ.galPt_galPt]
+    have h4 : galPt ρ (heegnerPt (tyzForm7 n hn)) = Package.ptT - heegnerPt (tyzForm7 n hn).conj := by
+      have := congrArg (galPt γ) (h1.symm.trans (hrec.trans h2))
+      rw [hγ.galPt_galPt, map_sub, Package.galPt_ptT, hconj] at this
+      exact this
+    rw [h4]; abel
+
+end Thm36f
+
 open ZInQ.Contrib.TYZDecomp in
 /-- **Main theorem of cm-bridge (final leaves).** Reading A of TYZ Theorem 3.5
 (`ZInQ.Literature.TYZThm35ReadingA`) from:
@@ -4450,6 +6955,90 @@ theorem tyzThm35ReadingA_of_ringClassD_sigmaShiftsF0_lemma318_thm35First_lemma32
     (h5 : Lemma321Five) (h36 : TYZThm36Seven) : ZInQ.Literature.TYZThm35ReadingA :=
   tyzThm35ReadingA_of_cmLeaves7 h11 h1 h29 hcm hsh h318 h35 h5
     (lemma321Seven_of' (cmFieldOfDefinition7_of hcm) h36)
+
+
+open ZInQ.Contrib.TYZDecomp in
+/-- **Main theorem of cm-bridge, textbook CM form**: as the previous theorem, with TYZ Theorem 3.6(3)
+replaced by the textbook leaves it is derived from in §14 — tyz-cm's `ShimuraReciprocityPic` (main
+theorem of CM for Heegner points of `X₀(32)`, Gross's form), x0-32's `X0.EtaModelFricke` (the Fricke
+involution acts on `A` as `P ↦ T − P`) and cm-points' `CM.CMAlgebraic` (CM values are algebraic) —
+and `TYZSigmaShiftsF0` replaced by cm-points' `TYZSigmaFixesZn` (which tyz-cm derives from the same
+two leaves, `Shimura.tyzSigmaFixesZn_of`, branch `wip/tyz-cm`; tyz-cm also derives
+`CM.CMFieldOfDefinition ringClassFieldD` from `ShimuraReciprocityPic`). -/
+theorem tyzThm35ReadingA_of_ringClassD_sigmaFixesZn_lemma318_thm35First_lemma321Five_shimura
+    (h11 : TYZThm11Integral) (h1 : TYZLcalOne) (h29 : TYZLemma29Mod2)
+    (hcm : CM.CMFieldOfDefinition ringClassFieldD) (hs : TYZSigmaFixesZn)
+    (h318 : Lemma318Literal HHprime) (h35 : ∀ ℓ : ℕ → ℤ, IsTYZLcal ℓ → Thm35First ℓ tyzZ)
+    (h5 : Lemma321Five) (hS : TyzCm.ShimuraReciprocityPic) (hF : X0.EtaModelFricke)
+    (hA : CMAlgebraic) : ZInQ.Literature.TYZThm35ReadingA :=
+  tyzThm35ReadingA_of_pinnedLeaves h11 h1 h29 (RingClassBridge.cmFieldTYZ_of_ringClassD hcm)
+    RingClassBridge.iInH4 hs RingClassBridge.hprimeNormal h318 (cmFieldOfDefinition7_of hcm)
+    genusFieldLeLni h35 h5
+    (lemma321Seven_of' (cmFieldOfDefinition7_of hcm) (tyzThm36Seven_of hS hF hA))
+
+
+/-! ## §15. Combination with tyz-cm (branch `wip/tyz-cm`, merged): the CM side from one textbook leaf
+
+tyz-cm proves x0-32's leaves `X0.EtaModelFricke` (`Shimura.etaModelFricke`) and
+`X0.EtaModelInvariant`, derives `ShimuraReciprocityPic` and `CMValueRingClass` from its textbook leaf
+`Shimura.ShimuraReciprocityModFn`, `CM.CMFieldOfDefinition ringClassFieldD` from `CMValueRingClass`
+and `TYZSigmaFixesZn` from `ShimuraReciprocityPic` + `EtaModelFricke`. With §14 and `CMAlgebraic`
+(derived here from `CMValueRingClass`), the CM side of TYZ reading A rests on
+`Shimura.ShimuraReciprocityModFn` alone. -/
+
+section TyzCmCombined
+
+open WeierstrassCurve.Affine
+
+/-- The verbatim copy of §14 is tyz-cm's leaf. -/
+theorem tyzCm_shimuraReciprocityPic_eq :
+    TyzCm.ShimuraReciprocityPic = Shimura.ShimuraReciprocityPic := rfl
+
+/-- **cm-points' leaf `CM.CMAlgebraic` from tyz-cm's `CMValueRingClass`** (the values `x(τ_Q)`,
+`y(τ_Q)` are algebraic; the point they define, or `0`, maps to `φ(τ_Q)`). -/
+theorem cmAlgebraic_of_cmValue (hV : Shimura.CMValueRingClass) : CMAlgebraic := by
+  classical
+  intro D Q
+  obtain ⟨a, -, ha⟩ := hV 32 _ (Shimura.isRatModFn_xC_of Shimura.etaModelInvariant
+    Shimura.etaCuspGrowth Shimura.xQExpRational) D Q
+  obtain ⟨b, -, hb⟩ := hV 32 _ (Shimura.isRatModFn_yC_of Shimura.etaModelInvariant
+    Shimura.etaCuspGrowth Shimura.yQExpRational) D Q
+  by_cases h : curveAbar.toAffine.Nonsingular a b
+  · refine ⟨.some a b h, ?_⟩
+    have h' : X0.curveAC.toAffine.Nonsingular (X0.xC Q.tauH) (X0.yC Q.tauH) := by
+      rw [← ha, ← hb]; exact Shimura.nonsingular_iff_C.2 h
+    simp only [toC, X0.phiC, h', ↓reduceDIte]
+    simp only [Point.map_some, Point.some.injEq]
+    exact ⟨ha, hb⟩
+  · refine ⟨0, ?_⟩
+    have h' : ¬ X0.curveAC.toAffine.Nonsingular (X0.xC Q.tauH) (X0.yC Q.tauH) := by
+      rw [← ha, ← hb]; exact fun h'' => h (Shimura.nonsingular_iff_C.1 h'')
+    simp only [X0.phiC, h', ↓reduceDIte, map_zero]
+
+/-- **`TYZThm36Seven` (TYZ Theorem 3.6(3)) from tyz-cm's one textbook leaf.** -/
+theorem tyzThm36Seven_of_shimuraModFn (hS : Shimura.ShimuraReciprocityModFn) : TYZThm36Seven :=
+  tyzThm36Seven_of (Shimura.shimuraReciprocityPic_of_shimuraModFn hS) Shimura.etaModelFricke
+    (cmAlgebraic_of_cmValue (Shimura.cmValueRingClass_of_modFn hS))
+
+end TyzCmCombined
+
+open ZInQ.Contrib.TYZDecomp in
+/-- **Main theorem, combined with tyz-cm: TYZ reading A from the three `𝓛`-leaves, the one
+textbook CM leaf `Shimura.ShimuraReciprocityModFn` (main theorem of complex multiplication for
+values of modular functions on `X₀(N)` at Heegner points, Gross's form; tyz-cm) and the TYZ
+results `Lemma318Literal` (Lemma `torsion2`), `Thm35First` (Thm 3.3/3.5) and `Lemma321Five`
+(Lemma 3.21(1)).** -/
+theorem tyzThm35ReadingA_of_lcal_shimuraModFn_lemma318_thm35First_lemma321Five
+    (h11 : TYZThm11Integral) (h1 : TYZLcalOne) (h29 : TYZLemma29Mod2)
+    (hS : Shimura.ShimuraReciprocityModFn)
+    (h318 : Lemma318Literal HHprime) (h35 : ∀ ℓ : ℕ → ℤ, IsTYZLcal ℓ → Thm35First ℓ tyzZ)
+    (h5 : Lemma321Five) : ZInQ.Literature.TYZThm35ReadingA :=
+  tyzThm35ReadingA_of_ringClassD_sigmaFixesZn_lemma318_thm35First_lemma321Five_shimura h11 h1 h29
+    (Shimura.cmFieldOfDefinition_of_shimuraModFn hS)
+    (Shimura.tyzSigmaFixesZn_of (Shimura.shimuraReciprocityPic_of_shimuraModFn hS)
+      Shimura.etaModelFricke)
+    h318 h35 h5 (Shimura.shimuraReciprocityPic_of_shimuraModFn hS) Shimura.etaModelFricke
+    (cmAlgebraic_of_cmValue (Shimura.cmValueRingClass_of_modFn hS))
 
 end ZInQ.Contrib.TYZGenus.CMBridge
 
@@ -4508,6 +7097,16 @@ open ZInQ.Contrib.TYZGenus.CMBridge in
 #print axioms lemma321Seven_of'
 open ZInQ.Contrib.TYZGenus.CMBridge in
 #print axioms tyzThm35ReadingA_of_ringClassD_sigmaShiftsF0_lemma318_thm35First_lemma321Five_thm36Seven
+open ZInQ.Contrib.TYZGenus.CMBridge in
+#print axioms tyzThm36Seven_of
+open ZInQ.Contrib.TYZGenus.CMBridge in
+#print axioms tyzThm35ReadingA_of_ringClassD_sigmaFixesZn_lemma318_thm35First_lemma321Five_shimura
+open ZInQ.Contrib.TYZGenus.CMBridge in
+#print axioms cmAlgebraic_of_cmValue
+open ZInQ.Contrib.TYZGenus.CMBridge in
+#print axioms tyzThm36Seven_of_shimuraModFn
+open ZInQ.Contrib.TYZGenus.CMBridge in
+#print axioms tyzThm35ReadingA_of_lcal_shimuraModFn_lemma318_thm35First_lemma321Five
 
 end  -- closes the file's top-level `noncomputable section`
 
@@ -4576,32 +7175,26 @@ namespace ZInQ.Frontier
 
 open ZInQ.Contrib.TYZDecomp ZInQ.Contrib.TYZGenus.Package ZInQ.Contrib.TYZGenus.RingClass
 
-/-- **TYZ reading A from the open TYZ Props of the finest reduction** (tyz-cm's
-`cmFieldOfDefinition_of_cmValue` and cm-bridge's final theorem). -/
+/-- **TYZ reading A from the open TYZ Props of the finest reduction** (cm-bridge's headline, which
+uses tyz-cm's reduction of the CM leaves to `ShimuraReciprocityModFn`). -/
 theorem tyzThm35ReadingA_of_open (h11 : TYZThm11Integral) (h1 : TYZLcalOne) (h29 : TYZLemma29Mod2)
-    (hV : ZInQ.Contrib.TYZGenus.Shimura.CMValueRingClass)
-    (hI : ZInQ.Contrib.TYZGenus.X0.EtaModelInvariant)
-    (hsh : ZInQ.Contrib.TYZGenus.CMBridge.TYZSigmaShiftsF0) (h318 : Lemma318Literal HHprime)
+    (hS : ZInQ.Contrib.TYZGenus.Shimura.ShimuraReciprocityModFn) (h318 : Lemma318Literal HHprime)
     (h35 : ∀ ℓ : ℕ → ℤ, IsTYZLcal ℓ → Thm35First ℓ ZInQ.Contrib.TYZGenus.CMBridge.tyzZ)
-    (h5 : ZInQ.Contrib.TYZGenus.CMBridge.Lemma321Five)
-    (h36 : ZInQ.Contrib.TYZGenus.CMBridge.TYZThm36Seven) :
+    (h5 : ZInQ.Contrib.TYZGenus.CMBridge.Lemma321Five) :
     ZInQ.Literature.TYZThm35ReadingA :=
-  ZInQ.Contrib.TYZGenus.CMBridge.tyzThm35ReadingA_of_ringClassD_sigmaShiftsF0_lemma318_thm35First_lemma321Five_thm36Seven
-    h11 h1 h29 (ZInQ.Contrib.TYZGenus.Shimura.cmFieldOfDefinition_of_cmValue hV hI) hsh h318 h35 h5 h36
+  ZInQ.Contrib.TYZGenus.CMBridge.tyzThm35ReadingA_of_lcal_shimuraModFn_lemma318_thm35First_lemma321Five
+    h11 h1 h29 hS h318 h35 h5
 
-/-- **`ZInQ.FrozenTarget` from H, the 10 open TYZ Props and the 2 open GZ Props.** -/
+/-- **`ZInQ.FrozenTarget` from H, the 7 open TYZ Props and the 2 open GZ Props.** -/
 theorem frozenTarget_of_open (hH : ZInQ.SixContactMin)
     (h11 : TYZThm11Integral) (h1 : TYZLcalOne) (h29 : TYZLemma29Mod2)
-    (hV : ZInQ.Contrib.TYZGenus.Shimura.CMValueRingClass)
-    (hI : ZInQ.Contrib.TYZGenus.X0.EtaModelInvariant)
-    (hsh : ZInQ.Contrib.TYZGenus.CMBridge.TYZSigmaShiftsF0) (h318 : Lemma318Literal HHprime)
+    (hS : ZInQ.Contrib.TYZGenus.Shimura.ShimuraReciprocityModFn) (h318 : Lemma318Literal HHprime)
     (h35 : ∀ ℓ : ℕ → ℤ, IsTYZLcal ℓ → Thm35First ℓ ZInQ.Contrib.TYZGenus.CMBridge.tyzZ)
     (h5 : ZInQ.Contrib.TYZGenus.CMBridge.Lemma321Five)
-    (h36 : ZInQ.Contrib.TYZGenus.CMBridge.TYZThm36Seven)
     (hL2 : ZInQ.GZDecomp.FHNonvanishing) (hL3 : ZInQ.GZDecomp.GrossZagierHeegner) :
     ZInQ.FrozenTarget :=
   ZInQ.GZDecomp.frozenTarget_of_sixContactMin_tyzThm35ReadingA_gzLeaves hH
-    (tyzThm35ReadingA_of_open h11 h1 h29 hV hI hsh h318 h35 h5 h36)
+    (tyzThm35ReadingA_of_open h11 h1 h29 hS h318 h35 h5)
     ZInQ.GZTheta.Frontier.heckeThetaNewform hL2 hL3
 
 end ZInQ.Frontier
