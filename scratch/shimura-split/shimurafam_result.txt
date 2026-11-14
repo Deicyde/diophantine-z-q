@@ -1,0 +1,2 @@
+'ShimuraSplit.holP1_of_isHolFamily' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.QMSplit.Moduli.shimuraFamily_of_hol' depends on axioms: [propext, Classical.choice, Quot.sound]
