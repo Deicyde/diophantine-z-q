@@ -1,0 +1,45 @@
+
+/-! ## av-split: the five rows from published-form leaves (summary) -/
+
+namespace AvSplit.Final
+
+/-- **H-24** (`PkgI2.ReductionTorsionBijective`, T4) from `MulEtaleAbelianScheme`. -/
+theorem h24 (hE : AvSplit.T4.MulEtaleAbelianScheme) : PkgI2.ReductionTorsionBijective.{0} :=
+  AvSplit.T4.reductionTorsionBijective_of_mulEtale hE
+
+/-- **H-25** (`PkgI2.TorsionStructure`, T5) from Mumford §4 App. 2 over `K̄`. -/
+theorem h25 (hT : AvSplit.MumfordTorsionAlgClosed) : PkgI2.TorsionStructure.{0} :=
+  AvSplit.torsionStructure_of_mumford hT
+
+/-- **H-38** (`ZInQ.LeafPush2.UniformizationExists`, T35) from the kernel's AN3 leaf and the H-25
+leaf. -/
+theorem h38 (HL : BPAnalytic.Uniformization.UniformizationLeafAll)
+    (hT : AvSplit.MumfordTorsionAlgClosed) : ZInQ.LeafPush2.UniformizationExists :=
+  AvSplit.uniformizationExists_of_mumford (AvSplit.AN3.mumfordUniformizationC_of HL hT)
+
+/-- **H-54** (`WeilPairing.IsogenyQuasiInverse`) from Milne's morphism form. -/
+theorem h54 (hM : AvSplit.MilneIsogenyQuasiInverse) : WeilPairing.IsogenyQuasiInverse :=
+  AvSplit.isogenyQuasiInverse_of_milne hM
+
+/-- **H-69** (`ZInQ.HomUnify.HomLatticeCorr`) from the kernel's AN3 leaf and GAGA for maps. -/
+theorem h69 (HL : BPAnalytic.Uniformization.UniformizationLeafAll)
+    (HG : ZInQ.HomLattice.GAGAMorphism) : ZInQ.HomUnify.HomLatticeCorr :=
+  AvSplit.HomLatticeAN3.homLatticeCorr_of_leaf_gaga HL HG
+
+/-- All five rows from the five leaves at once. -/
+theorem all_rows (hE : AvSplit.T4.MulEtaleAbelianScheme) (hT : AvSplit.MumfordTorsionAlgClosed)
+    (HL : BPAnalytic.Uniformization.UniformizationLeafAll) (hM : AvSplit.MilneIsogenyQuasiInverse)
+    (HG : ZInQ.HomLattice.GAGAMorphism) :
+    PkgI2.ReductionTorsionBijective.{0} ∧ PkgI2.TorsionStructure.{0} ∧
+      ZInQ.LeafPush2.UniformizationExists ∧ WeilPairing.IsogenyQuasiInverse ∧
+      ZInQ.HomUnify.HomLatticeCorr :=
+  ⟨h24 hE, h25 hT, h38 HL hT, h54 hM, h69 HL HG⟩
+
+end AvSplit.Final
+
+#print axioms AvSplit.Final.h24
+#print axioms AvSplit.Final.h25
+#print axioms AvSplit.Final.h38
+#print axioms AvSplit.Final.h54
+#print axioms AvSplit.Final.h69
+#print axioms AvSplit.Final.all_rows
