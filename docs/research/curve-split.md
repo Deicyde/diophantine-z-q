@@ -27,10 +27,11 @@ Four of the six rows are now theorems, one of them with no leaf at all; two rows
 * **H-79 cannot be split today, and it is stronger than the proof needs.** Its sources are
   statements about the compact Riemann surface `Γ₁(N)\ℍ*` (Shimura 1971, §6.7 and Prop. 1.40).
   Mathlib has no Lean definition of that surface. The proof uses the row only through
-  `dim J₁(N) ≤ N²` (`LeafModCurves.dim_J1_le`). That bound is now proved from textbook leaves
-  about function fields: Riemann–Hurwitz, the fundamental identity, and "places are DVRs"
-  (Stichtenoth), together with `X0Transitive` (H-41) and the kernel's first half of T34,
-  `DimJacobianEqGenus` (`CurveSplit.dimJ1Le_of_textbook`).
+  `dim J₁(N) ≤ N²` (`LeafModCurves.dim_J1_le`). That bound is now proved from two textbook leaves
+  about function fields, Riemann–Hurwitz and the fundamental identity (Stichtenoth), together with
+  `X0Transitive` (H-41) and the kernel's first half of T34, `DimJacobianEqGenus`
+  (`CurveSplit.dimJ1Le_of_rh_fi`). That places are DVRs is proved where it is needed
+  (`CurveSplit.exists_uniformizer`).
 * **H-83 cannot be split today.** Its published form is representability of a moduli problem of
   abelian schemes with `𝒪`-action and level structure over `ℤ_(p)`-schemes. That needs abelian
   schemes over a base, which the repository and Mathlib do not define. A leaf over the kernel's
@@ -44,7 +45,7 @@ No row statement was changed, and no row was found false or vacuous.
 | row | old form | new leaves (published form, source) | new glue | Lean name of the proof |
 |---|---|---|---|---|
 | H-41 `X0Transitive` | GLUE (irreducibility of `Φ_N` through `C ↦ j(E/C)`) | `ZInQ.RLeaf.IgusaSL2X` (kernel; Igusa 1959, `SL₂(ℤ/N)` in the Galois image on `E_j[N]`, on `x`-coordinates), or `ZInQ.RLeaf.IgusaGL2` (kernel; Igusa's theorem as usually printed) | none | `CurveSplit.x0Transitive_of_igusaSL2X`, `CurveSplit.x0Transitive_of_igusaGL2` (`X0Split.lean`) |
-| H-79 `GenusX1Field` | GLUE (lit-composite: Shimura Prop. 6.9, Prop. 1.40, base change of `H⁰(Ω¹)`) | the row itself: none possible today (no `Γ₁(N)\ℍ*` in Lean). For its only use (`dim J₁(N) ≤ N²`): `CurveSplit.RiemannHurwitzQj` (Stichtenoth Thm 3.4.13 with Dedekind's different theorem 3.5.1, the genus as holomorphic differentials), `CurveSplit.FundamentalIdentityQj` (Stichtenoth Thm 3.1.11 at `j = 0, 1728, ∞`), `CurveSplit.PlacesAreDVR` (Stichtenoth Thm 1.1.6), with `X0Transitive` (H-41) and the kernel's `DimJacobianEqGenus` | none (`BelyiGenusBound` proved) | `CurveSplit.dimJ1Le_of_textbook`, `CurveSplit.belyiGenusBound_of_leaves`, `CurveSplit.genusX1Le_of_belyi`, `CurveSplit.genusX1Le_of_genusX1Field` (`GenusBound.lean`) |
+| H-79 `GenusX1Field` | GLUE (lit-composite: Shimura Prop. 6.9, Prop. 1.40, base change of `H⁰(Ω¹)`) | the row itself: none possible today (no `Γ₁(N)\ℍ*` in Lean). For its only use (`dim J₁(N) ≤ N²`): `CurveSplit.RiemannHurwitzQj` (Stichtenoth Thm 3.4.13 with Dedekind's different theorem 3.5.1, the genus as holomorphic differentials) and `CurveSplit.FundamentalIdentityQj` (Stichtenoth Thm 3.1.11 at `j = 0, 1728, ∞`), with `X0Transitive` (H-41) and the kernel's `DimJacobianEqGenus` | none (`BelyiGenusBound` and the uniformizers proved) | `CurveSplit.dimJ1Le_of_rh_fi`, `CurveSplit.belyiGenusBound_of_rh_fi`, `CurveSplit.exists_uniformizer`, `CurveSplit.genusX1Le_of_belyi`, `CurveSplit.genusX1Le_of_genusX1Field` (`GenusBound.lean`) |
 | H-81 `NormalCurveSmoothQ` | GLUE (Stacks 00TV, 0B8X) | `CurveSplit.RegularSmoothPerfect` (Stacks 00TV: a finite type algebra over a perfect field is smooth at a prime with regular local ring) | none | `CurveSplit.normalCurveSmoothQ_of_regularSmooth` (`CurvesGSplit.lean`) |
 | H-82 `GeomConnectedOfConstantFieldQ` | GLUE (`Γ(X,𝒪) = ℚ`, Stacks 0FD1) | `ZariskiConn.ZariskiConnectedness` (kernel; EGA III₁ 4.3.1 with 4.3.4) | none | `CurveSplit.geomConnectedOfConstantFieldQ_of_zariski` (`CurvesGSplit.lean`) |
 | H-83 `ShimuraGoodReduction` | GLUE (lit-composite: Morita, Carayol, Kottwitz, Buzzard) | none possible today (no abelian schemes over a base) | see §3.6 | none |
@@ -246,7 +247,12 @@ genuine definitions. An algebraic route exists but is long. It would combine:
     with `deg P = f(P|Q) deg Q` and `deg Q = 1`. Lying over is read off `t = j/1728`: `t ∈ 𝔪_P`,
     `t − 1 ∈ 𝔪_P`, `t ∉ 𝒪_P`.
   * `PlacesAreDVR`: every place has a uniformizer `π`, and every `x ∈ F^×` is `π^n` times a unit
-    (Stichtenoth Thm 1.1.6).
+    (Stichtenoth Thm 1.1.6). **No longer needed.** The proof only uses uniformizers at places
+    containing `t`, and `exists_uniformizer` proves those exist. The integral closure `R` of
+    `ℚ[j]` in `F` is a Dedekind domain with fraction field `F` (Mathlib). Since valuation rings
+    are integrally closed, `R ⊆ 𝒪_P`. `𝔭 = R ∩ 𝔪_P` is a nonzero prime. A uniformizer of the DVR
+    `R_𝔭 ⊆ F` (Mathlib's `Localization.subalgebra.ofField`) is a uniformizer of `𝒪_P`. So
+    `belyiGenusBound_of_rh_fi : RiemannHurwitzQj → FundamentalIdentityQj → BelyiGenusBound`.
 
   The glue is proved:
   * `ramIdx_eq_one`: if `q(t)` divides `𝔪_P`, then `q(t)` is a uniformizer and `e_P = 1`;
@@ -257,10 +263,14 @@ genuine definitions. An algebraic route exists but is long. It would combine:
   * the sum estimate: `Σ_{P|Q} (e_P − 1) deg P = d − Σ_{P|Q} deg P ≤ d − 1` at each of the three
     places.
 
-So for the consumers, H-79 can be replaced by the H-41 leaf (Igusa) and three textbook theorems on
-function fields, with no modular curve over `ℂ`. `CurveSplit.dimJ1Le_of_textbook :
-DimJacobianEqGenus → RiemannHurwitzQj → FundamentalIdentityQj → PlacesAreDVR → X0Transitive →
-DimJ1Le` is compiled. `DimJ1Le` is exactly the conclusion of `LeafModCurves.dim_J1_le`, so the
+So for the consumers, H-79 can be replaced by the H-41 leaf (Igusa) and two textbook theorems on
+function fields (Riemann–Hurwitz, the fundamental identity), with no modular curve over `ℂ`.
+`CurveSplit.dimJ1Le_of_rh_fi : DimJacobianEqGenus → RiemannHurwitzQj → FundamentalIdentityQj →
+X0Transitive → DimJ1Le` is compiled. The fundamental identity is in Mathlib for Dedekind
+extensions (`Ideal.sum_ramification_inertia`). Turning `FundamentalIdentityQj` into a theorem
+needs two things: the correspondence between places over `j = a` and primes of the integral
+closure of `ℚ[j]`, and over `j = ∞` the integral closure of `ℚ[1/j]`; and the comparison of the
+unit-group index `e_P` with Mathlib's `ramificationIdx`. That is glue, not done here. `DimJ1Le` is exactly the conclusion of `LeafModCurves.dim_J1_le`, so the
 consumers `javanpeykarJ1` and E2 can be switched to it.
 
 ### 3.6 H-83 `ShimuraGoodReduction`
@@ -320,7 +330,7 @@ hyperspecial at `p ≠ 3`, so it should; this is UNVERIFIED.
 | `scratch/curve-split/X0Split.lean` | H-41 from `IgusaSL2X` / `IgusaGL2` | compiled, standard axioms |
 | `scratch/curve-split/CurvesGSplit.lean` | H-81 from `RegularSmoothPerfect`; H-82 from `ZariskiConnectedness` | compiled, standard axioms |
 | `scratch/curve-split/CurveBij.lean` | `CurveBijIso` (verbatim); Part A (descent), Part B (leaf (a)), Part B' (ZMT and the degree formula), Part C (`zmtOriginal`), Part D (`curveBijIso`, no leaf) | compiled, standard axioms |
-| `scratch/curve-split/GenusBound.lean` | H-79 consumers: `GenusX1Le`, `DimJ1Le`, `BelyiGenusBound` | compiled, standard axioms |
+| `scratch/curve-split/GenusBound.lean` | H-79 consumers: `GenusX1Le`, `DimJ1Le`, `BelyiGenusBound` from Riemann–Hurwitz and the fundamental identity, `exists_uniformizer` | compiled, standard axioms |
 
 All four files import only `ZInQKernel/` modules (built with `lake build` for the imported
 modules) and Mathlib. No scratch file imports another. `CurveBij.lean` contains copies of two
@@ -330,9 +340,10 @@ lemmas of `scratch/curve-glue/CIproof.lean.part` (`isDomain_of_dim_one`,
 ## 5. What remains
 
 * H-79: the row itself stays a lit-composite. To drop it, switch the consumers of `dim_J1_le`
-  (`javanpeykarJ1`, E2 in `TailD.lean`) to `DimJ1Le`, which is proved from `DimJacobianEqGenus`,
-  the three function-field leaves and `X0Transitive`. Not done here: it edits other tasks'
-  files.
+  (`javanpeykarJ1`, E2 in `TailD.lean`) to `DimJ1Le`. `DimJ1Le` is proved from
+  `DimJacobianEqGenus`, `RiemannHurwitzQj`, `FundamentalIdentityQj` and `X0Transitive`. Not done
+  here, because it edits other tasks' files. `FundamentalIdentityQj` can be reduced to Mathlib's
+  Dedekind fundamental identity (glue, §3.5).
 * H-83: the definitions 1–5 of §3.6, a Lean statement of Kottwitz/Buzzard representability, and
   the clause-by-clause glue.
 * H-85: nothing remains (`curveBijIso` has no hypotheses). To adopt it, copy `CurveBij.lean`
