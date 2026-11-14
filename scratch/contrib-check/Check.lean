@@ -47,6 +47,8 @@ import ZInQKernel.Contrib.CloudW02Connectedness.Basic
 import ZInQKernel.Contrib.CloudW01Spread.Smooth
 import ZInQKernel.Contrib.CloudW01Spread.FinitePresentation
 import ZInQKernel.Contrib.CloudW03NeronSurj.Main
+import ZInQKernel.Contrib.CloudW07JacobiansCurves.JacobianExists
+import ZInQKernel.Contrib.CloudW07JacobiansCurves.NormalModel
 
 /-! The two closed providers fed into the unchanged headline theorem: Theorem 1.1 from
 `SixContactMin`, `TYZThm35ReadingA` and `GrossZagier` alone. -/
@@ -285,3 +287,6 @@ theorem contribCheck_headline (hH : ZInQ.SixContactMin) (hA : ZInQ.Literature.TY
 #print axioms ZInQ.Contrib.SpreadOut.EGAIV_17_7_8_ii_proof
 #print axioms ZInQ.Contrib.SpreadOut.EGAIV_8_8_2_ii_proof
 #print axioms ZInQ.Contrib.NeronC.NeronMappingAbelianSchemeSurj_proof
+-- cloud worker W07 (w59)
+#print axioms ZInQ.Contrib.CloudW07JacobiansCurves.JacobianExists_proof
+#print axioms ZInQ.Contrib.CloudW07JacobiansCurves.NormalModelOfFunctionFieldQ_proof
