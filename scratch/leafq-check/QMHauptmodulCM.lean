@@ -1022,6 +1022,72 @@ theorem value_of_eventually {f : UpperHalfPlane → OnePoint ℂ} (hc : Continuo
   have h2 : Tendsto f (𝓝[≠] τ0) (𝓝 v) := tendsto_const_nhds.congr' (hev.mono fun τ hτ => hτ.symm)
   exact tendsto_nhds_unique h1 h2
 
+open Filter Topology in
+/-- If `f = g · h` near `z` with `h` analytic and nonzero at `z`, the orders of `f` and `g` agree. -/
+theorem order_eq_of_mul {f g h : ℂ → ℂ} {z : ℂ} (hg : AnalyticAt ℂ g z) (hh : AnalyticAt ℂ h z)
+    (hh0 : h z ≠ 0) (hfg : f =ᶠ[𝓝 z] g * h) : analyticOrderAt f z = analyticOrderAt g z := by
+  rw [analyticOrderAt_congr hfg, analyticOrderAt_mul hg hh,
+    analyticOrderAt_eq_zero.2 (Or.inr hh0), add_zero]
+
+open Filter Topology in
+theorem Zf_eventually_ne {z : ℂ} (hz : 0 < z.im) : ∀ᶠ w in 𝓝 z, Zf w ≠ 0 :=
+  (Zf_analytic z).continuousAt.eventually_ne (Zf_ne hz)
+
+theorem G8_eq (z : ℂ) : G8 z = Sf z / Zf z ^ 4 := rfl
+theorem G20_eq (z : ℂ) : HSyn.G0Split.FibreQM.PeriodGlue.LQ20.G20 z = Pf z / Zf z ^ 10 := rfl
+
+theorem G8_analytic {z : ℂ} (hz : z ∈ U) : AnalyticAt ℂ G8 z := by
+  have : G8 = fun w => Sf w / Zf w ^ 4 := rfl
+  rw [this]; exact (Sf_analytic z hz).div ((Zf_analytic z).pow 4) (pow_ne_zero _ (Zf_ne hz))
+
+theorem G20_analytic {z : ℂ} (hz : z ∈ U) : AnalyticAt ℂ HSyn.G0Split.FibreQM.PeriodGlue.LQ20.G20 z := by
+  have : HSyn.G0Split.FibreQM.PeriodGlue.LQ20.G20 = fun w => Pf w / Zf w ^ 10 := rfl
+  rw [this]; exact (Pf_analytic z hz).div ((Zf_analytic z).pow 10) (pow_ne_zero _ (Zf_ne hz))
+
+open Filter Topology in
+theorem ord_Sf_eq {z : ℂ} (hz : z ∈ U) : analyticOrderAt Sf z = analyticOrderAt G8 z := by
+  refine order_eq_of_mul (h := fun w => Zf w ^ 4) (G8_analytic hz) ((Zf_analytic z).pow 4)
+    (pow_ne_zero _ (Zf_ne hz)) ?_
+  filter_upwards [Zf_eventually_ne hz] with w hw
+  simp only [Pi.mul_apply, G8_eq]
+  field_simp
+
+open Filter Topology in
+theorem ord_Pf_eq {z : ℂ} (hz : z ∈ U) :
+    analyticOrderAt Pf z = analyticOrderAt HSyn.G0Split.FibreQM.PeriodGlue.LQ20.G20 z := by
+  refine order_eq_of_mul (h := fun w => Zf w ^ 10) (G20_analytic hz) ((Zf_analytic z).pow 10)
+    (pow_ne_zero _ (Zf_ne hz)) ?_
+  filter_upwards [Zf_eventually_ne hz] with w hw
+  simp only [Pi.mul_apply, G20_eq]
+  field_simp
+
+/-- The fixed point of `ι((1 + j)/2)` in `ℍ` is `i√3`. -/
+theorem fixed_x3 {γ : GL (Fin 2) ℝ} (hγ : (γ : Matrix (Fin 2) (Fin 2) ℝ) = PkgI1.iota x3)
+    {τ : UpperHalfPlane} (hτ : γ • τ = τ) : τ = tau3 := by
+  have hM : (γ : Matrix (Fin 2) (Fin 2) ℝ) = !![1/2, -3/2; 1/2, 1/2] := by
+    rw [hγ, iota_apply]; ext i j; fin_cases i <;> fin_cases j <;> simp [x3] <;> norm_num
+  have hdet : 0 < γ.det.val := by
+    rw [Matrix.GeneralLinearGroup.val_det_apply, hM, Matrix.det_fin_two_of]; norm_num
+  have h := congrArg (fun w : UpperHalfPlane => (w : ℂ)) hτ
+  rw [UpperHalfPlane.coe_smul_of_det_pos hdet, div_eq_iff (UpperHalfPlane.denom_ne_zero γ τ)] at h
+  simp only [UpperHalfPlane.num, UpperHalfPlane.denom, hM, Matrix.of_apply, Matrix.cons_val',
+    Matrix.cons_val_zero, Matrix.cons_val_one, Matrix.empty_val', Matrix.cons_val_fin_one,
+    Matrix.head_cons] at h
+  have s3 : (√3 : ℂ) * √3 = 3 := by
+    rw [← Complex.ofReal_mul, Real.mul_self_sqrt (by norm_num)]; norm_num
+  have hq : ((τ : ℂ) - √3 * Complex.I) * ((τ : ℂ) + √3 * Complex.I) = 0 := by
+    have hI : Complex.I * Complex.I = -1 := Complex.I_mul_I
+    push_cast at h
+    linear_combination (-2 : ℂ) * h - Complex.I * Complex.I * s3 - 3 * hI
+  apply UpperHalfPlane.ext
+  rcases mul_eq_zero.1 hq with h1 | h1
+  · rw [tau3_coe]; linear_combination h1
+  · exfalso
+    have := congrArg Complex.im h1
+    simp at this
+    have h3 : (0 : ℝ) < √3 := Real.sqrt_pos.2 (by norm_num)
+    linarith [τ.im_pos]
+
 end HDec.LeafQCheck.HM
 
 #print axioms HDec.LeafQCheck.HM.qmHauptmodul_of_base
