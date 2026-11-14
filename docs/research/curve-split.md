@@ -9,13 +9,18 @@ and UNVERIFIED (no network) unless a locator file is cited.
 
 ## 1. Verdict
 
-Four of the six rows are now theorems from published-form leaves alone, two rows are not:
+Four of the six rows are now theorems, one of them with no leaf at all; two rows are not:
 
-* **H-81, H-82 and H-85 are proved from published leaves with no remaining glue.** H-82 uses a leaf
-  the kernel already has (Zariski's connectedness theorem). H-81 uses one new leaf (Stacks 00TV).
-  H-85 is proved twice: from one new leaf (a bijective morphism onto a normal variety in
-  characteristic 0 is an isomorphism), and from two more classical leaves (Zariski's Main
-  Theorem in its original form, and degree = number of points of a general fibre).
+* **H-85 `CurveBijIso` is proved outright**, from Mathlib and `ZInQKernel/` with no hypothesis
+  (`CurveSplit.curveBijIso`). Mathlib v4.35 has Zariski's Main Theorem (Stacks 03GW), fpqc descent
+  of isomorphisms, ranks of finite flat algebras, the unramified locus, and Jacobson rings. The
+  remaining glue, about 1300 lines, is proved in `CurveBij.lean`. Earlier
+  stages of the same file also prove the row from published leaves (Springer's corollary; Zariski's
+  Main Theorem in its original form, itself now proved; the degree formula), which document the
+  classical route.
+* **H-81 and H-82 are proved from one published leaf each, with no remaining glue.** H-82 uses a
+  leaf the kernel already has (Zariski's connectedness theorem). H-81 uses one new leaf (Stacks
+  00TV).
 * **H-41 follows from Igusa's theorem.** The kernel already states it as a leaf (`IgusaSL2X`, or
   `IgusaGL2`). The modular-equation form the row cites cannot be stated in Lean today: Mathlib has
   no `j`-function and no modular polynomial.
@@ -43,7 +48,7 @@ No row statement was changed, and no row was found false or vacuous.
 | H-81 `NormalCurveSmoothQ` | GLUE (Stacks 00TV, 0B8X) | `CurveSplit.RegularSmoothPerfect` (Stacks 00TV: a finite type algebra over a perfect field is smooth at a prime with regular local ring) | none | `CurveSplit.normalCurveSmoothQ_of_regularSmooth` (`CurvesGSplit.lean`) |
 | H-82 `GeomConnectedOfConstantFieldQ` | GLUE (`Γ(X,𝒪) = ℚ`, Stacks 0FD1) | `ZariskiConn.ZariskiConnectedness` (kernel; EGA III₁ 4.3.1 with 4.3.4) | none | `CurveSplit.geomConnectedOfConstantFieldQ_of_zariski` (`CurvesGSplit.lean`) |
 | H-83 `ShimuraGoodReduction` | GLUE (lit-composite: Morita, Carayol, Kottwitz, Buzzard) | none possible today (no abelian schemes over a base) | see §3.6 | none |
-| H-85 `CurveBijIso` | GLUE (generic smoothness and a degree count) | (a) `CurveSplit.BijToNormalIsIso` (Springer, *LAG* Cor. 5.2.8; Borel AG.18.2), or (b) `CurveSplit.ZMTOriginal` (Mumford, *Red Book* III §9; EGA III₁ 4.4.9) and `CurveSplit.DegreeGeneralFibre` (Humphreys §4.6; Shafarevich II.6.3; Borel AG.18.4) | none | (a) `CurveSplit.curveBijIso_of_leaf`, (b) `CurveSplit.curveBijIso_of_zmt` (`CurveBij.lean`) |
+| H-85 `CurveBijIso` | GLUE (generic smoothness and a degree count) | **none** (Mathlib only). Also proved from published leaves: (a) `CurveSplit.BijToNormalIsIso` (Springer, *LAG* Cor. 5.2.8), (b) `CurveSplit.DegreeGeneralFibre` (Humphreys §4.6) with `CurveSplit.ZMTOriginal` (Mumford *Red Book* III §9; proved: `CurveSplit.zmtOriginal`) | none | **`CurveSplit.curveBijIso`** (no hypotheses); also `curveBijIso_of_leaf`, `curveBijIso_of_degree`, `curveBijIso_of_zmt` (`CurveBij.lean`) |
 
 ## 3. The rows
 
@@ -145,26 +150,46 @@ field `k` of characteristic 0.
 6. Isomorphisms are local on the target (`IsZariskiLocalAtTarget.of_iSup_eq_top`), and `Over.forget`
    reflects isomorphisms.
 
-**The leaves.**
+**Part C, Zariski's Main Theorem in its original form (proved; `zmtOriginal`).** The leaf
+`ZMTOriginal` is: a birational morphism of varieties with finite fibres onto a normal variety is an
+open immersion (Mumford, *Red Book* III §9; EGA III₁ 4.4.9). It is a theorem here.
+* Mathlib's `Scheme.Hom.exists_isIso_morphismRestrict_toNormalization` (Stacks 03GW) says: a
+  separated morphism of finite type is an isomorphism from its quasi-finite locus onto an open
+  subset of the relative normalization `Y'`.
+* With finite fibres the quasi-finite locus is everything.
+* New: `isIso_fromNormalization`, `Y' = Y` when `Y` is normal and `f` birational. For an affine
+  `V`, the integral closure of `Γ(Y, V)` in `Γ(X, f⁻¹V)` is `Γ(Y, V)`, because `Γ(X, f⁻¹V)`
+  embeds in `K(X) = K(Y)`, which is `Frac Γ(Y, V)`, and `Γ(Y, V)` is integrally closed
+  (`isIntegrallyClosed_of_normal`). Birationality is Tau Ceti's `functionFieldMap` being
+  bijective.
+
+**Part D, no leaf (proved; `curveBijIso`).** The restriction `f : V → W` of `h` over a component
+of `Z` is a homeomorphism, and it is finite (proper and injective). On a nonempty affine open
+`U ⊆ W`, take `A = Γ(W, U)` and `B = Γ(V, f⁻¹U)`.
+1. `A` is a Dedekind domain (`isDedekindDomain_sections`) and `B` is a finite torsion-free
+   `A`-algebra, hence flat.
+2. The unramified locus of `B/A` is open, and it contains the generic point: this is Mathlib's
+   `Algebra.isUnramifiedAt_bot`, in characteristic 0.
+3. `B` is a Jacobson ring, so the unramified locus contains a maximal ideal `q`.
+4. `q` is the only prime over `p = q ∩ A`, because `f` is injective on points.
+5. `κ(p) → κ(q)` is onto, by the Nullstellensatz: `finite_of_finite_type_of_isJacobsonRing` and
+   `IsAlgClosed.ringHom_bijective_of_isIntegral`.
+6. `bijective_of_unramifiedAt`: then `A_p ≅ B_q` (Mathlib's
+   `Localization.localRingHom_{injective,surjective}_of_primesOver_eq_singleton`). `B_q` is the
+   localization of `B` at `p`, so the rank of `B` at `p` is 1. The rank at every prime equals the
+   rank at the generic point (`Module.rankAtStalk_eq_of_le_of_finite_of_flat`), so it is 1
+   everywhere, and `A → B` is bijective (`Module.algebraMap_bijective_of_rankAtStalk`).
+7. Isomorphisms are local on the target, so `f` is an isomorphism (`isIso_of_finite_bijective`).
+
+**The classical leaves (kept as documentation, no longer needed).**
 
 * `BijToNormalIsIso`: a morphism of irreducible varieties over an algebraically closed field `k`
-  of characteristic 0 that is bijective on `k`-points, with normal target, is an isomorphism.
-  "Variety" means an integral, separated scheme of finite type over `k`. Springer, *Linear
-  Algebraic Groups* (2nd ed.), Cor. 5.2.8, has "bijective separable morphism onto a normal
-  variety" (UNVERIFIED); in characteristic 0 every dominant morphism is separable. **Human check
-  needed:** if the printed corollary assumes "birational" instead of "separable", this leaf is the
-  composite of form (b).
-* `ZMTOriginal`: a birational morphism of varieties with finite fibres onto a normal variety is an
-  open immersion. Mumford, *Red Book* III §9 "original form"; EGA III₁ 4.4.9 (UNVERIFIED numbers).
-  "Birational" is stated as dominant with bijective `functionFieldMap`, and "finite fibres" as
-  set-theoretic finiteness.
-* `DegreeGeneralFibre`: let `f` be a dominant morphism of varieties of the same dimension over an
-  algebraically closed field of characteristic 0. On a nonempty open set of closed points `y`, the
-  fibre has exactly `[K(X) : K(Y)]` closed points. Humphreys, *LAG* §4.6 (with the separable
-  degree); Shafarevich, *BAG 1*, II.6.3; Borel AG.18.4 (UNVERIFIED numbers).
-
-Form (b) uses two theorems found in every textbook treatment of Zariski's Main Theorem. Form (a)
-is one statement, whose printed form needs the check above.
+  of characteristic 0, bijective on `k`-points, with normal target, is an isomorphism (Springer,
+  *Linear Algebraic Groups*, 2nd ed., Cor. 5.2.8, with "separable"; UNVERIFIED).
+* `DegreeGeneralFibre`: let `f` be a dominant morphism of varieties of the same dimension in
+  characteristic 0. On a nonempty open set of closed points `y`, the fibre has `[K(X) : K(Y)]`
+  closed points (Humphreys, *LAG* §4.6; Shafarevich, *BAG 1*, II.6.3; Borel AG.18.4; UNVERIFIED).
+* `ZMTOriginal`: now proved, see Part C.
 
 ### 3.5 H-79 `GenusX1Field`
 
@@ -292,7 +317,7 @@ hyperspecial at `p ≠ 3`, so it should; this is UNVERIFIED.
 |---|---|---|
 | `scratch/curve-split/X0Split.lean` | H-41 from `IgusaSL2X` / `IgusaGL2` | compiled, standard axioms |
 | `scratch/curve-split/CurvesGSplit.lean` | H-81 from `RegularSmoothPerfect`; H-82 from `ZariskiConnectedness` | compiled, standard axioms |
-| `scratch/curve-split/CurveBij.lean` | `CurveBijIso` (verbatim); Part A (descent), Part B (leaf (a)), Part B' (leaves (b)) | compiled, standard axioms |
+| `scratch/curve-split/CurveBij.lean` | `CurveBijIso` (verbatim); Part A (descent), Part B (leaf (a)), Part B' (ZMT and the degree formula), Part C (`zmtOriginal`), Part D (`curveBijIso`, no leaf) | compiled, standard axioms |
 | `scratch/curve-split/GenusBound.lean` | H-79 consumers: `GenusX1Le`, `DimJ1Le`, `BelyiGenusBound` | compiled, standard axioms |
 
 All four files import only `ZInQKernel/` modules (built with `lake build` for the imported
@@ -308,6 +333,7 @@ lemmas of `scratch/curve-glue/CIproof.lean.part` (`isDomain_of_dim_one`,
   files.
 * H-83: the definitions 1–5 of §3.6, a Lean statement of Kottwitz/Buzzard representability, and
   the clause-by-clause glue.
-* H-85, leaf (a): check the printed form of Springer Cor. 5.2.8 (separable or birational). Leaf set
-  (b) avoids the question.
+* H-85: nothing remains (`curveBijIso` has no hypotheses). To adopt it, copy `CurveBij.lean`
+  into `ZInQKernel/Contrib/` and close `ModelGlue.CurveBijIso` in `modelIntegral_of` and
+  `modelFunctionField_of_curveBijIso`.
 * Locators: every theorem number above is from memory (UNVERIFIED).
