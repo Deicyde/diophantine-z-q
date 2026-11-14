@@ -2372,6 +2372,127 @@ theorem LamC_mem_iff (ρ : GQp p →* GL (Fin n) E) (i : ℤ)
 
 end SenBridge2
 
+section SenBridge3
+
+variable {n : ℕ} (E : IntermediateField ℚ_[p] (PadicAlgCl p)) [FiniteDimensional ℚ_[p] E]
+  [IsGalois ℚ_[p] E]
+
+theorem vAct_vAct (g h : GQp p) (y : Fin n → ℂ_[p]) : vAct p g (vAct p h y) = vAct p (g * h) y := by
+  ext k; simp [vAct, cpAct_mul]
+
+theorem vAct_one' (y : Fin n → ℂ_[p]) : vAct p 1 y = y := by
+  ext k; simp [vAct, cpAct_one]
+
+theorem vAct_qsmul (g : GQp p) (c : ℚ_[p]) (y : Fin n → ℂ_[p]) : vAct p g (c • y) = c • vAct p g y := by
+  ext k; simp [vAct, cpAct_smul]
+
+theorem vAct_mulVec (g : GQp p) (M : Matrix (Fin n) (Fin n) ℂ_[p]) (y : Fin n → ℂ_[p]) :
+    vAct p g (M.mulVec y) = (M.map (cpAct p g)).mulVec (vAct p g y) := by
+  ext k; simp [vAct, Matrix.mulVec, dotProduct, map_sum, map_mul]
+
+theorem matC_transpose_map (g : GQp p) (M : Matrix (Fin n) (Fin n) E) :
+    (matC p M).transpose.map (cpAct p g) =
+      (matC p (M.map (AlgEquiv.restrictNormalHom E g : E →+* E))).transpose := by
+  ext a b; simp [matC, cpAct_eC]
+
+theorem matC_transpose_map_fix {σ : GQp p} (hσ : σ ∈ E.fixingSubgroup) (M : Matrix (Fin n) (Fin n) E) :
+    (matC p M).transpose.map (cpAct p σ) = (matC p M).transpose := by
+  ext a b; simp [matC, cpAct_eC_fix p E hσ]
+
+theorem cycPow_conj (g σ : GQp p) (i : ℤ) : cycPow p (g * σ * g⁻¹) i = cycPow p σ i := by
+  rw [PkgI4.cycPow_mul, PkgI4.cycPow_mul, mul_comm (cycPow p g i), mul_assoc,
+    ← PkgI4.cycPow_mul, mul_inv_cancel, PkgI4.cycPow_one, mul_one]
+
+theorem conj_mem_fixing {g σ : GQp p} (hσ : σ ∈ E.fixingSubgroup) : g * σ * g⁻¹ ∈ E.fixingSubgroup := by
+  rw [mem_fixing_iff_ker] at hσ ⊢
+  exact (AlgEquiv.restrictNormalHom E).normal_ker.conj_mem σ hσ g
+
+theorem matC_mul (A B : Matrix (Fin n) (Fin n) E) : matC p (A * B) = matC p A * matC p B := by
+  simp [matC, Matrix.map_mul]
+
+/-- **Conjugation.** `dim_ℚp Y_i(ρ^τ) = dim_ℚp Y_i(ρ)`. -/
+theorem finrank_Ysp_rhoTau (ρ : GQp p →* GL (Fin n) E) (i : ℤ) (τ : E ≃ₐ[ℚ_[p]] E) :
+    Module.finrank ℚ_[p] (Ysp p (rhoTau p E τ ρ) i E) = Module.finrank ℚ_[p] (Ysp p ρ i E) := by
+  have hγ : Function.Surjective (AlgEquiv.restrictNormalHom (F := ℚ_[p]) (K₁ := PadicAlgCl p) E) :=
+    AlgEquiv.restrictNormalHom_surjective (PadicAlgCl p)
+  obtain ⟨g, hg⟩ := hγ τ
+  let A := (matC p (ρ g : Matrix (Fin n) (Fin n) E)).transpose
+  let A' := (matC p (ρ g⁻¹ : Matrix (Fin n) (Fin n) E)).transpose
+  have hAA' : A * A' = 1 := by
+    simp only [A, A', ← Matrix.transpose_mul, matC_inv_mul, Matrix.transpose_one]
+  have hA'A : A' * A = 1 := by
+    simp only [A, A', ← Matrix.transpose_mul, matC_mul_inv, Matrix.transpose_one]
+  have hmatτ : ∀ σ, (matC p (ρ σ : Matrix (Fin n) (Fin n) E)).transpose.map (cpAct p g) =
+      (matC p (rhoTau p E τ ρ σ : Matrix (Fin n) (Fin n) E)).transpose := by
+    intro σ
+    rw [matC_transpose_map, hg]
+    rfl
+  have hρmul : ∀ a b, matC p (ρ (a * b) : Matrix (Fin n) (Fin n) E) =
+      matC p (ρ a : Matrix (Fin n) (Fin n) E) * matC p (ρ b : Matrix (Fin n) (Fin n) E) := by
+    intro a b; rw [map_mul, Units.val_mul, matC_mul]
+  -- forward map
+  have hF : ∀ y ∈ Ysp p (rhoTau p E τ ρ) i E, A.mulVec (vAct p g⁻¹ y) ∈ Ysp p ρ i E := by
+    intro y hy σ' hσ'
+    set σ := g * σ' * g⁻¹
+    have hσ : σ ∈ E.fixingSubgroup := conj_mem_fixing p E hσ'
+    have e1 : (matC p (ρ σ' : Matrix (Fin n) (Fin n) E)).transpose * A =
+        A * (matC p (ρ σ : Matrix (Fin n) (Fin n) E)).transpose := by
+      simp only [A, ← Matrix.transpose_mul, ← hρmul]
+      congr 2; simp [σ, mul_assoc]
+    have e2 : (matC p (ρ σ : Matrix (Fin n) (Fin n) E)).transpose.mulVec (vAct p g⁻¹ y) =
+        vAct p g⁻¹ ((matC p (rhoTau p E τ ρ σ : Matrix (Fin n) (Fin n) E)).transpose.mulVec y) := by
+      rw [← hmatτ, vAct_mulVec, Matrix.map_map]
+      congr 1
+      exact Matrix.ext fun a b => (cpAct_inv_apply p g _).symm
+    rw [Matrix.mulVec_mulVec, e1, ← Matrix.mulVec_mulVec, e2, hy σ hσ, vAct_qsmul, vAct_vAct,
+      Matrix.mulVec_smul, cycPow_conj]
+    have e3 : g⁻¹ * σ = σ' * g⁻¹ := by simp [σ, mul_assoc]
+    rw [e3, ← vAct_vAct]
+    congr 1
+    rw [vAct_mulVec, matC_transpose_map_fix p E hσ']
+  -- backward map
+  have hF' : ∀ w ∈ Ysp p ρ i E, vAct p g (A'.mulVec w) ∈ Ysp p (rhoTau p E τ ρ) i E := by
+    intro w hw σ hσ
+    set σ'' := g⁻¹ * σ * g
+    have hσ'' : σ'' ∈ E.fixingSubgroup := by
+      have := conj_mem_fixing p E (g := g⁻¹) hσ
+      simpa [σ''] using this
+    have e1 : (matC p (ρ σ : Matrix (Fin n) (Fin n) E)).transpose * A' =
+        A' * (matC p (ρ σ'' : Matrix (Fin n) (Fin n) E)).transpose := by
+      simp only [A', ← Matrix.transpose_mul, ← hρmul]
+      congr 2; simp [σ'', mul_assoc]
+    rw [← hmatτ, ← vAct_mulVec, Matrix.mulVec_mulVec, e1, ← Matrix.mulVec_mulVec, hw σ'' hσ'',
+      Matrix.mulVec_smul, vAct_qsmul]
+    have e3 : (A'.mulVec (vAct p σ'' w)) = vAct p σ'' (A'.mulVec w) := by
+      rw [vAct_mulVec, matC_transpose_map_fix p E hσ'']
+    rw [e3, vAct_vAct, vAct_vAct]
+    have e4 : g * σ'' = σ * g := by simp [σ'', mul_assoc]
+    have e5 : cycPow p σ'' i = cycPow p σ i := by
+      have := cycPow_conj p g⁻¹ σ i
+      simpa [σ''] using this
+    rw [e4, e5]
+  let e : Ysp p (rhoTau p E τ ρ) i E ≃ₗ[ℚ_[p]] Ysp p ρ i E :=
+    { toFun := fun y => ⟨A.mulVec (vAct p g⁻¹ y), hF y y.2⟩
+      invFun := fun w => ⟨vAct p g (A'.mulVec w), hF' w w.2⟩
+      map_add' := fun y z => by
+        apply Subtype.ext
+        simp only [Submodule.coe_add, vAct_add, Matrix.mulVec_add]
+      map_smul' := fun c y => by
+        apply Subtype.ext
+        show A.mulVec (vAct p g⁻¹ (c • (y : Fin n → ℂ_[p]))) = c • A.mulVec (vAct p g⁻¹ y)
+        rw [vAct_qsmul, Matrix.mulVec_smul]
+      left_inv := fun y => by
+        apply Subtype.ext
+        simp only [Matrix.mulVec_mulVec, hA'A, Matrix.one_mulVec, vAct_vAct, mul_inv_cancel,
+          vAct_one']
+      right_inv := fun w => by
+        apply Subtype.ext
+        simp only [vAct_vAct, inv_mul_cancel, vAct_one', Matrix.mulVec_mulVec, hAA',
+          Matrix.one_mulVec] }
+  exact e.finrank_eq
+
+end SenBridge3
+
 end
 
 end ZInQ.Contrib.HodgeSplit
