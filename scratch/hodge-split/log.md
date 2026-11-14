@@ -26,3 +26,17 @@ after `lake build ZInQKernel.Contrib.R10.Amend ZInQKernel.Contrib.AbVarBC.Dim` (
   `htMultOver_of_decomp` (multiplicity g·([w=0]+[w=−1])), `dim_finite_I4` (abvar-bc's dim_finite transported).
 - PROOF `deRhamComparisonHT_of_leaves : HodgeTateDecompAbVar → TateTwistInvariants → AxSenTate →
   DeRhamH1AbVar → ZInQ.Contrib.R10.DeRhamComparisonHT`. COMPILED 04:30, standard axioms. VERIFIED.
+
+## H-32 `∀ p, PkgI4.T23_FontaineClosure p` (HodgeSplit.lean §7)
+- Row imported (ZInQKernel/Contrib/G9/I4Layer.lean l.1488, unchanged).
+- New genuine definitions: `ddrStd ρ` = (B_dR ⊗ ℚ_pⁿ)^{G_{ℚ_p}} in coordinates ({x | ρ(σ)·σ(x) = x}),
+  `IsDeRhamStd ρ` = (finrank = n), the printed definition of "V de Rham"; `dualRep ρ σ = ρ(σ⁻¹)ᵀ`.
+- LEAF `FontaineDRTannakian p`: de Rham reps (printed definition, on V) stable under (a) duals, (b) sub on the
+  last b coordinates / quotient on the first a of a block lower-triangular ρ, (c) ⊕, (d) ⊗ (Kronecker);
+  continuity of the inputs assumed. Fontaine Astérisque 223 Exp. II/III §1.5; Brinon–Conrad Thm 5.2.1,
+  §6.3 (numbering UNVERIFIED).
+- GLUE proved: `isDeRham_iff_std : IsDeRham ρ ↔ IsDeRhamStd (dualRep ρ)` (pkg-I4's Hom form of D_dR(V^∨)
+  vs the printed tensor form, through coordinates), `isDeRham_conj` (clause (i), no leaf needed),
+  `contRep_dualRep`, `dualRep_dualRep`, transposes of block/Kronecker matrices.
+- PROOF `t23_all_of_fontaine : (∀ p, FontaineDRTannakian p) → ∀ p, T23_FontaineClosure p`.
+  COMPILED 05:05, standard axioms. VERIFIED.

@@ -726,9 +726,293 @@ theorem deRhamComparisonHT_of_leaves (hHT : HodgeTateDecompAbVar) (hT : TateTwis
   · obtain ⟨g, hg⟩ := dim_finite_I4 A
     rw [hmult g hg w]; simp [hw0, hw1]
 
+
+/-! ## §7. H-32: T23 (`PkgI4.T23_FontaineClosure`), from Fontaine's Tannakian theorem on `V`
+
+pkg-I4's `IsDeRham ρ` computes `D_dR` on `V^∨` (as `Hom_{G}(V, B_dR)`). The published statement is
+about `D_dR(V) = (B_dR ⊗ V)^G`. Here `ddrStd` is that space for `V = ℚ_pⁿ` (coordinates), the leaf
+`FontaineDRTannakian` is Fontaine's theorem for it (matrix form), and `isDeRham_iff_std` proves
+`IsDeRham ρ ↔ IsDeRhamStd ρ^∨` with `ρ^∨(σ) = ρ(σ⁻¹)ᵀ`. -/
+
+section T23
+
+/-- `(B_dR ⊗_{ℚ_p} ℚ_pⁿ)^{G_{ℚ_p}}` in coordinates: `x ∈ B_dRⁿ` with `ρ(σ) · σ(x) = x`. -/
+def ddrStd {n : ℕ} (ρ : GQp p →* GL (Fin n) ℚ_[p]) : Submodule ℚ_[p] (Fin n → BdR p) where
+  carrier := {x | ∀ σ, ((ρ σ : Matrix (Fin n) (Fin n) ℚ_[p]).map (algebraMap ℚ_[p] (BdR p))).mulVec
+    (fun i => bdrAct p σ (x i)) = x}
+  zero_mem' σ := by
+    have : (fun i => bdrAct p σ ((0 : Fin n → BdR p) i)) = 0 := by ext; simp
+    rw [this, Matrix.mulVec_zero]
+  add_mem' {x y} hx hy σ := by
+    have : (fun i => bdrAct p σ ((x + y) i)) = (fun i => bdrAct p σ (x i)) + fun i => bdrAct p σ (y i) := by
+      ext i; simp
+    rw [this, Matrix.mulVec_add, hx σ, hy σ]
+  smul_mem' c x hx σ := by
+    have : (fun i => bdrAct p σ ((c • x) i)) = c • fun i => bdrAct p σ (x i) := by
+      ext i; simp [bdrAct_smul]
+    rw [this, Matrix.mulVec_smul, hx σ]
+
+/-- **`V` is de Rham** (Fontaine): `dim_{ℚ_p} (B_dR ⊗ V)^{G_{ℚ_p}} = dim_{ℚ_p} V`, for
+`V = ℚ_pⁿ` with the matrix representation `ρ` (`B_dR^{G_{ℚ_p}} = ℚ_p`). -/
+def IsDeRhamStd {n : ℕ} (ρ : GQp p →* GL (Fin n) ℚ_[p]) : Prop :=
+  finrank ℚ_[p] (ddrStd p ρ) = n
+
+/-- **LEAF (Fontaine: de Rham representations form a Tannakian subcategory).** Fontaine,
+*Le corps des périodes p-adiques*, Astérisque 223 (1994), Exp. II, and *Représentations p-adiques
+semi-stables*, same volume, Exp. III, §1.5 (for a `(ℚ_p, G)`-regular ring `B`, the `B`-admissible
+representations are stable under subobjects, quotients, direct sums, tensor products and duals)
+with `B = B_dR` (`(ℚ_p, G_{ℚ_p})`-regular, Exp. II/III); Brinon–Conrad, *CMI summer school notes on
+p-adic Hodge theory* (2009), Thm 5.2.1 and §6.3; numbering UNVERIFIED. Lean form: continuous
+`ℚ_p`-linear representations on `ℚ_pⁿ` in matrices (a choice of bases), `IsDeRhamStd` the
+printed definition `dim_{ℚ_p} (B_dR ⊗ V)^G = dim V`: (a) duals (`σ ↦ ρ(σ)⁻ᵀ`); (b) the
+subrepresentation on the last `b` coordinates and the quotient on the first `a` of a block lower
+triangular `ρ`; (c) block diagonal direct sums; (d) Kronecker tensor products. Each clause is the
+printed statement for the representations in a basis adapted to the construction. -/
+def FontaineDRTannakian : Prop :=
+  (∀ (n : ℕ) (ρ ρ' : GQp p →* GL (Fin n) ℚ_[p]), ContRep p ρ →
+    (∀ σ, (ρ' σ : Matrix (Fin n) (Fin n) ℚ_[p]) =
+      ((ρ σ)⁻¹ : GL (Fin n) ℚ_[p]).val.transpose) →
+    IsDeRhamStd p ρ → IsDeRhamStd p ρ') ∧
+  (∀ (a b : ℕ) (ρ : GQp p →* GL (Fin (a + b)) ℚ_[p]) (ρ₁ : GQp p →* GL (Fin a) ℚ_[p])
+    (ρ₂ : GQp p →* GL (Fin b) ℚ_[p]) (Y : GQp p → Matrix (Fin b) (Fin a) ℚ_[p]), ContRep p ρ →
+    (∀ σ, (ρ σ : Matrix (Fin (a + b)) (Fin (a + b)) ℚ_[p]) =
+      Matrix.reindex finSumFinEquiv finSumFinEquiv
+        (Matrix.fromBlocks (ρ₁ σ : Matrix (Fin a) (Fin a) ℚ_[p]) 0 (Y σ)
+          (ρ₂ σ : Matrix (Fin b) (Fin b) ℚ_[p]))) →
+    IsDeRhamStd p ρ → IsDeRhamStd p ρ₁ ∧ IsDeRhamStd p ρ₂) ∧
+  (∀ (a b : ℕ) (ρ : GQp p →* GL (Fin (a + b)) ℚ_[p]) (ρ₁ : GQp p →* GL (Fin a) ℚ_[p])
+    (ρ₂ : GQp p →* GL (Fin b) ℚ_[p]), ContRep p ρ₁ → ContRep p ρ₂ →
+    (∀ σ, (ρ σ : Matrix (Fin (a + b)) (Fin (a + b)) ℚ_[p]) =
+      Matrix.reindex finSumFinEquiv finSumFinEquiv
+        (Matrix.fromBlocks (ρ₁ σ : Matrix (Fin a) (Fin a) ℚ_[p]) 0 0
+          (ρ₂ σ : Matrix (Fin b) (Fin b) ℚ_[p]))) →
+    IsDeRhamStd p ρ₁ → IsDeRhamStd p ρ₂ → IsDeRhamStd p ρ) ∧
+  (∀ (a b : ℕ) (ρ : GQp p →* GL (Fin (a * b)) ℚ_[p]) (ρ₁ : GQp p →* GL (Fin a) ℚ_[p])
+    (ρ₂ : GQp p →* GL (Fin b) ℚ_[p]), ContRep p ρ₁ → ContRep p ρ₂ →
+    (∀ σ, (ρ σ : Matrix (Fin (a * b)) (Fin (a * b)) ℚ_[p]) =
+      Matrix.reindex finProdFinEquiv finProdFinEquiv
+        (Matrix.kroneckerMap (· * ·) (ρ₁ σ : Matrix (Fin a) (Fin a) ℚ_[p])
+          (ρ₂ σ : Matrix (Fin b) (Fin b) ℚ_[p]))) →
+    IsDeRhamStd p ρ₁ → IsDeRhamStd p ρ₂ → IsDeRhamStd p ρ)
+
+variable {n : ℕ}
+
+theorem gl_inv_mul (ρ : GQp p →* GL (Fin n) ℚ_[p]) (σ : GQp p) :
+    (ρ σ⁻¹ : Matrix (Fin n) (Fin n) ℚ_[p]) * (ρ σ : Matrix (Fin n) (Fin n) ℚ_[p]) = 1 := by
+  rw [← Units.val_mul, ← map_mul, inv_mul_cancel, map_one, Units.val_one]
+
+theorem gl_mul_inv (ρ : GQp p →* GL (Fin n) ℚ_[p]) (σ : GQp p) :
+    (ρ σ : Matrix (Fin n) (Fin n) ℚ_[p]) * (ρ σ⁻¹ : Matrix (Fin n) (Fin n) ℚ_[p]) = 1 := by
+  rw [← Units.val_mul, ← map_mul, mul_inv_cancel, map_one, Units.val_one]
+
+/-- The contragredient `ρ^∨(σ) = ρ(σ⁻¹)ᵀ`. -/
+def dualRep (ρ : GQp p →* GL (Fin n) ℚ_[p]) : GQp p →* GL (Fin n) ℚ_[p] where
+  toFun σ := ⟨(ρ σ⁻¹ : Matrix (Fin n) (Fin n) ℚ_[p]).transpose,
+    (ρ σ : Matrix (Fin n) (Fin n) ℚ_[p]).transpose,
+    by rw [← Matrix.transpose_mul, gl_mul_inv, Matrix.transpose_one],
+    by rw [← Matrix.transpose_mul, gl_inv_mul, Matrix.transpose_one]⟩
+  map_one' := Units.ext (by simp)
+  map_mul' σ τ := Units.ext (by
+    simp only [mul_inv_rev, map_mul, Units.val_mul, Matrix.transpose_mul])
+
+theorem dualRep_val (ρ : GQp p →* GL (Fin n) ℚ_[p]) (σ : GQp p) :
+    (dualRep p ρ σ : Matrix (Fin n) (Fin n) ℚ_[p]) =
+      (ρ σ⁻¹ : Matrix (Fin n) (Fin n) ℚ_[p]).transpose := rfl
+
+theorem dualRep_dualRep (ρ : GQp p →* GL (Fin n) ℚ_[p]) : dualRep p (dualRep p ρ) = ρ := by
+  refine MonoidHom.ext fun σ => Units.ext ?_
+  rw [dualRep_val, dualRep_val, inv_inv, Matrix.transpose_transpose]
+
+theorem contRep_dualRep (ρ : GQp p →* GL (Fin n) ℚ_[p]) (h : ContRep p ρ) :
+    ContRep p (dualRep p ρ) := by
+  unfold ContRep at h ⊢
+  simp only [dualRep_val]
+  exact (h.comp continuous_inv).matrix_transpose
+
+theorem dualRep_of_eq (ρ ρ' : GQp p →* GL (Fin n) ℚ_[p])
+    (h : ∀ σ, (ρ' σ : Matrix (Fin n) (Fin n) ℚ_[p]) =
+      ((ρ σ)⁻¹ : GL (Fin n) ℚ_[p]).val.transpose) : ρ' = dualRep p ρ := by
+  refine MonoidHom.ext fun σ => Units.ext ?_
+  rw [h σ, dualRep_val, map_inv]
+
+/-- The ℚ_p-linear matrix action on `ℚ_pⁿ`. -/
+def matLin (ρ : GQp p →* GL (Fin n) ℚ_[p]) (σ : GQp p) : (Fin n → ℚ_[p]) →ₗ[ℚ_[p]] (Fin n → ℚ_[p]) :=
+  Matrix.mulVecLin (ρ σ : Matrix (Fin n) (Fin n) ℚ_[p])
+
+/-- Coordinates of `f : ℚ_pⁿ → B_dR`. -/
+theorem lin_apply_eq_sum (f : (Fin n → ℚ_[p]) →ₗ[ℚ_[p]] BdR p) (v : Fin n → ℚ_[p]) :
+    f v = ∑ i, v i • f (Pi.single i 1) := by
+  conv_lhs => rw [show v = ∑ i, v i • (Pi.single i 1 : Fin n → ℚ_[p]) by
+    ext j; simp [Pi.single_apply]]
+  rw [map_sum]
+  simp [map_smul]
+
+/-- `f ∈ D_dR(V^∨)` iff its coordinate vector satisfies `ρ(σ)ᵀ x = σ(x)`. -/
+theorem mem_ddrSpace_iff_coord (ρ : GQp p →* GL (Fin n) ℚ_[p])
+    (f : (Fin n → ℚ_[p]) →ₗ[ℚ_[p]] BdR p) :
+    f ∈ ddrSpace p ρ ↔ ∀ σ, ((ρ σ : Matrix (Fin n) (Fin n) ℚ_[p]).transpose.map
+      (algebraMap ℚ_[p] (BdR p))).mulVec (fun i => f (Pi.single i 1)) =
+        fun k => bdrAct p σ (f (Pi.single k 1)) := by
+  have hcol : ∀ σ k, f ((ρ σ : Matrix (Fin n) (Fin n) ℚ_[p]).mulVec (Pi.single k 1)) =
+      (((ρ σ : Matrix (Fin n) (Fin n) ℚ_[p]).transpose.map
+        (algebraMap ℚ_[p] (BdR p))).mulVec (fun i => f (Pi.single i 1))) k := by
+    intro σ k
+    rw [lin_apply_eq_sum p f]
+    simp only [Matrix.mulVec, dotProduct, Matrix.map_apply, Matrix.transpose_apply,
+      Algebra.smul_def]
+    refine Finset.sum_congr rfl fun i _ => ?_
+    simp [Pi.single_apply]
+  constructor
+  · intro hf σ
+    ext k
+    rw [← hcol]
+    exact hf σ _
+  · intro h σ v
+    have e1 : f ∘ₗ matLin p ρ σ = (drAct p σ) ∘ₗ f := by
+      apply LinearMap.pi_ext
+      intro k c
+      have hs : (Pi.single k c : Fin n → ℚ_[p]) = c • Pi.single k 1 := by
+        ext j; simp [Pi.single_apply]
+      rw [hs, map_smul, map_smul]
+      congr 1
+      simp only [LinearMap.comp_apply, matLin, Matrix.mulVecLin_apply, drAct_apply]
+      rw [hcol, h σ]
+    have := LinearMap.congr_fun e1 v
+    simpa [matLin, drAct_apply] using this
+
+theorem mulVec_map_mulVec (A B : Matrix (Fin n) (Fin n) ℚ_[p]) (x : Fin n → BdR p) :
+    (A.map (algebraMap ℚ_[p] (BdR p))).mulVec ((B.map (algebraMap ℚ_[p] (BdR p))).mulVec x) =
+      ((A * B).map (algebraMap ℚ_[p] (BdR p))).mulVec x := by
+  rw [Matrix.mulVec_mulVec, Matrix.map_mul]
+
+theorem mem_ddrStd_dual_iff (ρ : GQp p →* GL (Fin n) ℚ_[p]) (x : Fin n → BdR p) :
+    x ∈ ddrStd p (dualRep p ρ) ↔ ∀ σ, ((ρ σ : Matrix (Fin n) (Fin n) ℚ_[p]).transpose.map
+      (algebraMap ℚ_[p] (BdR p))).mulVec x = fun k => bdrAct p σ (x k) := by
+  constructor
+  · intro hx σ
+    have h := hx σ
+    rw [dualRep_val] at h
+    calc _ = ((ρ σ : Matrix (Fin n) (Fin n) ℚ_[p]).transpose.map (algebraMap ℚ_[p] (BdR p))).mulVec
+          ((((ρ σ⁻¹ : Matrix (Fin n) (Fin n) ℚ_[p]).transpose).map (algebraMap ℚ_[p] (BdR p))).mulVec
+            (fun i => bdrAct p σ (x i))) := by rw [h]
+      _ = _ := by
+        rw [mulVec_map_mulVec, ← Matrix.transpose_mul, gl_inv_mul, Matrix.transpose_one,
+          Matrix.map_one _ (map_zero _) (map_one _), Matrix.one_mulVec]
+  · intro h σ
+    rw [dualRep_val, ← h σ, mulVec_map_mulVec, ← Matrix.transpose_mul, gl_mul_inv,
+      Matrix.transpose_one, Matrix.map_one _ (map_zero _) (map_one _), Matrix.one_mulVec]
+
+/-- **`IsDeRham ρ ↔ IsDeRhamStd ρ^∨`** (pkg-I4's Hom form of `D_dR(V^∨)` against the printed
+`(B_dR ⊗ V^∨)^G`, through coordinates). -/
+theorem isDeRham_iff_std (ρ : GQp p →* GL (Fin n) ℚ_[p]) :
+    IsDeRham p ρ ↔ IsDeRhamStd p (dualRep p ρ) := by
+  let L := LinearEquiv.piRing ℚ_[p] (BdR p) (Fin n) ℚ_[p]
+  have hmap : Submodule.map L.toLinearMap (ddrSpace p ρ) = ddrStd p (dualRep p ρ) := by
+    ext x
+    constructor
+    · rintro ⟨f, hf, rfl⟩
+      rw [mem_ddrStd_dual_iff]
+      intro σ
+      have := (mem_ddrSpace_iff_coord p ρ f).mp hf σ
+      have hL : L f = fun i => f (Pi.single i 1) := by
+        ext i; simp [L, LinearEquiv.piRing_apply]
+      simp only [LinearEquiv.coe_coe]
+      rw [hL]
+      exact this
+    · intro hx
+      refine ⟨L.symm x, ?_, by simp⟩
+      show L.symm x ∈ ddrSpace p ρ
+      rw [mem_ddrSpace_iff_coord]
+      intro σ
+      have hx' := (mem_ddrStd_dual_iff p ρ x).mp hx σ
+      have hc : (fun i => (L.symm x) (Pi.single i 1)) = x := by
+        have := L.apply_symm_apply x
+        ext i
+        rw [← this]
+        simp only [L, LinearEquiv.piRing_apply, LinearEquiv.apply_symm_apply]
+      rw [hc, show (fun k => bdrAct p σ ((L.symm x) (Pi.single k 1))) = fun k => bdrAct p σ (x k)
+        from funext fun k => by rw [congrFun hc k]]
+      exact hx'
+  have hfin : finrank ℚ_[p] (ddrSpace p ρ) = finrank ℚ_[p] (ddrStd p (dualRep p ρ)) := by
+    rw [← hmap]
+    exact (Submodule.equivMapOfInjective _ L.injective _).finrank_eq
+  rw [IsDeRham, IsDeRhamStd, hfin, Module.finrank_self, mul_one]
+
+/-- Clause (i) of T23 needs no leaf: conjugation by `P` identifies the two `D_dR`. -/
+theorem isDeRham_conj (ρ ρ' : GQp p →* GL (Fin n) ℚ_[p]) (P : GL (Fin n) ℚ_[p])
+    (h : ∀ σ, ρ' σ = P * ρ σ * P⁻¹) : IsDeRham p ρ → IsDeRham p ρ' := by
+  intro hρ
+  let Pm := (P : Matrix (Fin n) (Fin n) ℚ_[p])
+  let Qm := ((P⁻¹ : GL (Fin n) ℚ_[p]) : Matrix (Fin n) (Fin n) ℚ_[p])
+  have hQP : Qm * Pm = 1 := by simp [Qm, Pm]
+  have hPQ : Pm * Qm = 1 := by simp [Qm, Pm]
+  have hρ' : ∀ σ, (ρ' σ : Matrix (Fin n) (Fin n) ℚ_[p]) = Pm * (ρ σ : Matrix (Fin n) (Fin n) ℚ_[p]) * Qm := by
+    intro σ; rw [h σ]; rfl
+  let e : ddrSpace p ρ ≃ₗ[ℚ_[p]] ddrSpace p ρ' :=
+    { toFun := fun φ => ⟨φ.1 ∘ₗ Matrix.mulVecLin Qm, fun σ v => by
+        simp only [LinearMap.comp_apply, Matrix.mulVecLin_apply, hρ', Matrix.mulVec_mulVec]
+        rw [← φ.2 σ (Qm.mulVec v), Matrix.mulVec_mulVec]
+        congr 2
+        simp only [← mul_assoc, hQP, one_mul]⟩
+      invFun := fun ψ => ⟨ψ.1 ∘ₗ Matrix.mulVecLin Pm, fun σ v => by
+        simp only [LinearMap.comp_apply, Matrix.mulVecLin_apply, Matrix.mulVec_mulVec]
+        rw [← ψ.2 σ (Pm.mulVec v), Matrix.mulVec_mulVec, hρ']
+        congr 2
+        rw [mul_assoc, mul_assoc, hQP, mul_one]⟩
+      map_add' := fun φ ψ => by ext; simp
+      map_smul' := fun c φ => by ext; simp
+      left_inv := fun φ => Subtype.ext (LinearMap.ext fun v => by
+        simp [Matrix.mulVec_mulVec, hQP])
+      right_inv := fun ψ => Subtype.ext (LinearMap.ext fun v => by
+        simp [Matrix.mulVec_mulVec, hPQ]) }
+  rw [IsDeRham] at hρ ⊢
+  rw [← e.finrank_eq, hρ]
+
+/-- **H-32, T23, from Fontaine's theorem on `D_dR(V) = (B_dR ⊗ V)^G`.** Clause (i) is proved
+outright; (ii)-(v) are the leaf's clauses applied to the contragredients. -/
+theorem t23_of_fontaine (hF : FontaineDRTannakian p) : T23_FontaineClosure p := by
+  obtain ⟨hdual, hsub, hsum, htens⟩ := hF
+  refine ⟨?_, ?_, ?_, ?_, ?_⟩
+  · intro n ρ ρ' P h
+    refine ⟨isDeRham_conj p ρ ρ' P h, isDeRham_conj p ρ' ρ P⁻¹ fun σ => ?_⟩
+    rw [h σ, inv_inv]
+    group
+  · intro n ρ ρ' hc h hdR
+    rw [dualRep_of_eq p ρ ρ' h, isDeRham_iff_std, dualRep_dualRep]
+    rw [isDeRham_iff_std] at hdR
+    refine hdual n (dualRep p ρ) ρ (contRep_dualRep p ρ hc) (fun σ => ?_) hdR
+    rw [← map_inv, dualRep_val, inv_inv, Matrix.transpose_transpose]
+  · intro a b ρ ρ₁ ρ₂ X hc h hdR
+    rw [isDeRham_iff_std] at hdR ⊢
+    rw [isDeRham_iff_std]
+    refine hsub a b (dualRep p ρ) (dualRep p ρ₁) (dualRep p ρ₂) (fun σ => (X σ⁻¹).transpose)
+      (contRep_dualRep p ρ hc) (fun σ => ?_) hdR
+    rw [dualRep_val, h σ⁻¹, Matrix.transpose_reindex, Matrix.fromBlocks_transpose,
+      Matrix.transpose_zero, dualRep_val, dualRep_val]
+  · intro a b ρ ρ₁ ρ₂ hc₁ hc₂ h hd₁ hd₂
+    rw [isDeRham_iff_std] at hd₁ hd₂ ⊢
+    refine hsum a b (dualRep p ρ) (dualRep p ρ₁) (dualRep p ρ₂) (contRep_dualRep p ρ₁ hc₁)
+      (contRep_dualRep p ρ₂ hc₂) (fun σ => ?_) hd₁ hd₂
+    rw [dualRep_val, h σ⁻¹, Matrix.transpose_reindex, Matrix.fromBlocks_transpose,
+      Matrix.transpose_zero, Matrix.transpose_zero, dualRep_val, dualRep_val]
+  · intro a b ρ ρ₁ ρ₂ hc₁ hc₂ h hd₁ hd₂
+    rw [isDeRham_iff_std] at hd₁ hd₂ ⊢
+    refine htens a b (dualRep p ρ) (dualRep p ρ₁) (dualRep p ρ₂) (contRep_dualRep p ρ₁ hc₁)
+      (contRep_dualRep p ρ₂ hc₂) (fun σ => ?_) hd₁ hd₂
+    rw [dualRep_val, h σ⁻¹, Matrix.transpose_reindex, dualRep_val, dualRep_val,
+      ← Matrix.kroneckerMap_transpose]
+
+/-- The row as the bundle states it: `∀ p, T23_FontaineClosure p`. -/
+theorem t23_all_of_fontaine (hF : ∀ (p : ℕ) [Fact p.Prime], FontaineDRTannakian p) :
+    ∀ (p : ℕ) [Fact p.Prime], T23_FontaineClosure p :=
+  fun p _ => t23_of_fontaine p (hF p)
+
+end T23
+
 end
 
 end ZInQ.Contrib.HodgeSplit
 
 #print axioms ZInQ.Contrib.HodgeSplit.finiteImageHT_of_tate
 #print axioms ZInQ.Contrib.HodgeSplit.deRhamComparisonHT_of_leaves
+#print axioms ZInQ.Contrib.HodgeSplit.t23_all_of_fontaine
