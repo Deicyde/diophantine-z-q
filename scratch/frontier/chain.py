@@ -3,8 +3,9 @@
 Usage: python3 scratch/frontier/chain.py [A|F]   (default: both)
 
 Scenario A ("compiled"): only theorems that compose in one Lean world today, i.e. the top chain
-(scratch/frontier/TopChain.lean, compiled) and cpts-transport's compiled H assembly
-`HSyn.sixContactMin_of_leaves5`. Its open set is the hypothesis list of that composite.
+(scratch/frontier/TYZChain.lean, compiled) and leaf-fold4's compiled H assembly
+`HDec.HSyn.sixContactMin_of_open4` (refresh r2; before it, assemble-port's `sixContactMin_of_leaves5`).
+Its open set is the hypothesis list of that composite.
 
 Scenario F ("frontier"): A plus every proof or reduction of an open Prop found on today's branches.
 Each edge is a compiled theorem on its branch (per the branch's own log), but the edges live in different
@@ -27,6 +28,7 @@ MAIN = "HEAD"
 G3 = ("357f5d9e", "scratch/g0-assemble3/G0Assemble3.lean")
 B5 = ("93a1e33c", "scratch/cpts-transport/Bundle5.lean")
 AP = ("92a27877", "scratch/assemble-port/AssemblePort.lean")  # assemble-port final flat check (27 glue fields, 1126 s)
+LF4 = ("9dcf1ca8", "scratch/leaf-fold4/Leaves4.lean")  # leaf-fold4 final flat file (md5 6bbeb639, 1048 s, 26+19+20+1 fields)
 
 # ---------------------------------------------------------------- edges
 # (concl, short theorem name, rev, file, [hyp heads], scenario set, note)
@@ -44,7 +46,10 @@ edge("FrozenTarget", "frozenTarget_of_open", MAIN, "scratch/frontier/TYZChain.le
       "Lemma318Literal", "Thm35First", "Lemma321Five", "FHNonvanishing", "GrossZagierHeegner"])
 
 # --- H
-edge("SixContactMin", "sixContactMin_of_leaves5", *AP, ["OpenResearchLeaves2", "OpenTextbookLeaves5", "GluePieces5"])
+edge("SixContactMin", "sixContactMin_of_open4", *LF4,
+     ["OpenResearchLeaves2", "OpenTextbookLeaves4", "OpenAddedLeaves4", "OpenGlue4"])
+# (until r2 the H base was assemble-port's C4: sixContactMin_of_leaves5 at AP, bundles OpenResearchLeaves2,
+#  OpenTextbookLeaves5, GluePieces5; leaf-fold4 compiles most of the F edges below into its assembly)
 # textbook fields proved in Contrib (kernel world) -- F only (in W0 they are bundle fields)
 KDEF = {"AbhyankarDVR": "Objects.lean", "BrauerHasse2C": "Conductor/I6Base.lean",
         "BrauerReciprocity2C": "Conductor/I6Base.lean", "LocalH2CardC": "Conductor/I6Base.lean",
@@ -100,7 +105,7 @@ edge("S8WeightExact", "s8WeightExact_of", "cbe9fe4c", "scratch/period-glue/W8.le
 PTS = ("3d41b3d5", "scratch/prop-ts-glue/PropTSGlue.lean")
 edge("VerticalResidueSeparable", "verticalResidueSeparable", "1b8a3b3d", "scratch/ts-sn/TSSN.lean", [], "F")
 edge("SNSpecialize", "snSpecialize", "1b8a3b3d", "scratch/ts-sn/TSSN.lean", [], "F")
-TSK = ("d9c06585", "scratch/ts-kummer/KummerTS.lean")
+TSK = ("1bbe3543", "scratch/ts-kummer/KummerTS.lean")  # d9c06585 is not on the fork; 1bbe3543 is ts-kummer final
 for p, t in [("KummerAbhyankarFinGlue", "kummerAbhyankarFinGlue"), ("KummerOtherBranchFin", "kummerOtherBranchFin"),
              ("KummerVerticalFin", "kummerVerticalFin"), ("KummerAbhyankarInfGlue", "kummerAbhyankarInfGlue"),
              ("KummerOtherBranchInf", "kummerOtherBranchInf"), ("KummerVerticalInf", "kummerVerticalInf")]:
@@ -143,14 +148,66 @@ edge("AnalyticUniformizationOfDim", "productMetrizationOfProductUnif_of_t35", "b
      "scratch/leaf-fold2/parts/b20_fold.lean", ["UniformizationExists"], "F",
      "bypass, not a proof: in the HDec world ProductMetrizationOfProductUnif (the field's only consumer) follows from T35")
 
+# --- r2 (w48-w51 and smooth-fibre): reductions of leaf-fold4 fields. Kernel-world files (Contrib/AVB1, CurvesG,
+# NeronC, SmoothFibre) prove the kernel's Prop; deffile is the kernel definition compared with leaf-fold4's copy.
+OBJ = "ZInQKernel/HDecomp/Objects.lean"
+edge("HomFreeFinite", "homFreeFinite_of_algClosed", MAIN, "ZInQKernel/Contrib/AVB1/AlgClosed.lean",
+     ["HomFreeFiniteAlgClosed"], "F", "av-b1", deffile=OBJ)
+edge("CharPolyIndepOfEll", "charPolyIndepOfEll_of_algClosed", MAIN, "ZInQKernel/Contrib/AVB1/AlgClosed.lean",
+     ["CharPolyIndepOfEllAlgClosed"], "F", "av-b1", deffile=OBJ)
+edge("PoincareReducibility", "poincareReducibility_of_pieces", MAIN, "ZInQKernel/Contrib/AVB1/Poincare.lean",
+     ["PoincareComplement", "ImageFactorization", "SimpleSurjIsogeny"], "F",
+     "av-b1 (also from PoincareComplement + SimpleImageIsogeny, which follows from the other two)", deffile=OBJ)
+AVB2 = (MAIN, "scratch/av-b2/olean/AVB2Main.lean")  # on leaf-fold3's olean chain (import TailI)
+L3 = "scratch/leaf-fold3/Leaves3.lean"
+edge("T09_WeilPairing", "t9_of_leaves3", *AVB2, ["T09_SymmIsogenyExists", "IsogenyQuasiInverse"], "F",
+     "av-b2: glue proved from two fields already open", deffile=L3)
+edge("SerreRigidity3", "serreRigidity3_of_T35", *AVB2, ["UniformizationExists", "HomLatticeCorr"], "F",
+     "av-b2: glue proved from two fields already open", deffile=L3)
+edge("T11b_Rigidity", "t11b_of_exists", *AVB2, ["T11bExists"], "F", "av-b2: uniqueness half proved", deffile=L3)
+edge("CurveOfFunctionFieldQ", "curveOfFunctionFieldQ_of_split", MAIN, "ZInQKernel/Contrib/CurvesG/CurveSplit.lean",
+     ["NormalModelOfFunctionFieldQ", "NormalCurveSmoothQ", "GeomConnectedOfConstantFieldQ"], "F",
+     "curves-g: the rational-point clause is proved", deffile="ZInQKernel/HDecomp/ModCurves/X1Belyi.lean")
+edge("DimJ1Genus", "dimJ1Genus_of_split", MAIN, "ZInQKernel/Contrib/CurvesG/GenusSplit.lean",
+     ["DimJacobianEqGenus", "GenusX1Field"], "F", "curves-g", deffile="ZInQKernel/HDecomp/ModCurves/Leaves.lean")
+edge("NeronMappingAbelianScheme", "neronMappingAbelianScheme_of_surj", MAIN,
+     "ZInQKernel/Contrib/NeronC/NMPInjective.lean", ["NeronMappingAbelianSchemeSurj"], "F",
+     "neron-c: injective half proved", deffile=OBJ)
+edge("NeronModelExists", "neronModelExists_of_extension", MAIN, "ZInQKernel/Contrib/NeronC/NeronGroup.lean",
+     ["NeronSchemeExtensionExists"], "F", "neron-c: group law and uniqueness proved",
+     deffile="ZInQKernel/HDecomp/Faltings/H5Neron.lean")
+edge("HeckeVertWitness", "heckeVertWitness_of_leaves", MAIN, "scratch/vert-witness/VertWitness.lean",
+     ["ShimuraGoodReduction", "R1R2fp", "SmoothFibreReduced", "ModelCoordinate", "ModelComparison"], "F",
+     "vert-witness; R1R2fp comes from the research leaf r1r2", deffile="scratch/vert-witness/VertWitness.lean")
+edge("SmoothFibreReduced", "smoothFibreReduced", "82abd02c", "ZInQKernel/Contrib/SmoothFibre/Basic.lean", [], "F",
+     "smoothFibreReduced, Mathlib only", deffile="ZInQKernel/Contrib/SmoothFibre/Statement.lean")
+MG = ("c6231df7", "scratch/model-glue/ModelGlue6.lean")  # vert-witness's file verbatim + six parts (compiled)
+edge("ModelCoordinate", "modelCoordinate_of_residue", *MG, ["ModelCoordinateResidue"], "F", "model-glue")
+edge("ModelComparison", "modelComparison_of_curveBijIso", *MG, ["TorsionStructure", "CurveBijIso"], "F",
+     "model-glue; TorsionStructure is the open field t5 (T5)")
+# --- r2, TYZ side (each file restates the TYZ Props verbatim; pairwise def texts are compared below)
+edge("TYZLcalOne", "tyzLcalOne_of_leaves", "61d0b14e", "scratch/tyz-lcal/TYZLcal.lean",
+     ["TYZThm11Integral", "TYZLemma29Mod2"], "F", "tyz-lcal: proved from the other two L-leaves")
+edge("Lemma321Five", "lemma321Five_of_shimuraModFn'", "521eacc0", "scratch/tyz-321/L321.lean",
+     ["ShimuraReciprocityModFn"], "F", "tyz-321: proved from the CM leaf")
+edge("Thm35First", "thm35First_of_lcal_thm33", "a8101726", "scratch/tyz-35/Thm35.lean",
+     ["TYZThm33Pinned"], "F", "tyz-35: from TYZ Thm 3.3 with Lemma 3.14 for the pinned points")
+# Not folded (variants, recorded in the report): tyz-318's lemma318Literal_HHprime_of_sqrtTwoNotIn
+# (94b05c87, scratch/tyz-318/Lemma318.lean) trades the LEAF Lemma318Literal for the GLUE SqrtTwoNotInHHprime;
+# shimura-modfn's shimuraReciprocityModFn_of_split (6bc73469) splits the CM leaf into MainTheoremCMj, RatX0Rep and the
+# leaf restricted to singular points, and its report recommends keeping the CM leaf.
+
 # ---------------------------------------------------------------- bundles
 STRUCTS = {
-    "OpenResearchLeaves2": (AP, "OpenResearchLeaves2"),
-    "OpenTextbookLeaves5": (AP, "OpenTextbookLeaves5"),
-    "GluePieces5": (AP, "GluePieces5"),
+    "OpenResearchLeaves2": (LF4, "OpenResearchLeaves2"),
+    "OpenTextbookLeaves4": (LF4, "OpenTextbookLeaves4"),
+    "OpenAddedLeaves4": (LF4, "OpenAddedLeaves4"),
+    "OpenGlue4": (LF4, "OpenGlue4"),
 }
 # fields never projected on the route (h-leaves agent, grep of the flat file; g0-assemble3 §6)
-UNUSED = {"r1rec", "r3", "r5", "r7b", "r8", "t10"}  # never projected in g0-assemble3; assemble-port has the same consumers
+UNUSED = {"r1rec", "r3", "r5", "r7b", "r8", "t10"}  # never projected in g0-assemble3; assemble-port and leaf-fold4 have the same consumers
+# (r2: in leaf-fold4's flat file r1rec, r7b, r8 occur only as `f := r.f` in three structure literals, t10 only there
+#  and in T10_groupIso_of_tateDuality)
 # fields that become used on route F (an F edge takes them as hypotheses)
 USED_IN_F = set()
 
@@ -167,6 +224,7 @@ for k, v in [("TYZThm11Integral", "LEAF"), ("TYZLcalOne", "LEAF"), ("TYZLemma29M
 # TYZ, scenario A extra
 for k in ["CMFieldOfDefinition", "TYZSigmaFixesZn", "GenusPointLeafCM"]:
     CLASS.setdefault(k, ("TYZ", "GLUE"))
+CLASS["TYZThm33Pinned"] = ("TYZ", "GLUE")  # r2 (tyz-35)
 
 
 def head_of_type(ty):
@@ -272,7 +330,7 @@ REACHED = set()
 
 def defcheck():
     """Compare def texts of bundle-field Props proved in another file (check 3)."""
-    g3 = c.show(*AP)
+    g3 = c.show(*LF4)
     out = []
     for e in E:
         if "F" not in e["sc"] or e["thm"] is None or "+" in e["concl"]:
@@ -316,7 +374,7 @@ def main():
                 tag = "  [never projected]"
             print(f"  {n:45s} {where}{tag}")
         if sc == "F":
-            print("def-text comparison (proved/reduced Prop vs assemble-port's def; edges on the F route only):")
+            print("def-text comparison (proved/reduced Prop vs leaf-fold4's def; edges on the F route only):")
             for name, r in defcheck():
                 print(f"  {name:35s} {r}")
             print("route T inputs and kernel leaf copies (def text vs g0-assemble3, and pairwise):")
@@ -334,11 +392,27 @@ EXTRA_DEFS = [("3d1b90b5", "scratch/lt-local/LtLocal4.lean", ["LinkedTateLocal",
 PAIR_DEFS = [(("60340bed", "scratch/frob-pieces/FrobPiecesFull.lean"), ("3d1b90b5", "scratch/lt-local/LtLocal4.lean"),
               ["TateBridge35"]),
              (("b066d686", "scratch/unram-roots/UnramRoots.lean"), ("3d1b90b5", "scratch/lt-local/LtLocal4.lean"),
-              ["UnramRoots"])]
+              ["UnramRoots"]),
+             # r2: smooth-fibre's kernel statement vs vert-witness's (same body, other namespace)
+             (("82abd02c", "ZInQKernel/Contrib/SmoothFibre/Statement.lean"), ("HEAD", "scratch/vert-witness/VertWitness.lean"),
+              ["SmoothFibreReduced"]),
+             # r2: model-glue's copies of vert-witness's glue Props
+             (("c6231df7", "scratch/model-glue/ModelGlue6.lean"), ("HEAD", "scratch/vert-witness/VertWitness.lean"),
+              ["ModelCoordinate", "ModelComparison", "ShimuraGoodReduction"]),
+             # r2: the TYZ Props in the proving files vs scratch/frontier/TYZChain.lean (the compiled top of the chain)
+             # (TYZLcalOne, TYZThm11Integral, TYZLemma29Mod2: tyz-lcal and TYZChain.lean both import them from the kernel's
+             #  ZInQKernel/Contrib/TYZDecomp/Leaves.lean, so they are the same constants; nothing to compare)
+             (("521eacc0", "scratch/tyz-321/L321.lean"), ("HEAD", "scratch/frontier/TYZChain.lean"),
+              ["Lemma321Five"]),
+             # tyz-321 imports the kernel's CM leaf; TYZChain.lean carries tyz-cm's copy
+             (("HEAD", "ZInQKernel/Contrib/TYZGenus/ShimuraModFn.lean"), ("HEAD", "scratch/frontier/TYZChain.lean"),
+              ["ShimuraReciprocityModFn"]),
+             (("a8101726", "scratch/tyz-35/Thm35.lean"), ("HEAD", "scratch/frontier/TYZChain.lean"),
+              ["Thm35First"])]
 
 
 def extra_defcheck():
-    g3 = c.show(*AP)
+    g3 = c.show(*LF4)
     for rev, path, names in EXTRA_DEFS:
         t = c.show(rev, path)
         for n in names:
