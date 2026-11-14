@@ -46,3 +46,8 @@ Setup: compile checks with `scratch/reduct-split/chk.sh FILE` = `lean` with LEAN
   of ℤᵐ⁰ˣ, cyclic; nontrivial because the constant term of minpoly(ϖ') dominates; Mathlib
   `Valuation.valuationSubring_isDiscreteValuationRing`). `semistablePersists_final`, `semistableReductionThm_final`
   without that glue. All axioms standard. VERIFIED.
+- 12:05 §16: `linearIndependent_of_distinct_cosets`, `dvr_of_finiteExt` (valuation ring of a finite extension over a DVR
+  is a DVR: value group G of O' contains H = ⟨v'(ϖ)⟩ with [G:H] ≤ [K':K] by linear independence; g ↦ g^[G:H] embeds G
+  into the cyclic H; Mathlib `valuationSubring_isDiscreteValuationRing`), `dvrFiniteExtension : DVRFiniteExtension`
+  PROVED; `grothendieckMonodromy_final'` without glue. All axioms standard. VERIFIED.
+  => r8 DONE (published-form leaves only: SGA 7 IX 3.6, 3.5, BLR 1.4/3, Mumford §4).

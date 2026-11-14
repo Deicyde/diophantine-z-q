@@ -1289,6 +1289,208 @@ theorem semistableReductionThm_final (h36 : SemistableReductionDVR)
     (hAA : SemistableAlmostAll) : ZInQ.HeightSplit.SemistableReductionThm :=
   semistableReductionThm_of_leaves h36 h33 hN hLG hAA dvrComapFinite
 
+/-! ## §16. `DVRFiniteExtension`, proved (the fundamental inequality `e ≤ n`) -/
+
+section DVRUp
+
+/-- Elements of `K'` whose values lie in distinct cosets of `v'(K^×)` are `K`-linearly independent
+(the argument behind `e ≤ [K' : K]`). -/
+theorem linearIndependent_of_distinct_cosets {K K' : Type} [Field K] [Field K'] [Algebra K K']
+    {Γ : Type} [LinearOrderedCommGroupWithZero Γ] (v' : Valuation K' Γ) (π : Γ) (hπ : π ≠ 0)
+    (hdisc : ∀ x : K, x ≠ 0 → ∃ n : ℤ, v' (algebraMap K K' x) = π ^ n)
+    {N : ℕ} (z : Fin N → K') (hz : ∀ i, z i ≠ 0)
+    (hsep : ∀ i j, ∀ k : ℤ, v' (z i) = π ^ k * v' (z j) → i = j) :
+    LinearIndependent K z := by
+  classical
+  rw [linearIndependent_iff']
+  intro s g hsum i hi
+  by_contra hgi
+  set T := s.filter (fun i => g i ≠ 0)
+  have hT : T.Nonempty := ⟨i, Finset.mem_filter.mpr ⟨hi, hgi⟩⟩
+  let f : Fin N → Γ := fun i => v' (g i • z i)
+  obtain ⟨i0, hi0T, hmax⟩ := T.exists_max_image f hT
+  have hi0 := (Finset.mem_filter.mp hi0T).2
+  have hf0 : f i0 ≠ 0 := by
+    simp only [f, Algebra.smul_def, map_mul, ne_eq, mul_eq_zero, not_or]
+    exact ⟨(Valuation.ne_zero_iff _).mpr ((map_ne_zero_iff _ (algebraMap K K').injective).mpr hi0),
+      (Valuation.ne_zero_iff _).mpr (hz i0)⟩
+  have hlt : ∀ j ∈ T.erase i0, f j < f i0 := by
+    intro j hj
+    obtain ⟨hji0, hjT⟩ := Finset.mem_erase.mp hj
+    refine lt_of_le_of_ne (hmax j hjT) (fun heq => hji0 ?_)
+    have hgj := (Finset.mem_filter.mp hjT).2
+    obtain ⟨a, ha⟩ := hdisc (g j) hgj
+    obtain ⟨b, hb⟩ := hdisc (g i0) hi0
+    simp only [f, Algebra.smul_def, map_mul, ha, hb] at heq
+    apply hsep j i0 (b - a)
+    have hπa : π ^ a ≠ 0 := zpow_ne_zero a hπ
+    rw [zpow_sub₀ hπ]
+    calc v' (z j) = (π ^ a)⁻¹ * (π ^ a * v' (z j)) := by rw [inv_mul_cancel_left₀ hπa]
+      _ = (π ^ a)⁻¹ * (π ^ b * v' (z i0)) := by rw [heq]
+      _ = π ^ b * (π ^ a)⁻¹ * v' (z i0) := by
+        rw [← _root_.mul_assoc, mul_comm ((π ^ a)⁻¹) (π ^ b)]
+      _ = π ^ b / π ^ a * v' (z i0) := by rw [div_eq_mul_inv]
+  have hsumT : ∑ i ∈ s, g i • z i = g i0 • z i0 + ∑ j ∈ T.erase i0, g j • z j := by
+    rw [Finset.add_sum_erase T (fun j => g j • z j) hi0T]
+    exact (Finset.sum_filter_of_ne (fun x _ hx => by
+      intro h0; apply hx; rw [h0, zero_smul])).symm
+  have hrest : v' (∑ j ∈ T.erase i0, g j • z j) < f i0 :=
+    Valuation.map_sum_lt v' hf0 hlt
+  have := Valuation.map_add_eq_of_lt_left v' hrest
+  rw [← hsumT, hsum, map_zero] at this
+  exact hf0 this.symm
+
+/-- **A valuation ring of a finite extension lying over a DVR is a DVR.** -/
+theorem dvr_of_finiteExt {K K' : Type} [Field K] [Field K'] [Algebra K K'] [FiniteDimensional K K']
+    (O : ValuationSubring K) [IsDiscreteValuationRing O] (O' : ValuationSubring K')
+    (h : O'.comap (algebraMap K K') = O) : IsDiscreteValuationRing O' := by
+  classical
+  set v' := O'.valuation with hv'
+  have hK : ∀ x : K, v' (algebraMap K K' x) ≤ 1 ↔ x ∈ O := by
+    intro x
+    rw [ValuationSubring.valuation_le_one_iff, ← h]
+    rfl
+  have hinj := (algebraMap K K').injective
+  obtain ⟨ϖ, hϖ⟩ := IsDiscreteValuationRing.exists_irreducible O
+  set π := v' (algebraMap K K' (ϖ : K)) with hπdef
+  have hϖ0 : (ϖ : K) ≠ 0 := fun h0 => hϖ.ne_zero (Subtype.ext h0)
+  have hπ0 : π ≠ 0 :=
+    (Valuation.ne_zero_iff _).mpr ((map_ne_zero_iff _ hinj).mpr hϖ0)
+  have hunit : ∀ u : Oˣ, v' (algebraMap K K' ((u : O) : K)) = 1 := by
+    intro u
+    apply le_antisymm ((hK _).mpr (u : O).2)
+    have h2 : v' (algebraMap K K' (((u⁻¹ : Oˣ) : O) : K)) ≤ 1 := (hK _).mpr (u⁻¹ : Oˣ).1.2
+    have h3 : ((u : O) : K) * (((u⁻¹ : Oˣ) : O) : K) = 1 := by
+      have := congrArg (fun t : O => (t : K)) u.mul_inv
+      exact_mod_cast this
+    have h4 : v' (algebraMap K K' ((u : O) : K)) * v' (algebraMap K K' (((u⁻¹ : Oˣ) : O) : K))
+        = 1 := by
+      rw [← map_mul, ← map_mul, h3, map_one, map_one]
+    calc (1 : O'.ValueGroup) = _ := h4.symm
+      _ ≤ v' (algebraMap K K' ((u : O) : K)) * 1 := by gcongr
+      _ = _ := _root_.mul_one _
+  have hπ1 : π < 1 := by
+    refine lt_of_le_of_ne ((hK _).mpr ϖ.2) (fun h1 => hϖ.not_isUnit ?_)
+    have hinv : (ϖ : K)⁻¹ ∈ O := by
+      rw [← hK, map_inv₀, map_inv₀, ← hπdef, h1, inv_one]
+    refine IsUnit.of_mul_eq_one ⟨_, hinv⟩ (Subtype.ext ?_)
+    simp [hϖ0]
+  have hdisc : ∀ x : K, x ≠ 0 → ∃ n : ℤ, v' (algebraMap K K' x) = π ^ n := by
+    intro x hx
+    rcases O.mem_or_inv_mem x with hxO | hxO
+    · obtain ⟨n, u, hu⟩ := IsDiscreteValuationRing.eq_unit_mul_pow_irreducible
+        (x := (⟨x, hxO⟩ : O)) (fun h0 => hx (congrArg Subtype.val h0)) hϖ
+      refine ⟨n, ?_⟩
+      have hx' : x = ((u : O) : K) * (ϖ : K) ^ n := by
+        have := congrArg Subtype.val hu
+        simpa using this
+      rw [hx', map_mul, map_mul, map_pow, map_pow, hunit, _root_.one_mul, zpow_natCast]
+    · obtain ⟨n, u, hu⟩ := IsDiscreteValuationRing.eq_unit_mul_pow_irreducible
+        (x := (⟨x⁻¹, hxO⟩ : O)) (fun h0 => hx (inv_eq_zero.mp (congrArg Subtype.val h0))) hϖ
+      refine ⟨-n, ?_⟩
+      have hx' : x⁻¹ = ((u : O) : K) * (ϖ : K) ^ n := by
+        have := congrArg Subtype.val hu
+        simpa using this
+      have : v' (algebraMap K K' x⁻¹) = π ^ n := by
+        rw [hx', map_mul, map_mul, map_pow, map_pow, hunit, _root_.one_mul]
+      rw [map_inv₀, map_inv₀] at this
+      rw [zpow_neg, zpow_natCast, ← this, inv_inv]
+  -- the value group and the subgroup generated by `π`
+  let πu : O'.ValueGroupˣ := Units.mk0 π hπ0
+  let G := (v' : K' →*₀ O'.ValueGroup).valueGroup
+  let H := Subgroup.zpowers πu
+  have hπG : πu ∈ G := v'.mem_valueGroup (Set.mem_range_self _)
+  have hHG : H ≤ G := (Subgroup.zpowers_le).mpr hπG
+  have hval : ∀ g : G, ∃ y : K', y ≠ 0 ∧ v' y = ((g : O'.ValueGroupˣ) : O'.ValueGroup) := by
+    intro g
+    obtain ⟨a, ha, x, hx⟩ := (MonoidWithZeroHom.mem_valueGroup_iff_of_comm _).mp g.2
+    refine ⟨x / a, ?_, ?_⟩
+    · intro h0
+      have : v' (x / a) = 0 := by rw [h0, map_zero]
+      rw [map_div₀] at this
+      have hx0 : v' x = 0 := by
+        rcases div_eq_zero_iff.mp this with h | h
+        · exact h
+        · exact absurd h ((Valuation.ne_zero_iff _).mpr (fun ha0 => ha (by
+            change v' a = 0; rw [ha0, map_zero])))
+      have := hx.trans hx0
+      exact Units.ne_zero _ ((mul_eq_zero.mp this).resolve_left ha)
+    · change v' (x / a) = _
+      rw [map_div₀]
+      change v' x / v' a = _
+      have hx' : v' a * ((g : O'.ValueGroupˣ) : O'.ValueGroup) = v' x := hx
+      have ha' : v' a ≠ 0 := ha
+      rw [← hx', mul_div_cancel_left₀ _ ha']
+  choose y hy0 hyv using hval
+  let H' := H.subgroupOf G
+  -- `G ⧸ H'` is finite
+  haveI hfin : Finite (G ⧸ H') := by
+    by_contra hinf
+    rw [not_finite_iff_infinite] at hinf
+    let emb : Fin (Module.finrank K K' + 1) ↪ G ⧸ H' :=
+      Fin.valEmbedding.trans (Infinite.natEmbedding _)
+    let z : Fin (Module.finrank K K' + 1) → K' := fun i => y (Quotient.out (emb i))
+    have hli : LinearIndependent K z := by
+      refine linearIndependent_of_distinct_cosets v' π hπ0 hdisc z (fun i => hy0 _) ?_
+      intro i j k hk
+      apply emb.injective
+      rw [← Quotient.out_eq (emb i), ← Quotient.out_eq (emb j)]
+      change QuotientGroup.mk _ = QuotientGroup.mk _
+      rw [QuotientGroup.eq]
+      have hk' : ((Quotient.out (emb i) : G) : O'.ValueGroupˣ) =
+          πu ^ k * ((Quotient.out (emb j) : G) : O'.ValueGroupˣ) := by
+        apply Units.ext
+        simp only [Units.val_mul, Units.val_zpow_eq_zpow_val, Units.val_mk0, πu]
+        rw [← hyv, ← hyv]
+        exact hk
+      rw [Subgroup.mem_subgroupOf]
+      have : ((Quotient.out (emb i) : G)⁻¹ * Quotient.out (emb j) : G) =
+          (πu ^ k)⁻¹ := by
+        simp only [Subgroup.coe_mul, Subgroup.coe_inv, hk']
+        group
+        rw [mul_comm, ← _root_.mul_assoc, zpow_neg_one, mul_inv_cancel, _root_.one_mul]
+      rw [this]
+      exact H.inv_mem (H.zpow_mem (Subgroup.mem_zpowers πu) k)
+    have := hli.fintype_card_le_finrank
+    simp at this
+  have he : H'.index ≠ 0 := Subgroup.index_ne_zero_of_finite
+  -- `g ↦ g^e` embeds `G` into the cyclic `H'`
+  let φ : G →* H' :=
+    { toFun := fun g => ⟨g ^ H'.index, H'.pow_index_mem g⟩
+      map_one' := by ext; simp
+      map_mul' := fun a b => by ext; simp [mul_pow] }
+  have hφ : Function.Injective φ := by
+    intro a b hab
+    have h1 : ((a : O'.ValueGroupˣ) : O'.ValueGroup) ^ H'.index =
+        ((b : O'.ValueGroupˣ) : O'.ValueGroup) ^ H'.index := by
+      have := congrArg (fun t : H' => (((t : G) : O'.ValueGroupˣ) : O'.ValueGroup)) hab
+      simpa [φ] using this
+    have h2 := (pow_left_strictMonoOn₀ (M₀ := O'.ValueGroup) he).injOn (Set.mem_setOf.mpr zero_le')
+      (Set.mem_setOf.mpr zero_le') h1
+    exact Subtype.ext (Units.ext h2)
+  haveI : IsCyclic H' :=
+    isCyclic_of_injective (Subgroup.subgroupOfEquivOfLe hHG).toMonoidHom
+      (Subgroup.subgroupOfEquivOfLe hHG).injective
+  haveI : IsCyclic G := isCyclic_of_injective φ hφ
+  haveI : v'.IsNontrivial := ⟨⟨algebraMap K K' (ϖ : K), hπ0, ne_of_lt hπ1⟩⟩
+  have hdvr := Valuation.valuationSubring_isDiscreteValuationRing v'
+  exact (congrArg (fun S : ValuationSubring K' => IsDiscreteValuationRing S)
+    (O'.valuationSubring_valuation)).mp hdvr
+
+/-- **`DVRFiniteExtension`, proved.** -/
+theorem dvrFiniteExtension : DVRFiniteExtension := by
+  intro K _ O _ w hw K' hK'
+  exact dvr_of_finiteExt O (w.comap (algebraMap K' (AlgebraicClosure K))) (by
+    rw [ValuationSubring.comap_comap, ← IsScalarTower.algebraMap_eq, hw])
+
+/-- **r8, no glue**: from SGA 7 IX 3.6 and 3.5, Néron (BLR 1.4/3) and Mumford §4. -/
+theorem grothendieckMonodromy_final' (hS : SemistableReductionDVR) (hU : SemistableUnipotent)
+    (hN : NeronSchemeModelExistsDVR) (hM : AvSplit.MumfordTorsionAlgClosed) :
+    PkgI2.GrothendieckMonodromy.{0} :=
+  grothendieckMonodromy_final hS hU hN hM dvrFiniteExtension
+
+end DVRUp
+
 end ReductSplit
 
 #print axioms ReductSplit.raynaudCriterion_of_leaves
@@ -1306,3 +1508,5 @@ end ReductSplit
 #print axioms ReductSplit.dvrComapFinite
 #print axioms ReductSplit.semistablePersists_final
 #print axioms ReductSplit.semistableReductionThm_final
+#print axioms ReductSplit.dvrFiniteExtension
+#print axioms ReductSplit.grothendieckMonodromy_final'
