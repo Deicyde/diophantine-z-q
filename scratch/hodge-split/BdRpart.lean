@@ -153,3 +153,110 @@ theorem ddrStd_finrank_le (hB : BdRInvariants p) (ρ : GQp p →* GL (Fin n) ℚ
   rwa [Fintype.card_fin, Module.finrank_fin_fun] at this
 
 end BdRSec
+
+section BdRSec2
+
+attribute [local instance] bdrField
+
+instance bdrDomain : IsDomain (BdR p) := (isField_BdR p).isDomain
+
+variable {n : ℕ}
+
+theorem mulVec_eq_sum_col (P : Matrix (Fin n) (Fin n) (BdR p)) (v : Fin n → BdR p) :
+    P.mulVec v = ∑ j, v j • (fun i => P i j) := by
+  ext i; simp [Matrix.mulVec, dotProduct, Finset.sum_apply, mul_comm]
+
+theorem bAct_col (σ : GQp p) (P : Matrix (Fin n) (Fin n) (BdR p)) (j : Fin n) :
+    bAct p σ (fun i => P i j) = fun i => P.map (bdrAct p σ) i j := rfl
+
+/-- **(L5)** An invertible matrix whose columns lie in `D_dR(V)` makes `V` de Rham. -/
+theorem isDeRhamStd_of_matrix (hB : BdRInvariants p) (ρ : GQp p →* GL (Fin n) ℚ_[p])
+    (P : Matrix (Fin n) (Fin n) (BdR p)) (hP : P.det ≠ 0)
+    (hrel : ∀ σ, matB p (ρ σ : Matrix (Fin n) (Fin n) ℚ_[p]) * P.map (bdrAct p σ) = P) :
+    IsDeRhamStd p ρ := by
+  haveI := ddrStd_finiteDimensional p hB ρ
+  have hcol : ∀ j, (fun i => P i j) ∈ ddrStd p ρ := by
+    intro j
+    rw [mem_ddrStd_iff]
+    intro σ
+    rw [bAct_col]
+    ext i
+    have := congrFun (congrFun (hrel σ) i) j
+    rw [Matrix.mul_apply] at this
+    simp only [Matrix.mulVec, dotProduct]
+    exact this
+  let c : Fin n → ddrStd p ρ := fun j => ⟨fun i => P i j, hcol j⟩
+  have hli : LinearIndependent ℚ_[p] c := by
+    rw [Fintype.linearIndependent_iff]
+    intro a ha j
+    have h1 : P.mulVec (fun j => algebraMap ℚ_[p] (BdR p) (a j)) = 0 := by
+      rw [mulVec_eq_sum_col]
+      have := congrArg Subtype.val ha
+      rw [Submodule.coe_sum, Submodule.coe_zero] at this
+      rw [← this]
+      refine Finset.sum_congr rfl fun k _ => ?_
+      rw [algebraMap_smul]
+      rfl
+    by_contra hne
+    exact hP ((Matrix.exists_mulVec_eq_zero_iff).mp
+      ⟨_, fun h => hne (algebraMap_BdR_injective p (by simpa using congrFun h j)), h1⟩)
+  have h1 := hli.fintype_card_le_finrank
+  rw [Fintype.card_fin] at h1
+  exact le_antisymm (ddrStd_finrank_le p hB ρ) h1
+
+/-- **(L4)** If `V` is de Rham, a basis of `D_dR(V)` gives an invertible matrix. -/
+theorem exists_matrix_of_isDeRhamStd (hB : BdRInvariants p) (ρ : GQp p →* GL (Fin n) ℚ_[p])
+    (h : IsDeRhamStd p ρ) : ∃ P : Matrix (Fin n) (Fin n) (BdR p), P.det ≠ 0 ∧
+      ∀ σ, matB p (ρ σ : Matrix (Fin n) (Fin n) ℚ_[p]) * P.map (bdrAct p σ) = P := by
+  haveI := ddrStd_finiteDimensional p hB ρ
+  let b := (Module.finBasis ℚ_[p] (ddrStd p ρ)).reindex (finCongr h)
+  let P : Matrix (Fin n) (Fin n) (BdR p) := Matrix.of fun i j => (b j : Fin n → BdR p) i
+  have hli : LinearIndependent (BdR p) (fun j => ((b j : ddrStd p ρ) : Fin n → BdR p)) :=
+    ddrStd_linearIndependent p hB ρ _ (fun j => (b j).2)
+      (LinearIndependent.map' b.linearIndependent (ddrStd p ρ).subtype (Submodule.ker_subtype _))
+  refine ⟨P, fun hdet => ?_, fun σ => ?_⟩
+  · obtain ⟨v, hv, hPv⟩ := (Matrix.exists_mulVec_eq_zero_iff).mpr hdet
+    rw [mulVec_eq_sum_col] at hPv
+    exact hv (funext fun j => Fintype.linearIndependent_iff.mp hli v hPv j)
+  · ext i j
+    have := congrFun ((mem_ddrStd_iff p ρ _).mp (b j).2 σ) i
+    rw [Matrix.mul_apply]
+    simpa [Matrix.mulVec, dotProduct, bAct, P] using this
+
+theorem map_inv_bdr (σ : GQp p) (P : Matrix (Fin n) (Fin n) (BdR p)) (hP : P.det ≠ 0) :
+    (P⁻¹).map (bdrAct p σ) = (P.map (bdrAct p σ))⁻¹ := by
+  have hu : IsUnit P.det := isUnit_iff_ne_zero.mpr hP
+  symm
+  apply Matrix.inv_eq_left_inv
+  rw [← Matrix.map_mul, Matrix.nonsing_inv_mul _ hu, Matrix.map_one _ (map_zero _) (map_one _)]
+
+/-- **(a) Duals.** -/
+theorem dual_of_bdr (hB : BdRInvariants p) (ρ ρ' : GQp p →* GL (Fin n) ℚ_[p])
+    (h' : ∀ σ, (ρ' σ : Matrix (Fin n) (Fin n) ℚ_[p]) = ((ρ σ)⁻¹ : GL (Fin n) ℚ_[p]).val.transpose)
+    (h : IsDeRhamStd p ρ) : IsDeRhamStd p ρ' := by
+  obtain ⟨P, hP, hrel⟩ := exists_matrix_of_isDeRhamStd p hB ρ h
+  have hu : IsUnit P.det := isUnit_iff_ne_zero.mpr hP
+  refine isDeRhamStd_of_matrix p hB ρ' (P⁻¹).transpose ?_ fun σ => ?_
+  · rw [Matrix.det_transpose]
+    exact (Matrix.isUnit_nonsing_inv_det P hu).ne_zero
+  · have hPσ : P.map (bdrAct p σ) = matB p (ρ σ⁻¹ : Matrix (Fin n) (Fin n) ℚ_[p]) * P := by
+      conv_rhs => rw [← hrel σ]
+      rw [← mul_assoc, matB_inv_mul, one_mul]
+    have hPσdet : (P.map (bdrAct p σ)).det ≠ 0 := by
+      rw [hPσ, Matrix.det_mul]
+      refine mul_ne_zero ?_ hP
+      intro h0
+      have := congrArg Matrix.det (matB_inv_mul p ρ σ)
+      rw [Matrix.det_mul, h0, zero_mul, Matrix.det_one] at this
+      exact zero_ne_one this
+    have hinv : (P.map (bdrAct p σ))⁻¹ = P⁻¹ * matB p (ρ σ : Matrix (Fin n) (Fin n) ℚ_[p]) := by
+      apply Matrix.inv_eq_left_inv
+      rw [hPσ, mul_assoc, ← mul_assoc (matB p _), matB_mul_inv, one_mul,
+        Matrix.nonsing_inv_mul _ hu]
+    have hmat' : matB p (ρ' σ : Matrix (Fin n) (Fin n) ℚ_[p]) =
+        (matB p (ρ σ⁻¹ : Matrix (Fin n) (Fin n) ℚ_[p])).transpose := by
+      rw [h' σ, ← map_inv, matB, matB, Matrix.transpose_map]
+    rw [Matrix.transpose_map, map_inv_bdr p σ P hP, hinv, hmat', Matrix.transpose_mul,
+      ← mul_assoc, ← Matrix.transpose_mul, matB_mul_inv, Matrix.transpose_one, one_mul]
+
+end BdRSec2
