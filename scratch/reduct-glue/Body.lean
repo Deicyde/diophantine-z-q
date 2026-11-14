@@ -6,6 +6,8 @@ open CategoryTheory AlgebraicGeometry Limits MonoidalCategory CartesianMonoidalC
 
 open NumberField
 
+open PkgI2 (IsAbelianVariety IsInertia HasGoodReduction)
+
 namespace ReductGlue
 open ReductSplit
 
@@ -1031,5 +1033,232 @@ end Transport
 /-- **`SemistableLocalGlobal` from the single leaf `NeronLocalizesDVR`** (BLR §1.2 Prop. 4). -/
 theorem semistableLocalGlobal_leaf (hL : NeronLocalizesDVR) : SemistableLocalGlobal :=
   semistableLocalGlobal_of hL semiAbelianFieldIsoInvariant
+
+
+/-! ## §6. The leaves over their printed bases (strictly henselian, complete) -/
+
+section Printed
+
+/-- A strictly henselian discrete valuation ring: henselian, with separably closed residue field. -/
+def IsStrictlyHenselianDVR {K : Type} [Field K] (O : ValuationSubring K) : Prop :=
+  IsDiscreteValuationRing O ∧ HenselianLocalRing O ∧ IsSepClosed (IsLocalRing.ResidueField O)
+
+/-- A complete discrete valuation ring (complete and separated for the `𝔪`-adic topology). -/
+def IsCompleteDVR {K : Type} [Field K] (O : ValuationSubring K) : Prop :=
+  IsDiscreteValuationRing O ∧ IsAdicComplete (IsLocalRing.maximalIdeal O) O
+
+/-- **LEAF (printed base) `SemistableUnipotentSH`**: `SemistableUnipotent` for a strictly
+henselian `O` (SGA 7 I, Exp. IX, Prop. 3.5, if printed over a strictly henselian trait;
+UNVERIFIED). -/
+def SemistableUnipotentSH : Prop :=
+  ∀ (K : Type) [Field K] (O : ValuationSubring K) [IsDiscreteValuationRing O],
+    IsStrictlyHenselianDVR O →
+    ∀ (Ω : Type) [Field Ω] [Algebra K Ω] [IsAlgClosure K Ω] (w : ValuationSubring Ω),
+    w.comap (algebraMap K Ω) = O → ∀ A : PkgI3.AbVar K, HasSemistableReduction A O →
+    ∀ (ℓ : ℕ) [Fact ℓ.Prime], IsUnit (ℓ : O) → ∀ σ : Ω ≃ₐ[K] Ω, IsInertia w σ →
+      ∀ t : TΩ A Ω ℓ, galTΩ A ℓ σ (galTΩ A ℓ σ t) - 2 • galTΩ A ℓ σ t + t = 0
+
+/-- **LEAF (printed base) `RaynaudSemistableSH`**: Raynaud's criterion for a strictly henselian
+`O` (SGA 7 I, Exp. IX, Prop. 4.7, if printed over a strictly henselian trait; UNVERIFIED). -/
+def RaynaudSemistableSH : Prop :=
+  ∀ (K : Type) [Field K] (O : ValuationSubring K) [IsDiscreteValuationRing O],
+    IsStrictlyHenselianDVR O → ∀ (A : PkgI3.AbVar K) (m : ℕ), 3 ≤ m → IsUnit (m : O) →
+    (∀ x : A.Pt (AlgebraicClosure K), x ^ m = 1 →
+      ∃ y : A.Pt K, ZInQ.Contrib.AbVarBC.extPt A (Algebra.ofId K (AlgebraicClosure K)) y = x) →
+    SemistableNeronModels A O
+
+/-- **LEAF (printed base) `SemistableReductionSH`** (SGA 7 I, Exp. IX, Thm. 3.6 over a strictly
+henselian trait; UNVERIFIED which base is printed). -/
+def SemistableReductionSH : Prop :=
+  ∀ (K : Type) [Field K] (O : ValuationSubring K) [IsDiscreteValuationRing O],
+    IsStrictlyHenselianDVR O → ∀ A : PkgI3.AbVar K,
+    ∃ K' : IntermediateField K (AlgebraicClosure K), FiniteDimensional K K' ∧
+      ∀ O' : ValuationSubring K', IsDiscreteValuationRing O' →
+        O'.comap (algebraMap K K') = O → SemistableNeronModels (A.baseChange K') O'
+
+/-- **LEAF (printed base) `SemistablePersistsSH`** (SGA 7 I, Exp. IX, Prop. 3.3, first assertion,
+over a strictly henselian base trait; UNVERIFIED). -/
+def SemistablePersistsSH : Prop :=
+  ∀ (K : Type) [Field K] (O : ValuationSubring K) [IsDiscreteValuationRing O],
+    IsStrictlyHenselianDVR O →
+    ∀ (K' : Type) [Field K'] [Algebra K K'] [FiniteDimensional K K'] (O' : ValuationSubring K')
+    [IsDiscreteValuationRing O'], O'.comap (algebraMap K K') = O →
+    ∀ A : PkgI3.AbVar K, HasSemistableReduction A O → SemistableNeronModels (A.baseChange K') O'
+
+/-- **LEAF (printed base) `IdentityComponentBaseChangeSH`** (SGA 7 I, Exp. IX, Prop. 3.3, second
+assertion, over a strictly henselian base trait; UNVERIFIED). -/
+def IdentityComponentBaseChangeSH : Prop :=
+  ∀ (K : Type) [Field K] (O : ValuationSubring K) [IsDiscreteValuationRing O],
+    IsStrictlyHenselianDVR O →
+    ∀ (K' : Type) [Field K'] [Algebra K K'] [FiniteDimensional K K'] (O' : ValuationSubring K')
+    [IsDiscreteValuationRing O'] (hO : O'.comap (algebraMap K K') = O) (A : PkgI3.AbVar K),
+    HasSemistableReduction A O →
+    ∀ 𝒩 : GroupModelO A O, 𝒩.IsNeronModel →
+    ∀ 𝒩' : GroupModelO (A.baseChange K') O', 𝒩'.IsNeronModel →
+    ∀ (U : Over (Spec (CommRingCat.of O))) [GrpObj U] (i : U ⟶ 𝒩.G), IsOpenImmersion i.left →
+      IsMonHom i → ConnectedSpace ((Over.pullback (jO O)).obj U).left →
+      ConnectedSpace ((Over.pullback (Spec.map (CommRingCat.ofHom
+        (algebraMap O (ResBarO O))))).obj U).left →
+      ∃ j : (Over.pullback (Spec.map (CommRingCat.ofHom (comapHom hO)))).obj U ⟶ 𝒩'.G,
+        IsOpenImmersion j.left ∧
+        (letI : GrpObj ((Over.pullback (Spec.map (CommRingCat.ofHom (comapHom hO)))).obj U) :=
+          Functor.grpObjObj
+         IsMonHom j)
+
+/-- **LEAF (printed base) `SerreTateThm2Complete`**: Serre–Tate's Thm. 2 for a complete discrete
+valuation ring (if Serre–Tate 1968 assume `K` complete; UNVERIFIED). -/
+def SerreTateThm2Complete : Prop :=
+  ∀ (K : Type) [Field K] (O : ValuationSubring K) [IsDiscreteValuationRing O], IsCompleteDVR O →
+    ∀ (w : ValuationSubring (AlgebraicClosure K)),
+    w.comap (algebraMap K (AlgebraicClosure K)) = O →
+    ∀ (A : Grp (Over (Spec (.of K)))) [IsAbelianVariety A] (ℓ : ℕ) [Fact ℓ.Prime],
+      IsUnit (ℓ : O) →
+      ((∃ K' : IntermediateField K (AlgebraicClosure K), FiniteDimensional K K' ∧
+          HasGoodReduction (PkgI2.baseChange A K') (w.comap (algebraMap K' (AlgebraicClosure K)))) ↔
+       (Set.range fun σ : {σ : AlgebraicClosure K ≃ₐ[K] AlgebraicClosure K // IsInertia w σ} =>
+          (ObjBridge.ofGrp A).galT (ℓ := ℓ) σ.1).Finite)
+
+/-- The printed-base leaves imply the general-DVR leaves trivially in the other direction (each
+printed-base leaf is a specialization of the general one): sanity check that the new statements
+are no stronger than reduct-split's. -/
+theorem printed_of_general (h35 : SemistableUnipotent) (h47 : RaynaudSemistable)
+    (h36 : SemistableReductionDVR) (h33a : SemistablePersistsDVR)
+    (h33b : IdentityComponentBaseChangeDVR) (hST : SerreTateThm2) :
+    SemistableUnipotentSH ∧ RaynaudSemistableSH ∧ SemistableReductionSH ∧ SemistablePersistsSH ∧
+      IdentityComponentBaseChangeSH ∧ SerreTateThm2Complete :=
+  ⟨fun K _ O _ _ => h35 K O, fun K _ O _ _ => h47 K O, fun K _ O _ _ => h36 K O,
+   fun K _ O _ _ => h33a K O, fun K _ O _ _ => h33b K O, fun K _ O _ _ => hST K O⟩
+
+end Printed
+
+
+section DVRBaseChange
+
+variable {K K' : Type} [Field K] [Field K'] [Algebra K K'] {O : ValuationSubring K}
+  {O' : ValuationSubring K'} (hO : O'.comap (algebraMap K K') = O)
+
+theorem comapHom_isLocalHom : IsLocalHom (comapHom hO) := by
+  constructor
+  intro x hx
+  obtain ⟨u, hu⟩ := hx
+  have hx0 : (x : K) ≠ 0 := by
+    intro h0
+    have : (comapHom hO x : K') = 0 := by
+      change algebraMap K K' (x : K) = 0
+      rw [h0, map_zero]
+    have h1 : ((u : O') : K') = 0 := by rw [hu]; exact this
+    exact u.ne_zero (Subtype.ext h1)
+  have hinv' : algebraMap K K' (x : K)⁻¹ ∈ O' := by
+    rw [map_inv₀]
+    have h2 : (((u⁻¹ : O'ˣ) : O') : K') * ((u : O') : K') = 1 :=
+      congrArg (fun z : O' => (z : K')) (Units.inv_mul u)
+    have h3 : ((u : O') : K') = algebraMap K K' (x : K) := by rw [hu]; rfl
+    rw [h3] at h2
+    rw [← eq_inv_of_mul_eq_one_left h2]
+    exact (u⁻¹ : O'ˣ).1.2
+  have hinv : (x : K)⁻¹ ∈ O := by
+    have h4 : (x : K)⁻¹ ∈ O'.comap (algebraMap K K') := hinv'
+    rwa [hO] at h4
+  exact ⟨⟨x, ⟨_, hinv⟩, Subtype.ext (mul_inv_cancel₀ hx0), Subtype.ext (inv_mul_cancel₀ hx0)⟩, rfl⟩
+
+/-- The residue map `κ(O) → κ(O')`. -/
+noncomputable def resMap : IsLocalRing.ResidueField O →+* IsLocalRing.ResidueField O' :=
+  @IsLocalRing.ResidueField.map _ _ _ _ _ _ (comapHom hO) (comapHom_isLocalHom hO)
+
+theorem resMap_residue (a : O) :
+    resMap hO (IsLocalRing.residue O a) = IsLocalRing.residue O' (comapHom hO a) :=
+  @IsLocalRing.ResidueField.map_residue _ _ _ _ _ _ (comapHom hO) (comapHom_isLocalHom hO) a
+
+/-- `κ̄(O) ≅ κ̄(O')` over `κ(O) → κ(O')`, for an algebraic residue extension. -/
+noncomputable def barIsoDVR
+    (halg : letI := (resMap hO).toAlgebra
+      Algebra.IsAlgebraic (IsLocalRing.ResidueField O) (IsLocalRing.ResidueField O')) :
+    ResBarO O ≃+* ResBarO O' :=
+  letI := (resMap hO).toAlgebra
+  (IsAlgClosure.equivOfAlgebraic (IsLocalRing.ResidueField O) (IsLocalRing.ResidueField O')
+    (ResBarO O') (ResBarO O)).symm.toRingEquiv
+
+theorem barIsoDVR_comp
+    (halg : letI := (resMap hO).toAlgebra
+      Algebra.IsAlgebraic (IsLocalRing.ResidueField O) (IsLocalRing.ResidueField O')) :
+    ((barIsoDVR hO halg : _ ≃+* _) : _ →+* _).comp (algebraMap O (ResBarO O)) =
+      (algebraMap O' (ResBarO O')).comp (comapHom hO) := by
+  letI := (resMap hO).toAlgebra
+  ext a
+  simp only [RingHom.comp_apply]
+  rw [IsScalarTower.algebraMap_apply O (IsLocalRing.ResidueField O) (ResBarO O),
+    IsScalarTower.algebraMap_apply O' (IsLocalRing.ResidueField O') (ResBarO O')]
+  change (IsAlgClosure.equivOfAlgebraic (IsLocalRing.ResidueField O) (IsLocalRing.ResidueField O')
+    (ResBarO O') (ResBarO O)).symm (algebraMap (IsLocalRing.ResidueField O) (ResBarO O) _) = _
+  rw [AlgEquiv.commutes, IsScalarTower.algebraMap_apply (IsLocalRing.ResidueField O)
+    (IsLocalRing.ResidueField O') (ResBarO O')]
+  change algebraMap (IsLocalRing.ResidueField O') (ResBarO O') (resMap hO (IsLocalRing.residue O a)) = _
+  rw [resMap_residue]
+  rfl
+
+/-- `Spec O' → Spec O`. -/
+noncomputable abbrev gD : Spec (CommRingCat.of O') ⟶ Spec (CommRingCat.of O) :=
+  Spec.map (CommRingCat.ofHom (comapHom hO))
+
+/-- `Spec K' → Spec K`. -/
+noncomputable abbrev sKK : Spec (CommRingCat.of K') ⟶ Spec (CommRingCat.of K) :=
+  Spec.map (CommRingCat.ofHom (algebraMap K K'))
+
+theorem jO_gD : jO O' ≫ gD hO = sKK (K := K) (K' := K') ≫ jO O := by
+  rw [← Spec.map_comp, ← Spec.map_comp]
+  rfl
+
+/-- **Base change of a group model along an extension of valuation rings `O ⊆ O'`.** -/
+noncomputable def bcDVR {A : PkgI3.AbVar K} (𝒩 : GroupModelO A O) :
+    GroupModelO (A.baseChange K') O' :=
+  letI : GrpObj ((Over.pullback (jO O)).obj 𝒩.G) := Functor.grpObjObj
+  haveI := 𝒩.gen_hom
+  { G := (Over.pullback (gD hO)).obj 𝒩.G
+    grp := Functor.grpObjObj
+    smooth := by change Smooth (pullback.snd 𝒩.G.hom (gD hO)); infer_instance
+    separated := by change IsSeparated (pullback.snd 𝒩.G.hom (gD hO)); infer_instance
+    qc := by change QuasiCompact (pullback.snd 𝒩.G.hom (gD hO)); infer_instance
+    gen := isoX (pbCompIso (jO O') (gD hO) _ (jO_gD hO) (Grp.mk 𝒩.G)) ≪≫
+      (isoX (pbCompIso (sKK (K := K) (K' := K')) (jO O) _ rfl (Grp.mk 𝒩.G))).symm ≪≫
+      isoX ((Over.pullback (sKK (K := K) (K' := K'))).mapGrp.mapIso (Grp.mkIso' 𝒩.gen))
+    gen_hom := by
+      letI : GrpObj ((Over.pullback (gD hO)).obj 𝒩.G) := Functor.grpObjObj
+      letI : GrpObj ((Over.pullback (jO O')).obj ((Over.pullback (gD hO)).obj 𝒩.G)) :=
+        Functor.grpObjObj
+      have h1 : IsMonHom (pbCompIso (jO O') (gD hO) _ (jO_gD hO) (Grp.mk 𝒩.G)).hom.hom.hom :=
+        inferInstance
+      have h2 : IsMonHom (pbCompIso (sKK (K := K) (K' := K')) (jO O) _ rfl (Grp.mk 𝒩.G)).inv.hom.hom :=
+        inferInstance
+      have h3 : IsMonHom ((Over.pullback (sKK (K := K) (K' := K'))).mapGrp.mapIso
+          (Grp.mkIso' 𝒩.gen)).hom.hom.hom := inferInstance
+      exact @instIsMonHomComp _ _ _ _ _ _ _ _ _ _ _ h1
+        (@instIsMonHomComp _ _ _ _ _ _ _ _ _ _ _ h2 h3) }
+
+theorem spec_barIsoDVR_comp
+    (halg : letI := (resMap hO).toAlgebra
+      Algebra.IsAlgebraic (IsLocalRing.ResidueField O) (IsLocalRing.ResidueField O')) :
+    Spec.map (CommRingCat.ofHom ((barIsoDVR hO halg : _ ≃+* _) : _ →+* _)) ≫
+      Spec.map (CommRingCat.ofHom (algebraMap O (ResBarO O))) =
+    Spec.map (CommRingCat.ofHom (algebraMap O' (ResBarO O'))) ≫ gD hO := by
+  rw [← Spec.map_comp, ← Spec.map_comp, ← CommRingCat.ofHom_comp, ← CommRingCat.ofHom_comp,
+    barIsoDVR_comp]
+
+/-- **Semistability is invariant under base change along `O ⊆ O'` with algebraic residue
+extension** (fibre identification + `semiAbelianFieldIsoInvariant`). -/
+theorem isSemistable_bcDVR_iff
+    (halg : letI := (resMap hO).toAlgebra
+      Algebra.IsAlgebraic (IsLocalRing.ResidueField O) (IsLocalRing.ResidueField O'))
+    {A : PkgI3.AbVar K} (𝒩 : GroupModelO A O) :
+    𝒩.IsSemistable ↔ (bcDVR hO 𝒩).IsSemistable := by
+  unfold GroupModelO.IsSemistable
+  rw [semiAbelianFieldIsoInvariant _ _ (barIsoDVR hO halg) (geomSpecialFibre 𝒩)]
+  let E := pbCompIso _ _ _ (spec_barIsoDVR_comp hO halg) (Grp.mk 𝒩.G) ≪≫
+    (pbCompIso _ _ _ rfl (Grp.mk 𝒩.G)).symm
+  exact ⟨fun h => @hasSemiAbelian_of_iso _ _ _ (geomSpecialFibre (bcDVR hO 𝒩)) Functor.grpObjObj _
+      (isoX E) (inferInstanceAs (IsMonHom E.hom.hom.hom)) h,
+    fun h => @hasSemiAbelian_of_iso _ _ (geomSpecialFibre (bcDVR hO 𝒩)) _ _ Functor.grpObjObj
+      (isoX E.symm) (inferInstanceAs (IsMonHom E.inv.hom.hom)) h⟩
+
+end DVRBaseChange
 
 end ReductGlue

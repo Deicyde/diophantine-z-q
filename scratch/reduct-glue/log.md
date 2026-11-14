@@ -40,3 +40,10 @@ Kernel deps built in the worktree with `lake build` (all up to date). One Lean p
   connectedness by `Scheme.homeoOfIso`, `B_{k'}` built from base-change instances, torus via `Φ`);
   **`semiAbelianFieldIsoInvariant : SemiAbelianFieldIsoInvariant` PROVED**; hence
   **`semistableLocalGlobal_leaf : NeronLocalizesDVR → SemistableLocalGlobal`**. OK. VERIFIED.
+- 14:50 Body §6 (printed bases): defs `IsStrictlyHenselianDVR` (DVR, `HenselianLocalRing`, residue field
+  `IsSepClosed`), `IsCompleteDVR` (`IsAdicComplete 𝔪`); printed-base leaves `SemistableUnipotentSH`,
+  `RaynaudSemistableSH`, `SemistableReductionSH`, `SemistablePersistsSH`, `IdentityComponentBaseChangeSH`,
+  `SerreTateThm2Complete`; `printed_of_general` (each is a specialization of reduct-split's leaf). §7 machinery:
+  `comapHom_isLocalHom`, `resMap`, `barIsoDVR` (κ̄(O) ≅ κ̄(O') for algebraic residue extension), `bcDVR` (base change
+  of a `GroupModelO` along O ⊆ O'), **`isSemistable_bcDVR_iff`** (semistability invariant under such base change).
+  OK. VERIFIED.
