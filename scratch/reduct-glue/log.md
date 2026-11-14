@@ -18,3 +18,19 @@ Kernel deps built in the worktree with `lake build` (all up to date). One Lean p
   `mem_iff_exists` (**O = (𝓞_L)_{𝔭_O}**: x ∈ O ↔ x·s = a with s ∉ 𝔭_O; via `ValuationRing.cond` in the DVR
   `Localization.AtPrime 𝔭`), `eq_of_center_eq`, `locToO`, `resIso : κ(𝔭_O) ≃+* κ(O)`, `barIso : κ̄(𝔭_O) ≃+* κ̄(O)`
   with `barIso_comp` (compatible with 𝓞_L), `dvrAt 𝔭` (𝔭-adic valuation ring, DVR) with `center_dvrAt`. OK. VERIFIED.
+- 13:20 Body §3 (`SemistableAlmostAll`): `abelianScheme_neron` (abelian scheme over a DVR has the full Néron mapping
+  property, bridged from the vendored FLT theorem in `Contrib/CloudW03NeronSurj`), `hasSemiAbelian_of_iso`,
+  `hasSemiAbelian_of_abVar` (U = G, π = 𝟙, torus rank 0), `groupModelOfAbScheme`,
+  `hasSemistableReduction_of_goodReduction`, `finite_dvr_mem_center` (`Ideal.finite_factors` + `eq_of_center_eq`),
+  **`semistableAlmostAll_of : FrobPiecesNeron.AbVarSpreadsOut → FrobPiecesNeron.ProperSmoothGenConnected →
+  SemistableAlmostAll`** (glue PROVED from kernel leaf/glue already in the build). OK. VERIFIED.
+- 13:20 Base.lean with the extra imports CloudW03NeronSurj.Main (imports Mathlib) and FrobChain.Pieces: compiles
+  unchanged (83 s). VERIFIED.
+- 13:35 Body §4 (`SemistableLocalGlobal`): `isoX`, `neronO_unique` (Néron models over a valuation ring are unique as
+  group schemes; postcomposition is a homomorphism on T-points for smooth T = 𝟙_, 𝒩⊗𝒩), `isSemistable_of_iso`,
+  `semistableNeronModels_of_has`; `pbCompIso`, `toO 𝒩 O` (base change 𝒩 ×_{𝓞_L} O as a `GroupModelO`), `fibreIso`
+  (geometric special fibre of 𝒩_O ≅ σ^*(geomFibre 𝒩 𝔭_O), σ = barIso), new LEAF `NeronLocalizesDVR` (BLR §1.2
+  Prop. 4, UNVERIFIED number), new GLUE `SemiAbelianFieldIsoInvariant` (transport along a field isomorphism);
+  **`semistableLocalGlobal_of : NeronLocalizesDVR → SemiAbelianFieldIsoInvariant → SemistableLocalGlobal`**. OK.
+  VERIFIED.
+- 13:40 Assembled `ReductGlue.lean` (mk.sh): compiles, 31 s. VERIFIED.
