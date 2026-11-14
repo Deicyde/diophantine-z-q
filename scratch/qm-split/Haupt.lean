@@ -3854,6 +3854,97 @@ theorem coset_cover {γ : GL (Fin 2) ℝ} (hγ : γ ∈ Gs) :
     rw [hγx, hxw, Units.val_mul, coe_glOf, g4, coe_glOf, iota_mul, iota_mul, hia, smul_one_mul]
   exact Equiv.ext fun z => smul_eq_of_scalar hd hdet2 hq0 hmat z
 
+/-- **The reverse class bound**: `e* ≤ |C_{i₀}| e¹` (from the covering by the four cosets). -/
+theorem class_bound_rev (z : UpperHalfPlane) (i₀ : Fin 4) :
+    Nat.card (Sstar z) ≤
+      (Finset.univ.filter (fun i => Eq1 (g4 i • z) (g4 i₀ • z))).card * Nat.card (Sone z) := by
+  classical
+  haveI := finite_Sstar z
+  haveI : Finite (Sone z) := Finite.of_injective (Subgroup.inclusion (Sone_le z)) (Subgroup.inclusion_injective _)
+  set C := Finset.univ.filter (fun i => Eq1 (g4 i • z) (g4 i₀ • z))
+  -- the fibre predicate
+  let Fib : Fin 4 → (Sstar z) → Prop := fun i σ =>
+    ∃ h ∈ G1, mob (g4 i₀) * (σ : Equiv.Perm UpperHalfPlane) = mob h * mob (g4 i)
+  have hex : ∀ σ : Sstar z, ∃ i, Fib i σ := by
+    intro σ
+    obtain ⟨δ, hδ, hσ⟩ := σ.2.1
+    obtain ⟨i, h, hh, he⟩ := coset_cover (Gs.mul_mem (g4_mem i₀) hδ)
+    exact ⟨i, h, hh, by rw [← hσ, ← map_mul, he]⟩
+  choose idx hidx using hex
+  have hC : ∀ σ, idx σ ∈ C := by
+    intro σ
+    obtain ⟨h, hh, he⟩ := hidx σ
+    refine Finset.mem_filter.2 ⟨Finset.mem_univ _, h, hh, ?_⟩
+    have := congrArg (fun π : Equiv.Perm UpperHalfPlane => π z) he
+    simp only [Equiv.Perm.coe_mul, Function.comp, mob_apply] at this
+    have hz : (σ : Equiv.Perm UpperHalfPlane) z = z := σ.2.2
+    rw [hz] at this
+    exact this.symm
+  let ρ : Fin 4 → Sstar z := fun i => if hi : ∃ σ, idx σ = i then hi.choose else 1
+  have hρ : ∀ σ, idx (ρ (idx σ)) = idx σ := by
+    intro σ
+    have hi : ∃ τ, idx τ = idx σ := ⟨σ, rfl⟩
+    simp only [ρ, dif_pos hi]
+    exact hi.choose_spec
+  have hmemS : ∀ σ : Sstar z, ((ρ (idx σ))⁻¹ * σ : Sstar z).1 ∈ Sone z := by
+    intro σ
+    obtain ⟨h₁, hh₁, he₁⟩ := hidx (ρ (idx σ))
+    obtain ⟨h₂, hh₂, he₂⟩ := hidx σ
+    rw [hρ σ] at he₁
+    refine ⟨?_, ((ρ (idx σ))⁻¹ * σ).2.2⟩
+    have e : (((ρ (idx σ))⁻¹ * σ : Sstar z) : Equiv.Perm UpperHalfPlane) =
+        (mob (g4 (idx σ)))⁻¹ * ((mob h₁)⁻¹ * mob h₂) * (mob (g4 (idx σ)))⁻¹⁻¹ := by
+      have k1 : ((ρ (idx σ)) : Equiv.Perm UpperHalfPlane) = (mob (g4 i₀))⁻¹ * (mob h₁ * mob (g4 (idx σ))) := by
+        rw [← he₁]; group
+      have k2 : (σ : Equiv.Perm UpperHalfPlane) = (mob (g4 i₀))⁻¹ * (mob h₂ * mob (g4 (idx σ))) := by
+        rw [← he₂]; group
+      simp only [Subgroup.coe_mul, Subgroup.coe_inv, k1, k2]; group
+    rw [e]
+    exact Mone_normal (Mstar.inv_mem ⟨_, g4_mem _, rfl⟩)
+      (Mone.mul_mem (Mone.inv_mem ⟨_, hh₁, rfl⟩) ⟨_, hh₂, rfl⟩)
+  let Ψ : Sstar z → C × Sone z := fun σ =>
+    (⟨idx σ, hC σ⟩, ⟨((ρ (idx σ))⁻¹ * σ : Sstar z).1, hmemS σ⟩)
+  have hΨ : Function.Injective Ψ := by
+    intro σ σ' h
+    simp only [Ψ, Prod.mk.injEq] at h
+    obtain ⟨h1, h2⟩ := h
+    have hi : idx σ = idx σ' := congrArg Subtype.val h1
+    have h2' := congrArg Subtype.val h2
+    simp only at h2'
+    rw [hi] at h2'
+    apply Subtype.ext
+    have := mul_left_cancel h2'
+    exact this
+  have := Nat.card_le_card_of_injective Ψ hΨ
+  rw [Nat.card_prod] at this
+  simpa using this
+
+/-- **Exact count**: `r_z e*_z = 4 e¹_z`. -/
+theorem kept_eq (z : UpperHalfPlane) :
+    (Finset.univ.filter (fun i : Fin 4 => ∀ j < i, ¬ Eq1 (g4 j • z) (g4 i • z))).card *
+        Nat.card (Sstar z) = 4 * Nat.card (Sone z) := by
+  classical
+  refine le_antisymm ?_ (kept_bound z)
+  set K := Finset.univ.filter (fun i : Fin 4 => ∀ j < i, ¬ Eq1 (g4 j • z) (g4 i • z))
+  set C : Fin 4 → Finset (Fin 4) := fun i₀ => Finset.univ.filter (fun i => Eq1 (g4 i • z) (g4 i₀ • z))
+  have hdisj : (K : Set (Fin 4)).PairwiseDisjoint C := by
+    intro a ha b hb hab
+    rw [Function.onFun, Finset.disjoint_left]
+    intro j hja hjb
+    have e1 := (Finset.mem_filter.1 hja).2
+    have e2 := (Finset.mem_filter.1 hjb).2
+    have hab' : Eq1 (g4 a • z) (g4 b • z) := eq1_trans (eq1_symm e1) e2
+    rcases lt_or_gt_of_ne hab with h | h
+    · exact (Finset.mem_filter.1 hb).2 a h hab'
+    · exact (Finset.mem_filter.1 ha).2 b h (eq1_symm hab')
+  have hsum : ∑ i₀ ∈ K, (C i₀).card ≤ 4 := by
+    rw [← Finset.card_biUnion hdisj]
+    exact (Finset.card_le_univ _).trans (by simp)
+  calc K.card * Nat.card (Sstar z) = ∑ _i₀ ∈ K, Nat.card (Sstar z) := by rw [Finset.sum_const, smul_eq_mul]
+    _ ≤ ∑ i₀ ∈ K, (C i₀).card * Nat.card (Sone z) := Finset.sum_le_sum fun i₀ _ => class_bound_rev z i₀
+    _ = (∑ i₀ ∈ K, (C i₀).card) * Nat.card (Sone z) := (Finset.sum_mul _ _ _).symm
+    _ ≤ 4 * Nat.card (Sone z) := Nat.mul_le_mul_right _ hsum
+
 /-- **Row H-87 from the published leaves only**: the valence formula applied to `Γ¹ = ι(𝒪¹)` with
 Shimizu's covolume `2π/3`, and the index argument above. -/
 theorem valenceFormulaGammaStar_of_O1 (hV : ValenceFormulaCocompactEq) (hS : ShimizuCovolumeO1) :
