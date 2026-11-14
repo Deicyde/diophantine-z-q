@@ -11,3 +11,8 @@ Setup: compile checks with `scratch/reduct-split/chk.sh FILE` = `lean` with LEAN
   `SemistableUnipotent` (SGA 7 IX 3.5 ⇒), `RaynaudSemistable` (SGA 7 IX 4.7), `SemistableReductionDVR` (SGA 7 IX 3.6);
   glue `DVRFiniteExtension`, `FixedTorsionRational`; theorems `raynaudCriterion_of_leaves : ... → PkgI2.RaynaudCriterion.{0}`,
   `grothendieckMonodromy_of_leaves : ... → PkgI2.GrothendieckMonodromy.{0}`: OK, 8 s. VERIFIED (axioms not yet printed).
+- 11:33 Reduction.lean §7: leaf `SerreTateThm2` (Serre–Tate 1968 Thm 2, finite image of inertia on T_ℓ), glue
+  `TorsionFieldOfDefinition`; proved `finite_image_of_open` (⇐ direction of the finite-image/open-subgroup equivalence,
+  no glue) and `open_of_finite_image` (⇒, from the glue + divisibility); `serreTatePotentialGood_of_leaves : SerreTateThm2 →
+  TorsionStructure → TorsionFieldOfDefinition → PkgI2.SerreTatePotentialGood.{0}`. OK 10 s. Axioms of the three row
+  theorems: [propext, Classical.choice, Quot.sound]. VERIFIED.

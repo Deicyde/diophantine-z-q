@@ -449,4 +449,180 @@ theorem grothendieckMonodromy_of_leaves (hS : SemistableReductionDVR)
   erw [hx'] at this
   exact this
 
+/-! ## §7. r7b: Serre–Tate potential good reduction -/
+
+/-- **LEAF `SerreTateThm2` (Serre–Tate, *Good reduction of abelian varieties*, Ann. of Math. 88
+(1968), §2, Thm. 2; locator UNVERIFIED).** `O ⊆ K` a discrete valuation ring, `w` a valuation ring
+of `K̄` over `O`, `ℓ` a prime invertible in `O`. `A` has potential good reduction (good reduction
+over a finite extension `K' ⊆ K̄`, at the place `w ∩ K'`) iff the image of the inertia group `I` of
+`w` under `ρ_ℓ : Gal → Aut(T_ℓ A)` is finite. Printed form; the left side is Serre–Tate's
+definition of potential good reduction (at the place of `K'` under `w`), written with the kernel's
+`HasGoodReduction` exactly as in the row. -/
+def SerreTateThm2 : Prop :=
+  ∀ (K : Type) [Field K] (O : ValuationSubring K) [IsDiscreteValuationRing O]
+    (w : ValuationSubring (AlgebraicClosure K)),
+    w.comap (algebraMap K (AlgebraicClosure K)) = O →
+    ∀ (A : Grp (Over (Spec (.of K)))) [IsAbelianVariety A] (ℓ : ℕ) [Fact ℓ.Prime],
+      IsUnit (ℓ : O) →
+      ((∃ K' : IntermediateField K (AlgebraicClosure K), FiniteDimensional K K' ∧
+          HasGoodReduction (PkgI2.baseChange A K') (w.comap (algebraMap K' (AlgebraicClosure K)))) ↔
+       (Set.range fun σ : {σ : AlgebraicClosure K ≃ₐ[K] AlgebraicClosure K // IsInertia w σ} =>
+          (ObjBridge.ofGrp A).galT (ℓ := ℓ) σ.1).Finite)
+
+/-- **GLUE `TorsionFieldOfDefinition`.** The points of `A(K̄)[m]` are defined over a finite
+extension: there is a finite `K'' ⊆ K̄` such that every `σ ∈ Aut(K̄/K)` fixing `K''` fixes
+`A(K̄)[m]` pointwise. Needs: `A(K̄)[m]` is finite (proved here from `TorsionStructure` when `m` is
+invertible) and every `K̄`-point of a finite-type `K`-scheme factors through `Spec K''` for a
+finite `K'' ⊆ K̄` (the point lies in an affine open `Spec R`, `R` a finitely generated `K`-algebra,
+whose image in `K̄` is a finite extension of `K`). Not in Mathlib 4.35 in this form. -/
+def TorsionFieldOfDefinition : Prop :=
+  ∀ (K : Type) [Field K] (A : PkgI3.AbVar K) (m : ℕ), (m : K) ≠ 0 →
+    ∃ K'' : IntermediateField K (AlgebraicClosure K), FiniteDimensional K K'' ∧
+      ∀ σ : AlgebraicClosure K ≃ₐ[K] AlgebraicClosure K, (∀ y ∈ K'', σ y = y) →
+        ∀ x : A.Pt (AlgebraicClosure K), x ^ m = 1 → A.galAct σ x = x
+
+section R7b
+
+variable {K : Type} [Field K]
+
+theorem galAct_mul' (B : PkgI3.AbVar K) (σ τ : AlgebraicClosure K ≃ₐ[K] AlgebraicClosure K)
+    (x : B.Pt (AlgebraicClosure K)) : B.galAct (σ * τ) x = B.galAct σ (B.galAct τ x) := by
+  show PkgI3.AbVar.galHom (σ * τ) ≫ x = PkgI3.AbVar.galHom σ ≫ PkgI3.AbVar.galHom τ ≫ x
+  rw [PkgI3.AbVar.galHom_mul, Category.assoc]
+
+theorem isInertia_mul_inv (w : ValuationSubring (AlgebraicClosure K))
+    {σ τ : AlgebraicClosure K ≃ₐ[K] AlgebraicClosure K} (hσ : IsInertia w σ) (hτ : IsInertia w τ) :
+    IsInertia w (τ⁻¹ * σ) := by
+  obtain ⟨hσd, hσi⟩ := hσ
+  obtain ⟨hτd, hτi⟩ := hτ
+  refine ⟨mul_mem (inv_mem hτd) hσd, ?_⟩
+  have := mul_mem (inv_mem hτi) hσi
+  exact this
+
+/-- Elements of `T_ℓ` are fixed by `σ` once `σ` fixes all `ℓ`-power torsion. -/
+theorem galT_eq_self (B : PkgI3.AbVar K) (ℓ : ℕ) [Fact ℓ.Prime]
+    (σ : AlgebraicClosure K ≃ₐ[K] AlgebraicClosure K)
+    (h : ∀ n, ∀ x : B.Pt (AlgebraicClosure K), x ^ (ℓ ^ n) = 1 → B.galAct σ x = x)
+    (t : B.T ℓ) : B.galT σ t = t := by
+  apply Subtype.ext
+  funext n
+  show Additive.ofMul (B.galAct σ (Additive.toMul (t.1 n))) = t.1 n
+  rw [h n _ (by
+    have := PkgI3.Tate.pow_smul_eq_zero t.2 n
+    exact congrArg Additive.toMul this)]
+  rfl
+
+/-- `(⇐)`: an open subgroup `I ∩ G_{K'}` acting trivially makes the image of inertia finite. -/
+theorem finite_image_of_open (A : PkgI3.AbVar K) (w : ValuationSubring (AlgebraicClosure K))
+    (ℓ : ℕ) [Fact ℓ.Prime] (K' : IntermediateField K (AlgebraicClosure K)) [FiniteDimensional K K']
+    (hK' : ∀ σ : AlgebraicClosure K ≃ₐ[K] AlgebraicClosure K, IsInertia w σ →
+      (∀ x ∈ K', σ x = x) → ∀ n : ℕ, ∀ x : A.Pt (AlgebraicClosure K), x ^ (ℓ ^ n) = 1 →
+        A.galAct σ x = x) :
+    (Set.range fun σ : {σ : AlgebraicClosure K ≃ₐ[K] AlgebraicClosure K // IsInertia w σ} =>
+      A.galT (ℓ := ℓ) σ.1).Finite := by
+  classical
+  let Φ : {σ : AlgebraicClosure K ≃ₐ[K] AlgebraicClosure K // IsInertia w σ} →
+      (K' →ₐ[K] AlgebraicClosure K) := fun σ =>
+      (σ.1 : AlgebraicClosure K ≃ₐ[K] AlgebraicClosure K).toAlgHom.comp K'.val
+  have hdep : ∀ σ τ : {σ : AlgebraicClosure K ≃ₐ[K] AlgebraicClosure K // IsInertia w σ}, Φ σ = Φ τ →
+      A.galT (ℓ := ℓ) σ.1 = A.galT τ.1 := by
+    intro σ τ hστ
+    have hρ := isInertia_mul_inv w σ.2 τ.2
+    have hfix : ∀ y ∈ K', (τ.1⁻¹ * σ.1) y = y := by
+      intro y hy
+      have := DFunLike.congr_fun hστ ⟨y, hy⟩
+      change σ.1 y = τ.1 y at this
+      rw [AlgEquiv.mul_apply, this, AlgEquiv.aut_inv, AlgEquiv.symm_apply_apply]
+    apply LinearMap.ext
+    intro t
+    have h1 : A.galT (ℓ := ℓ) (τ.1⁻¹ * σ.1) t = t :=
+      galT_eq_self A ℓ _ (fun n x hx => hK' _ hρ hfix n x hx) t
+    have h2 : σ.1 = τ.1 * (τ.1⁻¹ * σ.1) := by group
+    apply Subtype.ext
+    funext n
+    show Additive.ofMul (A.galAct σ.1 (Additive.toMul (t.1 n))) =
+      Additive.ofMul (A.galAct τ.1 (Additive.toMul (t.1 n)))
+    have h3 := congrArg (fun s : A.T ℓ => s.1 n) h1
+    change Additive.ofMul (A.galAct (τ.1⁻¹ * σ.1) (Additive.toMul (t.1 n))) = t.1 n at h3
+    conv_lhs => rw [h2, galAct_mul']
+    rw [show A.galAct (τ.1⁻¹ * σ.1) (Additive.toMul (t.1 n)) = Additive.toMul (t.1 n) from
+      congrArg Additive.toMul h3]
+  let g : (K' →ₐ[K] AlgebraicClosure K) → (A.T ℓ →ₗ[ℤ_[ℓ]] A.T ℓ) := fun φ =>
+    if h : ∃ σ, Φ σ = φ then A.galT (ℓ := ℓ) h.choose.1 else 0
+  refine (Set.finite_range g).subset ?_
+  rintro _ ⟨σ, rfl⟩
+  refine ⟨Φ σ, ?_⟩
+  have h : ∃ τ, Φ τ = Φ σ := ⟨σ, rfl⟩
+  simp only [g, h, dif_pos]
+  exact hdep _ _ h.choose_spec
+
+/-- `(⇒)`: a finite image of inertia is trivial on an open subgroup `I ∩ G_{K'}`. -/
+theorem open_of_finite_image (hT : PkgI2.TorsionStructure.{0}) (hD : TorsionFieldOfDefinition)
+    (A : Grp (Over (Spec (.of K)))) [IsAbelianVariety A]
+    (w : ValuationSubring (AlgebraicClosure K)) (ℓ : ℕ) [hℓ : Fact ℓ.Prime] (hℓK : (ℓ : K) ≠ 0)
+    (hfin : (Set.range fun σ : {σ : AlgebraicClosure K ≃ₐ[K] AlgebraicClosure K // IsInertia w σ} =>
+      (ObjBridge.ofGrp A).galT (ℓ := ℓ) σ.1).Finite) :
+    ∃ K' : IntermediateField K (AlgebraicClosure K), FiniteDimensional K K' ∧
+      ∀ σ : AlgebraicClosure K ≃ₐ[K] AlgebraicClosure K, IsInertia w σ →
+        (∀ x ∈ K', σ x = x) →
+        ∀ n : ℕ, ∀ x ∈ torsion A (AlgebraicClosure K) (ℓ ^ n), galAct A σ x = x := by
+  classical
+  let B := ObjBridge.ofGrp A
+  set R := Set.range fun σ : {σ : AlgebraicClosure K ≃ₐ[K] AlgebraicClosure K // IsInertia w σ} =>
+      B.galT (ℓ := ℓ) σ.1 with hRdef
+  -- a level at which each non-identity element of `R` is seen to be non-identity
+  let lev : (B.T ℓ →ₗ[ℤ_[ℓ]] B.T ℓ) → ℕ := fun f =>
+    if h : ∃ t : B.T ℓ, ∃ n : ℕ, (f t).1 n ≠ t.1 n then h.choose_spec.choose else 0
+  let N := hfin.toFinset.sup lev
+  obtain ⟨K', hK', hfixN⟩ := hD K B (ℓ ^ N) (by rw [Nat.cast_pow]; exact pow_ne_zero _ hℓK)
+  refine ⟨K', hK', fun σ hσ hσK' n x hx => ?_⟩
+  -- `σ` acts trivially on `T_ℓ`
+  have hid : B.galT (ℓ := ℓ) σ = LinearMap.id := by
+    by_contra hne
+    have hex : ∃ t : B.T ℓ, ∃ n : ℕ, (B.galT (ℓ := ℓ) σ t).1 n ≠ t.1 n := by
+      by_contra hno
+      push Not at hno
+      exact hne (LinearMap.ext fun t => Subtype.ext (funext fun n => hno t n))
+    have hmem : B.galT (ℓ := ℓ) σ ∈ hfin.toFinset := by
+      rw [Set.Finite.mem_toFinset]; exact ⟨⟨σ, hσ⟩, rfl⟩
+    have hle : lev (B.galT (ℓ := ℓ) σ) ≤ N := Finset.le_sup hmem
+    simp only [lev, hex, dif_pos] at hle
+    apply hex.choose_spec.choose_spec
+    set t := hex.choose
+    set n0 := hex.choose_spec.choose
+    show Additive.ofMul (B.galAct σ (Additive.toMul (t.1 n0))) = t.1 n0
+    have htor : (Additive.toMul (t.1 n0)) ^ (ℓ ^ N) = 1 := by
+      have h0 : (Additive.toMul (t.1 n0)) ^ (ℓ ^ n0) = 1 :=
+        congrArg Additive.toMul (PkgI3.Tate.pow_smul_eq_zero t.2 n0)
+      obtain ⟨c, hc⟩ := pow_dvd_pow ℓ hle
+      rw [hc, pow_mul, h0, one_pow]
+    rw [hfixN σ hσK' _ htor]
+    rfl
+  obtain ⟨t, ht⟩ := exists_tate_lift A hT ℓ hℓK n x hx
+  have := congrArg (fun s : B.T ℓ => Additive.toMul (s.1 n)) (LinearMap.congr_fun hid t)
+  change B.galAct σ (Additive.toMul (t.1 n)) = Additive.toMul (t.1 n) at this
+  rw [ht] at this
+  exact this
+
+/-- **r7b (`PkgI2.SerreTatePotentialGood`) from the printed Serre–Tate Thm. 2**, with the glue
+`TorsionFieldOfDefinition` (for `⇒`) and divisibility (from `TorsionStructure`). -/
+theorem serreTatePotentialGood_of_leaves (hST : SerreTateThm2) (hT : PkgI2.TorsionStructure.{0})
+    (hD : TorsionFieldOfDefinition) : PkgI2.SerreTatePotentialGood.{0} := by
+  intro K _ O _ w hw A _ ℓ hℓ hℓO
+  haveI : Fact ℓ.Prime := ⟨hℓ⟩
+  have hℓK := natCast_ne_zero_of_isUnit O hℓO
+  rw [hST K O w hw A ℓ hℓO]
+  constructor
+  · exact open_of_finite_image hT hD A w ℓ hℓK
+  · rintro ⟨K', hK', hfix⟩
+    haveI := hK'
+    exact finite_image_of_open (ObjBridge.ofGrp A) w ℓ K'
+      (fun σ hσ hσK' n x hx => hfix σ hσ hσK' n x hx)
+
+end R7b
+
 end ReductSplit
+
+#print axioms ReductSplit.raynaudCriterion_of_leaves
+#print axioms ReductSplit.grothendieckMonodromy_of_leaves
+#print axioms ReductSplit.serreTatePotentialGood_of_leaves
