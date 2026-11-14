@@ -101,16 +101,17 @@ cohomology is not in Mathlib, so `DeRhamH1AbVarT` states that `W = Hom_ℚp(V_p(
 `Representation.dual`) is de Rham with the printed `D_dR(W) = (B_dR ⊗ W)^{G_F}`.
 `isDeRhamOver_iff_tensor_dual` proves it equivalent to pkg-I4's Hom form (`DeRhamH1AbVar`) for
 finite-dimensional `V`, and `V_p(A)` is finite-dimensional by the Hodge–Tate decomposition. Under the
-strict rule this is the published statement transported through the standard identification `H¹_ét = Hom(T_p A, ℤ_p) ⊗ ℚ_p` (Milne, *Abelian varieties*, Thm 15.1(a), UNVERIFIED); it
-is the de Rham clause of the old R10 with the Hodge–Tate counts removed. `HodgeTateDecompAbVar` is printed
+strict rule this is the published statement transported through the standard identification
+`H¹_ét = Hom(T_p A, ℤ_p) ⊗ ℚ_p` (Milne, *Abelian varieties*, Thm 15.1(a), UNVERIFIED); it is the de Rham
+clause of the old R10 with the Hodge–Tate counts removed. `HodgeTateDecompAbVar` is printed
 for the Tate module (Fontaine 1982; Tate 1967 for good reduction) with bases of the two `g`-dimensional
 `F`-spaces chosen.
 
 ### H-22 `R14Det`: done from Diamond–Shurman's two printed theorems
 
 `r14Det_of_ds : DSThm965 → DSThm966 → Semisimplification2 → DetFromFrobenius → ArtinTransport → R14Det`
-(main file), and `r14Det_of_printed` with all three glue Props proved, through the weight split `r14Det_of_wt` (Shimura's `k = 2` case is not needed: Deligne covers
-`k ≥ 2`). The leaves are Diamond–Shurman's statements with the coefficients extended along
+and `r14Det_of_printed` with all three glue Props proved, both through the weight split
+`r14Det_of_wt` (Shimura's `k = 2` case is not needed: Deligne covers `k ≥ 2`). The leaves are Diamond–Shurman's statements with the coefficients extended along
 `K_{f,λ} → ℚ̄_ℓ` (given by `ιL ∘ ιC⁻¹`); they contain no semisimplicity and no global determinant.
 Proved glue:
 - `semisimplification2_proof`: a non-semisimple 2-dimensional `ρ` has an invariant line; in a
@@ -155,9 +156,10 @@ needed.
 Kato's theorem (Astérisque 295, §§9.2–9.4) is about Kato's `V_{F_λ}(f)`, built from étale cohomology of
 modular curves; it cannot be a leaf over Mathlib today. Proved: `eigenformHT_of_new : EigenformHTNew →
 NewformOfEigenform → EigenformRepExists → AttachedConj → HTConj → EigenformHT` (VERIFIED), and both glue
-Props `AttachedConj` ( semisimple reps with equal Frobenius traces outside a finite set are
+Props `AttachedConj` (semisimple reps with equal Frobenius traces outside a finite set are
 conjugate, from the kernel's T18 and T19 via `C9Rhof.iso_of_arithFrob`) and `HTConj` (g12-det's glue:
-Hodge–Tate weights are invariant under conjugation by `GL_n(ℚ̄_p)`). So `eigenformHT_of_kato_ds : EigenformHTNew → NewformOfEigenform → DSThm965 → DSThm966 → EigenformHT`
+Hodge–Tate weights are invariant under conjugation by `GL_n(ℚ̄_p)`). So
+`eigenformHT_of_kato_ds : EigenformHTNew → NewformOfEigenform → DSThm965 → DSThm966 → EigenformHT`
 (VERIFIED): `EigenformHT` follows from the kernel's leaf I4-L5, the two printed leaves of
 H-22, and the open `EigenformHTNew` (Kato for newforms, transported to any semisimple attached `ρ` and
 dualized).
@@ -175,10 +177,11 @@ arithmetic-Frobenius trace form; the conversion needs `det ρ_f(Frob_q) = χ(q)q
 
 ## 4. Remarks
 
-- `htMult` (pkg-I4) divides a `ℚ_p`-dimension by `[E:ℚ_p]`. For `K = ℚ_p` this is the common Hodge–Tate
-  multiplicity at every embedding of `E` (the Sen operator's characteristic polynomial has coefficients in
-  `E ⊗ ℚ_p = E`, and integral roots are fixed by every embedding), so the definition is sound; this task
-  proved that it does not depend on `E` (`htMult_eq_of_lifts`).
+- `htMult` (pkg-I4) divides a `ℚ_p`-dimension by `[E:ℚ_p]`. This task proved that it does not depend on
+  the finite coefficient field `E` (`htMult_eq_of_lifts`), and that it equals `dim_E` of the `E`-linear
+  Hodge–Tate space over `G_E` for `E` Galois (`htMult_eq_finrank_Ysp`). So it is the usual multiplicity
+  at the given embedding `E ⊆ ℚ̄_p`; for `K = ℚ_p` it agrees at every embedding (STANDARD, Sen's theory;
+  not needed here).
 - The same two Tate leaves carry H-52, H-8 and H-51.
 - `DSThm966` was first written without continuity of `ρ`; continuity is part of Deligne–Serre's statement
   and is needed to make the `ℓ`-adic transport continuous, so the leaf states it.
