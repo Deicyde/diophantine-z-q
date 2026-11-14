@@ -61,10 +61,12 @@ them gives `x0Transitive_of_igusaSL2X`.
 
 `IgusaSL2X` is the geometric part of Igusa's theorem (Igusa, Amer. J. Math. 81 (1959); Shimura
 1971 Thm 6.6; Lang, *Elliptic functions*, Ch. 6 §3). It holds for every model of the generic curve,
-because the monodromy maps onto `PSL₂(ℤ)` and `PSL₂(ℤ)` does not lift to `SL₂(ℤ)`. Igusa's
-theorem is stronger than `X0Transitive`: it gives transitivity on points of order `N`, not only on
-the cyclic subgroups they generate. The weaker printed source the row cites is Lang Ch. 5 §2
-Thm 3, the irreducibility of `Φ_N(X, j)` over `ℂ(j)`. Its Lean statement would need the modular
+because the monodromy maps onto `PSL₂(ℤ)` and `PSL₂(ℤ)` does not lift to `SL₂(ℤ)`.
+`IgusaSL2X` (a matrix statement) is stronger than `X0Transitive`. The kernel proves
+`TateMuN`, so transitivity on the points of order `N`
+(`IgusaTransitive`) is equivalent to the row (`igusaTransitive_iff_x0Transitive`). The weaker
+printed source the row cites is Lang Ch. 5 §2 Thm 3, the irreducibility of `Φ_N(X, j)` over
+`ℂ(j)`. Its Lean statement would need the modular
 `j`-function and the modular polynomial. Neither is in Mathlib v4.35: `NumberTheory/ModularForms`
 has Eisenstein series and the discriminant, but no `j` and no `Φ_N` (VERIFIED by grep). It would
 also need the comparison of `ℂ(j(τ))` with `ℚ(j)` through the analytic uniformization.
