@@ -176,6 +176,25 @@ arithmetic-Frobenius trace form; the conversion needs `det ρ_f(Frob_q) = χ(q)q
 - `DSThm966` was first written without continuity of `ρ`; continuity is part of Deligne–Serre's statement
   and is needed to make the `ℓ`-adic transport continuous, so the leaf states it.
 
+## 4a. Effect on the frontier count (strict classification)
+
+Before (frontier r3): the seven rows were GLUE: two "consequence of one theorem" (H-32, H-51), one
+"consequence, after dualization" (H-10), four composites (H-8, H-9, H-22, H-52).
+
+After this task, if its theorems are folded in:
+- **Removed:** H-8, H-22, H-32, H-51, H-52 (five GLUE rows).
+- **Added, published form:** `TateTwistInvariants`, `AxSenTate`, `HodgeTateDecompAbVar`,
+  `DeRhamH1AbVarT`, `FontaineDRTannakian`, `DSThm965`, `DSThm966` (seven LEAF rows; the two Tate leaves
+  are shared by three rows, the two DS leaves by two).
+- **H-10** is replaced by `EigenformHTNew`, still GLUE (consequence of Kato's theorem; not statable).
+  It also uses I4-L5 `NewformOfEigenform`, already a kernel leaf.
+- **H-9** is unchanged (GLUE; Pan and Berger need `B_st`).
+
+Net: 7 GLUE → 2 GLUE + 7 LEAF. The leaves carry caveats. `DeRhamH1AbVarT` writes `H¹_ét` as
+`Hom(V_p A, ℚ_p)`. `FontaineDRTannakian` is Fontaine's Tannakian theorem with `B_dR`'s regularity
+built in. `DSThm965` extends coefficients along `ιL ∘ ιC⁻¹`. `HodgeTateDecompAbVar` chooses bases.
+Each is a specialization read off the printed statement (see §3), not a strengthening.
+
 ## 5. How to check
 
 ```
