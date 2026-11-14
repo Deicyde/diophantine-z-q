@@ -2066,3 +2066,12 @@ import ZInQKernel.Contrib.UnramRoots.Sanity
 import ZInQKernel.Contrib.ZariskiConn.Basic
 import ZInQKernel.Contrib.SmoothFibre.Basic
 import ZInQKernel.Contrib.SmoothFibre.Statement
+import ZInQKernel.Contrib.TYZChain.Bridge
+import ZInQKernel.Contrib.TYZChain.Headline
+import ZInQKernel.Contrib.TYZChain.L321
+import ZInQKernel.Contrib.TYZChain.Lcal
+import ZInQKernel.Contrib.TYZChain.Lemma318
+import ZInQKernel.Contrib.TYZChain.Main
+import ZInQKernel.Contrib.TYZChain.ModFn
+import ZInQKernel.Contrib.TYZChain.SSExponent
+import ZInQKernel.Contrib.TYZChain.Thm35
