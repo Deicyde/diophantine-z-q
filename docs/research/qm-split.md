@@ -25,7 +25,9 @@ All 14 rows now have a compiled Lean proof from stated hypotheses (no `sorry`; e
   H-88 (1 leaf + 2 glue: the covolume of `Γ*`, shared with H-87, and one number, `j_θ = −16/27` at the CM
   point of discriminant −24; the Hauptmodul property is now *proved* from the valence formula, and the
   divisibility of orders at elliptic points is proved), H-1, H-20, H-43, H-59 (the existence leaf plus
-  per-clause glue = published statement + transport to every witness).
+  per-clause published statements stated for every witness; **the comparison isomorphism of two fine
+  witnesses is now compiled** (`compare_iso`), which proves the project glue `HeckeOfFine` and `R1bTransport`:
+  H-20 rests on one leaf candidate only).
 * `QMCentralizerCM` (over `ℚ̄`) is itself proved from its printed form over `ℂ` (`QMCentralizerCMC`) and the
   bundle's textbook leaf T11(b) (`T11b_Rigidity`), so H-42, H-61, H-63 rest on `QMCentralizerCMC` + T11(b).
 
@@ -41,9 +43,9 @@ All 14 rows now have a compiled Lean proof from stated hypotheses (no `sorry`; e
 | H-44 `thetaRatiosAlgebraic` | composite (Shimura 1976, Mumford, Igusa) | `ThetaNullNonvanishing` (genus 2: at most one even theta-null vanishes; Mumford Tata II IIIa §8, Igusa 1962) | `ThetaFourthRatiosAlgebraic` (θ⁴ ratios algebraic; NS/GAGA + Thomae/Jacobi or Shimura 1976) | `ThetaRatios.lean`: `…ThetaPt.QMSplitTheta.thetaRatiosAlgebraic_of` |
 | H-87 `ValenceFormulaGammaStar` | consequence of the valence formula + signature `(0;2,4,6)` | `ValenceFormulaCocompact` (Shimura 1971 Prop. 2.16/Thm 2.20; Rankin Thm 4.1.4; any cocompact Fuchsian `Γ`, volume = Mathlib's hyperbolic area of a fundamental domain) | `GammaStarCocompactArea` (Γ* cocompact Fuchsian with a fundamental domain of area `π/6`) | `Valence.lean`: `…QMSplitVB.valenceFormulaGammaStar_of`; also `Haupt.lean`: `valenceFormulaGammaStar_of_eq` |
 | H-88 `QMHauptmodulBase3` | composite (Hauptmodul property + value `−16/27`) | `ValenceFormulaCocompactEq` (same sources, equality form) | `GammaStarCocompactArea` (shared with H-87), `ThetaQuotientValue24` (the number `j_θ(i√(9+6√2)) = −16/27`); `EllipticOrderDvd` stated and **proved** | `Haupt.lean`: `HDec.LeafQCheck.HM.QMSplit.qmHauptmodulBase3_of'` (uses the bundle leaf `r4`) |
-| H-1 `r1r2 : R1R2fpRep` | composite (Shimura 1967, Deligne 389, Baba–Granath, González–Rotger) | `CanonicalModelY3` (∃ fine witness; Shimura 1967 Main Thms I-II, Deligne 389 Thm 4.21) | `HeckeOfFine` (project, Yoneda), `CoarseX6OfFine`, `HauptmodulOfX6` (Baba–Granath Thm 2.1), `ReciprocityOfFine` (Shimura reciprocity), `ResidueOfX6` (González–Rotger Thm 5.12), each = published statement + transport to every witness | `ModuliSplit.lean`: `HDec.QMSplit.Moduli.r1r2fpRep_of` |
+| H-1 `r1r2 : R1R2fpRep` | composite (Shimura 1967, Deligne 389, Baba–Granath, González–Rotger) | `CanonicalModelY3` (∃ fine witness; Shimura 1967 Main Thms I-II, Deligne 389 Thm 4.21) | `CoarseX6OfFine`, `HauptmodulOfX6` (Baba–Granath Thm 2.1), `ReciprocityOfFine` (Shimura reciprocity), `ResidueOfX6` (González–Rotger Thm 5.12), each = published statement for every witness; `HeckeOfFine` stated and **proved** | `ModuliSplit.lean`: `HDec.QMSplit.Moduli.r1r2fpRep_of'` |
 | H-59 `Y3Connected` | composite (Deligne π₀ + orbit computation) | `CanonicalModelY3` | `ConnectedOfFine` (Deligne 389 §§2-3 + transport; equivalent to the row given the leaf) | `ModuliSplit.lean`: `y3Connected_of`, `connectedOfFine_of` |
-| H-20 `r1b` | project glue (triple chosen from `r1r2`) | `ShimuraFamily` (LEAF candidate: Shimura 1967 Main Thm I composed with every `π : Y → P¹`) | `R1bTransport` (project: comparison isomorphism of fine witnesses) | `ModuliSplit.lean`: `r1b_of` |
+| H-20 `r1b` | project glue (triple chosen from `r1r2`) | `ShimuraFamily` (LEAF candidate: Shimura 1967 Main Thm I composed with every `π : Y → P¹`) | none: `R1bTransport` stated and **proved** (the comparison isomorphism `compare_iso` is compiled) | `ModuliSplit.lean`: `r1b_of'` |
 | H-43 `x6ConicModel` | consequence (Kurihara 1979, Elkies 1998) | uses `r1r2` (H-1) | `ConicOfWitness` (Kurihara/Elkies + transport, or Kummer theory from the clause list) | `ModuliSplit.lean`: `x6ConicModel_of` |
 
 
@@ -88,8 +90,7 @@ existing bundle leaf T11(b)); 7 rows are reduced to 4 further leaves (`ThetaNull
 | `ThetaFourthRatiosAlgebraic` | H-44 | `θ_m(Ω)⁴/θ_{m₀}(Ω)⁴` algebraic for period matrices of abelian surfaces over number fields | the polarization defined by `Ω` is algebraic and defined over `ℚ̄` (Appell–Humbert, GAGA, `NS(A_ℚ̄) = NS(A_ℂ)`); Thomae (Mumford Tata II IIIa §8), Jacobi, Weil's dichotomy; or Shimura, Duke 43 (1976) |
 | `GammaStarCocompactArea` | H-87, H-88 | `Γ*` cocompact Fuchsian with a fundamental domain of area `π/6` | Shimura 1971 §9.2 (cocompactness of `𝒪¹`), Shimizu's volume formula `vol(𝒪¹\ℍ) = 2π/3`, the index 4 of `ℚ^×𝒪¹` in `Γ*`, comparison of fundamental domains; or Takeuchi's `(2,4,6)` + Gauss–Bonnet |
 | `ThetaQuotientValue24` | H-88 | `jNum/jDen(Ω(i√(9+6√2))) = −16/27` | Baba–Granath's CM values of the Hauptmodul with Igusa's theta expressions of the Igusa invariants; numerically VERIFIED by leaf-review-a |
-| `HeckeOfFine` | H-1 | twists are induced by automorphisms of any fine witness | project (Yoneda): `R1univProps` on the twisted universal family; a self-map acting trivially on field points is the identity (reduced source, separated target) |
-| `CoarseX6OfFine`, `HauptmodulOfX6`, `ReciprocityOfFine`, `ResidueOfX6`, `ConnectedOfFine`, `ConicOfWitness`, `R1bTransport` | H-1, H-59, H-20, H-43 | each clause, for every witness | the published statement on the canonical model (Baba–Granath Thm 2.1; Shimura reciprocity; González–Rotger Thm 5.12; Deligne's `π₀`; Kurihara/Elkies; Shimura Main Thm I) **plus** the transport along the comparison isomorphism of witnesses (qm-pin §3.3; the chain only has the surjective comparison morphism `exists_surjective_of_R1fp`) |
+| `CoarseX6OfFine`, `HauptmodulOfX6`, `ReciprocityOfFine`, `ResidueOfX6`, `ConnectedOfFine`, `ConicOfWitness` | H-1, H-59, H-43 | each clause, for every witness | the published statement on the canonical model (Baba–Granath Thm 2.1; Shimura reciprocity; González–Rotger Thm 5.12; Deligne's `π₀`; Kurihara/Elkies) **plus** the transport to an arbitrary witness: for fine witnesses the comparison isomorphism is now compiled (`compare_iso`), so what remains of the transport is the invariance of each clause under it; for coarse witnesses (`X₆`) a comparison is still needed (`CurveBijIso`-type glue) |
 
 ## 4. Findings
 
@@ -97,10 +98,11 @@ existing bundle leaf T11(b)); 7 rows are reduced to 4 further leaves (`ThetaNull
    hypotheses whose statements were checked here, §1). One reading issue: H-35's row drops Yu's splitting
    clause; the leaf keeps it.
 2. **A row about one witness cannot be split into separately quantified published statements without a
-   transport/uniqueness glue.** For H-1, H-20, H-43, H-59 the per-clause Props are universal over witnesses;
-   each is GLUE by construction (published statement + transport). The chain has the surjective comparison
-   morphism, not the comparison isomorphism (`PinUnique` is not compiled); proving that isomorphism once would
-   turn every transport into a Lean proof. An alternative split of H-1's `π₀` clause exists in the chain:
+   uniqueness of the witness.** For H-1, H-20, H-43, H-59 the per-clause Props are universal over witnesses.
+   The uniqueness of the fine witness is now **compiled** (`compare_iso`: two witnesses of `R1fpProps` are
+   isomorphic compatibly with `Φ`; this is `PinUnique` without `π`, which the chain had left as an argued,
+   uncompiled statement), and it proves `HeckeOfFine` (twisted universal families, `R1univProps`) and
+   `R1bTransport` outright. An alternative split of H-1's `π₀` clause exists in the chain:
    `Pi0X6.r1pi0Props_of_X6Props` (from `R5ptProps`, `R5fpCount`, `R2X6CMExact`, `AGInputs`).
 3. **Class number one needs no citation**: the order is norm-Euclidean with constant `7/8`.
 4. **The Hauptmodul property is a consequence of the valence formula** for the two theta forms already in the
@@ -134,8 +136,9 @@ The olean chain is leaf-fold4's (`~/qms-olean`, a copy of leafq-check's `~/lqc-o
 
 ## 6. What remains
 
-* The glue of §3. The most useful single piece is the comparison isomorphism of fine witnesses (`PinUnique`
-  without `π`), which discharges every transport in H-1, H-20, H-43, H-59.
+* The glue of §3. For the moduli rows the next piece is a comparison of coarse witnesses (`X₆`), which with
+  `compare_iso` would reduce the remaining universal Props to their published statements plus invariance
+  checks.
 * Folding: the theorems are over leaf-fold4's chain constants (C4'' keeps them); `STQM`, `ValenceFormulaGammaStar`,
   `QMHauptmodulBase3` are leafq-check's constants, copied verbatim here (the fold must identify the copies).
 * `ShimuraTaniyamaQbar` could be restated with a model over a number field and the `ℚ̄` form proved by base
