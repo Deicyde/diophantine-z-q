@@ -389,3 +389,6 @@ end HDec.QMSplit.CNO
 
 #print axioms HDec.QMSplit.CNO.qmClassNumberOne_proof
 #print axioms HDec.QMSplit.CNO.principal_of_lattice
+
+/-- Full-name check of the row constant. -/
+example : HDec.HSyn.G0Split.FibreQM.QMClassNumberOne := HDec.QMSplit.CNO.qmClassNumberOne_proof

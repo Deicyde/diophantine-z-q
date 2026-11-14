@@ -171,3 +171,12 @@ end HDec.QMSplit.Moduli
 #print axioms HDec.QMSplit.Moduli.y3Connected_of
 #print axioms HDec.QMSplit.Moduli.r1b_of
 #print axioms HDec.QMSplit.Moduli.x6ConicModel_of
+
+example : HDec.QMSplit.Moduli.CanonicalModelY3 → HDec.QMSplit.Moduli.HeckeOfFine →
+    HDec.QMSplit.Moduli.CoarseX6OfFine → HDec.QMSplit.Moduli.HauptmodulOfX6 →
+    HDec.QMSplit.Moduli.ReciprocityOfFine → HDec.QMSplit.Moduli.ResidueOfX6 → HDec.LeafAdopt.R1R2fpRep :=
+  HDec.QMSplit.Moduli.r1r2fpRep_of
+example : HDec.QMSplit.Moduli.CanonicalModelY3 → HDec.QMSplit.Moduli.ConnectedOfFine →
+    HDec.TSHecke.Y3Connected := HDec.QMSplit.Moduli.y3Connected_of
+example : HDec.LeafAdopt.R1R2fpRep → HDec.QMSplit.Moduli.ConicOfWitness → HDec.X6Kummer.X6ConicModel :=
+  HDec.QMSplit.Moduli.x6ConicModel_of

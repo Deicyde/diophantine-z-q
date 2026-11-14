@@ -51,3 +51,5 @@ theorem qmDichotomyYu_of_yu (h : YuThm11) : PkgI3.QMDichotomyYu := by
 end HDec.QMSplit.Yu
 
 #print axioms HDec.QMSplit.Yu.qmDichotomyYu_of_yu
+
+example : HDec.QMSplit.Yu.YuThm11 → HDec.PkgI3.QMDichotomyYu := HDec.QMSplit.Yu.qmDichotomyYu_of_yu

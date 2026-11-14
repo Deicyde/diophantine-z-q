@@ -1069,3 +1069,7 @@ end HDec.QMSplit.Aut
 #print axioms HDec.QMSplit.Aut.qmAutCard_of
 #print axioms HDec.QMSplit.Aut.alFixedPoints_of
 #print axioms HDec.QMSplit.Aut.cmOptimalEmbedding_of
+
+example : HDec.QMSplit.Aut.QMCentralizerCMC → HDec.ZInQ.LeafPush2.T11b_Rigidity →
+    HDec.HeckeRest.QMAutCard ∧ HDec.HeckeRest.ALFixedPoints ∧ HDec.FS5NoCM.CMOptimalEmbedding :=
+  HDec.QMSplit.Aut.rows_of_C

@@ -79,3 +79,8 @@ theorem thetaRatiosAlgebraic_of (hN : ThetaNullNonvanishing) (hA : ThetaFourthRa
 end HDec.HSyn.G0Split.ThetaPt.QMSplitTheta
 
 #print axioms HDec.HSyn.G0Split.ThetaPt.QMSplitTheta.thetaRatiosAlgebraic_of
+
+example : HDec.HSyn.G0Split.ThetaPt.QMSplitTheta.ThetaNullNonvanishing →
+    HDec.HSyn.G0Split.ThetaPt.QMSplitTheta.ThetaFourthRatiosAlgebraic →
+    HDec.HSyn.G0Split.ThetaPt.ThetaRatiosAlgebraic :=
+  HDec.HSyn.G0Split.ThetaPt.QMSplitTheta.thetaRatiosAlgebraic_of

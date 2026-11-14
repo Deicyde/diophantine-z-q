@@ -66,3 +66,6 @@ theorem thetaModularity_of (h4 : IgusaPsi4) (h10 : IgusaChi10) : ThetaModularity
 end HDec.QMSplit.Theta
 
 #print axioms HDec.QMSplit.Theta.thetaModularity_of
+
+example : HDec.QMSplit.Theta.IgusaPsi4 → HDec.QMSplit.Theta.IgusaChi10 → HDec.PkgI1.ThetaModularity :=
+  HDec.QMSplit.Theta.thetaModularity_of
