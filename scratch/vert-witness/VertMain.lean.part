@@ -1,0 +1,261 @@
+
+/-! ════════════════════════════════════════════════════════════════════════════════════════════
+# vert-witness: `HeckeVertWitness` from good reduction of `Y₃` (route GR)
+
+Everything above this banner is `scratch/hecke-rest/NoVert.lean` verbatim (lines 1-1261, i.e.
+without its trailing `#print axioms` lines). New work:
+
+* `VertGaussWitness E p` (glue target, valuation form): a valuation subring of `E` whose
+  valuation restricts on `ℤ[X]` to the Gauss valuation at `p` and in which `p` generates the
+  maximal ideal. `vertLocalWitness_of_gauss` (compiled): it gives hecke-rest's
+  `VertLocalWitness`, hence `VertUnramWitness`.
+* `ShimuraGoodReduction` (**leaf**, Morita 1981 / Carayol 1986 / Kottwitz 1992, locators
+  UNVERIFIED): for `p > 324`, a smooth proper model `𝒴` of `Y₃` over `ℤ_(p)` with its universal
+  family, the moduli bijection on `ℚ̄`-points and the Hecke automorphisms over `ℤ_(p)`.
+* `ModelGaussGlue` (**glue**, not proved): the model gives a `VertGaussWitness` for every `E`
+  carrying the normalization chart (comparison of generic fibres, the local ring at the generic
+  point of a component of the special fibre, nonconstant reduction of the coordinate via the
+  tame quotient `𝒴/Γ' ≅ P¹_{ℤ_(p)}`; docs/research/vert-witness.md §3).
+* `heckeVertWitness_of_goodReduction : ShimuraGoodReduction → ModelGaussGlue →
+  HeckeVertWitness` (compiled).
+════════════════════════════════════════════════════════════════════════════════════════════ -/
+
+noncomputable section
+
+namespace VertWitness
+
+open Polynomial G0ModField PropTSRed PropTSGlue HeckeRestNV
+open CategoryTheory AlgebraicGeometry Limits LeafQM.AV
+
+/-! ## Part 1: the Gauss-valuation witness and its commutative algebra -/
+
+/-- **Glue target (valuation form of the good-reduction output).** A valuation subring `A` of `E`
+such that, on `ℤ[X]` (mapped to `E` through `ℚ[X]`), `v_A ≤ 1` everywhere and `v_A(f) < 1` exactly
+on `p ℤ[X]` (so `v_A` restricts to the Gauss valuation: `X` has transcendental reduction), and
+`p` generates the maximal ideal of `A` (`v_A(x) < 1 → v_A(x) ≤ v_A(p)`: ramification index 1).
+For `Y₃`: `A` is the local ring of the smooth model `𝒴/ℤ_(p)` at the generic point of a component
+of the special fibre (docs/research/vert-witness.md §3). -/
+def VertGaussWitness (E : Type) [Field E] [Algebra ℚ[X] E] (p : ℕ) : Prop :=
+  letI := intPolyAlg E
+  ∃ A : ValuationSubring E,
+    (∀ f : ℤ[X], A.valuation (algebraMap ℤ[X] E f) ≤ 1) ∧
+    (∀ f : ℤ[X], A.valuation (algebraMap ℤ[X] E f) < 1 ↔ f ∈ vertPrime p) ∧
+    (∀ x : E, A.valuation x < 1 → A.valuation x ≤ A.valuation (algebraMap ℤ[X] E (C (p : ℤ))))
+
+/-- `p` maps to `(p : E)`, which is nonzero (`ℚ → E` is injective). -/
+theorem intPolyAlg_C_ne_zero (E : Type) [Field E] [Algebra ℚ[X] E] (p : ℕ) (hp : p ≠ 0) :
+    letI := intPolyAlg E
+    algebraMap ℤ[X] E (C (p : ℤ)) ≠ 0 := by
+  letI := intPolyAlg E
+  have e : algebraMap ℤ[X] E (C (p : ℤ)) = algebraMap ℚ[X] E (C (p : ℚ)) := by
+    show algebraMap ℚ[X] E ((C (p : ℤ)).map (Int.castRingHom ℚ)) = _
+    rw [Polynomial.map_C]; simp
+  rw [e]
+  show ((algebraMap ℚ[X] E).comp C) (p : ℚ) ≠ 0
+  exact (map_ne_zero_iff _ ((algebraMap ℚ[X] E).comp C).injective).2 (by exact_mod_cast hp)
+
+/-- **A Gauss-valuation witness gives a local-ring witness** (compiled). -/
+theorem vertLocalWitness_of_gauss (E : Type) [Field E] [Algebra ℚ[X] E] (p : ℕ) (hp : p.Prime)
+    (h : VertGaussWitness E p) : VertLocalWitness E p := by
+  letI := intPolyAlg E
+  obtain ⟨A, h1, h2, h3⟩ := h
+  set v := A.valuation
+  -- `ℤ[X] → A`
+  let φ : ℤ[X] →+* A :=
+    (algebraMap ℤ[X] E).codRestrict A.toSubring (fun f => (A.valuation_le_one_iff _).1 (h1 f))
+  letI : Algebra ℤ[X] A := φ.toAlgebra
+  haveI : IsScalarTower ℤ[X] A E := IsScalarTower.of_algebraMap_eq (fun _ => rfl)
+  -- the integral closure lies in `A`
+  have hmem : ∀ b : integralClosure ℤ[X] E, (b : E) ∈ A := by
+    intro b
+    have hb : IsIntegral A (b : E) := IsIntegral.tower_top (R := ℤ[X]) b.2
+    have hint : Valuation.Integers v A :=
+      { hom_inj := Subtype.val_injective
+        map_le_one := fun r => A.valuation_le_one r
+        exists_of_le_one := fun x hx => ⟨⟨x, (A.valuation_le_one_iff x).1 hx⟩, rfl⟩ }
+    exact (A.valuation_le_one_iff _).1 (hint.isIntegral_iff_v_le_one.1 hb)
+  let ψ : integralClosure ℤ[X] E →+* A :=
+    ((integralClosure ℤ[X] E).val.toRingHom).codRestrict A.toSubring hmem
+  have hψ : ∀ b, ((ψ b : A) : E) = (b : E) := fun _ => rfl
+  have hψalg : ∀ f : ℤ[X], ((ψ (algebraMap ℤ[X] (integralClosure ℤ[X] E) f) : A) : E) =
+      algebraMap ℤ[X] E f := fun _ => rfl
+  refine ⟨(IsLocalRing.maximalIdeal A).comap ψ, A, inferInstance, inferInstance, ψ, rfl, ?_, ?_⟩
+  · ext f
+    rw [Ideal.under, Ideal.mem_comap, Ideal.mem_comap, ValuationSubring.valuation_lt_one_iff,
+      ← h2 f]
+    rfl
+  · set a : A := ψ (algebraMap ℤ[X] (integralClosure ℤ[X] E) (C (p : ℤ))) with ha
+    have hav : v (a : E) = v (algebraMap ℤ[X] E (C (p : ℤ))) := rfl
+    have ha0 : v (a : E) ≠ 0 := by
+      rw [hav, Ne, Valuation.zero_iff]
+      exact intPolyAlg_C_ne_zero E p hp.ne_zero
+    have ha1 : v (a : E) < 1 := by
+      rw [hav, h2]
+      rw [vertPrime]
+      exact Ideal.mem_map_of_mem _ (Ideal.mem_span_singleton_self _)
+    intro hsq
+    have key : ∀ y ∈ (IsLocalRing.maximalIdeal A) ^ 2, v (y : E) ≤ v (a : E) * v (a : E) := by
+      intro y hy
+      rw [sq] at hy
+      refine Submodule.mul_induction_on hy ?_ ?_
+      · intro x hx z hz
+        have hx' : v (x : E) ≤ v (a : E) :=
+          hav ▸ h3 _ ((ValuationSubring.valuation_lt_one_iff A x).1 hx)
+        have hz' : v (z : E) ≤ v (a : E) :=
+          hav ▸ h3 _ ((ValuationSubring.valuation_lt_one_iff A z).1 hz)
+        rw [Subring.coe_mul, Valuation.map_mul]
+        exact mul_le_mul' hx' hz'
+      · intro x z hx hz
+        rw [Subring.coe_add]
+        exact le_trans (Valuation.map_add v _ _) (max_le hx hz)
+    have hle := key a hsq
+    have hlt : v (a : E) * v (a : E) < v (a : E) :=
+      mul_lt_of_lt_one_right (zero_lt_iff.2 ha0) ha1
+    exact absurd (lt_of_le_of_lt hle hlt) (lt_irrefl _)
+
+/-- **A Gauss-valuation witness gives an unramified vertical prime** (compiled). -/
+theorem vertUnramWitness_of_gauss (E : Type) [Field E] [Algebra (RatFunc ℚ) E] [Algebra ℚ[X] E]
+    [IsScalarTower ℚ[X] (RatFunc ℚ) E] [FiniteDimensional (RatFunc ℚ) E] (p : ℕ) (hp : p.Prime)
+    (h : VertGaussWitness E p) : VertUnramWitness E p :=
+  vertUnramWitness_of_local E p hp (vertLocalWitness_of_gauss E p hp h)
+
+/-- **Glue (valuation form): a Gauss-valuation witness for the Hecke cover.** -/
+def HeckeVertGauss : Prop :=
+  ∀ (Y : Over (Spec (CommRingCat.of ℚ))) (Φ : PtEquiv Y) (π : ToP1 Y.left),
+    R1fpProps Y Φ → R1heckeProps Y Φ → R2fpProps Y Φ π →
+    ∀ (E : Type) [Field E] [Algebra (RatFunc ℚ) E] [Algebra ℚ[X] E]
+      [IsScalarTower ℚ[X] (RatFunc ℚ) E] [FiniteDimensional (RatFunc ℚ) E]
+      [IsGalois (RatFunc ℚ) E], NormalizationModel Y π E →
+      ∀ p : ℕ, p.Prime → 324 < p → VertGaussWitness E p
+
+/-- **`HeckeVertWitness` from Gauss-valuation witnesses** (compiled). -/
+theorem heckeVertWitness_of_gauss (h : HeckeVertGauss) : HeckeVertWitness :=
+  fun Y Φ π h1 hh h2 E _ _ _ _ _ _ hN p hp hp324 =>
+    vertUnramWitness_of_gauss E p hp (h Y Φ π h1 hh h2 E hN p hp hp324)
+
+/-! ## Part 2: the leaf (good reduction of `Y₃` at `p > 324`) -/
+
+/-- The prime ideal `(p)` of `ℤ`. -/
+abbrev pIdeal (p : ℕ) : Ideal ℤ := Ideal.span {(p : ℤ)}
+
+instance pIdeal_isPrime (p : ℕ) [hp : Fact p.Prime] : (pIdeal p).IsPrime :=
+  (Ideal.span_singleton_prime (Int.natCast_ne_zero.2 hp.out.ne_zero)).2
+    (Nat.prime_iff_prime_int.1 hp.out)
+
+/-- `ℤ_(p)`, the localization of `ℤ` at `(p)`. -/
+abbrev Zloc (p : ℕ) [Fact p.Prime] : Type := Localization.AtPrime (pIdeal p)
+
+/-- **The smooth model of `Y₃` over `ℤ_(p)` (the data asserted by the leaf).** A scheme `𝒴`
+over `ℤ_(p)`, proper and smooth of relative dimension 1, with a family `𝒜 → 𝒴` of level-3 QM
+abelian surfaces (`QMFamily`: proper smooth of relative dimension 2, `ι(a)` and level sections
+`η(a)`), such that
+
+* (fibres) for every field `K ⊇ ℚ`, the fibre of `𝒜` at every `K`-point of `𝒴` is an object
+  `(A, ι, η)` over `K` (`IsFibreOf`; a `K`-point of `𝒴` is automatically over `ℤ_(p)`, as
+  `Hom(ℤ_(p), K)` is a singleton in characteristic 0);
+* (moduli on `ℚ̄`-points) two `ℚ̄`-points with isomorphic fibres are equal, and every object over
+  `ℚ̄` is a fibre;
+* (Hecke) each twist `α ∈ Aut 𝒪` and each `u ∈ 𝒪^×` is induced on `ℚ̄`-points by an automorphism of
+  `𝒴` over `ℤ_(p)`. -/
+def ShimuraSmoothModel (p : ℕ) [Fact p.Prime] : Prop :=
+  ∃ (𝒴 : Over (Spec (CommRingCat.of (Zloc p)))) (𝒜 : QMFamily 𝒴.left),
+    IsProper 𝒴.hom ∧ SmoothOfRelativeDimension 1 𝒴.hom ∧
+    (∀ (K : Type) [Field K] [Algebra ℚ K] (y : Spec (CommRingCat.of K) ⟶ 𝒴.left),
+      ∃ P : QML3 K, IsFibreOf 𝒜 y P) ∧
+    (∀ (y y' : Spec (CommRingCat.of Qbar) ⟶ 𝒴.left) (P P' : QML3 Qbar),
+      IsFibreOf 𝒜 y P → IsFibreOf 𝒜 y' P' → M3.mk P = M3.mk P' → y = y') ∧
+    (∀ P : QML3 Qbar, ∃ y : Spec (CommRingCat.of Qbar) ⟶ 𝒴.left, IsFibreOf 𝒜 y P) ∧
+    (∀ α : LeafQM.O ≃+* LeafQM.O, ∃ g : 𝒴 ≅ 𝒴, ∀ (y : Spec (CommRingCat.of Qbar) ⟶ 𝒴.left) (P P' : QML3 Qbar),
+      IsFibreOf 𝒜 y P → IsFibreOf 𝒜 (y ≫ g.hom.left) P' → M3.mk P' = M3.twist α (M3.mk P)) ∧
+    (∀ u : (LeafQM.O)ˣ, ∃ g : 𝒴 ≅ 𝒴, ∀ (y : Spec (CommRingCat.of Qbar) ⟶ 𝒴.left) (P P' : QML3 Qbar),
+      IsFibreOf 𝒜 y P → IsFibreOf 𝒜 (y ≫ g.hom.left) P' → M3.mk P' = M3.rightMul u (M3.mk P))
+
+/-- **Leaf: good reduction of `Y₃` at the primes `p > 324`** (in the field-point form of the
+representability of the integral moduli problem).
+
+*Published statement* (locators UNVERIFIED; no network): for an indefinite quaternion algebra `B`
+over `ℚ` of discriminant `D`, a maximal order `𝒪`, and a neat open compact `K = ∏ K_ℓ ⊂ 𝒪̂^×`
+with `K_p = 𝒪_p^× ≅ GL₂(ℤ_p)` for a prime `p ∤ D`, the moduli problem of abelian surfaces with
+`𝒪`-action (and, in the PEL form, a principal polarization of the fixed Rosati type) and
+`K`-level structure, on `ℤ_(p)`-schemes, is representable by a smooth proper curve over `ℤ_(p)`
+whose generic fibre is the Shimura curve `Sh_K` over `ℚ`.
+- Y. Morita, *Reduction modulo 𝔓 of Shimura curves*, Hokkaido Math. J. 10 (1981), 209-238
+  (main theorem; number UNVERIFIED): good reduction of `Sh_K` at `p ∤ D·level`.
+- H. Carayol, *Sur la mauvaise réduction des courbes de Shimura*, Compositio Math. 59 (1986),
+  151-230, §1-§3 (for `F = ℚ` the moduli of QM abelian surfaces; UNVERIFIED section numbers):
+  the smooth proper model at `p ∤ D` with `K_p` maximal.
+- R. Kottwitz, *Points on some Shimura varieties over finite fields*, J. AMS 5 (1992), §5
+  (UNVERIFIED): PEL moduli at hyperspecial level are smooth over `𝒪_{E,(p)}`; proper when `B` is
+  a division algebra.
+- K. Buzzard, *Integral models of certain Shimura curves*, Duke Math. J. 87 (1997), §1-§4
+  (UNVERIFIED): the polarization-free moduli of `(A, ι)` with level structure over `ℤ[1/DN]`.
+
+Here `B = (2, −3)`, `D = 6`, `K = K₃` (full level 3, neat), and `p > 324` (so `p ∤ 6`).
+
+*Why this Lean form is a consequence, never stronger*: restrict the representing isomorphism to
+`Spec K` for fields `K` of characteristic 0 (fibre clause: the object at `y` is `y*` of the
+universal object; this is the shape of `IsFibreOf`, as in R1fp's `R1famProps`), and to
+`K = ℚ̄` for the bijection (as in R1fp, the polarization is dropped by Lemma P in characteristic 0);
+`twist α` and `rightMul u` are automorphisms of the moduli functor over `ℤ_(p)` (defined on
+families over any base), hence by Yoneda automorphisms of `𝒴` over `ℤ_(p)`, which act on
+`ℚ̄`-points as stated. Only `p > 324` is asserted (the published range is `p ∤ 6`). The leaf
+says nothing about a coordinate on `𝒴/Γ'`; that is glue (`ModelGaussGlue`). -/
+def ShimuraGoodReduction : Prop :=
+  ∀ (p : ℕ) [Fact p.Prime], 324 < p → ShimuraSmoothModel p
+
+/-! ## Part 3: the glue and the composite -/
+
+/-- **Glue (route GR, not proved): the smooth model gives a Gauss-valuation witness.** For a
+prime `p > 324` with a smooth model as in `ShimuraSmoothModel`, a triple with R1fp, R1hecke, R2fp,
+and any finite Galois `E/ℚ(X)` carrying the normalization chart, `E` has a valuation subring
+restricting to the Gauss valuation of `ℚ(X)` at `p` in which `p` is a uniformizer. Proof outline
+(docs/research/vert-witness.md §3):
+(b) R1univProps classifies the generic fibre `𝒴_ℚ` with the pulled-back family by `g : 𝒴_ℚ → Y`;
+    `g` is bijective on `ℚ̄`-points (the moduli clauses of both), hence an isomorphism of smooth
+    proper curves (char 0, Zariski's main theorem); so `E = ℚ(Y) = ℚ(𝒴)` with `X = π`;
+(c) smoothness over `ℤ_(p)`: the special fibre is smooth, hence reduced, and nonempty (proper +
+    flat + nonempty generic fibre); at the generic point `ξ` of a component, `𝒪_{𝒴,ξ}` is a DVR
+    with uniformizer `p` and fraction field `E`;
+(d) the Hecke automorphisms generate a group `G'` of order `≤ 324 < p` acting on `𝒴` over
+    `ℤ_(p)`; the tame quotient `𝒵 = 𝒴/G'` commutes with base change, is smooth proper of genus 0
+    with geometrically connected fibres, and its generic fibre is `P¹_ℚ` in the coordinate `π`
+    (R2fp's fibre clause); the three CM sections `0, ∞, −16/27` have distinct reductions (tame
+    stabilizers, Hurwitz on both fibres), so the coordinate `π` is an isomorphism
+    `𝒵 ≅ P¹_{ℤ_(p)}` (`PGL₂(ℤ_(p))` acts simply transitively on triples of pairwise disjoint
+    sections); hence `π` is regular at `ξ` with transcendental reduction, which is the first two
+    clauses of `VertGaussWitness`. -/
+def ModelGaussGlue : Prop :=
+  ∀ (p : ℕ) [Fact p.Prime], 324 < p → ShimuraSmoothModel p →
+    ∀ (Y : Over (Spec (CommRingCat.of ℚ))) (Φ : PtEquiv Y) (π : ToP1 Y.left),
+      R1fpProps Y Φ → R1heckeProps Y Φ → R2fpProps Y Φ π →
+      ∀ (E : Type) [Field E] [Algebra (RatFunc ℚ) E] [Algebra ℚ[X] E]
+        [IsScalarTower ℚ[X] (RatFunc ℚ) E] [FiniteDimensional (RatFunc ℚ) E]
+        [IsGalois (RatFunc ℚ) E], NormalizationModel Y π E → VertGaussWitness E p
+
+/-- **`HeckeVertGauss` from the leaf and the glue** (compiled). -/
+theorem heckeVertGauss_of_goodReduction (hL : ShimuraGoodReduction) (hG : ModelGaussGlue) :
+    HeckeVertGauss := by
+  intro Y Φ π h1 hh h2 E _ _ _ _ _ _ hN p hp hp324
+  haveI : Fact p.Prime := ⟨hp⟩
+  exact hG p hp324 (hL p hp324) Y Φ π h1 hh h2 E hN
+
+/-- **`HeckeVertWitness` from good reduction of `Y₃` and the GR glue** (compiled). -/
+theorem heckeVertWitness_of_goodReduction (hL : ShimuraGoodReduction) (hG : ModelGaussGlue) :
+    HeckeVertWitness :=
+  heckeVertWitness_of_gauss (heckeVertGauss_of_goodReduction hL hG)
+
+/-- **`HeckeNoVertRam` from good reduction of `Y₃` and the GR glue** (compiled). -/
+theorem heckeNoVertRam_of_goodReduction (hL : ShimuraGoodReduction) (hG : ModelGaussGlue) :
+    HeckeNoVertRam :=
+  heckeNoVertRam_of_witness (heckeVertWitness_of_goodReduction hL hG)
+
+end VertWitness
+
+end
+
+#print axioms HeckeRestNV.heckeNoVertRam_of_local
+#print axioms VertWitness.vertLocalWitness_of_gauss
+#print axioms VertWitness.vertUnramWitness_of_gauss
+#print axioms VertWitness.heckeVertWitness_of_gauss
+#print axioms VertWitness.heckeVertWitness_of_goodReduction
+#print axioms VertWitness.heckeNoVertRam_of_goodReduction
