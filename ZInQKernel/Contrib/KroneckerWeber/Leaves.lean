@@ -1,4 +1,4 @@
-import ZInQKernel.Contrib.TauCeti.NumberTheory.ClassFieldTheory.ClassFields.KroneckerWeber
+import ZInQKernel.Contrib.KroneckerWeber.Basic
 import ZInQKernel.HDecomp.Textbook.KroneckerWeberUse
 
 /-!
@@ -15,7 +15,12 @@ The decomposition states the theorem in several forms:
   `tSkolemKW_kroneckerWeber`, `kroneckerWeberCyclic`);
 * leaf T17, `HSyn.KroneckerWeber` (`scratch/h-decomposition/Leaves.lean`) and `KroneckerWeber`
   of `scratch/glue-assembly/Leaves.lean`; these exist only in scratch files, so they are restated
-  verbatim here (`HSynKroneckerWeber`, `GlueKroneckerWeber`) and proved.
+  verbatim (`HSynKroneckerWeber`, `GlueKroneckerWeber`) and proved.
+
+All statements over Mathlib definitions only (`HSynKroneckerWeber`, `GlueKroneckerWeber`,
+`KroneckerWeberCyclic` and their proofs) live in `ZInQKernel.Contrib.KroneckerWeber.Basic`, which
+does not import `ZInQKernel/HDecomp/`; this file identifies the two `HDecomp` statements with them
+(`Iff.rfl`) and derives the `HDecomp`-typed theorems.
 
 Step C8's consumer (`TSkolemKW.KW.dirichletCharacter_of_kroneckerWeberCyclic` and its companions)
 is then closed outright in the last section.
@@ -25,52 +30,26 @@ open PkgI4 (Qbar GQ)
 
 namespace ZInQ.Contrib.KroneckerWeber
 
-/-- **L17. Kronecker–Weber** (Washington, *Cyclotomic fields*, Thm 14.1; Tau Ceti
-`kroneckerWeber`). Verbatim `HSyn.KroneckerWeber`, `scratch/h-decomposition/Leaves.lean`
-(line 21206 at fork main c303557d). -/
-def HSynKroneckerWeber : Prop :=
-  ∀ (L : Type) [Field L] [NumberField L] [IsGalois ℚ L],
-    (∀ σ τ : L ≃ₐ[ℚ] L, σ * τ = τ * σ) →
-    ∃ n : ℕ+, Nonempty (L →ₐ[ℚ] CyclotomicField (n : ℕ) ℚ)
+/-! ## The `HDecomp` copies agree with the Mathlib statements of `Basic`
 
-/-- Verbatim `GlueAssembly.KroneckerWeber`, `scratch/glue-assembly/Leaves.lean` (line 19 at fork
-main c303557d). -/
-def GlueKroneckerWeber : Prop :=
-  ∀ (K : Type) [Field K] [NumberField K] [IsGalois ℚ K],
-    (∀ a b : K ≃ₐ[ℚ] K, a * b = b * a) →
-      ∃ n : ℕ, 0 < n ∧ Nonempty (K →ₐ[ℚ] CyclotomicField n ℚ)
+`TSkolemKW.KW.KroneckerWeber` and `TSkolemKW.KW.KroneckerWeberCyclic` (in
+`ZInQKernel.HDecomp.Textbook.KroneckerWeberUse`) have literally the bodies of
+`HSynKroneckerWeber` and `KroneckerWeberCyclic` (in `ZInQKernel.Contrib.KroneckerWeber.Basic`). -/
 
-/-- A Galois extension of `ℚ` with commuting automorphisms is abelian Galois. -/
-theorem isAbelianGalois_of_comm (L : Type) [Field L] [Algebra ℚ L] [IsGalois ℚ L]
-    (h : ∀ σ τ : L ≃ₐ[ℚ] L, σ * τ = τ * σ) : IsAbelianGalois ℚ L :=
-  { toIsGalois := inferInstance
-    toIsMulCommutative := ⟨⟨h⟩⟩ }
+theorem tSkolemKW_kroneckerWeber_iff : TSkolemKW.KW.KroneckerWeber ↔ HSynKroneckerWeber :=
+  Iff.rfl
 
-/-- Tau Ceti's Kronecker–Weber theorem with a positive level. -/
-theorem exists_pos_algHom_cyclotomicField (L : Type) [Field L] [NumberField L] [IsGalois ℚ L]
-    (h : ∀ σ τ : L ≃ₐ[ℚ] L, σ * τ = τ * σ) :
-    ∃ n : ℕ, 0 < n ∧ Nonempty (L →ₐ[ℚ] CyclotomicField n ℚ) := by
-  have := isAbelianGalois_of_comm L h
-  obtain ⟨n, hn, hL⟩ := TauCeti.ClassFieldTheory.kroneckerWeber L
-  exact ⟨n, Nat.pos_of_ne_zero hn, hL⟩
-
-/-- **Leaf T17 (`HSyn.KroneckerWeber`) is proved.** -/
-theorem hSynKroneckerWeber : HSynKroneckerWeber := by
-  intro L _ _ _ h
-  obtain ⟨n, hn, hL⟩ := exists_pos_algHom_cyclotomicField L h
-  exact ⟨⟨n, hn⟩, hL⟩
-
-/-- **The glue-assembly form of Kronecker–Weber is proved.** -/
-theorem glueKroneckerWeber : GlueKroneckerWeber := by
-  intro K _ _ _ h
-  exact exists_pos_algHom_cyclotomicField K h
+theorem tSkolemKW_kroneckerWeberCyclic_iff :
+    TSkolemKW.KW.KroneckerWeberCyclic ↔ KroneckerWeberCyclic :=
+  Iff.rfl
 
 /-- **`TSkolemKW.KW.KroneckerWeber` (the Textbook copy of T17) is proved.** -/
-theorem tSkolemKW_kroneckerWeber : TSkolemKW.KW.KroneckerWeber := hSynKroneckerWeber
+theorem tSkolemKW_kroneckerWeber : TSkolemKW.KW.KroneckerWeber :=
+  tSkolemKW_kroneckerWeber_iff.2 hSynKroneckerWeber
 
 /-- **Kronecker–Weber for cyclic extensions (`TSkolemKW.KW.KroneckerWeberCyclic`) is proved.** -/
 theorem kroneckerWeberCyclic : TSkolemKW.KW.KroneckerWeberCyclic :=
-  TSkolemKW.KW.kroneckerWeberCyclic_of_kroneckerWeber tSkolemKW_kroneckerWeber
+  tSkolemKW_kroneckerWeberCyclic_iff.2 kroneckerWeber_cyclic
 
 /-! ## Step C8 outright: finite-order characters of `G_ℚ` are Dirichlet characters -/
 
