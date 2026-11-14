@@ -73,6 +73,8 @@ scripts/check_kernel*.py text eol=lf
 scripts/test_kernel*.py text eol=lf
 scripts/audit_kernel.lean text eol=lf
 scripts/kernel_base_report.py text eol=lf
+scripts/kernel_diagnostics.py text eol=lf
+scripts/kernel_pr_scope.py text eol=lf
 scripts/check_target.py -text
 scripts/print_axioms.lean -text
 .github/workflows/kernel-lean.yml text eol=lf

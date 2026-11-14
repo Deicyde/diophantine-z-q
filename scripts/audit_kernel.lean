@@ -5,6 +5,12 @@ import Lean.Replay
    candidate modules into this executable or execute their initializers. -/
 open Lean
 
+-- Flush every phase marker so a terminated runner leaves a useful last phase.
+def auditProgress (message : String) : IO Unit := do
+  let out ← IO.getStdout
+  out.putStrLn s!"[kernel-audit {← IO.monoMsNow}ms] {message}"
+  out.flush
+
 def checked {α : Type} (x : Except String α) : IO α :=
   match x with
   | .ok a => pure a
@@ -28,6 +34,8 @@ partial def auditClosure (env : Environment) (todo : List Name)
   | [] => return axioms
   | n :: rest =>
     if seen.contains n then return ← auditClosure env rest seen axioms
+    if seen.size % 10000 == 0 then
+      auditProgress s!"axiom closure: {seen.size} distinct declarations visited; next {n}"
     let some ci := env.find? n | throw (IO.userError s!"Missing dependency {n}")
     let mut ax := axioms
     if ci.isAxiom then
@@ -83,7 +91,9 @@ def main (args : List String) : IO Unit := do
     return (← checked x.getStr?).toName
   unless !modules.isEmpty do throw (IO.userError "Empty module list")
   initSearchPath (← findSysroot)
+  auditProgress s!"import project: start ({modules.size} requested modules)"
   let env ← importModules (modules.map fun m => { module := m, importAll := true }) {}
+  auditProgress s!"import project: done ({env.header.modules.size} modules including dependencies)"
   let mut owned : Std.HashMap Name ConstantInfo := {}
   let mut rawOwned : Array ConstantInfo := #[]
   let mut duplicates : NameSet := {}
@@ -94,6 +104,8 @@ def main (args : List String) : IO Unit := do
     let m := env.header.modules[i]!.module
     if modules.contains m then
       found := found.insert m
+      if found.size % 100 == 0 then
+        auditProgress s!"scan serialized declarations: {found.size}/{modules.size} modules; {owned.size} names"
       let data := env.header.moduleData[i]!
       unless data.constNames.size == data.constants.size do
         throw (IO.userError s!"Malformed declaration table in {m}")
@@ -118,7 +130,9 @@ def main (args : List String) : IO Unit := do
         owned := owned.insert n ci
   for m in modules do
     unless found.contains m do throw (IO.userError s!"Module not imported: {m}")
+  auditProgress s!"scan complete: {owned.size} names, {rawOwned.size} raw bodies; import external base: start"
   let base ← importModules (external.toArray.map fun m => { module := m, importAll := true }) {}
+  auditProgress s!"import external base: done ({base.header.modules.size} modules)"
   for imported in base.header.modules do
     if modules.contains imported.module then
       throw (IO.userError s!"Project module leaked into external base: {imported.module}")
@@ -128,14 +142,20 @@ def main (args : List String) : IO Unit := do
         throw (IO.userError s!"Incompatible declaration in external base: {n}")
       duplicates := duplicates.insert n
   -- This checks project declarations even on a root build-cache hit.
+  auditProgress s!"kernel replay: start ({owned.size} names; upstream serial replay, no checks skipped)"
   let replayed ← base.toKernelEnv.replay owned
+  auditProgress "kernel replay: done; duplicate-body checks: start"
   let mut duplicateBodies := 0
   for ci in rawOwned do
     if duplicates.contains ci.name then
       checkDuplicateBody replayed ci duplicateBodies
       duplicateBodies := duplicateBodies + 1
+      if duplicateBodies % 1000 == 0 then
+        auditProgress s!"duplicate-body checks: {duplicateBodies} checked"
   let verified := Environment.ofKernelEnv replayed
+  auditProgress s!"duplicate-body checks: done ({duplicateBodies}); axiom closure: start"
   let axioms ← auditClosure env roots.toList
+  auditProgress "axiom closure: done; exact headline, exports and target checks: start"
   let headline ← field spec "headline"
   let headlineName := (← stringField headline "declaration").toName
   let expectedName := (← stringField headline "type_declaration").toName
@@ -149,6 +169,7 @@ def main (args : List String) : IO Unit := do
   let mut results : Array Json := #[]
   for t in (← checked ((← field spec "targets").getArr?)) do
     let n := (← stringField t "declaration").toName
+    auditProgress s!"exact target: {n}"
     let p := (← stringField t "provider").toName
     let some ci := verified.find? n | throw (IO.userError s!"Missing target {n}")
     unless ci.levelParams.isEmpty && ci.type == .sort .zero do
@@ -177,4 +198,5 @@ def main (args : List String) : IO Unit := do
     ("headline_type", toJson (← prettyType env headlineInfo.type)),
     ("targets", Json.arr results), ("protocol_acceptance", toJson false)]
   IO.FS.writeFile outputPath (report.pretty ++ "\n")
+  auditProgress "report written; all checks complete"
   IO.println s!"Kernel audit passed: {modules.size} modules, {owned.size} declarations"
