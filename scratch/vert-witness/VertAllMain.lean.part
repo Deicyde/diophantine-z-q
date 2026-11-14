@@ -37,15 +37,16 @@ theorem propTSAll_of_goodReduction (t2 : PkgI2.AbhyankarDVR.{0}) (hR : R1R2fp)
   HeckeRestAll.propTSAll_of_heckeRest t2 hR hM hSN hC hKA hO hVF hAI hOI hVI hconn hT hA hS hW
     (heckeVertWitness_of_goodReduction'' hL hR hU hBD)
 
-/-- **`CoverModelOfHecke` from the leaves and the three GR glue Props, finest form** (compiled):
-`SpecialFibreMaxIdeal`, `ModelCoordinate` (d), `ModelComparison` (b). -/
+/-- **`CoverModelOfHecke`, finest form** (compiled): the leaves of hecke-rest, the new leaf
+`ShimuraGoodReduction`, the textbook statement `SmoothFibreReduced`, and the two GR glue Props
+`ModelCoordinate` (d), `ModelComparison` (b). -/
 theorem coverModelOfHecke_of_leaves (hconn : Y3Connected) (hRR : R1R2fp)
     (hT : ObjBridge.TorsionStructure)
     (hA : HeckeRest.QMAutCard) (hS : HeckeRest.SerreRigidity3) (hW : HeckeRest.ALFixedPoints)
-    (hL : ShimuraGoodReduction) (hMI : SpecialFibreMaxIdeal) (hD : ModelCoordinate)
+    (hL : ShimuraGoodReduction) (hSR : SmoothFibreReduced) (hD : ModelCoordinate)
     (hB : ModelComparison) : CoverModelOfHecke :=
   HeckeRestAll.coverModelOfHecke_of_heckeRest hconn hRR hT hA hS hW
-    (heckeVertWitness_of_leaves hL hRR hMI hD hB)
+    (heckeVertWitness_of_leaves hL hRR hSR hD hB)
 
 end VertWitnessAll
 

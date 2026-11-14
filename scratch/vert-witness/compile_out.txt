@@ -16,4 +16,7 @@
 'VertWitness.heckeVertWitness_of_goodReduction₃' depends on axioms: [propext, Classical.choice, Quot.sound]
 'VertWitness.natCast_mem_nonZeroDivisors_stalk' depends on axioms: [propext, Classical.choice, Quot.sound]
 'VertWitness.specialFibreUniformizer_of_maxIdeal' depends on axioms: [propext, Classical.choice, Quot.sound]
+'VertWitness.maximalIdeal_eq_map_of_mem_minimalPrimes' depends on axioms: [propext, Classical.choice, Quot.sound]
+'VertWitness.specialFibreMaxIdeal_of' depends on axioms: [propext, Classical.choice, Quot.sound]
+'VertWitness.heckeVertWitness_of_maxIdeal' depends on axioms: [propext, Classical.choice, Quot.sound]
 'VertWitness.heckeVertWitness_of_leaves' depends on axioms: [propext, Classical.choice, Quot.sound]

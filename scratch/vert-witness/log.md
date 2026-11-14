@@ -87,3 +87,15 @@ Split of `ModelCoordinateGlue` into
   (every ρ, ξ ∈ ρ.U), SpecialFibreUniformizer TRUE, CMObjectsExist fine, split not circular.
   Docstrings updated (Möbius factorization proof of (b); tameness for p ≥ 5; reliance on the
   stabilizer orders 4, 6, 2).
+
+## Step 8 (18:39) — VERIFIED (both files 0 errors, no sorryAx)
+- `maximalIdeal_eq_map_of_mem_minimalPrimes` (Mathlib only): I radical, 𝔮 ∈ I.minimalPrimes ⇒
+  𝔪_{A_𝔮} = I·A_𝔮.
+- `maximalIdeal_Zloc`: 𝔪_{ℤ_(p)} = (p).
+- textbook statement `SmoothFibreReduced` (φ : R → A smooth, m maximal ⇒ mA radical).
+- `specialFibreMaxIdeal_of : SmoothFibreReduced → SpecialFibreMaxIdeal` (compiled: closed image
+  contains the closed point; affine chart V; appLE smooth (HasRingHomProperty.appLE); maximal ideal
+  of Γ(Spec ℤ_(p), ⊤) = (p) via ΓSpecIso; minimal prime 𝔮 of pA under 𝔭_x
+  (comap_primeIdealOf_appLE); ξ = fromSpec 𝔮; isLocalization_stalk').
+- finest composites: `heckeVertWitness_of_leaves (hL) (hRR) (hSR : SmoothFibreReduced) (hD) (hB)`,
+  `VertWitnessAll.coverModelOfHecke_of_leaves` (same inputs + hecke-rest's leaves).

@@ -10370,6 +10370,143 @@ def SpecialFibreMaxIdeal : Prop :=
     ∃ ξ : 𝒴.left, IsLocalRing.maximalIdeal (𝒴.left.presheaf.stalk ξ) =
       Ideal.span {(p : 𝒴.left.presheaf.stalk ξ)}
 
+/-- **At a minimal prime `𝔮` of a radical ideal `I`, the maximal ideal of `A_𝔮` is `I A_𝔮`**
+(compiled, Mathlib only). -/
+theorem maximalIdeal_eq_map_of_mem_minimalPrimes {A S : Type*} [CommRing A] [CommRing S]
+    [Algebra A S] [IsLocalRing S] (I 𝔮 : Ideal A) [𝔮.IsPrime] [IsLocalization.AtPrime S 𝔮]
+    (hI : I.IsRadical)
+    (hq : 𝔮 ∈ I.minimalPrimes) :
+    IsLocalRing.maximalIdeal S = I.map (algebraMap A S) := by
+  have hIq : I ≤ 𝔮 := hq.1.2
+  apply le_antisymm
+  · rw [← IsLocalization.AtPrime.map_eq_maximalIdeal 𝔮 S, Ideal.map_le_iff_le_comap]
+    intro x hx
+    -- `algebraMap x` lies in the radical of `I S`
+    have hrad : algebraMap A S x ∈ (I.map (algebraMap A S)).radical := by
+      rw [Ideal.radical_eq_sInf, Submodule.mem_sInf]
+      rintro P ⟨hIP, hP⟩
+      have hPc : (Ideal.comap (algebraMap A S) P).IsPrime := Ideal.comap_isPrime _ _
+      have hle : Ideal.comap (algebraMap A S) P ≤ 𝔮 := by
+        rw [← IsLocalization.AtPrime.comap_maximalIdeal S 𝔮]
+        exact Ideal.comap_mono (IsLocalRing.le_maximalIdeal hP.ne_top)
+      have hge : 𝔮 ≤ Ideal.comap (algebraMap A S) P :=
+        hq.2 ⟨hPc, Ideal.map_le_iff_le_comap.1 hIP⟩ hle
+      exact hge hx
+    obtain ⟨n, hn⟩ := hrad
+    rw [← map_pow] at hn
+    obtain ⟨⟨a, s⟩, hs⟩ := (IsLocalization.mem_map_algebraMap_iff 𝔮.primeCompl S).1 hn
+    simp only at hs
+    have h' : algebraMap A S (x ^ n * s) = algebraMap A S a := by rw [map_mul]; exact hs
+    obtain ⟨c, hc⟩ := IsLocalization.exists_of_eq (M := 𝔮.primeCompl) (S := S) h'
+    -- `c * (x^n * s) = c * a ∈ I`
+    have hmem : (c * s : A) * x ^ n ∈ I := by
+      have : (c : A) * (x ^ n * s) = c * a := hc
+      rw [show ((c : A) * s) * x ^ n = (c : A) * (x ^ n * s) by ring, this]
+      exact I.mul_mem_left _ a.2
+    have hmem' : ((c * s : A) * x) ^ (n + 1) ∈ I := by
+      rw [show ((c * s : A) * x) ^ (n + 1) = (c * s : A) ^ n * ((c * s : A) * x ^ n) * x by ring]
+      exact I.mul_mem_right _ (I.mul_mem_left _ hmem)
+    have hu : (c * s : A) * x ∈ I := hI ⟨n + 1, hmem'⟩
+    have hcs : (c * s : A) ∈ 𝔮.primeCompl := 𝔮.primeCompl.mul_mem c.2 s.2
+    have hunit : IsUnit (algebraMap A S (c * s)) := IsLocalization.map_units S ⟨_, hcs⟩
+    rw [Ideal.mem_comap]
+    obtain ⟨v, hv⟩ := hunit.exists_left_inv
+    have : algebraMap A S x = v * algebraMap A S ((c * s : A) * x) := by
+      rw [map_mul, ← mul_assoc, hv, one_mul]
+    rw [this]
+    exact Ideal.mul_mem_left _ _ (Ideal.mem_map_of_mem _ hu)
+  · rw [← IsLocalization.AtPrime.map_eq_maximalIdeal 𝔮 S]
+    exact Ideal.map_mono hIq
+
+/-- **Textbook (commutative algebra; not proved here): the fibres of a smooth ring map over closed
+points are reduced.** For a smooth ring map `φ : R → A` (Mathlib's `RingHom.Smooth`: formally
+smooth and of finite presentation) and a maximal ideal `m ⊂ R`, the ideal `m A` is radical, i.e.
+`A/mA` is reduced. (`A/mA = A ⊗_R R/m` is smooth over the field `R/m`, hence regular, hence
+reduced: Stacks, *Smooth ring maps* (base change) and *smooth over a field ⇒ regular*;
+Matsumura, *Commutative Ring Theory*, Thm 28.7 (UNVERIFIED numbers). Mathlib 4.35 has neither
+"smooth over a field ⇒ reduced" nor "⇒ regular".) -/
+def SmoothFibreReduced : Prop :=
+  ∀ (R A : Type) [CommRing R] [CommRing A] (φ : R →+* A), φ.Smooth →
+    ∀ m : Ideal R, m.IsMaximal → (m.map φ).IsRadical
+
+/-- The maximal ideal of `ℤ_(p)` is `(p)`. -/
+theorem maximalIdeal_Zloc (p : ℕ) [Fact p.Prime] :
+    IsLocalRing.maximalIdeal (Zloc p) = Ideal.span {(p : Zloc p)} := by
+  rw [← IsLocalization.AtPrime.map_eq_maximalIdeal (pIdeal p) (Zloc p), Ideal.map_span,
+    Set.image_singleton, map_natCast]
+
+/-- **`SpecialFibreMaxIdeal` from `SmoothFibreReduced`** (compiled). A point `x` over the closed point
+(properness: the image is closed; every point of `Spec ℤ_(p)` specializes to the closed point), an
+affine open `V = Spec A ∋ x` with `ℤ_(p) → A` smooth, a minimal prime `𝔮` of `pA` inside `𝔭_x`,
+and `ξ` its point: `𝒪_{𝒴,ξ} = A_𝔮` has maximal ideal `pA_𝔮` since `pA` is radical. -/
+theorem specialFibreMaxIdeal_of (h : SmoothFibreReduced) : SpecialFibreMaxIdeal := by
+  intro p _ 𝒴 hP hS hne
+  haveI := hP
+  haveI := hS
+  haveI : Smooth 𝒴.hom := SmoothOfRelativeDimension.smooth 1 𝒴.hom
+  set R := Zloc p
+  let s : Spec (CommRingCat.of R) := IsLocalRing.closedPoint R
+  -- a point over the closed point
+  obtain ⟨y₀⟩ := hne
+  have hcl : IsClosed (Set.range 𝒴.hom.base) := 𝒴.hom.isClosedMap.isClosed_range
+  obtain ⟨x, hx⟩ : s ∈ Set.range 𝒴.hom.base :=
+    (IsLocalRing.specializes_closedPoint (R := R) (𝒴.hom.base y₀)).mem_closed hcl ⟨y₀, rfl⟩
+  -- an affine open around it
+  obtain ⟨_, ⟨V, hV, rfl⟩, hxV, -⟩ :=
+    𝒴.left.isBasis_affineOpens.exists_subset_of_mem_open (Set.mem_univ x) isOpen_univ
+  have hT : IsAffineOpen (⊤ : (Spec (CommRingCat.of R)).Opens) := isAffineOpen_top _
+  have e : V ≤ 𝒴.hom ⁻¹ᵁ ⊤ := fun _ _ => trivial
+  set φ := (𝒴.hom.appLE ⊤ V e).hom
+  have hsm : φ.Smooth := HasRingHomProperty.appLE (P := @Smooth) 𝒴.hom ‹_› ⟨⊤, hT⟩ ⟨V, hV⟩ e
+  -- the maximal ideal of `Γ(Spec ℤ_(p), ⊤)`
+  set Ms := hT.primeIdealOf ⟨s, trivial⟩
+  have hMs : Ms.asIdeal.IsMaximal :=
+    hT.primeIdealOf_isMaximal_of_isClosed _ (IsLocalRing.isClosed_singleton_closedPoint R)
+  set I := Ms.asIdeal.map φ
+  have hIrad : I.IsRadical := h _ _ φ hsm Ms.asIdeal hMs
+  set Px := hV.primeIdealOf ⟨x, hxV⟩
+  have hcomap : Px.comap φ = hT.primeIdealOf ⟨𝒴.hom.base x, e hxV⟩ :=
+    IsAffineOpen.comap_primeIdealOf_appLE ⊤ hT V hV e hxV
+  have hIP : I ≤ Px.asIdeal := by
+    rw [Ideal.map_le_iff_le_comap]
+    have : (Px.comap φ).asIdeal = Ms.asIdeal := by
+      rw [hcomap]
+      congr 2
+      exact Subtype.ext hx
+    rw [← this]
+    rfl
+  obtain ⟨𝔮, h𝔮min, -⟩ := Ideal.exists_minimalPrimes_le hIP
+  haveI : 𝔮.IsPrime := h𝔮min.1.1
+  set ξ := hV.fromSpec ⟨𝔮, inferInstance⟩
+  have hξV : ξ ∈ V := by
+    have h1 : ξ ∈ Set.range hV.fromSpec := ⟨_, rfl⟩
+    rw [hV.range_fromSpec] at h1
+    exact h1
+  have hloc := hV.isLocalization_stalk' ⟨𝔮, inferInstance⟩ hξV
+  letI : Algebra Γ(𝒴.left, V) (𝒴.left.presheaf.stalk ξ) :=
+    TopCat.Presheaf.algebra_section_stalk 𝒴.left.presheaf ⟨ξ, hξV⟩
+  haveI hloc' : IsLocalization.AtPrime (𝒴.left.presheaf.stalk ξ) 𝔮 := hloc
+  refine ⟨ξ, ?_⟩
+  rw [maximalIdeal_eq_map_of_mem_minimalPrimes (S := 𝒴.left.presheaf.stalk ξ) I 𝔮 hIrad h𝔮min]
+  have hMsK : Ms.asIdeal = Ideal.span {(p : Γ(Spec (CommRingCat.of R), ⊤))} := by
+    set e := (Scheme.ΓSpecIso (CommRingCat.of R)).commRingCatIsoToRingEquiv
+    have hK : ((IsLocalRing.maximalIdeal R).comap e).IsMaximal :=
+      Ideal.comap_isMaximal_of_surjective (f := e) e.surjective
+    have hle : Ms.asIdeal ≤ (IsLocalRing.maximalIdeal R).comap e := by
+      intro a ha
+      rw [Ideal.mem_comap, IsLocalRing.mem_maximalIdeal, mem_nonunits_iff]
+      intro hu
+      apply hMs.ne_top
+      have hua : IsUnit a := by
+        have h2 := hu.map e.symm
+        rwa [RingEquiv.symm_apply_apply] at h2
+      exact Ideal.eq_top_of_isUnit_mem _ ha hua
+    rw [hMs.eq_of_le hK.ne_top hle, maximalIdeal_Zloc, ← Ideal.map_symm, Ideal.map_span,
+      Set.image_singleton, map_natCast]
+  have hI : I = Ideal.span {(p : Γ(𝒴.left, V))} := by
+    rw [show I = Ms.asIdeal.map φ from rfl, hMsK, Ideal.map_span, Set.image_singleton, map_natCast]
+  rw [hI, Ideal.map_span, Set.image_singleton, map_natCast]
+
 /-- **`SpecialFibreUniformizer` from the maximal-ideal form** (compiled: `p` is regular in every
 stalk by flatness). -/
 theorem specialFibreUniformizer_of_maxIdeal (h : SpecialFibreMaxIdeal) :
@@ -10549,13 +10686,19 @@ theorem heckeVertWitness_of_goodReduction₃ (hL : ShimuraGoodReduction) (hRR : 
   heckeVertWitness_of_goodReduction' hL hRR (specialFibreDVR_of_uniformizer hU)
     (modelCoordinateGlue_of hD hB)
 
-/-- **`HeckeVertWitness` from the leaves and three glue Props, finest form** (compiled):
-`SpecialFibreMaxIdeal` (scheme theory: `𝔪_ξ = (p)` at a generic point of the special fibre),
-`ModelCoordinate` (d) and `ModelComparison` (b). -/
-theorem heckeVertWitness_of_leaves (hL : ShimuraGoodReduction) (hRR : R1R2fp)
+/-- **`HeckeVertWitness` from the leaves, `SpecialFibreMaxIdeal`, (d) and (b)** (compiled). -/
+theorem heckeVertWitness_of_maxIdeal (hL : ShimuraGoodReduction) (hRR : R1R2fp)
     (hMI : SpecialFibreMaxIdeal) (hD : ModelCoordinate) (hB : ModelComparison) :
     HeckeVertWitness :=
   heckeVertWitness_of_goodReduction₃ hL hRR (specialFibreUniformizer_of_maxIdeal hMI) hD hB
+
+/-- **`HeckeVertWitness`, finest form** (compiled): from the leaf `ShimuraGoodReduction`, the bundle
+leaf `R1R2fp`, the textbook statement `SmoothFibreReduced` (commutative algebra), and the two GR
+glue Props `ModelCoordinate` (d) and `ModelComparison` (b). -/
+theorem heckeVertWitness_of_leaves (hL : ShimuraGoodReduction) (hRR : R1R2fp)
+    (hSR : SmoothFibreReduced) (hD : ModelCoordinate) (hB : ModelComparison) :
+    HeckeVertWitness :=
+  heckeVertWitness_of_maxIdeal hL hRR (specialFibreMaxIdeal_of hSR) hD hB
 
 end VertWitness
 
@@ -10579,6 +10722,9 @@ end
 #print axioms VertWitness.heckeVertWitness_of_goodReduction₃
 #print axioms VertWitness.natCast_mem_nonZeroDivisors_stalk
 #print axioms VertWitness.specialFibreUniformizer_of_maxIdeal
+#print axioms VertWitness.maximalIdeal_eq_map_of_mem_minimalPrimes
+#print axioms VertWitness.specialFibreMaxIdeal_of
+#print axioms VertWitness.heckeVertWitness_of_maxIdeal
 #print axioms VertWitness.heckeVertWitness_of_leaves
 
 /-! ════════════════════════════════════════════════════════════════════════════════════════════
@@ -10619,15 +10765,16 @@ theorem propTSAll_of_goodReduction (t2 : PkgI2.AbhyankarDVR.{0}) (hR : R1R2fp)
   HeckeRestAll.propTSAll_of_heckeRest t2 hR hM hSN hC hKA hO hVF hAI hOI hVI hconn hT hA hS hW
     (heckeVertWitness_of_goodReduction'' hL hR hU hBD)
 
-/-- **`CoverModelOfHecke` from the leaves and the three GR glue Props, finest form** (compiled):
-`SpecialFibreMaxIdeal`, `ModelCoordinate` (d), `ModelComparison` (b). -/
+/-- **`CoverModelOfHecke`, finest form** (compiled): the leaves of hecke-rest, the new leaf
+`ShimuraGoodReduction`, the textbook statement `SmoothFibreReduced`, and the two GR glue Props
+`ModelCoordinate` (d), `ModelComparison` (b). -/
 theorem coverModelOfHecke_of_leaves (hconn : Y3Connected) (hRR : R1R2fp)
     (hT : ObjBridge.TorsionStructure)
     (hA : HeckeRest.QMAutCard) (hS : HeckeRest.SerreRigidity3) (hW : HeckeRest.ALFixedPoints)
-    (hL : ShimuraGoodReduction) (hMI : SpecialFibreMaxIdeal) (hD : ModelCoordinate)
+    (hL : ShimuraGoodReduction) (hSR : SmoothFibreReduced) (hD : ModelCoordinate)
     (hB : ModelComparison) : CoverModelOfHecke :=
   HeckeRestAll.coverModelOfHecke_of_heckeRest hconn hRR hT hA hS hW
-    (heckeVertWitness_of_leaves hL hRR hMI hD hB)
+    (heckeVertWitness_of_leaves hL hRR hSR hD hB)
 
 end VertWitnessAll
 
