@@ -33,8 +33,19 @@ network here).
     l.908-923) with `thetaQuotientValue24_of_igusa` and the converse `igusa_of_thetaQuotientValue24`: the leaf
     is equivalent to the glue, not stronger. The published content used is one number.
   * Not achieved: an exact Lean computation of `−16/27` (see §2.3).
-* **(d) partially: see §4** (the coarse-witness comparison, named and reduced). **(c): see §5** (no further
-  Lean reduction is possible over the present definitions; analysis only).
+* **(d) the coarse-witness comparison is named and reduced to one smaller glue** (VERIFIED, compiled over the
+  chain, `scratch/qm-glue/ModuliCompare.lean`): `CoarseFactor` (a morphism `X → X'` between two coarse
+  witnesses over one fine witness, compatible with the moduli bijections) plus model-glue's `CurveBijIso`
+  (proved outright by curve-split) give the comparison isomorphism `CoarseCompare`; with it the universal glue
+  Props `CoarseX6OfFine`, `HauptmodulOfX6`, `ResidueOfX6`, `ConicOfWitness`, `ConnectedOfFine` of qm-split
+  follow from **existential** statements about one witness (the published statements on the canonical model),
+  and rows H-1 and H-43 follow (`r1r2fpRep_of_canonical`, `x6ConicModel_of_canonical'`). The uniqueness of the
+  normalized Hauptmodul on `X₆` needed for H-43 is proved from the kernel's `MobiusGlue` (which image-plane
+  proved from T5). `CoarseFactor` itself (descent along the finite forgetful map) is not proved (§4.3).
+* **(c) `ThetaFourthRatiosAlgebraic`: no further Lean reduction over the present definitions** (§5): it is a
+  composite of published results (algebraicity of Riemann forms and `NS(A_ℚ̄) = NS(A_ℂ)`; Shimura's algebraicity
+  of theta-null ratios at points defined over `ℚ̄`), and the project's `PkgI3.AbVar` has no polarization object
+  through which the two parts could be stated separately. Recommendation in §5.
 
 ## 2. (a) `ThetaQuotientValue24`
 
@@ -110,6 +121,70 @@ remains for H-87/H-88 is published: the valence formula for a cocompact Fuchsian
 Prop. 2.16/Thm 2.20; Rankin Thm 4.1.4) and Shimizu's covolume of `𝒪¹` (Shimura 1971 Prop. 9.2, Shimizu 1965;
 Voight Thm 39.1.13), all UNVERIFIED locators, plus `r4` (Igusa) and `IgusaCMValue24` for H-88.
 
+## 4. (d) The coarse-witness comparison (rows H-1, H-43, H-59)
+
+### 4.1 What qm-split left
+
+qm-split split the moduli rows into universal Props over witnesses ("for every witness of `R1fpProps` /
+`X6Props`, the published clause holds"), noting that this needs a comparison of witnesses: for fine witnesses
+the comparison isomorphism `compare_iso` is compiled; for coarse witnesses (`X₆`) a comparison was missing.
+
+### 4.2 Results (`ModuliCompare.lean` = qm-split's `ModuliSplit.lean` verbatim + additions; 44 s)
+
+| new Prop / theorem | kind | content |
+|---|---|---|
+| `CoarseFactor` | GLUE (project, AG) | two coarse witnesses `(X, Ψ, fY)`, `(X', Ψ', fY')` over one fine `(Y, Φ)` admit `h : X → X'` with `Ψ'(x ≫ h) = Ψ x` |
+| `ModelGlue.CurveBijIso` | proved by curve-split (`CurveSplit.curveBijIso`, no hypothesis) | copied verbatim from `scratch/curve-split/CurveBij.lean` |
+| `coarseCompare_of : CoarseFactor → CurveBijIso → CoarseCompare` | proved | `h` is bijective on `ℚ̄`-points (`Ψ'⁻¹ ∘ Ψ`), both curves proper smooth of dimension 1 |
+| `x6Props_transport` | proved | `X6Props` along a fine comparison isomorphism |
+| `CanonicalCoarseX6`, `BabaGranathX6`, `GonzalezRotgerX6`, `ConicCanonical`, `ConnectedCanonical` | LEAF-forms (existential: the published statement about one witness, the canonical model) | Shimura/Deligne + SGA 1 quotient; Baba–Granath Thm 2.1; González–Rotger Thm 5.12; Kurihara/Elkies; Deligne `π₀` |
+| `coarseX6OfFine_of : CanonicalCoarseX6 → CoarseX6OfFine` | proved | only `compare_iso` needed |
+| `hauptmodulOfX6_of : BabaGranathX6 → CoarseCompare → HauptmodulOfX6` | proved | `π₆ := π₀ ∘ k` (`ToP1.comp`) |
+| `residueOfX6_of : GonzalezRotgerX6 → CoarseCompare → ResidueOfX6` | proved | residue fields unchanged along isomorphisms (chain's `residueImage_comp_iso`) |
+| `HauptmodulUniqueX6S` and `hauptmodulUniqueX6S_of : Pin.MobiusGlue → HauptmodulUniqueX6S` | proved from the kernel's `MobiusGlue` | two Hauptmoduln on `X₆` with the R2 clauses agree on `ℚ̄`-points (pull back to `Y` along `fY`, onto `X(ℚ̄)` by `X6Surj`) |
+| `conicOfWitness_of' : ConicCanonical → CoarseCompare → HauptmodulUniqueX6S → ConicOfWitness` | proved | |
+| `connectedOfFine_of_canonical : ConnectedCanonical → ConnectedOfFine` | proved | `compare_iso` + homeomorphism |
+| `r1r2fpRep_of_canonical` (H-1) | proved | from `CanonicalModelY3`, `CanonicalCoarseX6`, `BabaGranathX6`, `GonzalezRotgerX6`, `ReciprocityOfFine`, `CoarseFactor`, `CurveBijIso` |
+| `x6ConicModel_of_canonical'` (H-43) | proved | from `r1r2`, `ConicCanonical`, `CoarseFactor`, `CurveBijIso`, `MobiusGlue` |
+
+`MobiusGlue` here is the chain's `LeafQM.AV.Pin.MobiusGlue`, whose text is identical to the kernel's
+(`ZInQKernel/HDecomp/QM/Pin.lean`, VERIFIED by diff); image-plane proved it from T5
+(`LeafQM.AV.CurveGlue.mobiusGlue_of_t5`). H-59 needs no coarse comparison: its row is already the existential
+statement (`ConnectedCanonical` is the row `TSHecke.Y3Connected`).
+
+**Finding.** With the comparison, every per-clause glue Prop of the moduli rows becomes "published statement
+about one witness" (existential, the form in which the literature states it) plus one piece of project glue
+`CoarseFactor`; the universal Props of qm-split are no longer needed as hypotheses.
+
+### 4.3 What `CoarseFactor` needs (not done)
+
+`fY` is finite and surjective (on `ℚ̄`-points every QM pair has a level-3 structure: `A[3] ≅ 𝒪/3𝒪` as
+`𝒪`-modules), `X` is a normal curve, and `fY'` is constant on the fibres of `fY` on `ℚ̄`-points (both are the
+forgetful map). In characteristic 0 a morphism constant on the fibres of a finite surjective morphism onto a
+normal variety factors through it (`X = Y/G` with `G` the deck group; SGA 1 Exp. V Prop. 1.8, Mumford
+*Abelian varieties* §7; UNVERIFIED locators). Equivalently: `K(X') ⊆ K(X)` inside `K(Y)` (an element of `K(Y)`
+constant on generic fibres of `fY` is invariant under the Galois closure) and a rational map from a smooth curve
+to a proper curve extends. Algebraic geometry of curves; not attempted.
+
+## 5. (c) `ThetaFourthRatiosAlgebraic` (row H-44): analysis
+
+Statement (qm-split `ThetaRatios.lean`): for an abelian surface `A` over a number field, an analytic
+uniformization `Φ : ℂ² → A(ℂ)_σ` with kernel `Λ`, any `Ω ∈ 𝔥₂` that is a period matrix of `Λ` and an even
+`m₀` with `θ_{m₀}(Ω) ≠ 0`: every `(θ_m(Ω)/θ_{m₀}(Ω))⁴` is algebraic.
+
+Its proof is a composite of two published steps: (1) the principal polarization `(Im Ω)⁻¹` of `ℂ²/Λ` is
+algebraic (Appell–Humbert, Lefschetz, GAGA) and defined over `ℚ̄` (`NS(A_ℚ̄) = NS(A_ℂ)`), so `Ω` is a period
+matrix of a principally polarized abelian surface over `ℚ̄`; (2) theta-null ratios (here fourth powers) of a
+principally polarized abelian variety over `ℚ̄` are algebraic (Shimura, Duke 43 (1976); Faltings–Chai Ch. V;
+for genus 2 Thomae's formula and Weil's dichotomy). Over the present definitions the only link between `Ω` and
+`A` is the analytic uniformization: `PkgI3.AbVar` carries no polarization or line bundle, so step (2) cannot be
+stated as a separate Prop without restating the whole glue, and step (1) cannot be stated at all. **Verdict:**
+`ThetaFourthRatiosAlgebraic` is a composite LEAF candidate (a consequence of published results), not reducible
+further in Lean today. Recommendation (SPECULATIVE): if a published-form split is wanted, add a polarization
+to the abelian-variety layer (an ample class or a polarization isogeny `A → A^∨`), state (1) as
+"every Riemann form of `ℂ²/Λ` is the analytic class of a polarization of `A_ℚ̄`" and (2) as Shimura's theorem for
+period matrices of polarized `A/ℚ̄`.
+
 ## 6. Files and checks
 
 | file | content | check |
@@ -117,6 +192,7 @@ Voight Thm 39.1.13), all UNVERIFIED locators, plus `r4` (Igusa) and `IgusaCMValu
 | `ThetaValue24.lean` | (a) | `lake env lean`, `import Mathlib`, ~10 s after import |
 | `GammaStar.lean` | (b) | `lake env lean`, `import Mathlib`, ~16 s after import |
 | `HauptGlue.lean` | qm-split `Haupt.lean` verbatim + (a), (b); rows H-87, H-88 from leaves | `chk.sh` (chain), 32 s |
+| `ModuliCompare.lean` | qm-split `ModuliSplit.lean` verbatim + (d) | `chk.sh` (chain), 45 s |
 | `py/value24.py`, `py/table.py`, `py/gen_table.py`, `py/ocoords.py` | numerics, coset table, structure constants of `𝒪` | `python3` |
 
 `chk.sh` runs `lean` over leaf-fold4's olean chain as compiled by leaf-fold6, copied (with leaf-fold6's kernel
