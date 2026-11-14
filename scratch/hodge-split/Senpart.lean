@@ -538,3 +538,166 @@ theorem finrank_htSpace_eq_Ysp (hT : TateTwistInvariants) (hA : AxSenTate)
   exact (Nat.eq_of_mul_eq_mul_left hE hdesc).symm
 
 end SenBridge4
+
+section SenFinal
+
+variable {n : ℕ}
+
+/-- **Θ is onto.** If `Σ_{j ∈ J} dim_K Y_j = n`, the `K`-bases of the `Y_j` form a `ℂ_p`-basis. -/
+theorem exists_basis_Ysp (hT : TateTwistInvariants) (hA : AxSenTate)
+    (K : IntermediateField ℚ_[p] (PadicAlgCl p)) [FiniteDimensional ℚ_[p] K]
+    {E : IntermediateField ℚ_[p] (PadicAlgCl p)} (ρ : GQp p →* GL (Fin n) E) (J : Finset ℤ)
+    (hsum : ∑ j ∈ J, Module.finrank K (Ysp p ρ j K) = n) :
+    ∃ (ι : Type) (_ : Fintype ι) (b : Module.Basis ι ℂ_[p] (Fin n → ℂ_[p])) (j : ι → ℤ),
+      ∀ k, b k ∈ Ysp p ρ (j k) K := by
+  classical
+  haveI : ∀ j : ℤ, FiniteDimensional K (Ysp p ρ j K) := fun j => Ysp_finiteDimensional p hT hA K ρ j
+  haveI : ∀ j : ℤ, Module.Free K (Ysp p ρ j K) := fun j => Module.Free.of_divisionRing _ _
+  let d : J → ℕ := fun jj => Module.finrank K (Ysp p ρ jj K)
+  let bv : (Σ jj : J, Fin (d jj)) → (Fin n → ℂ_[p]) := fun k =>
+    ((Module.finBasis K (Ysp p ρ k.1 K) k.2 : Ysp p ρ k.1 K) : Fin n → ℂ_[p])
+  let jf : (Σ jj : J, Fin (d jj)) → ℤ := fun k => k.1
+  have hli : LinearIndependent ℂ_[p] bv := by
+    refine Ysp_linearIndependent p hT hA K ρ jf bv (fun k => (Module.finBasis K _ k.2).2) ?_
+    intro j₀ a ha hs
+    by_cases hj₀ : j₀ ∈ J
+    · let jj₀ : J := ⟨j₀, hj₀⟩
+      have h1 : ∑ m : Fin (d jj₀), a ⟨jj₀, m⟩ • (Module.finBasis K (Ysp p ρ jj₀ K) m) = 0 := by
+        apply Subtype.ext
+        rw [Submodule.coe_sum, Submodule.coe_zero]
+        simp only [Submodule.coe_smul]
+        rw [← hs, Fintype.sum_sigma, Finset.sum_eq_single jj₀]
+        · intro jj _ hjj
+          refine Finset.sum_eq_zero fun m _ => ?_
+          rw [ha ⟨jj, m⟩ (fun h => hjj (Subtype.ext h)), zero_smul]
+        · intro h; exact absurd (Finset.mem_univ _) h
+      have h2 := Fintype.linearIndependent_iff.mp (Module.finBasis K (Ysp p ρ jj₀ K)).linearIndependent _ h1
+      intro k
+      by_cases hk : (k.1 : ℤ) = j₀
+      · obtain ⟨jj, m⟩ := k
+        have : jj = jj₀ := Subtype.ext hk
+        subst this
+        exact h2 m
+      · exact ha k hk
+    · intro k
+      exact ha k (fun h => hj₀ (h ▸ k.1.2))
+  have hcard : Fintype.card (Σ jj : J, Fin (d jj)) = Module.finrank ℂ_[p] (Fin n → ℂ_[p]) := by
+    rw [Fintype.card_sigma, Module.finrank_fin_fun]
+    simp only [Fintype.card_fin, d]
+    rw [Finset.sum_coe_sort J (fun j => Module.finrank K (Ysp p ρ j K)), hsum]
+  exact ⟨_, inferInstance, basisOfLinearIndependentOfCardEqFinrank' bv hli hcard, jf,
+    fun k => by rw [coe_basisOfLinearIndependentOfCardEqFinrank']; exact (Module.finBasis K _ k.2).2⟩
+
+/-- **(X) the twist scalar.** -/
+theorem exists_twist_scalar {E : IntermediateField ℚ_[p] (PadicAlgCl p)}
+    (ρ ρ' : GQp p →* GL (Fin n) E) (c : GQp p → E)
+    (hc : ∀ σ, matC p (ρ' σ : Matrix (Fin n) (Fin n) E) =
+      algebraMap E ℂ_[p] (c σ) • matC p (ρ σ : Matrix (Fin n) (Fin n) E))
+    (hc0 : ∀ σ, c σ ≠ 0) {ι : Type} [Fintype ι] (b : Module.Basis ι ℂ_[p] (Fin n → ℂ_[p]))
+    (j : ι → ℤ) (hb : ∀ k, b k ∈ Ysp p ρ' (j k) E) {i₀ : ℤ} {y₀ : Fin n → ℂ_[p]}
+    (hy₀ : y₀ ∈ Ysp p ρ i₀ E) (hne : y₀ ≠ 0) :
+    ∃ (s : ℤ) (β : ℂ_[p]), β ≠ 0 ∧ ∀ σ ∈ E.fixingSubgroup,
+      cpAct p σ β = (algebraMap E ℂ_[p] (c σ))⁻¹ * (cycPow p σ s • β) := by
+  classical
+  obtain ⟨k, hk⟩ : ∃ k, b.repr y₀ k ≠ 0 := by
+    by_contra h
+    push_neg at h
+    apply hne
+    have : b.repr y₀ = 0 := Finsupp.ext h
+    simpa using congrArg b.repr.symm this
+  refine ⟨j k - i₀, b.repr y₀ k, hk, fun σ hσ => ?_⟩
+  have hcσ : algebraMap E ℂ_[p] (c σ) ≠ 0 := (map_ne_zero _).mpr (hc0 σ)
+  set a := fun m => b.repr y₀ m
+  have hy : y₀ = ∑ m, a m • b m := (b.sum_repr y₀).symm
+  -- `(ρσ)ᵀ b_m = c⁻¹ χ^{j m} σ(b_m)`
+  have hbm : ∀ m, (matC p (ρ σ : Matrix (Fin n) (Fin n) E)).transpose.mulVec (b m) =
+      (algebraMap E ℂ_[p] (c σ))⁻¹ • (cycPow p σ (j m) • vAct p σ (b m)) := by
+    intro m
+    have h := hb m σ hσ
+    rw [hc σ, Matrix.transpose_smul, Matrix.smul_mulVec] at h
+    rw [← h, smul_smul, inv_mul_cancel₀ hcσ, one_smul]
+  have h1 : ∑ m, cpAct p σ (a m) • vAct p σ (b m) =
+      ∑ m, ((algebraMap E ℂ_[p] (c σ))⁻¹ * (cycPow p σ (j m - i₀) • a m)) • vAct p σ (b m) := by
+    have e1 : vAct p σ y₀ = ∑ m, cpAct p σ (a m) • vAct p σ (b m) := by
+      conv_lhs => rw [hy]
+      rw [vAct_sum]
+      simp only [vAct_smul]
+    rw [← e1, vAct_of_mem p hy₀ hσ]
+    conv_lhs => rw [hy]
+    rw [Matrix.mulVec_sum, Finset.smul_sum]
+    refine Finset.sum_congr rfl fun m _ => ?_
+    rw [Matrix.mulVec_smul, hbm m, sub_eq_add_neg, cycPow_add]
+    ext t
+    simp only [Pi.smul_apply, smul_eq_mul]
+    simp only [Algebra.smul_def, map_mul]
+    ring
+  -- independence of `σ(b_m)`
+  have hind : LinearIndependent ℂ_[p] fun m => vAct p σ (b m) := by
+    rw [Fintype.linearIndependent_iff]
+    intro g hg m
+    have h2 := congrArg (vAct p σ⁻¹) hg
+    rw [vAct_sum, vAct_zero] at h2
+    simp only [vAct_smul, vAct_vAct, inv_mul_cancel, vAct_one'] at h2
+    have h3 := Fintype.linearIndependent_iff.mp b.linearIndependent _ h2 m
+    have := congrArg (cpAct p σ) h3
+    rwa [map_zero, ← cpAct_mul, mul_inv_cancel, cpAct_one] at this
+  rw [← sub_eq_zero, ← Finset.sum_sub_distrib] at h1
+  simp only [← sub_smul] at h1
+  have := Fintype.linearIndependent_iff.mp hind _ h1 k
+  exact sub_eq_zero.mp this
+
+/-- **(M) multiplication by `β⁻¹`.** -/
+theorem finrank_Ysp_twist {E : IntermediateField ℚ_[p] (PadicAlgCl p)}
+    (ρ ρ' : GQp p →* GL (Fin n) E) (c : GQp p → E)
+    (hc : ∀ σ, matC p (ρ' σ : Matrix (Fin n) (Fin n) E) =
+      algebraMap E ℂ_[p] (c σ) • matC p (ρ σ : Matrix (Fin n) (Fin n) E))
+    (hc0 : ∀ σ, c σ ≠ 0) (s : ℤ) (β : ℂ_[p]) (hβ : β ≠ 0)
+    (hrel : ∀ σ ∈ E.fixingSubgroup,
+      cpAct p σ β = (algebraMap E ℂ_[p] (c σ))⁻¹ * (cycPow p σ s • β)) (i : ℤ) :
+    Module.finrank E (Ysp p ρ i E) = Module.finrank E (Ysp p ρ' (i + s) E) := by
+  have hcne : ∀ σ, algebraMap E ℂ_[p] (c σ) ≠ 0 := fun σ => (map_ne_zero _).mpr (hc0 σ)
+  have hχ : ∀ σ, algebraMap ℚ_[p] ℂ_[p] (cycPow p σ s) ≠ 0 := by
+    intro σ h
+    have := cycPow_neg_mul p σ s
+    rw [(map_eq_zero _).mp h, mul_zero] at this
+    exact zero_ne_one this
+  have hfwd : ∀ y ∈ Ysp p ρ i E, β⁻¹ • y ∈ Ysp p ρ' (i + s) E := by
+    intro y hy σ hσ
+    rw [hc σ, Matrix.transpose_smul, Matrix.smul_mulVec, Matrix.mulVec_smul, hy σ hσ]
+    ext m
+    simp only [Pi.smul_apply, vAct, smul_eq_mul, map_mul, map_inv₀, hrel σ hσ]
+    simp only [Algebra.smul_def, cycPow_add, map_mul]
+    have := hχ σ
+    have := hcne σ
+    field_simp
+  have hbwd : ∀ y ∈ Ysp p ρ' (i + s) E, β • y ∈ Ysp p ρ i E := by
+    intro y hy σ hσ
+    have h := hy σ hσ
+    rw [hc σ, Matrix.transpose_smul, Matrix.smul_mulVec] at h
+    have h' : (matC p (ρ σ : Matrix (Fin n) (Fin n) E)).transpose.mulVec y =
+        (algebraMap E ℂ_[p] (c σ))⁻¹ • (cycPow p σ (i + s) • vAct p σ y) := by
+      rw [← h, smul_smul, inv_mul_cancel₀ (hcne σ), one_smul]
+    rw [Matrix.mulVec_smul, h']
+    ext m
+    simp only [Pi.smul_apply, vAct, smul_eq_mul, map_mul, hrel σ hσ]
+    simp only [Algebra.smul_def, cycPow_add, map_mul]
+    have := hχ σ
+    have := hcne σ
+    field_simp
+  let e : Ysp p ρ i E ≃ₗ[E] Ysp p ρ' (i + s) E :=
+    { toFun := fun y => ⟨β⁻¹ • (y : Fin n → ℂ_[p]), hfwd y y.2⟩
+      invFun := fun y => ⟨β • (y : Fin n → ℂ_[p]), hbwd y y.2⟩
+      map_add' := fun y z => Subtype.ext (smul_add _ _ _)
+      map_smul' := fun a y => by
+        apply Subtype.ext
+        show β⁻¹ • (a • (y : Fin n → ℂ_[p])) = a • (β⁻¹ • (y : Fin n → ℂ_[p]))
+        rw [← algebraMap_smul (A := ℂ_[p]) a, ← algebraMap_smul (A := ℂ_[p]) a, smul_comm]
+      left_inv := fun y => Subtype.ext (by
+        show β • (β⁻¹ • (y : Fin n → ℂ_[p])) = y
+        rw [smul_smul, mul_inv_cancel₀ hβ, one_smul])
+      right_inv := fun y => Subtype.ext (by
+        show β⁻¹ • (β • (y : Fin n → ℂ_[p])) = y
+        rw [smul_smul, inv_mul_cancel₀ hβ, one_smul]) }
+  exact e.finrank_eq
+
+end SenFinal
