@@ -125,3 +125,10 @@ after `lake build ZInQKernel.Contrib.R10.Amend ZInQKernel.Contrib.AbVarBC.Dim` (
   (EigenformRepExists from R14Det from the DS leaves). Copies of HTConj/EigenformHTNew/eigenformHT_of_new and
   the coefficient-independence block added to Companion.lean (imports G9.Reduction too). COMPILED 11-14,
   standard axioms. check_copies.py: 15 shared defs "same". VERIFIED.
+
+## H-8 with the tensor-form de Rham leaf (HodgeSplit.lean §15)
+- New genuine defs `ddrTensorOver` ((B_dR ⊗ W)^{G_F}), `IsDeRhamTensorOver`; LEAF `DeRhamH1AbVarT`
+  (Hom(V_p A, ℚ_p) with Mathlib's `Representation.dual` is de Rham in the printed sense).
+- PROVED `isDeRhamOver_iff_tensor_dual` (B_dR ⊗ V^∨ ≅ Hom(V, B_dR) via dualTensorHomEquiv, equivariant),
+  `finiteDimensional_of_decomp`, `deRhamComparisonHT_of_leavesT : HodgeTateDecompAbVar → TateTwistInvariants
+  → AxSenTate → DeRhamH1AbVarT → DeRhamComparisonHT`. COMPILED 11-14, standard axioms. VERIFIED.

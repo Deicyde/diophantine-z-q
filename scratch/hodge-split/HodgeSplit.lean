@@ -1939,6 +1939,114 @@ theorem semisimplification2_proof : Semisimplification2 := by
 
 end SemisimpSec
 
+
+/-! ## §15. H-8 with the de Rham leaf in tensor form
+
+`DeRhamH1AbVar` states "`V_p(A)^∨` is de Rham" with pkg-I4's Hom form of `D_dR(V^∨)`. Here the
+leaf `DeRhamH1AbVarT` states it with the printed definition, `D_dR(W) = (B_dR ⊗ W)^{G_F}` for
+`W = Module.Dual ℚ_p V_p(A)` with the contragredient action (Mathlib's `Representation.dual`), and
+`isDeRhamOver_iff_tensor_dual` proves the two forms equivalent for finite-dimensional `V`
+(`B_dR ⊗ V^∨ ≅ Hom(V, B_dR)`, Mathlib's `dualTensorHomEquiv`); `V_p(A)` is finite-dimensional by the
+Hodge–Tate decomposition. -/
+
+section DeRhamTensor
+
+variable {F : Type*} [Field F] [Algebra ℚ_[p] F] [FiniteDimensional ℚ_[p] F]
+
+/-- `D_dR,F(W) = (B_dR ⊗_{ℚ_p} W)^{G_F}`. -/
+def ddrTensorOver {W : Type*} [AddCommGroup W] [Module ℚ_[p] W]
+    (ρW : Representation ℚ_[p] (Field.absoluteGaloisGroup F) W) :
+    Submodule ℚ_[p] (BdR p ⊗[ℚ_[p]] W) where
+  carrier := {x | ∀ σ, TensorProduct.map (drAct p (gfToGqp p F σ)) (ρW σ) x = x}
+  zero_mem' σ := map_zero _
+  add_mem' ha hb σ := by rw [map_add, ha σ, hb σ]
+  smul_mem' c x hx σ := by rw [map_smul, hx σ]
+
+/-- **`W` is de Rham over `F`** in the printed sense: `dim_F (B_dR ⊗ W)^{G_F} = dim W`. -/
+def IsDeRhamTensorOver {W : Type*} [AddCommGroup W] [Module ℚ_[p] W]
+    (ρW : Representation ℚ_[p] (Field.absoluteGaloisGroup F) W) : Prop :=
+  Module.finrank ℚ_[p] (ddrTensorOver p ρW) = Module.finrank ℚ_[p] F * Module.finrank ℚ_[p] W
+
+/-- **LEAF (the de Rham comparison for `H¹` of an abelian variety, printed `D_dR`).** As
+`DeRhamH1AbVar`, with `H¹_ét(A_{F̄}, ℚ_p)` replaced by `Hom_{ℚ_p}(V_p(A), ℚ_p)` with the
+contragredient action (the standard identification; Milne, *Abelian varieties*, Thm 15.1(a),
+UNVERIFIED) and `D_dR` in its printed form `(B_dR ⊗ W)^{G_F}`. Faltings 1989; Tsuji 1999; Scholze,
+Forum Math. Pi 1 (2013), Cor. 1.8; Fontaine 1982 for abelian varieties. -/
+def DeRhamH1AbVarT : Prop :=
+  ∀ (p : ℕ) [Fact p.Prime] (F : Type) [Field F] [Algebra ℚ_[p] F] [FiniteDimensional ℚ_[p] F]
+    (A : PkgI4.I3.AbVar F), IsDeRhamTensorOver p (A.galRep p).dual
+
+variable {V : Type*} [AddCommGroup V] [Module ℚ_[p] V]
+
+/-- `B_dR ⊗ V^∨ ≅ Hom(V, B_dR)`, `b ⊗ f ↦ (v ↦ f(v) b)`. -/
+noncomputable def tensorDualEquiv [FiniteDimensional ℚ_[p] V] :
+    (BdR p ⊗[ℚ_[p]] Module.Dual ℚ_[p] V) ≃ₗ[ℚ_[p]] (V →ₗ[ℚ_[p]] BdR p) :=
+  (TensorProduct.comm ℚ_[p] (BdR p) (Module.Dual ℚ_[p] V)).trans
+    (dualTensorHomEquiv ℚ_[p] V (BdR p))
+
+theorem tensorDualEquiv_tmul [FiniteDimensional ℚ_[p] V] (b : BdR p) (f : Module.Dual ℚ_[p] V)
+    (v : V) : tensorDualEquiv p (b ⊗ₜ f) v = f v • b := rfl
+
+/-- The tensor action corresponds to `φ ↦ σ ∘ φ ∘ ρ(σ)⁻¹`. -/
+theorem tensorDualEquiv_map [FiniteDimensional ℚ_[p] V]
+    (ρ : Representation ℚ_[p] (Field.absoluteGaloisGroup F) V) (σ : Field.absoluteGaloisGroup F)
+    (x : BdR p ⊗[ℚ_[p]] Module.Dual ℚ_[p] V) (v : V) :
+    tensorDualEquiv p (TensorProduct.map (drAct p (gfToGqp p F σ)) (ρ.dual σ) x) v =
+      drAct p (gfToGqp p F σ) (tensorDualEquiv p x (ρ σ⁻¹ v)) := by
+  induction x using TensorProduct.induction_on with
+  | zero => simp
+  | tmul b f =>
+    rw [TensorProduct.map_tmul, tensorDualEquiv_tmul, tensorDualEquiv_tmul, map_smul,
+      Representation.dual_apply, Module.Dual.transpose_apply, LinearMap.comp_apply]
+  | add x y hx hy =>
+    rw [map_add, map_add, LinearMap.add_apply, hx, hy, map_add, LinearMap.add_apply, map_add]
+
+/-- **The two forms of "`V^∨` is de Rham" agree** (finite-dimensional `V`). -/
+theorem isDeRhamOver_iff_tensor_dual [FiniteDimensional ℚ_[p] V]
+    (ρ : Representation ℚ_[p] (Field.absoluteGaloisGroup F) V) :
+    IsDeRhamTensorOver p ρ.dual ↔ IsDeRhamOver p ρ := by
+  have hmap : Submodule.map (tensorDualEquiv p).toLinearMap (ddrTensorOver p ρ.dual) =
+      ddrSpaceOver p ρ := by
+    ext φ
+    constructor
+    · rintro ⟨x, hx, rfl⟩ σ w
+      have h := congrArg (fun y => tensorDualEquiv p y (ρ σ w)) (hx σ)
+      rw [tensorDualEquiv_map, ← Module.End.mul_apply, ← map_mul, inv_mul_cancel, map_one,
+        Module.End.one_apply] at h
+      exact h.symm
+    · intro hφ
+      refine ⟨(tensorDualEquiv p).symm φ, fun σ => ?_, by simp⟩
+      apply (tensorDualEquiv p).injective
+      refine LinearMap.ext fun v => ?_
+      rw [tensorDualEquiv_map, LinearEquiv.apply_symm_apply]
+      have := hφ σ (ρ σ⁻¹ v)
+      rw [← Module.End.mul_apply, ← map_mul, mul_inv_cancel, map_one, Module.End.one_apply] at this
+      rw [this]
+      rfl
+  rw [IsDeRhamTensorOver, IsDeRhamOver, ← hmap, LinearEquiv.finrank_map_eq,
+    Subspace.dual_finrank_eq]
+
+/-- `V_p(A)` is finite-dimensional, from the Hodge–Tate decomposition. -/
+theorem finiteDimensional_of_decomp {g : ℕ}
+    (e : ℂ_[p] ⊗[ℚ_[p]] V ≃ₗ[ℂ_[p]] (Fin g → ℂ_[p]) × (Fin g → ℂ_[p])) :
+    FiniteDimensional ℚ_[p] V := by
+  have h1 := e.lift_rank_eq
+  have h2 : Cardinal.lift (Module.rank ℂ_[p] ((Fin g → ℂ_[p]) × (Fin g → ℂ_[p]))) <
+      Cardinal.aleph0 := Cardinal.lift_lt_aleph0.mpr (Module.rank_lt_aleph0 _ _)
+  rw [← h1, Module.rank_baseChange, Cardinal.lift_lift, Cardinal.lift_lt_aleph0] at h2
+  exact Module.rank_lt_aleph0_iff.mp h2
+
+end DeRhamTensor
+
+/-- **H-8 with the tensor-form de Rham leaf.** -/
+theorem deRhamComparisonHT_of_leavesT (hHT : HodgeTateDecompAbVar) (hT : TateTwistInvariants)
+    (hA : AxSenTate) (hdR : DeRhamH1AbVarT) : ZInQ.Contrib.R10.DeRhamComparisonHT := by
+  refine deRhamComparisonHT_of_leaves hHT hT hA fun p _ F _ _ _ A => ?_
+  obtain ⟨g, hg⟩ := dim_finite_I4 A
+  obtain ⟨e, -⟩ := hHT p F A g hg
+  haveI := finiteDimensional_of_decomp p e
+  exact (isDeRhamOver_iff_tensor_dual p (A.galRep p)).mp (hdR p F A)
+
 end
 
 end ZInQ.Contrib.HodgeSplit
@@ -1953,3 +2061,4 @@ end ZInQ.Contrib.HodgeSplit
 #print axioms ZInQ.Contrib.HodgeSplit.htWeightsUnique_proof
 #print axioms ZInQ.Contrib.HodgeSplit.htConj_proof
 #print axioms ZInQ.Contrib.HodgeSplit.semisimplification2_proof
+#print axioms ZInQ.Contrib.HodgeSplit.deRhamComparisonHT_of_leavesT
