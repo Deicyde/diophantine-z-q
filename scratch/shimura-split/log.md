@@ -96,3 +96,12 @@
 - ShimuraFam.lean (over TailU): 0 errors; `shimurafam_result.txt`; `example : ShimuraHolFamily → HDec.QMSplit.Moduli.ShimuraFamily`.
 - Note: TailU already contains qm-split's ModuliSplit constants (HDec.QMSplit.Moduli.CanonicalModelY3, ...), so
   ShimuraFam.lean cannot be merged with Rows.lean (whose Part 1 re-declares them over TailK).
+
+## Step 13: PairsLift.lean (imports kernel Contrib.Mobius.Glue) — COMPILED, standard axioms
+- §1 algebra of 𝒪 mod 3: `left_inv_mod3` (3 ∤ nrd a ⇒ (nrd(a)·ā)·a = 1 + 3k), `mul_oj_of_dvd` (3 | nrd a ⇒ a·j ∈ 3𝒪,
+  kernel `three_dvd_mulCoord_ej`), `three_mul_cancel`.
+- §2 `bcPt_surjective_algClosed` (points over ℚ̄ = points over its algebraic closure), `bcPt_pow`, `bcPt_one`.
+- §3 `exists_good_point : T5 → ∃ v, 3v = 0 ∧ j·v ≠ 0` (else A[9] = A[3], against T5 counts 9⁴ > 3⁴).
+- §4 `ker_of_good`, `exists_level3 : T5 → Nonempty (Level3 Q.q)`, `pairsLift_of_T5` (body of coarse-factor's PairsLift).
+- Rows.lean regenerated (+PairsLift.lean, `pairsLift_of_t5`, `r1r2fpRep_of_printed_t5`): 0 errors, 54 axiom lines,
+  all standard.

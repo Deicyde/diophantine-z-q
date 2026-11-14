@@ -34,6 +34,7 @@
 'ShimuraSplit.r5fpCount_of_points' depends on axioms: [propext, Classical.choice, Quot.sound]
 'ShimuraSplit.points_of_r5fpCount' depends on axioms: [propext, Classical.choice, Quot.sound]
 'ShimuraSplit.surj_of_fibre' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ShimuraSplit.pairsLift_of_T5' depends on axioms: [propext, Classical.choice, Quot.sound]
 'HDec.QMSplit.Moduli.r1rec_of_r1r2' depends on axioms: [propext, Classical.choice, Quot.sound]
 'HDec.QMSplit.Moduli.r5fp_of_r1r2' depends on axioms: [propext, Classical.choice, Quot.sound]
 'HDec.QMSplit.Moduli.r1r2fpRep_of_split' depends on axioms: [propext, Classical.choice, Quot.sound]
@@ -49,3 +50,5 @@
 'HDec.QMSplit.Moduli.x6ConicModel_of_elkies' depends on axioms: [propext, Classical.choice, Quot.sound]
 'HDec.QMSplit.Moduli.elkiesConicX6_of' depends on axioms: [propext, Classical.choice, Quot.sound]
 'HDec.QMSplit.Moduli.x6ConicModel_of_elkies_t5' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.QMSplit.Moduli.pairsLift_of_t5' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.QMSplit.Moduli.r1r2fpRep_of_printed_t5' depends on axioms: [propext, Classical.choice, Quot.sound]

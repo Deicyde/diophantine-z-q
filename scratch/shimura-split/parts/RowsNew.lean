@@ -295,6 +295,25 @@ end HDec.QMSplit.Moduli
 
 #print axioms HDec.QMSplit.Moduli.x6ConicModel_of_elkies_t5
 
+/-! ## `PairsLift` from T5; row H-1 with `PairsLift` discharged -/
+
+namespace HDec.QMSplit.Moduli
+
+/-- **coarse-factor's `PairsLift` is a theorem from T5** (`ShimuraSplit.pairsLift_of_T5`). -/
+theorem pairsLift_of_t5 (hT : PkgI2.TorsionStructure.{0}) : PairsLift :=
+  ShimuraSplit.pairsLift_of_T5 (ObjBridge.torsionStructure_iff.2 hT)
+
+/-- **Row H-1 (`r1r2`) from its printed parts and T5**: `PairsLift` discharged. -/
+theorem r1r2fpRep_of_printed_t5 (hD : DeligneComponentsX6) (hE : GeomConnOfAlgClosure)
+    (hT : PkgI2.TorsionStructure.{0}) (hB : BabaGranathX6') (hR : ReciprocityCanonical)
+    (hG : GonzalezRotgerX6) : LeafAdopt.R1R2fpRep :=
+  r1r2fpRep_of_printed hD hE (pairsLift_of_t5 hT) hB hR hG
+
+end HDec.QMSplit.Moduli
+
+#print axioms HDec.QMSplit.Moduli.pairsLift_of_t5
+#print axioms HDec.QMSplit.Moduli.r1r2fpRep_of_printed_t5
+
 /-! ## The row statements, fully qualified (the bundle fields' types; leaf-fold8 §2) -/
 
 example : HDec.LeafAdopt.R1R2fpRep → _root_.LeafQM.AV.R1rec := HDec.QMSplit.Moduli.r1rec_of_r1r2
@@ -309,3 +328,7 @@ example : HDec.QMSplit.Moduli.DeligneComponentsX6 → HDec.QMSplit.Moduli.GeomCo
     HDec.QMSplit.Moduli.PairsLift → HDec.QMSplit.Moduli.BabaGranathX6' →
     HDec.QMSplit.Moduli.ReciprocityCanonical → HDec.QMSplit.Moduli.GonzalezRotgerX6 →
     HDec.LeafAdopt.R1R2fpRep := HDec.QMSplit.Moduli.r1r2fpRep_of_printed
+example : HDec.QMSplit.Moduli.DeligneComponentsX6 → HDec.QMSplit.Moduli.GeomConnOfAlgClosure →
+    PkgI2.TorsionStructure.{0} → HDec.QMSplit.Moduli.BabaGranathX6' →
+    HDec.QMSplit.Moduli.ReciprocityCanonical → HDec.QMSplit.Moduli.GonzalezRotgerX6 →
+    HDec.LeafAdopt.R1R2fpRep := HDec.QMSplit.Moduli.r1r2fpRep_of_printed_t5
