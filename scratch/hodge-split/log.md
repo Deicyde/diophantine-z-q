@@ -40,3 +40,16 @@ after `lake build ZInQKernel.Contrib.R10.Amend ZInQKernel.Contrib.AbVarBC.Dim` (
   `contRep_dualRep`, `dualRep_dualRep`, transposes of block/Kronecker matrices.
 - PROOF `t23_all_of_fontaine : (∀ p, FontaineDRTannakian p) → ∀ p, T23_FontaineClosure p`.
   COMPILED 05:05, standard axioms. VERIFIED.
+
+## H-22 `G0Galois.R14Det` (HodgeSplit.lean §8)
+- Row copied verbatim (Leaves5.lean l.35303-35330: toRingEquivQ, cycQ, R14Det).
+- PROVED `r14Det_of_wt : R14DetWt1 → R14DetWtGe2 → R14Det` (weight split; Shimura's k=2 not needed).
+- LEAVES: `DSThm965` (Deligne via Diamond–Shurman Thm 9.6.5, k ≥ 2: ρ unramified outside ℓN, charpoly of
+  arithmetic Frobenius = X² − a_p X + χ(p)p^{k−1}, coefficients extended to ℚ̄_ℓ by ιL∘ιC⁻¹; no
+  semisimplicity), `DSThm966` (Deligne–Serre Thm 4.1 / DS Thm 9.6.6, k = 1: complex ρ, finite image,
+  tr = a_p, det = χ(p) at arithmetic Frobenius). Numbering UNVERIFIED.
+- GLUE (named, NOT proved): `Semisimplification2` (2-dim semisimplification keeps charpolys and unramified
+  set), `DetFromFrobenius` (det from Frobenius values: Chebotarev + cyclotomic character mod N),
+  `ArtinTransport` (DSThm966 → R14DetWt1: finite subgroup of GL₂(ℂ) realized over ℚ̄, then ιL; Maschke).
+- PROVED `r14DetWtGe2_of_ds`, `r14Det_of_ds : DSThm965 → DSThm966 → Semisimplification2 →
+  DetFromFrobenius → ArtinTransport → R14Det`. COMPILED 05:25, standard axioms. VERIFIED.

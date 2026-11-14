@@ -1009,6 +1009,185 @@ theorem t23_all_of_fontaine (hF : ∀ (p : ℕ) [Fact p.Prime], FontaineDRTannak
 
 end T23
 
+
+/-! ## §8. H-22: R14 with the determinant (`G0Galois.R14Det`)
+
+The row, copied verbatim from `scratch/leaf-fold5/Leaves5.lean` l.35303-35330 (origin
+`scratch/g0-mod-galois/part_det.lean`): `toRingEquivQ`, `cycQ`, `R14Det`. It is a composite of
+Deligne's theorem (`k ≥ 2`; Shimura's `k = 2` case is contained in it) and Deligne–Serre (`k = 1`).
+Here: the weight split (proved), the two printed statements in Diamond–Shurman's form (leaves), and
+the conversion from each printed form to the row's form, reduced to three named glue Props. -/
+
+namespace G0Galois
+
+open PkgI4 (GaloisRep GaloisChar)
+
+/-- `σ ↦ σ` as ring automorphisms of `ℚ̄`. -/
+def toRingEquivQ : PkgI4.GQ →* (PkgI4.Qbar ≃+* PkgI4.Qbar) where
+  toFun σ := σ.toRingEquiv
+  map_one' := rfl
+  map_mul' _ _ := rfl
+
+/-- The `ℓ`-adic cyclotomic character `χ_ℓ : G_ℚ → ℤ_ℓ^× ⊆ ℚ̄_ℓ^×` (Mathlib's
+`cyclotomicCharacter` on `ℚ̄`, as `PkgI4.cyc` on `G_{ℚ_p}`). -/
+def cycQ (ℓ : ℕ) [Fact ℓ.Prime] : PkgI4.GQ →* (PadicAlgCl ℓ)ˣ :=
+  (Units.map ((algebraMap ℚ_[ℓ] (PadicAlgCl ℓ)).comp PadicInt.Coe.ringHom).toMonoidHom).comp
+    ((cyclotomicCharacter PkgI4.Qbar ℓ).comp toRingEquivQ)
+
+/-- **R14 with its published determinant clause (leaf; Shimura 1971 Thm 7.14 for `k = 2`,
+Deligne 1971 for `k ≥ 2`, Deligne–Serre 1974 for `k = 1`; locators UNVERIFIED).** For a normalized
+eigenform `g` of weight `k ≥ 1` with nebentypus, there is a semisimple `ρ_g` attached to `g` with
+`det ρ_g = ε · χ_ℓ^{k−1}`, `ε` of finite image (the nebentypus as a Galois character). This is
+`HSyn.EigenformRepExists` plus the determinant, which the published statements contain. -/
+def R14Det : Prop :=
+  ∀ (ℓ : ℕ) [Fact ℓ.Prime] (ιC : PkgI4.Qbar →ₐ[ℚ] ℂ) (ιL : PkgI4.Qbar →ₐ[ℚ] PadicAlgCl ℓ)
+    (N : ℕ) (k : ℤ) (χ : DirichletCharacter ℂ N) (g : PkgI4.CF N k),
+    0 < N → 1 ≤ k → PkgI4.IsNormalizedEigenform g χ →
+    ∃ ρ : GaloisRep ℓ 2, ρ.IsSemisimple ∧ ρ.AttachedTo ιC ιL g ∧
+      ∃ ε : PkgI4.GQ →* (PadicAlgCl ℓ)ˣ, (Set.range ε).Finite ∧
+        ∀ σ, (ρ.mat σ).det = ((ε σ * cycQ ℓ σ ^ (k - 1) : (PadicAlgCl ℓ)ˣ) : PadicAlgCl ℓ)
+
+end G0Galois
+
+section R14
+
+open PkgI4 (GaloisRep GaloisChar)
+open Polynomial
+
+/-- The row's conclusion for one eigenform. -/
+def R14DetConcl (ℓ : ℕ) [Fact ℓ.Prime] (ιC : PkgI4.Qbar →ₐ[ℚ] ℂ) (ιL : PkgI4.Qbar →ₐ[ℚ] PadicAlgCl ℓ)
+    {N : ℕ} {k : ℤ} (g : PkgI4.CF N k) : Prop :=
+  ∃ ρ : GaloisRep ℓ 2, ρ.IsSemisimple ∧ ρ.AttachedTo ιC ιL g ∧
+    ∃ ε : PkgI4.GQ →* (PadicAlgCl ℓ)ˣ, (Set.range ε).Finite ∧
+      ∀ σ, (ρ.mat σ).det = ((ε σ * G0Galois.cycQ ℓ σ ^ (k - 1) : (PadicAlgCl ℓ)ˣ) : PadicAlgCl ℓ)
+
+/-- R14Det in weight `1` only (Deligne–Serre's range). -/
+def R14DetWt1 : Prop :=
+  ∀ (ℓ : ℕ) [Fact ℓ.Prime] (ιC : PkgI4.Qbar →ₐ[ℚ] ℂ) (ιL : PkgI4.Qbar →ₐ[ℚ] PadicAlgCl ℓ)
+    (N : ℕ) (χ : DirichletCharacter ℂ N) (g : PkgI4.CF N 1),
+    0 < N → PkgI4.IsNormalizedEigenform g χ → R14DetConcl ℓ ιC ιL g
+
+/-- R14Det in weights `k ≥ 2` only (Deligne's range). -/
+def R14DetWtGe2 : Prop :=
+  ∀ (ℓ : ℕ) [Fact ℓ.Prime] (ιC : PkgI4.Qbar →ₐ[ℚ] ℂ) (ιL : PkgI4.Qbar →ₐ[ℚ] PadicAlgCl ℓ)
+    (N : ℕ) (k : ℤ) (χ : DirichletCharacter ℂ N) (g : PkgI4.CF N k),
+    0 < N → 2 ≤ k → PkgI4.IsNormalizedEigenform g χ → R14DetConcl ℓ ιC ιL g
+
+/-- **The weight split.** -/
+theorem r14Det_of_wt (h1 : R14DetWt1) (h2 : R14DetWtGe2) : G0Galois.R14Det := by
+  intro ℓ _ ιC ιL N k χ g hN hk hg
+  rcases eq_or_lt_of_le hk with hk1 | hk2
+  · subst hk1
+    exact h1 ℓ ιC ιL N χ g hN hg
+  · exact h2 ℓ ιC ιL N k χ g hN (by omega) hg
+
+/-- **LEAF (Deligne's theorem, in Diamond–Shurman's form).** Diamond–Shurman, *A First Course in
+Modular Forms*, GTM 228 (2005), Thm 9.6.5 (for `k ≥ 2`; from Deligne, Sém. Bourbaki 355 (1969)
+[the Bourbaki talk, publ. 1971], and Shimura 1971 Thm 7.14 for `k = 2`; numbering UNVERIFIED): for a
+normalized eigenform `f ∈ S_k(N, χ)`, `k ≥ 2`, and `λ ∣ ℓ` in `K_f`, there is a continuous
+`ρ_{f,λ} : G_ℚ → GL₂(K_{f,λ})`, unramified at every `p ∤ ℓN`, such that for every maximal ideal `𝔭`
+of `ℤ̄` over `p` the arithmetic Frobenius `Frob_𝔭` has characteristic polynomial
+`x² − a_p(f) x + χ(p) p^{k−1}`. Lean form: coefficients extended along `K_{f,λ} → ℚ̄_ℓ` given by
+`ιL ∘ ιC⁻¹` (the place `λ` is the one `ιL ∘ ιC⁻¹` induces), places of `ℚ̄` as valuation subrings,
+arithmetic Frobenius as pkg-I4's `IsArithFrob`. The semisimplicity of the row is not part of this
+form (Ribet 1977 gives irreducibility; here it is the glue `Semisimplification2`). -/
+def DSThm965 : Prop :=
+  ∀ (ℓ : ℕ) [Fact ℓ.Prime] (ιC : PkgI4.Qbar →ₐ[ℚ] ℂ) (ιL : PkgI4.Qbar →ₐ[ℚ] PadicAlgCl ℓ)
+    (N : ℕ) (k : ℤ) (χ : DirichletCharacter ℂ N) (g : PkgI4.CF N k),
+    0 < N → 2 ≤ k → PkgI4.IsNormalizedEigenform g χ →
+    ∃ ρ : GaloisRep ℓ 2, ∀ p : ℕ, p.Prime → ¬ p ∣ N * ℓ →
+      ρ.UnramifiedAt p ∧ ∃ α β : PkgI4.Qbar, ιC α = PkgI4.coeff g p ∧
+        ιC β = χ (p : ZMod N) * (p : ℂ) ^ (k - 1) ∧
+        ∀ (v : ValuationSubring PkgI4.Qbar) (σ : PkgI4.GQ), PkgI4.LiesOver v p →
+          PkgI4.IsArithFrob σ v p →
+          (ρ.mat σ).charpoly = X ^ 2 - C (ιL α) * X + C (ιL β)
+
+/-- **LEAF (Deligne–Serre, in Diamond–Shurman's form).** Deligne–Serre, *Formes modulaires de
+poids 1*, Ann. Sci. ÉNS 7 (1974), Thm 4.1; Diamond–Shurman Thm 9.6.6 (numbering UNVERIFIED): for a
+normalized eigenform `f ∈ S_1(N, χ)` there is a representation `ρ_f : G_ℚ → GL₂(ℂ)` with finite
+image (continuous for the Krull topology: its kernel is open), unramified at every `p ∤ N`, with
+`tr ρ_f(Frob_𝔭) = a_p(f)` and `det ρ_f(Frob_𝔭) = χ(p)`. Lean form: openness of the kernel as
+"trivial on `Gal(ℚ̄/K)` for a number field `K ⊆ ℚ̄`" is replaced by "finite image" plus continuity
+for the discrete topology being implied (finite image is what the row uses); the unramified
+condition is pkg-I4's, written for a `GL₂(ℂ)`-valued homomorphism. -/
+def DSThm966 : Prop :=
+  ∀ (N : ℕ) (χ : DirichletCharacter ℂ N) (g : PkgI4.CF N 1),
+    0 < N → PkgI4.IsNormalizedEigenform g χ →
+    ∃ ρ : PkgI4.GQ →* GL (Fin 2) ℂ, (Set.range ρ).Finite ∧
+      ∀ p : ℕ, p.Prime → ¬ p ∣ N →
+        (∀ v : ValuationSubring PkgI4.Qbar, PkgI4.LiesOver v p →
+          ∀ σ ∈ v.inertiaSubgroup ℚ, ρ ((σ : v.decompositionSubgroup ℚ) : PkgI4.GQ) = 1) ∧
+        ∀ (v : ValuationSubring PkgI4.Qbar) (σ : PkgI4.GQ), PkgI4.LiesOver v p →
+          PkgI4.IsArithFrob σ v p →
+          (ρ σ : Matrix (Fin 2) (Fin 2) ℂ).trace = PkgI4.coeff g p ∧
+          (ρ σ : Matrix (Fin 2) (Fin 2) ℂ).det = χ (p : ZMod N)
+
+/-- **GLUE (semisimplification in dimension 2; STANDARD, not proved here).** A continuous
+`ρ : G_ℚ → GL₂(ℚ̄_ℓ)` has a continuous semisimple `ρ^ss` with the same characteristic polynomials,
+unramified wherever `ρ` is. Needs: if `ρ` has an invariant line, conjugate it to upper triangular
+form `(χ₁ ∗; 0 χ₂)` and take `diag(χ₁, χ₂)` (continuity of `χᵢ` from the entries; trivial on
+inertia where `ρ` is). -/
+def Semisimplification2 : Prop :=
+  ∀ (ℓ : ℕ) [Fact ℓ.Prime] (ρ : GaloisRep ℓ 2), ∃ ρ' : GaloisRep ℓ 2, ρ'.IsSemisimple ∧
+    (∀ σ, (ρ'.mat σ).charpoly = (ρ.mat σ).charpoly) ∧ ∀ p, ρ.UnramifiedAt p → ρ'.UnramifiedAt p
+
+/-- **GLUE (the determinant from its values at Frobenius; not proved here).** If a continuous
+`ρ : G_ℚ → GL₂(ℚ̄_ℓ)` has `det ρ(Frob_p) = χ(p) p^{k−1}` at the arithmetic Frobenius elements of
+every `p ∤ Nℓ`, then `det ρ = ε χ_ℓ^{k−1}` with `ε` of finite image. Needs: `ε := det ρ · χ_ℓ^{1−k}`
+is continuous and equals `χ(Frob_p)` at those Frobenius elements (`χ_ℓ(Frob_p) = p`, Mathlib's
+cyclotomic character), so it agrees with the finite-order character `χ ∘ (G_ℚ → (ℤ/N)^×)` on a
+dense set (Chebotarev: the kernel's T18, `ZInQKernel/Contrib`), hence everywhere. -/
+def DetFromFrobenius : Prop :=
+  ∀ (ℓ : ℕ) [Fact ℓ.Prime] (ιC : PkgI4.Qbar →ₐ[ℚ] ℂ) (ιL : PkgI4.Qbar →ₐ[ℚ] PadicAlgCl ℓ)
+    (N : ℕ) (k : ℤ) (χ : DirichletCharacter ℂ N) (ρ : GaloisRep ℓ 2), 0 < N →
+    (∀ p : ℕ, p.Prime → ¬ p ∣ N * ℓ → ρ.UnramifiedAt p ∧
+      ∃ β : PkgI4.Qbar, ιC β = χ (p : ZMod N) * (p : ℂ) ^ (k - 1) ∧
+        ∀ (v : ValuationSubring PkgI4.Qbar) (σ : PkgI4.GQ), PkgI4.LiesOver v p →
+          PkgI4.IsArithFrob σ v p → (ρ.mat σ).det = ιL β) →
+    ∃ ε : PkgI4.GQ →* (PadicAlgCl ℓ)ˣ, (Set.range ε).Finite ∧
+      ∀ σ, (ρ.mat σ).det = ((ε σ * G0Galois.cycQ ℓ σ ^ (k - 1) : (PadicAlgCl ℓ)ˣ) : PadicAlgCl ℓ)
+
+/-- **GLUE (an Artin representation as a semisimple `ℓ`-adic one; not proved here).** From
+Deligne–Serre's complex `ρ_f` (finite image), a semisimple `ρ : G_ℚ → GL₂(ℚ̄_ℓ)` attached to `f`
+with `det ρ` of finite image. Needs: a finite subgroup of `GL₂(ℂ)` is conjugate into `GL₂(ℚ̄)`
+(its character values are algebraic and it is realizable over a cyclotomic field: Brauer), then
+`ιL`; semisimplicity by Maschke; `ε := det ρ`, `k − 1 = 0`. -/
+def ArtinTransport : Prop := DSThm966 → R14DetWt1
+
+theorem trace_of_charpoly {ℓ : ℕ} [Fact ℓ.Prime] (M : Matrix (Fin 2) (Fin 2) (PadicAlgCl ℓ))
+    (a b : PadicAlgCl ℓ) (h : M.charpoly = X ^ 2 - C a * X + C b) : M.trace = a := by
+  rw [Matrix.trace_eq_neg_charpoly_coeff, h]
+  simp [coeff_X_pow, coeff_C, coeff_X]
+
+theorem det_of_charpoly {ℓ : ℕ} [Fact ℓ.Prime] (M : Matrix (Fin 2) (Fin 2) (PadicAlgCl ℓ))
+    (a b : PadicAlgCl ℓ) (h : M.charpoly = X ^ 2 - C a * X + C b) : M.det = b := by
+  rw [Matrix.det_eq_sign_charpoly_coeff, h]
+  simp [coeff_X_pow, coeff_C, coeff_X]
+
+/-- **R14Det in weights `≥ 2` from Deligne's theorem (Diamond–Shurman form) and two glue Props.** -/
+theorem r14DetWtGe2_of_ds (hD : DSThm965) (hS : Semisimplification2) (hdet : DetFromFrobenius) :
+    R14DetWtGe2 := by
+  intro ℓ _ ιC ιL N k χ g hN hk hg
+  obtain ⟨ρ0, hρ0⟩ := hD ℓ ιC ιL N k χ g hN hk hg
+  obtain ⟨ρ, hss, hcp, hun⟩ := hS ℓ ρ0
+  have hatt : ρ.AttachedTo ιC ιL g := by
+    intro p hp hpN
+    obtain ⟨hu, α, β, hα, -, hfrob⟩ := hρ0 p hp hpN
+    refine ⟨hun p hu, α, hα, fun v σ hv hσ => ?_⟩
+    exact trace_of_charpoly _ _ _ ((hcp σ).trans (hfrob v σ hv hσ))
+  obtain ⟨ε, hεfin, hε⟩ := hdet ℓ ιC ιL N k χ ρ hN fun p hp hpN => by
+    obtain ⟨hu, α, β, -, hβ, hfrob⟩ := hρ0 p hp hpN
+    exact ⟨hun p hu, β, hβ, fun v σ hv hσ =>
+      det_of_charpoly _ _ _ ((hcp σ).trans (hfrob v σ hv hσ))⟩
+  exact ⟨ρ, hss, hatt, ε, hεfin, hε⟩
+
+/-- **H-22, R14Det, from the two printed theorems and three glue Props.** -/
+theorem r14Det_of_ds (hD : DSThm965) (hDS : DSThm966) (hS : Semisimplification2)
+    (hdet : DetFromFrobenius) (hA : ArtinTransport) : G0Galois.R14Det :=
+  r14Det_of_wt (hA hDS) (r14DetWtGe2_of_ds hD hS hdet)
+
+end R14
+
 end
 
 end ZInQ.Contrib.HodgeSplit
@@ -1016,3 +1195,4 @@ end ZInQ.Contrib.HodgeSplit
 #print axioms ZInQ.Contrib.HodgeSplit.finiteImageHT_of_tate
 #print axioms ZInQ.Contrib.HodgeSplit.deRhamComparisonHT_of_leaves
 #print axioms ZInQ.Contrib.HodgeSplit.t23_all_of_fontaine
+#print axioms ZInQ.Contrib.HodgeSplit.r14Det_of_ds
