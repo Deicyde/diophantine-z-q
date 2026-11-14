@@ -160,9 +160,13 @@ def ordAt (τ : ℂ) : Subring B where
 /-! ## §2. The three Props -/
 
 /-- **LEAF `QMUniformizationC` (Shimura's moduli interpretation of `𝒪^× \ (ℂ ∖ ℝ)`).**
-G. Shimura, *Construction of class fields and zeta functions of algebraic curves*, Ann. of Math.
-85 (1967), §§1-2; J. Voight, *Quaternion algebras*, GTM 288 (2021), Ch. 43 (QM abelian surfaces);
-locators UNVERIFIED. For the maximal order `𝒪` of the indefinite algebra `B = (2, −3)_ℚ`
+G. Shimura, *On analytic families of polarized abelian varieties and automorphic functions*,
+Ann. of Math. 78 (1963), §§2-4; K. Hashimoto, Osaka J. Math. 32 (1995) (explicit splitting and
+normalized lattices); V. Rotger, Trans. AMS 356 (2004) (forgetting the polarization); J. Voight,
+*Quaternion algebras*, GTM 288 (2021), Ch. 43; locators UNVERIFIED. Not one printed statement: the
+published forms are for principally polarized surfaces and `𝒪¹ \ ℍ`; this leaf bundles with them
+the standard facts that QM tori are algebraic, GAGA for homomorphisms, and the passage to the
+unpolarized `𝒪^×` form (independent review, RISK). For the maximal order `𝒪` of the indefinite algebra `B = (2, −3)_ℚ`
 (discriminant `6`, class number one): every QM abelian surface `(A, ι)` over `ℂ` is
 `A_τ = ℂ²/ρ(𝒪)(τ, 1)ᵀ` with `ι(b) = ρ(b)`, for some `τ ∈ ℂ ∖ ℝ` (`H₁(A, ℤ)` is a free rank-one
 `𝒪`-module, and `QM tori are algebraic`); `A_τ ≅ A_τ'` compatibly with `ι` iff `τ' ∈ 𝒪^×·τ`; and
