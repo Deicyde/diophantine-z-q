@@ -10314,6 +10314,72 @@ def SpecialFibreUniformizer : Prop :=
         Ideal.span {(p : 𝒴.left.presheaf.stalk ξ)} ∧
       (p : 𝒴.left.presheaf.stalk ξ) ∈ nonZeroDivisors (𝒴.left.presheaf.stalk ξ)
 
+/-- `p ≠ 0` in every stalk of `Spec ℤ_(p)`. -/
+theorem natCast_ne_zero_stalk_Spec (p : ℕ) [hp : Fact p.Prime]
+    (s : Spec (CommRingCat.of (Zloc p))) :
+    (p : (Spec (CommRingCat.of (Zloc p))).presheaf.stalk s) ≠ 0 := by
+  have hinj := germ_injective_of_isIntegral (Spec (CommRingCat.of (Zloc p))) (U := ⊤) s trivial
+  have h1 : ((p : Γ(Spec (CommRingCat.of (Zloc p)), ⊤))) ≠ 0 := by
+    intro h0
+    have h2 := congrArg (Scheme.ΓSpecIso (CommRingCat.of (Zloc p))).hom.hom h0
+    rw [map_natCast, map_zero] at h2
+    have h3 : algebraMap ℤ (Zloc p) (p : ℤ) = 0 := by simpa using h2
+    have hinjZ : Function.Injective (algebraMap ℤ (Zloc p)) :=
+      IsLocalization.injective (Zloc p) (Ideal.primeCompl_le_nonZeroDivisors (pIdeal p))
+    have : (p : ℤ) = 0 := hinjZ (by rw [map_zero]; exact h3)
+    exact hp.out.ne_zero (by exact_mod_cast this)
+  intro h0
+  apply h1
+  apply hinj
+  rw [map_natCast, map_zero]
+  exact h0
+
+/-- **`p` is a nonzerodivisor in every stalk of a flat `ℤ_(p)`-scheme** (compiled: flatness of the
+stalk maps, `Module.Flat.isSMulRegular_of_nonZeroDivisors`). -/
+theorem natCast_mem_nonZeroDivisors_stalk (p : ℕ) [Fact p.Prime]
+    (𝒴 : Over (Spec (CommRingCat.of (Zloc p)))) [Flat 𝒴.hom] (ξ : 𝒴.left) :
+    (p : 𝒴.left.presheaf.stalk ξ) ∈ nonZeroDivisors (𝒴.left.presheaf.stalk ξ) := by
+  have hflat := Flat.stalkMap 𝒴.hom ξ
+  set φ := (𝒴.hom.stalkMap ξ).hom
+  letI : Algebra _ _ := φ.toAlgebra
+  haveI : Module.Flat _ (𝒴.left.presheaf.stalk ξ) := hflat
+  have hp : (p : (Spec (CommRingCat.of (Zloc p))).presheaf.stalk (𝒴.hom.base ξ)) ∈
+      nonZeroDivisors _ :=
+    mem_nonZeroDivisors_of_ne_zero (natCast_ne_zero_stalk_Spec p _)
+  have hreg := Module.Flat.isSMulRegular_of_nonZeroDivisors (M := 𝒴.left.presheaf.stalk ξ) hp
+  rw [mem_nonZeroDivisors_iff]
+  refine ⟨fun x hx => ?_, fun x hx => ?_⟩
+  · apply hreg
+    show (p : (Spec (CommRingCat.of (Zloc p))).presheaf.stalk (𝒴.hom.base ξ)) • x =
+      (p : (Spec (CommRingCat.of (Zloc p))).presheaf.stalk (𝒴.hom.base ξ)) • (0 : 𝒴.left.presheaf.stalk ξ)
+    rw [smul_zero, Algebra.smul_def, map_natCast]
+    exact hx
+  · apply hreg
+    show (p : (Spec (CommRingCat.of (Zloc p))).presheaf.stalk (𝒴.hom.base ξ)) • x =
+      (p : (Spec (CommRingCat.of (Zloc p))).presheaf.stalk (𝒴.hom.base ξ)) • (0 : 𝒴.left.presheaf.stalk ξ)
+    rw [smul_zero, Algebra.smul_def, map_natCast, mul_comm]
+    exact hx
+
+/-- **Glue (STANDARD scheme theory, not proved), maximal-ideal form**: some point `ξ` of a nonempty
+proper smooth relative curve over `ℤ_(p)` has `𝔪_ξ = (p)` (a generic point of a component of the
+special fibre, which is reduced since it is smooth over `𝔽_p`; Mathlib 4.35 lacks "smooth over a
+field ⇒ reduced"). -/
+def SpecialFibreMaxIdeal : Prop :=
+  ∀ (p : ℕ) [Fact p.Prime] (𝒴 : Over (Spec (CommRingCat.of (Zloc p)))),
+    IsProper 𝒴.hom → SmoothOfRelativeDimension 1 𝒴.hom → Nonempty 𝒴.left →
+    ∃ ξ : 𝒴.left, IsLocalRing.maximalIdeal (𝒴.left.presheaf.stalk ξ) =
+      Ideal.span {(p : 𝒴.left.presheaf.stalk ξ)}
+
+/-- **`SpecialFibreUniformizer` from the maximal-ideal form** (compiled: `p` is regular in every
+stalk by flatness). -/
+theorem specialFibreUniformizer_of_maxIdeal (h : SpecialFibreMaxIdeal) :
+    SpecialFibreUniformizer := by
+  intro p _ 𝒴 hP hS hne
+  obtain ⟨ξ, hm⟩ := h p 𝒴 hP hS hne
+  haveI : SmoothOfRelativeDimension 1 𝒴.hom := hS
+  haveI : Smooth 𝒴.hom := SmoothOfRelativeDimension.smooth 1 𝒴.hom
+  exact ⟨ξ, hm, natCast_mem_nonZeroDivisors_stalk p 𝒴 ξ⟩
+
 /-- **`SpecialFibreDVR` from its uniformizer form** (compiled): stalks of `𝒴` are Noetherian
 (`𝒴` is locally of finite type over the Noetherian `ℤ_(p)`), then `dvr_of_maximalIdeal_eq_span`. -/
 theorem specialFibreDVR_of_uniformizer (h : SpecialFibreUniformizer) : SpecialFibreDVR := by
@@ -10478,6 +10544,14 @@ theorem heckeVertWitness_of_goodReduction₃ (hL : ShimuraGoodReduction) (hRR : 
   heckeVertWitness_of_goodReduction' hL hRR (specialFibreDVR_of_uniformizer hU)
     (modelCoordinateGlue_of hD hB)
 
+/-- **`HeckeVertWitness` from the leaves and three glue Props, finest form** (compiled):
+`SpecialFibreMaxIdeal` (scheme theory: `𝔪_ξ = (p)` at a generic point of the special fibre),
+`ModelCoordinate` (d) and `ModelComparison` (b). -/
+theorem heckeVertWitness_of_leaves (hL : ShimuraGoodReduction) (hRR : R1R2fp)
+    (hMI : SpecialFibreMaxIdeal) (hD : ModelCoordinate) (hB : ModelComparison) :
+    HeckeVertWitness :=
+  heckeVertWitness_of_goodReduction₃ hL hRR (specialFibreUniformizer_of_maxIdeal hMI) hD hB
+
 end VertWitness
 
 end
@@ -10498,6 +10572,9 @@ end
 #print axioms VertWitness.intPolyAlg_eq_eval₂
 #print axioms VertWitness.modelCoordinateGlue_of
 #print axioms VertWitness.heckeVertWitness_of_goodReduction₃
+#print axioms VertWitness.natCast_mem_nonZeroDivisors_stalk
+#print axioms VertWitness.specialFibreUniformizer_of_maxIdeal
+#print axioms VertWitness.heckeVertWitness_of_leaves
 
 /-! ════════════════════════════════════════════════════════════════════════════════════════════
 # vert-witness: the composites over hecke-rest's `HeckeRestAll.lean`
@@ -10537,15 +10614,15 @@ theorem propTSAll_of_goodReduction (t2 : PkgI2.AbhyankarDVR.{0}) (hR : R1R2fp)
   HeckeRestAll.propTSAll_of_heckeRest t2 hR hM hSN hC hKA hO hVF hAI hOI hVI hconn hT hA hS hW
     (heckeVertWitness_of_goodReduction'' hL hR hU hBD)
 
-/-- **`CoverModelOfHecke` from the leaves and the three GR glue Props** (compiled):
-`SpecialFibreUniformizer`, `ModelCoordinate` (d), `ModelComparison` (b). -/
-theorem coverModelOfHecke_of_goodReduction₃ (hconn : Y3Connected) (hRR : R1R2fp)
+/-- **`CoverModelOfHecke` from the leaves and the three GR glue Props, finest form** (compiled):
+`SpecialFibreMaxIdeal`, `ModelCoordinate` (d), `ModelComparison` (b). -/
+theorem coverModelOfHecke_of_leaves (hconn : Y3Connected) (hRR : R1R2fp)
     (hT : ObjBridge.TorsionStructure)
     (hA : HeckeRest.QMAutCard) (hS : HeckeRest.SerreRigidity3) (hW : HeckeRest.ALFixedPoints)
-    (hL : ShimuraGoodReduction) (hU : SpecialFibreUniformizer) (hD : ModelCoordinate)
+    (hL : ShimuraGoodReduction) (hMI : SpecialFibreMaxIdeal) (hD : ModelCoordinate)
     (hB : ModelComparison) : CoverModelOfHecke :=
   HeckeRestAll.coverModelOfHecke_of_heckeRest hconn hRR hT hA hS hW
-    (heckeVertWitness_of_goodReduction₃ hL hRR hU hD hB)
+    (heckeVertWitness_of_leaves hL hRR hMI hD hB)
 
 end VertWitnessAll
 
@@ -10553,4 +10630,4 @@ end
 
 #print axioms VertWitnessAll.coverModelOfHecke_of_goodReduction
 #print axioms VertWitnessAll.propTSAll_of_goodReduction
-#print axioms VertWitnessAll.coverModelOfHecke_of_goodReduction₃
+#print axioms VertWitnessAll.coverModelOfHecke_of_leaves
