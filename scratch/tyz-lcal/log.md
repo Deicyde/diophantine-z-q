@@ -27,3 +27,21 @@ Task: the three L-leaves `TYZThm11Integral`, `TYZLcalOne`, `TYZLemma29Mod2`
 - `ell_one_odd (h11) (h29) : (a:ℂ)^2 = lcalSq 1 → Odd a` (LemmaTwoEight second half at m = 3). VERIFIED.
 - `LValOneBound : Prop := ‖lValOne 1‖ < 9/4 * omegaInt` (glue, numerical).
 - `lcalOne_of_leaves (h11 : TYZThm11Integral) (h29 : TYZLemma29Mod2) (hB : LValOneBound) : TYZLcalOne`. VERIFIED.
+
+## L2. `TYZLcal.lean` complete (single file; `LBound.lean` draft merged and removed). Compiled 2026-11-13 23:07,
+`lake env lean scratch/tyz-lcal/TYZLcal.lean`: no errors, no sorry. `#print axioms` of the ten main declarations:
+`[propext, Classical.choice, Quot.sound]` (VERIFIED).
+- `gaussLambda_one_eq : Λ_{a,b}(1) = ∫_{Ioi 1} θ_{a,b} + ∫_{Ioi 1} θ^dual_{a,b}` (mellin split, `mellin_comp_inv`).
+- `norm_integral_Ioi_one_le`: ‖f‖ ≤ C e^{-c(x-1)} on (1,∞) ⇒ ‖∫_{Ioi 1} f‖ ≤ C/c.
+- `isLContinuation_Fone : IsLContinuation (curveC 1) (Fexp 4 cU)` (explicit Hecke continuation; DeuringCd 1 from
+  `GaussFE.gaussPointCount`; `LSeries_cd_eq`).
+- `lValOne_one_eq : lValOne 1 = Σ_{j ∈ (Fin 4)²} cU(j) · ¼ · π · Λ_{j/4}(1)`.
+- exp bounds: e^{-π} ≤ 1/20, e^{-π/4} ≤ 0.48, e^{-π/16} ≤ 0.83, e^{-9π/16} ≤ 0.18, e^{-3π/2} ≤ 1/50, e^{-5π/2} ≤ 1/1000.
+- kernel majorants for x ≥ 1: |oddKernel(1/4)| ≤ 0.37 e^{-π(x-1)/16}; |evenKernel 0|, |evenKernel ½|, |cosKernel b| ≤ 1.11;
+  |sinKernel a| ≤ 0.112 e^{-π(x-1)}.
+- `norm_gaussLambda_le_A/B : ‖Λ_{a,b}(1)‖ ≤ 6.7/π` on the eight classes with unitOf ≠ 0.
+- `norm_lValOne_one_le : ‖lValOne 1‖ ≤ 3.35` (true value 0.6555). `omegaInt_ge_two : 2 ≤ omegaInt`.
+- `lValOneBound : LValOneBound` (3.35 < 4.5 ≤ 9/4·omegaInt).
+- **`tyzLcalOne_of_leaves (h11 : TYZThm11Integral) (h29 : TYZLemma29Mod2) : TYZLcalOne`**.
+- `tyzThm35ReadingA_of_three_leaves (h11) (h29) (hG : TYZGenusPackage) : TYZThm35ReadingA`.
+- `genusPackage_iff_readingA_of_two (h11) (h29) : TYZGenusPackage ↔ TYZThm35ReadingA`.
