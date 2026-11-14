@@ -48,10 +48,19 @@ def galActπ₀ (Y : Over (Spec (CommRingCat.of ℚ))) (σ : Qbar ≃ₐ[ℚ] Qb
     _root_.ConnectedComponents (baseQbar Y) → _root_.ConnectedComponents (baseQbar Y) :=
   (galAct Y σ).continuous.connectedComponentsMap
 
-/-- **The mod-3 cyclotomic character** `χ₃ : Aut(ℚ̄/ℚ) → (ℤ/3)^×`: `σ(ζ) = ζ^{χ₃(σ)}` for the primitive cube
-roots of unity `ζ`; since `(ℤ/3)^× = {±1}`, `χ₃(σ) = 1` iff `σ` fixes them. -/
+theorem exists_primitive3 : ∃ ω : Qbar, IsPrimitiveRoot ω 3 := by
+  obtain ⟨ω, hω⟩ := IsAlgClosed.exists_root (Polynomial.cyclotomic 3 Qbar)
+    (by rw [Polynomial.degree_cyclotomic]; norm_num)
+  exact ⟨ω, (Polynomial.isRoot_cyclotomic_iff).1 hω⟩
+
+/-- `ℚ̄` contains exactly three cube roots of unity. -/
+theorem card_mu3 : Nat.card {x // x ∈ rootsOfUnity 3 Qbar} = 3 :=
+  exists_primitive3.choose_spec.card_rootsOfUnity
+
+/-- **The mod-3 cyclotomic character** `χ₃ : Aut(ℚ̄/ℚ) → (ℤ/3)^×` (Mathlib's
+`modularCyclotomicCharacter`: `σ(ζ) = ζ^{χ₃(σ)}` for every cube root of unity `ζ`). -/
 def chi3 (σ : Qbar ≃ₐ[ℚ] Qbar) : (ZMod 3)ˣ :=
-  open Classical in if ∀ w : Qbar, IsPrimitiveRoot w 3 → σ w = w then 1 else -1
+  modularCyclotomicCharacter Qbar card_mu3 σ.toRingEquiv
 
 /-- **LEAF (Deligne's components of `Sh_{K₃}` with the Galois action; specialization).**
 
@@ -79,32 +88,30 @@ def DeligneComponentsY3 : Prop :=
 
 /-! ## The orbit computation -/
 
-/-- Some `σ ∈ Aut(ℚ̄/ℚ)` has `χ₃(σ) = −1` (moves a primitive cube root of unity). -/
+/-- Some `σ ∈ Aut(ℚ̄/ℚ)` has `χ₃(σ) = −1` (it sends a primitive cube root of unity `ω` to `ω²`). -/
 theorem exists_chi3_neg : ∃ σ : Qbar ≃ₐ[ℚ] Qbar, chi3 σ = -1 := by
-  obtain ⟨ω, hω⟩ := IsAlgClosed.exists_root (Polynomial.cyclotomic 3 Qbar)
-    (by rw [Polynomial.degree_cyclotomic]; norm_num)
-  have hprim : IsPrimitiveRoot ω 3 := (Polynomial.isRoot_cyclotomic_iff).1 hω
+  obtain ⟨ω, hprim⟩ := exists_primitive3
   have hprim2 : IsPrimitiveRoot (ω ^ 2) 3 := hprim.pow_of_coprime 2 (by norm_num)
   have hmin : minpoly ℚ (ω ^ 2) = minpoly ℚ ω := by
     rw [← Polynomial.cyclotomic_eq_minpoly_rat hprim2 (by norm_num),
       ← Polynomial.cyclotomic_eq_minpoly_rat hprim (by norm_num)]
   obtain ⟨σ, hσ⟩ := (Normal.minpoly_eq_iff_mem_orbit (F := ℚ) (E := Qbar)).1 hmin
+  change σ • ω = ω ^ 2 at hσ
+  rw [AlgEquiv.smul_def] at hσ
   refine ⟨σ, ?_⟩
-  have hne : σ ω ≠ ω := by
-    change σ • ω = ω ^ 2 at hσ
-    rw [AlgEquiv.smul_def] at hσ
-    rw [hσ]
-    intro h
-    have h1 : ω = 1 := by
-      have : ω * (ω - 1) = 0 := by rw [mul_sub, ← sq, h, mul_one, sub_self]
-      rcases mul_eq_zero.1 this with h0 | h0
-      · exact absurd h0 (hprim.ne_zero (by norm_num))
-      · exact sub_eq_zero.1 h0
-    exact absurd h1 (hprim.ne_one (by norm_num))
-  unfold chi3
-  rw [if_neg]
-  intro h
-  exact hne (h ω hprim)
+  set u : Qbarˣ := (hprim.isUnit (by norm_num)).unit with hu
+  have hu1 : (u : Qbar) = ω := rfl
+  have hmem : u ∈ rootsOfUnity 3 Qbar := by
+    rw [mem_rootsOfUnity]; ext; simp [hu1, hprim.pow_eq_one]
+  have hspec := modularCyclotomicCharacter.spec Qbar card_mu3 σ.toRingEquiv hmem
+  change σ (u : Qbar) = (u : Qbar) ^ _ at hspec
+  rw [hu1, hσ] at hspec
+  have hval : ((chi3 σ : (ZMod 3)ˣ) : ZMod 3).val = 2 :=
+    (hprim.pow_inj (by norm_num) (ZMod.val_lt _) hspec).symm
+  apply Units.ext
+  apply ZMod.val_injective
+  rw [hval]
+  rfl
 
 theorem units_zmod3 (t u : (ZMod 3)ˣ) : u = t ∨ u = -1 * t := by
   revert t u; decide

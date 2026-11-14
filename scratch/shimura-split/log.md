@@ -71,3 +71,8 @@
 - Rows.lean regenerated with BG.lean: COMPILED (1 min 33 s, 0 errors, standard axioms).
   `BabaGranathX6'` (= BabaGranathX6 without the surjectivity clause), `babaGranathX6_of : BabaGranathX6' → BabaGranathX6`,
   converse, `r1r2fpRep_of_split6 : GeomConnX6 → PairsLift → BabaGranathX6' → R1rec → R5fp → R1R2fpRep`.
+
+## Step 9: Y3Conn.lean uses Mathlib's cyclotomic character — COMPILED, standard axioms
+- `chi3 σ := modularCyclotomicCharacter Qbar card_mu3 σ.toRingEquiv` (`card_mu3 : Nat.card μ₃(ℚ̄) = 3`, proved);
+  `exists_chi3_neg` reproved through `modularCyclotomicCharacter.spec` and `IsPrimitiveRoot.pow_inj`.
+- Rows.lean regenerated: COMPILED, 0 errors, standard axioms.
