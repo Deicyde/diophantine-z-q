@@ -1,0 +1,66 @@
+
+/-! ## Part 11: `T_ℓ A → A[ℓᵏ]` is onto, from T5 (replaces the leaf `DivisiblePoints` in G12) -/
+
+namespace T5Torsion.TateFree
+
+open PkgI3.Tate
+
+section LiftLevel
+
+variable {ℓ : ℕ} [hℓ : Fact ℓ.Prime] {M : Type*} [AddCommGroup M]
+
+/-- **Every `t ∈ M[ℓᵏ]` is the `k`-th term of an element of `T_ℓ M`**, given the counts. -/
+theorem exists_tate_lift_level (r : ℕ) (hcard : ∀ n : ℕ, Nat.card (tb ℓ M n) = ℓ ^ (n * r))
+    (k : ℕ) (t : M) (ht : ℓ ^ k • t = 0) : ∃ y : T ℓ M, y.1 k = t := by
+  let s : (j : ℕ) → {z : M // ℓ ^ (k + j) • z = 0} := fun j =>
+    Nat.rec ⟨t, ht⟩
+      (fun j z => ⟨(exists_lift r hcard (k + j) z.1 z.2).choose,
+        (exists_lift r hcard (k + j) z.1 z.2).choose_spec.1⟩) j
+  have hs : ∀ j, ℓ • (s (j + 1)).1 = (s j).1 := fun j =>
+    (exists_lift r hcard (k + j) (s j).1 (s j).2).choose_spec.2
+  have hpow : ∀ j, ℓ ^ j • (s j).1 = t := by
+    intro j
+    induction j with
+    | zero => simp [s]
+    | succ j ih => rw [pow_succ, mul_smul, hs j, ih]
+  refine ⟨⟨fun j => ℓ ^ k • (s j).1, ?_, fun j => ?_⟩, ?_⟩
+  · change ℓ ^ k • t = 0
+    exact ht
+  · change ℓ • ℓ ^ k • (s (j + 1)).1 = ℓ ^ k • (s j).1
+    rw [smul_comm, hs j]
+  · exact hpow k
+
+end LiftLevel
+
+/-- **`T_ℓ A → A(K̄)[ℓᵏ]` is onto, from T5 at `K`**, in the exact form of the hypothesis `hsurj`
+of G0Assemble3's `WeilPairing.tatePairing_left_ker` / `det_galRep_sq` (there supplied by
+`tate_surj (hD K A ℓ _)` from the leaf `DivisiblePoints`). -/
+theorem tate_surj_at {k : Type} [Field k]
+    (hT : ∀ (A : Grp (Over (Spec (.of k)))) [PkgI2.IsAbelianVariety A] (g n : ℕ),
+      topologicalKrullDim A.X.left = (g : WithBot ℕ∞) → 0 < n → (n : k) ≠ 0 →
+        ∃ e : PkgI2.torsion A (AlgebraicClosure k) n ≃ (Fin (2 * g) → ZMod n),
+          ∀ x y : PkgI2.torsion A (AlgebraicClosure k) n,
+            ∀ h : x.1 * y.1 ∈ PkgI2.torsion A (AlgebraicClosure k) n, e ⟨x.1 * y.1, h⟩ = e x + e y)
+    (A : PkgI3.AbVar k) (ℓ : ℕ) [Fact ℓ.Prime] (hℓk : (ℓ : k) ≠ 0) :
+    ∀ (m : ℕ) (t : Additive (A.Pt (AlgebraicClosure k))), ℓ ^ m • t = 0 →
+      ∃ y : A.T ℓ, y.1 m = t := by
+  obtain ⟨g, hg⟩ := PkgI3.AbVar.dim_finite A
+  have hcard : ∀ n : ℕ, Nat.card (tb ℓ (Additive (A.Pt (AlgebraicClosure k))) n) =
+      ℓ ^ (n * (2 * g)) := by
+    intro n
+    obtain ⟨e, -⟩ := hT (ObjBridge.toGrp A) g (ℓ ^ n) hg
+      (pow_pos (Fact.out : ℓ.Prime).pos n) (by push_cast; exact pow_ne_zero _ hℓk)
+    rw [← Nat.card_congr (torsionEquivTb A ℓ n), Nat.card_congr e, Nat.card_fun, Nat.card_zmod,
+      Nat.card_eq_fintype_card, Fintype.card_fin, ← pow_mul]
+  exact exists_tate_lift_level (2 * g) hcard
+
+/-- **The same from the bundle's T5** (`TextbookLeaves.t5`). -/
+theorem tate_surj_of_torsionStructure (hT : PkgI2.TorsionStructure.{0}) (K : Type) [Field K]
+    (A : PkgI3.AbVar K) (ℓ : ℕ) [Fact ℓ.Prime] (hℓK : (ℓ : K) ≠ 0) :
+    ∀ (m : ℕ) (t : Additive (A.Pt (AlgebraicClosure K))), ℓ ^ m • t = 0 →
+      ∃ y : A.T ℓ, y.1 m = t :=
+  tate_surj_at (hT K) A ℓ hℓK
+
+end T5Torsion.TateFree
+
+#print axioms T5Torsion.TateFree.tate_surj_of_torsionStructure
