@@ -1,4 +1,5 @@
 import ZInQKernel.Contrib.TYZChain.Bridge
+import ZInQKernel.Contrib.Chebotarev.FrobeniusDenseOfExists
 
 /-!
 # TYZ chain, part 2: tyz-321 (`Lemma321Five`, TYZ Lemma 3.21(1), from Shimura reciprocity)
@@ -6,7 +7,10 @@ import ZInQKernel.Contrib.TYZChain.Bridge
 Task tyz-chain (2026-11-14). This module is lines 3214–5477 of `scratch/tyz-321/L321.lean` (task
 tyz-321, report `docs/research/tyz-321.md`) unchanged. Lines 1–3213 of that file are identical to
 `scratch/cm-bridge/Bridge.lean` lines 1–3213 (checked with `diff`) and are imported here from
-`ZInQKernel.Contrib.TYZChain.Bridge` instead of copied.
+`ZInQKernel.Contrib.TYZChain.Bridge` instead of copied. The one other change: the absolute-Frobenius
+declarations that tyz-321 copied from `ZInQKernel/Contrib/Chebotarev/FrobeniusDenseOfExists.lean`
+(`Zbar`, `toZbar`, `FrobOn`, `FrobExistsFinite`, `FrobExistsAt`, `frobExistsAt_of_finite`,
+`frobExistsFinite` and three helper lemmas, about 130 lines) are imported from that module.
 
 Main results: `T321B.betaOneLiftExists` (a lift of `β₁` exists; Dirichlet, Jacobi reciprocity,
 absolute Frobenius, compactness of `Gal(ℚ̄/ℚ)`), `T321.lemma321Five_of_shimuraModFn'`
@@ -151,136 +155,14 @@ theorem exists_prime_beta (S : Finset ℤ) (B : ℕ) :
       exact Dvd.dvd.mul_right hdvd _
     exact (h1.trans h2)
 
-/-! ### Absolute Frobenius elements (copied from `ZInQKernel/Contrib/Chebotarev/FrobeniusDenseOfExists.lean`,
-namespace `ZInQ.Contrib.ChebFD.C10`, with `GQ` renamed `GalQ`; that module imports all of Mathlib) -/
+/-! ### Absolute Frobenius elements
 
-/-- `\bar ℤ`. -/
-abbrev Zbar : Type := integralClosure ℤ Qbar
+tyz-321 copied these from `ZInQKernel/Contrib/Chebotarev/FrobeniusDenseOfExists.lean` (namespace
+`ZInQ.Contrib.ChebFD.C10`, `GQ` renamed `GalQ`; both are the abbreviation
+`AlgebraicClosure ℚ ≃ₐ[ℚ] AlgebraicClosure ℚ`). tyz-chain imports them instead. -/
 
-/-- `𝓞_E → \bar ℤ`. -/
-noncomputable def toZbar (E : IntermediateField ℚ Qbar) : 𝓞 E →+* Zbar :=
-  RingHom.codRestrict ((algebraMap E Qbar).comp (algebraMap (𝓞 E) E)) (integralClosure ℤ Qbar)
-    (fun x => (RingOfIntegers.isIntegral_coe x).map (IsScalarTower.toAlgHom ℤ E Qbar))
-
-@[simp] lemma toZbar_coe (E : IntermediateField ℚ Qbar) (x : 𝓞 E) :
-    ((toZbar E x : Zbar) : Qbar) = ((x : E) : Qbar) := rfl
-
-lemma card_quot (p : ℕ) [Fact p.Prime] : Nat.card (ℤ ⧸ Ideal.span {(p : ℤ)}) = p := by
-  rw [Nat.card_congr (Int.quotientSpanNatEquivZMod p).toEquiv, Nat.card_zmod]
-
-/-- The Frobenius condition at `𝔓` on the elements of `\bar ℤ` lying in `F`. -/
-def FrobOn (p : ℕ) (P : Ideal Zbar) (F : IntermediateField ℚ Qbar) : Set GalQ :=
-  {h | ∀ x y : Zbar, (x : Qbar) ∈ F → (y : Qbar) = h (x : Qbar) - (x : Qbar) ^ p → y ∈ P}
-
-/-- Finite layer of the absolute Frobenius (copied from `ZInQKernel/Contrib/Chebotarev/FrobeniusDenseOfExists.lean`). -/
-def FrobExistsFinite : Prop :=
-  ∀ (p : ℕ) [Fact p.Prime] (P : Ideal Zbar) [P.IsPrime], P.under ℤ = Ideal.span {(p : ℤ)} →
-    ∀ (F : IntermediateField ℚ Qbar) [FiniteDimensional ℚ F] [IsGalois ℚ F],
-      (FrobOn p P F).Nonempty
-
-/-- Absolute Frobenius at a prime of `\bar ℤ` (copied). -/
-def FrobExistsAt : Prop :=
-  ∀ (p : ℕ) [Fact p.Prime] (P : Ideal Zbar) [P.IsPrime], P.under ℤ = Ideal.span {(p : ℤ)} →
-    ∃ h : GalQ, ∀ x y : Zbar, (y : Qbar) = h (x : Qbar) - (x : Qbar) ^ p → y ∈ P
-
-
-lemma frobOn_anti {p : ℕ} {P : Ideal Zbar} {F F' : IntermediateField ℚ Qbar} (hF : F ≤ F') :
-    FrobOn p P F' ⊆ FrobOn p P F :=
-  fun _ hh x y hx hy => hh x y (hF hx) hy
-
-lemma isClosed_frobOn (p : ℕ) (P : Ideal Zbar) (F : IntermediateField ℚ Qbar)
-    [FiniteDimensional ℚ F] : IsClosed (FrobOn p P F) := by
-  rw [← isOpen_compl_iff, isOpen_iff_forall_mem_open]
-  intro h hh
-  simp only [FrobOn, Set.mem_compl_iff, Set.mem_ofPred_eq, not_forall] at hh
-  obtain ⟨x, y, hx, hy, hyP⟩ := hh
-  refine ⟨(fun k => h⁻¹ * k) ⁻¹' (F.fixingSubgroup : Set GalQ), ?_, ?_, ?_⟩
-  · intro k hk hk'
-    have hfix := (IntermediateField.mem_fixingSubgroup_iff F _).mp hk (x : Qbar) hx
-    change h⁻¹ (k (x : Qbar)) = (x : Qbar) at hfix
-    have hkx : k (x : Qbar) = h (x : Qbar) := by
-      have e := congrArg h hfix
-      rwa [show h (h⁻¹ (k (x : Qbar))) = k (x : Qbar) from AlgEquiv.apply_symm_apply h _] at e
-    exact hyP (hk' x y hx (by rw [hy, hkx]))
-  · exact (IntermediateField.fixingSubgroup_isOpen F).preimage (continuous_const.mul continuous_id)
-  · simp only [Set.mem_preimage, inv_mul_cancel, SetLike.mem_coe]
-    exact one_mem _
-
-instance : IsGalois ℚ Qbar := ⟨⟩
-
-/-- **Step (b) from its finite layer (GLUE, proved): compactness of `G_ℚ`.** -/
-theorem frobExistsAt_of_finite (hf : FrobExistsFinite) : FrobExistsAt := by
-  intro p _ P _ hP
-  let ι := {F : IntermediateField ℚ Qbar // FiniteDimensional ℚ F}
-  have : Nonempty ι := ⟨⟨⊥, inferInstance⟩⟩
-  let t : ι → Set GalQ := fun F => FrobOn p P F.1
-  have htd : Directed (· ⊇ ·) t := by
-    rintro ⟨F₁, h₁⟩ ⟨F₂, h₂⟩
-    refine ⟨⟨F₁ ⊔ F₂, inferInstance⟩, frobOn_anti le_sup_left, frobOn_anti le_sup_right⟩
-  have htn : ∀ F, (t F).Nonempty := by
-    rintro ⟨F, hF⟩
-    let N := IntermediateField.normalClosure ℚ F Qbar
-    have : FiniteDimensional ℚ N := normalClosure.is_finiteDimensional ℚ F Qbar
-    have : Normal ℚ N := normalClosure.normal ℚ F Qbar
-    have : IsGalois ℚ N := ⟨⟩
-    exact (hf p P hP N).mono (frobOn_anti F.le_normalClosure)
-  have htcl : ∀ F, IsClosed (t F) := fun F => by
-    have := F.2
-    exact isClosed_frobOn p P F.1
-  obtain ⟨h, hh⟩ := IsCompact.nonempty_iInter_of_directed_nonempty_isCompact_isClosed t htd htn
-    (fun F => (htcl F).isCompact) htcl
-  refine ⟨h, fun x y hy => ?_⟩
-  have hxi : IsIntegral ℚ (x : Qbar) := Algebra.IsIntegral.isIntegral _
-  have : FiniteDimensional ℚ (IntermediateField.adjoin ℚ {(x : Qbar)}) :=
-    IntermediateField.adjoin.finiteDimensional hxi
-  exact Set.mem_iInter.mp hh ⟨IntermediateField.adjoin ℚ {(x : Qbar)}, this⟩ x y
-    (IntermediateField.mem_adjoin_simple_self ℚ _) hy
-
-/-- **Step (b), finite layer (GLUE, proved from Mathlib).** -/
-theorem frobExistsFinite : FrobExistsFinite := by
-  intro p _ P _ hP F _ _
-  have : NumberField F := ⟨⟩
-  set QF := P.comap (toZbar F) with hQF
-  have hQFp : QF.under ℤ = Ideal.span {(p : ℤ)} := by
-    rw [← hP, Ideal.under, Ideal.under, hQF, Ideal.comap_comap]
-    congr 1
-  have hQFprime : QF.IsPrime := Ideal.comap_isPrime _ _
-  have hQFne : QF ≠ ⊥ := by
-    intro h0
-    have hp : ((p : ℤ) : 𝓞 F) ∈ QF := by
-      change algebraMap ℤ (𝓞 F) (p : ℤ) ∈ QF
-      rw [← Ideal.mem_comap]
-      change (p : ℤ) ∈ QF.under ℤ
-      rw [hQFp]
-      exact Ideal.mem_span_singleton_self _
-    rw [h0, Ideal.mem_bot] at hp
-    have : ((p : ℤ) : 𝓞 F) ≠ 0 := by
-      have := (Fact.out : p.Prime).ne_zero
-      exact_mod_cast this
-    exact this hp
-  have : QF.IsMaximal := hQFprime.isMaximal hQFne
-  let _ := IsIntegralClosure.MulSemiringAction ℤ ℚ F (𝓞 F)
-  have := Algebra.isInvariant_of_isGalois ℤ ℚ F (𝓞 F)
-  obtain ⟨σ, hσ⟩ := IsArithFrobAt.exists_of_isInvariant ℤ (F ≃ₐ[ℚ] F) QF
-  obtain ⟨h, hres⟩ : ∃ h : GalQ, AlgEquiv.restrictNormal h F = σ :=
-    ⟨σ.liftNormal Qbar, σ.restrict_liftNormal Qbar⟩
-  subst hres
-  refine ⟨h, fun x y hx hy => ?_⟩
-  have hxi : IsIntegral ℤ (⟨(x : Qbar), hx⟩ : F) := by
-    rw [← isIntegral_algHom_iff (IsScalarTower.toAlgHom ℤ F Qbar) (algebraMap F Qbar).injective]
-    exact x.2
-  let x' : 𝓞 F := ⟨⟨(x : Qbar), hx⟩, hxi⟩
-  have hmem := hσ x'
-  rw [hQFp, card_quot, hQF, Ideal.mem_comap] at hmem
-  convert hmem using 1
-  apply Subtype.ext
-  rw [hy, map_sub, map_pow, AddSubgroupClass.coe_sub, SubmonoidClass.coe_pow, toZbar_coe,
-    toZbar_coe]
-  congr 1
-  change h (x : Qbar) = ((algebraMap (𝓞 F) F (galRestrict ℤ ℚ F (𝓞 F) _ x')) : Qbar)
-  rw [algebraMap_galRestrict_apply]
-  exact (AlgEquiv.restrictNormal_commutes h F (algebraMap (𝓞 F) F x')).symm
-
+open ZInQ.Contrib.ChebFD.C10 (Zbar toZbar toZbar_coe FrobOn FrobExistsFinite FrobExistsAt
+  frobExistsAt_of_finite frobExistsFinite)
 
 theorem natCast_mem (P : Ideal Zbar) (p : ℕ) (hPp : P.under ℤ = Ideal.span {(p : ℤ)}) :
     (p : Zbar) ∈ P := by

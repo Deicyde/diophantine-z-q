@@ -19,3 +19,8 @@
   `[propext, Classical.choice, Quot.sound]`; `#check` of the main theorem shows exactly the 5 hypotheses
   TYZThm11Integral, TYZLemma29Mod2, Shimura.ShimuraReciprocityModFn, T318.SqrtTwoNotInHHprime,
   ∀ ℓ, IsTYZLcal ℓ → TYZ35.TYZThm33Pinned ℓ. VERIFIED. Output in Check.out.
+- 00:34 L321: replaced tyz-321's ~130-line copy of the absolute-Frobenius part of
+  Contrib/Chebotarev/FrobeniusDenseOfExists.lean (VERIFIED identical up to GQ→GalQ and docstrings, by diff)
+  by `import ZInQKernel.Contrib.Chebotarev.FrobeniusDenseOfExists` + a selective `open`. Rebuild OK (L321 34 s,
+  Main 4 s); Check.lean rerun: 79 × standard axioms. VERIFIED. (Consequence: Main now imports all of Mathlib
+  transitively, through that module's `import Mathlib`.)
