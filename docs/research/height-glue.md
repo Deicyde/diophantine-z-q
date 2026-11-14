@@ -12,7 +12,8 @@ recalled without a source (no network on this host); **SPECULATIVE** = judgement
 
 **All four Props of height-split's glue bundle `HeightGlue` follow from the textbook leaf T35
 alone** (`ZInQ.LeafPush2.UniformizationExists`, already the field `t35` of `HSyn.TextbookLeaves`).
-No new leaf is introduced, and two of the four are proved outright (VERIFIED, standard axioms):
+No new leaf is introduced. `MetrizationOfUniformization` is proved outright, and AN3U follows from
+the kernel's own AN3-existence Prop (VERIFIED, standard axioms):
 
 | glue Prop (height-split) | result here | Lean name |
 |---|---|---|
@@ -26,7 +27,7 @@ Consequently (`Rows.lean`): **the six height rows H-14 to H-19 follow from heigh
 published-form leaves `HeightLeaves` and T35**: `heightRows_of_t35`.
 
 **H-3 (`QMPairEmbeddingCorrespondence`)** is reduced (VERIFIED) to the kernel's textbook leaf
-`T11b_Rigidity` and two new published-form leaves, `CMDescent` (Shimura–Taniyama) and
+`T11b_Rigidity` (the field `t11b` of `TextbookLeaves`) and two new published-form leaves, `CMDescent` (Shimura–Taniyama) and
 `QMUniformizationC` (Shimura's moduli of QM surfaces over `ℂ`):
 `qmPairEmbeddingCorrespondence_of_t11b`, and with height-split's Eichler leaf the row itself,
 `r5fpCount_of_t11b : EichlerOptimalEmbeddingCount → T11b_Rigidity → CMDescent →
