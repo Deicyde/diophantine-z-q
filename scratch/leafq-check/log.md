@@ -63,3 +63,9 @@ Y3Connected 97479, ValenceBoundGammaStar 113443, CMDescends 114469, GammaStarGen
   - glue: ι₀ = endBC⁻¹ ∘ conj_e ∘ ι (T11b gives endBC bijective), level η₀(a) = ι₀(a)·v₀ with v₀ the
     descent of e'(η(1)), Q' from R1fp's naturality clause, Q'.A ≅ A₀_ℂ by the pullback property +
     rigidity (`isMonHom_of_geometricallyIntegral`), CM transported by the ring hom κ.
+- `torsionDescends_of_t5 : PkgI2.TorsionStructure.{0} → TorsionDescends` (VERIFIED): card A(k)[n] = n^{2g}
+  over algebraically closed k from T5 (via `ObjBridge.toGrp`, `UnramTate.trPt` along AlgebraicClosure k ≃ k),
+  ψ = E1Sub.bcPt ∘ AbVarBC.extPt injective, equal cards ⇒ bijective. So CMDescends needs only the new leaf
+  `STQM` (+ bundle leaves r1r2, t11b, t5).
+- Fold.lean: `OpenAddedLeaves7` (cmDescends → stQM), `sixContactMin_of_open7`, 13 s, axioms standard,
+  `example : … → _root_.ZInQ.SixContactMin` compiles. Count 65 (26 + 19 + 19 + 1); LEAF? 7 → 4.
