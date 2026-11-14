@@ -13,8 +13,12 @@ R	r7b	_root_.PkgI2.SerreTatePotentialGood.{0}	consequence of one theorem	Serre-T
 R	r8	_root_.PkgI2.GrothendieckMonodromy.{0}	consequence of one theorem	SGA 7 IX 3.6	pkg-I2	
 R	r9a	_root_.PkgI3.FaltingsSemisimple	published form	Faltings 1983 Satz 3	pkg-I3	
 R	r9b	_root_.PkgI3.FaltingsTate	published form	Faltings 1983 Satz 4, Kor. 1	pkg-I3	
+R	hodgeTateDecompAbVar	_root_.ZInQ.Contrib.HodgeSplit.HodgeTateDecompAbVar	published form (specialization)	C_p (x) V_p(A) = C_p(1)^g + C_p^g, G_F-equivariant (Fontaine, Invent. Math. 65 (1982); Tate 1967 4; Faltings 1988), bases of the two g-dimensional spaces chosen	hodge-split; folded by leaf-fold7	r10 (composite), with deRhamH1AbVarT and Tate's two theorems
+R	deRhamH1AbVarT	_root_.ZInQ.Contrib.HodgeSplit.DeRhamH1AbVarT	published form (transported)	H^1_et(A_Fbar, Q_p), written Hom(V_p A, Q_p), is de Rham with the printed D_dR (Faltings 1989; Tsuji 1999; Scholze 2013 Cor. 1.8, wording read by h-leaves)	hodge-split; folded by leaf-fold7	r10
 R	r11r12	PkgI4.PanBerger	composite	Pan 2022 Thm 1.0.4 with Berger 2002 Thm 0.7 (not splittable: no B_st in Mathlib, hodge-split)	pkg-I4	
-R	r13	PkgI4.EigenformHT	consequence of one theorem	Kato 2004 9.2-9.4 (hodge-split reduced it to the newform case, not statable)	pkg-I4	
+R	eigenformHTNew	_root_.ZInQ.Contrib.HodgeSplit.EigenformHTNew	consequence of one theorem	Kato 2004 9.2-9.4 for newforms, transported to any semisimple attached rho and dualized (Kato's V_f not definable in Mathlib)	hodge-split; folded by leaf-fold7	r13 (the same for all normalized eigenforms: a strictly smaller statement of the same form)
+R	dsThm965	_root_.ZInQ.Contrib.HodgeSplit.DSThm965	published form	Diamond-Shurman, GTM 228, Thm 9.6.5 (Deligne 1971; Shimura 1971 Thm 7.14 for k = 2), coefficients extended along iota_L o iota_C^-1	hodge-split; folded by leaf-fold7	r14 (composite), with dsThm966
+R	dsThm966	_root_.ZInQ.Contrib.HodgeSplit.DSThm966	published form	Deligne-Serre 1974 Thm 4.1; Diamond-Shurman Thm 9.6.6 (k = 1, continuous, finite image)	hodge-split; folded by leaf-fold7	r14
 R	r15	DeligneSerreConseq	composite	Deligne-Serre 1974 Thm 4.1, Lemma 3.2, with T25, T18, T19	hdec-faithful	
 R	r16	_root_.LeafModCurves.R16_EichlerShimuraJ1'	composite	Shimura 1973 Thm 1; Shimura 1971 Thm 7.9; Diamond-Shurman	leaf-modcurves	
 R	r17	_root_.LadicCond.CarayolR17'	consequence of one theorem	Carayol 1986 Theoreme (A) (read by the audit)	g0-mod-newform	
@@ -37,6 +41,7 @@ T	t10	_root_.T10Etale.T10_TateDuality	consequence of one theorem	Milne 1986 Thm 
 T	uniformizationLeafAll	_root_.BPAnalytic.Uniformization.UniformizationLeafAll	published form (coordinate form)	Mumford, Abelian varieties 1 (A^an = C^g/Lambda), in bp-analytic's coordinate form (kernel leaf AN3)	bp-analytic; folded by leaf-fold7 (av-split)	t35 (with mumfordTorsionAlgClosed), homLatticeCorr (with gagaMorphism)
 T	gagaMorphism	_root_.ZInQ.HomLattice.GAGAMorphism	published form (coordinate form)	Serre, GAGA (1956), for homomorphisms of complex abelian varieties (homlattice 3.2)	homlattice, av-split; folded by leaf-fold7	homLatticeCorr (composite)
 T	t11bExists	AVB2.T11bExists	published form (half)	Conrad 2006 3; Milne 1986 20	av-b2	
+T	bdRInvariants	∀ p, _root_.ZInQ.Contrib.HodgeSplit.BdRInvariants p	published form	B_dR^{G_Q_p} = Q_p: Fontaine, Asterisque 223 (1994) Exp. II; Brinon-Conrad, CMI notes 4	hodge-split; folded by leaf-fold7	t23 (consequence)
 T	t24	_root_.PkgI4.EigenformTwist	consequence of one theorem	Shimura 1971 Prop. 3.64; Atkin-Li 1978	hdec-faithful	
 T	yuThm11	QMSplit.Yu.YuThm11	published form	Chia-Fu Yu, J. Pure Appl. Algebra 217 (2013) Thm 1.1 (with its splitting clause; case labels dropped)	qm-split; folded by leaf-fold7	t27 (consequence)
 T	t33	_root_.LeafModCurves.JacobianExists ℚ	published form	Weil; Milne, Jacobian varieties Thm 1.1, Prop. 6.1	leaf-modcurves	
@@ -44,11 +49,13 @@ T	dimJacobianEqGenus	_root_.ZInQ.Contrib.CurvesG.DimJacobianEqGenus	composite	Mi
 T	genusX1Field	_root_.ZInQ.Contrib.CurvesG.GenusX1Field	composite	Shimura 1971 6.7, Prop. 6.9, Prop. 1.40 (not statable in published form, curve-split 3.5)	curves-g	
 T	normalModelOfFunctionFieldQ	_root_.ZInQ.Contrib.CurvesG.NormalModelOfFunctionFieldQ	published form	Stacks 0BXX; Hartshorne I.6.7-6.9	curves-g	
 T	regularSmoothPerfect	_root_.CurveSplit.RegularSmoothPerfect	published form (half)	Stacks 00TV (S_q regular implies S smooth at q over a perfect field)	curve-split; folded by leaf-fold7	normalCurveSmoothQ (composite)
-T	x0Transitive	_root_.ZInQ.RLeaf.X0Transitive	consequence of one theorem	Lang, Elliptic functions Ch. 5 2 Thm 3 (curve-split: also from Igusa's theorem)	t40-igusa	
+T	igusaGL2	_root_.ZInQ.RLeaf.IgusaGL2	published form	Igusa's theorem: the Galois image on E_j[N] over Q(j) is GL_2(Z/N) (Igusa, Amer. J. Math. 81 (1959); Lang, Elliptic functions Ch. 6 3)	t40-igusa (kernel leaf); folded by leaf-fold7 (curve-split)	x0Transitive (consequence)
 T	neronSchemeExtensionExists	_root_.ZInQ.Contrib.NeronC.NeronSchemeExtensionExists	published form (weakened)	BLR 1.4 Thm 3	neron-c	
 A	thetaRatiosAlgebraic	G0Split.ThetaPt.ThetaRatiosAlgebraic	composite	Shimura 1976; Mumford Tata II IIIa 8; Igusa (qm-split: ThetaNullNonvanishing + glue, not folded)	g0-thetapoint	
 A	qmHauptmodulBase3	LeafQCheck.HM.QMHauptmodulBase3	composite	Lin-Yang 2020 Ex. 29; Igusa; Hashimoto 1995; Elkies 1998 (qm-split: valence formula + Shimizu + glue, not folded)	leafq-check	
 A	qmCentralizerCMC	QMSplit.Aut.QMCentralizerCMC	published form	End_O(A) of a QM surface over C is Z or an optimally embedded order Phi^-1(O) of an imaginary quadratic k: Shimura 1967 1-3; Jordan 1981 3; Gonzalez-Rotger 2006 5	qm-split; folded by leaf-fold7	cmOptimalEmbedding (consequence), qmAutCard (composite), alFixedPoints (composite)
+A	tateTwistInvariants	_root_.ZInQ.Contrib.HodgeSplit.TateTwistInvariants	published form	C_p(i)^{G_K} = 0 for i != 0, K finite over Q_p in Qbar_p: Tate, p-divisible groups (1967) 3.3 Thm 2	hodge-split; folded by leaf-fold7	senTwist (consequence), finiteImageHT (composite), with axSenTate; also used for r10
+A	axSenTate	_root_.ZInQ.Contrib.HodgeSplit.AxSenTate	published form	C_p^{G_K} = K: Tate 1967 3.3 Thm 1; Sen 1969; Ax 1970	hodge-split; folded by leaf-fold7	senTwist, finiteImageHT, r10
 A	t09SymmIsogenyExists	WeilPairing.T09_SymmIsogenyExists	consequence of one theorem	Mumford 6, 8, 20, 23 (not splittable, av-split 4.1)	weil-pairing	
 A	milneIsogenyQuasiInverse	_root_.AvSplit.MilneIsogenyQuasiInverse	published form (weakened)	fg = [d], gf = [d] as morphisms: Milne 1986 Rem. 8.4; Milne's notes Prop. 7.1; Mumford 7	av-split; folded by leaf-fold7	isogenyQuasiInverse (consequence)
 A	x6ConicModel	X6Kummer.X6ConicModel	consequence of one theorem	Kurihara 1979; Elkies 1998 3	x6-kummer	
@@ -59,4 +66,5 @@ A	valenceFormulaGammaStar	LeafQCheck.VB.ValenceFormulaGammaStar	consequence of o
 A	egaIV_8_8_2_ii	_root_.ZInQ.Contrib.SpreadOut.EGAIV_8_8_2_ii	published form	EGA IV_3 8.8.2 (ii)	spread-out	
 A	egaIV_8_10_5_xii	_root_.ZInQ.Contrib.SpreadOut.EGAIV_8_10_5_xii	published form	EGA IV_3 8.10.5 (xii)	spread-out	
 A	egaIV_17_7_8_ii	_root_.ZInQ.Contrib.SpreadOut.EGAIV_17_7_8_ii	published form	EGA IV_4 17.7.8 (ii)	spread-out	
-A	shimuraGoodReduction	VertWitness.ShimuraGoodReduction	composite	Kottwitz 1992 5; Buzzard 1997; Morita 1981; Carayol 1986 (not statable in published form, curve-split 3.6)	vert-witness	
+A	shimuraGoodReductionNoGuard	CurveSplitGR.ShimuraGoodReductionNoGuard	composite	vert-witness's ShimuraGoodReduction without the Qbar-point guard (redundant given r1r2): Kottwitz 1992 5; Buzzard 1997; Morita 1981; Carayol 1986 (not statable in published form today, curve-split 3.6)	curve-split; folded by leaf-fold7	shimuraGoodReduction (a strictly smaller statement of the same form)
+G	quotientP1Coordinate	MCRGlue.QuotientP1Coordinate	project glue	a finite q : Y -> Z over Z_(p) and Z = P^1_{Z_(p)} by charts with R2fp's fibre relation for the composite: the tame quotient Y/Gamma' = P^1 (SGA 1 Exp. V); no quotient schemes or P^1_{Z_(p)} in Mathlib 4.35	mcr-glue; folded by leaf-fold7	modelCoordinateResidue (the residue clause proved)

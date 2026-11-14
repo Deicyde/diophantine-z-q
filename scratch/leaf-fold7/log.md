@@ -37,3 +37,7 @@
   `namespace HDec` over the chain's own vert-witness definitions (curve-split's root copies of `IsShimuraModel` etc.
   not used); `shimuraGoodReduction_of_noGuard` with `R1R2fp` from the field `r1r2`. Main builds, axioms standard,
   DumpCompact rerun.
+- 08:20 Check7.lean (closure 186483 constants, no sorryAx; 69 fields, 33 kernel heads) -> check7_result.txt;
+  verbatim_check7.py -> verbatim_check7_out.txt (only documented removals; one docstring line of X0Split that my
+  generator had dropped was restored in TailR, then rebuilt and rechecked).
+- 08:40 report docs/research/leaf-fold7.md written (head + generated field tables + tail in scratch/leaf-fold7/).
