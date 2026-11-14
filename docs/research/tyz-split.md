@@ -134,14 +134,17 @@ def TYZThm33 : Prop :=
   `√d₁` resp. `√d₁*` (if the square root were not in `H_n` no `χ` would qualify, which would only
   weaken the leaf; it is in `H_n`, `sqrt_pstar_mem'`).
 
-**Remaining HUMAN CHECK (inherited, not new).** The leaf uses the kernel's pinned `z_n` (`basePt`):
-for `n ≡ 5`, `(1 − [i]) f₀(P_n)`. TYZ's `f_n = f₀ − f₀∘[i]` with `[i]` an automorphism of
-`X_U ≅ X₀(32)_{ℚ(i)}`; on `ℂ`-points `f₀∘[i] = [±i]∘f₀` depending on the component of `X_U` that
-carries `P_n = [h, 1]`. The sign was pinned numerically by cm-numeric / tyz-t1 (Theorem 3.3 checked
-on 73 contributing pairs and 102 excluded characters) and is coupled to the `K_n(√d₁)` convention
-(tyz-35 §2.4(b)); it is not derived from the text here. With the other sign the leaf would be
-**false**, not weaker (`1 + [i] = [i](1 − [i])` swaps the `±1`/`±i` classes and moves `𝒫` into
-`[i]A(K_{d₀})^-`) — this is the one load-bearing unprinted input of the leaf.
+**The `[i]`-sign of `z_n` (resolved from the text, 2026-11-14 statement review).** The leaf uses the
+kernel's pinned `z_n` (`basePt`): for `n ≡ 5`, `(1 − [i]) f₀(P_n)`. TYZ fix this sign. In the proof of
+the Hecke-action proposition for `n ≡ 5` the cusps `[∞,1]` and `[0]` lie on the component of `P_n`
+and the proof finds `α = −i` (about L1238, L1519, L1551, L1564-1566), so TYZ's `[i]` acts as `+i`
+there. With that sign `f_n = f₀∘[1 − i]` (about L1584) is `ϖ`-invariant up to 2-torsion (about
+L1586-1589), which Prop. 3.1 and the proof of Theorem 3.3 (about L1909-1912) need; Theorem 3.6(1)
+(about L1411-1413) also holds for one sign only. This agrees with cm-numeric / tyz-t1's numerics
+(Theorem 3.3 checked on 73 contributing pairs and 102 excluded characters). With the other sign the
+lifts do not commute with `[i]`, the contributing and excluded characters swap, and the leaf would be
+**false**, not weaker. One assumption is not re-checked here: that the kernel's `X0.phiC` is the
+`ℚ`-rational parametrization (kernel leaf `X0.X0AnalyticModel`).
 
 **Non-vacuity.** The hypothesis on `ℓ` is satisfiable only if every `𝓛(m)²`, `m ≡ 1, 3`, is an integer
 square (`TYZThm11Integral`); otherwise `TYZThm33` and the row are vacuously true. The reviewer checked
@@ -235,8 +238,8 @@ finitely many coordinate functions at each level, and the non-CM input holds at 
 ## 5. What remains
 
 * T-11: the leaf `TYZThm33` (TYZ Theorem 3.3; its proof needs the explicit Gross–Zagier formula of
-  Yuan–Zhang–Zhang, TYZ Thm A.9 L3062–3077, Néron–Tate heights and Kolyvagin, none in Lean); the
-  inherited HUMAN CHECK on the `[i]`-sign of `z_n` (§2.2).
+  Yuan–Zhang–Zhang, TYZ Thm A.9 L3062–3077, Néron–Tate heights and Kolyvagin, none in Lean). The
+  `[i]`-sign of `z_n` is fixed by the text (§2.2).
 * T-5: `CMModuli` and `X0RatStructure` (GLUE). A printed-form CM leaf would need Shimura's Thm 5.4 in
   idelic form over Tau Ceti's `absoluteArtinMap`, plus the lattice computation, in Lean.
 * Integration: `T11.lean` and `T5.lean` import kernel modules only (`TYZChain.Main`, `ShimuraModFn`);

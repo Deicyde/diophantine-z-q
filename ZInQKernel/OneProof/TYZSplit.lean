@@ -128,9 +128,13 @@ Encoding (a reading of the same display, never stronger):
   `2y² = x³ + x` by `(x, y) ↦ (2x, 4y)`, compatibly with `[i]`; `z_n = f_n(P_n)` is the kernel's
   pinned point `TYZ35.basePt n` (cm-numeric/cm-bridge; `(1 − [i]) f₀(P_n)` for `n ≡ 5`). TYZ print
   `f_n = f₀ − f₀∘[i]` (L1196) with `[i]` an automorphism of `X_U ≅ X₀(32)_{ℚ(i)}`; reading it as
-  `(1 − [i])∘f₀` with this sign of `i` is NOT printed: it was chosen numerically (cm-numeric, tyz-t1).
-  With the other sign (`1 + [i] = [i](1 − [i])`) the `±1`/`±i` classes swap and the leaf would be
-  false, not weaker. HUMAN CHECK.
+  `(1 − [i])∘f₀` with this sign of `i` is fixed by the paper: in the proof of the Hecke-action
+  proposition for `n ≡ 5` the cusps `[∞,1]`, `[0]` lie on the component of `P_n` and `α = −i`
+  (about L1238, L1519, L1551, L1564-1566), so TYZ's `[i]` acts as `+i` there; with this sign
+  `f_n = f₀∘[1 − i]` (about L1584) is `ϖ`-invariant up to 2-torsion (about L1586-1589), as Prop. 3.1
+  and the proof of Thm 3.3 (about L1909-1912) need. It agrees with cm-numeric's numerics. With the
+  other sign the lifts do not commute with `[i]`, the contributing and excluded characters swap,
+  and the leaf would be false, not weaker (statement review of tyz-split, 2026-11-14).
 * Non-vacuity: the hypothesis on `ℓ` is satisfiable only if every `𝓛(m)²` (`m ≡ 1, 3`) is an integer
   square, i.e. together with `TYZThm11Integral` (TYZ Thm 1.1); otherwise the leaf (and the row,
   through `IsTYZLcal`) is vacuously true.
