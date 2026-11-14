@@ -1,0 +1,180 @@
+{
+  "schema": "reviewed-given-b2-source-increment-v3",
+  "base_commit": "81b337f18425f4aa55b608c498e739ddd9ac66af",
+  "previous_optional_files_unchanged": 75,
+  "new_paths_including_self": 21,
+  "new_Lean_files": 18,
+  "Lean_reproduction_targets": 17,
+  "failed_v1_Lean_history_not_compilation_target": 1,
+  "file_entries": [
+    {
+      "public_path": "scratch/c10-arithmetic-climb/b2/B2PackingTarget.lean",
+      "original_path": "/tmp/issue37-consolidation-a23f44c9/climb/parallel/finite-coefficient-field/b2-source-v1/B2PackingTarget.lean",
+      "bytes": 8853,
+      "sha256": "7a88710e17684abea6ff32e9381ba49d95e2eb5945e0f173abb215dde29b6df2",
+      "gitblob": "9878ca8ee3603bc83a92ddda5d945762c8806ba7",
+      "role": "byte-identical reviewed source"
+    },
+    {
+      "public_path": "scratch/c10-arithmetic-climb/b2/B2PackingProof.lean",
+      "original_path": "/tmp/issue37-consolidation-a23f44c9/climb/parallel/finite-coefficient-field/b2-proof-v1/B2PackingProof.lean",
+      "bytes": 14750,
+      "sha256": "0f8f555a7f692f8e275480c1eda38a789a20f204b769163fe568737946f0c8c1",
+      "gitblob": "5df93213041c4723513f6353b53703174d320261",
+      "role": "byte-identical reviewed source"
+    },
+    {
+      "public_path": "scratch/c10-arithmetic-climb/b2/B2PackingChecks.lean",
+      "original_path": "/tmp/issue37-consolidation-a23f44c9/climb/parallel/finite-coefficient-field/b2-proof-v1/B2PackingChecks.lean",
+      "bytes": 6382,
+      "sha256": "a9a807a8ec78d73a272f6361e6d11f64c78509f0918e396b7a71031630820a8f",
+      "gitblob": "212a2ea766869e7df3017a6ad3e790d4b2a9c4a2",
+      "role": "byte-identical reviewed source"
+    },
+    {
+      "public_path": "scratch/c10-arithmetic-climb/b2/B2PackingWitnesses.lean",
+      "original_path": "/tmp/issue37-consolidation-a23f44c9/climb/parallel/finite-coefficient-field/b2-controls-v1/B2PackingWitnesses.lean",
+      "bytes": 3404,
+      "sha256": "741efce40d8f2d1dd18e6ce0c854d7bec0c4b150136b6f38367b0a434368c5bb",
+      "gitblob": "30c463ad5fe6e16301354eff5b8316a247177588",
+      "role": "byte-identical reviewed source"
+    },
+    {
+      "public_path": "scratch/c10-arithmetic-climb/controls/b2/TAXONOMY.md",
+      "original_path": "/tmp/issue37-consolidation-a23f44c9/climb/parallel/finite-coefficient-field/b2-controls-v1/TAXONOMY.md",
+      "bytes": 4207,
+      "sha256": "5fcef1c7910a1a62172bb3ae24c19a7d7cc6013f005d1dd818a2ed82d2f2290f",
+      "gitblob": "c966bc4d8671d677de95c786ce6ee882156ecb87",
+      "role": "byte-identical reviewed source"
+    },
+    {
+      "public_path": "scratch/c10-arithmetic-climb/controls/b2/failed-v1/BadZeroPolynomialGuard.lean",
+      "original_path": "/tmp/issue37-consolidation-a23f44c9/climb/parallel/finite-coefficient-field/b2-controls-v1/neg/BadZeroPolynomialGuard.lean",
+      "bytes": 411,
+      "sha256": "cec4a18c67c646c349341cdb3c709fb10bbfa49553ba87f2647ae2759002da9e",
+      "gitblob": "b77a736124a64a1f4129a8a6beea8df75a8cb9f6",
+      "role": "failed-source history only, uncredited and not a reproduction target"
+    },
+    {
+      "public_path": "scratch/c10-arithmetic-climb/controls/b2/BadNoNeZero.lean",
+      "original_path": "/tmp/issue37-consolidation-a23f44c9/climb/parallel/finite-coefficient-field/b2-controls-v1/neg/BadNoNeZero.lean",
+      "bytes": 385,
+      "sha256": "a6be75b988db77db7ab69ec8513b239f82840f2bc663881e42e829389656bd20",
+      "gitblob": "cd9eb5ad39af99d3b1fb0e8a90ec0804232bc70e",
+      "role": "byte-identical reviewed source"
+    },
+    {
+      "public_path": "scratch/c10-arithmetic-climb/controls/b2/BadNoBetaSquare.lean",
+      "original_path": "/tmp/issue37-consolidation-a23f44c9/climb/parallel/finite-coefficient-field/b2-controls-v1/neg/BadNoBetaSquare.lean",
+      "bytes": 427,
+      "sha256": "b054abc82b0105e74a468abdf1bcb4f2f525e1bc29688c823447534b9bb27c93",
+      "gitblob": "cd97659a431339c0bfdea8cf73f90f82fe2f8074",
+      "role": "byte-identical reviewed source"
+    },
+    {
+      "public_path": "scratch/c10-arithmetic-climb/controls/b2/BadNoSignCertificate.lean",
+      "original_path": "/tmp/issue37-consolidation-a23f44c9/climb/parallel/finite-coefficient-field/b2-controls-v1/neg/BadNoSignCertificate.lean",
+      "bytes": 384,
+      "sha256": "05c5789225c637c0bdcf1438f56af3bcb68b1725560fb627cc1d99da91c3298c",
+      "gitblob": "f8838e82e916d60ce658a33102bfd890e353e11e",
+      "role": "byte-identical reviewed source"
+    },
+    {
+      "public_path": "scratch/c10-arithmetic-climb/controls/b2/BadZeroPolynomialGuard.lean",
+      "original_path": "/tmp/issue37-consolidation-a23f44c9/climb/parallel/finite-coefficient-field/b2-controls-v2/neg/BadZeroPolynomialGuard.lean",
+      "bytes": 427,
+      "sha256": "90e87f1f3447bc45af5340f4c26858dddf7e6999671b0f736859f69778bde389",
+      "gitblob": "e2ec3820ec79300a494db32994b469ba73229a3a",
+      "role": "byte-identical reviewed source"
+    },
+    {
+      "public_path": "scratch/c10-arithmetic-climb/controls/b2/BadSampledBetaRange.lean",
+      "original_path": "/tmp/issue37-consolidation-a23f44c9/climb/parallel/finite-coefficient-field/b2-controls-v1/neg/BadSampledBetaRange.lean",
+      "bytes": 345,
+      "sha256": "4cc2a0d44579399ba715ebf96a617fa8f0356fe6346bdfeaf382ffd6b0fcf1e5",
+      "gitblob": "14b30b64e6e8e7376d0ffbc2889e36552d187356",
+      "role": "byte-identical reviewed source"
+    },
+    {
+      "public_path": "scratch/c10-arithmetic-climb/controls/b2/BadSampledEpsilonRange.lean",
+      "original_path": "/tmp/issue37-consolidation-a23f44c9/climb/parallel/finite-coefficient-field/b2-controls-v1/neg/BadSampledEpsilonRange.lean",
+      "bytes": 360,
+      "sha256": "39776d3c35ab7ddc967a8a3e4bc1bde50854805258f5825ef9d5d04c94eae5b0",
+      "gitblob": "f4a9f883d9fe91a860178d1823e1d3a70609d2f1",
+      "role": "byte-identical reviewed source"
+    },
+    {
+      "public_path": "scratch/c10-arithmetic-climb/controls/b2/BadReplacementValue.lean",
+      "original_path": "/tmp/issue37-consolidation-a23f44c9/climb/parallel/finite-coefficient-field/b2-controls-v1/neg/BadReplacementValue.lean",
+      "bytes": 539,
+      "sha256": "1f05477423c18c584b67d01beec81f48584673a95eecaae8c8caea5e392bcd75",
+      "gitblob": "8c5563c86327aaea877aa9a1cd4dc61f7aa20655",
+      "role": "byte-identical reviewed source"
+    },
+    {
+      "public_path": "scratch/c10-arithmetic-climb/controls/b2/BadSecondPlace.lean",
+      "original_path": "/tmp/issue37-consolidation-a23f44c9/climb/parallel/finite-coefficient-field/b2-controls-v1/neg/BadSecondPlace.lean",
+      "bytes": 601,
+      "sha256": "91a70d345e5d59400eca65efae0563c00bae182fdb9464ac5360e881c609f56d",
+      "gitblob": "308f543923647202cc76e40ae5e603e8a21daabb",
+      "role": "byte-identical reviewed source"
+    },
+    {
+      "public_path": "scratch/c10-arithmetic-climb/controls/b2/BadSubstitutedField.lean",
+      "original_path": "/tmp/issue37-consolidation-a23f44c9/climb/parallel/finite-coefficient-field/b2-controls-v1/neg/BadSubstitutedField.lean",
+      "bytes": 543,
+      "sha256": "9f9b73ee79998b61bff2d69823e63fbc436daa7607c763675e88df9c2ccdc36d",
+      "gitblob": "9a8188df3d5278201f01a2071e3cb7e5e12289ab",
+      "role": "byte-identical reviewed source"
+    },
+    {
+      "public_path": "scratch/c10-arithmetic-climb/controls/b2/BadUnconditionalNormalization.lean",
+      "original_path": "/tmp/issue37-consolidation-a23f44c9/climb/parallel/finite-coefficient-field/b2-controls-v1/neg/BadUnconditionalNormalization.lean",
+      "bytes": 503,
+      "sha256": "99f130c38e603c1b11b01e72faea376e6dbdc616b2e721aa5e8b55044ff8275a",
+      "gitblob": "5819ee0b02d6a3c00864492c4673f3fd7506d975",
+      "role": "byte-identical reviewed source"
+    },
+    {
+      "public_path": "scratch/c10-arithmetic-climb/controls/b2/BadLCFromFiniteRange.lean",
+      "original_path": "/tmp/issue37-consolidation-a23f44c9/climb/parallel/finite-coefficient-field/b2-controls-v1/neg/BadLCFromFiniteRange.lean",
+      "bytes": 410,
+      "sha256": "0540953c16a28b080ea1ff835bf538b5737c076896656b1ec93e86de8d71541f",
+      "gitblob": "2edd92ee38fde135126c877904c1a07d5119253f",
+      "role": "byte-identical reviewed source"
+    },
+    {
+      "public_path": "scratch/c10-arithmetic-climb/controls/b2/BadExternalComplexCertificate.lean",
+      "original_path": "/tmp/issue37-consolidation-a23f44c9/climb/parallel/finite-coefficient-field/b2-controls-v1/neg/BadExternalComplexCertificate.lean",
+      "bytes": 669,
+      "sha256": "7f5f52b8b45209bbf34c3726b42a863bcadaacf06fb53ff8cc1ecbcae0d7bc70",
+      "gitblob": "7a2e6028f11a06cb2124a7739f9d5f99146fb4c2",
+      "role": "byte-identical reviewed source"
+    },
+    {
+      "public_path": "scratch/c10-arithmetic-climb/controls/b2/BadUnitOnlyCharacterRange.lean",
+      "original_path": "/tmp/issue37-consolidation-a23f44c9/climb/parallel/finite-coefficient-field/b2-controls-v1/neg/BadUnitOnlyCharacterRange.lean",
+      "bytes": 475,
+      "sha256": "73ee2c7e15ae4dc6e591a387ba3d2682098b31bc805bd620ba540cd3ddf8eb80",
+      "gitblob": "983c83fc2d0bd290187c1afe120c31884bc95448",
+      "role": "byte-identical reviewed source"
+    },
+    {
+      "public_path": "scratch/c10-arithmetic-climb/INCREMENT3-README.md",
+      "bytes": 4590,
+      "sha256": "2a44868039bb56e66cbb20d8cbe6f3de90db99330a447f8c517d72f3ee3fcd96",
+      "gitblob": "410f1e833a1bf9d46b172006b9d7d3bf88d9b41f",
+      "role": "Additive publication scope and preserved-history explanation, not a new proof."
+    }
+  ],
+  "accepted_provider_source_sha256": "0f8f555a7f692f8e275480c1eda38a789a20f204b769163fe568737946f0c8c1",
+  "independent_final_report_sha256": "8369175416f608bdb948ca51da001b18e0c9b86e0c79f9994723df8c7371265d",
+  "independent_acceptance_receipt_sha256": "89d5df545eeb80ea50ed60e9f8919f59d28ec17ab2dd94a1b57f216207df71fc",
+  "independent_final_evidence_url": "https://artifacts.internalmeta.com/a/1617704912798116",
+  "source_and_operator_failures_preserved": true,
+  "default_root_workflows_pins_manuscript_shared_PRs_unchanged": true,
+  "hodge_sources_included": false,
+  "admission_grade": "Bounded independent source/mathematics/type/API/caller/ParentA-execution/controls review, not reviewer compile, imported-library replay, designated App or release acceptance.",
+  "not_arithmetic_B2_existence_common_C10_Tate_field_H_or_Hilbert10": true,
+  "destination_replay_grade": "Pending at manifest creation; the original proof/test evidence is separate and already accepted."
+}
