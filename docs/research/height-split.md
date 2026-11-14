@@ -15,7 +15,7 @@ mathematics with a reference; **UNVERIFIED** = theorem number or display recalle
 **All six rows are now Lean theorems.** Each one is proved from published-form leaves, the kernel's
 proved glue and, for four rows, a named GLUE Prop. The rows are the kernel's own Props, imported and
 never restated. Both files compile with `lake env lean`: no `sorry`, no errors, and every
-`#print axioms` reports `[propext, Classical.choice, Quot.sound]` (VERIFIED, last full runs 05:10;
+`#print axioms` reports `[propext, Classical.choice, Quot.sound]` (VERIFIED, last full runs 03:35 PST;
 §6).
 
 **The common step: the H5 identification.** Five of the rows are about the kernel's
@@ -283,7 +283,7 @@ printed is UNVERIFIED; the `𝒪^×` form is the one that matches the hand check
 
 All checks used `lake env lean`, one process at a time (VERIFIED).
 - **`scratch/height-split/HeightSplit.lean`.** It imports `ZInQKernel.HDecomp.LeafPush2.R22` and
-  `ZInQKernel.Contrib.HeightBC.Main`. Exit 0, no errors or warnings, about 10 s. All 16
+  `ZInQKernel.Contrib.HeightBC.Main`. Exit 0, no errors or warnings, about 10 s. All 15
   `#print axioms` lines are standard.
 - **`scratch/height-split/R5Count.lean`.** It imports `ZInQKernel.HDecomp.QM.Leaves`. Exit 0, about
   6 s. `#print axioms R5.r5fpCount_of` is standard.

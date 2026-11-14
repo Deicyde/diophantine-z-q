@@ -4,7 +4,7 @@ Task height-split (2026-11-14). Base cba8157f. Lean files: scratch/height-split/
 with `lake env lean` (one process at a time). Marks: VERIFIED / STANDARD / SPECULATIVE / UNVERIFIED.
 
 ## Setup
-- 03:15 `lake build ZInQKernel.HDecomp.Faltings.Leaves ZInQKernel.HDecomp.LeafPush2.Bridge
+- `lake build ZInQKernel.HDecomp.Faltings.Leaves ZInQKernel.HDecomp.LeafPush2.Bridge
   ZInQKernel.Contrib.HeightBC.Main ZInQKernel.HDecomp.QM.Leaves`: success (VERIFIED).
 - Rows located (VERIFIED, read): R18 `ZInQKernel/HDecomp/LeafPush2/R18.lean`, R22 `.../R22.lean`,
   R20/R21 `ZInQKernel/HDecomp/Faltings/Leaves.lean`, StableHeightFinite `.../Faltings/Height.lean`,
@@ -14,7 +14,7 @@ with `lake env lean` (one process at a time). Marks: VERIFIED / STANDARD / SPECU
   `openSubgroupHeight`, `neronModelMinimal`, `H5Neron.groupModelBaseChangeExists`,
   `stableFaltingsHeight_eq_neron_of_N1N2`.
 
-## HeightSplit.lean (03:20-04:00)
+## HeightSplit.lean (first pass, 03:20-03:30)
 - `scratch/height-split/HeightSplit.lean` imports `ZInQKernel.HDecomp.LeafPush2.R22` and
   `ZInQKernel.Contrib.HeightBC.Main`. `lake env lean`: exit 0, no errors, no warnings (VERIFIED, ~10 s).
 - 10 `#print axioms`: all `[propext, Classical.choice, Quot.sound]` (VERIFIED).
@@ -32,7 +32,7 @@ with `lake env lean` (one process at a time). Marks: VERIFIED / STANDARD / SPECU
   (`log(2π)+log π < 3`), `r18_of_leaves` (H-14), `r20_of_leaves` (H-16), `r22_of_leaves` (H-18),
   `absLogHeight_le_absLogHeightL2`, `pazuki_upper_of_two_sided`.
 
-## R5Count.lean (04:00-04:20)
+## R5Count.lean
 - `scratch/height-split/R5Count.lean` imports `ZInQKernel.HDecomp.QM.Leaves`; `lake env lean`: exit 0,
   no errors (VERIFIED, ~6 s). `#print axioms r5fpCount_of`: `[propext, Classical.choice, Quot.sound]`.
 - New definitions: `OptEmb` (optimal embeddings `k → B`, `φ⁻¹(O) = R`), `embSetoid` (conjugacy by
@@ -41,7 +41,7 @@ with `lake env lean` (one process at a time). Marks: VERIFIED / STANDARD / SPECU
   UNVERIFIED; caveat: some sources count mod O¹ with factor 2). Glue `QMPairEmbeddingCorrespondence`
   (Shimura uniformization; an Equiv). Proved `r5fpCount_of : Eichler → Correspondence → R5fpCount`.
 
-## MetrizedDimUnique proved (04:40-05:00)
+## MetrizedDimUnique proved
 - `scratch/height-split/DimUnique.lean` (dev file, imports `ZInQKernel.HDecomp.Faltings.Height`):
   `card_sq_eq_one_of_uniformization` (`#{p : p² = 1} = 2^{2g}` for a surjective hom `ℂ^g → P` with
   kernel a full lattice; via `Setoid.quotientKerEquivOfSurjective`, `AddSubgroup.index_range_nsmul`,
@@ -49,4 +49,4 @@ with `lake env lean` (one process at a time). Marks: VERIFIED / STANDARD / SPECU
 - Merged into `HeightSplit.lean` as `metrizedDimUnique : MetrizedDimUnique`; corollaries
   `stableHeightFinite_of'` (H-19 from N1, SS1, SS2, NeronMetrizable, AN3U) and `r21_of_leaves'`
   (H-17 from Bost, N1, SS1, SS2, AN3U). Full file recompiled: no errors, all axioms standard (VERIFIED).
-- 05:10 R22: added leaf `PazukiCor13Upper` (upper half of the same display), `pazukiCor13Upper_of`, `r22_of_upper`; `r22_of_leaves` now via the upper half. Recompiled clean, axioms standard (VERIFIED).
+- R22: added leaf `PazukiCor13Upper` (upper half of the same display), `pazukiCor13Upper_of`, `r22_of_upper`; `r22_of_leaves` now via the upper half. Recompiled clean, axioms standard (VERIFIED).
