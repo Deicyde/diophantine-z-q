@@ -1,7 +1,7 @@
 # frontier: every open Prop on the path to `ZInQ.FrozenTarget`
 
 Task frontier, 2026-11-13. Base: fork main b7cdba8e (merged into wip/frontier). Branch snapshot: the commits in
-`scratch/frontier/refs.txt` (refreshed 15:40 PST, §8). Lean: `scratch/frontier/TYZChain.lean`, `TopChain.lean` (compiled).
+`scratch/frontier/refs.txt` (refreshed 16:40 PST, §8). Lean: `scratch/frontier/TYZChain.lean`, `TopChain.lean` (compiled).
 Mechanical check: `scratch/frontier/chain.py` (with `chainlib.py`), output `scratch/frontier/chain_out.txt`.
 Results log: `scratch/frontier/log.md`. Working notes from three read-only survey agents:
 `scratch/frontier/agent-{h-glue,h-leaves,tyz}.md`. No existing project file was edited. Model work; no human review.
@@ -107,6 +107,7 @@ is likely false as stated (linked-ram F1; route T below avoids it); STATUS.md an
 | C4 | H: `HDec.HSyn.sixContactMin_of_leaves5 (r : OpenResearchLeaves2) (t : OpenTextbookLeaves5) (gp : GluePieces5)` | `scratch/assemble-port/AssemblePort.lean` L116751 @ wip/assemble-port 92a27877 (final; flat file, 116 813 lines: `lake env lean` exit 0 in 1126 s, 0 errors, no `sorry`, 293 axiom reports all standard; REPORTED by its log, `flat_summary.txt`) | → `ZInQ.SixContactMin`; 26 + 17 + 27 fields (§4) |
 | C5 | g0-assemble3's `HSyn.sixContactMin_of_leaves4` (46 glue fields) | `scratch/g0-assemble3/G0Assemble3.lean` L90474 @ 357f5d9e | C4 is its port to the HDec world, with most glue fields proved or reduced, 3 moved to the research bundle, 1 bypassed by T35, and lt-local's route for the linked-Tate block (assemble-port's report) |
 | C6 | H, per field: §4 | | each open field, or the Props it was reduced to |
+| (C0 ∘ C4 in the library) | `ZInQ.OneProof.frozenTarget (r : HDec.HSyn.OpenResearchLeaves2) (t : HDec.HSyn.OpenTextbookLeaves5) (gp : HDec.HSyn.GluePieces5) (h11 …) (h1 …) (h29 …) (hcm …) (hs …) (h318 …) (hG …) (hL2 …) (hL3 …) : ZInQ.FrozenTarget` | `ZInQKernel/OneProof/Main.lean` @ wip/one-proof 1e30d4b2 (the integrator's; C4's olean chain as library modules + this task's `TopChain.lean`; compile not recorded in the commit) | scenario A with `TopChain.lean`'s 7 TYZ hypotheses (A3 of §3.1) instead of `TYZChain.lean`'s 7 |
 
 The fork's registered headline (`ZInQKernel/MainLiterature.lean`) has five hypotheses; two are proved
 (`ZInQ.Contrib.heckeContinuation`, `functionalEquation5`) and C1 already uses them. C4 concludes the kernel's
@@ -362,6 +363,13 @@ C4's (§5.2), to be re-copied as assemble-port did for the other W-kern files. l
 `Contrib/RLeaf/T40.lean` cannot be imported next to the chain's Tau Ceti modules (a duplicate
 `Units.val_mul_zpow_natCast_mul` from Tau Ceti's Backport copy), so `t40` needs a copy, not an import.
 
+### 6.3 The library theorem
+The integrator's `ZInQ.OneProof.frozenTarget` (wip/one-proof 1e30d4b2) already states scenario A as one library
+theorem, with the TYZ hypotheses of `TopChain.lean`. To get the finer TYZ list of §3.2 there, the library needs
+cm-bridge's `scratch/cm-bridge/Bridge.lean` as a module (tyz-cm's eleven Shimura modules are on fork main w47); then
+`TYZChainTail.lean`'s `tyzThm35ReadingA_of_open` can replace `TopChain.lean`'s. The scenario-F edges of §4.1 would each
+remove one field of `GluePieces5`/`OpenTextbookLeaves5` once folded (§6.2).
+
 ## 7. Findings
 
 1. **The brief's "every textbook leaf T1-T32 is proved" is false** (VERIFIED: agent grep of the 150 newest refs, my grep
@@ -389,7 +397,7 @@ C4's (§5.2), to be re-copied as assemble-port did for the other W-kern files. l
 6. **Statement changes proposed here: none.** (Finding 2 is linked-ram's proposal, adopted by assemble-port; gz-decomp's
    `GrossZagierCd` and gz-statements' restricted GZ leaves are on record.)
 
-## 8. Tasks (snapshot 15:40 PST; heads in `scratch/frontier/refs.txt`)
+## 8. Tasks (snapshot 16:40 PST; heads in `scratch/frontier/refs.txt`)
 
 Finished, with results used above: tyz-cm (0ad48a7d), cm-bridge (ed50dc33), t40-tate (7ed2ca99), t40-igusa (e9b071d6),
 twist-descent, ts-kummer (1bbe3543), kummer-comp (423d6b7c), hecke-rest (6c2c1d76), period-glue (7e1531df), spread-out
@@ -399,7 +407,8 @@ twist-descent, ts-kummer (1bbe3543), kummer-comp (423d6b7c), hecke-rest (6c2c1d7
 Glazer's normalization, still needing `EndRank4` and `AlgFrobRed`), frobchain-contrib, heightbc-contrib, mobius-contrib,
 dim-contrib, infra-hodge, gz-statements (85d344bc; see below).
 
-Running: none of the tasks on this host has committed since 14:37.
+Running: none of the tasks on this host has committed since 14:37; the integrator's one-proof branch (16:13) assembles
+the library theorem of §6.3.
 
 gz-statements (Contrib modules `ZInQKernel/Contrib/GZStatements/{Weak,Level,Compat,Hensel}.lean` on its branch) proves
 that the narrower `ZInQ.GZStatements.FHNonvanishingCd` and `GrossZagierHeegnerCd` (restricted to `C_d`, `d ≡ 5 mod 8`,
