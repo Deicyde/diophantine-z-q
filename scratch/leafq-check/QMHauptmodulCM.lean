@@ -472,4 +472,155 @@ theorem orbit24 : ∀ w, EN 6 w → ∃ g gi, NormData g gi ∧ g * mu * gi = w 
       nlinarith [mul_nonneg h1 h4, mul_nonneg h2' h3, sq_nonneg w.imI]
     nlinarith
 
+/-! ### `QMHauptmodul` from its values at three points -/
+
+/-- `(1 + j)/2` (period-map's `x3`; `x3² − x3 + 1 = 0`). -/
+def x3 : PkgI1.B := ⟨1 / 2, 0, 1 / 2, 0⟩
+
+/-- **LEAF candidate (narrowed `QMHauptmodul`).** `PkgI1.QMHauptmodul` with each of its three CM clauses
+asserted only at the fixed points of `ι(x)` for one element: `x = i + j` (`x² = −1`), `x = (1 + j)/2`
+(`x² − x + 1 = 0`) and `x = 2j + ij` (`x² = −6`), the elliptic points `√2 + i`, `i√3`, `i√(9 + 6√2)` of
+orders 4, 6, 2. Weaker than `QMHauptmodul`; `qmHauptmodul_of_base` recovers it, because the CM points of
+each discriminant form one `Γ*`-orbit (`orbit4`, `orbit3`, `orbit24`). -/
+def QMHauptmodulBase : Prop :=
+  ∃ f : UpperHalfPlane → OnePoint ℂ, Continuous f ∧
+    (∀ τ : UpperHalfPlane, PkgI1.jDen (PkgI1.Omega τ) ≠ 0 →
+      f τ = ((PkgI1.jNum (PkgI1.Omega τ) / PkgI1.jDen (PkgI1.Omega τ) : ℂ) : OnePoint ℂ)) ∧
+    (∀ τ τ' : UpperHalfPlane, f τ = f τ' ↔ ∃ γ ∈ PkgI1.GammaStar, γ • τ = τ') ∧
+    Function.Surjective f ∧
+    (∀ γ : GL (Fin 2) ℝ, (γ : Matrix (Fin 2) (Fin 2) ℝ) = PkgI1.iota by4 →
+      ∀ τ : UpperHalfPlane, γ • τ = τ → f τ = ((0 : ℂ) : OnePoint ℂ)) ∧
+    (∀ γ : GL (Fin 2) ℝ, (γ : Matrix (Fin 2) (Fin 2) ℝ) = PkgI1.iota x3 →
+      ∀ τ : UpperHalfPlane, γ • τ = τ → f τ = (OnePoint.infty : OnePoint ℂ)) ∧
+    (∀ γ : GL (Fin 2) ℝ, (γ : Matrix (Fin 2) (Fin 2) ℝ) = PkgI1.iota mu →
+      ∀ τ : UpperHalfPlane, γ • τ = τ → f τ = ((-16/27 : ℂ) : OnePoint ℂ))
+
+theorem det_ne' {x : PkgI1.B} (h : nrd x ≠ 0) : (PkgI1.iota x).det ≠ 0 := by
+  rw [det_iota_eq]; exact_mod_cast h
+
+/-- The element of `GL₂(ℝ)` with matrix `ι(x)`. -/
+noncomputable def glOf (x : PkgI1.B) (h : nrd x ≠ 0) : GL (Fin 2) ℝ :=
+  Matrix.GeneralLinearGroup.mkOfDetNeZero (PkgI1.iota x) (det_ne' h)
+
+theorem coe_glOf (x : PkgI1.B) (h : nrd x ≠ 0) :
+    (glOf x h : Matrix (Fin 2) (Fin 2) ℝ) = PkgI1.iota x := rfl
+
+theorem iota_one : PkgI1.iota 1 = 1 := by
+  rw [iota_apply]; ext i j; fin_cases i <;> fin_cases j <;> simp
+
+theorem glOf_mem {g gi : PkgI1.B} (hg : NormData g gi) : glOf g hg.2.2.2.ne' ∈ PkgI1.GammaStar :=
+  ⟨g, ⟨gi, hg.1, hg.2.1, hg.2.2.1⟩, rfl, by rw [coe_glOf, det_iota_eq]; exact_mod_cast hg.2.2.2⟩
+
+/-- **The transfer step.** If `f` is constant on `Γ*`-orbits and takes the value `val` at the fixed points
+of `ι(b)`, it takes `val` at the fixed points of `ι(g b g⁻¹)` for every normalizer `g`. -/
+theorem transfer {f : UpperHalfPlane → OnePoint ℂ}
+    (hfib : ∀ τ τ' : UpperHalfPlane, f τ = f τ' ↔ ∃ γ ∈ PkgI1.GammaStar, γ • τ = τ')
+    {b : PkgI1.B} {val : OnePoint ℂ}
+    (hbase : ∀ γ : GL (Fin 2) ℝ, (γ : Matrix (Fin 2) (Fin 2) ℝ) = PkgI1.iota b →
+      ∀ τ : UpperHalfPlane, γ • τ = τ → f τ = val)
+    {g gi : PkgI1.B} (hg : NormData g gi) (γ₁ : GL (Fin 2) ℝ)
+    (hγ₁ : (γ₁ : Matrix (Fin 2) (Fin 2) ℝ) = PkgI1.iota (g * b * gi)) (τ : UpperHalfPlane)
+    (hτ : γ₁ • τ = τ) : f τ = val := by
+  have hgi := hg.symm
+  set G := glOf g hg.2.2.2.ne'
+  set G' := glOf gi hgi.2.2.2.ne'
+  have hGG' : G * G' = 1 := by
+    ext1; rw [Units.val_mul, coe_glOf, coe_glOf, ← iota_mul, hg.1, iota_one]; rfl
+  have hval := hbase (G' * γ₁ * G) (by
+    rw [Units.val_mul, Units.val_mul, coe_glOf, coe_glOf, hγ₁, ← iota_mul, ← iota_mul]
+    congr 1
+    calc gi * (g * b * gi) * g = (gi * g) * b * (gi * g) := by simp only [mul_assoc]
+      _ = b := by rw [hg.2.1, one_mul, mul_one]) (G' • τ) (by
+    rw [mul_smul, mul_smul, ← mul_smul G G', hGG', one_smul, hτ])
+  rw [← hval]
+  exact (hfib τ (G' • τ)).2 ⟨G', glOf_mem hgi, rfl⟩ |>.symm.symm
+
+theorem inO_neg {x : PkgI1.B} (h : PkgI1.InO x) : PkgI1.InO (-x) := by
+  obtain ⟨n0, n1, n2, n3, rfl⟩ := (inO_iff x).1 h
+  exact (inO_iff _).2 ⟨-n0, -n1, -n2, -n3, by ext <;> simp <;> ring⟩
+
+theorem inO_two_sub {x : PkgI1.B} (h : PkgI1.InO x) : PkgI1.InO (2 * x - 1) := by
+  obtain ⟨n0, n1, n2, n3, rfl⟩ := (inO_iff x).1 h
+  refine (inO_iff _).2 ⟨2 * n0 - 1, 2 * n1, 2 * n2, 2 * n3, ?_⟩
+  ext <;> simp [QuaternionAlgebra.re_ofNat, QuaternionAlgebra.imI_ofNat, QuaternionAlgebra.imJ_ofNat,
+    QuaternionAlgebra.imK_ofNat] <;> ring
+
+theorem imJ_ne_zero {N : ℚ} (hN : 0 < N) {v : PkgI1.B} (h : v * v = -((N : ℚ) : PkgI1.B)) :
+    v.imJ ≠ 0 := by
+  obtain ⟨-, hq⟩ := pure_of_sqN N hN h
+  intro h0; simp [form, h0] at hq; nlinarith [sq_nonneg v.imI, sq_nonneg v.imK]
+
+/-- An upper-sheet representative of `±v`. -/
+theorem upper_of {N : ℚ} (hN : 0 < N) {v : PkgI1.B} (hO : PkgI1.InO v)
+    (h : v * v = -((N : ℚ) : PkgI1.B)) : EN N v ∨ EN N (-v) := by
+  rcases lt_or_gt_of_ne (imJ_ne_zero hN h) with hl | hl
+  · right; exact ⟨inO_neg hO, by rw [neg_mul_neg, h], by simpa using hl⟩
+  · left; exact ⟨hO, h, hl⟩
+
+theorem iota_neg (x : PkgI1.B) : PkgI1.iota (-x) = -PkgI1.iota x := by
+  rw [iota_apply, iota_apply]; ext i j; fin_cases i <;> fin_cases j <;> simp <;> ring
+
+theorem neg_one_sq_cast : -((1 : ℚ) : PkgI1.B) = -1 := by simp
+
+/-- **`QMHauptmodul` from `QMHauptmodulBase` (proved).** -/
+theorem qmHauptmodul_of_base (h : QMHauptmodulBase) : PkgI1.QMHauptmodul := by
+  obtain ⟨f, hc, hform, hfib, hsurj, h4, h3, h24⟩ := h
+  refine ⟨f, hc, hform, hfib, hsurj, ?_, ?_, ?_⟩
+  · intro x hO hx γ hγ τ hτ
+    have hx' : x * x = -((1 : ℚ) : PkgI1.B) := by rw [hx]; simp
+    rcases upper_of one_pos hO hx' with hE | hE
+    · obtain ⟨g, gi, hg, hgx⟩ := orbit4 x hE
+      exact transfer hfib h4 hg γ (by rw [hgx, hγ]) τ hτ
+    · obtain ⟨g, gi, hg, hgx⟩ := orbit4 (-x) hE
+      exact transfer hfib h4 hg (-γ) (by rw [hgx, iota_neg, Units.val_neg, hγ]) τ
+        (by rw [UpperHalfPlane.neg_smul, hτ])
+  · intro x hO hx γ hγ τ hτ
+    have hw : (2 * x - 1) * (2 * x - 1) = -((3 : ℚ) : PkgI1.B) := by
+      have : (2 * x - 1) * (2 * x - 1) = 4 * (x * x - x + 1) - 3 := by
+        ext <;> simp [QuaternionAlgebra.re_ofNat, QuaternionAlgebra.imI_ofNat,
+          QuaternionAlgebra.imJ_ofNat, QuaternionAlgebra.imK_ofNat] <;> ring
+      rw [this, hx]; simp
+    have hx1 : x * (1 - x) = 1 := by
+      have : x * (1 - x) = -(x * x - x + 1) + 1 := by noncomm_ring
+      rw [this, hx, neg_zero, zero_add]
+    rcases upper_of (by norm_num : (0 : ℚ) < 3) (inO_two_sub hO) hw with hE | hE
+    · obtain ⟨g, gi, hg, hgx⟩ := orbit3 _ hE
+      have hgx3 : g * x3 * gi = x := by
+        have e : x3 = (1 / 2 : ℚ) • (1 + bj) := by ext <;> simp [x3, bj]
+        have : g * x3 * gi = (1 / 2 : ℚ) • (g * gi + g * bj * gi) := by
+          rw [e]; simp only [mul_add, add_mul, mul_one, Algebra.mul_smul_comm, Algebra.smul_mul_assoc]
+        rw [this, hg.1, hgx]
+        ext <;> simp [QuaternionAlgebra.re_ofNat, QuaternionAlgebra.imI_ofNat,
+          QuaternionAlgebra.imJ_ofNat, QuaternionAlgebra.imK_ofNat] <;> ring
+      exact transfer hfib h3 hg γ (by rw [hgx3, hγ]) τ hτ
+    · obtain ⟨g, gi, hg, hgx⟩ := orbit3 _ hE
+      have hgx3 : g * x3 * gi = 1 - x := by
+        have e : x3 = (1 / 2 : ℚ) • (1 + bj) := by ext <;> simp [x3, bj]
+        have : g * x3 * gi = (1 / 2 : ℚ) • (g * gi + g * bj * gi) := by
+          rw [e]; simp only [mul_add, add_mul, mul_one, Algebra.mul_smul_comm, Algebra.smul_mul_assoc]
+        rw [this, hg.1, hgx]
+        ext <;> simp [QuaternionAlgebra.re_ofNat, QuaternionAlgebra.imI_ofNat,
+          QuaternionAlgebra.imJ_ofNat, QuaternionAlgebra.imK_ofNat] <;> ring
+      have hinv : ((γ⁻¹ : GL (Fin 2) ℝ) : Matrix (Fin 2) (Fin 2) ℝ) = PkgI1.iota (1 - x) := by
+        have h1 : (γ : Matrix (Fin 2) (Fin 2) ℝ) * PkgI1.iota (1 - x) = 1 := by
+          rw [hγ, ← iota_mul, hx1, iota_one]
+        calc ((γ⁻¹ : GL (Fin 2) ℝ) : Matrix (Fin 2) (Fin 2) ℝ)
+            = ((γ⁻¹ : GL (Fin 2) ℝ) : Matrix (Fin 2) (Fin 2) ℝ) *
+                ((γ : Matrix (Fin 2) (Fin 2) ℝ) * PkgI1.iota (1 - x)) := by rw [h1, mul_one]
+          _ = PkgI1.iota (1 - x) := by
+            rw [← mul_assoc, ← Units.val_mul, inv_mul_cancel, Units.val_one, one_mul]
+      exact transfer hfib h3 hg γ⁻¹ (by rw [hgx3, hinv]) τ (by
+        conv_lhs => rw [← hτ]
+        rw [inv_smul_smul])
+  · intro x hO hx γ hγ τ hτ
+    have hx' : x * x = -((6 : ℚ) : PkgI1.B) := by rw [hx]; simp
+    rcases upper_of (by norm_num : (0 : ℚ) < 6) hO hx' with hE | hE
+    · obtain ⟨g, gi, hg, hgx⟩ := orbit24 x hE
+      exact transfer hfib h24 hg γ (by rw [hgx, hγ]) τ hτ
+    · obtain ⟨g, gi, hg, hgx⟩ := orbit24 (-x) hE
+      exact transfer hfib h24 hg (-γ) (by rw [hgx, iota_neg, Units.val_neg, hγ]) τ
+        (by rw [UpperHalfPlane.neg_smul, hτ])
+
 end HDec.LeafQCheck.HM
+
+#print axioms HDec.LeafQCheck.HM.qmHauptmodul_of_base
