@@ -1,0 +1,8 @@
+
+#print axioms MCRQuot.exists_unit_congr
+#print axioms MCRQuot.mem_orbit_of_twistEq
+#print axioms MCRQuot.twistEq_of_mem_fibreAut
+#print axioms MCRQuot.exists_comp_smul_eq
+#print axioms MCRQuot.exists_eq_comp_of_isGQuotient
+#print axioms MCRQuot.val_injective_of_isP1Coordinate
+#print axioms MCRQuot.coordinateFromSections_of

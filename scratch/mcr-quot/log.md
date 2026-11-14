@@ -38,3 +38,18 @@ C2 `CoordinateFromSections` of `scratch/mcr-glue/MCRGlue.lean` (copied verbatim 
   open containing it).
 - **`MCRQuot.exists_eq_comp_of_isGQuotient`**: for `q : X → Z` with `IsGQuotient G q`, `G` finite,
   two `K`-points of `X` (any field `K`) with `y ≫ q = y' ≫ q` satisfy `y' = y ≫ g` for some `g ∈ G`.
+
+## Step 3 (09:40) — VERIFIED (parts 1-4 + axioms part 9; exit 0; compile4_out.txt; all new
+`#print axioms` = [propext, Classical.choice, Quot.sound]; no sorry)
+- `MCRQuot.ev_eq_appLE`, `eq_of_ev_eq_chart`, **`val_injective_of_isP1Coordinate`**: an
+  isomorphism onto `P¹_{ℤ_(p)}` by charts is injective on field points.
+- `MCRQuot.exists_rat_of_fixed`: a Galois-fixed point of `P¹(ℚ̄)` is rational
+  (`InfiniteGalois.mem_range_algebraMap_iff_fixed`).
+- New glue Prop `MCRQuot.P1ThreePoints` (P¹ geometry over ℤ_(p), no literature): an isomorphism
+  `ρ₀ : 𝒵 ≅ P¹_{ℤ_(p)}` and three `ℚ̄`-points with rational `ρ₀`-values and pairwise disjoint
+  closures ⇒ some `ρ : 𝒵 ≅ P¹_{ℤ_(p)}` with values `0, ∞, −16/27` there.
+- **`MCRQuot.coordinateFromSections_of (hA : FibreAutTame) (hT : ObjBridge.TorsionStructure)
+  (hN : P1ThreePoints) : CoordinateFromSections`** (glue C2 reduced; A is used only for
+  `Finite (fibreAut 𝒴 𝒜)`). Finding: C2 as stated needs the finiteness of `fibreAut` (for an
+  infinite group `IsGQuotient` does not force orbits = fibres: `ℤ` acting on `𝔸¹_ℚ` by translation
+  has `IsGQuotient` onto `Spec ℚ`); A supplies it.
