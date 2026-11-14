@@ -4,7 +4,7 @@
   "scope": "Conditional original existential polynomial; no claim of a formalized explicit quartic or proved premises.",
   "files": {
     ".gitattributes": "5ac4c3df4f84da6a92704a9a1f120d47ead193262ee72d181ab67cb67456e512",
-    ".github/workflows/kernel-lean.yml": "ff810ed16f7d03af0a4fa5e5093d43faca24c2548d914b9356143cc4980b4b57",
+    ".github/workflows/kernel-lean.yml": "86b8baf6e2488b44616d21d41852d86ea853fe1cb49e06f256dc9bea6406133c",
     "ThirdParty/GreenTao/ChallengeDeps.lean": "996bfc179f93078686a6a805adfc072727bbad1b7dbb59a87b2a0adafdb9fafe",
     "ThirdParty/GreenTao/Submission.lean": "6c01d0d42973f587d95e1731860910584ddaba17b92c9a170c3d22ea882724df",
     "ThirdParty/GreenTao/Submission/ArithmeticProgression/Basic.lean": "9e3ac01ce10d186a1fbbb25202f8ce66fb8a0518563c09d91f5d4ddb719985b2",

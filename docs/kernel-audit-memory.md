@@ -20,8 +20,8 @@ Do not infer its internal audit phase from that incomplete log.
 ## Minimal mitigation and measurement
 
 The hosted Linux job adds **8 GiB of swap** before the build/audit step, preserving
-existing swap and requiring another 4 GiB of free disk headroom. Allocation failure
-is a visible job failure. Only the disposable runner is changed; no repository
+existing swap and leaving another 4 GiB of free disk headroom. If less than 12 GiB
+is free, it warns and continues the full audit without additional swap. Only the disposable runner is changed; no repository
 secret or persistent host setting is involved. VM teardown removes the swap file.
 
 The audit prints and flushes phase boundaries: project import, serialized body

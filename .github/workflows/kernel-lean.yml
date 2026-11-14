@@ -72,14 +72,15 @@ jobs:
           swapon --show
           available=$(df -B1 --output=avail "$RUNNER_TEMP" | tail -n 1)
           if (( available < 12 * 1024 * 1024 * 1024 )); then
-            echo '::error::Need 12 GiB free for 8 GiB audit swap plus 4 GiB disk headroom.'
-            exit 1
+            echo '::warning::Less than 12 GiB free; continuing the full kernel audit without additional swap.'
+            echo 'Additional audit swap skipped: insufficient disk space. All audit checks still run.' >> "$GITHUB_STEP_SUMMARY"
+          else
+            swap_file=$(mktemp "$RUNNER_TEMP/kernel-audit-swap.XXXXXX")
+            sudo fallocate -l 8G "$swap_file"
+            sudo chmod 600 "$swap_file"
+            sudo mkswap "$swap_file"
+            sudo swapon "$swap_file"
           fi
-          swap_file=$(mktemp "$RUNNER_TEMP/kernel-audit-swap.XXXXXX")
-          sudo fallocate -l 8G "$swap_file"
-          sudo chmod 600 "$swap_file"
-          sudo mkswap "$swap_file"
-          sudo swapon "$swap_file"
           free -m
           swapon --show
       - name: Build all modules and replay kernel proofs
