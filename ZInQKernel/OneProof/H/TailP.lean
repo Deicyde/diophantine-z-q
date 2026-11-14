@@ -9,7 +9,7 @@ the dropped `#print axioms` lines).
 T8 = `PkgI3.PoincareReducibility` (the kernel's Prop) from `PoincareComplement`, `WeilPairing.IsogenyQuasiInverse`
 (av-glue's copy `AVGlue.WeilPairing.IsogenyQuasiInverse`) and three published theorems on group schemes over a field:
 `AVGlue.CartierSmooth`, `AVGlue.GeomConnOfRationalPoint`, `AVGlue.GroupSchemeEquidim` (docs/research/av-glue.md).
-This module imports only kernel modules; `TailV` uses `AVGlue.poincareReducibility_of_published'`. -/
+This module imports only kernel modules; `TailX` uses `AVGlue.poincareReducibility_of_published'`. -/
 
 
 /-!

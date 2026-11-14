@@ -1574,6 +1574,7 @@ section CurveSplitX0
 /-! # curve-split: H-41 `ZInQ.RLeaf.X0Transitive` from Igusa's theorem
 
 Row H-41 of `docs/research/frontier.md` (r3): `X0Transitive` (`ZInQKernel/Contrib/RLeaf/IgusaX0.lean`,
+imported, not copied). It is a consequence of the published leaf `ZInQ.RLeaf.IgusaSL2X`
 (`ZInQKernel/Contrib/RLeaf/IgusaSL2.lean`: Igusa 1959, the `SL₂(ℤ/N)` part of the Galois image on
 `E_j[N]`, on `x`-coordinates), and of `ZInQ.RLeaf.IgusaGL2` (Igusa's theorem as usually printed).
 The proofs below only compose results proved in `ZInQKernel/Contrib/RLeaf/`.

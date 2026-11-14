@@ -18,7 +18,7 @@ and the dropped `#print axioms` lines).
 T4, T5, T35, `WeilPairing.IsogenyQuasiInverse` (av-split's root copy) and `HomLatticeCorr` from five published-form
 leaves: `AvSplit.T4.MulEtaleAbelianScheme`, `AvSplit.MumfordTorsionAlgClosed`,
 `BPAnalytic.Uniformization.UniformizationLeafAll` (kernel), `AvSplit.MilneIsogenyQuasiInverse`,
-`ZInQ.HomLattice.GAGAMorphism` (docs/research/av-split.md). Imports only kernel modules; `TailV` uses
+`ZInQ.HomLattice.GAGAMorphism` (docs/research/av-split.md). Imports only kernel modules; `TailX` uses
 `AvSplit.Final.h24`, `h25`, `h38`, `h54`, `h69`. -/
 
 /-!

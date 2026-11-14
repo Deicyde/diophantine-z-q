@@ -1,0 +1,76 @@
+'HDec.HSyn.sixContactMin_of_open7' depends on axioms: [propext, Classical.choice, Quot.sound]
+closure: 186483 constants; sorryAx in closure: false
+HDec.HSyn.OpenResearchLeaves7 (29 fields)
+r1r2 : HDec.LeafAdopt.R1R2fpRep [ZInQKernel.OneProof.H.LPrefix]
+shimuraFamily : HDec.QMSplit.Moduli.ShimuraFamily [ZInQKernel.OneProof.H.TailU]
+r1rec : LeafQM.AV.R1rec [ZInQKernel.HDecomp.QM.Leaves] K
+r3 : ZInQ.LeafPush2.R03_LinYang [ZInQKernel.HDecomp.LeafPush2.R3] K
+igusaPsi4 : HDec.QMSplit.Theta.IgusaPsi4 [ZInQKernel.OneProof.H.TailU]
+igusaChi10 : HDec.QMSplit.Theta.IgusaChi10 [ZInQKernel.OneProof.H.TailU]
+r5 : LeafQM.AV.R5fp [ZInQKernel.HDecomp.QM.Leaves] K
+r5count : LeafQM.AV.R5fpCount [ZInQKernel.HDecomp.QM.Leaves] K
+r6 : PkgI2.RaynaudCriterion [ZInQKernel.HDecomp.Objects] K
+r7a : PkgI2.NeronOggShafarevich [ZInQKernel.HDecomp.Objects] K
+r7b : PkgI2.SerreTatePotentialGood [ZInQKernel.HDecomp.Objects] K
+r8 : PkgI2.GrothendieckMonodromy [ZInQKernel.HDecomp.Objects] K
+r9a : PkgI3.FaltingsSemisimple [ZInQKernel.HDecomp.Objects] K
+r9b : PkgI3.FaltingsTate [ZInQKernel.HDecomp.Objects] K
+hodgeTateDecompAbVar : ZInQ.Contrib.HodgeSplit.HodgeTateDecompAbVar [ZInQKernel.OneProof.H.TailS]
+deRhamH1AbVarT : ZInQ.Contrib.HodgeSplit.DeRhamH1AbVarT [ZInQKernel.OneProof.H.TailS]
+r11r12 : HDec.PkgI4.PanBerger [ZInQKernel.OneProof.H.LPrefix]
+eigenformHTNew : ZInQ.Contrib.HodgeSplit.EigenformHTNew [ZInQKernel.OneProof.H.TailS]
+dsThm965 : ZInQ.Contrib.HodgeSplit.DSThm965 [ZInQKernel.OneProof.H.TailS]
+dsThm966 : ZInQ.Contrib.HodgeSplit.DSThm966 [ZInQKernel.OneProof.H.TailS]
+r15 : HDec.HSyn.DeligneSerreConseq [ZInQKernel.OneProof.H.LPrefix]
+r16 : LeafModCurves.R16_EichlerShimuraJ1' [ZInQKernel.HDecomp.ModCurves.Leaves] K
+r17 : LadicCond.CarayolR17' [ZInQKernel.HDecomp.Conductor.LadicCond] K
+r18 : HDec.ZInQ.LeafPush2.R18_Javanpeykar [ZInQKernel.OneProof.H.LPrefix]
+r19 : ZInQ.DefFaltings.R19_GaudronRemond [ZInQKernel.HDecomp.Faltings.Leaves] K
+r20 : ZInQ.DefFaltings.R20_FaltingsLemma5 [ZInQKernel.HDecomp.Faltings.Leaves] K
+r21 : ZInQ.DefFaltings.R21_Bost [ZInQKernel.HDecomp.Faltings.Leaves] K
+r22 : HDec.ZInQ.LeafPush2.R22_Pazuki [ZInQKernel.OneProof.H.LPrefix]
+h5fin : ZInQ.DefFaltings.StableHeightFinite [ZInQKernel.HDecomp.Faltings.Height] K
+HDec.HSyn.OpenTextbookLeaves7 (23 fields)
+t3Surj : ZInQ.Contrib.NeronC.NeronMappingAbelianSchemeSurj [ZInQKernel.Contrib.NeronC.NMPInjective] K
+mulEtaleAbelianScheme : AvSplit.T4.MulEtaleAbelianScheme [ZInQKernel.OneProof.H.TailQ]
+mumfordTorsionAlgClosed : AvSplit.MumfordTorsionAlgClosed [ZInQKernel.OneProof.H.TailQ]
+homFreeFiniteAlgClosed : ZInQ.Contrib.AVB1.HomFreeFiniteAlgClosed [ZInQKernel.Contrib.AVB1.AlgClosed] K
+charPolyIndepOfEllAlgClosed : ZInQ.Contrib.AVB1.CharPolyIndepOfEllAlgClosed [ZInQKernel.Contrib.AVB1.AlgClosed] K
+poincareComplement : ZInQ.Contrib.AVB1.PoincareComplement [ZInQKernel.Contrib.AVB1.Poincare] K
+cartierSmooth : AVGlue.CartierSmooth [ZInQKernel.OneProof.H.TailP]
+geomConnOfRationalPoint : AVGlue.GeomConnOfRationalPoint [ZInQKernel.OneProof.H.TailP]
+groupSchemeEquidim : AVGlue.GroupSchemeEquidim [ZInQKernel.OneProof.H.TailP]
+t10 : T10Etale.T10_TateDuality [ZInQKernel.HDecomp.Textbook.T10Etale] K
+uniformizationLeafAll : BPAnalytic.Uniformization.UniformizationLeafAll [ZInQKernel.HDecomp.Analytic.Uniformization] K
+gagaMorphism : ZInQ.HomLattice.GAGAMorphism [ZInQKernel.OneProof.H.TailQ]
+t11bExists : HDec.AVB2.T11bExists [ZInQKernel.OneProof.H.TailM]
+bdRInvariants : ZInQ.Contrib.HodgeSplit.BdRInvariants [ZInQKernel.OneProof.H.TailT]
+t24 : PkgI4.EigenformTwist [ZInQKernel.HDecomp.ModCurves.C9] K
+yuThm11 : HDec.QMSplit.Yu.YuThm11 [ZInQKernel.OneProof.H.TailU]
+t33 : LeafModCurves.JacobianExists [ZInQKernel.HDecomp.ModCurves.Defs] K
+dimJacobianEqGenus : ZInQ.Contrib.CurvesG.DimJacobianEqGenus [ZInQKernel.Contrib.CurvesG.GenusSplit] K
+genusX1Field : ZInQ.Contrib.CurvesG.GenusX1Field [ZInQKernel.Contrib.CurvesG.GenusSplit] K
+normalModelOfFunctionFieldQ : ZInQ.Contrib.CurvesG.NormalModelOfFunctionFieldQ [ZInQKernel.Contrib.CurvesG.CurveSplit] K
+regularSmoothPerfect : CurveSplit.RegularSmoothPerfect [ZInQKernel.OneProof.H.TailR]
+igusaGL2 : ZInQ.RLeaf.IgusaGL2 [ZInQKernel.Contrib.RLeaf.IgusaSL2] K
+neronSchemeExtensionExists : ZInQ.Contrib.NeronC.NeronSchemeExtensionExists [ZInQKernel.Contrib.NeronC.NeronGroup] K
+HDec.HSyn.OpenAddedLeaves7 (16 fields)
+thetaRatiosAlgebraic : HDec.HSyn.G0Split.ThetaPt.ThetaRatiosAlgebraic [ZInQKernel.OneProof.H.TailA]
+qmHauptmodulBase3 : HDec.LeafQCheck.HM.QMHauptmodulBase3 [ZInQKernel.OneProof.H.TailO]
+qmCentralizerCMC : HDec.QMSplit.Aut.QMCentralizerCMC [ZInQKernel.OneProof.H.TailU]
+tateTwistInvariants : ZInQ.Contrib.HodgeSplit.TateTwistInvariants [ZInQKernel.OneProof.H.TailS]
+axSenTate : ZInQ.Contrib.HodgeSplit.AxSenTate [ZInQKernel.OneProof.H.TailS]
+t09SymmIsogenyExists : HDec.WeilPairing.T09_SymmIsogenyExists [ZInQKernel.OneProof.H.TailB]
+milneIsogenyQuasiInverse : AvSplit.MilneIsogenyQuasiInverse [ZInQKernel.OneProof.H.TailQ]
+x6ConicModel : HDec.X6Kummer.X6ConicModel [ZInQKernel.OneProof.H.TailE]
+y3Connected : HDec.TSHecke.Y3Connected [ZInQKernel.OneProof.H.TailG]
+zariskiConnectedness : ZariskiConn.ZariskiConnectedness [ZInQKernel.Contrib.ZariskiConn.Basic] K
+shimuraTaniyamaQbar : HDec.HSyn.G0Split.FibreQM.PeriodMapH.QMSplitSTQM.ShimuraTaniyamaQbar [ZInQKernel.OneProof.H.TailU]
+valenceFormulaGammaStar : HDec.LeafQCheck.VB.ValenceFormulaGammaStar [ZInQKernel.OneProof.H.TailO]
+egaIV_8_8_2_ii : ZInQ.Contrib.SpreadOut.EGAIV_8_8_2_ii [ZInQKernel.Contrib.SpreadOut.Spread] K
+egaIV_8_10_5_xii : ZInQ.Contrib.SpreadOut.EGAIV_8_10_5_xii [ZInQKernel.Contrib.SpreadOut.Spread] K
+egaIV_17_7_8_ii : ZInQ.Contrib.SpreadOut.EGAIV_17_7_8_ii [ZInQKernel.Contrib.SpreadOut.Spread] K
+shimuraGoodReductionNoGuard : HDec.CurveSplitGR.ShimuraGoodReductionNoGuard [ZInQKernel.OneProof.H.TailW]
+HDec.HSyn.OpenGlue7 (1 fields)
+quotientP1Coordinate : HDec.MCRGlue.QuotientP1Coordinate [ZInQKernel.OneProof.H.TailW]
+fields: 69; head constant declared outside ZInQKernel.OneProof: 33
