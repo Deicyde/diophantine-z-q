@@ -207,8 +207,12 @@ Statement notes.
 In the first two rows, `(j, j₃₂)` takes the same rational value at two points of `X₀(32)` that
 complex conjugation swaps. No representation `x = A(j, j₃₂)/B(j, j₃₂)` over `ℚ` can have
 `B(255³, 255³) ≠ 0`. The same symmetry, `𝔫 ↔ 𝔫̄` when the relevant classes have order at most 2,
-persists at every higher level `32M`. Lifting to `X₀(32M)` does not separate the two points either:
-for `h = 1` all `O`-stable cyclic `32M`-isogenies of `L` have the same `j`.
+persists at every higher level `32M`. Lifting to `X₀(32M)` does not separate the two points either.
+Here `L` is homothetic to a real lattice and `x̄` is the second point. Complex conjugation maps the
+lifts of `x` onto the lifts of `x̄`, and conjugates their `j`-values. The lifts of `x` lying over a
+given class form a full fibre of `Pic(O_{fM'}) → Pic(O_f)`, and that fibre is stable under
+conjugation because `h = 1`. So the two sets of `j`-values coincide, and every lift is again
+non-isolated (SPECULATIVE in general; checked here only by this argument).
 
 `isolated_check.out` (VERIFIED computed: multiplicity of `j(32τ)` among the 48 roots of
 `Φ₃₂(j(τ), Y)`, compared through reduced points of the fundamental domain):
