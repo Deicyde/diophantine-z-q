@@ -49,3 +49,7 @@ TYZ Lemma `torsion2` (Lemma 3.18): torsion of `A(ℍ'_n)` is killed by `2(1+[i])
   Final: `lemma318Literal_HHprime_of_ss_sqrtTwo : SupersingularExponentA → SqrtTwoNotInHHprime → Lemma318Literal HHprime`
   (+ `package_…` for `Package.Lemma318Literal`); `#print axioms` = [propext, Classical.choice, Quot.sound].
   Whole file compiles in ~20 s (lake env lean), no sorry.
+- [VERIFIED, compiled, 2026-11-13 ~23:55 host clock] `sqrtTwo_not_mem_HHprime_of_single`: √2 ∉ ℍ'_n when n is the
+  only divisor d₀ ≡ 5 (8) of n (ℍ'_n = H'_n; ring-class `not_adjSqrt_two_le_Hprime` transported through `embed n`);
+  `lemma318_at` (per-n form) and `lemma318_at_single`: TYZ Lemma torsion2 at such n from the leaf
+  `SupersingularExponentA` alone. Axioms standard.

@@ -532,9 +532,10 @@ theorem eq_zero_of_odd_nsmul {G : AddSubgroup PtA}
 
 /-- **Main theorem**: TYZ Lemma `torsion2` (`Lemma318Literal HHprime`, verbatim) from the textbook
 leaf `SupersingularExponentA` and the glue `HHprimeFrobSq`, `SqrtTwoNotInHHprime`. -/
-theorem lemma318Literal_HHprime_of (hSS : SupersingularExponentA) (hG : HHprimeFrobSq)
-    (h2 : SqrtTwoNotInHHprime) : Lemma318Literal HHprime := by
-  intro n hn hsq P hP hPt
+theorem lemma318_at (hSS : SupersingularExponentA) (hG : HHprimeFrobSq) {n : ℕ} (hn : n % 8 = 5)
+    (hsq : Squarefree n) (h2n : ∀ s ∈ HHprime n, s ^ 2 ≠ 2) :
+    ∀ P ∈ ptsOver (HHprime n), IsOfFinAddOrder P → 2 • (P + iPt P) = 0 := by
+  intro P hP hPt
   have hi : iQ ∈ HHprime n := Package.iContained_HHprime n hn hsq
   obtain ⟨m, hm, hmP⟩ := isOfFinAddOrder_iff_nsmul_eq_zero.mp hPt
   obtain ⟨a, b, hb, rfl⟩ := Nat.exists_eq_two_pow_mul_odd hm.ne'
@@ -548,7 +549,11 @@ theorem lemma318Literal_HHprime_of (hSS : SupersingularExponentA) (hG : HHprimeF
   refine two_power_part hi (fun S hS h4 => ?_) a P hP hQ
   by_contra hne
   obtain ⟨s, hs, hs2⟩ := sqrt_two_of_four_torsion hi hS h4 hne
-  exact h2 n hn hsq s hs hs2
+  exact h2n s hs hs2
+
+theorem lemma318Literal_HHprime_of (hSS : SupersingularExponentA) (hG : HHprimeFrobSq)
+    (h2 : SqrtTwoNotInHHprime) : Lemma318Literal HHprime :=
+  fun n hn hsq => lemma318_at hSS hG hn hsq (h2 n hn hsq)
 
 /-- The same, for the kernel's `Package.Lemma318Literal` (the hypothesis `h318` of
 `RingClassBridge.tyzThm35ReadingA_of_cmLeaves_ringClassD` and of cm-bridge's final theorems). -/
@@ -984,6 +989,37 @@ theorem hprimeFrobOrderTwo_aux (hd : d % 8 = 5) {p : ℕ} (hp : p.Prime) (hp2 : 
 
 end StepC
 
+/-- **`√2 ∉ ℍ'_n` when `n` is the only divisor `d₀ ≡ 5 (mod 8)` of `n`** (e.g. `n` prime, or `n = 21`):
+then `ℍ'_n = H'_n` (`Lni_le_Hprimebar`) and ring-class's `not_adjSqrt_two_le_Hprime` applies after
+transport through `embed n`. The general case (several `H'_{d₀}`) is the open glue
+`SqrtTwoNotInHHprime`. -/
+theorem sqrtTwo_not_mem_HHprime_of_single {n : ℕ} (hn : n % 8 = 5) (hsq : Squarefree n)
+    (h1 : ∀ d₀ ∈ n.divisors, d₀ % 8 = 5 → d₀ = n) : ∀ s ∈ HHprime n, s ^ 2 ≠ 2 := by
+  haveI : NeZero n := ⟨by omega⟩
+  have hle : HHprime n ≤ Hprimebar n := by
+    apply sup_le (Lni_le_Hprimebar (by omega) hsq)
+    apply iSup₂_le
+    intro d₀ hd₀
+    rw [Finset.mem_filter] at hd₀
+    rw [h1 d₀ hd₀.1 hd₀.2]
+  intro s hs hs2
+  set y := (psi0 n).symm ⟨s, hle hs⟩ with hy
+  have hsy : s = embed n (y : SeparableClosure (QNeg n)) := by
+    rw [← psi0_apply, hy, AlgEquiv.apply_symm_apply]
+  have hy2 : (y : SeparableClosure (QNeg n)) ^ 2 = 2 := by
+    have e1 : embed n ((y : SeparableClosure (QNeg n)) ^ 2) = s ^ 2 := by rw [map_pow, ← hsy]
+    have e2 : embed n ((y : SeparableClosure (QNeg n)) ^ 2) = embed n 2 := by
+      rw [e1, hs2, map_ofNat]
+    exact (embed n).injective e2
+  have hymem : (y : SeparableClosure (QNeg n)) ∈ Hprime n := y.2
+  have hsq2 : sqrtK (QNeg n) 2 ^ 2 = (y : SeparableClosure (QNeg n)) ^ 2 := by
+    rw [sqrtK_sq, hy2]; norm_num
+  have hmem : sqrtK (QNeg n) 2 ∈ Hprime n := by
+    rcases sq_eq_sq_iff_eq_or_eq_neg.mp hsq2 with e | e
+    · rw [e]; exact hymem
+    · rw [e]; exact (Hprime n).neg_mem hymem
+  exact not_adjSqrt_two_le_Hprime hn (IntermediateField.adjoin_simple_le_iff.mpr hmem)
+
 /-- **`HprimeFrobOrderTwo` holds** (no hypotheses). -/
 theorem hprimeFrobOrderTwo : HprimeFrobOrderTwo := by
   intro d hd _hsq p hp hp2 hpd hj h Q hQ hpQ hfrob
@@ -1000,6 +1036,13 @@ theorem lemma318Literal_HHprime_of_ss_sqrtTwo (hSS : SupersingularExponentA)
     (h2 : SqrtTwoNotInHHprime) : Lemma318Literal HHprime :=
   lemma318Literal_HHprime_of hSS hhprimeFrobSq h2
 
+/-- **TYZ Lemma `torsion2` unconditionally on the glue when `n` is the only divisor `d₀ ≡ 5 (mod 8)`
+of `n`** (e.g. `n` prime): only the textbook leaf `SupersingularExponentA` is used. -/
+theorem lemma318_at_single (hSS : SupersingularExponentA) {n : ℕ} (hn : n % 8 = 5)
+    (hsq : Squarefree n) (h1 : ∀ d₀ ∈ n.divisors, d₀ % 8 = 5 → d₀ = n) :
+    ∀ P ∈ ptsOver (HHprime n), IsOfFinAddOrder P → 2 • (P + iPt P) = 0 :=
+  lemma318_at hSS hhprimeFrobSq hn hsq (sqrtTwo_not_mem_HHprime_of_single hn hsq h1)
+
 /-- The same for the kernel's `Package.Lemma318Literal`. -/
 theorem package_lemma318Literal_HHprime_of_ss_sqrtTwo (hSS : SupersingularExponentA)
     (h2 : SqrtTwoNotInHHprime) : Package.Lemma318Literal HHprime :=
@@ -1010,3 +1053,5 @@ end ZInQ.Contrib.TYZGenus.T318
 #print axioms ZInQ.Contrib.TYZGenus.T318.lemma318Literal_HHprime_of'
 #print axioms ZInQ.Contrib.TYZGenus.T318.hhprimeFrobSq
 #print axioms ZInQ.Contrib.TYZGenus.T318.lemma318Literal_HHprime_of_ss_sqrtTwo
+#print axioms ZInQ.Contrib.TYZGenus.T318.sqrtTwo_not_mem_HHprime_of_single
+#print axioms ZInQ.Contrib.TYZGenus.T318.lemma318_at_single
