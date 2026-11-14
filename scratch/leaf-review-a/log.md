@@ -14,3 +14,15 @@
 - `HeckeRest.QMAutCard`, `HeckeRest.ALFixedPoints` (l.98696, 98722; QMStr l.14323, QMIso l.14837, com/HasCM l.14896-14906,
   rep/tt l.56001-56008), `TSHecke.Y3Connected` (l.97457; R1fpProps l.15235), `ThetaPt.ThetaRatiosAlgebraic`
   (l.43206; IsPeriodMatrix l.21096, thetaConst l.21107) read.
+- Check file `scratch/leaf-review-a/Check.lean` (imports ZInQKernel.HDecomp.{ModCurves.Leaves, ModCurves.C9,
+  Conductor.LadicCond, QM.Leaves, LeafPush2.R3}; seven `#print`s): `lake env lean` exit 0, 0 errors, 133 s
+  (load ~10, 146 GB available). Output `check_out.txt`: the printed bodies agree with the HDec copies read in
+  Leaves3.lean (R16', CarayolR17', PkgI4.EigenformTwist, R1rec, R5fp, R5fpCount, R03_LinYang). VERIFIED.
+- Forks (no Lean) reviewed A-group fields: notes_A1.md (r1r2, r1b, r1rec, r5, r5count, cmOptimalEmbedding),
+  notes_A2.md (r3, qmClassNumberOne, qmDenZeroCM3, x6ConicModel, qmHauptmodul second opinion). All CONSEQUENCE.
+- `py/hauptmodul_check.py` re-run here (mpmath 1.3.0, 40 digits): Ω(√2+i), Ω(i√(9+6√2)) symmetric, Im Ω ≻ 0;
+  j_θ(√2+i) ≈ 1e−162, j_θ(i√(9+6√2)) = −0.592592592592593 (= −16/27); j_θ invariant (≤ 3e−35) under ι(j), ι(2j+ij),
+  ι((1+j)/2); near τ₀ = i√3, |Σθ⁸| and |∏θ²| both scale as ε² (orders 2 and 2, so jDen order 10, jNum order 4);
+  Σθ⁸(Ω(τ))/((τ−3)(τ+1))⁴ has automorphy factor (cτ+d)⁸ for ι((1+j)/2) at two points (ratio 1.0). VERIFIED (computed).
+  Docstring error found: `QMDenZeroCM3` says "zero of order 30 in τ"; it is 10.
+- Own verdicts: r14, r15, r16, r17, t24, r4, thetaRatiosAlgebraic, y3Connected, qmAutCard, alFixedPoints: CONSEQUENCE.
