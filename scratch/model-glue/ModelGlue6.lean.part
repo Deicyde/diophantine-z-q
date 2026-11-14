@@ -1,0 +1,53 @@
+
+/-! ════════════════════════════════════════════════════════════════════════════════════════════
+# model-glue, step 6: composites
+
+`ModelGlue6.lean` = `ModelGlue5.lean` + this part.
+* `smoothFibreReduced' : SmoothFibreReduced` — the proof of task smooth-fibre
+  (`ZInQKernel/Contrib/SmoothFibre/Basic.lean`, branch wip/smooth-fibre, `ZInQ.SmoothFibre.
+  smoothFibreReduced`, whose statement is verbatim the same), with its field lemma replaced by
+  `isReduced_of_smooth_of_isDomain` above.
+* `modelCoordinate_of_residue` (step 1) and `modelComparison_of_curveBijIso` (step 5) give both
+  targets; `heckeVertWitness_of_curveBijIso` is the resulting composite.
+════════════════════════════════════════════════════════════════════════════════════════════ -/
+
+noncomputable section
+
+namespace ModelGlue
+
+open Polynomial CategoryTheory AlgebraicGeometry Limits LeafQM.AV VertWitness HeckeRestNV
+open LeafQM.AV.Pin G0ModField PropTSRed PropTSGlue TensorProduct
+
+/-- **`SmoothFibreReduced`, proved** (task smooth-fibre's proof). -/
+theorem smoothFibreReduced' : SmoothFibreReduced := by
+  intro R A _ _ φ hφ m hm
+  let := φ.toAlgebra
+  have : Algebra.Smooth R A := RingHom.smooth_algebraMap.1 hφ
+  let : Field (R ⧸ m) := Ideal.Quotient.field m
+  have h1 : IsReduced ((R ⧸ m) ⊗[R] A) := isReduced_of_smooth_of_isDomain (R ⧸ m) _
+  let e := Algebra.TensorProduct.quotIdealMapEquivTensorQuot A m
+  let e' := e.toRingEquiv.trans (Algebra.TensorProduct.comm R A (R ⧸ m)).toRingEquiv
+  have h2 : IsReduced (A ⧸ m.map (algebraMap R A)) :=
+    isReduced_of_injective (e' : A ⧸ m.map (algebraMap R A) →+* (R ⧸ m) ⊗[R] A) e'.injective
+  exact (Ideal.isRadical_iff_quotient_reduced _).2 h2
+
+/-- **The two targets from the remaining inputs** (compiled). -/
+theorem modelCoordinate_and_modelComparison (hT : ObjBridge.TorsionStructure)
+    (hD : ModelCoordinateResidue) (hC : CurveBijIso) : ModelCoordinate ∧ ModelComparison :=
+  ⟨modelCoordinate_of_residue hD, modelComparison_of_curveBijIso hT hC⟩
+
+/-- **`HeckeVertWitness` from the leaves, T5, `ModelCoordinateResidue` and `CurveBijIso`**
+(compiled; `SmoothFibreReduced` is proved above). -/
+theorem heckeVertWitness_of_curveBijIso (hL : ShimuraGoodReduction) (hRR : R1R2fp)
+    (hT : ObjBridge.TorsionStructure) (hD : ModelCoordinateResidue) (hC : CurveBijIso) :
+    HeckeVertWitness :=
+  heckeVertWitness_of_leaves hL hRR smoothFibreReduced' (modelCoordinate_of_residue hD)
+    (modelComparison_of_curveBijIso hT hC)
+
+end ModelGlue
+
+end
+
+#print axioms ModelGlue.smoothFibreReduced'
+#print axioms ModelGlue.modelCoordinate_and_modelComparison
+#print axioms ModelGlue.heckeVertWitness_of_curveBijIso

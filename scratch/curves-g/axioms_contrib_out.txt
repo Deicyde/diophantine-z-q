@@ -1,0 +1,7 @@
+'ZInQ.Contrib.CurvesG.hom_to_specQ_ext' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.CurvesG.residueToRat' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.CurvesG.nonempty_ratPt_of_place' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.CurvesG.curveOfFunctionFieldQ_of_noPoint' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.CurvesG.dimJ1Genus_of_split' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.CurvesG.curveOfFunctionFieldQNoPoint_of_split' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.CurvesG.curveOfFunctionFieldQ_of_split' depends on axioms: [propext, Classical.choice, Quot.sound]
