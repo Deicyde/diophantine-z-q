@@ -16,7 +16,8 @@ included) is classified:
   field into an older bundle: an edge `(S, i) → (S', j)`;
 * otherwise it is a real use: `(S, i)` is USED.
 
-A `casesOn`/`rec` on a bundle marks all of its fields USED (conservative). USED is then closed under
+A `casesOn`/`rec` on a bundle treats the field binders of its minor premise like projections
+(all fields USED when the minor premise is not a lambda over every field). USED is then closed under
 the edges backwards: `(S, i)` is used when it threads into a used field. The scan prints, for each
 bundle in `frozenTarget`'s hypotheses, the fields that are not used: those can be removed from the
 whole chain without changing any proof other than the bundle plumbing.
@@ -70,6 +71,8 @@ structure St where
   edges : Std.HashMap (Name × Nat) (Array (Name × Nat)) := {}  -- (S', j) ↦ sources (S, i)
   casesHits : Array Name := #[]
   seen : Std.HashSet Expr := {}
+  marks : Std.HashMap FVarId (Name × Nat) := {}  -- field binders of a `casesOn` minor premise
+  nextMark : Nat := 0
 
 abbrev M := StateM St
 
@@ -108,14 +111,33 @@ partial def visit (env : Environment) (e : Expr) (ctx : Option (Name × Nat)) : 
             record env (cv.induct, pinfo.i) ctx
             for a in args do visit env a none
             return
-      -- casesOn / rec on a bundle: every field counts as used
+      -- casesOn / rec on a bundle: follow the minor premise's field binders as if they were
+      -- projections; if the minor premise is not a lambda over all fields, every field is used
       match fn with
       | .str s last =>
         if (last == "casesOn" || last == "rec" || last == "recOn") && isBundle env s then
           modify fun st => { st with casesHits := st.casesHits.push s }
           if let some (.inductInfo iv) := env.find? s then
             if let some (.ctorInfo cv) := env.find? iv.ctors.head! then
-              for j in [:cv.numFields] do addUse (s, j)
+              let idx := if last == "rec" then cv.numParams + 1 else cv.numParams + 2
+              let minor := if h : idx < args.size then some args[idx] else none
+              match minor with
+              | some m =>
+                if m.getNumHeadLambdas ≥ cv.numFields then
+                  let mut b := m
+                  for j in [:cv.numFields] do
+                    visit env b.bindingDomain! none
+                    let st ← get
+                    let id : FVarId := ⟨.mkNum `_pruneMark st.nextMark⟩
+                    set { st with marks := st.marks.insert id (s, j), nextMark := st.nextMark + 1 }
+                    b := b.bindingBody!.instantiate1 (.fvar id)
+                  visit env b none
+                  for i in [:args.size] do
+                    if i != idx then visit env args[i]! none
+                  return
+                else
+                  for j in [:cv.numFields] do addUse (s, j)
+              | none => for j in [:cv.numFields] do addUse (s, j)
       | _ => pure ()
       for a in args do visit env a none
     | _ =>
@@ -123,6 +145,8 @@ partial def visit (env : Environment) (e : Expr) (ctx : Option (Name × Nat)) : 
       for a in args do visit env a none
   | .lam _ t b _ | .forallE _ t b _ => do visit env t none; visit env b none
   | .letE _ t v b _ => do visit env t none; visit env v none; visit env b none
+  | .fvar id => do
+    if let some k := (← get).marks[id]? then record env k ctx
   | _ => pure ()
 
 /-- Projection functions, constructors and the structure's own auxiliary constants are not uses. -/
@@ -172,7 +196,7 @@ run_cmd do
     if let .const s _ := t.bindingDomain!.getAppFn then
       if isBundle env s then tops := tops.push s
     t := t.bindingBody!
-  logInfo m!"PRUNE closure={cl.size} directUses={st.used.size} edges={st.edges.size} casesOn={st.casesHits.size}"
+  logInfo m!"PRUNE closure={cl.size} directUses={st.used.size} edges={st.edges.size} casesOn={st.casesHits.size} {st.casesHits.toList}"
   let mut total := 0
   for s in tops do
     let fs := fieldNames env s
