@@ -28,3 +28,26 @@ Targets (group B of docs/research/leaf-fold3.md §3, minus t5, t26, t27, t35, ho
 - `scratch/av-b2/olean/AVB2Main.lean` (imports TailI): `t9_of_leaves3`, `MulIsogenyPosChar` (new leaf),
   `divisiblePoints_of_posChar`, `cpt_torsion_descends`, `hom_ext_of_pts`, `serreRigidity3_of_T35`,
   bundles `OpenTextbookLeavesB2`/`OpenAddedLeavesB2`, `sixContactMin_of_openB2` (66 Props).
+
+## Compile outcomes (VERIFIED)
+- Olean chain (scratch/av-b2/chain.sh, 18:11-18:33): LPrefix 595 s, TailA 108, TailB 106, TailC 192, TailD 16,
+  LF2* 6-12, TailE 59, TailF 46, TailG 69, TailH 75, TailI 5; all exit 0, 0 errors, no sorry.
+- `lake build ZInQKernel.Contrib.AVB2.SerreLemma`: first run 2 errors (`Submodule.coe_smul` vs nsmul;
+  induction without generalizing), fixed (`Submodule.coe_smul_of_tower`, `Nat.cast_smul_eq_nsmul`); then OK.
+- `scratch/av-b2/ctail.sh AVB2Main.lean`: after 4 fix rounds (pullback type ascriptions, `simp` closing
+  goals early in `sC`), exit 0, 0 errors, no sorry, 6 s. `#print axioms`:
+  - `HDec.AVB2.t9_of_leaves3`: [propext, Classical.choice, Quot.sound]
+  - `HDec.AVB2.divisiblePoints_of_posChar`: [propext, Classical.choice, Quot.sound]
+  - `HDec.AVB2.serreRigidity3_of_T35`: [propext, Classical.choice, Quot.sound]
+  - `HDec.HSyn.sixContactMin_of_openB2`: [propext, Classical.choice, Quot.sound]
+
+## Findings
+- t9 (T9, consequence form) is glue: `t9_of_leaves3 : T09_SymmIsogenyExists → IsogenyQuasiInverse →
+  LeafPush.T09_WeilPairing.{0}` is weil-pairing's `oldT9_of_symmIsogeny`; Lean accepts it at the field's type, so
+  `OldT9.T09_WeilPairing` and `LeafPush.T09_WeilPairing.{0}` are definitionally equal (VERIFIED).
+- serreRigidity3 is glue from T35 and HomLatticeCorr (both bundle fields) plus the proved `MulIsogeny` (finiteness
+  of `[3]` for the torsion descent `A(ℂ)[3] = A(ℚ̄)[3]`) and Mathlib (VERIFIED).
+- divisiblePoints follows from the new leaf `AVB2.MulIsogenyPosChar` ([n] finite + surjective, n ≠ 0, positive
+  characteristic); characteristic 0 is the proved `MulIsogeny` (VERIFIED).
+- Net: 68 → 66 Props (`sixContactMin_of_openB2`); leaves 62 → 60 (t9, serreRigidity3 removed; divisiblePoints
+  replaced by MulIsogenyPosChar).
