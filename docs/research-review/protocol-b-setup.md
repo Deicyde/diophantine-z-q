@@ -433,6 +433,12 @@ from the configured App for the exact current head. It preserves the original
 report, run and policy identities. The report must include completed source and
 history reads and disposition every current finding. A changed head, new
 unresolved finding, wrong model or unauthenticated report cannot qualify.
+The full original report and history come from its App-bound workflow artifact,
+and its compact fields must exactly match the App record. Substantive discussion,
+interrupted-review observations, finding text and overrides must remain unchanged.
+Only literal retry commands and exact round-pointer metadata are excluded from
+the history comparison. Missing original material blocks reuse; a comment cannot
+substitute for it.
 Across policy versions, unchanged instructions and an explicit default-branch
 compatibility entry binding both complete workflow hashes are required. The
 initial entry permits only Astra reuse across the Fable transport repair.
