@@ -21,3 +21,12 @@ Row sources (VERIFIED, read): definitions read in ~/dzq-wt/leaf-fold4/scratch/le
   End⁰ ≅ B, or End⁰ ≅ M₂(ℚ(√d)), d < 0, with `ℚ(√d) ⊗ B ≅ M₂(ℚ(√d))`; the simple/non-simple labels of the
   cases dropped); `qmDichotomyYu_of_yu : YuThm11 → PkgI3.QMDichotomyYu` (drop the splitting clause).
   0 errors, 5 s, axioms standard.
+
+## H-61 `QMAutCard`: PROVED from one leaf (VERIFIED, compiled)
+- `scratch/qm-split/QMAut.lean`: LEAF `HDec.QMSplit.Aut.QMCentralizerCM` (End_𝒪(A) over ℚ̄ is ℤ or ≅ Φ⁻¹(𝒪) for an
+  embedding Φ : k → B of an imaginary quadratic k; Shimura 1967, Jordan 1981 §3, González–Rotger 2006 §5;
+  locators UNVERIFIED; printed over ℂ, ℚ̄ form via T11(b) flagged); `qmAutCard_of : QMCentralizerCM → HeckeRest.QMAutCard`.
+  Axioms standard, 7 s.
+- Computation: `disc_neg` (IsTotallyComplex ⇒ non-rational elements have t² < 4n), `unit_cases` (units of Φ⁻¹(𝒪):
+  nrd = 1, trd ∈ ℤ), `card_units_R` (4/6/2 by explicit lists, `decide` on ℚ×ℚ lists), `excl_*` (products square
+  to 3, 6, 18), `isoUnitEquiv : QMIso q q ≃ (com q)ˣ`.
