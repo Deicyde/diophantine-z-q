@@ -21,7 +21,8 @@ while inside the `j`-th field argument of a bundle constructor `S'.mk` (innermos
 
 `frozenTarget` is used; USED is closed backwards along the edges. The scan prints, for each bundle in
 `frozenTarget`'s hypotheses, the fields that are not used: those can be removed from the whole chain
-without changing any proof other than the bundle plumbing.
+without changing any proof other than the bundle plumbing, and writes every field with its type and
+verdict to `scratch/one-proof/used-fields.txt`.
 -/
 
 open Lean
@@ -230,11 +231,25 @@ run_cmd do
     t := t.bindingBody!
   logInfo m!"PRUNE closure={cl.size} relevant={relevant.size} visited={visited} edgeTargets={st.edges.size} used={used.size} casesOn={st.casesHits.size} {st.casesHits.toList}"
   let mut total := 0
+  let mut lines : Array String := #[s!"# frozenTarget's bundle fields, USED or UNUSED (scratch/one-proof/PruneScan.lean)", ""]
   for s in tops do
     let fs := fieldNames env s
     let mut unused : Array Name := #[]
+    lines := lines.push s!"## {s}"
     for j in [:fs.size] do
-      if !used.contains (.field s j) then unused := unused.push fs[j]!
+      let isUsed := used.contains (.field s j)
+      if !isUsed then unused := unused.push fs[j]!
+      -- the field's type, read off its projection function
+      let ty ← match env.find? (s ++ fs[j]!) with
+        | some ci => do
+          let mut t := ci.type
+          while t.isForall do t := t.bindingBody!
+          let fmt ← liftTermElabM <| Meta.ppExpr (if t.hasLooseBVars then ci.type else t)
+          pure ((toString fmt).replace "\n" " ")
+        | none => pure "?"
+      lines := lines.push s!"{if isUsed then "USED  " else "UNUSED"} {fs[j]!} : {ty}"
+    lines := lines.push ""
     total := total + unused.size
     logInfo m!"PRUNE bundle {s}: {fs.size} fields, unused {unused.size}: {unused.toList}"
+  IO.FS.writeFile "scratch/one-proof/used-fields.txt" ("\n".intercalate lines.toList ++ "\n")
   logInfo m!"PRUNE total unused top-level fields: {total}"
