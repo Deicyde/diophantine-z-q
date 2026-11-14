@@ -23,3 +23,11 @@ Setup: compile checks with `scratch/reduct-split/chk.sh FILE` = `lean` with LEAN
   `SemistableAlmostAll`; `semistablePersists_of_leaves : ... → ZInQ.HeightSplit.SemistablePersists`,
   `semistableReductionThm_of_leaves : ... → ZInQ.HeightSplit.SemistableReductionThm`: OK 11.5 s; all five row theorems
   depend on [propext, Classical.choice, Quot.sound]. VERIFIED.
+- 11:44 §10: `exists_fixing_field` (every K̄-point of a K-scheme locally of finite type is fixed by Aut(K̄/K'') for a
+  finite K'' ⊆ K̄: affine open, Spec.preimage, finite type generators, IntermediateField.adjoin), hence
+  `torsionFieldOfDefinition_of : TorsionStructure → TorsionFieldOfDefinition` (glue PROVED) and
+  `serreTatePotentialGood_of_printed : SerreTateThm2 → TorsionStructure → PkgI2.SerreTatePotentialGood.{0}`. OK. VERIFIED.
+- 11:45 §11: `raynaudCriterion_final`, `grothendieckMonodromy_final`, `serreTatePotentialGood_final` over the bundle leaf
+  `AvSplit.MumfordTorsionAlgClosed` (via kernel `AvSplit.torsionStructure_of_mumford`). All axioms standard. VERIFIED.
+  => r7b DONE (published-form leaves only: Serre–Tate Thm 2 + Mumford §4). r6: one glue (FixedTorsionRational). r8: one
+  glue (DVRFiniteExtension).
