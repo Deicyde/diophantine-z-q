@@ -1,0 +1,146 @@
+
+/-! ════════════════════════════════════════════════════════════════════════════════════════════
+# mcr-quot, part 21: transport of maps to `P¹` along open immersions
+════════════════════════════════════════════════════════════════════════════════════════════ -/
+
+noncomputable section
+
+namespace MCRQuot
+
+open Polynomial CategoryTheory AlgebraicGeometry Limits LeafQM LeafQM.AV VertWitness HeckeRestNV
+open G0ModField PropTSRed PropTSGlue ModelGlue MCRGlue LeafQM.AV.Pin PkgI3
+open TopologicalSpace Opposite
+
+section Transport
+
+variable {X Y : Scheme.{0}}
+
+/-- Sections over an open inside the range of an open immersion are detected after pulling back. -/
+theorem app_injective_of_le_range (j : Y ⟶ X) [IsOpenImmersion j] (A : X.Opens)
+    (hA : A ≤ j.opensRange) : Function.Injective (j.app A) := by
+  rw [injective_iff_map_eq_zero]
+  intro s hs
+  apply TopCat.Presheaf.section_ext X.sheaf A
+  intro x hx
+  obtain ⟨y, rfl⟩ := hA hx
+  have e := j.germ_stalkMap_apply A y hx s
+  rw [hs, map_zero] at e
+  have hinj : Function.Injective (j.stalkMap y) :=
+    (ConcreteCategory.bijective_of_isIso (j.stalkMap y)).1
+  change X.presheaf.germ A (j y) hx s = X.presheaf.germ A (j y) hx 0
+  rw [map_zero]
+  exact hinj (e.trans (map_zero _).symm)
+
+theorem eq_of_preimage_eq_of_le_range (j : Y ⟶ X) [IsOpenImmersion j] {A B : X.Opens} (hA : A ≤ j.opensRange)
+    (hB : B ≤ j.opensRange) (h : j ⁻¹ᵁ A = j ⁻¹ᵁ B) : A = B := by
+  ext x
+  constructor
+  · intro hx
+    obtain ⟨y, rfl⟩ := hA hx
+    have : y ∈ j ⁻¹ᵁ B := h ▸ hx
+    exact this
+  · intro hx
+    obtain ⟨y, rfl⟩ := hB hx
+    have : y ∈ j ⁻¹ᵁ A := h.symm ▸ hx
+    exact this
+
+/-- The section `(j.appIso U).inv s` pulls back to `s`. -/
+theorem app_appIso_inv_apply (j : Y ⟶ X) [IsOpenImmersion j] (U : Y.Opens) (s : Γ(Y, U)) :
+    j.app (j ''ᵁ U) ((j.appIso U).inv s) =
+      Y.presheaf.map (eqToHom (j.preimage_image_eq U)).op s := by
+  rw [← ConcreteCategory.comp_apply, Scheme.Hom.appIso_inv_app]
+
+/-- **Pushing a map to `P¹` forward along an open immersion**, as a map on its range. -/
+def pushToP1In (j : Y ⟶ X) [IsOpenImmersion j] (σ : ToP1 Y) : ToP1In X j.opensRange where
+  U := j ''ᵁ σ.U
+  V := j ''ᵁ σ.V
+  cover := by
+    rw [← j.image_top_eq_opensRange, ← σ.cover]
+    ext x
+    simp only [Opens.coe_sup, Set.mem_union, Scheme.Hom.coe_image, SetLike.mem_coe, Set.image_union]
+  f := (j.appIso σ.U).inv σ.f
+  g := (j.appIso σ.V).inv σ.g
+  inv := by
+    have hle : j ''ᵁ σ.U ⊓ j ''ᵁ σ.V ≤ j.opensRange :=
+      inf_le_left.trans (j.image_le_opensRange _)
+    apply app_injective_of_le_range j _ hle
+    have hpre : j ⁻¹ᵁ (j ''ᵁ σ.U ⊓ j ''ᵁ σ.V) = σ.U ⊓ σ.V := by
+      rw [Scheme.Hom.preimage_inf, j.preimage_image_eq, j.preimage_image_eq]
+    rw [map_mul, map_one, app_map_eq, app_map_eq, app_appIso_inv_apply, app_appIso_inv_apply,
+      ← ConcreteCategory.comp_apply, ← ConcreteCategory.comp_apply, ← Functor.map_comp,
+      ← Functor.map_comp]
+    have := congrArg (Y.presheaf.map (eqToHom hpre).op) σ.inv
+    rw [map_mul, map_one, ← ConcreteCategory.comp_apply, ← ConcreteCategory.comp_apply,
+      ← Functor.map_comp, ← Functor.map_comp] at this
+    exact this
+  basicOpen_f := by
+    rw [← Scheme.image_basicOpen, σ.basicOpen_f]
+    ext x
+    simp only [Opens.coe_inf, Scheme.Hom.coe_image, Set.mem_inter_iff, Set.mem_image,
+      SetLike.mem_coe]
+    constructor
+    · rintro ⟨y, ⟨h1, h2⟩, rfl⟩
+      exact ⟨⟨y, h1, rfl⟩, ⟨y, h2, rfl⟩⟩
+    · rintro ⟨⟨y, h1, rfl⟩, ⟨y', h2, hy⟩⟩
+      obtain rfl := j.isOpenEmbedding.injective hy
+      exact ⟨y', ⟨h1, h2⟩, rfl⟩
+  basicOpen_g := by
+    rw [← Scheme.image_basicOpen, σ.basicOpen_g]
+    ext x
+    simp only [Opens.coe_inf, Scheme.Hom.coe_image, Set.mem_inter_iff, Set.mem_image,
+      SetLike.mem_coe]
+    constructor
+    · rintro ⟨y, ⟨h1, h2⟩, rfl⟩
+      exact ⟨⟨y, h1, rfl⟩, ⟨y, h2, rfl⟩⟩
+    · rintro ⟨⟨y, h1, rfl⟩, ⟨y', h2, hy⟩⟩
+      obtain rfl := j.isOpenEmbedding.injective hy
+      exact ⟨y', ⟨h1, h2⟩, rfl⟩
+
+/-- Values of the pushed-forward function. -/
+theorem ev_pushToP1In (j : Y ⟶ X) [IsOpenImmersion j] (σ : ToP1 Y) {K : Type} [Field K]
+    (y : Spec (CommRingCat.of K) ⟶ Y) (hy : ptOf y ∈ σ.U)
+    (hy' : ptOf (y ≫ j) ∈ (pushToP1In j σ).U) :
+    ev (y ≫ j) hy' (pushToP1In j σ).f = ev y hy σ.f := by
+  rw [ImagePlane.ev_comp]
+  change ev y _ (j.app (j ''ᵁ σ.U) ((j.appIso σ.U).inv σ.f)) = _
+  rw [app_appIso_inv_apply]
+  have e : Y.presheaf.map (eqToHom (j.preimage_image_eq σ.U)).op =
+      Y.presheaf.map (homOfLE (j.preimage_image_eq σ.U).le).op :=
+    congrArg (fun i : (j ⁻¹ᵁ j ''ᵁ σ.U) ⟶ σ.U => Y.presheaf.map i.op) (Subsingleton.elim _ _)
+  rw [e]
+  exact ev_res y _ _ σ.f
+
+/-- **Pulling a map to `P¹` on `O` back along `h` with `h⁻¹O = ⊤`.** -/
+def pullToP1 {O : X.Opens} (σ : ToP1In X O) (h : Y ⟶ X) (hO : h ⁻¹ᵁ O = ⊤) : ToP1 Y where
+  U := h ⁻¹ᵁ σ.U
+  V := h ⁻¹ᵁ σ.V
+  cover := by rw [← Scheme.Hom.preimage_sup, σ.cover, hO]
+  f := h.app σ.U σ.f
+  g := h.app σ.V σ.g
+  inv := by
+    have n1 := ConcreteCategory.congr_hom
+      (h.naturality (homOfLE (inf_le_left : σ.U ⊓ σ.V ≤ σ.U)).op) σ.f
+    have n2 := ConcreteCategory.congr_hom
+      (h.naturality (homOfLE (inf_le_right : σ.U ⊓ σ.V ≤ σ.V)).op) σ.g
+    simp only [ConcreteCategory.comp_apply] at n1 n2
+    have e := congrArg (h.app (σ.U ⊓ σ.V)) σ.inv
+    rw [map_mul, map_one, n1, n2] at e
+    exact e
+  basicOpen_f := by rw [← Scheme.preimage_basicOpen, σ.basicOpen_f]; rfl
+  basicOpen_g := by rw [← Scheme.preimage_basicOpen, σ.basicOpen_g]; rfl
+
+theorem val_pullToP1_of_mem {O : X.Opens} (σ : ToP1In X O) (h : Y ⟶ X) (hO : h ⁻¹ᵁ O = ⊤)
+    {K : Type} [Field K] (y : Spec (CommRingCat.of K) ⟶ Y) (hy : ptOf (y ≫ h) ∈ σ.U) :
+    (pullToP1 σ h hO).val y = OnePoint.some (ev (y ≫ h) hy σ.f) := by
+  rw [val_of_mem (pullToP1 σ h hO) y hy]
+  rw [ImagePlane.ev_comp]
+  rfl
+
+theorem val_pullToP1_of_not_mem {O : X.Opens} (σ : ToP1In X O) (h : Y ⟶ X) (hO : h ⁻¹ᵁ O = ⊤)
+    {K : Type} [Field K] (y : Spec (CommRingCat.of K) ⟶ Y) (hy : ptOf (y ≫ h) ∉ σ.U) :
+    (pullToP1 σ h hO).val y = OnePoint.infty :=
+  val_of_not_mem (pullToP1 σ h hO) y hy
+
+end Transport
+
+end MCRQuot
