@@ -62,7 +62,7 @@ for the pinned points; TYZ prove it (L2343–2380) from Theorem 3.3 by the chara
 - `fibre5.py` → `fibre5.out` (pure Python): for 27 squarefree n ≡ 5 (mod 8), 5 ≤ n ≤ 445, the fibres of
   `Pic(ℤ[4√−n]) → Cl(K_n)` computed exactly (O₄-ideal of each Heegner form extended to O_K, reduced form
   of disc −4n); all fibres have size 4; within every fibre `16(φ(τ_Q) − φ(τ_Q')) ∈ Λ` (x-conjugates agree
-  mod torsion): 0 non-torsion differences over all fibre pairs. Control: across different fibres, 1 torsion
-  difference out of 1300+ pairs (n = 445), so the test discriminates. Hence `P_χ` is independent of the lift
+  mod torsion): 0 non-torsion differences over 648 fibre pairs. Control: across different fibres, 1 torsion
+  difference out of 1040 pairs (n = 445), so the test discriminates. Hence `P_χ` is independent of the lift
   family mod torsion on this sample, i.e. the `∀ f` form of the leaf agrees with TYZ's `P_χ` for any Φ
   (VERIFIED computed on the sample; n = 1365 not run: class search range exceeded).
