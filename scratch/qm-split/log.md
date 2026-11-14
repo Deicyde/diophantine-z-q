@@ -40,3 +40,9 @@ Row sources (VERIFIED, read): definitions read in ~/dzq-wt/leaf-fold4/scratch/le
   anisotropic, descent mod 3) or gives the CM element; m = 3: x ∈ 𝒪, x² = −3 ⇒ (1+x)/2 ∈ 𝒪
   (`half_mem_of_sq_neg3`, parity mod 2). The embedding check of the docstring (ℚ(√−2), ℚ(√−7), ... ) is
   replaced by these computations; ℤ case: v² = ±c impossible.
+
+## H-42 `CMOptimalEmbedding`: PROVED from the same leaf (VERIFIED, compiled)
+- `QMAut.lean` §7: `cmOptimalEmbedding_of : QMCentralizerCM → FS5NoCM.CMOptimalEmbedding`, axioms standard.
+- Glue: ℤ case impossible (an order of finite index contains a non-rational element: `order_spans` via
+  `exists_integral_multiple` + `AddSubgroup.nsmul_index_mem`); k case: R' ≅ com ≅ Φ⁻¹(𝒪) extends to
+  fraction fields (`isFractionRing_of_mul_mem`, `IsFractionRing.ringEquivOfRingEquiv`), φ = Φ ∘ σ.

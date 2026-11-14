@@ -886,7 +886,133 @@ theorem alFixedPoints_of (h : QMCentralizerCM) : HDec.HeckeRest.ALFixedPoints :=
     · obtain ⟨v, w, wi, hv, hw, hwi, hww, hvv⟩ := tr 3 6 (by decide) tt3_sq hG
       exact e24.2 (al6 hk2 Φ hv hw hwi hww (by rw [hvv]; push_cast; ring))
 
+
+/-! ## §7 Row H-42 `CMOptimalEmbedding` from the leaf -/
+
+theorem isFractionRing_of_mul_mem {K : Type} [Field K] [CharZero K] (R : Subring K)
+    (h : ∀ x : K, ∃ d : ℕ, d ≠ 0 ∧ (d : K) * x ∈ R) : IsFractionRing R K := by
+  rw [IsFractionRing, isLocalization_iff]
+  refine ⟨fun y => ?_, fun z => ?_, fun {x y} hxy => ?_⟩
+  · have hy : (y : R) ≠ 0 := nonZeroDivisors.coe_ne_zero y
+    exact IsUnit.mk0 _ (by
+      change ((y : R) : K) ≠ 0
+      exact fun h0 => hy (Subtype.ext h0))
+  · obtain ⟨d, hd, hdz⟩ := h z
+    have hdR : (d : K) ∈ R := natCast_mem R d
+    have hd0 : (⟨(d : K), hdR⟩ : R) ∈ nonZeroDivisors R :=
+      mem_nonZeroDivisors_of_ne_zero (fun h0 => hd (by
+        have h1 : ((d : ℕ) : K) = 0 := congrArg Subtype.val h0
+        exact_mod_cast h1))
+    refine ⟨(⟨(d : K) * z, hdz⟩, ⟨_, hd0⟩), ?_⟩
+    change z * (d : K) = (d : K) * z
+    ring
+  · exact ⟨1, by simpa using Subtype.ext hxy⟩
+
+theorem O_spans {x : B} : ∃ d : ℕ, d ≠ 0 ∧ (d : ℚ) • x ∈ LeafQM.O := by
+  refine ⟨x.re.den * x.imI.den * x.imJ.den * x.imK.den, by positivity, ?_⟩
+  set D : ℕ := x.re.den * x.imI.den * x.imJ.den * x.imK.den
+  have hint : ∀ (q : ℚ) (n : ℕ), q.den ∣ n → ∃ z : ℤ, (z : ℚ) = (n : ℚ) * q := by
+    intro q n hn
+    obtain ⟨m, rfl⟩ := hn
+    exact ⟨m * q.num, by push_cast; rw [← Rat.mul_den_eq_num q]; ring⟩
+  obtain ⟨a, ha⟩ := hint x.re D ⟨x.imI.den * x.imJ.den * x.imK.den, by simp only [D]; ring⟩
+  obtain ⟨b, hb⟩ := hint x.imI D ⟨x.re.den * x.imJ.den * x.imK.den, by simp only [D]; ring⟩
+  obtain ⟨c, hc⟩ := hint x.imJ D ⟨x.re.den * x.imI.den * x.imK.den, by simp only [D]; ring⟩
+  obtain ⟨d, hd⟩ := hint x.imK D ⟨x.re.den * x.imI.den * x.imJ.den, by simp only [D]; ring⟩
+  refine ⟨![a - c, b - d, 2 * c, 2 * d], ?_⟩
+  ext <;> simp [LeafQM.ofInt, ha, hb, hc, hd] <;> ring
+
+theorem order_spans {k' : Type} [Field k'] [NumberField k'] (R' : Subring k')
+    (hR' : R' ≤ (integralClosure ℤ k').toSubring) (hc : LeafQM.AV.conductor R' ≠ 0) (x : k') :
+    ∃ d : ℕ, d ≠ 0 ∧ (d : k') * x ∈ R' := by
+  have halg : IsAlgebraic ℤ x :=
+    (IsFractionRing.isAlgebraic_iff ℤ ℚ k').2 (Algebra.IsAlgebraic.isAlgebraic x)
+  obtain ⟨y, hy0, hyint⟩ := halg.exists_integral_multiple
+  set H := R'.toAddSubgroup.addSubgroupOf (integralClosure ℤ k').toSubring.toAddSubgroup
+  have hidx : H.index = LeafQM.AV.conductor R' := rfl
+  have hmem : (y • x) ∈ (integralClosure ℤ k').toSubring.toAddSubgroup := hyint
+  have h1 := AddSubgroup.nsmul_index_mem H ⟨y • x, hmem⟩
+  rw [AddSubgroup.mem_addSubgroupOf] at h1
+  change H.index • (y • x) ∈ R' at h1
+  set z : ℤ := (H.index : ℤ) * y
+  have hz0 : z ≠ 0 := mul_ne_zero (by rw [hidx]; exact_mod_cast hc) hy0
+  have hzx : (z : k') * x ∈ R' := by
+    have e : (z : k') * x = H.index • (y • x) := by
+      simp only [z, zsmul_eq_mul, nsmul_eq_mul]; push_cast; ring
+    rw [e]; exact h1
+  refine ⟨z.natAbs, by simpa using hz0, ?_⟩
+  have hcast : ((z.natAbs : ℕ) : k') = (z : k') ∨ ((z.natAbs : ℕ) : k') = -(z : k') := by
+    rcases Int.natAbs_eq z with h | h
+    · left; rw [← Int.cast_natCast, ← h]
+    · right; rw [← Int.cast_natCast, show ((z.natAbs : ℤ)) = -z by omega, Int.cast_neg]
+  rcases hcast with h | h
+  · rw [h]; exact hzx
+  · rw [h, neg_mul]; exact R'.neg_mem hzx
+
+open LeafQM.AV in
+/-- **Row H-42 from the leaf.** -/
+theorem cmOptimalEmbedding_of (h : QMCentralizerCM) : HDec.FS5NoCM.CMOptimalEmbedding := by
+  intro P k' _ _ _ hk2' R' hR' hc0 he'
+  obtain ⟨e'⟩ := he'
+  rcases h P.A P.surface P.q with he | ⟨k, _, _, hkc, hk2, Φ, he⟩
+  · -- `R' ≅ ℤ` is impossible for an order of finite index in `𝓞_k'`
+    exfalso
+    obtain ⟨e⟩ := he
+    have f : ℤ ≃+* R' := e.symm.trans e'
+    have hall : ∀ r : R', ∃ n : ℤ, (r : k') = n := by
+      intro r
+      refine ⟨f.symm r, ?_⟩
+      have h1 : f (f.symm r) = r := f.apply_symm_apply r
+      have h2 : f (f.symm r) = ((f.symm r : ℤ) : R') := eq_intCast f _
+      have h3 : r = ((f.symm r : ℤ) : R') := h1.symm.trans h2
+      conv_lhs => rw [h3]
+      push_cast; rfl
+    -- a non-rational element of `k'`
+    obtain ⟨x, hx⟩ : ∃ x : k', ∀ c : ℚ, x ≠ algebraMap ℚ k' c := by
+      by_contra hno
+      push Not at hno
+      have : Module.finrank ℚ k' = 1 := by
+        rw [finrank_eq_one_iff_of_nonzero' (1 : k') one_ne_zero]
+        intro x; obtain ⟨c, rfl⟩ := hno x; exact ⟨c, by simp [Algebra.smul_def]⟩
+      omega
+    obtain ⟨d, hd, hdx⟩ := order_spans R' hR' hc0 x
+    obtain ⟨n, hn⟩ := hall ⟨_, hdx⟩
+    apply hx ((n : ℚ) / d)
+    have hdk : (d : k') ≠ 0 := by exact_mod_cast hd
+    simp only [map_div₀, map_intCast, map_natCast]
+    field_simp
+    rw [mul_comm]; exact hn
+  · obtain ⟨e⟩ := he
+    haveI := hkc
+    set R := LeafQM.O.comap Φ.toRingHom
+    let ψ : R' ≃+* R := e'.symm.trans e
+    haveI : IsFractionRing R' k' := isFractionRing_of_mul_mem R' (order_spans R' hR' hc0)
+    haveI : IsFractionRing R k := isFractionRing_of_mul_mem R (fun y => by
+      obtain ⟨d, hd, hdy⟩ := O_spans (x := Φ y)
+      refine ⟨d, hd, ?_⟩
+      show Φ ((d : k) * y) ∈ LeafQM.O
+      have e1 : Φ ((d : k) * y) = (d : ℚ) • Φ y := by
+        rw [map_mul, map_natCast, Nat.cast_smul_eq_nsmul, nsmul_eq_mul]
+      rw [e1]; exact hdy)
+    let σ : k' ≃+* k := IsFractionRing.ringEquivOfRingEquiv ψ
+    have hσ : ∀ r : R', σ r = ψ r := fun r => IsFractionRing.ringEquivOfRingEquiv_algebraMap ψ r
+    refine ⟨(Φ.toRingHom.comp σ.toRingHom).toRatAlgHom, ?_⟩
+    ext x
+    change x ∈ R' ↔ Φ (σ x) ∈ LeafQM.O
+    constructor
+    · intro hx
+      have := hσ ⟨x, hx⟩
+      change Φ (σ x) ∈ LeafQM.O
+      rw [this]; exact (ψ ⟨x, hx⟩).2
+    · intro hx
+      let r : R := ⟨σ x, hx⟩
+      have h1 := hσ (ψ.symm r)
+      rw [RingEquiv.apply_symm_apply] at h1
+      have : ((ψ.symm r : R') : k') = x := σ.injective h1
+      rw [← this]; exact (ψ.symm r).2
+
 end HDec.QMSplit.Aut
 
 #print axioms HDec.QMSplit.Aut.qmAutCard_of
 #print axioms HDec.QMSplit.Aut.alFixedPoints_of
+#print axioms HDec.QMSplit.Aut.cmOptimalEmbedding_of
