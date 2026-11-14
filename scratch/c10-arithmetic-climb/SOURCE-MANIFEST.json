@@ -1,0 +1,154 @@
+{
+  "source_parent_commit": "f82101cac3723c5f5268bab33cc6a09d47cfdbb1",
+  "pinned_upstream_base": "fb2f78e143af2f6de71ca43e37498c229cde1c6b",
+  "scope": "Optional independently reviewed index, fixed-place character and conditional B2 beta primitives. No default-root/pins/workflows/PR/main/global arithmetic claim.",
+  "source_byte_preservation": true,
+  "not_App_acceptance_or_imported_library_full_replay": true,
+  "files": [
+    {
+      "path": "scratch/c10-arithmetic-climb/README.md",
+      "bytes": 3688,
+      "sha256": "b2672feee7b1902b180e08dd1f3c5d51000de1a224d2a144001104dc55ad9972",
+      "kind": "proof_check_or_scope"
+    },
+    {
+      "path": "scratch/c10-arithmetic-climb/beta/BetaChecksAndBoundary.lean",
+      "bytes": 4661,
+      "sha256": "e551a90187f558faa9e233c8ce002127727791803e320e9ba88fe558fff131be",
+      "kind": "proof_check_or_scope"
+    },
+    {
+      "path": "scratch/c10-arithmetic-climb/beta/BetaFixedPlace.lean",
+      "bytes": 9104,
+      "sha256": "63b831f5b8929583cc4d59790efb789414e07ca8ed8e4d1023cf845d1d260b4a",
+      "kind": "proof_check_or_scope"
+    },
+    {
+      "path": "scratch/c10-arithmetic-climb/character/BoundaryAndAxioms.lean",
+      "bytes": 3520,
+      "sha256": "c890939fccd4b176db02b4cb5ed7b63f05fb1223a5ce90feadf819de83165070",
+      "kind": "proof_check_or_scope"
+    },
+    {
+      "path": "scratch/c10-arithmetic-climb/character/CharacterDescent.lean",
+      "bytes": 8319,
+      "sha256": "b21abc3f450fe6325ea4488404042ec9bb80c1094f0424f8f16827c99170e0fd",
+      "kind": "proof_check_or_scope"
+    },
+    {
+      "path": "scratch/c10-arithmetic-climb/character/CharacterDescentChecks.lean",
+      "bytes": 2707,
+      "sha256": "899cce6cd99be0ef5d09d9e9c5ffe1c132fe0b747c1c489fcbe2ba22e8f07c84",
+      "kind": "proof_check_or_scope"
+    },
+    {
+      "path": "scratch/c10-arithmetic-climb/controls/beta/BadEpsilonWithoutSign.lean",
+      "bytes": 637,
+      "sha256": "e552fa42c022ba8d4afc9449c2042cff044423a7dc5a67e601235f88d970226c",
+      "kind": "structural_must_fail_not_provider"
+    },
+    {
+      "path": "scratch/c10-arithmetic-climb/controls/beta/BadNormalizationBeta.lean",
+      "bytes": 608,
+      "sha256": "aef5958a285fcad5473d868e9339206d1a242563cd5c9162371f117ca63f1fca",
+      "kind": "structural_must_fail_not_provider"
+    },
+    {
+      "path": "scratch/c10-arithmetic-climb/controls/beta/BadSecondPlaceBeta.lean",
+      "bytes": 951,
+      "sha256": "4781183a69ce0132b1a6662b98538b034acdafec71c03d85f6eec2ba17f89d77",
+      "kind": "structural_must_fail_not_provider"
+    },
+    {
+      "path": "scratch/c10-arithmetic-climb/controls/beta/BadUnitZeroBeta.lean",
+      "bytes": 1053,
+      "sha256": "8ecd33150630c1cb211be21439d4e4476cf6c80e7201ce327f8be1305ce4b035",
+      "kind": "structural_must_fail_not_provider"
+    },
+    {
+      "path": "scratch/c10-arithmetic-climb/controls/beta/BadZeroLevelBeta.lean",
+      "bytes": 942,
+      "sha256": "7699839298ec03f14fdd956cb3cb88979bbae8447c4c171d59ae1b73f6c1c404",
+      "kind": "structural_must_fail_not_provider"
+    },
+    {
+      "path": "scratch/c10-arithmetic-climb/controls/character/BadNoPrimes.lean",
+      "bytes": 551,
+      "sha256": "c98c31883b0c6bba1cabb98a2d5ce51722c4e54cf216f602642657976f12f14b",
+      "kind": "structural_must_fail_not_provider"
+    },
+    {
+      "path": "scratch/c10-arithmetic-climb/controls/character/BadNonClosedTarget.lean",
+      "bytes": 399,
+      "sha256": "5bf9433a940e8f111467a57088e83c966b377bfcd24d7af82cc164d39fef6119",
+      "kind": "structural_must_fail_not_provider"
+    },
+    {
+      "path": "scratch/c10-arithmetic-climb/controls/character/BadSecondPlace.lean",
+      "bytes": 484,
+      "sha256": "57fe7449cd65ed737bb3c544b17130916d14a6e56ca299bb83eca0630b3ac1e2",
+      "kind": "structural_must_fail_not_provider"
+    },
+    {
+      "path": "scratch/c10-arithmetic-climb/controls/character/BadZeroLevel.lean",
+      "bytes": 453,
+      "sha256": "726af0516fd094b9b06fba67d156847eb1f2b6abc2a9179ddcb2c1aef820a082",
+      "kind": "structural_must_fail_not_provider"
+    },
+    {
+      "path": "scratch/c10-arithmetic-climb/controls/index/BadRangeMissing.lean",
+      "bytes": 1162,
+      "sha256": "b126f30795115e8fc6daeeba3c8e2b6d24c4f7ac4bcc3038adf2bd1c7d17293e",
+      "kind": "structural_must_fail_not_provider"
+    },
+    {
+      "path": "scratch/c10-arithmetic-climb/controls/index/RangeGatePositive.lean",
+      "bytes": 960,
+      "sha256": "207ecda5887dbdf5c7ef891e8294db012b9b6a84021f8ffcf9c08066707acf4a",
+      "kind": "proof_check_or_scope"
+    },
+    {
+      "path": "scratch/c10-arithmetic-climb/index/GaloisIndex.lean",
+      "bytes": 8328,
+      "sha256": "758b632cb5bea4a55676bc7a49529d21028e84f12b9dad5742cc7cb994f2bf3b",
+      "kind": "proof_check_or_scope"
+    },
+    {
+      "path": "scratch/c10-arithmetic-climb/index/GaloisIndexBridge.lean",
+      "bytes": 6252,
+      "sha256": "565471fa98c9c0d1581ed8c89b588cd15aa13342990ca9145e96c43082ec4a69",
+      "kind": "proof_check_or_scope"
+    },
+    {
+      "path": "scratch/c10-arithmetic-climb/index/GaloisIndexPositive.lean",
+      "bytes": 4565,
+      "sha256": "2aaa42d45f3685c590e870024602e7bdf8da3a3fce390d2b7fba1c0cd4a139a1",
+      "kind": "proof_check_or_scope"
+    },
+    {
+      "path": "scratch/c10-arithmetic-climb/specs/BetaTransportExpected.lean",
+      "bytes": 2100,
+      "sha256": "dcf079cc79d8a9fb3a52370f76f9a418ebe579a3396475f1ca9fb2fcc9fcf26d",
+      "kind": "independent_specification_definitions_not_proofs"
+    },
+    {
+      "path": "scratch/c10-arithmetic-climb/specs/CharacterDescentExpected.lean",
+      "bytes": 1609,
+      "sha256": "54c7a9ca22c327aaafce799a0e16f6372be188c3deec90eb7422062602ef65cb",
+      "kind": "independent_specification_definitions_not_proofs"
+    },
+    {
+      "path": "scratch/c10-arithmetic-climb/specs/GaloisIndexExpected.lean",
+      "bytes": 1678,
+      "sha256": "641c1965384cd475077c6463bee6435dcea0e9cbeda4b1f953d9171941ddb2f9",
+      "kind": "independent_specification_definitions_not_proofs"
+    },
+    {
+      "path": "scratch/c10-arithmetic-climb/controls/character/TAXONOMY.md",
+      "bytes": 2302,
+      "sha256": "c9ae46e0fc007ea636117d2e44de165250796d620498f71018b46b9d10a08173",
+      "kind": "authoritative_structural_control_taxonomy_not_counterexamples"
+    }
+  ],
+  "caller_binding_extra_source_scope": "The index caller bind consumes the unchanged, separately frozen #62 C10.Link and I3Linalg.C2 sources already named by the original S1Mapped; it does not construct or integrate them."
+}
