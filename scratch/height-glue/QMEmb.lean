@@ -465,30 +465,40 @@ theorem repr_unique {y : k} (hy : ∀ r : ℚ, y ≠ r) {r s r' s' : ℚ}
     field_simp
     linear_combination h
 
+/-- The coordinates of `x` in the basis `(1, y)`. -/
+noncomputable def coord0 (hk : Module.finrank ℚ k = 2) {y : k} (hy : ∀ r : ℚ, y ≠ r) (x : k) : ℚ :=
+  (exists_rat_repr hk hy x).choose
+
+noncomputable def coord1 (hk : Module.finrank ℚ k = 2) {y : k} (hy : ∀ r : ℚ, y ≠ r) (x : k) : ℚ :=
+  (exists_rat_repr hk hy x).choose_spec.choose
+
+theorem coord_spec (hk : Module.finrank ℚ k = 2) {y : k} (hy : ∀ r : ℚ, y ≠ r) (x : k) :
+    x = (coord0 hk hy x : k) + (coord1 hk hy x : k) * y :=
+  (exists_rat_repr hk hy x).choose_spec.choose_spec
+
+theorem coord_eq (hk : Module.finrank ℚ k = 2) {y : k} (hy : ∀ r : ℚ, y ≠ r) (r s : ℚ) :
+    coord0 hk hy ((r : k) + s * y) = r ∧ coord1 hk hy ((r : k) + s * y) = s :=
+  repr_unique hy (coord_spec hk hy _).symm
+
 variable {A : Type*} [Ring A] [Algebra ℚ A]
 
 /-- **The `ℚ`-algebra map `k → A` sending a non-rational `y` (root of `X² + PX + Q`) to a root `b`
-of the same polynomial.** Built from the basis `(1, y)`. -/
+of the same polynomial**, `r + s y ↦ r + s b`. -/
 noncomputable def liftQuad (hk : Module.finrank ℚ k = 2) {y : k} (hy : ∀ r : ℚ, y ≠ r)
     {P Q : ℚ} (hyq : y * y + P * y + Q = 0) (b : A)
     (hb : b * b + P • b + algebraMap ℚ A Q = 0) : k →ₐ[ℚ] A :=
-  let x0 : ∀ x : k, ℚ := fun x => (exists_rat_repr hk hy x).choose
-  let x1 : ∀ x : k, ℚ := fun x => (exists_rat_repr hk hy x).choose_spec.choose
-  have hx : ∀ x : k, x = (x0 x : k) + (x1 x : k) * y := fun x =>
-    (exists_rat_repr hk hy x).choose_spec.choose_spec
-  have hcoord : ∀ (x : k) (r s : ℚ), x = (r : k) + s * y → x0 x = r ∧ x1 x = s := fun x r s h =>
-    repr_unique hy ((hx x).symm.trans h)
-  let F : k → A := fun x => algebraMap ℚ A (x0 x) + x1 x • b
+  let F : k → A := fun x => algebraMap ℚ A (coord0 hk hy x) + coord1 hk hy x • b
   have hF : ∀ r s : ℚ, F ((r : k) + s * y) = algebraMap ℚ A r + s • b := fun r s => by
-    obtain ⟨h0, h1⟩ := hcoord _ r s rfl
-    simp only [F, h0, h1]
+    simp only [F, (coord_eq hk hy r s).1, (coord_eq hk hy r s).2]
+  have hx := coord_spec hk hy
   { toFun := F
     map_one' := by
       have : (1 : k) = ((1 : ℚ) : k) + ((0 : ℚ) : k) * y := by push_cast; ring
       rw [this, hF]; simp
     map_mul' := fun x x' => by
       rw [hx x, hx x']
-      set r := x0 x; set s := x1 x; set r' := x0 x'; set s' := x1 x'
+      set r := coord0 hk hy x; set s := coord1 hk hy x
+      set r' := coord0 hk hy x'; set s' := coord1 hk hy x'
       have e : ((r : k) + s * y) * ((r' : k) + s' * y) =
           ((r * r' - s * s' * Q : ℚ) : k) + ((r * s' + r' * s - s * s' * P : ℚ) : k) * y := by
         push_cast; linear_combination (s * s' : k) * hyq
@@ -504,13 +514,106 @@ noncomputable def liftQuad (hk : Module.finrank ℚ k = 2) {y : k} (hy : ∀ r :
       rw [this, hF]; simp
     map_add' := fun x x' => by
       rw [hx x, hx x']
-      have e : ((x0 x : k) + x1 x * y) + ((x0 x' : k) + x1 x' * y) =
-          ((x0 x + x0 x' : ℚ) : k) + ((x1 x + x1 x' : ℚ) : k) * y := by push_cast; ring
+      have e : ((coord0 hk hy x : k) + coord1 hk hy x * y) +
+          ((coord0 hk hy x' : k) + coord1 hk hy x' * y) =
+          ((coord0 hk hy x + coord0 hk hy x' : ℚ) : k) +
+            ((coord1 hk hy x + coord1 hk hy x' : ℚ) : k) * y := by push_cast; ring
       rw [e, hF, hF, hF, map_add, add_smul]; abel
     commutes' := fun r => by
       have : (algebraMap ℚ k r) = (r : k) + ((0 : ℚ) : k) * y := by simp
       rw [this, hF]; simp }
 
+theorem liftQuad_apply (hk : Module.finrank ℚ k = 2) {y : k} (hy : ∀ r : ℚ, y ≠ r)
+    {P Q : ℚ} (hyq : y * y + P * y + Q = 0) (b : A)
+    (hb : b * b + P • b + algebraMap ℚ A Q = 0) (r s : ℚ) :
+    liftQuad hk hy hyq b hb ((r : k) + s * y) = algebraMap ℚ A r + s • b := by
+  show algebraMap ℚ A (coord0 hk hy _) + coord1 hk hy _ • b = _
+  rw [(coord_eq hk hy r s).1, (coord_eq hk hy r s).2]
+
+theorem liftQuad_gen (hk : Module.finrank ℚ k = 2) {y : k} (hy : ∀ r : ℚ, y ≠ r)
+    {P Q : ℚ} (hyq : y * y + P * y + Q = 0) (b : A)
+    (hb : b * b + P • b + algebraMap ℚ A Q = 0) : liftQuad hk hy hyq b hb y = b := by
+  have h := liftQuad_apply hk hy hyq b hb 0 1
+  simp only [Rat.cast_zero, Rat.cast_one, zero_add, one_mul, map_zero, one_smul] at h
+  exact h
+
 end Field
+
+/-! ## §6. Orders: integrality, a good generator, conjugation -/
+
+section Order
+
+variable {k : Type} [Field k] [NumberField k]
+
+/-- A rational number integral over `ℤ` (in `k`) is an integer. -/
+theorem exists_int_of_isIntegral {r : ℚ} (h : IsIntegral ℤ (r : k)) : ∃ n : ℤ, r = n := by
+  have h' : IsIntegral ℤ r := by
+    rw [← isIntegral_algebraMap_iff (A := ℚ) (B := k)]
+    simpa using h
+  obtain ⟨n, hn⟩ := IsIntegrallyClosed.isIntegral_iff.mp h'
+  exact ⟨n, by rw [← hn]; simp⟩
+
+theorem isIntegral_of_mem {R : Subring k} (hR : R ≤ (integralClosure ℤ k).toSubring) {x : k}
+    (hx : x ∈ R) : IsIntegral ℤ x := hR hx
+
+/-- `R` contains an element outside `ℚ` (its conductor is finite). -/
+theorem exists_mem_not_rat (hk : Module.finrank ℚ k = 2) (R : Subring k)
+    (hc : Nat.Coprime (conductor R) 6) : ∃ x ∈ R, ∀ r : ℚ, x ≠ r := by
+  by_contra hcon
+  push_neg at hcon
+  -- an element of `k` outside `ℚ`
+  obtain ⟨z, hz⟩ : ∃ z : k, ∀ r : ℚ, z ≠ r := by
+    by_contra h
+    push_neg at h
+    let bs := Module.finBasisOfFinrankEq ℚ k hk
+    obtain ⟨r0, h0⟩ := h (bs 0)
+    obtain ⟨r1, h1⟩ := h (bs 1)
+    have hli := bs.linearIndependent
+    rw [show (⇑bs : Fin 2 → k) = ![bs 0, bs 1] from by ext i; fin_cases i <;> rfl,
+      LinearIndependent.pair_iff] at hli
+    have hb0 : bs 0 ≠ 0 := bs.ne_zero 0
+    have hr0 : r0 ≠ 0 := by rintro rfl; exact hb0 (by simpa using h0)
+    have := hli r1 (-r0) (by rw [h0, h1, Rat.smul_def, Rat.smul_def]; push_cast; ring)
+    exact hr0 (neg_eq_zero.mp this.2)
+  -- an integral element outside `ℚ`
+  obtain ⟨ω, hωi, hω⟩ : ∃ ω : k, IsIntegral ℤ ω ∧ ∀ r : ℚ, ω ≠ r := by
+    obtain ⟨a, b, hb, hab⟩ := IsFractionRing.div_surjective (𝓞 k) z
+    by_cases ha : ∀ r : ℚ, (algebraMap (𝓞 k) k a) ≠ r
+    · exact ⟨_, (a.2 : IsIntegral ℤ (a : k)), ha⟩
+    by_cases hb' : ∀ r : ℚ, (algebraMap (𝓞 k) k b) ≠ r
+    · exact ⟨_, (b.2 : IsIntegral ℤ (b : k)), hb'⟩
+    exfalso
+    push_neg at ha hb'
+    obtain ⟨ra, hra⟩ := ha
+    obtain ⟨rb, hrb⟩ := hb'
+    apply hz (ra / rb)
+    rw [← hab, hra, hrb]; push_cast; rfl
+  -- the conductor is `0`
+  have hidx : conductor R = 0 := by
+    unfold LeafQM.AV.conductor AddSubgroup.relIndex AddSubgroup.index
+    have hωK : ω ∈ (integralClosure ℤ k).toSubring.toAddSubgroup := hωi
+    let w : (integralClosure ℤ k).toSubring.toAddSubgroup := ⟨ω, hωK⟩
+    haveI : Infinite (_ ⧸ R.toAddSubgroup.addSubgroupOf
+        (integralClosure ℤ k).toSubring.toAddSubgroup) := by
+      refine Infinite.of_injective (fun m : ℕ => (QuotientAddGroup.mk (m • w) :
+        _ ⧸ R.toAddSubgroup.addSubgroupOf (integralClosure ℤ k).toSubring.toAddSubgroup)) ?_
+      intro m m' hmm
+      simp only at hmm
+      rw [QuotientAddGroup.eq, AddSubgroup.mem_addSubgroupOf] at hmm
+      obtain ⟨r, hr⟩ := hcon _ hmm
+      by_contra hne
+      apply hω (r / ((m' : ℚ) - m))
+      have hsub : ((m' : k) - m) ≠ 0 := by
+        rw [sub_ne_zero]; exact_mod_cast (Ne.symm hne)
+      simp only [AddSubgroup.coe_add, AddSubgroup.coe_neg, AddSubgroup.coe_nsmul, w,
+        nsmul_eq_mul] at hr
+      push_cast
+      field_simp
+      linear_combination hr
+    exact Nat.card_eq_zero_of_infinite
+  rw [hidx] at hc
+  exact absurd ((Nat.coprime_zero_left 6).mp hc) (by norm_num)
+
+end Order
 
 end ZInQ.HeightGlue.QM
