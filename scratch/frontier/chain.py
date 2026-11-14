@@ -29,6 +29,7 @@ G3 = ("357f5d9e", "scratch/g0-assemble3/G0Assemble3.lean")
 B5 = ("93a1e33c", "scratch/cpts-transport/Bundle5.lean")
 AP = ("92a27877", "scratch/assemble-port/AssemblePort.lean")  # assemble-port final flat check (27 glue fields, 1126 s)
 LF4 = ("9dcf1ca8", "scratch/leaf-fold4/Leaves4.lean")  # leaf-fold4 final flat file (md5 6bbeb639, 1048 s, 26+19+20+1 fields)
+LF5 = ("5a7e03d1", "scratch/leaf-fold5/Leaves5.lean")  # leaf-fold5 final flat file (md5 5999e1db, flat run 2: 1570 s, 26+21+21+2)
 
 # ---------------------------------------------------------------- edges
 # (concl, short theorem name, rev, file, [hyp heads], scenario set, note)
@@ -41,13 +42,21 @@ def edge(concl, thm, rev, path, hyps, sc="AF", note="", deffile=None):
 
 # --- top (compiled here): scratch/frontier/TYZChain.lean, which contains tyz-cm's and cm-bridge's
 # reductions verbatim; both scenarios use it.  (TopChain.lean is the fork-main-only variant.)
-edge("FrozenTarget", "frozenTarget_of_open", MAIN, "scratch/frontier/TYZChain.lean",
-     ["SixContactMin", "TYZThm11Integral", "TYZLcalOne", "TYZLemma29Mod2", "ShimuraReciprocityModFn",
-      "Lemma318Literal", "Thm35First", "Lemma321Five", "FHNonvanishing", "GrossZagierHeegner"])
+# r3: the top is two kernel modules on main: atkin-li's C2 (GZ through FHNonvanishing, GrossZagierHeegner, with
+# HeckeThetaNewform proved) and tyz-chain's reading A from four TYZ Props (everything else on the TYZ side proved).
+edge("FrozenTarget", "frozenTarget_of_sixContactMin_tyzThm35ReadingA_fhNonvanishing_grossZagierHeegner", MAIN,
+     "ZInQKernel/Contrib/GZTheta/NewCMFinal.lean",
+     ["SixContactMin", "TYZThm35ReadingA", "FHNonvanishing", "GrossZagierHeegner"])
+edge("TYZThm35ReadingA", "tyzThm35ReadingA_of_leaves", MAIN, "ZInQKernel/Contrib/TYZChain/Main.lean",
+     ["TYZThm11Integral", "TYZLemma29Mod2", "ShimuraReciprocityModFn", "TYZThm33Pinned"])
+# (r1-r2: the top was this task's frozenTarget_of_open in scratch/frontier/TYZChain.lean, with the 7 TYZ Props of
+#  cm-bridge's B1; it stays compiled there but is off the route)
 
 # --- H
-edge("SixContactMin", "sixContactMin_of_open4", *LF4,
-     ["OpenResearchLeaves2", "OpenTextbookLeaves4", "OpenAddedLeaves4", "OpenGlue4"])
+edge("SixContactMin", "sixContactMin_of_open5", *LF5,
+     ["OpenResearchLeaves5", "OpenTextbookLeaves5", "OpenAddedLeaves5", "OpenGlue5"])
+# (r2: leaf-fold4's sixContactMin_of_open4 at LF4, bundles OpenResearchLeaves2, OpenTextbookLeaves4, OpenAddedLeaves4,
+#  OpenGlue4; leaf-fold5 compiles r2's H edges except the split of av-b1's SimpleImageIsogeny)
 # (until r2 the H base was assemble-port's C4: sixContactMin_of_leaves5 at AP, bundles OpenResearchLeaves2,
 #  OpenTextbookLeaves5, GluePieces5; leaf-fold4 compiles most of the F edges below into its assembly)
 # textbook fields proved in Contrib (kernel world) -- F only (in W0 they are bundle fields)
@@ -192,6 +201,21 @@ edge("Lemma321Five", "lemma321Five_of_shimuraModFn'", "521eacc0", "scratch/tyz-3
      ["ShimuraReciprocityModFn"], "F", "tyz-321: proved from the CM leaf")
 edge("Thm35First", "thm35First_of_lcal_thm33", "a8101726", "scratch/tyz-35/Thm35.lean",
      ["TYZThm33Pinned"], "F", "tyz-35: from TYZ Thm 3.3 with Lemma 3.14 for the pinned points")
+# --- r3 (w53-w54): av-b1's glue SimpleImageIsogeny (a field of leaf-fold5's OpenGlue5) from its two pieces, and
+# leafq-check's results on leaf-fold4's LEAF? fields
+edge("SimpleImageIsogeny", "simpleImageIsogeny_of_pieces", MAIN, "ZInQKernel/Contrib/AVB1/Poincare.lean",
+     ["ImageFactorization", "SimpleSurjIsogeny"], "F", "av-b1", deffile="ZInQKernel/Contrib/AVB1/Poincare.lean")
+LQ = (MAIN, "scratch/leafq-check/Fold.lean")  # imports leaf-fold4's chain (TailK): its Props are the chain's own constants,
+# which leaf-fold5 keeps, so there is no copied def text to compare
+edge("GammaStarGen", "gammaStarGen_proof", *LQ, [], "F", "leafq-check: a finite descent, Mathlib only")
+edge("ValenceBoundGammaStar", "valenceBound_of_formula", *LQ, ["ValenceFormulaGammaStar"], "F", "leafq-check")
+edge("QMHauptmodul", "qmHauptmodul_of_base2", *LQ, ["QMHauptmodulBase2"], "F", "leafq-check")
+edge("QMHauptmodulBase2", "base2_of_base3", *LQ,
+     ["ThetaModularity", "GammaStarGen", "ValenceBoundGammaStar", "QMHauptmodulBase3"], "F", "leafq-check")
+LQC = (MAIN, "scratch/leafq-check/CMDescendsGlue.lean")
+edge("CMDescends", "cmDescends_of", *LQC, ["STQM", "T11b_Rigidity", "TorsionDescends", "R1R2fpRep"], "F",
+     "leafq-check; T11b_Rigidity from leaf-fold5's T11bExists through av-b2's edge")
+edge("TorsionDescends", "torsionDescends_of_t5", *LQC, ["TorsionStructure"], "F", "leafq-check")
 # Not folded (variants, recorded in the report): tyz-318's lemma318Literal_HHprime_of_sqrtTwoNotIn
 # (94b05c87, scratch/tyz-318/Lemma318.lean) trades the LEAF Lemma318Literal for the GLUE SqrtTwoNotInHHprime;
 # shimura-modfn's shimuraReciprocityModFn_of_split (6bc73469) splits the CM leaf into MainTheoremCMj, RatX0Rep and the
@@ -199,13 +223,13 @@ edge("Thm35First", "thm35First_of_lcal_thm33", "a8101726", "scratch/tyz-35/Thm35
 
 # ---------------------------------------------------------------- bundles
 STRUCTS = {
-    "OpenResearchLeaves2": (LF4, "OpenResearchLeaves2"),
-    "OpenTextbookLeaves4": (LF4, "OpenTextbookLeaves4"),
-    "OpenAddedLeaves4": (LF4, "OpenAddedLeaves4"),
-    "OpenGlue4": (LF4, "OpenGlue4"),
+    "OpenResearchLeaves5": (LF5, "OpenResearchLeaves5"),
+    "OpenTextbookLeaves5": (LF5, "OpenTextbookLeaves5"),
+    "OpenAddedLeaves5": (LF5, "OpenAddedLeaves5"),
+    "OpenGlue5": (LF5, "OpenGlue5"),
 }
 # fields never projected on the route (h-leaves agent, grep of the flat file; g0-assemble3 §6)
-UNUSED = {"r1rec", "r3", "r5", "r7b", "r8", "t10"}  # never projected in g0-assemble3; assemble-port and leaf-fold4 have the same consumers
+UNUSED = {"r1rec", "r3", "r5", "r7b", "r8", "t10"}  # never projected in g0-assemble3; assemble-port, leaf-fold4 and leaf-fold5 have the same consumers
 # (r2: in leaf-fold4's flat file r1rec, r7b, r8 occur only as `f := r.f` in three structure literals, t10 only there
 #  and in T10_groupIso_of_tateDuality)
 # fields that become used on route F (an F edge takes them as hypotheses)
@@ -330,7 +354,7 @@ REACHED = set()
 
 def defcheck():
     """Compare def texts of bundle-field Props proved in another file (check 3)."""
-    g3 = c.show(*LF4)
+    g3 = c.show(*LF5)
     out = []
     for e in E:
         if "F" not in e["sc"] or e["thm"] is None or "+" in e["concl"]:
@@ -374,7 +398,7 @@ def main():
                 tag = "  [never projected]"
             print(f"  {n:45s} {where}{tag}")
         if sc == "F":
-            print("def-text comparison (proved/reduced Prop vs leaf-fold4's def; edges on the F route only):")
+            print("def-text comparison (proved/reduced Prop vs leaf-fold5's def; edges on the F route only):")
             for name, r in defcheck():
                 print(f"  {name:35s} {r}")
             print("route T inputs and kernel leaf copies (def text vs g0-assemble3, and pairwise):")
@@ -412,7 +436,7 @@ PAIR_DEFS = [(("60340bed", "scratch/frob-pieces/FrobPiecesFull.lean"), ("3d1b90b
 
 
 def extra_defcheck():
-    g3 = c.show(*LF4)
+    g3 = c.show(*LF5)
     for rev, path, names in EXTRA_DEFS:
         t = c.show(rev, path)
         for n in names:

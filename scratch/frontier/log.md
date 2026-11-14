@@ -44,3 +44,11 @@ Task frontier, 2026-11-13. Inventory of the open Props on the path to `ZInQ.Froz
 - Scenario F: 0 mismatches over 72 theorem edges; 78 open = 72 listed (23 LEAF, 49 GLUE) + 6 never projected; `chain.py doc` equal (72 rows).
 - Reviews read: leaf-review-a (21 fields, all CONSEQUENCE), leaf-review-b (41 fields: 8 PUBLISHED-FORM, 33 CONSEQUENCE). Five open rows LEAF here vs CONSEQUENCE there (H-3, H-16, H-21, H-25, H-38): left for a human.
 - docs/research/frontier.md rewritten for r2 (generator kept outside the repository); row numbers kept, retired rows listed, new rows H-70..H-85 and T-11.
+
+## Refresh r3 (2026-11-14, on the Mac; text checks only, no Lean run)
+- Base: wip/integrate-w54 d5d43efc (tyz-chain, sqrt2-glue, leaf-fold5, leafq-check, frontier-r2).
+- Top switched to two kernel modules: atkin-li's C2 (`Contrib/GZTheta/NewCMFinal.lean`) and tyz-chain's `tyzThm35ReadingA_of_leaves` (`Contrib/TYZChain/Main.lean`, four TYZ Props). The r1-r2 top (`scratch/frontier/TYZChain.lean`) stays compiled, off the route.
+- H base switched to leaf-fold5's `sixContactMin_of_open5` (5a7e03d1; final flat file md5 5999e1db, flat run 2 exit 0 in 1570 s per its log). Scenario A: 0 mismatches, 76 open (70 fields + 6), 70 projected.
+- New F edges: av-b1's `simpleImageIsogeny_of_pieces`; leafq-check's `gammaStarGen_proof`, `valenceBound_of_formula`, `qmHauptmodul_of_base2`, `base2_of_base3`, `cmDescends_of`, `torsionDescends_of_t5` (files `import TailK`: the chain's own constants). Scenario F: 0 mismatches over 80 theorem edges; 76 open = 70 listed + 6 never projected; `chain.py doc` equal (70 rows).
+- The integrator's ruling (01:30): strict count first (LEAF = published form), lenient count second; form column on every row; H-3, H-16, H-21, H-25, H-38 are consequences of one theorem (GLUE strict). Counts: 70 = 17 LEAF + 53 GLUE strict, 41 + 29 lenient (17 published form, 24 consequences of one theorem, 27 composites, 2 project glue).
+- docs/research/frontier.md rewritten for r3 (generator kept outside the repository); new rows H-86..H-88, retired T-4, H-45, H-47, H-48, H-58.
