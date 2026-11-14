@@ -92,3 +92,16 @@ Row sources (VERIFIED, read): definitions read in ~/dzq-wt/leaf-fold4/scratch/le
   (EllipticOrderDvd with G8⁵) ⇒ a + 3N = 5 ⇒ N = 1: each fibre over c ∈ ℂ is one orbit; fibre over ∞ = orbit
   of i√3; continuity from the pole at i√3 and Γ*-invariance of jNum/jDen. G20 ≢ 0 from the CM value.
 - Also `valenceFormulaGammaStar_of_eq`: H-87's row from the same leaf + glue.
+
+## H-1, H-20, H-43, H-59 (moduli rows): witness splits (VERIFIED, compiled; logical assembly only)
+- `scratch/qm-split/ModuliSplit.lean`: LEAF `CanonicalModelY3` (∃ fine witness of R1fpProps; Shimura 1967,
+  Deligne 389 Thm 4.21; "qualified consequence" per audit). Universal GLUE Props over witnesses (published
+  statement on the canonical model + transport): `HeckeOfFine` (pure project glue, Yoneda), `CoarseX6OfFine`
+  (quotient + moduli + π₀(X₆)=1), `HauptmodulOfX6` (Baba–Granath Thm 2.1), `ReciprocityOfFine` (Shimura
+  reciprocity), `ResidueOfX6` (González–Rotger Thm 5.12), `ConnectedOfFine` (Deligne π₀ + Galois action),
+  `ShimuraFamily` (LEAF candidate: Shimura Main Thm I composed with every π) + `R1bTransport`, `ConicOfWitness`
+  (Kurihara/Elkies + transport). Theorems: `r1r2fpRep_of`, `y3Connected_of` (+ converse `connectedOfFine_of`),
+  `r1b_of`, `x6ConicModel_of` (from r1r2 + ConicOfWitness). Axioms standard, 5 s.
+- Finding: a clause about one witness cannot be split into separately quantified published statements without
+  a transport/uniqueness glue; the universal forms are GLUE by construction (stronger in form than the printed
+  existence statements, equivalent given the comparison isomorphism).
