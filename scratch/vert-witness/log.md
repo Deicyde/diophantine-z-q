@@ -12,7 +12,7 @@ Target: `HeckeRestNV.HeckeVertWitness` (scratch/hecke-rest/NoVert.lean, verbatim
 3. Glue `ModelGaussGlue`: leaf data + triple + E ⇒ `VertGaussWitness E p`.
 4. Composite `heckeVertWitness_of_goodReduction`.
 
-## Step 1 (18:05) — VERIFIED (lake env lean, 0 errors, ~12 s)
+## Step 1 (17:58) — VERIFIED (lake env lean, 0 errors, ~12 s)
 `VertWitness.lean` = NoVert.lean (lines 1-1265) + `VertMain.lean.part` (assemble.sh).
 - `vertLocalWitness_of_gauss : VertGaussWitness E p → VertLocalWitness E p` (p prime)
 - `vertUnramWitness_of_gauss`, `heckeVertWitness_of_gauss : HeckeVertGauss → HeckeVertWitness`
@@ -21,7 +21,7 @@ Target: `HeckeRestNV.HeckeVertWitness` (scratch/hecke-rest/NoVert.lean, verbatim
 - `heckeVertWitness_of_goodReduction (hL : ShimuraGoodReduction) (hG : ModelGaussGlue) : HeckeVertWitness`
 All #print axioms: [propext, Classical.choice, Quot.sound].
 
-## Step 2 (18:25) — VERIFIED (lake env lean, 0 errors)
+## Step 2 (18:02) — VERIFIED (lake env lean, 0 errors)
 Split of the GR glue:
 - `IsShimuraModel p 𝒴 𝒜` (clauses of the leaf), `ShimuraSmoothModel p := ∃ 𝒴 𝒜, IsShimuraModel p 𝒴 𝒜`
 - `VertDVRWitness E p` (DVR R ↪ E, Frac = E, 𝔪 = (p), 𝔪 ∩ ℤ[X] = pℤ[X])
@@ -33,14 +33,14 @@ Split of the GR glue:
 - `heckeVertWitness_of_goodReduction' (hL) (hC) (hBD) : HeckeVertWitness` (compiled)
 All #print axioms [propext, Classical.choice, Quot.sound].
 
-## Step 3 (18:50) — VERIFIED (lake env lean, 0 errors, 1m17s)
+## Step 3 (18:07) — VERIFIED (lake env lean, 0 errors, 1m17s)
 `VertAll.lean` = HeckeRestAll.lean (verbatim, all 9854 lines) + VertMain + `VertAllMain.lean.part`:
 - `VertWitnessAll.coverModelOfHecke_of_goodReduction (hconn) (hRR) (hT) (hA) (hS) (hW)
    (hL : ShimuraGoodReduction) (hC : SpecialFibreDVR) (hBD : ModelCoordinateGlue) : CoverModelOfHecke`
 - `VertWitnessAll.propTSAll_of_goodReduction ... : PropTSAll`
 Axioms standard (compile_all.txt). Copy check: `cmp` of NoVert.lean lines 1-1265 vs VertWitness.lean: identical.
 
-## Step 4 (18:55) — VERIFIED (both files 0 errors; VertAll 57 s)
+## Step 4 (18:16) — VERIFIED (both files 0 errors; VertAll 57 s)
 - `dvr_of_maximalIdeal_eq_span` (Mathlib-only): Noetherian local ring, 𝔪 = (t), t ∈ R⁰ ⇒ IsDomain ∧ DVR.
 - glue `SpecialFibreUniformizer` (∃ ξ, 𝔪_ξ = (p), p ∈ R⁰ in the stalk) and
   `specialFibreDVR_of_uniformizer : SpecialFibreUniformizer → SpecialFibreDVR` (stalks Noetherian via

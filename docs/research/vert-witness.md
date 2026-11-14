@@ -16,19 +16,23 @@ Model work only; no human has reviewed it. Marks used throughout:
 standard axioms only):**
 
 ```lean
-theorem VertWitness.heckeVertWitness_of_goodReduction'
-    (hL : ShimuraGoodReduction) (hC : SpecialFibreDVR) (hBD : ModelCoordinateGlue) :
+theorem VertWitness.heckeVertWitness_of_goodReduction''
+    (hL : ShimuraGoodReduction) (hU : SpecialFibreUniformizer) (hBD : ModelCoordinateGlue) :
     HeckeRestNV.HeckeVertWitness
 ```
+
+(`heckeVertWitness_of_goodReduction'` is the same with `SpecialFibreDVR` in place of
+`SpecialFibreUniformizer`; `specialFibreDVR_of_uniformizer` is compiled.)
 
 - **Leaf `ShimuraGoodReduction`** (Morita 1981 / Carayol 1986 / Kottwitz 1992 / Buzzard 1997;
   locators UNVERIFIED). For each prime `p > 324` it asserts a smooth proper curve `𝒴` over
   `ℤ_(p)` with the universal family of level-3 QM abelian surfaces, the moduli bijection on
   `ℚ̄`-points, and the Hecke automorphisms over `ℤ_(p)`. It is stated over the kernel's genuine
   definitions (§3).
-- **Glue `SpecialFibreDVR`** (standard scheme theory; Mathlib-only statement, not proved). A
-  nonempty proper smooth relative curve over `ℤ_(p)` has a point whose stalk is a DVR with
-  maximal ideal `(p)`.
+- **Glue `SpecialFibreUniformizer`** (standard scheme theory; Mathlib-only statement, not
+  proved). A nonempty proper smooth relative curve over `ℤ_(p)` has a point `ξ` with
+  `𝔪_ξ = (p)` and `p` a nonzerodivisor in `𝒪_{𝒴,ξ}`. The step from there to "the stalk is a DVR"
+  (`SpecialFibreDVR`) is compiled: `dvr_of_maximalIdeal_eq_span`, Stacks 00PD, Mathlib only.
 - **Glue `ModelCoordinateGlue`** (not proved). It does two things:
   - it compares the model's generic fibre with any triple `(Y, Φ, π)`;
   - it shows that the coordinate `X = π` has transcendental reduction at that point.
@@ -43,7 +47,7 @@ theorem VertWitness.heckeVertWitness_of_goodReduction'
 theorem VertWitnessAll.coverModelOfHecke_of_goodReduction (hconn : Y3Connected) (hRR : R1R2fp)
     (hT : ObjBridge.TorsionStructure)
     (hA : HeckeRest.QMAutCard) (hS : HeckeRest.SerreRigidity3) (hW : HeckeRest.ALFixedPoints)
-    (hL : ShimuraGoodReduction) (hC : SpecialFibreDVR) (hBD : ModelCoordinateGlue) :
+    (hL : ShimuraGoodReduction) (hU : SpecialFibreUniformizer) (hBD : ModelCoordinateGlue) :
     CoverModelOfHecke
 theorem VertWitnessAll.propTSAll_of_goodReduction ... (same three new inputs) : PropTSAll
 ```
@@ -54,9 +58,11 @@ outright. The GR route is the one carried out here.
 
 **Honest scope.**
 
-- The compiled part is the commutative algebra from a DVR in `E` to an unramified vertical prime
-  (`vertGaussWitness_of_DVR`, `vertLocalWitness_of_gauss`, and hecke-rest's
-  `vertUnramWitness_of_local`), plus the wiring.
+- The compiled part is commutative algebra plus the wiring:
+  - from a DVR in `E` to an unramified vertical prime (`vertGaussWitness_of_DVR`,
+    `vertLocalWitness_of_gauss`, and hecke-rest's `vertUnramWitness_of_local`);
+  - the DVR criterion `dvr_of_maximalIdeal_eq_span`;
+  - `modelGaussGlue_of`, where nonemptiness of the model comes from R1fp's `ℚ̄`-point.
 - The geometric content of good reduction is in the two glue Props. The leaf itself only says
   that the model exists.
 - `ModelCoordinateGlue` is a substantial piece of arithmetic geometry: comparison of models, and
@@ -67,7 +73,7 @@ outright. The GR route is the one carried out here.
 | File | Contents | Time |
 |---|---|---|
 | `VertWitness.lean` | `scratch/hecke-rest/NoVert.lean` lines 1-1265 (verbatim; `cmp` checked), then `VertMain.lean.part` | ~12 s |
-| `VertAll.lean` | all of `scratch/hecke-rest/HeckeRestAll.lean` (verbatim) + `VertMain.lean.part` + `VertAllMain.lean.part` (the two composites) | ~77 s |
+| `VertAll.lean` | all of `scratch/hecke-rest/HeckeRestAll.lean` (verbatim; `cmp` checked) + `VertMain.lean.part` + `VertAllMain.lean.part` (the two composites) | ~60-80 s |
 
 - `assemble.sh` builds both files.
 - `compile_out.txt` and `compile_all.txt` hold the `#print axioms` lines. Every new declaration
@@ -84,10 +90,12 @@ outright. The GR route is the one carried out here.
 | `vertGaussWitness_of_DVR` | `VertDVRWitness E p → VertGaussWitness E p` | compiled |
 | `IsShimuraModel p 𝒴 𝒜`, `ShimuraSmoothModel p` | the data asserted by the leaf | — |
 | `ShimuraGoodReduction` | **leaf** | stated (§3) |
-| `SpecialFibreDVR` | **glue** (scheme theory) | stated, not proved (§4.2) |
+| `SpecialFibreDVR` | glue (scheme theory) | `specialFibreDVR_of_uniformizer : SpecialFibreUniformizer → SpecialFibreDVR`, compiled |
+| `dvr_of_maximalIdeal_eq_span` | Noetherian local ring with `𝔪 = (t)`, `t ∈ R⁰` ⇒ domain and DVR | compiled (Mathlib only) |
+| `SpecialFibreUniformizer` | **glue** (scheme theory) | stated, not proved (§4.2) |
 | `ModelCoordinateGlue` | **glue** (comparison + coordinate) | stated, not proved (§4.3) |
 | `ModelGaussGlue` | glue (the two together) | `modelGaussGlue_of : SpecialFibreDVR → ModelCoordinateGlue → ModelGaussGlue`, compiled |
-| `heckeVertWitness_of_goodReduction`, `…'`, `heckeNoVertRam_of_goodReduction` | composites | compiled |
+| `heckeVertWitness_of_goodReduction`, `…'`, `…''`, `heckeNoVertRam_of_goodReduction` | composites | compiled |
 
 ### 2.1 The commutative algebra (compiled)
 
@@ -131,7 +139,7 @@ outright. The GR route is the one carried out here.
 **Lean form.** `∀ p [Fact p.Prime], 324 < p → ∃ 𝒴 𝒜, IsShimuraModel p 𝒴 𝒜`. Here
 `𝒴 : Over (Spec ℤ_(p))`, with `ℤ_(p) = Localization.AtPrime (span {p})`, and
 `𝒜 : QMFamily 𝒴.left`. `QMFamily` is the kernel's: proper smooth of relative dimension 2, with
-`ι(a)` and level sections `η(a)`. `IsShimuraModel` has seven clauses:
+`ι(a)` and level sections `η(a)`. `IsShimuraModel` has eight clauses:
 
 1. `IsProper 𝒴.hom`;
 2. `SmoothOfRelativeDimension 1 𝒴.hom`;
@@ -141,7 +149,9 @@ outright. The GR route is the one carried out here.
 5. *(surjective on `ℚ̄`-points)* every `P : QML3 ℚ̄` is a fibre;
 6. *(Hecke, twists)* each `α ∈ Aut 𝒪` is induced on `ℚ̄`-points by an automorphism of `𝒴` over
    `ℤ_(p)`;
-7. *(Hecke, `𝒪^×`)* each `u ∈ 𝒪^×` is induced in the same way, through `M3.rightMul`.
+7. *(Hecke, `𝒪^×`)* each `u ∈ 𝒪^×` is induced in the same way, through `M3.rightMul`;
+8. *(guard, as in R1fp)* `𝒴` has a `ℚ̄`-point. Without it, `𝒴 = ∅` would satisfy every clause if
+   `QML3 ℚ̄` were mis-encoded as empty. Added on the reviewer's advice.
 
 **Published statement (STANDARD; locators UNVERIFIED).** Take an indefinite quaternion algebra
 over `ℚ` of discriminant `D`, a maximal order `𝒪`, and a neat level `K` that is maximal at
@@ -149,11 +159,14 @@ over `ℚ` of discriminant `D`, a maximal order `𝒪`, and a neat level `K` tha
 representable over `ℤ_(p)` by a smooth proper curve. Polarized (PEL) or not depends on the
 source. Sources:
 
-- Morita, Hokkaido Math. J. 10 (1981): good reduction at `p ∤ D·level`.
-- Carayol, Compositio 59 (1986), §1-3.
-- Kottwitz, J. AMS 5 (1992), §5: smooth PEL moduli at hyperspecial level, proper for division
-  `B`.
+- Kottwitz, J. AMS 5 (1992), §5: smooth PEL moduli for neat `K^p` and hyperspecial `K_p`,
+  proper for division `B`. This covers level at `3 ∣ D`, since `3 ≠ p`. Cite it first.
 - Buzzard, Duke 87 (1997): the polarization-free problem over `ℤ[1/DN]`.
+- Morita, Hokkaido Math. J. 10 (1981): good reduction at `p ∤ D·level`.
+- Carayol, Compositio 59 (1986). Its main construction is for totally real `F ≠ ℚ`.
+
+At `3 ∣ D` the level structure is harmless (reviewer). `A[3]` is étale over `ℤ_(p)`, `T₃A` is
+free of rank 1 over `𝒪₃`, and `η : (𝒪/3𝒪)_S ≅ A[3]` is the `K₃`-structure.
 
 Here `D = 6`, `K = K₃` (full level 3, neat) and `p > 324`.
 
@@ -165,6 +178,7 @@ leaf, `ZInQKernel/HDecomp/QM/Leaves.lean`):
 - In characteristic 0, `Hom(ℤ_(p), K)` is a singleton, so any `Spec K → 𝒴` is a point over
   `ℤ_(p)`.
 - Clauses 4-5 use only `K = ℚ̄`. There the polarization is dropped by Lemma P, exactly as in R1fp.
+- Clause 8 holds because the Shimura curve has `ℚ̄`-points.
 - Clauses 6-7: `twist α` and `rightMul u` are automorphisms of the moduli functor on
   `ℤ_(p)`-schemes, because they are defined on families. By Yoneda they act on `𝒴` over `ℤ_(p)`.
 - The leaf asserts only `p > 324`; the published range is `p ∤ 6`.
@@ -199,10 +213,16 @@ The content enters only through the leaf and the two glue Props below. ts-hecke 
 argument from branch data alone can work: `E = ℚ(X)(√(pX))` has the same branch data and is
 vertically ramified.
 
-### 4.2 `SpecialFibreDVR` (STANDARD scheme theory; statement uses Mathlib only)
+### 4.2 `SpecialFibreUniformizer` / `SpecialFibreDVR` (STANDARD scheme theory; statements use Mathlib only)
 
-**Statement.** If `𝒴 / ℤ_(p)` is proper, smooth of relative dimension 1 and nonempty, then some
-`ξ` has `𝒪_{𝒴,ξ}` a DVR with `𝔪 = (p)`.
+**Statements.** Let `𝒴 / ℤ_(p)` be proper, smooth of relative dimension 1 and nonempty.
+
+- `SpecialFibreDVR`: some `ξ` has `𝒪_{𝒴,ξ}` a DVR with `𝔪 = (p)`.
+- `SpecialFibreUniformizer`: some `ξ` has `𝔪_ξ = (p)` with `p` a nonzerodivisor of `𝒪_{𝒴,ξ}`.
+
+The first follows from the second by step 3 below, which is compiled
+(`specialFibreDVR_of_uniformizer`). That proof gets Noetherian stalks from
+`LocallyOfFiniteType.isLocallyNoetherian` and then applies `dvr_of_maximalIdeal_eq_span`.
 
 **Proof outline.**
 
@@ -214,12 +234,19 @@ vertically ramified.
    field. Hence `𝔪_ξ = (p)`.
 3. `p` is a nonzerodivisor (flatness), and `𝒪_{𝒴,ξ}` is Noetherian. A Noetherian local ring whose
    maximal ideal is generated by a nonzerodivisor is a DVR (Stacks 00PD; UNVERIFIED tag).
+   **Compiled** as `dvr_of_maximalIdeal_eq_span`. Krull's intersection theorem writes each nonzero
+   `a` as `tⁿ·unit`; then the ring is a domain, and
+   `IsDiscreteValuationRing.ofHasUnitMulPowIrreducibleFactorization` applies.
 
-**Lean.** Not done. It needs:
+**Lean for steps 1-2 (`SpecialFibreUniformizer`).** Not done. It needs:
 
 - the fibre `𝒴_p` and its stalks as quotients of the stalks of `𝒴` (infra-stalks'
   `pullback_stalkGen` is the surjectivity half);
-- "smooth over a field ⇒ reduced";
+- "smooth over a field ⇒ reduced", which is not in Mathlib 4.35 (searched `RingTheory/Smooth/`,
+  `RingTheory/Etale/`, `RingTheory/Unramified/`; `AlgebraicGeometry/Morphisms/Smooth.lean` assumes
+  `IsReduced`). An alternative avoids it: use a local étale map to `𝔸¹_{ℤ_(p)}` and
+  `Algebra.FormallyUnramified.map_maximalIdeal` (in `RingTheory/Unramified/LocalRing.lean`);
+- flatness of stalk maps for the nonzerodivisor (`Smooth ⇒ Flat` is an instance);
 - generic points of components of a fibre.
 
 All are standard. **Size: medium** (SPECULATIVE: a few hundred lines).
@@ -311,22 +338,54 @@ Assessment (SPECULATIVE):
   arbitrary triple.
 - GR's comparison (b) does the corresponding job through `R1univProps` and needs no bundle
   clause beyond R1fp.
+- The reviewer suggests an alternative: state two-dimensional Abhyankar as a *textbook leaf* (SGA 1
+  Exp. XIII 5.2-5.3; UNVERIFIED numbers) instead of deriving it. That leaf would be general and
+  well located, arguably safer than the Shimura-specific GR leaf whose locators are unverified.
+  It would still leave the inertia-group glue and the transfer.
 
 **Recommendation.** For the announcement, list `ShimuraGoodReduction` as the literature input for
-no vertical ramification, and `SpecialFibreDVR` plus `ModelCoordinateGlue` as project glue. Keep
+no vertical ramification, and `SpecialFibreUniformizer` plus `ModelCoordinateGlue` as project
+glue. Keep
 NV as the alternative that trades the Morita/Carayol leaf for two-dimensional inertia glue.
 
 ## 6. Independent review
 
-A read-only model agent (no Lean) reviewed the leaf and the glue statements. Its findings and the
-fixes applied are in §6.1. If §6.1 is missing, the review did not finish before the deadline.
+A read-only model agent reviewed the leaf and the glue statements. It had no Lean, and it saw the
+version before the guard clause and before `SpecialFibreUniformizer`.
+
+### 6.1 Verdicts
+
+- **`ShimuraGoodReduction`: TRUE as a weaker consequence** of representability (Kottwitz for neat
+  `K^p` and hyperspecial `K_p`; Buzzard without polarization).
+  - Field points are automatically over `ℤ_(p)`.
+  - Level at `3 ∣ D` is harmless.
+  - The polarization matters only at characteristic-0 points, via Lemma P as in R1fp.
+  - The Hecke automorphisms exist over `ℤ_(p)` in both formulations.
+  - **Fixes applied:** the vacuity guard (clause 8), and the citation order (Kottwitz and Buzzard
+    first).
+- **`SpecialFibreDVR`: TRUE.** It needs nonemptiness, which is present.
+- **`ModelCoordinateGlue`: TRUE for every `ξ`, triple and `E`.**
+  - Every admissible `ξ` is a generic point of a special-fibre component.
+  - `Y` is irreducible because the chart meets every component.
+  - `X = h*π.f` agrees with `π` on `ℚ̄`-points, and `B` is reduced and Jacobson.
+  - **Fix applied:** the disjointness of the CM sections is argued from finite étale fixed loci
+    and cyclic stabilizers, not from Hurwitz sums (Hurwitz totals agree whether or not points
+    collide).
+  - **Also stated now:** `𝒪^× ↠ (𝒪/3𝒪)^×` (strong approximation for `𝒪¹` plus a unit of norm
+    `−1`), and smoothness of `𝒵`'s fibres.
+- **`ModelGaussGlue`, `VertGaussWitness`, `VertDVRWitness`: TRUE, with no hidden triviality.**
+  Clause 2 of `VertGaussWitness` excludes the trivial valuation and extensions of `v_p` under
+  which `X` has constant reduction. For Galois `E` it is equivalent to `NoVerticalRam`.
+- **NV:** it would need the glue signature to carry the R1R2fp bundle, plus Abhyankar at height-2
+  primes. See §5. Within GR, a leaf is unavoidable: smoothness of the model is exactly its
+  content.
 
 ## 7. What remains (for the announcement)
 
 | Prop | Kind | Status |
 |---|---|---|
 | `ShimuraGoodReduction` | **leaf** (Morita/Carayol/Kottwitz/Buzzard; locators UNVERIFIED; the level-3-at-`3 ∣ D` coverage needs a human check) | stated in Lean |
-| `SpecialFibreDVR` | glue (standard scheme theory) | stated, not proved |
+| `SpecialFibreUniformizer` | glue (standard scheme theory; `SpecialFibreDVR` follows, compiled) | stated, not proved |
 | `ModelCoordinateGlue` | glue (comparison of models; tame quotient `𝒴/Γ' ≅ P¹_{ℤ_(p)}`) | stated, not proved |
 | `Y3Connected`, `R1R2fp`, `TorsionStructure`, `QMAutCard`, `SerreRigidity3`, `ALFixedPoints` | leaves (existing, from ts-hecke and hecke-rest) | unchanged |
 
