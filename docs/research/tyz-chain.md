@@ -162,3 +162,110 @@ tyzThm35ReadingA_of_leaves h11 h29 hS h2 h33 :=
   adds `import ZInQKernel.Contrib.TYZChain.Main` (and `ModFn`, `SSExponent`) there.
 * No provider for `ZInQ.Contrib.tyzThm35ReadingA` can be registered from this theorem until all five
   hypotheses are theorems.
+
+## Appendix: the Lean text of the five hypotheses (copied from the repository files named)
+
+`ZInQKernel/Contrib/TYZDecomp/Leaves.lean` (namespace `ZInQ.Contrib.TYZDecomp`; `lcalSq`, `lValOne`,
+`omegaTYZ`, `curveC` are defined there over Mathlib's L-series of an elliptic curve; `LemmaTwoEight` is
+`ZInQ.PropN.LemmaTwoEight`, `ZInQKernel/Hypotheses/TYZInputs.lean`):
+
+```lean
+def IsTYZLcal (ℓ : ℕ → ℤ) : Prop :=
+  ℓ 1 = 1 ∧
+  (∀ m : ℕ, Squarefree m → (m % 8 = 1 ∨ m % 8 = 3) → ((ℓ m : ℂ)) ^ 2 = lcalSq m) ∧
+  (∀ n : ℕ, Squarefree n → n % 8 = 5 →
+    (ℓ n = 0 ↔ ¬ ∃ F : ℂ → ℂ, IsLContinuation (curveC n) F ∧ analyticOrderAt F 1 ≤ 1))
+
+def TYZThm11Integral : Prop :=
+  ∀ m : ℕ, Squarefree m → (m % 8 = 1 ∨ m % 8 = 3) → ∃ ℓ : ℤ, (ℓ : ℂ) ^ 2 = lcalSq m
+
+def TYZLemma29Mod2 : Prop :=
+  ∀ ℓ : ℕ → ℤ, (∀ m : ℕ, Squarefree m → (m % 8 = 1 ∨ m % 8 = 3) → ((ℓ m : ℂ)) ^ 2 = lcalSq m) →
+    LemmaTwoEight ℓ
+
+```
+
+`ZInQKernel/Contrib/TYZGenus/ShimuraModFn.lean` (namespace `ZInQ.Contrib.TYZGenus.Shimura`):
+
+```lean
+def IsRatModFn (N : ℕ) (g : UpperHalfPlane → ℂ) : Prop :=
+  (∀ γ : Matrix.SpecialLinearGroup (Fin 2) ℤ, γ ∈ CongruenceSubgroup.Gamma0 N →
+      ∀ τ : UpperHalfPlane, g (γ • τ) = g τ) ∧
+  (∀ γ : Matrix.SpecialLinearGroup (Fin 2) ℤ, ∃ k : ℕ,
+      (fun τ : UpperHalfPlane => g (γ • τ)) =O[UpperHalfPlane.atImInfty] fun τ => Real.exp (2 * Real.pi * k * τ.im)) ∧
+  ∃ (k : ℕ) (a : ℕ → ℚ), ∀ τ : UpperHalfPlane,
+    HasSum (fun n : ℕ => (a n : ℂ) * cexp (2 * Real.pi * I * τ) ^ n)
+      (cexp (2 * Real.pi * I * τ) ^ k * g τ)
+
+def ShimuraReciprocityModFn : Prop :=
+  ∀ (N : ℕ) (g : UpperHalfPlane → ℂ), IsRatModFn N g →
+  ∀ (m f : ℕ) [NeZero m] [NeZero f], Squarefree m →
+    ∀ (e : SeparableClosure (QNeg m) →ₐ[ℚ] Qbar),
+      ιC (e (algebraMap (QNeg m) (SeparableClosure (QNeg m)) QuadraticAlgebra.omega)) =
+        I * (Real.sqrt m : ℂ) →
+    ∀ (J : integralIdealsPrimeTo (conductorOrder (QNeg m) f).conductorModulus) (ρ : GalQ),
+      (∀ x : ringClassField (conductorOrder (QNeg m) f),
+        ρ (e x) = e (ringClassArtinEquiv (conductorOrder (QNeg m) f)
+          ((conductorOrder (QNeg m) f).picClass J) x)) →
+    ∀ (D : ℤ), D = discOf m f → ∀ (Q Q' : HeegnerForm N D) (c : ℂ),
+      idealLat m f J * Q'.lat = Q.lat.map (LinearMap.mulLeft ℤ c) →
+      idealLat m f J * Q'.latN = Q.latN.map (LinearMap.mulLeft ℤ c) →
+      ∃ a a' : Qbar, ιC a = g Q.tauH ∧ ιC a' = g Q'.tauH ∧ ρ a = a'
+
+```
+
+`ZInQKernel/Contrib/TYZChain/Lemma318.lean` (namespace `ZInQ.Contrib.TYZGenus.T318`), with `HHprime` from
+`ZInQKernel/Contrib/TYZGenus/RingClass.lean`:
+
+```lean
+def SqrtTwoNotInHHprime : Prop :=
+  ∀ n : ℕ, n % 8 = 5 → Squarefree n → ∀ s ∈ HHprime n, s ^ 2 ≠ 2
+
+def Lni (n : ℕ) : IntermediateField ℚ Qbar :=
+  IntermediateField.adjoin ℚ
+    ({x : Qbar | x ^ 2 = -1} ∪ {x : Qbar | ∃ p ∈ n.primeFactors, x ^ 2 = (p : Qbar)})
+
+def HHprime (n : ℕ) : IntermediateField ℚ Qbar :=
+  Lni n ⊔ ⨆ d₀ ∈ n.divisors.filter (fun d => d % 8 = 5), Hprimebar d₀
+
+```
+
+`ZInQKernel/Contrib/TYZChain/Thm35.lean` (namespace `ZInQ.Contrib.TYZGenus.TYZ35`; `tyzZn`, `tyzZ7`,
+`ActsAsArtinO`, `ActsAsArtin4`, `OK`, `O4`, `galPt`, `PtA`, `gi` come from `CMBridge`, `CM`, `RingClass`,
+`Package`):
+
+```lean
+def sgn2 (x : Multiplicative (ZMod 2)) : ℤ := if x = 1 then 1 else -1
+
+def gchar (n : ℕ) [NeZero n] (T : Finset n.primeFactors) (c : Pic (OK n)) : ℤ :=
+  ∏ q ∈ T, sgn2 (chi n q c)
+
+def basePt (n : ℕ) : PtA := if n % 8 = 5 then tyzZn n else tyzZ7 n
+
+def IsLiftFamily (n : ℕ) [NeZero n] (f : Pic (OK n) → GalQ) : Prop :=
+  ∀ c, ActsAsArtinO n (OK n) (f c) c ∧ (n % 8 = 5 → ∃ c4 : Pic (O4 n), ActsAsArtin4 (f c) n c4)
+
+def Pchi (n : ℕ) [NeZero n] (f : Pic (OK n) → GalQ) (T : Finset n.primeFactors) : PtA :=
+  ∑ c : Pic (OK n), (gchar n T c) • galPt (f c) (basePt n)
+
+def pairSet (n d₀ d₁ : ℕ) : Finset n.primeFactors :=
+  Finset.univ.filter fun q => (q : ℕ) ∣ (if d₁ % 4 = 1 then d₁ else d₀)
+
+def h2 (n : ℕ) : ℕ := (ramSet n).card - 1
+
+def TYZThm33Pinned (ℓ : ℕ → ℤ) : Prop :=
+  ∃ (Q : ℕ → PtA) (m : ℕ → ℕ) (ε : ℕ → ℕ → GaussianInt),
+    (∀ d, 0 < m d) ∧
+    (∀ d₀ d₁ : ℕ, d₀ % 8 = 5 → d₁ % 8 = 3 → ε d₀ d₁ = gi ∨ ε d₀ d₁ = -gi) ∧
+    (∀ d₀ d₁ : ℕ, (d₀ % 8 = 5 ∧ d₁ % 8 = 1 ∨ d₀ % 8 = 7 ∧ d₁ % 8 = 1 ∨ d₀ % 8 = 7 ∧ d₁ % 8 = 3) →
+      ε d₀ d₁ = 1 ∨ ε d₀ d₁ = -1) ∧
+    (∀ n : ℕ, Squarefree n → n % 8 = 5 → ℓ n = 0 → IsOfFinAddOrder (Q n)) ∧
+    ∀ n : ℕ, ∀ _ : NeZero n, Squarefree n → (n % 8 = 5 ∨ n % 8 = 7) →
+      ∀ f : Pic (OK n) → GalQ, IsLiftFamily n f →
+        (∀ d₀ d₁ : ℕ, d₀ * d₁ = n → (d₁ % 8 = 1 ∨ d₁ % 8 = 3) →
+          IsOfFinAddOrder ((m d₀ : GaussianInt) • Pchi n f (pairSet n d₀ d₁) -
+            (ε d₀ d₁ * 2 ^ h2 n * (ℓ d₁ : GaussianInt)) • Q d₀)) ∧
+        (n % 8 = 5 → ∀ d₀ d₁ : ℕ, d₀ * d₁ = n → (d₁ % 8 = 5 ∨ d₁ % 8 = 7) →
+          IsOfFinAddOrder (Pchi n f (pairSet n d₀ d₁)))
+
+```
