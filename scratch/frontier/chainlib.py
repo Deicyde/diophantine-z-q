@@ -20,9 +20,11 @@ def show(rev, path):
 
 
 TOP_KW = re.compile(r"^(?:@\[[^\]]*\]\s*)?(?:private |protected |noncomputable |nonrec )*"
-                    r"(theorem|lemma|def|abbrev|structure|class|instance|opaque|axiom|example|"
-                    r"namespace|end|section|open|variable|#print|#check|/--|/-!|attribute|set_option|"
-                    r"universe|local|scoped|irreducible_def|inductive)\b")
+                    r"(?:(theorem|lemma|def|abbrev|structure|class|instance|opaque|axiom|example|"
+                    r"namespace|end|section|open|variable|#print|#check|attribute|set_option|"
+                    r"universe|local|scoped|irreducible_def|inductive)\b|/--|/-!)")
+# (r4: `/--` and `/-!` now end a block; with the trailing \b they never matched, so a block ran on into the next
+#  module doc, and a line of that doc starting with a keyword could cut it before its `-/`)
 
 
 def _decl_block(text, kind_re, short):
@@ -194,3 +196,29 @@ def def_texts_all(text, short):
         if blk:
             out.append(" ".join(strip_comments(blk).split()))
     return out
+
+
+def qualified_def(text, name, kinds="def|abbrev|structure|opaque"):
+    """(qualified name, line) of the first `def name` (or another of `kinds`) in `text`, from the namespace blocks
+    around it; (name, None) if there is none."""
+    stack = []
+    for i, ln in enumerate(text.split("\n"), 1):
+        m = re.match(r"^namespace\s+(\S+)", ln)
+        if m:
+            if not re.search(r"\bend\s+%s\s*$" % re.escape(m.group(1)), ln):  # not a one-line `namespace X export … end X`
+                stack.append(("ns", m.group(1)))
+            continue
+        m = re.match(r"^(?:noncomputable\s+)?section\b\s*(\S*)", ln)
+        if m:
+            stack.append(("sec", m.group(1)))
+            continue
+        m = re.match(r"^end\b\s*(\S*)", ln)
+        if m and stack:
+            stack.pop()
+            continue
+        m = re.match(r"^(?:@\[[^\]]*\]\s*)?(?:private |protected |noncomputable )*(?:%s)\s+"
+                     r"((?:[\w.']+\.)?%s)(?=[\s:({\[]|$)" % (kinds, re.escape(name)), ln)
+        if m:
+            ns = ".".join(n for k, n in stack if k == "ns" and n)
+            return (ns + "." + m.group(1) if ns else m.group(1)), i
+    return name, None

@@ -1,11 +1,12 @@
 """chain.py: follow the hypotheses of the chain to ZInQ.FrozenTarget and list what stays open.
 
-Usage: python3 scratch/frontier/chain.py [A|F]   (default: both)
+Usage: python3 scratch/frontier/chain.py [A|F]   (default: both); `doc` compares frontier.md with scenario F; `onep`
+compares the library theorem ZInQ.OneProof.frozenTarget with scenario A
 
-Scenario A ("compiled"): only theorems that compose in one Lean world today, i.e. the top chain
-(scratch/frontier/TYZChain.lean, compiled) and leaf-fold4's compiled H assembly
-`HDec.HSyn.sixContactMin_of_open4` (refresh r2; before it, assemble-port's `sixContactMin_of_leaves5`).
-Its open set is the hypothesis list of that composite.
+Scenario A ("compiled"): only theorems that compose in one Lean world today, i.e. the top chain (r3: atkin-li's
+C2 and tyz-chain's T0, kernel modules) and the compiled H assembly: leaf-fold6's `HDec.HSyn.sixContactMin_of_open6`
+(refresh r4; r3 leaf-fold5's `sixContactMin_of_open5`, r2 leaf-fold4's `sixContactMin_of_open4`, before that
+assemble-port's `sixContactMin_of_leaves5`). Its open set is the hypothesis list of that composite.
 
 Scenario F ("frontier"): A plus every proof or reduction of an open Prop found on today's branches.
 Each edge is a compiled theorem on its branch (per the branch's own log), but the edges live in different
@@ -20,6 +21,7 @@ Checks (all textual, read with `git show REV:PATH`):
 The traversal starts at ZInQ.FrozenTarget and prints the open set, which must equal the CLASS table
 (the list in docs/research/frontier.md); missing or extra entries are reported.
 """
+import functools
 import re
 import sys
 import chainlib as c
@@ -30,14 +32,75 @@ B5 = ("93a1e33c", "scratch/cpts-transport/Bundle5.lean")
 AP = ("92a27877", "scratch/assemble-port/AssemblePort.lean")  # assemble-port final flat check (27 glue fields, 1126 s)
 LF4 = ("9dcf1ca8", "scratch/leaf-fold4/Leaves4.lean")  # leaf-fold4 final flat file (md5 6bbeb639, 1048 s, 26+19+20+1 fields)
 LF5 = ("5a7e03d1", "scratch/leaf-fold5/Leaves5.lean")  # leaf-fold5 final flat file (md5 5999e1db, flat run 2: 1570 s, 26+21+21+2)
+# r4: the H base is leaf-fold8 inside the library (ZInQKernel/OneProof/H/, kernel modules on main since w59). "OPH" is
+# read as the text of all those modules (three bundles are in TailZ4.lean, the glue bundle OpenGlue7 in TailX.lean;
+# defcheck looks for the chain's copies anywhere in them).
+OPX = (MAIN, "ZInQKernel/OneProof/H/TailZ4.lean")
+OPX7 = (MAIN, "ZInQKernel/OneProof/H/TailX.lean")
+OPH = ("OPH", "ZInQKernel/OneProof/H/")
+# qm-split's and qm-glue's files `import TailK`: leaf-fold4's chain, whose sources are in scratch/leaf-fold4/olean/.
+# "LF4C" is read as the files in TailK's import closure there.
+LF4C = ("LF4C", "scratch/leaf-fold4/olean/")
+_show = c.show
+
+
+def _git(*args):
+    return c.subprocess.run(["git", "-C", c.ROOT, *args], capture_output=True, text=True).stdout.split("\n")
+
+
+@functools.lru_cache(maxsize=None)
+def _files(rev, path):
+    return frozenset(f for f in _git("ls-tree", "-r", "--name-only", rev, path) if f.endswith(".lean"))
+
+
+def _closure(roots, resolve):
+    """Files in the import closure of `roots` (at MAIN); resolve(module) gives a path, or None to stop there."""
+    seen, todo = set(roots), list(roots)
+    while todo:
+        for m in re.finditer(r"^import\s+(.+)$", _show(MAIN, todo.pop()), re.M):
+            for mod in m.group(1).split():
+                p = resolve(mod)
+                if p and p not in seen:
+                    seen.add(p)
+                    todo.append(p)
+    return sorted(seen)
+
+
+@functools.lru_cache(maxsize=None)
+def oph_kernel_imports():
+    """Kernel files (outside OneProof/H) in the import closure of OneProof/H."""
+    kern = _files(MAIN, "ZInQKernel/")
+    res = lambda mod: (lambda p: p if p in kern else None)(mod.replace(".", "/") + ".lean")
+    return frozenset(f for f in _closure(sorted(_files(MAIN, OPH[1])), res) if not f.startswith(OPH[1]))
+
+
+@functools.lru_cache(maxsize=None)
+def _show_virtual(rev, path):
+    if rev == "OPH":
+        return "\n".join(_show(MAIN, f) for f in sorted(_files(MAIN, path)) if f.count("/") == path.count("/"))
+    if rev == "LF4C":
+        d = _files(MAIN, path)
+        fs = _closure([path + "TailK.lean"], lambda mod: (lambda p: p if p in d else None)(path + mod + ".lean"))
+        return "\n".join(_show(MAIN, f) for f in fs)
+    return _show(rev, path)
+
+
+c.show = _show_virtual
+# Revisions read here that are not on main (keep these branches): 1bbe3543 wip/ts-kummer, 7ed2ca99 wip/t40-tate,
+# 92a27877 and 93a1e33c wip/assemble-port, 5a7e03d1 wip/leaf-fold5 (all on off-route edges since r4). fdd133f1
+# (twist-descent) is on no branch of the fork; its edge is off the route.
 
 # ---------------------------------------------------------------- edges
 # (concl, short theorem name, rev, file, [hyp heads], scenario set, note)
 E = []
 
 
-def edge(concl, thm, rev, path, hyps, sc="AF", note="", deffile=None):
-    E.append(dict(concl=concl, thm=thm, rev=rev, file=path, hyps=hyps, sc=sc, note=note, deffile=deffile))
+def edge(concl, thm, rev, path, hyps, sc="AF", note="", deffile=None, extra=(), bound=()):
+    """`extra`: hypotheses that are section variables brought in by `include ... in`, so not in the signature text.
+    `bound`: binder heads that the consumer quantifies over (its hypothesis is `∀ x, P x → concl x`): checked in the
+    signature, not followed."""
+    E.append(dict(concl=concl, thm=thm, rev=rev, file=path, hyps=hyps, sc=sc, note=note, deffile=deffile,
+                  extra=list(extra), bound=list(bound)))
 
 
 # --- top (compiled here): scratch/frontier/TYZChain.lean, which contains tyz-cm's and cm-bridge's
@@ -47,14 +110,25 @@ def edge(concl, thm, rev, path, hyps, sc="AF", note="", deffile=None):
 edge("FrozenTarget", "frozenTarget_of_sixContactMin_tyzThm35ReadingA_fhNonvanishing_grossZagierHeegner", MAIN,
      "ZInQKernel/Contrib/GZTheta/NewCMFinal.lean",
      ["SixContactMin", "TYZThm35ReadingA", "FHNonvanishing", "GrossZagierHeegner"])
+# r4 (w59): leaf-fold8 compiles tyz-split's derivation of T0's pinned hypothesis from the printed TYZ Theorem 3.3 into
+# OneProof (TYZSplit.lean = scratch/tyz-split/T11.lean from line 2), so both scenarios take T-11 from `TYZThm33`.
+# (Until w58 scenario F used tyz-split's `tyzThm35ReadingA_of_printedThm33` in scratch/tyz-split/T11.lean.)
+edge("TYZThm33Pinned", "tyzThm33Pinned_of_tyzThm33", MAIN, "ZInQKernel/OneProof/TYZSplit.lean", ["TYZThm33"], "AF",
+     "tyz-split, compiled in OneProof by leaf-fold8", bound=["ℤ", "IsTYZLcal"])
 edge("TYZThm35ReadingA", "tyzThm35ReadingA_of_leaves", MAIN, "ZInQKernel/Contrib/TYZChain/Main.lean",
      ["TYZThm11Integral", "TYZLemma29Mod2", "ShimuraReciprocityModFn", "TYZThm33Pinned"])
 # (r1-r2: the top was this task's frozenTarget_of_open in scratch/frontier/TYZChain.lean, with the 7 TYZ Props of
 #  cm-bridge's B1; it stays compiled there but is off the route)
 
 # --- H
-edge("SixContactMin", "sixContactMin_of_open5", *LF5,
-     ["OpenResearchLeaves5", "OpenTextbookLeaves5", "OpenAddedLeaves5", "OpenGlue5"])
+edge("SixContactMin", "sixContactMin_of_open8", *OPX,
+     ["OpenResearchLeaves8", "OpenTextbookLeaves8", "OpenAddedLeaves8", "OpenGlue7"])
+# (r4 at w58: leaf-fold7's sixContactMin_of_open7 in TailX.lean, bundles OpenResearchLeaves7, OpenTextbookLeaves7,
+#  OpenAddedLeaves7, OpenGlue7; leaf-fold8 folds the height rows, H-87, H-88, six Contrib proofs and T-11 into it)
+# (r4: leaf-fold7 in OneProof folds av-glue, av-split, curve-split, qm-split, hodge-split and mcr-glue into leaf-fold6's
+#  sixContactMin_of_open6 (bundles OpenResearchLeaves5, OpenTextbookLeaves6, OpenAddedLeaves6, OpenGlue6))
+# (r3: leaf-fold5's sixContactMin_of_open5 at LF5, bundles OpenResearchLeaves5, OpenTextbookLeaves5, OpenAddedLeaves5,
+#  OpenGlue5; leaf-fold6 adds leafq-check's four reductions and keeps T8 as a leaf)
 # (r2: leaf-fold4's sixContactMin_of_open4 at LF4, bundles OpenResearchLeaves2, OpenTextbookLeaves4, OpenAddedLeaves4,
 #  OpenGlue4; leaf-fold5 compiles r2's H edges except the split of av-b1's SimpleImageIsogeny)
 # (until r2 the H base was assemble-port's C4: sixContactMin_of_leaves5 at AP, bundles OpenResearchLeaves2,
@@ -130,7 +204,7 @@ edge("HeckeIrreducible", "heckeIrreducible_of_connected", *TSH, ["Y3Connected"],
 edge("HeckeNormalizationIrr", "heckeNormalizationIrr_of", *TSH, ["CurveGaloisChart", "TorsionStructure"], "F")
 edge("CurveGaloisChart", "curveGaloisChart_of", *TSH, ["CurveNormChart"], "F")
 edge("HeckeBranch", "heckeBranch_of'", *TSH, ["R1R2fp", "CurveChartInf", "HeckeFibreSizes", "TorsionStructure"], "F")
-edge("HomLinearLift", "homLinearLift_of_holoHomLift", "110ae272", "scratch/conj-pieces/Holo.lean", ["HoloHomLift"], "F")
+edge("HomLinearLift", "homLinearLift_of_holoHomLift", MAIN, "scratch/conj-pieces/Holo.lean", ["HoloHomLift"], "F")  # = 110ae272
 GR = ("53ba766f", "scratch/lt-goodred/GoodRed.lean")
 edge("GoodRedTorsion", "goodRedTorsion", *GR, [], "F")
 edge("QMEndRank", "qmEndRank_of_leaves", *GR, ["HomFreeFinite", "QMDichotomyYu"], "F")
@@ -153,7 +227,7 @@ edge("TwistDescent", "twistDescent", "fdd133f1", "scratch/twist-descent/Dev.lean
 edge("TateModuleFree", "tateModuleFree_of_torsionStructure", "58ac8d0b", "scratch/t5-torsion/Tate.lean",
      ["TorsionStructure"], "F", deffile="ZInQKernel/HDecomp/Objects.lean")
 # field 3 bypassed by T35 in the HDec world (leaf-fold2)
-edge("AnalyticUniformizationOfDim", "productMetrizationOfProductUnif_of_t35", "b38ee0c4",
+edge("AnalyticUniformizationOfDim", "productMetrizationOfProductUnif_of_t35", MAIN,  # r3 and before: b38ee0c4
      "scratch/leaf-fold2/parts/b20_fold.lean", ["UniformizationExists"], "F",
      "bypass, not a proof: in the HDec world ProductMetrizationOfProductUnif (the field's only consumer) follows from T35")
 
@@ -216,6 +290,170 @@ LQC = (MAIN, "scratch/leafq-check/CMDescendsGlue.lean")
 edge("CMDescends", "cmDescends_of", *LQC, ["STQM", "T11b_Rigidity", "TorsionDescends", "R1R2fpRep"], "F",
      "leafq-check; T11b_Rigidity from leaf-fold5's T11bExists through av-b2's edge")
 edge("TorsionDescends", "torsionDescends_of_t5", *LQC, ["TorsionStructure"], "F", "leafq-check")
+# --- r4 (w59): coarse-factor, mcr-quot and cloud-w07. First in the list, so they win over the older edges below.
+CF = (MAIN, "scratch/coarse-factor/Discharge.lean")  # over OneProof's chain (imports ZInQKernel.OneProof.H.TailK)
+edge("R1R2fpRep", "r1r2fpRep_of_canonical''", *CF,
+     ["CanonicalModelY3", "CanonicalCoarseX6", "BabaGranathX6", "GonzalezRotgerX6", "ReciprocityOfFine"], "F",
+     "coarse-factor: qm-glue's theorem with CoarseFactor proved from CanonicalCoarseX6 and CurveBijIso filled in")
+edge("X6ConicModel", "x6ConicModel_of_canonical''", *CF, ["R1R2fpRep", "ConicCanonical", "MobiusGlue"], "F",
+     "coarse-factor")
+# mcr-quot: the four glue Props under the coordinate. Its file is MCRGlue.lean verbatim plus parts; its T5 is the
+# kernel's ObjBridge.TorsionStructure, which Objects.lean proves `Iff.rfl` to PkgI2.TorsionStructure.{0}.
+# CoverModelOfHeckeN has no edge here: the chain derives it only through HeckeNoVertRam, downstream of the
+# coordinate that mcr-quot feeds, so it stays open (glue).
+MQ = (MAIN, "scratch/mcr-quot/MCRQuot.lean")
+for concl, thm, hyps in [
+        ("FibreAutTame", "fibreAutTame_of''", ["TorsionStructure", "CurveBijIso", "ModelYIrreducible", "CurveClosedQbarFinite"]),
+        ("FibreAutFixFinite", "fibreAutFixFinite_of'", ["CurveBijIso", "ModelYIrreducible"]),
+        ("CoordinateFromSections", "coordinateFromSections_of''", ["FibreAutTame", "TorsionStructure"]),
+        ("CMSectionsDisjoint", "cMSectionsDisjoint_of''", ["FibreAutTame", "FibreAutFixFinite", "CMStabInvolution"]),
+        ("CMStabInvolution", "cMStabInvolution_of", ["CurveBijIso", "ModelYIrreducible", "CMStabObj"]),
+        ("GenericQuotientP1", "genericQuotientP1_of''",
+         ["FibreAutTame", "TorsionStructure", "TameQuotientSmooth", "CurveBijIso", "P1SchemeQ"]),
+        ("ModelYIrreducible", "modelYIrreducible_of_coverModelN", ["TorsionStructure", "CoverModelOfHeckeN"]),
+        ("CurveClosedQbarFinite", "curveClosedQbarFinite", [])]:
+    edge(concl, thm, *MQ, hyps, "F", "mcr-quot", deffile=MQ[1])
+# cloud-w07 (merged in w59): two textbook fields proved in Contrib (kernel constants, see ROOT_FIELDS)
+CW7 = "ZInQKernel/Contrib/CloudW07JacobiansCurves/"
+edge("JacobianExists", "JacobianExists_proof", MAIN, CW7 + "JacobianExists.lean", [], "F", "cloud-w07")
+edge("NormalModelOfFunctionFieldQ", "NormalModelOfFunctionFieldQ_proof", MAIN, CW7 + "NormalModel.lean", [], "F",
+     "cloud-w07")
+# --- r4 (w58): height-glue, qm-glue, and leaf-fold7's own reduction of its glue field. These come first: where a
+# conclusion has an older edge below (height-split, qm-split), the first edge in this list is the one followed.
+HG = (MAIN, "scratch/height-glue/Rows.lean")  # height-split's HeightSplit.lean + metrization + the glue proofs
+for concl, thm, hyps in [("AnalyticUniformizationExists", "analyticUniformizationExists_of_t35", ["UniformizationExists"]),
+                         ("AnalyticUniformizationUnique", "analyticUniformizationUnique_of_t35", ["UniformizationExists"]),
+                         ("UniformizationDim", "uniformizationDim_of_t35", ["UniformizationExists"]),
+                         ("MetrizationOfUniformization", "metrizationOfUniformization", []),
+                         ("NeronMetrizable", "neronMetrizable_of_t35", ["UniformizationExists"])]:
+    edge(concl, thm, *HG, hyps, "F", "height-glue")
+edge("R5fpCount", "r5fpCount_of_t11b", MAIN, "scratch/height-glue/QMFull.lean",
+     ["EichlerOptimalEmbeddingCount", "T11b_Rigidity", "CMDescent", "QMUniformizationC"], "F",
+     "height-glue: QMPairEmbeddingCorrespondence (H-3) proved from T11b and two QM leaves")
+QG = "scratch/qm-glue/"  # over leaf-fold4's chain (TailK), like qm-split
+edge("R1R2fpRep", "r1r2fpRep_of_canonical", MAIN, QG + "ModuliCompare.lean",
+     ["CanonicalModelY3", "CanonicalCoarseX6", "BabaGranathX6", "GonzalezRotgerX6", "ReciprocityOfFine", "CoarseFactor",
+      "CurveBijIso"], "F", "qm-glue: qm-split's universal Props from their existential forms and CoarseFactor")
+edge("X6ConicModel", "x6ConicModel_of_canonical'", MAIN, QG + "ModuliCompare.lean",
+     ["R1R2fpRep", "ConicCanonical", "CoarseFactor", "CurveBijIso", "MobiusGlue"], "F", "qm-glue")
+edge("ValenceFormulaGammaStar", "valenceFormulaGammaStar_of_leaves", MAIN, QG + "HauptGlue.lean",
+     ["ValenceFormulaCocompactEq", "ShimizuCovolumeO1"], "F", "qm-glue: GammaStarFromO1 proved")
+edge("QMHauptmodulBase3", "qmHauptmodulBase3_of_leaves", MAIN, QG + "HauptGlue.lean",
+     ["ThetaModularity", "ValenceFormulaCocompactEq", "ShimizuCovolumeO1", "IgusaCMValue24"], "F",
+     "qm-glue: ThetaQuotientValue24 from the published value IgusaCMValue24")
+edge("MobiusGlue", "mobiusGlue_of_t5'", MAIN, "ZInQKernel/OneProof/H/TailE.lean", ["TorsionStructure"], "F",
+     "image-plane, compiled in OneProof (the chain's LeafQM.AV.Pin.MobiusGlue)")
+edge("QuotientP1Coordinate", "quotientP1Coordinate_of_leaves", MAIN, "ZInQKernel/OneProof/H/TailW.lean",
+     ["ProperCurveAF", "FiniteQuotientExists", "TameQuotientSmooth", "SmoothModelOfP1", "TameFixedPointsDisjoint",
+      "TameInertiaCyclic", "FibreAutTame", "GenericQuotientP1", "CoordinateNormalization"], "F",
+     "mcr-glue, compiled in OneProof: the glue field from six leaves and three glue Props")
+edge("CoordinateNormalization", "coordinateNormalization_of", MAIN, "scratch/mcr-glue/MCRGlue.lean",
+     ["CMSectionsDisjoint", "CoordinateFromSections"], "F", "mcr-glue", deffile="scratch/mcr-glue/MCRGlue.lean")
+# --- r4 (w55-w57): reductions of leaf-fold6's fields by the split tasks. Kernel-world files prove the kernel's Prop
+# (deffile = the kernel definition, compared with the copy in Leaves6); qm-split's files import leaf-fold4's chain
+# (TailK), so their Props are the chain's own constants (no copied def text to compare).
+MCR = (MAIN, "scratch/mcr-glue/MCRGlue.lean")  # model-glue's ModelGlue6.lean verbatim + five parts (compiled)
+edge("ModelCoordinateResidue", "modelCoordinateResidue_of_leaves''", *MCR,
+     ["ProperCurveAF", "FiniteQuotientExists", "TameQuotientSmooth", "SmoothModelOfP1", "TameFixedPointsDisjoint",
+      "TameInertiaCyclic", "FibreAutTame", "GenericQuotientP1", "CMSectionsDisjoint", "CoordinateFromSections"], "F",
+     "mcr-glue: the residue half proved; six leaves and four glue Props", deffile=MCR[1])
+AVG = (MAIN, "scratch/av-glue/Combined.lean")  # copies of av-b1's two pieces, checked Iff.rfl against the kernel's
+edge("ImageFactorization", "imageFactorization_of_cartier", *AVG, ["CartierSmooth"], "F", "av-glue")
+edge("SimpleSurjIsogeny", "simpleSurjIsogeny_of_published'", *AVG,
+     ["CartierSmooth", "PoincareComplement", "IsogenyQuasiInverse", "GeomConnOfRationalPoint", "GroupSchemeEquidim"], "F",
+     "av-glue; IsogenyQuasiInverse is WeilPairing's (the field isogenyQuasiInverse)")
+AVS = (MAIN, "scratch/av-split/AvSplitAll.lean")
+edge("ReductionTorsionBijective", "h24", *AVS, ["MulEtaleAbelianScheme"], "F", "av-split", deffile=OBJ)
+edge("TorsionStructure", "h25", *AVS, ["MumfordTorsionAlgClosed"], "F", "av-split", deffile=OBJ)
+edge("UniformizationExists", "h38", *AVS, ["UniformizationLeafAll", "MumfordTorsionAlgClosed"], "F", "av-split",
+     deffile="ZInQKernel/HDecomp/LeafPush2/T.lean")
+edge("IsogenyQuasiInverse", "h54", *AVS, ["MilneIsogenyQuasiInverse"], "F", "av-split (verbatim copy of the Prop)",
+     deffile=AVS[1])
+edge("HomLatticeCorr", "h69", *AVS, ["UniformizationLeafAll", "GAGAMorphism"], "F", "av-split",
+     deffile="ZInQKernel/Contrib/HomUnify/Corr.lean")
+HS = (MAIN, "scratch/height-split/HeightSplit.lean")  # the rows are the kernel's Props, imported
+FAL = "ZInQKernel/HDecomp/Faltings/Leaves.lean"
+SS = ["NeronModelExists", "SemistableReductionThm", "SemistableNeronBaseChange"]  # N1, SS1, SS2 (H5 identification)
+edge("R18_Javanpeykar", "r18_of_leaves", *HS, ["JavanpeykarBound"] + SS + ["NeronMetrizable"], "F", "height-split",
+     deffile="ZInQKernel/HDecomp/LeafPush2/R18.lean")
+edge("R19_GaudronRemond", "r19_of_leaves", *HS, ["GaudronRemondThm14"] + SS, "F", "height-split", deffile=FAL)
+edge("R20_FaltingsLemma5", "r20_of_leaves'", *HS, ["FaltingsLemma5BC"] + SS + ["SemistablePersists"], "F",
+     "height-split", deffile=FAL)
+edge("R21_Bost", "r21_of_leaves'", *HS, ["BostLowerBound"] + SS + ["AnalyticUniformizationUnique"], "F",
+     "height-split (MetrizedDimUnique proved)", deffile=FAL)
+edge("R22_Pazuki", "r22_of_upper", *HS, ["PazukiCor13Upper"] + SS, "F", "height-split",
+     deffile="ZInQKernel/HDecomp/LeafPush2/R22.lean")
+edge("StableHeightFinite", "stableHeightFinite_of'", *HS, SS + ["NeronMetrizable", "AnalyticUniformizationUnique"], "F",
+     "height-split", deffile="ZInQKernel/HDecomp/Faltings/Height.lean")
+edge("NeronMetrizable", "neronMetrizable_of", *HS,
+     ["AnalyticUniformizationExists", "UniformizationDim", "MetrizationOfUniformization"], "F", "height-split")
+edge("R5fpCount", "r5fpCount_of", MAIN, "scratch/height-split/R5Count.lean",
+     ["EichlerOptimalEmbeddingCount", "QMPairEmbeddingCorrespondence"], "F", "height-split",
+     deffile="ZInQKernel/HDecomp/QM/Leaves.lean")
+# curve-split (w56)
+CVS = "scratch/curve-split/"
+edge("X0Transitive", "x0Transitive_of_igusaGL2", MAIN, CVS + "X0Split.lean", ["IgusaGL2"], "F",
+     "curve-split: Igusa's theorem as printed (kernel leaf; also from IgusaSL2X)")
+edge("NormalCurveSmoothQ", "normalCurveSmoothQ_of_regularSmooth", MAIN, CVS + "CurvesGSplit.lean",
+     ["RegularSmoothPerfect"], "F", "curve-split")
+edge("GeomConnectedOfConstantFieldQ", "geomConnectedOfConstantFieldQ_of_zariski", MAIN, CVS + "CurvesGSplit.lean",
+     ["ZariskiConnectedness"], "F", "curve-split")
+edge("CurveBijIso", "curveBijIso", MAIN, CVS + "CurveBij.lean", [], "F", "curve-split: Mathlib only",
+     deffile=CVS + "CurveBij.lean")
+# hodge-split (w56)
+HOD = (MAIN, "scratch/hodge-split/HodgeSplit.lean")  # rows copied verbatim from Leaves5.lean
+TS2 = ["TateTwistInvariants", "AxSenTate"]
+edge("FiniteImageHT", "finiteImageHT_of_tate", *HOD, TS2, "F", "hodge-split", deffile=HOD[1])
+edge("T23_FontaineClosure", "t23_all_of_bdrInvariants", *HOD, ["BdRInvariants"], "F", "hodge-split",
+     deffile="ZInQKernel/Contrib/G9/I4Layer.lean")
+edge("DeRhamComparisonHT", "deRhamComparisonHT_of_leavesT", *HOD, ["HodgeTateDecompAbVar"] + TS2 + ["DeRhamH1AbVarT"],
+     "F", "hodge-split", deffile="ZInQKernel/Contrib/R10/Amend.lean")
+edge("R14Det", "r14Det_of_printed", *HOD, ["DSThm965", "DSThm966"], "F", "hodge-split", deffile=HOD[1])
+edge("SenTwist", "senTwist_of_tate", *HOD, TS2, "F", "hodge-split", deffile=HOD[1])
+edge("EigenformHT", "eigenformHT_of_kato_ds", *HOD, ["EigenformHTNew", "NewformOfEigenform", "DSThm965", "DSThm966"],
+     "F", "hodge-split: the newform case of Kato's theorem stays open", deffile="ZInQKernel/Contrib/G9/I4Layer.lean")
+# qm-split (w56-w57)
+QMS = "scratch/qm-split/"
+edge("QMClassNumberOne", "qmClassNumberOne_proof", MAIN, QMS + "ClassNumberOne.lean", [], "F",
+     "qm-split: 𝒪 is left norm-Euclidean")
+edge("QMDichotomyYu", "qmDichotomyYu_of_yu", MAIN, QMS + "YuLeaf.lean", ["YuThm11"], "F", "qm-split")
+for concl, thm in [("QMAutCard", "qmAutCard_of"), ("ALFixedPoints", "alFixedPoints_of"),
+                   ("CMOptimalEmbedding", "cmOptimalEmbedding_of")]:
+    edge(concl, thm, MAIN, QMS + "QMAut.lean", ["QMCentralizerCM"], "F", "qm-split")
+edge("QMCentralizerCM", "qmCentralizerCM_of", MAIN, QMS + "QMAut.lean", ["QMCentralizerCMC", "T11b_Rigidity"], "F",
+     "qm-split: the form over ℚ̄ from the printed form over ℂ and T11(b)")
+edge("STQM", "stqm_of", MAIN, QMS + "STQM.lean", ["ShimuraTaniyamaQbar"], "F", "qm-split")
+edge("ThetaModularity", "thetaModularity_of", MAIN, QMS + "ThetaSplit.lean", ["IgusaPsi4", "IgusaChi10"], "F", "qm-split")
+edge("ThetaRatiosAlgebraic", "thetaRatiosAlgebraic_of", MAIN, QMS + "ThetaRatios.lean",
+     ["ThetaNullNonvanishing", "ThetaFourthRatiosAlgebraic"], "F", "qm-split")
+edge("ValenceFormulaGammaStar", "valenceFormulaGammaStar_of_O1", MAIN, QMS + "Haupt.lean",
+     ["ValenceFormulaCocompactEq", "ShimizuCovolumeO1"], "F", "qm-split")
+edge("QMHauptmodulBase3", "qmHauptmodulBase3_of_O1", MAIN, QMS + "Haupt.lean",
+     ["ValenceFormulaCocompactEq", "ShimizuCovolumeO1", "ThetaModularity", "ThetaQuotientValue24"], "F",
+     "qm-split; `include hT hC in`: r4's ThetaModularity and the CM value", extra=["ThetaModularity", "ThetaQuotientValue24"])
+edge("R1R2fpRep", "r1r2fpRep_of'", MAIN, QMS + "ModuliSplit.lean",
+     ["CanonicalModelY3", "CoarseX6OfFine", "HauptmodulOfX6", "ReciprocityOfFine", "ResidueOfX6"], "F",
+     "qm-split: HeckeOfFine proved")
+# (qm-split's y3Connected_of [CanonicalModelY3, ConnectedOfFine] is not followed: qm-glue proves ConnectedOfFine from
+#  ConnectedCanonical, which is the row TSHecke.Y3Connected itself, so the split adds a row and removes none)
+edge("R1bFamily", "r1b_of'", MAIN, QMS + "ModuliSplit.lean", ["ShimuraFamily"], "F", "qm-split: R1bTransport proved")
+edge("X6ConicModel", "x6ConicModel_of", MAIN, QMS + "ModuliSplit.lean", ["R1R2fpRep", "ConicOfWitness"], "F", "qm-split")
+# tyz-split (w57): the CM leaf split into its CM part and its modular-curve part
+edge("ShimuraReciprocityModFn", "shimuraReciprocityModFn_of_split", MAIN, "scratch/tyz-split/T5.lean",
+     ["CMModuli", "X0RatStructure"], "F", "tyz-split")
+# curve-split: the guard clause of ShimuraGoodReduction follows from R1R2fp
+edge("ShimuraGoodReduction", "shimuraGoodReduction_of_noGuard", MAIN, CVS + "ShimuraGR.lean",
+     ["R1R2fp", "ShimuraGoodReductionNoGuard"], "F", "curve-split", deffile=CVS + "ShimuraGR.lean")
+# fork PRs #6-#10 (w57): fields proved in Contrib, exact fixed Props (T11bExists: a verbatim copy of av-b2's)
+CW = "ZInQKernel/Contrib/"
+edge("EigenformTwist", "EigenformTwist_proof", MAIN, CW + "CloudW08EigenformTwists/EigenformTwist.lean", [], "F", "PR #6")
+edge("EGAIV_8_8_2_ii", "EGAIV_8_8_2_ii_proof", MAIN, CW + "CloudW01Spread/FinitePresentation.lean", [], "F", "PR #7")
+edge("EGAIV_17_7_8_ii", "EGAIV_17_7_8_ii_proof", MAIN, CW + "CloudW01Spread/Smooth.lean", [], "F", "PR #7")
+edge("ZariskiConnectedness", "ZariskiConnectedness_proof", MAIN, CW + "CloudW02Connectedness/Basic.lean", [], "F", "PR #8")
+edge("T11bExists", "T11bExists_proof", MAIN, CW + "CloudW06PoincareRigidity/T11bExists.lean", [], "F", "PR #9",
+     deffile=CW + "CloudW06PoincareRigidity/T11bExists.lean")
+edge("NeronMappingAbelianSchemeSurj", "NeronMappingAbelianSchemeSurj_proof", MAIN, CW + "CloudW03NeronSurj/Main.lean",
+     [], "F", "PR #10")
 # Not folded (variants, recorded in the report): tyz-318's lemma318Literal_HHprime_of_sqrtTwoNotIn
 # (94b05c87, scratch/tyz-318/Lemma318.lean) trades the LEAF Lemma318Literal for the GLUE SqrtTwoNotInHHprime;
 # shimura-modfn's shimuraReciprocityModFn_of_split (6bc73469) splits the CM leaf into MainTheoremCMj, RatX0Rep and the
@@ -223,15 +461,18 @@ edge("TorsionDescends", "torsionDescends_of_t5", *LQC, ["TorsionStructure"], "F"
 
 # ---------------------------------------------------------------- bundles
 STRUCTS = {
-    "OpenResearchLeaves5": (LF5, "OpenResearchLeaves5"),
-    "OpenTextbookLeaves5": (LF5, "OpenTextbookLeaves5"),
-    "OpenAddedLeaves5": (LF5, "OpenAddedLeaves5"),
-    "OpenGlue5": (LF5, "OpenGlue5"),
+    "OpenResearchLeaves8": (OPX, "OpenResearchLeaves8"),
+    "OpenTextbookLeaves8": (OPX, "OpenTextbookLeaves8"),
+    "OpenAddedLeaves8": (OPX, "OpenAddedLeaves8"),
+    "OpenGlue7": (OPX7, "OpenGlue7"),
 }
 # fields never projected on the route (h-leaves agent, grep of the flat file; g0-assemble3 §6)
 UNUSED = {"r1rec", "r3", "r5", "r7b", "r8", "t10"}  # never projected in g0-assemble3; assemble-port, leaf-fold4 and leaf-fold5 have the same consumers
 # (r2: in leaf-fold4's flat file r1rec, r7b, r8 occur only as `f := r.f` in three structure literals, t10 only there
 #  and in T10_groupIso_of_tateDuality)
+# (r4: in OneProof/H the six occur only as `f := r.f` / `f := t.f` (or a transport `_ofK5` of it) in the bundle
+#  conversions of TailD, TailE, TailI, TailK, TailN, TailO and TailX, and t10 in LPrefix's T10_groupIso_of_tateDuality;
+#  leaf-fold7 left the chain from LPrefix to TailO unchanged)
 # fields that become used on route F (an F edge takes them as hypotheses)
 USED_IN_F = set()
 
@@ -299,8 +540,8 @@ def check_edges(sc):
             bad += 1
             continue
         hyps, concl = c.split_binders(sig, e["thm"])
-        hh = sorted(head_of_type(h) for h in hyps)
-        want = sorted(e["hyps"])
+        hh = sorted([head_of_type(h) for h in hyps] + e["extra"])
+        want = sorted(e["hyps"] + e["bound"])
         ch = head_of_type(concl)
         ok_h = hh == want
         ok_c = ch == c.short_of(e["concl"]) or "+" in e["concl"] or e["concl"] in ("AnalyticUniformizationOfDim",)
@@ -322,9 +563,9 @@ def expand(sc):
         fields[sname] = [(f, head_of_type(t)) for f, t in fl]
     # F: the three linked-Tate fields are replaced together by route T
     route_T = {"UpperBreakBound", "BetaSignAtTwo"}
-    global REACHED
+    global REACHED, FOLLOWED
     seen, open_, rows = set(), [], []
-    REACHED = seen
+    REACHED, FOLLOWED = seen, []
     stack = [("FrozenTarget", "root")]
     while stack:
         node, src = stack.pop()
@@ -344,39 +585,145 @@ def expand(sc):
             if node not in ("ℕ",):
                 open_.append((node, src))
             continue
+        FOLLOWED.append(e)
         for h in e["hyps"]:
             stack.append((h, f"{e['thm']}"))
     return open_, rows
 
 
 REACHED = set()
+FOLLOWED = []  # the edge followed for each reached conclusion (the first in E), in traversal order
+
+
+def _cmp(A, B):
+    """Verdict for two lists of def texts of one name (None if either is empty)."""
+    if not A or not B:
+        return None
+    if any(x in B for x in A):
+        return "identical"
+    if any(unworld(x) == unworld(y) for x in A for y in B):
+        return "identical up to the prefix " + " ".join(WORLD)
+    return "DIFFERENT"
+
+
+@functools.lru_cache(maxsize=None)
+def kernel_defs(name):
+    """{file: def texts} for the kernel files in OneProof/H's import closure that define `name`."""
+    pat = (r"^(@\[[^]]*\][[:space:]]*)?((private|protected|noncomputable) )*"
+           r"(def|abbrev|structure|opaque|irreducible_def) %s([[:space:]:({[]|$)" % re.escape(name))
+    hits = [l.split(":", 1)[1] for l in _git("grep", "-l", "-E", pat, MAIN, "--", "ZInQKernel/") if l]
+    return {f: c.def_texts_all(_show(MAIN, f), name) for f in hits if f in oph_kernel_imports()}
 
 
 def defcheck():
-    """Compare def texts of bundle-field Props proved in another file (check 3)."""
-    g3 = c.show(*LF5)
+    """Check 3: a Prop proved or reduced in another Lean world is the one the H base uses (followed F edges only).
+    r4: the base is OneProof/H, which imports kernel modules where the flat files had copies, so a definition in a
+    kernel module that OneProof/H imports is the base's own constant."""
+    g3 = c.show(*OPH)
     out = []
-    for e in E:
+    for e in FOLLOWED:
         if "F" not in e["sc"] or e["thm"] is None or "+" in e["concl"]:
             continue
-        if e["concl"] not in REACHED:
-            continue  # edge not on the scenario-F route
         if e["rev"] == MAIN and not e["deffile"]:
             continue
         name = c.short_of(e["concl"])
+        df = e["deffile"] or e["file"]
+        B = c.def_texts_all(c.show(e["rev"], df), name)
         A = c.def_texts_all(g3, name)
-        if not A:
-            continue  # not a Prop of g0-assemble3's world (TYZ/GZ side, or an intermediate)
-        B = c.def_texts_all(c.show(e["rev"], e["deffile"] or e["file"]), name)
-        a = A[0]
-        b = B[0] if B else None
-        if B and any(x in B for x in A):
-            a = b = next(x for x in A if x in B)
-        if a is None or b is None:
-            out.append((name, "def not found in " + ("g0-assemble3" if a is None else e["file"])))
+        if A:
+            out.append((name, _cmp(A, B) or "def not found in " + df))
+            continue
+        K = kernel_defs(name)
+        if not K:
+            # a Prop that an F edge introduces: compare with the files of the followed edges that take it
+            vs = []
+            for f in sorted({x["file"] for x in FOLLOWED if name in x["hyps"] and x["rev"] == MAIN} - {df}):
+                C = c.def_texts_all(c.show(MAIN, f), name)
+                if C:
+                    vs.append(f"{_cmp(C, B) or 'def not found in ' + df} (vs {f}, which takes it)")
+            if vs:
+                out.append((name, "; ".join(vs)))
+            continue
+        if e["rev"] == MAIN and df in K:
+            out.append((name, f"the kernel's own constant ({df}), which OneProof/H imports"))
         else:
-            out.append((name, "identical" if a == b else "DIFFERENT"))
+            v = _cmp([x for t in K.values() for x in t], B)
+            out.append((name, f"{v or 'def not found in ' + df} (vs {', '.join(sorted(K))}, imported by OneProof/H)"))
     return out
+
+
+# r4: bundle fields whose type is a kernel constant written with `_root_`, proved by a file that imports the kernel
+# module defining it (fork PRs #6-#10, folded by leaf-fold8 at w59; cloud-w07): the same constant, so there is no text
+# to compare
+ROOT_FIELDS = {"JacobianExists": "ZInQKernel/HDecomp/ModCurves/Defs.lean",
+               "NormalModelOfFunctionFieldQ": "ZInQKernel/Contrib/CurvesG/CurveSplit.lean",
+               "EigenformTwist": "ZInQKernel/HDecomp/ModCurves/C9.lean",
+               "EGAIV_8_8_2_ii": "ZInQKernel/Contrib/SpreadOut/Spread.lean",
+               "EGAIV_17_7_8_ii": "ZInQKernel/Contrib/SpreadOut/Spread.lean",
+               "ZariskiConnectedness": "ZInQKernel/Contrib/ZariskiConn/Basic.lean",
+               "NeronMappingAbelianSchemeSurj": "ZInQKernel/Contrib/NeronC/NMPInjective.lean"}
+
+
+def rootcheck():
+    types = {}
+    for (rev, path), short in STRUCTS.values():
+        for f, t in c.structure_fields(c.show(rev, path), short):
+            types[head_of_type(t)] = t
+    out = []
+    for e in FOLLOWED:
+        name = c.short_of(e["concl"])
+        if "F" not in e["sc"] or name not in ROOT_FIELDS:
+            continue
+        kf = ROOT_FIELDS[name]
+        q, _ = c.qualified_def(c.show(MAIN, kf), name)
+        t = types.get(name, "")
+        written = re.sub(r"\.\{[^}]*\}$", "", t.split()[0]) if t else ""
+        imp = re.search(r"^import\s+%s\s*$" % re.escape(kf[:-5].replace("/", ".")), c.show(e["rev"], e["file"]), re.M)
+        if written == "_root_." + q and imp:
+            out.append((name, f"field type `{t}` is `{q}` of {kf}, which {e['file']} imports"))
+        else:
+            out.append((name, f"CHECK: field type `{t}`, kernel def `{q}`, imported: {bool(imp)}"))
+    return out
+
+
+def chaincheck():
+    """r4: qm-split's and qm-glue's files are over leaf-fold4's chain (`import TailK`). For the Props that their
+    followed edges conclude or assume, compare the definition the H base uses (OneProof/H, or a kernel module it
+    imports) with leaf-fold4's chain sources, or with the edge's own file where the chain has none (a verbatim copy)."""
+    g3, l4 = c.show(*OPH), c.show(*LF4C)
+    out, done = [], set()
+    for e in FOLLOWED:
+        if "F" not in e["sc"] or not e["thm"] or e["rev"] != MAIN:
+            continue
+        txt = c.show(e["rev"], e["file"])
+        if not re.search(r"^import TailK\b", txt, re.M):
+            continue
+        for name in [c.short_of(e["concl"])] + e["hyps"]:
+            if name in done:
+                continue
+            done.add(name)
+            A, base = c.def_texts_all(g3, name), "OneProof/H"
+            if not A:
+                K = kernel_defs(name)
+                A, base = [x for t in K.values() for x in t], ", ".join(sorted(K))
+            if not A:
+                continue  # a Prop of the edge's own file (open, or proved by a later edge)
+            B, src = c.def_texts_all(l4, name), "leaf-fold4's chain"
+            if not B:
+                B, src = c.def_texts_all(txt, name), e["file"]
+            out.append((name, f"{_cmp(A, B) or 'def not found'} ({base} vs {src})"))
+    return out
+
+
+# r4: hodge-split states some rows over the kernel's G9 copy of pkg-I4 (`ZInQ.Contrib.G9.PkgI4.Qbar`), where the
+# flat file has the chain's copy (`PkgI4.Qbar`); the texts are compared with that prefix removed as well
+WORLD = ["ZInQ.Contrib.G9."]
+
+
+def unworld(t):
+    for w in WORLD:
+        t = t.replace(w, "")
+    return t
 
 
 def main():
@@ -398,10 +745,17 @@ def main():
                 tag = "  [never projected]"
             print(f"  {n:45s} {where}{tag}")
         if sc == "F":
-            print("def-text comparison (proved/reduced Prop vs leaf-fold5's def; edges on the F route only):")
+            print("def-text comparison (proved/reduced Prop vs the H base: OneProof/H or a kernel module it imports; "
+                  "followed F edges only):")
             for name, r in defcheck():
                 print(f"  {name:35s} {r}")
-            print("route T inputs and kernel leaf copies (def text vs g0-assemble3, and pairwise):")
+            print("kernel constants named with `_root_` in the bundles, proved by files importing their module:")
+            for name, r in rootcheck():
+                print(f"  {name:35s} {r}")
+            print("chain-world edges (files over leaf-fold4's TailK): the H base's definition vs the chain's:")
+            for name, r in chaincheck():
+                print(f"  {name:35s} {r}")
+            print("route T inputs and kernel leaf copies (def text vs the H base, and pairwise):")
             extra_defcheck()
 
 
@@ -436,12 +790,15 @@ PAIR_DEFS = [(("60340bed", "scratch/frob-pieces/FrobPiecesFull.lean"), ("3d1b90b
 
 
 def extra_defcheck():
-    g3 = c.show(*LF5)
+    g3 = c.show(*OPH)
     for rev, path, names in EXTRA_DEFS:
         t = c.show(rev, path)
         for n in names:
             A, B = c.def_texts_all(g3, n), c.def_texts_all(t, n)
-            print(f"  {n:20s} {rev}:{path}: {'identical' if A and B and any(x in B for x in A) else 'DIFFERENT or missing'}")
+            v = "identical" if A and B and any(x in B for x in A) else "DIFFERENT or missing"
+            if not A and B and rev == MAIN and path in oph_kernel_imports():
+                v = "no copy: OneProof/H imports this file"  # r4
+            print(f"  {n:20s} {rev}:{path}: {v}")
     for (ra, pa), (rb, pb), names in PAIR_DEFS:
         ta, tb = c.show(ra, pa), c.show(rb, pb)
         for n in names:
@@ -470,9 +827,43 @@ def doc_check(path="docs/research/frontier.md"):
     print("  in doc, not in chain:", sorted(have - want))
 
 
+FIELDS_TSV = "scratch/leaf-fold8/fields8.tsv"  # the H base's field table (bundle, field, Lean type, form, ...)
+
+
+def onep_check():
+    """r4: compare the library theorem `ZInQ.OneProof.frozenTarget` (main) with scenario A (its hypothesis heads), and
+    the H base's field table FIELDS_TSV (the source of the forms of its fields) with the bundles."""
+    name = "_root_.ZInQ.OneProof.frozenTarget"
+    sig = c.signature(c.show(MAIN, "ZInQKernel/OneProof/Main.lean"), name)
+    hyps, concl = c.split_binders(sig, name)
+    got = sorted(head_of_type(h) for h in hyps)
+    open_, rows = expand("A")
+    want = sorted(list(STRUCTS) + [n for n, src in open_ if src == "root" or "." not in src])
+    print("OneProof.frozenTarget: hypotheses vs scenario A's (its bundles and the open nodes outside them):",
+          "equal" if got == want else f"DIFFERENT {got} vs {want}", "; conclusion", head_of_type(concl))
+    tsv = {}
+    for ln in c.show(MAIN, FIELDS_TSV).strip().split("\n")[1:]:
+        b, f, ty = ln.split("\t")[:3]
+        tsv.setdefault(b, []).append((f, " ".join(ty.split())))
+    key = {"OpenResearchLeaves8": "R", "OpenTextbookLeaves8": "T", "OpenAddedLeaves8": "A", "OpenGlue7": "G"}
+    for sname, ((rev, path), short) in STRUCTS.items():
+        a = [(f, " ".join(t.split())) for f, t in c.structure_fields(c.show(rev, path), short)]
+        b = tsv.get(key[sname], [])
+        if a == b:
+            v = "same names and types"
+        elif [(f, head_of_type(t)) for f, t in a] == [(f, head_of_type(t)) for f, t in b]:
+            v = "same names and head constants (types abbreviated in the table: " + ", ".join(
+                f for (f, t), (_, u) in zip(a, b) if t != u) + ")"
+        else:
+            v = f"DIFFERENT {sorted(set(a) ^ set(b))}"
+        print(f"  {sname}: {len(a)} fields; {FIELDS_TSV.split('/')[-1]}: {len(b)} rows, {v}")
+
+
 if __name__ == "__main__" and "doc" in sys.argv:
     doc_check()
 
+if __name__ == "__main__" and "onep" in sys.argv:
+    onep_check()
 
-if __name__ == "__main__" and "doc" not in sys.argv:
+if __name__ == "__main__" and "doc" not in sys.argv and "onep" not in sys.argv:
     main()
