@@ -4,6 +4,7 @@ import Mathlib.FieldTheory.Finite.Basic
 import Mathlib.RingTheory.DedekindDomain.FiniteAdeleRing
 import Mathlib.NumberTheory.Padics.HeightOneSpectrum
 import Mathlib.Algebra.Quaternion
+import Mathlib.Tactic.NoncommRing
 import Mathlib.NumberTheory.Cyclotomic.CyclotomicCharacter
 
 /-! # shimura-glue, local part: `nrd(𝒪_p^×) = ℤ_p^×` and `nrd(1 + 3𝒪_3) ⊇ 1 + 3ℤ_3`
@@ -343,5 +344,116 @@ def Ohat : Subring BAf where
   neg_mem' := by
     rintro _ ⟨n, hn, rfl⟩
     exact ⟨-n, fun i => Zhat.neg_mem (hn i), ofQ_neg n⟩
+
+
+/-- **`ℤ̂^× ⊆ 𝔸_f^×`**. -/
+def ZhatU : Subgroup Afˣ where
+  carrier := {u | (u : Af) ∈ Zhat ∧ ((u⁻¹ : Afˣ) : Af) ∈ Zhat}
+  mul_mem' := by
+    rintro a b ⟨ha, ha'⟩ ⟨hb, hb'⟩
+    refine ⟨by rw [Units.val_mul]; exact Zhat.mul_mem ha hb, ?_⟩
+    rw [mul_inv_rev, Units.val_mul]; exact Zhat.mul_mem hb' ha'
+  one_mem' := ⟨by simpa using Zhat.one_mem, by simpa using Zhat.one_mem⟩
+  inv_mem' := by
+    rintro a ⟨ha, ha'⟩
+    exact ⟨ha', by rw [inv_inv]; exact ha⟩
+
+/-- **`U₃ = {u ∈ ℤ̂^× : u ≡ 1 mod 3ℤ̂}`** (at `p ≠ 3` the congruence is empty: `3 ∈ ℤ_p^×`). -/
+def U3 : Subgroup Afˣ where
+  carrier := {u | u ∈ ZhatU ∧ ∃ t ∈ Zhat, (u : Af) = 1 + 3 * t}
+  mul_mem' := by
+    rintro a b ⟨ha, s, hs, has⟩ ⟨hb, t, ht, hbt⟩
+    refine ⟨ZhatU.mul_mem ha hb, s + t + 3 * s * t, ?_, ?_⟩
+    · exact Zhat.add_mem (Zhat.add_mem hs ht)
+        (Zhat.mul_mem (Zhat.mul_mem (by simpa using Zhat.natCast_mem 3) hs) ht)
+    · rw [Units.val_mul, has, hbt]; ring
+  one_mem' := ⟨ZhatU.one_mem, 0, Zhat.zero_mem, by simp⟩
+  inv_mem' := by
+    rintro a ⟨ha, t, ht, hat⟩
+    refine ⟨ZhatU.inv_mem ha, -(((a⁻¹ : Afˣ) : Af) * t), Zhat.neg_mem (Zhat.mul_mem ha.2 ht), ?_⟩
+    have : ((a⁻¹ : Afˣ) : Af) * (a : Af) = 1 := by simp
+    linear_combination (-((a⁻¹ : Afˣ) : Af)) * hat + this
+
+/-- **`𝒪̂^× ⊆ (B ⊗ 𝔸_f)^×`**: the level group of `X₆ = X₀(6,1)`. -/
+def Kfull : Subgroup BAfˣ where
+  carrier := {k | (k : BAf) ∈ Ohat ∧ ((k⁻¹ : BAfˣ) : BAf) ∈ Ohat}
+  mul_mem' := by
+    rintro a b ⟨ha, ha'⟩ ⟨hb, hb'⟩
+    refine ⟨by rw [Units.val_mul]; exact Ohat.mul_mem ha hb, ?_⟩
+    rw [mul_inv_rev, Units.val_mul]; exact Ohat.mul_mem hb' ha'
+  one_mem' := ⟨by simpa using Ohat.one_mem, by simpa using Ohat.one_mem⟩
+  inv_mem' := by
+    rintro a ⟨ha, ha'⟩
+    exact ⟨ha', by rw [inv_inv]; exact ha⟩
+
+/-- **`K₃ = ker(𝒪̂^× → (𝒪̂/3𝒪̂)^×) = {k ∈ 𝒪̂^× : k ≡ 1 mod 3𝒪̂}`**: the level group of `Y₃` (the
+level-3 structures of the kernel's `Level3`: `η : 𝒪/3𝒪 ≅ A[3]`, `𝒪`-linear). -/
+def K3 : Subgroup BAfˣ where
+  carrier := {k | k ∈ Kfull ∧ ∃ y ∈ Ohat, (k : BAf) = 1 + 3 * y}
+  mul_mem' := by
+    rintro a b ⟨ha, y, hy, hay⟩ ⟨hb, z, hz, hbz⟩
+    refine ⟨Kfull.mul_mem ha hb, y + z + 3 * (y * z), ?_, ?_⟩
+    · exact Ohat.add_mem (Ohat.add_mem hy hz)
+        (Ohat.mul_mem (by simpa using Ohat.natCast_mem 3) (Ohat.mul_mem hy hz))
+    · rw [Units.val_mul, hay, hbz]; noncomm_ring
+  one_mem' := ⟨Kfull.one_mem, 0, Ohat.zero_mem, by simp⟩
+  inv_mem' := by
+    rintro a ⟨ha, y, hy, hay⟩
+    refine ⟨Kfull.inv_mem ha, -(((a⁻¹ : BAfˣ) : BAf) * y), Ohat.neg_mem (Ohat.mul_mem ha.2 hy), ?_⟩
+    have h1 : ((a⁻¹ : BAfˣ) : BAf) * (a : BAf) = 1 := by simp
+    calc ((a⁻¹ : BAfˣ) : BAf) = ((a⁻¹ : BAfˣ) : BAf) * (1 + 3 * y) - ((a⁻¹ : BAfˣ) : BAf) * (3 * y) := by
+          noncomm_ring
+      _ = 1 + 3 * -(((a⁻¹ : BAfˣ) : BAf) * y) := by
+          rw [← hay, h1]
+          have : ((a⁻¹ : BAfˣ) : BAf) * (3 * y) = 3 * (((a⁻¹ : BAfˣ) : BAf) * y) := by
+            rw [← mul_assoc, ← mul_assoc, (Commute.ofNat_right _ 3).eq]
+          rw [this]; noncomm_ring
+
+/-- The positive rationals `ℚ^×_{>0} ⊆ 𝔸_f^×`. -/
+def posQ : Subgroup ℚˣ where
+  carrier := {q | 0 < (q : ℚ)}
+  mul_mem' ha hb := by simp only [Set.mem_setOf_eq, Units.val_mul]; exact mul_pos ha hb
+  one_mem' := by simp
+  inv_mem' ha := by simp only [Set.mem_setOf_eq, Units.val_inv_eq_inv_val]; exact inv_pos.2 ha
+
+def posRat : Subgroup Afˣ := posQ.map (FiniteAdeleRing.unitEmbedding ℤ ℚ)
+
+/-- The reduced norm on units, `(B ⊗ 𝔸_f)^× → 𝔸_f^×`. -/
+def nrdU : BAfˣ →* Afˣ := Units.map (nrdQ Af)
+
+/-- **The double coset space `ℚ^×_{>0} \ 𝔸_f^× / nrd(K)`** (an abelian group: `𝔸_f^×` is commutative). -/
+abbrev Pi0 (K : Subgroup BAfˣ) := Afˣ ⧸ (posRat ⊔ K.map nrdU)
+
+/-! ### `nrd(𝒪̂^×) ⊆ ℤ̂^×`, `nrd(K₃) ⊆ U₃` -/
+
+theorem nrd_mem_Zhat {x : BAf} (hx : x ∈ Ohat) : nrdQ Af x ∈ Zhat := by
+  obtain ⟨n, hn, rfl⟩ := hx
+  rw [nrdQ_ofQ]; exact N4_mem hn
+
+theorem nrd_Kfull_le : Kfull.map nrdU ≤ ZhatU := by
+  rintro _ ⟨k, ⟨hk, hk'⟩, rfl⟩
+  refine ⟨nrd_mem_Zhat hk, ?_⟩
+  rw [← map_inv]; exact nrd_mem_Zhat hk'
+
+theorem nrd_one_add_three {R : Type*} [CommRing R] [Algebra ℚ R] (m : Fin 4 → R) :
+    nrdQ R (1 + 3 * ofQ m) = 1 + 3 * (2 * m 0 + m 2 + 3 * N4 m) := by
+  have hh := two_mul_half R
+  set h := half R
+  have e : (1 + 3 * ofQ m : BR R) = ⟨1 + 3 * (m 0 + h * m 2), 3 * (m 1 + h * m 3), 3 * (h * m 2),
+      3 * (h * m 3)⟩ := by
+    ext <;> simp [ofQ, h, QuaternionAlgebra.re_ofNat, QuaternionAlgebra.imI_ofNat,
+      QuaternionAlgebra.imJ_ofNat, QuaternionAlgebra.imK_ofNat]
+  rw [e, nrdQ_apply]; simp only [N4]
+  linear_combination (-18 * m 3 ^ 2 + 3 * m 2 + 9 * m 2 ^ 2 - 18 * m 1 * m 3 + 9 * m 0 * m 2
+    - 36 * h * m 3 ^ 2 + 18 * h * m 2 ^ 2) * hh
+
+theorem nrd_K3_le : K3.map nrdU ≤ U3 := by
+  rintro _ ⟨k, ⟨hk, y, ⟨m, hm, rfl⟩, hky⟩, rfl⟩
+  refine ⟨nrd_Kfull_le ⟨k, hk, rfl⟩, 2 * m 0 + m 2 + 3 * N4 m, ?_, ?_⟩
+  · have h2 : (2 : Af) ∈ Zhat := by simpa using Zhat.natCast_mem 2
+    have h3 : (3 : Af) ∈ Zhat := by simpa using Zhat.natCast_mem 3
+    exact Zhat.add_mem (Zhat.add_mem (Zhat.mul_mem h2 (hm 0)) (hm 2)) (Zhat.mul_mem h3 (N4_mem hm))
+  · change nrdQ Af (k : BAf) = _
+    rw [hky, nrd_one_add_three]
 
 end ShimuraGlue
