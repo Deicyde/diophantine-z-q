@@ -19,7 +19,7 @@ lean_lib AxiomBridge
 -- Preserve each checked standalone module's name instead of renaming proof imports.
 lean_lib TateConsumers where
   roots := #[`TateComparison, `ComposedPointTateSmoke, `TateFreeness, `TateRank,
-    `ImportedRhoCont, `NativeContinuity]
+    `ImportedRhoCont, `NativeContinuity, `NativeEndTrace]
 
 lean_lib FrobeniusAdapters where
   srcDir := "../c10-frobenius"

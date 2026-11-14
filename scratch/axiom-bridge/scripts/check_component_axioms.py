@@ -15,6 +15,13 @@ EXPECTED = {
     'AxiomBridge.NativeContinuity.continuous_trace_galRep',
     'AxiomBridge.NativeContinuity.c10_three_native_matrix_continuous',
     'AxiomBridge.NativeContinuity.c10_native_trace_continuous',
+    'AxiomBridge.NativeEndTrace.geometricEnd_natural',
+    'AxiomBridge.NativeEndTrace.conjugate_homT',
+    'AxiomBridge.NativeEndTrace.rationalCharPoly_monic',
+    'AxiomBridge.NativeEndTrace.charpoly_homT_baseChange',
+    'AxiomBridge.NativeEndTrace.trace_homT_baseChange',
+    'AxiomBridge.NativeEndTrace.trace_homT_scalar_extension',
+    'AxiomBridge.NativeEndTrace.exists_common_coefficient_trace',
 }
 ALLOWED = {'propext', 'Classical.choice', 'Quot.sound'}
 
