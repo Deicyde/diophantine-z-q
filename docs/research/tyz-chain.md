@@ -1,11 +1,11 @@
 # tyz-chain: the TYZ side in one importable module
 
-Task tyz-chain, 2026-11-14. Lean: `ZInQKernel/Contrib/TYZChain/` (eight new modules). Axiom audit:
+Task tyz-chain, 2026-11-14. Lean: `ZInQKernel/Contrib/TYZChain/` (ten new modules). Axiom audit:
 `scratch/tyz-chain/Check.lean` with output `scratch/tyz-chain/Check.out`. Log: `scratch/tyz-chain/log.md`.
 Marks: **VERIFIED** (compiled, or read in a file named here), **STANDARD**, **SPECULATIVE**,
 **UNVERIFIED** (theorem numbers and TYZ line numbers that were not re-read here). The TYZ source
 `Period7.tex` is not on this host (`~/tyz-src` does not exist), so every TYZ line number `Lnnnn` below is
-quoted from the reports of the tasks that produced the statements (tyz-decomp, tyz-35, tyz-318, cm-bridge),
+quoted from the reports of the tasks that produced the statements (tyz-decomp, tyz-35, tyz-318, cm-bridge, sqrt2-glue),
 not re-read.
 
 ## 0. The final hypothesis list
@@ -15,36 +15,35 @@ not re-read.
 theorem ZInQ.Contrib.TYZChain.tyzThm35ReadingA_of_leaves
     (h11 : TYZThm11Integral) (h29 : TYZLemma29Mod2)
     (hS : Shimura.ShimuraReciprocityModFn)
-    (h2 : T318.SqrtTwoNotInHHprime)
     (h33 : ∀ ℓ : ℕ → ℤ, IsTYZLcal ℓ → TYZ35.TYZThm33Pinned ℓ) :
     ZInQ.Literature.TYZThm35ReadingA
 ```
 
-**VERIFIED**: `lake build ZInQKernel.Contrib.TYZChain.Main` succeeds (as do `…TYZChain.ModFn` and
-`…TYZChain.SSExponent`), no `sorry`, no `axiom`; `#print axioms` gives
-`[propext, Classical.choice, Quot.sound]` for the main theorem and for all 80 other audited theorems
-(`scratch/tyz-chain/Check.out`); `#check` prints exactly the five hypotheses below, with
+**VERIFIED**: `lake build ZInQKernel.Contrib.TYZChain.Main` succeeds (as do `…TYZChain.Headline`,
+`…TYZChain.ModFn` and `…TYZChain.SSExponent`), no `sorry`, no `axiom`; `#print axioms` gives
+`[propext, Classical.choice, Quot.sound]` for the main theorem and for all 88 other audited theorems
+(`scratch/tyz-chain/Check.out`); `#check` prints exactly the four hypotheses below, with
 `TYZThm11Integral`, `TYZLemma29Mod2`, `IsTYZLcal` from `ZInQ.Contrib.TYZDecomp`,
-`ShimuraReciprocityModFn` from `ZInQ.Contrib.TYZGenus.Shimura`, `SqrtTwoNotInHHprime` from
-`ZInQ.Contrib.TYZGenus.T318` and `TYZThm33Pinned` from `ZInQ.Contrib.TYZGenus.TYZ35`.
+`ShimuraReciprocityModFn` from `ZInQ.Contrib.TYZGenus.Shimura` and `TYZThm33Pinned` from
+`ZInQ.Contrib.TYZGenus.TYZ35`.
 
 | # | hypothesis | kind | content | source of the statement | Lean definition |
 |---|---|---|---|---|---|
 | 1 | `TYZThm11Integral` | **LEAF** | `𝓛(m)` is an integer for odd squarefree `m ≡ 1, 3 (mod 8)` | TYZ Theorem 1.1, first assertion, odd case (L371–380, UNVERIFIED here) | `ZInQKernel/Contrib/TYZDecomp/Leaves.lean` (tyz-decomp) |
 | 2 | `TYZLemma29Mod2` | **LEAF** | for every sign choice `ℓ` of `𝓛` on classes 1, 3: `Σ_{m=d₁d₂} 𝓛(d₁)𝓛(d₂) ≡ g(m) (mod 2)` (`PropN.LemmaTwoEight ℓ`) | TYZ Lemma 2.9 with Proposition 2.3, mod 2 (L1062–1066, L580–586, UNVERIFIED here) | `ZInQKernel/Contrib/TYZDecomp/Leaves.lean` (tyz-decomp) |
 | 3 | `Shimura.ShimuraReciprocityModFn` | **LEAF** (textbook) | main theorem of complex multiplication for values of rational modular functions on `X₀(N)` at Heegner points, Gross's form | Shimura 1971 Thm. 5.4 with the canonical model of `X₀(N)`; Gross 1984 §3 (numbers UNVERIFIED) | `ZInQKernel/Contrib/TYZGenus/ShimuraModFn.lean` (tyz-cm); reviewed by shimura-modfn |
-| 4 | `T318.SqrtTwoNotInHHprime` | **GLUE** (open in general) | `∀ s ∈ ℍ'_n, s² ≠ 2` for squarefree `n ≡ 5 (mod 8)` | TYZ's Step 3 in the proof of Lemma `torsion2` (Lemma 3.18) | `ZInQKernel/Contrib/TYZChain/Lemma318.lean` (tyz-318) |
-| 5 | `∀ ℓ, IsTYZLcal ℓ → TYZ35.TYZThm33Pinned ℓ` | **LEAF** | TYZ Theorem 3.3 with Lemma 3.14 (`char'`) for the pinned CM points, for every sign choice `ℓ` of `𝓛` | TYZ Theorem 3.3 (L1299–1311, proof L1865–2023) with Lemma 3.14 (UNVERIFIED here) | `ZInQKernel/Contrib/TYZChain/Thm35.lean` (tyz-35) |
+| 4 | `∀ ℓ, IsTYZLcal ℓ → TYZ35.TYZThm33Pinned ℓ` | **LEAF** | TYZ Theorem 3.3 with Lemma 3.14 (`char'`) for the pinned CM points, for every sign choice `ℓ` of `𝓛` | TYZ Theorem 3.3 (L1299–1311, proof L1865–2023) with Lemma 3.14 (UNVERIFIED here) | `ZInQKernel/Contrib/TYZChain/Thm35.lean` (tyz-35) |
 
-So the TYZ side is now **four leaves and one glue Prop**. Three leaves are TYZ's own results (1, 2, 5),
-one is the textbook main theorem of CM (3). The glue (4) is proved for every `n` whose only divisor
-`≡ 5 (mod 8)` is `n` itself (`T318.sqrtTwo_not_mem_HHprime_of_single`, e.g. `n` prime), and tyz-318's
-report §3.2 gives a route for the general compositum (Route A; its last steps `SigmaLift →
-SqrtTwoNotInHHprime` are formalized, its first steps are not).
+So the TYZ side is now **four leaves and no glue**. Three leaves are TYZ's own results (1, 2, 4), one is
+the textbook main theorem of CM (3). The last glue Prop, `T318.SqrtTwoNotInHHprime` (`√2 ∉ ℍ'_n`, TYZ's
+Step 3 in Lemma 3.18), was proved by task sqrt2-glue (merged here at 01:20;
+`Sqrt2Glue.sqrtTwoNotInHHprime`, module `TYZChain/Sqrt2Glue.lean`), so TYZ Lemma 3.18 is now a theorem
+with no hypotheses: `ZInQ.Contrib.TYZChain.package_lemma318Literal_HHprime :
+Package.Lemma318Literal RingClass.HHprime`.
 
 Notes on the leaves (from the source reports, not re-checked here):
 
-* Leaf 5 is not literally TYZ's printed Theorem 3.3: it is stated for the pinned CM points of the fork
+* Leaf 4 is not literally TYZ's printed Theorem 3.3: it is stated for the pinned CM points of the fork
   and uses facts listed in the docstring of `TYZ35.TYZThm33Pinned` to pass from the printed statement
   (signs absorbed into `ε`, `z_n ∈ A(H'_n)`, independence of the choice of lifts modulo torsion; HUMAN
   CHECK there). Numerically checked by tyz-t1 (73 contributing pairs, 102 excluded characters).
@@ -62,17 +61,18 @@ Notes on the leaves (from the source reports, not re-checked here):
 | `TYZChain/L321.lean` | `scratch/tyz-321/L321.lean` lines 3214–5477, minus a copy of `Chebotarev/FrobeniusDenseOfExists` | 2166 | tyz-321 §16a (`T321B.betaOneLiftExists`) and §16 (`T321.lemma321Five_of_shimuraModFn'`) |
 | `TYZChain/Thm35.lean` | `scratch/tyz-35/Final.lean` lines 3204–3915 | 738 | tyz-35 §T (leaf `TYZThm33Pinned`), §G (`thm35First_of_lcal_thm33`), namespace `…TYZ35` |
 | `TYZChain/Lemma318.lean` | `scratch/tyz-318/Lemma318.lean` | 1741 | tyz-318: `T318.package_lemma318Literal_HHprime_of_sqrtTwoNotIn` |
+| `TYZChain/Sqrt2Glue.lean` | `scratch/sqrt2-glue/Sqrt2Glue.lean`, minus its copies of tyz-318's §0 | 1480 | sqrt2-glue: `Sqrt2Glue.sqrtTwoNotInHHprime : T318.SqrtTwoNotInHHprime` |
 | `TYZChain/Lcal.lean` | `scratch/tyz-lcal/TYZLcal.lean` | 926 | tyz-lcal: `TYZLcal.tyzLcalOne_of_leaves` |
 | `TYZChain/ModFn.lean` | `scratch/shimura-modfn/ModFn.lean`, minus copies of tyz-cm | 675 | shimura-modfn (not used by `Main`) |
 | `TYZChain/SSExponent.lean` | `scratch/ss-exponent/SSExponent.lean`, minus a copy of tyz-318's §S | 434 | ss-exponent: `SupersingularExponentA` proved, linked to tyz-318's copy of the leaf (not used by `Main`) |
-| `TYZChain/Main.lean` | new | 68 | `tyzThm35ReadingA_of_leaves` |
-| `TYZChain/Headline.lean` | new | ~60 | `TYZChainLeaves`, `frozenTarget_of_sixContactMin_grossZagier_tyzChainLeaves` |
+| `TYZChain/Main.lean` | new | 71 | `tyzThm35ReadingA_of_leaves`, `package_lemma318Literal_HHprime` |
+| `TYZChain/Headline.lean` | new | 48 | `TYZChainLeaves`, `frozenTarget_of_sixContactMin_grossZagier_tyzChainLeaves` |
 
-Total 9894 lines, against 16744 in the seven source files (the difference is the three copies of
+Total 11425 lines, against 18317 in the eight source files (the difference is the three copies of
 cm-bridge's file and the copies listed below).
 
-Import graph: `Main` ← `Thm35`, `L321`, `Lemma318`, `Lcal`; `Thm35`, `L321` ← `Bridge`; `SSExponent` ←
-`Lemma318`. External imports: `TYZGenus.RingClassBridge`, `TYZGenus.ShimuraFricke` (Bridge),
+Import graph: `Headline` ← `Main` ← `Thm35`, `L321`, `Lemma318`, `Sqrt2Glue`, `Lcal`; `Thm35`, `L321` ←
+`Bridge`; `Sqrt2Glue`, `SSExponent` ← `Lemma318`. External imports: `TYZGenus.RingClassBridge`, `TYZGenus.ShimuraFricke` (Bridge),
 `Chebotarev.FrobeniusDenseOfExists` (L321; it starts with `import Mathlib`, so `Main` imports all of
 Mathlib), `TYZGenus.RingClassTwo` and Tau Ceti's `TorsionReduction` (Lemma318), `TYZDecomp.Leaves`,
 `HeckeAll.Continuation`, `GaussFE.FunctionalEquation5` (Lcal), `TYZGenus.ShimuraMain` (ModFn).
@@ -120,10 +120,10 @@ not used as substitutes (the theorems used by `Main` conclude the `Package` Prop
 ## 2. How `Main` assembles the chain
 
 ```
-tyzThm35ReadingA_of_leaves h11 h29 hS h2 h33 :=
+tyzThm35ReadingA_of_leaves h11 h29 hS h33 :=
   T321.tyzThm35ReadingA_of_lcal_shimuraModFn_lemma318_thm35First h11
     (TYZLcal.tyzLcalOne_of_leaves h11 h29) h29 hS
-    (T318.package_lemma318Literal_HHprime_of_sqrtTwoNotIn h2)
+    (T318.package_lemma318Literal_HHprime_of_sqrtTwoNotIn Sqrt2Glue.sqrtTwoNotInHHprime)
     (TYZ35.thm35First_of_lcal_thm33 h33)
 ```
 
@@ -139,14 +139,14 @@ tyzThm35ReadingA_of_leaves h11 h29 hS h2 h33 :=
 * `TYZChain/Headline.lean` (VERIFIED compiled, standard axioms):
 
   ```lean
-  structure TYZChainLeaves : Prop   -- the five hypotheses of §0 as fields
+  structure TYZChainLeaves : Prop   -- the four hypotheses of §0 as fields
   theorem frozenTarget_of_sixContactMin_grossZagier_tyzChainLeaves (hH : ZInQ.SixContactMin)
       (hG : ZInQ.Literature.GrossZagier) (t : TYZChainLeaves) : ZInQ.FrozenTarget
   ```
 
   i.e. the fork's headline with `TYZThm35ReadingA` replaced by the TYZ leaves and the two registered
   providers `ZInQ.Contrib.heckeContinuation`, `ZInQ.Contrib.functionalEquation5` filled in: Theorem 1.1
-  now rests on `SixContactMin`, `GrossZagier` and the five TYZ-side hypotheses.
+  now rests on `SixContactMin`, `GrossZagier` and the four TYZ-side leaves.
 
 * `T318.lemma318_at_single_unconditional`: TYZ Lemma 3.18 with no hypothesis at all for `n` whose only
   divisor `≡ 5 (mod 8)` is `n`.
@@ -159,24 +159,28 @@ tyzThm35ReadingA_of_leaves h11 h29 hS h2 h33 :=
 ## 4. Status of parallel tasks
 
 * tyz-318, shimura-modfn, tyz-321, ss-exponent: merged (all had reports), clean merges.
-* sqrt2-glue (works on hypothesis 4, `SqrtTwoNotInHHprime`): at the time of writing its branch has a
-  reduction `SigmaLift ⇐ FrobNormLaw + NormSigma` and no report; not merged (SQRT2-STATUS).
+* sqrt2-glue: reported at 01:20 (`SqrtTwoNotInHHprime` PROVED, no hypotheses, standard axioms); merged
+  (clean) and integrated as `TYZChain/Sqrt2Glue.lean`; its §0 copies of tyz-318's `SqrtTwoNotInHHprime`,
+  `SigmaLift`, `Hprimebar_eq`, `sigma_moves_sqrtTwo`, `sqrtTwoNotInHHprime_of_sigmaLift` (byte-identical,
+  VERIFIED) are replaced by the import of `TYZChain/Lemma318.lean`, so the proved Prop is literally
+  `T318.SqrtTwoNotInHHprime` (`example` in `Check.lean`). The former hypothesis `h2` is gone.
 * The task brief mentions cm-bridge's headline with `h5 : Lemma321Five`; that hypothesis is gone
   (tyz-321).
 
 ## 5. What remains on the TYZ side
 
-* The four leaves 1, 2, 3, 5 (literature; to be formalized or accepted). HUMAN CHECK of leaf 5's
+* The four leaves 1–4 (literature; to be formalized or accepted). HUMAN CHECK of leaf 4's
   passage from the printed Theorem 3.3 to the pinned form (its docstring) is still outstanding, and
   no TYZ line number was re-read in this task (the source is not on this host).
-* The glue 4 (`√2 ∉ ℍ'_n` for general `n`): tyz-318 report §3.2 (Route A) and task sqrt2-glue.
+* No glue remains on the TYZ side (sqrt2-glue's proof was not independently reviewed here; it is
+  compiled with standard axioms and proves the verbatim Prop).
 * Integration: the modules are new files only; `ZInQKernel/Contrib/AllContrib.lean` was not edited (the
   rules forbid editing existing files), so `lake build ZInQKernel` does not build them until someone
-  adds `import ZInQKernel.Contrib.TYZChain.Main` (and `ModFn`, `SSExponent`) there.
-* No provider for `ZInQ.Contrib.tyzThm35ReadingA` can be registered from this theorem until all five
-  hypotheses are theorems.
+  adds `import ZInQKernel.Contrib.TYZChain.Headline` (and `ModFn`, `SSExponent`) there.
+* No provider for `ZInQ.Contrib.tyzThm35ReadingA` can be registered from this theorem until the four
+  leaves are theorems.
 
-## Appendix: the Lean text of the five hypotheses (copied from the repository files named)
+## Appendix: the Lean text of the four hypotheses (and of the proved glue) (copied from the repository files named)
 
 `ZInQKernel/Contrib/TYZDecomp/Leaves.lean` (namespace `ZInQ.Contrib.TYZDecomp`; `lcalSq`, `lValOne`,
 `omegaTYZ`, `curveC` are defined there over Mathlib's L-series of an elliptic curve; `LemmaTwoEight` is
@@ -227,6 +231,7 @@ def ShimuraReciprocityModFn : Prop :=
 
 ```
 
+No longer a hypothesis (proved by sqrt2-glue, `Sqrt2Glue.sqrtTwoNotInHHprime`):
 `ZInQKernel/Contrib/TYZChain/Lemma318.lean` (namespace `ZInQ.Contrib.TYZGenus.T318`), with `HHprime` from
 `ZInQKernel/Contrib/TYZGenus/RingClass.lean`:
 
