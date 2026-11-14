@@ -42,3 +42,12 @@
   PkgI3.PoincareReducibility = pkg-I3's I3.lean (with docstring) = the chain's copy (statement); (D) STQM,
   TorsionDescends, ValenceFormulaGammaStar, ellOrder, EllipticOrderLe6, QMHauptmodulBase(2,3), x3 identical in f10,
   Fold.lean and leafq-check's standalone files.
+- 02:45-03:02 kernel build in this worktree: lake build of leaf-fold5's kernel_targets.txt, success (11006 jobs, 16 min).
+
+## 02:55-03:25 olean chain in this worktree, VERIFIED
+- chain.sh (one Lean process at a time): LPrefix 535 s, TailA 64, TailB 93, TailC 167, TailD 8, LF2* 5-8, LF3Cot 12,
+  TailE 56, TailF 40, TailG 70, TailH 76, TailI 6, LF4T5 12, TailJ 30, TailK 13 (leaf-fold4's sources), TailL 11,
+  TailM 455, TailN 39 (leaf-fold5's sources), TailO 27 s: 0 errors each, no sorry. All 369 `#print axioms` reports of
+  the chain (joined over wrapped lines) read [propext, Classical.choice, Quot.sound]; TailO's 20 included.
+- Check6 on this chain (46 s): same results as the dev run (closure 184 758, no sorryAx, 68 fields, 32 kernel,
+  FIELD TYPES: ALL MATCH); output without host paths in check6_result.txt. verbatim_check6.py re-run: ALL OK.
