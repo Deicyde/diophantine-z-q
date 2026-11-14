@@ -179,3 +179,16 @@ standard; no sorry in the parts)
 - `fibreAutFixFinite_of' (hC : CurveBijIso) (hYI : ModelYIrreducible) : FibreAutFixFinite`.
 - **Final composite `modelCoordinateResidue_final4`**: L1-L6 + T5 + CurveBijIso +
   ModelYIrreducible + (B-desc) + (B-iso) + (C1b) ⇒ `ModelCoordinateResidue`.
+
+## Step 14 (10:25) — VERIFIED (exit 0; compile16_out.txt; standard axioms)
+- `MCRQuot.modelYIrreducible_of_coverModelN (hT : TorsionStructure) (hCov : CoverModelOfHeckeN) :
+  ModelYIrreducible` (the decomposition's existing glue `CoverModelOfHeckeN` (prop-ts-glue, in the
+  prefix) supplies the normalization chart; `irreducible_of_chart`).
+- **Final composite `modelCoordinateResidue_final5`**: L1-L6 + T5 + CurveBijIso +
+  CoverModelOfHeckeN + (B-desc) + (B-iso) + (C1b) ⇒ `ModelCoordinateResidue`. New glue of this
+  task still open: (B-desc), (B-iso), (C1b) only.
+- C1b analysis (not compiled, SPECULATIVE): the CM4 case can come from `rightMul u` (`u ≡ φ` on
+  `A[3]`, `u² ≡ −1`), but the CM3 case (stabilizer element of order 3 from `ζ₆` has no involution;
+  the involution is an Atkin–Lehner-type twist) and the CM24 case (`φ² = −6`, no unit; involution
+  `ι(ij)⁻¹φ` requires integrality in `End A`) need the structure of `End(A)` at CM points, which is
+  not among the leaves: C1b is QM-with-CM theory beyond T5.

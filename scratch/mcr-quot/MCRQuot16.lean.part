@@ -154,4 +154,23 @@ theorem modelCoordinateResidue_final4 (hAF : ProperCurveAF) (hQE : FiniteQuotien
     (hI : CMStabInvolution) : ModelCoordinateResidue :=
   modelCoordinateResidue_final3 hAF hQE hTS hP1 hFix hCyc hT hC hYI curveClosedQbarFinite hD hB hI
 
+/-- **`ModelYIrreducible` from the decomposition's glue `CoverModelOfHeckeN` and T5** (the
+normalization chart of `CoverModelN` and model-glue's `irreducible_of_chart`). -/
+theorem modelYIrreducible_of_coverModelN (hT : ObjBridge.TorsionStructure)
+    (hCov : CoverModelOfHeckeN) : ModelYIrreducible := by
+  intro Y Φ π h1 hh h2
+  obtain ⟨E, i1, i2, i3, i4, i5, i6, hN, -, -⟩ := hCov Y Φ π h1 hh h2
+  exact irreducible_of_chart (twistClassFinite hT) h1 h2 E hN
+
+/-- **Main composite (after part 16, chart form): `ModelCoordinateResidue` from the leaves L1-L6,
+the textbook leaves T5 and `CurveBijIso`, the decomposition's glue `CoverModelOfHeckeN`, and the
+glue (B-desc) `QuotientDescendsQ`, (B-iso) `ToP1BijIsCoordinateQ`, (C1b) `CMStabInvolution`.** -/
+theorem modelCoordinateResidue_final5 (hAF : ProperCurveAF) (hQE : FiniteQuotientExists)
+    (hTS : TameQuotientSmooth) (hP1 : SmoothModelOfP1) (hFix : TameFixedPointsDisjoint)
+    (hCyc : TameInertiaCyclic) (hT : ObjBridge.TorsionStructure) (hC : CurveBijIso)
+    (hCov : CoverModelOfHeckeN) (hD : QuotientDescendsQ) (hB : ToP1BijIsCoordinateQ)
+    (hI : CMStabInvolution) : ModelCoordinateResidue :=
+  modelCoordinateResidue_final4 hAF hQE hTS hP1 hFix hCyc hT hC
+    (modelYIrreducible_of_coverModelN hT hCov) hD hB hI
+
 end MCRQuot

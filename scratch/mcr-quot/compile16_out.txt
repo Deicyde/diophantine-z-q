@@ -1491,3 +1491,5 @@ Note: This linter can be disabled with `set_option linter.style.haveILetI false`
 'MCRQuot.curveClosedQbarFinite' depends on axioms: [propext, Classical.choice, Quot.sound]
 'MCRQuot.fibreAutFixFinite_of'' depends on axioms: [propext, Classical.choice, Quot.sound]
 'MCRQuot.modelCoordinateResidue_final4' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MCRQuot.modelYIrreducible_of_coverModelN' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MCRQuot.modelCoordinateResidue_final5' depends on axioms: [propext, Classical.choice, Quot.sound]
