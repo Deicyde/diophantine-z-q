@@ -33,6 +33,10 @@ Over hecke-rest's full assembly, `VertWitnessAll.coverModelOfHecke_of_leaves` (a
 textbook leaf from SGA 1 XIII 5), inertia at height-2 primes, and a transfer of R1rec/X6 to
 arbitrary triples. Not done.
 
+**What remains**: the literature leaf (needs a human check of the locators and of full level 3 at
+3 | disc), `SmoothFibreReduced` (a Mathlib-level lemma), and the two GR glue Props (d), (b); see
+docs/research/vert-witness.md §4.3 and §7.
+
 **Files**: docs/research/vert-witness.md; scratch/vert-witness/{VertMain.lean.part,
 VertAllMain.lean.part, assemble.sh, VertWitness.lean (~12 s), VertAll.lean (~60 s),
 compile_out.txt, compile_all.txt, log.md}.

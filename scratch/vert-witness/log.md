@@ -99,3 +99,12 @@ Split of `ModelCoordinateGlue` into
   (comap_primeIdealOf_appLE); ξ = fromSpec 𝔮; isLocalization_stalk').
 - finest composites: `heckeVertWitness_of_leaves (hL) (hRR) (hSR : SmoothFibreReduced) (hD) (hB)`,
   `VertWitnessAll.coverModelOfHecke_of_leaves` (same inputs + hecke-rest's leaves).
+
+## Final state (18:41)
+Finest compiled results:
+- `VertWitness.heckeVertWitness_of_leaves (hL : ShimuraGoodReduction) (hRR : R1R2fp)
+   (hSR : SmoothFibreReduced) (hD : ModelCoordinate) (hB : ModelComparison) : HeckeVertWitness`
+- `VertWitnessAll.coverModelOfHecke_of_leaves` (hecke-rest's leaves + hL hSR hD hB).
+Open: leaf ShimuraGoodReduction (literature; locators UNVERIFIED), textbook SmoothFibreReduced
+(commutative algebra, missing in Mathlib), glue ModelCoordinate (tame quotient) and
+ModelComparison (generic fibre comparison + Möbius rigidity). Both glue Props reviewed TRUE.
