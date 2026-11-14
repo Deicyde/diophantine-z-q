@@ -34,7 +34,7 @@ noncomputable section
 namespace ZInQ.Contrib.TYZGenus.T318
 
 open ZInQ.Contrib.TYZDecomp.CurveA ZInQ.Contrib.TYZGenus.CM ZInQ.Contrib.TYZGenus.RingClass
-  NumberField WeierstrassCurve.Affine
+  NumberField WeierstrassCurve.Affine ZInQ.RouteK.Rank5b
 
 /-! ## §0. The target, verbatim -/
 
@@ -115,7 +115,10 @@ theorem sqrt_two_of_four_torsion {K : IntermediateField ℚ Qbar} (hi : iQ ∈ K
   have hTmem : 2 • S ∈ ptsOver K := (ptsOver K).nsmul_mem hS 2
   -- `S = (x, y)`
   rcases hSdef : S with _ | ⟨x, y, hxy⟩
-  · subst hSdef; exact absurd (by simp [iPt_zero]) h
+  · exfalso; apply h
+    rw [hSdef]
+    show 2 • ((0 : PtA) + iPt 0) = 0
+    rw [iPt_zero, add_zero, nsmul_zero]
   have hxK : x ∈ K ∧ y ∈ K := by
     have := (mem_ptsOver_iff K S).mp hS; rw [hSdef] at this; exact this
   -- `y ≠ negY x y`, else `2S = 0`
@@ -151,7 +154,7 @@ theorem sqrt_two_of_four_torsion {K : IntermediateField ℚ Qbar} (hi : iQ ∈ K
     apply h
     rw [hsplit, iPt_some]
     have hpt : (Point.some (-0) (iQ * 0) (nonsingular_iPt hef) : PtA) = Point.some 0 0 hef := by
-      simp only [neg_zero, mul_zero]
+      rw [Point.some.injEq]; exact ⟨neg_zero, mul_zero _⟩
     rw [hpt, ← two_nsmul, hT4]
   have he2 : e ^ 2 = -4 := by
     have : e * (e ^ 2 + 4) = 0 := by linear_combination hTeq
@@ -201,14 +204,12 @@ theorem two_power_part {K : IntermediateField ℚ Qbar} (hi : iQ ∈ K)
     have hiP : iPt P ∈ ptsOver K := iPt_mem hi hP
     have hR : 2 • iPt P ∈ ptsOver K := (ptsOver K).nsmul_mem hiP 2
     have hRa : 2 ^ a • (2 • iPt P) = 0 := by
-      rw [← mul_nsmul, ← pow_succ, ← iPt_nsmul, hPa, iPt_zero]
+      rw [← iPt_nsmul, ← iPt_nsmul, ← mul_nsmul', ← pow_succ, hPa, iPt_zero]
     have h1 := ih _ hR hRa
     -- `2(R + [i]R) = 4[i](P + [i]P)` ... rewrite into `4 • (P + iPt P) = 0`
     have h4Q : 4 • (P + iPt P) = 0 := by
       have e1 : 2 • (2 • iPt P + iPt (2 • iPt P)) = iPt (4 • (P + iPt P)) := by
-        rw [iPt_nsmul, iPt_nsmul, iPt_add, iPt_iPt, iPt_nsmul]
-        rw [show (4 : ℕ) = 2 * 2 from rfl, mul_nsmul]
-        simp only [nsmul_add, nsmul_neg]; abel
+        rw [iPt_nsmul, iPt_nsmul, iPt_add, iPt_iPt]; abel
       rw [e1] at h1
       have := congrArg iPt h1
       rw [iPt_iPt, iPt_zero, neg_eq_zero] at this
@@ -218,23 +219,37 @@ theorem two_power_part {K : IntermediateField ℚ Qbar} (hi : iQ ∈ K)
     -- `2 • (2 • iPt P) = 0` gives `4 • P = 0`
     have h4P : 4 • P = 0 := by
       have := congrArg iPt h2Q
-      rw [iPt_nsmul, iPt_nsmul, iPt_iPt, iPt_zero, ← mul_nsmul] at this
-      simpa using this
+      rw [iPt_nsmul, iPt_nsmul, iPt_iPt, iPt_zero] at this
+      calc (4 : ℕ) • P = -((2 : ℕ) • (2 : ℕ) • -P) := by abel
+        _ = 0 := by rw [this, neg_zero]
     exact h4 P hP h4P
 
 /-! ## §3. `ℍ'_n` is a number field -/
 
+theorem finiteDimensional_restrictScalars_Hprime (d : ℕ) [NeZero d] :
+    FiniteDimensional ℚ ((Hprime d).restrictScalars ℚ) := by
+  have : FiniteDimensional ℚ (Hprime d) := Module.Finite.trans (QNeg d) (Hprime d)
+  exact inferInstanceAs (FiniteDimensional ℚ (Hprime d))
+
+theorem finiteDimensional_map_Hprime (d : ℕ) [NeZero d] :
+    FiniteDimensional ℚ (((Hprime d).restrictScalars ℚ).map (embed d)) :=
+  haveI := finiteDimensional_restrictScalars_Hprime d
+  LinearEquiv.finiteDimensional
+    (IntermediateField.equivMap ((Hprime d).restrictScalars ℚ) (embed d)).toLinearEquiv
+
+theorem Hprimebar_eq (d : ℕ) [NeZero d] :
+    Hprimebar d = ((Hprime d).restrictScalars ℚ).map (embed d) := by
+  rw [Hprimebar, dite_eq_right (NeZero.ne d)]
+
 instance finiteDimensional_Hprimebar (d : ℕ) : FiniteDimensional ℚ (Hprimebar d) := by
-  unfold Hprimebar
-  split_ifs with h
-  · infer_instance
+  by_cases h : d = 0
+  · subst h; rw [Hprimebar, dite_eq_left rfl]; infer_instance
   · haveI : NeZero d := ⟨h⟩
-    haveI : FiniteDimensional ℚ (Hprime d) := Module.Finite.trans (QNeg d) (Hprime d)
-    haveI : FiniteDimensional ℚ ((Hprime d).restrictScalars ℚ) := ‹FiniteDimensional ℚ (Hprime d)›
-    exact LinearEquiv.finiteDimensional (IntermediateField.equivMap _ (embed d)).toLinearEquiv
+    rw [Hprimebar_eq]; exact finiteDimensional_map_Hprime d
 
 theorem finiteDimensional_HHprime {n : ℕ} (hn : n % 8 = 5) (hsq : Squarefree n) :
     FiniteDimensional ℚ (HHprime n) := by
+  haveI : NeZero n := ⟨by omega⟩
   rw [HHprime_eq_iSup hn hsq]; infer_instance
 
 /-! ## §4. Residue fields inside `F_q` -/
@@ -245,34 +260,31 @@ theorem residue_pow_eq_self {R K : Type*} [CommRing R] [IsDedekindDomain R] [Fie
     [IsFractionRing R K] (u : IsDedekindDomain.HeightOneSpectrum R) {q : ℕ} (hq : 0 < q)
     (h : ∀ a : R, a ^ q - a ∈ u.asIdeal)
     (r : IsLocalRing.ResidueField (u.valuation K).valuationSubring) : r ^ q = r := by
+  obtain ⟨m, rfl⟩ : ∃ m, q = m + 1 := ⟨q - 1, by omega⟩
   obtain ⟨x, rfl⟩ := IsLocalRing.residue_surjective r
   rw [← map_pow, ← sub_eq_zero, ← map_sub, IsLocalRing.residue_eq_zero_iff,
     Valuation.mem_maximalIdeal_iff]
   obtain ⟨a, d, hd⟩ := u.exists_primeCompl_mul_eq_of_integer (K := K) (x : K) x.2
   have hdv : u.valuation K (algebraMap R K d) = 1 :=
-    (IsDedekindDomain.HeightOneSpectrum.valuation_eq_one_iff_notMem (K := K)).mpr d.2
+    (IsDedekindDomain.HeightOneSpectrum.valuation_eq_one_iff_notMem u).mpr d.2
   -- `d^{q-1} ≡ 1`
-  have hd1 : (d : R) ^ (q - 1) - 1 ∈ u.asIdeal := by
-    have h1 : (d : R) * ((d : R) ^ (q - 1) - 1) ∈ u.asIdeal := by
-      have : (d : R) * ((d : R) ^ (q - 1) - 1) = (d : R) ^ q - d := by
-        rw [mul_sub, mul_one, ← pow_succ']; congr 2; omega
+  have hd1 : (d : R) ^ m - 1 ∈ u.asIdeal := by
+    have h1 : (d : R) * ((d : R) ^ m - 1) ∈ u.asIdeal := by
+      have : (d : R) * ((d : R) ^ m - 1) = (d : R) ^ (m + 1) - d := by ring
       rw [this]; exact h d
     exact (u.isPrime.mem_or_mem h1).resolve_left d.2
-  have hnum : a ^ q - a * (d : R) ^ (q - 1) ∈ u.asIdeal := by
-    have : a ^ q - a * (d : R) ^ (q - 1) = (a ^ q - a) - a * ((d : R) ^ (q - 1) - 1) := by ring
+  have hnum : a ^ (m + 1) - a * (d : R) ^ m ∈ u.asIdeal := by
+    have : a ^ (m + 1) - a * (d : R) ^ m = (a ^ (m + 1) - a) - a * ((d : R) ^ m - 1) := by ring
     rw [this]
     exact u.asIdeal.sub_mem (h a) (u.asIdeal.mul_mem_left a hd1)
-  have hkey : ((x : K) ^ q - (x : K)) * algebraMap R K d ^ q =
-      algebraMap R K (a ^ q - a * (d : R) ^ (q - 1)) := by
-    have hq' : q = (q - 1) + 1 := by omega
+  have hkey : ((x : K) ^ (m + 1) - (x : K)) * algebraMap R K d ^ (m + 1) =
+      algebraMap R K (a ^ (m + 1) - a * (d : R) ^ m) := by
     rw [map_sub, map_mul, map_pow, map_pow, ← hd]
-    conv_lhs => rw [hq']
-    conv_rhs => rw [hq']
     ring
   have hv := congrArg (u.valuation K) hkey
   rw [map_mul, map_pow, hdv, one_pow, mul_one] at hv
-  rw [show ((x ^ q - x : (u.valuation K).valuationSubring) : K) = (x : K) ^ q - (x : K) by
-    push_cast; rfl, hv]
+  rw [show ((x ^ (m + 1) - x : (u.valuation K).valuationSubring) : K) =
+    (x : K) ^ (m + 1) - (x : K) by push_cast; rfl, hv]
   exact (IsDedekindDomain.HeightOneSpectrum.valuation_lt_one_iff_mem (K := K) u _).mpr hnum
 
 /-! ## §5. The auxiliary prime `p` (Dirichlet) -/
@@ -283,6 +295,7 @@ theorem exists_prime_three_mod_eight_one_mod {m : ℕ} (hm : Odd m) :
   have hco : Nat.Coprime 8 m := by
     have h2 : Nat.Coprime 2 m := Nat.coprime_two_left.mpr hm
     simpa using Nat.Coprime.pow_left 3 h2
+  haveI : NeZero (8 * m) := ⟨by have := hm.pos; omega⟩
   obtain ⟨k, hk8, hkm⟩ := Nat.chineseRemainder hco 3 1
   have hku : IsUnit (k : ZMod (8 * m)) := by
     rw [ZMod.isUnit_iff_coprime]
@@ -308,7 +321,9 @@ theorem jacobiSym_neg_eq {p d₀ : ℕ} (hp4 : p % 4 = 3) (hd4 : d₀ % 4 = 1) (
   have hd1 : 1 < d₀ := by
     rcases Nat.lt_or_ge 1 d₀ with h | h
     · exact h
-    · interval_cases d₀ <;> simp at hpd <;> omega
+    · interval_cases d₀
+      · rw [Nat.mod_zero] at hpd; omega
+      · rw [Nat.mod_one] at hpd; omega
   have hmod : ((p : ℤ) % (d₀ : ℤ)) = ((1 : ℕ) : ℤ) % (d₀ : ℤ) := by
     rw [← Int.natCast_mod, ← Int.natCast_mod, hpd, Nat.mod_eq_of_lt hd1]
   rw [jacobiSym.quadratic_reciprocity_one_mod_four hd4 hpodd, jacobiSym.mod_left' hmod,
@@ -329,6 +344,7 @@ theorem isIntegral_curveA (u : HeightOneSpectrum (𝓞 K)) :
   have h4 : (u.valuation K) (algebraMap (𝓞 K) K 4) ≤ 1 := u.valuation_le_one _
   refine ⟨⟨⟨0, 0, 0, ⟨algebraMap (𝓞 K) K 4, h4⟩, 0⟩, ?_⟩⟩
   ext <;> simp [curveA, WeierstrassCurve.baseChange, WeierstrassCurve.map]
+  exact (map_ofNat (algebraMap (𝓞 K) K) 4).symm
 
 /-- At a prime `u` not above `2`, the integral model of `A⁄K` has unit discriminant. -/
 theorem isElliptic_integralModel (u : HeightOneSpectrum (𝓞 K)) (h2 : (2 : 𝓞 K) ∉ u.asIdeal) :
@@ -366,26 +382,25 @@ theorem reduced_eq_shortCurve (u : HeightOneSpectrum (𝓞 K)) :
     (integralModel (u.valuation K).valuationSubring (curveA.baseChange K)).map
       (residue (u.valuation K).valuationSubring) = ZInQ.shortCurve 4 := by
   letI := isIntegral_curveA u
-  set v := u.valuation K
-  have hc : ∀ (a : v.valuationSubring) (b : ℚ), (a : K) = algebraMap ℚ K b →
-      ∀ (c : (v.valuationSubring)), (c : K) = algebraMap ℚ K b → a = c := by
-    intro a b ha c hc; exact Subtype.ext (ha.trans hc.symm)
-  have e₁ := coe_integralModel_a₁ (W := (curveA.baseChange K).toAffine) v
-  have e₂ := coe_integralModel_a₂ (W := (curveA.baseChange K).toAffine) v
-  have e₃ := coe_integralModel_a₃ (W := (curveA.baseChange K).toAffine) v
-  have e₄ := coe_integralModel_a₄ (W := (curveA.baseChange K).toAffine) v
-  have e₆ := coe_integralModel_a₆ (W := (curveA.baseChange K).toAffine) v
-  have z₁ : (integralModel v.valuationSubring (curveA.baseChange K)).a₁ = 0 :=
+  have e₁ := coe_integralModel_a₁ (W := (curveA.baseChange K).toAffine) (u.valuation K)
+  have e₂ := coe_integralModel_a₂ (W := (curveA.baseChange K).toAffine) (u.valuation K)
+  have e₃ := coe_integralModel_a₃ (W := (curveA.baseChange K).toAffine) (u.valuation K)
+  have e₄ := coe_integralModel_a₄ (W := (curveA.baseChange K).toAffine) (u.valuation K)
+  have e₆ := coe_integralModel_a₆ (W := (curveA.baseChange K).toAffine) (u.valuation K)
+  have z₁ : (integralModel (u.valuation K).valuationSubring (curveA.baseChange K)).a₁ = 0 :=
     Subtype.ext (by rw [e₁]; simp [curveA, WeierstrassCurve.baseChange, WeierstrassCurve.map])
-  have z₂ : (integralModel v.valuationSubring (curveA.baseChange K)).a₂ = 0 :=
+  have z₂ : (integralModel (u.valuation K).valuationSubring (curveA.baseChange K)).a₂ = 0 :=
     Subtype.ext (by rw [e₂]; simp [curveA, WeierstrassCurve.baseChange, WeierstrassCurve.map])
-  have z₃ : (integralModel v.valuationSubring (curveA.baseChange K)).a₃ = 0 :=
+  have z₃ : (integralModel (u.valuation K).valuationSubring (curveA.baseChange K)).a₃ = 0 :=
     Subtype.ext (by rw [e₃]; simp [curveA, WeierstrassCurve.baseChange, WeierstrassCurve.map])
-  have z₄ : (integralModel v.valuationSubring (curveA.baseChange K)).a₄ = 4 :=
-    Subtype.ext (by rw [e₄]; simp [curveA, WeierstrassCurve.baseChange, WeierstrassCurve.map])
-  have z₆ : (integralModel v.valuationSubring (curveA.baseChange K)).a₆ = 0 :=
+  have z₄ : (integralModel (u.valuation K).valuationSubring (curveA.baseChange K)).a₄ = 4 :=
+    Subtype.ext (by
+      rw [e₄]; simp [curveA, WeierstrassCurve.baseChange, WeierstrassCurve.map]
+      exact (map_ofNat (algebraMap (u.valuation K).valuationSubring K) 4).symm)
+  have z₆ : (integralModel (u.valuation K).valuationSubring (curveA.baseChange K)).a₆ = 0 :=
     Subtype.ext (by rw [e₆]; simp [curveA, WeierstrassCurve.baseChange, WeierstrassCurve.map])
   ext <;> simp [WeierstrassCurve.map, z₁, z₂, z₃, z₄, z₆]
+  exact map_ofNat _ 4
 
 end OddPart
 
@@ -454,7 +469,7 @@ theorem odd_part (hSS : SupersingularExponentA) (hG : HHprimeFrobSq) {n : ℕ} (
     residue_pow_eq_self (K := HHprime n) u (pow_pos hp.pos 2)
       (fun a => hG n hn hsq p hp hp2 hpdvd hjac Q hQ hpQ a)
   haveI : CharP k p := by
-    rw [charP_iff_prime_eq_zero hp]
+    rw [CharP.charP_iff_prime_eq_zero hp]
     have hv : (u.valuation (HHprime n)) (algebraMap (𝓞 (HHprime n)) (HHprime n) p) < 1 :=
       (HeightOneSpectrum.valuation_lt_one_iff_mem (K := HHprime n) u _).mpr hpQ
     have : ((p : (u.valuation (HHprime n)).valuationSubring)) ∈
@@ -483,15 +498,15 @@ theorem odd_part (hSS : SupersingularExponentA) (hG : HHprimeFrobSq) {n : ℕ} (
       Nat.mod_eq_of_lt hℓ.one_lt, Nat.mod_eq_of_lt hℓ3]
     omega
   have hR0 : R = 0 := by
-    rw [← addOrderOf_eq_one_iff]
-    exact hcop.eq_one_of_dvd (addOrderOf_dvd_of_nsmul_eq_zero hℓR)
-      (addOrderOf_dvd_of_nsmul_eq_zero hpR)
+    rw [← AddMonoid.addOrderOf_eq_one_iff]
+    have := Nat.dvd_gcd (addOrderOf_dvd_of_nsmul_eq_zero hℓR) (addOrderOf_dvd_of_nsmul_eq_zero hpR)
+    rw [hcop.gcd_eq_one] at this
+    exact Nat.dvd_one.mp this
   have hPK0 : PK = 0 :=
     Affine.Point.eq_zero_of_reductionHom_eq_zero_of_nsmul_eq_zero u
       (show ((ℓ : ℕ) : 𝓞 (HHprime n)) ∉ u.asIdeal from hℓQ) hR0 hℓPK
   rw [hPK0, map_zero]
 
-end ZInQ.Contrib.TYZGenus.T318
 /-! ## §7. Assembly -/
 
 /-- If no element of `G` has odd prime order, no element of `G` has odd order. -/

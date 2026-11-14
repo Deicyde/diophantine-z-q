@@ -16,3 +16,18 @@ TYZ Lemma `torsion2` (Lemma 3.18): torsion of `A(ℍ'_n)` is killed by `2(1+[i])
 ## Findings
 - [VERIFIED, computed, scratch/tyz-318/ss_check.py, pure Python] leaf sanity: for p ∈ {3,7,11,19,23,31,43,47},
   `y² = x³ + 4x` has `(p+1)²` points over `F_{p²}`, `p+1` over `F_p`, and every `F_{p²}`-point is killed by `p+1`.
+
+## Compile outcomes
+- 2026-11-13 23:2x: `lake build` of RingClassBridge, RingClassTwo, Tau Ceti TorsionReduction (deps) OK.
+- [VERIFIED, compiled] `lake env lean scratch/tyz-318/Lemma318.lean`: no errors;
+  `#print axioms lemma318Literal_HHprime_of` = [propext, Classical.choice, Quot.sound]. No `sorry`.
+  Main theorem: `SupersingularExponentA → HHprimeFrobSq → SqrtTwoNotInHHprime → Lemma318Literal HHprime`
+  (and `package_lemma318Literal_HHprime_of` for `Package.Lemma318Literal`); copy checked by `rfl`.
+
+## Statements (scratch/tyz-318/Lemma318.lean §1)
+- LEAF `SupersingularExponentA`: ∀ p prime, p%4=3, ∀ field k, CharP k p, (∀ r, r^(p²)=r) →
+  ∀ P : (shortCurve (4:k)).toAffine.Point, (p+1)•P = 0. STANDARD (supersingular y²=x³+x, Silverman AEC V.4.5
+  UNVERIFIED number; φ² = [−p]).
+- GLUE `HHprimeFrobSq`: n%8=5 sqfree, p odd prime ∤ n, (−d₀/p) = −1 ∀ d₀∣n, d₀%8=5 →
+  ∀ prime 𝔓 ∋ p of 𝓞(HHprime n), ∀ a, a^(p²) − a ∈ 𝔓. (ring class field theory; sketch in report §3.1)
+- GLUE `SqrtTwoNotInHHprime`: n%8=5 sqfree → ∀ s ∈ HHprime n, s² ≠ 2. (TYZ Step 3; report §3.2 sketch, SPECULATIVE)
