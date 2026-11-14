@@ -2430,6 +2430,187 @@ theorem val_ex (m : ℕ) (F : ℂ → ℂ) (hF : AnalyticOnNhd ℂ F U) (hne : �
 
 end Val
 
+/-! ### Facts at `i√3`, `√2 + i`, `τ₂₄` -/
+
+open scoped Classical
+
+theorem pair_ineq {x y : UpperHalfPlane} (h : ∀ γ ∈ Γs, γ • x ≠ y) :
+    ((({x, y} : Finset UpperHalfPlane)) : Set UpperHalfPlane).Pairwise
+      (fun z w => ∀ γ ∈ Γs, γ • z ≠ w) := by
+  intro z hz w hw hzw γ hγ h'
+  simp only [Finset.coe_insert, Finset.coe_singleton, Set.mem_insert_iff, Set.mem_singleton_iff] at hz hw
+  rcases hz with rfl | rfl <;> rcases hw with rfl | rfl
+  · exact hzw rfl
+  · exact h γ hγ h'
+  · exact h γ⁻¹ (gammaStar_inv hγ) (eqv_symm hγ h')
+  · exact hzw rfl
+
+theorem G8_tau4_ne : G8 (tau4 : ℂ) ≠ 0 := by
+  rw [G8_eq]; exact div_ne_zero Sf_tau4 (pow_ne_zero _ (Zf_ne tau4.im_pos))
+
+theorem G8_ne : ∃ z ∈ U, G8 z ≠ 0 := ⟨tau4, tau4.im_pos, G8_tau4_ne⟩
+
+theorem ord_ne_top_of {F : ℂ → ℂ} (hF : AnalyticOnNhd ℂ F U) {w : ℂ} (hw : w ∈ U) (hFw : F w ≠ 0)
+    (z : UpperHalfPlane) : analyticOrderAt F (z : ℂ) ≠ ⊤ :=
+  hF.analyticOrderAt_ne_top_of_isPreconnected isPreconnected_U hw z.im_pos
+    (by rw [analyticOrderAt_eq_zero.2 (Or.inr hFw)]; simp)
+
+theorem enn_coe_toNat {o : ℕ∞} (h : o ≠ ⊤) : ((o : ℕ∞) : ℝ≥0∞) = ((o.toNat : ℕ) : ℝ≥0∞) := by
+  conv_lhs => rw [← ENat.coe_toNat h]
+  simp
+
+variable (hT : PkgI1.ThetaModularity) (hV : ValenceFormulaCocompactEq) (hA : GammaStarCocompactArea)
+
+include hT in
+theorem G8_tau3_ge : 2 ≤ analyticOrderAt G8 (tau3 : ℂ) :=
+  s8OrderCM3_of thetaOmegaAnalytic_proof (auto8 hT)
+
+include hT hV hA in
+/-- `e_{i√3} = 6` and `ord_{i√3} G8 = 2`. -/
+theorem tau3_facts : HDec.LeafQCheck.VB.ellOrder tau3 = 6 ∧ analyticOrderAt G8 (tau3 : ℂ) = 2 := by
+  have hb2 := G8_tau3_ge hT
+  have hbt := ord_ne_top_of (fun z hz => G8_analytic hz) tau4.im_pos G8_tau4_ne tau3
+  obtain ⟨he0, he6⟩ := HDec.LeafQCheck.VB.ellipticOrderLe6_proof tau3
+  have hle := val_le hV hA 4 G8 (fun z hz => G8_analytic hz) G8_ne (auto8 hT) {tau3}
+    (by simp)
+  rw [Finset.sum_singleton, enn_coe_toNat hbt, enn_div _ _ he0,
+    show ((4 : ℕ) : ℝ≥0∞) / 12 = ((4 : ℕ) : ℝ≥0∞) / ((12 : ℕ) : ℝ≥0∞) by norm_num,
+    enn_div 4 12 (by norm_num), ENNReal.ofReal_le_ofReal_iff (by positivity),
+    div_le_div_iff₀ (by exact_mod_cast he0) (by norm_num)] at hle
+  have hle' : (analyticOrderAt G8 (tau3 : ℂ)).toNat * 12 ≤ 4 * HDec.LeafQCheck.VB.ellOrder tau3 := by
+    exact_mod_cast hle
+  have hb2' : 2 ≤ (analyticOrderAt G8 (tau3 : ℂ)).toNat := by
+    have := ENat.coe_toNat hbt
+    rw [← this] at hb2; exact_mod_cast hb2
+  refine ⟨by omega, ?_⟩
+  rw [← ENat.coe_toNat hbt]
+  have : (analyticOrderAt G8 (tau3 : ℂ)).toNat = 2 := by omega
+  rw [this]; rfl
+
+include hT in
+theorem G8_tau3_zero : G8 (tau3 : ℂ) = 0 := by
+  apply apply_eq_zero_of_analyticOrderAt_ne_zero
+  intro h0; have := G8_tau3_ge hT; rw [h0] at this; norm_num at this
+
+include hT hV hA in
+/-- **`G8` vanishes only on the orbit of `i√3`.** -/
+theorem G8_zero_orbit (z : UpperHalfPlane) (hz : G8 (z : ℂ) = 0) : ∃ γ ∈ Γs, γ • tau3 = z := by
+  by_contra hno
+  push Not at hno
+  have hne : tau3 ≠ z := fun h => hno 1 HDec.LeafQCheck.VB.one_mem_gammaStar' (by rw [one_smul, h])
+  have hle := val_le hV hA 4 G8 (fun w hw => G8_analytic hw) G8_ne (auto8 hT) {tau3, z}
+    (pair_ineq hno)
+  rw [Finset.sum_pair hne] at hle
+  obtain ⟨he3, hb⟩ := tau3_facts hT hV hA
+  have hzt := ord_ne_top_of (fun w hw => G8_analytic hw) tau4.im_pos G8_tau4_ne z
+  obtain ⟨hez0, -⟩ := HDec.LeafQCheck.VB.ellipticOrderLe6_proof z
+  have ho1 : 1 ≤ (analyticOrderAt G8 (z : ℂ)).toNat := by
+    have h1 : analyticOrderAt G8 (z : ℂ) ≠ 0 := by
+      rw [Ne, analyticOrderAt_eq_zero]; push Not; exact ⟨G8_analytic z.im_pos, hz⟩
+    have h2 : (analyticOrderAt G8 (z : ℂ)).toNat ≠ 0 := by
+      rw [Ne, ENat.toNat_eq_zero]; push Not; exact ⟨h1, hzt⟩
+    omega
+  rw [hb, he3, enn_coe_toNat hzt, enn_div _ _ hez0,
+    show ((2 : ℕ∞) : ℝ≥0∞) / ((6 : ℕ) : ℝ≥0∞) = ENNReal.ofReal ((2 : ℕ) / (6 : ℕ)) by
+      rw [← enn_div 2 6 (by norm_num)]; simp,
+    ← ENNReal.ofReal_add (by positivity) (by positivity),
+    show ((4 : ℕ) : ℝ≥0∞) / 12 = ((4 : ℕ) : ℝ≥0∞) / ((12 : ℕ) : ℝ≥0∞) by norm_num,
+    enn_div 4 12 (by norm_num), ENNReal.ofReal_le_ofReal_iff (by positivity)] at hle
+  have hpos : (0 : ℝ) < ((analyticOrderAt G8 (z : ℂ)).toNat : ℝ) / (HDec.LeafQCheck.VB.ellOrder z : ℝ) := by
+    apply div_pos <;> exact_mod_cast (by omega)
+  push_cast at hle
+  linarith
+
+/-! ### The CM point of discriminant `−24` -/
+
+theorem s9 : (0 : ℝ) < 9 + 6 * √2 := by positivity
+
+/-- `τ₂₄ = i√(9 + 6√2)`. -/
+def tau24 : UpperHalfPlane := ⟨(√(9 + 6 * √2) : ℂ) * Complex.I, by simp; positivity⟩
+
+theorem nrd_mu : HDec.LeafQCheck.HM.nrd mu ≠ 0 := by simp [HDec.LeafQCheck.HM.nrd, mu]; norm_num
+
+/-- `ι(μ)` as an element of `GL₂(ℝ)`. -/
+def gam24 : GL (Fin 2) ℝ := HDec.LeafQCheck.HM.glOf mu nrd_mu
+
+theorem gam24_coe : (gam24 : Matrix (Fin 2) (Fin 2) ℝ) = PkgI1.iota mu := HDec.LeafQCheck.HM.coe_glOf mu nrd_mu
+
+theorem tau24_fixed : gam24 • tau24 = tau24 := by
+  have hM : (gam24 : Matrix (Fin 2) (Fin 2) ℝ) = !![0, -6 - 3 * √2; 2 - √2, 0] := by
+    rw [gam24_coe, iota_apply]; ext i j; fin_cases i <;> fin_cases j <;> simp [mu] <;> ring
+  have s2 : √2 * √2 = (2 : ℝ) := Real.mul_self_sqrt (by norm_num)
+  have h2 : √2 < (2 : ℝ) := by
+    rw [show (2 : ℝ) = √4 by rw [show (4 : ℝ) = 2 ^ 2 by norm_num, Real.sqrt_sq (by norm_num)]]
+    exact Real.sqrt_lt_sqrt (by norm_num) (by norm_num)
+  have hdet : 0 < gam24.det.val := by
+    rw [Matrix.GeneralLinearGroup.val_det_apply, hM, Matrix.det_fin_two_of]
+    nlinarith
+  apply UpperHalfPlane.ext
+  rw [UpperHalfPlane.coe_smul_of_det_pos hdet, div_eq_iff (UpperHalfPlane.denom_ne_zero _ _)]
+  simp only [UpperHalfPlane.num, UpperHalfPlane.denom, hM, Matrix.of_apply, Matrix.cons_val',
+    Matrix.cons_val_zero, Matrix.cons_val_one, Matrix.empty_val', Matrix.cons_val_fin_one,
+    Matrix.head_cons]
+  have e9 : ((√(9 + 6 * √2) : ℝ) : ℂ) * ((√(9 + 6 * √2) : ℝ) : ℂ) = 9 + 6 * (√2 : ℂ) := by
+    rw [← Complex.ofReal_mul, Real.mul_self_sqrt s9.le]; push_cast; ring
+  have s2c : (√2 : ℂ) * √2 = 2 := by rw [← Complex.ofReal_mul, s2]; norm_num
+  have hI : Complex.I * Complex.I = -1 := Complex.I_mul_I
+  change _ = ((√(9 + 6 * √2) : ℝ) : ℂ) * Complex.I *
+    (((2 - √2 : ℝ) : ℂ) * (((√(9 + 6 * √2) : ℝ) : ℂ) * Complex.I) + ((0 : ℝ) : ℂ))
+  push_cast
+  linear_combination (-(2 - (√2 : ℂ)) * Complex.I * Complex.I) * e9 +
+    (-(2 - (√2 : ℂ)) * (9 + 6 * √2)) * hI + (-6) * s2c
+
+variable (hC : ThetaQuotientValue24)
+
+include hC in
+theorem G20_tau24_ne : G20 (tau24 : ℂ) ≠ 0 := by
+  obtain ⟨hD, hv⟩ := hC gam24 gam24_coe tau24 tau24_fixed
+  have hN : PkgI1.jNum (PkgI1.Omega tau24) ≠ 0 := by
+    intro h0; rw [h0, zero_div] at hv; norm_num at hv
+  change HSyn.G0Split.FibreQM.PeriodGlue.LQ20.G20 _ ≠ 0
+  rw [G20_eq]
+  refine div_ne_zero ?_ (pow_ne_zero _ (Zf_ne tau24.im_pos))
+  intro hP; apply hN; rw [jNumO_eq, hP]; ring
+
+include hT hV hA hC in
+/-- `ord_{i√3} G20 ≤ 4`. -/
+theorem G20_tau3_le : (analyticOrderAt G20 (tau3 : ℂ)).toNat ≤ 4 ∧ analyticOrderAt G20 (tau3 : ℂ) ≠ ⊤ := by
+  have hG20 : AnalyticOnNhd ℂ G20 U := fun z hz => G20_analytic hz
+  have htop := ord_ne_top_of hG20 tau24.im_pos (G20_tau24_ne hC) tau3
+  have h4top := ord_ne_top_of hG20 tau24.im_pos (G20_tau24_ne hC) tau4
+  refine ⟨?_, htop⟩
+  have hineq : ∀ γ ∈ Γs, γ • tau3 ≠ tau4 := by
+    intro γ hγ h
+    have := (zero_iff (auto8 hT) hγ tau3).2 (G8_tau3_zero hT)
+    rw [h] at this; exact G8_tau4_ne this
+  have hne : tau3 ≠ tau4 := fun h => hineq 1 HDec.LeafQCheck.VB.one_mem_gammaStar' (by rw [one_smul, h])
+  have hle := val_le hV hA 10 G20 hG20 ⟨tau24, tau24.im_pos, G20_tau24_ne hC⟩ (auto20 hT) {tau3, tau4}
+    (pair_ineq hineq)
+  rw [Finset.sum_pair hne] at hle
+  obtain ⟨he3, -⟩ := tau3_facts hT hV hA
+  obtain ⟨he40, he46⟩ := HDec.LeafQCheck.VB.ellipticOrderLe6_proof tau4
+  have ho1 : 1 ≤ (analyticOrderAt G20 (tau4 : ℂ)).toNat := by
+    have h1 : analyticOrderAt G20 (tau4 : ℂ) ≠ 0 := by
+      rw [Ne, analyticOrderAt_eq_zero]; push Not
+      exact ⟨G20_analytic tau4.im_pos, by
+        change HSyn.G0Split.FibreQM.PeriodGlue.LQ20.G20 _ = 0; rw [G20_eq, Pf_tau4, zero_div]⟩
+    have h2 : (analyticOrderAt G20 (tau4 : ℂ)).toNat ≠ 0 := by
+      rw [Ne, ENat.toNat_eq_zero]; push Not; exact ⟨h1, h4top⟩
+    omega
+  rw [he3, enn_coe_toNat htop, enn_coe_toNat h4top, enn_div _ 6 (by norm_num), enn_div _ _ he40,
+    ← ENNReal.ofReal_add (by positivity) (by positivity),
+    show ((10 : ℕ) : ℝ≥0∞) / 12 = ((10 : ℕ) : ℝ≥0∞) / ((12 : ℕ) : ℝ≥0∞) by norm_num,
+    enn_div 10 12 (by norm_num), ENNReal.ofReal_le_ofReal_iff (by positivity)] at hle
+  have h16 : (1 : ℝ) / 6 ≤ ((analyticOrderAt G20 (tau4 : ℂ)).toNat : ℝ) / (HDec.LeafQCheck.VB.ellOrder tau4 : ℝ) := by
+    rw [div_le_div_iff₀ (by norm_num) (by exact_mod_cast he40)]
+    have : (HDec.LeafQCheck.VB.ellOrder tau4 : ℝ) ≤ 6 := by exact_mod_cast he46
+    have : (1 : ℝ) ≤ ((analyticOrderAt G20 (tau4 : ℂ)).toNat : ℝ) := by exact_mod_cast ho1
+    nlinarith
+  have : ((analyticOrderAt G20 (tau3 : ℂ)).toNat : ℝ) ≤ 4 := by
+    push_cast at hle h16 ⊢
+    linarith
+  exact_mod_cast this
+
 end
 
 end HDec.LeafQCheck.HM.QMSplit
