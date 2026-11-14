@@ -529,6 +529,51 @@ theorem r20_of_leaves (hF : FaltingsLemma5) (hG : IsogenySemistableBaseChange)
   rw [← hdeg]
   exact hF L A' B' φ' hφ' 𝒩A 𝒩B hA hB sA sB x y hxA hyB
 
+/-- **Leaf SS3. Semistability persists under finite extension** (SGA 7 I, Exp. IX, 3.3, UNVERIFIED
+number; the same proposition as SS2: if `A_L` is semistable, so is `A_{L'}` for `L'/L` finite). -/
+def SemistablePersists : Prop :=
+  ∀ (K : Type) [Field K] [NumberField K] (A : PkgI3.AbVar K) (L : Type) [Field L] [NumberField L]
+    [Algebra K L] (𝒩 : GroupModel A L), 𝒩.IsNeronModel → IsSemistable 𝒩 →
+    ∀ (L' : Type) [Field L'] [NumberField L'] [Algebra K L'] [Algebra L L'] [IsScalarTower K L L']
+      (𝒩' : GroupModel A L'), 𝒩'.IsNeronModel → IsSemistable 𝒩'
+
+/-- **Leaf R20-Faltings (Lemma 5) for base changes.** Faltings' Lemma 5 (as in `FaltingsLemma5`)
+applied over a number field `L ⊇ K` to `A_L`, `B_L` and `φ_L`, in the kernel's encoding of base
+change: Néron models of `A_L`, `B_L` are `GroupModel A L`, `GroupModel B L`, and
+`deg φ_L = deg φ = #ker φ(K̄)` (characteristic `0`). The printed lemma is stated for abelian varieties
+over an arbitrary number field, so this is an instance of it, not a consequence needing an argument;
+`FaltingsLemma5` is its case `L = K`. -/
+def FaltingsLemma5BC : Prop :=
+  ∀ (K : Type) [Field K] [NumberField K] (A B : PkgI3.AbVar K) (φ : A.X ⟶ B.X), IsIsogeny φ →
+    ∀ (L : Type) [Field L] [NumberField L] [Algebra K L]
+      (𝒩A : GroupModel A L) (𝒩B : GroupModel B L), 𝒩A.IsNeronModel → 𝒩B.IsNeronModel →
+      IsSemistable 𝒩A → IsSemistable 𝒩B →
+      ∀ x y : ℝ, 𝒩A.height = x → 𝒩B.height = y → |x - y| ≤ (1 / 2) * Real.log (isogDeg φ)
+
+/-- **H-16 without glue: R20 from Faltings' Lemma 5 (for base changes)** and the leaves N1, SS1,
+SS2, SS3: both heights are computed on Néron models over a common field of semistable reduction
+(the compositum of the two fields given by SS1). -/
+theorem r20_of_leaves' (hF : FaltingsLemma5BC) (hN1 : NeronModelExists)
+    (hSS1 : SemistableReductionThm) (hSS2 : SemistableNeronBaseChange)
+    (hSS3 : SemistablePersists) : R20_FaltingsLemma5 := by
+  intro K _ _ A B φ hφ x y hx hy
+  obtain ⟨L₁, i1, i2, i3, hL₁⟩ := hSS1 K A
+  obtain ⟨L₂, j1, j2, j3, hL₂⟩ := hSS1 K B
+  obtain ⟨L, k1, k2, k3, k4, k5, t1, t2⟩ := compositum K L₁ L₂
+  obtain ⟨𝒩A₁, hA₁⟩ := hN1 K A L₁
+  obtain ⟨𝒩B₂, hB₂⟩ := hN1 K B L₂
+  obtain ⟨𝒩A, hA⟩ := hN1 K A L
+  obtain ⟨𝒩B, hB⟩ := hN1 K B L
+  have sA : IsSemistable 𝒩A := hSS3 K A L₁ 𝒩A₁ hA₁ (hL₁ 𝒩A₁ hA₁) L 𝒩A hA
+  have sB : IsSemistable 𝒩B := hSS3 K B L₂ 𝒩B₂ hB₂ (hL₂ 𝒩B₂ hB₂) L 𝒩B hB
+  have hxA : 𝒩A.height = x := (stableFaltingsHeight_eq_of_semistable hN1 hSS2 A 𝒩A hA sA).symm.trans hx
+  have hyB : 𝒩B.height = y := (stableFaltingsHeight_eq_of_semistable hN1 hSS2 B 𝒩B hB sB).symm.trans hy
+  exact hF K A B φ hφ L 𝒩A 𝒩B hA hB sA sB x y hxA hyB
+
+/-- The literal-over-`K` form is the case `L = K` of the base-change form. -/
+theorem faltingsLemma5_of_BC (h : FaltingsLemma5BC) : FaltingsLemma5 :=
+  fun K _ _ A B φ hφ 𝒩A 𝒩B hA hB sA sB x y hx hy => h K A B φ hφ K 𝒩A 𝒩B hA hB sA sB x y hx hy
+
 /-! ## §G. H-18, R22 (Pazuki) -/
 
 section R22Sec
@@ -699,6 +744,7 @@ end ZInQ.HeightSplit
 #print axioms ZInQ.HeightSplit.grBostBound_of_bost
 #print axioms ZInQ.HeightSplit.r18_of_leaves
 #print axioms ZInQ.HeightSplit.r20_of_leaves
+#print axioms ZInQ.HeightSplit.r20_of_leaves'
 #print axioms ZInQ.HeightSplit.r22_of_leaves
 #print axioms ZInQ.HeightSplit.r22_of_upper
 #print axioms ZInQ.HeightSplit.r19_of_leaves
