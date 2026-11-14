@@ -1,8 +1,8 @@
 #!/bin/bash
-# leaf-fold4 (leaf-fold3 + LF4T5, TailJ): compile the olean chain in order (one Lean process at a time), stopping at the first failure.
-# Usage: ./chain.sh [first-module]   (modules: LPrefix TailA TailB TailC TailD LF2Stalks LF2UnifRoot LF2SmoothDim LF2UnramConj LF3Cot TailE TailF TailG TailH TailI LF4T5 TailJ)
+# leaf-fold4 (leaf-fold3 + LF4T5, TailJ, TailK): compile the olean chain in order (one Lean process at a time), stopping at the first failure.
+# Usage: ./chain.sh [first-module]   (modules: LPrefix TailA TailB TailC TailD LF2Stalks LF2UnifRoot LF2SmoothDim LF2UnramConj LF3Cot TailE TailF TailG TailH TailI LF4T5 TailJ TailK)
 cd "$(dirname "$0")"
-MODS="LPrefix TailA TailB TailC TailD LF2Stalks LF2UnifRoot LF2SmoothDim LF2UnramConj LF3Cot TailE TailF TailG TailH TailI LF4T5 TailJ"
+MODS="LPrefix TailA TailB TailC TailD LF2Stalks LF2UnifRoot LF2SmoothDim LF2UnramConj LF3Cot TailE TailF TailG TailH TailI LF4T5 TailJ TailK"
 start=${1:-LPrefix}; go=0
 for m in $MODS; do
   [ "$m" = "$start" ] && go=1

@@ -1,8 +1,8 @@
 #!/bin/bash
 # leaf-fold4: leaf-fold3's assemble.sh plus
 #   olean/LF4T5.lean = scratch/t5-torsion/T5Full.lean verbatim (root namespace; module LF4T5)
-#   olean/TailJ.lean = import TailI + Contrib ZariskiConn, SpreadOut + LF4T5 + partsF/c90_periodglue.lean (mk_periodglue.py)
-#                      + partsF/d95_fold4.lean (hand-written: the bundles and sixContactMin_of_open4), inside `namespace HDec`
+#   olean/TailJ.lean = import TailI + partsF/c90_periodglue.lean (mk_periodglue.py)
+#   olean/TailK.lean = import TailJ + Contrib ZariskiConn, SpreadOut + LF4T5 + partsF/d95_fold4.lean (hand-written: the bundles and sixContactMin_of_open4), inside `namespace HDec`
 #   Leaves4.lean = the flat file (Leaves3.lean's contents plus the above)
 # leaf-fold3: build the olean chain sources and the flat file Leaves3.lean (leaf-fold2's assemble.sh plus
 #   olean/LF3Cot.lean = LF3Cot.lean.src (mk_lf3.py; infra-stalks' CotangentBaseChange.lean lines 523-end, root namespace)
@@ -45,7 +45,7 @@ bodyB() { echo "$HDR"; wrap $B; echo "end HDec"; }
 bodyC() { echo "$HDR"; wrap $C; echo "end HDec"; }
 bodyD() { echo "$HDR"; wrap $D; echo "end HDec"; }
 bodyE() { echo "$HDR"; wrap $E; echo "end HDec"; }
-F=$(ls partsF/c[1-7]*.lean); G=partsF/c80_propts.lean; H=partsF/c85_ltlocal.lean; I=partsF/d90_fold3.lean; J="partsF/c90_periodglue.lean partsF/d95_fold4.lean"
+F=$(ls partsF/c[1-7]*.lean); G=partsF/c80_propts.lean; H=partsF/c85_ltlocal.lean; I=partsF/d90_fold3.lean; J=partsF/c90_periodglue.lean; K=partsF/d95_fold4.lean
 # (leaf-fold3) wrapF: like wrap, but first closes the anonymous sections a copied file leaves open (py/balance.py)
 wrapF() { for p in "$@"; do n=$(basename $p .lean); echo "section G0A2_$n"; cat $p; echo; k=$(python3 py/balance.py $p); for i in $(seq 1 $k); do echo "end"; done; echo "end G0A2_$n"; echo; done; }
 bodyF() { echo "$HDR"; wrapF $F; echo "end HDec"; }
@@ -53,6 +53,7 @@ bodyG() { echo "$HDR"; wrapF $G; echo "end HDec"; }
 bodyH() { echo "$HDR"; wrapF $H; echo "end HDec"; }
 bodyI() { echo "$HDR"; wrapF $I; echo "end HDec"; }
 bodyJ() { echo "$HDR"; wrapF $J; echo "end HDec"; }
+bodyK() { echo "$HDR"; wrapF $K; echo "end HDec"; }
 JIMP='import ZInQKernel.Contrib.ZariskiConn.Basic
 import ZInQKernel.Contrib.SpreadOut.NumberField'
 FIMP='import ZInQKernel.Contrib.Dim.HodgeLattice
@@ -79,7 +80,8 @@ cp LF3Cot.lean.src olean/LF3Cot.lean
 { echo "import TailG"; echo; bodyH; } > olean/TailH.lean
 { echo "import TailH"; echo; bodyI; } > olean/TailI.lean
 cp ../t5-torsion/T5Full.lean olean/LF4T5.lean
-{ echo "import TailI"; echo "$JIMP"; echo "import LF4T5"; echo; bodyJ; } > olean/TailJ.lean
+{ echo "import TailI"; echo; bodyJ; } > olean/TailJ.lean
+{ echo "import TailJ"; echo "$JIMP"; echo "import LF4T5"; echo; bodyK; } > olean/TailK.lean
 # flat file
 NIMP=$(grep -c '^import ' olean/LPrefix.lean)
 { grep '^import ' olean/LPrefix.lean; echo "$EIMP"; echo -e "$FIMP"; echo "$IPIMP" | grep -v -x -F "$(grep '^import ' olean/LPrefix.lean)"; echo "$JIMP"; grep '^import ' ../t5-torsion/T5Full.lean;
@@ -94,5 +96,5 @@ NIMP=$(grep -c '^import ' olean/LPrefix.lean)
   bodyE; bodyF; bodyG; bodyH; bodyI;
   echo "/-! ## leaf-fold4: t5-torsion's T5Full.lean (root namespace, as module LF4T5 in the chain) -/"
   rootbody ../t5-torsion/T5Full.lean T5
-  bodyJ; } > Leaves4.lean
+  bodyJ; bodyK; } > Leaves4.lean
 wc -l olean/*.lean Leaves4.lean

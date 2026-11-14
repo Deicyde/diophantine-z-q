@@ -117798,6 +117798,15 @@ end
 end
 end G0A2_c90_periodglue
 
+end HDec
+namespace HDec
+
+set_option maxHeartbeats 1000000
+
+attribute [-instance] TauCeti.FinitePadicExtension.toAlgebra
+  TauCeti.FinitePadicExtension.ofInstances TauCeti.FinitePadicExtension.toModuleFinite
+  TauCeti.FinitePadicExtension.toValuativeExtension
+
 section G0A2_d95_fold4
 /-! ## leaf-fold4: the results since leaf-fold3, folded into the statement of what remains open
 
@@ -117972,7 +117981,6 @@ structure OpenAddedLeaves4 : Prop where
   finiteImageHT : G0Galois.FiniteImageHT
   t09SymmIsogenyExists : WeilPairing.T09_SymmIsogenyExists
   isogenyQuasiInverse : WeilPairing.IsogenyQuasiInverse
-  divisiblePoints : WeilPairing.DivisiblePoints
   x6ConicModel : X6Kummer.X6ConicModel
   y3Connected : TSHecke.Y3Connected
   qmAutCard : HeckeRest.QMAutCard
@@ -118024,45 +118032,115 @@ theorem textbookLeaves3_of_open4 (t : OpenTextbookLeaves4) : OpenTextbookLeaves3
   t40 := t.t40
   t41 := t.t41
 
-/-- leaf-fold3's added-leaf bundle from leaf-fold4's. -/
-theorem addedLeaves3_of_open4 (r : OpenResearchLeaves2) (l : OpenAddedLeaves4) : OpenAddedLeaves3 where
-  cmOptimalEmbedding := l.cmOptimalEmbedding
-  thetaRatiosAlgebraic := l.thetaRatiosAlgebraic
-  qmHauptmodul := l.qmHauptmodul
-  qmClassNumberOne := l.qmClassNumberOne
-  qmDenZeroCM3 := qmDenZeroCM3_of_leaves4 r.r4 l.gammaStarGen l.valenceBoundGammaStar
-  senTwist := l.senTwist
-  finiteImageHT := l.finiteImageHT
-  t09SymmIsogenyExists := l.t09SymmIsogenyExists
-  isogenyQuasiInverse := l.isogenyQuasiInverse
-  divisiblePoints := l.divisiblePoints
-  x6ConicModel := l.x6ConicModel
-  y3Connected := l.y3Connected
-  qmAutCard := l.qmAutCard
-  serreRigidity3 := l.serreRigidity3
-  alFixedPoints := l.alFixedPoints
-  properSmoothGenConnected := properSmoothGenConnected_of_zariski4 l.zariskiConnectedness
+/-- **`TatePairingZl` without `DivisiblePoints`** (leaf-fold3's `G0Galois.tatePairingZl_of_leaves`, verbatim
+but for the surjectivity of `T_ℓ A → A(K̄)[ℓᵏ]`, which comes from T5 through t5-torsion's
+`T5Torsion.TateFree.tate_surj_of_torsionStructure` (module `LF4T5`, kernel objects; `toAbVarK4 A` has the
+same scheme) instead of `WeilPairing.tate_surj (hD …)`). -/
+theorem tatePairingZl_of_leaves4 (h9 : WeilPairing.T09_SymmIsogenyExists)
+    (hQ : WeilPairing.IsogenyQuasiInverse) (hT5 : PkgI2.TorsionStructure.{0}) :
+    G0Galois.TatePairingZl := by
+  intro K _ _ A ℓ _
+  haveI : NeZero (ℓ : K) := ⟨by exact_mod_cast (Fact.out : ℓ.Prime).ne_zero⟩
+  obtain ⟨S⟩ := h9 K A
+  obtain ⟨d, hd, ψ, hψ, -⟩ := hQ K _ _ S.lam S.isogeny
+  obtain ⟨g, hg⟩ := WeilPairing.exists_tmu_gen K ℓ
+  refine ⟨(WeilPairing.tatePairing S.D S.lam (NeZero.ne _)).compr₂ (WeilPairing.tmuCoordLin hg),
+    ?_, ?_, ?_⟩
+  · intro x hx
+    exact WeilPairing.tatePairing_left_ker S.D S.lam hd hψ (NeZero.ne _)
+      (fun k t ht => _root_.T5Torsion.TateFree.tate_surj_of_torsionStructure
+        (torsionStructureK_of4 hT5) K (toAbVarK4 A) ℓ (NeZero.ne _) k t ht) x
+      fun y => WeilPairing.tmuCoordLin_injective hg (by rw [map_zero]; exact hx y)
+  · intro x
+    simp only [LinearMap.compr₂_apply]
+    rw [WeilPairing.tatePairing_self S.D S.lam S.symm (NeZero.ne _) x, map_zero]
+  · intro σ x y
+    simp only [LinearMap.compr₂_apply]
+    have h := congrArg (WeilPairing.tmuCoordLin hg)
+      (WeilPairing.tatePairing_cyclotomic S.D S.lam σ x y)
+    rw [map_smul, smul_eq_mul] at h
+    exact h
 
-/-- leaf-fold3's glue bundle from leaf-fold4's leaves and glue. -/
-theorem glue3_of_open4 (t : OpenTextbookLeaves4) (l : OpenAddedLeaves4) (g : OpenGlue4) : OpenGlue3 where
-  periodMapGlue := fun h => periodMapGlue_of_leaves4 h t.t5 t.homLatticeCorr l.cmDescends
-  hauptmodulUnique := hauptmodulUnique_proved4
-  chartProper := chartProper_proved4
-  chartQuasiFinite := chartQuasiFinite_proved4
-  heckeVertWitness := g.heckeVertWitness
-  abVarSpreadsOut := abVarSpreadsOut_of_ega4 l.egaIV_8_8_2_ii l.egaIV_8_10_5_xii l.egaIV_17_7_8_ii
+/-- **`DetTate` from T9 (restated), `IsogenyQuasiInverse`, T5 and T26** (leaf-fold3's
+`G0Galois.detTate_of_leaves` with `tatePairingZl_of_leaves4`). -/
+theorem detTate_of_leaves4 (h9 : WeilPairing.T09_SymmIsogenyExists)
+    (hQ : WeilPairing.IsogenyQuasiInverse) (hT5 : PkgI2.TorsionStructure.{0})
+    (hT : PkgI3.TateModuleFree) : G0Galois.DetTate :=
+  G0Galois.detTate_of_zl (tatePairingZl_of_leaves4 h9 hQ hT5) hT
+
+/-- **Leaves.lean's `GluePieces` from leaf-fold4's open statements** (leaf-fold3's `gluePieces_of_open3`,
+verbatim but for: the fields closed by leaf-fold4 replaced by their theorems above; T26 from T5
+(`tateModuleFree_of_t5'`); `DetTate` from `detTate_of_leaves4`, i.e. without the leaf `DivisiblePoints`). -/
+theorem gluePieces_of_open4 (r : OpenResearchLeaves2) (t : OpenTextbookLeaves4)
+    (l : OpenAddedLeaves4) (g : OpenGlue4) : GluePieces :=
+  let t2 := textbookLeaves2_of_open3 (textbookLeaves3_of_open4 t)
+  let r3 := researchLeaves3_of_open2 r
+  let t3 := textbookLeaves_of_open2 t2
+  have hMob : LeafQM.AV.Pin.MobiusGlue := mobiusGlue_of_t5' t.t5
+  have hFS5 : G0FibreSimple.FibreComTrivial :=
+    fibreComTrivial_of_full (FS5NoCM.fibreComTrivialFull_of_leaves'' (r1r2fpFull_of r3)
+      hMob t.t27 t.t6 l.cmOptimalEmbedding (X6Kummer.x6KummerFibre_of_conic hMob l.x6ConicModel)
+      r.r5count)
+  have hFS : G0Split.FibreSimple :=
+    G0FibreSimple.fibreSimple_of_leaves t3 mulIsogeny_proved G0FibreSimple.rigidityHom
+      ⟨G0FibreSimple.finiteDescends_proof, hFS5⟩
+  { dimFinite := G0Split.dimFinite
+    dimBaseChange := G0Split.dimBaseChange
+    fibreSimple := hFS
+    productModelHeight := ZInQ.ProductHeight.productModelHeight_of_splits productUnifSplits_proved
+      (ZInQ.UnifDims.productMetrizationOfProductUnif_of_tangentDim t.t35 tangentDimAtOrigin_proved3)
+    stableHeightBaseChange := G0StableBC.stableHeightBaseChange_of_hodgeLine
+      (ZInQ.HeightBC.g0_hodgeLine_iff.mpr (ZInQ.HeightBC.hodgeLineBaseChange_of_glue4
+        hodgeBCInjective_proved3 cotangentSpanBC_proved omegaBaseChange_proved3
+        uniformizationLiftAnalytic_proved))
+    productExists := G0Product.productExists
+    reverseIsogeny := G0RevIsog.reverseIsogeny_of_leaves3 r3 G0Split.dimFinite
+    thetaPoint := G0Split.ThetaPt.thetaPointOfFibre_of_qm_ratios
+      (G0Split.FibreQM.fibreQMPeriod_main_rep r.r1r2 hMob l.qmHauptmodul
+        t.t35 t2.t11a l.qmClassNumberOne (r.r1b r.r1r2) (periodMapGlue_of_leaves4 r.r1r2 t.t5 t.homLatticeCorr l.cmDescends)
+        hauptmodulUnique_proved4
+        (qmDenZeroCM3_of_leaves4 r.r4 l.gammaStarGen l.valenceBoundGammaStar) cPtsTransport_proved3)
+      l.thetaRatiosAlgebraic
+    modularConstituent := modularConstituent_of_field t3
+      (G0ModField.fibreCoverExists_of_propTSAll' t.t5
+        (propTSAll_of_pieces3 r.r1r2 t.t5 l.y3Connected l.qmAutCard l.serreRigidity3 l.alFixedPoints
+          chartProper_proved4 chartQuasiFinite_proved4 g.heckeVertWitness) unramifiedConjugates_proved)
+      (G0ModField.KernelField.kernelFieldExists_of_split'' t.t6 r.r7a r.r6 t.t5 t.t27
+        hFS5 G0ModField.KernelField.oMaximal endTransport_proved conjIsogMaps_proved3)
+      UnramTate.unramifiedSup_mf
+      (G0AssembleMod.afterG7_of3 r3 t3
+        ⟨burnsideAbsIrred_proved3, r.r14,
+          g9Glue_of_deRhamComparisonHT r.r10,
+          G0Galois.g10Glue_of_conjTwist
+            (G0Galois.conjTwistNontrivial_of_leaves t.t5 (tateModuleFree_of_t5' t.t5) t.t35
+              (HomUnify.homLinearLift_of_corr t.homLatticeCorr)),
+          G0Galois.g12Weight_of_senTwist l.senTwist l.finiteImageHT,
+          detTate_of_leaves4 l.t09SymmIsogenyExists l.isogenyQuasiInverse t.t5
+            (tateModuleFree_of_t5' t.t5),
+          G0AssembleMod.resQFiniteIndex⟩
+        (G0ModNewform.dirichletOfFinite_of_t17 t17_proved) r.r17
+        Swan.swanIndependent_proved Swan.swanIntegral_proved
+        Swan.adaptedExists_proved
+        (modelG3G6_of_leaves3 hFS r.r7a r.r6 t.t5)
+        (G0AssembleMod.linkedTateData_of_local t.t7
+          (linkedTateLocal_of_leaves3 r.r6 t.t5 (tateModuleFree_of_t5' t.t5)
+            (abVarSpreadsOut_of_ega4 l.egaIV_8_8_2_ii l.egaIV_8_10_5_xii l.egaIV_17_7_8_ii)
+            (properSmoothGenConnected_of_zariski4 l.zariskiConnectedness)
+            t.t4 t.t3 hFS t.t6 t.t27)))
+    heightCopies := G0HeightCopies.heightCopiesAgree }
 
 /-- **G0 with only the open leaves and the open glue** (leaf-fold4; no `sorry`, standard axioms).
 `ZInQ.SixContactMin` follows from
 * `OpenResearchLeaves2`: 26 research-level fields (unchanged);
 * `OpenTextbookLeaves4`: 19 textbook fields (T26 now from T5);
-* `OpenAddedLeaves4`: 21 leaves;
+* `OpenAddedLeaves4`: 20 leaves (`DivisiblePoints` no longer needed);
 * `OpenGlue4`: 1 glue Prop (`HeckeVertWitness`).
 The table of every field is `docs/research/leaf-fold4.md` §2. -/
 theorem sixContactMin_of_open4 (r : OpenResearchLeaves2) (t : OpenTextbookLeaves4)
     (l : OpenAddedLeaves4) (g : OpenGlue4) : ZInQ.SixContactMin :=
-  sixContactMin_of_open3 r (textbookLeaves3_of_open4 t) (addedLeaves3_of_open4 r l)
-    (glue3_of_open4 t l g)
+  sixContactMin_of_leavesR3 (researchLeaves3_of_open2 r)
+    (textbookLeaves_of_open2 (textbookLeaves2_of_open3 (textbookLeaves3_of_open4 t)))
+    (gluePieces_of_open4 r t l g)
 
 end HSyn
 
@@ -118081,8 +118159,9 @@ end
 #print axioms HSyn.torsionStructureK_of4
 #print axioms HSyn.tateModuleFree_of_t5'
 #print axioms HSyn.textbookLeaves3_of_open4
-#print axioms HSyn.addedLeaves3_of_open4
-#print axioms HSyn.glue3_of_open4
+#print axioms HSyn.tatePairingZl_of_leaves4
+#print axioms HSyn.detTate_of_leaves4
+#print axioms HSyn.gluePieces_of_open4
 #print axioms HSyn.sixContactMin_of_open4
 
 end G0A2_d95_fold4
