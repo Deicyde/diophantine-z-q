@@ -64,3 +64,10 @@
   `isR1bFamily_of_hol`.
 - LEAF `HDec.QMSplit.Moduli.ShimuraHolFamily` (Shimura 1967 Main Thm I: one holomorphic family on one fine witness).
 - `HDec.QMSplit.Moduli.shimuraFamily_of_hol : ShimuraHolFamily → ShimuraFamily` (row shimuraFamily).
+
+## Step 8: BG.lean (imports kernel Contrib.Mobius.ImagePlane) — COMPILED, standard axioms
+- `pairTwistClass_finite` (Aut(𝒪)-twist classes of a QM pair over ℚ̄ are finite: kernel `Pin.autOInnerFinite`,
+  `Pin.conjUnitIso`); `surj_of_fibre : X6Props … → (fibre clause of π₆) → π₆ onto P¹(ℚ̄)` (kernel `Pin.curveFacts.2`).
+- Rows.lean regenerated with BG.lean: COMPILED (1 min 33 s, 0 errors, standard axioms).
+  `BabaGranathX6'` (= BabaGranathX6 without the surjectivity clause), `babaGranathX6_of : BabaGranathX6' → BabaGranathX6`,
+  converse, `r1r2fpRep_of_split6 : GeomConnX6 → PairsLift → BabaGranathX6' → R1rec → R5fp → R1R2fpRep`.

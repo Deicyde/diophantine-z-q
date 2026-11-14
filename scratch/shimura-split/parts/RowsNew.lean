@@ -132,3 +132,42 @@ end HDec.QMSplit.Moduli
 #print axioms HDec.QMSplit.Moduli.r1r2fpRep_of_split5
 #print axioms HDec.QMSplit.Moduli.y3Connected_of_deligne
 #print axioms HDec.QMSplit.Moduli.r5fpCount_of_points
+
+/-! ## `BabaGranathX6` without its surjectivity clause -/
+
+namespace HDec.QMSplit.Moduli
+
+open CategoryTheory AlgebraicGeometry Limits
+open LeafQM LeafQM.AV
+
+/-- **LEAF-form (Baba–Granath on the canonical `X₆`), without the surjectivity clause.** Some coarse
+witness carries `π₆ : X₆ → P¹` with the fibre clause (two `ℚ̄`-points have the same value iff their QM pairs
+are `Aut(𝒪)`-twists, i.e. `W`-conjugate) and the CM clauses (`π₆ = 0, ∞, −16/27` exactly at CM by `ℤ[i]`,
+`ℤ[ζ₃]`, `ℤ[√−6]`) of `R2X6PropsIff`. Baba–Granath, Canad. J. Math. 60 (2008), Thm 2.1 (`X₆/W ≅ P¹_ℚ`,
+the polarized moduli space is `X₆/W`), Lemma 3.1 and the §3.1 table (each of `CM(−4)`, `CM(−3)`, `CM(−24)`
+is one `W`-orbit); read by the audit (YES); the coordinate is Baba–Granath's `j` (values `0, ∞, −16/27`). -/
+def BabaGranathX6' : Prop :=
+  ∃ (Y : Over (Spec (CommRingCat.of ℚ))) (Φ : PtEquiv Y) (X : Over (Spec (CommRingCat.of ℚ)))
+    (Ψ : (fieldPt Qbar ⟶ X) ≃ Quotient (pairSetoid Qbar)) (fY : Y ⟶ X),
+    R1fpProps Y Φ ∧ X6Props Y Φ X Ψ fY ∧ ∃ π₆ : ToP1 X.left, LeafAdopt.R2X6PropsIff X Ψ π₆
+
+/-- `BabaGranathX6` from `BabaGranathX6'`: the surjectivity of `π₆` on `ℚ̄`-points is proved
+(`ShimuraSplit.surj_of_fibre`: finite twist classes and the kernel's `CurveSurj`). -/
+theorem babaGranathX6_of (h : BabaGranathX6') : BabaGranathX6 := by
+  obtain ⟨Y, Φ, X, Ψ, fY, h1, h6, π₆, h2⟩ := h
+  exact ⟨Y, Φ, X, Ψ, fY, h1, h6, π₆, h2,
+    ShimuraSplit.surj_of_fibre h6 π₆ fun x x' P Q hP hQ => (h2 x x' P Q hP hQ).1⟩
+
+theorem babaGranathX6'_of (h : BabaGranathX6) : BabaGranathX6' := by
+  obtain ⟨Y, Φ, X, Ψ, fY, h1, h6, π₆, h2, -⟩ := h
+  exact ⟨Y, Φ, X, Ψ, fY, h1, h6, π₆, h2⟩
+
+/-- **Row H-1 (`r1r2`) from five inputs, `BabaGranathX6'` without the surjectivity clause.** -/
+theorem r1r2fpRep_of_split6 (hG : GeomConnX6) (hL : PairsLift) (hB : BabaGranathX6')
+    (hR : LeafQM.AV.R1rec) (h5 : LeafQM.AV.R5fp) : LeafAdopt.R1R2fpRep :=
+  r1r2fpRep_of_split5 hG hL (babaGranathX6_of hB) hR h5
+
+end HDec.QMSplit.Moduli
+
+#print axioms HDec.QMSplit.Moduli.babaGranathX6_of
+#print axioms HDec.QMSplit.Moduli.r1r2fpRep_of_split6
