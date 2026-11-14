@@ -49,3 +49,7 @@
 #print axioms MCRQuot.exists_descend_section
 #print axioms MCRQuot.preimage_imgOpen
 #print axioms MCRQuot.exists_descend_toP1In
+#print axioms MCRQuot.pushF_invariant
+#print axioms MCRQuot.quotientDescendsMapQ
+#print axioms MCRQuot.quotientDescendsQ
+#print axioms MCRQuot.modelCoordinateResidue_final8

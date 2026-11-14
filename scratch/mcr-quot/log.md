@@ -235,3 +235,19 @@ standard; no sorry in the parts)
   (images of `G`-stable opens under a finite SGA 1 quotient are open and saturated; uses
   `gQuotientPointOrbits`), **`exists_descend_toP1In`**: a `G`-invariant (opens and functions)
   `ToP1In X (q⁻¹O)` descends to a `ToP1In Z O` with `q⁻¹U' = U` and `q^* f' = f`.
+
+## Step 20 (13:00) — VERIFIED (parts 1-22 + 9; exit 0; compile22_out.txt; all 54 `#print axioms`
+standard; no sorry)
+- Part 21: `app_injective_of_le_range`, `eq_of_preimage_eq_of_le_range`, `pushToP1In` (push a
+  `ToP1` forward along an open immersion, as a `ToP1In` on its range), `ev_pushToP1In`,
+  `pullToP1` (pull a `ToP1In X O` back along `h` with `h⁻¹O = ⊤`), `val_pullToP1_of_mem/_not_mem`.
+- Part 22: `genJ` (𝒴_ℚ → 𝒴, open immersion instance), `ev_congr`, `ev_appLE`, `genFib_jacobson`,
+  `pushU_stable`, `pushU_stable_iff`, `pushF_invariant` (G-invariance of the pushed-forward chart and
+  function from ℚ̄-pointwise invariance: Jacobson + `exists_qbarPt` + reducedness
+  `isReduced_of_smooth_zloc` + `basicOpen_eq_bot_iff`).
+- **(B-desc-map) proved**: `MCRQuot.quotientDescendsMapQ : QuotientDescendsMapQ`; hence
+  **(B-desc) proved**: `quotientDescendsQ : QuotientDescendsQ`; `genericQuotientP1_of'` (B from A,
+  T5, L3, B-iso).
+- **Final composite `modelCoordinateResidue_final8`**: L1-L6 + T5 + CurveBijIso +
+  CoverModelOfHeckeN + (B-iso) `ToP1BijIsCoordinateQ` + (C1b-obj) `CMStabObj` ⇒
+  `ModelCoordinateResidue`.

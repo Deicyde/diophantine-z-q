@@ -1627,6 +1627,14 @@ The difference between `have` and `haveI` is that `haveI` inlines the value.
 But this is not relevant for proofs because of proof irrelevance.
 
 Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/mcr-quot/MCRQuot.lean:8442:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
 'MCRQuot.exists_unit_congr' depends on axioms: [propext, Classical.choice, Quot.sound]
 'MCRQuot.mem_orbit_of_twistEq' depends on axioms: [propext, Classical.choice, Quot.sound]
 'MCRQuot.twistEq_of_mem_fibreAut' depends on axioms: [propext, Classical.choice, Quot.sound]
@@ -1677,3 +1685,7 @@ Note: This linter can be disabled with `set_option linter.style.haveILetI false`
 'MCRQuot.exists_descend_section' depends on axioms: [propext, Classical.choice, Quot.sound]
 'MCRQuot.preimage_imgOpen' depends on axioms: [propext, Classical.choice, Quot.sound]
 'MCRQuot.exists_descend_toP1In' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MCRQuot.pushF_invariant' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MCRQuot.quotientDescendsMapQ' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MCRQuot.quotientDescendsQ' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MCRQuot.modelCoordinateResidue_final8' depends on axioms: [propext, Classical.choice, Quot.sound]
