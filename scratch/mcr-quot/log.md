@@ -261,3 +261,11 @@ standard)
   `bijective_eval₂_transport`.
 - **Final composite `modelCoordinateResidue_final9`**: L1-L6 + T5 + CurveBijIso +
   CoverModelOfHeckeN + `P1SchemeQ` + `CMStabObj` ⇒ `ModelCoordinateResidue`.
+
+## Step 22 (13:50) — VERIFIED
+- `py/verbatim_check.py`: `MCRQuot.lean` = `MCRGlue.lean` + 25 parts; targets defined once in the
+  prefix; no sorry/axiom in the parts: ALL OK.
+- Assessed `P1SchemeQ` construction: Mathlib's `Proj.fromOfGlobalSections` needs a ring map to
+  global sections (trivial line bundle), so the functor of points of `P¹` would need gluing of two
+  such maps with invariance under unit rescaling plus the identification
+  `HomogeneousLocalization.Away 𝒜 X₀ ≅ ℚ[t]` — not attempted (estimated > 1500 lines).

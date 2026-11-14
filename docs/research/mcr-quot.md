@@ -71,6 +71,9 @@ VERIFIED: `lake env lean scratch/mcr-quot/MCRQuot.lean` exits 0 in about 30 s (o
 `compile23_out.txt`).
 
 - The parts contain no `sorry` and no `axiom`.
+- `py/verbatim_check.py` prints `ALL OK`. It checks three things: the file is
+  `MCRGlue.lean` plus the 25 parts; the four targets and `ModelCoordinateResidue` are each defined
+  once, in the prefix; and the parts contain no `sorry` or `axiom`.
 - All 57 `#print axioms` of `MCRQuot` declarations (part 9) read
   `[propext, Classical.choice, Quot.sound]`.
 
@@ -257,5 +260,6 @@ Why (C1b-obj) is not proved here (SPECULATIVE analysis, not compiled):
 ```
 lake build ZInQKernel.Contrib.Mobius.Main ZInQKernel.HDecomp.QM.Pin ZInQKernel.HDecomp.Descent.B2Glue
 scratch/mcr-quot/build.sh                      # regenerates MCRQuot.lean from the parts
+python3 -I scratch/mcr-quot/py/verbatim_check.py scratch/mcr-quot   # ALL OK
 lake env lean scratch/mcr-quot/MCRQuot.lean    # exit 0, ~30 s; compile23_out.txt
 ```
