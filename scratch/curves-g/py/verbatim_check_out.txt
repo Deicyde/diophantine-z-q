@@ -1,0 +1,27 @@
+IsCurve (Defs.lean): code 4 lines, verbatim copies in Leaves3.lean: 2
+SpecQ (Defs.lean): code 1 lines, verbatim copies in Leaves3.lean: 1
+IsX1Model (Defs.lean): code 3 lines, verbatim copies in Leaves3.lean: 1
+RatPt (Defs.lean): code 1 lines, verbatim copies in Leaves3.lean: 1
+IsJacobian (Defs.lean): code 5 lines, verbatim copies in Leaves3.lean: 2
+JacobianExists (Defs.lean): code 4 lines, verbatim copies in Leaves3.lean: 2
+IsJ1 (Defs.lean): code 2 lines, verbatim copies in Leaves3.lean: 1
+fieldX1 (Defs.lean): code 2 lines, verbatim copies in Leaves3.lean: 1
+xCoord (Defs.lean): code 3 lines, verbatim copies in Leaves3.lean: 1
+EjBar (Defs.lean): code 1 lines, verbatim copies in Leaves3.lean: 1
+Ej (Defs.lean): code 1 lines, verbatim copies in Leaves3.lean: 1  [docstring differs]
+Qj (Defs.lean): code 1 lines, verbatim copies in Leaves3.lean: 1
+Kbar (Defs.lean): code 1 lines, verbatim copies in Leaves3.lean: 1
+DimJ1Genus (Leaves.lean): code 3 lines, verbatim copies in Leaves3.lean: 1  [docstring differs]
+dim_J1_le (Leaves.lean): code 8 lines, verbatim copies in Leaves3.lean: 1
+genus (Genus.lean): code 2 lines, verbatim copies in Leaves3.lean: 1
+belyiDeg (Genus.lean): code 1 lines, verbatim copies in Leaves3.lean: 1
+nu2 (Genus.lean): code 1 lines, verbatim copies in Leaves3.lean: 1
+nu3 (Genus.lean): code 1 lines, verbatim copies in Leaves3.lean: 1
+nuInf (Genus.lean): code 2 lines, verbatim copies in Leaves3.lean: 1
+pmSubgroup (Genus.lean): code 17 lines, verbatim copies in Leaves3.lean: 1
+CurveOfFunctionFieldQ (X1Belyi.lean): code 5 lines, verbatim copies in Leaves3.lean: 1
+ConstantFieldIsQ (X1Belyi.lean): code 2 lines, verbatim copies in Leaves3.lean: 1
+HasRationalPlace (X1Belyi.lean): code 3 lines, verbatim copies in Leaves3.lean: 1
+ratHom (X1Belyi.lean): code 2 lines, verbatim copies in Leaves3.lean: 1
+X1RationalCusp (X1Belyi.lean): code 2 lines, verbatim copies in Leaves3.lean: 1
+ALL VERBATIM
