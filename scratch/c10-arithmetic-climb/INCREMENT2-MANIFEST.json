@@ -1,0 +1,261 @@
+{
+  "parent_commit": "7321c972944d3dddceb477cdf7fd125b7b19c5c1",
+  "mathlib_pin": "56a005855ea17e0b0958f73ec801ae140b0a1679",
+  "toolchain": "leanprover/lean4:v4.35.0",
+  "kind": "Optional source increment, not default-root or official manuscript release",
+  "sources_copied_byte_identically": true,
+  "original_C10_coefficient_system_not_constructed": true,
+  "reviews": {
+    "infinite_gq": "REPORT-6-infinite-gq.md: bounded independent source/replay",
+    "rational_scalar": "REPORT-4-a-normalization.md: bounded independent source/replay",
+    "field_and_C10_ascription": "REPORT-5-field-adapter.md and REPORT-7-c10-ascription.md: bounded independent source/replay; actual C10 theorem all remaining premises passed through",
+    "finite_coefficients": "REVIEW-v1.md b25137341b720d381ef42aa11a42d3a971e9ad0e160895b90deda4a232f22dd7 and acceptance507a65cce693f3c1e638a2a2b600d17f84cb45914a1f5cd0bca4c3e57fca1569: scoped internal non-author source/type/caller/ParentA-execution review, not reviewer compilation"
+  },
+  "files": [
+    {
+      "path": "scratch/c10-arithmetic-climb/index/InfiniteGQ.lean",
+      "source_reference": "infinite-gq/InfiniteGQ.lean",
+      "bytes": 6530,
+      "sha256": "16e64a3f791490f45d158b4f15ab070d6a2815b56e3690253ef46aadc4c4300a",
+      "gitblob": "d3630239635c38bda3c4aa83a483632acf868ab9"
+    },
+    {
+      "path": "scratch/c10-arithmetic-climb/index/InfiniteGQSpecialization.lean",
+      "source_reference": "infinite-gq/InfiniteGQSpecialization.lean",
+      "bytes": 1218,
+      "sha256": "077fdc34d041654e8cc3bd8383ec15df27453be946fc0c9db42eb9125297b38f",
+      "gitblob": "d619c0e8d96083703b8d0109d2cdd94b694ac91a"
+    },
+    {
+      "path": "scratch/c10-arithmetic-climb/scalar/ANormalizationExpectedV3.lean",
+      "source_reference": "a-normalization/ANormalizationExpected-v3.lean",
+      "bytes": 6540,
+      "sha256": "6f659cf67fbc8ec00a8f46c4ce7a241bfd24b3117de5d523dd1098c4c0adc5f6",
+      "gitblob": "3f18a9735e7d4c3bd243827d401298441d1a5be0"
+    },
+    {
+      "path": "scratch/c10-arithmetic-climb/scalar/ANormalizationCandidate.lean",
+      "source_reference": "a-normalization/ANormalizationCandidate.lean",
+      "bytes": 8389,
+      "sha256": "6419a9019ca6212e989e5bf0d9abf24d4f537dd7605a1b0987b61b9df9369fca",
+      "gitblob": "5617e06d366c158c0cfd82d1a6cdfae5e7a8ecb7"
+    },
+    {
+      "path": "scratch/c10-arithmetic-climb/scalar/ANormalizationChecks.lean",
+      "source_reference": "a-normalization/ANormalizationChecks.lean",
+      "bytes": 3563,
+      "sha256": "afa1afc1e61bd7c0b30cf931234ceff12ceecb5d18cce6efa8958a4079b1be8d",
+      "gitblob": "49026ed6bd2e2d1004fc84374b20fb053e67dbce"
+    },
+    {
+      "path": "scratch/c10-arithmetic-climb/controls/scalar/BadNoQuartic.lean",
+      "source_reference": "a-normalization/controls/BadNoQuartic.lean",
+      "bytes": 713,
+      "sha256": "4725c31c7f77c750f72d70cae15f9d69ccfad1fab20e7428214ab55ff8976bb7",
+      "gitblob": "aa8b044d0909e03fb7b2c6280eba6a7476c49117"
+    },
+    {
+      "path": "scratch/c10-arithmetic-climb/controls/scalar/BadNoPositivity.lean",
+      "source_reference": "a-normalization/controls/BadNoPositivity.lean",
+      "bytes": 625,
+      "sha256": "8e0b82eb8f02e0a7f60f1f83f6a0f8edc7dc7d54b0da31274ffc0be023205715",
+      "gitblob": "2cd28db864bb8a7bc63db187fe9475aacce4664a"
+    },
+    {
+      "path": "scratch/c10-arithmetic-climb/controls/scalar/BadSecondPlaceA.lean",
+      "source_reference": "a-normalization/controls/BadSecondPlaceA.lean",
+      "bytes": 684,
+      "sha256": "5b5559adc6a098475959dc1d0783beab85d446ad1f65ba83e976e4c307f40da9",
+      "gitblob": "9d05673b51588a36ec26916591599b24503b34ad"
+    },
+    {
+      "path": "scratch/c10-arithmetic-climb/controls/scalar/BadNonClosedPreimage.lean",
+      "source_reference": "a-normalization/controls/BadNonClosedPreimage.lean",
+      "bytes": 483,
+      "sha256": "a004a0d591b69e2e7d4b8c53dcf842e056cfeed115dbbed64764029c15a4b049",
+      "gitblob": "d65c5d0c196f876f68bcd60b073a83f6dea56652"
+    },
+    {
+      "path": "scratch/c10-arithmetic-climb/controls/scalar/TAXONOMY.md",
+      "source_reference": "a-normalization/controls/TAXONOMY.md",
+      "bytes": 3639,
+      "sha256": "37b033363d7ea18663310fd5dbafcaa17b161239f4a8383d021b0cbecdcdc791",
+      "gitblob": "d1027c265cd7e6aceb2823fe55ec4dd6314357da"
+    },
+    {
+      "path": "scratch/c10-arithmetic-climb/beta/FieldAdapterExpected.lean",
+      "source_reference": "beta-field/FieldAdapterExpected.lean",
+      "bytes": 5388,
+      "sha256": "7210310608ec45965a27f3237d0b11029517ca1f1ae1f3b4685dea01fbc7ac6a",
+      "gitblob": "289008a5bf7c374fd20aae9ec6e5ab0663e608f0"
+    },
+    {
+      "path": "scratch/c10-arithmetic-climb/beta/FieldAdapterCandidate.lean",
+      "source_reference": "beta-field/FieldAdapterCandidate.lean",
+      "bytes": 3718,
+      "sha256": "76e846bcb03d754c2ae04d9cb84cfc78685dcdd497612376d71611980dfdca55",
+      "gitblob": "37423844d1aee0ffb577487b634bda0b728651aa"
+    },
+    {
+      "path": "scratch/c10-arithmetic-climb/beta/FieldAdapterChecks.lean",
+      "source_reference": "beta-field/FieldAdapterChecks.lean",
+      "bytes": 2955,
+      "sha256": "4eebec09f2f92436c1808ed9f218076eecf9608386ec671a24d6bef8e4e277c4",
+      "gitblob": "976c5ce45d4e27e58604bc04614e63ce1c91d46e"
+    },
+    {
+      "path": "scratch/c10-arithmetic-climb/beta/FieldAdapterBinderShape.lean",
+      "source_reference": "beta-field/FieldAdapterBinderShape.lean",
+      "bytes": 2448,
+      "sha256": "6badddb071454ea7c65b4380654a6728fa86dce210020b1343ee125694938a10",
+      "gitblob": "d24c1e1e27bd6906cebdee991d3bc2582f41e2da"
+    },
+    {
+      "path": "scratch/c10-arithmetic-climb/beta/C10AscriptionExpected.lean",
+      "source_reference": "beta-field/C10AscriptionExpected.lean",
+      "bytes": 7259,
+      "sha256": "241d35a499ef8e086c6761168504df625d96f7ea2280fcf01fa4b205683961d3",
+      "gitblob": "baa7610887b235924d8994ac7805311e7459020e"
+    },
+    {
+      "path": "scratch/c10-arithmetic-climb/beta/C10AscriptionCandidate.lean",
+      "source_reference": "beta-field/C10AscriptionCandidate.lean",
+      "bytes": 2632,
+      "sha256": "19a666ce081bbe90e1f743558672d5ce1f3e690aeff76c5504b362a46296db57",
+      "gitblob": "1075c8d839811bc3a823249e50ef2003d6f96c67"
+    },
+    {
+      "path": "scratch/c10-arithmetic-climb/beta/C10AscriptionChecks.lean",
+      "source_reference": "beta-field/C10AscriptionChecks.lean",
+      "bytes": 4975,
+      "sha256": "e1f43ac6f2923f965c989c883f2920f21bc4c905dfdad335f7802b9f83ab0fae",
+      "gitblob": "bde41814425d46a9475e0ea2c1bbdc421306c657"
+    },
+    {
+      "path": "scratch/c10-arithmetic-climb/controls/field/BadUnconditionalNorm.lean",
+      "source_reference": "beta-field/controls/BadUnconditionalNorm.lean",
+      "bytes": 565,
+      "sha256": "cbed92a6c5593b03afccbf371523f550e6d514e862f5fad7fda5096b57496669",
+      "gitblob": "bd84452afe8f13061a70cfcb204502aa14ca50f6"
+    },
+    {
+      "path": "scratch/c10-arithmetic-climb/controls/field/BadSecondPlaceField.lean",
+      "source_reference": "beta-field/controls/BadSecondPlaceField.lean",
+      "bytes": 743,
+      "sha256": "e186a7d3bef27f7f1e7dcf394524bff048ed99de56e9f67560a2c2eca0687a30",
+      "gitblob": "166f591f30d6340dc9ed15f5c2a9eb4d6dc28369"
+    },
+    {
+      "path": "scratch/c10-arithmetic-climb/controls/field/BadNoSquareHyp.lean",
+      "source_reference": "beta-field/controls/BadNoSquareHyp.lean",
+      "bytes": 565,
+      "sha256": "f2a28ba869ba9079fa9aa5ed93770f7c21ca07acc5d22828cf94fabb249a12c7",
+      "gitblob": "186db45a6c28d59f5db43e6768463300b08de71f"
+    },
+    {
+      "path": "scratch/c10-arithmetic-climb/controls/field/BadArbitraryFieldBeta.lean",
+      "source_reference": "beta-field/controls/BadArbitraryFieldBeta.lean",
+      "bytes": 477,
+      "sha256": "6560a8119d8c1aea6d722fdcb2670a5d046a8998ce12eef6ea136518675a5efb",
+      "gitblob": "a2cbb3b44f7e6de7e5b48da03c17b0007bdf9be1"
+    },
+    {
+      "path": "scratch/c10-arithmetic-climb/controls/field/BadAscriptionNoNorm.lean",
+      "source_reference": "beta-field/controls/BadAscriptionNoNorm.lean",
+      "bytes": 755,
+      "sha256": "860ab2aee9afd8b35b7ff268f5013f1f10db100c79b92d16d564b11288c4c705",
+      "gitblob": "e7deccb8ff05dbe66797e6ab5f5cad70743f42dc"
+    },
+    {
+      "path": "scratch/c10-arithmetic-climb/finite/FiniteCoefficientFieldTarget.lean",
+      "source_reference": "parallel/finite-coefficient-field/FiniteCoefficientFieldTarget.lean",
+      "bytes": 8163,
+      "sha256": "66c85645fd3a4b4036208be83910661b45a903e6f443d87e31100fc923d405f0",
+      "gitblob": "61affbe2ddcb9dac7216077a25a553777d2e20c6"
+    },
+    {
+      "path": "scratch/c10-arithmetic-climb/finite/FCF_Proof.lean",
+      "source_reference": "parallel/finite-coefficient-field/proof-v1/FCF_Proof.lean",
+      "bytes": 5162,
+      "sha256": "08ad6244ed4b6ee3cb7e247709dae39be6792ef48432c58d253f06b8e9d57a3f",
+      "gitblob": "986c3275e49df2509c16ace70b0ab973e7622201"
+    },
+    {
+      "path": "scratch/c10-arithmetic-climb/finite/FCF_Checks.lean",
+      "source_reference": "parallel/finite-coefficient-field/proof-v1/FCF_Checks.lean",
+      "bytes": 9118,
+      "sha256": "34e333c969f33185e97cf04f59387ba0b64b4c12be1438a6f733383f4ad97a15",
+      "gitblob": "409ac7786101e4401888c3833dec0e177116fabc"
+    },
+    {
+      "path": "scratch/c10-arithmetic-climb/controls/finite/TAXONOMY.md",
+      "source_reference": "parallel/finite-coefficient-field/proof-v1/TAXONOMY.md",
+      "bytes": 4230,
+      "sha256": "17c38f354c49dcddfd0d82ff22676a28240c07b1c257467a2db94980e419a227",
+      "gitblob": "8424d6d14a21fb37f5583ec4efff6d3d8b3534cd"
+    },
+    {
+      "path": "scratch/c10-arithmetic-climb/controls/finite/BadNoFiniteSet.lean",
+      "source_reference": "parallel/finite-coefficient-field/proof-v1/neg/BadNoFiniteSet.lean",
+      "bytes": 447,
+      "sha256": "bdf8b5d139a14f48acf23f15a7cecb78235cbcd8b7adc4eba342e5c76fa8aa04",
+      "gitblob": "89ab3a37521913cffccbb06f1f8fad6779716d44"
+    },
+    {
+      "path": "scratch/c10-arithmetic-climb/controls/finite/BadNoFiniteFamily.lean",
+      "source_reference": "parallel/finite-coefficient-field/proof-v1/neg/BadNoFiniteFamily.lean",
+      "bytes": 551,
+      "sha256": "d9054c6ff535263ced4b4839cf244b16bf8882bb7d0e61bc685404ebfb760d02",
+      "gitblob": "d23b3f17c3b5164e2cedc1cb0390b6d32736ad1c"
+    },
+    {
+      "path": "scratch/c10-arithmetic-climb/controls/finite/BadNoFiniteMatrixFamily.lean",
+      "source_reference": "parallel/finite-coefficient-field/proof-v1/neg/BadNoFiniteMatrixFamily.lean",
+      "bytes": 703,
+      "sha256": "211f38c135f141a077b26f0e4bd5995aa5b130f535c03048259ebf0aa05ac208",
+      "gitblob": "773ebe1ab97b763935c28e84a7c0dad4b99393aa"
+    },
+    {
+      "path": "scratch/c10-arithmetic-climb/controls/finite/BadNoFiniteRows.lean",
+      "source_reference": "parallel/finite-coefficient-field/proof-v1/neg/BadNoFiniteRows.lean",
+      "bytes": 706,
+      "sha256": "725b9efe621e577ea480df364981b3a5e9601ec8aa3336b78379fb3d2511447a",
+      "gitblob": "56fa434be60b9944f5ecfcf4fc1a4a70f6a769e9"
+    },
+    {
+      "path": "scratch/c10-arithmetic-climb/controls/finite/BadNoFiniteColumns.lean",
+      "source_reference": "parallel/finite-coefficient-field/proof-v1/neg/BadNoFiniteColumns.lean",
+      "bytes": 712,
+      "sha256": "04b9bc01b7315e82cb87c3db3aa118a72fd60dc9efc77da4bbd3b085d1a30bf4",
+      "gitblob": "e5df3f814ea1c23d5702a3c5b816bb9d2b86b63f"
+    },
+    {
+      "path": "scratch/c10-arithmetic-climb/controls/finite/BadReplacementValue.lean",
+      "source_reference": "parallel/finite-coefficient-field/proof-v1/neg/BadReplacementValue.lean",
+      "bytes": 529,
+      "sha256": "43f0d43d7af1cda82e2101442ec331b4d938a0ddc23f7e4d5805b2c090653e73",
+      "gitblob": "35cbae89be9aad13fa0da0416c106d6ec5d4cb2b"
+    },
+    {
+      "path": "scratch/c10-arithmetic-climb/controls/finite/BadSecondPlace.lean",
+      "source_reference": "parallel/finite-coefficient-field/proof-v1/neg/BadSecondPlace.lean",
+      "bytes": 557,
+      "sha256": "cad31820e051f68f562fbbf758de9dc366ff95c1af979358f448931310285f6a",
+      "gitblob": "f7ed53b8ce33a9de00183c10e0d63ef715a21b08"
+    },
+    {
+      "path": "scratch/c10-arithmetic-climb/controls/finite/BadComplexInput.lean",
+      "source_reference": "parallel/finite-coefficient-field/proof-v1/neg/BadComplexInput.lean",
+      "bytes": 527,
+      "sha256": "85ad3bc4d3cb8dcc6976def75c9a0d2a2f03183392d95a4c2e1d649a106a8dd4",
+      "gitblob": "5ac57c4c32786b433dfdc0d44c11bc0e985c84cd"
+    },
+    {
+      "path": "scratch/c10-arithmetic-climb/INCREMENT2-README.md",
+      "source_reference": "New additive scope/reproduction note",
+      "bytes": 4791,
+      "sha256": "41f9f585257f932906c491395fbc312ddf8c12602bc19aacf57c9776f15508f4",
+      "gitblob": "f850cbb47ac19ae62d33f725bb8e53e7e59f41c4"
+    }
+  ]
+}
