@@ -23,8 +23,8 @@ Proved on the way:
   orders);
 - base change of QM pairs (`bcPair`), with `End_𝒪` and isomorphisms preserved via T11b.
 
-An independent review found no defect in the QM Props of the first route (`CMDescent` not
-reviewed).
+Independent reviews found no defect in the QM Props, `CMDescent` included. Their RISKs: both new
+leaves bundle standard facts beyond one printed theorem; these are named in the docstrings.
 
 **Compiles:** `scratch/height-glue/{AUUnique,HeightGlue,Rows,QMCorr,QMEmb,QMFull}.lean` (`lake env lean`, exit 0,
 no `sorry`, standard axioms).

@@ -209,8 +209,11 @@ Fix a generator `y ∈ R ∖ ℚ` with `y² + Py + Q = 0`, `P, Q ∈ ℤ`, and a
 `QMDescentCM`, with its route `qmPairEmbeddingCorrespondence_of_leaves`, is kept as an alternative;
 the T11b route supersedes it.
 
-The independent statement review (§6) found no defect in the three QM Props of §3 (it ran before
-§3.2 existed, so `CMDescent` was not reviewed). It recorded two RISKs:
+The independent statement review (§6) found no defect in the three QM Props of §3. A second review
+of `CMDescent` found it true and not vacuous, with the equivariance direction consistent with the
+kernel's `QMIso`. It recorded one minor RISK: the leaf also bundles the classification of
+endomorphism algebras of abelian surfaces (Albert; Mumford §21, UNVERIFIED), which turns
+`End_𝒪 ≅ R` into CM. That step is now named in the docstring. It recorded two RISKs:
 - `QMUniformizationC` bundles, with the published moduli statements (principally polarized,
   `𝒪¹ \ ℍ`), the standard facts that QM tori are algebraic, GAGA for homomorphisms, and the passage
   to the unpolarized `𝒪^×` form. Its docstring now cites Shimura 1963, Hashimoto 1995, Rotger 2004

@@ -154,7 +154,10 @@ are defined over `ℚ̄`: G. Shimura, Y. Taniyama, *Complex multiplication of ab
 `T11b_Rigidity` for `ι`). For an embedding `ℚ̄ → ℂ`: a QM pair `(A, ι)` over `ℂ` whose `End_𝒪` is an
 imaginary quadratic order `R` (conductor prime to `6`) is isomorphic, compatibly with `ι`, to the
 base change `(P.A)_ℂ` of a QM pair `P` over `ℚ̄` with its base-changed `ι`. Stated with the
-homomorphisms `φ`, `ψ` (inverse to each other) and the base change `endBC` of `ι`. -/
+homomorphisms `φ`, `ψ` (inverse to each other) and the base change `endBC` of `ι`. Also bundled
+(standard; independent review, RISK): the classification of endomorphism algebras of abelian
+surfaces (Albert; Mumford, *Abelian varieties* §21, UNVERIFIED), which turns `End_𝒪 ≅ R` into CM
+(`A ~ E²`, `E` with CM by a field splitting `B`); alternatively Shioda–Mitani 1974. -/
 def CMDescent : Prop :=
   ∀ (ε : Qbar →+* ℂ), letI : Algebra Qbar ℂ := ε.toAlgebra;
     ∀ (k : Type) [Field k] [NumberField k] [NumberField.IsTotallyComplex k],

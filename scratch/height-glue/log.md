@@ -81,3 +81,4 @@
   `nonempty_qmIso_bc_iff`, leaf `CMDescent` (Shimura–Taniyama, iso-to-base-change form).
   => QMDescentCM is no longer needed: H-3 rests on Eichler, T11b (kernel textbook leaf), CMDescent,
   QMUniformizationC.
+- CMDescent review: no defect; docstring now names the End-algebra classification step (RISK). QMFull recompiled, exit 0.
