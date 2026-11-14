@@ -31,3 +31,13 @@ Target: `ModelGlue.ModelCoordinateResidue` (scratch/model-glue/ModelGlue6.lean, 
 - `quotientP1Coordinate_of_leaves` (compiled plumbing) and
   `modelCoordinateResidue_of_leaves : L1 → … → L6 → A → B → C → SpecialFibreTranscendence →
   ModelCoordinateResidue` (compiled).
+
+## Step 3 (04:45) — VERIFIED (MCRGlue.lean = ModelGlue6 + parts 1-3; exit 0; compile3_out.txt; no sorry; standard axioms)
+- `ker_isMaximal_of_isAlgebraic`: char p field algebraic over 𝔽_p ⇒ every kernel of a map to it
+  is maximal (image is a 𝔽_p-subalgebra, a field by `Subalgebra.isField_of_algebraic`).
+- `not_isAlgebraic_residueField_of_smooth`: R local with 𝔪_R = (p), 𝒴 → Spec R smooth rel dim 1,
+  𝔪_ξ = (p) ⇒ κ(ξ) not algebraic over 𝔽_p (special fibre pullback, Jacobson closedness,
+  stalk of the special fibre at ξ' is a field, contradiction with kernel `smoothStalkDimOne`).
+- `specialFibreTranscendence : SpecialFibreTranscendence` (glue d2 now proved; DVR hypothesis unused).
+- `modelCoordinateResidue_of_quotient' : QuotientP1Coordinate → ModelCoordinateResidue`.
+- `modelCoordinateResidue_of_leaves' : L1 → … → L6 → A → B → C → ModelCoordinateResidue`.
