@@ -36,3 +36,7 @@
 - build5: whole chain OK (`lake build +ZInQKernel.OneProof.Main`, Main reports `[propext, Classical.choice,
   Quot.sound]`). DumpCompact after: frozenTarget_type_after.txt identical to before (diff empty), axioms the three
   standard ones; cmp_hashes.py: 8202 constants before and after, 0 changed (type and value hashes).
+
+## Step 3: report
+- Sizes: 8224119 -> 4195116 bytes, 80137 -> 79208 lines (table in docs/research/op-compact.md,
+  scratch/one-proof/compact_table.md). build*.out trimmed to error/summary lines.
