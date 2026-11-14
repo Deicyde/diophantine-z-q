@@ -6,3 +6,8 @@
 #print axioms MCRQuot.exists_eq_comp_of_isGQuotient
 #print axioms MCRQuot.val_injective_of_isP1Coordinate
 #print axioms MCRQuot.coordinateFromSections_of
+#print axioms MCRQuot.infinite_qbarPoints
+#print axioms MCRQuot.fibreAutTame_of
+#print axioms MCRQuot.residue_trivial_of_fixesOn
+#print axioms MCRQuot.cMSectionsDisjoint_of
+#print axioms MCRQuot.modelCoordinateResidue_of_mcrQuot

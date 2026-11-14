@@ -1,0 +1,25 @@
+
+/-! ════════════════════════════════════════════════════════════════════════════════════════════
+# mcr-quot, part 7: the composite
+════════════════════════════════════════════════════════════════════════════════════════════ -/
+
+namespace MCRQuot
+
+open MCRGlue ModelGlue
+
+/-- **`ModelCoordinateResidue` from the leaves L1-L6, the textbook leaf `TorsionStructure` (T5),
+glue B, and the smaller glue of this task**: (A-fix) `FibreAutFixFinite`, (A-count)
+`TwistClassCard`, (C1a) `GQuotientPointOrbits`, (C1b) `CMStabInvolution`, (C1c)
+`StabFixesClosure`, (C1d) `QbarPointsConjugate`, (C2-P¹) `P1ThreePoints`. Glue A, C1 and C2 of
+mcr-glue are no longer hypotheses. -/
+theorem modelCoordinateResidue_of_mcrQuot (hAF : ProperCurveAF) (hQE : FiniteQuotientExists)
+    (hTS : TameQuotientSmooth) (hP1 : SmoothModelOfP1) (hFix : TameFixedPointsDisjoint)
+    (hCyc : TameInertiaCyclic) (hT : ObjBridge.TorsionStructure) (gB : GenericQuotientP1)
+    (hfix : FibreAutFixFinite) (hcnt : TwistClassCard) (hO : GQuotientPointOrbits)
+    (hI : CMStabInvolution) (hS : StabFixesClosure) (hC : QbarPointsConjugate)
+    (hN : P1ThreePoints) : ModelCoordinateResidue :=
+  have gA : FibreAutTame := fibreAutTame_of hT hfix hcnt
+  modelCoordinateResidue_of_leaves'' hAF hQE hTS hP1 hFix hCyc gA gB
+    (cMSectionsDisjoint_of gA hfix hO hI hS hC) (coordinateFromSections_of gA hT hN)
+
+end MCRQuot

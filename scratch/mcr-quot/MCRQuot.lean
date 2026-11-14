@@ -5516,6 +5516,311 @@ theorem fibreAutTame_of (hT : ObjBridge.TorsionStructure) (hfix : FibreAutFixFin
 
 end MCRQuot
 
+/-! ════════════════════════════════════════════════════════════════════════════════════════════
+# mcr-quot, part 6: glue C1 `CMSectionsDisjoint` from L5, L6, A and four smaller glue Props
+════════════════════════════════════════════════════════════════════════════════════════════ -/
+
+noncomputable section
+
+namespace MCRQuot
+
+open Polynomial CategoryTheory AlgebraicGeometry Limits LeafQM LeafQM.AV VertWitness HeckeRestNV
+open G0ModField PropTSRed PropTSGlue ModelGlue MCRGlue LeafQM.AV.Pin PkgI3
+
+/-! ## Automorphisms fixing every field point over a set -/
+
+section FixOn
+
+variable {X : Scheme.{0}}
+
+/-- `h` fixes every field point of `X` whose point lies in `Z` (for `Z = {w}`: `h` fixes `w` and
+acts trivially on `κ(w)`). -/
+def FixesFieldPointsOn (h : Aut X) (Z : Set X) : Prop :=
+  ∀ (K : Type) [Field K] (t : Spec (CommRingCat.of K) ⟶ X), ptOf t ∈ Z → t ≫ h.asIso.hom = t
+
+/-- The automorphisms fixing every field point over `Z` form a subgroup. -/
+def fixOn (Z : Set X) : Subgroup (Aut X) where
+  carrier := {h | FixesFieldPointsOn h Z}
+  one_mem' := fun K _ t _ => by simp
+  mul_mem' := by
+    intro a b ha hb K _ t ht
+    simp only [Aut.mul_asIso, Iso.trans_hom]
+    rw [← Category.assoc, hb K t ht, ha K t ht]
+  inv_mem' := by
+    intro a ha K _ t ht
+    simp only [Aut.inv_asIso, Iso.symm_hom]
+    conv_lhs => rw [← ha K t ht]
+    rw [Category.assoc, Iso.hom_inv_id, Category.comp_id]
+
+theorem FixesFieldPointsOn.mono {h : Aut X} {Z Z' : Set X} (hh : FixesFieldPointsOn h Z)
+    (hZ : Z' ⊆ Z) : FixesFieldPointsOn h Z' := fun K _ t ht => hh K t (hZ ht)
+
+/-- Fixing the field points at `w` gives the hypothesis of Leaf L6 at `w`. -/
+theorem residue_trivial_of_fixesOn {h : Aut X} {w : X} (hh : FixesFieldPointsOn h {w}) :
+    ∃ e : h.asIso.hom w = w,
+      (X.residueFieldCongr e).inv ≫ h.asIso.hom.residueFieldMap w = 𝟙 _ := by
+  let K : Type := X.residueField w
+  let t : Spec (CommRingCat.of K) ⟶ X :=
+    (Scheme.SpecToEquivOfField K X).symm ⟨w, CommRingCat.ofHom (RingHom.id K)⟩
+  have ht : ptOf t = w := by
+    simp only [ptOf, t, Equiv.apply_symm_apply]
+  have hfix := hh K t (by rw [ht]; rfl)
+  have key : ∀ a : (Σ x : X, X.residueField x ⟶ CommRingCat.of K),
+      a = ⟨w, CommRingCat.ofHom (RingHom.id K)⟩ →
+      (⟨h.asIso.hom a.1, h.asIso.hom.residueFieldMap a.1 ≫ a.2⟩ :
+        Σ x : X, X.residueField x ⟶ CommRingCat.of K) = a →
+      ∃ e : h.asIso.hom w = w,
+        (X.residueFieldCongr e).inv ≫ h.asIso.hom.residueFieldMap w = 𝟙 _ := by
+    rintro _ rfl e
+    rw [Scheme.SpecToEquivOfField_eq_iff] at e
+    obtain ⟨e1, e2⟩ := e
+    refine ⟨e1, ?_⟩
+    have e3 : h.asIso.hom.residueFieldMap w = (X.residueFieldCongr e1).hom := by
+      have := e2
+      dsimp only at this
+      ext x
+      exact congrArg (fun φ => φ.hom x) this
+    rw [e3, Iso.inv_hom_id]
+  have e := congrArg (Scheme.SpecToEquivOfField K X) hfix
+  rw [specToEquivOfField_comp_right] at e
+  exact key _ (Equiv.apply_symm_apply _ _) e
+
+end FixOn
+
+/-! ## The smaller glue Props -/
+
+/-- **Glue (C1a): the points of `X` over a point of an SGA 1 quotient form one orbit**
+(commutative algebra; SGA 1 Exp. V, Prop. 1.1 (ii) (locator UNVERIFIED); over an affine `W ⊆ Z`
+it is the transitivity of `G` on the primes of `Γ(q⁻¹W)` over a prime of `Γ(q⁻¹W)^G`, Mathlib's
+`Algebra.IsInvariant.exists_smul_of_under_eq`). -/
+def GQuotientPointOrbits : Prop :=
+  ∀ (X Z : Scheme.{0}) (G : Subgroup (Aut X)) (q : X ⟶ Z), Finite G → IsGQuotient G q →
+    ∀ x x' : X, q x = q x' → ∃ g ∈ G, g.asIso.hom x' = x
+
+/-- **Glue (C1b): the stabilizer of a CM point contains an involution** (algebra of QM surfaces
+with CM; no new literature). For the smooth model and a `ℚ̄`-point `y` whose object has CM by
+`ℤ[i]`, `ℤ[ζ₃]` or `ℤ[√−6]`, some `ι ≠ 1` in `fibreAut` with `ι² = 1` fixes `y`. (Outline: the CM
+endomorphism `φ` (`φ² = −1`, resp. of order 6, resp. `φ² = −6` composed with the Atkin–Lehner
+twist) is an isomorphism `(A, ι, η) ≅ (A, ι ∘ α, η ∘ (· u))` for a twist `α` and a unit `u`
+(`Level3.torsor`, `exists_unit_congr`), so the Hecke automorphism of `(α, u)` (or a power of it)
+fixes `y`; the stabilizers have the orbifold orders `4, 6, 2` modulo `±1`
+(`RvNocm.ramification_eq_orbifold_order`), all even.) -/
+def CMStabInvolution : Prop :=
+  ∀ (p : ℕ) [Fact p.Prime], 324 < p →
+    ∀ (𝒴 : Over (Spec (CommRingCat.of (Zloc p)))) (𝒜 : QMFamily 𝒴.left), IsShimuraModel p 𝒴 𝒜 →
+    ∀ (Y : Over (Spec (CommRingCat.of ℚ))) (Φ : PtEquiv Y) (π : ToP1 Y.left),
+      R1fpProps Y Φ → R1heckeProps Y Φ → R2fpProps Y Φ π →
+    ∀ (y : Spec (CommRingCat.of Qbar) ⟶ 𝒴.left) (P : QML3 Qbar), IsFibreOf 𝒜 y P →
+      (HasCM4 P.q ∨ HasCM3 P.q ∨ HasCM24 P.q) →
+      ∃ ι ∈ fibreAut 𝒴 𝒜, ι ≠ 1 ∧ ι * ι = 1 ∧ y ≫ ι.asIso.hom = y
+
+/-- **Glue (C1c): an automorphism fixing a `ℚ̄`-point fixes its closure pointwise, with trivial
+residue action** (scheme theory; no literature). For `𝒴` proper and smooth over `ℤ_(p)` and an
+automorphism `h` over `ℤ_(p)` with `y ≫ h = y`, `h` fixes every field point of `𝒴` lying in the
+closure `Z` of the point of `y`. (Outline: `h` fixes `x` and acts trivially on `κ(x)` (it
+commutes with the embedding `κ(x) → ℚ̄`); `Z` with its reduced structure is integral with
+function field `κ(x)`, and `h|_Z, id_Z : Z → 𝒴` agree at the generic point, hence on a dense
+open (`𝒴` locally of finite presentation over `ℤ_(p)`: EGA IV 8.13.1), hence everywhere (`Z`
+reduced, `𝒴` separated); a field point over `Z` factors through `Z`.) -/
+def StabFixesClosure : Prop :=
+  ∀ (p : ℕ) [Fact p.Prime] (𝒴 : Over (Spec (CommRingCat.of (Zloc p)))),
+    IsProper 𝒴.hom → SmoothOfRelativeDimension 1 𝒴.hom →
+    ∀ (h : Aut 𝒴.left), h.asIso.hom ≫ 𝒴.hom = 𝒴.hom →
+    ∀ y : Spec (CommRingCat.of Qbar) ⟶ 𝒴.left, y ≫ h.asIso.hom = y →
+      FixesFieldPointsOn h (closure {qbarPoint y})
+
+/-- **Glue (C1d): two `ℚ̄`-points with the same underlying point are Galois conjugate**
+(field theory; no literature): the two embeddings `κ(x) → ℚ̄` differ by an automorphism of `ℚ̄`
+(extend one to `ℚ̄`, `IsAlgClosed.lift`; `ℚ̄` is algebraic over the image). -/
+def QbarPointsConjugate : Prop :=
+  ∀ (X : Scheme.{0}) (y y' : Spec (CommRingCat.of Qbar) ⟶ X), qbarPoint y = qbarPoint y' →
+    ∃ σ : Qbar ≃ₐ[ℚ] Qbar, y' = Spec.map (CommRingCat.ofHom (σ : Qbar →+* Qbar)) ≫ y
+
+/-! ## The reduction of C1 -/
+
+/-- In a finite cyclic group there is at most one involution. -/
+theorem eq_of_involutions_cyclic {H : Type*} [Group H] [Finite H] [IsCyclic H] {a b : H}
+    (ha : a ≠ 1) (ha2 : a * a = 1) (hb : b ≠ 1) (hb2 : b * b = 1) : a = b := by
+  classical
+  cases nonempty_fintype H
+  have hle := IsCyclic.card_pow_eq_one_le (α := H) (n := 2) (by norm_num)
+  by_contra hab
+  have hsub : ({1, a, b} : Finset H) ⊆ Finset.univ.filter (fun x : H => x ^ 2 = 1) := by
+    intro x hx
+    simp only [Finset.mem_insert, Finset.mem_singleton] at hx
+    simp only [Finset.mem_filter, Finset.mem_univ, true_and]
+    rcases hx with rfl | rfl | rfl
+    · exact one_pow 2
+    · rw [pow_two, ha2]
+    · rw [pow_two, hb2]
+  have hcard := Finset.card_le_card hsub
+  rw [Finset.card_insert_of_notMem (by simp [Ne.symm ha, Ne.symm hb]),
+    Finset.card_insert_of_notMem (by simpa using hab), Finset.card_singleton] at hcard
+  have : (Finset.univ.filter (fun x : H => x ^ 2 = 1)).card ≤ 2 := hle
+  omega
+
+theorem qbarPoint_comp {X X' : Scheme.{0}} (y : Spec (CommRingCat.of Qbar) ⟶ X) (h : X ⟶ X') :
+    qbarPoint (y ≫ h) = h (qbarPoint y) := rfl
+
+/-- **Glue C1 `CMSectionsDisjoint` from glue A, (A-fix), (C1a)-(C1d)** (L5 and L6 are the
+hypotheses of the Prop). A common point `z` of the closures of `q(x)` and `q(x')` lifts to
+`w ∈ closure{x}` and, after moving by some `h ∈ fibreAut` (C1a), to `w ∈ closure{h x'}`; the
+inertia group `H` of `w` in `fibreAut` contains an involution fixing `y` and one fixing `y' ≫ h`
+(C1b, C1c), is cyclic (L6), so the two involutions agree, and L5 makes the closures of `x` and
+`h x'` disjoint (the two points differ: Galois conjugate points (C1d) have equal `π`-values, and
+CM points of different types do not), a contradiction. -/
+theorem cMSectionsDisjoint_of (hA : FibreAutTame) (hfix : FibreAutFixFinite)
+    (hO : GQuotientPointOrbits) (hI : CMStabInvolution) (hS : StabFixesClosure)
+    (hC : QbarPointsConjugate) : CMSectionsDisjoint := by
+  intro hL5 hL6 p _ hp 𝒴 𝒜 hM hCM Y Φ π h1 hh h2 𝒵 q hq hqf y y' P P' hP hP' htype
+  obtain ⟨hfin, htame⟩ := hA p hp 𝒴 𝒜 hM hCM Y Φ π h1 hh h2
+  obtain ⟨g, hg, -⟩ := exists_genFib_to_Y hM h1
+  have huniq : ∀ (y : Spec (CommRingCat.of Qbar) ⟶ 𝒴.left) (P P' : QML3 Qbar),
+      IsFibreOf 𝒜 y P → IsFibreOf 𝒜 y P' → M3.mk P = M3.mk P' := by
+    intro y P P' hP hP'
+    obtain ⟨s, hs⟩ := genFib_pt 𝒴 y
+    rw [← hg Qbar s P ((congrArg (fun t => IsFibreOf 𝒜 t _) hs).mpr hP),
+      ← hg Qbar s P' ((congrArg (fun t => IsFibreOf 𝒜 t _) hs).mpr hP')]
+  rw [Set.disjoint_left]
+  intro z hz hz'
+  have hcl : ∀ u : 𝒴.left, closure {q.left u} ⊆ q.left '' closure {u} := by
+    intro u
+    refine closure_minimal ?_ (q.left.isClosedMap _ isClosed_closure)
+    rintro _ rfl
+    exact ⟨u, subset_closure rfl, rfl⟩
+  obtain ⟨w, hw, rfl⟩ := hcl _ hz
+  obtain ⟨w', hw', hww'⟩ := hcl _ hz'
+  obtain ⟨h, hhG, hhw⟩ := hO _ _ _ _ hfin hq w w' hww'.symm
+  set y'' := y' ≫ h.asIso.hom with hy''
+  have hw'' : w ∈ closure {qbarPoint y''} := by
+    rw [hy'', qbarPoint_comp, ← hhw, ← Set.image_singleton]
+    exact image_closure_subset_closure_image h.asIso.hom.continuous ⟨w', hw', rfl⟩
+  obtain ⟨P'', hP''⟩ := hM.2.2.1 Qbar y''
+  have hover := fibreAut_over 𝒴 𝒜
+  -- the two involutions
+  have htype1 : HasCM4 P.q ∨ HasCM3 P.q ∨ HasCM24 P.q := by
+    rcases htype with ⟨a, -⟩ | ⟨a, -⟩ | ⟨a, -⟩
+    · exact Or.inl a
+    · exact Or.inl a
+    · exact Or.inr (Or.inl a)
+  have htype2 : HasCM4 P'.q ∨ HasCM3 P'.q ∨ HasCM24 P'.q := by
+    rcases htype with ⟨-, a⟩ | ⟨-, a⟩ | ⟨-, a⟩
+    · exact Or.inr (Or.inl a)
+    · exact Or.inr (Or.inr a)
+    · exact Or.inr (Or.inr a)
+  obtain ⟨ι, hιG, hι1, hι2, hιy⟩ := hI p hp 𝒴 𝒜 hM Y Φ π h1 hh h2 y P hP htype1
+  obtain ⟨ι', hι'G, hι'1, hι'2, hι'y⟩ := hI p hp 𝒴 𝒜 hM Y Φ π h1 hh h2 y' P' hP' htype2
+  set ι'' := h * ι' * h⁻¹ with hι''
+  have hι''G : ι'' ∈ fibreAut 𝒴 𝒜 :=
+    Subgroup.mul_mem _ (Subgroup.mul_mem _ hhG hι'G) (Subgroup.inv_mem _ hhG)
+  have hι''1 : ι'' ≠ 1 := by
+    intro e
+    apply hι'1
+    have : ι' = h⁻¹ * ι'' * h := by rw [hι'']; group
+    rw [this, e]; group
+  have hι''2 : ι'' * ι'' = 1 := by
+    have : ι'' * ι'' = h * (ι' * ι') * h⁻¹ := by rw [hι'']; group
+    rw [this, hι'2]; group
+  have hι''y : y'' ≫ ι''.asIso.hom = y'' := by
+    simp only [hy'', hι'', Aut.mul_asIso, Aut.inv_asIso, Iso.trans_hom, Iso.symm_hom,
+      Category.assoc]
+    rw [Iso.hom_inv_id_assoc, ← Category.assoc, hι'y]
+  -- the inertia group at `w`
+  let H : Subgroup (Aut 𝒴.left) := fibreAut 𝒴 𝒜 ⊓ fixOn {w}
+  have hιH : ι ∈ H := ⟨hιG, (hS p 𝒴 hM.1 hM.2.1 ι (hover ι hιG) y hιy).mono
+    (Set.singleton_subset_iff.mpr hw)⟩
+  have hι''H : ι'' ∈ H := ⟨hι''G, (hS p 𝒴 hM.1 hM.2.1 ι'' (hover ι'' hι''G) y'' hι''y).mono
+    (Set.singleton_subset_iff.mpr hw'')⟩
+  have hHle : H ≤ fibreAut 𝒴 𝒜 := inf_le_left
+  haveI : Finite H := Finite.of_injective (fun x : H => (⟨x.1, hHle x.2⟩ : fibreAut 𝒴 𝒜))
+    (fun a b e => Subtype.ext (by simpa using congrArg Subtype.val e))
+  have hcyc : IsCyclic H := by
+    refine hL6 p 𝒴 hM.1 hM.2.1 H inferInstance ?_ (fun x hx => hover x (hHle hx))
+      (fun x hx hx1 => hfix p hp 𝒴 𝒜 hM Y Φ π h1 hh h2 x (hHle hx) hx1) w
+      (fun x hx => residue_trivial_of_fixesOn hx.2)
+    intro hdvd
+    exact htame (hdvd.trans (Subgroup.card_dvd_of_le hHle))
+  have hιι : ι = ι'' := by
+    have := eq_of_involutions_cyclic (H := H) (a := ⟨ι, hιH⟩) (b := ⟨ι'', hι''H⟩)
+      (fun e => hι1 (congrArg Subtype.val e)) (Subtype.ext hι2)
+      (fun e => hι''1 (congrArg Subtype.val e)) (Subtype.ext hι''2)
+    exact congrArg Subtype.val this
+  -- the two points differ
+  have hne : qbarPoint y ≠ qbarPoint y'' := by
+    intro e
+    obtain ⟨σ, hσ⟩ := hC _ y y'' e
+    obtain ⟨s, hs⟩ := genFib_pt 𝒴 y
+    obtain ⟨s', hs'⟩ := genFib_pt 𝒴 y'
+    obtain ⟨s'', hs''⟩ := genFib_pt 𝒴 y''
+    have hP2 := (congrArg (fun t => IsFibreOf 𝒜 t _) hs).mpr hP
+    have hP2' := (congrArg (fun t => IsFibreOf 𝒜 t _) hs').mpr hP'
+    have hP2'' := (congrArg (fun t => IsFibreOf 𝒜 t _) hs'').mpr hP''
+    -- the conjugate lift
+    set sσ : fieldPt Qbar ⟶ genFib 𝒴 := fieldMap (σ : Qbar →ₐ[ℚ] Qbar) ≫ s with hsσ
+    have hsσl : sσ.left ≫ pullback.fst 𝒴.hom (specRatToZloc p) = y'' := by
+      rw [hσ, ← hs]
+      show ((fieldMap (σ : Qbar →ₐ[ℚ] Qbar)).left ≫ s.left) ≫ _ = _
+      exact Category.assoc _ _ _
+    have hsσ'' : sσ = s'' := genFib_pt_inj 𝒴 _ _ (hsσl.trans hs''.symm)
+    have hl : (sσ ≫ g).left = Spec.map (CommRingCat.ofHom (σ : Qbar →+* Qbar)) ≫ (s ≫ g).left := by
+      show ((fieldMap (σ : Qbar →ₐ[ℚ] Qbar)).left ≫ s.left) ≫ g.left = _
+      exact Category.assoc _ _ _
+    have hπσ : π.val (K := Qbar) (s'' ≫ g).left =
+        (π.val (K := Qbar) (s ≫ g).left).map (σ : Qbar →+* Qbar) := by
+      rw [← hsσ'']
+      exact (congrArg (fun t => π.val (K := Qbar) t) hl).trans (ToP1.val_comp π _ _)
+    -- `y''` is in the orbit of `y'`, so it has the same `π`-value as `y'`
+    have hte : TwistEq P' P'' := twistEq_of_mem_fibreAut hM huniq hhG y' P' P'' hP' hP''
+    have hR' := h2 (s' ≫ g) (s'' ≫ g) P' P'' (hg Qbar s' P' hP2') (hg Qbar s'' P'' hP2'')
+    have hR := h2 (s ≫ g) (s ≫ g) P P (hg Qbar s P hP2) (hg Qbar s P hP2)
+    have hv : π.val (K := Qbar) (s' ≫ g).left = π.val (K := Qbar) (s'' ≫ g).left :=
+      hR'.1.2 hte
+    rw [hπσ] at hv
+    have h16 : (0 : Qbar) ≠ -16 / 27 := by norm_num
+    rcases htype with ⟨a, b⟩ | ⟨a, b⟩ | ⟨a, b⟩
+    · rw [hR.2.1 a, hR'.2.2.1 b] at hv
+      norm_num at hv
+    · rw [hR.2.1 a, hR'.2.2.2 b] at hv
+      norm_num at hv
+    · rw [hR.2.2.1 a, hR'.2.2.2 b] at hv
+      norm_num at hv
+  -- Leaf L5 for the involution `ι`
+  have hfinι : {t : Spec (CommRingCat.of Qbar) ⟶ 𝒴.left | t ≫ ι.asIso.hom = t}.Finite :=
+    hfix p hp 𝒴 𝒜 hM Y Φ π h1 hh h2 ι hιG hι1
+  have hdisj := hL5 p 𝒴 hM.1 hM.2.1 ι 2 (hover ι hιG) (by norm_num)
+    (fun hd => by
+      have := Nat.le_of_dvd (by norm_num) hd
+      omega)
+    (by rw [pow_two, hι2]) hfinι y y'' hιy (by rw [hιι]; exact hι''y) hne
+  exact Set.disjoint_left.mp hdisj hw hw''
+
+end MCRQuot
+
+/-! ════════════════════════════════════════════════════════════════════════════════════════════
+# mcr-quot, part 7: the composite
+════════════════════════════════════════════════════════════════════════════════════════════ -/
+
+namespace MCRQuot
+
+open MCRGlue ModelGlue
+
+/-- **`ModelCoordinateResidue` from the leaves L1-L6, the textbook leaf `TorsionStructure` (T5),
+glue B, and the smaller glue of this task**: (A-fix) `FibreAutFixFinite`, (A-count)
+`TwistClassCard`, (C1a) `GQuotientPointOrbits`, (C1b) `CMStabInvolution`, (C1c)
+`StabFixesClosure`, (C1d) `QbarPointsConjugate`, (C2-P¹) `P1ThreePoints`. Glue A, C1 and C2 of
+mcr-glue are no longer hypotheses. -/
+theorem modelCoordinateResidue_of_mcrQuot (hAF : ProperCurveAF) (hQE : FiniteQuotientExists)
+    (hTS : TameQuotientSmooth) (hP1 : SmoothModelOfP1) (hFix : TameFixedPointsDisjoint)
+    (hCyc : TameInertiaCyclic) (hT : ObjBridge.TorsionStructure) (gB : GenericQuotientP1)
+    (hfix : FibreAutFixFinite) (hcnt : TwistClassCard) (hO : GQuotientPointOrbits)
+    (hI : CMStabInvolution) (hS : StabFixesClosure) (hC : QbarPointsConjugate)
+    (hN : P1ThreePoints) : ModelCoordinateResidue :=
+  have gA : FibreAutTame := fibreAutTame_of hT hfix hcnt
+  modelCoordinateResidue_of_leaves'' hAF hQE hTS hP1 hFix hCyc gA gB
+    (cMSectionsDisjoint_of gA hfix hO hI hS hC) (coordinateFromSections_of gA hT hN)
+
+end MCRQuot
+
 #print axioms MCRQuot.exists_unit_congr
 #print axioms MCRQuot.mem_orbit_of_twistEq
 #print axioms MCRQuot.twistEq_of_mem_fibreAut
@@ -5523,3 +5828,8 @@ end MCRQuot
 #print axioms MCRQuot.exists_eq_comp_of_isGQuotient
 #print axioms MCRQuot.val_injective_of_isP1Coordinate
 #print axioms MCRQuot.coordinateFromSections_of
+#print axioms MCRQuot.infinite_qbarPoints
+#print axioms MCRQuot.fibreAutTame_of
+#print axioms MCRQuot.residue_trivial_of_fixesOn
+#print axioms MCRQuot.cMSectionsDisjoint_of
+#print axioms MCRQuot.modelCoordinateResidue_of_mcrQuot

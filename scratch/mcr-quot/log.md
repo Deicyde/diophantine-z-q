@@ -53,3 +53,18 @@ C2 `CoordinateFromSections` of `scratch/mcr-glue/MCRGlue.lean` (copied verbatim 
   `Finite (fibreAut 𝒴 𝒜)`). Finding: C2 as stated needs the finiteness of `fibreAut` (for an
   infinite group `IsGQuotient` does not force orbits = fibres: `ℤ` acting on `𝔸¹_ℚ` by translation
   has `IsGQuotient` onto `Spec ℚ`); A supplies it.
+
+## Step 4 (11:20) — VERIFIED (parts 1-7 + 9; exit 0; compile7_out.txt; standard axioms; no sorry)
+- Glue A reduced: **`MCRQuot.fibreAutTame_of (hT : TorsionStructure) (hfix : FibreAutFixFinite)
+  (hcnt : TwistClassCard) : FibreAutTame`**. New glue Props: (A-fix) `FibreAutFixFinite`
+  (nontrivial elements of `fibreAut` fix finitely many `ℚ̄`-points), (A-count) `TwistClassCard`
+  (a twist class has ≤ 288 = 4·72 isomorphism classes). Helper `infinite_qbarPoints` (𝒴 has
+  infinitely many `ℚ̄`-points, from `curveFacts.2`). Finding: the bound `p > 324` is exactly what
+  makes `|fibreAut| ≤ 288 < p` work.
+- Glue C1 reduced: **`MCRQuot.cMSectionsDisjoint_of (hA : FibreAutTame) (hfix : FibreAutFixFinite)
+  (hO : GQuotientPointOrbits) (hI : CMStabInvolution) (hS : StabFixesClosure)
+  (hC : QbarPointsConjugate) : CMSectionsDisjoint`**. New glue Props (C1a)-(C1d); helpers
+  `FixesFieldPointsOn`, `fixOn` (subgroup), `residue_trivial_of_fixesOn` (gives L6's hypothesis),
+  `eq_of_involutions_cyclic`.
+- Composite **`MCRQuot.modelCoordinateResidue_of_mcrQuot`**: L1-L6 + T5 + glue B + (A-fix),
+  (A-count), (C1a)-(C1d), P1ThreePoints ⇒ `ModelCoordinateResidue`.
