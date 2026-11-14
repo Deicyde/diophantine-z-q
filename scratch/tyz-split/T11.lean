@@ -52,7 +52,9 @@ def Restricts (n : ℕ) [NeZero n] (ρ : GalQ) (t : ClG n) : Prop :=
 `φ t ∈ Gal(ℚ̄/ℚ)` restricts to `t` on `H_n`. TYZ's `Φ` is `{φ(t)|_{H'_n}}`: since
 `Cl'_n = Gal(H'_n/K_n)` (`K'_n = K_n` for `n ≡ 5, 7`, L1263) and `⟨σ⟩ = Gal(H'_n/H_n)` is the kernel of
 `Cl'_n → Cl_n` (Prop. 3.2 = `CM point1`, L1253–1261), the sets of representatives are exactly
-the sets `{φ(t)|_{H'_n}}`, and `z_n^t` only depends on `t|_{H'_n}`. -/
+the sets `{φ(t)|_{H'_n}}`, and `z_n^t` only depends on `t|_{H'_n}`. Modulo torsion `P_χ` does not
+even depend on `φ`: `2z_n ∈ A(H_n)` (Prop. 3.2(4), L1261). Identifying `t` through `embed n` rather than
+a conjugate embedding would replace `t` by `t⁻¹`, which is irrelevant for quadratic `χ`. -/
 def IsPhi (n : ℕ) [NeZero n] (φ : ClG n → GalQ) : Prop := ∀ t, Restricts n (φ t) t
 
 /-- **TYZ's quadratic point `P_χ = Σ_{t∈Φ} f_n(P_n)^t χ(t)`** (L1283), `z_n = f_n(P_n)` the kernel's
@@ -117,7 +119,15 @@ Encoding (a reading of the same display, never stronger):
 * `A(H'_n(i)) ⊗ ℚ ⊂ A(ℚ̄) ⊗ ℚ`; a vector of `A(ℚ̄) ⊗ ℚ` is `Q/m`; equality is "the difference of the
   cleared multiples is torsion". `A` is the kernel's `y² = x³ + 4x ≅ X₀(32)`, `ℚ`-isomorphic to TYZ's
   `2y² = x³ + x` by `(x, y) ↦ (2x, 4y)`, compatibly with `[i]`; `z_n = f_n(P_n)` is the kernel's
-  pinned point `TYZ35.basePt n` (cm-numeric/cm-bridge; `(1 − [i]) f₀(P_n)` for `n ≡ 5`, L1195–1198).
+  pinned point `TYZ35.basePt n` (cm-numeric/cm-bridge; `(1 − [i]) f₀(P_n)` for `n ≡ 5`). TYZ print
+  `f_n = f₀ − f₀∘[i]` (L1196) with `[i]` an automorphism of `X_U ≅ X₀(32)_{ℚ(i)}`; reading it as
+  `(1 − [i])∘f₀` with this sign of `i` is NOT printed: it was chosen numerically (cm-numeric, tyz-t1).
+  With the other sign (`1 + [i] = [i](1 − [i])`) the `±1`/`±i` classes swap and the leaf would be
+  false, not weaker. HUMAN CHECK.
+* Non-vacuity: the hypothesis on `ℓ` is satisfiable only if every `𝓛(m)²` (`m ≡ 1, 3`) is an integer
+  square, i.e. together with `TYZThm11Integral` (TYZ Thm 1.1); otherwise the leaf (and the row,
+  through `IsTYZLcal`) is vacuously true.
+* `h₂` is defined in TYZ §2 (L992) and reused in §3 (L2354).
 * `𝒫(d)` enters only through `Q d / m d` with `Q d ∈ A(K_d)^-` and `Q d` torsion when
   `ord_{s=1} L(E_d, s) > 1` (then `𝓛(d) = 0` by its definition, L338–345, so `𝒫(d) = 0`, L1295).
   This forgets the value `2^{−1−ρ(d)}𝓛(d)` of the coefficient (it needs Néron–Tate regulators,

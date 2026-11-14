@@ -34,3 +34,9 @@
   action of finite ideles on lattices of `K`; 6.31 also needs Shimura's `τ : GL₂(𝔸_f) → Aut(𝔉)`;
   Gross's form needs `X₀(N)` as a curve over `ℚ`. (Tau Ceti in the kernel has a global class
   formation with `absoluteArtinMap`, so `[s,K]` is definable in principle; not attempted.)
+
+## Review of `TYZThm33` (AI subagent, read-only, against Period7.tex)
+- Verdict: faithful with caveats; nowhere stronger than the print.
+- Load-bearing unprinted input: `[i]`-sign of `z_n` for n ≡ 5 (`tyzZn = (1 − [i]) f₀(P_n)`, chosen
+  numerically); the wrong sign would make the leaf false. Non-vacuity needs `TYZThm11Integral`.
+- Should-fix docstring items applied to `T11.lean`; recompiled: 0 errors, standard axioms (VERIFIED).

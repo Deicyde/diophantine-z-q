@@ -139,7 +139,21 @@ for `n ≡ 5`, `(1 − [i]) f₀(P_n)`. TYZ's `f_n = f₀ − f₀∘[i]` with `
 `X_U ≅ X₀(32)_{ℚ(i)}`; on `ℂ`-points `f₀∘[i] = [±i]∘f₀` depending on the component of `X_U` that
 carries `P_n = [h, 1]`. The sign was pinned numerically by cm-numeric / tyz-t1 (Theorem 3.3 checked
 on 73 contributing pairs and 102 excluded characters) and is coupled to the `K_n(√d₁)` convention
-(tyz-35 §2.4(b)); it is not derived from the text here.
+(tyz-35 §2.4(b)); it is not derived from the text here. With the other sign the leaf would be
+**false**, not weaker (`1 + [i] = [i](1 − [i])` swaps the `±1`/`±i` classes and moves `𝒫` into
+`[i]A(K_{d₀})^-`) — this is the one load-bearing unprinted input of the leaf.
+
+**Non-vacuity.** The hypothesis on `ℓ` is satisfiable only if every `𝓛(m)²`, `m ≡ 1, 3`, is an integer
+square (`TYZThm11Integral`); otherwise `TYZThm33` and the row are vacuously true. The reviewer checked
+the transcription of `lcalSq` (`2^{2k−3}`, `Ω_m`, `curveC m ≅ E_m`) against L336–353.
+
+**Review (AI subagent, read-only, against Period7.tex; no human review).** Verdict: faithful with
+caveats, never stronger. Points checked: quantifier order (`ε` after `ℓ` absorbs the signs of `𝓛` and
+`α`; `𝒫(d)` independent of `n` as printed), the `⊗ℚ` encoding, `Φ` ↔ lift families (modulo torsion it
+only needs Prop. 3.2(4), `2z_n ∈ A(H_n)`, L1261), `radTYZ = d₁*`, `h₂`, the `ε` classes (the pairs
+that occur, (5,1), (7,3) for `n ≡ 5` and (7,1), (5,3) for `n ≡ 7`, match Lemma 3.15), the CM forms as
+fixed points of the printed embeddings, dropping `n ≡ 6`. Should-fix items (the `[i]`-sign and
+non-vacuity caveats above, Prop. 3.2(4) in the `IsPhi` docstring) were applied to `T11.lean`.
 
 ### 2.3 The glue (all proved, `T11.lean` §3–§4)
 
