@@ -152,6 +152,8 @@ modifications are distributed under the same license. At the time of writing the
 are (paths relative to ZInQKernel/Contrib/TauCeti/):
 
 - AlgebraicGeometry/EllipticCurve/Projective/Prime.lean
+- Backport/Algebra/Group/Units/Basic.lean (task t40-clash: three declarations whose names
+  clash with GroupWithZero/Units/Basic.lean removed, that module imported instead)
 - Backport/NumberTheory/ClassFieldTheory/ClassField.lean (task ring-class: one proof rewritten)
 - Backport/NumberTheory/ModularForms/Newforms/OldAtPrime.lean (task atkin-li: imports)
 - Backport/NumberTheory/ModularForms/Newforms/PrimeDecomposition.lean (task atkin-li: imports)
