@@ -118,3 +118,10 @@ after `lake build ZInQKernel.Contrib.R10.Amend ZInQKernel.Contrib.AbVarBC.Dim` (
 - COMPILED 11-14, standard axioms. VERIFIED.
 - `check_copies.py`: the 13 definitions shared by the two files have identical text modulo name
   qualification (run 11-14: all "same"). VERIFIED.
+
+## H-10 in one theorem (Companion.lean)
+- `eigenformHT_of_kato : EigenformHTNew → NewformOfEigenform → EigenformRepExists → EigenformHT` and
+  `eigenformHT_of_kato_ds : EigenformHTNew → NewformOfEigenform → DSThm965 → DSThm966 → EigenformHT`
+  (EigenformRepExists from R14Det from the DS leaves). Copies of HTConj/EigenformHTNew/eigenformHT_of_new and
+  the coefficient-independence block added to Companion.lean (imports G9.Reduction too). COMPILED 11-14,
+  standard axioms. check_copies.py: 15 shared defs "same". VERIFIED.

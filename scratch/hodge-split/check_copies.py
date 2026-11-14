@@ -4,7 +4,7 @@ Run from the repository root: python3 scratch/hodge-split/check_copies.py"""
 import re, sys
 main = open('scratch/hodge-split/HodgeSplit.lean').read()
 comp = open('scratch/hodge-split/Companion.lean').read()
-NAMES = ['IsConj', 'AttachedConj', 'DetFromFrobenius', 'toRingEquivQ', 'cycQ', 'R14Det', 'R14DetConcl',
+NAMES = ['HTConj', 'EigenformHTNew', 'IsConj', 'AttachedConj', 'DetFromFrobenius', 'toRingEquivQ', 'cycQ', 'R14Det', 'R14DetConcl',
          'R14DetWt1', 'R14DetWtGe2', 'DSThm965', 'DSThm966', 'Semisimplification2', 'ArtinTransport']
 def body(src, name):
     m = re.search(r'\ndef ' + re.escape(name) + r'\b(.*?)(?=\n\n|\n/--|\nend )', src, re.S)

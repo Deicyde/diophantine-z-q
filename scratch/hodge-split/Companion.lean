@@ -1,4 +1,5 @@
 import ZInQKernel.Contrib.G9.I4Layer
+import ZInQKernel.Contrib.G9.Reduction
 import ZInQKernel.HDecomp.ModCurves.C9
 import ZInQKernel.HDecomp.Textbook.C10Closed
 import ZInQKernel.Contrib.Chebotarev.FrobeniusDense
@@ -1190,6 +1191,301 @@ theorem r14Det_of_printed (hD : DSThm965) (hDS : DSThm966) : G0Galois.R14Det :=
 
 end R14Closed
 
+
+/-! ## H-10 in one theorem: `EigenformHT` from its newform case and the kernel's leaves
+
+Copies (names written out) of `HodgeSplit.lean` §10 (`HTConj`, `EigenformHTNew`,
+`eigenformHT_of_new`) and §12 (coefficient-field independence, `htConj_proof`). -/
+
+section EigenformHTClosed
+
+open ZInQ.Contrib.G9 ZInQ.Contrib.G9.PkgI4
+open ZInQ.Contrib.G9.PkgI4 (GaloisRep GaloisChar)
+
+variable (p : ℕ) [Fact p.Prime]
+
+/-- **GLUE `HTConj` (g12-det's `G0Galois.HTConj`, verbatim; about the definition
+`LocalHasHTWeights`).** Hodge–Tate weights are invariant under conjugation. Proved below
+(`htConj_proof`). -/
+def HTConj : Prop :=
+  ∀ (ℓ : ℕ) [Fact ℓ.Prime] (n : ℕ) (r ρ' : GaloisRep ℓ n) (S : Multiset ℤ),
+    IsConj r ρ' → r.HasHTWeightsAtSelf ℓ S → ρ'.HasHTWeightsAtSelf ℓ S
+
+/-- **The newform case of R13 (GLUE: Kato's theorem for newforms, transported and dualized).**
+`EigenformHT` restricted to newforms. Needs, beyond Kato's printed statement (de Rham at `ℓ` with
+Hodge–Tate weights `0, k − 1` for `V_{F_λ}(f)`, cohomological normalization): the identification of
+any semisimple `ρ` attached to `f` (arithmetic Frobenius, trace `a_p`) with `V_{F_λ}(f)^∨`
+(Chebotarev and Brauer–Nesbitt), and the negation of Hodge–Tate weights under duals. Not a leaf:
+`V_{F_λ}(f)` is not definable in Mathlib today. -/
+def EigenformHTNew : Prop :=
+  ∀ (ℓ : ℕ) [Fact ℓ.Prime] (ιC : ZInQ.Contrib.G9.PkgI4.Qbar →ₐ[ℚ] ℂ) (ιL : ZInQ.Contrib.G9.PkgI4.Qbar →ₐ[ℚ] PadicAlgCl ℓ)
+    (N : ℕ) (k : ℤ) (χ : DirichletCharacter ℂ N) (f : ZInQ.Contrib.G9.PkgI4.CF N k) (ρ : GaloisRep ℓ 2),
+    0 < N → 2 ≤ k → ZInQ.Contrib.G9.PkgI4.IsNewform f χ → ρ.IsSemisimple → ρ.AttachedTo ιC ιL f →
+    ρ.HasHTWeightsAtSelf ℓ {0, 1 - k}
+
+/-- **H-10 reduced to the newform case.** -/
+theorem eigenformHT_of_new (hNew : EigenformHTNew) (hL5 : NewformOfEigenform)
+    (hR : EigenformRepExists) (hAC : AttachedConj) (hHC : HTConj) : EigenformHT := by
+  intro ℓ _ ιC ιL M k χ g ρ hM hk hg hss hatt
+  obtain ⟨N, χ', f, hN, hNM, hf, hcoef⟩ := hL5 M k χ g hM hg
+  obtain ⟨ρf, hssf, hattf⟩ := hR ℓ ιC ιL N k χ' f hN (by omega) hf.1
+  have hHT := hNew ℓ ιC ιL N k χ' f ρf hN hk hf hssf hattf
+  -- `ρf` and `ρ` agree at Frobenius outside the primes dividing `M ℓ`
+  have hconj : IsConj ρf ρ := by
+    refine hAC ℓ ρf ρ (M * ℓ).primeFactors hssf hss fun p hp hpS => ?_
+    have hpM : ¬ p ∣ M * ℓ := by
+      intro h
+      exact hpS (Nat.mem_primeFactors.mpr ⟨hp, h, by
+        exact Nat.mul_ne_zero (by omega) (Fact.out : ℓ.Prime).ne_zero⟩)
+    have hpN : ¬ p ∣ N * ℓ := fun h => hpM (by
+      rcases (Nat.Prime.dvd_mul hp).mp h with h1 | h1
+      · exact Dvd.dvd.mul_right (h1.trans hNM) ℓ
+      · exact Dvd.dvd.mul_left h1 M)
+    obtain ⟨hu, α, hα, htr⟩ := hatt p hp hpM
+    obtain ⟨huf, αf, hαf, htrf⟩ := hattf p hp hpN
+    have hpM' : ¬ p ∣ M := fun h => hpM (Dvd.dvd.mul_right h ℓ)
+    have heq : αf = α := by
+      apply ιC.toRingHom.injective
+      change ιC αf = ιC α
+      rw [hαf, hα, hcoef p hp hpM']
+    refine ⟨huf, hu, fun v σ hv hσ => ?_⟩
+    rw [htrf v σ hv hσ, htr v σ hv hσ, heq]
+  exact hHC ℓ 2 ρf ρ _ hconj hHT
+
+
+section CoefIndep
+
+variable {n : ℕ}
+
+theorem finrank_fun_eq {K M : Type*} [Field K] [AddCommGroup M] [Module K M] (d : ℕ) :
+    finrank K (Fin d → M) = d * finrank K M := by
+  rw [finrank, rank_fun_eq_lift_mul, Cardinal.toNat_mul, Cardinal.toNat_natCast,
+    Cardinal.toNat_lift, Fintype.card_fin]
+  rfl
+
+theorem finrank_Dsp_pi' {K G B V : Type*} [Field K] [Group G] [AddCommGroup B] [Module K B]
+    [AddCommGroup V] [Module K V] (act : G → B →ₗ[K] B) (ρ : G → V →ₗ[K] V) (S : Set G) (d : ℕ) :
+    finrank K (Dsp act (piRep ρ (Fin d)) S) = d * finrank K (Dsp act ρ S) := by
+  rw [(DspPiEquiv act ρ S (Fin d)).finrank_eq, finrank_fun_eq]
+
+variable {n : ℕ}
+
+/-- The swap `(Fin n → Fin d → E) ≃ (Fin d → Fin n → E)`. -/
+def swapEquiv (R M : Type*) [Semiring R] [AddCommMonoid M] [Module R M] (n d : ℕ) :
+    (Fin n → Fin d → M) ≃ₗ[R] (Fin d → Fin n → M) where
+  toFun x j i := x i j
+  invFun x i j := x j i
+  map_add' _ _ := rfl
+  map_smul' _ _ := rfl
+  left_inv _ := rfl
+  right_inv _ := rfl
+
+/-- **Core count (abstract fields).** For `E'/E` finite and matrices `M g` over `E`, the
+`K`-dimension of the equivariant maps out of `E'ⁿ` (action `M g` read in `E'`) is `[E':E]` times the
+one out of `Eⁿ`. -/
+theorem dsp_finrank_extend {K E E' G B : Type*} [Field K] [Field E] [Field E'] [Algebra K E]
+    [Algebra K E'] [Algebra E E'] [IsScalarTower K E E'] [FiniteDimensional E E'] [Group G]
+    [AddCommGroup B] [Module K B] (act : G → B →ₗ[K] B) (M : G → Matrix (Fin n) (Fin n) E)
+    (S : Set G) :
+    finrank K (Dsp act (fun g => (Matrix.mulVecLin ((M g).map (algebraMap E E'))).restrictScalars K) S)
+      = finrank E E' * finrank K (Dsp act (fun g => (Matrix.mulVecLin (M g)).restrictScalars K) S) := by
+  classical
+  set d := finrank E E'
+  let b : Basis (Fin d) E E' := Module.finBasis E E'
+  let ΨE : (Fin n → E') ≃ₗ[E] (Fin n → Fin d → E) := LinearEquiv.piCongrRight fun _ => b.equivFun
+  let Ψ : (Fin n → E') ≃ₗ[K] (Fin d → Fin n → E) :=
+    (ΨE.restrictScalars K).trans (swapEquiv K E n d)
+  have hΨ : ∀ y j i, Ψ y j i = b.repr (y i) j := fun _ _ _ => rfl
+  have hequiv : ∀ g y, Ψ ((Matrix.mulVecLin ((M g).map (algebraMap E E'))).restrictScalars K y) =
+      piRep (fun g => (Matrix.mulVecLin (M g)).restrictScalars K) (Fin d) g (Ψ y) := by
+    intro g y
+    funext j i
+    rw [hΨ, piRep_apply]
+    simp only [LinearMap.restrictScalars_apply, Matrix.mulVecLin_apply, Matrix.mulVec, dotProduct,
+      Matrix.map_apply, ← Algebra.smul_def, map_sum, map_smul, Finsupp.coe_finset_sum,
+      Finset.sum_apply, Finsupp.smul_apply, smul_eq_mul]
+    rfl
+  rw [finrank_Dsp_congr act _ (piRep (fun g => (Matrix.mulVecLin (M g)).restrictScalars K) (Fin d))
+    S Ψ hequiv, finrank_Dsp_pi']
+
+/-- **Enlarging the coefficient field does not change `htMult`.** -/
+theorem htMult_eq_of_le {E E' : IntermediateField ℚ_[p] (PadicAlgCl p)} (hle : E ≤ E')
+    [FiniteDimensional ℚ_[p] E] [FiniteDimensional ℚ_[p] E']
+    (ρE : GQp p →* GL (Fin n) E) (ρE' : GQp p →* GL (Fin n) E')
+    (hent : ∀ σ i j, (((ρE' σ : Matrix (Fin n) (Fin n) E') i j : E') : PadicAlgCl p) =
+      (((ρE σ : Matrix (Fin n) (Fin n) E) i j : E) : PadicAlgCl p)) (w : ℤ) :
+    htMult p ρE' w = htMult p ρE w := by
+  classical
+  letI alg : Algebra E E' := (IntermediateField.inclusion hle).toAlgebra
+  letI mod : Module E E' := alg.toModule
+  haveI fr : Module.Free E E' := Module.Free.of_divisionRing E E'
+  have hinc : ∀ a : E, ((algebraMap E E' a : E') : PadicAlgCl p) = (a : PadicAlgCl p) :=
+    fun _ => rfl
+  haveI tow : IsScalarTower ℚ_[p] E E' := IsScalarTower.of_algebraMap_eq fun c => by
+    apply Subtype.ext
+    rw [hinc]
+    rfl
+  haveI fd : FiniteDimensional E E' := FiniteDimensional.right ℚ_[p] E E'
+  have hmat : ∀ σ, (ρE' σ : Matrix (Fin n) (Fin n) E') =
+      (ρE σ : Matrix (Fin n) (Fin n) E).map (algebraMap E E') := fun σ =>
+    Matrix.ext fun i k => Subtype.ext ((hent σ i k).trans (hinc _).symm)
+  have hX : ∀ i : ℤ, finrank ℚ_[p] (htSpace p ρE' i) =
+      finrank E E' * finrank ℚ_[p] (htSpace p ρE i) := by
+    intro i
+    rw [htSpace_eq_DspMat, htSpace_eq_DspMat]
+    have h1 : (matRep p ρE' : GQp p → (Fin n → E') →ₗ[ℚ_[p]] (Fin n → E')) =
+        fun σ => (Matrix.mulVecLin ((ρE σ : Matrix (Fin n) (Fin n) E).map
+          (algebraMap E E'))).restrictScalars ℚ_[p] := by
+      funext σ; rw [← hmat]; rfl
+    have h2 : (matRep p ρE : GQp p → (Fin n → E) →ₗ[ℚ_[p]] (Fin n → E)) =
+        fun σ => (Matrix.mulVecLin (ρE σ : Matrix (Fin n) (Fin n) E)).restrictScalars ℚ_[p] := rfl
+    rw [h1, h2]
+    exact dsp_finrank_extend (htAct p i) (fun σ => (ρE σ : Matrix (Fin n) (Fin n) E)) Set.univ
+  have hdeg : finrank ℚ_[p] E' = finrank ℚ_[p] E * finrank E E' :=
+    (Module.finrank_mul_finrank ℚ_[p] E E').symm
+  have hd : 0 < finrank E E' := Module.finrank_pos
+  rw [htMult, htMult, hX, hdeg, mul_comm (finrank ℚ_[p] E) (finrank E E'),
+    Nat.mul_div_mul_left _ _ hd]
+
+/-- Two finite coefficient fields give the same multiplicities. -/
+theorem htMult_eq_of_lifts (ρ : GQp p →* GL (Fin n) (PadicAlgCl p))
+    {E₁ E₂ : IntermediateField ℚ_[p] (PadicAlgCl p)} [FiniteDimensional ℚ_[p] E₁]
+    [FiniteDimensional ℚ_[p] E₂] (ρ₁ : GQp p →* GL (Fin n) E₁) (ρ₂ : GQp p →* GL (Fin n) E₂)
+    (h₁ : ∀ σ, Matrix.GeneralLinearGroup.map (algebraMap E₁ (PadicAlgCl p)) (ρ₁ σ) = ρ σ)
+    (h₂ : ∀ σ, Matrix.GeneralLinearGroup.map (algebraMap E₂ (PadicAlgCl p)) (ρ₂ σ) = ρ σ)
+    (w : ℤ) : htMult p ρ₁ w = htMult p ρ₂ w := by
+  have hent : ∀ {E : IntermediateField ℚ_[p] (PadicAlgCl p)} (ρE : GQp p →* GL (Fin n) E),
+      (∀ σ, Matrix.GeneralLinearGroup.map (algebraMap E (PadicAlgCl p)) (ρE σ) = ρ σ) →
+      ∀ σ i j, (((ρE σ : Matrix (Fin n) (Fin n) E) i j : E) : PadicAlgCl p) =
+        (ρ σ : Matrix (Fin n) (Fin n) (PadicAlgCl p)) i j := by
+    intro E ρE h σ i j
+    rw [← h σ]
+    rfl
+  let E₃ := E₁ ⊔ E₂
+  have hmem : ∀ σ i j, (ρ σ : Matrix (Fin n) (Fin n) (PadicAlgCl p)) i j ∈ E₃ := by
+    intro σ i j
+    rw [← hent ρ₁ h₁]
+    exact (le_sup_left : E₁ ≤ E₃) (((ρ₁ σ : Matrix (Fin n) (Fin n) E₁) i j).2)
+  let ρ₃ := liftGL E₃ ρ hmem
+  have e1 := htMult_eq_of_le p (le_sup_left : E₁ ≤ E₃) ρ₁ ρ₃
+    (fun σ i j => (liftGL_coe E₃ ρ hmem σ i j).trans (hent ρ₁ h₁ σ i j).symm) w
+  have e2 := htMult_eq_of_le p (le_sup_right : E₂ ≤ E₃) ρ₂ ρ₃
+    (fun σ i j => (liftGL_coe E₃ ρ hmem σ i j).trans (hent ρ₂ h₂ σ i j).symm) w
+  rw [← e1, ← e2]
+
+/-- Conjugation by a matrix over `E` does not change `htMult`. -/
+theorem htMult_conj {E : IntermediateField ℚ_[p] (PadicAlgCl p)} [FiniteDimensional ℚ_[p] E]
+    (ρ ρ' : GQp p →* GL (Fin n) E) (Pm Qm : Matrix (Fin n) (Fin n) E) (hQP : Qm * Pm = 1)
+    (hPQ : Pm * Qm = 1)
+    (h : ∀ σ, (ρ σ : Matrix (Fin n) (Fin n) E) = Pm * (ρ' σ : Matrix (Fin n) (Fin n) E) * Qm)
+    (w : ℤ) : htMult p ρ w = htMult p ρ' w := by
+  let e : (Fin n → E) ≃ₗ[ℚ_[p]] (Fin n → E) :=
+    { toFun := fun v => Qm.mulVec v
+      invFun := fun v => Pm.mulVec v
+      map_add' := fun v v' => Matrix.mulVec_add _ _ _
+      map_smul' := fun c v => by
+        simp only [RingHom.id_apply]
+        rw [show c • v = algebraMap ℚ_[p] E c • v from (algebraMap_smul E c v).symm,
+          Matrix.mulVec_smul, algebraMap_smul]
+      left_inv := fun v => by
+        simp only [Matrix.mulVec_mulVec, hPQ, Matrix.one_mulVec]
+      right_inv := fun v => by
+        simp only [Matrix.mulVec_mulVec, hQP, Matrix.one_mulVec] }
+  have he : ∀ σ v, e (matRep p ρ σ v) = matRep p ρ' σ (e v) := by
+    intro σ v
+    change Qm.mulVec ((ρ σ : Matrix (Fin n) (Fin n) E).mulVec v) =
+      (ρ' σ : Matrix (Fin n) (Fin n) E).mulVec (Qm.mulVec v)
+    rw [h σ, Matrix.mulVec_mulVec, Matrix.mulVec_mulVec, ← mul_assoc, ← mul_assoc, hQP, one_mul]
+  rw [htMult, htMult, htSpace_eq_DspMat, htSpace_eq_DspMat,
+    finrank_Dsp_congr (htAct p (-w)) (matRep p ρ) (matRep p ρ') Set.univ e he]
+
+end CoefIndep
+
+section HTConjSec
+
+/-- **g12-det's glue `HTConj`, proved.** -/
+theorem htConj_proof : HTConj := by
+  intro p _ n r ρ' S ⟨P, hP⟩ ⟨E, hEfd, rE, hrE, hw⟩
+  classical
+  let Pm := (P : Matrix (Fin n) (Fin n) (PadicAlgCl p))
+  let Qm := ((P⁻¹ : GL (Fin n) (PadicAlgCl p)) : Matrix (Fin n) (Fin n) (PadicAlgCl p))
+  let X : Set (PadicAlgCl p) := (Set.range fun ij : Fin n × Fin n => Pm ij.1 ij.2) ∪
+    Set.range fun ij : Fin n × Fin n => Qm ij.1 ij.2
+  haveI : Finite X := (Set.finite_range _ |>.union (Set.finite_range _)).to_subtype
+  haveI : FiniteDimensional ℚ_[p] (IntermediateField.adjoin ℚ_[p] X) :=
+    IntermediateField.finiteDimensional_adjoin fun x _ => Algebra.IsIntegral.isIntegral x
+  let E₃ := E ⊔ IntermediateField.adjoin ℚ_[p] X
+  have hPmem : ∀ i j, Pm i j ∈ E₃ := fun i j =>
+    (le_sup_right : _ ≤ E₃) (IntermediateField.subset_adjoin _ _ (Or.inl ⟨(i, j), rfl⟩))
+  have hQmem : ∀ i j, Qm i j ∈ E₃ := fun i j =>
+    (le_sup_right : _ ≤ E₃) (IntermediateField.subset_adjoin _ _ (Or.inr ⟨(i, j), rfl⟩))
+  have hrent : ∀ σ i j, (((rE σ : Matrix (Fin n) (Fin n) E) i j : E) : PadicAlgCl p) =
+      (r.restrictLocal p σ : Matrix (Fin n) (Fin n) (PadicAlgCl p)) i j := by
+    intro σ i j; rw [← hrE σ]; rfl
+  have hrmem : ∀ σ i j, (r.restrictLocal p σ : Matrix (Fin n) (Fin n) (PadicAlgCl p)) i j ∈ E₃ := by
+    intro σ i j
+    rw [← hrent]
+    exact (le_sup_left : E ≤ E₃) (((rE σ : Matrix (Fin n) (Fin n) E) i j).2)
+  have hρ'eq : ∀ σ, (ρ'.restrictLocal p σ : Matrix (Fin n) (Fin n) (PadicAlgCl p)) =
+      Qm * (r.restrictLocal p σ : Matrix (Fin n) (Fin n) (PadicAlgCl p)) * Pm := by
+    intro σ
+    have h1 : r.restrictLocal p σ = P * ρ'.restrictLocal p σ * P⁻¹ := hP _
+    have h2 : ρ'.restrictLocal p σ = P⁻¹ * r.restrictLocal p σ * P := by
+      rw [h1]; group
+    rw [h2]; rfl
+  have hρ'mem : ∀ σ i j, (ρ'.restrictLocal p σ : Matrix (Fin n) (Fin n) (PadicAlgCl p)) i j ∈ E₃ := by
+    intro σ i j
+    rw [hρ'eq]
+    simp only [Matrix.mul_apply]
+    refine E₃.sum_mem fun k _ => E₃.mul_mem ?_ (hPmem k j)
+    exact E₃.sum_mem fun m _ => E₃.mul_mem (hQmem i m) (hrmem σ m k)
+  let r₃ := liftGL E₃ (r.restrictLocal p) hrmem
+  let ρ₃ := liftGL E₃ (ρ'.restrictLocal p) hρ'mem
+  let Pm₃ : Matrix (Fin n) (Fin n) E₃ := fun i j => ⟨Pm i j, hPmem i j⟩
+  let Qm₃ : Matrix (Fin n) (Fin n) E₃ := fun i j => ⟨Qm i j, hQmem i j⟩
+  have hinj : Function.Injective (fun A : Matrix (Fin n) (Fin n) E₃ => A.map (algebraMap E₃ (PadicAlgCl p))) :=
+    Matrix.map_injective (algebraMap E₃ (PadicAlgCl p)).injective
+  have hPm₃ : Pm₃.map (algebraMap E₃ (PadicAlgCl p)) = Pm := by ext; rfl
+  have hQm₃ : Qm₃.map (algebraMap E₃ (PadicAlgCl p)) = Qm := by ext; rfl
+  have hQP : Qm₃ * Pm₃ = 1 := hinj (by
+    simp only [Matrix.map_mul, hPm₃, hQm₃, Matrix.map_one _ (map_zero _) (map_one _)]
+    simp [Qm, Pm])
+  have hPQ : Pm₃ * Qm₃ = 1 := hinj (by
+    simp only [Matrix.map_mul, hPm₃, hQm₃, Matrix.map_one _ (map_zero _) (map_one _)]
+    simp [Qm, Pm])
+  have hr₃map : ∀ σ, (r₃ σ : Matrix (Fin n) (Fin n) E₃).map (algebraMap E₃ (PadicAlgCl p)) =
+      (r.restrictLocal p σ : Matrix (Fin n) (Fin n) (PadicAlgCl p)) := fun σ => by ext; rfl
+  have hρ₃map : ∀ σ, (ρ₃ σ : Matrix (Fin n) (Fin n) E₃).map (algebraMap E₃ (PadicAlgCl p)) =
+      (ρ'.restrictLocal p σ : Matrix (Fin n) (Fin n) (PadicAlgCl p)) := fun σ => by ext; rfl
+  have hconj : ∀ σ, (ρ₃ σ : Matrix (Fin n) (Fin n) E₃) = Qm₃ * (r₃ σ : Matrix (Fin n) (Fin n) E₃) * Pm₃ :=
+    fun σ => hinj (by simp only [Matrix.map_mul, hρ₃map, hr₃map, hPm₃, hQm₃, hρ'eq])
+  refine ⟨E₃, inferInstance, ρ₃, fun σ => liftGL_map E₃ _ hρ'mem σ, fun w => ?_⟩
+  rw [htMult_conj p ρ₃ r₃ Qm₃ Pm₃ hPQ hQP hconj w,
+    htMult_eq_of_le p (le_sup_left : E ≤ E₃) rE r₃
+      (fun σ i j => (liftGL_coe E₃ _ hrmem σ i j).trans (hrent σ i j).symm) w]
+  exact hw w
+
+end HTConjSec
+
+/-- **H-10 from its newform case and the kernel's leaves** (`NewformOfEigenform` = I4-L5,
+`EigenformRepExists` = R14 without the determinant). -/
+theorem eigenformHT_of_kato (hNew : EigenformHTNew) (hL5 : NewformOfEigenform)
+    (hR : EigenformRepExists) : EigenformHT :=
+  eigenformHT_of_new hNew hL5 hR attachedConj_proof htConj_proof
+
+/-- `EigenformRepExists` (R14 without the determinant) from `R14Det`. -/
+theorem eigenformRepExists_of_r14Det (h : G0Galois.R14Det) : EigenformRepExists := by
+  intro ℓ _ ιC ιL N k χ g hN hk hg
+  obtain ⟨ρ, hss, hatt, -⟩ := h ℓ ιC ιL N k χ g hN hk hg
+  exact ⟨ρ, hss, hatt⟩
+
+/-- **H-10 from its newform case, the kernel's I4-L5 and Diamond–Shurman's two printed theorems.** -/
+theorem eigenformHT_of_kato_ds (hNew : EigenformHTNew) (hL5 : NewformOfEigenform)
+    (hD : DSThm965) (hDS : DSThm966) : EigenformHT :=
+  eigenformHT_of_kato hNew hL5 (eigenformRepExists_of_r14Det (r14Det_of_printed hD hDS))
+
+end EigenformHTClosed
+
 end
 
 end ZInQ.Contrib.HodgeSplit
@@ -1198,3 +1494,4 @@ end ZInQ.Contrib.HodgeSplit
 #print axioms ZInQ.Contrib.HodgeSplit.detFromFrobenius_proof
 #print axioms ZInQ.Contrib.HodgeSplit.artinTransport_proof
 #print axioms ZInQ.Contrib.HodgeSplit.r14Det_of_printed
+#print axioms ZInQ.Contrib.HodgeSplit.eigenformHT_of_kato_ds
