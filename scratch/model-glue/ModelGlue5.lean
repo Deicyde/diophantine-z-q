@@ -3509,6 +3509,155 @@ theorem ffMap_bijective (f : X ⟶ Z) [IsOpenImmersion f]
   haveI : IsIso (ffMap f e) := by unfold ffMap; infer_instance
   exact ConcreteCategory.bijective_of_isIso (ffMap f e)
 
+/-! ## Part 18: `ModelFunctionField` -/
+
+/-- **`ModelFunctionField` from `CurveBijIso` and `TwistClassFinite` (proved).** `R1univProps`
+gives `g : 𝒴_ℚ → Y`, bijective on `ℚ̄`-points, an isomorphism by `CurveBijIso`; `𝒴_ℚ → 𝒴` is an
+open immersion (`ℚ = ℤ_(p)[1/p]`), so `ℚ(𝒴) ≅ ℚ(𝒴_ℚ) ≅ ℚ(Y) ≅ ℚ(Spec B) ≅ E`; under these, the
+germ of `ρ` goes to the germ of `ρ ∘ j`, equal (Möbius rigidity on `𝒴_ℚ` + Jacobson) to that of
+`π ∘ g`, i.e. to the germ of `π`, whose image on the chart is `X` (Jacobson on `Spec B`). -/
+theorem modelFunctionField_of_curveBijIso (hT : TwistClassFinite) (hC : CurveBijIso) :
+    ModelFunctionField := by
+  intro p _ hp 𝒴 𝒜 hM hCM Y Φ π h1 hh h2 hI ρ hρ hη E _ _ _ _ _ _ hN
+  obtain ⟨g, hgΦ, hbij⟩ := exists_genFib_to_Y hM h1
+  have hSp := genFib_isProper 𝒴 hM.1
+  have hSs := genFib_smooth 𝒴 hM.2.1
+  haveI : IsIso g := hC (genFib 𝒴) Y hSp hSs h1.1 h1.2.1 g hbij
+  haveI : IsIso g.left := (Over.forget _).map_isIso g
+  haveI : SmoothOfRelativeDimension 1 Y.hom := h1.2.1
+  haveI : Smooth Y.hom := SmoothOfRelativeDimension.smooth 1 Y.hom
+  haveI : SmoothOfRelativeDimension 1 (genFib 𝒴).hom := hSs
+  haveI : Smooth (genFib 𝒴).hom := SmoothOfRelativeDimension.smooth 1 (genFib 𝒴).hom
+  haveI : IrreducibleSpace Y.left := irreducible_of_chart hT h1 h2 E hN
+  haveI : IsReduced Y.left := isReduced_of_smooth_domain Y.hom
+  haveI : IsIntegral Y.left := isIntegral_of_irreducibleSpace_of_isReduced _
+  haveI : IsIntegral (genFib 𝒴).left := IsIntegral.of_isIso (inv g.left)
+  haveI : LocallyOfFiniteType (genFib 𝒴).hom := inferInstance
+  haveI : LocallyOfFiniteType Y.hom := inferInstance
+  haveI : IsOpenImmersion (specRatToZloc p) := isOpenImmersion_specRatToZloc p
+  set j : (genFib 𝒴).left ⟶ 𝒴.left := pullback.fst 𝒴.hom (specRatToZloc p) with hj
+  haveI : IsOpenImmersion j :=
+    MorphismProperty.pullback_fst (P := @IsOpenImmersion) _ _ (isOpenImmersion_specRatToZloc p)
+  have ej : j (genericPoint (genFib 𝒴).left) = genericPoint 𝒴.left :=
+    genericPoint_eq_of_isOpenImmersion j
+  have eg : g.left (genericPoint (genFib 𝒴).left) = genericPoint Y.left :=
+    genericPoint_eq_of_isOpenImmersion g.left
+  obtain ⟨h, hO, -, hval⟩ := hN
+  haveI := hO
+  have eh : h (genericPoint (Spec (CommRingCat.of (integralClosure ℚ[X] E)))) = genericPoint Y.left :=
+    genericPoint_eq_of_isOpenImmersion h
+  set σ : ToP1 (genFib 𝒴).left := ρ.comp j with hσ
+  set τ : ToP1 (genFib 𝒴).left := π.comp g.left with hτ
+  have hση : genericPoint (genFib 𝒴).left ∈ σ.U := by
+    show j (genericPoint _) ∈ ρ.U
+    rw [ej]
+    exact hη
+  -- the values of `σ = ρ ∘ j` and `τ = π ∘ g` agree (Möbius rigidity)
+  have hvalS : ∀ s : fieldPt Qbar ⟶ genFib 𝒴,
+      τ.val (K := Qbar) s.left = σ.val (K := Qbar) s.left := by
+    have hσs : ∀ s : fieldPt Qbar ⟶ genFib 𝒴, σ.val (K := Qbar) s.left = ρ.val (s.left ≫ j) :=
+      fun s => ToP1.val_comp_right ρ j s.left
+    have hτs : ∀ s : fieldPt Qbar ⟶ genFib 𝒴,
+        τ.val (K := Qbar) s.left = π.val (K := Qbar) (s ≫ g).left :=
+      fun s => ToP1.val_comp_right π g.left s.left
+    obtain ⟨-, -, hfib, hinjM, hsurjM, -, -, -⟩ := hM
+    have hP : ∀ s : fieldPt Qbar ⟶ genFib 𝒴, ∃ P : QML3 Qbar, IsFibreOf 𝒜 (s.left ≫ j) P :=
+      fun s => hfib Qbar (s.left ≫ j)
+    choose Pof hPof using hP
+    have hΦ' : ∀ (s : fieldPt Qbar ⟶ genFib 𝒴) (P : QML3 Qbar), IsFibreOf 𝒜 (s.left ≫ j) P →
+        Φ Qbar (s ≫ g) = M3.mk P := fun s P hP => hgΦ Qbar s P hP
+    have hrel : ∀ s₁ s₂ : fieldPt Qbar ⟶ genFib 𝒴,
+        σ.val (K := Qbar) s₁.left = σ.val (K := Qbar) s₂.left ↔
+          τ.val (K := Qbar) s₁.left = τ.val (K := Qbar) s₂.left := by
+      intro s₁ s₂
+      rw [hσs, hσs, hτs, hτs, (hρ _ _ _ _ (hPof s₁) (hPof s₂)).1,
+        (h2 _ _ _ _ (hΦ' s₁ _ (hPof s₁)) (hΦ' s₂ _ (hPof s₂))).1]
+    have hcm : ∀ P : QML3 Qbar, ∃ s : fieldPt Qbar ⟶ genFib 𝒴, IsFibreOf 𝒜 (s.left ≫ j) P := by
+      intro P
+      obtain ⟨y, hy⟩ := hsurjM P
+      obtain ⟨s, hs⟩ := genFib_pt 𝒴 y
+      exact ⟨s, hs ▸ hy⟩
+    obtain ⟨⟨P₄, c₄⟩, ⟨P₃, c₃⟩, ⟨P₂, c₂⟩⟩ := hCM
+    obtain ⟨y₄, f₄⟩ := hcm P₄
+    obtain ⟨y₃, f₃⟩ := hcm P₃
+    obtain ⟨y₂, f₂⟩ := hcm P₂
+    have hfin : ∀ s : fieldPt Qbar ⟶ genFib 𝒴, {s' : fieldPt Qbar ⟶ genFib 𝒴 |
+        σ.val (K := Qbar) s'.left = σ.val (K := Qbar) s.left}.Finite := by
+      intro s
+      have hmkinj : Function.Injective (fun s : fieldPt Qbar ⟶ genFib 𝒴 => M3.mk (Pof s)) := by
+        intro s s' hss
+        exact genFib_pt_inj 𝒴 s s' (hinjM _ _ _ _ (hPof s) (hPof s') hss)
+      refine ((hT (Pof s)).preimage (Set.injOn_of_injective hmkinj)).subset ?_
+      intro s' hs'
+      have e : σ.val (K := Qbar) s.left = σ.val (K := Qbar) s'.left := hs'.symm
+      rw [hσs, hσs] at e
+      exact ⟨Pof s', rfl, ((hρ _ _ _ _ (hPof s) (hPof s')).1).1 e⟩
+    refine val_eq_of_same_fibres hSp hSs σ τ hrel y₄ y₃ y₂ ?_ ?_ ?_ ?_ ?_ ?_ hfin
+    · rw [hσs]; exact (hρ _ _ _ _ f₄ f₄).2.1 c₄
+    · rw [hτs]; exact (h2 _ _ _ _ (hΦ' y₄ P₄ f₄) (hΦ' y₄ P₄ f₄)).2.1 c₄
+    · rw [hσs]; exact (hρ _ _ _ _ f₃ f₃).2.2.1 c₃
+    · rw [hτs]; exact (h2 _ _ _ _ (hΦ' y₃ P₃ f₃) (hΦ' y₃ P₃ f₃)).2.2.1 c₃
+    · rw [hσs]; exact (hρ _ _ _ _ f₂ f₂).2.2.2 c₂
+    · rw [hτs]; exact (h2 _ _ _ _ (hΦ' y₂ P₂ f₂) (hΦ' y₂ P₂ f₂)).2.2.2 c₂
+  obtain ⟨hτη, hgerm⟩ := germ_eq_of_val_eq (genFib 𝒴) σ τ (fun s => (hvalS s).symm) hση
+  have hπη : genericPoint Y.left ∈ π.U := by
+    have : g.left (genericPoint _) ∈ π.U := hτη
+    rwa [eg] at this
+  have hBη : genericPoint (Spec (CommRingCat.of (integralClosure ℚ[X] E))) ∈ (π.comp h).U := by
+    show h _ ∈ π.U
+    rw [eh]
+    exact hπη
+  -- the maps of function fields
+  have hφb := ffMap_bijective j ej
+  have hψb := ffMap_bijective g.left eg
+  have hθb := ffMap_bijective h eh
+  haveI : IsFractionRing (integralClosure ℚ[X] E) E := integralClosure.isFractionRing_of_finite_extension (RatFunc ℚ) E
+  letI algB : Algebra (CommRingCat.of (integralClosure ℚ[X] E))
+      (Spec (CommRingCat.of (integralClosure ℚ[X] E))).functionField :=
+    @instAlgebraCarrierFunctionFieldSpec (CommRingCat.of (integralClosure ℚ[X] E)) _
+  haveI : IsFractionRing (CommRingCat.of (integralClosure ℚ[X] E))
+      (Spec (CommRingCat.of (integralClosure ℚ[X] E))).functionField :=
+    functionField_isFractionRing_of_affine _
+  let hBe : (CommRingCat.of (integralClosure ℚ[X] E)) ≃+* (integralClosure ℚ[X] E) :=
+    RingEquiv.refl _
+  let eB : (Spec (CommRingCat.of (integralClosure ℚ[X] E))).functionField ≃+* E :=
+    IsFractionRing.ringEquivOfRingEquiv hBe
+  let ψe := RingEquiv.ofBijective (ffMap g.left eg).hom hψb
+  refine ⟨eB.toRingHom.comp
+    ((ffMap h eh).hom.comp (ψe.symm.toRingHom.comp (ffMap j ej).hom)), ?_, ?_⟩
+  · exact eB.surjective.comp (hθb.2.comp (ψe.symm.surjective.comp hφb.2))
+  · have k1 : (ffMap j ej) (𝒴.left.presheaf.germ ρ.U _ hη ρ.f) =
+        (genFib 𝒴).left.presheaf.germ σ.U _ hση σ.f := ffMap_germ j ej ρ.U hη ρ.f hση
+    have k2 : (ffMap g.left eg) (Y.left.presheaf.germ π.U _ hπη π.f) =
+        (genFib 𝒴).left.presheaf.germ τ.U _ hτη τ.f := ffMap_germ g.left eg π.U hπη π.f hτη
+    have k3 : ψe.symm ((genFib 𝒴).left.presheaf.germ σ.U _ hση σ.f) =
+        Y.left.presheaf.germ π.U _ hπη π.f := by
+      rw [hgerm, ← k2]
+      exact ψe.symm_apply_apply _
+    have k4 : (ffMap h eh) (Y.left.presheaf.germ π.U _ hπη π.f) =
+        (Spec (CommRingCat.of (integralClosure ℚ[X] E))).presheaf.germ (π.comp h).U _ hBη (π.comp h).f :=
+      ffMap_germ h eh π.U hπη π.f hBη
+    have k5 := germ_chart_eq h π (algebraMap ℚ[X] (integralClosure ℚ[X] E) X) hval hBη
+    have k6 : (Spec (CommRingCat.of (integralClosure ℚ[X] E))).presheaf.germ ⊤ _ trivial
+        ((Scheme.ΓSpecIso (CommRingCat.of (integralClosure ℚ[X] E))).inv (algebraMap ℚ[X] (integralClosure ℚ[X] E) X)) =
+          algebraMap (CommRingCat.of (integralClosure ℚ[X] E))
+            (Spec (CommRingCat.of (integralClosure ℚ[X] E))).functionField
+            (algebraMap ℚ[X] (integralClosure ℚ[X] E) X) := rfl
+    simp only [RingHom.comp_apply]
+    rw [k1]
+    erw [k3]
+    rw [k4, k5, k6]
+    show eB (algebraMap (CommRingCat.of (integralClosure ℚ[X] E)) _
+      (algebraMap ℚ[X] (integralClosure ℚ[X] E) X)) = _
+    rw [IsFractionRing.ringEquivOfRingEquiv_algebraMap]
+    exact (IsScalarTower.algebraMap_apply ℚ[X] (integralClosure ℚ[X] E) E X).symm
+
+/-- **`ModelComparison` from `CurveBijIso` and the leaf T5 (proved).** -/
+theorem modelComparison_of_curveBijIso (hT : ObjBridge.TorsionStructure) (hC : CurveBijIso) :
+    ModelComparison :=
+  modelComparison_of (modelIntegral_of (twistClassFinite hT) hC)
+    (modelFunctionField_of_curveBijIso (twistClassFinite hT) hC)
+
 end ModelGlue
 
 end
@@ -3518,3 +3667,5 @@ end
 #print axioms ModelGlue.germ_chart_eq
 #print axioms ModelGlue.val_eq_of_same_fibres
 #print axioms ModelGlue.ffMap_bijective
+#print axioms ModelGlue.modelFunctionField_of_curveBijIso
+#print axioms ModelGlue.modelComparison_of_curveBijIso

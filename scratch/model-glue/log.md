@@ -66,3 +66,24 @@ Open after step 3: `ModelCoordinateResidue`, `ModelIntegral`, `ModelFunctionFiel
 - `irreducibleSpace_of_genFib` (D(p) dense in reduced flat 𝒴, contained in the image of 𝒴_ℚ).
 - **`modelIntegral_of (hT : TwistClassFinite) (hC : CurveBijIso) : ModelIntegral` — PROVED.**
 - All `#print axioms`: [propext, Classical.choice, Quot.sound].
+
+## Step 5 (00:25, 2026-11-14) — VERIFIED (ModelGlue5.lean = ModelGlue4.lean + ModelGlue5.lean.part; lake env lean exit 0, ~25 s; compile5_out.txt; no sorry)
+- `zloc_away`: `ℚ` is `IsLocalization.Away (p : ℤ_(p))` (algebra `zlocToRat`);
+  `isOpenImmersion_specRatToZloc`, so `j : 𝒴_ℚ → 𝒴` is an open immersion.
+- `isReduced_of_smooth_domain` (smooth over Spec of a domain ⇒ reduced).
+- `germ_eq_of_closedPoints` (integral Jacobson scheme: equal values at closed points ⇒ equal germs
+  at η), `germ_eq_of_val_eq` (ToP1 on integral ℚ-scheme, equal ℚ̄-values ⇒ equal germs),
+  `germ_chart_eq` (on the chart `Spec B`, germ of `π ∘ h` at η is `X`).
+- `val_eq_of_same_fibres` (Möbius rigidity on a proper smooth ℚ-curve, from proved `curveFacts`).
+- `ffMap`, `ffMap_germ`, `ffMap_bijective` (function-field maps along open immersions).
+- **`modelFunctionField_of_curveBijIso (hT : TwistClassFinite) (hC : CurveBijIso) :
+  ModelFunctionField` — PROVED.**
+- **`modelComparison_of_curveBijIso (hT : ObjBridge.TorsionStructure) (hC : CurveBijIso) :
+  ModelComparison` — PROVED** (target `ModelComparison` now rests on T5 and the single textbook
+  leaf `CurveBijIso`).
+- All `#print axioms`: [propext, Classical.choice, Quot.sound].
+Pitfalls found: `set B := integralClosure …` re-created `h` (lost its instance); the Mathlib
+instance `Algebra R (Spec R).functionField` is not found for `R = CommRingCat.of B` (CommRing
+instance path via `forget`); use `@instAlgebraCarrierFunctionFieldSpec` and
+`IsFractionRing.ringEquivOfRingEquiv (RingEquiv.refl _)`; `IsOpenImmersion (pullback.fst _ g)`
+instance not found for the generic `HasPullback`; use `MorphismProperty.pullback_fst`.
