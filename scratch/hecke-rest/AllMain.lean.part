@@ -28,6 +28,17 @@ theorem coverModelOfHecke_of_heckeRest (hconn : Y3Connected) (hRR : R1R2fp)
     HeckeRestCurve.curveChartInf (HeckeRest.heckeFibreSizes_of hT hA hS hW)
     (HeckeRestNV.heckeNoVertRam_of_witness hV)
 
+/-- **`CoverModelOfHecke` from hecke-rest's inputs, local-ring form** (compiled): as
+`coverModelOfHecke_of_heckeRest` with `HeckeVertLocal` (local-ring witnesses, the shape of the
+good-reduction input) in place of `HeckeVertWitness`. -/
+theorem coverModelOfHecke_of_heckeRest' (hconn : Y3Connected) (hRR : R1R2fp)
+    (hT : ObjBridge.TorsionStructure)
+    (hA : HeckeRest.QMAutCard) (hS : HeckeRest.SerreRigidity3) (hW : HeckeRest.ALFixedPoints)
+    (hV : HeckeRestNV.HeckeVertLocal) : CoverModelOfHecke :=
+  coverModelOfHecke_of_tsHecke' hconn hRR hT HeckeRestCurve.curveNormChart
+    HeckeRestCurve.curveChartInf (HeckeRest.heckeFibreSizes_of hT hA hS hW)
+    (HeckeRestNV.heckeNoVertRam_of_local hV)
+
 /-- **`PropTSAll` from hecke-rest's inputs** (compiled; through ts-hecke's `propTSAll_of_tsHecke'`
 and prop-ts-glue's `propTSAll_final`). -/
 theorem propTSAll_of_heckeRest (t2 : PkgI2.AbhyankarDVR.{0}) (hR : R1R2fp) (hM : Pin.MobiusGlue)
@@ -49,3 +60,4 @@ end
 #print axioms HeckeRestAll.curveGaloisChart
 #print axioms HeckeRestAll.coverModelOfHecke_of_heckeRest
 #print axioms HeckeRestAll.propTSAll_of_heckeRest
+#print axioms HeckeRestAll.coverModelOfHecke_of_heckeRest'
