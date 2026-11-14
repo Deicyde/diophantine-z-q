@@ -43,3 +43,15 @@ H-85 CurveBijIso (scratch/model-glue/ModelGlue6.lean), H-83 ShimuraGoodReduction
   field ⇒ reduced; components of a smooth curve are disjoint and open; non-closed point of a dim ≤ 1 Jacobson
   space is generic in a component; `bijective_of_closedPoints` (topology); `closedPoint_facts` (Mathlib
   pointEquivClosedPoint); restriction over a component; IsZariskiLocalAtTarget for isomorphisms.
+
+## H-79 GenusX1Field
+- Finding (VERIFIED by reading consumers): T34/DimJ1Genus is only used via `LeafModCurves.dim_J1_le`
+  (dim J₁(N) ≤ N²), in `javanpeykarJ1` and TailD E2 (scratch/g0-assemble2/olean). The equality is not needed.
+- Equality's sources (Shimura 1971 §6.7, Prop 1.40) concern Γ₁(N)\ℍ* as a compact Riemann surface: no Lean
+  definition in Mathlib 4.35 (checked: NumberTheory/ModularForms has no quotient Riemann surface / genus).
+- `scratch/curve-split/GenusBound.lean` COMPILED (standard axioms): `genusX1Le_of_genusX1Field`,
+  `dimJ1Le_of : DimJacobianEqGenus → GenusX1Le → DimJ1Le`, `genusX1Le_of_belyi : BelyiGenusBound →
+  X0Transitive → GenusX1Le` (uses kernel `ZInQ.RLeaf.belyiX1`, `x1ConstantField_of_x0Transitive`),
+  `dimJ1Le_of_belyi`.
+- `BelyiGenusBound` = named GLUE (Riemann–Hurwitz bound 2g+1 ≤ d for Belyi functions), needs RH
+  (Stichtenoth 3.4.13 + 3.5.1), fundamental identity (3.1.11), places are DVRs (1.1.6), genus identification.
