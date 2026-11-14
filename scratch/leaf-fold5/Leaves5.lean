@@ -121406,6 +121406,24 @@ theorem jacobianExists_ofK5 (h : _root_.LeafModCurves.JacobianExists ℚ) : Leaf
   obtain ⟨J, aj, hJ⟩ := h X ⟨hX.proper, hX.smooth, hX.geomConnected⟩ P₀
   exact ⟨ofAbVarK4 J, aj, ⟨hJ.base, fun A f hf => hJ.univ (toAbVarK4 A) f hf⟩⟩
 
+/-! ### Groups F, G: R16 (Eichler–Shimura on `J₁(N)`) and R17 (Carayol) -/
+
+/-- R17 (`CarayolR17'`, Carayol 1986 Thm (A)) from the kernel's statement (the chain's `GaloisRep` is a copy of the
+kernel's structure, rebuilt from its two fields). -/
+theorem carayolR17_ofK5 (h : _root_.LadicCond.CarayolR17') : LadicCond.CarayolR17' := by
+  intro ℓ _ ιC ιL N χ f ρ p _ hN hf hs ha hp
+  exact h ℓ ιC ιL N χ f ⟨ρ.toHom, ρ.continuous_toHom⟩ p hN hf hs ha hp
+
+set_option maxHeartbeats 8000000 in
+/-- R16 (`R16_EichlerShimuraJ1'`) from the kernel's statement (`IsJ1` transported as for T34; the quotient `A` is
+the kernel's abelian variety, read back with `ofAbVarK4`). Lean needs about 6 minutes of unfolding here. -/
+theorem eichlerShimuraJ1_ofK5 (h : _root_.LeafModCurves.R16_EichlerShimuraJ1') :
+    LeafModCurves.R16_EichlerShimuraJ1' := by
+  rintro N χ f J hN hf ⟨X, P₀, aj, hX, hJ⟩
+  obtain ⟨h1, A, π, θ, h2⟩ := h N χ f (toAbVarK4 J) hN hf
+    ⟨X, P₀, aj, ⟨⟨hX.1.proper, hX.1.smooth, hX.1.geomConnected⟩, hX.2⟩, isJacobianK_of5 hJ⟩
+  exact ⟨h1, ofAbVarK4 A, π, θ, h2⟩
+
 end HSyn
 
 end
@@ -121422,6 +121440,8 @@ end
 #print axioms HSyn.qmDichotomyYu_ofK5
 #print axioms HSyn.uniformizationExists_ofK5
 #print axioms HSyn.jacobianExists_ofK5
+#print axioms HSyn.carayolR17_ofK5
+#print axioms HSyn.eichlerShimuraJ1_ofK5
 
 end G0A2_e40_kernelfields
 
@@ -121485,9 +121505,10 @@ theorem t11b_of_exists5 (h : AVB2.T11bExists) : ZInQ.LeafPush2.T11b_Rigidity :=
 
 /-! ### The open statements -/
 
-/-- **The research leaves still open** (leaf-fold5): leaf-fold2's `OpenResearchLeaves2` with six fields
+/-- **The research leaves still open** (leaf-fold5): leaf-fold2's `OpenResearchLeaves2` with eight fields
 restated over the kernel's own Props (`ZInQKernel/HDecomp/Objects.lean`; the chain's are copies; part e40 derives
-the chain's from the kernel's): `r6`, `r7a`, `r7b`, `r8` (PkgI2), `r9a`, `r9b` (PkgI3). Same statements. -/
+the chain's from the kernel's): `r6`, `r7a`, `r7b`, `r8` (PkgI2), `r9a`, `r9b` (PkgI3), `r16` (ModCurves), `r17` (LadicCond). Same
+statements. -/
 structure OpenResearchLeaves5 : Prop where
   r1r2 : LeafAdopt.R1R2fpRep
   /-- R1(b), concrete (family form), for the triple of the leaf bundle. -/
@@ -121513,9 +121534,9 @@ structure OpenResearchLeaves5 : Prop where
   /-- R14 corrected (with the determinant clause). -/
   r14 : G0Galois.R14Det
   r15 : DeligneSerreConseq
-  r16 : LeafModCurves.R16_EichlerShimuraJ1'
+  r16 : _root_.LeafModCurves.R16_EichlerShimuraJ1'
   /-- R17, concrete (Carayol 1986, Thm (A)). -/
-  r17 : LadicCond.CarayolR17'
+  r17 : _root_.LadicCond.CarayolR17'
   r18 : ZInQ.LeafPush2.R18_Javanpeykar
   r19 : ZInQ.DefFaltings.R19_GaudronRemond
   r20 : ZInQ.DefFaltings.R20_FaltingsLemma5
@@ -121544,8 +121565,8 @@ theorem researchLeaves2_of_open5 (r : OpenResearchLeaves5) : OpenResearchLeaves2
   r13 := r.r13
   r14 := r.r14
   r15 := r.r15
-  r16 := r.r16
-  r17 := r.r17
+  r16 := eichlerShimuraJ1_ofK5 r.r16
+  r17 := carayolR17_ofK5 r.r17
   r18 := r.r18
   r19 := r.r19
   r20 := r.r20
@@ -121692,7 +121713,7 @@ theorem glue4_of_open5 (r : OpenResearchLeaves5) (t : OpenTextbookLeaves5) (l : 
 
 /-- **G0 with only the open leaves and the open glue** (leaf-fold5; no `sorry`, standard axioms).
 `ZInQ.SixContactMin` follows from
-* `OpenResearchLeaves5`: 26 research-level fields (six restated over the kernel's Props);
+* `OpenResearchLeaves5`: 26 research-level fields (eight restated over the kernel's Props);
 * `OpenTextbookLeaves5`: 21 textbook fields;
 * `OpenAddedLeaves5`: 21 added leaves;
 * `OpenGlue5`: 2 glue Props (`ModelCoordinateResidue`, `SimpleImageIsogeny`).

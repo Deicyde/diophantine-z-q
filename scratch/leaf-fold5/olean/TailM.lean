@@ -491,6 +491,24 @@ theorem jacobianExists_ofK5 (h : _root_.LeafModCurves.JacobianExists ℚ) : Leaf
   obtain ⟨J, aj, hJ⟩ := h X ⟨hX.proper, hX.smooth, hX.geomConnected⟩ P₀
   exact ⟨ofAbVarK4 J, aj, ⟨hJ.base, fun A f hf => hJ.univ (toAbVarK4 A) f hf⟩⟩
 
+/-! ### Groups F, G: R16 (Eichler–Shimura on `J₁(N)`) and R17 (Carayol) -/
+
+/-- R17 (`CarayolR17'`, Carayol 1986 Thm (A)) from the kernel's statement (the chain's `GaloisRep` is a copy of the
+kernel's structure, rebuilt from its two fields). -/
+theorem carayolR17_ofK5 (h : _root_.LadicCond.CarayolR17') : LadicCond.CarayolR17' := by
+  intro ℓ _ ιC ιL N χ f ρ p _ hN hf hs ha hp
+  exact h ℓ ιC ιL N χ f ⟨ρ.toHom, ρ.continuous_toHom⟩ p hN hf hs ha hp
+
+set_option maxHeartbeats 8000000 in
+/-- R16 (`R16_EichlerShimuraJ1'`) from the kernel's statement (`IsJ1` transported as for T34; the quotient `A` is
+the kernel's abelian variety, read back with `ofAbVarK4`). Lean needs about 6 minutes of unfolding here. -/
+theorem eichlerShimuraJ1_ofK5 (h : _root_.LeafModCurves.R16_EichlerShimuraJ1') :
+    LeafModCurves.R16_EichlerShimuraJ1' := by
+  rintro N χ f J hN hf ⟨X, P₀, aj, hX, hJ⟩
+  obtain ⟨h1, A, π, θ, h2⟩ := h N χ f (toAbVarK4 J) hN hf
+    ⟨X, P₀, aj, ⟨⟨hX.1.proper, hX.1.smooth, hX.1.geomConnected⟩, hX.2⟩, isJacobianK_of5 hJ⟩
+  exact ⟨h1, ofAbVarK4 A, π, θ, h2⟩
+
 end HSyn
 
 end
@@ -507,6 +525,8 @@ end
 #print axioms HSyn.qmDichotomyYu_ofK5
 #print axioms HSyn.uniformizationExists_ofK5
 #print axioms HSyn.jacobianExists_ofK5
+#print axioms HSyn.carayolR17_ofK5
+#print axioms HSyn.eichlerShimuraJ1_ofK5
 
 end G0A2_e40_kernelfields
 

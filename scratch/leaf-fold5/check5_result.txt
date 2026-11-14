@@ -1,9 +1,5 @@
-Note: This linter can be disabled with `set_option linter.unusedVariables false`
-Note: This linter can be disabled with `set_option linter.unusedVariables false`
-Note: This linter can be disabled with `set_option linter.unusedVariables false`
-Note: This linter can be disabled with `set_option linter.unusedVariables false`
 'HDec.HSyn.sixContactMin_of_open5' depends on axioms: [propext, Classical.choice, Quot.sound]
-closure size 184142
+closure size 184227
 sorryAx: false
 ZInQ.SmoothFibre.smoothFibreReduced: true
 ZInQ.SmoothFibre.isReduced_of_etale_of_isDomain: true
@@ -48,8 +44,8 @@ HDec.HSyn.curveFacts5: true
   r13 : (some HDec.PkgI4.EigenformHT)
   r14 : (some HDec.G0Galois.R14Det)
   r15 : (some HDec.HSyn.DeligneSerreConseq)
-  r16 : (some HDec.LeafModCurves.R16_EichlerShimuraJ1')
-  r17 : (some HDec.LadicCond.CarayolR17')
+  r16 : (some LeafModCurves.R16_EichlerShimuraJ1')
+  r17 : (some LadicCond.CarayolR17')
   r18 : (some HDec.ZInQ.LeafPush2.R18_Javanpeykar)
   r19 : (some HDec.ZInQ.DefFaltings.R19_GaudronRemond)
   r20 : (some HDec.ZInQ.DefFaltings.R20_FaltingsLemma5)

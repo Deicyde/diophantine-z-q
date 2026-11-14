@@ -48,9 +48,10 @@ theorem t11b_of_exists5 (h : AVB2.T11bExists) : ZInQ.LeafPush2.T11b_Rigidity :=
 
 /-! ### The open statements -/
 
-/-- **The research leaves still open** (leaf-fold5): leaf-fold2's `OpenResearchLeaves2` with six fields
+/-- **The research leaves still open** (leaf-fold5): leaf-fold2's `OpenResearchLeaves2` with eight fields
 restated over the kernel's own Props (`ZInQKernel/HDecomp/Objects.lean`; the chain's are copies; part e40 derives
-the chain's from the kernel's): `r6`, `r7a`, `r7b`, `r8` (PkgI2), `r9a`, `r9b` (PkgI3). Same statements. -/
+the chain's from the kernel's): `r6`, `r7a`, `r7b`, `r8` (PkgI2), `r9a`, `r9b` (PkgI3), `r16` (ModCurves), `r17` (LadicCond). Same
+statements. -/
 structure OpenResearchLeaves5 : Prop where
   r1r2 : LeafAdopt.R1R2fpRep
   /-- R1(b), concrete (family form), for the triple of the leaf bundle. -/
@@ -76,9 +77,9 @@ structure OpenResearchLeaves5 : Prop where
   /-- R14 corrected (with the determinant clause). -/
   r14 : G0Galois.R14Det
   r15 : DeligneSerreConseq
-  r16 : LeafModCurves.R16_EichlerShimuraJ1'
+  r16 : _root_.LeafModCurves.R16_EichlerShimuraJ1'
   /-- R17, concrete (Carayol 1986, Thm (A)). -/
-  r17 : LadicCond.CarayolR17'
+  r17 : _root_.LadicCond.CarayolR17'
   r18 : ZInQ.LeafPush2.R18_Javanpeykar
   r19 : ZInQ.DefFaltings.R19_GaudronRemond
   r20 : ZInQ.DefFaltings.R20_FaltingsLemma5
@@ -107,8 +108,8 @@ theorem researchLeaves2_of_open5 (r : OpenResearchLeaves5) : OpenResearchLeaves2
   r13 := r.r13
   r14 := r.r14
   r15 := r.r15
-  r16 := r.r16
-  r17 := r.r17
+  r16 := eichlerShimuraJ1_ofK5 r.r16
+  r17 := carayolR17_ofK5 r.r17
   r18 := r.r18
   r19 := r.r19
   r20 := r.r20
@@ -255,7 +256,7 @@ theorem glue4_of_open5 (r : OpenResearchLeaves5) (t : OpenTextbookLeaves5) (l : 
 
 /-- **G0 with only the open leaves and the open glue** (leaf-fold5; no `sorry`, standard axioms).
 `ZInQ.SixContactMin` follows from
-* `OpenResearchLeaves5`: 26 research-level fields (six restated over the kernel's Props);
+* `OpenResearchLeaves5`: 26 research-level fields (eight restated over the kernel's Props);
 * `OpenTextbookLeaves5`: 21 textbook fields;
 * `OpenAddedLeaves5`: 21 added leaves;
 * `OpenGlue5`: 2 glue Props (`ModelCoordinateResidue`, `SimpleImageIsogeny`).
