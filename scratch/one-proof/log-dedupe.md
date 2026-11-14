@@ -55,3 +55,21 @@
   as `GaloisRep.HasHTWeightsAtSelf (ρ := ρ)` (3 places); DefFaltings.AbVar copy -> kernel alias; 12 `#hdec_same`
   lines whose HDec constant is gone replaced by comments.
 - `lake build ZInQKernel.OneProof.H.LPrefix`: success, 0 errors (~3 min).
+
+## TailA-TailE (2026-11-14 early morning)
+- TailA: first pass 235 deleted; 2 dot-notation errors (`r.HasHTWeightsAtSelf`) -> generic `fixes/_common.py`
+  (`PkgI4.GaloisRep.HasHTWeightsAtSelf (ρ := r)`, the HDec predicate on the kernel's `PkgI4.GaloisRep`).
+- TailB: 129 deleted, 7 dot-notation fixes (common), builds.
+- TailC: errors in the `ZInQ.Contrib.G9` block: kernel's G9 is stated over its own layer `ZInQ.Contrib.G9.PkgI4`,
+  the H copy over `PkgI4`; the checker accepts many by `isDefEq` but proofs `rw` syntactically. All 294
+  `ZInQ.Contrib.G9.*` copies KEPT (manual entry in kept.txt). `QML3.goodReduction` ambiguous (KEPT HDec version vs
+  kernel through the `QML3` alias): `fixes/TailC.py` names `LeafQM.AV.QML3.goodReduction`. `open _root_.HDec.PkgI4`
+  lines now get kernel aliases too (add_opens).
+- TailD: no rows; add_opens only (7 alias lines).
+- TailE: import clash `G0ModField.numberField_of_fd` (LF2UnramConj, root namespace) vs Contrib/FrobChain/TateBridge
+  (brought in through the new kernel imports). LF2UnramConj: its copy replaced by `import
+  ZInQKernel.Contrib.FrobChain.TateBridge` (same statement, `IF = IntermediateField ℚ Qbar`). Explicit
+  `_root_.HDec.Y` references to removed copies redirected to `_root_.Y` (common fix, 19 lines).
+- Faithfulness check rerun with the FrobChain modules (now importable): 3144 of 3262 FAITHFUL, 93 divergent,
+  25 non-declarations. kept.txt = 93 divergent + 272 G9 (365 names). TailA/TailC regenerated with the smaller KEPT
+  set: TailA 291 deleted, TailC 316 deleted. LPrefix..TailE rebuild: success (5m49s).

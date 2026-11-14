@@ -12,123 +12,123 @@ AbsFrobDef.natCast_sections	FAITHFUL
 AbsFrobDef.powHom	FAITHFUL	
 AbsFrobDef.powHom_apply	FAITHFUL	
 AlgFrobRedRed.AbsFrob	FAITHFUL	
-AlgFrobRedRed.AlgFrobRedAt	DIVERGENT	no kernel constant (rnd 1)
-AlgFrobRedRed.AlgFrobRedGood	DIVERGENT	no kernel constant (rnd 1)
-AlgFrobRedRed.FExtend	DIVERGENT	no kernel constant (rnd 1)
-AlgFrobRedRed.FExtendCore	DIVERGENT	no kernel constant (rnd 1)
-AlgFrobRedRed.FExtendGen	DIVERGENT	no kernel constant (rnd 1)
-AlgFrobRedRed.FrobMorph	DIVERGENT	no kernel constant (rnd 1)
-AlgFrobRedRed.GoodRedCofinite	DIVERGENT	no kernel constant (rnd 1)
-AlgFrobRedRed.Ow	DIVERGENT	no kernel constant (rnd 1)
-AlgFrobRedRed.OwDVR	DIVERGENT	no kernel constant (rnd 1)
-AlgFrobRedRed.RedRel	DIVERGENT	no kernel constant (rnd 1)
-AlgFrobRedRed.RedRelMul	DIVERGENT	no kernel constant (rnd 1)
-AlgFrobRedRed.RedTorsionQbar	DIVERGENT	no kernel constant (rnd 1)
-AlgFrobRedRed.ReductionFrobGood	DIVERGENT	no kernel constant (rnd 1)
-AlgFrobRedRed.ReductionMapGood	DIVERGENT	no kernel constant (rnd 1)
-AlgFrobRedRed.ResidueAlgClosed	DIVERGENT	no kernel constant (rnd 1)
-AlgFrobRedRed.ResidueAlgClosure	DIVERGENT	no kernel constant (rnd 1)
-AlgFrobRedRed.ResidueAlgebraic	DIVERGENT	no kernel constant (rnd 1)
-AlgFrobRedRed.SmoothGeomConnIntegral	DIVERGENT	no kernel constant (rnd 1)
+AlgFrobRedRed.AlgFrobRedAt	FAITHFUL	
+AlgFrobRedRed.AlgFrobRedGood	FAITHFUL	
+AlgFrobRedRed.FExtend	FAITHFUL	
+AlgFrobRedRed.FExtendCore	FAITHFUL	
+AlgFrobRedRed.FExtendGen	FAITHFUL	
+AlgFrobRedRed.FrobMorph	FAITHFUL	
+AlgFrobRedRed.GoodRedCofinite	FAITHFUL	
+AlgFrobRedRed.Ow	FAITHFUL	
+AlgFrobRedRed.OwDVR	FAITHFUL	
+AlgFrobRedRed.RedRel	FAITHFUL	
+AlgFrobRedRed.RedRelMul	FAITHFUL	
+AlgFrobRedRed.RedTorsionQbar	FAITHFUL	
+AlgFrobRedRed.ReductionFrobGood	FAITHFUL	
+AlgFrobRedRed.ReductionMapGood	FAITHFUL	
+AlgFrobRedRed.ResidueAlgClosed	FAITHFUL	
+AlgFrobRedRed.ResidueAlgClosure	FAITHFUL	
+AlgFrobRedRed.ResidueAlgebraic	FAITHFUL	
+AlgFrobRedRed.SmoothGeomConnIntegral	FAITHFUL	
 AlgFrobRedRed.absFrob	FAITHFUL	
-AlgFrobRedRed.algFrobRedAt_of_good	DIVERGENT	no kernel constant (rnd 1)
-AlgFrobRedRed.algFrobRedGood_of	DIVERGENT	no kernel constant (rnd 1)
-AlgFrobRedRed.algFrobRed_of_I2	DIVERGENT	no kernel constant (rnd 1)
-AlgFrobRedRed.algFrobRed_of_absFrob	DIVERGENT	no kernel constant (rnd 1)
-AlgFrobRedRed.algFrobRed_of_at	DIVERGENT	no kernel constant (rnd 1)
-AlgFrobRedRed.algFrobRed_of_core	DIVERGENT	no kernel constant (rnd 1)
-AlgFrobRedRed.algFrobRed_of_final	DIVERGENT	no kernel constant (rnd 1)
-AlgFrobRedRed.algFrobRed_of_fine	DIVERGENT	no kernel constant (rnd 1)
-AlgFrobRedRed.algFrobRed_of_finest	DIVERGENT	no kernel constant (rnd 1)
-AlgFrobRedRed.algFrobRed_of_five	DIVERGENT	no kernel constant (rnd 1)
-AlgFrobRedRed.algFrobRed_of_gen	DIVERGENT	no kernel constant (rnd 1)
-AlgFrobRedRed.algFrobRed_of_good	DIVERGENT	no kernel constant (rnd 1)
-AlgFrobRedRed.algFrobRed_of_leaves	DIVERGENT	no kernel constant (rnd 1)
-AlgFrobRedRed.algFrobRed_of_main	DIVERGENT	no kernel constant (rnd 1)
-AlgFrobRedRed.algFrobRed_of_nmp	DIVERGENT	no kernel constant (rnd 1)
-AlgFrobRedRed.algFrobRed_of_pieces	DIVERGENT	no kernel constant (rnd 1)
-AlgFrobRedRed.algFrobRed_of_split	DIVERGENT	no kernel constant (rnd 1)
-AlgFrobRedRed.charP_kw	DIVERGENT	no kernel constant (rnd 1)
-AlgFrobRedRed.dvrAt'	DIVERGENT	no kernel constant (rnd 1)
-AlgFrobRedRed.exists_lift	DIVERGENT	no kernel constant (rnd 1)
-AlgFrobRedRed.exists_redRel	DIVERGENT	no kernel constant (rnd 1)
-AlgFrobRedRed.fExtendCore_of_gen	DIVERGENT	no kernel constant (rnd 1)
-AlgFrobRedRed.fExtendCore_of_nmp	DIVERGENT	no kernel constant (rnd 1)
-AlgFrobRedRed.fExtendGen_of_nmp	DIVERGENT	no kernel constant (rnd 1)
-AlgFrobRedRed.fExtend_of_core	DIVERGENT	no kernel constant (rnd 1)
-AlgFrobRedRed.frobMorph_of	DIVERGENT	no kernel constant (rnd 1)
+AlgFrobRedRed.algFrobRedAt_of_good	FAITHFUL	
+AlgFrobRedRed.algFrobRedGood_of	FAITHFUL	
+AlgFrobRedRed.algFrobRed_of_I2	FAITHFUL	
+AlgFrobRedRed.algFrobRed_of_absFrob	FAITHFUL	
+AlgFrobRedRed.algFrobRed_of_at	FAITHFUL	
+AlgFrobRedRed.algFrobRed_of_core	FAITHFUL	
+AlgFrobRedRed.algFrobRed_of_final	FAITHFUL	
+AlgFrobRedRed.algFrobRed_of_fine	FAITHFUL	
+AlgFrobRedRed.algFrobRed_of_finest	FAITHFUL	
+AlgFrobRedRed.algFrobRed_of_five	FAITHFUL	
+AlgFrobRedRed.algFrobRed_of_gen	FAITHFUL	
+AlgFrobRedRed.algFrobRed_of_good	FAITHFUL	
+AlgFrobRedRed.algFrobRed_of_leaves	FAITHFUL	
+AlgFrobRedRed.algFrobRed_of_main	FAITHFUL	
+AlgFrobRedRed.algFrobRed_of_nmp	FAITHFUL	
+AlgFrobRedRed.algFrobRed_of_pieces	FAITHFUL	
+AlgFrobRedRed.algFrobRed_of_split	FAITHFUL	
+AlgFrobRedRed.charP_kw	FAITHFUL	
+AlgFrobRedRed.dvrAt'	FAITHFUL	
+AlgFrobRedRed.exists_lift	FAITHFUL	
+AlgFrobRedRed.exists_redRel	FAITHFUL	
+AlgFrobRedRed.fExtendCore_of_gen	FAITHFUL	
+AlgFrobRedRed.fExtendCore_of_nmp	FAITHFUL	
+AlgFrobRedRed.fExtendGen_of_nmp	FAITHFUL	
+AlgFrobRedRed.fExtend_of_core	FAITHFUL	
+AlgFrobRedRed.frobMorph_of	FAITHFUL	
 AlgFrobRedRed.frobenius_eq_powHom	FAITHFUL	
-AlgFrobRedRed.genMap	DIVERGENT	no kernel constant (rnd 1)
-AlgFrobRedRed.genMap_comm	DIVERGENT	no kernel constant (rnd 1)
-AlgFrobRedRed.genPt	DIVERGENT	no kernel constant (rnd 1)
-AlgFrobRedRed.hom_spec_eq_of_point	DIVERGENT	no kernel constant (rnd 1)
-AlgFrobRedRed.hw_of	DIVERGENT	no kernel constant (rnd 1)
-AlgFrobRedRed.iotaW	DIVERGENT	no kernel constant (rnd 1)
-AlgFrobRedRed.iotaW_isIso_left	DIVERGENT	no kernel constant (rnd 1)
-AlgFrobRedRed.isArithFrob_conj	DIVERGENT	no kernel constant (rnd 1)
-AlgFrobRedRed.isDominant_Spec_map_of_injective	DIVERGENT	no kernel constant (rnd 1)
-AlgFrobRedRed.isLocalHom_of_resPow	DIVERGENT	no kernel constant (rnd 1)
-AlgFrobRedRed.isLocalHom_toW	DIVERGENT	no kernel constant (rnd 1)
-AlgFrobRedRed.isUnit_cast_of_ne	DIVERGENT	no kernel constant (rnd 1)
-AlgFrobRedRed.jSpec	DIVERGENT	no kernel constant (rnd 1)
-AlgFrobRedRed.kw	DIVERGENT	no kernel constant (rnd 1)
-AlgFrobRedRed.liesOver_smul	DIVERGENT	no kernel constant (rnd 1)
-AlgFrobRedRed.lift_unique	DIVERGENT	no kernel constant (rnd 1)
-AlgFrobRedRed.natCast_mem_maximalIdeal	DIVERGENT	no kernel constant (rnd 1)
-AlgFrobRedRed.owDVR	DIVERGENT	no kernel constant (rnd 1)
-AlgFrobRedRed.pb_eta_fst	DIVERGENT	no kernel constant (rnd 1)
-AlgFrobRedRed.pb_mul	DIVERGENT	no kernel constant (rnd 1)
-AlgFrobRedRed.pb_mul'	DIVERGENT	no kernel constant (rnd 1)
-AlgFrobRedRed.pb_one	DIVERGENT	no kernel constant (rnd 1)
-AlgFrobRedRed.pb_one'	DIVERGENT	no kernel constant (rnd 1)
-AlgFrobRedRed.pb_symm_mul	DIVERGENT	no kernel constant (rnd 1)
-AlgFrobRedRed.pb_symm_mul'	DIVERGENT	no kernel constant (rnd 1)
-AlgFrobRedRed.psiW	DIVERGENT	no kernel constant (rnd 1)
-AlgFrobRedRed.psiW_toW	DIVERGENT	no kernel constant (rnd 1)
-AlgFrobRedRed.redRelMul	DIVERGENT	no kernel constant (rnd 1)
-AlgFrobRedRed.redRel_of_isReductionOf	DIVERGENT	no kernel constant (rnd 1)
-AlgFrobRedRed.redRel_unique	DIVERGENT	no kernel constant (rnd 1)
-AlgFrobRedRed.redTorsionQbar_of	DIVERGENT	no kernel constant (rnd 1)
-AlgFrobRedRed.reductionFrobGood_of	DIVERGENT	no kernel constant (rnd 1)
-AlgFrobRedRed.reductionMapGood_of	DIVERGENT	no kernel constant (rnd 1)
-AlgFrobRedRed.residueAlgClosed	DIVERGENT	no kernel constant (rnd 1)
-AlgFrobRedRed.residueAlgClosure_of	DIVERGENT	no kernel constant (rnd 1)
-AlgFrobRedRed.residueAlgebraic	DIVERGENT	no kernel constant (rnd 1)
-AlgFrobRedRed.residue_sigV	DIVERGENT	no kernel constant (rnd 1)
-AlgFrobRedRed.ringHom_eq_of_normal	DIVERGENT	no kernel constant (rnd 1)
-AlgFrobRedRed.ringOfIntegers_mem'	DIVERGENT	no kernel constant (rnd 1)
-AlgFrobRedRed.sf	DIVERGENT	no kernel constant (rnd 1)
-AlgFrobRedRed.sf_eta_fst	DIVERGENT	no kernel constant (rnd 1)
-AlgFrobRedRed.sf_isAbelianVariety	DIVERGENT	no kernel constant (rnd 1)
-AlgFrobRedRed.sigV	DIVERGENT	no kernel constant (rnd 1)
-AlgFrobRedRed.smul_mem_nonunits	DIVERGENT	no kernel constant (rnd 1)
-AlgFrobRedRed.spec_aut_cancel	DIVERGENT	no kernel constant (rnd 1)
-AlgFrobRedRed.tSig	DIVERGENT	no kernel constant (rnd 1)
-AlgFrobRedRed.tSig_residue	DIVERGENT	no kernel constant (rnd 1)
-AlgFrobRedRed.tSpec	DIVERGENT	no kernel constant (rnd 1)
-AlgFrobRedRed.tateBridge35_of_I2	DIVERGENT	no kernel constant (rnd 1)
-AlgFrobRedRed.tateBridge35_of_absFrob	DIVERGENT	no kernel constant (rnd 1)
-AlgFrobRedRed.tateBridge35_of_core	DIVERGENT	no kernel constant (rnd 1)
-AlgFrobRedRed.tateBridge35_of_final	DIVERGENT	no kernel constant (rnd 1)
-AlgFrobRedRed.tateBridge35_of_fine	DIVERGENT	no kernel constant (rnd 1)
-AlgFrobRedRed.tateBridge35_of_five	DIVERGENT	no kernel constant (rnd 1)
-AlgFrobRedRed.tateBridge35_of_gen	DIVERGENT	no kernel constant (rnd 1)
-AlgFrobRedRed.tateBridge35_of_good	DIVERGENT	no kernel constant (rnd 1)
-AlgFrobRedRed.tateBridge35_of_leaves	DIVERGENT	no kernel constant (rnd 1)
-AlgFrobRedRed.tateBridge35_of_main	DIVERGENT	no kernel constant (rnd 1)
-AlgFrobRedRed.tateBridge35_of_nmp	DIVERGENT	no kernel constant (rnd 1)
-AlgFrobRedRed.tateBridge35_of_pieces	DIVERGENT	no kernel constant (rnd 1)
-AlgFrobRedRed.tateBridge35_of_split	DIVERGENT	no kernel constant (rnd 1)
-AlgFrobRedRed.tauL	DIVERGENT	no kernel constant (rnd 1)
-AlgFrobRedRed.thetaHom	DIVERGENT	no kernel constant (rnd 1)
-AlgFrobRedRed.thetaW	DIVERGENT	no kernel constant (rnd 1)
-AlgFrobRedRed.thetaW_injective	DIVERGENT	no kernel constant (rnd 1)
-AlgFrobRedRed.thetaW_left	DIVERGENT	no kernel constant (rnd 1)
-AlgFrobRedRed.thetaW_surjective	DIVERGENT	no kernel constant (rnd 1)
-AlgFrobRedRed.thetaW_symm	DIVERGENT	no kernel constant (rnd 1)
-AlgFrobRedRed.toO'	DIVERGENT	no kernel constant (rnd 1)
-AlgFrobRedRed.vsq	DIVERGENT	no kernel constant (rnd 1)
-AlgFrobRedRed.wOf	DIVERGENT	no kernel constant (rnd 1)
+AlgFrobRedRed.genMap	FAITHFUL	
+AlgFrobRedRed.genMap_comm	FAITHFUL	
+AlgFrobRedRed.genPt	FAITHFUL	
+AlgFrobRedRed.hom_spec_eq_of_point	FAITHFUL	
+AlgFrobRedRed.hw_of	FAITHFUL	
+AlgFrobRedRed.iotaW	FAITHFUL	
+AlgFrobRedRed.iotaW_isIso_left	FAITHFUL	
+AlgFrobRedRed.isArithFrob_conj	FAITHFUL	
+AlgFrobRedRed.isDominant_Spec_map_of_injective	FAITHFUL	
+AlgFrobRedRed.isLocalHom_of_resPow	FAITHFUL	
+AlgFrobRedRed.isLocalHom_toW	FAITHFUL	
+AlgFrobRedRed.isUnit_cast_of_ne	FAITHFUL	
+AlgFrobRedRed.jSpec	FAITHFUL	
+AlgFrobRedRed.kw	FAITHFUL	
+AlgFrobRedRed.liesOver_smul	FAITHFUL	
+AlgFrobRedRed.lift_unique	FAITHFUL	
+AlgFrobRedRed.natCast_mem_maximalIdeal	FAITHFUL	
+AlgFrobRedRed.owDVR	FAITHFUL	
+AlgFrobRedRed.pb_eta_fst	FAITHFUL	
+AlgFrobRedRed.pb_mul	FAITHFUL	
+AlgFrobRedRed.pb_mul'	FAITHFUL	
+AlgFrobRedRed.pb_one	FAITHFUL	
+AlgFrobRedRed.pb_one'	FAITHFUL	
+AlgFrobRedRed.pb_symm_mul	FAITHFUL	
+AlgFrobRedRed.pb_symm_mul'	FAITHFUL	
+AlgFrobRedRed.psiW	FAITHFUL	
+AlgFrobRedRed.psiW_toW	FAITHFUL	
+AlgFrobRedRed.redRelMul	FAITHFUL	
+AlgFrobRedRed.redRel_of_isReductionOf	FAITHFUL	
+AlgFrobRedRed.redRel_unique	FAITHFUL	
+AlgFrobRedRed.redTorsionQbar_of	FAITHFUL	
+AlgFrobRedRed.reductionFrobGood_of	FAITHFUL	
+AlgFrobRedRed.reductionMapGood_of	FAITHFUL	
+AlgFrobRedRed.residueAlgClosed	FAITHFUL	
+AlgFrobRedRed.residueAlgClosure_of	FAITHFUL	
+AlgFrobRedRed.residueAlgebraic	FAITHFUL	
+AlgFrobRedRed.residue_sigV	FAITHFUL	
+AlgFrobRedRed.ringHom_eq_of_normal	FAITHFUL	
+AlgFrobRedRed.ringOfIntegers_mem'	FAITHFUL	
+AlgFrobRedRed.sf	FAITHFUL	
+AlgFrobRedRed.sf_eta_fst	FAITHFUL	
+AlgFrobRedRed.sf_isAbelianVariety	FAITHFUL	
+AlgFrobRedRed.sigV	FAITHFUL	
+AlgFrobRedRed.smul_mem_nonunits	FAITHFUL	
+AlgFrobRedRed.spec_aut_cancel	FAITHFUL	
+AlgFrobRedRed.tSig	FAITHFUL	
+AlgFrobRedRed.tSig_residue	FAITHFUL	
+AlgFrobRedRed.tSpec	FAITHFUL	
+AlgFrobRedRed.tateBridge35_of_I2	DIVERGENT	type H-only [HDec.G14Bridge.TateBridge35] K-only [G14Bridge.TateBridge35] (rnd 2)
+AlgFrobRedRed.tateBridge35_of_absFrob	DIVERGENT	type H-only [HDec.G14Bridge.TateBridge35] K-only [G14Bridge.TateBridge35] (rnd 2)
+AlgFrobRedRed.tateBridge35_of_core	DIVERGENT	type H-only [HDec.G14Bridge.TateBridge35] K-only [G14Bridge.TateBridge35] (rnd 2)
+AlgFrobRedRed.tateBridge35_of_final	DIVERGENT	type H-only [HDec.G14Bridge.TateBridge35] K-only [G14Bridge.TateBridge35] (rnd 2)
+AlgFrobRedRed.tateBridge35_of_fine	DIVERGENT	type H-only [HDec.G14Bridge.TateBridge35] K-only [G14Bridge.TateBridge35] (rnd 2)
+AlgFrobRedRed.tateBridge35_of_five	DIVERGENT	type H-only [HDec.G14Bridge.TateBridge35] K-only [G14Bridge.TateBridge35] (rnd 2)
+AlgFrobRedRed.tateBridge35_of_gen	DIVERGENT	type H-only [HDec.G14Bridge.TateBridge35] K-only [G14Bridge.TateBridge35] (rnd 2)
+AlgFrobRedRed.tateBridge35_of_good	DIVERGENT	type H-only [HDec.G14Bridge.TateBridge35] K-only [G14Bridge.TateBridge35] (rnd 2)
+AlgFrobRedRed.tateBridge35_of_leaves	DIVERGENT	type H-only [HDec.G14Bridge.TateBridge35] K-only [G14Bridge.TateBridge35] (rnd 2)
+AlgFrobRedRed.tateBridge35_of_main	DIVERGENT	type H-only [HDec.G14Bridge.TateBridge35] K-only [G14Bridge.TateBridge35] (rnd 2)
+AlgFrobRedRed.tateBridge35_of_nmp	DIVERGENT	type H-only [HDec.G14Bridge.TateBridge35] K-only [G14Bridge.TateBridge35] (rnd 2)
+AlgFrobRedRed.tateBridge35_of_pieces	DIVERGENT	type H-only [HDec.G14Bridge.TateBridge35] K-only [G14Bridge.TateBridge35] (rnd 2)
+AlgFrobRedRed.tateBridge35_of_split	DIVERGENT	type H-only [HDec.G14Bridge.TateBridge35] K-only [G14Bridge.TateBridge35] (rnd 2)
+AlgFrobRedRed.tauL	FAITHFUL	
+AlgFrobRedRed.thetaHom	FAITHFUL	
+AlgFrobRedRed.thetaW	FAITHFUL	
+AlgFrobRedRed.thetaW_injective	FAITHFUL	
+AlgFrobRedRed.thetaW_left	FAITHFUL	
+AlgFrobRedRed.thetaW_surjective	FAITHFUL	
+AlgFrobRedRed.thetaW_symm	FAITHFUL	
+AlgFrobRedRed.toO'	FAITHFUL	
+AlgFrobRedRed.vsq	FAITHFUL	
+AlgFrobRedRed.wOf	FAITHFUL	
 BPAnalytic.Char2	FAITHFUL	
 BPAnalytic.QM.B	FAITHFUL	
 BPAnalytic.QM.Emat	FAITHFUL	
@@ -316,106 +316,106 @@ E1Sub.specHom	FAITHFUL
 E1Sub.specHom_galHom	FAITHFUL	
 E1Sub.tateHomZl_precomp	FAITHFUL	
 E1Sub.vSurjOfSurjective	FAITHFUL	
-FrobPiecesGood.AbSchemeSpreadsOut	DIVERGENT	no kernel constant (rnd 1)
-FrobPiecesGood.algFrobRed_of_four	DIVERGENT	no kernel constant (rnd 1)
-FrobPiecesGood.algFrobRed_of_goodRed_nmp	DIVERGENT	no kernel constant (rnd 1)
-FrobPiecesGood.algFrobRed_of_neron	DIVERGENT	no kernel constant (rnd 1)
-FrobPiecesGood.algFrobRed_of_neron_nmp	DIVERGENT	no kernel constant (rnd 1)
-FrobPiecesGood.algFrobRed_of_spread	DIVERGENT	no kernel constant (rnd 1)
-FrobPiecesGood.algFrobRed_of_spread_nmp	DIVERGENT	no kernel constant (rnd 1)
-FrobPiecesGood.goodRedCofinite_of	DIVERGENT	no kernel constant (rnd 1)
-FrobPiecesGood.isUnit_intCast_of_coprime	DIVERGENT	no kernel constant (rnd 1)
-FrobPiecesGood.pullbackGrp_congr	DIVERGENT	no kernel constant (rnd 1)
-FrobPiecesGood.smoothGeomConnIntegral	DIVERGENT	no kernel constant (rnd 1)
-FrobPiecesGood.tateBridge35_of_neron	DIVERGENT	no kernel constant (rnd 1)
-FrobPiecesGood.tateBridge35_of_neron_nmp	DIVERGENT	no kernel constant (rnd 1)
-FrobPiecesGood.tateBridge35_of_spread	DIVERGENT	no kernel constant (rnd 1)
-FrobPiecesGood.tateBridge35_of_spread_nmp	DIVERGENT	no kernel constant (rnd 1)
-FrobPiecesNeron.AbVarSpreadsOut	DIVERGENT	no kernel constant (rnd 1)
-FrobPiecesNeron.HasAbelianSchemeAway	DIVERGENT	no kernel constant (rnd 1)
-FrobPiecesNeron.ProperSmoothGenConnected	DIVERGENT	no kernel constant (rnd 1)
-FrobPiecesNeron.geometricallyConnected_of_geometricallyIntegral	DIVERGENT	no kernel constant (rnd 1)
-FrobPiecesNeron.goodRedCofinite_of_neron	DIVERGENT	no kernel constant (rnd 1)
-FrobPiecesNeron.hasGoodReduction_of_base	DIVERGENT	no kernel constant (rnd 1)
-FrobTrace.AlgFrobLink	DIVERGENT	no kernel constant (rnd 1)
-FrobTrace.AlgFrobOne	DIVERGENT	no kernel constant (rnd 1)
-FrobTrace.AlgFrobRed	DIVERGENT	no kernel constant (rnd 1)
-FrobTrace.algFrobLink_of_one	DIVERGENT	no kernel constant (rnd 1)
-FrobTrace.algFrobOne_of_red	DIVERGENT	no kernel constant (rnd 1)
-FrobTrace.conj_baseChange	DIVERGENT	no kernel constant (rnd 1)
-FrobTrace.frobCompare_opV_conjE	DIVERGENT	no kernel constant (rnd 1)
-FrobTrace.g7Out_rescale	DIVERGENT	no kernel constant (rnd 1)
-FrobTrace.scalarsQbar	DIVERGENT	no kernel constant (rnd 1)
-FrobTrace.tateBridge35_of_algFrobLink	DIVERGENT	no kernel constant (rnd 1)
-FrobTrace.tateBridge35_of_algFrobOne	DIVERGENT	no kernel constant (rnd 1)
-FrobTrace.tateBridge35_of_algFrobRed	DIVERGENT	no kernel constant (rnd 1)
-FrobTrace.tateMapEquiv	DIVERGENT	no kernel constant (rnd 1)
-FrobTrace.tateMap_bijective	DIVERGENT	no kernel constant (rnd 1)
+FrobPiecesGood.AbSchemeSpreadsOut	FAITHFUL	
+FrobPiecesGood.algFrobRed_of_four	FAITHFUL	
+FrobPiecesGood.algFrobRed_of_goodRed_nmp	FAITHFUL	
+FrobPiecesGood.algFrobRed_of_neron	FAITHFUL	
+FrobPiecesGood.algFrobRed_of_neron_nmp	FAITHFUL	
+FrobPiecesGood.algFrobRed_of_spread	FAITHFUL	
+FrobPiecesGood.algFrobRed_of_spread_nmp	FAITHFUL	
+FrobPiecesGood.goodRedCofinite_of	FAITHFUL	
+FrobPiecesGood.isUnit_intCast_of_coprime	FAITHFUL	
+FrobPiecesGood.pullbackGrp_congr	FAITHFUL	
+FrobPiecesGood.smoothGeomConnIntegral	FAITHFUL	
+FrobPiecesGood.tateBridge35_of_neron	DIVERGENT	type H-only [HDec.G14Bridge.TateBridge35] K-only [G14Bridge.TateBridge35] (rnd 2)
+FrobPiecesGood.tateBridge35_of_neron_nmp	DIVERGENT	type H-only [HDec.G14Bridge.TateBridge35] K-only [G14Bridge.TateBridge35] (rnd 2)
+FrobPiecesGood.tateBridge35_of_spread	DIVERGENT	type H-only [HDec.G14Bridge.TateBridge35] K-only [G14Bridge.TateBridge35] (rnd 2)
+FrobPiecesGood.tateBridge35_of_spread_nmp	DIVERGENT	type H-only [HDec.G14Bridge.TateBridge35] K-only [G14Bridge.TateBridge35] (rnd 2)
+FrobPiecesNeron.AbVarSpreadsOut	FAITHFUL	
+FrobPiecesNeron.HasAbelianSchemeAway	FAITHFUL	
+FrobPiecesNeron.ProperSmoothGenConnected	FAITHFUL	
+FrobPiecesNeron.geometricallyConnected_of_geometricallyIntegral	FAITHFUL	
+FrobPiecesNeron.goodRedCofinite_of_neron	FAITHFUL	
+FrobPiecesNeron.hasGoodReduction_of_base	FAITHFUL	
+FrobTrace.AlgFrobLink	FAITHFUL	
+FrobTrace.AlgFrobOne	FAITHFUL	
+FrobTrace.AlgFrobRed	FAITHFUL	
+FrobTrace.algFrobLink_of_one	FAITHFUL	
+FrobTrace.algFrobOne_of_red	FAITHFUL	
+FrobTrace.conj_baseChange	FAITHFUL	
+FrobTrace.frobCompare_opV_conjE	FAITHFUL	
+FrobTrace.g7Out_rescale	FAITHFUL	
+FrobTrace.scalarsQbar	FAITHFUL	
+FrobTrace.tateBridge35_of_algFrobLink	DIVERGENT	type H-only [HDec.G14Bridge.TateBridge35] K-only [G14Bridge.TateBridge35] (rnd 2)
+FrobTrace.tateBridge35_of_algFrobOne	DIVERGENT	type H-only [HDec.G14Bridge.TateBridge35] K-only [G14Bridge.TateBridge35] (rnd 2)
+FrobTrace.tateBridge35_of_algFrobRed	DIVERGENT	type H-only [HDec.G14Bridge.TateBridge35] K-only [G14Bridge.TateBridge35] (rnd 2)
+FrobTrace.tateMapEquiv	FAITHFUL	
+FrobTrace.tateMap_bijective	FAITHFUL	
 G0FibreSimple.RigidityHom	FAITHFUL	
 G0FibreSimple.rigidityHom	FAITHFUL	
-G0ModField.AfterG7	DIVERGENT	no kernel constant (rnd 1)
-G0ModField.CommonConstituent	DIVERGENT	no kernel constant (rnd 1)
-G0ModField.ConjugacyData	DIVERGENT	no kernel constant (rnd 1)
-G0ModField.DescentDatum	DIVERGENT	no kernel constant (rnd 1)
-G0ModField.FibreCoverExists	DIVERGENT	no kernel constant (rnd 1)
-G0ModField.FibreCoverOut	DIVERGENT	no kernel constant (rnd 1)
-G0ModField.FibreCtx	DIVERGENT	no kernel constant (rnd 1)
-G0ModField.G2Out	DIVERGENT	no kernel constant (rnd 1)
-G0ModField.G4Out	DIVERGENT	no kernel constant (rnd 1)
-G0ModField.G7Out	DIVERGENT	no kernel constant (rnd 1)
-G0ModField.G7OutUnr	DIVERGENT	no kernel constant (rnd 1)
-G0ModField.GaloisCopy.G2Out	DIVERGENT	no kernel constant (rnd 1)
-G0ModField.GaloisCopy.G7Out	DIVERGENT	no kernel constant (rnd 1)
-G0ModField.GaloisCopy.Vb	DIVERGENT	no kernel constant (rnd 1)
-G0ModField.GaloisCopy.resQ	DIVERGENT	no kernel constant (rnd 1)
-G0ModField.GaloisCopy.tate	DIVERGENT	no kernel constant (rnd 1)
-G0ModField.IF	DIVERGENT	no kernel constant (rnd 1)
-G0ModField.IsModelOver	DIVERGENT	no kernel constant (rnd 1)
-G0ModField.IsQMModel	DIVERGENT	no kernel constant (rnd 1)
-G0ModField.IsQMModel.isModelOver	DIVERGENT	no kernel constant (rnd 1)
-G0ModField.KernelFieldExists	DIVERGENT	no kernel constant (rnd 1)
-G0ModField.KernelFieldOut	DIVERGENT	no kernel constant (rnd 1)
-G0ModField.ModularConstituentG	DIVERGENT	no kernel constant (rnd 1)
-G0ModField.PtQ	DIVERGENT	no kernel constant (rnd 1)
-G0ModField.RationalFibre	DIVERGENT	no kernel constant (rnd 1)
-G0ModField.ResQRange	DIVERGENT	no kernel constant (rnd 1)
-G0ModField.T	DIVERGENT	no kernel constant (rnd 1)
-G0ModField.TateBridge	DIVERGENT	no kernel constant (rnd 1)
-G0ModField.UnramifiedSup	DIVERGENT	no kernel constant (rnd 1)
-G0ModField.actK	DIVERGENT	no kernel constant (rnd 1)
-G0ModField.actQ	DIVERGENT	no kernel constant (rnd 1)
-G0ModField.admissible_S_mul	DIVERGENT	no kernel constant (rnd 1)
-G0ModField.b2_of_leaves_level	DIVERGENT	no kernel constant (rnd 1)
-G0ModField.b3_of_cochain	DIVERGENT	no kernel constant (rnd 1)
-G0ModField.baseChangeTrans	DIVERGENT	no kernel constant (rnd 1)
-G0ModField.card_ker_GL	DIVERGENT	no kernel constant (rnd 1)
-G0ModField.descentDatum_bot	DIVERGENT	no kernel constant (rnd 1)
-G0ModField.descentDatum_of_conjugacy	DIVERGENT	no kernel constant (rnd 1)
-G0ModField.fieldDescent	DIVERGENT	no kernel constant (rnd 1)
-G0ModField.fieldDescentUnr	DIVERGENT	no kernel constant (rnd 1)
-G0ModField.g2Out_of_cover	DIVERGENT	no kernel constant (rnd 1)
-G0ModField.g4Out_of_kernelField	DIVERGENT	no kernel constant (rnd 1)
-G0ModField.g7Out_of_g4Out	DIVERGENT	no kernel constant (rnd 1)
-G0ModField.galAct_bijective	DIVERGENT	no kernel constant (rnd 1)
-G0ModField.galAct_mul	DIVERGENT	no kernel constant (rnd 1)
-G0ModField.galoisG2Out_of_g7Data	DIVERGENT	no kernel constant (rnd 1)
-G0ModField.incAlg	DIVERGENT	no kernel constant (rnd 1)
-G0ModField.isModelOver_baseChange	DIVERGENT	no kernel constant (rnd 1)
-G0ModField.le_heightD_of_mem_S_mul	DIVERGENT	no kernel constant (rnd 1)
-G0ModField.mem_GQL_bot	DIVERGENT	no kernel constant (rnd 1)
-G0ModField.modularConstituent_of_ranges_T14	DIVERGENT	no kernel constant (rnd 1)
-G0ModField.normA	DIVERGENT	no kernel constant (rnd 1)
+G0ModField.AfterG7	DIVERGENT	value H-only [HDec.G0ModField.G7Data] K-only [G0ModField.G7Data] (rnd 1)
+G0ModField.CommonConstituent	FAITHFUL	
+G0ModField.ConjugacyData	FAITHFUL	
+G0ModField.DescentDatum	FAITHFUL	
+G0ModField.FibreCoverExists	FAITHFUL	
+G0ModField.FibreCoverOut	FAITHFUL	
+G0ModField.FibreCtx	FAITHFUL	
+G0ModField.G2Out	FAITHFUL	
+G0ModField.G4Out	FAITHFUL	
+G0ModField.G7Out	FAITHFUL	
+G0ModField.G7OutUnr	DIVERGENT	value H-only [HDec.G0ModField.G7Data] K-only [G0ModField.G7Data] (rnd 1)
+G0ModField.GaloisCopy.G2Out	FAITHFUL	
+G0ModField.GaloisCopy.G7Out	FAITHFUL	
+G0ModField.GaloisCopy.Vb	FAITHFUL	
+G0ModField.GaloisCopy.resQ	FAITHFUL	
+G0ModField.GaloisCopy.tate	FAITHFUL	
+G0ModField.IF	FAITHFUL	
+G0ModField.IsModelOver	FAITHFUL	
+G0ModField.IsQMModel	FAITHFUL	
+G0ModField.IsQMModel.isModelOver	FAITHFUL	
+G0ModField.KernelFieldExists	FAITHFUL	
+G0ModField.KernelFieldOut	FAITHFUL	
+G0ModField.ModularConstituentG	FAITHFUL	
+G0ModField.PtQ	FAITHFUL	
+G0ModField.RationalFibre	FAITHFUL	
+G0ModField.ResQRange	FAITHFUL	
+G0ModField.T	FAITHFUL	
+G0ModField.TateBridge	DIVERGENT	value H-only [HDec.G0ModField.G7Data, BPAnalytic.riemannTheta._proof_1, CategoryTheory.ReflQuiver.toQuiver, CategoryTheory.catToReflQuiver] K-only [G0ModField.G7Data, G0ModField.GaloisCopy.G7Out._proof_2, CategoryTheory.CategoryStruct.toQuiver, CategoryTheory.Category.toCategoryStruct] (rnd 1)
+G0ModField.UnramifiedSup	FAITHFUL	
+G0ModField.actK	FAITHFUL	
+G0ModField.actQ	FAITHFUL	
+G0ModField.admissible_S_mul	FAITHFUL	
+G0ModField.b2_of_leaves_level	FAITHFUL	
+G0ModField.b3_of_cochain	FAITHFUL	
+G0ModField.baseChangeTrans	FAITHFUL	
+G0ModField.card_ker_GL	FAITHFUL	
+G0ModField.descentDatum_bot	FAITHFUL	
+G0ModField.descentDatum_of_conjugacy	FAITHFUL	
+G0ModField.fieldDescent	FAITHFUL	
+G0ModField.fieldDescentUnr	DIVERGENT	type H-only [HDec.G0ModField.G7OutUnr] K-only [G0ModField.G7OutUnr] (rnd 2)
+G0ModField.g2Out_of_cover	FAITHFUL	
+G0ModField.g4Out_of_kernelField	FAITHFUL	
+G0ModField.g7Out_of_g4Out	FAITHFUL	
+G0ModField.galAct_bijective	FAITHFUL	
+G0ModField.galAct_mul	FAITHFUL	
+G0ModField.galoisG2Out_of_g7Data	DIVERGENT	type H-only [HDec.G0ModField.G7Data] K-only [G0ModField.G7Data] (rnd 1)
+G0ModField.incAlg	FAITHFUL	
+G0ModField.isModelOver_baseChange	FAITHFUL	
+G0ModField.le_heightD_of_mem_S_mul	FAITHFUL	
+G0ModField.mem_GQL_bot	FAITHFUL	
+G0ModField.modularConstituent_of_ranges_T14	DIVERGENT	type H-only [HDec.G0ModField.AfterG7] K-only [G0ModField.AfterG7] (rnd 2)
+G0ModField.normA	FAITHFUL	
 G0ModField.numberField_of_fd	FAITHFUL	
-G0ModField.resQRange	DIVERGENT	no kernel constant (rnd 1)
-G0ModField.resQ_comm'	DIVERGENT	no kernel constant (rnd 1)
-G0ModField.resQ_range	DIVERGENT	no kernel constant (rnd 1)
-G0ModField.sgnU	DIVERGENT	no kernel constant (rnd 1)
-G0ModField.sgnU_mul	DIVERGENT	no kernel constant (rnd 1)
-G0ModField.sgnU_mul_abs	DIVERGENT	no kernel constant (rnd 1)
-G0ModField.sgnU_sq	DIVERGENT	no kernel constant (rnd 1)
-G0ModField.toLAut	DIVERGENT	no kernel constant (rnd 1)
-G0ModField.toLAut_apply	DIVERGENT	no kernel constant (rnd 1)
-G0ModField.two_mem_T	DIVERGENT	no kernel constant (rnd 1)
+G0ModField.resQRange	FAITHFUL	
+G0ModField.resQ_comm'	FAITHFUL	
+G0ModField.resQ_range	FAITHFUL	
+G0ModField.sgnU	FAITHFUL	
+G0ModField.sgnU_mul	FAITHFUL	
+G0ModField.sgnU_mul_abs	FAITHFUL	
+G0ModField.sgnU_sq	FAITHFUL	
+G0ModField.toLAut	FAITHFUL	
+G0ModField.toLAut_apply	FAITHFUL	
+G0ModField.two_mem_T	FAITHFUL	
 G0StableBC.BaseChangeCompIso	FAITHFUL	
 G0StableBC.GroupModelBaseChangeExists	FAITHFUL	
 G0StableBC.HodgeLineBaseChange	FAITHFUL	
@@ -448,12 +448,12 @@ G0StableBC.stableHeightBaseChange_of_modelHeightBaseChangeLE	FAITHFUL
 G0StableBC.transportMetrized	FAITHFUL	
 G0StableBC.transportModel	FAITHFUL	
 G0StableBC.transportModel_height_le	FAITHFUL	
-G14Bridge.FrobTraceLink	DIVERGENT	no kernel constant (rnd 1)
-G14Bridge.TateBridge35	DIVERGENT	no kernel constant (rnd 1)
-G14Bridge.fact_prime_five'	DIVERGENT	no kernel constant (rnd 1)
-G14Bridge.fact_prime_three'	DIVERGENT	no kernel constant (rnd 1)
-G14Bridge.tateBridge_five_three_of_35	DIVERGENT	no kernel constant (rnd 1)
-G14Trace.FrobTraceLink	DIVERGENT	no kernel constant (rnd 1)
+G14Bridge.FrobTraceLink	FAITHFUL	
+G14Bridge.TateBridge35	DIVERGENT	value H-only [HDec.G0ModField.G7Data, HDec.G15Ram.DescentPts._proof_2, CategoryTheory.ReflQuiver.toQuiver, CategoryTheory.catToReflQuiver] K-only [G0ModField.G7Data, CategoryTheory.CategoryStruct.toQuiver, CategoryTheory.Category.toCategoryStruct, Nat.fact_prime_three] (rnd 1)
+G14Bridge.fact_prime_five'	FAITHFUL	
+G14Bridge.fact_prime_three'	FAITHFUL	
+G14Bridge.tateBridge_five_three_of_35	DIVERGENT	type H-only [HDec.G0ModField.G7Data, CategoryTheory.ReflQuiver.toQuiver, CategoryTheory.catToReflQuiver, HDec.G0Galois.NF.IsConstituentOf._proof_1] K-only [G0ModField.G7Data, CategoryTheory.CategoryStruct.toQuiver, CategoryTheory.Category.toCategoryStruct, G0ModField.CommonConstituent._proof_1] (rnd 1)
+G14Trace.FrobTraceLink	DIVERGENT	type H-only [HDec.G0ModNewform.Vb, HDec.G0Galois.NF.IsConstituentOf._proof_1, HDec.G0ModNewform.fact_prime_three] K-only [G0ModField.GaloisCopy.Vb, G0ModField.CommonConstituent._proof_1, Nat.fact_prime_three] (rnd 1)
 G15Ram.UnramRoots	FAITHFUL	
 GlueA6Alg.Alg.E	FAITHFUL	
 GlueA6Alg.Alg.E_inj	FAITHFUL	
@@ -2177,63 +2177,63 @@ UnramRootsTask.unramRoots_all	FAITHFUL
 UnramRootsTask.unramRoots_of_unramProcyclic	FAITHFUL	
 UnramRootsTask.unramRoots_two	FAITHFUL	
 UnramRootsTask.zpToOO	FAITHFUL	
-UnramTate.EndBaseChange	DIVERGENT	no kernel constant (rnd 1)
-UnramTate.LinkedFrob	DIVERGENT	no kernel constant (rnd 1)
-UnramTate.PtA	DIVERGENT	no kernel constant (rnd 1)
-UnramTate.ResQEmbedding	DIVERGENT	no kernel constant (rnd 1)
-UnramTate.ScalarTransfer	DIVERGENT	no kernel constant (rnd 1)
-UnramTate.TateCont	DIVERGENT	no kernel constant (rnd 1)
-UnramTate.TatePoints	DIVERGENT	no kernel constant (rnd 1)
-UnramTate.bcPt	DIVERGENT	no kernel constant (rnd 1)
-UnramTate.bcPt_galAct	DIVERGENT	no kernel constant (rnd 1)
-UnramTate.conjE	DIVERGENT	no kernel constant (rnd 1)
-UnramTate.conjE_apply	DIVERGENT	no kernel constant (rnd 1)
-UnramTate.endBC	DIVERGENT	no kernel constant (rnd 1)
-UnramTate.endBaseChange	DIVERGENT	no kernel constant (rnd 1)
-UnramTate.eps_right_one	DIVERGENT	no kernel constant (rnd 1)
-UnramTate.fieldDescentUnr'	DIVERGENT	no kernel constant (rnd 1)
-UnramTate.hO	DIVERGENT	no kernel constant (rnd 1)
-UnramTate.homEquiv_mul	DIVERGENT	no kernel constant (rnd 1)
-UnramTate.iO	DIVERGENT	no kernel constant (rnd 1)
-UnramTate.iO_jO	DIVERGENT	no kernel constant (rnd 1)
-UnramTate.iO_sq	DIVERGENT	no kernel constant (rnd 1)
-UnramTate.incO'	DIVERGENT	no kernel constant (rnd 1)
-UnramTate.incO'_coe	DIVERGENT	no kernel constant (rnd 1)
-UnramTate.inertia_trivial'	DIVERGENT	no kernel constant (rnd 1)
-UnramTate.instGaloisQbar'	DIVERGENT	no kernel constant (rnd 1)
-UnramTate.jO	DIVERGENT	no kernel constant (rnd 1)
-UnramTate.jO_sq	DIVERGENT	no kernel constant (rnd 1)
-UnramTate.lift_fixes'	DIVERGENT	no kernel constant (rnd 1)
-UnramTate.matrixUnits_of_quat	DIVERGENT	no kernel constant (rnd 1)
-UnramTate.modularConstituent_of_ranges_T14'	DIVERGENT	no kernel constant (rnd 1)
-UnramTate.numberField_of_fd''	DIVERGENT	no kernel constant (rnd 1)
-UnramTate.opV	DIVERGENT	no kernel constant (rnd 1)
-UnramTate.opVHom	DIVERGENT	no kernel constant (rnd 1)
-UnramTate.ptMapIso	DIVERGENT	no kernel constant (rnd 1)
-UnramTate.quat_words	DIVERGENT	no kernel constant (rnd 1)
-UnramTate.resQEmbedding	DIVERGENT	no kernel constant (rnd 1)
-UnramTate.sK	DIVERGENT	no kernel constant (rnd 1)
-UnramTate.scalarTransfer	DIVERGENT	no kernel constant (rnd 1)
-UnramTate.specMap_comp_sK	DIVERGENT	no kernel constant (rnd 1)
-UnramTate.tateBridge_of_pieces	DIVERGENT	no kernel constant (rnd 1)
-UnramTate.tateBridge_of_points	DIVERGENT	no kernel constant (rnd 1)
-UnramTate.tateBridge_of_tateModuleFree	DIVERGENT	no kernel constant (rnd 1)
-UnramTate.tateBridge_of_tatePoints	DIVERGENT	no kernel constant (rnd 1)
-UnramTate.tateCont_of_tateModuleFree	DIVERGENT	no kernel constant (rnd 1)
-UnramTate.tateMap_add	DIVERGENT	no kernel constant (rnd 1)
-UnramTate.tateMap_comp	DIVERGENT	no kernel constant (rnd 1)
-UnramTate.tateMap_id	DIVERGENT	no kernel constant (rnd 1)
-UnramTate.tateMap_zero	DIVERGENT	no kernel constant (rnd 1)
-UnramTate.tatePoints	DIVERGENT	no kernel constant (rnd 1)
-UnramTate.tate_eq_opV	DIVERGENT	no kernel constant (rnd 1)
-UnramTate.tmOf	DIVERGENT	no kernel constant (rnd 1)
-UnramTate.trHom	DIVERGENT	no kernel constant (rnd 1)
-UnramTate.trHom_comp_symm	DIVERGENT	no kernel constant (rnd 1)
-UnramTate.trHom_left	DIVERGENT	no kernel constant (rnd 1)
-UnramTate.trHom_symm_comp	DIVERGENT	no kernel constant (rnd 1)
-UnramTate.trPt	DIVERGENT	no kernel constant (rnd 1)
-UnramTate.trPt_galAct	DIVERGENT	no kernel constant (rnd 1)
-UnramTate.unramifiedSup_mf	DIVERGENT	no kernel constant (rnd 1)
+UnramTate.EndBaseChange	FAITHFUL	
+UnramTate.LinkedFrob	DIVERGENT	value H-only [HDec.G0ModField.KernelField.SemilinearIsogMaps._proof_1, HDec.G0ModField.KernelField.SemilinearIsogMaps._proof_2, HDec.G0ModField.G7Data, HDec.G0ModField.KernelField.SemilinearIsogAt._proof_1] K-only [UnramTate.LinkedFrob._proof_1, UnramTate.LinkedFrob._proof_2, G0ModField.G7Data, UnramTate.LinkedFrob._proof_3] (rnd 1)
+UnramTate.PtA	FAITHFUL	
+UnramTate.ResQEmbedding	FAITHFUL	
+UnramTate.ScalarTransfer	FAITHFUL	
+UnramTate.TateCont	FAITHFUL	
+UnramTate.TatePoints	FAITHFUL	
+UnramTate.bcPt	FAITHFUL	
+UnramTate.bcPt_galAct	FAITHFUL	
+UnramTate.conjE	FAITHFUL	
+UnramTate.conjE_apply	FAITHFUL	
+UnramTate.endBC	FAITHFUL	
+UnramTate.endBaseChange	FAITHFUL	
+UnramTate.eps_right_one	FAITHFUL	
+UnramTate.fieldDescentUnr'	DIVERGENT	type H-only [HDec.G0ModField.G7OutUnr] K-only [G0ModField.G7OutUnr] (rnd 2)
+UnramTate.hO	FAITHFUL	
+UnramTate.homEquiv_mul	FAITHFUL	
+UnramTate.iO	FAITHFUL	
+UnramTate.iO_jO	FAITHFUL	
+UnramTate.iO_sq	FAITHFUL	
+UnramTate.incO'	FAITHFUL	
+UnramTate.incO'_coe	FAITHFUL	
+UnramTate.inertia_trivial'	FAITHFUL	
+UnramTate.instGaloisQbar'	FAITHFUL	
+UnramTate.jO	FAITHFUL	
+UnramTate.jO_sq	FAITHFUL	
+UnramTate.lift_fixes'	FAITHFUL	
+UnramTate.matrixUnits_of_quat	FAITHFUL	
+UnramTate.modularConstituent_of_ranges_T14'	DIVERGENT	type H-only [HDec.G0ModField.AfterG7] K-only [G0ModField.AfterG7] (rnd 2)
+UnramTate.numberField_of_fd''	FAITHFUL	
+UnramTate.opV	FAITHFUL	
+UnramTate.opVHom	FAITHFUL	
+UnramTate.ptMapIso	FAITHFUL	
+UnramTate.quat_words	FAITHFUL	
+UnramTate.resQEmbedding	FAITHFUL	
+UnramTate.sK	FAITHFUL	
+UnramTate.scalarTransfer	FAITHFUL	
+UnramTate.specMap_comp_sK	FAITHFUL	
+UnramTate.tateBridge_of_pieces	DIVERGENT	type H-only [HDec.G0ModField.TateBridge] K-only [G0ModField.TateBridge] (rnd 2)
+UnramTate.tateBridge_of_points	DIVERGENT	type H-only [HDec.G0ModField.TateBridge] K-only [G0ModField.TateBridge] (rnd 2)
+UnramTate.tateBridge_of_tateModuleFree	DIVERGENT	type H-only [HDec.G0ModField.TateBridge] K-only [G0ModField.TateBridge] (rnd 2)
+UnramTate.tateBridge_of_tatePoints	DIVERGENT	type H-only [HDec.G0ModField.TateBridge] K-only [G0ModField.TateBridge] (rnd 2)
+UnramTate.tateCont_of_tateModuleFree	FAITHFUL	
+UnramTate.tateMap_add	FAITHFUL	
+UnramTate.tateMap_comp	FAITHFUL	
+UnramTate.tateMap_id	FAITHFUL	
+UnramTate.tateMap_zero	FAITHFUL	
+UnramTate.tatePoints	FAITHFUL	
+UnramTate.tate_eq_opV	FAITHFUL	
+UnramTate.tmOf	FAITHFUL	
+UnramTate.trHom	FAITHFUL	
+UnramTate.trHom_comp_symm	FAITHFUL	
+UnramTate.trHom_left	FAITHFUL	
+UnramTate.trHom_symm_comp	FAITHFUL	
+UnramTate.trPt	FAITHFUL	
+UnramTate.trPt_galAct	FAITHFUL	
+UnramTate.unramifiedSup_mf	FAITHFUL	
 X1Belyi.ConstantFieldIsQ	FAITHFUL	
 X1Belyi.CurveOfFunctionFieldQ	FAITHFUL	
 X1Belyi.GoodReductionUnramified	FAITHFUL	

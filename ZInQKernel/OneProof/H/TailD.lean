@@ -151,7 +151,7 @@ namespace HSyn.G0AssembleMod
 
 open CategoryTheory AlgebraicGeometry
 open G0ModField
-open _root_.G0ModField (numberField_of_fd) -- op-dedupe
+open _root_.G0ModField (CommonConstituent ConjugacyData DescentDatum FibreCoverExists FibreCoverOut FibreCtx G2Out G4Out G7Out GaloisCopy.G2Out GaloisCopy.G7Out GaloisCopy.Vb GaloisCopy.resQ GaloisCopy.tate IF IsModelOver IsQMModel IsQMModel.isModelOver KernelFieldExists KernelFieldOut ModularConstituentG PtQ RationalFibre ResQRange T UnramifiedSup actK actQ admissible_S_mul b2_of_leaves_level b3_of_cochain baseChangeTrans card_ker_GL descentDatum_bot descentDatum_of_conjugacy fieldDescent g2Out_of_cover g4Out_of_kernelField g7Out_of_g4Out galAct_bijective galAct_mul incAlg isModelOver_baseChange le_heightD_of_mem_S_mul mem_GQL_bot normA numberField_of_fd resQRange resQ_comm' resQ_range sgnU sgnU_mul sgnU_mul_abs sgnU_sq toLAut toLAut_apply two_mem_T) -- op-dedupe
 
 theorem newformLeaves_of3 (r : ResearchLeaves3) (t : TextbookLeaves)
     (hCar : LadicCond.CarayolR17') : G0ModNewform.NewformLeaves :=
@@ -287,7 +287,7 @@ namespace HSyn.G0AssembleMod
 
 open CategoryTheory AlgebraicGeometry
 open G0ModField
-open _root_.G0ModField (numberField_of_fd) -- op-dedupe
+open _root_.G0ModField (CommonConstituent ConjugacyData DescentDatum FibreCoverExists FibreCoverOut FibreCtx G2Out G4Out G7Out GaloisCopy.G2Out GaloisCopy.G7Out GaloisCopy.Vb GaloisCopy.resQ GaloisCopy.tate IF IsModelOver IsQMModel IsQMModel.isModelOver KernelFieldExists KernelFieldOut ModularConstituentG PtQ RationalFibre ResQRange T UnramifiedSup actK actQ admissible_S_mul b2_of_leaves_level b3_of_cochain baseChangeTrans card_ker_GL descentDatum_bot descentDatum_of_conjugacy fieldDescent g2Out_of_cover g4Out_of_kernelField g7Out_of_g4Out galAct_bijective galAct_mul incAlg isModelOver_baseChange le_heightD_of_mem_S_mul mem_GQL_bot normA numberField_of_fd resQRange resQ_comm' resQ_range sgnU sgnU_mul sgnU_mul_abs sgnU_sq toLAut toLAut_apply two_mem_T) -- op-dedupe
 
 /-- **Glue: `End(A_{L'})` is noncommutative** on G7's model (g0-assemble2). Elementary given the QM
 structure of `IsQMModel` (`ι(𝒪) ⊆ End(PK.A)`, base change `End(PK.A) → End(A_{L'})`, unram-tate's
@@ -351,7 +351,7 @@ namespace HSyn.G0AssembleMod
 
 open CategoryTheory AlgebraicGeometry Limits MonoidalCategory CartesianMonoidalCategory MonObj
 open G0ModField
-open _root_.G0ModField (numberField_of_fd) -- op-dedupe
+open _root_.G0ModField (CommonConstituent ConjugacyData DescentDatum FibreCoverExists FibreCoverOut FibreCtx G2Out G4Out G7Out GaloisCopy.G2Out GaloisCopy.G7Out GaloisCopy.Vb GaloisCopy.resQ GaloisCopy.tate IF IsModelOver IsQMModel IsQMModel.isModelOver KernelFieldExists KernelFieldOut ModularConstituentG PtQ RationalFibre ResQRange T UnramifiedSup actK actQ admissible_S_mul b2_of_leaves_level b3_of_cochain baseChangeTrans card_ker_GL descentDatum_bot descentDatum_of_conjugacy fieldDescent g2Out_of_cover g4Out_of_kernelField g7Out_of_g4Out galAct_bijective galAct_mul incAlg isModelOver_baseChange le_heightD_of_mem_S_mul mem_GQL_bot normA numberField_of_fd resQRange resQ_comm' resQ_range sgnU sgnU_mul sgnU_mul_abs sgnU_sq toLAut toLAut_apply two_mem_T) -- op-dedupe
 
 /-- An abelian variety of dimension `2` is not a point: the zero endomorphism (`1` in the
 convolution monoid, `toUnit ≫ η`) is not surjective. -/

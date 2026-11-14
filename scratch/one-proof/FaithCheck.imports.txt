@@ -11,7 +11,14 @@ import ZInQKernel.Contrib.AbVarBC.Points
 import ZInQKernel.Contrib.AbVarBC.Tangent
 import ZInQKernel.Contrib.AbVarBC.Tate
 import ZInQKernel.Contrib.AbVarBC.Torsion
+import ZInQKernel.Contrib.FrobChain.AlgFrobRed
+import ZInQKernel.Contrib.FrobChain.Bridge35
+import ZInQKernel.Contrib.FrobChain.FExtend
+import ZInQKernel.Contrib.FrobChain.FrobTrace
+import ZInQKernel.Contrib.FrobChain.LinkedStatement
+import ZInQKernel.Contrib.FrobChain.Pieces
 import ZInQKernel.Contrib.FrobChain.Rigidity
+import ZInQKernel.Contrib.FrobChain.TateBridge
 import ZInQKernel.Contrib.G9.BdRAct
 import ZInQKernel.Contrib.G9.BdREmb
 import ZInQKernel.Contrib.G9.CoefDescent
