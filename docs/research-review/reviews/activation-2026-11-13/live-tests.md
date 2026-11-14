@@ -8,7 +8,6 @@
     {
       "run": 43527659588,
       "event": "issue_comment",
-      "workflow_commit": "81ecf0b58013cfccf6c3825d82c9e71ac5e3b902",
       "created_at": "2026-11-13T23:30:50Z",
       "pr_head": "c7a6126b990fbea8d5d70a4de9d867e675eb2a5f",
       "check": 132237414556,
@@ -38,12 +37,14 @@
         "started_at": "2026-11-13T23:31:03Z",
         "completed_at": "2026-11-13T23:32:19Z"
       },
-      "review_step_seconds": 76.0
+      "review_step_seconds": 76.0,
+      "run_head_sha": "81ecf0b58013cfccf6c3825d82c9e71ac5e3b902",
+      "policy_ref": "81ecf0b58013cfccf6c3825d82c9e71ac5e3b902",
+      "policy_ref_source": "This run artifact: decision.json (trusted GITHUB_SHA recorded by the gate)"
     },
     {
       "run": 43540895723,
       "event": "pull_request_target",
-      "workflow_commit": "9c77f6c010007b7373afa0cfc9fbb9d4b6a0d007",
       "created_at": "2026-11-14T01:29:33Z",
       "pr_head": "9c77f6c010007b7373afa0cfc9fbb9d4b6a0d007",
       "check": 132281047204,
@@ -73,12 +74,14 @@
         "started_at": "2026-11-14T01:29:47Z",
         "completed_at": "2026-11-14T01:31:00Z"
       },
-      "review_step_seconds": 73.0
+      "review_step_seconds": 73.0,
+      "run_head_sha": "9c77f6c010007b7373afa0cfc9fbb9d4b6a0d007",
+      "policy_ref": "fd7aa392eb9ba630aed733486f6252305610fea8",
+      "policy_ref_source": "This run artifact: decision.json (trusted GITHUB_SHA recorded by the gate)"
     },
     {
       "run": 43541667649,
       "event": "issue_comment",
-      "workflow_commit": "fd7aa392eb9ba630aed733486f6252305610fea8",
       "created_at": "2026-11-14T01:37:14Z",
       "pr_head": "9c77f6c010007b7373afa0cfc9fbb9d4b6a0d007",
       "check": 132283452940,
@@ -95,12 +98,14 @@
         "started_at": "2026-11-14T01:37:23Z",
         "completed_at": "2026-11-14T01:37:29Z"
       },
-      "review_step_seconds": 6.0
+      "review_step_seconds": 6.0,
+      "run_head_sha": "fd7aa392eb9ba630aed733486f6252305610fea8",
+      "policy_ref": "fd7aa392eb9ba630aed733486f6252305610fea8",
+      "policy_ref_source": "This run artifact: decision.json (trusted GITHUB_SHA recorded by the gate)"
     },
     {
       "run": 43541748780,
       "event": "issue_comment",
-      "workflow_commit": "fd7aa392eb9ba630aed733486f6252305610fea8",
       "created_at": "2026-11-14T01:38:04Z",
       "pr_head": "9c77f6c010007b7373afa0cfc9fbb9d4b6a0d007",
       "check": 132283724369,
@@ -117,12 +122,14 @@
         "started_at": "2026-11-14T01:38:16Z",
         "completed_at": "2026-11-14T01:38:21Z"
       },
-      "review_step_seconds": 5.0
+      "review_step_seconds": 5.0,
+      "run_head_sha": "fd7aa392eb9ba630aed733486f6252305610fea8",
+      "policy_ref": "fd7aa392eb9ba630aed733486f6252305610fea8",
+      "policy_ref_source": "This run artifact: decision.json (trusted GITHUB_SHA recorded by the gate)"
     },
     {
       "run": 43541776483,
       "event": "issue_comment",
-      "workflow_commit": "fd7aa392eb9ba630aed733486f6252305610fea8",
       "created_at": "2026-11-14T01:38:21Z",
       "pr_head": "9c77f6c010007b7373afa0cfc9fbb9d4b6a0d007",
       "check": 132283840296,
@@ -139,12 +146,14 @@
         "started_at": "2026-11-14T01:38:39Z",
         "completed_at": "2026-11-14T01:38:44Z"
       },
-      "review_step_seconds": 5.0
+      "review_step_seconds": 5.0,
+      "run_head_sha": "fd7aa392eb9ba630aed733486f6252305610fea8",
+      "policy_ref": "fd7aa392eb9ba630aed733486f6252305610fea8",
+      "policy_ref_source": "This run artifact: decision.json (trusted GITHUB_SHA recorded by the gate)"
     },
     {
       "run": 43541825778,
       "event": "issue_comment",
-      "workflow_commit": "fd7aa392eb9ba630aed733486f6252305610fea8",
       "created_at": "2026-11-14T01:38:53Z",
       "pr_head": "9c77f6c010007b7373afa0cfc9fbb9d4b6a0d007",
       "check": 132283952957,
@@ -161,12 +170,14 @@
         "started_at": "2026-11-14T01:39:00Z",
         "completed_at": "2026-11-14T01:39:09Z"
       },
-      "review_step_seconds": 9.0
+      "review_step_seconds": 9.0,
+      "run_head_sha": "fd7aa392eb9ba630aed733486f6252305610fea8",
+      "policy_ref": "fd7aa392eb9ba630aed733486f6252305610fea8",
+      "policy_ref_source": "This run artifact: decision.json (trusted GITHUB_SHA recorded by the gate)"
     },
     {
       "run": 43542130192,
       "event": "pull_request_target",
-      "workflow_commit": "39f6680a148f7569e3a8b9b3abbf836c6fbe382c",
       "created_at": "2026-11-14T01:41:51Z",
       "pr_head": "39f6680a148f7569e3a8b9b3abbf836c6fbe382c",
       "check": 132284917858,
@@ -196,7 +207,10 @@
         "started_at": "2026-11-14T01:42:01Z",
         "completed_at": "2026-11-14T01:43:29Z"
       },
-      "review_step_seconds": 88.0
+      "review_step_seconds": 88.0,
+      "run_head_sha": "39f6680a148f7569e3a8b9b3abbf836c6fbe382c",
+      "policy_ref": "fd7aa392eb9ba630aed733486f6252305610fea8",
+      "policy_ref_source": "This run artifact: decision.json (trusted GITHUB_SHA recorded by the gate)"
     }
   ]
 }

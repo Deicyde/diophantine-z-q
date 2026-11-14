@@ -28,7 +28,13 @@ that a branch/tag workflow cannot obtain the Environment keys.
 ## Live-test evidence
 
 [live-tests.md](live-tests.md) records the exact heads, App check IDs,
-workflow revisions, UTC timestamps and review-step timings. Each `check-*.md`
+UTC timestamps and review-step timings. `run_head_sha` is the Actions run API's
+`head_sha` metadata; it is not necessarily the revision of the trusted workflow.
+`policy_ref` is the trusted `GITHUB_SHA` recorded in that run's `decision.json`
+artifact. The values were checked against the preserved App report fields.
+For the rejection and repair `pull_request_target` runs, the run-head field is
+the candidate head while `policy_ref` is `fd7aa392eb9ba630aed733486f6252305610fea8`.
+For the five `issue_comment` runs the two fields agree. Each `check-*.md`
 file contains a JSON block preserving selected fields of the GitHub Check Runs API response, including
 the App identity and complete output. Each reviewer Markdown file contains a JSON block preserving the report
 published in the linked GitHub comment, with its publisher and timestamp.
