@@ -54,3 +54,8 @@ with `lake env lean` (one process at a time). Marks: VERIFIED / STANDARD / SPECU
   applied over `L ⊇ K` to `A_L, B_L, φ_L` in the kernel's encoding); `r20_of_leaves'`
   (FaltingsLemma5BC + N1 + SS1 + SS2 + SS3 → R20) and `faltingsLemma5_of_BC`. Recompiled clean,
   axioms standard (VERIFIED).
+- §I consistency at the zero abelian variety (VERIFIED, compiled): `hasSemiAbelianIdentityComponent_of_iso_unit`,
+  `isSemistable_zero` (every Néron model of `AbVar.zero K` is semistable), `isStableFaltingsHeight_zero`
+  (`IsStableFaltingsHeight (AbVar.zero K) 0`), `semistableReductionThm_zero`, `semistablePersists_zero`,
+  `semistableNeronBaseChange_zero`. So the new definitions are satisfiable as written (torus/abelian
+  part not exercised). Axioms standard.

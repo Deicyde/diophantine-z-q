@@ -729,6 +729,98 @@ theorem r19_of_leaves (hGR : GaudronRemondThm14) (hN1 : NeronModelExists)
   fun K _ _ A B g x hg hx hiso =>
     hGR K A B g x hg ((isStableFaltingsHeight_iff hN1 hSS1 hSS2 A x).mpr hx) hiso
 
+/-! ## §I. Consistency: the new definitions and leaves at the zero abelian variety
+
+The only abelian variety Mathlib can construct is `AbVar.zero K` (`Spec K`). There, every
+geometric fibre of every Néron model is the trivial group scheme, which is semi-abelian (`U = G`,
+`B = 0`, `r = 0`), so `IsSemistable` holds, the leaves SS1, SS2, SS3 hold, and `0` is the published
+stable height. This checks that `HasSemiAbelianIdentityComponent` and `IsStableFaltingsHeight` are
+satisfiable as written (it does not exercise the torus or abelian part). -/
+
+section ZeroAV
+
+/-- The trivial group scheme over a field is semi-abelian. -/
+theorem hasSemiAbelianIdentityComponent_of_iso_unit {k : Type} [Field k]
+    (G : Over (Spec (CommRingCat.of k))) [GrpObj G] (i : G ≅ 𝟙_ _) :
+    HasSemiAbelianIdentityComponent G := by
+  have hiso : IsIso i.hom.left := by
+    have : IsIso ((Over.forget _).map i.hom) := inferInstance
+    exact this
+  refine ⟨G, inferInstance, 𝟙 G, ?_, inferInstance, ?_, PkgI3.AbVar.zero k, i.hom,
+    isMonHom_of_iso_unit (Iso.refl _) _, ?_, ?_, 0, fun R _ _ => 1, fun R _ _ => ?_,
+    fun R _ _ u => ?_, fun R S _ _ _ _ f t => hom_ext_of_iso_unit i _ _⟩
+  · rw [Over.id_left]; infer_instance
+  · -- `G.left ≅ Spec k`, the spectrum of a field, is connected
+    have hc : ConnectedSpace ((𝟙_ (Over (Spec (CommRingCat.of k)))).left) :=
+      (inferInstance : ConnectedSpace (Spec (CommRingCat.of k)))
+    have hsurj : Function.Surjective
+        (i.inv.left.base : (𝟙_ (Over (Spec (CommRingCat.of k)))).left → G.left) := by
+      have : IsIso i.inv.left := by
+        have : IsIso ((Over.forget _).map i.inv) := inferInstance
+        exact this
+      exact (Scheme.homeoOfIso (asIso i.inv.left)).surjective
+    exact hsurj.connectedSpace i.inv.left.base.hom.continuous
+  · exact (inferInstance : Flat i.hom.left)
+  · exact (inferInstance : Surjective i.hom.left)
+  · intro a b _
+    exact Subsingleton.elim a b
+  · constructor
+    · intro _
+      rw [hom_ext_of_iso_unit i u 1]
+      exact one_mem _
+    · intro _
+      exact hom_ext_of_iso_unit (Iso.refl _) _ _
+
+variable (K : Type) [Field K]
+
+/-- Every Néron model of the zero abelian variety is semistable. -/
+theorem isSemistable_zero {L : Type} [Field L] [NumberField L] [Algebra K L]
+    (𝒩 : GroupModel (PkgI3.AbVar.zero K) L) (h : 𝒩.IsNeronModel) : IsSemistable 𝒩 := by
+  intro 𝔭 _
+  obtain ⟨i⟩ := neron_zero_iso_unit K L 𝒩 h
+  exact hasSemiAbelianIdentityComponent_of_iso_unit _
+    ((Over.pullback _).mapIso i ≪≫ (Functor.Monoidal.εIso (Over.pullback _)).symm)
+
+/-- `0` is the published stable height of the zero abelian variety. -/
+theorem isStableFaltingsHeight_zero [NumberField K] :
+    IsStableFaltingsHeight (PkgI3.AbVar.zero K) 0 :=
+  ⟨K, inferInstance, inferInstance, inferInstance, trivModel K K, trivModel_isNeronModel K K,
+    isSemistable_zero K _ (trivModel_isNeronModel K K), by
+      rw [groupModel_height_zero, EReal.coe_zero]⟩
+
+/-- SS1 at the zero abelian variety (`L₀ = K`). -/
+theorem semistableReductionThm_zero [NumberField K] :
+    ∃ (L₀ : Type) (_ : Field L₀) (_ : NumberField L₀) (_ : Algebra K L₀),
+      ∀ 𝒩 : GroupModel (PkgI3.AbVar.zero K) L₀, 𝒩.IsNeronModel → IsSemistable 𝒩 :=
+  ⟨K, inferInstance, inferInstance, inferInstance, fun 𝒩 h => isSemistable_zero K 𝒩 h⟩
+
+/-- SS3 at the zero abelian variety. -/
+theorem semistablePersists_zero (L' : Type) [Field L'] [NumberField L'] [Algebra K L']
+    (𝒩' : GroupModel (PkgI3.AbVar.zero K) L') (h : 𝒩'.IsNeronModel) : IsSemistable 𝒩' :=
+  isSemistable_zero K 𝒩' h
+
+/-- SS2 at the zero abelian variety (the kernel's proof of N2 there:
+`semistableNeronIdentityComponent_zero`, with `L₀ = K`; here for any `L`). -/
+theorem semistableNeronBaseChange_zero (L : Type) [Field L] [NumberField L] [Algebra K L]
+    (𝒩 : GroupModel (PkgI3.AbVar.zero K) L) (h𝒩 : 𝒩.IsNeronModel)
+    (L' : Type) [Field L'] [NumberField L'] [Algebra K L'] [Algebra L L'] [IsScalarTower K L L']
+    (𝒩' : GroupModel (PkgI3.AbVar.zero K) L') (h𝒩' : 𝒩'.IsNeronModel) :
+    ∃ 𝒰 𝒱 : GroupModel (PkgI3.AbVar.zero K) L', IsBaseChangeOf 𝒱 𝒩 ∧ IsOpenSubgroupModel 𝒰 𝒩' ∧
+      IsOpenSubgroupModel 𝒰 𝒱 := by
+  obtain ⟨i⟩ := neron_zero_iso_unit K L' 𝒩' h𝒩'
+  obtain ⟨j⟩ := neron_zero_iso_unit K L 𝒩 h𝒩
+  refine ⟨trivModel K L', trivModel K L', ?_, ?_, ?_⟩
+  · unfold IsBaseChangeOf
+    exact ⟨(Functor.Monoidal.εIso _) ≪≫ ((Over.pullback _).mapIso j).symm,
+      isMonHom_of_iso_unit ((Over.pullback _).mapIso j ≪≫ (Functor.Monoidal.εIso _).symm) _⟩
+  · refine ⟨i.inv, ?_, ⟨hom_ext_of_iso_unit i _ _, hom_ext_of_iso_unit i _ _⟩⟩
+    show IsOpenImmersion ((Over.forget _).map i.inv)
+    infer_instance
+  · refine ⟨𝟙 _, ?_, inferInstance⟩
+    rw [Over.id_left]; infer_instance
+
+end ZeroAV
+
 end ZInQ.HeightSplit
 
 /-! ## Axiom checks -/
@@ -748,3 +840,5 @@ end ZInQ.HeightSplit
 #print axioms ZInQ.HeightSplit.r22_of_leaves
 #print axioms ZInQ.HeightSplit.r22_of_upper
 #print axioms ZInQ.HeightSplit.r19_of_leaves
+#print axioms ZInQ.HeightSplit.isStableFaltingsHeight_zero
+#print axioms ZInQ.HeightSplit.semistableNeronBaseChange_zero
