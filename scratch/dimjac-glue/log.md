@@ -10,3 +10,15 @@ Target: `ModularSplit.DimJac.H0DifferentialsEqHolo` (scratch/modular-split/DimJa
 Φ_U : Γ(Ω,U) → Ω_{F/ℚ} on affine nonempty U via library `kaehlerSectionsEquiv` + `KaehlerDifferential.map ℚ ℚ Γ(U) F`;
 glue to Φ : Γ(Ω,X) → Ω_F; injective (Ω_A torsion-free + sheaf locality); image ⊆ holoDiff (valuative criterion center);
 image ⊇ holoDiff (stalks are valuation rings + local-global in Γ(U) + sheaf gluing); ℚ-linearity automatic (toRatLinearMap).
+
+## Results
+- 11-14 ~14:00 `scratch/dimjac-glue/DimJacGlue.lean` compiles (lake env lean, ~10 s), no sorry:
+  `ModularSplit.DimJac.h0DifferentialsEqHolo_of_valuationCenter : ValuationCenter → H0DifferentialsEqHolo`
+  (statement of H0DifferentialsEqHolo copied verbatim), axioms [propext, Classical.choice, Quot.sound]. VERIFIED.
+  Proved along the way (VERIFIED, compiled): Φ_U well defined and injective (`kaehlerToFractionFieldInjective`:
+  Ω_A → Ω_K injective for A smooth domain over ℚ); restriction compatibility; global Φ; injectivity by sheaf
+  locality; gluing; image ⊆ holoDiff from ValuationCenter; stalks at closed points are valuation rings
+  (from kernel `finrank_cotangentSpace_of_smoothOfRelativeDimension` + Mathlib DVR TFAE); closed points from
+  maximal ideals (Jacobson); local–global step; surjectivity onto holoDiff; ℚ-linearity via map_rat_smul.
+- Remaining named glue: `DimJacGlue.ValuationCenter` (center of a place on a proper integral ℚ-scheme;
+  valuative criterion).

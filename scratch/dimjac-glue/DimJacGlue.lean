@@ -451,4 +451,75 @@ lemma mem_range_Φ_of_regular [SmoothOfRelativeDimension 1 g] (V : X.Opens) (hV 
   obtain ⟨t, ht, htω⟩ := key ω (hω w hwQ)
   exact ht (hI𝔪 htω)
 
+
+/-- **Surjectivity onto the regular differentials**, by gluing the local preimages. -/
+lemma mem_range_ΦG_of_regular [SmoothOfRelativeDimension 1 g] (ω : Ω[F⁄ℚ])
+    (hω : ∀ w : ValuationSubring F, (∀ c : ℚ, algebraMap ℚ F c ∈ w) →
+      ω ∈ ZInQ.Contrib.CurvesG.regularAt F w) :
+    ω ∈ (ΦG g e).range := by
+  have : Smooth g := SmoothOfRelativeDimension.smooth 1 g
+  choose σ hσ using fun (V : X.Opens) (hV : IsAffineOpen V) (hne : (V : Set X).Nonempty) =>
+    mem_range_Φ_of_regular (g := g) (e := e) V hV hne ω hω
+  obtain ⟨s, hs⟩ := exists_glue (g := g) ⊤ (fun V hV hne _ => σ V hV hne) (by
+    intro V V' W hV hV' hW hVne hV'ne hWne _ _ hWV hWV'
+    apply Φ_injective (e := e) W hW hWne
+    rw [Φ_res hWV hV hW hWne, Φ_res hWV' hV' hW hWne, hσ, hσ])
+  refine ⟨s, ?_⟩
+  rw [ΦG_eq (U₀ X) U₀_spec.1 ⟨_, U₀_spec.2⟩, hs (U₀ X) U₀_spec.1 ⟨_, U₀_spec.2⟩]
+  exact hσ _ _ _
+
 end DimJacGlue
+
+namespace ModularSplit.DimJac
+
+open CategoryTheory Limits MonoidalCategory CartesianMonoidalCategory MonObj AlgebraicGeometry
+open LeafModCurves ZInQ.Contrib.CurvesG
+
+/-- **GLUE (named, unproved): `H⁰(X, Ω¹_{X/ℚ})` is the space of differentials of the function field
+regular at every place.** For a smooth proper geometrically connected integral curve `X/ℚ` and a field `F`
+isomorphic to its function field, `dim_ℚ H⁰(X, Ω¹_{X/ℚ}) = g(F)` (`CurvesG.fieldGenus`, Chevalley's
+definition). Needs: `H⁰(X, M) = Γ(X, M)` for the library's sheaf cohomology; `Γ(X, Ω¹) = ⋂_x Ω_{𝒪_{X,x}/ℚ}`
+inside `Ω_{F/ℚ}` (`Ω¹` locally free of rank one, `X` integral; on affine opens `Γ(U, Ω¹) = Ω_{Γ(U)/ℚ}` is the
+library's `Scheme.Hom.kaehlerSectionsEquiv`, then localization); the image of `Ω_{𝒪_{X,x}/ℚ}` in `Ω_{F/ℚ}` is
+`CurvesG.regularAt F 𝒪_{X,x}`; every valuation subring of `F` containing `ℚ` other than `F` is a local ring
+`𝒪_{X,x}` at a closed point (`X` proper: valuative criterion; `X` normal of dimension one: `𝒪_{X,x}` is a
+DVR), and conversely. Standard (Hartshorne II.8, II.6.7, II.4.7; Stichtenoth 1.5; UNVERIFIED numbers);
+project glue, no published-theorem content beyond textbook sheaf theory. -/
+def H0DifferentialsEqHolo : Prop :=
+  ∀ (X : Over SpecQ) (_ : IsCurve X) (_ : IsIntegral X.left) (F : Type) [Field F] [Algebra ℚ F],
+    Nonempty (X.left.functionField ≃+* F) →
+    letI : X.left.Over SpecQ := ⟨X.hom⟩
+    (X.left ↘ SpecQ).relativeDifferentials.finrankH ℚ 0 = fieldGenus F
+
+open DimJacGlue in
+/-- **`H0DifferentialsEqHolo` from the one named glue `ValuationCenter`.** -/
+theorem h0DifferentialsEqHolo_of_valuationCenter (hC : ValuationCenter) : H0DifferentialsEqHolo := by
+  intro X hX hI F _ _ he
+  obtain ⟨e⟩ := he
+  letI : X.left.Over SpecQ := ⟨X.hom⟩
+  have : IsProper (X.left ↘ SpecQ) := hX.proper
+  have : SmoothOfRelativeDimension 1 (X.left ↘ SpecQ) := hX.smooth
+  have : Smooth (X.left ↘ SpecQ) := SmoothOfRelativeDimension.smooth 1 _
+  let g := X.left ↘ SpecQ
+  let E1 := (Scheme.Modules.H.zeroLinearEquiv g.relativeDifferentials).toAddEquiv
+  let Ψ : g.relativeDifferentials.H 0 →+ Ω[F⁄ℚ] := (ΦG g e).comp E1.toAddMonoidHom
+  let L : g.relativeDifferentials.H 0 →ₗ[ℚ] Ω[F⁄ℚ] :=
+    { toFun := Ψ
+      map_add' := map_add Ψ
+      map_smul' := map_rat_smul Ψ }
+  have hL : Function.Injective L := (ΦG_injective (e := e)).comp E1.injective
+  have hrange : LinearMap.range L = holoDiff F := by
+    apply le_antisymm
+    · rintro _ ⟨x, rfl⟩
+      exact ΦG_mem_holo hC _
+    · refine Submodule.span_le.mpr (fun ω hω => ?_)
+      obtain ⟨s, hs⟩ := mem_range_ΦG_of_regular (g := g) (e := e) ω hω
+      exact ⟨E1.symm s, by simp [L, Ψ, hs]⟩
+  unfold Scheme.Modules.finrankH fieldGenus
+  rw [← hrange]
+  exact (LinearEquiv.ofInjective L hL).finrank_eq
+
+end ModularSplit.DimJac
+
+#print axioms ModularSplit.DimJac.h0DifferentialsEqHolo_of_valuationCenter
+#print axioms DimJacGlue.kaehlerToFractionFieldInjective
