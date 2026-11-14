@@ -271,8 +271,13 @@ compiles. The closure has 184 361 constants. It contains `ZInQ.SmoothFibre.smoot
 `HDec.VertWitness.heckeVertWitness_of_leaves`, `modelComparison_of_curveBijIso`, `modelCoordinate_of_residue`; it does
 **not** contain `sorryAx`, av-b2's `divisiblePoints_of_posChar` or `MulIsogenyPosChar` (VERIFIED).
 
-**Flat file** `scratch/leaf-fold5/Leaves5.lean` (121 728 lines, md5 35a709b10b2b…; leaf-fold4's `Leaves4.lean` with
-the eight new kernel imports in its header and the three new bodies appended): `lake env lean scratch/leaf-fold5/Leaves5.lean` **exits 0 in 1194 s (max RSS 16.4 GB), 0 errors, no `sorry`; all 343 `#print axioms` reports read `[propext, Classical.choice, Quot.sound]`** (checked by script, joining line-wrapped reports), including `HDec.HSyn.sixContactMin_of_open5` (VERIFIED). The raw output contains host paths and is not committed.
+**Flat file** `scratch/leaf-fold5/Leaves5.lean` (121 783 lines, md5 5999e1db85c3…, `flat2.md5`; leaf-fold4's
+`Leaves4.lean` with the eleven new kernel imports in its header and the three new bodies appended):
+`lake env lean scratch/leaf-fold5/Leaves5.lean` **exits 0 in 1570 s (max RSS 18.9 GB), 0 errors, no `sorry`; all 349
+`#print axioms` reports read `[propext, Classical.choice, Quot.sound]`** (checked by script, joining line-wrapped
+reports), including `HDec.HSyn.sixContactMin_of_open5` (VERIFIED). An earlier flat run on the text before the
+(c) additions R3, R16, R17, T10, `HomLatticeCorr`, T24 (md5 35a709b10b2b…) also passed: exit 0 in 1194 s, 343 standard
+reports (log.md). The raw outputs contain host paths and are not committed.
 
 **Changes to the copied texts** (each in a script, with its reason):
 

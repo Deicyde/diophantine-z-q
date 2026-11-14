@@ -62,3 +62,5 @@
   errors, 34 axiom lines standard; Check5: closure 184 361, no sorryAx; 33 fields are kernel constants.
 - py/verbatim_check.py: ALL OK (part e10's leaf/glue statements = sources; HeckeVertWitness etc. = leaf-fold4's c80).
 - 01:16 flat run 2 started on the final text (md5 in flat2.md5).
+- Flat run 2 (final text, 121 783 lines, md5 5999e1db85c3…): exit 0 in 1570 s, max RSS 18.9 GB, 0 errors, no sorry,
+  349 axiom reports all `[propext, Classical.choice, Quot.sound]`, including sixContactMin_of_open5.
