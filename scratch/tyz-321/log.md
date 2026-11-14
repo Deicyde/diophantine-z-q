@@ -30,3 +30,12 @@ Target: `CMBridge.Lemma321Five` (TYZ Lemma 3.21(1)), copied verbatim with all of
    τ_{Q''} = W(τ_Q + 1/4) (`tyzFormW_tauH`), lattice identities `latKW`, `latNKW` (coefficients from
    wcoef.py), `heegnerPt_tyzFormW : f₀(P_{Q''}) = T − [i]f₀(P_n)`, orientation `normalized_cases`.
 - New named glue `WNegatesI` (σ_w(i) = −i; genus character computation), still open.
+
+## 2026-11-14 ~00:15 compile 3 (VERIFIED, 0 errors, no sorry)
+- `artinPstarChi_odd` (port of cm-bridge GT-ART to odd n: n % 4 = 3 was only used to get `Odd n`).
+- `p2_sq : 𝔭₂² = (2)`, `a_mul_p2 : 𝔞𝔭₂ = (√−n − 1)`, `absNorm_p2 : N𝔭₂ = 2`, `picToMax_picClass`,
+  `chi_wClass : χ_q(π w) = (2/q)`, `prod_sign_two : Π_{q|n} (2/q) = −1` (χ₈), `prod_pstar : Π q* = n` (χ₄).
+- `wNegatesI : WNegatesI` and `betaOnGenus5 : BetaOnGenus5` proved.
+- `lemma321Five_of_shimuraModFn (hS : Shimura.ShimuraReciprocityModFn) (hβ : BetaOneLiftExists)
+   (hk : KerFixesZnMod) : Lemma321Five`.
+- Remaining inputs: `KerFixesZnMod` (Gal(H_{n,4}/H_n) moves z_n by ℤτ(1)) and `BetaOneLiftExists`.
