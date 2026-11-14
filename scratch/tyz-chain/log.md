@@ -28,3 +28,8 @@
   diff, identical except the position of `Ek`); now imported from TYZChain.Lemma318 with `open T318SS`.
   Added `t318_supersingularExponentA : T318.SupersingularExponentA` and
   `lemma318Literal_HHprime_of_sqrtTwoNotIn_ss`. Build OK (6.5 s); Check rerun: 81 × standard axioms. VERIFIED.
+- 00:45 Bridge §14: replaced cm-bridge's verbatim copies of tyz-cm's declarations (namespace TyzCm: kappa,
+  idealMeetOrder, idealLat, discOf, ShimuraReciprocityPic; helpers sqrt_mul_self_C, kappaRoot, kappaAlg,
+  kappaAlg_apply, kappaZ, kappaLin, kappaLin_apply — the helpers VERIFIED identical by diff with
+  TYZGenus/ShimuraZn.lean lines 41–66; the TyzCm Prop was rfl-checked by cm-bridge) by a selective
+  `open ZInQ.Contrib.TYZGenus.Shimura (...)`. Rebuild of Bridge/Thm35/L321/Main OK (1m48); Check rerun OK. VERIFIED.
