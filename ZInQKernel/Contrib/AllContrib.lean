@@ -2064,3 +2064,5 @@ import ZInQKernel.Contrib.UnramRoots.Procyclic
 import ZInQKernel.Contrib.UnramRoots.Reduction
 import ZInQKernel.Contrib.UnramRoots.Sanity
 import ZInQKernel.Contrib.ZariskiConn.Basic
+import ZInQKernel.Contrib.SmoothFibre.Basic
+import ZInQKernel.Contrib.SmoothFibre.Statement
