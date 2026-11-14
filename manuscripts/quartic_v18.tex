@@ -38,9 +38,9 @@
 \renewcommand*\l@subsection{\@dottedtocline{2}{1.5em}{3.2em}}
 \renewcommand*\l@section{\@dottedtocline{1}{0em}{3em}}
 \makeatother
-\title{$\mathbb{Z}$ is Diophantine in $\mathbb{Q}$\\[4pt]\large Version 17}
+\title{$\mathbb{Z}$ is Diophantine in $\mathbb{Q}$\\[4pt]\large Version 18}
 \author{}
-\date{November 13, 2026}
+\date{November 14, 2026}
 \providecommand{\C}{\mathbb C}
 \providecommand{\hF}{h_{\mathrm F}}
 \providecommand{\OK}{\mathcal O_K}
@@ -56,7 +56,7 @@
 \DeclareMathOperator{\Nm}{Nm}
 \ifdefined\pdftrailerid\pdftrailerid{}\fi
 \usepackage{graphicx}
-\hypersetup{pdftitle={Z is Diophantine in Q, Version 17},pdfauthor={Elliot Glazer and attributed contributors},bookmarksnumbered=true}
+\hypersetup{pdftitle={Z is Diophantine in Q, Version 18},pdfauthor={Elliot Glazer and attributed contributors},bookmarksnumbered=true}
 \setcounter{tocdepth}{2}\setcounter{secnumdepth}{3}
 \allowdisplaybreaks[1]
 \makeatletter\g@addto@macro\UrlBreaks{\do\a\do\b\do\c\do\d\do\e\do\f\do\0\do\1\do\2\do\3\do\4\do\5\do\6\do\7\do\8\do\9}\makeatother
@@ -129,7 +129,7 @@ release of the proposed $214$ research manuscript.
 The retained source has direct links to the
 \hyperref[q214foundation:gi-normalization]{GI horizontal normalization},
 \hyperref[q214foundation:gi-cover]{fixed-lift finite-cover comparison},
-\hyperref[q214foundation:tz-adaptation]{Tao--Ziegler proof adaptation}, and
+\hyperref[q214foundation:tz-adaptation]{Tao--Ziegler squarefree reduction}, and
 \hyperref[q214foundation:cmh-surface]{surface-height supplier with corrected citations}.
 The original raw-$224$ inverse maps remain in
 Sections~\ref{v222:ratio} and~\ref{v222:reference}; the formal-parameter
@@ -2015,17 +2015,38 @@ The receiving 214 source-carry \(C_{08}\) requires the actual internal GI conclu
 
 \subsection{Tao--Ziegler at the actual fixed modulus}
 
-The source application is \(V_{16}\) lines19989--20169, especially the paragraph beginning ``We now adapt''. Its actual modulus is \(W=D \prod _{p\le v,p \text{ not }  \text{ dividing }  D} p\). After \(v\) exceeds the fixed prime divisors of \(D\) this is \(E \prod _{p\le v} p\), with \(E=D/\operatorname{rad}(D)\) fixed. The published modulus-dependent statements use a squarefree primorial. Thus Theorem11, Corollary3, Theorem13 and the polynomial-forms Theorem15 are used here through an \textbf{adaptation of their proofs}, not a literal substitution into their published hypotheses. The bounded-function Theorem9 has no such modulus parameter. This distinction supersedes any reading of the old source carry as a word-for-word application at the changed modulus.
+The modulus is $W=D\prod_{p\leq v,\,p\nmid D}p$. Once $v$ exceeds
+the prime divisors of $D$, write $W=EQ$, where
+$Q=\prod_{p\leq v}p$ and $E=D/\operatorname{rad}(D)$ is fixed.
+Section~\ref{subsec:v18-squarefree-reduction} reduces the required
+analytic applications to the published squarefree theorems of
+Tao--Ziegler~\cite{v5tz}. For $b=b^0+Qt$, it defines the majorant
+as the pullback from $\Z/(En)\Z$ under $x\mapsto Ex+t$, with the
+published cutoff and its corresponding representatives. The proof
+includes the one-point prime-input correction, the conditional
+polynomial-forms estimate, and the exact localized Gowers-norm
+comparison. A single published bounded model supplies both norm
+approximations. Theorems~11 and~13 have different polynomial inputs:
+the former takes the linear steps supplied by the latter.
 
-For a unit residue \(b\), every divisibility condition at a prime dividing \(W\) is false, including at its extra prime powers. The normalization \(\phi (W)/W\) depends only on prime support and equals the primorial normalization once \(v\) contains the support of \(D\). At primes outside that support \(W\) is a unit. The divisor-sum factors there need not have numerically identical values for different \(W\) or residues: the operative assertion is that they satisfy the \textbf{same uniform estimates}. The fixed factor \(E\) is absorbed by the fixed polynomial coefficient bounds. The current source retains the resulting \nolinkurl{1+o(1)} polynomial-forms estimate, the bounded-model constant and the ordered choice of local box order, coefficient exponent, \(B_{0}\), global order and \(\rho \). It then fixes \(v\) before sending the analytic size to infinity and chooses \(v\) slowly by diagonalization. These are the estimates and quantifiers consumed downstream, not an identity of individual numerical local factors.
+For the $214$-variable construction, uniform-existence $P_{15}$ first
+clears the two rational scales and merges equal contact coefficients
+across detectors, preserving every incidence. Within each detector
+the ten coefficients are distinct. $P_{16}$ applies the fixed-data
+prime theorem to this single integer list and to fixed avoidance,
+progression, slope and lower-bound conditions. The field is a fixed
+ray class field of $\Q(i)$, and $0\leq\Lambda'_j\leq\Lambda'$ permits
+the ordinary prime majorant. The lifted quadratic shifts have every
+coefficient $O_E(Q)$, including the constant term, so they satisfy
+the published Theorem~13 with its squarefree coefficient parameter.
+Repeated incidences use the same prime and CRT condition.
 
-The identified earlier derivation in \nolinkurl{research/version16/review/current/REVIEW.md}, Section `Fixed-extra-factor Tao--Ziegler adaptation', was read as an argument, not used merely for its decision. Its Mobius divisor expansion restricts the divisors and their least common multiples to be squarefree. At primes dividing \(W\) the unit-residue condition removes the events independently of the exponent of \(E\). At other primes, invertibility preserves the available degree/root-count bounds; nonconstant polynomial differences persist and exceptional primes divide nonzero coefficient combinations controlled by coefficient height. Fixed \(E\) changes that bound by a fixed constant. The CRT/inradius error is governed by those squarefree divisor moduli. The same finitely many moment patterns feed the functional pseudorandomness, dense-model and generalized von Neumann steps; the separate independent-copy, cyclic-model and interval-boundary hypotheses remain required. This is reuse of an identified prior derivation at its exact fixed-data scope, followed by the new214 comparison below. This author does not claim to have repeated that reviewer's primary-source readings. Its precision addendum expressly rejects a numerical identity of local factors and preserves these estimates.
-
-For 214, uniform-existence \(P_{15}\) first clears the two rational scales and merges equal contact coefficients across detectors while preserving every incidence. Within either detector the ten coefficients are distinct. \(P_{16}\) applies the fixed-data prime theorem to that single fixed integer list and to fixed avoidance, progression, slope and prime lower bounds. The field is the fixed ray class field of \(Q(i)\); no growing field or unrestricted Galois-prime theorem enters. The inequalities \(0\le \text{Lambda}'_{j}\le \text{Lambda}'\) permit the ordinary prime majorant. The resulting W-trick polynomials have the source's degree and coefficient bounds with all fixed data absorbed before the analytic limit. Repeated incidences use the same selected prime and CRT condition, rather than duplicating equal forms and violating the distinct-coefficient application.
-
-The arithmetic data may depend on the particular (N,x), as P15--P16 explicitly allow. They are fixed before the auxiliary analytic parameter \(X_{\text{sel}}\) grows. No estimate uniform in (N,x), scale, cleared denominator or progression modulus is needed for completeness, and none becomes a lower bound on the family parameter \(N\). The separate obstruction-tail and slow-cutoff argument retained in \(C_{10}\) is unchanged. Thus the supplied fixed-data theorem has precisely the scope consumed at \(P_{16}\). This author comparison does not replace the internal majorant proof by a claim that a changed-modulus theorem applies literally.
-
-The Fable follow-up did not reread every proof in that Tao--Ziegler chain and records that limitation. It also sketches an alternative progression-dilation route but expressly does not write it out completely. This edition \textbf{does not adopt that outline}. It retains the actual \(V_{16}\) proof adaptation and its source-review obligations. An auditor's unexamined portion is a limitation of that audit, not by itself a new mathematical objection; it neither supplies nor refutes a missing derivation.
+These arithmetic data may depend on the particular $(N,x)$ in
+$P_{15}$--$P_{16}$. They are fixed before the selection size tends to
+infinity. No estimate uniform in those data is asserted or needed.
+The reduction preserves the final fixed-data counting theorem and
+its slow diagonal; it does not supply an effective bound for the
+family parameter $N$.
 
 \subsection{Height citations and the same-field product route}
 
@@ -8983,21 +9004,85 @@ At an inert new prime $\ell$, a compatible place gives
                       \overline y_{d\ell}
                          =F_\ell\overline y_d.           \tag{H4}
 \]
-Here $F_\ell$ is rational arithmetic Frobenius on the reduced
-elliptic curve. This is the usual CM congruence, and it does not
-require the old conductor to be an inert squarefree product.
-Indeed $(d,\ell)=1$ makes the local CM order the maximal
-unramified quadratic order. The CM elliptic curve has supersingular
-reduction at this inert prime. Each of its $\ell+1$ cyclic raising
-isogenies specializes to the quotient by the unique subgroup of
-order $\ell$, namely the relative Frobenius kernel. The prime-to-$\ell$
-cyclic $N$-subgroup specializes by the same Frobenius map.
-The resulting equality of reduced modular points passes through
-$\pi$, which extends over the good integral models at $\ell$.
-This also proves (H4) after every old ideal-class translate, with
-its place transported. Howard, Section 1.7, formula (13) \cite{howard2012}, records
-this congruence in his conductor subfamily; his odd-prime descent
-and residual-surjectivity theorem are not used here.
+Fix one place of $\overline{\mathbf Q}$ above $\ell$ and take all
+geometric reductions at that place.  The compatible CM points are
+represented by $(A,C_N)$ and $(B,\phi C_N)$, where
+$\operatorname{End}(A)=\mathcal O_d$ and $\phi:A\to B$ is a cyclic
+isogeny of degree $\ell$.  The intersection construction in
+\cite[\S2.3, p.~3730]{ccl} gives these pairs for every allowed old
+conductor.  Indeed an index-$\ell$ over-lattice of a proper
+$\mathcal O_d$-ideal changes its multiplier order only at $\ell$.
+There the stabilizer of a line in $\mathbf F_{\ell^2}$ is
+$\mathbf F_\ell$, so the new order is
+$\mathbf Z_\ell+\ell\mathcal O_{K,\ell}$.  Thus all $\ell+1$
+cyclic quotients have conductor $d\ell$.  The level ideals are
+unchanged locally at primes dividing $N$.
+
+The $j$-invariants of these CM curves are integral for arbitrary
+orders \cite[\S2.1, pp.~612--613]{fowler}.  By
+\cite[VII.5.5]{silverman}, a common finite local extension therefore
+gives good elliptic models for any finite collection of these pairs.
+The N\'eron mapping property extends their isogenies, duals and
+order actions, preserving all identities; here one uses that an
+abelian scheme is its N\'eron model, as in \cite[\S1.2, Definition~1 and Proposition~8, pp.~12,15]{v18-blr}.  In particular
+$\widehat\phi\phi=[\ell]$ and $\phi\widehat\phi=[\ell]$.
+
+Since $\ell\nmid dD_K$ is inert,
+$\mathcal O_d/\ell\mathcal O_d\simeq\mathbf F_{\ell^2}$.
+If $\overline A$ were ordinary, then
+$\overline A[\ell](\overline{\mathbf F}_\ell)\simeq\mathbf Z/\ell\mathbf Z$,
+by \cite[III.6.4(c), V.3.1]{silverman}.  The extended order action
+would give a unital homomorphism
+$\mathbf F_{\ell^2}\to\operatorname{End}(\mathbf Z/\ell\mathbf Z)
+=\mathbf F_\ell$, which is impossible.  Thus $\overline A$ is
+supersingular.  Only maximality of the old order at $\ell$ is used.
+
+The extended $\phi$ is finite locally free of degree $\ell$.
+On every geometric fibre it and its dual are nonconstant, since
+their composite is $[\ell]$; each fibre map is consequently a
+finite flat map between smooth integral curves.  The total map
+is proper with finite fibres, hence finite, and the fibrewise
+flatness criterion makes it flat \cite[Tags 02LS and 039E]{v18-stacks-flat}.
+Its rank on the connected target is its generic degree $\ell$.
+Its kernel is therefore the finite flat closure of the generic
+kernel.  The special map has just one geometric kernel point,
+since its kernel lies in $\overline A[\ell]$.  Its separable
+degree is one by \cite[III.4.10(a)]{silverman};
+\cite[II.2.12]{silverman} gives
+\[
+ \overline\phi=\iota\circ F_{\overline A},\qquad
+ \iota:\overline A^{(\ell)}\xrightarrow{\sim}\overline B.
+\]
+Thus the special kernel is exactly the relative Frobenius kernel.
+
+The $N$-torsion schemes are finite \'etale because $\ell\nmid N$,
+so the cyclic level subgroup extends and specializes.  For
+$a\ell\equiv1\pmod N$, the map $[a]\widehat\phi$ is the inverse
+of $\phi$ on $N$-torsion.  Hence the reduced new level subgroup is
+$\iota(F_{\overline A}\overline C_N)$, with the same choices at
+every prime power dividing $N$, including powers of two.
+This proves
+$\overline x_{d\ell}=\operatorname{Frob}_\ell\overline x_d$
+as coarse modular points.
+
+The model of $X_0(N)$ over $\mathbf Z_\ell$ is smooth and proper
+\cite[\S9.3, p.~79]{diamond-im}.  The given $E$ has good reduction
+at $\ell$, so its N\'eron mapping property extends the fixed map
+$\pi$ over this smooth source.  Its reduction is defined over
+$\mathbf F_\ell$ and commutes with the $\ell$-power Frobenius,
+giving (H4).  Thus $F_\ell$ is rational arithmetic Frobenius,
+acting by $\ell$-th powers, not the $\ell^2$-power Frobenius of
+the residue field above the inert prime.
+
+This argument applies to every conjugate of a compatible pair at
+the same fixed place.  Taking a common finite extension for the
+finitely many pairs shows that (H4) holds term by term after all
+the old derivative operators and ideal-class sums.  It also
+holds with the place transported.  No squarefreeness or
+inert-support restriction on $d$ has entered the proof.
+Howard \cite[\S1.7, (13), p.~1456]{howard2012} records the
+congruence in his conductor subfamily; his odd-prime descent and
+residual-surjectivity theorem are not used here.
 
 \paragraph{3. The relative group and invariant derivative class.}
 The idelic description
@@ -24985,37 +25070,31 @@ bound. This proves \eqref{eq:gaussian-global-gowers}, and hence supplies
 \eqref{eq:v5-global-gowers} without an Artin linear-correlations theorem.
 
 \paragraph{Completion by the published polynomial transfer.}
-The remainder of the proof of Proposition~\ref{prop:v5-artin-patterns},
-starting with its arbitrary-function dense-model step, now applies
-unchanged to these fixed Gaussian ray fields. Specifically use the
-published Tao--Ziegler~\cite{v5tz} Theorem~11 and Corollary~3, then Theorem~9 and
-Theorem~13. The model for an arbitrary $f\leq\lambda_{W,b}$ is used;
-one does not assert that an Artin weight has model one. Equation
-\eqref{eq:gaussian-global-gowers} shows that its bounded model, minus
-$\mu_C(b)$, has small global norms. The model is bounded by a fixed
-constant depending on the chosen sieve exponent. Divide its difference
-from $\mu_C(b)$ by a fixed bound for that difference before applying
-Theorem~9, whose hypothesis is a bound by one. After restoring this
-fixed factor, concatenation and model approximation give the required
-local norm bounds. None of these scaling constants depends on $v$.
-
-Keep the original parameter order: local box order and coefficient
-bound first, then $B_0>C+2$, then the global order $a$, and finally
-small $\rho$. Only then let $v$ increase. The quantities
-$M_0=\lfloor T/W\rfloor$, $M_1=\lfloor M_0/A\rfloor$ and
-$J=\lfloor A^{-2B_0a}M_1^2\rfloor$ satisfy the size hypotheses recorded
-in the appendix when $T/\sqrt N\geq4\sqrt W/A$.
-For each fixed $v$ the estimates are uniform for $T$ in that allowed
-range. The final assertion $T=o(\sqrt N)$ is imposed only along the
-subsequent diagonal $v=v(N)\to\infty$, not while $v$ is frozen.
+Section~\ref{subsec:v18-squarefree-reduction} proves the transfer for
+these fixed Gaussian ray fields using the published squarefree
+Tao--Ziegler theorems. The prime inputs are zero-extended to
+$\Z/(En)\Z$ and the same source model approximates both the required
+global and local norms. It is compared with the conditional density
+times the appropriate residue-class indicator, not with a constant
+on the whole enlarged group. Equation~\eqref{eq:gaussian-global-gowers}
+and the exact localized norm identity supply its global input.
+The parameter order is local complexity, $B_0$, global order, then
+the sieve exponent, and only afterwards $v$ and the analytic size.
+The source fine scale is $M_0/Q^{1/\rho}$ with
+$M_0=\lfloor T/W\rfloor$, where $Q=\prod_{p\leq v}p$.
+The explicit scale bounds below hold uniformly when
+$T/\sqrt N\geq4\sqrt W/A$, with $A=W^{1/\rho}$.
+The final $T=o(\sqrt N)$ assertion is imposed along the slow diagonal.
 
 After $u=Wx+b$, $w=Wm+c$, the polynomials are
 $c_jWm^2+2c_jcm+(b+c_jc^2-b_j)/W$, with distinct leading coefficients.
 The bounded-model transfer kills every term containing a centered
 factor. Output-boundary strips have width $O(T^2)=o(N)$.
 For completeness, dominate them first by strips of width $\epsilon N$.
-Here is the needed localization of the ordinary majorant estimate.
-This argument also covers negative coefficients $c_j$. For the true
+Here is the needed localization of the exact pullback majorant
+from Section~\ref{subsec:v18-squarefree-reduction}.
+Its conditional polynomial-forms estimate and interval means are
+proved there. This argument also covers negative coefficients $c_j$. For the true
 integer count use an enlarged period $n_* = \lceil B N/W\rceil$, where
 $B>2+\max_j|c_j|$ is fixed. We may assume $T\leq\sqrt N$.
 Nonpositive outputs have prime weight zero, and every positive output
@@ -25023,8 +25102,8 @@ is at most $(1+\max_j|c_j|)N$. Discard also tuples for which some
 positive output is at most $W\lceil n_*^\rho\rceil+W$. For each $w$
 there are $O_k(W n_*^\rho+W)$ such $u$, so their total weight is
 $O_k((W n_*^\rho+W)T(\log N)^k)=o_v(NT)$, uniformly in the
-allowed $T$ range. All remaining true outputs have their ordinary
-prime majorants on $[n_*]$ without wrap-around. Use the same
+allowed $T$ range. All remaining true outputs are dominated by the exact pullback
+majorants on $[n_*]$, by the prime comparison below, without wrap-around. Use the same
 localization calculation on the original period $n$ to bound the
 artificial wrapped terms of the cyclic count. The parameters $n_*$
 and $n$ differ by a fixed factor, so both applications satisfy the
@@ -25033,8 +25112,8 @@ denotes either chosen ambient period.
 Write $\nu_0(x)$ for the majorant factor with constant shift if there
 is one, and set $\nu_0=1$ otherwise. There is at most one such factor.
 Put $F(x)=\mathbb E_m\prod_i\nu_i(x+P_i(m))$, omitting that factor.
-Tao--Ziegler, Theorem~15 in Appendix~A (published page~57), applied to
-$\nu_0F$, $\nu_0F^2$ and $\nu_0$, gives
+Lemma~\ref{v18tz:lem:forms}, which reduces the pullback weights to
+published Theorem~15, applied to $\nu_0F$, $\nu_0F^2$ and $\nu_0$, gives
 \[
  \mathbb E_x\nu_0(x)(F(x)-1)^2=o_{v\to\infty}(1)+o_v(1).
 \]
@@ -25049,8 +25128,7 @@ shows, for every interval $I$ in the $x$ variable,
 For fixed relative interval length the one-dimensional divisor-sum
 mean estimate gives
 $\mathbb E_x1_I\nu_0=|I|/n+o_{v\to\infty}(1)+o_v(1)$;
-it follows either directly from the ordinary majorant construction
-or from its linear-forms estimate on that fixed interval.
+this is Lemma~\ref{v18tz:lem:mean} for the exact pullback weight.
 The normalized prime weights are bounded by fixed multiples of
 their sieve majorants, with constants depending on the fixed sieve
 exponent. Thus a strip of width $\epsilon N$ has total weight
@@ -25083,6 +25161,409 @@ or by subtraction with thresholds enlarged for $N/2$.
 This bridge uses the separately established Gaussian nilsequence input
 and published ordinary-prime transference. It uses no statement or
 estimate from Frei--Tinkov\'a as a theorem.
+
+
+\subsection{A squarefree reduction for a fixed factor in the modulus}
+\label{subsec:v18-squarefree-reduction}
+\phantomsection\label{q214foundation:tz-adaptation}
+
+We prove the reduction needed for the quadratic prime-pattern argument. The external analytic inputs are the published
+Tao--Ziegler Theorems 9, 11, 13 and 15, together with their Corollary 3
+\cite{v5tz}. We use their squarefree statements on an enlarged cyclic group.
+The other input is the Gaussian global-uniformity estimate
+\eqref{eq:gaussian-global-gowers}, proved above. No estimate comparing two sieve cutoffs is used.
+We retain the original modulus, quadratic patterns and final counting
+range; the auxiliary group, majorant and fine scale are specified below.
+Here $N$ is the original arithmetic size, $n=\lfloor N/W\rfloor$,
+and $T$ is the range of the quadratic parameter, with
+$4\sqrt W/A_W\leq T/\sqrt N\leq1$. The densities $\mu_j(b)$
+are the manuscript's conditional prime densities and satisfy
+$0\leq\mu_j(b)\leq1$.
+
+\paragraph{The pullback and the prime inputs}
+
+Fix a positive integer $E$. For large $v$, set
+\[
+ Q=\prod_{p\leq v}p,\qquad W=EQ,\qquad L=En,
+\]
+and assume every prime divisor of $E$ divides $Q$.
+Write a unit residue $b\in[W]$ uniquely as
+\[
+ b=b^0+Qt,\qquad b^0\in[Q],\quad 0\leq t<E.
+\]
+Then $b^0$ is a unit modulo $Q$ and $\varphi(W)/W=\varphi(Q)/Q$.
+The map $\iota_t(x)=Ex+t$ identifies $\Z/n\Z$ with
+$C_t=\{y\in\Z/L\Z:y\equiv t\pmod E\}$.
+
+Fix a sufficiently small exponent $\kappa>0$ and the smooth even profile
+$\chi$ in \cite[(36), p.~29]{v5tz}, normalized by
+$\int_0^1|\chi'(s)|^2\,ds=1$ and $\chi(0)>0$.
+Let $R_*=L^\kappa$. On representatives $y\in[L]$, the published weight is
+\[
+ u_{b^0}(y)=\frac{\varphi(Q)}Q\log R_*
+ \left(\sum_{d\mid Qy+b^0}\mu(d)
+             \chi\left(\frac{\log d}{\log R_*}\right)\right)^2.
+\]
+Extend it periodically to $\Z/L\Z$, and \emph{define}
+\begin{equation}\label{v18tz:eq:pullback}
+ \nu_b^*(x)=u_{b^0}(Ex+t).
+\end{equation}
+The cutoff is $L^\kappa$, not $n^\kappa$. For $t=0$ its representatives
+downstairs are $1,\ldots,n$; for $t>0$ they are $0,\ldots,n-1$.
+We never identify the weights at the two cutoffs.
+
+For a function $f$ on $\Z/n\Z$, its zero extension is
+\[
+ \widetilde f(Ex+t)=f(x),\qquad \widetilde f=0\text{ off }C_t.
+\]
+For arbitrary polynomials $P_j$ and finite parameter averages, put
+$\widehat P_j=EP_j+t_j$. Directly from the supports,
+\begin{equation}\label{v18tz:eq:average}
+ \mathbb E_{y\bmod L}\mathbb E_m\prod_j\widetilde f_j(y+\widehat P_j(m))
+ =\frac1E\mathbb E_{x\bmod n}\mathbb E_m\prod_j f_j(x+P_j(m)).
+\end{equation}
+Indeed, every nonzero product forces $y\equiv0\pmod E$.
+
+The analytic prime input in the manuscript is
+\[
+ f_{j,b}(x)=\frac{\varphi(W)}W\Lambda'_j(Wx+b)
+                  \mathbf 1_{n^\rho\leq x\leq n},\qquad
+ 0\leq\Lambda'_j\leq\Lambda',
+\]
+with representatives $1,\ldots,n$ and $0<\rho<1$.
+Delete the value at the cyclic point zero, and call the result
+$f_{j,b}^{\circ}$. This uniform convention deletes one unnecessary
+point also when $t=0$.
+At every remaining point of its support, the representative $y=Ex+t$
+lies in $[L]$, satisfies $Qy+b^0=Wx+b$, and obeys
+\[
+ y\geq En^\rho\geq(En)^\rho.
+\]
+Consequently the zero extension of $f_{j,b}^{\circ}$ is bounded by the
+\emph{published prime weight} $\Lambda'_{b^0,Q}$ at exponent $\rho$,
+and also at any fixed exponent $0<\rho_*\leq\rho$ for large $n$.
+This verifies the prime-weight hypothesis of Theorem 11, which is
+stronger than domination by a majorant.
+At a retained prime and exponent $\kappa\leq\rho$, only $d=1$
+contributes to the divisor sum, whence, for sufficiently large $n$
+at fixed $v$,
+\begin{equation}\label{v18tz:eq:domination}
+ f_{j,b}^{\circ}\leq
+       \frac{2}{\kappa\chi(0)^2}\nu_b^*.
+\end{equation}
+The constant is independent of $v,n,b$.
+
+Deleting the point is necessary for the literal comparison: for $t>0$
+the pullback at cyclic $x=0=n$ evaluates the integer $b$, while the
+old prime function evaluates $Wn+b$. It is harmless for the conclusions.
+For $k$ inputs of size $O_v(\log n)$, at most $k$ base values in a
+common-base polynomial average hit a deleted point, for each fixed
+parameter tuple. The change is $O_v((\log n)^k/n)$, uniformly in
+the shifts. A cube moment with $2^a$ vertices changes by
+$O_v((\log n)^{2^a}/n)$ by the same argument. This preserves the
+manuscript's global norm estimates and permits restoration of the
+original prime inputs at the end.
+
+\paragraph{Polynomial forms and localization}
+
+Here all error statements have the iterated meaning
+$\lim_{v\to\infty}\limsup_{n\to\infty}\sup|\text{error}|=0$,
+with the displayed fixed complexities held fixed. The suprema include
+the allowed residues, polynomials and parameter boxes.
+
+\begin{lemma}\label{v18tz:lem:mean}
+For every residue class $r\pmod E$ and every integer $c$, uniformly in
+$c$, the conditional mean of $u_{b^0}(y+c)$ differs from its full mean by
+$O_{E,\chi}(L^{2\kappa-1}\log L)$. For every interval $I$ in
+$\Z/n\Z$,
+\[
+ \mathbb E_{x\bmod n}\mathbf 1_I(x)\nu_b^*(x)
+   =\frac{|I|}n\mathbb E_{y\bmod L}u_{b^0}(y)
+       +O_{E,\chi}(L^{2\kappa-1}\log L).
+\]
+\end{lemma}
+\begin{proof}
+Expand the divisor square. A surviving pair $d,d'\leq R_*$ has
+$q=[d,d']$ coprime to $Q$, hence also to $E$ and $W$.
+There are $L/q+O(1)$ solutions of $Qy+b^0\equiv0\pmod q$ in $[L]$,
+and $L/(Eq)+O(1)$ after also requiring $y\equiv r\pmod E$.
+After normalization their main terms agree, and their difference is
+$O_E(1/L)$. Sum over at most $R_*^2$ pairs and include the prefactor
+$O(\log R_*)$. Translation by $c$ permutes residue classes because
+$E\mid L$. For the interval version split at the representative cut
+if necessary. On each resulting interval the condition
+$Wx+b\equiv0\pmod q$ has $|I|/q+O(1)$ solutions. The same calculation
+proves the claim. In particular both conditional and interval means
+have the asserted asymptotics, using the one-form case of the
+published Theorem 15 and $2\kappa<1$.
+\end{proof}
+
+\begin{lemma}\label{v18tz:lem:forms}
+The exact pullbacks satisfy the polynomial-forms conclusion needed in
+the manuscript. More precisely, let $P_1,\ldots,P_k$ have pairwise
+nonconstant differences, fixed degree and number of variables, and
+nonconstant coefficients bounded by $W^{C/\kappa}$ for a fixed $C$.
+For product boxes with sides between $(\log n)^{1/\kappa}$ and $n$,
+\[
+ \mathbb E_{x\bmod n}\mathbb E_m\prod_j\nu_{b_j}^*(x+P_j(m))=1+o(1).
+\]
+Constant coefficients are unrestricted. The exponent $\kappa$ is
+chosen sufficiently small for the fixed complexities and their
+second moments.
+\end{lemma}
+\begin{proof}
+We first check the published scale and coefficient bounds exactly.
+The same weight $u$ can be presented in (36) at exponent $2\kappa$
+using the fixed profile $\psi(s)=\chi(2s)/\sqrt2$.
+Its profile derivative still has squared integral one; the divisor
+sum is divided by $\sqrt2$ and the logarithmic prefactor is doubled.
+Thus this is an identity of weights, not a comparison of cutoffs.
+The source lower bound $(\log L)^{1/(2\kappa)}$ is eventually smaller
+than $(\log n)^{1/\kappa}$. Its upper bound permits sides up to $L$.
+The coefficients of $\widehat P_j=EP_j+t_j$ are bounded by a fixed
+power of the source parameter $Q^{1/(2\kappa)}$, as required in
+Theorem 15. For example, for $Q\geq E$, the nonconstant coefficients
+are at most $Q^{1+2C/\kappa}$. Theorem 15 allows arbitrary constant
+coefficients and mixed unit residues. We apply it at the required
+fixed doubled complexities. This identity of profiles is not used
+to change the prime truncation in Theorem 11.
+
+Write $\mathbb E_r=E\mathbb E_y\mathbf 1_{y\equiv r\ (E)}$. If all $P_j$ are
+nonconstant, let
+\[
+ G(y)=\mathbb E_m\prod_j u_{b_j^0}(y+\widehat P_j(m)).
+\]
+The published Theorem 15 gives $\mathbb E G=1+o(1)$ and $\mathbb E G^2=1+o(1)$.
+For the second identity take independent copies of the parameters.
+Cross-copy differences are nonconstant, since a nonconstant monomial
+in one parameter set cannot cancel with a monomial in the other.
+Thus $\mathbb E(G-1)^2=o(1)$ and
+$|\mathbb E_rG-1|\leq\sqrt{E\mathbb E(G-1)^2}=o(1)$.
+
+At most one $P_j$ can be constant. If it is, write its factor as
+$g(y)=u_{b^0}(y+c)$, and let $H(y)$ average the other factors.
+Apply the source to $g,gH,gH^2$, keeping $g$ only once and using
+independent parameter copies for the other factors. It gives
+$\mathbb E g(H-1)^2=o(1)$. Lemma~\ref{v18tz:lem:mean} gives $\mathbb E_rg=1+o(1)$;
+weighted Cauchy--Schwarz now gives
+\[
+ |\mathbb E_rgH-\mathbb E_rg|
+ \leq(\mathbb E_rg)^{1/2}(E\mathbb E g(H-1)^2)^{1/2}=o(1).
+\]
+For a single constant form only Lemma~\ref{v18tz:lem:mean} is needed.
+Finally, the left side in the lemma is exactly
+$\mathbb E_0\mathbb E_m\prod_j u_{b_j^0}(y+\widehat P_j(m))$ by
+\eqref{v18tz:eq:pullback}. This proves the assertion.
+\end{proof}
+
+These lemmas also supply the manuscript's boundary localization.
+For a nonnegative product average $F$ of nonconstant shifted weights
+with pairwise nonconstant differences, and a base factor $\nu_0^*$,
+choose $\kappa\leq\rho$ sufficiently small for these factors and
+their second moments. Lemma~\ref{v18tz:lem:forms} gives
+$\mathbb E\nu_0^*(F-1)^2=o(1)$. Hence for an interval $I$,
+\[
+ \mathbb E\mathbf 1_I\nu_0^*F
+ =\mathbb E\mathbf 1_I\nu_0^*+o(1)=|I|/n+o(1)
+\]
+by weighted Cauchy--Schwarz and Lemma~\ref{v18tz:lem:mean}.
+The argument is also valid with enlarged target period
+$n_*=\lceil BN/W\rceil$, where $B>2+\max_j|c_j|$ is fixed,
+and source period $En_*$.
+After discarding outputs at most $W\lceil n_*^\rho\rceil+W$, the
+existing positive-output margin places the true integer arguments
+strictly inside the target representative interval. Thus no new
+wrap decomposition is required.
+
+\paragraph{The localized global norm identity}
+
+We use the difference-multiset conventions in \cite[Section 1.1, pp.~8--11]{v5tz}.
+Thus $U^a_{q[J]}$ averages increments $q(h_i-h_i')$ with independent
+$h_i,h_i'\in[J]$; its $2^a$-th power is the associated cube average.
+For unequal multisets the analogous notation is the box seminorm.
+
+\begin{lemma}\label{v18tz:lem:norm}
+Let $F:\Z/n\Z\to\mathbb R$, and zero-extend it along $\iota_t$.
+Put $p=2^a$, $g=\gcd(E,q)$, $h=E/g$, and
+$J_r=\#\{j\in[J]:j\equiv r\pmod h\}$.
+Then, omitting terms with zero weight,
+\[
+ \|\widetilde F\|_{U^a_{q[J]}(\Z/L\Z)}^p
+ =\frac1E\sum_{r_1,\ldots,r_a\bmod h}
+    \prod_{i=1}^a(J_{r_i}/J)^2
+    \|F\|_{\Box^a_{((q/g)[J_{r_i}])_{i=1}^a}(\Z/n\Z)}^p.
+\]
+If $J\geq2h$ and $J_0=\lfloor J/h\rfloor$, then
+\begin{equation}\label{v18tz:eq:norm}
+ \|\widetilde F\|_{U^a_{q[J]}}^p
+  =\frac1{Eh^a}\|F\|_{U^a_{(q/g)[J_0]}}^p
+        +O_{a,E}(\|F\|_\infty^p/J).
+\end{equation}
+\end{lemma}
+\begin{proof}
+A nonzero cube must have base in $C_t$, contributing $1/E$.
+Its one-coordinate vertices force
+$q(h_i-h_i')\equiv0\pmod E$, equivalently $h_i\equiv h_i'\pmod h$.
+These conditions also suffice for every vertex to remain in $C_t$.
+After fixing each common residue, division by $E$ changes the
+increment to $(q/g)(u_i-u_i')$, with both new indices in intervals
+of length $J_{r_i}$. Common translations of the two intervals cancel.
+This proves the exact identity with the displayed probability weights.
+Each length is $J_0$ or $J_0+1$. Replacing an independent uniform on
+$[J_0+1]$ by one on $[J_0]$ costs $O(1/J_0)$ in total variation.
+The cube integrand is bounded by $\|F\|_\infty^p$ and
+$\sum_r(J_r/J)^2=h^{-1}+O_E(J^{-2})$, proving \eqref{v18tz:eq:norm}.
+\end{proof}
+
+The full-group Gowers identity alone would not prove this assertion.
+When $E\mid q$, the factor in \eqref{v18tz:eq:norm} is $1/E$, whereas for
+general $q$ both the factor and the interval length depend on
+$\gcd(E,q)$. In our application $F=f^\circ-\mu$ has size
+$O_v(\log n)$ and $J\asymp_v n$, so the error tends to zero.
+
+\paragraph{The literal model and counting applications}
+
+Fix distinct integers $c_j$. The manuscript's shifts after
+$u=Wx+b$, $w=Wm+c$ are
+\[
+ P_j(m)=c_jWm^2+2c_jcm+(b+c_jc^2-b_j)/W,
+ \qquad b_j\equiv b+c_jc^2\pmod W.
+\]
+Take all residue representatives in $[W]$.
+Every coefficient of $P_j$ is $O_{c_j}(W)$, including the constant.
+Every coefficient of $\widehat P_j=EP_j+t_j$ is therefore
+$O_{E,c_j}(Q)$, uniformly in the residues. For $\rho<1$ these
+coefficients are at most $A_0=Q^{1/\rho}$ once $v$ is large.
+All pairwise differences have degree two. The published Theorem 13
+therefore applies with $d=d_0=2$, parameter $A_0$, ambient period
+$L$, and mixed residues $b_j^0$. Its statement allows nonzero
+constant terms. This check uses the actual $O(W)$ bound: a generic
+bound by $W^{1/\rho}$ would not suffice to give coefficients at most
+$Q^{1/\rho}$ after dilation.
+
+Let $s$ and $C$ be the fixed box order and coefficient exponent in
+Theorem 13. Choose $B_0>C+2$, then its required global order $a$, then
+sufficiently small $\rho$. Set
+\[
+ \rho_* =\rho/B_0,\quad A_*=Q^{1/\rho_*}=A_0^{B_0},\quad
+ M_0=\lfloor T/W\rfloor,\quad M=M_0/A_0,\quad
+ J=\lfloor A_*^{-2a}M^2\rfloor.
+\]
+Intervals of real length are interpreted by taking integer points,
+as in the source. The manuscript's permitted $T$ range gives, with
+harmless fixed factors for rounding,
+\[
+ A_W^{-1}\sqrt n\leq M_0\leq\sqrt n,
+ \qquad A_W=W^{1/\rho}=E^{1/\rho}A_0.
+\]
+Thus $M_0,M\asymp_v\sqrt n$. They eventually exceed the logarithmic
+lower bounds at $L$ for both exponents $\rho,\rho_*$, and obey
+$M_0\leq A_0\sqrt L$ and $M\leq(A_*L)^{1/2}$.
+The fine scale is $M_0/A_0$, not the old $M_0/A_W$.
+
+Theorem 13 supplies \emph{linear step polynomials} $S_1,\ldots,S_s$
+with coefficients $O(A_0^C)\leq A_*$. These, not the quadratic
+configuration polynomials, are the inputs to Theorem 11, Corollary 3
+and Theorem 9, with $d=d_0=2$, exponent $\rho_*$ and scale $M$.
+The source imposes no zero-constant-term condition on the $S_i$.
+
+For each required input $f^\circ$, the prime comparison above
+checks the actual hypothesis of Theorem 11. Corollary 3 provides
+\emph{one} model $H$, bounded between zero and a fixed constant $B$,
+such that
+\begin{align}
+ \|\widetilde f^\circ-H\|_{U^a_{q[J]}}&=o(1)
+                         &&(q\leq A_*^a),\\
+ \mathbb E_{\boldsymbol h\in[M]^r}
+ \|\widetilde f^\circ-H\|_{
+       \Box^s_{(S_i(\boldsymbol h)[-M,M])_{i=1}^s}}&=o(1).
+ \label{v18tz:eq:local}
+\end{align}
+These are (53) and (54) for the same model from Proposition 4.
+In particular we have not selected two different approximations.
+The bound $B$ depends on the fixed exponent and complexities, not
+on $v,n$ or the allowed polynomials. The local average in (54), and
+the local functional in Theorem 13's (57), are averages of the box
+norm itself, not of an exterior $2^s$-th power.
+
+The supplied Gaussian estimate downstairs is
+\begin{equation}\label{v18tz:eq:gaussian}
+ \|f^\circ-\mu\|_{U^a_{q'[J']}}^{2^a}
+ \ll (\log v)^{-1}+o_v(1),\qquad
+ q'\leq A_W^{C_1},\quad nA_W^{-C_3}\leq J'\leq nA_W^{-C_2},
+\end{equation}
+for any fixed $C_1<C_2<C_3$. Endpoint deletion preserves it.
+For $q\leq A_*^a$, the $q'=q/\gcd(q,E)$ and
+$J'=\lfloor J/(E/\gcd(q,E))\rfloor$ in Lemma~\ref{v18tz:lem:norm}
+lie in this range, for example with
+\[
+ C_1=B_0a,\qquad C_2=2B_0a-1,\qquad C_3=2B_0a+8.
+\]
+Indeed $J$ lies between fixed positive multiples of
+$nA_0^{-2B_0a-4}$ and $nA_0^{-2B_0a-2}$; the fixed powers of $E$
+are absorbed by the spare powers of $A_W$ as $v$ increases.
+It follows that
+\[
+ \|\widetilde f^\circ-\mu\mathbf 1_{C_t}\|_{U^a_{q[J]}}=o(1)
+ \quad(q\leq A_*^a).
+\]
+By the triangle inequality the same holds for $H-\mu\mathbf 1_{C_t}$.
+Divide this bounded function by $B+1$. The published Theorem 9,
+at the same $M,A_*,S_i,a$, converts these global estimates into
+smallness of its averaged local box norm. Its smallness threshold
+does not depend on $A_*$. Multiply back by $B+1$, then add
+\eqref{v18tz:eq:local}, to obtain
+\[
+ \mathbb E_{\boldsymbol h\in[M]^r}
+ \|\widetilde f^\circ-\mu\mathbf 1_{C_t}\|_{
+       \Box^s_{(S_i(\boldsymbol h)[-M,M])_{i=1}^s}}=o(1).
+\]
+The model $H$ need not be supported on $C_t$. We never project it
+onto that class. All local norms stay on the enlarged group, so no
+divisibility assertion about the coefficients of $S_i$ is needed.
+
+Expand every lifted prime input into its centered part and
+$\mu_j\mathbf 1_{C_{t_j}}$. Each factor is bounded in magnitude by the
+appropriate published prime weight plus one. Theorem 13 and the
+last estimate make every term containing a centered factor $o(1)$;
+permuting the factors preserves its degree-difference hypotheses.
+The pure mean product equals $\mathbf 1_{C_0}\prod_j\mu_j$, since
+$\widehat P_j\equiv t_j\pmod E$. Its average is
+$E^{-1}\prod_j\mu_j$. Equation~\eqref{v18tz:eq:average} cancels this
+factor exactly, giving the required downstairs main term.
+The endpoint errors tend to zero uniformly in the permitted $T$
+range. The localization argument above supplies the original boundary-strip argument.
+
+\paragraph{Order of limits and scope}
+
+The phrase ``sufficiently slowly growing'' in the published parameter
+convention is used in its usual uniform sense: every diverging
+cutoff below a sufficiently slow envelope is permitted. This yields
+the iterated error formulation used above. To verify it, if a uniform
+error had positive $\lim_{v\to\infty}\limsup_{n\to\infty}$, choose
+increasing bad $v_j$ and arbitrarily large bad $n_j$. Choose each
+$n_j$ beyond the envelope threshold for $v_j$ and set
+$N'_j=Q_{v_j}En_j$. A stepwise cutoff equal to $v_j$ from $N'_j$
+until $N'_{j+1}$ is an admissible slow cutoff, while the source cyclic
+period at $N'_j$ is exactly $En_j$. The witnessing admissible data
+contradict the published uniform conclusion. The finitely many
+source applications and profile choices share one such envelope.
+This argument does not assert that an error vanishes with $n$ at
+every fixed $v$.
+
+Choose the complexities, $B_0,a,\rho$ first; then $v$; then the
+large-size thresholds for the source errors, the Gaussian input,
+and the endpoint and interval estimates. Theorem 9's threshold is
+independent of $A_*$. Fixed factors depending on $E,B$ therefore
+do not reverse the order of limits. The manuscript's existing slow
+diagonal, including its final $T=o(\sqrt N)$ range, is unchanged.
+
+This proves the needed polynomial-forms and quadratic counting
+applications from the published squarefree results and the stated
+Gaussian input. It does not assert every abstract fixed-$E$ variant
+of Theorems 11 and 13 with unchanged numerical parameters, nor any
+identity with the old cutoff-$n^\kappa$ majorant. Neither assertion
+is required by the manuscript.
 
 
 \subsection{Fixed Artin conditions in quadratic patterns}
@@ -25156,72 +25637,20 @@ and the fixed ray field. The norm, wrap-around regions, conditional
 densities, and order of the auxiliary cutoff are all treated explicitly
 in Section~\ref{subsec:gaussian-gowers-bridge}.
 
-\phantomsection\label{q214foundation:tz-adaptation}
-We now adapt the arbitrary-function dense-model argument of
-Tao--Ziegler~\cite{v5tz}. For their squarefree primorial modulus, the published
-Theorem~11 and Corollary~3 give a single bounded model accurate in both
-global Gowers norms and the local polynomial box norms. Their Theorem~9 is
-the bounded-function concatenation statement, and their Theorem~13 bounds
-the polynomial average by one of those local norms. All majorants here are
-the ordinary prime majorants, since $0\leq\Lambda'_j\leq\Lambda'$.
-Our modulus can contain a fixed extra factor. Thus the uses of their
-modulus-dependent results here are adaptations of their proofs, including
-the polynomial-forms estimate in Theorem~15, rather than literal
-applications of the published statements. The bounded-function
-Theorem~9 does not involve this modulus. The changes in the divisor-sum
-construction are as follows:
-for sufficiently large $v$, $W=E\prod_{p\leq v}p$ with a fixed $E$ whose
-prime factors are at most $v$. A unit residue makes every small-prime
-divisibility condition identically false, including at the extra prime
-powers. At the remaining primes the divisor-sum local factors satisfy the same
-uniform estimates. Polynomial coefficient bounds absorb the fixed factor $E$.
-Thus the polynomial-forms estimates for the majorant have the same
-$1+o(1)$ conclusion.
-
-The following choice records the size hypotheses of these results.
-First choose their local box order $d'$ and a coefficient exponent $C$;
-choose an integer $B_0>C+2$, then a sufficiently large global order $a$,
-and finally a sufficiently small $\rho$. Set $\rho_* =\rho/B_0$ and
-$\mathcal A=A^{B_0}$. Put
-$M_0=\lfloor T/W\rfloor$, $M_1=\lfloor M_0/A\rfloor$.
-For $T/\sqrt N\geq4\sqrt W/A$ one has
-\[
- A^{-1}\sqrt n\leq M_0\leq\sqrt n,
- \qquad A^{-3}\sqrt n\leq M_1\leq\sqrt n.
-\]
-The model at cutoff $n^{\rho_*}$ dominates the function already truncated
-at $n^\rho$. Corollary~3 supplies approximation for the degree-one local
-step polynomials, whose coefficients are $O(A^C)$, and simultaneously for
-$q\leq A^{B_0a}$ with
-$J=\lfloor A^{-2B_0a}M_1^2\rfloor$.
-In particular
-\[
- nA^{-2B_0a-7}\leq J\leq nA^{-2B_0a}.
-\]
-This is within \eqref{eq:v5-global-gowers}. Let $f'_{j,b}$ be the
-model supplied by Corollary~3 at cutoff $n^{\rho_*}$. Its bound is
-$0\leq f'_{j,b}\leq B_*-1$, where $B_*\geq2$ depends on the fixed
-ray field, complexities and on $\rho_*$, but not on $v,n,b$ or the polynomials
-within the stated coefficient bounds. This is the bounded model of
-Tao--Ziegler's Proposition~4: its construction first rescales the
-prime weight by a fixed positive constant and then divides the model
-by that constant. In particular, it need not be bounded by one.
-Since $0\leq\mu_j(b)\leq1$, the function
-\[
- F_{j,b}=\frac{f'_{j,b}-\mu_j(b)}{B_*}
-\]
-is bounded in magnitude by one. The triangle inequality, the global
-part of Corollary~3, and \eqref{eq:v5-global-gowers} show that its
-required global norms tend to zero under the diagonal limit below.
-Apply Theorem~9 to $F_{j,b}$
-with parameters $d=d_0=2$, $M=M_1$, $A=\mathcal A$, and global
-order $a$. Its smallness threshold is independent of $\mathcal A$;
-$B_*$ has already been fixed before $v$ is chosen. Multiplication
-by $B_*$ and the local part of Corollary~3 therefore show that the
-local norm of $g_{j,b}$ tends to zero. Theorem~13, with the original
-parameter $A$ and coarse scale $M_0$, makes every polynomial average
-containing a centered factor $o(1)$. These are the reasons for choosing
-the complexities before $v$.
+Apply Section~\ref{subsec:v18-squarefree-reduction} to these inputs
+and to the global estimate \eqref{eq:v5-global-gowers}. It removes
+the one endpoint only in the analytic input, with a uniformly
+vanishing error, and uses the exact pullback majorant with its
+published cutoff. The lifted quadratics meet Theorem~13's full
+coefficient bound. Corollary~3 supplies one model for its linear
+local steps and the global progression norms; the localized norm
+identity and Theorem~9 then control the centered lift. The source
+fine scale and all coefficient, norm and logarithmic scale bounds
+are verified there. Multiplication by $E$ in the exact average
+identity cancels the density $1/E$ of the supporting base class.
+Thus every term containing a centered factor has error
+$o_{v\to\infty}(1)+o_v(1)$, uniformly in the permitted range,
+with the iterated limit taken in the stated order.
 
 For the final $W$-trick write $u=Wx+b$ and $w=Wm+c$.
 If $b_j$ is the residue of $b+c_jc^2$ modulo $W$, the resulting integer
@@ -45010,6 +45439,14 @@ The exact author manifest and independent scope decision are pinned in
 the accompanying application record.
 
 \bibitem{v15-weil-poisson} A. Weil, \emph{Sur certains groupes d'op'erateurs unitaires}, Acta Mathematica \textbf{111} (1964), 143--211, I.19, Theorem 4 and I.20.
+\bibitem{v18-blr} S. Bosch, W. L\"utkebohmert and M. Raynaud,
+\emph{N\'eron Models}, Ergebnisse der Mathematik und ihrer Grenzgebiete (3),
+\textbf{21}, Springer, 1990, \S1.2, Definition~1 and Proposition~8.
+\bibitem{v18-stacks-flat} The Stacks Project,
+\href{https://stacks.math.columbia.edu/tag/02LS}{Tag 02LS},
+Lemma 37.44.1, and
+\href{https://stacks.math.columbia.edu/tag/039E}{Tag 039E},
+Lemma 37.16.4, accessed November 14, 2026.
 \end{thebibliography}
 
 % End references.tex

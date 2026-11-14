@@ -1,0 +1,12 @@
+{
+  "reviewer": "astra",
+  "head": "0d49f7229a0d3779c4e55589963e25fc865bd8f9",
+  "run": "43624840610",
+  "attempt": "1",
+  "notes": [
+    "I’ll locate the current manuscript, read both changed arguments and their downstream uses, then check the published inputs and prior review history. I’ll keep the draft review separate from any release or record claim.",
+    "The two changed proof chains have distinct interfaces:\n\n- **Squarefree reduction:** the Gaussian localized Gowers estimate feeds the enlarged-group construction; Tao–Ziegler’s squarefree statements must then supply the simultaneous model and counting bound. The consumers are the fixed-field quadratic count, boundary localization, and fixed-data prime selection.\n- **H4:** conductor-raising CM isogenies must specialize to relative Frobenius, including the level subgroup, at one common place. This supplies the reduction identities used after the old derivatives and class-group sums.\n\nThe localized norm calculation accounts for \\(\\gcd(E,q)\\), rather than using a full-group identity alone. I’m now checking the external theorem hypotheses and whether the manuscript incorporates both repairs consistently.",
+    "The published Tao–Ziegler statements support the key distinctions in the new reduction: Theorem 11 requires domination by the truncated prime weight, Corollary 3 gives both approximations for one model, and Theorem 13 supplies linear local steps from the quadratic configuration. The new argument checks those interfaces explicitly. citeturn905366view1turn905366view3turn905366view4\n\nFor H4, I checked the cited good-reduction, Néron-extension, finite-flatness and Frobenius inputs. The manuscript now includes the level-subgroup and common-place arguments that the earlier R3-F20 record left unchecked. citeturn140063view4turn754511view0turn754511view1turn238620view2turn238620view3turn140063view2\n\n`read_history` returned no earlier PR findings, discussion or authenticated overrides. I separately read the repository records for R2-F7 and R3-F20; I am not treating the PR description’s internal review claims as proof evidence."
+  ],
+  "artifact_url": "https://github.com/elliotglazer/diophantine-z-q/actions/runs/43624840610/attempts/1"
+}
