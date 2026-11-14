@@ -27,3 +27,9 @@ H-85 CurveBijIso (scratch/model-glue/ModelGlue6.lean), H-83 ShimuraGoodReduction
 - Glue proved: `isRegularLocalRing_stalk_of_normal` (stalk = Dedekind domain ⇒ regular, Mathlib instance),
   `mem_smoothLocus_of_regular` (leaf applied on affine charts with k = Γ(Spec ℚ, ⊤)), Mathlib
   `smoothLocus_eq_top_iff`, `smoothOfRelativeDimension_one` (Contrib.Dim stalk dimension at a closed point).
+
+## H-85 CurveBijIso (in progress)
+- `scratch/curve-split/CurveBij.lean` (CurveBijIso copied verbatim from ModelGlue6.lean L2954, ns ModelGlue).
+- Part A COMPILED: `CurveSplit.curveBijIso_of_closed : CurveBijIsoClosed → CurveBijIso` (fpqc descent of
+  isomorphisms along Spec ℚ̄ → Spec ℚ, Mathlib `descendsAlong_isomorphisms_surjective_inf_flat_inf_quasicompact`,
+  Stacks 02L4; ℚ̄-points of S ↔ sections of S_ℚ̄). Standard axioms. VERIFIED.
