@@ -52,8 +52,9 @@ variable {X Y : Type*} [TopologicalSpace X] [TopologicalSpace Y]
 def closureIrreducibleCloseds (x : X) : IrreducibleCloseds X :=
   ⟨closure {x}, isIrreducible_singleton.closure, isClosed_closure⟩
 
-/-- Chains of irreducible closed sets lift along a continuous, specializing map, ending at the
-closure of any point over the generic point of the last member. -/
+/-- Along a continuous, specializing map, every chain of irreducible closed sets of `Y` has a chain
+in `X` of the same length ending at the closure of any point over the generic point of the last
+member. Only the length is asserted; the members are not tied to the original chain. -/
 theorem exists_ltSeries_lift_of_specializingMap [QuasiSober Y] (f : X → Y) (hc : Continuous f)
     (hs : SpecializingMap f) (p : LTSeries (IrreducibleCloseds Y)) :
     ∀ x : X, IsGenericPoint (f x) (p.last : Set Y) →
