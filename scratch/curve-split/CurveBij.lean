@@ -2,6 +2,7 @@ import ZInQKernel.HDecomp.QM.Pairs
 import ZInQKernel.Contrib.CurvesG.CurveSplit
 import ZInQKernel.Contrib.Dim.SmoothStalk
 import ZInQKernel.Contrib.SmoothFibre.Basic
+import ZInQKernel.Contrib.TauCeti.AlgebraicGeometry.Morphisms.Dominant
 
 /-! # curve-split: row H-85 `ModelGlue.CurveBijIso`
 
@@ -704,7 +705,198 @@ theorem curveBijIsoClosed_of_leaf (hL : BijToNormalIsIso) : CurveBijIsoClosed :=
 theorem curveBijIso_of_leaf (hL : BijToNormalIsIso) : CurveBijIso :=
   curveBijIso_of_closed (curveBijIsoClosed_of_leaf hL)
 
+/-! ## Part B': the leaf `BijToNormalIsIso` replaced by two classical theorems -/
+
+/-- **Leaf: Zariski's Main Theorem, original form** (published). A birational morphism `f : X → Y`
+of varieties over an algebraically closed field `k` with finite fibres, `Y` normal, is an open
+immersion. Sources (numbers UNVERIFIED): D. Mumford, *The Red Book of Varieties and Schemes*,
+Ch. III §9, "Zariski's Main Theorem (original form)"; EGA III₁ 4.4.9; Hartshorne III.11.4 and
+V.5.2 for related forms. "Variety": integral, separated, of finite type over `k`; "birational":
+dominant with `f^* : K(Y) → K(X)` bijective (Tau Ceti's `Scheme.Hom.functionFieldMap`); "finite
+fibres": every set-theoretic fibre is finite. -/
+def ZMTOriginal : Prop :=
+  ∀ (k : Type) [Field k] [IsAlgClosed k] (X Y : Over (SpecK k)) [IsIntegral X.left]
+    [IsIntegral Y.left], IsSeparated X.hom → IsSeparated Y.hom → LocallyOfFiniteType X.hom →
+    LocallyOfFiniteType Y.hom → QuasiCompact X.hom → QuasiCompact Y.hom →
+    ZInQ.Contrib.CurvesG.IsNormalScheme Y.left → ∀ (f : X ⟶ Y) [IsDominant f.left],
+      Function.Bijective f.left.functionFieldMap → (∀ y : Y.left, (f.left ⁻¹' {y}).Finite) →
+      IsOpenImmersion f.left
+
+/-- **Leaf: the degree is the number of points of a general fibre** (published). Let `k` be an
+algebraically closed field of characteristic `0` and `f : X → Y` a dominant morphism of varieties
+over `k` with `dim X = dim Y`. Then there is a nonempty open `U ⊆ Y` such that every closed point
+`y ∈ U` has exactly `[K(X) : K(Y)]` closed points in its fibre. Sources (numbers UNVERIFIED):
+J. E. Humphreys, *Linear Algebraic Groups*, §4.6 (`|φ⁻¹(y)| = [K(X):K(Y)]_s` on a dense open for
+a dominant morphism of irreducible varieties of the same dimension); I. R. Shafarevich, *Basic
+Algebraic Geometry 1*, Ch. II §6.3 (degree of a finite map and the number of preimages);
+A. Borel, *Linear Algebraic Groups*, AG.18.4. In characteristic `0` the separable degree is the
+degree (a specialization). -/
+def DegreeGeneralFibre : Prop :=
+  ∀ (k : Type) [Field k] [IsAlgClosed k] [CharZero k] (X Y : Over (SpecK k)) [IsIntegral X.left]
+    [IsIntegral Y.left], IsSeparated X.hom → IsSeparated Y.hom → LocallyOfFiniteType X.hom →
+    LocallyOfFiniteType Y.hom → QuasiCompact X.hom → QuasiCompact Y.hom →
+    ∀ (f : X ⟶ Y) [IsDominant f.left], topologicalKrullDim X.left = topologicalKrullDim Y.left →
+      letI := f.left.functionFieldMap.hom.toAlgebra
+      ∃ U : Y.left.Opens, (U : Set Y.left).Nonempty ∧ ∀ y ∈ U, IsClosed ({y} : Set Y.left) →
+        Nat.card {x : X.left // f.left x = y ∧ IsClosed ({x} : Set X.left)} =
+          Module.finrank Y.left.functionField X.left.functionField
+
+/-- An algebra of fields of dimension `1` is bijective. -/
+theorem bijective_of_finrank_eq_one {K L : Type*} [Field K] [Field L] [Algebra K L]
+    (h : Module.finrank K L = 1) : Function.Bijective (algebraMap K L) := by
+  refine ⟨(algebraMap K L).injective, fun x => ?_⟩
+  have htop : (⊤ : IntermediateField K L) = ⊥ := by
+    rw [← IntermediateField.finrank_eq_one_iff, IntermediateField.finrank_top', h]
+  have hx : x ∈ (⊥ : IntermediateField K L) := htop ▸ IntermediateField.mem_top
+  exact IntermediateField.mem_bot.mp hx
+
+section Assembly2
+
+variable {k : Type} [Field k] [IsAlgClosed k] [CharZero k]
+
+/-- **The restriction of `h` over an irreducible open `W` is an isomorphism** (proved from
+`ZMTOriginal` and `DegreeGeneralFibre`), once `h` is a homeomorphism. -/
+theorem restrict_isIso' (hZ : ZMTOriginal) (hD : DegreeGeneralFibre) {T Z : Over (SpecK k)}
+    [IsProper T.hom] [IsProper Z.hom] [SmoothOfRelativeDimension 1 T.hom]
+    [SmoothOfRelativeDimension 1 Z.hom] (h : T ⟶ Z) (W : Z.left.Opens)
+    (hW : IsIrreducible (W : Set Z.left)) (hhomeo : IsHomeomorph h.left) :
+    IsIso (h.left ∣_ W) := by
+  set V := h.left ⁻¹ᵁ W with hVdef
+  have : IsLocallyNoetherian T.left := LocallyOfFiniteType.isLocallyNoetherian T.hom
+  have : IsLocallyNoetherian Z.left := LocallyOfFiniteType.isLocallyNoetherian Z.hom
+  have hsmW : SmoothOfRelativeDimension 1 (W.ι ≫ Z.hom) := by
+    have := smoothOfRelativeDimension_comp (n := 0) (m := 1) W.ι Z.hom
+    rwa [zero_add] at this
+  have hsmV : SmoothOfRelativeDimension 1 (V.ι ≫ T.hom) := by
+    have := smoothOfRelativeDimension_comp (n := 0) (m := 1) V.ι T.hom
+    rwa [zero_add] at this
+  have : Smooth (W.ι ≫ Z.hom) := SmoothOfRelativeDimension.smooth 1 _
+  have : Smooth (V.ι ≫ T.hom) := SmoothOfRelativeDimension.smooth 1 _
+  have : JacobsonSpace W.toScheme := LocallyOfFiniteType.jacobsonSpace (W.ι ≫ Z.hom)
+  have : IrreducibleSpace W.toScheme := Subtype.irreducibleSpace hW
+  have : IsReduced W.toScheme := isReduced_of_smooth (W.ι ≫ Z.hom)
+  have hIW : IsIntegral W.toScheme := isIntegral_of_irreducibleSpace_of_isReduced _
+  have hV : IsIrreducible (V : Set T.left) := by
+    let e := hhomeo.homeomorph h.left
+    have : (V : Set T.left) = e.symm '' (W : Set Z.left) := by
+      rw [Homeomorph.image_symm]; rfl
+    rw [this]
+    exact hW.image _ e.symm.continuous.continuousOn
+  have : IrreducibleSpace V.toScheme := Subtype.irreducibleSpace hV
+  have : IsReduced V.toScheme := isReduced_of_smooth (V.ι ≫ T.hom)
+  have hIV : IsIntegral V.toScheme := isIntegral_of_irreducibleSpace_of_isReduced _
+  have hN : ZInQ.Contrib.CurvesG.IsNormalScheme W.toScheme := isNormal_of_integral (W.ι ≫ Z.hom)
+  -- the restriction is bijective on points
+  set f := h.left ∣_ W with hfdef
+  have hfapp : ∀ x : V.toScheme, (f x).1 = h.left x.1 := fun x =>
+    morphismRestrict_base_coe h.left W x
+  have hinj : Function.Injective f := by
+    intro a b hab
+    apply Subtype.ext
+    apply hhomeo.injective
+    rw [← hfapp, ← hfapp, hab]
+  have hsurj : Function.Surjective f := by
+    intro y
+    obtain ⟨x, hx⟩ := hhomeo.surjective y.1
+    have hxV : x ∈ V := by
+      show h.left x ∈ W
+      rw [hx]; exact y.2
+    refine ⟨(⟨x, hxV⟩ : V.toScheme), Subtype.ext ?_⟩
+    exact (hfapp _).trans hx
+  have : IsDominant f := ⟨hsurj.denseRange⟩
+  -- dimensions
+  have hWne : Nonempty W.toScheme := ⟨⟨_, hW.nonempty.some_mem⟩⟩
+  have hVne : Nonempty V.toScheme := ⟨(hsurj (Classical.arbitrary _)).choose⟩
+  have hdW := ZInQ.Contrib.Dim.topologicalKrullDim_eq_of_smoothOfRelativeDimension (W.ι ≫ Z.hom) 1
+  have hdV := ZInQ.Contrib.Dim.topologicalKrullDim_eq_of_smoothOfRelativeDimension (V.ι ≫ T.hom) 1
+  have hcomm : f ≫ (Over.mk (W.ι ≫ Z.hom)).hom = (Over.mk (V.ι ≫ T.hom)).hom := by
+    simp only [Over.mk_hom, hfdef]
+    rw [morphismRestrict_ι_assoc, Over.w h]
+  let H : Over.mk (V.ι ≫ T.hom) ⟶ Over.mk (W.ι ≫ Z.hom) := Over.homMk f hcomm
+  have : IsDominant H.left := ‹IsDominant f›
+  have : IsIntegral (Over.mk (V.ι ≫ T.hom)).left := hIV
+  have : IsIntegral (Over.mk (W.ι ≫ Z.hom)).left := hIW
+  -- the degree is `1`
+  have hsep1 : IsSeparated (Over.mk (V.ι ≫ T.hom)).hom := by simp only [Over.mk_hom]; infer_instance
+  have hsep2 : IsSeparated (Over.mk (W.ι ≫ Z.hom)).hom := by simp only [Over.mk_hom]; infer_instance
+  have hft1 : LocallyOfFiniteType (Over.mk (V.ι ≫ T.hom)).hom := by
+    simp only [Over.mk_hom]; infer_instance
+  have hft2 : LocallyOfFiniteType (Over.mk (W.ι ≫ Z.hom)).hom := by
+    simp only [Over.mk_hom]; infer_instance
+  have hqc1 : QuasiCompact (Over.mk (V.ι ≫ T.hom)).hom := by simp only [Over.mk_hom]; infer_instance
+  have hqc2 : QuasiCompact (Over.mk (W.ι ≫ Z.hom)).hom := by simp only [Over.mk_hom]; infer_instance
+  obtain ⟨U, hUne, hU⟩ := hD k (Over.mk (V.ι ≫ T.hom)) (Over.mk (W.ι ≫ Z.hom)) hsep1 hsep2 hft1
+    hft2 hqc1 hqc2 H (by simp only [Over.mk_left]; rw [hdV, hdW])
+  have : JacobsonSpace (Over.mk (W.ι ≫ Z.hom)).left := ‹JacobsonSpace W.toScheme›
+  obtain ⟨y, hyU, hyc⟩ := nonempty_inter_closedPoints hUne U.isOpen.isLocallyClosed
+  have hyc' : IsClosed ({y} : Set W.toScheme) := hyc
+  have hcard := hU y hyU hyc'
+  obtain ⟨x0, hx0⟩ := hsurj y
+  have hx0c : IsClosed ({x0} : Set V.toScheme) := by
+    have : (f ⁻¹' {y}) = {x0} := by
+      ext x
+      simp only [Set.mem_preimage, Set.mem_singleton_iff]
+      exact ⟨fun hx => hinj (hx.trans hx0.symm), fun hx => hx ▸ hx0⟩
+    rw [← this]
+    exact hyc'.preimage f.continuous
+  have h1 : Nat.card {x : V.toScheme // H.left x = y ∧ IsClosed ({x} : Set V.toScheme)} = 1 := by
+    rw [Nat.card_eq_one_iff_exists]
+    refine ⟨⟨x0, hx0, hx0c⟩, fun ⟨x, hx, _⟩ => ?_⟩
+    exact Subtype.ext (hinj (hx.trans hx0.symm))
+  let _ := H.left.functionFieldMap.hom.toAlgebra
+  have hfr : Module.finrank (Over.mk (W.ι ≫ Z.hom)).left.functionField
+      (Over.mk (V.ι ≫ T.hom)).left.functionField = 1 := hcard.symm.trans h1
+  have hbij : Function.Bijective H.left.functionFieldMap :=
+    bijective_of_finrank_eq_one hfr
+  have hfin : ∀ y : W.toScheme, (H.left ⁻¹' {y}).Finite := fun y =>
+    Set.Subsingleton.finite fun a ha b hb => hinj (ha.trans hb.symm)
+  have hoi : IsOpenImmersion H.left :=
+    hZ k (Over.mk (V.ι ≫ T.hom)) (Over.mk (W.ι ≫ Z.hom)) hsep1 hsep2 hft1 hft2 hqc1 hqc2 hN H
+      hbij hfin
+  have : IsOpenImmersion f := hoi
+  exact (isIso_iff_isOpenImmersion_and_surjective f).mpr ⟨this, ⟨hsurj⟩⟩
+
+end Assembly2
+
+/-- **Part B' (proved from ZMT and the degree formula): `CurveBijIsoClosed`.** -/
+theorem curveBijIsoClosed_of_zmt (hZ : ZMTOriginal) (hD : DegreeGeneralFibre) :
+    CurveBijIsoClosed := by
+  intro k _ _ _ T Z hPT hST hPZ hSZ h hb
+  have : Smooth T.hom := SmoothOfRelativeDimension.smooth 1 T.hom
+  have : Smooth Z.hom := SmoothOfRelativeDimension.smooth 1 Z.hom
+  have : JacobsonSpace T.left := LocallyOfFiniteType.jacobsonSpace T.hom
+  have : JacobsonSpace Z.left := LocallyOfFiniteType.jacobsonSpace Z.hom
+  have : CompactSpace Z.left := QuasiCompact.compactSpace_of_compactSpace Z.hom
+  have hw : h.left ≫ Z.hom = T.hom := Over.w h
+  have : IsProper h.left := by
+    have : IsProper (h.left ≫ Z.hom) := by rw [hw]; infer_instance
+    exact IsProper.of_comp h.left Z.hom
+  obtain ⟨hcp, hinj, hsurj⟩ := closedPoint_facts h hb
+  have hbij : Function.Bijective h.left :=
+    bijective_of_closedPoints h.left.continuous h.left.isClosedMap (topDim_le_one T.hom)
+      (components_disjoint T.hom) hcp hinj hsurj
+  have hhomeo : IsHomeomorph h.left :=
+    isHomeomorph_iff_continuous_isClosedMap_bijective.mpr
+      ⟨h.left.continuous, h.left.isClosedMap, hbij⟩
+  have hiso : IsIso h.left := by
+    refine IsZariskiLocalAtTarget.of_iSup_eq_top (P := MorphismProperty.isomorphisms Scheme)
+      (fun z : Z.left =>
+        (⟨irreducibleComponent z, isOpen_irreducibleComponent Z.hom z⟩ : Z.left.Opens)) ?_ ?_
+    · rw [eq_top_iff]
+      intro z _
+      exact TopologicalSpace.Opens.mem_iSup.mpr ⟨z, mem_irreducibleComponent⟩
+    · intro z
+      exact restrict_isIso' hZ hD h _ isIrreducible_irreducibleComponent hhomeo
+  have : IsIso ((Over.forget _).map h) := hiso
+  exact isIso_of_reflects_iso h (Over.forget _)
+
+/-- **H-85 `CurveBijIso` from Zariski's Main Theorem (original form) and the degree formula**
+(proved). -/
+theorem curveBijIso_of_zmt (hZ : ZMTOriginal) (hD : DegreeGeneralFibre) : CurveBijIso :=
+  curveBijIso_of_closed (curveBijIsoClosed_of_zmt hZ hD)
+
 end CurveSplit
 
 #print axioms CurveSplit.curveBijIso_of_closed
 #print axioms CurveSplit.curveBijIso_of_leaf
+#print axioms CurveSplit.curveBijIso_of_zmt

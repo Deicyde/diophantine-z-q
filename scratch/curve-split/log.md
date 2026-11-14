@@ -55,3 +55,8 @@ H-85 CurveBijIso (scratch/model-glue/ModelGlue6.lean), H-83 ShimuraGoodReduction
   `dimJ1Le_of_belyi`.
 - `BelyiGenusBound` = named GLUE (Riemann–Hurwitz bound 2g+1 ≤ d for Belyi functions), needs RH
   (Stichtenoth 3.4.13 + 3.5.1), fundamental identity (3.1.11), places are DVRs (1.1.6), genus identification.
+- Part B' COMPILED: `CurveSplit.curveBijIso_of_zmt : ZMTOriginal → DegreeGeneralFibre → CurveBijIso`
+  (standard axioms, VERIFIED). Leaves: `ZMTOriginal` (Mumford Red Book III.9 original form; EGA III 4.4.9:
+  birational, finite fibres, Y normal ⇒ open immersion; birational via Tau Ceti `functionFieldMap`),
+  `DegreeGeneralFibre` (Humphreys LAG 4.6 / Shafarevich II.6.3 / Borel AG.18.4: closed points of a general
+  fibre = [K(X):K(Y)], char 0, dim X = dim Y). Numbers UNVERIFIED.
