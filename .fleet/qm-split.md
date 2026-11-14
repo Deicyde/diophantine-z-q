@@ -22,3 +22,5 @@ QMAut 16 s, STQM 12 s, ThetaSplit 4 s, ThetaRatios 5 s, Valence 5 s, Haupt 26 s,
 **Remains**: θ⁴-ratio algebraicity (H-44), the CM value (H-88), the coarse-witness comparison and the
 per-witness statements of H-1/H-43/H-59. Theorem numbers in docstrings are UNVERIFIED (no network). No row
 statement found false; H-35's row is a weakening of Yu's theorem (the leaf keeps the clause).
+
+(Final commit of task qm-split, 2026-11-14.)
