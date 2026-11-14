@@ -194,6 +194,230 @@ theorem valenceBound_of (h1 : ValenceFormulaGammaStar) (h2 : EllipticOrderLe6) :
     _ ≤ 12 * ((m : ℝ≥0∞) / 12) := by gcongr
     _ = m := ENNReal.mul_div_cancel (by norm_num) (by norm_num)
 
+
+/-! ## `EllipticOrderLe6` proved (crystallographic restriction; leafq-check)
+
+For `γ = ι(x) ∈ Γ*` fixing `P`, put `μ = cP + d` and `ζ = det γ/μ² = μ̄/μ` (the rotation multiplier at `P`).
+Then `|ζ| = 1`, `2 Re ζ = trd(x)²/nrd(x) − 2`, and `trd(x)²/nrd(x) = 4 re(x)²/nrd(x)` is the trace of
+conjugation by `x` on the lattice `𝒪`, an integer; so `ζ` is one of the eight numbers
+`±1, ±i, (±1 ± i√3)/2`. `γ ↦ ζ` is multiplicative on the stabilizer and determines the Möbius map, and a
+product `(±1/2 ± i√3/2)·(±i)` is not among the eight, so the stabilizer embeds in `μ₄` or in `μ₆`. -/
+
+section Elliptic
+
+open PkgI1 ComplexConjugate
+
+theorem sqrt2_sq' : (√2 : ℝ) * √2 = 2 := Real.mul_self_sqrt (by norm_num)
+
+theorem iota_apply (x : PkgI1.B) : PkgI1.iota x =
+    !![(x.re : ℝ) + x.imI * √2, -3 * (x.imJ : ℝ) - 3 * √2 * x.imK;
+       (x.imJ : ℝ) - √2 * x.imK, (x.re : ℝ) - x.imI * √2] := by
+  ext i j
+  fin_cases i <;> fin_cases j <;>
+    simp [PkgI1.iota, PkgI1.Mi, PkgI1.Mj] <;> ring
+
+theorem iota_mul (x y : PkgI1.B) : PkgI1.iota (x * y) = PkgI1.iota x * PkgI1.iota y := by
+  rw [iota_apply, iota_apply, iota_apply]
+  ext i j
+  fin_cases i <;> fin_cases j <;>
+    simp [Matrix.mul_apply, Fin.sum_univ_two] <;> ring_nf <;>
+    (try simp only [Real.sq_sqrt (show (0 : ℝ) ≤ 2 by norm_num)]) <;> (try ring_nf)
+
+/-- The reduced norm. -/
+def nrd (x : PkgI1.B) : ℚ := x.re ^ 2 - 2 * x.imI ^ 2 + 3 * x.imJ ^ 2 - 6 * x.imK ^ 2
+
+theorem det_iota_eq (x : PkgI1.B) : (PkgI1.iota x).det = (nrd x : ℝ) := by
+  rw [iota_apply, Matrix.det_fin_two_of, nrd]
+  push_cast
+  linear_combination (-(x.imI : ℝ) ^ 2 - 3 * (x.imK : ℝ) ^ 2) * sqrt2_sq'
+
+theorem inO_iff (v : PkgI1.B) : PkgI1.InO v ↔ ∃ n0 n1 n2 n3 : ℤ,
+    v = ⟨n0 + n2 / 2, n1 + n3 / 2, n2 / 2, n3 / 2⟩ := by
+  constructor
+  · rintro ⟨n, rfl⟩
+    refine ⟨n 0, n 1, n 2, n 3, ?_⟩
+    ext <;> simp [PkgI1.oBasis, Fin.sum_univ_four] <;> ring
+  · rintro ⟨n0, n1, n2, n3, rfl⟩
+    refine ⟨![n0, n1, n2, n3], ?_⟩
+    ext <;> simp [PkgI1.oBasis, Fin.sum_univ_four] <;> ring
+
+theorem inv_eq {x z : PkgI1.B} (hxz : x * z = 1) (hN : nrd x ≠ 0) :
+    z = ⟨x.re / nrd x, -x.imI / nrd x, -x.imJ / nrd x, -x.imK / nrd x⟩ := by
+  set w : PkgI1.B := ⟨x.re / nrd x, -x.imI / nrd x, -x.imJ / nrd x, -x.imK / nrd x⟩ with hw_def
+  have hN' : x.re ^ 2 - 2 * x.imI ^ 2 + 3 * x.imJ ^ 2 - 6 * x.imK ^ 2 ≠ 0 := hN
+  have hw : w * x = 1 := by
+    ext <;> simp [w, nrd] <;> field_simp <;> ring
+  calc z = (w * x) * z := by rw [hw, one_mul]
+    _ = w * (x * z) := mul_assoc _ _ _
+    _ = w := by rw [hxz, mul_one]
+
+/-- The integer coordinates of `w ∈ 𝒪` in N5's basis. -/
+theorem inO_coords {w : PkgI1.B} (hw : PkgI1.InO w) : ∃ n0 n1 n2 n3 : ℤ,
+    w.re - w.imJ = n0 ∧ w.imI - w.imK = n1 ∧ 2 * w.imJ = n2 ∧ 2 * w.imK = n3 := by
+  obtain ⟨n0, n1, n2, n3, rfl⟩ := (inO_iff w).1 hw
+  exact ⟨n0, n1, n2, n3, by simp, by simp, by simp; ring, by simp; ring⟩
+
+theorem oBasis_mem (k : Fin 4) : PkgI1.InO (PkgI1.oBasis k) := by
+  rw [inO_iff]
+  fin_cases k
+  · exact ⟨1, 0, 0, 0, by ext <;> simp [PkgI1.oBasis]⟩
+  · exact ⟨0, 1, 0, 0, by ext <;> simp [PkgI1.oBasis]⟩
+  · exact ⟨0, 0, 1, 0, by ext <;> simp [PkgI1.oBasis]⟩
+  · exact ⟨0, 0, 0, 1, by ext <;> simp [PkgI1.oBasis]⟩
+
+/-- **The trace of conjugation by `x` on `𝒪` is the integer `4 re(x)²/nrd(x)`.** -/
+theorem adTrace_int {x z : PkgI1.B} (hxz : x * z = 1)
+    (hN : ∀ w, PkgI1.InO w → PkgI1.InO (x * w * z) ∧ PkgI1.InO (z * w * x)) (hn : nrd x ≠ 0) :
+    ∃ k : ℤ, 4 * x.re ^ 2 / nrd x = k := by
+  obtain ⟨a0, -, -, -, ha0, -, -, -⟩ := inO_coords (hN _ (oBasis_mem 0)).1
+  obtain ⟨-, a1, -, -, -, ha1, -, -⟩ := inO_coords (hN _ (oBasis_mem 1)).1
+  obtain ⟨-, -, a2, -, -, -, ha2, -⟩ := inO_coords (hN _ (oBasis_mem 2)).1
+  obtain ⟨-, -, -, a3, -, -, -, ha3⟩ := inO_coords (hN _ (oBasis_mem 3)).1
+  refine ⟨a0 + a1 + a2 + a3, ?_⟩
+  push_cast
+  rw [← ha0, ← ha1, ← ha2, ← ha3, inv_eq hxz hn]
+  have hn' : x.re ^ 2 - 2 * x.imI ^ 2 + 3 * x.imJ ^ 2 - 6 * x.imK ^ 2 ≠ 0 := hn
+  simp [PkgI1.oBasis, nrd]
+  field_simp
+  ring
+
+/-- `Γ*` is closed under products. -/
+theorem gammaStar_mul {γ γ' : GL (Fin 2) ℝ} (h : γ ∈ PkgI1.GammaStar) (h' : γ' ∈ PkgI1.GammaStar) :
+    γ * γ' ∈ PkgI1.GammaStar := by
+  obtain ⟨x, ⟨z, hxz, hzx, hN⟩, hγ, hd⟩ := h
+  obtain ⟨x', ⟨z', hxz', hzx', hN'⟩, hγ', hd'⟩ := h'
+  refine ⟨x * x', ⟨z' * z, ?_, ?_, fun w hw => ⟨?_, ?_⟩⟩, ?_, ?_⟩
+  · calc x * x' * (z' * z) = x * (x' * z') * z := by simp only [mul_assoc]
+      _ = 1 := by rw [hxz', mul_one, hxz]
+  · calc z' * z * (x * x') = z' * (z * x) * x' := by simp only [mul_assoc]
+      _ = 1 := by rw [hzx, mul_one, hzx']
+  · have := (hN _ (hN' w hw).1).1
+    have e : x * x' * w * (z' * z) = x * (x' * w * z') * z := by simp only [mul_assoc]
+    rw [e]; exact this
+  · have := (hN' _ (hN w hw).2).2
+    have e : z' * z * w * (x * x') = z' * (z * w * x) * x' := by simp only [mul_assoc]
+    rw [e]; exact this
+  · rw [Units.val_mul, hγ, hγ', iota_mul]
+  · rw [Units.val_mul, Matrix.det_mul]; exact mul_pos hd hd'
+
+theorem one_mem_gammaStar' : (1 : GL (Fin 2) ℝ) ∈ PkgI1.GammaStar := by
+  refine ⟨1, ⟨1, mul_one 1, mul_one 1, fun w hw => by simpa using hw⟩, ?_, by simp⟩
+  rw [iota_apply]; ext i j; fin_cases i <;> fin_cases j <;> simp
+
+/-- The rotation multiplier `det γ / (cP + d)²`. -/
+noncomputable def zeta (γ : GL (Fin 2) ℝ) (P : UpperHalfPlane) : ℂ :=
+  (((γ : Matrix (Fin 2) (Fin 2) ℝ).det : ℝ) : ℂ) / denom γ P ^ 2
+
+theorem fixed_data {γ : GL (Fin 2) ℝ} (hd : 0 < (γ : Matrix (Fin 2) (Fin 2) ℝ).det)
+    {P : UpperHalfPlane} (hP : γ • P = P) :
+    (γ : Matrix (Fin 2) (Fin 2) ℝ) 0 0 =
+        2 * (γ : Matrix (Fin 2) (Fin 2) ℝ) 1 0 * P.re + (γ : Matrix (Fin 2) (Fin 2) ℝ) 1 1 ∧
+      (γ : Matrix (Fin 2) (Fin 2) ℝ) 0 1 =
+        -(γ : Matrix (Fin 2) (Fin 2) ℝ) 1 0 * (P.re ^ 2 + P.im ^ 2) := by
+  have hd' : 0 < γ.det.val := by rwa [Matrix.GeneralLinearGroup.val_det_apply]
+  have h := congrArg (fun w : UpperHalfPlane => (w : ℂ)) hP
+  rw [UpperHalfPlane.coe_smul_of_det_pos hd', div_eq_iff (denom_ne_zero γ P)] at h
+  have hre := congrArg Complex.re h
+  have him := congrArg Complex.im h
+  simp [UpperHalfPlane.num, UpperHalfPlane.denom] at hre him
+  have hq := P.im_pos
+  have ha : ((γ : Matrix (Fin 2) (Fin 2) ℝ) 0 0 - 2 * (γ : Matrix (Fin 2) (Fin 2) ℝ) 1 0 * P.re -
+      (γ : Matrix (Fin 2) (Fin 2) ℝ) 1 1) * P.im = 0 := by linear_combination him
+  have ha' := (mul_eq_zero.1 ha).resolve_right hq.ne'
+  refine ⟨by linarith, ?_⟩
+  have : (γ : Matrix (Fin 2) (Fin 2) ℝ) 0 0 =
+      2 * (γ : Matrix (Fin 2) (Fin 2) ℝ) 1 0 * P.re + (γ : Matrix (Fin 2) (Fin 2) ℝ) 1 1 := by
+    linarith
+  rw [this] at hre
+  linear_combination hre
+
+theorem det_eq_normSq {γ : GL (Fin 2) ℝ} (hd : 0 < (γ : Matrix (Fin 2) (Fin 2) ℝ).det)
+    {P : UpperHalfPlane} (hP : γ • P = P) :
+    (γ : Matrix (Fin 2) (Fin 2) ℝ).det = Complex.normSq (denom γ P) := by
+  obtain ⟨ha, hb⟩ := fixed_data hd hP
+  rw [Matrix.det_fin_two, ha, hb]
+  simp [UpperHalfPlane.denom, Complex.normSq_apply]
+  ring
+
+theorem zeta_eq {γ : GL (Fin 2) ℝ} (hd : 0 < (γ : Matrix (Fin 2) (Fin 2) ℝ).det)
+    {P : UpperHalfPlane} (hP : γ • P = P) : zeta γ P = conj (denom γ P) / denom γ P := by
+  have h0 := denom_ne_zero γ P
+  unfold zeta
+  rw [det_eq_normSq hd hP, Complex.normSq_eq_conj_mul_self]
+  field_simp
+
+theorem zeta_normSq {γ : GL (Fin 2) ℝ} (hd : 0 < (γ : Matrix (Fin 2) (Fin 2) ℝ).det)
+    {P : UpperHalfPlane} (hP : γ • P = P) : Complex.normSq (zeta γ P) = 1 := by
+  rw [zeta_eq hd hP, map_div₀, Complex.normSq_conj, div_self]
+  exact (Complex.normSq_pos.2 (denom_ne_zero γ P)).ne'
+
+theorem zeta_re {γ : GL (Fin 2) ℝ} (hd : 0 < (γ : Matrix (Fin 2) (Fin 2) ℝ).det)
+    {P : UpperHalfPlane} (hP : γ • P = P) :
+    2 * (zeta γ P).re = ((γ : Matrix (Fin 2) (Fin 2) ℝ) 0 0 + (γ : Matrix (Fin 2) (Fin 2) ℝ) 1 1) ^ 2 /
+      (γ : Matrix (Fin 2) (Fin 2) ℝ).det - 2 := by
+  have hpos := Complex.normSq_pos.2 (denom_ne_zero γ P)
+  obtain ⟨ha, -⟩ := fixed_data hd hP
+  rw [zeta_eq hd hP, det_eq_normSq hd hP, Complex.div_re, ha]
+  simp only [Complex.conj_re, Complex.conj_im]
+  have hn : Complex.normSq (denom γ P) = (denom γ P).re ^ 2 + (denom γ P).im ^ 2 := by
+    rw [Complex.normSq_apply]; ring
+  have hre : (denom γ P).re = (γ : Matrix (Fin 2) (Fin 2) ℝ) 1 0 * P.re +
+      (γ : Matrix (Fin 2) (Fin 2) ℝ) 1 1 := by simp [UpperHalfPlane.denom]
+  field_simp
+  rw [hn, hre]
+  ring
+
+/-- The eight values. -/
+noncomputable def w1 : ℂ := ⟨-1 / 2, √3 / 2⟩
+noncomputable def w2 : ℂ := ⟨-1 / 2, -(√3 / 2)⟩
+noncomputable def w3 : ℂ := ⟨1 / 2, √3 / 2⟩
+noncomputable def w4 : ℂ := ⟨1 / 2, -(√3 / 2)⟩
+
+theorem sqrt3_sq : (√3 : ℝ) ^ 2 = 3 := Real.sq_sqrt (by norm_num)
+
+theorem unit_cases (ζ : ℂ) (h1 : Complex.normSq ζ = 1) (k : ℤ) (hk : 2 * ζ.re = k - 2) :
+    ζ = 1 ∨ ζ = -1 ∨ ζ = Complex.I ∨ ζ = -Complex.I ∨ ζ = w1 ∨ ζ = w2 ∨ ζ = w3 ∨ ζ = w4 := by
+  rw [Complex.normSq_apply] at h1
+  have hk0 : (0 : ℝ) ≤ k := by nlinarith [sq_nonneg ζ.im, sq_nonneg (ζ.re + 1)]
+  have hk4 : (k : ℝ) ≤ 4 := by nlinarith [sq_nonneg ζ.im, sq_nonneg (ζ.re - 1)]
+  have hk0' : 0 ≤ k := by exact_mod_cast hk0
+  have hk4' : k ≤ 4 := by exact_mod_cast hk4
+  have s3 := sqrt3_sq
+  interval_cases k
+  · -- re = -1
+    have hr : ζ.re = -1 := by push_cast at hk; linarith
+    have hi : ζ.im = 0 := by nlinarith [sq_nonneg ζ.im]
+    right; left; exact Complex.ext (by simp [hr]) (by simp [hi])
+  · -- re = -1/2
+    have hr : ζ.re = -1 / 2 := by push_cast at hk; linarith
+    have hi : (ζ.im - √3 / 2) * (ζ.im + √3 / 2) = 0 := by
+      rw [hr] at h1; linear_combination h1 - s3 / 4
+    rcases mul_eq_zero.1 hi with h | h
+    · right; right; right; right; left; exact Complex.ext (by simp [w1, hr]) (by simp [w1]; linarith)
+    · right; right; right; right; right; left
+      exact Complex.ext (by simp [w2, hr]) (by simp [w2]; linarith)
+  · -- re = 0
+    have hr : ζ.re = 0 := by push_cast at hk; linarith
+    have hi : (ζ.im - 1) * (ζ.im + 1) = 0 := by rw [hr] at h1; linear_combination h1
+    rcases mul_eq_zero.1 hi with h | h
+    · right; right; left; exact Complex.ext (by simp [hr]) (by simp; linarith)
+    · right; right; right; left; exact Complex.ext (by simp [hr]) (by simp; linarith)
+  · -- re = 1/2
+    have hr : ζ.re = 1 / 2 := by push_cast at hk; linarith
+    have hi : (ζ.im - √3 / 2) * (ζ.im + √3 / 2) = 0 := by
+      rw [hr] at h1; linear_combination h1 - s3 / 4
+    rcases mul_eq_zero.1 hi with h | h
+    · right; right; right; right; right; right; left
+      exact Complex.ext (by simp [w3, hr]) (by simp [w3]; linarith)
+    · right; right; right; right; right; right; right
+      exact Complex.ext (by simp [w4, hr]) (by simp [w4]; linarith)
+  · -- re = 1
+    have hr : ζ.re = 1 := by push_cast at hk; linarith
+    have hi : ζ.im = 0 := by nlinarith [sq_nonneg ζ.im]
+    left; exact Complex.ext (by simp [hr]) (by simp [hi])
+
+end Elliptic
+
 end HSyn.G0Split.FibreQM.PeriodMap
 
 end HDec
