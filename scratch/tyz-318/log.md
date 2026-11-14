@@ -41,3 +41,11 @@ TYZ Lemma `torsion2` (Lemma 3.18): torsion of `A(ℍ'_n)` is killed by `2(1+[i])
   sound; flagged: say explicitly that Artin functoriality is transported through `embed d₀` (fine since
   `H_{d₀,4}`, `H'_{d₀}` are Galois over ℚ); `[DecidableEq k]` binder in the leaf is harmless. Not checked:
   TYZ's Step 3 wording (needs the source; HUMAN CHECK).
+- [VERIFIED, compiled, 2026-11-14 ~01:15] §9 (merged from a temporary StepC.lean): `prime_eq_span_of_inert`,
+  `hprime_inert_split` (Step C: residue field ⊆ F_{p²}, trivial inertia in Gal(H'_d/K_d), from ring-class's
+  `mem_splitSet_iff` + Mathlib `Ideal.ncard_primesOver_mul_card_inertia_mul_finrank`), transport `psi0`, `tauQ`,
+  `tau2`, `hprimeFrobOrderTwo_aux`; **`hprimeFrobOrderTwo : HprimeFrobOrderTwo`** and
+  **`hhprimeFrobSq : HHprimeFrobSq`** proved (no hypotheses).
+  Final: `lemma318Literal_HHprime_of_ss_sqrtTwo : SupersingularExponentA → SqrtTwoNotInHHprime → Lemma318Literal HHprime`
+  (+ `package_…` for `Package.Lemma318Literal`); `#print axioms` = [propext, Classical.choice, Quot.sound].
+  Whole file compiles in ~20 s (lake env lean), no sorry.
