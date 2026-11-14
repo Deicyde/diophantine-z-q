@@ -263,4 +263,63 @@ theorem pure_coords {w : PkgI1.B} (hw : PkgI1.InO w) (hre : w.re = 0) :
   have h : (n2 : ℚ) = -2 * n0 := by have := hre; simp only at this; linarith
   exact ⟨n0, n1, n3, by simp only; rw [h]; ring, rfl, rfl⟩
 
+/-! ### Orbit of `y` (`w² = −1`) -/
+
+theorem orbit4 : ∀ w, EN 1 w → ∃ g gi, NormData g gi ∧ g * by4 * gi = w := by
+  have hb : 0 < form by4 by4 := by norm_num [form, by4]
+  have hb' : 0 < by4.imJ := by norm_num [by4]
+  refine orbit_of_descent (EN 1) (fun w => form w by4) by4 ?_ ?_ ?_
+  · intro w ⟨hO, hsq, hJ⟩
+    obtain ⟨hre, hqf⟩ := pure_of_sqN 1 one_pos hsq
+    obtain ⟨n0, n1, n3, hc, hb1, hd⟩ := pure_coords hO hre
+    refine nat_of_int (m := -2 * n1 - n3 - 3 * n0) ?_ (form_pos (by rw [hqf]; norm_num) hb hJ hb')
+    simp only [form, by4]; rw [hc, hb1]; push_cast; ring
+  · intro w ⟨hO, hsq, hJ⟩ hle
+    obtain ⟨hre, hqf⟩ := pure_of_sqN 1 one_pos hsq
+    simp only [form, by4] at hle hqf
+    norm_num at hle
+    have h1 : w.imI = 1 := by nlinarith [sq_nonneg (w.imI - 1), sq_nonneg w.imK, sq_nonneg (3 * w.imJ - 1 - 2 * w.imI)]
+    have h2 : w.imK = 0 := by nlinarith [sq_nonneg (w.imI - 1), sq_nonneg w.imK, sq_nonneg (3 * w.imJ - 1 - 2 * w.imI)]
+    have h3 : w.imJ = 1 := by nlinarith [sq_nonneg (w.imI - 1), sq_nonneg w.imK, sq_nonneg (3 * w.imJ - 1 - 2 * w.imI)]
+    ext <;> simp [by4, hre, h1, h2, h3]
+  · intro w hw hlt
+    obtain ⟨hO, hsq, hJ⟩ := hw
+    obtain ⟨hre, hqf⟩ := pure_of_sqN 1 one_pos hsq
+    obtain ⟨n0, n1, n3, hc, hb1, hd⟩ := pure_coords hO hre
+    have hint : form w by4 = ((-2 * n1 - n3 - 3 * n0 : ℤ) : ℚ) := by
+      simp only [form, by4]; rw [hc, hb1]; push_cast; ring
+    have h2 : 2 ≤ form w by4 := by
+      have h1 : form by4 by4 = 1 := by norm_num [form, by4]
+      rw [h1, hint] at hlt; rw [hint]
+      have : (1 : ℤ) < -2 * n1 - n3 - 3 * n0 := by exact_mod_cast hlt
+      exact_mod_cast (show (2 : ℤ) ≤ -2 * n1 - n3 - 3 * n0 by omega)
+    have e1 : ∀ v : PkgI1.B, v.re = 0 → form (a6 * v * a6i) by4 = form v ⟨0, 1/2, 1, -1/2⟩ := by
+      intro v hv; simp [form, by4, a6, a6i, hv]; ring
+    have e2 : ∀ v : PkgI1.B, v.re = 0 → form (a6i * v * a6) by4 = form v ⟨0, 1/2, 1, 1/2⟩ := by
+      intro v hv; simp [form, by4, a6, a6i, hv]; ring
+    have e3 : ∀ v : PkgI1.B, v.re = 0 →
+        form (a6 * a4 * v * (a4i * a6i)) by4 = form v ⟨0, 7/2, 3, -1/2⟩ := by
+      intro v hv; simp [form, by4, a6, a6i, a4, a4i, hv]; ring
+    have e4 : ∀ v : PkgI1.B, v.re = 0 →
+        form (a6i * a4i * v * (a4 * a6)) by4 = form v ⟨0, 7/2, 3, 1/2⟩ := by
+      intro v hv; simp [form, by4, a6, a6i, a4, a4i, hv]; ring
+    have hw : EN 1 w := ⟨hO, hsq, hJ⟩
+    by_cases c1 : form w ⟨0, 1/2, 1, -1/2⟩ < form w by4
+    · exact ⟨_, _, nd_a6, EN_conj one_pos nd_a6 (by norm_num [form]) (by norm_num) hb hb' e1 hw,
+        by rw [e1 w hre]; exact c1⟩
+    by_cases c2 : form w ⟨0, 1/2, 1, 1/2⟩ < form w by4
+    · exact ⟨_, _, nd_a6.symm, EN_conj one_pos nd_a6.symm (by norm_num [form]) (by norm_num) hb hb'
+        e2 hw, by rw [e2 w hre]; exact c2⟩
+    by_cases c3 : form w ⟨0, 7/2, 3, -1/2⟩ < form w by4
+    · exact ⟨_, _, nd_a6.mul nd_a4, EN_conj one_pos (nd_a6.mul nd_a4) (by norm_num [form])
+        (by norm_num) hb hb' e3 hw, by rw [e3 w hre]; exact c3⟩
+    by_cases c4 : form w ⟨0, 7/2, 3, 1/2⟩ < form w by4
+    · exact ⟨_, _, nd_a6.symm.mul nd_a4.symm, EN_conj one_pos (nd_a6.symm.mul nd_a4.symm)
+        (by norm_num [form]) (by norm_num) hb hb' e4 hw, by rw [e4 w hre]; exact c4⟩
+    exfalso
+    push_neg at c1 c2 c3 c4
+    simp only [form, by4] at c1 c2 c3 c4 h2 hqf
+    nlinarith [mul_nonneg (sub_nonneg.2 c1) (sub_nonneg.2 c4),
+      mul_nonneg (sub_nonneg.2 c2) (sub_nonneg.2 c3)]
+
 end HDec.LeafQCheck.HM
