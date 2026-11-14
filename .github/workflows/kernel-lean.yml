@@ -185,6 +185,7 @@ jobs:
       - name: Validate source contract
         if: steps.scope.outcome != 'success' || steps.scope.outputs.full_build != 'false'
         run: |
+          python -B scripts/test_kernel_diagnostics.py
           python -B scripts/test_kernel_pr_scope.py
           python -B scripts/test_kernel_contract.py
           python -B scripts/check_kernel_contract.py --output build/kernel-ci/contract.json
@@ -208,6 +209,28 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: python -B scripts/kernel_base_report.py
+      - name: Add 8 GiB swap for the kernel audit
+        if: steps.scope.outcome != 'success' || steps.scope.outputs.full_build != 'false'
+        # Preserve existing swap. VM teardown releases this additional file.
+        shell: bash
+        run: |
+          set -euo pipefail
+          free -m
+          df -h "$RUNNER_TEMP"
+          swapon --show
+          available=$(df -B1 --output=avail "$RUNNER_TEMP" | tail -n 1)
+          if (( available < 12 * 1024 * 1024 * 1024 )); then
+            echo '::warning::Less than 12 GiB free; continuing the full kernel audit without additional swap.'
+            echo 'Additional audit swap skipped: insufficient disk space. All audit checks still run.' >> "$GITHUB_STEP_SUMMARY"
+          else
+            swap_file=$(mktemp "$RUNNER_TEMP/kernel-audit-swap.XXXXXX")
+            sudo fallocate -l 8G "$swap_file"
+            sudo chmod 600 "$swap_file"
+            sudo mkswap "$swap_file"
+            sudo swapon "$swap_file"
+          fi
+          free -m
+          swapon --show
       - name: Build all modules and replay kernel proofs
         if: steps.scope.outcome != 'success' || steps.scope.outputs.full_build != 'false'
         run: python -B scripts/check_kernel.py --base-report build/kernel-ci/base-audit.json
