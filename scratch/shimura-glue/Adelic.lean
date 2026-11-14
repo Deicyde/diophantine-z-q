@@ -456,4 +456,110 @@ theorem nrd_K3_le : K3.map nrdU ≤ U3 := by
   · change nrdQ Af (k : BAf) = _
     rw [hky, nrd_one_add_three]
 
+
+/-! ### Local coordinates and the surjectivity of `nrd` -/
+
+/-- Evaluation of a finite adele at a place, as a ring hom. -/
+def ev (v : Place) : Af →+* v.adicCompletion ℚ where
+  toFun a := a v
+  map_one' := rfl
+  map_mul' _ _ := rfl
+  map_zero' := rfl
+  map_add' _ _ := rfl
+
+@[simp] theorem ev_apply (v : Place) (a : Af) : ev v a = a v := rfl
+
+/-- The local isomorphism `𝒪_v ≅ ℤ_p` (Mathlib's `padicIntEquiv`), as a ring isomorphism. -/
+def locZ (v : Place) : v.adicCompletionIntegers ℚ ≃+* ℤ_[primesEquiv v] :=
+  (adicCompletionIntegers.padicIntEquiv (R := ℤ) v : v.adicCompletionIntegers ℚ ≃+* ℤ_[primesEquiv v])
+
+/-- An integral adele from a family of `p`-adic integers. -/
+def adeleHom : (∀ v : Place, ℤ_[primesEquiv v]) →+* Af where
+  toFun f := ⟨fun v => (((locZ v).symm (f v) : v.adicCompletionIntegers ℚ) : v.adicCompletion ℚ),
+    Filter.Eventually.of_forall fun v => ((locZ v).symm (f v)).2⟩
+  map_one' := by
+    apply FiniteAdeleRing.ext; intro v
+    change (((locZ v).symm 1 : v.adicCompletionIntegers ℚ) : v.adicCompletion ℚ) = 1
+    simp
+  map_mul' f g := by
+    apply FiniteAdeleRing.ext; intro v
+    change (((locZ v).symm (f v * g v) : v.adicCompletionIntegers ℚ) : v.adicCompletion ℚ) = _
+    simp; rfl
+  map_zero' := by
+    apply FiniteAdeleRing.ext; intro v
+    change (((locZ v).symm 0 : v.adicCompletionIntegers ℚ) : v.adicCompletion ℚ) = 0
+    simp
+  map_add' f g := by
+    apply FiniteAdeleRing.ext; intro v
+    change (((locZ v).symm (f v + g v) : v.adicCompletionIntegers ℚ) : v.adicCompletion ℚ) = _
+    simp; rfl
+
+theorem adeleHom_apply (f : ∀ v : Place, ℤ_[primesEquiv v]) (v : Place) :
+    adeleHom f v = (((locZ v).symm (f v) : v.adicCompletionIntegers ℚ) : v.adicCompletion ℚ) := rfl
+
+theorem adeleHom_mem (f : ∀ v : Place, ℤ_[primesEquiv v]) : adeleHom f ∈ Zhat :=
+  fun v => ((locZ v).symm (f v)).2
+
+/-- The `p`-adic coordinate of an integral adele. -/
+def locA {a : Af} (ha : a ∈ Zhat) (v : Place) : ℤ_[primesEquiv v] := locZ v ⟨a v, ha v⟩
+
+theorem adeleHom_locA {a : Af} (ha : a ∈ Zhat) : adeleHom (locA ha) = a := by
+  apply FiniteAdeleRing.ext; intro v
+  simp [adeleHom_apply, locA]
+
+theorem isUnit_locA {u : Afˣ} (hu : u ∈ ZhatU) (v : Place) : IsUnit (locA hu.1 v) := by
+  refine IsUnit.of_mul_eq_one (locA hu.2 v) ?_
+  rw [locA, locA, ← map_mul]
+  have : (⟨(u : Af) v, hu.1 v⟩ * ⟨((u⁻¹ : Afˣ) : Af) v, hu.2 v⟩ : v.adicCompletionIntegers ℚ) = 1 := by
+    apply Subtype.ext
+    change (u : Af) v * ((u⁻¹ : Afˣ) : Af) v = 1
+    rw [← ev_apply, ← ev_apply, ← map_mul, Units.mul_inv, map_one]
+  rw [this, map_one]
+
+theorem N4_adeleHom (n : ∀ v : Place, Fin 4 → ℤ_[primesEquiv v]) :
+    N4 (fun i => adeleHom (fun v => n v i)) = adeleHom (fun v => N4 (n v)) := by
+  rw [show (fun v => N4 (n v)) = N4 (fun i => fun v => n v i) from rfl, map_N4]
+
+theorem coe_eq_ofQ {R : Type*} [CommRing R] [Algebra ℚ R] (a : R) :
+    (a : BR R) = ofQ ![a, 0, 0, 0] := by
+  ext <;> simp [ofQ]
+
+theorem nrdQ_star {R : Type*} [CommRing R] (x : BR R) : nrdQ R (star x) = nrdQ R x := by
+  simp [nrdQ_apply]
+
+theorem vec4_mem {S : Subring Af} {a b c d : Af} (ha : a ∈ S) (hb : b ∈ S) (hc : c ∈ S)
+    (hd : d ∈ S) : ∀ i, ![a, b, c, d] i ∈ S := by
+  intro i; fin_cases i
+  exacts [ha, hb, hc, hd]
+
+/-- A unit of `B ⊗ 𝔸_f` in `𝒪̂^×` from an element of `𝒪̂` whose reduced norm is in `ℤ̂^×`. -/
+theorem exists_unit_of_nrd {k : BAf} (hk : k ∈ Ohat) {u : Afˣ} (hu : u ∈ ZhatU)
+    (hnk : nrdQ Af k = u) : ∃ k' : BAfˣ, k' ∈ Kfull ∧ (k' : BAf) = k ∧ nrdU k' = u := by
+  set a : Af := ((u⁻¹ : Afˣ) : Af)
+  have h1 : k * (star k * (a : BAf)) = 1 := by
+    rw [← mul_assoc, ← nrdQ_eq_mul_star, hnk, ← QuaternionAlgebra.coe_mul, Units.mul_inv]; rfl
+  have h2 : (star k * (a : BAf)) * k = 1 := by
+    rw [mul_assoc, QuaternionAlgebra.coe_commutes a k, ← mul_assoc]
+    have : star k * k = ((nrdQ Af k : Af) : BAf) := by
+      rw [← nrdQ_star, nrdQ_eq_mul_star, star_star]
+    rw [this, hnk, ← QuaternionAlgebra.coe_mul, Units.mul_inv]; rfl
+  refine ⟨⟨k, star k * (a : BAf), h1, h2⟩, ⟨hk, ?_⟩, rfl, ?_⟩
+  · change star k * (a : BAf) ∈ Ohat
+    obtain ⟨n, hn, rfl⟩ := hk
+    exact Ohat.mul_mem ⟨_, vec4_mem (Zhat.add_mem (hn 0) (hn 2)) (Zhat.neg_mem (hn 1))
+      (Zhat.neg_mem (hn 2)) (Zhat.neg_mem (hn 3)), star_ofQ n⟩
+      ⟨_, vec4_mem hu.2 Zhat.zero_mem Zhat.zero_mem Zhat.zero_mem, coe_eq_ofQ a⟩
+  · apply Units.ext; exact hnk
+
+/-- **`nrd(𝒪̂^×) ⊇ ℤ̂^×`** (local representations `rep_unit` at every place). -/
+theorem ZhatU_le : ZhatU ≤ Kfull.map nrdU := by
+  intro u hu
+  choose n hn using fun v => rep_unit (p := primesEquiv v) (locA hu.1 v) (isUnit_locA hu v)
+  set m : Fin 4 → Af := fun i => adeleHom (fun v => n v i)
+  have hN : nrdQ Af (ofQ m) = u := by
+    rw [nrdQ_ofQ, N4_adeleHom]
+    simp only [hn]; exact adeleHom_locA hu.1
+  obtain ⟨k, hk, -, hku⟩ := exists_unit_of_nrd ⟨m, fun i => adeleHom_mem _, rfl⟩ hu hN
+  exact ⟨k, hk, hku⟩
+
 end ShimuraGlue
