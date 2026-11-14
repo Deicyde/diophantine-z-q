@@ -94,3 +94,11 @@ H-85 CurveBijIso (scratch/model-glue/ModelGlue6.lean), H-83 ShimuraGoodReduction
 - `scratch/curve-split/ShimuraGR.lean` COMPILED: verbatim copy of pIdeal…ShimuraGoodReduction, CMObjectsExist,
   cmObjectsExist_of_R1R2fp (verbatim check True); `CurveSplit.shimuraGoodReduction_of_noGuard : R1R2fp →
   ShimuraGoodReductionNoGuard → ShimuraGoodReduction` (guard clause redundant). Standard axioms.
+- `CurveSplit.fundamentalIdentityQj : FundamentalIdentityQj` PROVED (from Mathlib's deprecated-but-present
+  `Ideal.sum_ramification_inertia` for Dedekind extensions; places over j = a ↔ height-one primes of the integral
+  closure of ℚ[j] over (j − a) (`placeOf`, `centerHS`, `w_eq_valuationSubring`); e_P (unit-group index) =
+  Mathlib ramificationIdx via `HeightOneSpectrum.valuation_liesOver`; deg P = inertiaDeg via
+  `Algebra.finrank_eq_of_equiv_equiv`; j = ∞ via the automorphism j ↦ 1/j (`invXEquiv`, `twistAlg`)).
+- Hence `CurveSplit.belyiGenusBound_of_rh : RiemannHurwitzQj → BelyiGenusBound` and
+  `CurveSplit.dimJ1Le_of_rh : DimJacobianEqGenus → RiemannHurwitzQj → X0Transitive → DimJ1Le`. COMPILED,
+  standard axioms. VERIFIED. The H-79 consumer need now rests on Riemann–Hurwitz alone (+ Igusa, Milne half).

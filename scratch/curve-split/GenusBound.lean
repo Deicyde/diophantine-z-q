@@ -1241,6 +1241,95 @@ theorem mul_rat_mem_iff (P : Place F) {c : ℚ} (hc : c ≠ 0) (x : F) :
 
 end FI
 
+section FIfinal
+
+variable {F : Type} [Field F] [Algebra Qj F] [Algebra ℚ F]
+
+theorem tF_eq_mul : (tF : F) = algebraMap ℚ F (1 / 1728) * (sF : F) := by
+  rw [tF, sF, ← algebraMap_rat_comp, RingHom.comp_apply, ← map_mul]
+  congr 1
+  rw [map_div₀, map_one, map_ofNat]
+  ring
+
+theorem tF_sub_one_eq_mul :
+    (tF : F) - 1 = algebraMap ℚ F (1 / 1728) * ((sF : F) - algebraMap ℚ F 1728) := by
+  rw [tF_eq_mul, mul_sub, ← map_mul]
+  norm_num
+
+/-- The fundamental identity at a finite place, with the `ℚ[j]`-structure built in. -/
+theorem fundamentalIdentity_fin' [FiniteDimensional Qj F] (a : ℚ) :
+    ∃ h : (Zfin F a).Finite, ∑ P ∈ h.toFinset, P.ramIdx * P.deg = Module.finrank Qj F := by
+  letI : Algebra (Polynomial ℚ) F :=
+    ((algebraMap Qj F).comp (algebraMap (Polynomial ℚ) Qj)).toAlgebra
+  have : IsScalarTower (Polynomial ℚ) Qj F := IsScalarTower.of_algebraMap_eq' rfl
+  exact fundamentalIdentity_fin a
+
+theorem sF_twist : @sF F _ (twistAlg (F := F)) = (sF : F)⁻¹ := by
+  show (algebraMap Qj F) (invXEquiv RatFunc.X) = (sF : F)⁻¹
+  rw [show invXEquiv (RatFunc.X : Qj) = RatFunc.X⁻¹ from invXHom_X, map_inv₀]
+
+theorem zfin_twist : @Zfin F _ (twistAlg (F := F)) _ 0 = {P : Place F | (tF : F) ∉ P.w} := by
+  have hsF0 : (sF : F) ≠ 0 := by
+    rw [sF, map_ne_zero_iff _ (algebraMap Qj F).injective]; exact RatFunc.X_ne_zero
+  ext P
+  show (@sF F _ (twistAlg (F := F)) ∈ P.w ∧ @sF F _ (twistAlg (F := F)) - algebraMap ℚ F 0 ∈
+    P.w.nonunits) ↔ (tF : F) ∉ P.w
+  rw [sF_twist, map_zero, sub_zero, tF_eq_mul, (mul_rat_mem_iff P (by norm_num) _).1]
+  constructor
+  · rintro ⟨-, h2⟩
+    rw [ValuationSubring.inv_mem_nonunits_iff] at h2
+    exact h2.resolve_left hsF0
+  · intro h2
+    have h3 : (sF : F)⁻¹ ∈ P.w.nonunits := (P.w.inv_mem_nonunits_iff).mpr (Or.inr h2)
+    exact ⟨P.w.nonunits_subset h3, h3⟩
+
+/-- **The fundamental identity at `j = ∞`** (proved: the fundamental identity at `j = 0` for the
+twisted structure `j ↦ 1/j`). -/
+theorem fundamentalIdentity_inf [FiniteDimensional Qj F] :
+    ∃ h : {P : Place F | (tF : F) ∉ P.w}.Finite,
+      ∑ P ∈ h.toFinset, P.ramIdx * P.deg = Module.finrank Qj F := by
+  obtain ⟨h, hs⟩ := @fundamentalIdentity_fin' F _ (twistAlg (F := F)) _ twist_finiteDimensional 0
+  have h' : {P : Place F | (tF : F) ∉ P.w}.Finite := zfin_twist (F := F) ▸ h
+  refine ⟨h', ?_⟩
+  have hfs : h'.toFinset = h.toFinset := by
+    ext P
+    rw [Set.Finite.mem_toFinset, Set.Finite.mem_toFinset, zfin_twist]
+  rw [hfs, ← twist_finrank, ← hs]
+  refine Finset.sum_congr rfl fun P _ => ?_
+  rw [twist_ramIdx]
+
+/-- **`FundamentalIdentityQj`, proved** (from Mathlib's fundamental identity for Dedekind domains). -/
+theorem fundamentalIdentityQj : FundamentalIdentityQj := by
+  intro F _ _ _ _ Z hZ
+  simp only [Set.mem_insert_iff, Set.mem_singleton_iff] at hZ
+  rcases hZ with rfl | rfl | rfl
+  · have hZ0 : {P : Place F | (tF : F) ∈ P.w ∧ (tF : F) ∈ P.w.nonunits} = Zfin F 0 := by
+      ext P
+      simp only [Zfin, Set.mem_setOf_eq, map_zero, sub_zero]
+      rw [tF_eq_mul, (mul_rat_mem_iff P (by norm_num) _).1, (mul_rat_mem_iff P (by norm_num) _).2]
+    rw [hZ0]
+    exact fundamentalIdentity_fin' 0
+  · have hZ1 : {P : Place F | (tF : F) ∈ P.w ∧ (tF : F) - 1 ∈ P.w.nonunits} = Zfin F 1728 := by
+      ext P
+      simp only [Zfin, Set.mem_setOf_eq]
+      rw [tF_sub_one_eq_mul, tF_eq_mul, (mul_rat_mem_iff P (by norm_num) _).1,
+        (mul_rat_mem_iff P (by norm_num) _).2]
+    rw [hZ1]
+    exact fundamentalIdentity_fin' 1728
+  · exact fundamentalIdentity_inf
+
+/-- **`BelyiGenusBound` from Riemann–Hurwitz alone** (proved). -/
+theorem belyiGenusBound_of_rh (hRH : RiemannHurwitzQj) : BelyiGenusBound :=
+  belyiGenusBound_of_rh_fi hRH fundamentalIdentityQj
+
+/-- **`DimJ1Le` (the use of T34) from `DimJacobianEqGenus`, Riemann–Hurwitz and
+`X₀(N)`-transitivity** (proved). -/
+theorem dimJ1Le_of_rh (h1 : DimJacobianEqGenus) (hRH : RiemannHurwitzQj)
+    (h0 : ZInQ.RLeaf.X0Transitive) : DimJ1Le :=
+  dimJ1Le_of_belyi h1 (belyiGenusBound_of_rh hRH) h0
+
+end FIfinal
+
 end CurveSplit
 
 #print axioms CurveSplit.genusX1Le_of_genusX1Field
@@ -1252,3 +1341,6 @@ end CurveSplit
 #print axioms CurveSplit.exists_uniformizer
 #print axioms CurveSplit.belyiGenusBound_of_rh_fi
 #print axioms CurveSplit.dimJ1Le_of_rh_fi
+#print axioms CurveSplit.fundamentalIdentityQj
+#print axioms CurveSplit.belyiGenusBound_of_rh
+#print axioms CurveSplit.dimJ1Le_of_rh
