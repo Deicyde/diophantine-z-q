@@ -1,0 +1,7 @@
+H/TailY.lean: 2001 source lines, verbatim block OK, header 16 lines, trailing extra none
+H/TailZ.lean: 1494 source lines, verbatim block OK, header 11 lines, trailing extra none
+H/TailZ2.lean: 1482 source lines, verbatim block OK, header 13 lines, trailing extra none
+H/TailZ3.lean: 1204 source lines, verbatim block OK, header 12 lines, trailing extra none
+TYZSplit.lean: 543 source lines, verbatim block OK, header 9 lines, trailing extra none
+HauptGlue 37-2197 in TailO: 3 contiguous blocks starting at (HauptGlue line, TailO line): [(37, 16), (960, 940), (961, 1331)]
+ALL OK
