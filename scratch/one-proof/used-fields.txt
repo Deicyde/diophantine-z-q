@@ -1,0 +1,72 @@
+# frozenTarget's bundle fields, USED or UNUSED (scratch/one-proof/PruneScan.lean)
+
+## HDec.HSyn.OpenResearchLeaves10
+USED   r1r2 : HDec.LeafAdopt.R1R2fpRep
+USED   shimuraFamily : HDec.QMSplit.Moduli.ShimuraFamily
+UNUSED r3 : ZInQ.LeafPush2.R03_LinYang
+USED   igusaPsi4 : HDec.QMSplit.Theta.IgusaPsi4
+USED   igusaChi10 : HDec.QMSplit.Theta.IgusaChi10
+USED   r7a : PkgI2.NeronOggShafarevich
+USED   r9a : PkgI3.FaltingsSemisimple
+USED   r9b : PkgI3.FaltingsTate
+USED   hodgeTateDecompAbVar : ZInQ.Contrib.HodgeSplit.HodgeTateDecompAbVar
+USED   deRhamH1AbVarT : ZInQ.Contrib.HodgeSplit.DeRhamH1AbVarT
+USED   r11r12 : HDec.PkgI4.PanBerger
+USED   eigenformHTNew : ZInQ.Contrib.HodgeSplit.EigenformHTNew
+USED   dsThm965 : ZInQ.Contrib.HodgeSplit.DSThm965
+USED   dsThm966 : ZInQ.Contrib.HodgeSplit.DSThm966
+USED   r16 : LeafModCurves.R16_EichlerShimuraJ1'
+USED   r17 : LadicCond.CarayolR17'
+USED   semistableNeronBaseChange : ZInQ.HeightSplit.SemistableNeronBaseChange
+USED   bostLowerBound : ZInQ.HeightSplit.BostLowerBound
+USED   javanpeykarBound : ZInQ.HeightSplit.JavanpeykarBound
+USED   faltingsLemma5BC : ZInQ.HeightSplit.FaltingsLemma5BC
+USED   pazukiCor13Upper : ZInQ.HeightSplit.PazukiCor13Upper
+USED   gaudronRemondThm14 : ZInQ.HeightSplit.GaudronRemondThm14
+UNUSED serreTateThm2 : ReductSplit.SerreTateThm2
+USED   semistableReductionDVR : ReductSplit.SemistableReductionDVR
+USED   semistableUnipotent : ReductSplit.SemistableUnipotent
+USED   neronSchemeModelExistsDVR : ReductSplit.NeronSchemeModelExistsDVR
+USED   gonzalezRotgerCountX6 : ShimuraSplit.GonzalezRotgerCountX6
+USED   raynaudSemistable : ReductSplit.RaynaudSemistable
+USED   semistablePersistsDVR : ReductSplit.SemistablePersistsDVR
+USED   neronLocalizesDVR : ReductGlue.NeronLocalizesDVR
+
+## HDec.HSyn.OpenTextbookLeaves10
+USED   mulEtaleAbelianScheme : AvSplit.T4.MulEtaleAbelianScheme
+USED   mumfordTorsionAlgClosed : AvSplit.MumfordTorsionAlgClosed
+USED   homFreeFiniteAlgClosed : ZInQ.Contrib.AVB1.HomFreeFiniteAlgClosed
+USED   charPolyIndepOfEllAlgClosed : ZInQ.Contrib.AVB1.CharPolyIndepOfEllAlgClosed
+USED   poincareComplement : ZInQ.Contrib.AVB1.PoincareComplement
+USED   cartierSmooth : AVGlue.CartierSmooth
+USED   geomConnOfRationalPoint : AVGlue.GeomConnOfRationalPoint
+USED   groupSchemeEquidim : AVGlue.GroupSchemeEquidim
+UNUSED t10 : T10Etale.T10_TateDuality
+USED   uniformizationLeafAll : BPAnalytic.Uniformization.UniformizationLeafAll
+USED   gagaMorphism : ZInQ.HomLattice.GAGAMorphism
+USED   bdRInvariants : HDec.HSyn.OpenTextbookLeaves10 → ∀ (p : ℕ) [inst : Fact (Nat.Prime p)], ZInQ.Contrib.HodgeSplit.BdRInvariants p
+USED   yuThm11 : HDec.QMSplit.Yu.YuThm11
+USED   genusX1Field : ZInQ.Contrib.CurvesG.GenusX1Field
+UNUSED regularSmoothPerfect : CurveSplit.RegularSmoothPerfect
+UNUSED igusaGL2 : ZInQ.RLeaf.IgusaGL2
+USED   neronSchemeExtensionExists : ZInQ.Contrib.NeronC.NeronSchemeExtensionExists
+
+## HDec.HSyn.OpenAddedLeaves9
+USED   thetaRatiosAlgebraic : HDec.HSyn.G0Split.ThetaPt.ThetaRatiosAlgebraic
+USED   qmCentralizerCMC : HDec.QMSplit.Aut.QMCentralizerCMC
+USED   tateTwistInvariants : ZInQ.Contrib.HodgeSplit.TateTwistInvariants
+USED   axSenTate : ZInQ.Contrib.HodgeSplit.AxSenTate
+USED   t09SymmIsogenyExists : HDec.WeilPairing.T09_SymmIsogenyExists
+USED   milneIsogenyQuasiInverse : AvSplit.MilneIsogenyQuasiInverse
+USED   x6ConicModel : HDec.X6Kummer.X6ConicModel
+USED   shimuraTaniyamaQbar : HDec.HSyn.G0Split.FibreQM.PeriodMapH.QMSplitSTQM.ShimuraTaniyamaQbar
+USED   egaIV_8_10_5_xii : ZInQ.Contrib.SpreadOut.EGAIV_8_10_5_xii
+USED   shimuraGoodReductionNoGuard : HDec.CurveSplitGR.ShimuraGoodReductionNoGuard
+USED   valenceFormulaCocompactEq : HDec.LeafQCheck.HM.QMSplit.ValenceFormulaCocompactEq
+USED   shimizuCovolumeO1 : HDec.LeafQCheck.HM.QMSplit.ShimizuCovolumeO1
+USED   igusaCMValue24 : HDec.LeafQCheck.HM.QMSplit.Value24.IgusaCMValue24
+USED   deligneComponentsY3Printed : ShimuraGlue.DeligneComponentsY3Printed
+
+## HDec.HSyn.OpenGlue7
+USED   quotientP1Coordinate : HDec.MCRGlue.QuotientP1Coordinate
+
