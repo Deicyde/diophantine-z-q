@@ -23,3 +23,9 @@ Task: the two glue Props under `SimpleImageIsogeny` in `ZInQKernel/Contrib/AVB1/
 - `AVGlue.simpleImageIsogeny_of_leaves (hC : CartierSmooth) (hP : PoincareComplement) (hQ : IsogenyQuasiInverse) (hK : KernelAbSubvariety) : SimpleImageIsogeny` (verbatim copy, Iff.rfl with ZInQ.Contrib.AVB1.SimpleImageIsogeny)
 - `AVGlue.poincareReducibility_of_leaves` (same hypotheses) : PkgI3.PoincareReducibility (T8)
 - `lake env lean scratch/av-glue/Combined.lean`: exit 0, 4 × [propext, Classical.choice, Quot.sound] (VERIFIED, 2026-11-14 ~05:00 PST).
+
+## Part C: KernelAbSubvariety ⇐ KernelIdentityComponent (scratch/av-glue/Kernel.lean)
+
+- `AVGlue.kernelAbSubvariety_of_identityComponent (hK1 : KernelIdentityComponent) : KernelAbSubvariety` compiled, [propext, Classical.choice, Quot.sound] (VERIFIED).
+- Glue proved: kernel `kerOver h = A ×_B Spec k` (Mathlib pullback of h.left with η[B].left), shear isomorphism `shearIso : (A ⊗ ker h).left ≅ pullback h.left h.left` over the first projection, `lqf_of_ker`: ker h LQF over k ⇒ h LQF (fibres of h are images of fibres of A ×_B A → A; Mathlib `exists_preimage_pullback`, `LocallyQuasiFinite.of_finite_preimage_singleton`).
+- New leaf `KernelIdentityComponent`: ker h not LQF over k ⇒ ∃ positive-dim abelian subvariety killed by h ((ker h)⁰_red).
