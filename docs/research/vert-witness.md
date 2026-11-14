@@ -16,14 +16,17 @@ Model work only; no human has reviewed it. Marks used throughout:
 and three glue Props (VERIFIED, compiled, standard axioms only):**
 
 ```lean
-theorem VertWitness.heckeVertWitness_of_goodReduction₃
+theorem VertWitness.heckeVertWitness_of_leaves
     (hL : ShimuraGoodReduction) (hRR : R1R2fp)
-    (hU : SpecialFibreUniformizer) (hD : ModelCoordinate) (hB : ModelComparison) :
+    (hMI : SpecialFibreMaxIdeal) (hD : ModelCoordinate) (hB : ModelComparison) :
     HeckeRestNV.HeckeVertWitness
 ```
 
 Coarser forms are also compiled:
 
+- `heckeVertWitness_of_goodReduction₃` takes `SpecialFibreUniformizer`.
+  `specialFibreUniformizer_of_maxIdeal` is compiled: `p` is a nonzerodivisor in every stalk of a
+  flat `ℤ_(p)`-scheme (`natCast_mem_nonZeroDivisors_stalk`).
 - `heckeVertWitness_of_goodReduction''` takes `ModelCoordinateGlue`, which is (d) and (b)
   together. `modelCoordinateGlue_of : ModelCoordinate → ModelComparison → ModelCoordinateGlue`.
 - `heckeVertWitness_of_goodReduction'` takes `SpecialFibreDVR`.
@@ -36,10 +39,11 @@ Coarser forms are also compiled:
   `ℤ_(p)` with the universal family of level-3 QM abelian surfaces, the moduli bijection on
   `ℚ̄`-points, and the Hecke automorphisms over `ℤ_(p)`. It is stated over the kernel's genuine
   definitions (§3).
-- **Glue `SpecialFibreUniformizer`** (standard scheme theory; Mathlib-only statement, not
-  proved). A nonempty proper smooth relative curve over `ℤ_(p)` has a point `ξ` with
-  `𝔪_ξ = (p)` and `p` a nonzerodivisor in `𝒪_{𝒴,ξ}`. The step from there to "the stalk is a DVR"
-  (`SpecialFibreDVR`) is compiled: `dvr_of_maximalIdeal_eq_span`, Stacks 00PD, Mathlib only.
+- **Glue `SpecialFibreMaxIdeal`** (standard scheme theory; Mathlib-only statement, not proved).
+  A nonempty proper smooth relative curve over `ℤ_(p)` has a point `ξ` with `𝔪_ξ = (p)`. The
+  rest of "the stalk is a DVR with uniformizer `p`" (`SpecialFibreDVR`) is compiled, Mathlib only:
+  - `p` is regular, by flatness: `natCast_mem_nonZeroDivisors_stalk`;
+  - the DVR criterion: `dvr_of_maximalIdeal_eq_span`, Stacks 00PD.
 - **Glue `ModelCoordinate` (d)** (not proved). There is a morphism `ρ : 𝒴 → P¹` over `ℤ_(p)`
   with R2fp's clauses on `ℚ̄`-points (`CoordFibres`). It is regular, with transcendental
   reduction, at every point whose stalk is a DVR with maximal ideal `(p)`. This is the tame
@@ -58,7 +62,7 @@ theorem VertWitnessAll.coverModelOfHecke_of_goodReduction (hconn : Y3Connected) 
     (hA : HeckeRest.QMAutCard) (hS : HeckeRest.SerreRigidity3) (hW : HeckeRest.ALFixedPoints)
     (hL : ShimuraGoodReduction) (hU : SpecialFibreUniformizer) (hBD : ModelCoordinateGlue) :
     CoverModelOfHecke
-theorem VertWitnessAll.coverModelOfHecke_of_goodReduction₃ ... (hL) (hU)
+theorem VertWitnessAll.coverModelOfHecke_of_leaves ... (hL) (hMI : SpecialFibreMaxIdeal)
     (hD : ModelCoordinate) (hB : ModelComparison) : CoverModelOfHecke
 theorem VertWitnessAll.propTSAll_of_goodReduction ... (hL) (hU) (hBD) : PropTSAll
 ```
@@ -103,14 +107,16 @@ outright. The GR route is the one carried out here.
 | `ShimuraGoodReduction` | **leaf** | stated (§3) |
 | `SpecialFibreDVR` | glue (scheme theory) | `specialFibreDVR_of_uniformizer : SpecialFibreUniformizer → SpecialFibreDVR`, compiled |
 | `dvr_of_maximalIdeal_eq_span` | Noetherian local ring with `𝔪 = (t)`, `t ∈ R⁰` ⇒ domain and DVR | compiled (Mathlib only) |
-| `SpecialFibreUniformizer` | **glue** (scheme theory) | stated, not proved (§4.2) |
+| `SpecialFibreUniformizer` | glue (scheme theory) | `specialFibreUniformizer_of_maxIdeal : SpecialFibreMaxIdeal → SpecialFibreUniformizer`, compiled |
+| `natCast_mem_nonZeroDivisors_stalk` | `p` is regular in every stalk of a flat `ℤ_(p)`-scheme | compiled (Mathlib only) |
+| `SpecialFibreMaxIdeal` | **glue** (scheme theory) | stated, not proved (§4.2) |
 | `CMObjectsExist` | CM objects of the three types over `ℚ̄` | `cmObjectsExist_of_R1R2fp : R1R2fp → CMObjectsExist`, compiled |
 | `CoordFibres 𝒴 𝒜 ρ` | def: R2fp's clauses for `ρ : ToP1 𝒴.left` on `ℚ̄`-points (via `IsFibreOf`) | — |
 | `ModelCoordinate` | **glue (d)**: the coordinate on the model | stated, not proved (§4.3) |
 | `ModelComparison` | **glue (b)**: comparison of function fields | stated, not proved (§4.3) |
 | `ModelCoordinateGlue` | glue ((d) and (b) together) | `modelCoordinateGlue_of : ModelCoordinate → ModelComparison → ModelCoordinateGlue`, compiled (with `intPolyAlg_eq_eval₂`) |
 | `ModelGaussGlue` | glue (all together) | `modelGaussGlue_of : SpecialFibreDVR → ModelCoordinateGlue → ModelGaussGlue`, compiled |
-| `heckeVertWitness_of_goodReduction`, `…'`, `…''`, `…₃`, `heckeNoVertRam_of_goodReduction` | composites (they take `hRR : R1R2fp` for `CMObjectsExist`) | compiled |
+| `heckeVertWitness_of_leaves` (finest), `heckeVertWitness_of_goodReduction`, `…'`, `…''`, `…₃`, `heckeNoVertRam_of_goodReduction` | composites (they take `hRR : R1R2fp` for `CMObjectsExist`) | compiled |
 
 ### 2.1 The commutative algebra (compiled)
 
@@ -261,7 +267,11 @@ The first follows from the second by step 3 below, which is compiled
    `a` as `tⁿ·unit`; then the ring is a domain, and
    `IsDiscreteValuationRing.ofHasUnitMulPowIrreducibleFactorization` applies.
 
-**Lean for steps 1-2 (`SpecialFibreUniformizer`).** Not done. It needs:
+**Lean.** The nonzerodivisor part of step 3 is compiled as `natCast_mem_nonZeroDivisors_stalk`.
+It uses `Flat.stalkMap` (smooth implies flat) and `Module.Flat.isSMulRegular_of_nonZeroDivisors`;
+`p ≠ 0` in the stalks of the integral scheme `Spec ℤ_(p)` comes from `germ_injective_of_isIntegral`.
+
+What remains is steps 1-2, `SpecialFibreMaxIdeal` (`∃ ξ, 𝔪_ξ = (p)`). Not done. It needs:
 
 - the fibre `𝒴_p` and its stalks as quotients of the stalks of `𝒴` (infra-stalks'
   `pullback_stalkGen` is the surjectivity half);
@@ -347,13 +357,15 @@ The proof outline below covers both pieces: (b) is the comparison, (d) is the co
     its reduction is transcendental.
   - So `f(π) ∈ 𝔪_ξ` iff the reduction `f̄` vanishes, i.e. iff `f ∈ p ℤ[X]`.
 
-**Proof of (b) from the comparison.** Restricted to the generic fibre, `ρ` and `π ∘ g` have the
-same `ℚ̄`-fibres (twist classes, by `CoordFibres` and R2fp) and the same values `0, ∞, −16/27` at
-the three CM orbits, which exist by `CMObjectsExist` and the leaf's surjectivity. Both therefore
-induce isomorphisms `𝒴_ℚ/G' ≅ P¹`: each is injective on `ℚ̄`-points, so of degree 1 in
-characteristic 0, and finite onto a normal target. The two isomorphisms differ by a Möbius map
-fixing three points, so they are equal. Two maps agreeing on `ℚ̄`-points of a reduced scheme are
-equal.
+**Proof of (b) from the comparison** (reviewer's simplification).
+
+- Put `ρ' = ρ ∘ g⁻¹` on `Y`. Then `ρ'` and `π` have the same `ℚ̄`-fibres, the twist classes
+  (`CoordFibres` and R2fp).
+- So `ρ' = m ∘ π` for a rational map `m` that is injective on `P¹(ℚ̄)`. In characteristic 0 such
+  an `m` has degree 1, so it is a Möbius map.
+- The three CM points exist on `𝒴`, by `CMObjectsExist` and the leaf's surjectivity. So `m` fixes
+  `0, ∞, −16/27`, and therefore `m = id`.
+- Finally, two maps that agree on the `ℚ̄`-points of a reduced scheme are equal.
 
 **What it needs beyond Mathlib** (SPECULATIVE sizing, large):
 
@@ -400,7 +412,7 @@ Assessment (SPECULATIVE):
 
 **Recommendation.** For the announcement, list `ShimuraGoodReduction` as the literature input for
 no vertical ramification. List `SpecialFibreUniformizer`, `ModelCoordinate` and `ModelComparison`
-as project glue. Keep
+as project glue, with `SpecialFibreMaxIdeal` in place of `SpecialFibreUniformizer`. Keep
 NV as the alternative that trades the Morita/Carayol leaf for two-dimensional inertia glue.
 
 ## 6. Independent review
@@ -435,16 +447,39 @@ version before the guard clause and before `SpecialFibreUniformizer`.
   primes. See §5. Within GR, a leaf is unavoidable: smoothness of the model is exactly its
   content.
 
+### 6.2 Second review: the split glue
+
+A second read-only model agent reviewed `CMObjectsExist`, `SpecialFibreUniformizer`,
+`CoordFibres`, `ModelCoordinate`, `ModelComparison` and `modelCoordinateGlue_of`. Its verdicts:
+
+- **`ModelCoordinate`: TRUE for every qualifying `ξ`.**
+  - The qualifying `ξ` are exactly the generic points of special-fibre components.
+  - `q : 𝒴 → 𝒵 ≅ P¹` is finite surjective and sends `ξ` to the generic point of `P¹_{𝔽_p}`, which
+    lies in `𝔸¹`.
+  - The membership criterion comes from the local map `ℤ_(p)[t]_(p) → 𝒪_ξ`.
+  - The image of `G'` has order `2^a 3^b`, so tameness holds for every `p ≥ 5`.
+  - The content is the disjointness of the CM sections. It uses the nontrivial stabilizers of
+    orders `4, 6, 2` (`RvNocm.ramification_eq_orbifold_order`).
+  - It agrees with Baba–Granath's coordinate having good reduction away from 6.
+- **`ModelComparison`: TRUE for every `ρ` and every `ξ ∈ ρ.U`,** closed special points included.
+  The reviewer gave a simpler proof without `G'`: `ρ' = ρ∘g⁻¹ = m∘π` with `m` injective on
+  `P¹(ℚ̄)`, so `m` is Möbius; `m` fixes the three CM values, so `m = id`. The docstring now uses
+  this proof.
+- **`SpecialFibreUniformizer`: TRUE.**
+- **`CMObjectsExist`** and its compiled proof are fine.
+- **`modelCoordinateGlue_of`** is neither vacuous nor circular. (d) has no `E` in it; (b) has no
+  `p`-adic content.
+
 ## 7. What remains (for the announcement)
 
 | Prop | Kind | Status |
 |---|---|---|
 | `ShimuraGoodReduction` | **leaf** (Morita/Carayol/Kottwitz/Buzzard; locators UNVERIFIED; the level-3-at-`3 ∣ D` coverage needs a human check) | stated in Lean |
-| `SpecialFibreUniformizer` | glue (standard scheme theory; `SpecialFibreDVR` follows, compiled) | stated, not proved |
+| `SpecialFibreMaxIdeal` | glue (standard scheme theory; `SpecialFibreUniformizer` and `SpecialFibreDVR` follow, compiled) | stated, not proved |
 | `ModelCoordinate` (d) | glue (tame quotient `𝒴/Γ' ≅ P¹_{ℤ_(p)}` in the coordinate; CM sections disjoint mod `p`) | stated, not proved |
 | `ModelComparison` (b) | glue (generic fibre `≅ Y` via `R1univProps`; Möbius rigidity) | stated, not proved |
 | `Y3Connected`, `R1R2fp`, `TorsionStructure`, `QMAutCard`, `SerreRigidity3`, `ALFixedPoints` | leaves (existing, from ts-hecke and hecke-rest) | unchanged |
 
 `CoverModelOfHecke` and `PropTSAll` follow from these by compiled composites:
-`VertWitnessAll.coverModelOfHecke_of_goodReduction₃`, `…_of_goodReduction`, and
+`VertWitnessAll.coverModelOfHecke_of_leaves` (finest), `…_of_goodReduction`, and
 `VertWitnessAll.propTSAll_of_goodReduction`.

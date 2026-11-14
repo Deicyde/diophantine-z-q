@@ -22,4 +22,4 @@
 'VertWitnessAll.coverModelOfHecke_of_goodReduction' depends on axioms: [propext, Classical.choice, Quot.sound]
 'VertWitnessAll.propTSAll_of_goodReduction' depends on axioms: [propext, Classical.choice, Quot.sound]
 'VertWitnessAll.coverModelOfHecke_of_leaves' depends on axioms: [propext, Classical.choice, Quot.sound]
-real	0m58.619s
+real	0m58.058s

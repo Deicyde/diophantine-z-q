@@ -1880,9 +1880,13 @@ def CoordFibres {p : ℕ} [Fact p.Prime] (𝒴 : Over (Spec (CommRingCat.of (Zlo
 `p > 324` and a triple with R1fp, R1hecke, R2fp, there is a morphism `ρ : 𝒴 → P¹` over `ℤ_(p)`
 with the R2-type clauses on `ℚ̄`-points, regular at every point `ξ` whose stalk is a DVR with
 maximal ideal `(p)` (the generic points of the components of the special fibre), with
-transcendental reduction there: `f(ρ) ∈ 𝔪_ξ ⟺ f ∈ p ℤ[X]` for `f ∈ ℤ[X]`. (Proof outline: `ρ` is
-the coordinate of the tame quotient `𝒵 = 𝒴/G' ≅ P¹_{ℤ_(p)}` normalized by the three CM
-sections, which are pairwise disjoint mod `p`; see docs/research/vert-witness.md §4.3 (d).) -/
+transcendental reduction there: `f(ρ) ∈ 𝔪_ξ ⟺ f ∈ p ℤ[X]` for `f ∈ ℤ[X]`. The qualifying `ξ` are
+exactly the generic points of the components of the special fibre. (Proof outline: `ρ` is the
+coordinate of the tame quotient `𝒵 = 𝒴/G' ≅ P¹_{ℤ_(p)}` (the image of `G'` has order `2^a 3^b`, so
+tameness holds for every `p ≥ 5`) normalized by the three CM sections, which are pairwise disjoint
+mod `p` (finite étale fixed loci, cyclic stabilizers; this uses that the CM orbits have the
+nontrivial stabilizers of orders `4, 6, 2`, the indices of `RvNocm.ramification_eq_orbifold_order`);
+see docs/research/vert-witness.md §4.3 (d).) -/
 def ModelCoordinate : Prop :=
   ∀ (p : ℕ) [Fact p.Prime], 324 < p →
     ∀ (𝒴 : Over (Spec (CommRingCat.of (Zloc p)))) (𝒜 : QMFamily 𝒴.left), IsShimuraModel p 𝒴 𝒜 →
@@ -1904,10 +1908,11 @@ a point `ξ ∈ ρ.U`, and any finite Galois `E/ℚ(X)` with the normalization c
 embeds in `E` with fraction field `E`, sending the germ of `ρ` to `X`. (Proof outline:
 `R1univProps` classifies `𝒴_ℚ` by `g : 𝒴_ℚ → Y`, bijective on `ℚ̄`-points, hence an isomorphism of
 smooth proper curves; `Y` is irreducible, so `𝒴` is integral with function field
-`ℚ(Y) = Frac B = E`; `ρ|_{𝒴_ℚ}` and `π ∘ g` have the same fibres (twist classes, R2fp and
-`CoordFibres`) and the same values at the three CM orbits, so both induce isomorphisms
-`𝒴_ℚ/G' ≅ P¹` differing by a Möbius map fixing `0, ∞, −16/27`, i.e. they are equal; Mathlib's
-`IsFractionRing (X.presheaf.stalk x) X.functionField` for integral `X`.) -/
+`ℚ(Y) = Frac B = E`; `ρ' = ρ ∘ g⁻¹` and `π` have the same fibres on `ℚ̄`-points (`CoordFibres`,
+R2fp), so `ρ' = m ∘ π` for a rational map `m` injective on `P¹(ℚ̄)`, i.e. a Möbius map (char 0);
+the three CM points exist on `𝒴` (`CMObjectsExist` and the leaf's surjectivity clause), so `m`
+fixes `0, ∞, −16/27` and `m = id`; Mathlib's `IsFractionRing (X.presheaf.stalk x) X.functionField`
+for integral `X`.) -/
 def ModelComparison : Prop :=
   ∀ (p : ℕ) [Fact p.Prime], 324 < p →
     ∀ (𝒴 : Over (Spec (CommRingCat.of (Zloc p)))) (𝒜 : QMFamily 𝒴.left), IsShimuraModel p 𝒴 𝒜 →

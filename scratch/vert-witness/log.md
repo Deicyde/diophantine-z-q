@@ -76,3 +76,14 @@ Split of `ModelCoordinateGlue` into
   as a closed theorem).
 - Composites now take `hRR : R1R2fp` (a bundle leaf):
   `heckeVertWitness_of_goodReduction₃ (hL) (hRR) (hU) (hD) (hB) : HeckeVertWitness`, etc.
+
+## Step 7 (18:31) — VERIFIED (both files 0 errors, no sorryAx in compile_*.txt)
+- `natCast_ne_zero_stalk_Spec`, `natCast_mem_nonZeroDivisors_stalk` (p regular in every stalk of a
+  flat ℤ_(p)-scheme; Flat.stalkMap + Module.Flat.isSMulRegular_of_nonZeroDivisors).
+- glue `SpecialFibreMaxIdeal` (∃ ξ, 𝔪_ξ = (p)); `specialFibreUniformizer_of_maxIdeal` (compiled).
+- finest composites: `heckeVertWitness_of_leaves (hL) (hRR) (hMI) (hD) (hB)`,
+  `VertWitnessAll.coverModelOfHecke_of_leaves`.
+- Second review (read-only agent): ModelCoordinate TRUE (every qualifying ξ), ModelComparison TRUE
+  (every ρ, ξ ∈ ρ.U), SpecialFibreUniformizer TRUE, CMObjectsExist fine, split not circular.
+  Docstrings updated (Möbius factorization proof of (b); tameness for p ≥ 5; reliance on the
+  stabilizer orders 4, 6, 2).
