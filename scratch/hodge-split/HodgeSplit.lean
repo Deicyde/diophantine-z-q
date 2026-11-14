@@ -1104,16 +1104,15 @@ def DSThm965 : Prop :=
 
 /-- **LEAF (Deligne–Serre, in Diamond–Shurman's form).** Deligne–Serre, *Formes modulaires de
 poids 1*, Ann. Sci. ÉNS 7 (1974), Thm 4.1; Diamond–Shurman Thm 9.6.6 (numbering UNVERIFIED): for a
-normalized eigenform `f ∈ S_1(N, χ)` there is a representation `ρ_f : G_ℚ → GL₂(ℂ)` with finite
-image (continuous for the Krull topology: its kernel is open), unramified at every `p ∤ N`, with
-`tr ρ_f(Frob_𝔭) = a_p(f)` and `det ρ_f(Frob_𝔭) = χ(p)`. Lean form: openness of the kernel as
-"trivial on `Gal(ℚ̄/K)` for a number field `K ⊆ ℚ̄`" is replaced by "finite image" plus continuity
-for the discrete topology being implied (finite image is what the row uses); the unramified
-condition is pkg-I4's, written for a `GL₂(ℂ)`-valued homomorphism. -/
+normalized eigenform `f ∈ S_1(N, χ)` there is a continuous representation `ρ_f : G_ℚ → GL₂(ℂ)`
+(Krull topology on `G_ℚ`), with finite image, unramified at every `p ∤ N`, with
+`tr ρ_f(Frob_𝔭) = a_p(f)` and `det ρ_f(Frob_𝔭) = χ(p)`. Lean form: places of `ℚ̄` as valuation
+subrings, arithmetic Frobenius as pkg-I4's `IsArithFrob`, the unramified condition pkg-I4's, written
+for a `GL₂(ℂ)`-valued homomorphism. -/
 def DSThm966 : Prop :=
   ∀ (N : ℕ) (χ : DirichletCharacter ℂ N) (g : PkgI4.CF N 1),
     0 < N → PkgI4.IsNormalizedEigenform g χ →
-    ∃ ρ : PkgI4.GQ →* GL (Fin 2) ℂ, (Set.range ρ).Finite ∧
+    ∃ ρ : PkgI4.GQ →* GL (Fin 2) ℂ, Continuous ρ ∧ (Set.range ρ).Finite ∧
       ∀ p : ℕ, p.Prime → ¬ p ∣ N →
         (∀ v : ValuationSubring PkgI4.Qbar, PkgI4.LiesOver v p →
           ∀ σ ∈ v.inertiaSubgroup ℚ, ρ ((σ : v.decompositionSubgroup ℚ) : PkgI4.GQ) = 1) ∧
