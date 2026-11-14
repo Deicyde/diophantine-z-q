@@ -105,3 +105,5 @@ The `#print axioms` lines of the source scratch files, with full names, then the
 
 -- ss-exponent (TYZChain/SSExponent.lean)
 #print axioms ZInQ.Contrib.SSExponent.supersingularExponentA
+#print axioms ZInQ.Contrib.SSExponent.t318_supersingularExponentA
+#print axioms ZInQ.Contrib.SSExponent.lemma318Literal_HHprime_of_sqrtTwoNotIn_ss

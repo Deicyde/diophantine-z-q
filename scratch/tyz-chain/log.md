@@ -24,3 +24,7 @@
   by `import ZInQKernel.Contrib.Chebotarev.FrobeniusDenseOfExists` + a selective `open`. Rebuild OK (L321 34 s,
   Main 4 s); Check.lean rerun: 79 × standard axioms. VERIFIED. (Consequence: Main now imports all of Mathlib
   transitively, through that module's `import Mathlib`.)
+- 00:38 SSExponent: its §1–§3 (scratch lines 35–310) were a verbatim copy of tyz-318's §S (T318SS; VERIFIED by
+  diff, identical except the position of `Ek`); now imported from TYZChain.Lemma318 with `open T318SS`.
+  Added `t318_supersingularExponentA : T318.SupersingularExponentA` and
+  `lemma318Literal_HHprime_of_sqrtTwoNotIn_ss`. Build OK (6.5 s); Check rerun: 81 × standard axioms. VERIFIED.
