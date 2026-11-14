@@ -40,3 +40,12 @@ with `lake env lean` (one process at a time). Marks: VERIFIED / STANDARD / SPECU
 - Leaf `EichlerOptimalEmbeddingCount` (Eichler 1955 / Vignéras III 5.11-5.12 / Voight ch. 30, numbers
   UNVERIFIED; caveat: some sources count mod O¹ with factor 2). Glue `QMPairEmbeddingCorrespondence`
   (Shimura uniformization; an Equiv). Proved `r5fpCount_of : Eichler → Correspondence → R5fpCount`.
+
+## MetrizedDimUnique proved (04:40-05:00)
+- `scratch/height-split/DimUnique.lean` (dev file, imports `ZInQKernel.HDecomp.Faltings.Height`):
+  `card_sq_eq_one_of_uniformization` (`#{p : p² = 1} = 2^{2g}` for a surjective hom `ℂ^g → P` with
+  kernel a full lattice; via `Setoid.quotientKerEquivOfSurjective`, `AddSubgroup.index_range_nsmul`,
+  `ZLattice.rank`) and `metrizedDimUnique_aux`. Compiles, axioms standard (VERIFIED).
+- Merged into `HeightSplit.lean` as `metrizedDimUnique : MetrizedDimUnique`; corollaries
+  `stableHeightFinite_of'` (H-19 from N1, SS1, SS2, NeronMetrizable, AN3U) and `r21_of_leaves'`
+  (H-17 from Bost, N1, SS1, SS2, AN3U). Full file recompiled: no errors, all axioms standard (VERIFIED).
