@@ -1,0 +1,216 @@
+
+/-! ════════════════════════════════════════════════════════════════════════════════════════════
+# model-glue: reductions of `ModelCoordinate` and `ModelComparison`
+
+Everything above this banner is `scratch/vert-witness/VertWitness.lean` verbatim (whole file).
+`VertWitness.ModelCoordinate` and `VertWitness.ModelComparison` are used by name from that
+prefix, so the theorems below have exactly those types.
+
+* `ModelGlue.mem_maximalIdeal_iff_of_transcendental` (commutative algebra, compiled): in a local
+  ring with `p ∈ 𝔪`, if the residue of `r` is transcendental over the prime field of the residue
+  field, then `f(r) ∈ 𝔪 ⟺ f ∈ p ℤ[X]` for `f ∈ ℤ[X]` (the Gauss criterion).
+* `ModelGlue.ModelCoordinateResidue` (glue, smaller): the coordinate exists, is regular at every
+  qualifying `ξ`, and its reduction at `ξ` is transcendental (non-constant reduction).
+  `modelCoordinate_of_residue : ModelCoordinateResidue → ModelCoordinate` (compiled).
+* `ModelGlue.ModelIntegral` and `ModelGlue.ModelFunctionField` (glue, smaller): the model is
+  integral, and at its generic point the germ of every coordinate with `CoordFibres` goes to `X`
+  under a surjection `ℚ(𝒴) → E`.
+  `modelComparison_of : ModelIntegral → ModelFunctionField → ModelComparison` (compiled).
+════════════════════════════════════════════════════════════════════════════════════════════ -/
+
+noncomputable section
+
+namespace ModelGlue
+
+open Polynomial CategoryTheory AlgebraicGeometry Limits LeafQM.AV VertWitness HeckeRestNV
+open G0ModField PropTSRed PropTSGlue
+
+/-! ## Part 1: transcendental reduction gives the Gauss criterion -/
+
+/-- In a local ring with `p ∈ 𝔪`, an integer lies in `𝔪` iff `p` divides it. -/
+theorem intCast_mem_maximalIdeal_iff {R : Type*} [CommRing R] [IsLocalRing R] {p : ℕ}
+    (hp : p.Prime) (hpm : (p : R) ∈ IsLocalRing.maximalIdeal R) (c : ℤ) :
+    (c : R) ∈ IsLocalRing.maximalIdeal R ↔ (p : ℤ) ∣ c := by
+  constructor
+  · intro hc
+    by_contra hnd
+    obtain ⟨a, b, hab⟩ : IsCoprime c (p : ℤ) :=
+      ((Nat.prime_iff_prime_int.1 hp).coprime_iff_not_dvd.2 hnd).symm
+    have hmem : ((a * c + b * p : ℤ) : R) ∈ IsLocalRing.maximalIdeal R := by
+      push_cast
+      exact add_mem (Ideal.mul_mem_left _ _ hc) (Ideal.mul_mem_left _ _ hpm)
+    rw [hab, Int.cast_one] at hmem
+    exact (IsLocalRing.maximalIdeal.isMaximal R).ne_top ((Ideal.eq_top_iff_one _).2 hmem)
+  · rintro ⟨k, rfl⟩
+    push_cast
+    exact Ideal.mul_mem_right _ _ hpm
+
+/-- **Gauss criterion from transcendental reduction** (commutative algebra, compiled). In a local
+ring `R` with `p ∈ 𝔪_R`, if the residue `r̄` of `r` is transcendental over the prime field of the
+residue field, then for `f ∈ ℤ[X]`: `f(r) ∈ 𝔪_R ⟺ f ∈ p ℤ[X]`. -/
+theorem mem_maximalIdeal_iff_of_transcendental {R : Type*} [CommRing R] [IsLocalRing R] {p : ℕ}
+    (hp : p.Prime) (hpm : (p : R) ∈ IsLocalRing.maximalIdeal R) (r : R)
+    (ht : Transcendental (⊥ : Subfield (IsLocalRing.ResidueField R)) (IsLocalRing.residue R r))
+    (f : ℤ[X]) :
+    f.eval₂ (Int.castRingHom R) r ∈ IsLocalRing.maximalIdeal R ↔ f ∈ vertPrime p := by
+  set k : Subfield (IsLocalRing.ResidueField R) := ⊥
+  have hcoe : ∀ c : ℤ, ((c : k) = 0 ↔ (c : R) ∈ IsLocalRing.maximalIdeal R) := by
+    intro c
+    rw [← IsLocalRing.residue_eq_zero_iff, map_intCast, ← Subtype.coe_inj]
+    simp
+  have key : IsLocalRing.residue R (f.eval₂ (Int.castRingHom R) r) =
+      aeval (IsLocalRing.residue R r) (f.map (Int.castRingHom k)) := by
+    rw [Polynomial.hom_eval₂, aeval_def, eval₂_map]
+    congr 1
+  have hmap : f.map (Int.castRingHom k) = 0 ↔ f ∈ vertPrime p := by
+    rw [vertPrime, Ideal.mem_map_C_iff, Polynomial.ext_iff]
+    refine forall_congr' fun n => ?_
+    rw [coeff_map, coeff_zero, Ideal.mem_span_singleton, eq_intCast, hcoe,
+      intCast_mem_maximalIdeal_iff hp hpm]
+  rw [← IsLocalRing.residue_eq_zero_iff, key, ← hmap]
+  constructor
+  · intro h0
+    by_contra hne
+    exact ht ⟨_, hne, h0⟩
+  · intro h0
+    rw [h0, map_zero]
+
+/-! ## Part 2: the coordinate (d) -/
+
+/-- **Glue (d'), the coordinate on the model with non-constant reduction** (route GR; not proved;
+strictly smaller than `ModelCoordinate`: the membership criterion is replaced by its source, the
+transcendence of the reduction). Given the smooth model at `p > 324` and a triple with R1fp,
+R1hecke, R2fp, there is `ρ : 𝒴 → P¹` over `ℤ_(p)` with `CoordFibres`, regular at every `ξ` whose
+stalk is a DVR with maximal ideal `(p)`, whose reduction `ρ̄(ξ) ∈ κ(ξ)` is transcendental over
+`𝔽_p` (the prime field of `κ(ξ)`). Proof outline (docs/research/vert-witness.md §4.3 (d)): `ρ` is
+the coordinate of the tame quotient `𝒵 = 𝒴/G' ≅ P¹_{ℤ_(p)}` (SGA 1 Exp. V for the quotient and
+its base change, `p ∤ |G'|`; three pairwise disjoint CM sections, Edixhoven, Compositio 97 (1995),
+fixed loci; locators UNVERIFIED); `q : 𝒴 → 𝒵` is finite surjective, so the generic point `ξ` of a
+special-fibre component maps to the generic point of `P¹_{𝔽_p}`, and `ρ̄(ξ)` is the coordinate
+`t ∈ 𝔽_p(t) ⊆ κ(ξ)`, transcendental. -/
+def ModelCoordinateResidue : Prop :=
+  ∀ (p : ℕ) [Fact p.Prime], 324 < p →
+    ∀ (𝒴 : Over (Spec (CommRingCat.of (Zloc p)))) (𝒜 : QMFamily 𝒴.left), IsShimuraModel p 𝒴 𝒜 →
+    CMObjectsExist →
+    ∀ (Y : Over (Spec (CommRingCat.of ℚ))) (Φ : PtEquiv Y) (π : ToP1 Y.left),
+      R1fpProps Y Φ → R1heckeProps Y Φ → R2fpProps Y Φ π →
+    ∃ ρ : ToP1 𝒴.left, CoordFibres 𝒴 𝒜 ρ ∧
+      ∀ (ξ : 𝒴.left) (_ : IsDomain (𝒴.left.presheaf.stalk ξ)),
+        IsDiscreteValuationRing (𝒴.left.presheaf.stalk ξ) →
+        IsLocalRing.maximalIdeal (𝒴.left.presheaf.stalk ξ) =
+          Ideal.span {(p : 𝒴.left.presheaf.stalk ξ)} →
+        ∃ hξ : ξ ∈ ρ.U,
+          Transcendental (⊥ : Subfield (IsLocalRing.ResidueField (𝒴.left.presheaf.stalk ξ)))
+            (IsLocalRing.residue _ (𝒴.left.presheaf.germ ρ.U ξ hξ ρ.f))
+
+/-- **`ModelCoordinate` from `ModelCoordinateResidue`** (compiled; the Gauss criterion). -/
+theorem modelCoordinate_of_residue (h : ModelCoordinateResidue) : ModelCoordinate := by
+  intro p _ hp 𝒴 𝒜 hM hCM Y Φ π h1 hh h2
+  obtain ⟨ρ, hρ, hreg⟩ := h p hp 𝒴 𝒜 hM hCM Y Φ π h1 hh h2
+  refine ⟨ρ, hρ, fun ξ hdom hdvr hmax => ?_⟩
+  obtain ⟨hξ, ht⟩ := hreg ξ hdom hdvr hmax
+  refine ⟨hξ, mem_maximalIdeal_iff_of_transcendental (Fact.out : p.Prime) ?_ _ ht⟩
+  rw [hmax]
+  exact Ideal.subset_span rfl
+
+/-! ## Part 3: the comparison (b) -/
+
+/-- **Glue (b1), the model is integral** (route GR; not proved). Given the smooth model at
+`p > 324`, a triple with R1fp, R1hecke, R2fp, and a finite Galois `E/ℚ(X)` with the
+normalization chart, `𝒴` is an integral scheme. Proof outline (docs/research/vert-witness.md
+§4.3 (b)): `R1univProps` gives `g : 𝒴_ℚ → Y`, bijective on `ℚ̄`-points, hence an isomorphism of
+smooth proper curves over `ℚ` (finite, degree 1, normal target); `Y` is irreducible (the chart
+`Spec B`, `B` a domain since `E` is a field, meets every component: a component with `π ≡ ∞`
+would carry infinitely many twist-inequivalent `ℚ̄`-points in one `π`-fibre, against R2fp) and
+reduced (smooth); `𝒴` is flat over `ℤ_(p)` (smooth), so its generic fibre is dense and `𝒴` is
+reduced (smooth over a regular base), hence integral. -/
+def ModelIntegral : Prop :=
+  ∀ (p : ℕ) [Fact p.Prime], 324 < p →
+    ∀ (𝒴 : Over (Spec (CommRingCat.of (Zloc p)))) (𝒜 : QMFamily 𝒴.left), IsShimuraModel p 𝒴 𝒜 →
+    ∀ (Y : Over (Spec (CommRingCat.of ℚ))) (Φ : PtEquiv Y) (π : ToP1 Y.left),
+      R1fpProps Y Φ → R1heckeProps Y Φ → R2fpProps Y Φ π →
+    ∀ (E : Type) [Field E] [Algebra (RatFunc ℚ) E] [Algebra ℚ[X] E]
+      [IsScalarTower ℚ[X] (RatFunc ℚ) E] [FiniteDimensional (RatFunc ℚ) E]
+      [IsGalois (RatFunc ℚ) E], NormalizationModel Y π E →
+      IsIntegral 𝒴.left
+
+/-- **Glue (b2), comparison of function fields at the generic point** (route GR; not proved).
+Given the smooth model at `p > 324` (integral), CM objects, a triple with R1fp, R1hecke, R2fp, a
+coordinate `ρ : 𝒴 → P¹` with `CoordFibres` (defined at the generic point `η` of `𝒴`), and a
+finite Galois `E/ℚ(X)` with the normalization chart, there is a surjection `κ : ℚ(𝒴) → E` with
+`κ(ρ) = X`. Proof outline (docs/research/vert-witness.md §4.3 (b)): `ℚ(𝒴) = ℚ(𝒴_ℚ) ≅ ℚ(Y)` via
+the isomorphism `g` of (b1), and `ℚ(Y) = Frac B = E` via the chart; `ρ ∘ g⁻¹` and `π` have the same
+`ℚ̄`-fibres (`CoordFibres`, R2fp), so `ρ ∘ g⁻¹ = m ∘ π` with `m` injective on `P¹(ℚ̄)`, a Möbius
+map (char 0; cf. `Pin.MobiusGlue` and `Contrib/Mobius/`), which fixes `0, ∞, −16/27` (the CM points
+exist on `𝒴` by `CMObjectsExist` and the leaf's surjectivity), so `m = id` and `κ(ρ) = π = X`. -/
+def ModelFunctionField : Prop :=
+  ∀ (p : ℕ) [Fact p.Prime], 324 < p →
+    ∀ (𝒴 : Over (Spec (CommRingCat.of (Zloc p)))) (𝒜 : QMFamily 𝒴.left), IsShimuraModel p 𝒴 𝒜 →
+    CMObjectsExist →
+    ∀ (Y : Over (Spec (CommRingCat.of ℚ))) (Φ : PtEquiv Y) (π : ToP1 Y.left),
+      R1fpProps Y Φ → R1heckeProps Y Φ → R2fpProps Y Φ π →
+    ∀ (_ : IsIntegral 𝒴.left),
+    ∀ ρ : ToP1 𝒴.left, CoordFibres 𝒴 𝒜 ρ →
+    ∀ (hη : genericPoint 𝒴.left ∈ ρ.U),
+    ∀ (E : Type) [Field E] [Algebra (RatFunc ℚ) E] [Algebra ℚ[X] E]
+      [IsScalarTower ℚ[X] (RatFunc ℚ) E] [FiniteDimensional (RatFunc ℚ) E]
+      [IsGalois (RatFunc ℚ) E], NormalizationModel Y π E →
+      ∃ κ : 𝒴.left.functionField →+* E, Function.Surjective κ ∧
+        κ (𝒴.left.presheaf.germ ρ.U (genericPoint 𝒴.left) hη ρ.f) = algebraMap ℚ[X] E X
+
+/-- **From the generic point to every stalk** (compiled): for an integral scheme `X`, a point
+`ξ ∈ U`, and a surjection `κ : ℚ(X) → E` onto a field, `κ ∘ (𝒪_{X,ξ} → ℚ(X))` is injective, `E` is
+its fraction field, and it sends the germ of `s ∈ Γ(U)` at `ξ` to `κ` of its germ at `η`. -/
+theorem stalk_embedding_of_functionField {X : Scheme.{0}} [IsIntegral X] {E : Type} [Field E]
+    (κ : X.functionField →+* E) (hκ : Function.Surjective κ) {U : X.Opens} {ξ : X} (hξ : ξ ∈ U)
+    (hη : genericPoint X ∈ U) (s : Γ(X, U)) :
+    ∃ ι : X.presheaf.stalk ξ →+* E, Function.Injective ι ∧
+      (∀ x : E, ∃ a b : X.presheaf.stalk ξ, b ≠ 0 ∧ x * ι b = ι a) ∧
+      ι (X.presheaf.germ U ξ hξ s) = κ (X.presheaf.germ U (genericPoint X) hη s) := by
+  haveI : Nonempty U := ⟨⟨ξ, hξ⟩⟩
+  refine ⟨κ.comp (algebraMap (X.presheaf.stalk ξ) X.functionField), ?_, ?_, ?_⟩
+  · exact κ.injective.comp (IsFractionRing.injective _ _)
+  · intro x
+    obtain ⟨y, rfl⟩ := hκ x
+    obtain ⟨⟨a, b⟩, hab⟩ := IsLocalization.surj (nonZeroDivisors (X.presheaf.stalk ξ)) y
+    refine ⟨a, b, nonZeroDivisors.ne_zero b.2, ?_⟩
+    simp only [RingHom.comp_apply]
+    rw [← map_mul, ← hab]
+  · simp only [RingHom.comp_apply]
+    rw [Scheme.algebraMap_germ_eq_germToFunctionField]
+
+/-- **`ModelComparison` from (b1) and (b2)** (compiled). -/
+theorem modelComparison_of (hI : ModelIntegral) (hF : ModelFunctionField) : ModelComparison := by
+  intro p _ hp 𝒴 𝒜 hM hCM Y Φ π h1 hh h2 ρ hρ ξ hξ E _ _ _ _ _ _ hN
+  haveI := hI p hp 𝒴 𝒜 hM Y Φ π h1 hh h2 E hN
+  have hη : genericPoint 𝒴.left ∈ ρ.U :=
+    ((genericPoint_spec 𝒴.left).mem_open_set_iff ρ.U.isOpen).mpr ⟨ξ, trivial, hξ⟩
+  obtain ⟨κ, hκs, hκX⟩ := hF p hp 𝒴 𝒜 hM hCM Y Φ π h1 hh h2 inferInstance ρ hρ hη E hN
+  obtain ⟨ι, hinj, hfrac, hX⟩ := stalk_embedding_of_functionField κ hκs hξ hη ρ.f
+  exact ⟨ι, hinj, hfrac, hX.trans hκX⟩
+
+/-! ## Part 4: the composite -/
+
+/-- **`ModelCoordinateGlue` from the three smaller glue Props** (compiled). -/
+theorem modelCoordinateGlue_of_parts (hD : ModelCoordinateResidue) (hI : ModelIntegral)
+    (hF : ModelFunctionField) : ModelCoordinateGlue :=
+  modelCoordinateGlue_of (modelCoordinate_of_residue hD) (modelComparison_of hI hF)
+
+/-- **`HeckeVertWitness` from the leaves and the finer glue** (compiled). -/
+theorem heckeVertWitness_of_parts (hL : ShimuraGoodReduction) (hRR : R1R2fp)
+    (hSR : SmoothFibreReduced) (hD : ModelCoordinateResidue) (hI : ModelIntegral)
+    (hF : ModelFunctionField) : HeckeVertWitness :=
+  heckeVertWitness_of_leaves hL hRR hSR (modelCoordinate_of_residue hD)
+    (modelComparison_of hI hF)
+
+end ModelGlue
+
+end
+
+#print axioms ModelGlue.intCast_mem_maximalIdeal_iff
+#print axioms ModelGlue.mem_maximalIdeal_iff_of_transcendental
+#print axioms ModelGlue.modelCoordinate_of_residue
+#print axioms ModelGlue.stalk_embedding_of_functionField
+#print axioms ModelGlue.modelComparison_of
+#print axioms ModelGlue.modelCoordinateGlue_of_parts
+#print axioms ModelGlue.heckeVertWitness_of_parts
