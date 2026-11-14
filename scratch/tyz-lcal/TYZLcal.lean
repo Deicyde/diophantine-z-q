@@ -801,7 +801,7 @@ theorem term_le (j : Fin 4 × Fin 4) :
         (((j.2 : ℝ) / 4 : ℝ) : UnitAddCircle) 1)‖ ≤ wv j := by
   have hpi := Real.pi_pos
   by_cases h : (j.1.val + j.2.val) % 2 = 1
-  · rw [wv, if_pos h]
+  · simp only [wv, h, ↓reduceIte]
     have hΛ := norm_gaussLambda_le_of_parity j.1 j.2 h
     have hc : ‖cU (((j.1 : ℤ) : ZMod 4), ((j.2 : ℤ) : ZMod 4))‖ ≤ 1 / 4 := by
       have := norm_unitOf_le (((j.1 : ℤ) : ZMod 4), ((j.2 : ℤ) : ZMod 4))
@@ -816,7 +816,7 @@ theorem term_le (j : Fin 4 × Fin 4) :
           rw [this]
           gcongr
       _ = 6.7 / 16 := by field_simp; norm_num
-  · rw [wv, if_neg h]
+  · simp only [wv, h, ↓reduceIte]
     have hz : unitOf (((j.1 : ℤ) : ZMod 4), ((j.2 : ℤ) : ZMod 4)) = 0 := by
       rw [unitOf_eq_unitG, unitG_eq_zero_of_parity j.1 j.2 (by omega)]; simp
     rw [cU, hz]; simp
@@ -884,7 +884,7 @@ theorem parity_eq_of_sq {a b : ℤ} (h : (a : ℂ) ^ 2 = (b : ℂ) ^ 2) : ((a : 
 universally quantified sign choice `ℓ` is immaterial. -/
 theorem lemma29Mod2_iff (h11 : TYZThm11Integral) :
     TYZLemma29Mod2 ↔ LemmaTwoEight (ellOf h11) :=
-  ⟨fun h => h _ (ellOf_sq h11), fun h ℓ hℓ => lemmaTwoEight_congr
+  ⟨fun h => h _ (ellOf_sq h11), fun h _ hℓ => lemmaTwoEight_congr
     (fun m hsq hcl => parity_eq_of_sq ((ellOf_sq h11 m hsq hcl).trans (hℓ m hsq hcl).symm)) h⟩
 
 /-! ## §8. The final results -/
