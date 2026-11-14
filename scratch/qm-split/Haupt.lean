@@ -3468,6 +3468,63 @@ theorem coset_distinct {i j : Fin 4} (hij : i ≠ j) : (mob (g4 i))⁻¹ * mob (
   exact not_sq_q (u.re * ((![1, 2, 3, 6] : Fin 4 → ℤ) i : ℚ)) _ (hsq i j hij)
     (by push_cast; linarith)
 
+/-- `Γ¹`-equivalence. -/
+def Eq1 (a b : UpperHalfPlane) : Prop := ∃ h ∈ G1, h • a = b
+
+theorem mob_apply (γ : GL (Fin 2) ℝ) (w : UpperHalfPlane) : mob γ w = γ • w := rfl
+
+theorem finite_Sstar (z : UpperHalfPlane) : Finite (Sstar z) := by
+  obtain ⟨h0, -⟩ := HDec.LeafQCheck.VB.ellipticOrderLe6_proof z
+  exact Nat.finite_of_card_ne_zero (by rw [card_Sstar]; omega)
+
+/-- **The class bound**: the representatives `i` with `g_i z` `Γ¹`-equivalent to `g_{i₀} z` inject into
+`Stab*(z)/Stab¹(z)`. -/
+theorem class_bound (z : UpperHalfPlane) (i₀ : Fin 4) :
+    (Finset.univ.filter (fun i => Eq1 (g4 i • z) (g4 i₀ • z))).card * Nat.card (Sone z) ≤
+      Nat.card (Sstar z) := by
+  classical
+  haveI := finite_Sstar z
+  set C := Finset.univ.filter (fun i => Eq1 (g4 i • z) (g4 i₀ • z)) with hC
+  have hmem : ∀ i ∈ C, ∃ h ∈ G1, h • (g4 i • z) = g4 i₀ • z := fun i hi => (Finset.mem_filter.1 hi).2
+  choose hh hhG hhz using hmem
+  let σ : C → Sstar z := fun i =>
+    ⟨(mob (g4 i₀))⁻¹ * mob (hh i.1 i.2) * mob (g4 i.1),
+      Mstar.mul_mem (Mstar.mul_mem (Mstar.inv_mem ⟨_, g4_mem i₀, rfl⟩) ⟨_, G1_le (hhG i.1 i.2), rfl⟩)
+        ⟨_, g4_mem i.1, rfl⟩, by
+        change ((mob (g4 i₀))⁻¹ * mob (hh i.1 i.2) * mob (g4 i.1)) z = z
+        simp only [Equiv.Perm.coe_mul, Function.comp, mob_apply]
+        rw [hhz i.1 i.2]
+        simp⟩
+  let q : Sstar z → Sstar z ⧸ (Sone z).subgroupOf (Sstar z) := QuotientGroup.mk
+  have hinj : Function.Injective (q ∘ σ) := by
+    rintro ⟨i, hi⟩ ⟨j, hj⟩ hij
+    simp only [Function.comp, q] at hij
+    rw [QuotientGroup.eq] at hij
+    have hk : ((σ ⟨i, hi⟩)⁻¹ * σ ⟨j, hj⟩ : Sstar z).1 ∈ Mone := (Subgroup.mem_subgroupOf.1 hij).1
+    simp only [σ, Subgroup.coe_mul, Subgroup.coe_inv] at hk
+    set k := (mob (hh i hi))⁻¹ * mob (hh j hj)
+    have hkM : k ∈ Mone := Mone.mul_mem (Mone.inv_mem ⟨_, hhG i hi, rfl⟩) ⟨_, hhG j hj, rfl⟩
+    have e1 : ((mob (g4 i₀))⁻¹ * mob (hh i hi) * mob (g4 i))⁻¹ *
+        ((mob (g4 i₀))⁻¹ * mob (hh j hj) * mob (g4 j)) = (mob (g4 i))⁻¹ * k * mob (g4 j) := by
+      simp only [k]; group
+    rw [e1] at hk
+    have hi' : (mob (g4 i))⁻¹ ∈ Mstar := Mstar.inv_mem ⟨_, g4_mem i, rfl⟩
+    have h2 := Mone_normal hi' (Mone.inv_mem hkM)
+    have e2 : (mob (g4 i))⁻¹ * mob (g4 j) =
+        ((mob (g4 i))⁻¹ * k⁻¹ * (mob (g4 i))⁻¹⁻¹) * ((mob (g4 i))⁻¹ * k * mob (g4 j)) := by group
+    have h3 : (mob (g4 i))⁻¹ * mob (g4 j) ∈ Mone := by rw [e2]; exact Mone.mul_mem h2 hk
+    by_contra hne
+    exact coset_distinct (fun h => hne (Subtype.ext h)) h3
+  have hc1 : C.card ≤ Nat.card (Sstar z ⧸ (Sone z).subgroupOf (Sstar z)) := by
+    have := Nat.card_le_card_of_injective _ hinj
+    simpa using this
+  have hL := Subgroup.card_mul_index ((Sone z).subgroupOf (Sstar z))
+  have hS : Nat.card ((Sone z).subgroupOf (Sstar z)) = Nat.card (Sone z) :=
+    Nat.card_congr (Subgroup.subgroupOfEquivOfLe (Sone_le z)).toEquiv
+  rw [hS] at hL
+  rw [← hL, Subgroup.index, mul_comm (Nat.card (Sone z))]
+  exact Nat.mul_le_mul_right _ hc1
+
 end Index
 
 include hT hV hC in
