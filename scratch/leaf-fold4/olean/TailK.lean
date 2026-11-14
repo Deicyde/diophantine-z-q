@@ -1,6 +1,7 @@
 import TailJ
 import ZInQKernel.Contrib.ZariskiConn.Basic
 import ZInQKernel.Contrib.SpreadOut.NumberField
+import ZInQKernel.Contrib.RLeaf.T40
 import LF4T5
 
 namespace HDec
@@ -140,10 +141,18 @@ theorem tateModuleFree_of_t5' (h : PkgI2.TorsionStructure.{0}) : PkgI3.TateModul
     _root_.T5Torsion.TateFree.tateModuleFree_of_torsionStructure (torsionStructureK_of4 h) k
       (toAbVarK4 A) ℓ hℓ
 
+/-! ### T40 from `X0Transitive` (t40-igusa; importable since t40-clash) -/
+
+/-- **T40 from `X₀(N)`-transitivity** (the kernel's `ZInQ.RLeaf.x1RationalCusp_of_x0Transitive`,
+`ZInQKernel/Contrib/RLeaf/T40.lean`, imported; `X1Belyi.X1RationalCusp` is over Mathlib definitions only, and
+Lean accepts the kernel's term for this file's copy). -/
+theorem t40_of_x0Transitive4 (h : _root_.ZInQ.RLeaf.X0Transitive) : X1Belyi.X1RationalCusp :=
+  _root_.ZInQ.RLeaf.x1RationalCusp_of_x0Transitive h
+
 /-! ### The open statements -/
 
 /-- **The textbook leaves still open** (leaf-fold4): `OpenTextbookLeaves3` without `t26` (T26 = I3.M0,
-now a theorem from T5, `tateModuleFree_of_t5'`). -/
+now a theorem from T5, `tateModuleFree_of_t5'`), and with `t40` replaced by `X0Transitive`. -/
 structure OpenTextbookLeaves4 : Prop where
   /-- T3 = I2-NMP, Néron mapping property of abelian schemes (BLR §1.2). -/
   t3 : PkgI2.NeronMappingAbelianScheme.{0}
@@ -165,8 +174,11 @@ structure OpenTextbookLeaves4 : Prop where
   t34 : LeafModCurves.DimJ1Genus
   t35 : ZInQ.LeafPush2.UniformizationExists
   t38 : X1Belyi.CurveOfFunctionFieldQ
-  /-- T40; the kernel derives it from `X0Transitive` (t40-igusa), not importable here (Tau Ceti clash). -/
-  t40 : X1Belyi.X1RationalCusp
+  /-- `X0Transitive` (t40-igusa, `ZInQKernel/Contrib/RLeaf/IgusaX0.lean`): Galois is transitive on the cyclic
+  subgroups of order `N` of the generic `E_j` (`X₀(N)` irreducible over `ℚ(j)`; Lang, *Elliptic functions*
+  Ch. 5 §2; Cox Thm 11.18). Replaces T40 (`X1Belyi.X1RationalCusp`), which the kernel derives from it
+  (`ZInQ.RLeaf.x1RationalCusp_of_x0Transitive`, importable since t40-clash). -/
+  x0Transitive : _root_.ZInQ.RLeaf.X0Transitive
   t41 : ZInQ.H5Neron.NeronModelExists
 
 /-- **The added leaves still open** (leaf-fold4): `OpenAddedLeaves3` with
@@ -233,7 +245,7 @@ theorem textbookLeaves3_of_open4 (t : OpenTextbookLeaves4) : OpenTextbookLeaves3
   t34 := t.t34
   t35 := t.t35
   t38 := t.t38
-  t40 := t.t40
+  t40 := t40_of_x0Transitive4 t.x0Transitive
   t41 := t.t41
 
 open CategoryTheory AlgebraicGeometry Limits MonoidalCategory CartesianMonoidalCategory MonObj in
@@ -363,6 +375,7 @@ end
 #print axioms HSyn.abVarSpreadsOut_of_ega4
 #print axioms HSyn.torsionStructureK_of4
 #print axioms HSyn.tateModuleFree_of_t5'
+#print axioms HSyn.t40_of_x0Transitive4
 #print axioms HSyn.textbookLeaves3_of_open4
 #print axioms HSyn.tatePairingZl_of_leaves4
 #print axioms HSyn.detTate_of_leaves4

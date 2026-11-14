@@ -39,5 +39,5 @@ example : (∀ (r : HDec.HSyn.OpenResearchLeaves2) (t : HDec.HSyn.OpenTextbookLe
       `T5Torsion.TateFree.tateModuleFree_of_torsionStructure,
       `T5Torsion.TateFree.tate_surj_of_torsionStructure,
       `HDec.LGKerWild.exists_localGlue_of_tateModuleFree, `HDec.LTLocal.localGlue_at,
-      `HDec.FrobPiecesGood.tateBridge35_of_neron_nmp] do
+      `HDec.FrobPiecesGood.tateBridge35_of_neron_nmp, `ZInQ.RLeaf.x1RationalCusp_of_x0Transitive] do
     IO.println s!"{n}: {visited.contains n}"

@@ -55,7 +55,8 @@ bodyI() { echo "$HDR"; wrapF $I; echo "end HDec"; }
 bodyJ() { echo "$HDR"; wrapF $J; echo "end HDec"; }
 bodyK() { echo "$HDR"; wrapF $K; echo "end HDec"; }
 JIMP='import ZInQKernel.Contrib.ZariskiConn.Basic
-import ZInQKernel.Contrib.SpreadOut.NumberField'
+import ZInQKernel.Contrib.SpreadOut.NumberField
+import ZInQKernel.Contrib.RLeaf.T40'
 FIMP='import ZInQKernel.Contrib.Dim.HodgeLattice
 import ZInQKernel.Contrib.HodgeBC2.ExtFrac
 import ZInQKernel.Contrib.TwistDescent.GaloisDescent
