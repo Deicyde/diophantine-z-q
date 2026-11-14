@@ -606,4 +606,78 @@ theorem norm_gaussLambda_le_B {a b : ℝ} (ha : a = 0 ∨ a = 1 / 2) (hb : b = 1
     _ = (0.37 * 1.11 * 16 + 0.112 * 1.11) / π := by field_simp
     _ ≤ 6.7 / π := by rw [div_le_div_iff_of_pos_right hpi]; norm_num
 
+/-! ## §7. `‖L(C₁, 1)‖ ≤ 3.35` and `∫₁^∞ dx/√(x³−x) ≥ 2` -/
+
+theorem unitG_eq_zero_of_parity : ∀ i k : Fin 4, (i.val + k.val) % 2 = 0 →
+    unitG (((i : ℤ) : ZMod 4), ((k : ℤ) : ZMod 4)) = 0 := by decide
+
+theorem norm_unitOf_le (t : ZMod 4 × ZMod 4) : ‖unitOf t‖ ≤ 1 := by
+  unfold unitOf; split_ifs <;> simp
+
+theorem norm_gaussLambda_le_of_parity (i k : Fin 4) (h : (i.val + k.val) % 2 = 1) :
+    ‖gaussLambda (((i : ℝ) / 4 : ℝ) : UnitAddCircle) (((k : ℝ) / 4 : ℝ) : UnitAddCircle) 1‖ ≤
+      6.7 / π := by
+  rcases i with ⟨i, hi⟩
+  rcases k with ⟨k, hk⟩
+  simp only at h
+  interval_cases i <;> interval_cases k <;> simp only [Nat.reduceAdd, Nat.reduceMod] at h <;>
+    first
+    | omega
+    | (refine norm_gaussLambda_le_A ?_ ?_ <;> norm_num <;> done)
+    | (refine norm_gaussLambda_le_B ?_ ?_ <;> norm_num)
+
+/-- The weight of class `j` in the bound. -/
+def wv (j : Fin 4 × Fin 4) : ℝ := if (j.1.val + j.2.val) % 2 = 1 then 6.7 / 16 else 0
+
+theorem term_le (j : Fin 4 × Fin 4) :
+    ‖cU (((j.1 : ℤ) : ZMod 4), ((j.2 : ℤ) : ZMod 4)) * (1 / 4) *
+      ((π : ℂ) * gaussLambda (((j.1 : ℝ) / 4 : ℝ) : UnitAddCircle)
+        (((j.2 : ℝ) / 4 : ℝ) : UnitAddCircle) 1)‖ ≤ wv j := by
+  have hpi := Real.pi_pos
+  by_cases h : (j.1.val + j.2.val) % 2 = 1
+  · rw [wv, if_pos h]
+    have hΛ := norm_gaussLambda_le_of_parity j.1 j.2 h
+    have hc : ‖cU (((j.1 : ℤ) : ZMod 4), ((j.2 : ℤ) : ZMod 4))‖ ≤ 1 / 4 := by
+      have := norm_unitOf_le (((j.1 : ℤ) : ZMod 4), ((j.2 : ℤ) : ZMod 4))
+      rw [cU, norm_mul, show ‖(1 / 4 : ℂ)‖ = 1 / 4 by norm_num]
+      linarith
+    rw [norm_mul, norm_mul, norm_mul, Complex.norm_real, Real.norm_of_nonneg hpi.le]
+    calc ‖cU (((j.1 : ℤ) : ZMod 4), ((j.2 : ℤ) : ZMod 4))‖ * ‖(1 / 4 : ℂ)‖ *
+          (π * ‖gaussLambda (((j.1 : ℝ) / 4 : ℝ) : UnitAddCircle)
+            (((j.2 : ℝ) / 4 : ℝ) : UnitAddCircle) 1‖)
+        ≤ (1 / 4) * (1 / 4) * (π * (6.7 / π)) := by
+          have : ‖(1 / 4 : ℂ)‖ = 1 / 4 := by norm_num
+          rw [this]
+          gcongr
+      _ = 6.7 / 16 := by field_simp; norm_num
+  · rw [wv, if_neg h]
+    have hz : unitOf (((j.1 : ℤ) : ZMod 4), ((j.2 : ℤ) : ZMod 4)) = 0 := by
+      rw [unitOf_eq_unitG, unitG_eq_zero_of_parity j.1 j.2 (by omega)]; simp
+    rw [cU, hz]; simp
+
+theorem sum_wv : ∑ j : Fin 4 × Fin 4, wv j = 3.35 := by
+  simp only [Fintype.sum_prod_type, Fin.sum_univ_four, wv, Fin.val_zero, Fin.val_one, Fin.val_two]
+  norm_num
+
+/-- **`‖L(C₁, 1)‖ ≤ 3.35`** (true value `0.6555…`). -/
+theorem norm_lValOne_one_le : ‖ZInQ.Contrib.TYZDecomp.lValOne 1‖ ≤ 3.35 := by
+  rw [lValOne_one_eq, ← sum_wv]
+  exact (norm_sum_le _ _).trans (Finset.sum_le_sum fun j _ => term_le j)
+
+/-- **`∫₁^∞ dx/√(x³ − x) ≥ 2`** (comparison with `∫₁^∞ x^{−3/2} dx = 2`). -/
+theorem omegaInt_ge_two : 2 ≤ ZInQ.Contrib.TYZDecomp.omegaInt := by
+  have h2 : ∫ x in Ioi (1 : ℝ), x ^ (-(3 / 2 : ℝ)) = 2 := by
+    rw [integral_Ioi_rpow_of_lt (by norm_num) zero_lt_one]; norm_num
+  rw [← h2, ZInQ.Contrib.TYZDecomp.omegaInt]
+  refine setIntegral_mono_on (integrableOn_Ioi_rpow_of_lt (by norm_num) zero_lt_one)
+    ZInQ.Contrib.TYZDecomp.omegaInt_integrable measurableSet_Ioi fun x (hx : 1 < x) => ?_
+  have hx0 : 0 < x := by linarith
+  have hpos : 0 < x ^ 3 - x := by
+    have := mul_pos (mul_pos hx0 (by linarith : (0:ℝ) < x - 1)) (by linarith : (0:ℝ) < x + 1)
+    nlinarith
+  have hs : Real.sqrt (x ^ 3) = x ^ (3 / 2 : ℝ) := by
+    rw [Real.sqrt_eq_rpow, ← Real.rpow_natCast, ← Real.rpow_mul hx0.le]; norm_num
+  rw [Real.rpow_neg hx0.le, ← hs, ← one_div]
+  exact one_div_le_one_div_of_le (Real.sqrt_pos.mpr hpos) (Real.sqrt_le_sqrt (by linarith))
+
 end ZInQ.Contrib.TYZLcal
