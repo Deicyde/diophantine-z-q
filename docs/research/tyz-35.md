@@ -99,7 +99,9 @@ Reading: `𝒫(d) := Q(d)/m(d) ∈ A(ℚ̄) ⊗ ℚ` (one vector per `d`, the sa
 `P_{χ_{d₀,d₁}} = ε(d₀,d₁) 2^{h₂(n)} 𝓛(d₁) 𝒫(d₀)` in `A(ℚ̄) ⊗ ℚ` (`m P_χ − ε2^{h₂}ℓQ` torsion), `P_χ`
 torsion for the excluded characters (`n ≡ 5`, `d₁ ≡ 5, 7`), and `𝒫(n) = 0` when `𝓛(n) = 0`.
 
-**Why it is a consequence of the published results, not stronger.**
+**Why it is a consequence of the published results, not stronger.** It uses TYZ Theorem 3.3 / Lemma 3.14
+and the definition of `𝒫`, and also (for the `∀ f` form and the field of the conjugates) TYZ Prop. 3.2(1),
+Thm. 3.6(1) and `z_n ∈ A(H'_n)` (resp. `A(H_n)` for `n ≡ 7`); without those the `∀ f` form could fail.
 1. TYZ Theorem 3.3 (L1299–1311, quoted in `nt-tyz.md` §1.2): `P_χ` is non-torsion only for
    `χ = χ_{d₀,d₁}`, `d₀ ≡ 5,6,7`, `d₁ ≡ 1,2,3`; then `P_χ = ε(d₀,d₁) 2^{h₂(n)} 𝓛(d₁) 𝒫(d₀)` in
    `A(H'_n(i)) ⊗ ℚ`, `ε = ±i` on `(5,3)`, `±1` otherwise; `𝒫(d) = 2^{−1−ρ(d)}𝓛(d)α_d` (Theorem 3.5's
@@ -124,7 +126,12 @@ torsion for the excluded characters (`n ≡ 5`, `d₁ ≡ 5, 7`), and `𝒫(n) =
    If TYZ's Theorem 3.3 is stated for an arbitrary `Φ`, the `∀ f` form is literally TYZ's. Numerically
    the fibre points agree mod torsion on 27 values (`fibre5.py`, §6). (b) TYZ's
    definition of `χ_{d₀,d₁}` (which of `K_n(√d₁)`, `K_n(√−d₁)`); fixed here by tyz-t1's numerics for
-   `n ≡ 5` and by unramifiedness for `n ≡ 7`. (c) `h₂(n)` = 2-rank of `Cl_n` (`= k`, `k − 1`, tyz-t1 §2).
+   `n ≡ 5` and by unramifiedness for `n ≡ 7`. Independent support (review): Lemma 3.14(2) requires
+   `χ₂ = 1`, and `K_{n,2} = ℚ₂(√−5) = ℚ₂(√3)` has exactly `d₁ ≡ 1, 3 (mod 8)` as odd squares, so
+   `K(√d₁)` is the only convention compatible with Lemma 3.14 (`K(√d₀)` fails at `(5,1)`). **Coupling:**
+   the `[i]`-sign of `CM.tyzZn` (`1 − [i]`, pinned by cm-numeric/tyz-t1 `t21.py`) and this convention are
+   linked: `1 + [i]` would turn `P_χ` into `[i]P_{χψ}` and swap `K(√d₁)` with `K(√d₀)`; the excluded
+   clause holds because both pins agree. (c) `h₂(n)` = 2-rank of `Cl_n` (`= k`, `k − 1`, tyz-t1 §2).
 5. Not vacuous: `Q = 0` fails (rank-one `d₀`), and `Q` must serve every level `n` at once — the
    cross-level content that tyz-t1 §1 identifies as the substance of Theorem 3.3.
 
@@ -177,6 +184,23 @@ Quot.sound]`, VERIFIED 2026-11-13.
 | `heeg7.py` → `heeg7.out` | **n ≡ 7 part of Theorem 3.3 as encoded in the leaf**: `16 P_{χ_{d₀,d₁}}(n) = ±16·2^{h₂(n)−h₂(d₀)}𝓛(d₁)·ε·P_{χ=1}(d₀)` mod `Λ`, `ε = i` on `(5,3)`, `1` on `(7,1)`; `P` torsion when `𝓛(d₁) = 0`; complements | 27 n ≡ 7, 15 ≤ n ≤ 903; 43 pairs with `d₁ > 1` (32 of type (5,3)), `𝓛(d₁) ∈ {0,1,2,3}`; 70 complement checks | 0 mismatches. First numerical test of the n ≡ 7 cross-level part (tyz-t1 tested only n ≡ 5 and χ = 1 at n ≡ 7) |
 | `fibre5.py` → `fibre5.out` | HUMAN CHECK (a): within each fibre of `Pic(ℤ[4√−n]) → Cl(K_n)` (computed exactly) the conjugates of `f₀(P_n)` agree mod torsion, so `P_χ` does not depend on the lift family | 27 n ≡ 5, 5 ≤ n ≤ 445; 648 fibre pairs | 0 non-torsion differences; control: 1 of 1040 cross-fibre pairs torsion |
 
+* Review findings (§7) are documentation-level; the redundant `n ≡ 5` conjunct of `IsLiftFamily` (it
+  follows from the first conjunct) was kept to leave the compiled statement unchanged.
 * Integration: `Thm35.lean` §0–§9 and `Final.lean` §0–§15 duplicate cm-bridge's definitions
   (namespace `TYZ35`); keep one copy when integrating. `Final.lean` uses tyz-cm's files as merged in
   cm-bridge (`ShimuraFricke`).
+
+## 7. Review
+
+Independent statement review of `TYZThm33Pinned` (AI subagent, read-only, no Lean, 2026-11-13; no human
+review), against the TYZ quotations in nt-tyz.md, rv-tyz-inputs.md, tyz-t1.md: **no blocking findings.**
+Checked: the `⊗ℚ` encoding (exact; `A(H'_n(i))⊗ℚ → A(ℚ̄)⊗ℚ` injective), the `ε` classes, one `𝒫(d₀)` for
+all levels (TYZ's `𝒫(d₀)` is intrinsic, so not stronger), signs of `ℓ` absorbed in `ε`, `h2` = 2-rank,
+the character convention (forced by Lemma 3.14(2), `χ₂ = 1`), the `∀ f` form (consequence via Prop.
+3.2(1), Thm. 3.6(1) and `z_n ∈ A(H'_n)`), the excluded clause (the reviewer re-checked the bijection
+`T ↔ (d₀,d₁)` and the n ≡ 7 pairing for all squarefree `n < 5000`), non-vacuity (`Q = 0` fails at
+`n = 5`). Should-fix items (documentation) applied above in §2: the `[i]`-sign/convention coupling,
+the `χ₂ = 1` argument, and the extra TYZ inputs of the `∀ f` form. Minor: the `n ≡ 5` conjunct of
+`IsLiftFamily` is redundant (kept); `convention.py` is close to a restatement of quadratic reciprocity
+(it checks the Lean encoding against tyz-t1's, nothing deeper); the n ≡ 7 cross-level pairs were
+untested — now tested by `heeg7.py` (§6).

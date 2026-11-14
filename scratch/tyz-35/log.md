@@ -66,3 +66,9 @@ for the pinned points; TYZ prove it (L2343–2380) from Theorem 3.3 by the chara
   difference out of 1040 pairs (n = 445), so the test discriminates. Hence `P_χ` is independent of the lift
   family mod torsion on this sample, i.e. the `∀ f` form of the leaf agrees with TYZ's `P_χ` for any Φ
   (VERIFIED computed on the sample; n = 1365 not run: class search range exceeded).
+
+## 2026-11-14 ~00:20 independent review (AI subagent, read-only)
+- `TYZThm33Pinned`: no blocking findings; should-fix (docs): [i]-sign/convention coupling, χ₂ = 1
+  argument for K(√d₁) (Lemma 3.14(2)), ∀ f also uses TYZ Prop 3.2(1), Thm 3.6(1), z_n ∈ A(H'_n). Applied in
+  docs/research/tyz-35.md §2, §7. Minor: n ≡ 5 conjunct of IsLiftFamily redundant (kept, statement
+  unchanged); n ≡ 7 pairs untested → covered by heeg7.py.
