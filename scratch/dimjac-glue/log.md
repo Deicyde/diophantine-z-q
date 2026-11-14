@@ -22,3 +22,11 @@ image ⊇ holoDiff (stalks are valuation rings + local-global in Γ(U) + sheaf g
   maximal ideals (Jacobson); local–global step; surjectivity onto holoDiff; ℚ-linearity via map_rat_smul.
 - Remaining named glue: `DimJacGlue.ValuationCenter` (center of a place on a proper integral ℚ-scheme;
   valuative criterion).
+- 11-14 12:48 `valuationCenter : ValuationCenter` proved (Mathlib `UniversallyClosed.eq_valuativeCriterion`,
+  `Scheme.preimage_eq_top_of_closedPoint_mem`, `fromSpecStalk_app`, `ΓSpecIso_naturality`). VERIFIED (compiled).
+- 11-14 12:49 `ModularSplit.DimJac.h0DifferentialsEqHolo : H0DifferentialsEqHolo` (no hypotheses) and
+  `ModularSplit.DimJac.dimJacobianEqGenus : ZInQ.Contrib.CurvesG.DimJacobianEqGenus` (modular-split's
+  `dimJacobianEqGenus_of_glue` copied verbatim and applied). Axioms of both: [propext, Classical.choice, Quot.sound].
+  Statement of H0DifferentialsEqHolo checked verbatim against scratch/modular-split/DimJac.lean by diff. VERIFIED.
+  Check command: `lake env lean scratch/dimjac-glue/DimJacGlue.lean` (~10 s once CloudW07 oleans are built).
+- Literature leaves used: none. Named glue left open: none.

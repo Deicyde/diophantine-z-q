@@ -4,6 +4,32 @@ import ZInQKernel.Contrib.CloudW07JacobiansCurves.Jacobian.AlgebraicGeometry.Cur
 import ZInQKernel.Contrib.Dim.SmoothStalk
 import ZInQKernel.Contrib.Dim.Basic
 
+/-! # dimjac-glue: `ModularSplit.DimJac.H0DifferentialsEqHolo` is a theorem
+
+`H0DifferentialsEqHolo` (modular-split, `scratch/modular-split/DimJac.lean`) is copied verbatim below and
+**proved** (`ModularSplit.DimJac.h0DifferentialsEqHolo`), with no hypotheses, from Mathlib, the vendored
+Jacobian library (`ZInQKernel/Contrib/CloudW07JacobiansCurves/`) and `ZInQKernel/Contrib/Dim/`. With
+modular-split's reduction (copied verbatim) this proves the bundle row
+`ZInQ.Contrib.CurvesG.DimJacobianEqGenus` (`ModularSplit.DimJac.dimJacobianEqGenus`). No sorry; axioms
+`propext, Classical.choice, Quot.sound`.
+
+Proof. Let `g : X → Spec ℚ`, `Ω = Ω¹_{X/ℚ}`, `e : K(X) ≃+* F`, `ψ_U : Γ(X, U) → F` the germ at the generic
+point followed by `e`.
+1. `Φ U : Γ(Ω, U) → Ω_{F/ℚ}` for `U` affine nonempty: the library's `kaehlerSectionsEquiv`
+   (`Ω_{Γ(U)/ℚ} ≃ Γ(Ω, U)`) followed by `KaehlerDifferential.map ℚ ℚ Γ(U) F`; `Φ U (a • d b) = ψ a • D (ψ b)`.
+2. `Φ U` is injective (`kaehlerToFractionFieldInjective`: `Ω_A` projective for `A` smooth, `Ω_K` its
+   localization, `Γ(U)` smooth over `ℚ` and `F` its fraction field) and compatible with restriction.
+3. The global `ΦG : Γ(Ω, X) → Ω_{F/ℚ}` (restrict to one affine open; independent of the choice since any two
+   nonempty opens meet in the generic point) is injective by sheaf locality.
+4. Image ⊆ `holoDiff F`: every valuation subring `w ⊇ ℚ` contains some `ψ_V(Γ(X, V))`, `V` affine
+   (`valuationCenter`, from Mathlib's valuative criterion for the proper `g`).
+5. Image ⊇ `holoDiff F`: for `V` affine and `𝔪 ⊂ Γ(V)` maximal, the point is closed (`X` Jacobson), its stalk
+   is a valuation ring (regular local of dimension one: `Contrib.Dim.finrank_cotangentSpace_of_...` and
+   Mathlib's DVR TFAE), so `ω` regular everywhere has `ψ(t) • ω ∈ im Φ V` for some `t ∉ 𝔪`; hence
+   `ω ∈ im Φ V`; the local preimages glue (sheaf condition).
+6. `H⁰ = Γ` (library `H.zeroLinearEquiv`); additive maps of `ℚ`-vector spaces are `ℚ`-linear
+   (`map_rat_smul`), so `finrankH ℚ 0 = finrank ℚ (holoDiff F) = fieldGenus F`. -/
+
 set_option linter.style.longLine false
 set_option linter.style.haveILetI false
 set_option linter.unusedSectionVars false
@@ -263,30 +289,79 @@ lemma Φ_mem_regularAt (U : X.Opens) (hU : IsAffineOpen U) (hne : (U : Set X).No
     rw [Φ_smul_D]
     exact AddSubgroup.subset_closure ⟨_, _, hw a, hw b, rfl⟩
 
-/-- **GLUE (named): every place of the function field of a proper integral `ℚ`-scheme has a center.**
-For `X` integral and proper over `ℚ` and a valuation subring `w` of the function field containing `ℚ`,
-some local ring `𝒪_{X,x}` maps into `w` (valuative criterion of properness, Mathlib
-`IsProper.eq_valuativeCriterion`; Hartshorne II.4.7, UNVERIFIED number). -/
+/-- **GLUE (proved below, `valuationCenter`): every place of the function field of a proper integral
+`ℚ`-scheme has a center.** For `X` integral and proper over `ℚ` and a valuation subring `w` of the function
+field containing `ℚ`, the coordinate ring of some affine open `V` maps into `w` (valuative criterion of
+properness, Mathlib `UniversallyClosed.eq_valuativeCriterion`; Hartshorne II.4.7, UNVERIFIED number). -/
 def ValuationCenter : Prop :=
   ∀ (X : Scheme.{0}) [IsIntegral X] (g : X ⟶ Spec (CommRingCat.of ℚ)) [IsProper g]
     (w : ValuationSubring X.functionField), (∀ q : ℚ, (q : X.functionField) ∈ w) →
-    ∃ x : X, ∀ a : X.presheaf.stalk x, algebraMap (X.presheaf.stalk x) X.functionField a ∈ w
+    ∃ (V : X.Opens) (hη : genericPoint X ∈ V), IsAffineOpen V ∧
+      ∀ a : Γ(X, V), X.presheaf.germ V (genericPoint X) hη a ∈ w
 
-lemma ΦG_mem_holo (hC : ValuationCenter) [IsProper g] (s : Γ(g.relativeDifferentials, ⊤)) :
+theorem valuationCenter : ValuationCenter := by
+  intro X _ g _ w hw
+  have hE : ValuativeCriterion.Existence g := by
+    have hU : UniversallyClosed g := inferInstance
+    rw [UniversallyClosed.eq_valuativeCriterion] at hU
+    exact hU.1
+  let φ₀ : ℚ →+* X.functionField :=
+    (X.presheaf.germ ⊤ (genericPoint X) trivial).hom.comp (g.specStructureMap ⊤).hom
+  have hφ₀ : ∀ q, φ₀ q ∈ w.toSubring := fun q => by
+    have : φ₀ q = (q : X.functionField) := eq_ratCast φ₀ q
+    rw [this]; exact hw q
+  let φ : ℚ →+* w := φ₀.codRestrict w.toSubring hφ₀
+  let S : ValuativeCommSq g :=
+    { R := w
+      K := X.functionField
+      i₁ := X.fromSpecStalk (genericPoint X)
+      i₂ := Spec.map (CommRingCat.ofHom φ)
+      commSq := ⟨Spec.homEquiv.injective (CommRingCat.hom_ext (RingHom.ext_rat _ _))⟩ }
+  obtain ⟨⟨l, hl1₀, -⟩⟩ := hE S
+  have hl1 : Spec.map (CommRingCat.ofHom (algebraMap w X.functionField)) ≫ l =
+      X.fromSpecStalk (genericPoint X) := hl1₀
+  obtain ⟨_, ⟨V, hV, rfl⟩, hxV, -⟩ :=
+    X.isBasis_affineOpens.exists_subset_of_mem_open (Set.mem_univ (l (IsLocalRing.closedPoint w)))
+      isOpen_univ
+  have hlV : l ⁻¹ᵁ V = ⊤ := Scheme.preimage_eq_top_of_closedPoint_mem l hxV
+  have hη : genericPoint X ∈ V := generic_mem V ⟨_, hxV⟩
+  refine ⟨V, hη, hV, fun a => ?_⟩
+  have h2 : ∀ (f : Spec (CommRingCat.of X.functionField) ⟶ X)
+      (_ : Spec.map (CommRingCat.ofHom (algebraMap w X.functionField)) ≫ l = f) (e),
+      f.appLE V ⊤ e = l.appLE V ⊤ hlV.ge ≫
+        (Spec.map (CommRingCat.ofHom (algebraMap w X.functionField))).appTop := by
+    rintro f rfl e
+    rw [← Scheme.Hom.appLE_comp_appLE (Spec.map (CommRingCat.ofHom (algebraMap w X.functionField))) l
+      V ⊤ ⊤ hlV.ge (by simp)]
+    congr 1
+  have he : (⊤ : (Spec (CommRingCat.of X.functionField)).Opens) ≤
+      X.fromSpecStalk (genericPoint X) ⁻¹ᵁ V := by
+    rw [← hl1]
+    intro p _
+    show l _ ∈ V
+    rw [← Scheme.Hom.mem_preimage, hlV]
+    trivial
+  have h1 : (X.fromSpecStalk (genericPoint X)).appLE V ⊤ he ≫
+      (Scheme.ΓSpecIso _).hom = X.presheaf.germ V (genericPoint X) hη := by
+    have hid : ∀ (f : (Opposite.op (⊤ : (Spec (X.presheaf.stalk (genericPoint X))).Opens)) ⟶
+        Opposite.op ⊤), (Spec (X.presheaf.stalk (genericPoint X))).presheaf.map f = 𝟙 _ := fun f => by
+      rw [Subsingleton.elim f (𝟙 _), CategoryTheory.Functor.map_id]
+    rw [Scheme.Hom.appLE, Scheme.fromSpecStalk_app hη, Category.assoc, Category.assoc, Category.assoc,
+      ← Functor.map_comp_assoc, hid, Category.id_comp, Iso.inv_hom_id, Category.comp_id]
+  have key := h1
+  rw [h2 _ hl1, Category.assoc, Scheme.ΓSpecIso_naturality] at key
+  rw [← key]
+  exact Subtype.prop _
+
+lemma ΦG_mem_holo [IsProper g] (s : Γ(g.relativeDifferentials, ⊤)) :
     ΦG g e s ∈ ZInQ.Contrib.CurvesG.holoDiff F := by
   refine Submodule.subset_span (fun w hw => ?_)
-  obtain ⟨x, hx⟩ := hC X g (w.comap e.toRingHom) (fun q => by
+  obtain ⟨V, hη, hV, hw'⟩ := valuationCenter X g (w.comap e.toRingHom) (fun q => by
     rw [ValuationSubring.mem_comap]
     simpa [map_ratCast] using hw q)
-  obtain ⟨_, ⟨V, hV, rfl⟩, hxV, -⟩ :=
-    X.isBasis_affineOpens.exists_subset_of_mem_open (Set.mem_univ x) isOpen_univ
-  have hne : (V : Set X).Nonempty := ⟨x, hxV⟩
+  have hne : (V : Set X).Nonempty := ⟨_, hη⟩
   rw [ΦG_eq V hV hne]
-  refine Φ_mem_regularAt V hV hne w (fun a => ?_) _
-  haveI : Nonempty V := hne.to_subtype
-  have := hx (X.presheaf.germ V x hxV a)
-  rw [ValuationSubring.mem_comap, Scheme.algebraMap_germ_eq_germToFunctionField] at this
-  exact this
+  exact Φ_mem_regularAt V hV hne w (fun a => hw' a) _
 
 /-- **Stalks at closed points of a smooth curve are valuation rings** (proved: regular local of
 dimension one, `ZInQ.Contrib.Dim.finrank_cotangentSpace_of_smoothOfRelativeDimension` and Mathlib's
@@ -492,8 +567,8 @@ def H0DifferentialsEqHolo : Prop :=
     (X.left ↘ SpecQ).relativeDifferentials.finrankH ℚ 0 = fieldGenus F
 
 open DimJacGlue in
-/-- **`H0DifferentialsEqHolo` from the one named glue `ValuationCenter`.** -/
-theorem h0DifferentialsEqHolo_of_valuationCenter (hC : ValuationCenter) : H0DifferentialsEqHolo := by
+/-- **`H0DifferentialsEqHolo` holds** (Lean proof, no hypotheses). -/
+theorem h0DifferentialsEqHolo : H0DifferentialsEqHolo := by
   intro X hX hI F _ _ he
   obtain ⟨e⟩ := he
   letI : X.left.Over SpecQ := ⟨X.hom⟩
@@ -511,7 +586,7 @@ theorem h0DifferentialsEqHolo_of_valuationCenter (hC : ValuationCenter) : H0Diff
   have hrange : LinearMap.range L = holoDiff F := by
     apply le_antisymm
     · rintro _ ⟨x, rfl⟩
-      exact ΦG_mem_holo hC _
+      exact ΦG_mem_holo _
     · refine Submodule.span_le.mpr (fun ω hω => ?_)
       obtain ⟨s, hs⟩ := mem_range_ΦG_of_regular (g := g) (e := e) ω hω
       exact ⟨E1.symm s, by simp [L, Ψ, hs]⟩
@@ -519,7 +594,86 @@ theorem h0DifferentialsEqHolo_of_valuationCenter (hC : ValuationCenter) : H0Diff
   rw [← hrange]
   exact (LinearEquiv.ofInjective L hL).finrank_eq
 
+/-- **Lean, from the vendored library: a Jacobian has dimension `arithmeticGenus = dim H¹(X, 𝒪_X)`.** -/
+theorem dim_jacobian_eq_arithmeticGenus (X : Over SpecQ) (hX : IsCurve X) (P₀ : RatPt X)
+    (J : PkgI3.AbVar ℚ) (aj : X ⟶ J.X) (hJ : IsJacobian X P₀ J aj) :
+    letI : X.left.Over SpecQ := ⟨X.hom⟩
+    J.dim = ((X.left.arithmeticGenus ℚ : ℕ) : WithBot ℕ∞) := by
+  letI : X.left.Over SpecQ := ⟨X.hom⟩
+  have : IsProper X.hom := hX.proper
+  have : SmoothOfRelativeDimension 1 X.hom := hX.smooth
+  have : GeometricallyConnected X.hom := hX.geomConnected
+  have : Smooth X.hom := SmoothOfRelativeDimension.smooth 1 X.hom
+  have : GeometricallyIntegral X.hom :=
+    TauCeti.AlgebraicGeometry.Smooth.geometricallyIntegral X.hom
+  have : GeometricallyIrreducible X.hom := inferInstance
+  have : SmoothOfRelativeDimension 1 (X.left ↘ SpecQ) :=
+    inferInstanceAs (SmoothOfRelativeDimension 1 X.hom)
+  have : IsProper (X.left ↘ SpecQ) := inferInstanceAs (IsProper X.hom)
+  have : GeometricallyIntegral (X.left ↘ SpecQ) :=
+    inferInstanceAs (GeometricallyIntegral X.hom)
+  obtain ⟨variety, representation, tensorCompatible, hsm⟩ :=
+    exists_abelianVariety_picardDegreeZero (baseField := ℚ) X.left
+  let aj' : X ⟶ variety.group.X :=
+    Curve.abelJacobiMap ⟨X⟩ P₀.left (by simp) representation
+  have alb : IsAlbanese P₀ variety aj' :=
+    Curve.isAlbanese_abelJacobiMap ⟨X⟩ P₀ variety representation tensorCompatible
+  have : GeometricallyIntegral variety.group.X.hom :=
+    Smooth.geometricallyIntegral variety.group.X.hom
+  let J' : PkgI3.AbVar ℚ :=
+    { X := variety.group.X
+      grp := variety.group.grp
+      proper := variety.proper
+      smooth := variety.smooth
+      geomInt := inferInstance }
+  have hJ' : IsJacobian X P₀ J' aj' := by
+    refine ⟨alb.1, ?_⟩
+    intro A f hf
+    obtain ⟨g, hg, huniq⟩ := alb.existsUnique_schemeMap f hf
+    have pointed : η[variety.group.X] ≫ g = η[A.X] := by
+      rw [← alb.1, Category.assoc, ← hg, hf]
+    have : IsMonHom g := isMonHom_of_isProper_of_geometricallyIntegral g pointed
+    exact ⟨g, ⟨inferInstance, hg.symm⟩, fun φ hφ => huniq φ hφ.2.symm⟩
+  obtain ⟨e, -, -, -⟩ := IsJacobian.unique hJ hJ'
+  have hiso : J.X.left ≅ variety.group.X.left := (Over.forget _).mapIso e
+  have hne : Nonempty variety.group.X.left := by
+    have : Nonempty (Spec (CommRingCat.of ℚ)) := inferInstance
+    obtain ⟨x⟩ := this
+    exact ⟨(η[variety.group.X] : 𝟙_ (Over SpecQ) ⟶ variety.group.X).left.base x⟩
+  change topologicalKrullDim J.X.left = _
+  rw [ZInQ.Contrib.Dim.topologicalKrullDim_eq_of_iso hiso,
+    ZInQ.Contrib.Dim.topologicalKrullDim_eq_of_smoothOfRelativeDimension variety.group.X.hom
+      (X.left.arithmeticGenus ℚ)]
+
+/-- **Row dimJacobianEqGenus from the one glue statement `H0DifferentialsEqHolo`.** -/
+theorem dimJacobianEqGenus_of_glue (hG : H0DifferentialsEqHolo) : DimJacobianEqGenus := by
+  intro X hX P₀ J aj hJ hI F _ _ he
+  letI : X.left.Over SpecQ := ⟨X.hom⟩
+  have : IsProper X.hom := hX.proper
+  have : SmoothOfRelativeDimension 1 X.hom := hX.smooth
+  have : GeometricallyConnected X.hom := hX.geomConnected
+  have : Smooth X.hom := SmoothOfRelativeDimension.smooth 1 X.hom
+  have : GeometricallyIntegral X.hom :=
+    TauCeti.AlgebraicGeometry.Smooth.geometricallyIntegral X.hom
+  have : GeometricallyIrreducible (X.left ↘ SpecQ) :=
+    inferInstanceAs (GeometricallyIrreducible X.hom)
+  have : SmoothOfRelativeDimension 1 (X.left ↘ SpecQ) :=
+    inferInstanceAs (SmoothOfRelativeDimension 1 X.hom)
+  have : IsProper (X.left ↘ SpecQ) := inferInstanceAs (IsProper X.hom)
+  rw [dim_jacobian_eq_arithmeticGenus X hX P₀ J aj hJ,
+    ← Scheme.Modules.finrankH_relativeDifferentials_zero_eq_genus (baseField := ℚ) (source := X.left),
+    hG X hX hI F he]
+
+/-- **The row `dimJacobianEqGenus` (bundle field, `ZInQ.Contrib.CurvesG.DimJacobianEqGenus`) holds**:
+modular-split's reduction applied to `h0DifferentialsEqHolo`. -/
+theorem dimJacobianEqGenus : DimJacobianEqGenus :=
+  dimJacobianEqGenus_of_glue h0DifferentialsEqHolo
+
 end ModularSplit.DimJac
 
-#print axioms ModularSplit.DimJac.h0DifferentialsEqHolo_of_valuationCenter
-#print axioms DimJacGlue.kaehlerToFractionFieldInjective
+example : ZInQ.Contrib.CurvesG.DimJacobianEqGenus := ModularSplit.DimJac.dimJacobianEqGenus
+
+#print axioms ModularSplit.DimJac.h0DifferentialsEqHolo
+#print axioms ModularSplit.DimJac.dimJacobianEqGenus
+
+
