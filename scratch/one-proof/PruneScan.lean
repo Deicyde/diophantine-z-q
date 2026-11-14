@@ -8,21 +8,20 @@ Run from the repository root, after `lake build +ZInQKernel.OneProof.Main`:
 
     lake env lean scratch/one-proof/PruneScan.lean
 
-A *bundle* is a `Prop`-valued structure declared in a `ZInQKernel.OneProof` module. Every
-projection of a bundle field occurring in the closure of `frozenTarget` (types and values, proofs
-included) is classified:
+A *bundle* is a `Prop`-valued structure declared in a `ZInQKernel.OneProof` module. The scan builds a
+dependency graph whose nodes are bundle fields `(S, i)` and constants `c`, and an edge `a → b` means
+"`a` is needed if `b` is". Each constant of `frozenTarget`'s closure whose own closure touches a
+bundle is visited once; inside it, the current context is the constant itself, or the field `(S', j)`
+while inside the `j`-th field argument of a bundle constructor `S'.mk` (innermost constructor wins).
 
-* if it occurs anywhere inside the `j`-th field argument of a bundle constructor `S'.mk` (innermost
-  constructor wins), it only feeds that field: an edge `(S, i) → (S', j)`;
-* otherwise it is a real use: `(S, i)` is USED.
+* a projection of `(S, i)` gives `(S, i) → context`;
+* a reference to a constant `d` gives `d → context`;
+* a `casesOn`/`rec` on a bundle treats the field binders of its minor premise like projections (all
+  fields, when the minor premise is not a lambda over every field).
 
-Each constant whose closure touches a bundle is visited once per context it is referenced from, so a
-helper theorem used only inside a field argument feeds only that field.
-A `casesOn`/`rec` on a bundle treats the field binders of its minor premise like projections
-(all fields USED when the minor premise is not a lambda over every field). USED is then closed under
-the edges backwards: `(S, i)` is used when it threads into a used field. The scan prints, for each
-bundle in `frozenTarget`'s hypotheses, the fields that are not used: those can be removed from the
-whole chain without changing any proof other than the bundle plumbing.
+`frozenTarget` is used; USED is closed backwards along the edges. The scan prints, for each bundle in
+`frozenTarget`'s hypotheses, the fields that are not used: those can be removed from the whole chain
+without changing any proof other than the bundle plumbing.
 -/
 
 open Lean
@@ -68,62 +67,50 @@ def closure (env : Environment) (root : Name) : Array Name := Id.run do
       if let some v := constValue? ci then todo := todo ++ v.getUsedConstants
   return out
 
+inductive Node where
+  | field (s : Name) (i : Nat)
+  | const (c : Name)
+  deriving BEq, Hashable, Inhabited
+
 structure St where
-  used : Std.HashSet (Name × Nat) := {}
-  edges : Std.HashMap (Name × Nat) (Array (Name × Nat)) := {}  -- (S', j) ↦ sources (S, i)
+  edges : Std.HashMap Node (Array Node) := {}  -- b ↦ the nodes a with a → b
   casesHits : Array Name := #[]
-  seen : Std.HashSet (Expr × Option (Name × Nat)) := {}
+  seen : Std.HashSet (Expr × Node) := {}
   marks : Std.HashMap FVarId (Name × Nat) := {}  -- field binders of a `casesOn` minor premise
   nextMark : Nat := 0
-  relevant : NameSet := {}  -- constants whose closure touches a bundle
-  queue : Array (Name × Option (Name × Nat)) := #[]
-  queued : Std.HashSet (Name × Option (Name × Nat)) := {}
 
 abbrev M := StateM St
 
-def addUse (k : Name × Nat) : M Unit := modify fun s => { s with used := s.used.insert k }
-
-def addEdge (src dst : Name × Nat) : M Unit :=
+def addEdge (src dst : Node) : M Unit :=
   modify fun s => { s with edges := s.edges.insert dst ((s.edges.getD dst #[]).push src) }
 
-def record (env : Environment) (k : Name × Nat) (ctx : Option (Name × Nat)) : M Unit := do
-  match ctx with
-  | some dst => if isBundle env dst.1 then addEdge k dst else addUse k
-  | none => addUse k
-
-/-- Visit `c`'s body later, under the context it is referenced from. -/
-def enqueue (c : Name) (ctx : Option (Name × Nat)) : M Unit := do
-  let st ← get
-  if st.relevant.contains c && !st.queued.contains (c, ctx) then
-    set { st with queue := st.queue.push (c, ctx), queued := st.queued.insert (c, ctx) }
-
-partial def visit (env : Environment) (e : Expr) (ctx : Option (Name × Nat)) : M Unit := do
+partial def visit (env : Environment) (e : Expr) (ctx : Node) : M Unit := do
   if (← get).seen.contains (e, ctx) then return
   modify fun s => { s with seen := s.seen.insert (e, ctx) }
   match e with
   | .mdata _ b => visit env b ctx
   | .proj s i b =>
-    if isBundle env s then record env (s, i) ctx
+    if isBundle env s then addEdge (.field s i) ctx
     visit env b ctx
   | .app .. =>
     let f := e.getAppFn
     let args := e.getAppArgs
     match f with
     | .const fn _ =>
-      enqueue fn ctx
+      addEdge (.const fn) ctx
       if let some (.ctorInfo cv) := env.find? fn then
         if isBundle env cv.induct then
           for i in [:args.size] do
-            visit env args[i]! (if i ≥ cv.numParams then some (cv.induct, i - cv.numParams) else ctx)
+            visit env args[i]! (if i ≥ cv.numParams then .field cv.induct (i - cv.numParams) else ctx)
           return
       if let some pinfo := env.getProjectionFnInfo? fn then
         if let some (.ctorInfo cv) := env.find? pinfo.ctorName then
           if isBundle env cv.induct && args.size > pinfo.numParams then
-            record env (cv.induct, pinfo.i) ctx
+            addEdge (.field cv.induct pinfo.i) ctx
             for a in args do visit env a ctx
             return
       -- casesOn / rec on a bundle: follow the minor premise's field binders as if they were
-      -- projections; if the minor premise is not a lambda over all fields, every field is used
+      -- projections; if the minor premise is not a lambda over all fields, every field is needed
       match fn with
       | .str s last =>
         if (last == "casesOn" || last == "rec" || last == "recOn") && isBundle env s then
@@ -147,8 +134,8 @@ partial def visit (env : Environment) (e : Expr) (ctx : Option (Name × Nat)) : 
                     if i != idx then visit env args[i]! ctx
                   return
                 else
-                  for j in [:cv.numFields] do addUse (s, j)
-              | none => for j in [:cv.numFields] do addUse (s, j)
+                  for j in [:cv.numFields] do addEdge (.field s j) ctx
+              | none => for j in [:cv.numFields] do addEdge (.field s j) ctx
       | _ => pure ()
       for a in args do visit env a ctx
     | _ =>
@@ -157,8 +144,13 @@ partial def visit (env : Environment) (e : Expr) (ctx : Option (Name × Nat)) : 
   | .lam _ t b _ | .forallE _ t b _ => do visit env t ctx; visit env b ctx
   | .letE _ t v b _ => do visit env t ctx; visit env v ctx; visit env b ctx
   | .fvar id => do
-    if let some k := (← get).marks[id]? then record env k ctx
-  | .const c _ => enqueue c ctx
+    if let some (s, j) := (← get).marks[id]? then addEdge (.field s j) ctx
+  | .const c _ => do
+    addEdge (.const c) ctx
+    -- an unapplied projection function still reads its field
+    if let some pinfo := env.getProjectionFnInfo? c then
+      if let some (.ctorInfo cv) := env.find? pinfo.ctorName then
+        if isBundle env cv.induct then addEdge (.field cv.induct pinfo.i) ctx
   | _ => pure ()
 
 /-- Projection functions, constructors and the structure's own auxiliary constants are not uses. -/
@@ -173,12 +165,8 @@ def skip (env : Environment) (c : Name) : Bool :=
 def fieldNames (env : Environment) (s : Name) : Array Name :=
   getStructureFields env s
 
-def visitConst (env : Environment) (ci : ConstantInfo) (ctx : Option (Name × Nat)) : M Unit := do
-  visit env ci.type ctx
-  if let some v := constValue? ci then visit env v ctx
-
-/-- Seeds of `relevant`: a bundle, a constant in a bundle's namespace (its constructor, projections,
-recursors), or a body with a raw bundle projection. -/
+/-- Seeds of the relevant constants: a bundle, a constant in a bundle's namespace (its constructor,
+projections, recursors), or a body with a raw bundle projection. -/
 def touchesBundle (env : Environment) (c : Name) : Bool :=
   isBundle env c || isBundle env c.getPrefix ||
   (match env.find? c with
@@ -186,16 +174,6 @@ def touchesBundle (env : Environment) (c : Name) : Bool :=
         | .proj s _ _ => isBundle env s
         | _ => false).isSome
     | none => false)
-
-/-- Process the queue: each relevant constant once per context it is referenced from. -/
-def drain (env : Environment) : M Unit := do
-  repeat
-    let st ← get
-    if st.queue.isEmpty then break
-    let (c, ctx) := st.queue.back!
-    set { st with queue := st.queue.pop }
-    if !skip env c then
-      if let some ci := env.find? c then visitConst env ci ctx
 
 end PruneScan
 
@@ -222,11 +200,20 @@ run_cmd do
       if !relevant.contains c then
         relevant := relevant.insert c
         todo := todo.push c
-  let st0 : St := { relevant }
-  let ((), st) := (do enqueue root none; drain env).run st0
-  -- close USED backwards along the edges
-  let mut used := st.used
-  let mut work := used.toArray
+  let mut st : St := {}
+  let mut visited := 0
+  for c in cl do
+    if !relevant.contains c || skip env c then continue
+    if let some ci := env.find? c then
+      visited := visited + 1
+      let act : M Unit := do
+        visit env ci.type (.const c)
+        if let some v := constValue? ci then visit env v (.const c)
+      let ((), st') := act.run st
+      st := st'
+  -- close USED backwards along the edges, from frozenTarget
+  let mut used : Std.HashSet Node := ({} : Std.HashSet Node).insert (.const root)
+  let mut work : Array Node := #[.const root]
   while !work.isEmpty do
     let k := work.back!
     work := work.pop
@@ -242,13 +229,13 @@ run_cmd do
     if let .const s _ := t.bindingDomain!.getAppFn then
       if isBundle env s then tops := tops.push s
     t := t.bindingBody!
-  logInfo m!"PRUNE closure={cl.size} relevant={relevant.size} visits={st.queued.size} directUses={st.used.size} edges={st.edges.size} casesOn={st.casesHits.size} {st.casesHits.toList}"
+  logInfo m!"PRUNE closure={cl.size} relevant={relevant.size} visited={visited} edgeTargets={st.edges.size} used={used.size} casesOn={st.casesHits.size} {st.casesHits.toList}"
   let mut total := 0
   for s in tops do
     let fs := fieldNames env s
     let mut unused : Array Name := #[]
     for j in [:fs.size] do
-      if !used.contains (s, j) then unused := unused.push fs[j]!
+      if !used.contains (.field s j) then unused := unused.push fs[j]!
     total := total + unused.size
     logInfo m!"PRUNE bundle {s}: {fs.size} fields, unused {unused.size}: {unused.toList}"
   logInfo m!"PRUNE total unused top-level fields: {total}"
