@@ -1,0 +1,84 @@
+# height-glue results log
+
+## AnalyticUniformizationUnique (AUUnique.lean)
+- 07:10 AUUnique.lean part 1 compiles (VERIFIED): `anTop` (analytic topology on 𝒢.Pts τ),
+  `continuous_of_isAnalyticUniformization`, `au_eq_iff`, `exists_linearEquiv_comp_eq`
+  (two surjections V → W of fin-dim ℂ-spaces differ by an automorphism of V).
+- Observation (VERIFIED by reading Models.lean): the kernel's `AnalyticUniformizationUnique` has NO
+  lattice hypothesis on Λ, Λ'; it quantifies over degenerate uniformizations (g > dim A) too. It is
+  still true (every analytic uniformization is exp ∘ (surjective linear map)); the proof plan factors
+  every Φ through one full-lattice Φ₀.
+- 07:30 AUUnique.lean compiles, no sorry (VERIFIED, `lake env lean`, ~70 s incl. import):
+  `analyticUniformizationUnique_of (hE : ImmersiveUniformizationExists) (hT : AnalyticPointsT2) :
+  AnalyticUniformizationUnique` — axioms [propext, Classical.choice, Quot.sound].
+  Proved steps: Φ continuous for anTop; ℂ^{g₀}/Λ₀ compact (IsZLattice.isCompact_range_of_periodic);
+  induced bijection a homeomorphism (compact → T2); covering lift (existsUnique_continuousMap_lifts);
+  additivity (connectedness + discreteness); ℝ-linear (toRealLinearMap); ℂ-linear (immersion at 0 +
+  chain rule over ℝ); surjective (Baire, countable Λ₀); T from exists_linearEquiv_comp_eq.
+  Corollary `isImmersiveAtZero_of`: every full-lattice uniformization is immersive at 0.
+  Leaves: `ImmersiveUniformizationExists` (Mumford AV §1 + analytic structure by regular functions;
+  implies kernel AnalyticUniformizationExists, proved), `AnalyticPointsT2` (SGA1 XII 3.1 / GAGA).
+- HeightGlue.lean (assembled by build.py: base/Kernel_metrization2.lean = scratch/metrization2/Kernel.lean
+  verbatim; base/JacDescends_unifdims.lean = unif-dims Combined.lean l.1615-1752, 1907-1933, 1937-2190
+  minus duplicates; AUUnique.lean; part_main.lean) compiles, exit 0 (VERIFIED):
+  * `analyticPointsT2 : AnalyticPointsT2` — PROVED, no hypotheses (productMapLocalStructure on the
+    division morphism x·y⁻¹ + pts_eq_of_evalAt).
+  * `isImmersiveAtZero_of_discrete` — PROVED: every analytic uniformization with discrete kernel is
+    immersive at 0 (metrization2's steps 2-5).
+  * `analyticUniformizationUnique_of_exists (hE : AnalyticUniformizationExists) :
+    AnalyticUniformizationUnique` and `analyticUniformizationUnique_of_t35 (hT35 :
+    LeafPush2.UniformizationExists)`. Axioms standard.
+  => AN3U is a consequence of the kernel's AN3 existence Prop (and of T35); the two leaves of
+  AUUnique.lean are no longer needed.
+- part_neron.lean added (verbatim copies of NeronMetrizable, UniformizationDim,
+  MetrizationOfUniformization, neronMetrizable_of, HeightGlue from height-split, extracted by script).
+  HeightGlue.lean exit 0, all axioms standard (VERIFIED):
+  * `uniformizationDim_of_t35 (hT35) : UniformizationDim` (factorization both ways ⇒ g = dim A).
+  * `metrizationOfUniformization : MetrizationOfUniformization` — PROVED, no hypotheses
+    (Contrib.Dim.hodgeLatticeTheorem + unif-dims' jacDetDescends + metrization2's jacDetNondegenerate).
+  * `neronMetrizable_of_t35`, `heightGlue_of_t35 (hT35) : HeightGlue` (all four height-split glue
+    Props from T35 = TextbookLeaves.t35), `heightGlue_of_exists_dim`.
+
+## QMPairEmbeddingCorrespondence (QMCorr.lean)
+- QMCorr.lean compiles (VERIFIED; imports ZInQKernel.HDecomp.QM.Leaves; §0 verbatim copy of
+  R5Count.lean definitions extracted by script). `qmPairEmbeddingCorrespondence_of (hD :
+  QMDescentCM) (hU : QMUniformizationC) (hC : CMPointEmbeddingCorrespondence) :
+  QMPairEmbeddingCorrespondence`, axioms standard.
+  New definitions: `rho : B →ₐ[ℚ] M₂(ℂ)` (i ↦ diag(√2,−√2), j ↦ [[0,−3],[1,0]], basis identities
+  proved), `HalfPlanes = ℂ∖ℝ`, `cmSetoid` (𝒪^×-orbits via ρ, equivalence proved), `ordAt τ`
+  (CM order, a Subring of B, proved).
+  Leaves: QMUniformizationC (Shimura 1967 moduli of QM surfaces over ℂ: classes ≃ 𝒪^×\(ℂ∖ℝ),
+  End_𝒪 ≅ 𝒪_τ), QMDescentCM (base change ℚ̄→ℂ: exists, preserves End_𝒪, reflects iso (rigidity),
+  CM pairs descend (Shimura–Taniyama)). Glue: CMPointEmbeddingCorrespondence (normalized optimal
+  embeddings; quaternion arithmetic), unproved.
+
+## Rows.lean
+- `lake build ZInQKernel.Contrib.HeightBC.Main` (needed olean), exit 0.
+- Rows.lean (build_rows.py: HeightSplit.lean l.3-919 verbatim + HeightGlue body, bare AbVar →
+  PkgI3.AbVar in appended parts) exit 0 (VERIFIED): `heightRows_of_t35 (l : HeightLeaves) (hT35) :
+  R18 ∧ R19 ∧ R20 ∧ R21 ∧ R22 ∧ StableHeightFinite`, axioms standard.
+- QMEmb.lean (build_emb.py: QMCorr.lean + part_emb.lean) exit 0 (VERIFIED):
+  `cmPointEmbeddingCorrespondence : CMPointEmbeddingCorrespondence` — PROVED, no hypotheses;
+  `qmPairEmbeddingCorrespondence_of_leaves (hD : QMDescentCM) (hU : QMUniformizationC) :
+  QMPairEmbeddingCorrespondence`. Axioms standard.
+  Proof pieces: ρ explicit + injective; eigenvector lemmas (conj, two-vector kill, eq_of_eig,
+  commute_of_eig); centralizer of non-scalar β in B is ℚ+ℚβ; quadratic-field coordinates,
+  liftQuad (k →ₐ[ℚ] A from a root); R contains a non-rational element (conductor ≠ 0);
+  good generator y ∈ R with integer quadratic; σ(y) non-real (IsTotallyComplex); Vieta; normalized
+  fixed point fpt; (i) 𝒪_{τ_φ} ≅ R; (ii) equivariance; (iii) injectivity; (iv) surjectivity
+  (conjugation stabilizes R via integrality of x + x̄; eigenvalue ring map; N-scaling).
+- QMCorr.lean: QMUniformizationC docstring locators revised after independent review (Shimura 1963,
+  Hashimoto 1995, Rotger 2004, Voight Ch. 43; bundled standard facts noted as RISK).
+- QMCorr.lean §0 now the whole R5Count.lean namespace block (verbatim, `diff` identical, VERIFIED);
+  QMEmb.lean adds `r5fpCount_of_leaves (hE : EichlerOptimalEmbeddingCount) (hD) (hU) : R5fpCount`.
+  Both files exit 0, axioms standard.
+- QMFull.lean (build_full.py: imports QM.Leaves, LeafPush2.T, Contrib.AbVarBC.Dim + QMCorr + part_emb
+  + part_desc) exit 0, axioms standard (VERIFIED):
+  `qmPairEmbeddingCorrespondence_of_t11b (hT : LeafPush2.T11b_Rigidity) (hCM : CMDescent)
+  (hU : QMUniformizationC)` and `r5fpCount_of_t11b (hE : EichlerOptimalEmbeddingCount) hT hCM hU :
+  R5fpCount`. New: `endBC` (copied from alg-frob-red/bp-qmmoduli), `bcPair` (base change of QM pairs,
+  ι injective by T11b uniqueness), `nonempty_com_bc` (End_𝒪(P_ℂ) ≅ End_𝒪(P)),
+  `nonempty_qmIso_bc_iff`, leaf `CMDescent` (Shimura–Taniyama, iso-to-base-change form).
+  => QMDescentCM is no longer needed: H-3 rests on Eichler, T11b (kernel textbook leaf), CMDescent,
+  QMUniformizationC.
+- CMDescent review: no defect; docstring now names the End-algebra classification step (RISK). QMFull recompiled, exit 0.
