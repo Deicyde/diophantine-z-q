@@ -27,6 +27,11 @@ import ZInQKernel.Contrib.AbsFrob.AlgFrobRed
 import ZInQKernel.Contrib.AbsFrob.Sanity
 import ZInQKernel.Contrib.UnramRoots.Main
 import ZInQKernel.Contrib.UnramRoots.Sanity
+import ZInQKernel.Contrib.FrobChain.Main
+import ZInQKernel.Contrib.GZStatements.Weak
+import ZInQKernel.Contrib.GZStatements.Level
+import ZInQKernel.Contrib.GZStatements.Compat
+import ZInQKernel.Contrib.GZStatements.Hensel
 
 /-! The two closed providers fed into the unchanged headline theorem: Theorem 1.1 from
 `SixContactMin`, `TYZThm35ReadingA` and `GrossZagier` alone. -/
@@ -112,3 +117,52 @@ theorem contribCheck_headline (hH : ZInQ.SixContactMin) (hA : ZInQ.Literature.TY
 #print axioms UnramRootsTask.unramProcyclic_of_frobData
 #print axioms UnramRootsTask.frobData_exists
 #print axioms UnramRootsTask.Sanity.unramRoots_two_nonvacuous
+#print axioms ZInQ.Contrib.FrobChain.algFrobRed_of_neron_nmp
+#print axioms ZInQ.Contrib.FrobChain.tateBridge35_of_neron_nmp
+#print axioms ZInQ.Contrib.FrobChain.linkedFrob_of_neron_nmp
+#print axioms ZInQ.Contrib.FrobChain.frobTraceLink_copy_iff
+#print axioms ZInQ.Contrib.FrobChain.smoothGeomConnIntegral_copy_iff
+#print axioms ZInQ.Contrib.FrobChain.kernel_leaves_iff
+#print axioms FrobPiecesGood.algFrobRed_of_neron_nmp
+#print axioms FrobPiecesGood.tateBridge35_of_neron_nmp
+#print axioms LinkedFrobRed.linkedFrob_of_neron_nmp
+#print axioms LinkedFrobRed.linkedFrob_of_algFrobLink
+#print axioms LinkedFrobRed.linkedFrob_of_algFrobRed
+#print axioms LinkedFrobRed.linkedFrob_of_gen
+#print axioms LinkedFrobRed.linkedFrob_of_goodRed_nmp
+#print axioms FrobTrace.tateBridge35_of_algFrobRed
+#print axioms FrobTrace.algFrobOne_of_red
+#print axioms FrobTrace.algFrobLink_of_one
+#print axioms FrobTrace.tateBridge35_of_algFrobLink
+#print axioms AlgFrobRedRed.algFrobRed_of_gen
+#print axioms AlgFrobRedRed.fExtendGen_of_nmp
+#print axioms AlgFrobRedRed.algFrobRed_of_nmp
+#print axioms FrobPiecesGood.smoothGeomConnIntegral
+#print axioms FrobPiecesNeron.goodRedCofinite_of_neron
+#print axioms FrobPiecesGood.algFrobRed_of_spread_nmp
+#print axioms FrobPiecesGood.tateBridge35_of_spread_nmp
+#print axioms G0FibreSimple.rigidityHom
+#print axioms UnramTate.tateBridge_of_tateModuleFree
+#print axioms G14Bridge.tateBridge_five_three_of_35
+#print axioms fhNonvanishingCd_of_fhNonvanishing
+#print axioms grossZagierHeegnerCd_of_grossZagierHeegner
+#print axioms grossZagierRankCd_of_grossZagierHeegnerCd
+#print axioms grossZagierCd_of_fhNonvanishingCd_grossZagierRankCd
+#print axioms grossZagierCd_of_fhNonvanishingCd_grossZagierHeegnerCd
+#print axioms frozenTarget_of_sixContactMin_tyzThm35ReadingA_fhNonvanishingCd_grossZagierHeegnerCd
+#print axioms frozenTarget_of_sixContactMin_tyzThm35ReadingA_fhNonvanishingCd_grossZagierRankCd
+#print axioms grossZagierRankCd_of_grossZagierCd
+#print axioms grossZagierHeegnerCd_of_grossZagierCd
+#print axioms grossZagierHeegnerCd_of_grossZagier
+#print axioms level_eq_of_coeff_cd
+#print axioms heegnerHyp_iff_of_coeff_cd
+#print axioms heegnerHyp_32_iff
+#print axioms jacobiSym_neg_level
+#print axioms coprime_of_heegnerHyp
+#print axioms jacobiSym_two_eq_one_iff
+#print axioms jacobiSym_prime_eq_legendreSym
+#print axioms heegnerHyp_iff_split
+#print axioms chiD_mul
+#print axioms chiD_prime
+#print axioms chiD_two
+#print axioms exists_sq_mod_four_mul_of_heegnerHyp
