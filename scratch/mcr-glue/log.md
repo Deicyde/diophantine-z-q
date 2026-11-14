@@ -41,3 +41,10 @@ Target: `ModelGlue.ModelCoordinateResidue` (scratch/model-glue/ModelGlue6.lean, 
 - `specialFibreTranscendence : SpecialFibreTranscendence` (glue d2 now proved; DVR hypothesis unused).
 - `modelCoordinateResidue_of_quotient' : QuotientP1Coordinate → ModelCoordinateResidue`.
 - `modelCoordinateResidue_of_leaves' : L1 → … → L6 → A → B → C → ModelCoordinateResidue`.
+
+## Step 4 (05:05) — VERIFIED (MCRGlue.lean = ModelGlue6 + parts 1-4; exit 0; compile4_out.txt; standard axioms)
+- `isGQuotient_bot_id`: sanity check, `IsGQuotient ⊥ (𝟙 X)` (the quotient definition is satisfiable).
+- Glue C split: C1 `CMSectionsDisjoint` (from L5, L6: closures in 𝒵 of images of CM points of
+  different discriminants are disjoint), C2 `CoordinateFromSections` (normalize ρ'₀ by the three
+  disjoint sections). `coordinateNormalization_of : C1 → C2 → CoordinateNormalization` (compiled).
+- `modelCoordinateResidue_of_leaves'' : L1 → … → L6 → A → B → C1 → C2 → ModelCoordinateResidue`.
