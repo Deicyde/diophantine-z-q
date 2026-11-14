@@ -6,6 +6,9 @@ import ZInQKernel.Contrib.CurvesG.CurveSplit
 import ZInQKernel.Contrib.CurvesG.GenusSplit
 import ZInQKernel.Contrib.NeronC.NMPInjective
 import ZInQKernel.Contrib.NeronC.NeronGroup
+import ZInQKernel.HDecomp.Textbook.T10Etale
+import ZInQKernel.Contrib.HomUnify.Corr
+import ZInQKernel.HDecomp.ModCurves.C9
 
 namespace HDec
 
@@ -509,6 +512,33 @@ theorem eichlerShimuraJ1_ofK5 (h : _root_.LeafModCurves.R16_EichlerShimuraJ1') :
     ⟨X, P₀, aj, ⟨⟨hX.1.proper, hX.1.smooth, hX.1.geomConnected⟩, hX.2⟩, isJacobianK_of5 hJ⟩
   exact ⟨h1, ofAbVarK4 A, π, θ, h2⟩
 
+/-! ### R3 (Lin–Yang), T10 (Tate duality), `HomLatticeCorr`, T24 (twists of eigenforms) -/
+
+/-- R3 (`R03_LinYang`) from the kernel's statement (`QMStr`, `IsCurve`, `IsJacobian` and the abelian varieties of
+the conclusion rebuilt; `LeafQM.O` is a definition, so the two `O`s agree by unfolding). -/
+theorem r03LinYang_ofK5 (h : _root_.ZInQ.LeafPush2.R03_LinYang) : ZInQ.LeafPush2.R03_LinYang := by
+  intro A q hA
+  rcases h (toAbVarK4 A) ⟨q.iota, q.injective⟩ hA with
+    ⟨j, a, r, hj, hg, hl, C, hC, hI, hS, P₀, J, aj, hJ, e, he⟩ | ⟨E₁, E₂, h1, h2, hE⟩
+  · exact Or.inl ⟨j, a, r, hj, hg, hl, C, ⟨hC.proper, hC.smooth, hC.geomConnected⟩, hI, hS, P₀,
+      ofAbVarK4 J, aj, ⟨hJ.base, fun B f hf => hJ.univ (toAbVarK4 B) f hf⟩, e, he⟩
+  · exact Or.inr ⟨ofAbVarK4 E₁, ofAbVarK4 E₂, h1, h2, hE⟩
+
+/-- T10 (`T10_TateDuality`) from the kernel's statement (`ZInQKernel/HDecomp/Textbook/T10Etale.lean`). -/
+theorem t10_ofK5 (h : _root_.T10Etale.T10_TateDuality) : T10Etale.T10_TateDuality :=
+  fun K _ A ℓ _ hℓ => h K (toAbVarK4 A) ℓ hℓ
+
+/-- hom-unify's `HomLatticeCorr` from the kernel's (`ZInQKernel/Contrib/HomUnify/Corr.lean`). -/
+theorem homLatticeCorr_ofK5 (h : _root_.ZInQ.HomUnify.HomLatticeCorr) : HomUnify.HomLatticeCorr :=
+  ⟨fun K _ A B σ g k ΛA ΛB ΦA ΦB hA hB hUA hUB f =>
+      h.1 K (toAbVarK4 A) (toAbVarK4 B) σ g k ΛA ΛB ΦA ΦB hA hB hUA hUB f,
+   fun A B g k ΛA ΛB ΦA ΦB hA hB hUA hUB M hM =>
+      h.2 (toAbVarK4 A) (toAbVarK4 B) g k ΛA ΛB ΦA ΦB hA hB hUA hUB M hM⟩
+
+/-- T24 (`EigenformTwist`) is the kernel's `PkgI4.EigenformTwist` (`ZInQKernel/HDecomp/ModCurves/C9.lean`; over
+Mathlib and the shared modular-form definitions, so Lean accepts the term). -/
+theorem eigenformTwist_ofK5 (h : _root_.PkgI4.EigenformTwist) : EigenformTwist := h
+
 end HSyn
 
 end
@@ -527,6 +557,10 @@ end
 #print axioms HSyn.jacobianExists_ofK5
 #print axioms HSyn.carayolR17_ofK5
 #print axioms HSyn.eichlerShimuraJ1_ofK5
+#print axioms HSyn.r03LinYang_ofK5
+#print axioms HSyn.t10_ofK5
+#print axioms HSyn.homLatticeCorr_ofK5
+#print axioms HSyn.eigenformTwist_ofK5
 
 end G0A2_e40_kernelfields
 

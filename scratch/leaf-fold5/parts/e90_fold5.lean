@@ -48,9 +48,9 @@ theorem t11b_of_exists5 (h : AVB2.T11bExists) : ZInQ.LeafPush2.T11b_Rigidity :=
 
 /-! ### The open statements -/
 
-/-- **The research leaves still open** (leaf-fold5): leaf-fold2's `OpenResearchLeaves2` with eight fields
+/-- **The research leaves still open** (leaf-fold5): leaf-fold2's `OpenResearchLeaves2` with nine fields
 restated over the kernel's own Props (`ZInQKernel/HDecomp/Objects.lean`; the chain's are copies; part e40 derives
-the chain's from the kernel's): `r6`, `r7a`, `r7b`, `r8` (PkgI2), `r9a`, `r9b` (PkgI3), `r16` (ModCurves), `r17` (LadicCond). Same
+the chain's from the kernel's): `r3` (LeafPush2), `r6`, `r7a`, `r7b`, `r8` (PkgI2), `r9a`, `r9b` (PkgI3), `r16` (ModCurves), `r17` (LadicCond). Same
 statements. -/
 structure OpenResearchLeaves5 : Prop where
   r1r2 : LeafAdopt.R1R2fpRep
@@ -60,7 +60,7 @@ structure OpenResearchLeaves5 : Prop where
       (G0Split.FibreQM.ownΦ (LeafAdopt.R1R2fp_of_rep h))
       (G0Split.FibreQM.ownπ (LeafAdopt.R1R2fp_of_rep h))
   r1rec : LeafQM.AV.R1rec
-  r3 : ZInQ.LeafPush2.R03_LinYang
+  r3 : _root_.ZInQ.LeafPush2.R03_LinYang
   r4 : PkgI1.ThetaModularity
   r5 : LeafQM.AV.R5fp
   r5count : LeafQM.AV.R5fpCount
@@ -93,7 +93,7 @@ theorem researchLeaves2_of_open5 (r : OpenResearchLeaves5) : OpenResearchLeaves2
   r1r2 := r.r1r2
   r1b := r.r1b
   r1rec := r.r1rec
-  r3 := r.r3
+  r3 := r03LinYang_ofK5 r.r3
   r4 := r.r4
   r5 := r.r5
   r5count := r.r5count
@@ -126,7 +126,7 @@ theorem researchLeaves2_of_open5 (r : OpenResearchLeaves5) : OpenResearchLeaves2
 * `t34` (T34) replaced by its two halves `DimJacobianEqGenus`, `GenusX1Field` (curves-g);
 * `t38` (T38) replaced by curves-g's three statements (A), (B), (C) (its rational-point clause is proved);
 * `t41` (T41) replaced by `NeronSchemeExtensionExists` (neron-c; the group law is proved);
-* `t4`, `t5`, `t27`, `t33`, `t35` restated over the kernel's own Props (part e40; same statements). -/
+* `t4`, `t5`, `t10`, `homLatticeCorr`, `t24`, `t27`, `t33`, `t35` restated over the kernel's own Props (part e40; same statements). -/
 structure OpenTextbookLeaves5 : Prop where
   /-- neron-c, LEAF: every `K`-morphism of the generic fibres of two abelian schemes over a DVR extends
   (BLR §1.2 Prop. 8, surjective half). -/
@@ -140,12 +140,12 @@ structure OpenTextbookLeaves5 : Prop where
   charPolyIndepOfEllAlgClosed : _root_.ZInQ.Contrib.AVB1.CharPolyIndepOfEllAlgClosed
   /-- av-b1, LEAF: Poincaré's complement theorem (Milne 1986 Prop. 12.1; Mumford §19 Thm 1), weakened. -/
   poincareComplement : _root_.ZInQ.Contrib.AVB1.PoincareComplement
-  t10 : T10Etale.T10_TateDuality
-  homLatticeCorr : HomUnify.HomLatticeCorr
+  t10 : _root_.T10Etale.T10_TateDuality
+  homLatticeCorr : _root_.ZInQ.HomUnify.HomLatticeCorr
   /-- av-b2, LEAF: T11(b) without its uniqueness clause (Conrad 2006 §3; Milne 1986 §20). -/
   t11bExists : AVB2.T11bExists
   t23 : ∀ (p : ℕ) [Fact p.Prime], PkgI4.T23_FontaineClosure p
-  t24 : EigenformTwist
+  t24 : _root_.PkgI4.EigenformTwist
   t27 : _root_.PkgI3.QMDichotomyYu
   t33 : _root_.LeafModCurves.JacobianExists ℚ
   /-- curves-g: `dim Jac X = genus` for curves over `ℚ` (Milne 1986 Prop. 2.1 with Serre duality). -/
@@ -212,11 +212,11 @@ theorem textbookLeaves4_of_open5 (t : OpenTextbookLeaves5) (l : OpenAddedLeaves5
   t7 := t7_of_algClosed5 t.charPolyIndepOfEllAlgClosed
   t8 := t8_of_simpleImage5 t.poincareComplement g.simpleImageIsogeny
   t9 := t9_of_leaves5 l.t09SymmIsogenyExists l.isogenyQuasiInverse
-  t10 := t.t10
-  homLatticeCorr := t.homLatticeCorr
+  t10 := t10_ofK5 t.t10
+  homLatticeCorr := homLatticeCorr_ofK5 t.homLatticeCorr
   t11b := t11b_of_exists5 t.t11bExists
   t23 := t.t23
-  t24 := t.t24
+  t24 := eigenformTwist_ofK5 t.t24
   t27 := qmDichotomyYu_ofK5 t.t27
   t33 := jacobianExists_ofK5 t.t33
   t34 := t34_of_split5 t.dimJacobianEqGenus t.genusX1Field
@@ -238,7 +238,7 @@ theorem addedLeaves4_of_open5 (t : OpenTextbookLeaves5) (l : OpenAddedLeaves5) :
   x6ConicModel := l.x6ConicModel
   y3Connected := l.y3Connected
   qmAutCard := l.qmAutCard
-  serreRigidity3 := serreRigidity3_of_T35_5 (uniformizationExists_ofK5 t.t35) t.homLatticeCorr
+  serreRigidity3 := serreRigidity3_of_T35_5 (uniformizationExists_ofK5 t.t35) (homLatticeCorr_ofK5 t.homLatticeCorr)
   alFixedPoints := l.alFixedPoints
   zariskiConnectedness := l.zariskiConnectedness
   cmDescends := l.cmDescends
@@ -256,7 +256,7 @@ theorem glue4_of_open5 (r : OpenResearchLeaves5) (t : OpenTextbookLeaves5) (l : 
 
 /-- **G0 with only the open leaves and the open glue** (leaf-fold5; no `sorry`, standard axioms).
 `ZInQ.SixContactMin` follows from
-* `OpenResearchLeaves5`: 26 research-level fields (eight restated over the kernel's Props);
+* `OpenResearchLeaves5`: 26 research-level fields (nine restated over the kernel's Props);
 * `OpenTextbookLeaves5`: 21 textbook fields;
 * `OpenAddedLeaves5`: 21 added leaves;
 * `OpenGlue5`: 2 glue Props (`ModelCoordinateResidue`, `SimpleImageIsogeny`).

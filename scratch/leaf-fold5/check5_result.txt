@@ -1,5 +1,5 @@
 'HDec.HSyn.sixContactMin_of_open5' depends on axioms: [propext, Classical.choice, Quot.sound]
-closure size 184227
+closure size 184361
 sorryAx: false
 ZInQ.SmoothFibre.smoothFibreReduced: true
 ZInQ.SmoothFibre.isReduced_of_etale_of_isDomain: true
@@ -29,7 +29,7 @@ HDec.HSyn.curveFacts5: true
   r1r2 : (some HDec.LeafAdopt.R1R2fpRep)
   r1b : (some HDec.HSyn.G0Split.FibreQM.R1bFamily)
   r1rec : (some HDec.LeafQM.AV.R1rec)
-  r3 : (some HDec.ZInQ.LeafPush2.R03_LinYang)
+  r3 : (some ZInQ.LeafPush2.R03_LinYang)
   r4 : (some HDec.PkgI1.ThetaModularity)
   r5 : (some HDec.LeafQM.AV.R5fp)
   r5count : (some HDec.LeafQM.AV.R5fpCount)
@@ -59,11 +59,11 @@ HDec.HSyn.curveFacts5: true
   homFreeFiniteAlgClosed : (some ZInQ.Contrib.AVB1.HomFreeFiniteAlgClosed)
   charPolyIndepOfEllAlgClosed : (some ZInQ.Contrib.AVB1.CharPolyIndepOfEllAlgClosed)
   poincareComplement : (some ZInQ.Contrib.AVB1.PoincareComplement)
-  t10 : (some HDec.T10Etale.T10_TateDuality)
-  homLatticeCorr : (some HDec.HomUnify.HomLatticeCorr)
+  t10 : (some T10Etale.T10_TateDuality)
+  homLatticeCorr : (some ZInQ.HomUnify.HomLatticeCorr)
   t11bExists : (some HDec.AVB2.T11bExists)
   t23 : (some HDec.PkgI4.T23_FontaineClosure)
-  t24 : (some HDec.HSyn.EigenformTwist)
+  t24 : (some PkgI4.EigenformTwist)
   t27 : (some PkgI3.QMDichotomyYu)
   t33 : (some LeafModCurves.JacobianExists)
   dimJacobianEqGenus : (some ZInQ.Contrib.CurvesG.DimJacobianEqGenus)

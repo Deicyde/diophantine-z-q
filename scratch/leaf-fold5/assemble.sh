@@ -23,7 +23,10 @@ import ZInQKernel.Contrib.AVB1.Poincare
 import ZInQKernel.Contrib.CurvesG.CurveSplit
 import ZInQKernel.Contrib.CurvesG.GenusSplit
 import ZInQKernel.Contrib.NeronC.NMPInjective
-import ZInQKernel.Contrib.NeronC.NeronGroup'
+import ZInQKernel.Contrib.NeronC.NeronGroup
+import ZInQKernel.HDecomp.Textbook.T10Etale
+import ZInQKernel.Contrib.HomUnify.Corr
+import ZInQKernel.HDecomp.ModCurves.C9'
 body() { echo "$HDR"; wrapF "$@"; echo "end HDec"; }
 { echo "import TailK"; echo "$LIMP"; echo; body $L; } > olean/TailL.lean
 [ -n "$M" ] && { echo "import TailL"; echo "$MIMP"; echo; body $M; } > olean/TailM.lean

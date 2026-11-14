@@ -50,3 +50,6 @@ ZInQKernel.Multiplication.Certificate.ConstantsProperties
 ZInQKernel.Progressions.Final.Instance
 ZInQKernel.Size.Constants.T
 ZInQKernel.Contrib.AVB2.SerreLemma
+ZInQKernel.HDecomp.Textbook.T10Etale
+ZInQKernel.Contrib.HomUnify.Corr
+ZInQKernel.HDecomp.ModCurves.C9
