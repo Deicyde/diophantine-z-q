@@ -11,7 +11,7 @@
   `dimJacobianEqGenus_of_glue`, copied verbatim, applied to it).
 
 So the `GluePieces3` field `dimJacobianEqGenus` needs **no literature leaf and no open glue**. File:
-`scratch/dimjac-glue/DimJacGlue.lean` (≈650 lines, no `sorry`), `#print axioms` of both theorems:
+`scratch/dimjac-glue/DimJacGlue.lean` (≈680 lines, no `sorry`), `#print axioms` of both theorems:
 `[propext, Classical.choice, Quot.sound]`. The statement was checked verbatim against modular-split's file with
 `diff`. Check: `lake env lean scratch/dimjac-glue/DimJacGlue.lean` (≈10 s once the CloudW07 modules are built;
 the build files were copied from `~/dzq-wt/modular-split/.lake/build`).
