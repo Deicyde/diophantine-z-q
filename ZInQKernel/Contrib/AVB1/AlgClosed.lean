@@ -158,3 +158,5 @@ theorem charPolyIndepOfEll_of_algClosed (h : CharPolyIndepOfEllAlgClosed) :
   ext i j
   rw [LinearMap.toMatrix_apply, LinearMap.toMatrix_apply, Module.Basis.map_apply,
     Module.Basis.map_repr, LinearEquiv.trans_apply, ← hcomm, LinearEquiv.symm_apply_apply]
+
+end ZInQ.Contrib.AVB1
