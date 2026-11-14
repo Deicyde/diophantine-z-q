@@ -1936,6 +1936,94 @@ theorem qmHauptmodul_of_base (h : QMHauptmodulBase) : PkgI1.QMHauptmodul := by
       exact transfer hfib h24 hg (-γ) (by rw [hgx, iota_neg, Units.val_neg, hγ]) τ
         (by rw [UpperHalfPlane.neg_smul, hτ])
 
+/-! ### The disc −4 clause is a computation: `j_θ(√2 + i) = 0` -/
+
+open HSyn.G0Split.FibreQM.PeriodGlue (th1 thT thetaConst_factor Omega0 omega_cm4 s8Omega0_proof τ1 τ2)
+
+/-- The odd one-variable theta constant `Θ[1,1](τ)` vanishes (`n ↦ −n − 1`). -/
+theorem th1_one_one (τ : ℂ) : th1 1 1 τ = 0 := by
+  let e : ℤ ≃ ℤ := ⟨fun n => -n - 1, fun n => -n - 1, fun n => by ring, fun n => by ring⟩
+  have hfe : ∀ n, thT 1 1 τ (e n) = -thT 1 1 τ n := by
+    intro n
+    simp only [thT, e, Equiv.coe_fn_mk]
+    have : Real.pi * Complex.I * (((-n - 1 : ℤ) : ℂ) + ((1 : ℕ) : ℂ) / 2) ^ 2 * τ +
+        Real.pi * Complex.I * (((-n - 1 : ℤ) : ℂ) + ((1 : ℕ) : ℂ) / 2) * ((1 : ℕ) : ℂ) =
+        (Real.pi * Complex.I * ((n : ℂ) + ((1 : ℕ) : ℂ) / 2) ^ 2 * τ +
+          Real.pi * Complex.I * ((n : ℂ) + ((1 : ℕ) : ℂ) / 2) * ((1 : ℕ) : ℂ)) +
+        ((-2 * n - 1 : ℤ) : ℂ) * (Real.pi * Complex.I) := by push_cast; ring
+    rw [this, Complex.exp_add, HSyn.G0Split.FibreQM.PeriodGlue.exp_int_piI]
+    have h2 : ((-1 : ℂ)) ^ (-2 * n - 1) = -1 := by
+      rw [zpow_sub₀ (by norm_num), zpow_mul, zpow_neg, zpow_one]
+      norm_num
+    rw [h2]; ring
+  have h := e.tsum_eq (thT 1 1 τ)
+  simp only [hfe, tsum_neg] at h
+  unfold th1
+  linear_combination -h / 2
+
+theorem thetaProd2_omega0 : PkgI1.thetaProd2 Omega0 = 0 := by
+  unfold PkgI1.thetaProd2
+  apply Finset.prod_eq_zero (i := (![1, 1], ![0, 0])) (by decide)
+  rw [thetaConst_factor]
+  simp [th1_one_one]
+
+theorem jNum_tau4 : PkgI1.jNum (PkgI1.Omega ((√2 : ℂ) + Complex.I)) = 0 := by
+  rw [omega_cm4]; unfold PkgI1.jNum; rw [thetaProd2_omega0]; ring
+
+theorem jDen_tau4 : PkgI1.jDen (PkgI1.Omega ((√2 : ℂ) + Complex.I)) ≠ 0 := by
+  rw [omega_cm4]; unfold PkgI1.jDen; exact pow_ne_zero _ s8Omega0_proof
+
+/-- The fixed point of `ι(i + j)` in `ℍ` is `√2 + i`. -/
+theorem fixed_by4 {γ : GL (Fin 2) ℝ} (hγ : (γ : Matrix (Fin 2) (Fin 2) ℝ) = PkgI1.iota by4)
+    {τ : UpperHalfPlane} (hτ : γ • τ = τ) : (τ : ℂ) = (√2 : ℂ) + Complex.I := by
+  have hM : (γ : Matrix (Fin 2) (Fin 2) ℝ) = !![√2, -3; 1, -√2] := by
+    rw [hγ, iota_apply]; ext i j; fin_cases i <;> fin_cases j <;> simp [by4]
+  have hdet : 0 < γ.det.val := by
+    rw [Matrix.GeneralLinearGroup.val_det_apply, hM, Matrix.det_fin_two_of]
+    nlinarith [sqrt2_sq']
+  have h := congrArg (fun w : UpperHalfPlane => (w : ℂ)) hτ
+  rw [UpperHalfPlane.coe_smul_of_det_pos hdet, div_eq_iff (UpperHalfPlane.denom_ne_zero γ τ)] at h
+  simp only [UpperHalfPlane.num, UpperHalfPlane.denom, hM, Matrix.of_apply, Matrix.cons_val',
+    Matrix.cons_val_zero, Matrix.cons_val_one, Matrix.empty_val', Matrix.cons_val_fin_one,
+    Matrix.head_cons] at h
+  have s2 : (√2 : ℂ) * √2 = 2 := by
+    rw [← Complex.ofReal_mul, sqrt2_sq']; norm_num
+  have hq : ((τ : ℂ) - √2 - Complex.I) * ((τ : ℂ) - √2 + Complex.I) = 0 := by
+    have hI : Complex.I * Complex.I = -1 := Complex.I_mul_I
+    push_cast at h
+    linear_combination (-1 : ℂ) * h + s2 - hI
+  rcases mul_eq_zero.1 hq with h1 | h1
+  · linear_combination h1
+  · exfalso
+    have := congrArg Complex.im h1
+    simp at this
+    linarith [τ.im_pos]
+
+/-- **`QMHauptmodulBase` without its disc −4 clause.** The value `0` at `√2 + i` follows from the formula
+clause, since `∏θ_m(Ω(√2+i)) = 0` (the characteristic `((1,1),(0,0))`, `Ω(√2+i)` being a product
+matrix) and `Σθ⁸(Ω(√2+i)) ≠ 0` (period-glue's certified `S8Omega0`). -/
+def QMHauptmodulBase2 : Prop :=
+  ∃ f : UpperHalfPlane → OnePoint ℂ, Continuous f ∧
+    (∀ τ : UpperHalfPlane, PkgI1.jDen (PkgI1.Omega τ) ≠ 0 →
+      f τ = ((PkgI1.jNum (PkgI1.Omega τ) / PkgI1.jDen (PkgI1.Omega τ) : ℂ) : OnePoint ℂ)) ∧
+    (∀ τ τ' : UpperHalfPlane, f τ = f τ' ↔ ∃ γ ∈ PkgI1.GammaStar, γ • τ = τ') ∧
+    Function.Surjective f ∧
+    (∀ γ : GL (Fin 2) ℝ, (γ : Matrix (Fin 2) (Fin 2) ℝ) = PkgI1.iota x3 →
+      ∀ τ : UpperHalfPlane, γ • τ = τ → f τ = (OnePoint.infty : OnePoint ℂ)) ∧
+    (∀ γ : GL (Fin 2) ℝ, (γ : Matrix (Fin 2) (Fin 2) ℝ) = PkgI1.iota mu →
+      ∀ τ : UpperHalfPlane, γ • τ = τ → f τ = ((-16/27 : ℂ) : OnePoint ℂ))
+
+theorem base_of_base2 (h : QMHauptmodulBase2) : QMHauptmodulBase := by
+  obtain ⟨f, hc, hform, hfib, hsurj, h3, h24⟩ := h
+  refine ⟨f, hc, hform, hfib, hsurj, fun γ hγ τ hτ => ?_, h3, h24⟩
+  have hτ4 := fixed_by4 hγ hτ
+  have hd : PkgI1.jDen (PkgI1.Omega τ) ≠ 0 := by rw [hτ4]; exact jDen_tau4
+  rw [hform τ hd, hτ4, jNum_tau4, zero_div]
+
+/-- **`QMHauptmodul` from `QMHauptmodulBase2` (proved).** -/
+theorem qmHauptmodul_of_base2 (h : QMHauptmodulBase2) : PkgI1.QMHauptmodul :=
+  qmHauptmodul_of_base (base_of_base2 h)
+
 end HDec.LeafQCheck.HM
 
 
@@ -2085,6 +2173,40 @@ theorem sixContactMin_of_open8 (r : OpenResearchLeaves2) (t : OpenTextbookLeaves
       l.qmAutCard, l.serreRigidity3, l.alFixedPoints, l.zariskiConnectedness, l.stQM,
       l.valenceFormulaGammaStar, l.egaIV_8_8_2_ii, l.egaIV_8_10_5_xii, l.egaIV_17_7_8_ii⟩ g
 
+
+/-- `OpenAddedLeaves8` with `qmHauptmodulBase` replaced by `QMHauptmodulBase2` (no disc −4 clause:
+`j_θ(√2+i) = 0` is a computation, `LeafQCheck.HM.base_of_base2`). -/
+structure OpenAddedLeaves9 : Prop where
+  cmOptimalEmbedding : FS5NoCM.CMOptimalEmbedding
+  thetaRatiosAlgebraic : G0Split.ThetaPt.ThetaRatiosAlgebraic
+  qmHauptmodulBase2 : LeafQCheck.HM.QMHauptmodulBase2
+  qmClassNumberOne : G0Split.FibreQM.QMClassNumberOne
+  senTwist : G0Galois.SenTwist
+  finiteImageHT : G0Galois.FiniteImageHT
+  t09SymmIsogenyExists : WeilPairing.T09_SymmIsogenyExists
+  isogenyQuasiInverse : WeilPairing.IsogenyQuasiInverse
+  x6ConicModel : X6Kummer.X6ConicModel
+  y3Connected : TSHecke.Y3Connected
+  qmAutCard : HeckeRest.QMAutCard
+  serreRigidity3 : HeckeRest.SerreRigidity3
+  alFixedPoints : HeckeRest.ALFixedPoints
+  zariskiConnectedness : _root_.ZariskiConn.ZariskiConnectedness.{0}
+  stQM : G0Split.FibreQM.PeriodMapH.LeafQCheck.STQM
+  valenceFormulaGammaStar : LeafQCheck.VB.ValenceFormulaGammaStar
+  egaIV_8_8_2_ii : _root_.ZInQ.Contrib.SpreadOut.EGAIV_8_8_2_ii
+  egaIV_8_10_5_xii : _root_.ZInQ.Contrib.SpreadOut.EGAIV_8_10_5_xii
+  egaIV_17_7_8_ii : _root_.ZInQ.Contrib.SpreadOut.EGAIV_17_7_8_ii
+
+/-- **`SixContactMin` from 26 + 19 + 19 leaves and one glue Prop** (leafq-check's final form). -/
+theorem sixContactMin_of_open9 (r : OpenResearchLeaves2) (t : OpenTextbookLeaves4)
+    (l : OpenAddedLeaves9) (g : OpenGlue4) : ZInQ.SixContactMin :=
+  sixContactMin_of_open8 r t
+    ⟨l.cmOptimalEmbedding, l.thetaRatiosAlgebraic,
+      LeafQCheck.HM.base_of_base2 l.qmHauptmodulBase2, l.qmClassNumberOne, l.senTwist,
+      l.finiteImageHT, l.t09SymmIsogenyExists, l.isogenyQuasiInverse, l.x6ConicModel, l.y3Connected,
+      l.qmAutCard, l.serreRigidity3, l.alFixedPoints, l.zariskiConnectedness, l.stQM,
+      l.valenceFormulaGammaStar, l.egaIV_8_8_2_ii, l.egaIV_8_10_5_xii, l.egaIV_17_7_8_ii⟩ g
+
 end HDec.HSyn
 
 example : ∀ (_ : HDec.HSyn.OpenResearchLeaves2) (_ : HDec.HSyn.OpenTextbookLeaves4)
@@ -2099,6 +2221,10 @@ example : ∀ (_ : HDec.HSyn.OpenResearchLeaves2) (_ : HDec.HSyn.OpenTextbookLea
     (_ : HDec.HSyn.OpenAddedLeaves8) (_ : HDec.HSyn.OpenGlue4), _root_.ZInQ.SixContactMin :=
   HDec.HSyn.sixContactMin_of_open8
 
+example : ∀ (_ : HDec.HSyn.OpenResearchLeaves2) (_ : HDec.HSyn.OpenTextbookLeaves4)
+    (_ : HDec.HSyn.OpenAddedLeaves9) (_ : HDec.HSyn.OpenGlue4), _root_.ZInQ.SixContactMin :=
+  HDec.HSyn.sixContactMin_of_open9
+
 #print axioms HDec.LeafQCheck.gammaStarGen_proof
 #print axioms HDec.HSyn.G0Split.FibreQM.PeriodMapH.LeafQCheck.cmDescends_of
 #print axioms HDec.HSyn.sixContactMin_of_open5
@@ -2107,3 +2233,4 @@ example : ∀ (_ : HDec.HSyn.OpenResearchLeaves2) (_ : HDec.HSyn.OpenTextbookLea
 #print axioms HDec.HSyn.sixContactMin_of_open7
 #print axioms HDec.LeafQCheck.HM.qmHauptmodul_of_base
 #print axioms HDec.HSyn.sixContactMin_of_open8
+#print axioms HDec.HSyn.sixContactMin_of_open9

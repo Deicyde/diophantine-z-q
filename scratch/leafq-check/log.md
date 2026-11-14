@@ -79,3 +79,7 @@ Y3Connected 97479, ValenceBoundGammaStar 113443, CMDescends 114469, GammaStarGen
   `qmHauptmodul_of_base : QMHauptmodulBase → QMHauptmodul` (transfer along orbits by the fibre clause;
   −γ and γ⁻¹ for the other sheet). Axioms standard; 19 s.
 - Fold.lean: `OpenAddedLeaves8`, `sixContactMin_of_open8` (65 fields), 22 s, axioms standard.
+- `QMHauptmodulBase2` (no disc −4 clause) and `base_of_base2`: j_θ(√2+i) = 0 because θ_{((1,1),(0,0))}(Ω₀) =
+  Θ[1,1](τ₁)Θ[1,1](τ₂)·u = 0 (`th1_one_one`, odd one-variable theta; period-glue's `thetaConst_factor`,
+  `omega_cm4`), Σθ⁸(Ω₀) ≠ 0 (period-glue's `s8Omega0_proof`), and the fixed point of ι(i+j) is √2+i
+  (`fixed_by4`). VERIFIED. Fold: `OpenAddedLeaves9`, `sixContactMin_of_open9`, 22 s, standard axioms.
