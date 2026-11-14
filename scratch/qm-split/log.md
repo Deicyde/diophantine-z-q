@@ -15,3 +15,9 @@ Row sources (VERIFIED, read): definitions read in ~/dzq-wt/leaf-fold4/scratch/le
   𝒪-stable subgroup I with dI ⊆ 𝒪 generates I). Eichler's theorem is no longer cited.
 - Lattice glue: I = {x : ι(x)v ∈ Λ}; rank argument (Fin.cons family of 5 in rank-4 Λ), uniform denominator
   from `Submodule.annihilator_top_inter_nonZeroDivisors`; w = ι(α)v not c·real via finrank (range ≤ 2 < 4).
+
+## H-35 `t27 : PkgI3.QMDichotomyYu`: PROVED from a published-form leaf (VERIFIED, compiled)
+- `scratch/qm-split/YuLeaf.lean`: LEAF `HDec.QMSplit.Yu.YuThm11` (Yu 2013 Thm 1.1 as the locator audit read it:
+  End⁰ ≅ B, or End⁰ ≅ M₂(ℚ(√d)), d < 0, with `ℚ(√d) ⊗ B ≅ M₂(ℚ(√d))`; the simple/non-simple labels of the
+  cases dropped); `qmDichotomyYu_of_yu : YuThm11 → PkgI3.QMDichotomyYu` (drop the splitting clause).
+  0 errors, 5 s, axioms standard.
