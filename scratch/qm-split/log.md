@@ -129,3 +129,27 @@ Row sources (VERIFIED, read): definitions read in ~/dzq-wt/leaf-fold4/scratch/le
   domain of area 2π/3; Shimura 1971 Prop. 9.2, Shimizu 1965, Voight 39.1.13; UNVERIFIED) and project GLUE
   `GammaStarFromO1 : ShimizuCovolumeO1 → GammaStarCocompactArea` (index 4, finite-index supergroup, comparison of
   fundamental domains). `valenceFormulaGammaStar_of_shimizu` (H-87), `qmHauptmodulBase3_of_shimizu` (H-88).
+
+## H-87 PROVED from published leaves only (VERIFIED, compiled)
+- `Haupt.lean` §Index: `valenceFormulaGammaStar_of_O1 : ValenceFormulaCocompactEq → ShimizuCovolumeO1 →
+  VB.ValenceFormulaGammaStar` (axioms standard, 24 s). The valence bound for Γ¹ = ι(𝒪¹) (Shimizu covolume 2π/3,
+  total m/3) is transferred to Γ*: Γ¹ ⊴ Γ* (`G1_normal`), the representatives ι(1), ι(a4), ι(a6), ι(a4a6) lie in
+  distinct cosets (`coset_distinct`: a trivial Möbius action forces a scalar matrix, so the norm ratio 2, 3, 6,
+  12, 18 would be a square), the classes of g_i z under Γ¹ number r_z with 4e¹ ≤ r e* (`class_bound` via
+  Stab*(z)/Stab¹(z), `kept_bound`), orders and e¹ are constant along Γ*-orbits (`ord_smul_eq`,
+  `card_Sone_smul`). So `GammaStarFromO1` is not needed for H-87.
+
+## H-88 from published leaves + one number (VERIFIED, compiled)
+- `Haupt.lean`: the Hauptmodul argument refactored over `GammaStarValence` (existence of representatives, the
+  equality and the bound for Γ*); `gammaStarValence_of_area` (old route) and `gammaStarValence_of_O1 :
+  ValenceFormulaCocompactEq → ShimizuCovolumeO1 → GammaStarValence` (new): `coset_cover` (the four cosets
+  cover Γ*: the chain's normalizer descent with T = {1, i, j, ij} kept, `normalizer_explicit`; elements
+  i·a4⁻¹, j·a6⁻¹, ij·(a4a6)⁻¹ are in 𝒪 with norm −1, 1, −1), `class_bound_rev`, `kept_eq` (r e* = 4 e¹),
+  `exists_reps`. `qmHauptmodulBase3_of_O1 (hT) (hC) (hV) (hS) : QMHauptmodulBase3`. Axioms standard, 26 s.
+- So `GammaStarFromO1` (project glue) is not needed by H-87 or H-88.
+
+## Final status (2026-11-14 06:20 PST)
+- All 9 files compile (VERIFIED, last runs): ClassNumberOne 8 s, YuLeaf 5 s, QMAut 16 s, STQM 12 s, ThetaSplit 4 s,
+  ThetaRatios 5 s, Valence 5 s, Haupt 26 s, ModuliSplit 43 s; no sorry; all `#print axioms` standard.
+- Rows: H-46 proved (no leaf); H-35, H-2, H-86, H-42, H-61, H-63, H-87 from published-form leaves only; H-88 from
+  leaves + one number; H-20 from one leaf candidate; H-44, H-1, H-43, H-59 reduced (report §3 glue).

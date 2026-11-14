@@ -22,12 +22,14 @@ All 14 rows now have a compiled Lean proof from stated hypotheses (no `sorry`; e
   leaf T11(b): the automorphism counts,
   the Atkin–Lehner fixed points and the optimal-embedding statement are computations in `B` and in imaginary
   quadratic fields.
-* **Reduced to published leaves plus smaller named glue:** H-44 (1 leaf + 1 glue), H-87 (2 leaves: the
-  valence formula and Shimizu's covolume of `𝒪¹`, + 1 project glue: the index-4 passage to `Γ*`), H-88 (the
-  same 2 leaves + the same glue + one number, `j_θ = −16/27` at the CM point of discriminant −24; the
-  Hauptmodul property is now *proved* from the valence formula, and the divisibility of orders at elliptic
-  points is proved), H-1, H-20, H-43, H-59 (the existence leaf plus
-  per-clause published statements stated for every witness; **the comparison isomorphism of two fine
+* **H-87 `ValenceFormulaGammaStar` from published leaves only**: the valence formula applied to `Γ¹ = ι(𝒪¹)`
+  and Shimizu's covolume `2π/3`; the passage to `Γ*` (index 4, distinct and covering cosets, orbit counting
+  `r e* = 4 e¹`) is compiled.
+* **H-88 `QMHauptmodulBase3` from the same two leaves, the bundle leaf `r4` (= H-2's Igusa leaves) and one
+  number**, `j_θ = −16/27` at the CM point of discriminant −24: the Hauptmodul property is *proved* from the
+  valence formula, and the divisibility of orders at elliptic points is proved.
+* **Reduced to published leaves plus smaller named glue:** H-44 (1 leaf + 1 glue), H-1, H-20, H-43, H-59 (the
+  existence leaf plus per-clause published statements stated for every witness; **the comparison isomorphism of two fine
   witnesses is now compiled** (`compare_iso`), which proves the project glue `HeckeOfFine` and `R1bTransport`:
   H-20 rests on one leaf candidate only).
 * `QMCentralizerCM` (over `ℚ̄`) is itself proved from its printed form over `ℂ` (`QMCentralizerCMC`) and the
@@ -43,26 +45,44 @@ All 14 rows now have a compiled Lean proof from stated hypotheses (no `sorry`; e
 | H-86 `STQM` | consequence of Shimura–Taniyama | `ShimuraTaniyamaQbar` (Shimura–Taniyama 1961 §12.4 Prop. 26; Milne, CM notes §7: CM abelian varieties over `ℂ` are defined over `ℚ̄`; specialized to a degree-4 field in `End⁰`) | none | `STQM.lean`: `…PeriodMapH.QMSplitSTQM.stqm_of` |
 | H-2 `r4 : ThetaModularity` | consequence of Igusa's transformation formula | `IgusaPsi4`, `IgusaChi10` (Igusa, AJM 84 (1962), 86 (1964), 89 (1967)) | none | `ThetaSplit.lean`: `HDec.QMSplit.Theta.thetaModularity_of` |
 | H-44 `thetaRatiosAlgebraic` | composite (Shimura 1976, Mumford, Igusa) | `ThetaNullNonvanishing` (genus 2: at most one even theta-null vanishes; Mumford Tata II IIIa §8, Igusa 1962) | `ThetaFourthRatiosAlgebraic` (θ⁴ ratios algebraic; NS/GAGA + Thomae/Jacobi or Shimura 1976) | `ThetaRatios.lean`: `…ThetaPt.QMSplitTheta.thetaRatiosAlgebraic_of` |
-| H-87 `ValenceFormulaGammaStar` | consequence of the valence formula + signature `(0;2,4,6)` | `ValenceFormulaCocompact` (Shimura 1971 Prop. 2.16/Thm 2.20; Rankin Thm 4.1.4; any cocompact Fuchsian `Γ`, volume = Mathlib's hyperbolic area of a fundamental domain); `ShimizuCovolumeO1` (`ι(𝒪¹)` cocompact with covolume `2π/3`; Shimura 1971 Prop. 9.2, Shimizu 1965) | `GammaStarFromO1` (project: index 4 of `ℚ^×𝒪¹` in `Γ*`, finite-index supergroup, fundamental-domain comparison; gives `GammaStarCocompactArea`) | `Valence.lean`: `…QMSplitVB.valenceFormulaGammaStar_of_shimizu`; also `Haupt.lean`: `valenceFormulaGammaStar_of_eq` |
-| H-88 `QMHauptmodulBase3` | composite (Hauptmodul property + value `−16/27`) | `ValenceFormulaCocompactEq` (same sources, equality form), `ShimizuCovolumeO1` | `GammaStarFromO1` (shared with H-87), `ThetaQuotientValue24` (the number `j_θ(i√(9+6√2)) = −16/27`); `EllipticOrderDvd` stated and **proved** | `Haupt.lean`: `HDec.LeafQCheck.HM.QMSplit.qmHauptmodulBase3_of_shimizu` (uses the bundle leaf `r4`) |
+| H-87 `ValenceFormulaGammaStar` | consequence of the valence formula + signature `(0;2,4,6)` | `ValenceFormulaCocompactEq` (Shimura 1971 Prop. 2.16/Thm 2.20; Rankin Thm 4.1.4; any cocompact Fuchsian `Γ`, volume = Mathlib's hyperbolic area of a fundamental domain; only its `≤` clause is used here) applied to `Γ¹`; `ShimizuCovolumeO1` (`ι(𝒪¹)` cocompact with covolume `2π/3`; Shimura 1971 Prop. 9.2, Shimizu 1965) | none (the index argument is compiled) | `Haupt.lean`: `HDec.LeafQCheck.HM.QMSplit.valenceFormulaGammaStar_of_O1`; older routes `Valence.lean` (`…_of_shimizu`, with the glue `GammaStarFromO1`) |
+| H-88 `QMHauptmodulBase3` | composite (Hauptmodul property + value `−16/27`) | `ValenceFormulaCocompactEq`, `ShimizuCovolumeO1`; bundle leaf `r4` | `ThetaQuotientValue24` (the number `j_θ(i√(9+6√2)) = −16/27`); `EllipticOrderDvd` stated and **proved** | `Haupt.lean`: `HDec.LeafQCheck.HM.QMSplit.qmHauptmodulBase3_of_O1` |
 | H-1 `r1r2 : R1R2fpRep` | composite (Shimura 1967, Deligne 389, Baba–Granath, González–Rotger) | `CanonicalModelY3` (∃ fine witness; Shimura 1967 Main Thms I-II, Deligne 389 Thm 4.21) | `CoarseX6OfFine`, `HauptmodulOfX6` (Baba–Granath Thm 2.1), `ReciprocityOfFine` (Shimura reciprocity), `ResidueOfX6` (González–Rotger Thm 5.12), each = published statement for every witness; `HeckeOfFine` stated and **proved** | `ModuliSplit.lean`: `HDec.QMSplit.Moduli.r1r2fpRep_of'` |
 | H-59 `Y3Connected` | composite (Deligne π₀ + orbit computation) | `CanonicalModelY3` | `ConnectedOfFine` (Deligne 389 §§2-3 + transport; equivalent to the row given the leaf) | `ModuliSplit.lean`: `y3Connected_of`, `connectedOfFine_of` |
 | H-20 `r1b` | project glue (triple chosen from `r1r2`) | `ShimuraFamily` (LEAF candidate: Shimura 1967 Main Thm I composed with every `π : Y → P¹`) | none: `R1bTransport` stated and **proved** (the comparison isomorphism `compare_iso` is compiled) | `ModuliSplit.lean`: `r1b_of'` |
 | H-43 `x6ConicModel` | consequence (Kurihara 1979, Elkies 1998) | uses `r1r2` (H-1) | `ConicOfWitness` (Kurihara/Elkies + transport, or Kummer theory from the clause list) | `ModuliSplit.lean`: `x6ConicModel_of` |
 
 
+**Leaf inventory** (the published statements these 14 rows now rest on; all locators UNVERIFIED):
+
+| leaf | statement | source | rows |
+|---|---|---|---|
+| `YuThm11` | QM abelian surface over an algebraically closed field of char 0 (indefinite `B`): `End⁰ ≅ B` or `M₂(ℚ(√d))`, `d < 0`, splitting `B` | Yu, JPAA 2013, Thm 1.1 | H-35 |
+| `QMCentralizerCMC` | over `ℂ`: `End_𝒪(A)` is `ℤ` or `≅ Φ⁻¹(𝒪)` for an embedding `Φ` of an imaginary quadratic field | Shimura 1967; Jordan 1981 §3; González–Rotger 2006 §5 | H-42, H-61, H-63 (with T11(b)) |
+| `ShimuraTaniyamaQbar` | an abelian surface over `ℂ` with a degree-4 field in `End⁰` has a model over `ℚ̄` | Shimura–Taniyama 1961 §12.4; Milne, CM notes §7 | H-86 |
+| `IgusaPsi4`, `IgusaChi10` | `2⁻²Σθ⁸`, `−2⁻¹⁴∏θ²` are Siegel modular of weight 4, 10 for `Sp₄(ℤ)` | Igusa 1962, 1964, 1967 | H-2, H-88 |
+| `ThetaNullNonvanishing` | genus 2: at most one even theta-null vanishes | Mumford, Tata II; Igusa 1962 | H-44 |
+| `ValenceFormulaCocompactEq` | valence formula for cocompact Fuchsian groups (hyperbolic area of a fundamental domain) | Shimura 1971 Prop. 2.16, Thm 2.20; Rankin Thm 4.1.4 | H-87, H-88 |
+| `ShimizuCovolumeO1` | `ι(𝒪¹)` is cocompact Fuchsian with covolume `2π/3` | Shimura 1971 Prop. 9.2; Shimizu 1965 | H-87, H-88 |
+| `CanonicalModelY3` | the level-3 QM moduli problem has a fine witness (`R1fpProps`) | Shimura 1967; Deligne 389 Thm 4.21 | H-1, H-59 (H-43 via `r1r2`) |
+| `ShimuraFamily` (candidate) | Shimura's holomorphic `φ : ℍ → Y₃(ℂ)` composed with every `π : Y₃ → P¹` | Shimura 1967 Main Thm I; Deligne 389 §4.15 | H-20 |
+
+Remaining glue: `ThetaFourthRatiosAlgebraic` (H-44), `ThetaQuotientValue24` (H-88, one number), and the
+per-witness statements `CoarseX6OfFine`, `HauptmodulOfX6`, `ReciprocityOfFine`, `ResidueOfX6` (H-1),
+`ConnectedOfFine` (H-59), `ConicOfWitness` (H-43).
+
 Counts (strict rule: LEAF = published form). Before: 14 GLUE rows. After: 1 row is a theorem with no
 hypothesis (H-46); 6 rows are theorems from published-form leaves only (H-2, H-35, H-42, H-61, H-63, H-86;
 5 new leaves `IgusaPsi4`, `IgusaChi10`, `YuThm11`, `QMCentralizerCMC`, `ShimuraTaniyamaQbar`, plus the
-existing bundle leaf T11(b)); H-20 rests on one leaf candidate (`ShimuraFamily`); 6 rows are reduced to 4
-further leaves (`ThetaNullNonvanishing`, `ValenceFormulaCocompact(Eq)`, `ShimizuCovolumeO1`,
-`CanonicalModelY3`) plus named glue (§3): one composite for H-44 (`ThetaFourthRatiosAlgebraic`), one project
-glue for H-87 and H-88 (`GammaStarFromO1`), one number for H-88 (`ThetaQuotientValue24`), and the
-per-witness statements of the moduli rows H-1, H-43, H-59.
+existing bundle leaf T11(b)); H-87 is a theorem from 2 published leaves (`ValenceFormulaCocompactEq`,
+`ShimizuCovolumeO1`); H-88 from those, `r4` and one number (`ThetaQuotientValue24`); H-20 rests on one leaf
+candidate (`ShimuraFamily`); H-44 rests on `ThetaNullNonvanishing` + one composite glue
+(`ThetaFourthRatiosAlgebraic`); H-1, H-43, H-59 rest on `CanonicalModelY3` + per-witness published statements.
 
 New theorems that discharge glue (all compiled): `qmClassNumberOne_proof`, `ellipticOrderDvd_proof`,
 `compare_iso` (uniqueness of the fine witness), `heckeOfFine_proof`, `r1bTransport_proof`,
-`qmCentralizerCM_of` (the `ℂ`-leaf gives the `ℚ̄`-form via T11(b)).
+`qmCentralizerCM_of` (the `ℂ`-leaf gives the `ℚ̄`-form via T11(b)), `coset_cover`, `coset_distinct`,
+`kept_eq`, `gammaStarValence_of_O1` (the valence formula for `Γ*` from the one for `Γ¹`).
 
 ## 2. The computations (proved, no leaf)
 
@@ -86,6 +106,13 @@ New theorems that discharge glue (all compiled): `qmClassNumberOne_proof`, `elli
   `ζ = det γ/(cP + d)²` is the derivative of the Möbius map; `F₁ = (z − P)^n g` and the invariance of
   `F₁/F₂` give `ζⁿ = 1`; the multipliers form a finite (cyclic) subgroup of `ℂˣ` of order `e_P`, so
   `e_P ∣ n`. VERIFIED.
+* **From `Γ¹` to `Γ*`** (`Haupt.lean` §Index). `Γ¹ = ι(𝒪¹)` is normal in `Γ*`; the representatives
+  `ι(1), ι(a4), ι(a6), ι(a4a6)` (norms `1, 2, 3, 6`) lie in distinct cosets (a trivial Möbius action forces a
+  scalar matrix, so a norm ratio `2, 3, 6, 12, 18` would be a square) and cover `Γ*` (the chain's normalizer
+  descent with representatives `{1, i, j, ij}`, rewritten through `i a4⁻¹, j a6⁻¹, ij (a4a6)⁻¹ ∈ 𝒪`); for each
+  `z` the points `g_i z` form `r_z` classes under `Γ¹` with `r_z e*_z = 4 e¹_z` (injections between the classes
+  and `Stab*(z)/Stab¹(z)`); orders and `e¹` are constant along `Γ*`-orbits. So the valence formula for `Γ¹`
+  (total `m/3`) gives the bound, the equality and the representatives for `Γ*` (total `m/12`).
 * **The Hauptmodul property** (`Haupt.lean`, `fibre_c`, `jth_fibre`, `jth_continuous`). With
   `H_c = 3779136·G20² − c·G8⁵` (weight 40, total `5/3`): `e = 6` and `ord G8 = 2` at `i√3` (valence bound for
   `G8`, `ord ≥ 2`, `e ≤ 6`), `G8` vanishes only on that orbit, `ord G20 = a ≤ 4`, `ord H_c = 2a` there,
@@ -97,7 +124,6 @@ New theorems that discharge glue (all compiled): `qmClassNumberOne_proof`, `elli
 | glue | rows | statement | what it needs |
 |---|---|---|---|
 | `ThetaFourthRatiosAlgebraic` | H-44 | `θ_m(Ω)⁴/θ_{m₀}(Ω)⁴` algebraic for period matrices of abelian surfaces over number fields | the polarization defined by `Ω` is algebraic and defined over `ℚ̄` (Appell–Humbert, GAGA, `NS(A_ℚ̄) = NS(A_ℂ)`); Thomae (Mumford Tata II IIIa §8), Jacobi, Weil's dichotomy; or Shimura, Duke 43 (1976) |
-| `GammaStarFromO1` | H-87, H-88 | Shimizu's statement for `ι(𝒪¹)` implies `GammaStarCocompactArea` (`Γ*` cocompact Fuchsian with a fundamental domain of area `π/6`) | project: `Γ¹ ⊆ Γ*`, the index 4 of `ℚ^×Γ¹` in `Γ*` (Möbius groups; `GammaStarGen`, the chain's `tt`), proper discontinuity/cocompactness of a finite-index supergroup, comparison of fundamental domains (area divided by the index) |
 | `ThetaQuotientValue24` | H-88 | `jNum/jDen(Ω(i√(9+6√2))) = −16/27` | Baba–Granath's CM values of the Hauptmodul with Igusa's theta expressions of the Igusa invariants; numerically VERIFIED by leaf-review-a |
 | `CoarseX6OfFine`, `HauptmodulOfX6`, `ReciprocityOfFine`, `ResidueOfX6`, `ConnectedOfFine`, `ConicOfWitness` | H-1, H-59, H-43 | each clause, for every witness | the published statement on the canonical model (Baba–Granath Thm 2.1; Shimura reciprocity; González–Rotger Thm 5.12; Deligne's `π₀`; Kurihara/Elkies) **plus** the transport to an arbitrary witness: for fine witnesses the comparison isomorphism is now compiled (`compare_iso`), so what remains of the transport is the invariance of each clause under it; for coarse witnesses (`X₆`) a comparison is still needed (`CurveBijIso`-type glue) |
 
@@ -115,8 +141,8 @@ New theorems that discharge glue (all compiled): `qmClassNumberOne_proof`, `elli
    `Pi0X6.r1pi0Props_of_X6Props` (from `R5ptProps`, `R5fpCount`, `R2X6CMExact`, `AGInputs`).
 3. **Class number one needs no citation**: the order is norm-Euclidean with constant `7/8`.
 4. **The Hauptmodul property is a consequence of the valence formula** for the two theta forms already in the
-   chain (`G8`, `G20`), once the covolume `π/6` is known; only the value at the third branch point is genuinely
-   a separate input.
+   chain (`G8`, `G20`); the covolume of `Γ*` is not needed as an input (Shimizu's covolume of `𝒪¹` and a
+   compiled index argument suffice); only the value at the third branch point is genuinely a separate input.
 6. **Reuse.** `ModuliSplit.lean`'s reducedness lemma for smooth schemes is copied from model-glue (which copied
    smooth-fibre); `Haupt.lean`'s base and the rows `STQM`, `ValenceFormulaGammaStar` are leafq-check's text.
 5. **Leaf statements and their form** (each docstring gives the source; all theorem numbers UNVERIFIED):
@@ -139,7 +165,7 @@ New theorems that discharge glue (all compiled): `qmClassNumberOne_proof`, `elli
 | `ThetaSplit.lean` | H-2 | 4 s |
 | `ThetaRatios.lean` | H-44 | 5 s |
 | `Valence.lean` | H-87 (row copied verbatim from leafq-check) | 5 s |
-| `Haupt.lean` | H-88 (leafq-check `Fold.lean` lines 1-934, 1326-2563 copied verbatim, then qm-split's section); `ellipticOrderDvd_proof`; also H-87 from the equality leaf | 24 s |
+| `Haupt.lean` | H-88 and H-87 (leafq-check `Fold.lean` lines 1-934, 1326-2563 copied verbatim, then qm-split's section): `ellipticOrderDvd_proof`, the index argument, `qmHauptmodulBase3_of_O1`, `valenceFormulaGammaStar_of_O1` | 26 s |
 | `ModuliSplit.lean` | H-1, H-59, H-20, H-43; `compare_iso`, `heckeOfFine_proof`, `r1bTransport_proof` | 43 s |
 
 Each file ends with `#print axioms` lines and, for chain constants, an `example` with fully qualified names.
