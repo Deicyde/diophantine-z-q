@@ -244,7 +244,7 @@ run_cmd do
         | some ci => do
           let mut ft := ci.type
           while ft.isForall do ft := ft.bindingBody!
-          let fmt ← liftTermElabM <| Meta.ppExpr (if ft.hasLooseBVars then ci.type else ft)
+          let fmt ← Lean.Elab.Command.liftTermElabM <| Meta.ppExpr (if ft.hasLooseBVars then ci.type else ft)
           pure ((toString fmt).replace "\n" " ")
         | none => pure "?"
       lines := lines.push s!"{if isUsed then "USED  " else "UNUSED"} {fs[j]!} : {ty}"
