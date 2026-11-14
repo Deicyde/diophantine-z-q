@@ -39,7 +39,7 @@ from the remaining TYZ-side leaves and glue.** The hypotheses, with kind and sou
    `ZInQKernel/Contrib/TYZDecomp/Leaves.lean` (task tyz-decomp).
 3. `hS : Shimura.ShimuraReciprocityModFn` — **LEAF** (textbook). The main theorem of complex
    multiplication for values of rational modular functions on `X₀(N)` at Heegner points, in Gross's
-   form (Shimura 1971 Thm. 5.4 with the canonical model of `X₀(N)`; Gross 1984 §3; theorem numbers
+   form (Shimura 1971 Thm. 5.4 with the canonical model of `X₀(N)`; theorem numbers
    UNVERIFIED). Defined in `ZInQKernel/Contrib/TYZGenus/ShimuraModFn.lean` (task tyz-cm); reviewed by
    task shimura-modfn, which recommends keeping it as the CM leaf.
 4. `h2 : T318.SqrtTwoNotInHHprime` — **GLUE** (not yet proved in general). `√2 ∉ ℍ'_n` for squarefree

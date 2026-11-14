@@ -366,7 +366,7 @@ theorem shimuraReciprocityModFn_isolated (hj : MainTheoremCMj) (hR : RatX0Rep) :
 restricted to Heegner points `τ_Q` that are *not* isolated points of the plane model `(j, j_N)`
 (two of the `ψ(N)` cyclic `N`-isogenies of `ℂ/⟨1, τ_Q⟩` have the same target `j`). A restriction of
 `ShimuraReciprocityModFn`, hence a consequence of the same sources (Shimura 1971, Thm. 5.4 with
-its action on torsion and the canonical model of `X₀(N)`, §6.7; Gross 1984, §1–§3; UNVERIFIED
+its action on torsion and the canonical model of `X₀(N)`, §6.7; UNVERIFIED
 numbers). At such points `j(τ), j(Nτ)` do not determine `g(τ)`: e.g. `N = 32`,
 `Q = [32, 10, 1]`, `D = −28`: `j(τ_Q) = j(32τ_Q) = 255³`, but `x(τ_Q) = −1 + √−7`
 (`jpair_check.out`), and among TYZ's class-7 points the cases `n = 7, 15, 47`

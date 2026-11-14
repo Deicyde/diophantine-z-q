@@ -26,7 +26,7 @@ structure TYZChainLeaves : Prop where
   /-- LEAF: TYZ Lemma 2.9 with Proposition 2.3, modulo 2. -/
   lemma29Mod2 : TYZLemma29Mod2
   /-- LEAF (textbook): main theorem of complex multiplication for rational modular functions on
-  `X₀(N)` at Heegner points (Shimura 1971 Thm. 5.4 + canonical model; Gross 1984 §3; UNVERIFIED). -/
+  `X₀(N)` at Heegner points (Shimura 1971 Thm. 5.4 + canonical model; UNVERIFIED). -/
   shimuraModFn : Shimura.ShimuraReciprocityModFn
   /-- GLUE: `√2 ∉ ℍ'_n` (TYZ's Step 3 in the proof of Lemma 3.18). -/
   sqrtTwoNotIn : T318.SqrtTwoNotInHHprime
