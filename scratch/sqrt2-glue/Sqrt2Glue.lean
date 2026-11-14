@@ -1073,6 +1073,70 @@ theorem finrank_adjoin_sq_le {E : Type*} [Field E] [Algebra ℚ E] (T : Finset E
 
 end TraceSq
 
+/-! ## §11. `N(1 + 2β) ≡ 1 + 2 Tr(β) (mod 4)` and traces of sums of square roots -/
+
+section NormTrace
+
+/-- `∏ (1 + 2 f_i) = 1 + 2 Σ f_i + 4 Z` with `Z` integral over `ℤ`. -/
+theorem prod_one_add_two {E ι : Type*} [CommRing E] (s : Finset ι) (f : ι → E)
+    (hf : ∀ i ∈ s, IsIntegral ℤ (f i)) :
+    ∃ Z : E, IsIntegral ℤ Z ∧ ∏ i ∈ s, (1 + 2 * f i) = 1 + 2 * ∑ i ∈ s, f i + 4 * Z := by
+  classical
+  induction s using Finset.induction_on with
+  | empty => exact ⟨0, isIntegral_zero, by simp⟩
+  | insert a s has ih =>
+    obtain ⟨Z, hZ, hprod⟩ := ih (fun i hi => hf i (Finset.mem_insert_of_mem hi))
+    have ha := hf a (Finset.mem_insert_self a s)
+    have hS : IsIntegral ℤ (∑ i ∈ s, f i) :=
+      IsIntegral.sum _ (fun i hi => hf i (Finset.mem_insert_of_mem hi))
+    refine ⟨Z + f a * ∑ i ∈ s, f i + (f a * Z + f a * Z), ?_, ?_⟩
+    · exact (hZ.add (ha.mul hS)).add ((ha.mul hZ).add (ha.mul hZ))
+    · rw [Finset.prod_insert has, Finset.sum_insert has, hprod]
+      ring
+
+/-- **`N_{F/K}(1 + 2β) = 1 + 2 Tr_{F/K}(β) + 4γ`** with `γ ∈ K` integral over `ℤ`, for `β` integral. -/
+theorem norm_one_add_two_mul {K F : Type*} [Field K] [CharZero K] [Field F] [Algebra K F]
+    [FiniteDimensional K F] [Algebra.IsSeparable K F] (β : F) (hβ : IsIntegral ℤ β) :
+    ∃ γ : K, IsIntegral ℤ γ ∧ Algebra.norm K (1 + 2 * β) = 1 + 2 * Algebra.trace K F β + 4 * γ := by
+  let E := AlgebraicClosure K
+  have hN := Algebra.norm_eq_prod_embeddings K E (1 + 2 * β)
+  have hT := trace_eq_sum_embeddings E (K := K) (L := F) (x := β)
+  obtain ⟨Z, hZ, hprod⟩ := prod_one_add_two (Finset.univ : Finset (F →ₐ[K] E))
+    (fun σ => σ β) (fun σ _ => hβ.map σ)
+  have h4K : (4 : K) ≠ 0 := by norm_num
+  set γ : K := (Algebra.norm K (1 + 2 * β) - 1 - 2 * Algebra.trace K F β) / 4 with hγ
+  refine ⟨γ, ?_, by rw [hγ, mul_div_cancel₀ _ h4K]; ring⟩
+  have hγE : algebraMap K E γ * 4 = Z * 4 := by
+    have e1 : ∏ σ : F →ₐ[K] E, σ (1 + 2 * β) = ∏ σ : F →ₐ[K] E, (1 + 2 * σ β) := by
+      apply Finset.prod_congr rfl; intro σ _; rw [map_add, map_mul, map_one, map_ofNat]
+    have e2 : γ * 4 = Algebra.norm K (1 + 2 * β) - 1 - 2 * Algebra.trace K F β := by
+      rw [hγ, div_mul_cancel₀ _ h4K]
+    have e3 := congrArg (algebraMap K E) e2
+    rw [map_mul, map_ofNat, map_sub, map_sub, map_mul, map_one, map_ofNat, hN, hT, e1, hprod] at e3
+    rw [e3]; ring
+  have h4E : (4 : E) ≠ 0 := by
+    rw [show (4 : E) = algebraMap K E 4 by rw [map_ofNat]]
+    exact (map_ne_zero _).mpr h4K
+  have hγZ : algebraMap K E γ = Z := mul_right_cancel₀ h4E hγE
+  have : IsIntegral ℤ (algebraMap K E γ) := hγZ ▸ hZ
+  exact isIntegral_algebraMap_iff.mp this
+
+/-- **Trace of a sum of square roots**: if `x_{i₀} ∈ K` and every other `x_i` has `x_i² ∈ K`,
+`x_i ∉ K`, then `Tr(c Σ x_i) = c [F:K] x_{i₀}`. -/
+theorem trace_sum_sq {K F ι : Type*} [Field K] [Field F] [Algebra K F] [FiniteDimensional K F]
+    (I : Finset ι) (x : ι → F) (i₀ : ι) (hi₀ : i₀ ∈ I) (k₀ : K) (hx₀ : x i₀ = algebraMap K F k₀)
+    (hx : ∀ i ∈ I, i ≠ i₀ → (∃ c : K, x i ^ 2 = algebraMap K F c) ∧ x i ∉ (algebraMap K F).range)
+    (c : K) :
+    Algebra.trace K F (algebraMap K F c * ∑ i ∈ I, x i) = c * (Module.finrank K F • k₀) := by
+  rw [← Algebra.smul_def, map_smul, map_sum, Finset.sum_eq_single i₀]
+  · rw [hx₀, Algebra.trace_algebraMap, smul_eq_mul]
+  · intro i hi hne
+    obtain ⟨⟨c', hc'⟩, hnot⟩ := hx i hi hne
+    exact trace_eq_zero_of_sq hc' hnot
+  · intro h; exact absurd hi₀ h
+
+end NormTrace
+
 end ZInQ.Contrib.TYZGenus.Sqrt2Glue
 
 #print axioms ZInQ.Contrib.TYZGenus.Sqrt2Glue.sigmaLift_of
