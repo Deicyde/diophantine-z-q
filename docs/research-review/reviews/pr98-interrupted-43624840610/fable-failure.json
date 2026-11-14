@@ -1,0 +1,15 @@
+{
+  "reviewer": "fable",
+  "model": "claude-fable-5-2",
+  "head": "0d49f7229a0d3779c4e55589963e25fc865bd8f9",
+  "run": "43624840610",
+  "attempt": "1",
+  "complete": false,
+  "policy_ref": "063a06fe299fdffe8cc370893fd241d79307db26",
+  "review": {
+    "decision": "changes_requested",
+    "report": "Infrastructure failure, not a model verdict: fable context budget exceeded before the next model request: estimated 529,342 including reserves; limit 400,000. Narrow or split the review scope; no history was truncated.",
+    "findings": [],
+    "prior_findings": []
+  }
+}
