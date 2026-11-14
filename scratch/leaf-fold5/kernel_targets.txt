@@ -49,3 +49,4 @@ ZInQKernel.Hypotheses.JHeight
 ZInQKernel.Multiplication.Certificate.ConstantsProperties
 ZInQKernel.Progressions.Final.Instance
 ZInQKernel.Size.Constants.T
+ZInQKernel.Contrib.AVB2.SerreLemma
