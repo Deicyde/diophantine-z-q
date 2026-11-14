@@ -51,3 +51,12 @@ Targets (group B of docs/research/leaf-fold3.md §3, minus t5, t26, t27, t35, ho
   characteristic); characteristic 0 is the proved `MulIsogeny` (VERIFIED).
 - Net: 68 → 66 Props (`sixContactMin_of_openB2`); leaves 62 → 60 (t9, serreRigidity3 removed; divisiblePoints
   replaced by MulIsogenyPosChar).
+- T11(b): `baseChange_map_injective` (uniqueness, any char, any L, k alg. closed) and
+  `t11b_of_exists : T11bExists → T11b_Rigidity` compile (2 fix rounds: `Category.assoc` rewrites failed on
+  Scheme compositions, replaced by term proofs). Fold: field `t11b` → `t11bExists`.
+- Flat single-file check `AVB2Flat.lean` (111 230 lines, md5 71e9e3ab…): `lake env lean` exit 0 in 1037 s,
+  0 errors, no sorry; 293 `#print axioms`, all `[propext, Classical.choice, Quot.sound]` (script count).
+  A first flat run (before the T11b part) was killed by PID to rerun with the final text.
+- `verbatim_check.sh`: flat prefix = Leaves3.lean byte for byte (110 826 lines); tail = AVB2Main body.
+- Leaves confirmed, not reduced: t09SymmIsogenyExists, isogenyQuasiInverse, t10 (pro-étale H¹, no Mathlib
+  theory), t4 (Serre–Tate reduction of prime-to-p torsion).

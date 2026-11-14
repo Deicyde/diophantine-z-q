@@ -220,4 +220,62 @@ lifting for schemes).
 
 ## 3. Checks
 
-__CHECKS__
+All checks below are VERIFIED.
+
+**Olean chain.** leaf-fold3's chain is recompiled in `scratch/av-b2/olean` by `scratch/av-b2/chain.sh`, one Lean
+process at a time, with oleans gitignored:
+- LPrefix 595 s, TailA–TailI each ≤ 192 s;
+- all exit 0, 0 errors, no `sorry`.
+
+A prerequisite: `lake build ZInQKernel.Hypotheses.JHeight` builds the upstream `lean/` package `ZInQ.*` that
+LPrefix needs.
+
+**Part file.** `scratch/av-b2/ctail.sh AVB2Main.lean` exits 0 in 7 s, with 0 errors and no `sorry`.
+
+**Contrib file.** `lake build ZInQKernel.Contrib.AVB2.SerreLemma` succeeds.
+
+**Single-file check.** `scratch/av-b2/assemble.sh` builds `AVB2Flat.lean` (111 230 lines, md5 71e9e3ab…):
+- Content: leaf-fold3's `Leaves3.lean` verbatim, plus `import ZInQKernel.Contrib.AVB2.SerreLemma`, plus the body of
+  `AVB2Main.lean`.
+- `lake env lean scratch/av-b2/AVB2Flat.lean` **exits 0 in 1037 s, with 0 errors and no `sorry`.**
+- All 293 `#print axioms` reports read `[propext, Classical.choice, Quot.sound]` (counted by script, wrapped lines
+  joined).
+- The five reports for this task:
+```
+'HDec.AVB2.t9_of_leaves3' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.AVB2.divisiblePoints_of_posChar' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.AVB2.serreRigidity3_of_T35' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.AVB2.t11b_of_exists' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.HSyn.sixContactMin_of_openB2' depends on axioms: [propext, Classical.choice, Quot.sound]
+```
+
+**Verbatim.** `scratch/av-b2/verbatim_check.sh` confirms:
+- the flat file's first 110 826 lines (minus the one added import) are `Leaves3.lean` byte for byte;
+- its tail is `AVB2Main.lean`'s body.
+
+The proved Props are therefore leaf-fold3's own definitions, not copies.
+
+The bundle maps check the field types mechanically: `textbookLeaves3_of_B2` and `addedLeaves3_of_B2` build
+leaf-fold3's `OpenTextbookLeaves3` and `OpenAddedLeaves3` with these theorems in the fields `t9`, `t11b`,
+`divisiblePoints` and `serreRigidity3`, and Lean accepts them.
+
+## 4. Proposals (not applied)
+
+**Rewire `divisiblePoints` away.** t5-torsion's rewiring of `tatePairingZl_of_leaves` (`tate_surj_numberField` from
+T35) removes `divisiblePoints` without adding `MulIsogenyPosChar`. Count: 65.
+
+**Fold into the kernel.** In the kernel's integration, the four theorems carry over unchanged to the kernel's copies
+of these Props, as text, since the statements are identical:
+- `t9_of_leaves3` is weil-pairing's lemma;
+- `serreRigidity3_of_T35` uses only `PkgI3`, `LeafPush2`, `HomUnify` and AbVarBC objects.
+
+**Statements.** No statement change is proposed: none of the eight fields was found wrong or too strong.
+
+## 5. Not done
+
+- `t09SymmIsogenyExists`, `isogenyQuasiInverse`, `t10`, `t4`: left as leaves, confirmed (§2.4–2.7).
+- New leaves:
+  - `MulIsogenyPosChar` and `T11bExists` stay open.
+  - `T11bExists` could be reduced further by spreading out over a finitely generated `k`-algebra and specializing
+    at `k`-points; not attempted.
+
