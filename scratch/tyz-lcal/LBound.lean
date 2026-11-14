@@ -494,4 +494,116 @@ theorem abs_sinKernel_le (a : ℝ) {x : ℝ} (hx : 1 ≤ x) :
           ≤ ((m : ℝ) + 1) * (E * r * r ^ m) := by gcongr
         _ = E * r * (((m : ℝ) + 1) * r ^ m) := by ring
 
+/-! ## §6. The bound for `Λ_{a,b}(1)` on the eight classes with `unitOf ≠ 0` -/
+
+theorem neg_half_circle : -((1 / 2 : ℝ) : UnitAddCircle) = ((1 / 2 : ℝ) : UnitAddCircle) := by
+  rw [← AddCircle.coe_neg]
+  exact (QuotientAddGroup.eq).mpr (AddSubgroup.mem_zmultiples_iff.mpr ⟨1, by norm_num⟩)
+
+theorem neg_zero_circle : -((0 : ℝ) : UnitAddCircle) = ((0 : ℝ) : UnitAddCircle) := by simp
+
+theorem three_quarter_circle : ((3 / 4 : ℝ) : UnitAddCircle) = -((1 / 4 : ℝ) : UnitAddCircle) := by
+  rw [← AddCircle.coe_neg]
+  exact (QuotientAddGroup.eq).mpr (AddSubgroup.mem_zmultiples_iff.mpr ⟨-1, by norm_num⟩)
+
+theorem oddKernel_eq_zero_of_neg {b : UnitAddCircle} (h : -b = b) (x : ℝ) : oddKernel b x = 0 := by
+  have := oddKernel_neg b x; rw [h] at this; linarith
+
+theorem sinKernel_eq_zero_of_neg {b : UnitAddCircle} (h : -b = b) (x : ℝ) : sinKernel b x = 0 := by
+  have := sinKernel_neg b x; rw [h] at this; linarith
+
+/-- The two odd shifts `1/4`, `3/4`. -/
+theorem abs_oddKernel_le {a : ℝ} (ha : a = 1 / 4 ∨ a = 3 / 4) {x : ℝ} (hx : 1 ≤ x) :
+    |oddKernel (a : UnitAddCircle) x| ≤ 0.37 * Real.exp (-(π / 16) * (x - 1)) := by
+  rcases ha with rfl | rfl
+  · exact abs_oddKernel_quarter_le hx
+  · rw [three_quarter_circle, oddKernel_neg, abs_neg]; exact abs_oddKernel_quarter_le hx
+
+/-- The two even shifts `0`, `1/2`. -/
+theorem abs_evenKernel_le {b : ℝ} (hb : b = 0 ∨ b = 1 / 2) {x : ℝ} (hx : 1 ≤ x) :
+    |evenKernel (b : UnitAddCircle) x| ≤ 1.11 := by
+  rcases hb with rfl | rfl
+  · exact abs_evenKernel_zero_le hx
+  · exact abs_evenKernel_half_le hx
+
+theorem neg_eq_of_even {b : ℝ} (hb : b = 0 ∨ b = 1 / 2) :
+    -(b : UnitAddCircle) = (b : UnitAddCircle) := by
+  rcases hb with rfl | rfl
+  · exact neg_zero_circle
+  · exact neg_half_circle
+
+/-- **`‖Λ_{a,b}(1)‖ ≤ 6.7/π`, odd `a`, even `b`.** -/
+theorem norm_gaussLambda_le_A {a b : ℝ} (ha : a = 1 / 4 ∨ a = 3 / 4) (hb : b = 0 ∨ b = 1 / 2) :
+    ‖gaussLambda (a : UnitAddCircle) (b : UnitAddCircle) 1‖ ≤ 6.7 / π := by
+  have hpi := Real.pi_pos
+  have hpi' := pi_gt'
+  have hneg := neg_eq_of_even hb
+  have h1 : ‖∫ x in Ioi (1 : ℝ), gaussTheta (a : UnitAddCircle) (b : UnitAddCircle) x‖ ≤
+      (0.37 * 1.11) / (π / 16) := by
+    refine norm_integral_Ioi_one_le (by positivity) fun x hx => ?_
+    rw [gaussTheta, oddKernel_eq_zero_of_neg hneg, ofReal_zero, mul_zero, mul_zero, add_zero,
+      norm_mul, Complex.norm_real, Complex.norm_real, Real.norm_eq_abs, Real.norm_eq_abs]
+    have e1 := abs_oddKernel_le ha hx.le
+    have e2 := abs_evenKernel_le hb hx.le
+    have e0 : 0 ≤ Real.exp (-(π / 16) * (x - 1)) := (Real.exp_pos _).le
+    calc |oddKernel (a : UnitAddCircle) x| * |evenKernel (b : UnitAddCircle) x|
+        ≤ (0.37 * Real.exp (-(π / 16) * (x - 1))) * 1.11 :=
+          mul_le_mul e1 e2 (abs_nonneg _) (by positivity)
+      _ = 0.37 * 1.11 * Real.exp (-(π / 16) * (x - 1)) := by ring
+  have h2 : ‖∫ x in Ioi (1 : ℝ), gaussThetaDual (a : UnitAddCircle) (b : UnitAddCircle) x‖ ≤
+      (0.112 * 1.11) / π := by
+    refine norm_integral_Ioi_one_le hpi fun x hx => ?_
+    rw [gaussThetaDual, sinKernel_eq_zero_of_neg hneg, ofReal_zero, mul_zero, mul_zero, add_zero,
+      norm_mul, Complex.norm_real, Complex.norm_real, Real.norm_eq_abs, Real.norm_eq_abs]
+    have e1 := abs_sinKernel_le a hx.le
+    have e2 := abs_cosKernel_le b hx.le
+    have e0 : 0 ≤ Real.exp (-π * (x - 1)) := (Real.exp_pos _).le
+    calc |sinKernel (a : UnitAddCircle) x| * |cosKernel (b : UnitAddCircle) x|
+        ≤ (0.112 * Real.exp (-π * (x - 1))) * 1.11 :=
+          mul_le_mul e1 e2 (abs_nonneg _) (by positivity)
+      _ = 0.112 * 1.11 * Real.exp (-π * (x - 1)) := by ring
+  rw [gaussLambda_one_eq]
+  calc _ ≤ _ := norm_add_le _ _
+    _ ≤ 0.37 * 1.11 / (π / 16) + 0.112 * 1.11 / π := add_le_add h1 h2
+    _ = (0.37 * 1.11 * 16 + 0.112 * 1.11) / π := by field_simp
+    _ ≤ 6.7 / π := by rw [div_le_div_iff_of_pos_right hpi]; norm_num
+
+/-- **`‖Λ_{a,b}(1)‖ ≤ 6.7/π`, even `a`, odd `b`.** -/
+theorem norm_gaussLambda_le_B {a b : ℝ} (ha : a = 0 ∨ a = 1 / 2) (hb : b = 1 / 4 ∨ b = 3 / 4) :
+    ‖gaussLambda (a : UnitAddCircle) (b : UnitAddCircle) 1‖ ≤ 6.7 / π := by
+  have hpi := Real.pi_pos
+  have hpi' := pi_gt'
+  have hneg := neg_eq_of_even ha
+  have h1 : ‖∫ x in Ioi (1 : ℝ), gaussTheta (a : UnitAddCircle) (b : UnitAddCircle) x‖ ≤
+      (0.37 * 1.11) / (π / 16) := by
+    refine norm_integral_Ioi_one_le (by positivity) fun x hx => ?_
+    rw [gaussTheta, oddKernel_eq_zero_of_neg hneg, ofReal_zero, zero_mul, zero_add,
+      norm_mul, Complex.norm_I, one_mul, norm_mul, Complex.norm_real, Complex.norm_real,
+      Real.norm_eq_abs, Real.norm_eq_abs]
+    have e1 := abs_oddKernel_le hb hx.le
+    have e2 := abs_evenKernel_le ha hx.le
+    have e0 : 0 ≤ Real.exp (-(π / 16) * (x - 1)) := (Real.exp_pos _).le
+    calc |evenKernel (a : UnitAddCircle) x| * |oddKernel (b : UnitAddCircle) x|
+        ≤ 1.11 * (0.37 * Real.exp (-(π / 16) * (x - 1))) :=
+          mul_le_mul e2 e1 (abs_nonneg _) (by norm_num)
+      _ = 0.37 * 1.11 * Real.exp (-(π / 16) * (x - 1)) := by ring
+  have h2 : ‖∫ x in Ioi (1 : ℝ), gaussThetaDual (a : UnitAddCircle) (b : UnitAddCircle) x‖ ≤
+      (0.112 * 1.11) / π := by
+    refine norm_integral_Ioi_one_le hpi fun x hx => ?_
+    rw [gaussThetaDual, sinKernel_eq_zero_of_neg hneg, ofReal_zero, zero_mul, zero_add,
+      norm_mul, Complex.norm_I, one_mul, norm_mul, Complex.norm_real, Complex.norm_real,
+      Real.norm_eq_abs, Real.norm_eq_abs]
+    have e1 := abs_sinKernel_le b hx.le
+    have e2 := abs_cosKernel_le a hx.le
+    have e0 : 0 ≤ Real.exp (-π * (x - 1)) := (Real.exp_pos _).le
+    calc |cosKernel (a : UnitAddCircle) x| * |sinKernel (b : UnitAddCircle) x|
+        ≤ 1.11 * (0.112 * Real.exp (-π * (x - 1))) :=
+          mul_le_mul e2 e1 (abs_nonneg _) (by norm_num)
+      _ = 0.112 * 1.11 * Real.exp (-π * (x - 1)) := by ring
+  rw [gaussLambda_one_eq]
+  calc _ ≤ _ := norm_add_le _ _
+    _ ≤ 0.37 * 1.11 / (π / 16) + 0.112 * 1.11 / π := add_le_add h1 h2
+    _ = (0.37 * 1.11 * 16 + 0.112 * 1.11) / π := by field_simp
+    _ ≤ 6.7 / π := by rw [div_le_div_iff_of_pos_right hpi]; norm_num
+
 end ZInQ.Contrib.TYZLcal
