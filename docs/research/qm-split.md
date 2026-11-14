@@ -29,8 +29,7 @@ All 14 rows now have a compiled Lean proof from stated hypotheses (no `sorry`; e
   number**, `j_θ = −16/27` at the CM point of discriminant −24: the Hauptmodul property is *proved* from the
   valence formula, and the divisibility of orders at elliptic points is proved.
 * **Reduced to published leaves plus smaller named glue:** H-44 (1 leaf + 1 glue), H-1, H-20, H-43, H-59 (the
-  existence leaf plus
-  per-clause published statements stated for every witness; **the comparison isomorphism of two fine
+  existence leaf plus per-clause published statements stated for every witness; **the comparison isomorphism of two fine
   witnesses is now compiled** (`compare_iso`), which proves the project glue `HeckeOfFine` and `R1bTransport`:
   H-20 rests on one leaf candidate only).
 * `QMCentralizerCM` (over `ℚ̄`) is itself proved from its printed form over `ℂ` (`QMCentralizerCMC`) and the
@@ -53,6 +52,24 @@ All 14 rows now have a compiled Lean proof from stated hypotheses (no `sorry`; e
 | H-20 `r1b` | project glue (triple chosen from `r1r2`) | `ShimuraFamily` (LEAF candidate: Shimura 1967 Main Thm I composed with every `π : Y → P¹`) | none: `R1bTransport` stated and **proved** (the comparison isomorphism `compare_iso` is compiled) | `ModuliSplit.lean`: `r1b_of'` |
 | H-43 `x6ConicModel` | consequence (Kurihara 1979, Elkies 1998) | uses `r1r2` (H-1) | `ConicOfWitness` (Kurihara/Elkies + transport, or Kummer theory from the clause list) | `ModuliSplit.lean`: `x6ConicModel_of` |
 
+
+**Leaf inventory** (the published statements these 14 rows now rest on; all locators UNVERIFIED):
+
+| leaf | statement | source | rows |
+|---|---|---|---|
+| `YuThm11` | QM abelian surface over an algebraically closed field of char 0 (indefinite `B`): `End⁰ ≅ B` or `M₂(ℚ(√d))`, `d < 0`, splitting `B` | Yu, JPAA 2013, Thm 1.1 | H-35 |
+| `QMCentralizerCMC` | over `ℂ`: `End_𝒪(A)` is `ℤ` or `≅ Φ⁻¹(𝒪)` for an embedding `Φ` of an imaginary quadratic field | Shimura 1967; Jordan 1981 §3; González–Rotger 2006 §5 | H-42, H-61, H-63 (with T11(b)) |
+| `ShimuraTaniyamaQbar` | an abelian surface over `ℂ` with a degree-4 field in `End⁰` has a model over `ℚ̄` | Shimura–Taniyama 1961 §12.4; Milne, CM notes §7 | H-86 |
+| `IgusaPsi4`, `IgusaChi10` | `2⁻²Σθ⁸`, `−2⁻¹⁴∏θ²` are Siegel modular of weight 4, 10 for `Sp₄(ℤ)` | Igusa 1962, 1964, 1967 | H-2, H-88 |
+| `ThetaNullNonvanishing` | genus 2: at most one even theta-null vanishes | Mumford, Tata II; Igusa 1962 | H-44 |
+| `ValenceFormulaCocompactEq` | valence formula for cocompact Fuchsian groups (hyperbolic area of a fundamental domain) | Shimura 1971 Prop. 2.16, Thm 2.20; Rankin Thm 4.1.4 | H-87, H-88 |
+| `ShimizuCovolumeO1` | `ι(𝒪¹)` is cocompact Fuchsian with covolume `2π/3` | Shimura 1971 Prop. 9.2; Shimizu 1965 | H-87, H-88 |
+| `CanonicalModelY3` | the level-3 QM moduli problem has a fine witness (`R1fpProps`) | Shimura 1967; Deligne 389 Thm 4.21 | H-1, H-59 (H-43 via `r1r2`) |
+| `ShimuraFamily` (candidate) | Shimura's holomorphic `φ : ℍ → Y₃(ℂ)` composed with every `π : Y₃ → P¹` | Shimura 1967 Main Thm I; Deligne 389 §4.15 | H-20 |
+
+Remaining glue: `ThetaFourthRatiosAlgebraic` (H-44), `ThetaQuotientValue24` (H-88, one number), and the
+per-witness statements `CoarseX6OfFine`, `HauptmodulOfX6`, `ReciprocityOfFine`, `ResidueOfX6` (H-1),
+`ConnectedOfFine` (H-59), `ConicOfWitness` (H-43).
 
 Counts (strict rule: LEAF = published form). Before: 14 GLUE rows. After: 1 row is a theorem with no
 hypothesis (H-46); 6 rows are theorems from published-form leaves only (H-2, H-35, H-42, H-61, H-63, H-86;
