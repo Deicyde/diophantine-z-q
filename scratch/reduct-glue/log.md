@@ -14,3 +14,7 @@ Kernel deps built in the worktree with `lake build` (all up to date). One Lean p
   `fixedTorsionRational_of_mulEtale : AvSplit.T4.MulEtaleAbelianScheme → FixedTorsionRational` (A[m] := pullback of
   [m] along the unit section, étale by base change); hence glue **`FixedTorsionRationalImperfect` PROVED** from the
   bundle leaf `MulEtaleAbelianScheme` (BLR 7.3/2), and `raynaudCriterion_leaves` (r6 from leaves only). OK. VERIFIED.
+- 13:40 Body §2 (DVRs of a number field): `int_mem` (𝓞_L ⊆ O), `toOL`, `center O = 𝓞_L ∩ 𝔪_O`, `center_isMaximal`,
+  `mem_iff_exists` (**O = (𝓞_L)_{𝔭_O}**: x ∈ O ↔ x·s = a with s ∉ 𝔭_O; via `ValuationRing.cond` in the DVR
+  `Localization.AtPrime 𝔭`), `eq_of_center_eq`, `locToO`, `resIso : κ(𝔭_O) ≃+* κ(O)`, `barIso : κ̄(𝔭_O) ≃+* κ̄(O)`
+  with `barIso_comp` (compatible with 𝓞_L), `dvrAt 𝔭` (𝔭-adic valuation ring, DVR) with `center_dvrAt`. OK. VERIFIED.

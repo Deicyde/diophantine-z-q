@@ -2,6 +2,8 @@ import ReductSplitBase
 
 open CategoryTheory AlgebraicGeometry Limits MonoidalCategory CartesianMonoidalCategory MonObj
 
+open NumberField
+
 namespace ReductGlue
 open ReductSplit
 
@@ -200,5 +202,254 @@ theorem raynaudCriterion_leaves (hR : RaynaudSemistable) (hU : SemistableUnipote
     (hN : NeronSchemeModelExistsDVR) (hM : AvSplit.MumfordTorsionAlgClosed)
     (hE : AvSplit.T4.MulEtaleAbelianScheme) : PkgI2.RaynaudCriterion.{0} :=
   raynaudCriterion_final hR hU hN hM (fixedTorsionRational_of_mulEtale hE)
+
+
+section DVRNumberField
+
+variable {L : Type} [Field L] [NumberField L]
+
+/-- Every valuation ring of a number field contains `𝓞_L` (it is integrally closed). -/
+theorem int_mem (O : ValuationSubring L) (x : 𝓞 L) : (x : L) ∈ O := by
+  have h1 : IsIntegral ℤ (x : L) := x.2
+  have h2 : IsIntegral O (x : L) := h1.tower_top
+  obtain ⟨y, hy⟩ := IsIntegrallyClosed.isIntegral_iff.mp h2
+  rw [← hy]; exact y.2
+
+/-- `𝓞_L → O`. -/
+def toOL (O : ValuationSubring L) : 𝓞 L →+* O :=
+  (algebraMap (𝓞 L) L).codRestrict O.toSubring (fun x => int_mem O x)
+
+@[simp] theorem toOL_coe (O : ValuationSubring L) (x : 𝓞 L) : ((toOL O x : O) : L) = (x : L) := rfl
+
+/-- The center `𝔭_O = 𝓞_L ∩ 𝔪_O`. -/
+def center (O : ValuationSubring L) : Ideal (𝓞 L) := (IsLocalRing.maximalIdeal O).comap (toOL O)
+
+theorem isUnit_toOL (O : ValuationSubring L) {s : 𝓞 L} (hs : s ∉ center O) : IsUnit (toOL O s) := by
+  by_contra h
+  exact hs ((IsLocalRing.mem_maximalIdeal _).mpr h)
+
+theorem center_isMaximal (O : ValuationSubring L) [IsDiscreteValuationRing O] :
+    (center O).IsMaximal := by
+  have hp : (center O).IsPrime := Ideal.comap_isPrime _ _
+  refine hp.isMaximal ?_
+  intro hbot
+  apply IsDiscreteValuationRing.not_isField O
+  refine ⟨⟨0, 1, zero_ne_one⟩, mul_comm, fun {a} ha => ?_⟩
+  -- every element of `L` lies in `O`
+  have hall : ∀ z : L, z ∈ O := by
+    intro z
+    obtain ⟨x, y, hy, rfl⟩ := IsFractionRing.div_surjective (A := 𝓞 L) z
+    have hy0 : y ∉ center O := by
+      rw [hbot, Ideal.mem_bot]; exact nonZeroDivisors.ne_zero hy
+    obtain ⟨u, hu⟩ := isUnit_toOL O hy0
+    have h1 : ((u : O) : L) = algebraMap (𝓞 L) L y := by rw [hu]; rfl
+    have h2 : (((u⁻¹ : Oˣ) : O) : L) * ((u : O) : L) = 1 := by
+      exact congrArg (fun z : O => (z : L)) (Units.inv_mul u)
+    rw [h1] at h2
+    rw [div_eq_mul_inv, ← eq_inv_of_mul_eq_one_left h2]
+    exact mul_mem (int_mem O x) (u⁻¹ : Oˣ).1.2
+  have ha0 : (a : L) ≠ 0 := fun h => ha (Subtype.ext h)
+  refine ⟨⟨(a : L)⁻¹, hall _⟩, Subtype.ext ?_⟩
+  change (a : L) * (a : L)⁻¹ = 1
+  exact mul_inv_cancel₀ ha0
+
+theorem mem_of_mul_eq (O : ValuationSubring L) {x : L} {a s : 𝓞 L} (hs : s ∉ center O)
+    (h : x * (s : L) = a) : x ∈ O := by
+  obtain ⟨u, hu⟩ := isUnit_toOL O hs
+  have h1 : ((u : O) : L) = (s : L) := by rw [hu]; rfl
+  have h2 : (((u⁻¹ : Oˣ) : O) : L) * ((u : O) : L) = 1 :=
+    congrArg (fun z : O => (z : L)) (Units.inv_mul u)
+  have : x = (a : L) * (((u⁻¹ : Oˣ) : O) : L) := by
+    rw [← h, h1.symm, _root_.mul_assoc, mul_comm ((u : O) : L), h2, _root_.mul_one]
+  rw [this]
+  exact mul_mem (int_mem O a) (u⁻¹ : Oˣ).1.2
+
+theorem center_ne_bot (O : ValuationSubring L) [IsDiscreteValuationRing O] : center O ≠ ⊥ :=
+  Ring.ne_bot_of_isMaximal_of_not_isField (center_isMaximal O) (RingOfIntegers.not_isField L)
+
+/-- **A discrete valuation ring of a number field is the localization of `𝓞_L` at its center**:
+`x ∈ O` iff `x = a/s` with `a, s ∈ 𝓞_L`, `s ∉ 𝔭_O`. Proof: `(𝓞_L)_𝔭 ⊆ O` is a valuation ring;
+for `x = a/b ∈ O`, either `x` or `x⁻¹` is `r/s`, and `x⁻¹ = r/s` with `r ∈ 𝔭` would put
+`1 = x·x⁻¹` in `𝔪_O`. -/
+theorem mem_iff_exists (O : ValuationSubring L) [IsDiscreteValuationRing O] (x : L) :
+    x ∈ O ↔ ∃ a s : 𝓞 L, s ∉ center O ∧ x * (s : L) = a := by
+  constructor
+  swap
+  · rintro ⟨a, s, hs, h⟩; exact mem_of_mul_eq O hs h
+  intro hx
+  haveI := center_isMaximal O
+  let 𝔭 := center O
+  let B := Localization.AtPrime 𝔭
+  haveI : IsDiscreteValuationRing B :=
+    IsLocalization.AtPrime.isDiscreteValuationRing_of_dedekind_domain (𝓞 L) (center_ne_bot O) B
+  obtain ⟨a, b, hb, rfl⟩ := IsFractionRing.div_surjective (A := 𝓞 L) x
+  have hb0 : (algebraMap (𝓞 L) L b) ≠ 0 :=
+    (map_ne_zero_iff _ (IsFractionRing.injective (𝓞 L) L)).mpr (nonZeroDivisors.ne_zero hb)
+  obtain ⟨c, hc⟩ := ValuationRing.cond (algebraMap (𝓞 L) B a) (algebraMap (𝓞 L) B b)
+  obtain ⟨⟨r, s⟩, rfl⟩ := IsLocalization.mk'_surjective 𝔭.primeCompl c
+  have hinj := IsLocalization.injective B 𝔭.primeCompl_le_nonZeroDivisors
+  have hspec := IsLocalization.mk'_spec B r s
+  have hs : (s : 𝓞 L) ∉ center O := s.2
+  rcases hc with h | h
+  · have h' : a * r = b * s := by
+      apply hinj
+      rw [map_mul, map_mul, ← h, ← hspec]
+      ring
+    have hL : (algebraMap (𝓞 L) L a) * (algebraMap (𝓞 L) L r) =
+        (algebraMap (𝓞 L) L b) * (algebraMap (𝓞 L) L s) := by
+      rw [← map_mul, ← map_mul, h']
+    by_cases hr : r ∈ 𝔭
+    · exfalso
+      apply hs
+      have hX : (⟨_, hx⟩ : O) * toOL O r = toOL O s := by
+        apply Subtype.ext
+        change (algebraMap (𝓞 L) L a / algebraMap (𝓞 L) L b) * (algebraMap (𝓞 L) L r) =
+          algebraMap (𝓞 L) L s
+        rw [div_mul_eq_mul_div, hL, mul_div_cancel_left₀ _ hb0]
+      change toOL O s ∈ IsLocalRing.maximalIdeal O
+      rw [← hX]
+      exact Ideal.mul_mem_left _ _ hr
+    · refine ⟨s, r, hr, ?_⟩
+      change (algebraMap (𝓞 L) L a / algebraMap (𝓞 L) L b) * (algebraMap (𝓞 L) L r) =
+        algebraMap (𝓞 L) L s
+      rw [div_mul_eq_mul_div, hL, mul_div_cancel_left₀ _ hb0]
+  · have h' : b * r = a * s := by
+      apply hinj
+      rw [map_mul, map_mul, ← h, ← hspec]
+      ring
+    refine ⟨r, s, hs, ?_⟩
+    change (algebraMap (𝓞 L) L a / algebraMap (𝓞 L) L b) * (algebraMap (𝓞 L) L s) =
+      algebraMap (𝓞 L) L r
+    rw [div_mul_eq_mul_div, ← map_mul, ← h', map_mul, mul_div_cancel_left₀ _ hb0]
+
+/-- Two discrete valuation rings of `L` with the same center are equal. -/
+theorem eq_of_center_eq {O₁ O₂ : ValuationSubring L} [IsDiscreteValuationRing O₁]
+    [IsDiscreteValuationRing O₂] (h : center O₁ = center O₂) : O₁ = O₂ := by
+  ext x
+  rw [mem_iff_exists, mem_iff_exists, h]
+
+instance (O : ValuationSubring L) : (center O).IsPrime := Ideal.comap_isPrime _ _
+
+/-- `(𝓞_L)_𝔭 → O` for `𝔭` the center of `O`. -/
+noncomputable def locToO (O : ValuationSubring L) : Localization.AtPrime (center O) →+* O :=
+  IsLocalization.lift (M := (center O).primeCompl) (g := toOL O) (fun s => isUnit_toOL O s.2)
+
+instance (O : ValuationSubring L) : IsLocalHom (locToO O) := by
+  constructor
+  intro y hy
+  obtain ⟨⟨r, s⟩, rfl⟩ := IsLocalization.mk'_surjective (center O).primeCompl y
+  rw [IsLocalization.AtPrime.isUnit_mk'_iff]
+  intro hr
+  have h1 : locToO O (IsLocalization.mk' _ r s) * toOL O s = toOL O r := by
+    rw [mul_comm]
+    exact ((IsLocalization.lift_mk'_spec _ _ _ _).mp rfl).symm
+  have h2 : toOL O r ∈ IsLocalRing.maximalIdeal O := hr
+  rw [← h1] at h2
+  exact (IsLocalRing.mem_maximalIdeal _).mp
+    ((Ideal.IsPrime.mem_or_mem inferInstance h2).resolve_right s.2) hy
+
+/-- **The residue fields of `𝓞_L` at `𝔭_O` and of `O` agree.** -/
+noncomputable def resIso (O : ValuationSubring L) [IsDiscreteValuationRing O] :
+    (center O).ResidueField ≃+* IsLocalRing.ResidueField O :=
+  RingEquiv.ofBijective (IsLocalRing.ResidueField.map (locToO O)) ⟨RingHom.injective _, by
+    intro z
+    obtain ⟨y, rfl⟩ := IsLocalRing.residue_surjective z
+    obtain ⟨a, s, hs, h⟩ := (mem_iff_exists O (y : L)).mp y.2
+    refine ⟨IsLocalRing.residue _ (IsLocalization.mk' _ a (⟨s, show s ∈ (center O).primeCompl from hs⟩ : (center O).primeCompl)), ?_⟩
+    rw [IsLocalRing.ResidueField.map_residue]
+    congr 1
+    unfold locToO
+    rw [IsLocalization.lift_mk'_spec]
+    apply Subtype.ext
+    change (a : L) = (s : L) * (y : L)
+    rw [← h, mul_comm]⟩
+
+theorem resIso_algebraMap (O : ValuationSubring L) [IsDiscreteValuationRing O] (a : 𝓞 L) :
+    resIso O (algebraMap (𝓞 L) (center O).ResidueField a) = IsLocalRing.residue O (toOL O a) := by
+  rw [IsScalarTower.algebraMap_apply (𝓞 L) (Localization.AtPrime (center O))]
+  change IsLocalRing.ResidueField.map (locToO O) (IsLocalRing.residue _ _) = _
+  rw [IsLocalRing.ResidueField.map_residue]
+  congr 1
+  exact IsLocalization.lift_eq _ a
+
+/-- The isomorphism `κ̄(𝔭_O) ≅ κ̄(O)` of the chosen algebraic closures, over `𝓞_L`. -/
+noncomputable def barIso (O : ValuationSubring L) [IsDiscreteValuationRing O] :
+    ZInQ.HeightSplit.ResBar (center O) ≃+* ResBarO O :=
+  IsAlgClosure.equivOfEquiv _ _ (resIso O)
+
+theorem barIso_comp (O : ValuationSubring L) [IsDiscreteValuationRing O] :
+    ((barIso O : _ →+* _).comp (algebraMap (𝓞 L) (ZInQ.HeightSplit.ResBar (center O)))) =
+      (algebraMap O (ResBarO O)).comp (toOL O) := by
+  ext a
+  rw [RingHom.comp_apply, IsScalarTower.algebraMap_apply (𝓞 L) (center O).ResidueField]
+  have := congrArg (fun f => f (algebraMap (𝓞 L) (center O).ResidueField a))
+    (IsAlgClosure.equivOfEquiv_comp_algebraMap (ZInQ.HeightSplit.ResBar (center O)) (ResBarO O)
+      (resIso O))
+  simp only [RingHom.comp_apply] at this
+  change barIso O _ = _ at this
+  change barIso O _ = _
+  rw [this]
+  change algebraMap (IsLocalRing.ResidueField O) (ResBarO O) (resIso O _) = _
+  rw [resIso_algebraMap, RingHom.comp_apply, IsScalarTower.algebraMap_apply O
+    (IsLocalRing.ResidueField O) (ResBarO O)]
+  rfl
+
+open IsDedekindDomain in
+/-- The valuation ring of the `𝔭`-adic valuation, for a maximal ideal `𝔭` of `𝓞_L`. -/
+noncomputable def dvrAt (𝔭 : Ideal (𝓞 L)) [h𝔭 : 𝔭.IsMaximal] : ValuationSubring L :=
+  ((⟨𝔭, h𝔭.isPrime, Ring.ne_bot_of_isMaximal_of_not_isField h𝔭 (RingOfIntegers.not_isField L)⟩ :
+    HeightOneSpectrum (𝓞 L)).valuation L).valuationSubring
+
+open IsDedekindDomain in
+instance (𝔭 : Ideal (𝓞 L)) [h𝔭 : 𝔭.IsMaximal] : IsDiscreteValuationRing (dvrAt 𝔭) := by
+  set v : HeightOneSpectrum (𝓞 L) :=
+    ⟨𝔭, h𝔭.isPrime, Ring.ne_bot_of_isMaximal_of_not_isField h𝔭 (RingOfIntegers.not_isField L)⟩
+  obtain ⟨π, hπ⟩ := v.valuation_exists_uniformizer L
+  haveI : Nontrivial (v.valuation L).valueGroup := by
+    have h0 : v.valuation L π ≠ 0 := by rw [hπ]; exact WithZero.coe_ne_zero
+    refine ⟨⟨⟨Units.mk0 _ h0, MonoidWithZeroHom.mem_valueGroup _ ⟨π, rfl⟩⟩, 1, ?_⟩⟩
+    intro h
+    have := congrArg (fun u : (v.valuation L).valueGroup => ((u : (WithZero (Multiplicative ℤ))ˣ) : WithZero (Multiplicative ℤ))) h
+    simp only [Units.val_mk0, OneMemClass.coe_one, Units.val_one] at this
+    rw [hπ] at this
+    exact absurd this (by decide)
+  exact Valuation.valuationSubring_isDiscreteValuationRing _
+
+open IsDedekindDomain in
+theorem center_dvrAt (𝔭 : Ideal (𝓞 L)) [h𝔭 : 𝔭.IsMaximal] : center (dvrAt 𝔭) = 𝔭 := by
+  set v : HeightOneSpectrum (𝓞 L) :=
+    ⟨𝔭, h𝔭.isPrime, Ring.ne_bot_of_isMaximal_of_not_isField h𝔭 (RingOfIntegers.not_isField L)⟩
+  ext a
+  change toOL _ a ∈ IsLocalRing.maximalIdeal _ ↔ _
+  rw [IsLocalRing.mem_maximalIdeal, mem_nonunits_iff]
+  have hlt := v.valuation_lt_one_iff_mem (K := L) a
+  change _ ↔ a ∈ v.asIdeal
+  rw [← hlt]
+  constructor
+  · intro hnu
+    rcases (v.valuation_le_one (K := L) a).lt_or_eq with h | h
+    · exact h
+    · exfalso; apply hnu
+      have hv : v.valuation L (algebraMap (𝓞 L) L a) ≠ 0 := by rw [h]; exact one_ne_zero
+      have ha0 : (a : L) ≠ 0 := (Valuation.ne_zero_iff _).mp hv
+      refine ⟨⟨toOL _ a, ⟨(a : L)⁻¹, ?_⟩, ?_, ?_⟩, rfl⟩
+      · change v.valuation L (a : L)⁻¹ ≤ 1
+        rw [map_inv₀]
+        change (v.valuation L (algebraMap (𝓞 L) L a))⁻¹ ≤ 1
+        rw [h, inv_one]
+      · exact Subtype.ext (mul_inv_cancel₀ ha0)
+      · exact Subtype.ext (inv_mul_cancel₀ ha0)
+  · rintro hlt1 ⟨u, hu⟩
+    have h1 : ((u : dvrAt 𝔭) : L) * (((u⁻¹ : (dvrAt 𝔭)ˣ) : dvrAt 𝔭) : L) = 1 :=
+      congrArg (fun z : dvrAt 𝔭 => (z : L)) (Units.mul_inv u)
+    have h2 : v.valuation L (((u⁻¹ : (dvrAt 𝔭)ˣ) : dvrAt 𝔭) : L) ≤ 1 := (u⁻¹ : (dvrAt 𝔭)ˣ).1.2
+    rw [hu] at h1
+    have h3 := congrArg (v.valuation L) h1
+    rw [map_mul, map_one] at h3
+    have : v.valuation L (a : L) * v.valuation L (((u⁻¹ : (dvrAt 𝔭)ˣ) : dvrAt 𝔭) : L) < 1 :=
+      lt_of_le_of_lt (mul_le_of_le_one_right' h2) hlt1
+    exact absurd h3 (ne_of_lt this)
+
+end DVRNumberField
 
 end ReductGlue
