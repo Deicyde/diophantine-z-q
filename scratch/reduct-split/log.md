@@ -51,3 +51,8 @@ Setup: compile checks with `scratch/reduct-split/chk.sh FILE` = `lean` with LEAN
   into the cyclic H; Mathlib `valuationSubring_isDiscreteValuationRing`), `dvrFiniteExtension : DVRFiniteExtension`
   PROVED; `grothendieckMonodromy_final'` without glue. All axioms standard. VERIFIED.
   => r8 DONE (published-form leaves only: SGA 7 IX 3.6, 3.5, BLR 1.4/3, Mumford §4).
+- 12:09 §17: `bcPt_comp` (bcPt natural in φ), `one_left`, `exists_ker_lift` (ker φ points descend from Ω₂ to K̄: the
+  pullback of φ along the unit section is finite over K, kernel `exists_lift_of_isFinite`), `isogenyBaseChangeDeg :
+  IsogenyBaseChangeDeg` PROVED (φ_L finite/surjective via CloudW01's `overPullback_isPullback`; Nat.card equality via
+  bcPt and extPt). `faltingsLemma5BC_final : HeightSplit.FaltingsLemma5 → HeightSplit.FaltingsLemma5BC`. Axioms standard.
+  VERIFIED.

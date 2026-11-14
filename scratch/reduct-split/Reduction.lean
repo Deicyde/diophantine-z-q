@@ -4,6 +4,8 @@ import ZInQKernel.Contrib.AbVarBC.Dim
 import ZInQKernel.OneProof.H.TailQ
 import ZInQKernel.OneProof.H.TailY
 import ZInQKernel.Contrib.NeronC.NeronGroup
+import ZInQKernel.Contrib.AbVarBC.Torsion
+import ZInQKernel.Contrib.CloudW01Spread.StacksFrontier.AlgebraicGeometry.Limits.DescendingMorphisms.BaseChange
 
 /-!
 # reduct-split, part 1: the SGA 7 IX / Serre–Tate rows r6, r7b, r8 from published-form leaves
@@ -1491,6 +1493,112 @@ theorem grothendieckMonodromy_final' (hS : SemistableReductionDVR) (hU : Semista
 
 end DVRUp
 
+/-! ## §17. `IsogenyBaseChangeDeg`, proved -/
+
+section IsogBC
+
+open ZInQ.DefFaltings ZInQ.Contrib.AbVarBC
+open scoped CategoryTheory.Obj
+
+variable {K : Type} [Field K]
+
+/-- `bcPt` is natural for morphisms `φ : A → B` (adjunction naturality). -/
+theorem bcPt_comp {L : Type} [Field L] [Algebra K L] {A B : PkgI3.AbVar K} (φ : A.X ⟶ B.X)
+    (Ω : Type) [Field Ω] [Algebra L Ω] [Algebra K Ω] [IsScalarTower K L Ω]
+    (p : (A.baseChange L).Pt Ω) :
+    bcPt B Ω (p ≫ (Over.pullback (sK K L)).map φ) = bcPt A Ω p ≫ φ := by
+  show (ptMapIso Ω).inv ≫ ((Over.mapPullbackAdj (sK K L)).homEquiv _ _).symm
+      (p ≫ (Over.pullback (sK K L)).map φ) =
+    ((ptMapIso Ω).inv ≫ ((Over.mapPullbackAdj (sK K L)).homEquiv _ _).symm p) ≫ φ
+  have hnat := Adjunction.homEquiv_naturality_right_symm (Over.mapPullbackAdj (sK K L))
+    (p : PkgI3.AbVar.ptObj Ω ⟶ (Over.pullback (sK K L)).obj A.X) φ
+  erw [hnat]
+  rw [Category.assoc]
+
+/-- The left part of the trivial homomorphism `X → B` is the structure map followed by the unit. -/
+theorem one_left (B : PkgI3.AbVar K) (X : Over (Spec (CommRingCat.of K))) :
+    (1 : X ⟶ B.X).left = X.hom ≫ (η[B.X]).left := by
+  show (toUnit X ≫ η[B.X]).left = _
+  rw [Over.comp_left]
+  congr 1
+
+/-- **Kernel points descend**: for a finite `φ : A → B`, every point `Q ∈ ker φ(Ω₂)` comes from
+`ker φ(K̄)` along a `K`-embedding `K̄ → Ω₂` (the scheme `ker φ` is finite over `K`). -/
+theorem exists_ker_lift {A B : PkgI3.AbVar K} (φ : A.X ⟶ B.X) [IsFinite φ.left]
+    {Ω₂ : Type} [Field Ω₂] [Algebra K Ω₂] (κ : AlgebraicClosure K →ₐ[K] Ω₂) (Q : A.Pt Ω₂)
+    (hQ : Q ≫ φ = 1) : ∃ P : A.Pt (AlgebraicClosure K), P ≫ φ = 1 ∧ extPt A κ P = Q := by
+  let e := (η[B.X]).left
+  let gZ := pullback.snd φ.left e
+  haveI : IsFinite gZ := MorphismProperty.of_isPullback (P := @IsFinite)
+    (IsPullback.of_hasPullback φ.left e) inferInstance
+  have hQ' : Q.left ≫ φ.left = (PkgI3.AbVar.ptObj (K := K) Ω₂).hom ≫ e := by
+    have := congrArg Over.Hom.left hQ
+    rw [Over.comp_left, one_left] at this
+    exact this
+  let q : Spec (CommRingCat.of Ω₂) ⟶ pullback φ.left e := pullback.lift Q.left _ hQ'
+  have hq : q ≫ gZ = Spec.map (CommRingCat.ofHom (algebraMap K Ω₂)) := pullback.lift_snd _ _ _
+  obtain ⟨p, hp1, hp2⟩ := exists_lift_of_isFinite κ gZ q hq
+  have hunit : e ≫ B.X.hom = 𝟙 _ := Over.w (η[B.X])
+  have hover : (p ≫ pullback.fst φ.left e) ≫ A.X.hom =
+      (PkgI3.AbVar.ptObj (K := K) (AlgebraicClosure K)).hom := by
+    rw [Category.assoc, ← Over.w φ, ← Category.assoc (pullback.fst _ _), pullback.condition,
+      Category.assoc, hunit, Category.comp_id]
+    exact hp2
+  refine ⟨Over.homMk (p ≫ pullback.fst φ.left e) hover, ?_, ?_⟩
+  · apply Over.OverMorphism.ext
+    rw [Over.comp_left, one_left]
+    show (p ≫ pullback.fst φ.left e) ≫ φ.left = _
+    rw [Category.assoc, pullback.condition, ← Category.assoc]
+    congr 1
+  · apply Over.OverMorphism.ext
+    show Spec.map (CommRingCat.ofHom (κ : AlgebraicClosure K →+* Ω₂)) ≫
+      p ≫ pullback.fst φ.left e = Q.left
+    rw [← Category.assoc, hp1]
+    exact pullback.lift_fst _ _ _
+
+/-- **`IsogenyBaseChangeDeg`, proved.** -/
+theorem isogenyBaseChangeDeg : IsogenyBaseChangeDeg := by
+  intro K _ _ A B φ hφ L _ _ _
+  obtain ⟨hmon, hfin, hsurj⟩ := hφ
+  haveI := hmon
+  haveI := hfin
+  let φ' : (A.baseChange L).X ⟶ (B.baseChange L).X := (Over.pullback (sK K L)).map φ
+  refine ⟨φ', ⟨?_, ?_, ?_⟩, ?_⟩
+  · exact (inferInstance : IsMonHom ((Over.pullback (sK K L)).map φ))
+  · exact MorphismProperty.of_isPullback (P := @IsFinite)
+      (AlgebraicGeometry.overPullback_isPullback (sK K L) A.X B.X φ) hfin
+  · exact MorphismProperty.of_isPullback (P := @Surjective)
+      (AlgebraicGeometry.overPullback_isPullback (sK K L) A.X B.X φ) hsurj
+  -- the degrees: `ker φ'(L̄) ≃ ker φ(L̄) ≃ ker φ(K̄)`
+  let κ : AlgebraicClosure K →ₐ[K] AlgebraicClosure L := IsAlgClosed.lift
+  have e1 : {P : PkgI3.AbVar.ptObj (K := L) (AlgebraicClosure L) ⟶ (A.baseChange L).X //
+      P ≫ φ' = 1} ≃ {Q : A.Pt (AlgebraicClosure L) // Q ≫ φ = 1} :=
+    { toFun := fun P => ⟨bcPt A (AlgebraicClosure L) P.1, by
+        rw [← bcPt_comp, P.2, map_one]⟩
+      invFun := fun Q => ⟨(bcPt A (AlgebraicClosure L)).symm Q.1, by
+        apply (bcPt B (AlgebraicClosure L)).injective
+        rw [bcPt_comp, MulEquiv.apply_symm_apply, Q.2, map_one]⟩
+      left_inv := fun P => Subtype.ext (MulEquiv.symm_apply_apply _ _)
+      right_inv := fun Q => Subtype.ext (MulEquiv.apply_symm_apply _ _) }
+  have e2 : {P : A.Pt (AlgebraicClosure K) // P ≫ φ = 1} ≃
+      {Q : A.Pt (AlgebraicClosure L) // Q ≫ φ = 1} :=
+    Equiv.ofBijective (fun P => ⟨extPt A κ P.1, by
+        rw [extPt_apply, Category.assoc, P.2]
+        exact MonObj.comp_one _⟩)
+      ⟨fun P P' h => Subtype.ext (extPt_injective A κ (congrArg Subtype.val h)),
+       fun Q => by
+        obtain ⟨P, hP, hPQ⟩ := exists_ker_lift φ κ Q.1 Q.2
+        exact ⟨⟨P, hP⟩, Subtype.ext hPQ⟩⟩
+  show Nat.card _ = Nat.card _
+  exact (Nat.card_congr e1).trans (Nat.card_congr e2).symm
+
+/-- **`faltingsLemma5BC` from the base-field form alone.** -/
+theorem faltingsLemma5BC_final (hF : ZInQ.HeightSplit.FaltingsLemma5) :
+    ZInQ.HeightSplit.FaltingsLemma5BC :=
+  faltingsLemma5BC_of_base hF isogenyBaseChangeDeg
+
+end IsogBC
+
 end ReductSplit
 
 #print axioms ReductSplit.raynaudCriterion_of_leaves
@@ -1510,3 +1618,4 @@ end ReductSplit
 #print axioms ReductSplit.semistableReductionThm_final
 #print axioms ReductSplit.dvrFiniteExtension
 #print axioms ReductSplit.grothendieckMonodromy_final'
+#print axioms ReductSplit.faltingsLemma5BC_final
