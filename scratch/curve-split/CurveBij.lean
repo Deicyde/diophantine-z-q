@@ -1,6 +1,7 @@
 import ZInQKernel.HDecomp.QM.Pairs
 import ZInQKernel.Contrib.CurvesG.CurveSplit
 import ZInQKernel.Contrib.Dim.SmoothStalk
+import ZInQKernel.Contrib.SmoothFibre.Basic
 
 /-! # curve-split: row H-85 `ModelGlue.CurveBijIso`
 
@@ -181,6 +182,341 @@ theorem curveBijIso_of_closed (h : CurveBijIsoClosed) : CurveBijIso := by
   exact isIso_of_reflects_iso g (Over.forget _)
 
 end PartA
+
+section Topo
+
+variable {X Y : Type*} [TopologicalSpace X] [TopologicalSpace Y]
+
+/-- In a Jacobson space of dimension `≤ 1`, the closure of a non-closed point is an irreducible
+component. -/
+theorem closure_mem_irreducibleComponents [JacobsonSpace X] (hdim : topologicalKrullDim X ≤ 1)
+    {a : X} (ha : ¬ IsClosed ({a} : Set X)) : closure {a} ∈ irreducibleComponents X := by
+  let A : TopologicalSpace.IrreducibleCloseds X :=
+    ⟨closure {a}, isIrreducible_singleton.closure, isClosed_closure⟩
+  obtain ⟨p, hpA, hpc⟩ := nonempty_inter_closedPoints (Z := closure ({a} : Set X))
+    ⟨a, subset_closure rfl⟩ isClosed_closure.isLocallyClosed
+  have hpc' : IsClosed ({p} : Set X) := hpc
+  let P : TopologicalSpace.IrreducibleCloseds X := ⟨{p}, isIrreducible_singleton, hpc'⟩
+  have hPA : P < A := by
+    refine lt_of_le_of_ne ?_ ?_
+    · show ({p} : Set X) ⊆ closure {a}
+      exact Set.singleton_subset_iff.mpr hpA
+    · intro h
+      have h' : ({p} : Set X) = closure {a} := congrArg (fun Z : TopologicalSpace.IrreducibleCloseds X => (Z : Set X)) h
+      apply ha
+      have : a ∈ ({p} : Set X) := h' ▸ subset_closure rfl
+      rw [Set.mem_singleton_iff.mp this]; exact hpc'
+  have hmax : IsMax A := by
+    rcases (Order.krullDim_le_one_iff.mp hdim) A with h | h
+    · exact absurd (h hPA.le) (not_le_of_gt hPA)
+    · exact h
+  refine ⟨isIrreducible_singleton.closure, fun s hs hsub => ?_⟩
+  let S : TopologicalSpace.IrreducibleCloseds X := ⟨closure s, hs.closure, isClosed_closure⟩
+  have hAS : A ≤ S := hsub.trans subset_closure
+  have := hmax hAS
+  exact subset_closure.trans this
+
+/-- **Bijectivity from closed points.** A continuous closed map `f : X → Y` of Jacobson spaces,
+`X` T₀ of dimension `≤ 1` with pairwise disjoint irreducible components, which maps closed points
+to closed points, is injective on closed points and hits every closed point, is bijective. -/
+theorem bijective_of_closedPoints [JacobsonSpace X] [JacobsonSpace Y] [T0Space X]
+    {f : X → Y} (hc : Continuous f) (hcl : IsClosedMap f) (hdim : topologicalKrullDim X ≤ 1)
+    (hdisj : ∀ Z₁ ∈ irreducibleComponents X, ∀ Z₂ ∈ irreducibleComponents X,
+      (Z₁ ∩ Z₂).Nonempty → Z₁ = Z₂)
+    (hcp : ∀ x, IsClosed ({x} : Set X) → IsClosed ({f x} : Set Y))
+    (hinj : ∀ x y, IsClosed ({x} : Set X) → IsClosed ({y} : Set X) → f x = f y → x = y)
+    (hsurj : ∀ y, IsClosed ({y} : Set Y) → ∃ x, f x = y) :
+    Function.Bijective f := by
+  -- the image of the closure of a point is the closure of its image
+  have himg : ∀ a : X, f '' closure {a} = closure {f a} := by
+    intro a
+    refine le_antisymm ?_ ?_
+    · exact image_closure_subset_closure_image hc |>.trans (by rw [Set.image_singleton])
+    · rw [(hcl _ isClosed_closure).closure_subset_iff, Set.singleton_subset_iff]
+      exact ⟨a, subset_closure rfl, rfl⟩
+  -- a non-closed point has a non-closed image
+  have hnc : ∀ a : X, ¬ IsClosed ({a} : Set X) → ¬ IsClosed ({f a} : Set Y) := by
+    intro a ha hfa
+    obtain ⟨p, hpA, hpc⟩ := nonempty_inter_closedPoints (Z := closure ({a} : Set X))
+      ⟨a, subset_closure rfl⟩ isClosed_closure.isLocallyClosed
+    have hloc : IsLocallyClosed (closure ({a} : Set X) \ {p}) :=
+      (isClosed_closure (s := ({a} : Set X))).isLocallyClosed.inter
+        (hpc : IsClosed ({p} : Set X)).isOpen_compl.isLocallyClosed
+    have hne : (closure ({a} : Set X) \ {p}).Nonempty := by
+      refine ⟨a, subset_closure rfl, fun h => ha ?_⟩
+      rw [Set.mem_singleton_iff.mp h]; exact hpc
+    obtain ⟨q, ⟨hqA, hqp⟩, hqc⟩ := nonempty_inter_closedPoints hne hloc
+    have h1 : f p ∈ closure ({f a} : Set Y) := himg a ▸ ⟨p, hpA, rfl⟩
+    have h2 : f q ∈ closure ({f a} : Set Y) := himg a ▸ ⟨q, hqA, rfl⟩
+    rw [hfa.closure_eq, Set.mem_singleton_iff] at h1 h2
+    exact hqp (hinj q p hqc hpc (h2.trans h1.symm))
+  -- a non-closed point is the generic point of its component; generic points are unique
+  have hgen : ∀ a b : X, ¬ IsClosed ({a} : Set X) → b ∈ closure {a} →
+      ¬ IsClosed ({b} : Set X) → b = a := by
+    intro a b ha hb hbc
+    have hA := closure_mem_irreducibleComponents hdim ha
+    have hB := closure_mem_irreducibleComponents hdim hbc
+    have hBA : closure ({b} : Set X) ⊆ closure {a} :=
+      (isClosed_closure.closure_subset_iff).mpr (Set.singleton_subset_iff.mpr hb)
+    have heq : closure ({b} : Set X) = closure {a} := hB.eq_of_subset hA.1 hBA |>.symm ▸ rfl
+    exact (inseparable_iff_closure_eq.mpr heq).eq
+  constructor
+  · intro a b hab
+    by_cases ha : IsClosed ({a} : Set X) <;> by_cases hb : IsClosed ({b} : Set X)
+    · exact hinj a b ha hb hab
+    · exact absurd (hab ▸ hcp a ha) (hnc b hb)
+    · exact absurd (hab ▸ hcp b hb) (hnc a ha)
+    · -- both are generic points of components
+      have hA := closure_mem_irreducibleComponents hdim ha
+      have hB := closure_mem_irreducibleComponents hdim hb
+      obtain ⟨p, hpA, hpc⟩ := nonempty_inter_closedPoints (Z := closure ({a} : Set X))
+        ⟨a, subset_closure rfl⟩ isClosed_closure.isLocallyClosed
+      have hfp : f p ∈ f '' closure ({b} : Set X) := by
+        rw [himg b, ← hab, ← himg a]; exact ⟨p, hpA, rfl⟩
+      obtain ⟨b', hb'B, hfb'⟩ := hfp
+      have hb'c : IsClosed ({b'} : Set X) := by
+        by_contra hb'c
+        have := hgen b b' hb hb'B hb'c
+        subst this
+        exact hnc a ha (hab ▸ hfb' ▸ hcp p hpc)
+      have hpb : b' = p := hinj b' p hb'c hpc hfb'
+      have hAB := hdisj _ hA _ hB ⟨p, hpA, hpb ▸ hb'B⟩
+      exact (inseparable_iff_closure_eq.mpr hAB).eq
+  · intro y
+    have hrange : IsClosed (Set.range f) := by
+      rw [← Set.image_univ]; exact hcl _ isClosed_univ
+    have hall : closedPoints Y ⊆ Set.range f := fun y hy => hsurj y hy
+    have : closure (closedPoints Y) ⊆ Set.range f := hrange.closure_subset_iff.mpr hall
+    have hcl' : closure (closedPoints Y) = Set.univ := by
+      have := JacobsonSpace.closure_inter_closedPoints_eq_closure (X := Y) (S := Set.univ)
+        isClosed_univ.isLocallyClosed
+      rwa [Set.univ_inter, closure_univ] at this
+    exact this (hcl' ▸ Set.mem_univ y)
+
+end Topo
+
+/-! ## Part B: from proper smooth curves to integral varieties -/
+
+/-- **Leaf: a bijective morphism onto a normal variety in characteristic `0` is an isomorphism**
+(published). Let `k` be an algebraically closed field of characteristic `0` and `f : X → Y` a
+morphism of irreducible varieties over `k` (integral separated schemes of finite type over `k`)
+with `Y` normal. If `f` is bijective on `k`-points (= closed points), then `f` is an isomorphism.
+
+Sources (theorem numbers UNVERIFIED, no network): T. A. Springer, *Linear Algebraic Groups*,
+2nd ed. (Birkhäuser 1998), Cor. 5.2.8 ("a bijective separable morphism of irreducible varieties
+onto a normal variety is an isomorphism"; in characteristic `0` every dominant morphism is
+separable); A. Borel, *Linear Algebraic Groups*, 2nd ed., AG.18.2 (Zariski's main theorem, with
+the degree of a dominant quasi-finite separable morphism equal to the number of points of a general
+fibre, AG.18.4). The display with "separable" dropped because `char k = 0` (a specialization),
+`k`, `X`, `Y` in universe `0`, "variety" read as integral, separated, of finite type over `k`,
+"normal" as Mathlib-free `IsNormalScheme` (every stalk integrally closed; the stalks of an integral
+scheme are domains). -/
+def BijToNormalIsIso : Prop :=
+  ∀ (k : Type) [Field k] [IsAlgClosed k] [CharZero k] (X Y : Over (SpecK k)),
+    IsIntegral X.left → IsIntegral Y.left → IsSeparated X.hom → IsSeparated Y.hom →
+    LocallyOfFiniteType X.hom → LocallyOfFiniteType Y.hom → QuasiCompact X.hom →
+    QuasiCompact Y.hom → ZInQ.Contrib.CurvesG.IsNormalScheme Y.left →
+    ∀ f : X ⟶ Y, Function.Bijective (fun x : kPt k ⟶ X => x ≫ f) → IsIso f
+
+section Curves
+
+open IsLocalRing
+
+/-- **A Noetherian local ring of Krull dimension 1 with principal maximal ideal is a domain.**
+Copied from `scratch/curve-glue/CIproof.lean.part` (`CurveGlueCI.isDomain_of_dim_one`). -/
+theorem isDomain_of_dim_one {R : Type*} [CommRing R] [IsLocalRing R] [IsNoetherianRing R]
+    (hdim : ringKrullDim R = 1) (hspan : (maximalIdeal R).spanFinrank = 1) : IsDomain R := by
+  classical
+  have hfg : (maximalIdeal R).FG := IsNoetherian.noetherian _
+  obtain ⟨s, hs, hspan'⟩ := Submodule.FG.exists_span_set_encard_eq_spanFinrank hfg
+  rw [hspan] at hs
+  obtain ⟨π, rfl⟩ := Set.encard_eq_one.1 (by exact_mod_cast hs)
+  have hπ : ∀ n : ℕ, π ^ n ≠ 0 := by
+    intro n hn
+    have hsub : ∀ p : PrimeSpectrum R, p.asIdeal = maximalIdeal R := by
+      intro p
+      refine le_antisymm (le_maximalIdeal p.2.ne_top) ?_
+      rw [← hspan', Ideal.span_le, Set.singleton_subset_iff]
+      exact p.2.mem_of_pow_mem n (by rw [hn]; exact p.asIdeal.zero_mem)
+    have : Subsingleton (PrimeSpectrum R) :=
+      ⟨fun p q => PrimeSpectrum.ext ((hsub p).trans (hsub q).symm)⟩
+    have h0 : ringKrullDim R = 0 := Order.krullDim_eq_zero
+    rw [hdim] at h0
+    norm_num at h0
+  have hdec : ∀ a : R, a ≠ 0 → ∃ (n : ℕ) (u : R), IsUnit u ∧ a = π ^ n * u := by
+    intro a ha
+    have hex : ∃ k : ℕ, a ∉ maximalIdeal R ^ k := by
+      by_contra! h
+      apply ha
+      have := Ideal.iInf_pow_eq_bot_of_isLocalRing (maximalIdeal R) (maximalIdeal.isMaximal R).ne_top
+      rw [← Submodule.mem_bot R, ← this, Submodule.mem_iInf]
+      exact h
+    let k := Nat.find hex
+    have hk : a ∉ maximalIdeal R ^ k := Nat.find_spec hex
+    have hk0 : k ≠ 0 := by
+      intro h0
+      apply hk
+      rw [h0, pow_zero, Ideal.one_eq_top]
+      exact Submodule.mem_top
+    obtain ⟨n, hn⟩ : ∃ n, k = n + 1 := Nat.exists_eq_succ_of_ne_zero hk0
+    have hmem : a ∈ maximalIdeal R ^ n := by
+      have := Nat.find_min hex (show n < k by omega)
+      push Not at this
+      exact this
+    rw [← hspan', Ideal.span_singleton_pow, Ideal.mem_span_singleton'] at hmem
+    obtain ⟨u, hu⟩ := hmem
+    refine ⟨n, u, ?_, by rw [← hu, mul_comm]⟩
+    by_contra hu'
+    have hum : u ∈ maximalIdeal R := (mem_maximalIdeal u).2 hu'
+    rw [← hspan', Ideal.mem_span_singleton'] at hum
+    obtain ⟨w, hw⟩ := hum
+    apply hk
+    rw [hn, ← hspan', Ideal.span_singleton_pow, Ideal.mem_span_singleton']
+    exact ⟨w, by rw [← hu, ← hw]; ring⟩
+  have : NoZeroDivisors R := by
+    refine ⟨fun {a b} hab => ?_⟩
+    by_contra hne
+    push Not at hne
+    obtain ⟨n, u, hu, rfl⟩ := hdec a hne.1
+    obtain ⟨m, v, hv, rfl⟩ := hdec b hne.2
+    have : π ^ (n + m) * (u * v) = 0 := by rw [← hab]; ring
+    exact hπ (n + m) ((hu.mul hv).mul_left_eq_zero.mp this)
+  exact NoZeroDivisors.to_isDomain R
+
+/-- **Two irreducible components meeting at a point with a domain stalk coincide.** Copied from
+`scratch/curve-glue/CIproof.lean.part`. -/
+theorem irreducibleComponent_eq_of_isDomain_stalk {X : Scheme} {Z₁ Z₂ : Set X}
+    (h₁ : Z₁ ∈ irreducibleComponents X) (h₂ : Z₂ ∈ irreducibleComponents X) {y : X}
+    (hy₁ : y ∈ Z₁) (hy₂ : y ∈ Z₂) (hdom : IsDomain (X.presheaf.stalk y)) : Z₁ = Z₂ := by
+  let G : Set X := Set.range (X.fromSpecStalk y)
+  have hG : IsIrreducible G := by
+    have : IrreducibleSpace (Spec (X.presheaf.stalk y)) := PrimeSpectrum.irreducibleSpace
+    show IsIrreducible (Set.range (X.fromSpecStalk y))
+    rw [← Set.image_univ]
+    exact (IrreducibleSpace.isIrreducible_univ _).image _ (X.fromSpecStalk y).continuous.continuousOn
+  have key : ∀ Z ∈ irreducibleComponents X, y ∈ Z → Z = closure G := by
+    intro Z hZ hyZ
+    have hcl : IsClosed Z := isClosed_of_mem_irreducibleComponents Z hZ
+    have hgen := hZ.1.isGenericPoint_genericPoint hcl
+    have hspec : hZ.1.genericPoint ⤳ y := by
+      rw [specializes_iff_mem_closure, hgen.def]; exact hyZ
+    have hmem : hZ.1.genericPoint ∈ G := by
+      show _ ∈ Set.range (X.fromSpecStalk y)
+      rw [Scheme.range_fromSpecStalk]; exact hspec
+    have hsub : Z ⊆ closure G := by
+      rw [← hgen.def]
+      exact closure_mono (Set.singleton_subset_iff.2 hmem)
+    exact (hZ.eq_of_subset hG.closure hsub)
+  rw [key Z₁ h₁ hy₁, key Z₂ h₂ hy₂]
+
+variable {k : Type} [Field k]
+
+/-- The local ring at a closed point of a smooth curve over a field is a discrete valuation ring
+(domain, integrally closed). -/
+theorem stalk_closed_normal {X : Scheme} (f : X ⟶ SpecK k) [SmoothOfRelativeDimension 1 f]
+    (x : X) (hx : IsClosed ({x} : Set X)) :
+    IsDomain (X.presheaf.stalk x) ∧ IsIntegrallyClosed (X.presheaf.stalk x) := by
+  have : Smooth f := SmoothOfRelativeDimension.smooth 1 f
+  have : IsLocallyNoetherian X := LocallyOfFiniteType.isLocallyNoetherian f
+  obtain ⟨h1, h2⟩ := ZInQ.Contrib.Dim.ringKrullDim_stalk_of_smoothOfRelativeDimension f 1 x hx
+  have hd : IsDomain (X.presheaf.stalk x) :=
+    isDomain_of_dim_one (by exact_mod_cast h1) (by exact_mod_cast h2)
+  have h3 := ZInQ.Contrib.Dim.finrank_cotangentSpace_of_smoothOfRelativeDimension f 1 x hx
+  have : IsDiscreteValuationRing (X.presheaf.stalk x) :=
+    IsLocalRing.finrank_CotangentSpace_eq_one_iff.mp h3
+  exact ⟨hd, inferInstance⟩
+
+/-- A smooth scheme over a field is reduced. -/
+theorem isReduced_of_smooth {X : Scheme} (f : X ⟶ SpecK k) [Smooth f] : IsReduced X := by
+  have : ∀ x : X, _root_.IsReduced (X.presheaf.stalk x) := by
+    intro x
+    obtain ⟨_, ⟨V, hV, rfl⟩, hxV, -⟩ :=
+      X.isBasis_affineOpens.exists_subset_of_mem_open (Set.mem_univ x) isOpen_univ
+    have hU : IsAffineOpen (⊤ : (SpecK k).Opens) := isAffineOpen_top _
+    have hVU : V ≤ f ⁻¹ᵁ ⊤ := by simp
+    have hsm := f.smooth_appLE hU hV hVU
+    let _ : Field Γ(SpecK k, ⊤) :=
+      (ZInQ.Contrib.Dim.isField_sections_spec k ⊤ Set.univ_nonempty).toField
+    let _ : Algebra Γ(SpecK k, ⊤) Γ(X, V) := (f.appLE ⊤ V hVU).hom.toAlgebra
+    have : Algebra.Smooth Γ(SpecK k, ⊤) Γ(X, V) := hsm
+    have : _root_.IsReduced Γ(X, V) := ZInQ.SmoothFibre.isReduced_of_smooth_of_field Γ(SpecK k, ⊤) _
+    let x' : V := ⟨x, hxV⟩
+    have hloc := hV.isLocalization_stalk x'
+    let _ := TopCat.Presheaf.algebra_section_stalk X.presheaf x'
+    exact isReduced_localizationPreserves (hV.primeIdealOf x').asIdeal.primeCompl
+      (X.presheaf.stalk x') ‹_›
+  exact isReduced_of_isReduced_stalk X
+
+/-- The irreducible components of a smooth curve over a field are pairwise disjoint. -/
+theorem components_disjoint {X : Scheme} (f : X ⟶ SpecK k) [SmoothOfRelativeDimension 1 f] :
+    ∀ Z₁ ∈ irreducibleComponents X, ∀ Z₂ ∈ irreducibleComponents X,
+      (Z₁ ∩ Z₂).Nonempty → Z₁ = Z₂ := by
+  have : Smooth f := SmoothOfRelativeDimension.smooth 1 f
+  have : JacobsonSpace X := LocallyOfFiniteType.jacobsonSpace f
+  intro Z₁ h₁ Z₂ h₂ hne
+  have hcl : IsClosed (Z₁ ∩ Z₂) :=
+    (isClosed_of_mem_irreducibleComponents Z₁ h₁).inter
+      (isClosed_of_mem_irreducibleComponents Z₂ h₂)
+  obtain ⟨y, ⟨hy₁, hy₂⟩, hyc⟩ := nonempty_inter_closedPoints hne hcl.isLocallyClosed
+  exact irreducibleComponent_eq_of_isDomain_stalk h₁ h₂ hy₁ hy₂
+    (stalk_closed_normal f y (mem_closedPoints_iff.mp hyc)).1
+
+/-- The irreducible component of a point of a quasi-compact smooth curve over a field is open. -/
+theorem isOpen_irreducibleComponent {X : Scheme} (f : X ⟶ SpecK k)
+    [SmoothOfRelativeDimension 1 f] [CompactSpace X] (x : X) :
+    IsOpen (irreducibleComponent x) := by
+  have : Smooth f := SmoothOfRelativeDimension.smooth 1 f
+  have : IsLocallyNoetherian X := LocallyOfFiniteType.isLocallyNoetherian f
+  have : IsNoetherian X := { }
+  have hdisj := components_disjoint f
+  set Z := irreducibleComponent x with hZ
+  have hZmem := irreducibleComponent_mem_irreducibleComponents x
+  have hfin := TopologicalSpace.NoetherianSpace.finite_irreducibleComponents (α := X)
+  have hcompl : Zᶜ = ⋃ Z' ∈ {Z' ∈ irreducibleComponents X | Z' ≠ Z}, Z' := by
+    ext z
+    simp only [Set.mem_compl_iff, Set.mem_iUnion, Set.mem_ofPred_eq, exists_prop]
+    constructor
+    · intro hz
+      refine ⟨irreducibleComponent z, ⟨irreducibleComponent_mem_irreducibleComponents z, ?_⟩,
+        mem_irreducibleComponent⟩
+      intro h
+      exact hz (h ▸ mem_irreducibleComponent)
+    · rintro ⟨Z', ⟨hZ', hne⟩, hzZ'⟩ hzZ
+      exact hne (hdisj Z' hZ' Z hZmem ⟨z, hzZ', hzZ⟩)
+  rw [← isClosed_compl_iff, hcompl]
+  exact (hfin.subset fun Z' hZ' => hZ'.1).isClosed_biUnion fun Z' hZ' =>
+    isClosed_of_mem_irreducibleComponents Z' hZ'.1
+
+/-- A smooth curve over a field has topological dimension `≤ 1`. -/
+theorem topDim_le_one {X : Scheme} (f : X ⟶ SpecK k) [SmoothOfRelativeDimension 1 f] :
+    topologicalKrullDim X ≤ 1 := by
+  rcases isEmpty_or_nonempty X with hE | hN
+  · have : IsEmpty (TopologicalSpace.IrreducibleCloseds X) :=
+      ⟨fun Z => hE.elim Z.2.nonempty.some⟩
+    rw [topologicalKrullDim, Order.krullDim_eq_bot]
+    exact bot_le
+  · rw [ZInQ.Contrib.Dim.topologicalKrullDim_eq_of_smoothOfRelativeDimension f 1]
+    rfl
+
+/-- An integral smooth curve over a field is normal. -/
+theorem isNormal_of_integral {X : Scheme} (f : X ⟶ SpecK k) [SmoothOfRelativeDimension 1 f]
+    [IsIntegral X] : ZInQ.Contrib.CurvesG.IsNormalScheme X := by
+  have : Smooth f := SmoothOfRelativeDimension.smooth 1 f
+  have : JacobsonSpace X := LocallyOfFiniteType.jacobsonSpace f
+  intro x
+  by_cases hx : IsClosed ({x} : Set X)
+  · exact (stalk_closed_normal f x hx).2
+  · have hC := closure_mem_irreducibleComponents (topDim_le_one f) hx
+    have huniv : closure ({x} : Set X) = Set.univ :=
+      (hC.eq_of_subset (IrreducibleSpace.isIrreducible_univ X) (Set.subset_univ _)).symm ▸ rfl
+    have hgx : IsGenericPoint x Set.univ := huniv
+    have : x = genericPoint X := hgx.eq (genericPoint_spec X)
+    subst this
+    show IsIntegrallyClosed X.functionField
+    infer_instance
+
+end Curves
+
 
 end CurveSplit
 
