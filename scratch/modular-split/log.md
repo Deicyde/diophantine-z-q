@@ -18,3 +18,9 @@ ZInQKernel.OneProof.H.TailT ZInQKernel.OneProof.H.LPrefix` exits 0 (VERIFIED, 11
   Remaining leaf `CarayolRealization` (∃ semisimple attached ρ with condExp = v_p(N) at all p ≠ ℓ): consequence of
   Carayol 1986 Thm (A) + Casselman 1973 + Ribet irreducibility; not printed form (automorphic reps / LLC not in Mathlib).
   Compile: axioms [propext, Classical.choice, Quot.sound]. VERIFIED.
+
+## eigenformHTNew `ZInQ.Contrib.HodgeSplit.EigenformHTNew` — REDUCED (not done)
+- `scratch/modular-split/EigenHT.lean`: `ModularSplit.EigenHT.eigenformHTNew_of_realization : KatoRealization → EigenformHTNew`
+  from `attachedConj_proof` + `htConj_proof` (kernel). Remaining leaf `KatoRealization` (∃ semisimple attached ρ with
+  HT weights {0,1−k}): Kato 2004 §9 at V_f^∨ + Ribet irreducibility; consequence (dualized), V_f not definable.
+  Compile: axioms [propext, Classical.choice, Quot.sound]. VERIFIED.
