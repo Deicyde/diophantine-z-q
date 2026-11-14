@@ -424,7 +424,8 @@ abelian variety of dimension `g` over a number field, `h` the stable height in D
 normalization `(i/2π)^g`, `h_D = h_F + (g/2) log π`. Stated in Deligne's normalization, the weaker of
 the two readings (a Faltings-normalized display `h_F ≥ −(g/2) log 2π` implies it, as `h_D ≥ h_F`; the
 Faltings-normalized reading is false for `E` with `j = 0`, `h_F ≈ −1.32`, so Deligne's is the one
-meant). -/
+meant). Residual risk: if Bost printed in a third normalization giving larger heights, e.g.
+`(i/4π)^g`, this leaf would be stronger than the print; R21 itself needs only `h_F ≥ −(3/2)g`. -/
 def BostLowerBound : Prop :=
   ∀ (K : Type) [Field K] [NumberField K] (A : PkgI3.AbVar K) (g : ℕ), A.dim = (g : WithBot ℕ∞) →
     ∀ x : ℝ, IsStableFaltingsHeight A x →
@@ -535,7 +536,11 @@ end R18Sec
 /-- **Leaf R20-Faltings (Lemma 5), semistable form** (G. Faltings, *Endlichkeitssätze für abelsche
 Varietäten über Zahlkörpern*, Invent. Math. 73 (1983), Lemma 5, p. 358; Raynaud, Astérisque 127
 (1985), Exp. VII, Cor. 2.1.3; the lemma is UNVERIFIED: locators.md could not read it, and the
-inequality is the form Pazuki 2012 Remark 2.3 attributes to it). For an isogeny `φ : A → B` of
+inequality is the form Pazuki 2012 Remark 2.3 attributes to it). Classification: a consequence,
+not the literal print. Lemma 5 is printed as an identity with a correction term, and the inequality
+also needs Raynaud's bound `0 ≤ [K:ℚ]⁻¹ log #s*Ω¹_G ≤ log deg φ` (the kernel `G` is only quasi-finite
+in the multiplicative case), so Raynaud's Exp. VII Cor. 2.1.3 (UNVERIFIED) is the operative source.
+For an isogeny `φ : A → B` of
 abelian varieties over a number field `K`, both with semistable reduction everywhere (Néron models
 `𝒩_A`, `𝒩_B` over `𝓞_K`): `|h(A) − h(B)| ≤ ½ log deg φ`. (Faltings' formula
 `h(B) = h(A) + ½ log deg φ − [K:ℚ]⁻¹ log #s*Ω¹_{G/𝓞_K}` with `0 ≤ [K:ℚ]⁻¹ log # ≤ log deg φ`.) -/
@@ -685,7 +690,11 @@ kernel's `IsPeriodMatrix`: `ℂ²/Λ ≅ ℂ²/(Ωℤ²+ℤ²)` carries `(Im Ω)
 theta-null point `[θ[a;b](0, Ω)]_{a,b ∈ {0,½}²}` (any algebraic representative `z`). The
 identification of Pazuki's level-2 theta coordinates (Def. 2.6) with the classical `θ[a;b](0, Ω)`
 is UNVERIFIED (locators.md, leaf-review-b premise 3), as is the algebraicity over `ℚ̄` of every
-analytic principal polarization (Riemann/Lefschetz; standard). -/
+analytic principal polarization (Riemann/Lefschetz; standard). Risk (review, 11-14): if Pazuki's
+coordinates are the second-order constants `θ[a;0](0, 2Ω)`, then Riemann's quadratic relation gives
+only `h(classical) ≤ h_Θ + log 4`. In that case this leaf, and the kernel's row `R22_Pazuki` itself,
+would overstate the print by about `log 4`; the hardened `R22_plus3` slack (`3 − log π`, halved) does
+not cover it. -/
 def PazukiCor13 : Prop :=
   ∀ (K : Type) [Field K] [NumberField K] (A : PkgI3.AbVar K), A.dim = (2 : WithBot ℕ∞) →
     ∀ x : ℝ, IsStableFaltingsHeight A x →

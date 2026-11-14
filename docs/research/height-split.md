@@ -330,3 +330,29 @@ All checks used `lake env lean`, one process at a time (VERIFIED).
 
   This shows that the definitions are satisfiable as written. It does not exercise the torus or
   abelian part.
+
+## 8. Independent statement review (model, 11-14)
+
+A fresh-context review agent read both files and the kernel definitions; it did not run Lean. It
+found **no defect**: every definition was judged correct, every leaf true as stated (some only
+conditionally on unread sources), and every glue Prop mathematically true. Checks it made:
+- the `(i/2)^g` normalization of `torusMetricSq`;
+- the `j = 0` computation behind the Bost normalization (`h_F ≈ −1.3211`, `h_D ≈ −0.7487`);
+- that `HasSemiAbelianIdentityComponent` rejects `𝔾_a`;
+- that `conductor = 0` excludes infinite-index `R`;
+- the `𝒪^×` versus `𝒪¹` count against the elliptic points of `X₆`.
+
+It raised three RISKs, recorded in the docstrings:
+1. **Pazuki (H-18).** Suppose Pazuki's level-2 coordinates are the second-order constants
+   `θ[a;0](0, 2Ω)` rather than the classical `θ[a;b](0, Ω)`. Riemann's relation then gives only
+   `h(classical) ≤ h_Θ + log 4`. In that case `PazukiCor13Upper`, **and the kernel's row
+   `R22_Pazuki` itself**, would overstate the print by about `log 4`. The hardened `R22_plus3` slack,
+   `(3 − log π)/2 ≈ 0.93`, does not cover `log 4 ≈ 1.39`. A corrected row under that reading would be
+   `absLogHeight z ≤ X/2 + C₂ log(X + 2) + log 4`. Whether the downstream glue G19 tolerates that
+   constant was not checked. The identification remains UNVERIFIED (Def. 2.6 unread).
+2. **Faltings' Lemma 5 (H-16).** Lemma 5 is printed as an identity with a correction term. The
+   inequality also uses Raynaud's bound on `#s*Ω¹_G` (the kernel is only quasi-finite in the
+   multiplicative case). `FaltingsLemma5` and `FaltingsLemma5BC` are therefore consequences, with
+   Raynaud, Astérisque 127, Exp. VII, Cor. 2.1.3 (UNVERIFIED) as the operative source.
+3. **Bost (H-17).** If the print used some third normalization giving larger heights, the leaf would
+   be marginally stronger than the print. R21 itself needs only `h_F ≥ −1.5g`.
