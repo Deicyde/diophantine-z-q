@@ -1,0 +1,97 @@
+
+/-! ════════════════════════════════════════════════════════════════════════════════════════════
+# mcr-glue, part 5: a sanity check of `IsGQuotient`, and a split of glue C
+════════════════════════════════════════════════════════════════════════════════════════════ -/
+
+noncomputable section
+
+namespace MCRGlue
+
+open Polynomial CategoryTheory AlgebraicGeometry Limits LeafQM.AV VertWitness HeckeRestNV
+open G0ModField PropTSRed PropTSGlue ModelGlue
+
+/-- **Sanity check: `IsGQuotient` is satisfiable** — the identity is the quotient by the trivial
+group (so the definition used by Leaves L2, L3 is not vacuous or contradictory in this case). -/
+theorem isGQuotient_bot_id (X : Scheme.{0}) : IsGQuotient (⊥ : Subgroup (Aut X)) (𝟙 X) := by
+  have hinv : ∀ g ∈ (⊥ : Subgroup (Aut X)), g.asIso.hom ≫ 𝟙 X = 𝟙 X := by
+    intro g hg
+    rw [Subgroup.mem_bot] at hg
+    subst hg
+    rfl
+  refine ⟨hinv, inferInstance, fun W _ => ⟨fun a b h => h, ?_⟩⟩
+  ext s
+  simp only [Set.mem_range, Set.mem_setOf_eq]
+  constructor
+  · rintro ⟨t, rfl⟩ g hg
+    rw [Subgroup.mem_bot] at hg
+    subst hg
+    show (X.presheaf.map (𝟙 (Opposite.op W))) t = t
+    rw [CategoryTheory.Functor.map_id]
+    rfl
+  · intro _
+    exact ⟨s, rfl⟩
+
+/-- **Glue (C1), from Leaves L5 and L6: the CM sections of the quotient are disjoint.** For the
+quotient `q : 𝒴 → 𝒵` by `fibreAut` and two `ℚ̄`-points of `𝒴` with CM by two different ones of
+`ℤ[i], ℤ[ζ₃], ℤ[√−6]`, the closures in `𝒵` of their images are disjoint. (Outline in
+`CoordinateNormalization`: a common point of the closures lifts to a point `w` of `𝒴` in the
+closures of `y` and `g y'`; the inertia group at `w` contains the stabilizers of `y` and `g y'`
+(even orders 4, 6, 2) and is cyclic (L6), so its involution fixes `y` and `g y'`, whose closures
+are then disjoint by L5.) -/
+def CMSectionsDisjoint : Prop :=
+  TameFixedPointsDisjoint → TameInertiaCyclic →
+  ∀ (p : ℕ) [Fact p.Prime], 324 < p →
+    ∀ (𝒴 : Over (Spec (CommRingCat.of (Zloc p)))) (𝒜 : QMFamily 𝒴.left), IsShimuraModel p 𝒴 𝒜 →
+    CMObjectsExist →
+    ∀ (Y : Over (Spec (CommRingCat.of ℚ))) (Φ : PtEquiv Y) (π : ToP1 Y.left),
+      R1fpProps Y Φ → R1heckeProps Y Φ → R2fpProps Y Φ π →
+    ∀ (𝒵 : Over (Spec (CommRingCat.of (Zloc p)))) (q : 𝒴 ⟶ 𝒵),
+      IsGQuotient (fibreAut 𝒴 𝒜) q.left → IsFinite q.left →
+    ∀ (y y' : Spec (CommRingCat.of Qbar) ⟶ 𝒴.left) (P P' : QML3 Qbar),
+      IsFibreOf 𝒜 y P → IsFibreOf 𝒜 y' P' →
+      ((HasCM4 P.q ∧ HasCM3 P'.q) ∨ (HasCM4 P.q ∧ HasCM24 P'.q) ∨ (HasCM3 P.q ∧ HasCM24 P'.q)) →
+      Disjoint (closure ({q.left (qbarPoint y)} : Set 𝒵.left)) (closure {q.left (qbarPoint y')})
+
+/-- **Glue (C2): the coordinate from three disjoint sections** (geometry of `P¹_{ℤ_(p)}` and the
+generic-fibre comparison; no new literature). Given the quotient `q : 𝒴 → 𝒵` by `fibreAut`, with
+`𝒵` proper smooth, an isomorphism `ρ'₀ : 𝒵 ≅ P¹_{ℤ_(p)}`, and the CM sections pairwise disjoint (the
+conclusion of C1), there is an isomorphism `ρ' : 𝒵 ≅ P¹_{ℤ_(p)}` with `CoordFibres` for `ρ' ∘ q`.
+(Outline: `ρ'₀ = m ∘ π̄` on the generic fibre for a Möbius `m` (Glue B: both are isomorphisms
+`𝒵_ℚ ≅ P¹_ℚ`); `m(0), m(∞), m(−16/27)` have pairwise distinct reductions, so `m ∈ PGL₂(ℤ_(p))`;
+`ρ' := m⁻¹ ∘ ρ'₀`; `CoordFibres` from R2fp through `𝒴_ℚ ≅ Y`.) -/
+def CoordinateFromSections : Prop :=
+  ∀ (p : ℕ) [Fact p.Prime], 324 < p →
+    ∀ (𝒴 : Over (Spec (CommRingCat.of (Zloc p)))) (𝒜 : QMFamily 𝒴.left), IsShimuraModel p 𝒴 𝒜 →
+    CMObjectsExist →
+    ∀ (Y : Over (Spec (CommRingCat.of ℚ))) (Φ : PtEquiv Y) (π : ToP1 Y.left),
+      R1fpProps Y Φ → R1heckeProps Y Φ → R2fpProps Y Φ π →
+    ∀ (𝒵 : Over (Spec (CommRingCat.of (Zloc p)))) (q : 𝒴 ⟶ 𝒵),
+      IsGQuotient (fibreAut 𝒴 𝒜) q.left → IsFinite q.left →
+      IsProper 𝒵.hom → SmoothOfRelativeDimension 1 𝒵.hom →
+    (∀ (y y' : Spec (CommRingCat.of Qbar) ⟶ 𝒴.left) (P P' : QML3 Qbar),
+      IsFibreOf 𝒜 y P → IsFibreOf 𝒜 y' P' →
+      ((HasCM4 P.q ∧ HasCM3 P'.q) ∨ (HasCM4 P.q ∧ HasCM24 P'.q) ∨ (HasCM3 P.q ∧ HasCM24 P'.q)) →
+      Disjoint (closure ({q.left (qbarPoint y)} : Set 𝒵.left)) (closure {q.left (qbarPoint y')})) →
+    ∀ ρ'₀ : ToP1 𝒵.left, IsP1Coordinate 𝒵 ρ'₀ →
+    ∃ ρ' : ToP1 𝒵.left, IsP1Coordinate 𝒵 ρ' ∧ CoordFibres 𝒴 𝒜 (ρ'.comp q.left)
+
+/-- **`CoordinateNormalization` from C1 and C2** (compiled plumbing). -/
+theorem coordinateNormalization_of (h1 : CMSectionsDisjoint) (h2 : CoordinateFromSections) :
+    CoordinateNormalization := by
+  intro hFix hCyc p _ hp 𝒴 𝒜 hM hCM Y Φ π h1' hh h2' 𝒵 q hq hqf hZp hZs ρ'₀ hρ'₀
+  exact h2 p hp 𝒴 𝒜 hM hCM Y Φ π h1' hh h2' 𝒵 q hq hqf hZp hZs
+    (h1 hFix hCyc p hp 𝒴 𝒜 hM hCM Y Φ π h1' hh h2' 𝒵 q hq hqf) ρ'₀ hρ'₀
+
+/-- **`ModelCoordinateResidue` from the leaves L1-L6 and the glue A, B, C1, C2** (compiled). -/
+theorem modelCoordinateResidue_of_leaves'' (hAF : ProperCurveAF) (hQE : FiniteQuotientExists)
+    (hTS : TameQuotientSmooth) (hP1 : SmoothModelOfP1) (hFix : TameFixedPointsDisjoint)
+    (hCyc : TameInertiaCyclic) (gA : FibreAutTame) (gB : GenericQuotientP1)
+    (gC1 : CMSectionsDisjoint) (gC2 : CoordinateFromSections) : ModelCoordinateResidue :=
+  modelCoordinateResidue_of_leaves' hAF hQE hTS hP1 hFix hCyc gA gB
+    (coordinateNormalization_of gC1 gC2)
+
+end MCRGlue
+
+#print axioms MCRGlue.isGQuotient_bot_id
+#print axioms MCRGlue.coordinateNormalization_of
+#print axioms MCRGlue.modelCoordinateResidue_of_leaves''

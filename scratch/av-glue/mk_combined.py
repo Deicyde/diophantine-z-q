@@ -1,0 +1,122 @@
+"""Build scratch/av-glue/Combined.lean = ImageFact.lean + SurjIsog.lean (body) + final assembly.
+Run: python3 scratch/av-glue/mk_combined.py"""
+import re, pathlib
+d = pathlib.Path(__file__).parent
+a = (d / "ImageFact.lean").read_text()
+b = (d / "SurjIsog.lean").read_text()
+c = (d / "Kernel.lean").read_text()
+# drop the #print axioms lines of the parts
+a = "\n".join(l for l in a.splitlines() if not l.startswith("#print")) + "\n"
+b = "\n".join(l for l in b.splitlines() if not l.startswith("#print")) + "\n"
+body = b[b.index("namespace AVGlue"):]
+c = "\n".join(l for l in c.splitlines() if not l.startswith("#print")) + "\n"
+kbody = c[c.index("namespace AVGlue"):]
+while "-- BEGIN DUP" in kbody:
+    i = kbody.index("-- BEGIN DUP"); j = kbody.index("-- END DUP") + len("-- END DUP")
+    kbody = kbody[:i] + kbody[j:]
+# names defined in both files: isProper_hom
+body = body.replace("isProper_hom", "isProper_hom'")
+body = body.replace("open CategoryTheory", "-- open CategoryTheory")
+tail = r'''
+namespace AVGlue
+
+/-- (verbatim copy of `ZInQ.Contrib.AVB1.SimpleImageIsogeny`, `ZInQKernel/Contrib/AVB1/Poincare.lean`)
+**A nonzero homomorphism out of a simple abelian variety is an isogeny onto its image**
+(textbook; the two glue Props `ImageFactorization` and `SimpleSurjIsogeny` together, see
+`simpleImageIsogeny_of_pieces`). Over a field of characteristic `0`, if `End⁰(A)` is a division
+algebra and `f : A → J` is a nonzero homomorphism, then `f = i ∘ h` with `h : A → B` an isogeny
+(finite and surjective) and `i : B → J` a homomorphism that is a closed immersion. Sources
+(UNVERIFIED locators): Mumford, *Abelian varieties*, §19 (simple abelian varieties: a nonzero
+homomorphism from a simple `A` has finite kernel) with the image of a homomorphism being an
+abelian subvariety (Milne 1986 §8); same ingredients as the two glue Props. -/
+def SimpleImageIsogeny : Prop :=
+  ∀ (k : Type) [Field k] [CharZero k] (A J : _root_.PkgI3.AbVar k), _root_.PkgI3.EndDivision A →
+    ∀ f : _root_.PkgI3.AbVar.Hom A J, f ≠ 0 →
+    ∃ (B : _root_.PkgI3.AbVar k) (h : _root_.PkgI3.AbVar.Hom A B)
+      (i : _root_.PkgI3.AbVar.Hom B J),
+      _root_.PkgI3.AbVar.IsIsogenyMor h.hom ∧ IsClosedImmersion i.hom.left ∧ f.hom = h.hom ≫ i.hom
+
+theorem simpleImageIsogeny_iff : SimpleImageIsogeny ↔ ZInQ.Contrib.AVB1.SimpleImageIsogeny :=
+  Iff.rfl
+
+/-- **`SimpleImageIsogeny` (the glue field of the canonical H assembly) from four leaves.** -/
+theorem simpleImageIsogeny_of_leaves (hC : CartierSmooth)
+    (hP : ZInQ.Contrib.AVB1.PoincareComplement) (hQ : IsogenyQuasiInverse)
+    (hK : KernelAbSubvariety) : SimpleImageIsogeny :=
+  ZInQ.Contrib.AVB1.simpleImageIsogeny_of_pieces (imageFactorization_of_cartier hC)
+    (simpleSurjIsogeny_of_leaves hP hQ hK)
+
+/-- **T8 (`PkgI3.PoincareReducibility`) from the same four leaves.** -/
+theorem poincareReducibility_of_leaves (hC : CartierSmooth)
+    (hP : ZInQ.Contrib.AVB1.PoincareComplement) (hQ : IsogenyQuasiInverse)
+    (hK : KernelAbSubvariety) : _root_.PkgI3.PoincareReducibility :=
+  ZInQ.Contrib.AVB1.poincareReducibility_of_pieces hP (imageFactorization_of_cartier hC)
+    (simpleSurjIsogeny_of_leaves hP hQ hK)
+
+theorem cartierSmooth_iff : CartierSmooth ↔ CartierSmooth' := Iff.rfl
+
+/-- **`SimpleImageIsogeny` from five published theorems** (Cartier; Poincaré's complement;
+quasi-inverse of an isogeny; Stacks 04KV; equidimensionality of group schemes). -/
+theorem simpleImageIsogeny_of_published (hC : CartierSmooth)
+    (hP : ZInQ.Contrib.AVB1.PoincareComplement) (hQ : IsogenyQuasiInverse)
+    (hG : GeomConnOfRationalPoint) (hE : GroupSchemeEquidim) : SimpleImageIsogeny :=
+  simpleImageIsogeny_of_leaves hC hP hQ
+    (kernelAbSubvariety_of_identityComponent (kernelIdentityComponent_of_leaves hC hG hE))
+
+/-- **`SimpleSurjIsogeny` from four published theorems.** -/
+theorem simpleSurjIsogeny_of_published (hC : CartierSmooth)
+    (hP : ZInQ.Contrib.AVB1.PoincareComplement) (hQ : IsogenyQuasiInverse)
+    (hG : GeomConnOfRationalPoint) (hE : GroupSchemeEquidim) : SimpleSurjIsogeny :=
+  simpleSurjIsogeny_of_leaves hP hQ
+    (kernelAbSubvariety_of_identityComponent (kernelIdentityComponent_of_leaves hC hG hE))
+
+/-- **T8 (`PkgI3.PoincareReducibility`) from the same five published theorems.** -/
+theorem poincareReducibility_of_published (hC : CartierSmooth)
+    (hP : ZInQ.Contrib.AVB1.PoincareComplement) (hQ : IsogenyQuasiInverse)
+    (hG : GeomConnOfRationalPoint) (hE : GroupSchemeEquidim) :
+    _root_.PkgI3.PoincareReducibility :=
+  ZInQ.Contrib.AVB1.poincareReducibility_of_simpleImage hP
+    (simpleImageIsogeny_of_published hC hP hQ hG hE)
+
+/-- **`SimpleImageIsogeny` from four new-or-existing published leaves, quasi-inverse on points**:
+Cartier, Poincaré's complement (existing field), the `K̄`-point quasi-inverse (existing field
+`isogenyQuasiInverse`), Stacks 04KV, equidimensionality. -/
+theorem simpleImageIsogeny_of_published' (hC : CartierSmooth)
+    (hP : ZInQ.Contrib.AVB1.PoincareComplement) (hQ : WeilPairing.IsogenyQuasiInverse)
+    (hG : GeomConnOfRationalPoint) (hE : GroupSchemeEquidim) : SimpleImageIsogeny :=
+  ZInQ.Contrib.AVB1.simpleImageIsogeny_of_pieces (imageFactorization_of_cartier hC)
+    (simpleSurjIsogeny_of_leaves' hP hQ
+      (kernelAbSubvariety_of_identityComponent (kernelIdentityComponent_of_leaves hC hG hE)))
+
+theorem simpleSurjIsogeny_of_published' (hC : CartierSmooth)
+    (hP : ZInQ.Contrib.AVB1.PoincareComplement) (hQ : WeilPairing.IsogenyQuasiInverse)
+    (hG : GeomConnOfRationalPoint) (hE : GroupSchemeEquidim) : SimpleSurjIsogeny :=
+  simpleSurjIsogeny_of_leaves' hP hQ
+    (kernelAbSubvariety_of_identityComponent (kernelIdentityComponent_of_leaves hC hG hE))
+
+theorem poincareReducibility_of_published' (hC : CartierSmooth)
+    (hP : ZInQ.Contrib.AVB1.PoincareComplement) (hQ : WeilPairing.IsogenyQuasiInverse)
+    (hG : GeomConnOfRationalPoint) (hE : GroupSchemeEquidim) :
+    _root_.PkgI3.PoincareReducibility :=
+  ZInQ.Contrib.AVB1.poincareReducibility_of_simpleImage hP
+    (simpleImageIsogeny_of_published' hC hP hQ hG hE)
+
+end AVGlue
+
+#print axioms AVGlue.simpleSurjIsogeny_of_published'
+#print axioms AVGlue.simpleImageIsogeny_of_published'
+#print axioms AVGlue.poincareReducibility_of_published'
+#print axioms AVGlue.imageFactorization_of_cartier
+#print axioms AVGlue.kernelIdentityComponent_of_leaves
+#print axioms AVGlue.kernelAbSubvariety_of_identityComponent
+#print axioms AVGlue.simpleSurjIsogeny_of_published
+#print axioms AVGlue.simpleImageIsogeny_of_published
+#print axioms AVGlue.poincareReducibility_of_published
+#print axioms AVGlue.simpleSurjIsogeny_of_leaves
+#print axioms AVGlue.simpleImageIsogeny_of_leaves
+#print axioms AVGlue.poincareReducibility_of_leaves
+'''
+hdr = "-- GENERATED by scratch/av-glue/mk_combined.py from ImageFact.lean and SurjIsog.lean\n"
+a = a.replace("import ZInQKernel.Contrib.AVB1.Poincare\n", "import ZInQKernel.Contrib.AVB1.Poincare\nimport ZInQKernel.Contrib.AbVarBC.Main\n", 1)
+(d / "Combined.lean").write_text(hdr + a + "\n" + body + "\n" + kbody + tail)
+print("wrote", d / "Combined.lean")

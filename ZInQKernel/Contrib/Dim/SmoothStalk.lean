@@ -90,8 +90,8 @@ theorem ringKrullDim_stalk_of_smoothOfRelativeDimension {K : Type*} [Field K] {X
   exact ringKrullDim_stalk_of_chart f hV e n h x hxV hx
 
 /-- **Smooth over a field.** At every closed point, the local ring is regular: its Krull dimension
-equals its embedding dimension, and both equal the relative dimension of a standard smooth chart
-around the point. -/
+equals its embedding dimension (for the chart's relative dimension, see
+`ringKrullDim_stalk_of_chart`). -/
 theorem exists_ringKrullDim_stalk_of_smooth {K : Type*} [Field K] {X : Scheme}
     (f : X ⟶ Spec (CommRingCat.of K)) [Smooth f] (x : X) (hx : IsClosed ({x} : Set X)) :
     ∃ n : ℕ, ringKrullDim (X.presheaf.stalk x) = n ∧
