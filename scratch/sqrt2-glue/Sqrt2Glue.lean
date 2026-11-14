@@ -932,6 +932,147 @@ theorem normSigma_of (h : NormCongr) : NormSigma := by
 theorem sqrtTwoNotInHHprime_of_normCongr (h : NormCongr) : SqrtTwoNotInHHprime :=
   sqrtTwoNotInHHprime_of_normSigma (normSigma_of h)
 
+/-! ## §9. Rational arithmetic for the multiquadratic field `L_n(i)` -/
+
+section Arith
+
+/-- `p* = ±p ≡ 1 (mod 4)` for an odd prime `p`. -/
+def pstar (p : ℕ) : ℤ := if p % 4 = 1 then (p : ℤ) else -(p : ℤ)
+
+theorem pstar_mod_four {p : ℕ} (hp : p % 2 = 1) : pstar p % 4 = 1 := by
+  unfold pstar
+  split_ifs with h
+  · omega
+  · omega
+
+theorem pstar_eq_or (p : ℕ) : pstar p = p ∨ pstar p = -p := by
+  unfold pstar; split_ifs <;> simp
+
+/-- `p ∤ ∏_{q ∈ V} q*` for a prime `p ∉ V`, `V` a set of primes. -/
+theorem not_dvd_prod_pstar (V : Finset ℕ) (hV : ∀ q ∈ V, q.Prime) {p : ℕ} (hp : p.Prime)
+    (hpV : p ∉ V) : ¬ (p : ℤ) ∣ ∏ q ∈ V, pstar q := by
+  intro h
+  have hpZ : Prime (p : ℤ) := Nat.prime_iff_prime_int.mp hp
+  obtain ⟨q, hq, hdvd⟩ := (Prime.dvd_finset_prod_iff hpZ _).mp h
+  have hpq : (p : ℤ) ∣ (q : ℤ) := by
+    rcases pstar_eq_or q with e | e <;> rw [e] at hdvd
+    · exact hdvd
+    · exact (dvd_neg).mp hdvd
+  have : p = q := (Nat.prime_dvd_prime_iff_eq hp (hV q hq)).mp (Int.natCast_dvd_natCast.mp hpq)
+  exact hpV (this ▸ hq)
+
+/-- `p · r` with `p ∤ r` is not a rational square. -/
+theorem not_sq_of_mul {p : ℕ} (hp : p.Prime) {r : ℤ} (hr : ¬ (p : ℤ) ∣ r) (q : ℚ) :
+    (((p : ℤ) * r : ℤ) : ℚ) ≠ q ^ 2 := by
+  intro h
+  have hsq : IsSquare ((p : ℤ) * r) := Rat.isSquare_intCast_iff.mp ⟨q, by rw [h, sq]⟩
+  obtain ⟨k, hk⟩ := hsq
+  have hpZ : Prime (p : ℤ) := Nat.prime_iff_prime_int.mp hp
+  have hpk : (p : ℤ) ∣ k := by
+    have : (p : ℤ) ∣ k * k := ⟨r, hk.symm⟩
+    rcases hpZ.dvd_or_dvd this with h | h <;> exact h
+  obtain ⟨j, rfl⟩ := hpk
+  apply hr
+  refine ⟨j * j, ?_⟩
+  have hp0 : (p : ℤ) ≠ 0 := by exact_mod_cast hp.ne_zero
+  apply mul_left_cancel₀ hp0
+  rw [hk]; ring
+
+/-- `∏_{p ∣ d} p* = d` for squarefree `d ≡ 1 (mod 4)`. -/
+theorem prod_pstar_primeFactors {d : ℕ} (hsq : Squarefree d) (hd : d % 4 = 1) :
+    ∏ p ∈ d.primeFactors, pstar p = d := by
+  have hsgn : ∀ p, pstar p = (if p % 4 = 1 then 1 else -1) * (p : ℤ) := by
+    intro p; unfold pstar; split_ifs <;> simp
+  have hprod : ∏ p ∈ d.primeFactors, pstar p =
+      (∏ p ∈ d.primeFactors, (if p % 4 = 1 then (1 : ℤ) else -1)) * d := by
+    rw [Finset.prod_congr rfl (fun p _ => hsgn p), Finset.prod_mul_distrib]
+    congr 1
+    rw [← Nat.cast_prod, Nat.prod_primeFactors_of_squarefree hsq]
+  have hS : (∏ p ∈ d.primeFactors, (if p % 4 = 1 then (1 : ℤ) else -1)) = 1 ∨
+      (∏ p ∈ d.primeFactors, (if p % 4 = 1 then (1 : ℤ) else -1)) = -1 := by
+    apply Finset.prod_induction _ (fun x => x = 1 ∨ x = -1)
+    · rintro a b (rfl | rfl) (rfl | rfl) <;> simp
+    · simp
+    · intro p _; split_ifs <;> simp
+  have hmod : (∏ p ∈ d.primeFactors, pstar p) % 4 = 1 := by
+    apply Finset.prod_induction _ (fun x : ℤ => x % 4 = 1)
+    · intro a b ha hb; rw [Int.mul_emod, ha, hb]; rfl
+    · rfl
+    · intro p hp
+      apply pstar_mod_four
+      have hpd : p ∣ d := Nat.dvd_of_mem_primeFactors hp
+      rcases (Nat.prime_of_mem_primeFactors hp).eq_two_or_odd with h2 | h2
+      · subst h2; obtain ⟨k, rfl⟩ := hpd; omega
+      · exact h2
+  rcases hS with h | h
+  · rw [hprod, h, one_mul]
+  · rw [hprod, h] at hmod ⊢
+    exfalso
+    have : ((d : ℤ)) % 4 = 1 := by exact_mod_cast hd
+    omega
+
+end Arith
+
+/-! ## §10. Traces of square roots and degrees of multiquadratic fields -/
+
+section TraceSq
+
+open Polynomial
+
+/-- `Tr_{L/K}(x) = 0` if `x² ∈ K` and `x ∉ K`. -/
+theorem trace_eq_zero_of_sq {K L : Type*} [Field K] [Field L] [Algebra K L] [FiniteDimensional K L]
+    {x : L} {c : K} (hx : x ^ 2 = algebraMap K L c) (hxK : x ∉ (algebraMap K L).range) :
+    Algebra.trace K L x = 0 := by
+  have hint : IsIntegral K x := .of_finite K x
+  have hmin : minpoly K x = X ^ 2 - C c := by
+    have hdvd : minpoly K x ∣ X ^ 2 - C c := minpoly.dvd K x (by simp [hx])
+    have hmon : (X ^ 2 - C c : K[X]).Monic := monic_X_pow_sub_C c two_ne_zero
+    have hdeg : (X ^ 2 - C c : K[X]).natDegree = 2 := natDegree_X_pow_sub_C
+    have h2 := (minpoly.two_le_natDegree_iff hint).mpr hxK
+    exact (Polynomial.eq_of_monic_of_dvd_of_natDegree_le (minpoly.monic hint) hmon hdvd
+      (by rw [hdeg]; exact h2)).symm
+  rw [trace_eq_finrank_mul_minpoly_nextCoeff, hmin, Polynomial.nextCoeff, natDegree_X_pow_sub_C]
+  simp
+
+/-- `[ℚ(T) : ℚ] ≤ 2^{#T}` for a finite set `T` of elements with rational squares. -/
+theorem finrank_adjoin_sq_le {E : Type*} [Field E] [Algebra ℚ E] (T : Finset E)
+    (hT : ∀ t ∈ T, ∃ c : ℚ, t ^ 2 = algebraMap ℚ E c) :
+    FiniteDimensional ℚ (IntermediateField.adjoin ℚ (T : Set E)) ∧
+      Module.finrank ℚ (IntermediateField.adjoin ℚ (T : Set E)) ≤ 2 ^ T.card := by
+  classical
+  induction T using Finset.induction_on with
+  | empty =>
+    rw [Finset.coe_empty, IntermediateField.adjoin_empty, Finset.card_empty, pow_zero]
+    refine ⟨inferInstance, ?_⟩
+    rw [IntermediateField.finrank_bot]
+  | insert a T haT ih =>
+    obtain ⟨hfd, hle⟩ := ih (fun t ht => hT t (Finset.mem_insert_of_mem ht))
+    obtain ⟨c, hc⟩ := hT a (Finset.mem_insert_self a T)
+    have hint : IsIntegral ℚ a := by
+      refine ⟨X ^ 2 - C c, monic_X_pow_sub_C c two_ne_zero, ?_⟩
+      simp [hc]
+    have hdeg : Module.finrank ℚ (IntermediateField.adjoin ℚ ({a} : Set E)) ≤ 2 := by
+      rw [IntermediateField.adjoin.finrank hint]
+      have hdvd : minpoly ℚ a ∣ X ^ 2 - C c := minpoly.dvd ℚ a (by simp [hc])
+      have := Polynomial.natDegree_le_of_dvd hdvd (X_pow_sub_C_ne_zero two_pos c)
+      rwa [natDegree_X_pow_sub_C] at this
+    haveI : FiniteDimensional ℚ (IntermediateField.adjoin ℚ ({a} : Set E)) :=
+      IntermediateField.adjoin.finiteDimensional hint
+    haveI := hfd
+    have heq : IntermediateField.adjoin ℚ ((insert a T : Finset E) : Set E) =
+        IntermediateField.adjoin ℚ ({a} : Set E) ⊔ IntermediateField.adjoin ℚ (T : Set E) := by
+      rw [Finset.coe_insert, Set.insert_eq, IntermediateField.adjoin_union]
+    rw [heq, Finset.card_insert_of_notMem haT]
+    refine ⟨inferInstance, ?_⟩
+    calc Module.finrank ℚ ↥(IntermediateField.adjoin ℚ ({a} : Set E) ⊔ IntermediateField.adjoin ℚ (T : Set E))
+        ≤ Module.finrank ℚ (IntermediateField.adjoin ℚ ({a} : Set E)) *
+          Module.finrank ℚ (IntermediateField.adjoin ℚ (T : Set E)) :=
+          IntermediateField.finrank_sup_le _ _
+      _ ≤ 2 * 2 ^ T.card := Nat.mul_le_mul hdeg hle
+      _ = 2 ^ (T.card + 1) := by ring
+
+end TraceSq
+
 end ZInQ.Contrib.TYZGenus.Sqrt2Glue
 
 #print axioms ZInQ.Contrib.TYZGenus.Sqrt2Glue.sigmaLift_of
