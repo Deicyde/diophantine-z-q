@@ -110,9 +110,17 @@ This is a conservative estimate, not a tokenizer calculation or a dollar cap.
 Provider-side web tools can add context during a request. The token-counting
 endpoint does not support the gate's server tools, so the gate does not send an
 incompatible counting request or silently remove those tools. An independent
-tool-result guard is reduced to 1,200,000 characters. A request over budget
-stops before another model call; it does not truncate history or approve a
-partial review. Scope reads to the changed argument and affected consumers.
+tool-result guard is reduced to 1,200,000 characters. Before a file, file-list or
+history result is returned, the gate measures the complete projected next
+request, reserving small error results for other calls in the same batch and
+4,096 tokens for recovery. An oversized read returns a tool error and leaves
+the review running. Every result includes `remaining_context_tokens` and
+`remaining_tool_characters`; these are conservative allowances, not exact token
+counts. Rejected results neither count as source reads nor complete the history
+requirement. The model can retry a smaller read. The pre-request check remains
+the final safeguard for unexpected growth, such as a large model-generated
+message. Nothing silently truncates history or accepts a partial review.
+Scope reads to the changed argument and affected consumers.
 Split a review that cannot fit while preserving all necessary dependencies.
 
 Anthropic caching uses a one-hour TTL. This reduces expiration during long

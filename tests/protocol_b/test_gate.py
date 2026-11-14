@@ -383,6 +383,69 @@ def anthropic_events(partial='', stop='tool_use'):
 
 
 class Transport(unittest.TestCase):
+    def test_parallel_large_reads_warn_then_smaller_read_can_finish(self):
+        for family in gate.MODELS:
+            with self.subTest(family=family):
+                gh = FakeGH()
+                r = gate.Review(gh, gh.pr, [], [], {}, {}, 'instructions', family, 'local mathematical')
+                seen = []
+                def call(name, args, ident):
+                    return ({'type': 'function_call', 'name': name, 'arguments': json.dumps(args), 'call_id': ident}
+                            if family == 'astra' else {'type': 'tool_use', 'name': name, 'input': args, 'id': ident})
+                def model(actual, instructions, conversation):
+                    seen.append(copy.deepcopy(conversation))
+                    if len(seen) == 1:
+                        output = [call('read_file', {'path': 'large.tex', 'revision': 'head', 'start': 1, 'count': 1000}, str(i)) for i in range(6)]
+                    elif len(seen) == 2:
+                        results = ([json.loads(x['output']) for x in conversation[-6:]] if family == 'astra'
+                                   else [json.loads(x['content']) for x in conversation[-1]['content']])
+                        self.assertTrue(any('text' in x for x in results))
+                        self.assertTrue(any('Read too large' in x.get('error', '') for x in results))
+                        self.assertTrue(all('remaining_context_tokens' in x for x in results))
+                        self.assertTrue(all('remaining_tool_characters' in x for x in results))
+                        self.assertEqual(len(r.reads), sum('text' in x for x in results))
+                        output = [call('read_file', {'path': 'large.tex', 'revision': 'head', 'start': 1, 'count': 1}, 'small'), call('read_history', {}, 'history')]
+                    else:
+                        self.assertEqual(r.reads[-1]['count'], 1)
+                        self.assertTrue(r.history_read)
+                        output = [call('finish_review', report(), 'finish')]
+                    return output, gate.MODELS[actual], {}, 'fixture', 'completed' if family == 'astra' else 'tool_use'
+                with tempfile.TemporaryDirectory() as tmp, patch.object(gate, 'OUT', Path(tmp)), \
+                     patch.object(gh, 'text', return_value=('x' * 65 + '\n') * 1000), \
+                     patch.object(gate, 'model_turn', side_effect=model):
+                    self.assertEqual(r.run()['decision'], 'accept')
+                self.assertEqual(len(seen), 3)
+
+    def test_all_read_tools_return_budget_errors_without_false_read_credit(self):
+        gh = FakeGH()
+        r = gate.Review(gh, gh.pr, [], ['history ' * 20000], {}, {}, 'instructions', 'fable', 'local mathematical')
+        calls = [
+            {'type': 'tool_use', 'id': 'file', 'name': 'read_file', 'input': {'path': 'large.tex', 'revision': 'head', 'start': 1, 'count': 1000}},
+            {'type': 'tool_use', 'id': 'list', 'name': 'list_files', 'input': {'contains': '', 'offset': 0}},
+            {'type': 'tool_use', 'id': 'history', 'name': 'read_history', 'input': {}},
+        ]
+        turns = 0
+        def model(family, instructions, conversation):
+            nonlocal turns
+            turns += 1
+            if turns == 2:
+                values = [json.loads(x['content']) for x in conversation[-1]['content']]
+                self.assertEqual(len(values), 3)
+                for value in values:
+                    self.assertIn('Read too large', value['error'])
+                    self.assertGreater(value['remaining_context_tokens'], 0)
+                self.assertEqual(r.reads, [])
+                self.assertFalse(r.history_read)
+                raise RuntimeError('end of budget-error probe')
+            return calls, gate.MODELS[family], {}, 'fixture', 'tool_use'
+        tree = {'tree': [{'path': str(i) + 'x' * 500, 'type': 'blob'} for i in range(200)]}
+        with tempfile.TemporaryDirectory() as tmp, patch.object(gate, 'OUT', Path(tmp)), \
+             patch.object(gate, 'CONTEXT_TOKEN_BUDGET', 100000), \
+             patch.object(gh, 'text', return_value=('x' * 65 + '\n') * 1000), \
+             patch.object(gh, 'call', return_value=tree), patch.object(gate, 'model_turn', side_effect=model):
+            with self.assertRaisesRegex(RuntimeError, 'end of budget-error probe'):
+                r.run()
+
     def test_added_file_read_at_base_returns_tool_error_then_head_succeeds(self):
         path = 'tests/fixtures/protocol-b-smoke.md'
         text = 'For rational x and y, 3*x^2 + 5*y^2 = 0 iff x = y = 0.'

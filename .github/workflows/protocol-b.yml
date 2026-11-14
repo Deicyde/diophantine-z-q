@@ -83,6 +83,7 @@ jobs:
           CONTEXT_TOKEN_BUDGET = 400_000
           OUTPUT_TOKEN_BUDGET = 64_000
           FORMAT_TOKEN_RESERVE = 8_192
+          RECOVERY_TOKEN_RESERVE = 4_096
           REQUIRED_COMPUTATIONS = {
               "Accepted Lean helpers and axiom audit", "Construction regeneration and finite checks",
               "Paper build", "Reconstructed quartic and Version 5 inventory",
@@ -335,7 +336,7 @@ jobs:
                           {"type": "web_fetch_20260318", "name": "web_fetch"}]}
 
 
-          def context_budget(family, system, conversation, previous=None):
+          def context_estimate(family, system, conversation, previous=None):
               """Preflight estimate from reported tokens plus conservative byte growth.
 
               Count-tokens does not support this gate's server tools. Do not pretend a
@@ -364,6 +365,12 @@ jobs:
               observation = {'family': family, 'request_bytes': size, 'estimated_input_tokens': estimated,
                              'format_reserve': FORMAT_TOKEN_RESERVE, 'output_reserve': OUTPUT_TOKEN_BUDGET,
                              'estimated_total': total, 'budget': CONTEXT_TOKEN_BUDGET, 'basis': basis}
+              return observation
+
+
+          def context_budget(family, system, conversation, previous=None):
+              observation = context_estimate(family, system, conversation, previous)
+              total = observation['estimated_total']
               record(family + '-context-budget.json', observation)
               if total > CONTEXT_TOKEN_BUDGET:
                   raise RuntimeError(f'{family} context budget exceeded before the next model request: estimated {total:,} including reserves; limit {CONTEXT_TOKEN_BUDGET:,}. Narrow or split the review scope; no history was truncated.')
@@ -554,23 +561,56 @@ jobs:
                           # A paused server-tool turn is resumed with its assistant
                           # message unchanged, with no inserted user message.
                           conversation.append({"role": "user", "content": "Continue the review. When finished use finish_review; prose alone cannot pass the gate."})
+                      # Reserve a small error result for every pending call before admitting
+                      # large reads. Parallel calls share one next-request budget.
+                      notice = 'Conservative remaining allowance; use smaller reads or narrower searches. No source text was truncated.'
+                      rejected = {'error': 'Read too large for the remaining review allowance. Request fewer lines or a narrower result.',
+                                  'remaining_context_tokens': 0, 'remaining_tool_characters': 0,
+                                  'budget_notice': notice}
+                      values = [dict(rejected) for _ in calls]
+
+                      def next_conversation(proposed):
+                          if self.family == 'astra':
+                              return conversation + [
+                                  {'type': 'function_call_output', 'call_id': c['call_id'],
+                                   'output': json.dumps(v, ensure_ascii=False)} for c, v in zip(calls, proposed)]
+                          return conversation + [{'role': 'user', 'content': [
+                              {'type': 'tool_result', 'tool_use_id': c['id'],
+                               'content': json.dumps(v, ensure_ascii=False)} for c, v in zip(calls, proposed)]}]
+
+                      def allowance(proposed):
+                          estimated = context_estimate(self.family, self.instructions,
+                                                       next_conversation(proposed), previous)
+                          # Leave space for allowance metadata and a recovery/decision turn.
+                          return max(0, CONTEXT_TOKEN_BUDGET - RECOVERY_TOKEN_RESERVE - estimated['estimated_total'])
+
                       for call_index, call in enumerate(calls):
                           args = json.loads(call["arguments"]) if self.family == "astra" else call["input"]
+                          reads_before, history_before = len(self.reads), self.history_read
                           try:
                               value = self.tool(call["name"], args)
                           except (ValueError, UnicodeError) as error:
                               value = {"error": str(error)}
+                          value = {**value, 'remaining_context_tokens': 0,
+                                   'remaining_tool_characters': 0, 'budget_notice': notice}
+                          values[call_index] = value
+                          estimated = context_estimate(self.family, self.instructions,
+                                                       next_conversation(values), previous)
+                          content = json.dumps(value, ensure_ascii=False)
+                          if (estimated['estimated_total'] > CONTEXT_TOKEN_BUDGET - RECOVERY_TOKEN_RESERVE
+                                  or self.chars + len(content) + 128 > 1_200_000):
+                              value = dict(rejected)
+                              values[call_index] = value
+                              # Fetching a source is not evidence that the reviewer saw it.
+                              del self.reads[reads_before:]
+                              self.history_read = history_before
+                          value['remaining_context_tokens'] = max(0, allowance(values) - 128)
+                          value['remaining_tool_characters'] = max(0, 1_200_000 - self.chars - len(json.dumps(value, ensure_ascii=False)) - 128)
                           content = json.dumps(value, ensure_ascii=False)
                           self.chars += len(content)
-                          if self.chars > 1_200_000:
-                              raise ValueError("Review context budget exhausted; split the PR, do not accept a partial review")
                           record(self.family + f"-tool-{turn}-{call_index}.json", {"name": call["name"], "arguments": args, "result": value})
-                          if self.family == "astra":
-                              conversation.append({"type": "function_call_output", "call_id": call["call_id"], "output": content})
-                          else:
-                              results.append({"type": "tool_result", "tool_use_id": call["id"], "content": content})
-                      if results:
-                          conversation.append({"role": "user", "content": results})
+                      if calls:
+                          conversation = next_conversation(values)
                   raise RuntimeError("50 model turns exhausted; no acceptance")
 
 
