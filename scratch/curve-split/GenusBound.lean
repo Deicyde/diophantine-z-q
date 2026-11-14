@@ -399,9 +399,142 @@ theorem exists_monic_irreducible_mem (I : Ideal (Polynomial ℚ)) [hI : I.IsPrim
 
 end Glue2
 
+section Glue3
+
+variable {F : Type} [Field F] [Algebra Qj F] [Algebra ℚ F]
+
+/-- `ℚ(j) → F` commutes with evaluating `ℚ`-polynomials. -/
+theorem algebraMap_aeval (z : Qj) (q : Polynomial ℚ) :
+    algebraMap Qj F (Polynomial.aeval z q) = Polynomial.aeval (algebraMap Qj F z) q := by
+  rw [Polynomial.aeval_def, Polynomial.aeval_def, Polynomial.hom_eval₂, algebraMap_rat_comp]
+
+/-- **Every place lies over `j = 0`, `j = 1728`, `j = ∞`, or is unramified** (proved from the
+Belyi property and the uniformizer leaf). -/
+theorem place_cases [FiniteDimensional Qj F] (hB : IsBelyiFunction ℚ F (tF : F))
+    (hD : PlacesAreDVR) (P : Place F) :
+    ((tF : F) ∈ P.w ∧ (tF : F) ∈ P.w.nonunits) ∨ ((tF : F) ∈ P.w ∧ (tF : F) - 1 ∈ P.w.nonunits) ∨
+      (tF : F) ∉ P.w ∨ P.ramIdx = 1 := by
+  by_cases ht : (tF : F) ∈ P.w
+  · have hpr := polyIdeal_isPrime P ht
+    obtain ⟨q, hqm, hqi, hqI⟩ := exists_monic_irreducible_mem (polyIdeal P ht)
+      (polyIdeal_ne_bot P ht hB.1)
+    have hqI' : Polynomial.aeval (tF : F) q ∈ P.w.nonunits := hqI
+    by_cases hX : q = Polynomial.X
+    · left
+      rw [hX, Polynomial.aeval_X] at hqI'
+      exact ⟨ht, hqI'⟩
+    by_cases hX1 : q = Polynomial.X - 1
+    · right; left
+      rw [hX1, map_sub, Polynomial.aeval_X, map_one] at hqI'
+      exact ⟨ht, hqI'⟩
+    right; right; right
+    have hgen := hB.2 P.w P.rat_mem ht q hqm hqi hX hX1 hqI'
+    obtain ⟨π, hπ, hπu, hdvr⟩ := hD F P
+    set r : Qj := Polynomial.aeval (RatFunc.X / 1728 : Qj) q with hr
+    have hrq : algebraMap Qj F r = Polynomial.aeval (tF : F) q := by
+      rw [hr, algebraMap_aeval]
+    have hr0 : r ≠ 0 := by
+      intro h0
+      have : Polynomial.aeval (tF : F) q = 0 := by rw [← hrq, h0, map_zero]
+      exact hB.1 ⟨q, hqm.ne_zero, this⟩
+    refine ramIdx_eq_one P π hπ hπu hdvr r hr0 (hrq ▸ hqI') ?_
+    intro x hx
+    obtain ⟨y, hy, hxy⟩ := hgen x hx
+    exact ⟨y, hy, hrq ▸ hxy⟩
+  · right; right; left
+    exact ht
+
+/-- **`BelyiGenusBound` from Riemann–Hurwitz, the fundamental identity and the uniformizer leaf**
+(proved). -/
+theorem belyiGenusBound_of_leaves (hRH : RiemannHurwitzQj) (hFI : FundamentalIdentityQj)
+    (hD : PlacesAreDVR) : BelyiGenusBound := by
+  classical
+  intro F _ _ _ _ hK hB
+  obtain ⟨hsupp, hRHeq⟩ := hRH F hK
+  set Z0 : Set (Place F) := {P | (tF : F) ∈ P.w ∧ (tF : F) ∈ P.w.nonunits} with hZ0
+  set Z1 : Set (Place F) := {P | (tF : F) ∈ P.w ∧ (tF : F) - 1 ∈ P.w.nonunits} with hZ1
+  set Zi : Set (Place F) := {P | (tF : F) ∉ P.w} with hZi
+  obtain ⟨h0, hs0⟩ := hFI F Z0 (by simp [hZ0])
+  obtain ⟨h1, hs1⟩ := hFI F Z1 (by simp [hZ1])
+  obtain ⟨hi, hsi⟩ := hFI F Zi (by simp [hZi])
+  set f : Place F → ℤ := fun P => ((P.ramIdx : ℤ) - 1) * P.deg with hf
+  set A := h0.toFinset ∪ h1.toFinset ∪ hi.toFinset with hA
+  have hsub : hsupp.toFinset ⊆ A := by
+    intro P hP
+    rw [Set.Finite.mem_toFinset, Function.mem_support] at hP
+    rcases place_cases hB hD P with h | h | h | h
+    · exact Finset.mem_union_left _ (Finset.mem_union_left _ ((Set.Finite.mem_toFinset _).mpr h))
+    · exact Finset.mem_union_left _ (Finset.mem_union_right _ ((Set.Finite.mem_toFinset _).mpr h))
+    · exact Finset.mem_union_right _ ((Set.Finite.mem_toFinset _).mpr h)
+    · exfalso
+      apply hP
+      show ((P.ramIdx : ℤ) - 1) * P.deg = 0
+      rw [h]
+      simp
+  have hsum : ∑ P ∈ hsupp.toFinset, f P = ∑ P ∈ A, f P :=
+    Finset.sum_subset hsub fun P _ hP => by
+      rwa [Set.Finite.mem_toFinset, Function.mem_support, not_not] at hP
+  have hd01 : Disjoint h0.toFinset h1.toFinset := by
+    rw [Finset.disjoint_left]
+    intro P hP0 hP1
+    rw [Set.Finite.mem_toFinset] at hP0 hP1
+    have h1n : (1 : F) ∈ P.w.nonunits := by
+      have := P.w.nonunits.sub_mem hP0.2 hP1.2
+      rwa [sub_sub_cancel] at this
+    rw [ValuationSubring.mem_nonunits_iff, map_one] at h1n
+    exact lt_irrefl _ h1n
+  have hd : Disjoint (h0.toFinset ∪ h1.toFinset) hi.toFinset := by
+    rw [Finset.disjoint_left]
+    intro P hP hPi
+    rw [Set.Finite.mem_toFinset] at hPi
+    rcases Finset.mem_union.mp hP with hP | hP <;> rw [Set.Finite.mem_toFinset] at hP
+    · exact hPi hP.1
+    · exact hPi hP.1
+  rw [hA, Finset.sum_union hd, Finset.sum_union hd01] at hsum
+  have hdpos : 0 < Module.finrank Qj F := Module.finrank_pos
+  have part : ∀ (Z : Set (Place F)) (hZ : Z.Finite),
+      ∑ P ∈ hZ.toFinset, P.ramIdx * P.deg = Module.finrank Qj F →
+        ∑ P ∈ hZ.toFinset, f P ≤ (Module.finrank Qj F : ℤ) - 1 := by
+    intro Z hZ hs
+    have e1 : ∑ P ∈ hZ.toFinset, f P =
+        ((∑ P ∈ hZ.toFinset, P.ramIdx * P.deg : ℕ) : ℤ) - ∑ P ∈ hZ.toFinset, (P.deg : ℤ) := by
+      push_cast
+      rw [← Finset.sum_sub_distrib]
+      refine Finset.sum_congr rfl fun P _ => ?_
+      simp only [hf]
+      ring
+    rw [e1, hs]
+    obtain ⟨P, hP, hne⟩ : ∃ P ∈ hZ.toFinset, P.ramIdx * P.deg ≠ 0 := by
+      by_contra hc
+      push_neg at hc
+      rw [Finset.sum_eq_zero hc] at hs
+      omega
+    have hdeg : 1 ≤ P.deg := Nat.pos_of_ne_zero fun h => hne (by rw [h, mul_zero])
+    have : (1 : ℤ) ≤ ∑ P ∈ hZ.toFinset, (P.deg : ℤ) :=
+      le_trans (by exact_mod_cast hdeg)
+        (Finset.single_le_sum (f := fun P : Place F => (P.deg : ℤ)) (fun P _ => by positivity) hP)
+    linarith
+  have p0 := part Z0 h0 hs0
+  have p1 := part Z1 h1 hs1
+  have pi := part Zi hi hsi
+  have key : 2 * (fieldGenus F : ℤ) + 1 ≤ Module.finrank Qj F := by
+    have := hRHeq
+    rw [hsum] at this
+    linarith
+  exact_mod_cast key
+
+/-- **`DimJ1Le` (the use of T34) from textbook leaves and `X₀(N)`-transitivity** (proved). -/
+theorem dimJ1Le_of_textbook (h1 : DimJacobianEqGenus) (hRH : RiemannHurwitzQj)
+    (hFI : FundamentalIdentityQj) (hD : PlacesAreDVR) (h0 : ZInQ.RLeaf.X0Transitive) : DimJ1Le :=
+  dimJ1Le_of_belyi h1 (belyiGenusBound_of_leaves hRH hFI hD) h0
+
+end Glue3
+
 end CurveSplit
 
 #print axioms CurveSplit.genusX1Le_of_genusX1Field
 #print axioms CurveSplit.dimJ1Le_of
 #print axioms CurveSplit.genusX1Le_of_belyi
 #print axioms CurveSplit.dimJ1Le_of_belyi
+#print axioms CurveSplit.belyiGenusBound_of_leaves
+#print axioms CurveSplit.dimJ1Le_of_textbook

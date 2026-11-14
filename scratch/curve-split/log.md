@@ -60,3 +60,11 @@ H-85 CurveBijIso (scratch/model-glue/ModelGlue6.lean), H-83 ShimuraGoodReduction
   birational, finite fibres, Y normal ⇒ open immersion; birational via Tau Ceti `functionFieldMap`),
   `DegreeGeneralFibre` (Humphreys LAG 4.6 / Shafarevich II.6.3 / Borel AG.18.4: closed points of a general
   fibre = [K(X):K(Y)], char 0, dim X = dim Y). Numbers UNVERIFIED.
+- `BelyiGenusBound` PROVED (COMPILED, standard axioms): `CurveSplit.belyiGenusBound_of_leaves :
+  RiemannHurwitzQj → FundamentalIdentityQj → PlacesAreDVR → BelyiGenusBound`; and
+  `CurveSplit.dimJ1Le_of_textbook : DimJacobianEqGenus → RiemannHurwitzQj → FundamentalIdentityQj →
+  PlacesAreDVR → X0Transitive → DimJ1Le`. Leaves over Mathlib ValuationSubring: places (`Place F`), e_P =
+  index of U_P·ℚ(j)ˣ in Fˣ, deg P = dim_ℚ κ(P). Sources Stichtenoth 3.4.13+3.5.1 (+ genus identification),
+  3.1.11, 1.1.6 (numbers UNVERIFIED).
+- Glue lemmas: ramIdx_eq_one (uniformizer from ℚ(j) ⇒ e=1), polyIdeal (prime, ≠ ⊥ via minpoly argument),
+  exists_monic_irreducible_mem, place_cases (Belyi ⇒ unramified outside j=0,1728,∞), sum estimate.
