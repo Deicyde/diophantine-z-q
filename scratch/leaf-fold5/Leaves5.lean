@@ -118496,6 +118496,19 @@ attribute [-instance] TauCeti.FinitePadicExtension.toAlgebra
 
 section G0A2_e10_vertmodel
 -- (leaf-fold5) mk_e10.py: vert-witness VertMain.lean.part + model-glue ModelGlue{,2,...,6}.lean.part, in namespace HDec
+noncomputable section
+
+namespace HSyn
+
+/-- The curve facts in the chain's own terms (leaf-fold3's `mobiusGlue_of_t5'` uses the same term). -/
+theorem curveFacts5 : LeafQM.AV.Pin.CurveRatFactor ∧ LeafQM.AV.Pin.CurveSurj :=
+  LeafQM.AV.Pin.curveFacts_of_leaves smoothStalkDimOne_proved constOrOntoAlgClosed_proved
+    ratFactorAlgClosed_proved
+
+end HSyn
+
+end
+
 /-! ## leaf-fold5: scratch/vert-witness/VertMain.lean.part (declarations already in the chain dropped) -/
 
 
@@ -119659,8 +119672,8 @@ theorem coordFibres_val_eq (hT : TwistClassFinite) (hG : ModelGenericFibre) {p :
     rw [hσ, hσ] at e
     exact ⟨Pof s', rfl, ((hρ _ _ _ _ (hPof s) (hPof s')).1).1 e⟩
   obtain ⟨y₀, -⟩ := hcm P₄
-  have hsurj := curveFacts.2 S hprop hsm ⟨y₀⟩ σ hfin
-  obtain ⟨F, G, hcop, hFG⟩ := curveFacts.1 S hprop hsm σ σ' (fun s₁ s₂ h => (hrel s₁ s₂).1 h)
+  have hsurj := HSyn.curveFacts5.2 S hprop hsm ⟨y₀⟩ σ hfin
+  obtain ⟨F, G, hcop, hFG⟩ := HSyn.curveFacts5.1 S hprop hsm σ σ' (fun s₁ s₂ h => (hrel s₁ s₂).1 h)
   have hinj : ∀ s t : Qbar, Mob.ratEval F G s = Mob.ratEval F G t → s = t := by
     intro s t hst
     obtain ⟨ys, hys⟩ := hsurj (OnePoint.some s)
@@ -120263,7 +120276,7 @@ theorem irreducible_of_chart (hT : TwistClassFinite) {Y : Over (Spec (CommRingCa
           exact hz' ⟨hsub hz, hzx⟩
       rw [this]
       exact hUo.sdiff hcl
-    exact smoothCurveNoIsolatedPoint_of smoothStalkDimOne ℚ Y.left Y.hom hS x hopen
+    exact smoothCurveNoIsolatedPoint_of HSyn.smoothStalkDimOne_proved ℚ Y.left Y.hom hS x hopen
   -- each point of `C` gives a `ℚ̄`-point with `π = ∞`, injectively
   have hpt : ∀ x : C, ∃ y0 : fieldPt Qbar ⟶ Y,
       (Scheme.SpecToEquivOfField Qbar Y.left y0.left).1 = x := by
@@ -120646,8 +120659,8 @@ theorem val_eq_of_same_fibres {S : Over (Spec (CommRingCat.of ℚ))} (hprop : Is
     (hfin : ∀ s : fieldPt Qbar ⟶ S, {s' : fieldPt Qbar ⟶ S |
       σ.val (K := Qbar) s'.left = σ.val (K := Qbar) s.left}.Finite) :
     ∀ s : fieldPt Qbar ⟶ S, σ'.val (K := Qbar) s.left = σ.val (K := Qbar) s.left := by
-  have hsurj := curveFacts.2 S hprop hsm ⟨y₄⟩ σ hfin
-  obtain ⟨F, G, hcop, hFG⟩ := curveFacts.1 S hprop hsm σ σ' (fun s₁ s₂ h => (hrel s₁ s₂).1 h)
+  have hsurj := HSyn.curveFacts5.2 S hprop hsm ⟨y₄⟩ σ hfin
+  obtain ⟨F, G, hcop, hFG⟩ := HSyn.curveFacts5.1 S hprop hsm σ σ' (fun s₁ s₂ h => (hrel s₁ s₂).1 h)
   have hinj : ∀ s t : Qbar, Mob.ratEval F G s = Mob.ratEval F G t → s = t := by
     intro s t hst
     obtain ⟨ys, hys⟩ := hsurj (OnePoint.some s)
@@ -121244,11 +121257,13 @@ theorem t8_of_simpleImage5 (hP : _root_.ZInQ.Contrib.AVB1.PoincareComplement)
 /-- **T38 from three textbook facts** (the kernel's `ZInQ.Contrib.CurvesG.curveOfFunctionFieldQ_of_split`:
 the rational-point clause is proved by the valuative criterion; (A) normal models of function fields, (B) normal
 curves over `ℚ` are smooth, (C) geometric connectedness from the constant field). `X1Belyi.CurveOfFunctionFieldQ`
-is over Mathlib definitions only. -/
+is over Mathlib definitions and the class `IsCurve`, of which the chain has a copy (rebuilt field by field). -/
 theorem t38_of_split5 (hA : _root_.ZInQ.Contrib.CurvesG.NormalModelOfFunctionFieldQ)
     (hB : _root_.ZInQ.Contrib.CurvesG.NormalCurveSmoothQ)
-    (hC : _root_.ZInQ.Contrib.CurvesG.GeomConnectedOfConstantFieldQ) : X1Belyi.CurveOfFunctionFieldQ :=
-  _root_.ZInQ.Contrib.CurvesG.curveOfFunctionFieldQ_of_split hA hB hC
+    (hC : _root_.ZInQ.Contrib.CurvesG.GeomConnectedOfConstantFieldQ) : X1Belyi.CurveOfFunctionFieldQ := by
+  intro F _ _ _ hF
+  obtain ⟨X, hX, hP, hI, he⟩ := _root_.ZInQ.Contrib.CurvesG.curveOfFunctionFieldQ_of_split hA hB hC F hF
+  exact ⟨X, ⟨hX.proper, hX.smooth, hX.geomConnected⟩, hP, hI, he⟩
 
 /-- The chain's Jacobian property gives the kernel's, for the kernel's copy of the abelian variety. -/
 theorem isJacobianK_of5 {X : Over (Spec (CommRingCat.of ℚ))}
@@ -121263,7 +121278,7 @@ theorem t34_of_split5 (h1 : _root_.ZInQ.Contrib.CurvesG.DimJacobianEqGenus)
     (h2 : _root_.ZInQ.Contrib.CurvesG.GenusX1Field) : LeafModCurves.DimJ1Genus := by
   rintro N J hN ⟨X, P₀, aj, hX, hJ⟩
   exact _root_.ZInQ.Contrib.CurvesG.dimJ1Genus_of_split h1 h2 N (toAbVarK4 J) hN
-    ⟨X, P₀, aj, hX, isJacobianK_of5 hJ⟩
+    ⟨X, P₀, aj, ⟨⟨hX.1.proper, hX.1.smooth, hX.1.geomConnected⟩, hX.2⟩, isJacobianK_of5 hJ⟩
 
 /-! ### neron-c: T3 from its surjective half; T41 from the scheme-level Néron extension property -/
 
@@ -121279,11 +121294,12 @@ theorem t3_of_surj5 (h : _root_.ZInQ.Contrib.NeronC.NeronMappingAbelianSchemeSur
 
 /-- **T41 from `NeronSchemeExtensionExists`** (BLR §1.4 Thm 3 at the level of schemes; the group law and the
 uniqueness of extensions are the kernel's proved `ZInQ.Contrib.NeronC.neronModelExists_of_extension`). The
-kernel's Néron model, a `GroupModel` of `toAbVarK4 A`, is read as the chain's `GroupModel` of `A` (same fields). -/
+chain's `NeronModelExists` is over its copy `ZInQ.DefFaltings.AbVar` (h5-neron); the kernel's abelian variety
+`⟨A.X⟩` has the same scheme, and the kernel's Néron model is read as the chain's `GroupModel` of `A` (same fields). -/
 theorem t41_of_extension5 (h : _root_.ZInQ.Contrib.NeronC.NeronSchemeExtensionExists) :
     ZInQ.H5Neron.NeronModelExists := by
   intro K _ A L _ _ _
-  obtain ⟨𝒩, h𝒩⟩ := _root_.ZInQ.Contrib.NeronC.neronModelExists_of_extension h K (toAbVarK4 A) L
+  obtain ⟨𝒩, h𝒩⟩ := _root_.ZInQ.Contrib.NeronC.neronModelExists_of_extension h K ⟨A.X⟩ L
   exact ⟨⟨𝒩.G, 𝒩.gen, 𝒩.gen_hom⟩, h𝒩⟩
 
 end HSyn

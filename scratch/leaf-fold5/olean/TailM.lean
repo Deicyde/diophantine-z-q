@@ -342,11 +342,13 @@ theorem t8_of_simpleImage5 (hP : _root_.ZInQ.Contrib.AVB1.PoincareComplement)
 /-- **T38 from three textbook facts** (the kernel's `ZInQ.Contrib.CurvesG.curveOfFunctionFieldQ_of_split`:
 the rational-point clause is proved by the valuative criterion; (A) normal models of function fields, (B) normal
 curves over `ℚ` are smooth, (C) geometric connectedness from the constant field). `X1Belyi.CurveOfFunctionFieldQ`
-is over Mathlib definitions only. -/
+is over Mathlib definitions and the class `IsCurve`, of which the chain has a copy (rebuilt field by field). -/
 theorem t38_of_split5 (hA : _root_.ZInQ.Contrib.CurvesG.NormalModelOfFunctionFieldQ)
     (hB : _root_.ZInQ.Contrib.CurvesG.NormalCurveSmoothQ)
-    (hC : _root_.ZInQ.Contrib.CurvesG.GeomConnectedOfConstantFieldQ) : X1Belyi.CurveOfFunctionFieldQ :=
-  _root_.ZInQ.Contrib.CurvesG.curveOfFunctionFieldQ_of_split hA hB hC
+    (hC : _root_.ZInQ.Contrib.CurvesG.GeomConnectedOfConstantFieldQ) : X1Belyi.CurveOfFunctionFieldQ := by
+  intro F _ _ _ hF
+  obtain ⟨X, hX, hP, hI, he⟩ := _root_.ZInQ.Contrib.CurvesG.curveOfFunctionFieldQ_of_split hA hB hC F hF
+  exact ⟨X, ⟨hX.proper, hX.smooth, hX.geomConnected⟩, hP, hI, he⟩
 
 /-- The chain's Jacobian property gives the kernel's, for the kernel's copy of the abelian variety. -/
 theorem isJacobianK_of5 {X : Over (Spec (CommRingCat.of ℚ))}
@@ -361,7 +363,7 @@ theorem t34_of_split5 (h1 : _root_.ZInQ.Contrib.CurvesG.DimJacobianEqGenus)
     (h2 : _root_.ZInQ.Contrib.CurvesG.GenusX1Field) : LeafModCurves.DimJ1Genus := by
   rintro N J hN ⟨X, P₀, aj, hX, hJ⟩
   exact _root_.ZInQ.Contrib.CurvesG.dimJ1Genus_of_split h1 h2 N (toAbVarK4 J) hN
-    ⟨X, P₀, aj, hX, isJacobianK_of5 hJ⟩
+    ⟨X, P₀, aj, ⟨⟨hX.1.proper, hX.1.smooth, hX.1.geomConnected⟩, hX.2⟩, isJacobianK_of5 hJ⟩
 
 /-! ### neron-c: T3 from its surjective half; T41 from the scheme-level Néron extension property -/
 
@@ -377,11 +379,12 @@ theorem t3_of_surj5 (h : _root_.ZInQ.Contrib.NeronC.NeronMappingAbelianSchemeSur
 
 /-- **T41 from `NeronSchemeExtensionExists`** (BLR §1.4 Thm 3 at the level of schemes; the group law and the
 uniqueness of extensions are the kernel's proved `ZInQ.Contrib.NeronC.neronModelExists_of_extension`). The
-kernel's Néron model, a `GroupModel` of `toAbVarK4 A`, is read as the chain's `GroupModel` of `A` (same fields). -/
+chain's `NeronModelExists` is over its copy `ZInQ.DefFaltings.AbVar` (h5-neron); the kernel's abelian variety
+`⟨A.X⟩` has the same scheme, and the kernel's Néron model is read as the chain's `GroupModel` of `A` (same fields). -/
 theorem t41_of_extension5 (h : _root_.ZInQ.Contrib.NeronC.NeronSchemeExtensionExists) :
     ZInQ.H5Neron.NeronModelExists := by
   intro K _ A L _ _ _
-  obtain ⟨𝒩, h𝒩⟩ := _root_.ZInQ.Contrib.NeronC.neronModelExists_of_extension h K (toAbVarK4 A) L
+  obtain ⟨𝒩, h𝒩⟩ := _root_.ZInQ.Contrib.NeronC.neronModelExists_of_extension h K ⟨A.X⟩ L
   exact ⟨⟨𝒩.G, 𝒩.gen, 𝒩.gen_hom⟩, h𝒩⟩
 
 end HSyn

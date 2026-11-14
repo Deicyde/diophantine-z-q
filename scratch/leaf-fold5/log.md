@@ -20,3 +20,17 @@
   theorems via toAbVarK4/ofAbVarK4), e90 (OpenTextbookLeaves5 21, OpenAddedLeaves5 21, OpenGlue5 2;
   sixContactMin_of_open5 through leaf-fold4's bundles).
 - 23:50 `./chain.sh LPrefix` (LPrefix ... TailK from leaf-fold4's sources, then TailL, TailM, TailN).
+
+## 00:10-00:14 chain, VERIFIED
+- LPrefix 551 s, TailA 66, TailB 93, TailC 172, TailD 10, LF2* 6-8, LF3Cot 12, TailE 55, TailF 40, TailG 71, TailH 76,
+  TailI 6, LF4T5 12, TailJ 30, TailK 13 s: leaf-fold4's sources, 0 errors each.
+- TailL first run: 5 errors, all name resolution: model-glue uses the kernel's `curveFacts` and `smoothStalkDimOne`
+  (over the kernel's `ToP1`), which `open LeafQM.AV.Pin` inside `namespace HDec` does not reach. Fixed in mk_e10.py:
+  `HSyn.curveFacts5` := `curveFacts_of_leaves smoothStalkDimOne_proved constOrOntoAlgClosed_proved
+  ratFactorAlgClosed_proved` (the chain's own curve facts, the term leaf-fold3's `mobiusGlue_of_t5'` uses; those
+  three are the kernel's theorems through `toP1K`). TailL second run: 11 s, 0 errors.
+- TailM first run: 3 errors. T38 and T34: the chain's `IsCurve` is a copy of the kernel's class (rebuilt field by
+  field); T41: the chain's `NeronModelExists` is over `ZInQ.DefFaltings.AbVar` (h5-neron's copy), so the kernel's
+  abelian variety is `⟨A.X⟩`. The AVB1 transports (T6, T7, T8) and T3 were accepted at once. Second run: 29 s, 0 errors.
+- TailN: 5 s, 0 errors; all 15 `#print axioms` lines `[propext, Classical.choice, Quot.sound]`, including
+  `HDec.HSyn.sixContactMin_of_open5`. Counts 26 + 21 + 21 + 2 = 70.

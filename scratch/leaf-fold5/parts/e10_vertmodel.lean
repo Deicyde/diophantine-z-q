@@ -1,4 +1,17 @@
 -- (leaf-fold5) mk_e10.py: vert-witness VertMain.lean.part + model-glue ModelGlue{,2,...,6}.lean.part, in namespace HDec
+noncomputable section
+
+namespace HSyn
+
+/-- The curve facts in the chain's own terms (leaf-fold3's `mobiusGlue_of_t5'` uses the same term). -/
+theorem curveFacts5 : LeafQM.AV.Pin.CurveRatFactor ∧ LeafQM.AV.Pin.CurveSurj :=
+  LeafQM.AV.Pin.curveFacts_of_leaves smoothStalkDimOne_proved constOrOntoAlgClosed_proved
+    ratFactorAlgClosed_proved
+
+end HSyn
+
+end
+
 /-! ## leaf-fold5: scratch/vert-witness/VertMain.lean.part (declarations already in the chain dropped) -/
 
 
@@ -1162,8 +1175,8 @@ theorem coordFibres_val_eq (hT : TwistClassFinite) (hG : ModelGenericFibre) {p :
     rw [hσ, hσ] at e
     exact ⟨Pof s', rfl, ((hρ _ _ _ _ (hPof s) (hPof s')).1).1 e⟩
   obtain ⟨y₀, -⟩ := hcm P₄
-  have hsurj := curveFacts.2 S hprop hsm ⟨y₀⟩ σ hfin
-  obtain ⟨F, G, hcop, hFG⟩ := curveFacts.1 S hprop hsm σ σ' (fun s₁ s₂ h => (hrel s₁ s₂).1 h)
+  have hsurj := HSyn.curveFacts5.2 S hprop hsm ⟨y₀⟩ σ hfin
+  obtain ⟨F, G, hcop, hFG⟩ := HSyn.curveFacts5.1 S hprop hsm σ σ' (fun s₁ s₂ h => (hrel s₁ s₂).1 h)
   have hinj : ∀ s t : Qbar, Mob.ratEval F G s = Mob.ratEval F G t → s = t := by
     intro s t hst
     obtain ⟨ys, hys⟩ := hsurj (OnePoint.some s)
@@ -1766,7 +1779,7 @@ theorem irreducible_of_chart (hT : TwistClassFinite) {Y : Over (Spec (CommRingCa
           exact hz' ⟨hsub hz, hzx⟩
       rw [this]
       exact hUo.sdiff hcl
-    exact smoothCurveNoIsolatedPoint_of smoothStalkDimOne ℚ Y.left Y.hom hS x hopen
+    exact smoothCurveNoIsolatedPoint_of HSyn.smoothStalkDimOne_proved ℚ Y.left Y.hom hS x hopen
   -- each point of `C` gives a `ℚ̄`-point with `π = ∞`, injectively
   have hpt : ∀ x : C, ∃ y0 : fieldPt Qbar ⟶ Y,
       (Scheme.SpecToEquivOfField Qbar Y.left y0.left).1 = x := by
@@ -2149,8 +2162,8 @@ theorem val_eq_of_same_fibres {S : Over (Spec (CommRingCat.of ℚ))} (hprop : Is
     (hfin : ∀ s : fieldPt Qbar ⟶ S, {s' : fieldPt Qbar ⟶ S |
       σ.val (K := Qbar) s'.left = σ.val (K := Qbar) s.left}.Finite) :
     ∀ s : fieldPt Qbar ⟶ S, σ'.val (K := Qbar) s.left = σ.val (K := Qbar) s.left := by
-  have hsurj := curveFacts.2 S hprop hsm ⟨y₄⟩ σ hfin
-  obtain ⟨F, G, hcop, hFG⟩ := curveFacts.1 S hprop hsm σ σ' (fun s₁ s₂ h => (hrel s₁ s₂).1 h)
+  have hsurj := HSyn.curveFacts5.2 S hprop hsm ⟨y₄⟩ σ hfin
+  obtain ⟨F, G, hcop, hFG⟩ := HSyn.curveFacts5.1 S hprop hsm σ σ' (fun s₁ s₂ h => (hrel s₁ s₂).1 h)
   have hinj : ∀ s t : Qbar, Mob.ratEval F G s = Mob.ratEval F G t → s = t := by
     intro s t hst
     obtain ⟨ys, hys⟩ := hsurj (OnePoint.some s)

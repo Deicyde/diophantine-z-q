@@ -68,6 +68,26 @@ EDITS.append((
  "(P S : Type*) [CommRing P] [IsDomain P] [CommRing S]\n    [Algebra P S] [Algebra.Etale P S] : IsReduced S :=\n  _root_.ZInQ.SmoothFibre.isReduced_of_etale_of_isDomain P S"))
 EDITS.append(("An étale algebra over a domain is reduced (copied verbatim from task smooth-fibre,",
  "An étale algebra over a domain is reduced (leaf-fold5: the kernel's lemma, of which model-glue had a verbatim copy,"))
+# the kernel's proved curve facts (LeafQM.AV.Pin.curveFacts, smoothStalkDimOne, over the kernel's ToP1) are not the
+# chain's constants; the chain's own are leaf-fold3's `HSyn.smoothStalkDimOne_proved` and the curve facts from
+# `curveFacts_of_leaves` with the three `_proved` theorems of part b20 (themselves the kernel's theorems through `toP1K`)
+txt = txt.replace('curveFacts.2 S hprop hsm', 'HSyn.curveFacts5.2 S hprop hsm').replace('curveFacts.1 S hprop hsm', 'HSyn.curveFacts5.1 S hprop hsm')
+txt = txt.replace('smoothCurveNoIsolatedPoint_of smoothStalkDimOne ℚ', 'smoothCurveNoIsolatedPoint_of HSyn.smoothStalkDimOne_proved ℚ')
+PRE = """noncomputable section
+
+namespace HSyn
+
+/-- The curve facts in the chain's own terms (leaf-fold3's `mobiusGlue_of_t5'` uses the same term). -/
+theorem curveFacts5 : LeafQM.AV.Pin.CurveRatFactor ∧ LeafQM.AV.Pin.CurveSurj :=
+  LeafQM.AV.Pin.curveFacts_of_leaves smoothStalkDimOne_proved constOrOntoAlgClosed_proved
+    ratFactorAlgClosed_proved
+
+end HSyn
+
+end
+
+"""
+txt = PRE + txt
 for a, b in EDITS:
     assert txt.count(a) == 1, a
     txt = txt.replace(a, b)
