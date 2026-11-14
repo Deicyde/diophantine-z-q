@@ -114,3 +114,12 @@ Row sources (VERIFIED, read): definitions read in ~/dzq-wt/leaf-fold4/scratch/le
   setting) and `qmCentralizerCM_of : QMCentralizerCMC → T11b_Rigidity → QMCentralizerCM` (base change ℚ̄ → ℂ
   along `IsAlgClosed.lift`; End bijective by T11(b) + `endBC_injective`; centralizers correspond;
   `dim_baseChange`). `rows_of_C`: H-61 ∧ H-63 ∧ H-42 from QMCentralizerCMC + T11b. Axioms standard.
+
+## Comparison isomorphism; HeckeOfFine and R1bTransport PROVED (VERIFIED, compiled)
+- `ModuliSplit.lean` §Comparison: reducedness of smooth schemes over a domain (copied from model-glue
+  `ModelGlue5.lean`, itself from smooth-fibre); `eq_id_of_fieldPts` (Mathlib's `ext_of_fromSpecResidueField_eq`;
+  a self-map of a fine witness fixing all field points is 𝟙); `compare_iso` (two witnesses of R1fpProps are
+  isomorphic compatibly with Φ: phi_part both ways); `heckeOfFine_proof` (twisted / right-multiplied universal
+  families classified by R1univProps; inverse from twist α.symm, rightMul u⁻¹; `isoTwistSymm`, `isoRightMulOne`
+  need maxHeartbeats 2·10⁶); `r1bTransport_proof`. `r1r2fpRep_of'` (H-1 without HeckeOfFine), `r1b_of'`
+  (H-20 from ShimuraFamily alone). Axioms standard; 42 s.

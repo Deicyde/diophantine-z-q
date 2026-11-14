@@ -165,12 +165,302 @@ theorem x6ConicModel_of (hR : LeafAdopt.R1R2fpRep) (hC : ConicOfWitness) : X6Kum
   obtain ⟨Y, Φ, X, Ψ, fY, π₆, h⟩ := LeafAdopt.R1R2fp_of_rep hR
   exact ⟨Y, Φ, X, Ψ, fY, π₆, h, hC Y Φ X Ψ fY π₆ h⟩
 
+/-! ## The comparison isomorphism of fine witnesses; `HeckeOfFine` and `R1bTransport` proved
+
+Reducedness of smooth schemes over a domain: copied verbatim from model-glue
+(`scratch/model-glue/ModelGlue5.lean`, Parts 12 and 15 @ av-glue's worktree), itself from smooth-fibre. -/
+
+section Comparison
+
+open CategoryTheory AlgebraicGeometry Limits
+
+/-- An étale algebra over a domain is reduced (copied verbatim from task smooth-fibre,
+`ZInQKernel/Contrib/SmoothFibre/Basic.lean`, `ZInQ.SmoothFibre.isReduced_of_etale_of_isDomain`). -/
+theorem isReduced_of_etale_of_isDomain' (P S : Type*) [CommRing P] [IsDomain P] [CommRing S]
+    [Algebra P S] [Algebra.Etale P S] : IsReduced S := by
+  let K := FractionRing P
+  let f := Algebra.TensorProduct.includeRight (R := P) (A := K) (B := S)
+  have hinj : Function.Injective f := by
+    have : ⇑f = (LinearMap.rTensor S (Algebra.ofId P K).toLinearMap).comp
+        (Algebra.TensorProduct.lid P S).symm.toLinearMap := by
+      ext x; simp [f]
+    rw [this]
+    exact (Module.Flat.rTensor_preserves_injective_linearMap _
+      (IsFractionRing.injective P K)).comp (Algebra.TensorProduct.lid P S).symm.injective
+  have : IsReduced (TensorProduct P K S) := Algebra.FormallyUnramified.isReduced_of_field K _
+  exact isReduced_of_injective (f : S →+* TensorProduct P K S) hinj
+
+/-- A smooth algebra over a domain is reduced (the proof of smooth-fibre's
+`isReduced_of_smooth_of_field`, with a domain in place of a field). -/
+theorem isReduced_of_smooth_of_isDomain (k A : Type*) [CommRing k] [IsDomain k] [CommRing A]
+    [Algebra k A] [Algebra.Smooth k A] : IsReduced A := by
+  refine ⟨fun x hx => ?_⟩
+  by_contra hne
+  let I : Ideal A := (Ideal.span {x} : Submodule A A).annihilator
+  have hI : I ≠ ⊤ := by
+    intro h
+    have h1 : (1 : A) ∈ I := h ▸ Submodule.mem_top
+    rw [Submodule.mem_annihilator_span_singleton, one_smul] at h1
+    exact hne h1
+  obtain ⟨m, hm, hle⟩ := Ideal.exists_le_maximal I hI
+  have := hm.isPrime
+  have : Algebra.IsSmoothAt k m := inferInstance
+  obtain ⟨f, hf, n, inst, -, hst⟩ :=
+    Algebra.IsSmoothAt.exists_isStandardEtale_mvPolynomial (R := k) (p := m)
+  have : IsReduced (Localization.Away f) :=
+    isReduced_of_etale_of_isDomain' (MvPolynomial (Fin n) k) _
+  have h0 : algebraMap A (Localization.Away f) x = 0 := (hx.map _).eq_zero
+  obtain ⟨⟨_, k', rfl⟩, hk⟩ :=
+    (IsLocalization.map_eq_zero_iff (Submonoid.powers f) (Localization.Away f) x).1 h0
+  apply hf
+  apply hm.isPrime.mem_of_pow_mem k'
+  apply hle
+  rw [Submodule.mem_annihilator_span_singleton, smul_eq_mul]
+  exact hk
+
+/-- A smooth scheme over a domain is reduced. -/
+theorem isReduced_of_smooth_domain {R : CommRingCat.{0}} [IsDomain R] {X : Scheme.{0}}
+    (f : X ⟶ Spec R) [Smooth f] : IsReduced X := by
+  refine @IsReduced.of_openCover X X.affineCover (fun i => ?_)
+  have hsm : Smooth (X.affineCover.f i ≫ f) := inferInstance
+  have hring := (HasRingHomProperty.iff_of_isAffine (P := @Smooth)).mp hsm
+  letI := ((X.affineCover.f i ≫ f).appTop).hom.toAlgebra
+  haveI : Algebra.Smooth Γ(Spec R, ⊤) Γ(X.affineCover.X i, ⊤) :=
+    RingHom.smooth_algebraMap.1 hring
+  haveI : _root_.IsReduced Γ(X.affineCover.X i, ⊤) :=
+    isReduced_of_smooth_of_isDomain Γ(Spec R, ⊤) _
+  exact isReduced_of_isAffine_isReduced _
+
+
+/-- **A self-map of a fine witness fixing every field point is the identity** (`Y` is reduced, being smooth
+over `ℚ`, and separated, being proper; two maps agreeing on all residue-field points agree). -/
+theorem eq_id_of_fieldPts {Y : Over (Spec (CommRingCat.of ℚ))} (hP : IsProper Y.hom)
+    (hS : SmoothOfRelativeDimension 1 Y.hom) (h : Y ⟶ Y)
+    (hpt : ∀ (K : Type) [Field K] [Algebra ℚ K] (y : fieldPt K ⟶ Y), y ≫ h = y) : h = 𝟙 Y := by
+  haveI : Smooth Y.hom := hS.smooth
+  haveI : IsReduced Y.left := isReduced_of_smooth_domain Y.hom
+  apply Over.OverMorphism.ext
+  refine ext_of_fromSpecResidueField_eq h.left (𝟙 _) Y.hom Set.univ dense_univ ?_ (by simp)
+  intro x _
+  let φ : CommRingCat.of ℚ ⟶ Y.left.residueField x :=
+    Spec.preimage (Y.left.fromSpecResidueField x ≫ Y.hom)
+  letI : Algebra ℚ (Y.left.residueField x) := φ.hom.toAlgebra
+  let y : fieldPt (Y.left.residueField x) ⟶ Y :=
+    Over.homMk (Y.left.fromSpecResidueField x) (by
+      change _ = Spec.map φ
+      exact (Spec.map_preimage _).symm)
+  have := congrArg CommaMorphism.left (hpt _ y)
+  exact this
+
+theorem eq_id_of_Φ {Y : Over (Spec (CommRingCat.of ℚ))} {Φ : PtEquiv Y} (h1 : R1fpProps Y Φ) (h : Y ⟶ Y)
+    (hpt : ∀ (K : Type) [Field K] [Algebra ℚ K] (y : fieldPt K ⟶ Y), Φ K (y ≫ h) = Φ K y) : h = 𝟙 Y :=
+  eq_id_of_fieldPts h1.1 h1.2.1 h fun K _ _ y => (Φ K).injective (hpt K y)
+
+/-- **The comparison isomorphism of two fine witnesses** (qm-pin §3.3, compiled here): `R1univProps` both
+ways gives `g : Y' → Y` and `g' : Y → Y'` compatible with the moduli bijections; both composites fix every
+field point, hence are identities. -/
+theorem compare_iso {Y Y' : Over (Spec (CommRingCat.of ℚ))} {Φ : PtEquiv Y} {Φ' : PtEquiv Y'}
+    (h : R1fpProps Y Φ) (h' : R1fpProps Y' Φ') :
+    ∃ g : Y' ≅ Y, ∀ (K : Type) [Field K] [Algebra ℚ K] (y : fieldPt K ⟶ Y'),
+      Φ' K y = Φ K (y ≫ g.hom) := by
+  obtain ⟨g, hg⟩ := LeafQM.AV.Pin.phi_part (LeafQM.AV.Pin.R1fpProps.univ h) h'
+  obtain ⟨g', hg'⟩ := LeafQM.AV.Pin.phi_part (LeafQM.AV.Pin.R1fpProps.univ h') h
+  have e1 : g' ≫ g = 𝟙 Y := eq_id_of_Φ h _ fun K _ _ y => by
+    rw [← Category.assoc, ← hg K (y ≫ g'), ← hg' K y]
+  have e2 : g ≫ g' = 𝟙 Y' := eq_id_of_Φ h' _ fun K _ _ y => by
+    rw [← Category.assoc, ← hg' K (y ≫ g), ← hg K y]
+  exact ⟨⟨g, g', e2, e1⟩, hg⟩
+
+variable {K : Type} [Field K]
+
+set_option maxHeartbeats 2000000 in
+/-- `((P.twist α).twist α.symm) ≅ P`. -/
+def isoTwistSymm (P : QML3 K) (α : O ≃+* O) : ((P.twist α).twist α.symm).Iso P :=
+  { φ := (QML3.Iso.refl P).φ
+    ψ := (QML3.Iso.refl P).ψ
+    left := (QML3.Iso.refl P).left
+    right := (QML3.Iso.refl P).right
+    equivariant := fun a => by
+      have h : ((P.twist α).twist α.symm).q.iota a = P.q.iota a := by
+        show P.q.iota (α (α.symm a)) = P.q.iota a
+        rw [RingEquiv.apply_symm_apply]
+      rw [h]; exact (QML3.Iso.refl P).equivariant a
+    level := fun a => by
+      have h : ((P.twist α).twist α.symm).e.eta a = P.e.eta a := by
+        show P.e.eta (α (α.symm a)) = P.e.eta a
+        rw [RingEquiv.apply_symm_apply]
+      rw [h]; exact (QML3.Iso.refl P).level a }
+
+theorem M3.twist_symm_twist (α : O ≃+* O) (c : M3 K) : M3.twist α.symm (M3.twist α c) = c := by
+  induction c using Quotient.inductionOn with
+  | h P => exact Quotient.sound ⟨isoTwistSymm P α⟩
+
+theorem M3.twist_twist_symm (α : O ≃+* O) (c : M3 K) : M3.twist α (M3.twist α.symm c) = c := by
+  have := M3.twist_symm_twist α.symm c
+  rwa [RingEquiv.symm_symm] at this
+
+set_option maxHeartbeats 2000000 in
+/-- `P.rightMul 1 ≅ P`. -/
+def isoRightMulOne (P : QML3 K) : (P.rightMul 1).Iso P :=
+  { φ := (QML3.Iso.refl P).φ
+    ψ := (QML3.Iso.refl P).ψ
+    left := (QML3.Iso.refl P).left
+    right := (QML3.Iso.refl P).right
+    equivariant := fun a => (QML3.Iso.refl P).equivariant a
+    level := fun a => by
+      have h : (P.rightMul 1).e.eta a = P.e.eta a := by
+        show P.e.eta (a * ((1 : Oˣ) : O)) = P.e.eta a
+        rw [Units.val_one, _root_.mul_one]
+      rw [h]; exact (QML3.Iso.refl P).level a }
+
+theorem M3.rightMul_inv (u : Oˣ) (c : M3 K) : M3.rightMul u⁻¹ (M3.rightMul u c) = c := by
+  rw [M3.rightMul_rightMul, inv_mul_cancel]
+  induction c using Quotient.inductionOn with
+  | h P => exact Quotient.sound ⟨isoRightMulOne P⟩
+
+theorem M3.rightMul_inv' (u : Oˣ) (c : M3 K) : M3.rightMul u (M3.rightMul u⁻¹ c) = c := by
+  have := M3.rightMul_inv u⁻¹ c
+  rwa [inv_inv] at this
+
+/-- From a self-map `g` of a fine witness inducing a bijection `τ` on classes with inverse induced by `g'`,
+an automorphism. -/
+theorem iso_of_pair {Y : Over (Spec (CommRingCat.of ℚ))} {Φ : PtEquiv Y} (h1 : R1fpProps Y Φ)
+    (τ τ' : ∀ (K : Type) [Field K], M3 K → M3 K)
+    (hττ' : ∀ (K : Type) [Field K] (c : M3 K), τ' K (τ K c) = c)
+    (hτ'τ : ∀ (K : Type) [Field K] (c : M3 K), τ K (τ' K c) = c)
+    (g g' : Y ⟶ Y)
+    (hg : ∀ (K : Type) [Field K] [Algebra ℚ K] (y : fieldPt K ⟶ Y), Φ K (y ≫ g) = τ K (Φ K y))
+    (hg' : ∀ (K : Type) [Field K] [Algebra ℚ K] (y : fieldPt K ⟶ Y), Φ K (y ≫ g') = τ' K (Φ K y)) :
+    ∃ e : Y ≅ Y, ∀ (K : Type) [Field K] [Algebra ℚ K] (y : fieldPt K ⟶ Y),
+      Φ K (y ≫ e.hom) = τ K (Φ K y) := by
+  have e1 : g ≫ g' = 𝟙 Y := eq_id_of_Φ h1 _ fun K _ _ y => by
+    rw [← Category.assoc, hg' K (y ≫ g), hg K y, hττ']
+  have e2 : g' ≫ g = 𝟙 Y := eq_id_of_Φ h1 _ fun K _ _ y => by
+    rw [← Category.assoc, hg K (y ≫ g'), hg' K y, hτ'τ]
+  exact ⟨⟨g, g', e1, e2⟩, hg⟩
+
+/-- A family twisted by `α` (on `ι` and on `η`). -/
+def twistFam {S : Scheme.{0}} (𝒜 : QMFamily S) (α : O ≃+* O) : QMFamily S where
+  F := 𝒜.F
+  proper := 𝒜.proper
+  smooth := 𝒜.smooth
+  iota a := 𝒜.iota (α a)
+  iota_over a := 𝒜.iota_over (α a)
+  eta a := 𝒜.eta (α a)
+  eta_sec a := 𝒜.eta_sec (α a)
+
+/-- A family with `η` right-multiplied by `u`. -/
+def rightMulFam {S : Scheme.{0}} (𝒜 : QMFamily S) (u : Oˣ) : QMFamily S where
+  F := 𝒜.F
+  proper := 𝒜.proper
+  smooth := 𝒜.smooth
+  iota := 𝒜.iota
+  iota_over := 𝒜.iota_over
+  eta a := 𝒜.eta (a * u)
+  eta_sec a := 𝒜.eta_sec (a * u)
+
+theorem isFibre_twist {S : Scheme.{0}} {𝒜 : QMFamily S} {L : Type} [Field L]
+    {y : Spec (CommRingCat.of L) ⟶ S} {P : QML3 L} (h : IsFibreOf 𝒜 y P) (α : O ≃+* O) :
+    IsFibreOf (twistFam 𝒜 α) y (P.twist α) := by
+  obtain ⟨g, hpb, hι, hη⟩ := h
+  exact ⟨g, hpb, fun a => hι (α a), fun a => hη (α a)⟩
+
+theorem isFibre_rightMul {S : Scheme.{0}} {𝒜 : QMFamily S} {L : Type} [Field L]
+    {y : Spec (CommRingCat.of L) ⟶ S} {P : QML3 L} (h : IsFibreOf 𝒜 y P) (u : Oˣ) :
+    IsFibreOf (rightMulFam 𝒜 u) y (P.rightMul u) := by
+  obtain ⟨g, hpb, hι, hη⟩ := h
+  exact ⟨g, hpb, hι, fun a => hη (a * u)⟩
+
+/-- The self-map classifying a modified universal family. -/
+theorem classify {Y : Over (Spec (CommRingCat.of ℚ))} {Φ : PtEquiv Y} (h1 : R1fpProps Y Φ)
+    (𝒜 : QMFamily Y.left)
+    (h𝒜 : ∀ (K : Type) [Field K] [Algebra ℚ K] (y : fieldPt K ⟶ Y) (P : QML3 K),
+      Φ K y = M3.mk P → IsFibreOf 𝒜 y.left P)
+    (𝒜' : QMFamily Y.left) (τ : ∀ (K : Type) [Field K], QML3 K → QML3 K)
+    (hτ : ∀ (K : Type) [Field K] (y : Spec (CommRingCat.of K) ⟶ Y.left) (P : QML3 K),
+      IsFibreOf 𝒜 y P → IsFibreOf 𝒜' y (τ K P)) :
+    ∃ g : Y ⟶ Y, ∀ (K : Type) [Field K] [Algebra ℚ K] (y : fieldPt K ⟶ Y) (P : QML3 K),
+      Φ K y = M3.mk P → Φ K (y ≫ g) = M3.mk (τ K P) := by
+  have hall : ∀ (K : Type) [Field K] [Algebra ℚ K] (s : fieldPt K ⟶ Y), ∃ P : QML3 K,
+      IsFibreOf 𝒜' s.left P := by
+    intro K _ _ s
+    obtain ⟨P, hP⟩ := Quotient.exists_rep (Φ K s)
+    exact ⟨τ K P, hτ K s.left P (h𝒜 K s P hP.symm)⟩
+  obtain ⟨g, hg⟩ := (LeafQM.AV.Pin.R1fpProps.univ h1) Y h1.1 h1.2.1 𝒜' hall
+  exact ⟨g, fun K _ _ y P hP => hg K y (τ K P) (hτ K y.left P (h𝒜 K y P hP))⟩
+
+/-- **`HeckeOfFine` is a theorem.** -/
+theorem heckeOfFine_proof : HeckeOfFine := by
+  intro Y Φ h1
+  obtain ⟨𝒜, h𝒜⟩ := h1.2.2.2.2.1
+  refine ⟨fun α => ?_, fun u => ?_⟩
+  · obtain ⟨g, hg⟩ := classify h1 𝒜 h𝒜 (twistFam 𝒜 α) (fun _ _ P => P.twist α)
+      (fun _ _ y P h => isFibre_twist h α)
+    obtain ⟨g', hg'⟩ := classify h1 𝒜 h𝒜 (twistFam 𝒜 α.symm) (fun _ _ P => P.twist α.symm)
+      (fun _ _ y P h => isFibre_twist h α.symm)
+    refine iso_of_pair h1 (fun K _ => M3.twist α) (fun K _ => M3.twist α.symm)
+      (fun K _ c => M3.twist_symm_twist α c) (fun K _ c => M3.twist_twist_symm α c) g g' ?_ ?_
+    · intro K _ _ y
+      obtain ⟨P, hP⟩ := Quotient.exists_rep (Φ K y)
+      rw [hg K y P hP.symm, ← hP]; rfl
+    · intro K _ _ y
+      obtain ⟨P, hP⟩ := Quotient.exists_rep (Φ K y)
+      rw [hg' K y P hP.symm, ← hP]; rfl
+  · obtain ⟨g, hg⟩ := classify h1 𝒜 h𝒜 (rightMulFam 𝒜 u) (fun _ _ P => P.rightMul u)
+      (fun _ _ y P h => isFibre_rightMul h u)
+    obtain ⟨g', hg'⟩ := classify h1 𝒜 h𝒜 (rightMulFam 𝒜 u⁻¹) (fun _ _ P => P.rightMul u⁻¹)
+      (fun _ _ y P h => isFibre_rightMul h u⁻¹)
+    refine iso_of_pair h1 (fun K _ => M3.rightMul u) (fun K _ => M3.rightMul u⁻¹)
+      (fun K _ c => M3.rightMul_inv u c) (fun K _ c => M3.rightMul_inv' u c) g g' ?_ ?_
+    · intro K _ _ y
+      obtain ⟨P, hP⟩ := Quotient.exists_rep (Φ K y)
+      rw [hg K y P hP.symm, ← hP]; rfl
+    · intro K _ _ y
+      obtain ⟨P, hP⟩ := Quotient.exists_rep (Φ K y)
+      rw [hg' K y P hP.symm, ← hP]; rfl
+
+/-- **`R1bTransport` is a theorem** (the comparison isomorphism carries the family). -/
+theorem r1bTransport_proof : R1bTransport := by
+  intro Y Φ Y' Φ' h h' hall π'
+  obtain ⟨g, hg⟩ := compare_iso h h'
+  obtain ⟨yτ, hy1, hy2, hy3⟩ := hall (π'.comp g.inv.left)
+  have hfun : (fun τ => π'.val (K := ℂ) (yτ τ ≫ g.inv).left) =
+      (fun τ => (π'.comp g.inv.left).val (K := ℂ) (yτ τ).left) := by
+    funext τ
+    exact (ToP1.val_comp_right π' g.inv.left (yτ τ).left).symm
+  refine ⟨fun τ => yτ τ ≫ g.inv, fun τ => ?_, ?_, ?_⟩
+  · obtain ⟨P, hP, rest⟩ := hy1 τ
+    refine ⟨P, ?_, rest⟩
+    rw [hg, Category.assoc, g.inv_hom_id, Category.comp_id]; exact hP
+  · simp only at hfun ⊢; rw [hfun]; exact hy2
+  · intro τ; simp only at hfun ⊢; rw [hfun]; exact hy3 τ
+
+end Comparison
+
+/-- **Row H-1 with `HeckeOfFine` discharged.** -/
+theorem r1r2fpRep_of' (hE : CanonicalModelY3) (hX : CoarseX6OfFine) (hP : HauptmodulOfX6)
+    (hR : ReciprocityOfFine) (h5 : ResidueOfX6) : LeafAdopt.R1R2fpRep :=
+  r1r2fpRep_of hE heckeOfFine_proof hX hP hR h5
+
+/-- **Row H-20 from the leaf candidate `ShimuraFamily` alone** (`R1bTransport` discharged). -/
+theorem r1b_of' (hS : ShimuraFamily) :
+    ∀ h : LeafAdopt.R1R2fpRep,
+      HSyn.G0Split.FibreQM.R1bFamily (HSyn.G0Split.FibreQM.ownY (LeafAdopt.R1R2fp_of_rep h))
+        (HSyn.G0Split.FibreQM.ownΦ (LeafAdopt.R1R2fp_of_rep h))
+        (HSyn.G0Split.FibreQM.ownπ (LeafAdopt.R1R2fp_of_rep h)) :=
+  r1b_of hS r1bTransport_proof
+
 end HDec.QMSplit.Moduli
 
 #print axioms HDec.QMSplit.Moduli.r1r2fpRep_of
 #print axioms HDec.QMSplit.Moduli.y3Connected_of
 #print axioms HDec.QMSplit.Moduli.r1b_of
 #print axioms HDec.QMSplit.Moduli.x6ConicModel_of
+#print axioms HDec.QMSplit.Moduli.heckeOfFine_proof
+#print axioms HDec.QMSplit.Moduli.compare_iso
+#print axioms HDec.QMSplit.Moduli.r1bTransport_proof
+#print axioms HDec.QMSplit.Moduli.r1r2fpRep_of'
+#print axioms HDec.QMSplit.Moduli.r1b_of'
 
 example : HDec.QMSplit.Moduli.CanonicalModelY3 → HDec.QMSplit.Moduli.HeckeOfFine →
     HDec.QMSplit.Moduli.CoarseX6OfFine → HDec.QMSplit.Moduli.HauptmodulOfX6 →
