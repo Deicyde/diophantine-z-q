@@ -134,6 +134,45 @@ any module whose closure contains the GaloisCohomology files (`Coefficients`, `I
 `Kummer`), such as the Kronecker-Weber / class-field Contrib modules. Section 6 covers the
 broader test of T40 against all of Contrib.
 
+## 6. T40 against all of Contrib
+
+`ZInQKernel/Contrib/` has 74 top-level modules: those that no other Contrib module imports
+(`scratch/t40-clash/contrib-tops.txt`). Their import closures cover all 2027 Contrib modules.
+
+* `lake build` of all 74: success (11928 jobs, 15.7 min, no errors).
+* `scratch/t40-clash/AllContrib.lean` imports T40 and the other 73 at once. It **fails on a
+  clash that does not involve T40**: `Subgroup.stabilizerInclusion` (and
+  `stabilizerInclusion_injective`) is declared both in the vendored commit-5a01f5fe
+  `TauCeti/GroupTheory/GroupAction/Stabilizer.lean` and in the vendored commit-97a5b235
+  `TauCeti/GroupTheory/GroupAction/Stabilizer/Basic.lean`. Neither file is in T40's closure. The
+  clash predates this task, and those files are outside its edit scope. So some pairs of
+  existing Contrib modules cannot be imported together with each other, with or without T40.
+  Fixing that would be a separate task, done the same way as this one: drop the 97a5b235
+  duplicates and import the 5a01f5fe module, or rename.
+* Pairwise test `scratch/t40-clash/pairwise.sh`: for each of the 73 other top-level modules
+  `M`, compile `import ZInQKernel.Contrib.RLeaf.T40` + `import M` with `lake env lean`, one after
+  another. **73/73 compile** (`scratch/t40-clash/pairwise-result.txt`). An import clash is a
+  property of a pair of modules, and every Contrib module lies in the closure of some top-level
+  module. So the pairwise test shows that T40's closure clashes with no Contrib module. Eight
+  of the 73 contain `GroupWithZero.Units.Basic` in their closure and so clashed with T40 before
+  the fix: `KroneckerWeber.Leaves`, `LocalKW.T30`, `T14.WP3`, `TYZGenus.ShimuraFricke`, and the
+  Tau Ceti modules `FieldTheory.GaloisCohomology.Congr`,
+  `ClassFieldTheory.Global.Kummer.AuxiliaryPlaces`, `Global.Kummer.Norm` and
+  `Global.PrescribedInvariant`.
+
+Strictly, the pairwise test checks clashes between T40's closure and each other module, not
+clashes among the other modules. That second kind is the Stabilizer clash above, and it
+predates T40.
+
+## What remains
+
+* Nothing for T40: it can join the H assembly's import set.
+* Pre-existing, not T40: `Subgroup.stabilizerInclusion` is declared twice
+  (`TauCeti/GroupTheory/GroupAction/Stabilizer.lean` and `.../Stabilizer/Basic.lean`). An
+  assembly that needs modules from both sides will hit it.
+* The heuristic scan (section 3) does not look at instances or auto-generated names. For the
+  T40 side, the pairwise compile test makes up for that.
+
 ## Files
 
 * `ZInQKernel/Contrib/TauCeti/Backport/Algebra/Group/Units/Basic.lean`: the fix.
@@ -142,4 +181,7 @@ broader test of T40 against all of Contrib.
 * `scratch/t40-clash/Together.lean`: T40 with the assembly's Contrib modules.
 * `scratch/t40-clash/rdeps.py`: reverse import closure of a module over the tracked files.
 * `scratch/t40-clash/dupscan.py`: heuristic duplicate-declaration scan.
+* `scratch/t40-clash/AllContrib.lean`: T40 with all 73 other top-level Contrib modules (fails on the
+  pre-existing Stabilizer clash, section 6).
+* `scratch/t40-clash/pairwise.sh`, `contrib-tops.txt`, `pairwise-result.txt`: the pairwise test.
 * `scratch/t40-clash/log.md`: results log.

@@ -23,3 +23,16 @@
   Note: none of the six required modules imports GroupWithZero.Units.Basic (forward closures), so
   the explicit import of that module in Together.lean is what exercises the former clash.
   Next: broader test, T40 + all 74 top-level Contrib modules (1105 modules still unbuilt).
+- 18:16 `lake build` of all 74 top-level Contrib modules (scratch/t40-clash/contrib-tops.txt;
+  together their closures are all of ZInQKernel/Contrib/): success (11928 jobs, 15.7 min, 0 errors).
+- 18:16 scratch/t40-clash/AllContrib.lean (T40 + all 73 other tops): fails, but on a clash NOT
+  involving T40: 'Subgroup.stabilizerInclusion' is declared both by the vendored commit-5a01f5fe
+  TauCeti/GroupTheory/GroupAction/Stabilizer.lean and the vendored commit-97a5b235
+  TauCeti/GroupTheory/GroupAction/Stabilizer/Basic.lean; neither is in T40's closure (pre-existing,
+  outside this task's edit scope).
+- 18:23 Pairwise test (scratch/t40-clash/pairwise.sh): `import T40` + `import M` for each of the 73
+  other top-level Contrib modules M, compiled one after another: 73/73 OK
+  (scratch/t40-clash/pairwise-result.txt). Eight of these M contain GroupWithZero.Units.Basic in their
+  closure and so clashed with T40 before the fix: KroneckerWeber.Leaves, LocalKW.T30, T14.WP3,
+  TYZGenus.ShimuraFricke, TauCeti GaloisCohomology.Congr, Global.Kummer.AuxiliaryPlaces,
+  Global.Kummer.Norm, Global.PrescribedInvariant.
