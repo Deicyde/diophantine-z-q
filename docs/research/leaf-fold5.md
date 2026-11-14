@@ -52,7 +52,7 @@ complement theorem (+ glue); T9 → a theorem from two existing fields; T11(b) �
 halves; T38 → three statements with its rational-point clause proved; T41 → the scheme-level Néron model (group law
 proved); and `serreRigidity3` (Serre's lemma) is a theorem from T35 and `HomLatticeCorr`.
 
-Goal (c): 33 of the 70 fields are now the kernel's own constants (leaf-fold4: 5). The 11 kernel leaves and the glue
+Goal (c): 33 of the 70 fields are now the kernel's own constants (leaf-fold4: 5). The 10 kernel leaves and the glue
 Prop of av-b1/curves-g/neron-c are used directly (their kernel theorems are applied to the chain's objects through
 leaf-fold4's `toAbVarK4`/`ofAbVarK4`), and 17 more fields (R3, R6, R7a, R7b, R8, R9a, R9b, R16, R17, T4, T5, T10,
 `HomLatticeCorr`, T24, T27, T33, T35) are restated over the kernel's Props, with a proved transport to the chain's
