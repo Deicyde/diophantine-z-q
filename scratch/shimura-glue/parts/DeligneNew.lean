@@ -6,6 +6,8 @@ open CategoryTheory AlgebraicGeometry Limits
 open LeafQM LeafQM.AV
 open IsDedekindDomain IsDedekindDomain.HeightOneSpectrum Rat.HeightOneSpectrum
 
+attribute [local instance 2000] instAlgebraAdicCompletion
+
 /-- **The display of Deligne's theorem on `π₀` for `Sh_K(B^×)`** (with its Galois action), for a
 `ℚ`-scheme `Y` and a compact open `K ⊆ (B ⊗ 𝔸_f)^×`: a bijection
 `c : π₀(Y ×_ℚ ℚ̄) ≃ ℚ^×_{>0} \ 𝔸_f^× / nrd(K)` under which `σ ∈ Aut(ℚ̄/ℚ)` acts by multiplication by

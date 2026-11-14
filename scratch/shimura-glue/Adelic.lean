@@ -200,6 +200,11 @@ theorem sq_three (u : ℤ_[3]) (hu : PadicInt.toZMod u = 1) :
 
 open IsDedekindDomain IsDedekindDomain.HeightOneSpectrum Rat.HeightOneSpectrum
 
+/- Over the full kernel (e.g. `ZInQKernel.OneProof.H.TailK`) instance search finds
+`DivisionRing.toRatAlgebra` for `Algebra ℚ (v.adicCompletion ℚ)`, which is not reducibly defeq to the
+instance `instAlgebraAdicCompletion` in the type of Mathlib's `padicEquiv`; prefer the latter here. -/
+attribute [local instance 2000] instAlgebraAdicCompletion
+
 instance instFactPrimes (p : Nat.Primes) : Fact p.1.Prime := ⟨p.2⟩
 
 /-- The finite places of `ℚ` (Mathlib's height-one primes of `ℤ`). -/
@@ -640,9 +645,10 @@ def locQ (v : Place) : v.adicCompletion ℚ ≃+* ℚ_[primesEquiv v] :=
   (adicCompletion.padicEquiv (R := ℤ) v : v.adicCompletion ℚ ≃+* ℚ_[primesEquiv v])
 
 theorem locQ_rat (v : Place) (q : ℚ) :
-    locQ v (algebraMap ℚ (v.adicCompletion ℚ) q) = (q : ℚ_[primesEquiv v]) := by
-  change adicCompletion.padicEquiv (R := ℤ) v (algebraMap ℚ _ q) = _
-  rw [AlgHomClass.commutes, eq_ratCast]
+    locQ v ((algebraMap ℚ Af q) v) = (q : ℚ_[primesEquiv v]) := by
+  have : (algebraMap ℚ Af q) v = (q : v.adicCompletion ℚ) :=
+    eq_ratCast ((ev v).comp (algebraMap ℚ Af)) q
+  rw [this, map_ratCast]
 
 theorem mem_iff_norm (v : Place) (x : v.adicCompletion ℚ) :
     x ∈ v.adicCompletionIntegers ℚ ↔ ‖locQ v x‖ ≤ 1 := by
@@ -692,7 +698,7 @@ abbrev emb : ℚˣ →* Afˣ := FiniteAdeleRing.unitEmbedding ℤ ℚ
 
 theorem nrm_emb (v : Place) (q : ℚˣ) : nrm v (emb q) = ‖((q : ℚ) : ℚ_[primesEquiv v])‖ := by
   unfold nrm
-  rw [show ((emb q : Afˣ) : Af) v = algebraMap ℚ (v.adicCompletion ℚ) (q : ℚ) from rfl, locQ_rat]
+  rw [show ((emb q : Afˣ) : Af) = algebraMap ℚ Af (q : ℚ) from rfl, locQ_rat]
 
 theorem norm_prime_ne {p q : Nat.Primes} (h : p ≠ q) : ‖((q : ℕ) : ℚ_[p])‖ = 1 := by
   rw [Padic.norm_natCast_eq_one_iff]
