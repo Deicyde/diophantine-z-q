@@ -156,5 +156,70 @@ theorem hprime_inert_split (_hd : d % 8 = 5) {p : ℕ} (hp : p.Prime) (hp2 : p �
     rw [hbot] at hmem
     exact hmem
 
+/-! ### Transport to `ℚ̄`: `HprimeFrobOrderTwo` -/
+
+theorem Hprimebar_eq (d : ℕ) [NeZero d] :
+    Hprimebar d = ((Hprime d).restrictScalars ℚ).map (embed d) := by
+  rw [Hprimebar, dite_eq_right (NeZero.ne d)]
+
+/-- `H'_d ≅ H̄'_d ⊂ ℚ̄` (as `ℚ`-algebras), through `embed d`. -/
+noncomputable def psi0 (d : ℕ) [NeZero d] : ((Hprime d).restrictScalars ℚ) ≃ₐ[ℚ] Hprimebar d :=
+  (IntermediateField.equivMap ((Hprime d).restrictScalars ℚ) (embed d)).trans
+    (IntermediateField.equivOfEq (Hprimebar_eq d).symm)
+
+theorem psi0_apply (y : (Hprime d).restrictScalars ℚ) :
+    ((psi0 d y : Hprimebar d) : Qbar) = embed d (y : SeparableClosure (QNeg d)) := rfl
+
+instance instNormalHprimebar : Normal ℚ (Hprimebar d) := normal_Hprimebar d
+
+/-- `h ∈ Gal(ℚ̄/ℚ)` transported to a `ℚ`-automorphism of `H'_d`. -/
+noncomputable def tauQ (h : Qbar ≃ₐ[ℚ] Qbar) :
+    ((Hprime d).restrictScalars ℚ) ≃ₐ[ℚ] ((Hprime d).restrictScalars ℚ) :=
+  ((psi0 d).trans (h.restrictNormal (Hprimebar d))).trans (psi0 d).symm
+
+theorem psi0_tauQ (h : Qbar ≃ₐ[ℚ] Qbar) (y : (Hprime d).restrictScalars ℚ) :
+    ((psi0 d (tauQ (d := d) h y) : Hprimebar d) : Qbar) = h ((psi0 d y : Hprimebar d) : Qbar) := by
+  simp only [tauQ, AlgEquiv.trans_apply, AlgEquiv.apply_symm_apply]
+  exact AlgEquiv.restrictNormal_commutes h (Hprimebar d) (psi0 d y)
+
+/-- The image of `c ∈ K_d` in `H'_d`, as an element of `H'_d` viewed over `ℚ`. -/
+noncomputable def kpt (c : QNeg d) : (Hprime d).restrictScalars ℚ :=
+  ⟨algebraMap (QNeg d) (SeparableClosure (QNeg d)) c, (Hprime d).algebraMap_mem c⟩
+
+theorem kpt_eq (c : QNeg d) :
+    kpt c = algebraMap ℚ ((Hprime d).restrictScalars ℚ) c.re +
+      algebraMap ℚ ((Hprime d).restrictScalars ℚ) c.im * kpt (QuadraticAlgebra.omega : QNeg d) := by
+  have hc : c = algebraMap ℚ (QNeg d) c.re + algebraMap ℚ (QNeg d) c.im * QuadraticAlgebra.omega := by
+    ext <;> simp
+  apply Subtype.ext
+  show algebraMap (QNeg d) (SeparableClosure (QNeg d)) c = _
+  conv_lhs => rw [hc]
+  rw [map_add, map_mul, ← IsScalarTower.algebraMap_apply, ← IsScalarTower.algebraMap_apply]
+  rfl
+
+/-- The square of `tauQ h` fixes `K_d`. -/
+theorem tauQ_sq_kpt (h : Qbar ≃ₐ[ℚ] Qbar) (c : QNeg d) :
+    tauQ (d := d) h (tauQ (d := d) h (kpt c)) = kpt c := by
+  set τ := tauQ (d := d) h
+  set w := kpt (QuadraticAlgebra.omega : QNeg d)
+  have hw2 : w * w = algebraMap ℚ ((Hprime d).restrictScalars ℚ) (-(d : ℚ)) := by
+    apply Subtype.ext
+    show algebraMap (QNeg d) (SeparableClosure (QNeg d)) QuadraticAlgebra.omega *
+      algebraMap (QNeg d) (SeparableClosure (QNeg d)) QuadraticAlgebra.omega = _
+    rw [← map_mul, QuadraticAlgebra.omega_mul_omega_eq_algebraMap, map_add, map_mul,
+      ← IsScalarTower.algebraMap_apply, ← IsScalarTower.algebraMap_apply]
+    simp only [map_zero, zero_mul, add_zero]
+    rfl
+  have hτw : τ w * τ w = w * w := by rw [← map_mul, hw2, AlgEquiv.commutes]
+  have hττw : τ (τ w) = w := by
+    rcases mul_self_eq_mul_self_iff.mp hτw with e | e
+    · rw [e, e]
+    · rw [e, map_neg, e, neg_neg]
+  rw [kpt_eq, map_add, map_add, map_mul, map_mul, AlgEquiv.commutes, AlgEquiv.commutes,
+    AlgEquiv.commutes, AlgEquiv.commutes, hττw]
+
 end StepC
+
+
+
 end ZInQ.Contrib.TYZGenus.T318
