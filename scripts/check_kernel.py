@@ -1,27 +1,40 @@
 #!/usr/bin/env python3
 """Build the complete kernel project and check its exact proof contracts."""
 import argparse
+from contextlib import nullcontext
 import json
 import os
 from pathlib import Path
 import re
 import subprocess
+import sys
 import time
 
 from check_kernel_contract import ROOT, git, validate
+from kernel_diagnostics import AuditDiagnostics
 
 
-def run(command, output, name, cwd=ROOT):
+def run(command, output, name, cwd=ROOT, audit_metrics=False):
     start = time.monotonic()
+    usage_path = output / (name + "-resource-usage.txt")
+    if audit_metrics and sys.platform.startswith("linux") and Path("/usr/bin/time").is_file():
+        # GNU time records the OS high-water RSS as well as CPU, faults and swaps.
+        command = ["/usr/bin/time", "-v", "-o", str(usage_path), "--", *command]
+    print(f"[kernel-ci] {name}: starting", flush=True)
     with (output / (name + ".log")).open("w", encoding="utf-8") as log:
         log.write(json.dumps(command) + "\n")
         log.flush()
         proc = subprocess.Popen(command, cwd=cwd, stdout=subprocess.PIPE,
                                 stderr=subprocess.STDOUT, text=True, errors="replace")
-        for line in proc.stdout:
-            print(line, end="", flush=True)
-            log.write(line)
-        code = proc.wait()
+        with proc.stdout, (AuditDiagnostics(proc.pid, output) if audit_metrics else nullcontext()):
+            for line in proc.stdout:
+                print(line, end="", flush=True)
+                log.write(line)
+                log.flush()
+            code = proc.wait()
+    print(f"[kernel-ci] {name}: exit {code}, elapsed {time.monotonic() - start:.1f}s", flush=True)
+    if audit_metrics and usage_path.is_file():
+        print(usage_path.read_text(encoding="utf-8", errors="replace"), flush=True)
     (output / (name + "-timing.json")).write_text(json.dumps({
         "seconds": round(time.monotonic() - start, 3), "exit_code": code}), encoding="utf-8")
     if code:
@@ -90,7 +103,7 @@ def main():
     spec_path = output / "spec.json"
     spec_path.write_text(json.dumps(spec, indent=2), encoding="utf-8")
     run(["lake", "env", "lean", "--run", "scripts/audit_kernel.lean", str(spec_path),
-         str(output / "audit.json")], output, "kernel-audit")
+         str(output / "audit.json")], output, "kernel-audit", audit_metrics=True)
     report = json.loads((output / "audit.json").read_bytes())
     if validate() != contract:
         raise RuntimeError("Source contract changed during the audit")

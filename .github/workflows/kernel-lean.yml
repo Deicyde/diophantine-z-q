@@ -43,6 +43,7 @@ jobs:
           echo "$HOME/.elan/bin" >> "$GITHUB_PATH"
       - name: Validate source contract
         run: |
+          python -B scripts/test_kernel_diagnostics.py
           python -B scripts/test_kernel_contract.py
           python -B scripts/check_kernel_contract.py --output build/kernel-ci/contract.json
       - name: Test rejection of invalid proofs
@@ -61,6 +62,26 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: python -B scripts/kernel_base_report.py
+      - name: Add 8 GiB swap for the kernel audit
+        # Preserve existing swap. VM teardown releases this additional file.
+        shell: bash
+        run: |
+          set -euo pipefail
+          free -m
+          df -h "$RUNNER_TEMP"
+          swapon --show
+          available=$(df -B1 --output=avail "$RUNNER_TEMP" | tail -n 1)
+          if (( available < 12 * 1024 * 1024 * 1024 )); then
+            echo '::error::Need 12 GiB free for 8 GiB audit swap plus 4 GiB disk headroom.'
+            exit 1
+          fi
+          swap_file=$(mktemp "$RUNNER_TEMP/kernel-audit-swap.XXXXXX")
+          sudo fallocate -l 8G "$swap_file"
+          sudo chmod 600 "$swap_file"
+          sudo mkswap "$swap_file"
+          sudo swapon "$swap_file"
+          free -m
+          swapon --show
       - name: Build all modules and replay kernel proofs
         run: python -B scripts/check_kernel.py --base-report build/kernel-ci/base-audit.json
       - name: Upload proof-status evidence
@@ -70,8 +91,6 @@ jobs:
           name: kernel-audit
           path: build/kernel-ci/
           if-no-files-found: error
-      # This is the sole optional step. The protected controller's pinned
-      # workflow profile must allow precisely this skip on pull_request runs.
       - name: Save successful main build outputs
         if: github.event_name == 'push' && github.ref == 'refs/heads/main'
         uses: actions/cache/save@0057852bfaa89a56745cba8c7296529d2fc39830
