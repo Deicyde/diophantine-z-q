@@ -562,4 +562,73 @@ theorem ZhatU_le : ZhatU ≤ Kfull.map nrdU := by
   obtain ⟨k, hk, -, hku⟩ := exists_unit_of_nrd ⟨m, fun i => adeleHom_mem _, rfl⟩ hu hN
   exact ⟨k, hk, hku⟩
 
+
+/-- `e₀ = (1, 0, 0, 0)`, the coordinates of `1`. -/
+def e0 : Fin 4 → ℤ := ![1, 0, 0, 0]
+
+/-- **Local representations congruent to `1` mod 3**: a unit `u` of `ℤ_p` (with `u ≡ 1 mod 3` if
+`p = 3`) is `N4(e₀ + 3n')` for some `n'` (for `p ≠ 3`, `3 ∈ ℤ_p^×`; for `p = 3`, `sq_three`). -/
+theorem rep_unit3 {p : ℕ} [Fact p.Prime] (u : ℤ_[p]) (hu : IsUnit u)
+    (h3 : p = 3 → PadicInt.toZMod u = 1) :
+    ∃ n' : Fin 4 → ℤ_[p], N4 (fun i => ((e0 i : ℤ) : ℤ_[p]) + 3 * n' i) = u := by
+  by_cases hp3 : p = 3
+  · subst hp3
+    obtain ⟨x, hx, hx1⟩ := sq_three u (h3 rfl)
+    have : PadicInt.toZMod (x - 1) = 0 := by rw [map_sub, hx1, map_one, sub_self]
+    obtain ⟨y, hy⟩ := (PadicInt.norm_lt_one_iff_dvd _).1 ((norm_lt_one_iff_toZMod _).2 this)
+    refine ⟨![y, 0, 0, 0], ?_⟩
+    simp only [N4, e0]
+    simp
+    push_cast at hy
+    linear_combination hx - (1 + 3 * y + x) * hy
+  · obtain ⟨n, hn⟩ := rep_unit u hu
+    have h3u : IsUnit (3 : ℤ_[p]) := by
+      rw [isUnit_iff_toZMod, map_ofNat, ← Nat.cast_ofNat, Ne, ZMod.natCast_eq_zero_iff]
+      intro hd
+      exact hp3 ((Nat.prime_dvd_prime_iff_eq (Fact.out) Nat.prime_three).1 hd)
+    obtain ⟨w, hw⟩ := h3u
+    refine ⟨fun i => (n i - ((e0 i : ℤ) : ℤ_[p])) * ↑w⁻¹, ?_⟩
+    convert hn using 2
+    funext i
+    have : (3 : ℤ_[p]) * ↑w⁻¹ = 1 := by rw [← hw]; simp
+    linear_combination (n i - ((e0 i : ℤ) : ℤ_[p])) * this
+
+theorem ofQ_e0 {R : Type*} [CommRing R] [Algebra ℚ R] (m : Fin 4 → R) :
+    ofQ (fun i => ((e0 i : ℤ) : R) + 3 * m i) = 1 + 3 * ofQ m := by
+  ext <;> simp [ofQ, e0, QuaternionAlgebra.re_ofNat, QuaternionAlgebra.imI_ofNat,
+      QuaternionAlgebra.imJ_ofNat, QuaternionAlgebra.imK_ofNat] <;> ring
+
+theorem three_mem_Zhat : (3 : Af) ∈ Zhat := by simpa using Zhat.natCast_mem 3
+
+/-- **`nrd(K₃) ⊇ U₃`**. -/
+theorem U3_le : U3 ≤ K3.map nrdU := by
+  rintro u ⟨hu, t, ht, hut⟩
+  have hloc : ∀ v : Place, (primesEquiv v : ℕ) = 3 → PadicInt.toZMod (locA hu.1 v) = 1 := by
+    intro v hv
+    have : locA hu.1 v = 1 + 3 * locA ht v := by
+      rw [locA, locA, ← map_ofNat (locZ v) 3, ← map_one (locZ v), ← map_mul, ← map_add]
+      congr 1; apply Subtype.ext
+      change (u : Af) v = 1 + 3 * t v
+      rw [hut]; change ev v (1 + 3 * t) = 1 + 3 * ev v t
+      rw [map_add, map_mul, map_one, map_ofNat]
+    rw [this, map_add, map_mul, map_one, map_ofNat]
+    have h30 : (3 : ZMod (primesEquiv v : ℕ)) = 0 := by
+      rw [← Nat.cast_ofNat, ZMod.natCast_eq_zero_iff, hv]
+    rw [h30, zero_mul, add_zero]
+  choose n' hn' using fun v => rep_unit3 (p := primesEquiv v) (locA hu.1 v) (isUnit_locA hu v) (hloc v)
+  set m' : Fin 4 → Af := fun i => adeleHom (fun v => n' v i)
+  have hm : (fun i => ((e0 i : ℤ) : Af) + 3 * m' i) =
+      fun i => adeleHom (fun v => ((e0 i : ℤ) : ℤ_[primesEquiv v]) + 3 * n' v i) := by
+    funext i
+    rw [show (fun v => ((e0 i : ℤ) : ℤ_[primesEquiv v]) + 3 * n' v i) =
+      (((e0 i : ℤ) : ∀ v : Place, ℤ_[primesEquiv v]) + 3 * fun v => n' v i) from rfl]
+    rw [map_add, map_mul, map_intCast, map_ofNat]
+  have hN : nrdQ Af (ofQ (fun i => ((e0 i : ℤ) : Af) + 3 * m' i)) = u := by
+    rw [nrdQ_ofQ, hm, N4_adeleHom]; simp only [hn']; exact adeleHom_locA hu.1
+  have hmem : ∀ i, ((e0 i : ℤ) : Af) + 3 * m' i ∈ Zhat := fun i =>
+    Zhat.add_mem (intCast_mem Zhat _) (Zhat.mul_mem three_mem_Zhat (adeleHom_mem _))
+  obtain ⟨k, hk, hkk, hku⟩ := exists_unit_of_nrd ⟨_, hmem, rfl⟩ hu hN
+  refine ⟨k, ⟨hk, ofQ m', ⟨m', fun i => adeleHom_mem _, rfl⟩, ?_⟩, hku⟩
+  rw [hkk, ofQ_e0]
+
 end ShimuraGlue
