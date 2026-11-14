@@ -78,4 +78,77 @@ lemma Φ_smul (U : X.Opens) (hU : IsAffineOpen U) (hne : (U : Set X).Nonempty) (
   | hadd x y hx hy => rw [smul_add, map_add, map_add, hx, hy, smul_add]
   | hgen c b => rw [smul_smul, Φ_smul_D, Φ_smul_D, map_mul, mul_smul]
 
+
+lemma ψ_res {U V : X.Opens} (h : V ≤ U) (hV : (V : Set X).Nonempty) (a : Γ(X, U)) :
+    ψ e V hV (X.presheaf.map (homOfLE h).op a) =
+      ψ e U (hV.mono h) a := by
+  simp only [ψ, RingHom.coe_comp, Function.comp_apply]
+  congr 1
+  exact X.presheaf.germ_res_apply (homOfLE h) _ _ a
+
+lemma Φ_res {U V : X.Opens} (h : V ≤ U) (hU : IsAffineOpen U) (hV : IsAffineOpen V)
+    (hne : (V : Set X).Nonempty) (s : Γ(g.relativeDifferentials, U)) :
+    Φ g e V hV hne (g.relativeDifferentials.presheaf.map (homOfLE h).op s) =
+      Φ g e U hU (hne.mono h) s := by
+  induction s using induction_affine U hU with
+  | h0 => simp
+  | hadd x y hx hy => rw [map_add, map_add, map_add, hx, hy]
+  | hgen a b =>
+    rw [Scheme.Modules.map_smul, ← Scheme.Hom.sectionsD_map, Φ_smul_D, Φ_smul_D, ψ_res, ψ_res]
+
+
+/-- **GLUE (proved below, `kaehlerToFractionFieldInjective`).** For a domain `A` smooth over `ℚ` with fraction
+field `K`, `Ω_{A/ℚ} → Ω_{K/ℚ}` is injective (`Ω_A` is projective, hence torsion-free, and `Ω_K` is its
+localization). -/
+def KaehlerToFractionFieldInjective : Prop :=
+  ∀ (A K : Type) [CommRing A] [IsDomain A] [Algebra ℚ A] [Algebra.Smooth ℚ A] [Field K] [Algebra ℚ K]
+    [Algebra A K] [IsScalarTower ℚ A K] [IsFractionRing A K],
+    Function.Injective (KaehlerDifferential.map ℚ ℚ A K)
+
+theorem kaehlerToFractionFieldInjective : KaehlerToFractionFieldInjective := by
+  intro A K _ _ _ _ _ _ _ _ _
+  have hloc : IsLocalizedModule (nonZeroDivisors A) (KaehlerDifferential.map ℚ ℚ A K) :=
+    KaehlerDifferential.isLocalizedModule_map ℚ A K (nonZeroDivisors A)
+  rw [injective_iff_map_eq_zero]
+  intro x hx
+  obtain ⟨⟨r, hr⟩, hrx⟩ := (IsLocalizedModule.eq_zero_iff (nonZeroDivisors A) _).mp hx
+  have hreg : IsRegular r := IsRegular.of_ne_zero (nonZeroDivisors.ne_zero hr)
+  exact Module.Flat.isSMulRegular_of_isRegular (M := Ω[A⁄ℚ]) hreg (by simpa using hrx)
+
+
+omit [IsIntegral X] in
+lemma smooth_sections [Smooth g] (U : X.Opens) (hU : IsAffineOpen U) :
+    letI : Algebra ℚ Γ(X, U) := (g.specStructureMap U).hom.toAlgebra
+    Algebra.Smooth ℚ Γ(X, U) := by
+  have h1 : RingHom.Smooth (g.appLE ⊤ U le_top).hom :=
+    HasRingHomProperty.appLE @Smooth g ‹_› ⟨⊤, isAffineOpen_top _⟩ ⟨U, hU⟩ le_top
+  have h2 : RingHom.Smooth (Scheme.ΓSpecIso (CommRingCat.of ℚ)).inv.hom :=
+    RingHom.Smooth.of_bijective (ConcreteCategory.bijective_of_isIso _)
+  have : RingHom.Smooth (g.specStructureMap U).hom := by
+    have := RingHom.Smooth.comp h2 h1
+    simpa [Scheme.Hom.specStructureMap] using this
+  exact this
+
+lemma isFractionRing_ψ (U : X.Opens) (hU : IsAffineOpen U) (hne : (U : Set X).Nonempty) :
+    letI : Algebra Γ(X, U) F := (ψ e U hne).toAlgebra
+    IsFractionRing Γ(X, U) F := by
+  letI : Algebra Γ(X, U) F := (ψ e U hne).toAlgebra
+  haveI : Nonempty U := hne.to_subtype
+  have h := functionField_isFractionRing_of_isAffineOpen X U hU
+  exact IsLocalization.isLocalization_of_algEquiv (nonZeroDivisors Γ(X, U))
+    (AlgEquiv.ofRingEquiv (f := e) (fun _ => rfl))
+
+lemma Φ_injective [Smooth g] (U : X.Opens) (hU : IsAffineOpen U) (hne : (U : Set X).Nonempty) :
+    Function.Injective (Φ g e U hU hne) := by
+  letI : Algebra ℚ Γ(X, U) := (g.specStructureMap U).hom.toAlgebra
+  letI : Algebra Γ(X, U) F := (ψ e U hne).toAlgebra
+  haveI : IsScalarTower ℚ Γ(X, U) F := IsScalarTower.of_algebraMap_eq (fun q =>
+    congrArg (· q) (RingHom.ext_rat (algebraMap ℚ F) ((ψ e U hne).comp (g.specStructureMap U).hom)))
+  haveI := smooth_sections (g := g) U hU
+  haveI := isFractionRing_ψ (e := e) U hU hne
+  haveI : IsDomain Γ(X, U) := by
+    haveI : Nonempty U := hne.to_subtype
+    infer_instance
+  exact (kaehlerToFractionFieldInjective Γ(X, U) F).comp (g.kaehlerSectionsEquiv U rfl hU).symm.injective
+
 end DimJacGlue
