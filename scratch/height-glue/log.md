@@ -51,3 +51,9 @@
   End_𝒪 ≅ 𝒪_τ), QMDescentCM (base change ℚ̄→ℂ: exists, preserves End_𝒪, reflects iso (rigidity),
   CM pairs descend (Shimura–Taniyama)). Glue: CMPointEmbeddingCorrespondence (normalized optimal
   embeddings; quaternion arithmetic), unproved.
+
+## Rows.lean
+- `lake build ZInQKernel.Contrib.HeightBC.Main` (needed olean), exit 0.
+- Rows.lean (build_rows.py: HeightSplit.lean l.3-919 verbatim + HeightGlue body, bare AbVar →
+  PkgI3.AbVar in appended parts) exit 0 (VERIFIED): `heightRows_of_t35 (l : HeightLeaves) (hT35) :
+  R18 ∧ R19 ∧ R20 ∧ R21 ∧ R22 ∧ StableHeightFinite`, axioms standard.
