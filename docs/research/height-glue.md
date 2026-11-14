@@ -1,4 +1,4 @@
-# height-glue: the height glue of height-split proved from T35; H-3's correspondence reduced to two leaves
+# height-glue: the height glue of height-split proved from T35; H-3 reduced to T11b and two QM leaves
 
 Task height-glue, 2026-11-14. Base f70ec251 (fork main after w55), branch `wip/height-glue`.
 Lean: `scratch/height-glue/` (results log `log.md`). Nothing under `ZInQKernel/` or `blueprint/`
@@ -25,11 +25,16 @@ No new leaf is introduced, and two of the four are proved outright (VERIFIED, st
 Consequently (`Rows.lean`): **the six height rows H-14 to H-19 follow from height-split's nine
 published-form leaves `HeightLeaves` and T35**: `heightRows_of_t35`.
 
-**H-3 (`QMPairEmbeddingCorrespondence`)** is reduced (VERIFIED) to two published-form leaves:
-`qmPairEmbeddingCorrespondence_of_leaves (hD : QMDescentCM) (hU : QMUniformizationC) :
-QMPairEmbeddingCorrespondence` (§3). The intermediate glue `CMPointEmbeddingCorrespondence`
-(CM points `↔` optimal embeddings, through normalized embeddings) is **proved** with no
-hypotheses (`cmPointEmbeddingCorrespondence`, `QMEmb.lean`).
+**H-3 (`QMPairEmbeddingCorrespondence`)** is reduced (VERIFIED) to the kernel's textbook leaf
+`T11b_Rigidity` and two new published-form leaves, `CMDescent` (Shimura–Taniyama) and
+`QMUniformizationC` (Shimura's moduli of QM surfaces over `ℂ`):
+`qmPairEmbeddingCorrespondence_of_t11b`, and with height-split's Eichler leaf the row itself,
+`r5fpCount_of_t11b : EichlerOptimalEmbeddingCount → T11b_Rigidity → CMDescent →
+QMUniformizationC → R5fpCount` (§3.2). Along the way:
+- the glue `CMPointEmbeddingCorrespondence` (CM points `↔` optimal embeddings, through normalized
+  embeddings) is **proved** with no hypotheses (`cmPointEmbeddingCorrespondence`, §3.1);
+- base change of QM pairs from `ℚ̄` to `ℂ`, with `End_𝒪` and isomorphisms controlled by T11b, is
+  proved (`bcPair`, `nonempty_com_bc`, `nonempty_qmIso_bc_iff`, §3.2).
 
 No statement was changed; no target is false or vacuous. One observation on the kernel's AN3U:
 it has no lattice hypothesis, so it also quantifies over degenerate uniformizations
@@ -183,7 +188,28 @@ Fix a generator `y ∈ R ∖ ℚ` with `y² + Py + Q = 0`, `P, Q ∈ ℤ`, and a
 - `cmPointEmbeddingCorrespondence` lifts `φ ↦ [fpt φ]` to the quotients; it is a bijection by
   (ii), (iii) and (iv).
 
-The independent statement review (§6) found no defect in the three QM Props. It recorded two RISKs:
+### 3.2 `QMDescentCM` replaced by T11b and `CMDescent` (`QMFull.lean` = `QMEmb.lean` + `part_desc.lean`)
+
+- `endBC : End(A) →+* End(A_L)` is copied from alg-frob-red's copy of bp-qmmoduli's `endBC`.
+- From T11b (`Hom_ℚ̄ = Hom_ℂ`, existence and uniqueness of descents):
+  - `bc_unique` and `bc_exists`;
+  - `endBC_injective`;
+  - `bcPair P`: the QM pair `(P.A_ℂ, endBC ∘ ι)` over `ℂ`; its dimension comes from
+    `PkgI3.AbVar.dim_baseChange`, which is in the build;
+  - `nonempty_com_bc : End_𝒪(P_ℂ) ≅ End_𝒪(P)`;
+  - `nonempty_qmIso_bc_iff : P_ℂ ≅ P'_ℂ ↔ P ≅ P'`.
+- **LEAF `CMDescent`** (Shimura–Taniyama 1961 §12.4 Prop. 26, locator UNVERIFIED): for every
+  `ε : ℚ̄ → ℂ`, a QM pair over `ℂ` with `End_𝒪 ≅ R` (an imaginary quadratic order of conductor prime
+  to 6) is isomorphic, compatibly with `ι`, to `bcPair P` for some QM pair `P` over `ℚ̄`. It is
+  stated with explicit inverse homomorphisms and `endBC`, so it does not depend on the T11b proof.
+- `nonempty_qmClasses_equiv_t11b` gives `QMClasses k R ≃ QMClassesC k R`, and composing with §3 and
+  §3.1 gives `qmPairEmbeddingCorrespondence_of_t11b` and `r5fpCount_of_t11b`.
+
+`QMDescentCM`, with its route `qmPairEmbeddingCorrespondence_of_leaves`, is kept as an alternative;
+the T11b route supersedes it.
+
+The independent statement review (§6) found no defect in the three QM Props of §3 (it ran before
+§3.2 existed, so `CMDescent` was not reviewed). It recorded two RISKs:
 - `QMUniformizationC` bundles, with the published moduli statements (principally polarized,
   `𝒪¹ \ ℍ`), the standard facts that QM tori are algebraic, GAGA for homomorphisms, and the passage
   to the unpolarized `𝒪^×` form. Its docstring now cites Shimura 1963, Hashimoto 1995, Rotger 2004
@@ -211,16 +237,19 @@ All checks used `lake env lean`, one process at a time (VERIFIED).
 - **`scratch/height-glue/QMCorr.lean`** (imports `ZInQKernel.HDecomp.QM.Leaves`): exit 0, and
   `qmPairEmbeddingCorrespondence_of` has standard axioms.
 - **`scratch/height-glue/QMEmb.lean`** (`build_emb.py`: `QMCorr.lean` plus `part_emb.lean`): exit 0.
-  `cmPointEmbeddingCorrespondence` and `qmPairEmbeddingCorrespondence_of_leaves` have standard
-  axioms.
+  `cmPointEmbeddingCorrespondence`, `qmPairEmbeddingCorrespondence_of_leaves` and
+  `r5fpCount_of_leaves` have standard axioms.
+- **`scratch/height-glue/QMFull.lean`** (`build_full.py`: imports `QM.Leaves`, `LeafPush2.T` and
+  `Contrib.AbVarBC.Dim`, then `QMEmb.lean`'s body plus `part_desc.lean`): exit 0. All five
+  `#print axioms` are standard, including `qmPairEmbeddingCorrespondence_of_t11b` and
+  `r5fpCount_of_t11b`.
 
 ## 5. What remains
 
 - **Height side:** nothing beyond T35 (a textbook leaf already in the bundle) and height-split's
   nine leaves.
-- **H-3:** the two leaves `QMUniformizationC` and `QMDescentCM`.
-  - Clauses (a)-(c) of `QMDescentCM` could become glue once two things are connected: base change of
-    QM structures (a ring map `End(A) → End(A_L)`, not in the build) and the kernel's `T11b_Rigidity`.
+- **H-3:** the leaves `CMDescent` and `QMUniformizationC`, besides `T11b_Rigidity` (a kernel textbook
+  leaf) and height-split's Eichler leaf.
   - `QMUniformizationC` could be split further: T35 for `A(ℂ)`; the kernel's `T11a_RiemannEnd`
     (endomorphisms are the lattice-preserving linear maps); class number one of `𝒪`; Riemann's
     algebraicity theorem for QM tori; and the linear algebra of `M₂(ℝ)` acting on `ℂ²`. This was

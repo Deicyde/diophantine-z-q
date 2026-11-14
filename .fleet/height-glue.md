@@ -12,19 +12,21 @@ no new leaf: `heightGlue_of_t35`. In detail:
 - `Rows.lean`: `heightRows_of_t35 : HeightLeaves → T35 → R18 ∧ R19 ∧ R20 ∧ R21 ∧ R22 ∧
   StableHeightFinite`.
 
-**H-3.** `QMPairEmbeddingCorrespondence` follows from two leaves
-(`qmPairEmbeddingCorrespondence_of_leaves`):
-- `QMUniformizationC`: Shimura's moduli of QM surfaces over ℂ (classes ≃ `𝒪^× \ (ℂ∖ℝ)`,
-  `End_𝒪 ≅ 𝒪_τ`);
-- `QMDescentCM`: base change from `ℚ̄`, rigidity, CM descent.
+**H-3.** The row `R5fpCount` follows from height-split's Eichler leaf, the kernel's textbook leaf
+`T11b_Rigidity` and two new leaves (`r5fpCount_of_t11b`):
+- `CMDescent` (Shimura–Taniyama: CM QM pairs over ℂ come from `ℚ̄`);
+- `QMUniformizationC` (Shimura: QM pairs over ℂ ≃ `𝒪^× \ (ℂ∖ℝ)` with `End_𝒪 ≅ 𝒪_τ`).
 
-The glue between them, `CMPointEmbeddingCorrespondence` (CM points ↔ optimal embeddings, through
-normalized embeddings), is **proved** with no hypotheses (`QMEmb.lean`). It uses an explicit
-`rho : B → M₂(ℂ)`, eigenvector lemmas, the centralizer of a non-scalar element of `B`, `liftQuad`
-for the quadratic field, and conjugation-stability of orders. An independent statement review found
-no defect in the QM Props.
+Proved on the way:
+- `CMPointEmbeddingCorrespondence` (CM points ↔ optimal embeddings through normalized embeddings;
+  explicit `rho : B → M₂(ℂ)`, eigenvector and centralizer lemmas, `liftQuad`, conjugation-stable
+  orders);
+- base change of QM pairs (`bcPair`), with `End_𝒪` and isomorphisms preserved via T11b.
 
-**Compiles:** `scratch/height-glue/{AUUnique,HeightGlue,Rows,QMCorr,QMEmb}.lean` (`lake env lean`, exit 0,
+An independent review found no defect in the QM Props of the first route (`CMDescent` not
+reviewed).
+
+**Compiles:** `scratch/height-glue/{AUUnique,HeightGlue,Rows,QMCorr,QMEmb,QMFull}.lean` (`lake env lean`, exit 0,
 no `sorry`, standard axioms).
-**Remains:** the two QM leaves (see report §5 for how they could be split further). Report:
+**Remains:** the leaves `CMDescent` and `QMUniformizationC` (report §5 sketches a further split of the latter). Report:
 docs/research/height-glue.md; log: scratch/height-glue/log.md.
