@@ -1082,6 +1082,116 @@ theorem faltingsLemma5BC_of_base (hF : ZInQ.HeightSplit.FaltingsLemma5)
 
 end FL5
 
+/-! ## §14. `FixedTorsionRational` over perfect fields (proved); the glue narrowed to imperfect `K` -/
+
+section Perfect
+
+variable {K : Type} [Field K]
+
+/-- Over a perfect field, a `K̄`-point of a `K`-scheme locally of finite type fixed by every
+`σ ∈ Aut(K̄/K)` comes from a `K`-point. -/
+theorem exists_rational_of_fixed [PerfectField K] (X : Over (Spec (CommRingCat.of K)))
+    [LocallyOfFiniteType X.hom] (q : PkgI3.AbVar.ptObj (K := K) (AlgebraicClosure K) ⟶ X)
+    (hq : ∀ σ : AlgebraicClosure K ≃ₐ[K] AlgebraicClosure K, PkgI3.AbVar.galHom σ ≫ q = q) :
+    ∃ y : PkgI3.AbVar.ptObj (K := K) K ⟶ X,
+      ZInQ.Contrib.AbVarBC.extHom (Algebra.ofId K (AlgebraicClosure K)) ≫ y = q := by
+  classical
+  haveI : IsGalois K (AlgebraicClosure K) := ⟨⟩
+  let q0 : Spec (CommRingCat.of (AlgebraicClosure K)) ⟶ X.left := q.left
+  have hq0 : q0 ≫ X.hom = Spec.map (CommRingCat.ofHom (algebraMap K (AlgebraicClosure K))) :=
+    Over.w q
+  let p : X.left := q0 (IsLocalRing.closedPoint (AlgebraicClosure K))
+  obtain ⟨_, ⟨U, hU, rfl⟩, hpU, -⟩ :=
+    X.left.isBasis_affineOpens.exists_subset_of_mem_open (Set.mem_univ p) isOpen_univ
+  change X.left.Opens at U
+  change IsAffineOpen U at hU
+  have hrange : Set.range q0 ⊆ Set.range U.ι := by
+    rintro _ ⟨s, rfl⟩
+    rw [Scheme.Opens.range_ι]
+    have : s = IsLocalRing.closedPoint (AlgebraicClosure K) :=
+      Subsingleton.elim (α := PrimeSpectrum (AlgebraicClosure K)) _ _
+    rw [this]
+    exact hpU
+  let q' := IsOpenImmersion.lift U.ι q0 hrange
+  have hq' : q' ≫ U.ι = q0 := IsOpenImmersion.lift_fac _ _ _
+  let e := hU.isoSpec
+  let φ : Γ(X.left, U) ⟶ CommRingCat.of (AlgebraicClosure K) := Spec.preimage (q' ≫ e.hom)
+  let θ : CommRingCat.of K ⟶ Γ(X.left, U) := Spec.preimage (e.inv ≫ U.ι ≫ X.hom)
+  have hφ : Spec.map φ = q' ≫ e.hom := Spec.map_preimage _
+  have hθ : Spec.map θ = e.inv ≫ U.ι ≫ X.hom := Spec.map_preimage _
+  have hql : q0 = Spec.map φ ≫ e.inv ≫ U.ι := by
+    rw [hφ, Category.assoc, e.hom_inv_id_assoc, hq']
+  have hcomp : θ ≫ φ = CommRingCat.ofHom (algebraMap K (AlgebraicClosure K)) := by
+    apply Spec.map_injective
+    rw [Spec.map_comp, hφ, hθ, Category.assoc, e.hom_inv_id_assoc, ← Category.assoc q', hq', hq0]
+  -- every `φ r` is fixed by `Aut(K̄/K)`
+  have hfixφ : ∀ σ : AlgebraicClosure K ≃ₐ[K] AlgebraicClosure K,
+      φ ≫ CommRingCat.ofHom (σ : AlgebraicClosure K →+* AlgebraicClosure K) = φ := by
+    intro σ
+    have h1 := congrArg Over.Hom.left (hq σ)
+    change Spec.map (CommRingCat.ofHom (σ : AlgebraicClosure K →+* AlgebraicClosure K)) ≫ q0 =
+      q0 at h1
+    rw [hql, ← Category.assoc, ← Spec.map_comp] at h1
+    have h2 := (cancel_mono (e.inv ≫ U.ι)).mp h1
+    exact Spec.map_injective h2
+  have hmem : ∀ r, φ.hom r ∈ Set.range (algebraMap K (AlgebraicClosure K)) := by
+    intro r
+    rw [InfiniteGalois.mem_range_algebraMap_iff_fixed]
+    intro σ
+    exact congrArg (fun f => CommRingCat.Hom.hom f r) (hfixφ σ)
+  choose c hc using hmem
+  have hinj := (algebraMap K (AlgebraicClosure K)).injective
+  let ψ : Γ(X.left, U) →+* K :=
+    { toFun := c
+      map_one' := hinj (by rw [hc, map_one, map_one])
+      map_mul' := fun a b => hinj (by rw [hc, map_mul, map_mul, hc, hc])
+      map_zero' := hinj (by rw [hc, map_zero, map_zero])
+      map_add' := fun a b => hinj (by rw [hc, map_add, map_add, hc, hc]) }
+  have hψ : CommRingCat.ofHom ψ ≫ CommRingCat.ofHom (algebraMap K (AlgebraicClosure K)) = φ := by
+    ext r
+    exact hc r
+  have hθψ : θ ≫ CommRingCat.ofHom ψ = CommRingCat.ofHom (algebraMap K K) := by
+    ext a
+    apply hinj
+    have := congrArg (fun f => CommRingCat.Hom.hom f a) hcomp
+    simp only [CommRingCat.hom_comp, RingHom.comp_apply, CommRingCat.hom_ofHom] at this ⊢
+    rw [show algebraMap K (AlgebraicClosure K) (ψ (θ.hom a)) = φ.hom (θ.hom a) from hc _, this]
+    rfl
+  refine ⟨Over.homMk (Spec.map (CommRingCat.ofHom ψ) ≫ e.inv ≫ U.ι) ?_, ?_⟩
+  · show (Spec.map (CommRingCat.ofHom ψ) ≫ e.inv ≫ U.ι) ≫ X.hom =
+      Spec.map (CommRingCat.ofHom (algebraMap K K))
+    rw [Category.assoc, Category.assoc, ← hθ, ← Spec.map_comp, hθψ]
+  · apply Over.OverMorphism.ext
+    show Spec.map (CommRingCat.ofHom ((Algebra.ofId K (AlgebraicClosure K) : K →ₐ[K] _) :
+        K →+* AlgebraicClosure K)) ≫ Spec.map (CommRingCat.ofHom ψ) ≫ e.inv ≫ U.ι = q0
+    rw [hql, ← Category.assoc, ← Spec.map_comp]
+    congr 2
+
+/-- **`FixedTorsionRational` restricted to imperfect fields (the remaining glue of r6).** -/
+def FixedTorsionRationalImperfect : Prop :=
+  ∀ (K : Type) [Field K], ¬ PerfectField K → ∀ (A : PkgI3.AbVar K) (m : ℕ), (m : K) ≠ 0 →
+    (∀ σ : AlgebraicClosure K ≃ₐ[K] AlgebraicClosure K, ∀ x : A.Pt (AlgebraicClosure K),
+      x ^ m = 1 → A.galAct σ x = x) →
+    ∀ x : A.Pt (AlgebraicClosure K), x ^ m = 1 →
+      ∃ y : A.Pt K, ZInQ.Contrib.AbVarBC.extPt A (Algebra.ofId K (AlgebraicClosure K)) y = x
+
+theorem fixedTorsionRational_of_imperfect (h : FixedTorsionRationalImperfect) :
+    FixedTorsionRational := by
+  intro K _ A m hm hfix x hx
+  by_cases hp : PerfectField K
+  · obtain ⟨y, hy⟩ := exists_rational_of_fixed A.X x (fun σ => hfix σ x hx)
+    exact ⟨y, hy⟩
+  · exact h K hp A m hm hfix x hx
+
+/-- **r6** with the glue narrowed to imperfect fields: over a perfect field (in particular in
+characteristic `0`, every use in the project) only published-form leaves are used. -/
+theorem raynaudCriterion_final' (hR : RaynaudSemistable) (hU : SemistableUnipotent)
+    (hN : NeronSchemeModelExistsDVR) (hM : AvSplit.MumfordTorsionAlgClosed)
+    (hF : FixedTorsionRationalImperfect) : PkgI2.RaynaudCriterion.{0} :=
+  raynaudCriterion_final hR hU hN hM (fixedTorsionRational_of_imperfect hF)
+
+end Perfect
+
 end ReductSplit
 
 #print axioms ReductSplit.raynaudCriterion_of_leaves
@@ -1095,3 +1205,4 @@ end ReductSplit
 #print axioms ReductSplit.serreTatePotentialGood_final
 #print axioms ReductSplit.semistableNeronBaseChange_of_leaves
 #print axioms ReductSplit.faltingsLemma5BC_of_base
+#print axioms ReductSplit.raynaudCriterion_final'

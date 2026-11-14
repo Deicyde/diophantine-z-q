@@ -39,3 +39,6 @@ Setup: compile checks with `scratch/reduct-split/chk.sh FILE` = `lean` with LEAN
   `gmTransport_isNeronModel`, `_isSemistable` (rfl), `_height` (MetrizedModel data depend only on `model.G`), glue
   `IsogenyBaseChangeDeg`; `faltingsLemma5BC_of_base : HeightSplit.FaltingsLemma5 → IsogenyBaseChangeDeg →
   HeightSplit.FaltingsLemma5BC`: OK 11.8 s; all axioms standard. VERIFIED.
+- 11:54 §14: `exists_rational_of_fixed` (perfect K: an Aut(K̄/K)-fixed K̄-point of a K-scheme loc. of finite type is
+  K-rational; affine open + `InfiniteGalois.mem_range_algebraMap_iff_fixed`), so `FixedTorsionRational` holds for
+  perfect K; glue narrowed to `FixedTorsionRationalImperfect`; `raynaudCriterion_final'`. OK. VERIFIED.
