@@ -21,3 +21,9 @@ Base cba8157f (wip/av-split). Build artifacts: copied .lake/build from ~/dzq-wt/
 - Open GLUE: `HenselEtaleLift` (scheme form of Hensel); plan: prove from leaf `StacksHenselEtaleSection` (Stacks 04GG ring form).
 - 03:45 `AvSplit.T4.henselEtaleLift_of_stacks : StacksHenselEtaleSection → HenselEtaleLift`: compiled, standard axioms. VERIFIED. (affine opens U ∋ f(a₀ s), V ⊆ f⁻¹U; ptRing from AbVarBC.Tangent; S = R ⊗_{Γ(U)} Γ(V) étale (Mathlib Algebra.Etale.baseChange); q = ker(S → κ); res ∘ τ = χ.)
 - `AvSplit.T4.reductionTorsionBijective_of_leaves : MulEtaleAbelianScheme → UnramifiedSectionsEq → StacksHenselEtaleSection → PkgI2.ReductionTorsionBijective.{0}`: compiled, standard axioms. VERIFIED. Row H-24 DONE (three published-form leaves, no glue).
+
+## HomLattice.lean (row H-69)
+- Finding: Birkenhake–Lange Prop. 1.2.1 (holomorphic homomorphisms of tori are ℂ-linear) is already a kernel theorem: `BPAnalytic.exists_complexLinear_lift` (ZInQKernel/HDecomp/Analytic/Hom.lean). VERIFIED (read; used below).
+- `AvSplit.HomLattice.homLatticeCorr_of : UnifHoloLift → ZInQ.HomUnify.HomRealize → ZInQ.HomUnify.HomLatticeCorr`: compiled, standard axioms. VERIFIED.
+- `AvSplit.HomLattice.homLinearLift_of : UnifHoloLift → HomLinearLift` (via torusMap, eΦ : ℂ^g/Λ ≃+ A(ℂ)_σ, exists_complexLinear_lift). VERIFIED.
+- Open GLUE: `UnifHoloLift` (weak uniformizations: kernels discrete, induced torus maps holomorphic; needs analytic coordinates + compactness of A(ℂ)^an), `HomRealize` (GAGA content; GAGA not statable over Mathlib definitions: no analytification).
