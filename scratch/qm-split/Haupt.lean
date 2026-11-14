@@ -3649,6 +3649,149 @@ theorem ord_smul_eq {m : ℕ} {F : ℂ → ℂ} (hF : AnalyticOnNhd ℂ F U)
     field_simp
     linarith
 
+theorem eq1_refl (a : UpperHalfPlane) : Eq1 a a := ⟨1, G1.one_mem, one_smul _ _⟩
+
+theorem eq1_symm {a b : UpperHalfPlane} (h : Eq1 a b) : Eq1 b a := by
+  obtain ⟨g, hg, rfl⟩ := h
+  exact ⟨g⁻¹, G1.inv_mem hg, inv_smul_smul g a⟩
+
+theorem eq1_trans {a b c : UpperHalfPlane} (h : Eq1 a b) (h' : Eq1 b c) : Eq1 a c := by
+  obtain ⟨g, hg, rfl⟩ := h
+  obtain ⟨g', hg', rfl⟩ := h'
+  exact ⟨g' * g, G1.mul_mem hg' hg, mul_smul _ _ _⟩
+
+theorem arith3 (m : ℕ) :
+    (2 * m : ℝ≥0∞) * ENNReal.ofReal (2 * Real.pi / 3) / ENNReal.ofReal (4 * Real.pi) = (m : ℝ≥0∞) / 3 := by
+  have hπ : 0 < Real.pi := Real.pi_pos
+  have e1 : (2 * m : ℝ≥0∞) = ENNReal.ofReal (2 * m) := by
+    rw [ENNReal.ofReal_mul (by norm_num)]; simp
+  rw [e1, ← ENNReal.ofReal_mul (by positivity), ← ENNReal.ofReal_div_of_pos (by positivity)]
+  have e2 : (2 * (m : ℝ) * (2 * Real.pi / 3)) / (4 * Real.pi) = (m : ℝ) / 3 := by
+    field_simp; ring
+  rw [e2, ENNReal.ofReal_div_of_pos (by norm_num)]
+  simp
+
+/-- `4 e¹ ≤ r e*` for the kept representatives. -/
+theorem kept_bound (z : UpperHalfPlane) :
+    4 * Nat.card (Sone z) ≤
+      (Finset.univ.filter (fun i : Fin 4 => ∀ j < i, ¬ Eq1 (g4 j • z) (g4 i • z))).card *
+        Nat.card (Sstar z) := by
+  classical
+  set K := Finset.univ.filter (fun i : Fin 4 => ∀ j < i, ¬ Eq1 (g4 j • z) (g4 i • z))
+  set C : Fin 4 → Finset (Fin 4) := fun i₀ => Finset.univ.filter (fun i => Eq1 (g4 i • z) (g4 i₀ • z))
+  have hcover : (Finset.univ : Finset (Fin 4)) ⊆ K.biUnion C := by
+    intro j _
+    rw [Finset.mem_biUnion]
+    set S := Finset.univ.filter (fun i : Fin 4 => Eq1 (g4 i • z) (g4 j • z))
+    have hS : S.Nonempty := ⟨j, Finset.mem_filter.2 ⟨Finset.mem_univ _, eq1_refl _⟩⟩
+    refine ⟨S.min' hS, ?_, ?_⟩
+    · refine Finset.mem_filter.2 ⟨Finset.mem_univ _, fun k hk hEq => ?_⟩
+      have h1 := (Finset.mem_filter.1 (S.min'_mem hS)).2
+      have hkS : k ∈ S := Finset.mem_filter.2 ⟨Finset.mem_univ _, eq1_trans hEq h1⟩
+      exact absurd (S.min'_le k hkS) (not_le.2 hk)
+    · exact Finset.mem_filter.2 ⟨Finset.mem_univ _, eq1_symm (Finset.mem_filter.1 (S.min'_mem hS)).2⟩
+  have h4 : 4 ≤ ∑ i₀ ∈ K, (C i₀).card := by
+    have := (Finset.card_le_card hcover).trans Finset.card_biUnion_le
+    simpa using this
+  calc 4 * Nat.card (Sone z) ≤ (∑ i₀ ∈ K, (C i₀).card) * Nat.card (Sone z) := Nat.mul_le_mul_right _ h4
+    _ = ∑ i₀ ∈ K, (C i₀).card * Nat.card (Sone z) := Finset.sum_mul _ _ _
+    _ ≤ ∑ _i₀ ∈ K, Nat.card (Sstar z) := Finset.sum_le_sum fun i₀ _ => class_bound z i₀
+    _ = K.card * Nat.card (Sstar z) := by rw [Finset.sum_const, smul_eq_mul]
+
+theorem enn_ineq (o : ℝ≥0∞) (es e1 k : ℕ) (hes : 0 < es) (he1 : 0 < e1) (h : 4 * e1 ≤ k * es) :
+    4 * (o / es) ≤ k * (o / e1) := by
+  rw [ENNReal.div_eq_inv_mul, ENNReal.div_eq_inv_mul, ← mul_assoc, ← mul_assoc]
+  refine mul_le_mul_of_nonneg_right ?_ (by positivity)
+  have e1' : (4 : ℝ≥0∞) * (es : ℝ≥0∞)⁻¹ = ((4 : ℕ) : ℝ≥0∞) / (es : ℝ≥0∞) := by
+    rw [ENNReal.div_eq_inv_mul, mul_comm]; norm_cast
+  have e2' : (k : ℝ≥0∞) * (e1 : ℝ≥0∞)⁻¹ = (k : ℝ≥0∞) / (e1 : ℝ≥0∞) := by
+    rw [ENNReal.div_eq_inv_mul, mul_comm]
+  rw [e1', e2', enn_div _ _ hes, enn_div _ _ he1, ENNReal.ofReal_le_ofReal_iff (by positivity),
+    div_le_div_iff₀ (by exact_mod_cast hes) (by exact_mod_cast he1)]
+  exact_mod_cast (by linarith : 4 * e1 ≤ k * es)
+
+theorem card_Sone_pos (z : UpperHalfPlane) : 0 < Nat.card (Sone z) := by
+  haveI := finite_Sstar z
+  haveI : Finite (Sone z) := Finite.of_injective (Subgroup.inclusion (Sone_le z)) (Subgroup.inclusion_injective _)
+  exact Nat.card_pos
+
+/-- **Row H-87 from the published leaves only**: the valence formula applied to `Γ¹ = ι(𝒪¹)` with
+Shimizu's covolume `2π/3`, and the index argument above. -/
+theorem valenceFormulaGammaStar_of_O1 (hV : ValenceFormulaCocompactEq) (hS : ShimizuCovolumeO1) :
+    HDec.LeafQCheck.VB.ValenceFormulaGammaStar := by
+  classical
+  intro m F hF hne haut T hT
+  obtain ⟨hF1, s, hs, hvol⟩ := hS
+  have haut1 : ∀ γ ∈ Gamma1, ∀ z : UpperHalfPlane,
+      ‖F ((γ • z : UpperHalfPlane) : ℂ)‖ * ((γ : Matrix (Fin 2) (Fin 2) ℝ).det) ^ m =
+        ‖denom γ z‖ ^ (2 * m) * ‖F (z : ℂ)‖ := fun γ hγ z => haut γ (G1_le hγ) z
+  set K : UpperHalfPlane → Finset (Fin 4) := fun z =>
+    Finset.univ.filter (fun i : Fin 4 => ∀ j < i, ¬ Eq1 (g4 j • z) (g4 i • z)) with hK
+  set p : UpperHalfPlane → Fin 4 → UpperHalfPlane := fun z i => g4 i • z with hp
+  set T' := T.biUnion (fun z => (K z).image (p z)) with hT'
+  have hcross : ∀ z ∈ T, ∀ z' ∈ T, ∀ i j, Eq1 (p z i) (p z' j) → z = z' := by
+    intro z hz z' hz' i j ⟨h, hh, hhz⟩
+    by_contra hne'
+    apply hT hz hz' hne' ((g4 j)⁻¹ * h * g4 i)
+      (Gs.mul_mem (Gs.mul_mem (Gs.inv_mem (g4_mem j)) (G1_le hh)) (g4_mem i))
+    simp only [hp] at hhz
+    rw [mul_smul, mul_smul, hhz, inv_smul_smul]
+  have hkeep : ∀ z, ∀ i ∈ K z, ∀ j ∈ K z, i ≠ j → ¬ Eq1 (p z i) (p z j) := by
+    intro z i hi j hj hij hE
+    rcases lt_or_gt_of_ne hij with h | h
+    · exact (Finset.mem_filter.1 hj).2 i h hE
+    · exact (Finset.mem_filter.1 hi).2 j h (eq1_symm hE)
+  have hpair : (T' : Set UpperHalfPlane).Pairwise (fun a b => ∀ γ ∈ Gamma1, γ • a ≠ b) := by
+    intro a ha b hb hab γ hγ hγab
+    simp only [hT', Finset.coe_biUnion, Set.mem_iUnion, Finset.mem_coe, Finset.mem_image] at ha hb
+    obtain ⟨z, hz, i, hi, rfl⟩ := ha
+    obtain ⟨z', hz', j, hj, rfl⟩ := hb
+    have hE : Eq1 (p z i) (p z' j) := ⟨γ, hγ, hγab⟩
+    obtain rfl := hcross z hz z' hz' i j hE
+    have hij : i ≠ j := fun h => hab (by rw [h])
+    exact hkeep z i hi j hj hij hE
+  have hval := (hV Gamma1 hF1 s hs m F hF hne haut1).2.2 T' hpair
+  rw [hvol, arith3] at hval
+  have hdisj : (T : Set UpperHalfPlane).PairwiseDisjoint (fun z => (K z).image (p z)) := by
+    intro z hz z' hz' hne'
+    rw [Function.onFun, Finset.disjoint_left]
+    intro a ha ha'
+    simp only [Finset.mem_image] at ha ha'
+    obtain ⟨i, -, rfl⟩ := ha
+    obtain ⟨j, -, hj⟩ := ha'
+    exact hne' (hcross z hz z' hz' i j (by rw [← hj]; exact eq1_refl _))
+  rw [hT', Finset.sum_biUnion hdisj] at hval
+  have hinner : ∀ z ∈ T, ∑ a ∈ (K z).image (p z),
+      ((analyticOrderAt F (a : ℂ) : ℕ∞) : ℝ≥0∞) / (ellOrderOf Gamma1 a : ℝ≥0∞) =
+      ((K z).card : ℝ≥0∞) * (((analyticOrderAt F (z : ℂ) : ℕ∞) : ℝ≥0∞) / (Nat.card (Sone z) : ℝ≥0∞)) := by
+    intro z hz
+    rw [Finset.sum_image (fun i hi j hj hij => by
+      by_contra hne'
+      exact hkeep z i hi j hj hne' (by rw [hij]; exact eq1_refl _))]
+    rw [Finset.sum_congr rfl (fun i _ => by
+      rw [ord_smul_eq hF haut (g4_mem i) z, ← card_Sone, card_Sone_smul (g4_mem i) z]),
+      Finset.sum_const, nsmul_eq_mul]
+  rw [Finset.sum_congr rfl hinner] at hval
+  have hper : ∀ z ∈ T, 4 * (((analyticOrderAt F (z : ℂ) : ℕ∞) : ℝ≥0∞) /
+      (HDec.LeafQCheck.VB.ellOrder z : ℝ≥0∞)) ≤
+      ((K z).card : ℝ≥0∞) * (((analyticOrderAt F (z : ℂ) : ℕ∞) : ℝ≥0∞) / (Nat.card (Sone z) : ℝ≥0∞)) := by
+    intro z hz
+    have hb := kept_bound z
+    rw [card_Sstar] at hb
+    obtain ⟨he0, -⟩ := HDec.LeafQCheck.VB.ellipticOrderLe6_proof z
+    exact enn_ineq _ _ _ _ he0 (card_Sone_pos z) hb
+  have hsum := (Finset.sum_le_sum hper).trans hval
+  rw [← Finset.mul_sum] at hsum
+  set X := ∑ z ∈ T, ((analyticOrderAt F (z : ℂ) : ℕ∞) : ℝ≥0∞) / (HDec.LeafQCheck.VB.ellOrder z : ℝ≥0∞)
+  have h12 : (m : ℝ≥0∞) / 12 = ((m : ℝ≥0∞) / 3) / 4 := by
+    rw [show ((m : ℝ≥0∞) / 3) = ((m : ℕ) : ℝ≥0∞) / ((3 : ℕ) : ℝ≥0∞) by norm_num,
+      show ((m : ℝ≥0∞) / 12) = ((m : ℕ) : ℝ≥0∞) / ((12 : ℕ) : ℝ≥0∞) by norm_num,
+      enn_div _ _ (by norm_num), enn_div _ _ (by norm_num),
+      show (4 : ℝ≥0∞) = ENNReal.ofReal 4 by simp, ← ENNReal.ofReal_div_of_pos (by norm_num)]
+    congr 1; push_cast; ring
+  rw [h12, ENNReal.le_div_iff_mul_le (Or.inl (by norm_num)) (Or.inl (by norm_num)), mul_comm]
+  exact hsum
+
 end Index
 
 include hT hV hC in
@@ -3667,3 +3810,4 @@ end HDec.LeafQCheck.HM.QMSplit
 #print axioms HDec.LeafQCheck.HM.QMSplit.ellipticOrderDvd_proof
 #print axioms HDec.LeafQCheck.HM.QMSplit.qmHauptmodulBase3_of'
 #print axioms HDec.LeafQCheck.HM.QMSplit.qmHauptmodulBase3_of_shimizu
+#print axioms HDec.LeafQCheck.HM.QMSplit.valenceFormulaGammaStar_of_O1

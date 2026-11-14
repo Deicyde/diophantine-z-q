@@ -129,3 +129,12 @@ Row sources (VERIFIED, read): definitions read in ~/dzq-wt/leaf-fold4/scratch/le
   domain of area 2π/3; Shimura 1971 Prop. 9.2, Shimizu 1965, Voight 39.1.13; UNVERIFIED) and project GLUE
   `GammaStarFromO1 : ShimizuCovolumeO1 → GammaStarCocompactArea` (index 4, finite-index supergroup, comparison of
   fundamental domains). `valenceFormulaGammaStar_of_shimizu` (H-87), `qmHauptmodulBase3_of_shimizu` (H-88).
+
+## H-87 PROVED from published leaves only (VERIFIED, compiled)
+- `Haupt.lean` §Index: `valenceFormulaGammaStar_of_O1 : ValenceFormulaCocompactEq → ShimizuCovolumeO1 →
+  VB.ValenceFormulaGammaStar` (axioms standard, 24 s). The valence bound for Γ¹ = ι(𝒪¹) (Shimizu covolume 2π/3,
+  total m/3) is transferred to Γ*: Γ¹ ⊴ Γ* (`G1_normal`), the representatives ι(1), ι(a4), ι(a6), ι(a4a6) lie in
+  distinct cosets (`coset_distinct`: a trivial Möbius action forces a scalar matrix, so the norm ratio 2, 3, 6,
+  12, 18 would be a square), the classes of g_i z under Γ¹ number r_z with 4e¹ ≤ r e* (`class_bound` via
+  Stab*(z)/Stab¹(z), `kept_bound`), orders and e¹ are constant along Γ*-orbits (`ord_smul_eq`,
+  `card_Sone_smul`). So `GammaStarFromO1` is not needed for H-87.
