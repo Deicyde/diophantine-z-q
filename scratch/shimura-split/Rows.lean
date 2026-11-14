@@ -4032,3 +4032,50 @@ end HDec.QMSplit.Moduli
 
 #print axioms HDec.QMSplit.Moduli.babaGranathX6_of
 #print axioms HDec.QMSplit.Moduli.r1r2fpRep_of_split6
+
+/-! ## `GeomConnX6` split: Deligne's `π₀` at level one and the textbook step to geometric connectedness -/
+
+namespace HDec.QMSplit.Moduli
+
+open CategoryTheory AlgebraicGeometry Limits
+open LeafQM LeafQM.AV
+
+/-- **LEAF (textbook: connectedness over an algebraic closure gives geometric connectedness).** For a proper
+morphism `f : X → Spec k`, if `X ×_k k̄` is connected (`k̄` an algebraic closure) then `f` is geometrically
+connected. EGA IV_2 (4.5.1)-(4.5.2); Stacks, Varieties, Lemma 33.7.6 (tag 0389): `X` is geometrically
+connected over `k` iff `X_{k^sep}` is connected (locators UNVERIFIED, no network; the printed statement
+needs no properness, which is added here, so the leaf is weaker than the print). Mathlib 4.35 has the
+definition `GeometricallyConnected` but not this criterion. -/
+def GeomConnOfAlgClosure : Prop :=
+  ∀ (k : Type) [Field k] (X : Scheme.{0}) (f : X ⟶ Spec (CommRingCat.of k)), IsProper f →
+    ConnectedSpace ↥(pullback f (Spec.map (CommRingCat.ofHom (algebraMap k (AlgebraicClosure k))))) →
+      GeometricallyConnected f
+
+/-- **LEAF-form (Deligne's components at level one; specialization).** Some witness of the moduli clause
+lists has `X₆ ×_ℚ ℚ̄` connected. Deligne, Sém. Bourbaki 389 (1971), §§2-3 and PSPM 33 (1979), 2.1, 2.6.3:
+`π₀(Sh_K ⊗ ℚ̄) = ℚ^×_{>0}\𝔸_f^×/nrd(K)`; for `K = 𝒪̂^×`, `nrd(𝒪̂^×) = ℤ̂^×` and
+`𝔸_f^× = ℚ^×_{>0}·ℤ̂^×`, so `π₀` is one point (locators UNVERIFIED). A consequence of one theorem (the
+computation `nrd(𝒪̂^×) = ℤ̂^×` is not formalized). -/
+def DeligneComponentsX6 : Prop :=
+  ∃ (Y : Over (Spec (CommRingCat.of ℚ))) (Φ : PtEquiv Y) (X : Over (Spec (CommRingCat.of ℚ)))
+    (Ψ : (fieldPt Qbar ⟶ X) ≃ Quotient (pairSetoid Qbar)) (fY : Y ⟶ X),
+    R1fpProps Y Φ ∧ X6Props Y Φ X Ψ fY ∧ ConnectedSpace (ShimuraSplit.baseQbar X)
+
+theorem geomConnX6_of (hD : DeligneComponentsX6) (hE : GeomConnOfAlgClosure) : GeomConnX6 := by
+  obtain ⟨Y, Φ, X, Ψ, fY, h1, h6, hc⟩ := hD
+  exact ⟨Y, Φ, X, Ψ, fY, h1, h6, hE ℚ X.left X.hom h6.1 hc⟩
+
+/-- **Row H-1 (`r1r2`) from its printed parts on the canonical models**: Deligne's `π₀` at level one
+(`DeligneComponentsX6`) with the textbook criterion `GeomConnOfAlgClosure`, the existence of level-3
+structures (`PairsLift`), Baba–Granath (`BabaGranathX6'`), Shimura reciprocity on points
+(`ReciprocityCanonical`) and González–Rotger Thm 5.12 on points (`GonzalezRotgerX6`). -/
+theorem r1r2fpRep_of_printed (hD : DeligneComponentsX6) (hE : GeomConnOfAlgClosure) (hL : PairsLift)
+    (hB : BabaGranathX6') (hR : ReciprocityCanonical) (hG : GonzalezRotgerX6) : LeafAdopt.R1R2fpRep := by
+  refine r1r2fpRep_of_split6 (geomConnX6_of hD hE) hL hB (r1rec_of_reciprocityCanonical hR) ?_
+  obtain ⟨Y, Φ, X, Ψ, fY, -, h6, h5⟩ := hG
+  exact ShimuraSplit.r5fp_of_point ⟨Y, Φ, X, Ψ, fY, h6, h5⟩
+
+end HDec.QMSplit.Moduli
+
+#print axioms HDec.QMSplit.Moduli.geomConnX6_of
+#print axioms HDec.QMSplit.Moduli.r1r2fpRep_of_printed

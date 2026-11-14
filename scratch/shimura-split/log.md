@@ -76,3 +76,9 @@
 - `chi3 σ := modularCyclotomicCharacter Qbar card_mu3 σ.toRingEquiv` (`card_mu3 : Nat.card μ₃(ℚ̄) = 3`, proved);
   `exists_chi3_neg` reproved through `modularCyclotomicCharacter.spec` and `IsPrimitiveRoot.pow_inj`.
 - Rows.lean regenerated: COMPILED, 0 errors, standard axioms.
+
+## Step 10: GeomConnX6 split (parts/RowsNew.lean) — Rows.lean COMPILED, standard axioms
+- textbook LEAF `GeomConnOfAlgClosure` (proper X/k with X_k̄ connected ⇒ GeometricallyConnected; EGA IV 4.5,
+  Stacks 0389, UNVERIFIED; properness added, weaker than print); LEAF-form `DeligneComponentsX6` (X₆_ℚ̄ connected).
+- `geomConnX6_of`; `r1r2fpRep_of_printed : DeligneComponentsX6 → GeomConnOfAlgClosure → PairsLift → BabaGranathX6' →
+  ReciprocityCanonical → GonzalezRotgerX6 → R1R2fpRep`.
