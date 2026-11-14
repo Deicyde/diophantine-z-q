@@ -865,4 +865,171 @@ theorem semistableLocalGlobal_of (hL : NeronLocalizesDVR) (hT : SemiAbelianField
       (hs _ (hL K A L 𝒩 h𝒩 (dvrAt 𝔭)))
 
 end LocalGlobal2
+
+section Transport
+
+open ZInQ.HeightSplit
+
+variable {k k' : Type} [Field k] [Field k'] (σ : k ≃+* k')
+
+/-- `Spec σ : Spec k' → Spec k`. -/
+noncomputable abbrev sσ : Spec (CommRingCat.of k') ⟶ Spec (CommRingCat.of k) :=
+  Spec.map (CommRingCat.ofHom (σ : k →+* k'))
+
+instance : IsIso (sσ σ) := by
+  have : IsIso (CommRingCat.ofHom (σ : k →+* k')) :=
+    ⟨⟨CommRingCat.ofHom (σ.symm : k' →+* k), by ext x; simp, by ext x; simp⟩⟩
+  infer_instance
+
+theorem pb_map_left {X Y : Over (Spec (CommRingCat.of k))} (f : X ⟶ Y) :
+    ((Over.pullback (sσ σ)).map f).left =
+      pullback.fst X.hom (sσ σ) ≫ f.left ≫ inv (pullback.fst Y.hom (sσ σ)) := by
+  rw [← Category.assoc, IsIso.eq_comp_inv]
+  simp
+
+theorem homEquiv_mul' (X : Over (Spec (CommRingCat.of k'))) (Y : Over (Spec (CommRingCat.of k)))
+    [GrpObj Y] (p q : (Over.map (sσ σ)).obj X ⟶ Y) :
+    letI : GrpObj ((Over.pullback (sσ σ)).obj Y) := Functor.grpObjObj
+    (Over.mapPullbackAdj (sσ σ)).homEquiv X Y (p * q) =
+      (Over.mapPullbackAdj (sσ σ)).homEquiv X Y p * (Over.mapPullbackAdj (sσ σ)).homEquiv X Y q := by
+  letI : GrpObj ((Over.pullback (sσ σ)).obj Y) := Functor.grpObjObj
+  rw [Adjunction.homEquiv_unit, Adjunction.homEquiv_unit, Adjunction.homEquiv_unit,
+    Functor.map_mul, MonObj.comp_mul]
+
+/-- A `k'`-algebra as a `k`-algebra through `σ`. -/
+@[reducible] noncomputable def algK (R : Type) [CommRing R] [Algebra k' R] : Algebra k R :=
+  ((algebraMap k' R).comp (σ : k →+* k')).toAlgebra
+
+/-- `Over.map (Spec σ) (Spec R / k') ≅ Spec R / k`. -/
+noncomputable def ιR (R : Type) [CommRing R] [Algebra k' R] :
+    letI := algK σ R
+    (Over.map (sσ σ)).obj (algPt k' R) ≅ algPt k R :=
+  letI := algK σ R
+  Over.isoMk (Iso.refl _) (by
+    simp only [Over.map_obj_hom, Iso.refl_hom, algPt, Over.mk_hom]
+    erw [Category.id_comp]
+    rw [← Spec.map_comp, ← CommRingCat.ofHom_comp])
+
+/-- `(Spec R / k' ⟶ U_{k'}) ≃* (Spec R / k ⟶ U)`. -/
+noncomputable def Φ (U : Over (Spec (CommRingCat.of k))) [GrpObj U] (R : Type) [CommRing R]
+    [Algebra k' R] :
+    letI := algK σ R
+    letI : GrpObj ((Over.pullback (sσ σ)).obj U) := Functor.grpObjObj
+    (algPt k' R ⟶ (Over.pullback (sσ σ)).obj U) ≃* (algPt k R ⟶ U) :=
+  letI := algK σ R
+  letI : GrpObj ((Over.pullback (sσ σ)).obj U) := Functor.grpObjObj
+  { toFun p := (ιR σ R).inv ≫ ((Over.mapPullbackAdj (sσ σ)).homEquiv _ _).symm p
+    invFun x := (Over.mapPullbackAdj (sσ σ)).homEquiv _ _ ((ιR σ R).hom ≫ x)
+    left_inv p := by
+      simp only
+      rw [Iso.hom_inv_id_assoc, Equiv.apply_symm_apply]
+    right_inv x := by
+      simp only
+      rw [Equiv.symm_apply_apply, Iso.inv_hom_id_assoc]
+    map_mul' p q := by
+      obtain ⟨p', rfl⟩ := ((Over.mapPullbackAdj (sσ σ)).homEquiv _ U).surjective p
+      obtain ⟨q', rfl⟩ := ((Over.mapPullbackAdj (sσ σ)).homEquiv _ U).surjective q
+      rw [← homEquiv_mul', Equiv.symm_apply_apply, Equiv.symm_apply_apply, Equiv.symm_apply_apply,
+        MonObj.comp_mul] }
+
+theorem Φ_comp (U V : Over (Spec (CommRingCat.of k))) [GrpObj U] [GrpObj V] (R : Type) [CommRing R]
+    [Algebra k' R] (u : algPt k' R ⟶ (Over.pullback (sσ σ)).obj U) (g : U ⟶ V) :
+    letI := algK σ R
+    letI : GrpObj ((Over.pullback (sσ σ)).obj U) := Functor.grpObjObj
+    letI : GrpObj ((Over.pullback (sσ σ)).obj V) := Functor.grpObjObj
+    Φ σ V R (u ≫ (Over.pullback (sσ σ)).map g) = Φ σ U R u ≫ g := by
+  show (ιR σ R).inv ≫ ((Over.mapPullbackAdj (sσ σ)).homEquiv _ _).symm
+      (u ≫ (Over.pullback (sσ σ)).map g) =
+    ((ιR σ R).inv ≫ ((Over.mapPullbackAdj (sσ σ)).homEquiv _ _).symm u) ≫ g
+  rw [Adjunction.homEquiv_naturality_right_symm, Category.assoc]
+
+theorem Φ_natural (U : Over (Spec (CommRingCat.of k))) [GrpObj U] (R S : Type) [CommRing R]
+    [Algebra k' R] [CommRing S] [Algebra k' S] (f : R →ₐ[k'] S)
+    (u : algPt k' R ⟶ (Over.pullback (sσ σ)).obj U) :
+    letI := algK σ R
+    letI := algK σ S
+    letI : GrpObj ((Over.pullback (sσ σ)).obj U) := Functor.grpObjObj
+    Φ σ U S (algPtMap f ≫ u) =
+      algPtMap (k := k) ({ (f : R →+* S) with commutes' := fun a => f.commutes (σ a) } : R →ₐ[k] S)
+        ≫ Φ σ U R u := by
+  show (ιR σ S).inv ≫ ((Over.mapPullbackAdj (sσ σ)).homEquiv _ _).symm (algPtMap f ≫ u) = _ ≫
+    (ιR σ R).inv ≫ ((Over.mapPullbackAdj (sσ σ)).homEquiv _ _).symm u
+  rw [Adjunction.homEquiv_naturality_left_symm, ← Category.assoc, ← Category.assoc]
+  congr 1
+
+theorem left_pb_map_fst {X Y : Over (Spec (CommRingCat.of k))} (f : X ⟶ Y) :
+    ((Over.pullback (sσ σ)).map f).left =
+      (asIso (pullback.fst X.hom (sσ σ))).hom ≫ f.left ≫ (asIso (pullback.fst Y.hom (sσ σ))).inv :=
+  pb_map_left σ f
+
+/-- **Base change along a field isomorphism preserves semi-abelian identity components.** -/
+theorem hasSemiAbelian_pullback (G : Over (Spec (CommRingCat.of k))) [GrpObj G]
+    (h : HasSemiAbelianIdentityComponent G) :
+    letI : GrpObj ((Over.pullback (sσ σ)).obj G) := Functor.grpObjObj
+    HasSemiAbelianIdentityComponent ((Over.pullback (sσ σ)).obj G) := by
+  obtain ⟨U, hU, inc, hoi, hmh, hcon, B, π, hπm, hfl, hsu, r, e, he_inj, he_ker, he_nat⟩ := h
+  let F := Over.pullback (sσ σ)
+  letI : GrpObj (F.obj G) := Functor.grpObjObj
+  letI : GrpObj (F.obj U) := Functor.grpObjObj
+  letI : GrpObj (F.obj B.X) := Functor.grpObjObj
+  let B' : PkgI3.AbVar k' :=
+    { X := F.obj B.X
+      grp := Functor.grpObjObj
+      proper := by change IsProper (pullback.snd B.X.hom (sσ σ)); infer_instance
+      smooth := by change Smooth (pullback.snd B.X.hom (sσ σ)); infer_instance
+      geomInt := by change GeometricallyIntegral (pullback.snd B.X.hom (sσ σ)); infer_instance }
+  refine ⟨F.obj U, inferInstance, F.map inc, ?_, inferInstance, ?_, B', F.map π, inferInstance, ?_,
+    ?_, r, fun R _ _ => (Φ σ U R).symm.toMonoidHom.comp (@e R _ (algK σ R)), ?_, ?_, ?_⟩
+  · rw [left_pb_map_fst]; infer_instance
+  · exact (Scheme.homeoOfIso (asIso (pullback.fst U.hom (sσ σ)))).connectedSpace_iff.mpr hcon
+  · change Flat ((Over.pullback (sσ σ)).map π).left
+    rw [left_pb_map_fst]; infer_instance
+  · change Surjective ((Over.pullback (sσ σ)).map π).left
+    rw [left_pb_map_fst]; infer_instance
+  · intro R _ _
+    exact (Φ σ U R).symm.injective.comp (@he_inj R _ (algK σ R))
+  · intro R _ _ u
+    letI := algK σ R
+    have h1 : u ≫ F.map π = 1 ↔ Φ σ U R u ≫ π = 1 := by
+      rw [← Φ_comp]
+      constructor
+      · intro h; rw [h, map_one]
+      · intro h; exact (Φ σ B.X R).injective (by rw [h, map_one])
+    rw [h1, he_ker]
+    constructor
+    · rintro ⟨t, ht⟩
+      exact ⟨t, by simp [ht]⟩
+    · rintro ⟨t, ht⟩
+      refine ⟨t, ?_⟩
+      simp only [MonoidHom.coe_comp, MulEquiv.coe_toMonoidHom, Function.comp_apply] at ht
+      rw [← ht, MulEquiv.apply_symm_apply]
+  · intro R S _ _ _ _ f t
+    letI := algK σ R
+    letI := algK σ S
+    simp only [MonoidHom.coe_comp, MulEquiv.coe_toMonoidHom, Function.comp_apply]
+    apply (Φ σ U S).injective
+    rw [MulEquiv.apply_symm_apply, Φ_natural, MulEquiv.apply_symm_apply]
+    exact he_nat R S ({ (f : R →+* S) with commutes' := fun a => f.commutes (σ a) } : R →ₐ[k] S) t
+
+/-- **GLUE `SemiAbelianFieldIsoInvariant`, PROVED.** -/
+theorem semiAbelianFieldIsoInvariant : SemiAbelianFieldIsoInvariant := by
+  intro k k' _ _ σ G _
+  refine ⟨hasSemiAbelian_pullback σ G, fun h => ?_⟩
+  letI : GrpObj ((Over.pullback (sσ σ)).obj G) := Functor.grpObjObj
+  have h2 := hasSemiAbelian_pullback σ.symm _ h
+  have hc : sσ σ.symm ≫ sσ σ = 𝟙 _ := by
+    rw [← Spec.map_comp, ← CommRingCat.ofHom_comp]
+    have : (σ.symm : k' →+* k).comp (σ : k →+* k') = RingHom.id k := by ext x; simp
+    rw [this, CommRingCat.ofHom_id, Spec.map_id]
+  let E := pbCompIso (sσ σ.symm) (sσ σ) (𝟙 _) hc (Grp.mk G) ≪≫
+    (Functor.mapGrpNatIso (Over.pullbackId)).app _ ≪≫ Functor.mapGrpIdIso.app _
+  exact @hasSemiAbelian_of_iso _ _ _ G Functor.grpObjObj _ (isoX E)
+    (inferInstanceAs (IsMonHom E.hom.hom.hom)) h2
+
+end Transport
+
+/-- **`SemistableLocalGlobal` from the single leaf `NeronLocalizesDVR`** (BLR §1.2 Prop. 4). -/
+theorem semistableLocalGlobal_leaf (hL : NeronLocalizesDVR) : SemistableLocalGlobal :=
+  semistableLocalGlobal_of hL semiAbelianFieldIsoInvariant
+
 end ReductGlue

@@ -34,3 +34,9 @@ Kernel deps built in the worktree with `lake build` (all up to date). One Lean p
   **`semistableLocalGlobal_of : NeronLocalizesDVR → SemiAbelianFieldIsoInvariant → SemistableLocalGlobal`**. OK.
   VERIFIED.
 - 13:40 Assembled `ReductGlue.lean` (mk.sh): compiles, 31 s. VERIFIED.
+- 14:15 Body §5: `sσ`, `homEquiv_mul'`, `algK`, `ιR`, `Φ` (`(Spec R/k' ⟶ U_{k'}) ≃* (Spec R/k ⟶ U)` via
+  `Over.mapPullbackAdj`), `Φ_comp`, `Φ_natural`, `hasSemiAbelian_pullback` (base change along a field iso preserves
+  semi-abelian identity components: open immersion/flat/surjective by conjugating with the iso `pullback.fst`,
+  connectedness by `Scheme.homeoOfIso`, `B_{k'}` built from base-change instances, torus via `Φ`);
+  **`semiAbelianFieldIsoInvariant : SemiAbelianFieldIsoInvariant` PROVED**; hence
+  **`semistableLocalGlobal_leaf : NeronLocalizesDVR → SemistableLocalGlobal`**. OK. VERIFIED.
