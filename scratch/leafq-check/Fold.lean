@@ -1936,6 +1936,217 @@ theorem qmHauptmodul_of_base (h : QMHauptmodulBase) : PkgI1.QMHauptmodul := by
       exact transfer hfib h24 hg (-γ) (by rw [hgx, iota_neg, Units.val_neg, hγ]) τ
         (by rw [UpperHalfPlane.neg_smul, hτ])
 
+end HDec.LeafQCheck.HM
+
+/-! ### Weight 20: `∏θ_m² ∘ Ω` (period-glue's `G8` machinery with `ThetaModularity`'s second clause)
+
+Copied from `scratch/leaf-fold4/Leaves4.lean` (period-glue, lines 116948-117320) with `G8 → G20`,
+`thetaSum8 → thetaProd2`, exponents `4, 8 → 10, 20` and the first clause of `ThetaModularity` replaced by
+the second. -/
+
+namespace HDec.HSyn.G0Split.FibreQM.PeriodGlue.LQ20
+open ZInQ.LeafPush2 (CPts cptObj IsUniformization IsSiegel IsPeriodMatrix Char2 thetaConst absLogHeight cDom cEvalAt)
+open Complex Matrix HSyn.G0Split.FibreQM HSyn.G0Split.FibreQM.PeriodMap HSyn.G0Split.FibreQM.PeriodGlue
+open UpperHalfPlane (num denom σ coe_smul_of_det_pos denom_ne_zero)
+
+/-- `Π/dF¹⁰ = ∏θ_m²(Ω(τ)) / ((τ − 3)(τ + 1))¹⁰`, a weight-20 automorphic form of `Γ*`. -/
+noncomputable def G20 (z : ℂ) : ℂ := PkgI1.thetaProd2 (PkgI1.Omega z) / ((z - 3) * (z + 1)) ^ 10
+
+
+/-- `g ∈ GL₂(ℝ)⁺` and `G20` has the exact automorphy of `S8WeightExact` for `g`. -/
+def G20Auto (γ : GL (Fin 2) ℝ) : Prop :=
+  0 < (γ : Matrix (Fin 2) (Fin 2) ℝ).det ∧ ∀ z : UpperHalfPlane,
+    G20 ((γ • z : UpperHalfPlane) : ℂ) * (((γ : Matrix (Fin 2) (Fin 2) ℝ).det : ℝ) : ℂ) ^ 10 =
+      denom γ z ^ 20 * G20 (z : ℂ)
+
+theorem g20Auto_one : G20Auto 1 := by
+  refine ⟨by simp, fun z => ?_⟩
+  simp [UpperHalfPlane.denom]
+
+theorem g20Auto_mul {g h : GL (Fin 2) ℝ} (hg : G20Auto g) (hh : G20Auto h) : G20Auto (g * h) := by
+  refine ⟨by rw [Units.val_mul, det_mul]; exact mul_pos hg.1 hh.1, fun z => ?_⟩
+  rw [mul_smul, denom_mul_pos g h hh.1, Units.val_mul, det_mul]
+  have e1 := hg.2 (h • z)
+  have e2 := hh.2 z
+  push_cast
+  calc G20 ((g • h • z : UpperHalfPlane) : ℂ) *
+        (((g : Matrix (Fin 2) (Fin 2) ℝ).det : ℂ) * ((h : Matrix (Fin 2) (Fin 2) ℝ).det : ℂ)) ^ 10
+      = (G20 ((g • h • z : UpperHalfPlane) : ℂ) * ((g : Matrix (Fin 2) (Fin 2) ℝ).det : ℂ) ^ 10) *
+          ((h : Matrix (Fin 2) (Fin 2) ℝ).det : ℂ) ^ 10 := by ring
+    _ = denom g ((h • z : UpperHalfPlane) : ℂ) ^ 20 * (G20 ((h • z : UpperHalfPlane) : ℂ) *
+          ((h : Matrix (Fin 2) (Fin 2) ℝ).det : ℂ) ^ 10) := by rw [e1]; ring
+    _ = _ := by rw [e2]; ring
+
+theorem g20Auto_inv {g : GL (Fin 2) ℝ} (hg : G20Auto g) : G20Auto g⁻¹ := by
+  have hd : ((g⁻¹ : GL (Fin 2) ℝ) : Matrix (Fin 2) (Fin 2) ℝ).det =
+      ((g : Matrix (Fin 2) (Fin 2) ℝ).det)⁻¹ := by
+    rw [Matrix.coe_units_inv, Matrix.det_nonsing_inv, Ring.inverse_eq_inv']
+  refine ⟨by rw [hd]; exact inv_pos.mpr hg.1, fun z => ?_⟩
+  set z' := g⁻¹ • z with hz'
+  have e := hg.2 z'
+  rw [hz', smul_inv_smul] at e
+  have hc := denom_mul_pos g g⁻¹ (by rw [hd]; exact inv_pos.mpr hg.1) z
+  rw [mul_inv_cancel] at hc
+  have h1 : denom (1 : GL (Fin 2) ℝ) z = 1 := by simp [UpperHalfPlane.denom]
+  rw [h1] at hc
+  have hD : denom g ((g⁻¹ • z : UpperHalfPlane) : ℂ) ≠ 0 := denom_ne_zero _ _
+  have hdet : ((g : Matrix (Fin 2) (Fin 2) ℝ).det : ℂ) ≠ 0 := by exact_mod_cast hg.1.ne'
+  rw [hd]
+  push_cast
+  have key : G20 ((g⁻¹ • z : UpperHalfPlane) : ℂ) = G20 (z : ℂ) * ((g : Matrix (Fin 2) (Fin 2) ℝ).det : ℂ) ^ 10 /
+      denom g ((g⁻¹ • z : UpperHalfPlane) : ℂ) ^ 20 := by
+    rw [eq_div_iff (pow_ne_zero _ hD), e]; ring
+  rw [key]
+  have hinv : denom g⁻¹ z = (denom g ((g⁻¹ • z : UpperHalfPlane) : ℂ))⁻¹ :=
+    (eq_inv_of_mul_eq_one_right hc.symm)
+  rw [hinv]
+  field_simp
+
+theorem g20Auto_scalar {g : GL (Fin 2) ℝ} (q : ℚ) (hq : q ≠ 0)
+    (hg : (g : Matrix (Fin 2) (Fin 2) ℝ) = (q : ℝ) • 1) : G20Auto g := by
+  have hq' : (q : ℝ) ≠ 0 := by exact_mod_cast hq
+  have hdet : (g : Matrix (Fin 2) (Fin 2) ℝ).det = (q : ℝ) ^ 2 := by
+    rw [hg, Matrix.det_smul, Matrix.det_one]; simp
+  have hpos : 0 < (g : Matrix (Fin 2) (Fin 2) ℝ).det := by rw [hdet]; positivity
+  have e00 : (g : Matrix (Fin 2) (Fin 2) ℝ) 0 0 = q := by rw [hg]; simp
+  have e01 : (g : Matrix (Fin 2) (Fin 2) ℝ) 0 1 = 0 := by rw [hg]; simp
+  have e10 : (g : Matrix (Fin 2) (Fin 2) ℝ) 1 0 = 0 := by rw [hg]; simp
+  have e11 : (g : Matrix (Fin 2) (Fin 2) ℝ) 1 1 = q := by rw [hg]; simp
+  refine ⟨hpos, fun z => ?_⟩
+  have hden : denom g z = (q : ℂ) := by simp [UpperHalfPlane.denom, e10, e11]
+  have hsm : g • z = z := by
+    ext1
+    rw [coe_smul_of_det_pos (by rwa [detv]), hden]
+    simp only [UpperHalfPlane.num, e00, e01]
+    have : (q : ℂ) ≠ 0 := by exact_mod_cast hq
+    field_simp
+    push_cast; ring
+  rw [hsm, hden, hdet]
+  push_cast; ring
+
+/-- The automorphy group of `G20` (a subgroup of `GL₂(ℝ)⁺`). -/
+def G20AutoSubgroup : Subgroup (GL (Fin 2) ℝ) where
+  carrier := {γ | G20Auto γ}
+  one_mem' := g20Auto_one
+  mul_mem' := g20Auto_mul
+  inv_mem' := g20Auto_inv
+
+theorem g20Auto_of_sp (hT : PkgI1.ThetaModularity) (g : GL (Fin 2) ℝ)
+    (hdet : 0 < (g : Matrix (Fin 2) (Fin 2) ℝ).det)
+    (M : Matrix (Fin 2 ⊕ Fin 2) (Fin 2 ⊕ Fin 2) ℤ) (hM : M ∈ Matrix.symplecticGroup (Fin 2) ℤ)
+    (hrel : ∀ z : ℂ, 0 < z.im →
+      PkgI1.spAct M (PkgI1.Omega z) = PkgI1.Omega (num g z / denom g z))
+    (ε : ℂ) (hε : ε ^ 10 = 1)
+    (hfac : ∀ z : ℂ, 0 < z.im →
+      PkgI1.spFactor M (PkgI1.Omega z) * ((g : Matrix (Fin 2) (Fin 2) ℝ).det : ℂ) *
+        ((z - 3) * (z + 1)) =
+      ε * denom g z ^ 2 * ((num g z / denom g z - 3) * (num g z / denom g z + 1))) :
+    G20Auto g := by
+  refine ⟨hdet, fun z => ?_⟩
+  have hw : ((g • z : UpperHalfPlane) : ℂ) = num g z / denom g z :=
+    coe_smul_of_det_pos (by rwa [detv]) z
+  have hwim : 0 < (num g z / denom g z).im := by rw [← hw]; exact (g • z).im_pos
+  have hmod := (hT M hM (PkgI1.Omega z) (omegaSiegel_proof z z.im_pos)).2
+  rw [hrel z z.im_pos] at hmod
+  have hf := hfac z z.im_pos
+  unfold G20
+  rw [hw, hmod]
+  have hf10 : (PkgI1.spFactor M (PkgI1.Omega z) * ((g : Matrix (Fin 2) (Fin 2) ℝ).det : ℂ) *
+      ((z - 3) * (z + 1))) ^ 10 =
+      (denom g z ^ 2 * ((num g z / denom g z - 3) * (num g z / denom g z + 1))) ^ 10 := by
+    rw [hf, mul_assoc, mul_pow, hε, one_mul]
+  obtain ⟨h3, h4⟩ := sub3_add1_ne z.im_pos
+  obtain ⟨h5, h6⟩ := sub3_add1_ne hwim
+  have hD : denom g z ≠ 0 := denom_ne_zero g z
+  have hW : ((num g z / denom g z - 3) * (num g z / denom g z + 1)) ^ 10 ≠ 0 :=
+    pow_ne_zero _ (mul_ne_zero h5 h6)
+  have hZ : (((z : ℂ) - 3) * ((z : ℂ) + 1)) ^ 10 ≠ 0 := pow_ne_zero _ (mul_ne_zero h3 h4)
+  rw [div_mul_eq_mul_div, mul_div_assoc', div_eq_div_iff hW hZ]
+  linear_combination (PkgI1.thetaProd2 (PkgI1.Omega z)) * hf10
+
+theorem g20Auto_gen (hT : PkgI1.ThetaModularity) (g : GL (Fin 2) ℝ)
+    (hdet : 0 < (g : Matrix (Fin 2) (Fin 2) ℝ).det)
+    (M : Matrix (Fin 2 ⊕ Fin 2) (Fin 2 ⊕ Fin 2) ℤ) (hMs : M ∈ Matrix.symplecticGroup (Fin 2) ℤ)
+    (A B C D : Matrix (Fin 2) (Fin 2) ℂ) (hM : M.map (Int.cast : ℤ → ℂ) = Matrix.fromBlocks A B C D)
+    (hI1 : ∀ z : ℂ, dFh (num g z) (denom g z) • (A * Nf z + dF z • B) =
+      Nfh (num g z) (denom g z) * (C * Nf z + dF z • D))
+    (hI2 : ∀ z : ℂ, (C * Nf z + dF z • D).det * ((g : Matrix (Fin 2) (Fin 2) ℝ).det : ℂ) *
+      ((z - 3) * (z + 1)) = -1 * dF z ^ 2 * ((num g z - 3 * denom g z) * (num g z + denom g z))) :
+    G20Auto g := by
+  have hw : ∀ z : ℂ, 0 < z.im → 0 < (num g z / denom g z).im := fun z hz => by
+    have := (g • (⟨z, hz⟩ : UpperHalfPlane)).im_pos
+    rwa [← UpperHalfPlane.coe_im, coe_smul_of_det_pos (by rwa [detv])] at this
+  have hV : ∀ z : ℂ, 0 < z.im → denom g z ≠ 0 := fun z hz =>
+    UpperHalfPlane.denom_ne_zero_of_im g hz.ne'
+  have hP : ∀ z : ℂ, 0 < z.im → (C * Nf z + dF z • D).det ≠ 0 := fun z hz h0 => by
+    have e := hI2 z
+    rw [h0, zero_mul, zero_mul] at e
+    obtain ⟨h5, h6⟩ := sub3_add1_ne (hw z hz)
+    have h7 : num g z - 3 * denom g z ≠ 0 := fun h => h5 (by
+      rw [show num g z = 3 * denom g z by linear_combination h, mul_div_assoc,
+        div_self (hV z hz)]; ring)
+    have h8 : num g z + denom g z ≠ 0 := fun h => h6 (by
+      rw [show num g z = -denom g z by linear_combination h, neg_div, div_self (hV z hz)]; ring)
+    have := dF_ne hz
+    have : -1 * dF z ^ 2 * ((num g z - 3 * denom g z) * (num g z + denom g z)) ≠ 0 := by
+      apply mul_ne_zero (mul_ne_zero (by norm_num) (pow_ne_zero _ this)) (mul_ne_zero h7 h8)
+    exact this e.symm
+  refine g20Auto_of_sp hT g hdet M hMs (fun z hz => ?_) (-1) (by norm_num) (fun z hz => ?_)
+  · exact spAct_of_poly M A B C D hM z _ _ (hV z hz) (dF_ne hz) (dF_ne (hw z hz)) (hP z hz) (hI1 z)
+  · exact spFactor_of_poly M A B C D hM z _ _ _ (hV z hz) (dF_ne hz) (hI2 z)
+
+theorem iota_x4 : PkgI1.iota x4 = !![1 + √2, -3; 1, 1 - √2] := by
+  rw [iota_apply]; ext i j; fin_cases i <;> fin_cases j <;> simp [x4]
+
+theorem iota_x6 : PkgI1.iota x6 = !![-3 / 2, -3 / 2; 1 / 2, -3 / 2] := by
+  rw [iota_apply]; ext i j; fin_cases i <;> fin_cases j <;> simp [x6] <;> norm_num
+
+theorem g20Auto_g4 (hT : PkgI1.ThetaModularity) {g : GL (Fin 2) ℝ}
+    (hg : (g : Matrix (Fin 2) (Fin 2) ℝ) = PkgI1.iota x4) : G20Auto g := by
+  rw [iota_x4] at hg
+  have hdet : (g : Matrix (Fin 2) (Fin 2) ℝ).det = 2 := by
+    rw [hg, Matrix.det_fin_two_of]; linear_combination (-1 : ℝ) * sqrt2_sq'
+  have hnum : ∀ z : ℂ, num g z = (√2 : ℂ) * z + z - 3 := fun z => by
+    simp only [UpperHalfPlane.num, hg]; simp; ring
+  have hden : ∀ z : ℂ, denom g z = -(√2 : ℂ) + z + 1 := fun z => by
+    simp only [UpperHalfPlane.denom, hg]; simp; ring
+  refine g20Auto_gen hT g (by rw [hdet]; norm_num) M4 M4_symp A4 B4 C4 D4 M4_map
+    (fun z => by rw [hnum, hden]; exact I1_g4 z) (fun z => ?_)
+  rw [hnum, hden, hdet]; push_cast; exact I2_g4 z
+
+theorem g20Auto_g6 (hT : PkgI1.ThetaModularity) {g : GL (Fin 2) ℝ}
+    (hg : (g : Matrix (Fin 2) (Fin 2) ℝ) = PkgI1.iota x6) : G20Auto g := by
+  rw [iota_x6] at hg
+  have hdet : (g : Matrix (Fin 2) (Fin 2) ℝ).det = 3 := by
+    rw [hg, Matrix.det_fin_two_of]; norm_num
+  have hnum : ∀ z : ℂ, num g z = -3 * z / 2 - 3 / 2 := fun z => by
+    simp only [UpperHalfPlane.num, hg]; simp; ring
+  have hden : ∀ z : ℂ, denom g z = z / 2 - 3 / 2 := fun z => by
+    simp only [UpperHalfPlane.denom, hg]; simp; ring
+  refine g20Auto_gen hT g (by rw [hdet]; norm_num) M6 M6_symp A6 B6 C6 D6 M6_map
+    (fun z => by rw [hnum, hden]; exact I1_g6 z) (fun z => ?_)
+  rw [hnum, hden, hdet]; push_cast; exact I2_g6 z
+
+/-- **The exact weight-20 automorphy of `G20` on all of `Γ*`** (from R4 and `GammaStarGen`). -/
+theorem s20WeightExact_of (hT : PkgI1.ThetaModularity) (hG : GammaStarGen) :
+    ∀ γ ∈ PkgI1.GammaStar, ∀ z : UpperHalfPlane,
+      G20 ((γ • z : UpperHalfPlane) : ℂ) * (((γ : Matrix (Fin 2) (Fin 2) ℝ).det : ℝ) : ℂ) ^ 10 =
+        denom γ z ^ 20 * G20 (z : ℂ) := by
+  intro γ hγ z
+  have hmem : γ ∈ G20AutoSubgroup := by
+    refine (Subgroup.closure_le (K := G20AutoSubgroup)).mpr ?_ (hG γ hγ)
+    rintro g ((hg | hg) | ⟨q, hq, hg⟩)
+    · exact g20Auto_g4 hT hg
+    · exact g20Auto_g6 hT hg
+    · exact g20Auto_scalar q hq hg
+  exact hmem.2 z
+
+end HDec.HSyn.G0Split.FibreQM.PeriodGlue.LQ20
+
+namespace HDec.LeafQCheck.HM
+
+open PkgI1
+
 /-! ### The disc −4 clause is a computation: `j_θ(√2 + i) = 0` -/
 
 open HSyn.G0Split.FibreQM.PeriodGlue (th1 thT thetaConst_factor Omega0 omega_cm4 s8Omega0_proof τ1 τ2)
@@ -2023,6 +2234,331 @@ theorem base_of_base2 (h : QMHauptmodulBase2) : QMHauptmodulBase := by
 /-- **`QMHauptmodul` from `QMHauptmodulBase2` (proved).** -/
 theorem qmHauptmodul_of_base2 (h : QMHauptmodulBase2) : PkgI1.QMHauptmodul :=
   qmHauptmodul_of_base (base_of_base2 h)
+
+/-! ### The disc −3 clause from the valence bound: the pole of `j_θ` at `i√3` -/
+
+open HSyn.G0Split.FibreQM.PeriodMap (G8 U tau3 tau4 thetaOmegaAnalytic_proof s8OrderCM3_of
+  ValenceBoundGammaStar isOpen_U isPreconnected_U)
+
+/-- `Σθ⁸ ∘ Ω`. -/
+noncomputable def Sf (z : ℂ) : ℂ := PkgI1.thetaSum8 (PkgI1.Omega z)
+/-- `∏θ² ∘ Ω`. -/
+noncomputable def Pf (z : ℂ) : ℂ := PkgI1.thetaProd2 (PkgI1.Omega z)
+/-- `(z − 3)(z + 1)`. -/
+def Zf (z : ℂ) : ℂ := (z - 3) * (z + 1)
+
+theorem Zf_ne {z : ℂ} (hz : 0 < z.im) : Zf z ≠ 0 := by
+  unfold Zf
+  have h3 : z - 3 ≠ 0 := fun h => by have := congrArg Complex.im h; simp at this; linarith
+  have h4 : z + 1 ≠ 0 := fun h => by have := congrArg Complex.im h; simp at this; linarith
+  exact mul_ne_zero h3 h4
+
+theorem Zf_analytic (z : ℂ) : AnalyticAt ℂ Zf z := by unfold Zf; fun_prop
+
+theorem Sf_analytic : AnalyticOnNhd ℂ Sf U := thetaOmegaAnalytic_proof.1
+theorem Pf_analytic : AnalyticOnNhd ℂ Pf U := thetaOmegaAnalytic_proof.2
+
+theorem jDenO_eq (z : ℂ) : PkgI1.jDen (PkgI1.Omega z) = Sf z ^ 5 := rfl
+theorem jNumO_eq (z : ℂ) : PkgI1.jNum (PkgI1.Omega z) = 3779136 * Pf z ^ 2 := rfl
+
+theorem tau4_coe : (tau4 : ℂ) = (√2 : ℂ) + Complex.I := rfl
+theorem tau3_coe : (tau3 : ℂ) = (√3 : ℂ) * Complex.I := rfl
+
+theorem Sf_tau4 : Sf (tau4 : ℂ) ≠ 0 := by
+  unfold Sf; rw [tau4_coe, omega_cm4]; exact s8Omega0_proof
+
+theorem Pf_tau4 : Pf (tau4 : ℂ) = 0 := by
+  unfold Pf; rw [tau4_coe, omega_cm4]; exact thetaProd2_omega0
+
+/-- `jDen ∘ Ω` is analytic on `ℍ` and nowhere locally zero. -/
+theorem jDenO_analytic : AnalyticOnNhd ℂ (fun z => PkgI1.jDen (PkgI1.Omega z)) U :=
+  fun z hz => (Sf_analytic z hz).pow 5
+
+theorem jDenO_order_ne_top {z : ℂ} (hz : z ∈ U) :
+    analyticOrderAt (fun z => PkgI1.jDen (PkgI1.Omega z)) z ≠ ⊤ := by
+  intro htop
+  have hev := analyticOrderAt_eq_top.1 htop
+  have h0 := jDenO_analytic.eqOn_zero_of_preconnected_of_eventuallyEq_zero isPreconnected_U hz hev
+  have h4 := h0 (show (tau4 : ℂ) ∈ U from tau4.im_pos)
+  simp only [Pi.zero_apply, jDenO_eq] at h4
+  exact Sf_tau4 (pow_eq_zero_iff (by norm_num) |>.1 h4)
+
+/-- Near every point of `ℍ`, `jDen ∘ Ω ≠ 0` off that point. -/
+theorem jDenO_eventually_ne {z : ℂ} (hz : z ∈ U) :
+    ∀ᶠ w in nhdsWithin z {z}ᶜ, PkgI1.jDen (PkgI1.Omega w) ≠ 0 := by
+  rcases (jDenO_analytic z hz).eventually_eq_zero_or_eventually_ne_zero with h | h
+  · exact absurd (analyticOrderAt_eq_top.2 h) (jDenO_order_ne_top hz)
+  · exact h
+
+open Filter Topology in
+theorem map_coe_punctured (τ0 : UpperHalfPlane) :
+    Filter.map (fun τ : UpperHalfPlane => (τ : ℂ)) (𝓝[≠] τ0) = 𝓝[≠] (τ0 : ℂ) := by
+  rw [UpperHalfPlane.isOpenEmbedding_coe.map_nhdsWithin_eq]
+  have himg : (fun τ : UpperHalfPlane => (τ : ℂ)) '' {τ0}ᶜ = U ∩ {(τ0 : ℂ)}ᶜ := by
+    ext z
+    constructor
+    · rintro ⟨τ, hτ, rfl⟩
+      exact ⟨τ.im_pos, fun h => hτ (UpperHalfPlane.ext h)⟩
+    · rintro ⟨hz, hne⟩
+      exact ⟨⟨z, hz⟩, fun h => hne (by rw [← h]; rfl), rfl⟩
+  rw [himg, nhdsWithin_inter_of_mem]
+  exact mem_nhdsWithin_of_mem_nhds (isOpen_U.mem_nhds τ0.im_pos)
+
+open Filter Topology in
+instance punctured_neBot (τ0 : UpperHalfPlane) : (𝓝[≠] τ0).NeBot := by
+  rw [← Filter.map_neBot_iff (fun τ : UpperHalfPlane => (τ : ℂ)), map_coe_punctured]
+  infer_instance
+
+open Filter Topology in
+theorem eventually_jDen_ne_H (τ0 : UpperHalfPlane) :
+    ∀ᶠ τ : UpperHalfPlane in 𝓝[≠] τ0, PkgI1.jDen (PkgI1.Omega (τ : ℂ)) ≠ 0 := by
+  have h := jDenO_eventually_ne (z := (τ0 : ℂ)) τ0.im_pos
+  rw [← map_coe_punctured] at h
+  exact Filter.eventually_map.1 h
+
+open Filter Topology in
+theorem value_infty_of_tendsto {f : UpperHalfPlane → OnePoint ℂ} (hc : Continuous f) {h : ℂ → ℂ}
+    (τ0 : UpperHalfPlane) (hev : ∀ᶠ τ : UpperHalfPlane in 𝓝[≠] τ0, f τ = ((h τ : ℂ) : OnePoint ℂ))
+    (ht : Tendsto h (𝓝[≠] (τ0 : ℂ)) (Bornology.cobounded ℂ)) : f τ0 = OnePoint.infty := by
+  have h1 : Tendsto f (𝓝[≠] τ0) (𝓝 (f τ0)) := hc.continuousAt.tendsto.mono_left nhdsWithin_le_nhds
+  have hcoe : Tendsto (fun z : ℂ => (z : OnePoint ℂ)) (Bornology.cobounded ℂ) (𝓝 OnePoint.infty) := by
+    rw [Metric.cobounded_eq_cocompact, ← Filter.coclosedCompact_eq_cocompact]
+    exact OnePoint.tendsto_coe_infty
+  have hh : Tendsto (fun τ : UpperHalfPlane => h τ) (𝓝[≠] τ0) (Bornology.cobounded ℂ) :=
+    ht.comp (le_of_eq (map_coe_punctured τ0))
+  have h2 : Tendsto f (𝓝[≠] τ0) (𝓝 OnePoint.infty) :=
+    (hcoe.comp hh).congr' (hev.mono fun τ hτ => hτ.symm)
+  exact tendsto_nhds_unique h1 h2
+
+open Filter Topology in
+theorem value_of_eventually {f : UpperHalfPlane → OnePoint ℂ} (hc : Continuous f) (τ0 : UpperHalfPlane)
+    (v : OnePoint ℂ) (hev : ∀ᶠ τ : UpperHalfPlane in 𝓝[≠] τ0, f τ = v) : f τ0 = v := by
+  have h1 : Tendsto f (𝓝[≠] τ0) (𝓝 (f τ0)) := hc.continuousAt.tendsto.mono_left nhdsWithin_le_nhds
+  have h2 : Tendsto f (𝓝[≠] τ0) (𝓝 v) := tendsto_const_nhds.congr' (hev.mono fun τ hτ => hτ.symm)
+  exact tendsto_nhds_unique h1 h2
+
+open Filter Topology in
+/-- If `f = g · h` near `z` with `h` analytic and nonzero at `z`, the orders of `f` and `g` agree. -/
+theorem order_eq_of_mul {f g h : ℂ → ℂ} {z : ℂ} (hg : AnalyticAt ℂ g z) (hh : AnalyticAt ℂ h z)
+    (hh0 : h z ≠ 0) (hfg : f =ᶠ[𝓝 z] g * h) : analyticOrderAt f z = analyticOrderAt g z := by
+  rw [analyticOrderAt_congr hfg, analyticOrderAt_mul hg hh,
+    analyticOrderAt_eq_zero.2 (Or.inr hh0), add_zero]
+
+open Filter Topology in
+theorem Zf_eventually_ne {z : ℂ} (hz : 0 < z.im) : ∀ᶠ w in 𝓝 z, Zf w ≠ 0 :=
+  (Zf_analytic z).continuousAt.eventually_ne (Zf_ne hz)
+
+theorem G8_eq (z : ℂ) : G8 z = Sf z / Zf z ^ 4 := rfl
+theorem G20_eq (z : ℂ) : HSyn.G0Split.FibreQM.PeriodGlue.LQ20.G20 z = Pf z / Zf z ^ 10 := rfl
+
+theorem G8_analytic {z : ℂ} (hz : z ∈ U) : AnalyticAt ℂ G8 z := by
+  have : G8 = fun w => Sf w / Zf w ^ 4 := rfl
+  rw [this]; exact (Sf_analytic z hz).div ((Zf_analytic z).pow 4) (pow_ne_zero _ (Zf_ne hz))
+
+theorem G20_analytic {z : ℂ} (hz : z ∈ U) : AnalyticAt ℂ HSyn.G0Split.FibreQM.PeriodGlue.LQ20.G20 z := by
+  have : HSyn.G0Split.FibreQM.PeriodGlue.LQ20.G20 = fun w => Pf w / Zf w ^ 10 := rfl
+  rw [this]; exact (Pf_analytic z hz).div ((Zf_analytic z).pow 10) (pow_ne_zero _ (Zf_ne hz))
+
+open Filter Topology in
+theorem ord_Sf_eq {z : ℂ} (hz : z ∈ U) : analyticOrderAt Sf z = analyticOrderAt G8 z := by
+  refine order_eq_of_mul (h := fun w => Zf w ^ 4) (G8_analytic hz) ((Zf_analytic z).pow 4)
+    (pow_ne_zero _ (Zf_ne hz)) ?_
+  filter_upwards [Zf_eventually_ne hz] with w hw
+  simp only [Pi.mul_apply, G8_eq]
+  field_simp
+
+open Filter Topology in
+theorem ord_Pf_eq {z : ℂ} (hz : z ∈ U) :
+    analyticOrderAt Pf z = analyticOrderAt HSyn.G0Split.FibreQM.PeriodGlue.LQ20.G20 z := by
+  refine order_eq_of_mul (h := fun w => Zf w ^ 10) (G20_analytic hz) ((Zf_analytic z).pow 10)
+    (pow_ne_zero _ (Zf_ne hz)) ?_
+  filter_upwards [Zf_eventually_ne hz] with w hw
+  simp only [Pi.mul_apply, G20_eq]
+  field_simp
+
+/-- The fixed point of `ι((1 + j)/2)` in `ℍ` is `i√3`. -/
+theorem fixed_x3 {γ : GL (Fin 2) ℝ} (hγ : (γ : Matrix (Fin 2) (Fin 2) ℝ) = PkgI1.iota x3)
+    {τ : UpperHalfPlane} (hτ : γ • τ = τ) : τ = tau3 := by
+  have hM : (γ : Matrix (Fin 2) (Fin 2) ℝ) = !![1/2, -3/2; 1/2, 1/2] := by
+    rw [hγ, iota_apply]; ext i j; fin_cases i <;> fin_cases j <;> simp [x3] <;> norm_num
+  have hdet : 0 < γ.det.val := by
+    rw [Matrix.GeneralLinearGroup.val_det_apply, hM, Matrix.det_fin_two_of]; norm_num
+  have h := congrArg (fun w : UpperHalfPlane => (w : ℂ)) hτ
+  rw [UpperHalfPlane.coe_smul_of_det_pos hdet, div_eq_iff (UpperHalfPlane.denom_ne_zero γ τ)] at h
+  simp only [UpperHalfPlane.num, UpperHalfPlane.denom, hM, Matrix.of_apply, Matrix.cons_val',
+    Matrix.cons_val_zero, Matrix.cons_val_one, Matrix.empty_val', Matrix.cons_val_fin_one,
+    Matrix.head_cons] at h
+  have s3 : (√3 : ℂ) * √3 = 3 := by
+    rw [← Complex.ofReal_mul, Real.mul_self_sqrt (by norm_num)]; norm_num
+  have hq : ((τ : ℂ) - √3 * Complex.I) * ((τ : ℂ) + √3 * Complex.I) = 0 := by
+    have hI : Complex.I * Complex.I = -1 := Complex.I_mul_I
+    push_cast at h
+    linear_combination (-2 : ℂ) * h - Complex.I * Complex.I * s3 - 3 * hI
+  apply UpperHalfPlane.ext
+  rcases mul_eq_zero.1 hq with h1 | h1
+  · rw [tau3_coe]; linear_combination h1
+  · exfalso
+    have := congrArg Complex.im h1
+    simp at this
+    have h3 : (0 : ℝ) < √3 := Real.sqrt_pos.2 (by norm_num)
+    linarith [τ.im_pos]
+
+theorem enat_aux {a b : ℕ∞} (h : 2 * (a + b) ≤ 10) (hb : 1 ≤ b) : a ≤ 4 := by
+  induction a using ENat.recTopCoe with
+  | top => simp at h
+  | coe a =>
+    induction b using ENat.recTopCoe with
+    | top => simp at h
+    | coe b =>
+      have h' : 2 * (a + b) ≤ 10 := by exact_mod_cast h
+      have hb' : 1 ≤ b := by exact_mod_cast hb
+      exact_mod_cast (show a ≤ 4 by omega)
+
+theorem mero_neg_aux {N D : ℂ → ℂ} {z : ℂ} (hN : AnalyticAt ℂ N z) (hD : AnalyticAt ℂ D z)
+    (hn : analyticOrderAt N z ≤ 8) (hd : 10 ≤ analyticOrderAt D z) (hdt : analyticOrderAt D z ≠ ⊤) :
+    meromorphicOrderAt (fun w => N w / D w) z < 0 := by
+  have e : (fun w => N w / D w) = N / D := rfl
+  rw [e, meromorphicOrderAt_div hN.meromorphicAt hD.meromorphicAt, hN.meromorphicOrderAt_eq,
+    hD.meromorphicOrderAt_eq]
+  generalize analyticOrderAt N z = n at hn
+  generalize analyticOrderAt D z = d at hd hdt
+  induction n using ENat.recTopCoe with
+  | top => simp at hn
+  | coe n =>
+    induction d using ENat.recTopCoe with
+    | top => exact absurd rfl hdt
+    | coe d =>
+      have hn' : n ≤ 8 := by exact_mod_cast hn
+      have hd' : 10 ≤ d := by exact_mod_cast hd
+      simp only [ENat.map_coe]
+      have h := (show (n : ℤ) - d < 0 by omega)
+      have e2 : ((n : ℤ) : WithTop ℤ) - ((d : ℤ) : WithTop ℤ) = (((n : ℤ) - d : ℤ) : WithTop ℤ) := rfl
+      rw [e2]
+      exact_mod_cast h
+
+/-- **`QMHauptmodulBase2` without its disc −3 clause.** What is left: the Hauptmodul property and the
+value `−16/27` at the order-2 point. -/
+def QMHauptmodulBase3 : Prop :=
+  ∃ f : UpperHalfPlane → OnePoint ℂ, Continuous f ∧
+    (∀ τ : UpperHalfPlane, PkgI1.jDen (PkgI1.Omega τ) ≠ 0 →
+      f τ = ((PkgI1.jNum (PkgI1.Omega τ) / PkgI1.jDen (PkgI1.Omega τ) : ℂ) : OnePoint ℂ)) ∧
+    (∀ τ τ' : UpperHalfPlane, f τ = f τ' ↔ ∃ γ ∈ PkgI1.GammaStar, γ • τ = τ') ∧
+    Function.Surjective f ∧
+    (∀ γ : GL (Fin 2) ℝ, (γ : Matrix (Fin 2) (Fin 2) ℝ) = PkgI1.iota mu →
+      ∀ τ : UpperHalfPlane, γ • τ = τ → f τ = ((-16/27 : ℂ) : OnePoint ℂ))
+
+set_option maxHeartbeats 1000000 in
+open UpperHalfPlane (denom denom_ne_zero) in
+open Filter Topology in
+/-- **The pole at `i√3` (proved)** from Igusa's `ThetaModularity` (R4), `GammaStarGen` (proved) and the
+valence bound: `ord_{i√3}(Σθ⁸∘Ω) ≥ 2` (period-map's `S8OrderCM3`), and the valence bound for
+`G20 = ∏θ²∘Ω/dF¹⁰` (weight 20) at `{i√3, √2+i}` with `G20(√2+i) = 0` gives `ord_{i√3}(∏θ²∘Ω) ≤ 4`, so
+`ord(jNum∘Ω) ≤ 8 < 10 ≤ ord(jDen∘Ω)` and `jNum/jDen → ∞`. -/
+theorem base2_of_base3 (hT : PkgI1.ThetaModularity) (hG : HSyn.G0Split.FibreQM.PeriodGlue.GammaStarGen)
+    (hV : ValenceBoundGammaStar) (h : QMHauptmodulBase3) : QMHauptmodulBase2 := by
+  classical
+  obtain ⟨f, hc, hform, hfib, hsurj, h24⟩ := h
+  refine ⟨f, hc, hform, hfib, hsurj, fun γ hγ τ hτ => ?_, h24⟩
+  obtain rfl := fixed_x3 hγ hτ
+  have h3U : (tau3 : ℂ) ∈ U := tau3.im_pos
+  have h4U : (tau4 : ℂ) ∈ U := tau4.im_pos
+  have hW := HSyn.G0Split.FibreQM.PeriodGlue.s8WeightExact_of hT hG
+  -- `ord Σθ⁸∘Ω ≥ 2` at `i√3`
+  have hS3 : 2 ≤ analyticOrderAt Sf (tau3 : ℂ) := by
+    rw [ord_Sf_eq h3U]; exact s8OrderCM3_of thetaOmegaAnalytic_proof hW
+  -- `G8(i√3) = 0`, `G8(√2+i) ≠ 0`
+  have hG8_3 : G8 (tau3 : ℂ) = 0 := by
+    apply apply_eq_zero_of_analyticOrderAt_ne_zero
+    rw [← ord_Sf_eq h3U]; intro h0; rw [h0] at hS3; norm_num at hS3
+  have hG8_4 : G8 (tau4 : ℂ) ≠ 0 := by
+    rw [G8_eq]; exact div_ne_zero Sf_tau4 (pow_ne_zero _ (Zf_ne tau4.im_pos))
+  -- `i√3` and `√2 + i` are inequivalent
+  have hne34 : tau3 ≠ tau4 := by
+    intro h0
+    have := congrArg (fun w : UpperHalfPlane => (w : ℂ).re) h0
+    simp [tau3_coe, tau4_coe] at this
+    have h2 : (0 : ℝ) < √2 := Real.sqrt_pos.2 (by norm_num)
+    linarith
+  have hpair : ((({tau3, tau4} : Finset UpperHalfPlane)) : Set UpperHalfPlane).Pairwise
+      (fun z w => ∀ γ ∈ PkgI1.GammaStar, γ • z ≠ w) := by
+    intro z hz w hw hzw γ hγ' hγz
+    have hdet : (((γ : Matrix (Fin 2) (Fin 2) ℝ).det : ℝ) : ℂ) ≠ 0 := by
+      obtain ⟨_, _, _, hd⟩ := hγ'; exact_mod_cast hd.ne'
+    have e := hW γ hγ' z
+    rw [hγz] at e
+    simp only [Finset.coe_insert, Finset.coe_singleton, Set.mem_insert_iff,
+      Set.mem_singleton_iff] at hz hw
+    rcases hz with rfl | rfl <;> rcases hw with rfl | rfl
+    · exact hzw rfl
+    · rw [hG8_3, mul_zero] at e
+      exact hG8_4 ((mul_eq_zero.1 e).resolve_right (pow_ne_zero _ hdet))
+    · rw [hG8_3, zero_mul] at e
+      exact hG8_4 ((mul_eq_zero.1 e.symm).resolve_left (pow_ne_zero _ (denom_ne_zero γ _)))
+    · exact hzw rfl
+  -- `G20 ≢ 0` (else `f ≡ 0`, against surjectivity)
+  have hG20ne : ∃ z ∈ U, HSyn.G0Split.FibreQM.PeriodGlue.LQ20.G20 z ≠ 0 := by
+    by_contra hall
+    push_neg at hall
+    have hf0 : ∀ τ0 : UpperHalfPlane, f τ0 = ((0 : ℂ) : OnePoint ℂ) := by
+      intro τ0
+      refine value_of_eventually hc τ0 _ ?_
+      filter_upwards [eventually_jDen_ne_H τ0] with τ hτ
+      rw [hform τ hτ]
+      have hP : Pf (τ : ℂ) = 0 := by
+        have := hall τ τ.im_pos
+        rw [G20_eq] at this
+        exact (div_eq_zero_iff.1 this).resolve_right (pow_ne_zero _ (Zf_ne τ.im_pos))
+      rw [jNumO_eq, hP]; simp
+    obtain ⟨τ, hτ⟩ := hsurj OnePoint.infty
+    rw [hf0 τ] at hτ
+    exact OnePoint.coe_ne_infty _ hτ
+  -- automorphy in absolute value
+  have hW20 : ∀ γ ∈ PkgI1.GammaStar, ∀ z : UpperHalfPlane,
+      ‖HSyn.G0Split.FibreQM.PeriodGlue.LQ20.G20 ((γ • z : UpperHalfPlane) : ℂ)‖ *
+        ((γ : Matrix (Fin 2) (Fin 2) ℝ).det) ^ 10 =
+      ‖denom γ z‖ ^ (2 * 10) * ‖HSyn.G0Split.FibreQM.PeriodGlue.LQ20.G20 (z : ℂ)‖ := by
+    intro γ hγ' z
+    have ⟨_, _, _, hdet⟩ := hγ'
+    have e := congrArg norm (HSyn.G0Split.FibreQM.PeriodGlue.LQ20.s20WeightExact_of hT hG γ hγ' z)
+    rw [norm_mul, norm_mul, norm_pow, norm_pow, Complex.norm_real, Real.norm_of_nonneg hdet.le] at e
+    simpa using e
+  have hval := hV 10 HSyn.G0Split.FibreQM.PeriodGlue.LQ20.G20 (fun z hz => G20_analytic hz)
+    hG20ne hW20 {tau3, tau4} hpair
+  rw [Finset.sum_pair hne34] at hval
+  -- `ord_{√2+i} G20 ≥ 1`
+  have h4 : 1 ≤ analyticOrderAt HSyn.G0Split.FibreQM.PeriodGlue.LQ20.G20 (tau4 : ℂ) := by
+    rw [ENat.one_le_iff_ne_zero, (G20_analytic h4U).analyticOrderAt_ne_zero, G20_eq, Pf_tau4,
+      zero_div]
+  -- `ord_{i√3} G20 ≤ 4`
+  have h3 : analyticOrderAt HSyn.G0Split.FibreQM.PeriodGlue.LQ20.G20 (tau3 : ℂ) ≤ 4 := by
+    exact enat_aux hval h4
+  -- orders of `jNum ∘ Ω` and `jDen ∘ Ω`
+  have hNan : AnalyticAt ℂ (fun z => PkgI1.jNum (PkgI1.Omega z)) (tau3 : ℂ) :=
+    analyticAt_const.mul ((Pf_analytic _ h3U).pow 2)
+  have hDan : AnalyticAt ℂ (fun z => PkgI1.jDen (PkgI1.Omega z)) (tau3 : ℂ) := jDenO_analytic _ h3U
+  have hN : analyticOrderAt (fun z => PkgI1.jNum (PkgI1.Omega z)) (tau3 : ℂ) ≤ 8 := by
+    have e : (fun z => PkgI1.jNum (PkgI1.Omega z)) = (fun _ => (3779136 : ℂ)) * Pf ^ 2 := by
+      funext z; rfl
+    rw [e, analyticOrderAt_mul analyticAt_const ((Pf_analytic _ h3U).pow 2),
+      analyticOrderAt_eq_zero.2 (Or.inr (by norm_num)), zero_add,
+      analyticOrderAt_pow (Pf_analytic _ h3U), ord_Pf_eq h3U]
+    calc (2 : ℕ) • analyticOrderAt HSyn.G0Split.FibreQM.PeriodGlue.LQ20.G20 (tau3 : ℂ)
+        ≤ (2 : ℕ) • (4 : ℕ∞) := by gcongr
+      _ = 8 := by norm_num
+  have hD : 10 ≤ analyticOrderAt (fun z => PkgI1.jDen (PkgI1.Omega z)) (tau3 : ℂ) := by
+    have e : (fun z => PkgI1.jDen (PkgI1.Omega z)) = Sf ^ 5 := by funext z; rfl
+    rw [e, analyticOrderAt_pow (Sf_analytic _ h3U)]
+    calc (10 : ℕ∞) = (5 : ℕ) • (2 : ℕ∞) := by norm_num
+      _ ≤ (5 : ℕ) • analyticOrderAt Sf (tau3 : ℂ) := by gcongr
+  have hDtop := jDenO_order_ne_top h3U
+  -- `jNum/jDen → ∞`
+  have hmo : meromorphicOrderAt (fun z => PkgI1.jNum (PkgI1.Omega z) / PkgI1.jDen (PkgI1.Omega z))
+      (tau3 : ℂ) < 0 := by
+    exact mero_neg_aux hNan hDan hN hD hDtop
+  refine value_infty_of_tendsto hc tau3 (h := fun z => PkgI1.jNum (PkgI1.Omega z) /
+    PkgI1.jDen (PkgI1.Omega z)) ?_ (tendsto_cobounded_of_meromorphicOrderAt_neg hmo)
+  filter_upwards [eventually_jDen_ne_H tau3] with τ hτ
+  exact hform τ hτ
 
 end HDec.LeafQCheck.HM
 
@@ -2207,6 +2743,42 @@ theorem sixContactMin_of_open9 (r : OpenResearchLeaves2) (t : OpenTextbookLeaves
       l.qmAutCard, l.serreRigidity3, l.alFixedPoints, l.zariskiConnectedness, l.stQM,
       l.valenceFormulaGammaStar, l.egaIV_8_8_2_ii, l.egaIV_8_10_5_xii, l.egaIV_17_7_8_ii⟩ g
 
+
+/-- `OpenAddedLeaves9` with `qmHauptmodulBase2` replaced by `QMHauptmodulBase3` (no disc −3 clause: the
+pole at `i√3` follows from R4, `GammaStarGen` and the valence bound, `LeafQCheck.HM.base2_of_base3`). -/
+structure OpenAddedLeaves10 : Prop where
+  cmOptimalEmbedding : FS5NoCM.CMOptimalEmbedding
+  thetaRatiosAlgebraic : G0Split.ThetaPt.ThetaRatiosAlgebraic
+  qmHauptmodulBase3 : LeafQCheck.HM.QMHauptmodulBase3
+  qmClassNumberOne : G0Split.FibreQM.QMClassNumberOne
+  senTwist : G0Galois.SenTwist
+  finiteImageHT : G0Galois.FiniteImageHT
+  t09SymmIsogenyExists : WeilPairing.T09_SymmIsogenyExists
+  isogenyQuasiInverse : WeilPairing.IsogenyQuasiInverse
+  x6ConicModel : X6Kummer.X6ConicModel
+  y3Connected : TSHecke.Y3Connected
+  qmAutCard : HeckeRest.QMAutCard
+  serreRigidity3 : HeckeRest.SerreRigidity3
+  alFixedPoints : HeckeRest.ALFixedPoints
+  zariskiConnectedness : _root_.ZariskiConn.ZariskiConnectedness.{0}
+  stQM : G0Split.FibreQM.PeriodMapH.LeafQCheck.STQM
+  valenceFormulaGammaStar : LeafQCheck.VB.ValenceFormulaGammaStar
+  egaIV_8_8_2_ii : _root_.ZInQ.Contrib.SpreadOut.EGAIV_8_8_2_ii
+  egaIV_8_10_5_xii : _root_.ZInQ.Contrib.SpreadOut.EGAIV_8_10_5_xii
+  egaIV_17_7_8_ii : _root_.ZInQ.Contrib.SpreadOut.EGAIV_17_7_8_ii
+
+/-- **`SixContactMin` from 26 + 19 + 19 leaves and one glue Prop** (leafq-check's final form). -/
+theorem sixContactMin_of_open10 (r : OpenResearchLeaves2) (t : OpenTextbookLeaves4)
+    (l : OpenAddedLeaves10) (g : OpenGlue4) : ZInQ.SixContactMin :=
+  sixContactMin_of_open9 r t
+    ⟨l.cmOptimalEmbedding, l.thetaRatiosAlgebraic,
+      LeafQCheck.HM.base2_of_base3 r.r4 LeafQCheck.gammaStarGen_proof
+        (LeafQCheck.VB.valenceBound_of_formula l.valenceFormulaGammaStar) l.qmHauptmodulBase3,
+      l.qmClassNumberOne, l.senTwist,
+      l.finiteImageHT, l.t09SymmIsogenyExists, l.isogenyQuasiInverse, l.x6ConicModel, l.y3Connected,
+      l.qmAutCard, l.serreRigidity3, l.alFixedPoints, l.zariskiConnectedness, l.stQM,
+      l.valenceFormulaGammaStar, l.egaIV_8_8_2_ii, l.egaIV_8_10_5_xii, l.egaIV_17_7_8_ii⟩ g
+
 end HDec.HSyn
 
 example : ∀ (_ : HDec.HSyn.OpenResearchLeaves2) (_ : HDec.HSyn.OpenTextbookLeaves4)
@@ -2225,6 +2797,10 @@ example : ∀ (_ : HDec.HSyn.OpenResearchLeaves2) (_ : HDec.HSyn.OpenTextbookLea
     (_ : HDec.HSyn.OpenAddedLeaves9) (_ : HDec.HSyn.OpenGlue4), _root_.ZInQ.SixContactMin :=
   HDec.HSyn.sixContactMin_of_open9
 
+example : ∀ (_ : HDec.HSyn.OpenResearchLeaves2) (_ : HDec.HSyn.OpenTextbookLeaves4)
+    (_ : HDec.HSyn.OpenAddedLeaves10) (_ : HDec.HSyn.OpenGlue4), _root_.ZInQ.SixContactMin :=
+  HDec.HSyn.sixContactMin_of_open10
+
 #print axioms HDec.LeafQCheck.gammaStarGen_proof
 #print axioms HDec.HSyn.G0Split.FibreQM.PeriodMapH.LeafQCheck.cmDescends_of
 #print axioms HDec.HSyn.sixContactMin_of_open5
@@ -2234,3 +2810,5 @@ example : ∀ (_ : HDec.HSyn.OpenResearchLeaves2) (_ : HDec.HSyn.OpenTextbookLea
 #print axioms HDec.LeafQCheck.HM.qmHauptmodul_of_base
 #print axioms HDec.HSyn.sixContactMin_of_open8
 #print axioms HDec.HSyn.sixContactMin_of_open9
+#print axioms HDec.LeafQCheck.HM.base2_of_base3
+#print axioms HDec.HSyn.sixContactMin_of_open10

@@ -83,3 +83,11 @@ Y3Connected 97479, ValenceBoundGammaStar 113443, CMDescends 114469, GammaStarGen
   Θ[1,1](τ₁)Θ[1,1](τ₂)·u = 0 (`th1_one_one`, odd one-variable theta; period-glue's `thetaConst_factor`,
   `omega_cm4`), Σθ⁸(Ω₀) ≠ 0 (period-glue's `s8Omega0_proof`), and the fixed point of ι(i+j) is √2+i
   (`fixed_by4`). VERIFIED. Fold: `OpenAddedLeaves9`, `sixContactMin_of_open9`, 22 s, standard axioms.
+- `QMHauptmodulBase3` (no disc −3 clause) and `base2_of_base3 : ThetaModularity → GammaStarGen →
+  ValenceBoundGammaStar → QMHauptmodulBase3 → QMHauptmodulBase2` (VERIFIED): weight-20 automorphy of
+  G20 = ∏θ²∘Ω/dF¹⁰ on Γ* (period-glue's G8 machinery with R4's second clause, `LQ20.s20WeightExact_of`);
+  ord_{i√3} Σθ⁸∘Ω ≥ 2 (period-map's `s8OrderCM3_of`); valence bound for G20 on {i√3, √2+i} with
+  G20(√2+i) = 0 ⇒ ord_{i√3} ∏θ² ≤ 4; so ord jNum∘Ω ≤ 8 < 10 ≤ ord jDen∘Ω, meromorphic order < 0,
+  `tendsto_cobounded_of_meromorphicOrderAt_neg`, continuity of f in OnePoint ℂ. G20 ≢ 0 from the surjectivity
+  clause. i√3, √2+i inequivalent via G8's automorphy. 18 s.
+- Fold: `OpenAddedLeaves10`, `sixContactMin_of_open10` (65 fields), 22 s, standard axioms.
