@@ -47,3 +47,14 @@ Target: `CMBridge.Lemma321Five` (TYZ Lemma 3.21(1)), copied verbatim with all of
 - `kerFixesZnMod (hs : TYZSigmaFixesZn) (hw : TYZThm36OneFive) (hz : ZnOverH4) : KerFixesZnMod`.
 - **`lemma321Five_of_shimuraModFn_betaOneLift (hS : Shimura.ShimuraReciprocityModFn)
    (hβ : BetaOneLiftExists) : Lemma321Five`.** Only remaining input: `BetaOneLiftExists`.
+
+## 2026-11-14 ~00:40 compile 5 (VERIFIED, 0 errors, no sorry; axioms [propext, Classical.choice, Quot.sound])
+- §16a `T321B.betaOneLiftExists : ∃ σ : GalQ, IsBetaOneLift σ` proved:
+  `oddPart_facts`, `betaOneSign_eq_if`, `legendre_eq_betaOneSign` (Jacobi reciprocity, p ≡ 1 mod 8,
+  p ≡ −2 mod odd part ⇒ (D/p) = betaOneSign D), `exists_prime_beta` (Mathlib's Dirichlet
+  `Nat.forall_exists_prime_gt_and_zmodEq`, a = 3M² − 2), absolute Frobenius (copied from
+  ZInQKernel/Contrib/Chebotarev/FrobeniusDenseOfExists.lean), `frob_sqrt` (Frobenius at p acts on √D by
+  (D/p), Euler's criterion), compactness of Gal(Q̄/Q) (`IsCompact.nonempty_iInter_of_directed_...`).
+- **`T321.lemma321Five_of_shimuraModFn' (hS : Shimura.ShimuraReciprocityModFn) : Lemma321Five`.**
+- **`T321.tyzThm35ReadingA_of_lcal_shimuraModFn_lemma318_thm35First`** (cm-bridge's headline without h5).
+- Axiom audit: scratch/tyz-321/audit-out.txt.

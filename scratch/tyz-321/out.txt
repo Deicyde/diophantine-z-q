@@ -544,23 +544,23 @@ scratch/tyz-321/L321.lean:2937:36: warning: `if_neg` has been deprecated: Use `i
 
 Hint: Replace the deprecated name:
   i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
-scratch/tyz-321/L321.lean:3540:8: warning: `dif_pos` has been deprecated: Use `dite_eq_left` instead
+scratch/tyz-321/L321.lean:3257:8: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
 
 Hint: Replace the deprecated name:
-  d̵i̵f̵_̵p̵o̵s̵d̲i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
-scratch/tyz-321/L321.lean:3541:8: warning: `dif_pos` has been deprecated: Use `dite_eq_left` instead
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+scratch/tyz-321/L321.lean:3261:8: warning: `if_pos` has been deprecated: Use `ite_eq_left` instead
 
 Hint: Replace the deprecated name:
-  d̵i̵f̵_̵p̵o̵s̵d̲i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
-scratch/tyz-321/L321.lean:3554:8: warning: `dif_neg` has been deprecated: Use `dite_eq_right` instead
+  i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+scratch/tyz-321/L321.lean:3291:33: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
 
 Hint: Replace the deprecated name:
-  d̵i̵f̵_̵n̵e̵g̵d̲i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
-scratch/tyz-321/L321.lean:3555:8: warning: `dif_neg` has been deprecated: Use `dite_eq_right` instead
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+scratch/tyz-321/L321.lean:3338:21: warning: `if_pos` has been deprecated: Use `ite_eq_left` instead
 
 Hint: Replace the deprecated name:
-  d̵i̵f̵_̵n̵e̵g̵d̲i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
-scratch/tyz-321/L321.lean:3633:2: warning: Try this: 
+  i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+scratch/tyz-321/L321.lean:3581:2: warning: Try this: 
   haveI̵
 
 The goal is a proposition, so `have` is preferred over `haveI`.
@@ -568,41 +568,85 @@ The difference between `have` and `haveI` is that `haveI` inlines the value.
 But this is not relevant for proofs because of proof irrelevance.
 
 Note: This linter can be disabled with `set_option linter.style.haveILetI false`
-scratch/tyz-321/L321.lean:3666:8: warning: automatically included section variable(s) unused in theorem `ZInQ.Contrib.TYZGenus.T321.hW0_re`:
-  [NeZero n]
-consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
-  omit [NeZero n] in theorem ...
+scratch/tyz-321/L321.lean:3583:2: warning: Try this: 
+  haveI̵
 
-Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
-scratch/tyz-321/L321.lean:3667:8: warning: automatically included section variable(s) unused in theorem `ZInQ.Contrib.TYZGenus.T321.hW0_im`:
-  [NeZero n]
-consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
-  omit [NeZero n] in theorem ...
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
 
-Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
-scratch/tyz-321/L321.lean:3668:8: warning: automatically included section variable(s) unused in theorem `ZInQ.Contrib.TYZGenus.T321.hW1_re`:
-  [NeZero n]
-consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
-  omit [NeZero n] in theorem ...
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/tyz-321/L321.lean:3622:37: warning: `Set.mem_setOf_eq` has been deprecated: Use `Set.mem_ofPred_eq` instead
 
-Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
-scratch/tyz-321/L321.lean:3669:8: warning: automatically included section variable(s) unused in theorem `ZInQ.Contrib.TYZGenus.T321.hW1_im`:
-  [NeZero n]
-consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
-  omit [NeZero n] in theorem ...
+Hint: Replace the deprecated name:
+  S̵e̵t̵.̵m̵e̵m̵_̵s̵e̵t̵O̵f̵_̵e̵q̵S̲e̲t̲.̲m̲e̲m̲_̲o̲f̲P̲r̲e̲d̲_̲e̲q̲
+scratch/tyz-321/L321.lean:3624:4: warning: Try this: 
+  haveI̵
 
-Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
-scratch/tyz-321/L321.lean:3671:0: warning: automatically included section variable(s) unused in theorem `ZInQ.Contrib.TYZGenus.T321.natCast_m`:
-  [NeZero n]
-consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
-  omit [NeZero n] in theorem ...
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
 
-Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
-scratch/tyz-321/L321.lean:3713:21: warning: `dif_pos` has been deprecated: Use `dite_eq_left` instead
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/tyz-321/L321.lean:3972:8: warning: `dif_pos` has been deprecated: Use `dite_eq_left` instead
 
 Hint: Replace the deprecated name:
   d̵i̵f̵_̵p̵o̵s̵d̲i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
-scratch/tyz-321/L321.lean:4082:2: warning: Try this: 
+scratch/tyz-321/L321.lean:3973:8: warning: `dif_pos` has been deprecated: Use `dite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  d̵i̵f̵_̵p̵o̵s̵d̲i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+scratch/tyz-321/L321.lean:3986:8: warning: `dif_neg` has been deprecated: Use `dite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  d̵i̵f̵_̵n̵e̵g̵d̲i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+scratch/tyz-321/L321.lean:3987:8: warning: `dif_neg` has been deprecated: Use `dite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  d̵i̵f̵_̵n̵e̵g̵d̲i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+scratch/tyz-321/L321.lean:4065:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/tyz-321/L321.lean:4098:8: warning: automatically included section variable(s) unused in theorem `ZInQ.Contrib.TYZGenus.T321.hW0_re`:
+  [NeZero n]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [NeZero n] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+scratch/tyz-321/L321.lean:4099:8: warning: automatically included section variable(s) unused in theorem `ZInQ.Contrib.TYZGenus.T321.hW0_im`:
+  [NeZero n]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [NeZero n] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+scratch/tyz-321/L321.lean:4100:8: warning: automatically included section variable(s) unused in theorem `ZInQ.Contrib.TYZGenus.T321.hW1_re`:
+  [NeZero n]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [NeZero n] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+scratch/tyz-321/L321.lean:4101:8: warning: automatically included section variable(s) unused in theorem `ZInQ.Contrib.TYZGenus.T321.hW1_im`:
+  [NeZero n]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [NeZero n] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+scratch/tyz-321/L321.lean:4103:0: warning: automatically included section variable(s) unused in theorem `ZInQ.Contrib.TYZGenus.T321.natCast_m`:
+  [NeZero n]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [NeZero n] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+scratch/tyz-321/L321.lean:4145:21: warning: `dif_pos` has been deprecated: Use `dite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  d̵i̵f̵_̵p̵o̵s̵d̲i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+scratch/tyz-321/L321.lean:4514:2: warning: Try this: 
   letI̵
 
 The goal is a proposition, so `let` is preferred over `letI`.
@@ -610,7 +654,7 @@ The difference between `let` and `letI` is that `letI` inlines the value.
 But this is not relevant for proofs because of proof irrelevance.
 
 Note: This linter can be disabled with `set_option linter.style.haveILetI false`
-scratch/tyz-321/L321.lean:4083:2: warning: Try this: 
+scratch/tyz-321/L321.lean:4515:2: warning: Try this: 
   haveI̵
 
 The goal is a proposition, so `have` is preferred over `haveI`.
@@ -618,7 +662,7 @@ The difference between `have` and `haveI` is that `haveI` inlines the value.
 But this is not relevant for proofs because of proof irrelevance.
 
 Note: This linter can be disabled with `set_option linter.style.haveILetI false`
-scratch/tyz-321/L321.lean:4084:2: warning: Try this: 
+scratch/tyz-321/L321.lean:4516:2: warning: Try this: 
   letI̵
 
 The goal is a proposition, so `let` is preferred over `letI`.
@@ -626,39 +670,39 @@ The difference between `let` and `letI` is that `letI` inlines the value.
 But this is not relevant for proofs because of proof irrelevance.
 
 Note: This linter can be disabled with `set_option linter.style.haveILetI false`
-scratch/tyz-321/L321.lean:4170:11: warning: `if_pos` has been deprecated: Use `ite_eq_left` instead
+scratch/tyz-321/L321.lean:4602:11: warning: `if_pos` has been deprecated: Use `ite_eq_left` instead
 
 Hint: Replace the deprecated name:
   i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
-scratch/tyz-321/L321.lean:4188:11: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
+scratch/tyz-321/L321.lean:4620:11: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
 
 Hint: Replace the deprecated name:
   i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
-scratch/tyz-321/L321.lean:4303:37: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
+scratch/tyz-321/L321.lean:4735:37: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
 
 Hint: Replace the deprecated name:
   i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
-scratch/tyz-321/L321.lean:4305:33: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
+scratch/tyz-321/L321.lean:4737:33: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
 
 Hint: Replace the deprecated name:
   i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
-scratch/tyz-321/L321.lean:4306:4: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
+scratch/tyz-321/L321.lean:4738:4: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
 
 Hint: Replace the deprecated name:
   i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
-scratch/tyz-321/L321.lean:4316:36: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
+scratch/tyz-321/L321.lean:4748:36: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
 
 Hint: Replace the deprecated name:
   i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
-scratch/tyz-321/L321.lean:4321:4: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
+scratch/tyz-321/L321.lean:4753:4: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
 
 Hint: Replace the deprecated name:
   i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
-scratch/tyz-321/L321.lean:4321:42: warning: `if_pos` has been deprecated: Use `ite_eq_left` instead
+scratch/tyz-321/L321.lean:4753:42: warning: `if_pos` has been deprecated: Use `ite_eq_left` instead
 
 Hint: Replace the deprecated name:
   i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
-scratch/tyz-321/L321.lean:4380:2: warning: Try this: 
+scratch/tyz-321/L321.lean:4812:2: warning: Try this: 
   haveI̵
 
 The goal is a proposition, so `have` is preferred over `haveI`.
@@ -666,70 +710,70 @@ The difference between `have` and `haveI` is that `haveI` inlines the value.
 But this is not relevant for proofs because of proof irrelevance.
 
 Note: This linter can be disabled with `set_option linter.style.haveILetI false`
-scratch/tyz-321/L321.lean:4430:10: warning: `if_pos` has been deprecated: Use `ite_eq_left` instead
+scratch/tyz-321/L321.lean:4862:10: warning: `if_pos` has been deprecated: Use `ite_eq_left` instead
 
 Hint: Replace the deprecated name:
   i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
-scratch/tyz-321/L321.lean:4430:64: warning: `if_pos` has been deprecated: Use `ite_eq_left` instead
+scratch/tyz-321/L321.lean:4862:64: warning: `if_pos` has been deprecated: Use `ite_eq_left` instead
 
 Hint: Replace the deprecated name:
   i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
-scratch/tyz-321/L321.lean:4431:10: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
+scratch/tyz-321/L321.lean:4863:10: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
 
 Hint: Replace the deprecated name:
   i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
-scratch/tyz-321/L321.lean:4431:77: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
+scratch/tyz-321/L321.lean:4863:77: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
 
 Hint: Replace the deprecated name:
   i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
-scratch/tyz-321/L321.lean:4505:14: warning: `if_pos` has been deprecated: Use `ite_eq_left` instead
+scratch/tyz-321/L321.lean:4937:14: warning: `if_pos` has been deprecated: Use `ite_eq_left` instead
 
 Hint: Replace the deprecated name:
   i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
-scratch/tyz-321/L321.lean:4505:25: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
+scratch/tyz-321/L321.lean:4937:25: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
 
 Hint: Replace the deprecated name:
   i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
-scratch/tyz-321/L321.lean:4509:14: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
+scratch/tyz-321/L321.lean:4941:14: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
 
 Hint: Replace the deprecated name:
   i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
-scratch/tyz-321/L321.lean:4509:26: warning: `if_pos` has been deprecated: Use `ite_eq_left` instead
+scratch/tyz-321/L321.lean:4941:26: warning: `if_pos` has been deprecated: Use `ite_eq_left` instead
 
 Hint: Replace the deprecated name:
   i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
-scratch/tyz-321/L321.lean:4699:2: warning: `simp` already closes the goal
+scratch/tyz-321/L321.lean:5131:2: warning: `simp` already closes the goal
 
 Hint: Use `simp` instead of `simpa`:
   [apply] simp [elt]
 
 Note: This linter can be disabled with `set_option linter.unnecessarySimpa false`
-scratch/tyz-321/L321.lean:4707:12: warning: Unused tactic linter: `<;>` should be replaced with `;` or be removed.
+scratch/tyz-321/L321.lean:5139:12: warning: Unused tactic linter: `<;>` should be replaced with `;` or be removed.
 
 Note: This linter can be disabled with `set_option linter.unusedTactic false`
-scratch/tyz-321/L321.lean:4707:16: warning: Unused tactic linter: `simp [e]` does nothing.
+scratch/tyz-321/L321.lean:5139:16: warning: Unused tactic linter: `simp [e]` does nothing.
 
 Note: This linter can be disabled with `set_option linter.unusedTactic false`
-scratch/tyz-321/L321.lean:4707:16: warning: this tactic is never executed
+scratch/tyz-321/L321.lean:5139:16: warning: this tactic is never executed
 
 Note: This linter can be disabled with `set_option linter.unreachableTactic false`
-scratch/tyz-321/L321.lean:4744:30: warning: Unused tactic linter: `<;>` should be replaced with `;` or be removed.
+scratch/tyz-321/L321.lean:5176:30: warning: Unused tactic linter: `<;>` should be replaced with `;` or be removed.
 
 Note: This linter can be disabled with `set_option linter.unusedTactic false`
-scratch/tyz-321/L321.lean:4744:30: warning: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+scratch/tyz-321/L321.lean:5176:30: warning: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
 
 Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
-scratch/tyz-321/L321.lean:4759:30: warning: Unused tactic linter: `<;>` should be replaced with `;` or be removed.
+scratch/tyz-321/L321.lean:5191:30: warning: Unused tactic linter: `<;>` should be replaced with `;` or be removed.
 
 Note: This linter can be disabled with `set_option linter.unusedTactic false`
-scratch/tyz-321/L321.lean:4759:30: warning: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+scratch/tyz-321/L321.lean:5191:30: warning: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
 
 Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
-scratch/tyz-321/L321.lean:4860:30: warning: `if_pos` has been deprecated: Use `ite_eq_left` instead
+scratch/tyz-321/L321.lean:5292:30: warning: `if_pos` has been deprecated: Use `ite_eq_left` instead
 
 Hint: Replace the deprecated name:
   i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
-scratch/tyz-321/L321.lean:4988:2: warning: Try this: 
+scratch/tyz-321/L321.lean:5420:2: warning: Try this: 
   haveI̵
 
 The goal is a proposition, so `have` is preferred over `haveI`.
@@ -747,5 +791,10 @@ Note: This linter can be disabled with `set_option linter.style.haveILetI false`
  Classical.choice,
  Quot.sound]
 'ZInQ.Contrib.TYZGenus.T321.tyzThm35ReadingA_of_lcal_shimuraModFn_lemma318_thm35First_betaOneLift' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Contrib.TYZGenus.T321B.betaOneLiftExists' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.TYZGenus.T321.lemma321Five_of_shimuraModFn'' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.TYZGenus.T321.tyzThm35ReadingA_of_lcal_shimuraModFn_lemma318_thm35First' depends on axioms: [propext,
  Classical.choice,
  Quot.sound]
