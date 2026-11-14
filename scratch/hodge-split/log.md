@@ -88,7 +88,7 @@ after `lake build ZInQKernel.Contrib.R10.Amend ZInQKernel.Contrib.AbVarBC.Dim` (
   out; fix: state the count over abstract fields (`dsp_finrank_extend`) and add `letI mod := alg.toModule`,
   `haveI := Module.Free.of_divisionRing E E'` before `Module.finrank_mul_finrank`.
 
-## Glue proved: AttachedConj (AttachedConj.lean, companion file)
+## Glue proved: AttachedConj (Companion.lean; was AttachedConj.lean)
 - `attachedConj_proof : AttachedConj` from the kernel's T18 (`ZInQ.Contrib.frobeniusDense`) and T19
   (`TSkolemKW.C10.brauerNesbittChar0'`) via `C9Rhof.iso_of_arithFrob`; bridge GaloisRep → Representation
   (`galRepRep`), IsSemisimple → IsSemisimpleModule (Mathlib `Representation.mapSubmodule`), asModule iso →
