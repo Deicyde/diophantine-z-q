@@ -7,7 +7,8 @@ t40-tate and t40-igusa) now imports in the same Lean environment as
 `ZInQKernel.Contrib.Mobius.Main`, the frob-chain Contrib modules, `ZInQKernel.Contrib.GZTheta.ALFinal`,
 `ZInQKernel.Contrib.RLeaf.T36Torsion` and the vendored
 `ZInQKernel.Contrib.TauCeti.Algebra.GroupWithZero.Units.Basic`
-(`scratch/t40-clash/Together.lean`, see section 4 for the run). The fix changes one Lean file,
+(`scratch/t40-clash/Together.lean`, sections 4-5). It also compiles paired with each of the
+other 73 top-level Contrib modules (section 6, 73/73). The fix changes one Lean file,
 `ZInQKernel/Contrib/TauCeti/Backport/Algebra/Group/Units/Basic.lean`, and adds one line to the
 modified list in `ThirdParty/TauCeti/NOTICE`. No pinned file, no RLeaf file and no other
 Backport/ file was touched.
