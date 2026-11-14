@@ -58,3 +58,4 @@
 - Flat run 2 (md5 e7ec3222a537…): exit 0 in 1054 s, 0 errors, no sorry, 326 axiom reports all standard.
 - 19:17 d95 docstrings only (header, OpenAddedLeaves4 docstring: `divisiblePoints` dropped): TailK 13 s, 0 errors,
   18 standard axiom lines. Flat run 3 on the final text started (Leaves4.lean md5 6bbeb639662a…, 118 478 lines).
+- 19:19 flat_out2.txt (a compile log with host paths) was committed by mistake in the previous commit; untracked and gitignored (flat_out*.txt) since.

@@ -5,3 +5,4 @@ olean/lakebuild.txt
 *_out.txt
 flat_out.txt
 olean/chain_log*.txt
+flat_out*.txt
