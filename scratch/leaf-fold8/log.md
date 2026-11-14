@@ -39,3 +39,4 @@
   faltingsLemma5BC counted as a consequence (height-split's own review, §8), SS1-SS3 consequences (leaf-fold7
   §5), javanpeykarBound published (specialization).
 - Report docs/research/leaf-fold8.md (head + generated tables + tail); BUILD.md.
+- 09:50 .fleet/leaf-fold8.md written; done.
