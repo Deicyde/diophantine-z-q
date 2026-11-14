@@ -73,3 +73,10 @@ TYZ Lemma `torsion2` (Lemma 3.18): torsion of `A(ℍ'_n)` is killed by `2(1+[i])
   containing √−1, every point of y² = x³ + 4x over k is killed by 2(p+1). Elementary proof: P + πP and [i](P − πP)
   are Frobenius-fixed, hence F_p-points, hence killed by p+1. Axioms standard. This replaces the textbook leaf
   (2(p+1) suffices for odd ℓ).
+- [VERIFIED, compiled, ~00:45 11-14] Supersingular.lean merged into Lemma318.lean (§S, namespace T318SS); `odd_part_w`
+  (odd part with the proved weak exponent 2(p+1); √−1 in the residue field = residue of iQ), `lemma318_at_w`;
+  **FINAL: `lemma318Literal_HHprime_of_sqrtTwoNotIn : SqrtTwoNotInHHprime → Lemma318Literal HHprime`** (no leaf);
+  **`lemma318_at_single_unconditional`**: Lemma 3.18 holds outright for n whose only divisor ≡ 5 (8) is n;
+  `lemma318Literal_HHprime_of_sigmaLift`; `tyzThm35ReadingA_of_cmLeaves_ringClassD_sqrtTwo` (h318 replaced by the glue
+  alone). All [propext, Classical.choice, Quot.sound]. The textbook leaf `SupersingularExponentA` is no longer used
+  by the final theorems (kept, with its first-reduction theorems, for reference).
