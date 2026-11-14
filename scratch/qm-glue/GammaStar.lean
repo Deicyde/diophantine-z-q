@@ -1057,4 +1057,126 @@ theorem coset_eq {i j : Fin 4} {h : GL (Fin 2) ℝ} (hh : h ∈ Gamma1)
   exact not_sq_q (w.re * ((![1, 2, 3, 6] : Fin 4 → ℤ) i : ℚ)) _ (hsq i j hij)
     (by push_cast; linarith)
 
+/-! ## §2 `Γ*` is a cocompact Fuchsian group -/
+
+theorem gs_fuchsian (hS : IsCocompactFuchsian Gamma1) : IsCocompactFuchsian Γs where
+  one_mem := gs_one
+  mul_mem := fun a ha b hb => gs_mul ha hb
+  inv_mem := fun a ha => gs_inv ha
+  det_pos := fun a ha => det_pos_of_mem ha
+  properlyDiscontinuous := by
+    intro K hK
+    let K' : Fin 4 → Set UpperHalfPlane := fun i => K ∪ (fun z => (g4 i)⁻¹ • z) '' K
+    have hK' : ∀ i, IsCompact (K' i) := fun i => hK.union (hK.image (continuous_const_smul _))
+    have hfin : ∀ i, {f : UpperHalfPlane → UpperHalfPlane | ∃ γ ∈ Gamma1, f = (fun z => γ • z) ∧
+        (f '' K' i ∩ K' i).Nonempty}.Finite := fun i => hS.properlyDiscontinuous _ (hK' i)
+    refine (Set.finite_iUnion fun i => (hfin i).image (fun f => (fun z => g4 i • z) ∘ f)).subset ?_
+    rintro f ⟨γ, hγ, rfl, ⟨_, ⟨k, hk, rfl⟩, hk'⟩⟩
+    obtain ⟨i, h, hh, hz⟩ := cover_mob hγ
+    refine Set.mem_iUnion.2 ⟨i, (fun z => h • z), ⟨h, hh, rfl, ⟨h • k, ⟨k, Or.inl hk, rfl⟩,
+      Or.inr ⟨γ • k, hk', ?_⟩⟩⟩, ?_⟩
+    · show (g4 i)⁻¹ • (γ • k) = h • k
+      rw [hz, inv_smul_smul]
+    · funext z; simp [hz]
+  cocompact := by
+    obtain ⟨C, hC, hcov⟩ := hS.cocompact
+    exact ⟨C, hC, fun z => by obtain ⟨γ, hγ, h⟩ := hcov z; exact ⟨γ, gamma1_sub hγ, h⟩⟩
+
+/-! ## §3 A fundamental domain for `Γ*` -/
+
+open MeasureTheory
+
+instance : Countable PkgI1.B := by
+  have : Function.Injective (fun x : PkgI1.B => (x.re, x.imI, x.imJ, x.imK)) := by
+    intro x y h
+    simp only [Prod.mk.injEq] at h
+    obtain ⟨h1, h2, h3, h4⟩ := h
+    ext <;> assumption
+  exact this.countable
+
+theorem gs_countable : (Γs : Set (GL (Fin 2) ℝ)).Countable := by
+  classical
+  have : Γs ⊆ Set.range (fun x : PkgI1.B => if h : nrd x ≠ 0 then glOf x h else 1) := by
+    rintro γ ⟨x, -, hγx, hd⟩
+    have hx : nrd x ≠ 0 := by
+      rw [hγx, det_iota_eq] at hd; exact_mod_cast hd.ne'
+    exact ⟨x, by show (if h : nrd x ≠ 0 then glOf x h else 1) = γ; rw [dif_pos hx]; ext1; rw [coe_glOf, hγx]⟩
+  exact (Set.countable_range _).mono this
+
+theorem g1_countable : (Gamma1).Countable := gs_countable.mono (fun h hh => gamma1_sub hh)
+
+/-- The lexicographic order on `ℍ` (by real, then imaginary part). -/
+def lexle (z w : UpperHalfPlane) : Prop := z.re < w.re ∨ (z.re = w.re ∧ z.im ≤ w.im)
+
+theorem lexle_iff (z w : UpperHalfPlane) : lexle z w ↔ toLex (z.re, z.im) ≤ toLex (w.re, w.im) := by
+  rw [Prod.Lex.toLex_le_toLex]; rfl
+
+theorem lexle_antisymm {z w : UpperHalfPlane} (h1 : lexle z w) (h2 : lexle w z) : z = w := by
+  have hre : z.re = w.re := by
+    rcases h1 with h1 | ⟨h1, -⟩ <;> rcases h2 with h2 | ⟨h2, -⟩ <;> linarith
+  have him : z.im = w.im := by
+    rcases h1 with h1 | ⟨-, h1⟩ <;> rcases h2 with h2 | ⟨-, h2⟩ <;> linarith
+  exact UpperHalfPlane.ext (Complex.ext hre him)
+
+theorem measurableSet_lexle (γ : GL (Fin 2) ℝ) :
+    MeasurableSet {z : UpperHalfPlane | lexle z (γ • z)} := by
+  have hr : Measurable fun z : UpperHalfPlane => z.re := UpperHalfPlane.continuous_re.measurable
+  have hi : Measurable fun z : UpperHalfPlane => z.im := UpperHalfPlane.continuous_im.measurable
+  have hg : Measurable fun z : UpperHalfPlane => γ • z := (continuous_const_smul γ).measurable
+  have e : {z : UpperHalfPlane | lexle z (γ • z)} =
+      {z | z.re < (γ • z).re} ∪ ({z | z.re = (γ • z).re} ∩ {z | z.im ≤ (γ • z).im}) := rfl
+  rw [e]
+  exact (measurableSet_lt hr (hr.comp hg)).union
+    ((measurableSet_eq_fun hr (hr.comp hg)).inter (measurableSet_le hi (hi.comp hg)))
+
+/-- Points have measure zero in `ℍ`. -/
+instance : NullSingletonClass (volume : Measure UpperHalfPlane) :=
+  ⟨fun z => by
+    rw [UpperHalfPlane.volume_eq_lintegral, Set.image_singleton]
+    exact setLIntegral_measure_zero _ _ (measure_singleton _)⟩
+
+/-- A Möbius map of positive determinant other than the identity has finitely many fixed points. -/
+theorem fix_finite {γ : GL (Fin 2) ℝ} (hd : 0 < (γ : Matrix (Fin 2) (Fin 2) ℝ).det)
+    (hne : (fun z : UpperHalfPlane => γ • z) ≠ id) : {z : UpperHalfPlane | γ • z = z}.Finite := by
+  have hd' : 0 < γ.det.val := by rwa [Matrix.GeneralLinearGroup.val_det_apply]
+  set a := (γ : Matrix (Fin 2) (Fin 2) ℝ) 0 0
+  set b := (γ : Matrix (Fin 2) (Fin 2) ℝ) 0 1
+  set c := (γ : Matrix (Fin 2) (Fin 2) ℝ) 1 0
+  set d := (γ : Matrix (Fin 2) (Fin 2) ℝ) 1 1
+  have key : ∀ z : UpperHalfPlane, γ • z = z ↔
+      (c : ℂ) * (z : ℂ) ^ 2 + ((d - a : ℝ) : ℂ) * z - (b : ℂ) = 0 := by
+    intro z
+    rw [UpperHalfPlane.ext_iff, UpperHalfPlane.coe_smul_of_det_pos hd',
+      div_eq_iff (denom_ne_zero γ z)]
+    simp only [UpperHalfPlane.num, UpperHalfPlane.denom]
+    constructor
+    · intro h; push_cast; linear_combination -h
+    · intro h; push_cast at h; linear_combination -h
+  let p : Polynomial ℂ := Polynomial.C (c : ℂ) * Polynomial.X ^ 2 +
+    Polynomial.C ((d - a : ℝ) : ℂ) * Polynomial.X - Polynomial.C (b : ℂ)
+  have hp : p ≠ 0 := by
+    intro hp0
+    have h2 : p.coeff 2 = 0 := by rw [hp0]; simp
+    have h1 : p.coeff 1 = 0 := by rw [hp0]; simp
+    have h0 : p.coeff 0 = 0 := by rw [hp0]; simp
+    simp [p, Polynomial.coeff_X, Polynomial.coeff_C] at h2 h1 h0
+    apply hne
+    funext z
+    have : (c : ℂ) * (z : ℂ) ^ 2 + ((d - a : ℝ) : ℂ) * z - (b : ℂ) = 0 := by
+      have hc : (c : ℂ) = 0 := by exact_mod_cast h2
+      have hb : (b : ℂ) = 0 := by exact_mod_cast h0
+      have hda : ((d - a : ℝ) : ℂ) = 0 := by push_cast; exact h1
+      rw [hc, hb, hda]; ring
+    exact (key z).2 this
+  refine ((Polynomial.finite_setOfPred_isRoot hp).preimage
+    (UpperHalfPlane.coe_injective.injOn)).subset ?_
+  intro z hz
+  simp only [Set.mem_preimage, Set.mem_setOf_eq, Polynomial.IsRoot, p, Polynomial.eval_sub,
+    Polynomial.eval_add, Polynomial.eval_mul, Polynomial.eval_C, Polynomial.eval_pow, Polynomial.eval_X]
+  exact (key z).1 hz
+
+theorem fix_null {γ : GL (Fin 2) ℝ} (hd : 0 < (γ : Matrix (Fin 2) (Fin 2) ℝ).det)
+    (hne : (fun z : UpperHalfPlane => γ • z) ≠ id) : volume {z : UpperHalfPlane | γ • z = z} = 0 :=
+  (fix_finite hd hne).measure_zero _
+
 end HDec.LeafQCheck.QMglue
