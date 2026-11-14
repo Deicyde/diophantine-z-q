@@ -17,7 +17,7 @@ H-78 needs `H¹(X, 𝒪_X)` or `Ω¹_X` on schemes), and both are reported with 
 missing. No row statement was changed; none was found false, vacuous or stronger than its sources.
 
 ```lean
--- scratch/av-split/AvSplitAll.lean (one file, 2544 lines, compiles in 24 s)
+-- scratch/av-split/AvSplitAll.lean (one file, 2555 lines, compiles in about 25 s)
 theorem AvSplit.Final.all_rows (hE : AvSplit.T4.MulEtaleAbelianScheme)
     (hT : AvSplit.MumfordTorsionAlgClosed) (HL : BPAnalytic.Uniformization.UniformizationLeafAll)
     (hM : AvSplit.MilneIsogenyQuasiInverse) (HG : ZInQ.HomLattice.GAGAMorphism) :
@@ -265,7 +265,19 @@ first kind) would need a Riemann–Roch genus of `F` (definable from valuations:
 scheme-free form of "the Albanese variety has dimension `g`", which I could not locate in a printed source without
 the books. Stays GLUE.
 
-## 5. Checks
+## 5. What remains
+
+* H-53 and H-78 stay GLUE (§4); both need definitions that Mathlib v4.35 lacks (line bundles and `Pic⁰`;
+  `Ω¹_X` or a `K`-linear `H¹(X, 𝒪_X)`).
+* The locators of the five leaves are UNVERIFIED (no network): `MulEtaleAbelianScheme` (BLR §7.3 Lemma 2 or
+  Mumford GIT §6), `MumfordTorsionAlgClosed` (Mumford §4 App. 2 (iv)), `MilneIsogenyQuasiInverse` (Milne 1986
+  Rem. 8.4 / notes Prop. 7.1, Mumford §7); `UniformizationLeafAll` and `GAGAMorphism` carry the locators of
+  bp-analytic and homlattice.
+* Integration: `AvSplitAll.lean` imports only `ZInQKernel` modules and Mathlib; its rows are the kernel's own
+  constants except H-54 (a verbatim copy of the scratch chain's `WeilPairing.IsogenyQuasiInverse`), and its
+  `ZInQ.HomLattice` namespace is homlattice's file verbatim. Two rows are proved at universe `0` only.
+
+## 6. Checks
 
 All in `scratch/av-split/`, one Lean process at a time, `lake env lean <file>` after `lake build` of the imported
 kernel modules (build artifacts reused from the leaf-fold6 worktree, same `ZInQKernel/` sources). Each file ends with
