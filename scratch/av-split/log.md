@@ -50,3 +50,7 @@ Base cba8157f (wip/av-split). Build artifacts: copied .lake/build from ~/dzq-wt/
 - `AvSplit.HomLatticeAN3.analyticHomLift_of_C : AnalyticHomLiftC → AnalyticHomLift`. VERIFIED.
 - `AvSplit.HomLatticeAN3.homLatticeCorr_of_leaf_gaga : UniformizationLeafAll → GAGAMorphism → HomLatticeCorr`. Standard axioms. VERIFIED.
 - This removes homlattice's need for AN3 at every embedding (StrongUniformizationExists); only the kernel's AN3 leaf at ℂ and GAGAMorphism remain.
+
+## 04:55 AvSplitAll.lean (all parts in one file, `python3 build_all.py` in scratch/av-split)
+- `lake env lean scratch/av-split/AvSplitAll.lean`: 0 errors, 24 s; output scratch/av-split/AvSplitAll.out. VERIFIED.
+- `AvSplit.Final.all_rows : MulEtaleAbelianScheme → MumfordTorsionAlgClosed → UniformizationLeafAll → MilneIsogenyQuasiInverse → GAGAMorphism → H-24 ∧ H-25 ∧ H-38 ∧ H-54 ∧ H-69`; axioms [propext, Classical.choice, Quot.sound]. VERIFIED.
