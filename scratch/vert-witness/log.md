@@ -20,3 +20,15 @@ Target: `HeckeRestNV.HeckeVertWitness` (scratch/hecke-rest/NoVert.lean, verbatim
 - glue `ModelGaussGlue` (stated, unproved)
 - `heckeVertWitness_of_goodReduction (hL : ShimuraGoodReduction) (hG : ModelGaussGlue) : HeckeVertWitness`
 All #print axioms: [propext, Classical.choice, Quot.sound].
+
+## Step 2 (18:25) — VERIFIED (lake env lean, 0 errors)
+Split of the GR glue:
+- `IsShimuraModel p 𝒴 𝒜` (clauses of the leaf), `ShimuraSmoothModel p := ∃ 𝒴 𝒜, IsShimuraModel p 𝒴 𝒜`
+- `VertDVRWitness E p` (DVR R ↪ E, Frac = E, 𝔪 = (p), 𝔪 ∩ ℤ[X] = pℤ[X])
+- `vertGaussWitness_of_DVR : VertDVRWitness E p → VertGaussWitness E p` (compiled)
+- glue `SpecialFibreDVR` (scheme theory: some stalk of a nonempty proper smooth rel-dim-1
+  ℤ_(p)-scheme is a DVR with 𝔪 = (p)), glue `ModelCoordinateGlue` (comparison + coordinate)
+- `modelGaussGlue_of : SpecialFibreDVR → ModelCoordinateGlue → ModelGaussGlue` (compiled;
+  nonemptiness of 𝒴 from R1fp's ℚ̄-point + leaf surjectivity)
+- `heckeVertWitness_of_goodReduction' (hL) (hC) (hBD) : HeckeVertWitness` (compiled)
+All #print axioms [propext, Classical.choice, Quot.sound].

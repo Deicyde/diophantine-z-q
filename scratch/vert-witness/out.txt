@@ -211,11 +211,27 @@ The difference between `have` and `haveI` is that `haveI` inlines the value.
 But this is not relevant for proofs because of proof irrelevance.
 
 Note: This linter can be disabled with `set_option linter.style.haveILetI false`
-scratch/vert-witness/VertWitness.lean:1505:2: warning: Try this: 
+scratch/vert-witness/VertWitness.lean:1509:2: warning: Try this: 
   haveI̵
 
 The goal is a proposition, so `have` is preferred over `haveI`.
 The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/vert-witness/VertWitness.lean:1528:2: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/vert-witness/VertWitness.lean:1549:2: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
 But this is not relevant for proofs because of proof irrelevance.
 
 Note: This linter can be disabled with `set_option linter.style.haveILetI false`
@@ -225,3 +241,6 @@ Note: This linter can be disabled with `set_option linter.style.haveILetI false`
 'VertWitness.heckeVertWitness_of_gauss' depends on axioms: [propext, Classical.choice, Quot.sound]
 'VertWitness.heckeVertWitness_of_goodReduction' depends on axioms: [propext, Classical.choice, Quot.sound]
 'VertWitness.heckeNoVertRam_of_goodReduction' depends on axioms: [propext, Classical.choice, Quot.sound]
+'VertWitness.vertGaussWitness_of_DVR' depends on axioms: [propext, Classical.choice, Quot.sound]
+'VertWitness.modelGaussGlue_of' depends on axioms: [propext, Classical.choice, Quot.sound]
+'VertWitness.heckeVertWitness_of_goodReduction'' depends on axioms: [propext, Classical.choice, Quot.sound]

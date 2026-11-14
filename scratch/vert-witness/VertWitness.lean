@@ -1423,8 +1423,8 @@ abelian surfaces (`QMFamily`: proper smooth of relative dimension 2, `ι(a)` and
   `ℚ̄` is a fibre;
 * (Hecke) each twist `α ∈ Aut 𝒪` and each `u ∈ 𝒪^×` is induced on `ℚ̄`-points by an automorphism of
   `𝒴` over `ℤ_(p)`. -/
-def ShimuraSmoothModel (p : ℕ) [Fact p.Prime] : Prop :=
-  ∃ (𝒴 : Over (Spec (CommRingCat.of (Zloc p)))) (𝒜 : QMFamily 𝒴.left),
+def IsShimuraModel (p : ℕ) [Fact p.Prime] (𝒴 : Over (Spec (CommRingCat.of (Zloc p))))
+    (𝒜 : QMFamily 𝒴.left) : Prop :=
     IsProper 𝒴.hom ∧ SmoothOfRelativeDimension 1 𝒴.hom ∧
     (∀ (K : Type) [Field K] [Algebra ℚ K] (y : Spec (CommRingCat.of K) ⟶ 𝒴.left),
       ∃ P : QML3 K, IsFibreOf 𝒜 y P) ∧
@@ -1435,6 +1435,10 @@ def ShimuraSmoothModel (p : ℕ) [Fact p.Prime] : Prop :=
       IsFibreOf 𝒜 y P → IsFibreOf 𝒜 (y ≫ g.hom.left) P' → M3.mk P' = M3.twist α (M3.mk P)) ∧
     (∀ u : (LeafQM.O)ˣ, ∃ g : 𝒴 ≅ 𝒴, ∀ (y : Spec (CommRingCat.of Qbar) ⟶ 𝒴.left) (P P' : QML3 Qbar),
       IsFibreOf 𝒜 y P → IsFibreOf 𝒜 (y ≫ g.hom.left) P' → M3.mk P' = M3.rightMul u (M3.mk P))
+
+/-- The leaf's assertion at `p`: some `(𝒴, 𝒜)` is a smooth model as in `IsShimuraModel`. -/
+def ShimuraSmoothModel (p : ℕ) [Fact p.Prime] : Prop :=
+  ∃ (𝒴 : Over (Spec (CommRingCat.of (Zloc p)))) (𝒜 : QMFamily 𝒴.left), IsShimuraModel p 𝒴 𝒜
 
 /-- **Leaf: good reduction of `Y₃` at the primes `p > 324`** (in the field-point form of the
 representability of the integral moduli problem).
@@ -1515,6 +1519,161 @@ theorem heckeNoVertRam_of_goodReduction (hL : ShimuraGoodReduction) (hG : ModelG
     HeckeNoVertRam :=
   heckeNoVertRam_of_witness (heckeVertWitness_of_goodReduction hL hG)
 
+/-! ## Part 4: splitting `ModelGaussGlue` into a scheme-local piece and the coordinate piece -/
+
+/-- `p ∈ ℤ[X]` maps to `(p : E)`. -/
+theorem intPolyAlg_C_natCast (E : Type) [Field E] [Algebra ℚ[X] E] (p : ℕ) :
+    letI := intPolyAlg E
+    algebraMap ℤ[X] E (C (p : ℤ)) = (p : E) := by
+  letI := intPolyAlg E
+  show algebraMap ℚ[X] E ((C (p : ℤ)).map (Int.castRingHom ℚ)) = _
+  rw [Polynomial.map_C]
+  show ((algebraMap ℚ[X] E).comp C) ((Int.castRingHom ℚ) (p : ℤ)) = _
+  simp
+
+/-- **Glue target (DVR form).** A discrete valuation ring `R` embedded in `E` with fraction field
+`E`, maximal ideal `(p)`, containing the image of `ℤ[X]`, whose maximal ideal meets `ℤ[X]` in
+`p ℤ[X]`. (For `Y₃`: `R = 𝒪_{𝒴,ξ}`, `ξ` the generic point of a component of the special fibre of
+the smooth model.) -/
+def VertDVRWitness (E : Type) [Field E] [Algebra ℚ[X] E] (p : ℕ) : Prop :=
+  letI := intPolyAlg E
+  ∃ (R : Type) (_ : CommRing R) (_ : IsDomain R) (_ : IsDiscreteValuationRing R) (ι : R →+* E),
+    Function.Injective ι ∧ (∀ x : E, ∃ a b : R, b ≠ 0 ∧ x * ι b = ι a) ∧
+    IsLocalRing.maximalIdeal R = Ideal.span {(p : R)} ∧
+    ∀ f : ℤ[X], ∃ s : R, ι s = algebraMap ℤ[X] E f ∧
+      (s ∈ IsLocalRing.maximalIdeal R ↔ f ∈ vertPrime p)
+
+/-- **A DVR witness gives a Gauss-valuation witness** (compiled). -/
+theorem vertGaussWitness_of_DVR (E : Type) [Field E] [Algebra ℚ[X] E] (p : ℕ)
+    (h : VertDVRWitness E p) : VertGaussWitness E p := by
+  letI := intPolyAlg E
+  obtain ⟨R, _, _, _, ι, hinj, hfrac, hmax, hcoord⟩ := h
+  have hval : ∀ x : E, x ∈ ι.range ∨ x⁻¹ ∈ ι.range := by
+    intro x
+    obtain ⟨a, b, hb, hx⟩ := hfrac x
+    have hb' : ι b ≠ 0 := (map_ne_zero_iff ι hinj).2 hb
+    obtain ⟨c, hc | hc⟩ := ValuationRing.cond a b
+    · -- `b = a c`
+      by_cases hx0 : x = 0
+      · right; rw [hx0, inv_zero]; exact zero_mem _
+      · right
+        refine ⟨c, ?_⟩
+        have ha : ι a ≠ 0 := by
+          intro h0; rw [h0] at hx; exact mul_ne_zero hx0 hb' hx
+        have hx' : x * (ι a * ι c) = ι a := by rw [← map_mul, hc]; exact hx
+        have : x * ι c = 1 := by
+          apply mul_left_cancel₀ ha
+          calc ι a * (x * ι c) = x * (ι a * ι c) := by ring
+            _ = ι a := hx'
+            _ = ι a * 1 := (mul_one _).symm
+        exact (eq_inv_of_mul_eq_one_right this).symm ▸ rfl
+    · -- `a = b c`
+      left
+      refine ⟨c, ?_⟩
+      apply mul_left_cancel₀ hb'
+      rw [← map_mul, hc, ← hx, mul_comm]
+  let A : ValuationSubring E := { ι.range with mem_or_inv_mem' := hval }
+  have hA : ∀ y : E, y ∈ A ↔ y ∈ ι.range := fun _ => Iff.rfl
+  set v := A.valuation
+  have hunit : ∀ s : R, v (ι s) < 1 ↔ s ∈ IsLocalRing.maximalIdeal R := by
+    intro s
+    rw [← ValuationSubring.valuation_lt_one_iff A ⟨ι s, ⟨s, rfl⟩⟩, IsLocalRing.mem_maximalIdeal,
+      IsLocalRing.mem_maximalIdeal, mem_nonunits_iff, mem_nonunits_iff, not_iff_not]
+    constructor
+    · rintro ⟨u, hu⟩
+      obtain ⟨t, ht⟩ := (u⁻¹ : Aˣ).1.2
+      have hu' : (u : A).1 = ι s := by rw [hu]
+      have hst : s * t = 1 := hinj (by
+        rw [map_mul, ht, map_one, ← hu']
+        exact congrArg Subtype.val (Units.mul_inv u))
+      exact ⟨⟨s, t, hst, by rw [mul_comm, hst]⟩, rfl⟩
+    · intro hs
+      exact hs.map (ι.codRestrict A.toSubring (fun r => ⟨r, rfl⟩))
+  refine ⟨A, fun f => ?_, fun f => ?_, fun x hx => ?_⟩
+  · obtain ⟨s, hs, -⟩ := hcoord f
+    rw [← hs]
+    exact (A.valuation_le_one_iff _).2 ⟨s, rfl⟩
+  · obtain ⟨s, hs, hiff⟩ := hcoord f
+    rw [← hs, hunit, hiff]
+  · obtain ⟨s, rfl⟩ := (A.valuation_le_one_iff x).1 hx.le
+    have hs : s ∈ IsLocalRing.maximalIdeal R := (hunit s).1 hx
+    rw [hmax, Ideal.mem_span_singleton] at hs
+    obtain ⟨t, rfl⟩ := hs
+    rw [intPolyAlg_C_natCast, map_mul, Valuation.map_mul, map_natCast]
+    have ht : v (ι t) ≤ 1 := (A.valuation_le_one_iff _).2 ⟨t, rfl⟩
+    calc v (p : E) * v (ι t) ≤ v (p : E) * 1 := mul_le_mul' le_rfl ht
+      _ = v (p : E) := mul_one _
+
+/-- **Glue (STANDARD scheme theory, not proved): the local ring at the generic point of a
+component of the special fibre.** For `𝒴` proper and smooth of relative dimension 1 over
+`ℤ_(p)` and nonempty, some point `ξ` has a stalk that is a discrete valuation ring with maximal
+ideal `(p)`. (Proof: `𝒴 → Spec ℤ_(p)` is flat and proper, so its image is open, closed and
+nonempty, hence everything; let `ξ` be a generic point of a component of the special fibre
+`𝒴_p`, which is smooth over `𝔽_p`, hence reduced; `𝒪_{𝒴,ξ}/p = 𝒪_{𝒴_p,ξ}` is a reduced local
+ring of dimension 0, i.e. a field; `p` is a nonzerodivisor (flatness) in the Noetherian local
+ring `𝒪_{𝒴,ξ}`, whose maximal ideal is therefore principal generated by a nonzerodivisor: a DVR.
+Stacks 00PD for the last step; EGA IV 6.8 / 17.5.1 for smooth ⇒ flat with smooth fibres;
+locators UNVERIFIED.) -/
+def SpecialFibreDVR : Prop :=
+  ∀ (p : ℕ) [Fact p.Prime] (𝒴 : Over (Spec (CommRingCat.of (Zloc p)))),
+    IsProper 𝒴.hom → SmoothOfRelativeDimension 1 𝒴.hom → Nonempty 𝒴.left →
+    ∃ ξ : 𝒴.left, ∃ _ : IsDomain (𝒴.left.presheaf.stalk ξ),
+      IsDiscreteValuationRing (𝒴.left.presheaf.stalk ξ) ∧
+      IsLocalRing.maximalIdeal (𝒴.left.presheaf.stalk ξ) =
+        Ideal.span {(p : 𝒴.left.presheaf.stalk ξ)}
+
+/-- **Glue (route GR, not proved): comparison of generic fibres and the coordinate.** Given the
+smooth model `(𝒴, 𝒜)` at `p > 324` and a point `ξ` whose stalk is a DVR with maximal ideal `(p)`
+(a generic point of a component of the special fibre), a triple with R1fp, R1hecke, R2fp, and any
+finite Galois `E/ℚ(X)` with the normalization chart: the stalk embeds in `E` with fraction field
+`E`, and the image of `ℤ[X]` lies in it with `𝔪_ξ ∩ ℤ[X] = p ℤ[X]` (`X` has transcendental
+reduction). Proof outline (docs/research/vert-witness.md §3): (b) `R1univProps` of `Y` classifies
+`𝒴_ℚ` with the pulled-back family by `g : 𝒴_ℚ → Y`, bijective on `ℚ̄`-points by the moduli clauses,
+hence an isomorphism of smooth proper curves; `Y` is irreducible (the chart's image is dense), so
+`𝒴` is integral with function field `ℚ(Y) = Frac B = E` and `𝒪_{𝒴,ξ} ↪ E`; (d) the Hecke
+automorphisms generate a finite group `G'` of order prime to `p` acting on `𝒴` over `ℤ_(p)`;
+the quotient `𝒵 = 𝒴/G'` commutes with base change (tame), is smooth proper over `ℤ_(p)` with
+generic fibre `P¹_ℚ` in the coordinate `π` (R2fp), and the three CM sections `0, ∞, −16/27` stay
+disjoint mod `p`; so `π : 𝒵 ≅ P¹_{ℤ_(p)}`, finite and surjective on special fibres, and `π` is
+regular at `ξ` with transcendental reduction. -/
+def ModelCoordinateGlue : Prop :=
+  ∀ (p : ℕ) [Fact p.Prime], 324 < p →
+    ∀ (𝒴 : Over (Spec (CommRingCat.of (Zloc p)))) (𝒜 : QMFamily 𝒴.left), IsShimuraModel p 𝒴 𝒜 →
+    ∀ (ξ : 𝒴.left) (_ : IsDomain (𝒴.left.presheaf.stalk ξ)),
+      IsDiscreteValuationRing (𝒴.left.presheaf.stalk ξ) →
+      IsLocalRing.maximalIdeal (𝒴.left.presheaf.stalk ξ) =
+        Ideal.span {(p : 𝒴.left.presheaf.stalk ξ)} →
+    ∀ (Y : Over (Spec (CommRingCat.of ℚ))) (Φ : PtEquiv Y) (π : ToP1 Y.left),
+      R1fpProps Y Φ → R1heckeProps Y Φ → R2fpProps Y Φ π →
+      ∀ (E : Type) [Field E] [Algebra (RatFunc ℚ) E] [Algebra ℚ[X] E]
+        [IsScalarTower ℚ[X] (RatFunc ℚ) E] [FiniteDimensional (RatFunc ℚ) E]
+        [IsGalois (RatFunc ℚ) E], NormalizationModel Y π E →
+      letI := intPolyAlg E
+      ∃ ι : 𝒴.left.presheaf.stalk ξ →+* E, Function.Injective ι ∧
+        (∀ x : E, ∃ a b : 𝒴.left.presheaf.stalk ξ, b ≠ 0 ∧ x * ι b = ι a) ∧
+        ∀ f : ℤ[X], ∃ s : 𝒴.left.presheaf.stalk ξ, ι s = algebraMap ℤ[X] E f ∧
+          (s ∈ IsLocalRing.maximalIdeal (𝒴.left.presheaf.stalk ξ) ↔ f ∈ vertPrime p)
+
+/-- **`ModelGaussGlue` from the two pieces** (compiled). The model is nonempty: `Y` has a
+`ℚ̄`-point (R1fp), whose object is a fibre of `𝒜` (the leaf's surjectivity clause). -/
+theorem modelGaussGlue_of (hC : SpecialFibreDVR) (hBD : ModelCoordinateGlue) :
+    ModelGaussGlue := by
+  intro p _ hp324 hmod Y Φ π h1 hh h2 E _ _ _ _ _ _ hN
+  obtain ⟨𝒴, 𝒜, hM⟩ := hmod
+  have hne : Nonempty 𝒴.left := by
+    obtain ⟨y⟩ := h1.2.2.1
+    obtain ⟨P, -⟩ := Quotient.exists_rep (s := isoSetoid Qbar) (Φ Qbar y)
+    obtain ⟨y', -⟩ := hM.2.2.2.2.1 P
+    exact ⟨y'.base (IsLocalRing.closedPoint Qbar)⟩
+  obtain ⟨ξ, hdom, hdvr, hmax⟩ := hC p 𝒴 hM.1 hM.2.1 hne
+  obtain ⟨ι, hinj, hfrac, hcoord⟩ := hBD p hp324 𝒴 𝒜 hM ξ hdom hdvr hmax Y Φ π h1 hh h2 E hN
+  exact vertGaussWitness_of_DVR E p ⟨_, _, hdom, hdvr, ι, hinj, hfrac, hmax, hcoord⟩
+
+/-- **`HeckeVertWitness` from the leaf and the two glue pieces** (compiled). -/
+theorem heckeVertWitness_of_goodReduction' (hL : ShimuraGoodReduction) (hC : SpecialFibreDVR)
+    (hBD : ModelCoordinateGlue) : HeckeVertWitness :=
+  heckeVertWitness_of_goodReduction hL (modelGaussGlue_of hC hBD)
+
 end VertWitness
 
 end
@@ -1525,3 +1684,6 @@ end
 #print axioms VertWitness.heckeVertWitness_of_gauss
 #print axioms VertWitness.heckeVertWitness_of_goodReduction
 #print axioms VertWitness.heckeNoVertRam_of_goodReduction
+#print axioms VertWitness.vertGaussWitness_of_DVR
+#print axioms VertWitness.modelGaussGlue_of
+#print axioms VertWitness.heckeVertWitness_of_goodReduction'
