@@ -2611,6 +2611,156 @@ theorem G20_tau3_le : (analyticOrderAt G20 (tau3 : ℂ)).toNat ≤ 4 ∧ analyti
     linarith
   exact_mod_cast this
 
+/-! ### The fibres over `c ∈ ℂ` -/
+
+theorem Hc_split (c : ℂ) :
+    Hc c = (fun z => 3779136 * G20 z ^ 2) + (fun z => -c * G8 z ^ 5) := by
+  funext z; simp only [Hc, Pi.add_apply]; ring
+
+include hT hV hA hC in
+theorem ord_Hc_tau3 (c : ℂ) :
+    analyticOrderAt (Hc c) (tau3 : ℂ) = ((2 * (analyticOrderAt G20 (tau3 : ℂ)).toNat : ℕ) : ℕ∞) := by
+  obtain ⟨he3, hb⟩ := tau3_facts hT hV hA
+  obtain ⟨ha4, hatop⟩ := G20_tau3_le hT hV hA hC
+  have h3U : (tau3 : ℂ) ∈ U := tau3.im_pos
+  have hF : analyticOrderAt (fun z => 3779136 * G20 z ^ 2) (tau3 : ℂ) =
+      ((2 * (analyticOrderAt G20 (tau3 : ℂ)).toNat : ℕ) : ℕ∞) := by
+    have e : (fun z => 3779136 * G20 z ^ 2) = (fun _ => (3779136 : ℂ)) * G20 ^ 2 := by
+      funext z; rfl
+    rw [e, analyticOrderAt_mul analyticAt_const ((G20_analytic h3U).pow 2),
+      analyticOrderAt_eq_zero.2 (Or.inr (by norm_num)), zero_add,
+      analyticOrderAt_pow (G20_analytic h3U), nsmul_eq_mul]
+    conv_lhs => rw [← ENat.coe_toNat hatop]
+    push_cast; ring
+  have hG : (10 : ℕ∞) ≤ analyticOrderAt (fun z => -c * G8 z ^ 5) (tau3 : ℂ) := by
+    by_cases hc : c = 0
+    · have e : (fun z => -c * G8 z ^ 5) = 0 := by funext z; simp [hc]
+      have h0 : analyticOrderAt (0 : ℂ → ℂ) (tau3 : ℂ) = ⊤ :=
+        analyticOrderAt_eq_top.2 (Filter.Eventually.of_forall fun _ => rfl)
+      rw [e, h0]; exact le_top
+    · have e : (fun z => -c * G8 z ^ 5) = (fun _ => -c) * G8 ^ 5 := by funext z; rfl
+      rw [e, analyticOrderAt_mul analyticAt_const ((G8_analytic h3U).pow 5),
+        analyticOrderAt_eq_zero.2 (Or.inr (by simpa using hc)), zero_add,
+        analyticOrderAt_pow (G8_analytic h3U), hb]
+      norm_num
+  rw [Hc_split, analyticOrderAt_add_eq_left_of_lt, hF]
+  rw [hF]
+  refine lt_of_lt_of_le ?_ hG
+  have : 2 * (analyticOrderAt G20 (tau3 : ℂ)).toNat < 10 := by omega
+  exact_mod_cast this
+
+variable (hD : EllipticOrderDvd)
+
+include hT hV hA hC hD in
+/-- **The fibre of `j_θ` over `c ∈ ℂ` is one `Γ*`-orbit.** -/
+theorem fibre_c (c : ℂ) : ∃ t₁ : UpperHalfPlane, ∀ z : UpperHalfPlane,
+    (G8 (z : ℂ) ≠ 0 ∧ Hc c (z : ℂ) = 0) ↔ ∃ γ ∈ Γs, γ • t₁ = z := by
+  obtain ⟨he3, hb⟩ := tau3_facts hT hV hA
+  obtain ⟨ha4, hatop⟩ := G20_tau3_le hT hV hA hC
+  set a := (analyticOrderAt G20 (tau3 : ℂ)).toNat with ha
+  have hord := ord_Hc_tau3 hT hV hA hC c
+  rw [← ha] at hord
+  have hHtop3 : analyticOrderAt (Hc c) (tau3 : ℂ) ≠ ⊤ := by rw [hord]; exact ENat.coe_ne_top _
+  have hHtop : ∀ z : UpperHalfPlane, analyticOrderAt (Hc c) (z : ℂ) ≠ ⊤ := fun z =>
+    (Hc_analytic c).analyticOrderAt_ne_top_of_isPreconnected isPreconnected_U tau3.im_pos z.im_pos hHtop3
+  have hHne : ∃ z ∈ U, Hc c z ≠ 0 := by
+    by_contra hall
+    push Not at hall
+    apply hHtop3
+    rw [analyticOrderAt_eq_top]
+    filter_upwards [isOpen_U.mem_nhds tau3.im_pos] with z hz using hall z hz
+  obtain ⟨T₀, hT₀p, hT₀c⟩ := val_ex hV hA 20 (Hc c) (Hc_analytic c) hHne (autoHc hT c)
+  set T₁ := T₀.filter (fun t => ¬ ∃ γ ∈ Γs, γ • t = tau3) with hT₁
+  set T' := insert tau3 T₁ with hT'
+  have hnot : tau3 ∉ T₁ := by
+    rw [hT₁, Finset.mem_filter]; push Not
+    intro _; exact ⟨1, HDec.LeafQCheck.VB.one_mem_gammaStar', one_smul _ _⟩
+  have hT'p : (T' : Set UpperHalfPlane).Pairwise (fun z w => ∀ γ ∈ Γs, γ • z ≠ w) := by
+    rw [hT', Finset.coe_insert]
+    refine (hT₀p.mono (by intro x hx; exact (Finset.mem_filter.1 hx).1)).insert ?_
+    intro w hw hne
+    have hw' := (Finset.mem_filter.1 hw).2
+    refine ⟨fun γ hγ h => hw' ⟨γ⁻¹, gammaStar_inv hγ, eqv_symm hγ h⟩, fun γ hγ h => hw' ⟨γ, hγ, h⟩⟩
+  have hT'c : Covers Γs T' (Hc c) := by
+    intro z hz
+    obtain ⟨t, ht, γ, hγ, rfl⟩ := hT₀c z hz
+    by_cases hR : ∃ δ ∈ Γs, δ • t = tau3
+    · obtain ⟨δ, hδ, hδt⟩ := hR
+      obtain ⟨ε, hε, hεz⟩ := eqv_trans (gammaStar_inv hδ) hγ (eqv_symm hδ hδt) rfl
+      exact ⟨tau3, Finset.mem_insert_self _ _, ε, hε, hεz⟩
+    · exact ⟨t, Finset.mem_insert_of_mem (Finset.mem_filter.2 ⟨ht, hR⟩), γ, hγ, rfl⟩
+  have hsum := val_eq hV hA 20 (Hc c) (Hc_analytic c) hHne (autoHc hT c) T' hT'p hT'c
+  rw [hT', Finset.sum_insert hnot] at hsum
+  -- the points of `T₁`: `G8 ≠ 0`, and `e_t ∣ ord_t H_c`
+  have hG8t : ∀ t ∈ T₁, G8 (t : ℂ) ≠ 0 := by
+    intro t ht h0
+    obtain ⟨γ, hγ, hγt⟩ := G8_zero_orbit hT hV hA t h0
+    exact (Finset.mem_filter.1 ht).2 ⟨γ⁻¹, gammaStar_inv hγ, eqv_symm hγ hγt⟩
+  have hdvd : ∀ t ∈ T₁, HDec.LeafQCheck.VB.ellOrder t ∣ (analyticOrderAt (Hc c) (t : ℂ)).toNat :=
+    fun t ht => hD 20 (Hc c) G85 (Hc_analytic c) G85_analytic (autoHc hT c) (autoG85 hT) t
+      (pow_ne_zero 5 (hG8t t ht)) (hHtop t)
+  set n : UpperHalfPlane → ℕ := fun t =>
+    (analyticOrderAt (Hc c) (t : ℂ)).toNat / HDec.LeafQCheck.VB.ellOrder t with hn
+  have hterm : ∀ t ∈ T₁, ((analyticOrderAt (Hc c) (t : ℂ) : ℕ∞) : ℝ≥0∞) /
+      (HDec.LeafQCheck.VB.ellOrder t : ℝ≥0∞) = (n t : ℝ≥0∞) := by
+    intro t ht
+    obtain ⟨he0, -⟩ := HDec.LeafQCheck.VB.ellipticOrderLe6_proof t
+    rw [enn_coe_toNat (hHtop t), ← Nat.div_mul_cancel (hdvd t ht)]
+    push_cast
+    rw [ENNReal.mul_div_cancel_right (by exact_mod_cast he0.ne') (by simp)]
+  rw [Finset.sum_congr rfl hterm, hord, he3, ← Nat.cast_sum] at hsum
+  set N := ∑ t ∈ T₁, n t
+  have key : 2 * a + 6 * N = 10 := by
+    have h1 : ((((2 * a : ℕ) : ℕ∞)) : ℝ≥0∞) = ((2 * a : ℕ) : ℝ≥0∞) := by simp
+    rw [h1, enn_div _ 6 (by norm_num),
+      show ((N : ℕ) : ℝ≥0∞) = ENNReal.ofReal (N : ℝ) by simp,
+      ← ENNReal.ofReal_add (by positivity) (by positivity),
+      show ((20 : ℕ) : ℝ≥0∞) / 12 = ((20 : ℕ) : ℝ≥0∞) / ((12 : ℕ) : ℝ≥0∞) by norm_num,
+      enn_div 20 12 (by norm_num), ENNReal.ofReal_eq_ofReal_iff (by positivity) (by positivity)] at hsum
+    push_cast at hsum
+    have : (2 * (a : ℝ) + 6 * N) = 10 := by linarith
+    exact_mod_cast this
+  have hN1 : N = 1 := by omega
+  -- the unique point `t₁`
+  obtain ⟨t₁, ht₁, hn₁⟩ : ∃ t₁ ∈ T₁, n t₁ ≠ 0 := by
+    by_contra h; push Not at h
+    have : N = 0 := Finset.sum_eq_zero h
+    omega
+  have hrest : ∀ t ∈ T₁, t ≠ t₁ → n t = 0 := by
+    have hs := Finset.add_sum_erase T₁ n ht₁
+    rw [show ∑ x ∈ T₁, n x = N from rfl, hN1] at hs
+    have h0 : ∑ x ∈ T₁.erase t₁, n x = 0 := by omega
+    intro t ht hne
+    exact (Finset.sum_eq_zero_iff.1 h0) t (Finset.mem_erase.2 ⟨hne, ht⟩)
+  have hpos : ∀ t ∈ T₁, (Hc c (t : ℂ) = 0 ↔ n t ≠ 0) := by
+    intro t ht
+    obtain ⟨he0, -⟩ := HDec.LeafQCheck.VB.ellipticOrderLe6_proof t
+    have hm := Nat.div_mul_cancel (hdvd t ht)
+    constructor
+    · intro h0 hn0
+      have h1 : analyticOrderAt (Hc c) (t : ℂ) ≠ 0 := by
+        rw [Ne, analyticOrderAt_eq_zero]; push Not; exact ⟨Hc_analytic c _ t.im_pos, h0⟩
+      have h2 : (analyticOrderAt (Hc c) (t : ℂ)).toNat ≠ 0 := by
+        rw [Ne, ENat.toNat_eq_zero]; push Not; exact ⟨h1, hHtop t⟩
+      apply h2; rw [← hm]; simp only [n] at hn0; rw [hn0, zero_mul]
+    · intro hn0
+      apply apply_eq_zero_of_analyticOrderAt_ne_zero
+      intro h0
+      apply hn0
+      simp only [n]; rw [h0]; simp
+  refine ⟨t₁, fun z => ⟨fun ⟨hz8, hzH⟩ => ?_, fun ⟨γ, hγ, hγz⟩ => ?_⟩⟩
+  · obtain ⟨t, ht, δ, hδ, rfl⟩ := hT'c z hzH
+    rw [hT', Finset.mem_insert] at ht
+    rcases ht with rfl | ht
+    · exact absurd ((zero_iff (auto8 hT) hδ tau3).2 (G8_tau3_zero hT)) hz8
+    · have hHt : Hc c (t : ℂ) = 0 := (zero_iff (autoHc hT c) hδ t).1 hzH
+      by_cases htt : t = t₁
+      · exact ⟨δ, hδ, by rw [← htt]⟩
+      · exact absurd ((hpos t ht).1 hHt) (by rw [hrest t ht htt]; simp)
+  · subst hγz
+    exact ⟨fun h => hG8t t₁ ht₁ ((zero_iff (auto8 hT) hγ t₁).1 h),
+      (zero_iff (autoHc hT c) hγ t₁).2 ((hpos t₁ ht₁).2 hn₁)⟩
+
 end
 
 end HDec.LeafQCheck.HM.QMSplit
