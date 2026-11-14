@@ -64,6 +64,7 @@ jobs:
           import concurrent.futures
           import datetime
           import functools
+          import hashlib
           import json
           import math
           import os
@@ -80,6 +81,7 @@ jobs:
           MARKER = "<!-- protocol-b-review-v1 -->"
           INSTRUCTIONS = ".github/protocol-b-reviewer.md"
           WORKFLOW = ".github/workflows/protocol-b.yml"
+          REUSE_POLICY = ".github/protocol-b-review-compatibility.json"
           WORKING_MARKER = "<!-- protocol-b-working-v2 -->"
           ROUND_MARKER = "<!-- protocol-b-automatic-round-v1 -->"
           CONTEXT_TOKEN_BUDGET = 400_000
@@ -392,7 +394,7 @@ jobs:
                       "tools": [{"name": t["name"], "description": t["description"], "input_schema": t["parameters"]} for t in TOOLS] + [
                           {"type": "web_search_20260318", "name": "web_search", "max_uses": WEB_MAX_USES['web_search']},
                           {"type": "web_fetch_20260318", "name": "web_fetch", "max_uses": WEB_MAX_USES['web_fetch'],
-                           "max_content_tokens": WEB_FETCH_MAX_CONTENT_TOKENS}]}
+                           "max_content_tokens": WEB_FETCH_MAX_CONTENT_TOKENS, "response_inclusion": "excluded"}]}
 
 
           def request_size(body):
@@ -455,6 +457,33 @@ jobs:
                       'fetch_text_tokens_per_result': WEB_FETCH_MAX_CONTENT_TOKENS,
                       'scope': 'Direct calls share the current turn limit; programmatic calls reset per request. '
                                'Fetch text may be truncated by the provider; do not claim to have read omitted text.'}
+
+
+          def web_response_observation(output, usage, response_id, turn):
+              """Record transport metadata only, never document bodies or signed thinking."""
+              results = []
+              for block in output:
+                  if block.get('type') not in {'web_fetch_tool_result', 'web_search_tool_result'}:
+                      continue
+                  content = block.get('content')
+                  document = content.get('content', {}) if isinstance(content, dict) else {}
+                  source = document.get('source', {}) if isinstance(document, dict) else {}
+                  data = source.get('data') if isinstance(source, dict) else None
+                  results.append({'type': block['type'], 'tool_use_id': block.get('tool_use_id'),
+                                  'source_type': source.get('type') if isinstance(source, dict) else None,
+                                  'document_payload_present': isinstance(data, str),
+                                  'document_payload_bytes': len(data.encode('utf-8')) if isinstance(data, str) else 0,
+                                  'text_may_be_truncated': source.get('type') == 'text' if isinstance(source, dict) else False,
+                                  'result_bytes': request_size(block)})
+              reported = (usage or {}).get('server_tool_use') or {}
+              fetches = reported.get('web_fetch_requests')
+              returned = sum(r['type'] == 'web_fetch_tool_result' for r in results)
+              return {'turn': turn, 'response_id': response_id,
+                      'assistant_content_sha256': hashlib.sha256(json.dumps(output, ensure_ascii=False).encode()).hexdigest(),
+                      'reported_web_usage': reported, 'returned_results': results,
+                      'unreturned_reported_fetches': max(0, fetches - returned) if type(fetches) is int else None,
+                      'omission_note': 'When call/result pairs are omitted, their identities and success are not observable here. Counts alone do not prove omission worked.',
+                      'next_request': {'status': 'not sent; guard, final decision, or failure may end the review'}}
 
 
           def context_estimate(family, system, conversation, previous=None):
@@ -646,7 +675,7 @@ jobs:
               def run(self):
                   conversation = [{"role": "user", "content": json.dumps(self.input)}]
                   record(self.family + "-input.json", {"instructions": self.instructions, "input": self.input})
-                  turns, previous = [], None
+                  turns, previous, web_trace = [], None, []
                   instructions, finish_sent = self.instructions, False
                   def check_computations():
                       failed = failed_computation_checks(self.gh, self.pr['head']['sha'], self.pr['base']['ref'])
@@ -673,8 +702,20 @@ jobs:
                                  'projected': projected, 'reviewer_output_reserve': REVIEWER_OUTPUT_RESERVE})
                       budget = context_budget(self.family, instructions, conversation, previous)
                       check_computations()
+                      replay_hash = None
+                      if self.family == 'fable' and web_trace:
+                          last_assistant = next(m['content'] for m in reversed(conversation) if m.get('role') == 'assistant')
+                          replay_hash = hashlib.sha256(json.dumps(last_assistant, ensure_ascii=False).encode()).hexdigest()
                       output, served, usage, response_id, stop_reason = model_turn(
                           self.family, instructions, conversation, before_retry=check_computations)
+                      if self.family == 'fable':
+                          if web_trace:
+                              web_trace[-1]['next_request'] = {
+                                  'status': 'accepted response received', 'response_id': response_id,
+                                  'reported_input_tokens': (usage or {}).get('request_start_input_tokens'),
+                                  'assistant_replayed_unchanged': replay_hash == web_trace[-1]['assistant_content_sha256']}
+                          web_trace.append(web_response_observation(output, usage, response_id, turn + 1))
+                          record('fable-web-results.json', web_trace)
                       previous = {**budget, 'usage': usage,
                                   'server_tools': any(x.get('type') == 'server_tool_use' for x in output)}
                       if served != MODELS[self.family]:
@@ -872,8 +913,38 @@ jobs:
               return {key: overrides[key] for key in sorted(unresolved)}
 
 
+          def reuse_policy_text(gh, ref):
+              try:
+                  return gh.text(REUSE_POLICY, ref)
+              except RequestError as error:
+                  if error.status == 404:
+                      return '{}'
+                  raise
+
+
           def same_policy(gh, previous, current):
-              return all(gh.text(path, previous) == gh.text(path, current) for path in (WORKFLOW, INSTRUCTIONS))
+              return (all(gh.text(path, previous) == gh.text(path, current) for path in (WORKFLOW, INSTRUCTIONS))
+                      and reuse_policy_text(gh, previous) == reuse_policy_text(gh, current))
+
+
+          def same_reviewer_policy(gh, previous, current, family):
+              if same_policy(gh, previous, current):
+                  return True
+              if gh.text(INSTRUCTIONS, previous) != gh.text(INSTRUCTIONS, current):
+                  return False
+              # A reviewed, default-branch migration names both exact workflow bytes.
+              # No candidate file, comment, model assertion or version label authorizes reuse.
+              try:
+                  policy = json.loads(reuse_policy_text(gh, current))
+              except ValueError:
+                  return False  # No valid declaration means a fresh review, never reuse.
+              if not isinstance(policy, dict) or not isinstance(policy.get('migrations'), list):
+                  return False
+              before = hashlib.sha256(gh.text(WORKFLOW, previous).encode()).hexdigest()
+              after = hashlib.sha256(gh.text(WORKFLOW, current).encode()).hexdigest()
+              return policy.get('schema') == 'protocol-b-review-compatibility/v1' and any(
+                  isinstance(row, dict) and row.get('from_workflow_sha256') == before and row.get('to_workflow_sha256') == after
+                  and family in row.get('reviewers', []) for row in policy.get('migrations', []))
 
 
           def findings_summary(reports):
@@ -887,21 +958,45 @@ jobs:
               return "\n\nFinding IDs for collaborator decisions:\n" + "\n".join(dict.fromkeys(rows)) if rows else ""
 
 
-          def trusted_reports(app, pr, name, exclude):
+          def trusted_reports(app, pr, name, exclude, with_check=False):
               """Override authority comes from this App's own check, never a bot comment."""
               candidates = []
               for page in range(1, 101):
                   response = app.call(f"/commits/{pr['head']['sha']}/check-runs?filter=all&per_page=100&page={page}")
                   for check in response['check_runs']:
-                      if (check['id'] != exclude and check['name'] == name and
-                              check['app']['id'] == int(os.environ['APP_ID']) and
+                      if (check['id'] != exclude and check['name'] == name and check.get('status') == 'completed'
+                              and check.get('head_sha') == pr['head']['sha'] and
+                              (check.get('app') or {}).get('id') == int(os.environ['APP_ID']) and
                               (check.get('output', {}).get('text') or '').startswith('{')):
                           value = json.loads(check['output']['text'])
                           if value.get('schema') == 'protocol-b-decisions/v1' and value.get('head') == pr['head']['sha']:
                               candidates.append((check['id'], value['reports']))
                   if len(response['check_runs']) < 100:
-                      return max(candidates, default=(0, {}))[1]
+                      selected = max(candidates, default=(0, {}))
+                      return selected if with_check else selected[1]
               raise ValueError('Too many prior checks; no partial override decision')
+
+
+          def reusable_acceptances(gh, app, pr, name, exclude, policy, prior, overrides):
+              check, reports = trusted_reports(app, pr, name, exclude, with_check=True)
+              reusable = {}
+              for family, envelope in reports.items():
+                  if (family not in MODELS or envelope.get('reviewer') != family
+                          or envelope.get('model') != MODELS[family] or envelope.get('head') != pr['head']['sha']
+                          or envelope.get('complete') is not True or envelope.get('read_prerequisites_complete') is not True
+                          or envelope.get('review', {}).get('decision') != 'accept'):
+                      continue
+                  if not same_reviewer_policy(gh, envelope['policy_ref'], policy, family):
+                      continue
+                  try:
+                      validate_review(envelope['review'], set(prior), overrides)
+                  except ValueError:
+                      continue  # New objections need a fresh disposition.
+                  reusable[family] = envelope
+              record('review-reuse.json', {'source_check': check, 'head': pr['head']['sha'],
+                     'policy_ref': policy, 'reused_reviewers': sorted(reusable),
+                     'original_reports_preserved': True})
+              return reusable
 
 
           def start_clients():
@@ -983,7 +1078,8 @@ jobs:
                           if actual['event'] == 'pull_request_target' and actual['path'].split('@')[0] == WORKFLOW:
                               rounds.add((run, attempt))
                   if (valid and check['head_sha'] == pr['head']['sha'] and check.get('status') == 'completed'
-                          and all(r.get('complete') and same_policy(gh, r['policy_ref'], policy) for r in reports.values())):
+                          and all(r.get('complete') and same_reviewer_policy(gh, r['policy_ref'], policy, family)
+                                  for family, r in reports.items())):
                       completed.append(check)
               return {'automatic_rounds': len(rounds),
                       'completed_check': max(completed, key=lambda c: c['id']) if completed else None}
@@ -1115,7 +1211,12 @@ jobs:
                   elif change_class == "editorial" and not prior:
                       conclusion, summary = "success", "Editorial change under the path/diff rule; author declared no mathematical change. No model review."
                   else:
-                      for key in ("OPENAI_API_KEY", "ANTHROPIC_API_KEY"):
+                      if review_command:
+                          envelopes = reusable_acceptances(gh, app, pr, name, check['id'], trusted_ref, prior, overrides)
+                          for family, envelope in envelopes.items():
+                              record(family + '-report.json', envelope)
+                      needed = set(MODELS) - set(envelopes)
+                      for key in ({'astra': 'OPENAI_API_KEY', 'fable': 'ANTHROPIC_API_KEY'}[family] for family in needed):
                           if not os.environ.get(key):
                               raise ValueError("Missing protocol-b environment secret " + key)
                       # Save the paid-round intent to the App and a discoverable PR
@@ -1132,10 +1233,11 @@ jobs:
                                               'automatic_rounds': state['automatic_rounds']})}})
                       gh.call(f'/issues/{number}/comments', 'POST', {'body': ROUND_MARKER + '\n```json\n' +
                               json.dumps({'check': check['id']}) + '\n```'})
-                      reviews, failures = {}, {}
+                      reviews, failures = {family: envelope['review'] for family, envelope in envelopes.items()}, {}
+                      reused = sorted(envelopes)
                       with concurrent.futures.ThreadPoolExecutor(max_workers=2) as pool:
                           reviewers = {family: Review(gh, pr, files, discussion, prior, overrides, instructions, family, change_class)
-                                       for family in MODELS}
+                                       for family in needed}
                           futures = {pool.submit(reviewer.run): family for family, reviewer in reviewers.items()}
                           for future in concurrent.futures.as_completed(futures):
                               family = futures[future]
@@ -1172,6 +1274,8 @@ jobs:
                       if all(v["decision"] == "accept" for v in reviews.values()) and set(reviews) == set(MODELS):
                           conclusion = "success"
                           summary = "Both approved reviewers accepted this revision. When either family authored the change, only the other is an outside reviewer. This is informal review, not a formal proof."
+                          if reused:
+                              summary += '\nReused authenticated same-head acceptance without another model call: ' + ', '.join(reused) + '. Original report identities are retained in the artifact.'
                           if overrides:
                               summary += "\nCollaborator overrides apply; affected claims are NOT outside reviewed:\n" + json.dumps(overrides, indent=2)
                       else:

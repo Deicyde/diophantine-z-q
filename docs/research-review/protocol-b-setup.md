@@ -425,3 +425,31 @@ review or find a lawful public primary-source copy. If the changed application
 still cannot be checked, identify the exact passage for a collaborator. Do not
 buy access or transmit restricted copies automatically; obtain any needed
 authorization separately. That application remains unchecked until addressed.
+
+## Retrying an interrupted reviewer
+
+A collaborator's `/protocol-b review` command can reuse a completed acceptance
+from the configured App for the exact current head. It preserves the original
+report, run and policy identities. The report must include completed source and
+history reads and disposition every current finding. A changed head, new
+unresolved finding, wrong model or unauthenticated report cannot qualify.
+Across policy versions, unchanged instructions and an explicit default-branch
+compatibility entry binding both complete workflow hashes are required. The
+initial entry permits only Astra reuse across the Fable transport repair.
+The other reviewer still runs; no missing decision is inferred from an old one.
+
+Fable requests `response_inclusion: excluded` for web fetch. According to
+[Anthropic's response-inclusion documentation](https://platform.claude.com/docs/en/agents-and-tools/tool-use/web-fetch-tool#response-inclusion),
+this omits the raw fetch pairs consumed by completed code execution, retaining
+the code's output. Direct and unfinished-code fetches remain in the response.
+The client never filters returned history. The existing hard budget guard still
+applies, including when response sizes cannot be determined.
+
+`fable-web-results.json` records returned document-payload presence and byte
+counts, reported fetch counts, and the next request's reported input tokens and
+assistant replay hash match. If the provider omits both a call and its result,
+their individual identities are unavailable; the artifact records only the
+unreturned count and does not invent a per-document record. No raw document is
+copied into this metadata artifact. A missing next request is not a successful
+replay. The PR98 rerun is the live transport test; offline tests alone do not
+establish the provider's behavior.
