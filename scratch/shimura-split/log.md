@@ -82,3 +82,9 @@
   Stacks 0389, UNVERIFIED; properness added, weaker than print); LEAF-form `DeligneComponentsX6` (X₆_ℚ̄ connected).
 - `geomConnX6_of`; `r1r2fpRep_of_printed : DeligneComponentsX6 → GeomConnOfAlgClosure → PairsLift → BabaGranathX6' →
   ReciprocityCanonical → GonzalezRotgerX6 → R1R2fpRep`.
+
+## Step 11: H-43 (parts/RowsNew.lean) — Rows.lean COMPILED, standard axioms
+- LEAF-form `ElkiesConicX6` (∃ witness: R1fpProps ∧ X6Props ∧ R2X6Props ∧ ConicModel; no hecke/CMExists/R1rec/
+  X6Surj/R5 clauses); `conicOfWitness_of_elkies`; `x6ConicModel_of_elkies : R1R2fpRep → ElkiesConicX6 → MobiusGlue →
+  X6ConicModel`; `x6ConicModel_of_elkies_t5` (MobiusGlue from T5 via kernel `CurveGlue.mobiusGlue_of_t5`);
+  converse `elkiesConicX6_of : X6ConicModel → ElkiesConicX6`.

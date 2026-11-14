@@ -4079,3 +4079,79 @@ end HDec.QMSplit.Moduli
 
 #print axioms HDec.QMSplit.Moduli.geomConnX6_of
 #print axioms HDec.QMSplit.Moduli.r1r2fpRep_of_printed
+
+/-! ## H-43 `x6ConicModel`: Elkies' model of the canonical `X₆` as the only new input -/
+
+namespace HDec.QMSplit.Moduli
+
+open CategoryTheory AlgebraicGeometry Limits
+open LeafQM LeafQM.AV
+
+/-- **LEAF-form (Kurihara, Elkies: the conic model of the canonical `X₆` with its Hauptmodul).** Some witness
+`(Y, Φ, X, Ψ, fY)` of the moduli clause lists `R1fpProps`, `X6Props` carries `π₆ : X₆ → P¹` with the fibre and
+CM clauses `R2X6Props` and the conic model `X6Kummer.ConicModel X π₆` (`X₆(ℚ̄) ≃ C(ℚ̄)` for
+`C : Y² + 3X² + 3Z² = 0`, `Aut(ℚ̄/ℚ)`-equivariantly, with `π₆ = −16(X² + Z²)/(27Z²)`). Published: Kurihara,
+J. Fac. Sci. Univ. Tokyo 25 (1979) (`X₀(6,1) : x² + y² + 3 = 0`); Elkies, ANTS-III, LNCS 1423 (1998), §3
+(`X*(6) = X₆/W` with coordinate `t`, `t = 0, 1, ∞` at the CM points of discriminants `−24, −4, −3`, and
+`X₆ = X*(6)(√−t, √(3(t − 1)))`; `j = 16(t − 1)/27`); locators UNVERIFIED. Unlike qm-glue's `ConicCanonical`
+(which is the row `X6ConicModel` itself), it does not contain the clauses `R1heckeProps`, `CMExists`,
+`R1recProps`, `X6Surj`, `R5ptProps` of the row's witness: those come from `r1r2`. -/
+def ElkiesConicX6 : Prop :=
+  ∃ (Y : Over (Spec (CommRingCat.of ℚ))) (Φ : PtEquiv Y) (X : Over (Spec (CommRingCat.of ℚ)))
+    (Ψ : (fieldPt Qbar ⟶ X) ≃ Quotient (pairSetoid Qbar)) (fY : Y ⟶ X) (π₆ : ToP1 X.left),
+    R1fpProps Y Φ ∧ X6Props Y Φ X Ψ fY ∧ R2X6Props X Ψ π₆ ∧ X6Kummer.ConicModel X π₆
+
+/-- `ConicOfWitness` from `ElkiesConicX6` (qm-glue's `conicOfWitness_of'` with the smaller leaf). -/
+theorem conicOfWitness_of_elkies (hC : ElkiesConicX6) (hK : CoarseCompare) (hU : HauptmodulUniqueX6S) :
+    ConicOfWitness := by
+  intro Y Φ X Ψ fY π₆ hfull
+  obtain ⟨h1f, -, h6, h2, hcm, -, ⟨-, hs⟩, -⟩ := hfull
+  have h1 : R1fpProps Y Φ := h1f
+  obtain ⟨Y₀, Φ₀, X₀, Ψ₀, fY₀, π₀, h1₀, h6₀, h2₀, e₀, he₀g, he₀p, he₀i⟩ := hC
+  obtain ⟨g, hg⟩ := compare_iso h1₀ h1
+  obtain ⟨k, hk⟩ := hK Y Φ X X₀ Ψ Ψ₀ fY (g.hom ≫ fY₀) h1 h6 (x6Props_transport g hg h6₀)
+  have hval : ∀ x : fieldPt Qbar ⟶ X,
+      (π₀.comp k.hom.left).val (K := Qbar) x.left = π₀.val (K := Qbar) (x ≫ k.hom).left := by
+    intro x; exact ToP1.val_comp_right (K := Qbar) π₀ k.hom.left x.left
+  have h2' : R2X6Props X Ψ (π₀.comp k.hom.left) := by
+    intro x x' P Q hP hQ
+    have := h2₀ (x ≫ k.hom) (x' ≫ k.hom) P Q ((hk x).trans hP) ((hk x').trans hQ)
+    simpa only [hval] using this
+  have hagree : ∀ x : fieldPt Qbar ⟶ X, π₆.val (K := Qbar) x.left = π₀.val (K := Qbar) (x ≫ k.hom).left :=
+    fun x => (hU Y Φ X Ψ fY π₆ _ h1 h6 hs h2 h2' hcm x).trans (hval x)
+  let post : (fieldPt Qbar ⟶ X) ≃ (fieldPt Qbar ⟶ X₀) :=
+    ⟨fun x => x ≫ k.hom, fun x => x ≫ k.inv, fun x => by simp, fun x => by simp⟩
+  refine ⟨post.trans e₀, fun σ x => ?_, fun x p hp => ?_, fun x b hb => ?_⟩
+  · show e₀ ((fieldMap (σ : Qbar →ₐ[ℚ] Qbar) ≫ x) ≫ k.hom) = X6Kummer.conicGal σ (e₀ (x ≫ k.hom))
+    rw [Category.assoc]; exact he₀g σ (x ≫ k.hom)
+  · rw [hagree]; exact he₀p (x ≫ k.hom) p hp
+  · rw [hagree]; exact he₀i (x ≫ k.hom) b hb
+
+/-- **Row H-43 (`x6ConicModel`) from `r1r2`, Elkies' model `ElkiesConicX6` and `MobiusGlue`** (the kernel
+proves `MobiusGlue` from T5: `LeafQM.AV.CurveGlue.mobiusGlue_of_T5`). -/
+theorem x6ConicModel_of_elkies (hR : LeafAdopt.R1R2fpRep) (hC : ElkiesConicX6) (hM : Pin.MobiusGlue) :
+    X6Kummer.X6ConicModel :=
+  x6ConicModel_of hR (conicOfWitness_of_elkies hC
+    (coarseCompare_of (coarseFactor_of_rep' hR) CurveSplit.curveBijIso) (hauptmodulUniqueX6S_of hM))
+
+/-- Conversely the row gives the leaf-form (so `ElkiesConicX6` is not stronger than the row). -/
+theorem elkiesConicX6_of (h : X6Kummer.X6ConicModel) : ElkiesConicX6 := by
+  obtain ⟨Y, Φ, X, Ψ, fY, π₆, ⟨h1f, -, h6, h2, -⟩, hc⟩ := h
+  exact ⟨Y, Φ, X, Ψ, fY, π₆, h1f, h6, h2, hc⟩
+
+end HDec.QMSplit.Moduli
+
+#print axioms HDec.QMSplit.Moduli.x6ConicModel_of_elkies
+#print axioms HDec.QMSplit.Moduli.elkiesConicX6_of
+
+namespace HDec.QMSplit.Moduli
+
+/-- **Row H-43 with `MobiusGlue` discharged from T5** (`PkgI2.TorsionStructure`, the bundle's T5 form; the
+kernel's `LeafQM.AV.CurveGlue.mobiusGlue_of_t5`, image-plane). -/
+theorem x6ConicModel_of_elkies_t5 (hR : LeafAdopt.R1R2fpRep) (hC : ElkiesConicX6)
+    (hT : PkgI2.TorsionStructure.{0}) : X6Kummer.X6ConicModel :=
+  x6ConicModel_of_elkies hR hC (LeafQM.AV.CurveGlue.mobiusGlue_of_t5 hT)
+
+end HDec.QMSplit.Moduli
+
+#print axioms HDec.QMSplit.Moduli.x6ConicModel_of_elkies_t5
