@@ -52,3 +52,13 @@ Row sources (VERIFIED, read): definitions read in ~/dzq-wt/leaf-fold4/scratch/le
   (χ₁₀ = −2⁻¹⁴∏θ² weight 10); `thetaModularity_of : IgusaPsi4 → IgusaChi10 → ThetaModularity` (constants
   cleared). Axioms standard, 4 s. Caveat in docstrings: Igusa defines ψ₄ as an Eisenstein series and prints
   the theta expression as a theorem (pages UNVERIFIED).
+
+## H-86 `STQM`: PROVED from a published-form leaf (VERIFIED, compiled)
+- `scratch/qm-split/STQM.lean`: row copied verbatim (leafq-check CMDescendsGlue.lean l.26-43, same namespace
+  context and opens, in `…PeriodMapH.QMSplitSTQM`); LEAF `ShimuraTaniyamaQbar` (abelian surface over ℂ with a
+  degree-4 field in End⁰ = ℚ ⊗ End has a model over ℚ̄; Shimura–Taniyama 1961 §12.4 Prop. 26, Shimura 1998,
+  Milne CM notes §7; UNVERIFIED numbers; printed conclusion "model over a number field", ℚ̄-form = base change,
+  flagged); `stqm_of : ShimuraTaniyamaQbar → STQM`, axioms standard, 11 s.
+- Glue: E_d = ℚ(√2)(√d), d ∈ {−1, −3, −6} (AdjoinRoot tower, irreducible via a real embedding, finrank 4);
+  √2 ↦ 1⊗ι(i), √d ↦ 1⊗ψ (ψ = φ or 2φ − 1) into the commutative subalgebra they generate;
+  End⁰ ≠ 0 by flatness of ℚ over ℤ and injectivity of n ↦ ι(n).
