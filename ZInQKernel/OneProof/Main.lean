@@ -36,7 +36,7 @@ theorem _root_.ZInQ.OneProof.frozenTarget
     (g : HDec.HSyn.OpenGlue4)
     (h11 : TYZThm11Integral) (h1 : TYZLcalOne) (h29 : TYZLemma29Mod2)
     (hS : Shimura.ShimuraReciprocityModFn)
-    (h318 : Lemma318Literal HHprime) (h35 : ∀ ℓ : ℕ → ℤ, IsTYZLcal ℓ → Thm35First ℓ tyzZ)
+    (h318 : Lemma318Literal ZInQ.Contrib.TYZGenus.RingClass.HHprime) (h35 : ∀ ℓ : ℕ → ℤ, IsTYZLcal ℓ → Thm35First ℓ tyzZ)
     (h5 : Lemma321Five)
     (hL2 : ZInQ.GZDecomp.FHNonvanishing) (hL3 : ZInQ.GZDecomp.GrossZagierHeegner) :
     ZInQ.FrozenTarget :=
