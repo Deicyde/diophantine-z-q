@@ -7,8 +7,11 @@
 'VertWitness.heckeVertWitness_of_goodReduction' depends on axioms: [propext, Classical.choice, Quot.sound]
 'VertWitness.heckeNoVertRam_of_goodReduction' depends on axioms: [propext, Classical.choice, Quot.sound]
 'VertWitness.vertGaussWitness_of_DVR' depends on axioms: [propext, Classical.choice, Quot.sound]
+'VertWitness.dvr_of_maximalIdeal_eq_span' depends on axioms: [propext, Classical.choice, Quot.sound]
+'VertWitness.specialFibreDVR_of_uniformizer' depends on axioms: [propext, Classical.choice, Quot.sound]
 'VertWitness.modelGaussGlue_of' depends on axioms: [propext, Classical.choice, Quot.sound]
 'VertWitness.heckeVertWitness_of_goodReduction'' depends on axioms: [propext, Classical.choice, Quot.sound]
+'VertWitness.heckeVertWitness_of_goodReduction''' depends on axioms: [propext, Classical.choice, Quot.sound]
 'VertWitnessAll.coverModelOfHecke_of_goodReduction' depends on axioms: [propext, Classical.choice, Quot.sound]
 'VertWitnessAll.propTSAll_of_goodReduction' depends on axioms: [propext, Classical.choice, Quot.sound]
-real	1m17.378s
+real	0m57.001s

@@ -4,7 +4,7 @@
 
 `VertAll.lean` = `scratch/hecke-rest/HeckeRestAll.lean` (verbatim) + `VertMain.lean.part` + this
 part. hecke-rest's input `hV : HeckeVertWitness` is replaced by the leaf `ShimuraGoodReduction`
-and the two GR glue Props.
+and the two GR glue Props (`SpecialFibreUniformizer`, `ModelCoordinateGlue`).
 ════════════════════════════════════════════════════════════════════════════════════════════ -/
 
 noncomputable section
@@ -19,10 +19,10 @@ open VertWitness
 theorem coverModelOfHecke_of_goodReduction (hconn : Y3Connected) (hRR : R1R2fp)
     (hT : ObjBridge.TorsionStructure)
     (hA : HeckeRest.QMAutCard) (hS : HeckeRest.SerreRigidity3) (hW : HeckeRest.ALFixedPoints)
-    (hL : ShimuraGoodReduction) (hC : SpecialFibreDVR) (hBD : ModelCoordinateGlue) :
+    (hL : ShimuraGoodReduction) (hU : SpecialFibreUniformizer) (hBD : ModelCoordinateGlue) :
     CoverModelOfHecke :=
   HeckeRestAll.coverModelOfHecke_of_heckeRest hconn hRR hT hA hS hW
-    (heckeVertWitness_of_goodReduction' hL hC hBD)
+    (heckeVertWitness_of_goodReduction'' hL hU hBD)
 
 /-- **`PropTSAll` from the leaves and the two GR glue Props** (compiled). -/
 theorem propTSAll_of_goodReduction (t2 : PkgI2.AbhyankarDVR.{0}) (hR : R1R2fp)
@@ -32,10 +32,10 @@ theorem propTSAll_of_goodReduction (t2 : PkgI2.AbhyankarDVR.{0}) (hR : R1R2fp)
     (hAI : KummerAbhyankarInfGlue) (hOI : KummerOtherBranchInf) (hVI : KummerVerticalInf)
     (hconn : Y3Connected) (hT : ObjBridge.TorsionStructure)
     (hA : HeckeRest.QMAutCard) (hS : HeckeRest.SerreRigidity3) (hW : HeckeRest.ALFixedPoints)
-    (hL : ShimuraGoodReduction) (hSF : SpecialFibreDVR) (hBD : ModelCoordinateGlue) :
+    (hL : ShimuraGoodReduction) (hU : SpecialFibreUniformizer) (hBD : ModelCoordinateGlue) :
     PropTSAll :=
   HeckeRestAll.propTSAll_of_heckeRest t2 hR hM hSN hC hKA hO hVF hAI hOI hVI hconn hT hA hS hW
-    (heckeVertWitness_of_goodReduction' hL hSF hBD)
+    (heckeVertWitness_of_goodReduction'' hL hU hBD)
 
 end VertWitnessAll
 

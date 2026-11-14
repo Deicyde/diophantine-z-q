@@ -39,3 +39,17 @@ All #print axioms [propext, Classical.choice, Quot.sound].
    (hL : ShimuraGoodReduction) (hC : SpecialFibreDVR) (hBD : ModelCoordinateGlue) : CoverModelOfHecke`
 - `VertWitnessAll.propTSAll_of_goodReduction ... : PropTSAll`
 Axioms standard (compile_all.txt). Copy check: `cmp` of NoVert.lean lines 1-1265 vs VertWitness.lean: identical.
+
+## Step 4 (18:55) — VERIFIED (both files 0 errors; VertAll 57 s)
+- `dvr_of_maximalIdeal_eq_span` (Mathlib-only): Noetherian local ring, 𝔪 = (t), t ∈ R⁰ ⇒ IsDomain ∧ DVR.
+- glue `SpecialFibreUniformizer` (∃ ξ, 𝔪_ξ = (p), p ∈ R⁰ in the stalk) and
+  `specialFibreDVR_of_uniformizer : SpecialFibreUniformizer → SpecialFibreDVR` (stalks Noetherian via
+  `LocallyOfFiniteType.isLocallyNoetherian`).
+- `heckeVertWitness_of_goodReduction'' (hL) (hU : SpecialFibreUniformizer) (hBD) : HeckeVertWitness`.
+- Composites in VertAll now take `hU : SpecialFibreUniformizer`.
+- Leaf: guard clause `Nonempty (Spec ℚ̄ ⟶ 𝒴.left)` added (reviewer); references reordered
+  (Kottwitz, Buzzard first; Carayol's main construction is for F ≠ ℚ).
+- Review (read-only model agent): leaf TRUE as a weaker consequence; SpecialFibreDVR TRUE;
+  ModelCoordinateGlue TRUE (fix: disjointness of CM sections via finite étale fixed loci, not
+  Hurwitz — applied); VertGauss/VertDVR no hidden triviality.
+- cmp: VertWitness.lean lines 1-1265 = NoVert.lean 1-1265; VertAll.lean lines 1-9854 = HeckeRestAll.lean.
