@@ -5,3 +5,5 @@
 'ZInQ.Contrib.TYZGenus.TYZ35.sum_Pchi' depends on axioms: [propext, Classical.choice, Quot.sound]
 'ZInQ.Contrib.TYZGenus.TYZ35.exists_liftFamily' depends on axioms: [propext, Classical.choice, Quot.sound]
 'ZInQ.Contrib.TYZGenus.TYZ35.sum_Pchi_divisors' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.TYZGenus.TYZ35.thm35First_of_lcal_thm33' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.TYZGenus.TYZ35.tyzThm35ReadingA_of_lcal_shimuraModFn_lemma318_thm33_lemma321Five' depends on axioms: [propext, Classical.choice, Quot.sound]  (Final.lean)
