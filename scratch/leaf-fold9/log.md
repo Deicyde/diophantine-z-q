@@ -27,3 +27,13 @@
   fieldOfModuli3_le, isBaseChangeOfPair_of_iso, unitPt, qmIso_of_isBaseChangeOfPair (rigidityHom),
   residueImage_eq_fieldOfModuliPair. VERIFIED.
 - TailZ5 generated (mk_tailz5.py, 21 KB). Building CloudW07 (714 vendored files) first.
+
+## 12:10 TailZ5 + Main (folds: r1r2-bridge, cloud PR #11) — VERIFIED
+- CloudW07 JacobianExists + NormalModel built (lake build, exit 0).
+- TailZ5 built after one fix (r5fp_of_rep: `rw` motive error through R5ptProps' auxiliary proof; replaced by
+  IntermediateField.equivOfEq transport). 20.6 KB.
+- `lake build +ZInQKernel.OneProof.Main`: exit 0; frozenTarget axioms [propext, Classical.choice, Quot.sound].
+- DumpCompact: 10907 constants; cmp_hashes: 0 removed, 1 changed (frozenTarget), 76 new, all in TailZ5.
+- Check9.lean: sixContactMin_of_open9 standard axioms; closure 212147 constants, no sorryAx; 62 fields
+  (29 + 18 + 14 + 1), 20 with a kernel head constant; axioms of the two W07 proofs and of the bridge theorems standard.
+- Counts (mk_fields9.py): 66 -> 64 -> 62 fields; strict LEAF/GLUE 39/27 -> 39/25 -> 37/25; lenient 55/11 -> 53/11 -> 51/11.

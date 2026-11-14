@@ -74,8 +74,11 @@ theorem r5fp_of_rep (h : LeafAdopt.R1R2fpRep) : LeafQM.AV.R5fp := by
   obtain ⟨Y, Φ, X, Ψ, fY, π₆, -, -, h6, -, -, -, h5, -⟩ := h
   intro k _ _ _ hk R hR hc P hP
   have hx : Ψ (Ψ.symm (Quotient.mk _ P)) = Quotient.mk _ P := Equiv.apply_symm_apply _ _
-  have := h5 k hk R hR hc _ P hx hP
-  rwa [_root_.ZInQ.LeafFold9.residueImage_eq_fieldOfModuliPair h6 _ P hx] at this
+  obtain ⟨h5a, h5b⟩ := h5 k hk R hR hc _ P hx hP
+  have e := _root_.ZInQ.LeafFold9.residueImage_eq_fieldOfModuliPair h6 _ P hx
+  refine ⟨?_, fun hne => (h5b hne).map fun φ => (IntermediateField.equivOfEq e).toAlgHom.comp φ⟩
+  rw [← h5a]
+  exact (IntermediateField.equivOfEq e).toLinearEquiv.finrank_eq.symm
 
 /-! ## The bundles -/
 
