@@ -63,6 +63,11 @@ For comparison only: leaf-fold6's report used older forms (§2.0 there), under w
 51 LEAF / 16 LEAF? / 1 GLUE. The numbers above apply frontier r3's forms to both bundles, so the before and after
 columns are comparable.
 
+**Module layout.** TailP, TailQ, TailR, TailS and TailT import only kernel modules (TailT imports TailS). They hold
+the split tasks' files verbatim, so they could move to `ZInQKernel/Contrib/` unchanged. TailU, TailV and TailW
+import `TailO` (qm-split, the hodge transports, mcr-glue and the H-83 guard, all over the chain's constants). TailX
+imports all of them and holds the bundles. Main imports TailX. The chain from LPrefix to TailO is untouched.
+
 ### 1.1 What changed
 
 Each item below is a field replacement made by compiled theorems. "→" reads "is replaced by".
