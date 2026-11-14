@@ -438,4 +438,129 @@ theorem r20_of_leaves (hF : FaltingsLemma5) (hG : IsogenySemistableBaseChange)
   rw [← hdeg]
   exact hF L A' B' φ' hφ' 𝒩A 𝒩B hA hB sA sB x y hxA hyB
 
+/-! ## §G. H-18, R22 (Pazuki) -/
+
+section R22Sec
+
+open LeafPush2 (CPts IsUniformization IsSiegel IsPeriodMatrix Char2 thetaConst absLogHeight
+  pazukiC2)
+
+variable {F : Type*} [Field F] [NumberField F] {Idx : Type*} [Fintype Idx]
+
+/-- The multiplicative height of a point of `ℙ(F^ι)` with **Euclidean (`ℓ²`) norms at the
+archimedean places** and max norms at the finite ones:
+`∏_{v | ∞} (∑_i |z_i|_v²)^{n_v/2} · ∏_{v ∤ ∞} max_i |z_i|_v` (Mathlib's admissible absolute values of
+a number field: the archimedean ones with multiplicity `n_v`, the finite ones normalized; the
+same data as Mathlib's `Height.mulHeight`, whose archimedean factor is `max_i |z_i|_v`). Junk value
+`1` at `z = 0`. -/
+noncomputable def mulHeightL2 (z : Idx → F) : ℝ :=
+  haveI : Decidable (z = 0) := Classical.propDecidable _
+  if z = 0 then 1 else
+    (Height.AdmissibleAbsValues.archAbsVal.map fun v ↦ Real.sqrt (∑ i, v (z i) ^ 2)).prod *
+      ∏ᶠ v : Height.AdmissibleAbsValues.nonarchAbsVal, ⨆ i, v.val (z i)
+
+/-- The absolute logarithmic `ℓ²`-height `h₂(z) = log(mulHeightL2 z)/[F : ℚ]` (Pazuki's theta height
+uses this archimedean normalization, the Fubini–Study / Euclidean one, locators.md item 5). -/
+noncomputable def absLogHeightL2 (z : Idx → F) : ℝ :=
+  Real.log (mulHeightL2 z) / Module.finrank ℚ F
+
+theorem mulHeight_le_mulHeightL2 [Nonempty Idx] (z : Idx → F) :
+    Height.mulHeight z ≤ mulHeightL2 z := by
+  by_cases hz : z = 0
+  · simp [mulHeightL2, hz]
+  rw [Height.mulHeight_eq hz]
+  simp only [mulHeightL2, hz, ite_false]
+  have hfin : 0 ≤ ∏ᶠ v : Height.AdmissibleAbsValues.nonarchAbsVal (K := F), ⨆ i, v.val (z i) :=
+    finprod_nonneg fun v => le_ciSup_of_le (Finite.bddAbove_range _) (Classical.arbitrary Idx)
+      (v.val.nonneg _)
+  refine mul_le_mul_of_nonneg_right ?_ hfin
+  refine Multiset.prod_map_le_prod_map₀ _ _ (fun v _ => ?_) (fun v _ => ?_)
+  · exact le_ciSup_of_le (Finite.bddAbove_range _) (Classical.arbitrary Idx) (v.nonneg _)
+  · refine ciSup_le fun i => Real.le_sqrt_of_sq_le ?_
+    exact Finset.single_le_sum (f := fun j => v (z j) ^ 2) (fun j _ => sq_nonneg _)
+      (Finset.mem_univ i)
+
+/-- The sup-norm height (the kernel's `absLogHeight`, through Mathlib's `Height.logHeight`) is at
+most the `ℓ²`-height. -/
+theorem absLogHeight_le_absLogHeightL2 [Nonempty Idx] (z : Idx → F) :
+    absLogHeight z ≤ absLogHeightL2 z := by
+  unfold absLogHeight absLogHeightL2 Height.logHeight
+  have hd : (0 : ℝ) < Module.finrank ℚ F := by exact_mod_cast Module.finrank_pos
+  gcongr
+  exact mulHeight_le_mulHeightL2 z
+
+/-- **Leaf R22-Pazuki, Cor. 1.3(2) in its printed two-sided form** (F. Pazuki, *Theta height and
+Faltings height*, Bull. SMF 140 (2012), Cor. 1.3(2), pp. 21-22, `g = r = 2`; Deligne's metric p. 26;
+theta height p. 30; arXiv:0907.1458v2 Cor. 1.3(2) p. 3, Def. 2.1 pp. 6-7, Def. 2.6 p. 9; read by
+the locator audit, docs/research/locators.md item 5): for a principally polarized abelian surface
+`(A, L)` over `ℚ̄` with `H_Θ = max(1, h_Θ(A, L))`, `H_D = max(1, h_D(A))`:
+`|H_Θ − H_D/2| ≤ C₂(2,2) log(min(H_Θ, H_D) + 2)`, `C₂(2,2) = 1000·2⁴·(log 2⁴)⁵`.
+
+Lean reading: `A` an abelian surface over a number field `K` (a specialization: `A_ℚ̄` via any
+embedding), `x` its published stable height (Faltings' normalization), so `h_D = x + log π`
+(Deligne's metric, `g = 2`, locators.md); the principal polarization with a symplectic basis is a
+Siegel matrix `Ω` that is a period matrix of the lattice of a uniformization of `A(ℂ)_σ` (the
+kernel's `IsPeriodMatrix`: `ℂ²/Λ ≅ ℂ²/(Ωℤ²+ℤ²)` carries `(Im Ω)⁻¹`); `h_Θ` is the `ℓ²`-height of the
+theta-null point `[θ[a;b](0, Ω)]_{a,b ∈ {0,½}²}` (any algebraic representative `z`). The
+identification of Pazuki's level-2 theta coordinates (Def. 2.6) with the classical `θ[a;b](0, Ω)`
+is UNVERIFIED (locators.md, leaf-review-b premise 3), as is the algebraicity over `ℚ̄` of every
+analytic principal polarization (Riemann/Lefschetz; standard). -/
+def PazukiCor13 : Prop :=
+  ∀ (K : Type) [Field K] [NumberField K] (A : PkgI3.AbVar K), A.dim = (2 : WithBot ℕ∞) →
+    ∀ x : ℝ, IsStableFaltingsHeight A x →
+    ∀ (σ : K →+* ℂ) (Λ : Submodule ℤ (Fin 2 → ℂ)) (Φ : (Fin 2 → ℂ) → CPts A σ),
+      IsUniformization σ Λ Φ →
+    ∀ Ω : Matrix (Fin 2) (Fin 2) ℂ, IsSiegel Ω → IsPeriodMatrix Λ Ω →
+    ∀ (F : Type) [Field F] [NumberField F] (emb : F →+* ℂ) (z : Char2 → F) (c : ℂ), c ≠ 0 →
+      (∀ m, emb (z m) = c * thetaConst Ω m) →
+      |max 1 (absLogHeightL2 z) - max 1 (x + Real.log Real.pi) / 2| ≤
+        pazukiC2 * Real.log (min (max 1 (absLogHeightL2 z)) (max 1 (x + Real.log Real.pi)) + 2)
+
+theorem pazukiC2_nonneg : 0 ≤ pazukiC2 := by
+  unfold pazukiC2
+  have : 0 < Real.log (2 ^ 4) := Real.log_pos (by norm_num)
+  positivity
+
+/-- **The algebra from the printed corollary to the row's upper bound** (drop the absolute value,
+bound the minimum by `H_D ≤ X`, and `h ≤ H_Θ`). -/
+theorem pazuki_upper_of_two_sided {hΘ hD X C : ℝ} (hC : 0 ≤ C) (hX : max 1 hD ≤ X)
+    (h : |max 1 hΘ - max 1 hD / 2| ≤ C * Real.log (min (max 1 hΘ) (max 1 hD) + 2)) :
+    hΘ ≤ X / 2 + C * Real.log (X + 2) := by
+  have h1 := (abs_le.mp h).2
+  have hmin : min (max 1 hΘ) (max 1 hD) ≤ X := (min_le_right _ _).trans hX
+  have hpos : 0 < min (max 1 hΘ) (max 1 hD) + 2 := by
+    have : (1 : ℝ) ≤ min (max 1 hΘ) (max 1 hD) := le_min (le_max_left _ _) (le_max_left _ _)
+    linarith
+  have hlog : Real.log (min (max 1 hΘ) (max 1 hD) + 2) ≤ Real.log (X + 2) :=
+    Real.log_le_log hpos (by linarith)
+  have h2 : C * Real.log (min (max 1 hΘ) (max 1 hD) + 2) ≤ C * Real.log (X + 2) :=
+    mul_le_mul_of_nonneg_left hlog hC
+  have h3 : hΘ ≤ max 1 hΘ := le_max_right _ _
+  linarith
+
+/-- **H-18: R22 from Pazuki's printed corollary** (two-sided, `ℓ²` theta height, Deligne's `h_D`),
+N1, SS1, SS2 (identification), the comparison sup-norm height `≤` `ℓ²`-height and the algebra.
+No glue beyond the identification leaves. -/
+theorem r22_of_leaves (hP : PazukiCor13) (hN1 : NeronModelExists)
+    (hSS1 : SemistableReductionThm) (hSS2 : SemistableNeronBaseChange) :
+    LeafPush2.R22_Pazuki := by
+  intro K _ _ A hA x hx X hX σ Λ Φ hΦ Ω hΩ hPer F _ _ emb z c hc hz
+  have h := hP K A hA x ((isStableFaltingsHeight_iff hN1 hSS1 hSS2 A x).mpr hx) σ Λ Φ hΦ Ω hΩ hPer
+    F emb z c hc hz
+  exact (absLogHeight_le_absLogHeightL2 z).trans (pazuki_upper_of_two_sided pazukiC2_nonneg hX h)
+
+end R22Sec
+
 end ZInQ.HeightSplit
+
+/-! ## Axiom checks -/
+#print axioms ZInQ.HeightSplit.stableFaltingsHeight_eq_of_semistable
+#print axioms ZInQ.HeightSplit.isStableFaltingsHeight_iff
+#print axioms ZInQ.HeightSplit.isStableFaltingsHeight_unique
+#print axioms ZInQ.HeightSplit.semistableNeronIdentityComponent_of
+#print axioms ZInQ.HeightSplit.stableHeightFinite_of
+#print axioms ZInQ.HeightSplit.r21_of_leaves
+#print axioms ZInQ.HeightSplit.grBostBound_of_bost
+#print axioms ZInQ.HeightSplit.r18_of_leaves
+#print axioms ZInQ.HeightSplit.r20_of_leaves
+#print axioms ZInQ.HeightSplit.r22_of_leaves
