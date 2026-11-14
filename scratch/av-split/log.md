@@ -36,3 +36,10 @@ Base cba8157f (wip/av-split). Build artifacts: copied .lake/build from ~/dzq-wt/
 - `AvSplit.T4.unramifiedSectionsEq : UnramifiedSectionsEq` — proved (Mathlib `isOpenImmersion_diagonal`, separated ⇒ closed diagonal, clopen preimage, `IsOpenImmersion.lift`). Standard axioms. VERIFIED.
 - `AvSplit.T4.stacksHenselEtaleSection : StacksHenselEtaleSection` — proved (Mathlib `Algebra.IsEtaleAt.exists_isStandardEtale` (Stacks 00UE), `StandardEtalePresentation`, `HenselianLocalRing.is_henselian`). Standard axioms. VERIFIED.
 - `AvSplit.T4.reductionTorsionBijective_of_mulEtale : MulEtaleAbelianScheme → PkgI2.ReductionTorsionBijective.{0}`. Standard axioms. VERIFIED. Row H-24 now rests on ONE leaf.
+
+## 04:25 T35AN3.lean (row H-38 without a new leaf)
+- `AvSplit.AN3.card_torsion_torus : #(ℂ^g/Λ)[n] = n^{2g}` (full lattice), proved. VERIFIED.
+- `AvSplit.AN3.eq_dim_of_uniformization` (bp-uniformization φ : ℂ^{g'}/Λ ≃+ A(ℂ), dim A = g ⇒ g' = g, from MumfordTorsionAlgClosed at n = 2). VERIFIED.
+- `AvSplit.AN3.mumfordUniformizationC_of : UniformizationLeafAll → MumfordTorsionAlgClosed → MumfordUniformizationC`. Standard axioms. VERIFIED.
+- With T35.lean: row H-38 ⇐ AN3 (kernel leaf `BPAnalytic.Uniformization.UniformizationLeafAll`) + the H-25 leaf. No new leaf.
+- Found prior work: docs/research/homlattice.md (HomLatticeCorr ⇐ StrongUniformizationExists + GAGAMorphism, scratch/homlattice/HomLattice.lean) and docs/research/t5-torsion.md (T5 from T35 in char 0; T5 from KernelDegree). To be cited.
