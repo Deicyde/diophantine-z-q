@@ -3194,6 +3194,282 @@ cocompactness of a finite-index supergroup, and the comparison of fundamental do
 index). Project glue (measure theory and an index computation). -/
 def GammaStarFromO1 : Prop := ShimizuCovolumeO1 → GammaStarCocompactArea
 
+/-! ### `GammaStarFromO1` bypassed for H-87: the valence formula for `Γ¹` and an index argument
+
+For `z` and the four coset representatives `g_i = ι(1), ι(a4), ι(a6), ι(a4 a6)` of `Γ¹` in `Γ*` (reduced norms
+`1, 2, 3, 6`, pairwise in distinct cosets), the points `g_i z` fall into `r_z` classes of `Γ¹`-equivalence with
+`4 e¹_z ≤ r_z e*_z`; the valence bound for `Γ¹` (Shimizu: total `m/3`) over these points gives
+`4 Σ ord/e* ≤ m/3`. -/
+
+section Index
+
+open HDec.LeafQCheck.VB (gammaStar_mul one_mem_gammaStar')
+
+theorem inO_ofInt (x : PkgI1.B) : PkgI1.InO x ↔ ∃ n : Fin 4 → ℤ, x = LeafQM.ofInt n := by
+  rw [inO_iff]
+  constructor
+  · rintro ⟨n0, n1, n2, n3, rfl⟩
+    exact ⟨![n0, n1, n2, n3], by ext <;> simp [LeafQM.ofInt]⟩
+  · rintro ⟨n, rfl⟩
+    exact ⟨n 0, n 1, n 2, n 3, by ext <;> simp [LeafQM.ofInt]⟩
+
+theorem inO_mul {x y : PkgI1.B} (hx : PkgI1.InO x) (hy : PkgI1.InO y) : PkgI1.InO (x * y) := by
+  obtain ⟨n, rfl⟩ := (inO_ofInt x).1 hx
+  obtain ⟨m, rfl⟩ := (inO_ofInt y).1 hy
+  exact (inO_ofInt _).2 ⟨_, LeafQM.ofInt_mul n m⟩
+
+theorem inO_one : PkgI1.InO (1 : PkgI1.B) :=
+  (inO_ofInt _).2 ⟨![1, 0, 0, 0], by ext <;> simp [LeafQM.ofInt]⟩
+
+theorem inO_star {x : PkgI1.B} (hx : PkgI1.InO x) : PkgI1.InO (star x) := by
+  obtain ⟨n, rfl⟩ := (inO_ofInt x).1 hx
+  exact (inO_ofInt _).2 ⟨![n 0 + n 2, -n 1, -n 2, -n 3], by ext <;> simp [LeafQM.ofInt] <;> ring⟩
+
+theorem mul_star_nrd (x : PkgI1.B) : x * star x = ((nrd x : ℚ) : PkgI1.B) := by
+  rw [QuaternionAlgebra.mul_star_eq_coe]; congr 1; simp [nrd]; ring
+
+theorem star_mul_nrd (x : PkgI1.B) : star x * x = ((nrd x : ℚ) : PkgI1.B) := by
+  rw [QuaternionAlgebra.star_mul_eq_coe]; congr 1; simp [nrd]; ring
+
+/-- `Γ¹` as a subgroup of `GL₂(ℝ)`. -/
+def G1 : Subgroup (GL (Fin 2) ℝ) where
+  carrier := Gamma1
+  one_mem' := ⟨1, inO_one, by rw [iota_one]; rfl, by simp⟩
+  mul_mem' := by
+    rintro a b ⟨x, hx, hax, hda⟩ ⟨y, hy, hby, hdb⟩
+    exact ⟨x * y, inO_mul hx hy, by rw [Units.val_mul, hax, hby, iota_mul],
+      by rw [Units.val_mul, Matrix.det_mul, hda, hdb, one_mul]⟩
+  inv_mem' := by
+    rintro a ⟨x, hx, hax, hda⟩
+    have hn : nrd x = 1 := by
+      have := hda; rw [hax, det_iota_eq] at this; exact_mod_cast this
+    refine ⟨star x, inO_star hx, ?_, ?_⟩
+    · have h1 : (a : Matrix (Fin 2) (Fin 2) ℝ) * PkgI1.iota (star x) = 1 := by
+        rw [hax, ← iota_mul, mul_star_nrd, hn]; simpa using iota_one
+      have := congrArg (fun M => (((a⁻¹ : GL (Fin 2) ℝ) : Matrix (Fin 2) (Fin 2) ℝ)) * M) h1
+      simp only [← mul_assoc, ← Units.val_mul, inv_mul_cancel, Units.val_one, one_mul, mul_one] at this
+      exact this.symm
+    · rw [Matrix.GeneralLinearGroup.coe_inv, Matrix.det_nonsing_inv, hda, Ring.inverse_one]
+
+/-- `Γ*` as a subgroup of `GL₂(ℝ)`. -/
+def Gs : Subgroup (GL (Fin 2) ℝ) where
+  carrier := Γs
+  one_mem' := one_mem_gammaStar'
+  mul_mem' := fun ha hb => gammaStar_mul ha hb
+  inv_mem' := fun ha => gammaStar_inv ha
+
+theorem G1_le : G1 ≤ Gs := by
+  rintro a ⟨x, hx, hax, hda⟩
+  have hn : nrd x = 1 := by
+    have := hda; rw [hax, det_iota_eq] at this; exact_mod_cast this
+  refine ⟨x, ⟨star x, by rw [mul_star_nrd, hn]; simp, by rw [star_mul_nrd, hn]; simp,
+    fun z hz => ⟨inO_mul (inO_mul hx hz) (inO_star hx), inO_mul (inO_mul (inO_star hx) hz) hx⟩⟩,
+    hax, by rw [hda]; norm_num⟩
+
+theorem G1_normal {γ h : GL (Fin 2) ℝ} (hγ : γ ∈ Gs) (hh : h ∈ G1) : γ * h * γ⁻¹ ∈ G1 := by
+  obtain ⟨x, ⟨y, hxy, hyx, hN⟩, hγx, hd⟩ := hγ
+  obtain ⟨w, hw, hhw, hdw⟩ := hh
+  have hinv : ((γ⁻¹ : GL (Fin 2) ℝ) : Matrix (Fin 2) (Fin 2) ℝ) = PkgI1.iota y := by
+    have h1 : (γ : Matrix (Fin 2) (Fin 2) ℝ) * PkgI1.iota y = 1 := by
+      rw [hγx, ← iota_mul, hxy, iota_one]
+    have := congrArg (fun M => (((γ⁻¹ : GL (Fin 2) ℝ) : Matrix (Fin 2) (Fin 2) ℝ)) * M) h1
+    simp only [← mul_assoc, ← Units.val_mul, inv_mul_cancel, Units.val_one, one_mul, mul_one] at this
+    exact this.symm
+  refine ⟨x * w * y, (hN w hw).1, ?_, ?_⟩
+  · rw [Units.val_mul, Units.val_mul, hγx, hhw, hinv, iota_mul, iota_mul]
+  · rw [Units.val_mul, Units.val_mul, Matrix.det_mul, Matrix.det_mul, hdw, mul_one, ← Matrix.det_mul,
+      ← Units.val_mul, mul_inv_cancel, Units.val_one, Matrix.det_one]
+
+/-- The Möbius action as permutations. -/
+abbrev mob : GL (Fin 2) ℝ →* Equiv.Perm UpperHalfPlane := MulAction.toPermHom _ _
+
+def Mstar : Subgroup (Equiv.Perm UpperHalfPlane) := Gs.map mob
+def Mone : Subgroup (Equiv.Perm UpperHalfPlane) := G1.map mob
+
+theorem Mone_normal {σ τ : Equiv.Perm UpperHalfPlane} (hσ : σ ∈ Mstar) (hτ : τ ∈ Mone) :
+    σ * τ * σ⁻¹ ∈ Mone := by
+  obtain ⟨γ, hγ, rfl⟩ := hσ
+  obtain ⟨h, hh, rfl⟩ := hτ
+  exact ⟨γ * h * γ⁻¹, G1_normal hγ hh, by simp [map_mul, map_inv]⟩
+
+/-- Stabilizers. -/
+def Sstar (z : UpperHalfPlane) : Subgroup (Equiv.Perm UpperHalfPlane) :=
+  Mstar ⊓ MulAction.stabilizer (Equiv.Perm UpperHalfPlane) z
+def Sone (z : UpperHalfPlane) : Subgroup (Equiv.Perm UpperHalfPlane) :=
+  Mone ⊓ MulAction.stabilizer (Equiv.Perm UpperHalfPlane) z
+
+theorem card_Sstar (z : UpperHalfPlane) : Nat.card (Sstar z) = HDec.LeafQCheck.VB.ellOrder z := by
+  unfold HDec.LeafQCheck.VB.ellOrder
+  refine Nat.card_congr (Equiv.ofBijective (fun σ => ⟨⇑(σ : Equiv.Perm UpperHalfPlane), ?_⟩) ⟨?_, ?_⟩)
+  · obtain ⟨⟨γ, hγ, hσ⟩, hz⟩ := σ.2
+    refine ⟨γ, hγ, ?_, ?_⟩
+    · have : (σ : Equiv.Perm UpperHalfPlane) z = z := hz
+      rw [← hσ] at this; exact this
+    · rw [← hσ]; rfl
+  · intro σ τ h
+    apply Subtype.ext; apply Equiv.ext; intro w
+    exact congrFun (congrArg Subtype.val h) w
+  · rintro ⟨f, γ, hγ, hz, rfl⟩
+    exact ⟨⟨mob γ, ⟨γ, hγ, rfl⟩, hz⟩, rfl⟩
+
+theorem card_Sone (z : UpperHalfPlane) : Nat.card (Sone z) = ellOrderOf Gamma1 z := by
+  unfold ellOrderOf
+  refine Nat.card_congr (Equiv.ofBijective (fun σ => ⟨⇑(σ : Equiv.Perm UpperHalfPlane), ?_⟩) ⟨?_, ?_⟩)
+  · obtain ⟨⟨γ, hγ, hσ⟩, hz⟩ := σ.2
+    refine ⟨γ, hγ, ?_, ?_⟩
+    · have : (σ : Equiv.Perm UpperHalfPlane) z = z := hz
+      rw [← hσ] at this; exact this
+    · rw [← hσ]; rfl
+  · intro σ τ h
+    apply Subtype.ext; apply Equiv.ext; intro w
+    exact congrFun (congrArg Subtype.val h) w
+  · rintro ⟨f, γ, hγ, hz, rfl⟩
+    exact ⟨⟨mob γ, ⟨γ, hγ, rfl⟩, hz⟩, rfl⟩
+
+theorem Sone_le (z : UpperHalfPlane) : Sone z ≤ Sstar z :=
+  inf_le_inf_right _ (Subgroup.map_mono G1_le)
+
+/-- `e¹` is constant along `Γ*`-orbits (`Γ¹` is normal in `Γ*`). -/
+theorem card_Sone_smul {γ : GL (Fin 2) ℝ} (hγ : γ ∈ Gs) (z : UpperHalfPlane) :
+    Nat.card (Sone (γ • z)) = Nat.card (Sone z) := by
+  have hσ : mob γ ∈ Mstar := ⟨γ, hγ, rfl⟩
+  have hσi : (mob γ)⁻¹ ∈ Mstar := Mstar.inv_mem hσ
+  refine Nat.card_congr ⟨fun τ => ⟨(mob γ)⁻¹ * τ * mob γ, ?_, ?_⟩,
+    fun τ => ⟨mob γ * τ * (mob γ)⁻¹, ?_, ?_⟩, ?_, ?_⟩
+  · have := Mone_normal hσi τ.2.1; rwa [inv_inv] at this
+  · change ((mob γ)⁻¹ * τ * mob γ) z = z
+    have hτ : (τ : Equiv.Perm UpperHalfPlane) (γ • z) = γ • z := τ.2.2
+    simp only [Equiv.Perm.coe_mul, Function.comp]
+    change (mob γ)⁻¹ ((τ : Equiv.Perm UpperHalfPlane) (γ • z)) = z
+    rw [hτ]; simp
+  · exact Mone_normal hσ τ.2.1
+  · change (mob γ * τ * (mob γ)⁻¹) (γ • z) = γ • z
+    have hτ : (τ : Equiv.Perm UpperHalfPlane) z = z := τ.2.2
+    simp only [Equiv.Perm.coe_mul, Function.comp]
+    have e : (mob γ)⁻¹ (γ • z) = z := by simp
+    rw [e, hτ]; rfl
+  · intro τ; apply Subtype.ext; simp [mul_assoc]
+  · intro τ; apply Subtype.ext; simp [mul_assoc]
+
+/-- The four coset representatives `1, a4, a6, a4 a6` (reduced norms `1, 2, 3, 6`) and their inverses. -/
+def rep4 : Fin 4 → PkgI1.B := ![1, a4, a6, a4 * a6]
+def rep4i : Fin 4 → PkgI1.B := ![1, a4i, a6i, a6i * a4i]
+
+theorem nd_rep (i : Fin 4) : NormData (rep4 i) (rep4i i) := by
+  fin_cases i
+  · exact NormData.one
+  · exact nd_a4
+  · exact nd_a6
+  · exact nd_a4.mul nd_a6
+
+def g4 (i : Fin 4) : GL (Fin 2) ℝ := glOf (rep4 i) (nd_rep i).2.2.2.ne'
+
+theorem g4_mem (i : Fin 4) : g4 i ∈ Gs := glOf_mem (nd_rep i)
+
+theorem nrd_rep (i : Fin 4) : nrd (rep4 i) = ((![1, 2, 3, 6] : Fin 4 → ℤ) i : ℚ) := by
+  fin_cases i <;> simp [rep4, nrd_mul, nrd, a4, a6] <;> norm_num
+
+theorem g4_inv_coe (i : Fin 4) :
+    (((g4 i)⁻¹ : GL (Fin 2) ℝ) : Matrix (Fin 2) (Fin 2) ℝ) = PkgI1.iota (rep4i i) := by
+  have h1 : ((g4 i : GL (Fin 2) ℝ) : Matrix (Fin 2) (Fin 2) ℝ) * PkgI1.iota (rep4i i) = 1 := by
+    rw [g4, coe_glOf, ← iota_mul, (nd_rep i).1, iota_one]
+  have := congrArg (fun M => ((((g4 i)⁻¹ : GL (Fin 2) ℝ)) : Matrix (Fin 2) (Fin 2) ℝ) * M) h1
+  simp only [← mul_assoc, ← Units.val_mul, inv_mul_cancel, Units.val_one, one_mul, mul_one] at this
+  exact this.symm
+
+/-- A matrix of positive determinant acting trivially on `ℍ` is scalar. -/
+theorem scalar_of_trivial {γ : GL (Fin 2) ℝ} (hd : 0 < (γ : Matrix (Fin 2) (Fin 2) ℝ).det)
+    (h : ∀ z : UpperHalfPlane, γ • z = z) :
+    (γ : Matrix (Fin 2) (Fin 2) ℝ) 1 0 = 0 ∧ (γ : Matrix (Fin 2) (Fin 2) ℝ) 0 1 = 0 ∧
+      (γ : Matrix (Fin 2) (Fin 2) ℝ) 0 0 = (γ : Matrix (Fin 2) (Fin 2) ℝ) 1 1 := by
+  have hd' : 0 < γ.det.val := by rwa [Matrix.GeneralLinearGroup.val_det_apply]
+  have key : ∀ z : UpperHalfPlane,
+      ((γ : Matrix (Fin 2) (Fin 2) ℝ) 0 0 : ℂ) * z + ((γ : Matrix (Fin 2) (Fin 2) ℝ) 0 1 : ℂ) =
+        (z : ℂ) * (((γ : Matrix (Fin 2) (Fin 2) ℝ) 1 0 : ℂ) * z + ((γ : Matrix (Fin 2) (Fin 2) ℝ) 1 1 : ℂ)) := by
+    intro z
+    have e : ((γ • z : UpperHalfPlane) : ℂ) = (z : ℂ) := congrArg (fun w : UpperHalfPlane => (w : ℂ)) (h z)
+    rw [UpperHalfPlane.coe_smul_of_det_pos hd', div_eq_iff (denom_ne_zero γ z)] at e
+    simpa [UpperHalfPlane.num, UpperHalfPlane.denom, mul_comm] using e
+  have k1 := key UpperHalfPlane.I
+  have k2 := key ⟨2 * Complex.I, by simp⟩
+  simp only [UpperHalfPlane.coe_I] at k1
+  simp only [UpperHalfPlane.coe_mk] at k2
+  have r1 := congrArg Complex.re k1; have i1 := congrArg Complex.im k1
+  have r2 := congrArg Complex.re k2
+  simp at r1 i1 r2
+  refine ⟨by linarith, by linarith, by linarith⟩
+
+theorem rat_of_scalar {u : PkgI1.B} (h10 : PkgI1.iota u 1 0 = 0) (h01 : PkgI1.iota u 0 1 = 0)
+    (h00 : PkgI1.iota u 0 0 = PkgI1.iota u 1 1) : u.imI = 0 ∧ u.imJ = 0 ∧ u.imK = 0 := by
+  rw [iota_apply] at h10 h01 h00
+  simp at h10 h01 h00
+  have hs : (0 : ℝ) < √2 := Real.sqrt_pos.2 (by norm_num)
+  have hK : (u.imK : ℝ) = 0 := by
+    have : (u.imK : ℝ) * √2 = 0 := by linarith
+    exact (mul_eq_zero.1 this).resolve_right hs.ne'
+  have hJ : (u.imJ : ℝ) = 0 := by rw [hK] at h10; linarith
+  have hI : (u.imI : ℝ) = 0 := by
+    have : (u.imI : ℝ) * √2 = 0 := by linarith
+    exact (mul_eq_zero.1 this).resolve_right hs.ne'
+  exact ⟨by exact_mod_cast hI, by exact_mod_cast hJ, by exact_mod_cast hK⟩
+
+theorem not_sq_q (q : ℚ) (c : ℤ) (hc : ¬ IsSquare c) (h : q * q = c) : False := by
+  have h1 : IsSquare (c : ℚ) := ⟨q, by rw [← h]⟩
+  rw [Rat.isSquare_iff] at h1
+  simp at h1
+  exact hc h1
+
+/-- **The four representatives lie in distinct cosets of `Γ¹`** (norms `1, 2, 3, 6` are distinct modulo
+squares). -/
+theorem coset_distinct {i j : Fin 4} (hij : i ≠ j) : (mob (g4 i))⁻¹ * mob (g4 j) ∉ Mone := by
+  rintro ⟨h, ⟨w, hw, hhw, hdw⟩, hmob⟩
+  set γ := (g4 i)⁻¹ * g4 j * h⁻¹ with hγ
+  have hone : mob γ = 1 := by
+    rw [hγ, map_mul, map_mul, map_inv, map_inv, hmob]; group
+  have htriv : ∀ z : UpperHalfPlane, γ • z = z := fun z => by
+    have := congrArg (fun σ : Equiv.Perm UpperHalfPlane => σ z) hone
+    simpa using this
+  have hn : nrd w = 1 := by
+    have := hdw; rw [hhw, det_iota_eq] at this; exact_mod_cast this
+  have hhinv : ((h⁻¹ : GL (Fin 2) ℝ) : Matrix (Fin 2) (Fin 2) ℝ) = PkgI1.iota (star w) := by
+    have h1 : ((h : GL (Fin 2) ℝ) : Matrix (Fin 2) (Fin 2) ℝ) * PkgI1.iota (star w) = 1 := by
+      rw [hhw, ← iota_mul, mul_star_nrd, hn]; simpa using iota_one
+    have := congrArg (fun M => (((h⁻¹ : GL (Fin 2) ℝ)) : Matrix (Fin 2) (Fin 2) ℝ) * M) h1
+    simp only [← mul_assoc, ← Units.val_mul, inv_mul_cancel, Units.val_one, one_mul, mul_one] at this
+    exact this.symm
+  set u := rep4i i * rep4 j * star w with hu
+  have hγu : (γ : Matrix (Fin 2) (Fin 2) ℝ) = PkgI1.iota u := by
+    rw [hγ, Units.val_mul, Units.val_mul, g4_inv_coe, hhinv, g4, coe_glOf, hu, iota_mul, iota_mul]
+  have hdγ : 0 < (γ : Matrix (Fin 2) (Fin 2) ℝ).det := by
+    rw [hγu, det_iota_eq, hu, nrd_mul, nrd_mul]
+    have h1 := (nd_rep j).2.2.2
+    have h2 := (nd_rep i)
+    have hni : nrd (rep4i i) * nrd (rep4 i) = 1 := by rw [← nrd_mul, h2.2.1]; simp [nrd]
+    have hpos : 0 < nrd (rep4i i) := by
+      by_contra hneg; push Not at hneg; nlinarith [h2.2.2.2]
+    have hs : nrd (star w) = 1 := by simp [nrd] at hn ⊢; linarith
+    rw [hs]; exact_mod_cast mul_pos (mul_pos hpos h1) one_pos
+  obtain ⟨s10, s01, s00⟩ := scalar_of_trivial hdγ htriv
+  rw [hγu] at s10 s01 s00
+  obtain ⟨hI, hJ, hK⟩ := rat_of_scalar s10 s01 s00
+  -- `nrd u = u.re²`
+  have hnu : nrd u = u.re * u.re := by simp [nrd, hI, hJ, hK]; ring
+  have hni : nrd (rep4i i) * nrd (rep4 i) = 1 := by rw [← nrd_mul, (nd_rep i).2.1]; simp [nrd]
+  have hs : nrd (star w) = 1 := by simp [nrd] at hn ⊢; linarith
+  have hprod : nrd (rep4 i) * nrd (rep4 j) = (u.re * nrd (rep4 i)) * (u.re * nrd (rep4 i)) := by
+    have : nrd u = nrd (rep4i i) * nrd (rep4 j) := by rw [hu, nrd_mul, nrd_mul, hs, mul_one]
+    rw [hnu] at this
+    have e : nrd (rep4 j) = nrd (rep4 i) * (nrd (rep4i i) * nrd (rep4 j)) := by
+      rw [← mul_assoc, mul_comm (nrd (rep4 i)), hni, one_mul]
+    rw [e, ← this]; ring
+  rw [nrd_rep i, nrd_rep j] at hprod
+  have hsq : ∀ a b : Fin 4, a ≠ b →
+      ¬ IsSquare ((![1, 2, 3, 6] : Fin 4 → ℤ) a * (![1, 2, 3, 6] : Fin 4 → ℤ) b) := by decide +kernel
+  exact not_sq_q (u.re * ((![1, 2, 3, 6] : Fin 4 → ℤ) i : ℚ)) _ (hsq i j hij)
+    (by push_cast; linarith)
+
+end Index
+
 include hT hV hC in
 /-- **Row H-88 from published leaves and project glue**: the valence formula, Shimizu's volume formula, the
 glue from `𝒪¹` to `Γ*`, the CM value (and the bundle leaf `r4`). -/
