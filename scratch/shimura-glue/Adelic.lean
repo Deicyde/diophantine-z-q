@@ -631,4 +631,169 @@ theorem U3_le : U3 ≤ K3.map nrdU := by
   refine ⟨k, ⟨hk, ofQ m', ⟨m', fun i => adeleHom_mem _, rfl⟩, ?_⟩, hku⟩
   rw [hkk, ofQ_e0]
 
+
+/-! ### `𝔸_f^× = ℚ^×_{>0} · ℤ̂^×`, with unique factors -/
+
+/-- The local isomorphism `ℚ_v ≅ ℚ_p` (Mathlib's `padicEquiv`), as a ring isomorphism. -/
+def locQ (v : Place) : v.adicCompletion ℚ ≃+* ℚ_[primesEquiv v] :=
+  (adicCompletion.padicEquiv (R := ℤ) v : v.adicCompletion ℚ ≃+* ℚ_[primesEquiv v])
+
+theorem locQ_rat (v : Place) (q : ℚ) :
+    locQ v (algebraMap ℚ (v.adicCompletion ℚ) q) = (q : ℚ_[primesEquiv v]) := by
+  change adicCompletion.padicEquiv (R := ℤ) v (algebraMap ℚ _ q) = _
+  rw [AlgHomClass.commutes, eq_ratCast]
+
+theorem mem_iff_norm (v : Place) (x : v.adicCompletion ℚ) :
+    x ∈ v.adicCompletionIntegers ℚ ↔ ‖locQ v x‖ ≤ 1 := by
+  constructor
+  · intro hx; exact (adicCompletion.padicEquiv_bijOn (R := ℤ) v).mapsTo hx
+  · intro hx
+    obtain ⟨x', hx', he⟩ := (adicCompletion.padicEquiv_bijOn (R := ℤ) v).surjOn
+      (show locQ v x ∈ PadicInt.subring (primesEquiv v) from hx)
+    rwa [(adicCompletion.padicEquiv (R := ℤ) v).injective he] at hx'
+
+/-- `‖a_v‖_v` (the `p`-adic norm of the `v`-component). -/
+def nrm (v : Place) (a : Af) : ℝ := ‖locQ v (a v)‖
+
+theorem nrm_mul (v : Place) (a b : Af) : nrm v (a * b) = nrm v a * nrm v b := by
+  simp only [nrm, ← ev_apply, map_mul, norm_mul]
+
+theorem nrm_one (v : Place) : nrm v 1 = 1 := by
+  simp only [nrm, ← ev_apply, map_one, norm_one]
+
+theorem nrm_unit (s : Afˣ) (v : Place) : nrm v s * nrm v ↑s⁻¹ = 1 := by
+  rw [← nrm_mul, Units.mul_inv, nrm_one]
+
+theorem nrm_eq_one_of_mem {s : Afˣ} {v : Place} (h1 : (s : Af) v ∈ v.adicCompletionIntegers ℚ)
+    (h2 : ((s⁻¹ : Afˣ) : Af) v ∈ v.adicCompletionIntegers ℚ) : nrm v s = 1 := by
+  have a := (mem_iff_norm v _).1 h1
+  have b := (mem_iff_norm v _).1 h2
+  have c := nrm_unit s v
+  have d : 0 ≤ nrm v ↑s⁻¹ := norm_nonneg _
+  change nrm v s ≤ 1 at a
+  change nrm v ↑s⁻¹ ≤ 1 at b
+  by_contra hne
+  have hlt : nrm v s < 1 := lt_of_le_of_ne a hne
+  have : nrm v s * nrm v ↑s⁻¹ < 1 :=
+    calc _ ≤ nrm v s * 1 := mul_le_mul_of_nonneg_left b (norm_nonneg _)
+      _ < 1 := by linarith
+  linarith
+
+theorem mem_ZhatU_iff (s : Afˣ) : s ∈ ZhatU ↔ ∀ v, nrm v s = 1 := by
+  constructor
+  · rintro ⟨h1, h2⟩ v; exact nrm_eq_one_of_mem (h1 v) (h2 v)
+  · intro h
+    refine ⟨fun v => (mem_iff_norm v _).2 (h v).le, fun v => (mem_iff_norm v _).2 ?_⟩
+    have := nrm_unit s v; rw [h v, one_mul] at this; exact this.le
+
+/-- The embedding `ℚ^× → 𝔸_f^×`. -/
+abbrev emb : ℚˣ →* Afˣ := FiniteAdeleRing.unitEmbedding ℤ ℚ
+
+theorem nrm_emb (v : Place) (q : ℚˣ) : nrm v (emb q) = ‖((q : ℚ) : ℚ_[primesEquiv v])‖ := by
+  unfold nrm
+  rw [show ((emb q : Afˣ) : Af) v = algebraMap ℚ (v.adicCompletion ℚ) (q : ℚ) from rfl, locQ_rat]
+
+theorem norm_prime_ne {p q : Nat.Primes} (h : p ≠ q) : ‖((q : ℕ) : ℚ_[p])‖ = 1 := by
+  rw [Padic.norm_natCast_eq_one_iff]
+  exact (Nat.coprime_primes p.2 q.2).2 fun e => h (Subtype.ext e)
+
+/-- **Existence**: every `s ∈ 𝔸_f^×` is `q·u` with `q ∈ ℚ^×_{>0}`, `u ∈ ℤ̂^×`. -/
+theorem exists_decomp (s : Afˣ) : ∃ q : ℚˣ, q ∈ posQ ∧ s * (emb q)⁻¹ ∈ ZhatU := by
+  classical
+  have hfin : {v : Place | ¬ ((s : Af) v ∈ v.adicCompletionIntegers ℚ ∧
+      ((s⁻¹ : Afˣ) : Af) v ∈ v.adicCompletionIntegers ℚ)}.Finite :=
+    Filter.eventually_cofinite.1 ((FiniteAdeleRing.cofinite_mem_adicCompletionIntegers (s : Af)).and
+      (FiniteAdeleRing.cofinite_mem_adicCompletionIntegers ((s⁻¹ : Afˣ) : Af)))
+  set S := hfin.toFinset
+  set e : Place → ℤ := fun v => Padic.valuation (locQ v ((s : Af) v))
+  set q : ℚ := ∏ v ∈ S, (((primesEquiv v : ℕ) : ℚ) ^ (e v)) with hqdef
+  have hq : 0 < q := Finset.prod_pos fun v _ => zpow_pos (by exact_mod_cast (primesEquiv v).2.pos) _
+  refine ⟨Units.mk0 q hq.ne', hq, ?_⟩
+  rw [mem_ZhatU_iff]; intro w
+  have hqw : ‖((q : ℚ) : ℚ_[primesEquiv w])‖ =
+      if w ∈ S then ((primesEquiv w : ℕ) : ℝ) ^ (-e w) else 1 := by
+    rw [hqdef]; push_cast; rw [norm_prod]
+    rw [Finset.prod_congr rfl (g := fun v => if v = w then ((primesEquiv w : ℕ) : ℝ) ^ (-e w) else 1)]
+    · exact Finset.prod_ite_eq' S w _
+    · intro v _
+      by_cases hvw : v = w
+      · subst hvw; simp only [if_true]; exact Padic.norm_p_zpow _
+      · rw [if_neg hvw, norm_zpow, norm_prime_ne, one_zpow]
+        exact fun h => hvw (primesEquiv.injective h.symm)
+  have hsw : (s : Af) w ≠ 0 := by
+    intro h0
+    have := congrArg (ev w) (Units.mul_inv s)
+    rw [map_mul, map_one, ev_apply, ev_apply, h0, zero_mul] at this
+    exact zero_ne_one this
+  have hinv : nrm w ((emb (Units.mk0 q hq.ne'))⁻¹ : Afˣ) = ‖((q : ℚ) : ℚ_[primesEquiv w])‖⁻¹ := by
+    rw [← map_inv, nrm_emb]; simp
+  rw [Units.val_mul, nrm_mul, hinv, hqw]
+  by_cases hw : w ∈ S
+  · rw [if_pos hw]
+    have : nrm w s = ((primesEquiv w : ℕ) : ℝ) ^ (-e w) := by
+      simp only [nrm, e]
+      exact Padic.norm_eq_zpow_neg_valuation ((_root_.map_ne_zero _).2 hsw)
+    rw [this, mul_inv_cancel₀ (_root_.zpow_ne_zero _ (by exact_mod_cast (primesEquiv w).2.ne_zero))]
+  · rw [if_neg hw, inv_one, mul_one]
+    have hw' : w ∉ {v : Place | ¬ ((s : Af) v ∈ v.adicCompletionIntegers ℚ ∧
+        ((s⁻¹ : Afˣ) : Af) v ∈ v.adicCompletionIntegers ℚ)} := by
+      simpa [S] using hw
+    simp only [Set.mem_setOf_eq, not_not] at hw'
+    exact nrm_eq_one_of_mem hw'.1 hw'.2
+
+/-- **Uniqueness**: `ℚ^×_{>0} ∩ ℤ̂^× = 1`. -/
+theorem posQ_ZhatU {q : ℚˣ} (hq : q ∈ posQ) (h : emb q ∈ ZhatU) : q = 1 := by
+  have key : ∀ p : Nat.Primes, ‖((q : ℚ) : ℚ_[p])‖ = 1 := by
+    intro p
+    obtain ⟨w, rfl⟩ := (primesEquiv (R := ℤ)).surjective p
+    rw [← nrm_emb]; exact (mem_ZhatU_iff _).1 h w
+  have hq0 : 0 < (q : ℚ) := hq
+  have hnorm : ∀ p : Nat.Primes, ‖(((q : ℚ).num : ℤ) : ℚ_[p])‖ = ‖(((q : ℚ).den : ℕ) : ℚ_[p])‖ := by
+    intro p
+    have h1 := key p
+    rw [Rat.cast_def, norm_div] at h1
+    have hd : ‖(((q : ℚ).den : ℕ) : ℚ_[p])‖ ≠ 0 := by
+      rw [norm_ne_zero_iff]; exact_mod_cast (q : ℚ).den_nz
+    field_simp at h1; linarith
+  have hnum : (q : ℚ).num.natAbs = 1 := by
+    by_contra hne
+    obtain ⟨p, hp, hpd⟩ := Nat.exists_prime_and_dvd hne
+    haveI : Fact p.Prime := ⟨hp⟩
+    have h1 : ‖(((q : ℚ).num : ℤ) : ℚ_[p])‖ < 1 := by
+      rw [Padic.norm_intCast_lt_one_iff]; exact Int.natCast_dvd.2 hpd
+    have h2 : ‖(((q : ℚ).den : ℕ) : ℚ_[p])‖ = 1 := by
+      rw [Padic.norm_natCast_eq_one_iff]
+      exact Nat.Coprime.coprime_dvd_left hpd (q : ℚ).reduced
+    have : ‖(((q : ℚ).num : ℤ) : ℚ_[p])‖ = ‖(((q : ℚ).den : ℕ) : ℚ_[p])‖ := hnorm ⟨p, hp⟩
+    rw [h2] at this; linarith
+  have hden : (q : ℚ).den = 1 := by
+    by_contra hne
+    obtain ⟨p, hp, hpd⟩ := Nat.exists_prime_and_dvd hne
+    haveI : Fact p.Prime := ⟨hp⟩
+    have h1 : ‖(((q : ℚ).den : ℕ) : ℚ_[p])‖ < 1 := by
+      rw [Padic.norm_natCast_lt_one_iff]; exact hpd
+    have h2 : ‖(((q : ℚ).num : ℤ) : ℚ_[p])‖ = 1 := by
+      have : ((q : ℚ).num : ℤ) = 1 ∨ ((q : ℚ).num : ℤ) = -1 := Int.natAbs_eq_iff.1 hnum |>.imp
+        (by simp) (by simp)
+      rcases this with h | h <;> rw [h] <;> simp
+    have : ‖(((q : ℚ).num : ℤ) : ℚ_[p])‖ = ‖(((q : ℚ).den : ℕ) : ℚ_[p])‖ := hnorm ⟨p, hp⟩
+    rw [h2] at this; linarith
+  have hnum' : (q : ℚ).num = 1 := by
+    have := Rat.num_pos.2 hq0
+    omega
+  apply Units.ext
+  rw [Units.val_one, ← Rat.num_div_den (q : ℚ), hnum', hden]; norm_num
+
+theorem posQ_div {q q' : ℚˣ} (hq : q ∈ posQ) (hq' : q' ∈ posQ) : q * q'⁻¹ ∈ posQ :=
+  posQ.mul_mem hq (posQ.inv_mem hq')
+
+/-- Uniqueness of the factorization `s = q·u`. -/
+theorem decomp_unique {q q' : ℚˣ} (hq : q ∈ posQ) (hq' : q' ∈ posQ) {u u' : Afˣ} (hu : u ∈ ZhatU)
+    (hu' : u' ∈ ZhatU) (h : emb q * u = emb q' * u') : q = q' := by
+  have : emb (q * q'⁻¹) = u' * u⁻¹ := by
+    rw [map_mul, map_inv, eq_mul_inv_iff_mul_eq, mul_right_comm, h, mul_comm (emb q') u', mul_assoc,
+      mul_inv_cancel, mul_one]
+  have h1 := posQ_ZhatU (posQ_div hq hq') (this ▸ ZhatU.mul_mem hu' (ZhatU.inv_mem hu))
+  rw [mul_inv_eq_one] at h1; exact h1
+
 end ShimuraGlue
