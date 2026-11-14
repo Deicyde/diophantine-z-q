@@ -33,3 +33,12 @@
 - FINDING (Iff.rfl, compiled): `ConicCanonical ↔ X6Kummer.X6ConicModel` and `ConnectedCanonical ↔ TSHecke.Y3Connected`
   hold by `Iff.rfl`: qm-glue's LEAF-forms for H-43 and H-59 are the rows verbatim; H-43 was not reduced by
   qm-glue/coarse-factor (`x6ConicModel_of_canonical''` is "row from row + extra hypotheses").
+
+## Step 4: Y3Conn.lean (kernel imports) — COMPILED, standard axioms
+- Definitions: `baseQbar Y = pullback Y.hom (Spec ℚ̄ → Spec ℚ)`, `galAct Y σ = id × Spec σ`, `galActπ₀` (induced map on
+  `ConnectedComponents`), `chi3 σ : (ZMod 3)ˣ` (1 iff σ fixes the primitive cube roots of unity).
+- LEAF (consequence of Deligne's π₀ theorem, specialized to K₃) `DeligneComponentsY3`: some fine witness has
+  `c : π₀(Y_ℚ̄) ≃ (ZMod 3)ˣ` with `c(σ·z) = χ₃(σ)·c(z)`.
+- Proved: `exists_chi3_neg` (some σ moves ζ₃; `Normal.minpoly_eq_iff_mem_orbit`, `cyclotomic_eq_minpoly_rat`),
+  `units_zmod3` (decide), `y3Connected_of_deligne : DeligneComponentsY3 → ∃ Y Φ, R1fpProps Y Φ ∧ ConnectedSpace Y.left`
+  (= body of TSHecke.Y3Connected): the orbit computation.
