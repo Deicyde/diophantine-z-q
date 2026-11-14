@@ -64,6 +64,7 @@ jobs:
           import concurrent.futures
           import datetime
           import functools
+          import hashlib
           import json
           import math
           import os
@@ -392,7 +393,7 @@ jobs:
                       "tools": [{"name": t["name"], "description": t["description"], "input_schema": t["parameters"]} for t in TOOLS] + [
                           {"type": "web_search_20260318", "name": "web_search", "max_uses": WEB_MAX_USES['web_search']},
                           {"type": "web_fetch_20260318", "name": "web_fetch", "max_uses": WEB_MAX_USES['web_fetch'],
-                           "max_content_tokens": WEB_FETCH_MAX_CONTENT_TOKENS}]}
+                           "max_content_tokens": WEB_FETCH_MAX_CONTENT_TOKENS, "response_inclusion": "excluded"}]}
 
 
           def request_size(body):
@@ -455,6 +456,33 @@ jobs:
                       'fetch_text_tokens_per_result': WEB_FETCH_MAX_CONTENT_TOKENS,
                       'scope': 'Direct calls share the current turn limit; programmatic calls reset per request. '
                                'Fetch text may be truncated by the provider; do not claim to have read omitted text.'}
+
+
+          def web_response_observation(output, usage, response_id, turn):
+              """Record transport metadata only, never document bodies or signed thinking."""
+              results = []
+              for block in output:
+                  if block.get('type') not in {'web_fetch_tool_result', 'web_search_tool_result'}:
+                      continue
+                  content = block.get('content')
+                  document = content.get('content', {}) if isinstance(content, dict) else {}
+                  source = document.get('source', {}) if isinstance(document, dict) else {}
+                  data = source.get('data') if isinstance(source, dict) else None
+                  results.append({'type': block['type'], 'tool_use_id': block.get('tool_use_id'),
+                                  'source_type': source.get('type') if isinstance(source, dict) else None,
+                                  'document_payload_present': isinstance(data, str),
+                                  'document_payload_bytes': len(data.encode('utf-8')) if isinstance(data, str) else 0,
+                                  'text_may_be_truncated': source.get('type') == 'text' if isinstance(source, dict) else False,
+                                  'result_bytes': request_size(block)})
+              reported = (usage or {}).get('server_tool_use') or {}
+              fetches = reported.get('web_fetch_requests')
+              returned = sum(r['type'] == 'web_fetch_tool_result' for r in results)
+              return {'turn': turn, 'response_id': response_id,
+                      'assistant_content_sha256': hashlib.sha256(json.dumps(output, ensure_ascii=False).encode()).hexdigest(),
+                      'reported_web_usage': reported, 'returned_results': results,
+                      'unreturned_reported_fetches': max(0, fetches - returned) if type(fetches) is int else None,
+                      'omission_note': 'When call/result pairs are omitted, their identities and success are not observable here. Counts alone do not prove omission worked.',
+                      'next_request': {'status': 'not sent; guard, final decision, or failure may end the review'}}
 
 
           def context_estimate(family, system, conversation, previous=None):
@@ -646,7 +674,7 @@ jobs:
               def run(self):
                   conversation = [{"role": "user", "content": json.dumps(self.input)}]
                   record(self.family + "-input.json", {"instructions": self.instructions, "input": self.input})
-                  turns, previous = [], None
+                  turns, previous, web_trace = [], None, []
                   instructions, finish_sent = self.instructions, False
                   def check_computations():
                       failed = failed_computation_checks(self.gh, self.pr['head']['sha'], self.pr['base']['ref'])
@@ -673,8 +701,20 @@ jobs:
                                  'projected': projected, 'reviewer_output_reserve': REVIEWER_OUTPUT_RESERVE})
                       budget = context_budget(self.family, instructions, conversation, previous)
                       check_computations()
+                      replay_hash = None
+                      if self.family == 'fable' and web_trace:
+                          last_assistant = next(m['content'] for m in reversed(conversation) if m.get('role') == 'assistant')
+                          replay_hash = hashlib.sha256(json.dumps(last_assistant, ensure_ascii=False).encode()).hexdigest()
                       output, served, usage, response_id, stop_reason = model_turn(
                           self.family, instructions, conversation, before_retry=check_computations)
+                      if self.family == 'fable':
+                          if web_trace:
+                              web_trace[-1]['next_request'] = {
+                                  'status': 'accepted response received', 'response_id': response_id,
+                                  'reported_input_tokens': (usage or {}).get('request_start_input_tokens'),
+                                  'assistant_replayed_unchanged': replay_hash == web_trace[-1]['assistant_content_sha256']}
+                          web_trace.append(web_response_observation(output, usage, response_id, turn + 1))
+                          record('fable-web-results.json', web_trace)
                       previous = {**budget, 'usage': usage,
                                   'server_tools': any(x.get('type') == 'server_tool_use' for x in output)}
                       if served != MODELS[self.family]:
