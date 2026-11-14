@@ -17,7 +17,7 @@ C2 `CoordinateFromSections` of `scratch/mcr-glue/MCRGlue.lean` (copied verbatim 
 - Computation (py/units.py, VERIFIED): all 72 classes of `(𝒪/3𝒪)^×` (coordinates in the basis
   `1, i, (1+j)/2, (i+k)/2`) contain a unit of `𝒪` (reduced norm ±1) with coordinates in [-3,3].
 
-## Step 1 (07:45) — VERIFIED (MCRQuot.lean = MCRGlue.lean + parts 1-2; exit 0)
+## Step 1 (07:00) — VERIFIED (MCRQuot.lean = MCRGlue.lean + parts 1-2; exit 0)
 - `MCRQuot.exists_unit_congr`: `u₀ ∈ 𝒪` invertible mod `3𝒪` ⇒ some `u ∈ 𝒪^×` with `u ≡ u₀ mod 3𝒪`
   (`𝒪^× ↠ (𝒪/3𝒪)^×`), from `unit_table` (81 cases by `fin_cases`, witnesses from py/units.py,
   checked by `decide`) and the norm form `nrdZ` (`nrdZ_mul`, by `ring`).
@@ -28,7 +28,7 @@ C2 `CoordinateFromSections` of `scratch/mcr-glue/MCRGlue.lean` (copied verbatim 
   twist-equivalent fibres differ by an element of `fibreAut` (Hecke clauses + `Level3.torsor`
   + `exists_unit_congr` + moduli injectivity).
 
-## Step 2 (08:30) — VERIFIED (parts 1-3; exit 0)
+## Step 2 (07:07) — VERIFIED (parts 1-3; exit 0)
 - `MCRQuot.exists_root_smul`, `MCRQuot.exists_comp_smul_eq` (pure algebra): for `A → B` with
   `Algebra.IsInvariant A B G`, `G` finite, two ring maps `φ φ' : B → K` (K a field) agreeing on `A`
   satisfy `φ' = φ ∘ (g • ·)` for some `g ∈ G`. (transitivity on primes + stabilizer onto residue
@@ -39,7 +39,7 @@ C2 `CoordinateFromSections` of `scratch/mcr-glue/MCRGlue.lean` (copied verbatim 
 - **`MCRQuot.exists_eq_comp_of_isGQuotient`**: for `q : X → Z` with `IsGQuotient G q`, `G` finite,
   two `K`-points of `X` (any field `K`) with `y ≫ q = y' ≫ q` satisfy `y' = y ≫ g` for some `g ∈ G`.
 
-## Step 3 (09:40) — VERIFIED (parts 1-4 + axioms part 9; exit 0; compile4_out.txt; all new
+## Step 3 (07:13) — VERIFIED (parts 1-4 + axioms part 9; exit 0; compile4_out.txt; all new
 `#print axioms` = [propext, Classical.choice, Quot.sound]; no sorry)
 - `MCRQuot.ev_eq_appLE`, `eq_of_ev_eq_chart`, **`val_injective_of_isP1Coordinate`**: an
   isomorphism onto `P¹_{ℤ_(p)}` by charts is injective on field points.
@@ -54,7 +54,7 @@ C2 `CoordinateFromSections` of `scratch/mcr-glue/MCRGlue.lean` (copied verbatim 
   infinite group `IsGQuotient` does not force orbits = fibres: `ℤ` acting on `𝔸¹_ℚ` by translation
   has `IsGQuotient` onto `Spec ℚ`); A supplies it.
 
-## Step 4 (11:20) — VERIFIED (parts 1-7 + 9; exit 0; compile7_out.txt; standard axioms; no sorry)
+## Step 4 (07:25) — VERIFIED (parts 1-7 + 9; exit 0; compile7_out.txt; standard axioms; no sorry)
 - Glue A reduced: **`MCRQuot.fibreAutTame_of (hT : TorsionStructure) (hfix : FibreAutFixFinite)
   (hcnt : TwistClassCard) : FibreAutTame`**. New glue Props: (A-fix) `FibreAutFixFinite`
   (nontrivial elements of `fibreAut` fix finitely many `ℚ̄`-points), (A-count) `TwistClassCard`
@@ -69,7 +69,7 @@ C2 `CoordinateFromSections` of `scratch/mcr-glue/MCRGlue.lean` (copied verbatim 
 - Composite **`MCRQuot.modelCoordinateResidue_of_mcrQuot`**: L1-L6 + T5 + glue B + (A-fix),
   (A-count), (C1a)-(C1d), P1ThreePoints ⇒ `ModelCoordinateResidue`.
 
-## Step 5 (13:50) — VERIFIED (parts 1-8b + 9 in build.sh order; exit 0; compile8_out.txt; all
+## Step 5 (07:36) — VERIFIED (parts 1-8b + 9 in build.sh order; exit 0; compile8_out.txt; all
 `#print axioms` standard; no sorry in the parts)
 - P¹ by charts over ℤ_(p): `MCRQuot.scale` (coordinate `u·ρ`, `u ∈ ℤ_(p)^×`) with
   `isP1Coordinate_scale`, `val_scale`; inversion via the kernel's `ImagePlane.inv` with
@@ -84,7 +84,7 @@ C2 `CoordinateFromSections` of `scratch/mcr-glue/MCRGlue.lean` (copied verbatim 
 - `coordinateFromSections_of' (hA) (hT) (hTr : P1Translate) : CoordinateFromSections`;
   composite `modelCoordinateResidue_of_mcrQuot'` with `P1Translate` in place of `P1ThreePoints`.
 
-## Step 6 (14:45) — VERIFIED (parts 1-6b-8b + 9; exit 0; compile9_out.txt; all 18 MCRQuot
+## Step 6 (07:41) — VERIFIED (parts 1-6b-8b + 9; exit 0; compile9_out.txt; all 18 MCRQuot
 `#print axioms` standard; no sorry)
 - Glue B reduced: **`MCRQuot.genericQuotientP1_of (hA : FibreAutTame) (hT : TorsionStructure)
   (hTS : TameQuotientSmooth) (hD : QuotientDescendsQ) (hB : ToP1BijIsCoordinateQ) :
