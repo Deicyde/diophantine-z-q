@@ -57,3 +57,15 @@
 - Rows.lean (build_rows.py: HeightSplit.lean l.3-919 verbatim + HeightGlue body, bare AbVar →
   PkgI3.AbVar in appended parts) exit 0 (VERIFIED): `heightRows_of_t35 (l : HeightLeaves) (hT35) :
   R18 ∧ R19 ∧ R20 ∧ R21 ∧ R22 ∧ StableHeightFinite`, axioms standard.
+- QMEmb.lean (build_emb.py: QMCorr.lean + part_emb.lean) exit 0 (VERIFIED):
+  `cmPointEmbeddingCorrespondence : CMPointEmbeddingCorrespondence` — PROVED, no hypotheses;
+  `qmPairEmbeddingCorrespondence_of_leaves (hD : QMDescentCM) (hU : QMUniformizationC) :
+  QMPairEmbeddingCorrespondence`. Axioms standard.
+  Proof pieces: ρ explicit + injective; eigenvector lemmas (conj, two-vector kill, eq_of_eig,
+  commute_of_eig); centralizer of non-scalar β in B is ℚ+ℚβ; quadratic-field coordinates,
+  liftQuad (k →ₐ[ℚ] A from a root); R contains a non-rational element (conductor ≠ 0);
+  good generator y ∈ R with integer quadratic; σ(y) non-real (IsTotallyComplex); Vieta; normalized
+  fixed point fpt; (i) 𝒪_{τ_φ} ≅ R; (ii) equivariance; (iii) injectivity; (iv) surjectivity
+  (conjugation stabilizes R via integrality of x + x̄; eigenvalue ring map; N-scaling).
+- QMCorr.lean: QMUniformizationC docstring locators revised after independent review (Shimura 1963,
+  Hashimoto 1995, Rotger 2004, Voight Ch. 43; bundled standard facts noted as RISK).

@@ -1061,4 +1061,46 @@ theorem exists_opt_of_cmPoint (R : Subring k) (hR : R ≤ (integralClosure ℤ k
 
 end Corr
 
+/-! ## §10. `CMPointEmbeddingCorrespondence`, proved -/
+
+/-- **The glue `CMPointEmbeddingCorrespondence`, proved** (no hypotheses): `φ ↦ τ_φ` (the
+normalized fixed point for a fixed embedding `σ : k → ℂ`) induces the bijection between the
+optimal embeddings modulo `𝒪^×` and the `𝒪^×`-orbits of CM points with `𝒪_τ ≅ R`. -/
+theorem cmPointEmbeddingCorrespondence : CMPointEmbeddingCorrespondence := by
+  intro k _ _ _ hk R hR hc
+  obtain ⟨y, hyR, hy, P, Q, hq⟩ := exists_good_gen hk R hc
+  obtain ⟨σ⟩ : Nonempty (k →+* ℂ) := ⟨(IsAlgClosed.lift : k →ₐ[ℚ] ℂ).toRingHom⟩
+  let G : Gen k := ⟨y, hy, P, Q, hq, σ⟩
+  let pt : OptEmb k R → HalfPlanes := fun φ => ⟨fpt G φ.1, fpt_im hk G φ.1⟩
+  let F : Quotient (embSetoid k R) → CMPoints k R :=
+    Quotient.lift (fun φ => (⟨Quotient.mk _ (pt φ), pt φ, rfl,
+      nonempty_ordAt_fpt hk G R φ.1 φ.2⟩ : CMPoints k R))
+      (fun φ ψ ⟨u, hu⟩ => Subtype.ext (Quotient.sound (by
+        obtain ⟨h1, h2⟩ := cmRel_fpt_conj hk G φ.1 ψ.1 u hu
+        exact ⟨u, _, h2, h1⟩)))
+  have hFi : Function.Injective F := by
+    intro a b hab
+    induction a using Quotient.inductionOn with | h φ => ?_
+    induction b using Quotient.inductionOn with | h ψ => ?_
+    have hrel : cmRel (pt φ) (pt ψ) := Quotient.exact (congrArg Subtype.val hab)
+    obtain ⟨u, c, hc0, hu⟩ := hrel
+    exact Quotient.sound ⟨u, conj_of_cmRel hk G φ.1 ψ.1 u c hc0 hu⟩
+  have hFs : Function.Surjective F := by
+    rintro ⟨c, τ, hτ, ⟨e⟩⟩
+    obtain ⟨φ, hopt, hfpt⟩ := exists_opt_of_cmPoint hk G R hR hyR τ.1 τ.2 e
+    refine ⟨Quotient.mk _ ⟨φ, hopt⟩, Subtype.ext ?_⟩
+    show Quotient.mk _ (pt ⟨φ, hopt⟩) = c
+    rw [← hτ]
+    congr 1
+    exact Subtype.ext hfpt
+  exact ⟨(Equiv.ofBijective F ⟨hFi, hFs⟩).symm⟩
+
+/-- **height-split's glue `QMPairEmbeddingCorrespondence` from the two leaves alone.** -/
+theorem qmPairEmbeddingCorrespondence_of_leaves (hD : QMDescentCM) (hU : QMUniformizationC) :
+    QMPairEmbeddingCorrespondence :=
+  qmPairEmbeddingCorrespondence_of hD hU cmPointEmbeddingCorrespondence
+
 end ZInQ.HeightGlue.QM
+
+#print axioms ZInQ.HeightGlue.QM.cmPointEmbeddingCorrespondence
+#print axioms ZInQ.HeightGlue.QM.qmPairEmbeddingCorrespondence_of_leaves
