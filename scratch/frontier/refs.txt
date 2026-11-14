@@ -64,3 +64,24 @@ leaf-fold5 5a7e03d1 2026-11-14 01:42:36 -0800
 leafq-check 52012ea4 2026-11-14 01:18:43 -0800
 one-proof 053cbad0 2026-11-14 00:59:56 -0800
 main a53d1c7d 2026-11-14 01:08:22 -0800
+
+# refresh r4: heads read at 2026-11-14 12:40 PST (all merged into fork main 5da857b0, w59)
+main 5da857b0 2026-11-14 11:11:53 -0800
+leaf-fold8 b0f2f6da 2026-11-14 09:07:27 -0800
+mcr-quot 9367131f 2026-11-14 09:16:29 -0800
+coarse-factor 961af262 2026-11-14 08:59:46 -0800
+cloud-w07 44e8323f 2026-11-14 06:57:09 -0800 (work/cloud-w07-jacobians-curves, fork PR #11)
+leaf-fold7 53acb891 2026-11-14 07:30:51 -0800
+qm-glue 96c318b1 2026-11-14 07:46:55 -0800
+height-glue 48126d61 2026-11-14 07:58:13 -0800
+tyz-split 99e582b5 2026-11-14 07:28:26 -0800
+qm-split ead4b7dc 2026-11-14 06:17:05 -0800
+hodge-split 683f3372 2026-11-14 05:52:44 -0800
+curve-split 34323233 2026-11-14 04:58:09 -0800
+av-split 60d0da44 2026-11-14 04:08:51 -0800
+height-split 256f8e41 2026-11-14 03:55:46 -0800
+leaf-fold6 733d8013 2026-11-14 03:53:55 -0800
+av-glue 8d3c7a91 2026-11-14 03:41:01 -0800
+mcr-glue 512c3a7e 2026-11-14 03:19:43 -0800
+# revisions chain.py reads that are not on main (their branches must stay): wip/leaf-fold5 5a7e03d1, wip/ts-kummer
+# 1bbe3543, wip/t40-tate 7ed2ca99, wip/assemble-port 92a27877 (93a1e33c is its ancestor); all on off-route edges.
