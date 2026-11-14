@@ -18,3 +18,15 @@
   Corollary `isImmersiveAtZero_of`: every full-lattice uniformization is immersive at 0.
   Leaves: `ImmersiveUniformizationExists` (Mumford AV §1 + analytic structure by regular functions;
   implies kernel AnalyticUniformizationExists, proved), `AnalyticPointsT2` (SGA1 XII 3.1 / GAGA).
+- HeightGlue.lean (assembled by build.py: base/Kernel_metrization2.lean = scratch/metrization2/Kernel.lean
+  verbatim; base/JacDescends_unifdims.lean = unif-dims Combined.lean l.1615-1752, 1907-1933, 1937-2190
+  minus duplicates; AUUnique.lean; part_main.lean) compiles, exit 0 (VERIFIED):
+  * `analyticPointsT2 : AnalyticPointsT2` — PROVED, no hypotheses (productMapLocalStructure on the
+    division morphism x·y⁻¹ + pts_eq_of_evalAt).
+  * `isImmersiveAtZero_of_discrete` — PROVED: every analytic uniformization with discrete kernel is
+    immersive at 0 (metrization2's steps 2-5).
+  * `analyticUniformizationUnique_of_exists (hE : AnalyticUniformizationExists) :
+    AnalyticUniformizationUnique` and `analyticUniformizationUnique_of_t35 (hT35 :
+    LeafPush2.UniformizationExists)`. Axioms standard.
+  => AN3U is a consequence of the kernel's AN3 existence Prop (and of T35); the two leaves of
+  AUUnique.lean are no longer needed.
