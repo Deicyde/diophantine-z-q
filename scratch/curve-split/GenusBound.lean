@@ -217,7 +217,7 @@ theorem ramIdx_eq_one (P : Place F) (π : Fˣ) (hπ : (π : F) ∈ P.w) (hπu : 
   have hvy : v y ≤ 1 := (P.w.valuation_le_one_iff _).mpr hy
   have hle : v π ≤ v s := by
     rw [hπy, map_mul, ← hsval]
-    exact mul_le_of_le_one_right zero_le' hvy
+    exact mul_le_of_le_one_right zero_le hvy
   have hm1 : m = 1 := by
     have h1 : v π ^ (1 : ℤ) ≤ v π ^ m := by rw [zpow_one, ← hm]; exact hle
     have h2 : v π ^ m < v π ^ (0 : ℤ) := by rw [zpow_zero, ← hm]; exact hvs
@@ -238,6 +238,166 @@ theorem ramIdx_eq_one (P : Place F) (π : Fˣ) (hπ : (π : F) ∈ P.w) (hπu : 
     (Subgroup.mem_sup_right (Subgroup.zpow_mem _ hsrange n))
 
 end Glue
+
+section Glue2
+
+variable {F : Type} [Field F] [Algebra Qj F] [Algebra ℚ F]
+
+theorem algebraMap_rat_comp : (algebraMap Qj F).comp (algebraMap ℚ Qj) = algebraMap ℚ F :=
+  RingHom.ext_rat _ _
+
+theorem mul_mem_nonunits (A : ValuationSubring F) {a b : F} (ha : a ∈ A) (hb : b ∈ A.nonunits) :
+    a * b ∈ A.nonunits := by
+  rw [ValuationSubring.mem_nonunits_iff] at hb ⊢
+  rw [map_mul]
+  exact lt_of_le_of_lt (mul_le_of_le_one_left zero_le ((A.valuation_le_one_iff a).mpr ha)) hb
+
+/-- Polynomials over `ℚ` at an element of `𝒪_P` stay in `𝒪_P`. -/
+theorem aeval_mem (P : Place F) {z : F} (hz : z ∈ P.w) (p : Polynomial ℚ) :
+    Polynomial.aeval z p ∈ P.w := by
+  rw [Polynomial.aeval_eq_sum_range]
+  refine Subring.sum_mem _ fun i _ => ?_
+  rw [Algebra.smul_def]
+  exact Subring.mul_mem _ (P.rat_mem _) (Subring.pow_mem _ hz _)
+
+/-- `ℚ(j)`-polynomials at an element of `𝒪_P`, when `ℚ(j) ⊆ 𝒪_P`. -/
+theorem aeval_mem_Qj (P : Place F) (himg : ∀ r : Qj, algebraMap Qj F r ∈ P.w) {z : F}
+    (hz : z ∈ P.w) (p : Polynomial Qj) : Polynomial.aeval z p ∈ P.w := by
+  rw [Polynomial.aeval_eq_sum_range]
+  refine Subring.sum_mem _ fun i _ => ?_
+  rw [Algebra.smul_def]
+  exact Subring.mul_mem _ (himg _) (Subring.pow_mem _ hz _)
+
+/-- The polynomials over `ℚ` vanishing at the place `P` (when `t ∈ 𝒪_P`). -/
+def polyIdeal (P : Place F) (ht : (tF : F) ∈ P.w) : Ideal (Polynomial ℚ) where
+  carrier := {p | Polynomial.aeval (tF : F) p ∈ P.w.nonunits}
+  add_mem' := by
+    intro a b ha hb
+    simp only [Set.mem_ofPred_eq, map_add] at *
+    exact P.w.nonunits.add_mem ha hb
+  zero_mem' := by
+    simp only [Set.mem_ofPred_eq, map_zero]
+    exact P.w.nonunits.zero_mem
+  smul_mem' := by
+    intro c x hx
+    simp only [Set.mem_ofPred_eq, smul_eq_mul, map_mul] at *
+    exact mul_mem_nonunits P.w (aeval_mem P ht c) hx
+
+theorem polyIdeal_isPrime (P : Place F) (ht : (tF : F) ∈ P.w) : (polyIdeal P ht).IsPrime := by
+  refine ⟨?_, ?_⟩
+  · rw [Ideal.ne_top_iff_one]
+    show Polynomial.aeval (tF : F) 1 ∉ P.w.nonunits
+    rw [map_one, ValuationSubring.mem_nonunits_iff, map_one]
+    exact lt_irrefl _
+  · intro a b hab
+    have ha := (P.w.valuation_le_one_iff _).mpr (aeval_mem P ht a)
+    have hb := (P.w.valuation_le_one_iff _).mpr (aeval_mem P ht b)
+    change Polynomial.aeval (tF : F) (a * b) ∈ P.w.nonunits at hab
+    change Polynomial.aeval (tF : F) a ∈ P.w.nonunits ∨ Polynomial.aeval (tF : F) b ∈ P.w.nonunits
+    rw [map_mul, ValuationSubring.mem_nonunits_iff, map_mul] at hab
+    rw [ValuationSubring.mem_nonunits_iff, ValuationSubring.mem_nonunits_iff]
+    by_contra h
+    push_neg at h
+    have h1 := le_antisymm ha h.1
+    have h2 := le_antisymm hb h.2
+    rw [h1, h2, one_mul] at hab
+    exact lt_irrefl _ hab
+
+/-- `ℚ[j] → F`, through `ℚ(j)`, is evaluation at `1728 t`. -/
+theorem algebraMap_poly (p : Polynomial ℚ) :
+    algebraMap Qj F (algebraMap (Polynomial ℚ) Qj p) =
+      Polynomial.aeval (tF : F) (p.comp (Polynomial.C 1728 * Polynomial.X)) := by
+  have h1728 : Polynomial.aeval (tF : F) (Polynomial.C (1728 : ℚ) * Polynomial.X) =
+      algebraMap Qj F RatFunc.X := by
+    rw [map_mul, Polynomial.aeval_C, Polynomial.aeval_X]
+    simp only [map_ofNat]
+    rw [tF, ← map_ofNat (algebraMap Qj F) 1728, ← map_mul]
+    congr 1
+    field_simp
+  have h2 : algebraMap Qj F (algebraMap (Polynomial ℚ) Qj p) =
+      Polynomial.aeval (algebraMap Qj F RatFunc.X) p := by
+    have : (algebraMap Qj F).comp (algebraMap (Polynomial ℚ) Qj) =
+        (Polynomial.aeval (algebraMap Qj F RatFunc.X)).toRingHom := by
+      refine Polynomial.ringHom_ext' (RingHom.ext_rat _ _) ?_
+      simp [RatFunc.algebraMap_X]
+    exact congrArg (fun φ : Polynomial ℚ →+* F => φ p) this
+  rw [h2, Polynomial.aeval_comp]
+  exact (congrArg (fun z => Polynomial.aeval z p) h1728).symm
+
+theorem comp_ne_zero {p : Polynomial ℚ} (hp : p ≠ 0) :
+    p.comp (Polynomial.C 1728 * Polynomial.X) ≠ 0 := by
+  intro h
+  have h2 := congrArg Polynomial.natDegree h
+  rw [Polynomial.natDegree_comp, Polynomial.natDegree_C_mul_X _ (by norm_num), mul_one,
+    Polynomial.natDegree_zero] at h2
+  have h3 := congrArg Polynomial.leadingCoeff h
+  rw [Polynomial.leadingCoeff_comp (by rw [Polynomial.natDegree_C_mul_X _ (by norm_num)]; norm_num),
+    Polynomial.leadingCoeff_zero] at h3
+  simp only [Polynomial.leadingCoeff_C_mul_X, mul_eq_zero, pow_eq_zero_iff', Polynomial.leadingCoeff_eq_zero] at h3
+  tauto
+
+/-- **The ideal of a place is nonzero** (proved): otherwise `ℚ(j) ⊆ 𝒪_P`, and then `𝒪_P = F`
+since `F` is algebraic over `ℚ(j)` (an element outside `𝒪_P` has an inverse in `𝔪_P` whose minimal
+polynomial has a nonzero constant term in `𝔪_P ∩ ℚ(j) = 0`). -/
+theorem polyIdeal_ne_bot [FiniteDimensional Qj F] (P : Place F) (ht : (tF : F) ∈ P.w)
+    (htr : Transcendental ℚ (tF : F)) : polyIdeal P ht ≠ ⊥ := by
+  intro hbot
+  have hunit : ∀ p : Polynomial ℚ, p ≠ 0 → (Polynomial.aeval (tF : F) p)⁻¹ ∈ P.w := by
+    intro p hp
+    have h2 : Polynomial.aeval (tF : F) p ∉ P.w.nonunits := fun h => by
+      have : p ∈ polyIdeal P ht := h
+      rw [hbot, Ideal.mem_bot] at this
+      exact hp this
+    have h0 : Polynomial.aeval (tF : F) p ≠ 0 := fun h0 => htr ⟨p, hp, h0⟩
+    rw [ValuationSubring.mem_nonunits_iff_or] at h2
+    push_neg at h2
+    exact h2.2
+  have himg : ∀ r : Qj, algebraMap Qj F r ∈ P.w := by
+    intro r
+    rw [← RatFunc.num_div_denom r, map_div₀, algebraMap_poly, algebraMap_poly, div_eq_mul_inv]
+    exact Subring.mul_mem _ (aeval_mem P ht _) (hunit _ (comp_ne_zero (RatFunc.denom_ne_zero r)))
+  obtain ⟨x, hx⟩ : ∃ x, x ∉ P.w := by
+    by_contra h
+    push_neg at h
+    exact P.ne_top (eq_top_iff.mpr fun x _ => h x)
+  have hx0 : x ≠ 0 := fun h => hx (h ▸ P.w.zero_mem)
+  have hy : x⁻¹ ∈ P.w.nonunits := (P.w.inv_mem_nonunits_iff).mpr (Or.inr hx)
+  have hyw : x⁻¹ ∈ P.w := P.w.nonunits_subset hy
+  have hy0 : x⁻¹ ≠ 0 := inv_ne_zero hx0
+  have hint : IsIntegral Qj x⁻¹ := IsIntegral.of_finite Qj _
+  set p := minpoly Qj x⁻¹
+  have hc0 := minpoly.coeff_zero_ne_zero hint hy0
+  have hev : Polynomial.aeval x⁻¹ p = 0 := minpoly.aeval Qj _
+  have hsplit := Polynomial.X_mul_divX_add p
+  rw [← hsplit, map_add, map_mul, Polynomial.aeval_X, Polynomial.aeval_C] at hev
+  have hc : algebraMap Qj F (p.coeff 0) = -(x⁻¹ * Polynomial.aeval x⁻¹ p.divX) := by
+    linear_combination hev
+  have hcn : algebraMap Qj F (p.coeff 0) ∈ P.w.nonunits := by
+    rw [hc, mul_comm]
+    exact P.w.nonunits.neg_mem (mul_mem_nonunits P.w (aeval_mem_Qj P himg hyw _) hy)
+  have hcinv : (algebraMap Qj F (p.coeff 0))⁻¹ ∈ P.w := by
+    rw [← map_inv₀]; exact himg _
+  rw [ValuationSubring.mem_nonunits_iff_or] at hcn
+  rcases hcn with h | h
+  · exact hc0 ((map_eq_zero_iff _ (algebraMap Qj F).injective).mp h)
+  · exact h hcinv
+
+/-- A nonzero prime ideal of `ℚ[X]` contains a monic irreducible polynomial. -/
+theorem exists_monic_irreducible_mem (I : Ideal (Polynomial ℚ)) [hI : I.IsPrime] (h0 : I ≠ ⊥) :
+    ∃ q : Polynomial ℚ, q.Monic ∧ Irreducible q ∧ q ∈ I := by
+  set g := Submodule.IsPrincipal.generator I
+  have hg0 : g ≠ 0 := by
+    intro h
+    apply h0
+    rw [← Submodule.IsPrincipal.span_singleton_generator I]
+    simp [g, h]
+  have hgp : Prime g := Submodule.IsPrincipal.prime_generator_of_isPrime I h0
+  refine ⟨g * Polynomial.C g.leadingCoeff⁻¹, Polynomial.monic_mul_leadingCoeff_inv hg0, ?_, ?_⟩
+  · refine (irreducible_mul_isUnit ?_).mpr hgp.irreducible
+    exact Polynomial.isUnit_C.mpr (IsUnit.mk0 _ (inv_ne_zero (Polynomial.leadingCoeff_ne_zero.mpr hg0)))
+  · exact I.mul_mem_right _ (Submodule.IsPrincipal.generator_mem I)
+
+end Glue2
 
 end CurveSplit
 
