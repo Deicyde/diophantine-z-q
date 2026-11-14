@@ -4,14 +4,21 @@
 
 `ZInQKernel/Contrib/AllContrib.lean` (new) imports all 2064 other modules of `ZInQKernel/Contrib/`
 (the list is `git ls-files 'ZInQKernel/Contrib/*.lean'`, checked identical to the file's imports).
-BUILD_RESULT
+`lake build ZInQKernel.Contrib.AllContrib` **succeeds** (VERIFIED, 2026-11-13 22:47 PST:
+"Build completed successfully (11974 jobs)", no error). Since AllContrib imports every Contrib
+module, this build also built every Contrib module that imports a changed file, directly or
+transitively.
 
 No theorem or Prop is proved by this task; it is a consolidation task. No declaration name or
 statement used by any Lean file of the repository changed (see section 3). No pinned project file
 was edited: the edits are confined to nine vendored Tau Ceti files under `ZInQKernel/Contrib/TauCeti/`
 (each with a `-- Modified for the Z-in-Q kernel: ...` line) and `ThirdParty/TauCeti/NOTICE`.
 `python3 ~/dzq-runs/tc/diffcheck2.py ~/dzq-wt/stab-clash`: MOD-UNNOTED 0, NOTE-ONLY 0, MOD-NOTED 45
-(VERIFIED).
+(VERIFIED on the first run's host, after all edits). The resumed run's host has no
+`~/dzq-runs/tc/` and no Tau Ceti checkouts, so diffcheck2 could not be rerun there. A substitute
+check confirmed that each of the nine files changed since 998b4f79 has exactly one
+`-- Modified for the Z-in-Q kernel: ... stab-clash ...` line, directly under its provenance line,
+and one `(task stab-clash ...)` entry in NOTICE's modified list (VERIFIED).
 
 ## 1. The clashes
 

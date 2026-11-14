@@ -27,3 +27,11 @@
   duplicates (remaining hits are docstring words: of, map, group, field, ...).
 - diffcheck2 after all edits: MOD-UNNOTED 0, NOTE-ONLY 0, MOD-NOTED 45 (VERIFIED).
 - 21:25 AllContrib.lean (2064 imports from git ls-files 'ZInQKernel/Contrib/*.lean'); build started.
+- 22:47 (resumed run, other host) VERIFIED: `lake build ZInQKernel.Contrib.AllContrib` succeeds
+  ("Build completed successfully (11974 jobs)", 0 errors). AllContrib's 2064 imports are identical to
+  the git ls-files list (VERIFIED, diff).
+- 22:50 diffcheck2.py is not available on this host (~/dzq-runs/tc and ~/tc-* missing). Substitute
+  check (VERIFIED): all 9 files changed since 998b4f79 have one stab-clash Modified line at line 7
+  (right under the provenance line) and one "(task stab-clash" NOTICE entry.
+- VERIFIED (git grep): no ZInQKernel module outside Contrib imports an edited module; only
+  scratch/tc-port/AllKW.lean and scratch/t40-clash/AllContrib.lean do.
