@@ -1,0 +1,109 @@
+{
+  "schema": "reviewed-source-proposal/v1",
+  "publication_kind": "separate fork draft source only; no PR/main/cache release",
+  "accepted_main": "fb2f78e143af2f6de71ca43e37498c229cde1c6b",
+  "held_PR53_head": "3a430ed9b30e7a509d166f6c9dd816b0296f2c70",
+  "original_optional_source_history_preserved": true,
+  "earlier_EndTrace_preparation": "721a345a7b4cd35fcdb34ed30454eb8a8c49878b",
+  "original_Link_source": {
+    "commit": "e303a42543e9adf89aa70075372b622f4870a770",
+    "module": "ZInQKernel.HDecomp.C10.Link",
+    "upstream_url": "https://github.com/elliotglazer/diophantine-z-q/blob/e303a42543e9adf89aa70075372b622f4870a770/ZInQKernel/HDecomp/C10/Link.lean"
+  },
+  "reviewed_sources": [
+    {
+      "path": "scratch/axiom-bridge/NativeEndTrace.lean",
+      "bytes": 8441,
+      "sha256": "2a3518cab2d90718d622b723aac6154cc443f37c2b5e7e78ed397f4e6d951a76",
+      "scope": "reviewed mathematical source; canonical/private-cache experiment at721a"
+    },
+    {
+      "path": "scratch/axiom-bridge/RationalC10Link.lean",
+      "bytes": 14355,
+      "sha256": "bd26ef697fcd5cd5f5b6db1d6dafd74b1f5c73866372861d1e04b4d69f0bc736",
+      "scope": "reviewed direct private conditional consumer; new package layout pending"
+    },
+    {
+      "path": "scratch/axiom-bridge/original-c10/ZInQKernel/HDecomp/C10/Link.lean",
+      "bytes": 29445,
+      "sha256": "0c72f9e57e7557aa61dd7c1fc847111f639d7b86105b9939aabb46e1e7e81b55",
+      "scope": "original e303 reduction definitions; original module name retained; no fork Objects"
+    },
+    {
+      "path": "scratch/axiom-bridge/validation/endtrace/NativeEndTraceExpectedTypes.lean",
+      "bytes": 4452,
+      "sha256": "d37f00bfb43720586b93167f51dafc708d8fd88ecb33cb5bb645b90f5e3ca13d",
+      "scope": "exact independent validation source; dedicated checker or selected case scope, not public CI"
+    },
+    {
+      "path": "scratch/axiom-bridge/validation/endtrace/NativeEndTraceChecks.lean",
+      "bytes": 7688,
+      "sha256": "135b77af1e00ab4f38ab97ce2c2724e2f577af6db69e14e4ec813abfbeadea8b",
+      "scope": "exact independent validation source; dedicated checker or selected case scope, not public CI"
+    },
+    {
+      "path": "scratch/axiom-bridge/validation/endtrace/NativeEndTraceCases.lean",
+      "bytes": 4116,
+      "sha256": "60bf3e66c2dbb84692bb0695ce64e443d0af8d2bf8ba612cd26b5be5f7000a4c",
+      "scope": "exact independent validation source; dedicated checker or selected case scope, not public CI"
+    },
+    {
+      "path": "scratch/axiom-bridge/validation/endtrace/BadEndTraceCharacteristic.lean",
+      "bytes": 627,
+      "sha256": "a7cc4649f01a95ee9e83ccb83bd0c1e137d8f9b6bc0072d3c57536dd7c885e4b",
+      "scope": "exact independent validation source; dedicated checker or selected case scope, not public CI"
+    },
+    {
+      "path": "scratch/axiom-bridge/validation/rational-c10/RationalC10ExpectedTypes.lean",
+      "bytes": 9913,
+      "sha256": "5e31c1a9f2b7f5c4f090b10fcf87b44606aec116ea0f69517b3fa9fbb59d4c3f",
+      "scope": "exact independent validation source; dedicated checker or selected case scope, not public CI"
+    },
+    {
+      "path": "scratch/axiom-bridge/validation/rational-c10/RationalC10Checks.lean",
+      "bytes": 11764,
+      "sha256": "a3585f47b2472645691427643b273972b43d9174fc867c63e1301ddb69562b78",
+      "scope": "exact independent validation source; dedicated checker or selected case scope, not public CI"
+    },
+    {
+      "path": "scratch/axiom-bridge/validation/rational-c10/RationalC10Cases.lean",
+      "bytes": 4067,
+      "sha256": "2a70d137fdba302ba8e2a2d25e37206be0e64a53a0c4635d18627b61e41e093b",
+      "scope": "exact independent validation source; dedicated checker or selected case scope, not public CI"
+    },
+    {
+      "path": "scratch/axiom-bridge/validation/rational-c10/BadRationalC10ZeroN.lean",
+      "bytes": 1625,
+      "sha256": "43156dae3efb18bad2be31e47b48891507c63dcf8dce7969d708947125afc2dd",
+      "scope": "exact independent validation source; dedicated checker or selected case scope, not public CI"
+    },
+    {
+      "path": "scratch/axiom-bridge/validation/rational-c10/BadRationalC10Characteristic.lean",
+      "bytes": 822,
+      "sha256": "9cd643c482dd698d74a09a326a85102f21d2929856d46aefa333b1ba3dc13acd",
+      "scope": "exact independent validation source; dedicated checker or selected case scope, not public CI"
+    }
+  ],
+  "recorded_checks": {
+    "EndTrace": "seven complete type/body/stored-readback checks plus both candidate/spec standard-three walks and selected cases; private721a canonical/cache experiment separately reviewed",
+    "RationalC10": "five complete type/body/stored-readback checks; ten candidate/spec standard-three walks; three exact original types minus only unused hM; positive cases and both clean guard controls"
+  },
+  "review_kind": "internal non-author source-and-captured-evidence reconciliation, not eligible/designated Protocol B approval or reviewer compiler execution",
+  "not_claimed": [
+    "new-layout whole Lake validation",
+    "current-public-CI",
+    "production cache-v3 coverage/admission",
+    "future runner fit",
+    "hM or integer CharPolyIndepOfEll",
+    "constructed remaining C10/H data",
+    "unconditional C10 or Hilbert10"
+  ],
+  "unchanged_protected_scope": [
+    "repository-root/default dependencies",
+    "canonical Objects/QM/target/contract",
+    "compiler/dependency pins",
+    "required checkers/workflows",
+    "published v1/v2 metadata/assets",
+    "active PR53 head"
+  ]
+}

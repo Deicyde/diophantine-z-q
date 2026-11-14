@@ -28,3 +28,23 @@ lean_lib FrobeniusAdapters where
 lean_lib FrobeniusAdapterChecks where
   srcDir := "../c10-frobenius"
   roots := #[`Check, `CheckPrimeField, `CheckFiniteField, `CheckFieldPoints]
+
+-- Separate SOURCE-PROPOSAL targets. The original Link module name is retained
+-- without putting its source under the repository-root ZInQKernel tree.
+-- Full Lake/import-context and released-cache coverage for this layout are pending.
+lean_lib OriginalC10Link where
+  srcDir := "original-c10"
+  roots := #[`ZInQKernel.HDecomp.C10.Link]
+
+lean_lib RationalC10Consumers where
+  roots := #[`RationalC10Link]
+
+-- Only positive/specification modules are build roots. The dedicated checkers
+-- and expected-failure files must be invoked separately with their own budgets.
+lean_lib EndTraceValidation where
+  srcDir := "validation/endtrace"
+  roots := #[`NativeEndTraceExpectedTypes, `NativeEndTraceCases]
+
+lean_lib RationalC10Validation where
+  srcDir := "validation/rational-c10"
+  roots := #[`RationalC10ExpectedTypes, `RationalC10Cases]

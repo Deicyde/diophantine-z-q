@@ -1,5 +1,13 @@
 # Opt-in Axiom / PkgI2 bridge
 
+> **Separate draft source proposal:** this branch adds the reviewed EndTrace and
+> rational C10 source snapshots without updating the active PR53 head. The new
+> RationalC10 library/layout and released-cache coverage have not passed a whole
+> canonical destination/CI gate. Released cache v2 and the historical commands
+> below cover the earlier bridge snapshot, not all newly added companion roots.
+> See [SOURCE-PROPOSAL.md](SOURCE-PROPOSAL.md) for exact sources, recorded checks,
+> retained hypotheses and the pending layout/cache/disk/memory admission work.
+
 This is a separate Lake package. It does not change the repository-root
 `lakefile.toml`, `lake-manifest.json`, `lean-toolchain`, `KERNEL_CONTRACT.json`,
 kernel checker, default target (`ZInQKernel`) or any existing required workflow.
