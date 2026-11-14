@@ -518,6 +518,193 @@ theorem isNormal_of_integral {X : Scheme} (f : X ⟶ SpecK k) [SmoothOfRelativeD
 end Curves
 
 
+section Assembly
+
+variable {k : Type} [Field k] [IsAlgClosed k]
+
+/-- **Closed points versus `k`-points** (proved, from Mathlib's `pointEquivClosedPoint`). A
+morphism bijective on `k`-points maps closed points to closed points, injectively, onto the closed
+points. -/
+theorem closedPoint_facts {T Z : Over (SpecK k)} [LocallyOfFiniteType T.hom]
+    [LocallyOfFiniteType Z.hom] (h : T ⟶ Z)
+    (hb : Function.Bijective (fun t : kPt k ⟶ T => t ≫ h)) :
+    (∀ x : T.left, IsClosed ({x} : Set T.left) → IsClosed ({h.left x} : Set Z.left)) ∧
+    (∀ x y : T.left, IsClosed ({x} : Set T.left) → IsClosed ({y} : Set T.left) →
+      h.left x = h.left y → x = y) ∧
+    (∀ y : Z.left, IsClosed ({y} : Set Z.left) → ∃ x, h.left x = y) := by
+  have hw : h.left ≫ Z.hom = T.hom := Over.w h
+  let pt : SpecK k := (IsLocalRing.closedPoint k : PrimeSpectrum k)
+  have hc : ∀ (x : T.left) (hx : IsClosed ({x} : Set T.left)),
+      (pointOfClosedPoint T.hom x hx ≫ h.left) ≫ Z.hom = 𝟙 _ := by
+    intro x hx
+    rw [Category.assoc, hw, pointOfClosedPoint_comp]
+  have hval : ∀ (x : T.left) (hx : IsClosed ({x} : Set T.left)),
+      (pointOfClosedPoint T.hom x hx ≫ h.left) pt = h.left x := by
+    intro x hx
+    rw [Scheme.Hom.comp_apply, pointOfClosedPoint_apply]
+  let P : ∀ x : T.left, IsClosed ({x} : Set T.left) → (kPt k ⟶ T) := fun x hx =>
+    Over.homMk (pointOfClosedPoint T.hom x hx) (by simp)
+  refine ⟨?_, ?_, ?_⟩
+  · intro x hx
+    have := ((pointEquivClosedPoint Z.hom) ⟨_, hc x hx⟩).2
+    change (pointOfClosedPoint T.hom x hx ≫ h.left) pt ∈ closedPoints Z.left at this
+    rw [hval x hx] at this
+    exact this
+  · intro x y hx hy hxy
+    have h1 : P x hx ≫ h = P y hy ≫ h := by
+      ext1
+      exact ext_of_apply_closedPoint_eq Z.hom (hc x hx) (hc y hy)
+        ((hval x hx).trans (hxy.trans (hval y hy).symm))
+    have h2 := congrArg CommaMorphism.left (hb.1 h1)
+    change pointOfClosedPoint T.hom x hx = pointOfClosedPoint T.hom y hy at h2
+    have h3 := congrArg (fun g : SpecK k ⟶ T.left => g pt) h2
+    simp only [pointOfClosedPoint_apply] at h3
+    exact h3
+  · intro y hy
+    obtain ⟨t, ht⟩ := hb.2 (Over.homMk (pointOfClosedPoint Z.hom y hy) (by simp))
+    have h2 := congrArg CommaMorphism.left ht
+    change t.left ≫ h.left = pointOfClosedPoint Z.hom y hy at h2
+    refine ⟨t.left pt, ?_⟩
+    have h3 := congrArg (fun g : SpecK k ⟶ Z.left => g pt) h2
+    simp only [Scheme.Hom.comp_apply, pointOfClosedPoint_apply] at h3
+    exact h3
+
+omit [IsAlgClosed k] in
+/-- `k`-points of the restriction of `h` over an open `W`. -/
+theorem bij_restrict {T Z : Over (SpecK k)} (h : T ⟶ Z) (W : Z.left.Opens)
+    (hb : Function.Bijective (fun t : kPt k ⟶ T => t ≫ h)) :
+    Function.Bijective (fun t : kPt k ⟶ Over.mk ((h.left ⁻¹ᵁ W).ι ≫ T.hom) =>
+      t ≫ (Over.homMk (h.left ∣_ W) (by
+        simp only [Over.mk_hom, morphismRestrict_ι_assoc, Over.w h]) :
+        Over.mk ((h.left ⁻¹ᵁ W).ι ≫ T.hom) ⟶ Over.mk (W.ι ≫ Z.hom))) := by
+  set V := h.left ⁻¹ᵁ W
+  let up : (kPt k ⟶ Over.mk (V.ι ≫ T.hom)) → (kPt k ⟶ T) := fun t =>
+    Over.homMk (show (kPt k).left ⟶ T.left from t.left ≫ V.ι) (by
+      have := Over.w t
+      simp only [Over.mk_hom] at this ⊢
+      rw [Category.assoc, this])
+  constructor
+  · intro t₁ t₂ he
+    have he' := congrArg CommaMorphism.left he
+    change t₁.left ≫ (h.left ∣_ W) = t₂.left ≫ (h.left ∣_ W) at he'
+    have h1 : up t₁ ≫ h = up t₂ ≫ h := by
+      ext1
+      change (t₁.left ≫ V.ι) ≫ h.left = (t₂.left ≫ V.ι) ≫ h.left
+      rw [Category.assoc, Category.assoc, ← morphismRestrict_ι, ← Category.assoc, he',
+        Category.assoc]
+    have h2 := congrArg CommaMorphism.left (hb.1 h1)
+    change t₁.left ≫ V.ι = t₂.left ≫ V.ι at h2
+    ext1
+    exact (cancel_mono V.ι).mp h2
+  · intro w
+    let z : kPt k ⟶ Z := Over.homMk (show (kPt k).left ⟶ Z.left from w.left ≫ W.ι) (by
+      have := Over.w w
+      simp only [Over.mk_hom] at this ⊢
+      rw [Category.assoc, this])
+    obtain ⟨t, ht⟩ := hb.2 z
+    have ht' := congrArg CommaMorphism.left ht
+    change t.left ≫ h.left = w.left ≫ W.ι at ht'
+    have hrange : Set.range t.left ⊆ Set.range V.ι := by
+      rintro _ ⟨a, rfl⟩
+      rw [Scheme.Opens.range_ι]
+      show h.left (t.left a) ∈ W
+      rw [← Scheme.Hom.comp_apply, ht', Scheme.Hom.comp_apply]
+      exact (w.left a).2
+    let t' : (kPt k).left ⟶ V.toScheme := IsOpenImmersion.lift V.ι t.left hrange
+    have ht'fac : t' ≫ V.ι = t.left := IsOpenImmersion.lift_fac _ _ _
+    refine ⟨Over.homMk t' (by
+      have := Over.w t
+      simp only [Over.mk_hom] at this ⊢
+      rw [← Category.assoc, ht'fac, this]), ?_⟩
+    ext1
+    change t' ≫ (h.left ∣_ W) = w.left
+    apply (cancel_mono W.ι).mp
+    rw [Category.assoc, morphismRestrict_ι, ← Category.assoc, ht'fac, ht']
+
+variable [CharZero k]
+
+/-- **The restriction of `h` over an irreducible open `W` is an isomorphism** (proved from the
+leaf), once `h` is a homeomorphism. -/
+theorem restrict_isIso (hL : BijToNormalIsIso) {T Z : Over (SpecK k)} [IsProper T.hom]
+    [IsProper Z.hom] [SmoothOfRelativeDimension 1 T.hom] [SmoothOfRelativeDimension 1 Z.hom]
+    (h : T ⟶ Z) (hb : Function.Bijective (fun t : kPt k ⟶ T => t ≫ h)) (W : Z.left.Opens)
+    (hW : IsIrreducible (W : Set Z.left)) (hhomeo : IsHomeomorph h.left) :
+    IsIso (h.left ∣_ W) := by
+  set V := h.left ⁻¹ᵁ W with hVdef
+  have : IsLocallyNoetherian T.left := LocallyOfFiniteType.isLocallyNoetherian T.hom
+  have : IsLocallyNoetherian Z.left := LocallyOfFiniteType.isLocallyNoetherian Z.hom
+  have hsmW : SmoothOfRelativeDimension 1 (W.ι ≫ Z.hom) := by
+    have := smoothOfRelativeDimension_comp (n := 0) (m := 1) W.ι Z.hom
+    rwa [zero_add] at this
+  have hsmV : SmoothOfRelativeDimension 1 (V.ι ≫ T.hom) := by
+    have := smoothOfRelativeDimension_comp (n := 0) (m := 1) V.ι T.hom
+    rwa [zero_add] at this
+  have : Smooth (W.ι ≫ Z.hom) := SmoothOfRelativeDimension.smooth 1 _
+  have : Smooth (V.ι ≫ T.hom) := SmoothOfRelativeDimension.smooth 1 _
+  -- integrality of `W`
+  have : IrreducibleSpace W.toScheme := Subtype.irreducibleSpace hW
+  have : IsReduced W.toScheme := isReduced_of_smooth (W.ι ≫ Z.hom)
+  have hIW : IsIntegral W.toScheme := isIntegral_of_irreducibleSpace_of_isReduced _
+  -- integrality of `V`
+  have hV : IsIrreducible (V : Set T.left) := by
+    let e := hhomeo.homeomorph h.left
+    have : (V : Set T.left) = e.symm '' (W : Set Z.left) := by
+      rw [Homeomorph.image_symm]; rfl
+    rw [this]
+    exact hW.image _ e.symm.continuous.continuousOn
+  have : IrreducibleSpace V.toScheme := Subtype.irreducibleSpace hV
+  have : IsReduced V.toScheme := isReduced_of_smooth (V.ι ≫ T.hom)
+  have hIV : IsIntegral V.toScheme := isIntegral_of_irreducibleSpace_of_isReduced _
+  have hN : ZInQ.Contrib.CurvesG.IsNormalScheme W.toScheme := isNormal_of_integral (W.ι ≫ Z.hom)
+  have hcomm : (h.left ∣_ W) ≫ (Over.mk (W.ι ≫ Z.hom)).hom = (Over.mk (V.ι ≫ T.hom)).hom := by
+    simp only [Over.mk_hom]
+    rw [morphismRestrict_ι_assoc, Over.w h]
+  let H : Over.mk (V.ι ≫ T.hom) ⟶ Over.mk (W.ι ≫ Z.hom) := Over.homMk (h.left ∣_ W) hcomm
+  have hH : IsIso H := hL k (Over.mk (V.ι ≫ T.hom)) (Over.mk (W.ι ≫ Z.hom)) hIV hIW
+    (by simp only [Over.mk_hom]; infer_instance) (by simp only [Over.mk_hom]; infer_instance)
+    (by simp only [Over.mk_hom]; infer_instance) (by simp only [Over.mk_hom]; infer_instance)
+    (by simp only [Over.mk_hom]; infer_instance) (by simp only [Over.mk_hom]; infer_instance)
+    hN H (bij_restrict h W hb)
+  exact (Over.forget _).map_isIso H
+
+end Assembly
+
+/-- **Part B (proved from the leaf): `CurveBijIsoClosed`.** -/
+theorem curveBijIsoClosed_of_leaf (hL : BijToNormalIsIso) : CurveBijIsoClosed := by
+  intro k _ _ _ T Z hPT hST hPZ hSZ h hb
+  have : Smooth T.hom := SmoothOfRelativeDimension.smooth 1 T.hom
+  have : Smooth Z.hom := SmoothOfRelativeDimension.smooth 1 Z.hom
+  have : JacobsonSpace T.left := LocallyOfFiniteType.jacobsonSpace T.hom
+  have : JacobsonSpace Z.left := LocallyOfFiniteType.jacobsonSpace Z.hom
+  have : CompactSpace Z.left := QuasiCompact.compactSpace_of_compactSpace Z.hom
+  have hw : h.left ≫ Z.hom = T.hom := Over.w h
+  have : IsProper h.left := by
+    have : IsProper (h.left ≫ Z.hom) := by rw [hw]; infer_instance
+    exact IsProper.of_comp h.left Z.hom
+  obtain ⟨hcp, hinj, hsurj⟩ := closedPoint_facts h hb
+  have hbij : Function.Bijective h.left :=
+    bijective_of_closedPoints h.left.continuous h.left.isClosedMap (topDim_le_one T.hom)
+      (components_disjoint T.hom) hcp hinj hsurj
+  have hhomeo : IsHomeomorph h.left :=
+    isHomeomorph_iff_continuous_isClosedMap_bijective.mpr
+      ⟨h.left.continuous, h.left.isClosedMap, hbij⟩
+  have hiso : IsIso h.left := by
+    refine IsZariskiLocalAtTarget.of_iSup_eq_top (P := MorphismProperty.isomorphisms Scheme)
+      (fun z : Z.left =>
+        (⟨irreducibleComponent z, isOpen_irreducibleComponent Z.hom z⟩ : Z.left.Opens)) ?_ ?_
+    · rw [eq_top_iff]
+      intro z _
+      exact TopologicalSpace.Opens.mem_iSup.mpr ⟨z, mem_irreducibleComponent⟩
+    · intro z
+      exact restrict_isIso hL h hb _ isIrreducible_irreducibleComponent hhomeo
+  have : IsIso ((Over.forget _).map h) := hiso
+  exact isIso_of_reflects_iso h (Over.forget _)
+
+/-- **H-85 `CurveBijIso` from the published leaf `BijToNormalIsIso`** (proved). -/
+theorem curveBijIso_of_leaf (hL : BijToNormalIsIso) : CurveBijIso :=
+  curveBijIso_of_closed (curveBijIsoClosed_of_leaf hL)
+
 end CurveSplit
 
 #print axioms CurveSplit.curveBijIso_of_closed
+#print axioms CurveSplit.curveBijIso_of_leaf

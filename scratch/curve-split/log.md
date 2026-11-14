@@ -33,3 +33,13 @@ H-85 CurveBijIso (scratch/model-glue/ModelGlue6.lean), H-83 ShimuraGoodReduction
 - Part A COMPILED: `CurveSplit.curveBijIso_of_closed : CurveBijIsoClosed → CurveBijIso` (fpqc descent of
   isomorphisms along Spec ℚ̄ → Spec ℚ, Mathlib `descendsAlong_isomorphisms_surjective_inf_flat_inf_quasicompact`,
   Stacks 02L4; ℚ̄-points of S ↔ sections of S_ℚ̄). Standard axioms. VERIFIED.
+- Part B COMPILED: `CurveSplit.curveBijIsoClosed_of_leaf : BijToNormalIsIso → CurveBijIsoClosed`, hence
+  `CurveSplit.curveBijIso_of_leaf : BijToNormalIsIso → CurveBijIso`. Standard axioms. VERIFIED (lake env lean).
+- Leaf `BijToNormalIsIso`: k alg. closed char 0, X, Y integral separated finite type over k, Y normal
+  (IsNormalScheme), f bijective on k-points ⇒ IsIso f. Springer LAG Cor. 5.2.8 / Borel AG.18.2-18.4 /
+  Humphreys 4.6 (numbers UNVERIFIED; printed form "separable" vs "birational" needs a human check).
+- Glue proved (all Mathlib + Contrib.Dim + SmoothFibre + copies of curve-glue's isDomain_of_dim_one and
+  irreducibleComponent_eq_of_isDomain_stalk): stalks at closed points of smooth curves are DVRs; smooth over a
+  field ⇒ reduced; components of a smooth curve are disjoint and open; non-closed point of a dim ≤ 1 Jacobson
+  space is generic in a component; `bijective_of_closedPoints` (topology); `closedPoint_facts` (Mathlib
+  pointEquivClosedPoint); restriction over a component; IsZariskiLocalAtTarget for isomorphisms.
