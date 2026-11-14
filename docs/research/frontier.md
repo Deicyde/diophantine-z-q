@@ -1,7 +1,7 @@
 # frontier: every open Prop on the path to `ZInQ.FrozenTarget`
 
 Task frontier, 2026-11-13. Base: fork main b7cdba8e (merged into wip/frontier). Branch snapshot: the commits in
-`scratch/frontier/refs.txt` (refreshed 16:40 PST, §8). Lean: `scratch/frontier/TYZChain.lean`, `TopChain.lean` (compiled).
+`scratch/frontier/refs.txt` (refreshed 17:35 PST, §8; final). Lean: `scratch/frontier/TYZChain.lean`, `TopChain.lean` (compiled).
 Mechanical check: `scratch/frontier/chain.py` (with `chainlib.py`), output `scratch/frontier/chain_out.txt`.
 Results log: `scratch/frontier/log.md`. Working notes from three read-only survey agents:
 `scratch/frontier/agent-{h-glue,h-leaves,tyz}.md`. No existing project file was edited. Model work; no human review.
@@ -397,7 +397,7 @@ remove one field of `GluePieces5`/`OpenTextbookLeaves5` once folded (§6.2).
 6. **Statement changes proposed here: none.** (Finding 2 is linked-ram's proposal, adopted by assemble-port; gz-decomp's
    `GrossZagierCd` and gz-statements' restricted GZ leaves are on record.)
 
-## 8. Tasks (snapshot 16:40 PST; heads in `scratch/frontier/refs.txt`)
+## 8. Tasks (snapshot 17:35 PST, final; heads in `scratch/frontier/refs.txt`)
 
 Finished, with results used above: tyz-cm (0ad48a7d), cm-bridge (ed50dc33), t40-tate (7ed2ca99), t40-igusa (e9b071d6),
 twist-descent, ts-kummer (1bbe3543), kummer-comp (423d6b7c), hecke-rest (6c2c1d76), period-glue (7e1531df), spread-out
