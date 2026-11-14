@@ -349,4 +349,93 @@ theorem r21_of_leaves (hB : BostLowerBound) (hN1 : NeronModelExists)
     have := grBostBound_of_bost hB K A g hg x ((isStableFaltingsHeight_iff hN1 hSS1 hSS2 A x).mpr hx)
     linarith)
 
+/-! ## §D. H-14, R18 (Javanpeykar) -/
+
+section R18Sec
+
+open LeafModCurves (IsCurve IsJacobian IsBelyiFunction)
+open LeafPush2 (ffAlgebra javanpeykarBound)
+
+/-- **Leaf R18-Javanpeykar** (A. Javanpeykar, *Polynomial bounds for Arakelov invariants of Belyi
+curves*, Algebra Number Theory 8 (2014), Thm 1.1.1, p. 90; arXiv:1403.6404v1 p. 1; height
+identification p. 98 / arXiv §2.3 p. 9; read by the locator audit, docs/research/locators.md).
+Printed: for a smooth projective connected curve `X/ℚ̄` of genus `g ≥ 1`,
+`h_Fal(X) ≤ 13·10⁶ · g · deg_B(X)⁵`, `h_Fal(X)` the stable Faltings height of `Jac X`.
+
+Specialization stated: `X` defined over a number field `K` (smooth proper geometrically connected
+integral, a `K`-point `P₀`), `J` its Jacobian over `K` (the kernel's Albanese predicate), `g = dim J`
+(= genus), a Belyi function `t ∈ K(X)` with `d = [K(X) : K(t)]` (so `deg_B(X_ℚ̄) ≤ d`), and `x` the
+published stable height of `J` (`IsStableFaltingsHeight`: computed on a Néron model over a field of
+semistable reduction; it is that of `J_ℚ̄ = Jac(X_ℚ̄)`, the stable height being invariant under field
+extension). Faltings' normalization: the weaker reading if the paper used Deligne's (`h_D ≥ h_F`). -/
+def JavanpeykarBound : Prop :=
+  ∀ (K : Type) [Field K] [NumberField K] (X : Over (Spec (CommRingCat.of K))) [IsCurve X]
+    [IsIntegral X.left] (P₀ : 𝟙_ (Over (Spec (CommRingCat.of K))) ⟶ X) (J : PkgI3.AbVar K)
+    (aj : X ⟶ J.X), IsJacobian X P₀ J aj →
+    ∀ g : ℕ, J.dim = (g : WithBot ℕ∞) → 1 ≤ g →
+    ∀ t : X.left.functionField,
+      letI := ffAlgebra X
+      IsBelyiFunction K X.left.functionField t →
+      ∀ d : ℕ, Module.finrank (IntermediateField.adjoin K {t}) X.left.functionField = d → 0 < d →
+      ∀ x : ℝ, IsStableFaltingsHeight J x → x ≤ javanpeykarBound g d
+
+/-- **H-14: R18 from Javanpeykar's printed bound**, N1, SS1, SS2 (identification) and the `≠ ⊤`
+half of H-19 (glue `NeronMetrizable`). -/
+theorem r18_of_leaves (hJ : JavanpeykarBound) (hN1 : NeronModelExists)
+    (hSS1 : SemistableReductionThm) (hSS2 : SemistableNeronBaseChange)
+    (hMet : NeronMetrizable) : LeafPush2.R18_Javanpeykar := by
+  intro K _ _ X _ _ P₀ J aj hJac g hg hg1 t ht d hd hd0
+  by_cases hb : stableFaltingsHeight J = ⊥
+  · rw [hb]; exact bot_le
+  obtain ⟨x, hx⟩ := exists_real_of_ne _ (stableFaltingsHeight_ne_top hN1 hMet J) hb
+  rw [hx]
+  exact EReal.coe_le_coe_iff.mpr (hJ K X P₀ J aj hJac g hg hg1 t ht d hd hd0 x
+    ((isStableFaltingsHeight_iff hN1 hSS1 hSS2 J x).mpr hx))
+
+end R18Sec
+
+/-! ## §E. H-16, R20 (Faltings' Lemma 5) -/
+
+/-- **Leaf R20-Faltings (Lemma 5), semistable form** (G. Faltings, *Endlichkeitssätze für abelsche
+Varietäten über Zahlkörpern*, Invent. Math. 73 (1983), Lemma 5, p. 358; Raynaud, Astérisque 127
+(1985), Exp. VII, Cor. 2.1.3; the lemma is UNVERIFIED: locators.md could not read it, and the
+inequality is the form Pazuki 2012 Remark 2.3 attributes to it). For an isogeny `φ : A → B` of
+abelian varieties over a number field `K`, both with semistable reduction everywhere (Néron models
+`𝒩_A`, `𝒩_B` over `𝓞_K`): `|h(A) − h(B)| ≤ ½ log deg φ`. (Faltings' formula
+`h(B) = h(A) + ½ log deg φ − [K:ℚ]⁻¹ log #s*Ω¹_{G/𝓞_K}` with `0 ≤ [K:ℚ]⁻¹ log # ≤ log deg φ`.) -/
+def FaltingsLemma5 : Prop :=
+  ∀ (K : Type) [Field K] [NumberField K] (A B : PkgI3.AbVar K) (φ : A.X ⟶ B.X), IsIsogeny φ →
+    ∀ (𝒩A : GroupModel A K) (𝒩B : GroupModel B K), 𝒩A.IsNeronModel → 𝒩B.IsNeronModel →
+      IsSemistable 𝒩A → IsSemistable 𝒩B →
+      ∀ x y : ℝ, 𝒩A.height = x → 𝒩B.height = y → |x - y| ≤ (1 / 2) * Real.log (isogDeg φ)
+
+/-- **Glue `IsogenySemistableBaseChange`.** Given an isogeny `φ : A → B` over `K` with published
+stable heights `x`, `y`, there are a number field `L` and an isogeny `φ' : A' → B'` over `L` of the
+same degree whose Néron models over `𝓞_L` are semistable with heights `x`, `y`. Intended witness:
+`L` a common field of semistable reduction (compositum of the two fields in the hypotheses),
+`A' = A_L`, `B' = B_L`, `φ' = φ_L`. Needs: base change of isogenies (finite, surjective, homomorphism:
+stable under base change) and `#ker φ(K̄) = #ker φ_L(L̄)` (both the degree, characteristic `0`);
+semistability of `A_L`, `B_L` (SGA 7 IX 3.3, semistability persists under extension); the transport
+of group models along `(A_L)_L ≅ A_L` (`GroupModel A L` vs `GroupModel (A.baseChange L) L`) preserving
+the Néron property and the height; and `isStableFaltingsHeight_unique`. -/
+def IsogenySemistableBaseChange : Prop :=
+  ∀ (K : Type) [Field K] [NumberField K] (A B : PkgI3.AbVar K) (φ : A.X ⟶ B.X), IsIsogeny φ →
+    ∀ x y : ℝ, IsStableFaltingsHeight A x → IsStableFaltingsHeight B y →
+    ∃ (L : Type) (_ : Field L) (_ : NumberField L) (A' B' : PkgI3.AbVar L) (φ' : A'.X ⟶ B'.X)
+      (𝒩A : GroupModel A' L) (𝒩B : GroupModel B' L), IsIsogeny φ' ∧ isogDeg φ' = isogDeg φ ∧
+      𝒩A.IsNeronModel ∧ 𝒩B.IsNeronModel ∧ IsSemistable 𝒩A ∧ IsSemistable 𝒩B ∧
+      𝒩A.height = x ∧ 𝒩B.height = y
+
+/-- **H-16: R20 from Faltings' Lemma 5 (semistable form)**, the glue `IsogenySemistableBaseChange`
+and N1, SS1, SS2 (identification). -/
+theorem r20_of_leaves (hF : FaltingsLemma5) (hG : IsogenySemistableBaseChange)
+    (hN1 : NeronModelExists) (hSS1 : SemistableReductionThm) (hSS2 : SemistableNeronBaseChange) :
+    R20_FaltingsLemma5 := by
+  intro K _ _ A B φ hφ x y hx hy
+  obtain ⟨L, i1, i2, A', B', φ', 𝒩A, 𝒩B, hφ', hdeg, hA, hB, sA, sB, hxA, hyB⟩ :=
+    hG K A B φ hφ x y ((isStableFaltingsHeight_iff hN1 hSS1 hSS2 A x).mpr hx)
+      ((isStableFaltingsHeight_iff hN1 hSS1 hSS2 B y).mpr hy)
+  rw [← hdeg]
+  exact hF L A' B' φ' hφ' 𝒩A 𝒩B hA hB sA sB x y hxA hyB
+
 end ZInQ.HeightSplit
