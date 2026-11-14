@@ -2398,35 +2398,54 @@ theorem enn_div (x y : ℕ) (hy : 0 < y) : (x : ℝ≥0∞) / y = ENNReal.ofReal
 
 /-! ### The valence formula for `Γ*` -/
 
+/-- **The valence statements for `Γ*` used below** (existence of a finite set of representatives of the zeros,
+the sum over it, and the bound over any finite set of inequivalent points; weight `2m`, exact automorphy). -/
+def GammaStarValence : Prop :=
+  ∀ (m : ℕ) (F : ℂ → ℂ), AnalyticOnNhd ℂ F U → (∃ z ∈ U, F z ≠ 0) → Auto m F →
+    (∃ T : Finset UpperHalfPlane, (T : Set UpperHalfPlane).Pairwise (fun z w => ∀ γ ∈ Γs, γ • z ≠ w) ∧
+      Covers Γs T F) ∧
+    (∀ T : Finset UpperHalfPlane, (T : Set UpperHalfPlane).Pairwise (fun z w => ∀ γ ∈ Γs, γ • z ≠ w) →
+      Covers Γs T F →
+      ∑ z ∈ T, ((analyticOrderAt F (z : ℂ) : ℕ∞) : ℝ≥0∞) / (HDec.LeafQCheck.VB.ellOrder z : ℝ≥0∞) =
+        (m : ℝ≥0∞) / 12) ∧
+    (∀ T : Finset UpperHalfPlane, (T : Set UpperHalfPlane).Pairwise (fun z w => ∀ γ ∈ Γs, γ • z ≠ w) →
+      ∑ z ∈ T, ((analyticOrderAt F (z : ℂ) : ℕ∞) : ℝ≥0∞) / (HDec.LeafQCheck.VB.ellOrder z : ℝ≥0∞) ≤
+        (m : ℝ≥0∞) / 12)
+
+/-- `GammaStarValence` from the valence formula and the covolume glue. -/
+theorem gammaStarValence_of_area (hV : ValenceFormulaCocompactEq) (hA : GammaStarCocompactArea) :
+    GammaStarValence := by
+  intro m F hF hne hau
+  obtain ⟨hFuchs, s, hs, hvol⟩ := hA
+  obtain ⟨h1, h2, h3⟩ := hV Γs hFuchs s hs m F hF hne (abs_auto hau)
+  refine ⟨h1, fun T hT hc => ?_, fun T hT => ?_⟩
+  · have := h2 T hT hc; rwa [hvol, arith] at this
+  · have := h3 T hT; rwa [hvol, arith] at this
+
 section Val
 
-variable (hV : ValenceFormulaCocompactEq) (hA : GammaStarCocompactArea)
-include hV hA
+variable (hG : GammaStarValence)
+include hG
 
 theorem val_le (m : ℕ) (F : ℂ → ℂ) (hF : AnalyticOnNhd ℂ F U) (hne : ∃ z ∈ U, F z ≠ 0)
     (hau : Auto m F) (T : Finset UpperHalfPlane)
     (hT : (T : Set UpperHalfPlane).Pairwise (fun z w => ∀ γ ∈ Γs, γ • z ≠ w)) :
     ∑ z ∈ T, ((analyticOrderAt F (z : ℂ) : ℕ∞) : ℝ≥0∞) / (HDec.LeafQCheck.VB.ellOrder z : ℝ≥0∞) ≤
-      (m : ℝ≥0∞) / 12 := by
-  obtain ⟨hFuchs, s, hs, hvol⟩ := hA
-  have := (hV Γs hFuchs s hs m F hF hne (abs_auto hau)).2.2 T hT
-  rwa [hvol, arith] at this
+      (m : ℝ≥0∞) / 12 :=
+  (hG m F hF hne hau).2.2 T hT
 
 theorem val_eq (m : ℕ) (F : ℂ → ℂ) (hF : AnalyticOnNhd ℂ F U) (hne : ∃ z ∈ U, F z ≠ 0)
     (hau : Auto m F) (T : Finset UpperHalfPlane)
     (hT : (T : Set UpperHalfPlane).Pairwise (fun z w => ∀ γ ∈ Γs, γ • z ≠ w)) (hc : Covers Γs T F) :
     ∑ z ∈ T, ((analyticOrderAt F (z : ℂ) : ℕ∞) : ℝ≥0∞) / (HDec.LeafQCheck.VB.ellOrder z : ℝ≥0∞) =
-      (m : ℝ≥0∞) / 12 := by
-  obtain ⟨hFuchs, s, hs, hvol⟩ := hA
-  have := (hV Γs hFuchs s hs m F hF hne (abs_auto hau)).2.1 T hT hc
-  rwa [hvol, arith] at this
+      (m : ℝ≥0∞) / 12 :=
+  (hG m F hF hne hau).2.1 T hT hc
 
 theorem val_ex (m : ℕ) (F : ℂ → ℂ) (hF : AnalyticOnNhd ℂ F U) (hne : ∃ z ∈ U, F z ≠ 0)
     (hau : Auto m F) :
     ∃ T : Finset UpperHalfPlane, (T : Set UpperHalfPlane).Pairwise (fun z w => ∀ γ ∈ Γs, γ • z ≠ w) ∧
-      Covers Γs T F := by
-  obtain ⟨hFuchs, s, hs, hvol⟩ := hA
-  exact (hV Γs hFuchs s hs m F hF hne (abs_auto hau)).1
+      Covers Γs T F :=
+  (hG m F hF hne hau).1
 
 end Val
 
@@ -2459,19 +2478,19 @@ theorem enn_coe_toNat {o : ℕ∞} (h : o ≠ ⊤) : ((o : ℕ∞) : ℝ≥0∞)
   conv_lhs => rw [← ENat.coe_toNat h]
   simp
 
-variable (hT : PkgI1.ThetaModularity) (hV : ValenceFormulaCocompactEq) (hA : GammaStarCocompactArea)
+variable (hT : PkgI1.ThetaModularity) (hG : GammaStarValence)
 
 include hT in
 theorem G8_tau3_ge : 2 ≤ analyticOrderAt G8 (tau3 : ℂ) :=
   s8OrderCM3_of thetaOmegaAnalytic_proof (auto8 hT)
 
-include hT hV hA in
+include hT hG in
 /-- `e_{i√3} = 6` and `ord_{i√3} G8 = 2`. -/
 theorem tau3_facts : HDec.LeafQCheck.VB.ellOrder tau3 = 6 ∧ analyticOrderAt G8 (tau3 : ℂ) = 2 := by
   have hb2 := G8_tau3_ge hT
   have hbt := ord_ne_top_of (fun z hz => G8_analytic hz) tau4.im_pos G8_tau4_ne tau3
   obtain ⟨he0, he6⟩ := HDec.LeafQCheck.VB.ellipticOrderLe6_proof tau3
-  have hle := val_le hV hA 4 G8 (fun z hz => G8_analytic hz) G8_ne (auto8 hT) {tau3}
+  have hle := val_le hG 4 G8 (fun z hz => G8_analytic hz) G8_ne (auto8 hT) {tau3}
     (by simp)
   rw [Finset.sum_singleton, enn_coe_toNat hbt, enn_div _ _ he0,
     show ((4 : ℕ) : ℝ≥0∞) / 12 = ((4 : ℕ) : ℝ≥0∞) / ((12 : ℕ) : ℝ≥0∞) by norm_num,
@@ -2492,16 +2511,16 @@ theorem G8_tau3_zero : G8 (tau3 : ℂ) = 0 := by
   apply apply_eq_zero_of_analyticOrderAt_ne_zero
   intro h0; have := G8_tau3_ge hT; rw [h0] at this; norm_num at this
 
-include hT hV hA in
+include hT hG in
 /-- **`G8` vanishes only on the orbit of `i√3`.** -/
 theorem G8_zero_orbit (z : UpperHalfPlane) (hz : G8 (z : ℂ) = 0) : ∃ γ ∈ Γs, γ • tau3 = z := by
   by_contra hno
   push Not at hno
   have hne : tau3 ≠ z := fun h => hno 1 HDec.LeafQCheck.VB.one_mem_gammaStar' (by rw [one_smul, h])
-  have hle := val_le hV hA 4 G8 (fun w hw => G8_analytic hw) G8_ne (auto8 hT) {tau3, z}
+  have hle := val_le hG 4 G8 (fun w hw => G8_analytic hw) G8_ne (auto8 hT) {tau3, z}
     (pair_ineq hno)
   rw [Finset.sum_pair hne] at hle
-  obtain ⟨he3, hb⟩ := tau3_facts hT hV hA
+  obtain ⟨he3, hb⟩ := tau3_facts hT hG
   have hzt := ord_ne_top_of (fun w hw => G8_analytic hw) tau4.im_pos G8_tau4_ne z
   obtain ⟨hez0, -⟩ := HDec.LeafQCheck.VB.ellipticOrderLe6_proof z
   have ho1 : 1 ≤ (analyticOrderAt G8 (z : ℂ)).toNat := by
@@ -2572,7 +2591,7 @@ theorem G20_tau24_ne : G20 (tau24 : ℂ) ≠ 0 := by
   refine div_ne_zero ?_ (pow_ne_zero _ (Zf_ne tau24.im_pos))
   intro hP; apply hN; rw [jNumO_eq, hP]; ring
 
-include hT hV hA hC in
+include hT hG hC in
 /-- `ord_{i√3} G20 ≤ 4`. -/
 theorem G20_tau3_le : (analyticOrderAt G20 (tau3 : ℂ)).toNat ≤ 4 ∧ analyticOrderAt G20 (tau3 : ℂ) ≠ ⊤ := by
   have hG20 : AnalyticOnNhd ℂ G20 U := fun z hz => G20_analytic hz
@@ -2584,10 +2603,10 @@ theorem G20_tau3_le : (analyticOrderAt G20 (tau3 : ℂ)).toNat ≤ 4 ∧ analyti
     have := (zero_iff (auto8 hT) hγ tau3).2 (G8_tau3_zero hT)
     rw [h] at this; exact G8_tau4_ne this
   have hne : tau3 ≠ tau4 := fun h => hineq 1 HDec.LeafQCheck.VB.one_mem_gammaStar' (by rw [one_smul, h])
-  have hle := val_le hV hA 10 G20 hG20 ⟨tau24, tau24.im_pos, G20_tau24_ne hC⟩ (auto20 hT) {tau3, tau4}
+  have hle := val_le hG 10 G20 hG20 ⟨tau24, tau24.im_pos, G20_tau24_ne hC⟩ (auto20 hT) {tau3, tau4}
     (pair_ineq hineq)
   rw [Finset.sum_pair hne] at hle
-  obtain ⟨he3, -⟩ := tau3_facts hT hV hA
+  obtain ⟨he3, -⟩ := tau3_facts hT hG
   obtain ⟨he40, he46⟩ := HDec.LeafQCheck.VB.ellipticOrderLe6_proof tau4
   have ho1 : 1 ≤ (analyticOrderAt G20 (tau4 : ℂ)).toNat := by
     have h1 : analyticOrderAt G20 (tau4 : ℂ) ≠ 0 := by
@@ -2617,11 +2636,11 @@ theorem Hc_split (c : ℂ) :
     Hc c = (fun z => 3779136 * G20 z ^ 2) + (fun z => -c * G8 z ^ 5) := by
   funext z; simp only [Hc, Pi.add_apply]; ring
 
-include hT hV hA hC in
+include hT hG hC in
 theorem ord_Hc_tau3 (c : ℂ) :
     analyticOrderAt (Hc c) (tau3 : ℂ) = ((2 * (analyticOrderAt G20 (tau3 : ℂ)).toNat : ℕ) : ℕ∞) := by
-  obtain ⟨he3, hb⟩ := tau3_facts hT hV hA
-  obtain ⟨ha4, hatop⟩ := G20_tau3_le hT hV hA hC
+  obtain ⟨he3, hb⟩ := tau3_facts hT hG
+  obtain ⟨ha4, hatop⟩ := G20_tau3_le hT hG hC
   have h3U : (tau3 : ℂ) ∈ U := tau3.im_pos
   have hF : analyticOrderAt (fun z => 3779136 * G20 z ^ 2) (tau3 : ℂ) =
       ((2 * (analyticOrderAt G20 (tau3 : ℂ)).toNat : ℕ) : ℕ∞) := by
@@ -2651,14 +2670,14 @@ theorem ord_Hc_tau3 (c : ℂ) :
 
 variable (hD : EllipticOrderDvd)
 
-include hT hV hA hC hD in
+include hT hG hC hD in
 /-- **The fibre of `j_θ` over `c ∈ ℂ` is one `Γ*`-orbit.** -/
 theorem fibre_c (c : ℂ) : ∃ t₁ : UpperHalfPlane, ∀ z : UpperHalfPlane,
     (G8 (z : ℂ) ≠ 0 ∧ Hc c (z : ℂ) = 0) ↔ ∃ γ ∈ Γs, γ • t₁ = z := by
-  obtain ⟨he3, hb⟩ := tau3_facts hT hV hA
-  obtain ⟨ha4, hatop⟩ := G20_tau3_le hT hV hA hC
+  obtain ⟨he3, hb⟩ := tau3_facts hT hG
+  obtain ⟨ha4, hatop⟩ := G20_tau3_le hT hG hC
   set a := (analyticOrderAt G20 (tau3 : ℂ)).toNat with ha
-  have hord := ord_Hc_tau3 hT hV hA hC c
+  have hord := ord_Hc_tau3 hT hG hC c
   rw [← ha] at hord
   have hHtop3 : analyticOrderAt (Hc c) (tau3 : ℂ) ≠ ⊤ := by rw [hord]; exact ENat.coe_ne_top _
   have hHtop : ∀ z : UpperHalfPlane, analyticOrderAt (Hc c) (z : ℂ) ≠ ⊤ := fun z =>
@@ -2669,7 +2688,7 @@ theorem fibre_c (c : ℂ) : ∃ t₁ : UpperHalfPlane, ∀ z : UpperHalfPlane,
     apply hHtop3
     rw [analyticOrderAt_eq_top]
     filter_upwards [isOpen_U.mem_nhds tau3.im_pos] with z hz using hall z hz
-  obtain ⟨T₀, hT₀p, hT₀c⟩ := val_ex hV hA 20 (Hc c) (Hc_analytic c) hHne (autoHc hT c)
+  obtain ⟨T₀, hT₀p, hT₀c⟩ := val_ex hG 20 (Hc c) (Hc_analytic c) hHne (autoHc hT c)
   set T₁ := T₀.filter (fun t => ¬ ∃ γ ∈ Γs, γ • t = tau3) with hT₁
   set T' := insert tau3 T₁ with hT'
   have hnot : tau3 ∉ T₁ := by
@@ -2689,12 +2708,12 @@ theorem fibre_c (c : ℂ) : ∃ t₁ : UpperHalfPlane, ∀ z : UpperHalfPlane,
       obtain ⟨ε, hε, hεz⟩ := eqv_trans (gammaStar_inv hδ) hγ (eqv_symm hδ hδt) rfl
       exact ⟨tau3, Finset.mem_insert_self _ _, ε, hε, hεz⟩
     · exact ⟨t, Finset.mem_insert_of_mem (Finset.mem_filter.2 ⟨ht, hR⟩), γ, hγ, rfl⟩
-  have hsum := val_eq hV hA 20 (Hc c) (Hc_analytic c) hHne (autoHc hT c) T' hT'p hT'c
+  have hsum := val_eq hG 20 (Hc c) (Hc_analytic c) hHne (autoHc hT c) T' hT'p hT'c
   rw [hT', Finset.sum_insert hnot] at hsum
   -- the points of `T₁`: `G8 ≠ 0`, and `e_t ∣ ord_t H_c`
   have hG8t : ∀ t ∈ T₁, G8 (t : ℂ) ≠ 0 := by
     intro t ht h0
-    obtain ⟨γ, hγ, hγt⟩ := G8_zero_orbit hT hV hA t h0
+    obtain ⟨γ, hγ, hγt⟩ := G8_zero_orbit hT hG t h0
     exact (Finset.mem_filter.1 ht).2 ⟨γ⁻¹, gammaStar_inv hγ, eqv_symm hγ hγt⟩
   have hdvd : ∀ t ∈ T₁, HDec.LeafQCheck.VB.ellOrder t ∣ (analyticOrderAt (Hc c) (t : ℂ)).toNat :=
     fun t ht => hD 20 (Hc c) G85 (Hc_analytic c) G85_analytic (autoHc hT c) (autoG85 hT) t
@@ -2808,7 +2827,7 @@ theorem jth_coe_iff (z : UpperHalfPlane) (c : ℂ) : jth z = (c : OnePoint ℂ) 
       simp only [Hc] at e
       linear_combination Zf (z : ℂ) ^ 20 * e
 
-include hT hV hA hC hD in
+include hT hG hC hD in
 /-- **Every fibre of `j_θ` is one `Γ*`-orbit.** -/
 theorem jth_fibre (v : OnePoint ℂ) : ∃ b : UpperHalfPlane, ∀ z : UpperHalfPlane,
     jth z = v ↔ ∃ γ ∈ Γs, γ • b = z := by
@@ -2817,11 +2836,11 @@ theorem jth_fibre (v : OnePoint ℂ) : ∃ b : UpperHalfPlane, ∀ z : UpperHalf
     refine ⟨tau3, fun z => ?_⟩
     rw [jth_infty_iff]
     constructor
-    · exact G8_zero_orbit hT hV hA z
+    · exact G8_zero_orbit hT hG z
     · rintro ⟨γ, hγ, rfl⟩
       exact (zero_iff (auto8 hT) hγ tau3).2 (G8_tau3_zero hT)
   | coe c =>
-    obtain ⟨t₁, ht₁⟩ := fibre_c hT hV hA hC hD c
+    obtain ⟨t₁, ht₁⟩ := fibre_c hT hG hC hD c
     exact ⟨t₁, fun z => by rw [jth_coe_iff]; exact ht₁ z⟩
 
 include hT in
@@ -2861,12 +2880,12 @@ theorem g_inv {δ : GL (Fin 2) ℝ} (hδ : δ ∈ Γs) (τ : UpperHalfPlane) :
 theorem jNumO_analytic : AnalyticOnNhd ℂ (fun z => PkgI1.jNum (PkgI1.Omega z)) U :=
   fun z hz => analyticAt_const.mul ((Pf_analytic _ hz).pow 2)
 
-include hT hV hA hC in
+include hT hG hC in
 /-- `jNum/jDen ∘ Ω → ∞` at `i√3`. -/
 theorem pole_tau3 : Tendsto (fun z => PkgI1.jNum (PkgI1.Omega z) / PkgI1.jDen (PkgI1.Omega z))
     (𝓝[≠] (tau3 : ℂ)) (Bornology.cobounded ℂ) := by
-  obtain ⟨he3, hb⟩ := tau3_facts hT hV hA
-  obtain ⟨ha4, hatop⟩ := G20_tau3_le hT hV hA hC
+  obtain ⟨he3, hb⟩ := tau3_facts hT hG
+  obtain ⟨ha4, hatop⟩ := G20_tau3_le hT hG hC
   have h3U : (tau3 : ℂ) ∈ U := tau3.im_pos
   have hNan := jNumO_analytic _ h3U
   have hDan := jDenO_analytic _ h3U
@@ -2887,7 +2906,7 @@ theorem pole_tau3 : Tendsto (fun z => PkgI1.jNum (PkgI1.Omega z) / PkgI1.jDen (P
   exact tendsto_cobounded_of_meromorphicOrderAt_neg
     (mero_neg_aux hNan hDan hN hD (jDenO_order_ne_top h3U))
 
-include hT hV hA hC in
+include hT hG hC in
 theorem jth_continuous : Continuous jth := by
   rw [continuous_iff_continuousAt]
   intro τ₀
@@ -2895,9 +2914,9 @@ theorem jth_continuous : Continuous jth := by
   by_cases hD0 : PkgI1.jDen (PkgI1.Omega τ₀) = 0
   · have hval : jth τ₀ = OnePoint.infty := by simp [jth, hD0]
     rw [← continuousWithinAt_compl_self, ContinuousWithinAt, hval]
-    obtain ⟨γ, hγ, hγτ⟩ := G8_zero_orbit hT hV hA τ₀ ((jDen_zero_iff τ₀).1 hD0)
+    obtain ⟨γ, hγ, hγτ⟩ := G8_zero_orbit hT hG τ₀ ((jDen_zero_iff τ₀).1 hD0)
     have hpoleH : Tendsto (fun τ : UpperHalfPlane => g τ) (𝓝[≠] tau3) (Bornology.cobounded ℂ) :=
-      (pole_tau3 hT hV hA hC).comp (le_of_eq (map_coe_punctured tau3))
+      (pole_tau3 hT hG hC).comp (le_of_eq (map_coe_punctured tau3))
     have hback : γ⁻¹ • τ₀ = tau3 := eqv_symm hγ hγτ
     have hmap : Tendsto (fun τ : UpperHalfPlane => γ⁻¹ • τ) (𝓝[≠] τ₀) (𝓝[≠] tau3) := by
       apply tendsto_nhdsWithin_of_tendsto_nhds_of_eventually_within
@@ -2931,12 +2950,12 @@ theorem jth_continuous : Continuous jth := by
     exact ((jNumO_analytic _ τ₀.im_pos).div (jDenO_analytic _ τ₀.im_pos) hD0).continuousAt.comp
       UpperHalfPlane.continuous_coe.continuousAt
 
-include hT hV hA hC hD in
+include hT hG hC hD in
 /-- **Row H-88 from the published valence formula and three glue Props.** -/
 theorem qmHauptmodulBase3_of : QMHauptmodulBase3 := by
-  refine ⟨jth, jth_continuous hT hV hA hC, fun τ hτ => by simp [jth, hτ], fun τ τ' => ?_,
+  refine ⟨jth, jth_continuous hT hG hC, fun τ hτ => by simp [jth, hτ], fun τ τ' => ?_,
     fun v => ?_, fun γ hγ τ hτ => ?_⟩
-  · obtain ⟨b, hb⟩ := jth_fibre hT hV hA hC hD (jth τ)
+  · obtain ⟨b, hb⟩ := jth_fibre hT hG hC hD (jth τ)
     obtain ⟨γ₀, hγ₀, hγ₀b⟩ := (hb τ).1 rfl
     constructor
     · intro h
@@ -2945,7 +2964,7 @@ theorem qmHauptmodulBase3_of : QMHauptmodulBase3 := by
     · rintro ⟨γ, hγ, rfl⟩
       obtain ⟨δ, hδ, hδb⟩ := eqv_trans hγ₀ hγ hγ₀b rfl
       exact ((hb _).2 ⟨δ, hδ, hδb⟩).symm
-  · obtain ⟨b, hb⟩ := jth_fibre hT hV hA hC hD v
+  · obtain ⟨b, hb⟩ := jth_fibre hT hG hC hD v
     exact ⟨b, (hb b).2 ⟨1, HDec.LeafQCheck.VB.one_mem_gammaStar', one_smul _ _⟩⟩
   · obtain ⟨hD0, hv⟩ := hC γ hγ τ hτ
     simp only [jth, hD0, if_false, hv]
@@ -3154,16 +3173,16 @@ theorem ellipticOrderDvd_proof : EllipticOrderDvd := by
 
 end EllDvd
 
-include hT hV hA hC in
+include hT hG hC in
 /-- **Row H-88 with `EllipticOrderDvd` discharged**: from the valence formula (LEAF), the covolume glue and
 the CM-value glue (and the bundle leaf `r4`). -/
 theorem qmHauptmodulBase3_of' : QMHauptmodulBase3 :=
-  qmHauptmodulBase3_of hT hV hA hC ellipticOrderDvd_proof
+  qmHauptmodulBase3_of hT hG hC ellipticOrderDvd_proof
 
-include hV hA in
 /-- **Row H-87 from the same leaf and glue** (the inequality clause of the valence formula; the chain-level
 copy `HDec.LeafQCheck.VB.ValenceFormulaGammaStar` of leafq-check's row). -/
-theorem valenceFormulaGammaStar_of_eq : HDec.LeafQCheck.VB.ValenceFormulaGammaStar := by
+theorem valenceFormulaGammaStar_of_eq (hV : ValenceFormulaCocompactEq) (hA : GammaStarCocompactArea) :
+    HDec.LeafQCheck.VB.ValenceFormulaGammaStar := by
   intro m F hF hne haut T hT
   obtain ⟨hFuchs, s, hs, hvol⟩ := hA
   have := (hV Γs hFuchs s hs m F hF hne haut).2.2 T hT
@@ -4024,12 +4043,12 @@ theorem valenceFormulaGammaStar_of_O1 (hV : ValenceFormulaCocompactEq) (hS : Shi
 
 end Index
 
-include hT hV hC in
+include hT hC in
 /-- **Row H-88 from published leaves and project glue**: the valence formula, Shimizu's volume formula, the
 glue from `𝒪¹` to `Γ*`, the CM value (and the bundle leaf `r4`). -/
-theorem qmHauptmodulBase3_of_shimizu (hS : ShimizuCovolumeO1) (hG : GammaStarFromO1) :
-    QMHauptmodulBase3 :=
-  qmHauptmodulBase3_of' hT hV (hG hS) hC
+theorem qmHauptmodulBase3_of_shimizu (hV : ValenceFormulaCocompactEq) (hS : ShimizuCovolumeO1)
+    (hGF : GammaStarFromO1) : QMHauptmodulBase3 :=
+  qmHauptmodulBase3_of' hT (gammaStarValence_of_area hV (hGF hS)) hC
 
 end
 
