@@ -3,7 +3,9 @@
 **After this task `scripts/one_proof/gen.sh` no longer reproduces `ZInQKernel/OneProof/H/*.lean`; the library
 modules are the source.** They are regenerated from the leaf-fold4 copies (commit a2de2112) by
 `scratch/one-proof/redo.sh MODULE a2de2112 DELETED_MODULES...` (deletion, alias opens, the per-module fixes in
-`scratch/one-proof/fixes/`).
+`scratch/one-proof/fixes/`), in import order, where DELETED_MODULES are the modules with map rows processed so far
+(LPrefix, TailA, TailB, TailC, TailE, TailF, TailG, TailH up to and including the current one); this reproduces
+the committed Tail*/LPrefix files byte for byte (checked). LF2Stalks, LF3Cot and LF2UnramConj were edited directly.
 
 ## Result
 
