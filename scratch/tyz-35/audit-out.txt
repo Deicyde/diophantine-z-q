@@ -1,0 +1,7 @@
+'ZInQ.Contrib.TYZGenus.TYZ35.thm35First_of_thm33' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.TYZGenus.TYZ35.thm35First_of_lcal_thm33' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.TYZGenus.TYZ35.level_identity' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.TYZGenus.TYZ35.prod_sgn_chi_eq_one' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.TYZGenus.TYZ35.sum_Pchi' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.TYZGenus.TYZ35.exists_liftFamily' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.TYZGenus.TYZ35.sum_Pchi_divisors' depends on axioms: [propext, Classical.choice, Quot.sound]

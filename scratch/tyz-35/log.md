@@ -30,3 +30,14 @@ for the pinned points; TYZ prove it (L2343–2380) from Theorem 3.3 by the chara
   `χ_{d₁} ↔ K(√d₁)` for n ≡ 5, equals the character of the unramified `K(√±d₁)` for n ≡ 7, is a class
   invariant, and `χ_T = χ_{T^c}` for n ≡ 7: 0 mismatches over 26 values of n (VERIFIED computed).
 - First `lake build ...RingClassBridge` killed by the 10-min background limit; restarted.
+
+## 2026-11-14 00:30 Thm35.lean compiles
+- `lake build ZInQKernel.Contrib.TYZGenus.RingClassBridge` (10286 jobs, clean), then
+  `lake env lean scratch/tyz-35/Thm35.lean`: 0 errors, no sorry (≈35 s). VERIFIED.
+- `#print axioms` (audit-out.txt): `thm35First_of_thm33`, `thm35First_of_lcal_thm33`,
+  `level_identity`, `prod_sgn_chi_eq_one`, `sum_Pchi`, `exists_liftFamily`, `sum_Pchi_divisors`:
+  all `[propext, Classical.choice, Quot.sound]`. VERIFIED.
+- Proved glue: torsion quotient cancellation; character formula `Σ_T χ_T(c) = 2^k [c ∈ Cl²]`;
+  genus product formula `Π_{q∣n} χ_q = 1` for n ≡ 3 (4) (from `exists_chi_eq` + `#Cl[2] = 2^{t−1}`);
+  subsets-of-primes ↔ divisors bijection; `gmap` involution (n ≡ 1 (4)) / complement invariance
+  (n ≡ 3 (4)); lift family with `f(2Cl) = Φ₀` (`exists_liftFamily`); level identity; induction.
