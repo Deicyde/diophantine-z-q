@@ -39,6 +39,17 @@ Four of the six rows are now theorems, one of them with no leaf at all; two rows
 
 No row statement was changed, and no row was found false or vacuous.
 
+**Literature inputs after this task, for these six rows:**
+
+| row | published input still needed | status of the input in Lean |
+|---|---|---|
+| H-41 | Igusa's theorem (`IgusaSL2X` or `IgusaGL2`) | kernel leaf |
+| H-79 (as used) | Riemann–Hurwitz for function fields (`RiemannHurwitzQj`); also Igusa (H-41) and the kernel's `DimJacobianEqGenus` | new leaf |
+| H-81 | Stacks 00TV, regular ⇒ smooth over a perfect field (`RegularSmoothPerfect`) | new leaf |
+| H-82 | Zariski's connectedness theorem (`ZariskiConnectedness`) | kernel leaf |
+| H-83 | representability of the QM moduli problem over `ℤ_(p)` (Kottwitz, Buzzard) | cannot be stated today |
+| H-85 | none | proved |
+
 ## 2. Table
 
 | row | old form | new leaves (published form, source) | new glue | Lean name of the proof |
