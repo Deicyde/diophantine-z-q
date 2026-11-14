@@ -1,0 +1,6 @@
+1. assembly = import + VertWitness.lean + parts: True
+2. def ModelCoordinate : Prop occurrences (file, prefix): 1 1 True
+2. def ModelComparison : Prop occurrences (file, prefix): 1 1 True
+3. isReduced_of_etale_of_isDomain copy equals source (modulo name and ⊗ notation): True
+3'. smoothFibreReduced copy equals source (modulo name and the field lemma): True
+ALL OK

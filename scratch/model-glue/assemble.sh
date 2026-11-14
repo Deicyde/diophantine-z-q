@@ -10,3 +10,5 @@ cat ModelGlue2.lean ModelGlue3.lean.part > ModelGlue3.lean
 cat ModelGlue3.lean ModelGlue4.lean.part > ModelGlue4.lean
 # ModelGlue5.lean: ModelGlue4.lean + step 5 (ModelFunctionField from CurveBijIso).
 cat ModelGlue4.lean ModelGlue5.lean.part > ModelGlue5.lean
+# ModelGlue6.lean: ModelGlue5.lean + step 6 (composites). This is the final single-file check.
+cat ModelGlue5.lean ModelGlue6.lean.part > ModelGlue6.lean

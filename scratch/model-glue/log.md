@@ -87,3 +87,14 @@ instance `Algebra R (Spec R).functionField` is not found for `R = CommRingCat.of
 instance path via `forget`); use `@instAlgebraCarrierFunctionFieldSpec` and
 `IsFractionRing.ringEquivOfRingEquiv (RingEquiv.refl _)`; `IsOpenImmersion (pullback.fst _ g)`
 instance not found for the generic `HasPullback`; use `MorphismProperty.pullback_fst`.
+
+## Step 6 (00:45, 2026-11-14) — VERIFIED (ModelGlue6.lean = ModelGlue5.lean + ModelGlue6.lean.part; lake env lean exit 0; compile6_out.txt)
+- `smoothFibreReduced' : SmoothFibreReduced` (task smooth-fibre's proof, verbatim modulo the field
+  lemma; statement identical to `ZInQ.SmoothFibre.SmoothFibreReduced`).
+- `modelCoordinate_and_modelComparison (hT : ObjBridge.TorsionStructure)
+  (hD : ModelCoordinateResidue) (hC : CurveBijIso) : ModelCoordinate ∧ ModelComparison`.
+- `heckeVertWitness_of_curveBijIso (hL : ShimuraGoodReduction) (hRR : R1R2fp)
+  (hT : ObjBridge.TorsionStructure) (hD : ModelCoordinateResidue) (hC : CurveBijIso) :
+  HeckeVertWitness`.
+- py/verbatim_check.py: ALL OK (assembly = import + VertWitness.lean verbatim + parts; the two
+  target defs occur once, in the prefix; smooth-fibre copies equal their source).
