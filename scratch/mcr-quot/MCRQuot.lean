@@ -5821,6 +5821,164 @@ theorem modelCoordinateResidue_of_mcrQuot (hAF : ProperCurveAF) (hQE : FiniteQuo
 
 end MCRQuot
 
+/-! ════════════════════════════════════════════════════════════════════════════════════════════
+# mcr-quot, part 8: `P1ThreePoints` from the translation glue `P1Translate`
+
+`PGL₂(ℤ_(p))` acting on isomorphisms `𝒵 ≅ P¹_{ℤ_(p)}` by charts: the inversion `t ↦ 1/t`
+(`ImagePlane.inv`, charts swapped) and the scalings `t ↦ u t` (`u ∈ ℤ_(p)^×`, same charts) are
+constructed here; the translations `t ↦ t + e` are the glue `P1Translate`. Disjoint closures of
+rational sections force distinct reductions (`isUnit_sub_of_disjoint`), and a normalization
+argument moves three such sections to `0, ∞, −16/27`.
+════════════════════════════════════════════════════════════════════════════════════════════ -/
+
+noncomputable section
+
+namespace MCRQuot
+
+open Polynomial CategoryTheory AlgebraicGeometry Limits LeafQM LeafQM.AV VertWitness HeckeRestNV
+open G0ModField PropTSRed PropTSGlue ModelGlue MCRGlue LeafQM.AV.Pin PkgI3
+
+variable {p : ℕ} [Fact p.Prime]
+
+/-- `ℤ_(p) → ℚ̄`. -/
+def iq (p : ℕ) [Fact p.Prime] : Zloc p →+* Qbar := (algebraMap ℚ Qbar).comp (zlocToRat p)
+
+theorem iq_injective : Function.Injective (iq p) :=
+  (algebraMap ℚ Qbar).injective.comp (zlocToRat_injective p)
+
+theorem ev_baseToSections (𝒵 : Over (Spec (CommRingCat.of (Zloc p)))) {W : 𝒵.left.Opens}
+    (z : Spec (CommRingCat.of Qbar) ⟶ 𝒵.left) (hz : ptOf z ∈ W) (a : Zloc p) :
+    ev z hz (baseToSections 𝒵 W a) = iq p a :=
+  congrArg (fun φ : Zloc p →+* Qbar => φ a) (zloc_ringHom_ext ((ev z hz).comp _) (iq p))
+
+theorem res_baseToSections (𝒵 : Over (Spec (CommRingCat.of (Zloc p)))) {W W' : 𝒵.left.Opens}
+    (h : W' ≤ W) (a : Zloc p) : res h (baseToSections 𝒵 W a) = baseToSections 𝒵 W' a := by
+  simp only [res, baseToSections, RingHom.coe_comp, Function.comp_apply]
+  rw [← ConcreteCategory.comp_apply, ← Functor.map_comp]
+  rfl
+
+/-! ## Inversion -/
+
+theorem val_inv {K : Type} [Field K] {X : Scheme.{0}} (ρ : ToP1 X)
+    (z : Spec (CommRingCat.of K) ⟶ X) : (ImagePlane.inv ρ).val z = ImagePlane.recip (ρ.val z) :=
+  ImagePlane.val_eq_recip (ImagePlane.inv ρ) z
+
+theorem isP1Coordinate_inv {𝒵 : Over (Spec (CommRingCat.of (Zloc p)))} {ρ : ToP1 𝒵.left}
+    (h : IsP1Coordinate 𝒵 ρ) : IsP1Coordinate 𝒵 (ImagePlane.inv ρ) :=
+  ⟨h.2.1, h.1, h.2.2.2, h.2.2.1⟩
+
+/-! ## Scaling by a unit -/
+
+/-- The scaled coordinate `u · ρ`. -/
+def scale (𝒵 : Over (Spec (CommRingCat.of (Zloc p)))) (ρ : ToP1 𝒵.left) (u : (Zloc p)ˣ) :
+    ToP1 𝒵.left where
+  U := ρ.U
+  V := ρ.V
+  cover := ρ.cover
+  f := baseToSections 𝒵 ρ.U (u : Zloc p) * ρ.f
+  g := baseToSections 𝒵 ρ.V ((u⁻¹ : (Zloc p)ˣ) : Zloc p) * ρ.g
+  inv := by
+    change res _ (_ * ρ.f) * res _ (_ * ρ.g) = 1
+    rw [map_mul, map_mul, res_baseToSections, res_baseToSections]
+    have e : res (inf_le_left : ρ.U ⊓ ρ.V ≤ ρ.U) ρ.f * res (inf_le_right : ρ.U ⊓ ρ.V ≤ ρ.V) ρ.g
+      = 1 := ρ.inv
+    calc baseToSections 𝒵 (ρ.U ⊓ ρ.V) ↑u * res _ ρ.f *
+          (baseToSections 𝒵 (ρ.U ⊓ ρ.V) ↑u⁻¹ * res _ ρ.g)
+        = baseToSections 𝒵 (ρ.U ⊓ ρ.V) (↑u * ↑u⁻¹) *
+            (res (inf_le_left : ρ.U ⊓ ρ.V ≤ ρ.U) ρ.f * res (inf_le_right : ρ.U ⊓ ρ.V ≤ ρ.V) ρ.g) := by
+          rw [map_mul]; ring
+      _ = 1 := by rw [e, Units.mul_inv, map_one, mul_one]
+  basicOpen_f := by
+    rw [Scheme.basicOpen_mul, Scheme.basicOpen_of_isUnit _ ((u.isUnit).map _),
+      inf_eq_right.mpr (Scheme.basicOpen_le _ _), ρ.basicOpen_f]
+  basicOpen_g := by
+    rw [Scheme.basicOpen_mul, Scheme.basicOpen_of_isUnit _ ((u⁻¹.isUnit).map _),
+      inf_eq_right.mpr (Scheme.basicOpen_le _ _), ρ.basicOpen_g]
+
+theorem val_scale (𝒵 : Over (Spec (CommRingCat.of (Zloc p)))) (ρ : ToP1 𝒵.left) (u : (Zloc p)ˣ)
+    (z : Spec (CommRingCat.of Qbar) ⟶ 𝒵.left) :
+    (scale 𝒵 ρ u).val z = (ρ.val z).map (fun t => iq p u * t) := by
+  by_cases hz : ptOf z ∈ ρ.U
+  · rw [val_of_mem (scale 𝒵 ρ u) z hz, val_of_mem ρ z hz]
+    change OnePoint.some (ev z hz (baseToSections 𝒵 ρ.U ↑u * ρ.f)) = _
+    rw [map_mul, ev_baseToSections]
+    rfl
+  · rw [val_of_not_mem (scale 𝒵 ρ u) z hz, val_of_not_mem ρ z hz]
+    rfl
+
+/-- Bijectivity of `X ↦ c · h` when `X ↦ h` is bijective and `c` is a unit. -/
+theorem bijective_eval₂_mul {R S : Type*} [CommRing R] [CommRing S] (φ : R →+* S) (h : S)
+    (u : Rˣ) (hb : Function.Bijective (eval₂RingHom φ h)) :
+    Function.Bijective (eval₂RingHom φ (φ u * h)) := by
+  let m : R[X] →+* R[X] := eval₂RingHom C (C (u : R) * X)
+  let m' : R[X] →+* R[X] := eval₂RingHom C (C ((u⁻¹ : Rˣ) : R) * X)
+  have hcomp : eval₂RingHom φ (φ u * h) = (eval₂RingHom φ h).comp m := by
+    apply Polynomial.ringHom_ext
+    · intro a; simp [m]
+    · simp [m]
+  have hmm' : m.comp m' = RingHom.id _ := by
+    apply Polynomial.ringHom_ext
+    · intro a; simp [m, m']
+    · simp only [m, m', RingHom.coe_comp, Function.comp_apply, coe_eval₂RingHom, eval₂_mul,
+        eval₂_C, eval₂_X, RingHom.id_apply]
+      rw [← mul_assoc, ← C_mul, Units.inv_mul, C_1, one_mul]
+  have hm'm : m'.comp m = RingHom.id _ := by
+    apply Polynomial.ringHom_ext
+    · intro a; simp [m, m']
+    · simp only [m, m', RingHom.coe_comp, Function.comp_apply, coe_eval₂RingHom, eval₂_mul,
+        eval₂_C, eval₂_X, RingHom.id_apply]
+      rw [← mul_assoc, ← C_mul, Units.mul_inv, C_1, one_mul]
+  have hmb : Function.Bijective m :=
+    ⟨Function.LeftInverse.injective (g := m') (fun x => congrArg (fun f => f x) hm'm),
+      Function.RightInverse.surjective (g := m') (fun x => congrArg (fun f => f x) hmm')⟩
+  rw [hcomp, RingHom.coe_comp]
+  exact hb.comp hmb
+
+theorem isP1Coordinate_scale {𝒵 : Over (Spec (CommRingCat.of (Zloc p)))} {ρ : ToP1 𝒵.left}
+    (h : IsP1Coordinate 𝒵 ρ) (u : (Zloc p)ˣ) : IsP1Coordinate 𝒵 (scale 𝒵 ρ u) :=
+  ⟨h.1, h.2.1, bijective_eval₂_mul _ _ u h.2.2.1, bijective_eval₂_mul _ _ u⁻¹ h.2.2.2⟩
+
+/-! ## Translation (the glue) -/
+
+/-- **Glue (C2-T): translations of `P¹_{ℤ_(p)}`** (chart algebra of `P¹` over `ℤ_(p)`; no
+literature). For `ρ : 𝒵 ≅ P¹_{ℤ_(p)}` and `e ∈ ℤ_(p)`, the coordinate `ρ + e` is again an
+isomorphism onto `P¹_{ℤ_(p)}`. (Outline: `U' = U`, `f' = f + e`;
+`V' = D_V(1 + e g) ∪ D_U(f + e)`, `g'` glued from `g/(1 + e g)` and `1/(f + e)`; `V'` is covered by
+the basic opens `D(g') = D_U(f + e)` and `D(1 − e g') = D_V(1 + e g)`, which are affine and generate
+the unit ideal, so `V'` is affine; `ℤ_(p)[g'] = Γ(V')` because
+`ℤ_(p)[Y, 1/Y] ∩ ℤ_(p)[Y, 1/(1 − eY)] = ℤ_(p)[Y]` (`Y` and `1 − eY` are coprime).) -/
+def P1Translate : Prop :=
+  ∀ (p : ℕ) [Fact p.Prime] (𝒵 : Over (Spec (CommRingCat.of (Zloc p)))) (ρ : ToP1 𝒵.left),
+    IsP1Coordinate 𝒵 ρ → ∀ e : Zloc p, ∃ ρ' : ToP1 𝒵.left, IsP1Coordinate 𝒵 ρ' ∧
+      ∀ z : Spec (CommRingCat.of Qbar) ⟶ 𝒵.left, ρ'.val z = (ρ.val z).map (fun t => t + iq p e)
+
+/-! ## Disjoint closures force distinct reductions -/
+
+/-- The point of an affine open `W` with prime `ker ψ` lies in the closure of the point of a
+`ℚ̄`-point `z` of `W` whose evaluation kernel is contained in `ker ψ`. -/
+theorem fromSpec_ker_mem_closure {X : Scheme.{0}} {W : X.Opens} (hW : IsAffineOpen W)
+    {F : Type} [Field F] (ψ : Γ(X, W) →+* F) (z : Spec (CommRingCat.of Qbar) ⟶ X)
+    (hz : ptOf z ∈ W) (hker : ∀ s, ev z hz s = 0 → ψ s = 0) :
+    hW.fromSpec ⟨RingHom.ker ψ, RingHom.ker_isPrime ψ⟩ ∈ closure {ptOf z} := by
+  set w := hW.fromSpec ⟨RingHom.ker ψ, RingHom.ker_isPrime ψ⟩ with hwdef
+  have hwW : w ∈ W := by
+    change w ∈ (W : Set X)
+    rw [← hW.range_fromSpec]; exact ⟨_, rfl⟩
+  rw [mem_closure_iff]
+  intro o ho hwo
+  obtain ⟨s, hsle, hws⟩ := hW.exists_basicOpen_le (V := ⟨o, ho⟩) ⟨w, hwo⟩ hwW
+  have hs : ψ s ≠ 0 := by
+    have h1 : (⟨RingHom.ker ψ, RingHom.ker_isPrime ψ⟩ : PrimeSpectrum Γ(X, W)) ∈
+        hW.fromSpec ⁻¹ᵁ X.basicOpen s := hws
+    rw [hW.fromSpec_preimage_basicOpen] at h1
+    exact fun h0 => h1 (RingHom.mem_ker.mpr h0)
+  have hzs : ptOf z ∈ X.basicOpen s := by
+    by_contra hn
+    exact hs (hker s ((ev_eq_zero_iff z hz s).2 hn))
+  exact ⟨ptOf z, hsle hzs, rfl⟩
+
+end MCRQuot
+
 #print axioms MCRQuot.exists_unit_congr
 #print axioms MCRQuot.mem_orbit_of_twistEq
 #print axioms MCRQuot.twistEq_of_mem_fibreAut
