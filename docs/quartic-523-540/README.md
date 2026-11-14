@@ -1,6 +1,6 @@
 # Version 9: the 523- and 540-variable quartics
 
-Version 9 integrates Gabriel Conant's November 7 odd-product and asymmetric-depth construction, developed with ChatGPT. The original archive is identified by SHA-256 `fcb169b0fe78b7d8c7badec083f23b543901ae0efa17f9bc38f3025511764141`. The [arithmetic audit](evidence/AUDIT.md) and [source lineage](evidence/SOURCE_LINEAGE.json) predate integration and retain their original scope statements.
+Version 9 integrates Gabriel Conant's November 7 odd-product and asymmetric-depth construction, developed with ChatGPT. The original archive is identified by SHA-256 `fcb169b0fe78b7d8c7badec083f23b543901ae0efa17f9bc38f3025511764141`. The [arithmetic audit](https://github.com/elliotglazer/diophantine-z-q/blob/005b17abfbefd8bee7b34f3bbe8f5aabf872eb1f/docs/quartic-523-540/evidence/AUDIT.md) and [source lineage](https://github.com/elliotglazer/diophantine-z-q/blob/005b17abfbefd8bee7b34f3bbe8f5aabf872eb1f/docs/quartic-523-540/evidence/SOURCE_LINEAGE.json) predate integration and retain their original scope statements.
 
 | Construction | Total variables | Witnesses | Degree | Monomials | Largest absolute coefficient |
 | --- | ---: | ---: | ---: | ---: | --- |
@@ -42,6 +42,6 @@ python -B -m unittest discover -s docs/quartic-523-540 -p test_inventory.py -v
 
 The first command rebuilds both precursors, checks the gate certificates, runs each final verifier twice, independently checks eliminations and complete sums of squares, compares the text downloads, and confirms that all pinned inputs remain unchanged. Its outputs go to `build/odd-product/`; no external Python packages are needed. The intermediate 554/571 tables remain in the package for reproducibility, not as current records.
 
-The [verifier repair](evidence/READONLY_VERIFIER.patch) replaces writes to two hash-pinned JSON inputs with equality checks against the recomputed values. The original Windows bug made a second run fail after newline conversion. The integrated [provenance record](../../quartics/quartic-523-540/INTEGRATION.json) records old and repaired verifier hashes; the manifests cover the repaired files. Polynomial data are unchanged.
+The [verifier repair](https://github.com/elliotglazer/diophantine-z-q/blob/005b17abfbefd8bee7b34f3bbe8f5aabf872eb1f/docs/quartic-523-540/evidence/READONLY_VERIFIER.patch) replaces writes to two hash-pinned JSON inputs with equality checks against the recomputed values. The original Windows bug made a second run fail after newline conversion. The integrated [provenance record](../../quartics/quartic-523-540/INTEGRATION.json) records old and repaired verifier hashes; the manifests cover the repaired files. Polynomial data are unchanged.
 
 Finite checks and internal AI arithmetic review have passed. No completed Lean proof or independent human peer review is claimed.

@@ -4,7 +4,7 @@ Status: the owner activated Protocol B for future pull requests on November 13,
 2026, America/Los_Angeles. Astra's authenticated readback at 18:57 PST that day
 (November 14, 02:57 UTC) observed live mode and the App-pinned requirement.
 See the [settings evidence and limits](reviews/activation-2026-11-13/README.md)
-and [pre-activation review record](reviews/pre-activation-reviews.md). This is
+and [pre-activation review record](https://github.com/elliotglazer/diophantine-z-q/blob/005b17abfbefd8bee7b34f3bbe8f5aabf872eb1f/docs/research-review/reviews/pre-activation-reviews.md). This is
 operator-reported deployment evidence, not a claim that every setup or test
 below has been independently demonstrated. The old controller stays retired.
 

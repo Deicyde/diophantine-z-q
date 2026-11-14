@@ -25,7 +25,7 @@ rotation, absence of copies elsewhere, or a live branch/tag access-denial test.
 The App is used by this repository's workflow; there is no separate controller.
 Unfinished reviews and unavailable required sources do not pass. The checklist
 documents override commands, context limits and the remaining test limitations.
-The [pre-activation review record](reviews/pre-activation-reviews.md) preserves
+The [pre-activation review record](https://github.com/elliotglazer/diophantine-z-q/blob/005b17abfbefd8bee7b34f3bbe8f5aabf872eb1f/docs/research-review/reviews/pre-activation-reviews.md) preserves
 the review requirement and records how it was addressed, including the
 owner-reported reviews and PR88's exceptional bootstrap merge.
 
@@ -45,3 +45,5 @@ The folder includes new same-family reader-agent checks of Version 17, not just 
 Erratum to the unchanged ledger: E32 and E43 incorrectly say Version 17 no longer contains the indices `4,6,2` sentence. It remains at line 5842 of `manuscripts/quartic_v17.tex`, in the height argument. E43 therefore concerns current text; its argument-level effect is unresolved here. Preserving the original files does not endorse this erroneous statement or close that objection.
 
 The archive tag preserves the repository corpus, not every external source used to compile the summaries. Part 1 of the ledger also relies on nine locally held Fable audit PDFs and a task brief. The tag contains `research/version16/audits/fable-5-2-audit-4.pdf`, but not all the other local PDFs or that brief. In particular, the original out-of-tree sources for E1–E7, E23–E24 and E27–E29 are not supplied by the tag; E30, E32 and E33 include provisional objector attribution from the brief. These are source and provenance qualifications, not a fresh audit of the claims.
+
+Historical preparation scripts and manual replay workflows are described in [Replaying historical review tools](archived-tools.md). Current computation checks and the manuscript build continue to use their retained inputs on the current branch.
