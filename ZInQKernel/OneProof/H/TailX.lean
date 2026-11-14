@@ -21,7 +21,8 @@ from the new ones. Folded (docs/research/leaf-fold7.md lists every field):
 * qm-split (`TailU`): `qmClassNumberOne` proved (dropped), `t27` from `YuThm11`, `cmOptimalEmbedding`,
   `qmAutCard`, `alFixedPoints` from `QMCentralizerCMC` (with T11(b)), `stQM` from `ShimuraTaniyamaQbar`, `r4` from
   `IgusaPsi4` and `IgusaChi10`, `r1b` from `ShimuraFamily`;
-* hodge-split (`TailS`, `TailT`, transports in `TailV`): `r14` from Diamond–Shurman's Thms 9.6.5-9.6.6, `t23` from
+* hodge-split (`TailS`, `TailT`, transports in `TailV`): `r10` from the Hodge–Tate decomposition, the de Rham
+  property of `H¹_ét` and Tate's two theorems, `r14` from Diamond–Shurman's Thms 9.6.5-9.6.6, `t23` from
   `B_dR^{G_{ℚ_p}} = ℚ_p`, `senTwist` and `finiteImageHT` from Tate's two theorems on `ℂ_p(i)^{G_K}`;
 * mcr-glue (`TailW`): the glue `ModelCoordinateResidue` from the smaller glue `QuotientP1Coordinate`.
 
@@ -63,7 +64,8 @@ theorem stQM_lf7 (h : G0Split.FibreQM.PeriodMapH.QMSplitSTQM.ShimuraTaniyamaQbar
 
 /-- **The research leaves still open** (leaf-fold7): leaf-fold5's `OpenResearchLeaves5` with `r4` replaced by
 Igusa's two modularity statements, `r1b` by `ShimuraFamily` (qm-split) and `r14` by Diamond–Shurman's two theorems
-(hodge-split). 28 fields. -/
+(hodge-split), and `r10` by the Hodge–Tate decomposition and the de Rham property of `H¹_ét` (hodge-split, with
+Tate's two theorems from the added bundle). 29 fields. -/
 structure OpenResearchLeaves7 : Prop where
   r1r2 : LeafAdopt.R1R2fpRep
   /-- qm-split, H-20: Shimura 1967 Main Thm I on one fine witness, for every map `π : Y → P¹` (replaces `r1b`). -/
@@ -82,7 +84,12 @@ structure OpenResearchLeaves7 : Prop where
   r8 : _root_.PkgI2.GrothendieckMonodromy.{0}
   r9a : _root_.PkgI3.FaltingsSemisimple
   r9b : _root_.PkgI3.FaltingsTate
-  r10 : PkgI4.DeRhamComparisonHT
+  /-- hodge-split, H-8: the Hodge–Tate decomposition `ℂ_p ⊗ V_p(A) ≅ ℂ_p(1)^g ⊕ ℂ_p^g` (Fontaine 1982; Tate 1967;
+  Faltings 1988; with `deRhamH1AbVarT` and Tate's two theorems, replaces `r10`). -/
+  hodgeTateDecompAbVar : _root_.ZInQ.Contrib.HodgeSplit.HodgeTateDecompAbVar
+  /-- hodge-split, H-8: `H¹_ét(A_F̄, ℚ_p) = Hom(V_p A, ℚ_p)` is de Rham (Faltings 1989; Tsuji 1999; Scholze 2013
+  Cor. 1.8). -/
+  deRhamH1AbVarT : _root_.ZInQ.Contrib.HodgeSplit.DeRhamH1AbVarT
   r11r12 : PkgI4.PanBerger
   r13 : PkgI4.EigenformHT
   /-- hodge-split, H-22: Diamond–Shurman Thm 9.6.5 (`k ≥ 2`, Deligne; with `dsThm966`, replaces `r14`). -/
@@ -181,7 +188,7 @@ structure OpenGlue7 : Prop where
 /-! ## From the new bundles to leaf-fold6's -/
 
 /-- leaf-fold6's research bundle (`OpenResearchLeaves5`) from leaf-fold7's. -/
-theorem researchLeaves5_of_open7 (r : OpenResearchLeaves7) : OpenResearchLeaves5 where
+theorem researchLeaves5_of_open7 (r : OpenResearchLeaves7) (l : OpenAddedLeaves7) : OpenResearchLeaves5 where
   r1r2 := r.r1r2
   r1b := QMSplit.Moduli.r1b_of' r.shimuraFamily
   r1rec := r.r1rec
@@ -195,7 +202,8 @@ theorem researchLeaves5_of_open7 (r : OpenResearchLeaves7) : OpenResearchLeaves5
   r8 := r.r8
   r9a := r.r9a
   r9b := r.r9b
-  r10 := r.r10
+  r10 := HodgeLF7.r10 (_root_.ZInQ.Contrib.HodgeSplit.deRhamComparisonHT_of_leavesT r.hodgeTateDecompAbVar
+    l.tateTwistInvariants l.axSenTate r.deRhamH1AbVarT)
   r11r12 := r.r11r12
   r13 := r.r13
   r14 := HodgeLF7.r14Det (_root_.ZInQ.Contrib.HodgeSplit.r14Det_of_printed r.dsThm965 r.dsThm966)
@@ -269,11 +277,11 @@ theorem glue6_of_open7 (g : OpenGlue7) : OpenGlue6 where
   modelCoordinateResidue := MCRGlue.modelCoordinateResidue_of_quotient' g.quotientP1Coordinate
 
 /-- **G0 with only the open leaves and the open glue** (leaf-fold7; no `sorry`, standard axioms).
-`ZInQ.SixContactMin` follows from `OpenResearchLeaves7` (28), `OpenTextbookLeaves7` (23), `OpenAddedLeaves7` (16)
+`ZInQ.SixContactMin` follows from `OpenResearchLeaves7` (29), `OpenTextbookLeaves7` (23), `OpenAddedLeaves7` (16)
 and `OpenGlue7` (1, `QuotientP1Coordinate`). The table of every field is `docs/research/leaf-fold7.md` §2. -/
 theorem sixContactMin_of_open7 (r : OpenResearchLeaves7) (t : OpenTextbookLeaves7) (l : OpenAddedLeaves7)
     (g : OpenGlue7) : ZInQ.SixContactMin :=
-  sixContactMin_of_open6 (researchLeaves5_of_open7 r) (textbookLeaves6_of_open7 t l) (addedLeaves6_of_open7 t l)
+  sixContactMin_of_open6 (researchLeaves5_of_open7 r l) (textbookLeaves6_of_open7 t l) (addedLeaves6_of_open7 t l)
     (glue6_of_open7 g)
 
 end HSyn

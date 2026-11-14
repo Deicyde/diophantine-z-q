@@ -22,3 +22,9 @@
   `lake build +ZInQKernel.OneProof.Main`: exit 0; `#print axioms ZInQ.OneProof.frozenTarget`: propext,
   Classical.choice, Quot.sound. DumpCompact after: 9934 constants; cmp_hashes.py: 0 removed, 1 changed
   (frozenTarget itself, the statement change), 1340 new, all in TailP-TailX (cmp_hashes_out.txt).
+- 07:40-08:00 r10 (H-8) folded: TailV proves `IsDeRhamOver`/`htMultOver` (G9's) invariant under an isomorphism of
+  representations (`isDeRhamOver_congr`, `htMultOver_congr`, via `ddrSpaceOver`/`htSpaceOver` ≃ φ ↦ φ ∘ e), and
+  that the identity `vEquiv : (toG9AbVar A).V p ≃ₗ A.V p` intertwines the two `galRep`s (pure tensors: `congr 1`
+  closes by unfolding `galT`). `HodgeLF7.r10 : ZInQ.Contrib.R10.DeRhamComparisonHT → PkgI4.DeRhamComparisonHT`.
+  TailX: `r10` → `hodgeTateDecompAbVar`, `deRhamH1AbVarT`. Main builds, axioms standard; DumpCompact/cmp_hashes
+  rerun (cmp_hashes_out.txt).
