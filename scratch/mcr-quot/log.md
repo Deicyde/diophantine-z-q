@@ -251,3 +251,13 @@ standard; no sorry)
 - **Final composite `modelCoordinateResidue_final8`**: L1-L6 + T5 + CurveBijIso +
   CoverModelOfHeckeN + (B-iso) `ToP1BijIsCoordinateQ` + (C1b-obj) `CMStabObj` ⇒
   `ModelCoordinateResidue`.
+
+## Step 21 (13:30) — VERIFIED (parts 1-23 + 9; exit 0; compile23_out.txt; all 57 `#print axioms`
+standard)
+- **(B-iso) reduced**: `MCRQuot.toP1BijIsCoordinateQ_of (hC : CurveBijIso) (hP : P1SchemeQ) :
+  ToP1BijIsCoordinateQ`. New foundational glue `P1SchemeQ`: a proper, smooth (rel. dim 1)
+  `ℚ`-scheme `P` with charts `τ` (`IsP1CoordinateQ`) representing `ToP1` data (every `σ : ToP1 Z` is
+  `τ ∘ m`). Helpers `eq_of_ev_eq_chartQ`, `val_injective_of_isP1CoordinateQ`,
+  `bijective_eval₂_transport`.
+- **Final composite `modelCoordinateResidue_final9`**: L1-L6 + T5 + CurveBijIso +
+  CoverModelOfHeckeN + `P1SchemeQ` + `CMStabObj` ⇒ `ModelCoordinateResidue`.

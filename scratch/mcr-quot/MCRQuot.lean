@@ -8525,6 +8525,174 @@ theorem modelCoordinateResidue_final8 (hAF : ProperCurveAF) (hQE : FiniteQuotien
 
 end MCRQuot
 
+/-! ════════════════════════════════════════════════════════════════════════════════════════════
+# mcr-quot, part 23: (B-iso) reduced to `CurveBijIso` and the existence of `P¹_ℚ`
+════════════════════════════════════════════════════════════════════════════════════════════ -/
+
+noncomputable section
+
+namespace MCRQuot
+
+open Polynomial CategoryTheory AlgebraicGeometry Limits LeafQM LeafQM.AV VertWitness HeckeRestNV
+open G0ModField PropTSRed PropTSGlue ModelGlue MCRGlue LeafQM.AV.Pin PkgI3
+open TopologicalSpace Opposite
+
+/-- **Glue (B-P¹): the projective line over `ℚ` exists and represents maps to `P¹` by charts**
+(foundations; Mathlib 4.35 has `Proj` with `IsProper (Proj.toSpecZero 𝒜)` but no `P¹` with its
+smoothness and functor of points; Hartshorne II.7.1 / EGA II 4.2.4 (locators UNVERIFIED)). There
+are a proper scheme `P` over `ℚ`, smooth of relative dimension 1, and charts `τ : P ≅ P¹` (by
+`IsP1CoordinateQ`: the two charts are `Spec ℚ[t]`, `Spec ℚ[s]`), such that every `σ : ToP1 Z`
+of a `ℚ`-scheme `Z` is `τ ∘ m` for a morphism `m : Z → P` over `ℚ` (`m⁻¹U_τ = U_σ`,
+`m⁻¹V_τ = V_σ`, `m^*τ.f = σ.f`, `m^*τ.g = σ.g`). (`P = Proj ℚ[X₀, X₁]`; `m` is glued from
+`U_σ → D₊(X₀)`, `t ↦ f`, and `V_σ → D₊(X₁)`, `s ↦ g`, which agree on `U_σ ∩ V_σ` because
+`f g = 1`; `m⁻¹ D₊(X₀) = U_σ` because `g` vanishes exactly on `V_σ ∖ U_σ`.) -/
+def P1SchemeQ : Prop :=
+  ∃ (P : Over (Spec (CommRingCat.of ℚ))) (τ : ToP1 P.left),
+    IsProper P.hom ∧ SmoothOfRelativeDimension 1 P.hom ∧ IsP1CoordinateQ P τ ∧
+    ∀ (Z : Over (Spec (CommRingCat.of ℚ))) (σ : ToP1 Z.left),
+      ∃ (m : Z ⟶ P) (eU : m.left ⁻¹ᵁ τ.U = σ.U) (eV : m.left ⁻¹ᵁ τ.V = σ.V),
+        m.left.app τ.U τ.f = Z.left.presheaf.map (eqToHom eU).op σ.f ∧
+        m.left.app τ.V τ.g = Z.left.presheaf.map (eqToHom eV).op σ.g
+
+section ChartsQ
+
+variable {K : Type} [Field K]
+
+/-- **Chart injectivity over `ℚ`** (as `eq_of_ev_eq_chart`, with `ℚ` in place of `ℤ_(p)`). -/
+theorem eq_of_ev_eq_chartQ (Z : Over (Spec (CommRingCat.of ℚ))) {W : Z.left.Opens}
+    (hW : IsAffineOpen W) (h : Γ(Z.left, W))
+    (hs : Function.Surjective (eval₂RingHom (baseToSectionsOver _ Z W) h))
+    (z z' : Spec (CommRingCat.of K) ⟶ Z.left) (hz : ptOf z ∈ W) (hz' : ptOf z' ∈ W)
+    (he : ev z hz h = ev z' hz' h) : z = z' := by
+  have hring : ev z hz = ev z' hz' := by
+    ext s
+    obtain ⟨P, rfl⟩ := hs s
+    simp only [coe_eval₂RingHom]
+    rw [Polynomial.hom_eval₂, Polynomial.hom_eval₂, he,
+      Subsingleton.elim ((ev z hz).comp (baseToSectionsOver _ Z W))
+        ((ev z' hz').comp (baseToSectionsOver _ Z W))]
+  refine eq_of_appLE_eq z z' hW (top_le_preimage_of_ptOf_mem z hz)
+    (top_le_preimage_of_ptOf_mem z' hz') ?_
+  apply (cancel_mono (Scheme.ΓSpecIso (CommRingCat.of K)).hom).1
+  ext s
+  have := congrArg (fun φ : Γ(Z.left, W) →+* K => φ s) hring
+  simp only [ev_eq_appLE] at this
+  exact this
+
+/-- **An isomorphism onto `P¹_ℚ` by charts is injective on field points.** -/
+theorem val_injective_of_isP1CoordinateQ {Z : Over (Spec (CommRingCat.of ℚ))} {ρ : ToP1 Z.left}
+    (hρ : IsP1CoordinateQ Z ρ) (z z' : Spec (CommRingCat.of K) ⟶ Z.left)
+    (h : ρ.val z = ρ.val z') : z = z' := by
+  obtain ⟨hU, hV, hbU, hbV⟩ := hρ
+  by_cases hz : ptOf z ∈ ρ.U <;> by_cases hz' : ptOf z' ∈ ρ.U
+  · rw [val_of_mem ρ z hz, val_of_mem ρ z' hz'] at h
+    exact eq_of_ev_eq_chartQ Z hU ρ.f hbU.2 z z' hz hz' (OnePoint.coe_injective h)
+  · rw [val_of_mem ρ z hz, val_of_not_mem ρ z' hz'] at h
+    exact (OnePoint.coe_ne_infty _ h).elim
+  · rw [val_of_not_mem ρ z hz, val_of_mem ρ z' hz'] at h
+    exact (OnePoint.coe_ne_infty _ h.symm).elim
+  · have hv := mem_V_of_not_mem_U ρ hz
+    have hv' := mem_V_of_not_mem_U ρ hz'
+    refine eq_of_ev_eq_chartQ Z hV ρ.g hbV.2 z z' hv hv' ?_
+    rw [ev_g_eq_zero ρ z hv hz, ev_g_eq_zero ρ z' hv' hz']
+
+end ChartsQ
+
+/-- Transport of the polynomial-chart property along an isomorphism `m`. -/
+theorem bijective_eval₂_transport {Z P : Over (Spec (CommRingCat.of ℚ))} (m : Z ⟶ P)
+    [IsIso m.left] {A : P.left.Opens} {B : Z.left.Opens} (e : m.left ⁻¹ᵁ A = B)
+    (a : Γ(P.left, A)) (b : Γ(Z.left, B))
+    (hab : m.left.app A a = Z.left.presheaf.map (eqToHom e).op b)
+    (ha : Function.Bijective (eval₂RingHom (baseToSectionsOver _ P A) a)) :
+    Function.Bijective (eval₂RingHom (baseToSectionsOver _ Z B) b) := by
+  let ψ : Γ(P.left, A) →+* Γ(Z.left, B) :=
+    (Z.left.presheaf.map (eqToHom e.symm).op).hom.comp (m.left.app A).hom
+  have hψb : Function.Bijective ψ := by
+    refine (ConcreteCategory.bijective_of_isIso (Z.left.presheaf.map (eqToHom e.symm).op)).comp
+      ?_
+    exact ConcreteCategory.bijective_of_isIso (m.left.app A)
+  have hψa : ψ a = b := by
+    change Z.left.presheaf.map (eqToHom e.symm).op (m.left.app A a) = b
+    rw [hab, ← ConcreteCategory.comp_apply, ← Functor.map_comp]
+    simp
+  have hcomp : eval₂RingHom (baseToSectionsOver _ Z B) b =
+      ψ.comp (eval₂RingHom (baseToSectionsOver _ P A) a) := by
+    apply Polynomial.ringHom_ext
+    · intro r
+      simp only [coe_eval₂RingHom, eval₂_C, RingHom.coe_comp, Function.comp_apply]
+      have hsub := Subsingleton.elim (baseToSectionsOver _ Z B)
+        (ψ.comp (baseToSectionsOver _ P A))
+      exact congrArg (fun φ => φ r) hsub
+    · simp only [coe_eval₂RingHom, eval₂_X, RingHom.coe_comp, Function.comp_apply]
+      exact hψa.symm
+  rw [hcomp, RingHom.coe_comp]
+  exact hψb.comp ha
+
+/-- **(B-iso) reduced: `ToP1BijIsCoordinateQ` from the textbook leaf `CurveBijIso` and the
+foundational glue `P1SchemeQ`.** Write `σ = τ ∘ m` (`P1SchemeQ`); `m` is bijective on `ℚ̄`-points
+(`σ` is, and `τ` is injective on them), so it is an isomorphism (`CurveBijIso`), and the charts of
+`τ` transport to `σ`. -/
+theorem toP1BijIsCoordinateQ_of (hC : CurveBijIso) (hP : P1SchemeQ) : ToP1BijIsCoordinateQ := by
+  intro Z hZp hZs σ hbij
+  obtain ⟨P, τ, hPp, hPs, hτ, huniv⟩ := hP
+  obtain ⟨m, eU, eV, hfU, hgV⟩ := huniv Z σ
+  have hval : ∀ t : Spec (CommRingCat.of Qbar) ⟶ Z.left, τ.val (t ≫ m.left) = σ.val t := by
+    intro t
+    rw [← ToP1.val_comp_right τ m.left t]
+    by_cases ht : ptOf t ∈ σ.U
+    · have ht' : ptOf t ∈ (τ.comp m.left).U := by
+        change ptOf t ∈ m.left ⁻¹ᵁ τ.U
+        rw [eU]; exact ht
+      rw [val_of_mem _ t ht', val_of_mem σ t ht]
+      congr 1
+      change ev t ht' (m.left.app τ.U τ.f) = _
+      rw [hfU]
+      have e : Z.left.presheaf.map (eqToHom eU).op =
+          Z.left.presheaf.map (homOfLE eU.le).op :=
+        congrArg (fun i : (m.left ⁻¹ᵁ τ.U) ⟶ σ.U => Z.left.presheaf.map i.op)
+          (Subsingleton.elim _ _)
+      rw [e]
+      exact ev_res t _ _ σ.f
+    · have ht' : ptOf t ∉ (τ.comp m.left).U := by
+        change ptOf t ∉ m.left ⁻¹ᵁ τ.U
+        rw [eU]; exact ht
+      rw [val_of_not_mem _ t ht', val_of_not_mem σ t ht]
+  have hmb : Function.Bijective (fun s : fieldPt Qbar ⟶ Z => s ≫ m) := by
+    constructor
+    · intro s s' h
+      apply hbij.1
+      exact (hval s.left).symm.trans
+        ((congrArg (fun w : fieldPt Qbar ⟶ P => τ.val (K := Qbar) w.left) h).trans (hval s'.left))
+    · intro w
+      obtain ⟨s, hs⟩ := hbij.2 (τ.val (K := Qbar) w.left)
+      refine ⟨s, ?_⟩
+      apply Over.OverMorphism.ext
+      apply val_injective_of_isP1CoordinateQ hτ
+      exact (hval s.left).trans hs
+  haveI : IsIso m := hC Z P hZp hZs hPp hPs m hmb
+  haveI : IsIso m.left := (Over.forget _).map_isIso m
+  refine ⟨?_, ?_, bijective_eval₂_transport m eU τ.f σ.f hfU hτ.2.2.1,
+    bijective_eval₂_transport m eV τ.g σ.g hgV hτ.2.2.2⟩
+  · rw [← eU]; exact hτ.1.preimage m.left
+  · rw [← eV]; exact hτ.2.1.preimage m.left
+
+/-- **Glue B from glue A, T5, L3, `CurveBijIso` and `P1SchemeQ`.** -/
+theorem genericQuotientP1_of'' (hA : FibreAutTame) (hT : ObjBridge.TorsionStructure)
+    (hTS : TameQuotientSmooth) (hC : CurveBijIso) (hP : P1SchemeQ) : GenericQuotientP1 :=
+  genericQuotientP1_of' hA hT hTS (toP1BijIsCoordinateQ_of hC hP)
+
+/-- **Main composite (after part 23): `ModelCoordinateResidue` from the leaves L1-L6, the textbook
+leaves T5 and `CurveBijIso`, the decomposition's glue `CoverModelOfHeckeN`, the foundational glue
+`P1SchemeQ` (the projective line over `ℚ`) and the QM glue (C1b-obj) `CMStabObj`.** -/
+theorem modelCoordinateResidue_final9 (hAF : ProperCurveAF) (hQE : FiniteQuotientExists)
+    (hTS : TameQuotientSmooth) (hP1 : SmoothModelOfP1) (hFix : TameFixedPointsDisjoint)
+    (hCyc : TameInertiaCyclic) (hT : ObjBridge.TorsionStructure) (hC : CurveBijIso)
+    (hCov : CoverModelOfHeckeN) (hP : P1SchemeQ) (hO : CMStabObj) : ModelCoordinateResidue :=
+  modelCoordinateResidue_final8 hAF hQE hTS hP1 hFix hCyc hT hC hCov (toP1BijIsCoordinateQ_of hC hP)
+    hO
+
+end MCRQuot
+
 #print axioms MCRQuot.exists_unit_congr
 #print axioms MCRQuot.mem_orbit_of_twistEq
 #print axioms MCRQuot.twistEq_of_mem_fibreAut
@@ -8579,3 +8747,6 @@ end MCRQuot
 #print axioms MCRQuot.quotientDescendsMapQ
 #print axioms MCRQuot.quotientDescendsQ
 #print axioms MCRQuot.modelCoordinateResidue_final8
+#print axioms MCRQuot.val_injective_of_isP1CoordinateQ
+#print axioms MCRQuot.toP1BijIsCoordinateQ_of
+#print axioms MCRQuot.modelCoordinateResidue_final9

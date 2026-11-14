@@ -53,3 +53,6 @@
 #print axioms MCRQuot.quotientDescendsMapQ
 #print axioms MCRQuot.quotientDescendsQ
 #print axioms MCRQuot.modelCoordinateResidue_final8
+#print axioms MCRQuot.val_injective_of_isP1CoordinateQ
+#print axioms MCRQuot.toP1BijIsCoordinateQ_of
+#print axioms MCRQuot.modelCoordinateResidue_final9
