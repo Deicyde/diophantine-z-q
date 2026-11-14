@@ -484,4 +484,94 @@ theorem sigmaLift_of (hF : FrobNormLaw) (hN : NormSigma) : SigmaLift := by
 theorem sqrtTwoNotInHHprime_of (hF : FrobNormLaw) (hN : NormSigma) : SqrtTwoNotInHHprime :=
   sqrtTwoNotInHHprime_of_sigmaLift (sigmaLift_of hF hN)
 
+/-! ## §5. Frobenius comparison: an exponent-`(N𝔭)^f` Frobenius is `Art(𝔭)^f` -/
+
+section FrobPow
+
+/-- Iterating a Frobenius-type congruence. -/
+theorem iterate_congr {S : Type*} [CommRing S] (Q : Ideal S) (φ : S → S) (m : ℕ)
+    (hφ : ∀ x, φ x - x ^ m ∈ Q) (hQ : ∀ x y, x - y ∈ Q → φ x - φ y ∈ Q) :
+    ∀ k x, φ^[k] x - x ^ (m ^ k) ∈ Q := by
+  intro k
+  induction k with
+  | zero => intro x; simp
+  | succ k ih =>
+    intro x
+    rw [Function.iterate_succ_apply']
+    have h1 := hφ (φ^[k] x)
+    have h2 : (φ^[k] x) ^ m - (x ^ (m ^ k)) ^ m ∈ Q :=
+      Ideal.mem_of_dvd _ (sub_dvd_pow_sub_pow _ _ m) (ih x)
+    have e : φ (φ^[k] x) - x ^ (m ^ (k + 1)) =
+        (φ (φ^[k] x) - (φ^[k] x) ^ m) + ((φ^[k] x) ^ m - (x ^ (m ^ k)) ^ m) := by
+      rw [← pow_mul, ← pow_succ]; ring
+    rw [e]; exact Q.add_mem h1 h2
+
+variable {K L : Type*} [Field K] [Field L] [NumberField L] [Algebra K L] [FiniteDimensional K L]
+
+/-- **An automorphism acting as `x ↦ x^{(N𝔭)^f}` modulo an unramified `Q` is `φ^f`**, `φ` an arithmetic
+Frobenius at `Q` (reduction to Tau Ceti's uniqueness `isArithFrobAt_eq_of_isUnramifiedAt`). -/
+theorem eq_pow_of_congr {Q : Ideal (𝓞 L)} [hQ : Q.IsPrime] [Algebra.IsUnramifiedAt (𝓞 K) Q]
+    {φ τ : L ≃ₐ[K] L} (hφ : IsArithFrobAt (𝓞 K) φ Q) (f : ℕ)
+    (hτ : ∀ x : 𝓞 L, τ • x - x ^ (Nat.card (𝓞 K ⧸ Q.under (𝓞 K)) ^ f) ∈ Q) : τ = φ ^ f := by
+  set N := Nat.card (𝓞 K ⧸ Q.under (𝓞 K)) with hN
+  have hNpos : 0 < N := hφ.card_pos
+  have hφ' : ∀ x : 𝓞 L, φ • x - x ^ N ∈ Q := fun x => hφ x
+  have hφQ : ∀ x y : 𝓞 L, x - y ∈ Q → φ • x - φ • y ∈ Q := by
+    intro x y hxy
+    have := hφ.le_comap hxy
+    rw [Ideal.mem_comap, map_sub] at this
+    exact this
+  -- `φ^f` has exponent `N^f`
+  have hφf : ∀ x : 𝓞 L, φ ^ f • x - x ^ (N ^ f) ∈ Q := by
+    intro x
+    have := iterate_congr Q (fun x => φ • x) N hφ' hφQ f x
+    rwa [smul_iterate_apply] at this
+  -- `τ` preserves `Q`
+  have hτQ1 : ∀ j : ℕ, ∀ x ∈ Q, τ ^ j • x ∈ Q := by
+    intro j
+    induction j with
+    | zero => intro x hx; rwa [pow_zero, one_smul]
+    | succ j ih =>
+      intro x hx
+      rw [pow_succ', mul_smul]
+      have h1 := ih x hx
+      have h2 := hτ (τ ^ j • x)
+      have h3 : (τ ^ j • x) ^ (N ^ f) ∈ Q := Q.pow_mem_of_mem h1 _ (pow_pos hNpos f)
+      have := Q.add_mem h2 h3
+      rwa [sub_add_cancel] at this
+  have hfin : IsOfFinOrder τ := isOfFinOrder_of_finite τ
+  have hτinv : ∀ x ∈ Q, τ⁻¹ • x ∈ Q := by
+    intro x hx
+    have e : τ⁻¹ = τ ^ (orderOf τ - 1) := by
+      rw [eq_comm, ← mul_eq_one_iff_eq_inv, ← pow_succ, Nat.sub_add_cancel hfin.orderOf_pos,
+        pow_orderOf_eq_one]
+    rw [e]; exact hτQ1 _ x hx
+  -- `ρ = τ⁻¹ φ^f` acts trivially modulo `Q`
+  set ρ := τ⁻¹ * φ ^ f with hρ
+  have hρ1 : ∀ x : 𝓞 L, ρ • x - x ∈ Q := by
+    intro x
+    have hd : φ ^ f • x - τ • x ∈ Q := by
+      have := Q.sub_mem (hφf x) (hτ x)
+      rwa [sub_sub_sub_cancel_right] at this
+    have := hτinv _ hd
+    rw [smul_sub, inv_smul_smul, ← mul_smul] at this
+    exact this
+  -- `φρ` is an arithmetic Frobenius at `Q`, hence `φρ = φ`
+  have hφρ : IsArithFrobAt (𝓞 K) (φ * ρ) Q := by
+    intro x
+    show (φ * ρ) • x - x ^ N ∈ Q
+    have h1 := hφQ _ _ (hρ1 x)
+    have h2 := hφ' x
+    have e : (φ * ρ) • x - x ^ N = (φ • ρ • x - φ • x) + (φ • x - x ^ N) := by
+      rw [mul_smul]; ring
+    rw [e]; exact Q.add_mem h1 h2
+  have := isArithFrobAt_eq_of_isUnramifiedAt hφρ hφ
+  have hρ1' : ρ = 1 := by
+    have := congrArg (φ⁻¹ * ·) this
+    simpa using this
+  rw [hρ, inv_mul_eq_one] at hρ1'
+  exact hρ1'
+
+end FrobPow
+
 end ZInQ.Contrib.TYZGenus.Sqrt2Glue
