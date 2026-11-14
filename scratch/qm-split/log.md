@@ -147,3 +147,9 @@ Row sources (VERIFIED, read): definitions read in ~/dzq-wt/leaf-fold4/scratch/le
   i·a4⁻¹, j·a6⁻¹, ij·(a4a6)⁻¹ are in 𝒪 with norm −1, 1, −1), `class_bound_rev`, `kept_eq` (r e* = 4 e¹),
   `exists_reps`. `qmHauptmodulBase3_of_O1 (hT) (hC) (hV) (hS) : QMHauptmodulBase3`. Axioms standard, 26 s.
 - So `GammaStarFromO1` (project glue) is not needed by H-87 or H-88.
+
+## Final status (2026-11-14 06:20 PST)
+- All 9 files compile (VERIFIED, last runs): ClassNumberOne 8 s, YuLeaf 5 s, QMAut 16 s, STQM 12 s, ThetaSplit 4 s,
+  ThetaRatios 5 s, Valence 5 s, Haupt 26 s, ModuliSplit 43 s; no sorry; all `#print axioms` standard.
+- Rows: H-46 proved (no leaf); H-35, H-2, H-86, H-42, H-61, H-63, H-87 from published-form leaves only; H-88 from
+  leaves + one number; H-20 from one leaf candidate; H-44, H-1, H-43, H-59 reduced (report §3 glue).
