@@ -1,0 +1,98 @@
+# leafq-check results log
+
+Base 67c2daf9. Candidates (leaf-fold4 §2.3 LEAF?): thetaRatiosAlgebraic, qmHauptmodul, x6ConicModel,
+y3Connected, cmDescends, gammaStarGen, valenceBoundGammaStar. Source of the statements:
+scratch/leaf-fold4/Leaves4.lean (lines: QMHauptmodul 358, ThetaRatiosAlgebraic 43228, X6ConicModel 75669,
+Y3Connected 97479, ValenceBoundGammaStar 113443, CMDescends 114469, GammaStarGen 117339).
+
+## GammaStarGen: plan of a direct proof (computations VERIFIED in py/)
+- y = i+j ∈ 𝒪 (y² = −1, fixed point of ι(x₄)); pure elements v of 𝒪 with v² = −1 ↔ points of the
+  hyperboloid −2b²+3c²−6d² = 1; ⟨v,y⟩ = −2b+3c = cosh d(v,y) (`py/gsg_enum.py`).
+- the four nearest orbit points u_k = s_k⁻¹ y s_k, s = x₆, x₆⁻¹, x₆x₄, (x₆x₄)⁻¹ (`py/gsg_words.py`);
+  ⟨v,u_k⟩ − ⟨v,y⟩ = b+3d, b−3d, −5b+6c+3d, −5b+6c−3d.
+- certificate: 3·nrd(v) − ⟨v,y⟩² = (b+3d)(−5b+6c−3d) + (b−3d)(−5b+6c+3d) (`py/gsg_dir.py`: the
+  Dirichlet cone of the four is compact, vertices at cosh = √3, the order-6 points).
+- upper sheet: pairY(x y x̄) − nrd x = 12((b−c)²+d²) (`py/gsg_sym.py`).
+- base: x commutes with y ⇒ x = a + b y; u = x j x⁻¹ has imJ = 1 + 4b²/N, imK = 2ab/N (N = a²+b²)
+  (`py/gsg_norm.py`); integrality forces ab = 0 or a = ±b, i.e. x ∈ ℚ^×⟨x₄⟩.
+- normalizer witnesses for x₄, x₆ (`py/gsg_norm.py`).
+
+## GammaStarGen: PROVED (VERIFIED, compiled)
+- `scratch/leafq-check/GammaStarGen.lean`: `import Mathlib` only; PkgI1 §1-§2, `x4`, `x6`, `GammaStarGen`
+  copied verbatim from Leaves4.lean; `theorem gammaStarGen_proof : GammaStarGen`.
+- `lake env lean scratch/leafq-check/GammaStarGen.lean`: 0 errors (linter warnings only);
+  `#print axioms gammaStarGen_proof` = [propext, Classical.choice, Quot.sound]. ~90 s.
+- No leaf, no glue hypothesis: the LEAF? field `gammaStarGen` of `OpenAddedLeaves4` can be removed
+  (period-glue's `s8WeightExact_of hT gammaStarGen_proof`).
+
+## Fold over leaf-fold4's chain (VERIFIED)
+- `scratch/leafq-check/Fold.lean` (`import TailK`; `chk.sh` = lean with leaf-fold4's chain oleans copied to
+  ~/lqc-olean and leaf-fold4's lake LEAN_PATH): the same proof proves the chain's own constant
+  `HDec.HSyn.G0Split.FibreQM.PeriodGlue.GammaStarGen`; `HDec.HSyn.sixContactMin_of_open5` (bundle
+  `OpenAddedLeaves5` = OpenAddedLeaves4 without `gammaStarGen`, 19 fields): 0 errors, axioms standard,
+  `example : … → _root_.ZInQ.SixContactMin` compiles. 11 s. Count 66 → 65 (26 + 19 + 19 + 1).
+
+## ValenceBoundGammaStar: split (VERIFIED, compiled)
+- `scratch/leafq-check/ValenceBound.lean` (import Mathlib; PkgI1 §1-§2, `U`, `ValenceBoundGammaStar` verbatim):
+  `ellOrder P` (= Nat.card of the Möbius maps of the stabilizer of P in Γ*), `ValenceFormulaGammaStar`
+  (LEAF: Σ_T ord_P/e_P ≤ m/12, valence formula + signature (0;2,4,6)), `EllipticOrderLe6`
+  (0 < e_P ≤ 6), `valenceBound_of : ValenceFormulaGammaStar → EllipticOrderLe6 → ValenceBoundGammaStar`
+  (the valence count), 0 errors, axioms standard.
+
+## EllipticOrderLe6: PROVED (VERIFIED, compiled)
+- `ValenceBound.lean`: `ellipticOrderLe6_proof : EllipticOrderLe6` (crystallographic restriction:
+  ζ = det γ/(cP+d)² = μ̄/μ, |ζ| = 1, 2Re ζ = 4re(x)²/nrd(x) − 2, and 4re²/nrd = trace of Ad(x) on 𝒪 ∈ ℤ
+  (`adTrace_int`, identity checked in `py/vb_adtrace.py`); ζ ∈ {±1, ±i, ±1/2 ± i√3/2}; ζ multiplicative
+  and injective on the stabilizer; (±1/2 ± i√3/2)(±i) has real part ±√3/2, not among the eight).
+- `valenceBound_of_formula : ValenceFormulaGammaStar → ValenceBoundGammaStar`. Axioms standard.
+- Fold.lean: `OpenAddedLeaves6` (valenceBoundGammaStar → valenceFormulaGammaStar), `sixContactMin_of_open6`
+  compiles over the chain (11 s), axioms standard.
+
+## Verbatim copies (VERIFIED, compiled)
+- `QMHauptmodul.lean` (import Mathlib; Leaves4 lines 170-372 verbatim): 0 errors.
+- `ThetaRatiosAlgebraic.lean`, `X6ConicModel.lean`, `Y3Connected.lean`, `CMDescends.lean` (import TailK;
+  docstring + body verbatim in `<ns>.LeafQCheckCopy`, `copy_iff : copy ↔ chain Prop := Iff.rfl`): each
+  exit 0 (4-5 s) via chk.sh.
+
+## CMDescends: REDUCED (VERIFIED, compiled over the chain)
+- `CMDescendsGlue.lean` (import TailK): `cmDescends_of : STQM → T11b_Rigidity → TorsionDescends →
+  LeafAdopt.R1R2fpRep → CMDescends`, axioms standard, 7 s.
+  - `STQM` (LEAF, Shimura–Taniyama): QM surface over ℂ with CM (HasCM4/3/24) ≅ A₀ ×_{ℚ̄,ιe} ℂ as abelian varieties.
+  - `TorsionDescends` (LEAF, textbook; also provable from T5 + injectivity): torsion ℂ-points of A₀_ℂ come
+    from unique ℚ̄-points.
+  - glue: ι₀ = endBC⁻¹ ∘ conj_e ∘ ι (T11b gives endBC bijective), level η₀(a) = ι₀(a)·v₀ with v₀ the
+    descent of e'(η(1)), Q' from R1fp's naturality clause, Q'.A ≅ A₀_ℂ by the pullback property +
+    rigidity (`isMonHom_of_geometricallyIntegral`), CM transported by the ring hom κ.
+- `torsionDescends_of_t5 : PkgI2.TorsionStructure.{0} → TorsionDescends` (VERIFIED): card A(k)[n] = n^{2g}
+  over algebraically closed k from T5 (via `ObjBridge.toGrp`, `UnramTate.trPt` along AlgebraicClosure k ≃ k),
+  ψ = E1Sub.bcPt ∘ AbVarBC.extPt injective, equal cards ⇒ bijective. So CMDescends needs only the new leaf
+  `STQM` (+ bundle leaves r1r2, t11b, t5).
+- Fold.lean: `OpenAddedLeaves7` (cmDescends → stQM), `sixContactMin_of_open7`, 13 s, axioms standard,
+  `example : … → _root_.ZInQ.SixContactMin` compiles. Count 65 (26 + 19 + 19 + 1); LEAF? 7 → 4.
+
+## QMHauptmodul: NARROWED (VERIFIED, compiled over the chain)
+- `QMHauptmodulCM.lean`: `orbit4`, `orbit3`, `orbit24`: every pure w ∈ 𝒪 with w² = −1 (resp. −3, −6) and
+  imJ > 0 is g·b·g⁻¹ for a normalizer g with nrd g > 0, b = i+j (resp. j, 2j+ij). Descents with the
+  Dirichlet walls of the nearest orbit points (`py/hm_desc.py`, `hm_cone.py`, `hm_lin.py`): cones compact,
+  max cosh² 3 (disc −3) and 2 (disc −24); certificates by nlinarith (6 resp. 4 walls).
+- `QMHauptmodulBase` (QMHauptmodul with the CM clauses only at ι(i+j), ι((1+j)/2), ι(2j+ij)) and
+  `qmHauptmodul_of_base : QMHauptmodulBase → QMHauptmodul` (transfer along orbits by the fibre clause;
+  −γ and γ⁻¹ for the other sheet). Axioms standard; 19 s.
+- Fold.lean: `OpenAddedLeaves8`, `sixContactMin_of_open8` (65 fields), 22 s, axioms standard.
+- `QMHauptmodulBase2` (no disc −4 clause) and `base_of_base2`: j_θ(√2+i) = 0 because θ_{((1,1),(0,0))}(Ω₀) =
+  Θ[1,1](τ₁)Θ[1,1](τ₂)·u = 0 (`th1_one_one`, odd one-variable theta; period-glue's `thetaConst_factor`,
+  `omega_cm4`), Σθ⁸(Ω₀) ≠ 0 (period-glue's `s8Omega0_proof`), and the fixed point of ι(i+j) is √2+i
+  (`fixed_by4`). VERIFIED. Fold: `OpenAddedLeaves9`, `sixContactMin_of_open9`, 22 s, standard axioms.
+- `QMHauptmodulBase3` (no disc −3 clause) and `base2_of_base3 : ThetaModularity → GammaStarGen →
+  ValenceBoundGammaStar → QMHauptmodulBase3 → QMHauptmodulBase2` (VERIFIED): weight-20 automorphy of
+  G20 = ∏θ²∘Ω/dF¹⁰ on Γ* (period-glue's G8 machinery with R4's second clause, `LQ20.s20WeightExact_of`);
+  ord_{i√3} Σθ⁸∘Ω ≥ 2 (period-map's `s8OrderCM3_of`); valence bound for G20 on {i√3, √2+i} with
+  G20(√2+i) = 0 ⇒ ord_{i√3} ∏θ² ≤ 4; so ord jNum∘Ω ≤ 8 < 10 ≤ ord jDen∘Ω, meromorphic order < 0,
+  `tendsto_cobounded_of_meromorphicOrderAt_neg`, continuity of f in OnePoint ℂ. G20 ≢ 0 from the surjectivity
+  clause. i√3, √2+i inequivalent via G8's automorphy. 18 s.
+- Fold: `OpenAddedLeaves10`, `sixContactMin_of_open10` (65 fields), 22 s, standard axioms.
+
+## Final state (2026-11-14 ~01:55)
+- canonical fold: `HDec.HSyn.sixContactMin_of_open10` (Fold.lean, over leaf-fold4's chain): 26 + 19 + 19 + 1 = 65
+  fields; LEAF? 4 (thetaRatiosAlgebraic, qmHauptmodulBase3, x6ConicModel, y3Connected); new LEAFs
+  valenceFormulaGammaStar, stQM. All checks above re-run after the last edits: 0 errors, standard axioms.
