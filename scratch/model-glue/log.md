@@ -49,3 +49,20 @@ lines 2-2141: identical) + ModelGlue.lean.part + ModelGlue2.lean.part.
   (hE : ModelFunctionFieldExists) : ModelComparison`; `heckeVertWitness_of_parts₃`.
 - All `#print axioms`: [propext, Classical.choice, Quot.sound].
 Open after step 3: `ModelCoordinateResidue`, `ModelIntegral`, `ModelFunctionFieldExists`.
+
+## Step 4 (23:20, 2026-11-13) — VERIFIED (ModelGlue4.lean = ModelGlue3.lean + ModelGlue4.lean.part; lake env lean exit 0; compile4_out.txt)
+- `famBC 𝒜 j` (pullback of a `QMFamily` along `j : T → S`), `isFibreOf_baseChange`.
+- `exists_genFib_to_Y (hM : IsShimuraModel p 𝒴 𝒜) (h1 : R1fpProps Y Φ)`: `g : genFib 𝒴 ⟶ Y` with
+  `Φ K (s ≫ g) = M3.mk P` for fibres `P` of `𝒜` at `s ≫ j`, and `s ↦ s ≫ g` bijective on ℚ̄-points
+  (from `R1univProps` and leaf clauses 3-5).
+- NEW textbook leaf `CurveBijIso` (not proved): a morphism of proper smooth curves over ℚ bijective
+  on ℚ̄-points is an isomorphism (STANDARD; Hartshorne/EGA locators UNVERIFIED).
+- `irreducible_of_chart (hT : TwistClassFinite) … : IrreducibleSpace Y.left` (closure of the chart
+  is everything: else the open complement has infinitely many closed points, by Jacobson and the
+  proved `smoothCurveNoIsolatedPoint_of smoothStalkDimOne`, all with π = ∞; π⁻¹(∞) is a finite
+  twist class).
+- `isReduced_of_smooth_of_isDomain` (smooth algebra over a domain is reduced; smooth-fibre's
+  proof with a domain), `isReduced_of_smooth_zloc`.
+- `irreducibleSpace_of_genFib` (D(p) dense in reduced flat 𝒴, contained in the image of 𝒴_ℚ).
+- **`modelIntegral_of (hT : TwistClassFinite) (hC : CurveBijIso) : ModelIntegral` — PROVED.**
+- All `#print axioms`: [propext, Classical.choice, Quot.sound].

@@ -1,0 +1,414 @@
+
+/-! ════════════════════════════════════════════════════════════════════════════════════════════
+# model-glue, step 4: the comparison morphism `𝒴_ℚ → Y` and `ModelIntegral`
+
+`ModelGlue4.lean` = `ModelGlue3.lean` + this part.
+* `famBC`, `isFibreOf_baseChange`: pulling a QM family back along `T → S`.
+* `exists_genFib_to_Y` (proved, from `R1univProps`): a morphism `g : 𝒴_ℚ → Y` over `ℚ`,
+  compatible with the moduli maps and bijective on `ℚ̄`-points.
+* `CurveBijIso` (textbook leaf, not proved): a morphism of proper smooth curves over `ℚ` that is
+  bijective on `ℚ̄`-points is an isomorphism.
+* `irreducible_of_chart` (proved, from T5 via `TwistClassFinite` and the proved
+  `smoothStalkDimOne`): `Y` is irreducible.
+* `isReduced_of_smooth_zloc` (proved): a smooth `ℤ_(p)`-scheme is reduced.
+* `irreducibleSpace_of_genFib` (proved): `𝒴` is irreducible if its generic fibre is.
+* `modelIntegral_of (hT : TwistClassFinite) (hC : CurveBijIso) : ModelIntegral` (proved).
+════════════════════════════════════════════════════════════════════════════════════════════ -/
+
+noncomputable section
+
+namespace ModelGlue
+
+open Polynomial CategoryTheory AlgebraicGeometry Limits LeafQM.AV VertWitness HeckeRestNV
+open LeafQM.AV.Pin G0ModField PropTSRed PropTSGlue
+
+/-! ## Part 10: base change of a QM family and the comparison morphism -/
+
+/-- The pullback of a QM family along `j : T → S`. -/
+def famBC {S T : Scheme.{0}} (𝒜 : QMFamily S) (j : T ⟶ S) : QMFamily T where
+  F := Over.mk (pullback.snd 𝒜.F.hom j)
+  proper := by
+    have := 𝒜.proper
+    show IsProper (pullback.snd 𝒜.F.hom j)
+    infer_instance
+  smooth := by
+    have := 𝒜.smooth
+    show SmoothOfRelativeDimension 2 (pullback.snd 𝒜.F.hom j)
+    infer_instance
+  iota a := pullback.lift (pullback.fst _ _ ≫ 𝒜.iota a) (pullback.snd _ _)
+    (by rw [Category.assoc, 𝒜.iota_over, pullback.condition])
+  iota_over a := pullback.lift_snd _ _ _
+  eta a := pullback.lift (j ≫ 𝒜.eta a) (𝟙 T)
+    (by rw [Category.assoc, 𝒜.eta_sec, Category.comp_id, Category.id_comp])
+  eta_sec a := pullback.lift_snd _ _ _
+
+/-- The fibre of `𝒜` at `y ≫ j` is a fibre of the pulled-back family at `y`. -/
+theorem isFibreOf_baseChange {S T : Scheme.{0}} (𝒜 : QMFamily S) (j : T ⟶ S) {K : Type}
+    [Field K] (y : Spec (CommRingCat.of K) ⟶ T) (P : QML3 K) (h : IsFibreOf 𝒜 (y ≫ j) P) :
+    IsFibreOf (famBC 𝒜 j) y P := by
+  obtain ⟨g₀, hpb, hι, hη⟩ := h
+  have w : g₀ ≫ 𝒜.F.hom = (P.A.X.hom ≫ y) ≫ j := by rw [hpb.w, Category.assoc]
+  refine ⟨pullback.lift g₀ (P.A.X.hom ≫ y) w, ?_, ?_, ?_⟩
+  · have hR : IsPullback (pullback.fst 𝒜.F.hom j) (pullback.snd 𝒜.F.hom j) 𝒜.F.hom j :=
+      IsPullback.of_hasPullback _ _
+    have hs : IsPullback (pullback.lift g₀ (P.A.X.hom ≫ y) w ≫ pullback.fst 𝒜.F.hom j)
+        P.A.X.hom 𝒜.F.hom (y ≫ j) := by
+      rw [pullback.lift_fst]
+      exact hpb
+    exact IsPullback.of_right hs (pullback.lift_snd _ _ _) hR
+  · intro a
+    apply pullback.hom_ext
+    · simp only [famBC, Category.assoc, pullback.lift_fst, pullback.lift_fst_assoc]
+      exact hι a
+    · simp only [famBC, Category.assoc, pullback.lift_snd]
+      rw [← Category.assoc, Over.w]
+  · intro a
+    apply pullback.hom_ext
+    · dsimp only [famBC, PkgI3.AbVar.ptObj, Over.mk_left, Over.mk_hom]
+      rw [Category.assoc, Category.assoc, pullback.lift_fst, pullback.lift_fst]
+      exact (hη a).trans (Category.assoc _ _ _)
+    · dsimp only [famBC, PkgI3.AbVar.ptObj, Over.mk_left, Over.mk_hom]
+      rw [Category.assoc, Category.assoc, pullback.lift_snd, pullback.lift_snd, Category.comp_id,
+        ← Category.assoc]
+      have hw := Over.w (Additive.toMul (P.e.eta a))
+      have hid : ∀ f : Spec (CommRingCat.of K) ⟶ Spec (CommRingCat.of K),
+          f = Spec.map (CommRingCat.ofHom (algebraMap K K)) → f ≫ y = y := by
+        rintro f rfl
+        rw [Algebra.algebraMap_self, CommRingCat.ofHom_id, Spec.map_id, Category.id_comp]
+      exact hid _ hw
+
+theorem genFib_isProper {p : ℕ} [Fact p.Prime] (𝒴 : Over (Spec (CommRingCat.of (Zloc p))))
+    (h : IsProper 𝒴.hom) : IsProper (genFib 𝒴).hom := by
+  show IsProper (pullback.snd 𝒴.hom (specRatToZloc p))
+  infer_instance
+
+theorem genFib_smooth {p : ℕ} [Fact p.Prime] (𝒴 : Over (Spec (CommRingCat.of (Zloc p))))
+    (h : SmoothOfRelativeDimension 1 𝒴.hom) : SmoothOfRelativeDimension 1 (genFib 𝒴).hom := by
+  show SmoothOfRelativeDimension 1 (pullback.snd 𝒴.hom (specRatToZloc p))
+  infer_instance
+
+/-- **The comparison morphism (proved, from `R1univProps`).** -/
+theorem exists_genFib_to_Y {p : ℕ} [Fact p.Prime] {𝒴 : Over (Spec (CommRingCat.of (Zloc p)))}
+    {𝒜 : QMFamily 𝒴.left} (hM : IsShimuraModel p 𝒴 𝒜) {Y : Over (Spec (CommRingCat.of ℚ))}
+    {Φ : PtEquiv Y} (h1 : R1fpProps Y Φ) :
+    ∃ g : genFib 𝒴 ⟶ Y,
+      (∀ (K : Type) [Field K] [Algebra ℚ K] (s : fieldPt K ⟶ genFib 𝒴) (P : QML3 K),
+        IsFibreOf 𝒜 (s.left ≫ pullback.fst 𝒴.hom (specRatToZloc p)) P →
+          Φ K (s ≫ g) = M3.mk P) ∧
+      Function.Bijective (fun s : fieldPt Qbar ⟶ genFib 𝒴 => s ≫ g) := by
+  obtain ⟨hP, hS, hfib, hinj, hsurj, -, -, -⟩ := hM
+  set j := pullback.fst 𝒴.hom (specRatToZloc p) with hj
+  have hall : ∀ (K : Type) [Field K] [Algebra ℚ K] (s : fieldPt K ⟶ genFib 𝒴),
+      ∃ P : QML3 K, IsFibreOf (famBC 𝒜 j) s.left P := by
+    intro K _ _ s
+    obtain ⟨P, hP⟩ := hfib K (s.left ≫ j)
+    exact ⟨P, isFibreOf_baseChange 𝒜 j s.left P hP⟩
+  obtain ⟨g, hg⟩ := R1fpProps.univ h1 (genFib 𝒴) (genFib_isProper 𝒴 hP) (genFib_smooth 𝒴 hS)
+    (famBC 𝒜 j) hall
+  have hg' : ∀ (K : Type) [Field K] [Algebra ℚ K] (s : fieldPt K ⟶ genFib 𝒴) (P : QML3 K),
+      IsFibreOf 𝒜 (s.left ≫ j) P → Φ K (s ≫ g) = M3.mk P :=
+    fun K _ _ s P hP => hg K s P (isFibreOf_baseChange 𝒜 j s.left P hP)
+  refine ⟨g, hg', ?_, ?_⟩
+  · intro s s' hss
+    obtain ⟨P, hPs⟩ := hfib Qbar (s.left ≫ j)
+    obtain ⟨P', hPs'⟩ := hfib Qbar (s'.left ≫ j)
+    have e : M3.mk P = M3.mk P' := by
+      rw [← hg' _ s P hPs, ← hg' _ s' P' hPs']
+      exact congrArg (Φ Qbar) hss
+    exact genFib_pt_inj 𝒴 s s' (hinj _ _ P P' hPs hPs' e)
+  · intro y
+    set P := Quotient.out (Φ Qbar y)
+    have hPy : Φ Qbar y = M3.mk P := (Quotient.out_eq _).symm
+    obtain ⟨y𝒴, hy⟩ := hsurj P
+    obtain ⟨s, hs⟩ := genFib_pt 𝒴 y𝒴
+    refine ⟨s, (Φ Qbar).injective ?_⟩
+    rw [hPy]
+    exact hg' Qbar s P (hs ▸ hy)
+
+/-- **Textbook leaf: a bijection on `ℚ̄`-points between proper smooth curves over `ℚ` is an
+isomorphism** (not proved here). A morphism `g : S → Y` over `ℚ` of proper smooth curves (smooth
+of relative dimension 1) that induces a bijection `S(ℚ̄) → Y(ℚ̄)` is an isomorphism.
+STANDARD (locators UNVERIFIED): `g` is quasi-finite (injective on `ℚ̄`-points; a positive-
+dimensional fibre has infinitely many) and proper, hence finite (EGA III 4.4.2 / Hartshorne
+III Ex. 11.2); in characteristic 0 it is generically étale, so the number of `ℚ̄`-points of a
+general fibre over a component of `Y_ℚ̄` is the degree there (Hartshorne II.6.9, III.10.7), so
+each degree is 1 and `g` is finite birational onto the normal `Y`, hence an isomorphism
+(Hartshorne I.6.12 / II.6.7). -/
+def CurveBijIso : Prop :=
+  ∀ (S Y : Over (Spec (CommRingCat.of ℚ))), IsProper S.hom → SmoothOfRelativeDimension 1 S.hom →
+    IsProper Y.hom → SmoothOfRelativeDimension 1 Y.hom → ∀ g : S ⟶ Y,
+    Function.Bijective (fun s : fieldPt Qbar ⟶ S => s ≫ g) → IsIso g
+
+/-! ## Part 11: `Y` is irreducible (chart + finite twist classes) -/
+
+/-- A `ℚ̄`-point factoring through `h` sits in the range of `h`. -/
+theorem ptOf_comp_mem_range {X X' : Scheme.{0}} (h : X ⟶ X')
+    (y' : Spec (CommRingCat.of Qbar) ⟶ X) :
+    (Scheme.SpecToEquivOfField Qbar X' (y' ≫ h)).1 ∈ Set.range h := by
+  rw [specToEquivOfField_comp_right]
+  exact ⟨_, rfl⟩
+
+/-- **`Y` is irreducible (proved).** The closure `T` of the chart `Spec B` (irreducible, `B` a
+domain) is all of `Y`: otherwise the open `Tᶜ` has infinitely many closed points (Jacobson, and no
+isolated points by the proved `smoothStalkDimOne`), each the point of a `ℚ̄`-point with `π = ∞`,
+while `π⁻¹(∞)` is one twist class, finite by `TwistClassFinite`. -/
+theorem irreducible_of_chart (hT : TwistClassFinite) {Y : Over (Spec (CommRingCat.of ℚ))}
+    {Φ : PtEquiv Y} {π : ToP1 Y.left} (h1 : R1fpProps Y Φ) (h2 : R2fpProps Y Φ π) (E : Type)
+    [Field E] [Algebra ℚ[X] E] (hN : NormalizationModel Y π E) : IrreducibleSpace Y.left := by
+  obtain ⟨hP, hS, -, -, -, -⟩ := h1
+  haveI := hP
+  haveI := hS
+  obtain ⟨h, hO, himg, -⟩ := hN
+  haveI : Smooth Y.hom := SmoothOfRelativeDimension.smooth 1 Y.hom
+  haveI : LocallyOfFiniteType Y.hom := inferInstance
+  haveI : JacobsonSpace Y.left := LocallyOfFiniteType.jacobsonSpace Y.hom
+  set T : Set Y.left := closure (Set.range h) with hTdef
+  have hrange : IsIrreducible (Set.range h) := by
+    rw [← Set.image_univ]
+    exact (IrreducibleSpace.isIrreducible_univ _).image _ h.continuous.continuousOn
+  -- `π = ∞` at every `ℚ̄`-point outside `T`
+  have hinf : ∀ y : fieldPt Qbar ⟶ Y, (Scheme.SpecToEquivOfField Qbar Y.left y.left).1 ∉ T →
+      π.val (K := Qbar) y.left = OnePoint.infty := by
+    intro y hy
+    by_contra hne
+    obtain ⟨y', hy'⟩ := himg y.left hne
+    apply hy
+    have := ptOf_comp_mem_range h y'
+    rw [← hy'] at this
+    exact subset_closure this
+  -- the set of `ℚ̄`-points with `π = ∞` is finite
+  have hZ : {y : fieldPt Qbar ⟶ Y | π.val (K := Qbar) y.left = OnePoint.infty}.Finite := by
+    by_cases hne : ∃ y₁ : fieldPt Qbar ⟶ Y, π.val (K := Qbar) y₁.left = OnePoint.infty
+    · obtain ⟨y₁, hy₁⟩ := hne
+      set P₁ := Quotient.out (Φ Qbar y₁)
+      refine ((hT P₁).preimage ((Φ Qbar).injective.injOn)).subset ?_
+      intro y hy
+      set P := Quotient.out (Φ Qbar y)
+      have := (h2 y₁ y P₁ P (Quotient.out_eq _).symm (Quotient.out_eq _).symm).1
+      have e : π.val (K := Qbar) y₁.left = π.val (K := Qbar) y.left := by
+        rw [hy₁]
+        exact hy.symm
+      exact ⟨P, (Quotient.out_eq _).symm, this.1 e⟩
+    · push_neg at hne
+      convert Set.finite_empty
+      ext y
+      simp only [Set.mem_setOf_eq, Set.mem_empty_iff_false, iff_false]
+      exact hne y
+  rw [irreducibleSpace_def]
+  show IsIrreducible (Set.univ : Set Y.left)
+  by_contra hTne
+  have hTu : T ≠ Set.univ := by
+    intro hu
+    apply hTne
+    rw [← hu]
+    exact hrange.closure
+  have hU : (Tᶜ : Set Y.left).Nonempty := by
+    rw [Set.nonempty_compl]
+    exact hTu
+  have hUo : IsOpen (Tᶜ : Set Y.left) := isClosed_closure.isOpen_compl
+  set C : Set Y.left := Tᶜ ∩ closedPoints Y.left with hC
+  -- `C` is infinite
+  have hCinf : C.Infinite := by
+    intro hCf
+    have hCcl : IsClosed C := by
+      rw [← Set.biUnion_of_singleton C]
+      exact hCf.isClosed_biUnion fun x hx => hx.2
+    -- every point of `Tᶜ` is in `C`
+    have hsub : (Tᶜ : Set Y.left) ⊆ C := by
+      intro x hx
+      by_contra hxC
+      obtain ⟨z, ⟨hz1, hz2⟩, hz3⟩ := nonempty_inter_closedPoints (Z := Tᶜ \ C) ⟨x, hx, hxC⟩
+        (hUo.sdiff hCcl).isLocallyClosed
+      exact hz2 ⟨hz1, hz3⟩
+    obtain ⟨x, hx⟩ := hU
+    have hopen : IsOpen ({x} : Set Y.left) := by
+      have hfin : (C \ {x}).Finite := hCf.sdiff
+      have hcl : IsClosed (C \ {x}) := by
+        rw [← Set.biUnion_of_singleton (C \ {x})]
+        exact hfin.isClosed_biUnion fun z hz => hz.1.2
+      have : ({x} : Set Y.left) = Tᶜ \ (C \ {x}) := by
+        ext z
+        simp only [Set.mem_singleton_iff, Set.mem_sdiff]
+        constructor
+        · rintro rfl
+          exact ⟨hx, fun h => h.2 rfl⟩
+        · rintro ⟨hz, hz'⟩
+          by_contra hzx
+          exact hz' ⟨hsub hz, hzx⟩
+      rw [this]
+      exact hUo.sdiff hcl
+    exact smoothCurveNoIsolatedPoint_of smoothStalkDimOne ℚ Y.left Y.hom hS x hopen
+  -- each point of `C` gives a `ℚ̄`-point with `π = ∞`, injectively
+  have hpt : ∀ x : C, ∃ y0 : fieldPt Qbar ⟶ Y,
+      (Scheme.SpecToEquivOfField Qbar Y.left y0.left).1 = x := by
+    intro x
+    obtain ⟨emb, y0, hy0⟩ := exists_qbarPt Y x.1 x.2.2
+    refine ⟨y0, ?_⟩
+    rw [hy0, Equiv.apply_symm_apply]
+  choose f hf using hpt
+  haveI : Infinite C := hCinf.to_subtype
+  have hfinj : Function.Injective f := by
+    intro a b hab
+    apply Subtype.ext
+    rw [← hf a, ← hf b, hab]
+  apply Set.infinite_of_injective_forall_mem hfinj (fun x => ?_) hZ
+  show π.val (K := Qbar) (f x).left = OnePoint.infty
+  apply hinf
+  rw [hf x]
+  exact x.2.1
+
+/-! ## Part 12: `𝒴` is reduced and irreducible -/
+
+/-- An étale algebra over a domain is reduced (copied verbatim from task smooth-fibre,
+`ZInQKernel/Contrib/SmoothFibre/Basic.lean`, `ZInQ.SmoothFibre.isReduced_of_etale_of_isDomain`). -/
+theorem isReduced_of_etale_of_isDomain' (P S : Type*) [CommRing P] [IsDomain P] [CommRing S]
+    [Algebra P S] [Algebra.Etale P S] : IsReduced S := by
+  let K := FractionRing P
+  let f := Algebra.TensorProduct.includeRight (R := P) (A := K) (B := S)
+  have hinj : Function.Injective f := by
+    have : ⇑f = (LinearMap.rTensor S (Algebra.ofId P K).toLinearMap).comp
+        (Algebra.TensorProduct.lid P S).symm.toLinearMap := by
+      ext x; simp [f]
+    rw [this]
+    exact (Module.Flat.rTensor_preserves_injective_linearMap _
+      (IsFractionRing.injective P K)).comp (Algebra.TensorProduct.lid P S).symm.injective
+  have : IsReduced (TensorProduct P K S) := Algebra.FormallyUnramified.isReduced_of_field K _
+  exact isReduced_of_injective (f : S →+* TensorProduct P K S) hinj
+
+/-- A smooth algebra over a domain is reduced (the proof of smooth-fibre's
+`isReduced_of_smooth_of_field`, with a domain in place of a field). -/
+theorem isReduced_of_smooth_of_isDomain (k A : Type*) [CommRing k] [IsDomain k] [CommRing A]
+    [Algebra k A] [Algebra.Smooth k A] : IsReduced A := by
+  refine ⟨fun x hx => ?_⟩
+  by_contra hne
+  let I : Ideal A := (Ideal.span {x} : Submodule A A).annihilator
+  have hI : I ≠ ⊤ := by
+    intro h
+    have h1 : (1 : A) ∈ I := h ▸ Submodule.mem_top
+    rw [Submodule.mem_annihilator_span_singleton, one_smul] at h1
+    exact hne h1
+  obtain ⟨m, hm, hle⟩ := Ideal.exists_le_maximal I hI
+  have := hm.isPrime
+  have : Algebra.IsSmoothAt k m := inferInstance
+  obtain ⟨f, hf, n, inst, -, hst⟩ :=
+    Algebra.IsSmoothAt.exists_isStandardEtale_mvPolynomial (R := k) (p := m)
+  have : IsReduced (Localization.Away f) :=
+    isReduced_of_etale_of_isDomain' (MvPolynomial (Fin n) k) _
+  have h0 : algebraMap A (Localization.Away f) x = 0 := (hx.map _).eq_zero
+  obtain ⟨⟨_, k', rfl⟩, hk⟩ :=
+    (IsLocalization.map_eq_zero_iff (Submonoid.powers f) (Localization.Away f) x).1 h0
+  apply hf
+  apply hm.isPrime.mem_of_pow_mem k'
+  apply hle
+  rw [Submodule.mem_annihilator_span_singleton, smul_eq_mul]
+  exact hk
+
+/-- **A smooth `ℤ_(p)`-scheme is reduced (proved).** -/
+theorem isReduced_of_smooth_zloc {p : ℕ} [Fact p.Prime] (𝒴 : Over (Spec (CommRingCat.of (Zloc p))))
+    [Smooth 𝒴.hom] : IsReduced 𝒴.left := by
+  refine @IsReduced.of_openCover 𝒴.left 𝒴.left.affineCover (fun i => ?_)
+  have hsm : Smooth (𝒴.left.affineCover.f i ≫ 𝒴.hom) := inferInstance
+  have hring := (HasRingHomProperty.iff_of_isAffine (P := @Smooth)).mp hsm
+  letI := ((𝒴.left.affineCover.f i ≫ 𝒴.hom).appTop).hom.toAlgebra
+  haveI : Algebra.Smooth Γ(Spec (CommRingCat.of (Zloc p)), ⊤) Γ(𝒴.left.affineCover.X i, ⊤) :=
+    RingHom.smooth_algebraMap.1 hring
+  haveI : _root_.IsReduced Γ(𝒴.left.affineCover.X i, ⊤) :=
+    isReduced_of_smooth_of_isDomain Γ(Spec (CommRingCat.of (Zloc p)), ⊤) _
+  exact isReduced_of_isAffine_isReduced _
+
+/-- Points of `𝒴` in `D(p)` lie in the image of the generic fibre. -/
+theorem mem_range_of_mem_basicOpen {p : ℕ} [Fact p.Prime]
+    (𝒴 : Over (Spec (CommRingCat.of (Zloc p)))) (x : 𝒴.left)
+    (hx : x ∈ 𝒴.left.basicOpen (p : Γ(𝒴.left, ⊤))) :
+    x ∈ Set.range (pullback.fst 𝒴.hom (specRatToZloc p)) := by
+  rw [Scheme.Pullback.range_fst]
+  have hpre : 𝒴.left.basicOpen (p : Γ(𝒴.left, ⊤)) =
+      𝒴.hom ⁻¹ᵁ (Spec (CommRingCat.of (Zloc p))).basicOpen
+        (p : Γ(Spec (CommRingCat.of (Zloc p)), ⊤)) := by
+    rw [Scheme.preimage_basicOpen_top, map_natCast]
+  rw [hpre] at hx
+  have hx' : 𝒴.hom x ∈ PrimeSpectrum.basicOpen (p : Zloc p) := by
+    have := hx
+    rw [Scheme.Hom.mem_preimage, basicOpen_eq_of_affine', map_natCast] at this
+    exact this
+  set q : PrimeSpectrum (Zloc p) := 𝒴.hom x with hqdef
+  have hq := zloc_prime_eq_bot q.asIdeal (PrimeSpectrum.mem_basicOpen _ _ |>.1 hx')
+  refine ⟨⟨⊥, Ideal.isPrime_bot⟩, ?_⟩
+  apply PrimeSpectrum.ext
+  rw [hq]
+  show Ideal.comap (zlocToRat p) ⊥ = ⊥
+  apply zloc_prime_eq_bot
+  rw [Ideal.mem_comap, map_natCast, Ideal.mem_bot]
+  exact_mod_cast (Fact.out : p.Prime).ne_zero
+
+/-- **`𝒴` is irreducible if its generic fibre is (proved).** The image of the generic fibre is
+irreducible and contains `D(p)`, which is dense: on an open `U` missing `D(p)`, `p` vanishes
+(`𝒴` reduced), against `p` being a non-zero-divisor in the stalks (flatness). -/
+theorem irreducibleSpace_of_genFib {p : ℕ} [Fact p.Prime]
+    (𝒴 : Over (Spec (CommRingCat.of (Zloc p)))) [Flat 𝒴.hom] [IsReduced 𝒴.left]
+    [IrreducibleSpace (genFib 𝒴).left] : IrreducibleSpace 𝒴.left := by
+  set j : (genFib 𝒴).left ⟶ 𝒴.left := pullback.fst 𝒴.hom (specRatToZloc p) with hj
+  have hirr : IsIrreducible (Set.range j) := by
+    rw [← Set.image_univ]
+    exact (IrreducibleSpace.isIrreducible_univ _).image _ j.continuous.continuousOn
+  have hdense : Dense (Set.range j) := by
+    rw [dense_iff_inter_open]
+    intro U hU hUne
+    by_contra hempty
+    rw [Set.not_nonempty_iff_eq_empty] at hempty
+    obtain ⟨x, hx⟩ := hUne
+    let U' : 𝒴.left.Opens := ⟨U, hU⟩
+    let r : Γ(𝒴.left, U') := 𝒴.left.presheaf.map (homOfLE le_top).op (p : Γ(𝒴.left, ⊤))
+    have hr : 𝒴.left.basicOpen r = ⊥ := by
+      rw [Scheme.basicOpen_res]
+      ext z
+      simp only [TopologicalSpace.Opens.coe_inf, Set.mem_inter_iff, SetLike.mem_coe,
+        TopologicalSpace.Opens.coe_bot, Set.mem_empty_iff_false, iff_false, not_and]
+      intro hzU hzB
+      have : z ∈ U ∩ Set.range j := ⟨hzU, mem_range_of_mem_basicOpen 𝒴 z hzB⟩
+      rw [hempty] at this
+      exact this
+    rw [AlgebraicGeometry.basicOpen_eq_bot_iff] at hr
+    have hg : 𝒴.left.presheaf.germ U' x hx r = 0 := by rw [hr, map_zero]
+    rw [TopCat.Presheaf.germ_res_apply, map_natCast] at hg
+    have := natCast_mem_nonZeroDivisors_stalk p 𝒴 x
+    rw [hg] at this
+    exact zero_notMem_nonZeroDivisors this
+  rw [irreducibleSpace_def]
+  show IsIrreducible (Set.univ : Set 𝒴.left)
+  rw [← hdense.closure_eq]
+  exact hirr.closure
+
+/-! ## Part 13: `ModelIntegral` -/
+
+/-- **`ModelIntegral` from `CurveBijIso` and `TwistClassFinite` (proved).** -/
+theorem modelIntegral_of (hT : TwistClassFinite) (hC : CurveBijIso) : ModelIntegral := by
+  intro p _ hp 𝒴 𝒜 hM Y Φ π h1 hh h2 E _ _ _ _ _ _ hN
+  obtain ⟨g, -, hbij⟩ := exists_genFib_to_Y hM h1
+  haveI : IsIso g := hC (genFib 𝒴) Y (genFib_isProper 𝒴 hM.1) (genFib_smooth 𝒴 hM.2.1)
+    h1.1 h1.2.1 g hbij
+  haveI : IsIso g.left := (Over.forget _).map_isIso g
+  haveI : IrreducibleSpace Y.left := irreducible_of_chart hT h1 h2 E hN
+  haveI : IrreducibleSpace (genFib 𝒴).left := by
+    rw [irreducibleSpace_def]
+    show IsIrreducible (Set.univ : Set (genFib 𝒴).left)
+    have hsurj : Function.Surjective (inv g.left) := fun s =>
+      ⟨g.left s, by rw [← Scheme.Hom.comp_apply, IsIso.hom_inv_id]; rfl⟩
+    rw [← Set.range_eq_univ.2 hsurj, ← Set.image_univ]
+    exact (IrreducibleSpace.isIrreducible_univ _).image _ (inv g.left).continuous.continuousOn
+  haveI : SmoothOfRelativeDimension 1 𝒴.hom := hM.2.1
+  haveI : Smooth 𝒴.hom := SmoothOfRelativeDimension.smooth 1 𝒴.hom
+  haveI : IsReduced 𝒴.left := isReduced_of_smooth_zloc 𝒴
+  haveI : IrreducibleSpace 𝒴.left := irreducibleSpace_of_genFib 𝒴
+  exact isIntegral_of_irreducibleSpace_of_isReduced 𝒴.left
+
+end ModelGlue
+
+end
+
+#print axioms ModelGlue.isFibreOf_baseChange
+#print axioms ModelGlue.exists_genFib_to_Y
+#print axioms ModelGlue.irreducible_of_chart
+#print axioms ModelGlue.isReduced_of_smooth_zloc
+#print axioms ModelGlue.irreducibleSpace_of_genFib
+#print axioms ModelGlue.modelIntegral_of

@@ -6,3 +6,5 @@ cat ../vert-witness/VertWitness.lean ModelGlue.lean.part > ModelGlue.lean
 { echo "import ZInQKernel.Contrib.Mobius.Main"; cat ../vert-witness/VertWitness.lean ModelGlue.lean.part ModelGlue2.lean.part; } > ModelGlue2.lean
 # ModelGlue3.lean: ModelGlue2.lean + step 3 (generic fibre, Jacobson density).
 cat ModelGlue2.lean ModelGlue3.lean.part > ModelGlue3.lean
+# ModelGlue4.lean: ModelGlue3.lean + step 4 (comparison morphism, ModelIntegral).
+cat ModelGlue3.lean ModelGlue4.lean.part > ModelGlue4.lean
