@@ -208,4 +208,33 @@ theorem absArtinSurjective_of_noReal (hK : ∀ w : InfinitePlace K, ¬ w.IsReal)
 
 end General
 
+section QNeg
+
+open ZInQ.RouteK.Rank5b
+
+/-- `ℚ(√−m)` has no real places: a real embedding `φ` would give `φ(ω)² = −m < 0`. -/
+theorem qneg_not_isReal (m : ℕ) [NeZero m] (w : InfinitePlace (QNeg m)) : ¬ w.IsReal := by
+  intro hw
+  set φ := w.embedding_of_isReal hw
+  have h := congrArg φ (QuadraticAlgebra.omega_mul_omega_eq_algebraMap (R := ℚ) (a := -(m : ℚ))
+    (b := 0))
+  simp only [map_mul, map_zero, zero_mul, add_zero, RingHom.map_rat_algebraMap] at h
+  have hm : (0 : ℝ) < (m : ℝ) := by exact_mod_cast Nat.pos_of_ne_zero (NeZero.ne m)
+  have h0 : 0 ≤ φ QuadraticAlgebra.omega * φ QuadraticAlgebra.omega := mul_self_nonneg _
+  rw [h] at h0
+  push_cast at h0
+  linarith
+
+/-- **(verbatim copy of t5-glue `AbsArtinSurjectiveQNeg`)** -/
+def AbsArtinSurjectiveQNeg : Prop := ∀ (m : ℕ) [NeZero m], Squarefree m → AbsArtinSurjective (QNeg m)
+
+/-- **`AbsArtinSurjectiveQNeg` is a theorem.** -/
+theorem absArtinSurjectiveQNeg : AbsArtinSurjectiveQNeg :=
+  fun m _ _ => absArtinSurjective_of_noReal (qneg_not_isReal m)
+
+end QNeg
+
 end T5Glue2
+
+#print axioms T5Glue2.absArtinSurjective_of_noReal
+#print axioms T5Glue2.absArtinSurjectiveQNeg
