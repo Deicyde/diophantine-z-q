@@ -801,4 +801,184 @@ theorem tab_x6i (i : Fin 4) : ∃ (k : Fin 4) (r : ℚ) (u : PkgI1.B), r ≠ 0 �
     ext <;> simp [rep, x4, x6, x4i, x6i, QuaternionAlgebra.re_ofNat, QuaternionAlgebra.imI_ofNat,
       QuaternionAlgebra.imJ_ofNat, QuaternionAlgebra.imK_ofNat] <;> norm_num
 
+/-- The cover predicate: `γ = q·ι(rep i)·ι(u)`, `q ∈ ℚ^×`, `u ∈ 𝒪¹`. -/
+def Pm (γ : GL (Fin 2) ℝ) : Prop :=
+  ∃ i : Fin 4, ∃ q : ℚ, q ≠ 0 ∧ ∃ u : PkgI1.B, PkgI1.InO u ∧ nrd u = 1 ∧
+    (γ : Matrix (Fin 2) (Fin 2) ℝ) = PkgI1.iota ((q : PkgI1.B) * rep i * u)
+
+theorem Pm_one : Pm 1 :=
+  ⟨0, 1, one_ne_zero, 1, (inO_iff _).2 ⟨1, 0, 0, 0, by ext <;> norm_num⟩, by norm_num [nrd],
+    by simp [rep, iota_one]⟩
+
+theorem Pm_step {g : PkgI1.B}
+    (htab : ∀ i : Fin 4, ∃ (k : Fin 4) (r : ℚ) (u : PkgI1.B), r ≠ 0 ∧ PkgI1.InO u ∧ nrd u = 1 ∧
+      g * rep i = ((r : ℚ) : PkgI1.B) * rep k * u)
+    {x γ : GL (Fin 2) ℝ} (hx : (x : Matrix (Fin 2) (Fin 2) ℝ) = PkgI1.iota g) (hγ : Pm γ) :
+    Pm (x * γ) := by
+  obtain ⟨i, q, hq, u, hu, hnu, hγm⟩ := hγ
+  obtain ⟨k, r, u', hr, hu', hnu', he⟩ := htab i
+  refine ⟨k, q * r, mul_ne_zero hq hr, u' * u, inO_mul hu' hu, by rw [nrd_mul, hnu', hnu, one_mul], ?_⟩
+  rw [Units.val_mul, hx, hγm, ← iota_mul]
+  congr 1
+  calc g * ((q : PkgI1.B) * rep i * u) = (g * (q : PkgI1.B)) * rep i * u := by simp only [mul_assoc]
+    _ = (q : PkgI1.B) * (g * rep i) * u := by rw [← QuaternionAlgebra.coe_commutes]; simp only [mul_assoc]
+    _ = ((q * r : ℚ) : PkgI1.B) * rep k * (u' * u) := by
+      rw [he, QuaternionAlgebra.coe_mul]; simp only [mul_assoc]
+
+theorem Pm_scal {q' : ℚ} (hq' : q' ≠ 0) {x γ : GL (Fin 2) ℝ}
+    (hx : (x : Matrix (Fin 2) (Fin 2) ℝ) = PkgI1.iota (q' : PkgI1.B)) (hγ : Pm γ) : Pm (x * γ) := by
+  obtain ⟨i, q, hq, u, hu, hnu, hγm⟩ := hγ
+  refine ⟨i, q' * q, mul_ne_zero hq' hq, u, hu, hnu, ?_⟩
+  rw [Units.val_mul, hx, hγm, ← iota_mul, QuaternionAlgebra.coe_mul]; simp only [mul_assoc]
+
+/-- **Cover**: every `γ ∈ Γ*` is `q·ι(rep i)·ι(u)` with `q ∈ ℚ^×`, `u ∈ 𝒪¹`. -/
+theorem cover {γ : GL (Fin 2) ℝ} (hγ : γ ∈ Γs) : Pm γ := by
+  have hcl := gammaStarGen_proof γ hγ
+  clear hγ
+  induction hcl using Subgroup.closure_induction_left with
+  | one => exact Pm_one
+  | mul_left x hx y _ ih =>
+    rcases hx with (hx | hx) | ⟨q', hq', hx⟩
+    · exact Pm_step tab_x4 hx ih
+    · exact Pm_step tab_x6 hx ih
+    · exact Pm_scal hq' (by rw [hx, iota_ratCast]) ih
+  | inv_mul_cancel x hx y _ ih =>
+    rcases hx with (hx | hx) | ⟨q', hq', hx⟩
+    · exact Pm_step tab_x4i (inv_coe hx x4_x4i) ih
+    · exact Pm_step tab_x6i (inv_coe hx x6_x6i) ih
+    · refine Pm_scal (inv_ne_zero hq') (inv_coe (b := ((q'⁻¹ : ℚ) : PkgI1.B))
+        (by rw [hx, iota_ratCast]) ?_) ih
+      rw [← QuaternionAlgebra.coe_mul, mul_inv_cancel₀ hq']; rfl
+
+/-! ### Möbius maps -/
+
+open UpperHalfPlane (denom denom_ne_zero)
+
+-- From qm-split `Haupt.lean` l.3380-3421 (verbatim).
+/-- A matrix of positive determinant acting trivially on `ℍ` is scalar. -/
+theorem scalar_of_trivial {γ : GL (Fin 2) ℝ} (hd : 0 < (γ : Matrix (Fin 2) (Fin 2) ℝ).det)
+    (h : ∀ z : UpperHalfPlane, γ • z = z) :
+    (γ : Matrix (Fin 2) (Fin 2) ℝ) 1 0 = 0 ∧ (γ : Matrix (Fin 2) (Fin 2) ℝ) 0 1 = 0 ∧
+      (γ : Matrix (Fin 2) (Fin 2) ℝ) 0 0 = (γ : Matrix (Fin 2) (Fin 2) ℝ) 1 1 := by
+  have hd' : 0 < γ.det.val := by rwa [Matrix.GeneralLinearGroup.val_det_apply]
+  have key : ∀ z : UpperHalfPlane,
+      ((γ : Matrix (Fin 2) (Fin 2) ℝ) 0 0 : ℂ) * z + ((γ : Matrix (Fin 2) (Fin 2) ℝ) 0 1 : ℂ) =
+        (z : ℂ) * (((γ : Matrix (Fin 2) (Fin 2) ℝ) 1 0 : ℂ) * z + ((γ : Matrix (Fin 2) (Fin 2) ℝ) 1 1 : ℂ)) := by
+    intro z
+    have e : ((γ • z : UpperHalfPlane) : ℂ) = (z : ℂ) := congrArg (fun w : UpperHalfPlane => (w : ℂ)) (h z)
+    rw [UpperHalfPlane.coe_smul_of_det_pos hd', div_eq_iff (denom_ne_zero γ z)] at e
+    simpa [UpperHalfPlane.num, UpperHalfPlane.denom, mul_comm] using e
+  have k1 := key UpperHalfPlane.I
+  have k2 := key ⟨2 * Complex.I, by simp⟩
+  simp only [UpperHalfPlane.coe_I] at k1
+  simp only [UpperHalfPlane.coe_mk] at k2
+  have r1 := congrArg Complex.re k1; have i1 := congrArg Complex.im k1
+  have r2 := congrArg Complex.re k2
+  simp at r1 i1 r2
+  refine ⟨by linarith, by linarith, by linarith⟩
+
+theorem rat_of_scalar {u : PkgI1.B} (h10 : PkgI1.iota u 1 0 = 0) (h01 : PkgI1.iota u 0 1 = 0)
+    (h00 : PkgI1.iota u 0 0 = PkgI1.iota u 1 1) : u.imI = 0 ∧ u.imJ = 0 ∧ u.imK = 0 := by
+  rw [iota_apply] at h10 h01 h00
+  simp at h10 h01 h00
+  have hs : (0 : ℝ) < √2 := Real.sqrt_pos.2 (by norm_num)
+  have hK : (u.imK : ℝ) = 0 := by
+    have : (u.imK : ℝ) * √2 = 0 := by linarith
+    exact (mul_eq_zero.1 this).resolve_right hs.ne'
+  have hJ : (u.imJ : ℝ) = 0 := by rw [hK] at h10; linarith
+  have hI : (u.imI : ℝ) = 0 := by
+    have : (u.imI : ℝ) * √2 = 0 := by linarith
+    exact (mul_eq_zero.1 this).resolve_right hs.ne'
+  exact ⟨by exact_mod_cast hI, by exact_mod_cast hJ, by exact_mod_cast hK⟩
+
+theorem not_sq_q (q : ℚ) (c : ℤ) (hc : ¬ IsSquare c) (h : q * q = c) : False := by
+  have h1 : IsSquare (c : ℚ) := ⟨q, by rw [← h]⟩
+  rw [Rat.isSquare_iff] at h1
+  simp at h1
+  exact hc h1
+
+
+theorem inO_star {x : PkgI1.B} (hx : PkgI1.InO x) : PkgI1.InO (star x) := by
+  obtain ⟨n0, n1, n2, n3, rfl⟩ := (inO_iff x).1 hx
+  exact (inO_iff _).2 ⟨n0 + n2, -n1, -n2, -n3, by ext <;> simp <;> push_cast <;> ring⟩
+
+theorem mul_star_eq (x : PkgI1.B) : x * star x = ((nrd x : ℚ) : PkgI1.B) := by
+  rw [QuaternionAlgebra.mul_star_eq_coe]; congr 1; simp [nrd]; ring
+
+theorem star_mul_eq (x : PkgI1.B) : star x * x = ((nrd x : ℚ) : PkgI1.B) := by
+  rw [QuaternionAlgebra.star_mul_eq_coe]; congr 1; simp [nrd]; ring
+
+theorem nrd_star (x : PkgI1.B) : nrd (star x) = nrd x := by simp [nrd]
+
+theorem nrd_ratCast' (q : ℚ) : nrd (q : PkgI1.B) = q ^ 2 := by simp [nrd]
+
+theorem nrd_one : nrd (1 : PkgI1.B) = 1 := by simp [nrd]
+
+/-- The element of `Γ*` for a representative. -/
+def g4 (i : Fin 4) : GL (Fin 2) ℝ := glOf (rep i) (nrd_rep_pos i).ne'
+
+theorem g4_coe (i : Fin 4) : (g4 i : Matrix (Fin 2) (Fin 2) ℝ) = PkgI1.iota (rep i) := rfl
+
+theorem g4_mem (i : Fin 4) : g4 i ∈ Γs :=
+  ⟨rep i, ⟨repi i, rep_repi i, repi_rep i, rep_conj i⟩, rfl, by
+    rw [g4_coe, det_iota_eq]; exact_mod_cast nrd_rep_pos i⟩
+
+theorem gamma1_iff {h : GL (Fin 2) ℝ} : h ∈ Gamma1 ↔ ∃ u : PkgI1.B, PkgI1.InO u ∧
+    (h : Matrix (Fin 2) (Fin 2) ℝ) = PkgI1.iota u ∧ nrd u = 1 := by
+  constructor
+  · rintro ⟨u, hu, hhu, hd⟩
+    refine ⟨u, hu, hhu, ?_⟩
+    rw [hhu, det_iota_eq] at hd; exact_mod_cast hd
+  · rintro ⟨u, hu, hhu, hn⟩
+    exact ⟨u, hu, hhu, by rw [hhu, det_iota_eq, hn]; norm_num⟩
+
+theorem one_mem_gamma1 : (1 : GL (Fin 2) ℝ) ∈ Gamma1 :=
+  gamma1_iff.2 ⟨1, (inO_iff _).2 ⟨1, 0, 0, 0, by ext <;> norm_num⟩, by simp [iota_one], nrd_one⟩
+
+theorem mul_mem_gamma1 {a b : GL (Fin 2) ℝ} (ha : a ∈ Gamma1) (hb : b ∈ Gamma1) : a * b ∈ Gamma1 := by
+  obtain ⟨x, hx, hax, hnx⟩ := gamma1_iff.1 ha
+  obtain ⟨y, hy, hby, hny⟩ := gamma1_iff.1 hb
+  exact gamma1_iff.2 ⟨x * y, inO_mul hx hy, by rw [Units.val_mul, hax, hby, iota_mul],
+    by rw [nrd_mul, hnx, hny, one_mul]⟩
+
+theorem inv_mem_gamma1 {a : GL (Fin 2) ℝ} (ha : a ∈ Gamma1) : a⁻¹ ∈ Gamma1 := by
+  obtain ⟨x, hx, hax, hnx⟩ := gamma1_iff.1 ha
+  exact gamma1_iff.2 ⟨star x, inO_star hx, inv_coe hax (by rw [mul_star_eq, hnx]; rfl),
+    by rw [nrd_star, hnx]⟩
+
+theorem gamma1_sub {h : GL (Fin 2) ℝ} (hh : h ∈ Gamma1) : h ∈ Γs := by
+  obtain ⟨x, hx, hhx, hnx⟩ := gamma1_iff.1 hh
+  refine ⟨x, ⟨star x, by rw [mul_star_eq, hnx]; rfl, by rw [star_mul_eq, hnx]; rfl,
+    fun w hw => ⟨inO_mul (inO_mul hx hw) (inO_star hx), inO_mul (inO_mul (inO_star hx) hw) hx⟩⟩,
+    hhx, by rw [hhx, det_iota_eq, hnx]; norm_num⟩
+
+theorem det_pos_of_mem {γ : GL (Fin 2) ℝ} (hγ : γ ∈ Γs) : 0 < (γ : Matrix (Fin 2) (Fin 2) ℝ).det := by
+  obtain ⟨_, _, _, hd⟩ := hγ; exact hd
+
+theorem conj_g4 (i : Fin 4) {h : GL (Fin 2) ℝ} (hh : h ∈ Gamma1) : g4 i * h * (g4 i)⁻¹ ∈ Gamma1 := by
+  obtain ⟨u, hu, hhu, hnu⟩ := gamma1_iff.1 hh
+  refine gamma1_iff.2 ⟨rep i * u * repi i, (rep_conj i u hu).1, ?_, ?_⟩
+  · rw [Units.val_mul, Units.val_mul, g4_coe, hhu, inv_coe (g4_coe i) (rep_repi i), iota_mul, iota_mul]
+  · have h1 : nrd (rep i) * nrd (repi i) = 1 := by rw [← nrd_mul, rep_repi, nrd_one]
+    rw [nrd_mul, nrd_mul, hnu, mul_one, h1]
+
+/-- Scalars act trivially. -/
+theorem scal_smul {q : ℚ} (hq : q ≠ 0) (z : UpperHalfPlane) :
+    Matrix.GeneralLinearGroup.scalar (Fin 2) (Units.mk0 (q : ℝ) (by exact_mod_cast hq)) • z = z :=
+  UpperHalfPlane.glScalar_smul _ z
+
+/-- **Cover, Möbius form**: `γ z = rᵢ (h z)` with `h ∈ Γ¹`. -/
+theorem cover_mob {γ : GL (Fin 2) ℝ} (hγ : γ ∈ Γs) :
+    ∃ i : Fin 4, ∃ h ∈ Gamma1, ∀ z : UpperHalfPlane, γ • z = g4 i • (h • z) := by
+  obtain ⟨i, q, hq, u, hu, hnu, hγm⟩ := cover hγ
+  have hu0 : nrd u ≠ 0 := by rw [hnu]; norm_num
+  refine ⟨i, glOf u hu0, gamma1_iff.2 ⟨u, hu, rfl, hnu⟩, fun z => ?_⟩
+  have e : γ = Matrix.GeneralLinearGroup.scalar (Fin 2) (Units.mk0 (q : ℝ) (by exact_mod_cast hq)) *
+      (g4 i * glOf u hu0) := by
+    ext1
+    rw [hγm, Units.val_mul, Units.val_mul, Matrix.GeneralLinearGroup.coe_scalar, g4_coe, coe_glOf,
+      iota_mul, iota_mul, iota_ratCast]
+    simp [Matrix.scalar_apply, Matrix.smul_eq_diagonal_mul, mul_assoc]
+  rw [e, mul_smul, scal_smul hq, mul_smul]
+
 end HDec.LeafQCheck.QMglue
