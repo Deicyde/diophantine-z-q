@@ -330,6 +330,94 @@ theorem exists_mem_not_rat (hk : Module.finrank ℚ k = 2) (R : Subring k)
   rw [hidx] at hc
   exact absurd ((Nat.coprime_zero_left 6).mp hc) (by norm_num)
 
+theorem num_cast_eq (p : ℚ) : ((p.num : ℤ) : k) = (p : k) * (p.den : k) := by
+  have := congrArg (fun z : ℚ => (z : k)) (Rat.mul_den_eq_num p)
+  push_cast at this
+  exact this.symm
+
+/-- **A good generator**: `y ∈ R ∖ ℚ` with `y² + Py + Q = 0`, `P, Q ∈ ℤ`. -/
+theorem exists_good_gen (hk : Module.finrank ℚ k = 2) (R : Subring k)
+    (hc : Nat.Coprime (conductor R) 6) :
+    ∃ y ∈ R, (∀ r : ℚ, y ≠ r) ∧ ∃ P Q : ℤ, y * y + P * y + Q = 0 := by
+  obtain ⟨x, hxR, hx⟩ := exists_mem_not_rat hk R hc
+  obtain ⟨r, t, hrt⟩ := exists_rat_repr hk hx (x * x)
+  set p : ℚ := -t with hp
+  set q : ℚ := -r with hq
+  set m : ℕ := p.den * q.den with hm
+  have hm0 : (m : k) ≠ 0 := by
+    rw [hm]; push_cast
+    exact mul_ne_zero (Nat.cast_ne_zero.mpr p.den_nz) (Nat.cast_ne_zero.mpr q.den_nz)
+  refine ⟨(m : k) * x, R.mul_mem (natCast_mem R m) hxR, ?_, q.den * p.num,
+    p.den ^ 2 * q.den * q.num, ?_⟩
+  · intro r' h
+    apply hx (r' / m)
+    push_cast
+    field_simp
+    linear_combination h
+  · push_cast
+    rw [num_cast_eq p, num_cast_eq q, hm]
+    push_cast
+    rw [hp, hq]
+    push_cast
+    linear_combination ((p.den : k) * q.den) ^ 2 * hrt
+
+variable [NumberField.IsTotallyComplex k]
+
+/-- The value of an embedding at a non-rational root `y` of `X² + PX + Q` is not real. -/
+theorem im_ne_zero_of_gen (hk : Module.finrank ℚ k = 2) {y : k} (hy : ∀ r : ℚ, y ≠ r)
+    (σ : k →+* ℂ) : (σ y).im ≠ 0 := by
+  intro him
+  apply NumberField.IsTotallyComplex.complexEmbedding_not_isReal σ
+  rw [NumberField.ComplexEmbedding.isReal_iff]
+  ext x
+  rw [NumberField.ComplexEmbedding.conjugate_coe_eq]
+  obtain ⟨r, t, rfl⟩ := exists_rat_repr hk hy x
+  have hc : conj (σ y) = σ y := Complex.conj_eq_iff_im.mpr him
+  simp [map_add, map_mul, hc, map_ratCast]
+
 end Order
+
+/-! ## §7. The roots `λ`, `λ̄` -/
+
+section Roots
+
+variable {P Q : ℂ} {lam : ℂ}
+
+theorem vieta (hl : lam * lam + P * lam + Q = 0) (hP : conj P = P) (hQ : conj Q = Q)
+    (him : lam.im ≠ 0) : lam + conj lam = -P ∧ lam * conj lam = Q := by
+  have hc : conj lam * conj lam + P * conj lam + Q = 0 := by
+    have := congrArg conj hl
+    simpa [map_add, map_mul, hP, hQ] using this
+  have hne : lam - conj lam ≠ 0 := by
+    intro h
+    apply him
+    have := congrArg Complex.im h
+    simp [Complex.sub_im, Complex.conj_im] at this
+    linarith
+  have hsum : lam + conj lam = -P := by
+    have : (lam - conj lam) * (lam + conj lam + P) = 0 := by linear_combination hl - hc
+    linear_combination (mul_eq_zero.mp this).resolve_left hne
+  refine ⟨hsum, ?_⟩
+  linear_combination lam * hsum - hl
+
+theorem eq_or_eq_conj (hl : lam * lam + P * lam + Q = 0) (hP : conj P = P) (hQ : conj Q = Q)
+    (him : lam.im ≠ 0) {z : ℂ} (hz : z * z + P * z + Q = 0) : z = lam ∨ z = conj lam := by
+  obtain ⟨h1, h2⟩ := vieta hl hP hQ him
+  have : (z - lam) * (z - conj lam) = 0 := by linear_combination hz - z * h1 + h2
+  rcases mul_eq_zero.mp this with h | h
+  · exact Or.inl (sub_eq_zero.mp h)
+  · exact Or.inr (sub_eq_zero.mp h)
+
+theorem not_real_root (hl : lam * lam + P * lam + Q = 0) (hP : conj P = P) (hQ : conj Q = Q)
+    (him : lam.im ≠ 0) {z : ℂ} (hz : z * z + P * z + Q = 0) (hzr : conj z = z) : False := by
+  rcases eq_or_eq_conj hl hP hQ him hz with h | h
+  · apply him; rw [← h]; exact Complex.conj_eq_iff_im.mp hzr
+  · apply him
+    have : conj z = lam := by rw [h, Complex.conj_conj]
+    rw [← this, hzr, h, Complex.conj_im]
+    have := Complex.conj_eq_iff_im.mp (h ▸ hzr : conj (conj lam) = conj lam)
+    simpa using this
+
+end Roots
 
 end ZInQ.HeightGlue.QM
