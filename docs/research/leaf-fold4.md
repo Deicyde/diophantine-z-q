@@ -295,7 +295,7 @@ leaf-fold3.md §5):
 | `partsF/d90_fold3.lean` | `propTSAll_of_pieces3` calls `coverModelOfHecke_of_heckeRest` without `hP hQ` (now unused arguments) | hecke-rest's new signature |
 | `mk_periodglue.py` | period-map's five parts, period-glue's six files and final part in PGAll's order; `import`/`#print` lines dropped; dedup by full name only (none dropped; `mk_propts_walk.py` with `TEXT_DEDUP = False`, since identical text in another namespace is not a duplicate); `open ZInQ.LeafPush2 (CPts cptObj IsUniformization …)` after each `namespace HSyn.G0Split.FibreQM…` line (the chain's a80_fqm has the same `open`; FibreQM.lean had copies in `HSyn.G0Split`); `_root_.PeriodGlue.` → `_root_.HDec.PeriodGlue.` | the HDec wrapper and g0-assemble2's port of fibre-qm-period |
 | `mk_d95_glue.py` | `gluePieces_of_open4` = d90's `gluePieces_of_open3` with eight textual replacements (listed in the script, each asserted to occur once); `tatePairingZl_of_leaves4` = TailB's `tatePairingZl_of_leaves` with one argument replaced | §1.1 |
-| `assemble.sh`, `chain.sh` | modules `LF4T5`, `TailJ`, `TailK`; flat file `Leaves4.lean` | §1.1 |
+| `assemble.sh`, `chain.sh` | modules `LF4T5`, `TailJ`, `TailK` (TailK imports Contrib ZariskiConn, SpreadOut, RLeaf.T40); flat file `Leaves4.lean` | §1.1 |
 
 **No statement of a remaining leaf or glue Prop was changed.** Every field type is a source file's own
 definition (§2).
