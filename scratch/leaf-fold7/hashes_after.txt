@@ -473,6 +473,11 @@ HDec.CIcopy.componentIrreducible ZInQKernel.OneProof.H.TailG [] 4284816548 16060
 HDec.CIcopy.componentIrreducible._simp_1_1 ZInQKernel.OneProof.H.TailG [u] 2060836007 2516047479
 HDec.CIcopy.componentIrreducible._simp_1_2 ZInQKernel.OneProof.H.TailG [u, v] 1932061474 1715153372
 HDec.CIcopy.componentIrreducible._simp_1_3 ZInQKernel.OneProof.H.TailG [] 1877817566 1869900747
+HDec.CurveSplitGR.IsShimuraModelNoGuard ZInQKernel.OneProof.H.TailW [] 1517846066 2008424545
+HDec.CurveSplitGR.IsShimuraModelNoGuard._proof_1 ZInQKernel.OneProof.H.TailW [] 1363875697 1614995461
+HDec.CurveSplitGR.ShimuraGoodReductionNoGuard ZInQKernel.OneProof.H.TailW [] 3944470172 1645586027
+HDec.CurveSplitGR.isShimuraModel_iff ZInQKernel.OneProof.H.TailW [] 3127234063 1970856851
+HDec.CurveSplitGR.shimuraGoodReduction_of_noGuard ZInQKernel.OneProof.H.TailW [] 1439307254 2500342368
 HDec.E1Sub.bcPhi ZInQKernel.OneProof.H.LPrefix [] 2834988453 59332462
 HDec.E1Sub.bcPhi._proof_1 ZInQKernel.OneProof.H.LPrefix [] 3399087766 4152938752
 HDec.E1Sub.bcPhi._proof_2 ZInQKernel.OneProof.H.LPrefix [] 981432184 2547295039
@@ -3552,18 +3557,18 @@ HDec.HSyn.OpenAddedLeaves6.y3Connected ZInQKernel.OneProof.H.TailO [] 1507806768
 HDec.HSyn.OpenAddedLeaves6.zariskiConnectedness ZInQKernel.OneProof.H.TailO [] 1736276097 176943862
 HDec.HSyn.OpenAddedLeaves7 ZInQKernel.OneProof.H.TailX [] 3944470172 0
 HDec.HSyn.OpenAddedLeaves7.axSenTate ZInQKernel.OneProof.H.TailX [] 1024349665 897519520
-HDec.HSyn.OpenAddedLeaves7.casesOn ZInQKernel.OneProof.H.TailX [u] 1663021324 1637643084
+HDec.HSyn.OpenAddedLeaves7.casesOn ZInQKernel.OneProof.H.TailX [u] 3653818985 3882698548
 HDec.HSyn.OpenAddedLeaves7.egaIV_17_7_8_ii ZInQKernel.OneProof.H.TailX [] 2372170045 1591025165
 HDec.HSyn.OpenAddedLeaves7.egaIV_8_10_5_xii ZInQKernel.OneProof.H.TailX [] 2967628478 1387330451
 HDec.HSyn.OpenAddedLeaves7.egaIV_8_8_2_ii ZInQKernel.OneProof.H.TailX [] 3659675097 3208451634
 HDec.HSyn.OpenAddedLeaves7.milneIsogenyQuasiInverse ZInQKernel.OneProof.H.TailX [] 1533012326 4014542876
-HDec.HSyn.OpenAddedLeaves7.mk ZInQKernel.OneProof.H.TailX [] 3489962271 0
-HDec.HSyn.OpenAddedLeaves7.mk._flat_ctor ZInQKernel.OneProof.H.TailX [] 3489962271 2350003213
+HDec.HSyn.OpenAddedLeaves7.mk ZInQKernel.OneProof.H.TailX [] 3173930146 0
+HDec.HSyn.OpenAddedLeaves7.mk._flat_ctor ZInQKernel.OneProof.H.TailX [] 3173930146 2963599941
 HDec.HSyn.OpenAddedLeaves7.qmCentralizerCMC ZInQKernel.OneProof.H.TailX [] 996857390 3378434567
 HDec.HSyn.OpenAddedLeaves7.qmHauptmodulBase3 ZInQKernel.OneProof.H.TailX [] 2562659164 1229729804
-HDec.HSyn.OpenAddedLeaves7.rec ZInQKernel.OneProof.H.TailX [u] 3931946149 0
-HDec.HSyn.OpenAddedLeaves7.recOn ZInQKernel.OneProof.H.TailX [u] 1663021324 346196385
-HDec.HSyn.OpenAddedLeaves7.shimuraGoodReduction ZInQKernel.OneProof.H.TailX [] 3005132510 1498414598
+HDec.HSyn.OpenAddedLeaves7.rec ZInQKernel.OneProof.H.TailX [u] 3624079451 0
+HDec.HSyn.OpenAddedLeaves7.recOn ZInQKernel.OneProof.H.TailX [u] 3653818985 346196385
+HDec.HSyn.OpenAddedLeaves7.shimuraGoodReductionNoGuard ZInQKernel.OneProof.H.TailX [] 3550630986 1498414598
 HDec.HSyn.OpenAddedLeaves7.shimuraTaniyamaQbar ZInQKernel.OneProof.H.TailX [] 1468300853 3787814692
 HDec.HSyn.OpenAddedLeaves7.t09SymmIsogenyExists ZInQKernel.OneProof.H.TailX [] 1331119103 2558193585
 HDec.HSyn.OpenAddedLeaves7.tateTwistInvariants ZInQKernel.OneProof.H.TailX [] 2618519658 1881869398
@@ -4209,7 +4214,7 @@ HDec.HSyn.abVarSpreadsOut_of_ega4 ZInQKernel.OneProof.H.TailK [] 3401918394 3162
 HDec.HSyn.addedLeaves4_of_open5 ZInQKernel.OneProof.H.TailN [] 3983181134 3107923586
 HDec.HSyn.addedLeaves4_of_open6 ZInQKernel.OneProof.H.TailO [] 1210581293 165210497
 HDec.HSyn.addedLeaves5_of_open6 ZInQKernel.OneProof.H.TailO [] 1427719716 552345339
-HDec.HSyn.addedLeaves6_of_open7 ZInQKernel.OneProof.H.TailX [] 187715324 4257941993
+HDec.HSyn.addedLeaves6_of_open7 ZInQKernel.OneProof.H.TailX [] 1709894050 1075546407
 HDec.HSyn.autOInnerFinite_proved4 ZInQKernel.OneProof.H.TailK [] 3684563953 2127378029
 HDec.HSyn.burnsideAbsIrred_proved3 ZInQKernel.OneProof.H.TailI [] 709226959 3529814794
 HDec.HSyn.cPtsTransport_proved3 ZInQKernel.OneProof.H.TailI [] 44496109 2474906491
@@ -4324,7 +4329,7 @@ HDec.HSyn.sixContactMin_of_open4 ZInQKernel.OneProof.H.TailK [] 2461239664 10787
 HDec.HSyn.sixContactMin_of_open5 ZInQKernel.OneProof.H.TailN [] 3424902211 2969777667
 HDec.HSyn.sixContactMin_of_open6 ZInQKernel.OneProof.H.TailO [] 3008783203 3709581543
 HDec.HSyn.sixContactMin_of_open6_poincare ZInQKernel.OneProof.H.TailO [] 1561346612 1568806770
-HDec.HSyn.sixContactMin_of_open7 ZInQKernel.OneProof.H.TailX [] 585483213 331271196
+HDec.HSyn.sixContactMin_of_open7 ZInQKernel.OneProof.H.TailX [] 585483213 1634095999
 HDec.HSyn.sixContactMin_of_openQ10 ZInQKernel.OneProof.H.TailO [] 1086692687 958158596
 HDec.HSyn.sixContactMin_of_openQ5 ZInQKernel.OneProof.H.TailO [] 1957036622 1074800554
 HDec.HSyn.sixContactMin_of_openQ6 ZInQKernel.OneProof.H.TailO [] 1561995281 3892805538

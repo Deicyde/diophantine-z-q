@@ -33,3 +33,7 @@
   `EigenformHTNew` (the newform case, a strictly smaller statement of the same form), with T25 from the kernel's
   `T25.newformOfEigenform_leaf` (accepted on G9's copy by unfolding) and the DS leaves already fields. Main builds,
   axioms standard, DumpCompact/cmp_hashes rerun.
+- 08:15 `shimuraGoodReduction` (H-83) → curve-split's `ShimuraGoodReductionNoGuard`, stated in TailW inside
+  `namespace HDec` over the chain's own vert-witness definitions (curve-split's root copies of `IsShimuraModel` etc.
+  not used); `shimuraGoodReduction_of_noGuard` with `R1R2fp` from the field `r1r2`. Main builds, axioms standard,
+  DumpCompact rerun.

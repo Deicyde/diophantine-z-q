@@ -18,7 +18,7 @@ from the new ones. Folded (docs/research/leaf-fold7.md lists every field):
   `MumfordTorsionAlgClosed`, `UniformizationLeafAll`, `GAGAMorphism`, `MilneIsogenyQuasiInverse`;
 * curve-split (`TailR`): `curveBijIso` proved (dropped), `normalCurveSmoothQ` from `RegularSmoothPerfect`,
   `geomConnectedOfConstantFieldQ` from the field `zariskiConnectedness` (dropped), `x0Transitive` from Igusa's
-  theorem `IgusaGL2`;
+  theorem `IgusaGL2`, `shimuraGoodReduction` from its guard-free form (`TailW`);
 * qm-split (`TailU`): `qmClassNumberOne` proved (dropped), `t27` from `YuThm11`, `cmOptimalEmbedding`,
   `qmAutCard`, `alFixedPoints` from `QMCentralizerCMC` (with T11(b)), `stQM` from `ShimuraTaniyamaQbar`, `r4` from
   `IgusaPsi4` and `IgusaChi10`, `r1b` from `ShimuraFamily`;
@@ -156,8 +156,8 @@ structure OpenTextbookLeaves7 : Prop where
 
 /-- **The added leaves still open** (leaf-fold7): leaf-fold6's `OpenAddedLeaves6` without `qmClassNumberOne` and
 `curveBijIso` (proved), with the three QM computations replaced by `QMCentralizerCMC`, `stQM` by
-`ShimuraTaniyamaQbar`, `isogenyQuasiInverse` by `MilneIsogenyQuasiInverse`, and `senTwist`, `finiteImageHT` by
-Tate's two theorems. 16 fields. -/
+`ShimuraTaniyamaQbar`, `isogenyQuasiInverse` by `MilneIsogenyQuasiInverse`, `senTwist`, `finiteImageHT` by
+Tate's two theorems, and `shimuraGoodReduction` by its guard-free form. 16 fields. -/
 structure OpenAddedLeaves7 : Prop where
   thetaRatiosAlgebraic : G0Split.ThetaPt.ThetaRatiosAlgebraic
   qmHauptmodulBase3 : LeafQCheck.HM.QMHauptmodulBase3
@@ -181,7 +181,9 @@ structure OpenAddedLeaves7 : Prop where
   egaIV_8_8_2_ii : _root_.ZInQ.Contrib.SpreadOut.EGAIV_8_8_2_ii
   egaIV_8_10_5_xii : _root_.ZInQ.Contrib.SpreadOut.EGAIV_8_10_5_xii
   egaIV_17_7_8_ii : _root_.ZInQ.Contrib.SpreadOut.EGAIV_17_7_8_ii
-  shimuraGoodReduction : VertWitness.ShimuraGoodReduction
+  /-- curve-split, H-83: vert-witness's `ShimuraGoodReduction` without the `ℚ̄`-point guard of `IsShimuraModel`
+  (redundant given `r1r2`; replaces `shimuraGoodReduction`). -/
+  shimuraGoodReductionNoGuard : CurveSplitGR.ShimuraGoodReductionNoGuard
 
 /-- **The glue still open** (leaf-fold7): mcr-glue's `QuotientP1Coordinate` (the coordinate of the tame quotient
 `𝒴/Γ' ≅ P¹_{ℤ_(p)}` as a finite map with the fibre relation; the residue clause of `ModelCoordinateResidue` is
@@ -256,7 +258,8 @@ theorem qmRows_of7 (t : OpenTextbookLeaves7) (l : OpenAddedLeaves7) :
   QMSplit.Aut.rows_of_C l.qmCentralizerCMC (t11b_of_exists5 t.t11bExists)
 
 /-- leaf-fold6's added bundle from leaf-fold7's. -/
-theorem addedLeaves6_of_open7 (t : OpenTextbookLeaves7) (l : OpenAddedLeaves7) : OpenAddedLeaves6 where
+theorem addedLeaves6_of_open7 (r : OpenResearchLeaves7) (t : OpenTextbookLeaves7) (l : OpenAddedLeaves7) :
+    OpenAddedLeaves6 where
   cmOptimalEmbedding := (qmRows_of7 t l).2.2
   thetaRatiosAlgebraic := l.thetaRatiosAlgebraic
   qmHauptmodulBase3 := l.qmHauptmodulBase3
@@ -276,7 +279,8 @@ theorem addedLeaves6_of_open7 (t : OpenTextbookLeaves7) (l : OpenAddedLeaves7) :
   egaIV_8_8_2_ii := l.egaIV_8_8_2_ii
   egaIV_8_10_5_xii := l.egaIV_8_10_5_xii
   egaIV_17_7_8_ii := l.egaIV_17_7_8_ii
-  shimuraGoodReduction := l.shimuraGoodReduction
+  shimuraGoodReduction := CurveSplitGR.shimuraGoodReduction_of_noGuard (LeafAdopt.R1R2fp_of_rep r.r1r2)
+    l.shimuraGoodReductionNoGuard
   curveBijIso := curveBijIso_lf7
 
 /-- leaf-fold6's glue bundle from leaf-fold7's. -/
@@ -288,7 +292,7 @@ theorem glue6_of_open7 (g : OpenGlue7) : OpenGlue6 where
 and `OpenGlue7` (1, `QuotientP1Coordinate`). The table of every field is `docs/research/leaf-fold7.md` §2. -/
 theorem sixContactMin_of_open7 (r : OpenResearchLeaves7) (t : OpenTextbookLeaves7) (l : OpenAddedLeaves7)
     (g : OpenGlue7) : ZInQ.SixContactMin :=
-  sixContactMin_of_open6 (researchLeaves5_of_open7 r l) (textbookLeaves6_of_open7 t l) (addedLeaves6_of_open7 t l)
+  sixContactMin_of_open6 (researchLeaves5_of_open7 r l) (textbookLeaves6_of_open7 t l) (addedLeaves6_of_open7 r t l)
     (glue6_of_open7 g)
 
 end HSyn

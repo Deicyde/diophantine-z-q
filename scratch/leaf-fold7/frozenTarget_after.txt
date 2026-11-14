@@ -4,4 +4,4 @@ ZInQ.OneProof.frozenTarget : ∀ (r : HDec.HSyn.OpenResearchLeaves7) (t : HDec.H
   (h33 : ∀ (ℓ : Nat → Int), ZInQ.Contrib.TYZDecomp.IsTYZLcal ℓ → ZInQ.Contrib.TYZGenus.TYZ35.TYZThm33Pinned ℓ)
   (hL2 : ZInQ.GZDecomp.FHNonvanishing) (hL3 : ZInQ.GZDecomp.GrossZagierHeegner), ZInQ.FrozenTarget
 'ZInQ.OneProof.frozenTarget' depends on axioms: [propext, Classical.choice, Quot.sound]
-9948 constants hashed
+9953 constants hashed

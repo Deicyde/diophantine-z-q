@@ -4,10 +4,11 @@ import ZInQKernel.OneProof.H.TailO
 
 `scratch/mcr-glue/MCRGlue{1,2,3}.lean.part`, verbatim apart from this banner and the `namespace HDec` wrapper:
 mcr-glue compiled them after `scratch/model-glue/ModelGlue6.lean` (verbatim), which is in the chain as leaf-fold5's
-`TailL` (namespace `HDec`). Main theorem: `HDec.MCRGlue.modelCoordinateResidue_of_quotient' :
+`TailL` (namespace `HDec`). Main theorems: `HDec.MCRGlue.modelCoordinateResidue_of_quotient' :
 QuotientP1Coordinate → ModelGlue.ModelCoordinateResidue` (the residue half proved; `QuotientP1Coordinate` asks only
 for the coordinate, a finite map from the model to `P¹_{ℤ_(p)}` with the fibre relation;
-docs/research/mcr-glue.md). -/
+docs/research/mcr-glue.md), and, at the end, curve-split's
+`HDec.CurveSplitGR.shimuraGoodReduction_of_noGuard` (H-83 without its guard clause). -/
 
 namespace HDec
 
@@ -688,6 +689,66 @@ theorem modelCoordinateResidue_of_leaves' (hAF : ProperCurveAF) (hQE : FiniteQuo
 
 end MCRGlue
 
+
+end -- noncomputable section
+
+
+/-! ════════════════════════════════════════════════════════════════════════════════════════════
+# curve-split, H-83: the guard clause of `IsShimuraModel` is redundant
+
+`scratch/curve-split/ShimuraGR.lean` lines 131-174 (namespace `CurveSplit` renamed `CurveSplitGR`, inside
+`namespace HDec`), verbatim otherwise. curve-split stated it after verbatim copies of vert-witness's
+`IsShimuraModel`, `ShimuraGoodReduction`, `cmObjectsExist_of_R1R2fp`; here those names are the chain's own
+(`TailL`, namespace `HDec.VertWitness`), so `ShimuraGoodReductionNoGuard` is stated over the chain's definitions and
+`shimuraGoodReduction_of_noGuard` concludes the chain's row.
+════════════════════════════════════════════════════════════════════════════════════════════ -/
+
+noncomputable section
+
+namespace CurveSplitGR
+
+open CategoryTheory AlgebraicGeometry Limits LeafQM.AV VertWitness
+
+/-- `IsShimuraModel` without its last clause (the `ℚ̄`-point guard). -/
+def IsShimuraModelNoGuard (p : ℕ) [Fact p.Prime] (𝒴 : Over (Spec (CommRingCat.of (Zloc p))))
+    (𝒜 : QMFamily 𝒴.left) : Prop :=
+    IsProper 𝒴.hom ∧ SmoothOfRelativeDimension 1 𝒴.hom ∧
+    (∀ (K : Type) [Field K] [Algebra ℚ K] (y : Spec (CommRingCat.of K) ⟶ 𝒴.left),
+      ∃ P : QML3 K, IsFibreOf 𝒜 y P) ∧
+    (∀ (y y' : Spec (CommRingCat.of Qbar) ⟶ 𝒴.left) (P P' : QML3 Qbar),
+      IsFibreOf 𝒜 y P → IsFibreOf 𝒜 y' P' → M3.mk P = M3.mk P' → y = y') ∧
+    (∀ P : QML3 Qbar, ∃ y : Spec (CommRingCat.of Qbar) ⟶ 𝒴.left, IsFibreOf 𝒜 y P) ∧
+    (∀ α : LeafQM.O ≃+* LeafQM.O, ∃ g : 𝒴 ≅ 𝒴, ∀ (y : Spec (CommRingCat.of Qbar) ⟶ 𝒴.left) (P P' : QML3 Qbar),
+      IsFibreOf 𝒜 y P → IsFibreOf 𝒜 (y ≫ g.hom.left) P' → M3.mk P' = M3.twist α (M3.mk P)) ∧
+    (∀ u : (LeafQM.O)ˣ, ∃ g : 𝒴 ≅ 𝒴, ∀ (y : Spec (CommRingCat.of Qbar) ⟶ 𝒴.left) (P P' : QML3 Qbar),
+      IsFibreOf 𝒜 y P → IsFibreOf 𝒜 (y ≫ g.hom.left) P' → M3.mk P' = M3.rightMul u (M3.mk P))
+
+/-- **The guard clause is redundant given one object over `ℚ̄`** (proved). -/
+theorem isShimuraModel_iff (hobj : Nonempty (QML3 Qbar)) (p : ℕ) [Fact p.Prime]
+    (𝒴 : Over (Spec (CommRingCat.of (Zloc p)))) (𝒜 : QMFamily 𝒴.left) :
+    IsShimuraModel p 𝒴 𝒜 ↔ IsShimuraModelNoGuard p 𝒴 𝒜 := by
+  constructor
+  · rintro ⟨h1, h2, h3, h4, h5, h6, h7, -⟩
+    exact ⟨h1, h2, h3, h4, h5, h6, h7⟩
+  · rintro ⟨h1, h2, h3, h4, h5, h6, h7⟩
+    obtain ⟨P⟩ := hobj
+    obtain ⟨y, -⟩ := h5 P
+    exact ⟨h1, h2, h3, h4, h5, h6, h7, ⟨y⟩⟩
+
+/-- `ShimuraGoodReduction` without the guard clause. -/
+def ShimuraGoodReductionNoGuard : Prop :=
+  ∀ (p : ℕ) [Fact p.Prime], 324 < p →
+    ∃ (𝒴 : Over (Spec (CommRingCat.of (Zloc p)))) (𝒜 : QMFamily 𝒴.left), IsShimuraModelNoGuard p 𝒴 𝒜
+
+/-- **H-83 from its guard-free form and the kernel bundle leaf `R1R2fp`** (proved). -/
+theorem shimuraGoodReduction_of_noGuard (hRR : R1R2fp) (h : ShimuraGoodReductionNoGuard) :
+    ShimuraGoodReduction := by
+  intro p _ hp
+  obtain ⟨𝒴, 𝒜, hM⟩ := h p hp
+  obtain ⟨⟨P, -⟩, -, -⟩ := cmObjectsExist_of_R1R2fp hRR
+  exact ⟨𝒴, 𝒜, (isShimuraModel_iff ⟨P⟩ p 𝒴 𝒜).mpr hM⟩
+
+end CurveSplitGR
 
 end -- noncomputable section
 
