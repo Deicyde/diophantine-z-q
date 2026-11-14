@@ -3,8 +3,10 @@ import ZInQKernel.Contrib.TYZGenus.ShimuraMain
 /-!
 # TYZ chain: shimura-modfn (review and split of the CM leaf `ShimuraReciprocityModFn`; not used by the main theorem)
 
-Task tyz-chain (2026-11-14). This module is `scratch/shimura-modfn/ModFn.lean` unchanged except that its `#print axioms`
-lines were moved to `scratch/tyz-chain/Check.lean`. The original header follows.
+Task tyz-chain (2026-11-14). This module is `scratch/shimura-modfn/ModFn.lean` with two changes: its §0
+verbatim copies of tyz-cm's `IsRatModFn` and `ShimuraReciprocityModFn` are replaced by the originals
+(namespace `Shimura`, opened selectively), and its `#print axioms` lines were moved to
+`scratch/tyz-chain/Check.lean`. The original header follows.
 -/
 
 
@@ -43,33 +45,13 @@ open ZInQ.Contrib.TYZDecomp.CurveA ZInQ.Contrib.TYZGenus.CM ZInQ.Contrib.TYZGenu
   ZInQ.RouteK.Rank5b NumberField TauCeti.GlobalNumberFields TauCeti.ClassFieldTheory Complex
 open ZInQ.Contrib.TYZGenus.Shimura (kappa idealLat discOf)
 
-/-! ## §0. Verbatim copies (tyz-cm, `ZInQKernel/Contrib/TYZGenus/ShimuraModFn.lean`) -/
+/-! ## §0. tyz-cm's definitions (imported; shimura-modfn had verbatim copies here)
 
-/-- Verbatim copy of `Shimura.IsRatModFn`. -/
-def IsRatModFn (N : ℕ) (g : UpperHalfPlane → ℂ) : Prop :=
-  (∀ γ : Matrix.SpecialLinearGroup (Fin 2) ℤ, γ ∈ CongruenceSubgroup.Gamma0 N →
-      ∀ τ : UpperHalfPlane, g (γ • τ) = g τ) ∧
-  (∀ γ : Matrix.SpecialLinearGroup (Fin 2) ℤ, ∃ k : ℕ,
-      (fun τ : UpperHalfPlane => g (γ • τ)) =O[UpperHalfPlane.atImInfty] fun τ => Real.exp (2 * Real.pi * k * τ.im)) ∧
-  ∃ (k : ℕ) (a : ℕ → ℚ), ∀ τ : UpperHalfPlane,
-    HasSum (fun n : ℕ => (a n : ℂ) * cexp (2 * Real.pi * I * τ) ^ n)
-      (cexp (2 * Real.pi * I * τ) ^ k * g τ)
+tyz-chain: shimura-modfn's verbatim copies of `Shimura.IsRatModFn` and
+`Shimura.ShimuraReciprocityModFn` are replaced by the originals
+(`ZInQKernel/Contrib/TYZGenus/ShimuraModFn.lean`), opened selectively; the two `rfl` checks are kept. -/
 
-/-- Verbatim copy of `Shimura.ShimuraReciprocityModFn` (tyz-cm's leaf SHIMURA-MODFN). -/
-def ShimuraReciprocityModFn : Prop :=
-  ∀ (N : ℕ) (g : UpperHalfPlane → ℂ), IsRatModFn N g →
-  ∀ (m f : ℕ) [NeZero m] [NeZero f], Squarefree m →
-    ∀ (e : SeparableClosure (QNeg m) →ₐ[ℚ] Qbar),
-      ιC (e (algebraMap (QNeg m) (SeparableClosure (QNeg m)) QuadraticAlgebra.omega)) =
-        I * (Real.sqrt m : ℂ) →
-    ∀ (J : integralIdealsPrimeTo (conductorOrder (QNeg m) f).conductorModulus) (ρ : GalQ),
-      (∀ x : ringClassField (conductorOrder (QNeg m) f),
-        ρ (e x) = e (ringClassArtinEquiv (conductorOrder (QNeg m) f)
-          ((conductorOrder (QNeg m) f).picClass J) x)) →
-    ∀ (D : ℤ), D = discOf m f → ∀ (Q Q' : HeegnerForm N D) (c : ℂ),
-      idealLat m f J * Q'.lat = Q.lat.map (LinearMap.mulLeft ℤ c) →
-      idealLat m f J * Q'.latN = Q.latN.map (LinearMap.mulLeft ℤ c) →
-      ∃ a a' : Qbar, ιC a = g Q.tauH ∧ ιC a' = g Q'.tauH ∧ ρ a = a'
+open ZInQ.Contrib.TYZGenus.Shimura (IsRatModFn ShimuraReciprocityModFn)
 
 theorem isRatModFn_eq : IsRatModFn = Shimura.IsRatModFn := rfl
 

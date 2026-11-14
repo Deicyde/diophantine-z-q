@@ -33,3 +33,5 @@
   kappaAlg_apply, kappaZ, kappaLin, kappaLin_apply — the helpers VERIFIED identical by diff with
   TYZGenus/ShimuraZn.lean lines 41–66; the TyzCm Prop was rfl-checked by cm-bridge) by a selective
   `open ZInQ.Contrib.TYZGenus.Shimura (...)`. Rebuild of Bridge/Thm35/L321/Main OK (1m48); Check rerun OK. VERIFIED.
+- 00:52 ModFn: shimura-modfn's §0 verbatim copies of Shimura.IsRatModFn / Shimura.ShimuraReciprocityModFn replaced
+  by a selective open of the originals (rfl checks kept, now trivial). Build OK (131 s); Check rerun: 81 × standard. VERIFIED.
