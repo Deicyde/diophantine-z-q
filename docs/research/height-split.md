@@ -51,6 +51,14 @@ new leaves.
 The glue Prop `MetrizedDimUnique` (two metrizations of one model have the same `g`) was introduced
 and then **proved** with a 2-torsion count (`metrizedDimUnique`).
 
+**One bundle for integration.** `heightRows_of (l : HeightLeaves) (gl : HeightGlue)` proves
+`R18 ∧ R19 ∧ R20 ∧ R21 ∧ R22 ∧ StableHeightFinite`.
+- `HeightLeaves` holds the nine published-form leaves: N1, SS1, SS2, SS3, `BostLowerBound`,
+  `JavanpeykarBound`, `FaltingsLemma5BC`, `PazukiCor13Upper` and `GaudronRemondThm14`.
+- `HeightGlue` holds four Props: the kernel's `AnalyticUniformizationExists` and
+  `AnalyticUniformizationUnique`, plus `UniformizationDim` and `MetrizationOfUniformization`.
+- `heightRows_leavesOnly` proves `R19 ∧ R20 ∧ R22` from `HeightLeaves` alone.
+
 **Verdicts on the statements.** No row is false or vacuous.
 - Every row's literature content is no stronger than its source.
 - Two rows also contain a finiteness clause about the project's definition, which no printed theorem
@@ -297,7 +305,7 @@ printed is UNVERIFIED; the `𝒪^×` form is the one that matches the hand check
 
 All checks used `lake env lean`, one process at a time (VERIFIED).
 - **`scratch/height-split/HeightSplit.lean`.** It imports `ZInQKernel.HDecomp.LeafPush2.R22` and
-  `ZInQKernel.Contrib.HeightBC.Main`. Exit 0, no errors or warnings, about 10 s. All 15
+  `ZInQKernel.Contrib.HeightBC.Main`. Exit 0, no errors or warnings, about 10 s. All 21
   `#print axioms` lines are standard.
 - **`scratch/height-split/R5Count.lean`.** It imports `ZInQKernel.HDecomp.QM.Leaves`. Exit 0, about
   6 s. `#print axioms R5.r5fpCount_of` is standard.
