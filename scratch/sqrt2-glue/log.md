@@ -51,3 +51,4 @@ Product of Frobenius lifts over the prime factorization of α𝓞_F.
   **`lemma318Literal_HHprime : T318.Lemma318Literal HHprime`**, `package_lemma318Literal_HHprime : Package.Lemma318Literal HHprime`
   (the hypothesis h318 of cm-bridge), `tyzThm35ReadingA_of_cmLeaves_ringClassD_no318` (kernel bridge with h318 discharged);
   `T318.SqrtTwoNotInHHprime = SqrtTwoNotInHHprime := rfl`. All [propext, Classical.choice, Quot.sound]; 0 errors.
+- 01:15: report docs/research/sqrt2-glue.md and .fleet/sqrt2-glue.md written. Task complete.
