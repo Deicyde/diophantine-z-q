@@ -115,6 +115,241 @@ theorem isAffineOpen_V' (hρ : IsP1Coordinate 𝒵 ρ) :
     · rw [basicOpen_tg]; exact hρ.1.basicOpen _
     · rw [basicOpen_tH]; exact hρ.2.1.basicOpen _
 
+/-- `res` of `ψ(P) = P(g')` to `D_U(f + e)` is `P(1/(f + e))`. -/
+theorem res_eval_DU (P : (Zloc p)[X]) :
+    res (le_sup_right : tDU ρ (cE 𝒵 e) ≤ _) (eval₂ (baseToSections 𝒵 _) (tg ρ (cE 𝒵 e)) P) =
+      eval₂ (baseToSections 𝒵 _) (↑(uF ρ (cE 𝒵 e))⁻¹ : Γ(𝒵.left, tDU ρ (cE 𝒵 e))) P := by
+  rw [hom_eval₂, tg_res_DU, tS2,
+    show (res _).comp (baseToSections 𝒵 _) = baseToSections 𝒵 (tDU ρ (cE 𝒵 e)) from
+      RingHom.ext (res_baseToSections 𝒵 _)]
+
+/-- `res` of `ψ(P) = P(g')` to `D_V(1 + e g)` is `P(g/(1 + e g))`. -/
+theorem res_eval_DV (P : (Zloc p)[X]) :
+    res (le_sup_left : tDV ρ (cE 𝒵 e) ≤ _) (eval₂ (baseToSections 𝒵 _) (tg ρ (cE 𝒵 e)) P) =
+      eval₂ (baseToSections 𝒵 _) (tS1 ρ (cE 𝒵 e)) P := by
+  rw [hom_eval₂, tg_res_DV,
+    show (res _).comp (baseToSections 𝒵 _) = baseToSections 𝒵 (tDV ρ (cE 𝒵 e)) from
+      RingHom.ext (res_baseToSections 𝒵 _)]
+
+/-- Sections on `D_U(f + e)` are polynomials in `1/(f + e)` up to a power of `1/(f + e)`. -/
+theorem exists_poly_DU (hρ : IsP1Coordinate 𝒵 ρ) (z : Γ(𝒵.left, tDU ρ (cE 𝒵 e))) :
+    ∃ (N : ℕ) (P : (Zloc p)[X]),
+      z * (↑(uF ρ (cE 𝒵 e))⁻¹ : Γ(𝒵.left, tDU ρ (cE 𝒵 e))) ^ N =
+        eval₂ (baseToSections 𝒵 _) (↑(uF ρ (cE 𝒵 e))⁻¹ : Γ(𝒵.left, tDU ρ (cE 𝒵 e))) P := by
+  letI : Algebra Γ(𝒵.left, ρ.U) Γ(𝒵.left, tDU ρ (cE 𝒵 e)) := (res (tDU_le ρ (cE 𝒵 e))).toAlgebra
+  haveI := hρ.1.isLocalization_of_eq_basicOpen (tF ρ (cE 𝒵 e)) (homOfLE (tDU_le ρ (cE 𝒵 e))) rfl
+  obtain ⟨⟨a0, ⟨_, n, rfl⟩⟩, hz⟩ := IsLocalization.surj (Submonoid.powers (tF ρ (cE 𝒵 e))) z
+  obtain ⟨Q, rfl⟩ := hρ.2.2.1.2 a0
+  change z * res (tDU_le ρ (cE 𝒵 e)) (tF ρ (cE 𝒵 e) ^ n) =
+    res (tDU_le ρ (cE 𝒵 e)) (eval₂ (baseToSections 𝒵 ρ.U) ρ.f Q) at hz
+  set x : Γ(𝒵.left, tDU ρ (cE 𝒵 e)) := ↑(uF ρ (cE 𝒵 e)) with hxdef
+  set xi : Γ(𝒵.left, tDU ρ (cE 𝒵 e)) := ↑(uF ρ (cE 𝒵 e))⁻¹ with hxidef
+  have hx : x * xi = 1 := Units.mul_inv _
+  letI : Invertible x := Units.invertible _
+  have hfx : res (tDU_le ρ (cE 𝒵 e)) ρ.f = x - baseToSections 𝒵 _ e := by
+    rw [hxdef, uF_val, tF_eq, map_add, res_baseToSections]; ring
+  have hQ : res (tDU_le ρ (cE 𝒵 e)) (eval₂ (baseToSections 𝒵 ρ.U) ρ.f Q) =
+      eval₂ (baseToSections 𝒵 _) x (Q.comp (X - C e)) := by
+    rw [hom_eval₂, show (res _).comp (baseToSections 𝒵 ρ.U) = baseToSections 𝒵 (tDU ρ (cE 𝒵 e))
+      from RingHom.ext (res_baseToSections 𝒵 _), hfx, eval₂_comp]
+    simp
+  set Q' := Q.comp (X - C e)
+  set N := Q'.natDegree
+  have hR := eval₂_reflect_mul_pow (baseToSections 𝒵 (tDU ρ (cE 𝒵 e))) x N Q' le_rfl
+  have hinv : (⅟x : Γ(𝒵.left, tDU ρ (cE 𝒵 e))) = xi := rfl
+  rw [hinv] at hR
+  have hxn : res (tDU_le ρ (cE 𝒵 e)) (tF ρ (cE 𝒵 e) ^ n) = x ^ n := by
+    rw [map_pow, hxdef, uF_val]
+  rw [hxn, hQ, ← hR] at hz
+  refine ⟨N, reflect N Q' * X ^ n, ?_⟩
+  rw [eval₂_mul, eval₂_X_pow]
+  set R := eval₂ (baseToSections 𝒵 (tDU ρ (cE 𝒵 e))) xi (reflect N Q')
+  calc z * xi ^ N = z * xi ^ N * (x * xi) ^ n := by rw [hx, one_pow, mul_one]
+    _ = (z * x ^ n) * xi ^ N * xi ^ n := by ring
+    _ = R * x ^ N * xi ^ N * xi ^ n := by rw [hz]
+    _ = R * xi ^ n * (x * xi) ^ N := by ring
+    _ = R * xi ^ n := by rw [hx, one_pow, mul_one]
+
+/-- Sections on `D_V(1 + e g)` are polynomials in `g' = g/(1 + e g)` up to a power of
+`h' = 1/(1 + e g)`. -/
+theorem exists_poly_DV (hρ : IsP1Coordinate 𝒵 ρ) (z : Γ(𝒵.left, tDV ρ (cE 𝒵 e))) :
+    ∃ (N : ℕ) (P : (Zloc p)[X]),
+      z * res (le_sup_left : tDV ρ (cE 𝒵 e) ≤ _) (tH 𝒵 ρ e) ^ N =
+        eval₂ (baseToSections 𝒵 _) (tS1 ρ (cE 𝒵 e)) P := by
+  letI : Algebra Γ(𝒵.left, ρ.V) Γ(𝒵.left, tDV ρ (cE 𝒵 e)) := (res (tDV_le ρ (cE 𝒵 e))).toAlgebra
+  haveI := hρ.2.1.isLocalization_of_eq_basicOpen (tG ρ (cE 𝒵 e)) (homOfLE (tDV_le ρ (cE 𝒵 e))) rfl
+  obtain ⟨⟨b0, ⟨_, n, rfl⟩⟩, hz⟩ := IsLocalization.surj (Submonoid.powers (tG ρ (cE 𝒵 e))) z
+  obtain ⟨Q, rfl⟩ := hρ.2.2.2.2 b0
+  change z * res (tDV_le ρ (cE 𝒵 e)) (tG ρ (cE 𝒵 e) ^ n) =
+    res (tDV_le ρ (cE 𝒵 e)) (eval₂ (baseToSections 𝒵 ρ.V) ρ.g Q) at hz
+  set φ := baseToSections 𝒵 (tDV ρ (cE 𝒵 e))
+  set y : Γ(𝒵.left, tDV ρ (cE 𝒵 e)) := ↑(uG ρ (cE 𝒵 e)) with hydef
+  set v := res (le_sup_left : tDV ρ (cE 𝒵 e) ≤ _) (tH 𝒵 ρ e) with hvdef
+  set w := tS1 ρ (cE 𝒵 e) with hwdef
+  set a := res (tDV_le ρ (cE 𝒵 e)) ρ.g with hadef
+  have hvy : v * y = 1 := res_tH_DV 𝒵 ρ e
+  have hv : v = 1 - φ e * w := by
+    rw [hvdef, tH, map_sub, map_one, map_mul, res_baseToSections, tg_res_DV]
+  have haw : a = w * y := by
+    rw [hwdef, tS1, mul_assoc, Units.inv_mul, mul_one]
+  have hyn : res (tDV_le ρ (cE 𝒵 e)) (tG ρ (cE 𝒵 e) ^ n) = y ^ n := by
+    rw [map_pow, hydef, uG_val]
+  have hQ : res (tDV_le ρ (cE 𝒵 e)) (eval₂ (baseToSections 𝒵 ρ.V) ρ.g Q) = eval₂ φ a Q := by
+    rw [hom_eval₂, show (res _).comp (baseToSections 𝒵 ρ.V) = φ
+      from RingHom.ext (res_baseToSections 𝒵 _)]
+  rw [hyn, hQ] at hz
+  set D := Q.natDegree + 1
+  have hsum : eval₂ φ a Q = ∑ i ∈ Finset.range D, φ (Q.coeff i) * a ^ i :=
+    eval₂_eq_sum_range' φ (Nat.lt_succ_self _) a
+  refine ⟨D, ∑ i ∈ Finset.range D, C (Q.coeff i) * X ^ i * (1 - C e * X) ^ (n + D - i), ?_⟩
+  rw [eval₂_finsetSum]
+  have hterm : ∀ i ∈ Finset.range D,
+      eval₂ φ w (C (Q.coeff i) * X ^ i * (1 - C e * X) ^ (n + D - i)) =
+        φ (Q.coeff i) * a ^ i * v ^ (n + D) := by
+    intro i hi
+    have hiD : i ≤ n + D := (Finset.mem_range.1 hi).le.trans (Nat.le_add_left _ _)
+    rw [eval₂_mul, eval₂_mul, eval₂_C, eval₂_X_pow, eval₂_pow, eval₂_sub, eval₂_one, eval₂_mul,
+      eval₂_C, eval₂_X, ← hv, haw]
+    conv_rhs => rw [← Nat.sub_add_cancel hiD, pow_add]
+    calc φ (Q.coeff i) * w ^ i * v ^ (n + D - i)
+        = φ (Q.coeff i) * w ^ i * v ^ (n + D - i) * (v * y) ^ i := by rw [hvy, one_pow, mul_one]
+      _ = φ (Q.coeff i) * (w * y) ^ i * (v ^ (n + D - i) * v ^ i) := by ring
+  rw [Finset.sum_congr rfl hterm, ← Finset.sum_mul, ← hsum, ← hz]
+  calc z * v ^ D = z * v ^ D * (v * y) ^ n := by rw [hvy, one_pow, mul_one]
+    _ = z * y ^ n * v ^ (n + D) := by ring
+
+/-- Clearing a power of `s` after restriction to `D(s)` (`O` affine). -/
+theorem exists_pow_mul_eq_of_res {X : Scheme.{0}} {O W : X.Opens} (hO : IsAffineOpen O)
+    (hWO : W ≤ O) (s : Γ(X, O)) (hW : X.basicOpen s = W) (c d : Γ(X, O)) (N : ℕ)
+    (h : res hWO c * (res hWO s) ^ N = res hWO d) : ∃ m : ℕ, s ^ m * (c * s ^ N) = s ^ m * d := by
+  letI : Algebra Γ(X, O) Γ(X, W) := (res hWO).toAlgebra
+  haveI := hO.isLocalization_of_eq_basicOpen s (homOfLE hWO) hW.symm
+  have h0 : algebraMap Γ(X, O) Γ(X, W) (c * s ^ N - d) = 0 := by
+    change res hWO (c * s ^ N - d) = 0
+    rw [map_sub, map_mul, map_pow, h, sub_self]
+  obtain ⟨⟨_, m, rfl⟩, hm⟩ := (IsLocalization.map_eq_zero_iff (Submonoid.powers s) Γ(X, W) _).1 h0
+  refine ⟨m, ?_⟩
+  rw [← sub_eq_zero, ← mul_sub]
+  exact hm
+
+theorem surjective_g' (hρ : IsP1Coordinate 𝒵 ρ) :
+    Function.Surjective (eval₂RingHom (baseToSections 𝒵 (tDV ρ (cE 𝒵 e) ⊔ tDU ρ (cE 𝒵 e)))
+      (tg ρ (cE 𝒵 e))) := by
+  intro c
+  set ψ := eval₂RingHom (baseToSections 𝒵 (tDV ρ (cE 𝒵 e) ⊔ tDU ρ (cE 𝒵 e))) (tg ρ (cE 𝒵 e))
+  have hV' := isAffineOpen_V' 𝒵 ρ e hρ
+  have hψX : ψ X = tg ρ (cE 𝒵 e) := by simp [ψ]
+  have hψH : ψ (1 - C e * X) = tH 𝒵 ρ e := by simp [ψ, tH]
+  obtain ⟨N1, P1, h1⟩ := exists_poly_DU 𝒵 ρ e hρ (res le_sup_right c)
+  have h1' : res (le_sup_right : tDU ρ (cE 𝒵 e) ≤ _) c *
+      (res (le_sup_right : tDU ρ (cE 𝒵 e) ≤ _) (tg ρ (cE 𝒵 e))) ^ N1 =
+      res (le_sup_right : tDU ρ (cE 𝒵 e) ≤ _) (ψ P1) := by
+    rw [tg_res_DU, tS2, h1]
+    exact (res_eval_DU 𝒵 ρ e P1).symm
+  obtain ⟨m1, hm1⟩ := exists_pow_mul_eq_of_res hV' le_sup_right (tg ρ (cE 𝒵 e))
+    (basicOpen_tg 𝒵 ρ e) c (ψ P1) N1 h1'
+  obtain ⟨N2, P2, h2⟩ := exists_poly_DV 𝒵 ρ e hρ (res le_sup_left c)
+  have h2' : res (le_sup_left : tDV ρ (cE 𝒵 e) ≤ _) c *
+      (res (le_sup_left : tDV ρ (cE 𝒵 e) ≤ _) (tH 𝒵 ρ e)) ^ N2 =
+      res (le_sup_left : tDV ρ (cE 𝒵 e) ≤ _) (ψ P2) := by
+    rw [h2]
+    exact (res_eval_DV 𝒵 ρ e P2).symm
+  obtain ⟨m2, hm2⟩ := exists_pow_mul_eq_of_res hV' le_sup_left (tH 𝒵 ρ e)
+    (basicOpen_tH 𝒵 ρ e) c (ψ P2) N2 h2'
+  have hcop : IsCoprime ((X : (Zloc p)[X]) ^ (m1 + N1)) ((1 - C e * X) ^ (m2 + N2)) :=
+    (show IsCoprime (X : (Zloc p)[X]) (1 - C e * X) from ⟨C e, 1, by ring⟩).pow
+  obtain ⟨u, v, huv⟩ := hcop
+  refine ⟨u * (X ^ m1 * P1) + v * ((1 - C e * X) ^ m2 * P2), ?_⟩
+  have e1 : ψ (X ^ m1 * P1) = c * tg ρ (cE 𝒵 e) ^ (m1 + N1) := by
+    rw [map_mul, map_pow, hψX, ← hm1]; ring
+  have e2 : ψ ((1 - C e * X) ^ m2 * P2) = c * tH 𝒵 ρ e ^ (m2 + N2) := by
+    rw [map_mul, map_pow, hψH, ← hm2]; ring
+  have e3 := congrArg ψ huv
+  rw [map_add, map_mul, map_mul, map_pow, map_pow, hψX, hψH, map_one] at e3
+  rw [map_add, map_mul ψ u, map_mul ψ v, e1, e2]
+  linear_combination c * e3
+
+theorem injective_g' (hρ : IsP1Coordinate 𝒵 ρ) :
+    Function.Injective (eval₂RingHom (baseToSections 𝒵 (tDV ρ (cE 𝒵 e) ⊔ tDU ρ (cE 𝒵 e)))
+      (tg ρ (cE 𝒵 e))) := by
+  have hbU := hρ.2.2.1
+  let eU := RingEquiv.ofBijective _ hbU
+  haveI : IsDomain Γ(𝒵.left, ρ.U) :=
+    Function.Injective.isDomain eU.symm.toRingHom eU.symm.injective
+  letI : Algebra Γ(𝒵.left, ρ.U) Γ(𝒵.left, tDU ρ (cE 𝒵 e)) := (res (tDU_le ρ (cE 𝒵 e))).toAlgebra
+  haveI := hρ.1.isLocalization_of_eq_basicOpen (tF ρ (cE 𝒵 e)) (homOfLE (tDU_le ρ (cE 𝒵 e))) rfl
+  have htF0 : tF ρ (cE 𝒵 e) ≠ 0 := by
+    intro h0
+    have : eval₂RingHom (baseToSections 𝒵 ρ.U) ρ.f (X + C e) = 0 := by
+      rw [← h0, tF_eq]; simp
+    exact X_add_C_ne_zero e (hbU.1 (this.trans (map_zero _).symm))
+  have hresinj : Function.Injective (res (tDU_le ρ (cE 𝒵 e))) :=
+    IsLocalization.injective (M := Submonoid.powers (tF ρ (cE 𝒵 e))) Γ(𝒵.left, tDU ρ (cE 𝒵 e))
+      (powers_le_nonZeroDivisors_of_noZeroDivisors htF0)
+  rw [injective_iff_map_eq_zero]
+  intro P hP
+  have h1 := congrArg (res (le_sup_right : tDU ρ (cE 𝒵 e) ≤ _)) hP
+  rw [map_zero, coe_eval₂RingHom, res_eval_DU] at h1
+  letI : Invertible (uF ρ (cE 𝒵 e) : Γ(𝒵.left, tDU ρ (cE 𝒵 e))) := Units.invertible _
+  set N := P.natDegree
+  have h2 : eval₂ (baseToSections 𝒵 (tDU ρ (cE 𝒵 e)))
+      (⅟(uF ρ (cE 𝒵 e) : Γ(𝒵.left, tDU ρ (cE 𝒵 e)))) (reflect N (reflect N P)) = 0 := by
+    rw [reflect_reflect]; exact h1
+  rw [eval₂_reflect_eq_zero_iff _ _ N _ (natDegree_reflect_le.trans (max_self _).le), uF_val]
+    at h2
+  have h3 : res (tDU_le ρ (cE 𝒵 e))
+      (eval₂ (baseToSections 𝒵 ρ.U) (tF ρ (cE 𝒵 e)) (reflect N P)) = 0 := by
+    rw [hom_eval₂, show (res _).comp (baseToSections 𝒵 ρ.U) = baseToSections 𝒵 _ from
+      RingHom.ext (res_baseToSections 𝒵 _)]
+    exact h2
+  have h4 := hresinj (h3.trans (map_zero _).symm)
+  rw [tF_eq] at h4
+  have h5 := (bijective_eval₂_add _ _ e hbU).1
+    ((show eval₂RingHom (baseToSections 𝒵 ρ.U) (ρ.f + baseToSections 𝒵 ρ.U e) (reflect N P) = 0
+      from h4).trans (map_zero _).symm)
+  exact reflect_eq_zero_iff.mp h5
+
+/-- **The translated coordinate is again an isomorphism onto `P¹_{ℤ_(p)}` by charts.** -/
+theorem isP1Coordinate_translate (hρ : IsP1Coordinate 𝒵 ρ) :
+    IsP1Coordinate 𝒵 (translate ρ (cE 𝒵 e)) := by
+  refine ⟨hρ.1, isAffineOpen_V' 𝒵 ρ e hρ, ?_, injective_g' 𝒵 ρ e hρ, surjective_g' 𝒵 ρ e hρ⟩
+  show Function.Bijective (eval₂RingHom (baseToSections 𝒵 ρ.U) (tF ρ (cE 𝒵 e)))
+  rw [tF_eq]
+  exact bijective_eval₂_add _ _ e hρ.2.2.1
+
+theorem val_translate (z : Spec (CommRingCat.of Qbar) ⟶ 𝒵.left) :
+    (translate ρ (cE 𝒵 e)).val z = (ρ.val z).map (fun t => t + iq p e) := by
+  by_cases hz : ptOf z ∈ ρ.U
+  · rw [val_of_mem (translate ρ (cE 𝒵 e)) z hz, val_of_mem ρ z hz]
+    change OnePoint.some (ev z hz (tF ρ (cE 𝒵 e))) = _
+    rw [tF_eq, map_add, ev_baseToSections]
+    rfl
+  · rw [val_of_not_mem (translate ρ (cE 𝒵 e)) z hz, val_of_not_mem ρ z hz]
+    rfl
+
 end P1T
+
+/-- **(C2-T) `P1Translate` proved**: translations `t ↦ t + e` (`e ∈ ℤ_(p)`) of `P¹_{ℤ_(p)}` act
+on isomorphisms by charts. -/
+theorem p1Translate : P1Translate := by
+  intro p _ 𝒵 ρ hρ e
+  exact ⟨translate ρ (cE 𝒵 e), isP1Coordinate_translate 𝒵 ρ e hρ, val_translate 𝒵 ρ e⟩
+
+/-- **Glue C2 from glue A (finiteness of `fibreAut`) and T5 alone.** -/
+theorem coordinateFromSections_of'' (hA : FibreAutTame) (hT : ObjBridge.TorsionStructure) :
+    CoordinateFromSections :=
+  coordinateFromSections_of' hA hT p1Translate
+
+/-- **Main composite (final form, after (C1c) and (C2-T)): `ModelCoordinateResidue` from the
+leaves L1-L6, the textbook leaf T5 and four glue Props of this task**: (A-fix)
+`FibreAutFixFinite`, (B-desc) `QuotientDescendsQ`, (B-iso) `ToP1BijIsCoordinateQ`, (C1b)
+`CMStabInvolution`. -/
+theorem modelCoordinateResidue_final2 (hAF : ProperCurveAF) (hQE : FiniteQuotientExists)
+    (hTS : TameQuotientSmooth) (hP1 : SmoothModelOfP1) (hFix : TameFixedPointsDisjoint)
+    (hCyc : TameInertiaCyclic) (hT : ObjBridge.TorsionStructure)
+    (hfix : FibreAutFixFinite) (hD : QuotientDescendsQ) (hB : ToP1BijIsCoordinateQ)
+    (hI : CMStabInvolution) : ModelCoordinateResidue :=
+  modelCoordinateResidue_final hAF hQE hTS hP1 hFix hCyc hT hfix hD hB hI stabFixesClosure
+    p1Translate
 
 end MCRQuot

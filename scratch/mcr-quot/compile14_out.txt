@@ -1098,6 +1098,94 @@ The difference between `have` and `haveI` is that `haveI` inlines the value.
 But this is not relevant for proofs because of proof irrelevance.
 
 Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/mcr-quot/MCRQuot.lean:7099:2: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/mcr-quot/MCRQuot.lean:7100:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/mcr-quot/MCRQuot.lean:7108:2: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/mcr-quot/MCRQuot.lean:7139:2: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/mcr-quot/MCRQuot.lean:7140:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/mcr-quot/MCRQuot.lean:7185:2: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/mcr-quot/MCRQuot.lean:7186:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/mcr-quot/MCRQuot.lean:7237:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/mcr-quot/MCRQuot.lean:7239:2: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/mcr-quot/MCRQuot.lean:7240:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/mcr-quot/MCRQuot.lean:7253:2: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
 'MCRQuot.exists_unit_congr' depends on axioms: [propext, Classical.choice, Quot.sound]
 'MCRQuot.mem_orbit_of_twistEq' depends on axioms: [propext, Classical.choice, Quot.sound]
 'MCRQuot.twistEq_of_mem_fibreAut' depends on axioms: [propext, Classical.choice, Quot.sound]
@@ -1126,3 +1214,6 @@ Note: This linter can be disabled with `set_option linter.style.haveILetI false`
 'MCRQuot.translate' depends on axioms: [propext, Classical.choice, Quot.sound]
 'MCRQuot.stabFixesClosure' depends on axioms: [propext, Classical.choice, Quot.sound]
 'MCRQuot.cMSectionsDisjoint_of''' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MCRQuot.p1Translate' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MCRQuot.coordinateFromSections_of''' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MCRQuot.modelCoordinateResidue_final2' depends on axioms: [propext, Classical.choice, Quot.sound]

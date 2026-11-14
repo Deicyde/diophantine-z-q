@@ -137,3 +137,17 @@ C2 `CoordinateFromSections` of `scratch/mcr-glue/MCRGlue.lean` (copied verbatim 
   the closure; `exists_factor_of_mem_range_closedImm` (field points over the range of a closed
   immersion factor; `isIso_residueFieldMap_of_closedImm`). Smoothness unused.
 - `cMSectionsDisjoint_of'' (hA) (hfix) (hI : CMStabInvolution) : CMSectionsDisjoint`.
+
+## Step 11 (08:45) — VERIFIED (parts 1-14 + 9; exit 0; compile14_out.txt; all `#print axioms`
+standard; no sorry in the parts)
+- **(C2-T) proved**: `MCRQuot.p1Translate : P1Translate`. Pieces (part 14): `tH = 1 − e g'`,
+  `basicOpen_tg` (`D(g') = D_U(f+e)`), `basicOpen_tH` (`D(1 − e g') = D_V(1+eg)`),
+  `isAffineOpen_V'` (Mathlib `isAffineOpen_of_isAffineOpen_basicOpen`, Stacks 01QF, with the
+  spanning pair `g', 1 − e g'`), `exists_poly_DU` / `exists_poly_DV` (sections on the two basic
+  opens are polynomials in `g'` up to powers; `eval₂_reflect_mul_pow`, `eval₂_eq_sum_range'`),
+  `exists_pow_mul_eq_of_res` (`isLocalization_of_eq_basicOpen`), `surjective_g'` (coprimality of
+  `Y^a`, `(1 − eY)^b`), `injective_g'` (`Γ(U)` a domain, localization injective, `reflect`),
+  `bijective_eval₂_add`, `isP1Coordinate_translate`, `val_translate`.
+- `coordinateFromSections_of'' (hA : FibreAutTame) (hT : TorsionStructure) : CoordinateFromSections`.
+- **Final composite `modelCoordinateResidue_final2`**: L1-L6 + T5 + (A-fix), (B-desc), (B-iso),
+  (C1b) ⇒ `ModelCoordinateResidue`.
