@@ -31,3 +31,10 @@ Y3Connected 97479, ValenceBoundGammaStar 113443, CMDescends 114469, GammaStarGen
   `HDec.HSyn.G0Split.FibreQM.PeriodGlue.GammaStarGen`; `HDec.HSyn.sixContactMin_of_open5` (bundle
   `OpenAddedLeaves5` = OpenAddedLeaves4 without `gammaStarGen`, 19 fields): 0 errors, axioms standard,
   `example : … → _root_.ZInQ.SixContactMin` compiles. 11 s. Count 66 → 65 (26 + 19 + 19 + 1).
+
+## ValenceBoundGammaStar: split (VERIFIED, compiled)
+- `scratch/leafq-check/ValenceBound.lean` (import Mathlib; PkgI1 §1-§2, `U`, `ValenceBoundGammaStar` verbatim):
+  `ellOrder P` (= Nat.card of the Möbius maps of the stabilizer of P in Γ*), `ValenceFormulaGammaStar`
+  (LEAF: Σ_T ord_P/e_P ≤ m/12, valence formula + signature (0;2,4,6)), `EllipticOrderLe6`
+  (0 < e_P ≤ 6), `valenceBound_of : ValenceFormulaGammaStar → EllipticOrderLe6 → ValenceBoundGammaStar`
+  (the valence count), 0 errors, axioms standard.
