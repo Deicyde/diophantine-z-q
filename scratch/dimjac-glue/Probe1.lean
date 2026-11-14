@@ -299,4 +299,40 @@ lemma valuationRing_stalk [SmoothOfRelativeDimension 1 g] (x : X) (hx : IsClosed
   exact ((tfae_of_isNoetherianRing_of_isLocalRing_of_isDomain
     (X.presheaf.stalk x)).out 6 2).mp h.le
 
+
+omit [Algebra ℚ F] in
+/-- The image of a valuation ring `R` in a field `F` that is a fraction field of `R` is a valuation
+subring of `F`. -/
+def imageVS {R : Type*} [CommRing R] [IsDomain R] [ValuationRing R] (f : R →+* F)
+    (hf : ∀ z : F, ∃ a b : R, f b ≠ 0 ∧ z * f b = f a) : ValuationSubring F where
+  toSubring := f.range
+  mem_or_inv_mem' z := by
+    obtain ⟨a, b, hb, hz⟩ := hf z
+    obtain ⟨c, hc | hc⟩ := ValuationRing.cond a b
+    · by_cases ha : f a = 0
+      · left
+        have : z * f b = 0 := hz.trans ha
+        rw [mul_eq_zero] at this
+        rcases this with h | h
+        · exact ⟨0, by rw [map_zero, h]⟩
+        · exact absurd h hb
+      · right
+        refine ⟨c, ?_⟩
+        have h1 : z * f a * f c = f a := by rw [mul_assoc, ← map_mul, hc, hz]
+        have h2 : z * f c = 1 := mul_left_cancel₀ ha (by linear_combination h1)
+        exact eq_inv_of_mul_eq_one_right h2
+    · left
+      refine ⟨c, ?_⟩
+      have : f b * f c = f b * z := by rw [← map_mul, hc, ← hz, mul_comm]
+      exact mul_left_cancel₀ hb this
+
+omit [IsIntegral X] in
+lemma key_identity (a b c d s u : F) (hc : c * s = a) (hd : d * u = b) :
+    (s * u * u) • (c • KaehlerDifferential.D ℚ F d) =
+      a • (u • KaehlerDifferential.D ℚ F b - b • KaehlerDifferential.D ℚ F u) := by
+  subst hc hd
+  rw [Derivation.leibniz]
+  simp only [smul_add, smul_sub, smul_smul]
+  module
+
 end DimJacGlue
