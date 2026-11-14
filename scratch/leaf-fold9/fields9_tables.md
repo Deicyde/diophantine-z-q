@@ -7,7 +7,6 @@
 | `r3` | `_root_.ZInQ.LeafPush2.R03_LinYang` | GLUE (comp) | composite | Lin-Yang 2020 Ex. 29; Baba-Granath Thm 2.1; Weil 1957; Lemma P | leaf-push2 |  |
 | `igusaPsi4` | `QMSplit.Theta.IgusaPsi4` | LEAF | published form | Igusa, Amer. J. Math. 84 (1962), 86 (1964), 89 (1967): psi4 = 2^-2 sum theta_m^8 is a Siegel modular form of weight 4 (flag: Igusa defines psi4 as an Eisenstein series and prints the theta expression as a theorem) | qm-split; folded by leaf-fold7 | r4 (with igusaChi10) |
 | `igusaChi10` | `QMSplit.Theta.IgusaChi10` | LEAF | published form | Igusa 1962, 1967: chi10 = -2^-14 prod theta_m^2 is a Siegel cusp form of weight 10 | qm-split; folded by leaf-fold7 | r4 (with igusaPsi4) |
-| `r5count` | `LeafQM.AV.R5fpCount` | GLUE (c) | consequence of one theorem | Gonzalez-Rotger 2006 Prop. 5.6 (count 2^b(R) h(R)) | leaf-qm-fp |  |
 | `r6` | `_root_.PkgI2.RaynaudCriterion.{0}` | GLUE (c) | consequence of one theorem | SGA 7 IX Prop. 4.7 (Silverberg-Zarhin Thm 3.5) | pkg-I2 |  |
 | `r7a` | `_root_.PkgI2.NeronOggShafarevich.{0}` | LEAF | published form | Serre-Tate 1968 Thm 1 | pkg-I2 |  |
 | `r9a` | `_root_.PkgI3.FaltingsSemisimple` | LEAF | published form | Faltings 1983 Satz 3 | pkg-I3 |  |
@@ -32,6 +31,7 @@
 | `semistableReductionDVR` | `_root_.ReductSplit.SemistableReductionDVR` | LEAF | published form (specialization) | SGA 7 I Exp. IX Thm 3.6 over a DVR: A_K' semistable at every place above O for a finite K' (print: finite separable) | reduct-split; folded by leaf-fold9 | r8 (consequence), with the next two and mumfordTorsionAlgClosed |
 | `semistableUnipotent` | `_root_.ReductSplit.SemistableUnipotent` | LEAF | published form (weakest reading) | SGA 7 I Exp. IX Prop. 3.5, semistable => (sigma-1)^2 = 0 on T_l for sigma in inertia, one sigma at a time | reduct-split; folded by leaf-fold9 | r8 |
 | `neronSchemeModelExistsDVR` | `_root_.ReductSplit.NeronSchemeModelExistsDVR` | LEAF | published form | BLR, Neron models, 1.4 Thm 3 over a DVR, scheme form (no group law) | reduct-split; folded by leaf-fold9 | r8 |
+| `gonzalezRotgerCountX6` | `_root_.ShimuraSplit.GonzalezRotgerCountX6` | LEAF | published form (specialization) | Gonzalez-Rotger, J. Math. Soc. Japan 58 (2006) Prop. 5.6 (read by the audit) at (D,N) = (6,1), on the points of one canonical coarse witness X6 (with the R1fp/X6 clause lists and Lemma QP, as for r1r2) | shimura-split; folded by leaf-fold9 | r5count (consequence) |
 
 ### OpenTextbookLeaves9 (18 fields)
 

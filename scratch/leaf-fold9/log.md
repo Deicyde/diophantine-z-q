@@ -61,3 +61,15 @@
 - Main build exit 0, frozenTarget standard axioms; DumpCompact 11119, 0 removed, 1 changed, 288 new (TailZ5-Z8);
   Check9: 63 fields (30+18+14+1), closure 212238, no sorryAx; verbatim_check9 all True.
 - Counts: 63 fields, strict 41/22, lenient 53/10.
+
+## 12:40 fold (4) shimura-split (its .fleet report appeared) — VERIFIED
+- `git merge origin/wip/shimura-split` (clean). Its whole bundle (rows_of_shimuraSplitLeaves + shimuraFamily_of_hol)
+  applied to our state (r1rec, r5 already theorems) replaces r1r2, r3?, shimuraFamily, r5count, y3Connected,
+  x6ConicModel (6 strict GLUE) by r3 + 9 leaves of which 6 are consequences: strict 7 GLUE (+1). NOT TAKEN as a whole.
+- Per row: r5count (c) -> GonzalezRotgerCountX6 (published form, audit read Prop. 5.6): strict -1. TAKEN.
+  shimuraFamily (c -> ShimuraHolFamily c), x6ConicModel (c -> ElkiesConicX6 c + T5), y3Connected (comp ->
+  DeligneComponentsY3 c: strict 0, lenient -1), r1r2 (comp -> 2 pub + 3 c + T5: strict +2): not taken by the rule.
+- TailZ8 = Count.lean verbatim (4 KB, kernel import only), TailZ9 = bundles (8.9 KB). Main imports TailZ9.
+- Main build exit 0, frozenTarget standard axioms; DumpCompact 11123, 0 removed, 1 changed, 292 new (TailZ5-Z9);
+  Check9: 63 fields (30+18+14+1), closure 212241, no sorryAx; verbatim_check9 all True.
+- Counts: 63 fields, strict 42/21, lenient 53/10.

@@ -57,6 +57,7 @@ run_cmd do
 #print axioms ModularSplit.deligneSerreConseq_of_ds
 #print axioms ReductSplit.serreTatePotentialGood_final
 #print axioms ReductSplit.grothendieckMonodromy_final'
+#print axioms ShimuraSplit.r5fpCount_of_points
 #print axioms ZInQ.LeafFold9.fieldOfModuli3_le
 #print axioms ZInQ.LeafFold9.residueImage_eq_fieldOfModuliPair
 #print axioms ZInQ.LeafFold9.qmIso_of_isBaseChangeOfPair

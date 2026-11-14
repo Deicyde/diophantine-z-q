@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """leaf-fold9: the field table of the new bundles (run from the repository root).
 
-Reads leaf-fold8's `scratch/leaf-fold8/fields8.tsv`, drops the 7 fields leaf-fold9 removes, adds reduct-split's 4 leaves,
+Reads leaf-fold8's `scratch/leaf-fold8/fields8.tsv`, drops the 8 fields leaf-fold9 removes, adds reduct-split's 4 leaves and shimura-split's 1,
 writes `scratch/leaf-fold9/fields9.tsv` and the markdown tables `fields9_tables.md`, and prints the counts after
 each fold."""
 import csv
@@ -14,6 +14,7 @@ REMOVED = {
     'cloud PR #11 (t33, normalModelOfFunctionFieldQ)': [('T', 't33'), ('T', 'normalModelOfFunctionFieldQ')],
     'modular-split (r15 from dsThm966)': [('R', 'r15')],
     'reduct-split (r7b, r8 from published-form leaves)': [('R', 'r7b'), ('R', 'r8')],
+    'shimura-split (r5count from GonzalezRotgerCountX6)': [('R', 'r5count')],
 }
 ADDED = {k: [] for k in REMOVED}
 RS = '_root_.ReductSplit.'
@@ -31,6 +32,12 @@ ADDED['reduct-split (r7b, r8 from published-form leaves)'] = [
     ('R', 'neronSchemeModelExistsDVR', RS + 'NeronSchemeModelExistsDVR', 'published form',
      'BLR, Neron models, 1.4 Thm 3 over a DVR, scheme form (no group law)', 'reduct-split; folded by leaf-fold9',
      'r8'),
+]
+ADDED['shimura-split (r5count from GonzalezRotgerCountX6)'] = [
+    ('R', 'gonzalezRotgerCountX6', '_root_.ShimuraSplit.GonzalezRotgerCountX6', 'published form (specialization)',
+     'Gonzalez-Rotger, J. Math. Soc. Japan 58 (2006) Prop. 5.6 (read by the audit) at (D,N) = (6,1), on the points '
+     'of one canonical coarse witness X6 (with the R1fp/X6 clause lists and Lemma QP, as for r1r2)',
+     'shimura-split; folded by leaf-fold9', 'r5count (consequence)'),
 ]
 ORDER = list(REMOVED)
 BUNDLES = [('R', 'OpenResearchLeaves9'), ('T', 'OpenTextbookLeaves9'), ('A', 'OpenAddedLeaves8'),

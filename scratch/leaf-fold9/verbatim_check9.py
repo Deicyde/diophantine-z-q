@@ -16,3 +16,7 @@ while red[n].startswith('import'):
 rbody = '\n'.join(l for l in red[n:] if not l.startswith('#print')).strip('\n')
 z7 = open('ZInQKernel/OneProof/H/TailZ7.lean').read()
 print('Reduction body in TailZ7 (one block):', z7.count(rbody) == 1, '; same imports:', z7.split('\n')[:n] == red[:n])
+cnt = open('scratch/shimura-split/Count.lean').read().split('\n')
+cbody = '\n'.join(l for l in cnt[1:] if not l.startswith('#print')).strip('\n')
+z8 = open('ZInQKernel/OneProof/H/TailZ8.lean').read()
+print('Count body in TailZ8 (one block):', z8.count(cbody) == 1, '; same import:', z8.split('\n')[0] == cnt[0])

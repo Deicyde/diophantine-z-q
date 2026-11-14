@@ -18,7 +18,8 @@ def fields(name):
 DROP_R = {'r1rec': 'r1rec_of_rep r.r1r2', 'r5': 'r5fp_of_rep r.r1r2',
           'r15': '_root_.ModularSplit.deligneSerreConseq_of_ds r.dsThm966',
           'r7b': '_root_.ReductSplit.serreTatePotentialGood_final r.serreTateThm2 t.mumfordTorsionAlgClosed',
-          'r8': "_root_.ReductSplit.grothendieckMonodromy_final' r.semistableReductionDVR r.semistableUnipotent\n    r.neronSchemeModelExistsDVR t.mumfordTorsionAlgClosed"}
+          'r8': "_root_.ReductSplit.grothendieckMonodromy_final' r.semistableReductionDVR r.semistableUnipotent\n    r.neronSchemeModelExistsDVR t.mumfordTorsionAlgClosed",
+          'r5count': '_root_.ShimuraSplit.r5fpCount_of_points r.gonzalezRotgerCountX6'}
 NEW_R = '''  /-- reduct-split, r7b: Serre–Tate 1968 Thm 2 as printed (potential good reduction iff the image of inertia on
   `T_ℓ A` is finite; RISK: if printed for complete `K`, a consequence). -/
   serreTateThm2 : _root_.ReductSplit.SerreTateThm2
@@ -28,8 +29,12 @@ NEW_R = '''  /-- reduct-split, r7b: Serre–Tate 1968 Thm 2 as printed (potentia
   /-- reduct-split, r8: SGA 7 IX Prop. 3.5, "semistable ⇒ `(σ - 1)² = 0` on `T_ℓ`" (weakest reading). -/
   semistableUnipotent : _root_.ReductSplit.SemistableUnipotent
   /-- reduct-split, r8: BLR §1.4 Thm 3 over a DVR (scheme form). -/
-  neronSchemeModelExistsDVR : _root_.ReductSplit.NeronSchemeModelExistsDVR'''
-NEW_R_NAMES = ['serreTateThm2', 'semistableReductionDVR', 'semistableUnipotent', 'neronSchemeModelExistsDVR']
+  neronSchemeModelExistsDVR : _root_.ReductSplit.NeronSchemeModelExistsDVR
+  /-- shimura-split, r5count: González–Rotger 2006 Prop. 5.6 at `(D, N) = (6, 1)` on the points of one canonical
+  coarse witness `X₆` (`#CM(R) = 2^{b(k)} h(R)`; the audit read Prop. 5.6). -/
+  gonzalezRotgerCountX6 : _root_.ShimuraSplit.GonzalezRotgerCountX6'''
+NEW_R_NAMES = ['serreTateThm2', 'semistableReductionDVR', 'semistableUnipotent', 'neronSchemeModelExistsDVR',
+               'gonzalezRotgerCountX6']
 DROP_T = {'t33': '_root_.ZInQ.Contrib.CloudW07JacobiansCurves.JacobianExists_proof',
           'normalModelOfFunctionFieldQ': '_root_.ZInQ.Contrib.CloudW07JacobiansCurves.NormalModelOfFunctionFieldQ_proof'}
 rf, tf = fields('OpenResearchLeaves8'), fields('OpenTextbookLeaves8')
@@ -127,14 +132,27 @@ rows r7b (`serreTatePotentialGood_final`) and r8 (`grothendieckMonodromy_final'`
 rest of the file (r6, SS1-SS3, faltingsLemma5BC with their glue) is not used by the bundles. -/
 
 ''' + redbody + '\n'
+cnt = open('scratch/shimura-split/Count.lean').read().split('\n')
+assert cnt[0] == 'import ZInQKernel.HDecomp.QM.Leaves'
+cntbody = '\n'.join(l for l in cnt[1:] if not l.startswith('#print')).strip('\n')
+z8 = '''import ZInQKernel.HDecomp.QM.Leaves
+
+/-! # OneProof H, leaf-fold9: shimura-split's `Count.lean`
+
+shimura-split's `scratch/shimura-split/Count.lean` verbatim (its one import kept; `#print` dropped; kernel imports
+only): `ShimuraSplit.r5fpCount_of_points : GonzalezRotgerCountX6 → LeafQM.AV.R5fpCount` (row r5count from
+González–Rotger Prop. 5.6 on the points of the canonical `X₆`). -/
+
+''' + cntbody + '\n'
 out = ['''import ZInQKernel.OneProof.H.TailZ6
 import ZInQKernel.OneProof.H.TailZ7
+import ZInQKernel.OneProof.H.TailZ8
 
 /-! # OneProof H, leaf-fold9: the bundles and `sixContactMin_of_open9`
 
 The bundles `OpenResearchLeaves9`, `OpenTextbookLeaves9`, the maps to leaf-fold8's bundles and
 `sixContactMin_of_open9`. The proofs used are in `TailZ5` (this task: `r1rec`, `r5` from `r1r2`), `TailZ6`
-(modular-split: `r15`), `TailZ7` (reduct-split: `r7b`, `r8`) and the CloudW07 modules (`t33`,
+(modular-split: `r15`), `TailZ7` (reduct-split: `r7b`, `r8`), `TailZ8` (shimura-split: `r5count`) and the CloudW07 modules (`t33`,
 `normalModelOfFunctionFieldQ`). docs/research/leaf-fold9.md lists every field. -/
 
 namespace HDec
@@ -170,5 +188,6 @@ end HDec
 open('ZInQKernel/OneProof/H/TailZ5.lean', 'w').write(z5)
 open('ZInQKernel/OneProof/H/TailZ6.lean', 'w').write(z6)
 open('ZInQKernel/OneProof/H/TailZ7.lean', 'w').write(z7)
-open('ZInQKernel/OneProof/H/TailZ8.lean', 'w').write(''.join(out))
-print('written', len(z5), len(z6), len(z7), sum(len(x) for x in out), 'bytes')
+open('ZInQKernel/OneProof/H/TailZ8.lean', 'w').write(z8)
+open('ZInQKernel/OneProof/H/TailZ9.lean', 'w').write(''.join(out).replace("`grothendieckMonodromy_final'`). 30 fields.", "`grothendieckMonodromy_final'`), and `r5count` replaced by shimura-split's\n`GonzalezRotgerCountX6` (`ShimuraSplit.r5fpCount_of_points`). 30 fields.").replace("`TailZ8` (shimura-split: `r5count`) and the CloudW07 modules (`t33`,\n`normalModelOfFunctionFieldQ`)", "`TailZ8` (shimura-split: `r5count`)\nand the CloudW07 modules (`t33`, `normalModelOfFunctionFieldQ`)"))
+print('written', len(z5), len(z6), len(z7), len(z8), sum(len(x) for x in out), 'bytes')
