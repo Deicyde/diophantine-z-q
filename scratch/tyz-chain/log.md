@@ -13,3 +13,9 @@
   * tyz-35 Final.lean = Bridge 1-3212 with namespace renamed TYZ35, plus new §T, §G (lines 3204-3914).
   * tyz-318 Lemma318.lean, tyz-lcal TYZLcal.lean, shimura-modfn ModFn.lean, ss-exponent SSExponent.lean:
     standalone files on built modules.
+- 00:31 lake build ZInQKernel.Contrib.TYZChain.Main: OK first try (Lcal 26s, Lemma318 37s, Bridge 77s, Thm35 19s, L321 47s, Main 5s). VERIFIED.
+- 00:32 lake build ZInQKernel.Contrib.TYZChain.ModFn ZInQKernel.Contrib.TYZChain.SSExponent: OK (49 s). VERIFIED.
+- 00:33 `lake env lean scratch/tyz-chain/Check.lean` (6 s): 79 `#print axioms`, all
+  `[propext, Classical.choice, Quot.sound]`; `#check` of the main theorem shows exactly the 5 hypotheses
+  TYZThm11Integral, TYZLemma29Mod2, Shimura.ShimuraReciprocityModFn, T318.SqrtTwoNotInHHprime,
+  ∀ ℓ, IsTYZLcal ℓ → TYZ35.TYZThm33Pinned ℓ. VERIFIED. Output in Check.out.
