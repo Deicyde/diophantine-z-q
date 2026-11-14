@@ -177,8 +177,9 @@ For leaf-fold integration (SPECULATIVE count): the 7 split rows, previously 7 st
   of an open immersion.
 * **Serre–Tate Thm 2.** Printed form. "Image finite" is stated in `End_{ℤ_ℓ}(T_ℓ A)` over the kernel's `T_ℓ`.
 * **BLR 1.4/3.** Scheme form, no group law, as neron-c's `NeronSchemeModelExists`, here over a DVR.
-* **Rows.** All eight rows are true and no stronger than their sources: each is now proved from the sources, plus glue
-  that is true (STANDARD). SS1-SS3 and faltingsLemma5BC are as height-split stated them.
+* **Rows.** The seven split rows are true and no stronger than their sources: each is now proved from the sources,
+  plus glue that is true (STANDARD). SS1-SS3 and faltingsLemma5BC are as height-split stated them. t10 was not
+  re-examined beyond §4.
 * **Non-vacuity.** At the zero abelian variety, `Spec O` is a Néron model (`trivModelO_isNeronModel`), every Néron
   model is trivial (`neronO_zero_iso_unit`), and `HasSemistableReduction` and `SemistableNeronModels` hold
   (`hasSemistableReduction_zero`, `semistableNeronModels_zero`). So the hypothesis of 3.5 is satisfiable and the
