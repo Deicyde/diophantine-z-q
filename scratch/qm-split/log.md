@@ -68,3 +68,12 @@ Row sources (VERIFIED, read): definitions read in ~/dzq-wt/leaf-fold4/scratch/le
   Mumford Tata II IIIa §8, Igusa 1962; UNVERIFIED); GLUE `ThetaFourthRatiosAlgebraic` (θ_m⁴/θ_{m₀}⁴ algebraic
   for period matrices of abelian surfaces over number fields; needs Appell–Humbert/GAGA/NS invariance and
   Thomae + Jacobi + Weil's dichotomy, or Shimura Duke 1976); `thetaRatiosAlgebraic_of`. Axioms standard, 5 s.
+
+## H-87 `ValenceFormulaGammaStar`: SPLIT into 1 LEAF + 1 GLUE (VERIFIED, compiled)
+- `scratch/qm-split/Valence.lean`: row + `ellOrder` copied verbatim (leafq-check Fold.lean l.466-497).
+  LEAF `ValenceFormulaCocompact` (valence formula for any cocompact Fuchsian Γ ⊆ GL₂(ℝ)⁺ with volume = hyperbolic
+  area of a fundamental domain, Mathlib's invariant measure on ℍ; Shimura 1971 Prop. 2.16/Thm 2.20, Rankin
+  Thm 4.1.4; UNVERIFIED); genuine defs `IsCocompactFuchsian`, `IsFundDomain`, `ellOrderOf` (= `ellOrder` at Γ*
+  by rfl); GLUE `GammaStarCocompactArea` (Γ* cocompact Fuchsian, fundamental domain of area π/6; needs Shimura
+  §9.2, Shimizu's volume formula, index 4, or Takeuchi + Gauss–Bonnet); `valenceFormulaGammaStar_of`
+  ((2m/4π)(π/6) = m/12). Axioms standard, 6 s.
