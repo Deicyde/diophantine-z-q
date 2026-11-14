@@ -1,7 +1,8 @@
 # av-split: the abelian-variety GLUE rows of frontier r3 split into published forms
 
 Task av-split, 2026-11-14. Base: fork main cba8157f (w54 + frontier r3), branch wip/av-split. Lean:
-`scratch/av-split/` (four files, each compiled with `lake env lean`). Results log: `scratch/av-split/log.md`.
+`scratch/av-split/` (six component files and their concatenation `AvSplitAll.lean`, each compiled with
+`lake env lean`). Results log: `scratch/av-split/log.md`.
 No file under `ZInQKernel/` or `blueprint/` and no other task's file was edited. Model work, no human review.
 
 Marks: **VERIFIED** = compiled here, or read in a named file. **STANDARD** = published, reference given.
@@ -10,30 +11,49 @@ this host, no copy of the books).
 
 ## 1. Main result
 
-**Four of the seven rows are now theorems from published-form leaves only** (H-24, H-25, H-38, H-54), one leaf
-each and no glue left; **one row is reduced** (H-69: its published input, Birkenhake–Lange Prop. 1.2.1, is already a kernel
-theorem; two analytic glue Props remain); **two rows cannot be split** over Mathlib's definitions today (H-53 needs
-the dual abelian variety, H-78 needs `H¹(X, 𝒪_X)` or `Ω¹_X` on schemes), and both are reported with the
-decomposition on paper and what is missing. No row statement was changed; none was found false, vacuous or
-stronger than its sources.
+**Five of the seven rows are now theorems from five published-form leaves, with no glue left** (H-24, H-25, H-38,
+H-54, H-69); **two rows cannot be split** over Mathlib's definitions today (H-53 needs the dual abelian variety,
+H-78 needs `H¹(X, 𝒪_X)` or `Ω¹_X` on schemes), and both are reported with the decomposition on paper and what is
+missing. No row statement was changed; none was found false, vacuous or stronger than its sources.
+
+```lean
+-- scratch/av-split/AvSplitAll.lean (one file, 2544 lines, compiles in 24 s)
+theorem AvSplit.Final.all_rows (hE : AvSplit.T4.MulEtaleAbelianScheme)
+    (hT : AvSplit.MumfordTorsionAlgClosed) (HL : BPAnalytic.Uniformization.UniformizationLeafAll)
+    (hM : AvSplit.MilneIsogenyQuasiInverse) (HG : ZInQ.HomLattice.GAGAMorphism) :
+    PkgI2.ReductionTorsionBijective.{0} ∧ PkgI2.TorsionStructure.{0} ∧
+      ZInQ.LeafPush2.UniformizationExists ∧ WeilPairing.IsogenyQuasiInverse ∧
+      ZInQ.HomUnify.HomLatticeCorr
+```
 
 Every theorem below compiles and depends only on `[propext, Classical.choice, Quot.sound]` (VERIFIED, `#print axioms`
-at the end of each file; outputs in the log).
+at the end of each file; `scratch/av-split/AvSplitAll.out`).
 
 | row | old form (r3) | new leaves (published form, source) | new glue | Lean name of the proof |
 |---|---|---|---|---|
-| H-24 `t4 : PkgI2.ReductionTorsionBijective` | GLUE, consequence of Serre–Tate 1968 §1 | `AvSplit.T4.MulEtaleAbelianScheme`: `[m]` on an abelian scheme over `Spec O` is étale if `m ∈ O×` (BLR, *Néron models*, §7.3 Lemma 2; Mumford, GIT §6; UNVERIFIED locators) | none: the two other inputs, Stacks Morphisms 29.35.17 (unramified separated: maps agreeing at a point agree) and Stacks 04GG (sections of étale algebras over henselian rings), are **proved from Mathlib** here, as are the scheme form of Hensel and `w` henselian | `AvSplit.T4.reductionTorsionBijective_of_mulEtale` (`scratch/av-split/T4.lean`) |
+| H-24 `t4 : PkgI2.ReductionTorsionBijective` | GLUE, consequence of Serre–Tate 1968 §1 | `AvSplit.T4.MulEtaleAbelianScheme`: `[m]` on an abelian scheme over `Spec O` is étale if `m ∈ O×` (BLR, *Néron models*, §7.3 Lemma 2; Mumford, GIT §6; UNVERIFIED locators) | none: the other two published inputs, Stacks Morphisms 29.35.17 (unramified separated: maps agreeing at a point agree) and Stacks 04GG (sections of étale algebras over henselian rings), are **proved from Mathlib** here, as are the scheme form of Hensel and "`w` is henselian" | `AvSplit.T4.reductionTorsionBijective_of_mulEtale` (`T4.lean`) |
 | H-25 `t5 : PkgI2.TorsionStructure` | GLUE, consequence of Mumford §4 App. 2 | `AvSplit.MumfordTorsionAlgClosed`: over an algebraically closed `k`, `A(k)[n] ≅ (ℤ/n)^{2g}` for `char k ∤ n` (Mumford, *Abelian varieties*, §4, Application 2 (iv); UNVERIFIED) | none | `AvSplit.torsionStructure_of_mumford` (`T5Isog.lean`) |
-| H-38 `t35 : ZInQ.LeafPush2.UniformizationExists` | GLUE, consequence of Mumford §1 with GAGA | `AvSplit.MumfordUniformizationC`: the row at `K = ℂ`, `σ = id` (Mumford §1 for Serre's `X^an`, GAGA §2; UNVERIFIED) | none | `AvSplit.uniformizationExists_of_mumford` (`T35.lean`) |
+| H-38 `t35 : ZInQ.LeafPush2.UniformizationExists` | GLUE, consequence of Mumford §1 with GAGA | none new: bp-analytic's AN3 leaf `BPAnalytic.Uniformization.UniformizationLeafAll` (kernel; Mumford §1 for `A^an` in coordinate form) and the H-25 leaf (to get `g = dim A`) | none | `AvSplit.uniformizationExists_of_mumford ∘ AvSplit.AN3.mumfordUniformizationC_of` (`T35.lean`, `T35AN3.lean`; `AvSplit.Final.h38`) |
 | H-54 `isogenyQuasiInverse : WeilPairing.IsogenyQuasiInverse` | GLUE, consequence of Mumford §7-8 | `AvSplit.MilneIsogenyQuasiInverse`: `fg = [d]`, `gf = [d]` as morphisms, some `d ≥ 1` (Milne, *Abelian varieties* (1986), Rem. 8.4; Milne's notes Prop. 7.1; Mumford §7; UNVERIFIED) | none | `AvSplit.isogenyQuasiInverse_of_milne` (`T5Isog.lean`) |
-| H-69 `homLatticeCorr : HomUnify.HomLatticeCorr` | GLUE, composite of BL 1.2.1 with GAGA | none needed: BL Prop. 1.2.1 is the kernel theorem `BPAnalytic.exists_complexLinear_lift` (`ZInQKernel/HDecomp/Analytic/Hom.lean`) | `AvSplit.HomLattice.UnifHoloLift` (weak uniformizations: discrete kernels, algebraic homomorphisms holomorphic on the tori); `ZInQ.HomUnify.HomRealize` (kernel def; realization half, GAGA content) | `AvSplit.HomLattice.homLatticeCorr_of` (`HomLattice.lean`) |
+| H-69 `homLatticeCorr : HomUnify.HomLatticeCorr` | GLUE, composite of BL 1.2.1 with GAGA | the AN3 kernel leaf (as for H-38) and task homlattice's `ZInQ.HomLattice.GAGAMorphism` (Serre, GAGA, for homomorphisms of complex abelian varieties, `A^an` presented by a strong uniformization; homlattice §3.2) | none: homlattice's reduction needed AN3 at *every* embedding `σ : K → ℂ` (`StrongUniformizationExists`); the base change to `ℂ` is proved here | `AvSplit.HomLatticeAN3.homLatticeCorr_of_leaf_gaga` (`HomLatticeAN3.lean`, containing homlattice's file verbatim) |
 | H-53 `t09SymmIsogenyExists : WeilPairing.T09_SymmIsogenyExists` | GLUE, consequence of Mumford §§6, 8, 20, 23 | not splittable over Mathlib definitions (§4.1) | stays GLUE | — |
 | H-78 `ZInQ.Contrib.CurvesG.DimJacobianEqGenus` | GLUE, composite of Milne JV Prop. 2.1 with Serre duality | not splittable over Mathlib definitions (§4.2) | stays GLUE | — |
 
-**Effect on the count of frontier r3** (strict: LEAF = published form). H-24, H-25, H-38, H-54 (4 GLUE) are replaced by
-4 LEAF (one each); H-69 (1 GLUE) by 2 GLUE; H-53, H-78 unchanged. If nothing else changes, 70 Props (17 LEAF,
-53 GLUE) become **71 Props: 21 LEAF, 50 GLUE** (SPECULATIVE until an integration fold checks that none of the four new
-leaves duplicates an existing row).
+**Effect on the count of frontier r3** (strict: LEAF = published form). The five GLUE rows H-24, H-25, H-38, H-54,
+H-69 are replaced by five LEAF: `MulEtaleAbelianScheme`, `MumfordTorsionAlgClosed`, `UniformizationLeafAll`,
+`MilneIsogenyQuasiInverse`, `GAGAMorphism` (`UniformizationLeafAll` is a kernel leaf but not yet a field of the
+H assembly, leaf-fold4 §6). If nothing else changes, 70 Props (17 LEAF, 53 GLUE) become **70 Props: 22 LEAF,
+48 GLUE** (SPECULATIVE until an integration fold checks that none of the new leaves duplicates an existing row).
+The leaf-status of `UniformizationLeafAll` and `GAGAMorphism` ("coordinate forms" of Mumford §1 and of GAGA) is
+the judgement of bp-analytic §4 and homlattice §3, which I share (SPECULATIVE) but did not re-review against the
+books.
+
+**Prior work used.** homlattice (`docs/research/homlattice.md`, `scratch/homlattice/HomLattice.lean`, copied
+verbatim into `HomLatticeAN3.lean`, VERIFIED by a line-by-line comparison), g9-abvarbc's `AbVarBC` (points and
+dimension of base changes, `ptRing`), infra-stalks' `exists_localStructure_pullback`, alg-frob-red's
+`pb_symm_mul` (copied), bp-analytic's `exists_complexLinear_lift` and AN3. t5-torsion
+(`docs/research/t5-torsion.md`) derives T5 from T35 in characteristic 0 and from Mumford's degree facts in general;
+its route and mine are independent (mine: one leaf over `K̄`, base change).
 
 **Universes.** `PkgI2.ReductionTorsionBijective` and `PkgI2.TorsionStructure` are universe-polymorphic
 (`K : Type u`); they are proved at `u = 0`, the universe of every consumer (`HSyn.TextbookLeaves.t5 :
@@ -47,7 +67,7 @@ L17, L100, L303-306, L400-404, over the kernel's `PkgI3`; the text of `IsogenyQu
 copy `HDec.PkgI3` (verbatim text of `Objects.lean`); the proof transfers verbatim once `comp_natCast_hom`
 (`AbVarBC/Torsion.lean`, 8 lines) is available over the same `AbVar`.
 
-## 2. The four rows that are done
+## 2. The five rows that are done
 
 ### 2.1 H-25 (T5): `TorsionStructure` from Mumford over `K̄`
 
@@ -80,25 +100,34 @@ Printed (Milne, over any field; UNVERIFIED number): for an isogeny `f` of degree
 hypothesis "finite and surjective" implies Milne's "surjective with finite kernel". The row is the same equalities on
 `K̄`-points; proof: `x ≫ [d] = x^d` (`AbVarBC.comp_natCast_hom`, kernel).
 
-### 2.3 H-38 (T35): `UniformizationExists` from the case `K = ℂ`
+### 2.3 H-38 (T35): `UniformizationExists` from AN3 and the H-25 leaf
 
 ```lean
 def MumfordUniformizationC : Prop :=
   ∀ (A : AbVar ℂ) (g : ℕ), A.dim = (g : WithBot ℕ∞) →
     ∃ (Λ : Submodule ℤ (Fin g → ℂ)) (Φ : (Fin g → ℂ) → CPts A (RingHom.id ℂ)),
       ∃ _ : DiscreteTopology Λ, IsZLattice ℝ Λ ∧ IsUniformization (RingHom.id ℂ) Λ Φ
-theorem uniformizationExists_of_mumford (h : MumfordUniformizationC) : UniformizationExists
-theorem mumford_of_uniformizationExists (h : UniformizationExists) : MumfordUniformizationC
+theorem uniformizationExists_of_mumford (h : MumfordUniformizationC) : UniformizationExists   -- T35.lean
+theorem mumford_of_uniformizationExists (h : UniformizationExists) : MumfordUniformizationC   -- T35.lean
+theorem AN3.card_torsion_torus (Λ) [DiscreteTopology Λ] [IsZLattice ℝ Λ] (n : ℕ) (hn : 0 < n) :
+    Nat.card {q : Torus Λ // n • q = 0} = n ^ (2 * g)                                         -- T35AN3.lean
+theorem AN3.mumfordUniformizationC_of (HL : BPAnalytic.Uniformization.UniformizationLeafAll)
+    (hT : MumfordTorsionAlgClosed) : MumfordUniformizationC                                    -- T35AN3.lean
 ```
 
-The leaf is Mumford §1 (a complex abelian variety of dimension `g` has `X^an ≅ ℂ^g/Λ`, `Λ` a lattice, through the
-exponential) for Serre's analytification, whose defining properties give the two analytic clauses of
-`IsUniformization` (Zariski opens are open, regular functions are holomorphic). The base change along an arbitrary
-`σ : K → ℂ`, the only step between the leaf and the row (leaf-review-b §2.1's derivation), is now proved
-(VERIFIED): `A_ℂ = A ×_{K,σ} ℂ`, `dim A_ℂ = dim A` (`AbVar.dim_baseChange`), `Φ := bcPt ∘ Φ'` with
-`(bcPt p).left = p.left ≫ pullback.fst`, preimages of Zariski opens are preimages of their pullbacks, and
-`cEvalAt (bcPt p) U s = cEvalAt p (π⁻¹U) (π^* s)` (`Scheme.Hom.comp_appLE`). The converse is immediate, so the leaf and
-the row are equivalent.
+Two steps (VERIFIED):
+1. **Base change along `σ`** (`T35.lean`), the only step between the case `K = ℂ` and the row (leaf-review-b
+   §2.1's derivation): `A_ℂ = A ×_{K,σ} ℂ`, `dim A_ℂ = dim A` (`AbVar.dim_baseChange`), `Φ := bcPt ∘ Φ'` with
+   `(bcPt p).left = p.left ≫ pullback.fst`, preimages of Zariski opens are preimages of their pullbacks, and
+   `cEvalAt (bcPt p) U s = cEvalAt p (π⁻¹U) (π^* s)` (`Scheme.Hom.comp_appLE`). The case `K = ℂ`,
+   `MumfordUniformizationC`, is equivalent to the row.
+2. **The case `K = ℂ` from AN3** (`T35AN3.lean`). bp-analytic's leaf gives a strong uniformization
+   `φ : ℂ^{g'}/Λ ≃+ A(ℂ)` for some `g'`, hence a weak one (`ZInQ.LeafPush2.isUniformization_of_bp`, kernel);
+   UnifBridge noted that `g' = dim A` was missing. It follows from counting 2-torsion: `#(ℂ^{g'}/Λ)[2] = 2^{2g'}`
+   (`card_torsion_torus`: `Λ` is free of rank `2g'` by Mathlib's `ZLattice.rank`, and `λ ↦ λ/n` induces
+   `Λ/nΛ ≅ (ℂ^{g'}/Λ)[n]`) and `#A(ℂ)[2] = 2^{2 dim A}` (the H-25 leaf at `k = ℂ`).
+
+So `MumfordUniformizationC`, a candidate leaf in the first version of this report, is not needed.
 
 ### 2.4 H-24 (T4): `ReductionTorsionBijective` from one leaf
 
@@ -160,47 +189,45 @@ Proof of the row (VERIFIED, `T4.lean`):
    `τ`; `res ∘ τ = (S → κ)` because both kill `𝔮` and `R → S/𝔮` is onto.
 6. Assembly (`reductionTorsionBijective_of`): both `∃!` clauses from 1-4.
 
-## 3. H-69: what remains of `HomLatticeCorr`
+## 3. H-69: `HomLatticeCorr` from AN3 and GAGA
 
 `HomLatticeCorr` = lifting half `HomLinearLift` (any `K`, `σ`) ∧ realization half over `ℂ`
-(`ZInQ.HomUnify.corr_iff_lift_realize`, kernel). **Finding (VERIFIED):** the published theorem of the lifting half,
-Birkenhake–Lange Prop. 1.2.1, is already proved in the kernel, `BPAnalytic.exists_complexLinear_lift`
-(holomorphic homomorphisms `ℂ^g/Λ → ℂ^h/Λ'` of bp-analytic's complex tori, `Λ`, `Λ'` discrete, are induced by
-`ℂ`-linear maps preserving the lattices; covering theory). So the row needs no leaf for it. What the row still needs
-is analytic and not printed in this form:
+(`ZInQ.HomUnify.corr_iff_lift_realize`, kernel). Task homlattice (11-13) proved
+`homLatticeCorr_of_strong_gaga : StrongUniformizationExists → GAGAMorphism → HomLatticeCorr`, where
+`StrongUniformizationExists` is bp-analytic's AN3 at every field `K` and embedding `σ`; the fold did not adopt it
+because it raised the count (leaf-fold4 §6, leaf-fold5). The only use of AN3 at `σ ≠ id` is the lifting half. Here
+it is replaced by base change (VERIFIED, `HomLatticeAN3.lean`):
 
 ```lean
-def UnifHoloLift : Prop :=
-  ∀ (K : Type) [Field K] (A B : AbVar K) (σ : K →+* ℂ) (g h : ℕ)
-    (ΛA : Submodule ℤ (Fin g → ℂ)) (ΛB : Submodule ℤ (Fin h → ℂ))
-    (ΦA : (Fin g → ℂ) → CPts A σ) (ΦB : (Fin h → ℂ) → CPts B σ),
-    A.dim = (g : WithBot ℕ∞) → B.dim = (h : WithBot ℕ∞) →
-    IsUniformization σ ΛA ΦA → IsUniformization σ ΛB ΦB →
-    ∃ _ : DiscreteTopology ΛA, ∃ _ : DiscreteTopology ΛB,
-      ∀ (f : AbVar.Hom A B) (F : Torus ΛA →+ Torus ΛB), Induces ΦA ΦB f F →
-        MDifferentiable 𝓘(ℂ, Fin g → ℂ) 𝓘(ℂ, Fin h → ℂ) F
-theorem homLinearLift_of (H : UnifHoloLift) : ZInQ.HomUnify.HomLinearLift
-theorem homLatticeCorr_of (H1 : UnifHoloLift) (H2 : ZInQ.HomUnify.HomRealize) : ZInQ.HomUnify.HomLatticeCorr
+theorem isAnalyticHom_ptE_symm {n : ℕ} {ψ : (Fin n → ℂ) → CPts A σ} (hψ : IsAnalyticHom σ ψ) :
+    IsAnalyticHom (RingHom.id ℂ) (fun z => (ptE A σ).symm (ψ z))
+theorem analyticHomLift_of_C (HC : ZInQ.HomLattice.AnalyticHomLiftC) : ZInQ.HomLattice.AnalyticHomLift
+theorem homLatticeCorr_of_leaf_gaga (HL : BPAnalytic.Uniformization.UniformizationLeafAll)
+    (HG : ZInQ.HomLattice.GAGAMorphism) : ZInQ.HomUnify.HomLatticeCorr
 ```
 
-* **GLUE `UnifHoloLift`.** leaf-push2's `IsUniformization` is weak: a surjective homomorphism with kernel `Λ`,
-  open preimages of Zariski opens, regular functions holomorphic along `Φ`; it does not say that `Λ` is a lattice or
-  that `Φ` is a covering. Both follow (SPECULATIVE sketch): smoothness gives, at each point, `g` regular functions
-  with an étale map to `𝔸^g`, hence (holomorphic inverse function theorem, in Mathlib) local holomorphic
-  coordinates along `Φ`, so `Λ` is discrete; properness makes `A(ℂ)` compact Hausdorff for the topology of regular
-  functions (Serre, GAGA, §2, Prop. 6 / SGA 1 XII 3.2; UNVERIFIED), so `ℂ^g/Λ → A(ℂ)^an` is a homeomorphism; then an
-  algebraic `f` is holomorphic in the coordinates. Equivalently: every weak uniformization is bp-analytic's strong
-  `BPAnalytic.Uniformization.IsUniformization` (with local coordinates and continuous inverse) composed with a
-  `ℂ`-linear isomorphism. Not attempted in Lean (no analytic structure on `A(ℂ)` in Mathlib).
-* **GLUE `HomRealize`** (the kernel's existence form of the realization half; uniqueness is the kernel's
-  `induces_unique`): over `ℂ`, every `ℂ`-linear `M` with `MΛ_A ⊆ Λ_B` comes from a homomorphism. This is GAGA (Serre
-  1956: holomorphic maps between analytifications of projective varieties are algebraic) or Chow's theorem applied
-  to the graph. **GAGA's printed statement cannot be stated over Mathlib's definitions** (no analytification of a
-  scheme, no complex-analytic spaces); its specialization to abelian varieties with `A^an` presented by a strong
-  uniformization would be the closest published-form leaf.
-* `homLinearLift_of` (VERIFIED): `Φ̄_B : ℂ^h/Λ_B ≃+ B(ℂ)_σ` from `IsUniformization`; the torus map
-  `F = Φ̄_B⁻¹ ∘ f ∘ Φ_A` descends to `ℂ^g/Λ_A`, is induced by `f`, holomorphic by the glue, hence `ℂ`-linear by
-  `exists_complexLinear_lift`.
+* `isAnalyticHom_ptE_symm`: an analytic homomorphism `ψ : ℂ^n → A(ℂ)_σ` (homlattice's `IsAnalyticHom`: homomorphism,
+  open preimages of Zariski opens, holomorphic regular functions) is one into `A_ℂ(ℂ)` through
+  `A_ℂ(ℂ) ≃* A(ℂ)_σ`: a section of `𝒪` on an open of `A_ℂ = A ×_K ℂ` is, near each point, `N/H` with `N`, `H` sums of
+  products of sections of `A` and constants (infra-stalks' `exists_localStructure_pullback`, kernel), so it is
+  holomorphic along `ψ` where `H ≠ 0`. This is the argument of infra-stalks' `uniformizationLiftAnalytic` for group
+  models, adapted.
+* `analyticHomLift_of_C`: homlattice's lifting statement at `(K, σ)` from its case over `ℂ`
+  (`AnalyticHomLiftC`, which homlattice derives from AN3 at `ℂ`: `analyticHomLiftC_of_leaf`), applied to `B_ℂ`;
+  no dimension hypothesis is used.
+* The realization half is homlattice's: `GAGAMorphism` with AN3 at `ℂ` (`strong_id_of_leaf`,
+  `analyticMapAlgebraic_of_gaga'`, `analyticHomAlgebraic_of_map`, rigidity copied from mul-rigidity).
+
+The leaves: `UniformizationLeafAll` (bp-analytic §10: `A(ℂ) ≅ ℂ^g/Λ` as complex Lie groups in coordinate form;
+Mumford §1, §4; Serre GAGA §2; SGA 1 XII) and `GAGAMorphism` (homlattice §3.2: a holomorphic homomorphism
+`A^an → B^an`, with `A^an` presented by a strong uniformization, is algebraic; Serre 1956, SGA 1 XII 4.4). Locators
+UNVERIFIED, as in those reports.
+
+**Superseded first attempt** (kept, compiled, `HomLattice.lean`): before finding homlattice's file I reduced the row
+to two glue Props, `UnifHoloLift` (weak uniformizations have discrete kernels and algebraic homomorphisms induce
+holomorphic torus maps) and the kernel's `HomRealize`, with Birkenhake–Lange Prop. 1.2.1 taken from the kernel
+theorem `BPAnalytic.exists_complexLinear_lift` (bp-analytic, covering theory): `AvSplit.HomLattice.homLatticeCorr_of`.
+It is not needed for the result above.
 
 ## 4. The two rows that cannot be split today
 
@@ -249,4 +276,7 @@ kernel modules (build artifacts reused from the leaf-fold6 worktree, same `ZInQK
 | `T5Isog.lean` | `AvSplit.torsionStructure_of_mumford`, `AvSplit.isogenyQuasiInverse_of_milne` |
 | `T35.lean` | `AvSplit.uniformizationExists_of_mumford`, `AvSplit.mumford_of_uniformizationExists` |
 | `T4.lean` | `AvSplit.T4.henselian_of_isAlgClosed`, `AvSplit.T4.reductionTorsionBijective_of`, `AvSplit.T4.henselEtaleLift_of_stacks`, `AvSplit.T4.reductionTorsionBijective_of_leaves`, `AvSplit.T4.unramifiedSectionsEq`, `AvSplit.T4.stacksHenselEtaleSection`, `AvSplit.T4.reductionTorsionBijective_of_mulEtale` |
-| `HomLattice.lean` | `AvSplit.HomLattice.homLinearLift_of`, `AvSplit.HomLattice.homLatticeCorr_of` |
+| `T35AN3.lean` | `AvSplit.AN3.card_torsion_torus`, `AvSplit.AN3.eq_dim_of_uniformization`, `AvSplit.AN3.mumfordUniformizationC_of` |
+| `HomLatticeAN3.lean` | `AvSplit.HomLatticeAN3.isAnalyticHom_ptE_symm`, `AvSplit.HomLatticeAN3.analyticHomLift_of_C`, `AvSplit.HomLatticeAN3.homLatticeCorr_of_leaf_gaga` (homlattice's part: its own 45 reports, not re-printed) |
+| `HomLattice.lean` (superseded) | `AvSplit.HomLattice.homLinearLift_of`, `AvSplit.HomLattice.homLatticeCorr_of` |
+| `AvSplitAll.lean` (concatenation, `python3 build_all.py`; 0 errors, 24 s) | `AvSplit.Final.h24`, `h25`, `h38`, `h54`, `h69`, `all_rows` |
