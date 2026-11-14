@@ -1,3 +1,5 @@
+> **Read this scope first.** The historical text below is preserved verbatim. “Covers the Frobenius source paths and all companion targets” and “source/type/axiom checks” mean source builds plus the 18-root audit and three type-ascribed consumer statements—not a per-helper or Frobenius statement/axiom audit, and not a fresh replay of external proof bodies. No review acceptance is implied. See [SOURCE-STATUS.md](SOURCE-STATUS.md) and the compact [source evidence](PINNED-SOURCE-EVIDENCE.md); cache v1/v2/restore/pins are unchanged.
+
 # Expanded optional cache v2 — current source revision
 
 The active committed metadata now points to a new `axiom-cache-v2` engineering

@@ -1,3 +1,5 @@
+> **Superseding status and scope (2026-11-14 UTC).** The four historical proof banners are authorship cutoffs, not rewritten. See [SOURCE-STATUS.md](SOURCE-STATUS.md) for exact 3a43 public events, the 18 named axiom-report roots and three type-ascribed consumer statements; other helpers and the Frobenius probes are not individually statement/axiom-audited. [PINNED-SOURCE-EVIDENCE.md](PINNED-SOURCE-EVIDENCE.md) supplies compact full defining/telescope context for fresh F2 review, with exact source bindings. Prior findings/full evidence stay preserved; no App acceptance or later-head CI is implied.
+
 # Opt-in Axiom / PkgI2 bridge
 
 This is a separate Lake package. It does not change the repository-root
