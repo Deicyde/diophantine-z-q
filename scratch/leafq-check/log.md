@@ -24,3 +24,10 @@ Y3Connected 97479, ValenceBoundGammaStar 113443, CMDescends 114469, GammaStarGen
   `#print axioms gammaStarGen_proof` = [propext, Classical.choice, Quot.sound]. ~90 s.
 - No leaf, no glue hypothesis: the LEAF? field `gammaStarGen` of `OpenAddedLeaves4` can be removed
   (period-glue's `s8WeightExact_of hT gammaStarGen_proof`).
+
+## Fold over leaf-fold4's chain (VERIFIED)
+- `scratch/leafq-check/Fold.lean` (`import TailK`; `chk.sh` = lean with leaf-fold4's chain oleans copied to
+  ~/lqc-olean and leaf-fold4's lake LEAN_PATH): the same proof proves the chain's own constant
+  `HDec.HSyn.G0Split.FibreQM.PeriodGlue.GammaStarGen`; `HDec.HSyn.sixContactMin_of_open5` (bundle
+  `OpenAddedLeaves5` = OpenAddedLeaves4 without `gammaStarGen`, 19 fields): 0 errors, axioms standard,
+  `example : … → _root_.ZInQ.SixContactMin` compiles. 11 s. Count 66 → 65 (26 + 19 + 19 + 1).
