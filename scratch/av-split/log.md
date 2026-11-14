@@ -43,3 +43,10 @@ Base cba8157f (wip/av-split). Build artifacts: copied .lake/build from ~/dzq-wt/
 - `AvSplit.AN3.mumfordUniformizationC_of : UniformizationLeafAll → MumfordTorsionAlgClosed → MumfordUniformizationC`. Standard axioms. VERIFIED.
 - With T35.lean: row H-38 ⇐ AN3 (kernel leaf `BPAnalytic.Uniformization.UniformizationLeafAll`) + the H-25 leaf. No new leaf.
 - Found prior work: docs/research/homlattice.md (HomLatticeCorr ⇐ StrongUniformizationExists + GAGAMorphism, scratch/homlattice/HomLattice.lean) and docs/research/t5-torsion.md (T5 from T35 in char 0; T5 from KernelDegree). To be cited.
+
+## 04:45 HomLatticeAN3.lean (row H-69 from published-form leaves)
+- Lines 23-1131 = scratch/homlattice/HomLattice.lean lines 7-1115 verbatim (python check: "verbatim at line 23").
+- `AvSplit.HomLatticeAN3.isAnalyticHom_ptE_symm` (analytic hom into A(ℂ)_σ ⇒ into A_ℂ(ℂ); infra-stalks exists_localStructure_pullback). VERIFIED.
+- `AvSplit.HomLatticeAN3.analyticHomLift_of_C : AnalyticHomLiftC → AnalyticHomLift`. VERIFIED.
+- `AvSplit.HomLatticeAN3.homLatticeCorr_of_leaf_gaga : UniformizationLeafAll → GAGAMorphism → HomLatticeCorr`. Standard axioms. VERIFIED.
+- This removes homlattice's need for AN3 at every embedding (StrongUniformizationExists); only the kernel's AN3 leaf at ℂ and GAGAMorphism remain.
