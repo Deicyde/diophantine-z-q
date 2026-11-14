@@ -105,3 +105,8 @@
 - §4 `ker_of_good`, `exists_level3 : T5 → Nonempty (Level3 Q.q)`, `pairsLift_of_T5` (body of coarse-factor's PairsLift).
 - Rows.lean regenerated (+PairsLift.lean, `pairsLift_of_t5`, `r1r2fpRep_of_printed_t5`): 0 errors, 54 axiom lines,
   all standard.
+
+## Step 14: bundle theorem — Rows.lean COMPILED (55 axiom lines, all standard)
+- `structure ShimuraSplitLeaves` (DeligneComponentsX6, GeomConnOfAlgClosure, T5, BabaGranathX6', ReciprocityCanonical,
+  GonzalezRotgerX6, GonzalezRotgerCountX6, DeligneComponentsY3, ElkiesConicX6);
+  `rows_of_shimuraSplitLeaves : ShimuraSplitLeaves → R1R2fpRep ∧ R1rec ∧ R5fp ∧ R5fpCount ∧ Y3Connected ∧ X6ConicModel`.

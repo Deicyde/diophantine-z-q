@@ -4403,6 +4403,36 @@ end HDec.QMSplit.Moduli
 #print axioms HDec.QMSplit.Moduli.pairsLift_of_t5
 #print axioms HDec.QMSplit.Moduli.r1r2fpRep_of_printed_t5
 
+/-! ## All rows of this task (except `shimuraFamily`, in `ShimuraFam.lean`, and `r3`) from one bundle -/
+
+namespace HDec.QMSplit.Moduli
+
+/-- **The new leaves of shimura-split** (besides `ShimuraHolFamily`, stated over TailU in
+`ShimuraFam.lean`), with T5 as in the bundle. -/
+structure ShimuraSplitLeaves : Prop where
+  deligneX6 : DeligneComponentsX6
+  geomConn : GeomConnOfAlgClosure
+  t5 : PkgI2.TorsionStructure.{0}
+  babaGranath : BabaGranathX6'
+  reciprocity : ReciprocityCanonical
+  gonzalezRotger : GonzalezRotgerX6
+  gonzalezRotgerCount : ShimuraSplit.GonzalezRotgerCountX6
+  deligneY3 : ShimuraSplit.DeligneComponentsY3
+  elkies : ElkiesConicX6
+
+/-- **Rows `r1r2`, `r1rec`, `r5`, `r5count`, `y3Connected`, `x6ConicModel` from the bundle.** -/
+theorem rows_of_shimuraSplitLeaves (L : ShimuraSplitLeaves) :
+    LeafAdopt.R1R2fpRep ∧ LeafQM.AV.R1rec ∧ LeafQM.AV.R5fp ∧ LeafQM.AV.R5fpCount ∧
+      TSHecke.Y3Connected ∧ X6Kummer.X6ConicModel := by
+  have hR := r1r2fpRep_of_printed_t5 L.deligneX6 L.geomConn L.t5 L.babaGranath L.reciprocity
+    L.gonzalezRotger
+  exact ⟨hR, r1rec_of_r1r2 hR, r5fp_of_r1r2 hR, r5fpCount_of_points L.gonzalezRotgerCount,
+    y3Connected_of_deligne L.deligneY3, x6ConicModel_of_elkies_t5 hR L.elkies L.t5⟩
+
+end HDec.QMSplit.Moduli
+
+#print axioms HDec.QMSplit.Moduli.rows_of_shimuraSplitLeaves
+
 /-! ## The row statements, fully qualified (the bundle fields' types; leaf-fold8 §2) -/
 
 example : HDec.LeafAdopt.R1R2fpRep → _root_.LeafQM.AV.R1rec := HDec.QMSplit.Moduli.r1rec_of_r1r2

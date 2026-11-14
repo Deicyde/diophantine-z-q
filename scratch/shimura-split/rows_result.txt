@@ -52,3 +52,4 @@
 'HDec.QMSplit.Moduli.x6ConicModel_of_elkies_t5' depends on axioms: [propext, Classical.choice, Quot.sound]
 'HDec.QMSplit.Moduli.pairsLift_of_t5' depends on axioms: [propext, Classical.choice, Quot.sound]
 'HDec.QMSplit.Moduli.r1r2fpRep_of_printed_t5' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.QMSplit.Moduli.rows_of_shimuraSplitLeaves' depends on axioms: [propext, Classical.choice, Quot.sound]
