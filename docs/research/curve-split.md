@@ -229,12 +229,14 @@ genuine definitions. An algebraic route exists but is long. It would combine:
   `ZInQ.RLeaf.belyiX1` (`j/1728` is a Belyi function on `K_N` and `[K_N : ℚ(j)] ≤ N²`, proved with
   no hypotheses) and `ZInQ.RLeaf.x1ConstantField_of_x0Transitive`.
 * `BelyiGenusBound`: if `F/ℚ(j)` is finite, `ℚ` is algebraically closed in `F`, and `j/1728` is a
-  Belyi function, then `2 fieldGenus F + 1 ≤ [F : ℚ(j)]`. **Proved** (`belyiGenusBound_of_leaves`)
-  from three leaves stated over Mathlib's `ValuationSubring`. A place `P` (`CurveSplit.Place`) is a
+  Belyi function, then `2 fieldGenus F + 1 ≤ [F : ℚ(j)]`. **Proved from one leaf,
+  `RiemannHurwitzQj`** (`belyiGenusBound_of_rh`). It was first proved from three leaves stated
+  over Mathlib's `ValuationSubring` (`belyiGenusBound_of_leaves`); two of them are now
+  theorems. A place `P` (`CurveSplit.Place`) is a
   proper valuation subring containing `ℚ`. `e_P` (`Place.ramIdx`) is the index of
   `U_P · ℚ(j)^×` in `F^×` (`F^×/U_P` is the value group). `deg P` (`Place.deg`) is
   `dim_ℚ κ(P)`. The leaves:
-  * `RiemannHurwitzQj`: only finitely many places ramify, and
+  * `RiemannHurwitzQj` (**the remaining leaf**): only finitely many places ramify, and
     `2g(F) − 2 = −2[F : ℚ(j)] + Σ_P (e_P − 1) deg P` with `g = fieldGenus`, for `F` with
     constant field `ℚ`. This is Stichtenoth, *Algebraic Function Fields and Codes*, Thm 3.4.13
     with `g(ℚ(j)) = 0`, combined with Dedekind's different theorem 3.5.1 (`d_P = e_P − 1` in
