@@ -4,7 +4,7 @@ Mathematical corrections, dependency checks, reproducibility reports, and improv
 
 A focused proof note can be enough to propose a record improvement. Before promoting it as an official new record, maintainers must integrate it into a complete updated manuscript and release both its TeX project and matching built PDF, with independent review. A chain of supplements to an older manuscript is insufficient. See the [record-release requirements](docs/release-policy.md#complete-manuscript-required-for-every-official-record).
 
-Review requirements for proposed changes will be stated in the [research review guide](docs/research-review/README.md) once the project's new review protocol is implemented. The live [public ruleset](https://github.com/elliotglazer/diophantine-z-q/rules/26781429) shows what a merge currently requires. Existing CI alone does not establish that an argument is correct.
+Proposed changes follow the active Protocol B requirements in the [research review guide](docs/research-review/README.md). See the [dated deployment readback and its limits](docs/research-review/reviews/activation-2026-11-13/README.md) and the [public ruleset](https://github.com/elliotglazer/diophantine-z-q/rules/26781429) for enforcement evidence. Existing CI alone does not establish that an argument is correct.
 
 ## Mathematical reports
 

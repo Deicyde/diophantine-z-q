@@ -1,7 +1,12 @@
 # Protocol B setup and test checklist
 
-Status: active for future pull requests, with the test limitations recorded below.
-No API keys are included in this repository. The old controller stays retired.
+Status: the owner activated Protocol B for future pull requests on November 13,
+2026, America/Los_Angeles. Astra's authenticated readback at 18:57 PST that day
+(November 14, 02:57 UTC) observed live mode and the App-pinned requirement.
+See the [settings evidence and limits](reviews/activation-2026-11-13/README.md)
+and [pre-activation review record](reviews/pre-activation-reviews.md). This is
+operator-reported deployment evidence, not a claim that every setup or test
+below has been independently demonstrated. The old controller stays retired.
 
 ## Identity and credentials
 
@@ -11,8 +16,9 @@ only on `elliotglazer/diophantine-z-q`. It needs no webhook, code-write permissi
 or external server. The retired App identity can instead be reused after
 rotating its key, deleting its old keys, removing any other installations and
 confirming the old controller cannot use the new key. Do not reuse the retired
-controller's key. These setup operations require the owner's authorization;
-this document does not assert they have been performed.
+controller's key. These setup operations require the owner's authorization.
+The dated readback records the App ID and Environment branch restriction; it
+does not establish key rotation, other installations, or absence of key copies.
 
 Create a GitHub Environment named `protocol-b`. Restrict its deployment branches
 to the default branch, `main`. Do not permit arbitrary branches or tags. Put:
@@ -99,15 +105,40 @@ project's findings record as well as the PR discussion.
 
 Both reviewers have a preflight context budget of 400,000 estimated tokens,
 including a 64,000-token output allowance and an 8,192-token formatting reserve.
-The estimate includes the full request: instructions, tools and conversation.
-After a provider response it uses reported input tokens, including Anthropic
-cache reads and writes, plus the larger of new UTF-8 bytes or the previous
-output-token count. Before reported usage is available, it uses request bytes.
-This deliberately avoids treating cached input as absent or assuming every
-character sequence averages four characters per token.
+The estimate includes instructions, tools and the full conversation. Ordinary
+text uses UTF-8 bytes as a conservative token estimate. Successful Anthropic
+web-result payloads instead use bounded accounting estimates: at most 20,000
+for fetched text, 16,000 for a search result block, and 128,000 for a binary
+fetch result. These estimates do not change the actual conversation sent to
+the provider. Unknown block types and repository text receive no discount.
 
-This is a conservative estimate, not a tokenizer calculation or a dollar cap.
-Provider-side web tools can add context during a request. The token-counting
+After a response, the next estimate adds the larger of the new accounting
+growth or the reported output-token count to the request's input-token count.
+For Astra, the input count comes from reported usage. For Fable, it comes from
+the streaming `message_start` input count, including cache reads and writes,
+preserved before subsequent updates. End-of-request Anthropic usage can count
+the same cached input repeatedly during internal server-tool calls; that
+cumulative total is retained for diagnostics, not used as resident context.
+If the initial count is missing after server-tool use, the previous preflight
+estimate is used instead. The next usable request-start measurement
+recalibrates the estimate. Before usable measurements, the full request is
+estimated with the same byte and web-payload accounting rules.
+
+Fable's requests cap web search at three uses and web fetch at five uses, with
+`max_content_tokens` set to 20,000 for fetched text. Direct calls share the
+limit across a turn, including client-tool-result and `pause_turn`
+continuations; programmatic calls through dynamic filtering reset per
+request. Failed or pending direct calls consume the displayed allowance
+conservatively. These are not review-wide quotas. Astra has no corresponding
+local web-use cap. The fetch text limit is approximate and may truncate the
+source; omitted text has not been reviewed. It does not cover binary PDFs.
+
+The search and binary accounting reserves are assumptions, not provider
+content limits or proven upper bounds. The guard enforces a 400,000-token
+**estimate**, not a guaranteed ceiling on actual context or spending. A large
+binary result can exceed the estimate within a request; the following
+request-start measurement corrects it. Provider-side web tools can add
+context during a request. The token-counting
 endpoint does not support the gate's server tools, so the gate does not send an
 incompatible counting request or silently remove those tools. An independent
 tool-result guard is reduced to 1,200,000 characters. Before a file, file-list or
@@ -115,11 +146,17 @@ history result is returned, the gate measures the complete projected next
 request, reserving small error results for other calls in the same batch and
 4,096 tokens for recovery. An oversized read returns a tool error and leaves
 the review running. Every result includes `remaining_context_tokens` and
-`remaining_tool_characters`; these are conservative allowances, not exact token
-counts. Rejected results neither count as source reads nor complete the history
+`remaining_tool_characters`, which are planning estimates rather than exact
+token allowances. Every client tool result, including an error, also includes
+`web_uses_remaining`: Fable's remaining direct uses, the next request's
+programmatic maximum, and the fetched-text truncation warning. Provider-owned
+server-result blocks are replayed unchanged. Rejected repository results
+neither count as source reads nor complete the history
 requirement. The model can retry a smaller read. The pre-request check remains
 the final safeguard for unexpected growth, such as a large model-generated
-message. Nothing silently truncates history or accepts a partial review.
+message. The gate never silently truncates conversation history or repository
+reads, and it does not accept a partial review. This does not make
+provider-truncated web content a complete source read.
 Scope reads to the changed argument and affected consumers.
 Split a review that cannot fit while preserving all necessary dependencies.
 
@@ -132,7 +169,9 @@ rate limit. These changes do not raise an account spending cap.
 
 Sources: [prompt caching](https://platform.claude.com/docs/en/build-with-claude/prompt-caching),
 [rate and spending limits](https://platform.claude.com/docs/en/api/rate-limits),
-[token-counting limitations](https://platform.claude.com/docs/en/build-with-claude/token-counting).
+[token-counting limitations](https://platform.claude.com/docs/en/build-with-claude/token-counting),
+[web fetch caps and content limits](https://platform.claude.com/docs/en/agents-and-tools/tool-use/web-fetch-tool),
+[cumulative server-tool cache usage](https://platform.claude.com/docs/en/build-with-claude/context-editing#server-side-tools).
 
 ## Collaborator commands
 
@@ -191,18 +230,40 @@ error, an authorized override of every finding, and repair of the lemma. Each
 test must be reported from its actual App check and reviewer records. A same-name
 check is excluded at activation by reading back the ruleset's App integration ID.
 
-Observed on November 13, 2026, in the repository's designated test mode:
+Observed on November 13, 2026, America/Los_Angeles (PST). The later rows are
+November 14 in UTC. Exact UTC times, heads and preserved App outputs are in the
+[live-test evidence](reviews/activation-2026-11-13/README.md#live-test-evidence).
 
-| Case | Workflow evidence | Result |
+| Case and run ID | App evidence | Published reviewer evidence and result |
 |---|---|---|
-| Deliberate false lemma | [43540895723](https://github.com/elliotglazer/diophantine-z-q/actions/runs/43540895723) | Both reviewers requested changes; the App rejected the head and listed all four full finding IDs. |
-| Authorized overrides | [43541825778](https://github.com/elliotglazer/diophantine-z-q/actions/runs/43541825778) | The App passed after all four findings were covered, named `elliotglazer`, and marked affected claims not outside reviewed. All four override-triggered runs made zero model calls. Earlier partial-coverage runs remained blocked. |
-| Repaired lemma | [43542130192](https://github.com/elliotglazer/diophantine-z-q/actions/runs/43542130192) | Both reviewers accepted and each marked all four findings resolved. The App passed the new head without an override. |
+| Correct lemma, `43527659588` | [132237414556](https://github.com/elliotglazer/diophantine-z-q/runs/132237414556) | [Astra](https://github.com/elliotglazer/diophantine-z-q/pull/69#issuecomment-6867595525) and [Fable](https://github.com/elliotglazer/diophantine-z-q/pull/69#issuecomment-6867587047) accepted; App success. |
+| Deliberate false lemma, `43540895723` | [132281047204](https://github.com/elliotglazer/diophantine-z-q/runs/132281047204) | [Astra](https://github.com/elliotglazer/diophantine-z-q/pull/69#issuecomment-6869397404) and [Fable](https://github.com/elliotglazer/diophantine-z-q/pull/69#issuecomment-6869390780) requested changes; App failure with four full finding IDs. |
+| Authorized overrides, final run `43541825778` | [132283952957](https://github.com/elliotglazer/diophantine-z-q/runs/132283952957) | No new reviewer verdict: the App used the completed rejection reports above, named `elliotglazer`, and marked the affected claims **not outside reviewed**. All four findings were covered. |
+| Repaired lemma, `43542130192` | [132284917858](https://github.com/elliotglazer/diophantine-z-q/runs/132284917858) | [Astra](https://github.com/elliotglazer/diophantine-z-q/pull/69#issuecomment-6869581747) and [Fable](https://github.com/elliotglazer/diophantine-z-q/pull/69#issuecomment-6869577863) accepted and each marked all four findings resolved; App success without an override. |
+
+The four override review steps lasted 6, 5, 5 and 9 seconds. Their App outputs
+show the first three blocked for incomplete coverage and the last successful.
+The [preserved timing records and historical override branch](reviews/activation-2026-11-13/README.md#override-execution-evidence)
+support the operator's zero-model-calls observation: that branch reads existing
+App decisions and does not invoke either model. The downloaded artifacts also
+contain no model-turn records. Short duration alone would not prove zero calls;
+this is execution-path evidence, not independent provider billing telemetry.
 
 The owner deferred live tests of an interrupted run, an unauthorized override,
-and a real Anthropic `pause_turn`. Those cases are not established by the initial
-live tests. The broader checklist above records coverage to pursue; it is not a
-claim that every listed case has already passed.
+and a real Anthropic `pause_turn`. A branch/tag workflow attempting to obtain
+the Environment keys has also not been tested. The App pin was read back, but
+a deliberate forged-check merge attempt was not run. At this snapshot, a
+successful protected live merge and its post-merge workflow trigger have not
+yet been observed: PR87 is the activation test and PR88 used owner bypass.
+The broader checklist remains a list of obligations and coverage to pursue,
+not a claim that these omitted tests passed. The owner activated with these
+recorded limitations; the pre-activation review requirement was not deleted.
+
+GitHub has announced a default restriction on public `pull_request_target`
+workflows from December 2, 2026. The repository's future Actions-policy setting
+has not been verified here. If automatic triggers are restricted, collaborators
+can request `/protocol-b review` or use the default-branch manual dispatch;
+an absent App acceptance still blocks the protected merge.
 
 ## Reproducing offline checks
 

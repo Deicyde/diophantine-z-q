@@ -78,14 +78,19 @@ that supplies a theorem to a project's umbrella import.
 
 ## Acceptance
 
-The public repository retains its required independent Astra check and up-to-date
-branch requirement. There is no mandatory second human or CODEOWNERS approval.
-An automated queue may identify proof-only PRs for a narrower review, but queuing,
-compilation and a green status table do not publish the Astra acceptance check.
-An eligible independent reviewer must review the exact revision,
-including statement fidelity, provenance, dependency use
-and any audit objections. The existing protected controller publishes acceptance
-only from the authenticated review process.
+Lean PRs follow the active [Protocol B contributor guide](research-review/README.md):
+both approved models review the exact revision, including statement fidelity,
+provenance, dependency use and audit objections. Both must accept unless a
+collaborator applies the documented finding-specific override, which does not
+make the affected claim outside reviewed. There is no mandatory second human
+or CODEOWNERS approval. A proof-only PR can have a narrow review scope, but
+compilation or queuing does not substitute for the required review.
+
+The repository's default-branch workflow publishes `Protocol B / review` through
+the designated App; the former protected controller is retired. The
+[dated operator readback](research-review/reviews/activation-2026-11-13/README.md)
+records the App binding, computation requirements and up-to-date protection
+observed for the public repository, with their verification limits.
 
 Proof-only PRs need not rewrite the manuscript. A PR promoting a new polynomial
 record still needs the complete current TeX and matching PDF required by

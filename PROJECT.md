@@ -25,9 +25,15 @@ it does not claim cryptographic verification of a provider's internal model.
 
 ## Deployment state
 
-Protocol B is active for future pull requests. The public repository requires
-the designated App's `Protocol B / review` check together with its computation
-checks. The [current contributor guide](docs/research-review/README.md) describes
+Protocol B is the active review policy for future pull requests, as authorized
+by Elliot Glazer on November 13, 2026, America/Los_Angeles. At 18:57 PST that day
+(November 14, 02:57 UTC), Astra read back the settings through Elliot's authorized
+GitHub session: live mode, repository auto-merge, the designated App's
+`Protocol B / review` requirement, all 14 computation requirements and strict
+up-to-date protection. This is a dated operator observation, not a claim that
+anonymous readers independently verified those settings. The
+[readback and limits](docs/research-review/reviews/activation-2026-11-13/README.md)
+preserve the non-secret evidence. The [current contributor guide](docs/research-review/README.md) describes
 the review requirement and the collaborator override path. Activation does not
 retroactively certify the repository's historical claims.
 
@@ -36,6 +42,13 @@ restricted to the default branch. They must not be repository-level secrets or
 appear in files or PRs. The [setup and test checklist](docs/research-review/protocol-b-setup.md)
 specifies the App identity, secret names, activation checks and deferred tests.
 The retired controller and local runner are not used.
+
+Non-author-family review of the implementation and repairs remains an activation
+requirement. The [pre-activation review record](docs/research-review/reviews/pre-activation-reviews.md)
+records Fable 5.2's original review files, the retrospective PR73 record, and
+owner-reported in-session acceptances of later commits. It also records PR88's owner-bypass
+merge on those reviews, not an App acceptance. Branch/tag key-isolation testing
+and a successful live protected merge remain unverified in this snapshot.
 
 Use the existing theorem-application inventory and findings history during the
 transition. Their distillation and archival are separate work; this gate does
