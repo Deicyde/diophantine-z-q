@@ -5797,6 +5797,138 @@ theorem cMSectionsDisjoint_of (hA : FibreAutTame) (hfix : FibreAutFixFinite)
 end MCRQuot
 
 /-! ════════════════════════════════════════════════════════════════════════════════════════════
+# mcr-quot, part 6b: glue B `GenericQuotientP1` from T5, a descent glue and a curve glue
+════════════════════════════════════════════════════════════════════════════════════════════ -/
+
+noncomputable section
+
+namespace MCRQuot
+
+open Polynomial CategoryTheory AlgebraicGeometry Limits LeafQM LeafQM.AV VertWitness HeckeRestNV
+open G0ModField PropTSRed PropTSGlue ModelGlue MCRGlue LeafQM.AV.Pin PkgI3
+
+/-- The induced map of generic fibres `𝒴_ℚ → 𝒵_ℚ`. -/
+def genFibMap {p : ℕ} [Fact p.Prime] {𝒴 𝒵 : Over (Spec (CommRingCat.of (Zloc p)))} (q : 𝒴 ⟶ 𝒵) :
+    genFib 𝒴 ⟶ genFib 𝒵 :=
+  Over.homMk (pullback.lift (pullback.fst 𝒴.hom (specRatToZloc p) ≫ q.left)
+      (pullback.snd 𝒴.hom (specRatToZloc p))
+      ((Category.assoc _ _ _).trans (by rw [Over.w q]; exact pullback.condition)))
+    (pullback.lift_snd _ _ _)
+
+theorem genFibMap_fst {p : ℕ} [Fact p.Prime] {𝒴 𝒵 : Over (Spec (CommRingCat.of (Zloc p)))}
+    (q : 𝒴 ⟶ 𝒵) : (genFibMap q).left ≫ pullback.fst 𝒵.hom (specRatToZloc p) =
+      pullback.fst 𝒴.hom (specRatToZloc p) ≫ q.left :=
+  pullback.lift_fst _ _ _
+
+/-- **Glue (B-desc): an orbit-invariant coordinate on `𝒴_ℚ` descends to the quotient**
+(scheme theory of quotients; SGA 1 Exp. V §1 (locators UNVERIFIED), no new literature). For the
+SGA 1 quotient `q : 𝒴 → 𝒵` over `ℤ_(p)` by a finite group `G` of `ℤ_(p)`-automorphisms with `q`
+finite, a map `σ : 𝒴_ℚ → P¹` whose values on `ℚ̄`-points are constant on `G`-orbits factors
+through `𝒵_ℚ`, and every `ℚ̄`-point of `𝒵_ℚ` comes from `𝒴_ℚ`. (Outline: `𝒵_ℚ = 𝒴_ℚ/G`, since
+the formation of invariants commutes with the localization `ℤ_(p) → ℚ`; `σ` is `G`-invariant as a
+morphism, its values on the dense set of `ℚ̄`-points of the reduced `𝒴_ℚ` being invariant; so the
+opens `σ⁻¹(t ≠ ∞)`, `σ⁻¹(t ≠ 0)` are `G`-stable and saturated, their images in `𝒵_ℚ` are open
+(`q` is closed and surjective), and `f, g` are invariant sections, i.e. sections on `𝒵_ℚ`;
+`q` is integral and surjective, so `ℚ̄`-points lift.) -/
+def QuotientDescendsQ : Prop :=
+  ∀ (p : ℕ) [Fact p.Prime] (𝒴 𝒵 : Over (Spec (CommRingCat.of (Zloc p)))) (q : 𝒴 ⟶ 𝒵)
+    (G : Subgroup (Aut 𝒴.left)), Finite G → (∀ g ∈ G, g.asIso.hom ≫ 𝒴.hom = 𝒴.hom) →
+    IsGQuotient G q.left → IsFinite q.left →
+    ∀ σ : ToP1 (genFib 𝒴).left,
+      (∀ (s s' : fieldPt Qbar ⟶ genFib 𝒴) (g : Aut 𝒴.left), g ∈ G →
+        s'.left ≫ pullback.fst 𝒴.hom (specRatToZloc p) =
+          s.left ≫ pullback.fst 𝒴.hom (specRatToZloc p) ≫ g.asIso.hom →
+        σ.val (K := Qbar) s.left = σ.val (K := Qbar) s'.left) →
+    ∃ σ' : ToP1 (genFib 𝒵).left,
+      (∀ s : fieldPt Qbar ⟶ genFib 𝒴,
+        σ'.val (K := Qbar) (s ≫ genFibMap q).left = σ.val (K := Qbar) s.left) ∧
+      ∀ t : fieldPt Qbar ⟶ genFib 𝒵, ∃ s : fieldPt Qbar ⟶ genFib 𝒴, s ≫ genFibMap q = t
+
+/-- **Glue (B-iso): a map to `P¹` of a proper smooth `ℚ`-curve that is bijective on `ℚ̄`-points is
+an isomorphism onto `P¹_ℚ`** (curve theory; the `P¹` case of model-glue's `CurveBijIso`: finite
+(quasi-finite and proper), generically étale in characteristic 0 of degree 1, onto the normal
+`P¹`, hence an isomorphism (Hartshorne II.6.7, I.6.12; locators UNVERIFIED); the charts are then
+the preimages of `𝔸¹` and `P¹ ∖ {0}`). -/
+def ToP1BijIsCoordinateQ : Prop :=
+  ∀ (Z : Over (Spec (CommRingCat.of ℚ))), IsProper Z.hom → SmoothOfRelativeDimension 1 Z.hom →
+    ∀ σ : ToP1 Z.left, Function.Bijective (fun t : fieldPt Qbar ⟶ Z => σ.val (K := Qbar) t.left) →
+      IsP1CoordinateQ Z σ
+
+/-- **Glue B `GenericQuotientP1` from T5, glue A, Leaf L3 (`𝒵` proper smooth), (B-desc) and
+(B-iso).** The map
+`π ∘ g : 𝒴_ℚ → P¹` is constant on `fibreAut`-orbits (orbits lie in twist classes, R2fp), so it
+descends to `σ̄ : 𝒵_ℚ → P¹` (B-desc); `σ̄` is injective on `ℚ̄`-points (equal values give
+twist-equivalent fibres, hence one orbit (T5), hence one point of `𝒵`) and onto (`CurveSurj` for
+`π ∘ g`, whose fibres are finite twist classes), so it is an isomorphism onto `P¹_ℚ` (B-iso). -/
+theorem genericQuotientP1_of (hA : FibreAutTame) (hT : ObjBridge.TorsionStructure)
+    (hTS : TameQuotientSmooth) (hD : QuotientDescendsQ) (hB : ToP1BijIsCoordinateQ) :
+    GenericQuotientP1 := by
+  intro p _ hp 𝒴 𝒜 hM hCM Y Φ π h1 hh h2 𝒵 q hq hqf
+  obtain ⟨hfin, htame⟩ := hA p hp 𝒴 𝒜 hM hCM Y Φ π h1 hh h2
+  obtain ⟨hZp, hZs⟩ := hTS p 𝒴 𝒵 q hM.1 hM.2.1 _ hfin htame (fibreAut_over 𝒴 𝒜) hq hqf
+  have hinvq := hq.1
+  obtain ⟨g, hg, -⟩ := exists_genFib_to_Y hM h1
+  have huniq : ∀ (y : Spec (CommRingCat.of Qbar) ⟶ 𝒴.left) (P P' : QML3 Qbar),
+      IsFibreOf 𝒜 y P → IsFibreOf 𝒜 y P' → M3.mk P = M3.mk P' := by
+    intro y P P' hP hP'
+    obtain ⟨s, hs⟩ := genFib_pt 𝒴 y
+    rw [← hg Qbar s P ((congrArg (fun t => IsFibreOf 𝒜 t _) hs).mpr hP),
+      ← hg Qbar s P' ((congrArg (fun t => IsFibreOf 𝒜 t _) hs).mpr hP')]
+  choose fib hfib using fun y => hM.2.2.1 Qbar y
+  set j := pullback.fst 𝒴.hom (specRatToZloc p)
+  let σ : ToP1 (genFib 𝒴).left := π.comp g.left
+  have hσ : ∀ s : fieldPt Qbar ⟶ genFib 𝒴, σ.val (K := Qbar) s.left = π.val (K := Qbar) (s ≫ g).left :=
+    fun s => ToP1.val_comp_right π g.left s.left
+  -- `σ`-values and twist classes
+  have hrel : ∀ s s' : fieldPt Qbar ⟶ genFib 𝒴,
+      (σ.val (K := Qbar) s.left = σ.val (K := Qbar) s'.left ↔
+        TwistEq (fib (s.left ≫ j)) (fib (s'.left ≫ j))) := by
+    intro s s'
+    rw [hσ, hσ]
+    exact (h2 (s ≫ g) (s' ≫ g) _ _ (hg Qbar s _ (hfib _)) (hg Qbar s' _ (hfib _))).1
+  have hinvσ : ∀ (s s' : fieldPt Qbar ⟶ genFib 𝒴) (h : Aut 𝒴.left), h ∈ fibreAut 𝒴 𝒜 →
+      s'.left ≫ j = s.left ≫ j ≫ h.asIso.hom →
+      σ.val (K := Qbar) s.left = σ.val (K := Qbar) s'.left := by
+    intro s s' h hh e
+    refine (hrel s s').2 (twistEq_of_mem_fibreAut hM huniq hh (s.left ≫ j) _ _ (hfib _) ?_)
+    exact (congrArg (fun t => IsFibreOf 𝒜 t (fib (s'.left ≫ j)))
+      (e.trans (Category.assoc _ _ _).symm)).mp (hfib _)
+  obtain ⟨σ', hσ', hlift⟩ := hD p 𝒴 𝒵 q (fibreAut 𝒴 𝒜) hfin (fibreAut_over 𝒴 𝒜) hq hqf σ hinvσ
+  refine ⟨σ', hB (genFib 𝒵) (genFib_isProper 𝒵 hZp) (genFib_smooth 𝒵 hZs) σ' ⟨?_, ?_⟩⟩
+  · intro t t' htt
+    obtain ⟨s, rfl⟩ := hlift t
+    obtain ⟨s', rfl⟩ := hlift t'
+    simp only [hσ'] at htt
+    obtain ⟨h, hhG, hh⟩ := mem_orbit_of_twistEq hT hM (s.left ≫ j) (s'.left ≫ j) _ _ (hfib _)
+      (hfib _) ((hrel s s').1 htt)
+    have k : ∀ s : fieldPt Qbar ⟶ genFib 𝒴, (s ≫ genFibMap q).left ≫
+        pullback.fst 𝒵.hom (specRatToZloc p) = (s.left ≫ j) ≫ q.left := fun s =>
+      (Category.assoc _ _ _).trans ((congrArg (s.left ≫ ·) (genFibMap_fst q)).trans
+        (Category.assoc _ _ _).symm)
+    apply genFib_pt_inj 𝒵
+    refine (k s).trans ((k s').trans ?_).symm
+    exact (congrArg (· ≫ q.left) hh).trans ((Category.assoc _ _ _).trans
+      (congrArg ((s.left ≫ j) ≫ ·) (hinvq h hhG)))
+  · intro v
+    obtain ⟨y0⟩ := hM.2.2.2.2.2.2.2
+    obtain ⟨s0, -⟩ := genFib_pt 𝒴 y0
+    have hfin' : ∀ s : fieldPt Qbar ⟶ genFib 𝒴, {s' : fieldPt Qbar ⟶ genFib 𝒴 |
+        σ.val (K := Qbar) s'.left = σ.val (K := Qbar) s.left}.Finite := by
+      intro s
+      have hT' := twistClassFinite hT (fib (s.left ≫ j))
+      refine Set.Finite.of_finite_image (f := fun s' => M3.mk (fib (s'.left ≫ j)))
+        (hT'.subset ?_) ?_
+      · rintro _ ⟨s', hs', rfl⟩
+        exact ⟨_, rfl, (hrel s s').1 hs'.symm⟩
+      · intro a _ b _ hab
+        exact genFib_pt_inj 𝒴 a b (hM.2.2.2.1 _ _ _ _ (hfib _) (hfib _) hab)
+    obtain ⟨s, hs⟩ := curveFacts.2 (genFib 𝒴) (genFib_isProper 𝒴 hM.1) (genFib_smooth 𝒴 hM.2.1)
+      ⟨s0⟩ σ hfin' v
+    exact ⟨s ≫ genFibMap q, (hσ' s).trans hs⟩
+
+end MCRQuot
+
+/-! ════════════════════════════════════════════════════════════════════════════════════════════
 # mcr-quot, part 7: the composite
 ════════════════════════════════════════════════════════════════════════════════════════════ -/
 
@@ -6239,6 +6371,22 @@ theorem coordinateFromSections_of' (hA : FibreAutTame) (hT : ObjBridge.TorsionSt
     (hTr : P1Translate) : CoordinateFromSections :=
   coordinateFromSections_of hA hT (p1ThreePoints_of hTr)
 
+/-- **Main composite: `ModelCoordinateResidue` with none of mcr-glue's glue Props A, B, C1, C2**:
+from the leaves L1-L6 of mcr-glue, the kernel's textbook leaf `TorsionStructure` (T5), and the
+smaller glue of this task: (A-fix) `FibreAutFixFinite`, (A-count) `TwistClassCard`,
+(B-desc) `QuotientDescendsQ`, (B-iso) `ToP1BijIsCoordinateQ`, (C1a) `GQuotientPointOrbits`,
+(C1b) `CMStabInvolution`, (C1c) `StabFixesClosure`, (C1d) `QbarPointsConjugate`,
+(C2-T) `P1Translate`. -/
+theorem modelCoordinateResidue_of_mcrQuot'' (hAF : ProperCurveAF) (hQE : FiniteQuotientExists)
+    (hTS : TameQuotientSmooth) (hP1 : SmoothModelOfP1) (hFix : TameFixedPointsDisjoint)
+    (hCyc : TameInertiaCyclic) (hT : ObjBridge.TorsionStructure)
+    (hfix : FibreAutFixFinite) (hcnt : TwistClassCard) (hD : QuotientDescendsQ)
+    (hB : ToP1BijIsCoordinateQ) (hO : GQuotientPointOrbits) (hI : CMStabInvolution)
+    (hS : StabFixesClosure) (hC : QbarPointsConjugate) (hTr : P1Translate) :
+    ModelCoordinateResidue :=
+  modelCoordinateResidue_of_mcrQuot' hAF hQE hTS hP1 hFix hCyc hT
+    (genericQuotientP1_of (fibreAutTame_of hT hfix hcnt) hT hTS hD hB) hfix hcnt hO hI hS hC hTr
+
 end MCRQuot
 
 #print axioms MCRQuot.exists_unit_congr
@@ -6257,3 +6405,5 @@ end MCRQuot
 #print axioms MCRQuot.p1ThreePoints_of
 #print axioms MCRQuot.coordinateFromSections_of'
 #print axioms MCRQuot.modelCoordinateResidue_of_mcrQuot'
+#print axioms MCRQuot.genericQuotientP1_of
+#print axioms MCRQuot.modelCoordinateResidue_of_mcrQuot''

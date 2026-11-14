@@ -83,3 +83,16 @@ C2 `CoordinateFromSections` of `scratch/mcr-glue/MCRGlue.lean` (copied verbatim 
   `integral_of_disjoint_infty`, `exists_unit_neg_16_27`).
 - `coordinateFromSections_of' (hA) (hT) (hTr : P1Translate) : CoordinateFromSections`;
   composite `modelCoordinateResidue_of_mcrQuot'` with `P1Translate` in place of `P1ThreePoints`.
+
+## Step 6 (14:45) — VERIFIED (parts 1-6b-8b + 9; exit 0; compile9_out.txt; all 18 MCRQuot
+`#print axioms` standard; no sorry)
+- Glue B reduced: **`MCRQuot.genericQuotientP1_of (hA : FibreAutTame) (hT : TorsionStructure)
+  (hTS : TameQuotientSmooth) (hD : QuotientDescendsQ) (hB : ToP1BijIsCoordinateQ) :
+  GenericQuotientP1`**. New glue Props: (B-desc) `QuotientDescendsQ` (an orbit-invariant map
+  `𝒴_ℚ → P¹` descends through the quotient, and `ℚ̄`-points of `𝒵_ℚ` lift), (B-iso)
+  `ToP1BijIsCoordinateQ` (a map to `P¹` of a proper smooth ℚ-curve bijective on `ℚ̄`-points is an
+  isomorphism by charts). Helper `genFibMap`, `genFibMap_fst`. Leaf L3 is used for `𝒵` proper
+  smooth (B's statement does not assume it).
+- **Main composite `MCRQuot.modelCoordinateResidue_of_mcrQuot''`**: L1-L6 + T5 + (A-fix),
+  (A-count), (B-desc), (B-iso), (C1a)-(C1d), (C2-T) ⇒ `ModelCoordinateResidue`. None of
+  mcr-glue's glue A, B, C1, C2 remains a hypothesis.

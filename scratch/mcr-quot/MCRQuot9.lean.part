@@ -15,3 +15,5 @@
 #print axioms MCRQuot.p1ThreePoints_of
 #print axioms MCRQuot.coordinateFromSections_of'
 #print axioms MCRQuot.modelCoordinateResidue_of_mcrQuot'
+#print axioms MCRQuot.genericQuotientP1_of
+#print axioms MCRQuot.modelCoordinateResidue_of_mcrQuot''

@@ -19,4 +19,20 @@ theorem coordinateFromSections_of' (hA : FibreAutTame) (hT : ObjBridge.TorsionSt
     (hTr : P1Translate) : CoordinateFromSections :=
   coordinateFromSections_of hA hT (p1ThreePoints_of hTr)
 
+/-- **Main composite: `ModelCoordinateResidue` with none of mcr-glue's glue Props A, B, C1, C2**:
+from the leaves L1-L6 of mcr-glue, the kernel's textbook leaf `TorsionStructure` (T5), and the
+smaller glue of this task: (A-fix) `FibreAutFixFinite`, (A-count) `TwistClassCard`,
+(B-desc) `QuotientDescendsQ`, (B-iso) `ToP1BijIsCoordinateQ`, (C1a) `GQuotientPointOrbits`,
+(C1b) `CMStabInvolution`, (C1c) `StabFixesClosure`, (C1d) `QbarPointsConjugate`,
+(C2-T) `P1Translate`. -/
+theorem modelCoordinateResidue_of_mcrQuot'' (hAF : ProperCurveAF) (hQE : FiniteQuotientExists)
+    (hTS : TameQuotientSmooth) (hP1 : SmoothModelOfP1) (hFix : TameFixedPointsDisjoint)
+    (hCyc : TameInertiaCyclic) (hT : ObjBridge.TorsionStructure)
+    (hfix : FibreAutFixFinite) (hcnt : TwistClassCard) (hD : QuotientDescendsQ)
+    (hB : ToP1BijIsCoordinateQ) (hO : GQuotientPointOrbits) (hI : CMStabInvolution)
+    (hS : StabFixesClosure) (hC : QbarPointsConjugate) (hTr : P1Translate) :
+    ModelCoordinateResidue :=
+  modelCoordinateResidue_of_mcrQuot' hAF hQE hTS hP1 hFix hCyc hT
+    (genericQuotientP1_of (fibreAutTame_of hT hfix hcnt) hT hTS hD hB) hfix hcnt hO hI hS hC hTr
+
 end MCRQuot
