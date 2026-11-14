@@ -22,3 +22,11 @@ Target: `CMBridge.Lemma321Five` (TYZ Lemma 3.21(1)), copied verbatim with all of
   `yC_add_quarter : yC (z + 1/4) = I * yC z` (eta), `xC_add_quarter : xC (τ + 1/4) = −xC τ` (theta form),
   `toC_iPt_of_quarter` (φ(τ+1/4) = [i]φ(τ)), `tyzForm_conj_tauH` (τ_{Q̄} = W T₄ W τ_Q), Fricke (tyz-cm).
 - helper: `exists_acts4_of_fix` (an automorphism of Q̄ fixing K_d acts on H_{d,4} as an Artin symbol).
+
+## 2026-11-14 00:0x compile 2 (VERIFIED, 0 errors, no sorry)
+- `tyzThm36OneFive_of (hS : Shimura.ShimuraReciprocityPic) (hA : CMAlgebraic) (hneg : WNegatesI) :
+   TYZThm36OneFive` — σ_w(z_n) = z_n + τ((1+i)/2) mod ℤτ(1), from Shimura reciprocity with
+   𝔟 = 𝔞 ∩ O4 = ℤ⟨m, −4+4√−n⟩ (`idealMeetOrder_varpi`), Q'' = [32(n+4), 8(n+2), (n+1)/2] (`tyzFormW`),
+   τ_{Q''} = W(τ_Q + 1/4) (`tyzFormW_tauH`), lattice identities `latKW`, `latNKW` (coefficients from
+   wcoef.py), `heegnerPt_tyzFormW : f₀(P_{Q''}) = T − [i]f₀(P_n)`, orientation `normalized_cases`.
+- New named glue `WNegatesI` (σ_w(i) = −i; genus character computation), still open.

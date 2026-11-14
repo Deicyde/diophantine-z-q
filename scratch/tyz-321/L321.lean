@@ -3272,6 +3272,13 @@ def TYZThm36OneFive : Prop :=
   ∀ n : ℕ, ∀ _ : NeZero n, n % 8 = 5 → Squarefree n → ∀ ρ : GalQ, ActsAsArtin4 ρ n (wClass n) →
     ∃ k : ℤ, galPt ρ (tyzZn n) = tyzZn n + tauG ⟨1, 1⟩ + k • tauG 2
 
+/-- **Glue W-I (`σ_w` negates `i`)**: every `ρ` acting on `H_{n,4}` as `w` maps `i` to `−i`. Genus
+theory: `K_n(i) = K_n(√n) ⊆ H_n` and `Art(𝔞)` acts on it by `Π_{q ∣ n} χ_q([𝔞]) = Π_q (N𝔞/q) =
+Π_q (2/q) = (2/n) = −1` (`N𝔞 = (n+1)/2 ≡ 1/2 mod q`, `n ≡ 5 (mod 8)`). -/
+def WNegatesI : Prop :=
+  ∀ n : ℕ, ∀ _ : NeZero n, n % 8 = 5 → Squarefree n → ∀ ρ : GalQ, ActsAsArtin4 ρ n (wClass n) →
+    ρ iQ = -iQ
+
 /-- **Glue KER (`Gal(H_{n,4}/H_n)` moves `z_n` only by `ℤτ(1)`)**: TYZ L2540 ("`z_n^σ ∈ z_n + {0, τ(1)}`"
 for `σ ∈ Gal(H'_n/H_n)`). -/
 def KerFixesZnMod : Prop :=
@@ -3635,6 +3642,400 @@ theorem tyzThm36ConjFive_of (hA : CMAlgebraic) : TYZThm36ConjFive := by
   abel
 
 end Conj
+
+/-! ### `TYZThm36OneFive` from Shimura reciprocity (`𝔞`-action on TYZ's Heegner point)
+
+With `𝔟 = 𝔞 ∩ O_{n,4} = ℤ⟨m, −4 + 4√−n⟩` (`m = (n+1)/2`, `idealMeetOrder_varpi`), `Q = [16(n+1), −8, 1]`
+and `Q'' = [32(n+4), 8(n+2), m]` (`tyzFormW`): `τ_{Q''} = W(τ_Q + 1/4)` (`tyzFormW_tauH`) and
+`𝔟·(⟨1,τ_{Q''}⟩, ⟨1/32,τ_{Q''}⟩) = c·(⟨1,τ_Q⟩, ⟨1/32,τ_Q⟩)`, `c = (−1 + ((n+3)/2)√−n)/(n+4)`
+(`idealLat_varpi_mul`, `idealLat_varpi_mulN`; found and checked numerically for 10 values of `n` by
+`scratch/tyz-321/wlat.py`, integer coefficients by `wcoef.py`). Shimura reciprocity
+(`ShimuraReciprocityPic`) then gives `σ_w(f₀(P_n)) = f₀(P_{Q''}) = T − [i]f₀(P_n)`
+(`heegnerPt_tyzFormW`, Fricke + `τ ↦ τ + 1/4`), and with `σ_w(i) = −i` (`WNegatesI`),
+`σ_w(z_n) = z_n + τ((1+i)/2)`. -/
+
+section WAction
+
+open QuadraticAlgebra Pointwise WeierstrassCurve.Affine Complex
+
+variable {n : ℕ} [NeZero n]
+
+def hW0 (n : ℕ) : QNeg n := ⟨((n : ℚ) + 1) / 2, 0⟩
+def hW1 (n : ℕ) : QNeg n := ⟨-4, 4⟩
+
+@[simp] theorem hW0_re : (hW0 n).re = ((n : ℚ) + 1) / 2 := rfl
+@[simp] theorem hW0_im : (hW0 n).im = 0 := rfl
+@[simp] theorem hW1_re : (hW1 n).re = -4 := rfl
+@[simp] theorem hW1_im : (hW1 n).im = 4 := rfl
+
+theorem natCast_m (hn : n % 8 = 5) : (((n + 1) / 2 : ℕ) : ℚ) = ((n : ℚ) + 1) / 2 := by
+  have : (n + 1) / 2 * 2 = n + 1 := by omega
+  have h' : (((n + 1) / 2 : ℕ) : ℚ) * 2 = (n : ℚ) + 1 := by exact_mod_cast this
+  linarith
+
+theorem coe_m (hn : n % 8 = 5) :
+    (((((n + 1) / 2 : ℕ) : 𝓞 (QNeg n))) : QNeg n) = hW0 n := by
+  have h2 : (((n + 1) / 2 : ℕ) : ℚ) = ((n : ℚ) + 1) / 2 := by
+    have : (n + 1) / 2 * 2 = n + 1 := by omega
+    have h' : (((n + 1) / 2 : ℕ) : ℚ) * 2 = (n : ℚ) + 1 := by exact_mod_cast this
+    linarith
+  rw [show ((((n + 1) / 2 : ℕ) : 𝓞 (QNeg n)) : QNeg n) = (((n + 1) / 2 : ℕ) : QNeg n) from
+    map_natCast (algebraMap (𝓞 (QNeg n)) (QNeg n)) _]
+  ext
+  · rw [QuadraticAlgebra.re_natCast, h2]; rfl
+  · rw [QuadraticAlgebra.im_natCast]; rfl
+
+theorem varpiIdeal_mem (hn : n % 8 = 5) :
+    varpiIdeal n ∈ integralIdealsPrimeTo (O4 n).conductorModulus := by
+  rw [Modulus.mem_integralIdealsPrimeTo, Modulus.isCoprimeTo_iff_sup_eq_top,
+    conductorModulus_finitePart]
+  have key : (1 : 𝓞 (QNeg n)) = (-1) * (((n + 1) / 2 : ℕ) : 𝓞 (QNeg n)) +
+      4 * (((n + 3) / 8 : ℕ) : 𝓞 (QNeg n)) := by
+    have h' : (((n + 1) / 2 : ℕ) : 𝓞 (QNeg n)) + 1 = 4 * (((n + 3) / 8 : ℕ) : 𝓞 (QNeg n)) := by
+      exact_mod_cast (show (n + 1) / 2 + 1 = 4 * ((n + 3) / 8) by omega)
+    linear_combination h'
+  refine ⟨?_, ?_⟩
+  · intro h
+    have hmem : (((n + 1) / 2 : ℕ) : 𝓞 (QNeg n)) ∈ varpiIdeal n :=
+      Ideal.subset_span (Set.mem_insert _ _)
+    rw [h, Ideal.mem_bot] at hmem
+    have h2 := congrArg (fun x : 𝓞 (QNeg n) => ((x : QNeg n)).re) hmem
+    simp only [coe_m hn, hW0] at h2
+    simp at h2
+    have : (0 : ℚ) ≤ n := Nat.cast_nonneg n
+    linarith
+  · rw [Ideal.eq_top_iff_one, key]
+    refine Ideal.add_mem _ (Ideal.mem_sup_left
+      (Ideal.mul_mem_left _ _ (Ideal.subset_span (Set.mem_insert _ _)))) (Ideal.mem_sup_right ?_)
+    simpa using natCast_mul_mem_conductor (QNeg n) 4 ((((n + 3) / 8 : ℕ)) : 𝓞 (QNeg n))
+
+theorem wClass_eq (hn : n % 8 = 5) : wClass n = (O4 n).picClass ⟨_, varpiIdeal_mem hn⟩ := by
+  unfold wClass; rw [dif_pos (varpiIdeal_mem hn)]
+
+theorem idealMeetOrder_varpi (hn : n % 8 = 5) (hsq : Squarefree n) :
+    Shimura.idealMeetOrder n 4 (varpiIdeal n) =
+      (Submodule.span ℤ ({hW0 n, hW1 n} : Set (QNeg n)) : Set (QNeg n)) := by
+  have hn4 : n % 4 = 1 := by omega
+  have hmq := natCast_m hn
+  unfold varpiIdeal
+  generalize (n + 1) / 2 = m at hmq ⊢
+  have hcm : ((m : 𝓞 (QNeg n)) : QNeg n) = hW0 n := by
+    rw [show ((m : 𝓞 (QNeg n)) : QNeg n) = (m : QNeg n) from
+      map_natCast (algebraMap (𝓞 (QNeg n)) (QNeg n)) _]
+    ext
+    · rw [QuadraticAlgebra.re_natCast, hmq]; rfl
+    · rw [QuadraticAlgebra.im_natCast]; rfl
+  ext x
+  simp only [Shimura.idealMeetOrder, Set.mem_ofPred_eq, SetLike.mem_coe, Submodule.mem_span_pair,
+    Shimura.mem_O4_iff']
+  constructor
+  · rintro ⟨⟨c, z, hz⟩, y, hy, rfl⟩
+    obtain ⟨a, b, hab⟩ := hy
+    simp only [smul_eq_mul] at hab
+    obtain ⟨a1, a2, ha1, ha2⟩ := Shimura.int_coords hn4 hsq a
+    obtain ⟨b1, b2, hb1, hb2⟩ := Shimura.int_coords hn4 hsq b
+    obtain ⟨p, q, hp, hq⟩ := Shimura.int_coords hn4 hsq z
+    have hy' : (y : QNeg n) = (a : QNeg n) * hW0 n + (b : QNeg n) * (QuadraticAlgebra.omega - 1) := by
+      rw [← hab]; push_cast [hcm, coe_sqrtNeg]; rfl
+    have him := congrArg QuadraticAlgebra.im hz
+    rw [hy'] at him
+    simp [ha1, ha2, hb1, hb2, hp, hq] at him
+    refine ⟨a1 + a2 - 2 * b2, q, ?_⟩
+    rw [hy']
+    ext
+    · simp [ha1, ha2, hb1, hb2]
+      linear_combination him
+    · simp [ha1, ha2, hb1, hb2]
+      linear_combination -him
+  · rintro ⟨P, Q, rfl⟩
+    refine ⟨⟨P * m - 4 * Q, (Q : 𝓞 (QNeg n)) * sqrtNeg n, ?_⟩,
+      (P : 𝓞 (QNeg n)) * (m : 𝓞 (QNeg n)) + ((4 * Q : ℤ) : 𝓞 (QNeg n)) * (sqrtNeg n - 1), ?_, ?_⟩
+    · ext
+      · simp [hmq, coe_sqrtNeg]
+        ring
+      · simp [hmq, coe_sqrtNeg]
+        ring
+    · exact ⟨_, _, rfl⟩
+    · ext
+      · simp [hmq, coe_sqrtNeg, map_ofNat]
+        ring
+      · simp [hmq, coe_sqrtNeg, map_ofNat]
+        ring
+
+/-- **`Q'' = [32(n+4), 8(n+2), (n+1)/2]`**, a Heegner form of level 32 and discriminant `−64n`, with
+`τ_{Q''} = W(τ_Q + 1/4)`. -/
+def tyzFormW (n : ℕ) (hn : n % 8 = 5) : HeegnerForm 32 (-64 * n) where
+  A := 32 * (n + 4)
+  B := 8 * (n + 2)
+  C := (((n + 1) / 2 : ℕ) : ℤ)
+  A_pos := by positivity
+  N_dvd := ⟨n + 4, by push_cast; ring⟩
+  disc := by
+    have h2 : (((n + 1) / 2 : ℕ) : ℤ) * 2 = n + 1 := by omega
+    linear_combination (-64 * ((n : ℤ) + 4)) * h2
+  D_neg := by
+    have : (0 : ℤ) < n := by omega
+    linarith
+  primitive := by
+    set g := Int.gcd (Int.gcd (32 * ((n : ℤ) + 4)) (8 * ((n : ℤ) + 2))) (((n + 1) / 2 : ℕ) : ℤ)
+    have hB : (g : ℤ) ∣ 8 * ((n : ℤ) + 2) := (Int.gcd_dvd_left ..).trans (Int.gcd_dvd_right ..)
+    have hC : (g : ℤ) ∣ (((n + 1) / 2 : ℕ) : ℤ) := Int.gcd_dvd_right ..
+    have hCk : (((n + 1) / 2 : ℕ) : ℤ) = 4 * ((n / 8 : ℕ) : ℤ) + 3 := by omega
+    have hnk : (n : ℤ) = 8 * ((n / 8 : ℕ) : ℤ) + 5 := by omega
+    rw [hCk] at hC
+    rw [hnk] at hB
+    have h1 : (g : ℤ) ∣ 1 := by
+      have e : (1 : ℤ) = (4 * ((n / 8 : ℕ) : ℤ) + 3) * (4 * ((n / 8 : ℕ) : ℤ) + 3 +
+          16 * (2 * ((n / 8 : ℕ) : ℤ) + 1) * ((n / 8 : ℕ) + 1)) -
+          (2 * ((n / 8 : ℕ) : ℤ) + 1) * ((n / 8 : ℕ) + 1) * (8 * (8 * ((n / 8 : ℕ) : ℤ) + 5 + 2)) := by
+        ring
+      rw [e]
+      exact dvd_sub (dvd_mul_of_dvd_left hC _) (dvd_mul_of_dvd_right hB _)
+    exact Nat.dvd_one.mp (by exact_mod_cast h1)
+
+/-- `τ_{Q''} = (−(n+2) + √−n)/(8(n+4))`. -/
+def tauW (n : ℕ) : QNeg n := ⟨-((n : ℚ) + 2) / (8 * (n + 4)), 1 / (8 * (n + 4))⟩
+/-- The homothety factor `c = (−1 + ((n+3)/2)√−n)/(n+4)`. -/
+def cW (n : ℕ) : QNeg n := ⟨-1 / ((n : ℚ) + 4), ((n : ℚ) + 3) / 2 / (n + 4)⟩
+
+theorem tyzFormW_tau (n : ℕ) (hn : n % 8 = 5) : (tyzFormW n hn).tau = Shimura.kappa n (tauW n) := by
+  have h4 : ((n : ℂ) + 4) ≠ 0 := by exact_mod_cast (show n + 4 ≠ 0 by omega)
+  simp only [HeegnerForm.tau, cmPoint, tyzFormW, Shimura.kappa, tauW, Shimura.sqrt_64n]
+  push_cast
+  field_simp
+  ring
+
+theorem tauW_mul (n : ℕ) [NeZero n] : tauW n * (32 * Shimura.tauK n + 8) = -1 := by
+  have h1 : ((n : ℚ) + 1) ≠ 0 := by positivity
+  have h4 : ((n : ℚ) + 4) ≠ 0 := by positivity
+  ext <;> simp [tauW, Shimura.tauK, QuadraticAlgebra.re_ofNat, QuadraticAlgebra.im_ofNat] <;>
+    field_simp <;> ring
+
+omit [NeZero n] in
+@[simp] theorem tauW_re : (tauW n).re = -((n : ℚ) + 2) / (8 * (n + 4)) := rfl
+omit [NeZero n] in
+@[simp] theorem tauW_im : (tauW n).im = 1 / (8 * ((n : ℚ) + 4)) := rfl
+omit [NeZero n] in
+@[simp] theorem cW_re : (cW n).re = -1 / ((n : ℚ) + 4) := rfl
+omit [NeZero n] in
+@[simp] theorem cW_im : (cW n).im = ((n : ℚ) + 3) / 2 / (n + 4) := rfl
+omit [NeZero n] in
+@[simp] theorem tauK_re : (Shimura.tauK n).re = 1 / (4 * ((n : ℚ) + 1)) := rfl
+omit [NeZero n] in
+@[simp] theorem tauK_im : (Shimura.tauK n).im = 1 / (4 * ((n : ℚ) + 1)) := rfl
+
+theorem latKW (k : ℕ) (hk : n = 8 * k + 5) :
+    Submodule.span ℤ ({hW0 n, hW1 n} : Set (QNeg n)) * Submodule.span ℤ {1, tauW n} =
+      Submodule.span ℤ {cW n * 1, cW n * Shimura.tauK n} := by
+  subst hk
+  have h1 : (8 * (k : ℚ) + 5 + 1) ≠ 0 := by positivity
+  have h4 : (8 * (k : ℚ) + 5 + 4) ≠ 0 := by positivity
+  rw [Submodule.span_mul_span]
+  apply le_antisymm
+  · rw [Submodule.span_le]
+    rintro _ ⟨s, hs, t, ht, rfl⟩
+    simp only [Set.mem_insert_iff, Set.mem_singleton_iff] at hs ht
+    rcases hs with rfl | rfl <;> rcases ht with rfl | rfl
+    · exact Shimura.mem_span_pair_of 1 (-32 - 32 * k) (by ext <;> simp <;> field_simp <;> ring)
+    · exact Shimura.mem_span_pair_of 0 (3 + 4 * k) (by ext <;> simp <;> field_simp <;> ring)
+    · exact Shimura.mem_span_pair_of 8 32 (by ext <;> simp <;> field_simp <;> ring)
+    · exact Shimura.mem_span_pair_of (-1) 0 (by ext <;> simp <;> field_simp <;> ring)
+  · rw [Submodule.span_le]
+    rintro _ (rfl | rfl)
+    · exact Shimura.mem_span_mul_four (hW0 _) (hW1 _) 1 (tauW _) (by simp) (by simp) (by simp)
+        (by simp) 0 0 0 (-1) (by ext <;> simp <;> field_simp <;> ring)
+    · exact Shimura.mem_span_mul_four (hW0 _) (hW1 _) 1 (tauW _) (by simp) (by simp) (by simp)
+        (by simp) 0 (11 - 484 * k + 21296 * (k * k)) (-(1 - 44 * k + 1936 * (k * k) + 2662 * (k * k * k)))
+        (8 * (-(1 - 44 * k + 1936 * (k * k) + 2662 * (k * k * k))))
+        (by ext <;> simp <;> field_simp <;> ring)
+
+theorem latNKW (k : ℕ) (hk : n = 8 * k + 5) :
+    Submodule.span ℤ ({hW0 n, hW1 n} : Set (QNeg n)) * Submodule.span ℤ {Shimura.oneN n, tauW n} =
+      Submodule.span ℤ {cW n * Shimura.oneN n, cW n * Shimura.tauK n} := by
+  subst hk
+  have h1 : (8 * (k : ℚ) + 5 + 1) ≠ 0 := by positivity
+  have h4 : (8 * (k : ℚ) + 5 + 4) ≠ 0 := by positivity
+  rw [Submodule.span_mul_span]
+  apply le_antisymm
+  · rw [Submodule.span_le]
+    rintro _ ⟨s, hs, t, ht, rfl⟩
+    simp only [Set.mem_insert_iff, Set.mem_singleton_iff] at hs ht
+    rcases hs with rfl | rfl <;> rcases ht with rfl | rfl
+    · exact Shimura.mem_span_pair_of 1 (-1 - k) (by ext <;> simp <;> field_simp <;> ring)
+    · exact Shimura.mem_span_pair_of 0 (3 + 4 * k) (by ext <;> simp <;> field_simp <;> ring)
+    · exact Shimura.mem_span_pair_of 8 1 (by ext <;> simp <;> field_simp <;> ring)
+    · exact Shimura.mem_span_pair_of (-32) 0 (by ext <;> simp <;> field_simp <;> ring)
+  · rw [Submodule.span_le]
+    rintro _ (rfl | rfl)
+    · exact Shimura.mem_span_mul_four (hW0 _) (hW1 _) (Shimura.oneN _) (tauW _) (by simp) (by simp)
+        (by simp) (by simp) 1 (3 * (k + 1)) (-4 * (k + 1) * (3 * k + 2)) (-(k + 1) * (3 * k + 2))
+        (by ext <;> simp <;> field_simp <;> ring)
+    · exact Shimura.mem_span_mul_four (hW0 _) (hW1 _) (Shimura.oneN _) (tauW _) (by simp) (by simp)
+        (by simp) (by simp) 0 3 (-12 * k - 8) (-3 * k - 2)
+        (by ext <;> simp <;> field_simp <;> ring)
+
+
+
+
+theorem idealLat_varpi (hn : n % 8 = 5) (hsq : Squarefree n) :
+    Shimura.idealLat n 4 (varpiIdeal n) = (Submodule.span ℤ {hW0 n, hW1 n}).map (Shimura.kappaLin n) := by
+  rw [Shimura.idealLat, idealMeetOrder_varpi hn hsq,
+    show Shimura.kappa n = Shimura.kappaLin n from funext fun x => (Shimura.kappaLin_apply n x).symm,
+    Submodule.span_image, Submodule.span_eq]
+
+theorem idealLat_varpi_mul (hn : n % 8 = 5) (hsq : Squarefree n) :
+    Shimura.idealLat n 4 (varpiIdeal n) * (tyzFormW n hn).lat =
+      (tyzForm n hn).lat.map (LinearMap.mulLeft ℤ (Shimura.kappa n (cW n))) := by
+  rw [idealLat_varpi hn hsq, Shimura.lat_eq_map _ n _ (tyzFormW_tau n hn),
+    Shimura.lat_eq_map _ n _ (Shimura.tyzForm_tau n hn), Shimura.map_mulLeft_span_pair,
+    Shimura.kappaLin, ← Submodule.map_mul, latKW (n / 8) (by omega)]
+
+theorem idealLat_varpi_mulN (hn : n % 8 = 5) (hsq : Squarefree n) :
+    Shimura.idealLat n 4 (varpiIdeal n) * (tyzFormW n hn).latN =
+      (tyzForm n hn).latN.map (LinearMap.mulLeft ℤ (Shimura.kappa n (cW n))) := by
+  rw [idealLat_varpi hn hsq, Shimura.latN_eq_map _ n _ (tyzFormW_tau n hn),
+    Shimura.latN_eq_map _ n _ (Shimura.tyzForm_tau n hn), Shimura.map_mulLeft_span_pair,
+    Shimura.kappaLin, ← Submodule.map_mul, latNKW (n / 8) (by omega)]
+
+/-- `τ_{Q''} = W(τ_Q + 1/4)`. -/
+theorem tyzFormW_tauH (hn : n % 8 = 5) :
+    ((tyzFormW n hn).tauH : ℂ) =
+      ((Shimura.frickeH (quarterH (tyzForm n hn).tauH) : UpperHalfPlane) : ℂ) := by
+  have hτ : ((tyzForm n hn).tauH : ℂ) = Shimura.kappaAlg n (Shimura.tauK n) := by
+    rw [Shimura.kappaAlg_apply, ← Shimura.tyzForm_tau n hn]; rfl
+  have hτ' : ((tyzFormW n hn).tauH : ℂ) = Shimura.kappaAlg n (tauW n) := by
+    rw [Shimura.kappaAlg_apply, ← tyzFormW_tau n hn]; rfl
+  have hrel := congrArg (Shimura.kappaAlg n) (tauW_mul n)
+  simp only [map_mul, map_add, map_neg, map_one, map_ofNat] at hrel
+  rw [← hτ, ← hτ'] at hrel
+  set τ := ((tyzForm n hn).tauH : ℂ)
+  have hne : (32 * (τ + 1 / 4)) ≠ 0 := by
+    intro h0
+    have := congrArg Complex.im h0
+    simp at this
+    exact (tyzForm n hn).tauH.im_pos.ne' this
+  show _ = -1 / (32 * (τ + 1 / 4))
+  rw [eq_div_iff hne]
+  linear_combination hrel
+
+/-- **`f₀(P_{Q''}) = T − [i]f₀(P_n)`** (given algebraicity of the Heegner point). -/
+theorem heegnerPt_tyzFormW (hA : CMAlgebraic) (hn : n % 8 = 5) :
+    heegnerPt (tyzFormW n hn) = ptT - iPt (heegnerPt (tyzForm n hn)) := by
+  set Q := tyzForm n hn
+  obtain ⟨P, hP⟩ := hA _ Q
+  rw [heegnerPt_eq Q hP]
+  apply heegnerPt_eq
+  set τ₁ := quarterH Q.tauH
+  set τ₂ := Shimura.frickeH τ₁
+  have hτ₂ : (tyzFormW n hn).tauH = τ₂ := UpperHalfPlane.ext (tyzFormW_tauH hn)
+  have e2 : X0.phiC τ₂ + X0.phiC τ₁ = X0.ptTC := Shimura.etaModelFricke τ₁ τ₂ rfl
+  have h1 : toC (iPt P) = X0.phiC τ₁ := toC_iPt_of_quarter Q.tauH τ₁ rfl _ hP
+  rw [hτ₂, map_sub, toC_ptT, h1, ← e2]
+  abel
+
+theorem acts4_inv {ρ : GalQ} {c : Pic (O4 n)} (hρ : ActsAsArtin4 ρ n c) :
+    ActsAsArtin4 ρ⁻¹ n c⁻¹ := by
+  intro x
+  have e : artin4 n c (artin4 n c⁻¹ x) = x := by
+    rw [← AlgEquiv.mul_apply, ← map_mul, mul_inv_cancel, map_one]; rfl
+  have h := hρ (artin4 n c⁻¹ x)
+  rw [e] at h
+  calc ρ⁻¹ (embed n (x : SeparableClosure (QNeg n)))
+      = ρ⁻¹ (ρ (embed n ((artin4 n c⁻¹ x : H4 n) : SeparableClosure (QNeg n)))) := by rw [h]
+    _ = _ := ρ.symm_apply_apply _
+
+set_option maxRecDepth 10000 in
+/-- `ρ` acting on `H_{n,4}` as `c` (through `embed n`) acts as `c` through an embedding normalized by
+`ιC(e(√−n)) = i√n`, either directly or after inverting `ρ`. -/
+theorem normalized_cases {c : Pic (O4 n)} {ρ : GalQ} (hρ : ActsAsArtin4 ρ n c) :
+    ∃ e : SeparableClosure (QNeg n) →ₐ[ℚ] Qbar,
+      ιC (e (algebraMap (QNeg n) (SeparableClosure (QNeg n)) QuadraticAlgebra.omega)) =
+        I * (Real.sqrt n : ℂ) ∧
+      ((∀ x : ringClassField (conductorOrder (QNeg n) 4),
+        ρ (e x) = e (ringClassArtinEquiv (conductorOrder (QNeg n) 4) c x)) ∨
+      (∀ x : ringClassField (conductorOrder (QNeg n) 4),
+        ρ⁻¹ (e x) = e (ringClassArtinEquiv (conductorOrder (QNeg n) 4) c x))) := by
+  set r := embed n (algebraMap (QNeg n) (SeparableClosure (QNeg n)) QuadraticAlgebra.omega)
+  have hr : r ^ 2 = -(n : Qbar) := by
+    simp only [r, ← map_pow, Shimura.omega_sq', map_neg, map_natCast]
+  have hn0 : 0 < n := Nat.pos_of_ne_zero (NeZero.ne n)
+  have hC : ιC r ^ 2 = (I * (Real.sqrt n : ℂ)) ^ 2 := by
+    rw [← map_pow, hr, mul_pow, I_sq, sq, Shimura.sqrt_mul_self_C]; simp
+  rcases sq_eq_sq_iff_eq_or_eq_neg.1 hC with h | h
+  · exact ⟨embed n, h, Or.inl hρ⟩
+  · obtain ⟨γ, hγ⟩ := Shimura.exists_galQ_neg hn0 hr
+    have hr0 : r ≠ 0 := by
+      intro h0; rw [h0] at hr
+      have : (n : Qbar) = 0 := by linear_combination hr
+      exact NeZero.ne n (by exact_mod_cast this)
+    have hγinv : γ⁻¹ r = -r := by
+      apply γ.injective
+      show γ (γ.symm r) = γ (-r)
+      rw [AlgEquiv.apply_symm_apply, map_neg, hγ, neg_neg]
+    have hne : γ⁻¹ r ≠ r := by
+      rw [hγinv]; intro h'
+      apply hr0
+      have : (2 : Qbar) * r = 0 := by linear_combination -h'
+      simpa using this
+    have hconj := RingClassBridge.actsAsArtin4_conj (γ := γ⁻¹) hne (acts4_inv hρ)
+    rw [inv_inv, inv_inv] at hconj
+    refine ⟨γ.toAlgHom.comp (embed n), ?_, Or.inr fun x => ?_⟩
+    · show ιC (γ r) = _
+      rw [hγ, map_neg, h, neg_neg]
+    · have h1 := hconj x
+      simp only [AlgEquiv.mul_apply] at h1
+      show ρ⁻¹ (γ (embed n (x : SeparableClosure (QNeg n)))) = γ (embed n _)
+      rw [← h1]; exact (γ.apply_symm_apply _).symm
+
+theorem galPt_one (P : PtA) : galPt 1 P = P := by
+  rcases P with _ | ⟨x, y, h⟩
+  · rfl
+  · obtain ⟨h', e'⟩ := galPt_some 1 h
+    rw [e']
+    rfl
+
+theorem galPt_tauG_one_one_of_neg {ρ : GalQ} (hρ : ρ iQ = -iQ) :
+    galPt ρ (tauG ⟨1, 1⟩) = tauG ⟨1, -1⟩ := by
+  rw [tauG_mk, tauG_mk, map_add, one_smul, one_smul, galPt_ptT, galPt_iPt_of_neg hρ, galPt_ptT,
+    neg_one_zsmul]
+
+/-- **`TYZThm36OneFive` from Shimura reciprocity, algebraicity and `WNegatesI`.** -/
+theorem tyzThm36OneFive_of (hS : Shimura.ShimuraReciprocityPic) (hA : CMAlgebraic)
+    (hneg : WNegatesI) : TYZThm36OneFive := by
+  intro n hn0 hn hsq ρ hρ
+  have hi := hneg n hn0 hn hsq ρ hρ
+  have hD : -64 * (n : ℤ) = Shimura.discOf n 4 := by
+    rw [Shimura.discOf, ite_eq_right (by omega)]; push_cast; ring
+  rw [wClass_eq hn] at hρ
+  obtain ⟨e, he, hcase⟩ := normalized_cases hρ
+  have key : ∀ ρ' : GalQ, ρ' iQ = -iQ → (∀ x : ringClassField (conductorOrder (QNeg n) 4),
+      ρ' (e x) = e (ringClassArtinEquiv (conductorOrder (QNeg n) 4)
+        ((O4 n).picClass ⟨_, varpiIdeal_mem hn⟩) x)) →
+      galPt ρ' (tyzZn n) = tyzZn n + tauG ⟨1, 1⟩ := by
+    intro ρ' hi' hρ'
+    have hrec := hS n 4 hsq e he ⟨_, varpiIdeal_mem hn⟩ ρ' hρ' (-64 * n) hD (tyzForm n hn)
+      (tyzFormW n hn) (Shimura.kappa n (cW n)) (idealLat_varpi_mul hn hsq)
+      (idealLat_varpi_mulN hn hsq)
+    rw [heegnerPt_tyzFormW hA hn] at hrec
+    simp only [tyzZn, tyzHeegnerPt, hn, ↓reduceDIte]
+    rw [map_sub, galPt_iPt_of_neg hi', hrec, sub_neg_eq_add, iPt_sub, iPt_iPt, tauG_mk, one_smul,
+      one_smul]
+    abel
+  rcases hcase with h | h
+  · exact ⟨0, by rw [key ρ hi h, zero_zsmul, add_zero]⟩
+  · have hi' : ρ⁻¹ iQ = -iQ := by
+      apply ρ.injective
+      rw [show ρ (ρ⁻¹ iQ) = iQ from ρ.apply_symm_apply iQ, map_neg, hi, neg_neg]
+    have h1 := key ρ⁻¹ hi' h
+    have h2 : galPt ρ (galPt ρ⁻¹ (tyzZn n)) = tyzZn n := by
+      rw [← galPt_mul, mul_inv_cancel, galPt_one]
+    rw [h1, map_add, galPt_tauG_one_one_of_neg hi] at h2
+    have h11 := tauG_one_one_add
+    refine ⟨-1, ?_⟩
+    rw [neg_one_zsmul, ← h11, eq_sub_of_add_eq h2]
+    abel
+
+end WAction
 
 /-! ### The main glue: `Lemma321Five` from the inputs -/
 
