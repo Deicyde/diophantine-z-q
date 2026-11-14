@@ -46,3 +46,4 @@
 - 01:28 Main: hypothesis h2 dropped (discharged by Sqrt2Glue.sqrtTwoNotInHHprime); new
   `package_lemma318Literal_HHprime` (TYZ Lemma 3.18, no hypotheses). Headline: field sqrtTwoNotIn dropped.
   Build OK; Check rerun: 89 × standard axioms; #check shows 4 hypotheses (all LEAF). VERIFIED.
+- 01:35 Final: report and .fleet/tyz-chain.md written; done.
