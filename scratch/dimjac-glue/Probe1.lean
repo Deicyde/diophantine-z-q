@@ -151,4 +151,104 @@ lemma Φ_injective [Smooth g] (U : X.Opens) (hU : IsAffineOpen U) (hne : (U : Se
     infer_instance
   exact (kaehlerToFractionFieldInjective Γ(X, U) F).comp (g.kaehlerSectionsEquiv U rfl hU).symm.injective
 
+
+omit [IsIntegral X] in
+lemma res_res {U V W : X.Opens} (h₁ : V ≤ U) (h₂ : W ≤ V) (s : Γ(g.relativeDifferentials, U)) :
+    g.relativeDifferentials.presheaf.map (homOfLE h₂).op
+        (g.relativeDifferentials.presheaf.map (homOfLE h₁).op s) =
+      g.relativeDifferentials.presheaf.map (homOfLE (h₂.trans h₁)).op s := by
+  rw [← ConcreteCategory.comp_apply, ← Functor.map_comp]
+  rfl
+
+lemma exists_affine_generic (W : X.Opens) (hW : (W : Set X).Nonempty) :
+    ∃ V : X.Opens, IsAffineOpen V ∧ genericPoint X ∈ V ∧ V ≤ W := by
+  obtain ⟨_, ⟨V, hV, rfl⟩, hηV, hVW⟩ :=
+    X.isBasis_affineOpens.exists_subset_of_mem_open (generic_mem W hW) W.2
+  exact ⟨V, hV, hηV, hVW⟩
+
+lemma univ_nonempty : (Set.univ : Set X).Nonempty := Set.univ_nonempty
+
+/-- A fixed nonempty affine open. -/
+def U₀ (X : Scheme.{0}) [IsIntegral X] : X.Opens :=
+  Classical.choose (exists_affine_generic (X := X) ⊤ (by simp))
+
+lemma U₀_spec : IsAffineOpen (U₀ X) ∧ genericPoint X ∈ U₀ X :=
+  ⟨(Classical.choose_spec (exists_affine_generic (X := X) ⊤ (by simp))).1,
+   (Classical.choose_spec (exists_affine_generic (X := X) ⊤ (by simp))).2.1⟩
+
+variable (g e) in
+/-- The global map `Φ : Γ(X, Ω¹) → Ω_{F/ℚ}`. -/
+def ΦG : Γ(g.relativeDifferentials, ⊤) →+ Ω[F⁄ℚ] :=
+  (Φ g e (U₀ X) U₀_spec.1 ⟨_, U₀_spec.2⟩).comp
+    (g.relativeDifferentials.presheaf.map (homOfLE (le_top : U₀ X ≤ ⊤)).op).hom
+
+lemma Φ_eq_of_affine {U V : X.Opens} (hU : IsAffineOpen U) (hV : IsAffineOpen V)
+    (hUne : (U : Set X).Nonempty) (hVne : (V : Set X).Nonempty) {T : X.Opens} (hUT : U ≤ T) (hVT : V ≤ T)
+    (s : Γ(g.relativeDifferentials, T)) :
+    Φ g e U hU hUne (g.relativeDifferentials.presheaf.map (homOfLE hUT).op s) =
+      Φ g e V hV hVne (g.relativeDifferentials.presheaf.map (homOfLE hVT).op s) := by
+  have hUV : ((U ⊓ V : X.Opens) : Set X).Nonempty :=
+    ⟨genericPoint X, (show genericPoint X ∈ U ⊓ V from ⟨generic_mem U hUne, generic_mem V hVne⟩)⟩
+  obtain ⟨W, hW, hηW, hWUV⟩ := exists_affine_generic (U ⊓ V) hUV
+  have hWne : (W : Set X).Nonempty := ⟨_, hηW⟩
+  rw [← Φ_res (hWUV.trans inf_le_left) hU hW hWne, ← Φ_res (hWUV.trans inf_le_right) hV hW hWne,
+    res_res, res_res]
+
+lemma ΦG_eq (V : X.Opens) (hV : IsAffineOpen V) (hne : (V : Set X).Nonempty)
+    (s : Γ(g.relativeDifferentials, ⊤)) :
+    ΦG g e s = Φ g e V hV hne (g.relativeDifferentials.presheaf.map (homOfLE (le_top : V ≤ ⊤)).op s) :=
+  Φ_eq_of_affine _ _ _ _ _ _ s
+
+
+omit [IsIntegral X] in
+/-- Locality of sections of `Ω¹` along the affine opens. -/
+lemma eq_of_affine_restrict (T : X.Opens) (s t : Γ(g.relativeDifferentials, T))
+    (h : ∀ V : X.Opens, IsAffineOpen V → (V : Set X).Nonempty → ∀ hVT : V ≤ T,
+      g.relativeDifferentials.presheaf.map (homOfLE hVT).op s =
+        g.relativeDifferentials.presheaf.map (homOfLE hVT).op t) : s = t := by
+  let ι := {V : X.Opens // IsAffineOpen V ∧ (V : Set X).Nonempty ∧ V ≤ T}
+  refine TopCat.Sheaf.eq_of_locally_eq' ⟨g.relativeDifferentials.presheaf, g.relativeDifferentials.isSheaf⟩
+    (fun i : ι => i.1) T (fun i => homOfLE i.2.2.2) ?_ s t (fun i => h i.1 i.2.1 i.2.2.1 i.2.2.2)
+  intro x hx
+  obtain ⟨_, ⟨V, hV, rfl⟩, hxV, hVT⟩ := X.isBasis_affineOpens.exists_subset_of_mem_open hx T.2
+  exact TopologicalSpace.Opens.mem_iSup.mpr ⟨⟨V, hV, ⟨x, hxV⟩, hVT⟩, hxV⟩
+
+lemma ΦG_injective [Smooth g] : Function.Injective (ΦG g e) := by
+  rw [injective_iff_map_eq_zero]
+  intro s hs
+  refine eq_of_affine_restrict ⊤ s 0 (fun V hV hne hVT => ?_)
+  rw [map_zero]
+  apply Φ_injective (e := e) V hV hne
+  rw [map_zero, ← hs, ΦG_eq V hV hne]
+
+omit [IsIntegral X] in
+/-- Gluing of sections of `Ω¹` given on the affine opens. -/
+lemma exists_glue (T : X.Opens)
+    (σ : ∀ V : X.Opens, IsAffineOpen V → (V : Set X).Nonempty → V ≤ T → Γ(g.relativeDifferentials, V))
+    (compat : ∀ (V V' W : X.Opens) (hV : IsAffineOpen V) (hV' : IsAffineOpen V') (hW : IsAffineOpen W)
+      (hVne : (V : Set X).Nonempty) (hV'ne : (V' : Set X).Nonempty) (hWne : (W : Set X).Nonempty)
+      (hVT : V ≤ T) (hV'T : V' ≤ T) (hWV : W ≤ V) (hWV' : W ≤ V'),
+      g.relativeDifferentials.presheaf.map (homOfLE hWV).op (σ V hV hVne hVT) =
+        g.relativeDifferentials.presheaf.map (homOfLE hWV').op (σ V' hV' hV'ne hV'T)) :
+    ∃ s : Γ(g.relativeDifferentials, T), ∀ (V : X.Opens) (hV : IsAffineOpen V)
+      (hne : (V : Set X).Nonempty) (hVT : V ≤ T),
+      g.relativeDifferentials.presheaf.map (homOfLE hVT).op s = σ V hV hne hVT := by
+  let ι := {V : X.Opens // IsAffineOpen V ∧ (V : Set X).Nonempty ∧ V ≤ T}
+  obtain ⟨s, hs, -⟩ := TopCat.Sheaf.existsUnique_gluing'
+    ⟨g.relativeDifferentials.presheaf, g.relativeDifferentials.isSheaf⟩
+    (fun i : ι => i.1) T (fun i => homOfLE i.2.2.2) (by
+      intro x hx
+      obtain ⟨_, ⟨V, hV, rfl⟩, hxV, hVT⟩ := X.isBasis_affineOpens.exists_subset_of_mem_open hx T.2
+      exact TopologicalSpace.Opens.mem_iSup.mpr ⟨⟨V, hV, ⟨x, hxV⟩, hVT⟩, hxV⟩)
+    (fun i => σ i.1 i.2.1 i.2.2.1 i.2.2.2) (by
+      intro i j
+      refine eq_of_affine_restrict (g := g) (i.1 ⊓ j.1) _ _ (fun W hW hWne hWij => ?_)
+      change g.relativeDifferentials.presheaf.map (homOfLE hWij).op
+          (g.relativeDifferentials.presheaf.map (homOfLE inf_le_left).op _) =
+        g.relativeDifferentials.presheaf.map (homOfLE hWij).op
+          (g.relativeDifferentials.presheaf.map (homOfLE inf_le_right).op _)
+      rw [res_res, res_res]
+      exact compat _ _ W i.2.1 j.2.1 hW i.2.2.1 j.2.2.1 hWne i.2.2.2 j.2.2.2 _ _)
+  exact ⟨s, fun V hV hne hVT => hs ⟨V, hV, hne, hVT⟩⟩
+
 end DimJacGlue
