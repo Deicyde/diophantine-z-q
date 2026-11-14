@@ -260,7 +260,62 @@ locators), `RaynaudCriterion` (the `m = 3` boundary in print).
 
 ## 4. Checks
 
-CHECKS-PLACEHOLDER
+**Kernel build.** `lake build $(cat scratch/leaf-fold5/kernel_targets.txt)` in this worktree: success (11006 jobs,
+16 min). The kernel modules the chain imports are unchanged between leaf-fold5's base ee7582da and d5d43efc
+(`git diff --stat ee7582da d5d43efc -- ZInQKernel` touches only `Contrib/TYZChain` and `AllContrib`).
+
+**Olean chain** (`scratch/leaf-fold6/chain.sh`, one Lean process at a time; times in `log.md`): leaf-fold4's committed
+sources LPrefix … TailK (LPrefix 535 s … TailK 13 s) and leaf-fold5's TailL, TailM (455 s), TailN, compiled unchanged,
+then TailO (part f10 + part f20, 27 s): 0 errors, no `sorry` in any module. All 369 `#print axioms` reports of the
+chain, joined over wrapped lines, read `[propext, Classical.choice, Quot.sound]`; TailO's 20 include
+`sixContactMin_of_open6`, `sixContactMin_of_open6_poincare`, `t8_ofK6`, `cmDescends_of6`, `qmHauptmodul_of6`,
+`gammaStarGen_proof`, `ellipticOrderLe6_proof`, `cmDescends_of`, `base2_of_base3`, `sixContactMin_of_openQ5` …
+`openQ10` (VERIFIED).
+
+**Kernel conclusion, closure, field heads, field types** (`olean/Check6.lean`, 46 s; output without host paths in
+`check6_result.txt`, VERIFIED):
+- `example : (∀ r t l g, _root_.ZInQ.SixContactMin) := HDec.HSyn.sixContactMin_of_open6` compiles.
+- The closure of `sixContactMin_of_open6` has 184 758 constants and does **not** contain `sorryAx`. It contains
+  leafq-check's `gammaStarGen_proof`, `valenceBound_of_formula`, `ellipticOrderLe6_proof`, `cmDescends_of`,
+  `torsionDescends_of_t5`, `base2_of_base3`, `qmHauptmodul_of_base2`, `orbit4`, `orbit3`, `orbit24`,
+  `LQ20.s20WeightExact_of`, and leaf-fold5's `t11b_of_exists`, `torsionStructure_ofK5`, `heckeVertWitness_of_leaves5`,
+  the kernel's `smoothFibreReduced`, `homFreeFinite_of_algClosed`, `curveOfFunctionFieldQ_of_split`,
+  `neronModelExists_of_extension`; it does not contain `poincareReducibility_of_simpleImage` (the `_poincare` variant's
+  closure, 184 795 constants, does).
+- The head constant of every field type: 68 fields, 32 kernel constants (§1.2).
+- **Field types as terms**: every field type of `OpenTextbookLeaves6`, `OpenAddedLeaves6`, `OpenGlue6` is `==` (as an
+  `Expr`, universe levels included) the type of the same field of leaf-fold5's `OpenTextbookLeaves5`,
+  `OpenAddedLeaves5`, `OpenGlue5` or of leafq-check's `OpenAddedLeaves10` (here `OpenAddedLeavesQ10`); `t8`'s type is
+  the constant `PkgI3.PoincareReducibility`: ALL MATCH. `OpenResearchLeaves5` is leaf-fold5's structure itself.
+
+**Flat file** FLAT-PLACEHOLDER
+
+**Verbatim check** (`python3 py/verbatim_check6.py`, output `py/verbatim_check6_out.txt`: ALL OK, VERIFIED):
+- (A) the 41 field lines of the new structures other than `t8` have, character for character, the text of the
+  same field in leaf-fold5's part e90 (38) or in leafq-check's `Fold.lean` `OpenAddedLeaves10` (`qmHauptmodulBase3`,
+  `stQM`, `valenceFormulaGammaStar`); the 26 research fields are leaf-fold5's structure.
+- (B) every one of the 36 chain head constants has, in the flat file, a declaration identical to one in a source
+  file outside the assemblies (leaf-fold*, h-decomposition, g0-assemble*, olean/ copies, flat files), e.g.
+  `ModelCoordinateResidue`, `CurveBijIso`, `ShimuraGoodReduction` in model-glue's files, `STQM` in leafq-check's
+  `CMDescendsGlue.lean`, `ValenceFormulaGammaStar` in `ValenceBound.lean`, `QMHauptmodulBase3` in
+  `QMHauptmodulCM.lean`, `T11bExists` in av-b2's `AVB2Main.lean`. For `R1R2fpRep`, `R5fp`, `R5fpCount` the
+  statement is identical and the docstring was repaired since (rv-loc-leaves). The 32 kernel head constants are
+  found in `ZInQKernel/` (the field is the kernel's declaration, so its text is the kernel's).
+- (C) the kernel's `PkgI3.PoincareReducibility` (`HDecomp/Objects.lean`) is identical, docstring included, to
+  pkg-I3's `I3.lean`, and its statement is identical to the chain's copy (whose docstring carries rv-leaves-b's
+  repair 2), which leaf-fold4's `t8` used.
+- (D) `STQM`, `TorsionDescends`, `bcC`, `ValenceFormulaGammaStar`, `ellOrder`, `EllipticOrderLe6`,
+  `QMHauptmodulBase`, `QMHauptmodulBase2`, `QMHauptmodulBase3`, `x3` have the same text in part f10, in leafq-check's
+  `Fold.lean` and in leafq-check's standalone files.
+
+**Changes to the copied texts** (each in a script, with its reason):
+
+| script | change | reason |
+|---|---|---|
+| `mk_f10.py` | `import TailK` dropped; 52 renames (`OpenAddedLeaves5..10` → `Q5..Q10`, `sixContactMin_of_open5..10` → `openQ5..Q10`, `openAddedLeaves4_of_5`, `openAddedLeaves5_of_6`); reversibility asserted | name clash with leaf-fold5 |
+| `parts/f20_fold6.lean` | hand-written transports and bundles | §1.1 |
+
+**No statement of a leaf or glue Prop was changed.**
 
 ## 5. Not folded, and why
 
