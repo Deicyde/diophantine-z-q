@@ -47,3 +47,9 @@ Y3Connected 97479, ValenceBoundGammaStar 113443, CMDescends 114469, GammaStarGen
 - `valenceBound_of_formula : ValenceFormulaGammaStar → ValenceBoundGammaStar`. Axioms standard.
 - Fold.lean: `OpenAddedLeaves6` (valenceBoundGammaStar → valenceFormulaGammaStar), `sixContactMin_of_open6`
   compiles over the chain (11 s), axioms standard.
+
+## Verbatim copies (VERIFIED, compiled)
+- `QMHauptmodul.lean` (import Mathlib; Leaves4 lines 170-372 verbatim): 0 errors.
+- `ThetaRatiosAlgebraic.lean`, `X6ConicModel.lean`, `Y3Connected.lean`, `CMDescends.lean` (import TailK;
+  docstring + body verbatim in `<ns>.LeafQCheckCopy`, `copy_iff : copy ↔ chain Prop := Iff.rfl`): each
+  exit 0 (4-5 s) via chk.sh.
