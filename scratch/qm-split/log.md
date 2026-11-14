@@ -30,3 +30,13 @@ Row sources (VERIFIED, read): definitions read in ~/dzq-wt/leaf-fold4/scratch/le
 - Computation: `disc_neg` (IsTotallyComplex ⇒ non-rational elements have t² < 4n), `unit_cases` (units of Φ⁻¹(𝒪):
   nrd = 1, trd ∈ ℤ), `card_units_R` (4/6/2 by explicit lists, `decide` on ℚ×ℚ lists), `excl_*` (products square
   to 3, 6, 18), `isoUnitEquiv : QMIso q q ≃ (com q)ˣ`.
+
+## H-63 `ALFixedPoints`: PROVED from the same leaf (VERIFIED, compiled)
+- `QMAut.lean` §5-§6: `alFixedPoints_of : QMCentralizerCM → HeckeRest.ALFixedPoints`, axioms standard, 16 s total.
+- AV glue `twist_data`: from G : (A, ι∘rep k) ≅ (A, ι): V = φ ι(τ), W = φ² in End_𝒪(A), V² = c W, W a unit
+  (τ = i, j, ij; c = 2, −3, 6; `conjO_facts`).
+- Computation: units w ∈ {±1, i-type, ζ₆, ζ₃} (`unit_cases'`); in each case V or V·w or V(1±w) squares to a
+  forbidden value (non-square 2, 3, 6, 12 in an imaginary field; −2 via `no_sq_neg2`: 3c² = 2e² + 2b² + 6d²
+  anisotropic, descent mod 3) or gives the CM element; m = 3: x ∈ 𝒪, x² = −3 ⇒ (1+x)/2 ∈ 𝒪
+  (`half_mem_of_sq_neg3`, parity mod 2). The embedding check of the docstring (ℚ(√−2), ℚ(√−7), ... ) is
+  replaced by these computations; ℤ case: v² = ±c impossible.

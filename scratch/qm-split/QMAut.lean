@@ -557,6 +557,336 @@ theorem qmAutCard_of (h : QMCentralizerCM) : HDec.HeckeRest.QMAutCard := by
       obtain ⟨r, -, hr⟩ := e3.1 a; obtain ⟨s, -, hs⟩ := e24.1 b
       exact excl_3_24 hk2 hr hs
 
+
+/-! ## §5 `ALFixedPoints`: computations in `B` -/
+
+/-- Anisotropy: `3c² = 2e² + 2b² + 6d²` over `ℤ` forces `e = 0` (descent mod 3). -/
+theorem aniso_m2 : ∀ (n : ℕ) (e b c d : ℤ), e.natAbs = n → 3 * c ^ 2 = 2 * e ^ 2 + 2 * b ^ 2 + 6 * d ^ 2 → e = 0 := by
+  intro n
+  induction n using Nat.strong_induction_on with
+  | _ n ih =>
+    intro e b c d hn h
+    have key : ∀ x y z w : ZMod 3, 3 * z ^ 2 = 2 * x ^ 2 + 2 * y ^ 2 + 6 * w ^ 2 → x = 0 ∧ y = 0 := by
+      decide
+    obtain ⟨he, hb⟩ := key (e : ZMod 3) (b : ZMod 3) (c : ZMod 3) (d : ZMod 3) (by exact_mod_cast congrArg (Int.cast : ℤ → ZMod 3) h)
+    rw [ZMod.intCast_zmod_eq_zero_iff_dvd] at he hb
+    obtain ⟨e', rfl⟩ := he
+    obtain ⟨b', rfl⟩ := hb
+    push_cast at h hn
+    have h' : c ^ 2 = 6 * e' ^ 2 + 6 * b' ^ 2 + 2 * d ^ 2 := by linarith
+    have key2 : ∀ x y z w : ZMod 3, x ^ 2 = 6 * z ^ 2 + 6 * w ^ 2 + 2 * y ^ 2 → x = 0 ∧ y = 0 := by decide
+    obtain ⟨hc, hd⟩ := key2 (c : ZMod 3) (d : ZMod 3) (e' : ZMod 3) (b' : ZMod 3) (by exact_mod_cast congrArg (Int.cast : ℤ → ZMod 3) h')
+    rw [ZMod.intCast_zmod_eq_zero_iff_dvd] at hc hd
+    obtain ⟨c', rfl⟩ := hc
+    obtain ⟨d', rfl⟩ := hd
+    push_cast at h'
+    have h'' : 3 * c' ^ 2 = 2 * e' ^ 2 + 2 * b' ^ 2 + 6 * d' ^ 2 := by linarith
+    by_cases he0 : e' = 0
+    · simp [he0]
+    · have hlt : e'.natAbs < n := by
+        rw [← hn, Int.natAbs_mul]; simp; omega
+      exact absurd (ih _ hlt e' b' c' d' rfl h'') he0
+
+open QuaternionAlgebra in
+/-- No element of `B` squares to `−2` (`ℚ(√−2)` does not embed in `B`: `3` splits in it). -/
+theorem no_sq_neg2 (x : B) : x * x ≠ -2 := by
+  intro hx
+  have hq := quat_sq x
+  rw [hx] at hq
+  have h0 := congrArg QuaternionAlgebra.re hq
+  have h1 := congrArg QuaternionAlgebra.imI hq
+  have h2 := congrArg QuaternionAlgebra.imJ hq
+  have h3 := congrArg QuaternionAlgebra.imK hq
+  simp [nrd, re_ofNat, imI_ofNat, imJ_ofNat, imK_ofNat] at h0 h1 h2 h3
+  by_cases hre : x.re = 0
+  · rw [hre] at h0
+    set E : ℤ := ((x.imI.den * x.imJ.den * x.imK.den : ℕ) : ℤ)
+    have hE : (E : ℚ) ≠ 0 := by simp [E]
+    obtain ⟨b, hb⟩ : ∃ z : ℤ, (z : ℚ) = x.imI * E :=
+      ⟨x.imI.num * (x.imJ.den * x.imK.den : ℕ), by
+        simp only [E]; push_cast; rw [← Rat.mul_den_eq_num x.imI]; ring⟩
+    obtain ⟨c, hc⟩ : ∃ z : ℤ, (z : ℚ) = x.imJ * E :=
+      ⟨x.imJ.num * (x.imI.den * x.imK.den : ℕ), by
+        simp only [E]; push_cast; rw [← Rat.mul_den_eq_num x.imJ]; ring⟩
+    obtain ⟨d, hd⟩ : ∃ z : ℤ, (z : ℚ) = x.imK * E :=
+      ⟨x.imK.num * (x.imI.den * x.imJ.den : ℕ), by
+        simp only [E]; push_cast; rw [← Rat.mul_den_eq_num x.imK]; ring⟩
+    have hint : 3 * c ^ 2 = 2 * E ^ 2 + 2 * b ^ 2 + 6 * d ^ 2 := by
+      have : (3 * c ^ 2 : ℚ) = 2 * E ^ 2 + 2 * b ^ 2 + 6 * d ^ 2 := by
+        rw [hb, hc, hd]; linear_combination (E : ℚ) ^ 2 * h0
+      exact_mod_cast this
+    exact hE (by exact_mod_cast aniso_m2 _ E b c d rfl hint)
+  · have hI : x.imI = 0 := h1.resolve_left hre
+    have hJ : x.imJ = 0 := h2.resolve_left hre
+    have hK : x.imK = 0 := h3.resolve_left hre
+    rw [hI, hJ, hK] at h0
+    nlinarith [sq_nonneg x.re]
+
+
+/-- `x ∈ 𝒪`, `x² = −3` ⇒ `(1 + x)/2 ∈ 𝒪` (`𝒪 ⊗ ℤ₂` is the maximal order of the local division algebra,
+which contains the cube roots of unity). -/
+theorem half_mem_of_sq_neg3 {x : B} (hxO : x ∈ LeafQM.O) (hx : x * x = -3) :
+    ((1 : ℚ) / 2) • (1 + x) ∈ LeafQM.O := by
+  have hq := quat_sq x
+  rw [hx] at hq
+  have h0 := congrArg QuaternionAlgebra.re hq
+  have h1 := congrArg QuaternionAlgebra.imI hq
+  have h2 := congrArg QuaternionAlgebra.imJ hq
+  have h3 := congrArg QuaternionAlgebra.imK hq
+  simp [nrd, QuaternionAlgebra.re_ofNat, QuaternionAlgebra.imI_ofNat, QuaternionAlgebra.imJ_ofNat,
+    QuaternionAlgebra.imK_ofNat] at h0 h1 h2 h3
+  have hre : x.re = 0 := by
+    by_contra hre
+    rw [h1.resolve_left hre, h2.resolve_left hre, h3.resolve_left hre] at h0
+    nlinarith [sq_nonneg x.re]
+  obtain ⟨n, rfl⟩ := hxO
+  simp only [LeafQM.ofInt] at hre h0
+  have hn2 : n 2 = -2 * n 0 := by
+    have : ((n 2 : ℤ) : ℚ) = -2 * n 0 := by linarith
+    exact_mod_cast this
+  rw [hre] at h0
+  have hQ : 3 * n 0 ^ 2 - 2 * (n 1 ^ 2 + n 1 * n 3 + n 3 ^ 2) = 3 := by
+    have e : ((n 2 : ℤ) : ℚ) = -2 * n 0 := by exact_mod_cast hn2
+    have : (3 * (n 0 : ℚ) ^ 2 - 2 * ((n 1 : ℚ) ^ 2 + n 1 * n 3 + n 3 ^ 2)) = 3 := by
+      rw [e] at h0; linear_combination h0
+    exact_mod_cast this
+  -- parities
+  have k1 : ∀ a b c : ZMod 2, 3 * a ^ 2 - 2 * (b ^ 2 + b * c + c ^ 2) = 3 → a - 1 = 0 := by decide
+  have ho := k1 (n 0) (n 1) (n 3) (by exact_mod_cast congrArg (Int.cast : ℤ → ZMod 2) hQ)
+  have ho' : ((n 0 - 1 : ℤ) : ZMod 2) = 0 := by push_cast; exact ho
+  rw [ZMod.intCast_zmod_eq_zero_iff_dvd] at ho'
+  obtain ⟨a, ha⟩ := ho'
+  have hQ' : n 1 ^ 2 + n 1 * n 3 + n 3 ^ 2 = 6 * a ^ 2 + 6 * a := by
+    have e : n 0 = 2 * a + 1 := by push_cast at ha; linarith
+    rw [e] at hQ; linarith
+  have k2 : ∀ b c : ZMod 2, b ^ 2 + b * c + c ^ 2 = 0 → b = 0 ∧ c = 0 := by decide
+  obtain ⟨hb, hc⟩ := k2 (n 1) (n 3) (by
+    have := congrArg (Int.cast : ℤ → ZMod 2) hQ'
+    push_cast at this
+    rw [this, show (6 : ZMod 2) = 0 from rfl]; ring)
+  rw [ZMod.intCast_zmod_eq_zero_iff_dvd] at hb hc
+  obtain ⟨b, hb⟩ := hb
+  obtain ⟨d, hd⟩ := hc
+  refine ⟨![a + 1, b, -(2 * a + 1), d], ?_⟩
+  have e0 : (n 0 : ℚ) = 2 * a + 1 := by push_cast at ha; exact_mod_cast (by linarith : n 0 = 2 * a + 1)
+  have e1 : (n 1 : ℚ) = 2 * b := by push_cast at hb; exact_mod_cast hb
+  have e3 : (n 3 : ℚ) = 2 * d := by push_cast at hd; exact_mod_cast hd
+  have e2 : (n 2 : ℚ) = -2 * (2 * a + 1) := by rw [← e0]; exact_mod_cast hn2
+  ext <;> simp [LeafQM.ofInt, e0, e1, e2, e3] <;> ring
+
+/-! ## §6 `ALFixedPoints`: the twist data and the case analysis -/
+
+section TwistData
+
+open LeafQM.AV PkgI3
+
+/-- From `(A, ι ∘ α) ≅ (A, ι)` with `α` conjugation by `τ` (`τ² = c` central): elements `V, W` of
+`End_𝒪(A)` with `V² = c W` and `W` a unit (`V = φ ι(τ)`, `W = φ²`). -/
+theorem twist_data {A : AbVar (AlgebraicClosure ℚ)} (q : QMStr A) (α : LeafQM.O ≃+* LeafQM.O)
+    (τ : LeafQM.O) (c : ℤ) (hατ : α τ = τ) (hcomm : ∀ a, α a * τ = τ * a) (hαα : ∀ a, α (α a) = a)
+    (hττ : τ * τ = (c : LeafQM.O)) (G : QMIso (q.twist α) q) :
+    ∃ V W Winv : com q, V * V = (c : com q) * W ∧ W * Winv = 1 := by
+  set φ : AbVar.End A := G.φ
+  set ψ : AbVar.End A := G.ψ
+  have eq1 : ∀ a, φ * q.iota (α a) = q.iota a * φ := fun a => AbVar.Hom.ext' (G.equivariant a)
+  have eq2 : ∀ a, ψ * q.iota a = q.iota (α a) * ψ := fun a => AbVar.Hom.ext' (G.symm.equivariant a)
+  have hφψ : φ * ψ = 1 := AbVar.Hom.ext' G.right
+  have hψφ : ψ * φ = 1 := AbVar.Hom.ext' G.left
+  have memc : ∀ z : AbVar.End A, (∀ a, q.iota a * z = z * q.iota a) → z ∈ com q := by
+    intro z hz
+    rw [com, Subring.mem_centralizer_iff]
+    rintro _ ⟨a, rfl⟩
+    exact hz a
+  have hW : φ * φ ∈ com q := memc _ fun a => by
+    rw [← mul_assoc, ← eq1, mul_assoc, ← eq1, hαα, mul_assoc]
+  have hWi : ψ * ψ ∈ com q := memc _ fun a => by
+    have h1 := eq2 (α a)
+    rw [hαα] at h1
+    rw [mul_assoc, eq2, ← mul_assoc, ← h1, mul_assoc]
+  have hV : φ * q.iota τ ∈ com q := memc _ fun a => by
+    rw [← mul_assoc, ← eq1, mul_assoc, ← map_mul, hcomm, map_mul, mul_assoc]
+  refine ⟨⟨_, hV⟩, ⟨_, hW⟩, ⟨_, hWi⟩, ?_, ?_⟩
+  · apply Subtype.ext
+    have h1 : q.iota τ * φ = φ * q.iota τ := by rw [← eq1, hατ]
+    change φ * q.iota τ * (φ * q.iota τ) = ((c : com q) : AbVar.End A) * (φ * φ)
+    rw [show ((c : com q) : AbVar.End A) = (c : AbVar.End A) by push_cast; rfl]
+    calc φ * q.iota τ * (φ * q.iota τ) = φ * (q.iota τ * φ) * q.iota τ := by noncomm_ring
+      _ = φ * φ * (q.iota (τ * τ)) := by rw [h1, map_mul]; noncomm_ring
+      _ = (c : AbVar.End A) * (φ * φ) := by rw [hττ, map_intCast, (Int.cast_commute c _).eq]
+  · apply Subtype.ext
+    change φ * φ * (ψ * ψ) = 1
+    calc φ * φ * (ψ * ψ) = φ * (φ * ψ) * ψ := by noncomm_ring
+      _ = 1 := by rw [hφψ, mul_one, hφψ]
+
+end TwistData
+
+
+theorem nsq (c : ℤ) (hc : ¬ IsSquare c) : ∀ a : ℚ, a * a ≠ c :=
+  fun a h => not_sq a c hc h
+
+section ALArith
+
+variable {k : Type} [Field k] [NumberField k] [IsTotallyComplex k] (hk : Module.finrank ℚ k = 2)
+  (Φ : k →ₐ[ℚ] B)
+include hk
+
+theorem unit_cases' {w winv : k} (hw : w ∈ LeafQM.O.comap Φ.toRingHom)
+    (hwi : winv ∈ LeafQM.O.comap Φ.toRingHom) (h : w * winv = 1) :
+    w = 1 ∨ w = -1 ∨ w * w + 1 = 0 ∨ w * w - w + 1 = 0 ∨ w * w + w + 1 = 0 := by
+  let U : (LeafQM.O.comap Φ.toRingHom)ˣ :=
+    ⟨⟨w, hw⟩, ⟨winv, hwi⟩, Subtype.ext h, Subtype.ext (by rw [mul_comm]; exact h)⟩
+  exact unit_cases hk Φ U
+
+theorem al2 {v w winv : k} (hv : v ∈ LeafQM.O.comap Φ.toRingHom) (hw : w ∈ LeafQM.O.comap Φ.toRingHom)
+    (hwi : winv ∈ LeafQM.O.comap Φ.toRingHom) (h : w * winv = 1) (hvv : v * v = 2 * w) :
+    ∃ r ∈ LeafQM.O.comap Φ.toRingHom, r * r = -1 := by
+  have negB : ∀ y : k, y * y = -2 → False := fun y hy =>
+    no_sq_neg2 (Φ y) (by rw [← map_mul, hy, map_neg, map_ofNat])
+  rcases unit_cases' hk Φ hw hwi h with h1 | h1 | h1 | h1 | h1
+  · exact (no_real_sqrt hk (y := v) (c := 2) (by norm_num) (nsq 2 (by decide +kernel))
+      (by rw [hvv, h1]; simp)).elim
+  · exact (negB v (by rw [hvv, h1]; ring)).elim
+  · exact ⟨w, hw, by linear_combination h1⟩
+  · exact (negB (v * w) (by linear_combination w * w * hvv + 2 * (w + 1) * h1)).elim
+  · exact (no_real_sqrt hk (y := v * w) (c := 2) (by norm_num) (nsq 2 (by decide +kernel))
+      (by simp; linear_combination w * w * hvv + 2 * (w - 1) * h1)).elim
+
+theorem al3 {v w winv : k} (hv : v ∈ LeafQM.O.comap Φ.toRingHom) (hw : w ∈ LeafQM.O.comap Φ.toRingHom)
+    (hwi : winv ∈ LeafQM.O.comap Φ.toRingHom) (h : w * winv = 1) (hvv : v * v = -3 * w) :
+    ∃ r ∈ LeafQM.O.comap Φ.toRingHom, r * r - r + 1 = 0 := by
+  rcases unit_cases' hk Φ hw hwi h with h1 | h1 | h1 | h1 | h1
+  · refine ⟨algebraMap ℚ k (1 / 2) * (1 + v), ?_, ?_⟩
+    · show Φ (algebraMap ℚ k (1 / 2) * (1 + v)) ∈ LeafQM.O
+      have hvO : Φ v ∈ LeafQM.O := hv
+      have := half_mem_of_sq_neg3 hvO (by rw [← map_mul, hvv, h1, mul_one, map_neg, map_ofNat])
+      rw [map_mul, AlgHom.commutes, map_add, map_one, ← Algebra.smul_def]
+      exact this
+    · rw [h1] at hvv
+      simp only [map_div₀, map_one, map_ofNat]
+      field_simp
+      linear_combination hvv
+  · exact (no_real_sqrt hk (y := v) (c := 3) (by norm_num) (nsq 3 (by decide +kernel))
+      (by rw [hvv, h1]; simp)).elim
+  · exact (no_real_sqrt hk (y := v * (1 + w)) (c := 6) (by norm_num) (nsq 6 (by decide +kernel))
+      (by simp; linear_combination (1 + w) * (1 + w) * hvv + (-3 * w - 6) * h1)).elim
+  · exact ⟨w, hw, h1⟩
+  · exact ⟨-w, (LeafQM.O.comap Φ.toRingHom).neg_mem hw, by linear_combination h1⟩
+
+theorem al6 {v w winv : k} (hv : v ∈ LeafQM.O.comap Φ.toRingHom) (hw : w ∈ LeafQM.O.comap Φ.toRingHom)
+    (hwi : winv ∈ LeafQM.O.comap Φ.toRingHom) (h : w * winv = 1) (hvv : v * v = 6 * w) :
+    ∃ r ∈ LeafQM.O.comap Φ.toRingHom, r * r = -6 := by
+  rcases unit_cases' hk Φ hw hwi h with h1 | h1 | h1 | h1 | h1
+  · exact (no_real_sqrt hk (y := v) (c := 6) (by norm_num) (nsq 6 (by decide +kernel))
+      (by rw [hvv, h1]; simp)).elim
+  · exact ⟨v, hv, by rw [hvv, h1]; ring⟩
+  · exact (no_real_sqrt hk (y := v * (1 - w)) (c := 12) (by norm_num) (nsq 12 (by decide +kernel))
+      (by simp; linear_combination (1 - w) * (1 - w) * hvv + (6 * w - 12) * h1)).elim
+  · exact ⟨v * w, (LeafQM.O.comap Φ.toRingHom).mul_mem hv hw,
+      by linear_combination w * w * hvv + 6 * (w + 1) * h1⟩
+  · exact (no_real_sqrt hk (y := v * w) (c := 6) (by norm_num) (nsq 6 (by decide +kernel))
+      (by simp; linear_combination w * w * hvv + 6 * (w - 1) * h1)).elim
+
+end ALArith
+
+
+section Conj
+
+open LeafQM.AV.Pin.Exact LeafQM.AV.Pin.NormO
+
+theorem conjO_facts (u : LeafQM.Bˣ) (hu : IsNorm u) (huO : (u : B) ∈ LeafQM.O) (c : ℤ)
+    (huu : (u : B) * u = (c : B)) :
+    conjO u hu ⟨u, huO⟩ = ⟨u, huO⟩ ∧ (∀ a, conjO u hu a * ⟨u, huO⟩ = ⟨u, huO⟩ * a) ∧
+      (∀ a, conjO u hu (conjO u hu a) = a) ∧
+      (⟨u, huO⟩ : LeafQM.O) * ⟨u, huO⟩ = (c : LeafQM.O) := by
+  refine ⟨Subtype.ext ?_, fun a => Subtype.ext ?_, fun a => Subtype.ext ?_, Subtype.ext ?_⟩
+  · simp [conjO_apply]
+  · simp [conjO_apply, mul_assoc]
+  · have hc : ((u : B) * u) * a = a * ((u : B) * u) := by rw [huu]; exact (Int.cast_commute c _)
+    simp only [conjO_apply]
+    calc (u : B) * ((u : B) * a * ((u⁻¹ : LeafQM.Bˣ) : B)) * ((u⁻¹ : LeafQM.Bˣ) : B)
+        = ((u : B) * u * a) * (((u⁻¹ : LeafQM.Bˣ) : B) * ((u⁻¹ : LeafQM.Bˣ) : B)) := by noncomm_ring
+      _ = (a * ((u : B) * u)) * (((u⁻¹ : LeafQM.Bˣ) : B) * ((u⁻¹ : LeafQM.Bˣ) : B)) := by rw [hc]
+      _ = a := by simp [mul_assoc]
+  · simp only [Subring.coe_mul]
+    rw [huu]; push_cast; rfl
+
+theorem tt1 : (tt 1 : B) = LeafQM.ofInt ei := rfl
+theorem tt2 : (tt 2 : B) = LeafQM.ofInt ej := rfl
+theorem tt3 : (tt 3 : B) = LeafQM.ofInt ei * LeafQM.ofInt ej := rfl
+
+theorem tt_mem (k : Fin 4) (hk : k ≠ 0) : (tt k : B) ∈ LeafQM.O := by
+  fin_cases k
+  · exact absurd rfl hk
+  · exact ⟨ei, rfl⟩
+  · exact ⟨ej, rfl⟩
+  · exact ⟨LeafQM.mulCoord ei ej, by show (tt 3 : B) = _; rw [tt3, LeafQM.ofInt_mul]⟩
+
+theorem tt1_sq : (tt 1 : B) * tt 1 = ((2 : ℤ) : B) := by
+  rw [tt1]; ext <;> simp [LeafQM.ofInt, ei, QuaternionAlgebra.re_ofNat, QuaternionAlgebra.imI_ofNat, QuaternionAlgebra.imJ_ofNat, QuaternionAlgebra.imK_ofNat] <;> norm_num
+theorem tt2_sq : (tt 2 : B) * tt 2 = ((-3 : ℤ) : B) := by
+  rw [tt2]; ext <;> simp [LeafQM.ofInt, ej, QuaternionAlgebra.re_ofNat, QuaternionAlgebra.imI_ofNat, QuaternionAlgebra.imJ_ofNat, QuaternionAlgebra.imK_ofNat] <;> norm_num
+theorem tt3_sq : (tt 3 : B) * tt 3 = ((6 : ℤ) : B) := by
+  rw [tt3]; ext <;> simp [LeafQM.ofInt, ei, ej, QuaternionAlgebra.re_ofNat, QuaternionAlgebra.imI_ofNat, QuaternionAlgebra.imJ_ofNat, QuaternionAlgebra.imK_ofNat] <;> norm_num
+
+end Conj
+
+theorem int_case (c : ℤ) (h1 : ¬ IsSquare c) (h2 : ¬ IsSquare (-c)) (v w wi : ℤ) (hv : v * v = c * w)
+    (hw : w * wi = 1) : False := by
+  rcases Int.eq_one_or_neg_one_of_mul_eq_one hw with rfl | rfl
+  · exact h1 ⟨v, by linarith⟩
+  · exact h2 ⟨v, by linarith⟩
+
+open LeafQM.AV PkgI3 LeafQM.AV.Pin.Exact in
+/-- **Row H-63 from the leaf.** -/
+theorem alFixedPoints_of (h : QMCentralizerCM) : HDec.HeckeRest.ALFixedPoints := by
+  intro A hA q
+  -- the twist data for `k = 1, 2, 3`
+  have data : ∀ (kk : Fin 4) (c : ℤ), kk ≠ 0 → (tt kk : B) * tt kk = (c : B) →
+      Nonempty (QMIso (q.twist (rep kk)) q) → ∃ V W Winv : com q, V * V = (c : com q) * W ∧ W * Winv = 1 := by
+    intro kk c hk0 hsq ⟨G⟩
+    obtain ⟨f1, f2, f3, f4⟩ := conjO_facts (tt kk) (tt_isNorm kk) (tt_mem kk hk0) c hsq
+    exact twist_data q (rep kk) _ c f1 f2 f3 f4 G
+  obtain ⟨h4i, h3i, h24i⟩ := cm_iff q
+  rcases h A hA q with he | ⟨k, _, _, hkc, hk2, Φ, he⟩
+  · obtain ⟨e⟩ := he
+    have zc : ∀ (kk : Fin 4) (c : ℤ), kk ≠ 0 → (tt kk : B) * tt kk = (c : B) → ¬ IsSquare c → ¬ IsSquare (-c) →
+        ¬ Nonempty (QMIso (q.twist (rep kk)) q) := by
+      intro kk c hk0 hsq n1 n2 hG
+      obtain ⟨V, W, Wi, hV, hW⟩ := data kk c hk0 hsq hG
+      apply int_case c n1 n2 (e V) (e W) (e Wi)
+      · rw [← map_mul, hV, map_mul, map_intCast, Int.cast_id]
+      · rw [← map_mul, hW, map_one]
+    refine ⟨fun hG => (zc 1 2 (by decide) tt1_sq (by decide +kernel) (by decide +kernel) hG).elim,
+      fun hG => (zc 2 (-3) (by decide) tt2_sq (by decide +kernel) (by decide +kernel) hG).elim,
+      fun hG => (zc 3 6 (by decide) tt3_sq (by decide +kernel) (by decide +kernel) hG).elim⟩
+  · obtain ⟨e⟩ := he
+    haveI := hkc
+    set R := LeafQM.O.comap Φ.toRingHom
+    obtain ⟨s4, s3, s24⟩ := sub_ex_iff R
+    have e4 : HasCM4 q ↔ ∃ r ∈ R, r * r = -1 := by rw [h4i, ex4_iff e, s4]
+    have e3 : HasCM3 q ↔ ∃ r ∈ R, r * r - r + 1 = 0 := by rw [h3i, ex3_iff e, s3]
+    have e24 : HasCM24 q ↔ ∃ r ∈ R, r * r = -6 := by rw [h24i, ex24_iff e, s24]
+    have tr : ∀ (kk : Fin 4) (c : ℤ), kk ≠ 0 → (tt kk : B) * tt kk = (c : B) →
+        Nonempty (QMIso (q.twist (rep kk)) q) →
+        ∃ v w wi : k, v ∈ R ∧ w ∈ R ∧ wi ∈ R ∧ w * wi = 1 ∧ v * v = c * w := by
+      intro kk c hk0 hsq hG
+      obtain ⟨V, W, Wi, hV, hW⟩ := data kk c hk0 hsq hG
+      refine ⟨(e V : R), (e W : R), (e Wi : R), (e V).2, (e W).2, (e Wi).2, ?_, ?_⟩
+      · have := congrArg Subtype.val (show e W * e Wi = 1 by rw [← map_mul, hW, map_one])
+        exact this
+      · have := congrArg Subtype.val (show e V * e V = (c : R) * e W by
+          rw [← map_mul, hV, map_mul, map_intCast])
+        rw [show ((((c : R) * e W : R)) : k) = (c : k) * (e W : R) by push_cast; rfl] at this
+        exact this
+    refine ⟨fun hG => ?_, fun hG => ?_, fun hG => ?_⟩
+    · obtain ⟨v, w, wi, hv, hw, hwi, hww, hvv⟩ := tr 1 2 (by decide) tt1_sq hG
+      exact e4.2 (al2 hk2 Φ hv hw hwi hww (by rw [hvv]; push_cast; ring))
+    · obtain ⟨v, w, wi, hv, hw, hwi, hww, hvv⟩ := tr 2 (-3) (by decide) tt2_sq hG
+      exact e3.2 (al3 hk2 Φ hv hw hwi hww (by rw [hvv]; push_cast; ring))
+    · obtain ⟨v, w, wi, hv, hw, hwi, hww, hvv⟩ := tr 3 6 (by decide) tt3_sq hG
+      exact e24.2 (al6 hk2 Φ hv hw hwi hww (by rw [hvv]; push_cast; ring))
+
 end HDec.QMSplit.Aut
 
 #print axioms HDec.QMSplit.Aut.qmAutCard_of
+#print axioms HDec.QMSplit.Aut.alFixedPoints_of
