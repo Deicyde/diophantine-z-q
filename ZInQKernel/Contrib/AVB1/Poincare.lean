@@ -109,9 +109,24 @@ theorem isIsogenyMor_comp {X Y W : Over (Spec (CommRingCat.of k))} (a : X ⟶ Y)
 
 end Glue
 
-/-- **T8 from Poincaré's theorem (complement form) and two textbook facts.** -/
-theorem poincareReducibility_of_pieces (hP : PoincareComplement) (hI : ImageFactorization)
-    (hS : SimpleSurjIsogeny) : _root_.PkgI3.PoincareReducibility := by
+/-- **A nonzero homomorphism out of a simple abelian variety is an isogeny onto its image**
+(textbook; the two glue Props `ImageFactorization` and `SimpleSurjIsogeny` together, see
+`simpleImageIsogeny_of_pieces`). Over a field of characteristic `0`, if `End⁰(A)` is a division
+algebra and `f : A → J` is a nonzero homomorphism, then `f = i ∘ h` with `h : A → B` an isogeny
+(finite and surjective) and `i : B → J` a homomorphism that is a closed immersion. Sources
+(UNVERIFIED locators): Mumford, *Abelian varieties*, §19 (simple abelian varieties: a nonzero
+homomorphism from a simple `A` has finite kernel) with the image of a homomorphism being an
+abelian subvariety (Milne 1986 §8); same ingredients as the two glue Props. -/
+def SimpleImageIsogeny : Prop :=
+  ∀ (k : Type) [Field k] [CharZero k] (A J : _root_.PkgI3.AbVar k), _root_.PkgI3.EndDivision A →
+    ∀ f : _root_.PkgI3.AbVar.Hom A J, f ≠ 0 →
+    ∃ (B : _root_.PkgI3.AbVar k) (h : _root_.PkgI3.AbVar.Hom A B)
+      (i : _root_.PkgI3.AbVar.Hom B J),
+      _root_.PkgI3.AbVar.IsIsogenyMor h.hom ∧ IsClosedImmersion i.hom.left ∧ f.hom = h.hom ≫ i.hom
+
+/-- The two glue Props give `SimpleImageIsogeny`. -/
+theorem simpleImageIsogeny_of_pieces (hI : ImageFactorization) (hS : SimpleSurjIsogeny) :
+    SimpleImageIsogeny := by
   intro k _ _ A J hA f hf
   obtain ⟨B, h, i, hsurj, hci, hfac⟩ := hI k A J f
   have hh : h ≠ 0 := by
@@ -119,7 +134,13 @@ theorem poincareReducibility_of_pieces (hP : PoincareComplement) (hI : ImageFact
     apply hf
     apply _root_.PkgI3.AbVar.Hom.ext'
     rw [hfac, _root_.PkgI3.AbVar.Hom.hom_zero, _root_.PkgI3.AbVar.Hom.hom_zero, one_comp_hom]
-  have hiso := hS k A B hA h hh hsurj
+  exact ⟨B, h, i, hS k A B hA h hh hsurj, hci, hfac⟩
+
+/-- **T8 from Poincaré's theorem (complement form) and `SimpleImageIsogeny`.** -/
+theorem poincareReducibility_of_simpleImage (hP : PoincareComplement)
+    (hSI : SimpleImageIsogeny) : _root_.PkgI3.PoincareReducibility := by
+  intro k _ _ A J hA f hf
+  obtain ⟨B, h, i, hiso, hci, hfac⟩ := hSI k A J hA f hf
   obtain ⟨Z, g, hm⟩ := hP k J B i hci
   refine ⟨Z, g, ?_⟩
   have heq : fst A.X Z.X ≫ f.hom * snd A.X Z.X ≫ g.hom =
@@ -128,5 +149,10 @@ theorem poincareReducibility_of_pieces (hP : PoincareComplement) (hI : ImageFact
       Category.assoc, hfac]
   rw [heq]
   exact isIsogenyMor_comp _ _ (isIsogenyMor_whiskerRight _ _ hiso) hm
+
+/-- **T8 from Poincaré's theorem (complement form) and two textbook facts.** -/
+theorem poincareReducibility_of_pieces (hP : PoincareComplement) (hI : ImageFactorization)
+    (hS : SimpleSurjIsogeny) : _root_.PkgI3.PoincareReducibility :=
+  poincareReducibility_of_simpleImage hP (simpleImageIsogeny_of_pieces hI hS)
 
 end ZInQ.Contrib.AVB1

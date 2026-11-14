@@ -22,6 +22,17 @@ theorem t8_of_pieces (hP : PoincareComplement) (hI : ImageFactorization) (hS : S
     PkgI3.PoincareReducibility :=
   poincareReducibility_of_pieces hP hI hS
 
+/-- leaf-fold3's field `t8` from Poincaré's theorem (complement form) and `SimpleImageIsogeny`. -/
+theorem t8_of_simpleImage (hP : PoincareComplement) (hSI : SimpleImageIsogeny) :
+    PkgI3.PoincareReducibility :=
+  poincareReducibility_of_simpleImage hP hSI
+
+/-- The three fields from four Props (the fold that adds one field). -/
+theorem t6_t7_t8_of_avb1' (h6 : HomFreeFiniteAlgClosed) (h7 : CharPolyIndepOfEllAlgClosed)
+    (hP : PoincareComplement) (hSI : SimpleImageIsogeny) :
+    PkgI3.HomFreeFinite ∧ PkgI3.CharPolyIndepOfEll ∧ PkgI3.PoincareReducibility :=
+  ⟨t6_of_algClosed h6, t7_of_algClosed h7, t8_of_simpleImage hP hSI⟩
+
 /-- The three fields at once. -/
 theorem t6_t7_t8_of_avb1 (h6 : HomFreeFiniteAlgClosed) (h7 : CharPolyIndepOfEllAlgClosed)
     (hP : PoincareComplement) (hI : ImageFactorization) (hS : SimpleSurjIsogeny) :
@@ -46,3 +57,7 @@ end HDec
 #print axioms HDec.AVB1Check.t7_of_algClosed
 #print axioms HDec.AVB1Check.t8_of_pieces
 #print axioms HDec.AVB1Check.t6_t7_t8_of_avb1
+#print axioms HDec.ZInQ.Contrib.AVB1.poincareReducibility_of_simpleImage
+#print axioms HDec.ZInQ.Contrib.AVB1.simpleImageIsogeny_of_pieces
+#print axioms HDec.AVB1Check.t8_of_simpleImage
+#print axioms HDec.AVB1Check.t6_t7_t8_of_avb1'
