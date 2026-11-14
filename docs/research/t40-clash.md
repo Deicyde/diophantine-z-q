@@ -102,15 +102,37 @@ All runs used `lake build` or `lake env lean` from the worktree, one Lean proces
    `FrobPieces.SmoothGeomConnIntegral`, `Chebotarev.FrobeniusDense`, `AbsFrob.Basic`,
    `GZTheta.ALFinal`, `RLeaf.T36Torsion` and `TauCeti.Algebra.GroupWithZero.Units.Basic`, and
    `#check`s the three formerly clashing names, `Units.eq_of_mul_mul_inv_eq_of_commute` and
-   T40's `x1RationalCusp_of_x0Transitive` / `x1ConstantField_of_x0Transitive`. RESULT: see
-   section 5.
+   T40's `x1RationalCusp_of_x0Transitive` / `x1ConstantField_of_x0Transitive`. First
+   `lake build` of the six Contrib imports: success (10690 jobs, 8.5 min, no errors). Then
+   `lake env lean scratch/t40-clash/Together.lean`: **compiles**, and every `#check` prints
+   (section 5).
 
 There is no module `ZInQKernel.Contrib.FrobChain`. The frob-chain Contrib modules are
 `FrobPieces/`, `Chebotarev/` and `AbsFrob/`, and the test imports one module from each.
 
 ## 5. Result of the together test
 
-(filled in below)
+`Together.lean` compiles with no errors. Output:
+
+```
+@Units.val_mul_zpow_natCast_mul : ∀ {K : Type u_1} [inst : CommGroupWithZero K] (u v : Kˣ) (n : ℕ),
+  ↑(u * v) ^ ↑n * ↑u = ↑u ^ (n + 1) * ↑v ^ n
+@Units.val_mul_zpow_neg_natCast_succ_mul : ... [inst : CommGroupWithZero K] ...
+@TauCeti.mem_range_iff_exists_units_map_eq : ... [inst : GroupWithZero G₀] ... [inst_4 : MonoidWithZeroHomClass F G₀ M₀] ...
+@Units.eq_of_mul_mul_inv_eq_of_commute : ∀ {A : Type u_1} [inst : Monoid A] {a z : A} (u : Aˣ),
+  ↑u * a * ↑u⁻¹ = z → Commute z ↑u → a = z
+ZInQ.RLeaf.x1RationalCusp_of_x0Transitive : ZInQ.RLeaf.X0Transitive → X1Belyi.X1RationalCusp
+ZInQ.RLeaf.x1ConstantField_of_x0Transitive : ZInQ.RLeaf.X0Transitive → X1Belyi.X1ConstantField
+```
+
+Caveat: none of the six named Contrib modules (`Mobius.Main`, `FrobPieces.SmoothGeomConnIntegral`,
+`Chebotarev.FrobeniusDense`, `AbsFrob.Basic`, `GZTheta.ALFinal`, `RLeaf.T36Torsion`) imports
+`TauCeti.Algebra.GroupWithZero.Units.Basic` (checked on their forward import closures). So
+those six alone would not have reproduced the clash. `Together.lean` therefore also imports
+the GroupWithZero module itself, and that import is what exercises the fix. The clash arises with
+any module whose closure contains the GaloisCohomology files (`Coefficients`, `Inflation`,
+`Kummer`), such as the Kronecker-Weber / class-field Contrib modules. Section 6 covers the
+broader test of T40 against all of Contrib.
 
 ## Files
 
