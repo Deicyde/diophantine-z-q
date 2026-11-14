@@ -202,3 +202,24 @@ standard; no sorry in the parts)
   `infinite_qbarPoints`).
 - **Final composite `modelCoordinateResidue_final6`**: L1-L6 + T5 + CurveBijIso +
   CoverModelOfHeckeN + (B-desc) + (B-iso) + (C1b-obj) `CMStabObj` ⇒ `ModelCoordinateResidue`.
+
+## Step 16 (11:20) — VERIFIED (parts 1-18 + 9; exit 0; compile18_out.txt; standard axioms)
+- (B-desc) split: `QuotientDescendsMapQ` (descent of `σ` only) and the lifting of `ℚ̄`-points,
+  proved: `isGQuotient_surjective` (lying over: `Algebra.IsInvariant.isIntegral`,
+  `Ideal.exists_ideal_over_prime_of_isIntegral`, `SpecMap_appLE_fromSpec`), `exists_lift_qbar`
+  (fibre `X ×_Z Spec ℚ̄` finite nonempty ⇒ closed point ⇒ `pointOfClosedPoint`).
+  `quotientDescendsQ_of (hDm : QuotientDescendsMapQ) : QuotientDescendsQ`.
+- **Final composite `modelCoordinateResidue_final7`**: L1-L6 + T5 + CurveBijIso +
+  CoverModelOfHeckeN + (B-desc-map) `QuotientDescendsMapQ` + (B-iso) `ToP1BijIsCoordinateQ` +
+  (C1b-obj) `CMStabObj` ⇒ `ModelCoordinateResidue`.
+
+## Step 17 (11:20) — independent statement review (model, read-only, not compiled)
+- Reviewed `ModelYIrreducible`, `CurveClosedQbarFinite`, `CMStabObj`, `QuotientDescendsQ`,
+  `ToP1BijIsCoordinateQ`: all judged TRUE, none false or vacuous (SPECULATIVE judgements).
+  Notes: `ModelYIrreducible` rests on `Y ≅ Y₃` (via R1univ; Lemma P for the polarization) and
+  π₀(Y₃,ℚ̄) ≅ (ℤ/3)^× swapped by Galois; `CMStabObj`: words in twists/rightMuls reduce to
+  `twist α ∘ rightMul u` (`rightMul u ∘ twist β = twist β ∘ rightMul β(u)`), stabilizers of the
+  elliptic points cyclic of orders 4, 6, 2, each with a unique involution; `QuotientDescendsQ`
+  does not even need `IsFinite q` or properness. Composition order in `cMStabInvolution_of`
+  (`ι = g_α * g_u`, points move by `g_u` then `g_α`) matches `T = twist α ∘ rightMul u` (the
+  compiled proof confirms it).

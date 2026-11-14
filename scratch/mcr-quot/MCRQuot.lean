@@ -7742,6 +7742,137 @@ theorem modelCoordinateResidue_final6 (hAF : ProperCurveAF) (hQE : FiniteQuotien
 
 end MCRQuot
 
+/-! ════════════════════════════════════════════════════════════════════════════════════════════
+# mcr-quot, part 18: (B-desc) split; the lifting of `ℚ̄`-points through the quotient, proved
+════════════════════════════════════════════════════════════════════════════════════════════ -/
+
+noncomputable section
+
+namespace MCRQuot
+
+open Polynomial CategoryTheory AlgebraicGeometry Limits LeafQM LeafQM.AV VertWitness HeckeRestNV
+open G0ModField PropTSRed PropTSGlue ModelGlue MCRGlue LeafQM.AV.Pin PkgI3
+
+/-- **An SGA 1 quotient by a finite group is surjective** (lying over for the integral extension
+`Γ(W) = Γ(q⁻¹W)^G ⊆ Γ(q⁻¹W)`: Mathlib's `Algebra.IsInvariant.isIntegral` and
+`Ideal.exists_ideal_over_prime_of_isIntegral`). -/
+theorem isGQuotient_surjective {X Z : Scheme.{0}} (G : Subgroup (Aut X)) (q : X ⟶ Z)
+    (hfin : Finite G) (hq : IsGQuotient G q) : Function.Surjective q := by
+  intro z
+  obtain ⟨hinv, haff, hsec⟩ := hq
+  obtain ⟨_, ⟨W, hW : IsAffineOpen W, rfl⟩, hzW, -⟩ :=
+    Z.isBasis_affineOpens.exists_subset_of_mem_open (Set.mem_univ z) isOpen_univ
+  set U := q ⁻¹ᵁ W with hUdef
+  have hU : IsAffineOpen U := hW.preimage q
+  letI : MulSemiringAction G Γ(X, U) := secAction hinv W
+  letI : Algebra Γ(Z, W) Γ(X, U) := (q.app W).hom.toAlgebra
+  haveI : SMulCommClass G Γ(Z, W) Γ(X, U) := by
+    constructor
+    intro g a b
+    change secMap _ _ W (q.app W a * b) = q.app W a * secMap _ _ W b
+    rw [map_mul, secMap_app]
+  haveI : Algebra.IsInvariant Γ(Z, W) Γ(X, U) G := by
+    constructor
+    intro b hb
+    have hmem : b ∈ Set.range (q.app W) := by
+      rw [(hsec W hW).2]
+      intro g hg
+      have := hb ⟨g⁻¹, G.inv_mem hg⟩
+      change secMap _ _ W b = b at this
+      rw [secMap_congr (f' := g.asIso.hom) (by simp) _ (hinv g hg)] at this
+      exact this
+    obtain ⟨a, ha⟩ := hmem
+    exact ⟨a, ha⟩
+  haveI : Algebra.IsIntegral Γ(Z, W) Γ(X, U) := Algebra.IsInvariant.isIntegral Γ(Z, W) Γ(X, U) G
+  set P := (hW.primeIdealOf ⟨z, hzW⟩).asIdeal with hPdef
+  haveI : P.IsPrime := (hW.primeIdealOf ⟨z, hzW⟩).isPrime
+  obtain ⟨Q, -, hQ, hQP⟩ := Ideal.exists_ideal_over_prime_of_isIntegral P (⊥ : Ideal Γ(X, U))
+    (by
+      intro a ha
+      have h0 : q.app W a = 0 := Ideal.mem_bot.mp (Ideal.mem_comap.mp ha)
+      rw [(hsec W hW).1 (h0.trans (map_zero _).symm)]
+      exact P.zero_mem)
+  obtain ⟨y, hy⟩ : ∃ y : Spec Γ(X, U), y.asIdeal = Q := ⟨⟨Q, hQ⟩, rfl⟩
+  refine ⟨hU.fromSpec y, ?_⟩
+  have h1 : Spec.map (q.appLE W U le_rfl) y = hW.primeIdealOf ⟨z, hzW⟩ := by
+    apply PrimeSpectrum.ext
+    change Ideal.comap (q.appLE W U le_rfl).hom y.asIdeal = P
+    rw [← Scheme.Hom.app_eq_appLE, hy]
+    exact hQP
+  rw [← Scheme.Hom.comp_apply, ← IsAffineOpen.SpecMap_appLE_fromSpec q hW hU le_rfl,
+    Scheme.Hom.comp_apply, h1, IsAffineOpen.fromSpec_primeIdealOf]
+
+/-- **`ℚ̄`-points lift through a finite SGA 1 quotient by a finite group**: the fibre
+`X ×_Z Spec ℚ̄` is finite over `Spec ℚ̄` and nonempty (surjectivity), so it has a closed point,
+which is a `ℚ̄`-point (Mathlib's `pointOfClosedPoint`). -/
+theorem exists_lift_qbar {X Z : Scheme.{0}} (G : Subgroup (Aut X)) (q : X ⟶ Z) (hfin : Finite G)
+    (hq : IsGQuotient G q) [IsFinite q] (t₀ : Spec (CommRingCat.of Qbar) ⟶ Z) :
+    ∃ y₀ : Spec (CommRingCat.of Qbar) ⟶ X, y₀ ≫ q = t₀ := by
+  have hsurj := isGQuotient_surjective G q hfin hq
+  let f : pullback q t₀ ⟶ Spec (CommRingCat.of Qbar) := pullback.snd q t₀
+  haveI : IsFinite f := inferInstance
+  haveI : LocallyOfFiniteType f := inferInstance
+  haveI : JacobsonSpace (pullback q t₀ : Scheme.{0}) := LocallyOfFiniteType.jacobsonSpace f
+  obtain ⟨x, hx⟩ := hsurj (t₀ (IsLocalRing.closedPoint Qbar))
+  obtain ⟨w, -, -⟩ := Scheme.Pullback.exists_preimage_pullback (f := q) (g := t₀) x
+    (IsLocalRing.closedPoint Qbar) hx
+  obtain ⟨c, -, hc⟩ := nonempty_inter_closedPoints (⟨w, Set.mem_univ _⟩ :
+    (Set.univ : Set (pullback q t₀ : Scheme.{0})).Nonempty) isOpen_univ.isLocallyClosed
+  have hcl : IsClosed ({c} : Set (pullback q t₀ : Scheme.{0})) := mem_closedPoints_iff.mp hc
+  refine ⟨pointOfClosedPoint f c hcl ≫ pullback.fst q t₀, ?_⟩
+  rw [Category.assoc, pullback.condition, ← Category.assoc]
+  change (pointOfClosedPoint f c hcl ≫ f) ≫ t₀ = t₀
+  rw [pointOfClosedPoint_comp, Category.id_comp]
+
+/-- **Glue (B-desc-map): an orbit-invariant coordinate on `𝒴_ℚ` descends to the quotient** (the
+descent half of `QuotientDescendsQ`; SGA 1 Exp. V §1, locators UNVERIFIED). Same hypotheses as
+`QuotientDescendsQ`; conclusion: some `σ' : 𝒵_ℚ → P¹` with `σ' ∘ q = σ` on `ℚ̄`-points. (Outline:
+`𝒵_ℚ = 𝒴_ℚ/G` since invariants commute with the localization `ℤ_(p) → ℚ`; `σ` is `G`-invariant as
+a morphism, its values on the dense set of `ℚ̄`-points of the reduced `𝒴_ℚ` being invariant; the
+`G`-stable saturated opens `σ⁻¹(t ≠ ∞)`, `σ⁻¹(t ≠ 0)` have open images (`q` closed and surjective),
+and `f, g` are invariant sections, i.e. sections on `𝒵_ℚ`.) -/
+def QuotientDescendsMapQ : Prop :=
+  ∀ (p : ℕ) [Fact p.Prime] (𝒴 𝒵 : Over (Spec (CommRingCat.of (Zloc p)))) (q : 𝒴 ⟶ 𝒵)
+    (G : Subgroup (Aut 𝒴.left)), IsProper 𝒴.hom → SmoothOfRelativeDimension 1 𝒴.hom →
+    Finite G → (∀ g ∈ G, g.asIso.hom ≫ 𝒴.hom = 𝒴.hom) →
+    IsGQuotient G q.left → IsFinite q.left →
+    ∀ σ : ToP1 (genFib 𝒴).left,
+      (∀ (s s' : fieldPt Qbar ⟶ genFib 𝒴) (g : Aut 𝒴.left), g ∈ G →
+        s'.left ≫ pullback.fst 𝒴.hom (specRatToZloc p) =
+          s.left ≫ pullback.fst 𝒴.hom (specRatToZloc p) ≫ g.asIso.hom →
+        σ.val (K := Qbar) s.left = σ.val (K := Qbar) s'.left) →
+    ∃ σ' : ToP1 (genFib 𝒵).left,
+      ∀ s : fieldPt Qbar ⟶ genFib 𝒴,
+        σ'.val (K := Qbar) (s ≫ genFibMap q).left = σ.val (K := Qbar) s.left
+
+/-- **(B-desc) from its descent half**: the lifting half is proved (`exists_lift_qbar`). -/
+theorem quotientDescendsQ_of (hDm : QuotientDescendsMapQ) : QuotientDescendsQ := by
+  intro p _ 𝒴 𝒵 q G hP hS hfin hover hq hqf σ hσ
+  obtain ⟨σ', hσ'⟩ := hDm p 𝒴 𝒵 q G hP hS hfin hover hq hqf σ hσ
+  refine ⟨σ', hσ', fun t => ?_⟩
+  haveI := hqf
+  obtain ⟨y₀, hy₀⟩ := exists_lift_qbar G q.left hfin hq
+    (t.left ≫ pullback.fst 𝒵.hom (specRatToZloc p))
+  obtain ⟨s, hs⟩ := genFib_pt 𝒴 y₀
+  refine ⟨s, genFib_pt_inj 𝒵 _ _ ?_⟩
+  refine ((Category.assoc _ _ _).trans ((congrArg (s.left ≫ ·) (genFibMap_fst q)).trans
+    (Category.assoc _ _ _).symm)).trans ?_
+  rw [hs]
+  exact hy₀
+
+/-- **Main composite (after part 18): `ModelCoordinateResidue` from the leaves L1-L6, the textbook
+leaves T5 and `CurveBijIso`, the decomposition's glue `CoverModelOfHeckeN`, and the glue
+(B-desc-map) `QuotientDescendsMapQ`, (B-iso) `ToP1BijIsCoordinateQ`, (C1b-obj) `CMStabObj`.** -/
+theorem modelCoordinateResidue_final7 (hAF : ProperCurveAF) (hQE : FiniteQuotientExists)
+    (hTS : TameQuotientSmooth) (hP1 : SmoothModelOfP1) (hFix : TameFixedPointsDisjoint)
+    (hCyc : TameInertiaCyclic) (hT : ObjBridge.TorsionStructure) (hC : CurveBijIso)
+    (hCov : CoverModelOfHeckeN) (hDm : QuotientDescendsMapQ) (hB : ToP1BijIsCoordinateQ)
+    (hO : CMStabObj) : ModelCoordinateResidue :=
+  modelCoordinateResidue_final6 hAF hQE hTS hP1 hFix hCyc hT hC hCov (quotientDescendsQ_of hDm) hB
+    hO
+
+end MCRQuot
+
 #print axioms MCRQuot.exists_unit_congr
 #print axioms MCRQuot.mem_orbit_of_twistEq
 #print axioms MCRQuot.twistEq_of_mem_fibreAut
@@ -7784,3 +7915,7 @@ end MCRQuot
 #print axioms MCRQuot.eq_one_of_fixes_all
 #print axioms MCRQuot.cMStabInvolution_of
 #print axioms MCRQuot.modelCoordinateResidue_final6
+#print axioms MCRQuot.isGQuotient_surjective
+#print axioms MCRQuot.exists_lift_qbar
+#print axioms MCRQuot.quotientDescendsQ_of
+#print axioms MCRQuot.modelCoordinateResidue_final7

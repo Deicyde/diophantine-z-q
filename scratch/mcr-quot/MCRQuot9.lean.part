@@ -41,3 +41,7 @@
 #print axioms MCRQuot.eq_one_of_fixes_all
 #print axioms MCRQuot.cMStabInvolution_of
 #print axioms MCRQuot.modelCoordinateResidue_final6
+#print axioms MCRQuot.isGQuotient_surjective
+#print axioms MCRQuot.exists_lift_qbar
+#print axioms MCRQuot.quotientDescendsQ_of
+#print axioms MCRQuot.modelCoordinateResidue_final7
