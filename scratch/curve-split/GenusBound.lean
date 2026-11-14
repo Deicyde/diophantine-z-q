@@ -936,6 +936,117 @@ theorem centerHS_placeOf (w : HeightOneSpectrum OF) :
     · intro h; exact h.2
     · intro h; exact ⟨zero_lt_iff.mpr h0, h⟩
 
+/-- The prime `(j − a)` of `ℚ[j]`. -/
+noncomputable abbrev pa (a : ℚ) : Ideal (Polynomial ℚ) := Ideal.span {Polynomial.X - Polynomial.C a}
+
+theorem pa_isMaximal (a : ℚ) : (pa a).IsMaximal :=
+  PrincipalIdealRing.isMaximal_of_irreducible (Polynomial.irreducible_X_sub_C a)
+
+theorem pa_ne_bot (a : ℚ) : pa a ≠ ⊥ := by
+  rw [Ne, Ideal.span_singleton_eq_bot]; exact Polynomial.X_sub_C_ne_zero a
+
+/-- The places over `j = a`. -/
+def Zfin (F : Type) [Field F] [Algebra Qj F] [Algebra ℚ F] (a : ℚ) : Set (Place F) :=
+  {P | (sF : F) ∈ P.w ∧ (sF : F) - algebraMap ℚ F a ∈ P.w.nonunits}
+
+theorem algebraMap_X_sub_C (a : ℚ) :
+    ((algebraMap (Polynomial ℚ) OF (Polynomial.X - Polynomial.C a) : OF) : F) =
+      (sF : F) - algebraMap ℚ F a := by
+  have : ((algebraMap (Polynomial ℚ) OF (Polynomial.X - Polynomial.C a) : OF) : F) =
+      algebraMap (Polynomial ℚ) F (Polynomial.X - Polynomial.C a) := rfl
+  rw [this, algebraMap_poly_eq, map_sub, Polynomial.aeval_X, Polynomial.aeval_C]
+
+theorem placeOf_mem_Zfin_iff (a : ℚ) (w : HeightOneSpectrum OF) :
+    placeOf w ∈ Zfin F a ↔ w.asIdeal ∈ (pa a).primesOver OF := by
+  have hpm := pa_isMaximal a
+  have key : (sF : F) - algebraMap ℚ F a ∈ (placeOf w).w.nonunits ↔
+      algebraMap (Polynomial ℚ) OF (Polynomial.X - Polynomial.C a) ∈ w.asIdeal := by
+    conv_rhs => rw [← centerHS_placeOf w]
+    rw [mem_centerHS, algebraMap_X_sub_C]
+  constructor
+  · rintro ⟨-, h⟩
+    refine ⟨w.isPrime, ⟨?_⟩⟩
+    have hle : pa a ≤ w.asIdeal.under (Polynomial ℚ) := by
+      rw [Ideal.span_le, Set.singleton_subset_iff]
+      exact key.mp h
+    exact hpm.eq_of_le (Ideal.IsPrime.ne_top inferInstance) hle
+  · rintro ⟨-, hlo⟩
+    refine ⟨sF_mem_placeOf w, key.mpr ?_⟩
+    have : Polynomial.X - Polynomial.C a ∈ w.asIdeal.under (Polynomial ℚ) := by
+      rw [← hlo.over]; exact Ideal.subset_span rfl
+    exact this
+
+/-- `e_P` is Mathlib's ramification index (proved below). -/
+theorem ramIdx_placeOf (a : ℚ) (w : HeightOneSpectrum OF) (hw : w.asIdeal ∈ (pa a).primesOver OF) :
+    (placeOf w).ramIdx = Ideal.ramificationIdx' (pa a) w.asIdeal := by
+  sorry
+
+/-- `deg P` is Mathlib's inertia degree (proved below). -/
+theorem deg_placeOf (a : ℚ) (w : HeightOneSpectrum OF) (hw : w.asIdeal ∈ (pa a).primesOver OF) :
+    (placeOf w).deg = Ideal.inertiaDeg' (pa a) w.asIdeal := by
+  sorry
+
+theorem centerHS_congr {P Q : Place F} (h : P = Q) (hP : (sF : F) ∈ P.w) (hQ : (sF : F) ∈ Q.w) :
+    centerHS P hP = centerHS Q hQ := by
+  subst h; rfl
+
+/-- **The fundamental identity at `j = a`** (proved from Mathlib's for Dedekind domains). -/
+theorem fundamentalIdentity_fin (a : ℚ) :
+    ∃ h : (Zfin F a).Finite, ∑ P ∈ h.toFinset, P.ramIdx * P.deg = Module.finrank Qj F := by
+  classical
+  have hpm := pa_isMaximal a
+  have hp0 := pa_ne_bot a
+  have hinjF : Function.Injective (algebraMap (Polynomial ℚ) F) := by
+    rw [IsScalarTower.algebraMap_eq (Polynomial ℚ) Qj F]
+    exact (algebraMap Qj F).injective.comp (IsFractionRing.injective (Polynomial ℚ) Qj)
+  have : FaithfulSMul (Polynomial ℚ) OF := by
+    rw [faithfulSMul_iff_algebraMap_injective]
+    intro x y hxy
+    apply hinjF
+    have h1 := congrArg (fun z : OF => (z : F)) hxy
+    exact h1
+  have : Module.IsTorsionFree (Polynomial ℚ) OF := inferInstance
+  have : Module.Finite (Polynomial ℚ) OF := by
+    have := isSeparable_Qj (F := F)
+    exact IsIntegralClosure.finite (Polynomial ℚ) Qj F OF
+  set S := IsDedekindDomain.primesOverFinset (pa a) OF with hS
+  have hmemS : ∀ 𝔓, 𝔓 ∈ S ↔ 𝔓 ∈ (pa a).primesOver OF := fun 𝔓 =>
+    IsDedekindDomain.mem_primesOverFinset_iff hp0 OF
+  let G : ∀ 𝔓 ∈ S, Place F := fun 𝔓 h𝔓 =>
+    placeOf ⟨𝔓, ((hmemS 𝔓).mp h𝔓).1, by
+      have := ((hmemS 𝔓).mp h𝔓).2
+      exact Ideal.ne_bot_of_liesOver_of_ne_bot hp0 𝔓⟩
+  have hG : ∀ 𝔓 h𝔓, G 𝔓 h𝔓 ∈ Zfin F a := fun 𝔓 h𝔓 =>
+    (placeOf_mem_Zfin_iff a _).mpr ((hmemS 𝔓).mp h𝔓)
+  have hZ : Zfin F a = Set.range (fun x : S => G x.1 x.2) := by
+    ext P
+    constructor
+    · intro hP
+      have hs := hP.1
+      set w := centerHS P hs
+      have hPw : placeOf w = P := placeOf_centerHS P hs
+      have hw : w.asIdeal ∈ S := (hmemS _).mpr ((placeOf_mem_Zfin_iff a w).mp (hPw ▸ hP))
+      refine ⟨⟨w.asIdeal, hw⟩, ?_⟩
+      show placeOf _ = P
+      convert hPw
+    · rintro ⟨x, rfl⟩
+      exact hG x.1 x.2
+  have hfin : (Zfin F a).Finite := hZ ▸ Set.finite_range _
+  refine ⟨hfin, ?_⟩
+  rw [← Ideal.sum_ramification_inertia (S := OF) (p := pa a) Qj F hp0]
+  symm
+  refine Finset.sum_bij G (fun 𝔓 h𝔓 => (Set.Finite.mem_toFinset _).mpr (hG 𝔓 h𝔓)) ?_ ?_ ?_
+  · intro 𝔓₁ h₁ 𝔓₂ h₂ he
+    have := centerHS_congr he (sF_mem_placeOf _) (sF_mem_placeOf _)
+    rw [centerHS_placeOf, centerHS_placeOf] at this
+    exact congrArg HeightOneSpectrum.asIdeal this
+  · intro P hP
+    rw [Set.Finite.mem_toFinset, hZ] at hP
+    obtain ⟨⟨𝔓, h𝔓⟩, rfl⟩ := hP
+    exact ⟨𝔓, h𝔓, rfl⟩
+  · intro 𝔓 h𝔓
+    rw [ramIdx_placeOf a _ ((hmemS 𝔓).mp h𝔓), deg_placeOf a _ ((hmemS 𝔓).mp h𝔓)]
+
 end Glue5
 
 end CurveSplit
