@@ -8,3 +8,8 @@ Base cba8157f (wip/av-split). Build artifacts: copied .lake/build from ~/dzq-wt/
 - `AvSplit.isogenyQuasiInverse_of_milne : MilneIsogenyQuasiInverse → WeilPairing.IsogenyQuasiInverse`; axioms standard. VERIFIED.
 - Row H-54 text copied verbatim from scratch/g0-assemble2/parts/a35_g12det.lean L400-404 (diff with scratch/leaf-fold5/Leaves5.lean L49753-49755: identical). VERIFIED.
 - Universe: TorsionStructure is universe-polymorphic (`K : Type u`); proved at u = 0 (AbVarBC infrastructure is at Type). Note for integration.
+
+## 03:25 T35.lean (row H-38)
+- compiles; `AvSplit.uniformizationExists_of_mumford : MumfordUniformizationC → ZInQ.LeafPush2.UniformizationExists`, axioms standard. VERIFIED.
+- `AvSplit.mumford_of_uniformizationExists` (converse; the leaf is the row at K = ℂ, σ = id). VERIFIED.
+- Proof: A_ℂ = A.baseChange ℂ via σ.toAlgebra; dim (AbVar.dim_baseChange); points via AbVarBC.bcPt; (bcPt p).left = p.left ≫ pullback.fst; cEvalAt via Scheme.Hom.comp_appLE.
