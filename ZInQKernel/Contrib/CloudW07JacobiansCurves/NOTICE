@@ -1,0 +1,43 @@
+Jacobian Challenge
+Copyright 2026 Axel Delaval, Jie Xu, and Shitan Xu.
+
+Parts of this library are adapted from Weil's conjectures project, whose source
+notices specify the Apache License, Version 2.0. The adapted code has been
+reorganized, modified, and integrated into this library.
+
+This repository is distributed under the Apache License, Version 2.0.
+See LICENSE for the license terms.
+
+---------------------------------------------------------------------------
+Redistribution notice (diophantine-z-q, ZInQKernel/Contrib/CloudW07JacobiansCurves/)
+
+The directory ZInQKernel/Contrib/CloudW07JacobiansCurves/Jacobian/ contains files
+copied from https://github.com/frenzymath/Jacobian-Challenge, commit
+c4254cce15b3e284a0a3ae1d73936f2ee195d272 (2026-11-06), the import closure of the
+modules Jacobian.AlgebraicGeometry.Curve.Albanese,
+Jacobian.AlgebraicGeometry.Picard.FieldDescent,
+Jacobian.AlgebraicGeometry.Group.Rigidity and
+Jacobian.AlgebraicGeometry.AbelianVariety.Albanese.UniversalProperty
+(711 files), distributed under the Apache License, Version 2.0 (LICENSE in this
+directory, copied unchanged). The upstream NOTICE is reproduced above unchanged.
+
+Changes made for this repository (every copied file is modified and says so in
+its first three comment lines):
+* module paths are moved under ZInQKernel.Contrib.CloudW07JacobiansCurves
+  (every `import Jacobian.…` became
+  `import ZInQKernel.Contrib.CloudW07JacobiansCurves.Jacobian.…`);
+* a three-line provenance/change comment is prepended;
+* declaration names and namespaces are unchanged, except that the 21 constants
+  `AlgebraicGeometry.baseChangeDiagram*`, `AlgebraicGeometry.baseChangeDiagramπ*`,
+  `AlgebraicGeometry.baseChangeDiagramStructure*`, `AlgebraicGeometry.baseChangeCone*` and
+  `AlgebraicGeometry.baseChangeMap`, `baseChangeMap_id`, `baseChangeMap_comp`,
+  `baseChangeMap_fst`, `baseChangeMap_snd` are renamed into the namespace
+  `AlgebraicGeometry.JacobianChallenge` (same suffixes), with every reference to them inside the
+  copied files updated, so that they do not collide with identically named declarations of the
+  vendored Stacks project elsewhere in this repository (the 47 affected files say so in their
+  third comment line);
+* any further edit needed to compile against this repository's Lean v4.35.0 /
+  Mathlib 56a005855ea17e0b0958f73ec801ae140b0a1679 (upstream pins Lean
+  v4.35.0-rc3 / Mathlib b63f6e8a68d220e3b3bc4f3792bb53650d375f24) is listed in
+  README.md in this directory and marked in the file by a `-- CloudW07 edit:`
+  comment.
