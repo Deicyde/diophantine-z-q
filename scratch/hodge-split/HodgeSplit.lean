@@ -12,7 +12,7 @@ Check with `lake env lean scratch/hodge-split/HodgeSplit.lean` after building th
 
 Rows (frontier r3): H-52 `FiniteImageHT` (§1-§5), H-8 R10 amended (§6, §15), H-32 T23 (§7), H-22 `R14Det`
 (§8, §14, §17-§18), H-9 `PanBerger` (§9), H-10 `EigenformHT` (§10, §13, §18), H-51 `SenTwist` (§11, §12,
-§16). Main theorem: `hodge_rows_of_leaves`. All references to pkg-I4's objects are written out as
+§16); H-32 from `B_dR^{G_{ℚ_p}} = ℚ_p` alone (§19). Main theorem: `hodge_rows_of_leaves`. All references to pkg-I4's objects are written out as
 `ZInQ.Contrib.G9.PkgI4.*`, because `ZInQKernel.HDecomp` (imported for the kernel's Chebotarev and
 Brauer–Nesbitt) has its own root-level `PkgI4`.
 -/
@@ -3590,19 +3590,453 @@ theorem eigenformHT_of_kato_ds (hNew : EigenformHTNew) (hL5 : NewformOfEigenform
 end Closed
 
 
+
+/-! ## §19. H-32 from `B_dR^{G_{ℚ_p}} = ℚ_p` alone
+
+Fontaine's Tannakian theorem for `B_dR` (the leaf `FontaineDRTannakian` of §7) has an elementary proof
+from the regularity of `B_dR` (Brinon–Conrad, Thm 5.2.1). `B_dR` is a field (bdr-kertheta, in the kernel:
+`BdrKer.Cp.isField_BDeRham`), so regularity reduces to `B_dR^{G_{ℚ_p}} = ℚ_p`, the leaf
+`BdRInvariants`. -/
+
+section BdRSec
+
+/-- **LEAF (Fontaine: `B_dR^{G_K} = K`, here `K = ℚ_p`).** Fontaine, *Le corps des périodes
+p-adiques*, Astérisque 223 (1994), Exp. II, §1.5 (and §3); Brinon–Conrad, *CMI summer school notes on
+p-adic Hodge theory* (2009), Thm 4.3.? / §4.4 (`(B_dR)^{G_K} = K`); numbering UNVERIFIED. Lean form: a
+`G_{ℚ_p}`-invariant element of Mathlib's `B_dR(𝓞_ℂ_p)` (pkg-I4's action `bdrAct`) lies in the image
+of `ℚ_p`. (It is the hypothesis `hfix` of pkg-I4's `isDeRham_trivial`.) -/
+def BdRInvariants : Prop :=
+  ∀ x : BdR p, (∀ σ : GQp p, bdrAct p σ x = x) → x ∈ Set.range (qpToBdR p)
+
+theorem isField_BdR : IsField (BdR p) := BdrKer.Cp.isField_BDeRham p
+
+/-- `B_dR` as a field (the ring structure is Mathlib's). -/
+noncomputable def bdrField : Field (BdR p) := (isField_BdR p).toField
+
+attribute [local instance] bdrField
+
+variable {n : ℕ}
+
+/-- The matrix of `ρ(σ)` read in `B_dR`. -/
+def matB (M : Matrix (Fin n) (Fin n) ℚ_[p]) : Matrix (Fin n) (Fin n) (BdR p) :=
+  M.map (algebraMap ℚ_[p] (BdR p))
+
+/-- `σ` on `B_dRⁿ`, coordinatewise. -/
+def bAct (σ : GQp p) (x : Fin n → BdR p) : Fin n → BdR p := fun k => bdrAct p σ (x k)
+
+theorem mem_ddrStd_iff (ρ : GQp p →* GL (Fin n) ℚ_[p]) (x : Fin n → BdR p) :
+    x ∈ ddrStd p ρ ↔ ∀ σ, (matB p (ρ σ : Matrix (Fin n) (Fin n) ℚ_[p])).mulVec (bAct p σ x) = x :=
+  Iff.rfl
+
+theorem matB_mul (A B : Matrix (Fin n) (Fin n) ℚ_[p]) : matB p (A * B) = matB p A * matB p B := by
+  simp [matB, Matrix.map_mul]
+
+theorem matB_one : matB p (1 : Matrix (Fin n) (Fin n) ℚ_[p]) = 1 := by
+  simp [matB, Matrix.map_one]
+
+theorem matB_inv_mul (ρ : GQp p →* GL (Fin n) ℚ_[p]) (σ : GQp p) :
+    matB p (ρ σ⁻¹ : Matrix (Fin n) (Fin n) ℚ_[p]) * matB p (ρ σ : Matrix (Fin n) (Fin n) ℚ_[p]) = 1 := by
+  rw [← matB_mul, gl_inv_mul, matB_one]
+
+theorem matB_mul_inv (ρ : GQp p →* GL (Fin n) ℚ_[p]) (σ : GQp p) :
+    matB p (ρ σ : Matrix (Fin n) (Fin n) ℚ_[p]) * matB p (ρ σ⁻¹ : Matrix (Fin n) (Fin n) ℚ_[p]) = 1 := by
+  rw [← matB_mul, gl_mul_inv, matB_one]
+
+theorem bAct_of_mem {ρ : GQp p →* GL (Fin n) ℚ_[p]} {x : Fin n → BdR p} (hx : x ∈ ddrStd p ρ)
+    (σ : GQp p) : bAct p σ x = (matB p (ρ σ⁻¹ : Matrix (Fin n) (Fin n) ℚ_[p])).mulVec x := by
+  conv_rhs => rw [← (mem_ddrStd_iff p ρ x).mp hx σ]
+  rw [Matrix.mulVec_mulVec, matB_inv_mul, Matrix.one_mulVec]
+
+theorem bAct_add (σ : GQp p) (x y : Fin n → BdR p) : bAct p σ (x + y) = bAct p σ x + bAct p σ y := by
+  ext k; simp [bAct]
+
+theorem bAct_smul (σ : GQp p) (c : BdR p) (x : Fin n → BdR p) :
+    bAct p σ (c • x) = bdrAct p σ c • bAct p σ x := by
+  ext k; simp [bAct]
+
+theorem bAct_sum {ι : Type*} (s : Finset ι) (σ : GQp p) (f : ι → Fin n → BdR p) :
+    bAct p σ (∑ k ∈ s, f k) = ∑ k ∈ s, bAct p σ (f k) := by
+  ext m; simp [bAct, Finset.sum_apply, map_sum]
+
+theorem bAct_zero (σ : GQp p) : bAct p σ (0 : Fin n → BdR p) = 0 := by ext; simp [bAct]
+
+theorem algebraMap_BdR_injective : Function.Injective (algebraMap ℚ_[p] (BdR p)) :=
+  (algebraMap ℚ_[p] (BdR p)).injective
+
+/-- **(I) Regularity.** `ℚ_p`-independent elements of `D_dR(V)` are `B_dR`-independent. -/
+theorem ddrStd_linearIndependent (hB : BdRInvariants p) (ρ : GQp p →* GL (Fin n) ℚ_[p])
+    {ι : Type*} [Fintype ι] [DecidableEq ι] (x : ι → (Fin n → BdR p)) (hx : ∀ k, x k ∈ ddrStd p ρ)
+    (hind : LinearIndependent ℚ_[p] x) : LinearIndependent (BdR p) x := by
+  rw [Fintype.linearIndependent_iff]
+  suffices H : ∀ (s : Finset ι) (b : ι → BdR p), (∀ k ∉ s, b k = 0) → ∑ k, b k • x k = 0 →
+      ∀ k, b k = 0 from fun b hb => H Finset.univ b (by simp) hb
+  intro s
+  induction s using Finset.strongInduction with
+  | H s ih =>
+  intro b hbs hb
+  by_contra hne
+  push_neg at hne
+  obtain ⟨k₀, hk₀⟩ := hne
+  have hk₀s : k₀ ∈ s := by
+    by_contra h; exact hk₀ (hbs k₀ h)
+  let b' : ι → BdR p := fun k => (b k₀)⁻¹ * b k
+  have hb' : ∑ k, b' k • x k = 0 := by
+    simp only [b', mul_smul, ← Finset.smul_sum, hb, smul_zero]
+  have hb'k₀ : b' k₀ = 1 := inv_mul_cancel₀ hk₀
+  have hb's : ∀ k ∉ s, b' k = 0 := fun k hk => by simp [b', hbs k hk]
+  have key : ∀ σ, ∀ k, b' k = bdrAct p σ (b' k) := by
+    intro σ
+    let d : ι → BdR p := fun k => b' k - bdrAct p σ (b' k)
+    have h1 : (matB p (ρ σ⁻¹ : Matrix (Fin n) (Fin n) ℚ_[p])).mulVec
+        (∑ k, bdrAct p σ (b' k) • x k) = 0 := by
+      have h0 := congrArg (bAct p σ) hb'
+      rw [bAct_sum, bAct_zero] at h0
+      rw [Matrix.mulVec_sum, ← h0]
+      refine Finset.sum_congr rfl fun k _ => ?_
+      rw [bAct_smul, bAct_of_mem p (hx k), Matrix.mulVec_smul]
+    have h2 : ∑ k, bdrAct p σ (b' k) • x k = 0 := by
+      have := congrArg (matB p (ρ σ : Matrix (Fin n) (Fin n) ℚ_[p])).mulVec h1
+      rwa [Matrix.mulVec_mulVec, matB_mul_inv, Matrix.one_mulVec, Matrix.mulVec_zero] at this
+    have hd : ∑ k, d k • x k = 0 := by
+      simp only [d, sub_smul, Finset.sum_sub_distrib, hb', h2, sub_zero]
+    have hds : ∀ k ∉ s.erase k₀, d k = 0 := by
+      intro k hk
+      by_cases hkk : k = k₀
+      · subst hkk; simp [d, hb'k₀]
+      · have : k ∉ s := fun h => hk (Finset.mem_erase.mpr ⟨hkk, h⟩)
+        simp [d, hb's k this]
+    have := ih (s.erase k₀) (Finset.erase_ssubset hk₀s) d hds hd
+    intro k
+    exact sub_eq_zero.mp (this k)
+  have hK : ∀ k, ∃ a : ℚ_[p], b' k = algebraMap ℚ_[p] (BdR p) a := by
+    intro k
+    obtain ⟨a, ha⟩ := hB (b' k) fun σ => (key σ k).symm
+    exact ⟨a, ha.symm⟩
+  choose a ha using hK
+  have hsum : ∑ k, a k • x k = 0 := by
+    rw [← hb']
+    refine Finset.sum_congr rfl fun k _ => ?_
+    rw [ha k, algebraMap_smul]
+  have h0 := Fintype.linearIndependent_iff.mp hind a hsum k₀
+  have h1 := ha k₀
+  rw [h0, map_zero, hb'k₀] at h1
+  exact one_ne_zero h1
+
+theorem ddrStd_finiteDimensional (hB : BdRInvariants p) (ρ : GQp p →* GL (Fin n) ℚ_[p]) :
+    FiniteDimensional ℚ_[p] (ddrStd p ρ) := by
+  classical
+  refine Module.rank_lt_aleph0_iff.mp (lt_of_le_of_lt (rank_le (n := n) fun s hs => ?_)
+    (Cardinal.natCast_lt_aleph0 (n := n)))
+  have hli : LinearIndependent (BdR p) (fun x : s => ((x : ddrStd p ρ) : Fin n → BdR p)) :=
+    ddrStd_linearIndependent p hB ρ _ (fun x => (x : ddrStd p ρ).2)
+      (LinearIndependent.map' hs (ddrStd p ρ).subtype (Submodule.ker_subtype _))
+  calc s.card = Fintype.card s := (Fintype.card_coe s).symm
+    _ ≤ Module.finrank (BdR p) (Fin n → BdR p) := hli.fintype_card_le_finrank
+    _ = n := Module.finrank_fin_fun _
+
+theorem ddrStd_finrank_le (hB : BdRInvariants p) (ρ : GQp p →* GL (Fin n) ℚ_[p]) :
+    Module.finrank ℚ_[p] (ddrStd p ρ) ≤ n := by
+  haveI := ddrStd_finiteDimensional p hB ρ
+  let b := Module.finBasis ℚ_[p] (ddrStd p ρ)
+  have hli : LinearIndependent (BdR p) (fun k => ((b k : ddrStd p ρ) : Fin n → BdR p)) :=
+    ddrStd_linearIndependent p hB ρ _ (fun k => (b k).2)
+      (LinearIndependent.map' b.linearIndependent (ddrStd p ρ).subtype (Submodule.ker_subtype _))
+  have := hli.fintype_card_le_finrank
+  rwa [Fintype.card_fin, Module.finrank_fin_fun] at this
+
+end BdRSec
+
+section BdRSec2
+
+attribute [local instance] bdrField
+
+instance bdrDomain : IsDomain (BdR p) := (isField_BdR p).isDomain
+
+variable {n : ℕ}
+
+theorem mulVec_eq_sum_col (P : Matrix (Fin n) (Fin n) (BdR p)) (v : Fin n → BdR p) :
+    P.mulVec v = ∑ j, v j • (fun i => P i j) := by
+  ext i; simp [Matrix.mulVec, dotProduct, Finset.sum_apply, mul_comm]
+
+theorem bAct_col (σ : GQp p) (P : Matrix (Fin n) (Fin n) (BdR p)) (j : Fin n) :
+    bAct p σ (fun i => P i j) = fun i => P.map (bdrAct p σ) i j := rfl
+
+/-- **(L5)** An invertible matrix whose columns lie in `D_dR(V)` makes `V` de Rham. -/
+theorem isDeRhamStd_of_matrix (hB : BdRInvariants p) (ρ : GQp p →* GL (Fin n) ℚ_[p])
+    (P : Matrix (Fin n) (Fin n) (BdR p)) (hP : P.det ≠ 0)
+    (hrel : ∀ σ, matB p (ρ σ : Matrix (Fin n) (Fin n) ℚ_[p]) * P.map (bdrAct p σ) = P) :
+    IsDeRhamStd p ρ := by
+  haveI := ddrStd_finiteDimensional p hB ρ
+  have hcol : ∀ j, (fun i => P i j) ∈ ddrStd p ρ := by
+    intro j
+    rw [mem_ddrStd_iff]
+    intro σ
+    rw [bAct_col]
+    ext i
+    have := congrFun (congrFun (hrel σ) i) j
+    rw [Matrix.mul_apply] at this
+    simp only [Matrix.mulVec, dotProduct]
+    exact this
+  let c : Fin n → ddrStd p ρ := fun j => ⟨fun i => P i j, hcol j⟩
+  have hli : LinearIndependent ℚ_[p] c := by
+    rw [Fintype.linearIndependent_iff]
+    intro a ha j
+    have h1 : P.mulVec (fun j => algebraMap ℚ_[p] (BdR p) (a j)) = 0 := by
+      rw [mulVec_eq_sum_col]
+      have := congrArg Subtype.val ha
+      rw [Submodule.coe_sum, Submodule.coe_zero] at this
+      rw [← this]
+      refine Finset.sum_congr rfl fun k _ => ?_
+      rw [algebraMap_smul]
+      rfl
+    by_contra hne
+    exact hP ((Matrix.exists_mulVec_eq_zero_iff).mp
+      ⟨_, fun h => hne (algebraMap_BdR_injective p (by simpa using congrFun h j)), h1⟩)
+  have h1 := hli.fintype_card_le_finrank
+  rw [Fintype.card_fin] at h1
+  exact le_antisymm (ddrStd_finrank_le p hB ρ) h1
+
+/-- **(L4)** If `V` is de Rham, a basis of `D_dR(V)` gives an invertible matrix. -/
+theorem exists_matrix_of_isDeRhamStd (hB : BdRInvariants p) (ρ : GQp p →* GL (Fin n) ℚ_[p])
+    (h : IsDeRhamStd p ρ) : ∃ P : Matrix (Fin n) (Fin n) (BdR p), P.det ≠ 0 ∧
+      ∀ σ, matB p (ρ σ : Matrix (Fin n) (Fin n) ℚ_[p]) * P.map (bdrAct p σ) = P := by
+  haveI := ddrStd_finiteDimensional p hB ρ
+  let b := (Module.finBasis ℚ_[p] (ddrStd p ρ)).reindex (finCongr h)
+  let P : Matrix (Fin n) (Fin n) (BdR p) := Matrix.of fun i j => (b j : Fin n → BdR p) i
+  have hli : LinearIndependent (BdR p) (fun j => ((b j : ddrStd p ρ) : Fin n → BdR p)) :=
+    ddrStd_linearIndependent p hB ρ _ (fun j => (b j).2)
+      (LinearIndependent.map' b.linearIndependent (ddrStd p ρ).subtype (Submodule.ker_subtype _))
+  refine ⟨P, fun hdet => ?_, fun σ => ?_⟩
+  · obtain ⟨v, hv, hPv⟩ := (Matrix.exists_mulVec_eq_zero_iff).mpr hdet
+    rw [mulVec_eq_sum_col] at hPv
+    exact hv (funext fun j => Fintype.linearIndependent_iff.mp hli v hPv j)
+  · ext i j
+    have := congrFun ((mem_ddrStd_iff p ρ _).mp (b j).2 σ) i
+    rw [Matrix.mul_apply]
+    simpa [Matrix.mulVec, dotProduct, bAct, P] using this
+
+theorem map_inv_bdr (σ : GQp p) (P : Matrix (Fin n) (Fin n) (BdR p)) (hP : P.det ≠ 0) :
+    (P⁻¹).map (bdrAct p σ) = (P.map (bdrAct p σ))⁻¹ := by
+  have hu : IsUnit P.det := isUnit_iff_ne_zero.mpr hP
+  symm
+  apply Matrix.inv_eq_left_inv
+  rw [← Matrix.map_mul, Matrix.nonsing_inv_mul _ hu, Matrix.map_one _ (map_zero _) (map_one _)]
+
+/-- **(a) Duals.** -/
+theorem dual_of_bdr (hB : BdRInvariants p) (ρ ρ' : GQp p →* GL (Fin n) ℚ_[p])
+    (h' : ∀ σ, (ρ' σ : Matrix (Fin n) (Fin n) ℚ_[p]) = ((ρ σ)⁻¹ : GL (Fin n) ℚ_[p]).val.transpose)
+    (h : IsDeRhamStd p ρ) : IsDeRhamStd p ρ' := by
+  obtain ⟨P, hP, hrel⟩ := exists_matrix_of_isDeRhamStd p hB ρ h
+  have hu : IsUnit P.det := isUnit_iff_ne_zero.mpr hP
+  refine isDeRhamStd_of_matrix p hB ρ' (P⁻¹).transpose ?_ fun σ => ?_
+  · rw [Matrix.det_transpose]
+    exact (Matrix.isUnit_nonsing_inv_det P hu).ne_zero
+  · have hPσ : P.map (bdrAct p σ) = matB p (ρ σ⁻¹ : Matrix (Fin n) (Fin n) ℚ_[p]) * P := by
+      conv_rhs => rw [← hrel σ]
+      rw [← mul_assoc, matB_inv_mul, one_mul]
+    have hPσdet : (P.map (bdrAct p σ)).det ≠ 0 := by
+      rw [hPσ, Matrix.det_mul]
+      refine mul_ne_zero ?_ hP
+      intro h0
+      have := congrArg Matrix.det (matB_inv_mul p ρ σ)
+      rw [Matrix.det_mul, h0, zero_mul, Matrix.det_one] at this
+      exact zero_ne_one this
+    have hinv : (P.map (bdrAct p σ))⁻¹ = P⁻¹ * matB p (ρ σ : Matrix (Fin n) (Fin n) ℚ_[p]) := by
+      apply Matrix.inv_eq_left_inv
+      rw [hPσ, mul_assoc, ← mul_assoc (matB p _), matB_mul_inv, one_mul,
+        Matrix.nonsing_inv_mul _ hu]
+    have hmat' : matB p (ρ' σ : Matrix (Fin n) (Fin n) ℚ_[p]) =
+        (matB p (ρ σ⁻¹ : Matrix (Fin n) (Fin n) ℚ_[p])).transpose := by
+      rw [h' σ, ← map_inv, matB, matB, Matrix.transpose_map]
+    rw [Matrix.transpose_map, map_inv_bdr p σ P hP, hinv, hmat', Matrix.transpose_mul,
+      ← mul_assoc, ← Matrix.transpose_mul, matB_mul_inv, Matrix.transpose_one, one_mul]
+
+end BdRSec2
+
+section BdRSec3
+
+attribute [local instance] bdrField
+
+/-- **(d) Tensor products.** -/
+theorem tensor_of_bdr (hB : BdRInvariants p) {a b : ℕ} (ρ : GQp p →* GL (Fin (a * b)) ℚ_[p])
+    (ρ₁ : GQp p →* GL (Fin a) ℚ_[p]) (ρ₂ : GQp p →* GL (Fin b) ℚ_[p])
+    (h : ∀ σ, (ρ σ : Matrix (Fin (a * b)) (Fin (a * b)) ℚ_[p]) =
+      Matrix.reindex finProdFinEquiv finProdFinEquiv
+        (Matrix.kroneckerMap (· * ·) (ρ₁ σ : Matrix (Fin a) (Fin a) ℚ_[p])
+          (ρ₂ σ : Matrix (Fin b) (Fin b) ℚ_[p])))
+    (h₁ : IsDeRhamStd p ρ₁) (h₂ : IsDeRhamStd p ρ₂) : IsDeRhamStd p ρ := by
+  obtain ⟨P₁, hP₁, hr₁⟩ := exists_matrix_of_isDeRhamStd p hB ρ₁ h₁
+  obtain ⟨P₂, hP₂, hr₂⟩ := exists_matrix_of_isDeRhamStd p hB ρ₂ h₂
+  refine isDeRhamStd_of_matrix p hB ρ
+    (Matrix.reindex finProdFinEquiv finProdFinEquiv (Matrix.kroneckerMap (· * ·) P₁ P₂)) ?_ ?_
+  · rw [Matrix.det_reindex_self]
+    rw [Matrix.det_kronecker]
+    exact mul_ne_zero (pow_ne_zero _ hP₁) (pow_ne_zero _ hP₂)
+  · intro σ
+    have hm : matB p (ρ σ : Matrix (Fin (a * b)) (Fin (a * b)) ℚ_[p]) =
+        Matrix.reindex finProdFinEquiv finProdFinEquiv
+          (Matrix.kroneckerMap (· * ·) (matB p (ρ₁ σ : Matrix (Fin a) (Fin a) ℚ_[p]))
+            (matB p (ρ₂ σ : Matrix (Fin b) (Fin b) ℚ_[p]))) := by
+      rw [h σ]; ext i j; simp [matB, Matrix.kroneckerMap_apply, map_mul]
+    have hK : (Matrix.reindex finProdFinEquiv finProdFinEquiv
+        (Matrix.kroneckerMap (· * ·) P₁ P₂)).map (bdrAct p σ) =
+        Matrix.reindex finProdFinEquiv finProdFinEquiv
+          (Matrix.kroneckerMap (· * ·) (P₁.map (bdrAct p σ)) (P₂.map (bdrAct p σ))) := by
+      ext i j; simp [Matrix.kroneckerMap_apply, map_mul]
+    rw [hm, hK, Matrix.reindex_apply, Matrix.reindex_apply, Matrix.submatrix_mul_equiv,
+      ← Matrix.reindex_apply]
+    rw [← Matrix.mul_kronecker_mul, hr₁ σ, hr₂ σ]
+
+/-- **(c) Direct sums.** -/
+theorem sum_of_bdr (hB : BdRInvariants p) {a b : ℕ} (ρ : GQp p →* GL (Fin (a + b)) ℚ_[p])
+    (ρ₁ : GQp p →* GL (Fin a) ℚ_[p]) (ρ₂ : GQp p →* GL (Fin b) ℚ_[p])
+    (h : ∀ σ, (ρ σ : Matrix (Fin (a + b)) (Fin (a + b)) ℚ_[p]) =
+      Matrix.reindex finSumFinEquiv finSumFinEquiv
+        (Matrix.fromBlocks (ρ₁ σ : Matrix (Fin a) (Fin a) ℚ_[p]) 0 0
+          (ρ₂ σ : Matrix (Fin b) (Fin b) ℚ_[p])))
+    (h₁ : IsDeRhamStd p ρ₁) (h₂ : IsDeRhamStd p ρ₂) : IsDeRhamStd p ρ := by
+  obtain ⟨P₁, hP₁, hr₁⟩ := exists_matrix_of_isDeRhamStd p hB ρ₁ h₁
+  obtain ⟨P₂, hP₂, hr₂⟩ := exists_matrix_of_isDeRhamStd p hB ρ₂ h₂
+  refine isDeRhamStd_of_matrix p hB ρ
+    (Matrix.reindex finSumFinEquiv finSumFinEquiv (Matrix.fromBlocks P₁ 0 0 P₂)) ?_ ?_
+  · rw [Matrix.det_reindex_self, Matrix.det_fromBlocks_zero₂₁]
+    exact mul_ne_zero hP₁ hP₂
+  · intro σ
+    have hm : matB p (ρ σ : Matrix (Fin (a + b)) (Fin (a + b)) ℚ_[p]) =
+        Matrix.reindex finSumFinEquiv finSumFinEquiv
+          (Matrix.fromBlocks (matB p (ρ₁ σ : Matrix (Fin a) (Fin a) ℚ_[p])) 0 0
+            (matB p (ρ₂ σ : Matrix (Fin b) (Fin b) ℚ_[p]))) := by
+      rw [h σ, matB, Matrix.reindex_apply, Matrix.reindex_apply, ← Matrix.submatrix_map,
+        Matrix.fromBlocks_map, Matrix.map_zero _ (map_zero _), Matrix.map_zero _ (map_zero _)]
+      rfl
+    have hK : (Matrix.reindex finSumFinEquiv finSumFinEquiv (Matrix.fromBlocks P₁ 0 0 P₂)).map
+        (bdrAct p σ) = Matrix.reindex finSumFinEquiv finSumFinEquiv
+          (Matrix.fromBlocks (P₁.map (bdrAct p σ)) 0 0 (P₂.map (bdrAct p σ))) := by
+      rw [Matrix.reindex_apply, Matrix.reindex_apply, ← Matrix.submatrix_map,
+        Matrix.fromBlocks_map, Matrix.map_zero _ (map_zero _), Matrix.map_zero _ (map_zero _)]
+    rw [hm, hK, Matrix.reindex_apply, Matrix.reindex_apply, Matrix.submatrix_mul_equiv,
+      Matrix.fromBlocks_multiply, hr₁ σ, hr₂ σ]
+    simp
+
+end BdRSec3
+
+section BdRSec4
+
+attribute [local instance] bdrField
+
+theorem blk_mulVec_inl {a b : ℕ} (A : Matrix (Fin a) (Fin a) (BdR p)) (C : Matrix (Fin b) (Fin a) (BdR p))
+    (D : Matrix (Fin b) (Fin b) (BdR p)) (x : Fin (a + b) → BdR p) (i : Fin a) :
+    ((Matrix.reindex finSumFinEquiv finSumFinEquiv (Matrix.fromBlocks A 0 C D)).mulVec x)
+      (finSumFinEquiv (Sum.inl i)) = A.mulVec (fun i => x (finSumFinEquiv (Sum.inl i))) i := by
+  rw [Matrix.reindex_apply, Matrix.submatrix_mulVec_equiv, Function.comp_apply,
+    Equiv.symm_apply_apply, Matrix.fromBlocks_mulVec]
+  simp [Function.comp_def]
+
+theorem blk_mulVec_inr {a b : ℕ} (A : Matrix (Fin a) (Fin a) (BdR p)) (C : Matrix (Fin b) (Fin a) (BdR p))
+    (D : Matrix (Fin b) (Fin b) (BdR p)) (x : Fin (a + b) → BdR p) (j : Fin b) :
+    ((Matrix.reindex finSumFinEquiv finSumFinEquiv (Matrix.fromBlocks A 0 C D)).mulVec x)
+      (finSumFinEquiv (Sum.inr j)) =
+      (C.mulVec (fun i => x (finSumFinEquiv (Sum.inl i))) +
+        D.mulVec (fun j => x (finSumFinEquiv (Sum.inr j)))) j := by
+  rw [Matrix.reindex_apply, Matrix.submatrix_mulVec_equiv, Function.comp_apply,
+    Equiv.symm_apply_apply, Matrix.fromBlocks_mulVec]
+  simp [Function.comp_def]
+
+/-- **(b) Sub and quotient** (block lower triangular). -/
+theorem sub_of_bdr (hB : BdRInvariants p) {a b : ℕ} (ρ : GQp p →* GL (Fin (a + b)) ℚ_[p])
+    (ρ₁ : GQp p →* GL (Fin a) ℚ_[p]) (ρ₂ : GQp p →* GL (Fin b) ℚ_[p])
+    (Y : GQp p → Matrix (Fin b) (Fin a) ℚ_[p])
+    (h : ∀ σ, (ρ σ : Matrix (Fin (a + b)) (Fin (a + b)) ℚ_[p]) =
+      Matrix.reindex finSumFinEquiv finSumFinEquiv
+        (Matrix.fromBlocks (ρ₁ σ : Matrix (Fin a) (Fin a) ℚ_[p]) 0 (Y σ)
+          (ρ₂ σ : Matrix (Fin b) (Fin b) ℚ_[p])))
+    (hρ : IsDeRhamStd p ρ) : IsDeRhamStd p ρ₁ ∧ IsDeRhamStd p ρ₂ := by
+  haveI := ddrStd_finiteDimensional p hB ρ
+  haveI := ddrStd_finiteDimensional p hB ρ₁
+  haveI := ddrStd_finiteDimensional p hB ρ₂
+  set e := (finSumFinEquiv : Fin a ⊕ Fin b ≃ Fin (a + b))
+  have hm : ∀ σ, matB p (ρ σ : Matrix (Fin (a + b)) (Fin (a + b)) ℚ_[p]) =
+      Matrix.reindex e e (Matrix.fromBlocks (matB p (ρ₁ σ : Matrix (Fin a) (Fin a) ℚ_[p])) 0
+        ((Y σ).map (algebraMap ℚ_[p] (BdR p))) (matB p (ρ₂ σ : Matrix (Fin b) (Fin b) ℚ_[p]))) := by
+    intro σ
+    rw [h σ, matB, Matrix.reindex_apply, Matrix.reindex_apply, ← Matrix.submatrix_map,
+      Matrix.fromBlocks_map, Matrix.map_zero _ (map_zero _)]
+    rfl
+  let π₁ : ddrStd p ρ →ₗ[ℚ_[p]] ddrStd p ρ₁ :=
+    { toFun := fun x => ⟨fun i => (x : Fin (a + b) → BdR p) (e (Sum.inl i)), by
+        rw [mem_ddrStd_iff]
+        intro σ
+        ext i
+        have := congrFun ((mem_ddrStd_iff p ρ _).mp x.2 σ) (e (Sum.inl i))
+        rw [hm, blk_mulVec_inl] at this
+        exact this⟩
+      map_add' := fun x y => rfl
+      map_smul' := fun c x => rfl }
+  have hker : ∀ x ∈ LinearMap.ker π₁, ∀ i, (x : Fin (a + b) → BdR p) (e (Sum.inl i)) = 0 := by
+    intro x hx i
+    have := congrArg (fun z : ddrStd p ρ₁ => (z : Fin a → BdR p) i) (LinearMap.mem_ker.mp hx)
+    exact this
+  let κ : LinearMap.ker π₁ →ₗ[ℚ_[p]] ddrStd p ρ₂ :=
+    { toFun := fun x => ⟨fun j => ((x : ddrStd p ρ) : Fin (a + b) → BdR p) (e (Sum.inr j)), by
+        rw [mem_ddrStd_iff]
+        intro σ
+        ext j
+        have := congrFun ((mem_ddrStd_iff p ρ _).mp (x : ddrStd p ρ).2 σ) (e (Sum.inr j))
+        rw [hm, blk_mulVec_inr] at this
+        have h0 : (fun i => bAct p σ ((x : ddrStd p ρ) : Fin (a + b) → BdR p) (e (Sum.inl i))) = 0 := by
+          funext i
+          simp only [bAct, hker x x.2 i, map_zero, Pi.zero_apply]
+        rw [h0, Matrix.mulVec_zero, zero_add] at this
+        exact this⟩
+      map_add' := fun x y => rfl
+      map_smul' := fun c x => rfl }
+  have hκ : Function.Injective κ := by
+    intro x y hxy
+    apply Subtype.ext; apply Subtype.ext
+    funext k
+    obtain ⟨k', rfl⟩ := e.surjective k
+    rcases k' with i | j
+    · rw [hker x x.2 i, hker y y.2 i]
+    · exact congrFun (congrArg Subtype.val hxy) j
+  have h1 := LinearMap.finrank_range_add_finrank_ker π₁
+  have h2 : Module.finrank ℚ_[p] (LinearMap.range π₁) ≤ Module.finrank ℚ_[p] (ddrStd p ρ₁) :=
+    Submodule.finrank_le _
+  have h3 := LinearMap.finrank_le_finrank_of_injective hκ
+  have h4 := ddrStd_finrank_le p hB ρ₁
+  have h5 := ddrStd_finrank_le p hB ρ₂
+  unfold IsDeRhamStd at hρ ⊢
+  constructor <;> omega
+
+/-- **Fontaine's Tannakian theorem for `B_dR` from `B_dR^{G_{ℚ_p}} = ℚ_p`.** -/
+theorem fontaineDRTannakian_of_bdrInvariants (hB : BdRInvariants p) : FontaineDRTannakian p :=
+  ⟨fun _ ρ ρ' _ h' h => dual_of_bdr p hB ρ ρ' h' h,
+    fun _ _ ρ ρ₁ ρ₂ Y _ h hρ => sub_of_bdr p hB ρ ρ₁ ρ₂ Y h hρ,
+    fun _ _ ρ ρ₁ ρ₂ _ _ h h₁ h₂ => sum_of_bdr p hB ρ ρ₁ ρ₂ h h₁ h₂,
+    fun _ _ ρ ρ₁ ρ₂ _ _ h h₁ h₂ => tensor_of_bdr p hB ρ ρ₁ ρ₂ h h₁ h₂⟩
+
+/-- **H-32 from `B_dR^{G_{ℚ_p}} = ℚ_p` alone.** -/
+theorem t23_all_of_bdrInvariants (hB : ∀ (p : ℕ) [Fact p.Prime], BdRInvariants p) :
+    ∀ (p : ℕ) [Fact p.Prime], T23_FontaineClosure p :=
+  fun p _ => t23_of_fontaine p (fontaineDRTannakian_of_bdrInvariants p (hB p))
+
+end BdRSec4
+
 /-! ## Summary: six of the seven rows from the published-form leaves (and Kato's newform case) -/
 
-/-- **The p-adic Hodge theory rows of the frontier.** H-52, H-32, H-8, H-22, H-51 from the seven
-published-form leaves; H-10 also from `EigenformHTNew` (Kato's theorem for newforms, not statable in
-Mathlib today) and the kernel's leaf I4-L5 `NewformOfEigenform`. (H-9 needs `B_st`.) -/
+/-- **The p-adic Hodge theory rows of the frontier.** H-52, H-32, H-8, H-22, H-51 from seven
+published-form leaves (Tate's two theorems, the Hodge–Tate decomposition of `V_p(A)`, the de Rham
+property of `H¹`, `B_dR^{G_{ℚ_p}} = ℚ_p`, Diamond–Shurman 9.6.5 and 9.6.6); H-10 also from
+`EigenformHTNew` (Kato's theorem for newforms, not statable in Mathlib today) and the kernel's leaf I4-L5
+`NewformOfEigenform`. (H-9 needs `B_st`.) -/
 theorem hodge_rows_of_leaves (hT : TateTwistInvariants) (hA : AxSenTate)
     (hHT : HodgeTateDecompAbVar) (hdR : DeRhamH1AbVarT)
-    (hF : ∀ (p : ℕ) [Fact p.Prime], FontaineDRTannakian p) (hD : DSThm965) (hDS : DSThm966)
+    (hB : ∀ (p : ℕ) [Fact p.Prime], BdRInvariants p) (hD : DSThm965) (hDS : DSThm966)
     (hNew : EigenformHTNew) (hL5 : NewformOfEigenform) :
     G0Galois.FiniteImageHT ∧ (∀ (p : ℕ) [Fact p.Prime], T23_FontaineClosure p) ∧
       ZInQ.Contrib.R10.DeRhamComparisonHT ∧ G0Galois.R14Det ∧ G0Galois.SenTwist ∧ EigenformHT :=
-  ⟨finiteImageHT_of_tate hT hA, t23_all_of_fontaine hF, deRhamComparisonHT_of_leavesT hHT hT hA hdR,
-    r14Det_of_printed hD hDS, senTwist_of_tate hT hA, eigenformHT_of_kato_ds hNew hL5 hD hDS⟩
+  ⟨finiteImageHT_of_tate hT hA, t23_all_of_bdrInvariants hB,
+    deRhamComparisonHT_of_leavesT hHT hT hA hdR, r14Det_of_printed hD hDS, senTwist_of_tate hT hA,
+    eigenformHT_of_kato_ds hNew hL5 hD hDS⟩
 
 end
 
@@ -3625,4 +4059,5 @@ end ZInQ.Contrib.HodgeSplit
 #print axioms ZInQ.Contrib.HodgeSplit.artinTransport_proof
 #print axioms ZInQ.Contrib.HodgeSplit.r14Det_of_printed
 #print axioms ZInQ.Contrib.HodgeSplit.eigenformHT_of_kato_ds
+#print axioms ZInQ.Contrib.HodgeSplit.t23_all_of_bdrInvariants
 #print axioms ZInQ.Contrib.HodgeSplit.hodge_rows_of_leaves

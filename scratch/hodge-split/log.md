@@ -153,3 +153,15 @@ after `lake build ZInQKernel.Contrib.R10.Amend ZInQKernel.Contrib.AbVarBC.Dim` (
   (∀ p, FontaineDRTannakian p) → DSThm965 → DSThm966 → EigenformHTNew → NewformOfEigenform →
   FiniteImageHT ∧ (∀ p, T23_FontaineClosure p) ∧ DeRhamComparisonHT ∧ R14Det ∧ SenTwist ∧ EigenformHT`.
 - COMPILED 11-14 (whole file ~45 s), every #print axioms standard. VERIFIED.
+
+## H-32 from `B_dR^{G_{ℚ_p}} = ℚ_p` alone (HodgeSplit.lean §19)
+- LEAF `BdRInvariants p` (a G_{ℚ_p}-invariant element of Mathlib's B_dR(𝓞_ℂ_p) lies in ℚ_p; Fontaine
+  Astérisque 223 Exp. II; = hfix of pkg-I4's isDeRham_trivial). B_dR a field: kernel's
+  `BdrKer.Cp.isField_BDeRham` (local instance `bdrField` via IsField.toField; `bdrDomain`).
+- PROVED (Brinon–Conrad 5.2.1 style): `ddrStd_linearIndependent` (regularity: ℚ_p-independent elements of
+  D_dR(V) are B_dR-independent), `ddrStd_finrank_le`, `exists_matrix_of_isDeRhamStd` (L4),
+  `isDeRhamStd_of_matrix` (L5), `dual_of_bdr`, `sub_of_bdr` (rank–nullity on the block projection),
+  `sum_of_bdr`, `tensor_of_bdr` (Kronecker of the period matrices), `fontaineDRTannakian_of_bdrInvariants`,
+  `t23_all_of_bdrInvariants : (∀ p, BdRInvariants p) → ∀ p, T23_FontaineClosure p`.
+- `hodge_rows_of_leaves` now takes `∀ p, BdRInvariants p` instead of `∀ p, FontaineDRTannakian p`.
+- COMPILED 11-14, standard axioms. VERIFIED.
