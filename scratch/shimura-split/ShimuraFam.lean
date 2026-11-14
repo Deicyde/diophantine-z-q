@@ -266,3 +266,6 @@ end HDec.QMSplit.Moduli
 
 #print axioms ShimuraSplit.holP1_of_isHolFamily
 #print axioms HDec.QMSplit.Moduli.shimuraFamily_of_hol
+
+example : HDec.QMSplit.Moduli.ShimuraHolFamily → HDec.QMSplit.Moduli.ShimuraFamily :=
+  HDec.QMSplit.Moduli.shimuraFamily_of_hol

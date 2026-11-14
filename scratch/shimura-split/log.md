@@ -88,3 +88,11 @@
   X6Surj/R5 clauses); `conicOfWitness_of_elkies`; `x6ConicModel_of_elkies : R1R2fpRep → ElkiesConicX6 → MobiusGlue →
   X6ConicModel`; `x6ConicModel_of_elkies_t5` (MobiusGlue from T5 via kernel `CurveGlue.mobiusGlue_of_t5`);
   converse `elkiesConicX6_of : X6ConicModel → ElkiesConicX6`.
+
+## Step 12: final checks
+- Rows.lean (over TailK): 0 errors; `rows_result.txt` = 51 `#print axioms` lines, all [propext, Classical.choice,
+  Quot.sound]; `example`s with fully qualified row types (R1rec, R5fp, R5fpCount, TSHecke.Y3Connected,
+  X6Kummer.X6ConicModel, LeafAdopt.R1R2fpRep) compile.
+- ShimuraFam.lean (over TailU): 0 errors; `shimurafam_result.txt`; `example : ShimuraHolFamily → HDec.QMSplit.Moduli.ShimuraFamily`.
+- Note: TailU already contains qm-split's ModuliSplit constants (HDec.QMSplit.Moduli.CanonicalModelY3, ...), so
+  ShimuraFam.lean cannot be merged with Rows.lean (whose Part 1 re-declares them over TailK).
