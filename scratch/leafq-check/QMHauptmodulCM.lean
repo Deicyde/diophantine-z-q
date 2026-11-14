@@ -1088,7 +1088,165 @@ theorem fixed_x3 {γ : GL (Fin 2) ℝ} (hγ : (γ : Matrix (Fin 2) (Fin 2) ℝ) 
     have h3 : (0 : ℝ) < √3 := Real.sqrt_pos.2 (by norm_num)
     linarith [τ.im_pos]
 
+theorem enat_aux {a b : ℕ∞} (h : 2 * (a + b) ≤ 10) (hb : 1 ≤ b) : a ≤ 4 := by
+  induction a using ENat.recTopCoe with
+  | top => simp at h
+  | coe a =>
+    induction b using ENat.recTopCoe with
+    | top => simp at h
+    | coe b =>
+      have h' : 2 * (a + b) ≤ 10 := by exact_mod_cast h
+      have hb' : 1 ≤ b := by exact_mod_cast hb
+      exact_mod_cast (show a ≤ 4 by omega)
+
+theorem mero_neg_aux {N D : ℂ → ℂ} {z : ℂ} (hN : AnalyticAt ℂ N z) (hD : AnalyticAt ℂ D z)
+    (hn : analyticOrderAt N z ≤ 8) (hd : 10 ≤ analyticOrderAt D z) (hdt : analyticOrderAt D z ≠ ⊤) :
+    meromorphicOrderAt (fun w => N w / D w) z < 0 := by
+  have e : (fun w => N w / D w) = N / D := rfl
+  rw [e, meromorphicOrderAt_div hN.meromorphicAt hD.meromorphicAt, hN.meromorphicOrderAt_eq,
+    hD.meromorphicOrderAt_eq]
+  generalize analyticOrderAt N z = n at hn
+  generalize analyticOrderAt D z = d at hd hdt
+  induction n using ENat.recTopCoe with
+  | top => simp at hn
+  | coe n =>
+    induction d using ENat.recTopCoe with
+    | top => exact absurd rfl hdt
+    | coe d =>
+      have hn' : n ≤ 8 := by exact_mod_cast hn
+      have hd' : 10 ≤ d := by exact_mod_cast hd
+      simp only [ENat.map_coe]
+      have h := (show (n : ℤ) - d < 0 by omega)
+      have e2 : ((n : ℤ) : WithTop ℤ) - ((d : ℤ) : WithTop ℤ) = (((n : ℤ) - d : ℤ) : WithTop ℤ) := rfl
+      rw [e2]
+      exact_mod_cast h
+
+/-- **`QMHauptmodulBase2` without its disc −3 clause.** What is left: the Hauptmodul property and the
+value `−16/27` at the order-2 point. -/
+def QMHauptmodulBase3 : Prop :=
+  ∃ f : UpperHalfPlane → OnePoint ℂ, Continuous f ∧
+    (∀ τ : UpperHalfPlane, PkgI1.jDen (PkgI1.Omega τ) ≠ 0 →
+      f τ = ((PkgI1.jNum (PkgI1.Omega τ) / PkgI1.jDen (PkgI1.Omega τ) : ℂ) : OnePoint ℂ)) ∧
+    (∀ τ τ' : UpperHalfPlane, f τ = f τ' ↔ ∃ γ ∈ PkgI1.GammaStar, γ • τ = τ') ∧
+    Function.Surjective f ∧
+    (∀ γ : GL (Fin 2) ℝ, (γ : Matrix (Fin 2) (Fin 2) ℝ) = PkgI1.iota mu →
+      ∀ τ : UpperHalfPlane, γ • τ = τ → f τ = ((-16/27 : ℂ) : OnePoint ℂ))
+
+set_option maxHeartbeats 1000000 in
+open UpperHalfPlane (denom denom_ne_zero) in
+open Filter Topology in
+/-- **The pole at `i√3` (proved)** from Igusa's `ThetaModularity` (R4), `GammaStarGen` (proved) and the
+valence bound: `ord_{i√3}(Σθ⁸∘Ω) ≥ 2` (period-map's `S8OrderCM3`), and the valence bound for
+`G20 = ∏θ²∘Ω/dF¹⁰` (weight 20) at `{i√3, √2+i}` with `G20(√2+i) = 0` gives `ord_{i√3}(∏θ²∘Ω) ≤ 4`, so
+`ord(jNum∘Ω) ≤ 8 < 10 ≤ ord(jDen∘Ω)` and `jNum/jDen → ∞`. -/
+theorem base2_of_base3 (hT : PkgI1.ThetaModularity) (hG : HSyn.G0Split.FibreQM.PeriodGlue.GammaStarGen)
+    (hV : ValenceBoundGammaStar) (h : QMHauptmodulBase3) : QMHauptmodulBase2 := by
+  classical
+  obtain ⟨f, hc, hform, hfib, hsurj, h24⟩ := h
+  refine ⟨f, hc, hform, hfib, hsurj, fun γ hγ τ hτ => ?_, h24⟩
+  obtain rfl := fixed_x3 hγ hτ
+  have h3U : (tau3 : ℂ) ∈ U := tau3.im_pos
+  have h4U : (tau4 : ℂ) ∈ U := tau4.im_pos
+  have hW := HSyn.G0Split.FibreQM.PeriodGlue.s8WeightExact_of hT hG
+  -- `ord Σθ⁸∘Ω ≥ 2` at `i√3`
+  have hS3 : 2 ≤ analyticOrderAt Sf (tau3 : ℂ) := by
+    rw [ord_Sf_eq h3U]; exact s8OrderCM3_of thetaOmegaAnalytic_proof hW
+  -- `G8(i√3) = 0`, `G8(√2+i) ≠ 0`
+  have hG8_3 : G8 (tau3 : ℂ) = 0 := by
+    apply apply_eq_zero_of_analyticOrderAt_ne_zero
+    rw [← ord_Sf_eq h3U]; intro h0; rw [h0] at hS3; norm_num at hS3
+  have hG8_4 : G8 (tau4 : ℂ) ≠ 0 := by
+    rw [G8_eq]; exact div_ne_zero Sf_tau4 (pow_ne_zero _ (Zf_ne tau4.im_pos))
+  -- `i√3` and `√2 + i` are inequivalent
+  have hne34 : tau3 ≠ tau4 := by
+    intro h0
+    have := congrArg (fun w : UpperHalfPlane => (w : ℂ).re) h0
+    simp [tau3_coe, tau4_coe] at this
+    have h2 : (0 : ℝ) < √2 := Real.sqrt_pos.2 (by norm_num)
+    linarith
+  have hpair : ((({tau3, tau4} : Finset UpperHalfPlane)) : Set UpperHalfPlane).Pairwise
+      (fun z w => ∀ γ ∈ PkgI1.GammaStar, γ • z ≠ w) := by
+    intro z hz w hw hzw γ hγ' hγz
+    have hdet : (((γ : Matrix (Fin 2) (Fin 2) ℝ).det : ℝ) : ℂ) ≠ 0 := by
+      obtain ⟨_, _, _, hd⟩ := hγ'; exact_mod_cast hd.ne'
+    have e := hW γ hγ' z
+    rw [hγz] at e
+    simp only [Finset.coe_insert, Finset.coe_singleton, Set.mem_insert_iff,
+      Set.mem_singleton_iff] at hz hw
+    rcases hz with rfl | rfl <;> rcases hw with rfl | rfl
+    · exact hzw rfl
+    · rw [hG8_3, mul_zero] at e
+      exact hG8_4 ((mul_eq_zero.1 e).resolve_right (pow_ne_zero _ hdet))
+    · rw [hG8_3, zero_mul] at e
+      exact hG8_4 ((mul_eq_zero.1 e.symm).resolve_left (pow_ne_zero _ (denom_ne_zero γ _)))
+    · exact hzw rfl
+  -- `G20 ≢ 0` (else `f ≡ 0`, against surjectivity)
+  have hG20ne : ∃ z ∈ U, HSyn.G0Split.FibreQM.PeriodGlue.LQ20.G20 z ≠ 0 := by
+    by_contra hall
+    push_neg at hall
+    have hf0 : ∀ τ0 : UpperHalfPlane, f τ0 = ((0 : ℂ) : OnePoint ℂ) := by
+      intro τ0
+      refine value_of_eventually hc τ0 _ ?_
+      filter_upwards [eventually_jDen_ne_H τ0] with τ hτ
+      rw [hform τ hτ]
+      have hP : Pf (τ : ℂ) = 0 := by
+        have := hall τ τ.im_pos
+        rw [G20_eq] at this
+        exact (div_eq_zero_iff.1 this).resolve_right (pow_ne_zero _ (Zf_ne τ.im_pos))
+      rw [jNumO_eq, hP]; simp
+    obtain ⟨τ, hτ⟩ := hsurj OnePoint.infty
+    rw [hf0 τ] at hτ
+    exact OnePoint.coe_ne_infty _ hτ
+  -- automorphy in absolute value
+  have hW20 : ∀ γ ∈ PkgI1.GammaStar, ∀ z : UpperHalfPlane,
+      ‖HSyn.G0Split.FibreQM.PeriodGlue.LQ20.G20 ((γ • z : UpperHalfPlane) : ℂ)‖ *
+        ((γ : Matrix (Fin 2) (Fin 2) ℝ).det) ^ 10 =
+      ‖denom γ z‖ ^ (2 * 10) * ‖HSyn.G0Split.FibreQM.PeriodGlue.LQ20.G20 (z : ℂ)‖ := by
+    intro γ hγ' z
+    have ⟨_, _, _, hdet⟩ := hγ'
+    have e := congrArg norm (HSyn.G0Split.FibreQM.PeriodGlue.LQ20.s20WeightExact_of hT hG γ hγ' z)
+    rw [norm_mul, norm_mul, norm_pow, norm_pow, Complex.norm_real, Real.norm_of_nonneg hdet.le] at e
+    simpa using e
+  have hval := hV 10 HSyn.G0Split.FibreQM.PeriodGlue.LQ20.G20 (fun z hz => G20_analytic hz)
+    hG20ne hW20 {tau3, tau4} hpair
+  rw [Finset.sum_pair hne34] at hval
+  -- `ord_{√2+i} G20 ≥ 1`
+  have h4 : 1 ≤ analyticOrderAt HSyn.G0Split.FibreQM.PeriodGlue.LQ20.G20 (tau4 : ℂ) := by
+    rw [ENat.one_le_iff_ne_zero, (G20_analytic h4U).analyticOrderAt_ne_zero, G20_eq, Pf_tau4,
+      zero_div]
+  -- `ord_{i√3} G20 ≤ 4`
+  have h3 : analyticOrderAt HSyn.G0Split.FibreQM.PeriodGlue.LQ20.G20 (tau3 : ℂ) ≤ 4 := by
+    exact enat_aux hval h4
+  -- orders of `jNum ∘ Ω` and `jDen ∘ Ω`
+  have hNan : AnalyticAt ℂ (fun z => PkgI1.jNum (PkgI1.Omega z)) (tau3 : ℂ) :=
+    analyticAt_const.mul ((Pf_analytic _ h3U).pow 2)
+  have hDan : AnalyticAt ℂ (fun z => PkgI1.jDen (PkgI1.Omega z)) (tau3 : ℂ) := jDenO_analytic _ h3U
+  have hN : analyticOrderAt (fun z => PkgI1.jNum (PkgI1.Omega z)) (tau3 : ℂ) ≤ 8 := by
+    have e : (fun z => PkgI1.jNum (PkgI1.Omega z)) = (fun _ => (3779136 : ℂ)) * Pf ^ 2 := by
+      funext z; rfl
+    rw [e, analyticOrderAt_mul analyticAt_const ((Pf_analytic _ h3U).pow 2),
+      analyticOrderAt_eq_zero.2 (Or.inr (by norm_num)), zero_add,
+      analyticOrderAt_pow (Pf_analytic _ h3U), ord_Pf_eq h3U]
+    calc (2 : ℕ) • analyticOrderAt HSyn.G0Split.FibreQM.PeriodGlue.LQ20.G20 (tau3 : ℂ)
+        ≤ (2 : ℕ) • (4 : ℕ∞) := by gcongr
+      _ = 8 := by norm_num
+  have hD : 10 ≤ analyticOrderAt (fun z => PkgI1.jDen (PkgI1.Omega z)) (tau3 : ℂ) := by
+    have e : (fun z => PkgI1.jDen (PkgI1.Omega z)) = Sf ^ 5 := by funext z; rfl
+    rw [e, analyticOrderAt_pow (Sf_analytic _ h3U)]
+    calc (10 : ℕ∞) = (5 : ℕ) • (2 : ℕ∞) := by norm_num
+      _ ≤ (5 : ℕ) • analyticOrderAt Sf (tau3 : ℂ) := by gcongr
+  have hDtop := jDenO_order_ne_top h3U
+  -- `jNum/jDen → ∞`
+  have hmo : meromorphicOrderAt (fun z => PkgI1.jNum (PkgI1.Omega z) / PkgI1.jDen (PkgI1.Omega z))
+      (tau3 : ℂ) < 0 := by
+    exact mero_neg_aux hNan hDan hN hD hDtop
+  refine value_infty_of_tendsto hc tau3 (h := fun z => PkgI1.jNum (PkgI1.Omega z) /
+    PkgI1.jDen (PkgI1.Omega z)) ?_ (tendsto_cobounded_of_meromorphicOrderAt_neg hmo)
+  filter_upwards [eventually_jDen_ne_H tau3] with τ hτ
+  exact hform τ hτ
+
 end HDec.LeafQCheck.HM
 
 #print axioms HDec.LeafQCheck.HM.qmHauptmodul_of_base
 #print axioms HDec.LeafQCheck.HM.qmHauptmodul_of_base2
+#print axioms HDec.LeafQCheck.HM.base2_of_base3
