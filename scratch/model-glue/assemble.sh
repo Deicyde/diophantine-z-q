@@ -8,3 +8,5 @@ cat ../vert-witness/VertWitness.lean ModelGlue.lean.part > ModelGlue.lean
 cat ModelGlue2.lean ModelGlue3.lean.part > ModelGlue3.lean
 # ModelGlue4.lean: ModelGlue3.lean + step 4 (comparison morphism, ModelIntegral).
 cat ModelGlue3.lean ModelGlue4.lean.part > ModelGlue4.lean
+# ModelGlue5.lean: ModelGlue4.lean + step 5 (ModelFunctionField from CurveBijIso).
+cat ModelGlue4.lean ModelGlue5.lean.part > ModelGlue5.lean

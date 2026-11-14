@@ -1,0 +1,289 @@
+
+/-! ════════════════════════════════════════════════════════════════════════════════════════════
+# model-glue, step 5: `ModelFunctionField` from `CurveBijIso`
+
+`ModelGlue5.lean` = `ModelGlue4.lean` + this part.
+* `isOpenImmersion_specRatToZloc`: `ℚ = ℤ_(p)[1/p]`, so `𝒴_ℚ → 𝒴` is an open immersion.
+* `germ_eq_of_closedPoints`, `germ_eq_of_val_eq`, `germ_chart_eq`: Jacobson density for germs at
+  the generic point.
+* `val_eq_of_same_fibres`: Möbius rigidity on a proper smooth `ℚ`-curve (the argument of
+  `Pin.mobiusGlue_of_curveFacts`, from the proved `curveFacts`).
+* `ffMap`: the map of function fields along a morphism preserving generic points.
+* `modelFunctionField_of_curveBijIso (hT : TwistClassFinite) (hC : CurveBijIso) :
+  ModelFunctionField` (proved).
+════════════════════════════════════════════════════════════════════════════════════════════ -/
+
+noncomputable section
+
+namespace ModelGlue
+
+open Polynomial CategoryTheory AlgebraicGeometry Limits LeafQM.AV VertWitness HeckeRestNV
+open LeafQM.AV.Pin G0ModField PropTSRed PropTSGlue
+
+/-! ## Part 14: `ℚ = ℤ_(p)[1/p]` -/
+
+theorem zlocToRat_natCast (p : ℕ) [Fact p.Prime] (n : ℕ) : zlocToRat p (n : Zloc p) = n :=
+  map_natCast _ n
+
+theorem zlocToRat_injective (p : ℕ) [Fact p.Prime] : Function.Injective (zlocToRat p) := by
+  unfold zlocToRat
+  rw [IsLocalization.lift_injective_iff]
+  intro x y
+  have hinj : Function.Injective (algebraMap ℤ (Zloc p)) :=
+    IsLocalization.injective (Zloc p) (M := (pIdeal p).primeCompl)
+      (le_nonZeroDivisors_of_noZeroDivisors (S := (pIdeal p).primeCompl)
+        (fun h0 => h0 (Ideal.zero_mem _)))
+  constructor
+  · intro h
+    rw [hinj h]
+  · intro h
+    have : x = y := Int.cast_injective h
+    rw [this]
+
+/-- `ℚ` is the localization of `ℤ_(p)` away from `p`. -/
+theorem zloc_away (p : ℕ) [Fact p.Prime] :
+    letI := (zlocToRat p).toAlgebra
+    IsLocalization.Away (p : Zloc p) ℚ := by
+  letI := (zlocToRat p).toAlgebra
+  have hp : (p : ℚ) ≠ 0 := by exact_mod_cast (Fact.out : p.Prime).ne_zero
+  refine (isLocalization_iff _ _).2 ⟨?_, ?_, ?_⟩
+  · rintro ⟨_, n, rfl⟩
+    refine isUnit_iff_ne_zero.2 ?_
+    show zlocToRat p ((p : Zloc p) ^ n) ≠ 0
+    rw [map_pow, zlocToRat_natCast]
+    exact pow_ne_zero _ hp
+  · intro z
+    obtain ⟨e, m, hm, hden⟩ := Nat.exists_eq_pow_mul_and_not_dvd z.den_nz p
+      (Fact.out : p.Prime).one_lt.ne'
+    have hmem : ((m : ℤ)) ∈ (pIdeal p).primeCompl := by
+      show (m : ℤ) ∉ Ideal.span {(p : ℤ)}
+      rw [Ideal.mem_span_singleton]
+      exact_mod_cast hm
+    have hm0 : (m : ℚ) ≠ 0 := by
+      rintro h0
+      apply hm
+      rw [Nat.cast_eq_zero.1 h0]
+      exact dvd_zero p
+    refine ⟨⟨IsLocalization.mk' (Zloc p) z.num ⟨(m : ℤ), hmem⟩, ⟨(p : Zloc p) ^ e, e, rfl⟩⟩, ?_⟩
+    show z * zlocToRat p ((p : Zloc p) ^ e) =
+      zlocToRat p (IsLocalization.mk' (Zloc p) z.num ⟨(m : ℤ), hmem⟩)
+    have hval : zlocToRat p (IsLocalization.mk' (Zloc p) z.num ⟨(m : ℤ), hmem⟩) =
+        (z.num : ℚ) / m := by
+      unfold zlocToRat
+      rw [IsLocalization.lift_mk'_spec]
+      simp only [eq_intCast, Int.cast_natCast]
+      field_simp
+    rw [hval, map_pow, zlocToRat_natCast]
+    have hz : (z.den : ℚ) = (p : ℚ) ^ e * m := by exact_mod_cast hden
+    conv_lhs => rw [← Rat.num_div_den z]
+    rw [hz]
+    field_simp
+  · intro x y h
+    exact ⟨1, by rw [zlocToRat_injective p h]⟩
+
+/-- **`Spec ℚ → Spec ℤ_(p)` is an open immersion.** -/
+theorem isOpenImmersion_specRatToZloc (p : ℕ) [Fact p.Prime] :
+    IsOpenImmersion (specRatToZloc p) := by
+  letI := (zlocToRat p).toAlgebra
+  haveI := zloc_away p
+  exact IsOpenImmersion.of_isLocalization (p : Zloc p)
+
+/-! ## Part 15: reducedness over a domain, Jacobson density for germs -/
+
+/-- A smooth scheme over a domain is reduced. -/
+theorem isReduced_of_smooth_domain {R : CommRingCat.{0}} [IsDomain R] {X : Scheme.{0}}
+    (f : X ⟶ Spec R) [Smooth f] : IsReduced X := by
+  refine @IsReduced.of_openCover X X.affineCover (fun i => ?_)
+  have hsm : Smooth (X.affineCover.f i ≫ f) := inferInstance
+  have hring := (HasRingHomProperty.iff_of_isAffine (P := @Smooth)).mp hsm
+  letI := ((X.affineCover.f i ≫ f).appTop).hom.toAlgebra
+  haveI : Algebra.Smooth Γ(Spec R, ⊤) Γ(X.affineCover.X i, ⊤) :=
+    RingHom.smooth_algebraMap.1 hring
+  haveI : _root_.IsReduced Γ(X.affineCover.X i, ⊤) :=
+    isReduced_of_smooth_of_isDomain Γ(Spec R, ⊤) _
+  exact isReduced_of_isAffine_isReduced _
+
+/-- **Jacobson density for germs at the generic point.** On an integral Jacobson scheme, two
+sections defined at the generic point with the same values at all closed points have the same
+germ there. -/
+theorem germ_eq_of_closedPoints {X : Scheme.{0}} [IsIntegral X] [JacobsonSpace X]
+    {U₁ U₂ : X.Opens} (f₁ : Γ(X, U₁)) (f₂ : Γ(X, U₂)) (h₁ : genericPoint X ∈ U₁)
+    (h₂ : genericPoint X ∈ U₂)
+    (H : ∀ (x : X) (hx1 : x ∈ U₁) (hx2 : x ∈ U₂), IsClosed ({x} : Set X) →
+      X.evaluation U₁ x hx1 f₁ = X.evaluation U₂ x hx2 f₂) :
+    X.presheaf.germ U₁ (genericPoint X) h₁ f₁ = X.presheaf.germ U₂ (genericPoint X) h₂ f₂ := by
+  set W := U₁ ⊓ U₂ with hW
+  let d : Γ(X, W) := X.presheaf.map (homOfLE inf_le_left).op f₁ -
+    X.presheaf.map (homOfLE inf_le_right).op f₂
+  have hd : X.basicOpen d = ⊥ := by
+    by_contra hne
+    have hne' : ((X.basicOpen d : X.Opens) : Set X).Nonempty := by
+      by_contra h0
+      apply hne
+      ext1
+      simpa [Set.not_nonempty_iff_eq_empty] using h0
+    obtain ⟨x, hxb, hxc⟩ := nonempty_inter_closedPoints hne'
+      (X.basicOpen d).isOpen.isLocallyClosed
+    have hxW : x ∈ W := X.basicOpen_le d hxb
+    have h0 := (X.evaluation_ne_zero_iff_mem_basicOpen x hxW d).mpr hxb
+    apply h0
+    simp only [d, map_sub, eval_res]
+    rw [H x hxW.1 hxW.2 hxc, sub_self]
+  rw [AlgebraicGeometry.basicOpen_eq_bot_iff] at hd
+  have key : X.presheaf.germ W (genericPoint X) ⟨h₁, h₂⟩ d = 0 := by rw [hd, map_zero]
+  simp only [d, map_sub, sub_eq_zero] at key
+  erw [TopCat.Presheaf.germ_res_apply, TopCat.Presheaf.germ_res_apply] at key
+  exact key
+
+/-- **Two maps to `P¹` with the same `ℚ̄`-values have the same germ at the generic point** (on an
+integral `ℚ`-scheme locally of finite type). -/
+theorem germ_eq_of_val_eq (Y : Over (Spec (CommRingCat.of ℚ))) [LocallyOfFiniteType Y.hom]
+    [IsIntegral Y.left] (σ τ : ToP1 Y.left)
+    (hval : ∀ y : fieldPt Qbar ⟶ Y, σ.val (K := Qbar) y.left = τ.val (K := Qbar) y.left)
+    (hσ : genericPoint Y.left ∈ σ.U) :
+    ∃ hτ : genericPoint Y.left ∈ τ.U,
+      Y.left.presheaf.germ σ.U _ hσ σ.f = Y.left.presheaf.germ τ.U _ hτ τ.f := by
+  haveI : JacobsonSpace Y.left := LocallyOfFiniteType.jacobsonSpace Y.hom
+  have hcl : ∀ x : Y.left, IsClosed ({x} : Set Y.left) → (x ∈ σ.U → x ∈ τ.U) ∧
+      ∀ (h1 : x ∈ σ.U) (h2 : x ∈ τ.U),
+        Y.left.evaluation σ.U x h1 σ.f = Y.left.evaluation τ.U x h2 τ.f := by
+    intro x hx
+    obtain ⟨emb, y0, hy0⟩ := exists_qbarPt Y x hx
+    have e := hval y0
+    unfold ToP1.val at e
+    rw [hy0, Equiv.apply_symm_apply] at e
+    refine ⟨fun h1 => ?_, fun h1 h2 => ?_⟩
+    · by_contra h2
+      rw [dif_pos h1, dif_neg h2] at e
+      exact OnePoint.coe_ne_infty _ e
+    · rw [dif_pos h1, dif_pos h2] at e
+      exact emb.hom.injective (OnePoint.coe_injective e)
+  have hτ : genericPoint Y.left ∈ τ.U := by
+    obtain ⟨x, hxσ, hxc⟩ := nonempty_inter_closedPoints (Z := (σ.U : Set Y.left))
+      ⟨_, hσ⟩ σ.U.isOpen.isLocallyClosed
+    exact ((genericPoint_spec Y.left).mem_open_set_iff τ.U.isOpen).mpr
+      ⟨x, trivial, (hcl x hxc).1 hxσ⟩
+  exact ⟨hτ, germ_eq_of_closedPoints σ.f τ.f hσ hτ fun x h1 h2 hx => (hcl x hx).2 h1 h2⟩
+
+/-- **On the chart `Spec B`, the germ of `π ∘ h` at the generic point is `b`** when `π` takes the
+value `ψ(b)` at every `ℚ̄`-point `ψ : B → ℚ̄` of the chart. -/
+theorem germ_chart_eq {B : Type} [CommRing B] [IsDomain B] {Y : Over (Spec (CommRingCat.of ℚ))}
+    [LocallyOfFiniteType Y.hom] (h : Spec (CommRingCat.of B) ⟶ Y.left) [IsOpenImmersion h]
+    (π : ToP1 Y.left) (b : B)
+    (hval : ∀ ψ : B →+* Qbar,
+      π.val (K := Qbar) (Spec.map (CommRingCat.ofHom ψ) ≫ h) = OnePoint.some (ψ b))
+    (hη : genericPoint (Spec (CommRingCat.of B)) ∈ (π.comp h).U) :
+    (Spec (CommRingCat.of B)).presheaf.germ (π.comp h).U _ hη (π.comp h).f =
+      (Spec (CommRingCat.of B)).presheaf.germ ⊤ _ trivial
+        ((Scheme.ΓSpecIso (CommRingCat.of B)).inv b) := by
+  let Z : Over (Spec (CommRingCat.of ℚ)) := Over.mk (h ≫ Y.hom)
+  haveI : LocallyOfFiniteType Z.hom := by
+    show LocallyOfFiniteType (h ≫ Y.hom)
+    infer_instance
+  haveI : JacobsonSpace (Spec (CommRingCat.of B)) := LocallyOfFiniteType.jacobsonSpace Z.hom
+  refine germ_eq_of_closedPoints (U₂ := ⊤) _ _ hη trivial fun x hx1 hx2 hxc => ?_
+  obtain ⟨emb, y0, hy0⟩ := exists_qbarPt Z x hxc
+  have hpt : ptOf (y0.left : Spec (CommRingCat.of Qbar) ⟶ Spec (CommRingCat.of B)) = x := by
+    show (Scheme.SpecToEquivOfField Qbar _ y0.left).1 = x
+    rw [hy0, Equiv.apply_symm_apply]
+  generalize (y0.left : Spec (CommRingCat.of Qbar) ⟶ Spec (CommRingCat.of B)) = z at hpt
+  subst hpt
+  obtain ⟨ψ, rfl⟩ : ∃ ψ, Spec.map ψ = z := ⟨Spec.preimage z, Spec.map_preimage z⟩
+  apply (Scheme.SpecToEquivOfField Qbar _ (Spec.map ψ)).2.hom.injective
+  change ev (Spec.map ψ) hx1 (π.comp h).f = ev (Spec.map ψ) hx2 _
+  rw [ImagePlane.ev_spec_top]
+  have e := hval ψ.hom
+  rw [CommRingCat.ofHom_hom, ← ToP1.val_comp_right] at e
+  unfold ToP1.val at e
+  rw [dif_pos (show (Scheme.SpecToEquivOfField Qbar _ (Spec.map ψ)).1 ∈ (π.comp h).U from hx1)]
+    at e
+  exact OnePoint.coe_injective e
+
+/-! ## Part 16: Möbius rigidity on a proper smooth `ℚ`-curve -/
+
+/-- **Möbius rigidity (the argument of `Pin.mobiusGlue_of_curveFacts`, compiled).** Two maps to
+`P¹` on a proper smooth `ℚ`-curve with the same fibre relation on `ℚ̄`-points, finite fibres, and
+the values `0, ∞, −16/27` at three common points take the same values. -/
+theorem val_eq_of_same_fibres {S : Over (Spec (CommRingCat.of ℚ))} (hprop : IsProper S.hom)
+    (hsm : SmoothOfRelativeDimension 1 S.hom) (σ σ' : ToP1 S.left)
+    (hrel : ∀ s₁ s₂ : fieldPt Qbar ⟶ S, σ.val (K := Qbar) s₁.left = σ.val (K := Qbar) s₂.left
+      ↔ σ'.val (K := Qbar) s₁.left = σ'.val (K := Qbar) s₂.left)
+    (y₄ y₃ y₂ : fieldPt Qbar ⟶ S)
+    (σ₄ : σ.val (K := Qbar) y₄.left = OnePoint.some 0)
+    (π₄ : σ'.val (K := Qbar) y₄.left = OnePoint.some 0)
+    (σ₃ : σ.val (K := Qbar) y₃.left = OnePoint.infty)
+    (π₃ : σ'.val (K := Qbar) y₃.left = OnePoint.infty)
+    (σ₂ : σ.val (K := Qbar) y₂.left = OnePoint.some (-16 / 27))
+    (π₂ : σ'.val (K := Qbar) y₂.left = OnePoint.some (-16 / 27))
+    (hfin : ∀ s : fieldPt Qbar ⟶ S, {s' : fieldPt Qbar ⟶ S |
+      σ.val (K := Qbar) s'.left = σ.val (K := Qbar) s.left}.Finite) :
+    ∀ s : fieldPt Qbar ⟶ S, σ'.val (K := Qbar) s.left = σ.val (K := Qbar) s.left := by
+  have hsurj := curveFacts.2 S hprop hsm ⟨y₄⟩ σ hfin
+  obtain ⟨F, G, hcop, hFG⟩ := curveFacts.1 S hprop hsm σ σ' (fun s₁ s₂ h => (hrel s₁ s₂).1 h)
+  have hinj : ∀ s t : Qbar, Mob.ratEval F G s = Mob.ratEval F G t → s = t := by
+    intro s t hst
+    obtain ⟨ys, hys⟩ := hsurj (OnePoint.some s)
+    obtain ⟨yt, hyt⟩ := hsurj (OnePoint.some t)
+    have e : σ'.val (K := Qbar) ys.left = σ'.val (K := Qbar) yt.left := by
+      rw [hFG ys s hys, hFG yt t hyt, hst]
+    have := (hrel ys yt).2 e
+    rw [hys, hyt] at this
+    exact OnePoint.coe_injective this
+  have hdeg := Mob.natDegree_le_one_of_injective hcop hinj
+  have hpole : ∀ t, Mob.ratEval F G t ≠ OnePoint.infty := by
+    intro t ht
+    obtain ⟨yt, hyt⟩ := hsurj (OnePoint.some t)
+    have e : σ'.val (K := Qbar) yt.left = σ'.val (K := Qbar) y₃.left := by
+      rw [hFG yt t hyt, ht, π₃]
+    have := (hrel yt y₃).2 e
+    rw [hyt, σ₃] at this
+    exact OnePoint.coe_ne_infty t this
+  have h0 : Mob.ratEval F G 0 = OnePoint.some 0 := by rw [← hFG y₄ 0 σ₄, π₄]
+  have hc : Mob.ratEval F G (-16 / 27) = OnePoint.some (-16 / 27) := by
+    rw [← hFG y₂ _ σ₂, π₂]
+  have hid := Mob.ratEval_eq_self hdeg.1 hpole h0 (by norm_num) hc
+  intro s
+  by_cases hinf : σ.val (K := Qbar) s.left = OnePoint.infty
+  · rw [hinf, ← π₃]
+    exact (hrel s y₃).1 (by rw [hinf, σ₃])
+  · obtain ⟨t, ht⟩ := OnePoint.ne_infty_iff_exists.mp hinf
+    rw [← ht, hFG s t ht.symm, hid t]
+
+/-! ## Part 17: maps of function fields -/
+
+variable {X Z : Scheme.{0}} [IrreducibleSpace X] [IrreducibleSpace Z]
+
+theorem isIso_stalkSpecializes_of_eq {W : Scheme.{0}} {x y : W} (h : x ⤳ y) (e : x = y) :
+    IsIso (W.presheaf.stalkSpecializes h) := by
+  subst e
+  rw [TopCat.Presheaf.stalkSpecializes_refl]
+  infer_instance
+
+/-- The map of function fields along `f : X → Z` with `f(η_X) = η_Z`. -/
+def ffMap (f : X ⟶ Z) (e : f (genericPoint X) = genericPoint Z) :
+    Z.functionField ⟶ X.functionField :=
+  Z.presheaf.stalkSpecializes (show f (genericPoint X) ⤳ genericPoint Z by rw [e]) ≫
+    f.stalkMap (genericPoint X)
+
+theorem ffMap_germ (f : X ⟶ Z) (e : f (genericPoint X) = genericPoint Z)
+    (U : Z.Opens) (hU : genericPoint Z ∈ U) (s : Γ(Z, U)) (hU' : genericPoint X ∈ f ⁻¹ᵁ U) :
+    ffMap f e (Z.presheaf.germ U _ hU s) = X.presheaf.germ (f ⁻¹ᵁ U) _ hU' (f.app U s) := by
+  rw [ffMap, CommRingCat.comp_apply, TopCat.Presheaf.germ_stalkSpecializes_apply,
+    Scheme.Hom.germ_stalkMap_apply]
+
+theorem ffMap_bijective (f : X ⟶ Z) [IsOpenImmersion f]
+    (e : f (genericPoint X) = genericPoint Z) : Function.Bijective (ffMap f e) := by
+  haveI := isIso_stalkSpecializes_of_eq (W := Z)
+    (show f (genericPoint X) ⤳ genericPoint Z by rw [e]) e
+  haveI : IsIso (ffMap f e) := by unfold ffMap; infer_instance
+  exact ConcreteCategory.bijective_of_isIso (ffMap f e)
+
+end ModelGlue
+
+end
+
+#print axioms ModelGlue.isOpenImmersion_specRatToZloc
+#print axioms ModelGlue.germ_eq_of_val_eq
+#print axioms ModelGlue.germ_chart_eq
+#print axioms ModelGlue.val_eq_of_same_fibres
+#print axioms ModelGlue.ffMap_bijective
