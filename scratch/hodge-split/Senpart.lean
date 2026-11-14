@@ -443,3 +443,97 @@ theorem finrank_Ysp_rhoTau (ρ : GQp p →* GL (Fin n) E) (i : ℤ) (τ : E ≃�
   exact e.finrank_eq
 
 end SenBridge3
+
+section SenBridge4
+
+variable {n : ℕ}
+
+/-- `Y_i(ρ)` is finite-dimensional over `K` (from (T): `dim_K ≤ n`). -/
+theorem Ysp_finiteDimensional (hT : TateTwistInvariants) (hA : AxSenTate)
+    (K : IntermediateField ℚ_[p] (PadicAlgCl p)) [FiniteDimensional ℚ_[p] K]
+    {E : IntermediateField ℚ_[p] (PadicAlgCl p)} (ρ : GQp p →* GL (Fin n) E) (i : ℤ) :
+    FiniteDimensional K (Ysp p ρ i K) := by
+  classical
+  haveI : Module.Free K (Ysp p ρ i K) := Module.Free.of_divisionRing K _
+  refine Module.rank_lt_aleph0_iff.mp (lt_of_le_of_lt (rank_le (n := n) fun s hs => ?_)
+    (Cardinal.natCast_lt_aleph0 (n := n)))
+  -- the vectors of `s` are `ℂ_p`-independent
+  have hli : LinearIndependent ℂ_[p] (fun x : s => ((x : Ysp p ρ i K) : Fin n → ℂ_[p])) := by
+    refine Ysp_linearIndependent p hT hA K ρ (fun _ => i) _ (fun x => (x : Ysp p ρ i K).2) ?_
+    intro j₀
+    by_cases hj : i = j₀
+    · subst hj
+      have h1 : LinearIndependent K ((Ysp p ρ i K).subtype ∘ fun x : s => (x : Ysp p ρ i K)) :=
+        LinearIndependent.map' hs (Ysp p ρ i K).subtype (Submodule.ker_subtype _)
+      have h2 := h1.comp (fun k : {k : s // i = i} => k.1) (fun a b h => Subtype.ext h)
+      exact h2
+    · haveI : IsEmpty {k : s // i = j₀} := ⟨fun k => hj k.2⟩
+      exact linearIndependent_empty_type
+  calc s.card = Fintype.card s := (Fintype.card_coe s).symm
+    _ ≤ Module.finrank ℂ_[p] (Fin n → ℂ_[p]) := hli.fintype_card_le_finrank
+    _ = n := Module.finrank_fin_fun _
+
+variable (E : IntermediateField ℚ_[p] (PadicAlgCl p)) [FiniteDimensional ℚ_[p] E] [IsGalois ℚ_[p] E]
+
+/-- **(B) the bridge.** `dim_ℚp H_i(ρ) = dim_ℚp Y_i(ρ)`, for `E` finite Galois. -/
+theorem finrank_htSpace_eq_Ysp (hT : TateTwistInvariants) (hA : AxSenTate)
+    (ρ : GQp p →* GL (Fin n) E) (i : ℤ) :
+    Module.finrank ℚ_[p] (htSpace p ρ i) = Module.finrank ℚ_[p] (Ysp p ρ i E) := by
+  classical
+  haveI : ∀ τ : E ≃ₐ[ℚ_[p]] E, FiniteDimensional E (Ysp p (rhoTau p E τ ρ) i E) :=
+    fun τ => Ysp_finiteDimensional p hT hA E _ i
+  haveI : ∀ τ : E ≃ₐ[ℚ_[p]] E, FiniteDimensional ℚ_[p] (Ysp p (rhoTau p E τ ρ) i E) :=
+    fun τ => Module.Finite.trans E _
+  let γ : GQp p →* (E ≃ₐ[ℚ_[p]] E) := AlgEquiv.restrictNormalHom E
+  have hγ : Function.Surjective γ := AlgEquiv.restrictNormalHom_surjective (PadicAlgCl p)
+  have hsemi : ∀ g x b, htAct p i g (iotaK p E x * b) = iotaK p E (γ g x) * htAct p i g b := by
+    intro g x b
+    rw [iotaK, AlgHom.comp_apply, htAct_semi, AlgHom.comp_apply]
+    congr 2
+    exact (AlgEquiv.restrictNormal_commutes g E x).symm
+  have hdesc := descent_finrank (htAct p i) (matRep p ρ) (iotaK p E) γ hγ hsemi
+  rw [← htSpace_eq_DspMat] at hdesc
+  -- `Dsp(G_E)` in Dedekind coordinates
+  let P : Submodule ℚ_[p] ((E ≃ₐ[ℚ_[p]] E) → (Fin n → ℂ_[p])) :=
+    { carrier := {y | ∀ τ, y τ ∈ Ysp p (rhoTau p E τ ρ) i E}
+      zero_mem' := fun τ => (Ysp p (rhoTau p E τ ρ) i E).zero_mem
+      add_mem' := fun ha hb τ => (Ysp p (rhoTau p E τ ρ) i E).add_mem (ha τ) (hb τ)
+      smul_mem' := fun c y hy τ => by
+        have := (Ysp p (rhoTau p E τ ρ) i E).smul_mem (algebraMap ℚ_[p] E c) (hy τ)
+        rw [algebraMap_smul] at this
+        exact this }
+  let L := (LamC p E (n := n)).restrictScalars ℚ_[p]
+  have hmap : Submodule.map L P = Dsp (htAct p i) (matRep p ρ) (γ.ker : Set (GQp p)) := by
+    ext φ
+    constructor
+    · rintro ⟨y, hy, rfl⟩
+      exact (LamC_mem_iff p E ρ i y).mpr hy
+    · intro hφ
+      obtain ⟨y, rfl⟩ := LamC_surjective p E φ
+      exact ⟨y, (LamC_mem_iff p E ρ i y).mp hφ, rfl⟩
+  have hfinP : Module.finrank ℚ_[p] P =
+      ∑ τ : E ≃ₐ[ℚ_[p]] E, Module.finrank ℚ_[p] (Ysp p (rhoTau p E τ ρ) i E) := by
+    let ι : (∀ τ : E ≃ₐ[ℚ_[p]] E, Ysp p (rhoTau p E τ ρ) i E) →ₗ[ℚ_[p]]
+        ((E ≃ₐ[ℚ_[p]] E) → (Fin n → ℂ_[p])) :=
+      { toFun := fun x τ => (x τ : Fin n → ℂ_[p])
+        map_add' := fun x y => rfl
+        map_smul' := fun c x => rfl }
+    have hinj : Function.Injective ι := fun x y h => funext fun τ => Subtype.ext (congrFun h τ)
+    have hrange : LinearMap.range ι = P := by
+      ext y
+      constructor
+      · rintro ⟨x, rfl⟩ τ; exact (x τ).2
+      · intro hy; exact ⟨fun τ => ⟨y τ, hy τ⟩, rfl⟩
+    haveI : ∀ τ : E ≃ₐ[ℚ_[p]] E, Module.Free ℚ_[p] (Ysp p (rhoTau p E τ ρ) i E) :=
+      fun τ => Module.Free.of_divisionRing _ _
+    rw [← hrange, LinearMap.finrank_range_of_inj hinj, Module.finrank_pi_fintype]
+  have hDsp : Module.finrank ℚ_[p] (Dsp (htAct p i) (matRep p ρ) (γ.ker : Set (GQp p))) =
+      Module.finrank ℚ_[p] E * Module.finrank ℚ_[p] (Ysp p ρ i E) := by
+    rw [← hmap, ← (Submodule.equivMapOfInjective L (LamC_injective p E) P).finrank_eq, hfinP]
+    simp only [finrank_Ysp_rhoTau p E ρ i, Finset.sum_const, Finset.card_univ, smul_eq_mul]
+    rw [Fintype.card_eq_nat_card, IsGalois.card_aut_eq_finrank]
+  have hE : 0 < Module.finrank ℚ_[p] E := Module.finrank_pos
+  rw [hDsp] at hdesc
+  exact (Nat.eq_of_mul_eq_mul_left hE hdesc).symm
+
+end SenBridge4
