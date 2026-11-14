@@ -19,3 +19,15 @@ Target: `ModelGlue.ModelCoordinateResidue` (scratch/model-glue/ModelGlue6.lean, 
   glue `SpecialFibreTranscendence` (κ(ξ) not algebraic over 𝔽_p at DVR points with 𝔪 = (p)).
 - `modelCoordinateResidue_of_quotient : QuotientP1Coordinate → SpecialFibreTranscendence →
   ModelCoordinateResidue`.
+
+## Step 2 (03:50) — VERIFIED (MCRGlue.lean = ModelGlue6.lean + MCRGlue1.lean.part + MCRGlue2.lean.part; exit 0; compile2_out.txt; standard axioms)
+- Genuine definitions: `IsGQuotient` (SGA 1 V §1: q G-invariant, affine, Γ(Z,W) ≅ Γ(X,q⁻¹W)^G on
+  affine W), `baseToSectionsOver`, `IsP1CoordinateQ`, `qbarPoint`, `FibreAutSet`/`fibreAut`
+  (closure of the fibre-preserving automorphisms over ℤ_(p)); `fibreAut_over` (compiled).
+- Leaves (statements): L1 `ProperCurveAF`, L2 `FiniteQuotientExists`, L3 `TameQuotientSmooth`,
+  L4 `SmoothModelOfP1`, L5 `TameFixedPointsDisjoint`, L6 `TameInertiaCyclic`.
+- Glue (statements, not proved): A `FibreAutTame`, B `GenericQuotientP1`,
+  C `CoordinateNormalization` (takes L5, L6 as hypotheses).
+- `quotientP1Coordinate_of_leaves` (compiled plumbing) and
+  `modelCoordinateResidue_of_leaves : L1 → … → L6 → A → B → C → SpecialFibreTranscendence →
+  ModelCoordinateResidue` (compiled).
