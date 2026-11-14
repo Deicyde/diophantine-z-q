@@ -1048,6 +1048,19 @@ theorem package_lemma318Literal_HHprime_of_ss_sqrtTwo (hSS : SupersingularExpone
     (h2 : SqrtTwoNotInHHprime) : Package.Lemma318Literal HHprime :=
   lemma318Literal_HHprime_of_ss_sqrtTwo hSS h2
 
+/-! ## §10. Plugging into the kernel's ring-class main theorem -/
+
+open ZInQ.Contrib.TYZDecomp ZInQ.Contrib.TYZGenus.Package in
+/-- **`RingClassBridge.tyzThm35ReadingA_of_cmLeaves_ringClassD` with `h318` replaced** by the
+textbook leaf `SupersingularExponentA` and the glue `SqrtTwoNotInHHprime`. -/
+theorem tyzThm35ReadingA_of_cmLeaves_ringClassD_ss_sqrtTwo (h11 : TYZThm11Integral)
+    (h1 : TYZLcalOne) (h29 : TYZLemma29Mod2)
+    (hcm : ZInQ.Contrib.TYZGenus.CM.CMFieldOfDefinition ringClassFieldD)
+    (hs : TYZSigmaFixesZn) (hSS : SupersingularExponentA) (h2 : SqrtTwoNotInHHprime)
+    (hG : ∀ ℓ : ℕ → ℤ, IsTYZLcal ℓ → GenusPointLeafCM ℓ) : ZInQ.Literature.TYZThm35ReadingA :=
+  RingClassBridge.tyzThm35ReadingA_of_cmLeaves_ringClassD h11 h1 h29 hcm hs
+    (package_lemma318Literal_HHprime_of_ss_sqrtTwo hSS h2) hG
+
 end ZInQ.Contrib.TYZGenus.T318
 
 #print axioms ZInQ.Contrib.TYZGenus.T318.lemma318Literal_HHprime_of'
@@ -1055,3 +1068,4 @@ end ZInQ.Contrib.TYZGenus.T318
 #print axioms ZInQ.Contrib.TYZGenus.T318.lemma318Literal_HHprime_of_ss_sqrtTwo
 #print axioms ZInQ.Contrib.TYZGenus.T318.sqrtTwo_not_mem_HHprime_of_single
 #print axioms ZInQ.Contrib.TYZGenus.T318.lemma318_at_single
+#print axioms ZInQ.Contrib.TYZGenus.T318.tyzThm35ReadingA_of_cmLeaves_ringClassD_ss_sqrtTwo
