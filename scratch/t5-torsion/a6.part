@@ -1,0 +1,123 @@
+
+/-! ## Part 6: glue A6 (good reduction of QM surfaces) with T5 replaced by T35
+
+Copies of `GlueA6Alg.goodReduction_of_QM_rational3_of_alg`, `goodReduction_of_QM_rational3'`
+(ZInQKernel/HDecomp/A6/A6.lean) and `LeafQM.AV.hrat`, `LeafQM.AV.QML3.goodReduction`
+(ZInQKernel/HDecomp/QM/Structures.lean): the hypothesis `hTors : TorsionStructure` becomes T35
+and an embedding `τ : K → ℂ` (every use in the H proof is at a number field, which has one). -/
+
+namespace GlueA6Alg
+
+open CategoryTheory AlgebraicGeometry Limits
+open scoped CategoryTheory.MonObj
+open PkgI2
+
+section GlueC
+
+variable {K : Type} [Field K]
+
+/-- Copy of `goodReduction_of_QM_rational3_of_alg` with T35 and `τ : K → ℂ` for T5. -/
+theorem goodReduction_of_QM_rational3_C (hNOS : NeronOggShafarevich.{0})
+    (hRay : RaynaudCriterion.{0}) (hU : ZInQ.LeafPush2.UniformizationExists) (τ : K →+* ℂ)
+    (O : ValuationSubring K) [IsDiscreteValuationRing O]
+    (w : ValuationSubring (AlgebraicClosure K))
+    (hw : w.comap (algebraMap K (AlgebraicClosure K)) = O)
+    (A : Grp (Over (Spec (.of K)))) [IsAbelianVariety A]
+    (hdim : topologicalKrullDim A.X.left = ((2 : ℕ) : WithBot ℕ∞))
+    (I J : A ⟶ A)
+    (hI : ∀ x : Pts A (AlgebraicClosure K), (x ≫ I.hom.hom) ≫ I.hom.hom = x ^ 2)
+    (hJ : ∀ x : Pts A (AlgebraicClosure K), (x ≫ J.hom.hom) ≫ J.hom.hom * x ^ 3 = 1)
+    (hIJ : ∀ x : Pts A (AlgebraicClosure K),
+      (x ≫ I.hom.hom) ≫ J.hom.hom * (x ≫ J.hom.hom) ≫ I.hom.hom = 1)
+    (h3 : IsUnit (3 : O))
+    (hrat : ∀ σ : AlgebraicClosure K ≃ₐ[K] AlgebraicClosure K,
+      ∀ x ∈ torsion A (AlgebraicClosure K) 3, galAct A σ x = x) :
+    HasGoodReduction A O := by
+  have : IsProper A.X.hom := IsAbelianVariety.proper
+  have : GeometricallyIntegral A.X.hom := IsAbelianVariety.geomIntegral
+  have : IsCommMonObj A.X := isCommMonObj_of_isProper_of_geometricallyIntegral A.X
+  have h3' : IsUnit ((3 : ℕ) : O) := by exact_mod_cast h3
+  have h3K : ((3 : ℕ) : K) ≠ 0 := by
+    intro h
+    apply h3.ne_zero
+    apply Subtype.val_injective
+    have h' : (3 : K) = 0 := by exact_mod_cast h
+    have e3 : ((3 : O) : K) = 3 := rfl
+    rw [e3, h']
+    rfl
+  have key : ∀ k : ℕ, 1 ≤ k → InertiaTrivialOn A w (3 ^ k) := by
+    intro k hk σ hσ x hx
+    obtain ⟨e, he⟩ := T5Torsion.torsionStructureAt hU τ A 2 (3 ^ (2 * k)) hdim (by positivity)
+      (by rw [Nat.cast_pow]; exact pow_ne_zero _ h3K)
+    exact quatUnipotentTrivial (Pts A (AlgebraicClosure K)) k hk (endPts A I) (endPts A J)
+      (galHomPts A σ)
+      hI hJ hIJ (fun x => by
+        simp only [galHomPts, endPts, MonoidHom.coe_mk, OneHom.coe_mk, galAct, Category.assoc])
+      (fun x => by
+        simp only [galHomPts, endPts, MonoidHom.coe_mk, OneHom.coe_mk, galAct, Category.assoc])
+      ⟨e, he⟩ (fun y hy => hRay K O w hw A 3 le_rfl h3' hrat σ hσ 3 Nat.prime_three h3'
+        (2 * k) y hy) x hx
+  refine (hNOS K O w hw A).2.mpr ?_
+  refine Set.infinite_of_injective_forall_mem (f := fun k : ℕ => 3 ^ (k + 1)) ?_ ?_
+  · intro a b hab
+    simpa using (Nat.pow_right_injective (by norm_num : 2 ≤ 3) hab)
+  · intro k
+    refine ⟨by positivity, ?_, key (k + 1) (by omega)⟩
+    rw [Nat.cast_pow]; exact h3'.pow _
+
+/-- Copy of `goodReduction_of_QM_rational3'` (no auxiliary `w`). -/
+theorem goodReduction_of_QM_rational3_C' (hNOS : NeronOggShafarevich.{0})
+    (hRay : RaynaudCriterion.{0}) (hU : ZInQ.LeafPush2.UniformizationExists) (τ : K →+* ℂ)
+    (O : ValuationSubring K) [IsDiscreteValuationRing O]
+    (A : Grp (Over (Spec (.of K)))) [IsAbelianVariety A]
+    (hdim : topologicalKrullDim A.X.left = ((2 : ℕ) : WithBot ℕ∞))
+    (I J : A ⟶ A)
+    (hI : ∀ x : Pts A (AlgebraicClosure K), (x ≫ I.hom.hom) ≫ I.hom.hom = x ^ 2)
+    (hJ : ∀ x : Pts A (AlgebraicClosure K), (x ≫ J.hom.hom) ≫ J.hom.hom * x ^ 3 = 1)
+    (hIJ : ∀ x : Pts A (AlgebraicClosure K),
+      (x ≫ I.hom.hom) ≫ J.hom.hom * (x ≫ J.hom.hom) ≫ I.hom.hom = 1)
+    (h3 : IsUnit (3 : O))
+    (hrat : ∀ σ : AlgebraicClosure K ≃ₐ[K] AlgebraicClosure K,
+      ∀ x ∈ torsion A (AlgebraicClosure K) 3, galAct A σ x = x) :
+    HasGoodReduction A O := by
+  obtain ⟨w, hw⟩ := Alg.exists_valuationSubring_comap_eq (L := AlgebraicClosure K) O
+  exact goodReduction_of_QM_rational3_C hNOS hRay hU τ O w hw A hdim I J hI hJ hIJ h3 hrat
+
+end GlueC
+
+end GlueA6Alg
+
+namespace LeafQM.AV
+
+open CategoryTheory AlgebraicGeometry Limits MonoidalCategory CartesianMonoidalCategory MonObj
+open PkgI3 ObjBridge
+
+section A6C
+
+variable {K : Type} [Field K]
+
+/-- Copy of `hrat`: all of `A[3]` is Galois-fixed (from `Level3.ontoC`). -/
+theorem hratC (P : QML3 K) (hU : ZInQ.LeafPush2.UniformizationExists) (τ : K →+* ℂ)
+    (σ : AlgebraicClosure K ≃ₐ[K] AlgebraicClosure K)
+    (x : PkgI2.Pts (toGrp P.A) (AlgebraicClosure K))
+    (hx : x ∈ PkgI2.torsion (toGrp P.A) (AlgebraicClosure K) 3) :
+    PkgI2.galAct (toGrp P.A) σ x = x := by
+  obtain ⟨a, rfl⟩ := Level3.ontoC (T5Torsion.torsionStructureC_of_uniformization hU) τ P x hx
+  exact galAct_bcPt P σ _
+
+/-- **Copy of `QML3.goodReduction` with T35 and `τ : K → ℂ` in place of T5.** -/
+theorem QML3.goodReductionC (hNOS : PkgI2.NeronOggShafarevich.{0})
+    (hRay : PkgI2.RaynaudCriterion.{0}) (hU : ZInQ.LeafPush2.UniformizationExists)
+    (τ : K →+* ℂ) (P : QML3 K)
+    (Ov : ValuationSubring K) [IsDiscreteValuationRing Ov] (h3 : IsUnit (3 : Ov)) :
+    PkgI2.HasGoodReduction (toGrp P.A) Ov := by
+  have hdim : topologicalKrullDim (toGrp P.A).X.left = ((2 : ℕ) : WithBot ℕ∞) := P.surface
+  exact GlueA6Alg.goodReduction_of_QM_rational3_C' hNOS hRay hU τ Ov (toGrp P.A) hdim
+    (grpOfHom (P.q.iota oi)) (grpOfHom (P.q.iota oj)) (hI P) (hJ P) (hIJ P) h3
+    (hratC P hU τ)
+
+end A6C
+
+end LeafQM.AV
+
+#print axioms LeafQM.AV.QML3.goodReductionC
