@@ -24,3 +24,15 @@ ZInQKernel.OneProof.H.TailT ZInQKernel.OneProof.H.LPrefix` exits 0 (VERIFIED, 11
   from `attachedConj_proof` + `htConj_proof` (kernel). Remaining leaf `KatoRealization` (∃ semisimple attached ρ with
   HT weights {0,1−k}): Kato 2004 §9 at V_f^∨ + Ribet irreducibility; consequence (dualized), V_f not definable.
   Compile: axioms [propext, Classical.choice, Quot.sound]. VERIFIED.
+
+## dimJacobianEqGenus `ZInQ.Contrib.CurvesG.DimJacobianEqGenus` — REDUCED to one project GLUE, no literature leaf
+- Built `ZInQKernel.Contrib.CloudW07JacobiansCurves.JacobianExists`, `...Curve.CanonicalDegree`, `Contrib.CurvesG.GenusSplit`,
+  `Contrib.Dim.SmoothStalk`, `Contrib.Dim.Basic` (lake build exit 0).
+- `scratch/modular-split/DimJac.lean`:
+  `ModularSplit.DimJac.dim_jacobian_eq_arithmeticGenus` (J.dim = arithmeticGenus ℚ X = dim H¹(X,𝒪), proved from the vendored
+  library: exists_abelianVariety_picardDegreeZero (smooth of rel. dim = arithmeticGenus), isAlbanese_abelJacobiMap,
+  IsJacobian.unique, Contrib.Dim.topologicalKrullDim_eq_of_smoothOfRelativeDimension);
+  `ModularSplit.DimJac.dimJacobianEqGenus_of_glue : H0DifferentialsEqHolo → DimJacobianEqGenus` (+ library Serre duality
+  finrankH_relativeDifferentials_zero_eq_genus).
+  Remaining GLUE `H0DifferentialsEqHolo`: dim_ℚ H⁰(X, Ω¹_{X/ℚ}) = CurvesG.fieldGenus F (textbook sheaf theory; no published-theorem content).
+  Milne Prop. 2.1 and Serre duality are no longer leaves. Compile: axioms [propext, Classical.choice, Quot.sound]. VERIFIED.
