@@ -65,7 +65,6 @@ jobs:
           import datetime
           import functools
           import hashlib
-          import io
           import json
           import math
           import os
@@ -76,14 +75,12 @@ jobs:
           import urllib.error
           import urllib.parse
           import urllib.request
-          import zipfile
 
           MODELS = {"astra": "gpt-6-astra", "fable": "claude-fable-5-2"}
           CHECK = "Protocol B / review"
           MARKER = "<!-- protocol-b-review-v1 -->"
           INSTRUCTIONS = ".github/protocol-b-reviewer.md"
           WORKFLOW = ".github/workflows/protocol-b.yml"
-          REUSE_POLICY = ".github/protocol-b-review-compatibility.json"
           WORKING_MARKER = "<!-- protocol-b-working-v2 -->"
           ROUND_MARKER = "<!-- protocol-b-automatic-round-v1 -->"
           CONTEXT_TOKEN_BUDGET = 400_000
@@ -168,10 +165,6 @@ jobs:
                   super().__init__(json.dumps(detail))
 
 
-          class MissingRepositoryFile(ValueError):
-              """A pinned repository path was absent; other read failures stay errors."""
-
-
           def request(url, headers, method="GET", data=None, stream=False, before_retry=None):
               payload = None if data is None else json.dumps(data).encode()
               req = urllib.request.Request(url, data=payload, method=method,
@@ -244,54 +237,6 @@ jobs:
                                  {**self.headers, 'X-GitHub-Api-Version': '2026-03-10'},
                                  'POST', {'ref': ref})
 
-              def review_material(self, envelope):
-                  """Recover original full report/history from the App-bound workflow run."""
-                  run_id, attempt = str(envelope['run']), str(envelope['attempt'])
-                  if not run_id.isdecimal() or not attempt.isdecimal():
-                      raise ValueError('Invalid original review run identity')
-                  run = self.call('/actions/runs/' + run_id)
-                  if (run.get('path', '').split('@')[0] != WORKFLOW
-                          or run.get('event') not in {'pull_request_target', 'issue_comment', 'workflow_dispatch'}
-                          or run.get('head_sha') not in {envelope['head'], envelope['policy_ref']}
-                          or str(run.get('id')) != run_id or run.get('run_attempt', 0) < int(attempt)):
-                      raise ValueError('Original review run does not match the authenticated report')
-                  expected = 'protocol-b-' + run_id + '-' + attempt
-                  matches = []
-                  for page in range(1, 101):
-                      rows = self.call('/actions/runs/' + run_id + f'/artifacts?per_page=100&page={page}')['artifacts']
-                      matches.extend(a for a in rows if a['name'] == expected and not a.get('expired'))
-                      if len(rows) < 100:
-                          break
-                  else:
-                      raise ValueError('Original review artifacts were not fully enumerated')
-                  if len(matches) != 1:
-                      raise ValueError('Original review artifact missing or ambiguous; cannot reuse')
-                  class StripRedirectCredential(urllib.request.HTTPRedirectHandler):
-                      def redirect_request(self, req, fp, code, msg, headers, newurl):
-                          redirected = super().redirect_request(req, fp, code, msg, headers, newurl)
-                          if redirected is not None:
-                              redirected.remove_header('Authorization')
-                          return redirected
-                  url = 'https://api.github.com/repos/' + self.repo + '/actions/artifacts/' + str(matches[0]['id']) + '/zip'
-                  req = urllib.request.Request(url, headers=self.headers)
-                  with urllib.request.build_opener(StripRedirectCredential()).open(req, timeout=120) as response:
-                      payload = response.read(64 * 1024 * 1024 + 1)
-                  if len(payload) > 64 * 1024 * 1024:
-                      raise ValueError('Original review artifact exceeds recovery limit')
-                  with zipfile.ZipFile(io.BytesIO(payload)) as archive:
-                      names = [envelope['reviewer'] + '-report.json', 'context.json',
-                               envelope['reviewer'] + '-input.json', envelope['reviewer'] + '-source-reads.json']
-                      if any(archive.namelist().count(n) != 1 or archive.getinfo(n).file_size > 4 * 1024 * 1024 for n in names):
-                          raise ValueError('Original review material is missing, duplicated or oversized')
-                      full, context, source_input, reads = [json.loads(archive.read(n)) for n in names]
-                  compact = json.loads(json.dumps(full))
-                  compact['review'].pop('report', None)
-                  compact['review'].pop('sources_read', None)
-                  if (compact != envelope or context.get('head') != envelope['head']
-                          or context.get('trusted_workflow') != envelope['policy_ref']):
-                      raise ValueError('Original artifact does not match the App-backed review')
-                  return full, context, source_input['input'], reads
-
               def pages(self, path):
                   result = []
                   for page in range(1, 501):
@@ -316,7 +261,7 @@ jobs:
                           raise
                       # An added/deleted/renamed file can be absent at this pinned revision.
                       # Review.run returns ValueError as a tool result, without counting a read.
-                      raise MissingRepositoryFile(f"File {path!r} was not found at commit {ref} (HTTP 404). Check the path and requested revision; the file may exist only at the other revision.") from None
+                      raise ValueError(f"File {path!r} was not found at commit {ref} (HTTP 404). Check the path and requested revision; the file may exist only at the other revision.") from None
                   if not isinstance(value, dict) or value.get("type") != "file":
                       raise ValueError("Not a regular file")
                   if value["size"] > 16_000_000:
@@ -967,36 +912,8 @@ jobs:
               return {key: overrides[key] for key in sorted(unresolved)}
 
 
-          def reuse_policy_text(gh, ref):
-              try:
-                  return gh.text(REUSE_POLICY, ref)
-              except MissingRepositoryFile:
-                  return '{}'
-
-
           def same_policy(gh, previous, current):
-              return (all(gh.text(path, previous) == gh.text(path, current) for path in (WORKFLOW, INSTRUCTIONS))
-                      and reuse_policy_text(gh, previous) == reuse_policy_text(gh, current))
-
-
-          def same_reviewer_policy(gh, previous, current, family):
-              if same_policy(gh, previous, current):
-                  return True
-              if gh.text(INSTRUCTIONS, previous) != gh.text(INSTRUCTIONS, current):
-                  return False
-              # A reviewed, default-branch migration names both exact workflow bytes.
-              # No candidate file, comment, model assertion or version label authorizes reuse.
-              try:
-                  policy = json.loads(reuse_policy_text(gh, current))
-              except ValueError:
-                  return False  # No valid declaration means a fresh review, never reuse.
-              if not isinstance(policy, dict) or not isinstance(policy.get('migrations'), list):
-                  return False
-              before = hashlib.sha256(gh.text(WORKFLOW, previous).encode()).hexdigest()
-              after = hashlib.sha256(gh.text(WORKFLOW, current).encode()).hexdigest()
-              return policy.get('schema') == 'protocol-b-review-compatibility/v1' and any(
-                  isinstance(row, dict) and row.get('from_workflow_sha256') == before and row.get('to_workflow_sha256') == after
-                  and family in row.get('reviewers', []) for row in policy.get('migrations', []))
+              return all(gh.text(path, previous) == gh.text(path, current) for path in (WORKFLOW, INSTRUCTIONS))
 
 
           def findings_summary(reports):
@@ -1010,77 +927,21 @@ jobs:
               return "\n\nFinding IDs for collaborator decisions:\n" + "\n".join(dict.fromkeys(rows)) if rows else ""
 
 
-          def trusted_reports(app, pr, name, exclude, with_check=False):
+          def trusted_reports(app, pr, name, exclude):
               """Override authority comes from this App's own check, never a bot comment."""
               candidates = []
               for page in range(1, 101):
                   response = app.call(f"/commits/{pr['head']['sha']}/check-runs?filter=all&per_page=100&page={page}")
                   for check in response['check_runs']:
-                      if (check['id'] != exclude and check['name'] == name and check.get('status') == 'completed'
-                              and check.get('head_sha') == pr['head']['sha'] and
-                              (check.get('app') or {}).get('id') == int(os.environ['APP_ID']) and
+                      if (check['id'] != exclude and check['name'] == name and
+                              check['app']['id'] == int(os.environ['APP_ID']) and
                               (check.get('output', {}).get('text') or '').startswith('{')):
                           value = json.loads(check['output']['text'])
                           if value.get('schema') == 'protocol-b-decisions/v1' and value.get('head') == pr['head']['sha']:
                               candidates.append((check['id'], value['reports']))
                   if len(response['check_runs']) < 100:
-                      selected = max(candidates, default=(0, {}))
-                      return selected if with_check else selected[1]
+                      return max(candidates, default=(0, {}))[1]
               raise ValueError('Too many prior checks; no partial override decision')
-
-
-          def substantive_history(discussion):
-              result = []
-              for item in discussion:
-                  body = item.get('body')
-                  if isinstance(body, str) and body.strip() == '/protocol-b review':
-                      continue  # A literal retry command contains no objection.
-                  if isinstance(body, str) and item.get('author') == 'github-actions[bot]' and body.startswith(ROUND_MARKER):
-                      try:
-                          value = json.loads(body.split('```json\n', 1)[1].split('\n```', 1)[0])
-                          canonical = ROUND_MARKER + '\n```json\n' + json.dumps(value) + '\n```'
-                          if set(value) == {'check'} and type(value['check']) is int and body == canonical:
-                              continue
-                      except (ValueError, IndexError, TypeError):
-                          pass
-                  result.append(json.dumps(item, sort_keys=True, ensure_ascii=False))
-              return sorted(result)
-
-
-          def reusable_acceptances(gh, app, pr, name, exclude, policy, prior, overrides, discussion, files, change_class):
-              check, reports = trusted_reports(app, pr, name, exclude, with_check=True)
-              reusable = {}
-              for family, envelope in reports.items():
-                  if (family not in MODELS or envelope.get('reviewer') != family
-                          or envelope.get('model') != MODELS[family] or envelope.get('head') != pr['head']['sha']
-                          or envelope.get('complete') is not True or envelope.get('read_prerequisites_complete') is not True
-                          or envelope.get('review', {}).get('decision') != 'accept'):
-                      continue
-                  if not same_reviewer_policy(gh, envelope['policy_ref'], policy, family):
-                      continue
-                  full, context, original_input, reads = gh.review_material(envelope)
-                  current_input = {'repository': gh.repo, 'pull_request': pr['number'], 'head': pr['head']['sha'],
-                                   'change_class': change_class, 'untrusted_title': pr['title'],
-                                   'untrusted_description': pr.get('body'), 'files': files}
-                  if any(original_input.get(key) != value for key, value in current_input.items()):
-                      continue  # Same commit is not enough when PR identity or reviewed scope changes.
-                  if original_input.get('base') != envelope.get('base'):
-                      raise ValueError('Original review base does not match its authenticated envelope')
-                  base_paths = {r['path'] for r in reads if r['revision'] == envelope['base']}
-                  if any(gh.text(path, envelope['base']) != gh.text(path, pr['base']['sha']) for path in base_paths):
-                      continue
-                  if (substantive_history(context['discussion']) != substantive_history(discussion)
-                          or context['prior_findings'] != prior or context['overrides'] != overrides):
-                      continue  # Every changed objection/observation needs fresh consideration.
-                  try:
-                      validate_review(full['review'], set(prior), overrides)
-                  except ValueError:
-                      continue  # New objections need a fresh disposition.
-                  reusable[family] = full
-              record('review-reuse.json', {'source_check': check, 'head': pr['head']['sha'],
-                     'policy_ref': policy, 'reused_reviewers': sorted(reusable),
-                     'original_reports_preserved': True})
-              return reusable
 
 
           def start_clients():
@@ -1162,8 +1023,7 @@ jobs:
                           if actual['event'] == 'pull_request_target' and actual['path'].split('@')[0] == WORKFLOW:
                               rounds.add((run, attempt))
                   if (valid and check['head_sha'] == pr['head']['sha'] and check.get('status') == 'completed'
-                          and all(r.get('complete') and same_reviewer_policy(gh, r['policy_ref'], policy, family)
-                                  for family, r in reports.items())):
+                          and all(r.get('complete') and same_policy(gh, r['policy_ref'], policy) for r in reports.values())):
                       completed.append(check)
               return {'automatic_rounds': len(rounds),
                       'completed_check': max(completed, key=lambda c: c['id']) if completed else None}
@@ -1285,7 +1145,7 @@ jobs:
                   if override_command:
                       envelopes = trusted_reports(app, pr, name, check['id'])
                       for envelope in envelopes.values():
-                          if not same_reviewer_policy(gh, envelope['policy_ref'], trusted_ref, envelope['reviewer']):
+                          if not same_policy(gh, envelope['policy_ref'], trusted_ref):
                               raise ValueError('Override reports used a different review policy')
                       applied = overridden_decision(envelopes, overrides, pr['head']['sha'])
                       conclusion = 'success'
@@ -1295,12 +1155,7 @@ jobs:
                   elif change_class == "editorial" and not prior:
                       conclusion, summary = "success", "Editorial change under the path/diff rule; author declared no mathematical change. No model review."
                   else:
-                      if review_command:
-                          envelopes = reusable_acceptances(gh, app, pr, name, check['id'], trusted_ref, prior, overrides, discussion, files, change_class)
-                          for family, envelope in envelopes.items():
-                              record(family + '-report.json', envelope)
-                      needed = set(MODELS) - set(envelopes)
-                      for key in ({'astra': 'OPENAI_API_KEY', 'fable': 'ANTHROPIC_API_KEY'}[family] for family in needed):
+                      for key in ("OPENAI_API_KEY", "ANTHROPIC_API_KEY"):
                           if not os.environ.get(key):
                               raise ValueError("Missing protocol-b environment secret " + key)
                       # Save the paid-round intent to the App and a discoverable PR
@@ -1317,11 +1172,10 @@ jobs:
                                               'automatic_rounds': state['automatic_rounds']})}})
                       gh.call(f'/issues/{number}/comments', 'POST', {'body': ROUND_MARKER + '\n```json\n' +
                               json.dumps({'check': check['id']}) + '\n```'})
-                      reviews, failures = {family: envelope['review'] for family, envelope in envelopes.items()}, {}
-                      reused = sorted(envelopes)
+                      reviews, failures = {}, {}
                       with concurrent.futures.ThreadPoolExecutor(max_workers=2) as pool:
                           reviewers = {family: Review(gh, pr, files, discussion, prior, overrides, instructions, family, change_class)
-                                       for family in needed}
+                                       for family in MODELS}
                           futures = {pool.submit(reviewer.run): family for family, reviewer in reviewers.items()}
                           for future in concurrent.futures.as_completed(futures):
                               family = futures[future]
@@ -1358,8 +1212,6 @@ jobs:
                       if all(v["decision"] == "accept" for v in reviews.values()) and set(reviews) == set(MODELS):
                           conclusion = "success"
                           summary = "Both approved reviewers accepted this revision. When either family authored the change, only the other is an outside reviewer. This is informal review, not a formal proof."
-                          if reused:
-                              summary += '\nReused authenticated same-head acceptance without another model call: ' + ', '.join(reused) + '. Original report identities are retained in the artifact.'
                           if overrides:
                               summary += "\nCollaborator overrides apply; affected claims are NOT outside reviewed:\n" + json.dumps(overrides, indent=2)
                       else:

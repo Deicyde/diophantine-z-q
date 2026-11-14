@@ -114,5 +114,22 @@ class NestedFetch(unittest.TestCase):
         self.assertEqual(messages, before)
 
 
+class WebEvidence(unittest.TestCase):
+    def test_document_presence_is_reported_without_copying_source(self):
+        output = [{'type': 'web_fetch_tool_result', 'tool_use_id': 'fetch', 'content': {
+            'type': 'web_fetch_result', 'content': {'source': {'type': 'base64', 'data': 'PRIVATE_DOCUMENT_BYTES'}}}}]
+        result = gate.web_response_observation(output, {'server_tool_use': {'web_fetch_requests': 2}}, 'response', 3)
+        self.assertTrue(result['returned_results'][0]['document_payload_present'])
+        self.assertEqual(result['unreturned_reported_fetches'], 1)
+        self.assertNotIn('PRIVATE_DOCUMENT_BYTES', json.dumps(result))
+        self.assertIn('not sent', result['next_request']['status'])
+
+    def test_absent_result_identity_is_not_invented(self):
+        result = gate.web_response_observation([], {'server_tool_use': {'web_fetch_requests': 12}}, 'response', 3)
+        self.assertEqual(result['returned_results'], [])
+        self.assertEqual(result['unreturned_reported_fetches'], 12)
+        self.assertIn('identities and success are not observable', result['omission_note'])
+
+
 if __name__ == '__main__':
     unittest.main()
