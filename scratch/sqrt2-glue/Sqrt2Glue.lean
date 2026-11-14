@@ -730,4 +730,109 @@ theorem frob_on_H4 (F M : IntermediateField ℚ Qbar) [FiniteDimensional ℚ F] 
   rw [show artin4 d = ringClassArtinEquiv (O4 d) from rfl, hclass, map_pow, ← hτφ]
   exact (hτval y).symm
 
+/-! ## §7. `FrobNormLaw` holds -/
+
+instance finiteDimensional_H4bar (d : ℕ) : FiniteDimensional ℚ (H4bar d) := by
+  by_cases h : d = 0
+  · subst h; rw [H4bar, dite_eq_left rfl]; infer_instance
+  · haveI : NeZero d := ⟨h⟩
+    rw [H4bar_eq_map]
+    have : FiniteDimensional ℚ (H4 d) := Module.Finite.trans (QNeg d) (H4 d)
+    have : FiniteDimensional ℚ ((H4 d).restrictScalars ℚ) :=
+      inferInstanceAs (FiniteDimensional ℚ (H4 d))
+    exact LinearEquiv.finiteDimensional
+      (IntermediateField.equivMap ((H4 d).restrictScalars ℚ) (embed d)).toLinearEquiv
+
+/-- **`FrobNormLaw` holds** (no hypotheses). -/
+theorem frobNormLaw : FrobNormLaw := by
+  intro F hFD hFN D P hP hP0 hP2
+  haveI := hFD
+  haveI := hFN
+  haveI : NumberField F := ⟨⟩
+  set M : IntermediateField ℚ Qbar := F ⊔ ⨆ d : D, H4bar (d : ℕ) with hM
+  haveI : FiniteDimensional ℚ M := by rw [hM]; infer_instance
+  haveI : Normal ℚ M := by rw [hM]; infer_instance
+  haveI : NumberField M := ⟨⟩
+  have hFM : F ≤ M := le_sup_left
+  have hHM : ∀ d ∈ D, H4bar d ≤ M := fun d hd =>
+    le_sup_of_le_right (le_iSup (fun d : D => H4bar (d : ℕ)) ⟨d, hd⟩)
+  letI : Algebra F M := (IntermediateField.inclusion hFM).toRingHom.toAlgebra
+  haveI : IsScalarTower ℚ F M := IsScalarTower.of_algebraMap_eq (fun x => rfl)
+  haveI : IsGalois ℚ M := ⟨⟩
+  haveI : IsGalois F M := IsGalois.tower_top_of_isGalois ℚ F M
+  haveI : FiniteDimensional F M := Module.Finite.of_restrictScalars_finite ℚ F M
+  let _ := IsIntegralClosure.MulSemiringAction (𝓞 F) F M (𝓞 M)
+  have := Algebra.isInvariant_of_isGalois (𝓞 F) F M (𝓞 M)
+  haveI : SMulCommClass (M ≃ₐ[F] M) (𝓞 F) (𝓞 M) := ⟨fun g r x => by
+    change galRestrict (𝓞 F) F M (𝓞 M) g (r • x) = r • galRestrict (𝓞 F) F M (𝓞 M) g x
+    exact map_smul _ r x⟩
+  -- a prime `𝔔` of `𝓞_M` over `P`
+  obtain ⟨𝔔, -, h𝔔, h𝔔P⟩ := Ideal.exists_ideal_over_prime_of_isIntegral P (⊥ : Ideal (𝓞 M))
+    (by
+      intro a ha
+      rw [Ideal.under_def, Ideal.mem_comap, Ideal.mem_bot] at ha
+      have hinj : Function.Injective (algebraMap (𝓞 F) (𝓞 M)) :=
+        FaithfulSMul.algebraMap_injective (𝓞 F) (𝓞 M)
+      rw [hinj (ha.trans (map_zero _).symm)]
+      exact P.zero_mem)
+  haveI := h𝔔
+  have h𝔔0 : 𝔔 ≠ ⊥ := by
+    rintro rfl
+    apply hP0
+    rw [← h𝔔P]
+    ext a
+    simp only [Ideal.under_def, Ideal.mem_comap, Ideal.mem_bot]
+    constructor
+    · intro ha
+      exact FaithfulSMul.algebraMap_injective (𝓞 F) (𝓞 M) (ha.trans (map_zero _).symm)
+    · rintro rfl; exact map_zero _
+  haveI : Finite (𝓞 M ⧸ 𝔔) := Ring.HasFiniteQuotients.finiteQuotient h𝔔0
+  obtain ⟨σ, hσ⟩ := IsArithFrobAt.exists_of_isInvariant (𝓞 F) (M ≃ₐ[F] M) 𝔔
+  -- lift `σ` to `h ∈ Gal(ℚ̄/ℚ)`
+  obtain ⟨h, hres⟩ : ∃ h : Qbar ≃ₐ[ℚ] Qbar, AlgEquiv.restrictNormal h M = σ.restrictScalars ℚ :=
+    ⟨(σ.restrictScalars ℚ).liftNormal Qbar, (σ.restrictScalars ℚ).restrict_liftNormal Qbar⟩
+  have hσM : ∀ x : M, ((σ x : M) : Qbar) = h (x : Qbar) := by
+    intro x
+    have := AlgEquiv.restrictNormal_commutes h M x
+    rw [hres] at this
+    exact this
+  have hσx : ∀ x : 𝓞 M, (((σ • x : 𝓞 M) : M) : Qbar) = h ((x : M) : Qbar) := by
+    intro x
+    rw [← hσM]
+    change ((algebraMap (𝓞 M) M (galRestrict (𝓞 F) F M (𝓞 M) σ x) : M) : Qbar) = _
+    rw [algebraMap_galRestrict_apply]
+  have hfixF : ∀ x ∈ F, h x = x := by
+    intro x hx
+    have e1 := hσM (algebraMap F M ⟨x, hx⟩)
+    rw [AlgEquiv.commutes] at e1
+    exact e1.symm
+  refine ⟨h, hfixF, ?_⟩
+  intro d hd hd0 hK y
+  apply frob_on_H4 F M hFM d hK (hHM d hd) h hfixF 𝔔 P hP0 hP2
+  · intro a
+    rw [← h𝔔P, Ideal.under_def, Ideal.mem_comap]
+    rfl
+  · intro x b hb
+    have hσ' := hσ x
+    have hu : 𝔔.under (𝓞 F) = P := h𝔔P
+    have e2 : (((σ • x - x ^ Nat.card (𝓞 F ⧸ P) : 𝓞 M) : M) : Qbar) =
+        h ((x : M) : Qbar) - ((x : M) : Qbar) ^ Nat.card (𝓞 F ⧸ P) := by
+      rw [← hσx]
+      push_cast
+      rfl
+    have e : b = σ • x - x ^ Nat.card (𝓞 F ⧸ P) :=
+      RingOfIntegers.ext (Subtype.ext (hb.trans e2.symm))
+    rw [e]
+    have : (MulSemiringAction.toAlgHom (𝓞 F) (𝓞 M) σ) x = σ • x := rfl
+    rw [← this, ← hu]
+    exact hσ'
+
+/-- **`SqrtTwoNotInHHprime` from `NormSigma` alone.** -/
+theorem sqrtTwoNotInHHprime_of_normSigma (hN : NormSigma) : SqrtTwoNotInHHprime :=
+  sqrtTwoNotInHHprime_of frobNormLaw hN
+
 end ZInQ.Contrib.TYZGenus.Sqrt2Glue
+
+#print axioms ZInQ.Contrib.TYZGenus.Sqrt2Glue.sigmaLift_of
+#print axioms ZInQ.Contrib.TYZGenus.Sqrt2Glue.frobNormLaw
+#print axioms ZInQ.Contrib.TYZGenus.Sqrt2Glue.sqrtTwoNotInHHprime_of_normSigma

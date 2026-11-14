@@ -22,12 +22,15 @@ Product of Frobenius lifts over the prime factorization of α𝓞_F.
   `sigmaLift_of : FrobNormLaw → NormSigma → SigmaLift` (induction over normalizedFactors (α𝓞_F)),
   `sqrtTwoNotInHHprime_of`. Helpers: odd absNorm ⟺ coprime to 2 (Cauchy), relNorm preserves it,
   `mem_primeTo_of_isCoprime_two`, `classOf_mul`, `kEmb_mem_Lni`, `finiteDimensional_Lni`.
-- [VERIFIED, compiled 01:25] §5 `eq_pow_of_congr`: in a finite L/K of number fields, at an unramified prime Q,
+- [VERIFIED, compiled 00:30] §5 `eq_pow_of_congr`: in a finite L/K of number fields, at an unramified prime Q,
   an automorphism acting as x ↦ x^{(N𝔭)^f} mod Q equals φ^f for an arithmetic Frobenius φ (reduced to Tau Ceti
   `isArithFrobAt_eq_of_isUnramifiedAt` via ρ = τ⁻¹φ^f ≡ 1, φρ Frobenius).
-- [VERIFIED, compiled 01:40] §6 `psi4`/`tauQ4`/`tau4` (transport H_{d,4} ≅ H̄_{d,4}) and **`frob_on_H4`**: h ∈ Gal(ℚ̄/F)
+- [VERIFIED, compiled 00:38] §6 `psi4`/`tauQ4`/`tau4` (transport H_{d,4} ≅ H̄_{d,4}) and **`frob_on_H4`**: h ∈ Gal(ℚ̄/F)
   acting as x ↦ x^{N P} mod 𝔔 on 𝓞_M (F ⊂ M ⊃ H̄_{d,4}) acts on H̄_{d,4} as artin4(classOf(N_{F/K_d} P)).
   Uses Mathlib `relNorm_eq_pow_of_isMaximal`, `cardQuot_pow_inertiaDeg`, Tau Ceti `isArithFrobAt_ringClassArtinEquiv_picClass`,
   `isUnramifiedAt_ringClassField`.
 - Pitfall [VERIFIED]: `artin4 d c = ringClassArtinEquiv (O4 d) c := rfl` hits max recursion (instance paths);
   `artin4 d = ringClassArtinEquiv (O4 d) := rfl` is fine — rewrite with it.
+- [VERIFIED, compiled 00:42] §7 **`frobNormLaw : FrobNormLaw`** (no hypotheses): M = F ⊔ ⨆_{d∈D} H̄_{d,4}, Mathlib Frobenius
+  `IsArithFrobAt.exists_of_isInvariant` over 𝓞_F in Gal(M/F) at a prime 𝔔 over P, lifted by `liftNormal`, then
+  `frob_on_H4`. **`sqrtTwoNotInHHprime_of_normSigma : NormSigma → SqrtTwoNotInHHprime`**. Axioms standard.
