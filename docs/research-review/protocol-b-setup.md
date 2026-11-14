@@ -439,6 +439,10 @@ interrupted-review observations, finding text and overrides must remain unchange
 Only literal retry commands and exact round-pointer metadata are excluded from
 the history comparison. Missing original material blocks reuse; a comment cannot
 substitute for it.
+The original PR number, title, description, changed-file list and change class
+must also match. Any base-revision sources read in the original review must
+remain byte-identical on the current base. A matching commit alone does not
+authorize reuse for another PR or a changed review scope.
 Across policy versions, unchanged instructions and an explicit default-branch
 compatibility entry binding both complete workflow hashes are required. The
 initial entry permits only Astra reuse across the Fable transport repair.

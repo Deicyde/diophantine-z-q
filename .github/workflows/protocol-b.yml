@@ -279,17 +279,18 @@ jobs:
                   if len(payload) > 64 * 1024 * 1024:
                       raise ValueError('Original review artifact exceeds recovery limit')
                   with zipfile.ZipFile(io.BytesIO(payload)) as archive:
-                      names = [envelope['reviewer'] + '-report.json', 'context.json']
+                      names = [envelope['reviewer'] + '-report.json', 'context.json',
+                               envelope['reviewer'] + '-input.json', envelope['reviewer'] + '-source-reads.json']
                       if any(archive.namelist().count(n) != 1 or archive.getinfo(n).file_size > 4 * 1024 * 1024 for n in names):
                           raise ValueError('Original review material is missing, duplicated or oversized')
-                      full, context = [json.loads(archive.read(n)) for n in names]
+                      full, context, source_input, reads = [json.loads(archive.read(n)) for n in names]
                   compact = json.loads(json.dumps(full))
                   compact['review'].pop('report', None)
                   compact['review'].pop('sources_read', None)
                   if (compact != envelope or context.get('head') != envelope['head']
                           or context.get('trusted_workflow') != envelope['policy_ref']):
                       raise ValueError('Original artifact does not match the App-backed review')
-                  return full, context
+                  return full, context, source_input['input'], reads
 
               def pages(self, path):
                   result = []
@@ -1046,7 +1047,7 @@ jobs:
               return sorted(result)
 
 
-          def reusable_acceptances(gh, app, pr, name, exclude, policy, prior, overrides, discussion):
+          def reusable_acceptances(gh, app, pr, name, exclude, policy, prior, overrides, discussion, files, change_class):
               check, reports = trusted_reports(app, pr, name, exclude, with_check=True)
               reusable = {}
               for family, envelope in reports.items():
@@ -1057,7 +1058,17 @@ jobs:
                       continue
                   if not same_reviewer_policy(gh, envelope['policy_ref'], policy, family):
                       continue
-                  full, context = gh.review_material(envelope)
+                  full, context, original_input, reads = gh.review_material(envelope)
+                  current_input = {'repository': gh.repo, 'pull_request': pr['number'], 'head': pr['head']['sha'],
+                                   'change_class': change_class, 'untrusted_title': pr['title'],
+                                   'untrusted_description': pr.get('body'), 'files': files}
+                  if any(original_input.get(key) != value for key, value in current_input.items()):
+                      continue  # Same commit is not enough when PR identity or reviewed scope changes.
+                  if original_input.get('base') != envelope.get('base'):
+                      raise ValueError('Original review base does not match its authenticated envelope')
+                  base_paths = {r['path'] for r in reads if r['revision'] == envelope['base']}
+                  if any(gh.text(path, envelope['base']) != gh.text(path, pr['base']['sha']) for path in base_paths):
+                      continue
                   if (substantive_history(context['discussion']) != substantive_history(discussion)
                           or context['prior_findings'] != prior or context['overrides'] != overrides):
                       continue  # Every changed objection/observation needs fresh consideration.
@@ -1274,7 +1285,7 @@ jobs:
                   if override_command:
                       envelopes = trusted_reports(app, pr, name, check['id'])
                       for envelope in envelopes.values():
-                          if not same_policy(gh, envelope['policy_ref'], trusted_ref):
+                          if not same_reviewer_policy(gh, envelope['policy_ref'], trusted_ref, envelope['reviewer']):
                               raise ValueError('Override reports used a different review policy')
                       applied = overridden_decision(envelopes, overrides, pr['head']['sha'])
                       conclusion = 'success'
@@ -1285,7 +1296,7 @@ jobs:
                       conclusion, summary = "success", "Editorial change under the path/diff rule; author declared no mathematical change. No model review."
                   else:
                       if review_command:
-                          envelopes = reusable_acceptances(gh, app, pr, name, check['id'], trusted_ref, prior, overrides, discussion)
+                          envelopes = reusable_acceptances(gh, app, pr, name, check['id'], trusted_ref, prior, overrides, discussion, files, change_class)
                           for family, envelope in envelopes.items():
                               record(family + '-report.json', envelope)
                       needed = set(MODELS) - set(envelopes)

@@ -3,7 +3,7 @@
   "migrations": [
     {
       "from_workflow_sha256": "d765d25359ccbaa043d82f0b2e11076a5c341fbffbacb02a5592de9535537796",
-      "to_workflow_sha256": "02311c7fc2ea2e68484905ce92a6d895ca1e52b2137540a702c9d4e6d9f7bab6",
+      "to_workflow_sha256": "05b74956b70aea7051e6adff607505538e4b977b8613e81b31d428bf03f7db52",
       "reviewers": [
         "astra"
       ],
