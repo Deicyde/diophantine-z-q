@@ -978,4 +978,81 @@ noncomputable def pi0K3Equiv : Pi0 K3 ≃* (ZMod 3)ˣ :=
 
 theorem pi0K3Equiv_mk (s : Afˣ) : pi0K3Equiv (QuotientGroup.mk s) = chi s := rfl
 
+
+/-! ### The cyclotomic character as an idele, and `χ(χ_cyc(g)) = χ₃(g)` -/
+
+section Cyc
+
+variable {L : Type*} [Field L]
+
+/-- **`χ_cyc(g) ∈ ℤ̂^× ⊆ 𝔸_f^×`**: the idele whose `v`-component is Mathlib's `p`-adic cyclotomic
+character `cyclotomicCharacter L p g ∈ ℤ_p^×` (`p = primesEquiv v`). -/
+noncomputable def cycU (g : L ≃+* L) : Afˣ :=
+  Units.map adeleHom (MulEquiv.piUnits.symm
+    (fun v : Place => cyclotomicCharacter L (primesEquiv v) g))
+
+theorem cycU_apply (g : L ≃+* L) (v : Place) :
+    ((cycU g : Afˣ) : Af) v = (adicCompletion.padicEquiv (R := ℤ) v).symm
+      ((cyclotomicCharacter L (primesEquiv v) g : ℤ_[primesEquiv v]) : ℚ_[primesEquiv v]) := rfl
+
+theorem cycU_mem (g : L ≃+* L) : cycU g ∈ ZhatU := by
+  refine ⟨adeleHom_mem _, ?_⟩
+  rw [cycU, ← map_inv, Units.coe_map]
+  exact adeleHom_mem _
+
+theorem locA_cycU (g : L ≃+* L) (v : Place) :
+    locA (cycU_mem g).1 v = (cyclotomicCharacter L (primesEquiv v) g : ℤ_[primesEquiv v]) := by
+  rw [locA]
+  have : (⟨((cycU g : Afˣ) : Af) v, (cycU_mem g).1 v⟩ : v.adicCompletionIntegers ℚ) =
+      (locZ v).symm (cyclotomicCharacter L (primesEquiv v) g : ℤ_[primesEquiv v]) := rfl
+  rw [this, RingEquiv.apply_symm_apply]
+
+theorem toZMod_transport {p : ℕ} [Fact p.Prime] (h : p = 3) (g : L ≃+* L) :
+    ZMod.ringEquivCongr h (PadicInt.toZMod (cyclotomicCharacter L p g : ℤ_[p])) =
+      PadicInt.toZMod (cyclotomicCharacter L 3 g : ℤ_[3]) := by
+  subst h; rw [ZMod.ringEquivCongr_refl_apply]
+
+/-- **Mod 3, Mathlib's `3`-adic cyclotomic character is the mod-3 cyclotomic character.** -/
+theorem toZMod_cyc_three [∀ i, HasEnoughRootsOfUnity L (3 ^ i)]
+    (hn : Nat.card {x // x ∈ rootsOfUnity 3 L} = 3) (g : L ≃+* L) :
+    PadicInt.toZMod (cyclotomicCharacter L 3 g : ℤ_[3]) =
+      (modularCyclotomicCharacter L hn g : ZMod 3) := by
+  apply modularCyclotomicCharacter.unique
+  intro t ht
+  set x : ℤ_[3] := (cyclotomicCharacter L 3 g : ℤ_[3])
+  have ht3 : (t : L) ^ 3 = 1 := by
+    rw [mem_rootsOfUnity] at ht
+    have := congrArg Units.val ht
+    rw [Units.val_pow_eq_pow_val, Units.val_one] at this
+    exact this
+  have ht31 : (t : L) ^ 3 ^ 1 = 1 := by rw [pow_one]; exact ht3
+  have hspec := cyclotomicCharacter.spec (L := L) 3 (n := 1) g (t : L) ht31
+  rw [hspec]
+  push_cast
+  rw [pow_eq_pow_mod _ ht3, pow_eq_pow_mod (PadicInt.toZMod x).val ht3]
+  congr 1
+  set a := (PadicInt.toZModPow 1 x).val
+  set b := (PadicInt.toZMod x).val
+  have ha : x - (a : ℤ_[3]) ∈ IsLocalRing.maximalIdeal ℤ_[3] := by
+    have : x - (a : ℤ_[3]) ∈ RingHom.ker (PadicInt.toZModPow 1 : ℤ_[3] →+* ZMod (3 ^ 1)) := by
+      rw [RingHom.mem_ker, map_sub, map_natCast, ZMod.natCast_zmod_val, sub_self]
+    rw [PadicInt.ker_toZModPow, pow_one, ← PadicInt.maximalIdeal_eq_span_p] at this
+    exact this
+  have hb : x - (b : ℤ_[3]) ∈ IsLocalRing.maximalIdeal ℤ_[3] := by
+    rw [← PadicInt.ker_toZMod, RingHom.mem_ker, map_sub, map_natCast, ZMod.natCast_zmod_val, sub_self]
+  have := PadicInt.zmod_congr_of_sub_mem_max_ideal x a b ha hb
+  exact (ZMod.natCast_eq_natCast_iff' a b 3).1 this
+
+/-- **`χ(χ_cyc(g)) = χ₃(g)`**: the image of the cyclotomic idele of `g` in
+`ℚ^×_{>0}\𝔸_f^×/nrd(K₃) ≅ (ℤ/3)^×` is the mod-3 cyclotomic character of `g`. -/
+theorem chi_cycU [∀ i, HasEnoughRootsOfUnity L (3 ^ i)]
+    (hn : Nat.card {x // x ∈ rootsOfUnity 3 L} = 3) (g : L ≃+* L) :
+    chi (cycU g) = modularCyclotomicCharacter L hn g := by
+  apply Units.ext
+  rw [chi_of_mem (cycU_mem g), r3_apply]
+  change ZMod.ringEquivCongr v3_spec (PadicInt.toZMod (locA (cycU_mem g).1 v3)) = _
+  rw [locA_cycU, toZMod_transport v3_spec, toZMod_cyc_three hn]
+
+end Cyc
+
 end ShimuraGlue

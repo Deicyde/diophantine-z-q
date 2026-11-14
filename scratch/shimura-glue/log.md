@@ -20,3 +20,11 @@
   `U3_le : U₃ ≤ nrd(K₃)` (local representations assembled with Mathlib's `padicIntEquiv`).
 - Proved: `exists_decomp : ∀ s : 𝔸_f^×, ∃ q ∈ ℚ_{>0}, s q⁻¹ ∈ ℤ̂^×`, `posQ_ZhatU : ℚ_{>0} ∩ ℤ̂^× = 1`,
   `decomp_unique`.
+- Proved (Adelic.lean): factor maps `dq`, `du` (homs by uniqueness), reduction `r3 : ℤ̂ → ℤ/3` (via place 3),
+  character `chi : 𝔸_f^× →* (ℤ/3)^×`, `chi_ker : ker chi = ℚ_{>0} ⊔ nrd(K₃)`, `chi_surjective`,
+  `pi0_Kfull_eq_one` (so `Subsingleton (Pi0 Kfull)`), `pi0K3Equiv : Pi0 K3 ≃* (ℤ/3)^×` with
+  `pi0K3Equiv (mk s) = chi s` (rfl).
+- Galois: `cycU g ∈ ℤ̂^×` (components: Mathlib's `cyclotomicCharacter L p g`), `cycU_apply` (rfl, via
+  Mathlib's `padicEquiv`), `toZMod_cyc_three` (3-adic cyclotomic character mod 3 = Mathlib's
+  `modularCyclotomicCharacter` at 3), `chi_cycU : chi (cycU g) = modularCyclotomicCharacter L hn g`.
+- Compile: `lake env lean scratch/shimura-glue/Adelic.lean`: 0 errors, ~8 s.
