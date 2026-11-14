@@ -1,7 +1,7 @@
 # hodge-split results log
 
 Task hodge-split, 2026-11-14. Base cba8157f. Lean checks: `lake env lean scratch/hodge-split/<file>.lean`
-after `lake build ZInQKernel.Contrib.R10.Amend ZInQKernel.Contrib.AbVarBC.Dim` (both built 03:40, exit 0).
+after `lake build ZInQKernel.Contrib.R10.Amend ZInQKernel.Contrib.AbVarBC.Dim` (both built 11-14 03:40, exit 0).
 
 ## H-52 `G0Galois.FiniteImageHT` (FiniteImage.lean)
 - Row copied verbatim from scratch/leaf-fold5/Leaves5.lean l.50965 (objects from ZInQKernel/Contrib/G9/I4Layer.lean).
@@ -12,7 +12,7 @@ after `lake build ZInQKernel.Contrib.R10.Amend ZInQKernel.Contrib.AbVarBC.Dim` (
   krullTopology_mem_nhds_one_iff_of_normal), finite coefficient field (adjoin of the finitely many
   entries; g9-derham's `liftGL`), finite descent (g9-derham's `descent_finrank`, Speiser — replaces
   Hilbert 90 of the row's citation).
-- COMPILED 03:50: axioms [propext, Classical.choice, Quot.sound]. VERIFIED.
+- COMPILED 11-14: axioms [propext, Classical.choice, Quot.sound]. VERIFIED.
 - File renamed FiniteImage.lean → HodgeSplit.lean (single growing file; scratch files cannot import each other).
 
 ## H-8 `ZInQ.Contrib.R10.DeRhamComparisonHT` (HodgeSplit.lean §6)
@@ -25,7 +25,7 @@ after `lake build ZInQKernel.Contrib.R10.Amend ZInQKernel.Contrib.AbVarBC.Dim` (
   `htSpaceOver_eq_map` (Hom_{G_F}(V, ℂ_p(j)) ≅ (ℂ_p(j−1)^{G_F})^g × (ℂ_p(j)^{G_F})^g through e),
   `htMultOver_of_decomp` (multiplicity g·([w=0]+[w=−1])), `dim_finite_I4` (abvar-bc's dim_finite transported).
 - PROOF `deRhamComparisonHT_of_leaves : HodgeTateDecompAbVar → TateTwistInvariants → AxSenTate →
-  DeRhamH1AbVar → ZInQ.Contrib.R10.DeRhamComparisonHT`. COMPILED 04:30, standard axioms. VERIFIED.
+  DeRhamH1AbVar → ZInQ.Contrib.R10.DeRhamComparisonHT`. COMPILED 11-14, standard axioms. VERIFIED.
 
 ## H-32 `∀ p, PkgI4.T23_FontaineClosure p` (HodgeSplit.lean §7)
 - Row imported (ZInQKernel/Contrib/G9/I4Layer.lean l.1488, unchanged).
@@ -39,7 +39,7 @@ after `lake build ZInQKernel.Contrib.R10.Amend ZInQKernel.Contrib.AbVarBC.Dim` (
   vs the printed tensor form, through coordinates), `isDeRham_conj` (clause (i), no leaf needed),
   `contRep_dualRep`, `dualRep_dualRep`, transposes of block/Kronecker matrices.
 - PROOF `t23_all_of_fontaine : (∀ p, FontaineDRTannakian p) → ∀ p, T23_FontaineClosure p`.
-  COMPILED 05:05, standard axioms. VERIFIED.
+  COMPILED 11-14, standard axioms. VERIFIED.
 
 ## H-22 `G0Galois.R14Det` (HodgeSplit.lean §8)
 - Row copied verbatim (Leaves5.lean l.35303-35330: toRingEquivQ, cycQ, R14Det).
@@ -52,7 +52,7 @@ after `lake build ZInQKernel.Contrib.R10.Amend ZInQKernel.Contrib.AbVarBC.Dim` (
   set), `DetFromFrobenius` (det from Frobenius values: Chebotarev + cyclotomic character mod N),
   `ArtinTransport` (DSThm966 → R14DetWt1: finite subgroup of GL₂(ℂ) realized over ℚ̄, then ιL; Maschke).
 - PROVED `r14DetWtGe2_of_ds`, `r14Det_of_ds : DSThm965 → DSThm966 → Semisimplification2 →
-  DetFromFrobenius → ArtinTransport → R14Det`. COMPILED 05:25, standard axioms. VERIFIED.
+  DetFromFrobenius → ArtinTransport → R14Det`. COMPILED 11-14, standard axioms. VERIFIED.
 
 ## H-9 `PkgI4.PanBerger` (§9)
 - FINDING: Pan 2022 Thm 1.0.4 and Berger 2002 Thm 0.7 both need "potentially semistable" = B_st-admissible;
