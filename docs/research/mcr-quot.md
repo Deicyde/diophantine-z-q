@@ -10,20 +10,20 @@ Task mcr-quot, 2026-11-14 (two runs; the second resumed from `scratch/mcr-quot/l
 - C2 `CoordinateFromSections`.
 
 Lean file: `scratch/mcr-quot/MCRQuot.lean`. It is `MCRGlue.lean` verbatim (the whole file),
-followed by the parts `MCRQuot1.lean.part` … `MCRQuot16.lean.part` in the order of `build.sh`.
+followed by the parts `MCRQuot1.lean.part` … `MCRQuot18.lean.part` in the order of `build.sh`.
 
 ## 1. Main result
 
-**C2 is proved from A and T5. A and C1 are proved from two textbook-level inputs and one glue Prop
-on CM stabilizers. B is reduced to two glue Props.** All of this is by compiled Lean proofs. No
-target statement was changed.
+**C2 is proved from A and T5. A is proved from T5 and two textbook-level inputs. C1 is proved from
+A, the same inputs and one object-level glue Prop on CM points. B is reduced to two glue Props.**
+All of this is by compiled Lean proofs. No target statement was changed.
 
 | Target | Compiled theorem | Remaining inputs |
 |---|---|---|
 | C2 `CoordinateFromSections` | `coordinateFromSections_of''` | A (used only for `Finite (fibreAut 𝒴 𝒜)`), T5 |
 | A `FibreAutTame` | `fibreAutTame_of''` + `fibreAutFixFinite_of'` | T5, `CurveBijIso`, `ModelYIrreducible` |
-| C1 `CMSectionsDisjoint` | `cMSectionsDisjoint_of''` + `fibreAutFixFinite_of'` | A, `CurveBijIso`, `ModelYIrreducible`, (C1b) `CMStabInvolution` |
-| B `GenericQuotientP1` | `genericQuotientP1_of` | A, T5, L3, (B-desc) `QuotientDescendsQ`, (B-iso) `ToP1BijIsCoordinateQ` |
+| C1 `CMSectionsDisjoint` | `cMSectionsDisjoint_of''` + `cMStabInvolution_of` | A, `CurveBijIso`, `ModelYIrreducible`, (C1b-obj) `CMStabObj` |
+| B `GenericQuotientP1` | `genericQuotientP1_of` + `quotientDescendsQ_of` | A, T5, L3, (B-desc-map) `QuotientDescendsMapQ`, (B-iso) `ToP1BijIsCoordinateQ` |
 
 Notes on the inputs:
 
@@ -36,11 +36,11 @@ Notes on the inputs:
 The final composite (namespace `MCRQuot`):
 
 ```lean
-theorem modelCoordinateResidue_final5
+theorem modelCoordinateResidue_final7
     (hAF : ProperCurveAF) (hQE : FiniteQuotientExists) (hTS : TameQuotientSmooth)
     (hP1 : SmoothModelOfP1) (hFix : TameFixedPointsDisjoint) (hCyc : TameInertiaCyclic)
     (hT : ObjBridge.TorsionStructure) (hC : CurveBijIso) (hCov : CoverModelOfHeckeN)
-    (hD : QuotientDescendsQ) (hB : ToP1BijIsCoordinateQ) (hI : CMStabInvolution) :
+    (hDm : QuotientDescendsMapQ) (hB : ToP1BijIsCoordinateQ) (hO : CMStabObj) :
     ModelCoordinateResidue
 ```
 
@@ -49,16 +49,20 @@ Its hypotheses fall into four groups:
 - mcr-glue's leaves L1–L6;
 - the textbook leaves T5 and `CurveBijIso`;
 - the decomposition's existing glue `CoverModelOfHeckeN`;
-- **three new glue Props of this task**: (B-desc), (B-iso), (C1b).
+- **three new glue Props of this task**:
+  - (B-desc-map) `QuotientDescendsMapQ`: descent of an orbit-invariant map to `P¹` through the
+    quotient;
+  - (B-iso) `ToP1BijIsCoordinateQ`: the `P¹` case of `CurveBijIso`, stated by charts;
+  - (C1b-obj) `CMStabObj`: each CM class is fixed by a Hecke operation of order exactly 2 on
+    classes, a statement about QM objects over `ℚ̄` with no schemes in it.
 
-`modelCoordinateResidue_final4` is the same theorem with `ModelYIrreducible` in place of
-`CoverModelOfHeckeN`.
+The earlier composites `modelCoordinateResidue_final4` … `final6` are the intermediate forms.
 
 VERIFIED: `lake env lean scratch/mcr-quot/MCRQuot.lean` exits 0 in about 27 s (output in
-`compile16_out.txt`).
+`compile18_out.txt`).
 
 - The parts contain no `sorry` and no `axiom`.
-- All 39 `#print axioms` of `MCRQuot` declarations (part 9) read
+- All 46 `#print axioms` of `MCRQuot` declarations (part 9) read
   `[propext, Classical.choice, Quot.sound]`.
 
 ## 2. What was proved (all compiled, namespace `MCRQuot`)
@@ -135,33 +139,44 @@ How `translate` is built:
   cyclic (L6). So the involutions fixing the two CM points agree, and L5 gives disjointness.
 - **C2**, by `coordinateFromSections_of`: the fibres of `ρ₀ ∘ q` are the twist classes, and the CM
   values are rational. Then `p1ThreePoints_of` normalizes the coordinate.
+- **(C1b) `CMStabInvolution`**, by `cMStabInvolution_of` (part 17):
+  - `CMStabObj` supplies `T = twist α ∘ rightMul u`. The candidate is `ι = g_α * g_u`, built from
+    the Hecke automorphisms in `fibreAut` (`hecke_mem_fibreAut`); it acts on classes as `T`.
+  - `ι` fixes `y`, by moduli injectivity.
+  - `ι²` fixes every `ℚ̄`-point, so `ι² = 1` (`eq_one_of_fixes_all`, from (A-fix) and the
+    infinitely many `ℚ̄`-points).
+  - `ι ≠ 1`, since `T` moves the class of some object, and every class is the fibre at some
+    `ℚ̄`-point.
+- **(B-desc) `QuotientDescendsQ`**, by `quotientDescendsQ_of` (part 18):
+  - The lifting half is proved. `isGQuotient_surjective` is lying over for
+    `Γ(W) = Γ(q⁻¹W)^G ⊆ Γ(q⁻¹W)`. `exists_lift_qbar` uses that the fibre `X ×_Z Spec ℚ̄` is finite
+    and nonempty, so it has a closed point, which is a `ℚ̄`-point (Mathlib's
+    `pointOfClosedPoint`).
+  - The descent half remains, as `QuotientDescendsMapQ`.
 - **B**, by `genericQuotientP1_of`: `π ∘ g` descends to `𝒵_ℚ` (B-desc) and is bijective on
   `ℚ̄`-points, hence a coordinate (B-iso).
 
-## 3. What remains: three new glue Props and one input
+## 3. What remains: three new glue Props
 
 | Name | Statement (informal) | Kind | Why not proved here |
 |---|---|---|---|
-| (B-desc) `QuotientDescendsQ` | an orbit-invariant `σ : 𝒴_ℚ → P¹` descends through the SGA 1 quotient to `𝒵_ℚ`, and `ℚ̄`-points of `𝒵_ℚ` lift | glue (quotients; SGA 1 Exp. V §1, locator UNVERIFIED) | needs that the quotient commutes with `ℤ_(p) → ℚ`, plus saturated opens |
-| (B-iso) `ToP1BijIsCoordinateQ` | a map to `P¹` of a proper smooth `ℚ`-curve that is bijective on `ℚ̄`-points is an isomorphism by charts | glue (the `P¹` case of `CurveBijIso`) | Mathlib 4.35 has no `P¹` as a scheme (no `ProjectiveSpace` under `AlgebraicGeometry/`), so `CurveBijIso` cannot be applied |
-| (C1b) `CMStabInvolution` | the stabilizer in `fibreAut` of a CM point contains an involution `≠ 1` | glue (QM with CM) | see below |
-| `ModelYIrreducible` | `Y` (with R1fp, R1hecke, R2fp) is irreducible over `ℚ` | input; proved from `CoverModelOfHeckeN` + T5 | — |
+| (B-desc-map) `QuotientDescendsMapQ` | an orbit-invariant `σ : 𝒴_ℚ → P¹` descends through the SGA 1 quotient to `σ' : 𝒵_ℚ → P¹` (values agree on `ℚ̄`-points) | glue (quotients; SGA 1 Exp. V §1, locator UNVERIFIED) | needs `σ` invariant as a morphism (density on the reduced `𝒴_ℚ`), open images of saturated opens, and descent of invariant sections over non-affine opens (sheaf gluing) |
+| (B-iso) `ToP1BijIsCoordinateQ` | a map to `P¹` of a proper smooth `ℚ`-curve that is bijective on `ℚ̄`-points is an isomorphism by charts | the `P¹` case of the textbook leaf `CurveBijIso`, stated by charts | Mathlib 4.35 has `Proj` with `IsProper (Proj.toSpecZero 𝒜)`, but no `P¹` with smoothness and no gluing of a morphism from charts; with those, B-iso would follow from `CurveBijIso` |
+| (C1b-obj) `CMStabObj` | a CM object's class is fixed by some `T = twist α ∘ rightMul u` with `T ∘ T = id` on `M3 ℚ̄` and `T ≠ id` | glue (QM with CM; elliptic points of orders 4, 6, 2, Baba–Granath §3.1, locator UNVERIFIED) | see below |
 
-Why (C1b) is not proved here (SPECULATIVE analysis, not compiled):
+Why (C1b-obj) is not proved here (SPECULATIVE analysis, not compiled):
 
-- **CM by `ℤ[i]`.** The case can be done from what exists. The CM unit `φ` acts on `A[3]` as
-  `·u` with `u ∈ 𝒪^×` (`Level3.torsor`, `exists_unit_congr`). Then `rightMul u` fixes the point,
-  and `u² ≡ −1` acts trivially. This route also needs that automorphisms are determined by
-  `ℚ̄`-points (available from `CurveClosedQbarFinite`) and the rigidity of level-3 structures.
-- **CM by `ℤ[ζ₃]`.** The unit `ζ₆` only gives an element of order 3 on points. The involution in
-  the order-6 stabilizer is an Atkin–Lehner-type twist.
-- **CM by `ℤ[√−6]`.** `φ² = −6` gives no unit. The involution would be `ι(ij)⁻¹ φ`, which needs
-  integrality in `End A`.
-- Both of the last two cases need the normalizer of `ι(𝒪)` in `End(A)` at CM points. That is not
-  among the leaves.
-- An alternative route is through `CoverBranchData`: the ramification indices 4, 6, 2 are even,
-  and in characteristic 0 the stabilizers are the inertia groups. That route needs the
-  identification of `fibreAut` with `Gal(E/ℚ(X))`.
+- **CM by `ℤ[i]`.** Take `α = id` and `u ≡ φ` on `A[3]` (`Level3.torsor`, `exists_unit_congr`).
+  Then `T` fixes the class, and `u² ≡ −1`, so `T² = id`. But `T ≠ id` needs an object whose
+  automorphisms do not realize `u`. That needs the rigidity of level-3 structures and the
+  structure of `com q` at a CM point; neither is among the leaves.
+- **CM by `ℤ[ζ₃]`.** The unit `ζ₆` gives an operation of order 3 only. The involution is an
+  Atkin–Lehner-type twist.
+- **CM by `ℤ[√−6]`.** No unit is available. The involution is induced by `ι(ij)⁻¹ φ`, which
+  needs integrality in `End A`.
+- Both of the last two cases need the normalizer of `ι(𝒪)` in `End(A)` at CM points.
+- The independent review (§5) judged `CMStabObj` true. The stabilizers of the elliptic points are
+  cyclic of orders 4, 6, 2, each with a unique involution.
 
 ## 4. Findings
 
@@ -188,8 +203,16 @@ Why (C1b) is not proved here (SPECULATIVE analysis, not compiled):
 
 ## 5. Checks
 
-- Statement review (first run, by a separate model, read-only): every new glue Prop was found true
+- Statement review, first run (by a separate model, read-only): every new glue Prop was found true
   as stated, except `QuotientDescendsQ`, which was then amended (§4).
+- Statement review, second run (by a separate model, read-only, SPECULATIVE judgements):
+  `ModelYIrreducible`, `CurveClosedQbarFinite`, `CMStabObj`, `QuotientDescendsQ` and
+  `ToP1BijIsCoordinateQ` were all judged true, none false or vacuous.
+  - `ModelYIrreducible` rests on `Y ≅ Y₃` (via R1univ, with Lemma P for the polarization) and on
+    Galois swapping the two geometric components.
+  - In `CMStabObj`, every word in twists and rightMuls reduces to `twist α ∘ rightMul u`
+    (`rightMul u ∘ twist β = twist β ∘ rightMul β(u)`).
+  - `QuotientDescendsQ` needs neither `IsFinite q` nor properness.
 - Tau Ceti and `Contrib` were checked first. They have no quotient-by-group, no `P¹`-scheme and no
   fixed-locus piece. The only related piece is `ImagePlane.inv`, which is used.
 
@@ -198,5 +221,5 @@ Why (C1b) is not proved here (SPECULATIVE analysis, not compiled):
 ```
 lake build ZInQKernel.Contrib.Mobius.Main ZInQKernel.HDecomp.QM.Pin ZInQKernel.HDecomp.Descent.B2Glue
 scratch/mcr-quot/build.sh                      # regenerates MCRQuot.lean from the parts
-lake env lean scratch/mcr-quot/MCRQuot.lean    # exit 0, ~27 s; compile16_out.txt
+lake env lean scratch/mcr-quot/MCRQuot.lean    # exit 0, ~27 s; compile18_out.txt
 ```
