@@ -118,6 +118,18 @@ theorem neronSchemeExtensionExists_of_neronModelExists (h : ZInQ.H5Neron.NeronMo
   obtain ⟨N, hS, hSep, hQC, e, hN⟩ := neronSchemeModelExists_of_neronModelExists h K A L
   exact ⟨N, hS, hSep, hQC, e, fun Y _ => (hN Y).2⟩
 
+/-- Sanity (non-vacuity): the conclusion of `NeronSchemeExtensionExists` holds for the zero
+abelian variety (`N = Spec 𝓞_L`; from h5-neron's `neronModelExists_zero`). -/
+theorem neronSchemeExtension_zero (K : Type) [Field K] (L : Type) [Field L] [NumberField L]
+    [Algebra K L] :
+    ∃ (N : Over (Spec (CommRingCat.of (𝓞 L)))) (_ : Smooth N.hom) (_ : IsSeparated N.hom)
+      (_ : QuasiCompact N.hom) (e : genericFibre L N ≅ ((AbVar.zero K).baseChange L).X),
+      ∀ (Y : Over (Spec (CommRingCat.of (𝓞 L)))) [Smooth Y.hom],
+        Function.Surjective fun f : Y ⟶ N =>
+          (Over.pullback (Spec.map (CommRingCat.ofHom (algebraMap (𝓞 L) L)))).map f ≫ e.hom := by
+  obtain ⟨𝒩, h𝒩⟩ := ZInQ.H5Neron.neronModelExists_zero K L
+  exact ⟨𝒩.G, inferInstance, inferInstance, inferInstance, 𝒩.gen, fun Y _ => (h𝒩 Y).2⟩
+
 end ZInQ.Contrib.NeronC
 
 #print axioms ZInQ.Contrib.NeronC.grpObjOfNeron
@@ -127,3 +139,4 @@ end ZInQ.Contrib.NeronC
 #print axioms ZInQ.Contrib.NeronC.neron_extension_injective
 #print axioms ZInQ.Contrib.NeronC.neronModelExists_of_extension
 #print axioms ZInQ.Contrib.NeronC.neronSchemeExtensionExists_of_neronModelExists
+#print axioms ZInQ.Contrib.NeronC.neronSchemeExtension_zero
