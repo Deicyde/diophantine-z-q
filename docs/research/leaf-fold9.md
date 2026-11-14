@@ -1,8 +1,9 @@
-# leaf-fold9: `r1rec` and `r5` proved from `r1r2`, cloud PR #11 and modular-split's `r15` folded into the single proof; 61 fields, strict GLUE 24 (was 27 of 66)
+# leaf-fold9: `r1rec`, `r5` proved from `r1r2`; cloud PR #11, modular-split's `r15` and reduct-split's `r7b`, `r8` folded into the single proof; 63 fields, strict GLUE 22 (was 27 of 66)
 
 Task leaf-fold9, 2026-11-14. Base 5da857b0 (wip/w59: fork main e9240be8 (w58) with leaf-fold8 inside OneProof,
-mcr-quot, coarse-factor and cloud PR #11). Merged: `origin/wip/modular-split` (fold (4)). New Lean:
-- `ZInQKernel/OneProof/H/TailZ5.lean` (the proofs) and `TailZ6.lean` (modular-split's `R15.lean` and the bundles);
+mcr-quot, coarse-factor and cloud PR #11). Merged (fold (4)): `origin/wip/modular-split`, `origin/wip/reduct-split`. New Lean:
+- `ZInQKernel/OneProof/H/TailZ5.lean` (this task's proofs), `TailZ6.lean` (modular-split's `R15.lean`),
+  `TailZ7.lean` (reduct-split's `Reduction.lean`) and `TailZ8.lean` (the bundles);
 - the switch of `ZInQKernel/OneProof/Main.lean`.
 
 Each new module is under 150 KB. Checks and tools are in `scratch/leaf-fold9/`; the results log is `log.md`. No
@@ -25,14 +26,14 @@ theorem ZInQ.OneProof.frozenTarget
     ZInQ.FrozenTarget
 ```
 
-The H half goes through the new top of the H assembly (`OneProof/H/TailZ6.lean`):
+The H half goes through the new top of the H assembly (`OneProof/H/TailZ8.lean`):
 
 ```lean
 theorem HDec.HSyn.sixContactMin_of_open9 (r : OpenResearchLeaves9) (t : OpenTextbookLeaves9)
     (l : OpenAddedLeaves8) (g : OpenGlue7) : ZInQ.SixContactMin
 ```
 
-Three folds were taken, and five fields went. No field was added.
+Four folds were taken. Seven fields went, and four published-form leaves came in.
 
 1. **`r1rec` and `r5` are theorems of `r1r2`. This is new Lean from this task.**
    - The research field `r1r2` (`LeafAdopt.R1R2fpRep`) provides one fine witness `Y₃` and one coarse witness
@@ -52,24 +53,34 @@ Three folds were taken, and five fields went. No field was added.
 3. **modular-split (fold (4)).** `ModularSplit.deligneSerreConseq_of_ds : DSThm966 → HDec.HSyn.DeligneSerreConseq`
    proves the research field `r15` (a composite) from the existing published-form field `dsThm966` (Deligne–Serre
    Thm 4.1). `r15` is dropped.
+4. **reduct-split (fold (4)).** The research fields `r7b` and `r8`, both consequences, are replaced by four
+   published-form leaves. No glue is involved: reduct-split proved its own glue. The leaves are:
+   - `SerreTateThm2`, Serre–Tate 1968 Thm 2 as printed;
+   - `SemistableReductionDVR`, SGA 7 IX 3.6 over a DVR;
+   - `SemistableUnipotent`, SGA 7 IX 3.5;
+   - `NeronSchemeModelExistsDVR`, BLR 1.4/3 over a DVR.
+
+   `MumfordTorsionAlgClosed` is used too; it is already a textbook field.
 
 The following are **VERIFIED** (`scratch/leaf-fold9/log.md`):
 - `lake build +ZInQKernel.OneProof.Main` exits 0.
 - `#print axioms ZInQ.OneProof.frozenTarget` gives `[propext, Classical.choice, Quot.sound]`.
 - **No existing constant changed.** op-compact's `DumpCompact` with `cmp_hashes.py` (copies in `scratch/leaf-fold9/`)
-  compares 10831 OneProof constants before and 10917 after (`cmp_hashes_out.txt`):
+  compares 10831 OneProof constants before and 11119 after (`cmp_hashes_out.txt`):
   - the before-file is identical to leaf-fold8's after-file;
   - no constant was removed;
   - the only changed constant is `ZInQ.OneProof.frozenTarget`, the intended statement change;
-  - all 86 new constants are in `TailZ5` and `TailZ6`.
+  - all 288 new constants are in `TailZ5`–`TailZ8`.
 - `Check9.lean` (`check9_result.txt`):
   - it compiles `example : ∀ r t l g, _root_.ZInQ.SixContactMin := sixContactMin_of_open9`;
-  - the closure has 212 153 constants and no `sorryAx`;
-  - there are 61 fields: 28 + 18 + 14 + 1;
-  - the two CloudW07 proofs, the bridge theorems and `deligneSerreConseq_of_ds` have standard axioms.
-- `TailZ5` is 14 KB and `TailZ6` is 15 KB.
-- `verbatim_check9.py` (`verbatim_check9_out.txt`) checks two things:
+  - the closure has 212 238 constants and no `sorryAx`;
+  - there are 63 fields: 30 + 18 + 14 + 1;
+  - the two CloudW07 proofs, the bridge theorems, `deligneSerreConseq_of_ds`, `serreTatePotentialGood_final`
+    and `grothendieckMonodromy_final'` have standard axioms.
+- Sizes: `TailZ5` 14.6 KB, `TailZ6` 8.5 KB, `TailZ7` 92 KB, `TailZ8` 8.5 KB.
+- `verbatim_check9.py` (`verbatim_check9_out.txt`) checks three things:
   - `TailZ6` contains `R15.lean` after its imports as one block, with only `#print` dropped;
+  - `TailZ7` contains `Reduction.lean` the same way, with the same imports;
   - `TailZ5` contains the compiled lemma file minus its imports.
 
 **Counts.** The forms are leaf-fold8's, i.e. frontier r3's. A removed field takes its form with it. The table is
@@ -82,26 +93,30 @@ printed by `mk_fields9.py` (`counts9.md`).
 | (2) coarse-factor | not taken (§5) | | | | | | |
 | r1r2-bridge (`r1rec`, `r5` from `r1r2`) | 64 | 39 | 14 | 10 | 1 | 39 / 25 | 53 / 11 |
 | (3) cloud PR #11 (`t33`, `normalModelOfFunctionFieldQ`) | 62 | 37 | 14 | 10 | 1 | 37 / 25 | 51 / 11 |
-| (4) modular-split (`r15` from `dsThm966`) | **61** | **37** | **14** | **9** | **1** | **37 / 24** | **51 / 10** |
-| (4) reduct-split, shimura-split | see §5, §7 | | | | | | |
+| (4) modular-split (`r15` from `dsThm966`) | 61 | 37 | 14 | 9 | 1 | 37 / 24 | 51 / 10 |
+| (4) reduct-split (`r7b`, `r8` from four published-form leaves) | **63** | **41** | **12** | **9** | **1** | **41 / 22** | **53 / 10** |
+| (4) shimura-split | see §7 | | | | | | |
 
 **Bundles.**
-- `OpenResearchLeaves9`: 28 fields (31 in leaf-fold8).
+- `OpenResearchLeaves9`: 30 fields (31 in leaf-fold8).
 - `OpenTextbookLeaves9`: 18 fields (20).
 - `OpenAddedLeaves8` (14) and `OpenGlue7` (1, `QuotientP1Coordinate`) are leaf-fold8's, unchanged.
 
 **TYZ side.** Unchanged: `h11`, `h29`, `hS`, `h33`, `hL2`, `hL3`.
 
 **Module layout.**
-- `TailZ6` imports `TailZ5` and holds modular-split's `R15.lean` verbatim (after its two import lines, `TailT` and
-  `LPrefix`, both below `TailZ5`), then the bundles.
+- `TailZ6` imports `TailZ5` and holds modular-split's `R15.lean` verbatim, after its two import lines (`TailT` and
+  `LPrefix`, both below `TailZ5`).
+- `TailZ7` is reduct-split's `Reduction.lean` verbatim, with its own imports: kernel modules, `TailQ` and `TailY`. It
+  could move to `ZInQKernel/Contrib/` once the two chain imports are kernel modules.
+- `TailZ8` imports `TailZ6` and `TailZ7` and holds the bundles.
 - `TailZ5` imports `TailZ4`, the kernel's `Contrib/FrobChain/Rigidity`, the two CloudW07 modules
   (`JacobianExists`, `NormalModel`) and two Mathlib files (`FieldTheory.Galois.Infinite`,
   `NumberTheory.NumberField.Discriminant.Different`).
-- `TailZ5` and `TailZ6` are generated by `scratch/leaf-fold9/mk_tailz5.py`:
+- `TailZ5`–`TailZ8` are generated by `scratch/leaf-fold9/mk_tailz5.py`:
   - from the lemma part `Lemmas.lean.part`, which is `test/R1recT.lean` minus its imports, compiled alone first;
   - and from `TailZ4.lean`'s field blocks, copied as text, so every kept field keeps its text and docstring.
-- `Main` imports `TailZ6` in place of `TailZ4`. The chain from LPrefix to TailZ4 is untouched.
+- `Main` imports `TailZ8` in place of `TailZ4`. The chain from LPrefix to TailZ4 is untouched.
 - The vendored CloudW07 library (711 files) now sits under `Main`'s import closure. On this host it took about
   18 min to build, one `lake build`.
 
@@ -147,13 +162,29 @@ Notes on the bridge.
 - The field `r15 : DeligneSerreConseq` is `HDec.HSyn.DeligneSerreConseq` (LPrefix); the proof's type is exactly that
   constant.
 
+**reduct-split** (`TailZ7` = `scratch/reduct-split/Reduction.lean`; reduct-split §§1-5).
+- `ReductSplit.serreTatePotentialGood_final : SerreTateThm2 → AvSplit.MumfordTorsionAlgClosed →
+  PkgI2.SerreTatePotentialGood.{0}` gives `r7b`. reduct-split proves `TorsionFieldOfDefinition` and the equivalence
+  between a finite image of inertia and an open subgroup acting trivially.
+- `ReductSplit.grothendieckMonodromy_final' : SemistableReductionDVR → SemistableUnipotent → NeronSchemeModelExistsDVR →
+  AvSplit.MumfordTorsionAlgClosed → PkgI2.GrothendieckMonodromy.{0}` gives `r8`. reduct-split proves
+  `dvrFiniteExtension`: a valuation ring of a finite extension over a DVR is a DVR.
+- Readings, from reduct-split §5:
+  - SGA 7 IX 3.6 asks only for `K'` finite; the print has finite separable, so the leaf is weaker.
+  - SGA 7 IX 3.5 takes the weakest reading, one `σ` at a time.
+  - BLR 1.4/3 is in scheme form.
+  - **RISK:** if Serre–Tate Thm 2 is printed for complete (or henselian) `K`, the leaf over a general discrete
+    valuation is a consequence. Locators are UNVERIFIED.
+
 ### 1.2 Which constants the fields are (VERIFIED, `Check9.lean`, `check9_result.txt`)
 
-- 20 of the 61 fields have a head constant declared outside `ZInQKernel/OneProof`, i.e. a kernel constant
+- 18 of the 63 fields have a head constant declared outside `ZInQKernel/OneProof`, i.e. a kernel constant
   (leaf-fold8: 24 of 66).
 - Four of the five that went are kernel constants: `LeafQM.AV.R1rec`, `LeafQM.AV.R5fp`,
   `LeafModCurves.JacobianExists`, `ZInQ.Contrib.CurvesG.NormalModelOfFunctionFieldQ`. The fifth,
   `HDec.HSyn.DeligneSerreConseq`, is a chain constant (LPrefix).
+- `r7b` and `r8` (`PkgI2.*`) were kernel constants. The four new leaves `ReductSplit.*` are declared in `TailZ7`,
+  which imports only kernel modules besides `TailQ` and `TailY`.
 
 ## 2. Every hypothesis
 
@@ -167,7 +198,7 @@ kept fields unchanged to `sixContactMin_of_open8`. The readings and the flags of
 `pazukiCor13Upper` (Pazuki's level-2 coordinates), `bostLowerBound` (display unread), `faltingsLemma5BC` (operative
 source Raynaud), `igusaCMValue24`, `valenceFormulaCocompactEq`.
 
-### OpenResearchLeaves9 (28 fields)
+### OpenResearchLeaves9 (30 fields)
 
 | field | Lean type | strict kind | form | source | last task | replaces |
 |---|---|---|---|---|---|---|
@@ -179,8 +210,6 @@ source Raynaud), `igusaCMValue24`, `valenceFormulaCocompactEq`.
 | `r5count` | `LeafQM.AV.R5fpCount` | GLUE (c) | consequence of one theorem | Gonzalez-Rotger 2006 Prop. 5.6 (count 2^b(R) h(R)) | leaf-qm-fp |  |
 | `r6` | `_root_.PkgI2.RaynaudCriterion.{0}` | GLUE (c) | consequence of one theorem | SGA 7 IX Prop. 4.7 (Silverberg-Zarhin Thm 3.5) | pkg-I2 |  |
 | `r7a` | `_root_.PkgI2.NeronOggShafarevich.{0}` | LEAF | published form | Serre-Tate 1968 Thm 1 | pkg-I2 |  |
-| `r7b` | `_root_.PkgI2.SerreTatePotentialGood.{0}` | GLUE (c) | consequence of one theorem | Serre-Tate 1968 Thm 2 / Cor. 2 | pkg-I2 |  |
-| `r8` | `_root_.PkgI2.GrothendieckMonodromy.{0}` | GLUE (c) | consequence of one theorem | SGA 7 IX 3.6 | pkg-I2 |  |
 | `r9a` | `_root_.PkgI3.FaltingsSemisimple` | LEAF | published form | Faltings 1983 Satz 3 | pkg-I3 |  |
 | `r9b` | `_root_.PkgI3.FaltingsTate` | LEAF | published form | Faltings 1983 Satz 4, Kor. 1 | pkg-I3 |  |
 | `hodgeTateDecompAbVar` | `_root_.ZInQ.Contrib.HodgeSplit.HodgeTateDecompAbVar` | LEAF | published form (specialization) | C_p (x) V_p(A) = C_p(1)^g + C_p^g, G_F-equivariant (Fontaine, Invent. Math. 65 (1982); Tate 1967 4; Faltings 1988), bases of the two g-dimensional spaces chosen | hodge-split; folded by leaf-fold7 | r10 (composite), with deRhamH1AbVarT and Tate's two theorems |
@@ -199,6 +228,10 @@ source Raynaud), `igusaCMValue24`, `valenceFormulaCocompactEq`.
 | `faltingsLemma5BC` | `_root_.ZInQ.HeightSplit.FaltingsLemma5BC` | GLUE (c) | consequence of one theorem | Faltings 1983 Lemma 5 in the semistable inequality form (Pazuki 2012 Rem. 2.3; Raynaud, Asterisque 127 VII Cor. 2.1.3 is the operative source, height-split §8), applied over every number field L above K | height-split; folded by leaf-fold8 | r20 |
 | `pazukiCor13Upper` | `_root_.ZInQ.HeightSplit.PazukiCor13Upper` | LEAF | published form (half) | Pazuki, Bull. SMF 140 (2012) Cor. 1.3(2), upper half (read by the audit; RISK: Pazuki's level-2 coordinates, height-split §8) | height-split; folded by leaf-fold8 | r22 |
 | `gaudronRemondThm14` | `_root_.ZInQ.HeightSplit.GaudronRemondThm14` | LEAF | published form | Gaudron-Remond, Duke Math. J. 163 (2014) Thm 1.4 (read by the audit), over the published stable height | height-split; folded by leaf-fold8 | r19 (same statement over the kernel infimum) |
+| `serreTateThm2` | `_root_.ReductSplit.SerreTateThm2` | LEAF | published form | Serre-Tate, Ann. of Math. 88 (1968) Thm 2: potential good reduction iff the image of inertia on T_l A is finite (RISK: if printed for complete K, a consequence; reduct-split §5) | reduct-split; folded by leaf-fold9 | r7b (consequence), with mumfordTorsionAlgClosed |
+| `semistableReductionDVR` | `_root_.ReductSplit.SemistableReductionDVR` | LEAF | published form (specialization) | SGA 7 I Exp. IX Thm 3.6 over a DVR: A_K' semistable at every place above O for a finite K' (print: finite separable) | reduct-split; folded by leaf-fold9 | r8 (consequence), with the next two and mumfordTorsionAlgClosed |
+| `semistableUnipotent` | `_root_.ReductSplit.SemistableUnipotent` | LEAF | published form (weakest reading) | SGA 7 I Exp. IX Prop. 3.5, semistable => (sigma-1)^2 = 0 on T_l for sigma in inertia, one sigma at a time | reduct-split; folded by leaf-fold9 | r8 |
+| `neronSchemeModelExistsDVR` | `_root_.ReductSplit.NeronSchemeModelExistsDVR` | LEAF | published form | BLR, Neron models, 1.4 Thm 3 over a DVR, scheme form (no group law) | reduct-split; folded by leaf-fold9 | r8 |
 
 ### OpenTextbookLeaves9 (18 fields)
 
@@ -264,18 +297,20 @@ leaf-fold8's, so its boundaries are SPECULATIVE.
 | **A. Shimura curves, QM abelian surfaces and Fuchsian groups** | 12 (7) | `r1r2`?, `shimuraFamily`?, `r3`?, `r5count`?, `qmCentralizerCMC`, `yuThm11`, `shimuraTaniyamaQbar`, `x6ConicModel`?, `y3Connected`?, `shimuraGoodReductionNoGuard`?, `valenceFormulaCocompactEq`, `shimizuCovolumeO1` |
 | **A′. Theta functions and Siegel modular forms of genus 2** | 4 (1) | `igusaPsi4`, `igusaChi10`, `igusaCMValue24`, `thetaRatiosAlgebraic`? |
 | **B. Abelian varieties: the textbook theory** | 9 (2) | `mumfordTorsionAlgClosed`, `homFreeFiniteAlgClosed`, `charPolyIndepOfEllAlgClosed`, `poincareComplement`, `t10`?, `uniformizationLeafAll`, `gagaMorphism`, `t09SymmIsogenyExists`?, `milneIsogenyQuasiInverse` |
-| **C. Néron models, semistable reduction and monodromy** | 9 (6) | `r6`?, `r7a`, `r7b`?, `r8`?, `neronSchemeExtensionExists`, `mulEtaleAbelianScheme`, `semistableReductionThm`?, `semistableNeronBaseChange`?, `semistablePersists`? |
+| **C. Néron models, semistable reduction and monodromy** | 11 (4) | `r6`?, `r7a`, `serreTateThm2`, `semistableReductionDVR`, `semistableUnipotent`, `neronSchemeModelExistsDVR`, `neronSchemeExtensionExists`, `mulEtaleAbelianScheme`, `semistableReductionThm`?, `semistableNeronBaseChange`?, `semistablePersists`? |
 | **C′. Schemes and group schemes over a field** | 5 (0) | `egaIV_8_10_5_xii`, `cartierSmooth`, `geomConnOfRationalPoint`, `groupSchemeEquidim`, `regularSmoothPerfect` |
 | **D. Faltings 1983 and Faltings heights** | 7 (1) | `r9a`, `r9b`, `bostLowerBound`, `javanpeykarBound`, `faltingsLemma5BC`?, `pazukiCor13Upper`, `gaudronRemondThm14` |
 | **E. p-adic Hodge theory** | 6 (1) | `tateTwistInvariants`, `axSenTate`, `hodgeTateDecompAbVar`, `deRhamH1AbVarT`, `bdRInvariants`, `r11r12`? |
 | **F. Galois representations of modular forms** | 5 (3) | `dsThm965`, `dsThm966`, `eigenformHTNew`?, `r16`?, `r17`? |
 | **G. Algebraic and modular curves** | 3 (2) | `dimJacobianEqGenus`?, `genusX1Field`?, `igusaGL2` |
-| total | **60 (23)** | plus the glue `quotientP1Coordinate` |
+| total | **62 (21)** | plus the glue `quotientP1Coordinate` |
 
 Against leaf-fold8 §3:
 - **Group A** lost R1(d) and R5 in field-of-moduli form, as consequences: they are now theorems of `r1r2`.
 - **Group F** lost `r15` (Deligne–Serre's consequences), now a theorem of Deligne–Serre's printed theorem
   (modular-split).
+- **Group C** traded two consequences (`r7b`, `r8`) for four published-form leaves, the local printed theorems of
+  Serre–Tate, SGA 7 IX and BLR (reduct-split).
 - **Group G** lost the Jacobian's existence and the normal model, both published and both proved by cloud worker
   W07.
 
@@ -290,6 +325,8 @@ Against leaf-fold8 §3:
   unfold.
 - **CloudW07.** `lake build ZInQKernel.Contrib.CloudW07JacobiansCurves.JacobianExists …NormalModel` exits 0, taking
   about 18 min.
+- **reduct-split.** Merged with `git merge origin/wip/reduct-split` (clean, after its `.fleet` report). `TailZ7` and
+  `TailZ8` and the new `Main` built at the first try.
 - **modular-split.** Merged with `git merge origin/wip/modular-split` (clean, after its `.fleet` report). `TailZ6`
   (with `R15.lean`) and the new `Main` built at the first try.
 - **TailZ5.** `lake build ZInQKernel.OneProof.H.TailZ5` succeeds, about 80 s, after one fix in `r5fp_of_rep`.
@@ -298,11 +335,11 @@ Against leaf-fold8 §3:
   - The fix transports the degree and the embedding along `IntermediateField.equivOfEq`.
 - **Main.** `lake build +ZInQKernel.OneProof.Main` exits 0. `#print axioms ZInQ.OneProof.frozenTarget` gives
   `[propext, Classical.choice, Quot.sound]`.
-- **Hashes after.** 10917 constants. `cmp_hashes.py` reports 0 removed and 1 changed (`frozenTarget`). The 86 new
-  constants are all in `TailZ5` and `TailZ6`.
-- **Check9.lean.** Conclusion; closure (212 153 constants, no `sorryAx`); head constant and module of all 61 fields;
+- **Hashes after.** 11119 constants. `cmp_hashes.py` reports 0 removed and 1 changed (`frozenTarget`). The 288 new
+  constants are all in `TailZ5`–`TailZ8`.
+- **Check9.lean.** Conclusion; closure (212 238 constants, no `sorryAx`); head constant and module of all 63 fields;
   axioms of the CloudW07 proofs and the bridge theorems; the full types of `r1rec_of_rep` and `r5fp_of_rep`.
-- **Module size.** TailZ5 is 14 KB and TailZ6 is 15 KB.
+- **Module sizes.** TailZ5 14.6 KB, TailZ6 8.5 KB, TailZ7 92 KB, TailZ8 8.5 KB.
 
 **No statement of a leaf, row or glue Prop was changed.**
 - Every kept field keeps its type.
@@ -351,7 +388,20 @@ In either case, neither count may rise.
     literature is left, but neither count drops.
   - `r17` (c) would become `CarayolRealization` (c): neutral.
   - `eigenformHTNew` (c) would become `KatoRealizationCoh` (c) and the glue `HTDual`: strict +1.
-- **(4) reduct-split, shimura-split:** see §7.
+- **(4) reduct-split, the parts not folded** (reduct-split §2):
+  - `r6` (c) would become `RaynaudSemistable` plus the glue `FixedTorsionRationalImperfect`. The glue is needed
+    only for imperfect fields, but the field `PkgI2.RaynaudCriterion.{0}` quantifies over all fields. That is strict
+    0, lenient +1.
+  - `semistableReductionThm`, `semistablePersists` (SS1, SS3; c) would become local leaves plus the glue
+    `SemistableLocalGlobal` and `SemistableAlmostAll`: strict 0, lenient +2.
+  - `semistableNeronBaseChange` (SS2; c) would become a local leaf plus two glue Props: strict +1.
+  - `faltingsLemma5BC` (c) would become `HeightSplit.FaltingsLemma5` (c, the base-field form): neutral. It is closer
+    to the print, but neither count changes.
+  - `t10` was not split.
+
+  Proving `FixedTorsionRationalImperfect` (étaleness of `A[m]` from the field `mulEtaleAbelianScheme`) would let `r6`
+  pay (strict −1).
+- **(4) shimura-split:** see §7.
 - **H-3 `r5count`, H-44 `thetaRatiosAlgebraic`, TYZ T-5 `hS`.** Unchanged from leaf-fold8 §5.
 
 ## 6. `frozenTarget`: removed and added hypotheses
@@ -363,20 +413,29 @@ In either case, neither count may rise.
 
 **TYZ / GZ.** `h11`, `h29`, `hS`, `h33`, `hL2`, `hL3` are unchanged.
 
-**Fields removed (5), all proved, none replaced:**
+**Fields removed (7):**
 - research `r1rec` (`LeafQM.AV.R1rec`) and `r5` (`LeafQM.AV.R5fp`): proved from the research field `r1r2`
   (`r1rec_of_rep`, `r5fp_of_rep`);
 - textbook `t33` (`LeafModCurves.JacobianExists ℚ`) and `normalModelOfFunctionFieldQ`: proved by cloud worker W07
   (PR #11);
 - research `r15` (`DeligneSerreConseq`): proved from the research field `dsThm966` (modular-split,
-  `ModularSplit.deligneSerreConseq_of_ds`).
+  `ModularSplit.deligneSerreConseq_of_ds`);
+- research `r7b` (`PkgI2.SerreTatePotentialGood.{0}`) and `r8` (`PkgI2.GrothendieckMonodromy.{0}`): proved from the
+  four added leaves and the textbook field `mumfordTorsionAlgClosed` (reduct-split).
 
-**Fields added:** none.
+**Fields added (4), research:**
+- `serreTateThm2 : ReductSplit.SerreTateThm2`;
+- `semistableReductionDVR : ReductSplit.SemistableReductionDVR`;
+- `semistableUnipotent : ReductSplit.SemistableUnipotent`;
+- `neronSchemeModelExistsDVR : ReductSplit.NeronSchemeModelExistsDVR`.
+
+Five removed fields are proved outright from fields that were already there: `r1rec`, `r5`, `r15`, `t33`,
+`normalModelOfFunctionFieldQ`.
 
 ## 7. Fold (4): state of the three branches
 
 | branch | `.fleet` report seen | folded |
 |---|---|---|
 | modular-split | yes (12:07) | `r15` (§1); the rest is not folded (§5) |
-| reduct-split | not yet | — |
+| reduct-split | yes (12:24) | `r7b`, `r8` (§1); the rest is not folded (§5) |
 | shimura-split | not yet | — |

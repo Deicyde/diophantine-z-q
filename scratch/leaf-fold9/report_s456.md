@@ -10,6 +10,8 @@
   unfold.
 - **CloudW07.** `lake build ZInQKernel.Contrib.CloudW07JacobiansCurves.JacobianExists …NormalModel` exits 0, taking
   about 18 min.
+- **reduct-split.** Merged with `git merge origin/wip/reduct-split` (clean, after its `.fleet` report). `TailZ7` and
+  `TailZ8` and the new `Main` built at the first try.
 - **modular-split.** Merged with `git merge origin/wip/modular-split` (clean, after its `.fleet` report). `TailZ6`
   (with `R15.lean`) and the new `Main` built at the first try.
 - **TailZ5.** `lake build ZInQKernel.OneProof.H.TailZ5` succeeds, about 80 s, after one fix in `r5fp_of_rep`.
@@ -18,11 +20,11 @@
   - The fix transports the degree and the embedding along `IntermediateField.equivOfEq`.
 - **Main.** `lake build +ZInQKernel.OneProof.Main` exits 0. `#print axioms ZInQ.OneProof.frozenTarget` gives
   `[propext, Classical.choice, Quot.sound]`.
-- **Hashes after.** 10917 constants. `cmp_hashes.py` reports 0 removed and 1 changed (`frozenTarget`). The 86 new
-  constants are all in `TailZ5` and `TailZ6`.
-- **Check9.lean.** Conclusion; closure (212 153 constants, no `sorryAx`); head constant and module of all 61 fields;
+- **Hashes after.** 11119 constants. `cmp_hashes.py` reports 0 removed and 1 changed (`frozenTarget`). The 288 new
+  constants are all in `TailZ5`–`TailZ8`.
+- **Check9.lean.** Conclusion; closure (212 238 constants, no `sorryAx`); head constant and module of all 63 fields;
   axioms of the CloudW07 proofs and the bridge theorems; the full types of `r1rec_of_rep` and `r5fp_of_rep`.
-- **Module size.** TailZ5 is 14 KB and TailZ6 is 15 KB.
+- **Module sizes.** TailZ5 14.6 KB, TailZ6 8.5 KB, TailZ7 92 KB, TailZ8 8.5 KB.
 
 **No statement of a leaf, row or glue Prop was changed.**
 - Every kept field keeps its type.
@@ -71,7 +73,20 @@ In either case, neither count may rise.
     literature is left, but neither count drops.
   - `r17` (c) would become `CarayolRealization` (c): neutral.
   - `eigenformHTNew` (c) would become `KatoRealizationCoh` (c) and the glue `HTDual`: strict +1.
-- **(4) reduct-split, shimura-split:** see §7.
+- **(4) reduct-split, the parts not folded** (reduct-split §2):
+  - `r6` (c) would become `RaynaudSemistable` plus the glue `FixedTorsionRationalImperfect`. The glue is needed
+    only for imperfect fields, but the field `PkgI2.RaynaudCriterion.{0}` quantifies over all fields. That is strict
+    0, lenient +1.
+  - `semistableReductionThm`, `semistablePersists` (SS1, SS3; c) would become local leaves plus the glue
+    `SemistableLocalGlobal` and `SemistableAlmostAll`: strict 0, lenient +2.
+  - `semistableNeronBaseChange` (SS2; c) would become a local leaf plus two glue Props: strict +1.
+  - `faltingsLemma5BC` (c) would become `HeightSplit.FaltingsLemma5` (c, the base-field form): neutral. It is closer
+    to the print, but neither count changes.
+  - `t10` was not split.
+
+  Proving `FixedTorsionRationalImperfect` (étaleness of `A[m]` from the field `mulEtaleAbelianScheme`) would let `r6`
+  pay (strict −1).
+- **(4) shimura-split:** see §7.
 - **H-3 `r5count`, H-44 `thetaRatiosAlgebraic`, TYZ T-5 `hS`.** Unchanged from leaf-fold8 §5.
 
 ## 6. `frozenTarget`: removed and added hypotheses
@@ -83,12 +98,21 @@ In either case, neither count may rise.
 
 **TYZ / GZ.** `h11`, `h29`, `hS`, `h33`, `hL2`, `hL3` are unchanged.
 
-**Fields removed (5), all proved, none replaced:**
+**Fields removed (7):**
 - research `r1rec` (`LeafQM.AV.R1rec`) and `r5` (`LeafQM.AV.R5fp`): proved from the research field `r1r2`
   (`r1rec_of_rep`, `r5fp_of_rep`);
 - textbook `t33` (`LeafModCurves.JacobianExists ℚ`) and `normalModelOfFunctionFieldQ`: proved by cloud worker W07
   (PR #11);
 - research `r15` (`DeligneSerreConseq`): proved from the research field `dsThm966` (modular-split,
-  `ModularSplit.deligneSerreConseq_of_ds`).
+  `ModularSplit.deligneSerreConseq_of_ds`);
+- research `r7b` (`PkgI2.SerreTatePotentialGood.{0}`) and `r8` (`PkgI2.GrothendieckMonodromy.{0}`): proved from the
+  four added leaves and the textbook field `mumfordTorsionAlgClosed` (reduct-split).
 
-**Fields added:** none.
+**Fields added (4), research:**
+- `serreTateThm2 : ReductSplit.SerreTateThm2`;
+- `semistableReductionDVR : ReductSplit.SemistableReductionDVR`;
+- `semistableUnipotent : ReductSplit.SemistableUnipotent`;
+- `neronSchemeModelExistsDVR : ReductSplit.NeronSchemeModelExistsDVR`.
+
+Five removed fields are proved outright from fields that were already there: `r1rec`, `r5`, `r15`, `t33`,
+`normalModelOfFunctionFieldQ`.

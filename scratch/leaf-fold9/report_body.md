@@ -11,14 +11,14 @@ theorem ZInQ.OneProof.frozenTarget
     ZInQ.FrozenTarget
 ```
 
-The H half goes through the new top of the H assembly (`OneProof/H/TailZ6.lean`):
+The H half goes through the new top of the H assembly (`OneProof/H/TailZ8.lean`):
 
 ```lean
 theorem HDec.HSyn.sixContactMin_of_open9 (r : OpenResearchLeaves9) (t : OpenTextbookLeaves9)
     (l : OpenAddedLeaves8) (g : OpenGlue7) : ZInQ.SixContactMin
 ```
 
-Three folds were taken, and five fields went. No field was added.
+Four folds were taken. Seven fields went, and four published-form leaves came in.
 
 1. **`r1rec` and `r5` are theorems of `r1r2`. This is new Lean from this task.**
    - The research field `r1r2` (`LeafAdopt.R1R2fpRep`) provides one fine witness `Y₃` and one coarse witness
@@ -38,24 +38,34 @@ Three folds were taken, and five fields went. No field was added.
 3. **modular-split (fold (4)).** `ModularSplit.deligneSerreConseq_of_ds : DSThm966 → HDec.HSyn.DeligneSerreConseq`
    proves the research field `r15` (a composite) from the existing published-form field `dsThm966` (Deligne–Serre
    Thm 4.1). `r15` is dropped.
+4. **reduct-split (fold (4)).** The research fields `r7b` and `r8`, both consequences, are replaced by four
+   published-form leaves. No glue is involved: reduct-split proved its own glue. The leaves are:
+   - `SerreTateThm2`, Serre–Tate 1968 Thm 2 as printed;
+   - `SemistableReductionDVR`, SGA 7 IX 3.6 over a DVR;
+   - `SemistableUnipotent`, SGA 7 IX 3.5;
+   - `NeronSchemeModelExistsDVR`, BLR 1.4/3 over a DVR.
+
+   `MumfordTorsionAlgClosed` is used too; it is already a textbook field.
 
 The following are **VERIFIED** (`scratch/leaf-fold9/log.md`):
 - `lake build +ZInQKernel.OneProof.Main` exits 0.
 - `#print axioms ZInQ.OneProof.frozenTarget` gives `[propext, Classical.choice, Quot.sound]`.
 - **No existing constant changed.** op-compact's `DumpCompact` with `cmp_hashes.py` (copies in `scratch/leaf-fold9/`)
-  compares 10831 OneProof constants before and 10917 after (`cmp_hashes_out.txt`):
+  compares 10831 OneProof constants before and 11119 after (`cmp_hashes_out.txt`):
   - the before-file is identical to leaf-fold8's after-file;
   - no constant was removed;
   - the only changed constant is `ZInQ.OneProof.frozenTarget`, the intended statement change;
-  - all 86 new constants are in `TailZ5` and `TailZ6`.
+  - all 288 new constants are in `TailZ5`–`TailZ8`.
 - `Check9.lean` (`check9_result.txt`):
   - it compiles `example : ∀ r t l g, _root_.ZInQ.SixContactMin := sixContactMin_of_open9`;
-  - the closure has 212 153 constants and no `sorryAx`;
-  - there are 61 fields: 28 + 18 + 14 + 1;
-  - the two CloudW07 proofs, the bridge theorems and `deligneSerreConseq_of_ds` have standard axioms.
-- `TailZ5` is 14 KB and `TailZ6` is 15 KB.
-- `verbatim_check9.py` (`verbatim_check9_out.txt`) checks two things:
+  - the closure has 212 238 constants and no `sorryAx`;
+  - there are 63 fields: 30 + 18 + 14 + 1;
+  - the two CloudW07 proofs, the bridge theorems, `deligneSerreConseq_of_ds`, `serreTatePotentialGood_final`
+    and `grothendieckMonodromy_final'` have standard axioms.
+- Sizes: `TailZ5` 14.6 KB, `TailZ6` 8.5 KB, `TailZ7` 92 KB, `TailZ8` 8.5 KB.
+- `verbatim_check9.py` (`verbatim_check9_out.txt`) checks three things:
   - `TailZ6` contains `R15.lean` after its imports as one block, with only `#print` dropped;
+  - `TailZ7` contains `Reduction.lean` the same way, with the same imports;
   - `TailZ5` contains the compiled lemma file minus its imports.
 
 **Counts.** The forms are leaf-fold8's, i.e. frontier r3's. A removed field takes its form with it. The table is
@@ -68,26 +78,30 @@ printed by `mk_fields9.py` (`counts9.md`).
 | (2) coarse-factor | not taken (§5) | | | | | | |
 | r1r2-bridge (`r1rec`, `r5` from `r1r2`) | 64 | 39 | 14 | 10 | 1 | 39 / 25 | 53 / 11 |
 | (3) cloud PR #11 (`t33`, `normalModelOfFunctionFieldQ`) | 62 | 37 | 14 | 10 | 1 | 37 / 25 | 51 / 11 |
-| (4) modular-split (`r15` from `dsThm966`) | **61** | **37** | **14** | **9** | **1** | **37 / 24** | **51 / 10** |
-| (4) reduct-split, shimura-split | see §5, §7 | | | | | | |
+| (4) modular-split (`r15` from `dsThm966`) | 61 | 37 | 14 | 9 | 1 | 37 / 24 | 51 / 10 |
+| (4) reduct-split (`r7b`, `r8` from four published-form leaves) | **63** | **41** | **12** | **9** | **1** | **41 / 22** | **53 / 10** |
+| (4) shimura-split | see §7 | | | | | | |
 
 **Bundles.**
-- `OpenResearchLeaves9`: 28 fields (31 in leaf-fold8).
+- `OpenResearchLeaves9`: 30 fields (31 in leaf-fold8).
 - `OpenTextbookLeaves9`: 18 fields (20).
 - `OpenAddedLeaves8` (14) and `OpenGlue7` (1, `QuotientP1Coordinate`) are leaf-fold8's, unchanged.
 
 **TYZ side.** Unchanged: `h11`, `h29`, `hS`, `h33`, `hL2`, `hL3`.
 
 **Module layout.**
-- `TailZ6` imports `TailZ5` and holds modular-split's `R15.lean` verbatim (after its two import lines, `TailT` and
-  `LPrefix`, both below `TailZ5`), then the bundles.
+- `TailZ6` imports `TailZ5` and holds modular-split's `R15.lean` verbatim, after its two import lines (`TailT` and
+  `LPrefix`, both below `TailZ5`).
+- `TailZ7` is reduct-split's `Reduction.lean` verbatim, with its own imports: kernel modules, `TailQ` and `TailY`. It
+  could move to `ZInQKernel/Contrib/` once the two chain imports are kernel modules.
+- `TailZ8` imports `TailZ6` and `TailZ7` and holds the bundles.
 - `TailZ5` imports `TailZ4`, the kernel's `Contrib/FrobChain/Rigidity`, the two CloudW07 modules
   (`JacobianExists`, `NormalModel`) and two Mathlib files (`FieldTheory.Galois.Infinite`,
   `NumberTheory.NumberField.Discriminant.Different`).
-- `TailZ5` and `TailZ6` are generated by `scratch/leaf-fold9/mk_tailz5.py`:
+- `TailZ5`–`TailZ8` are generated by `scratch/leaf-fold9/mk_tailz5.py`:
   - from the lemma part `Lemmas.lean.part`, which is `test/R1recT.lean` minus its imports, compiled alone first;
   - and from `TailZ4.lean`'s field blocks, copied as text, so every kept field keeps its text and docstring.
-- `Main` imports `TailZ6` in place of `TailZ4`. The chain from LPrefix to TailZ4 is untouched.
+- `Main` imports `TailZ8` in place of `TailZ4`. The chain from LPrefix to TailZ4 is untouched.
 - The vendored CloudW07 library (711 files) now sits under `Main`'s import closure. On this host it took about
   18 min to build, one `lake build`.
 
@@ -133,10 +147,26 @@ Notes on the bridge.
 - The field `r15 : DeligneSerreConseq` is `HDec.HSyn.DeligneSerreConseq` (LPrefix); the proof's type is exactly that
   constant.
 
+**reduct-split** (`TailZ7` = `scratch/reduct-split/Reduction.lean`; reduct-split §§1-5).
+- `ReductSplit.serreTatePotentialGood_final : SerreTateThm2 → AvSplit.MumfordTorsionAlgClosed →
+  PkgI2.SerreTatePotentialGood.{0}` gives `r7b`. reduct-split proves `TorsionFieldOfDefinition` and the equivalence
+  between a finite image of inertia and an open subgroup acting trivially.
+- `ReductSplit.grothendieckMonodromy_final' : SemistableReductionDVR → SemistableUnipotent → NeronSchemeModelExistsDVR →
+  AvSplit.MumfordTorsionAlgClosed → PkgI2.GrothendieckMonodromy.{0}` gives `r8`. reduct-split proves
+  `dvrFiniteExtension`: a valuation ring of a finite extension over a DVR is a DVR.
+- Readings, from reduct-split §5:
+  - SGA 7 IX 3.6 asks only for `K'` finite; the print has finite separable, so the leaf is weaker.
+  - SGA 7 IX 3.5 takes the weakest reading, one `σ` at a time.
+  - BLR 1.4/3 is in scheme form.
+  - **RISK:** if Serre–Tate Thm 2 is printed for complete (or henselian) `K`, the leaf over a general discrete
+    valuation is a consequence. Locators are UNVERIFIED.
+
 ### 1.2 Which constants the fields are (VERIFIED, `Check9.lean`, `check9_result.txt`)
 
-- 20 of the 61 fields have a head constant declared outside `ZInQKernel/OneProof`, i.e. a kernel constant
+- 18 of the 63 fields have a head constant declared outside `ZInQKernel/OneProof`, i.e. a kernel constant
   (leaf-fold8: 24 of 66).
 - Four of the five that went are kernel constants: `LeafQM.AV.R1rec`, `LeafQM.AV.R5fp`,
   `LeafModCurves.JacobianExists`, `ZInQ.Contrib.CurvesG.NormalModelOfFunctionFieldQ`. The fifth,
   `HDec.HSyn.DeligneSerreConseq`, is a chain constant (LPrefix).
+- `r7b` and `r8` (`PkgI2.*`) were kernel constants. The four new leaves `ReductSplit.*` are declared in `TailZ7`,
+  which imports only kernel modules besides `TailQ` and `TailY`.

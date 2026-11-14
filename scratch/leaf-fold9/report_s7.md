@@ -4,5 +4,5 @@
 | branch | `.fleet` report seen | folded |
 |---|---|---|
 | modular-split | yes (12:07) | `r15` (§1); the rest is not folded (§5) |
-| reduct-split | not yet | — |
+| reduct-split | yes (12:24) | `r7b`, `r8` (§1); the rest is not folded (§5) |
 | shimura-split | not yet | — |
