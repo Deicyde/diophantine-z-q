@@ -154,14 +154,17 @@ partial def visit (env : Environment) (e : Expr) (ctx : Node) : M Unit := do
         if isBundle env cv.induct then addEdge (.field cv.induct pinfo.i) ctx
   | _ => pure ()
 
-/-- Projection functions, constructors and the structure's own auxiliary constants are not uses. -/
+/-- Projection functions, constructors, recursors and a bundle's generated auxiliaries (`casesOn`,
+`recOn`, `noConfusion`, ...) are not uses. Theorems a file declares in a bundle's namespace (say
+`TextbookLeaves.belyiX1`) are ordinary constants and are visited. -/
 def skip (env : Environment) (c : Name) : Bool :=
   (env.getProjectionFnInfo? c).isSome || (match env.find? c with
     | some (.ctorInfo _) | some (.recInfo _) => true
     | _ => false) ||
-  (match c with
-    | .str s _ => isBundle env s
-    | _ => false)
+  ((isBundle env c.getPrefix) && (isAuxRecursor env c || isNoConfusion env c ||
+    (match c with
+      | .str _ last => last == "ctorIdx" || last == "noConfusionType" || last.startsWith "match_"
+      | _ => false)))
 
 def fieldNames (env : Environment) (s : Name) : Array Name :=
   getStructureFields env s
