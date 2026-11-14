@@ -18,3 +18,12 @@
   fieldOfModuli3_le (fine witness, needs no rigidity, plus discr_dvd_discr for subfields), and
   residueImage_eq_fieldOfModuliPair (coarse witness, uniqueness of base change via kernel rigidityHom).
   This makes H-1 fold pointless (r1rec would be consumed) and lowers strict GLUE by 2 instead.
+
+## 11:45 lemmas compiled
+- `lake build +ZInQKernel.OneProof.Main` on the base: exit 0 (base build log kept outside the repo).
+- DumpCompact on the base: 10831 constants, identical to scratch/leaf-fold8/hashes_after.txt (hashes_before.txt).
+- scratch/leaf-fold9/test/R1recT.lean COMPILES (lake env lean, ~5 s, no errors): specMap_comp_eq_self_iff,
+  fixedField_le_of_le (InfiniteGalois), unramifiedAbove5_mono (discr_dvd_discr), isBaseChangeOf_of_iso,
+  fieldOfModuli3_le, isBaseChangeOfPair_of_iso, unitPt, qmIso_of_isBaseChangeOfPair (rigidityHom),
+  residueImage_eq_fieldOfModuliPair. VERIFIED.
+- TailZ5 generated (mk_tailz5.py, 21 KB). Building CloudW07 (714 vendored files) first.

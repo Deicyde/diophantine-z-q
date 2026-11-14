@@ -38,14 +38,16 @@ theorem specMap_comp_eq_self_iff {X : Scheme.{0}} (y : Spec (CommRingCat.of Qbar
         IntermediateField.fixedField (Subgroup.zpowers σ) := by
       rw [IntermediateField.adjoin_le_iff]
       rintro _ ⟨b, rfl⟩
-      rw [IntermediateField.mem_fixedField_iff]
+      rw [SetLike.mem_coe, IntermediateField.mem_fixedField_iff]
       rintro τ ⟨n, rfl⟩
       induction n using Int.induction_on with
       | zero => simp
       | succ n ih =>
+        dsimp only at ih ⊢
         rw [zpow_add_one, AlgEquiv.mul_apply, h b]
         exact ih
       | pred n ih =>
+        dsimp only at ih ⊢
         rw [zpow_sub_one, AlgEquiv.mul_apply]
         have : σ⁻¹ (p.2 b) = p.2 b := by
           rw [AlgEquiv.aut_inv, AlgEquiv.symm_apply_eq]; exact (h b).symm
@@ -75,9 +77,9 @@ theorem unramifiedAbove5_mono {F E : IntermediateField ℚ Qbar} (hFE : F ≤ E)
     Submodule.finiteDimensional_of_le (show F.toSubalgebra.toSubmodule ≤ E.toSubalgebra.toSubmodule
       from hFE)
   refine ⟨hF, fun p hp h5 hdvd => hd p hp h5 ?_⟩
-  letI : NumberField F := @NumberField.mk F _ _ hF
-  letI : NumberField E := @NumberField.mk E _ _ hE
-  letI : Algebra F E := (IntermediateField.inclusion hFE).toRingHom.toAlgebra
+  let _iF : NumberField F := @NumberField.mk F _ _ hF
+  let _iE : NumberField E := @NumberField.mk E _ _ hE
+  let _iA : Algebra F E := (IntermediateField.inclusion hFE).toRingHom.toAlgebra
   exact hdvd.trans (NumberField.discr_dvd_discr F E)
 
 /-- Transport of a base change along an isomorphism of the target object. -/
@@ -86,7 +88,7 @@ theorem isBaseChangeOf_of_iso {K L : Type} [Field K] [Field L] {f : K →+* L} {
   obtain ⟨g, hpb, hι, hη⟩ := h
   refine ⟨e.φ.hom.left ≫ g, ?_, ?_, ?_⟩
   · have hsq : IsPullback e.φ.hom.left Q'.A.X.hom Q.A.X.hom (𝟙 _) := by
-      haveI : IsIso e.φ.hom.left := ⟨⟨e.ψ.hom.left, by
+      have : IsIso e.φ.hom.left := ⟨⟨e.ψ.hom.left, by
         rw [← Over.comp_left, e.left]; rfl, by rw [← Over.comp_left, e.right]; rfl⟩⟩
       refine IsPullback.of_horiz_isIso ⟨?_⟩
       rw [Over.w, Category.comp_id]
@@ -127,7 +129,7 @@ theorem isBaseChangeOfPair_of_iso {K L : Type} [Field K] [Field L] {f : K →+* 
   obtain ⟨g, hpb, hι, h1⟩ := h
   refine ⟨e.φ.hom.left ≫ g, ?_, ?_, ?_⟩
   · have hsq : IsPullback e.φ.hom.left Q'.A.X.hom Q.A.X.hom (𝟙 _) := by
-      haveI : IsIso e.φ.hom.left := ⟨⟨e.ψ.hom.left, by
+      have : IsIso e.φ.hom.left := ⟨⟨e.ψ.hom.left, by
         rw [← Over.comp_left, e.left]; rfl, by rw [← Over.comp_left, e.right]; rfl⟩⟩
       refine IsPullback.of_horiz_isIso ⟨?_⟩
       rw [Over.w, Category.comp_id]
@@ -139,7 +141,7 @@ theorem isBaseChangeOfPair_of_iso {K L : Type} [Field K] [Field L] {f : K →+* 
   · rw [← Category.assoc, ← Over.comp_left, MonObj.one_comp, h1]
 
 /-- The section `Spec L → ptObj L` over `L` (the inverse of the point `ptObj L → 𝟙_`). -/
-def unitPt (L : Type) [Field L] : 𝟙_ (Over (Spec (CommRingCat.of L))) ⟶ PkgI3.ptObj (K := L) L :=
+noncomputable def unitPt (L : Type) [Field L] : 𝟙_ (Over (Spec (CommRingCat.of L))) ⟶ PkgI3.AbVar.ptObj (K := L) L :=
   Over.homMk (𝟙 _) (by
     change 𝟙 _ ≫ Spec.map (CommRingCat.ofHom (algebraMap L L)) = 𝟙 _
     rw [Algebra.algebraMap_self, CommRingCat.ofHom_id, Spec.map_id, Category.comp_id])
@@ -154,39 +156,38 @@ theorem qmIso_of_isBaseChangeOfPair {K L : Type} [Field K] [Field L] {f : K →+
   let i := IsPullback.isoIsPullback _ _ pb₁ pb₂
   let H : Q₁.A.X ⟶ Q₂.A.X := Over.homMk i.hom (IsPullback.isoIsPullback_hom_snd _ _ pb₁ pb₂)
   let H' : Q₂.A.X ⟶ Q₁.A.X := Over.homMk i.inv (IsPullback.isoIsPullback_inv_snd _ _ pb₁ pb₂)
-  have hHH' : H ≫ H' = 𝟙 _ := by
+  have hinv₁ : H ≫ H' = 𝟙 _ := by
     apply Over.OverMorphism.ext; simp [H, H']
-  have hH'H : H' ≫ H = 𝟙 _ := by
+  have hinv₂ : H' ≫ H = 𝟙 _ := by
     apply Over.OverMorphism.ext; simp [H, H']
   -- the identity point is preserved
   have hpt : (1 : Q₁.A.Pt L) ≫ H = (1 : Q₂.A.Pt L) := by
     apply Over.OverMorphism.ext
     apply pb₂.hom_ext
-    · simp only [Over.comp_left, Category.assoc, H, Over.homMk_left,
+    · simp only [Over.comp_left, Category.assoc, H, i, Over.homMk_left,
         IsPullback.isoIsPullback_hom_fst]
       rw [e₁, e₂]
-    · simp only [Over.comp_left, Category.assoc, H, Over.homMk_left,
+    · simp only [Over.comp_left, Category.assoc, H, i, Over.homMk_left,
         IsPullback.isoIsPullback_hom_snd, Over.w]
   have hη : η[Q₁.A.X] ≫ H = η[Q₂.A.X] := by
-    have hs : unitPt L ≫ toUnit (PkgI3.ptObj (K := L) L) = 𝟙 _ := toUnit_unique _ _
+    have hs : unitPt L ≫ toUnit (PkgI3.AbVar.ptObj (K := L) L) = 𝟙 _ := toUnit_unique _ _
     calc η[Q₁.A.X] ≫ H = unitPt L ≫ ((1 : Q₁.A.Pt L) ≫ H) := by
           rw [Hom.one_def, ← Category.assoc, ← Category.assoc, hs, Category.id_comp]
       _ = η[Q₂.A.X] := by
           rw [hpt, Hom.one_def, ← Category.assoc, hs, Category.id_comp]
   have hη' : η[Q₂.A.X] ≫ H' = η[Q₁.A.X] := by
-    rw [← hη, Category.assoc, hHH', Category.comp_id]
+    rw [← hη, Category.assoc, hinv₁, Category.comp_id]
   haveI : IsMonHom H := G0FibreSimple.rigidityHom L Q₁.A Q₂.A H hη
   haveI : IsMonHom H' := G0FibreSimple.rigidityHom L Q₂.A Q₁.A H' hη'
-  refine ⟨{ φ := PkgI3.AbVar.Hom.mk' H, ψ := PkgI3.AbVar.Hom.mk' H', left := hHH', right := hH'H,
-    equivariant := fun a => ?_ }⟩
+  refine ⟨⟨PkgI3.AbVar.Hom.mk' H, PkgI3.AbVar.Hom.mk' H', hinv₁, hinv₂, fun a => ?_⟩⟩
   simp only [PkgI3.AbVar.Hom.hom_mk']
   apply Over.OverMorphism.ext
   apply pb₂.hom_ext
-  · simp only [Over.comp_left, Category.assoc, H, Over.homMk_left,
+  · simp only [Over.comp_left, Category.assoc, H, i, Over.homMk_left,
       IsPullback.isoIsPullback_hom_fst, ι₂]
     rw [ι₁]
     simp only [← Category.assoc, IsPullback.isoIsPullback_hom_fst]
-  · simp only [Over.comp_left, Category.assoc, H, Over.homMk_left,
+  · simp only [Over.comp_left, Category.assoc, H, i, Over.homMk_left,
       IsPullback.isoIsPullback_hom_snd, Over.w]
 
 /-- **On a coarse witness, the residue field of a point is the field of moduli of its pair.** -/
