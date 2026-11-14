@@ -122,4 +122,143 @@ theorem isMonHom_of_comp_mono {M : C} [MonObj M] [MonObj Y] (π : M ⟶ Y) (i : 
 
 end Transport
 
+
+/-! ## §3. Whiskerings in `Over S` are flat base changes -/
+
+section Whisker
+
+variable {Base : Scheme.{0}}
+
+theorem isPullback_whiskerRight {R S' T : Over Base} (g : S' ⟶ T) :
+    IsPullback (g ▷ R).left (pullback.fst S'.hom R.hom) (pullback.fst T.hom R.hom) g.left := by
+  refine IsPullback.of_right (h₁₂ := pullback.snd T.hom R.hom) (h₂₂ := T.hom) (v₁₃ := R.hom)
+    ?_ (Over.whiskerRight_left_fst g) (IsPullback.of_hasPullback T.hom R.hom).flip
+  rw [Over.whiskerRight_left_snd, Over.w]
+  exact (IsPullback.of_hasPullback S'.hom R.hom).flip
+
+theorem isPullback_whiskerLeft {R S' T : Over Base} (g : S' ⟶ T) :
+    IsPullback (R ◁ g).left (pullback.snd R.hom S'.hom) (pullback.snd R.hom T.hom) g.left := by
+  refine IsPullback.of_right (h₁₂ := pullback.fst R.hom T.hom) (h₂₂ := T.hom) (v₁₃ := R.hom)
+    ?_ (Over.whiskerLeft_left_snd g) (IsPullback.of_hasPullback R.hom T.hom)
+  rw [Over.whiskerLeft_left_fst, Over.w]
+  exact IsPullback.of_hasPullback R.hom S'.hom
+
+theorem dominant_whiskerRight {R S' T : Over Base} (g : S' ⟶ T)
+    [IsSchemeTheoreticallyDominant g.left] [QuasiCompact g.left] [Flat R.hom] :
+    IsSchemeTheoreticallyDominant (g ▷ R).left :=
+  IsSchemeTheoreticallyDominant.of_isPullback (isPullback_whiskerRight g).flip
+
+theorem dominant_whiskerLeft {R S' T : Over Base} (g : S' ⟶ T)
+    [IsSchemeTheoreticallyDominant g.left] [QuasiCompact g.left] [Flat R.hom] :
+    IsSchemeTheoreticallyDominant (R ◁ g).left :=
+  IsSchemeTheoreticallyDominant.of_isPullback (isPullback_whiskerLeft g).flip
+
+end Whisker
+
+/-! ## §4. The image of a homomorphism of abelian varieties -/
+
+section Image
+
+variable {k : Type} [Field k]
+
+/-- A homomorphism of abelian varieties is proper. -/
+theorem isProper_hom {A B : _root_.PkgI3.AbVar k} (h : A.X ⟶ B.X) : IsProper h.left := by
+  have : IsProper (h.left ≫ B.X.hom) := by rw [Over.w]; infer_instance
+  exact IsProper.of_comp h.left B.X.hom
+
+variable {A J : _root_.PkgI3.AbVar k} (f : A.X ⟶ J.X)
+
+/-- The scheme-theoretic image of `f` (Mathlib's `Scheme.Hom.image`) as a `k`-scheme. -/
+noncomputable abbrev imgOver : Over (Spec (CommRingCat.of k)) := Over.mk (f.left.imageι ≫ J.X.hom)
+
+/-- The closed immersion of the image. -/
+noncomputable def imgι : imgOver f ⟶ J.X := Over.homMk f.left.imageι rfl
+
+/-- The map onto the image. -/
+noncomputable def imgπ : A.X ⟶ imgOver f := Over.homMk f.left.toImage (by simp [imgOver])
+
+@[simp] lemma imgι_left : (imgι f).left = f.left.imageι := rfl
+@[simp] lemma imgπ_left : (imgπ f).left = f.left.toImage := rfl
+
+@[reassoc (attr := simp)] lemma imgπ_imgι : imgπ f ≫ imgι f = f := by
+  ext1; exact Scheme.Hom.toImage_imageι _
+
+instance : IsClosedImmersion (imgι f).left := inferInstanceAs (IsClosedImmersion f.left.imageι)
+
+instance : Mono (imgι f) := Over.mono_of_mono_left _
+
+instance : QuasiCompact (imgπ f).left := by
+  haveI := isProper_hom f; exact inferInstanceAs (QuasiCompact f.left.toImage)
+
+instance : IsSchemeTheoreticallyDominant (imgπ f).left := by
+  haveI := isProper_hom f; exact inferInstanceAs (IsSchemeTheoreticallyDominant f.left.toImage)
+
+theorem surjective_imgπ : Surjective (imgπ f).left := by
+  haveI := isProper_hom f; exact surjective_toImage f.left
+
+/-- If `d` is scheme-theoretically dominant and `d ≫ g` factors through the image, so does `g`. -/
+theorem exists_lift_imgι {V W : Over (Spec (CommRingCat.of k))} (d : V ⟶ W)
+    [IsSchemeTheoreticallyDominant d.left] (g : W ⟶ J.X) (a : V ⟶ imgOver f)
+    (h : d ≫ g = a ≫ imgι f) : ∃ c : W ⟶ imgOver f, c ≫ imgι f = g := by
+  have H : f.left.imageι.ker ≤ g.left.ker :=
+    ker_le_of_dominant d.left g.left f.left.imageι a.left (by
+      rw [← Over.comp_left, h, Over.comp_left]; rfl)
+  refine ⟨Over.homMk (IsClosedImmersion.lift f.left.imageι g.left H) ?_, ?_⟩
+  · change IsClosedImmersion.lift f.left.imageι g.left H ≫ f.left.imageι ≫ J.X.hom = W.hom
+    rw [IsClosedImmersion.lift_fac_assoc, Over.w]
+  · ext1
+    exact IsClosedImmersion.lift_fac f.left.imageι g.left H
+
+variable [IsMonHom f]
+
+theorem exists_mulY : ∃ m : imgOver f ⊗ imgOver f ⟶ imgOver f,
+    m ≫ imgι f = fst _ _ ≫ imgι f * snd _ _ ≫ imgι f := by
+  haveI : IsSchemeTheoreticallyDominant ((imgπ f ▷ A.X) ≫ (imgOver f ◁ imgπ f)).left := by
+    rw [Over.comp_left]
+    haveI := dominant_whiskerRight (R := A.X) (imgπ f)
+    haveI := dominant_whiskerLeft (R := imgOver f) (imgπ f)
+    infer_instance
+  refine exists_lift_imgι f ((imgπ f ▷ A.X) ≫ (imgOver f ◁ imgπ f)) _ (μ[A.X] ≫ imgπ f) ?_
+  simp only [MonObj.comp_mul, Category.assoc, whiskerLeft_fst_assoc, whiskerRight_fst_assoc,
+    whiskerLeft_snd_assoc, whiskerRight_snd_assoc, imgπ_imgι]
+  rw [← MonObj.mul_comp, ← MonObj.mul_eq_mul]
+
+theorem exists_invY : ∃ v : imgOver f ⟶ imgOver f, v ≫ imgι f = (imgι f)⁻¹ := by
+  refine exists_lift_imgι f (imgπ f) _ (ι[A.X] ≫ imgπ f) ?_
+  rw [GrpObj.comp_inv, imgπ_imgι, Category.assoc, imgπ_imgι,
+    show ι[A.X] = (𝟙 A.X)⁻¹ by rw [Hom.inv_def, Category.id_comp], GrpObj.inv_comp,
+    Category.id_comp]
+
+/-- The group structure of the image. -/
+noncomputable abbrev imgGrp : GrpObj (imgOver f) :=
+  grpObjOfMono (imgι f) (exists_mulY f).choose (exists_mulY f).choose_spec
+    (η[A.X] ≫ imgπ f) (by rw [Category.assoc, imgπ_imgι, IsMonHom.one_hom])
+    (exists_invY f).choose (exists_invY f).choose_spec
+
+theorem isMonHom_imgι : letI := imgGrp f; IsMonHom (imgι f) :=
+  isMonHom_grpObjOfMono _ _ _ _ _ _ _
+
+theorem isMonHom_imgπ : letI := imgGrp f; IsMonHom (imgπ f) := by
+  letI := imgGrp f
+  haveI := isMonHom_imgι f
+  haveI : IsMonHom (imgπ f ≫ imgι f) := by rw [imgπ_imgι]; infer_instance
+  exact isMonHom_of_comp_mono (imgπ f) (imgι f)
+
+/-- The image is geometrically connected (the base change of `A → f(A)` is surjective). -/
+theorem geometricallyConnected_img : GeometricallyConnected (imgOver f).hom := by
+  refine ⟨geometrically_iff_of_isClosedUnderIsomorphisms.mpr fun K _ y => ?_⟩
+  haveI := surjective_imgπ f
+  have e := pullbackRightPullbackFstIso (imgOver f).hom y (imgπ f).left
+  have hA : (imgπ f).left ≫ (imgOver f).hom = A.X.hom := Over.w (imgπ f)
+  haveI : IsIntegral (pullback (C := Scheme.{0}) A.X.hom y) := pullback_of_geometrically
+    (GeometricallyIntegral.geometrically_isIntegral (f := A.X.hom)) K y
+  haveI : ConnectedSpace (pullback (C := Scheme.{0}) ((imgπ f).left ≫ (imgOver f).hom) y) := by
+    rw [hA]; infer_instance
+  haveI : ConnectedSpace (pullback (C := Scheme.{0}) (imgπ f).left (pullback.fst (imgOver f).hom y)) :=
+    e.hom.homeomorph.connectedSpace_iff.mpr inferInstance
+  exact (pullback.snd (imgπ f).left (pullback.fst (imgOver f).hom y)).surjective.connectedSpace
+    (pullback.snd (imgπ f).left (pullback.fst (imgOver f).hom y)).continuous
+
+end Image
+
 end AVGlue
