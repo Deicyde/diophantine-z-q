@@ -164,3 +164,98 @@ theorem Ysp_linearIndependent (hT : TateTwistInvariants) (hA : AxSenTate)
   exact one_ne_zero h1
 
 end SenSec
+
+section SenBridge
+
+variable {n : ℕ} (E : IntermediateField ℚ_[p] (PadicAlgCl p)) [FiniteDimensional ℚ_[p] E]
+
+theorem eC_eq (e : E) : algebraMap E ℂ_[p] e = (((e : PadicAlgCl p)) : ℂ_[p]) := by
+  rw [IsScalarTower.algebraMap_apply E (PadicAlgCl p) ℂ_[p], ← PadicComplex.coe_eq]
+  rfl
+
+theorem eC_smul (c : ℚ_[p]) (e : E) : algebraMap E ℂ_[p] (c • e) = c • algebraMap E ℂ_[p] e := by
+  rw [Algebra.smul_def, map_mul, ← IsScalarTower.algebraMap_apply, Algebra.smul_def]
+
+variable [IsGalois ℚ_[p] E]
+
+theorem cpAct_eC (g : GQp p) (e : E) : cpAct p g (algebraMap E ℂ_[p] e) =
+    algebraMap E ℂ_[p] (AlgEquiv.restrictNormalHom E g e) := by
+  rw [eC_eq, eC_eq, cpAct_coe]
+  congr 1
+  exact (AlgEquiv.restrictNormal_commutes g E e).symm
+
+/-- `ρ^τ`: `τ` applied to the entries. -/
+def rhoTau (τ : E ≃ₐ[ℚ_[p]] E) (ρ : GQp p →* GL (Fin n) E) : GQp p →* GL (Fin n) E :=
+  (Matrix.GeneralLinearGroup.map (τ : E →+* E)).comp ρ
+
+theorem matC_rhoTau (τ : E ≃ₐ[ℚ_[p]] E) (ρ : GQp p →* GL (Fin n) E) (σ : GQp p) (a b : Fin n) :
+    matC p (rhoTau p E τ ρ σ : Matrix (Fin n) (Fin n) E) a b =
+      algebraMap E ℂ_[p] (τ ((ρ σ : Matrix (Fin n) (Fin n) E) a b)) := rfl
+
+/-- **Dedekind coordinates**: `y ↦ (v ↦ Σ_τ Σ_k y_τ,k · τ(v_k))`. -/
+def LamC : ((E ≃ₐ[ℚ_[p]] E) → (Fin n → ℂ_[p])) →ₗ[ℂ_[p]] ((Fin n → E) →ₗ[ℚ_[p]] ℂ_[p]) where
+  toFun y :=
+    { toFun := fun v => ∑ τ, ∑ k, y τ k * algebraMap E ℂ_[p] (τ (v k))
+      map_add' := fun v w => by
+        simp only [Pi.add_apply, map_add, mul_add, Finset.sum_add_distrib]
+      map_smul' := fun c v => by
+        have hxs : ∀ (x : E ≃ₐ[ℚ_[p]] E) (e : E), x (c • e) = c • x e := fun x e => by
+          rw [Algebra.smul_def, map_mul, AlgEquiv.commutes, ← Algebra.smul_def]
+        simp only [Pi.smul_apply, hxs, eC_smul, mul_smul_comm, Finset.smul_sum,
+          RingHom.id_apply] }
+  map_add' y z := by
+    refine LinearMap.ext fun v => ?_
+    simp only [LinearMap.coe_mk, AddHom.coe_mk, Pi.add_apply, add_mul, Finset.sum_add_distrib,
+      LinearMap.add_apply]
+  map_smul' c y := by
+    refine LinearMap.ext fun v => ?_
+    simp only [LinearMap.coe_mk, AddHom.coe_mk, Pi.smul_apply, smul_eq_mul, mul_assoc,
+      Finset.mul_sum, LinearMap.smul_apply, RingHom.id_apply]
+
+theorem LamC_apply (y : (E ≃ₐ[ℚ_[p]] E) → (Fin n → ℂ_[p])) (v : Fin n → E) :
+    LamC p E y v = ∑ τ, ∑ k, y τ k * algebraMap E ℂ_[p] (τ (v k)) := rfl
+
+theorem LamC_injective : Function.Injective (LamC p E (n := n)) := by
+  classical
+  rw [← LinearMap.ker_eq_bot, eq_bot_iff]
+  intro y hy
+  rw [LinearMap.mem_ker] at hy
+  rw [Submodule.mem_bot]
+  -- Dedekind's independence of the characters `e ↦ τ(e)`
+  let χτ : (E ≃ₐ[ℚ_[p]] E) → (E →* ℂ_[p]) := fun τ =>
+    (algebraMap E ℂ_[p]).toMonoidHom.comp (τ : E →+* E).toMonoidHom
+  have hχinj : Function.Injective χτ := by
+    intro τ₁ τ₂ h
+    exact AlgEquiv.ext fun e => (algebraMap E ℂ_[p]).injective
+      (congrArg (fun f : E →* ℂ_[p] => f e) h)
+  have hind := (linearIndependent_monoidHom E ℂ_[p]).comp χτ hχinj
+  funext τ k
+  have hk : ∀ e : E, ∑ τ, y τ k * algebraMap E ℂ_[p] (τ e) = 0 := by
+    intro e
+    have := LinearMap.congr_fun hy (Pi.single k e)
+    rw [LamC_apply, LinearMap.zero_apply] at this
+    rw [← this]
+    refine Finset.sum_congr rfl fun τ _ => ?_
+    rw [Finset.sum_eq_single k]
+    · simp
+    · intro m _ hm; simp [Pi.single_apply, hm]
+    · intro h; exact absurd (Finset.mem_univ k) h
+  have := Fintype.linearIndependent_iff.mp hind (fun τ => y τ k) (by
+    funext e
+    simp only [Finset.sum_apply, Pi.smul_apply, Function.comp_apply, smul_eq_mul, Pi.zero_apply]
+    exact hk e)
+  exact this τ
+
+theorem LamC_surjective : Function.Surjective (LamC p E (n := n)) := by
+  have h1 : Module.finrank ℂ_[p] ((E ≃ₐ[ℚ_[p]] E) → (Fin n → ℂ_[p])) =
+      Module.finrank ℂ_[p] ((Fin n → E) →ₗ[ℚ_[p]] ℂ_[p]) := by
+    rw [Module.finrank_linearMap, Module.finrank_pi_fintype, Module.finrank_self, mul_one,
+      Module.finrank_pi_fintype]
+    simp only [Module.finrank_fin_fun, Finset.sum_const, Finset.card_univ, smul_eq_mul,
+      Module.finrank_self, mul_one]
+    rw [Module.finrank_pi_fintype]
+    simp only [Finset.sum_const, Finset.card_univ, smul_eq_mul, Fintype.card_fin]
+    rw [Fintype.card_eq_nat_card, IsGalois.card_aut_eq_finrank, mul_comm]
+  exact (LinearMap.injective_iff_surjective_of_finrank_eq_finrank h1).mp (LamC_injective p E)
+
+end SenBridge
