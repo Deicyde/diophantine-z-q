@@ -9,3 +9,18 @@ for pred in ['HasHTWeightsAtSelf', 'DistinctHTWeights']:
     n += k
 open(F, 'w').write(s)
 print('common fixes:', n)
+# explicit references `_root_.HDec.Y` / `HDec.Y` to a removed copy (or a field/constructor of one) -> kernel `Y`
+import pathlib
+R = pathlib.Path('scratch/one-proof')
+kept = set(l.split()[0] for l in (R / 'kept.txt').read_text().splitlines() if l.strip())
+dele = set(r.split('\t')[3] for r in (R / 'dedupe_map.tsv').read_text().splitlines() if r.strip()) - kept
+dele |= set(l.split('\t')[1] for l in (R / 'extra_deleted.tsv').read_text().splitlines() if l.strip())
+def sub(m):
+    y = m.group(2); parts = y.split('.')
+    for k in range(len(parts), 0, -1):
+        if '.'.join(parts[:k]) in dele: return '_root_.' + y
+    return m.group(0)
+s = open(F).read()
+s2 = re.sub(r"(?<![\w.'])(_root_\.HDec\.|HDec\.)([\w'.]*[\w'])", sub, s)
+print('HDec. references redirected:', sum(1 for a, b in zip(s.split('\n'), s2.split('\n')) if a != b), 'lines')
+open(F, 'w').write(s2)
