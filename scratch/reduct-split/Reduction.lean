@@ -1634,6 +1634,56 @@ theorem rows_of_leaves (l : ReductLeaves) (g : ReductGlue) (hF5 : ZInQ.HeightSpl
    semistablePersists_final l.sga7_3_3a l.neronDVR g.localGlobal,
    faltingsLemma5BC_final hF5⟩
 
+/-! ## §19. Consistency: the local definitions at the zero abelian variety
+
+As height-split §I for the global definitions: at `AbVar.zero K` (the only abelian variety Mathlib
+can construct) `Spec O` is a Néron model, every Néron model is trivial, and the trivial group
+scheme is semistable. So `HasSemistableReduction` (hypothesis of 3.5) is satisfiable and
+`SemistableNeronModels` (conclusion of 3.6, 3.3, 4.7) holds there. The torus and abelian parts are
+not exercised. -/
+
+section ZeroLocal
+
+open ZInQ.H5Neron
+
+variable (K : Type) [Field K] (O : ValuationSubring K)
+
+/-- `Spec O`, the trivial group model of `Spec K`. -/
+noncomputable def trivModelO : GroupModelO (PkgI3.AbVar.zero K) O where
+  G := 𝟙_ _
+  smooth := by dsimp; infer_instance
+  separated := by dsimp; infer_instance
+  qc := by dsimp; infer_instance
+  gen := (Functor.Monoidal.εIso (Over.pullback (jO O))).symm
+  gen_hom := by
+    letI : GrpObj ((Over.pullback (jO O)).obj (𝟙_ (Over (Spec (CommRingCat.of O))))) :=
+      Functor.grpObjObj
+    exact isMonHom_of_iso_unit (Iso.refl _) _
+
+theorem trivModelO_isNeronModel : (trivModelO K O).IsNeronModel := by
+  intro Y _
+  refine ⟨fun f g _ => toUnit_unique _ _, fun g => ⟨toUnit Y, toUnit_unique _ _⟩⟩
+
+/-- Every Néron model of `Spec K` over `O` is the trivial group scheme. -/
+theorem neronO_zero_iso_unit (𝒩 : GroupModelO (PkgI3.AbVar.zero K) O) (h : 𝒩.IsNeronModel) :
+    Nonempty (𝒩.G ≅ 𝟙_ _) := by
+  have hsm : Smooth (𝟙_ (Over (Spec (CommRingCat.of O)))).hom := by dsimp; infer_instance
+  obtain ⟨s, -⟩ := (@h (𝟙_ _) hsm).2 (toUnit _)
+  refine ⟨⟨toUnit _, s, ?_, toUnit_unique _ _⟩⟩
+  exact (h 𝒩.G).1 (toUnit_unique _ _)
+
+theorem semistableNeronModels_zero : SemistableNeronModels (PkgI3.AbVar.zero K) O := by
+  intro 𝒩 h𝒩
+  obtain ⟨i⟩ := neronO_zero_iso_unit K O 𝒩 h𝒩
+  exact ZInQ.HeightSplit.hasSemiAbelianIdentityComponent_of_iso_unit _
+    ((Over.pullback _).mapIso i ≪≫ (Functor.Monoidal.εIso (Over.pullback _)).symm)
+
+theorem hasSemistableReduction_zero : HasSemistableReduction (PkgI3.AbVar.zero K) O :=
+  ⟨trivModelO K O, trivModelO_isNeronModel K O,
+    semistableNeronModels_zero K O _ (trivModelO_isNeronModel K O)⟩
+
+end ZeroLocal
+
 end ReductSplit
 
 #print axioms ReductSplit.raynaudCriterion_of_leaves
@@ -1655,3 +1705,4 @@ end ReductSplit
 #print axioms ReductSplit.grothendieckMonodromy_final'
 #print axioms ReductSplit.faltingsLemma5BC_final
 #print axioms ReductSplit.rows_of_leaves
+#print axioms ReductSplit.hasSemistableReduction_zero

@@ -57,3 +57,4 @@ Setup: compile checks with `scratch/reduct-split/chk.sh FILE` = `lean` with LEAN
   bcPt and extPt). `faltingsLemma5BC_final : HeightSplit.FaltingsLemma5 → HeightSplit.FaltingsLemma5BC`. Axioms standard.
   VERIFIED.
 - 12:11 §18: bundles `ReductLeaves` (8 published-form leaves), `ReductGlue` (4 glue), `rows_of_leaves` giving all seven split rows (+ HeightSplit.FaltingsLemma5 for faltingsLemma5BC). Axioms standard. VERIFIED.
+- 12:12 §19: zero-AV consistency of the local definitions: `trivModelO`, `trivModelO_isNeronModel`, `neronO_zero_iso_unit`, `semistableNeronModels_zero`, `hasSemistableReduction_zero`. OK. Axioms of all printed theorems in axioms.txt (none uses sorryAx). VERIFIED.
