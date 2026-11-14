@@ -278,7 +278,13 @@ t5-torsion's `tateModuleFree_of_torsionStructure` and `tate_surj_of_torsionStruc
 `tatePairingZl_of_leaves`/`detTate_of_leaves`, leaf-fold3's `gluePieces_of_open3`, or lg-kerwild's
 `exists_localGlue_of_tateModuleFree` (VERIFIED).
 
-@@FLAT@@
+**Flat file** `scratch/leaf-fold4/Leaves4.lean` (118 478 lines, md5 6bbeb639662a…, all chain sources in one
+file, including `T5Full.lean` as a root-namespace section and the kernel import `Contrib.RLeaf.T40`):
+`lake env lean scratch/leaf-fold4/Leaves4.lean` **exits 0 in 1048 s, 0 errors, no `sorry`; all 326
+`#print axioms` reports read `[propext, Classical.choice, Quot.sound]`** (checked by script, joining
+line-wrapped reports). Two earlier flat runs (before the T40 fold, md5 3cbfb09b0186…: 325 reports; before the
+final docstring edits, md5 e7ec3222a537…: 326 reports) also passed (log.md). The raw outputs contain host
+paths and are not committed.
 
 **Changes to the copied texts** (each in a script, with its reason; leaf-fold3's are unchanged, see
 leaf-fold3.md §5):

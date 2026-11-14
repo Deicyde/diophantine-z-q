@@ -59,3 +59,6 @@
 - 19:17 d95 docstrings only (header, OpenAddedLeaves4 docstring: `divisiblePoints` dropped): TailK 13 s, 0 errors,
   18 standard axiom lines. Flat run 3 on the final text started (Leaves4.lean md5 6bbeb639662a…, 118 478 lines).
 - 19:19 flat_out2.txt (a compile log with host paths) was committed by mistake in the previous commit; untracked and gitignored (flat_out*.txt) since.
+- Flat run 3 (final, md5 6bbeb639662a…, 118 478 lines): exit 0 in 1048 s, 0 errors, no sorry, 326 axiom reports
+  all standard, including `HDec.HSyn.sixContactMin_of_open4`.
+- 19:40 report docs/research/leaf-fold4.md completed.
