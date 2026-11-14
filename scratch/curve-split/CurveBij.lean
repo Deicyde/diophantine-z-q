@@ -3,6 +3,9 @@ import ZInQKernel.Contrib.CurvesG.CurveSplit
 import ZInQKernel.Contrib.Dim.SmoothStalk
 import ZInQKernel.Contrib.SmoothFibre.Basic
 import ZInQKernel.Contrib.TauCeti.AlgebraicGeometry.Morphisms.Dominant
+import Mathlib.AlgebraicGeometry.Morphisms.IsIso
+import Mathlib.AlgebraicGeometry.ZariskisMainTheorem
+import Mathlib.AlgebraicGeometry.Normalization
 
 /-! # curve-split: row H-85 `ModelGlue.CurveBijIso`
 
@@ -895,8 +898,162 @@ theorem curveBijIsoClosed_of_zmt (hZ : ZMTOriginal) (hD : DegreeGeneralFibre) :
 theorem curveBijIso_of_zmt (hZ : ZMTOriginal) (hD : DegreeGeneralFibre) : CurveBijIso :=
   curveBijIso_of_closed (curveBijIsoClosed_of_zmt hZ hD)
 
+/-! ## Part C: `ZMTOriginal` proved from Mathlib's Zariski Main Theorem (Stacks 03GW)
+
+For a birational quasi-finite separated morphism of finite type `f : X → Y` with `Y` normal: the
+relative normalization `Y'` of `Y` in `X` is `Y` itself (the integral closure of a normal
+`Γ(Y, V)` in `Γ(X, f⁻¹V) ⊆ K(X) = K(Y)` is `Γ(Y, V)`), and Mathlib's
+`Scheme.Hom.exists_isIso_morphismRestrict_toNormalization` makes `X → Y'` an open immersion on
+the quasi-finite locus, which is all of `X`. -/
+
+section PartC
+
+/-- The ring of sections of a normal integral scheme over a nonempty affine open is integrally
+closed. -/
+theorem isIntegrallyClosed_of_normal {Y : Scheme} [IsIntegral Y]
+    (hN : ZInQ.Contrib.CurvesG.IsNormalScheme Y) {V : Y.Opens} (hV : IsAffineOpen V)
+    [Nonempty V] : IsIntegrallyClosed Γ(Y, V) := by
+  refine IsIntegrallyClosed.of_localization_maximal fun P _ hP => ?_
+  let y : PrimeSpectrum Γ(Y, V) := ⟨P, hP.isPrime⟩
+  have hy : hV.fromSpec y ∈ V := by
+    have h := hV.range_fromSpec
+    rw [Set.ext_iff] at h
+    exact (h _).mp ⟨y, rfl⟩
+  let _ := TopCat.Presheaf.algebra_section_stalk Y.presheaf ⟨hV.fromSpec y, hy⟩
+  have hloc : IsLocalization.AtPrime (Y.presheaf.stalk (hV.fromSpec y)) P :=
+    hV.isLocalization_stalk' y hy
+  have : IsIntegrallyClosed (Y.presheaf.stalk (hV.fromSpec y)) := hN _
+  exact IsIntegrallyClosed.of_equiv
+    (IsLocalization.algEquiv P.primeCompl (Y.presheaf.stalk (hV.fromSpec y))
+      (Localization.AtPrime P)).toRingEquiv
+
+/-- **The integral closure of `Γ(Y, V)` in `Γ(X, f⁻¹V)` is `Γ(Y, V)`** for a birational
+morphism of integral schemes with `Y` normal. -/
+theorem algebraMap_integralClosure_bijective {X Y : Scheme} (f : X ⟶ Y) [IsIntegral X]
+    [IsIntegral Y] [IsDominant f] (hN : ZInQ.Contrib.CurvesG.IsNormalScheme Y)
+    (hφ : Function.Bijective f.functionFieldMap) {V : Y.Opens} (hV : IsAffineOpen V)
+    [Nonempty V] :
+    letI := (f.app V).hom.toAlgebra
+    Function.Bijective (algebraMap Γ(Y, V) (integralClosure Γ(Y, V) Γ(X, f ⁻¹ᵁ V))) := by
+  letI := (f.app V).hom.toAlgebra
+  have key := f.germToFunctionField_functionFieldMap V
+  have key' : ∀ a : Γ(Y, V), f.functionFieldMap (Y.germToFunctionField V a) =
+      X.germToFunctionField (f ⁻¹ᵁ V) (f.app V a) := fun a =>
+    congrArg (fun g => g.hom a) key
+  have hgY := Scheme.germToFunctionField_injective Y V
+  have hgX := Scheme.germToFunctionField_injective X (f ⁻¹ᵁ V)
+  constructor
+  · intro a b hab
+    have h1 : f.app V a = f.app V b := congrArg Subtype.val hab
+    apply hgY
+    apply hφ.1
+    rw [key', key', h1]
+  · rintro ⟨s, hs⟩
+    obtain ⟨a, ha⟩ := hφ.2 (X.germToFunctionField (f ⁻¹ᵁ V) s)
+    have : IsIntegrallyClosed Γ(Y, V) := isIntegrallyClosed_of_normal hN hV
+    have := functionField_isFractionRing_of_isAffineOpen Y V hV
+    have hai : IsIntegral Γ(Y, V) a := by
+      obtain ⟨p, hpm, hp⟩ := hs
+      refine ⟨p, hpm, ?_⟩
+      apply hφ.1
+      rw [map_zero]
+      have h2 : (f.functionFieldMap.hom).comp (algebraMap Γ(Y, V) Y.functionField) =
+          (X.germToFunctionField (f ⁻¹ᵁ V)).hom.comp (algebraMap Γ(Y, V) Γ(X, f ⁻¹ᵁ V)) := by
+        ext c
+        exact key' c
+      have ha' : f.functionFieldMap.hom a = (X.germToFunctionField (f ⁻¹ᵁ V)).hom s := ha
+      change f.functionFieldMap.hom (Polynomial.eval₂ (algebraMap Γ(Y, V) Y.functionField) a p) = 0
+      rw [Polynomial.hom_eval₂, h2, ha', ← Polynomial.hom_eval₂]
+      change X.germToFunctionField (f ⁻¹ᵁ V) (Polynomial.eval₂ _ s p) = 0
+      rw [show Polynomial.eval₂ (algebraMap Γ(Y, V) Γ(X, f ⁻¹ᵁ V)) s p = 0 from hp, map_zero]
+    obtain ⟨b, hb⟩ := IsIntegrallyClosed.isIntegral_iff.mp hai
+    refine ⟨b, Subtype.ext ?_⟩
+    show f.app V b = s
+    apply hgX
+    rw [← key']
+    change f.functionFieldMap (algebraMap Γ(Y, V) Y.functionField b) = _
+    rw [hb, ha]
+
+/-- **The relative normalization of a normal target along a birational morphism is the target**
+(proved). -/
+theorem isIso_fromNormalization {X Y : Scheme} (f : X ⟶ Y) [IsIntegral X] [IsIntegral Y]
+    [IsDominant f] [QuasiCompact f] [QuasiSeparated f]
+    (hN : ZInQ.Contrib.CurvesG.IsNormalScheme Y) (hφ : Function.Bijective f.functionFieldMap) :
+    IsIso f.fromNormalization := by
+  have hall : ∀ (V : Y.Opens) (hV : IsAffineOpen V), (V : Set Y).Nonempty →
+      IsIso (f.fromNormalization.app V) := by
+    intro V hV hne
+    have : Nonempty V := ⟨⟨hne.some, hne.some_mem⟩⟩
+    rw [f.fromNormalization_app hV]
+    have hb := algebraMap_integralClosure_bijective f hN hφ hV
+    have : IsIso (CommRingCat.ofHom (letI := (f.app V).hom.toAlgebra;
+        algebraMap Γ(Y, V) (integralClosure Γ(Y, V) Γ(X, f ⁻¹ᵁ V)))) :=
+      (ConcreteCategory.isIso_iff_bijective _).mpr hb
+    infer_instance
+  refine IsZariskiLocalAtTarget.of_iSup_eq_top (P := MorphismProperty.isomorphisms Scheme)
+    (fun V : {V : Y.affineOpens // ((V : Y.Opens) : Set Y).Nonempty} => V.1.1) ?_ fun V => ?_
+  · rw [eq_top_iff]
+    intro y _
+    obtain ⟨_, ⟨W, hW, rfl⟩, hyW, -⟩ :=
+      Y.isBasis_affineOpens.exists_subset_of_mem_open (Set.mem_univ y) isOpen_univ
+    exact TopologicalSpace.Opens.mem_iSup.mpr ⟨⟨⟨W, hW⟩, ⟨y, hyW⟩⟩, hyW⟩
+  · have hVa : IsAffine V.1.1.toScheme := V.1.2
+    show IsIso (f.fromNormalization ∣_ V.1.1)
+    have hA : IsAffine (f.fromNormalization ⁻¹ᵁ V.1.1).toScheme := V.1.2.preimage f.fromNormalization
+    have hV' : IsAffineOpen (V.1.1.ι ''ᵁ ⊤) := by
+      rw [Scheme.Opens.ι_image_top]; exact V.1.2
+    have hne : ((V.1.1.ι ''ᵁ ⊤ : Y.Opens) : Set Y).Nonempty := by
+      rw [Scheme.Opens.ι_image_top]; exact V.2
+    have h1 := hall _ hV' hne
+    have happ : IsIso (f.fromNormalization ∣_ V.1.1).appTop := by
+      rw [morphismRestrict_appTop]
+      exact IsIso.comp_isIso' h1 (Functor.map_isIso _ _)
+    exact (MorphismProperty.arrow_mk_iso_iff (MorphismProperty.isomorphisms Scheme)
+      (arrowIsoSpecΓOfIsAffine (f.fromNormalization ∣_ V.1.1))).mpr
+      (inferInstanceAs (IsIso (Spec.map _)))
+
+/-- **`ZMTOriginal`, proved** (from Mathlib's `Scheme.Hom.exists_isIso_morphismRestrict_toNormalization`,
+Stacks 03GW, and `isIso_fromNormalization`). -/
+theorem zmtOriginal : ZMTOriginal := by
+  intro k _ _ X Y _ _ hsX hsY hfX hfY hqX hqY hN f _ hφ hfin
+  have hw : f.left ≫ Y.hom = X.hom := Over.w f
+  have : IsSeparated (f.left ≫ Y.hom) := by rw [hw]; exact hsX
+  have : IsSeparated f.left := IsSeparated.of_comp f.left Y.hom
+  have : LocallyOfFiniteType (f.left ≫ Y.hom) := by rw [hw]; exact hfX
+  have : LocallyOfFiniteType f.left := locallyOfFiniteType_of_comp f.left Y.hom
+  have : QuasiCompact (f.left ≫ Y.hom) := by rw [hw]; exact hqX
+  have : QuasiCompact f.left := QuasiCompact.of_comp f.left Y.hom
+  have hlqf : LocallyQuasiFinite f.left :=
+    locallyQuasiFinite_iff_finite_preimage_singleton.mpr hfin
+  obtain ⟨U, hUiso, hUpre⟩ := f.left.exists_isIso_morphismRestrict_toNormalization
+  have htop : f.left.toNormalization ⁻¹ᵁ U = ⊤ := by
+    refine eq_top_iff.mpr fun x _ => ?_
+    show x ∈ (f.left.toNormalization ⁻¹ᵁ U).1
+    rw [hUpre]
+    exact f.left.quasiFiniteAt x
+  have hoi : IsOpenImmersion f.left.toNormalization := by
+    have h1 : (f.left.toNormalization ∣_ U) ≫ U.ι =
+        (f.left.toNormalization ⁻¹ᵁ U).ι ≫ f.left.toNormalization := morphismRestrict_ι _ _
+    have h2 : IsIso (f.left.toNormalization ⁻¹ᵁ U).ι := by
+      rw [htop]
+      exact (X.left.topIso.isIso_hom)
+    have h3 : IsOpenImmersion ((f.left.toNormalization ⁻¹ᵁ U).ι ≫ f.left.toNormalization) := by
+      rw [← h1]; infer_instance
+    exact (MorphismProperty.cancel_left_of_respectsIso @IsOpenImmersion _ _).mp h3
+  have := isIso_fromNormalization f.left hN hφ
+  rw [← f.left.toNormalization_fromNormalization]
+  infer_instance
+
+/-- **H-85 `CurveBijIso` from the degree formula alone** (ZMT proved). -/
+theorem curveBijIso_of_degree (hD : DegreeGeneralFibre) : CurveBijIso :=
+  curveBijIso_of_zmt zmtOriginal hD
+
+end PartC
+
 end CurveSplit
 
 #print axioms CurveSplit.curveBijIso_of_closed
 #print axioms CurveSplit.curveBijIso_of_leaf
 #print axioms CurveSplit.curveBijIso_of_zmt
+#print axioms CurveSplit.zmtOriginal
+#print axioms CurveSplit.curveBijIso_of_degree

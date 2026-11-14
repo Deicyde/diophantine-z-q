@@ -68,3 +68,8 @@ H-85 CurveBijIso (scratch/model-glue/ModelGlue6.lean), H-83 ShimuraGoodReduction
   3.1.11, 1.1.6 (numbers UNVERIFIED).
 - Glue lemmas: ramIdx_eq_one (uniformizer from ℚ(j) ⇒ e=1), polyIdeal (prime, ≠ ⊥ via minpoly argument),
   exists_monic_irreducible_mem, place_cases (Belyi ⇒ unramified outside j=0,1728,∞), sum estimate.
+- Part C COMPILED: `CurveSplit.zmtOriginal : ZMTOriginal` PROVED from Mathlib's
+  `Scheme.Hom.exists_isIso_morphismRestrict_toNormalization` (Stacks 03GW) + new `isIso_fromNormalization`
+  (relative normalization of a normal Y along a birational morphism is Y: `algebraMap_integralClosure_bijective`,
+  `isIntegrallyClosed_of_normal`). Hence `CurveSplit.curveBijIso_of_degree : DegreeGeneralFibre → CurveBijIso`.
+  Standard axioms. VERIFIED. H-85 now rests on ONE leaf, DegreeGeneralFibre.
