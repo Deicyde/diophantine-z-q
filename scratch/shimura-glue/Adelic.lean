@@ -6,6 +6,7 @@ import Mathlib.NumberTheory.Padics.HeightOneSpectrum
 import Mathlib.Algebra.Quaternion
 import Mathlib.Tactic.NoncommRing
 import Mathlib.NumberTheory.Cyclotomic.CyclotomicCharacter
+import Mathlib.RingTheory.RootsOfUnity.AlgebraicallyClosed
 
 /-! # shimura-glue, local part: `nrd(𝒪_p^×) = ℤ_p^×` and `nrd(1 + 3𝒪_3) ⊇ 1 + 3ℤ_3`
 
@@ -795,5 +796,186 @@ theorem decomp_unique {q q' : ℚˣ} (hq : q ∈ posQ) (hq' : q' ∈ posQ) {u u'
       mul_inv_cancel, mul_one]
   have h1 := posQ_ZhatU (posQ_div hq hq') (this ▸ ZhatU.mul_mem hu' (ZhatU.inv_mem hu))
   rw [mul_inv_eq_one] at h1; exact h1
+
+
+/-! ### The factor maps `s ↦ (q, u)` -/
+
+/-- The `ℚ^×_{>0}`-factor of `s ∈ 𝔸_f^×`. -/
+noncomputable def dq (s : Afˣ) : ℚˣ := (exists_decomp s).choose
+
+theorem dq_pos (s : Afˣ) : dq s ∈ posQ := (exists_decomp s).choose_spec.1
+
+/-- The `ℤ̂^×`-factor of `s ∈ 𝔸_f^×`. -/
+noncomputable def du (s : Afˣ) : Afˣ := s * (emb (dq s))⁻¹
+
+theorem du_mem (s : Afˣ) : du s ∈ ZhatU := (exists_decomp s).choose_spec.2
+
+theorem emb_dq_mul_du (s : Afˣ) : emb (dq s) * du s = s := by
+  rw [du, mul_comm s, ← mul_assoc, mul_inv_cancel, one_mul]
+
+theorem dq_mul (s t : Afˣ) : dq (s * t) = dq s * dq t :=
+  decomp_unique (dq_pos _) (posQ.mul_mem (dq_pos s) (dq_pos t)) (du_mem _)
+    (ZhatU.mul_mem (du_mem s) (du_mem t)) (by
+      rw [emb_dq_mul_du, map_mul, mul_mul_mul_comm, emb_dq_mul_du, emb_dq_mul_du])
+
+theorem du_mul (s t : Afˣ) : du (s * t) = du s * du t := by
+  rw [du, du, du, dq_mul, map_mul, mul_inv]; ac_rfl
+
+theorem dq_of_mem {u : Afˣ} (hu : u ∈ ZhatU) : dq u = 1 :=
+  decomp_unique (dq_pos u) posQ.one_mem (du_mem u) hu (by rw [emb_dq_mul_du, map_one, one_mul])
+
+theorem du_of_mem {u : Afˣ} (hu : u ∈ ZhatU) : du u = u := by
+  rw [du, dq_of_mem hu, map_one, inv_one, mul_one]
+
+theorem du_emb {q : ℚˣ} (hq : q ∈ posQ) : du (emb q) = 1 := by
+  have : dq (emb q) = q :=
+    decomp_unique (dq_pos _) hq (du_mem _) ZhatU.one_mem (by rw [emb_dq_mul_du, mul_one])
+  rw [du, this, mul_inv_cancel]
+
+/-- `s ↦ u` as a hom `𝔸_f^× → ℤ̂^×`. -/
+noncomputable def duHom : Afˣ →* ZhatU where
+  toFun s := ⟨du s, du_mem s⟩
+  map_one' := Subtype.ext (du_of_mem ZhatU.one_mem)
+  map_mul' s t := Subtype.ext (du_mul s t)
+
+/-! ### Reduction mod 3 and the character `χ : 𝔸_f^× → (ℤ/3)^×` -/
+
+/-- The place `3`. -/
+noncomputable def v3 : Place := primesEquiv.symm ⟨3, Nat.prime_three⟩
+
+theorem v3_spec : (primesEquiv v3 : ℕ) = 3 :=
+  congrArg Subtype.val ((primesEquiv (R := ℤ)).apply_symm_apply ⟨3, Nat.prime_three⟩)
+
+/-- Restriction of an integral adele to `𝒪_v`. -/
+def evZ (v : Place) : Zhat →+* v.adicCompletionIntegers ℚ where
+  toFun a := ⟨(a : Af) v, a.2 v⟩
+  map_one' := Subtype.ext rfl
+  map_mul' _ _ := Subtype.ext rfl
+  map_zero' := Subtype.ext rfl
+  map_add' _ _ := Subtype.ext rfl
+
+/-- **Reduction mod 3**: `ℤ̂ → ℤ_3 → ℤ/3`. -/
+noncomputable def r3 : Zhat →+* ZMod 3 :=
+  (ZMod.ringEquivCongr v3_spec : ZMod (primesEquiv v3 : ℕ) →+* ZMod 3).comp
+    (PadicInt.toZMod.comp ((locZ v3 : _ →+* ℤ_[primesEquiv v3]).comp (evZ v3)))
+
+theorem r3_apply (a : Zhat) : r3 a = ZMod.ringEquivCongr v3_spec (PadicInt.toZMod (locA a.2 v3)) := rfl
+
+/-- `ℤ̂^× → ℤ̂ˣ` (units of the subring). -/
+def toZhatUnits : ZhatU →* Zhatˣ where
+  toFun u := ⟨⟨u.1, u.2.1⟩, ⟨((u.1)⁻¹ : Afˣ), u.2.2⟩, Subtype.ext (by simp), Subtype.ext (by simp)⟩
+  map_one' := by ext; simp
+  map_mul' _ _ := by ext; simp
+
+/-- **The character `χ : 𝔸_f^× → (ℤ/3)^×`, `q·u ↦ u mod 3`.** -/
+noncomputable def chi : Afˣ →* (ZMod 3)ˣ := (Units.map r3).comp (toZhatUnits.comp duHom)
+
+theorem chi_val (s : Afˣ) : (chi s : ZMod 3) = r3 ⟨du s, (du_mem s).1⟩ := rfl
+
+theorem chi_of_mem {u : Afˣ} (hu : u ∈ ZhatU) : (chi u : ZMod 3) = r3 ⟨u, hu.1⟩ := by
+  rw [chi_val]; congr 1; apply Subtype.ext; show ((du u : Afˣ) : Af) = u; rw [du_of_mem hu]
+
+theorem r3_one_add_three (t : Af) (ht : t ∈ Zhat) (h : 1 + 3 * t ∈ Zhat) :
+    r3 ⟨1 + 3 * t, h⟩ = 1 := by
+  have : (⟨1 + 3 * t, h⟩ : Zhat) = 1 + 3 * ⟨t, ht⟩ :=
+    Subtype.ext (by rw [Subring.coe_add, Subring.coe_mul, Subring.coe_one]; rfl)
+  rw [this, map_add, map_mul, map_one, map_ofNat]
+  have : (3 : ZMod 3) = 0 := rfl
+  rw [this, zero_mul, add_zero]
+
+theorem mem_U3_of_r3 {u : Afˣ} (hu : u ∈ ZhatU) (h : r3 ⟨u, hu.1⟩ = 1) : u ∈ U3 := by
+  -- local `y_v` with `u_v − 1 = 3 y_v`
+  have hloc : ∀ v : Place, ∃ y : ℤ_[primesEquiv v], locA hu.1 v - 1 = 3 * y := by
+    intro v
+    by_cases hv : v = v3
+    · subst hv
+      have h1 : PadicInt.toZMod (locA hu.1 v3 - 1) = 0 := by
+        rw [r3_apply] at h
+        have h' : PadicInt.toZMod (locA hu.1 v3) = 1 := by
+          have := congrArg (ZMod.ringEquivCongr v3_spec.symm) h
+          rwa [map_one, ← RingEquiv.trans_apply, ZMod.ringEquivCongr_trans,
+            ZMod.ringEquivCongr_refl_apply] at this
+        rw [map_sub, h', map_one, sub_self]
+      obtain ⟨y, hy⟩ := (PadicInt.norm_lt_one_iff_dvd _).1 ((norm_lt_one_iff_toZMod _).2 h1)
+      refine ⟨y, ?_⟩
+      rw [hy]; congr 1
+      exact_mod_cast v3_spec
+    · have hp3 : (primesEquiv v : ℕ) ≠ 3 := by
+        intro e; apply hv; apply primesEquiv.injective; apply Subtype.ext; rw [e, v3_spec]
+      have h3u : IsUnit (3 : ℤ_[primesEquiv v]) := by
+        rw [isUnit_iff_toZMod, map_ofNat, ← Nat.cast_ofNat, Ne, ZMod.natCast_eq_zero_iff]
+        intro hd
+        exact hp3 ((Nat.prime_dvd_prime_iff_eq (primesEquiv v).2 Nat.prime_three).1 hd)
+      obtain ⟨w, hw⟩ := h3u
+      refine ⟨(locA hu.1 v - 1) * ↑w⁻¹, ?_⟩
+      have : (3 : ℤ_[primesEquiv v]) * ↑w⁻¹ = 1 := by rw [← hw]; simp
+      linear_combination (-(locA hu.1 v - 1)) * this
+  choose y hy using hloc
+  refine ⟨hu, adeleHom y, adeleHom_mem y, ?_⟩
+  rw [← adeleHom_locA hu.1]
+  rw [show locA hu.1 = 1 + 3 * y from funext fun v => by
+    show locA hu.1 v = 1 + 3 * y v; linear_combination hy v]
+  rw [map_add, map_mul, map_one, map_ofNat]
+
+theorem neg_one_mem_ZhatU : (-1 : Afˣ) ∈ ZhatU :=
+  ⟨by simpa using Zhat.neg_mem Zhat.one_mem, by simpa using Zhat.neg_mem Zhat.one_mem⟩
+
+theorem chi_neg_one : chi (-1) = -1 := by
+  apply Units.ext
+  rw [chi_of_mem neg_one_mem_ZhatU]
+  have : (⟨((-1 : Afˣ) : Af), neg_one_mem_ZhatU.1⟩ : Zhat) = -1 := Subtype.ext (by simp)
+  rw [this, map_neg, map_one]; rfl
+
+theorem units_zmod3' (u : (ZMod 3)ˣ) : u = 1 ∨ u = -1 := by revert u; decide
+
+theorem chi_surjective : Function.Surjective chi := by
+  intro u
+  rcases units_zmod3' u with rfl | rfl
+  · exact ⟨1, map_one _⟩
+  · exact ⟨-1, chi_neg_one⟩
+
+/-- **The kernel of `χ` is `ℚ^×_{>0} · nrd(K₃)`.** -/
+theorem chi_ker : chi.ker = posRat ⊔ K3.map nrdU := by
+  apply le_antisymm
+  · intro s hs
+    rw [MonoidHom.mem_ker] at hs
+    have h1 : r3 ⟨du s, (du_mem s).1⟩ = 1 := by
+      rw [← chi_val, hs]; rfl
+    have h2 : du s ∈ K3.map nrdU := U3_le (mem_U3_of_r3 (du_mem s) h1)
+    rw [← emb_dq_mul_du s]
+    exact Subgroup.mul_mem _ (Subgroup.mem_sup_left ⟨dq s, dq_pos s, rfl⟩)
+      (Subgroup.mem_sup_right h2)
+  · refine sup_le ?_ ?_
+    · rintro _ ⟨q, hq, rfl⟩
+      rw [MonoidHom.mem_ker]; apply Units.ext
+      rw [chi_val]
+      have : (⟨du (emb q), (du_mem _).1⟩ : Zhat) = 1 := Subtype.ext (by show ((du (emb q) : Afˣ) : Af) = 1; rw [du_emb hq]; rfl)
+      rw [this, map_one]; rfl
+    · intro x hx
+      obtain ⟨hxZ, t, ht, hxt⟩ := nrd_K3_le hx
+      rw [MonoidHom.mem_ker]; apply Units.ext
+      rw [chi_of_mem hxZ]
+      have : (⟨(x : Af), hxZ.1⟩ : Zhat) = ⟨1 + 3 * t, hxt ▸ hxZ.1⟩ := Subtype.ext hxt
+      rw [this, r3_one_add_three t ht]; rfl
+
+/-! ### The two double coset spaces -/
+
+/-- **`ℚ^×_{>0} \ 𝔸_f^× / nrd(𝒪̂^×)` is a point.** -/
+theorem pi0_Kfull_eq_one (x : Pi0 Kfull) : x = 1 := by
+  induction x using QuotientGroup.induction_on with
+  | H s =>
+    rw [QuotientGroup.eq_one_iff, ← emb_dq_mul_du s]
+    exact Subgroup.mul_mem _ (Subgroup.mem_sup_left ⟨dq s, dq_pos s, rfl⟩)
+      (Subgroup.mem_sup_right (ZhatU_le (du_mem s)))
+
+instance : Subsingleton (Pi0 Kfull) :=
+  ⟨fun x y => by rw [pi0_Kfull_eq_one x, pi0_Kfull_eq_one y]⟩
+
+/-- **`ℚ^×_{>0} \ 𝔸_f^× / nrd(K₃) ≅ (ℤ/3)^×`**, by `q·u ↦ u mod 3`. -/
+noncomputable def pi0K3Equiv : Pi0 K3 ≃* (ZMod 3)ˣ :=
+  (QuotientGroup.quotientMulEquivOfEq chi_ker.symm).trans
+    (QuotientGroup.quotientKerEquivOfSurjective chi chi_surjective)
+
+theorem pi0K3Equiv_mk (s : Afˣ) : pi0K3Equiv (QuotientGroup.mk s) = chi s := rfl
 
 end ShimuraGlue
