@@ -69,3 +69,13 @@ Y3Connected 97479, ValenceBoundGammaStar 113443, CMDescends 114469, GammaStarGen
   `STQM` (+ bundle leaves r1r2, t11b, t5).
 - Fold.lean: `OpenAddedLeaves7` (cmDescends → stQM), `sixContactMin_of_open7`, 13 s, axioms standard,
   `example : … → _root_.ZInQ.SixContactMin` compiles. Count 65 (26 + 19 + 19 + 1); LEAF? 7 → 4.
+
+## QMHauptmodul: NARROWED (VERIFIED, compiled over the chain)
+- `QMHauptmodulCM.lean`: `orbit4`, `orbit3`, `orbit24`: every pure w ∈ 𝒪 with w² = −1 (resp. −3, −6) and
+  imJ > 0 is g·b·g⁻¹ for a normalizer g with nrd g > 0, b = i+j (resp. j, 2j+ij). Descents with the
+  Dirichlet walls of the nearest orbit points (`py/hm_desc.py`, `hm_cone.py`, `hm_lin.py`): cones compact,
+  max cosh² 3 (disc −3) and 2 (disc −24); certificates by nlinarith (6 resp. 4 walls).
+- `QMHauptmodulBase` (QMHauptmodul with the CM clauses only at ι(i+j), ι((1+j)/2), ι(2j+ij)) and
+  `qmHauptmodul_of_base : QMHauptmodulBase → QMHauptmodul` (transfer along orbits by the fibre clause;
+  −γ and γ⁻¹ for the other sheet). Axioms standard; 19 s.
+- Fold.lean: `OpenAddedLeaves8`, `sixContactMin_of_open8` (65 fields), 22 s, axioms standard.
