@@ -18,7 +18,7 @@ theorem HDec.HSyn.sixContactMin_of_open5 (r : OpenResearchLeaves5) (t : OpenText
 ```
 
 **VERIFIED.** No `sorry`; `#print axioms HDec.HSyn.sixContactMin_of_open5` gives
-`[propext, Classical.choice, Quot.sound]` (olean chain, §4; flat file: FLAT_RESULT). Its conclusion is the kernel's
+`[propext, Classical.choice, Quot.sound]` (olean chain and flat file, §4). Its conclusion is the kernel's
 own `ZInQ.SixContactMin` (`ZInQKernel/Hypotheses/HeightMin.lean`): `olean/Check5.lean` compiles
 `example : (∀ r t l g, _root_.ZInQ.SixContactMin) := HDec.HSyn.sixContactMin_of_open5`.
 
@@ -266,8 +266,8 @@ compiles. The closure has 184 142 constants. It contains `ZInQ.SmoothFibre.smoot
 `HDec.VertWitness.heckeVertWitness_of_leaves`, `modelComparison_of_curveBijIso`, `modelCoordinate_of_residue`; it does
 **not** contain `sorryAx`, av-b2's `divisiblePoints_of_posChar` or `MulIsogenyPosChar` (VERIFIED).
 
-**Flat file** `scratch/leaf-fold5/Leaves5.lean` (FLAT_LINES lines, md5 FLAT_MD5…; leaf-fold4's `Leaves4.lean` with
-the eight new kernel imports in its header and the three new bodies appended): FLAT_DETAIL
+**Flat file** `scratch/leaf-fold5/Leaves5.lean` (121 728 lines, md5 35a709b10b2b…; leaf-fold4's `Leaves4.lean` with
+the eight new kernel imports in its header and the three new bodies appended): `lake env lean scratch/leaf-fold5/Leaves5.lean` **exits 0 in 1194 s (max RSS 16.4 GB), 0 errors, no `sorry`; all 343 `#print axioms` reports read `[propext, Classical.choice, Quot.sound]`** (checked by script, joining line-wrapped reports), including `HDec.HSyn.sixContactMin_of_open5` (VERIFIED). The raw output contains host paths and is not committed.
 
 **Changes to the copied texts** (each in a script, with its reason):
 

@@ -48,3 +48,9 @@
   OpenTextbookLeaves5 (t4, t5, t27, t33, t35 too). TailM 110 s, TailN 5 s, 0 errors, all 28 axiom lines standard.
 - Not restated (their Props involve copied structures beyond AbVar: QML3/QMPair/QMStr (r1rec, r3, r5, r5count),
   Faltings heights over copied GroupModel (r19-r22, h5fin), modular-curve/Galois-rep structures (r16, r17, r18)).
+
+## 00:27-00:47 flat file, VERIFIED
+- Leaves5.lean (121728 lines, md5 35a709b10b2b…): `lake env lean` exit 0 in 1194 s, max RSS 16.4 GB, 0 errors, no sorry,
+  343 `#print axioms` reports (joined over wrapped lines), all `[propext, Classical.choice, Quot.sound]`, including
+  `HDec.HSyn.sixContactMin_of_open5`.
+- Report docs/research/leaf-fold5.md written (00:30-00:45).
