@@ -192,8 +192,8 @@ theorem lattice_serre {g : ℕ} (Λ : Submodule ℤ (Fin g → ℂ)) [DiscreteTo
     intro z
     apply Subtype.ext
     rw [LinearMap.add_apply, Module.End.one_apply, Module.End.mul_apply, Module.End.ofNat_apply,
-      Submodule.coe_add, Submodule.coe_smul, hxv, hyv]
-    rw [smul_smul]
+      Submodule.coe_add, Submodule.coe_smul_of_tower, hxv, hyv, ← Nat.cast_smul_eq_nsmul ℂ,
+      smul_smul]
     norm_num
   have hpow : ∀ n : ℕ, ∀ z : Λ, (((x ^ n) z : Λ) : Fin g → ℂ) = (M ^ n) z := by
     intro n
@@ -227,13 +227,17 @@ theorem lattice_serre {g : ℕ} (Λ : Submodule ℤ (Fin g → ℂ)) [DiscreteTo
     obtain ⟨s, hs⟩ := hr k
     have : ((r z : Λ) : Fin g → ℂ) = ((3 : ℂ) ^ k) • ((s z : Λ) : Fin g → ℂ) := by
       rw [hs, Module.End.mul_apply]
-      have : ∀ v : Λ, (((3 ^ k : Module.End ℤ Λ) v : Λ) : Fin g → ℂ) = ((3 : ℂ) ^ k) • (v : Fin g → ℂ) := by
-        intro v
-        induction k with
-        | zero => simp
-        | succ k ih => rw [pow_succ, Module.End.mul_apply, ih, Module.End.ofNat_apply,
-            Submodule.coe_smul, pow_succ, mul_smul]; norm_cast
-      exact this _
+      have key : ∀ (j : ℕ) (v : Λ),
+          (((3 ^ j : Module.End ℤ Λ) v : Λ) : Fin g → ℂ) = ((3 : ℂ) ^ j) • (v : Fin g → ℂ) := by
+        intro j
+        induction j with
+        | zero => intro v; simp
+        | succ j ih =>
+          intro v
+          rw [pow_succ, Module.End.mul_apply, ih, Module.End.ofNat_apply,
+            Submodule.coe_smul_of_tower, ← Nat.cast_smul_eq_nsmul ℂ, pow_succ, mul_smul]
+          norm_num
+      exact key k _
     rw [this, smul_smul, ← mul_pow, inv_mul_cancel₀ (by norm_num), one_pow, one_smul]
     exact (s z).2
   have hx1 := eq_one_of_pow_eq_one htf hsep hxy hm hxm

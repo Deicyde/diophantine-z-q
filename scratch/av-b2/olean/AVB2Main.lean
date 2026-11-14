@@ -60,28 +60,29 @@ theorem exists_lift_pt {K : Type} [Field K] (A : PkgI3.AbVar K) (f : A.X ⟶ A.X
     (hf : PkgI3.AbVar.IsIsogenyMor f) (z : A.Pt (AlgebraicClosure K)) :
     ∃ w : A.Pt (AlgebraicClosure K), w ≫ f = z := by
   obtain ⟨hfin, hsurj⟩ := hf
-  let s : pullback f.left z.left ⟶ Spec (CommRingCat.of (AlgebraicClosure K)) :=
-    pullback.snd f.left z.left
+  let zl : Spec (CommRingCat.of (AlgebraicClosure K)) ⟶ A.X.left := z.left
+  let s : pullback f.left zl ⟶ Spec (CommRingCat.of (AlgebraicClosure K)) := pullback.snd f.left zl
   haveI : IsFinite s := by dsimp [s]; infer_instance
   haveI : Surjective s := by dsimp [s]; infer_instance
-  haveI : CompactSpace (pullback f.left z.left) := QuasiCompact.compactSpace_of_compactSpace s
-  haveI : Nonempty (pullback f.left z.left) := by
+  haveI : CompactSpace ((pullback f.left zl : Scheme) : Type) := QuasiCompact.compactSpace_of_compactSpace s
+  haveI : Nonempty ((pullback f.left zl : Scheme) : Type) := by
     obtain ⟨y⟩ : Nonempty (Spec (CommRingCat.of (AlgebraicClosure K))) := inferInstance
     exact ⟨(s.surjective y).choose⟩
-  obtain ⟨x, -, hx⟩ := IsClosed.exists_closed_singleton isClosed_univ Set.univ_nonempty
+  obtain ⟨x, -, hx⟩ := IsClosed.exists_closed_singleton (X := ((pullback f.left zl : Scheme) : Type))
+    isClosed_univ Set.univ_nonempty
   let pt := pointOfClosedPoint s x hx
   have hpt : pt ≫ s = 𝟙 _ := pointOfClosedPoint_comp s x hx
-  have hz : z.left ≫ A.X.hom =
+  have hz : zl ≫ A.X.hom =
       Spec.map (CommRingCat.ofHom (algebraMap K (AlgebraicClosure K))) := Over.w z
   have hw : f.left ≫ A.X.hom = A.X.hom := Over.w f
-  refine ⟨Over.homMk (pt ≫ pullback.fst f.left z.left) ?_, ?_⟩
-  · change (pt ≫ pullback.fst f.left z.left) ≫ A.X.hom =
+  refine ⟨Over.homMk (pt ≫ pullback.fst f.left zl) ?_, ?_⟩
+  · change (pt ≫ pullback.fst f.left zl) ≫ A.X.hom =
       Spec.map (CommRingCat.ofHom (algebraMap K (AlgebraicClosure K)))
     rw [Category.assoc, ← hw, pullback.condition_assoc, hz, ← Category.assoc]
     change (pt ≫ s) ≫ _ = _
     rw [hpt, Category.id_comp]
   · apply Over.OverMorphism.ext
-    change (pt ≫ pullback.fst f.left z.left) ≫ f.left = z.left
+    change (pt ≫ pullback.fst f.left zl) ≫ f.left = zl
     rw [Category.assoc, pullback.condition, ← Category.assoc]
     change (pt ≫ s) ≫ _ = _
     rw [hpt, Category.id_comp]
@@ -102,10 +103,7 @@ def sC {K : Type} [Field K] (σ : K →+* ℂ) :
     ZInQ.LeafPush2.cptObj σ ⟶ PkgI3.AbVar.ptObj (K := K) K :=
   Over.homMk (Spec.map (CommRingCat.ofHom σ)) (by
     simp only [ZInQ.LeafPush2.cptObj, PkgI3.AbVar.ptObj, Over.mk_hom, ← Spec.map_comp,
-      ← CommRingCat.ofHom_comp]
-    congr 2
-    ext x
-    simp)
+      ← CommRingCat.ofHom_comp])
 
 /-- Precomposition with `Spec σ` is injective on `K`-points. -/
 theorem sC_cancel {K : Type} [Field K] (σ : K →+* ℂ) {Y : Over (Spec (CommRingCat.of K))}
