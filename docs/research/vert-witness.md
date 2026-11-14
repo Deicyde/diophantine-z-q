@@ -12,18 +12,24 @@ Model work only; no human has reviewed it. Marks used throughout:
 
 ## 1. Main result
 
-**`HeckeVertWitness` is proved in Lean from one new leaf, the existing bundle leaf `R1R2fp`,
-and three glue Props (VERIFIED, compiled, standard axioms only):**
+**`HeckeVertWitness` is proved in Lean (VERIFIED: compiled, standard axioms only) from:**
+
+- one new literature leaf, `ShimuraGoodReduction`;
+- the existing bundle leaf `R1R2fp`;
+- one textbook statement of commutative algebra, `SmoothFibreReduced`;
+- two glue Props, `ModelCoordinate` and `ModelComparison`.
 
 ```lean
 theorem VertWitness.heckeVertWitness_of_leaves
     (hL : ShimuraGoodReduction) (hRR : R1R2fp)
-    (hMI : SpecialFibreMaxIdeal) (hD : ModelCoordinate) (hB : ModelComparison) :
+    (hSR : SmoothFibreReduced) (hD : ModelCoordinate) (hB : ModelComparison) :
     HeckeRestNV.HeckeVertWitness
 ```
 
 Coarser forms are also compiled:
 
+- `heckeVertWitness_of_maxIdeal` takes `SpecialFibreMaxIdeal` in place of `SmoothFibreReduced`.
+  `specialFibreMaxIdeal_of : SmoothFibreReduced → SpecialFibreMaxIdeal` is compiled.
 - `heckeVertWitness_of_goodReduction₃` takes `SpecialFibreUniformizer`.
   `specialFibreUniformizer_of_maxIdeal` is compiled: `p` is a nonzerodivisor in every stalk of a
   flat `ℤ_(p)`-scheme (`natCast_mem_nonZeroDivisors_stalk`).
@@ -39,11 +45,12 @@ Coarser forms are also compiled:
   `ℤ_(p)` with the universal family of level-3 QM abelian surfaces, the moduli bijection on
   `ℚ̄`-points, and the Hecke automorphisms over `ℤ_(p)`. It is stated over the kernel's genuine
   definitions (§3).
-- **Glue `SpecialFibreMaxIdeal`** (standard scheme theory; Mathlib-only statement, not proved).
-  A nonempty proper smooth relative curve over `ℤ_(p)` has a point `ξ` with `𝔪_ξ = (p)`. The
-  rest of "the stalk is a DVR with uniformizer `p`" (`SpecialFibreDVR`) is compiled, Mathlib only:
-  - `p` is regular, by flatness: `natCast_mem_nonZeroDivisors_stalk`;
-  - the DVR criterion: `dvr_of_maximalIdeal_eq_span`, Stacks 00PD.
+- **Textbook `SmoothFibreReduced`** (commutative algebra, not proved here). If `R → A` is smooth
+  and `m ⊂ R` is maximal, then `A/mA` is reduced. Mathlib 4.35 lacks it.
+- **The scheme theory at the special fibre is compiled from `SmoothFibreReduced`** (§4.2). Some
+  stalk of a nonempty proper smooth relative curve over `ℤ_(p)` is a DVR with uniformizer `p`.
+  The chain is `SpecialFibreMaxIdeal` → `SpecialFibreUniformizer` → `SpecialFibreDVR`; it uses
+  flatness and Stacks 00PD.
 - **Glue `ModelCoordinate` (d)** (not proved). There is a morphism `ρ : 𝒴 → P¹` over `ℤ_(p)`
   with R2fp's clauses on `ℚ̄`-points (`CoordFibres`). It is regular, with transcendental
   reduction, at every point whose stalk is a DVR with maximal ideal `(p)`. This is the tame
@@ -62,7 +69,7 @@ theorem VertWitnessAll.coverModelOfHecke_of_goodReduction (hconn : Y3Connected) 
     (hA : HeckeRest.QMAutCard) (hS : HeckeRest.SerreRigidity3) (hW : HeckeRest.ALFixedPoints)
     (hL : ShimuraGoodReduction) (hU : SpecialFibreUniformizer) (hBD : ModelCoordinateGlue) :
     CoverModelOfHecke
-theorem VertWitnessAll.coverModelOfHecke_of_leaves ... (hL) (hMI : SpecialFibreMaxIdeal)
+theorem VertWitnessAll.coverModelOfHecke_of_leaves ... (hL) (hSR : SmoothFibreReduced)
     (hD : ModelCoordinate) (hB : ModelComparison) : CoverModelOfHecke
 theorem VertWitnessAll.propTSAll_of_goodReduction ... (hL) (hU) (hBD) : PropTSAll
 ```
@@ -73,13 +80,13 @@ outright. The GR route is the one carried out here.
 
 **Honest scope.**
 
-- The compiled part is commutative algebra plus the wiring:
+- The compiled part is commutative algebra, the scheme theory of §4.2, and the wiring:
   - from a DVR in `E` to an unramified vertical prime (`vertGaussWitness_of_DVR`,
     `vertLocalWitness_of_gauss`, and hecke-rest's `vertUnramWitness_of_local`);
   - the DVR criterion `dvr_of_maximalIdeal_eq_span`;
   - `modelGaussGlue_of`, where nonemptiness of the model comes from R1fp's `ℚ̄`-point.
-- The geometric content of good reduction is in the three glue Props. The leaf itself only says
-  that the model exists.
+- The geometric content of good reduction is in the two glue Props (d) and (b), plus the
+  textbook `SmoothFibreReduced`. The leaf itself only says that the model exists.
 - `ModelCoordinate` and `ModelComparison` are substantial arithmetic geometry: tame quotients
   commuting with base change, and comparison of models. Neither is in Mathlib 4.35.
 
@@ -109,14 +116,16 @@ outright. The GR route is the one carried out here.
 | `dvr_of_maximalIdeal_eq_span` | Noetherian local ring with `𝔪 = (t)`, `t ∈ R⁰` ⇒ domain and DVR | compiled (Mathlib only) |
 | `SpecialFibreUniformizer` | glue (scheme theory) | `specialFibreUniformizer_of_maxIdeal : SpecialFibreMaxIdeal → SpecialFibreUniformizer`, compiled |
 | `natCast_mem_nonZeroDivisors_stalk` | `p` is regular in every stalk of a flat `ℤ_(p)`-scheme | compiled (Mathlib only) |
-| `SpecialFibreMaxIdeal` | **glue** (scheme theory) | stated, not proved (§4.2) |
+| `SpecialFibreMaxIdeal` | glue (scheme theory) | `specialFibreMaxIdeal_of : SmoothFibreReduced → SpecialFibreMaxIdeal`, compiled (§4.2) |
+| `maximalIdeal_eq_map_of_mem_minimalPrimes`, `maximalIdeal_Zloc` | `𝔪_{A_𝔮} = I A_𝔮` for radical `I` and minimal `𝔮`; `𝔪_{ℤ_(p)} = (p)` | compiled (Mathlib only) |
+| `SmoothFibreReduced` | **textbook** (commutative algebra) | stated, not proved |
 | `CMObjectsExist` | CM objects of the three types over `ℚ̄` | `cmObjectsExist_of_R1R2fp : R1R2fp → CMObjectsExist`, compiled |
 | `CoordFibres 𝒴 𝒜 ρ` | def: R2fp's clauses for `ρ : ToP1 𝒴.left` on `ℚ̄`-points (via `IsFibreOf`) | — |
 | `ModelCoordinate` | **glue (d)**: the coordinate on the model | stated, not proved (§4.3) |
 | `ModelComparison` | **glue (b)**: comparison of function fields | stated, not proved (§4.3) |
 | `ModelCoordinateGlue` | glue ((d) and (b) together) | `modelCoordinateGlue_of : ModelCoordinate → ModelComparison → ModelCoordinateGlue`, compiled (with `intPolyAlg_eq_eval₂`) |
 | `ModelGaussGlue` | glue (all together) | `modelGaussGlue_of : SpecialFibreDVR → ModelCoordinateGlue → ModelGaussGlue`, compiled |
-| `heckeVertWitness_of_leaves` (finest), `heckeVertWitness_of_goodReduction`, `…'`, `…''`, `…₃`, `heckeNoVertRam_of_goodReduction` | composites (they take `hRR : R1R2fp` for `CMObjectsExist`) | compiled |
+| `heckeVertWitness_of_leaves` (finest), `heckeVertWitness_of_maxIdeal`, `heckeVertWitness_of_goodReduction`, `…'`, `…''`, `…₃`, `heckeNoVertRam_of_goodReduction` | composites (they take `hRR : R1R2fp` for `CMObjectsExist`) | compiled |
 
 ### 2.1 The commutative algebra (compiled)
 
@@ -215,7 +224,7 @@ leaf, `ZInQKernel/HDecomp/QM/Leaves.lean`):
 
 **Narrowness.** Each clause is used:
 
-- 1-2 by `SpecialFibreDVR`;
+- 1-2 by §4.2 (`specialFibreMaxIdeal_of`, compiled);
 - 5 by the nonemptiness step (compiled);
 - 3-5 by the comparison (b);
 - 6-7 by the quotient (d).
@@ -242,7 +251,7 @@ The content enters only through the leaf and the two glue Props below. ts-hecke 
 argument from branch data alone can work: `E = ℚ(X)(√(pX))` has the same branch data and is
 vertically ramified.
 
-### 4.2 `SpecialFibreUniformizer` / `SpecialFibreDVR` (STANDARD scheme theory; statements use Mathlib only)
+### 4.2 The special fibre: `SpecialFibreMaxIdeal` → `SpecialFibreUniformizer` → `SpecialFibreDVR` (compiled from `SmoothFibreReduced`)
 
 **Statements.** Let `𝒴 / ℤ_(p)` be proper, smooth of relative dimension 1 and nonempty.
 
@@ -267,22 +276,37 @@ The first follows from the second by step 3 below, which is compiled
    `a` as `tⁿ·unit`; then the ring is a domain, and
    `IsDiscreteValuationRing.ofHasUnitMulPowIrreducibleFactorization` applies.
 
-**Lean.** The nonzerodivisor part of step 3 is compiled as `natCast_mem_nonZeroDivisors_stalk`.
-It uses `Flat.stalkMap` (smooth implies flat) and `Module.Flat.isSMulRegular_of_nonZeroDivisors`;
-`p ≠ 0` in the stalks of the integral scheme `Spec ℤ_(p)` comes from `germ_injective_of_isIntegral`.
+**Lean: all three steps are compiled, from one textbook statement of commutative algebra.**
 
-What remains is steps 1-2, `SpecialFibreMaxIdeal` (`∃ ξ, 𝔪_ξ = (p)`). Not done. It needs:
+- **`SmoothFibreReduced`** (textbook, not proved here): for a smooth ring map `φ : R → A`
+  (Mathlib's `RingHom.Smooth`) and a maximal ideal `m ⊂ R`, the ideal `mA` is radical.
+  - Reason: `A/mA` is smooth over the field `R/m`, hence regular, hence reduced (Stacks, smooth
+    ring maps; Matsumura Thm 28.7; UNVERIFIED numbers).
+  - Mathlib 4.35 has neither "smooth over a field ⇒ reduced" nor "⇒ regular". Searched:
+    `RingTheory/Smooth/`, `RingTheory/Etale/`, `RingTheory/Unramified/`; and
+    `AlgebraicGeometry/Morphisms/Smooth.lean` *assumes* `IsReduced`.
+- **`specialFibreMaxIdeal_of : SmoothFibreReduced → SpecialFibreMaxIdeal`** (compiled). This is
+  steps 1-2, with a different first step:
+  - Properness alone gives a point `x` over the closed point: the image is closed, and every point
+    of `Spec ℤ_(p)` specializes to the closed point.
+  - Take an affine open `V ∋ x`, `V = Spec A`. Then `Γ(Spec ℤ_(p), ⊤) → A` is smooth
+    (`HasRingHomProperty.appLE`).
+  - The maximal ideal of `Γ(Spec ℤ_(p), ⊤)` is `(p)` (via `ΓSpecIso` and `maximalIdeal_Zloc`). So
+    `pA` is radical.
+  - `pA ⊆ 𝔭_x` (`comap_primeIdealOf_appLE`). Choose a minimal prime `𝔮` of `pA` inside `𝔭_x`
+    (`Ideal.exists_minimalPrimes_le`), and let `ξ = fromSpec 𝔮`.
+  - `𝒪_{𝒴,ξ} = A_𝔮` (`isLocalization_stalk'`). Its maximal ideal is `pA_𝔮`, by the compiled
+    lemma `maximalIdeal_eq_map_of_mem_minimalPrimes` (radical `I`, minimal `𝔮` ⇒
+    `𝔪_{A_𝔮} = I A_𝔮`).
+- **`specialFibreUniformizer_of_maxIdeal`** (compiled). `p` is a nonzerodivisor in every stalk of a
+  flat `ℤ_(p)`-scheme (`natCast_mem_nonZeroDivisors_stalk`). It uses `Flat.stalkMap` and
+  `Module.Flat.isSMulRegular_of_nonZeroDivisors`; `p ≠ 0` in the stalks of `Spec ℤ_(p)` comes from
+  `germ_injective_of_isIntegral`.
+- **`specialFibreDVR_of_uniformizer`** (compiled). Noetherian stalks, then
+  `dvr_of_maximalIdeal_eq_span`.
 
-- the fibre `𝒴_p` and its stalks as quotients of the stalks of `𝒴` (infra-stalks'
-  `pullback_stalkGen` is the surjectivity half);
-- "smooth over a field ⇒ reduced", which is not in Mathlib 4.35 (searched `RingTheory/Smooth/`,
-  `RingTheory/Etale/`, `RingTheory/Unramified/`; `AlgebraicGeometry/Morphisms/Smooth.lean` assumes
-  `IsReduced`). An alternative avoids it: use a local étale map to `𝔸¹_{ℤ_(p)}` and
-  `Algebra.FormallyUnramified.map_maximalIdeal` (in `RingTheory/Unramified/LocalRing.lean`);
-- flatness of stalk maps for the nonzerodivisor (`Smooth ⇒ Flat` is an instance);
-- generic points of components of a fibre.
-
-All are standard. **Size: medium** (SPECULATIVE: a few hundred lines).
+So the scheme-theoretic glue of §4.2 rests only on the commutative-algebra statement
+`SmoothFibreReduced`. That statement is a natural Mathlib contribution, or a textbook leaf.
 
 ### 4.3 `ModelCoordinate` (d) and `ModelComparison` (b) (route GR; not proved)
 
@@ -411,8 +435,8 @@ Assessment (SPECULATIVE):
   It would still leave the inertia-group glue and the transfer.
 
 **Recommendation.** For the announcement, list `ShimuraGoodReduction` as the literature input for
-no vertical ramification. List `SpecialFibreUniformizer`, `ModelCoordinate` and `ModelComparison`
-as project glue, with `SpecialFibreMaxIdeal` in place of `SpecialFibreUniformizer`. Keep
+no vertical ramification. List `ModelCoordinate` and `ModelComparison`
+as project glue, and `SmoothFibreReduced` as a textbook statement (a Mathlib contribution). Keep
 NV as the alternative that trades the Morita/Carayol leaf for two-dimensional inertia glue.
 
 ## 6. Independent review
@@ -475,7 +499,7 @@ A second read-only model agent reviewed `CMObjectsExist`, `SpecialFibreUniformiz
 | Prop | Kind | Status |
 |---|---|---|
 | `ShimuraGoodReduction` | **leaf** (Morita/Carayol/Kottwitz/Buzzard; locators UNVERIFIED; the level-3-at-`3 ∣ D` coverage needs a human check) | stated in Lean |
-| `SpecialFibreMaxIdeal` | glue (standard scheme theory; `SpecialFibreUniformizer` and `SpecialFibreDVR` follow, compiled) | stated, not proved |
+| `SmoothFibreReduced` | textbook commutative algebra (smooth fibres over closed points are reduced; Stacks / Matsumura 28.7, UNVERIFIED numbers). The special-fibre glue follows (compiled). | stated, not proved |
 | `ModelCoordinate` (d) | glue (tame quotient `𝒴/Γ' ≅ P¹_{ℤ_(p)}` in the coordinate; CM sections disjoint mod `p`) | stated, not proved |
 | `ModelComparison` (b) | glue (generic fibre `≅ Y` via `R1univProps`; Möbius rigidity) | stated, not proved |
 | `Y3Connected`, `R1R2fp`, `TorsionStructure`, `QMAutCard`, `SerreRigidity3`, `ALFixedPoints` | leaves (existing, from ts-hecke and hecke-rest) | unchanged |
