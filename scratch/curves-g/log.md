@@ -12,3 +12,12 @@ t34 (`LeafModCurves.DimJ1Genus`), t38 (`X1Belyi.CurveOfFunctionFieldQ`). Owner f
   CurveOfFunctionFieldQNoPoint → X1Belyi.CurveOfFunctionFieldQ`. VERIFIED: `lake build
   ZInQKernel.Contrib.CurvesG.RatPoint` 27 s, 0 errors; `scratch/curves-g/AxiomsContrib.lean`: all four
   `#print axioms` read `[propext, Classical.choice, Quot.sound]` (axioms_contrib_out.txt).
+
+## t34
+- 18:40 `ZInQKernel/Contrib/CurvesG/GenusSplit.lean`: `fieldGenus F` (ℚ-dimension of the differentials of
+  `Ω[F⁄ℚ]` regular at every valuation subring containing ℚ); leaves `DimJacobianEqGenus` (Milne: dim of a
+  Jacobian = genus, for every curve over ℚ) and `GenusX1Field` (genus of `K_N` = `genus Γ₁(N)`);
+  `dimJ1Genus_of_split : DimJacobianEqGenus → GenusX1Field → LeafModCurves.DimJ1Genus`. VERIFIED: lake build
+  0 errors; `#print axioms` standard three (axioms_contrib_out.txt).
+- Consumers of t34 in leaf-fold3's flat file (VERIFIED by grep of Leaves3.lean): only through
+  `LeafModCurves.dim_J1_le` (`dim J ≤ N²`), at lines 16897, 33861, 34333, 71883 (javanpeykarJ1 and E2).
