@@ -198,3 +198,29 @@ period matrices of polarized `A/ℚ̄`.
 `chk.sh` runs `lean` over leaf-fold4's olean chain as compiled by leaf-fold6, copied (with leaf-fold6's kernel
 and `z_in_q` oleans) to `~/qmg-olean`; qm-split's `Haupt.lean` and `ModuliSplit.lean` compile unchanged over it
 (VERIFIED). Every file ends with `#print axioms` lines: `[propext, Classical.choice, Quot.sound]`.
+
+## 7. Counts and what remains
+
+New LEAF statements (published form; locators UNVERIFIED): `IgusaCMValue24` (Lin–Yang (2),(14) at the
+Baba–Granath value; equivalent to the old glue), and the existential forms `CanonicalCoarseX6`,
+`BabaGranathX6`, `GonzalezRotgerX6`, `ConicCanonical`, `ConnectedCanonical` (each the published statement about
+the canonical model).
+
+Glue closed (proved in Lean): `GammaStarFromO1` (both copies), the five universal moduli Props of qm-split
+modulo `CoarseFactor` (`CoarseX6OfFine` outright from its existential form; `HauptmodulOfX6`, `ResidueOfX6`,
+`ConicOfWitness` via `CoarseCompare`; `ConnectedOfFine` outright), and the X₆-level Hauptmodul uniqueness from
+`MobiusGlue` (T5).
+
+Glue remaining: `CoarseFactor` (§4.3; one statement, AG of curves). `ThetaFourthRatiosAlgebraic` stays a
+composite LEAF candidate (§5). `ThetaQuotientValue24` is now a published value (`IgusaCMValue24`), not glue;
+an exact Lean computation would need CM theory (§2.3).
+
+Rows after this task: H-87 and H-88 are theorems from published-form leaves only (`ValenceFormulaCocompactEq`,
+`ShimizuCovolumeO1`, and for H-88 `r4` and `IgusaCMValue24`); H-1 rests on the existential leaves,
+`ReciprocityOfFine`, `CoarseFactor` and `CurveBijIso` (proved by curve-split); H-43 on `r1r2`,
+`ConicCanonical`, `CoarseFactor`, `CurveBijIso`, `MobiusGlue` (proved from T5 by image-plane); H-59 is its own
+existential leaf; H-44 unchanged (qm-split's split with the composite `ThetaFourthRatiosAlgebraic`).
+
+Integration notes: `GammaStar.lean` and `ThetaValue24.lean` need only Mathlib (self-contained copies of the
+definitions); `HauptGlue.lean` and `ModuliCompare.lean` are over leaf-fold4's chain (the constants of qm-split's
+rows), so a fold must identify the copied constants as qm-split's report already notes.
