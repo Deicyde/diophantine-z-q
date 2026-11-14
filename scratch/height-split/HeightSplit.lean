@@ -551,6 +551,25 @@ theorem r22_of_leaves (hP : PazukiCor13) (hN1 : NeronModelExists)
 
 end R22Sec
 
+/-! ## §H. Bonus: H-15, R19 (Gaudron–Rémond), the same identification -/
+
+/-- **Leaf R19-GR over the published height** (Gaudron–Rémond, Duke Math. J. 163 (2014), Thm 1.4,
+p. 2060; `κ` and `α(g) = 1024g³`, p. 2058; read by the locator audit): the kernel's
+`R19_GaudronRemond` with `stableFaltingsHeight A = x` replaced by `IsStableFaltingsHeight A x`
+(GR use the stable height in Faltings' original normalization). -/
+def GaudronRemondThm14 : Prop :=
+  ∀ (K : Type) [Field K] [NumberField K] (A B : PkgI3.AbVar K) (g : ℕ) (x : ℝ),
+    A.dim = (g : WithBot ℕ∞) → IsStableFaltingsHeight A x →
+    (∃ φ : A.X ⟶ B.X, IsIsogeny φ) →
+    (∃ φ : A.X ⟶ B.X, IsIsogeny φ ∧ (isogDeg φ : ℝ) ≤ grKappa g (Module.finrank ℚ K) x) ∧
+    (∃ ψ : B.X ⟶ A.X, IsIsogeny ψ ∧ (isogDeg ψ : ℝ) ≤ grKappa g (Module.finrank ℚ K) x)
+
+/-- **H-15: R19 from Gaudron–Rémond over the published height and N1, SS1, SS2.** -/
+theorem r19_of_leaves (hGR : GaudronRemondThm14) (hN1 : NeronModelExists)
+    (hSS1 : SemistableReductionThm) (hSS2 : SemistableNeronBaseChange) : R19_GaudronRemond :=
+  fun K _ _ A B g x hg hx hiso =>
+    hGR K A B g x hg ((isStableFaltingsHeight_iff hN1 hSS1 hSS2 A x).mpr hx) hiso
+
 end ZInQ.HeightSplit
 
 /-! ## Axiom checks -/
@@ -564,3 +583,4 @@ end ZInQ.HeightSplit
 #print axioms ZInQ.HeightSplit.r18_of_leaves
 #print axioms ZInQ.HeightSplit.r20_of_leaves
 #print axioms ZInQ.HeightSplit.r22_of_leaves
+#print axioms ZInQ.HeightSplit.r19_of_leaves
