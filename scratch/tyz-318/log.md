@@ -63,3 +63,6 @@ TYZ Lemma `torsion2` (Lemma 3.18): torsion of `A(ℍ'_n)` is killed by `2(1+[i])
   caveats: Mathlib's `IsArithFrobAt` fixes the exponent at |R/(Q∩R)|, so compare `h|_H` with `Art([𝔭])^f` via
   "σ^f acts as x ↦ x^{N𝔭^f}" + injectivity of D_Q → Aut(k_Q) (trivial inertia); take h in a finite Galois M, not
   Gal(Q̄/F); [𝔓] = [α] is a class equation (multiply by α' = N_{F/ℚ}(α)/α for the ideal-norm bookkeeping).
+- [VERIFIED, compiled, ~00:10 11-14] `SigmaLift` (def; common lift h ∈ Gal(ℚ̄/ℚ) fixing L_n(i), acting as σ_{1+2ϖ} on
+  every H̄_{d₀,4}; STRONGER than SqrtTwoNotInHHprime, the form CFT supplies), `sigma_moves_sqrtTwo` (σ_{1+2ϖ}(√2) = −√2),
+  `sqrtTwoNotInHHprime_of_sigmaLift : SigmaLift → SqrtTwoNotInHHprime` (Route A steps 5–7). Axioms standard.

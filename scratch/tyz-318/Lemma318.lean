@@ -1026,6 +1026,102 @@ theorem sqrtTwo_not_mem_HHprime_of_single {n : ℕ} (hn : n % 8 = 5) (hsq : Squa
     · rw [e]; exact (Hprime n).neg_mem hymem
   exact not_adjSqrt_two_le_Hprime hn (IntermediateField.adjoin_simple_le_iff.mpr hmem)
 
+/-- **A common lift of the `σ_{1+2ϖ}`** (the class-field-theoretic content of `√2 ∉ ℍ'_n`, Route A/B of
+`docs/research/tyz-318.md` §3.2): some `h ∈ Gal(ℚ̄/ℚ)` fixes `L_n(i)` pointwise and acts on every
+`H̄_{d₀,4} = embed d₀ (H_{d₀,4})`, `d₀ ∣ n`, `d₀ ≡ 5 (mod 8)`, as the Artin symbol `σ_{1+2ϖ}` of
+`Pic(ℤ + 4𝓞_{K_{d₀}})`. Not proved here. This is STRONGER than `SqrtTwoNotInHHprime`
+(`sqrtTwoNotInHHprime_of_sigmaLift`); it is the form in which class field theory supplies it (Route A:
+`h` is a Frobenius at a prime of `L_n(i)` in the class of `α = 1 + 2i∏(1+√q*)/2`). -/
+def SigmaLift : Prop :=
+  ∀ n : ℕ, n % 8 = 5 → Squarefree n → ∃ h : Qbar ≃ₐ[ℚ] Qbar, (∀ x ∈ Lni n, h x = x) ∧
+    ∀ d₀ ∈ n.divisors, d₀ % 8 = 5 → ∀ _ : NeZero d₀, ∀ y : H4 d₀,
+      h (embed d₀ (y : SeparableClosure (QNeg d₀))) =
+        embed d₀ ((artin4 d₀ (sigmaClass d₀) y : H4 d₀) : SeparableClosure (QNeg d₀))
+
+/-- `σ_{1+2ϖ}` moves `√2` (`√2 ∈ H_{d,4}`, `√2 ∉ H'_d = H_{d,4}^{σ}`). -/
+theorem sigma_moves_sqrtTwo {d : ℕ} [NeZero d] (hd : d % 8 = 5) :
+    ((artin4 d (sigmaClass d) ⟨sqrtK (QNeg d) 2,
+        adjSqrt_two_le_H4 (by omega) (IntermediateField.mem_adjoin_simple_self _ _)⟩ : H4 d) :
+      SeparableClosure (QNeg d)) = -sqrtK (QNeg d) 2 := by
+  set σ := artin4 d (sigmaClass d)
+  set w : H4 d := ⟨sqrtK (QNeg d) 2,
+    adjSqrt_two_le_H4 (by omega) (IntermediateField.mem_adjoin_simple_self _ _)⟩
+  have hw2 : w * w = 2 := by
+    apply Subtype.ext
+    show sqrtK (QNeg d) 2 * sqrtK (QNeg d) 2 = 2
+    rw [← sq, sqrtK_sq]; norm_num
+  have hσw : σ w * σ w = w * w := by rw [← map_mul, hw2, map_ofNat]
+  rcases mul_self_eq_mul_self_iff.mp hσw with e | e
+  · exfalso
+    apply not_adjSqrt_two_le_Hprime hd
+    rw [IntermediateField.adjoin_simple_le_iff]
+    show ((w : H4 d) : SeparableClosure (QNeg d)) ∈ Hprime d
+    rw [Hprime, IntermediateField.mem_lift, IntermediateField.mem_fixedField_iff]
+    intro g hg
+    have hst : Subgroup.zpowers σ ≤ MulAction.stabilizer _ w := by
+      rw [Subgroup.zpowers_le, MulAction.mem_stabilizer_iff, AlgEquiv.smul_def]; exact e
+    exact hst hg
+  · rw [e]; rfl
+
+/-- **`SqrtTwoNotInHHprime` from `SigmaLift`** (Route A, steps 5–7, proved). -/
+theorem sqrtTwoNotInHHprime_of_sigmaLift (hL : SigmaLift) : SqrtTwoNotInHHprime := by
+  intro n hn hsq s hs hs2
+  obtain ⟨h, hLni, hH⟩ := hL n hn hsq
+  haveI : NeZero n := ⟨by omega⟩
+  have hnD : n ∈ n.divisors := Nat.mem_divisors_self n (by omega)
+  -- `h` fixes every `H̄'_{d₀}`
+  have hfixH : ∀ d₀ ∈ n.divisors.filter (fun d => d % 8 = 5), ∀ x ∈ Hprimebar d₀, h x = x := by
+    intro d₀ hd₀ x hx
+    rw [Finset.mem_filter] at hd₀
+    haveI : NeZero d₀ := ⟨by omega⟩
+    rw [Hprimebar_eq] at hx
+    obtain ⟨y, hy, rfl⟩ := hx
+    have hy' : y ∈ Hprime d₀ := hy
+    have hyH4 : y ∈ H4 d₀ := Hprime_le_H4 d₀ hy'
+    have hz := (IntermediateField.mem_lift (⟨y, hyH4⟩ : H4 d₀)).mp hy'
+    rw [IntermediateField.mem_fixedField_iff] at hz
+    have hσz := hz (artin4 d₀ (sigmaClass d₀)) (Subgroup.mem_zpowers _)
+    have e : ((artin4 d₀ (sigmaClass d₀) ⟨y, hyH4⟩ : H4 d₀) : SeparableClosure (QNeg d₀)) = y :=
+      congrArg Subtype.val hσz
+    have key := hH d₀ hd₀.1 hd₀.2 ‹NeZero d₀› ⟨y, hyH4⟩
+    have k2 := key.trans (congrArg (embed d₀) e)
+    exact k2
+  -- `h` fixes `ℍ'_n`
+  have hmemF : ∀ y, h y = y → y ∈ IntermediateField.fixedField (Subgroup.zpowers h) := by
+    intro y hy
+    rw [IntermediateField.mem_fixedField_iff]
+    intro g hg
+    have hst : Subgroup.zpowers h ≤ MulAction.stabilizer (Qbar ≃ₐ[ℚ] Qbar) y := by
+      rw [Subgroup.zpowers_le, MulAction.mem_stabilizer_iff, AlgEquiv.smul_def]; exact hy
+    exact hst hg
+  have hF : HHprime n ≤ IntermediateField.fixedField (Subgroup.zpowers h) := by
+    apply sup_le
+    · intro x hx; exact hmemF x (hLni x hx)
+    · apply iSup₂_le
+      intro d₀ hd₀ x hx
+      exact hmemF x (hfixH d₀ hd₀ x hx)
+  have hhs : h s = s := by
+    have := hF hs
+    rw [IntermediateField.mem_fixedField_iff] at this
+    exact this h (Subgroup.mem_zpowers _)
+  -- `h` moves `√2`
+  set w : H4 n := ⟨sqrtK (QNeg n) 2,
+    adjSqrt_two_le_H4 (by omega) (IntermediateField.mem_adjoin_simple_self _ _)⟩ with hw
+  have hmove : h (embed n (w : SeparableClosure (QNeg n))) = -embed n (w : SeparableClosure (QNeg n)) := by
+    rw [hH n (Nat.mem_divisors_self n (by omega)) hn inferInstance w, hw, sigma_moves_sqrtTwo hn,
+      map_neg]
+  have hw2 : (embed n (w : SeparableClosure (QNeg n))) ^ 2 = 2 := by
+    rw [← map_pow, hw]
+    show embed n (sqrtK (QNeg n) 2 ^ 2) = 2
+    rw [sqrtK_sq]; simp only [Int.cast_ofNat]; exact map_ofNat (embed n) 2
+  have hsw : s ^ 2 = (embed n (w : SeparableClosure (QNeg n))) ^ 2 := by rw [hs2, hw2]
+  have hs0 : s ≠ 0 := by rintro rfl; norm_num at hs2
+  rcases sq_eq_sq_iff_eq_or_eq_neg.mp hsw with e | e
+  · rw [e, hmove] at hhs
+    exact hs0 (by rw [e]; linear_combination hhs.symm / 2)
+  · rw [e, map_neg, hmove, neg_neg] at hhs
+    exact hs0 (by rw [e]; linear_combination -hhs / 2)
+
 /-- **`HprimeFrobOrderTwo` holds** (no hypotheses). -/
 theorem hprimeFrobOrderTwo : HprimeFrobOrderTwo := by
   intro d hd _hsq p hp hp2 hpd hj h Q hQ hpQ hfrob
@@ -1074,4 +1170,5 @@ end ZInQ.Contrib.TYZGenus.T318
 #print axioms ZInQ.Contrib.TYZGenus.T318.lemma318Literal_HHprime_of_ss_sqrtTwo
 #print axioms ZInQ.Contrib.TYZGenus.T318.sqrtTwo_not_mem_HHprime_of_single
 #print axioms ZInQ.Contrib.TYZGenus.T318.lemma318_at_single
+#print axioms ZInQ.Contrib.TYZGenus.T318.sqrtTwoNotInHHprime_of_sigmaLift
 #print axioms ZInQ.Contrib.TYZGenus.T318.tyzThm35ReadingA_of_cmLeaves_ringClassD_ss_sqrtTwo
