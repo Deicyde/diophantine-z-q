@@ -1192,6 +1192,103 @@ theorem raynaudCriterion_final' (hR : RaynaudSemistable) (hU : SemistableUnipote
 
 end Perfect
 
+/-! ## §15. `DVRComapFinite`, proved -/
+
+section DVRDown
+
+open IsDedekindDomain
+open scoped WithZero
+
+/-- **`DVRComapFinite`, proved**: with `v'` the `ℤᵐ⁰`-valuation of `O'`, the restriction
+`v = v' ∘ (K → K')` has cyclic value group (a subgroup of `ℤᵐ⁰ˣ`) which is nontrivial: otherwise every
+non-zero coefficient of the minimal polynomial of a uniformizer `ϖ'` has valuation `1`, and the
+constant term dominates `minpoly(ϖ') = 0`. -/
+theorem dvrComapFinite : DVRComapFinite := by
+  intro K K' _ _ _ _ O' hO'
+  classical
+  let v' : Valuation K' ℤᵐ⁰ := (IsDiscreteValuationRing.maximalIdeal O').valuation K'
+  have hmem' : ∀ y : K', y ∈ O' ↔ v' y ≤ 1 := by
+    intro y
+    have h := congrArg (fun S : Subring K' => y ∈ S)
+      (IsDiscreteValuationRing.map_algebraMap_eq_valuationSubring (A := O') (K := K'))
+    change _ = (y ∈ v'.valuationSubring) at h
+    rw [Valuation.mem_valuationSubring_iff] at h
+    rw [← h]
+    constructor
+    · intro hy; exact Subring.mem_map.mpr ⟨⟨y, hy⟩, Subring.mem_top _, rfl⟩
+    · intro hy
+      obtain ⟨z, -, rfl⟩ := Subring.mem_map.mp hy
+      exact z.2
+  let v : Valuation K ℤᵐ⁰ := v'.comap (algebraMap K K')
+  have heq : O'.comap (algebraMap K K') = v.valuationSubring := by
+    ext x
+    rw [Valuation.mem_valuationSubring_iff]
+    exact hmem' (algebraMap K K' x)
+  -- nontriviality
+  have hnt : ∃ x : K, v x ≠ 0 ∧ v x ≠ 1 := by
+    by_contra hno
+    push Not at hno
+    obtain ⟨ϖ, hϖ⟩ := IsDiscreteValuationRing.exists_irreducible O'
+    have hϖ0 : (ϖ : K') ≠ 0 := by
+      intro h; exact hϖ.ne_zero (Subtype.ext h)
+    have hϖ1 : v' (ϖ : K') < 1 := by
+      have := (HeightOneSpectrum.valuation_lt_one_iff_mem (K := K')
+        (IsDiscreteValuationRing.maximalIdeal O') ϖ).mpr hϖ.not_isUnit
+      exact this
+    have hint : IsIntegral K (ϖ : K') := Algebra.IsIntegral.isIntegral _
+    set p := minpoly K (ϖ : K')
+    have hp0 : p.coeff 0 ≠ 0 := minpoly.coeff_zero_ne_zero hint hϖ0
+    have hcoeff : ∀ i, v (p.coeff i) ≤ 1 := by
+      intro i
+      by_cases hi : p.coeff i = 0
+      · rw [hi, map_zero]; exact zero_le
+      · exact le_of_eq (hno _ ((map_ne_zero v).mpr hi))
+    have hev : (∑ i ∈ Finset.range (p.natDegree + 1),
+        algebraMap K K' (p.coeff i) * (ϖ : K') ^ i) = 0 := by
+      have := minpoly.aeval K (ϖ : K')
+      rw [Polynomial.aeval_eq_sum_range] at this
+      simpa [Algebra.smul_def] using this
+    rw [Finset.sum_range_succ'] at hev
+    have hrest : v' (∑ i ∈ Finset.range p.natDegree,
+        algebraMap K K' (p.coeff (i + 1)) * (ϖ : K') ^ (i + 1)) < 1 := by
+      apply Valuation.map_sum_lt v' one_ne_zero
+      intro i _
+      rw [map_mul, map_pow]
+      calc v' (algebraMap K K' (p.coeff (i + 1))) * v' (ϖ : K') ^ (i + 1)
+          ≤ 1 * v' (ϖ : K') ^ (i + 1) := by
+            gcongr
+            exact hcoeff (i + 1)
+        _ = v' (ϖ : K') ^ (i + 1) := one_mul _
+        _ < 1 := pow_lt_one₀ zero_le hϖ1 (Nat.succ_ne_zero i)
+    have h0 : v' (algebraMap K K' (p.coeff 0) * (ϖ : K') ^ 0) = 1 := by
+      rw [pow_zero, _root_.mul_one]
+      exact hno _ ((map_ne_zero v).mpr hp0)
+    have := Valuation.map_add_eq_of_lt_left v' (h0 ▸ hrest)
+    rw [add_comm, hev, map_zero, h0] at this
+    exact zero_ne_one this
+  obtain ⟨x, hx0, hx1⟩ := hnt
+  haveI : Nontrivial v.valueGroup := by
+    refine ⟨⟨⟨Units.mk0 (v x) hx0, MonoidWithZeroHom.mem_valueGroup _ ⟨x, rfl⟩⟩, 1, ?_⟩⟩
+    intro h
+    apply hx1
+    have := congrArg (fun u : v.valueGroup => ((u : ℤᵐ⁰ˣ) : ℤᵐ⁰)) h
+    simpa using this
+  exact (congrArg (fun S : ValuationSubring K => IsDiscreteValuationRing S) heq).mpr
+    (Valuation.valuationSubring_isDiscreteValuationRing v)
+
+end DVRDown
+
+/-- **SS3** with `DVRComapFinite` discharged. -/
+theorem semistablePersists_final (h33 : SemistablePersistsDVR) (hN : NeronSchemeModelExistsDVR)
+    (hLG : SemistableLocalGlobal) : ZInQ.HeightSplit.SemistablePersists :=
+  semistablePersists_of_leaves h33 hN hLG dvrComapFinite
+
+/-- **SS1** with `DVRComapFinite` discharged. -/
+theorem semistableReductionThm_final (h36 : SemistableReductionDVR)
+    (h33 : SemistablePersistsDVR) (hN : NeronSchemeModelExistsDVR) (hLG : SemistableLocalGlobal)
+    (hAA : SemistableAlmostAll) : ZInQ.HeightSplit.SemistableReductionThm :=
+  semistableReductionThm_of_leaves h36 h33 hN hLG hAA dvrComapFinite
+
 end ReductSplit
 
 #print axioms ReductSplit.raynaudCriterion_of_leaves
@@ -1206,3 +1303,6 @@ end ReductSplit
 #print axioms ReductSplit.semistableNeronBaseChange_of_leaves
 #print axioms ReductSplit.faltingsLemma5BC_of_base
 #print axioms ReductSplit.raynaudCriterion_final'
+#print axioms ReductSplit.dvrComapFinite
+#print axioms ReductSplit.semistablePersists_final
+#print axioms ReductSplit.semistableReductionThm_final

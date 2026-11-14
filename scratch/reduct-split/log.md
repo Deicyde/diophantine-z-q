@@ -42,3 +42,7 @@ Setup: compile checks with `scratch/reduct-split/chk.sh FILE` = `lean` with LEAN
 - 11:54 §14: `exists_rational_of_fixed` (perfect K: an Aut(K̄/K)-fixed K̄-point of a K-scheme loc. of finite type is
   K-rational; affine open + `InfiniteGalois.mem_range_algebraMap_iff_fixed`), so `FixedTorsionRational` holds for
   perfect K; glue narrowed to `FixedTorsionRationalImperfect`; `raynaudCriterion_final'`. OK. VERIFIED.
+- 11:59 §15: `dvrComapFinite : DVRComapFinite` PROVED (restriction of the ℤᵐ⁰-valuation of O'; value group a subgroup
+  of ℤᵐ⁰ˣ, cyclic; nontrivial because the constant term of minpoly(ϖ') dominates; Mathlib
+  `Valuation.valuationSubring_isDiscreteValuationRing`). `semistablePersists_final`, `semistableReductionThm_final`
+  without that glue. All axioms standard. VERIFIED.
