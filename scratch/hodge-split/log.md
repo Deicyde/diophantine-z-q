@@ -102,3 +102,19 @@ after `lake build ZInQKernel.Contrib.R10.Amend ZInQKernel.Contrib.AbVarBC.Dim` (
 - `semisimplification2_proof`: non-semisimple 2-dim ρ has an invariant line; conjugate to upper triangular
   (a ∗; 0 d); `diagHom a d` is continuous, semisimple (`isSemisimple_diag`), same charpoly
   (`charpoly_fin_two'`), unramified where ρ is. COMPILED 11-14, standard axioms. VERIFIED.
+
+## Glue proved: DetFromFrobenius, ArtinTransport; H-22 closed (Companion.lean)
+- `arithFrob_pow_of_rootOfUnity` (Frob at v|p sends ζ, ζ^m=1, p∤m, to ζ^p; valuation argument),
+  `cyc_arithFrob` (χ_ℓ(Frob_p) = p via PadicInt.ext_of_toZModPow + modularCyclotomicCharacter.unique),
+  `modCyc_arithFrob`, `rootsEquiv` (ιC: μ_m(ℚ̄) ≃ μ_m(ℂ)), `eps0` (nebentypus as Galois character; finite
+  range; continuous: trivial on Gal(ℚ̄/ℚ(ζ_N))), `continuous_cycQ` (Mathlib cyclotomicCharacter.continuous),
+  `detFromFrobenius_proof` (density: kernel's C9Rhof.eq_of_eq_on_arithFrob + frobeniusDense).
+- `exists_specialization` (Nullstellensatz: genRing ιC E →+* ℚ̄, identity on ιC(ℚ̄)),
+  `trace_mem_range_of_pow_eq_one` (trace of a finite-order 2×2 complex matrix is in ιC(ℚ̄)),
+  `isSemisimple_of_finite_range` (Maschke via Mathlib's MonoidAlgebra semisimplicity + mapSubmodule),
+  `exists_arithFrob` (every prime has an arithmetic Frobenius: kernel's frobExistsAt + liesOver_and_isArithFrob),
+  `artinTransport_proof`.
+- `r14Det_of_printed : DSThm965 → DSThm966 → G0Galois.R14Det` (H-22 from the two printed leaves only).
+- COMPILED 11-14, standard axioms. VERIFIED.
+- `check_copies.py`: the 13 definitions shared by the two files have identical text modulo name
+  qualification (run 11-14: all "same"). VERIFIED.
