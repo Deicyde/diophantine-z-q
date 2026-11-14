@@ -3594,6 +3594,61 @@ theorem ord_eq_of_norm {F G : ℂ → ℂ} {z : ℂ} (hF : AnalyticAt ℂ F z) (
     have := (mul_eq_zero.1 this.symm).resolve_left hc0.ne'
     exact hf0 (norm_eq_zero.1 this)
 
+theorem Mb_analytic (γ : GL (Fin 2) ℝ) (z : UpperHalfPlane) : AnalyticAt ℂ (Mb γ) (z : ℂ) := by
+  unfold Mb
+  apply AnalyticAt.div (by fun_prop) (by unfold dC; fun_prop)
+  rw [dC_coe]; exact denom_ne_zero γ z
+
+theorem ord_comp_Mb {F : ℂ → ℂ} {γ : GL (Fin 2) ℝ} (z : UpperHalfPlane)
+    (hF : AnalyticAt ℂ F (Mb γ z)) :
+    analyticOrderAt (fun w => F (Mb γ w)) (z : ℂ) = analyticOrderAt F (Mb γ z) := by
+  have hMb := Mb_analytic γ z
+  have hcomp : AnalyticAt ℂ (fun w => F (Mb γ w)) z := hF.comp hMb
+  have hdz : dC γ z ≠ 0 := by rw [dC_coe]; exact denom_ne_zero γ z
+  have hMt : Tendsto (Mb γ) (𝓝 (z : ℂ)) (𝓝 (Mb γ z)) := hMb.continuousAt.tendsto
+  by_cases ht : analyticOrderAt F (Mb γ z) = ⊤
+  · rw [ht, analyticOrderAt_eq_top]
+    rw [analyticOrderAt_eq_top] at ht
+    exact hMt.eventually ht
+  · obtain ⟨n, hn⟩ := ENat.ne_top_iff_exists.1 ht
+    rw [← hn]
+    obtain ⟨f, hf, hf0, hfF⟩ := hF.analyticOrderAt_eq_natCast.1 hn.symm
+    rw [hcomp.analyticOrderAt_eq_natCast]
+    have hdet : (((γ : Matrix (Fin 2) (Fin 2) ℝ).det : ℝ) : ℂ) ≠ 0 := by
+      exact_mod_cast γ.isUnit.map (Matrix.detMonoidHom) |>.ne_zero
+    refine ⟨fun w => ((((γ : Matrix (Fin 2) (Fin 2) ℝ).det : ℝ) : ℂ) / (dC γ w * dC γ z)) ^ n *
+      f (Mb γ w), ?_, ?_, ?_⟩
+    · exact ((analyticAt_const.div ((by unfold dC; fun_prop : AnalyticAt ℂ (dC γ) (z : ℂ)).mul
+        analyticAt_const) (mul_ne_zero hdz hdz)).pow n).mul (hf.comp hMb)
+    · exact mul_ne_zero (pow_ne_zero _ (div_ne_zero hdet (mul_ne_zero hdz hdz))) hf0
+    · filter_upwards [hMt.eventually hfF, (dC_cont γ).continuousAt.eventually_ne hdz] with w h1 h2
+      rw [h1, Mb_sub γ h2 hdz, smul_eq_mul, smul_eq_mul,
+        show (((γ : Matrix (Fin 2) (Fin 2) ℝ).det : ℝ) : ℂ) * (w - (z : ℂ)) / (dC γ w * dC γ (z : ℂ)) =
+          (w - (z : ℂ)) * ((((γ : Matrix (Fin 2) (Fin 2) ℝ).det : ℝ) : ℂ) / (dC γ w * dC γ (z : ℂ))) by ring,
+        mul_pow]
+      ring
+
+/-- **Orders are constant along `Γ*`-orbits** (from the automorphy in absolute value). -/
+theorem ord_smul_eq {m : ℕ} {F : ℂ → ℂ} (hF : AnalyticOnNhd ℂ F U)
+    (haut : ∀ γ ∈ Γs, ∀ w : UpperHalfPlane,
+      ‖F ((γ • w : UpperHalfPlane) : ℂ)‖ * ((γ : Matrix (Fin 2) (Fin 2) ℝ).det) ^ m =
+        ‖denom γ w‖ ^ (2 * m) * ‖F (w : ℂ)‖) {γ : GL (Fin 2) ℝ} (hγ : γ ∈ Γs) (z : UpperHalfPlane) :
+    analyticOrderAt F ((γ • z : UpperHalfPlane) : ℂ) = analyticOrderAt F (z : ℂ) := by
+  have hd : 0 < (γ : Matrix (Fin 2) (Fin 2) ℝ).det := by obtain ⟨_, _, _, hd⟩ := hγ; exact hd
+  have hFγ : AnalyticAt ℂ F (Mb γ z) := by rw [Mb_coe hd]; exact hF _ (γ • z).im_pos
+  rw [← Mb_coe hd z, ← ord_comp_Mb z hFγ]
+  have hdz : dC γ z ≠ 0 := by rw [dC_coe]; exact denom_ne_zero γ z
+  refine ord_eq_of_norm (hF _ z.im_pos) (hFγ.comp (Mb_analytic γ z))
+    (c := fun w => ‖dC γ w‖ ^ (2 * m) / ((γ : Matrix (Fin 2) (Fin 2) ℝ).det) ^ m) ?_ ?_ ?_
+  · exact (((dC_cont γ).continuousAt.norm.pow _).div continuousAt_const (pow_pos hd m).ne')
+  · exact div_pos (pow_pos (norm_pos_iff.2 hdz) _) (pow_pos hd m)
+  · filter_upwards [isOpen_U.mem_nhds z.im_pos] with w hw
+    have e := haut γ hγ ⟨w, hw⟩
+    rw [← Mb_coe hd, ← dC_coe] at e
+    simp only [UpperHalfPlane.coe_mk] at e ⊢
+    field_simp
+    linarith
+
 end Index
 
 include hT hV hC in
