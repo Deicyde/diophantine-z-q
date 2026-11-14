@@ -377,6 +377,13 @@ lemmas of `scratch/curve-glue/CIproof.lean.part` (`isDomain_of_dim_one`,
   other tasks' files. The one remaining function-field leaf is `RiemannHurwitzQj`.
 * H-83: the definitions 1–5 of §3.6, a Lean statement of Kottwitz/Buzzard representability, and
   the clause-by-clause glue.
+* H-81: the leaf `RegularSmoothPerfect` (Stacks 00TV) could be proved with Mathlib's Jacobian
+  criterion for local algebras (`Algebra.FormallySmooth.iff_injective_lTensor_residueField`). The
+  proof would also need regular-ring theory that Mathlib v4.35 lacks: a regular quotient of a
+  regular local ring is cut out by part of a regular system of parameters. Not attempted.
+* H-82: to remove the leaf (Zariski's connectedness theorem), flat base change of `H⁰` for
+  qcqs schemes over a field would suffice (`Γ(X_K) = Γ(X) ⊗ K`, then idempotents). Mathlib v4.35
+  does not have it. The kernel uses the same leaf elsewhere anyway (`ProperSmoothGenConnected`).
 * H-85: nothing remains (`curveBijIso` has no hypotheses). To adopt it, copy `CurveBij.lean`
   into `ZInQKernel/Contrib/` and close `ModelGlue.CurveBijIso` in `modelIntegral_of` and
   `modelFunctionField_of_curveBijIso`.
