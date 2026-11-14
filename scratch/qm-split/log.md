@@ -105,3 +105,8 @@ Row sources (VERIFIED, read): definitions read in ~/dzq-wt/leaf-fold4/scratch/le
 - Finding: a clause about one witness cannot be split into separately quantified published statements without
   a transport/uniqueness glue; the universal forms are GLUE by construction (stronger in form than the printed
   existence statements, equivalent given the comparison isomorphism).
+- `EllipticOrderDvd` PROVED (VERIFIED, compiled): `ellipticOrderDvd_proof` (multiplier ζ = det/(cP+d)² is the
+  derivative of the Möbius map at P (`Mb_sub_P`); F₁ = (z−P)^n g, invariance F₁(γz)F₂(z) = F₁(z)F₂(γz), limit
+  z → P gives ζ^n = 1 (`zeta_pow_ord`); the multipliers form a finite subgroup H ≤ ℂˣ with |H| = e_P
+  (`zeta_inj`, `zeta_congr`), cyclic, exponent = e_P ∣ n). `qmHauptmodulBase3_of'` : ThetaModularity →
+  ValenceFormulaCocompactEq → GammaStarCocompactArea → ThetaQuotientValue24 → QMHauptmodulBase3. Axioms standard.

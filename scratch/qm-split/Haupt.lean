@@ -2950,6 +2950,216 @@ theorem qmHauptmodulBase3_of : QMHauptmodulBase3 := by
   · obtain ⟨hD0, hv⟩ := hC γ hγ τ hτ
     simp only [jth, hD0, if_false, hv]
 
+/-! ### `EllipticOrderDvd` proved (local expansion at an elliptic fixed point) -/
+
+section EllDvd
+
+open HDec.LeafQCheck.VB (zeta zeta_mul zeta_inj zeta_normSq gammaStar_mul one_mem_gammaStar')
+
+/-- `cz + d` on `ℂ`. -/
+def dC (γ : GL (Fin 2) ℝ) (z : ℂ) : ℂ :=
+  ((γ : Matrix (Fin 2) (Fin 2) ℝ) 1 0 : ℂ) * z + ((γ : Matrix (Fin 2) (Fin 2) ℝ) 1 1 : ℂ)
+
+/-- The Möbius map on `ℂ`. -/
+def Mb (γ : GL (Fin 2) ℝ) (z : ℂ) : ℂ :=
+  (((γ : Matrix (Fin 2) (Fin 2) ℝ) 0 0 : ℂ) * z + ((γ : Matrix (Fin 2) (Fin 2) ℝ) 0 1 : ℂ)) / dC γ z
+
+theorem dC_coe (γ : GL (Fin 2) ℝ) (z : UpperHalfPlane) : dC γ (z : ℂ) = denom γ z := by
+  simp [dC, UpperHalfPlane.denom]
+
+theorem Mb_coe {γ : GL (Fin 2) ℝ} (hd : 0 < (γ : Matrix (Fin 2) (Fin 2) ℝ).det) (z : UpperHalfPlane) :
+    Mb γ (z : ℂ) = ((γ • z : UpperHalfPlane) : ℂ) := by
+  have hd' : 0 < γ.det.val := by rwa [Matrix.GeneralLinearGroup.val_det_apply]
+  rw [UpperHalfPlane.coe_smul_of_det_pos hd', Mb, dC_coe]
+  simp [UpperHalfPlane.num]
+
+theorem Mb_sub (γ : GL (Fin 2) ℝ) {z w : ℂ} (hz : dC γ z ≠ 0) (hw : dC γ w ≠ 0) :
+    Mb γ z - Mb γ w = (((γ : Matrix (Fin 2) (Fin 2) ℝ).det : ℝ) : ℂ) * (z - w) / (dC γ z * dC γ w) := by
+  rw [Mb, Mb, div_sub_div _ _ hz hw, Matrix.det_fin_two]
+  congr 1
+  simp only [dC]; push_cast; ring
+
+/-- `det/((cz + d)(cP + d))`, the difference quotient of the Möbius map at `P`. -/
+def Rq (γ : GL (Fin 2) ℝ) (P : UpperHalfPlane) (z : ℂ) : ℂ :=
+  (((γ : Matrix (Fin 2) (Fin 2) ℝ).det : ℝ) : ℂ) / (dC γ z * denom γ P)
+
+theorem Rq_P (γ : GL (Fin 2) ℝ) (P : UpperHalfPlane) : Rq γ P (P : ℂ) = zeta γ P := by
+  rw [Rq, dC_coe, zeta, sq]
+
+theorem dC_cont (γ : GL (Fin 2) ℝ) : Continuous (dC γ) := by unfold dC; fun_prop
+
+theorem Rq_cont (γ : GL (Fin 2) ℝ) (P : UpperHalfPlane) : ContinuousAt (Rq γ P) (P : ℂ) := by
+  unfold Rq
+  apply ContinuousAt.div continuousAt_const ((dC_cont γ).continuousAt.mul continuousAt_const)
+  show dC γ (P : ℂ) * denom γ P ≠ 0
+  rw [dC_coe]; exact mul_ne_zero (denom_ne_zero γ P) (denom_ne_zero γ P)
+
+theorem Mb_cont (γ : GL (Fin 2) ℝ) (P : UpperHalfPlane) : ContinuousAt (Mb γ) (P : ℂ) := by
+  unfold Mb
+  apply ContinuousAt.div (by fun_prop) (dC_cont γ).continuousAt
+  rw [dC_coe]; exact denom_ne_zero γ P
+
+/-- `Mb γ z − P = Rq(z)·(z − P)` near `P`, for `γ` fixing `P`. -/
+theorem Mb_sub_P {γ : GL (Fin 2) ℝ} (hd : 0 < (γ : Matrix (Fin 2) (Fin 2) ℝ).det) {P : UpperHalfPlane}
+    (hP : γ • P = P) {z : ℂ} (hz : dC γ z ≠ 0) : Mb γ z - (P : ℂ) = Rq γ P z * (z - P) := by
+  have hP' : Mb γ (P : ℂ) = (P : ℂ) := by rw [Mb_coe hd, hP]
+  have hdP : dC γ (P : ℂ) ≠ 0 := by rw [dC_coe]; exact denom_ne_zero γ P
+  conv_lhs => rw [← hP']
+  rw [Mb_sub γ hz hdP, Rq, dC_coe]
+  field_simp [denom_ne_zero γ P]
+
+theorem eq_at_of_punctured {f g : ℂ → ℂ} {P : ℂ} (hf : ContinuousAt f P) (hg : ContinuousAt g P)
+    (h : f =ᶠ[𝓝[≠] P] g) : f P = g P :=
+  tendsto_nhds_unique (hf.tendsto.mono_left nhdsWithin_le_nhds)
+    ((hg.tendsto.mono_left nhdsWithin_le_nhds).congr' h.symm)
+
+/-- **The multiplier depends only on the Möbius map.** -/
+theorem zeta_congr {γ γ' : GL (Fin 2) ℝ} (hd : 0 < (γ : Matrix (Fin 2) (Fin 2) ℝ).det)
+    (hd' : 0 < (γ' : Matrix (Fin 2) (Fin 2) ℝ).det) {P : UpperHalfPlane} (hP : γ • P = P)
+    (hP' : γ' • P = P) (h : ∀ z : UpperHalfPlane, γ • z = γ' • z) : zeta γ P = zeta γ' P := by
+  rw [← Rq_P, ← Rq_P]
+  apply eq_at_of_punctured (Rq_cont γ P) (Rq_cont γ' P)
+  have hU : ∀ᶠ z in 𝓝[≠] (P : ℂ), z ∈ U ∧ z ≠ (P : ℂ) ∧ dC γ z ≠ 0 ∧ dC γ' z ≠ 0 := by
+    have h1 : ∀ᶠ z in 𝓝 (P : ℂ), z ∈ U := isOpen_U.mem_nhds P.im_pos
+    have h2 : ∀ᶠ z in 𝓝 (P : ℂ), dC γ z ≠ 0 :=
+      (dC_cont γ).continuousAt.eventually_ne (by rw [dC_coe]; exact denom_ne_zero γ P)
+    have h3 : ∀ᶠ z in 𝓝 (P : ℂ), dC γ' z ≠ 0 :=
+      (dC_cont γ').continuousAt.eventually_ne (by rw [dC_coe]; exact denom_ne_zero γ' P)
+    filter_upwards [nhdsWithin_le_nhds h1, nhdsWithin_le_nhds h2, nhdsWithin_le_nhds h3,
+      self_mem_nhdsWithin] with z a b c d
+    exact ⟨a, d, b, c⟩
+  filter_upwards [hU] with z ⟨hzU, hzP, h1, h2⟩
+  have e1 := Mb_sub_P hd hP h1
+  have e2 := Mb_sub_P hd' hP' h2
+  have e3 : Mb γ z = Mb γ' z := by
+    have k1 := Mb_coe hd ⟨z, hzU⟩
+    have k2 := Mb_coe hd' ⟨z, hzU⟩
+    have k3 := congrArg (fun w : UpperHalfPlane => (w : ℂ)) (h ⟨z, hzU⟩)
+    exact k1.trans (k3.trans k2.symm)
+  rw [e3, e2] at e1
+  exact (mul_right_cancel₀ (sub_ne_zero.2 hzP) e1).symm
+
+/-- **The multiplier is an `n`-th root of unity, `n = ord_P F₁`.** -/
+theorem zeta_pow_ord {m : ℕ} {F₁ F₂ : ℂ → ℂ} (hF₁ : AnalyticOnNhd ℂ F₁ U) (hF₂ : AnalyticOnNhd ℂ F₂ U)
+    (h₁ : Auto m F₁) (h₂ : Auto m F₂) {P : UpperHalfPlane} (hF₂P : F₂ (P : ℂ) ≠ 0) {n : ℕ}
+    (hn : analyticOrderAt F₁ (P : ℂ) = n) {γ : GL (Fin 2) ℝ} (hγ : γ ∈ Γs) (hP : γ • P = P) :
+    zeta γ P ^ n = 1 := by
+  have hd : 0 < (γ : Matrix (Fin 2) (Fin 2) ℝ).det := by obtain ⟨_, _, _, hd⟩ := hγ; exact hd
+  obtain ⟨g, hg, hg0, hfact⟩ := ((hF₁ _ P.im_pos).analyticOrderAt_eq_natCast).1 hn
+  have hP' : Mb γ (P : ℂ) = (P : ℂ) := by rw [Mb_coe hd, hP]
+  have hMt : Tendsto (Mb γ) (𝓝 (P : ℂ)) (𝓝 (P : ℂ)) := by
+    have := (Mb_cont γ P).tendsto; rwa [hP'] at this
+  -- the cross relation `F₁(γz) F₂(z) = F₁(z) F₂(γz)`
+  have hcross : ∀ z : UpperHalfPlane, F₁ (Mb γ z) * F₂ z = F₁ z * F₂ (Mb γ z) := by
+    intro z
+    have e1 := h₁ γ hγ z
+    have e2 := h₂ γ hγ z
+    rw [← Mb_coe hd] at e1 e2
+    have hdm := pow_ne_zero m (det_ne hγ)
+    apply mul_right_cancel₀ hdm
+    linear_combination F₂ (z : ℂ) * e1 - F₁ (z : ℂ) * e2
+  have hev : ∀ᶠ z in 𝓝[≠] (P : ℂ),
+      Rq γ P z ^ n * (g (Mb γ z) * F₂ z) = g z * F₂ (Mb γ z) := by
+    have h1 : ∀ᶠ z in 𝓝 (P : ℂ), z ∈ U := isOpen_U.mem_nhds P.im_pos
+    have h2 : ∀ᶠ z in 𝓝 (P : ℂ), dC γ z ≠ 0 :=
+      (dC_cont γ).continuousAt.eventually_ne (by rw [dC_coe]; exact denom_ne_zero γ P)
+    have h3 : ∀ᶠ z in 𝓝 (P : ℂ), F₁ (Mb γ z) = (Mb γ z - P) ^ n • g (Mb γ z) := hMt.eventually hfact
+    filter_upwards [nhdsWithin_le_nhds h1, nhdsWithin_le_nhds h2, nhdsWithin_le_nhds h3,
+      nhdsWithin_le_nhds hfact, self_mem_nhdsWithin] with z hzU hdz h3z hfz hzP
+    have hc := hcross ⟨z, hzU⟩
+    simp only at hc
+    rw [h3z, hfz, Mb_sub_P hd hP hdz, smul_eq_mul, smul_eq_mul, mul_pow] at hc
+    have hzP' : (z - P) ^ n ≠ 0 := pow_ne_zero _ (sub_ne_zero.2 hzP)
+    apply mul_left_cancel₀ hzP'
+    linear_combination hc
+  have hL : ContinuousAt (fun z => Rq γ P z ^ n * (g (Mb γ z) * F₂ z)) (P : ℂ) := by
+    refine ((Rq_cont γ P).pow n).mul (ContinuousAt.mul ?_ (hF₂ _ P.im_pos).continuousAt)
+    exact ContinuousAt.comp (by rw [hP']; exact hg.continuousAt) (Mb_cont γ P)
+  have hR : ContinuousAt (fun z => g z * F₂ (Mb γ z)) (P : ℂ) := by
+    refine hg.continuousAt.mul ?_
+    exact ContinuousAt.comp (by rw [hP']; exact (hF₂ _ P.im_pos).continuousAt) (Mb_cont γ P)
+  have heq := eq_at_of_punctured hL hR hev
+  simp only [hP', Rq_P] at heq
+  have hne : g (P : ℂ) * F₂ (P : ℂ) ≠ 0 := mul_ne_zero hg0 hF₂P
+  have : (zeta γ P ^ n - 1) * (g (P : ℂ) * F₂ (P : ℂ)) = 0 := by linear_combination heq
+  exact sub_eq_zero.1 ((mul_eq_zero.1 this).resolve_right hne)
+
+theorem zeta_one (P : UpperHalfPlane) : zeta 1 P = 1 := by
+  simp [zeta, UpperHalfPlane.denom]
+
+theorem zeta_ne_zero {γ : GL (Fin 2) ℝ} (hd : 0 < (γ : Matrix (Fin 2) (Fin 2) ℝ).det)
+    {P : UpperHalfPlane} (hP : γ • P = P) : zeta γ P ≠ 0 := by
+  intro h; have := zeta_normSq hd hP; rw [h] at this; simp at this
+
+/-- **`EllipticOrderDvd` is a theorem.** -/
+theorem ellipticOrderDvd_proof : EllipticOrderDvd := by
+  intro m F₁ F₂ hF₁ hF₂ h₁ h₂ P hF₂P htop
+  set n := (analyticOrderAt F₁ (P : ℂ)).toNat
+  have hn : analyticOrderAt F₁ (P : ℂ) = n := (ENat.coe_toNat htop).symm
+  have hdet : ∀ γ ∈ Γs, 0 < (γ : Matrix (Fin 2) (Fin 2) ℝ).det := fun γ ⟨_, _, _, hd⟩ => hd
+  -- the multiplier group
+  let H : Subgroup ℂˣ :=
+    { carrier := {u | ∃ γ ∈ Γs, γ • P = P ∧ (u : ℂ) = zeta γ P}
+      one_mem' := ⟨1, one_mem_gammaStar', one_smul _ _, by simp [zeta_one]⟩
+      mul_mem' := by
+        rintro u v ⟨γ, hγ, hP, hu⟩ ⟨γ', hγ', hP', hv⟩
+        refine ⟨γ * γ', gammaStar_mul hγ hγ', by rw [mul_smul, hP', hP], ?_⟩
+        rw [Units.val_mul, hu, hv, zeta_mul (hdet _ hγ) (hdet _ hγ') hP']
+      inv_mem' := by
+        rintro u ⟨γ, hγ, hP, hu⟩
+        refine ⟨γ⁻¹, gammaStar_inv hγ, by rw [inv_smul_eq_iff, hP], ?_⟩
+        have hm := zeta_mul (hdet _ (gammaStar_inv hγ)) (hdet _ hγ) hP
+        rw [inv_mul_cancel, zeta_one] at hm
+        have hz := zeta_ne_zero (hdet _ hγ) hP
+        rw [Units.val_inv_eq_inv_val, hu]
+        field_simp
+        linear_combination hm }
+  set S := {f : UpperHalfPlane → UpperHalfPlane //
+    ∃ γ ∈ PkgI1.GammaStar, γ • P = P ∧ f = fun z => γ • z}
+  -- `S ≃ H`
+  let Ψ : S → H := fun f =>
+    ⟨Units.mk0 (zeta (Classical.choose f.2) P)
+      (zeta_ne_zero (hdet _ (Classical.choose_spec f.2).1) (Classical.choose_spec f.2).2.1),
+      ⟨_, (Classical.choose_spec f.2).1, (Classical.choose_spec f.2).2.1, rfl⟩⟩
+  have hΨ : Function.Bijective Ψ := by
+    constructor
+    · intro f f' hff
+      have h := congrArg (fun u : H => ((u : ℂˣ) : ℂ)) hff
+      simp only [Ψ, Units.val_mk0] at h
+      obtain ⟨hγ, hP, hf⟩ := Classical.choose_spec f.2
+      obtain ⟨hγ', hP', hf'⟩ := Classical.choose_spec f'.2
+      apply Subtype.ext
+      rw [hf, hf']
+      funext z
+      exact zeta_inj (hdet _ hγ) (hdet _ hγ') hP hP' h z
+    · rintro ⟨u, γ, hγ, hP, hu⟩
+      refine ⟨⟨fun z => γ • z, γ, hγ, hP, rfl⟩, ?_⟩
+      apply Subtype.ext; apply Units.ext
+      simp only [Ψ, Units.val_mk0]
+      obtain ⟨hγ', hP', hf'⟩ := Classical.choose_spec
+        (⟨fun z => γ • z, γ, hγ, hP, rfl⟩ : S).2
+      rw [hu]
+      exact zeta_congr (hdet _ hγ') (hdet _ hγ) hP' hP (fun z => (congrFun hf' z).symm)
+  have hcard : Nat.card H = HDec.LeafQCheck.VB.ellOrder P :=
+    (Nat.card_congr (Equiv.ofBijective Ψ hΨ)).symm
+  obtain ⟨he0, -⟩ := HDec.LeafQCheck.VB.ellipticOrderLe6_proof P
+  haveI : Finite H := Nat.finite_of_card_ne_zero (by rw [hcard]; omega)
+  rw [← hcard, ← IsCyclic.exponent_eq_card]
+  apply Monoid.exponent_dvd_of_forall_pow_eq_one
+  rintro ⟨u, γ, hγ, hP, hu⟩
+  apply Subtype.ext; apply Units.ext
+  simp only [SubgroupClass.coe_pow, Units.val_pow_eq_pow_val, OneMemClass.coe_one, Units.val_one]
+  rw [hu]
+  exact zeta_pow_ord hF₁ hF₂ h₁ h₂ hF₂P hn hγ hP
+
+end EllDvd
+
+include hT hV hA hC in
+/-- **Row H-88 with `EllipticOrderDvd` discharged**: from the valence formula (LEAF), the covolume glue and
+the CM-value glue (and the bundle leaf `r4`). -/
+theorem qmHauptmodulBase3_of' : QMHauptmodulBase3 :=
+  qmHauptmodulBase3_of hT hV hA hC ellipticOrderDvd_proof
+
 include hV hA in
 /-- **Row H-87 from the same leaf and glue** (the inequality clause of the valence formula; the chain-level
 copy `HDec.LeafQCheck.VB.ValenceFormulaGammaStar` of leafq-check's row). -/
@@ -2965,3 +3175,5 @@ end HDec.LeafQCheck.HM.QMSplit
 
 #print axioms HDec.LeafQCheck.HM.QMSplit.qmHauptmodulBase3_of
 #print axioms HDec.LeafQCheck.HM.QMSplit.valenceFormulaGammaStar_of_eq
+#print axioms HDec.LeafQCheck.HM.QMSplit.ellipticOrderDvd_proof
+#print axioms HDec.LeafQCheck.HM.QMSplit.qmHauptmodulBase3_of'
