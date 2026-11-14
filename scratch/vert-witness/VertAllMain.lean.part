@@ -1,0 +1,45 @@
+
+/-! ════════════════════════════════════════════════════════════════════════════════════════════
+# vert-witness: the composites over hecke-rest's `HeckeRestAll.lean`
+
+`VertAll.lean` = `scratch/hecke-rest/HeckeRestAll.lean` (verbatim) + `VertMain.lean.part` + this
+part. hecke-rest's input `hV : HeckeVertWitness` is replaced by the leaf `ShimuraGoodReduction`
+and the two GR glue Props.
+════════════════════════════════════════════════════════════════════════════════════════════ -/
+
+noncomputable section
+
+namespace VertWitnessAll
+
+open CategoryTheory AlgebraicGeometry Limits Polynomial
+open LeafQM LeafQM.AV LeafQM.AV.Pin G0ModField PropTSRed PropTSGlue PkgI3 TSHecke
+open VertWitness
+
+/-- **`CoverModelOfHecke` from the leaves and the two GR glue Props** (compiled). -/
+theorem coverModelOfHecke_of_goodReduction (hconn : Y3Connected) (hRR : R1R2fp)
+    (hT : ObjBridge.TorsionStructure)
+    (hA : HeckeRest.QMAutCard) (hS : HeckeRest.SerreRigidity3) (hW : HeckeRest.ALFixedPoints)
+    (hL : ShimuraGoodReduction) (hC : SpecialFibreDVR) (hBD : ModelCoordinateGlue) :
+    CoverModelOfHecke :=
+  HeckeRestAll.coverModelOfHecke_of_heckeRest hconn hRR hT hA hS hW
+    (heckeVertWitness_of_goodReduction' hL hC hBD)
+
+/-- **`PropTSAll` from the leaves and the two GR glue Props** (compiled). -/
+theorem propTSAll_of_goodReduction (t2 : PkgI2.AbhyankarDVR.{0}) (hR : R1R2fp)
+    (hM : Pin.MobiusGlue)
+    (hSN : SNSpecialize) (hC : KummerCompositum)
+    (hKA : KummerAbhyankarFinGlue) (hO : KummerOtherBranchFin) (hVF : KummerVerticalFin)
+    (hAI : KummerAbhyankarInfGlue) (hOI : KummerOtherBranchInf) (hVI : KummerVerticalInf)
+    (hconn : Y3Connected) (hT : ObjBridge.TorsionStructure)
+    (hA : HeckeRest.QMAutCard) (hS : HeckeRest.SerreRigidity3) (hW : HeckeRest.ALFixedPoints)
+    (hL : ShimuraGoodReduction) (hSF : SpecialFibreDVR) (hBD : ModelCoordinateGlue) :
+    PropTSAll :=
+  HeckeRestAll.propTSAll_of_heckeRest t2 hR hM hSN hC hKA hO hVF hAI hOI hVI hconn hT hA hS hW
+    (heckeVertWitness_of_goodReduction' hL hSF hBD)
+
+end VertWitnessAll
+
+end
+
+#print axioms VertWitnessAll.coverModelOfHecke_of_goodReduction
+#print axioms VertWitnessAll.propTSAll_of_goodReduction

@@ -32,3 +32,10 @@ Split of the GR glue:
   nonemptiness of 𝒴 from R1fp's ℚ̄-point + leaf surjectivity)
 - `heckeVertWitness_of_goodReduction' (hL) (hC) (hBD) : HeckeVertWitness` (compiled)
 All #print axioms [propext, Classical.choice, Quot.sound].
+
+## Step 3 (18:50) — VERIFIED (lake env lean, 0 errors, 1m17s)
+`VertAll.lean` = HeckeRestAll.lean (verbatim, all 9854 lines) + VertMain + `VertAllMain.lean.part`:
+- `VertWitnessAll.coverModelOfHecke_of_goodReduction (hconn) (hRR) (hT) (hA) (hS) (hW)
+   (hL : ShimuraGoodReduction) (hC : SpecialFibreDVR) (hBD : ModelCoordinateGlue) : CoverModelOfHecke`
+- `VertWitnessAll.propTSAll_of_goodReduction ... : PropTSAll`
+Axioms standard (compile_all.txt). Copy check: `cmp` of NoVert.lean lines 1-1265 vs VertWitness.lean: identical.
