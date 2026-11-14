@@ -36,7 +36,7 @@ lines 2-2141: identical) + ModelGlue.lean.part + ModelGlue2.lean.part.
   `heckeVertWitness_of_parts₂`.
 - All 11 `#print axioms`: [propext, Classical.choice, Quot.sound].
 
-## Step 3 (22:40, 2026-11-13) — VERIFIED (ModelGlue3.lean = ModelGlue2.lean + ModelGlue3.lean.part; lake env lean exit 0, ~15 s once oleans built; compile3_out.txt)
+## Step 3 (22:36, 2026-11-13) — VERIFIED (ModelGlue3.lean = ModelGlue2.lean + ModelGlue3.lean.part; lake env lean exit 0, ~15 s once oleans built; compile3_out.txt)
 (Needed `lake build ZInQKernel.Contrib.Mobius.Main` first on this host, ~2 min.)
 - `zloc_prime_eq_bot`: a prime of `ℤ_(p)` not containing `p` is `⊥` (DVR, uniformizer `p`).
 - `zlocToRat : Zloc p →+* ℚ`, `specRatToZloc`, `genFib 𝒴 := Over.mk (pullback.snd 𝒴.hom (specRatToZloc p))`.
@@ -50,7 +50,7 @@ lines 2-2141: identical) + ModelGlue.lean.part + ModelGlue2.lean.part.
 - All `#print axioms`: [propext, Classical.choice, Quot.sound].
 Open after step 3: `ModelCoordinateResidue`, `ModelIntegral`, `ModelFunctionFieldExists`.
 
-## Step 4 (23:20, 2026-11-13) — VERIFIED (ModelGlue4.lean = ModelGlue3.lean + ModelGlue4.lean.part; lake env lean exit 0; compile4_out.txt)
+## Step 4 (22:45, 2026-11-13) — VERIFIED (ModelGlue4.lean = ModelGlue3.lean + ModelGlue4.lean.part; lake env lean exit 0; compile4_out.txt)
 - `famBC 𝒜 j` (pullback of a `QMFamily` along `j : T → S`), `isFibreOf_baseChange`.
 - `exists_genFib_to_Y (hM : IsShimuraModel p 𝒴 𝒜) (h1 : R1fpProps Y Φ)`: `g : genFib 𝒴 ⟶ Y` with
   `Φ K (s ≫ g) = M3.mk P` for fibres `P` of `𝒜` at `s ≫ j`, and `s ↦ s ≫ g` bijective on ℚ̄-points
@@ -67,7 +67,7 @@ Open after step 3: `ModelCoordinateResidue`, `ModelIntegral`, `ModelFunctionFiel
 - **`modelIntegral_of (hT : TwistClassFinite) (hC : CurveBijIso) : ModelIntegral` — PROVED.**
 - All `#print axioms`: [propext, Classical.choice, Quot.sound].
 
-## Step 5 (00:25, 2026-11-14) — VERIFIED (ModelGlue5.lean = ModelGlue4.lean + ModelGlue5.lean.part; lake env lean exit 0, ~25 s; compile5_out.txt; no sorry)
+## Step 5 (22:57, 2026-11-13) — VERIFIED (ModelGlue5.lean = ModelGlue4.lean + ModelGlue5.lean.part; lake env lean exit 0, ~25 s; compile5_out.txt; no sorry)
 - `zloc_away`: `ℚ` is `IsLocalization.Away (p : ℤ_(p))` (algebra `zlocToRat`);
   `isOpenImmersion_specRatToZloc`, so `j : 𝒴_ℚ → 𝒴` is an open immersion.
 - `isReduced_of_smooth_domain` (smooth over Spec of a domain ⇒ reduced).
@@ -88,7 +88,7 @@ instance path via `forget`); use `@instAlgebraCarrierFunctionFieldSpec` and
 `IsFractionRing.ringEquivOfRingEquiv (RingEquiv.refl _)`; `IsOpenImmersion (pullback.fst _ g)`
 instance not found for the generic `HasPullback`; use `MorphismProperty.pullback_fst`.
 
-## Step 6 (00:45, 2026-11-14) — VERIFIED (ModelGlue6.lean = ModelGlue5.lean + ModelGlue6.lean.part; lake env lean exit 0; compile6_out.txt)
+## Step 6 (22:58, 2026-11-13) — VERIFIED (ModelGlue6.lean = ModelGlue5.lean + ModelGlue6.lean.part; lake env lean exit 0; compile6_out.txt)
 - `smoothFibreReduced' : SmoothFibreReduced` (task smooth-fibre's proof, verbatim modulo the field
   lemma; statement identical to `ZInQ.SmoothFibre.SmoothFibreReduced`).
 - `modelCoordinate_and_modelComparison (hT : ObjBridge.TorsionStructure)
