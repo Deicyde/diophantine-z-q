@@ -54,3 +54,13 @@
   `r1r2fpRep_of_split5 : GeomConnX6 → PairsLift → BabaGranathX6 → R1rec → R5fp → R1R2fpRep`;
   `y3Connected_of_deligne : DeligneComponentsY3 → TSHecke.Y3Connected` (chain constant);
   `r5fpCount_of_points : GonzalezRotgerCountX6 → LeafQM.AV.R5fpCount`.
+
+## Step 7: ShimuraFam.lean (imports ZInQKernel.OneProof.H.TailU) — COMPILED (~40 s), standard axioms
+- Definitions: `ptC`, `regVal U f y` (value of a regular function at a ℂ-point), `IsHolFamily φ` (preimages of
+  Zariski opens open; regular functions pull back to analytic functions).
+- Proved: `val_of_mem`, `val_of_memV` (the two charts of `π : ToP1`), `tendsto_invP1` (`w ↦ 1/w` into P¹(ℂ) at 0),
+  `holP1_of_isHolFamily : IsHolFamily φ → Continuous (π ∘ φ) ∧ ∀ τ, IsHolP1At (π ∘ φ) τ` for every `π : ToP1`.
+- `HDec.HSyn.G0Split.FibreQM.IsShimuraHolFamily` (moduli clause of IsR1bFamily verbatim + IsHolFamily),
+  `isR1bFamily_of_hol`.
+- LEAF `HDec.QMSplit.Moduli.ShimuraHolFamily` (Shimura 1967 Main Thm I: one holomorphic family on one fine witness).
+- `HDec.QMSplit.Moduli.shimuraFamily_of_hol : ShimuraHolFamily → ShimuraFamily` (row shimuraFamily).
