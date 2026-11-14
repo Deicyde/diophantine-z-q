@@ -39,3 +39,11 @@
   `tyzThm35ReadingA_of_tyzChainLeaves`, `frozenTarget_of_sixContactMin_grossZagier_tyzChainLeaves :
   SixContactMin → GrossZagier → TYZChainLeaves → FrozenTarget` (headline with the two proved providers
   heckeContinuation, functionalEquation5). Build OK (6.7 s); Check rerun: 83 × standard axioms. VERIFIED.
+- 01:20 sqrt2-glue reported (84107b66): SqrtTwoNotInHHprime PROVED. Merged origin/wip/sqrt2-glue (clean).
+- 01:25 New module TYZChain/Sqrt2Glue.lean = scratch/sqrt2-glue/Sqrt2Glue.lean with its §0 copies of tyz-318
+  (SqrtTwoNotInHHprime, SigmaLift, Hprimebar_eq, sigma_moves_sqrtTwo, sqrtTwoNotInHHprime_of_sigmaLift; each
+  VERIFIED byte-identical to TYZChain/Lemma318.lean) replaced by import + selective open of T318. Build OK (24 s).
+- 01:28 Main: hypothesis h2 dropped (discharged by Sqrt2Glue.sqrtTwoNotInHHprime); new
+  `package_lemma318Literal_HHprime` (TYZ Lemma 3.18, no hypotheses). Headline: field sqrtTwoNotIn dropped.
+  Build OK; Check rerun: 89 × standard axioms; #check shows 4 hypotheses (all LEAF). VERIFIED.
+- 01:35 Final: report and .fleet/tyz-chain.md written; done.

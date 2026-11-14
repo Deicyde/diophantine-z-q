@@ -15,6 +15,8 @@ The `#print axioms` lines of the source scratch files, with full names, then the
 -- the statement of the main theorem (hypotheses as listed in its docstring)
 #check @ZInQ.Contrib.TYZChain.tyzThm35ReadingA_of_leaves
 
+#print axioms ZInQ.Contrib.TYZChain.package_lemma318Literal_HHprime
+
 -- headline variant (TYZChain/Headline.lean)
 #print axioms ZInQ.Contrib.TYZChain.tyzThm35ReadingA_of_tyzChainLeaves
 #print axioms ZInQ.Contrib.TYZChain.frozenTarget_of_sixContactMin_grossZagier_tyzChainLeaves
@@ -113,3 +115,12 @@ The `#print axioms` lines of the source scratch files, with full names, then the
 #print axioms ZInQ.Contrib.SSExponent.supersingularExponentA
 #print axioms ZInQ.Contrib.SSExponent.t318_supersingularExponentA
 #print axioms ZInQ.Contrib.SSExponent.lemma318Literal_HHprime_of_sqrtTwoNotIn_ss
+
+-- sqrt2-glue (TYZChain/Sqrt2Glue.lean)
+#print axioms ZInQ.Contrib.TYZGenus.Sqrt2Glue.sigmaLift_of
+#print axioms ZInQ.Contrib.TYZGenus.Sqrt2Glue.frobNormLaw
+#print axioms ZInQ.Contrib.TYZGenus.Sqrt2Glue.sqrtTwoNotInHHprime_of_normSigma
+#print axioms ZInQ.Contrib.TYZGenus.Sqrt2Glue.sqrtTwoNotInHHprime
+#print axioms ZInQ.Contrib.TYZGenus.Sqrt2Glue.sigmaLift
+-- the proved glue has exactly tyz-318's type
+example : ZInQ.Contrib.TYZGenus.T318.SqrtTwoNotInHHprime := ZInQ.Contrib.TYZGenus.Sqrt2Glue.sqrtTwoNotInHHprime
