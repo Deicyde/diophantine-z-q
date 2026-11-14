@@ -7,31 +7,30 @@ import Mathlib.NumberTheory.LegendreSymbol.QuadraticChar.Basic
 import Mathlib.Algebra.Algebra.ZMod
 
 /-!
-# tyz-318: TYZ Lemma `torsion2` (`Lemma318Literal HHprime`) from one textbook leaf and one glue Prop
+# tyz-318: TYZ Lemma `torsion2` (`Lemma318Literal HHprime`) from one glue Prop (`√2 ∉ ℍ'_n`)
 
 Task tyz-318 (2026-11-13/14). Report: `docs/research/tyz-318.md`; log: `scratch/tyz-318/log.md`.
 
 `Lemma318Literal HHprime` (verbatim copy of `Package.Lemma318Literal`, checked by `rfl`) says: for
 squarefree `n ≡ 5 (mod 8)`, every torsion point `P` of `A(ℍ'_n)` (`A : y² = x³ + 4x`) satisfies
-`2(P + [i]P) = 0`. Main theorem (`lemma318Literal_HHprime_of_ss_sqrtTwo`, §9):
+`2(P + [i]P) = 0`. Final theorems (§11):
 
-    SupersingularExponentA → SqrtTwoNotInHHprime → Lemma318Literal HHprime
+    lemma318Literal_HHprime_of_sqrtTwoNotIn : SqrtTwoNotInHHprime → Lemma318Literal HHprime
+    lemma318_at_single_unconditional : Lemma 3.18 at every `n` whose only divisor `≡ 5 (mod 8)` is `n`
 
-* `SupersingularExponentA` (LEAF, textbook): for `p ≡ 3 (mod 4)`, every point of `y² = x³ + 4x` over a
-  field `k` of characteristic `p` inside `F_{p²}` is killed by `p + 1`.
 * `SqrtTwoNotInHHprime` (GLUE, TYZ's Step 3 of the proof of Lemma `torsion2`): `√2 ∉ ℍ'_n`. Proved
-  here when `n` is its only divisor `≡ 5 (mod 8)` (`sqrtTwo_not_mem_HHprime_of_single`), so
-  `lemma318_at_single` gives Lemma `torsion2` at such `n` from the leaf alone.
-* `HHprimeFrobSq` (residue fields of `ℍ'_n` above primes inert in every `K_{d₀}` lie in `F_{p²}`) and
-  `HprimeFrobOrderTwo` (the same for one `H'_d`, in Frobenius form) were glue in the first reduction
-  (`lemma318Literal_HHprime_of`, `lemma318Literal_HHprime_of'`) and are now PROVED (`hhprimeFrobSq`,
-  `hprimeFrobOrderTwo`, §8–§9) from ring-class's splitting law and Mathlib's fundamental identity.
-
-The rest is proved here: the odd part by reduction modulo a prime `p ≡ 3 (mod 8)`, `p ≡ 1 (mod nℓ)`
-(Dirichlet, Mathlib), with Tau Ceti's `eq_zero_of_reductionHom_eq_zero_of_nsmul_eq_zero`
-(Silverman VII.3.1(b), vendored and proved); the 2-primary part by the explicit computation
-`4S = 0, 2(1+i)S ≠ 0 ⟹ (i(x(S) − x(2S))/2)² = 2`. §10 plugs the result into
-`RingClassBridge.tyzThm35ReadingA_of_cmLeaves_ringClassD`.
+  when `n` is its only divisor `≡ 5 (mod 8)` (`sqrtTwo_not_mem_HHprime_of_single`); implied by the
+  class-field-theoretic `SigmaLift` (`sqrtTwoNotInHHprime_of_sigmaLift`).
+* Proved on the way: the weak supersingular exponent (§S, `supersingularExponentWeak`: points of
+  `y² = x³ + 4x` over `k ⊆ F_{p²}` with `√−1 ∈ k` are killed by `2(p+1)`, `p ≡ 3 (mod 4)`, elementary);
+  `HHprimeFrobSq`, `HprimeFrobOrderTwo` (§8–§9, ring-class's splitting law + Mathlib's fundamental
+  identity + Frobenius elements); the odd part by reduction modulo a prime `p ≡ 3 (mod 8)`,
+  `p ≡ 1 (mod nℓ)` (Dirichlet, Mathlib) with Tau Ceti's
+  `eq_zero_of_reductionHom_eq_zero_of_nsmul_eq_zero` (Silverman VII.3.1(b)); the 2-primary part by
+  `4S = 0, 2(1+i)S ≠ 0 ⟹ (i(x(S) − x(2S))/2)² = 2`.
+* First reductions kept for reference: `lemma318Literal_HHprime_of` (leaf `SupersingularExponentA`, glue
+  `HHprimeFrobSq`, `SqrtTwoNotInHHprime`), `lemma318Literal_HHprime_of_ss_sqrtTwo`.
+* §10/§11 plug the result into `RingClassBridge.tyzThm35ReadingA_of_cmLeaves_ringClassD`.
 
 No `sorry`, no `axiom`.
 -/
@@ -431,7 +430,9 @@ theorem lemma318Literal_eq : Lemma318Literal = Package.Lemma318Literal := rfl
 
 /-! ## §1. The leaf and the two glue Props -/
 
-/-- **LEAF SS (supersingular reduction of `A` at `p ≡ 3 (mod 4)`)**: for a prime `p ≡ 3 (mod 4)` and
+/-- **LEAF SS of the first reduction (supersingular reduction of `A` at `p ≡ 3 (mod 4)`); NO LONGER
+USED by the final theorems** (the weaker `SupersingularExponentWeak`, exponent `2(p + 1)`, is proved
+in §S and suffices): for a prime `p ≡ 3 (mod 4)` and
 a field `k` of characteristic `p` all of whose elements satisfy `r^{p²} = r` (i.e. `k ≅ F_p` or
 `F_{p²}`), every point of `y² = x³ + 4x` over `k` is killed by `p + 1`.
 
