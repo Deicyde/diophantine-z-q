@@ -32,8 +32,16 @@ theorem canonicalModelY3_of_coarse (hC : CanonicalCoarseX6) : CanonicalModelY3 :
   obtain ⟨Y, Φ, -, -, -, h1, -⟩ := hC
   exact ⟨Y, Φ, h1⟩
 
-/-- `ReciprocityOfFine` from the existential point form on one fine witness (the form of Shimura
-reciprocity closest to print: a statement about points of the canonical model). -/
+/-- **LEAF-form (Shimura reciprocity at the three elliptic CM points, on the points of the canonical
+`Y₃`).** Some fine witness `(Y, Φ)` satisfies `R1recProps`: a `ℚ̄`-point whose object has CM by `ℤ[i]`,
+`ℤ[ζ₃]` or `ℤ[√−6]` has residue field unramified at every `p ≥ 5`.
+*Published statement*: Shimura reciprocity for CM points on the canonical model (Shimura, Ann. of Math. 85
+(1967), Main Thm II; Deligne, Sém. Bourbaki 389 (1971), §§3.7-3.13, Thm 4.19, read by the audit as
+"consequence with qualifications"; locators otherwise UNVERIFIED): for `y` with CM by the maximal order of
+`k`, `k(y)` lies in the ray class field of `k` of conductor 3, which is unramified outside `3·disc(k) | 72`.
+*Form*: a **consequence** of one theorem (the unramifiedness conclusion, not the printed reciprocity law);
+it is the point form of leaf-qm-fp's `R1recProps`, and equivalent to `R1rec` given a fine witness
+(`ShimuraSplit.r1rec_of_point`, `point_of_r1rec`). Lemma QP as for `R1fp`. -/
 def ReciprocityCanonical : Prop :=
   ∃ (Y : Over (Spec (CommRingCat.of ℚ))) (Φ : PtEquiv Y), R1fpProps Y Φ ∧ R1recProps Y Φ
 
@@ -183,10 +191,12 @@ open LeafQM LeafQM.AV
 morphism `f : X → Spec k`, if `X ×_k k̄` is connected (`k̄` an algebraic closure) then `f` is geometrically
 connected. EGA IV_2 (4.5.1)-(4.5.2); Stacks, Varieties, Lemma 33.7.6 (tag 0389): `X` is geometrically
 connected over `k` iff `X_{k^sep}` is connected (locators UNVERIFIED, no network; the printed statement
-needs no properness, which is added here, so the leaf is weaker than the print). Mathlib 4.35 has the
+needs no properness, which is added here, so the leaf is weaker than the print). Stacks uses a separable
+closure; `X_{k̄} → X_{k^sep}` is a universal homeomorphism, and here `k` has characteristic 0 (hypothesis
+`[CharZero k]`, also weakening), where the two closures agree. Mathlib 4.35 has the
 definition `GeometricallyConnected` but not this criterion. -/
 def GeomConnOfAlgClosure : Prop :=
-  ∀ (k : Type) [Field k] (X : Scheme.{0}) (f : X ⟶ Spec (CommRingCat.of k)), IsProper f →
+  ∀ (k : Type) [Field k] [CharZero k] (X : Scheme.{0}) (f : X ⟶ Spec (CommRingCat.of k)), IsProper f →
     ConnectedSpace ↥(pullback f (Spec.map (CommRingCat.ofHom (algebraMap k (AlgebraicClosure k))))) →
       GeometricallyConnected f
 

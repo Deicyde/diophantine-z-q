@@ -250,9 +250,11 @@ structure).
 functions pull back to holomorphic functions, the standard notion for maps into the complex points of a
 variety).
 
-*Form*: published form (Main Thm I is a statement about one holomorphic `φ`, as here). The row's "for
-every `π : Y → P¹`" is derived (`isR1bFamily_of_hol`), so the flagged GAGA-level composition step is no
-longer part of the leaf. Lemma QP (polarizations) as for `R1fp`. -/
+*Form*: a **consequence** of Main Thm I (one holomorphic `φ`, as here), not its printed form: Shimura's
+`V` for the level-3 group is one geometric component, defined over `ℚ(ζ₃)`, while `Y₃` over `ℚ` has two; the
+moduli clause on `Y₃` comes through Deligne's adelic reformulation (§4) with R1 and Lemma QP (independent
+review, shimura-split §3.4). The row's "for every `π : Y → P¹`" is derived (`isR1bFamily_of_hol`), so the
+flagged GAGA-level composition step is no longer part of the leaf. -/
 def ShimuraHolFamily : Prop :=
   ∃ (Y : Over (Spec (CommRingCat.of ℚ))) (Φ : PtEquiv Y), R1fpProps Y Φ ∧
     ∃ yτ : UpperHalfPlane → (fieldPt ℂ ⟶ Y), HSyn.G0Split.FibreQM.IsShimuraHolFamily Y Φ yτ

@@ -110,3 +110,8 @@
 - `structure ShimuraSplitLeaves` (DeligneComponentsX6, GeomConnOfAlgClosure, T5, BabaGranathX6', ReciprocityCanonical,
   GonzalezRotgerX6, GonzalezRotgerCountX6, DeligneComponentsY3, ElkiesConicX6);
   `rows_of_shimuraSplitLeaves : ShimuraSplitLeaves → R1R2fpRep ∧ R1rec ∧ R5fp ∧ R5fpCount ∧ Y3Connected ∧ X6ConicModel`.
+
+## Step 15: independent review applied
+- Review (model, read-only): no leaf false/vacuous/stronger. Corrections applied: ShimuraHolFamily relabelled
+  consequence; GeomConnOfAlgClosure gains [CharZero k] (weakening); ReciprocityCanonical full docstring.
+- Recompiled: Rows.lean 0 errors, 55 axiom lines all standard; ShimuraFam.lean 0 errors, standard axioms.
