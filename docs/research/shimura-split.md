@@ -28,8 +28,9 @@ proves the bridge between fields of moduli and residue fields. leaf-qm-fp §2.4 
   * `r5fp_of_r1r2 : R1R2fpRep → R5fp`.
 
   The bundle's `R1R2fpRep` already carries their point forms `R1recProps` and `R5ptProps`.
-* **Every other row except `r3` is split.** Each new leaf is the published statement on the canonical model (an
-  existential over a witness of the moduli clause lists), or a textbook theorem. The glue is compiled:
+* **Every other row except `r3` is split.** Each new leaf is one of: a published statement on the canonical model
+  (an existential over a witness of the moduli clause lists), a consequence of one published theorem in that
+  form, or a textbook theorem (§5 counts them). The glue is compiled:
   * the orbit computation for `y3Connected`;
   * the GAGA-level step for `shimuraFamily`;
   * the surjectivity clause of Baba–Granath;
