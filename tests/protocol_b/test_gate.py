@@ -164,6 +164,11 @@ def run_pipeline(gh=None, app=None, mode='test', provider=None, event=None, fina
 
 
 class Checks(unittest.TestCase):
+    def test_actions_job_is_distinct_from_app_check(self):
+        self.assertIn('  run_reviewers:\n    name: Run reviewers and publish App check\n', workflow)
+        self.assertNotIn('\n  review:\n', workflow)
+        self.assertEqual(gate.CHECK, 'Protocol B / review')
+
     def test_editorial_requires_declaration(self):
         self.assertEqual(gate.classify([changed()], True), 'editorial')
         self.assertNotEqual(gate.classify([changed()], False), 'editorial')
@@ -378,6 +383,74 @@ def anthropic_events(partial='', stop='tool_use'):
 
 
 class Transport(unittest.TestCase):
+    def test_added_file_read_at_base_returns_tool_error_then_head_succeeds(self):
+        path = 'tests/fixtures/protocol-b-smoke.md'
+        text = 'For rational x and y, 3*x^2 + 5*y^2 = 0 iff x = y = 0.'
+        file_value = {'type': 'file', 'size': len(text), 'encoding': 'base64',
+                      'content': base64.b64encode(text.encode()).decode()}
+        for family in gate.MODELS:
+            with self.subTest(family=family):
+                gh = gate.GitHub('x/y', 'fake')
+                pr = FakeGH().pr
+                added = changed(path, status='added', diff='@@ -0,0 +1 @@\n+' + text, deletions=0)
+                r = gate.Review(gh, pr, [added], [], {}, {}, 'instructions', family, 'new result or route')
+                seen = []
+                def call(name, args, ident):
+                    if family == 'astra':
+                        return {'type': 'function_call', 'name': name, 'arguments': json.dumps(args), 'call_id': ident}
+                    return {'type': 'tool_use', 'name': name, 'input': args, 'id': ident}
+                def model(actual_family, instructions, conversation):
+                    seen.append(copy.deepcopy(conversation))
+                    if len(seen) == 1:
+                        output = [call('read_file', {'path': path, 'revision': 'base', 'start': 1, 'count': 10}, 'base')]
+                    elif len(seen) == 2:
+                        last = conversation[-1]
+                        result = json.loads(last['output'] if family == 'astra' else last['content'][0]['content'])
+                        self.assertIn(path, result['error'])
+                        self.assertIn(BASE, result['error'])
+                        self.assertIn('not found', result['error'])
+                        self.assertEqual(r.reads, [])
+                        self.assertNotIn((path, BASE), r.file_lines)
+                        output = [call('read_file', {'path': path, 'revision': 'head', 'start': 1, 'count': 10}, 'head'),
+                                  call('read_history', {}, 'history')]
+                    else:
+                        self.assertEqual(r.reads, [{'path': path, 'revision': HEAD, 'start': 1, 'count': 10}])
+                        self.assertIn(text, json.dumps(conversation))
+                        output = [call('finish_review', report(sources_read=[path + ':1']), 'finish')]
+                    return output, gate.MODELS[actual_family], {}, 'fixture', 'completed' if family == 'astra' else 'tool_use'
+                def urlopen(req, timeout):
+                    prefix = 'https://api.github.com/repos/x/y/contents/' + path + '?ref='
+                    if req.full_url == prefix + BASE:
+                        raise urllib.error.HTTPError(req.full_url, 404, 'Not Found', {}, io.BytesIO(b'{"message":"Not Found"}'))
+                    self.assertEqual(req.full_url, prefix + HEAD)
+                    return io.BytesIO(json.dumps(file_value).encode())
+                with tempfile.TemporaryDirectory() as tmp, patch.object(gate, 'OUT', Path(tmp)), \
+                     patch.object(gate.urllib.request, 'urlopen', side_effect=urlopen) as fetch, \
+                     patch.object(gate, 'model_turn', side_effect=model):
+                    self.assertEqual(r.run()['decision'], 'accept')
+                    self.assertEqual(fetch.call_count, 2)
+                    saved = json.loads((Path(tmp) / (family + '-tool-0-0.json')).read_text())
+                    self.assertIn('error', saved['result'])
+                    self.assertEqual(saved['arguments']['revision'], 'base')
+                self.assertEqual(len(seen), 3)
+
+    def test_file_permission_server_and_blob_failures_remain_fatal(self):
+        for status, blob in [(403, False), (500, False), (404, True)]:
+            with self.subTest(status=status, blob=blob):
+                gh = gate.GitHub('x/y', 'fake')
+                r = gate.Review(gh, FakeGH().pr, [], [], {}, {}, 'instructions', 'fable', 'local mathematical')
+                error = urllib.error.HTTPError('https://api.github.com/fixture', status, 'fixture', {}, io.BytesIO(b'failure'))
+                responses = []
+                if blob:
+                    responses.append(io.BytesIO(json.dumps({'type': 'file', 'size': 2000000, 'encoding': 'none', 'sha': HEAD}).encode()))
+                responses.append(error)
+                with tempfile.TemporaryDirectory() as tmp, patch.object(gate, 'OUT', Path(tmp)), \
+                     patch.object(gate.urllib.request, 'urlopen', side_effect=responses):
+                    with self.assertRaises(gate.RequestError) as caught:
+                        r.tool('read_file', {'path': 'paper.tex', 'revision': 'head', 'start': 1, 'count': 10})
+                    self.assertEqual(caught.exception.status, status)
+                    self.assertEqual(r.reads, [])
+
     def test_sse_multiline_and_done(self):
         self.assertEqual(list(gate.sse(io.BytesIO(b'data: {"type":\ndata: "ok"}\n\ndata: [DONE]\n\n'))), [{'type': 'ok'}])
 
@@ -387,7 +460,7 @@ class Transport(unittest.TestCase):
                 output, model, usage, ident, stop = gate.model_turn('fable', 'trusted', [])
                 self.assertEqual(output[0]['input'], {})
                 self.assertEqual(stop, 'tool_use')
-                self.assertEqual(req.call_args.args[3]['cache_control'], {'type': 'ephemeral'})
+                self.assertEqual(req.call_args.args[3]['cache_control'], {'type': 'ephemeral', 'ttl': '1h'})
                 self.assertEqual(req.call_args.args[3]['max_tokens'], 64000)
 
     def test_refusal_and_max_tokens_distinguishable(self):
@@ -454,11 +527,72 @@ class Transport(unittest.TestCase):
             gate.request(url, {}, 'POST', {}, True)
             self.assertEqual(open_url.call_count, 3)
             self.assertEqual(sleep.call_count, 2)
+            self.assertEqual([c.args[0] for c in sleep.call_args_list], [65, 4])
         with tempfile.TemporaryDirectory() as tmp, patch.object(gate, 'OUT', Path(tmp)), \
              patch.object(gate.urllib.request, 'urlopen', side_effect=error(500)) as open_url:
             with self.assertRaises(RuntimeError):
                 gate.request('https://api.github.com/repos/x/y/issues', {}, 'POST', {})
             self.assertEqual(open_url.call_count, 1)
+
+    def test_rate_retry_obeys_header_and_bounded_wait(self):
+        url = 'https://api.anthropic.com/v1/messages'
+        for requested in [120, 900]:
+            error = urllib.error.HTTPError(url, 429, 'fixture', {'Retry-After': str(requested)}, io.BytesIO(b'busy'))
+            with tempfile.TemporaryDirectory() as tmp, patch.object(gate, 'OUT', Path(tmp)), \
+                 patch.object(gate.time, 'sleep') as sleep, \
+                 patch.object(gate.urllib.request, 'urlopen', side_effect=[error, io.BytesIO(b'')]) as open_url:
+                if requested == 120:
+                    gate.request(url, {}, 'POST', {}, True)
+                    sleep.assert_called_once_with(120)
+                    self.assertEqual(open_url.call_count, 2)
+                else:
+                    with self.assertRaisesRegex(RuntimeError, 'not retrying early'):
+                        gate.request(url, {}, 'POST', {}, True)
+                    sleep.assert_not_called()
+                    self.assertEqual(open_url.call_count, 1)
+
+    def test_spend_cap_is_not_retried_as_rate_limit(self):
+        url = 'https://api.anthropic.com/v1/messages'
+        payload = {'error': {'type': 'rate_limit_error', 'details': {'error_code': 'enforced_spend_limit_reached'}}}
+        error = urllib.error.HTTPError(url, 429, 'fixture', {}, io.BytesIO(json.dumps(payload).encode()))
+        with tempfile.TemporaryDirectory() as tmp, patch.object(gate, 'OUT', Path(tmp)), \
+             patch.object(gate.time, 'sleep') as sleep, \
+             patch.object(gate.urllib.request, 'urlopen', side_effect=error) as open_url:
+            with self.assertRaisesRegex(RuntimeError, 'enforced_spend_limit_reached'):
+                gate.request(url, {}, 'POST', {}, True)
+            sleep.assert_not_called()
+            self.assertEqual(open_url.call_count, 1)
+
+    def test_context_budget_includes_cache_tokens_and_output_reserve(self):
+        with tempfile.TemporaryDirectory() as tmp, patch.object(gate, 'OUT', Path(tmp)):
+            first = gate.context_budget('fable', 'system', [])
+            previous = {'request_bytes': first['request_bytes'], 'usage': {'input_tokens': 1000,
+                        'cache_read_input_tokens': 200000, 'cache_creation_input_tokens': 50000, 'output_tokens': 1000}}
+            second = gate.context_budget('fable', 'system', [], previous)
+            self.assertEqual(second['estimated_total'], 252000 + 8192 + 64000)
+            previous['usage']['cache_read_input_tokens'] = 300000
+            with self.assertRaisesRegex(RuntimeError, 'context budget exceeded'):
+                gate.context_budget('fable', 'system', [], previous)
+
+    def test_context_budget_uses_complete_request_and_stops_before_api(self):
+        gh = FakeGH()
+        for family in gate.MODELS:
+            r = gate.Review(gh, gh.pr, [], [], {}, {}, 'x' * 400000, family, 'local mathematical')
+            with tempfile.TemporaryDirectory() as tmp, patch.object(gate, 'OUT', Path(tmp)), \
+                 patch.object(gate, 'model_turn') as model:
+                with self.assertRaisesRegex(RuntimeError, 'before the next model request'):
+                    r.run()
+                model.assert_not_called()
+                self.assertEqual(len(r.instructions), 400000)
+
+    def test_context_budget_counts_unicode_bytes_and_new_growth(self):
+        with tempfile.TemporaryDirectory() as tmp, patch.object(gate, 'OUT', Path(tmp)):
+            first = gate.context_budget('astra', 'system', [])
+            prior = {'request_bytes': first['request_bytes'], 'usage': {'input_tokens': 300000, 'output_tokens': 0}}
+            conversation = [{'role': 'user', 'content': '\U0001F50E' * 10000}]
+            with self.assertRaisesRegex(RuntimeError, 'context budget exceeded'):
+                gate.context_budget('astra', 'system', conversation, prior)
+            self.assertEqual(len(conversation[0]['content']), 10000)
 
     def test_long_working_notes_continue_and_preserve_full_artifact(self):
         gh = FakeGH()
