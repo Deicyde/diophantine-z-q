@@ -1,0 +1,14 @@
+== g4: x=(1, 1, 1, 0), a=s + 1, b=-3, c=1, d=1 - s, det g = 2 (expected 2)
+   M J M^T = J: True   M^T J M = J: True
+   I1[0,0] remainder 0; coeff: -(-2*s*z + z**2 + 3)*(s*z**2 - 6*s*z - 3*s + 4*z**2 + 12)/2
+   I1[0,1] remainder 0; coeff: -(s**2*z**4 + 8*s**2*z**3 - 42*s**2*z**2 - 24*s**2*z + 9*s**2 - 2*s*z**4 + 44*s*z**3 + 132*s*z + 18*s - 12*z**4 - 72*z**2 - 108)/4
+   I1[1,0] remainder 0; coeff: -(s**2*z**4 + 8*s**2*z**3 - 42*s**2*z**2 - 24*s**2*z + 9*s**2 - 2*s*z**4 + 44*s*z**3 + 132*s*z + 18*s - 12*z**4 - 72*z**2 - 108)/4
+   I1[1,1] remainder 0; coeff: -(-2*s*z + z**2 + 3)*(s*z**2 - 6*s*z - 3*s + 4*z**2 + 12)
+   I2 remainder 0; coeff: (z - 3)*(z + 1)*(s**2*z**4 - 10*s**2*z**2 + 9*s**2 - 2*z**4 - 12*z**2 - 18)/4
+== g6: x=(-3/2, 0, 1/2, 0), a=-3/2, b=-3/2, c=1/2, d=-3/2, det g = 3 (expected 3)
+   M J M^T = J: True   M^T J M = J: True
+   I1[0,0] remainder 0; coeff: 0
+   I1[0,1] remainder 0; coeff: -3*(z**2 + 3)**2/4
+   I1[1,0] remainder 0; coeff: 3*(z**2 + 3)**2/4
+   I1[1,1] remainder 0; coeff: 0
+   I2 remainder 0; coeff: 3*(z - 3)*(z + 1)*(z**2 + 3)**2/4

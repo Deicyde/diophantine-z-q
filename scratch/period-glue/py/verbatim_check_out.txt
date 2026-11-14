@@ -1,0 +1,16 @@
+PGBase verbatim: True
+PGLight verbatim: True
+rigidity copy verbatim: True
+AutOExt copy verbatim: True
+statement BaseChangeClassUnique present verbatim in the bases: True
+statement PiTwistC present verbatim in the bases: True
+statement QMTwistLattice present verbatim in the bases: True
+statement S8Nonzero present verbatim in the bases: True
+statement SphereFactorAffine present verbatim in the bases: True
+statement S8WeightExact present verbatim in the bases: True
+statement ValenceBoundGammaStar present verbatim in the bases: True
+statement CMDescends present verbatim in the bases: True
+AutOInnerFinite (mobius-glue) for comparison:
+def AutOInnerFinite : Prop :=
+  ∃ T : Set (O ≃+* O), T.Finite ∧ ∀ α : O ≃+* O, ∃ t ∈ T, ∃ v : Oˣ,
+    ∀ a : O, α a = (v : O) * t a * ((v⁻¹ : Oˣ) : O)
