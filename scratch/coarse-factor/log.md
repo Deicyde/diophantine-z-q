@@ -33,3 +33,9 @@
   `HDec.QMSplit.Moduli.coarseFactor_of_rep' : LeafAdopt.R1R2fpRep → CoarseFactor`.
 - Verbatim checks: CoarseFactor, CanonicalCoarseX6 True; the two FactorThroughSurj texts identical.
 - Note: under LPrefix the QM namespace is HDec.LeafQM.AV; Part 1's `open LeafQM.AV` changed to `open HDec.LeafQM.AV`.
+
+## Step 4: Discharge.lean (COMPILED, 51 s, 0 errors, standard axioms)
+- ModuliCompare.lean verbatim with `import TailK` → `import ZInQKernel.OneProof.H.TailK` (+4 imports): compiles unchanged.
+- `r1r2fpRep_of_canonical'' (hE hC hB hG hR) : R1R2fpRep`, `x6ConicModel_of_canonical'' (hR hC hM) : X6ConicModel`
+  (CoarseFactor, CurveBijIso discharged), `coarseCompare_of_canonical : CanonicalCoarseX6 → CoarseCompare`.
+- Cloud-worker connectedness / spreading-out modules: checked, not needed (no step uses them).
