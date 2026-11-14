@@ -774,6 +774,47 @@ theorem r19_of_leaves (hGR : GaudronRemondThm14) (hN1 : NeronModelExists)
   fun K _ _ A B g x hg hx hiso =>
     hGR K A B g x hg ((isStableFaltingsHeight_iff hN1 hSS1 hSS2 A x).mpr hx) hiso
 
+/-! ## §J. One bundle: the six height rows from the published-form leaves and the remaining glue -/
+
+/-- **The published-form leaves of this file** (with the kernel's N1). -/
+structure HeightLeaves : Prop where
+  n1 : NeronModelExists
+  ss1 : SemistableReductionThm
+  ss2 : SemistableNeronBaseChange
+  ss3 : SemistablePersists
+  bost : BostLowerBound
+  javanpeykar : JavanpeykarBound
+  faltings5 : FaltingsLemma5BC
+  pazuki : PazukiCor13Upper
+  gaudronRemond : GaudronRemondThm14
+
+/-- **The remaining glue**: the kernel's two halves of AN3 and the two construction glues. -/
+structure HeightGlue : Prop where
+  an3Exists : AnalyticUniformizationExists
+  an3Unique : AnalyticUniformizationUnique
+  unifDim : UniformizationDim
+  metrize : MetrizationOfUniformization
+
+/-- **H-14, H-15, H-16, H-17, H-18, H-19 from the leaves and the glue.** R19, R20 and R22 use the
+leaves only. -/
+theorem heightRows_of (l : HeightLeaves) (gl : HeightGlue) :
+    LeafPush2.R18_Javanpeykar ∧ R19_GaudronRemond ∧ R20_FaltingsLemma5 ∧ R21_Bost ∧
+      LeafPush2.R22_Pazuki ∧ StableHeightFinite :=
+  have hMet := neronMetrizable_of gl.an3Exists gl.unifDim gl.metrize
+  ⟨r18_of_leaves l.javanpeykar l.n1 l.ss1 l.ss2 hMet,
+    r19_of_leaves l.gaudronRemond l.n1 l.ss1 l.ss2,
+    r20_of_leaves' l.faltings5 l.n1 l.ss1 l.ss2 l.ss3,
+    r21_of_leaves' l.bost l.n1 l.ss1 l.ss2 gl.an3Unique,
+    r22_of_upper l.pazuki l.n1 l.ss1 l.ss2,
+    stableHeightFinite_of' l.n1 l.ss1 l.ss2 hMet gl.an3Unique⟩
+
+/-- The three rows that need no glue. -/
+theorem heightRows_leavesOnly (l : HeightLeaves) :
+    R19_GaudronRemond ∧ R20_FaltingsLemma5 ∧ LeafPush2.R22_Pazuki :=
+  ⟨r19_of_leaves l.gaudronRemond l.n1 l.ss1 l.ss2,
+    r20_of_leaves' l.faltings5 l.n1 l.ss1 l.ss2 l.ss3,
+    r22_of_upper l.pazuki l.n1 l.ss1 l.ss2⟩
+
 /-! ## §I. Consistency: the new definitions and leaves at the zero abelian variety
 
 The only abelian variety Mathlib can construct is `AbVar.zero K` (`Spec K`). There, every
@@ -888,3 +929,5 @@ end ZInQ.HeightSplit
 #print axioms ZInQ.HeightSplit.isStableFaltingsHeight_zero
 #print axioms ZInQ.HeightSplit.semistableNeronBaseChange_zero
 #print axioms ZInQ.HeightSplit.neronMetrizable_of
+#print axioms ZInQ.HeightSplit.heightRows_of
+#print axioms ZInQ.HeightSplit.heightRows_leavesOnly

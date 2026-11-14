@@ -64,3 +64,4 @@ with `lake env lean` (one process at a time). Marks: VERIFIED / STANDARD / SPECU
   Finding while stating: `UniformizationDim` is false without the lattice hypotheses
   (`Φ₀ ∘ pr : ℂ^{g+1} → 𝒢(ℂ)_τ` has kernel `Λ₀ × ℂ`), so it carries `DiscreteTopology Λ` and
   `IsZLattice ℝ Λ` (as the kernel's `AnalyticUniformizationExists` and `HodgeData` do).
+- §J bundle (VERIFIED, compiled): structures `HeightLeaves` (N1, SS1-SS3, Bost, Javanpeykar, FaltingsLemma5BC, PazukiCor13Upper, GaudronRemondThm14), `HeightGlue` (AN3 exists/unique, UniformizationDim, MetrizationOfUniformization); `heightRows_of` (R18 ∧ R19 ∧ R20 ∧ R21 ∧ R22 ∧ StableHeightFinite) and `heightRows_leavesOnly` (R19 ∧ R20 ∧ R22). Axioms standard.
