@@ -35,3 +35,17 @@ lines 2-2141: identical) + ModelGlue.lean.part + ModelGlue2.lean.part.
   `modelComparison_of_parts (hT : ObjBridge.TorsionStructure) (hI) (hG) (hJ) (hE) : ModelComparison`;
   `heckeVertWitness_of_parts₂`.
 - All 11 `#print axioms`: [propext, Classical.choice, Quot.sound].
+
+## Step 3 (22:40, 2026-11-13) — VERIFIED (ModelGlue3.lean = ModelGlue2.lean + ModelGlue3.lean.part; lake env lean exit 0, ~15 s once oleans built; compile3_out.txt)
+(Needed `lake build ZInQKernel.Contrib.Mobius.Main` first on this host, ~2 min.)
+- `zloc_prime_eq_bot`: a prime of `ℤ_(p)` not containing `p` is `⊥` (DVR, uniformizer `p`).
+- `zlocToRat : Zloc p →+* ℚ`, `specRatToZloc`, `genFib 𝒴 := Over.mk (pullback.snd 𝒴.hom (specRatToZloc p))`.
+- **`modelGenericFibre : ModelGenericFibre` — PROVED** (base change; Hom(ℤ_(p), T) is a singleton).
+- `genericPoint_mem_range`: on integral flat 𝒴, η ∈ range (pullback.fst) (p ≠ 0 at η by
+  `natCast_mem_nonZeroDivisors_stalk`, so η ∈ D(p) whose points lie over ⊥).
+- **`germOfQbarValues : GermOfQbarValues` — PROVED** (Jacobson density on the generic fibre;
+  `exists_qbarPt`, `eval_res` copied from period-glue).
+- `modelComparison_of_parts₃ (hT : ObjBridge.TorsionStructure) (hI : ModelIntegral)
+  (hE : ModelFunctionFieldExists) : ModelComparison`; `heckeVertWitness_of_parts₃`.
+- All `#print axioms`: [propext, Classical.choice, Quot.sound].
+Open after step 3: `ModelCoordinateResidue`, `ModelIntegral`, `ModelFunctionFieldExists`.
