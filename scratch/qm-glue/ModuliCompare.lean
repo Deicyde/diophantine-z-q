@@ -723,7 +723,102 @@ theorem connectedOfFine_of_canonical (h : ConnectedCanonical) : ConnectedOfFine 
   have e : Y'.left ≅ Y.left := (Over.forget _).mapIso g
   exact (Scheme.homeoOfIso e).connectedSpace_iff.2 hc
 
+/-! ## `HauptmodulUniqueX6` (with the forgetful map onto `X₆(ℚ̄)`) from the chain's `MobiusGlue`
+
+image-plane proved `MobiusGlue` from the textbook leaf T5 alone (`LeafQM.AV.CurveGlue.mobiusGlue_of_t5`,
+`docs/research/image-plane.md`); the version of `HauptmodulUniqueX6` with the hypothesis that `fY` is onto
+`X(ℚ̄)` (part of the full clause list, `X6Surj`) follows from it by pulling `π, π'` back to `Y`. -/
+
+/-- `HauptmodulUniqueX6` with the forgetful map onto `X(ℚ̄)` as a hypothesis. -/
+def HauptmodulUniqueX6S : Prop :=
+  ∀ (Y : Over (Spec (CommRingCat.of ℚ))) (Φ : PtEquiv Y) (X : Over (Spec (CommRingCat.of ℚ)))
+    (Ψ : (fieldPt Qbar ⟶ X) ≃ Quotient (pairSetoid Qbar)) (fY : Y ⟶ X) (π π' : ToP1 X.left),
+    R1fpProps Y Φ → X6Props Y Φ X Ψ fY → (∀ x : fieldPt Qbar ⟶ X, ∃ y : fieldPt Qbar ⟶ Y, y ≫ fY = x) →
+    R2X6Props X Ψ π → R2X6Props X Ψ π' → CMExists X Ψ →
+      ∀ x : fieldPt Qbar ⟶ X, π.val (K := Qbar) x.left = π'.val (K := Qbar) x.left
+
+theorem r2fp_of_r2X6 {Y : Over (Spec (CommRingCat.of ℚ))} {Φ : PtEquiv Y}
+    {X : Over (Spec (CommRingCat.of ℚ))} {Ψ : (fieldPt Qbar ⟶ X) ≃ Quotient (pairSetoid Qbar)}
+    {fY : Y ⟶ X} {π : ToP1 X.left} (h6 : X6Props Y Φ X Ψ fY) (h2 : R2X6Props X Ψ π) :
+    R2fpProps Y Φ (π.comp fY.left) := by
+  intro y y' P Q hP hQ
+  have hv : ∀ z : fieldPt Qbar ⟶ Y, (π.comp fY.left).val (K := Qbar) z.left = π.val (K := Qbar) (z ≫ fY).left :=
+    fun z => ToP1.val_comp_right (K := Qbar) π fY.left z.left
+  have := h2 (y ≫ fY) (y' ≫ fY) P.forget Q.forget (h6.2.2.2.2.2 y P hP) (h6.2.2.2.2.2 y' Q hQ)
+  rw [hv y, hv y']
+  exact this
+
+theorem cm_lift {Y : Over (Spec (CommRingCat.of ℚ))} {Φ : PtEquiv Y}
+    {X : Over (Spec (CommRingCat.of ℚ))} {Ψ : (fieldPt Qbar ⟶ X) ≃ Quotient (pairSetoid Qbar)}
+    {fY : Y ⟶ X} (h6 : X6Props Y Φ X Ψ fY)
+    (hs : ∀ x : fieldPt Qbar ⟶ X, ∃ y : fieldPt Qbar ⟶ Y, y ≫ fY = x)
+    {C : QMPair Qbar → Prop} (hC : ∀ P Q : QMPair Qbar, Nonempty (QMIso P.q Q.q) → C P → C Q)
+    (hE : ∃ (x : fieldPt Qbar ⟶ X) (P : QMPair Qbar), Ψ x = Quotient.mk _ P ∧ C P) :
+    ∃ P : QML3 Qbar, C P.forget := by
+  obtain ⟨x, P, hx, hc⟩ := hE
+  obtain ⟨y, rfl⟩ := hs x
+  obtain ⟨L, hL⟩ := Quotient.exists_rep (Φ Qbar y)
+  have h := h6.2.2.2.2.2 y L hL.symm
+  rw [hx] at h
+  exact ⟨L, hC P L.forget (Quotient.exact h) hc⟩
+
+/-- **`HauptmodulUniqueX6S` from `MobiusGlue`** (image-plane: from T5). -/
+theorem hauptmodulUniqueX6S_of (hM : Pin.MobiusGlue) : HauptmodulUniqueX6S := by
+  intro Y Φ X Ψ fY π π' h1 h6 hs h2 h2' hcm x
+  obtain ⟨c4, c3, c24⟩ := hcm
+  have hCM : (∃ P : QML3 Qbar, HasCM4 P.q) ∧ (∃ P : QML3 Qbar, HasCM3 P.q) ∧
+      (∃ P : QML3 Qbar, HasCM24 P.q) :=
+    ⟨cm_lift h6 hs (fun P Q ⟨f⟩ h => HasCM4.of_iso f h) c4,
+     cm_lift h6 hs (fun P Q ⟨f⟩ h => HasCM3.of_iso f h) c3,
+     cm_lift h6 hs (fun P Q ⟨f⟩ h => HasCM24.of_iso f h) c24⟩
+  obtain ⟨y, rfl⟩ := hs x
+  have := hM Y Y Φ Φ (π'.comp fY.left) (π.comp fY.left) (𝟙 Y) h1 (r2fp_of_r2X6 h6 h2') h1
+    (r2fp_of_r2X6 h6 h2) hCM (fun K _ _ y => by rw [Category.comp_id]) y
+  have e : (y ≫ 𝟙 Y) = y := Category.comp_id y
+  rw [e] at this
+  have e1 : (π.comp fY.left).val (K := Qbar) y.left = π.val (K := Qbar) (y ≫ fY).left :=
+    ToP1.val_comp_right (K := Qbar) π fY.left y.left
+  have e2 : (π'.comp fY.left).val (K := Qbar) y.left = π'.val (K := Qbar) (y ≫ fY).left :=
+    ToP1.val_comp_right (K := Qbar) π' fY.left y.left
+  exact e1.symm.trans (this.trans e2)
+
+/-- **`ConicOfWitness` from the canonical conic model, the coarse comparison and `MobiusGlue`.** -/
+theorem conicOfWitness_of' (hC : ConicCanonical) (hK : CoarseCompare) (hU : HauptmodulUniqueX6S) :
+    ConicOfWitness := by
+  intro Y Φ X Ψ fY π₆ hfull
+  obtain ⟨h1f, -, h6, h2, hcm, -, ⟨-, hs⟩, -⟩ := hfull
+  have h1 : R1fpProps Y Φ := h1f
+  obtain ⟨Y₀, Φ₀, X₀, Ψ₀, fY₀, π₀, ⟨h1f₀, -, h6₀, h2₀, -, -, -, -⟩, e₀, he₀g, he₀p, he₀i⟩ := hC
+  have h1₀ : R1fpProps Y₀ Φ₀ := h1f₀
+  obtain ⟨g, hg⟩ := compare_iso h1₀ h1
+  obtain ⟨k, hk⟩ := hK Y Φ X X₀ Ψ Ψ₀ fY (g.hom ≫ fY₀) h1 h6 (x6Props_transport g hg h6₀)
+  have hval : ∀ x : fieldPt Qbar ⟶ X,
+      (π₀.comp k.hom.left).val (K := Qbar) x.left = π₀.val (K := Qbar) (x ≫ k.hom).left := by
+    intro x; exact ToP1.val_comp_right (K := Qbar) π₀ k.hom.left x.left
+  have h2' : R2X6Props X Ψ (π₀.comp k.hom.left) := by
+    intro x x' P Q hP hQ
+    have := h2₀ (x ≫ k.hom) (x' ≫ k.hom) P Q ((hk x).trans hP) ((hk x').trans hQ)
+    simpa only [hval] using this
+  have hagree : ∀ x : fieldPt Qbar ⟶ X, π₆.val (K := Qbar) x.left = π₀.val (K := Qbar) (x ≫ k.hom).left :=
+    fun x => (hU Y Φ X Ψ fY π₆ _ h1 h6 hs h2 h2' hcm x).trans (hval x)
+  let post : (fieldPt Qbar ⟶ X) ≃ (fieldPt Qbar ⟶ X₀) :=
+    ⟨fun x => x ≫ k.hom, fun x => x ≫ k.inv, fun x => by simp, fun x => by simp⟩
+  refine ⟨post.trans e₀, fun σ x => ?_, fun x p hp => ?_, fun x b hb => ?_⟩
+  · show e₀ ((fieldMap (σ : Qbar →ₐ[ℚ] Qbar) ≫ x) ≫ k.hom) = X6Kummer.conicGal σ (e₀ (x ≫ k.hom))
+    rw [Category.assoc]; exact he₀g σ (x ≫ k.hom)
+  · rw [hagree]; exact he₀p (x ≫ k.hom) p hp
+  · rw [hagree]; exact he₀i (x ≫ k.hom) b hb
+
+/-- **Row H-43 from `r1r2`, the canonical conic model, `CoarseFactor`, `CurveBijIso` and `MobiusGlue`.** -/
+theorem x6ConicModel_of_canonical' (hR : LeafAdopt.R1R2fpRep) (hC : ConicCanonical) (hF : CoarseFactor)
+    (hCB : ModelGlue.CurveBijIso) (hM : Pin.MobiusGlue) : X6Kummer.X6ConicModel :=
+  x6ConicModel_of hR (conicOfWitness_of' hC (coarseCompare_of hF hCB) (hauptmodulUniqueX6S_of hM))
+
 end HDec.QMSplit.Moduli
+
+#print axioms HDec.QMSplit.Moduli.hauptmodulUniqueX6S_of
+#print axioms HDec.QMSplit.Moduli.x6ConicModel_of_canonical'
+
 
 #print axioms HDec.QMSplit.Moduli.connectedOfFine_of_canonical
 

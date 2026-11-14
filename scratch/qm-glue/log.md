@@ -63,3 +63,8 @@ file here is self-contained (`import Mathlib`), with the needed definitions copi
 - Rows: `r1r2fpRep_of_canonical` (H-1: CanonicalModelY3, CanonicalCoarseX6, BabaGranathX6,
   GonzalezRotgerX6, ReciprocityOfFine, CoarseFactor, CurveBijIso), `x6ConicModel_of_canonical` (H-43).
   All axioms standard.
+- `HauptmodulUniqueX6S` (with fY onto X(ℚ̄)) PROVED from the chain's `LeafQM.AV.Pin.MobiusGlue`
+  (`hauptmodulUniqueX6S_of`; text identical to the kernel's ZInQKernel/HDecomp/QM/Pin.lean def, VERIFIED by
+  diff; image-plane proved it from T5: `LeafQM.AV.CurveGlue.mobiusGlue_of_t5`). `conicOfWitness_of'`,
+  `x6ConicModel_of_canonical'` (H-43 from r1r2, ConicCanonical, CoarseFactor, CurveBijIso, MobiusGlue).
+  Compiled, exit 0, axioms standard.
