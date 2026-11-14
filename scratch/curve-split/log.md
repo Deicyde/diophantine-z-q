@@ -87,3 +87,10 @@ H-85 CurveBijIso (scratch/model-glue/ModelGlue6.lean), H-83 ShimuraGoodReduction
   `CurveSplit.belyiGenusBound_of_rh_fi : RiemannHurwitzQj → FundamentalIdentityQj → BelyiGenusBound` and
   `dimJ1Le_of_rh_fi : DimJacobianEqGenus → RiemannHurwitzQj → FundamentalIdentityQj → X0Transitive → DimJ1Le`.
   COMPILED, standard axioms. PlacesAreDVR no longer needed.
+
+## H-83 ShimuraGoodReduction
+- Not splittable into published-form leaves today (no abelian schemes over a base in Mathlib/kernel; a leaf over
+  QMFamily would be stronger than the source). Analysis in report §3.6.
+- `scratch/curve-split/ShimuraGR.lean` COMPILED: verbatim copy of pIdeal…ShimuraGoodReduction, CMObjectsExist,
+  cmObjectsExist_of_R1R2fp (verbatim check True); `CurveSplit.shimuraGoodReduction_of_noGuard : R1R2fp →
+  ShimuraGoodReductionNoGuard → ShimuraGoodReduction` (guard clause redundant). Standard axioms.
