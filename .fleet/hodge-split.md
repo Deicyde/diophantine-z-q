@@ -1,4 +1,4 @@
-# hodge-split (2026-11-14)
+# hodge-split (2026-11-14, final)
 
 **Result.** Of the seven p-adic Hodge theory rows of frontier r3, five are now Lean theorems from
 published-form leaves only. H-52 `FiniteImageHT`, H-32 T23, H-8 R10 amended, H-22 `R14Det` and
