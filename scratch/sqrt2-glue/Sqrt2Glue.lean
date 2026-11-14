@@ -1137,6 +1137,203 @@ theorem trace_sum_sq {K F ι : Type*} [Field K] [Field F] [Algebra K F] [FiniteD
 
 end NormTrace
 
+/-! ## §12. The element `α = 1 + 2i∏_{q∣n}(1 + √q*)/2` of `L_n(i)` -/
+
+section Multiquad
+
+open Polynomial
+
+/-- A chosen square root of `p` in `ℚ̄`. -/
+def sqrtQ (p : ℕ) : Qbar := (IsAlgClosed.exists_pow_nat_eq (p : Qbar) two_pos).choose
+
+theorem sqrtQ_sq (p : ℕ) : sqrtQ p ^ 2 = (p : Qbar) :=
+  (IsAlgClosed.exists_pow_nat_eq (p : Qbar) two_pos).choose_spec
+
+/-- `√(p*)`, `p* = ±p ≡ 1 (mod 4)`. -/
+def sQ (p : ℕ) : Qbar := if p % 4 = 1 then sqrtQ p else iQ * sqrtQ p
+
+theorem sQ_sq (p : ℕ) : sQ p ^ 2 = ((pstar p : ℤ) : Qbar) := by
+  unfold sQ pstar
+  split_ifs with h
+  · rw [sqrtQ_sq]; push_cast; rfl
+  · rw [mul_pow, iQ_sq, sqrtQ_sq]; push_cast; ring
+
+theorem sqrtQ_mem {n p : ℕ} (hp : p ∈ n.primeFactors) : sqrtQ p ∈ Lni n :=
+  IntermediateField.subset_adjoin _ _ (Or.inr ⟨p, hp, sqrtQ_sq p⟩)
+
+theorem sQ_mem {n p : ℕ} (hp : p ∈ n.primeFactors) : sQ p ∈ Lni n := by
+  unfold sQ
+  split_ifs
+  · exact sqrtQ_mem hp
+  · exact (Lni n).mul_mem (ZInQ.Contrib.TYZGenus.Package.iQ_mem_Lni n) (sqrtQ_mem hp)
+
+/-- `x_S = i ∏_{p ∈ S} √(p*)`. -/
+def xS (S : Finset ℕ) : Qbar := iQ * ∏ p ∈ S, sQ p
+
+theorem xS_sq (S : Finset ℕ) : xS S ^ 2 = -((∏ p ∈ S, pstar p : ℤ) : Qbar) := by
+  unfold xS
+  rw [mul_pow, iQ_sq, ← Finset.prod_pow, Finset.prod_congr rfl (fun p _ => sQ_sq p)]
+  push_cast; ring
+
+theorem xS_mem {n : ℕ} {S : Finset ℕ} (hS : S ⊆ n.primeFactors) : xS S ∈ Lni n :=
+  (Lni n).mul_mem (ZInQ.Contrib.TYZGenus.Package.iQ_mem_Lni n)
+    ((Lni n).prod_mem fun p hp => sQ_mem (hS hp))
+
+/-- `β = i ∏_{p ∣ n} (1 + √(p*))/2`. -/
+def betaQ (n : ℕ) : Qbar := iQ * ∏ p ∈ n.primeFactors, (1 + sQ p) / 2
+
+theorem betaQ_mem (n : ℕ) : betaQ n ∈ Lni n := by
+  unfold betaQ
+  refine (Lni n).mul_mem (ZInQ.Contrib.TYZGenus.Package.iQ_mem_Lni n) ((Lni n).prod_mem fun p hp => ?_)
+  exact (Lni n).div_mem ((Lni n).add_mem (Lni n).one_mem (sQ_mem hp)) (by
+    have := (Lni n).algebraMap_mem (2 : ℚ); simpa using this)
+
+theorem betaQ_eq (n : ℕ) : betaQ n =
+    (1 / 2 : Qbar) ^ n.primeFactors.card * ∑ S ∈ n.primeFactors.powerset, xS S := by
+  unfold betaQ xS
+  have h1 : ∏ p ∈ n.primeFactors, (1 + sQ p) / 2 =
+      (1 / 2 : Qbar) ^ n.primeFactors.card * ∏ p ∈ n.primeFactors, (sQ p + 1) := by
+    rw [← Finset.prod_const, ← Finset.prod_mul_distrib]
+    apply Finset.prod_congr rfl; intro p _; ring
+  rw [h1, Finset.prod_add (fun p => sQ p) (fun _ => (1 : Qbar))]
+  simp only [Finset.prod_const_one, mul_one]
+  rw [Finset.mul_sum, Finset.mul_sum, Finset.mul_sum]
+  apply Finset.sum_congr rfl; intro S _; ring
+
+theorem isIntegral_half_one_add_sQ {p : ℕ} (hp : p % 2 = 1) : IsIntegral ℤ ((1 + sQ p) / 2) := by
+  obtain ⟨c, hc⟩ : ∃ c : ℤ, pstar p = 4 * c + 1 := ⟨pstar p / 4, by have := pstar_mod_four hp; omega⟩
+  refine ⟨X ^ 2 - (X + C c), monic_X_pow_sub (by
+    calc degree (X + C c : ℤ[X]) = 1 := degree_X_add_C c
+      _ < 2 := by norm_num), ?_⟩
+  have hs := sQ_sq p
+  rw [hc] at hs
+  simp only [eval₂_sub, eval₂_X_pow, eval₂_add, eval₂_X]
+  have hcc : eval₂ (algebraMap ℤ Qbar) ((1 + sQ p) / 2) (C c) = (c : Qbar) := by
+    rw [eval₂_C]; simp
+  push_cast at hs ⊢
+  rw [hcc]
+  linear_combination hs / 4
+
+theorem isIntegral_iQ : IsIntegral ℤ iQ := by
+  refine ⟨X ^ 2 + 1, by monicity!, ?_⟩
+  simp [iQ_sq]
+
+theorem isIntegral_betaQ {n : ℕ} (hn : n % 2 = 1) : IsIntegral ℤ (betaQ n) := by
+  unfold betaQ
+  refine isIntegral_iQ.mul (IsIntegral.prod _ fun p hp => isIntegral_half_one_add_sQ ?_)
+  have hpn := Nat.dvd_of_mem_primeFactors hp
+  rcases (Nat.prime_of_mem_primeFactors hp).eq_two_or_odd with h2 | h2
+  · subst h2; obtain ⟨k, rfl⟩ := hpn; omega
+  · exact h2
+
+/-- One prime appearing once makes `±∏_U p* · ∏_V p*` a non-square. -/
+theorem prod_pstar_not_sq {U V : Finset ℕ} (hU : ∀ q ∈ U, q.Prime) (hV : ∀ q ∈ V, q.Prime) {p : ℕ}
+    (hpU : p ∈ U) (hpV : p ∉ V) {σ : ℤ} (hσ : σ = 1 ∨ σ = -1) (q : ℚ) :
+    ((σ * ((∏ x ∈ U, pstar x) * ∏ x ∈ V, pstar x) : ℤ) : ℚ) ≠ q ^ 2 := by
+  have hp := hU p hpU
+  obtain ⟨τ, hτ, hpτ⟩ : ∃ τ : ℤ, (τ = 1 ∨ τ = -1) ∧ pstar p = τ * p := by
+    rcases pstar_eq_or p with e | e
+    · exact ⟨1, Or.inl rfl, by rw [e]; ring⟩
+    · exact ⟨-1, Or.inr rfl, by rw [e]; ring⟩
+  have e : σ * ((∏ x ∈ U, pstar x) * ∏ x ∈ V, pstar x) =
+      (p : ℤ) * (σ * τ * ((∏ x ∈ U.erase p, pstar x) * ∏ x ∈ V, pstar x)) := by
+    rw [← Finset.mul_prod_erase U _ hpU, hpτ]; ring
+  rw [e]
+  apply not_sq_of_mul hp
+  intro hdvd
+  have hpZ : Prime (p : ℤ) := Nat.prime_iff_prime_int.mp hp
+  have hστ : IsUnit (σ * τ) := by
+    rcases hσ with rfl | rfl <;> rcases hτ with rfl | rfl <;> simp
+  rw [hστ.dvd_mul_left] at hdvd
+  rcases hpZ.dvd_or_dvd hdvd with h | h
+  · exact not_dvd_prod_pstar (U.erase p) (fun q hq => hU q (Finset.mem_of_mem_erase hq)) hp
+      (Finset.notMem_erase p U) h
+  · exact not_dvd_prod_pstar V hV hp hpV h
+
+/-- `kEmb d₀ (k) ≠ x_S` unless `S` is the set of primes of `d₀`. -/
+theorem kEmb_ne_xS {n d₀ : ℕ} [NeZero d₀] (hsq : Squarefree n) (hd : d₀ ∣ n) (hd4 : d₀ % 4 = 1)
+    {S : Finset ℕ} (hS : S ⊆ n.primeFactors) (hSD : S ≠ d₀.primeFactors) (k : QNeg d₀) :
+    kEmb d₀ k ≠ xS S := by
+  intro hk
+  have hsqd : Squarefree d₀ := hsq.squarefree_of_dvd hd
+  have hSp : ∀ q ∈ S, q.Prime := fun q hq => Nat.prime_of_mem_primeFactors (hS hq)
+  have hDp : ∀ q ∈ d₀.primeFactors, q.Prime := fun q hq => Nat.prime_of_mem_primeFactors hq
+  set w := kEmb d₀ QuadraticAlgebra.omega with hw
+  have hw2 : w ^ 2 = -(d₀ : Qbar) := by
+    rw [hw, ← map_pow, sq, QuadraticAlgebra.omega_mul_omega_eq_algebraMap]; simp
+  have hkk : k = algebraMap ℚ (QNeg d₀) k.re + algebraMap ℚ (QNeg d₀) k.im * QuadraticAlgebra.omega := by
+    ext <;> simp
+  set a := k.re; set b := k.im
+  have hk' : algebraMap ℚ Qbar a + algebraMap ℚ Qbar b * w = xS S := by
+    rw [← hk, hkk, map_add, map_mul, AlgHom.commutes, AlgHom.commutes]
+  set c : ℤ := ∏ p ∈ S, pstar p with hc
+  have hsq2 : (algebraMap ℚ Qbar a + algebraMap ℚ Qbar b * w) ^ 2 = -((c : ℤ) : Qbar) := by
+    rw [hk', xS_sq]
+  -- `(a² − d₀ b² + c) + 2ab w = 0`
+  have hlin : algebraMap ℚ Qbar (a ^ 2 - d₀ * b ^ 2 + c) + algebraMap ℚ Qbar (2 * a * b) * w = 0 := by
+    simp only [map_add, map_sub, map_mul, map_pow, map_natCast, map_intCast, map_ofNat]
+    linear_combination hsq2 - (algebraMap ℚ Qbar b) ^ 2 * hw2
+  -- `w ∉ ℚ`
+  have hab : 2 * a * b = 0 := by
+    by_contra hne
+    have h2ab : algebraMap ℚ Qbar (2 * a * b) ≠ 0 := (_root_.map_ne_zero _).mpr hne
+    have hwq : w = algebraMap ℚ Qbar (-(a ^ 2 - d₀ * b ^ 2 + c) / (2 * a * b)) := by
+      rw [map_div₀, map_neg, eq_div_iff h2ab]
+      linear_combination hlin
+    have h2 : algebraMap ℚ Qbar ((-(a ^ 2 - d₀ * b ^ 2 + c) / (2 * a * b)) ^ 2) =
+        algebraMap ℚ Qbar (-(d₀ : ℚ)) := by
+      rw [map_pow, ← hwq, hw2, map_neg, map_natCast]
+    have h3 := (algebraMap ℚ Qbar).injective h2
+    have h4 : (0 : ℚ) ≤ (-(a ^ 2 - d₀ * b ^ 2 + c) / (2 * a * b)) ^ 2 := sq_nonneg _
+    rw [h3] at h4
+    have : (0 : ℚ) < d₀ := by exact_mod_cast Nat.pos_of_ne_zero (NeZero.ne d₀)
+    linarith
+  have hrat : a ^ 2 - d₀ * b ^ 2 + c = 0 := by
+    rw [hab, map_zero, zero_mul, add_zero] at hlin
+    exact (algebraMap ℚ Qbar).injective (hlin.trans (map_zero _).symm)
+  rcases mul_eq_zero.mp hab with h | hb
+  · rcases mul_eq_zero.mp h with h | ha
+    · norm_num at h
+    · -- `a = 0`: `∏_S p* = d₀ b²`, so `∏_S p* ∏_{D₀} p* = (d₀ b)²`
+      rw [ha] at hrat
+      have hd0' : (∏ p ∈ d₀.primeFactors, ((pstar p : ℤ) : ℚ)) = d₀ := by
+        have := prod_pstar_primeFactors hsqd hd4
+        exact_mod_cast this
+      have hc' : (∏ p ∈ S, ((pstar p : ℤ) : ℚ)) = d₀ * b ^ 2 := by
+        have : ((c : ℤ) : ℚ) = d₀ * b ^ 2 := by linarith
+        rw [hc] at this; exact_mod_cast this
+      have key : (((1 : ℤ) * ((∏ x ∈ S, pstar x) * ∏ x ∈ d₀.primeFactors, pstar x) : ℤ) : ℚ) =
+          ((d₀ : ℚ) * b) ^ 2 := by
+        push_cast
+        rw [hd0', hc']; ring
+      by_cases h1 : ∃ p ∈ S, p ∉ d₀.primeFactors
+      · obtain ⟨p, hpS, hpD⟩ := h1
+        exact prod_pstar_not_sq hSp hDp hpS hpD (Or.inl rfl) _ key
+      · push_neg at h1
+        have h2 : ∃ p ∈ d₀.primeFactors, p ∉ S := by
+          by_contra h2; push_neg at h2
+          exact hSD (Finset.Subset.antisymm h1 h2)
+        obtain ⟨p, hpD, hpS⟩ := h2
+        rw [mul_comm (∏ x ∈ S, pstar x)] at key
+        exact prod_pstar_not_sq hDp hSp hpD hpS (Or.inl rfl) _ key
+  · -- `b = 0`: `a² = −∏_S p*`
+    rw [hb] at hrat
+    by_cases hS0 : S = ∅
+    · rw [hc, hS0, Finset.prod_empty] at hrat
+      norm_num at hrat
+      nlinarith [sq_nonneg a]
+    · obtain ⟨p, hpS⟩ := Finset.nonempty_iff_ne_empty.mpr hS0
+      have hc' : (∏ p ∈ S, ((pstar p : ℤ) : ℚ)) = -a ^ 2 := by
+        have : ((c : ℤ) : ℚ) = -a ^ 2 := by linarith
+        rw [hc] at this; exact_mod_cast this
+      have key : (((-1 : ℤ) * ((∏ x ∈ S, pstar x) * ∏ x ∈ (∅ : Finset ℕ), pstar x) : ℤ) : ℚ) =
+          a ^ 2 := by
+        rw [Finset.prod_empty, mul_one]; push_cast
+        rw [hc']; ring
+      exact prod_pstar_not_sq hSp (by simp) hpS (Finset.notMem_empty p) (Or.inr rfl) _ key
+
+end Multiquad
+
 end ZInQ.Contrib.TYZGenus.Sqrt2Glue
 
 #print axioms ZInQ.Contrib.TYZGenus.Sqrt2Glue.sigmaLift_of
