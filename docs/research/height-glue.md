@@ -1,4 +1,4 @@
-# height-glue: the height glue of height-split proved from T35; H-3's correspondence reduced
+# height-glue: the height glue of height-split proved from T35; H-3's correspondence reduced to two leaves
 
 Task height-glue, 2026-11-14. Base f70ec251 (fork main after w55), branch `wip/height-glue`.
 Lean: `scratch/height-glue/` (results log `log.md`). Nothing under `ZInQKernel/` or `blueprint/`
@@ -25,10 +25,11 @@ No new leaf is introduced, and two of the four are proved outright (VERIFIED, st
 Consequently (`Rows.lean`): **the six height rows H-14 to H-19 follow from height-split's nine
 published-form leaves `HeightLeaves` and T35**: `heightRows_of_t35`.
 
-**H-3 (`QMPairEmbeddingCorrespondence`)** is reduced (VERIFIED) to two published-form leaves and
-one glue Prop of elementary quaternion arithmetic:
-`qmPairEmbeddingCorrespondence_of (hD : QMDescentCM) (hU : QMUniformizationC)
-(hC : CMPointEmbeddingCorrespondence) : QMPairEmbeddingCorrespondence` (§3).
+**H-3 (`QMPairEmbeddingCorrespondence`)** is reduced (VERIFIED) to two published-form leaves:
+`qmPairEmbeddingCorrespondence_of_leaves (hD : QMDescentCM) (hU : QMUniformizationC) :
+QMPairEmbeddingCorrespondence` (§3). The intermediate glue `CMPointEmbeddingCorrespondence`
+(CM points `↔` optimal embeddings, through normalized embeddings) is **proved** with no
+hypotheses (`cmPointEmbeddingCorrespondence`, `QMEmb.lean`).
 
 No statement was changed; no target is false or vacuous. One observation on the kernel's AN3U:
 it has no lattice hypothesis, so it also quantifies over degenerate uniformizations
@@ -129,7 +130,7 @@ an imaginary quadratic order `R ⊆ k` with conductor prime to 6, between two se
   Clauses (a)-(c) are consequences of the base-change construction and rigidity rather than one
   printed theorem; they are listed as a leaf because the base change of QM structures is not in the
   build.
-- **GLUE `CMPointEmbeddingCorrespondence`** (quaternion arithmetic, unproved): the `𝒪^×`-orbits of
+- **GLUE `CMPointEmbeddingCorrespondence`** (quaternion arithmetic; **proved**, §3.1): the `𝒪^×`-orbits of
   `τ` with `ordAt τ ≅ R` are in bijection with the optimal embeddings modulo `𝒪^×`. This is the
   normalized embedding:
   - fix `σ₀ : k ↪ ℂ`; then `φ_τ` is the unique embedding with `λ ∘ φ_τ = σ₀`, where `λ` is the eigenvalue
@@ -142,6 +143,53 @@ an imaginary quadratic order `R ⊆ k` with conductor prime to 6, between two se
   `QMDescentCM`;
 - `nonempty_qmClassesC_equiv`: those ≃ `CMPoints k R`, from `QMUniformizationC`;
 - `qmPairEmbeddingCorrespondence_of`, composing the two with the glue.
+
+### 3.1 `CMPointEmbeddingCorrespondence`, proved (`QMEmb.lean` = `QMCorr.lean` + `part_emb.lean`)
+
+Fix a generator `y ∈ R ∖ ℚ` with `y² + Py + Q = 0`, `P, Q ∈ ℤ`, and an embedding `σ : k → ℂ`.
+- **Existence of `y`** (`exists_mem_not_rat`, `exists_good_gen`). If `R ⊆ ℚ`, the multiples `mω` of an
+  integral `ω ∉ ℚ` are distinct modulo `R`, so the conductor would be `0`; scaling a non-rational
+  element of `R` clears the denominators of its quadratic.
+- **Linear algebra of `ρ`.**
+  - The explicit matrix `rho_apply`; its entries are real (`conj_rho`).
+  - `ρ` is injective (`rho_injective`).
+  - A real matrix with eigenvector `(τ, 1)ᵀ` also has `(τ̄, 1)ᵀ` (`eig_conj`).
+  - A matrix killing both is zero (`eq_zero_of_kill`). Hence two elements of `B` with the same
+    eigenvalue at `(τ, 1)ᵀ` are equal (`eq_of_eig`), and two with a common eigenvector commute
+    (`commute_of_eig`).
+  - The centralizer of a non-scalar `β ∈ B` is `ℚ + ℚβ` (`exists_eq_of_commute`, by coordinates).
+- **The quadratic field.**
+  - Coordinates `x = r + s y` (`exists_rat_repr`).
+  - `liftQuad`: the `ℚ`-algebra map `k → A` sending `y` to any root of `X² + PX + Q` in a
+    `ℚ`-algebra `A`.
+  - `σ(y) ∉ ℝ`, from `IsTotallyComplex` (`im_ne_zero_of_gen`).
+  - Vieta for `λ = σ(y)`, `λ̄`.
+- **The normalized fixed point** `fpt φ = (λ − d)/c`, where `ρ(φ y) = [[a, b], [c, d]]`:
+  - `c ≠ 0`, since otherwise `a` is a real root of `X² + PX + Q`;
+  - `(fpt φ, 1)ᵀ` is an eigenvector of `ρ(φ x)` with eigenvalue `σ(x)` for every `x ∈ k` (`fpt_eig`);
+  - `fpt φ ∉ ℝ`;
+  - `fpt φ` is the unique `τ` with `ρ(φ y)(τ, 1)ᵀ = λ(τ, 1)ᵀ`.
+- **(i)** For an optimal `φ`, `ordAt (fpt φ) = φ(R) ≅ R` (`nonempty_ordAt_fpt`; the centralizer lemma).
+- **(ii)** `fpt (uφu⁻¹) = u · fpt φ` in the sense of `cmRel` (`cmRel_fpt_conj`).
+- **(iii)** If `fpt ψ ~ fpt φ` through `u`, then `ψ = uφu⁻¹` (`conj_of_cmRel`, by `eq_of_eig`).
+- **(iv)** Every `τ` with `ordAt τ ≅ R` is `fpt φ` for an optimal `φ` (`exists_opt_of_cmPoint`):
+  - the eigenvalue is a ring map `ordAt τ → ℂ` (`evHom`), and its composite `h` with `R ≅ ordAt τ`
+    sends `y` to `λ` or `λ̄`;
+  - in the second case compose with the conjugation of `R`, which is stable because `x + x̄` is
+    integral and rational (`conjK_mem`);
+  - a ring map `R → ℂ` sending `y` to `λ` equals `σ` on `R` (`eq_sigma_of_gen`, clearing
+    denominators);
+  - `φ := liftQuad` with `y ↦ e⁻¹(ε y)`, and optimality follows from `eq_of_eig`.
+- `cmPointEmbeddingCorrespondence` lifts `φ ↦ [fpt φ]` to the quotients; it is a bijection by
+  (ii), (iii) and (iv).
+
+The independent statement review (§6) found no defect in the three QM Props. It recorded two RISKs:
+- `QMUniformizationC` bundles, with the published moduli statements (principally polarized,
+  `𝒪¹ \ ℍ`), the standard facts that QM tori are algebraic, GAGA for homomorphisms, and the passage
+  to the unpolarized `𝒪^×` form. Its docstring now cites Shimura 1963, Hashimoto 1995, Rotger 2004
+  and Voight Ch. 43.
+- the target's `Nonempty (X ≃ Y)` form (inherited from height-split) asserts only equal
+  cardinality, which is what `R5fpCount` uses.
 
 ## 4. What compiles
 
@@ -162,17 +210,35 @@ All checks used `lake env lean`, one process at a time (VERIFIED).
   `lake build ZInQKernel.Contrib.HeightBC.Main` once.
 - **`scratch/height-glue/QMCorr.lean`** (imports `ZInQKernel.HDecomp.QM.Leaves`): exit 0, and
   `qmPairEmbeddingCorrespondence_of` has standard axioms.
+- **`scratch/height-glue/QMEmb.lean`** (`build_emb.py`: `QMCorr.lean` plus `part_emb.lean`): exit 0.
+  `cmPointEmbeddingCorrespondence` and `qmPairEmbeddingCorrespondence_of_leaves` have standard
+  axioms.
 
 ## 5. What remains
 
 - **Height side:** nothing beyond T35 (a textbook leaf already in the bundle) and height-split's
   nine leaves.
-- **H-3:**
-  - the glue `CMPointEmbeddingCorrespondence` (elementary, but long: real splitting, eigenvectors,
-    centralizers in `B`);
-  - the two leaves `QMUniformizationC` and `QMDescentCM`. Clauses (a)-(c) of `QMDescentCM` could
-    become glue once base change of QM structures and the kernel's `T11b_Rigidity` are connected.
+- **H-3:** the two leaves `QMUniformizationC` and `QMDescentCM`.
+  - Clauses (a)-(c) of `QMDescentCM` could become glue once two things are connected: base change of
+    QM structures (a ring map `End(A) → End(A_L)`, not in the build) and the kernel's `T11b_Rigidity`.
+  - `QMUniformizationC` could be split further: T35 for `A(ℂ)`; the kernel's `T11a_RiemannEnd`
+    (endomorphisms are the lattice-preserving linear maps); class number one of `𝒪`; Riemann's
+    algebraicity theorem for QM tori; and the linear algebra of `M₂(ℝ)` acting on `ℂ²`. This was
+    not attempted.
 
-## 6. Status log
+## 6. Independent statement review (model, 11-14)
+
+A fresh-context agent read `QMCorr.lean` §1-§3 and the kernel's QM files. It did not run Lean. It
+found **no DEFECT**. It confirmed:
+- `rho` is a valid splitting;
+- `O` is maximal (discriminant 6);
+- norm `−1` units exist;
+- `R = ℤ` is excluded by the conductor hypothesis;
+- all three Props are true and not vacuous;
+- clause (c) of `QMDescentCM` is sound with `IsBaseChangeOfPair` a relation.
+
+Its RISKs are recorded in §3.1.
+
+## 7. Status log
 
 See `scratch/height-glue/log.md`.

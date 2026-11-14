@@ -12,11 +12,19 @@ no new leaf: `heightGlue_of_t35`. In detail:
 - `Rows.lean`: `heightRows_of_t35 : HeightLeaves → T35 → R18 ∧ R19 ∧ R20 ∧ R21 ∧ R22 ∧
   StableHeightFinite`.
 
-**H-3.** `QMPairEmbeddingCorrespondence` reduced to two leaves (`QMUniformizationC`, Shimura's
-moduli of QM surfaces over ℂ; `QMDescentCM`, base change/rigidity/CM descent) and one glue
-(`CMPointEmbeddingCorrespondence`, normalized optimal embeddings), with explicit `rho : B → M₂(ℂ)`,
-`cmSetoid`, `ordAt` (QMCorr.lean).
+**H-3.** `QMPairEmbeddingCorrespondence` follows from two leaves
+(`qmPairEmbeddingCorrespondence_of_leaves`):
+- `QMUniformizationC`: Shimura's moduli of QM surfaces over ℂ (classes ≃ `𝒪^× \ (ℂ∖ℝ)`,
+  `End_𝒪 ≅ 𝒪_τ`);
+- `QMDescentCM`: base change from `ℚ̄`, rigidity, CM descent.
 
-**Compiles:** `scratch/height-glue/{AUUnique,HeightGlue,Rows,QMCorr}.lean` (`lake env lean`, exit 0).
-**Remains:** the glue `CMPointEmbeddingCorrespondence` and the two QM leaves. Report:
+The glue between them, `CMPointEmbeddingCorrespondence` (CM points ↔ optimal embeddings, through
+normalized embeddings), is **proved** with no hypotheses (`QMEmb.lean`). It uses an explicit
+`rho : B → M₂(ℂ)`, eigenvector lemmas, the centralizer of a non-scalar element of `B`, `liftQuad`
+for the quadratic field, and conjugation-stability of orders. An independent statement review found
+no defect in the QM Props.
+
+**Compiles:** `scratch/height-glue/{AUUnique,HeightGlue,Rows,QMCorr,QMEmb}.lean` (`lake env lean`, exit 0,
+no `sorry`, standard axioms).
+**Remains:** the two QM leaves (see report §5 for how they could be split further). Report:
 docs/research/height-glue.md; log: scratch/height-glue/log.md.
