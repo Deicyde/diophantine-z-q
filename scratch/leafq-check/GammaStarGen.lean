@@ -334,3 +334,109 @@ theorem P_x4i : P x4i := by
 theorem P_x6i : P x6i := by
   refine P_cancel P_x6 ?_ (by norm_num [nrd, x6])
   rw [x6_x6i]; simpa using P_rat 1 one_ne_zero
+
+/-! ### The descent step -/
+
+theorem descent {v : PkgI1.B} (hre : v.re = 0)
+    (hn : -2 * v.imI ^ 2 + 3 * v.imJ ^ 2 - 6 * v.imK ^ 2 = 1) (h2 : 2 ≤ pairY v) :
+    pairY (x6 * v * x6i) < pairY v ∨ pairY (x6i * v * x6) < pairY v ∨
+      pairY (x6 * x4 * v * (x4i * x6i)) < pairY v ∨
+      pairY (x6i * x4i * v * (x4 * x6)) < pairY v := by
+  have e1 : pairY (x6 * v * x6i) = -v.imI + 3 * v.imJ + 3 * v.imK := by
+    simp [pairY, x6, x6i, hre]; ring
+  have e2 : pairY (x6i * v * x6) = -v.imI + 3 * v.imJ - 3 * v.imK := by
+    simp [pairY, x6, x6i, hre]; ring
+  have e3 : pairY (x6 * x4 * v * (x4i * x6i)) = -7 * v.imI + 9 * v.imJ + 3 * v.imK := by
+    simp [pairY, x6, x6i, x4, x4i, hre]; ring
+  have e4 : pairY (x6i * x4i * v * (x4 * x6)) = -7 * v.imI + 9 * v.imJ - 3 * v.imK := by
+    simp [pairY, x6, x6i, x4, x4i, hre]; ring
+  rw [e1, e2, e3, e4]
+  by_contra hc
+  push_neg at hc
+  obtain ⟨c1, c2, c3, c4⟩ := hc
+  simp only [pairY] at h2 c1 c2 c3 c4
+  nlinarith [mul_nonneg (sub_nonneg.2 c1) (sub_nonneg.2 c4),
+    mul_nonneg (sub_nonneg.2 c2) (sub_nonneg.2 c3)]
+
+/-! ### The base case: `x` commutes with `y` -/
+
+theorem nrd_ratCast (q : ℚ) : nrd (q : PkgI1.B) = q ^ 2 := by simp [nrd]
+
+theorem P_base {x z : PkgI1.B} (hxz : x * z = 1) (hzx : z * x = 1)
+    (hN : ∀ w, PkgI1.InO w → PkgI1.InO (x * w * z) ∧ PkgI1.InO (z * w * x))
+    (hpos : 0 < nrd x) (hv : x * yq * z = yq) : P x := by
+  have hcomm : x * yq = yq * x := by
+    calc x * yq = x * yq * (z * x) := by rw [hzx, mul_one]
+      _ = (x * yq * z) * x := by simp only [mul_assoc]
+      _ = yq * x := by rw [hv]
+  have hd : x.imK = 0 := by
+    have := congrArg QuaternionAlgebra.imI hcomm; simp [yq] at this; linarith
+  have hc : x.imJ = x.imI := by
+    have := congrArg QuaternionAlgebra.imK hcomm; simp [yq] at this; linarith
+  obtain ⟨a, b, hx⟩ : ∃ a b : ℚ, x = ⟨a, b, b, 0⟩ :=
+    ⟨x.re, x.imI, by ext <;> simp [hc, hd]⟩
+  have hNx : nrd x = a ^ 2 + b ^ 2 := by rw [hx]; simp only [nrd]; ring
+  have hN' : 0 < a ^ 2 + b ^ 2 := hNx ▸ hpos
+  have hu_eq : x * PkgI1.qj * z =
+      ⟨0, 6 * b ^ 2 / (a ^ 2 + b ^ 2), (a ^ 2 + 5 * b ^ 2) / (a ^ 2 + b ^ 2),
+        2 * a * b / (a ^ 2 + b ^ 2)⟩ := by
+    rw [inv_eq hxz hpos.ne', hNx, hx]
+    ext <;> simp [PkgI1.qj] <;> field_simp <;> ring
+  obtain ⟨n0, n1, n2, n3, hu'⟩ := (inO_iff _).1 (hN _ inO_qj).1
+  rw [hu_eq] at hu'
+  have eJ : (a ^ 2 + 5 * b ^ 2) / (a ^ 2 + b ^ 2) = (n2 : ℚ) / 2 :=
+    congrArg QuaternionAlgebra.imJ hu'
+  have eK : 2 * a * b / (a ^ 2 + b ^ 2) = (n3 : ℚ) / 2 := congrArg QuaternionAlgebra.imK hu'
+  have hn2 : (n2 : ℚ) = 2 * (a ^ 2 + 5 * b ^ 2) / (a ^ 2 + b ^ 2) := by
+    rw [mul_div_assoc, eJ]; ring
+  have hn3 : (n3 : ℚ) = 4 * a * b / (a ^ 2 + b ^ 2) := by
+    rw [show 4 * a * b / (a ^ 2 + b ^ 2) = 2 * (2 * a * b / (a ^ 2 + b ^ 2)) by ring, eK]; ring
+  have hq : ((n2 : ℚ) - 6) ^ 2 + 4 * (n3 : ℚ) ^ 2 = 16 := by
+    rw [hn2, hn3]; field_simp; ring
+  have hz : (n2 - 6) ^ 2 + 4 * n3 ^ 2 = 16 := by exact_mod_cast hq
+  have hn3b : -2 ≤ n3 ∧ n3 ≤ 2 := by constructor <;> nlinarith [sq_nonneg (n2 - 6)]
+  have hn2b : 2 ≤ n2 ∧ n2 ≤ 10 := by constructor <;> nlinarith [sq_nonneg n3]
+  have hcase : n2 = 2 ∨ n2 = 6 ∨ n2 = 10 := by
+    obtain ⟨l3, u3⟩ := hn3b; obtain ⟨l2, u2⟩ := hn2b
+    interval_cases n3 <;> interval_cases n2 <;> first | omega | (exfalso; revert hz; norm_num)
+  have hb2 : (n2 : ℚ) * (a ^ 2 + b ^ 2) = 2 * (a ^ 2 + 5 * b ^ 2) := by
+    rw [hn2]; field_simp
+  have nx4 : nrd x4 ≠ 0 := by norm_num [nrd, x4]
+  have nx4i : nrd x4i ≠ 0 := by norm_num [nrd, x4i]
+  rcases hcase with h | h | h
+  · -- `b = 0`: `x = a`
+    rw [h] at hb2; push_cast at hb2
+    have hb0 : b = 0 := by nlinarith [sq_nonneg b]
+    have ha0 : a ≠ 0 := by intro h0; rw [hb0, h0] at hN'; norm_num at hN'
+    have : x = ((a : ℚ) : PkgI1.B) := by rw [hx, hb0]; ext <;> simp
+    rw [this]; exact P_rat a ha0
+  · -- `a = ± b`
+    rw [h] at hb2; push_cast at hb2
+    have hab : (b - a) * (b + a) = 0 := by linear_combination (-1 / 4) * hb2
+    have ha0 : a ≠ 0 := by
+      intro h0; rw [h0] at hab; have : b = 0 := by nlinarith [sq_nonneg b]
+      rw [h0, this] at hN'; norm_num at hN'
+    rcases mul_eq_zero.1 hab with h' | h'
+    · have : x = ((a : ℚ) : PkgI1.B) * x4 := by
+        rw [hx, show b = a by linarith]; ext <;> simp [x4]
+      rw [this]
+      exact P_mul (P_rat a ha0) P_x4 (by rw [nrd_ratCast]; exact pow_ne_zero 2 ha0) nx4
+    · have : x = ((2 * a : ℚ) : PkgI1.B) * x4i := by
+        rw [hx, show b = -a by linarith]
+        ext <;> simp [x4i, QuaternionAlgebra.re_ofNat, QuaternionAlgebra.imI_ofNat,
+          QuaternionAlgebra.imJ_ofNat, QuaternionAlgebra.imK_ofNat] <;> ring
+      have h2a : (2 * a : ℚ) ≠ 0 := mul_ne_zero two_ne_zero ha0
+      rw [this]
+      exact P_mul (P_rat (2 * a) h2a) P_x4i (by rw [nrd_ratCast]; exact pow_ne_zero 2 h2a) nx4i
+  · -- `a = 0`: `x = b y = (b/2) x₄²`
+    rw [h] at hb2; push_cast at hb2
+    have ha0 : a = 0 := by nlinarith [sq_nonneg a]
+    have hb0 : b ≠ 0 := by intro h0; rw [ha0, h0] at hN'; norm_num at hN'
+    have : x = ((b / 2 : ℚ) : PkgI1.B) * (x4 * x4) := by
+      have h44 : x4 * x4 = ⟨0, 2, 2, 0⟩ := by ext <;> simp [x4] <;> norm_num
+      rw [hx, ha0, h44]; ext <;> simp <;> ring
+    have hb2' : (b / 2 : ℚ) ≠ 0 := div_ne_zero hb0 two_ne_zero
+    rw [this]
+    have h44 : nrd (x4 * x4) ≠ 0 := by rw [nrd_mul]; exact mul_ne_zero nx4 nx4
+    exact P_mul (P_rat (b / 2) hb2') (P_mul P_x4 P_x4 nx4 nx4)
+      (by rw [nrd_ratCast]; exact pow_ne_zero 2 hb2') h44
