@@ -47,8 +47,8 @@ USED   gagaMorphism : ZInQ.HomLattice.GAGAMorphism
 USED   bdRInvariants : HDec.HSyn.OpenTextbookLeaves10 → ∀ (p : ℕ) [inst : Fact (Nat.Prime p)], ZInQ.Contrib.HodgeSplit.BdRInvariants p
 USED   yuThm11 : HDec.QMSplit.Yu.YuThm11
 USED   genusX1Field : ZInQ.Contrib.CurvesG.GenusX1Field
-UNUSED regularSmoothPerfect : CurveSplit.RegularSmoothPerfect
-UNUSED igusaGL2 : ZInQ.RLeaf.IgusaGL2
+USED   regularSmoothPerfect : CurveSplit.RegularSmoothPerfect
+USED   igusaGL2 : ZInQ.RLeaf.IgusaGL2
 USED   neronSchemeExtensionExists : ZInQ.Contrib.NeronC.NeronSchemeExtensionExists
 
 ## HDec.HSyn.OpenAddedLeaves9
