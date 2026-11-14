@@ -3715,6 +3715,145 @@ theorem card_Sone_pos (z : UpperHalfPlane) : 0 < Nat.card (Sone z) := by
   haveI : Finite (Sone z) := Finite.of_injective (Subgroup.inclusion (Sone_le z)) (Subgroup.inclusion_injective _)
   exact Nat.card_pos
 
+/-! #### The four cosets cover `Γ*` -/
+
+open HDec.LeafQM.AV.Pin.NormO in
+/-- The chain's `normalizerFinite` with its explicit set of representatives `T = {1, i, j, ij}` (the proof is
+the chain's, `TailC.lean` l.2365-2380, with `T` kept). -/
+theorem normalizer_explicit (u : HDec.LeafQM.Bˣ)
+    (hu : ∀ a : HDec.LeafQM.B, a ∈ HDec.LeafQM.O ↔ (u : HDec.LeafQM.B) * a * ((u⁻¹ : HDec.LeafQM.Bˣ) : HDec.LeafQM.B) ∈ HDec.LeafQM.O) :
+    ∃ t ∈ T, ∃ v : HDec.LeafQM.Oˣ, ∃ q : ℚ, q ≠ 0 ∧
+      (u : HDec.LeafQM.B) = algebraMap ℚ HDec.LeafQM.B q * ((v : HDec.LeafQM.O) : HDec.LeafQM.B) * t := by
+  obtain ⟨m, hm, ⟨n, hn⟩⟩ := HDec.LeafQM.AV.Pin.AutOExt.exists_nat_smul_mem (u : HDec.LeafQM.B)
+  have hm0 : (m : ℚ) ≠ 0 := by exact_mod_cast hm.ne'
+  have hu0 : ((sc _ hm0 * u : HDec.LeafQM.Bˣ) : HDec.LeafQM.B) = HDec.LeafQM.ofInt n := by
+    change algebraMap ℚ HDec.LeafQM.B m * u = _
+    rw [← Algebra.smul_def]; exact hn
+  have hN : IsNorm u := by
+    intro a ha
+    refine ⟨(hu a).1 ha, (hu _).2 ?_⟩
+    simpa [mul_assoc] using ha
+  obtain ⟨q, hq, v, t, ht, he⟩ := HDec.LeafQM.AV.Pin.NormO.descent _ (sc _ hm0 * u) n hu0 rfl ((isNorm_sc _ hm0).mul hN)
+  refine ⟨t, ht, v, (m : ℚ)⁻¹ * q, mul_ne_zero (inv_ne_zero hm0) hq, ?_⟩
+  have : (u : HDec.LeafQM.B) = algebraMap ℚ HDec.LeafQM.B ((m : ℚ)⁻¹) * ((sc _ hm0 * u : HDec.LeafQM.Bˣ) : HDec.LeafQM.B) := by
+    change _ = _ * (algebraMap ℚ HDec.LeafQM.B m * u)
+    rw [← mul_assoc, ← map_mul, inv_mul_cancel₀ hm0, map_one, one_mul]
+  rw [this, he, ← mul_assoc, ← mul_assoc, ← map_mul]
+
+theorem smul_eq_of_scalar {γ δ : GL (Fin 2) ℝ} (hγ : 0 < (γ : Matrix (Fin 2) (Fin 2) ℝ).det)
+    (hδ : 0 < (δ : Matrix (Fin 2) (Fin 2) ℝ).det) {c : ℝ} (hc : c ≠ 0)
+    (h : (γ : Matrix (Fin 2) (Fin 2) ℝ) = c • (δ : Matrix (Fin 2) (Fin 2) ℝ)) (z : UpperHalfPlane) :
+    γ • z = δ • z := by
+  have hγ' : 0 < γ.det.val := by rwa [Matrix.GeneralLinearGroup.val_det_apply]
+  have hδ' : 0 < δ.det.val := by rwa [Matrix.GeneralLinearGroup.val_det_apply]
+  apply UpperHalfPlane.ext
+  rw [UpperHalfPlane.coe_smul_of_det_pos hγ', UpperHalfPlane.coe_smul_of_det_pos hδ']
+  have hz1 := denom_ne_zero γ z
+  have hz2 := denom_ne_zero δ z
+  rw [div_eq_div_iff hz1 hz2]
+  simp only [UpperHalfPlane.num, UpperHalfPlane.denom, h, Matrix.smul_apply, smul_eq_mul]
+  push_cast; ring
+
+/-- `i`, `j`. -/
+def eI : PkgI1.B := ⟨0, 1, 0, 0⟩
+def eJ : PkgI1.B := ⟨0, 0, 1, 0⟩
+
+theorem inO_i_a4i : PkgI1.InO (eI * a4i) :=
+  (inO_iff _).2 ⟨-1, 1, 0, -1, by ext <;> simp [eI, a4i] <;> norm_num⟩
+theorem inO_j_a6i : PkgI1.InO (eJ * a6i) :=
+  (inO_iff _).2 ⟨1, 0, -1, 0, by ext <;> simp [eJ, a6i] <;> norm_num⟩
+theorem inO_k_a6i_a4i : PkgI1.InO (eI * eJ * a6i * a4i) :=
+  (inO_iff _).2 ⟨0, 0, -1, -1, by ext <;> simp [eI, eJ, a4i, a6i] <;> norm_num⟩
+theorem nrd_eI : nrd eI = -2 := by simp [nrd, eI]
+theorem nrd_eJ : nrd eJ = 3 := by simp [nrd, eJ]
+
+open HDec.LeafQM.AV.Pin.NormO in
+/-- **The four cosets cover `Γ*`** (from the chain's normalizer computation). -/
+theorem coset_cover {γ : GL (Fin 2) ℝ} (hγ : γ ∈ Gs) :
+    ∃ i : Fin 4, ∃ h ∈ G1, mob γ = mob h * mob (g4 i) := by
+  obtain ⟨x, ⟨y, hxy, hyx, hN⟩, hγx, hd⟩ := hγ
+  have hnx : 0 < nrd x := by rw [hγx, det_iota_eq] at hd; exact_mod_cast hd
+  let u : HDec.LeafQM.Bˣ := ⟨x, y, hxy, hyx⟩
+  have hO : ∀ a : PkgI1.B, a ∈ HDec.LeafQM.O ↔ PkgI1.InO a := fun a => (inO_ofInt a).symm
+  have hiff : ∀ a : HDec.LeafQM.B, a ∈ HDec.LeafQM.O ↔
+      (u : HDec.LeafQM.B) * a * ((u⁻¹ : HDec.LeafQM.Bˣ) : HDec.LeafQM.B) ∈ HDec.LeafQM.O := by
+    intro a
+    change a ∈ HDec.LeafQM.O ↔ x * a * y ∈ HDec.LeafQM.O
+    rw [hO, hO]
+    refine ⟨fun ha => (hN a ha).1, fun ha => ?_⟩
+    have := (hN _ ha).2
+    simpa [mul_assoc, hyx, ← mul_assoc y x, hyx] using this
+  obtain ⟨t, ht, v, q, hq, hu⟩ := normalizer_explicit u hiff
+  change x = _ at hu
+  set vv : PkgI1.B := ((v : HDec.LeafQM.O) : HDec.LeafQM.B)
+  have hvO : PkgI1.InO vv := (hO vv).1 (v : HDec.LeafQM.O).2
+  have hvn : nrd vv = 1 ∨ nrd vv = -1 := by
+    have := HDec.LeafQM.AV.Pin.Exact.nrd_unit v
+    simpa [HDec.LeafQM.AV.Pin.Exact.nrd, nrd] using this
+  -- the representative and the norm-one factor
+  have hqa : ∀ z : PkgI1.B, nrd (algebraMap ℚ PkgI1.B q * z) = q ^ 2 * nrd z := by
+    intro z; rw [nrd_mul]; congr 1; simp [nrd]
+  have hnq : 0 < q ^ 2 := by positivity
+  have hui : ((ui : HDec.LeafQM.Bˣ) : PkgI1.B) = eI := by
+    show HDec.LeafQM.ofInt ei = _; ext <;> simp [HDec.LeafQM.ofInt, ei, eI]
+  have huj : ((uj : HDec.LeafQM.Bˣ) : PkgI1.B) = eJ := by
+    show HDec.LeafQM.ofInt ej = _; ext <;> simp [HDec.LeafQM.ofInt, ej, eJ]
+  have na4i : nrd a4i = 1 / 2 := by simp [nrd, a4i]; norm_num
+  have na6i : nrd a6i = 1 / 3 := by simp [nrd, a6i]; norm_num
+  have h44 : a4i * a4 = 1 := nd_a4.2.1
+  have h66 : a6i * a6 = 1 := nd_a6.2.1
+  have hA : ∀ z : PkgI1.B, a4i * (a4 * z) = z := fun z => by rw [← mul_assoc, h44, one_mul]
+  have hB : ∀ z : PkgI1.B, a6i * (a6 * z) = z := fun z => by rw [← mul_assoc, h66, one_mul]
+  have key : ∃ (i : Fin 4) (w : PkgI1.B), PkgI1.InO w ∧ nrd w = 1 ∧
+      x = algebraMap ℚ PkgI1.B q * (w * rep4 i) := by
+    rw [T_mem_iff] at ht
+    rcases ht with rfl | rfl | rfl | rfl
+    · have hv1 : nrd vv = 1 := by
+        rcases hvn with h | h
+        · exact h
+        · exfalso; rw [hu, Units.val_one, mul_one, hqa, h] at hnx; nlinarith
+      exact ⟨0, vv, hvO, hv1, by rw [hu]; simp [rep4]⟩
+    · rw [hui] at hu
+      have hv1 : nrd vv = -1 := by
+        rcases hvn with h | h
+        · exfalso; rw [hu, mul_assoc, hqa, nrd_mul, h, nrd_eI] at hnx; nlinarith
+        · exact h
+      refine ⟨1, vv * (eI * a4i), inO_mul hvO inO_i_a4i, ?_, ?_⟩
+      · rw [nrd_mul, nrd_mul, hv1, na4i, nrd_eI]; norm_num
+      · rw [hu, show rep4 1 = a4 from rfl]; simp only [mul_assoc, hA, h44, mul_one]
+    · rw [huj] at hu
+      have hv1 : nrd vv = 1 := by
+        rcases hvn with h | h
+        · exact h
+        · exfalso; rw [hu, mul_assoc, hqa, nrd_mul, h, nrd_eJ] at hnx; nlinarith
+      refine ⟨2, vv * (eJ * a6i), inO_mul hvO inO_j_a6i, ?_, ?_⟩
+      · rw [nrd_mul, nrd_mul, hv1, na6i, nrd_eJ]; norm_num
+      · rw [hu, show rep4 2 = a6 from rfl]; simp only [mul_assoc, hB, h66, mul_one]
+    · rw [Units.val_mul, hui, huj] at hu
+      have hv1 : nrd vv = -1 := by
+        rcases hvn with h | h
+        · exfalso; rw [hu, mul_assoc, hqa, nrd_mul, nrd_mul, h, nrd_eI, nrd_eJ] at hnx; nlinarith
+        · exact h
+      refine ⟨3, vv * (eI * eJ * a6i * a4i), inO_mul hvO inO_k_a6i_a4i, ?_, ?_⟩
+      · simp only [nrd_mul, hv1, na6i, na4i, nrd_eI, nrd_eJ]; norm_num
+      · rw [hu, show rep4 3 = a4 * a6 from rfl]; simp only [mul_assoc, hA, h66, mul_one]
+  obtain ⟨i, w, hwO, hwn, hxw⟩ := key
+  have hw0 : nrd w ≠ 0 := by rw [hwn]; norm_num
+  let h : GL (Fin 2) ℝ := glOf w hw0
+  have hh : h ∈ G1 := ⟨w, hwO, coe_glOf w hw0, by rw [coe_glOf, det_iota_eq, hwn]; norm_num⟩
+  refine ⟨i, h, hh, ?_⟩
+  rw [← map_mul]
+  have hdet2 : 0 < ((h * g4 i : GL (Fin 2) ℝ) : Matrix (Fin 2) (Fin 2) ℝ).det := by
+    rw [Units.val_mul, Matrix.det_mul, coe_glOf, det_iota_eq, hwn, g4, coe_glOf, det_iota_eq]
+    have := (nd_rep i).2.2.2
+    simp only [Rat.cast_one, one_mul]; exact_mod_cast this
+  have hq0 : (q : ℝ) ≠ 0 := by exact_mod_cast hq
+  have hmat : (γ : Matrix (Fin 2) (Fin 2) ℝ) = (q : ℝ) • ((h * g4 i : GL (Fin 2) ℝ) : Matrix (Fin 2) (Fin 2) ℝ) := by
+    have hia : PkgI1.iota (algebraMap ℚ PkgI1.B q) = (q : ℝ) • 1 := by
+      rw [iota_apply]; ext i j; fin_cases i <;> fin_cases j <;> simp
+    rw [hγx, hxw, Units.val_mul, coe_glOf, g4, coe_glOf, iota_mul, iota_mul, hia, smul_one_mul]
+  exact Equiv.ext fun z => smul_eq_of_scalar hd hdet2 hq0 hmat z
+
 /-- **Row H-87 from the published leaves only**: the valence formula applied to `Γ¹ = ι(𝒪¹)` with
 Shimizu's covolume `2π/3`, and the index argument above. -/
 theorem valenceFormulaGammaStar_of_O1 (hV : ValenceFormulaCocompactEq) (hS : ShimizuCovolumeO1) :
