@@ -3525,6 +3525,75 @@ theorem class_bound (z : UpperHalfPlane) (i₀ : Fin 4) :
   rw [← hL, Subgroup.index, mul_comm (Nat.card (Sone z))]
   exact Nat.mul_le_mul_right _ hc1
 
+/-! #### Orders along orbits -/
+
+theorem eq_at_of_punctured_real {f g : ℂ → ℝ} {P : ℂ} (hf : ContinuousAt f P) (hg : ContinuousAt g P)
+    (h : f =ᶠ[𝓝[≠] P] g) : f P = g P :=
+  tendsto_nhds_unique (hf.tendsto.mono_left nhdsWithin_le_nhds)
+    ((hg.tendsto.mono_left nhdsWithin_le_nhds).congr' h.symm)
+
+/-- Orders agree when the moduli differ by a continuous positive factor. -/
+theorem ord_eq_of_norm {F G : ℂ → ℂ} {z : ℂ} (hF : AnalyticAt ℂ F z) (hG : AnalyticAt ℂ G z)
+    {c : ℂ → ℝ} (hc : ContinuousAt c z) (hc0 : 0 < c z) (h : ∀ᶠ w in 𝓝 z, ‖G w‖ = c w * ‖F w‖) :
+    analyticOrderAt G z = analyticOrderAt F z := by
+  have hcpos : ∀ᶠ w in 𝓝 z, 0 < c w := hc.eventually (lt_mem_nhds hc0)
+  by_cases hFt : analyticOrderAt F z = ⊤
+  · rw [hFt, analyticOrderAt_eq_top]
+    rw [analyticOrderAt_eq_top] at hFt
+    filter_upwards [hFt, h] with w h1 h2
+    rw [h1, norm_zero, mul_zero] at h2
+    exact norm_eq_zero.1 h2
+  by_cases hGt : analyticOrderAt G z = ⊤
+  · exfalso; apply hFt
+    rw [analyticOrderAt_eq_top] at hGt ⊢
+    filter_upwards [hGt, h, hcpos] with w h1 h2 h3
+    rw [h1, norm_zero] at h2
+    have := (mul_eq_zero.1 h2.symm).resolve_left h3.ne'
+    exact norm_eq_zero.1 this
+  obtain ⟨b, hb⟩ := ENat.ne_top_iff_exists.1 hFt
+  obtain ⟨a, ha⟩ := ENat.ne_top_iff_exists.1 hGt
+  rw [← ha, ← hb]
+  obtain ⟨f, hf, hf0, hfF⟩ := hF.analyticOrderAt_eq_natCast.1 hb.symm
+  obtain ⟨g, hg, hg0, hgG⟩ := hG.analyticOrderAt_eq_natCast.1 ha.symm
+  have key : ∀ᶠ w in 𝓝 z, ‖w - z‖ ^ a * ‖g w‖ = c w * (‖w - z‖ ^ b * ‖f w‖) := by
+    filter_upwards [h, hfF, hgG] with w h1 h2 h3
+    rw [h3, h2, norm_smul, norm_smul, norm_pow, norm_pow] at h1
+    exact h1
+  rcases lt_trichotomy a b with hab | hab | hab
+  · exfalso
+    have hev : (fun w => ‖g w‖) =ᶠ[𝓝[≠] z] (fun w => c w * (‖w - z‖ ^ (b - a) * ‖f w‖)) := by
+      filter_upwards [nhdsWithin_le_nhds key, self_mem_nhdsWithin] with w h1 h2
+      have hw : 0 < ‖w - z‖ ^ a := pow_pos (norm_pos_iff.2 (sub_ne_zero.2 h2)) a
+      have e : ‖w - z‖ ^ b = ‖w - z‖ ^ a * ‖w - z‖ ^ (b - a) := by
+        rw [← pow_add]; congr 1; omega
+      rw [e] at h1
+      apply mul_left_cancel₀ hw.ne'
+      linear_combination h1
+    have := eq_at_of_punctured_real (hg.continuousAt.norm)
+      (hc.mul ((((continuous_id.sub continuous_const).norm.pow _).continuousAt).mul hf.continuousAt.norm)) hev
+    have this' : ‖g z‖ = c z * (‖z - z‖ ^ (b - a) * ‖f z‖) := this
+    rw [sub_self, norm_zero, zero_pow (by omega), zero_mul, mul_zero] at this'
+    have this := this'
+    exact hg0 (norm_eq_zero.1 this)
+  · rw [hab]
+  · exfalso
+    have hev : (fun w => ‖w - z‖ ^ (a - b) * ‖g w‖) =ᶠ[𝓝[≠] z] (fun w => c w * ‖f w‖) := by
+      filter_upwards [nhdsWithin_le_nhds key, self_mem_nhdsWithin] with w h1 h2
+      have hw : 0 < ‖w - z‖ ^ b := pow_pos (norm_pos_iff.2 (sub_ne_zero.2 h2)) b
+      have e : ‖w - z‖ ^ a = ‖w - z‖ ^ b * ‖w - z‖ ^ (a - b) := by
+        rw [← pow_add]; congr 1; omega
+      rw [e] at h1
+      apply mul_left_cancel₀ hw.ne'
+      linear_combination h1
+    have := eq_at_of_punctured_real
+      ((((continuous_id.sub continuous_const).norm.pow _).continuousAt).mul hg.continuousAt.norm)
+      (hc.mul hf.continuousAt.norm) hev
+    have this' : ‖z - z‖ ^ (a - b) * ‖g z‖ = c z * ‖f z‖ := this
+    rw [sub_self, norm_zero, zero_pow (by omega), zero_mul] at this'
+    have this := this'
+    have := (mul_eq_zero.1 this.symm).resolve_left hc0.ne'
+    exact hf0 (norm_eq_zero.1 this)
+
 end Index
 
 include hT hV hC in
