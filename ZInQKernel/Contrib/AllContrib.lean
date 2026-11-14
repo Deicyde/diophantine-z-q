@@ -2074,4 +2074,5 @@ import ZInQKernel.Contrib.TYZChain.Lemma318
 import ZInQKernel.Contrib.TYZChain.Main
 import ZInQKernel.Contrib.TYZChain.ModFn
 import ZInQKernel.Contrib.TYZChain.SSExponent
+import ZInQKernel.Contrib.TYZChain.Sqrt2Glue
 import ZInQKernel.Contrib.TYZChain.Thm35

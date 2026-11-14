@@ -40,6 +40,7 @@ import ZInQKernel.Contrib.TYZChain.Main
 import ZInQKernel.Contrib.TYZChain.Headline
 import ZInQKernel.Contrib.TYZChain.ModFn
 import ZInQKernel.Contrib.TYZChain.SSExponent
+import ZInQKernel.Contrib.TYZChain.Sqrt2Glue
 
 /-! The two closed providers fed into the unchanged headline theorem: Theorem 1.1 from
 `SixContactMin`, `TYZThm35ReadingA` and `GrossZagier` alone. -/
@@ -190,6 +191,7 @@ theorem contribCheck_headline (hH : ZInQ.SixContactMin) (hA : ZInQ.Literature.TY
 #print axioms ZInQ.Contrib.TYZChain.tyzThm35ReadingA_of_leaves
 #print axioms ZInQ.Contrib.TYZChain.tyzThm35ReadingA_of_tyzChainLeaves
 #print axioms ZInQ.Contrib.TYZChain.frozenTarget_of_sixContactMin_grossZagier_tyzChainLeaves
+#print axioms ZInQ.Contrib.TYZGenus.Sqrt2Glue.sqrtTwoNotInHHprime
 #print axioms ZInQ.Contrib.TYZGenus.CMBridge.tyzDelta_spec
 #print axioms ZInQ.Contrib.TYZGenus.CMBridge.exists_actsAsArtinO
 #print axioms ZInQ.Contrib.TYZGenus.CMBridge.lemma321_of
