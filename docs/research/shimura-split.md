@@ -147,8 +147,8 @@ theorem HDec.QMSplit.Moduli.r1r2fpRep_of_printed_t5 (hD : DeligneComponentsX6) (
     (hG : GonzalezRotgerX6) : LeafAdopt.R1R2fpRep
 ```
 
-T5 is not a new hypothesis. The chain derives it from the bundle's textbook leaves (`LF4T5`,
-`T5Torsion.torsionStructure_of_torsionCard`), and the kernel's `MobiusGlue` already uses it.
+T5 is not a new hypothesis. It is `AvSplit.Final.h25 t.mumfordTorsionAlgClosed` (TailQ l.2366; TailX l.233
+fills the old field `t5` this way), and the kernel's `MobiusGlue` already uses it.
 
 **Forms (SPECULATIVE readings).**
 * `GonzalezRotgerX6` is the printed Thm 5.12 on `X₀(6,1)` with the audited reading of `D(R)`.
