@@ -225,4 +225,118 @@ theorem exp_neg_five_pi_div_two_le : Real.exp (-(5 * π / 2)) ≤ 1 / 1000 := by
   refine exp_neg_le_of (by norm_num) ?_
   push_cast at h; nlinarith
 
+/-! ## §5. Majorants for the Hurwitz kernels on `x ≥ 1` -/
+
+theorem int_cases' (n : ℤ) : (∃ m : ℕ, n = m) ∨ ∃ m : ℕ, n = -((m : ℤ) + 1) := by
+  rcases n with m | m
+  · exact Or.inl ⟨m, rfl⟩
+  · exact Or.inr ⟨m, Int.negSucc_eq m⟩
+
+/-- A majorant on `ℤ` glued from two sequences on `ℕ`. -/
+def zmaj (A B : ℕ → ℝ) (n : ℤ) : ℝ := if 0 ≤ n then A n.toNat else B (-n - 1).toNat
+
+theorem zmaj_nat (A B : ℕ → ℝ) (m : ℕ) : zmaj A B m = A m := by simp [zmaj]
+
+theorem zmaj_neg (A B : ℕ → ℝ) (m : ℕ) : zmaj A B (-((m : ℤ) + 1)) = B m := by
+  have h : ¬ (0 : ℤ) ≤ -((m : ℤ) + 1) := by omega
+  have h2 : (-(-((m : ℤ) + 1)) - 1).toNat = m := by omega
+  simp only [zmaj, h, ite_false, h2]
+
+theorem hasSum_zmaj {A B : ℕ → ℝ} {α β : ℝ} (hA : HasSum A α) (hB : HasSum B β) :
+    HasSum (zmaj A B) (α + β) :=
+  HasSum.of_nat_of_neg_add_one (by simpa only [zmaj_nat] using hA)
+    (by simpa only [zmaj_neg] using hB)
+
+theorem hasSum_lin_geom {r : ℝ} (h0 : 0 ≤ r) (h1 : r < 1) (c : ℝ) :
+    HasSum (fun n : ℕ => ((n : ℝ) + c) * r ^ n) (r / (1 - r) ^ 2 + c * (1 - r)⁻¹) := by
+  have h := (hasSum_coe_mul_geometric_of_norm_lt_one (𝕜 := ℝ)
+    (by rwa [Real.norm_of_nonneg h0])).add ((hasSum_geometric_of_lt_one h0 h1).mul_left c)
+  convert h using 1
+  funext n; ring
+
+theorem exp_pow_eq (y : ℝ) (m : ℕ) : Real.exp y ^ m = Real.exp (m * y) :=
+  (Real.exp_nat_mul y m).symm
+
+theorem nat_sq_ge (m : ℕ) : (m : ℝ) ≤ (m : ℝ) ^ 2 := by
+  have : m ≤ m ^ 2 := by nlinarith
+  exact_mod_cast this
+
+/-- **`|oddKernel(1/4)(x)| ≤ 0.37 e^{−π(x−1)/16}` for `x ≥ 1`.** -/
+theorem abs_oddKernel_quarter_le {x : ℝ} (hx : 1 ≤ x) :
+    |oddKernel ((1 / 4 : ℝ) : UnitAddCircle) x| ≤ 0.37 * Real.exp (-(π / 16) * (x - 1)) := by
+  set E := Real.exp (-(π / 16) * (x - 1)) with hE
+  set e1 := Real.exp (-(π / 16))
+  set q := Real.exp (-(3 * π / 2))
+  set e2 := Real.exp (-(9 * π / 16))
+  set q2 := Real.exp (-(5 * π / 2))
+  have hq : q ≤ 1 / 50 := exp_neg_three_pi_div_two_le
+  have hq2 : q2 ≤ 1 / 1000 := exp_neg_five_pi_div_two_le
+  have he1 : e1 ≤ 0.83 := exp_neg_pi_div_sixteen_le
+  have he2 : e2 ≤ 0.18 := exp_neg_nine_pi_div_sixteen_le
+  have hq0 : 0 ≤ q := (Real.exp_pos _).le
+  have hq20 : 0 ≤ q2 := (Real.exp_pos _).le
+  have hE0 : 0 ≤ E := (Real.exp_pos _).le
+  have he10 : 0 ≤ e1 := (Real.exp_pos _).le
+  have he20 : 0 ≤ e2 := (Real.exp_pos _).le
+  set A : ℕ → ℝ := fun m => E * e1 * (((m : ℝ) + 1 / 4) * q ^ m)
+  set B : ℕ → ℝ := fun m => E * e2 * (((m : ℝ) + 3 / 4) * q2 ^ m)
+  have hA := (hasSum_lin_geom hq0 (by linarith) (1 / 4)).mul_left (E * e1)
+  have hB := (hasSum_lin_geom hq20 (by linarith) (3 / 4)).mul_left (E * e2)
+  have hpi := Real.pi_pos
+  have key := HasSum.norm_le_of_bounded (hasSum_int_oddKernel (1 / 4) (by linarith : 0 < x))
+    (hasSum_zmaj hA hB) (fun n => ?_)
+  · rw [Real.norm_eq_abs] at key
+    refine key.trans ?_
+    -- numerics
+    have h1 : q / (1 - q) ^ 2 + 1 / 4 * (1 - q)⁻¹ ≤ 0.276 := by
+      have hpos : 0 < 1 - q := by linarith
+      rw [← div_eq_mul_inv, div_add_div _ _ (by positivity) hpos.ne', div_le_iff₀ (by positivity)]
+      nlinarith
+    have h2 : q2 / (1 - q2) ^ 2 + 3 / 4 * (1 - q2)⁻¹ ≤ 0.753 := by
+      have hpos : 0 < 1 - q2 := by linarith
+      rw [← div_eq_mul_inv, div_add_div _ _ (by positivity) hpos.ne', div_le_iff₀ (by positivity)]
+      nlinarith
+    have h1' : 0 ≤ q / (1 - q) ^ 2 + 1 / 4 * (1 - q)⁻¹ := by
+      have hpos : 0 < 1 - q := by linarith
+      positivity
+    have h2' : 0 ≤ q2 / (1 - q2) ^ 2 + 3 / 4 * (1 - q2)⁻¹ := by
+      have hpos : 0 < 1 - q2 := by linarith
+      positivity
+    have : e1 * (q / (1 - q) ^ 2 + 1 / 4 * (1 - q)⁻¹) +
+        e2 * (q2 / (1 - q2) ^ 2 + 3 / 4 * (1 - q2)⁻¹) ≤ 0.37 := by nlinarith
+    nlinarith
+  · rcases int_cases' n with ⟨m, rfl⟩ | ⟨m, rfl⟩
+    · rw [zmaj_nat]
+      simp only [Int.cast_natCast]
+      have hm := nat_sq_ge m
+      have hm0 : (0 : ℝ) ≤ m := Nat.cast_nonneg m
+      rw [Real.norm_eq_abs, abs_mul, abs_of_nonneg (by positivity : (0:ℝ) ≤ m + 1 / 4),
+        abs_of_nonneg (Real.exp_pos _).le]
+      have hexp : Real.exp (-π * ((m : ℝ) + 1 / 4) ^ 2 * x) ≤ E * e1 * q ^ m := by
+        rw [exp_pow_eq, hE, ← Real.exp_add, ← Real.exp_add]
+        refine Real.exp_le_exp.mpr ?_
+        have : 0 ≤ ((m : ℝ) ^ 2 + m / 2) * (x - 1) := by
+          apply mul_nonneg <;> nlinarith
+        nlinarith
+      calc ((m : ℝ) + 1 / 4) * Real.exp (-π * ((m : ℝ) + 1 / 4) ^ 2 * x)
+          ≤ ((m : ℝ) + 1 / 4) * (E * e1 * q ^ m) := by gcongr
+        _ = E * e1 * (((m : ℝ) + 1 / 4) * q ^ m) := by ring
+    · rw [zmaj_neg]
+      push_cast
+      have hm := nat_sq_ge m
+      have hm0 : (0 : ℝ) ≤ m := Nat.cast_nonneg m
+      have hsq : (-((m : ℝ) + 1) + 1 / 4) ^ 2 = ((m : ℝ) + 3 / 4) ^ 2 := by ring
+      rw [hsq, Real.norm_eq_abs, abs_mul, show -((m : ℝ) + 1) + 1 / 4 = -((m : ℝ) + 3 / 4) by ring,
+        abs_neg, abs_of_nonneg (by positivity : (0:ℝ) ≤ m + 3 / 4),
+        abs_of_nonneg (Real.exp_pos _).le]
+      have hexp : Real.exp (-π * ((m : ℝ) + 3 / 4) ^ 2 * x) ≤ E * e2 * q2 ^ m := by
+        rw [exp_pow_eq, hE, ← Real.exp_add, ← Real.exp_add]
+        refine Real.exp_le_exp.mpr ?_
+        have : 0 ≤ ((m : ℝ) ^ 2 + 3 * m / 2 + 1 / 2) * (x - 1) := by
+          apply mul_nonneg <;> nlinarith
+        nlinarith
+      calc ((m : ℝ) + 3 / 4) * Real.exp (-π * ((m : ℝ) + 3 / 4) ^ 2 * x)
+          ≤ ((m : ℝ) + 3 / 4) * (E * e2 * q2 ^ m) := by gcongr
+        _ = E * e2 * (((m : ℝ) + 3 / 4) * q2 ^ m) := by ring
+
 end ZInQ.Contrib.TYZLcal
