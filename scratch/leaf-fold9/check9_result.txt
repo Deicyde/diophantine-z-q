@@ -15,8 +15,8 @@ Hint: The binding can be removed (if unused) or named `_` (if used implicitly). 
   [apply] _g
 Note: This linter can be disabled with `set_option linter.unusedVariables false`
 'HDec.HSyn.sixContactMin_of_open9' depends on axioms: [propext, Classical.choice, Quot.sound]
-closure: 212147 constants; sorryAx in closure: false
-HDec.HSyn.OpenResearchLeaves9 (29 fields)
+closure: 212153 constants; sorryAx in closure: false
+HDec.HSyn.OpenResearchLeaves9 (28 fields)
 r1r2 : HDec.LeafAdopt.R1R2fpRep [ZInQKernel.OneProof.H.LPrefix]
 shimuraFamily : HDec.QMSplit.Moduli.ShimuraFamily [ZInQKernel.OneProof.H.TailU]
 r3 : ZInQ.LeafPush2.R03_LinYang [ZInQKernel.HDecomp.LeafPush2.R3] K
@@ -35,7 +35,6 @@ r11r12 : HDec.PkgI4.PanBerger [ZInQKernel.OneProof.H.LPrefix]
 eigenformHTNew : ZInQ.Contrib.HodgeSplit.EigenformHTNew [ZInQKernel.OneProof.H.TailS]
 dsThm965 : ZInQ.Contrib.HodgeSplit.DSThm965 [ZInQKernel.OneProof.H.TailS]
 dsThm966 : ZInQ.Contrib.HodgeSplit.DSThm966 [ZInQKernel.OneProof.H.TailS]
-r15 : HDec.HSyn.DeligneSerreConseq [ZInQKernel.OneProof.H.LPrefix]
 r16 : LeafModCurves.R16_EichlerShimuraJ1' [ZInQKernel.HDecomp.ModCurves.Leaves] K
 r17 : LadicCond.CarayolR17' [ZInQKernel.HDecomp.Conductor.LadicCond] K
 semistableReductionThm : ZInQ.HeightSplit.SemistableReductionThm [ZInQKernel.OneProof.H.TailY]
@@ -82,13 +81,14 @@ shimizuCovolumeO1 : HDec.LeafQCheck.HM.QMSplit.ShimizuCovolumeO1 [ZInQKernel.One
 igusaCMValue24 : HDec.LeafQCheck.HM.QMSplit.Value24.IgusaCMValue24 [ZInQKernel.OneProof.H.TailZ3]
 HDec.HSyn.OpenGlue7 (1 fields)
 quotientP1Coordinate : HDec.MCRGlue.QuotientP1Coordinate [ZInQKernel.OneProof.H.TailW]
-fields: 62; head constant declared outside ZInQKernel.OneProof: 20
+fields: 61; head constant declared outside ZInQKernel.OneProof: 20
 'ZInQ.Contrib.CloudW07JacobiansCurves.JacobianExists_proof' depends on axioms: [propext, Classical.choice, Quot.sound]
 'ZInQ.Contrib.CloudW07JacobiansCurves.NormalModelOfFunctionFieldQ_proof' depends on axioms: [propext,
  Classical.choice,
  Quot.sound]
 'HDec.HSyn.r1rec_of_rep' depends on axioms: [propext, Classical.choice, Quot.sound]
 'HDec.HSyn.r5fp_of_rep' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ModularSplit.deligneSerreConseq_of_ds' depends on axioms: [propext, Classical.choice, Quot.sound]
 'ZInQ.LeafFold9.fieldOfModuli3_le' depends on axioms: [propext, Classical.choice, Quot.sound]
 'ZInQ.LeafFold9.residueImage_eq_fieldOfModuliPair' depends on axioms: [propext, Classical.choice, Quot.sound]
 'ZInQ.LeafFold9.qmIso_of_isBaseChangeOfPair' depends on axioms: [propext, Classical.choice, Quot.sound]

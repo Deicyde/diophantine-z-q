@@ -37,3 +37,14 @@
 - Check9.lean: sixContactMin_of_open9 standard axioms; closure 212147 constants, no sorryAx; 62 fields
   (29 + 18 + 14 + 1), 20 with a kernel head constant; axioms of the two W07 proofs and of the bridge theorems standard.
 - Counts (mk_fields9.py): 66 -> 64 -> 62 fields; strict LEAF/GLUE 39/27 -> 39/25 -> 37/25; lenient 55/11 -> 53/11 -> 51/11.
+
+## 12:15 fold (4) modular-split (its .fleet report appeared) — VERIFIED
+- `git merge origin/wip/modular-split` (clean). Folded only r15: `ModularSplit.deligneSerreConseq_of_ds` from the
+  existing field dsThm966 (strict GLUE -1). Not folded: dimJacobianEqGenus (comp -> project glue
+  H0DifferentialsEqHolo: neither count lowers), r17 (c -> c), eigenformHTNew (c -> c + glue HTDual: rises).
+- Restructured: TailZ5 = lemmas + r1rec_of_rep/r5fp_of_rep (14 KB); TailZ6 = R15.lean verbatim + bundles (15 KB).
+  Main imports TailZ6.
+- Main build exit 0, frozenTarget standard axioms; DumpCompact 10917, 0 removed, 1 changed (frozenTarget), 86 new in
+  TailZ5/TailZ6; Check9: 61 fields (28+18+14+1), closure 212153, no sorryAx; verbatim_check9 True/True.
+- Counts: 61 fields, strict 37/24, lenient 51/10.
+- reduct-split, shimura-split: still no .fleet report (12:15).

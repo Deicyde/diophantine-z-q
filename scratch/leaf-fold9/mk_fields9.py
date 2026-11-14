@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """leaf-fold9: the field table of the new bundles (run from the repository root).
 
-Reads leaf-fold8's `scratch/leaf-fold8/fields8.tsv`, drops the 4 fields leaf-fold9 removes (no field is added),
+Reads leaf-fold8's `scratch/leaf-fold8/fields8.tsv`, drops the 5 fields leaf-fold9 removes (no field is added),
 writes `scratch/leaf-fold9/fields9.tsv` and the markdown tables `fields9_tables.md`, and prints the counts after
 each fold."""
 import csv
@@ -12,6 +12,7 @@ D = 'scratch/leaf-fold9/'
 REMOVED = {
     'r1r2-bridge (r1rec, r5 from r1r2)': [('R', 'r1rec'), ('R', 'r5')],
     'cloud PR #11 (t33, normalModelOfFunctionFieldQ)': [('T', 't33'), ('T', 'normalModelOfFunctionFieldQ')],
+    'modular-split (r15 from dsThm966)': [('R', 'r15')],
 }
 ADDED = {k: [] for k in REMOVED}
 ORDER = list(REMOVED)

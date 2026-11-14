@@ -1,4 +1,4 @@
-### OpenResearchLeaves9 (29 fields)
+### OpenResearchLeaves9 (28 fields)
 
 | field | Lean type | strict kind | form | source | last task | replaces |
 |---|---|---|---|---|---|---|
@@ -20,7 +20,6 @@
 | `eigenformHTNew` | `_root_.ZInQ.Contrib.HodgeSplit.EigenformHTNew` | GLUE (c) | consequence of one theorem | Kato 2004 9.2-9.4 for newforms, transported to any semisimple attached rho and dualized (Kato's V_f not definable in Mathlib) | hodge-split; folded by leaf-fold7 | r13 (the same for all normalized eigenforms: a strictly smaller statement of the same form) |
 | `dsThm965` | `_root_.ZInQ.Contrib.HodgeSplit.DSThm965` | LEAF | published form | Diamond-Shurman, GTM 228, Thm 9.6.5 (Deligne 1971; Shimura 1971 Thm 7.14 for k = 2), coefficients extended along iota_L o iota_C^-1 | hodge-split; folded by leaf-fold7 | r14 (composite), with dsThm966 |
 | `dsThm966` | `_root_.ZInQ.Contrib.HodgeSplit.DSThm966` | LEAF | published form | Deligne-Serre 1974 Thm 4.1; Diamond-Shurman Thm 9.6.6 (k = 1, continuous, finite image) | hodge-split; folded by leaf-fold7 | r14 |
-| `r15` | `DeligneSerreConseq` | GLUE (comp) | composite | Deligne-Serre 1974 Thm 4.1, Lemma 3.2, with T25, T18, T19 | hdec-faithful |  |
 | `r16` | `_root_.LeafModCurves.R16_EichlerShimuraJ1'` | GLUE (comp) | composite | Shimura 1973 Thm 1; Shimura 1971 Thm 7.9; Diamond-Shurman | leaf-modcurves |  |
 | `r17` | `_root_.LadicCond.CarayolR17'` | GLUE (c) | consequence of one theorem | Carayol 1986 Theoreme (A) (read by the audit) | g0-mod-newform |  |
 | `semistableReductionThm` | `_root_.ZInQ.HeightSplit.SemistableReductionThm` | GLUE (c) | consequence of one theorem | SGA 7 I Exp. IX Thm 3.6 (Grothendieck semistable reduction) in global form: good reduction outside finitely many primes and SGA 7 IX 3.3 (height-split §1) | height-split; folded by leaf-fold8 | r18-r22, h5fin (the eight together, with N1 from neronSchemeExtensionExists and T35 from h38) |

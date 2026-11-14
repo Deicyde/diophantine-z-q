@@ -1,4 +1,4 @@
-import ZInQKernel.OneProof.H.TailZ5
+import ZInQKernel.OneProof.H.TailZ6
 import ZInQKernel.OneProof.TYZSplit
 import ZInQKernel.OneProof.TopChain
 import ZInQKernel.Contrib.TYZChain.Main
@@ -15,8 +15,9 @@ the development fork, and from nothing else. It composes three compiled chains:
   op-compact); `TailL`-`TailN` are leaf-fold5's and `TailO` is leaf-fold6's, copied from their olean chains;
   `TailP`-`TailX` are leaf-fold7's (the split tasks av-glue, av-split, curve-split, hodge-split, qm-split, mcr-glue
   folded in; docs/research/leaf-fold7.md); `TailY`-`TailZ4` are leaf-fold8's (height-split, height-glue,
-  qm-glue and six cloud-worker Contrib proofs folded in; docs/research/leaf-fold8.md); `TailZ5` is leaf-fold9's
-  (`r1rec`, `r5` proved from `r1r2`, and cloud PR #11's two proofs; docs/research/leaf-fold9.md).
+  qm-glue and six cloud-worker Contrib proofs folded in; docs/research/leaf-fold8.md); `TailZ5`, `TailZ6` are leaf-fold9's
+  (`r1rec`, `r5` proved from `r1r2`, `r15` from `dsThm966` (modular-split), and cloud PR #11's two proofs;
+  docs/research/leaf-fold9.md).
 * TYZ: `ZInQ.Contrib.TYZChain.tyzThm35ReadingA_of_leaves` proves reading A of Tian–Yuan–Zhang from four leaves; the
   fourth, tyz-35's pinned form of TYZ Theorem 3.3, is derived from TYZ Theorem 3.3 in its printed form
   (`ZInQ.Contrib.TYZGenus.TYZSplit.tyzThm33Pinned_of_tyzThm33`, `OneProof/TYZSplit.lean`, task tyz-split).

@@ -1,4 +1,4 @@
-"""Generate ZInQKernel/OneProof/H/TailZ5.lean: leaf-fold9's lemmas (scratch/leaf-fold9/Lemmas.lean.part, compiled
+"""Generate ZInQKernel/OneProof/H/TailZ5.lean and TailZ6.lean. TailZ5: leaf-fold9's lemmas (scratch/leaf-fold9/Lemmas.lean.part, compiled
 first as scratch/leaf-fold9/test/R1recT.lean) and the bundles OpenResearchLeaves9, OpenTextbookLeaves9 with the
 maps to leaf-fold8's bundles. Field blocks are copied from TailZ4.lean, so every kept field keeps its text."""
 import re
@@ -15,7 +15,8 @@ def fields(name):
             out.append((m.group(1), '\n'.join(cur))); cur = []
     return out
 
-DROP_R = {'r1rec': 'r1rec_of_rep r.r1r2', 'r5': 'r5fp_of_rep r.r1r2'}
+DROP_R = {'r1rec': 'r1rec_of_rep r.r1r2', 'r5': 'r5fp_of_rep r.r1r2',
+          'r15': '_root_.ModularSplit.deligneSerreConseq_of_ds r.dsThm966'}
 DROP_T = {'t33': '_root_.ZInQ.Contrib.CloudW07JacobiansCurves.JacobianExists_proof',
           'normalModelOfFunctionFieldQ': '_root_.ZInQ.Contrib.CloudW07JacobiansCurves.NormalModelOfFunctionFieldQ_proof'}
 rf, tf = fields('OpenResearchLeaves8'), fields('OpenTextbookLeaves8')
@@ -35,7 +36,7 @@ import Mathlib.NumberTheory.NumberField.Discriminant.Different
 
 `HDec.HSyn.sixContactMin_of_open9 (r : OpenResearchLeaves9) (t : OpenTextbookLeaves9) (l : OpenAddedLeaves8)
 (g : OpenGlue7)` proves `ZInQ.SixContactMin` by filling leaf-fold8's bundles (`sixContactMin_of_open8`, `TailZ4`)
-from the new ones. Folded (docs/research/leaf-fold9.md lists every field):
+from the new ones; the bundles and that theorem are in `TailZ6`, this module has the proofs. Folded (docs/research/leaf-fold9.md lists every field):
 
 * the research fields `r1rec` (R1(d), `LeafQM.AV.R1rec`) and `r5` (R5, `LeafQM.AV.R5fp`) are **proved from the
   research field `r1r2`** (`LeafAdopt.R1R2fpRep`), whose witness carries the same statements on residue fields of
@@ -44,6 +45,7 @@ from the new ones. Folded (docs/research/leaf-fold9.md lists every field):
   residue field of a point is the field of moduli of its pair (`residueImage_eq_fieldOfModuliPair`; uniqueness of
   base change by the kernel's rigidity `G0FibreSimple.rigidityHom`), with infinite Galois theory for `ℚ̄/ℚ` and
   `NumberField.discr_dvd_discr` for subfields;
+* modular-split (`TailZ6`): the research field `r15` from the field `dsThm966`;
 * cloud PR #11 (`ZInQKernel/Contrib/CloudW07JacobiansCurves/`): the textbook fields `t33`
   (`JacobianExists_proof`) and `normalModelOfFunctionFieldQ` (`NormalModelOfFunctionFieldQ_proof`).
 
@@ -80,10 +82,35 @@ theorem r5fp_of_rep (h : LeafAdopt.R1R2fpRep) : LeafQM.AV.R5fp := by
   rw [← h5a]
   exact (IntermediateField.equivOfEq e).toLinearEquiv.finrank_eq.symm
 
+end HSyn
+
+end HDec
+''')
+z5 = ''.join(out)
+r15 = open('scratch/modular-split/R15.lean').read().split('\n')
+assert r15[0] == 'import ZInQKernel.OneProof.H.TailT' and r15[1] == 'import ZInQKernel.OneProof.H.LPrefix'
+r15body = '\n'.join(l for l in r15[2:] if not l.startswith('#print')).strip('\n')
+out = ['''import ZInQKernel.OneProof.H.TailZ5
+
+/-! # OneProof H, leaf-fold9 (bundles): `sixContactMin_of_open9`
+
+First, modular-split's `scratch/modular-split/R15.lean` verbatim after its two import lines (`#print` dropped):
+`ModularSplit.deligneSerreConseq_of_ds : DSThm966 → HDec.HSyn.DeligneSerreConseq` (row r15 from Deligne–Serre's
+printed theorem, already the field `dsThm966`). Then the bundles `OpenResearchLeaves9`, `OpenTextbookLeaves9`, the
+maps to leaf-fold8's bundles and `sixContactMin_of_open9`. -/
+
+''' + r15body + '''
+
+namespace HDec
+
+namespace HSyn
+
+open CategoryTheory AlgebraicGeometry Limits
+
 /-! ## The bundles -/
 
-''')
-out.append('/-- **The research leaves still open** (leaf-fold9): leaf-fold8\'s `OpenResearchLeaves8` without `r1rec` and `r5`\n(proved from `r1r2`, `r1rec_of_rep`, `r5fp_of_rep`). %d fields. -/\nstructure OpenResearchLeaves9 : Prop where\n' % (len(rf) - len(DROP_R)))
+''']
+out.append('/-- **The research leaves still open** (leaf-fold9): leaf-fold8\'s `OpenResearchLeaves8` without `r1rec`, `r5`\n(proved from `r1r2`, `r1rec_of_rep`, `r5fp_of_rep`) and `r15` (proved from `dsThm966`, modular-split\'s\n`deligneSerreConseq_of_ds`). %d fields. -/\nstructure OpenResearchLeaves9 : Prop where\n' % (len(rf) - len(DROP_R)))
 out.append('\n'.join(b for k, b in rf if k not in DROP_R) + '\n\n')
 out.append('/-- **The textbook leaves still open** (leaf-fold9): leaf-fold8\'s `OpenTextbookLeaves8` without `t33` and\n`normalModelOfFunctionFieldQ` (proved by cloud PR #11, `ZInQKernel/Contrib/CloudW07JacobiansCurves/`). %d fields. -/\nstructure OpenTextbookLeaves9 : Prop where\n' % (len(tf) - len(DROP_T)))
 out.append('\n'.join(b for k, b in tf if k not in DROP_T) + '\n\n')
@@ -104,5 +131,6 @@ end HSyn
 
 end HDec
 ''' % (len(rf) - len(DROP_R), len(tf) - len(DROP_T)))
-open('ZInQKernel/OneProof/H/TailZ5.lean', 'w').write(''.join(out))
-print('written', sum(len(x) for x in out), 'bytes')
+open('ZInQKernel/OneProof/H/TailZ5.lean', 'w').write(z5)
+open('ZInQKernel/OneProof/H/TailZ6.lean', 'w').write(''.join(out))
+print('written', len(z5), sum(len(x) for x in out), 'bytes')
