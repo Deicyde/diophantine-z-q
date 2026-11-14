@@ -59,3 +59,7 @@ TYZ Lemma `torsion2` (Lemma 3.18): torsion of `A(ℍ'_n)` is killed by `2(1+[i])
   (The script's list also contained 1105, which is ≡ 1 (mod 8) and was filtered out.)
 - Route A (report §3.2) not formalized: needs multiquadratic Galois/norm computations in L_n(i), Chebotarev over
   L_n(i) for Pic(ℤ+4𝓞_F) (Tau Ceti has the tools), Frobenius transport. SPECULATIVE estimate 1–2 tasks.
+- [AI review, subagent, read-only, no Lean] Route A (report §3.2): all 7 steps OK, no mathematical gap. Formalization
+  caveats: Mathlib's `IsArithFrobAt` fixes the exponent at |R/(Q∩R)|, so compare `h|_H` with `Art([𝔭])^f` via
+  "σ^f acts as x ↦ x^{N𝔭^f}" + injectivity of D_Q → Aut(k_Q) (trivial inertia); take h in a finite Galois M, not
+  Gal(Q̄/F); [𝔓] = [α] is a class equation (multiply by α' = N_{F/ℚ}(α)/α for the ideal-norm bookkeeping).
