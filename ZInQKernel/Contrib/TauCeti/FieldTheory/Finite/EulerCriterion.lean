@@ -4,13 +4,14 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: The Tau Ceti contributors
 -/
 -- Vendored from Tau Ceti (https://github.com/TauCetiProject/TauCeti, commit 5a01f5fe3621, module TauCeti.FieldTheory.Finite.EulerCriterion), Apache-2.0.
+-- Modified for the Z-in-Q kernel: imports Cyclic.PowMonoidHom instead of Cyclic.Basic and uses its IsCyclic.mem_range_powMonoidHom_iff (two proof lines taken from the commit-97a5b235 version of this module; task stab-clash).
 module
 
 public import Mathlib.Algebra.Field.Defs
 public import Mathlib.SetTheory.Cardinal.Finite
 import Mathlib.Algebra.GroupWithZero.Units.Fintype
 import Mathlib.RingTheory.IntegralDomain
-import ZInQKernel.Contrib.TauCeti.GroupTheory.SpecificGroups.Cyclic.Basic
+import ZInQKernel.Contrib.TauCeti.GroupTheory.SpecificGroups.Cyclic.PowMonoidHom
 
 /-!
 # Euler's criterion for `n`-th powers in a finite field
@@ -41,8 +42,8 @@ theorem exists_pow_eq_iff_pow_card_sub_one_div_eq_one {F : Type*} [Field F] [Fin
     have := Nat.eq_zero_of_zero_dvd hn
     omega
   -- Euler's criterion in the cyclic group `Fˣ` of order `#F - 1`.
-  have h := IsCyclic.mem_range_powMonoidHom_iff (hcard ▸ hn) (Units.mk0 _ ha)
-  rw [hcard, ← Units.val_eq_one, Units.val_pow_eq_pow_val, Units.val_mk0] at h
+  have h := IsCyclic.mem_range_powMonoidHom_iff n (Units.mk0 _ ha)
+  rw [hcard, Nat.gcd_eq_right hn, ← Units.val_eq_one, Units.val_pow_eq_pow_val, Units.val_mk0] at h
   rw [← h]
   constructor
   · rintro ⟨b, hb⟩

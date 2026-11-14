@@ -1,0 +1,15 @@
+ZInQKernel.Contrib.TauCeti.Backport.GroupTheory.SpecificGroups.Cyclic.Basic
+ZInQKernel.Contrib.TauCeti.GroupTheory.DoubleCoset.Orbits
+ZInQKernel.Contrib.TauCeti.GroupTheory.GroupAction.Norm
+ZInQKernel.Contrib.TauCeti.NumberTheory.ClassFieldTheory.Global.Brauer.Sequence
+ZInQKernel.Contrib.TauCeti.NumberTheory.LocalField.Norm.Basic
+ZInQKernel.Contrib.TauCeti.NumberTheory.LocalField.PowerSubgroup.Basic
+ZInQKernel.Contrib.TauCeti.NumberTheory.NumberField.Global.Places.Basic
+ZInQKernel.Contrib.TauCeti.RepresentationTheory.AsModule
+ZInQKernel.Contrib.TauCeti.RepresentationTheory.Augmentation.Basic
+ZInQKernel.Contrib.TauCeti.RepresentationTheory.BaseChange
+ZInQKernel.Contrib.TauCeti.RepresentationTheory.Cyclic.Norm
+ZInQKernel.Contrib.TauCeti.RepresentationTheory.Homological.TateCohomology.Permutation.Basic
+ZInQKernel.Contrib.TauCeti.RepresentationTheory.Induction.FiniteDimensional.Basic
+ZInQKernel.Contrib.TauCeti.RepresentationTheory.Induction.Restriction
+ZInQKernel.Contrib.TauCeti.RingTheory.Frobenius.PowerResidue
