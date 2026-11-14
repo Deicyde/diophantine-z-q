@@ -1362,4 +1362,100 @@ theorem isFundamentalDomain_of {F : Set UpperHalfPlane} (hm : NullMeasurableSet 
     rw [e, Set.inter_comm]
     exact hd h⁻¹ (inv_mem_gamma1 hh) hne
 
+/-- Disjointness of the translates of a `Γ*`-domain by a nontrivial Möbius map of `Γ*`, pulled back. -/
+theorem piece_null {t : Set UpperHalfPlane} (ht : IsFundDomain Γs t) {γ : GL (Fin 2) ℝ} (hγ : γ ∈ Γs)
+    (hne : (fun z : UpperHalfPlane => γ • z) ≠ id) (g : GL (Fin 2) ℝ) :
+    volume ((fun z : UpperHalfPlane => g • z) ⁻¹' (t ∩ (fun z : UpperHalfPlane => γ • z) ⁻¹' t)) = 0 := by
+  rw [measure_preimage_smul]; exact ht.2.2 γ hγ hne
+
+/-- `rᵢ⁻¹ t`, `i = 0, …, 3`: a fundamental domain of `Γ¹`. -/
+def Fdom (t : Set UpperHalfPlane) : Set UpperHalfPlane :=
+  ⋃ i : Fin 4, (fun z : UpperHalfPlane => g4 i • z) ⁻¹' t
+
+theorem g4_ne {i j : Fin 4} (hij : i ≠ j) :
+    (fun z : UpperHalfPlane => (g4 j * (g4 i)⁻¹) • z) ≠ id := by
+  intro hid
+  apply hij
+  refine coset_eq one_mem_gamma1 fun z => ?_
+  have := congrFun hid (g4 i • z)
+  simp only [id, mul_smul, inv_smul_smul] at this
+  rw [one_smul]; exact this
+
+theorem Fdom_fund {t : Set UpperHalfPlane} (ht : IsFundDomain Γs t) :
+    IsFundamentalDomain Mone (Fdom t) volume := by
+  obtain ⟨htm, htc, htd⟩ := ht
+  refine isFundamentalDomain_of
+    (MeasurableSet.iUnion fun i => (continuous_const_smul (g4 i)).measurable htm).nullMeasurableSet
+    (fun z => ?_) (fun h hh hne => ?_)
+  · obtain ⟨γ, hγ, hz⟩ := htc z
+    obtain ⟨i, h, hh, hγz⟩ := cover_mob hγ
+    exact ⟨h, hh, Set.mem_iUnion.2 ⟨i, by show g4 i • h • z ∈ t; rw [← hγz]; exact hz⟩⟩
+  · -- `z ∈ Fdom ∩ h⁻¹ Fdom`: `rⱼ z ∈ t` and `rᵢ h z ∈ t`
+    have hsub : Fdom t ∩ (fun z : UpperHalfPlane => h • z) ⁻¹' Fdom t ⊆
+        ⋃ i : Fin 4, ⋃ j : Fin 4, (fun z : UpperHalfPlane => g4 j • z) ⁻¹'
+          (t ∩ (fun z : UpperHalfPlane => (g4 i * h * (g4 j)⁻¹) • z) ⁻¹' t) := by
+      rintro z ⟨hz1, hz2⟩
+      obtain ⟨j, hj⟩ := Set.mem_iUnion.1 hz1
+      obtain ⟨i, hi⟩ := Set.mem_iUnion.1 hz2
+      refine Set.mem_iUnion₂.2 ⟨i, j, hj, ?_⟩
+      show (g4 i * h * (g4 j)⁻¹) • g4 j • z ∈ t
+      rw [mul_smul, inv_smul_smul, mul_smul]; exact hi
+    refine measure_mono_null hsub (measure_iUnion_null fun i => measure_iUnion_null fun j => ?_)
+    by_cases hij : (fun z : UpperHalfPlane => (g4 i * h * (g4 j)⁻¹) • z) = id
+    · exfalso
+      have hji : i = j := by
+        refine coset_eq hh fun z => ?_
+        have := congrFun hij (g4 j • z)
+        simp only [id, mul_smul, inv_smul_smul] at this
+        exact this.symm
+      subst hji
+      apply hne
+      funext z
+      have := congrFun hij (g4 i • z)
+      simp only [id, mul_smul, inv_smul_smul] at this
+      exact (smul_left_cancel_iff (g4 i)).1 this
+    · exact piece_null ⟨htm, htc, htd⟩
+        (gs_mul (gs_mul (g4_mem i) (gamma1_sub hh)) (gs_inv (g4_mem j))) hij _
+
+theorem Fdom_volume {t : Set UpperHalfPlane} (ht : IsFundDomain Γs t) :
+    volume (Fdom t) = 4 * volume t := by
+  have hm : ∀ i : Fin 4, MeasurableSet ((fun z : UpperHalfPlane => g4 i • z) ⁻¹' t) :=
+    fun i => (continuous_const_smul (g4 i)).measurable ht.1
+  rw [Fdom, measure_iUnion₀ ?_ (fun i => (hm i).nullMeasurableSet), tsum_fintype]
+  · simp only [measure_preimage_smul, Finset.sum_const, Finset.card_univ, Fintype.card_fin,
+      nsmul_eq_mul]
+    norm_num
+  · intro i j hij
+    show volume ((fun z : UpperHalfPlane => g4 i • z) ⁻¹' t ∩
+      (fun z : UpperHalfPlane => g4 j • z) ⁻¹' t) = 0
+    have e : (fun z : UpperHalfPlane => g4 i • z) ⁻¹' t ∩ (fun z : UpperHalfPlane => g4 j • z) ⁻¹' t =
+        (fun z : UpperHalfPlane => g4 i • z) ⁻¹'
+          (t ∩ (fun z : UpperHalfPlane => (g4 j * (g4 i)⁻¹) • z) ⁻¹' t) := by
+      ext z; simp only [Set.mem_inter_iff, Set.mem_preimage, mul_smul, inv_smul_smul]
+    rw [e]
+    exact piece_null ht (gs_mul (g4_mem j) (gs_inv (g4_mem i))) (g4_ne hij) _
+
+/-! ## §5 The glue -/
+
+theorem ennreal_arith {x : ENNReal} (h : ENNReal.ofReal (2 * Real.pi / 3) = 4 * x) :
+    x = ENNReal.ofReal (Real.pi / 6) := by
+  have e : ENNReal.ofReal (2 * Real.pi / 3) = 4 * ENNReal.ofReal (Real.pi / 6) := by
+    rw [show 2 * Real.pi / 3 = 4 * (Real.pi / 6) by ring, ENNReal.ofReal_mul (by norm_num)]
+    norm_num
+  rw [e] at h
+  exact ((ENNReal.mul_right_inj (by norm_num) (by norm_num)).1 h).symm
+
+/-- **`GammaStarFromO1` (qm-split's project glue) is a theorem.** -/
+theorem gammaStarFromO1_proof : GammaStarFromO1 := by
+  rintro ⟨hF, s, hs, hvol⟩
+  refine ⟨gs_fuchsian hF, tdom s, tdom_fund hs, ?_⟩
+  have h1 : volume s = volume (Fdom (tdom s)) :=
+    (isFundamentalDomain_of hs.1.nullMeasurableSet hs.2.1 hs.2.2).measure_eq (Fdom_fund (tdom_fund hs))
+  rw [Fdom_volume (tdom_fund hs), hvol] at h1
+  exact ennreal_arith h1
+
 end HDec.LeafQCheck.QMglue
+
+#print axioms HDec.LeafQCheck.QMglue.gammaStarFromO1_proof
+
+example : HDec.LeafQCheck.QMSplitVB.GammaStarFromO1 := HDec.LeafQCheck.QMglue.gammaStarFromO1_proof
