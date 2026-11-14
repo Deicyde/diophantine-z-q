@@ -154,3 +154,22 @@
   ]
 }
 ```
+
+## Owner readback, November 14, 2026
+
+Owner Elliot Glazer supplied this additional readback on November 14, 2026:
+
+- Ruleset: `26781429`, "Main branch PR and CI requirements".
+- State: Active.
+- Target: `main`.
+- Bypass list: empty.
+- Supporting observation: Elliot reported that Fable saw the screenshot.
+
+This is the owner's reported settings observation, recorded by Astra. Astra
+did not independently inspect that screenshot or perform a new API readback
+for this entry. No time of day was supplied. It supplements, without changing,
+the November 13 authenticated API snapshot above.
+
+An empty bypass list is a deployment condition for the direct-merge path in
+PR89. The condition must remain true; this dated readback is not continuous
+monitoring and does not establish what the list contained at earlier times.

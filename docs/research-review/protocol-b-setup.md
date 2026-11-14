@@ -41,7 +41,8 @@ The workflow uses the official, commit-pinned `actions/create-github-app-token`
 action twice. One token creates the initially blocked check; a fresh token
 finalizes it after the potentially long model review. The action revokes its
 tokens at job cleanup. The ordinary workflow token reads sources, posts comments
-and requests GitHub auto-merge. Only the App token writes the review check.
+and requests protected merges and post-merge workflow dispatches. Only the App
+token writes the review check.
 The Actions job is named `Run reviewers and publish App check`. It is distinct
 from the App-issued `Protocol B / review` check, or `Protocol B / test review`
 in test mode. A green Actions job alone is not App acceptance.
@@ -53,6 +54,24 @@ or executes the candidate PR. Both approved models receive pinned source reads
 and web tools. Reports record actual returned model IDs, source reads and usage.
 There is no fallback model. Unavailable sources, unfinished reviews and changed
 heads do not pass.
+
+Automatic reviews run only for PR authors whose current GitHub permission is
+write, maintain, or admin. Other authors get an App check saying "awaiting a
+collaborator's /protocol-b review". A current collaborator must post that exact
+command to start each review; a manual workflow dispatch is not a substitute
+for an outside author's PR. Permissions are checked through GitHub's API.
+
+Before review, and again before each model request, the gate reads required
+computation checks. A concluded failure blocks further model calls with "fix
+failing checks first". Pending checks can run in parallel with review. A PR
+gets at most four automatic rounds; further rounds require the collaborator
+command. Started automatic rounds count even if interrupted. Each start is
+saved in the App check, with a pointer on the PR so force-pushing does not lose
+the count. Earlier report records locate historical checks; only verified App
+records authorize reuse or contribute to the count. Check output records the
+number of automatic rounds. A completed review on the same head under identical
+workflow and instruction files is reused for automatic events, including
+reopen, ready-for-review, and duplicate synchronization events.
 
 A `read_file` lookup returning HTTP 404 produces a tool result identifying the
 missing path and pinned revision. For example, a newly added file may be absent
@@ -103,11 +122,21 @@ not change override authority, which still comes from the dedicated App's
 check output rather than bot comments. Preserve substantive objections in the
 project's findings record as well as the PR discussion.
 
-Both reviewers have a preflight context budget of 400,000 estimated tokens,
+Both reviewers default to a preflight context budget of 400,000 estimated tokens.
+The repository variable `PROTOCOL_B_MANUSCRIPT_PROFILE` defaults to `standard`
+when unset or empty. An owner can set it to `expanded` when the provider accounts
+allow the larger spending profile. Only then, if the complete GitHub diff changes
+a path under `manuscripts/`, including a rename out of that directory, both
+receive 900,000. Other PRs retain the standard profile. Unknown variable values
+stop before model calls. The expanded profile fits the published
+windows of [Astra 6](https://developers.openai.com/api/docs/models/gpt-6-astra)
+(1,050,000) and [Fable 5.2](https://platform.claude.com/docs/en/models/fable-5-2/overview)
+(1,000,000), checked November 14, 2026. Both budgets are totals,
 including a 64,000-token output allowance and an 8,192-token formatting reserve.
 The estimate includes instructions, tools and the full conversation. Ordinary
 text uses UTF-8 bytes as a conservative token estimate. Successful Anthropic
 web-result payloads instead use bounded accounting estimates: at most 20,000
+for the standard profile or 50,000 for the expanded manuscript profile
 for fetched text, 16,000 for a search result block, and 128,000 for a binary
 fetch result. These estimates do not change the actual conversation sent to
 the provider. Unknown block types and repository text receive no discount.
@@ -125,7 +154,10 @@ recalibrates the estimate. Before usable measurements, the full request is
 estimated with the same byte and web-payload accounting rules.
 
 Fable's requests cap web search at three uses and web fetch at five uses, with
-`max_content_tokens` set to 20,000 for fetched text. Direct calls share the
+`max_content_tokens` set to 20,000 for fetched text. Expanded manuscript reviews get
+ten searches, twenty fetches, and 50,000 tokens per text fetch. `budget-profile.json`
+records the configured variable, changed-path classification and selected limits.
+This opt-in does not raise either provider account's spending limit. Direct calls share the
 limit across a turn, including client-tool-result and `pause_turn`
 continuations; programmatic calls through dynamic filtering reset per
 request. Failed or pending direct calls consume the displayed allowance
@@ -134,17 +166,19 @@ local web-use cap. The fetch text limit is approximate and may truncate the
 source; omitted text has not been reviewed. It does not cover binary PDFs.
 
 The search and binary accounting reserves are assumptions, not provider
-content limits or proven upper bounds. The guard enforces a 400,000-token
+content limits or proven upper bounds. The guard enforces the selected 400,000- or 900,000-token
 **estimate**, not a guaranteed ceiling on actual context or spending. A large
 binary result can exceed the estimate within a request; the following
 request-start measurement corrects it. Provider-side web tools can add
 context during a request. The token-counting
 endpoint does not support the gate's server tools, so the gate does not send an
 incompatible counting request or silently remove those tools. An independent
-tool-result guard is reduced to 1,200,000 characters. Before a file, file-list or
+tool-result guard permits 1,200,000 characters in the standard profile and
+2,700,000 in the expanded profile, proportional to the context budget. Before a file, file-list or
 history result is returned, the gate measures the complete projected next
 request, reserving small error results for other calls in the same batch and
-4,096 tokens for recovery. An oversized read returns a tool error and leaves
+4,096 tokens for recovery. It also reserves another 64,000 tokens for the
+reviewer's own output to enter the next request. An oversized read returns a tool error and leaves
 the review running. Every result includes `remaining_context_tokens` and
 `remaining_tool_characters`, which are planning estimates rather than exact
 token allowances. Every client tool result, including an error, also includes
@@ -153,8 +187,28 @@ programmatic maximum, and the fetched-text truncation warning. Provider-owned
 server-result blocks are replayed unchanged. Rejected repository results
 neither count as source reads nor complete the history
 requirement. The model can retry a smaller read. The pre-request check remains
-the final safeguard for unexpected growth, such as a large model-generated
-message. The gate never silently truncates conversation history or repository
+the final safeguard for unexpected growth, such as a large server-tool result.
+When the remaining allowance falls below the reviewer-output reserve, trusted
+instructions tell the reviewer to finish now and list everything not reviewed.
+The original system prompt, tools and earlier messages remain unchanged to
+preserve signed thinking. Runtime guidance is appended after a user/tool-result
+message; a Fable `pause_turn` is resumed unchanged before that guidance can be
+inserted. See the provider's [append-only instruction rules](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking/change-tools-or-instructions).
+A finish-now report records whether source/history reads were admitted. Without
+history, every earlier finding stays unresolved in code. Without either read
+prerequisite, the report cannot be accepted by collaborator override; a new
+review with sufficient context is needed. These completed rejection reports
+can still be reused to avoid another automatic charge on the same head.
+Required computation failures are checked before each model turn and again
+after every provider retry backoff, before a further paid request is sent.
+
+An immediate cross-reviewer stop on a fatal finding is a separate follow-up;
+this change does not add a fatal-finding field, shared cancellation flag or a
+ban on later automatic rounds specifically because a finding is fatal.
+An incomplete necessary check must be reported as a finding with a request for
+changes. That blocked decision is permitted even if the reviewer could not
+finish its source/history reads; acceptance still requires those reads and
+disposition of every prior finding. The gate never silently truncates conversation history or repository
 reads, and it does not accept a partial review. This does not make
 provider-truncated web content a complete source read.
 Scope reads to the changed argument and affected consumers.
@@ -217,11 +271,101 @@ and states that affected claims are **not outside reviewed**.
 7. After the owner approves activation, preserve all 14 computation checks and
    strict up-to-date protection, require `Protocol B / review` **from the new
    App's integration ID**, enable repository auto-merge, and set
-   `PROTOCOL_B_MODE=live`. Verify an authorized throwaway change completes the
+   `PROTOCOL_B_MODE=live`. The ruleset's bypass list must be empty. The owner
+   must confirm this and record the ruleset ID, target, active state and date
+   in the settings readback before deploying the direct-merge path.
+   Verify an authorized throwaway change completes the
    protected merge path. Update the deployment wording to reflect the result.
 
-The workflow checks these merge settings before requesting auto-merge. It
-cannot configure them itself. It never bypasses the ruleset.
+The workflow checks the required contexts, App pin, strict up-to-date flag
+and repository auto-merge setting before either merge path. It cannot
+configure them itself. Enforcement of the other rules on the merge request
+depends on the deployment condition that the ruleset's bypass list is empty;
+the workflow's branch-rules query does not verify that list.
+
+On November 14, 2026, owner Elliot Glazer reported that ruleset `26781429`,
+"Main branch PR and CI requirements", is Active, targets `main`, and has an
+empty bypass list. He reported that Fable saw the screenshot. This is recorded
+as an [owner readback](reviews/activation-2026-11-13/settings-readback.md#owner-readback-november-14-2026),
+not as a fresh API verification by this workflow. The condition must remain
+true for the direct-merge deployment; a later settings change requires a new
+readback before relying on it.
+
+After App acceptance, it reads all required check contexts from the effective
+rules, across every page, and their results on the reviewed head. The immediate path requires
+completed successful check runs from the required App identities. A legacy
+status cannot stand in for an App-pinned check; any same-name legacy status
+must also be successful. A check run with no App identity does not match.
+Missing, pending, failed, neutral or skipped check
+runs do not qualify for the immediate path. The gate's own non-required Actions
+job can still be running without preventing that path.
+
+When every required result qualifies, the workflow requests a direct merge
+through GitHub's protected merge endpoint, with the exact reviewed head SHA.
+It rechecks the head, destination branch and trusted policy before requesting
+the merge. It also compares the latest observed default-branch tip to the
+reviewed head and requires an integer `behind_by` of zero before the direct
+merge request. A missing, invalid or nonzero value, or a failed comparison,
+blocks the direct merge. This checks containment independently of GitHub's
+strict setting. The comparison uses fixed commit SHAs. A default-branch
+advance after the comparison is still subject to GitHub's strict rule under
+the empty-bypass-list deployment condition. The merge request's SHA parameter
+protects against a changed PR head. When required checks are not all successful,
+the workflow requests auto-merge, leaving GitHub to
+wait for its merge requirements. An API refusal remains a reported failure;
+there is no automatic replay of an uncertain write. Readiness, the compared
+commit SHAs and `behind_by`, and merge responses are retained in the run artifact.
+
+If GitHub returns the known `UNPROCESSABLE` refusal that the pull request is
+already in clean or unstable status, the gate performs one new
+readiness check, including the current rules, required checks, head and policy.
+If those checks now pass, it attempts the same guarded direct merge. Otherwise
+it reports the refusal. It does not repeat the auto-merge mutation. A transport
+failure, HTTP rejection, unknown GraphQL error, or ambiguous partial success is
+not treated as that refusal and does not initiate another merge attempt. A null
+mutation result alone is not evidence that the write had no side effects.
+
+Merging with the workflow's `GITHUB_TOKEN` does **not** trigger `main`'s `push`
+workflows. After a **direct merge**, this gate reads the PR back once and confirms
+that it is merged with the reviewed head into `main`. The confirmed commit must
+match the PUT response and be contained in `main`. Only then does it dispatch
+Research checks and Kernel Lean build and audit, each with `ref: main` and no
+inputs. This needs Actions write permission on the workflow token. It does not
+change the receiving workflows, the kernel contract, or the check-only App's
+permissions, and it sends no environment secrets to the dispatched jobs.
+
+The dispatch uses GitHub API version `2026-03-10`, which returns the new run ID.
+The gate reads that exact run and records its `head_sha` alongside the confirmed
+merge commit. `main` may advance between merging and dispatching. In that case
+the artifact records the difference; it does not pin, rewind, or claim to have
+tested the older commit. Both receiving workflows retain their existing
+concurrency and cancellation behavior. The dispatched kernel job performs the
+full audit because its scope skip applies only to pull-request events.
+
+A dispatched run is not identical to a push-triggered run. The manuscript version
+check validates current state; its publication-transition check has already run
+on the PR. Dispatched kernel runs neither save the push-only kernel cache nor
+serve as push-run base evidence for later PR progress tables. Those tables can
+therefore report `not_measured`. This gate change preserves those limitations.
+
+**Deferred auto-merges require a manual step.** The review job does not poll for
+them, and there is no closed-PR or `workflow_run` handler. Once a maintainer
+confirms a deferred merge, they must open Actions and run both **Research checks**
+and **Kernel Lean build and audit** with branch **main**. The same applies if
+auto-merge was already enabled. `post-merge-manual.json` records this limitation
+in the gate artifact. A successful App check is not evidence of post-merge tests.
+
+For direct merges, `merge-result.json`, `merge-confirmation.json`, and the two
+`dispatch-*.json` receipts are retained with the review artifact. Each receipt
+records intent before the API call, its response after acceptance, and the
+actual run ID, URL and head SHA after verification. A failed or uncertain
+dispatch is not retried automatically. The other workflow is still attempted.
+Inspect Actions and these receipts before manually starting any missing run;
+an accepted dispatch or returned run ID is not evidence that its checks passed.
+A failed one-shot merge readback also requires reconciliation before dispatch.
+See GitHub's [workflow-trigger rules](https://docs.github.com/en/actions/how-tos/write-workflows/choose-when-workflows-run/trigger-a-workflow),
+[dispatch API](https://docs.github.com/en/rest/actions/workflows#create-a-workflow-dispatch-event),
+and [merge endpoint](https://docs.github.com/en/rest/pulls/pulls#merge-a-pull-request).
 
 ## Live-test scope and deferred cases
 
