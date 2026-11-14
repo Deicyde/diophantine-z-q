@@ -77,3 +77,18 @@ Row sources (VERIFIED, read): definitions read in ~/dzq-wt/leaf-fold4/scratch/le
   by rfl); GLUE `GammaStarCocompactArea` (Γ* cocompact Fuchsian, fundamental domain of area π/6; needs Shimura
   §9.2, Shimizu's volume formula, index 4, or Takeuchi + Gauss–Bonnet); `valenceFormulaGammaStar_of`
   ((2m/4π)(π/6) = m/12). Axioms standard, 6 s.
+
+## H-88 `QMHauptmodulBase3`: PROVED from 1 LEAF + 3 GLUE (+ bundle leaf r4) (VERIFIED, compiled)
+- `scratch/qm-split/Haupt.lean`: leafq-check `Fold.lean` lines 1-934, 1326-2563 copied verbatim (row at
+  `HDec.LeafQCheck.HM.QMHauptmodulBase3`), then `HDec.LeafQCheck.HM.QMSplit`:
+  `qmHauptmodulBase3_of (hT : ThetaModularity) (hV : ValenceFormulaCocompactEq) (hA : GammaStarCocompactArea)
+   (hC : ThetaQuotientValue24) (hD : EllipticOrderDvd) : QMHauptmodulBase3`; axioms standard; 24 s.
+- LEAF `ValenceFormulaCocompactEq` (equality form + finitely many zero orbits + the ≤ clause; Shimura 1971 Thm 2.20).
+  GLUE `GammaStarCocompactArea` (shared with H-87), `EllipticOrderDvd` (e_P ∣ ord_P F₁ when F₂(P) ≠ 0, same
+  weight; textbook local expansion), `ThetaQuotientValue24` (jNum/jDen(Ω(i√(9+6√2))) = −16/27, numerically
+  verified by leaf-review-a).
+- Argument: H_c = 3779136·G20² − c·G8⁵ (weight 40, total 5/3); at i√3: e = 6, ord G8 = 2 (valence ≤ + e ≤ 6 +
+  ord ≥ 2), G8 vanishes only on that orbit; ord G20 = a ≤ 4, ord H_c = 2a; other zeros contribute integers
+  (EllipticOrderDvd with G8⁵) ⇒ a + 3N = 5 ⇒ N = 1: each fibre over c ∈ ℂ is one orbit; fibre over ∞ = orbit
+  of i√3; continuity from the pole at i√3 and Γ*-invariance of jNum/jDen. G20 ≢ 0 from the CM value.
+- Also `valenceFormulaGammaStar_of_eq`: H-87's row from the same leaf + glue.

@@ -2761,6 +2761,207 @@ theorem fibre_c (c : ℂ) : ∃ t₁ : UpperHalfPlane, ∀ z : UpperHalfPlane,
     exact ⟨fun h => hG8t t₁ ht₁ ((zero_iff (auto8 hT) hγ t₁).1 h),
       (zero_iff (autoHc hT c) hγ t₁).2 ((hpos t₁ ht₁).2 hn₁)⟩
 
+/-! ### `j_θ` as a map `ℍ → P¹(ℂ)` -/
+
+/-- `j_θ = jNum/jDen ∘ Ω`, with value `∞` where `jDen ∘ Ω = 0`. -/
+def jth (τ : UpperHalfPlane) : OnePoint ℂ :=
+  if PkgI1.jDen (PkgI1.Omega τ) = 0 then OnePoint.infty
+  else ((PkgI1.jNum (PkgI1.Omega τ) / PkgI1.jDen (PkgI1.Omega τ) : ℂ) : OnePoint ℂ)
+
+theorem Sf_eq (z : UpperHalfPlane) : Sf (z : ℂ) = G8 (z : ℂ) * Zf (z : ℂ) ^ 4 := by
+  rw [G8_eq, div_mul_cancel₀ _ (pow_ne_zero 4 (Zf_ne z.im_pos))]
+
+theorem Pf_eq (z : UpperHalfPlane) : Pf (z : ℂ) = G20 (z : ℂ) * Zf (z : ℂ) ^ 10 := by
+  change Pf (z : ℂ) = HSyn.G0Split.FibreQM.PeriodGlue.LQ20.G20 (z : ℂ) * Zf (z : ℂ) ^ 10
+  rw [G20_eq, div_mul_cancel₀ _ (pow_ne_zero 10 (Zf_ne z.im_pos))]
+
+theorem jDen_zero_iff (z : UpperHalfPlane) : PkgI1.jDen (PkgI1.Omega z) = 0 ↔ G8 (z : ℂ) = 0 := by
+  rw [jDenO_eq, Sf_eq]
+  constructor
+  · intro h
+    have := pow_eq_zero_iff (n := 5) (by norm_num) |>.1 h
+    exact (mul_eq_zero.1 this).resolve_right (pow_ne_zero _ (Zf_ne z.im_pos))
+  · intro h; rw [h]; ring
+
+theorem jth_infty_iff (z : UpperHalfPlane) : jth z = OnePoint.infty ↔ G8 (z : ℂ) = 0 := by
+  rw [← jDen_zero_iff]
+  unfold jth
+  split_ifs with h
+  · simp [h]
+  · simp [h]
+
+theorem jth_coe_iff (z : UpperHalfPlane) (c : ℂ) : jth z = (c : OnePoint ℂ) ↔
+    G8 (z : ℂ) ≠ 0 ∧ Hc c (z : ℂ) = 0 := by
+  have hiff := jDen_zero_iff z
+  unfold jth
+  have hZ := pow_ne_zero 20 (Zf_ne z.im_pos)
+  split_ifs with h
+  · simp [hiff.1 h]
+  · have h8 : G8 (z : ℂ) ≠ 0 := fun h' => h (hiff.2 h')
+    simp only [OnePoint.coe_eq_coe, ne_eq, h8, not_false_eq_true, true_and]
+    rw [div_eq_iff h, jNumO_eq, jDenO_eq, Sf_eq, Pf_eq]
+    constructor
+    · intro e
+      have : Hc c (z : ℂ) * Zf (z : ℂ) ^ 20 = 0 := by simp only [Hc]; linear_combination e
+      exact (mul_eq_zero.1 this).resolve_right hZ
+    · intro e
+      simp only [Hc] at e
+      linear_combination Zf (z : ℂ) ^ 20 * e
+
+include hT hV hA hC hD in
+/-- **Every fibre of `j_θ` is one `Γ*`-orbit.** -/
+theorem jth_fibre (v : OnePoint ℂ) : ∃ b : UpperHalfPlane, ∀ z : UpperHalfPlane,
+    jth z = v ↔ ∃ γ ∈ Γs, γ • b = z := by
+  induction v using OnePoint.rec with
+  | infty =>
+    refine ⟨tau3, fun z => ?_⟩
+    rw [jth_infty_iff]
+    constructor
+    · exact G8_zero_orbit hT hV hA z
+    · rintro ⟨γ, hγ, rfl⟩
+      exact (zero_iff (auto8 hT) hγ tau3).2 (G8_tau3_zero hT)
+  | coe c =>
+    obtain ⟨t₁, ht₁⟩ := fibre_c hT hV hA hC hD c
+    exact ⟨t₁, fun z => by rw [jth_coe_iff]; exact ht₁ z⟩
+
+include hT in
+/-- `j_θ` is `Γ*`-invariant on the finite part (as a function to `ℂ`). -/
+theorem g_inv {δ : GL (Fin 2) ℝ} (hδ : δ ∈ Γs) (τ : UpperHalfPlane) :
+    PkgI1.jNum (PkgI1.Omega ((δ • τ : UpperHalfPlane) : ℂ)) / PkgI1.jDen (PkgI1.Omega ((δ • τ : UpperHalfPlane) : ℂ)) =
+      PkgI1.jNum (PkgI1.Omega τ) / PkgI1.jDen (PkgI1.Omega τ) := by
+  have key : ∀ w : UpperHalfPlane, PkgI1.jNum (PkgI1.Omega w) / PkgI1.jDen (PkgI1.Omega w) =
+      3779136 * G20 (w : ℂ) ^ 2 / G8 (w : ℂ) ^ 5 := by
+    intro w
+    rw [jNumO_eq, jDenO_eq, Sf_eq, Pf_eq]
+    have hZ := Zf_ne w.im_pos
+    by_cases h8 : G8 (w : ℂ) = 0
+    · simp [h8]
+    · field_simp
+  rw [key, key]
+  have e1 := auto20 hT δ hδ τ
+  have e2 := auto8 hT δ hδ τ
+  have hd := det_ne hδ
+  have hj := denom_ne_zero δ τ
+  by_cases h8 : G8 (τ : ℂ) = 0
+  · have h8' : G8 ((δ • τ : UpperHalfPlane) : ℂ) = 0 := (zero_iff (auto8 hT) hδ τ).2 h8
+    simp [h8, h8']
+  · have h8' : G8 ((δ • τ : UpperHalfPlane) : ℂ) ≠ 0 := fun h => h8 ((zero_iff (auto8 hT) hδ τ).1 h)
+    rw [div_eq_div_iff (pow_ne_zero _ h8') (pow_ne_zero _ h8)]
+    set X := G20 ((δ • τ : UpperHalfPlane) : ℂ)
+    set Y := G8 ((δ • τ : UpperHalfPlane) : ℂ)
+    set d := (((δ : Matrix (Fin 2) (Fin 2) ℝ).det : ℝ) : ℂ)
+    set j := denom δ τ
+    have hd20 : d ^ 20 ≠ 0 := pow_ne_zero _ hd
+    apply mul_right_cancel₀ hd20
+    linear_combination 3779136 * (X * d ^ 10 + j ^ 20 * G20 (τ : ℂ)) * G8 (τ : ℂ) ^ 5 * e1 -
+      3779136 * G20 (τ : ℂ) ^ 2 * ((Y * d ^ 4) ^ 4 + (Y * d ^ 4) ^ 3 * (j ^ 8 * G8 (τ : ℂ)) +
+        (Y * d ^ 4) ^ 2 * (j ^ 8 * G8 (τ : ℂ)) ^ 2 + (Y * d ^ 4) * (j ^ 8 * G8 (τ : ℂ)) ^ 3 +
+        (j ^ 8 * G8 (τ : ℂ)) ^ 4) * e2
+
+theorem jNumO_analytic : AnalyticOnNhd ℂ (fun z => PkgI1.jNum (PkgI1.Omega z)) U :=
+  fun z hz => analyticAt_const.mul ((Pf_analytic _ hz).pow 2)
+
+include hT hV hA hC in
+/-- `jNum/jDen ∘ Ω → ∞` at `i√3`. -/
+theorem pole_tau3 : Tendsto (fun z => PkgI1.jNum (PkgI1.Omega z) / PkgI1.jDen (PkgI1.Omega z))
+    (𝓝[≠] (tau3 : ℂ)) (Bornology.cobounded ℂ) := by
+  obtain ⟨he3, hb⟩ := tau3_facts hT hV hA
+  obtain ⟨ha4, hatop⟩ := G20_tau3_le hT hV hA hC
+  have h3U : (tau3 : ℂ) ∈ U := tau3.im_pos
+  have hNan := jNumO_analytic _ h3U
+  have hDan := jDenO_analytic _ h3U
+  have hN : analyticOrderAt (fun z => PkgI1.jNum (PkgI1.Omega z)) (tau3 : ℂ) ≤ 8 := by
+    have e : (fun z => PkgI1.jNum (PkgI1.Omega z)) = (fun _ => (3779136 : ℂ)) * Pf ^ 2 := by
+      funext z; rfl
+    rw [e, analyticOrderAt_mul analyticAt_const ((Pf_analytic _ h3U).pow 2),
+      analyticOrderAt_eq_zero.2 (Or.inr (by norm_num)), zero_add,
+      analyticOrderAt_pow (Pf_analytic _ h3U), ord_Pf_eq h3U, nsmul_eq_mul]
+    change 2 * analyticOrderAt G20 (tau3 : ℂ) ≤ 8
+    rw [← ENat.coe_toNat hatop]
+    have : 2 * (analyticOrderAt G20 (tau3 : ℂ)).toNat ≤ 8 := by omega
+    exact_mod_cast this
+  have hD : 10 ≤ analyticOrderAt (fun z => PkgI1.jDen (PkgI1.Omega z)) (tau3 : ℂ) := by
+    have e : (fun z => PkgI1.jDen (PkgI1.Omega z)) = Sf ^ 5 := by funext z; rfl
+    rw [e, analyticOrderAt_pow (Sf_analytic _ h3U), ord_Sf_eq h3U, hb]
+    norm_num
+  exact tendsto_cobounded_of_meromorphicOrderAt_neg
+    (mero_neg_aux hNan hDan hN hD (jDenO_order_ne_top h3U))
+
+include hT hV hA hC in
+theorem jth_continuous : Continuous jth := by
+  rw [continuous_iff_continuousAt]
+  intro τ₀
+  set g : ℂ → ℂ := fun z => PkgI1.jNum (PkgI1.Omega z) / PkgI1.jDen (PkgI1.Omega z) with hg
+  by_cases hD0 : PkgI1.jDen (PkgI1.Omega τ₀) = 0
+  · have hval : jth τ₀ = OnePoint.infty := by simp [jth, hD0]
+    rw [← continuousWithinAt_compl_self, ContinuousWithinAt, hval]
+    obtain ⟨γ, hγ, hγτ⟩ := G8_zero_orbit hT hV hA τ₀ ((jDen_zero_iff τ₀).1 hD0)
+    have hpoleH : Tendsto (fun τ : UpperHalfPlane => g τ) (𝓝[≠] tau3) (Bornology.cobounded ℂ) :=
+      (pole_tau3 hT hV hA hC).comp (le_of_eq (map_coe_punctured tau3))
+    have hback : γ⁻¹ • τ₀ = tau3 := eqv_symm hγ hγτ
+    have hmap : Tendsto (fun τ : UpperHalfPlane => γ⁻¹ • τ) (𝓝[≠] τ₀) (𝓝[≠] tau3) := by
+      apply tendsto_nhdsWithin_of_tendsto_nhds_of_eventually_within
+      · have := (continuous_const_smul γ⁻¹).tendsto τ₀
+        rw [hback] at this
+        exact this.mono_left nhdsWithin_le_nhds
+      · filter_upwards [self_mem_nhdsWithin] with τ hτ
+        intro h
+        apply hτ
+        simp only [Set.mem_singleton_iff] at h ⊢
+        rw [← hγτ, ← h, smul_inv_smul]
+    have hG : Tendsto (fun τ : UpperHalfPlane => g τ) (𝓝[≠] τ₀) (Bornology.cobounded ℂ) := by
+      refine (hpoleH.comp hmap).congr (fun τ => ?_)
+      simp only [Function.comp, hg]
+      have := g_inv hT (gammaStar_inv hγ) τ
+      exact this
+    have hev : ∀ᶠ τ in 𝓝[≠] τ₀, jth τ = ((g τ : ℂ) : OnePoint ℂ) := by
+      filter_upwards [eventually_jDen_ne_H τ₀] with τ hτ
+      simp [jth, hτ, hg]
+    have hcoe : Tendsto (fun z : ℂ => (z : OnePoint ℂ)) (Bornology.cobounded ℂ) (𝓝 OnePoint.infty) := by
+      rw [Metric.cobounded_eq_cocompact, ← Filter.coclosedCompact_eq_cocompact]
+      exact OnePoint.tendsto_coe_infty
+    exact (hcoe.comp hG).congr' (hev.mono fun τ hτ => hτ.symm)
+  · have hcont : ContinuousAt (fun τ : UpperHalfPlane => PkgI1.jDen (PkgI1.Omega τ)) τ₀ :=
+      (jDenO_analytic _ τ₀.im_pos).continuousAt.comp UpperHalfPlane.continuous_coe.continuousAt
+    have hev : jth =ᶠ[𝓝 τ₀] fun τ => ((g τ : ℂ) : OnePoint ℂ) := by
+      filter_upwards [hcont.eventually_ne hD0] with τ hτ
+      simp [jth, hτ, hg]
+    refine ContinuousAt.congr ?_ hev.symm
+    refine OnePoint.continuous_coe.continuousAt.comp ?_
+    exact ((jNumO_analytic _ τ₀.im_pos).div (jDenO_analytic _ τ₀.im_pos) hD0).continuousAt.comp
+      UpperHalfPlane.continuous_coe.continuousAt
+
+include hT hV hA hC hD in
+/-- **Row H-88 from the published valence formula and three glue Props.** -/
+theorem qmHauptmodulBase3_of : QMHauptmodulBase3 := by
+  refine ⟨jth, jth_continuous hT hV hA hC, fun τ hτ => by simp [jth, hτ], fun τ τ' => ?_,
+    fun v => ?_, fun γ hγ τ hτ => ?_⟩
+  · obtain ⟨b, hb⟩ := jth_fibre hT hV hA hC hD (jth τ)
+    obtain ⟨γ₀, hγ₀, hγ₀b⟩ := (hb τ).1 rfl
+    constructor
+    · intro h
+      obtain ⟨γ₁, hγ₁, hγ₁b⟩ := (hb τ').1 h.symm
+      exact eqv_trans (gammaStar_inv hγ₀) hγ₁ (eqv_symm hγ₀ hγ₀b) hγ₁b
+    · rintro ⟨γ, hγ, rfl⟩
+      obtain ⟨δ, hδ, hδb⟩ := eqv_trans hγ₀ hγ hγ₀b rfl
+      exact ((hb _).2 ⟨δ, hδ, hδb⟩).symm
+  · obtain ⟨b, hb⟩ := jth_fibre hT hV hA hC hD v
+    exact ⟨b, (hb b).2 ⟨1, HDec.LeafQCheck.VB.one_mem_gammaStar', one_smul _ _⟩⟩
+  · obtain ⟨hD0, hv⟩ := hC γ hγ τ hτ
+    simp only [jth, hD0, if_false, hv]
+
+include hV hA in
+/-- **Row H-87 from the same leaf and glue** (the inequality clause of the valence formula; the chain-level
+copy `HDec.LeafQCheck.VB.ValenceFormulaGammaStar` of leafq-check's row). -/
+theorem valenceFormulaGammaStar_of_eq : HDec.LeafQCheck.VB.ValenceFormulaGammaStar := by
+  intro m F hF hne haut T hT
+  obtain ⟨hFuchs, s, hs, hvol⟩ := hA
+  have := (hV Γs hFuchs s hs m F hF hne haut).2.2 T hT
+  rwa [hvol, arith] at this
+
 end
 
 end HDec.LeafQCheck.HM.QMSplit
+
+#print axioms HDec.LeafQCheck.HM.QMSplit.qmHauptmodulBase3_of
+#print axioms HDec.LeafQCheck.HM.QMSplit.valenceFormulaGammaStar_of_eq
