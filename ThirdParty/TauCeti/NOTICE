@@ -76,6 +76,14 @@ Repository: https://github.com/TauCetiProject/TauCeti
   Morphisms/Smooth/Regular,Scheme/RegularLocalRing}, LinearAlgebra/Span/Basic,
   RingTheory/{KrullDimension/Regular,LocalRing/MaximalIdeal/Square,RegularLocalRing/Basic,
   RegularLocalRing/Flat,Smooth/Regular}.
+- Commit 5a01f5fe (as above): the 11 further modules vendored unmodified by the Z-in-Q
+  task zariski-conn (the closure of AlgebraicGeometry.Geometrically.GlobalSections:
+  global functions of a universally closed geometrically integral scheme over a field are
+  constants; list in scratch/zariski-conn/vendor-new.txt):
+  AlgebraicGeometry/{Geometrically/FunctionField,Geometrically/GlobalSections,
+  Modules/GlobalSections,Modules/RationalFunctions,Morphisms/Dominant,Scheme/BaseAlgebra,
+  Scheme/Opens}, FieldTheory/{AlgebraicClosure,IntermediateField/LinearDisjoint,
+  Minpoly/IsIntegrallyClosedIn}, RingTheory/TensorProduct/IsDomain.
 - Commit 4d91513e (Tau Ceti main of 2026-11-13; the strong multiplicity one across
   levels of Newforms/StrongMultiplicityOne/Basic.lean): Backport/ files added by the
   Z-in-Q task atkin-li, compiled against the commit-5a01f5fe modules vendored here.
