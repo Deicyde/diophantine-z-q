@@ -1,0 +1,72 @@
+def LeafModCurves.R16_EichlerShimuraJ1' : Prop :=
+∀ (N : ℕ) (χ : DirichletCharacter ℂ N) (f : PkgI4.CF N 2) (J : PkgI3.AbVar ℚ),
+  0 < N →
+    PkgI4.IsNewform f χ →
+      LeafModCurves.IsJ1 N J →
+        FiniteDimensional ℚ ↥(LeafModCurves.coeffField f) ∧
+          ∃ A π θ,
+            AlgebraicGeometry.Surjective (CategoryTheory.Over.Hom.left π.hom) ∧
+              A.dim = ↑(Module.finrank ℚ ↥(LeafModCurves.coeffField f)) ∧
+                ∀ (ℓ : ℕ) [inst : Fact (Nat.Prime ℓ)] (emb : ↥(LeafModCurves.coeffField f) →+* PadicAlgCl ℓ),
+                  Module.finrank (PadicAlgCl ℓ) ↥(LeafModCurves.eigenFun ℓ A θ emb) = 2 ∧
+                    ∀ (p : ℕ),
+                      Nat.Prime p →
+                        ¬p ∣ N * ℓ →
+                          ∀ (σ : PkgI4.GQ),
+                            LeafModCurves.IsFrobAt σ p →
+                              (∀ (a : ↥(LeafModCurves.coeffField f)),
+                                  ↑a = PkgI4.coeff f p →
+                                    (LinearMap.trace (PadicAlgCl ℓ) ↥(LeafModCurves.eigenFun ℓ A θ emb))
+                                        (LeafModCurves.frobOn ℓ A θ emb σ) =
+                                      emb a) ∧
+                                ∀ (c : ↥(LeafModCurves.coeffField f)),
+                                  ↑c = χ ↑p → LinearMap.det (LeafModCurves.frobOn ℓ A θ emb σ) = emb c * ↑p
+def LadicCond.CarayolR17' : Prop :=
+∀ (ℓ : ℕ) [inst : Fact (Nat.Prime ℓ)] (ιC : PkgI4.Qbar →ₐ[ℚ] ℂ) (ιL : PkgI4.Qbar →ₐ[ℚ] PadicAlgCl ℓ) (N : ℕ)
+  (χ : DirichletCharacter ℂ N) (f : PkgI4.CF N 2) (ρ : PkgI4.GaloisRep ℓ 2) (p : ℕ) [inst_1 : Fact (Nat.Prime p)],
+  0 < N →
+    PkgI4.IsNewform f χ →
+      ρ.IsSemisimple →
+        ρ.AttachedTo ιC ιL f → p ≠ ℓ → LadicCond.condExp (PkgI4.GaloisRep.restrictLocal p ρ) = ↑(N.factorization p)
+def PkgI4.EigenformTwist : Prop :=
+∀ (N m : ℕ) (k : ℤ) (χ : DirichletCharacter ℂ N) (ψ : DirichletCharacter ℂ m) (g : PkgI4.CF N k),
+  0 < N →
+    0 < m →
+      PkgI4.IsNormalizedEigenform g χ →
+        ∃ χ' g',
+          PkgI4.IsNormalizedEigenform g' χ' ∧
+            ∀ (p : ℕ), Nat.Prime p → ¬p ∣ N * m → PkgI4.coeff g' p = ψ ↑p * PkgI4.coeff g p
+def LeafQM.AV.R1rec : Prop :=
+∀ (P : LeafQM.AV.QML3 LeafQM.AV.Qbar),
+  LeafQM.AV.HasCM4 P.q ∨ LeafQM.AV.HasCM3 P.q ∨ LeafQM.AV.HasCM24 P.q →
+    LeafQM.AV.UnramifiedAbove5 (LeafQM.AV.fieldOfModuli3 P)
+def LeafQM.AV.R5fp : Prop :=
+∀ (k : Type) [inst : Field k] [inst_1 : NumberField k] [NumberField.IsTotallyComplex k],
+  Module.finrank ℚ k = 2 →
+    ∀ R ≤ (integralClosure ℤ k).toSubring,
+      (LeafQM.AV.conductor R).Coprime 6 →
+        ∀ (P : LeafQM.AV.QMPair LeafQM.AV.Qbar),
+          Nonempty (↥(LeafQM.AV.com P.q) ≃+* ↥R) →
+            Module.finrank ℚ ↥(LeafQM.AV.fieldOfModuliPair P) =
+                (if LeafQM.AV.inertCount6 k = 0 then 1 else 2) * Nat.card (CommRing.Pic ↥R) ∧
+              (LeafQM.AV.inertCount6 k ≠ 0 → Nonempty (k →ₐ[ℚ] ↥(LeafQM.AV.fieldOfModuliPair P)))
+def LeafQM.AV.R5fpCount : Prop :=
+∀ (k : Type) [inst : Field k] [inst_1 : NumberField k] [NumberField.IsTotallyComplex k],
+  Module.finrank ℚ k = 2 →
+    ∀ R ≤ (integralClosure ℤ k).toSubring,
+      (LeafQM.AV.conductor R).Coprime 6 →
+        (∃ P, Nonempty (↥(LeafQM.AV.com P.q) ≃+* ↥R)) →
+          Nat.card { c // ∃ P, ⟦P⟧ = c ∧ Nonempty (↥(LeafQM.AV.com P.q) ≃+* ↥R) } =
+            2 ^ LeafQM.AV.inertCount6 k * Nat.card (CommRing.Pic ↥R)
+def ZInQ.LeafPush2.R03_LinYang : Prop :=
+∀ (A : PkgI3.AbVar ℂ) (x : LeafQM.AV.QMStr A),
+  A.dim = 2 →
+    (∃ j a r,
+        j ≠ 0 ∧
+          ZInQ.LeafPush2.IsGenus2 a r ∧
+            ZInQ.LeafPush2.LinYangTuple a r j ∧
+              ∃ C,
+                ∃ (_ : LeafModCurves.IsCurve C) (x : AlgebraicGeometry.IsIntegral C.left),
+                  ZInQ.LeafPush2.HasSexticModel C a r ∧
+                    ∃ P₀ J aj, LeafModCurves.IsJacobian C P₀ J aj ∧ ∃ e, CategoryTheory.IsMonHom e.hom) ∨
+      ∃ E₁ E₂, E₁.dim = 1 ∧ E₂.dim = 1 ∧ Nonempty (A.X ≅ CategoryTheory.MonoidalCategoryStruct.tensorObj E₁.X E₂.X)
