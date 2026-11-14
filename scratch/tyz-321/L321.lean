@@ -5009,6 +5009,29 @@ theorem lemma321Five_of_shimuraModFn_betaOneLift (hS : Shimura.ShimuraReciprocit
         (cmAlgebraic_of_cmValue (Shimura.cmValueRingClass_of_modFn hS)) wNegatesI)
       (znOverH4_of hS))
 
+open ZInQ.Contrib.TYZDecomp in
+/-- **TYZ reading A with `Lemma321Five` discharged**: from the three `𝓛`-leaves, tyz-cm's textbook CM
+leaf `Shimura.ShimuraReciprocityModFn`, TYZ Lemma `torsion2` (`Lemma318Literal`), Theorem 3.3/3.5
+(`Thm35First`) and the glue `BetaOneLiftExists` (Kummer theory over `ℚ`). -/
+theorem tyzThm35ReadingA_of_lcal_shimuraModFn_lemma318_thm35First_betaOneLift
+    (h11 : TYZThm11Integral) (h1 : TYZLcalOne) (h29 : TYZLemma29Mod2)
+    (hS : Shimura.ShimuraReciprocityModFn)
+    (h318 : Lemma318Literal HHprime) (h35 : ∀ ℓ : ℕ → ℤ, IsTYZLcal ℓ → Thm35First ℓ tyzZ)
+    (hβ : BetaOneLiftExists) : ZInQ.Literature.TYZThm35ReadingA :=
+  tyzThm35ReadingA_of_lcal_shimuraModFn_lemma318_thm35First_lemma321Five h11 h1 h29 hS h318 h35
+    (lemma321Five_of_shimuraModFn_betaOneLift hS hβ)
+
 end Main
 
 end ZInQ.Contrib.TYZGenus.T321
+
+/-! ## Axiom audit (tyz-321) -/
+
+#print axioms ZInQ.Contrib.TYZGenus.T321.lemma321Five_of
+#print axioms ZInQ.Contrib.TYZGenus.T321.tyzThm36ConjFive_of
+#print axioms ZInQ.Contrib.TYZGenus.T321.tyzThm36OneFive_of
+#print axioms ZInQ.Contrib.TYZGenus.T321.wNegatesI
+#print axioms ZInQ.Contrib.TYZGenus.T321.betaOnGenus5
+#print axioms ZInQ.Contrib.TYZGenus.T321.kerFixesZnMod
+#print axioms ZInQ.Contrib.TYZGenus.T321.lemma321Five_of_shimuraModFn_betaOneLift
+#print axioms ZInQ.Contrib.TYZGenus.T321.tyzThm35ReadingA_of_lcal_shimuraModFn_lemma318_thm35First_betaOneLift

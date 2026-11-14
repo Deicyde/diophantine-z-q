@@ -737,3 +737,15 @@ The difference between `have` and `haveI` is that `haveI` inlines the value.
 But this is not relevant for proofs because of proof irrelevance.
 
 Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+'ZInQ.Contrib.TYZGenus.T321.lemma321Five_of' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.TYZGenus.T321.tyzThm36ConjFive_of' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.TYZGenus.T321.tyzThm36OneFive_of' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.TYZGenus.T321.wNegatesI' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.TYZGenus.T321.betaOnGenus5' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.TYZGenus.T321.kerFixesZnMod' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.TYZGenus.T321.lemma321Five_of_shimuraModFn_betaOneLift' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Contrib.TYZGenus.T321.tyzThm35ReadingA_of_lcal_shimuraModFn_lemma318_thm35First_betaOneLift' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
