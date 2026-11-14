@@ -7,11 +7,12 @@ with the Mathlib library.
 
 - Upstream: since 2026-11-13 the Lean kernel is on the main branch of https://github.com/elliotglazer/diophantine-z-q
   (pull request #36 merged #24's kernel, with CI checks for contributions)
-- Development fork: https://github.com/Deicyde/diophantine-z-q (Lean state of fork main f70ec251, which adds
+- Development fork: https://github.com/Deicyde/diophantine-z-q (Lean state of fork main 5da857b0, which adds
   proofs of two of the headline's five hypotheses, a reduction of Gross–Zagier to two narrower statements from the
   literature, a reduction of reading A (the reading of a theorem of Tian, Yuan and Zhang that the proof uses; item 4
-  below) to four statements drawn from published results, and a proof of H from 67 theorems from the literature and
-  one glue statement that is still to be proved)
+  below) to four statements drawn from published results, and a proof of H from 65 theorems from the literature (two of
+  them since proved, not yet folded in) and one glue statement that is still to be proved; a single Lean theorem,
+  `ZInQ.OneProof.frozenTarget`, now states the whole proof with the remaining statements as its hypotheses)
 - Blueprint, with every statement, its dependencies and its Lean declaration: https://deicyde.github.io/diophantine-z-q/
 
 ## Status in three lines
@@ -27,23 +28,26 @@ with the Mathlib library.
   proves the first of them (the theta series of the Hecke character of C_d is a newform), so two remain: the
   nonvanishing of central twisted values (Friedberg–Hoffstein, Bump–Friedberg–Hoffstein) and Gross–Zagier with
   Gross's conjugation relation. Lean also reduces this reading, reading A, to four statements drawn from the work
-  of Tian, Yuan and Zhang and from Shimura's theory of complex multiplication, three of them combinations of
-  published results.
+  of Tian, Yuan and Zhang and from Shimura's theory of complex multiplication: two are special cases of printed
+  theorems, and two combine published results.
 - **Open, and most of the remaining work:** H. In Lean, H now follows with no gaps
-  (`HDec.HSyn.sixContactMin_of_open6`) from 67 theorems from the literature that are still open, in nine bodies of
-  published mathematics (Shimura curves, abelian varieties, Néron models, Faltings heights, p-adic Hodge theory,
-  Galois representations of modular forms, and others), and one glue statement, `ModelCoordinateResidue`, about a
-  model of a Shimura curve over Z_(p) for each prime p > 324, a step of the project's own argument that it must
-  still prove. Sixteen of the
-  67 are candidates: composites of published results that are not printed in this form. Statement reviews by AI
-  models found no leaf stronger than its source, with one open question: the leaf for Pazuki's height bound may
-  state it more strongly than he prints it, by about log 4, depending on a normalization not yet checked against his
-  paper. No human has checked the leaves.
+  (`HDec.HSyn.sixContactMin_of_open8`, the H part of `ZInQ.OneProof.frozenTarget`) from 65 theorems from the
+  literature, in nine bodies of published mathematics (Shimura curves, abelian varieties, Néron models and
+  semistable reduction, Faltings heights, p-adic Hodge theory, Galois representations of modular forms, and others),
+  and one glue statement, `QuotientP1Coordinate`, about a model of a Shimura curve over Z_(p) for each prime
+  p > 324, a step of the project's own argument that it must still prove. Two of the 65 are now proved on the fork
+  but not yet folded in, so 63 are open. Of the 65, 39 are published statements (some specialized or weakened), 16
+  are consequences of a single published theorem, and 10 are candidates: composites of published results that are
+  not printed in this form. Statement reviews by AI models found no leaf stronger than its source, with two caveats:
+  the leaf for Pazuki's height bound may state it more strongly than he prints it, by about log 4, depending on a
+  normalization not yet checked against his paper, and the displayed constant of Bost's bound has not been read. No human has checked the leaves.
 
-So what remains for H is to prove these 67 theorems from the literature, several of them major results, and the
-one glue statement (a search finds six of the 67, R1(d), R3, R5(ii), R7(b), R8 and T10, only where the hypotheses
-are repackaged, so the proof does not appear to use them; docs/research/frontier.md, section 4.6); the
-positive-rank side still needs the four statements behind reading A and the two Gross–Zagier statements.
+So what remains for H is to prove the 63 open theorems among these, several of them major results, and the one
+glue statement (a search finds six of the 65, R1(d), R3, R5(ii), R7(b), R8 and T10, only where the hypotheses are
+repackaged, so the proof does not appear to use them; docs/research/frontier.md, section 4.6); the positive-rank
+side still needs the four statements behind reading A and the two Gross–Zagier statements. All of these are
+hypotheses of `ZInQ.OneProof.frozenTarget` (`ZInQKernel/OneProof/Main.lean`), and so, until they are folded in, are
+the two proved leaves: folding a proof in removes its hypothesis from that theorem.
 
 ## How far to trust each part
 
@@ -56,13 +60,17 @@ positive-rank side still needs the four statements behind reading A and the two 
 | Item 1: Gross–Zagier | a published theorem combined with standard results; assumed (on the fork, reduced to two statements from the literature, with the glue and the newform statement proved) |
 | Item 4: Tian–Yuan–Zhang, reading A | not printed in this form in any refereed text we found; assumed (on the fork, reduced to four statements drawn from published results) |
 | H, the manuscript's Theorem 4.1 (one instance) | unrefereed; its new arguments reviewed only by AI models; assumed |
-| H from 67 open theorems from the literature (26 research-level, 21 textbook, 20 introduced by the project's reductions) and one glue statement | proved in Lean, in the module chain of `scratch/leaf-fold6/` (checked separately from the library build) |
+| H from 65 theorems from the literature (31 research-level, 20 textbook, 14 introduced by the project's reductions; 63 still open) and one glue statement | proved in Lean on the development fork, in the module chain `ZInQKernel/OneProof/H/` (built with `ZInQKernel/OneProof/Main.lean`, outside the library target) |
+| Theorem 1.1 from the statements that are still open (and two proved leaves not yet folded in) | proved in Lean on the development fork (`ZInQ.OneProof.frozenTarget`) |
 
 "Proved in Lean" means the Lean kernel checked it, with no `sorry` (unproved step), no `native_decide` (trusted
 external evaluation), and only the standard axioms `propext`, `Classical.choice`, `Quot.sound`. "Assumed" means
 stated in Lean as a proposition and passed as a hypothesis, never as an axiom. On the development fork three
 of the headline's hypotheses remain: H, Gross–Zagier and reading A; there Gross–Zagier is further reduced to two
-narrower statements from the literature, and reading A to four statements drawn from published results. Everything else is machine-checked, so a reader needs to trust only those
+narrower statements from the literature, and reading A to four statements drawn from published results.
+`ZInQ.OneProof.frozenTarget` proves `ZInQ.FrozenTarget` from the 65 leaves and the glue statement of H's assembly
+(two of the leaves are proved but not yet folded in), the four statements behind reading A, and the two
+Gross–Zagier statements. Everything else is machine-checked, so a reader needs to trust only those
 statements, not the rest of the manuscript's argument. Upstream's headline still lists all five until the two
 proofs, proposed in pull request #64, are merged there.
 
@@ -88,8 +96,9 @@ a target (`KERNEL_CONTRACT.json`). On the fork, `ZInQ.Contrib.functionalEquation
 (`ZInQKernel/Contrib/GZStatements/Weak.lean`) from forms of the last two restricted to the curves C_d, and
 `ZInQ.Contrib.TYZChain.frozenTarget_of_sixContactMin_grossZagier_tyzChainLeaves`
 (`ZInQKernel/Contrib/TYZChain/Headline.lean`) from H, Gross–Zagier and the four statements to which Lean reduces
-reading A (see "Reduction of item 4" below). Other
-variants, listed in README.md, take other forms of the positive-rank statement, for example `Literature.TYZRow5b`
+reading A (see "Reduction of item 4" below). `ZInQ.OneProof.frozenTarget` (`ZInQKernel/OneProof/Main.lean`) proves
+it from the leaves and the glue statement of H's assembly, the four statements behind reading A, and the two
+Gross–Zagier statements, and from nothing else. Other variants, listed in README.md, take other forms of the positive-rank statement, for example `Literature.TYZRow5b`
 in place of items 3 and 4.
 
 ## The hypotheses
@@ -167,10 +176,13 @@ by a real period and a power of 2: that 𝓛(m) is an integer for squarefree m �
 of Theorem 1.1 of arXiv:1411.4728v1, for odd m), and their Lemma 2.9 combined with their Proposition 2.3, modulo 2.
 The third is their Theorem 3.3 with Lemma 3.14, for the CM points that the project fixes; they do not print the
 computation behind the constant of Theorem 3.3, which docs/research/tyz-t1.md writes out and checks numerically.
+In `ZInQ.OneProof.frozenTarget` the third is replaced by their Theorem 3.3 as printed, for n ≡ 5, 7 (mod 8)
+(`ZInQ.Contrib.TYZGenus.TYZSplit.TYZThm33`): Lean derives the form above from it, and Lemma 3.14, whose conclusion
+is the first sentence of the printed theorem, is no longer a separate hypothesis (docs/research/tyz-split.md).
 The fourth is the main theorem of complex multiplication for the values of rational modular functions on X₀(N) at
 Heegner points (`Shimura.ShimuraReciprocityModFn`; Shimura 1971, Thm 5.4, with the canonical model of X₀(N)), which
-a review by AI models found to follow from Shimura's theorem. The first is a special case of a printed statement;
-the other three combine published results. All four are stated over concrete Lean definitions, with no bundled
+a review by AI models found to follow from Shimura's theorem. The first is a special case of a printed statement, and so is the printed form of the third;
+the second and the fourth combine published results. All four are stated over concrete Lean definitions, with no bundled
 existential statement (docs/research/tyz-decomp.md, cm-points.md). Lean proves the rest of the route: 𝓛(1) = 1;
 their Lemma 3.18 on torsion, in the form the project states, for every squarefree n ≡ 5 (mod 8)
 (docs/research/tyz-318.md, sqrt2-glue.md); and, for the genus points built from the fixed CM points, their Lemma
@@ -178,7 +190,12 @@ their Lemma 3.18 on torsion, in the form the project states, for every squarefre
 recursion is then torsion). No human has compared the four statements with their sources: AI models found the
 first two faithful and no stronger than the paper (docs/research/tyz-lcal.md, which lists the passages a human
 should still read, among them the normalization of 𝓛), and compared the statements for the fixed CM points with
-the paper; the passage from the printed Theorem 3.3 to the form used still needs a human check.
+the paper. The Lean statement of the printed Theorem 3.3 fixes one convention: a sign in the CM points that the
+project fixes for n ≡ 5 (mod 8) (with the other sign the statement would be false, not weaker).
+The sign was chosen from numerical checks of Theorem 3.3 (docs/research/tyz-t1.md, section 3.1;
+docs/research/tyz-split.md, section 2.2, records it as an inherited check); a later review by AI models found that the paper fixes the same sign, in the proof of its proposition on the Hecke action for
+n ≡ 5 (mod 8). That review assumes that the kernel's analytic parametrization of X₀(32) is the one defined over Q,
+which has not been checked.
 
 ### H, the six-contact height estimate
 
@@ -223,45 +240,62 @@ assemblies split these steps into smaller named statements and prove them one by
 needs one glue statement. Its leaves differ from the manuscript's list: some leaves are split into several
 statements, some textbook theorems are proved, and the project's reductions add new ones.
 
-- **The top theorem.** `HDec.HSyn.sixContactMin_of_open6` (the module chain of `scratch/leaf-fold6/`, ending in
-  `scratch/leaf-fold6/olean/TailO.lean`; docs/research/leaf-fold6.md) proves `ZInQ.SixContactMin`, the kernel's
-  own statement of H, from 68 named hypotheses, none of them a placeholder: 26 research-level leaves (the 23
-  research-level theorems, some split into several statements, with the uniformization clause R1(b) and Carayol's
-  theorem in concrete form), 21 textbook leaves, 20 leaves that the project's reductions introduced, and one glue
-  statement. Sixteen of the 67 leaves are candidates, under a classification rule stricter than earlier counts
-  (section 2.0 of the note). Of the 68 hypotheses, 32 are propositions defined in the kernel library itself; the
-  other 36 are defined inside the assembly's scratch files.
-  Section 2 of the note lists all 68, and section 3 groups the 67 leaves by the theory they come from: Shimura
-  curves with quaternionic multiplication (16), theta functions and Siegel modular forms of genus 2 (2), abelian
-  varieties (12), Néron models, reduction and monodromy (6), scheme theory (4), Faltings 1983 and Faltings heights
-  (8), p-adic Hodge theory (6), Galois representations of modular forms (5), and algebraic and modular curves (8).
+- **The top theorem.** `HDec.HSyn.sixContactMin_of_open8` (`ZInQKernel/OneProof/H/TailZ4.lean`;
+  docs/research/leaf-fold8.md) proves `ZInQ.SixContactMin`, the kernel's own statement of H, from 66 named
+  hypotheses, none of them a placeholder: 31 research-level leaves (the 23 research-level theorems, some split into
+  several statements, some replaced by published statements from which Lean derives them), 20 textbook leaves, 14
+  leaves that the project's reductions introduced, and one glue statement. Of the 65 leaves, 39 are published
+  statements, some of them specialized or weakened, 16 are consequences of a single published theorem, and 10 are
+  candidates (section 2 of the note); two of the textbook leaves are proved but not yet folded in (below). Of the 66
+  hypotheses, 24 are propositions defined in the kernel library outside `ZInQKernel/OneProof/`; the other 42 are
+  defined in the assembly's own modules.
+  Section 2 of the note lists all 66, and section 3 groups the 65 leaves by the theory they come from: Shimura
+  curves, abelian surfaces with quaternionic multiplication (QM) and Fuchsian groups (14), theta functions and
+  Siegel modular forms of genus 2 (4), abelian varieties (9), Néron models, semistable reduction and monodromy (9),
+  schemes and group schemes over a field (5), Faltings 1983 and Faltings heights (7), p-adic Hodge theory (6),
+  Galois representations of modular forms (6), and algebraic and modular curves (5).
   The glue statement of earlier assemblies, `HeckeVertWitness` (one unramified vertical prime above each prime
-  p > 324 in the Hecke cover, equivalent to the project's Lemma NV), is now proved from leaves, among them good
-  reduction of the Shimura curve Y₃ (the level-3 curve of discriminant 6 above), together with a smaller glue
-  statement, `ModelCoordinateResidue`: on a model of Y₃ over Z_(p), a coordinate with values in the projective line
-  whose reduction modulo p is not constant; in substance, the statement that the tame quotient of that model by a
-  finite group is the projective line (docs/research/vert-witness.md, smooth-fibre.md, model-glue.md). A check of
-  the previous candidates is folded in (docs/research/leafq-check.md): one of them, a set of generators of the group
-  Γ* (the normalizer of the quaternion order, acting on the upper half-plane; modulo scalars, the (2,4,6) triangle
-  group), is proved by a finite computation; two are replaced by published statements or direct consequences of
-  them (the valence formula for Γ*, and, for QM abelian surfaces, the theorem of Shimura and Taniyama that an
-  abelian variety with complex multiplication is defined over a number field); and a fourth, on the theta
-  Hauptmodul, is replaced by a smaller statement. Further reductions on the
-  fork's main are not yet folded in: the residue half of `ModelCoordinateResidue` is proved and the rest is reduced
-  to six leaves and four smaller glue statements (docs/research/mcr-glue.md); five abelian-variety leaves are proved
-  from published statements (docs/research/av-split.md); and six height leaves are proved from published statements
-  and, for four of them, smaller glue statements (docs/research/height-split.md).
-- **Statement review.** AI models reviewed the 62 leaves of an earlier assembly, most of which are among the
-  current 67 (docs/research/leaf-review-a.md, docs/research/leaf-review-b.md): 8 are published statements and 54
+  p > 324 in the Hecke cover, equivalent to the project's Lemma NV), is proved from leaves, among them good
+  reduction of the Shimura curve Y₃ (the level-3 curve of discriminant 6 above), together with
+  `ModelCoordinateResidue` (on a model of Y₃ over Z_(p), a coordinate with values in the projective line whose
+  reduction modulo p is not constant). That statement in turn follows from the one glue statement left,
+  `QuotientP1Coordinate`: a finite map from the model to the projective line over Z_(p) under which two Q̄-points
+  have the same value exactly when the QM abelian surfaces they carry are twists of each other by an automorphism
+  of the quaternion order, and the CM points of discriminants −4, −3 and −24 go to 0, ∞ and −16/27; in substance,
+  the statement that the tame quotient of the model by a finite group is the projective line
+  (docs/research/vert-witness.md, model-glue.md, mcr-glue.md).
+  The assembly folds in a check of earlier candidates (docs/research/leafq-check.md), the splitting of many leaves
+  into the published statements they follow from (docs/research/av-split.md, curve-split.md, hodge-split.md,
+  qm-split.md, height-split.md), and proofs of the height glue and of a covolume step for the group Γ* (the
+  normalizer of the quaternion order, acting on the upper half-plane) (docs/research/height-glue.md, qm-glue.md).
+  The six height leaves of earlier assemblies (R18 to R22 and the finiteness of the stable height) are now theorems,
+  derived, with the analytic uniformization of abelian varieties (T35) and the existence of Néron models, from eight
+  statements from the literature: Bost's lower bound, Javanpeykar's bound, Pazuki's bound and the theorem of
+  Gaudron and Rémond, which are published statements, and four consequences of single published theorems (three of
+  the results of SGA 7 on semistable reduction, and Faltings' Lemma 5 in an inequality form).
+  Further reductions on the fork are not yet folded in. docs/research/mcr-quot.md reduces `ModelCoordinateResidue`
+  to six leaves on curves and their quotients by finite groups, T5 (which the assembly derives from Mumford's
+  description of torsion points), `CurveBijIso` (proved), the decomposition's glue statement `CoverModelOfHeckeN`,
+  and two new glue statements: `P1SchemeQ` (the projective line over Q as a functor of points) and `CMStabObj` (a
+  statement about CM points over Q̄ that involves no schemes). The assembly currently derives `CoverModelOfHeckeN`
+  through Lemma NV, which it obtains from `ModelCoordinateResidue` itself, so this reduction does not yet remove the
+  glue statement. Also not yet folded in are a proof of `CoarseFactor`, a glue step in another derivation of two
+  Shimura-curve leaves (docs/research/coarse-factor.md), and proofs of two textbook leaves (below).
+- **Statement review.** AI models reviewed the 62 leaves of an earlier assembly, many of which are still among
+  the current 65 (docs/research/leaf-review-a.md, docs/research/leaf-review-b.md): 8 are published statements and 54
   are consequences of published statements, each with its derivation written out; none is stronger than its
   source. No human has reviewed them. The reviews list the assumptions they rest on, among them a lemma fixing the
   principal polarization of a QM abelian surface whose published locators are unverified, a check of the Shimura
-  curve's moduli problem that still needs a human, and the definition of the stable Faltings height. Five of the
-  current leaves are flagged for a human check (docs/research/leaf-fold6.md, section 3), and the check of an earlier
-  assembly's candidates found none of them false and none true only for a trivial reason. A review of the height leaves
-  (docs/research/height-split.md, section 8) raised one open question: if the level-2 theta coordinates in Pazuki's
-  paper are the second-order ones, the leaf R22 states his bound about log 4 more strongly than he prints it, and
-  whether the argument tolerates the weaker constant has not been checked.
+  curve's moduli problem that still needs a human, and the definition of the stable Faltings height. Twenty of the
+  current leaves are flagged for a human check (section 2 of docs/research/leaf-fold7.md and of leaf-fold8.md), and
+  the check of an earlier assembly's candidates found none of them false and none true only for a trivial reason. A
+  review of the height leaves (docs/research/height-split.md, section 8) raised three risks. One is an open
+  question: if the level-2 theta coordinates in Pazuki's paper are the second-order ones, the leaf for his bound
+  (`pazukiCor13Upper`, which replaced R22) states it about log 4 more strongly than he prints it, and whether the
+  argument tolerates the weaker constant has not been checked. The displayed constant of Bost's bound is unread:
+  the leaf takes the weaker of the two usual normalizations and would be slightly stronger than the print only
+  under a third. Faltings' Lemma 5 is printed as an identity with a correction term, so its leaf is an inequality
+  whose operative source is a corollary of Raynaud.
 - **Citations.** An audit of the citations against the primary sources by AI agents with web access
   (docs/research/locators.md) corrected several theorem and example numbers, and the corrections are applied.
   Some locators, among them Faltings 1983, Serre–Tate, SGA 7, Bost's constant and Shimura 1967, are still
@@ -283,21 +317,38 @@ statements, some textbook theorems are proved, and the project's reductions add 
   `H²(G_{ℚ_v}, ℤ/2)` in cochain form, the vanishing of unramified local classes, Brauer–Hasse–Noether with
   reciprocity for `H²(G_ℚ, ℤ/2)`, the structure of the N-torsion of an elliptic curve, good reduction implying
   unramified torsion over k(T), and the Clebsch–Bolza–Igusa separation of binary sextics by their Igusa invariants; the
-  freeness of Tate modules (T26) now follows from the torsion leaf T5. Most of these proofs are under
+  freeness of Tate modules (T26) now follows from T5, which the canonical assembly
+  derives from Mumford's description of the torsion of an abelian variety over an algebraically closed field. Most of these proofs are under
   `ZInQKernel/Contrib/`, and many use the class field theory and modular forms of the Tau Ceti library (Apache-2.0), which is vendored there (its
   license and notice files are in `ThirdParty/TauCeti/`, and the vendored files that were modified carry the change
-  notices that Apache-2.0 §4(b) asks for, as a script checks). On a fork branch, Zariski–Nagata purity is proved in
-  the form the proof uses (over a regular base of dimension at most 2). The rational cusp of X₁(N) now follows from
-  the single leaf `X0Transitive` (X₀(N) is irreducible: the Galois group of ℚ(j) permutes the cyclic subgroups of
-  order N of the generic elliptic curve transitively), and Zariski's connectedness theorem replaces an earlier,
-  less standard leaf. The canonical assembly also derives T9 and Serre's lemma from other leaves, replaces T3, T6,
-  T7, T11(b) and T41 by weaker published statements, and splits T34 and T38 into five general statements about
-  curves over Q (one published, four candidates), proving T38's rational-point clause (docs/research/av-b1.md,
-  av-b2.md, curves-g.md, neron-c.md, leaf-fold5.md).
-- **Proved glue.** Apart from `ModelCoordinateResidue`, every glue step of the canonical assembly is proved
-  from the leaves and that statement, with no `sorry`, in the kernel-checked library under `ZInQKernel/HDecomp/` and `ZInQKernel/Contrib/` or
-  in the assembly's scratch files. Among them: `HeckeVertWitness`, from leaves and
-  `ModelCoordinateResidue`; the step G4 (the Hom field), from leaves alone; the adelic bookkeeping of the normalizer of the quaternion order, with |Γ'| = 144, over Mathlib's
+  notices that Apache-2.0 §4(b) asks for, as a script checks). The project's cloud agents proved six more leaves of
+  earlier assemblies, all now dropped from the canonical one: the surjective half of the Néron mapping property for
+  abelian schemes, T11(b) (a rigidity theorem for abelian varieties), the twist of an eigenform by a character (T24),
+  Zariski's connectedness theorem, and EGA IV 8.8.2(ii) and 17.7.8(ii). Four of these rest on outside Apache-2.0
+  Lean code, vendored with its license and notice files, to which the agents added bridges: the Néron proof and the
+  affine Noetherian input to Zariski's theorem come from Anthropic's Lean formalization of Fermat's Last Theorem
+  (which includes material from Imperial College London's FLT project), and the two EGA IV statements from
+  AxiomMath's Stacks library; T11(b) adapts a rigidity proof from AxiomMath's Mordell library, and T24 uses Tau
+  Ceti's twists of cusp forms. Two more are proved but not yet folded in: T33, the existence of the Jacobian of a
+  curve with a rational point, with its Albanese property, over every field, from the Lean library
+  frenzymath/Jacobian-Challenge (copyright Axel Delaval, Jie Xu and Shitan Xu, with parts adapted, per its notice,
+  from Weil's conjectures project; Apache-2.0), vendored under `ZInQKernel/Contrib/CloudW07JacobiansCurves/`; and
+  the normal model of a function field of one variable over Q (Stacks, Tag 0BXX). On a fork branch, Zariski–Nagata
+  purity is proved in the form the proof uses (over a regular base of dimension at most 2). The rational cusp of X₁(N) now follows from
+  `X0Transitive` (X₀(N) is irreducible: the Galois group of ℚ(j) permutes the cyclic subgroups of order N of the
+  generic elliptic curve transitively), which the canonical assembly derives from Igusa's theorem that this Galois
+  group acts on the N-torsion through all of GL₂(Z/N); Zariski's connectedness theorem, which replaced an earlier,
+  less standard leaf, is now proved. The canonical assembly also derives T9 and Serre's lemma from other leaves, replaces T6, T7
+  and T41 by weaker published statements, proves T11(b) and the weaker form of T3 that it uses (the Néron mapping
+  property for abelian schemes), and splits T34 and T38 into general statements about curves over Q, of which it
+  proves several, among them T38's rational-point clause (docs/research/av-b1.md, av-b2.md, curves-g.md,
+  curve-split.md, neron-c.md, leaf-fold5.md).
+- **Proved glue.** Apart from `QuotientP1Coordinate`, every glue step of the canonical assembly is proved
+  from the leaves and that statement, with no `sorry`, in the kernel-checked library under `ZInQKernel/HDecomp/` and
+  `ZInQKernel/Contrib/` or in the assembly's modules under `ZInQKernel/OneProof/H/`. Among them: `HeckeVertWitness`, from leaves and
+  `ModelCoordinateResidue`, and the residue half of that statement; the height glue (the analytic uniformization and
+  the metrization of the Hodge line); the passage from the norm-one units of the quaternion order to Γ* (an index-4
+  covolume computation); the step G4 (the Hom field), from leaves alone; the adelic bookkeeping of the normalizer of the quaternion order, with |Γ'| = 144, over Mathlib's
   finite adeles; the model of X₁(N) over Q and its Belyi map; the Galois representation of a newform as a
   subrepresentation of the Tate module of J₁(N), its semisimplicity and continuity, and its comparison with two
   other Galois representations; the whole last stretch of the glue (from the level bound, the theta point and the
@@ -310,14 +361,17 @@ statements, some textbook theorems are proved, and the project's reductions add 
   including their properness and quasi-finiteness; the Galois descent of twists; the base change of the Hodge
   line, of the invariant differentials and of complex points; the uniqueness of the Hauptmodul that the period
   map uses (`hauptmodulUnique`, with a certified numerical evaluation of a theta value); the period map; and the spreading out of an
-  abelian variety over a number field, from three statements of EGA IV.
+  abelian variety over a number field, from three statements of EGA IV, two of which are now proved.
 - **Still missing from every Lean library:** the definitions that section 4 of docs/research/h-decomposition.md
   lists. None of them is behind a placeholder any more: conductors of ℓ-adic representations are defined, and the
   complex uniformization of the Shimura curve is stated concretely in family form. The open glue statement needs tools that
   Mathlib does not have yet: quotient schemes and the projective line over Z_(p). Mathlib cannot yet construct a
-  nonzero abelian variety; a bridge to the Jacobians of the AxiomMath/Mordell library is on a branch of the fork,
-  waiting for a build cache. The stable Faltings height has a Lean definition, and the height leaves are stated
-  over it; whether that definition agrees with Faltings' is one of the assumptions the statement review lists.
+  nonzero abelian variety; on the fork, Jacobians of curves with a rational point now exist in the library, from the
+  vendored Jacobian-Challenge library above, although that their dimension is the genus is still a leaf
+  (`DimJacobianEqGenus`). The height leaves of the canonical assembly are stated over Lean definitions of
+  semistability and of the stable Faltings height (docs/research/height-split.md); that these agree with the
+  published definitions is a judgement of AI reviews, and Lean has checked their non-vacuity only in the trivial
+  case of the zero abelian variety.
   Dimension theory (the dimension of an integral variety is the transcendence degree of its function field, and
   the local rings of a smooth variety at its closed points are regular of the expected dimension), and the absolute Frobenius of a scheme of
   characteristic p are now in the library, under `ZInQKernel/Contrib/Dim/` and `ZInQKernel/Contrib/AbsFrob/`.
@@ -340,31 +394,36 @@ Among them are the complete kernel build and exact-target audit, the accepted Le
 finish and accept every mathematical change (docs/research-review/README.md upstream). The live ruleset
 (https://github.com/elliotglazer/diophantine-z-q/rules/26781429) shows what a merge currently requires; CI alone
 does not establish that an argument is correct. The open statements are grouped as upstream issues, one per topic, listed in the
-tracking issue; they follow the rows of docs/research/frontier.md on the fork's main, the live list of open statements.
-Section 2 of docs/research/leaf-fold6.md lists the 68 hypotheses of the canonical assembly of H, and section 3
-groups its leaves by theory. The project's own agents record who is working on what in
+tracking issue; they follow the rows of docs/research/frontier.md on the fork's main, a list of open statements whose last
+revision (r3) predates the canonical assembly of H; section 2 of docs/research/leaf-fold8.md lists the current
+hypotheses of H.
+Section 2 of docs/research/leaf-fold8.md lists the 66 hypotheses of the canonical assembly of H, and section 3
+groups its leaves by theory. `ZInQ.OneProof.frozenTarget` (`ZInQKernel/OneProof/Main.lean`) takes the open
+statements as hypotheses (and, until they are folded in, the two proved leaves): a proof of one is folded in by
+replacing that hypothesis with the proof. The project's own agents record who is working on what in
 https://github.com/Deicyde/diophantine-z-q/issues/3. To build and check: `lake exe cache get`, then
 `lake build ZInQKernel`; then `lake env lean scripts/print_axioms.lean` (every declaration listed must depend only on
 the three standard axioms) and `python3 scripts/check_target.py`.
 
 ## Verification
 
-Every Lean change is built before it reaches main. At the current Lean (fork main f70ec251):
-- the library build completes (10,013 jobs), all 542 declarations listed in `scripts/print_axioms.lean` (the
+Every Lean change is built before it reaches main. At the current Lean (fork main 5da857b0):
+- the library build completes, all 542 declarations listed in `scripts/print_axioms.lean` (the
   headline and its variants, the reductions, the Proposition N lemmas, and the glue lemmas of the decomposition
   of H) depend only on the three standard axioms, with no `sorry`, and `scripts/check_target.py` confirms the
   statement;
-- all 2,077 files under `ZInQKernel/Contrib/` build (no error), most of them the vendored Tau Ceti library, and
-  the 222 axiom reports of `scratch/contrib-check/Check.lean`, among them the two proofs of hypotheses, the headline
+- all 3,048 Lean files under `ZInQKernel/Contrib/` build (no error), most of them vendored libraries (Tau
+  Ceti, the Jacobian-Challenge library, and parts of Anthropic's Lean formalization of Fermat's Last Theorem and of
+  AxiomMath's Stacks library, each with its license and notice), and the 230 axiom reports of `scratch/contrib-check/Check.lean`, among them the two proofs of hypotheses, the headline
   variants above and the route to reading A, list only the standard axioms, with no `sorry` (to repeat this:
   `lake build ZInQKernel.Contrib.AllContrib`, then `lake env lean scratch/contrib-check/Check.lean`);
 - `scratch/h-decomposition/Leaves.lean` compiles cleanly;
-- the module chain of `scratch/leaf-fold6/` compiled with no error and no `sorry` at fork commit d5d43efc (since
-  then the library files it imports have changed only in two docstrings), and its 369 axiom reports (among them
-  `HDec.HSyn.sixContactMin_of_open6`) list only the standard axioms; the earlier assemblies' files compiled the
-  same way when they were made;
-- the site builds with no problems (163 pages; the blueprint has 735 articles and 2,303 dependencies), and the
-  blueprint audit is at its baseline.
+- `lake build ZInQKernel.OneProof.Main` completes, and `#print axioms ZInQ.OneProof.frozenTarget` lists only the
+  three standard axioms; the declarations behind `HDec.HSyn.sixContactMin_of_open8` (193,116 of them) contain no
+  `sorry` (docs/research/leaf-fold8.md, section 4); the earlier assemblies' files compiled the same way when they
+  were made;
+- the blueprint check passes (735 articles, 2,303 dependencies), and the site builds with no problems (163
+  pages).
 
 An independent machine re-checked an earlier snapshot proposed for pull request #24 (before Proposition N): 9,923
 jobs, 80 declarations with standard axioms, and an audit replay of 33,548 declarations with 0 open statements.
@@ -377,16 +436,21 @@ to main (since #36).
 - README.md (last changed on 2026-11-12, before items 2 and 3 were proved): the library's headline, every
   hypothesis with its sources and caveats, and the library's variant theorems; the fork's newer variants are listed
   above under "The statement checked".
-- docs/research/leaf-fold6.md: the canonical assembly of H, with all 68 hypotheses (section 2) and the leaves grouped
-  by theory (section 3); docs/research/mcr-glue.md, av-split.md, height-split.md: reductions not yet folded in.
+- `ZInQKernel/OneProof/Main.lean`: the whole proof in one theorem, `ZInQ.OneProof.frozenTarget`, whose hypotheses
+  are the open statements and, until they are folded in, two proved leaves.
+- docs/research/leaf-fold8.md: the canonical assembly of H, with all 66 hypotheses (section 2) and the leaves grouped
+  by theory (section 3); docs/research/leaf-fold7.md: the previous assembly, with the leaves it flags for a human
+  check; docs/research/mcr-quot.md, coarse-factor.md: reductions not yet folded in.
 - docs/research/leaf-review-a.md, docs/research/leaf-review-b.md: the statement review of the leaves.
 - docs/research/h-decomposition.md: the original decomposition of H into leaves (section 2) and glue steps
   (section 3), the missing definitions (section 4), work packages for contributors (section 5), and risks
   (section 6); its leaf lists and glue counts predate the newer assemblies.
-- docs/research/frontier.md: the list of every open statement on the path to `ZInQ.FrozenTarget`.
+- docs/research/frontier.md: the list of open statements on the path to `ZInQ.FrozenTarget`, as of its revision
+  r3, which predates the canonical assembly of H.
 - docs/research/gz-decomp.md, docs/research/gz-theta.md, docs/research/atkin-li.md, docs/research/gz-statements.md:
   the reduction of Gross–Zagier, the proof of the newform statement, and the review of the two remaining statements.
 - docs/research/tyz-chain.md: the current reduction of reading A, with the Lean text of its four hypotheses;
+  docs/research/tyz-split.md: Theorem 3.3 in printed form, and the sign convention it depends on;
   docs/research/sqrt2-glue.md: the proof of the torsion lemma; docs/research/tyz-decomp.md and
   docs/research/cm-bridge.md: the earlier steps.
 - docs/research/h-trust.md: the proof of Theorem 4.1 step by step, with every supplier and its review status.
