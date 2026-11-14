@@ -253,3 +253,14 @@ run_cmd do
     logInfo m!"PRUNE bundle {s}: {fs.size} fields, unused {unused.size}: {unused.toList}"
   IO.FS.writeFile "scratch/one-proof/used-fields.txt" ("\n".intercalate lines.toList ++ "\n")
   logInfo m!"PRUNE total unused top-level fields: {total}"
+  -- every bundle of the chain: a removed top field also removes the older fields it alone feeds
+  let mut all : Array String := #[]
+  for (c, _) in env.constants.toList do
+    if isBundle env c then
+      let fs := fieldNames env c
+      let un := (List.range fs.size).filter (fun j => !used.contains (.field c j)) |>.map (fs[·]!)
+      if !un.isEmpty then
+        let mi := (env.getModuleIdxFor? c).map (fun i => toString env.header.modules[i.toNat]!.module)
+        all := all.push s!"{mi.getD "?"} {c} ({fs.size} fields): {un}"
+  IO.FS.writeFile "scratch/one-proof/unused-all.txt" ("\n".intercalate (all.qsort (· < ·)).toList ++ "\n")
+  logInfo m!"PRUNE bundles with unused fields: {all.size}"
