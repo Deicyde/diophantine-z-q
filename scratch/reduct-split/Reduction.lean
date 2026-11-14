@@ -621,6 +621,73 @@ theorem serreTatePotentialGood_of_leaves (hST : SerreTateThm2) (hT : PkgI2.Torsi
 
 end R7b
 
+/-! ## §8. Transport of semistability along isomorphisms; base change in two steps -/
+
+section Transport
+
+variable {K : Type} [Field K]
+
+/-- A Néron model of `B'` is a Néron model of `B` along a group isomorphism `B ≅ B'`, with the same
+underlying group scheme. -/
+def GroupModelO.transport {B B' : PkgI3.AbVar K} {O : ValuationSubring K} (e : B.X ≅ B'.X)
+    (he : IsMonHom e.hom) (𝒩 : GroupModelO B' O) : GroupModelO B O where
+  G := 𝒩.G
+  gen := 𝒩.gen ≪≫ e.symm
+  gen_hom := by
+    letI : GrpObj ((Over.pullback (jO O)).obj 𝒩.G) := Functor.grpObjObj
+    haveI := 𝒩.gen_hom
+    show IsMonHom (𝒩.gen.hom ≫ e.inv)
+    infer_instance
+
+theorem GroupModelO.transport_isNeronModel {B B' : PkgI3.AbVar K} {O : ValuationSubring K}
+    (e : B.X ≅ B'.X) (he : IsMonHom e.hom) (𝒩 : GroupModelO B' O) (h : 𝒩.IsNeronModel) :
+    (𝒩.transport e he).IsNeronModel := by
+  intro Y _
+  have hb := h Y
+  have : (fun f : Y ⟶ 𝒩.G => (Over.pullback (jO O)).map f ≫ (𝒩.gen ≪≫ e.symm).hom) =
+      (fun g => g ≫ e.inv) ∘ (fun f : Y ⟶ 𝒩.G => (Over.pullback (jO O)).map f ≫ 𝒩.gen.hom) := by
+    funext f; simp
+  show Function.Bijective (fun f : Y ⟶ 𝒩.G =>
+    (Over.pullback (jO O)).map f ≫ (𝒩.gen ≪≫ e.symm).hom)
+  rw [this]
+  exact Function.Bijective.comp
+    ⟨fun a b hab => (cancel_mono e.inv).mp hab, fun c => ⟨c ≫ e.hom, by simp⟩⟩ hb
+
+theorem semistableNeronModels_transport {B B' : PkgI3.AbVar K} {O : ValuationSubring K}
+    (e : B.X ≅ B'.X) (he : IsMonHom e.hom) (h : SemistableNeronModels B O) :
+    SemistableNeronModels B' O := fun 𝒩 h𝒩 =>
+  h (𝒩.transport e he) (𝒩.transport_isNeronModel e he h𝒩)
+
+/-- `(A_{K'})_L ≅ A_L` for a tower `K → K' → L`, as group schemes over `L`. -/
+def bcbcGrpIso (A : PkgI3.AbVar K) (K' L : Type) [Field K'] [Field L] [Algebra K K']
+    [Algebra K' L] [Algebra K L] [IsScalarTower K K' L] :
+    (Over.pullback (Spec.map (CommRingCat.ofHom (algebraMap K' L)))).mapGrp.obj
+        ((Over.pullback (Spec.map (CommRingCat.ofHom (algebraMap K K')))).mapGrp.obj
+          (Grp.mk A.X)) ≅
+      (Over.pullback (Spec.map (CommRingCat.ofHom (algebraMap K L)))).mapGrp.obj (Grp.mk A.X) :=
+  let f1 := Spec.map (CommRingCat.ofHom (algebraMap K K'))
+  let f2 := Spec.map (CommRingCat.ofHom (algebraMap K' L))
+  have hf : f2 ≫ f1 = Spec.map (CommRingCat.ofHom (algebraMap K L)) := by
+    simp only [f1, f2, ← Spec.map_comp, ← CommRingCat.ofHom_comp,
+      ← IsScalarTower.algebraMap_eq]
+  (Functor.mapGrpCompIso.app (Grp.mk A.X)).symm ≪≫
+    (Functor.mapGrpNatIso (Over.pullbackComp f2 f1).symm).app (Grp.mk A.X) ≪≫
+    (Functor.mapGrpNatIso (eqToIso (show Over.pullback (f2 ≫ f1) =
+      Over.pullback (Spec.map (CommRingCat.ofHom (algebraMap K L))) by rw [hf]))).app (Grp.mk A.X)
+
+/-- The underlying isomorphism `((A_{K'})_L).X ≅ (A_L).X`. -/
+def bcbcIso (A : PkgI3.AbVar K) (K' L : Type) [Field K'] [Field L] [Algebra K K']
+    [Algebra K' L] [Algebra K L] [IsScalarTower K K' L] :
+    ((A.baseChange K').baseChange L).X ≅ (A.baseChange L).X :=
+  (Grp.forget _).mapIso (bcbcGrpIso A K' L)
+
+theorem bcbcIso_isMonHom (A : PkgI3.AbVar K) (K' L : Type) [Field K'] [Field L] [Algebra K K']
+    [Algebra K' L] [Algebra K L] [IsScalarTower K K' L] :
+    IsMonHom (bcbcIso A K' L).hom :=
+  inferInstanceAs (IsMonHom (bcbcGrpIso A K' L).hom.hom.hom)
+
+end Transport
+
 end ReductSplit
 
 #print axioms ReductSplit.raynaudCriterion_of_leaves
