@@ -45,3 +45,9 @@ Product of Frobenius lifts over the prime factorization of α𝓞_F.
 - [VERIFIED, compiled ~01:05] §13 **`normCongr : NormCongr`, `normSigma`, `sigmaLift : SigmaLift`,
   `sqrtTwoNotInHHprime : SqrtTwoNotInHHprime`** — no hypotheses; `#print axioms` = [propext, Classical.choice, Quot.sound];
   no `sorry` in the file.
+- [VERIFIED, textual check] `SqrtTwoNotInHHprime`, `SigmaLift`, `sigma_moves_sqrtTwo`, `sqrtTwoNotInHHprime_of_sigmaLift`
+  are byte-identical to scratch/tyz-318/Lemma318.lean.
+- [VERIFIED, compiled 01:08, 37 s] scratch/sqrt2-glue/Combined.lean = tyz-318's Lemma318.lean + Sqrt2Glue.lean body + §C:
+  **`lemma318Literal_HHprime : T318.Lemma318Literal HHprime`**, `package_lemma318Literal_HHprime : Package.Lemma318Literal HHprime`
+  (the hypothesis h318 of cm-bridge), `tyzThm35ReadingA_of_cmLeaves_ringClassD_no318` (kernel bridge with h318 discharged);
+  `T318.SqrtTwoNotInHHprime = SqrtTwoNotInHHprime := rfl`. All [propext, Classical.choice, Quot.sound]; 0 errors.
