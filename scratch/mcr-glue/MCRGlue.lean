@@ -4492,3 +4492,66 @@ end MCRGlue
 #print axioms MCRGlue.isGQuotient_bot_id
 #print axioms MCRGlue.coordinateNormalization_of
 #print axioms MCRGlue.modelCoordinateResidue_of_leaves''
+
+/-! ════════════════════════════════════════════════════════════════════════════════════════════
+# mcr-glue, part 6: sanity check — `fibreAut` contains the Hecke automorphisms
+════════════════════════════════════════════════════════════════════════════════════════════ -/
+
+noncomputable section
+
+namespace MCRGlue
+
+open Polynomial CategoryTheory AlgebraicGeometry Limits LeafQM.AV VertWitness HeckeRestNV
+open G0ModField PropTSRed PropTSGlue ModelGlue
+
+/-- An isomorphism of level-3 objects is an isomorphism of their QM pairs. -/
+def qmIsoOfIso {K : Type} [Field K] {P Q : QML3 K} (f : P.Iso Q) : QMIso P.q Q.q where
+  φ := f.φ
+  ψ := f.ψ
+  left := f.left
+  right := f.right
+  equivariant := f.equivariant
+
+/-- The automorphism of `𝒴.left` underlying an automorphism of `𝒴` over `ℤ_(p)`. -/
+def autOfOverIso {p : ℕ} [Fact p.Prime] {𝒴 : Over (Spec (CommRingCat.of (Zloc p)))}
+    (g : 𝒴 ≅ 𝒴) : Aut 𝒴.left :=
+  Aut.of ((Over.forget _).mapIso g)
+
+/-- **Sanity check: `fibreAut` contains automorphisms inducing every Hecke operation** (`twist α`
+and `rightMul u`, clauses 6-7 of `IsShimuraModel`), so the quotient by `fibreAut` is at least as
+coarse as the quotient by `Γ'`. -/
+theorem hecke_mem_fibreAut {p : ℕ} [Fact p.Prime] {𝒴 : Over (Spec (CommRingCat.of (Zloc p)))}
+    {𝒜 : QMFamily 𝒴.left} (hM : IsShimuraModel p 𝒴 𝒜) :
+    (∀ α : LeafQM.O ≃+* LeafQM.O, ∃ g ∈ fibreAut 𝒴 𝒜,
+      ∀ (y : Spec (CommRingCat.of Qbar) ⟶ 𝒴.left) (P P' : QML3 Qbar),
+        IsFibreOf 𝒜 y P → IsFibreOf 𝒜 (y ≫ g.asIso.hom) P' →
+          M3.mk P' = M3.twist α (M3.mk P)) ∧
+    (∀ u : (LeafQM.O)ˣ, ∃ g ∈ fibreAut 𝒴 𝒜,
+      ∀ (y : Spec (CommRingCat.of Qbar) ⟶ 𝒴.left) (P P' : QML3 Qbar),
+        IsFibreOf 𝒜 y P → IsFibreOf 𝒜 (y ≫ g.asIso.hom) P' →
+          M3.mk P' = M3.rightMul u (M3.mk P)) := by
+  obtain ⟨-, -, -, -, -, htw, hru, -⟩ := hM
+  constructor
+  · intro α
+    obtain ⟨g, hg⟩ := htw α
+    refine ⟨autOfOverIso g, Subgroup.subset_closure ⟨Over.w g.hom, fun y P P' h1 h2 => ?_⟩, hg⟩
+    have h : M3.mk P' = M3.mk (P.twist α) := by rw [← M3.twist_mk]; exact hg y P P' h1 h2
+    obtain ⟨f⟩ := Quotient.exact (s := isoSetoid Qbar) h
+    exact ⟨α, ⟨(qmIsoOfIso f).symm⟩⟩
+  · intro u
+    obtain ⟨g, hg⟩ := hru u
+    refine ⟨autOfOverIso g, Subgroup.subset_closure ⟨Over.w g.hom, fun y P P' h1 h2 => ?_⟩, hg⟩
+    have h : M3.mk P' = M3.mk (P.rightMul u) := hg y P P' h1 h2
+    obtain ⟨f⟩ := Quotient.exact (s := isoSetoid Qbar) h
+    let e : QMIso P.q P'.q := (qmIsoOfIso f).symm
+    let e' : QMIso (P.q.twist (RingEquiv.refl LeafQM.O)) P'.q :=
+      { φ := e.φ
+        ψ := e.ψ
+        left := e.left
+        right := e.right
+        equivariant := e.equivariant }
+    exact ⟨RingEquiv.refl _, ⟨e'⟩⟩
+
+end MCRGlue
+
+#print axioms MCRGlue.hecke_mem_fibreAut

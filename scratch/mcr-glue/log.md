@@ -48,3 +48,8 @@ Target: `ModelGlue.ModelCoordinateResidue` (scratch/model-glue/ModelGlue6.lean, 
   different discriminants are disjoint), C2 `CoordinateFromSections` (normalize ρ'₀ by the three
   disjoint sections). `coordinateNormalization_of : C1 → C2 → CoordinateNormalization` (compiled).
 - `modelCoordinateResidue_of_leaves'' : L1 → … → L6 → A → B → C1 → C2 → ModelCoordinateResidue`.
+
+## Step 5 (05:40) — VERIFIED (MCRGlue.lean = ModelGlue6 + parts 1-5; exit 0; compile5_out.txt; standard axioms; verbatim_check ALL OK)
+- `hecke_mem_fibreAut`: sanity check, `fibreAut` contains automorphisms inducing every `twist α`
+  and `rightMul u` (IsShimuraModel clauses 6-7); helpers `qmIsoOfIso`, `autOfOverIso`.
+- docs/research/mcr-glue.md written (verdict, table, leaves, glue, remains).
