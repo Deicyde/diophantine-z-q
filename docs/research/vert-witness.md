@@ -257,9 +257,15 @@ with the normalization chart. Then there is an injective `ι : 𝒪_{𝒴,ξ} �
     with base change (SGA 1 V.1; UNVERIFIED locator).
   - So `𝒵` is proper and flat over `ℤ_(p)`, with normal fibres. Its generic fibre is `P¹_ℚ` in
     the coordinate `π`, and its special fibre `𝒴_p/G'` is a smooth curve of genus 0.
-  - The CM points over `0, ∞, −16/27` extend to sections, and their reductions are distinct.
-    Tame stabilizers at points of a smooth curve are cyclic, and the Hurwitz sums on the two
-    fibres agree; merging an order-4 point with an order-6 point would lower the sum.
+  - The CM points over `0, ∞, −16/27` extend to sections, and their reductions in `𝒵` are
+    distinct. Suppose two of them, `y_b` and `y_{b'}`, had the same reduction `z` in `𝒴` (after
+    moving `y_{b'}` within its `G'`-orbit). Then:
+    - the stabilizer of `z` is cyclic (it is tame and acts faithfully on the cotangent line);
+    - it contains the stabilizers of `y_b` and `y_{b'}`, of orders `4, 6, 2`;
+    - so its unique involution fixes both `y_b` and `y_{b'}`;
+    - but the fixed scheme of a tame automorphism of the smooth proper `𝒴` is finite étale over
+      `ℤ_(p)` (Edixhoven, Compositio 97 (1995), Prop. 3.4; UNVERIFIED), so distinct generic fixed
+      points have distinct reductions. Contradiction.
   - A smooth proper genus-0 curve over `ℤ_(p)` with three pairwise disjoint sections is
     `P¹_{ℤ_(p)}`, in the unique coordinate sending them to `0, ∞, −16/27` (these values are
     distinct mod `p`, since `p ∤ 6`). That coordinate is `π`.
