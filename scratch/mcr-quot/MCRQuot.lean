@@ -4882,3 +4882,261 @@ theorem mem_orbit_of_twistEq (hT : ObjBridge.TorsionStructure) {p : ℕ} [Fact p
   simp [Category.assoc]
 
 end MCRQuot
+
+/-! ════════════════════════════════════════════════════════════════════════════════════════════
+# mcr-quot, part 3: `ℚ̄`-points of a quotient by a finite group are the orbits
+
+Commutative algebra (`exists_comp_smul_eq`: two ring maps `B → K` to a field that agree on
+`A = B^G` differ by an element of `G`; from Mathlib's `Algebra.IsInvariant.exists_smul_of_under_eq`
+and `Ideal.Quotient.stabilizerHom_surjective`), then the scheme version for the SGA 1 quotient
+`IsGQuotient`: the action of `G` on the sections over `q⁻¹ W`, `W ⊆ Z` affine, is a
+`MulSemiringAction` with invariants `Γ(Z, W)`.
+════════════════════════════════════════════════════════════════════════════════════════════ -/
+
+noncomputable section
+
+namespace MCRQuot
+
+open Polynomial CategoryTheory AlgebraicGeometry Limits MCRGlue
+
+/-- Values of two ring maps agreeing on invariants differ by an element of the group. -/
+theorem exists_root_smul {A B K : Type*} [CommRing A] [CommRing B] [Algebra A B] [Field K]
+    (G : Type*) [Group G] [Fintype G] [MulSemiringAction G B]
+    [Algebra.IsInvariant A B G] (χ χ' : B →+* K)
+    (hχ : χ.comp (algebraMap A B) = χ'.comp (algebraMap A B)) (b : B) :
+    ∃ k : G, χ' b = χ (k • b) := by
+  obtain ⟨P, hP0⟩ := Algebra.IsInvariant.charpoly_mem_lifts A B G b
+  have hP : P.map (algebraMap A B) = MulSemiringAction.charpoly G b := hP0
+  have h1 : P.eval₂ (χ'.comp (algebraMap A B)) (χ' b) = 0 := by
+    rw [← Polynomial.hom_eval₂, ← Polynomial.eval_map, hP, MulSemiringAction.eval_charpoly,
+      map_zero]
+  rw [← hχ, ← Polynomial.eval_map, ← Polynomial.map_map, hP, MulSemiringAction.charpoly_eq,
+    Polynomial.map_prod, Polynomial.eval_prod, Finset.prod_eq_zero_iff] at h1
+  obtain ⟨k, -, hk⟩ := h1
+  refine ⟨k, ?_⟩
+  simpa [sub_eq_zero] using hk
+
+theorem exists_comp_smul_eq {A B K : Type*} [CommRing A] [CommRing B] [Algebra A B] [Field K]
+    (G : Type*) [Group G] [Finite G] [MulSemiringAction G B] [SMulCommClass G A B]
+    [Algebra.IsInvariant A B G] (φ φ' : B →+* K)
+    (h : φ.comp (algebraMap A B) = φ'.comp (algebraMap A B)) :
+    ∃ g : G, ∀ b, φ' b = φ (g • b) := by
+  classical
+  cases nonempty_fintype G
+  set Q := RingHom.ker φ with hQdef
+  set Q' := RingHom.ker φ' with hQ'def
+  have : Q.IsPrime := RingHom.ker_isPrime φ
+  have : Q'.IsPrime := RingHom.ker_isPrime φ'
+  have hunder : Q.under A = Q'.under A := by
+    ext a
+    simp only [Ideal.under, Ideal.mem_comap, Q, Q', RingHom.mem_ker]
+    rw [← RingHom.comp_apply, h, RingHom.comp_apply]
+  obtain ⟨g, hg⟩ := Algebra.IsInvariant.exists_smul_of_under_eq A B G Q Q' hunder
+  let ψ : B →+* K := φ'.comp (MulSemiringAction.toRingHom G B g)
+  have hψ : ∀ b, ψ b = φ' (g • b) := fun _ => rfl
+  have hkerψ : ∀ b, ψ b = 0 ↔ φ b = 0 := by
+    intro b
+    rw [hψ]
+    change g • b ∈ Q' ↔ b ∈ Q
+    rw [hg, Ideal.smul_mem_pointwise_smul_iff]
+  have hψA : ψ.comp (algebraMap A B) = φ.comp (algebraMap A B) := by
+    ext a
+    change φ' (g • algebraMap A B a) = φ (algebraMap A B a)
+    rw [smul_algebraMap]
+    exact (congrArg (fun f : A →+* K => f a) h).symm
+  set P := Q.under A
+  have : Q.LiesOver P := ⟨rfl⟩
+  let φb : B ⧸ Q →+* K := Ideal.Quotient.lift Q φ (fun b hb => hb)
+  let ψb : B ⧸ Q →+* K := Ideal.Quotient.lift Q ψ (fun b hb => (hkerψ b).2 hb)
+  have hφb : Function.Injective φb :=
+    RingHom.lift_injective_of_ker_le_ideal _ _ (fun b hb => hb)
+  have hψb : Function.Injective ψb :=
+    RingHom.lift_injective_of_ker_le_ideal _ _ (fun b hb => (hkerψ b).1 hb)
+  have hrange1 : ∀ x : B ⧸ Q, ∃ y : B ⧸ Q, ψb x = φb y := by
+    intro x
+    obtain ⟨b, rfl⟩ := Ideal.Quotient.mk_surjective x
+    obtain ⟨k, hk⟩ := exists_root_smul G φ ψ hψA.symm b
+    exact ⟨Ideal.Quotient.mk Q (k • b), hk⟩
+  have hrange2 : ∀ y : B ⧸ Q, ∃ x : B ⧸ Q, φb y = ψb x := by
+    intro y
+    obtain ⟨b, rfl⟩ := Ideal.Quotient.mk_surjective y
+    obtain ⟨k, hk⟩ := exists_root_smul G ψ φ hψA b
+    exact ⟨Ideal.Quotient.mk Q (k • b), hk⟩
+  choose τf hτf using hrange1
+  choose τi hτi using hrange2
+  have hτ1 : ∀ x, τi (τf x) = x := fun x => hψb (by rw [← hτi, ← hτf])
+  have hτ2 : ∀ y, τf (τi y) = y := fun y => hφb (by rw [← hτf, ← hτi])
+  let τ : (B ⧸ Q) ≃ₐ[A ⧸ P] (B ⧸ Q) :=
+    { toFun := τf
+      invFun := τi
+      left_inv := hτ1
+      right_inv := hτ2
+      map_mul' := fun x y => hφb (by rw [map_mul, ← hτf, ← hτf, ← hτf, map_mul])
+      map_add' := fun x y => hφb (by rw [map_add, ← hτf, ← hτf, ← hτf, map_add])
+      commutes' := by
+        intro r
+        obtain ⟨a, rfl⟩ := Ideal.Quotient.mk_surjective r
+        apply hφb
+        rw [← hτf]
+        change ψ (algebraMap A B a) = φ (algebraMap A B a)
+        exact congrArg (fun f : A →+* K => f a) hψA }
+  obtain ⟨s, hs⟩ := Ideal.Quotient.stabilizerHom_surjective G P Q τ
+  have key : ∀ b, φ' (g • b) = φ ((s : G) • b) := by
+    intro b
+    have e1 : τ (Ideal.Quotient.mk Q b) = Ideal.Quotient.mk Q ((s : G) • b) := by
+      rw [← hs]
+      rfl
+    have e2 := hτf (Ideal.Quotient.mk Q b)
+    change ψ b = φb (τ (Ideal.Quotient.mk Q b)) at e2
+    rw [e1] at e2
+    exact e2
+  refine ⟨(s : G) * g⁻¹, fun b => ?_⟩
+  have := key (g⁻¹ • b)
+  rwa [smul_inv_smul, ← mul_smul] at this
+
+section GQuot
+
+variable {X Z : Scheme.{0}} {q : X ⟶ Z}
+
+/-- The ring map on sections over `q⁻¹ W` induced by `f : X → X` with `f ≫ q = q`. -/
+def secMap (f : X ⟶ X) (hf : f ≫ q = q) (W : Z.Opens) : Γ(X, q ⁻¹ᵁ W) →+* Γ(X, q ⁻¹ᵁ W) :=
+  (f.appLE (q ⁻¹ᵁ W) (q ⁻¹ᵁ W) (preimage_le_of_comp_eq hf W)).hom
+
+theorem appLE_congr' {X' Y' : Scheme.{0}} {f f' : X' ⟶ Y'} (h : f = f') (U : Y'.Opens)
+    (V : X'.Opens) (e : V ≤ f ⁻¹ᵁ U) (e' : V ≤ f' ⁻¹ᵁ U) : f.appLE U V e = f'.appLE U V e' := by
+  subst h; rfl
+
+theorem secMap_congr {f f' : X ⟶ X} (h : f = f') (hf : f ≫ q = q) (hf' : f' ≫ q = q)
+    (W : Z.Opens) : secMap f hf W = secMap f' hf' W := by
+  subst h; rfl
+
+theorem secMap_id (h : 𝟙 X ≫ q = q) (W : Z.Opens) : secMap (𝟙 X) h W = RingHom.id _ := by
+  ext b
+  simp only [secMap, Scheme.Hom.appLE, Scheme.Hom.id_app]
+  show (CommRingCat.Hom.hom (𝟙 _ ≫ X.presheaf.map (𝟙 (Opposite.op (q ⁻¹ᵁ W))))) b = b
+  rw [CategoryTheory.Functor.map_id, Category.comp_id]
+  rfl
+
+theorem secMap_comp (f f' : X ⟶ X) (hf : f ≫ q = q) (hf' : f' ≫ q = q) (h : (f ≫ f') ≫ q = q)
+    (W : Z.Opens) : secMap (f ≫ f') h W = (secMap f hf W).comp (secMap f' hf' W) := by
+  unfold secMap
+  rw [← CommRingCat.hom_comp, Scheme.Hom.appLE_comp_appLE]
+
+/-- `f^*` fixes the pulled-back sections of `Z` when `f ≫ q = q`. -/
+theorem secMap_app (f : X ⟶ X) (hf : f ≫ q = q) (W : Z.Opens) (a : Γ(Z, W)) :
+    secMap f hf W (q.app W a) = q.app W a := by
+  have key : q.app W ≫ f.appLE (q ⁻¹ᵁ W) (q ⁻¹ᵁ W) (preimage_le_of_comp_eq hf W) = q.app W := by
+    conv_lhs => rw [Scheme.Hom.app_eq_appLE]
+    rw [Scheme.Hom.appLE_comp_appLE, appLE_congr' hf W (q ⁻¹ᵁ W) _ le_rfl,
+      ← Scheme.Hom.app_eq_appLE]
+  exact congrArg (fun φ => φ.hom a) key
+
+theorem inv_comp_eq {g : Aut X} (hg : g.asIso.hom ≫ q = q) : g.asIso.inv ≫ q = q := by
+  conv_lhs => rw [← hg]
+  rw [← Category.assoc, Iso.inv_hom_id, Category.id_comp]
+
+variable {G : Subgroup (Aut X)}
+
+/-- The action of `G` on `Γ(X, q⁻¹ W)`: `g • s = (g⁻¹)^* s`. -/
+def secAction (hinv : ∀ g ∈ G, g.asIso.hom ≫ q = q) (W : Z.Opens) :
+    MulSemiringAction G Γ(X, q ⁻¹ᵁ W) where
+  smul g b := secMap (g : Aut X).asIso.inv (inv_comp_eq (hinv g g.2)) W b
+  one_smul b := by
+    change secMap _ _ W b = b
+    rw [secMap_congr (f' := 𝟙 X) (by simp) _ (Category.id_comp q), secMap_id]
+    rfl
+  mul_smul x y b := by
+    change secMap _ _ W b = secMap _ _ W (secMap _ _ W b)
+    rw [secMap_congr (f' := (x : Aut X).asIso.inv ≫ (y : Aut X).asIso.inv) (by simp) _
+      (by rw [Category.assoc, inv_comp_eq (hinv y y.2), inv_comp_eq (hinv x x.2)]),
+      secMap_comp _ _ (inv_comp_eq (hinv x x.2)) (inv_comp_eq (hinv y y.2))]
+    rfl
+  smul_zero g := map_zero _
+  smul_add g a b := map_add _ a b
+  smul_one g := map_one _
+  smul_mul g a b := map_mul _ a b
+
+/-- A `K`-point is determined by its map on the sections of an affine open containing it. -/
+theorem eq_of_appLE_eq {K : Type} [Field K] (y y' : Spec (CommRingCat.of K) ⟶ X) {U : X.Opens}
+    (hU : IsAffineOpen U) (e : ⊤ ≤ y ⁻¹ᵁ U) (e' : ⊤ ≤ y' ⁻¹ᵁ U)
+    (h : y.appLE U ⊤ e = y'.appLE U ⊤ e') : y = y' := by
+  have h1 := IsAffineOpen.SpecMap_appLE_fromSpec y hU (isAffineOpen_top _) e
+  have h2 := IsAffineOpen.SpecMap_appLE_fromSpec y' hU (isAffineOpen_top _) e'
+  rw [h, h2, IsAffineOpen.fromSpec_top] at h1
+  exact ((cancel_epi _).1 h1).symm
+
+/-- **The `K`-points of an SGA 1 quotient by a finite group are the orbits.** If `q : X → Z` is the
+quotient by a finite group `G` (`IsGQuotient`) and two `K`-points of `X` have the same image in
+`Z`, they differ by an element of `G`. -/
+theorem exists_eq_comp_of_isGQuotient [Finite G] (hq : IsGQuotient G q) {K : Type} [Field K]
+    (y y' : Spec (CommRingCat.of K) ⟶ X) (h : y ≫ q = y' ≫ q) :
+    ∃ g ∈ G, y' = y ≫ g.asIso.hom := by
+  obtain ⟨hinv, haff, hsec⟩ := hq
+  obtain ⟨_, ⟨W, hW : IsAffineOpen W, rfl⟩, hxW, -⟩ :=
+    Z.isBasis_affineOpens.exists_subset_of_mem_open (Set.mem_univ (q (y default))) isOpen_univ
+  set U := q ⁻¹ᵁ W with hUdef
+  have hU : IsAffineOpen U := hW.preimage q
+  have ey : ⊤ ≤ y ⁻¹ᵁ U := by
+    intro a _
+    rw [Subsingleton.elim a default]
+    exact hxW
+  have ey' : ⊤ ≤ y' ⁻¹ᵁ U := by
+    intro a _
+    rw [Subsingleton.elim a default]
+    change q (y' default) ∈ W
+    rw [← Scheme.Hom.comp_apply, ← h, Scheme.Hom.comp_apply]
+    exact hxW
+  letI : MulSemiringAction G Γ(X, U) := secAction hinv W
+  letI : Algebra Γ(Z, W) Γ(X, U) := (q.app W).hom.toAlgebra
+  haveI : SMulCommClass G Γ(Z, W) Γ(X, U) := by
+    constructor
+    intro g a b
+    change secMap _ _ W (q.app W a * b) = q.app W a * secMap _ _ W b
+    rw [map_mul, secMap_app]
+  haveI : Algebra.IsInvariant Γ(Z, W) Γ(X, U) G := by
+    constructor
+    intro b hb
+    have hmem : b ∈ Set.range (q.app W) := by
+      rw [(hsec W hW).2]
+      intro g hg
+      have := hb ⟨g⁻¹, G.inv_mem hg⟩
+      change secMap _ _ W b = b at this
+      rw [secMap_congr (f' := g.asIso.hom) (by simp) _ (hinv g hg)] at this
+      exact this
+    obtain ⟨a, ha⟩ := hmem
+    exact ⟨a, ha⟩
+  let φ : Γ(X, U) →+* K :=
+    (Scheme.ΓSpecIso (CommRingCat.of K)).hom.hom.comp (y.appLE U ⊤ ey).hom
+  let φ' : Γ(X, U) →+* K :=
+    (Scheme.ΓSpecIso (CommRingCat.of K)).hom.hom.comp (y'.appLE U ⊤ ey').hom
+  have hagree : φ.comp (algebraMap Γ(Z, W) Γ(X, U)) = φ'.comp (algebraMap Γ(Z, W) Γ(X, U)) := by
+    ext a
+    change (Scheme.ΓSpecIso (CommRingCat.of K)).hom (y.appLE U ⊤ ey (q.app W a)) =
+      (Scheme.ΓSpecIso (CommRingCat.of K)).hom (y'.appLE U ⊤ ey' (q.app W a))
+    have k1 : q.app W ≫ y.appLE U ⊤ ey = (y ≫ q).appLE W ⊤ (ey.trans le_rfl) := by
+      rw [Scheme.Hom.app_eq_appLE, Scheme.Hom.appLE_comp_appLE]
+    have k2 : q.app W ≫ y'.appLE U ⊤ ey' = (y' ≫ q).appLE W ⊤ (ey'.trans le_rfl) := by
+      rw [Scheme.Hom.app_eq_appLE, Scheme.Hom.appLE_comp_appLE]
+    have k3 : q.app W ≫ y.appLE U ⊤ ey = q.app W ≫ y'.appLE U ⊤ ey' := by
+      rw [k1, k2]; exact appLE_congr' h _ _ _ _
+    exact congrArg (fun φ => (Scheme.ΓSpecIso (CommRingCat.of K)).hom (φ.hom a)) k3
+  obtain ⟨g, hg⟩ := exists_comp_smul_eq G φ φ' hagree
+  refine ⟨(g : Aut X)⁻¹, G.inv_mem g.2, ?_⟩
+  have key := Scheme.Hom.appLE_comp_appLE y (g : Aut X).asIso.inv U U ⊤
+    (preimage_le_of_comp_eq (inv_comp_eq (hinv g g.2)) W) ey
+  have hy' : y' = y ≫ (g : Aut X).asIso.inv := by
+    refine eq_of_appLE_eq y' (y ≫ (g : Aut X).asIso.inv) hU ey' ?_ ?_
+    · intro a _
+      change q ((g : Aut X).asIso.inv (y a)) ∈ W
+      rw [← Scheme.Hom.comp_apply, inv_comp_eq (hinv g g.2)]
+      exact ey (show a ∈ (⊤ : (Spec (CommRingCat.of K)).Opens) from trivial)
+    rw [← key]
+    apply (cancel_mono (Scheme.ΓSpecIso (CommRingCat.of K)).hom).1
+    ext b
+    exact hg b
+  rw [hy']
+  simp
+
+end GQuot
+
+end MCRQuot

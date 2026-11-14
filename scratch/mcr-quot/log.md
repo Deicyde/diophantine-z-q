@@ -27,3 +27,14 @@ C2 `CoordinateFromSections` of `scratch/mcr-glue/MCRGlue.lean` (copied verbatim 
 - `MCRQuot.mem_orbit_of_twistEq` (T5 `TorsionStructure` as hypothesis): two `ℚ̄`-points with
   twist-equivalent fibres differ by an element of `fibreAut` (Hecke clauses + `Level3.torsor`
   + `exists_unit_congr` + moduli injectivity).
+
+## Step 2 (08:30) — VERIFIED (parts 1-3; exit 0)
+- `MCRQuot.exists_root_smul`, `MCRQuot.exists_comp_smul_eq` (pure algebra): for `A → B` with
+  `Algebra.IsInvariant A B G`, `G` finite, two ring maps `φ φ' : B → K` (K a field) agreeing on `A`
+  satisfy `φ' = φ ∘ (g • ·)` for some `g ∈ G`. (transitivity on primes + stabilizer onto residue
+  automorphisms, both from Mathlib.)
+- `MCRQuot.secMap`, `secAction` (the `MulSemiringAction` of `G` on `Γ(X, q⁻¹W)` for an
+  `IsGQuotient`), `eq_of_appLE_eq` (a `K`-point is determined by its map on sections of an affine
+  open containing it).
+- **`MCRQuot.exists_eq_comp_of_isGQuotient`**: for `q : X → Z` with `IsGQuotient G q`, `G` finite,
+  two `K`-points of `X` (any field `K`) with `y ≫ q = y' ≫ q` satisfy `y' = y ≫ g` for some `g ∈ G`.
