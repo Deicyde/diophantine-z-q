@@ -1291,4 +1291,75 @@ theorem tdom_ae (hS : IsFundDomain Gamma1 s) : volume (tdom s) = volume (t0 s) :
 
 end Domain
 
+/-! ## §4 The area: `vol s = 4 vol t` -/
+
+open scoped Pointwise
+
+/-- `Γ¹` as a subgroup of `GL₂(ℝ)`. -/
+def G1sub : Subgroup (GL (Fin 2) ℝ) where
+  carrier := Gamma1
+  one_mem' := one_mem_gamma1
+  mul_mem' := mul_mem_gamma1
+  inv_mem' := inv_mem_gamma1
+
+/-- The Möbius action as permutations. -/
+abbrev mob : GL (Fin 2) ℝ →* Equiv.Perm UpperHalfPlane := MulAction.toPermHom _ _
+
+/-- The Möbius group of `Γ¹`. -/
+def Mone : Subgroup (Equiv.Perm UpperHalfPlane) := G1sub.map mob
+
+theorem Mone_smul (σ : Mone) : ∃ h ∈ Gamma1, ∀ z : UpperHalfPlane, σ • z = h • z := by
+  obtain ⟨h, hh, hσ⟩ := σ.2
+  exact ⟨h, hh, fun z => by show (σ : Equiv.Perm UpperHalfPlane) z = h • z; rw [← hσ]; rfl⟩
+
+instance : MeasurableConstSMul Mone UpperHalfPlane :=
+  ⟨fun σ => by
+    obtain ⟨h, -, hσ⟩ := Mone_smul σ
+    have : (fun z : UpperHalfPlane => σ • z) = fun z => h • z := funext hσ
+    rw [this]; exact (continuous_const_smul h).measurable⟩
+
+instance : SMulInvariantMeasure Mone UpperHalfPlane volume :=
+  ⟨fun σ A _ => by
+    obtain ⟨h, -, hσ⟩ := Mone_smul σ
+    have : (fun z : UpperHalfPlane => σ • z) = fun z => h • z := funext hσ
+    rw [this]; exact measure_preimage_smul volume h A⟩
+
+instance : Countable Mone := by
+  have : (Mone : Set (Equiv.Perm UpperHalfPlane)).Countable := by
+    have e : (Mone : Set (Equiv.Perm UpperHalfPlane)) = mob '' Gamma1 := rfl
+    rw [e]; exact g1_countable.image _
+  exact this.to_subtype
+
+/-- A project fundamental domain of `Γ¹` is a Mathlib fundamental domain of its Möbius group. -/
+theorem isFundamentalDomain_of {F : Set UpperHalfPlane} (hm : NullMeasurableSet F volume)
+    (hcov : ∀ z, ∃ h ∈ Gamma1, h • z ∈ F)
+    (hd : ∀ h ∈ Gamma1, (fun z : UpperHalfPlane => h • z) ≠ id →
+      volume (F ∩ (fun z : UpperHalfPlane => h • z) ⁻¹' F) = 0) :
+    IsFundamentalDomain Mone F volume := by
+  refine IsFundamentalDomain.mk'' hm (Filter.Eventually.of_forall fun z => ?_) (fun σ hσ => ?_)
+    (fun σ => (measurePreserving_smul σ volume).quasiMeasurePreserving)
+  · obtain ⟨h, hh, hz⟩ := hcov z
+    exact ⟨⟨mob h, h, hh, rfl⟩, hz⟩
+  · obtain ⟨h, hh, hσh⟩ := Mone_smul σ
+    have hne : (fun z : UpperHalfPlane => h⁻¹ • z) ≠ id := by
+      intro hid; apply hσ
+      apply Subtype.ext; apply Equiv.ext; intro z
+      have := congrFun hid (h • z)
+      simp only [id, inv_smul_smul] at this
+      show σ • z = z
+      rw [hσh]; exact this.symm
+    have e : σ • F = (fun z : UpperHalfPlane => h⁻¹ • z) ⁻¹' F := by
+      rw [← Set.preimage_smul_inv]
+      ext z
+      simp only [Set.mem_preimage]
+      have : σ⁻¹ • z = h⁻¹ • z := by
+        have e1 : σ • (σ⁻¹ • z) = z := smul_inv_smul σ z
+        rw [hσh] at e1
+        calc σ⁻¹ • z = h⁻¹ • (h • (σ⁻¹ • z)) := (inv_smul_smul h _).symm
+          _ = h⁻¹ • z := by rw [e1]
+      rw [this]
+    show volume (σ • F ∩ F) = 0
+    rw [e, Set.inter_comm]
+    exact hd h⁻¹ (inv_mem_gamma1 hh) hne
+
 end HDec.LeafQCheck.QMglue
