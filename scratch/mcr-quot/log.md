@@ -229,3 +229,9 @@ standard; no sorry in the parts)
   along an SGA 1 quotient is injective over every open; germs + affine case),
   `exists_descend_section` (invariant sections over any open descend; affine cover + sheaf gluing
   `existsUnique_gluing'`), helpers `app_map_eq`, `secMap_map`.
+
+## Step 19 (12:10) — VERIFIED (parts 1-20; exit 0; compile20_out.txt)
+- Part 20: `ToP1In X O` (map to `P¹` by charts on an open `O`), `imgOpen`, `preimage_imgOpen`
+  (images of `G`-stable opens under a finite SGA 1 quotient are open and saturated; uses
+  `gQuotientPointOrbits`), **`exists_descend_toP1In`**: a `G`-invariant (opens and functions)
+  `ToP1In X (q⁻¹O)` descends to a `ToP1In Z O` with `q⁻¹U' = U` and `q^* f' = f`.
