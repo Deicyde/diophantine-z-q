@@ -143,3 +143,13 @@ after `lake build ZInQKernel.Contrib.R10.Amend ZInQKernel.Contrib.AbVarBC.Dim` (
   (X) `exists_twist_scalar` (σ(β) = ψ(σ)⁻¹ χ(σ)^s β on G_E); (M) `finrank_Ysp_twist`.
 - No Sen operator and no glue: the open glue S1/S2 of the earlier reduction are bypassed (S3 still proved).
 - COMPILED 11-14 (whole HodgeSplit.lean 42 s), standard axioms. VERIFIED.
+
+## One file (HodgeSplit.lean), main theorem `hodge_rows_of_leaves`
+- All `PkgI4.` references in HodgeSplit.lean qualified as `ZInQ.Contrib.G9.PkgI4.` (and the `open`), so the file
+  can import ZInQKernel.HDecomp.ModCurves.C9, .Textbook.C10Closed, Contrib.Chebotarev.FrobeniusDense; the
+  Companion.lean proofs were moved in (§13, §17, §18) without their copied definitions; Companion.lean and
+  check_copies.py removed.
+- `hodge_rows_of_leaves : TateTwistInvariants → AxSenTate → HodgeTateDecompAbVar → DeRhamH1AbVarT →
+  (∀ p, FontaineDRTannakian p) → DSThm965 → DSThm966 → EigenformHTNew → NewformOfEigenform →
+  FiniteImageHT ∧ (∀ p, T23_FontaineClosure p) ∧ DeRhamComparisonHT ∧ R14Det ∧ SenTwist ∧ EigenformHT`.
+- COMPILED 11-14 (whole file ~45 s), every #print axioms standard. VERIFIED.
