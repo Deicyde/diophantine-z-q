@@ -403,6 +403,7 @@ class Transport(unittest.TestCase):
                         self.assertTrue(any('Read too large' in x.get('error', '') for x in results))
                         self.assertTrue(all('remaining_context_tokens' in x for x in results))
                         self.assertTrue(all('remaining_tool_characters' in x for x in results))
+                        self.assertTrue(all('web_uses_remaining' in x for x in results))
                         self.assertEqual(len(r.reads), sum('text' in x for x in results))
                         output = [call('read_file', {'path': 'large.tex', 'revision': 'head', 'start': 1, 'count': 1}, 'small'), call('read_history', {}, 'history')]
                     else:
@@ -434,6 +435,7 @@ class Transport(unittest.TestCase):
                 for value in values:
                     self.assertIn('Read too large', value['error'])
                     self.assertGreater(value['remaining_context_tokens'], 0)
+                    self.assertEqual(value['web_uses_remaining']['direct_this_turn'], {'web_search': 3, 'web_fetch': 5})
                 self.assertEqual(r.reads, [])
                 self.assertFalse(r.history_read)
                 raise RuntimeError('end of budget-error probe')
@@ -525,6 +527,139 @@ class Transport(unittest.TestCase):
                 self.assertEqual(stop, 'tool_use')
                 self.assertEqual(req.call_args.args[3]['cache_control'], {'type': 'ephemeral', 'ttl': '1h'})
                 self.assertEqual(req.call_args.args[3]['max_tokens'], 64000)
+
+    def test_web_tools_have_declared_caps(self):
+        tools = {t['name']: t for t in gate.model_body('fable', 'trusted', [])['tools']}
+        self.assertEqual(tools['web_search']['max_uses'], 3)
+        self.assertEqual(tools['web_fetch']['max_uses'], 5)
+        self.assertEqual(tools['web_fetch']['max_content_tokens'], 20000)
+
+    def test_server_usage_keeps_initial_context_separate_from_cumulative_billing(self):
+        events = anthropic_events()
+        events[0]['message']['usage'] = {'input_tokens': 2, 'cache_read_input_tokens': 54826,
+                                         'cache_creation_input_tokens': 7284}
+        # Shape and totals from PR87 run 43543276901: the cached input is
+        # billed repeatedly during internal tool loops, not all resident at once.
+        events[-2]['usage'] = {'input_tokens': 30, 'cache_creation_input_tokens': 29311,
+                              'cache_read_input_tokens': 1118395, 'output_tokens': 14115,
+                              'server_tool_use': {'web_search_requests': 2, 'web_fetch_requests': 20}}
+        with patch.dict(os.environ, {'ANTHROPIC_API_KEY': 'fake'}), \
+             patch.object(gate, 'request', return_value=stream(events)):
+            usage = gate.model_turn('fable', 'trusted', [])[2]
+        self.assertEqual(usage['request_start_input_tokens'], 62112)
+        self.assertEqual(usage['cache_read_input_tokens'], 1118395)
+
+    def test_large_web_payloads_continue_review_without_changing_provider_history(self):
+        gh = FakeGH()
+        review = gate.Review(gh, gh.pr, [], [], {}, {}, 'trusted', 'fable', 'local mathematical')
+        fetch = {'type': 'web_fetch_tool_result', 'tool_use_id': 'fetch',
+                 'content': {'type': 'web_fetch_result', 'url': 'https://example.org/paper',
+                             'content': {'type': 'document', 'source': {'type': 'text', 'data': 'x' * 1500000}}}}
+        search = {'type': 'web_search_tool_result', 'tool_use_id': 'search',
+                  'content': [{'type': 'web_search_result', 'title': 'Paper',
+                               'url': 'https://example.org/paper', 'encrypted_content': 'e' * 700000}]}
+        original = copy.deepcopy([fetch, search])
+        seen = []
+        def model(family, instructions, conversation):
+            seen.append(copy.deepcopy(conversation))
+            if len(seen) == 1:
+                output = [
+                    {'type': 'server_tool_use', 'id': 'fetch', 'name': 'web_fetch', 'input': {}}, fetch,
+                    {'type': 'server_tool_use', 'id': 'search', 'name': 'web_search', 'input': {}}, search,
+                    {'type': 'tool_use', 'id': 'read', 'name': 'read_file',
+                     'input': {'path': 'paper.tex', 'revision': 'head', 'start': 1, 'count': 1}},
+                    {'type': 'tool_use', 'id': 'history', 'name': 'read_history', 'input': {}}]
+                usage = {'input_tokens': 30, 'cache_creation_input_tokens': 29311,
+                         'cache_read_input_tokens': 1118395, 'output_tokens': 14115,
+                         'request_start_input_tokens': 62112,
+                         'server_tool_use': {'web_search_requests': 1, 'web_fetch_requests': 1}}
+            else:
+                results = [json.loads(b['content']) for b in conversation[-1]['content']]
+                self.assertTrue(all('error' not in r for r in results))
+                self.assertTrue(all(r['remaining_context_tokens'] > 0 for r in results))
+                for r in results:
+                    self.assertEqual(r['web_uses_remaining']['direct_this_turn'], {'web_search': 2, 'web_fetch': 4})
+                returned = conversation[-2]['content']
+                self.assertEqual([returned[1], returned[3]], original)
+                output = [{'type': 'tool_use', 'id': 'finish', 'name': 'finish_review', 'input': report()}]
+                usage = {'input_tokens': 90000, 'output_tokens': 200}
+            return output, gate.MODELS[family], usage, 'fixture', 'tool_use'
+        with tempfile.TemporaryDirectory() as tmp, patch.object(gate, 'OUT', Path(tmp)), \
+             patch.object(gh, 'text', return_value='A source line'), \
+             patch.object(gate, 'model_turn', side_effect=model):
+            self.assertEqual(review.run()['decision'], 'accept')
+            budget = json.loads((Path(tmp) / 'fable-context-budget.json').read_text())
+            self.assertGreater(budget['request_bytes'], 2200000)
+            self.assertLess(budget['estimated_total'], 200000)
+        self.assertEqual(len(seen), 2)
+        self.assertEqual([fetch, search], original)
+
+    def test_server_estimate_without_initial_usage_then_recalibrates(self):
+        conversation = [{'role': 'assistant', 'content': [
+            {'type': 'web_fetch_tool_result', 'content': {'type': 'web_fetch_result',
+             'content': {'source': {'type': 'text', 'data': 'x' * 1500000}}}}]}]
+        first = gate.context_estimate('fable', 'trusted', [])
+        previous = {**first, 'estimated_input_tokens': 65000, 'server_tools': True,
+                    'usage': {'input_tokens': 30, 'cache_read_input_tokens': 1118395, 'output_tokens': 14115}}
+        second = gate.context_estimate('fable', 'trusted', conversation, previous)
+        self.assertLess(second['estimated_total'], 200000)
+        # The next normal provider measurement remains authoritative. A web
+        # result in older history must not suppress a genuine over-budget count.
+        previous = {**second, 'server_tools': False,
+                    'usage': {'input_tokens': 330000, 'output_tokens': 0,
+                              'request_start_input_tokens': 330000}}
+        with tempfile.TemporaryDirectory() as tmp, patch.object(gate, 'OUT', Path(tmp)):
+            with self.assertRaisesRegex(RuntimeError, 'context budget exceeded'):
+                gate.context_budget('fable', 'trusted', conversation, previous)
+
+    def test_web_accounting_does_not_exempt_client_text_or_unknown_blocks(self):
+        for block in [{'type': 'text', 'text': 'x' * 500000},
+                      {'type': 'code_execution_tool_result', 'content': 'x' * 500000}]:
+            body = gate.model_body('fable', 'trusted', [{'role': 'assistant', 'content': [block]}])
+            self.assertEqual(gate.context_units('fable', body), gate.request_size(body))
+        # Even a dictionary with a server block type in untrusted client input
+        # cannot obtain a payload discount.
+        body = gate.model_body('fable', 'trusted', [{'role': 'user', 'content': [
+            {'type': 'web_search_tool_result', 'content': ['x' * 500000]}]}])
+        self.assertEqual(gate.context_units('fable', body), gate.request_size(body))
+        binary = {'role': 'assistant', 'content': [{'type': 'web_fetch_tool_result',
+                  'content': {'type': 'web_fetch_result', 'content': {'source': {'type': 'base64', 'data': 'a' * 500000}}}}]}
+        body = gate.model_body('fable', 'trusted', [binary])
+        self.assertGreaterEqual(gate.context_units('fable', body), gate.WEB_BINARY_RESULT_RESERVE)
+        self.assertLess(gate.context_units('fable', body), gate.request_size(body))
+
+    def test_web_allowance_omitted_direct_null_and_programmatic_callers(self):
+        cases = [
+            ('omitted', {}, 1),
+            ('direct', {'caller': {'type': 'direct'}}, 1),
+            ('null', {'caller': None}, 1),
+            ('programmatic', {'caller': {'type': 'code_execution_20260120', 'tool_id': 'c'}}, 0),
+        ]
+        for name, cap in gate.WEB_MAX_USES.items():
+            for label, caller, consumed in cases:
+                with self.subTest(tool=name, caller=label):
+                    block = {'type': 'server_tool_use', 'id': 'web', 'name': name, 'input': {}, **caller}
+                    messages = [{'role': 'user', 'content': 'Review'},
+                                {'role': 'assistant', 'content': [block]}]
+                    allowance = gate.web_allowance('fable', messages)
+                    expected = {**gate.WEB_MAX_USES, name: cap - consumed}
+                    self.assertEqual(allowance['direct_this_turn'], expected)
+                    self.assertEqual(allowance['programmatic_next_request_maximum'], gate.WEB_MAX_USES)
+
+    def test_web_allowance_distinguishes_direct_and_programmatic_and_resets(self):
+        direct = {'type': 'server_tool_use', 'id': 'd', 'name': 'web_fetch', 'input': {}}
+        programmatic = {**direct, 'id': 'p', 'caller': {'type': 'code_execution_20260120', 'tool_id': 'c'}}
+        messages = [{'role': 'user', 'content': 'Review'},
+                    {'role': 'assistant', 'content': [direct, programmatic]},
+                    {'role': 'user', 'content': [{'type': 'tool_result', 'content': 'continue'}]}]
+        allowance = gate.web_allowance('fable', messages)
+        self.assertEqual(allowance['direct_this_turn']['web_fetch'], 4)
+        self.assertEqual(allowance['programmatic_next_request_maximum']['web_fetch'], 5)
+        self.assertEqual(gate.web_allowance('fable', messages[:-1]), allowance)  # pause_turn
+        messages.append({'role': 'user', 'content': 'New turn'})
+        self.assertEqual(gate.web_allowance('fable', messages)['direct_this_turn']['web_fetch'], 5)
+        messages.append({'role': 'assistant', 'content': [direct] * 8})
+        self.assertEqual(gate.web_allowance('fable', messages)['direct_this_turn']['web_fetch'], 0)
 
     def test_refusal_and_max_tokens_distinguishable(self):
         for reason in ['refusal', 'max_tokens']:
