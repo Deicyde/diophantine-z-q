@@ -17,12 +17,14 @@ from the new ones. Folded (docs/research/leaf-fold7.md lists every field):
 * av-split (`TailQ`): `t4`, `t5`, `t35`, `homLatticeCorr`, `isogenyQuasiInverse` from `MulEtaleAbelianScheme`,
   `MumfordTorsionAlgClosed`, `UniformizationLeafAll`, `GAGAMorphism`, `MilneIsogenyQuasiInverse`;
 * curve-split (`TailR`): `curveBijIso` proved (dropped), `normalCurveSmoothQ` from `RegularSmoothPerfect`,
-  `geomConnectedOfConstantFieldQ` from the field `zariskiConnectedness` (dropped);
+  `geomConnectedOfConstantFieldQ` from the field `zariskiConnectedness` (dropped), `x0Transitive` from Igusa's
+  theorem `IgusaGL2`;
 * qm-split (`TailU`): `qmClassNumberOne` proved (dropped), `t27` from `YuThm11`, `cmOptimalEmbedding`,
   `qmAutCard`, `alFixedPoints` from `QMCentralizerCMC` (with T11(b)), `stQM` from `ShimuraTaniyamaQbar`, `r4` from
   `IgusaPsi4` and `IgusaChi10`, `r1b` from `ShimuraFamily`;
 * hodge-split (`TailS`, `TailT`, transports in `TailV`): `r10` from the Hodge–Tate decomposition, the de Rham
-  property of `H¹_ét` and Tate's two theorems, `r14` from Diamond–Shurman's Thms 9.6.5-9.6.6, `t23` from
+  property of `H¹_ét` and Tate's two theorems, `r13` from its newform case `EigenformHTNew` (with T25, proved in
+  the kernel), `r14` from Diamond–Shurman's Thms 9.6.5-9.6.6, `t23` from
   `B_dR^{G_{ℚ_p}} = ℚ_p`, `senTwist` and `finiteImageHT` from Tate's two theorems on `ℂ_p(i)^{G_K}`;
 * mcr-glue (`TailW`): the glue `ModelCoordinateResidue` from the smaller glue `QuotientP1Coordinate`.
 
@@ -91,7 +93,9 @@ structure OpenResearchLeaves7 : Prop where
   Cor. 1.8). -/
   deRhamH1AbVarT : _root_.ZInQ.Contrib.HodgeSplit.DeRhamH1AbVarT
   r11r12 : PkgI4.PanBerger
-  r13 : PkgI4.EigenformHT
+  /-- hodge-split, H-10: Kato's theorem for newforms, transported to any semisimple attached `ρ` and dualized
+  (replaces `r13`, which is the same for all normalized eigenforms; not a leaf: Kato's `V_f` is not definable). -/
+  eigenformHTNew : _root_.ZInQ.Contrib.HodgeSplit.EigenformHTNew
   /-- hodge-split, H-22: Diamond–Shurman Thm 9.6.5 (`k ≥ 2`, Deligne; with `dsThm966`, replaces `r14`). -/
   dsThm965 : _root_.ZInQ.Contrib.HodgeSplit.DSThm965
   /-- hodge-split, H-22: Diamond–Shurman Thm 9.6.6 (`k = 1`, Deligne–Serre Thm 4.1). -/
@@ -145,7 +149,9 @@ structure OpenTextbookLeaves7 : Prop where
   normalModelOfFunctionFieldQ : _root_.ZInQ.Contrib.CurvesG.NormalModelOfFunctionFieldQ
   /-- curve-split, H-81: Stacks 00TV (regular ⇒ smooth over a perfect field; replaces `normalCurveSmoothQ`). -/
   regularSmoothPerfect : _root_.CurveSplit.RegularSmoothPerfect
-  x0Transitive : _root_.ZInQ.RLeaf.X0Transitive
+  /-- Igusa's theorem (kernel leaf; Igusa 1959; Lang, *Elliptic functions* Ch. 6 §3): the Galois image on `E_j[N]`
+  is `GL₂(ℤ/N)` (curve-split, H-41; replaces `x0Transitive`). -/
+  igusaGL2 : _root_.ZInQ.RLeaf.IgusaGL2
   neronSchemeExtensionExists : _root_.ZInQ.Contrib.NeronC.NeronSchemeExtensionExists
 
 /-- **The added leaves still open** (leaf-fold7): leaf-fold6's `OpenAddedLeaves6` without `qmClassNumberOne` and
@@ -205,7 +211,8 @@ theorem researchLeaves5_of_open7 (r : OpenResearchLeaves7) (l : OpenAddedLeaves7
   r10 := HodgeLF7.r10 (_root_.ZInQ.Contrib.HodgeSplit.deRhamComparisonHT_of_leavesT r.hodgeTateDecompAbVar
     l.tateTwistInvariants l.axSenTate r.deRhamH1AbVarT)
   r11r12 := r.r11r12
-  r13 := r.r13
+  r13 := HodgeLF7.eigenformHT (_root_.ZInQ.Contrib.HodgeSplit.eigenformHT_of_kato_ds r.eigenformHTNew
+    HodgeLF7.newformOfEigenformG9 r.dsThm965 r.dsThm966)
   r14 := HodgeLF7.r14Det (_root_.ZInQ.Contrib.HodgeSplit.r14Det_of_printed r.dsThm965 r.dsThm966)
   r15 := r.r15
   r16 := r.r16
@@ -240,7 +247,7 @@ theorem textbookLeaves6_of_open7 (t : OpenTextbookLeaves7) (l : OpenAddedLeaves7
   normalCurveSmoothQ := _root_.CurveSplit.normalCurveSmoothQ_of_regularSmooth t.regularSmoothPerfect
   geomConnectedOfConstantFieldQ :=
     _root_.CurveSplit.geomConnectedOfConstantFieldQ_of_zariski l.zariskiConnectedness
-  x0Transitive := t.x0Transitive
+  x0Transitive := _root_.CurveSplit.x0Transitive_of_igusaGL2 t.igusaGL2
   neronSchemeExtensionExists := t.neronSchemeExtensionExists
 
 /-- The three QM rows from `QMCentralizerCMC` and T11(b) (qm-split's `rows_of_C`). -/

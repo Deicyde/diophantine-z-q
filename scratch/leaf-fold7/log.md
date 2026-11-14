@@ -28,3 +28,8 @@
   closes by unfolding `galT`). `HodgeLF7.r10 : ZInQ.Contrib.R10.DeRhamComparisonHT → PkgI4.DeRhamComparisonHT`.
   TailX: `r10` → `hodgeTateDecompAbVar`, `deRhamH1AbVarT`. Main builds, axioms standard; DumpCompact/cmp_hashes
   rerun (cmp_hashes_out.txt).
+- 08:05 two more folds: `x0Transitive` (H-41, consequence) → the kernel leaf `ZInQ.RLeaf.IgusaGL2` (Igusa's theorem
+  as printed; curve-split's X0Split.lean appended to TailR); `r13` (H-10, consequence of Kato) → hodge-split's
+  `EigenformHTNew` (the newform case, a strictly smaller statement of the same form), with T25 from the kernel's
+  `T25.newformOfEigenform_leaf` (accepted on G9's copy by unfolding) and the DS leaves already fields. Main builds,
+  axioms standard, DumpCompact/cmp_hashes rerun.

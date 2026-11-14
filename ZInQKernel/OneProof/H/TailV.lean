@@ -57,6 +57,14 @@ theorem t23 (h : ∀ (p : ℕ) [Fact p.Prime], ZInQ.Contrib.G9.PkgI4.T23_Fontain
     ∀ (p : ℕ) [Fact p.Prime], PkgI4.T23_FontaineClosure p :=
   fun p _ => h p
 
+/-- T25 (the kernel's `T25.newformOfEigenform_leaf`, proved from Tau Ceti) on G9's copy of the statement. -/
+theorem newformOfEigenformG9 : ZInQ.Contrib.G9.PkgI4.NewformOfEigenform := T25.newformOfEigenform_leaf
+
+/-- **H-10** on the chain's copy. -/
+theorem eigenformHT (h : ZInQ.Contrib.G9.PkgI4.EigenformHT) : PkgI4.EigenformHT := by
+  intro ℓ _ ιC ιL N k χ g ρ hN hk hg hss hatt
+  exact h ℓ ιC ιL N k χ g (toG9Rep ρ) hN hk hg hss hatt
+
 /-! ### H-8: the representation `V_p(A)` moved along the identity -/
 
 set_option linter.unusedSectionVars false

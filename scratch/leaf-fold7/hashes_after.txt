@@ -362,7 +362,7 @@ CurveSplit.bij_restrict ZInQKernel.OneProof.H.TailR [] 3036890299 3222239884
 CurveSplit.bijective_of_closedPoints ZInQKernel.OneProof.H.TailR [u_1, u_2] 7349682 2891078247
 CurveSplit.bijective_of_finrank_eq_one ZInQKernel.OneProof.H.TailR [u_1, u_2] 559826529 521140132
 CurveSplit.bijective_of_unramifiedAt ZInQKernel.OneProof.H.TailR [u_1, u_2] 1564419741 2374158302
-CurveSplit.closedPoint_facts ZInQKernel.OneProof.H.TailR [] 1924135697 179927347
+CurveSplit.closedPoint_facts ZInQKernel.OneProof.H.TailR [] 1924135697 4063313187
 CurveSplit.closure_mem_irreducibleComponents ZInQKernel.OneProof.H.TailR [u_1] 1953682329 2729752898
 CurveSplit.components_disjoint ZInQKernel.OneProof.H.TailR [] 138304038 1842358757
 CurveSplit.curveBijIso ZInQKernel.OneProof.H.TailR [] 1712683641 1116553276
@@ -377,7 +377,7 @@ CurveSplit.geomConnectedOfConstantFieldQ_of_zariski ZInQKernel.OneProof.H.TailR 
 CurveSplit.instNonemptyCarrierCarrierCommRingCatSpecKQbar ZInQKernel.OneProof.H.TailR [] 1072845340 979790731
 CurveSplit.instNonemptyCarrierCarrierCommRingCatSpecKQbar._proof_1 ZInQKernel.OneProof.H.TailR [] 1072845340 1407613227
 CurveSplit.instSubsingletonCarrierCarrierCommRingCatSpecOfRat_zInQKernel ZInQKernel.OneProof.H.TailR [] 4175050654 156080901
-CurveSplit.instSubsingletonCarrierCarrierCommRingCatSpecOfRat_zInQKernel._proof_1 ZInQKernel.OneProof.H.TailR [] 4175050654 3682586833
+CurveSplit.instSubsingletonCarrierCarrierCommRingCatSpecOfRat_zInQKernel._proof_1 ZInQKernel.OneProof.H.TailR [] 4175050654 435573919
 CurveSplit.irreducibleComponent_eq_of_isDomain_stalk ZInQKernel.OneProof.H.TailR [u_1] 2151101072 2718584304
 CurveSplit.isDedekindDomain_sections ZInQKernel.OneProof.H.TailR [] 1409956985 3293395067
 CurveSplit.isDomain_of_dim_one ZInQKernel.OneProof.H.TailR [u_1] 4271262792 1595803941
@@ -412,6 +412,8 @@ CurveSplit.toS ZInQKernel.OneProof.H.TailR [] 4285849122 335083994
 CurveSplit.toS._proof_1 ZInQKernel.OneProof.H.TailR [] 109246374 4139227181
 CurveSplit.toS_left ZInQKernel.OneProof.H.TailR [] 2029946255 451026613
 CurveSplit.topDim_le_one ZInQKernel.OneProof.H.TailR [] 680542223 2907210869
+CurveSplit.x0Transitive_of_igusaGL2 ZInQKernel.OneProof.H.TailR [] 3048332106 1403760509
+CurveSplit.x0Transitive_of_igusaSL2X ZInQKernel.OneProof.H.TailR [] 365480975 968195160
 CurveSplit.zmtOriginal ZInQKernel.OneProof.H.TailR [] 3495661256 1126281681
 G0ModField.T.eq_1 ZInQKernel.OneProof.H.TailA [] 1114768632 4165399064
 G0ModField.UnramifiedConjugates ZInQKernel.OneProof.H.LF2UnramConj [] 3944470172 2961355978
@@ -3343,11 +3345,13 @@ HDec.HSyn.HasseBrauerQ ZInQKernel.OneProof.H.LPrefix [] 3944470172 1591036193
 HDec.HSyn.HasseBrauerQ._proof_1 ZInQKernel.OneProof.H.LPrefix [] 2086448294 3903699027
 HDec.HSyn.HeightCopiesAgree ZInQKernel.OneProof.H.LPrefix [] 3944470172 3967413885
 HDec.HSyn.HodgeLF7.ddr_equiv ZInQKernel.OneProof.H.TailV [] 1657523702 135207818
+HDec.HSyn.HodgeLF7.eigenformHT ZInQKernel.OneProof.H.TailV [] 1526248189 3464213115
 HDec.HSyn.HodgeLF7.finiteImageHT ZInQKernel.OneProof.H.TailV [] 1860759269 3291982708
 HDec.HSyn.HodgeLF7.galT_eq ZInQKernel.OneProof.H.TailV [] 3193818322 3811876106
 HDec.HSyn.HodgeLF7.htMultOver_congr ZInQKernel.OneProof.H.TailV [] 2428394932 2024258263
 HDec.HSyn.HodgeLF7.ht_equiv ZInQKernel.OneProof.H.TailV [] 1726832534 1800793310
 HDec.HSyn.HodgeLF7.isDeRhamOver_congr ZInQKernel.OneProof.H.TailV [] 3467236711 163737163
+HDec.HSyn.HodgeLF7.newformOfEigenformG9 ZInQKernel.OneProof.H.TailV [] 1817143920 2650984052
 HDec.HSyn.HodgeLF7.ofG9Rep ZInQKernel.OneProof.H.TailV [] 2972134122 1432090010
 HDec.HSyn.HodgeLF7.r10 ZInQKernel.OneProof.H.TailV [] 1778330204 3049071926
 HDec.HSyn.HodgeLF7.r14Det ZInQKernel.OneProof.H.TailV [] 3268980314 4174018972
@@ -3871,18 +3875,18 @@ HDec.HSyn.OpenResearchLeaves5.r9b ZInQKernel.OneProof.H.TailN [] 3450769654 3960
 HDec.HSyn.OpenResearchLeaves5.rec ZInQKernel.OneProof.H.TailN [u] 3681364957 0
 HDec.HSyn.OpenResearchLeaves5.recOn ZInQKernel.OneProof.H.TailN [u] 1466685317 4136221333
 HDec.HSyn.OpenResearchLeaves7 ZInQKernel.OneProof.H.TailX [] 3944470172 0
-HDec.HSyn.OpenResearchLeaves7.casesOn ZInQKernel.OneProof.H.TailX [u] 2507339611 1541993870
+HDec.HSyn.OpenResearchLeaves7.casesOn ZInQKernel.OneProof.H.TailX [u] 90461725 3681767098
 HDec.HSyn.OpenResearchLeaves7.deRhamH1AbVarT ZInQKernel.OneProof.H.TailX [] 3586490439 1075707201
 HDec.HSyn.OpenResearchLeaves7.dsThm965 ZInQKernel.OneProof.H.TailX [] 2440807756 1657054342
 HDec.HSyn.OpenResearchLeaves7.dsThm966 ZInQKernel.OneProof.H.TailX [] 1267314664 1201652206
+HDec.HSyn.OpenResearchLeaves7.eigenformHTNew ZInQKernel.OneProof.H.TailX [] 1116964233 2221246419
 HDec.HSyn.OpenResearchLeaves7.h5fin ZInQKernel.OneProof.H.TailX [] 3383556847 2639624526
 HDec.HSyn.OpenResearchLeaves7.hodgeTateDecompAbVar ZInQKernel.OneProof.H.TailX [] 3973075809 1536470274
 HDec.HSyn.OpenResearchLeaves7.igusaChi10 ZInQKernel.OneProof.H.TailX [] 3775299109 1843980670
 HDec.HSyn.OpenResearchLeaves7.igusaPsi4 ZInQKernel.OneProof.H.TailX [] 2106860280 1758145206
-HDec.HSyn.OpenResearchLeaves7.mk ZInQKernel.OneProof.H.TailX [] 1123859529 0
-HDec.HSyn.OpenResearchLeaves7.mk._flat_ctor ZInQKernel.OneProof.H.TailX [] 1123859529 1450818011
+HDec.HSyn.OpenResearchLeaves7.mk ZInQKernel.OneProof.H.TailX [] 756619192 0
+HDec.HSyn.OpenResearchLeaves7.mk._flat_ctor ZInQKernel.OneProof.H.TailX [] 756619192 1003214137
 HDec.HSyn.OpenResearchLeaves7.r11r12 ZInQKernel.OneProof.H.TailX [] 1164072539 1634532711
-HDec.HSyn.OpenResearchLeaves7.r13 ZInQKernel.OneProof.H.TailX [] 3499568168 2221246419
 HDec.HSyn.OpenResearchLeaves7.r15 ZInQKernel.OneProof.H.TailX [] 1587849230 3158394631
 HDec.HSyn.OpenResearchLeaves7.r16 ZInQKernel.OneProof.H.TailX [] 3623805645 2348971801
 HDec.HSyn.OpenResearchLeaves7.r17 ZInQKernel.OneProof.H.TailX [] 173314367 3117593115
@@ -3902,8 +3906,8 @@ HDec.HSyn.OpenResearchLeaves7.r7b ZInQKernel.OneProof.H.TailX [] 875518814 35446
 HDec.HSyn.OpenResearchLeaves7.r8 ZInQKernel.OneProof.H.TailX [] 1902177304 4267519576
 HDec.HSyn.OpenResearchLeaves7.r9a ZInQKernel.OneProof.H.TailX [] 1133180332 1111645618
 HDec.HSyn.OpenResearchLeaves7.r9b ZInQKernel.OneProof.H.TailX [] 2656354214 4208208609
-HDec.HSyn.OpenResearchLeaves7.rec ZInQKernel.OneProof.H.TailX [u] 1035825450 0
-HDec.HSyn.OpenResearchLeaves7.recOn ZInQKernel.OneProof.H.TailX [u] 2507339611 2251130921
+HDec.HSyn.OpenResearchLeaves7.rec ZInQKernel.OneProof.H.TailX [u] 2478821742 0
+HDec.HSyn.OpenResearchLeaves7.recOn ZInQKernel.OneProof.H.TailX [u] 90461725 2251130921
 HDec.HSyn.OpenResearchLeaves7.shimuraFamily ZInQKernel.OneProof.H.TailX [] 50410126 3876804122
 HDec.HSyn.OpenTextbookLeaves ZInQKernel.OneProof.H.LPrefix [] 3944470172 0
 HDec.HSyn.OpenTextbookLeaves.casesOn ZInQKernel.OneProof.H.LPrefix [u] 2322458627 3353767809
@@ -4069,7 +4073,7 @@ HDec.HSyn.OpenTextbookLeaves6.x0Transitive ZInQKernel.OneProof.H.TailO [] 273238
 HDec.HSyn.OpenTextbookLeaves7 ZInQKernel.OneProof.H.TailX [] 3944470172 0
 HDec.HSyn.OpenTextbookLeaves7.bdRInvariants ZInQKernel.OneProof.H.TailX [] 2403066654 1918725778
 HDec.HSyn.OpenTextbookLeaves7.cartierSmooth ZInQKernel.OneProof.H.TailX [] 2721329813 1476230660
-HDec.HSyn.OpenTextbookLeaves7.casesOn ZInQKernel.OneProof.H.TailX [u] 2764438792 3317956425
+HDec.HSyn.OpenTextbookLeaves7.casesOn ZInQKernel.OneProof.H.TailX [u] 1846514478 4171802980
 HDec.HSyn.OpenTextbookLeaves7.charPolyIndepOfEllAlgClosed ZInQKernel.OneProof.H.TailX [] 1854981161 3908440434
 HDec.HSyn.OpenTextbookLeaves7.dimJacobianEqGenus ZInQKernel.OneProof.H.TailX [] 1168922949 355637206
 HDec.HSyn.OpenTextbookLeaves7.gagaMorphism ZInQKernel.OneProof.H.TailX [] 2413014440 2756871637
@@ -4077,15 +4081,16 @@ HDec.HSyn.OpenTextbookLeaves7.genusX1Field ZInQKernel.OneProof.H.TailX [] 156970
 HDec.HSyn.OpenTextbookLeaves7.geomConnOfRationalPoint ZInQKernel.OneProof.H.TailX [] 3978222002 3358793578
 HDec.HSyn.OpenTextbookLeaves7.groupSchemeEquidim ZInQKernel.OneProof.H.TailX [] 407954839 770978357
 HDec.HSyn.OpenTextbookLeaves7.homFreeFiniteAlgClosed ZInQKernel.OneProof.H.TailX [] 3346803829 2219939243
-HDec.HSyn.OpenTextbookLeaves7.mk ZInQKernel.OneProof.H.TailX [] 1126246467 0
-HDec.HSyn.OpenTextbookLeaves7.mk._flat_ctor ZInQKernel.OneProof.H.TailX [] 1126246467 2639732037
+HDec.HSyn.OpenTextbookLeaves7.igusaGL2 ZInQKernel.OneProof.H.TailX [] 2142855597 2056586805
+HDec.HSyn.OpenTextbookLeaves7.mk ZInQKernel.OneProof.H.TailX [] 2696735643 0
+HDec.HSyn.OpenTextbookLeaves7.mk._flat_ctor ZInQKernel.OneProof.H.TailX [] 2696735643 1281986647
 HDec.HSyn.OpenTextbookLeaves7.mulEtaleAbelianScheme ZInQKernel.OneProof.H.TailX [] 1226942986 4177497252
 HDec.HSyn.OpenTextbookLeaves7.mumfordTorsionAlgClosed ZInQKernel.OneProof.H.TailX [] 3828030713 553627195
 HDec.HSyn.OpenTextbookLeaves7.neronSchemeExtensionExists ZInQKernel.OneProof.H.TailX [] 3477523790 645353196
 HDec.HSyn.OpenTextbookLeaves7.normalModelOfFunctionFieldQ ZInQKernel.OneProof.H.TailX [] 3167831998 990494355
 HDec.HSyn.OpenTextbookLeaves7.poincareComplement ZInQKernel.OneProof.H.TailX [] 2801881049 2750709821
-HDec.HSyn.OpenTextbookLeaves7.rec ZInQKernel.OneProof.H.TailX [u] 274704957 0
-HDec.HSyn.OpenTextbookLeaves7.recOn ZInQKernel.OneProof.H.TailX [u] 2764438792 297180758
+HDec.HSyn.OpenTextbookLeaves7.rec ZInQKernel.OneProof.H.TailX [u] 3099243518 0
+HDec.HSyn.OpenTextbookLeaves7.recOn ZInQKernel.OneProof.H.TailX [u] 1846514478 297180758
 HDec.HSyn.OpenTextbookLeaves7.regularSmoothPerfect ZInQKernel.OneProof.H.TailX [] 1020281309 2285801441
 HDec.HSyn.OpenTextbookLeaves7.t10 ZInQKernel.OneProof.H.TailX [] 1933008230 3213627186
 HDec.HSyn.OpenTextbookLeaves7.t11bExists ZInQKernel.OneProof.H.TailX [] 1050650120 561907186
@@ -4093,7 +4098,6 @@ HDec.HSyn.OpenTextbookLeaves7.t24 ZInQKernel.OneProof.H.TailX [] 3081914144 3718
 HDec.HSyn.OpenTextbookLeaves7.t33 ZInQKernel.OneProof.H.TailX [] 4195211278 1237627460
 HDec.HSyn.OpenTextbookLeaves7.t3Surj ZInQKernel.OneProof.H.TailX [] 2197036311 3608838094
 HDec.HSyn.OpenTextbookLeaves7.uniformizationLeafAll ZInQKernel.OneProof.H.TailX [] 3386706495 1573517891
-HDec.HSyn.OpenTextbookLeaves7.x0Transitive ZInQKernel.OneProof.H.TailX [] 372991781 2056586805
 HDec.HSyn.OpenTextbookLeaves7.yuThm11 ZInQKernel.OneProof.H.TailX [] 1059083597 980312358
 HDec.HSyn.Qbar ZInQKernel.OneProof.H.LPrefix [] 3931117990 1053573708
 HDec.HSyn.R01b_ComplexUniformization ZInQKernel.OneProof.H.LPrefix [] 3944470172 2109372810
@@ -4302,7 +4306,7 @@ HDec.HSyn.reductionTorsionBijective_ofK5 ZInQKernel.OneProof.H.TailM [] 36013160
 HDec.HSyn.researchLeaves2_of_open5 ZInQKernel.OneProof.H.TailN [] 1346832953 1068132263
 HDec.HSyn.researchLeaves3_of ZInQKernel.OneProof.H.TailD [] 265913240 4017155089
 HDec.HSyn.researchLeaves3_of_open2 ZInQKernel.OneProof.H.TailE [] 2647305478 2184934686
-HDec.HSyn.researchLeaves5_of_open7 ZInQKernel.OneProof.H.TailX [] 862457860 442574580
+HDec.HSyn.researchLeaves5_of_open7 ZInQKernel.OneProof.H.TailX [] 862457860 2868645149
 HDec.HSyn.researchLeaves_of_open ZInQKernel.OneProof.H.LPrefix [] 2275974291 3114856390
 HDec.HSyn.serreRigidity3_of_T35_5 ZInQKernel.OneProof.H.TailN [] 416464918 3951572701
 HDec.HSyn.serreTatePotentialGood_ofK5 ZInQKernel.OneProof.H.TailM [] 1535708741 1921683900
@@ -4380,7 +4384,7 @@ HDec.HSyn.textbookLeaves2_of_open3 ZInQKernel.OneProof.H.TailI [] 2169118306 229
 HDec.HSyn.textbookLeaves3_of_open4 ZInQKernel.OneProof.H.TailK [] 656548050 1596367404
 HDec.HSyn.textbookLeaves4_of_open5 ZInQKernel.OneProof.H.TailN [] 3525713489 3329673146
 HDec.HSyn.textbookLeaves4_of_open6 ZInQKernel.OneProof.H.TailO [] 3175513672 3425631679
-HDec.HSyn.textbookLeaves6_of_open7 ZInQKernel.OneProof.H.TailX [] 2275644494 806962499
+HDec.HSyn.textbookLeaves6_of_open7 ZInQKernel.OneProof.H.TailX [] 2275644494 3083382611
 HDec.HSyn.textbookLeaves_of_open ZInQKernel.OneProof.H.LPrefix [] 2025275173 738818698
 HDec.HSyn.textbookLeaves_of_open2 ZInQKernel.OneProof.H.TailE [] 2515267612 3666247145
 HDec.HSyn.toAbVarK ZInQKernel.OneProof.H.TailE [] 2490439090 3318590453
