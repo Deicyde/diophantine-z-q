@@ -26,7 +26,8 @@ doc='''/-- **Leaves.lean's `GluePieces` from leaf-fold4's open statements** (lea
 verbatim but for: the fields closed by leaf-fold4 replaced by their theorems above; T26 from T5
 (`tateModuleFree_of_t5'`); `DetTate` from `detTate_of_leaves4`, i.e. without the leaf `DivisiblePoints`). -/
 '''
-det='''/-- **`TatePairingZl` without `DivisiblePoints`** (leaf-fold3's `G0Galois.tatePairingZl_of_leaves`, verbatim
+det='''open CategoryTheory AlgebraicGeometry Limits MonoidalCategory CartesianMonoidalCategory MonObj in
+/-- **`TatePairingZl` without `DivisiblePoints`** (leaf-fold3's `G0Galois.tatePairingZl_of_leaves`, verbatim
 but for the surjectivity of `T_ℓ A → A(K̄)[ℓᵏ]`, which comes from T5 through t5-torsion's
 `T5Torsion.TateFree.tate_surj_of_torsionStructure` (module `LF4T5`, kernel objects; `toAbVarK4 A` has the
 same scheme) instead of `WeilPairing.tate_surj (hD …)`). -/

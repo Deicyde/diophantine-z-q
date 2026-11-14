@@ -222,6 +222,7 @@ theorem textbookLeaves3_of_open4 (t : OpenTextbookLeaves4) : OpenTextbookLeaves3
   t40 := t.t40
   t41 := t.t41
 
+open CategoryTheory AlgebraicGeometry Limits MonoidalCategory CartesianMonoidalCategory MonObj in
 /-- **`TatePairingZl` without `DivisiblePoints`** (leaf-fold3's `G0Galois.tatePairingZl_of_leaves`, verbatim
 but for the surjectivity of `T_ℓ A → A(K̄)[ℓᵏ]`, which comes from T5 through t5-torsion's
 `T5Torsion.TateFree.tate_surj_of_torsionStructure` (module `LF4T5`, kernel objects; `toAbVarK4 A` has the

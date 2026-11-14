@@ -3,6 +3,7 @@ import re, sys
 sys.path.insert(0, "py")
 from chunks import chunks, text, fullnames
 seen_text = set()
+TEXT_DEDUP = True  # leaf-fold4: mk_periodglue.py sets False (identical text in another namespace is not a duplicate)
 def walk(cs, seen, keep_all=False, tag=''):
     ns = []; out = []; ndrop = 0; diffs = []
     for c in cs:
@@ -18,7 +19,7 @@ def walk(cs, seen, keep_all=False, tag=''):
         if c['kind'] == 'decl' and c['name']:
             nm = c['name']
             full = '.'.join([x[1] for x in ns if x[0] == 'n'] + [nm])
-            if (full in seen or text(c) in seen_text) and not keep_all:
+            if (full in seen or (TEXT_DEDUP and text(c) in seen_text)) and not keep_all:
                 if full in seen and seen[full] != text(c): diffs.append(full)
                 ndrop += 1
                 # drop the `… in` modifiers (open/attribute/set_option/omit … in) that applied to it

@@ -20,6 +20,7 @@ Task period-map, 2026-11-13. Statements above are verbatim copies; nothing above
 noncomputable section
 
 namespace HSyn.G0Split.FibreQM.PeriodMap
+open ZInQ.LeafPush2 (CPts cptObj IsUniformization IsSiegel IsPeriodMatrix Char2 thetaConst absLogHeight cDom cEvalAt)
 
 open Complex Filter Topology
 open UpperHalfPlane (ofComplex ofComplex_apply ofComplex_apply_of_im_pos num denom denom_ne_zero)
@@ -515,6 +516,7 @@ is a closed-form computation (VERIFIED with sympy, `py/omega_sym.py`). The proof
 noncomputable section
 
 namespace HSyn.G0Split.FibreQM.PeriodMap
+open ZInQ.LeafPush2 (CPts cptObj IsUniformization IsSiegel IsPeriodMatrix Char2 thetaConst absLogHeight cDom cEvalAt)
 
 open Complex Filter Topology Matrix
 
@@ -749,6 +751,7 @@ are the quotients printed there). With `τ = x + iy`, `Im Ω_ij = A_ij/|d|²` wh
 noncomputable section
 
 namespace HSyn.G0Split.FibreQM.PeriodMap
+open ZInQ.LeafPush2 (CPts cptObj IsUniformization IsSiegel IsPeriodMatrix Char2 thetaConst absLogHeight cDom cEvalAt)
 
 open Complex Matrix
 
@@ -905,6 +908,7 @@ so `ord_{τ₃} G8 ≥ 2`. -/
 noncomputable section
 
 namespace HSyn.G0Split.FibreQM.PeriodMap
+open ZInQ.LeafPush2 (CPts cptObj IsUniformization IsSiegel IsPeriodMatrix Char2 thetaConst absLogHeight cDom cEvalAt)
 
 open Complex Filter Topology
 open UpperHalfPlane (num denom denom_ne_zero)
@@ -1116,6 +1120,7 @@ theorem `fibreQMPeriod_periodMap` restates fibre-qm-period's `fibreQMPeriod_main
 noncomputable section
 
 namespace HSyn.G0Split.FibreQM.PeriodMapH
+open ZInQ.LeafPush2 (CPts cptObj IsUniformization IsSiegel IsPeriodMatrix Char2 thetaConst absLogHeight cDom cEvalAt)
 
 open CategoryTheory AlgebraicGeometry Limits MonoidalCategory CartesianMonoidalCategory MonObj
 open _root_.ZInQ ZInQ ZInQ.JHeight LeafQM.AV ZInQ.DefFaltings
@@ -1520,6 +1525,137 @@ universe u
 
 variable {K : Type u} [Field K]
 
+theorem isClosedImmersion_point (G : Over (Spec (.of K))) (x : 𝟙_ (Over (Spec (.of K))) ⟶ G) :
+    IsClosedImmersion x.left :=
+  isClosedImmersion_of_comp_eq_id (Y := Spec (.of K)) G.hom x.left (by simp)
+
+set_option backward.defeqAttrib.useBackward true in
+set_option backward.isDefEq.respectTransparency false in
+/-- **Rigidity lemma (two-sided form), over an algebraically closed field.** Let `G` be proper
+over `K` with `G ×_K G` integral, `Z` separated of finite type, and `c : G × G → Z` with
+`c(e, y) = z` and `c(x, e) = z` (as morphisms, for all `T`-points). Then `c` is constant. -/
+theorem rigidity_algClosed [IsAlgClosed K]
+    (G Z : Over (Spec (.of K))) [IsProper G.hom] [IsIntegral (G ⊗ G).left]
+    [IsSeparated Z.hom] [LocallyOfFiniteType Z.hom]
+    (e : 𝟙_ (Over (Spec (.of K))) ⟶ G) (z : 𝟙_ (Over (Spec (.of K))) ⟶ Z) (c : G ⊗ G ⟶ Z)
+    (h1 : ∀ (T : Over (Spec (.of K))) (y : T ⟶ G), lift (toUnit T ≫ e) y ≫ c = toUnit T ≫ z)
+    (h2 : ∀ (T : Over (Spec (.of K))) (x : T ⟶ G), lift x (toUnit T ≫ e) ≫ c = toUnit T ≫ z) :
+    c = toUnit _ ≫ z := by
+  let S := Spec (.of K)
+  let point : S := IsLocalRing.closedPoint K
+  have hpoint : IsClosed {point} := isClosed_discrete _
+  have : IsClosedImmersion e.left := isClosedImmersion_point G e
+  have : Nonempty G.left := ⟨e.left point⟩
+  have : IsProper (G ⊗ G).hom := by dsimp; infer_instance
+  have : JacobsonSpace (G ⊗ G).left := LocallyOfFiniteType.jacobsonSpace (Y := Spec _) (G ⊗ G).hom
+  have : Surjective G.hom := ⟨Function.surjective_to_subsingleton (α := G.left) (β := Spec _) _⟩
+  have : IsProper (fst G G).left := by dsimp; infer_instance
+  have : Surjective (fst G G).left := by dsimp; infer_instance
+  have : IsSeparated (fst G Z).left := by dsimp; infer_instance
+  have : LocallyOfFiniteType (fst G Z).left := by dsimp; infer_instance
+  have : LocallyOfFiniteType (c.left ≫ Z.hom) := by rw [Over.w]; infer_instance
+  have : IsClosedImmersion ((lift e z).left ≫ (fst G Z).left) := by
+    simpa using inferInstanceAs (IsClosedImmersion e.left)
+  have : IsClosedImmersion (lift e z).left := .of_comp _ (g := (fst G Z).left)
+  let gm : G ⊗ G ⟶ G ⊗ Z := lift (fst _ _) c
+  have : IsProper (gm.left ≫ (fst G Z).left) := by simpa [gm]
+  have : IsProper gm.left := .of_comp _ (fst G Z).left
+  ext1
+  have H : gm.left '' ((fst G G).left ⁻¹' {e.left point}) ⊆ {(lift e z).left point} := by
+    rw [Set.image_subset_iff, ← Set.sdiff_eq_empty, ← Set.not_nonempty_iff_eq_empty]
+    intro H
+    obtain ⟨c₀, ⟨hc₁, hc₂⟩, hc₃⟩ := nonempty_inter_closedPoints H <| by
+      rw [Set.sdiff_eq_compl_inter, ← Set.image_singleton, ← Set.image_singleton];
+      refine (IsOpen.isLocallyClosed ?_).inter (IsClosed.isLocallyClosed ?_)
+      · exact (((lift e z).left.isClosedMap _ hpoint).preimage gm.left.continuous).isOpen_compl
+      · exact (e.left.isClosedMap _ hpoint).preimage (fst G G).left.continuous
+    obtain ⟨⟨p, hp⟩, hpe⟩ := (pointEquivClosedPoint (G ⊗ G).hom).surjective ⟨c₀, hc₃⟩
+    obtain rfl : p point = c₀ := congr(($hpe).1)
+    let pt : 𝟙_ (Over S) ⟶ G ⊗ G := Over.homMk p hp
+    let fc : 𝟙_ (Over S) ⟶ 𝟙_ (Over S) ⊗ G := lift (𝟙 _) (pt ≫ snd G G)
+    have : p ≫ pullback.fst G.hom G.hom = e.left :=
+      ext_of_apply_closedPoint_eq G.hom (by simpa) (by simp) (by simpa)
+    have H₁ : p = fc.left ≫ (e ▷ G).left := by dsimp; ext <;> simp [fc, pt, S, this]
+    have H₂ : fc ≫ e ▷ G ≫ gm = lift e z := by
+      have h1' := h1 _ (pt ≫ snd G G)
+      rw [toUnit_unique (toUnit _) (𝟙 _), Category.id_comp, Category.id_comp] at h1'
+      ext1
+      · simp [fc, gm, S]
+      · simpa [fc, gm, S] using h1'
+    exact hc₂ <| by simp [H₁, H₂, ← Scheme.Hom.comp_apply, Category.assoc, ← Over.comp_left]
+  obtain ⟨U, hηU, H⟩ := exists_finite_imageι_comp_morphismRestrict_of_finite_image_preimage
+    gm.left (fst G Z).left (e.left point) (by
+      dsimp [-Scheme.Hom.comp_base, gm]
+      simp only [pullback.lift_fst]
+      exact (Set.finite_singleton _).subset H)
+  have H (x : U) : ((pullback.fst G.hom Z.hom) ⁻¹' {x.1} ∩ Set.range ⇑gm.left).Finite := by
+    refine ((((gm.left.imageι ≫ (fst G Z).left) ∣_ U).finite_preimage_singleton x).image
+      (Scheme.Opens.ι _ ≫ gm.left.imageι)).subset ?_
+    have : U.ι ⁻¹' {x.1} = {x} := by ext; simp
+    rw [← this, ← Set.preimage_comp, ← TopCat.coe_comp, ← Scheme.Hom.comp_base,
+      morphismRestrict_ι, ← Category.assoc, Scheme.Hom.comp_base (_ ≫ _) (fst G Z).left,
+      TopCat.coe_comp, Set.preimage_comp, Set.image_preimage_eq_inter_range]
+    simp only [Scheme.Hom.comp_base, TopCat.coe_comp, Set.range_comp, Scheme.Opens.range_ι]
+    dsimp
+    rw [Set.image_preimage_eq_inter_range, Scheme.IdealSheafData.range_subschemeι,
+      Scheme.Hom.support_ker, ← Set.inter_assoc, ← Set.preimage_inter,
+      Set.singleton_inter_of_mem x.2, IsClosed.closure_eq
+      (by exact gm.left.isClosedMap.isClosed_range)]
+  refine ext_of_apply_eq Z.hom _
+    ((fst G G).left ⁻¹ᵁ U).isOpen.isLocallyClosed
+    (((fst G G).left ⁻¹ᵁ U).isOpen.dense ?_) ?_ ?_
+  · exact .preimage ⟨_, hηU⟩ (fst G G).left.surjective
+  · intro y hyU hy
+    have hx : IsClosed {(fst G G).left y} := by simpa using (fst G G).left.isClosedMap _ hy
+    let x : 𝟙_ _ ⟶ G := Over.homMk (pointOfClosedPoint G.hom _ hx) (by simp)
+    let xe : (G ⊗ Z).left := (lift (fst G G) (toUnit _ ≫ z)).left y
+    have hgm : lift (fst G G) (toUnit _ ≫ e) ≫ gm = lift (fst G G) (toUnit _ ≫ z) := by
+      ext1
+      · simp [gm]
+      · simpa [gm] using h2 _ (fst G G)
+    have : gm.left y = xe := by
+      refine subsingleton_image_closure_of_finite_of_isPreirreducible
+        (hx.preimage (fst G G).left.continuous).isLocallyClosed ?_ gm.left.continuous
+        gm.left.isClosedMap ((H ⟨_, hyU⟩).subset (Set.image_subset_iff.mpr fun _ ↦ by
+          simp [← Scheme.Hom.comp_apply, -Scheme.Hom.comp_base, gm])) ?_ ?_
+      · let α : G ⊗ G ⟶ G ⊗ G := toUnit _ ≫ x ⊗ₘ 𝟙 _
+        convert
+          ((IrreducibleSpace.isIrreducible_univ _).image α.left
+              α.left.continuous.continuousOn).isPreirreducible
+        rw [Over.tensorHom_left]
+        simp [Set.range_comp, Scheme.Pullback.range_map, x]
+      · exact ⟨y, subset_closure (by simp), rfl⟩
+      · refine ⟨(lift (fst G G) (toUnit _ ≫ e)).left y, subset_closure ?_, ?_⟩
+        · rw [Set.mem_preimage, Set.mem_singleton_iff, ← Scheme.Hom.comp_apply, ← Over.comp_left,
+            lift_fst]
+        · rw [← Scheme.Hom.comp_apply, ← Over.comp_left, hgm]
+    convert congr((snd G Z).left $this) using 1
+    · simp [gm, ← Scheme.Hom.comp_apply]
+    · simp only [xe]
+      rw [← Scheme.Hom.comp_apply, ← Over.comp_left, lift_snd]
+  · simp
+
+/-- **A pointed morphism of proper group schemes is a homomorphism, over an algebraically closed
+field** (rigidity, Mumford §4 Cor. 1). Apply `rigidity_algClosed` to
+`c = (μ ≫ h) * ((h ⊗ h) ≫ μ)⁻¹`. -/
+theorem isMonHom_of_algClosed [IsAlgClosed K]
+    (G B : Over (Spec (.of K))) [GrpObj G] [GrpObj B] [IsProper G.hom] [IsIntegral (G ⊗ G).left]
+    [IsSeparated B.hom] [LocallyOfFiniteType B.hom]
+    (h : G ⟶ B) (h0 : η[G] ≫ h = η[B]) : IsMonHom h := by
+  have hone : ∀ (T : Over (Spec (.of K))), (1 : T ⟶ G) ≫ h = 1 := fun T => by
+    rw [Hom.one_def, Hom.one_def, Category.assoc, h0]
+  have key := rigidity_algClosed G B η[G] η[B] ((μ ≫ h) * ((h ⊗ₘ h) ≫ μ)⁻¹)
+    (fun T y => by
+      rw [comp_mul, GrpObj.comp_inv, ← Category.assoc, ← Category.assoc, lift_map, ← Hom.mul_def,
+        ← Hom.mul_def, ← Hom.one_def, _root_.one_mul, hone, _root_.one_mul, mul_inv_cancel,
+        Hom.one_def])
+    (fun T x => by
+      rw [comp_mul, GrpObj.comp_inv, ← Category.assoc, ← Category.assoc, lift_map, ← Hom.mul_def,
+        ← Hom.mul_def, ← Hom.one_def, _root_.mul_one, hone, _root_.mul_one, mul_inv_cancel,
+        Hom.one_def])
+  rw [← Hom.one_def, mul_inv_eq_one] at key
+  exact ⟨h0, key⟩
+
 /-- **Rigidity over any field** (Mumford §4 Cor. 1 / Milne Cor. 2.2): base change to `K̄` and
 `isMonHom_of_algClosed`; `Over.pullback` along `Spec K̄ → Spec K` is faithful and monoidal. -/
 theorem isMonHom_of_geometricallyIntegral
@@ -1552,6 +1688,7 @@ end PeriodGlue.MulRigidity
 /-! ## `BaseChangeClassUnique` -/
 
 namespace HSyn.G0Split.FibreQM.PeriodGlue
+open ZInQ.LeafPush2 (CPts cptObj IsUniformization IsSiegel IsPeriodMatrix Char2 thetaConst absLogHeight cDom cEvalAt)
 
 open CategoryTheory AlgebraicGeometry Limits MonoidalCategory CartesianMonoidalCategory MonObj
 open _root_.ZInQ ZInQ LeafQM.AV ZInQ.DefFaltings
@@ -1619,9 +1756,9 @@ theorem baseChangeClassUnique_proof : PeriodMapH.BaseChangeClassUnique := by
   have hη' : η[Q'.A.X] ≫ θ' = η[Q.A.X] := eq_of_comp hg (by
     rw [Over.comp_left, Category.assoc, hθg', eta_comp hl, eta_comp hl'])
   have : IsMonHom θ :=
-    _root_.PeriodGlue.MulRigidity.isMonHom_of_geometricallyIntegral Q.A.X Q'.A.X θ hη
+    _root_.HDec.PeriodGlue.MulRigidity.isMonHom_of_geometricallyIntegral Q.A.X Q'.A.X θ hη
   have : IsMonHom θ' :=
-    _root_.PeriodGlue.MulRigidity.isMonHom_of_geometricallyIntegral Q'.A.X Q.A.X θ' hη'
+    _root_.HDec.PeriodGlue.MulRigidity.isMonHom_of_geometricallyIntegral Q'.A.X Q.A.X θ' hη'
   refine Quotient.sound ⟨{
     φ := PkgI3.AbVar.Hom.mk' θ
     ψ := PkgI3.AbVar.Hom.mk' θ'
@@ -1663,6 +1800,7 @@ by `qmTwistLattice_of`. -/
 noncomputable section
 
 namespace HSyn.G0Split.FibreQM.PeriodGlue
+open ZInQ.LeafPush2 (CPts cptObj IsUniformization IsSiegel IsPeriodMatrix Char2 thetaConst absLogHeight cDom cEvalAt)
 
 open CategoryTheory AlgebraicGeometry Limits MonoidalCategory CartesianMonoidalCategory MonObj
 open _root_.ZInQ ZInQ LeafQM.AV ZInQ.DefFaltings
@@ -1967,7 +2105,156 @@ open LeafQM
 
 /-! ### Extension of a ring automorphism of `𝒪` to `B` -/
 
+theorem mem_O_of_int (z0 z1 z2 z3 : ℤ) : (⟨z0, z1, z2, z3⟩ : B) ∈ O := by
+  refine ⟨![z0 - z2, z1 - z3, 2 * z2, 2 * z3], ?_⟩
+  ext <;> simp [ofInt]
+
+theorem nat_smul_mem (n : ℕ) {x : B} (hx : x ∈ O) : (n : ℚ) • x ∈ O := by
+  rw [Algebra.smul_def, map_natCast]
+  exact O.mul_mem (natCast_mem O n) hx
+
+theorem den_mul_int (q : ℚ) (k : ℕ) : ∃ z : ℤ, ((k * q.den : ℕ) : ℚ) * q = z :=
+  ⟨k * q.num, by push_cast; rw [mul_assoc, Rat.den_mul_eq_num]⟩
+
+/-- Every element of `B` has a positive integer multiple in `𝒪`. -/
+theorem exists_nat_smul_mem (b : B) : ∃ m : ℕ, 0 < m ∧ (m : ℚ) • b ∈ O := by
+  set m := b.re.den * b.imI.den * b.imJ.den * b.imK.den with hm
+  refine ⟨m, by positivity, ?_⟩
+  obtain ⟨z0, h0⟩ := den_mul_int b.re (b.imI.den * b.imJ.den * b.imK.den)
+  obtain ⟨z1, h1⟩ := den_mul_int b.imI (b.re.den * b.imJ.den * b.imK.den)
+  obtain ⟨z2, h2⟩ := den_mul_int b.imJ (b.re.den * b.imI.den * b.imK.den)
+  obtain ⟨z3, h3⟩ := den_mul_int b.imK (b.re.den * b.imI.den * b.imJ.den)
+  have e : (m : ℚ) • b = ⟨z0, z1, z2, z3⟩ := by
+    ext
+    · rw [QuaternionAlgebra.re_smul, ← h0, smul_eq_mul, hm]; push_cast; ring
+    · rw [QuaternionAlgebra.imI_smul, ← h1, smul_eq_mul, hm]; push_cast; ring
+    · rw [QuaternionAlgebra.imJ_smul, ← h2, smul_eq_mul, hm]; push_cast; ring
+    · rw [QuaternionAlgebra.imK_smul, ← h3, smul_eq_mul, hm]
+  rw [e]
+  exact mem_O_of_int z0 z1 z2 z3
+
 variable (α : O ≃+* O)
+
+/-- A chosen positive integer `m` with `m b ∈ 𝒪`. -/
+def extDen (b : B) : ℕ := Classical.choose (exists_nat_smul_mem b)
+
+theorem extDen_pos (b : B) : 0 < extDen b := (Classical.choose_spec (exists_nat_smul_mem b)).1
+
+theorem extDen_mem (b : B) : ((extDen b : ℕ) : ℚ) • b ∈ O :=
+  (Classical.choose_spec (exists_nat_smul_mem b)).2
+
+/-- `α̃(b) = m⁻¹ α(m b)`. -/
+def extFun (b : B) : B := ((extDen b : ℚ)⁻¹) • (α ⟨_, extDen_mem b⟩ : B)
+
+theorem natCast_mul_eq_smul (n : ℕ) (x : B) : (n : B) * x = (n : ℚ) • x := by
+  rw [Algebra.smul_def, map_natCast]
+
+theorem alpha_nat_smul (n : ℕ) (x : B) (hx : x ∈ O) (hnx : (n : ℚ) • x ∈ O) :
+    (α ⟨_, hnx⟩ : B) = (n : ℚ) • (α ⟨x, hx⟩ : B) := by
+  have : (⟨_, hnx⟩ : O) = (n : O) * ⟨x, hx⟩ := by
+    apply Subtype.ext
+    simp only [MulMemClass.coe_mul, SubringClass.coe_natCast]
+    rw [natCast_mul_eq_smul]
+  rw [this, map_mul, map_natCast, MulMemClass.coe_mul, SubringClass.coe_natCast,
+    natCast_mul_eq_smul]
+
+/-- Independence of the choice of `m`. -/
+theorem extFun_eq (b : B) (m : ℕ) (hm : 0 < m) (hb : (m : ℚ) • b ∈ O) :
+    extFun α b = ((m : ℚ)⁻¹) • (α ⟨_, hb⟩ : B) := by
+  have hd : 0 < extDen b := extDen_pos b
+  have hdm : (m : ℚ) • ((extDen b : ℚ) • b) ∈ O := nat_smul_mem m (extDen_mem b)
+  have hmd : (extDen b : ℚ) • ((m : ℚ) • b) ∈ O := nat_smul_mem (extDen b) hb
+  have e1 := alpha_nat_smul α m _ (extDen_mem b) hdm
+  have e2 := alpha_nat_smul α (extDen b) _ hb hmd
+  have e3 : (⟨_, hdm⟩ : O) = ⟨_, hmd⟩ := Subtype.ext (smul_comm _ _ _)
+  rw [e3, e2] at e1
+  -- e1 : d • α(m b) = m • α(d b)
+  unfold extFun
+  have hX : (α ⟨_, extDen_mem b⟩ : B) = ((m : ℚ)⁻¹ * extDen b) • (α ⟨_, hb⟩ : B) := by
+    rw [mul_smul, e1, smul_smul, inv_mul_cancel₀ (by exact_mod_cast hm.ne'), one_smul]
+  rw [hX, smul_smul]
+  congr 1
+  have : (extDen b : ℚ) ≠ 0 := by exact_mod_cast hd.ne'
+  field_simp
+
+theorem extFun_coe (a : O) : extFun α a = α a := by
+  have h1 : ((1 : ℕ) : ℚ) • (a : B) ∈ O := by simp
+  rw [extFun_eq α a 1 one_pos h1]
+  have : (⟨_, h1⟩ : O) = a := Subtype.ext (by simp)
+  rw [this]; simp
+
+/-- A common multiplier for two elements. -/
+theorem common_den (b c : B) : ∃ m : ℕ, 0 < m ∧ (m : ℚ) • b ∈ O ∧ (m : ℚ) • c ∈ O := by
+  refine ⟨extDen b * extDen c, Nat.mul_pos (extDen_pos b) (extDen_pos c), ?_, ?_⟩
+  · have := nat_smul_mem (extDen c) (extDen_mem b)
+    rwa [smul_smul, ← Nat.cast_mul, mul_comm] at this
+  · have := nat_smul_mem (extDen b) (extDen_mem c)
+    rwa [smul_smul, ← Nat.cast_mul] at this
+
+theorem extFun_add (b c : B) : extFun α (b + c) = extFun α b + extFun α c := by
+  obtain ⟨m, hm, hb, hc⟩ := common_den b c
+  have hbc : (m : ℚ) • (b + c) ∈ O := by rw [smul_add]; exact O.add_mem hb hc
+  rw [extFun_eq α _ m hm hbc, extFun_eq α _ m hm hb, extFun_eq α _ m hm hc, ← smul_add]
+  congr 1
+  have : (⟨_, hbc⟩ : O) = ⟨_, hb⟩ + ⟨_, hc⟩ := Subtype.ext (by simp [smul_add])
+  rw [this, map_add]; rfl
+
+theorem smul_mul_smul' (r s : ℚ) (x y : B) : (r • x) * (s • y) = (r * s) • (x * y) := by
+  rw [smul_mul_assoc, mul_smul_comm, smul_smul]
+
+theorem extFun_mul (b c : B) : extFun α (b * c) = extFun α b * extFun α c := by
+  obtain ⟨m, hm, hb, hc⟩ := common_den b c
+  have hbc0 : ((m : ℚ) * m) • (b * c) ∈ O := by
+    rw [← smul_mul_smul']; exact O.mul_mem hb hc
+  have hbc : ((m * m : ℕ) : ℚ) • (b * c) ∈ O := by rw [Nat.cast_mul]; exact hbc0
+  have hprod : (⟨_, hbc⟩ : O) = ⟨_, hb⟩ * ⟨_, hc⟩ := by
+    apply Subtype.ext
+    show ((m * m : ℕ) : ℚ) • (b * c) = ((m : ℚ) • b) * ((m : ℚ) • c)
+    rw [smul_mul_smul', Nat.cast_mul]
+  have e1 : (α ⟨_, hbc⟩ : B) = (α ⟨_, hb⟩ : B) * (α ⟨_, hc⟩ : B) := by
+    rw [hprod, map_mul, MulMemClass.coe_mul]
+  rw [extFun_eq α _ (m * m) (Nat.mul_pos hm hm) hbc, extFun_eq α _ m hm hb,
+    extFun_eq α _ m hm hc, smul_mul_smul', e1, Nat.cast_mul, mul_inv]
+
+theorem extFun_algebraMap (q : ℚ) : extFun α (algebraMap ℚ B q) = algebraMap ℚ B q := by
+  have hq : ((q.den : ℕ) : ℚ) • algebraMap ℚ B q ∈ O := by
+    rw [Algebra.smul_def, ← map_mul, Rat.den_mul_eq_num, map_intCast]
+    exact intCast_mem O q.num
+  rw [extFun_eq α _ q.den q.den_pos hq]
+  have : (⟨_, hq⟩ : O) = (q.num : O) := Subtype.ext (by
+    simp only [SubringClass.coe_intCast]
+    rw [Algebra.smul_def, ← map_mul, Rat.den_mul_eq_num, map_intCast])
+  rw [this, map_intCast, SubringClass.coe_intCast, ← map_intCast (algebraMap ℚ B),
+    Algebra.smul_def, ← map_mul]
+  congr 1
+  rw [inv_mul_eq_div, Rat.num_div_den]
+
+/-- The extension `α̃ : B → B` as a `ℚ`-algebra map. -/
+def extAlgHom : B →ₐ[ℚ] B where
+  toFun := extFun α
+  map_one' := by simpa using extFun_coe α 1
+  map_zero' := by simpa using extFun_coe α 0
+  map_add' := extFun_add α
+  map_mul' := extFun_mul α
+  commutes' := extFun_algebraMap α
+
+theorem extAlgHom_apply (b : B) : extAlgHom α b = extFun α b := rfl
+
+theorem extAlgHom_coe (a : O) : extAlgHom α a = α a := extFun_coe α a
+
+theorem extAlgHom_symm_comp : (extAlgHom α.symm).comp (extAlgHom α) = AlgHom.id ℚ B := by
+  refine AlgHom.ext fun b => ?_
+  change extAlgHom α.symm (extFun α b) = b
+  rw [extFun_eq α b (extDen b) (extDen_pos b) (extDen_mem b), map_smul, extAlgHom_coe,
+    RingEquiv.symm_apply_apply, smul_smul, inv_mul_cancel₀ (by exact_mod_cast (extDen_pos b).ne'),
+    one_smul]
+
+/-- The extension as a `ℚ`-algebra automorphism of `B`. -/
+def extAlgEquiv : B ≃ₐ[ℚ] B :=
+  AlgEquiv.ofAlgHom (extAlgHom α) (extAlgHom α.symm)
+    (by simpa using extAlgHom_symm_comp α.symm) (extAlgHom_symm_comp α)
+
+theorem extAlgEquiv_apply (b : B) : extAlgEquiv α b = extFun α b := rfl
 
 /-- **Every automorphism of `𝒪` is inner (proved from Skolem–Noether).** `LeafSkolemNoether` is
 the kernel's `GlueDescent.LeafSkolemNoether` (copied verbatim in `PGBase`), which the kernel proves
@@ -1981,6 +2268,7 @@ theorem autO_inner (hSN : GlueDescent.LeafSkolemNoether) (α : O ≃+* O) :
 end PeriodGlue.AutOExt
 
 namespace HSyn.G0Split.FibreQM.PeriodGlue
+open ZInQ.LeafPush2 (CPts cptObj IsUniformization IsSiegel IsPeriodMatrix Char2 thetaConst absLogHeight cDom cEvalAt)
 
 open scoped Matrix
 open _root_.ZInQ ZInQ LeafQM.AV HSyn.G0Split.FibreQM HSyn.G0Split.FibreQM.PeriodMapH
@@ -2267,6 +2555,7 @@ by `piTwistC_of`. -/
 noncomputable section
 
 namespace HSyn.G0Split.FibreQM.PeriodGlue
+open ZInQ.LeafPush2 (CPts cptObj IsUniformization IsSiegel IsPeriodMatrix Char2 thetaConst absLogHeight cDom cEvalAt)
 
 open CategoryTheory AlgebraicGeometry Limits MonoidalCategory CartesianMonoidalCategory MonObj
 open _root_.ZInQ ZInQ LeafQM.AV ZInQ.DefFaltings
@@ -3046,6 +3335,7 @@ digits, each `θ_m(Ω₀)⁸ ∈ {−¼, −1, −4, 0}·ϑ₀₀(i)¹⁶`. -/
 noncomputable section
 
 namespace HSyn.G0Split.FibreQM.PeriodGlue
+open ZInQ.LeafPush2 (CPts cptObj IsUniformization IsSiegel IsPeriodMatrix Char2 thetaConst absLogHeight cDom cEvalAt)
 
 open Complex Matrix HSyn.G0Split.FibreQM HSyn.G0Split.FibreQM.PeriodMap
 
@@ -3587,6 +3877,7 @@ by `s8WeightExact_of`. Proved here, with no other input:
 noncomputable section
 
 namespace HSyn.G0Split.FibreQM.PeriodGlue
+open ZInQ.LeafPush2 (CPts cptObj IsUniformization IsSiegel IsPeriodMatrix Char2 thetaConst absLogHeight cDom cEvalAt)
 
 open Complex Matrix HSyn.G0Split.FibreQM HSyn.G0Split.FibreQM.PeriodMap
 open UpperHalfPlane (num denom σ coe_smul_of_det_pos denom_ne_zero)
@@ -4021,6 +4312,7 @@ is well defined, injective, continuous (`f` is open), and fixes `∞`. -/
 noncomputable section
 
 namespace HSyn.G0Split.FibreQM.PeriodGlue
+open ZInQ.LeafPush2 (CPts cptObj IsUniformization IsSiegel IsPeriodMatrix Char2 thetaConst absLogHeight cDom cEvalAt)
 
 open Complex Filter Topology HSyn.G0Split.FibreQM HSyn.G0Split.FibreQM.PeriodMap
 
@@ -4696,6 +4988,7 @@ end HSyn.G0Split.FibreQM.PeriodGlue
 /-! ## End to end: fibre-qm-period's `FibreQMPeriod` with period-glue's pieces (proved) -/
 
 namespace HSyn.G0Split.FibreQM.PeriodGlue
+open ZInQ.LeafPush2 (CPts cptObj IsUniformization IsSiegel IsPeriodMatrix Char2 thetaConst absLogHeight cDom cEvalAt)
 
 open _root_.ZInQ ZInQ ZInQ.JHeight LeafQM.AV ZInQ.DefFaltings
 open HSyn.G0Split.FibreQM HSyn.G0Split.FibreQM.PeriodMapH

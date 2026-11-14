@@ -5,9 +5,9 @@
  what one leaf, applied to the actual varieties, must deliver.
  
 -**Glue pieces** (leaf-adopt3; `HSyn.GluePieces`, the third hypothesis of G0). g0-split split the
-+**Glue pieces** (leaf-adopt3; `HSyn.GluePieces`, the third hypothesis of G0). Status as of leaf-fold3
-+(2026-11-13, `scratch/leaf-fold3/`, `HDec.HSyn.sixContactMin_of_open3`; docs/research/leaf-fold3.md §2 lists the
-+open statements that remain). g0-split split the
++**Glue pieces** (leaf-adopt3; `HSyn.GluePieces`, the third hypothesis of G0). Status as of leaf-fold4
++(2026-11-13, `scratch/leaf-fold4/`, `HDec.HSyn.sixContactMin_of_open4`, 26 + 19 + 20 leaves and 1 glue Prop;
++docs/research/leaf-fold4.md §2 lists the open statements that remain). g0-split split the
  former `sorry` into named Props (docs/research/g0-split.md); each is a `def … : Prop` whose
  docstring names its glue step. None is a literature leaf; each is to be proved by the project.
  Sizes SPECULATIVE (g0-split).
@@ -33,10 +33,10 @@
 +| 6 | `G0Split.StableHeightBaseChange` (`stableHeightBaseChange`) | definition level (E3-E4) | **proved** (no hypotheses): height-bc's reduction to four glue Props, all four proved (infra-stalks: `CotangentSpanBC`, `UniformizationLiftAnalytic`; hodge-bc2: `HodgeBCInjective`, `OmegaBaseChange`); in the kernel as heightbc-contrib's `ZInQ.HeightBC.stableHeightBaseChange` (`ZInQKernel/Contrib/HeightBC/Main.lean`) | large |
 +| 7 | `G0Split.ProductExists` (`productExists`) | G17 | **proved** (g0-product: `G0Product.productExists`, no hypotheses) | large |
 +| 8 | `G0Split.ReverseIsogeny` (`reverseIsogeny`) | G17 after Poincaré | **proved from leaves** (g0-reverseisog, g0-assemble2: `G0RevIsog.reverseIsogeny_of_leaves3`, from R19 (Gaudron–Rémond), H5 and `DimFinite`) | large |
-+| 9 | `G0Split.ThetaPointOfFibre` (`thetaPoint`) | G19, F1 on `A` | open, reduced: from the QM leaves (R1-R1(b), T11(a) via `HomLatticeCorr`, T35, `QMHauptmodul`, `QMClassNumberOne`, `QMDenZeroCM3`, `ThetaRatiosAlgebraic`), `CPtsTransport` proved (cpts-transport) and the two glue Props `PeriodMapGlue`, `HauptmodulUnique` (leaf-fold3 §2); pin-apply: equivalent, given `MobiusGlue`, to its one-triple form (`G0Split.thetaPointOfFibre_iff_at`) | very large |
-+| 10 | `G0Split.ModularConstituent` (`modularConstituent`) | G2, G4, G7-G16 | open, reduced: from leaves and the glue Props `ChartProper`, `ChartQuasiFinite`, `HeckeVertWitness` (Prop. TS, hecke-rest) and `LinkedTateLocal` (leaf-fold3 §2); G3-G6 on the model, `ConjIsogMaps`, Burnside, G9, G10 proved or from leaves; pin-apply: equivalent, given `MobiusGlue`, to its one-triple form (`G0Split.modularConstituent_iff_at`) | very large |
++| 9 | `G0Split.ThetaPointOfFibre` (`thetaPoint`) | G19, F1 on `A` | **proved from leaves** (leaf-fold4): from the QM leaves (R1-R1(b), R4, T5, T35, `HomLatticeCorr`, `QMHauptmodul`, `QMClassNumberOne`, `ThetaRatiosAlgebraic`) and period-map/period-glue's leaf candidates `CMDescends`, `GammaStarGen`, `ValenceBoundGammaStar`; `PeriodMapGlue` (own triple), `HauptmodulUnique`, `QMDenZeroCM3` are theorems from these (period-glue), `CPtsTransport` proved (cpts-transport), `AutOInnerFinite` and Skolem–Noether are kernel theorems; pin-apply: equivalent, given `MobiusGlue`, to its one-triple form (`G0Split.thetaPointOfFibre_iff_at`) | very large |
++| 10 | `G0Split.ModularConstituent` (`modularConstituent`) | G2, G4, G7-G16 | open, reduced to leaves and **one glue Prop**, `HeckeVertWitness` (hecke-rest; equivalent to Lemma NV): Prop. TS from leaves (hecke-rest proves `ChartProper`, `ChartQuasiFinite`), `LinkedTateLocal` from leaves (lt-local's route; N1-g1 `AbVarSpreadsOut` from three EGA IV leaves, spread-out; `ProperSmoothGenConnected` from Zariski's connectedness theorem, zariski-conn), G12's `DetTate` without `DivisiblePoints` and T26 from T5 (t5-torsion); G3-G6 on the model, `ConjIsogMaps`, Burnside, G9, G10 proved or from leaves (leaf-fold4 §2); pin-apply: equivalent, given `MobiusGlue`, to its one-triple form (`G0Split.modularConstituent_iff_at`) | very large |
 +| 11 | `HeightCopiesAgree` (`heightCopies`) | transport between the two textual copies of the stable Faltings height | **proved** (`G0HeightCopies.heightCopiesAgree`, no hypotheses) | medium |
-+| 12 | `LeafQM.AV.Pin.MobiusGlue` (`mobius`, only in `GluePiecesPin`) | qm-pin's curve glue: if `g : Y' → Y` compares two triples on `Φ`, then `π' = π ∘ g` on `ℚ̄`-points (Möbius map fixing `0, ∞, −16/27`) | **proved from the textbook leaf T5** (image-plane; in the kernel as mobius-contrib's `LeafQM.AV.CurveGlue.mobiusGlue_of_t5`, `ZInQKernel/Contrib/Mobius/ImagePlane.lean`) | medium |
++| 12 | `LeafQM.AV.Pin.MobiusGlue` (`mobius`, only in `GluePiecesPin`) | qm-pin's curve glue: if `g : Y' → Y` compares two triples on `Φ`, then `π' = π ∘ g` on `ℚ̄`-points (Möbius map fixing `0, ∞, −16/27`) | **proved from the textbook leaf T5** (image-plane; in the kernel as mobius-contrib's `LeafQM.AV.CurveGlue.mobiusGlue_of_t5`, `ZInQKernel/Contrib/Mobius/ImagePlane.lean`); also from T35 alone (t5-torsion's `LeafQM.AV.Pin.mobiusGlue_of_T35`, not used by leaf-fold4) | medium |
  
  **The QM pieces and the pin (pin-apply, 2026-11-13; VERIFIED by `lake env lean`).** Pieces 4, 9, 10
  quantify over every triple `(Y, Φ, π)` satisfying `R1fpProps` and `R2fpProps`. Before qm-pin this

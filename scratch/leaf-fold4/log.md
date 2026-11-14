@@ -12,3 +12,24 @@
   (`HeckeRestCurve.chartProper`, `chartQuasiFinite_of_proper`, `curveChartInf`), and
   `HeckeRestAll.coverModelOfHecke_of_heckeRest` no longer takes ChartProper/ChartQuasiFinite.
   d90_fold3.lean: the one call adjusted (hP, hQ unused). assemble.sh: only TailG and TailI differ from leaf-fold3.
+
+## 18:05-18:31 olean chain, VERIFIED compiled
+- chain.sh (one Lean process): LPrefix 625 s, TailA 91 s, TailB-TailD, LF2*/LF3Cot 6-13 s, TailE 58 s, TailF 41 s,
+  TailG 72 s (c80 with hecke-rest's curve proofs: 0 errors), TailH 77 s, TailI 6 s, LF4T5 (t5-torsion's T5Full.lean
+  verbatim) 12 s: all 0 errors.
+- TailJ (c90 period-glue) first run: 23 errors. Causes: (1) mk_propts' text-identity dedup dropped period-glue's
+  copies of mobius-glue's `AutOExt` lemmas and mul-rigidity lemmas living in other namespaces (TEXT_DEDUP now off
+  for c90; nothing is dropped by name either: all period-map/period-glue names are new to the chain); (2) the
+  chain's a80_fqm opens `ZInQ.LeafPush2 (CPts cptObj IsUniformization …)` explicitly where FibreQM.lean had
+  copies in `HSyn.G0Split`: the same `open` is inserted after each `namespace HSyn.G0Split.FibreQM…` line;
+  (3) BCU's `_root_.PeriodGlue.MulRigidity.…` → `_root_.HDec.PeriodGlue.MulRigidity.…` (HDec wrapper).
+  Second run: TailJ 31 s, 0 errors.
+- TailK (d95) first run: 1 error (`AddCommMonoid (A.T ℓ)` in tatePairingZl_of_leaves4: the original sits under
+  `open … MonObj`); fixed with `open … MonObj in`. TailK 13 s, 0 errors; all 17 `#print axioms` lines
+  `[propext, Classical.choice, Quot.sound]`, including `HDec.HSyn.sixContactMin_of_open4`.
+- Lean accepted by defeq, without any proof work: the kernel's `LeafQM.AV.Pin.autOInnerFinite` for this file's
+  `PeriodGlue.AutOInnerFinite`; `TSkolemKW.leafSkolemNoether` for `GlueDescent.LeafSkolemNoether`;
+  `ZariskiConn.properSmoothGenConnected_of_zariskiConnectedness` for `FrobPiecesNeron.ProperSmoothGenConnected`;
+  `NF.abVarSpreadsOut_of_ega … (toAbVarK4 B)` for `FrobPiecesNeron.AbVarSpreadsOut`; T5/T26 transported between
+  the chain's `PkgI2`/`PkgI3` copies and the kernel's (`torsionStructureK_of4`, `tateModuleFree_of_t5'`).
+- Counts: 26 + 19 + 20 + 1 = 66 (leaf-fold3: 26 + 20 + 16 + 6 = 68).
