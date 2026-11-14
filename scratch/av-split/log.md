@@ -13,3 +13,9 @@ Base cba8157f (wip/av-split). Build artifacts: copied .lake/build from ~/dzq-wt/
 - compiles; `AvSplit.uniformizationExists_of_mumford : MumfordUniformizationC → ZInQ.LeafPush2.UniformizationExists`, axioms standard. VERIFIED.
 - `AvSplit.mumford_of_uniformizationExists` (converse; the leaf is the row at K = ℂ, σ = id). VERIFIED.
 - Proof: A_ℂ = A.baseChange ℂ via σ.toAlgebra; dim (AbVar.dim_baseChange); points via AbVarBC.bcPt; (bcPt p).left = p.left ≫ pullback.fst; cEvalAt via Scheme.Hom.comp_appLE.
+
+## T4.lean (row H-24)
+- `AvSplit.T4.henselian_of_isAlgClosed` (valuation subring of an alg. closed field is a HenselianLocalRing): compiled, standard axioms. VERIFIED.
+- `AvSplit.T4.reductionTorsionBijective_of : MulEtaleAbelianScheme → UnramifiedSectionsEq → HenselEtaleLift → PkgI2.ReductionTorsionBijective.{0}`: compiled, standard axioms. VERIFIED.
+  Proved pieces: valuative criterion lifts (iota_comp_injective/surjective, Mathlib), G : A(K̄) ≃* 𝒜(K̄/O) via mapPullbackAdj (G_injective/surjective, multiplicative), isRed_iff, rho_inj (from leaves a, b), rho_surj (from leaf a + GLUE HenselEtaleLift + henselian).
+- Open GLUE: `HenselEtaleLift` (scheme form of Hensel); plan: prove from leaf `StacksHenselEtaleSection` (Stacks 04GG ring form).

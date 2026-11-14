@@ -160,6 +160,287 @@ theorem henselian_of_isAlgClosed {Ω : Type} [Field Ω] [IsAlgClosed Ω] (w : Va
   rw [← neg_sub]
   exact neg_mem this
 
+/-! ## 3. The setting: points of `𝒜` over `w`, `κ(w)` and `K̄` -/
+
+section Setting
+
+variable {K : Type} [Field K] {O : ValuationSubring K} {w : ValuationSubring (AlgebraicClosure K)}
+  (hw : w.comap (algebraMap K (AlgebraicClosure K)) = O)
+
+/-- `Spec K → Spec O`. -/
+abbrev fK (K : Type) [Field K] (O : ValuationSubring K) : Spec (.of K) ⟶ Spec (.of O) :=
+  Spec.map (CommRingCat.ofHom (algebraMap O K))
+
+/-- `Spec w` over `Spec O`. -/
+abbrev Pw : Over (Spec (.of O)) := Over.mk (Spec.map (CommRingCat.ofHom (toW O w hw)))
+
+/-- `Spec κ(w)` over `Spec O` (the source of the points `y` in `IsReductionOf`). -/
+abbrev Pk : Over (Spec (.of O)) :=
+  Over.mk (Spec.map (CommRingCat.ofHom ((IsLocalRing.residue w).comp (toW O w hw))))
+
+/-- `Spec K̄` over `Spec O`, as the image of `Spec K̄ / K` under `Over.map`. -/
+abbrev PKb (K : Type) [Field K] (O : ValuationSubring K) : Over (Spec (.of O)) :=
+  (Over.map (fK K O)).obj (specOver K (AlgebraicClosure K))
+
+/-- `Spec K̄ → Spec w` over `O`. -/
+def iota : PKb K O ⟶ Pw hw :=
+  Over.homMk (Spec.map (CommRingCat.ofHom w.subtype)) (by
+    show Spec.map (CommRingCat.ofHom w.subtype) ≫ Spec.map (CommRingCat.ofHom (toW O w hw)) =
+      Spec.map (CommRingCat.ofHom (algebraMap K (AlgebraicClosure K))) ≫
+        Spec.map (CommRingCat.ofHom (algebraMap O K))
+    rw [← Spec.map_comp, ← Spec.map_comp]
+    rfl)
+
+/-- `Spec κ(w) → Spec w` over `O`. -/
+def rho : Pk hw ⟶ Pw hw :=
+  Over.homMk (Spec.map (CommRingCat.ofHom (IsLocalRing.residue w))) (by
+    simp only [Over.mk_hom]
+    rw [← Spec.map_comp, ← CommRingCat.ofHom_comp])
+
+theorem iota_left : (iota hw).left = Spec.map (CommRingCat.ofHom w.subtype) := rfl
+theorem rho_left : (rho hw).left = Spec.map (CommRingCat.ofHom (IsLocalRing.residue w)) := rfl
+
+end Setting
+
+section RedMul
+
+open scoped CategoryTheory.Obj
+
+/-- The adjunction bijection `Hom(T, g^* M) ≃ Hom(g_! T, M)` is multiplicative (task
+alg-frob-red's `pb_symm_mul`, copied). -/
+theorem pb_symm_mul {S S' : Scheme} (g : S' ⟶ S) (M : Over S) [MonObj M] (T : Over S')
+    (u w : T ⟶ (Over.pullback g).obj M) :
+    ((Over.mapPullbackAdj g).homEquiv T M).symm (u * w) =
+      ((Over.mapPullbackAdj g).homEquiv T M).symm u *
+        ((Over.mapPullbackAdj g).homEquiv T M).symm w := by
+  obtain ⟨p, rfl⟩ := ((Over.mapPullbackAdj g).homEquiv T M).surjective u
+  obtain ⟨q, rfl⟩ := ((Over.mapPullbackAdj g).homEquiv T M).surjective w
+  have hm : (Over.mapPullbackAdj g).homEquiv T M (p * q) =
+      (Over.mapPullbackAdj g).homEquiv T M p * (Over.mapPullbackAdj g).homEquiv T M q := by
+    rw [Adjunction.homEquiv_unit, Adjunction.homEquiv_unit, Adjunction.homEquiv_unit,
+      Functor.map_mul, MonObj.comp_mul]
+  rw [← hm, Equiv.symm_apply_apply, Equiv.symm_apply_apply, Equiv.symm_apply_apply]
+
+end RedMul
+
+/-- `pb_symm_mul` for the group law of `(Over.pullback g).mapGrp.obj G`. -/
+theorem pb_symm_mul' {S S' : Scheme} (g : S' ⟶ S) (G : Grp (Over S)) (T : Over S')
+    (u w : T ⟶ ((Over.pullback g).mapGrp.obj G).X) :
+    ((Over.mapPullbackAdj g).homEquiv T G.X).symm (u * w) =
+      ((Over.mapPullbackAdj g).homEquiv T G.X).symm u *
+        ((Over.mapPullbackAdj g).homEquiv T G.X).symm w :=
+  pb_symm_mul g G.X T u w
+
+section Generic
+
+variable {K : Type} [Field K] {O : ValuationSubring K} {A : Grp (Over (Spec (.of K)))}
+  (𝒜 : Grp (Over (Spec (.of O))))
+  (e : (Over.pullback (fK K O)).mapGrp.obj 𝒜 ≅ A)
+
+/-- `x ∈ A(K̄)` as a `K̄`-point of `𝒜` over `O` (through `e` and the adjunction). -/
+def G : Pts A (AlgebraicClosure K) →* (PKb K O ⟶ 𝒜.X) :=
+  MonoidHom.mk' (fun x => ((Over.mapPullbackAdj (fK K O)).homEquiv _ 𝒜.X).symm
+      (x ≫ e.inv.hom.hom)) (fun x y => by
+    let u : Pts A (AlgebraicClosure K) →
+        (specOver K (AlgebraicClosure K) ⟶ ((Over.pullback (fK K O)).mapGrp.obj 𝒜).X) :=
+      fun x => x ≫ e.inv.hom.hom
+    have hmul : u (x * y) = u x * u y := MonObj.mul_comp _ _ _
+    show ((Over.mapPullbackAdj (fK K O)).homEquiv _ 𝒜.X).symm (u (x * y)) = _
+    rw [hmul]
+    exact pb_symm_mul' _ 𝒜 _ _ _)
+
+theorem G_left (x : Pts A (AlgebraicClosure K)) :
+    (G 𝒜 e x).left = (x ≫ e.inv.hom.hom).left ≫ pullback.fst 𝒜.X.hom (fK K O) := rfl
+
+theorem inv_hom_hom : e.inv.hom.hom ≫ e.hom.hom.hom = 𝟙 _ :=
+  congrArg (fun φ => φ.hom.hom) e.inv_hom_id
+
+theorem hom_inv_hom : e.hom.hom.hom ≫ e.inv.hom.hom = 𝟙 _ :=
+  congrArg (fun φ => φ.hom.hom) e.hom_inv_id
+
+theorem G_injective : Function.Injective (G 𝒜 e) := by
+  intro x y h
+  have h1 : x ≫ e.inv.hom.hom = y ≫ e.inv.hom.hom :=
+    ((Over.mapPullbackAdj (fK K O)).homEquiv _ 𝒜.X).symm.injective h
+  have h2 := congrArg (· ≫ e.hom.hom.hom) h1
+  simp only [Category.assoc, inv_hom_hom, Category.comp_id] at h2
+  exact h2
+
+theorem G_surjective : Function.Surjective (G 𝒜 e) := by
+  intro t
+  refine ⟨(Over.mapPullbackAdj (fK K O)).homEquiv _ 𝒜.X t ≫ e.hom.hom.hom, ?_⟩
+  show ((Over.mapPullbackAdj (fK K O)).homEquiv _ 𝒜.X).symm
+    (((Over.mapPullbackAdj (fK K O)).homEquiv _ 𝒜.X t ≫ e.hom.hom.hom) ≫ e.inv.hom.hom) = t
+  erw [Category.assoc, hom_inv_hom, Category.comp_id, Equiv.symm_apply_apply]
+
+end Generic
+
+/-! ## 4. The valuative criterion: `𝒜(w) ≅ 𝒜(K̄)` (Mathlib) -/
+
+section Valuative
+
+variable {K : Type} [Field K] {O : ValuationSubring K} {w : ValuationSubring (AlgebraicClosure K)}
+  (hw : w.comap (algebraMap K (AlgebraicClosure K)) = O) (𝒜 : Grp (Over (Spec (.of O))))
+
+theorem PKb_hom_eq : (PKb K O).hom =
+    Spec.map (CommRingCat.ofHom (algebraMap w (AlgebraicClosure K))) ≫
+      Spec.map (CommRingCat.ofHom (toW O w hw)) := by
+  show Spec.map (CommRingCat.ofHom (algebraMap K (AlgebraicClosure K))) ≫
+      Spec.map (CommRingCat.ofHom (algebraMap O K)) = _
+  rw [← Spec.map_comp, ← Spec.map_comp]
+  rfl
+
+/-- The valuative square of a `K̄`-point of `𝒜` over `Spec w → Spec O`. -/
+def vsq (t : PKb K O ⟶ 𝒜.X) : ValuativeCommSq 𝒜.X.hom where
+  R := w
+  K := AlgebraicClosure K
+  i₁ := t.left
+  i₂ := Spec.map (CommRingCat.ofHom (toW O w hw))
+  commSq := ⟨(Over.w t).trans (PKb_hom_eq hw)⟩
+
+/-- **Uniqueness of lifts** (Mathlib, valuative criterion of separatedness). -/
+theorem iota_comp_injective [h : IsAbelianScheme 𝒜] :
+    Function.Injective (fun x' : Pw hw ⟶ 𝒜.X => iota hw ≫ x') := by
+  intro x₁ x₂ hx
+  haveI := h.proper
+  have hU := IsSeparated.valuativeCriterion 𝒜.X.hom (vsq hw 𝒜 (iota hw ≫ x₁))
+  have e1 : (⟨x₁.left, rfl, Over.w x₁⟩ : (vsq hw 𝒜 (iota hw ≫ x₁)).commSq.LiftStruct) =
+      ⟨x₂.left, (congrArg Over.Hom.left hx).symm, Over.w x₂⟩ := Subsingleton.elim _ _
+  exact Over.OverMorphism.ext (congrArg CommSq.LiftStruct.l e1)
+
+/-- **Existence of lifts** (Mathlib, valuative criterion of universal closedness). -/
+theorem iota_comp_surjective [h : IsAbelianScheme 𝒜] (t : PKb K O ⟶ 𝒜.X) :
+    ∃ x' : Pw hw ⟶ 𝒜.X, iota hw ≫ x' = t := by
+  haveI := h.proper
+  have h1 : (ValuativeCriterion.Existence ⊓ @QuasiCompact) 𝒜.X.hom := by
+    rw [← UniversallyClosed.eq_valuativeCriterion]; infer_instance
+  obtain ⟨⟨l, hl1, hl2⟩⟩ := h1.1 (vsq hw 𝒜 t)
+  exact ⟨Over.homMk l hl2, Over.OverMorphism.ext hl1⟩
+
+/-- `IsReductionOf` in terms of `iota`, `rho` and `G`. -/
+theorem isRed_iff {A : Grp (Over (Spec (.of K)))}
+    (e : (Over.pullback (fK K O)).mapGrp.obj 𝒜 ≅ A) (x : Pts A (AlgebraicClosure K))
+    (y : Pk hw ⟶ 𝒜.X) :
+    IsReductionOf 𝒜 e w hw x y ↔ ∃ x' : Pw hw ⟶ 𝒜.X, iota hw ≫ x' = G 𝒜 e x ∧ rho hw ≫ x' = y := by
+  constructor
+  · rintro ⟨x', h1, h2⟩
+    exact ⟨x', Over.OverMorphism.ext h1.symm, Over.OverMorphism.ext h2.symm⟩
+  · rintro ⟨x', h1, h2⟩
+    exact ⟨x', (congrArg Over.Hom.left h1).symm, (congrArg Over.Hom.left h2).symm⟩
+
+end Valuative
+
+/-! ## 5. Injectivity and surjectivity of reduction on `m`-torsion of `𝒜(w)` -/
+
+/-- `Spec` of a map of fields is an epimorphism (as task g9-abvarbc's `epi_spec_map_field`). -/
+theorem epi_spec_field {Ω Ω₂ : Type} [Field Ω] [Field Ω₂] (κ : Ω →+* Ω₂) :
+    Epi (Spec.map (CommRingCat.ofHom κ)) := by
+  haveI : Surjective (Spec.map (CommRingCat.ofHom κ)) := by
+    constructor
+    intro y
+    refine ⟨IsLocalRing.closedPoint Ω₂, Subsingleton.elim _ _⟩
+  haveI : Flat (Spec.map (CommRingCat.ofHom κ)) := by
+    rw [HasRingHomProperty.Spec_iff (P := @Flat)]
+    algebraize [κ]
+    change Module.Flat Ω Ω₂
+    infer_instance
+  infer_instance
+
+section Torsion
+
+variable {K : Type} [Field K] {O : ValuationSubring K} {w : ValuationSubring (AlgebraicClosure K)}
+  (hw : w.comap (algebraMap K (AlgebraicClosure K)) = O) (𝒜 : Grp (Over (Spec (.of O))))
+
+theorem comp_mulN {T : Over (Spec (.of O))} (c : T ⟶ 𝒜.X) (m : ℕ) :
+    c ≫ (𝟙 𝒜.X ^ m : 𝒜.X ⟶ 𝒜.X) = c ^ m := by
+  rw [MonObj.comp_pow, Category.comp_id]
+
+/-- **Reduction is injective on `m`-torsion of `𝒜(w)`** (from the leaves (a), (b)). -/
+theorem rho_inj (hU : UnramifiedSectionsEq) (hE : MulEtaleAbelianScheme) [h : IsAbelianScheme 𝒜]
+    (m : ℕ) (hm : IsUnit (m : O)) (a b : Pw hw ⟶ 𝒜.X) (ha : a ^ m = 1) (hb : b ^ m = 1)
+    (hab : rho hw ≫ a = rho hw ≫ b) : a = b := by
+  haveI := h.proper
+  haveI : Etale ((𝟙 𝒜.X ^ m : 𝒜.X ⟶ 𝒜.X).left) := hE O 𝒜 m hm
+  haveI : IsSeparated ((𝟙 𝒜.X ^ m : 𝒜.X ⟶ 𝒜.X).left ≫ 𝒜.X.hom) := by
+    rw [Over.w (𝟙 𝒜.X ^ m : 𝒜.X ⟶ 𝒜.X)]; infer_instance
+  haveI : IsSeparated ((𝟙 𝒜.X ^ m : 𝒜.X ⟶ 𝒜.X).left) :=
+    IsSeparated.of_comp _ 𝒜.X.hom
+  have hcomp : a.left ≫ (𝟙 𝒜.X ^ m : 𝒜.X ⟶ 𝒜.X).left =
+      b.left ≫ (𝟙 𝒜.X ^ m : 𝒜.X ⟶ 𝒜.X).left := by
+    rw [← Over.comp_left, ← Over.comp_left, comp_mulN, comp_mulN, ha, hb]
+  let p : Spec (.of (IsLocalRing.ResidueField w)) ⟶ Spec (.of w) :=
+    Spec.map (CommRingCat.ofHom (IsLocalRing.residue w))
+  have hp : p ≫ a.left = p ≫ b.left := congrArg Over.Hom.left hab
+  have hfac := Scheme.descResidueField_stalkClosedPointTo_fromSpecResidueField
+    (IsLocalRing.ResidueField w) (Spec (.of w)) p
+  haveI : Epi (Spec.map ((Spec (.of w)).descResidueField (Scheme.stalkClosedPointTo p))) := by
+    have := epi_spec_field ((Spec (.of w)).descResidueField (Scheme.stalkClosedPointTo p)).hom
+    rwa [CommRingCat.ofHom_hom] at this
+  have hx : (Spec (.of w)).fromSpecResidueField (p (IsLocalRing.closedPoint _)) ≫ a.left =
+      (Spec (.of w)).fromSpecResidueField (p (IsLocalRing.closedPoint _)) ≫ b.left := by
+    rw [← cancel_epi (Spec.map ((Spec (.of w)).descResidueField (Scheme.stalkClosedPointTo p))),
+      ← Category.assoc, hfac, ← Category.assoc, hfac]
+    exact hp
+  exact Over.OverMorphism.ext (hU (Spec (.of w)) 𝒜.X.left 𝒜.X.left _ a.left b.left
+    inferInstance hcomp _ hx)
+
+/-- **Reduction is onto the `m`-torsion of `𝒜(κ(w))`** (from the leaf (a), the GLUE
+`HenselEtaleLift` and `henselian_of_isAlgClosed`). -/
+theorem rho_surj (hH : HenselEtaleLift) (hE : MulEtaleAbelianScheme) [h : IsAbelianScheme 𝒜]
+    (m : ℕ) (hm : IsUnit (m : O)) (y : Pk hw ⟶ 𝒜.X) (hy : y ^ m = 1) :
+    ∃ a : Pw hw ⟶ 𝒜.X, a ^ m = 1 ∧ rho hw ≫ a = y := by
+  haveI := henselian_of_isAlgClosed w
+  haveI : Etale ((𝟙 𝒜.X ^ m : 𝒜.X ⟶ 𝒜.X).left) := hE O 𝒜 m hm
+  have hc : y.left ≫ (𝟙 𝒜.X ^ m : 𝒜.X ⟶ 𝒜.X).left =
+      Spec.map (CommRingCat.ofHom (IsLocalRing.residue w)) ≫ (1 : Pw hw ⟶ 𝒜.X).left := by
+    rw [← Over.comp_left, comp_mulN, hy]
+    exact (congrArg Over.Hom.left (MonObj.comp_one (rho hw))).symm
+  obtain ⟨a, ha1, ha2⟩ := hH w 𝒜.X.left 𝒜.X.left _ (1 : Pw hw ⟶ 𝒜.X).left y.left hc
+  have hw' : a ≫ 𝒜.X.hom = (Pw hw).hom := by
+    rw [← Over.w (𝟙 𝒜.X ^ m : 𝒜.X ⟶ 𝒜.X), ← Category.assoc, ha1]
+    exact Over.w (1 : Pw hw ⟶ 𝒜.X)
+  refine ⟨Over.homMk a hw', ?_, Over.OverMorphism.ext ha2⟩
+  rw [← comp_mulN]
+  exact Over.OverMorphism.ext ha1
+
+end Torsion
+
+/-! ## 6. The row -/
+
+/-- **Row H-24 (`PkgI2.ReductionTorsionBijective`, at universe `0`) from the leaves
+`MulEtaleAbelianScheme`, `UnramifiedSectionsEq` and the GLUE `HenselEtaleLift` (proved).** -/
+theorem reductionTorsionBijective_of (hE : MulEtaleAbelianScheme) (hU : UnramifiedSectionsEq)
+    (hH : HenselEtaleLift) : PkgI2.ReductionTorsionBijective.{0} := by
+  intro K _ O _ w hw A _ 𝒜 _ e m _ hmO
+  refine ⟨fun x hx => ?_, fun y hy => ?_⟩
+  · have hx' : x ^ m = 1 := hx
+    obtain ⟨x', hx'1⟩ := iota_comp_surjective hw 𝒜 (G 𝒜 e x)
+    have hx'm : x' ^ m = 1 := by
+      apply iota_comp_injective hw 𝒜
+      show iota hw ≫ x' ^ m = iota hw ≫ 1
+      rw [MonObj.comp_pow, hx'1, MonObj.comp_one, ← map_pow, hx', map_one]
+    refine ⟨rho hw ≫ x', ⟨?_, (isRed_iff hw 𝒜 e x _).2 ⟨x', hx'1, rfl⟩⟩, ?_⟩
+    · rw [← MonObj.comp_pow, hx'm, MonObj.comp_one]
+    · rintro y' ⟨-, hy'⟩
+      obtain ⟨x'', h1, h2⟩ := (isRed_iff hw 𝒜 e x y').1 hy'
+      have : x'' = x' := iota_comp_injective hw 𝒜 (h1.trans hx'1.symm)
+      rw [← h2, this]
+  · obtain ⟨a, ham, hay⟩ := rho_surj hw 𝒜 hH hE m hmO y hy
+    obtain ⟨x, hx⟩ := G_surjective 𝒜 e (iota hw ≫ a)
+    have hxm : x ^ m = 1 := G_injective 𝒜 e (by
+      rw [map_pow, hx, ← MonObj.comp_pow, ham, MonObj.comp_one, map_one])
+    refine ⟨x, ⟨hxm, (isRed_iff hw 𝒜 e x y).2 ⟨a, hx.symm, hay⟩⟩, ?_⟩
+    rintro x2 ⟨hx2, hred⟩
+    have hx2' : x2 ^ m = 1 := hx2
+    obtain ⟨b, hb1, hb2⟩ := (isRed_iff hw 𝒜 e x2 y).1 hred
+    have hbm : b ^ m = 1 := iota_comp_injective hw 𝒜 (by
+      show iota hw ≫ b ^ m = iota hw ≫ 1
+      rw [MonObj.comp_pow, hb1, MonObj.comp_one, ← map_pow, hx2', map_one])
+    have hba : b = a := rho_inj hw 𝒜 hU hE m hmO b a hbm ham (hb2.trans hay.symm)
+    apply G_injective 𝒜 e
+    rw [← hb1, hba, hx]
+
 end AvSplit.T4
 
 #print axioms AvSplit.T4.henselian_of_isAlgClosed
+#print axioms AvSplit.T4.reductionTorsionBijective_of
