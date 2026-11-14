@@ -1,0 +1,582 @@
+scratch/tyz-321/L321.lean:665:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/tyz-321/L321.lean:674:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/tyz-321/L321.lean:785:2: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/tyz-321/L321.lean:786:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/tyz-321/L321.lean:787:2: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/tyz-321/L321.lean:832:8: warning: `if_pos` has been deprecated: Use `ite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+scratch/tyz-321/L321.lean:954:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/tyz-321/L321.lean:995:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/tyz-321/L321.lean:1121:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/tyz-321/L321.lean:1181:12: warning: `dif_neg` has been deprecated: Use `dite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  d̵i̵f̵_̵n̵e̵g̵d̲i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+scratch/tyz-321/L321.lean:1189:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/tyz-321/L321.lean:1262:10: warning: `if_pos` has been deprecated: Use `ite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+scratch/tyz-321/L321.lean:1267:10: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+scratch/tyz-321/L321.lean:1322:2: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/tyz-321/L321.lean:1343:2: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/tyz-321/L321.lean:1344:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/tyz-321/L321.lean:1345:2: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/tyz-321/L321.lean:1363:8: warning: `if_pos` has been deprecated: Use `ite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+scratch/tyz-321/L321.lean:1489:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/tyz-321/L321.lean:1502:2: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/tyz-321/L321.lean:1503:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/tyz-321/L321.lean:1504:2: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/tyz-321/L321.lean:1620:19: warning: `if_true` has been deprecated: Use `ite_true` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵t̵r̵u̵e̵i̲t̲e̲_̲t̲r̲u̲e̲
+scratch/tyz-321/L321.lean:1622:21: warning: `if_false` has been deprecated: Use `ite_false` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵f̵a̵l̵s̵e̵i̲t̲e̲_̲f̲a̲l̲s̲e̲
+scratch/tyz-321/L321.lean:1626:19: warning: `if_false` has been deprecated: Use `ite_false` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵f̵a̵l̵s̵e̵i̲t̲e̲_̲f̲a̲l̲s̲e̲
+scratch/tyz-321/L321.lean:1628:21: warning: `if_false` has been deprecated: Use `ite_false` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵f̵a̵l̵s̵e̵i̲t̲e̲_̲f̲a̲l̲s̲e̲
+scratch/tyz-321/L321.lean:1632:19: warning: `if_true` has been deprecated: Use `ite_true` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵t̵r̵u̵e̵i̲t̲e̲_̲t̲r̲u̲e̲
+scratch/tyz-321/L321.lean:1634:21: warning: `if_false` has been deprecated: Use `ite_false` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵f̵a̵l̵s̵e̵i̲t̲e̲_̲f̲a̲l̲s̲e̲
+scratch/tyz-321/L321.lean:1638:19: warning: `if_false` has been deprecated: Use `ite_false` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵f̵a̵l̵s̵e̵i̲t̲e̲_̲f̲a̲l̲s̲e̲
+scratch/tyz-321/L321.lean:1640:21: warning: `if_false` has been deprecated: Use `ite_false` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵f̵a̵l̵s̵e̵i̲t̲e̲_̲f̲a̲l̲s̲e̲
+scratch/tyz-321/L321.lean:1680:31: warning: `if_pos` has been deprecated: Use `ite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+scratch/tyz-321/L321.lean:1722:6: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/tyz-321/L321.lean:1733:10: warning: `if_pos` has been deprecated: Use `ite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+scratch/tyz-321/L321.lean:1733:30: warning: `if_pos` has been deprecated: Use `ite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+scratch/tyz-321/L321.lean:1735:10: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+scratch/tyz-321/L321.lean:1735:43: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+scratch/tyz-321/L321.lean:1676:18: warning: This simp argument is unused:
+  hlt
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [h2, h8, NeZero.ne n]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+scratch/tyz-321/L321.lean:1709:26: warning: This simp argument is unused:
+  r
+
+Hint: Omit it from the simp argument list.
+  [apply] simp
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+scratch/tyz-321/L321.lean:1762:68: warning: `Subgroup.normal_of_comm` has been deprecated: Use `Subgroup.normal_of_isMulCommutative` instead
+
+Hint: Replace the deprecated name:
+  S̵u̵b̵g̵r̵o̵u̵p̵.̵n̵o̵r̵m̵a̵l̵_̵o̵f̵_̵c̵o̵m̵m̵S̲u̲b̲g̲r̲o̲u̲p̲.̲n̲o̲r̲m̲a̲l̲_̲o̲f̲_̲i̲s̲M̲u̲l̲C̲o̲m̲m̲u̲t̲a̲t̲i̲v̲e̲
+scratch/tyz-321/L321.lean:1808:2: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/tyz-321/L321.lean:1809:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/tyz-321/L321.lean:1810:2: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/tyz-321/L321.lean:1893:11: warning: `if_pos` has been deprecated: Use `ite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+scratch/tyz-321/L321.lean:1911:11: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+scratch/tyz-321/L321.lean:1984:30: warning: This simp argument is unused:
+  RingOfIntegers.coe_eq_algebraMap
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [u, θ, map_sub, algebraMap_thetaO, theta_eq, map_natCast]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+scratch/tyz-321/L321.lean:1987:31: warning: This simp argument is unused:
+  RingOfIntegers.coe_eq_algebraMap
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [ub, θ, map_sub, algebraMap_thetaO, theta_eq, map_natCast, map_one]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+scratch/tyz-321/L321.lean:2197:0: warning: automatically included section variable(s) unused in theorem `ZInQ.Contrib.TYZGenus.CMBridge.kappa_oneN32`:
+  [NeZero n]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [NeZero n] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+scratch/tyz-321/L321.lean:2200:0: warning: automatically included section variable(s) unused in theorem `ZInQ.Contrib.TYZGenus.CMBridge.lat_eq_map'`:
+  [NeZero n]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [NeZero n] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+scratch/tyz-321/L321.lean:2329:0: warning: automatically included section variable(s) unused in theorem `ZInQ.Contrib.TYZGenus.CMBridge.tyzForm7_tau`:
+  [NeZero n]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [NeZero n] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+scratch/tyz-321/L321.lean:2334:6: warning: Unused tactic linter: `ring` does nothing.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+scratch/tyz-321/L321.lean:2336:0: warning: automatically included section variable(s) unused in theorem `ZInQ.Contrib.TYZGenus.CMBridge.tyzForm7_conj_tau`:
+  [NeZero n]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [NeZero n] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+scratch/tyz-321/L321.lean:2341:6: warning: Unused tactic linter: `ring` does nothing.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+scratch/tyz-321/L321.lean:2343:0: warning: automatically included section variable(s) unused in theorem `ZInQ.Contrib.TYZGenus.CMBridge.tyzForm7'_tau`:
+  [NeZero n]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [NeZero n] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+scratch/tyz-321/L321.lean:2349:0: warning: automatically included section variable(s) unused in theorem `ZInQ.Contrib.TYZGenus.CMBridge.tyzForm7'_conj_tau`:
+  [NeZero n]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [NeZero n] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+scratch/tyz-321/L321.lean:2357:0: warning: automatically included section variable(s) unused in theorem `ZInQ.Contrib.TYZGenus.CMBridge.ubK_mul_tK`:
+  [NeZero n]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [NeZero n] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+scratch/tyz-321/L321.lean:2363:0: warning: automatically included section variable(s) unused in theorem `ZInQ.Contrib.TYZGenus.CMBridge.neg_uK_mul_tbK`:
+  [NeZero n]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [NeZero n] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+scratch/tyz-321/L321.lean:2415:25: warning: Unused tactic linter: `<;>` should be replaced with `;` or be removed.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+scratch/tyz-321/L321.lean:2415:25: warning: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+scratch/tyz-321/L321.lean:2430:43: warning: This simp argument is unused:
+  QuadraticAlgebra.re_one
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [ubK, hs, ht, zsmul_eq_mul, QuadraticAlgebra.im_one, QuadraticAlgebra.re_ofNat,
+    QuadraticAlgebra.im_ofNat, QuadraticAlgebra.re_intCast, QuadraticAlgebra.im_intCast]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+scratch/tyz-321/L321.lean:2430:68: warning: This simp argument is unused:
+  QuadraticAlgebra.im_one
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [ubK, hs, ht, zsmul_eq_mul, QuadraticAlgebra.re_one, QuadraticAlgebra.re_ofNat,
+    QuadraticAlgebra.im_ofNat, QuadraticAlgebra.re_intCast, QuadraticAlgebra.im_intCast]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+scratch/tyz-321/L321.lean:2431:4: warning: This simp argument is unused:
+  QuadraticAlgebra.re_ofNat
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [ubK, hs, ht, zsmul_eq_mul, QuadraticAlgebra.re_one, QuadraticAlgebra.im_one, QuadraticAlgebra.im_ofNat,
+    QuadraticAlgebra.re_intCast, QuadraticAlgebra.im_intCast]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+scratch/tyz-321/L321.lean:2431:31: warning: This simp argument is unused:
+  QuadraticAlgebra.im_ofNat
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [ubK, hs, ht, zsmul_eq_mul, QuadraticAlgebra.re_one, QuadraticAlgebra.im_one, QuadraticAlgebra.re_ofNat,
+    QuadraticAlgebra.re_intCast, QuadraticAlgebra.im_intCast]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+scratch/tyz-321/L321.lean:2444:4: warning: This simp argument is unused:
+  QuadraticAlgebra.re_ofNat
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [uK, hs, ht, zsmul_eq_mul, QuadraticAlgebra.re_one, QuadraticAlgebra.im_one, QuadraticAlgebra.im_ofNat,
+    QuadraticAlgebra.re_intCast, QuadraticAlgebra.im_intCast]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+scratch/tyz-321/L321.lean:2444:31: warning: This simp argument is unused:
+  QuadraticAlgebra.im_ofNat
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [uK, hs, ht, zsmul_eq_mul, QuadraticAlgebra.re_one, QuadraticAlgebra.im_one, QuadraticAlgebra.re_ofNat,
+    QuadraticAlgebra.re_intCast, QuadraticAlgebra.im_intCast]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+scratch/tyz-321/L321.lean:2455:43: warning: This simp argument is unused:
+  QuadraticAlgebra.re_one
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [ubK, hs, ht, zsmul_eq_mul, QuadraticAlgebra.im_one, QuadraticAlgebra.re_ofNat,
+    QuadraticAlgebra.im_ofNat, QuadraticAlgebra.re_intCast, QuadraticAlgebra.im_intCast]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+scratch/tyz-321/L321.lean:2455:68: warning: This simp argument is unused:
+  QuadraticAlgebra.im_one
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [ubK, hs, ht, zsmul_eq_mul, QuadraticAlgebra.re_one, QuadraticAlgebra.re_ofNat,
+    QuadraticAlgebra.im_ofNat, QuadraticAlgebra.re_intCast, QuadraticAlgebra.im_intCast]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+scratch/tyz-321/L321.lean:2487:6: warning: Unused tactic linter: `linear_combination (-t / 128 : ℚ) * h` does nothing.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+scratch/tyz-321/L321.lean:2488:6: warning: Unused tactic linter: `linear_combination (t / 256 : ℚ) * h` does nothing.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+scratch/tyz-321/L321.lean:2489:6: warning: Unused tactic linter: `linear_combination (-t / 256 : ℚ) * h` does nothing.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+scratch/tyz-321/L321.lean:2490:6: warning: Unused tactic linter: `linear_combination (t / 64 : ℚ) * h` does nothing.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+scratch/tyz-321/L321.lean:2491:6: warning: Unused tactic linter: `linear_combination (-t / 64 : ℚ) * h` does nothing.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+scratch/tyz-321/L321.lean:2487:6: warning: this tactic is never executed
+
+Note: This linter can be disabled with `set_option linter.unreachableTactic false`
+scratch/tyz-321/L321.lean:2488:6: warning: this tactic is never executed
+
+Note: This linter can be disabled with `set_option linter.unreachableTactic false`
+scratch/tyz-321/L321.lean:2489:6: warning: this tactic is never executed
+
+Note: This linter can be disabled with `set_option linter.unreachableTactic false`
+scratch/tyz-321/L321.lean:2490:6: warning: this tactic is never executed
+
+Note: This linter can be disabled with `set_option linter.unreachableTactic false`
+scratch/tyz-321/L321.lean:2491:6: warning: this tactic is never executed
+
+Note: This linter can be disabled with `set_option linter.unreachableTactic false`
+scratch/tyz-321/L321.lean:2512:42: warning: This simp argument is unused:
+  QuadraticAlgebra.re_one
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [uK, hs, ht, zsmul_eq_mul, QuadraticAlgebra.im_one, QuadraticAlgebra.re_ofNat, QuadraticAlgebra.im_ofNat,
+    QuadraticAlgebra.re_intCast, QuadraticAlgebra.im_intCast]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+scratch/tyz-321/L321.lean:2512:67: warning: This simp argument is unused:
+  QuadraticAlgebra.im_one
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [uK, hs, ht, zsmul_eq_mul, QuadraticAlgebra.re_one, QuadraticAlgebra.re_ofNat, QuadraticAlgebra.im_ofNat,
+    QuadraticAlgebra.re_intCast, QuadraticAlgebra.im_intCast]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+scratch/tyz-321/L321.lean:2513:4: warning: This simp argument is unused:
+  QuadraticAlgebra.re_ofNat
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [uK, hs, ht, zsmul_eq_mul, QuadraticAlgebra.re_one, QuadraticAlgebra.im_one, QuadraticAlgebra.im_ofNat,
+    QuadraticAlgebra.re_intCast, QuadraticAlgebra.im_intCast]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+scratch/tyz-321/L321.lean:2513:31: warning: This simp argument is unused:
+  QuadraticAlgebra.im_ofNat
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [uK, hs, ht, zsmul_eq_mul, QuadraticAlgebra.re_one, QuadraticAlgebra.im_one, QuadraticAlgebra.re_ofNat,
+    QuadraticAlgebra.re_intCast, QuadraticAlgebra.im_intCast]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+scratch/tyz-321/L321.lean:2518:6: warning: Unused tactic linter: `linear_combination (-t / 128 : ℚ) * h` does nothing.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+scratch/tyz-321/L321.lean:2519:6: warning: Unused tactic linter: `linear_combination (t / 256 : ℚ) * h` does nothing.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+scratch/tyz-321/L321.lean:2520:6: warning: Unused tactic linter: `linear_combination (-t / 256 : ℚ) * h` does nothing.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+scratch/tyz-321/L321.lean:2521:6: warning: Unused tactic linter: `linear_combination (t / 64 : ℚ) * h` does nothing.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+scratch/tyz-321/L321.lean:2522:6: warning: Unused tactic linter: `linear_combination (-t / 64 : ℚ) * h` does nothing.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+scratch/tyz-321/L321.lean:2518:6: warning: this tactic is never executed
+
+Note: This linter can be disabled with `set_option linter.unreachableTactic false`
+scratch/tyz-321/L321.lean:2519:6: warning: this tactic is never executed
+
+Note: This linter can be disabled with `set_option linter.unreachableTactic false`
+scratch/tyz-321/L321.lean:2520:6: warning: this tactic is never executed
+
+Note: This linter can be disabled with `set_option linter.unreachableTactic false`
+scratch/tyz-321/L321.lean:2521:6: warning: this tactic is never executed
+
+Note: This linter can be disabled with `set_option linter.unreachableTactic false`
+scratch/tyz-321/L321.lean:2522:6: warning: this tactic is never executed
+
+Note: This linter can be disabled with `set_option linter.unreachableTactic false`
+scratch/tyz-321/L321.lean:2543:20: warning: Unused tactic linter: `<;>` should be replaced with `;` or be removed.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+scratch/tyz-321/L321.lean:2543:20: warning: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+scratch/tyz-321/L321.lean:2601:19: warning: This simp argument is unused:
+  RingOfIntegers.coe_eq_algebraMap
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [map_add, map_mul, map_intCast, alg_uO hn, alg_ubO hn, alg32]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+scratch/tyz-321/L321.lean:2647:19: warning: This simp argument is unused:
+  RingOfIntegers.coe_eq_algebraMap
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [map_add, map_mul, map_intCast, alg_uO hn, alg_ubO hn, alg32]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+scratch/tyz-321/L321.lean:2677:19: warning: This simp argument is unused:
+  RingOfIntegers.coe_eq_algebraMap
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [map_add, map_mul, map_sub, map_neg, map_intCast, alg_uO hn, alg_ubO hn, alg32]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+scratch/tyz-321/L321.lean:2728:19: warning: This simp argument is unused:
+  RingOfIntegers.coe_eq_algebraMap
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [map_add, map_mul, map_sub, map_neg, map_intCast, alg_uO hn, alg_ubO hn, alg32]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+scratch/tyz-321/L321.lean:2921:24: warning: `dif_pos` has been deprecated: Use `dite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  d̵i̵f̵_̵p̵o̵s̵d̲i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+scratch/tyz-321/L321.lean:2921:36: warning: `if_pos` has been deprecated: Use `ite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+scratch/tyz-321/L321.lean:2937:24: warning: `dif_pos` has been deprecated: Use `dite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  d̵i̵f̵_̵p̵o̵s̵d̲i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+scratch/tyz-321/L321.lean:2937:36: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+scratch/tyz-321/L321.lean:3533:8: warning: `dif_pos` has been deprecated: Use `dite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  d̵i̵f̵_̵p̵o̵s̵d̲i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+scratch/tyz-321/L321.lean:3534:8: warning: `dif_pos` has been deprecated: Use `dite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  d̵i̵f̵_̵p̵o̵s̵d̲i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+scratch/tyz-321/L321.lean:3547:8: warning: `dif_neg` has been deprecated: Use `dite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  d̵i̵f̵_̵n̵e̵g̵d̲i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+scratch/tyz-321/L321.lean:3548:8: warning: `dif_neg` has been deprecated: Use `dite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  d̵i̵f̵_̵n̵e̵g̵d̲i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+scratch/tyz-321/L321.lean:3626:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/tyz-321/L321.lean:3654:30: warning: `if_pos` has been deprecated: Use `ite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+scratch/tyz-321/L321.lean:3782:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`

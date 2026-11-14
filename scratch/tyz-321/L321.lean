@@ -3342,6 +3342,7 @@ theorem exists_acts4_of_fix {ρ : GalQ} (hρ : ρ (omegaBar d) = omegaBar d) :
   have hτω : τ (algebraMap (QNeg d) _ QuadraticAlgebra.omega) =
       algebraMap (QNeg d) _ QuadraticAlgebra.omega := by
     apply (embed d).injective
+    change embed d (τ _) = embed d _
     rw [← hγτ]
     exact hρ
   have hq : ∀ q : ℚ, τ (algebraMap (QNeg d) (SeparableClosure (QNeg d)) (algebraMap ℚ (QNeg d) q)) =
@@ -3378,27 +3379,262 @@ theorem iQ_cases (ρ : GalQ) : ρ iQ = iQ ∨ ρ iQ = -iQ := by
   have h : (ρ iQ) ^ 2 = iQ ^ 2 := by rw [← map_pow, iQ_sq, map_neg, map_one]
   exact sq_eq_sq_iff_eq_or_eq_neg.1 h
 
-theorem galPt_iPt_ptT_of_neg {ρ : GalQ} (hρ : ρ iQ = -iQ) : galPt ρ (iPt ptT) = -iPt ptT := by
-  rw [iPt_ptT_eq]
-  obtain ⟨h', e'⟩ := galPt_some ρ (x := -2) (y := -4 * iQ) (by
-    rw [← iPt_ptT_eq]; exact sorry)
-  sorry
+/-- An automorphism negating `i` anticommutes with `[i]`. -/
+theorem galPt_iPt_of_neg {ρ : GalQ} (hρ : ρ iQ = -iQ) (P : PtA) :
+    galPt ρ (iPt P) = -iPt (galPt ρ P) := by
+  rcases P with _ | ⟨x, y, h⟩
+  · rfl
+  · obtain ⟨h1, e1⟩ := galPt_some ρ (nonsingular_iPt h)
+    obtain ⟨h2, e2⟩ := galPt_some ρ h
+    rw [iPt_some, e1, e2, iPt_some, WeierstrassCurve.Affine.Point.neg_some,
+      WeierstrassCurve.Affine.Point.some.injEq]
+    refine ⟨by rw [map_neg], ?_⟩
+    rw [map_mul, hρ]
+    simp only [WeierstrassCurve.Affine.negY, curveAbar_a₁, curveAbar_a₃]
+    ring
 
 theorem galPt_tauG_one_one (ρ : GalQ) :
     ∃ j : ℤ, galPt ρ (tauG ⟨1, 1⟩) = tauG ⟨1, 1⟩ + j • tauG 2 := by
   rcases iQ_cases ρ with h | h
-  · exact ⟨0, by rw [galPt_tauG ρ h, zero_smul, add_zero]⟩
+  · exact ⟨0, by rw [galPt_tauG ρ h, zero_zsmul, add_zero]⟩
   · refine ⟨1, ?_⟩
-    rw [tauG_mk, map_add, one_smul, one_smul, galPt_ptT, galPt_iPt_ptT_of_neg h, one_smul]
     have h2 : tauG 2 = (2 : ℤ) • iPt ptT := by
-      rw [two_zsmul_iPt_ptT, ← two_zsmul_ptT, ← tauG_apply]; sorry
-    rw [h2]
+      rw [two_zsmul_iPt_ptT, ← two_zsmul_ptT, ← one_add_one_eq_two, map_add, tauG_apply, one_smul,
+        two_zsmul]
     have h4 : (4 : ℤ) • iPt ptT = 0 := by
       rw [show (4 : ℤ) = 2 + 2 by norm_num, add_zsmul, two_zsmul_iPt_ptT, pt00_add_self]
-    linear_combination (norm := abel_nf) -h4
-    sorry
+    rw [tauG_mk, map_add, one_smul, one_smul, galPt_ptT, galPt_iPt_of_neg h, galPt_ptT, one_smul,
+      h2]
+    have : -iPt ptT = iPt ptT + (2 : ℤ) • iPt ptT - (4 : ℤ) • iPt ptT := by
+      rw [show (4 : ℤ) = 1 + 2 + 1 by norm_num, add_zsmul, add_zsmul, one_zsmul]; abel
+    rw [this, h4]; abel
 
 end Tors
+
+/-! ### `TYZThm36ConjFive` from the Fricke involution and `τ ↦ τ + 1/4`
+
+`τ_{Q̄} = W T₄ W τ_Q` (`W τ = −1/(32τ)`, `T₄ τ = τ + 1/4`), `φ(Wτ) = T − φ(τ)` (Fricke, proved by
+tyz-cm) and `φ(τ + 1/4) = [i]φ(τ)` (proved here from the theta form of `x` and the eta form of `y`),
+so `c(f₀(P_n)) = f₀(P_{Q̄}) = [i]f₀(P_n) + T − [i]T` and `c(z_n) = −z_n + τ(1)`. -/
+
+section Conj
+
+open Complex WeierstrassCurve.Affine
+
+theorem etaD_add_quarter {d m : ℕ} (h : d = 4 * m) (z : ℂ) :
+    X0.etaD d (z + 1 / 4) = cexp (2 * Real.pi * I / 24) ^ m * X0.etaD d z := by
+  unfold X0.etaD
+  rw [show (d : ℂ) * (z + 1 / 4) = d * z + (m : ℕ) by rw [h]; push_cast; ring, X0.eta_add_nat,
+    ← Complex.exp_nat_mul]
+  congr 2
+  ring
+
+theorem cexp_pi_div_two : cexp (Real.pi / 2 * I) = I := by
+  rw [Complex.exp_mul_I, ← Complex.ofReal_ofNat, ← Complex.ofReal_div, ← Complex.ofReal_cos,
+    ← Complex.ofReal_sin, Real.cos_pi_div_two, Real.sin_pi_div_two]
+  simp
+
+theorem cexp_pow_6 : cexp (2 * Real.pi * I / 24) ^ 6 = I := by
+  rw [← Complex.exp_nat_mul,
+    show ((6 : ℕ) : ℂ) * (2 * Real.pi * I / 24) = Real.pi / 2 * I by push_cast; ring]
+  exact cexp_pi_div_two
+
+/-- **`y(z + 1/4) = i·y(z)`** (`y` is an eta quotient in `η(4z), η(8z), η(16z), η(32z)`). -/
+theorem yC_add_quarter (z : ℂ) : X0.yC (z + 1 / 4) = I * X0.yC z := by
+  unfold X0.yC
+  rw [etaD_add_quarter (m := 2) (by norm_num), etaD_add_quarter (m := 4) (by norm_num),
+    etaD_add_quarter (m := 1) (by norm_num), etaD_add_quarter (m := 8) (by norm_num)]
+  set c := cexp (2 * Real.pi * I / 24)
+  have hc : c ≠ 0 := Complex.exp_ne_zero _
+  have key : c ^ 16 = I * c ^ 34 := by
+    rw [← cexp_pow_6, show c ^ 34 = c ^ 10 * c ^ 24 by ring, X0.cexp_pow_24]; ring
+  have e : (c ^ 2 * X0.etaD 8 z) ^ 4 * (c ^ 4 * X0.etaD 16 z) ^ 2 /
+      ((c ^ 1 * X0.etaD 4 z) ^ 2 * (c ^ 8 * X0.etaD 32 z) ^ 4) =
+      c ^ 16 * (X0.etaD 8 z ^ 4 * X0.etaD 16 z ^ 2) /
+        (c ^ 34 * (X0.etaD 4 z ^ 2 * X0.etaD 32 z ^ 4)) := by ring
+  rw [e, key, show I * c ^ 34 * (X0.etaD 8 z ^ 4 * X0.etaD 16 z ^ 2) =
+    c ^ 34 * (I * (X0.etaD 8 z ^ 4 * X0.etaD 16 z ^ 2)) by ring,
+    mul_div_mul_left _ _ (pow_ne_zero _ hc)]
+  ring
+
+/-- `τ ↦ τ + 1/4` on `ℍ`. -/
+def quarterH (τ : UpperHalfPlane) : UpperHalfPlane :=
+  ⟨(τ : ℂ) + 1 / 4, by
+    show 0 < ((τ : ℂ) + 1 / 4).im
+    simpa using τ.im_pos⟩
+
+theorem Qt_add_quarter (z : ℂ) : Shimura.Qt (z + 1 / 4) = Shimura.Qt z * I := by
+  rw [Shimura.Qt_def, Shimura.Qt_def,
+    show 2 * Real.pi * I * (z + 1 / 4) = 2 * Real.pi * I * z + Real.pi / 2 * I by ring,
+    Complex.exp_add, cexp_pi_div_two]
+
+/-- **`x(τ + 1/4) = −x(τ)`** (`x = 2θ(0;16τ)/(q²θ(8τ;16τ))`, tyz-cm's `xC_theta`). -/
+theorem xC_add_quarter (τ : UpperHalfPlane) : X0.xC ((τ : ℂ) + 1 / 4) = -X0.xC τ := by
+  have h1 := Shimura.xC_theta (quarterH τ)
+  have h2 := Shimura.xC_theta τ
+  change X0.xC ((quarterH τ : UpperHalfPlane) : ℂ) = _
+  rw [h1, h2]
+  have e1 : (16 : ℂ) * ((quarterH τ : UpperHalfPlane) : ℂ) = 16 * τ + 2 + 2 := by
+    show (16 : ℂ) * ((τ : ℂ) + 1 / 4) = _; ring
+  have e2 : (8 : ℂ) * ((quarterH τ : UpperHalfPlane) : ℂ) = 8 * τ + 1 + 1 := by
+    show (8 : ℂ) * ((τ : ℂ) + 1 / 4) = _; ring
+  have e3 : Shimura.Qt ((quarterH τ : UpperHalfPlane) : ℂ) = Shimura.Qt τ * I :=
+    Qt_add_quarter τ
+  rw [e1, e2, e3]
+  simp only [jacobiTheta₂_add_right, jacobiTheta₂_add_left]
+  rw [mul_pow, I_sq]
+  ring
+
+theorem curveAC_a₂ : X0.curveAC.a₂ = 0 := by
+  simp [X0.curveAC, curveA, shortCurve, WeierstrassCurve.baseChange]
+theorem curveAC_a₄ : X0.curveAC.a₄ = 4 := by
+  simp [X0.curveAC, curveA, shortCurve, WeierstrassCurve.baseChange]
+theorem curveAC_a₆ : X0.curveAC.a₆ = 0 := by
+  simp [X0.curveAC, curveA, shortCurve, WeierstrassCurve.baseChange]
+
+theorem nonsingular_iC {x y : ℂ} (h : X0.curveAC.toAffine.Nonsingular x y) :
+    X0.curveAC.toAffine.Nonsingular (-x) (I * y) := by
+  rw [nonsingular_iff', equation_iff'] at h ⊢
+  simp only [Shimura.curveAC_a₁, curveAC_a₂, Shimura.curveAC_a₃, curveAC_a₄, curveAC_a₆] at h ⊢
+  obtain ⟨he, hn⟩ := h
+  refine ⟨by linear_combination y ^ 2 * I_sq - he, ?_⟩
+  rcases hn with h | h
+  · left
+    intro h'
+    apply h
+    linear_combination h'
+  · right
+    intro h'
+    apply h
+    have : I * (2 * y) = 0 := by linear_combination h'
+    rcases mul_eq_zero.mp this with h0 | h0
+    · exact absurd h0 I_ne_zero
+    · linear_combination h0
+
+theorem nonsingular_iC_iff {x y : ℂ} :
+    X0.curveAC.toAffine.Nonsingular (-x) (I * y) ↔ X0.curveAC.toAffine.Nonsingular x y := by
+  refine ⟨fun h => ?_, nonsingular_iC⟩
+  have h2 := nonsingular_iC h
+  have e1 : -(-x) = x := neg_neg x
+  have e2 : I * (I * y) = X0.curveAC.toAffine.negY x y := by
+    rw [Shimura.negY_AC, ← mul_assoc, I_mul_I]; ring
+  rw [e1, e2] at h2
+  exact (nonsingular_neg ..).1 h2
+
+/-- **`φ(τ + 1/4) = [i]φ(τ)`**, on algebraic points. -/
+theorem toC_iPt_of_quarter (τ τ' : UpperHalfPlane) (h : (τ' : ℂ) = τ + 1 / 4) (P : PtA)
+    (hP : toC P = X0.phiC τ) : toC (iPt P) = X0.phiC τ' := by
+  have hx : X0.xC τ' = -X0.xC τ := by rw [h, xC_add_quarter]
+  have hy : X0.yC τ' = I * X0.yC τ := by rw [h, yC_add_quarter]
+  unfold X0.phiC at hP ⊢
+  by_cases hns : X0.curveAC.toAffine.Nonsingular (X0.xC τ) (X0.yC τ)
+  · have hns' : X0.curveAC.toAffine.Nonsingular (X0.xC τ') (X0.yC τ') := by
+      rw [hx, hy]; exact nonsingular_iC hns
+    rw [dif_pos hns] at hP
+    rw [dif_pos hns']
+    rcases P with _ | ⟨x, y, hxy⟩
+    · exact absurd hP (fun h => by cases h)
+    · simp only [toC, Point.map_some, Point.some.injEq] at hP
+      rw [iPt_some]
+      simp only [toC, Point.map_some, Point.some.injEq]
+      refine ⟨?_, ?_⟩
+      · rw [hx, ← hP.1]; simp
+      · rw [hy, ← hP.2, map_mul]
+        congr 1
+        exact ιC_iQ
+  · have hns' : ¬ X0.curveAC.toAffine.Nonsingular (X0.xC τ') (X0.yC τ') := by
+      rw [hx, hy]; exact fun h' => hns (nonsingular_iC_iff.1 h')
+    rw [dif_neg hns] at hP
+    rw [dif_neg hns']
+    rcases P with _ | ⟨x, y, hxy⟩
+    · rfl
+    · exact absurd hP (fun h => by cases h)
+
+theorem iPt_sub (P R : PtA) : iPt (P - R) = iPt P - iPt R := map_sub iHom P R
+
+/-- The conjugate of TYZ's form. -/
+def tbarK (n : ℕ) : QNeg n := ⟨-1 / (4 * (n + 1)), 1 / (4 * (n + 1))⟩
+
+theorem tyzForm_conj_tau (n : ℕ) (hn : n % 8 = 5) :
+    (tyzForm n hn).conj.tau = Shimura.kappa n (tbarK n) := by
+  have h1 : ((n : ℂ) + 1) ≠ 0 := by exact_mod_cast Nat.succ_ne_zero n
+  simp only [HeegnerForm.tau, HeegnerForm.conj, cmPoint, tyzForm, Shimura.kappa, tbarK,
+    Shimura.sqrt_64n]
+  push_cast
+  field_simp
+  ring
+
+theorem tbarK_mul (n : ℕ) [NeZero n] :
+    tbarK n * (1 - 8 * Shimura.tauK n) = Shimura.tauK n := by
+  have h1 : ((n : ℚ) + 1) ≠ 0 := by positivity
+  ext <;> simp [tbarK, Shimura.tauK, QuadraticAlgebra.re_one, QuadraticAlgebra.im_one,
+    QuadraticAlgebra.re_ofNat, QuadraticAlgebra.im_ofNat] <;> field_simp <;> ring
+
+/-- `τ_{Q̄} = W T₄ W τ_Q`. -/
+theorem tyzForm_conj_tauH (n : ℕ) [NeZero n] (hn : n % 8 = 5) :
+    ((tyzForm n hn).conj.tauH : ℂ) =
+      ((Shimura.frickeH (quarterH (Shimura.frickeH (tyzForm n hn).tauH)) : UpperHalfPlane) : ℂ) := by
+  have hτ : ((tyzForm n hn).tauH : ℂ) = Shimura.kappaAlg n (Shimura.tauK n) := by
+    rw [Shimura.kappaAlg_apply, ← Shimura.tyzForm_tau n hn]; rfl
+  have hτ' : ((tyzForm n hn).conj.tauH : ℂ) = Shimura.kappaAlg n (tbarK n) := by
+    rw [Shimura.kappaAlg_apply, ← tyzForm_conj_tau n hn]; rfl
+  have hrel := congrArg (Shimura.kappaAlg n) (tbarK_mul n)
+  simp only [map_mul, map_sub, map_one, map_ofNat] at hrel
+  rw [← hτ, ← hτ'] at hrel
+  set τ := ((tyzForm n hn).tauH : ℂ)
+  have hne : τ ≠ 0 := (tyzForm n hn).tauH.ne_zero
+  have hne2 : (8 * τ - 1) ≠ 0 := by
+    intro h0
+    have := congrArg Complex.im h0
+    simp at this
+    exact (tyzForm n hn).tauH.im_pos.ne' this
+  show _ = -1 / (32 * (-1 / (32 * τ) + 1 / 4))
+  rw [show (32 : ℂ) * (-1 / (32 * τ) + 1 / 4) = (8 * τ - 1) / τ by field_simp; ring]
+  rw [div_div_eq_mul_div, eq_div_iff hne2]
+  linear_combination -hrel
+
+/-- **`f₀(P_{Q̄}) = [i]f₀(P_n) + T − [i]T`** (given algebraicity of the Heegner point). -/
+theorem heegnerPt_tyzForm_conj (hA : CMAlgebraic) (n : ℕ) [NeZero n] (hn : n % 8 = 5) :
+    heegnerPt (tyzForm n hn).conj = ptT - iPt ptT + iPt (heegnerPt (tyzForm n hn)) := by
+  set Q := tyzForm n hn
+  obtain ⟨P, hP⟩ := hA _ Q
+  rw [heegnerPt_eq Q hP]
+  apply heegnerPt_eq
+  set τ₁ := Shimura.frickeH Q.tauH
+  set τ₂ := quarterH τ₁
+  set τ₃ := Shimura.frickeH τ₂
+  have hτ₃ : Q.conj.tauH = τ₃ := UpperHalfPlane.ext (tyzForm_conj_tauH n hn)
+  have e1 : X0.phiC τ₁ + X0.phiC Q.tauH = X0.ptTC := Shimura.etaModelFricke Q.tauH τ₁ rfl
+  have e3 : X0.phiC τ₃ + X0.phiC τ₂ = X0.ptTC := Shimura.etaModelFricke τ₂ τ₃ rfl
+  have h1 : toC (ptT - P) = X0.phiC τ₁ := by
+    rw [map_sub, toC_ptT, hP, ← e1]; abel
+  have h2 : toC (iPt (ptT - P)) = X0.phiC τ₂ := toC_iPt_of_quarter τ₁ τ₂ rfl _ h1
+  have h3 : toC (ptT - iPt (ptT - P)) = X0.phiC τ₃ := by
+    rw [map_sub, toC_ptT, h2, ← e3]; abel
+  rw [hτ₃, ← h3, iPt_sub]
+  congr 1
+  abel
+
+theorem isComplexConj_apply_iQ {γ : GalQ} (hγ : IsComplexConj γ) : γ iQ = -iQ := by
+  apply ιC_injective
+  rw [hγ, ιC_iQ, map_neg, ιC_iQ, Complex.conj_I]
+
+/-- **`TYZThm36ConjFive` from algebraicity of Heegner points** (x0-32's Fricke leaf is proved by
+tyz-cm; `τ ↦ τ + 1/4` is proved here). -/
+theorem tyzThm36ConjFive_of (hA : CMAlgebraic) : TYZThm36ConjFive := by
+  intro n hn hsq γ hγ
+  haveI : NeZero n := ⟨by omega⟩
+  have hi := isComplexConj_apply_iQ hγ
+  have hc : galPt γ (tyzHeegnerPt n) = ptT - iPt ptT + iPt (tyzHeegnerPt n) := by
+    simp only [tyzHeegnerPt, hn, ↓reduceDIte]
+    rw [cmComplexConj γ hγ, heegnerPt_tyzForm_conj hA n hn]
+  have h2 : tauG 2 = ptT + ptT := by
+    rw [← one_add_one_eq_two, map_add, tauG_apply, one_smul]
+  simp only [tyzZn]
+  rw [map_sub, galPt_iPt_of_neg hi, sub_neg_eq_add, hc, iPt_add, iPt_sub, iPt_iPt, iPt_iPt, h2]
+  abel
+
+end Conj
 
 /-! ### The main glue: `Lemma321Five` from the inputs -/
 
@@ -3407,17 +3643,16 @@ section Main
 theorem betaOneSign_neg_five {e : ℕ} (he : e % 8 = 5) : betaOneSign (-(e : ℤ)) = -1 := by
   have h2 : ¬ (2 : ℤ) ∣ -(e : ℤ) := by omega
   have h8 : (-(e : ℤ)) % 8 = 3 := by omega
-  have hneg : -(e : ℤ) < 0 := by omega
-  simp [betaOneSign, oddPartSqfree, h2, h8, hneg]
+  have he0 : e ≠ 0 := by omega
+  simp [betaOneSign, oddPartSqfree, h2, h8, he0]
 
-theorem fixes_omegaBar {e : ℕ} [NeZero e] (he : e % 8 = 5) {σ γ : GalQ} (hσ : IsBetaOneLift σ)
-    (hγ : IsComplexConj γ) : (σ * γ⁻¹) (omegaBar e) = omegaBar e := by
+theorem fixes_omegaBar {e : ℕ} [NeZero e] (he : e % 8 = 5) (hse : Squarefree e) {σ γ : GalQ}
+    (hσ : IsBetaOneLift σ) (hγ : IsComplexConj γ) : (σ * γ⁻¹) (omegaBar e) = omegaBar e := by
   have hsq : omegaBar e ^ 2 = ((-(e : ℤ) : ℤ) : Qbar) := by rw [omegaBar_sq]; push_cast; ring
   have hD : (-(e : ℤ)) ≠ 0 := by omega
   have hγω : γ (omegaBar e) = -omegaBar e := by
-    rw [hγ.apply_sqrt hD hsq]; simp [show -(e : ℤ) < 0 by omega]
-  have hsqf : Squarefree (-(e : ℤ)) := by
-    sorry
+    rw [hγ.apply_sqrt hD hsq, if_pos (by omega)]; ring
+  have hsqf : Squarefree (-(e : ℤ)) := sqf_neg (Int.squarefree_natCast.2 hse)
   have hσω : σ (omegaBar e) = -omegaBar e := by
     rw [hσ _ hsqf _ hsq, betaOneSign_neg_five he]; push_cast; ring
   rw [AlgEquiv.mul_apply, hγ.inv_apply, hγω, map_neg, hσω, neg_neg]
@@ -3437,9 +3672,8 @@ theorem five_single (hz : ZnOverH4) (hc : TYZThm36ConjFive) (hw : TYZThm36OneFiv
       (gNat e : ℤ) • tauG ⟨1, -1⟩ + k • tauG 2 := by
   classical
   obtain ⟨γ, hγ⟩ := exists_complexConj
-  obtain ⟨a, ha⟩ := exists_acts4_of_fix (fixes_omegaBar he5 hσ hγ)
-  set z := tyzZn e with hzdef
-  have hzH : z ∈ ptsOver (H4bar e) := hz e he5 hse
+  obtain ⟨a, ha⟩ := exists_acts4_of_fix (fixes_omegaBar he5 hse hσ hγ)
+  have hzH : (tyzZn e) ∈ ptsOver (H4bar e) := hz e he5 hse
   have hb := hg e inferInstance he5 hse σ γ hσ hγ a ha
   set T := Phi0 e with hTdef
   have hT : IsPhi0 e T := phi0_spec e
@@ -3470,14 +3704,16 @@ theorem five_single (hz : ZnOverH4) (hc : TYZThm36ConjFive) (hw : TYZThm36OneFiv
     artinO_inj e (hactsO (f t) (hfT t ht)) (hfact t ht)
   have hτ2 : ∀ ρ : GalQ, galPt ρ (tauG 2) = tauG 2 := galPt_tauG_two
   have key : ∀ t ∈ T, ∃ j : ℤ,
-      galPt σ (galPt t z) = tauG ⟨1, -1⟩ - galPt (f t) z + j • tauG 2 := by
+      galPt σ (galPt t (tyzZn e)) = tauG ⟨1, -1⟩ - galPt (f t) (tyzZn e) + j • tauG 2 := by
     intro t ht
     obtain ⟨ρw, hρw⟩ := exists_actsAsArtin4 e w
     set k := a * (cl t)⁻¹ * w⁻¹ * (cl (f t))⁻¹ with hkdef
     have hk1 : P k = 1 := by
       rw [hkdef, map_mul, map_mul, map_mul, map_inv, map_inv, map_inv, hPf t ht, hBdef, map_mul,
         map_inv]
-      group
+      apply Additive.ofMul.injective
+      simp only [ofMul_mul, ofMul_inv, ofMul_one]
+      abel
     obtain ⟨ρk, hρk⟩ := exists_actsAsArtin4 e k
     have h1 : σ * t = (σ * γ⁻¹) * (γ * t * γ⁻¹) * γ := by group
     have hA : ActsAsArtin4 ((σ * γ⁻¹) * (γ * t * γ⁻¹)) e (a * (cl t)⁻¹) :=
@@ -3485,7 +3721,10 @@ theorem five_single (hz : ZnOverH4) (hc : TYZThm36ConjFive) (hw : TYZThm36OneFiv
     have hB : ActsAsArtin4 (f t * ρk * ρw) e (a * (cl t)⁻¹) := by
       have := acts4_mul (acts4_mul (hclact (f t) (hfT t ht)) hρk) hρw
       convert this using 1
-      rw [hkdef]; group
+      rw [hkdef]
+      apply Additive.ofMul.injective
+      simp only [ofMul_mul, ofMul_inv]
+      abel
     obtain ⟨k1, hk1'⟩ := hw e inferInstance he5 hse ρw hρw
     obtain ⟨j2, hj2⟩ := hk e inferInstance he5 hse k hk1 ρk hρk
     obtain ⟨j3, hj3⟩ := galPt_tauG_one_one ρk
@@ -3495,14 +3734,14 @@ theorem five_single (hz : ZnOverH4) (hc : TYZThm36ConjFive) (hw : TYZThm36OneFiv
       rw [← hb2] at hact
       exact fixes_iQ_of_actsAsArtin4_sq hact
     refine ⟨-(k1 + j2 + j3), ?_⟩
-    rw [← galPt_mul, h1, galPt_mul, galPt_mul, hc e he5 hse γ hγ, map_sub, map_sub, hτ2, hτ2,
+    rw [← galPt_mul, h1, galPt_mul (σ * γ⁻¹ * (γ * t * γ⁻¹)) γ, hc e he5 hse γ hγ, map_sub, hτ2,
       acts4_galPt hA hB hzH, galPt_mul, galPt_mul, hk1']
     simp only [map_add, map_zsmul, hj2, hj3, hτ2, galPt_tauG _ hfi]
     have h11 : tauG ⟨1, 1⟩ = tauG 2 - tauG ⟨1, -1⟩ := eq_sub_of_add_eq tauG_one_one_add
     rw [h11]
-    abel
+    module
   choose! J hJ using key
-  have hsum : ∑ t ∈ T, galPt (f t) z = ∑ t ∈ T, galPt t z := by
+  have hsum : ∑ t ∈ T, galPt (f t) (tyzZn e) = ∑ t ∈ T, galPt t (tyzZn e) := by
     refine Finset.sum_nbij f hfT ?_ ?_ (fun t _ => rfl)
     · intro t₁ h₁ t₂ h₂ he
       have h := (hPf t₁ h₁).symm.trans ((congrArg (fun s => P (cl s)) he).trans (hPf t₂ h₂))
@@ -3511,7 +3750,11 @@ theorem five_single (hz : ZnOverH4) (hc : TYZThm36ConjFive) (hw : TYZThm36OneFiv
       obtain ⟨t, ⟨htT, htact⟩, -⟩ := hT.2 (B * (P (cl s))⁻¹) (htgt s hs)
       refine ⟨t, htT, ?_⟩
       have hPt : P (cl t) = B * (P (cl s))⁻¹ := artinO_inj e (hactsO t htT) htact
-      have : P (cl (f t)) = P (cl s) := by rw [hPf t htT, hPt]; group
+      have : P (cl (f t)) = P (cl s) := by
+        rw [hPf t htT, hPt]
+        apply Additive.ofMul.injective
+        simp only [ofMul_mul, ofMul_inv]
+        abel
       exact hinj _ (hfT t htT) s hs this
   have hcard : T.card = gNat e := by
     rw [← card_sqClasses]
@@ -3524,8 +3767,9 @@ theorem five_single (hz : ZnOverH4) (hc : TYZThm36ConjFive) (hw : TYZThm36OneFiv
   refine ⟨∑ t ∈ T, J t, ?_⟩
   simp only [genusSum, map_sum]
   rw [← Finset.sum_add_distrib, Finset.sum_congr rfl (fun t ht => by rw [hJ t ht])]
-  rw [Finset.sum_add_distrib, Finset.sum_add_distrib, Finset.sum_sub_distrib, Finset.sum_const,
-    hsum, hcard, Finset.sum_smul, ← natCast_zsmul]
+  simp only [Finset.sum_add_distrib, Finset.sum_sub_distrib, Finset.sum_const, hsum, hcard,
+    ← Finset.sum_smul]
+  rw [natCast_zsmul]
   abel
 
 /-- **`Lemma321Five` from the inputs** (any lift `σ` works for every `e`). -/
