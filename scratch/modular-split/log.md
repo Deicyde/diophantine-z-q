@@ -36,3 +36,8 @@ ZInQKernel.OneProof.H.TailT ZInQKernel.OneProof.H.LPrefix` exits 0 (VERIFIED, 11
   finrankH_relativeDifferentials_zero_eq_genus).
   Remaining GLUE `H0DifferentialsEqHolo`: dim_ℚ H⁰(X, Ω¹_{X/ℚ}) = CurvesG.fieldGenus F (textbook sheaf theory; no published-theorem content).
   Milne Prop. 2.1 and Serre duality are no longer leaves. Compile: axioms [propext, Classical.choice, Quot.sound]. VERIFIED.
+- (12:3x) `EigenHT.lean` extended: `dualGR` (contragredient GaloisRep, continuity proved), `dualGR_isIrreducible` (proved),
+  named GLUE `HTDual` (HT weights of the contragredient are negated, Hodge–Tate case card S = n), leaf candidate
+  `KatoRealizationCoh` (∃ irreducible ρ, geometric-Frobenius trace a_p, HT weights {0,k−1}),
+  `katoRealization_of_coh : KatoRealizationCoh → HTDual → KatoRealization`,
+  `eigenformHTNew_of_coh : KatoRealizationCoh → HTDual → EigenformHTNew`. Compile: standard axioms. VERIFIED.

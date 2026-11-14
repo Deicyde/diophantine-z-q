@@ -41,7 +41,7 @@ of each file, run with `lake env lean scratch/modular-split/<file>.lean`).
 | r15 `HDec.HSyn.DeligneSerreConseq` | GLUE (comp): Deligne–Serre Thm 4.1, Lemma 3.2, with T25, T18, T19 | `ZInQ.Contrib.HodgeSplit.DSThm966`. Published form: Deligne–Serre, Ann. Sci. ÉNS 7 (1974), Thm 4.1, pp. 513–514 (audit); Diamond–Shurman Thm 9.6.6 (UNVERIFIED number). Already a bundle LEAF (`dsThm966`). | none open. Proved: `artinTransport_finite` (hodge-split's specialization argument, now returning finite image) and `attachedConj_proof` (kernel T18 + T19). | `ModularSplit.deligneSerreConseq_of_ds : DSThm966 → HDec.HSyn.DeligneSerreConseq` (`R15.lean`) **DONE** |
 | r16 `LeafModCurves.R16_EichlerShimuraJ1'` | GLUE (comp): Shimura 1973 Thm 1; Shimura 1971 Thm 7.9 | — (not splittable, §4.1) | — | unchanged |
 | r17 `LadicCond.CarayolR17'` | GLUE (c): Carayol 1986 Théorème (A) | `ModularSplit.R17.CarayolRealization`: there exists a semisimple attached `ρ` with `condExp(ρ|G_{ℚ_p}) = v_p(N)` for all `p ≠ ℓ`. Consequence: Carayol Thm (A) at `σ_λ(π_f)` (audit), Casselman 1973 `a(π_p) = v_p(N)`, Ribet irreducibility. Still GLUE (c). | proved: `condExp_conj` (with `invariants_conj`, `codimInv_conj`, `isAdapted_conj`, `swan_conj`) and `attachedConj_proof` | `ModularSplit.R17.carayolR17'_of_realization : CarayolRealization → CarayolR17'` (`R17.lean`), narrowed |
-| eigenformHTNew `ZInQ.Contrib.HodgeSplit.EigenformHTNew` | GLUE (c): Kato 2004 9.2–9.4, transported and dualized | `ModularSplit.EigenHT.KatoRealization`: there exists a semisimple attached `ρ` with HT weights `{0, 1−k}` at `ℓ`. Consequence: Kato §§9.2–9.4 at `V_f^∨` (UNVERIFIED locators), Ribet irreducibility. Still GLUE (c), since the dualization is inside the leaf. | proved: `attachedConj_proof`, `htConj_proof` (kernel) | `ModularSplit.EigenHT.eigenformHTNew_of_realization : KatoRealization → EigenformHTNew` (`EigenHT.lean`), narrowed |
+| eigenformHTNew `ZInQ.Contrib.HodgeSplit.EigenformHTNew` | GLUE (c): Kato 2004 9.2–9.4, transported and dualized | `ModularSplit.EigenHT.KatoRealizationCoh`: there exists an **irreducible** `ρ` whose **geometric** Frobenius has trace `a_p` and whose HT weights are `{0, k−1}`. This is Kato's normalization: Kato §§9.2–9.4 at `V_f` (UNVERIFIED locators), with Ribet's irreducibility. Still GLUE (c), because the published object is existentially quantified. A weaker alternative leaf, `KatoRealization`, is the Tate normalization. | `HTDual` (named, open): the HT weights of `ρ^∨` are `−S` when `card S = n`. Proved: `dualGR` (the contragredient, continuous), `dualGR_isIrreducible`, `katoRealization_of_coh`, `attachedConj_proof`, `htConj_proof` (kernel). | `ModularSplit.EigenHT.eigenformHTNew_of_coh : KatoRealizationCoh → HTDual → EigenformHTNew`, and `eigenformHTNew_of_realization : KatoRealization → EigenformHTNew` (`EigenHT.lean`), narrowed |
 | dimJacobianEqGenus `ZInQ.Contrib.CurvesG.DimJacobianEqGenus` | GLUE (comp): Milne JV Prop. 2.1 with Serre duality | **none** (no literature leaf) | `ModularSplit.DimJac.H0DifferentialsEqHolo` (project glue, open): `dim_ℚ H⁰(X, Ω¹_{X/ℚ}) = CurvesG.fieldGenus F`. Proved: `dim_jacobian_eq_arithmeticGenus` (from the vendored library). | `ModularSplit.DimJac.dimJacobianEqGenus_of_glue : H0DifferentialsEqHolo → DimJacobianEqGenus` (`DimJac.lean`): GLUE (comp) → GLUE (pg) |
 | t09 `WeilPairing.T09_SymmIsogenyExists` | GLUE (c): Mumford §§6, 8, 20, 23 | — (not splittable, §4.2) | — | unchanged |
 
@@ -76,13 +76,28 @@ conductor does not change under duals (audit row R17).
 ### 3.3 eigenformHTNew (VERIFIED, `EigenHT.lean`)
 
 `KatoRealization` gives a semisimple attached `ρ₀` with weights `{0, 1−k}`. Any other semisimple attached `ρ` is
-conjugate to it (`attachedConj_proof`), and `htConj_proof` carries the weights over.
+conjugate to it (`attachedConj_proof`), and `htConj_proof` carries the weights over (`eigenformHTNew_of_realization`).
 
-hodge-split listed two steps between Kato's printed statement and the row:
-- the identification of every attached `ρ` with `V_f^∨`, now proved;
-- the negation of HT weights under duals, still inside the leaf. As a named GLUE (`HTDual`) it would need
-  `htMult(ρ^∨, w) = htMult(ρ, −w)` for Hodge–Tate `ρ`. That in turn needs Tate's `H⁰(ℂ_p(i)) = 0` for `i ≠ 0` and the
-  Tate–Sen independence that hodge-split's `SenTwist` proof uses. It was not done here.
+The dualization is split off too. `KatoRealizationCoh` is the statement in Kato's normalization:
+- `ρ` is irreducible (Ribet);
+- the trace of geometric Frobenius `σ⁻¹` is `a_p`;
+- the HT weights are `{0, k−1}`.
+
+Its contragredient `dualGR ρ = (σ ↦ ρ(σ⁻¹)ᵀ)` is proved to be:
+- continuous;
+- irreducible (`dualGR_isIrreducible`, a transpose-closed subalgebra argument), hence semisimple (kernel
+  `C9Rhof.isSemisimple_of_isIrreducible`);
+- unramified where `ρ` is;
+- attached in the arithmetic normalization.
+
+The negation of weights is the named GLUE `HTDual`, restricted to the Hodge–Tate case `card S = n`. Without that
+restriction the general statement would need Sen theory. `HTDual` needs Tate's `H⁰(G, ℂ_ℓ(i))` computation (the kernel's
+leaves `TateTwistInvariants`, `AxSenTate`), applied to `ℂ_ℓ ⊗ V^∨ ≅ ⊕ ℂ_ℓ(w)`. Proved: `eigenformHTNew_of_coh :
+KatoRealizationCoh → HTDual → EigenformHTNew`.
+
+Caveat (UNVERIFIED): the translation of Kato's printed weights into the row's convention, in which the cyclotomic
+character has weight `−1`, was not checked against the source. The internal consistency check: for `k = 2`, `ρ^∨` is the
+Tate module, which has weights `{0, −1}` in this convention (hodge-split, R10). That matches `{0, 1−k}`.
 
 ### 3.4 dimJacobianEqGenus (VERIFIED, `DimJac.lean`)
 
