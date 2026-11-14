@@ -18,13 +18,15 @@ All 14 rows now have a compiled Lean proof from stated hypotheses (no `sorry`; e
   left norm-Euclidean (`|nrd(x − q)| ≤ 7/8`), so Eichler's theorem is no longer cited.
 * **Proved from published-form leaves only:** H-35 `QMDichotomyYu` (Yu Thm 1.1 with its splitting clause),
   H-2 `ThetaModularity` (Igusa's `ψ₄` and `χ₁₀`), H-86 `STQM` (Shimura–Taniyama), and **H-42, H-61, H-63 from
-  one leaf** `QMCentralizerCM` (`End_𝒪(A)` is `ℤ` or an optimally embedded `Φ⁻¹(𝒪)`): the automorphism counts,
+  one leaf** `QMCentralizerCMC` (`End_𝒪(A)` over `ℂ` is `ℤ` or an optimally embedded `Φ⁻¹(𝒪)`) and the bundle
+  leaf T11(b): the automorphism counts,
   the Atkin–Lehner fixed points and the optimal-embedding statement are computations in `B` and in imaginary
   quadratic fields.
-* **Reduced to published leaves plus smaller named glue:** H-44 (1 leaf + 1 glue), H-87 (1 leaf + 1 glue),
-  H-88 (1 leaf + 2 glue: the covolume of `Γ*`, shared with H-87, and one number, `j_θ = −16/27` at the CM
-  point of discriminant −24; the Hauptmodul property is now *proved* from the valence formula, and the
-  divisibility of orders at elliptic points is proved), H-1, H-20, H-43, H-59 (the existence leaf plus
+* **Reduced to published leaves plus smaller named glue:** H-44 (1 leaf + 1 glue), H-87 (2 leaves: the
+  valence formula and Shimizu's covolume of `𝒪¹`, + 1 project glue: the index-4 passage to `Γ*`), H-88 (the
+  same 2 leaves + the same glue + one number, `j_θ = −16/27` at the CM point of discriminant −24; the
+  Hauptmodul property is now *proved* from the valence formula, and the divisibility of orders at elliptic
+  points is proved), H-1, H-20, H-43, H-59 (the existence leaf plus
   per-clause published statements stated for every witness; **the comparison isomorphism of two fine
   witnesses is now compiled** (`compare_iso`), which proves the project glue `HeckeOfFine` and `R1bTransport`:
   H-20 rests on one leaf candidate only).
@@ -66,7 +68,7 @@ New theorems that discharge glue (all compiled): `qmClassNumberOne_proof`, `elli
 
 * **Class number one** (`ClassNumberOne.lean`). In the basis `1, i, (1+j)/2, (i+ij)/2` of `𝒪`,
   `nrd(a + bi + c(1+j)/2 + d(i+ij)/2) = N(a,c) − 2N(b,d)` with `N(x,y) = x² + xy + y²`. Rounding `c, d` then
-  `a, b` gives `|nrd(x − q)| ≤ 1/4 + 3/16 + 2(1/4) + 6/16 < 1` (`euclid`), so a left `𝒪`-stable subgroup
+  `a, b` gives `−(2·1/4 + 6·1/16) ≤ nrd(x − q) ≤ 1/4 + 3·1/16`, so `|nrd(x − q)| ≤ 7/8` (`euclid`), so a left `𝒪`-stable subgroup
   `I` with `dI ⊆ 𝒪` is `𝒪α` for an `α` of minimal `|nrd|` (`principal_of_lattice`). The lattice step: for
   `0 ≠ v ∈ Λ`, `I = {x : ι(x)v ∈ Λ}` has `Λ = ι(I)v` (5 vectors in a rank-4 lattice), a uniform denominator
   (annihilator of the torsion quotient), and `w = ι(α)v` is not `c·(real)` since `Λ` spans `ℂ²` over `ℝ`.
@@ -115,6 +117,8 @@ New theorems that discharge glue (all compiled): `qmClassNumberOne_proof`, `elli
 4. **The Hauptmodul property is a consequence of the valence formula** for the two theta forms already in the
    chain (`G8`, `G20`), once the covolume `π/6` is known; only the value at the third branch point is genuinely
    a separate input.
+6. **Reuse.** `ModuliSplit.lean`'s reducedness lemma for smooth schemes is copied from model-glue (which copied
+   smooth-fibre); `Haupt.lean`'s base and the rows `STQM`, `ValenceFormulaGammaStar` are leafq-check's text.
 5. **Leaf statements and their form** (each docstring gives the source; all theorem numbers UNVERIFIED):
    `YuThm11` drops the simple/non-simple labels (weaker); `IgusaPsi4`, `IgusaChi10` are the modularity of
    Igusa's forms with their theta expressions (Igusa prints the expression as a theorem about the Eisenstein
@@ -130,13 +134,13 @@ New theorems that discharge glue (all compiled): `qmClassNumberOne_proof`, `elli
 |---|---|---|
 | `ClassNumberOne.lean` | H-46 | 8 s |
 | `YuLeaf.lean` | H-35 | 5 s |
-| `QMAut.lean` | H-61, H-63, H-42; `QMCentralizerCMC` → `QMCentralizerCM` | 17 s |
-| `STQM.lean` | H-86 (row copied verbatim from leafq-check) | 11 s |
+| `QMAut.lean` | H-61, H-63, H-42; `QMCentralizerCMC` → `QMCentralizerCM` | 16 s |
+| `STQM.lean` | H-86 (row copied verbatim from leafq-check) | 12 s |
 | `ThetaSplit.lean` | H-2 | 4 s |
 | `ThetaRatios.lean` | H-44 | 5 s |
-| `Valence.lean` | H-87 (row copied verbatim from leafq-check) | 6 s |
-| `Haupt.lean` | H-88 (leafq-check `Fold.lean` lines 1-934, 1326-2563 copied verbatim, then qm-split's section); also H-87 from the equality leaf | 25 s |
-| `ModuliSplit.lean` | H-1, H-59, H-20, H-43 | 5 s |
+| `Valence.lean` | H-87 (row copied verbatim from leafq-check) | 5 s |
+| `Haupt.lean` | H-88 (leafq-check `Fold.lean` lines 1-934, 1326-2563 copied verbatim, then qm-split's section); `ellipticOrderDvd_proof`; also H-87 from the equality leaf | 24 s |
+| `ModuliSplit.lean` | H-1, H-59, H-20, H-43; `compare_iso`, `heckeOfFine_proof`, `r1bTransport_proof` | 43 s |
 
 Each file ends with `#print axioms` lines and, for chain constants, an `example` with fully qualified names.
 The olean chain is leaf-fold4's (`~/qms-olean`, a copy of leafq-check's `~/lqc-olean`), as for leafq-check.
