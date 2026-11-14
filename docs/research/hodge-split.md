@@ -28,7 +28,7 @@ The seven published-form leaves that now carry these rows:
 | `AxSenTate` | `ℂ_p^{G_K} ⊆ K`, same `K` | Tate 1967 §3.3 Thm 1; Sen 1969; Ax 1970 | H-52, H-8, H-51 |
 | `HodgeTateDecompAbVar` | `ℂ_p ⊗ V_p(A) ≅ ℂ_p(1)^g ⊕ ℂ_p^g`, `G_F`-equivariant, `g = dim A`, `F/ℚ_p` finite | Fontaine, Invent. Math. 65 (1982); Tate 1967 §4 (good reduction); Faltings, JAMS 1 (1988) | H-8 |
 | `DeRhamH1AbVarT` (or `DeRhamH1AbVar`) | `Hom(V_p A, ℚ_p)` is de Rham over `F`: `dim (B_dR ⊗ W)^{G_F} = [F:ℚ_p] dim W` (printed `D_dR`; the Hom-form variant is equivalent) | Faltings 1989; Tsuji 1999; Scholze, Forum Math. Pi 1 (2013), Cor. 1.8 (wording VERIFIED by h-leaves) | H-8 |
-| `FontaineDRTannakian p` | de Rham reps (printed definition `dim (B_dR ⊗ V)^G = dim V`) stable under duals, sub/quotients, `⊕`, `⊗` (matrix form) | Fontaine, Astérisque 223 (1994), Exp. II–III (§1.5 of Exp. III); Brinon–Conrad, CMI notes, Thm 5.2.1, §6.3 | H-32 |
+| `BdRInvariants p` | `B_dR^{G_{ℚ_p}} = ℚ_p`: an invariant element of Mathlib's `B_dR(𝓞_ℂ_p)` lies in `ℚ_p` | Fontaine, Astérisque 223 (1994), Exp. II; Brinon–Conrad, CMI notes, §4 | H-32 |
 | `DSThm965` | `k ≥ 2`: `ρ` unramified outside `ℓN`, charpoly of arithmetic Frobenius `X² − a_p X + χ(p)p^{k−1}` | Diamond–Shurman, GTM 228, Thm 9.6.5 (Deligne 1971; Shimura 1971 Thm 7.14 for `k = 2`) | H-22, H-10 |
 | `DSThm966` | `k = 1`: continuous `ρ : G_ℚ → GL₂(ℂ)`, finite image, unramified outside `N`, `tr = a_p`, `det = χ(p)` at Frobenius | Deligne–Serre, Ann. Sci. ÉNS 7 (1974), Thm 4.1; Diamond–Shurman Thm 9.6.6 | H-22, H-10 |
 
@@ -37,7 +37,7 @@ The seven published-form leaves that now carry these rows:
 | row | old form (frontier r3) | new leaves (published form, source) | new glue (all proved unless marked) | Lean name of the proof |
 |---|---|---|---|---|
 | H-52 `G0Galois.FiniteImageHT` | composite (Tate 1967, Ax–Sen–Tate, Hilbert 90) | `TateTwistInvariants`, `AxSenTate` | open kernel, finite coefficient field, Speiser descent (replaces Hilbert 90) | `finiteImageHT_of_tate` |
-| H-32 `∀ p, PkgI4.T23_FontaineClosure p` | consequence (form on `V^∨`) | `FontaineDRTannakian p` (on `V`, printed `D_dR`) | `isDeRham_iff_std : IsDeRham ρ ↔ IsDeRhamStd ρ^∨`; clause (i) outright | `t23_all_of_fontaine` |
+| H-32 `∀ p, PkgI4.T23_FontaineClosure p` | consequence (form on `V^∨`) | `BdRInvariants p` | Fontaine's Tannakian theorem for `B_dR` on the printed `D_dR(V) = (B_dR ⊗ V)^G` (regularity: `B_dR` is a field by the kernel's bdr-kertheta; duals, sub/quotients, sums, tensors); `isDeRham_iff_std : IsDeRham ρ ↔ IsDeRhamStd ρ^∨`; clause (i) outright | `t23_all_of_bdrInvariants` (`t23_all_of_fontaine` from the intermediate `FontaineDRTannakian`) |
 | H-8 `ZInQ.Contrib.R10.DeRhamComparisonHT` | composite (Faltings, Tate, T10, HT clause) | `HodgeTateDecompAbVar`, `TateTwistInvariants`, `AxSenTate`, `DeRhamH1AbVarT` | `Hom_{G_F}(V, ℂ_p(j)) ≅ (ℂ_p(j−1)^{G_F})^g × (ℂ_p(j)^{G_F})^g`; image of `G_F` for any finite `F`; `dim A ∈ ℕ`; `(B_dR ⊗ V^∨)^G ≅ Hom_G(V, B_dR)`; `dim V_p(A) < ∞` | `deRhamComparisonHT_of_leavesT` (`deRhamComparisonHT_of_leaves` with the Hom-form leaf) |
 | H-22 `G0Galois.R14Det` | composite (Shimura, Deligne, Deligne–Serre) | `DSThm965`, `DSThm966` | weight split; `Semisimplification2`; `DetFromFrobenius` (T18, cyclotomic characters); `ArtinTransport` (Nullstellensatz specialization, Maschke) | `r14Det_of_printed` |
 | H-51 `G0Galois.SenTwist` | consequence (Sen 1980) | `TateTwistInvariants`, `AxSenTate` | Tate–Sen independence; Dedekind coordinates and descent (bridge to pkg-I4's `htMult`); twist scalar; coefficient-field independence | `senTwist_of_tate` |
@@ -46,7 +46,7 @@ The seven published-form leaves that now carry these rows:
 
 All names are in namespace `ZInQ.Contrib.HodgeSplit`. One theorem collects six rows:
 `hodge_rows_of_leaves : TateTwistInvariants → AxSenTate → HodgeTateDecompAbVar → DeRhamH1AbVarT →
-(∀ p, FontaineDRTannakian p) → DSThm965 → DSThm966 → EigenformHTNew → NewformOfEigenform →
+(∀ p, BdRInvariants p) → DSThm965 → DSThm966 → EigenformHTNew → NewformOfEigenform →
 FiniteImageHT ∧ (∀ p, T23_FontaineClosure p) ∧ DeRhamComparisonHT ∧ R14Det ∧ SenTwist ∧ EigenformHT`
 (VERIFIED).
 
@@ -64,19 +64,26 @@ field `E` (g9-derham's `liftGL`); then g9-derham's `descent_finrank` (Speiser's 
 and `0` otherwise (Tate). Hilbert 90 in the row's citation is replaced by Speiser's lemma, already a
 kernel theorem.
 
-### H-32 `T23_FontaineClosure`: done
+### H-32 `T23_FontaineClosure`: done from `B_dR^{G_{ℚ_p}} = ℚ_p`
 
 The flagged issue was that pkg-I4's `IsDeRham ρ` computes `D_dR` on `V^∨` (as `Hom_G(V, B_dR)`). New
 genuine definitions: `ddrStd ρ = (B_dR ⊗ ℚ_pⁿ)^{G_{ℚ_p}}` in coordinates and `IsDeRhamStd ρ`
-(`dim = n`), the printed definition. The leaf `FontaineDRTannakian p` is Fontaine's theorem for them, in
-matrix form: (a) duals; (b) sub on the last `b` coordinates and quotient on the first `a` of a block lower
-triangular `ρ`; (c) block-diagonal sums; (d) Kronecker products; continuity of the inputs assumed. Proved
-glue: `isDeRham_iff_std : IsDeRham ρ ↔ IsDeRhamStd (dualRep ρ)` (`ρ^∨(σ) = ρ(σ⁻¹)ᵀ`, through
-coordinates of `φ : ℚ_pⁿ → B_dR`), clause (i) of T23 outright (`isDeRham_conj`), and the transposes of the
-block and Kronecker shapes. `t23_all_of_fontaine : (∀ p, FontaineDRTannakian p) → ∀ p, T23_FontaineClosure p`
-(VERIFIED). Caveat: the leaf combines Fontaine's abstract theorem (admissible representations of a regular
-ring form a Tannakian subcategory) with "`B_dR` is regular"; Brinon–Conrad state the de Rham case as one
-result (UNVERIFIED numbering).
+(`dim = n`), the printed definition. Two steps:
+1. `t23_of_fontaine`: T23 from the intermediate statement `FontaineDRTannakian p` (Fontaine's
+   Tannakian theorem in matrix form: (a) duals; (b) sub on the last `b` coordinates and quotient on the
+   first `a` of a block lower triangular `ρ`; (c) block-diagonal sums; (d) Kronecker products). Proved
+   glue: `isDeRham_iff_std : IsDeRham ρ ↔ IsDeRhamStd (dualRep ρ)` (`ρ^∨(σ) = ρ(σ⁻¹)ᵀ`, through
+   coordinates of `φ : ℚ_pⁿ → B_dR`), clause (i) of T23 outright (`isDeRham_conj`), and the transposes
+   of the block and Kronecker shapes.
+2. `fontaineDRTannakian_of_bdrInvariants`: `FontaineDRTannakian p` from the leaf `BdRInvariants p`
+   (`B_dR^{G_{ℚ_p}} = ℚ_p`), following Brinon–Conrad's proof of their Thm 5.2.1. `B_dR` is a field: the
+   kernel's `BdrKer.Cp.isField_BDeRham` (bdr-kertheta). (I) `ddrStd_linearIndependent`:
+   `ℚ_p`-independent elements of `D_dR(V)` are `B_dR`-independent (the minimal-relation argument), so
+   `dim D_dR(V) ≤ n`. (L4)/(L5): `V` is de Rham iff an invertible "period matrix" `P` with
+   `ρ(σ) σ(P) = P` exists. Then duals (`P⁻ᵀ`), sums (block `P`), tensors (Kronecker `P`), and
+   sub/quotients (rank–nullity on the block projection).
+`t23_all_of_bdrInvariants : (∀ p, BdRInvariants p) → ∀ p, T23_FontaineClosure p` (VERIFIED). No
+continuity hypothesis is used.
 
 ### H-8 R10 amended: done (the de Rham leaf in the closest statable form)
 
@@ -184,16 +191,17 @@ Before (frontier r3): the seven rows were GLUE: two "consequence of one theorem"
 After this task, if its theorems are folded in:
 - **Removed:** H-8, H-22, H-32, H-51, H-52 (five GLUE rows).
 - **Added, published form:** `TateTwistInvariants`, `AxSenTate`, `HodgeTateDecompAbVar`,
-  `DeRhamH1AbVarT`, `FontaineDRTannakian`, `DSThm965`, `DSThm966` (seven LEAF rows; the two Tate leaves
-  are shared by three rows, the two DS leaves by two).
+  `DeRhamH1AbVarT`, `BdRInvariants`, `DSThm965`, `DSThm966` (seven LEAF rows; the two Tate leaves are
+  shared by three rows, the two DS leaves by two).
 - **H-10** is replaced by `EigenformHTNew`, still GLUE (consequence of Kato's theorem; not statable).
   It also uses I4-L5 `NewformOfEigenform`, already a kernel leaf.
 - **H-9** is unchanged (GLUE; Pan and Berger need `B_st`).
 
 Net: 7 GLUE → 2 GLUE + 7 LEAF. The leaves carry caveats. `DeRhamH1AbVarT` writes `H¹_ét` as
-`Hom(V_p A, ℚ_p)`. `FontaineDRTannakian` is Fontaine's Tannakian theorem with `B_dR`'s regularity
-built in. `DSThm965` extends coefficients along `ιL ∘ ιC⁻¹`. `HodgeTateDecompAbVar` chooses bases.
-Each is a specialization read off the printed statement (see §3), not a strengthening.
+`Hom(V_p A, ℚ_p)`. `DSThm965` extends coefficients along `ιL ∘ ιC⁻¹`. `HodgeTateDecompAbVar` chooses
+bases. Each is a specialization read off the printed statement (see §3), not a strengthening.
+`BdRInvariants`, `TateTwistInvariants` and `AxSenTate` are the printed statements for `K = ℚ_p` (resp.
+`K` finite over `ℚ_p` inside `ℚ̄_p`).
 
 ## 5. How to check
 
