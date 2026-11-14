@@ -7,4 +7,5 @@ git show $REV:ZInQKernel/OneProof/H/$M.lean > ZInQKernel/OneProof/H/$M.lean
 python3 scratch/one-proof/del_decls.py . $M.lean | grep -E 'deleting|skip'
 python3 scratch/one-proof/add_opens.py . $M.lean "$@"
 [ -f scratch/one-proof/fixes/$M.py ] && python3 scratch/one-proof/fixes/$M.py
+[ "$M" != LPrefix ] && python3 scratch/one-proof/fixes/_common.py ZInQKernel/OneProof/H/$M.lean
 true
