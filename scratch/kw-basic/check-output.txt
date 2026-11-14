@@ -1,0 +1,10 @@
+'ZInQ.Contrib.KroneckerWeber.isAbelianGalois_of_comm' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.KroneckerWeber.exists_pos_algHom_cyclotomicField' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Contrib.KroneckerWeber.hSynKroneckerWeber' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.KroneckerWeber.glueKroneckerWeber' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.KroneckerWeber.kroneckerWeberCyclic_of_kroneckerWeber' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Contrib.KroneckerWeber.kroneckerWeber_cyclic' depends on axioms: [propext, Classical.choice, Quot.sound]
