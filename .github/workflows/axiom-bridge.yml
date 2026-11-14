@@ -140,9 +140,9 @@ jobs:
           mem = {line.split(':')[0]: int(line.split()[1]) * 1024
                  for line in Path('/proc/meminfo').read_text().splitlines()
                  if line.startswith(('MemTotal:', 'MemAvailable:'))}
-          # Measured local full-source process-group peak + 1 GiB safety margin.
+          # Maximum measured canonical/cold-consumer group peak + 1 GiB margin.
           # The separate ~25 GiB duplicate-import TC0 fixture is not this CI job.
-          required = 13533192192 + 1073741824
+          required = max(13533192192, 13561958400) + 1073741824
           cap_path = Path('/sys/fs/cgroup/memory.max')
           cap_text = cap_path.read_text().strip() if cap_path.exists() else 'unavailable'
           print(json.dumps({'memory': mem, 'cgroup_memory_max': cap_text,
