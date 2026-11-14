@@ -21,3 +21,20 @@ t34 (`LeafModCurves.DimJ1Genus`), t38 (`X1Belyi.CurveOfFunctionFieldQ`). Owner f
   0 errors; `#print axioms` standard three (axioms_contrib_out.txt).
 - Consumers of t34 in leaf-fold3's flat file (VERIFIED by grep of Leaves3.lean): only through
   `LeafModCurves.dim_J1_le` (`dim J ≤ N²`), at lines 16897, 33861, 34333, 71883 (javanpeykarJ1 and E2).
+- 18:45 genus sanity: bp-modcurves' `genus_check.py` re-run (uv, sympy): 30/30 `ok` for N = 1..30
+  (combinatorial genus from S, ST, T on SL₂(ℤ)/±Γ₁(N) vs closed forms). `genus_check_out.txt`. VERIFIED computed.
+
+## t33
+- `JacobianExists` read against `IsCurve`, `IsJacobian`, `PkgI3.AbVar` (Objects.lean:162): the Albanese form of
+  Milne 1986 Thm 1.1 + Prop. 6.1 (UNVERIFIED numbers) with `P₀ ∈ X(K)`; AbVar allows dimension 0; uniqueness
+  only among homomorphisms. Not stronger. No Mathlib/Tau Ceti route (no Picard functor). STANDARD.
+
+## checks
+- `scratch/curves-g/py/verbatim_check.py`: the code of 26 declarations (the three field Props and every
+  definition they use: IsCurve, SpecQ, RatPt, IsJacobian, IsX1Model, IsJ1, fieldX1, xCoord, EjBar, Ej, Qj, Kbar,
+  genus, belyiDeg, nu2, nu3, nuInf, pmSubgroup, ConstantFieldIsQ, HasRationalPlace, ratHom, X1RationalCusp,
+  dim_J1_le) in the kernel owner files occurs verbatim in leaf-fold3's Leaves3.lean: ALL VERBATIM (docstrings of
+  Ej and DimJ1Genus differ). VERIFIED.
+- 18:21 first flat run failed at once: upstream `ZInQ.*` helper oleans (lean/) not built in this worktree;
+  `lake build` of the 29 ZInQKernel imports of Leaves3.lean fixed it (9 s).
+- 18:22 CurveSplit.lean drafted ((A), (B), (C) for T38NoPoint); compile after the flat run.
