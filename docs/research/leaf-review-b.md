@@ -195,5 +195,6 @@ impossible offline): reading the primary texts (no network); a Lean proof that
   success (VERIFIED).
 - `scratch/leaf-review-b/run_check.sh`: `Leaves3.lean` with `PrintFields.lean.tail` appended (a
   metaprogram `#lrb_fields S` printing each field of the bundle `S` with its type, full names, and the
-  body of its head definition), one `lake env lean` process. Outcome: see the end of
-  `scratch/leaf-review-b/log.md`.
+  body of its head definition), one `lake env lean` process. **Outcome: exit 0, 0 errors**; the
+  flat file's 283 `#print axioms` reports read `[propext, Classical.choice, Quot.sound]`; the 62
+  printed fields resolve to the head definitions named in §2 (VERIFIED; list in the log).

@@ -104,3 +104,14 @@ No STRONGER-THAN-SOURCE, no NOT-A-PUBLISHED-STATEMENT. Remarks (not statement er
 report §3.
 
 ## Lean check
+`scratch/leaf-review-b/run_check.sh` (2026-11-13, ~18:21-18:38 PST): `lake env lean` on
+`Leaves3.lean` + `PrintFields.lean.tail` **exit 0, 0 errors**; 283 `#print axioms` reports of the
+flat file read `[propext, Classical.choice, Quot.sound]`. `#lrb_fields` printed 62 fields
+(20 + 26 + 16) with full names and head-definition bodies. The 41 reviewed fields resolve to exactly
+the definitions named in the report (`HDec.PkgI2.*`, `HDec.PkgI3.*`, `HDec.LeafPush.T09_WeilPairing`,
+`HDec.T10Etale.T10_TateDuality`, `HDec.HomUnify.HomLatticeCorr`, `HDec.ZInQ.LeafPush2.*`,
+`HDec.WeilPairing.*`, `HDec.HeckeRest.SerreRigidity3`, `HDec.ZInQ.H5Neron.NeronModelExists`,
+`HDec.FrobPiecesNeron.ProperSmoothGenConnected`, `HDec.ZInQ.DefFaltings.*`, `HDec.PkgI4.*`,
+`HDec.G0Galois.{SenTwist,FiniteImageHT}`, `HDec.LeafModCurves.{JacobianExists ℚ,DimJ1Genus}`,
+`HDec.X1Belyi.{CurveOfFunctionFieldQ,X1RationalCusp}`). VERIFIED. Spot-checked bodies
+(`DivisiblePoints`, `R21_Bost`) equal the source text read. Raw output (/tmp, host paths) not committed.
