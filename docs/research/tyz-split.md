@@ -27,7 +27,9 @@ TYZ = Tian–Yuan–Zhang, arXiv:1411.4728v1 (Asian J. Math. 21 (2017) 721–774
    (`gchar`, built from `(N𝔞/q)`) is TYZ's `χ_{d₀,d₁}`, the character of `Gal(H_n/K_n)` on `√d₁`
    (resp. `√d₁*`) (`isChiPair_pairSet`); the "excluded" characters (`n ≡ 5`, `d₁ ≡ 5, 7`) are none of the
    `χ_{d₀,d₁}` (`not_isChiPair_excluded`); `h₂(n) = dim_{𝔽₂} Cl_n/2Cl_n = #ramSet − 1` (`h2G_eq`); TYZ's
-   sum over `Φ ⊂ Cl'_n` is the row's sum over a lift family (`pchiG_chiT`). Reading the source settled
+   sum over `Φ ⊂ Cl'_n` is the row's sum over a lift family: Lean proves the Artin reindexing
+   (`pchiG_chiT`) and `isPhi_of_liftFamily`; the step from `Φ` to `IsPhi` is TYZ's argument (Prop. 3.2,
+   L1253-1264, with `z_n ∈ A(H'_n)`, L1245), not a Lean proof. Reading the source settled
    tyz-35's three HUMAN CHECK items: TYZ fix an **arbitrary** `Φ` (L1279), so the row's `∀ f` needs no
    "independent of the lifts" argument; the convention `K_n(√d₁)` / `K_n(√d₁*)` is printed (L1304–1305);
    `h₂ = dim_{𝔽₂} Cl_n/2Cl_n` is printed (L992). Lemma 3.14 is not a separate leaf: its conclusion is
@@ -62,7 +64,8 @@ follows in Lean from the printed theorem; T-5 by shimura-modfn's check and §3.3
 | T-5 `Shimura.ShimuraReciprocityModFn` | composite: Shimura 1971 Thm 5.4 with the canonical model of `X₀(N)` (shimura-modfn) | none statable in printed form (§3.1) | `TYZSplitT5.CMModuli` (consequence of Shimura Thm 5.4 with torsion; CM part); `TYZSplitT5.X0RatStructure` (composite: canonical model of `X₀(N)` + separation of points by Weber coordinates; no CM) | `TYZSplitT5.shimuraReciprocityModFn_of_split` |
 
 Effect on the frontier count (r3, strict): T-11 GLUE → LEAF (published form, specialization to
-`n ≡ 5, 7` with `𝒫` existential); T-5 one GLUE → two GLUE (CM part a consequence of one theorem, so a
+`n ≡ 5, 7` with `𝒫` existential, carried along the kernel's eta model of `X₀(32)` by the q-expansion
+principle, which already sits behind `hS`; statement review v2, M1); T-5 one GLUE → two GLUE (CM part a consequence of one theorem, so a
 leaf in the lenient count; modular-curve part a composite).
 
 ## 2. T-11
@@ -131,8 +134,9 @@ def TYZThm33 : Prop :=
   is the kernel of `Cl'_n → Cl_n`; conversely every `Φ` lifts. `z_n^t` only depends on `t|_{H'_n}`,
   since `z_n ∈ A(H'_n)` by the definition of `H'_n`. So `∀ φ` is TYZ's `∀ Φ`.
 * `χ` is a character of `Cl_n = Gal(H_n/K_n)` itself, and `χ_{d₀,d₁}` is defined by its action on
-  `√d₁` resp. `√d₁*` (if the square root were not in `H_n` no `χ` would qualify, which would only
-  weaken the leaf; it is in `H_n`, `sqrt_pstar_mem'`).
+  `√d₁` resp. `√d₁*` (if the square root were not in `H_n` no `χ` would qualify, which would strengthen
+  the leaf, since `IsChiPair` is in its conclusion; it is in `H_n`, `sqrt_pstar_mem'`, and
+  `isChiPair_pairSet` supplies `χ`).
 
 **The `[i]`-sign of `z_n` (resolved from the text, 2026-11-14 statement review).** The leaf uses the
 kernel's pinned `z_n` (`basePt`): for `n ≡ 5`, `(1 − [i]) f₀(P_n)`. TYZ fix this sign. In the proof of

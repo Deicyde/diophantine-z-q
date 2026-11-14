@@ -116,6 +116,12 @@ statement, for every positive squarefree `n ≡ 5, 7 (mod 8)`, every `Φ` and ev
   `(5,3)`, `±1` otherwise.
 
 Encoding (a reading of the same display, never stronger):
+ * Model: the leaf is stated over the kernel's `basePt`, i.e. Heegner points on the eta-quotient model
+  `X0.phiC`, whereas TYZ build `z_n` from an arbitrary identification `i_0`. Passing from the print to the
+  leaf uses that the eta-model coordinates are rational functions on `X₀(32)` (q-expansion principle;
+  `IsRatModFn 32` in Bridge.lean), so `phiC = [M]∘i_0` with `M ∈ End_ℚ(A) = ℤ`, which the existential
+  `𝒫` absorbs. So the leaf is TYZ Theorem 3.3 carried along the eta model, not its literal display
+  (statement review v2, M1).
 * `A(H'_n(i)) ⊗ ℚ ⊂ A(ℚ̄) ⊗ ℚ`; a vector of `A(ℚ̄) ⊗ ℚ` is `Q/m`; equality is "the difference of the
   cleared multiples is torsion". `A` is the kernel's `y² = x³ + 4x ≅ X₀(32)`, `ℚ`-isomorphic to TYZ's
   `2y² = x³ + x` by `(x, y) ↦ (2x, 4y)`, compatibly with `[i]`; `z_n = f_n(P_n)` is the kernel's
