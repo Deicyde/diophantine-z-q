@@ -981,4 +981,80 @@ theorem cover_mob {γ : GL (Fin 2) ℝ} (hγ : γ ∈ Γs) :
     simp [Matrix.scalar_apply, Matrix.smul_eq_diagonal_mul, mul_assoc]
   rw [e, mul_smul, scal_smul hq, mul_smul]
 
+/-! ### `Γ*` is a group -/
+
+theorem gs_one : (1 : GL (Fin 2) ℝ) ∈ Γs :=
+  ⟨1, ⟨1, one_mul 1, one_mul 1, fun w hw => by simpa using hw⟩, by simp [iota_one], by simp⟩
+
+theorem gs_mul {a b : GL (Fin 2) ℝ} (ha : a ∈ Γs) (hb : b ∈ Γs) : a * b ∈ Γs := by
+  obtain ⟨x, ⟨y, hxy, hyx, hN⟩, hax, hda⟩ := ha
+  obtain ⟨x', ⟨y', hxy', hyx', hN'⟩, hbx, hdb⟩ := hb
+  refine ⟨x * x', ⟨y' * y, ?_, ?_, fun w hw => ⟨?_, ?_⟩⟩, by rw [Units.val_mul, hax, hbx, iota_mul], ?_⟩
+  · calc x * x' * (y' * y) = x * (x' * y') * y := by simp only [mul_assoc]
+      _ = 1 := by rw [hxy', mul_one, hxy]
+  · calc y' * y * (x * x') = y' * (y * x) * x' := by simp only [mul_assoc]
+      _ = 1 := by rw [hyx, mul_one, hyx']
+  · have := (hN _ (hN' w hw).1).1
+    have e : x * x' * w * (y' * y) = x * (x' * w * y') * y := by simp only [mul_assoc]
+    rw [e]; exact this
+  · have := (hN' _ (hN w hw).2).2
+    have e : y' * y * w * (x * x') = y' * (y * w * x) * x' := by simp only [mul_assoc]
+    rw [e]; exact this
+  · rw [Units.val_mul, Matrix.det_mul]; exact mul_pos hda hdb
+
+theorem gs_inv {a : GL (Fin 2) ℝ} (ha : a ∈ Γs) : a⁻¹ ∈ Γs := by
+  obtain ⟨x, ⟨y, hxy, hyx, hN⟩, hax, hda⟩ := ha
+  have hinv := inv_coe hax hxy
+  refine ⟨y, ⟨x, hyx, hxy, fun w hw => ⟨(hN w hw).2, (hN w hw).1⟩⟩, hinv, ?_⟩
+  have h1 : (a : Matrix (Fin 2) (Fin 2) ℝ) * ((a⁻¹ : GL (Fin 2) ℝ) : Matrix (Fin 2) (Fin 2) ℝ) = 1 := by
+    rw [← Units.val_mul, mul_inv_cancel, Units.val_one]
+  have h2 := congrArg Matrix.det h1
+  rw [Matrix.det_mul, Matrix.det_one] at h2
+  rcases lt_or_ge 0 ((a⁻¹ : GL (Fin 2) ℝ) : Matrix (Fin 2) (Fin 2) ℝ).det with h | h
+  · exact h
+  · nlinarith
+
+/-! ### The four cosets are distinct -/
+
+theorem nrd_repi_mul (i : Fin 4) : nrd (repi i) * nrd (rep i) = 1 := by
+  rw [← nrd_mul, repi_rep, nrd_one]
+
+/-- **Distinct cosets**: if `r_j z = r_i (h z)` for all `z` with `h ∈ Γ¹`, then `i = j`
+(reduced norms `1, 2, 3, 6` are distinct modulo squares). -/
+theorem coset_eq {i j : Fin 4} {h : GL (Fin 2) ℝ} (hh : h ∈ Gamma1)
+    (hz : ∀ z : UpperHalfPlane, g4 j • z = g4 i • (h • z)) : i = j := by
+  by_contra hij
+  obtain ⟨u, hu, hhu, hnu⟩ := gamma1_iff.1 hh
+  set γ := (g4 i * h)⁻¹ * g4 j with hγ
+  have htriv : ∀ z : UpperHalfPlane, γ • z = z := fun z => by
+    rw [hγ, mul_smul, hz, ← mul_smul (g4 i) h z, inv_smul_smul]
+  have hab : rep i * u * (star u * repi i) = 1 := by
+    calc rep i * u * (star u * repi i) = rep i * (u * star u) * repi i := by simp only [mul_assoc]
+      _ = 1 := by rw [mul_star_eq, hnu]; simp [rep_repi]
+  set w := star u * repi i * rep j with hw
+  have hγw : (γ : Matrix (Fin 2) (Fin 2) ℝ) = PkgI1.iota w := by
+    rw [hγ, Units.val_mul, inv_coe (a := rep i * u) (by rw [Units.val_mul, g4_coe, hhu, iota_mul]) hab,
+      g4_coe, hw]
+    simp only [iota_mul]
+  have hnw : nrd w = nrd (repi i) * nrd (rep j) := by
+    rw [hw, nrd_mul, nrd_mul, nrd_star, hnu, one_mul]
+  have hpos : 0 < nrd (repi i) := by
+    have := nrd_repi_mul i; have := nrd_rep_pos i
+    by_contra hneg; push Not at hneg; nlinarith
+  have hdγ : 0 < (γ : Matrix (Fin 2) (Fin 2) ℝ).det := by
+    rw [hγw, det_iota_eq, hnw]; exact_mod_cast mul_pos hpos (nrd_rep_pos j)
+  obtain ⟨s10, s01, s00⟩ := scalar_of_trivial hdγ htriv
+  rw [hγw] at s10 s01 s00
+  obtain ⟨hI, hJ, hK⟩ := rat_of_scalar s10 s01 s00
+  have hnu' : nrd w = w.re * w.re := by simp [nrd, hI, hJ, hK]; ring
+  have hprod : nrd (rep i) * nrd (rep j) = (w.re * nrd (rep i)) * (w.re * nrd (rep i)) := by
+    have e : nrd (rep j) = nrd (rep i) * (nrd (repi i) * nrd (rep j)) := by
+      rw [← mul_assoc, mul_comm (nrd (rep i)), nrd_repi_mul, one_mul]
+    rw [e, ← hnw, hnu']; ring
+  rw [nrd_rep i, nrd_rep j] at hprod
+  have hsq : ∀ a b : Fin 4, a ≠ b →
+      ¬ IsSquare ((![1, 2, 3, 6] : Fin 4 → ℤ) a * (![1, 2, 3, 6] : Fin 4 → ℤ) b) := by decide +kernel
+  exact not_sq_q (w.re * ((![1, 2, 3, 6] : Fin 4 → ℤ) i : ℚ)) _ (hsq i j hij)
+    (by push_cast; linarith)
+
 end HDec.LeafQCheck.QMglue
