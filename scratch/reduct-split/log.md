@@ -16,3 +16,10 @@ Setup: compile checks with `scratch/reduct-split/chk.sh FILE` = `lean` with LEAN
   no glue) and `open_of_finite_image` (⇒, from the glue + divisibility); `serreTatePotentialGood_of_leaves : SerreTateThm2 →
   TorsionStructure → TorsionFieldOfDefinition → PkgI2.SerreTatePotentialGood.{0}`. OK 10 s. Axioms of the three row
   theorems: [propext, Classical.choice, Quot.sound]. VERIFIED.
+- 11:38 §8: `GroupModelO.transport`, `semistableNeronModels_transport`, `bcbcIso` (`(A_{K'})_L ≅ A_L` via Mathlib's
+  `mapGrpCompIso`, `mapGrpNatIso (Over.pullbackComp ..)`), `bcbcIso_isMonHom`: OK. VERIFIED.
+- 11:40 `SemistableReductionDVR` restated at every place of `K'` over `O` (the printed scope; r8 uses the place `w ∩ K'`).
+  §9: leaf `SemistablePersistsDVR` (SGA 7 IX 3.3, finite extensions), glue `DVRComapFinite`, `SemistableLocalGlobal`,
+  `SemistableAlmostAll`; `semistablePersists_of_leaves : ... → ZInQ.HeightSplit.SemistablePersists`,
+  `semistableReductionThm_of_leaves : ... → ZInQ.HeightSplit.SemistableReductionThm`: OK 11.5 s; all five row theorems
+  depend on [propext, Classical.choice, Quot.sound]. VERIFIED.

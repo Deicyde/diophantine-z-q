@@ -262,15 +262,16 @@ def RaynaudSemistable : Prop :=
     SemistableNeronModels A O
 
 /-- **LEAF `SemistableReductionDVR` (Grothendieck's semistable reduction theorem, SGA 7 I,
-Exp. IX, Thm. 3.6; number UNVERIFIED).** `O ⊆ K` a discrete valuation ring, `w` a valuation ring of
-`K̄` over `O`. There is a finite extension `K' ⊆ K̄` such that `A_{K'}` has semistable reduction at
-the place `w ∩ K'` (SGA 7: at every place of `K'` over `O`; the specialization to the one place
-`w ∩ K'`). -/
+Exp. IX, Thm. 3.6; number UNVERIFIED).** `O ⊆ K` a discrete valuation ring. There is a finite
+extension `K' ⊆ K̄` such that `A_{K'}` has semistable reduction at every place of `K'` over `O`
+(every discrete valuation ring `O' ⊆ K'` with `O' ∩ K = O`; these are the local rings of the
+normalization of `O` in `K'`). SGA 7 gives `K'` finite separable (even Galois); the conclusion
+here only asks for finite. -/
 def SemistableReductionDVR : Prop :=
-  ∀ (K : Type) [Field K] (O : ValuationSubring K) [IsDiscreteValuationRing O]
-    (w : ValuationSubring (AlgebraicClosure K)), w.comap (algebraMap K (AlgebraicClosure K)) = O →
-    ∀ A : PkgI3.AbVar K, ∃ K' : IntermediateField K (AlgebraicClosure K), FiniteDimensional K K' ∧
-      SemistableNeronModels (A.baseChange K') (w.comap (algebraMap K' (AlgebraicClosure K)))
+  ∀ (K : Type) [Field K] (O : ValuationSubring K) [IsDiscreteValuationRing O] (A : PkgI3.AbVar K),
+    ∃ K' : IntermediateField K (AlgebraicClosure K), FiniteDimensional K K' ∧
+      ∀ O' : ValuationSubring K', IsDiscreteValuationRing O' →
+        O'.comap (algebraMap K K') = O → SemistableNeronModels (A.baseChange K') O'
 
 /-- **GLUE `DVRFiniteExtension`.** A valuation ring of a finite extension `K' ⊆ K̄` lying over a
 discrete valuation ring of `K` is a discrete valuation ring (Bourbaki AC VI §8.1; Serre, *Corps
@@ -418,10 +419,12 @@ theorem grothendieckMonodromy_of_leaves (hS : SemistableReductionDVR)
     (hD : DVRFiniteExtension) : PkgI2.GrothendieckMonodromy.{0} := by
   intro K _ O _ w hw A _
   let B := ObjBridge.ofGrp A
-  obtain ⟨K', hK', hss⟩ := hS K O w hw B
+  obtain ⟨K', hK', hss'⟩ := hS K O B
   refine ⟨K', hK', fun σ hσ hfix ℓ hℓ hℓO n x hx => ?_⟩
   haveI : Fact ℓ.Prime := ⟨hℓ⟩
   haveI := hD K O w hw K' hK'
+  have hss := hss' (w.comap (algebraMap K' (AlgebraicClosure K))) inferInstance (by
+    rw [ValuationSubring.comap_comap, ← IsScalarTower.algebraMap_eq, hw])
   haveI : IsAlgClosure K' (AlgebraicClosure K) :=
     ⟨inferInstance, Algebra.IsAlgebraic.tower_top (K := K) (L := K') (A := AlgebraicClosure K)⟩
   let σ' : AlgebraicClosure K ≃ₐ[K'] AlgebraicClosure K :=
@@ -688,8 +691,133 @@ theorem bcbcIso_isMonHom (A : PkgI3.AbVar K) (K' L : Type) [Field K'] [Field L] 
 
 end Transport
 
+/-! ## §9. The global height-split rows SS1 (`SemistableReductionThm`) and SS3
+(`SemistablePersists`) from the local SGA 7 IX theorems -/
+
+/-- **LEAF `SemistablePersistsDVR` (SGA 7 I, Exp. IX, Prop. 3.3, first assertion; number
+UNVERIFIED).** `O ⊆ K` a discrete valuation ring, `K'/K` a finite extension, `O' ⊆ K'` a discrete
+valuation ring over `O`. If `A` has semistable reduction at `O`, then `A_{K'}` has semistable
+reduction at `O'` (every Néron model of `A_{K'}` over `O'` is semistable). SGA 7 allows any
+extension of discrete valuation rings; here `K'/K` is finite (a specialization). -/
+def SemistablePersistsDVR : Prop :=
+  ∀ (K : Type) [Field K] (O : ValuationSubring K) [IsDiscreteValuationRing O]
+    (K' : Type) [Field K'] [Algebra K K'] [FiniteDimensional K K'] (O' : ValuationSubring K')
+    [IsDiscreteValuationRing O'], O'.comap (algebraMap K K') = O →
+    ∀ A : PkgI3.AbVar K, HasSemistableReduction A O → SemistableNeronModels (A.baseChange K') O'
+
+/-- **GLUE `DVRComapFinite`.** The restriction of a discrete valuation ring of `K'` to a subfield
+`K` with `[K' : K]` finite is a discrete valuation ring. Needs: the restricted valuation is
+non-trivial (else `O' ⊇ K`, so `O' ⊇` the integral closure of `K` in `K'`, which is `K'`) and its
+value group is a non-zero subgroup of `ℤ`. Short on paper; the Mathlib 4.35 API passing between
+`ValuationSubring` and `IsDiscreteValuationRing` makes it a separate task. -/
+def DVRComapFinite : Prop :=
+  ∀ (K K' : Type) [Field K] [Field K'] [Algebra K K'] [FiniteDimensional K K']
+    (O' : ValuationSubring K'), IsDiscreteValuationRing O' →
+      IsDiscreteValuationRing (O'.comap (algebraMap K K'))
+
+/-- **GLUE `SemistableLocalGlobal`.** For a Néron model `𝒩` of `A_L` over `𝓞_L` (`L` a number
+field), height-split's `IsSemistable 𝒩` (the geometric fibre of `𝒩` at every maximal ideal `𝔭` has
+semi-abelian identity component) holds iff `A_L` has semistable reduction at every discrete
+valuation ring of `L`. Needs: (i) every discrete valuation ring of `L` is `(𝓞_L)_𝔭` for a maximal
+`𝔭` (Mathlib has the valuation `v.valuation` of `𝔭`; the identification for valuation subrings is
+not packaged); (ii) Néron models localize (BLR §1.2 Prop. 4, published: `𝒩 ⊗ (𝓞_L)_𝔭` is a Néron
+model over `(𝓞_L)_𝔭`) and are unique up to unique isomorphism; (iii) the geometric special fibre of
+`𝒩 ⊗ (𝓞_L)_𝔭` is the geometric fibre of `𝒩` at `𝔭` (pullback pasting along
+`𝓞_L → (𝓞_L)_𝔭 → κ`, with `κ(𝔭) ≅ κ((𝓞_L)_𝔭)` and an isomorphism of their algebraic closures),
+and `HasSemiAbelianIdentityComponent` is invariant under such isomorphisms. -/
+def SemistableLocalGlobal : Prop :=
+  ∀ (K : Type) [Field K] (A : PkgI3.AbVar K) (L : Type) [Field L] [NumberField L] [Algebra K L]
+    (𝒩 : ZInQ.DefFaltings.GroupModel A L), 𝒩.IsNeronModel →
+    (ZInQ.HeightSplit.IsSemistable 𝒩 ↔
+      ∀ O : ValuationSubring L, IsDiscreteValuationRing O → HasSemistableReduction (A.baseChange L) O)
+
+/-- **GLUE `SemistableAlmostAll`.** An abelian variety over a number field has semistable
+reduction at all but finitely many discrete valuation rings of `K`. Needs: good reduction outside
+a finite set of primes (spreading out: an abelian scheme over `𝓞_K[1/N]`, EGA IV 8.10.5 (xii), the
+bundle leaf `egaIV_8_10_5_xii`, with smoothness and properness spread out); at a prime of good
+reduction the abelian scheme is the Néron model (BLR §1.2 Prop. 8) and its special fibre is an
+abelian variety, hence semi-abelian with trivial torus; finitely many primes give finitely many
+discrete valuation rings (as in (i) of `SemistableLocalGlobal`). -/
+def SemistableAlmostAll : Prop :=
+  ∀ (K : Type) [Field K] [NumberField K] (A : PkgI3.AbVar K),
+    {O : ValuationSubring K | IsDiscreteValuationRing O ∧ ¬ HasSemistableReduction A O}.Finite
+
+/-- **SS3 (`HeightSplit.SemistablePersists`) from the local SGA 7 IX 3.3**, Néron's existence
+theorem over discrete valuation rings, and the glue `SemistableLocalGlobal`, `DVRComapFinite`. -/
+theorem semistablePersists_of_leaves (h33 : SemistablePersistsDVR)
+    (hN : NeronSchemeModelExistsDVR) (hLG : SemistableLocalGlobal) (hDown : DVRComapFinite) :
+    ZInQ.HeightSplit.SemistablePersists := by
+  intro K _ _ A L _ _ _ 𝒩 h𝒩 hss L' _ _ _ _ _ 𝒩' h𝒩'
+  rw [hLG K A L 𝒩 h𝒩] at hss
+  rw [hLG K A L' 𝒩' h𝒩']
+  intro O' hO'
+  haveI := hO'
+  haveI : IsDiscreteValuationRing (O'.comap (algebraMap L L')) := hDown L L' O' hO'
+  have h1 := h33 L (O'.comap (algebraMap L L')) L' O' rfl (A.baseChange L)
+    (hss _ inferInstance)
+  exact hasSemistableReduction_of hN O' _
+    (semistableNeronModels_transport (bcbcIso A L L') (bcbcIso_isMonHom A L L') h1)
+
+/-- **SS1 (`HeightSplit.SemistableReductionThm`) from the local SGA 7 IX 3.6 and 3.3**, Néron's
+existence theorem over discrete valuation rings, and the glue `SemistableLocalGlobal`,
+`SemistableAlmostAll`, `DVRComapFinite`: `L₀` is the compositum in `K̄` of the fields given by 3.6
+at the finitely many places of non-semistable reduction. -/
+theorem semistableReductionThm_of_leaves (h36 : SemistableReductionDVR)
+    (h33 : SemistablePersistsDVR) (hN : NeronSchemeModelExistsDVR) (hLG : SemistableLocalGlobal)
+    (hAA : SemistableAlmostAll) (hDown : DVRComapFinite) :
+    ZInQ.HeightSplit.SemistableReductionThm := by
+  classical
+  intro K _ _ A
+  set S := {O : ValuationSubring K | IsDiscreteValuationRing O ∧ ¬ HasSemistableReduction A O}
+  have hS : S.Finite := hAA K A
+  have hch : ∀ O : ValuationSubring K, ∃ K' : IntermediateField K (AlgebraicClosure K),
+      FiniteDimensional K K' ∧ (IsDiscreteValuationRing O →
+        ∀ O' : ValuationSubring K', IsDiscreteValuationRing O' →
+          O'.comap (algebraMap K K') = O → SemistableNeronModels (A.baseChange K') O') := by
+    intro O
+    by_cases hO : IsDiscreteValuationRing O
+    · obtain ⟨K', h1, h2⟩ := h36 K O A
+      exact ⟨K', h1, fun _ => h2⟩
+    · exact ⟨⊥, inferInstance, fun h => absurd h hO⟩
+  choose F hFfin hF using hch
+  let L₀ : IntermediateField K (AlgebraicClosure K) := ⨆ O ∈ hS.toFinset, F O
+  haveI : FiniteDimensional K L₀ :=
+    IntermediateField.finiteDimensional_iSup_of_finset' (fun O _ => hFfin O)
+  haveI : NumberField L₀ := NumberField.of_module_finite K L₀
+  refine ⟨L₀, inferInstance, inferInstance, inferInstance, fun 𝒩 h𝒩 => ?_⟩
+  rw [hLG K A L₀ 𝒩 h𝒩]
+  intro O'' hO''
+  haveI := hO''
+  haveI hO : IsDiscreteValuationRing (O''.comap (algebraMap K L₀)) := hDown K L₀ O'' hO''
+  by_cases hOS : O''.comap (algebraMap K L₀) ∈ S
+  · -- a place of bad reduction: go through `F O ≤ L₀`
+    set O := O''.comap (algebraMap K L₀) with hOdef
+    have hle : F O ≤ L₀ := le_iSup₂ (f := fun O _ => F O) O (hS.mem_toFinset.mpr hOS)
+    letI : Algebra (F O) L₀ := (IntermediateField.inclusion hle).toRingHom.toAlgebra
+    haveI : IsScalarTower K (F O) L₀ := IsScalarTower.of_algebraMap_eq (fun _ => rfl)
+    haveI : FiniteDimensional (F O) L₀ := by
+      haveI := hFfin O
+      exact FiniteDimensional.right K (F O) L₀
+    haveI hOi : IsDiscreteValuationRing (O''.comap (algebraMap (F O) L₀)) :=
+      hDown (F O) L₀ O'' hO''
+    have hc : (O''.comap (algebraMap (F O) L₀)).comap (algebraMap K (F O)) = O := by
+      rw [ValuationSubring.comap_comap, ← IsScalarTower.algebraMap_eq]
+    have h1 : SemistableNeronModels (A.baseChange (F O)) (O''.comap (algebraMap (F O) L₀)) :=
+      hF O hO _ hOi hc
+    have h2 := hasSemistableReduction_of hN _ _ h1
+    have h3 := h33 (F O) (O''.comap (algebraMap (F O) L₀)) L₀ O'' rfl (A.baseChange (F O)) h2
+    exact hasSemistableReduction_of hN O'' _
+      (semistableNeronModels_transport (bcbcIso A (F O) L₀) (bcbcIso_isMonHom A (F O) L₀) h3)
+  · -- a place of semistable reduction of `A`
+    have hgood : HasSemistableReduction A (O''.comap (algebraMap K L₀)) := by
+      by_contra hc
+      exact hOS ⟨hO, hc⟩
+    exact hasSemistableReduction_of hN O'' _ (h33 K _ L₀ O'' rfl A hgood)
+
 end ReductSplit
 
 #print axioms ReductSplit.raynaudCriterion_of_leaves
 #print axioms ReductSplit.grothendieckMonodromy_of_leaves
 #print axioms ReductSplit.serreTatePotentialGood_of_leaves
+#print axioms ReductSplit.semistablePersists_of_leaves
+#print axioms ReductSplit.semistableReductionThm_of_leaves
