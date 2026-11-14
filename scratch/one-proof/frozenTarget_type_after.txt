@@ -1,0 +1,11 @@
+ZInQ.OneProof.frozenTarget : ∀ (r : HDec.HSyn.OpenResearchLeaves2) (t : HDec.HSyn.OpenTextbookLeaves4)
+  (l : HDec.HSyn.OpenAddedLeaves4) (g : HDec.HSyn.OpenGlue4) (h11 : ZInQ.Contrib.TYZDecomp.TYZThm11Integral)
+  (h1 : ZInQ.Contrib.TYZDecomp.TYZLcalOne) (h29 : ZInQ.Contrib.TYZDecomp.TYZLemma29Mod2)
+  (hS : ZInQ.Contrib.TYZGenus.Shimura.ShimuraReciprocityModFn)
+  (h318 : ZInQ.Contrib.TYZGenus.Package.Lemma318Literal ZInQ.Contrib.TYZGenus.RingClass.HHprime)
+  (h35 :
+    ∀ (ℓ : Nat → Int),
+      ZInQ.Contrib.TYZDecomp.IsTYZLcal ℓ →
+        ZInQ.Contrib.TYZGenus.Package.Thm35First ℓ ZInQ.Contrib.TYZGenus.CMBridge.tyzZ)
+  (h5 : ZInQ.Contrib.TYZGenus.CMBridge.Lemma321Five) (hL2 : ZInQ.GZDecomp.FHNonvanishing)
+  (hL3 : ZInQ.GZDecomp.GrossZagierHeegner), ZInQ.FrozenTarget
