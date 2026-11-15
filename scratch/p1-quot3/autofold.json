@@ -1,12 +1,12 @@
 {
  "name": "p1-quot3-fold",
  "imports": [
-  "ZInQKernel.Contrib.OneProof.QuotientP1Smooth"
+  "ZInQKernel.Contrib.OneProof.QuotientP1Model"
  ],
  "discharges": [
   {
    "field": "quotientP1Coordinate",
-   "proof": "_root_.HDec.MCRQuot.quotientP1Coordinate_of_fields4 {n}.lichtenbaumProjective {n}.finiteQuotientExists {n}.smoothModelOfP1 {n}.edixhovenFixedSmooth2 {t}.regularSmoothPerfect {t}.mumfordTorsionAlgClosed {r}.mumfordGroupLaw {r}.shimuraMainThmIDeligneY3AbU {t}.uniformizationLeafAll {t}.gagaMorphism",
+   "proof": "_root_.HDec.MCRQuot.quotientP1Coordinate_of_fields5 {n}.lichtenbaumProjective {n}.finiteQuotientExists {n}.edixhovenFixedSmooth2 {t}.regularSmoothPerfect {t}.mumfordTorsionAlgClosed {r}.mumfordGroupLaw {r}.shimuraMainThmIDeligneY3AbU {t}.uniformizationLeafAll {t}.gagaMorphism",
    "leaves": [
     {
      "name": "lichtenbaumProjective",
@@ -23,14 +23,6 @@
      "kind": "published",
      "flag": "",
      "source": "SGA 1 Exp. V, Prop. 1.8 with Prop. 1.1 and Cor. 1.5 (locators UNVERIFIED)"
-    },
-    {
-     "name": "smoothModelOfP1",
-     "type": "_root_.HDec.MCRGlue.SmoothModelOfP1",
-     "doc": "mcr-glue L4: a proper smooth Z_(p)-curve with generic fibre P^1_Q is P^1_{Z_(p)} (consequence; no printed statement located).",
-     "kind": "consequence",
-     "flag": "",
-     "source": "Liu, Algebraic Geometry and Arithmetic Curves, sec. 8.3 and 10.1 (locators UNVERIFIED)"
     },
     {
      "name": "edixhovenFixedSmooth2",

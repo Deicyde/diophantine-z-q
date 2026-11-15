@@ -57,3 +57,23 @@ Build tree: copy of ~/dzq-wt/p1-quot2/.lake/build and lean/.lake/build (19793c5d
   exists_hom_twistRestrict exist; missing: genus 0 + degree-1 pencil => iso to P^1, fibrewise iso criterion,
   named arithmeticGenus(P^1) = 0.
 - L4 stays GLUE (consequence); no printed statement located (SPECULATIVE candidates in report §5.3).
+
+## L4 bypassed (no new leaf)
+- Helpers (all `lake build` OK, no sorry; generated from scratch/p1-quot3/L4A..L4E.lean):
+  QuotientP1/P1ModelA (Γ(P¹ by charts over ℚ) = ℚ; Γ(𝒵) = ℤ_(p); geometric connectedness via the proved Zariski
+  connectedness theorem; integral fibres; generic point ξ of the special fibre; codim ≤ 1 points),
+  P1ModelB (extension of sections over codim ≥ 2, from the vendored extension theorem),
+  P1ModelC (chart lemmas; the generic coordinate extends: extend_of_isInteger, isUnit_germ_of_third (the third
+  section forces a unit at ξ), exists_extensions, exists_toP1),
+  P1ModelD (P¹ over any affine base by charts, from p1-quot's P1Scheme),
+  P1ModelE (chart rings are polynomial rings: transcendence of the reduced coordinate; the map to P¹_{ℤ_(p)} has
+  finite fibres hence is finite; exists_p1Coordinate).
+- ZInQKernel/Contrib/OneProof/QuotientP1Model.lean (from L4F.lean): coordinateFromSectionsGen_of (glue C2 without
+  L4's coordinate), quotientP1Coordinate_of_printed3, quotientP1Coordinate_of_fields5: build OK; axioms standard
+  (VERIFIED).
+- #discharges (Discharges5.lean -> discharges5_out.txt): "DISCHARGES [OpenGlue7.quotientP1Coordinate] by
+  HDec.MCRQuot.quotientP1Coordinate_of_fields5", still assumes LichtenbaumProjective, FiniteQuotientExists,
+  EdixhovenFixedSmooth2 + 6 chain fields; axioms standard (VERIFIED).
+- autofold.json (fields5; leaves lichtenbaumProjective, finiteQuotientExists, edixhovenFixedSmooth2, all published):
+  --dry-run: "strict count: 46/10 on 56 -> 49/9 on 58; strictest 45/11 -> 48/10" => the fold PAYS -1 (VERIFIED).
+  Generated module (FoldDry.lean) compiles; sixContactMin_of_open30 axioms standard (VERIFIED).
