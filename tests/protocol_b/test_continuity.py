@@ -517,6 +517,98 @@ class AccessLimitations(unittest.TestCase):
         self.assertEqual(discussion[0]['review_source_checks'][0]['outcome'], 'verified')
         self.assertEqual(discussion[0]['review_source_evidence'][0]['origin']['run'], '1')
 
+    def large_supplement(self, mode):
+        gh, app = Continuity().rebased()
+        value = json.loads(app.checks[5]['output']['text'])
+        source = self.pair()
+        original = source['fable']['review']
+        checked = copy.deepcopy(original['source_checks'][0])
+        if mode == 'superseded':
+            original['source_checks'][0]['detail'] = 'x' * 35_000
+            checked['detail'] = 'y' * 35_000
+        else:
+            original['source_checks'].append({**checked, 'source_id': 'old-' + 'x'*34_000})
+            checked['source_id'] = 'new-' + 'y'*34_000
+        value['reports']['astra']['review'] = original
+        value['reports']['fable']['review'] = source['astra']['review']
+        app.checks[5]['output']['text'] = json.dumps(value)
+        gh.comments.extend(report_comment(e) for e in value['reports'].values())
+        gh.comments.append(comment('Please examine this additional clarification.', 'reader'))
+        def run(reviewer):
+            reviewer.history_read = True
+            reviewer.reads = [{'path': 'p.tex', 'revision': HEAD, 'start': 1, 'count': 1}]
+            result = report(source_checks=[checked], prior_findings=[{'id': '1-1-fable-F1',
+                'resolution': 'resolved', 'reason': 'Earlier source inspection is recorded.'}])
+            if mode == 'rejection':
+                result.update(decision='changes_requested', findings=[{'id': 'new-gap',
+                    'location': 'p.tex:1', 'objection': 'The clarification exposes a substantive gap.'}])
+            return result
+        return run_pipeline(gh, app, provider=run)
+
+    def test_superseded_large_attestations_do_not_duplicate_in_published_report(self):
+        gh, app, errors, state = self.large_supplement('superseded')
+        self.assertEqual(errors, [])
+        self.assertEqual(app.final['conclusion'], 'success')
+        self.assertEqual(state['reports']['astra']['retained_source_evidence'], [])
+        self.assertEqual(len(state['reports']['astra']['review']['source_checks'][0]['detail']), 35_000)
+        self.assertLess(len(app.final['output']['text'].encode()), 60_000)
+        self.assertTrue(all(len(p['body'].encode()) < 65_536 for p in gh.posts))
+
+    def test_oversized_retained_evidence_loses_relief_not_completed_verdict(self):
+        gh, app, errors, state = self.large_supplement('capacity')
+        self.assertEqual(errors, ['Protocol B review is blocked', 'Protocol B review is blocked'])
+        pair = json.loads(app.final['output']['text'])['reports']
+        self.assertTrue(pair['astra']['complete'])
+        self.assertEqual(pair['astra']['review']['decision'], 'accept')
+        self.assertEqual(pair['astra']['retained_source_evidence'], [])
+        self.assertIn('source_evidence_omitted', pair['astra'])
+        self.assertFalse(gate.combined_decision(pair)[0])
+        self.assertEqual(pair['fable']['review']['findings'][0]['id'], 'F1')
+        self.assertLess(len(app.final['output']['text'].encode()), 60_000)
+        self.assertTrue(all(len(p['body'].encode()) < 65_536 for p in gh.posts))
+
+    def test_rejecting_large_supplement_remains_authoritative(self):
+        _, app, errors, _ = self.large_supplement('rejection')
+        self.assertEqual(errors, ['Protocol B review is blocked', 'Protocol B review is blocked'])
+        e = json.loads(app.final['output']['text'])['reports']['astra']
+        self.assertTrue(e['complete'])
+        self.assertEqual(e['review']['decision'], 'changes_requested')
+        self.assertEqual(e['review']['findings'][0]['id'], 'new-gap')
+        gh = FakeGH()
+        self.assertNotIn('astra', gate.reusable_reports(gh, gh.pr, [],
+            [(1, {'astra': accepting()}), (2, {'astra': e})], explicit_review=True))
+
+    def test_successive_supplements_keep_only_latest_attestation_per_source(self):
+        prior = self.pair()['fable']
+        source = copy.deepcopy(prior['review']['source_checks'][0])
+        source['detail'] = 'x' * 35_000
+        for number, outcome in [(2, 'verified'), (3, 'unavailable'), (4, 'verified')]:
+            source['outcome'] = outcome
+            current = report(source_checks=[copy.deepcopy(source)])
+            prior = accepting('fable', run=str(number), review=current,
+                              retained_source_evidence=gate.retained_sources(prior, current))
+            self.assertEqual(prior['retained_source_evidence'], [])
+            self.assertEqual(len(gate.source_evidence(prior)), 1)
+            self.assertEqual(gate.source_evidence(prior)[0]['check']['outcome'], outcome)
+            self.assertEqual(gate.source_evidence(prior)[0]['origin']['run'], str(number))
+
+    def test_combined_capacity_drop_recomputes_source_access_decision(self):
+        pair = self.pair()
+        verified = pair['fable']['review']['source_checks'][0]
+        pair['fable']['retained_source_evidence'] = gate.source_evidence(pair['fable'])
+        pair['fable']['review']['source_checks'] = []
+        pair['fable']['retained_source_evidence'].append({'check': {'source_id': 'x'*32_000,
+            'outcome': 'verified'}, 'origin': gate.source_evidence(pair['fable'])[0]['origin']})
+        pair['astra']['review']['source_checks'].append({**verified, 'source_id': 'y'*32_000})
+        state = {'head': HEAD}
+        self.assertTrue(gate.combined_decision(pair)[0])
+        with patch.object(gate, 'record'):
+            accepted, limits = gate.bounded_decision(state, pair, {}, None)
+        self.assertFalse(accepted)
+        self.assertEqual(limits, [])
+        self.assertTrue(all(e['complete'] for e in pair.values()))
+        self.assertLess(len(gate.decision_text(state, pair, limits).encode()), 60_000)
+
     def test_pipeline_publishes_source_access_limits_without_rewriting_verdict(self):
         pair = self.pair()
         def provider(reviewer):

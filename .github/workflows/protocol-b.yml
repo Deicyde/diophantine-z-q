@@ -1113,6 +1113,21 @@ jobs:
               return list(checks.values())
 
 
+          def retained_sources(previous, current):
+              # Original full attestations remain in their reports. Keep only the
+              # unsuperseded decision evidence and its original execution identity.
+              replaced = {s['source_id'] for s in current.get('source_checks', [])}
+              return [{'check': {k: s['check'][k] for k in ('source_id', 'outcome')},
+                       'origin': s['origin']} for s in source_evidence(previous)
+                      if s['check']['source_id'] not in replaced]
+
+
+          def omit_retained_sources(envelope):
+              record(envelope['reviewer'] + '-omitted-source-evidence.json', envelope['retained_source_evidence'])
+              envelope['retained_source_evidence'] = []
+              envelope['source_evidence_omitted'] = 'Output capacity; omitted attestations cannot authorize source-access relief.'
+
+
           def effective_head(envelope):
               # Callers obtain these envelopes from this App's authenticated check.
               return envelope.get('reused_for', envelope.get('head'))
@@ -1225,7 +1240,38 @@ jobs:
                   record(envelope['reviewer'] + '-omitted-rebase-binding.json', envelope['reuse_binding'])
                   envelope['reuse_binding'] = None
                   envelope['reuse_binding_omitted'] = 'Comment capacity; rebase reuse disabled.'
+              if len(json.dumps(envelope, ensure_ascii=False).encode()) > 60_000 and envelope.get('retained_source_evidence'):
+                  omit_retained_sources(envelope)
               return envelope
+
+
+          def decision_text(state, reports, limits):
+              compact = json.loads(json.dumps(reports))
+              for e in compact.values():
+                  e['review'].pop('report', None)
+                  e['review'].pop('sources_read', None)
+              return json.dumps({'schema': 'protocol-b-decisions/v1', 'head': state['head'], 'reports': compact,
+                                 'automatic_rounds': state.get('automatic_rounds', 0),
+                                 'review_round': state.get('review_round'),
+                                 'source_access_limitations': limits})
+
+
+          def bounded_decision(state, envelopes, prior, discussion):
+              accepted, limits = combined_decision(envelopes, prior, discussion)
+              if len(decision_text(state, envelopes, limits).encode()) > 60_000:
+                  for e in envelopes.values():
+                      if e.get('reuse_binding'):
+                          record(e['reviewer'] + '-omitted-rebase-binding.json', e['reuse_binding'])
+                          e['reuse_binding'] = None
+                          e['reuse_binding_omitted'] = 'App check capacity; rebase reuse disabled.'
+              for e in sorted(envelopes.values(), key=lambda x: len(json.dumps(x.get('retained_source_evidence', []))), reverse=True):
+                  if len(decision_text(state, envelopes, limits).encode()) <= 60_000:
+                      break
+                  if e.get('retained_source_evidence'):
+                      omit_retained_sources(e)
+                      # Removing evidence can remove access relief, never create it.
+                      accepted, limits = combined_decision(envelopes, prior, discussion)
+              return accepted, limits
 
 
           def combined_decision(envelopes, prior=None, discussion=None):
@@ -1521,7 +1567,7 @@ jobs:
                                   envelope["reuse_binding"] = optional_reuse_binding(gh, pr, files, reviewers[family])
                                   if family in supplements:
                                       envelope["reuse_binding"] = inherit_reuse_binding(envelope["reuse_binding"], supplements[family])
-                                      envelope['retained_source_evidence'] = source_evidence(supplements[family])
+                                      envelope['retained_source_evidence'] = retained_sources(supplements[family], value)
                                       envelope["supplements_review"] = {k: supplements[family][k] for k in
                                                                         ('head', 'run', 'attempt', 'policy_ref', 'reuse_check')}
                                   bounded_report(envelope)
@@ -1547,7 +1593,7 @@ jobs:
                       if failures:
                           raise RuntimeError(json.dumps(failures))
                       current_discussion, current_prior, _, _ = history(gh, pr)
-                      accepted, limits = combined_decision(envelopes, current_prior, current_discussion)
+                      accepted, limits = bounded_decision(state, envelopes, current_prior, current_discussion)
                       state['source_access_limitations'] = limits
                       if accepted:
                           conclusion = "success"
@@ -1785,14 +1831,8 @@ jobs:
                   state.update(conclusion='failure', summary='Head or review policy changed; no acceptance.')
               # Keep authoritative, compact decisions on the App check. GitHub Actions
               # comments can be forged by another workflow and cannot authorize overrides.
-              compact = json.loads(json.dumps(state['reports']))
-              for envelope in compact.values():
-                  envelope['review'].pop('report', None)
-                  envelope['review'].pop('sources_read', None)
-              text = json.dumps({'schema': 'protocol-b-decisions/v1', 'head': state['head'], 'reports': compact,
-                                 'automatic_rounds': state.get('automatic_rounds', 0),
-                                 'review_round': state.get('review_round'),
-                                 'source_access_limitations': state.get('source_access_limitations', [])})
+              text = decision_text(state, state['reports'], state.get('source_access_limitations', []))
+              compact = json.loads(text)['reports']
               if len(text.encode()) > 60_000 and any(e.get('reuse_binding') for e in compact.values()):
                   record('omitted-rebase-bindings.json', {f: e.get('reuse_binding') for f, e in compact.items()})
                   for e in compact.values():

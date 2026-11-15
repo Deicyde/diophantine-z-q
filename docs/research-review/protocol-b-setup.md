@@ -518,3 +518,10 @@ and policy. A new check for the same source ID supersedes the retained one,
 including an explicit withdrawal recorded as unavailable. Later unrelated
 supplements cannot revive withdrawn verification. The combined decision and
 history tool use this evidence without claiming a fresh inspection occurred.
+
+Superseded attestations are removed from the inherited copy; surviving entries
+retain compact original provenance. If this evidence still exceeds output
+capacity, the full omitted data stays in the run artifact and cannot authorize
+source-access relief. The decision is recomputed before publication. Completed
+verdicts and findings remain, including a rejecting supplement; missing evidence
+does not revive an older acceptance or a withdrawn source verification.
