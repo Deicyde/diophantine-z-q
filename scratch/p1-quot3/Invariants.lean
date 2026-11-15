@@ -526,4 +526,49 @@ theorem smooth_of_invariants (hRS : RegularSmoothPerfect) [IsNoetherianRing R] [
 
 end BaseChange
 
+/-! ## Residue fields of a quotient of a localization of `ℤ` are perfect -/
+
+theorem perfectField_residueField {M : Submonoid ℤ} {R₀ : Type} [CommRing R₀] [Algebra ℤ R₀]
+    [IsLocalization M R₀] {R' : Type} [CommRing R'] (e : R₀ →+* R') (he : Function.Surjective e)
+    (I : Ideal R') [I.IsPrime] : PerfectField I.ResidueField := by
+  set K := I.ResidueField
+  obtain ⟨q, hq⟩ := CharP.exists K
+  rcases CharP.char_is_prime_or_zero K q with hp | h0
+  · have : Fact q.Prime := ⟨hp⟩
+    have : ExpChar K q := ExpChar.prime hp
+    set χ : R₀ →+* K := (algebraMap R' K).comp e
+    have hχ : ∀ y : R₀, frobenius K q (χ y) = χ y := by
+      intro y
+      obtain ⟨⟨m, s⟩, rfl⟩ := IsLocalization.mk'_surjective M y
+      have hs : χ (algebraMap ℤ R₀ s) ≠ 0 :=
+        ((IsLocalization.map_units R₀ s).map χ).ne_zero
+      have h1 : χ (IsLocalization.mk' R₀ m s) = χ (algebraMap ℤ R₀ m) / χ (algebraMap ℤ R₀ s) := by
+        rw [eq_div_iff hs, ← map_mul, IsLocalization.mk'_spec]
+      rw [h1, map_div₀]
+      simp only [eq_intCast, map_intCast]
+    have hfix : ∀ x : K, frobenius K q x = x := by
+      intro x
+      obtain ⟨z, rfl⟩ := IsLocalRing.residue_surjective x
+      obtain ⟨⟨a, t⟩, rfl⟩ := IsLocalization.mk'_surjective I.primeCompl z
+      obtain ⟨y1, rfl⟩ := he a
+      obtain ⟨y2, hy2⟩ := he (t : R')
+      have hres : ∀ a : R', IsLocalRing.residue (Localization.AtPrime I)
+          (algebraMap R' (Localization.AtPrime I) a) = algebraMap R' K a := fun a => rfl
+      have ht : χ y2 ≠ 0 := by
+        have hu := IsLocalization.map_units (Localization.AtPrime I) t
+        have := (hu.map (IsLocalRing.residue (Localization.AtPrime I))).ne_zero
+        rw [hres, ← hy2] at this
+        exact this
+      have h1 : IsLocalRing.residue (Localization.AtPrime I) (IsLocalization.mk' _ (e y1) t) =
+          χ y1 / χ y2 := by
+        rw [eq_div_iff ht]
+        show _ * algebraMap R' K (e y2) = algebraMap R' K (e y1)
+        rw [hy2, ← hres, ← hres, ← map_mul, IsLocalization.mk'_spec]
+      rw [h1, map_div₀, hχ, hχ]
+    have : PerfectRing K q := PerfectRing.ofSurjective K q (fun x => ⟨x, hfix x⟩)
+    exact PerfectRing.toPerfectField K q
+  · subst h0
+    have : CharZero K := CharP.charP_zero_iff_charZero K |>.mp hq
+    exact PerfectField.ofCharZero
+
 end P1Quot3
