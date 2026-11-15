@@ -27,6 +27,7 @@ constructs, `V_{F_λ}(f)` (cohomological normalization: geometric Frobenius has 
 No `sorry`, no `axiom`, no code that runs at build time.
 -/
 
+set_option autoImplicit false
 set_option linter.unusedSectionVars false
 set_option linter.style.longLine false
 set_option linter.style.haveILetI false
@@ -641,3 +642,40 @@ theorem eigenformHT5Ge3Chain_of_katoHTExists5Ge3 (hK : KatoHTExists5Ge3) (hT : T
 end
 
 end EigenformHTExists
+
+/-! ## §9. The consumer chain with the restricted leaf
+
+ht-bypass's `afterG7_of3Weak` (`AfterG7`, the input of `GluePieces.modularConstituent`) with its argument `r13w`
+supplied by the restricted leaf `KatoHTExists5Ge3` and the bundle LEAF fields `tateTwistInvariants`, `axSenTate`,
+`dsThm965`, `dsThm966`. For a later bypass fold; the autofold discharge above does not need it. -/
+
+namespace HDec
+
+namespace HSyn.G0AssembleMod
+
+open CategoryTheory AlgebraicGeometry
+open _root_.HDec.G0ModField
+
+/-- **`AfterG7` from the restricted existence form** (`afterG7_of3Weak` with
+`eigenformHT5Ge3Chain_of_katoHTExists5Ge3`). -/
+theorem afterG7_of3Kato5 (r9a : PkgI3.FaltingsSemisimple) (r9b : PkgI3.FaltingsTate)
+    (r10 : PkgI4.DeRhamComparison) (r11r12 : PkgI4.PanBerger) (r14 : EigenformRepExists)
+    (hK5 : _root_.EigenformHTExists.KatoHTExists5Ge3)
+    (hT : _root_.ZInQ.Contrib.HodgeSplit.TateTwistInvariants) (hA : _root_.ZInQ.Contrib.HodgeSplit.AxSenTate)
+    (hD : _root_.ZInQ.Contrib.HodgeSplit.DSThm965) (hDS : _root_.ZInQ.Contrib.HodgeSplit.DSThm966)
+    (r15 : DeligneSerreConseq)
+    (r16 : _root_.LeafModCurves.R16_EichlerShimuraJ1')
+    (t : TextbookLeaves) (m : G0Galois.GaloisPieces) (hWw : G0Galois.G12WeightWeak)
+    (h9 : G0Galois.G9GlueNoT23)
+    (hDF : G0ModNewform.DirichletOfFinite) (hCar : LadicCond.CarayolR17')
+    (hSw : ∀ (p : ℕ) [Fact p.Prime], LadicCond.SwanIndependent (p := p))
+    (hL8 : LadicCond.SwanIntegral)
+    (hAd : ∀ (p : ℕ) [Fact p.Prime], LadicCond.AdaptedExists (p := p))
+    (hG36 : ModelG3G6) (hLink : LinkedTateData) : AfterG7 :=
+  afterG7_of3Weak r9a r9b r10 r11r12 r14
+    (_root_.EigenformHTExists.eigenformHT5Ge3Chain_of_katoHTExists5Ge3 hK5 hT hA hD hDS) r15 r16 t m hWw h9 hDF
+    hCar hSw hL8 hAd hG36 hLink
+
+end HSyn.G0AssembleMod
+
+end HDec

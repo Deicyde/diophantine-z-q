@@ -14,3 +14,4 @@ import ZInQKernel.Contrib.OneProof.EigenformHTExists
 
 example : EigenformHTExists.KatoHTExists → HDec.HSyn.OpenAddedLeaves17 → ZInQ.Contrib.HodgeSplit.EigenformHTNew :=
   fun h l => EigenformHTExists.eigenformHTNew_of_katoHTExists h l.tateTwistInvariants l.axSenTate
+#print axioms HDec.HSyn.G0AssembleMod.afterG7_of3Kato5

@@ -18,7 +18,7 @@ DISCHARGES [OpenResearchLeaves21.sga7_IX_3_3_SH] by SGA7PersistsNF.sga7_IX_3_3_S
 DISCHARGES [OpenResearchLeaves21.sga7_IX_3_5_ForwardGeom] by UnipotentForward.forwardGeom_of_forward
   still assumes: [UnipotentForward.SGA7_IX_3_5_Forward, UnipotentForward.SemiAbelianDescendsSepClosed]
   axioms: [propext, Classical.choice, Quot.sound]
-#discharges: 63 open hypotheses, 1702 theorems checked, 6 discharge one
+#discharges: 63 open hypotheses, 1703 theorems checked, 6 discharge one
 'EigenformHTExists.eigenformHTNew_of_katoHTExists' depends on axioms: [propext, Classical.choice, Quot.sound]
 'EigenformHTExists.katoHTExists_of_eigenformHTNew' depends on axioms: [propext, Classical.choice, Quot.sound]
 'EigenformHTExists.katoHTExists_iff' depends on axioms: [propext, Classical.choice, Quot.sound]
@@ -26,3 +26,4 @@ DISCHARGES [OpenResearchLeaves21.sga7_IX_3_5_ForwardGeom] by UnipotentForward.fo
 'EigenformHTExists.katoHTExists5Ge3_of_eigenformHTNew5Ge3' depends on axioms: [propext, Classical.choice, Quot.sound]
 'EigenformHTExists.eigenformHT5Ge3Chain_of_katoHTExists5Ge3' depends on axioms: [propext, Classical.choice, Quot.sound]
 'EigenformHTExists.htDual_proof' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.HSyn.G0AssembleMod.afterG7_of3Kato5' depends on axioms: [propext, Classical.choice, Quot.sound]

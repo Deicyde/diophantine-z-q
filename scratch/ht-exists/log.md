@@ -25,3 +25,9 @@ Base 16db7d60 (wip/ht-bypass, leaf-fold22; frozenTarget over OpenResearchLeaves2
   strictest 45/11 -> 45/11` (neutral: the leaf is flagged pending reading, counts GLUE). VERIFIED.
 - 06:20 dry-run output minus line 1 = FoldDryRun.lean; `lake env lean`: OK, `sixContactMin_of_open29` standard
   axioms (FoldDryRun-output.txt). VERIFIED.
+- 06:21 added §9 `afterG7_of3Kato5` (AfterG7 from KatoHTExists5Ge3 via ht-bypass's afterG7_of3Weak): first build
+  FAIL (AfterG7 auto-bound: missing `open _root_.HDec.G0ModField`); with the opens and file-wide
+  `set_option autoImplicit false`: OK (18 s). No auto-bound identifier anywhere in the file. VERIFIED.
+- 06:22 rebuild of Main/Discharges/contribution OK; Discharges re-run: same DISCHARGES line, 1703 theorems checked,
+  6 discharge one; 8 `#print axioms` standard (incl. afterG7_of3Kato5). FoldDryRun re-compiled OK. VERIFIED.
+- Scan: no #eval/run_cmd/initialize/syntax/notation/macro/elab/axiom/sorry in the contribution. VERIFIED.
