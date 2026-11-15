@@ -43,3 +43,15 @@ Closure scan rerun with suffix match (any namespace `*.FaltingsSemisimple`/`*.Fa
 only the root `PkgI3.*` constants are in the closure; same consumer list; plus closure defs whose body (not type)
 mentions them: `HDec.G0Galois.ConjTwistNontrivial`, `HDec.G0Galois.G10Glue` (they take `hF : FaltingsTate` as a
 premise; their proofs `conjTwistNontrivial_of_*` (TailB L2225/L2972) apply `faltingsV` to (A, B) / (A, conjVar A s)).
+
+## Contributor file and checks
+- `ZInQKernel/Contrib/OneProof/FaltingsTateSurj.lean` (imports HDecomp.Objects, Contrib.AVB1.AlgClosed):
+  `FaltingsTateSurj` (new LEAF), `faltingsTateSurj_of_faltingsTate : PkgI3.FaltingsTate → FaltingsTateSurj`,
+  `faltingsTate_of_surj : FaltingsTateSurj → HomFreeFiniteAlgClosed → PkgI3.FaltingsTate`.
+  `lake build ZInQKernel.Contrib.OneProof.FaltingsTateSurj`: built (VERIFIED).
+- discharges.txt (VERIFIED): `DISCHARGES [OpenResearchLeaves22.r9b] by ZInQ.Contrib.FaltingsCM.faltingsTate_of_surj;
+  still assumes: [FaltingsTateSurj, ZInQ.Contrib.AVB1.HomFreeFiniteAlgClosed]; axioms: [propext, Classical.choice,
+  Quot.sound]` (HomFreeFiniteAlgClosed = existing field OpenTextbookLeaves11.homFreeFiniteAlgClosed).
+- autofold.json dry-run: "strict count: 46/10 on 56 -> 46/10 on 56; strictest 45/11 -> 45/11"; output with line 1
+  stripped (AutofoldDry.lean) compiles; `sixContactMin_of_open30` axioms [propext, Classical.choice, Quot.sound]
+  (VERIFIED, autofold-dry-compile.txt).

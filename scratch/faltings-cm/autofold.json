@@ -1,0 +1,9 @@
+{"name": "faltings-cm",
+ "imports": ["ZInQKernel.Contrib.OneProof.FaltingsTateSurj"],
+ "discharges": [
+   {"field": "r9b",
+    "proof": "_root_.ZInQ.Contrib.FaltingsCM.faltingsTate_of_surj {n}.faltingsTateSurj {t}.homFreeFiniteAlgClosed",
+    "leaves": [{"name": "faltingsTateSurj", "type": "_root_.ZInQ.Contrib.FaltingsCM.FaltingsTateSurj",
+                "doc": "Faltings 1983 (Invent. Math. 73), Satz 4 and Korollar 1, surjectivity half: every G_K-equivariant map T_l A -> T_l B is in the image of Z_l (x) Hom_K(A, B) (consequence of the printed statement; the injectivity half is Mumford 19 Thm 3, field homFreeFiniteAlgClosed). Locator UNVERIFIED.",
+                "kind": "published", "flag": "",
+                "source": "Faltings 1983 Satz 4, Kor. 1 (surjectivity half; locator UNVERIFIED)"}]}]}
