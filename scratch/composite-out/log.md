@@ -39,3 +39,19 @@
   - `compositeUses_of_L3` (the three together)
 - Glue proved on the way: `mIsAt_rightMul` (rightMul u: T(τ,g) ↦ T(τ,g u⁻¹)), `dcRel_K3`, `exists_unitO`
   (unit of 𝒪 ≡ g mod 3), `family_one` (normalize g₀ to 1 via a Hecke automorphism), `h4_K3`, `connected_of_family`.
+
+## 07:30 level-free version compiles (VERIFIED)
+- py/classes.py (VERIFIED, computed): (𝒪/3𝒪)^× has 72 classes; mulCoordR associative on them; class of
+  c = ofInt(1,1,-1,0) has order 8, class of ω⁻¹ = ofInt(1,0,-1,0) order 6; the squares of the conjugates of ω̄⁻¹
+  are 4 classes of order 3 (nList); for each of them every class is n^{e1}(c n c^7)^{e2} c^k (tab2, 288 entries).
+- scratch/composite-out/Tables.lean: inv3_spec, nList_spec, tab2_spec by `decide`, 13 s total (VERIFIED).
+- CompositeOut.lean §7-§8: `connected_of_holFamily` (family known only as QM pairs, level free) and
+  `y3ConnectedAb_of_hol : ShimuraHolFamilyAb → MainTheoremCM → textbook ×3 → MumfordGroupLaw → Y3ConnectedAb`,
+  `y3Connected_of_hol`, `y3Connected_of_modAll` (ShimuraHolModAll + deligneComponentsX6PrintedAb witness),
+  `compositeUses_of_hol` (rayClassCMAb ∧ shimuraFamilyAb ∧ Y3Connected). All [propext, Classical.choice,
+  Quot.sound]; compile ~15 s (compile2.txt).
+- Relations used: classes (K₃), reciprocity at √2+i (h ≡ c⁻¹ mod 3), elliptic point i√3 of ω = (1+j)/2
+  (dcRel_fix with eigenvalue (1+i√3)/2). Conjugators = levels of the family at the two points (unknown, global
+  units by `levelUnit`); the decide tables cover every conjugator.
+- Consequence: the new leaf ShimuraHolFamilyL3 is NOT needed; shimura-split2's leaf (a consequence of the
+  composite, `shimuraHolFamilyAb_of_composite`) and qmrec-printed's MainTheoremCM suffice for all three uses.
