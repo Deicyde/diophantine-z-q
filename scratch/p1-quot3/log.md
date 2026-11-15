@@ -33,3 +33,16 @@ Build tree: copy of ~/dzq-wt/p1-quot2/.lake/build and lean/.lake/build (19793c5d
   `HDec.MCRGlue.TameQuotScheme.tameQuotientSmoothRelDim_of_regularSmoothPerfect : RegularSmoothPerfect →
   TameQuotientSmoothRelDim`: 0 errors; axioms [propext, Classical.choice, Quot.sound] (VERIFIED).
   => Task part (1) done: TameQuotientSmoothRelDim proved from the chain's textbook field regularSmoothPerfect, no new leaf.
+- Contribution modules: ZInQKernel/Contrib/OneProof/QuotientP1/TameQuotSmooth.lean (from Scheme.lean; adds
+  HDec.MCRGlue.tameQuotientSmoothRelDim_of_regularSmoothPerfect (hRS : CurveSplit.RegularSmoothPerfect) and
+  tameQuotientSmooth_of_regularSmoothPerfect) and ZInQKernel/Contrib/OneProof/QuotientP1Smooth.lean
+  (HDec.MCRQuot.quotientP1Coordinate_of_fields4; HeckeIrreducible via DCY3Used.y3Connected_of_leaves from
+  mumfordGroupLaw + shimuraMainThmIDeligneY3AbU): `lake build` OK (VERIFIED).
+- #discharges (scratch/p1-quot3/Discharges.lean -> discharges_out.txt): "DISCHARGES [OpenGlue7.quotientP1Coordinate]
+  by HDec.MCRQuot.quotientP1Coordinate_of_fields4", still assumes LichtenbaumProjective, FiniteQuotientExists,
+  SmoothModelOfP1, EdixhovenFixedSmooth2 + 6 chain fields (regularSmoothPerfect, mumfordTorsionAlgClosed,
+  mumfordGroupLaw, shimuraMainThmIDeligneY3AbU, uniformizationLeafAll, gagaMorphism); axioms standard (VERIFIED).
+- autofold.json (fields4; leaves lichtenbaumProjective, finiteQuotientExists, smoothModelOfP1 (consequence),
+  edixhovenFixedSmooth2): --dry-run WITHOUT --allow-rise accepted: "strict count: 46/10 on 56 -> 49/10 on 59;
+  strictest 45/11 -> 48/11" (GLUE unchanged, net 0; p1-quot2 was +1). Generated module (FoldDry.lean, line 1
+  stripped) compiles; sixContactMin_of_open30 axioms standard (VERIFIED).
