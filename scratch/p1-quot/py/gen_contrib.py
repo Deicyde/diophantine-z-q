@@ -50,11 +50,19 @@ charts `τ.f = T₁/T₀`, `τ.g = T₀/T₁` (`coordRatio`); `ℚ[X] → Γ(cha
 docs/research/p1-quot.md. -/
 '''
 P = p1lines[:nimp] + ['', docP] + p1lines[nimp:]
-port3 = open(S + 'Port3.lean').read()
-fin = port3[port3.index('/-! ════════════════════════════════════════════════════════════════════════════════════════════\n# p1-quot:'):]
-fin = fin[:fin.index('#print axioms')].rstrip() + '\n'
+fin = open(S + 'final_section.lean').read()
+fx = open(S + 'FixedTest.lean').read()
+fx = fx[:fx.index('#print axioms')].rstrip() + '\n'
+fxl = fx.split('\n')
+fdoc = '''/-!
+# p1-quot, helper: mcr-glue's leaf L5 `TameFixedPointsDisjoint` from Edixhoven's tame fixed-point theorem
+
+`EdixhovenFixedSmooth` (Edixhoven 1992, Prop. 3.4, for a cyclic group over `ℤ_(p)`) and
+`tameFixedPointsDisjoint_of_edixhoven`. docs/research/p1-quot.md. -/
+'''
+FX = fxl[:2] + ['', fdoc] + fxl[2:]
 docF = open(S + 'final_doc.md').read()
-F = ['import ZInQKernel.Contrib.OneProof.QuotientP1.MCRQuotB',
+F = ['import ZInQKernel.Contrib.OneProof.QuotientP1.FixedDisjoint',
      'import ZInQKernel.Contrib.OneProof.QuotientP1.P1Scheme',
      'import ZInQKernel.OneProof.H.TailR', '', docF] + header_lines + [fin, 'end HDec', '']
 ff = open(S + 'FromFields.lean').read()
@@ -62,7 +70,7 @@ ff = ff[:ff.index('#print axioms')].rstrip() + '\n'
 import os
 os.makedirs(D + 'QuotientP1', exist_ok=True)
 for name, L in [('QuotientP1/MCRQuotA.lean', A), ('QuotientP1/MCRQuotB.lean', B), ('QuotientP1/P1Scheme.lean', P),
-                ('QuotientP1Coordinate.lean', F), ('QuotientP1/FromFields.lean', ff.split('\n'))]:
+                ('QuotientP1/FixedDisjoint.lean', FX), ('QuotientP1Coordinate.lean', F), ('QuotientP1/FromFields.lean', ff.split('\n'))]:
     txt = '\n'.join(L).rstrip() + '\n'
     open(D + name, 'w').write(txt)
     print(name, len(txt.encode()))
