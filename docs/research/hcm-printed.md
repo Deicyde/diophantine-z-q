@@ -33,7 +33,8 @@ of `j`. The reduction therefore uses the `ε = 1` instance, `MainTheoremCMArith 
   MainTheoremCMSign ε` is proved by `Iff.rfl`, which checks the copy;
 * `mainTheoremCM_of_arith : MainTheoremCMArith → MainTheoremCM`.
 
-This is the printed statement in Shimura's normalization (section 3). `ShimuraMainCM` already assumes that
+This is the printed statement in Shimura's normalization (section 3). qmrec-printed's adversarial model review found
+`MainTheoremCM` true with `ε = +1` (`.fleet/qmrec-printed.md`, VERIFIED read). `ShimuraMainCM` already assumes that
 normalization (its docstring: `E^{Frob_𝔭} ≅ ℂ/𝔭⁻¹𝔞`), so the reduction adds no new sign risk.
 
 ## 2. The proof
