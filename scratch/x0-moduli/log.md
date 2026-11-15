@@ -16,3 +16,18 @@ Task: hypothesis `hX = T5Glue.X0ModuliGalois` (ZInQKernel/Contrib/OneProof/RingC
      lower precision there).
    * chord and tangent formulas for ℘, ℘' (the clauses of `WeierstrassGroupLaw`): 2 samples each, residuals
      ≤ 1e-53.
+5. `X0Moduli.lean` (VERIFIED, compiles, standard axioms):
+   * textbook Props `WeierstrassGroupLaw` (clauses (a) ℘z = ℘w ⇒ z ≡ ±w; (b) ℘'z = 0 ⇒ 2z ∈ Λ; (c) chord;
+     (d) tangent) and `VeluCyclic` (analytic Vélu for ⟨1/N⟩);
+   * `conj_multiples`: σ(℘_τ(m/N)) = μ²℘_{τ'}(mk/N), σ(℘'_τ(m/N)) = μ³℘'_{τ'}(mk/N), N ∤ mk, 1 ≤ m < N;
+   * `coprime_of_multiples`, `sum_perm` (m ↦ mk mod N on {1..N−1});
+   * `jnConj_of_leaves : WeierstrassGroupLaw → VeluCyclic → JNConj`;
+   * `x0ModuliGalois_of_leaves : WeierstrassGroupLaw → VeluCyclic → RatX0Rep → X0ModuliGaloisNonIsolated →
+     T5Glue.X0ModuliGalois`.
+6. `ZInQKernel/Contrib/OneProof/X0ModuliGalois.lean` (the same body; `lake build` OK). `#discharges`
+   (`scratch/x0-moduli/Discharges.lean`, output `Discharges-output.txt`, VERIFIED):
+   `DISCHARGES [hX] by X0Moduli.x0ModuliGalois_of_leaves still assumes: [WeierstrassGroupLaw, VeluCyclic,
+   RatX0Rep, X0ModuliGaloisNonIsolated]`, standard axioms; also `[hX] by x0ModuliGalois_of_split`.
+7. `autofold.json` written; `autofold.py --dry-run` refuses: `autofold: not a field of the current bundles: ['hX']`
+   (hX is a plain argument of frozenTarget; a fold is a hand edit of Main.lean, as for hS in gt-ringclass).
+   The split would raise the strict GLUE count (1 → 4), so it is not proposed as a fold.

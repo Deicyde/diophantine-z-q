@@ -1,0 +1,22 @@
+{"name": "x0-moduli",
+ "imports": ["ZInQKernel.Contrib.OneProof.X0ModuliGalois"],
+ "discharges": [
+   {"field": "hX",
+    "proof": "_root_.X0Moduli.x0ModuliGalois_of_leaves {n}.weierstrassGroupLaw {n}.veluCyclic {n}.ratX0Rep {n}.x0ModuliGaloisNonIsolated",
+    "leaves": [
+      {"name": "weierstrassGroupLaw", "type": "_root_.X0Moduli.WeierstrassGroupLaw",
+       "doc": "Analytic chord-and-tangent law of C/Lambda: Silverman GTM 106 Prop. VI.3.6(b) with III.2.3; Whittaker-Watson 20.3, 20.311 (numbers UNVERIFIED); four clauses from two prints",
+       "kind": "composite", "flag": "unread; locator UNVERIFIED (numbers)",
+       "source": "Silverman, The arithmetic of elliptic curves, Prop. VI.3.6(b) and III.2.3; Whittaker-Watson, A course of modern analysis, 20.3 and 20.311 (numbers UNVERIFIED)"},
+      {"name": "veluCyclic", "type": "_root_.X0Moduli.VeluCyclic",
+       "doc": "Velu's formulas for C/<1,tau> -> C/<1/N,tau>, analytic form: Velu, C. R. Acad. Sci. Paris 273 (1971) 238-241; Washington, Elliptic curves, Thm. 12.16 (numbers UNVERIFIED)",
+       "kind": "consequence", "flag": "unread; locator UNVERIFIED (numbers)",
+       "source": "Velu, Isogenies entre courbes elliptiques, C. R. Acad. Sci. Paris 273 (1971), analytic form (also a lattice-sum identity provable from Mathlib)"},
+      {"name": "ratX0Rep", "type": "_root_.ZInQ.Contrib.TYZGenus.ShimuraModFnTask.RatX0Rep",
+       "doc": "Q(X0(N)) = Q(j, j_N) with a denominator nonvanishing at isolated points (the kernel's RatX0Rep, shimura-modfn): Shimura 1971 Prop. 6.9 and 6.7; Cox Thm. 11.18; Serre, Local fields III.6 (numbers UNVERIFIED)",
+       "kind": "composite", "flag": "unread; locator UNVERIFIED (numbers)",
+       "source": "Shimura 1971 Prop. 6.9; Diamond-Shurman 7.5-7.7; Cox Thm. 11.18; Euler's lemma on the different, Serre, Local fields III.6 (numbers UNVERIFIED)"},
+      {"name": "x0ModuliGaloisNonIsolated", "type": "_root_.X0Moduli.X0ModuliGaloisNonIsolated",
+       "doc": "X0ModuliGalois at the non-isolated (CM) points of the plane model (j, j_N); same sources as X0ModuliGalois",
+       "kind": "consequence", "flag": "unread; locator UNVERIFIED (numbers)",
+       "source": "the canonical model of X0(N) over Q at its CM points where (j, j_N) is not injective (Shimura 1971 section 6.7; Deligne-Rapoport VI-VII; numbers UNVERIFIED)"}]}]}
