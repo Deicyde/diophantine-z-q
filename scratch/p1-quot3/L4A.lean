@@ -304,6 +304,74 @@ theorem isIrreducible_preimage (𝒵 : Over (Spec (CommRingCat.of (Zloc p))))
     (𝒵.hom.fiberι s).continuous.continuousOn
   rwa [Set.image_univ] at this
 
+/-! ## Points of the model -/
+
+/-- The closed point of `Spec ℤ_(p)`. -/
+abbrev s0 (p : ℕ) [Fact p.Prime] : Spec (CommRingCat.of (Zloc p)) :=
+  haveI := zloc_isDVR' (p := p)
+  IsLocalRing.closedPoint (Zloc p)
+
+/-- A point of `Spec ℤ_(p)` other than the closed point is the generic point; it specializes only to itself and the
+closed point. -/
+theorem eq_s0_of_specializes {u v : Spec (CommRingCat.of (Zloc p))} (h : u ⤳ v) (hu : u = s0 p) :
+    v = s0 p := by
+  haveI := zloc_isDVR' (p := p)
+  exact QuotientP1Proof.eq_closedPoint_of_specializes (Zloc p) h hu
+
+theorem eq_of_specializes_of_ne_s0 {u v : Spec (CommRingCat.of (Zloc p))} (h : u ⤳ v)
+    (hv : v ≠ s0 p) : u = v := by
+  haveI := zloc_isDVR' (p := p)
+  exact QuotientP1Proof.eq_of_specializes_of_ne_closedPoint (Zloc p) h hv
+
+variable (𝒵 : Over (Spec (CommRingCat.of (Zloc p)))) [SmoothOfRelativeDimension 1 𝒵.hom]
+  [GeometricallyConnected 𝒵.hom]
+
+/-- The special fibre as a subset. -/
+abbrev Fs : Set 𝒵.left := 𝒵.hom ⁻¹' {s0 p}
+
+theorem isClosed_Fs : IsClosed (Fs 𝒵) := by
+  haveI := zloc_isDVR' (p := p)
+  exact ((PrimeSpectrum.isClosed_singleton_iff_isMaximal (s0 p)).mpr
+    (IsLocalRing.maximalIdeal.isMaximal (Zloc p))).preimage 𝒵.hom.continuous
+
+/-- The generic point `ξ` of the special fibre. -/
+def xi : 𝒵.left := (isIrreducible_preimage 𝒵 (s0 p)).genericPoint
+
+theorem isGenericPoint_xi : IsGenericPoint (xi 𝒵) (Fs 𝒵) :=
+  (isIrreducible_preimage 𝒵 (s0 p)).isGenericPoint_genericPoint (isClosed_Fs 𝒵)
+
+theorem xi_mem : xi 𝒵 ∈ Fs 𝒵 := (isGenericPoint_xi 𝒵).mem
+
+theorem xi_specializes {x : 𝒵.left} (hx : 𝒵.hom x = s0 p) : xi 𝒵 ⤳ x :=
+  (isGenericPoint_xi 𝒵).specializes hx
+
+/-- **Points of codimension `≤ 1` lie over the generic point of `Spec ℤ_(p)`, or are `ξ`.** -/
+theorem eq_xi_of_ringKrullDim_le_one [IsIntegral 𝒵.left] (hgen : ∃ y : 𝒵.left, 𝒵.hom y ≠ s0 p)
+    (x : 𝒵.left) (hx : 𝒵.hom x = s0 p)
+    (hd : ringKrullDim (𝒵.left.presheaf.stalk x) ≤ 1) : x = xi 𝒵 := by
+  by_contra hne
+  set η := genericPoint 𝒵.left
+  have hξx : xi 𝒵 ⤳ x := xi_specializes 𝒵 hx
+  have hηξ : η ⤳ xi 𝒵 := (genericPoint_spec 𝒵.left).specializes (Set.mem_univ _)
+  have hηs : 𝒵.hom η ≠ s0 p := by
+    obtain ⟨y, hy⟩ := hgen
+    intro h
+    exact hy (eq_s0_of_specializes ((genericPoint_spec 𝒵.left).specializes (Set.mem_univ y)
+      |>.map 𝒵.hom.continuous) h)
+  have hlt1 : x < xi 𝒵 := by
+    refine lt_of_le_not_ge (Scheme.le_iff_specializes.2 hξx) (fun h => hne ?_)
+    exact (hξx.antisymm (Scheme.le_iff_specializes.1 h)).eq.symm
+  have hlt2 : xi 𝒵 < η := by
+    refine lt_of_le_not_ge (Scheme.le_iff_specializes.2 hηξ) (fun h => hηs ?_)
+    rw [(hηξ.antisymm (Scheme.le_iff_specializes.1 h)).eq]
+    exact xi_mem 𝒵
+  have hc := Order.length_le_coheight_head (p := QuotientP1Proof.lt3 hlt1 hlt2)
+  rw [QuotientP1Proof.lt3_length, QuotientP1Proof.lt3_head] at hc
+  rw [ringKrullDim_stalk_eq_coheight] at hd
+  have h2 : ((2 : ℕ∞) : WithBot ℕ∞) ≤ (Order.coheight x : WithBot ℕ∞) := by exact_mod_cast hc
+  have : ((2 : ℕ∞) : WithBot ℕ∞) ≤ 1 := h2.trans hd
+  exact absurd this (by decide)
+
 end Model
 
 end HDec.MCRGlue.P1Model
