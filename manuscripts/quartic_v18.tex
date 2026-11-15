@@ -19111,13 +19111,29 @@ would in general be false.
 Choose a fixed integral $F_2$ divisible over $A$ by the
 characteristic elements of $\mathbf H^2_{\rm loc}(T\chi)$
 for the finitely many allowed local types at two and finite
-sign components. Its central value can be chosen nonzero:
-derived local control, and the absence of local Iwasawa $H^3$,
-identify its rational central $H^2$ with $H^2(\mathbf Q_2,V\chi)=0$.
-The last equality follows from local duality and finiteness of
-local elliptic torsion. Hence the characteristic elements have
-no factor $t$. Kato (12.2.3), p.~220, gives the required finiteness
-and torsion of this local Iwasawa module.
+sign components. To check its central value, regard each rational
+sign component as local Iwasawa cohomology for the real cyclotomic
+$\mathbf Z_2$-extension, with the fixed quadratic sign character
+included in $\chi$, and write $M_\chi$ for its degree-two module.
+It is finitely generated and torsion over $A$ after inverting two,
+by \cite[(12.2.3), p.~220]{kato}.
+The lattice $T\chi$ is a continuous finite free $\mathbf Z_2$-module,
+so \cite[Corollary~8.4.8.2(i), p.~215]{nekovar}, with
+$G=G_{\mathbf Q_2}$ and $\Gamma\simeq\mathbf Z_2$, gives
+\[
+ (M_\chi/tM_\chi)[1/2]\hookrightarrow
+ H^2(\mathbf Q_2,V\chi),\qquad t=\gamma-1.
+\]
+The inverse deck convention gives the same augmentation ideal.
+The Weil pairing and $\chi^2=1$ identify
+$(V\chi)^*(1)$ with $V\chi$. By local Tate duality the target
+is dual to $H^0(\mathbf Q_2,V\chi)$, which vanishes: after a
+finite extension trivializing $\chi$, it injects into the rational
+Tate-module invariants of an elliptic curve over a local field,
+whose torsion group is finite. Nakayama's lemma over $A_{(t)}$
+therefore gives $M_\chi[1/2]_{(t)}=0$. Its characteristic element
+has no factor $t$. Taking the finite product and clearing fixed
+scalar denominators consequently gives $F_2(0)\ne0$.
 
 At the finitely many old bad primes, choose stable lattices in
 the $W_q$ and multiply all the determinants $D_q$ for the finitely
@@ -19166,12 +19182,13 @@ extra fixed constant for each active prime.
 
 For completeness, nonvanishing at the center of the fixed
 correction factors follows before multiplying over local types.
-Local derived control and $H^3_{\rm Iw}=0$ identify
-$\mathbf H^2_{\rm loc}/t\mathbf H^2_{\rm loc}$ rationally with
-$H^2(\mathbf Q_2,V\chi)$. Local duality identifies the latter
-with the dual of $H^0(\mathbf Q_2,V\chi)$, which is zero because
-local elliptic torsion is finite. Nakayama at $(t)$ therefore
-excludes a factor $t$ from its characteristic element.
+At two, the specialization injection and local-duality argument
+above give $(M_\chi/tM_\chi)[1/2]=0$ for every fixed local type
+and finite sign twist. Since $M_\chi[1/2]$ is finitely generated
+over $A$, Nakayama's lemma at $(t)$ gives
+$M_\chi[1/2]_{(t)}=0$. Thus its characteristic element has no
+factor $t$; no assertion about the next Iwasawa cohomology group
+is needed for this conclusion.
 At an old odd prime the cokernel of
 $1-\operatorname{Fr}_{W_q}$ is $H^2(\mathbf Q_q,V\chi)=0$,
 by the same duality. Its determinant at $t=0$ is nonzero.
