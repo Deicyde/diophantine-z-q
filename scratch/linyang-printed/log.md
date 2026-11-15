@@ -27,3 +27,30 @@
   §0 = theta-glue ThetaGlue.lean l.392-470, 534-551, 578-597 copied by `sed -n` (byte-identical), same namespace.
   Glue proved in the file: analyticity of each θ_m∘Ω on ℍ (copy of TailJ's inner step), countability of Γ*
   (B ≃ ℚ⁴), countable fibres of a Hauptmodul with orbit fibres, eqOn off a countable set (Set.Countable.dense_compl).
+- EisDev.lean (imports LPrefix only; development copy of §6) COMPILES (VERIFIED): `spFactor_ne_zero`
+  (det(CΩ+D) ≠ 0 on 𝔥₂, from ω((Wv,Xv),(Wv,Xv)) = 2i·v̄ᵀ(Im Ω)v), `spAct_mem` (Sp4(ℤ) preserves 𝔥₂: symmetry from
+  the bilinear invariance, Im(MΩ) > 0 from the hermitian one), `spFactor_mul` (cocycle), `rightEquiv`
+  (c ↦ c·M on Γ∞\Sp4(ℤ)), `spFactor_botRel` (summand independent of the representative, even k),
+  `siegelEis_modular` (ψ_k(MΩ) = det(CΩ+D)^k ψ_k(Ω), even k; tsum reindexing, no convergence needed).
+  Axioms [propext, Classical.choice, Quot.sound].
+- LinYangPrinted.lean now imports TailU and uses the kernel's `QMSplit.Theta.IgusaPsi4`, `IgusaChi10` directly.
+  COMPILES (VERIFIED, 12 s; LinYangPrinted.out): all of the above plus §8
+  `igusaPsi4_of_printed : IgusaThetaExpressions → QMSplit.Theta.IgusaPsi4`,
+  `igusaChi10_of_printed : IgusaThetaExpressions → QMSplit.Theta.IgusaChi10`,
+  `thetaModularity_of_printed : IgusaThetaExpressions → PkgI1.ThetaModularity`; 7 `#print axioms` lines standard.
+- LinYangPrintedChain.lean (= LinYangPrinted.lean with import TailZ19 and §9) COMPILES (VERIFIED, 13 s;
+  LinYangPrintedChain.out): `HDec.HSyn.OpenResearchLeaves12P` (31 fields: leaf-fold12's 32 with igusaPsi4,
+  igusaChi10 replaced by igusaThetaExpressions, text otherwise verbatim from TailZ19),
+  `researchLeaves12_of_P : OpenResearchLeaves12P → OpenResearchLeaves12`,
+  `sixContactMin_of_open15P : OpenResearchLeaves12P → OpenTextbookLeaves10 → OpenAddedLeaves11 → OpenGlue7 →
+  ZInQ.SixContactMin`, standard axioms. Caveat: compiled with `lake env lean` against the olean tree copied from
+  ~/dzq-check2 (29885092); its TailY, TailZ7, TailZ14, TailZ15 differ from b5ff0474 only in docstrings
+  (VERIFIED by `git diff`: no def/theorem/structure/field line changed), TailZ19 and every bundle file identical.
+- gap-triage's note (VERIFIED by reading TailJ/TailO/TailZ2/TailK/TailZ4/TailO): the fields igusaPsi4, igusaChi10
+  enter only through `QMSplit.Theta.thetaModularity_of` (r4 = ThetaModularity), and r4 is used only by
+  `s8WeightExact_of` / `s20WeightExact_of` (via `g8Auto_g4/g6`, `g20Auto_g4/g6`: `g8Auto_gen hT g _ M4 ...`,
+  `... M6 ...`), whose callers are `qmDenZeroCM3_of_leaves4` (TailK l.317), `base2_of_base3` (TailO l.2779, 2967)
+  and `qmHauptmodulBase3_of_leaves` (TailZ4 l.235, through TailZ2's auto8/auto20). So: only at M4, M6, along Ω(z).
+  Route 1 as theta-split/igusa-alg stated it (LinYangThetaCurve) does NOT remove them (FibreQMPeriod still needs
+  qmHauptmodul and qmDenZeroCM3, which use r4). With the printed leaves they become theorems
+  (igusaPsi4_of_printed, igusaChi10_of_printed), for all M ∈ Sp4(ℤ), not just M4, M6.
