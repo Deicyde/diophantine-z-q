@@ -15,3 +15,11 @@
 
 ## Compiles
 - ZInQKernel/Contrib/OneProof/HolFamilyPrinted.lean: `lake env lean` 0 errors 0 warnings, 1m32 (compile1.txt). VERIFIED.
+- `lake build +Main +Discharges +HolFamilyPrinted`: success, 12999 jobs (build1.txt). VERIFIED.
+- `#discharges` (Discharges-output.txt): 63 open, 2223 checked, 7 discharge one (all pre-existing); no field matched
+  by HolFamilyPrinted (expected: bypass, composite not proved as stated). All 7 theorems: [propext, Classical.choice, Quot.sound]. VERIFIED.
+- BypassFold.lean (composite-out's dry run, shimuraHolModAll -> pelHolFamily): sixContactMin_of_open31 and
+  frozenTarget_holfam standard axioms (BypassFold-output.txt). VERIFIED.
+- autofold.json written (bypass; leaves mainTheoremCM published, pelHolFamily published + pending reading of analytic clause).
+- Rating note: deligneComponentsX6PrintedAb (same moduli content as clause (R)) is kinds.tsv published/LEAF with
+  "locator UNVERIFIED"; under that standard pelHolFamily is LEAF and the fold is -1 strict GLUE. SPECULATIVE.
