@@ -14,17 +14,23 @@ geometric component keeps the moduli clauses and breaks reciprocity).
 This file states Shimura's reciprocity law **on objects, not on a map `Ψ`**. For `τ ∈ ℍ` and `g ∈ (B ⊗ 𝔸_f)^×` let
 `L_g = B ∩ 𝒪̂g⁻¹` and `T(τ, g) = (ℂ²/ι(L_g)(τ,1)ᵀ, ι, η_g)` with `η_g(a) = [ι(x)(τ,1)ᵀ/3]` for `x ∈ B`,
 `x g ≡ a mod 3𝒪̂`: Deligne's moduli description of the point `[τ, g]` of `Sh_{K₃}(B^×, ℍ^±)`. `MIsAt P τ g` says that
-`P : QML3 ℂ` is (`ι`- and level-compatibly uniformized by) `T(τ, g)`. Then
+`P : QML3 ℂ` is (`ι`- and level-compatibly uniformized by) `T(τ, g)`. The results:
 
-* **LEAF `QMReciprocityL3`** (the main theorem of complex multiplication for the QM surfaces `T(z, g)` at CM points
-  `z`): if `MIsAt P z g` and `P'` is the base change of `P` along `σ = [s, K]`, then `MIsAt P' z (q̂(s)^ε g)`. It
-  names no `Ψ` and no witness, so it carries no normalization; it is a consequence of the main theorem of CM
-  (Shimura–Taniyama) for the CM algebra `F ⊗ K` acting on `H₁ = L_g`.
-* **LEAF `ShimuraHolFamilyAb`** (Shimura's Main Theorem I, complex part, on a fine witness): one holomorphic family
-  `τ ↦ y_τ` with the moduli clause; shimura-split's `ShimuraHolFamily` with `R1fpPropsAb` (route A).
-* GLUE (Props here, proved below where marked): `DCRelTransport` (the moduli point is constant on `DCRel`
-  classes), `UnifDetermines` (the object is determined by `(τ, g)`), `ComplexUnifL3` (every object is some
-  `T(τ, u)`, `u ∈ 𝒪̂^×`).
+* `rayClassCMAb_of_leaves2 : DeligneComponentsX6PrintedAb → QMReciprocityL3 → UniformizationLeafAll →
+  GAGAMorphism → MumfordTorsionAlgClosed → RayClassCMAb` (only the fine witness (R) of the first is used);
+* `shimuraFamilyAb_of_leaves2 : DeligneComponentsX6PrintedAb → ShimuraHolModAll → ShimuraFamilyAb`.
+
+New leaves:
+* **`QMReciprocityL3`** (§2): if `P` is `T(z, g)` at a CM point `z` and `P'` is its conjugate by `σ = [s, K]`, then
+  `P'` is `T(z, q̂(s)^ε g)`. No `Ψ`, no witness, hence no normalization problem. A consequence of the main theorem
+  of complex multiplication for the CM algebra `F ⊗ K` acting on `H₁ = L_g`.
+* **`ShimuraHolModAll`** (§12): Shimura's Main Theorem I, complex part, for every fine witness (no existence claim);
+  equivalent, given one fine witness, to the `∃` form `ShimuraHolFamilyAb` (§2) (`shimuraHolModAll_of_hol`,
+  `shimuraHolFamilyAb_of_all`).
+
+Glue, all proved: `DCRelTransport` (§7), `UnifDetermines` (§8, from `HomLatticeCorr`), `ComplexUnifL3` (§9, from the
+chain's `QMComplexUnif`, with a 72-entry table of units of `𝒪` checked by `decide`), `vecLat_unit` (§4), and the
+ray-class argument on objects `embed_core_obj` (§5).
 -/
 
 set_option linter.all false
