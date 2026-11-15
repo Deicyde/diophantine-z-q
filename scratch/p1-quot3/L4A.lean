@@ -14,7 +14,7 @@ open CategoryTheory Limits AlgebraicGeometry Polynomial Opposite
 
 namespace HDec.MCRGlue.P1Model
 
-open VertWitness LeafQM.AV
+open VertWitness LeafQM.AV ModelGlue
 
 /-! ## Global sections of a `P¹` by charts over `ℚ` -/
 
@@ -161,5 +161,149 @@ theorem psiTop_surjective : Function.Surjective (psiTop Z) := by
     (by rw [σ.cover]) _ _ hUeq hVeq
 
 end GlobalSections
+
+/-! ## `Γ(𝒵, 𝒪) = ℤ_(p)` and Zariski's connectedness theorem -/
+
+section Model
+
+variable {p : ℕ} [Fact p.Prime]
+
+instance zloc_isNoetherian : IsNoetherianRing (Zloc p) :=
+  IsLocalization.isNoetherianRing (pIdeal p).primeCompl (Zloc p) inferInstance
+
+theorem zloc_isDVR' : IsDiscreteValuationRing (Zloc p) :=
+  IsLocalization.AtPrime.isDiscreteValuationRing_of_dedekind_domain ℤ
+    (by
+      show Ideal.span {((p : ℕ) : ℤ)} ≠ ⊥
+      rw [ne_eq, Ideal.span_singleton_eq_bot]
+      exact_mod_cast (Fact.out : p.Prime).ne_zero) _
+
+/-- `ℚ` is the fraction field of `ℤ_(p)` (through `zlocToRat`). -/
+theorem zloc_isFractionRing :
+    letI : Algebra (Zloc p) ℚ := (zlocToRat p).toAlgebra
+    IsFractionRing (Zloc p) ℚ := by
+  letI : Algebra (Zloc p) ℚ := (zlocToRat p).toAlgebra
+  have hinj : Function.Injective (algebraMap (Zloc p) ℚ) := zlocToRat_injective p
+  refine ⟨⟨?_, ?_, ?_⟩⟩
+  · rintro ⟨y, hy⟩
+    refine isUnit_iff_ne_zero.2 ?_
+    intro h
+    exact nonZeroDivisors.ne_zero hy (hinj (h.trans (map_zero _).symm))
+  · intro z
+    have hden : ((z.den : ℤ) : Zloc p) ∈ nonZeroDivisors (Zloc p) := by
+      refine mem_nonZeroDivisors_of_ne_zero ?_
+      intro h
+      have := congrArg (algebraMap (Zloc p) ℚ) h
+      rw [map_intCast, map_zero] at this
+      exact_mod_cast z.den_nz (by exact_mod_cast this)
+    refine ⟨⟨(z.num : Zloc p), ⟨_, hden⟩⟩, ?_⟩
+    change z * algebraMap (Zloc p) ℚ ((z.den : ℤ) : Zloc p) = algebraMap (Zloc p) ℚ (z.num : Zloc p)
+    rw [map_intCast, map_intCast]
+    push_cast
+    exact Rat.mul_den_eq_num z
+  · intro x y h
+    exact ⟨1, by rw [hinj h]⟩
+
+theorem psiTop_injective (Z : Over (Spec (CommRingCat.of ℚ))) (σ : ToP1 Z.left)
+    (hσ : IsP1CoordinateQ Z σ) : Function.Injective (psiTop Z) := by
+  haveI := isDomain_U Z σ hσ
+  haveI : Nontrivial Γ(Z.left, ⊤) := by
+    refine ⟨⟨0, 1, fun h => ?_⟩⟩
+    have := congrArg (Z.left.presheaf.map (homOfLE le_top : σ.U ⟶ ⊤).op) h
+    rw [map_zero, map_one] at this
+    exact zero_ne_one this
+  exact (psiTop Z).injective
+
+/-- **Global functions on a model of `P¹_ℚ`** (flat and universally closed over `ℤ_(p)`): `ℤ_(p) → Γ(𝒵, 𝒪)` is
+bijective. As `ZariskiConn.appTop_bijective_of_generic`, with `Γ(𝒵_ℚ, 𝒪) = ℚ` from the charts. -/
+theorem appTop_bijective (𝒵 : Over (Spec (CommRingCat.of (Zloc p)))) [Flat 𝒵.hom]
+    [UniversallyClosed 𝒵.hom] (σ : ToP1 (genFib 𝒵).left) (hσ : IsP1CoordinateQ (genFib 𝒵) σ) :
+    Function.Bijective ((Scheme.ΓSpecIso (CommRingCat.of (Zloc p))).inv ≫ 𝒵.hom.appTop) := by
+  letI : Algebra (Zloc p) ℚ := (zlocToRat p).toAlgebra
+  haveI := zloc_isFractionRing (p := p)
+  haveI := zloc_isDVR' (p := p)
+  set ι := specRatToZloc p
+  set p' := 𝒵.hom
+  have hinj : Function.Injective (algebraMap (Zloc p) ℚ) := IsFractionRing.injective (Zloc p) ℚ
+  have := ZariskiConn.isSchemeTheoreticallyDominant_Spec_map hinj
+  have hK : Function.Bijective (psiTop (genFib 𝒵)) :=
+    ⟨psiTop_injective _ σ hσ, psiTop_surjective _ σ hσ⟩
+  have hj : Function.Injective (pullback.fst p' ι).appTop :=
+    (pullback.fst p' ι).app_injective ⊤
+  set φ := ((Scheme.ΓSpecIso (.of (Zloc p))).inv ≫ p'.appTop).hom with hφ
+  set ψ := psiTop (genFib 𝒵) with hψ
+  set j := (pullback.fst p' ι).appTop.hom with hjdef
+  have hcomm : ∀ r : Zloc p, j (φ r) = ψ (algebraMap (Zloc p) ℚ r) := by
+    intro r
+    have h1 : (Scheme.ΓSpecIso (.of (Zloc p))).inv ≫ p'.appTop ≫ (pullback.fst p' ι).appTop =
+        CommRingCat.ofHom (algebraMap (Zloc p) ℚ) ≫ (Scheme.ΓSpecIso (.of ℚ)).inv ≫
+          (pullback.snd p' ι).appTop := by
+      rw [← Scheme.Hom.comp_appTop, pullback.condition, Scheme.Hom.comp_appTop,
+        ← Category.assoc, ← Category.assoc, Scheme.ΓSpecIso_inv_naturality]
+    exact congrArg (fun g => g.hom r) h1
+  have hφint : φ.IsIntegral := by
+    rw [hφ, CommRingCat.hom_comp]
+    exact RingHom.IsIntegral.trans _ _ (RingHom.isIntegral_of_surjective _
+      (Scheme.ΓSpecIso (.of (Zloc p))).commRingCatIsoToRingEquiv.symm.surjective)
+      (isIntegral_appTop_of_universallyClosed p')
+  refine ⟨fun a b hab => ?_, fun b => ?_⟩
+  · apply hinj; apply hK.1
+    rw [← hcomm, ← hcomm, hab]
+  · obtain ⟨c, hc⟩ := hK.2 (j b)
+    obtain ⟨q, hqm, hq⟩ := hφint b
+    have hcint : IsIntegral (Zloc p) c := by
+      refine ⟨q, hqm, hK.1 ?_⟩
+      rw [map_zero, Polynomial.hom_eval₂, hc]
+      have : (ψ.comp (algebraMap (Zloc p) ℚ)) = j.comp φ := by ext r; exact (hcomm r).symm
+      rw [this]
+      exact (Polynomial.hom_eval₂ q φ j b).symm.trans (by rw [hq]; exact map_zero j)
+    obtain ⟨r, hr⟩ := IsIntegrallyClosed.algebraMap_eq_of_integral hcint
+    refine ⟨r, hj ?_⟩
+    change j (φ r) = j b
+    rw [hcomm, hr, hc]
+
+/-- **The model is geometrically connected** over `ℤ_(p)` (Zariski's connectedness theorem, proved in
+`Contrib/CloudW02Connectedness`). -/
+theorem geometricallyConnected (𝒵 : Over (Spec (CommRingCat.of (Zloc p)))) [Flat 𝒵.hom]
+    [IsProper 𝒵.hom] (σ : ToP1 (genFib 𝒵).left) (hσ : IsP1CoordinateQ (genFib 𝒵) σ) :
+    GeometricallyConnected 𝒵.hom := by
+  have h := appTop_bijective 𝒵 σ hσ
+  have h2 : Function.Bijective 𝒵.hom.appTop := by
+    have e : 𝒵.hom.appTop = (Scheme.ΓSpecIso (CommRingCat.of (Zloc p))).hom ≫
+        ((Scheme.ΓSpecIso (CommRingCat.of (Zloc p))).inv ≫ 𝒵.hom.appTop) := by
+      rw [Iso.hom_inv_id_assoc]
+    rw [e]
+    exact h.comp (ConcreteCategory.bijective_of_isIso _)
+  exact ZariskiConn.ZariskiConnectedness_proof 𝒵.hom inferInstance inferInstance
+    (ZariskiConn.app_bijective_of_appTop_bijective 𝒵.hom h2)
+
+set_option backward.isDefEq.respectTransparency.types false in
+/-- **The fibres of a smooth geometrically connected model are integral.** -/
+theorem isIntegral_fiber (𝒵 : Over (Spec (CommRingCat.of (Zloc p))))
+    [SmoothOfRelativeDimension 1 𝒵.hom] [GeometricallyConnected 𝒵.hom]
+    (s : Spec (CommRingCat.of (Zloc p))) [Nonempty (𝒵.hom.fiber s)] :
+    IsIntegral (𝒵.hom.fiber s) := by
+  haveI : Smooth 𝒵.hom := SmoothOfRelativeDimension.smooth 1 _
+  have : Smooth (𝒵.hom.fiberToSpecResidueField s) :=
+    MorphismProperty.IsStableUnderBaseChange.of_isPullback (P := @Smooth)
+      (IsPullback.of_hasPullback 𝒵.hom _) inferInstance
+  have : IsLocallyNoetherian (𝒵.hom.fiber s) :=
+    LocallyOfFiniteType.isLocallyNoetherian (𝒵.hom.fiberToSpecResidueField s)
+  have : ∀ x : 𝒵.hom.fiber s, IsRegularLocalRing ((𝒵.hom.fiber s).presheaf.stalk x) :=
+    TauCeti.AlgebraicGeometry.isRegularLocalRing_stalk_of_smooth (𝒵.hom.fiberToSpecResidueField s)
+  exact TauCeti.AlgebraicGeometry.isIntegral_of_connected_of_isRegularLocalRing_stalk _
+
+/-- **Each fibre is irreducible** as a subset of the model. -/
+theorem isIrreducible_preimage (𝒵 : Over (Spec (CommRingCat.of (Zloc p))))
+    [SmoothOfRelativeDimension 1 𝒵.hom] [GeometricallyConnected 𝒵.hom]
+    (s : Spec (CommRingCat.of (Zloc p))) : IsIrreducible (𝒵.hom ⁻¹' {s}) := by
+  have hne : Nonempty (𝒵.hom.fiber s) := inferInstance
+  haveI := isIntegral_fiber 𝒵 s
+  rw [← Scheme.Hom.range_fiberι]
+  have := (IrreducibleSpace.isIrreducible_univ (𝒵.hom.fiber s)).image _
+    (𝒵.hom.fiberι s).continuous.continuousOn
+  rwa [Set.image_univ] at this
+
+end Model
 
 end HDec.MCRGlue.P1Model
