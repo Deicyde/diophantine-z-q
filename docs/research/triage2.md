@@ -442,6 +442,9 @@ consumer that really uses it, for example `nocm_on_witness` and `heckeNoVertRam_
 | 5 | `gonzalezRotgerProp56X6` bypass by identifying R (task 4) | −1 | T3–T4 | agent-W; Pic computations missing |
 | 6 | `gaudronRemondThm14` to one direction (task 6) | 0 | T1–T2 | agent-H |
 
-Tasks 1, 2 and 3 are independent. Tasks 1 (prune) and 3 both edit `x6Rows_of_open14`'s inputs; fold them together
-or one after the other. Tasks 3 and 4 both read `shimuraMainThmIDeligneY3AbU`. If that GLUE field is split by its
-holder, the clauses used are `IsShimuraHolFamily` (task 3) and clauses 1, 2 and 4 (task 4).
+In the table, "task n" refers to the first-pass numbering in §1.
+- The BG derivation, the prune and the persistence task are independent.
+- The BG derivation and the prune both change the inputs of `x6Rows_of_open14` (TailZ23:712). Fold them together, or
+  one after the other.
+- The BG derivation and the Y₃ task both read the GLUE field `shimuraMainThmIDeligneY3AbU`. If its holder splits that
+  field, the clauses used are `IsShimuraHolFamily` (BG) and clauses 1, 2 and 4 (Y₃).
