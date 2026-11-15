@@ -790,7 +790,7 @@ the lattice. (gt-qm's `unif_conj` over `ℂ`, composed with `End(A) ≅ End(A_�
 chain proves, along an embedding `ℚ̄ → ℂ`.) -/
 theorem lat_model (hU : BPAnalytic.Uniformization.UniformizationLeafAll)
     (hG : ZInQ.HomLattice.GAGAMorphism) (hM : AvSplit.MumfordTorsionAlgClosed)
-    (A : AbVar (AlgebraicClosure ℚ)) (hA : A.dim = 2) (q : QMStr A) :
+    (A : AbVar Qbar) (hA : A.dim = 2) (q : QMStr A) :
     ∃ (τ : ℂ) (_ : 0 < τ.im) (ρ : AbVar.End A →+* Module.End ℂ (Fin 2 → ℂ)),
       Function.Injective ρ ∧ (∀ a z, ρ (q.iota a) z = act (a : B) z) ∧
       ∀ N : Module.End ℂ (Fin 2 → ℂ),
@@ -823,7 +823,7 @@ theorem act_intCast (n : ℤ) (z : Fin 2 → ℂ) : act (n : B) z = n • z := b
 
 section Lattice
 
-variable {A : AbVar (AlgebraicClosure ℚ)} {q : QMStr A} {τ : ℂ}
+variable {A : AbVar Qbar} {q : QMStr A} {τ : ℂ}
   {ρ : AbVar.End A →+* Module.End ℂ (Fin 2 → ℂ)}
 
 theorem rho_comm_act (hρι : ∀ a z, ρ (q.iota a) z = act (a : B) z) {s : AbVar.End A}
@@ -1122,4 +1122,114 @@ theorem nonid_4 (hT : ObjBridge.TorsionStructure) [CharZero K] (P : QML3 K)
 
 end NonId
 
+
+/-! ## §6 The cases -/
+
+theorem oj_coe : ((oj : O) : B) = ⟨0, 0, 1, 0⟩ := by ext <;> simp [oj, ofInt]
+theorem ok_coe : ((ok : O) : B) = ⟨0, 0, 0, 1⟩ := by ext <;> simp [ok, mkO, ofInt]
+
+theorem iota_comm_of_mem {A : AbVar Qbar} {q : QMStr A} {φ : AbVar.End A}
+    (hφ : φ ∈ com q) (a : O) : φ * q.iota a = q.iota a * φ := by
+  rw [com, Subring.mem_centralizer_iff] at hφ
+  exact (hφ _ ⟨a, rfl⟩).symm
+
 end GapGlue.CMStab
+
+namespace GapGlue
+
+open LeafQM LeafQM.AV CMStab PkgI3
+
+/- Copied verbatim from `scratch/mcr-quot/MCRQuot.lean`, lines 7637-7653 (namespace `MCRQuot`, where
+`Qbar` is `AlgebraicClosure ℚ`). -/
+
+/-- **Glue (C1b-obj): a CM object is fixed by a Hecke operation of order exactly 2 on classes**
+(QM with CM; the elliptic points of `Y₃ → P¹` have stabilizers of even order `4, 6, 2` in the
+group of Hecke operations on classes, `CoverBranchData`/`nY3`, Baba–Granath §3.1 (locator
+UNVERIFIED)). For a level-3 object `P` over `ℚ̄` with CM by `ℤ[i]`, `ℤ[ζ₃]` or `ℤ[√−6]`, some
+operation `T = twist α ∘ rightMul u` on `M3 ℚ̄` fixes the class of `P`, is an involution, and is not
+the identity. (Outline: for `ℤ[i]` take `α = id` and `u ≡ φ` on `A[3]` (`Level3.torsor`,
+`exists_unit_congr`); then `u² ≡ −1`, and `−1` acts trivially on classes. For `ℤ[ζ₃]` and
+`ℤ[√−6]` the involution is an Atkin–Lehner-type twist induced by an element of the normalizer of
+`ι(𝒪)` in `End A` (for `ℤ[√−6]`: `ι(ij)⁻¹ φ`), which needs the structure of `End A` at CM points.) -/
+def CMStabObj : Prop :=
+  ∀ P : QML3 Qbar, (HasCM4 P.q ∨ HasCM3 P.q ∨ HasCM24 P.q) →
+    ∃ (α : LeafQM.O ≃+* LeafQM.O) (u : (LeafQM.O)ˣ),
+      M3.twist α (M3.rightMul u (M3.mk P)) = M3.mk P ∧
+      (∀ m : M3 Qbar, M3.twist α (M3.rightMul u (M3.twist α (M3.rightMul u m))) = m) ∧
+      ∃ m : M3 Qbar, M3.twist α (M3.rightMul u m) ≠ m
+
+/-- **`CMStabObj` (mcr-quot's glue C1b-obj) from the textbook fields `uniformizationLeafAll`,
+`gagaMorphism`, `mumfordTorsionAlgClosed` and the kernel's textbook leaf `TorsionStructure` (T5).**
+* `ℤ[i]` (`φ² = −1`): `α = id`, `g = φ`, `T = rightMul u` with `u ≡ −u₀`, where `φ(η(x)) = η(x u₀)`;
+  `T² = rightMul(u²)`, `u² ≡ −1`.
+* `ℤ[ζ₃]` (`φ² − φ + 1 = 0`): `α` = conjugation by `j`, `g = ι(j)⁻¹(2φ − 1)`, `g² = 1`.
+* `ℤ[√−6]` (`φ² = −6`): `α` = conjugation by `k = ij`, `g = ι(k)⁻¹ φ`, `g² = −1`.
+`g ∈ End(A)` comes from the lattice model of `End(A)` (gt-qm), `T(P) ≅ P` through `g`, `T² = id` on every
+class, and `T` moves the class of `rightMul w P` (`w = 1 + i`, resp. `w ≡ 1 + j`), by a computation in
+`𝒪/3𝒪` and `𝒪/𝔓₃ = 𝔽₉` with the commutativity of `End_𝒪(A)`. -/
+theorem cmStabObj_of (hU : BPAnalytic.Uniformization.UniformizationLeafAll)
+    (hG : ZInQ.HomLattice.GAGAMorphism) (hM : AvSplit.MumfordTorsionAlgClosed)
+    (hT : ObjBridge.TorsionStructure) :
+    CMStabObj := by
+  intro P hCM
+  obtain ⟨τ, hτ, ρ, hρinj, hρι, hρrange⟩ := lat_model hU hG hM P.A P.surface P.q
+  have hcommAll : ∀ c ∈ com P.q, ∀ s ∈ com P.q, c * s = s * c :=
+    fun c hc s hs => com_comm hρinj hρι hc hs
+  rcases hCM with ⟨φ, hφ, hφφ⟩ | ⟨φ, hφ, hφφ⟩ | ⟨φ, hφ, hφφ⟩
+  · -- `ℤ[i]`
+    have hg : ∀ a, φ * P.q.iota (RingEquiv.refl O a) = P.q.iota a * φ :=
+      fun a => iota_comm_of_mem hφ a
+    have hgg : φ * φ = ((-1 : ℤ) : AbVar.End P.A) := by rw [hφφ, Int.cast_neg, Int.cast_one]
+    obtain ⟨u₀, hu₀, hsq, u, hu, hfix, hinv⟩ :=
+      stab_core hT P (RingEquiv.refl O) (fun a => rfl) φ (-1) (by norm_num) hgg hg
+    obtain ⟨w, hw⟩ := exists_w4
+    exact ⟨RingEquiv.refl O, u, hfix, hinv, M3.mk (P.rightMul w),
+      nonid_4 hT P φ hgg hg (fun c hc => hcommAll c hc φ hφ) u₀ hu₀ hsq u hu w hw⟩
+  · -- `ℤ[ζ₃]`
+    set s : AbVar.End P.A := φ + φ - 1 with hsdef
+    have hs : s ∈ com P.q := (com P.q).sub_mem ((com P.q).add_mem hφ hφ) (com P.q).one_mem
+    have hss : s * s = ((-3 : ℤ) : AbVar.End P.A) := by
+      have h4 : s * s = (φ * φ - φ + 1) + (φ * φ - φ + 1) + (φ * φ - φ + 1) + (φ * φ - φ + 1)
+          - 1 - 1 - 1 := by rw [hsdef]; noncomm_ring
+      rw [h4, hφφ]; push_cast; norm_num
+    obtain ⟨g, hgs, hgg, hg⟩ := semilinear_unit hρinj hρι hρrange hτ oj (-1 / 3) αJ (-3) 1
+      (fun x => by
+        rw [αJ_coe, oj_coe]; change _ = cJ (x : B)
+        generalize (x : B) = y; ext <;> simp [cJ] <;> ring)
+      (fun a => by
+        rw [αJ_coe, oj_coe]; change _ * cJ (a : B) = _
+        generalize (a : B) = y; ext <;> simp [cJ] <;> ring)
+      (by rw [oj_coe]; ext <;> simp [QuaternionAlgebra.re_ofNat, QuaternionAlgebra.imI_ofNat, QuaternionAlgebra.imJ_ofNat, QuaternionAlgebra.imK_ofNat] <;> norm_num)
+      (by rw [oj_coe]; ext <;> simp [QuaternionAlgebra.re_ofNat, QuaternionAlgebra.imI_ofNat, QuaternionAlgebra.imJ_ofNat, QuaternionAlgebra.imK_ofNat] <;> norm_num)
+      (fun y hy => div_j y (by rw [hy]; norm_num)) s hs hss
+    obtain ⟨u₀, hu₀, hsq, u, hu, hfix, hinv⟩ := stab_core hT P αJ αJ_αJ g 1 (by norm_num) hgg hg
+    refine ⟨αJ, u, hfix, hinv, M3.mk (P.rightMul w1U), ?_⟩
+    exact nonid_t hT P αJ αJ_αJ oj oj_mul_αJ red_of_j_mul red_αJ g 1 (by norm_num) hgg hg
+      (fun c hc => by rw [hgs]; exact hcommAll c hc s hs) u₀ hu₀ hsq u hu
+  · -- `ℤ[√−6]`
+    have hss : φ * φ = ((-6 : ℤ) : AbVar.End P.A) := by rw [hφφ, Int.cast_neg, Int.cast_ofNat]
+    have hdiv6 : ∀ y : O, y * y = ((-6 : ℤ) : O) → ∃ e : O, y = ok * e :=
+      fun y hy => div_k y (by rw [hy, Int.cast_neg, Int.cast_ofNat])
+    have k1 : ∀ x : O, ((1 / 6 : ℚ) • (ok : B)) * x * ok = (αK x : B) := fun x => by
+      rw [αK_coe, ok_coe]; change _ = cK (x : B)
+      generalize (x : B) = y; ext <;> simp [cK] <;> ring
+    have k2 : ∀ a : O, ((1 / 6 : ℚ) • (ok : B)) * (αK a : B) = (a : B) * ((1 / 6 : ℚ) • (ok : B)) :=
+      fun a => by
+        rw [αK_coe, ok_coe]; change _ * cK (a : B) = _
+        generalize (a : B) = y; ext <;> simp [cK] <;> ring
+    have k3 : (ok : B) * ((1 / 6 : ℚ) • (ok : B)) = 1 := by
+      rw [ok_coe]; ext <;> simp [QuaternionAlgebra.re_ofNat, QuaternionAlgebra.imI_ofNat,
+        QuaternionAlgebra.imJ_ofNat, QuaternionAlgebra.imK_ofNat] <;> norm_num
+    have k4 : ((1 / 6 : ℚ) • (ok : B)) * ((1 / 6 : ℚ) • (ok : B)) * ((-6 : ℤ) : B) = ((-1 : ℤ) : B) := by
+      rw [ok_coe]; ext <;> simp [QuaternionAlgebra.re_ofNat, QuaternionAlgebra.imI_ofNat,
+        QuaternionAlgebra.imJ_ofNat, QuaternionAlgebra.imK_ofNat] <;> norm_num
+    obtain ⟨g, hgs, hgg, hg⟩ := semilinear_unit hρinj hρι hρrange hτ ok (1 / 6 : ℚ) αK _ _
+      k1 k2 k3 k4 hdiv6 φ hφ hss
+    have hε : ((-1 : ℤ)) * (-1) = 1 := by norm_num
+    have hgg' : g * g = ((-1 : ℤ) : PkgI3.AbVar.End P.A) := hgg
+    obtain ⟨u₀, hu₀, hsq, u, hu, hfix, hinv⟩ := stab_core hT P αK αK_αK g (-1 : ℤ) hε hgg' hg
+    refine ⟨αK, u, hfix, hinv, M3.mk (P.rightMul w1U), ?_⟩
+    exact nonid_t hT P αK αK_αK ok ok_mul_αK red_of_k_mul red_αK g (-1) (by norm_num) hgg hg
+      (fun c hc => by rw [hgs]; exact hcommAll c hc φ hφ) u₀ hu₀ hsq u hu
+
+end GapGlue
