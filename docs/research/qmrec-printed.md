@@ -13,7 +13,7 @@ multiplication (`QMRecPrinted.MainTheoremCM`), and the textbook leaf `HomLattice
 contain.** All the glue between them is proved. VERIFIED: the file compiles, `#print axioms` gives
 `[propext, Classical.choice, Quot.sound]`, and `#discharges` matches the field `rayClassCMAb` (§5).
 
-The file is `ZInQKernel/Contrib/OneProof/QMRecPrinted.lean` (about 960 lines, 58 KB). It imports only
+The file is `ZInQKernel/Contrib/OneProof/QMRecPrinted.lean` (1089 lines, 58 KB). It imports only
 `ZInQKernel.Contrib.OneProof.ShimuraSplit2`, the module that declares `QMReciprocityL3`.
 
 ```lean
