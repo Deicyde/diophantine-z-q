@@ -15,3 +15,10 @@ Task: split `RayClassCFT.ShimuraMainThmIDeligneY3AbU` (gt-rayclass composite) fa
   uniformization with kernel `ι(L_g)(τ,1)ᵀ`, `L_g = B ∩ 𝒪̂g⁻¹`, and level structure `η(a) = [ι(x)(τ,1)ᵀ/3]` for
   `x g ≡ a mod 3𝒪̂`". Reciprocity `σ(MIsAt P z g) → MIsAt (P^σ) z (q̂(s)^ε g)` then has no normalization problem
   (no `Ψ`, no witness), so it is a separate leaf.
+* 04:38 `lake build +ZInQKernel.Contrib.OneProof.RayClassShimura`: replayed 12226 jobs, built RayClassShimura (147 s).
+  VERIFIED.
+* 05:40 `ZInQKernel/Contrib/OneProof/ShimuraSplit2.lean` part 1 compiles (`lake env lean`, 0 errors, 11 s):
+  definitions `latB`, `vecLat`, `LevelAt`, `MIsAt`; leaves `QMReciprocityL3`, `ShimuraHolFamilyAb`; glue Props
+  `DCRelTransport`, `UnifDetermines`, `ComplexUnifL3`; proved `vecLat_unit` (`L_u = 𝒪`), `embed_core_obj`,
+  `rayClassCMAb_of_split : ShimuraHolFamilyAb → QMReciprocityL3 → DCRelTransport → UnifDetermines → ComplexUnifL3 →
+  HomLinearLift → RayClassCMAb`, `shimuraFamilyAb_of_hol : ShimuraHolFamilyAb → ShimuraFamilyAb`. VERIFIED (compiled).
