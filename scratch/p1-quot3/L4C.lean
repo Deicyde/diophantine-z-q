@@ -65,6 +65,21 @@ theorem eq_of_notMem_U {y y' : Z.left} (hy : y ∉ σ.U) (hy' : y' ∉ σ.U) : y
     _ = hV.fromSpec (hV.primeIdealOf ⟨y', hmem y' hy'⟩) := by rw [h3]
     _ = y' := h2
 
+/-- The chart structure with the two charts exchanged (`t ↦ 1/t`). -/
+def swapP1 {X : Scheme.{0}} (σ : ToP1 X) : ToP1 X where
+  U := σ.V
+  V := σ.U
+  cover := by rw [sup_comm]; exact σ.cover
+  f := σ.g
+  g := σ.f
+  inv := QuotientP1Proof.inv' σ
+  basicOpen_f := by rw [σ.basicOpen_g, inf_comm]
+  basicOpen_g := by rw [σ.basicOpen_f, inf_comm]
+
+include hσ in
+theorem isP1CoordinateQ_swap : IsP1CoordinateQ Z (swapP1 σ) :=
+  ⟨hσ.2.1, hσ.1, hσ.2.2.2, hσ.2.2.1⟩
+
 end Chart
 
 /-! ## The generic fibre inside the model -/
@@ -316,6 +331,44 @@ theorem isUnit_germ_of_third (σ : ToP1 (genFib 𝒵).left)
   rcases h4 hxcU with h5 | h5
   · exact h1 h5
   · exact h2 h5
+
+/-- `ξ` has a DVR as local ring. -/
+theorem xi_isDVR : ∃ _ : IsDomain (𝒵.left.presheaf.stalk (xi 𝒵)),
+    IsDiscreteValuationRing (𝒵.left.presheaf.stalk (xi 𝒵)) := by
+  haveI := zloc_isDVR' (p := p)
+  haveI : Smooth 𝒵.hom := SmoothOfRelativeDimension.smooth 1 _
+  refine ZInQ.Contrib.CloudW03NeronSurj.FLT.AlgebraicGeometry.Smooth.isDiscreteValuationRing_stalk_of_forall_specializes
+    (Zloc p) 𝒵.hom (xi 𝒵) (xi_mem 𝒵) ?_
+  intro y hy hys
+  exact (hy.antisymm (xi_specializes 𝒵 hys)).eq
+
+theorem tU_res (σ : ToP1 (genFib 𝒵).left) (W : (genFib 𝒵).left.Opens) (hW : W ≤ σ.U) :
+    𝒵.left.presheaf.map (homOfLE ((jj 𝒵).image_mono hW)).op (tU 𝒵 σ) =
+      ((jj 𝒵).appIso W).inv ((genFib 𝒵).left.presheaf.map (homOfLE hW).op σ.f) := by
+  rw [tU, ← ConcreteCategory.comp_apply, ← ConcreteCategory.comp_apply,
+    Scheme.Hom.appIso_inv_naturality]
+  rfl
+
+/-- The germs at the generic point of the two chart coordinates are inverse. -/
+theorem germ_mul_swap (σ : ToP1 (genFib 𝒵).left) (hne : ((σ.U ⊓ σ.V : (genFib 𝒵).left.Opens) :
+      Set (genFib 𝒵).left).Nonempty)
+    (h1 : genericPoint 𝒵.left ∈ jj 𝒵 ''ᵁ σ.U) (h2 : genericPoint 𝒵.left ∈ jj 𝒵 ''ᵁ (swapP1 σ).U) :
+    𝒵.left.presheaf.germ _ (genericPoint 𝒵.left) h1 (tU 𝒵 σ) *
+      𝒵.left.presheaf.germ _ (genericPoint 𝒵.left) h2 (tU 𝒵 (swapP1 σ)) = 1 := by
+  set W := σ.U ⊓ σ.V
+  have hW : genericPoint 𝒵.left ∈ jj 𝒵 ''ᵁ W := genericPoint_mem_open 𝒵 _
+    (by obtain ⟨y, hy⟩ := hne; exact ⟨jj 𝒵 y, y, hy, rfl⟩)
+  have hWU : jj 𝒵 ''ᵁ W ≤ jj 𝒵 ''ᵁ σ.U := (jj 𝒵).image_mono inf_le_left
+  have hWV : jj 𝒵 ''ᵁ W ≤ jj 𝒵 ''ᵁ (swapP1 σ).U := (jj 𝒵).image_mono inf_le_right
+  have e1 := tU_res 𝒵 σ W inf_le_left
+  have e2 := tU_res 𝒵 (swapP1 σ) W inf_le_right
+  rw [← TopCat.Presheaf.germ_res_apply _ (homOfLE hWU) _ hW,
+    ← TopCat.Presheaf.germ_res_apply _ (homOfLE hWV) _ hW, ← map_mul, e1, e2, ← map_mul]
+  have hinv : (genFib 𝒵).left.presheaf.map (homOfLE (inf_le_left : W ≤ σ.U)).op σ.f *
+      (genFib 𝒵).left.presheaf.map (homOfLE (inf_le_right : W ≤ (swapP1 σ).U)).op (swapP1 σ).f = 1 :=
+    σ.inv
+  erw [hinv]
+  rw [map_one, map_one]
 
 end Model
 
