@@ -31,8 +31,12 @@ Weierstrass ℘, the Eichler integral of the Tau Ceti newform, the kernel's `Hee
 theorem on CM curves replaces Eichler–Shimura plus Faltings, so it needs one deep leaf fewer. The Gross–Zagier and
 Gross leaves are unchanged.
 
-**What compiles:** both new files (`lake build`). The `#discharges` output is in
-`scratch/gz-hl3/discharges-output.txt`.
+**What compiles:**
+
+- both new files (`lake build`);
+- `#discharges` gives `DISCHARGES [hL3] by ZInQ.GZHL3.grossZagierHeegner_of_leaves`, still assuming the six
+  leaves, standard axioms (`scratch/gz-hl3/discharges-output.txt`);
+- the `Main.lean` edit, checked out of tree in `scratch/gz-hl3/MainEdit.lean`, standard axioms.
 
 **Main.lean edit (for the integrator):** replace `hL3` by the six leaves and pass
 `ZInQ.GZHL3.grossZagierHeegner_of_leaves hU hSW hI hHP hGZ hGC`. Details are in `docs/research/gz-hl3.md` §7.

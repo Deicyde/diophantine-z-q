@@ -41630,3 +41630,533 @@ Hint: Omit it from the simp argument list.
   [apply] simp only [Units.val_mul, Units.val_inv_eq_inv_val, map_mul, βu, Units.val_mk0]
 
 Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+ℹ [12956/12982] Built ZInQKernel.OneProof.H.TailZ18 (16s)
+info: ZInQKernel/OneProof/H/TailZ18.lean:1191:0: 'CM24.igusaCMValue24_field' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ZInQKernel/OneProof/H/TailZ18.lean:1192:0: 'CM24.singularModulus6' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ZInQKernel/OneProof/H/TailZ18.lean:1193:0: 'CM24.thetaQuotientValue24_field' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ZInQKernel/OneProof/H/TailZ18.lean:1194:0: 'CM24.thetaValueAtOmega24_of_singularModulus6' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ZInQKernel/OneProof/H/TailZ18.lean:1195:0: 'CM24.igusaCMValue24_of_singularModulus6' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ZInQKernel/OneProof/H/TailZ18.lean:1196:0: 'CM24.thetaValueAtOmega24' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ZInQKernel/OneProof/H/TailZ18.lean:1197:0: 'CM24.igusaCMValue24' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ZInQKernel/OneProof/H/TailZ18.lean:1198:0: 'CM24.thetaQuotientValue24' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ZInQKernel/OneProof/H/TailZ18.lean:1258:0: 'HDec.HSyn.addedLeaves10_of_open11' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ZInQKernel/OneProof/H/TailZ18.lean:1259:0: 'HDec.HSyn.sixContactMin_of_open14' depends on axioms: [propext, Classical.choice, Quot.sound]
+⚠ [12957/12982] Built ZInQKernel.Contrib.OneProof.StrictHenselizationPair (24s)
+warning: ZInQKernel/Contrib/OneProof/StrictHenselizationPair.lean: imports `Mathlib` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+ℹ [12958/12982] Built ZInQKernel.OneProof.H.TailZ19 (13s)
+info: ZInQKernel/OneProof/H/TailZ19.lean:1786:0: 'CToPrinted.neronLocalizesDVR_of_printed' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ZInQKernel/OneProof/H/TailZ19.lean:1787:0: 'CToPrinted.semistableNeronBaseChange_of_printedBLR' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ZInQKernel/OneProof/H/TailZ19.lean:1788:0: 'CToPrinted.semistableNeronBaseChange_of_printed' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ZInQKernel/OneProof/H/TailZ19.lean:1789:0: 'CToPrinted.faltingsLemma5BC_of_printed' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ZInQKernel/OneProof/H/TailZ19.lean:1790:0: 'CToPrinted.openImmersionLocalization' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ZInQKernel/OneProof/H/TailZ19.lean:1791:0: 'CToPrinted.semistableNeronBaseChange_of_printed'' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ZInQKernel/OneProof/H/TailZ19.lean:1792:0: 'CToPrinted.semistableNeronBaseChange_of_printed''' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ZInQKernel/OneProof/H/TailZ19.lean:1793:0: 'CToPrinted.semistableNeronBaseChange_of_printed_final' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ZInQKernel/OneProof/H/TailZ19.lean:1794:0: 'CToPrinted.semistableNeronBaseChange_of_printed_final'' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ZInQKernel/OneProof/H/TailZ19.lean:1795:0: 'CToPrinted.semistableNeronBaseChange_of_printed_final''' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ZInQKernel/OneProof/H/TailZ19.lean:1796:0: 'CToPrinted.semistableNeronBaseChange_of_printed_best' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ZInQKernel/OneProof/H/TailZ19.lean:1797:0: 'CToPrinted.semistableNeronBaseChange_of_printed_full' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ZInQKernel/OneProof/H/TailZ19.lean:1798:0: 'CToPrinted.fields_of_leaves' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ZInQKernel/OneProof/H/TailZ19.lean:1799:0: 'CToPrinted.reductGlue_leaves_of_printed' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ZInQKernel/OneProof/H/TailZ19.lean:1921:0: 'HDec.HSyn.researchLeaves11_of_open12' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ZInQKernel/OneProof/H/TailZ19.lean:1922:0: 'HDec.HSyn.sixContactMin_of_open15' depends on axioms: [propext, Classical.choice, Quot.sound]
+✔ [12959/12982] Built ZInQKernel.Contrib.OneProof.UnipotentForward (9.2s)
+✔ [12960/12982] Built ZInQKernel.Contrib.OneProof.EGAOpenImm (5.9s)
+⚠ [12961/12982] Built ZInQKernel.OneProof.H.TailZ20 (54s)
+warning: ZInQKernel/OneProof/H/TailZ20.lean: imports `Mathlib.NumberTheory.Padics.Hensel` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/OneProof/H/TailZ20.lean: imports `Mathlib.NumberTheory.Padics.RingHoms` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/OneProof/H/TailZ20.lean: imports `Mathlib.FieldTheory.Finite.Basic` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/OneProof/H/TailZ20.lean: imports `Mathlib.RingTheory.DedekindDomain.FiniteAdeleRing` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/OneProof/H/TailZ20.lean: imports `Mathlib.NumberTheory.Padics.HeightOneSpectrum` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/OneProof/H/TailZ20.lean: imports `Mathlib.Algebra.Quaternion` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/OneProof/H/TailZ20.lean: imports `Mathlib.Tactic.NoncommRing` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/OneProof/H/TailZ20.lean: imports `Mathlib.NumberTheory.Cyclotomic.CyclotomicCharacter` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/OneProof/H/TailZ20.lean: imports `Mathlib.RingTheory.RootsOfUnity.AlgebraicallyClosed` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/OneProof/H/TailZ20.lean: imports `Mathlib.Topology.Compactification.OnePoint.ProjectiveLine` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/OneProof/H/TailZ20.lean: imports `Mathlib.NumberTheory.NumberField.Discriminant.Different` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+✔ [12962/12982] Built ZInQKernel.OneProof.H.TailZ21 (13s)
+⚠ [12963/12982] Built ZInQKernel.OneProof.H.TailZ22 (5.4s)
+warning: ZInQKernel/OneProof/H/TailZ22.lean:60:5: Ambiguous namespace `LeafQM`: it is interpreted as `_root_.HDec.LeafQM` because this `open` occurs inside `namespace HDec.QMSplit.Moduli`, while `_root_.LeafQM` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.LeafQM`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+warning: ZInQKernel/OneProof/H/TailZ22.lean:60:12: Ambiguous namespace `LeafQM.AV`: it is interpreted as `_root_.HDec.LeafQM.AV` because this `open` occurs inside `namespace HDec.QMSplit.Moduli`, while `_root_.LeafQM.AV` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.LeafQM.AV`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+info: ZInQKernel/OneProof/H/TailZ22.lean:343:0: 'HDec.QMSplit.Moduli.r1r2_of_published' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ZInQKernel/OneProof/H/TailZ22.lean:344:0: 'HDec.QMSplit.Moduli.x6ConicModel_of_published' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ZInQKernel/OneProof/H/TailZ22.lean:345:0: 'HDec.HSyn.x6Rows_of_open13' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ZInQKernel/OneProof/H/TailZ22.lean:346:0: 'HDec.HSyn.researchLeaves12_of_open13' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ZInQKernel/OneProof/H/TailZ22.lean:347:0: 'HDec.HSyn.addedLeaves11_of_open12' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ZInQKernel/OneProof/H/TailZ22.lean:348:0: 'HDec.HSyn.sixContactMin_of_open16' depends on axioms: [propext, Classical.choice, Quot.sound]
+✔ [12964/12982] Built ZInQKernel.Contrib.OneProof.GRCountX6 (5.8s)
+✔ [12965/12982] Built ZInQKernel.Contrib.OneProof.ElkiesX6Star (6.1s)
+⚠ [12966/12982] Built ZInQKernel.OneProof.H.TailZ23 (8.8s)
+warning: ZInQKernel/OneProof/H/TailZ23.lean:101:2: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: ZInQKernel/OneProof/H/TailZ23.lean:149:2: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: ZInQKernel/OneProof/H/TailZ23.lean:155:2: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: ZInQKernel/OneProof/H/TailZ23.lean:220:2: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: ZInQKernel/OneProof/H/TailZ23.lean:226:2: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: ZInQKernel/OneProof/H/TailZ23.lean:227:2: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: ZInQKernel/OneProof/H/TailZ23.lean:229:2: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: ZInQKernel/OneProof/H/TailZ23.lean:354:2: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: ZInQKernel/OneProof/H/TailZ23.lean:364:2: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: ZInQKernel/OneProof/H/TailZ23.lean:365:2: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: ZInQKernel/OneProof/H/TailZ23.lean:367:2: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: ZInQKernel/OneProof/H/TailZ23.lean:393:2: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: ZInQKernel/OneProof/H/TailZ23.lean:394:2: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: ZInQKernel/OneProof/H/TailZ23.lean:396:2: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: ZInQKernel/OneProof/H/TailZ23.lean:397:2: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: ZInQKernel/OneProof/H/TailZ23.lean:404:4: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: ZInQKernel/OneProof/H/TailZ23.lean:406:6: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: ZInQKernel/OneProof/H/TailZ23.lean:417:2: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: ZInQKernel/OneProof/H/TailZ23.lean:418:2: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: ZInQKernel/OneProof/H/TailZ23.lean:419:2: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: ZInQKernel/OneProof/H/TailZ23.lean:421:2: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: ZInQKernel/OneProof/H/TailZ23.lean:433:2: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: ZInQKernel/OneProof/H/TailZ23.lean:448:2: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: ZInQKernel/OneProof/H/TailZ23.lean:449:2: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: ZInQKernel/OneProof/H/TailZ23.lean:450:2: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: ZInQKernel/OneProof/H/TailZ23.lean:480:2: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: ZInQKernel/OneProof/H/TailZ23.lean:481:2: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: ZInQKernel/OneProof/H/TailZ23.lean:482:2: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: ZInQKernel/OneProof/H/TailZ23.lean:488:2: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: ZInQKernel/OneProof/H/TailZ23.lean:489:2: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: ZInQKernel/OneProof/H/TailZ23.lean:491:2: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: ZInQKernel/OneProof/H/TailZ23.lean:528:2: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: ZInQKernel/OneProof/H/TailZ23.lean:530:2: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: ZInQKernel/OneProof/H/TailZ23.lean:534:2: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: ZInQKernel/OneProof/H/TailZ23.lean:535:2: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: ZInQKernel/OneProof/H/TailZ23.lean:540:4: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: ZInQKernel/OneProof/H/TailZ23.lean:541:4: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: ZInQKernel/OneProof/H/TailZ23.lean:543:6: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: ZInQKernel/OneProof/H/TailZ23.lean:542:4: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: ZInQKernel/OneProof/H/TailZ23.lean:546:6: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: ZInQKernel/OneProof/H/TailZ23.lean:545:4: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: ZInQKernel/OneProof/H/TailZ23.lean:548:4: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+✔ [12967/12982] Built ZInQKernel.Contrib.OneProof.SGA7PersistsNF (7.9s)
+⚠ [12968/12982] Built ZInQKernel.OneProof.H.TailZ24 (21s)
+warning: ZInQKernel/OneProof/H/TailZ24.lean:124:2: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: ZInQKernel/OneProof/H/TailZ24.lean:140:2: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: ZInQKernel/OneProof/H/TailZ24.lean:143:2: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: ZInQKernel/OneProof/H/TailZ24.lean:163:4: Unused tactic linter: `change η[A.X].left ≫ lam.left ≫ j.left = η[B.X].left ≫ j.left` does nothing.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+warning: ZInQKernel/OneProof/H/TailZ24.lean:221:2: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: ZInQKernel/OneProof/H/TailZ24.lean:242:2: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: ZInQKernel/OneProof/H/TailZ24.lean:245:2: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: ZInQKernel/OneProof/H/TailZ24.lean:269:4: Unused tactic linter: `change η[B.X].left ≫ fv.left ≫ j.left = η[B.X].left ≫ j.left` does nothing.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+warning: ZInQKernel/OneProof/H/TailZ24.lean:435:2: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: ZInQKernel/OneProof/H/TailZ24.lean:438:2: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: ZInQKernel/OneProof/H/TailZ24.lean:439:2: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: ZInQKernel/OneProof/H/TailZ24.lean:567:2: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: ZInQKernel/OneProof/H/TailZ24.lean:568:2: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: ZInQKernel/OneProof/H/TailZ24.lean:570:2: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+ℹ [12969/12982] Built ZInQKernel.OneProof.H.TailZ25 (4.8s)
+info: ZInQKernel/OneProof/H/TailZ25.lean:143:0: 'HDec.HSyn.sixContactMin_of_open19' depends on axioms: [propext, Classical.choice, Quot.sound]
+✔ [12970/12982] Built ZInQKernel.Contrib.OneProof.BLRLocalizes (10s)
+✔ [12971/12982] Built ZInQKernel.Contrib.OneProof.GammaStarArea (20s)
+✔ [12972/12982] Built ZInQKernel.Contrib.OneProof.ThetaModularityM46 (28s)
+ℹ [12973/12982] Built ZInQKernel.OneProof.H.TailZ26 (4.6s)
+info: ZInQKernel/OneProof/H/TailZ26.lean:199:0: 'HDec.HSyn.sixContactMin_of_open20' depends on axioms: [propext, Classical.choice, Quot.sound]
+ℹ [12974/12982] Built ZInQKernel.OneProof.H.TailZ27 (4.6s)
+info: ZInQKernel/OneProof/H/TailZ27.lean:131:0: 'HDec.HSyn.sixContactMin_of_open21' depends on axioms: [propext, Classical.choice, Quot.sound]
+✔ [12975/12982] Built ZInQKernel.Contrib.OneProof.QMLattice (8.6s)
+ℹ [12976/12982] Built ZInQKernel.OneProof.H.TailZ28 (4.5s)
+info: ZInQKernel/OneProof/H/TailZ28.lean:130:0: 'HDec.HSyn.sixContactMin_of_open22' depends on axioms: [propext, Classical.choice, Quot.sound]
+ℹ [12977/12982] Built ZInQKernel.OneProof.H.TailZ29 (4.5s)
+info: ZInQKernel/OneProof/H/TailZ29.lean:127:0: 'HDec.HSyn.sixContactMin_of_open23' depends on axioms: [propext, Classical.choice, Quot.sound]
+ℹ [12978/12982] Built ZInQKernel.OneProof.H.TailZ30 (4.7s)
+info: ZInQKernel/OneProof/H/TailZ30.lean:80:0: 'HDec.HSyn.sixContactMin_of_open24' depends on axioms: [propext, Classical.choice, Quot.sound]
+ℹ [12979/12982] Built ZInQKernel.OneProof.H.TailZ31 (4.6s)
+info: ZInQKernel/OneProof/H/TailZ31.lean:76:0: 'HDec.HSyn.sixContactMin_of_open25' depends on axioms: [propext, Classical.choice, Quot.sound]
+ℹ [12980/12982] Built ZInQKernel.OneProof.H.TailZ32 (4.6s)
+info: ZInQKernel/OneProof/H/TailZ32.lean:54:0: 'HDec.HSyn.sixContactMin_of_open26' depends on axioms: [propext, Classical.choice, Quot.sound]
+ℹ [12981/12982] Built ZInQKernel.OneProof.H.TailZ33 (4.6s)
+info: ZInQKernel/OneProof/H/TailZ33.lean:128:0: 'HDec.HSyn.sixContactMin_of_open27' depends on axioms: [propext, Classical.choice, Quot.sound]
+ℹ [12982/12982] Built ZInQKernel.OneProof.Main (5.0s)
+info: ZInQKernel/OneProof/Main.lean:72:0: 'ZInQ.OneProof.frozenTarget' depends on axioms: [propext, Classical.choice, Quot.sound]
+Build completed successfully (12982 jobs).
+
+real	3m28.480s
+user	7m55.390s
+sys	0m59.670s

@@ -48,3 +48,10 @@
   canonicalHeight_eq_zero_iff_isOfFinAddOrder with Mathlib Northcott for number fields) and
   `exists_rat_point_of_leaves` (rank ≥ 1): `lake build …GrossZagierHeegner.Cd` → success.
 - First Main build killed by the 10-min background limit at TailZ17 (no error); restarted with long timeout.
+
+## 04:20 discharge check (VERIFIED)
+- `lake build ZInQKernel.OneProof.Main ZInQKernel.OneProof.Discharges`: success (12982 jobs, 3m28s).
+- `lake env lean scratch/gz-hl3/Discharges.lean`: `DISCHARGES [hL3] by ZInQ.GZHL3.grossZagierHeegner_of_leaves`,
+  still assumes the six leaves, axioms [propext, Classical.choice, Quot.sound]; no sorry.
+- `scratch/gz-hl3/Check.lean` → out_check.txt: all listed theorems standard axioms.
+- 04:30 scratch/gz-hl3/MainEdit.lean (frozenTarget with hL3 → six leaves) compiles, standard axioms (VERIFIED).

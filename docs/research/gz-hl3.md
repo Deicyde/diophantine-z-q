@@ -261,7 +261,23 @@ implies the Cd split.
 * **Contribution files.** `ZInQKernel/Contrib/OneProof/GrossZagierHeegner.lean` imports the module that defines the
   statement (`ZInQKernel.Contrib.GZDecomp.Decomp`), not `OneProof.Main`. The helper
   `ZInQKernel/Contrib/OneProof/GrossZagierHeegner/Cd.lean` also imports `GZStatements.Weak`.
-* **`#discharges`.** The output is in `scratch/gz-hl3/discharges-output.txt` (§9).
+* **`#discharges`** (VERIFIED, run 2026-11-15 after
+  `lake build ZInQKernel.OneProof.Main ZInQKernel.OneProof.Discharges`, 12982 jobs; full output in
+  `scratch/gz-hl3/discharges-output.txt`):
+
+  ```
+  DISCHARGES [hL3] by ZInQ.GZHL3.grossZagierHeegner_of_leaves
+    still assumes: [ZInQ.GZHL3.WeierstrassUniformization,
+   ZInQ.GZHL3.StrongWeilCurve,
+   ZInQ.GZHL3.IsogenyLattice,
+   ZInQ.GZHL3.HeegnerPointRational,
+   ZInQ.GZHL3.GrossZagierFormula,
+   ZInQ.GZHL3.GrossConjugation]
+    axioms: [propext, Classical.choice, Quot.sound]
+  #discharges: 65 open hypotheses, 1311 theorems checked, 6 discharge one
+  ```
+
+  The other five discharging theorems in the count belong to contributions already in the tree.
 * **The `Main.lean` edit** (`hL3` is a top-level hypothesis of `frozenTarget`, so autofold does not cover it):
   1. add `import ZInQKernel.Contrib.OneProof.GrossZagierHeegner`;
   2. in `ZInQ.OneProof.frozenTarget`, replace the binder `(hL3 : ZInQ.GZDecomp.GrossZagierHeegner)` by
@@ -271,6 +287,9 @@ implies the Cd split.
   3. in the body, replace the last argument `hL3` by
      `(ZInQ.GZHL3.grossZagierHeegner_of_leaves hU hSW hI hHP hGZ hGC)`.
 
+  The edited theorem compiles out of tree: `scratch/gz-hl3/MainEdit.lean` proves `ZInQ.FrozenTarget` from every
+  other hypothesis of `frozenTarget` and the six leaves, with axioms `[propext, Classical.choice, Quot.sound]`
+  (VERIFIED, `lake env lean`).
   `kinds.tsv` then gets six rows in place of `hL3`. `WeierstrassUniformization` is LEAF, textbook, printed form.
   `StrongWeilCurve`, `IsogenyLattice` and `HeegnerPointRational` are LEAF, composite, pending reading.
   `GrossZagierFormula` and `GrossConjugation` are LEAF, research, printed form (constant forgotten), unread. Each
@@ -283,7 +302,7 @@ implies the Cd split.
 ## 8. Pages a human must read (locators UNVERIFIED)
 
 1. **GZ 1986 Ch. V, Thm 2.1 and (2.?) / Cor. (2.?).** The formula for `L'(E/K, 1)` in terms of `ĥ(y_K)`, with its
-   positive constant; check that `y_K = Tr_{H/K} φ(x₁)` for any modular parametrization `φ` defined over `ℚ`, and
+   positive constant. Check that `y_K = Tr_{H/K} φ(x₁)` for any modular parametrization `φ` defined over `ℚ`, and
    the hypotheses on `(N, D)`.
 2. **GZ 1986 Thm I.6.3**, and the factorization `L(f, 1_K, s) = L(f, s) L(f ⊗ ε_D, s)`.
 3. **Gross 1984 §5** (or GZ V §2). The relation `ȳ_K = −ε y_K` mod torsion, and the sign convention of `ε`.
@@ -306,3 +325,23 @@ lake env lean scratch/gz-hl3/Discharges.lean     # output scratch/gz-hl3/dischar
 
 `scratch/gz-hl3/HL3.lean` is the development copy of the main file (minus the header). `scratch/gz-hl3/Reps.lean`
 is the development file of the representatives glue.
+
+---
+
+## 10. What remains, and the next step
+
+* **Literature check.** Every locator and printed constant above is UNVERIFIED (§8).
+* **`HeegnerPointRational` could be reduced further** to the kernel's `TYZGenus.Shimura.ShimuraReciprocityModFn`.
+  That leaf is already derivable from `frozenTarget`'s open `T5Glue.ShimuraMainCM` and `T5Glue.X0ModuliGalois`.
+  The reduction needs three more pieces, and this task did not attempt it.
+  - **(a) A rationality leaf for the coordinates.** The coordinate functions of `φ` must lie in `ℚ(X₀(N))`. But
+    `IsRatModFn` requires no poles on `ℍ`, and `x ∘ φ` has poles at `φ⁻¹(O) ∩ ℍ`. So either a variant of the
+    reciprocity leaf allowing poles away from the Heegner points is needed, or rational functions of `(x∘φ, y∘φ)`
+    regular at the `τ_Q`.
+  - **(b) Glue for the ideal-class action on Heegner forms of level `N`.** For each `J`, `Q ↦ Q'` with
+    `J·⟨1, τ_{Q'}⟩ = c⟨1, τ_Q⟩` and the same for `⟨1/N, τ⟩` must permute the classes of residue `β`.
+  - **(c) Galois descent from `ℂ`-points fixed by `Aut(ℂ/K)` to `E(K)`.**
+
+  Net effect: one composite leaf is replaced by a q-expansion-principle leaf, at the cost of a large amount of glue.
+* **The printed constant** of the Gross–Zagier formula could be added as a second, explicit leaf once someone has
+  read GZ V.2.1 and fixed the height normalization against Tau Ceti's `canonicalHeight`.
