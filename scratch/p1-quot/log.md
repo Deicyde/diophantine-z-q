@@ -32,3 +32,14 @@ Target: `HDec.MCRGlue.QuotientP1Coordinate` (ZInQKernel/OneProof/H/TailW.lean L2
   `HDec.MCRQuot.quotientP1Coordinate_of_leaves' (L1..L6) (hT : ObjBridge.TorsionStructure) (hC : CurveBijIso)
    (hYI : PropTSGlue.HeckeIrreducible) (hO : CMStabObj) : MCRGlue.QuotientP1Coordinate`, both
   [propext, Classical.choice, Quot.sound].
+- Port3.lean = Port2 + `import ZInQKernel.OneProof.H.TailR` + `quotientP1Coordinate_of_printed` (CurveBijIso from
+  `_root_.CurveSplit.curveBijIso`): VERIFIED compiles, standard axioms (port3_out.txt).
+
+## Contribution files (py/gen_contrib.py generates them from P1Scheme.lean, Port1.lean, Port3.lean)
+- ZInQKernel/Contrib/OneProof/QuotientP1/{MCRQuotA (130 KB), MCRQuotB (114 KB), P1Scheme (18 KB)}.lean,
+  ZInQKernel/Contrib/OneProof/QuotientP1Coordinate.lean (5 KB). Each compiled with `lake env lean -o` in order:
+  VERIFIED no errors.
+- Discharges.lean (#discharges over Main + Discharges + the contribution; Main olean of the copied c2ad4181 tree):
+  VERIFIED `DISCHARGES [OpenGlue7.quotientP1Coordinate] by HDec.MCRQuot.quotientP1Coordinate_of_printed`, still
+  assumes L1-L6, PkgI2.TorsionStructure, HDec.PropTSGlue.HeckeIrreducible, HDec.MCRQuot.CMStabObj; axioms standard
+  (discharges_out.txt).

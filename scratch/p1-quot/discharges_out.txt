@@ -1,0 +1,33 @@
+DISCHARGES [OpenResearchLeaves19.gonzalezRotgerProp56X6] by GRCountX6.prop56X6_of_r5fpCount
+  still assumes: [LeafQM.AV.R5fpCount]
+  axioms: [propext, Classical.choice, Quot.sound]
+DISCHARGES [OpenResearchLeaves19.neronBaseChangeStrictHenselization] by GapSHPair.neronBaseChangeStrictHenselization_of_unramified
+  still assumes: [ReductGlue.NeronBaseChangeUnramifiedDVR]
+  axioms: [propext, Classical.choice, Quot.sound]
+DISCHARGES [OpenGlue7.quotientP1Coordinate] by HDec.MCRQuot.quotientP1Coordinate_of_leaves'
+  still assumes: [HDec.MCRGlue.ProperCurveAF,
+ HDec.MCRGlue.FiniteQuotientExists,
+ HDec.MCRGlue.TameQuotientSmooth,
+ HDec.MCRGlue.SmoothModelOfP1,
+ HDec.MCRGlue.TameFixedPointsDisjoint,
+ HDec.MCRGlue.TameInertiaCyclic,
+ ObjBridge.TorsionStructure,
+ HDec.ModelGlue.CurveBijIso,
+ HDec.PropTSGlue.HeckeIrreducible,
+ HDec.MCRQuot.CMStabObj]
+  axioms: [propext, Classical.choice, Quot.sound]
+DISCHARGES [OpenGlue7.quotientP1Coordinate] by HDec.MCRQuot.quotientP1Coordinate_of_printed
+  still assumes: [HDec.MCRGlue.ProperCurveAF,
+ HDec.MCRGlue.FiniteQuotientExists,
+ HDec.MCRGlue.TameQuotientSmooth,
+ HDec.MCRGlue.SmoothModelOfP1,
+ HDec.MCRGlue.TameFixedPointsDisjoint,
+ HDec.MCRGlue.TameInertiaCyclic,
+ PkgI2.TorsionStructure,
+ HDec.PropTSGlue.HeckeIrreducible,
+ HDec.MCRQuot.CMStabObj]
+  axioms: [propext, Classical.choice, Quot.sound]
+DISCHARGES [OpenResearchLeaves19.elkiesX6StarPrinted] by HDec.QMSplit.Moduli.ElkiesX6Star.elkiesX6StarPrinted_of_ab
+  still assumes: [HDec.QMSplit.Moduli.ElkiesEquationsX6Ab]
+  axioms: [propext, Classical.choice, Quot.sound]
+#discharges: 65 open hypotheses, 1516 theorems checked, 5 discharge one
