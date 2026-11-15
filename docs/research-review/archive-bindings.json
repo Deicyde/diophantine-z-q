@@ -1,0 +1,516 @@
+{
+  "schema": "archive-bindings/v1",
+  "archive_commit": "005b17abfbefd8bee7b34f3bbe8f5aabf872eb1f",
+  "documents": [
+    "PROJECT.md",
+    "docs/building.md",
+    "docs/degree8-original/README.md",
+    "docs/manuscript-revisions/version10/README.md",
+    "docs/manuscript-revisions/version11/README.md",
+    "docs/manuscript-revisions/version12/README.md",
+    "docs/quartic-12504/README.md",
+    "docs/quartic-12504/verification/README.md",
+    "docs/quartic-523-540/README.md",
+    "docs/quartic-962/README.md",
+    "docs/quartic-9625/verification/README.md",
+    "docs/research-review/README.md",
+    "docs/research-review/protocol-b-setup.md"
+  ],
+  "guide": "docs/research-review/archived-tools.md",
+  "links": [
+    {
+      "document": "PROJECT.md",
+      "kind": "blob",
+      "target": "docs/research-review/reviews/pre-activation-reviews.md",
+      "git_oid": "42d21f0cbc7f9969c63976f09c5b6b44189e1ecd",
+      "sha256": "d051fe42834ab0e9a33fa115ea82d765c59828c8059bf0faa725b798c59ab6fb"
+    },
+    {
+      "document": "docs/building.md",
+      "kind": "blob",
+      "target": "docs/quartic-4973-validation/pheidas-20261106/UPDATE.json",
+      "git_oid": "afc388fba8580c00adfcd460cdacc6da788ec2a5",
+      "sha256": "6e4d068dffcac766bf4146162866a4ecae9394a53f05c7864266debd4b1934d1"
+    },
+    {
+      "document": "docs/building.md",
+      "kind": "blob",
+      "target": "docs/theorem-application-audit/README.md",
+      "git_oid": "f85cad5998cd1f20516e10d8e6e7b75dea46b125",
+      "sha256": "92ecbcfdce3fa6cdcfee10301a7e63d6706e196c0e7450aef6830286cd0afbba"
+    },
+    {
+      "document": "docs/degree8-original/README.md",
+      "kind": "blob",
+      "target": "docs/degree8-original/research/accepted-h5/review/H5_FINAL_ACCEPTANCE.md",
+      "git_oid": "75f90405cd621796ec6037a0f4defa9244e5d7ab",
+      "sha256": "db62a7fa5fbcd2d4bc711436f2fb4f98c37de9122751ea7aeb097d96680905eb"
+    },
+    {
+      "document": "docs/manuscript-revisions/version10/README.md",
+      "kind": "blob",
+      "target": "docs/manuscript-revisions/version10/sources.json",
+      "git_oid": "3fdd27a9a9d00b451f2817c0d0144d6476849211",
+      "sha256": "c8b320a3898276a4bd28c81ae6565e9472b0b853b575564837432d7926d14202"
+    },
+    {
+      "document": "docs/manuscript-revisions/version10/README.md",
+      "kind": "blob",
+      "target": "docs/manuscript-revisions/version10/new-applications.json",
+      "git_oid": "49e6706cff78b5804c1bf9f96916d7a3cbb929e0",
+      "sha256": "56c353fd0ff23d6e2c03234fb12d29da124d8774401096c12e000de24f6cea1b"
+    },
+    {
+      "document": "docs/manuscript-revisions/version10/README.md",
+      "kind": "blob",
+      "target": "docs/manuscript-revisions/version10/revision.json",
+      "git_oid": "37f231fa30dd98e2b43a6692daf8e9d83ccd33e2",
+      "sha256": "842306b6c0e4fa4680f9403f21153869bd663f78fef822337d974581e50ce9ed"
+    },
+    {
+      "document": "docs/manuscript-revisions/version11/README.md",
+      "kind": "blob",
+      "target": "docs/manuscript-revisions/version11/evidence/arithmetic.md",
+      "git_oid": "f40a69bbcb59d2ad5756f7f10fb7986304a45e09",
+      "sha256": "422b1b2d2d765f0595bb23bfadb546c59c941cdae0118c93441c5e6d52768d7a"
+    },
+    {
+      "document": "docs/manuscript-revisions/version11/README.md",
+      "kind": "blob",
+      "target": "docs/manuscript-revisions/version11/evidence/arithmetic-source-pins.json",
+      "git_oid": "b0b6b8a4002e1a2b697a71ffcd4eda38b26967c4",
+      "sha256": "bb5d16fbbd96a2541483bef587b1a236305b7e380fb50c4ebb63f7536af7829b"
+    },
+    {
+      "document": "docs/manuscript-revisions/version11/README.md",
+      "kind": "blob",
+      "target": "docs/manuscript-revisions/version11/evidence/independent-review.md",
+      "git_oid": "9735e07c65c23336a0bcbedc98ce5d246811b9c3",
+      "sha256": "2662519bbde53bb9096d7d8da7dff793cfcbb2be6aaebe31be7e8ca5576c87aa"
+    },
+    {
+      "document": "docs/manuscript-revisions/version11/README.md",
+      "kind": "blob",
+      "target": "docs/manuscript-revisions/version11/acceptance.json",
+      "git_oid": "9734f0ce8073f07f184cdfeae80bf91f84c75e7c",
+      "sha256": "8c68314865576de6e22dcd0feae70004cc69233f75b01c4830aaba44233c5153"
+    },
+    {
+      "document": "docs/manuscript-revisions/version11/README.md",
+      "kind": "blob",
+      "target": "docs/manuscript-revisions/version11/kato-application.json",
+      "git_oid": "f8b268e9c53bd3d8e82ab9c7266f98037f7557ca",
+      "sha256": "bb725ef321d28b2cdfeac64fa86deb864c09590d49e5fe05b9bdb95f73986e0b"
+    },
+    {
+      "document": "docs/manuscript-revisions/version11/README.md",
+      "kind": "blob",
+      "target": "docs/manuscript-revisions/version11/edits.json",
+      "git_oid": "e1e9a3a9f3f0761a504d99695ee99413938c3166",
+      "sha256": "1021e5f4102bc04170d7c4328d2d6af41d479cac1e04da2017f2da03da6ed2c5"
+    },
+    {
+      "document": "docs/manuscript-revisions/version11/README.md",
+      "kind": "blob",
+      "target": "docs/manuscript-revisions/version11/build-report.json",
+      "git_oid": "899ab3d4f42faeb72f64d29b907db7e82681dddc",
+      "sha256": "c3d611110373249d1e4d3159899505bbaf57e283a1f2e8af4b38a2adf9bdaa13"
+    },
+    {
+      "document": "docs/manuscript-revisions/version11/README.md",
+      "kind": "blob",
+      "target": "docs/manuscript-revisions/version11/evidence/mazur1992.md",
+      "git_oid": "7dc4d0a26a565d1bdd4c1db95853ed44ed143b79",
+      "sha256": "4b01481b28058cd2eb8b79c14bdbd0b7423450a554b648f1178fb78d795fdde3"
+    },
+    {
+      "document": "docs/manuscript-revisions/version11/README.md",
+      "kind": "blob",
+      "target": "docs/manuscript-revisions/version11/mazur1992-source.json",
+      "git_oid": "3a19ef86730f7cc6a2d4a6cd9c711451b8703067",
+      "sha256": "a020e12f14ca8174a19888ef5b19b3eb2f35165b40cbee13432f4dd15e1d2072"
+    },
+    {
+      "document": "docs/manuscript-revisions/version11/README.md",
+      "kind": "blob",
+      "target": "docs/manuscript-revisions/version11/evidence/protocol-review.md",
+      "git_oid": "1d9414661961fc95733da67bcd7d07ba1ae6251e",
+      "sha256": "25302b7fa7e0afdf318dacc1197b0a63f3d447d1e1c47aba4679e78739954283"
+    },
+    {
+      "document": "docs/manuscript-revisions/version12/README.md",
+      "kind": "blob",
+      "target": "docs/manuscript-revisions/version12/inventory/APPLICATIONS.json",
+      "git_oid": "9d6e66afc4ca43adb690bd32fa273999915f2b24",
+      "sha256": "9e63180a33da914e5179ebf5296a287cbb8bbd7007f5e5cc3aaac5d0844be863"
+    },
+    {
+      "document": "docs/manuscript-revisions/version12/README.md",
+      "kind": "blob",
+      "target": "docs/manuscript-revisions/version12/quartic-application.json",
+      "git_oid": "6c33398ac9aa4d34dc01b4811dbd3dd765f82b2e",
+      "sha256": "3bb26b28713cbcea81061e6d2e4cbfab371164ed630fd510d5020d7646d0d15c"
+    },
+    {
+      "document": "docs/manuscript-revisions/version12/README.md",
+      "kind": "blob",
+      "target": "docs/manuscript-revisions/version12/quartic-acceptance.json",
+      "git_oid": "4c4b83e1683c09a8916e529a203f125e04cef5f2",
+      "sha256": "e71a77d2e9926a5d4958e86dfbfccf240cb6a31f55f32d0d8f74a427bfe0994a"
+    },
+    {
+      "document": "docs/manuscript-revisions/version12/README.md",
+      "kind": "blob",
+      "target": "docs/manuscript-revisions/version12/kato-application.json",
+      "git_oid": "1b12c7a2110d00ec550531d51fcc20e200f9de04",
+      "sha256": "c281f8692f00e023f6bc12a2f1f64a461bdf50eedd628b7daae68ee356ad7ce7"
+    },
+    {
+      "document": "docs/manuscript-revisions/version12/README.md",
+      "kind": "blob",
+      "target": "docs/manuscript-revisions/version12/kato-acceptance.json",
+      "git_oid": "eff4150da6cb72ea3960a03fa3f0d4584eeb8394",
+      "sha256": "a08216539be3149580519b9722bb486788dabcd70b8738a7e00ca42a8a6a2a45"
+    },
+    {
+      "document": "docs/quartic-12504/README.md",
+      "kind": "tree",
+      "target": "docs/degree8-original/research/accepted-h5",
+      "git_oid": "88a8811fcedb9bccd6d1f66b0ed26be2e6753a94"
+    },
+    {
+      "document": "docs/quartic-12504/README.md",
+      "kind": "tree",
+      "target": "docs/quartic-12504/reviews",
+      "git_oid": "e9fd31873395bc5c3b87bbb5129f78e3f27a8ddc"
+    },
+    {
+      "document": "docs/quartic-12504/verification/README.md",
+      "kind": "tree",
+      "target": "docs/quartic-12504/reviews",
+      "git_oid": "e9fd31873395bc5c3b87bbb5129f78e3f27a8ddc"
+    },
+    {
+      "document": "docs/quartic-523-540/README.md",
+      "kind": "blob",
+      "target": "docs/quartic-523-540/evidence/AUDIT.md",
+      "git_oid": "388311ba6153d175e2a15c11f099050da6c3b54e",
+      "sha256": "4bc28a28589620f432a9b920717058c6714c661408552694fbdc3a1cc8368812"
+    },
+    {
+      "document": "docs/quartic-523-540/README.md",
+      "kind": "blob",
+      "target": "docs/quartic-523-540/evidence/SOURCE_LINEAGE.json",
+      "git_oid": "67d72b8f498e15464fea4b197953cd298dff91e1",
+      "sha256": "cfc2811018de9886cf8988f86e6c3334ed6b3690445006c41dc2466f092fa477"
+    },
+    {
+      "document": "docs/quartic-523-540/README.md",
+      "kind": "blob",
+      "target": "docs/quartic-523-540/evidence/READONLY_VERIFIER.patch",
+      "git_oid": "e76ea0de9500ea95bf8d1b44fa8b9272f67f9d50",
+      "sha256": "0a3e8ba8c9873ad4b5d765f024b0aa58cd40b303e7e6f7b313c231a15c779f24"
+    },
+    {
+      "document": "docs/quartic-962/README.md",
+      "kind": "blob",
+      "target": "docs/quartic-962-validation/inventory-review.json",
+      "git_oid": "7d96ca0a53c430d8e939da75e347ebd3b5eb4cf4",
+      "sha256": "28eed73de0d2af7a123cf41dd29b05054b8e0367cd00d893cbb7457409d02da4"
+    },
+    {
+      "document": "docs/quartic-9625/verification/README.md",
+      "kind": "blob",
+      "target": "docs/quartic-9625/verification/reviews/handoff-certificate-comparison.md",
+      "git_oid": "9f74c751fba97e59812587a630457e5628d58524",
+      "sha256": "7ceb1e33fe0e6174f2df7f6bb9064b8613cfedf69e33df51f60ad8a6fbb14117"
+    },
+    {
+      "document": "docs/quartic-9625/verification/README.md",
+      "kind": "tree",
+      "target": "docs/quartic-9625/verification/reviews",
+      "git_oid": "845a72a3851299060f228c45533ba7626026aa8d"
+    },
+    {
+      "document": "docs/research-review/README.md",
+      "kind": "blob",
+      "target": "docs/research-review/reviews/pre-activation-reviews.md",
+      "git_oid": "42d21f0cbc7f9969c63976f09c5b6b44189e1ecd",
+      "sha256": "d051fe42834ab0e9a33fa115ea82d765c59828c8059bf0faa725b798c59ab6fb"
+    },
+    {
+      "document": "docs/research-review/protocol-b-setup.md",
+      "kind": "blob",
+      "target": "docs/research-review/reviews/pre-activation-reviews.md",
+      "git_oid": "42d21f0cbc7f9969c63976f09c5b6b44189e1ecd",
+      "sha256": "d051fe42834ab0e9a33fa115ea82d765c59828c8059bf0faa725b798c59ab6fb"
+    }
+  ],
+  "aliases": [
+    {
+      "target": "research/version14/evidence/release-completion-019/v14-integration-source-line-index-work-001/final-protocol-preparation/own-current-007/DOSSIER.json",
+      "sha256": "262ab793a97580d652134c2a288c9af0229be0fd956f053cef9750c833550867",
+      "alias": "work/source-risk-review-20261107/v14-integration-source-line-index-work-001/final-protocol-preparation/own-current-007/DOSSIER.json",
+      "witness": {
+        "path": "research/version14/evidence/release-completion-019/v14-integration-source-line-index-work-001/final-protocol-preparation/own-current-007/MANIFEST.json",
+        "sha256": "52ff8aad8166167d93851140da657ae284f5cfe92cb8395f029e0873fbd7dd4d",
+        "pointer": "/files/0",
+        "alias_key": "path",
+        "sha256_key": "sha256"
+      }
+    },
+    {
+      "target": "research/version14/evidence/release-completion-019/v14-integration-source-line-index-work-001/final-protocol-preparation/own-current-007/overlay/docs/manuscript-revisions/version14/final-coverage/SOURCE-ROLE-PROVENANCE.json",
+      "sha256": "e7c22d40673319daa541b2cd054c34703cccee58d2a5a75bc5e07dba29d7f586",
+      "alias": "work/source-risk-review-20261107/v14-integration-source-line-index-work-001/final-protocol-preparation/installable-008/overlay/docs/manuscript-revisions/version14/final-coverage/SOURCE-ROLE-PROVENANCE.json",
+      "witness": {
+        "path": "research/version14/evidence/release-completion-019/v14-integration-source-line-index-work-001/final-protocol-preparation/installable-008/REVIEW-SNAPSHOT.json",
+        "sha256": "bfd6ad5cc3689443acf9206c431a4cc2f07112c0e0fa630b82cb281a2ec484ee",
+        "pointer": "/files/24",
+        "alias_key": "path",
+        "sha256_key": "sha256"
+      }
+    },
+    {
+      "target": "research/version14/evidence/release-completion-019/v14-integration-source-line-index-work-001/final-protocol-preparation/own-current-007/overlay/docs/manuscript-revisions/version14/final-coverage/SOURCE-ROLE-PROVENANCE.json",
+      "sha256": "e7c22d40673319daa541b2cd054c34703cccee58d2a5a75bc5e07dba29d7f586",
+      "alias": "work/source-risk-review-20261107/v14-integration-source-line-index-work-001/final-protocol-preparation/installable-010/overlay/docs/manuscript-revisions/version14/final-coverage/SOURCE-ROLE-PROVENANCE.json",
+      "witness": {
+        "path": "research/version14/evidence/release-completion-019/v14-integration-source-line-index-work-001/final-protocol-preparation/installable-010/MANIFEST.json",
+        "sha256": "10fea02c2c988b81138a203e10c47917cd26dd785814870fdf4e8ffdabc5ec10",
+        "pointer": "/files/16",
+        "alias_key": "path",
+        "sha256_key": "sha256"
+      }
+    },
+    {
+      "target": "research/version14/evidence/release-completion-019/v14-integration-source-line-index-work-001/final-protocol-preparation/own-current-007/overlay/docs/manuscript-revisions/version14/final-coverage/SOURCE-ROLE-PROVENANCE.json",
+      "sha256": "e7c22d40673319daa541b2cd054c34703cccee58d2a5a75bc5e07dba29d7f586",
+      "alias": "work/source-risk-review-20261107/v14-integration-source-line-index-work-001/final-protocol-preparation/installable-012/overlay/docs/manuscript-revisions/version14/final-coverage/SOURCE-ROLE-PROVENANCE.json",
+      "witness": {
+        "path": "research/version14/evidence/release-completion-019/v14-integration-source-line-index-work-001/final-protocol-preparation/installable-012/MANIFEST.json",
+        "sha256": "d578ac9d70d54d35be3c2ed7db2fef8bd368523c5bad2d7248ddf10cc15d1946",
+        "pointer": "/files/18",
+        "alias_key": "path",
+        "sha256_key": "sha256"
+      }
+    },
+    {
+      "target": "research/version14/evidence/release-completion-019/v14-integration-source-line-index-work-001/final-protocol-preparation/own-current-007/overlay/docs/manuscript-revisions/version14/final-coverage/SOURCE-ROLE-PROVENANCE.json",
+      "sha256": "e7c22d40673319daa541b2cd054c34703cccee58d2a5a75bc5e07dba29d7f586",
+      "alias": "work/source-risk-review-20261107/v14-integration-source-line-index-work-001/final-protocol-preparation/own-current-007/overlay/docs/manuscript-revisions/version14/final-coverage/SOURCE-ROLE-PROVENANCE.json",
+      "witness": {
+        "path": "research/version14/evidence/release-completion-019/v14-integration-source-line-index-work-001/final-protocol-preparation/own-current-007/OVERLAY-MANIFEST.json",
+        "sha256": "4460ba04232dd8bcfbde711b5d42c5817633891790cb2ec2c9dd6118b6341d4d",
+        "pointer": "/files/7",
+        "alias_key": "path",
+        "sha256_key": "sha256"
+      }
+    },
+    {
+      "target": "research/version15/evidence/222-abstract004/ABSTRACT-004-ADDENDUM.json",
+      "sha256": "56a4d1935205268b097e89b304a04580cb061e1ba1442531883139f8bdd11473",
+      "alias": "work/v15-222-manuscript-review-001/ABSTRACT-004-ADDENDUM.json",
+      "witness": {
+        "path": "research/version15/evidence/222-release-description/BINDING.json",
+        "sha256": "278798e4d8ecb29b2febbe0cec537e85d77fa5b15f59eed1d0375036a9b4ef27",
+        "pointer": "/evidence/abstractDelta",
+        "alias_key": "path",
+        "sha256_key": "sha256"
+      }
+    },
+    {
+      "target": "research/version15/evidence/222-abstract004/SOURCE-TRANSPORT-DECISION.json",
+      "sha256": "71e890642b100387148bf7b244b60032835d2a102abe478f6ef316156c923699",
+      "alias": "work/v15-222-sourcefirst-review-001/ABSTRACT004-TRANSPORT-DECISION.json",
+      "witness": {
+        "path": "research/version15/evidence/222-sourcefirst/CURRENT004-EXPOSED-RECONSTRUCTION.json",
+        "sha256": "b5b4a18bd6a3acf2cdfce4f28506f76dfaeae024fa81a2b3c689ea3c0ec05d5d",
+        "pointer": "/current_transport",
+        "alias_key": "path",
+        "sha256_key": "sha256"
+      }
+    },
+    {
+      "target": "research/version15/evidence/222-abstract004/VISUAL-REVIEW.json",
+      "sha256": "3168bc36417f3edffa3ec2b3e233d3778c81c64dbaf211104bcdfd5f1623c979",
+      "alias": "work/v15-222-pdf-review-arithmetic-004/REVIEW.json",
+      "witness": {
+        "path": "research/version15/evidence/222-release-description/BINDING.json",
+        "sha256": "278798e4d8ecb29b2febbe0cec537e85d77fa5b15f59eed1d0375036a9b4ef27",
+        "pointer": "/evidence/visualDelta",
+        "alias_key": "path",
+        "sha256_key": "sha256"
+      }
+    },
+    {
+      "target": "research/version15/evidence/222-imported-proof/ORIGINAL-MANIFEST.json",
+      "sha256": "2fdca046d032dca568e05198ce1626acdec85df957264cb4c2fae6ea9b414dde",
+      "alias": "work/v15-222-ledger-author-001/imported-proof-closure-001/MANIFEST.json",
+      "witness": {
+        "path": "research/version15/evidence/222-imported-proof/reviews/imported-proof-provenance-review-001/REVIEW.json",
+        "sha256": "40dfca8d08be84ff5bdbaafeeae62cca7cda2fc0a68bb8fc3de4cce943faf228",
+        "pointer": "/subject",
+        "alias_key": "path",
+        "sha256_key": "sha256"
+      }
+    },
+    {
+      "target": "research/version15/evidence/222-manuscript-review/FROZEN-DRAFT-FINDINGS.json",
+      "sha256": "20c4faee08f82719947b3b0f4bfe4d7886950e99e2795a627b0939a8494b6495",
+      "alias": "work/v15-222-manuscript-review-001/FROZEN-DRAFT-FINDINGS.json",
+      "witness": {
+        "path": "research/version15/protocol/current222/history/HISTORY-SIDECAR.json",
+        "sha256": "bd6360a5adf490411b2751c28b3a29e5f4e2d54e553c0cbb2c8b7590d660bf5a",
+        "pointer": "/inputs/5",
+        "alias_key": "path",
+        "sha256_key": "sha256"
+      }
+    },
+    {
+      "target": "research/version15/evidence/222-sourcefirst/CURRENT004-EXPOSED-FREEZE.json",
+      "sha256": "c456dd9c8688c3b71b2f4ad49c4cc3b56be1ed63b3f9d035ebd99f32d52a84d3",
+      "alias": "work/v15-222-sourcefirst-review-001/CURRENT004-EXPOSED-FREEZE.json",
+      "witness": {
+        "path": "research/version15/evidence/222-sourcefirst/CURRENT004-COMPARISON-ATTESTATION.json",
+        "sha256": "4e53aae2125d118cf22534e68db76c303abd6b8e8faa63b5784bbdf2c084335e",
+        "pointer": "/current_freeze",
+        "alias_key": "path",
+        "sha256_key": "sha256"
+      }
+    },
+    {
+      "target": "research/version15/evidence/222-sourcefirst/LOCAL-PREMISE-PROFILES-DECISION.json",
+      "sha256": "08e3d2ea038ffc5f95d7c59ec535a3411ffc6a85e8457b4b06e95aae4a5e7180",
+      "alias": "work/v15-222-sourcefirst-review-001/LOCAL-PREMISE-PROFILES-DECISION.json",
+      "witness": {
+        "path": "research/version15/evidence/222-sourcefirst/final-006/applications/V15-TRACE-QUOTIENT222.json",
+        "sha256": "9c6e45219e68a7518dd69c858ee29252535c43d6135c9906d817baa5357b303b",
+        "pointer": "/prior_scoped_support/2",
+        "alias_key": "path",
+        "sha256_key": "sha256"
+      }
+    },
+    {
+      "target": "research/version15/evidence/readiness-001/v15-consumer-role-gi-author-001/MANIFEST.json",
+      "sha256": "4237be51314346682fc9b54e01a26363806c94ca060d88c8d05f397d955e2891",
+      "alias": "work/v15-consumer-role-gi-author-001/MANIFEST.json",
+      "witness": {
+        "path": "research/version15/evidence/readiness-002/v15-sourcefirst-review-001/DIRECTED-ROLES-SF01-23-DECISION.json",
+        "sha256": "8f5551fc8dfa69deccb681148d3ca33bfdfbc5beffabe4bcdd63243472c08e8f",
+        "pointer": "/subject",
+        "alias_key": "path",
+        "sha256_key": "sha256"
+      }
+    },
+    {
+      "target": "research/version15/evidence/readiness-001/v15-final-assembly-correction-001/ADDENDUM.json",
+      "sha256": "d808ef157e3f15ebd31fd028f0f1b346446634187f7bb1e3a761051104b03599",
+      "alias": "work/v15-final-assembly-correction-001/ADDENDUM.json",
+      "witness": {
+        "path": "research/version15/protocol/current-coverage/OTHER-CORRECTION-PAIRS.json",
+        "sha256": "bcd354e222cd5b360bf18767bf2b57e2097572efb5ac1ca07abe7d0a20924cc9",
+        "pointer": "/27/current_representation/review_evidence/2",
+        "alias_key": "path",
+        "sha256_key": "sha256"
+      }
+    },
+    {
+      "target": "research/version15/evidence/readiness-001/v15-inherited-indirect-closure-review-001/REVIEW.json",
+      "sha256": "08c17f48427b35c6c67193fcd98feb00523d63932d18e37382e8d44fc1d74d47",
+      "alias": "work/v15-inherited-indirect-closure-review-001/REVIEW.json",
+      "witness": {
+        "path": "research/version15/evidence/readiness-002/v15-sourcefirst-review-001/INHERITED-CURRENT-TRANSPORT-DECISION.json",
+        "sha256": "2c54a8b9ef83f8da9231905139af09ff54c8b7026870e0f7614ef775d4d61d10",
+        "pointer": "/evidence/4",
+        "alias_key": "path",
+        "sha256_key": "sha256"
+      }
+    },
+    {
+      "target": "research/version15/evidence/readiness-001/v15-namespace-preparation-author-001/MANIFEST.json",
+      "sha256": "816526a7fc3e34098b67534a271688a8772394d5de102904b720740ff797fff8",
+      "alias": "work/v15-namespace-preparation-author-001/MANIFEST.json",
+      "witness": {
+        "path": "research/version15/evidence/readiness-001/v15-controller-integration-review-h6-001/REVIEW.json",
+        "sha256": "8efbafbd9b5617e290d5e37d521af4cc5a52498848bb53d098d9dc5bccb585dd",
+        "pointer": "/subjects/1",
+        "alias_key": "path",
+        "sha256_key": "sha256"
+      }
+    },
+    {
+      "target": "research/version15/evidence/readiness-001/v15-normalization-host-observation-review-001/REVIEW.json",
+      "sha256": "e75da3656490b57c039966ec1506e9622edeb1f65a4a5c97f19a7e6edbd922d9",
+      "alias": "work/v15-normalization-host-observation-review-001/REVIEW.json",
+      "witness": {
+        "path": "research/version15/evidence/222-normalization/v15-coverage-authors-review-integration-002/REVIEW.json",
+        "sha256": "c276990b3d839537887ed57d161d5aca522fd61cca5764b19d546127d74c2d2d",
+        "pointer": "/reused_arithmetic_reviews/0",
+        "alias_key": "path",
+        "sha256_key": "sha256"
+      }
+    },
+    {
+      "target": "research/version15/evidence/readiness-001/v15-normalization003-host-review-001/REVIEW.json",
+      "sha256": "892998ed0f360d57f7f6a69b68d9f86f5809c8a6f3a7b46c21dfc055f35ab51d",
+      "alias": "work/v15-normalization003-host-review-001/REVIEW.json",
+      "witness": {
+        "path": "research/version15/evidence/222-normalization/v15-coverage-authors-review-integration-002/REVIEW.json",
+        "sha256": "c276990b3d839537887ed57d161d5aca522fd61cca5764b19d546127d74c2d2d",
+        "pointer": "/reused_arithmetic_reviews/1",
+        "alias_key": "path",
+        "sha256_key": "sha256"
+      }
+    },
+    {
+      "target": "research/version15/evidence/readiness-001/v15-source-profiles-sf24-46-author-003/PROFILES.json",
+      "sha256": "881213958ad12b1af53e3c6758361ea8e1c371833453bcac7d63ee48909ad971",
+      "alias": "work/v15-source-profiles-sf24-46-author-003/PROFILES.json",
+      "witness": {
+        "path": "research/version15/evidence/readiness-001/v15-source-profiles-sf24-46-author-003/MANIFEST.json",
+        "sha256": "83a8d6b753aedee143b03b9519686ea572453f1a1c30c334723e21c2d577bcd9",
+        "pointer": "/files/3",
+        "alias_key": "path",
+        "sha256_key": "sha256"
+      }
+    },
+    {
+      "target": "research/version15/evidence/readiness-001/v15-sourcefirst-review-001/HEIGHT-MODULAR-REPAIR-DECISION.json",
+      "sha256": "c2c12db5af4f4631ed0f0c4ed9d16cc7fe29e7db7634de31e25981f172078884",
+      "alias": "work/v15-sourcefirst-review-001/HEIGHT-MODULAR-REPAIR-DECISION.json",
+      "witness": {
+        "path": "research/version15/protocol/current-coverage/finding-evidence-c1960dec50183e582df028b963c451b6b48b95c119043d6f06aab2f00784a1cc.json",
+        "sha256": "c1960dec50183e582df028b963c451b6b48b95c119043d6f06aab2f00784a1cc",
+        "pointer": "/mathematical_repair_review",
+        "alias_key": "path",
+        "sha256_key": "sha256"
+      }
+    },
+    {
+      "target": "research/version15/evidence/readiness-001/v15-supplier-profiles-gi-author-004/PROFILES.json",
+      "sha256": "3668753afd46bff7e3a1bc3bed63d2f102009d5bd3d379fa67411c55b2aaa2d2",
+      "alias": "work/v15-supplier-profiles-gi-author-004/PROFILES.json",
+      "witness": {
+        "path": "research/version15/evidence/readiness-001/v15-sourcefirst-review-001/SOURCE-PROFILES-MATHEMATICAL-DECISION.json",
+        "sha256": "8cd19a8723aafba4827a4a39182db3f29988facc9532e19c9bfe99fdf2982d88",
+        "pointer": "/subjects/0",
+        "alias_key": "path",
+        "sha256_key": "sha256"
+      }
+    },
+    {
+      "target": "research/version15/evidence/readiness-001/v15-supplier-publication-metadata-gi-002/MANIFEST.json",
+      "sha256": "5a3d9eb32cf7e67858ec1887ce0a8d32319e24e6c7247c0813010672f4214db4",
+      "alias": "work/v15-supplier-publication-metadata-gi-002/MANIFEST.json",
+      "witness": {
+        "path": "research/version15/evidence/readiness-002/v15-sourcefirst-review-001/HASSE-LOCATOR-DECISION.json",
+        "sha256": "b03d5a66e1ca61f18de2df4fe6dfa6df5a549928170a7b784c30a207dd34f7a9",
+        "pointer": "/inputs/0",
+        "alias_key": "path",
+        "sha256_key": "sha256"
+      }
+    }
+  ],
+  "scope": "Verifies committed archive objects, exact guide mappings and direct alias/digest witnesses. Does not certify historical mathematics or the availability of original external work directories."
+}

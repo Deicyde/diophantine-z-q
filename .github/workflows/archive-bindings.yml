@@ -1,0 +1,30 @@
+name: Archive record bindings
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  archive-bindings:
+    name: Verify immutable archive links and alias witnesses
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
+        with:
+          python-version: '3.12.14'
+      - name: Fetch the exact archive object tree for read-only checks
+        run: git fetch --no-tags --depth=1 origin 005b17abfbefd8bee7b34f3bbe8f5aabf872eb1f
+      - name: Verify navigation, target bytes and source-record associations
+        run: python -B scripts/check_archive_bindings.py --self-test
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        if: always()
+        with:
+          name: archive-record-bindings
+          path: build/archive-bindings.json

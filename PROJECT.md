@@ -44,7 +44,7 @@ specifies the App identity, secret names, activation checks and deferred tests.
 The retired controller and local runner are not used.
 
 Non-author-family review of the implementation and repairs remains an activation
-requirement. The [pre-activation review record](docs/research-review/reviews/pre-activation-reviews.md)
+requirement. The [pre-activation review record](https://github.com/elliotglazer/diophantine-z-q/blob/005b17abfbefd8bee7b34f3bbe8f5aabf872eb1f/docs/research-review/reviews/pre-activation-reviews.md)
 records Fable 5.2's original review files, the retrospective PR73 record, and
 owner-reported in-session acceptances of later commits. It also records PR88's owner-bypass
 merge on those reviews, not an App acceptance. Branch/tag key-isolation testing
