@@ -16,8 +16,13 @@ The owner selected these two reviewer models on November 13, 2026:
 | OpenAI | `gpt-6-astra` |
 | Anthropic | `claude-fable-5-2` |
 
-Both must review every mathematical change and both must accept, except for an
-explicit collaborator override of a recorded deadlock. An overridden step is
+Both must review every mathematical change. An App-authenticated acceptance
+remains valid for an unchanged head. Completed reviews can also carry across a
+rebase with an unchanged diff and unchanged reviewed dependencies. Both must
+accept, except for the documented source-access limitation or an explicit
+collaborator override of a recorded deadlock. A source-access-only finding is
+nonblocking if the other reviewer actually checked the same source passage and
+application without objection; its limitation remains in the record. An overridden step is
 not outside reviewed. There is no
 fallback model. Changing this list is the owner's decision and takes effect at
 the next release. The workflow records the requested and returned model IDs;

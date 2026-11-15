@@ -52,7 +52,7 @@ in test mode. A green Actions job alone is not App acceptance.
 The job runs trusted default-branch code and instructions. It never checks out
 or executes the candidate PR. Both approved models receive pinned source reads
 and web tools. Reports record actual returned model IDs, source reads and usage.
-There is no fallback model. Unavailable sources, unfinished reviews and changed
+There is no fallback model. Unfinished reviews and changed
 heads do not pass.
 
 Automatic reviews run only for PR authors whose current GitHub permission is
@@ -425,3 +425,111 @@ review or find a lawful public primary-source copy. If the changed application
 still cannot be checked, identify the exact passage for a collaborator. Do not
 buy access or transmit restricted copies automatically; obtain any needed
 authorization separately. That application remains unchecked until addressed.
+
+
+## Review continuity and source-access limitations
+
+Elliot authorized these rules on November 14, 2026. This change does not alter
+the designated App, keys, ruleset, approved models, merge permissions or override
+permissions.
+
+An acceptance is retained for the exact head even if the other reviewer needs
+another round. The accepting model is not called again. The evidence must be a
+completed review by the exact approved model in the designated App's own check,
+bound to this PR. Bot comments only locate those checks. A later transport failure
+does not erase an earlier acceptance. Reuse requires the same trusted workflow and reviewer instructions as the
+original review. Changed gate policy invalidates retained reviews; there is no
+author-maintained compatibility file. Previously undispositioned findings still block. The latest completed verdict from each reviewer supersedes its earlier verdicts across heads. If it cannot be reused, that reviewer must run again; an older acceptance cannot be revived. An incomplete or failed attempt does not erase a completed verdict.
+
+New reports store a rebase binding for the complete diff, the source passages
+actually returned at head or base, both sides of the initial diff hunks, and
+file-discovery results. Diff old-side passages use the pinned merge-base commit;
+an explicit `read_file(base)` still uses the pinned current base tip. Hunk text
+and counts must match those source revisions before a binding is made or reused.
+If the merge base or displayed passage identity cannot be established, rebase
+reuse is disabled. Older bindings without this distinction cannot authorize a
+new head. After a rebase, each exact passage must occur uniquely
+in both its original and its new file; movement of line numbers is allowed, edits inside the passage
+or an ambiguous duplicate require fresh review. Repository PDFs requested
+through read_file and mandatory policy inputs, including the workflow, retain
+whole-file identities. An unavailable or truncated diff cannot authorize reuse.
+This permits disjoint edits in one manuscript while preserving the dependencies
+the reviewer actually examined. It does not establish that an unread passage is
+irrelevant; finding the relevant dependencies remains part of the source review.
+Older reports without the current binding can be reused at their original head,
+but not after a rebase.
+A complete negative verdict may carry across an unchanged rebase without
+repeating its cost; `/protocol-b review` asks the non-accepting reviewer to try
+again. Original head/run/attempt remain intact and `reused_for` records the new
+head. `review-reuse.json` records the source App check IDs. Current CI, head and
+protected-merge checks still run normally.
+An override remains bound to its original head and current authorization; a
+conditional acceptance does not carry that override across a rebase. Reuse-only
+runs do not consume or exceed the four-paid-automatic-round limit. The override
+consumer accepts an App-authenticated effective head after rechecking the rebase
+binding, but still requires authorization for every finding on the current head.
+
+Each new report records a fixed-size digest of the complete discussion and
+interrupted-observation snapshot admitted to that review. The snapshot itself
+is preserved in the run artifact. A newly observed comment cannot disappear when separate acceptances
+are combined. If a reviewer already needs to run, it receives that history. If
+both proof reviews are retained, one reviewer assesses a supplement about the
+unexamined observations instead of repeating the unchanged proof audit. A last
+history read before acceptance detects observations arriving during the run.
+Missing history coverage blocks model acceptance. An authorized override does
+not require a further paid review merely because a comment was added. The four-paid-round limit also
+applies to automatic supplements. A supplement retains the union of the original
+proof review and supplemental source dependencies; missing original bindings
+disable rebase reuse.
+
+Original policy refs remain recorded. Both exact-head and rebase reuse retain
+the existing same-policy requirement. A changed head must also pass the rebase
+binding, including the workflow's whole-file identity.
+
+Reviewers give structured source checks for every published passage opened for
+a changed application, even before an access finding exists, and also record
+unavailable passages. An
+access-only finding is nonblocking only if every named source passage has a
+matching `verified` check from the other approved reviewer. That check attests
+both reading the exact passage and checking its application without objection.
+The history tool exposes the earlier reports' structured source checks, so a
+reviewer can use the exact peer passage ID in a later round. No keyword matching
+guesses that an older untyped objection was access-only.
+Missing arguments, mismatched hypotheses, missing review history, incomplete
+review and context exhaustion remain blocking. The original verdict and finding
+are retained; the check and artifact list the limitation and which reviewer
+verified its sources. This is not a collaborator override or a claim of unanimous
+source inspection. Both reviewers' findings must otherwise be resolved.
+
+The same-head and rebase paths do not use candidate code, credentials or
+candidate-supplied approval files. The offline continuity suite checks partial
+acceptance reuse, approvals from separate rounds, wrong App/PR/model rejection,
+changed diffs/dependencies, retained negative decisions, and matching versus
+mismatched source-access evidence. The standard/expanded profile controls are
+unchanged by this implementation.
+
+Optional rebase bindings are omitted if they would overflow a permanent comment
+or the combined App check payload. The completed verdict and every finding are
+retained; the omitted binding remains diagnostic evidence in the run artifact,
+but cannot authorize rebase reuse. No substantive finding is truncated.
+
+A completed App check that validates reuse for a new head establishes that exact
+effective head. Dropping its optional binding does not invalidate unchanged-head
+retention or a current authorized override; any subsequent different head still
+requires a valid binding or a fresh review. Original review provenance is kept.
+
+Supplements retain source attestations with their original reviewer, head, run
+and policy. A new check for the same source ID supersedes the retained one,
+including an explicit withdrawal recorded as unavailable. Later unrelated
+supplements cannot revive withdrawn verification. The combined decision and
+history tool use this evidence without claiming a fresh inspection occurred.
+
+Superseded attestations are removed from the inherited copy; surviving entries
+retain compact original provenance. If this evidence still exceeds output
+capacity, the full omitted data stays in the run artifact and cannot authorize
+source-access relief. This also applies to current source checks when two valid
+fresh reports exceed the combined App payload limit. Omitting current checks
+also removes that report's inherited evidence, so a removed withdrawal cannot
+expose an older verification. The decision is recomputed before publication. Completed
+verdicts and findings remain, including a rejecting supplement; missing evidence
+does not revive an older acceptance or a withdrawn source verification.

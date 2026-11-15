@@ -3,7 +3,7 @@
 Future pull requests are reviewed under [Protocol B, edition 2](https://github.com/elliotglazer/protocols/blob/main/Protocol_B.md).
 
 - The public policy requires the computation checks and `Protocol B / review` from the designated GitHub App on the current PR revision. Astra read back that configuration through Elliot Glazer's authorized GitHub session on November 13, 2026, 18:57 PST; the [dated evidence and limits](reviews/activation-2026-11-13/README.md) distinguish that observation from independent anonymous verification. See also the [public ruleset](https://github.com/elliotglazer/diophantine-z-q/rules/26781429). A same-name Actions check does not satisfy the App requirement. The private repository has no ruleset.
-- Mathematical and policy changes require both approved reviewers, Astra 6 and Fable 5.2, to finish and accept. A narrowly defined editorial path can pass without model calls; the [setup and test checklist](protocol-b-setup.md) gives its exact limits.
+- Mathematical and policy changes require both approved reviewers, Astra 6 and Fable 5.2, to finish and accept, except for the source-access limitation described below. A narrowly defined editorial path can pass without model calls; the [setup and test checklist](protocol-b-setup.md) gives its exact limits.
 - A current collaborator can explicitly override a completed-review deadlock, one recorded finding at a time. The summary names the collaborator and reason, and marks the affected claims **not outside reviewed**. An override does not repair the mathematics.
 - Passing CI shows that the recorded computations and builds reproduce. It does not establish that an argument is correct.
 - An official new record needs a complete updated manuscript in TeX and PDF and the next integer version; see the [release policy](../release-policy.md).
@@ -23,7 +23,19 @@ uses keys from the `protocol-b` Environment, whose `main`-only deployment rule
 was present in the dated operator readback. That snapshot does not prove key
 rotation, absence of copies elsewhere, or a live branch/tag access-denial test.
 The App is used by this repository's workflow; there is no separate controller.
-Unfinished reviews and unavailable required sources do not pass. The checklist
+Unfinished reviews do not pass. A finding that only reports inability to open
+a source is a recorded, nonblocking limitation if the other approved reviewer
+read the same passage and checked its application without objection. Substantive
+objections still block. This does not claim both reviewers read that source.
+
+The gate retains App-authenticated acceptances of an unchanged head across
+rounds and calls only the reviewer still needed. A rebased PR can reuse completed
+reviews when its complete diff, reviewed passages and discovery results are unchanged.
+PDFs and policy inputs retain whole-file checks.
+Disjoint PRs can therefore proceed concurrently; changes to a reviewed dependency
+require fresh review. New discussion receives a scoped supplement when neither
+retained review examined it. Original heads, runs, findings and reuse decisions stay
+recorded. The checklist
 documents override commands, context limits and the remaining test limitations.
 The [pre-activation review record](https://github.com/elliotglazer/diophantine-z-q/blob/005b17abfbefd8bee7b34f3bbe8f5aabf872eb1f/docs/research-review/reviews/pre-activation-reviews.md) preserves
 the review requirement and records how it was addressed, including the
