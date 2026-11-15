@@ -659,6 +659,7 @@ jobs:
                   self.file_lines, self.working_comment, self.notes = {}, None, []
                   self.finish_now = False
                   self.discovery = {}
+                  self.binary_dependencies = set()
                   self.input = {"repository": gh.repo, "pull_request": pr["number"], "head": pr["head"]["sha"],
                                 "base": pr["base"]["sha"], "change_class": change_class,
                                 "untrusted_title": pr["title"], "untrusted_description": pr.get("body"), "files": files}
@@ -676,6 +677,7 @@ jobs:
                       if not isinstance(start, int) or not isinstance(count, int) or start < 1 or not 1 <= count <= 1000:
                           raise ValueError("Read 1 to 1000 lines, starting at line 1 or later")
                       if path.lower().endswith(".pdf"):
+                          self.binary_dependencies.add((path, args["revision"]))
                           return {"pdf_url": "https://raw.githubusercontent.com/" + self.gh.repo + "/" + ref + "/" + urllib.parse.quote(path),
                                   "instruction": "Read via web tools; an unavailable source is not verified."}
                       if (path, ref) not in self.file_lines:
@@ -889,6 +891,11 @@ jobs:
                       if match is None:
                           raise ValueError("Earlier gate report is malformed; recover it rather than discard its findings")
                       report = json.loads(match[1])
+                      if report.get('complete') and report['review'].get('source_checks'):
+                          discussion.append({'review_source_checks': report['review'].get('source_checks', []),
+                                             'review_access_limitations': report['review'].get('access_limitations', []),
+                                             'reviewer': report['reviewer'], 'head': report['head'],
+                                             'review_run': report['run'], 'review_attempt': report['attempt']})
                       for finding in report["review"]["findings"]:
                           prior[finding_id(report, finding['id'])] = finding
                       key = (report['run'], report['attempt'], report['reviewer'])
@@ -921,7 +928,7 @@ jobs:
                   raise ValueError("Override needs complete reports from both approved reviewers on this head")
               unresolved = set()
               for family, envelope in latest.items():
-                  if not envelope.get('complete') or envelope.get('head') != head or envelope.get('model') != MODELS[family]:
+                  if not envelope.get('complete') or envelope.get('reused_for', envelope.get('head')) != head or envelope.get('model') != MODELS[family]:
                       raise ValueError("Override cannot replace an incomplete, stale or wrong-model review")
                   # Historical completed envelopes predate this flag; their policy
                   # required both reads and could not produce a no-read completion.
@@ -963,7 +970,7 @@ jobs:
                   response = app.call(f"/commits/{pr['head']['sha']}/check-runs?filter=all&per_page=100&page={page}")
                   for check in response['check_runs']:
                       if (check['id'] != exclude and check['name'] == name and
-                              check['app']['id'] == int(os.environ['APP_ID']) and
+                              (check.get('app') or {}).get('id') == int(os.environ['APP_ID']) and
                               (check.get('output', {}).get('text') or '').startswith('{')):
                           value = json.loads(check['output']['text'])
                           if value.get('schema') == 'protocol-b-decisions/v1' and value.get('head') == pr['head']['sha']:
@@ -1019,22 +1026,49 @@ jobs:
               return value['sha']
 
 
-          def make_reuse_binding(gh, pr, files, reviewer):
-              # Bind whole files actually read, including base reads and policy inputs.
-              # A change elsewhere in the same file is conservatively re-reviewed.
-              paths = {(r['path'], 'base' if r['revision'] == pr['base']['sha'] else 'head')
-                       for r in reviewer.reads}
-              paths.update((p, 'base') for p in (INSTRUCTIONS, 'PROJECT.md', 'docs/research-review/README.md'))
-              sources = [{'path': p, 'revision': side, 'sha': source_identity(gh, p, pr[side]['sha'])}
-                         for p, side in sorted(paths)]
-              return {'version': 1, 'number': pr['number'], 'diff': diff_identity(files), 'sources': sources,
-                      'discovery': reviewer.discovery}
+          def passage_digest(lines):
+              return hashlib.sha256(json.dumps(lines, ensure_ascii=False).encode()).hexdigest()
 
+
+          def make_reuse_binding(gh, pr, files, reviewer):
+              # Text dependencies follow the exact returned passage across line movement.
+              # Binary dependencies and trusted policy inputs require whole-file equality.
+              whole = set(reviewer.binary_dependencies)
+              whole.update((p, 'base') for p in (WORKFLOW, INSTRUCTIONS, 'PROJECT.md', 'docs/research-review/README.md'))
+              sources = [{'path': p, 'revision': side, 'sha': source_identity(gh, p, pr[side]['sha'])}
+                         for p, side in sorted(whole)]
+              passages = []
+              reads = list(reviewer.reads)
+              # The initial diff is also source material, even without a read_file
+              # call. Bind both sides of every displayed hunk, including context.
+              for file in files:
+                  for match in re.finditer(r'^@@ -(\d+)(?:,(\d+))? \+(\d+)(?:,(\d+))? @@', file.get('patch', ''), re.M):
+                      for side, start, count in (('base', match[1], match[2]), ('head', match[3], match[4])):
+                          if int(count or 1):
+                              path = file.get('previous_filename', file['filename']) if side == 'base' else file['filename']
+                              reads.append({'path': path, 'revision': pr[side]['sha'], 'start': int(start), 'count': int(count or 1)})
+              for r in reads:
+                  side = 'base' if r['revision'] == pr['base']['sha'] else 'head'
+                  if (r['path'], side) in whole:
+                      continue
+                  lines = reviewer.file_lines.get((r['path'], r['revision']))
+                  if lines is None:
+                      lines = gh.text(r['path'], r['revision']).splitlines()
+                  value = lines[r['start']-1:r['start']-1+r['count']]
+                  if not value:
+                      # An empty/out-of-range read cannot be relocated reliably.
+                      sources.append({'path': r['path'], 'revision': side,
+                                      'sha': source_identity(gh, r['path'], r['revision'])})
+                  else:
+                      passages.append({'path': r['path'], 'revision': side, 'ref': r['revision'],
+                                       'start': r['start'], 'count': len(value), 'digest': passage_digest(value)})
+              return {'version': 2, 'number': pr['number'], 'diff': diff_identity(files), 'sources': sources,
+                      'passages': passages, 'discovery': reviewer.discovery}
 
           def optional_reuse_binding(gh, pr, files, reviewer):
               try:
                   return make_reuse_binding(gh, pr, files, reviewer)
-              except (RequestError, ValueError, KeyError) as error:
+              except Exception as error:
                   # Rebase caching is optional; never erase an actual completed
                   # verdict because a metadata request failed afterwards.
                   record(reviewer.family + '-reuse-binding-failure.json', {'error': str(error)})
@@ -1045,7 +1079,7 @@ jobs:
               if any(f.get('resolution') == 'overridden' for f in envelope['review'].get('prior_findings', [])):
                   return False  # Overrides are authorized for one exact head only.
               binding = envelope.get('reuse_binding') or {}
-              if (binding.get('version') != 1 or binding.get('number') != pr['number'] or
+              if (binding.get('version') != 2 or binding.get('number') != pr['number'] or
                       not binding.get('diff') or binding['diff'] != diff_identity(files) or
                       not binding.get('sources')):
                   return False
@@ -1053,6 +1087,16 @@ jobs:
                   for source in binding['sources']:
                       if source_identity(gh, source['path'], pr[source['revision']]['sha']) != source['sha']:
                           return False
+                  for passage in binding.get('passages', []):
+                      old = gh.text(passage['path'], passage['ref']).splitlines()
+                      value = old[passage['start']-1:passage['start']-1+passage['count']]
+                      if not value or passage_digest(value) != passage['digest']:
+                          return False
+                      new = gh.text(passage['path'], pr[passage['revision']]['sha']).splitlines()
+                      matches = [i for i, line in enumerate(new) if line == value[0]
+                                 and new[i:i+len(value)] == value]
+                      if len(matches) != 1:
+                          return False  # An ambiguous duplicate is not a source identity.
                   if binding.get('discovery'):
                       tree = gh.call('/git/trees/' + pr['head']['sha'] + '?recursive=1')
                       if tree.get('truncated'):
@@ -1063,38 +1107,77 @@ jobs:
                           if hashlib.sha256(json.dumps(found).encode()).hexdigest() != digest:
                               return False
                   return True
-              except (RequestError, ValueError, KeyError):
+              except (RequestError, ValueError, KeyError, OSError):
                   return False
 
 
-          def reusable_reports(gh, pr, files, candidates, explicit_review=False, overrides=None):
+          def reusable_reports(gh, pr, files, candidates, explicit_review=False, overrides=None, policy=None):
               selected = {}
-              # Prefer an acceptance even if a subsequent redundant round failed.
+              # Failed/incomplete repeats do not erase acceptance. A later completed
+              # rejection by the same reviewer on the same head does supersede it.
+              latest = {}
+              for check_id, reports in sorted(candidates):
+                  for family, e in reports.items():
+                      if e.get("complete") and e.get("model") == MODELS.get(family):
+                          latest[family, e.get("head")] = e
               for check_id, reports in sorted(candidates):
                   for family, envelope in reports.items():
                       if (family not in MODELS or envelope.get('reviewer') != family or
                               envelope.get('model') != MODELS[family] or not envelope.get('complete') or
                               envelope.get('read_prerequisites_complete') is False):
                           continue
+                      if not same_policy(gh, envelope['policy_ref'], policy or pr['base']['sha']):
+                          continue
                       if any(f.get('resolution') == 'overridden' and f['id'] not in (overrides or {})
                              for f in envelope['review'].get('prior_findings', [])):
                           continue
-                      accepted = envelope['review']['decision'] == 'accept'
-                      if not accepted and (explicit_review or envelope.get('head') == pr['head']['sha']):
+                      if latest.get((family, envelope.get('head'))) is not envelope:
                           continue
+                      accepted = envelope['review']['decision'] == 'accept'
                       if envelope.get('head') != pr['head']['sha'] and not reusable_on_rebase(gh, pr, files, envelope):
                           continue
-                      if family in selected and selected[family]['review']['decision'] == 'accept' and not accepted:
+                      if not accepted and (explicit_review or envelope.get('head') == pr['head']['sha']):
+                          selected.pop(family, None)
                           continue
                       selected[family] = {**envelope, 'reused_for': pr['head']['sha'], 'reuse_check': check_id}
               return selected
 
 
-          def combined_decision(envelopes, prior=None):
+          def history_coverage(discussion):
+              observations = set()
+              for item in discussion:
+                  if 'review_source_checks' in item and 'review_run' in item:
+                      continue  # Attestation metadata is not a new discussion objection.
+                  body = item.get('body', '')
+                  if body.strip() == '/protocol-b review' or re.fullmatch(
+                          r'/protocol-b override [0-9a-f]{40} [A-Za-z0-9_-]+\s+.+', body.strip(), re.S):
+                      continue  # Authorization commands are revalidated separately.
+                  if item.get('author') == 'github-actions[bot]' and body.startswith((ROUND_MARKER,
+                          'Accepted by collaborator override, not by unanimous model acceptance.')):
+                      continue
+                  if 'incomplete_review' in item:
+                      value = item['incomplete_review']
+                      stable = {k: value.get(k) for k in ('reviewer', 'head', 'run', 'attempt', 'notes')}
+                  else:
+                      stable = {k: item.get(k) for k in ('id', 'body', 'path', 'line', 'original_line', 'commit_id')}
+                  observations.add(hashlib.sha256(json.dumps(stable, sort_keys=True, ensure_ascii=False).encode()).hexdigest())
+              return observations
+
+
+          def uncovered_history(envelopes, discussion):
+              covered = {h for e in envelopes.values() if e.get('complete')
+                         for h in e.get('history_coverage', [])}
+              return history_coverage(discussion) - covered
+
+
+          def combined_decision(envelopes, prior=None, discussion=None):
               """Access-only findings remain recorded, with passage-specific peer evidence."""
               if set(envelopes) != set(MODELS) or any(not r.get('complete') for r in envelopes.values()):
                   return False, []
+              if discussion is not None and uncovered_history(envelopes, discussion):
+                  return False, []
               addressed = {f['id'] for e in envelopes.values() for f in e['review'].get('prior_findings', [])}
+              addressed.update(finding_id(e, f['id']) for e in envelopes.values() for f in e['review']['findings'])
               if set(prior or {}) - addressed:
                   return False, []
               limits = []
@@ -1312,6 +1395,10 @@ jobs:
                       for envelope in envelopes.values():
                           if not same_policy(gh, envelope['policy_ref'], trusted_ref):
                               raise ValueError('Override reports used a different review policy')
+                          if envelope.get('head') != pr['head']['sha'] and not reusable_on_rebase(gh, pr, files, envelope):
+                              raise ValueError('Override reports lack a valid current rebase binding')
+                      if uncovered_history(envelopes, discussion):
+                          raise ValueError('New discussion needs review before an override can resolve the deadlock')
                       applied = overridden_decision(envelopes, overrides, pr['head']['sha'])
                       conclusion = 'success'
                       summary = 'Accepted by collaborator override, not by unanimous model acceptance. Affected claims are NOT outside reviewed.\n' + json.dumps(applied, indent=2)
@@ -1320,9 +1407,15 @@ jobs:
                   elif change_class == "editorial" and not prior:
                       conclusion, summary = "success", "Editorial change under the path/diff rule; author declared no mathematical change. No model review."
                   else:
-                      envelopes = reusable_reports(gh, pr, files, spend['candidates'], explicit_review=review_command, overrides=overrides)
+                      envelopes = reusable_reports(gh, pr, files, spend['candidates'], explicit_review=review_command, overrides=overrides, policy=trusted_ref)
                       record('review-reuse.json', {f: {'original_head': e['head'], 'effective_head': pr['head']['sha'],
                               'check': e['reuse_check'], 'run': e['run'], 'attempt': e['attempt']} for f, e in envelopes.items()})
+                      supplements = {}
+                      if set(envelopes) == set(MODELS) and uncovered_history(envelopes, discussion):
+                          # Keep the proof acceptance; ask one reviewer only about
+                          # observations that neither retained report examined.
+                          family = min(envelopes, key=lambda f: len(envelopes[f].get('history_coverage', [])))
+                          supplements[family] = envelopes.pop(family)
                       missing = set(MODELS) - set(envelopes)
                       if missing and not review_command and spend['automatic_rounds'] >= 4:
                           state.update(conclusion='action_required', summary=
@@ -1351,6 +1444,9 @@ jobs:
                       with concurrent.futures.ThreadPoolExecutor(max_workers=2) as pool:
                           reviewers = {family: Review(gh, pr, files, discussion, prior, overrides, instructions, family, change_class)
                                        for family in missing}
+                          for family, previous in supplements.items():
+                              reviewers[family].input['retained_acceptance'] = previous
+                              reviewers[family].input['review_task'] = ('The unchanged proof retains its earlier review. Assess only the new discussion and interrupted observations not covered by the retained reports, and any source passages needed to decide them. Preserve and disposition all findings. Do not repeat the unchanged proof audit.')
                           futures = {pool.submit(reviewer.run): family for family, reviewer in reviewers.items()}
                           for future in concurrent.futures.as_completed(futures):
                               family = futures[future]
@@ -1362,8 +1458,11 @@ jobs:
                                               "read_prerequisites_complete": bool(reviewers[family].history_read and reviewers[family].reads),
                                               "finished_early": reviewers[family].finish_now,
                                               "complete": True, "policy_ref": os.environ['GITHUB_SHA'],
-                                              "reuse_binding": optional_reuse_binding(gh, pr, files, reviewers[family])}
+                                              "history_coverage": sorted(history_coverage(discussion)) if reviewers[family].history_read else [],
+                                              "reuse_binding": None}
                                   envelopes[family] = envelope
+                                  record(family + "-report.json", envelope)
+                                  envelope["reuse_binding"] = optional_reuse_binding(gh, pr, files, reviewers[family])
                                   record(family + "-report.json", envelope)
                                   # Append, never edit away an objection. Each completed
                                   # review is saved even if the other reviewer fails.
@@ -1385,7 +1484,8 @@ jobs:
                                   gh.call(f"/issues/{number}/comments", "POST", {"body": MARKER + "\n```json\n" + json.dumps(problem, ensure_ascii=False, indent=2) + "\n```"})
                       if failures:
                           raise RuntimeError(json.dumps(failures))
-                      accepted, limits = combined_decision(envelopes, prior)
+                      current_discussion, current_prior, _, _ = history(gh, pr)
+                      accepted, limits = combined_decision(envelopes, current_prior, current_discussion)
                       state['source_access_limitations'] = limits
                       if accepted:
                           conclusion = "success"

@@ -3,6 +3,7 @@ import copy
 import json
 import os
 import unittest
+import urllib.error
 from unittest.mock import Mock, patch
 from test_gate import gate, FakeGH, FakeApp, HEAD, BASE, APP_ID, report, envelope, comment, changed, run_pipeline
 
@@ -28,7 +29,7 @@ class Continuity(unittest.TestCase):
         return {'issue': {'number': 1}, 'comment': comment('/protocol-b review', 'collaborator'),
                 'sender': {'login': 'collaborator'}}
 
-    def test_only_missing_reviewer_called_on_same_head_even_after_policy_update(self):
+    def test_only_missing_reviewer_called_on_same_head_with_identical_policy(self):
         gh, app = FakeGH(), FakeApp()
         stored(app, gh, {'astra': accepting(policy_ref='e' * 40),
                         'fable': envelope('fable', complete=False)})
@@ -43,6 +44,16 @@ class Continuity(unittest.TestCase):
         self.assertEqual(state['reports']['astra']['reuse_check'], 5)
         self.assertEqual(state['conclusion'], 'success')
 
+    def test_changed_policy_invalidates_same_head_acceptance(self):
+        gh, app = FakeGH(), FakeApp()
+        stored(app, gh, {'astra': accepting(policy_ref='e'*40)})
+        original=gh.text
+        gh.text=lambda p,r: 'changed policy' if r=='e'*40 else original(p,r)
+        provider=Mock(return_value=report())
+        _, _, errors, _=run_pipeline(gh,app,event=self.command(gh),provider=provider)
+        self.assertEqual(errors,[])
+        self.assertEqual(provider.call_count,2)
+
     def test_acceptances_in_separate_rounds_need_no_model(self):
         gh, app = FakeGH(), FakeApp()
         stored(app, gh, {'astra': accepting()}, ident=5)
@@ -55,17 +66,113 @@ class Continuity(unittest.TestCase):
         self.assertFalse(state['review_round']['started'])
 
     def test_cache_metadata_error_preserves_completed_verdict(self):
-        gh = FakeGH()
-        original = gh.call
-        def call(path, *args, **kwargs):
-            if path.startswith('/contents/'):
-                raise ValueError('metadata temporarily unavailable')
-            return original(path, *args, **kwargs)
-        gh.call = call
-        _, _, errors, state = run_pipeline(gh)
+        for error in (ValueError('unavailable'), urllib.error.URLError('offline'), TimeoutError('timed out')):
+            gh = FakeGH()
+            original = gh.call
+            def call(path, *args, **kwargs):
+                if path.startswith('/contents/'):
+                    raise error
+                return original(path, *args, **kwargs)
+            gh.call = call
+            _, _, errors, state = run_pipeline(gh)
+            self.assertEqual(errors, [])
+            self.assertEqual(state['conclusion'], 'success')
+            self.assertIsNone(state['reports']['astra']['reuse_binding'])
+            self.assertTrue(state['reports']['astra']['complete'])
+
+    def test_later_completed_rejection_supersedes_acceptance(self):
+        gh, app = FakeGH(), FakeApp()
+        stored(app, gh, {'astra': accepting()}, ident=5)
+        stored(app, gh, {'astra': accepting(review=report(decision='changes_requested',
+            findings=[{'id': 'F1', 'location': 'p:1', 'objection': 'Retracted earlier acceptance.'}]))}, ident=6)
+        stored(app, gh, {'fable': accepting('fable')}, ident=7)
+        called = []
+        def run(reviewer):
+            called.append(reviewer.family)
+            return report()
+        _, _, errors, _ = run_pipeline(gh, app, event=self.command(gh), provider=run)
         self.assertEqual(errors, [])
-        self.assertEqual(state['conclusion'], 'success')
-        self.assertIsNone(state['reports']['astra']['reuse_binding'])
+        self.assertEqual(called, ['astra'])
+
+    def test_new_discussion_or_interrupted_observation_gets_only_supplement(self):
+        for interrupted in (False, True):
+            gh, app = FakeGH(), FakeApp()
+            stored(app, gh, {'astra': accepting()}, ident=5)
+            stored(app, gh, {'fable': accepting('fable')}, ident=6)
+            if interrupted:
+                working = {'reviewer': 'astra', 'head': HEAD, 'run': '8', 'attempt': '1',
+                           'notes': ['The target omits an essential hypothesis.']}
+                gh.comments.append(comment(gate.WORKING_MARKER+'\n```json\n'+json.dumps(working)+'\n```'))
+            else:
+                gh.comments.append(comment('The target omits an essential hypothesis.', 'reader'))
+            seen = []
+            def run(reviewer):
+                seen.append(reviewer.input)
+                reviewer.history_read = True
+                return report()
+            _, _, errors, state = run_pipeline(gh, app, event=self.command(gh), provider=run)
+            self.assertEqual(errors, [])
+            self.assertEqual(len(seen), 1)
+            self.assertIn('retained_acceptance', seen[0])
+            self.assertIn('only the new discussion', seen[0]['review_task'])
+            self.assertTrue(state['reports']['astra']['history_coverage'])
+
+    def test_unreviewed_history_cannot_be_combined_into_acceptance(self):
+        pair = {'astra': accepting(), 'fable': accepting('fable')}
+        self.assertFalse(gate.combined_decision(pair, discussion=[{'id':1,'body':'Counterexample'}])[0])
+
+    def test_pdf_returned_by_tool_is_bound_without_counting_as_a_read(self):
+        gh = FakeGH()
+        reviewer = gate.Review(gh, gh.pr, [], [], {}, {}, 'instructions', 'astra', 'local mathematical')
+        reviewer.tool('read_file', {'path':'paper.pdf','revision':'head','start':1,'count':1})
+        self.assertFalse(reviewer.reads)
+        binding = gate.make_reuse_binding(gh, gh.pr, [], reviewer)
+        self.assertIn('paper.pdf', {s['path'] for s in binding['sources']})
+        old = accepting(head='d'*40, reuse_binding=binding)
+        original = gh.call
+        gh.call = lambda p,*a,**k: {'type':'file','sha':'e'*40} if p.startswith('/contents/paper.pdf') else original(p,*a,**k)
+        self.assertFalse(gate.reusable_on_rebase(gh, gh.pr, [], old))
+
+    def test_passage_moves_but_changed_or_ambiguous_passage_does_not_reuse(self):
+        gh = FakeGH()
+        old_ref = HEAD
+        source = 'before\nexact reviewed passage\nafter'
+        gh.text = lambda path,ref: source
+        reviewer = gate.Review(gh, gh.pr, [], [], {}, {}, 'instructions', 'astra', 'local mathematical')
+        reviewer.tool('read_file', {'path':'p.tex','revision':'head','start':2,'count':1})
+        binding = gate.make_reuse_binding(gh, gh.pr, [], reviewer)
+        old = accepting(head=old_ref, reuse_binding=binding)
+        gh.pr['head']['sha'] = 'd'*40
+        for new, expected in [('new material\nbefore\nexact reviewed passage\nafter', True),
+                              ('before\nchanged reviewed passage\nafter', False),
+                              ('exact reviewed passage\nexact reviewed passage', False)]:
+            gh.text = lambda path,ref: source if ref==old_ref else new
+            self.assertEqual(gate.reusable_on_rebase(gh, gh.pr, [], old), expected)
+
+    def test_initial_diff_hunks_are_bound_without_explicit_reads(self):
+        gh = FakeGH()
+        gh.text = lambda path,ref: 'one\ntwo\nthree'
+        reviewer = gate.Review(gh, gh.pr, [], [], {}, {}, 'instructions', 'astra', 'local mathematical')
+        binding = gate.make_reuse_binding(gh, gh.pr, [changed('p.tex','@@ -2 +2 @@\n-two\n+TWO')], reviewer)
+        self.assertEqual({p['revision'] for p in binding['passages']}, {'head','base'})
+        self.assertTrue(all(p['start']==2 and p['count']==1 for p in binding['passages']))
+
+    def test_peer_source_ids_are_visible_in_history(self):
+        gh=FakeGH()
+        e=accepting(review=report(source_checks=[{'source_id':'DOI theorem 1','outcome':'verified'}]))
+        gh.comments.append(comment(gate.MARKER+'\n```json\n'+json.dumps(e)+'\n```'))
+        discussion, _, _, _ = gate.history(gh,gh.pr)
+        self.assertEqual(discussion[0]['review_source_checks'][0]['source_id'],'DOI theorem 1')
+        self.assertFalse(gate.history_coverage(discussion))
+
+    def test_current_head_override_accepts_authenticated_reused_envelope(self):
+        pair={'astra':accepting(head='d'*40,reused_for=HEAD,policy_ref='e'*40),
+              'fable':accepting('fable',review=report(decision='changes_requested',
+                  findings=[{'id':'F1','location':'p:1','objection':'A gap.'}]))}
+        ident='1-1-fable-F1'
+        with self.assertRaisesRegex(ValueError,'Uncovered'):
+            gate.overridden_decision(pair,{},HEAD)
+        self.assertEqual(set(gate.overridden_decision(pair,{ident:{'collaborator':'owner'}},HEAD)),{ident})
 
     def test_forged_app_wrong_pr_and_incomplete_cannot_supply_reuse(self):
         for mutation in ['app', 'number', 'incomplete', 'model']:

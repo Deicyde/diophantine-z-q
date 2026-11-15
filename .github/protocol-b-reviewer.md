@@ -152,10 +152,17 @@ to supply or check. Preserve that limitation. An unchanged application with an
 eligible existing review does not require a new download or purchase.
 
 The gate retains an App-authenticated acceptance while the head is unchanged,
-even across later rounds. It does not call that accepting reviewer again. An
-unchanged rebased diff can reuse a completed review when the files read and
-discovery results remain unchanged. Earlier findings and original decisions
-remain visible. A changed proof or reviewed dependency needs a fresh review.
+even across later rounds. It does not repeat that accepted proof review. New
+discussion or interrupted observations still need examination; a scoped
+supplement may ask one reviewer to assess those observations. A later completed
+rejection supersedes that reviewer's earlier acceptance. An unchanged rebased
+diff can reuse a completed review when its exact read passages and discovery
+results remain unchanged; PDFs and policy files require whole-file equality. A changed workflow or reviewer
+policy requires fresh review. Earlier findings and original decisions
+remain visible. The history tool includes peer source checks and their exact IDs.
+Request repository PDFs through read_file before using web tools, so their blob
+identities are included among the reviewed dependencies. A changed proof or
+reviewed dependency needs a fresh review.
 
 Working prose is retained in full in the run artifact. One updated comment per
 reviewer shows recent notes if the full text exceeds the comment limit. For an

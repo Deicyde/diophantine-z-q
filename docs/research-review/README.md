@@ -30,9 +30,11 @@ objections still block. This does not claim both reviewers read that source.
 
 The gate retains App-authenticated acceptances of an unchanged head across
 rounds and calls only the reviewer still needed. A rebased PR can reuse completed
-reviews when its complete diff, reviewed files and discovery results are unchanged.
+reviews when its complete diff, reviewed passages and discovery results are unchanged.
+PDFs and policy inputs retain whole-file checks.
 Disjoint PRs can therefore proceed concurrently; changes to a reviewed dependency
-require fresh review. Original heads, runs, findings and reuse decisions stay
+require fresh review. New discussion receives a scoped supplement when neither
+retained review examined it. Original heads, runs, findings and reuse decisions stay
 recorded. The checklist
 documents override commands, context limits and the remaining test limitations.
 The [pre-activation review record](https://github.com/elliotglazer/diophantine-z-q/blob/005b17abfbefd8bee7b34f3bbe8f5aabf872eb1f/docs/research-review/reviews/pre-activation-reviews.md) preserves

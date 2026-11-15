@@ -437,18 +437,22 @@ An acceptance is retained for the exact head even if the other reviewer needs
 another round. The accepting model is not called again. The evidence must be a
 completed review by the exact approved model in the designated App's own check,
 bound to this PR. Bot comments only locate those checks. A later transport failure
-does not erase an earlier acceptance. Existing exact-head acceptances remain
-eligible across this policy update; there is no author-maintained compatibility
-file. Previously undispositioned findings still block.
+does not erase an earlier acceptance. Reuse requires the same trusted workflow and reviewer instructions as the
+original review. Changed gate policy invalidates retained reviews; there is no
+author-maintained compatibility file. Previously undispositioned findings still block. A later completed rejection from the same reviewer supersedes its earlier acceptance; an incomplete or failed attempt does not.
 
-New reports also store a rebase binding: the complete diff, whole-file identities
-for the sources actually read at head or base and the mandatory policy inputs,
-and the results of file-discovery queries. Hunk line-number changes do not alter
-the diff identity. Changes to the diff, a read file or a discovery result require
-fresh review; unavailable or truncated evidence does not count as a match. This
-allows disjoint PRs to proceed together. Changes elsewhere in a file that was
-read are conservatively treated as dependency changes. Older reports without
-this binding can be reused at their original head, but not after a rebase.
+New reports store a rebase binding for the complete diff, the source passages
+actually returned at head or base, both sides of the initial diff hunks, and
+file-discovery results. After a rebase, each exact passage must occur uniquely
+in its new file; movement of line numbers is allowed, edits inside the passage
+or an ambiguous duplicate require fresh review. Repository PDFs requested
+through read_file and mandatory policy inputs, including the workflow, retain
+whole-file identities. An unavailable or truncated diff cannot authorize reuse.
+This permits disjoint edits in one manuscript while preserving the dependencies
+the reviewer actually examined. It does not establish that an unread passage is
+irrelevant; finding the relevant dependencies remains part of the source review.
+Older reports without the current binding can be reused at their original head,
+but not after a rebase.
 A complete negative verdict may carry across an unchanged rebase without
 repeating its cost; `/protocol-b review` asks the non-accepting reviewer to try
 again. Original head/run/attempt remain intact and `reused_for` records the new
@@ -456,13 +460,30 @@ head. `review-reuse.json` records the source App check IDs. Current CI, head and
 protected-merge checks still run normally.
 An override remains bound to its original head and current authorization; a
 conditional acceptance does not carry that override across a rebase. Reuse-only
-runs do not consume or exceed the four-paid-automatic-round limit.
+runs do not consume or exceed the four-paid-automatic-round limit. The override
+consumer accepts an App-authenticated effective head after rechecking the rebase
+binding, but still requires authorization for every finding on the current head.
+
+Each new report records the discussion and interrupted observations admitted to
+that review. A newly observed comment cannot disappear when separate acceptances
+are combined. If a reviewer already needs to run, it receives that history. If
+both proof reviews are retained, one reviewer assesses a supplement about the
+unexamined observations instead of repeating the unchanged proof audit. A last
+history read before acceptance detects observations arriving during the run.
+Missing history coverage blocks acceptance. The four-paid-round limit also
+applies to automatic supplements.
+
+Original policy refs remain recorded. Both exact-head and rebase reuse retain
+the existing same-policy requirement. A changed head must also pass the rebase
+binding, including the workflow's whole-file identity.
 
 Reviewers now give structured source checks and access limitations. An
 access-only finding is nonblocking only if every named source passage has a
 matching `verified` check from the other approved reviewer. That check attests
 both reading the exact passage and checking its application without objection.
-No keyword matching guesses that an older untyped objection was access-only.
+The history tool exposes the earlier reports' structured source checks, so a
+reviewer can use the exact peer passage ID in a later round. No keyword matching
+guesses that an older untyped objection was access-only.
 Missing arguments, mismatched hypotheses, missing review history, incomplete
 review and context exhaustion remain blocking. The original verdict and finding
 are retained; the check and artifact list the limitation and which reviewer
