@@ -37,7 +37,7 @@ theorem babaGranathRationalAb_of_printed (hE : ElkiesEquationsX6Ab) (hST : …Sh
     (hC : QMPairsCMExistC) : BabaGranathRationalAb
 ```
 
-**`#discharges`** (VERIFIED; `scratch/gt-x6facts/Discharges.lean`, output in `discharges.out`, run after
+**`#discharges`** (VERIFIED; `scratch/gt-x6facts/Discharges.lean`, output in `discharges.txt`, run after
 `lake build +ZInQKernel.OneProof.Main +ZInQKernel.OneProof.Discharges +ZInQKernel.Contrib.OneProof.X6Facts`):
 
 ```
@@ -191,7 +191,7 @@ autofold's `{n}` covers only the field's own bundle, so that fold would be writt
 | file | content | check |
 |---|---|---|
 | `ZInQKernel/Contrib/OneProof/X6Facts.lean` | the contribution (11.6 KB), imports `TailZ22` only | `lake build` OK, standard axioms |
-| `scratch/gt-x6facts/Discharges.lean`, `discharges.out` | `#discharges` | output in §1 |
+| `scratch/gt-x6facts/Discharges.lean`, `discharges.txt` | `#discharges` | output in §1 |
 | `scratch/gt-x6facts/autofold-spec.json`, `FoldDryRun.lean` | fold spec; dry-run module | compiles, standard axioms |
 | `scratch/gt-x6facts/Statements.lean` | verbatim copies of the targets and their clause lists (reference, not compiled) | — |
 | `scratch/gt-x6facts/cm_check.py` | class numbers, splitting, conic residue fields, Möbius values | run with `~/pyenv/bin/python -I` |

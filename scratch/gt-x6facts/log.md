@@ -17,7 +17,7 @@ Base a454ad64 (leaf-fold16, top TailZ26). Build copied from ~/dzq-wt/gt-qm (same
   `babaGranathRationalAb_of_printed`.
 * 22:52 VERIFIED: `lake build +Main +Discharges +X6Facts` OK (build tree copied from gt-qm, 16 s);
   `#discharges`: babaGranathRationalAb discharged by `_of_elkies` (assumes Elkies, QMPairsCMExist) and `_of_printed`
-  (assumes Elkies, ShimuraTaniyamaQbar, QMPairsCMExistC); standard axioms. Output: discharges.out.
+  (assumes Elkies, ShimuraTaniyamaQbar, QMPairsCMExistC); standard axioms. Output: discharges.txt.
 * 22:53 VERIFIED: autofold `--dry-run` of autofold-spec.json: strict count 47/14 on 61 unchanged; generated module
   FoldDryRun.lean compiles (sixContactMin_of_open21 standard axioms).
 * 22:54 VERIFIED (compiled): `qmPairsCMExist_of_babaGranath` (BG ⇒ QMPairsCMExist via ShimuraSplit.surj_of_fibre),

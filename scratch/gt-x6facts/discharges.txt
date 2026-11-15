@@ -1,0 +1,9 @@
+DISCHARGES [OpenResearchLeaves16.babaGranathRationalAb] by HDec.QMSplit.Moduli.X6Facts.babaGranathRationalAb_of_elkies
+  still assumes: [HDec.QMSplit.Moduli.ElkiesEquationsX6Ab, HDec.QMSplit.Moduli.X6Facts.QMPairsCMExist]
+  axioms: [propext, Classical.choice, Quot.sound]
+DISCHARGES [OpenResearchLeaves16.babaGranathRationalAb] by HDec.QMSplit.Moduli.X6Facts.babaGranathRationalAb_of_printed
+  still assumes: [HDec.QMSplit.Moduli.ElkiesEquationsX6Ab,
+ HDec.HSyn.G0Split.FibreQM.PeriodMapH.QMSplitSTQM.ShimuraTaniyamaQbar,
+ HDec.QMSplit.Moduli.X6Facts.QMPairsCMExistC]
+  axioms: [propext, Classical.choice, Quot.sound]
+#discharges: 67 open hypotheses, 502 theorems checked, 2 discharge one
