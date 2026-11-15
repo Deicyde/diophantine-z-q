@@ -2837,6 +2837,41 @@ theorem linYangThetaCurve_of_printed (hI : IgusaThetaExpressions) (hL : LinYangE
   · exact eqOn_of_countable isOpen_U hS ((psi4_contOn.pow 3).add (psi6_contOn.pow 2))
       (continuousOn_const.mul chi12_contOn) (fun z hz hzS => (hoff z hz hzS).2) hzU
 
+
+/-- **LEAF, strict form (Lin–Yang 2020, Example 29: the relations only).** For every Hauptmodul `j₆` of `Γ*\ℍ`
+normalized as in Lin–Yang (continuous, fibres exactly the `Γ*`-orbits, surjective, values `0, ∞, −16/27` at the CM
+points of discriminants `−4, −3, −24`; the clauses of `LinYangEx29`), wherever `j₆(τ) = z ≠ ∞`:
+`s₃² = z·s₂³`, `s₅ = s₂s₃`, `s₆ = (z + 1)·s₂³`. Unlike `LinYangEx29` it asserts no existence of `j₆`, so it is
+Lin–Yang's printed relations and nothing else (sources and faithfulness as for `LinYangEx29`). The Hauptmodul is
+supplied by `PkgI1.QMHauptmodul`, which the chain already derives (`linYangEx29_of_all`). -/
+def LinYangEx29All : Prop :=
+  ∀ j6 : UpperHalfPlane → OnePoint ℂ, Continuous j6 →
+    (∀ τ τ' : UpperHalfPlane, j6 τ = j6 τ' ↔ ∃ γ ∈ PkgI1.GammaStar, γ • τ = τ') →
+    Function.Surjective j6 →
+    (∀ x : PkgI1.B, PkgI1.InO x → x * x = -1 → ∀ γ : GL (Fin 2) ℝ,
+      (γ : Matrix (Fin 2) (Fin 2) ℝ) = PkgI1.iota x → ∀ τ : UpperHalfPlane, γ • τ = τ →
+        j6 τ = ((0 : ℂ) : OnePoint ℂ)) →
+    (∀ x : PkgI1.B, PkgI1.InO x → x * x - x + 1 = 0 → ∀ γ : GL (Fin 2) ℝ,
+      (γ : Matrix (Fin 2) (Fin 2) ℝ) = PkgI1.iota x → ∀ τ : UpperHalfPlane, γ • τ = τ →
+        j6 τ = (OnePoint.infty : OnePoint ℂ)) →
+    (∀ x : PkgI1.B, PkgI1.InO x → x * x = -6 → ∀ γ : GL (Fin 2) ℝ,
+      (γ : Matrix (Fin 2) (Fin 2) ℝ) = PkgI1.iota x → ∀ τ : UpperHalfPlane, γ • τ = τ →
+        j6 τ = ((-16/27 : ℂ) : OnePoint ℂ)) →
+    ∀ τ : UpperHalfPlane, ∀ z : ℂ, j6 τ = (z : OnePoint ℂ) →
+      lyS3 (PkgI1.Omega τ) ^ 2 = z * lyS2 (PkgI1.Omega τ) ^ 3 ∧
+      lyS5 (PkgI1.Omega τ) = lyS2 (PkgI1.Omega τ) * lyS3 (PkgI1.Omega τ) ∧
+      lyS6 (PkgI1.Omega τ) = (z + 1) * lyS2 (PkgI1.Omega τ) ^ 3
+
+/-- The strict form with any Hauptmodul with these clauses (e.g. `PkgI1.QMHauptmodul`'s `f`) gives `LinYangEx29`. -/
+theorem linYangEx29_of_all (hA : LinYangEx29All) (hH : PkgI1.QMHauptmodul) : LinYangEx29 := by
+  obtain ⟨f, hc, -, hfib, hsurj, h4, h3, h24⟩ := hH
+  exact ⟨f, hc, hfib, hsurj, h4, h3, h24, hA f hc hfib hsurj h4 h3 h24⟩
+
+/-- **`LinYangThetaCurve` from Igusa's theta expressions, the strict Lin–Yang leaf and `QMHauptmodul` (proved).** -/
+theorem linYangThetaCurve_of_printedAll (hI : IgusaThetaExpressions) (hA : LinYangEx29All)
+    (hH : PkgI1.QMHauptmodul) : LinYangThetaCurve :=
+  linYangThetaCurve_of_printed hI (linYangEx29_of_all hA hH)
+
 /-! ## 5. `PkgI1.QMHauptmodul` from the same two leaves -/
 
 /-- `j₆` read on `ℂ` through Mathlib's section `ofComplex : ℂ → ℍ`. -/
@@ -3461,10 +3496,16 @@ theorem thetaPointOfFibre_of_printed (hQM : FibreQMPeriod) (hI : LinYangPrinted.
     (hL : LinYangPrinted.LinYangEx29) : ThetaPointOfFibre :=
   thetaPointOfFibre_of_linYang hQM (LinYangPrinted.linYangThetaCurve_of_printed hI hL)
 
+/-- **`ThetaPointOfFibre` from `FibreQMPeriod`, `QMHauptmodul` and the strict printed leaves (proved).** -/
+theorem thetaPointOfFibre_of_printedAll (hQM : FibreQMPeriod) (hH : PkgI1.QMHauptmodul)
+    (hI : LinYangPrinted.IgusaThetaExpressions) (hA : LinYangPrinted.LinYangEx29All) : ThetaPointOfFibre :=
+  thetaPointOfFibre_of_linYang hQM (LinYangPrinted.linYangThetaCurve_of_printedAll hI hA hH)
+
 end HDec.HSyn.G0Split.ThetaPt.IgusaAlgFinal
 
 #print axioms HDec.HSyn.G0Split.ThetaPt.LinYangPrinted.linYangThetaCurve_of_printed
 #print axioms HDec.HSyn.G0Split.ThetaPt.LinYangPrinted.qmHauptmodul_of_printed
+#print axioms HDec.HSyn.G0Split.ThetaPt.LinYangPrinted.linYangThetaCurve_of_printedAll
 #print axioms HDec.HSyn.G0Split.ThetaPt.LinYangPrinted.jTuple_of_sForm
 #print axioms HDec.HSyn.G0Split.ThetaPt.LinYangPrinted.siegelEis_modular
 #print axioms HDec.HSyn.G0Split.ThetaPt.LinYangPrinted.spAct_mem
@@ -3477,3 +3518,4 @@ end HDec.HSyn.G0Split.ThetaPt.IgusaAlgFinal
 #print axioms HDec.HSyn.G0Split.ThetaPt.IgusaAlgFinal.thetaPointOfFibre_of_printed
 #print axioms HDec.HSyn.G0Split.ThetaPt.IgusaAlgFinal.thetaPointOfFibre_of_linYang
 #print axioms HDec.HSyn.G0Split.ThetaPt.ThetaGlue.igusaAlg9
+#print axioms HDec.HSyn.G0Split.ThetaPt.IgusaAlgFinal.thetaPointOfFibre_of_printedAll

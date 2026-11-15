@@ -55,3 +55,15 @@
   qmHauptmodul and qmDenZeroCM3, which use r4). With the printed leaves they become theorems
   (igusaPsi4_of_printed, igusaChi10_of_printed), for all M ∈ Sp4(ℤ), not just M4, M6.
 - jTuple_of_sForm (s-form relations + Igusa/Lin-Yang conversion (13)-(14) ⇒ R3's LinYangTuple J-tuple with t = −s3/(12 j s2), j ≠ 0, s2 ≠ 0) PROVED in both files (VERIFIED compile: LinYangPrinted.out 8 axiom lines, LinYangPrintedChain.out 10, all standard).
+- LinYangPrintedFull.lean = igusa-alg's IgusaAlg.lean (c9360203, verbatim, import raised TailA → TailZ19) +
+  LinYangPrintedChain.lean minus its §0 (theta-glue's definitions are in igusa-alg's verbatim ThetaGlue body) + §10.
+  COMPILES (VERIFIED, `lake env lean`, 1 min 45 s, peak 13.4 GB, 0 errors, no sorry; 16 `#print axioms` lines all
+  [propext, Classical.choice, Quot.sound]; LinYangPrintedFull.out):
+  `IgusaAlgFinal.thetaRatiosAtQM_of_printed : IgusaThetaExpressions → LinYangEx29 → ThetaRatiosAtQM`,
+  `IgusaAlgFinal.thetaPointOfFibre_of_printed : FibreQMPeriod → IgusaThetaExpressions → LinYangEx29 → ThetaPointOfFibre`,
+  `IgusaAlgFinal.thetaPointOfFibre_of_printedAll : FibreQMPeriod → PkgI1.QMHauptmodul → IgusaThetaExpressions →
+  LinYangEx29All → ThetaPointOfFibre`, plus everything of LinYangPrintedChain.lean.
+- Strict variant: `LinYangEx29All` (∀ Hauptmodul j6 with the clauses → relations; no existence claim);
+  `linYangEx29_of_all : LinYangEx29All → PkgI1.QMHauptmodul → LinYangEx29`,
+  `linYangThetaCurve_of_printedAll : IgusaThetaExpressions → LinYangEx29All → QMHauptmodul → LinYangThetaCurve`
+  (VERIFIED compile in all three files: 9, 11, 16 axiom lines, all standard).
