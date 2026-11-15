@@ -127,6 +127,59 @@ theorem rightMul_moves_cm24 (hA : AutCM24) (P : QML3 Qbar) (hP : HasCM24 P.q) (u
     obtain ⟨c, hc'⟩ := (P.e.eq_iff _ _).1 this
     exact h2 ⟨-c, by rw [mul_neg, ← hc']; noncomm_ring⟩
 
+theorem M3.twist_refl' (m : M3 Qbar) : M3.twist (RingEquiv.refl LeafQM.O) m = m :=
+  Quotient.inductionOn m (fun _ => rfl)
+
+/-- From `u u₀ ≡ 1` and `u ≡ ε` (`ε² = 1`): `u₀ ≡ ε`. -/
+theorem congr_inv_of_congr {u u₀ ε c c' : O} (hε : ε * ε = 1) (hc : u * u₀ - 1 = 3 * c)
+    (hc' : u - ε = 3 * c') : u₀ - ε = 3 * (ε * c - ε * c' * u₀) := by
+  have : u₀ - ε = ε * (u * u₀ - 1) - ε * (u - ε) * u₀ := by
+    have h1 : ε * (u * u₀ - 1) - ε * (u - ε) * u₀ = ε * ε * u₀ - ε := by noncomm_ring
+    rw [h1, hε, _root_.one_mul]
+  rw [this, hc, hc']; noncomm_ring
+
+/-- **The `ℤ[i]` case of `CMStabObjWeak`**, from T5, `AutCM24` and a `ℤ[√−6]` object. -/
+theorem cmStab4_of (hT : ObjBridge.TorsionStructure) (hA : AutCM24) (P₂₄ : QML3 Qbar)
+    (h24 : HasCM24 P₂₄.q) (P : QML3 Qbar) (hP : HasCM4 P.q) :
+    ∃ (α : LeafQM.O ≃+* LeafQM.O) (u : (LeafQM.O)ˣ),
+      M3.twist α (M3.rightMul u (M3.mk P)) = M3.mk P ∧
+      ∃ m : M3 Qbar, M3.twist α (M3.rightMul u m) ≠ m := by
+  obtain ⟨φ, hφc, hφ2⟩ := hP
+  have h1 : φ * -φ = 1 := by rw [mul_neg, hφ2, neg_neg]
+  have h2 : -φ * φ = 1 := by rw [neg_mul, hφ2, neg_neg]
+  obtain ⟨u, u₀, hlin, ⟨c, hc⟩, hfix⟩ := rightMul_fix_of_unit hT P φ (-φ) hφc h1 h2
+  -- `φ` cannot act on `A[3]` by `±1`
+  have hsq : ∀ ε : O, ε * ε = 1 → (∃ c' : O, u₀ - ε = 3 * c') → False := by
+    intro ε hε ⟨c', hc'⟩
+    have hact : ∀ a, endPt P.A Qbar φ (P.e.eta a) = P.e.eta (a * ε) := by
+      intro a
+      rw [hlin, P.e.eq_iff]
+      exact ⟨a * c', by
+        calc a * u₀ - a * ε = a * (u₀ - ε) := by noncomm_ring
+          _ = a * (3 * c') := by rw [hc']
+          _ = 3 * (a * c') := by noncomm_ring⟩
+    have e1 : endPt P.A Qbar (φ * φ) (P.e.eta 1) = P.e.eta 1 := by
+      rw [map_mul]
+      change endPt P.A Qbar φ (endPt P.A Qbar φ (P.e.eta 1)) = _
+      rw [hact, hact, _root_.one_mul, hε]
+    rw [hφ2, map_neg, map_one] at e1
+    change -P.e.eta 1 = P.e.eta 1 at e1
+    have e2 : P.e.eta ((2 : ℤ) : O) = 0 := by
+      have : ((2 : ℤ) : O) = 1 + 1 := by norm_num
+      rw [this, map_add]
+      conv_lhs => arg 1; rw [← e1]
+      exact neg_add_cancel _
+    obtain ⟨c'', hc''⟩ := (P.e.ker _).1 e2
+    exact intCast_not_mem_three 2 (by decide) ⟨c'', hc''⟩
+  refine ⟨RingEquiv.refl _, u, by rw [M3.twist_refl']; exact hfix, ⟨M3.mk P₂₄, ?_⟩⟩
+  rw [M3.twist_refl']
+  apply rightMul_moves_cm24 hA P₂₄ h24 u
+  · rintro ⟨c', hc'⟩
+    exact hsq 1 (_root_.one_mul 1) ⟨_, congr_inv_of_congr (_root_.one_mul 1) hc hc'⟩
+  · rintro ⟨c', hc'⟩
+    refine hsq (-1) (by noncomm_ring) ⟨_, congr_inv_of_congr (by noncomm_ring) hc (c' := c') ?_⟩
+    rw [sub_neg_eq_add, hc']
+
 end MCRQuot
 
 end
