@@ -120,11 +120,13 @@ not `≥ 3`.
 
 `autofold.py` fills a discharged field with a proof of its exact type, so it cannot replace `eigenformHTNew` by the
 weaker `EigenformHTNew5Ge3`. The field's consumer is a theorem (`g8_g12_of_leaves3`, inside
-`gluePieces_of_open4`'s `afterG7_of3 …` argument, TailK l.322), not a field, so the bypass of
-the weaker-leaf bypass fold would have to rebuild `GluePieces` from the newest bundles with `afterG7_of3Weak` in place of
-`afterG7_of3` (TailK l.322), threading the weak form through `gluePieces_of_open4` and every later generation map. Since the weak form is still GLUE and not printed, the GLUE count would not change; the only gain is
-a smaller open statement (`ℓ = 5`, `k ≥ 3`). Recommendation: keep the field; record in OPEN.md that the route uses
-only `ℓ = 5`, `k ≥ 3`, so a contributor may prove (or cite) just that instance; `afterG7_of3Weak` is ready if a later fold wants it.
+`gluePieces_of_open4`'s `afterG7_of3 …` argument, TailK l.322), not a field. A weaker-leaf bypass fold would therefore
+have to rebuild `GluePieces` from the newest bundles with `afterG7_of3Weak` in place of `afterG7_of3`, threading the
+weak form through `gluePieces_of_open4` and every later generation map. Since the weak form is still GLUE and not
+printed, the GLUE count would not change; the only gain is a smaller open statement (`ℓ = 5`, `k ≥ 3`).
+
+**Recommendation.** Keep the field. Record in OPEN.md that the route uses only `ℓ = 5`, `k ≥ 3`, so a contributor may
+prove (or cite) just that instance. `afterG7_of3Weak` is ready if a later fold wants it.
 
 ## 6. Compile log (VERIFIED)
 
