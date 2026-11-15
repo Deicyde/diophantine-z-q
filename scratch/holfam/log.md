@@ -23,3 +23,4 @@
 - autofold.json written (bypass; leaves mainTheoremCM published, pelHolFamily published + pending reading of analytic clause).
 - Rating note: deligneComponentsX6PrintedAb (same moduli content as clause (R)) is kinds.tsv published/LEAF with
   "locator UNVERIFIED"; under that standard pelHolFamily is LEAF and the fold is -1 strict GLUE. SPECULATIVE.
+- unif-printed (b463c385, stages 1-2b) still unreported at end: not merged; it restates uniformizationLeafAll only.
