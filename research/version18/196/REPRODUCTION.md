@@ -1,6 +1,6 @@
 # Reproducing the selected 196-variable table
 
-This directory proposes a portable copy of the independent audit of José Brox's 196-variable reduction at commit `5c35db3253a70b0875acec4b451cdaac4da3c8fd` of `JoseBrox/diophantine-z-q_improvements`. The reduction uses the unbalanced Conant198 parent. Keep the complete `../198/` directory for its arithmetic proof provenance, original package and separate reproduction. No author or publication agreement is changed here.
+This directory contains a portable copy of the independent audit of José Brox's 196-variable reduction at commit `5c35db3253a70b0875acec4b451cdaac4da3c8fd` of `JoseBrox/diophantine-z-q_improvements`. The reduction uses the unbalanced Conant198 parent. Keep the complete `../198/` directory for its arithmetic proof provenance, original package and separate reproduction. No author or publication agreement is changed here.
 
 The selected table is `upstream/source/computation/quartic/laurent_recovery_v38/family196/polynomial.json`. Its SHA-256 is `a8ab93d66fe83f4bdfd4b176d47c250c2e124f42535d7a6a133edff6a97389ad`. It has 196 total variables including the input, 195 existential variables, 182 quadratic summands and 2,943 coordinate monomials. The separate balanced table is checked as an existing comparison; it is not the Version 18 presentation. In the upstream paper, the headline `P_N` is balanced. Identify the selected unbalanced table by its path and hash.
 
@@ -8,7 +8,7 @@ The selected table is `upstream/source/computation/quartic/laurent_recovery_v38/
 
 `INPUT-FILES.json` lists every required file. The mathematical audit reads eight JSON files, including the upstream copy of the parent. Before running it, the I/O helper checks the complete 29-file source inventory against the recorded Git blob IDs and SHA-256 values, and separately checks the retained Conant parent table. Keep `checks/` and `provenance/SOURCE-PINS.json` together. The source root and parent-table locations are explicit arguments. No upstream program is imported or executed.
 
-Use a normal Python interpreter without `-O`. The checker uses the standard library only and passed with Python 3.14.7. It needs no installation or credentials. From the proposed public repository root, run:
+Use a normal Python interpreter without `-O`. The checker uses the standard library only and passed with Python 3.14.7. It needs no installation or credentials. From the repository root, run:
 
 ```text
 python -B research/version18/196/checks/independent196.py --source-root research/version18/196/upstream/source --parent-table research/version18/198/upstream/H10-quartic198/circuits/inverse198/quadratic.json --output reproduction-output/196-result.json
@@ -40,6 +40,6 @@ The crossover `N = 7` is a coefficient comparison, not a sufficient defining thr
 
 ## Evidence and historical qualifications
 
-`provenance/original-AUDIT.md` and `original-RESULT.json` retain root's original bytes and scope. That audit predates the user's correction of the Version 18 target to 196 and therefore still says the chosen target is 198. This is a historical statement, not the current selection. Likewise the source paper retains its original parent-premise and threshold qualifications. The manuscript must discharge the inherited inputs through its internal results.
+`provenance/original-AUDIT.md` and `original-RESULT.json` retain root's original bytes and scope. That audit predates the user's correction of the Version 18 target to 196 and therefore still says the chosen target is 198. This is a historical statement, not the current selection. Likewise the source paper retains its original parent-premise and threshold qualifications. The manuscript proves the inherited inputs at the locations listed in the [current dependency inventory](../dependencies/CURRENT-V18-INVENTORY.md), and its sections `q198:completeness`, `q198bb:specialization` and `q196:fixed` give the parent completeness, fixed-parameter choice and transfer to 196.
 
 `evidence/PORTABILITY-CHECK.json` records the relocated replay. Final manuscript, PDF, build and reviewer identities remain pending. This package supplies finite reproducibility evidence and source provenance; it supplies no acceptance or publication record. The 258/259 data and programs among the authenticated source files are retained provenance only. No optimization was attempted.

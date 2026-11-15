@@ -6,7 +6,7 @@
   },
   "profile": {
     "path": "docs/current-manuscript.json",
-    "sha256": "8ef185c8f73fddcef04eb970ccc64635ebe10ddda036a5e41d479431d01b4c80"
+    "sha256": "2ea6e40e597b908b751910c74f4c2c9fa47cd170838bcf17bbc7f2b6c7552562"
   },
   "historical_review": {
     "path": "docs/audit-history/current.json",
@@ -14,11 +14,11 @@
   },
   "selected_manuscript": {
     "path": "manuscripts/quartic_v18.tex",
-    "sha256": "7004f12f00643ab83d9fad24d348009e31dfe56d48c162c58d702f9171f6a2c7"
+    "sha256": "0cb9c70baed00d736c88636243c4da96c38ce4f96090d029d0020ce459435a29"
   },
   "review": {
-    "path": "research/version18/reviews/builder-review.json",
-    "sha256": "6efd77668e48b244e2dc35e0f1e8471615c8ae22baad5ecb8f8d46bd40669139"
+    "path": "research/version18/reviews/pr120-builder-review.json",
+    "sha256": "c2202083d20b3e72407ffd53159262fdfce6abc62c8702b8b04f97cdedb97e97"
   },
-  "scope": "The original Fable owner-session review binds the exact unchanged builder, Version18 selector, source, PDF and recorded build. It verifies preservation of the released Version16 and Version17 files in this checkout. Historical application records retain their original scope. This binding is neither mathematical acceptance of the assembled Version18 proof nor protected App acceptance. The review limitations and correction of one earlier unverified check are preserved unchanged."
+  "scope": "The original Fable owner-session review binds the exact unchanged builder, repaired Version18 selector, source, PDF and recorded build, and checks preservation of released Version16 and Version17 files. Earlier reviews remain unchanged at their original paths. This is build correspondence only, not assembled-proof or protected App acceptance."
 }

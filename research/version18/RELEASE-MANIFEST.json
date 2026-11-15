@@ -1,5 +1,5 @@
 {
-  "status": "Complete built candidate with actual source/PDF/build mapping; protected release acceptance pending",
+  "status": "Rebuilt PR120 repair with original fresh source/PDF review; protected release acceptance pending",
   "version": 18,
   "release_date": null,
   "published_base_commit": "3808e8c4bc6cbabbab43ead171377abe7f4ac48d",
@@ -8,15 +8,15 @@
   "release_tag": null,
   "source": {
     "path": "manuscripts/quartic_v18.tex",
-    "sha256": "7004f12f00643ab83d9fad24d348009e31dfe56d48c162c58d702f9171f6a2c7"
+    "sha256": "0cb9c70baed00d736c88636243c4da96c38ce4f96090d029d0020ce459435a29"
   },
   "pdf": {
     "path": "manuscripts/quartic_v18.pdf",
-    "sha256": "311e9fdf1fd21ca222e2024521ab09a3ebb36e4d05a4e11bcebeb3b7474cd423"
+    "sha256": "e6fb5b6a7c5d3340db2c3b1f14e78fbb9c357f11544584c6a96ae2abc2c0579d"
   },
   "build_record": {
     "path": "research/version18/BUILD.json",
-    "sha256": "938d6a6d14f4f3220c236dacbf82af5d0d08a15eea96f6c75b18155d34b25d17"
+    "sha256": "a6ee35533cc17f1127bdde456e212347d999153031a766815b73621238d4dce2"
   },
   "required_tex_inputs": [],
   "claims": {
@@ -51,7 +51,7 @@
   },
   "incorporation_record": {
     "path": "research/version18/SOURCE-PROMOTION.json",
-    "sha256": "ba280f3d63ce388a7ce3bb48647b6bcf094f57712a37f6e474e0507c6f75efc4"
+    "sha256": "1d1576da5c26524460e81544aaece99848acd809103d25315e9244d93d6e95b5"
   },
   "independent_reviews_of_incorporation": [],
   "independent_reviews_of_source_pdf_correspondence": [],
@@ -91,8 +91,8 @@
     "Record actual merge, postmerge checks and release identity before packing the immutable handoff tree"
   ],
   "builder_review": {
-    "path": "research/version18/reviews/builder-review.json",
-    "sha256": "6efd77668e48b244e2dc35e0f1e8471615c8ae22baad5ecb8f8d46bd40669139"
+    "path": "research/version18/reviews/pr120-builder-review.json",
+    "sha256": "c2202083d20b3e72407ffd53159262fdfce6abc62c8702b8b04f97cdedb97e97"
   },
   "builder_review_scope": "Build selection and recorded source/PDF/build correspondence for this exact Version 18 candidate, and byte preservation of the four released Version 16 and Version 17 files in this checkout. No mathematical acceptance of Version 18 is given or implied by this record.",
   "predecessor": {

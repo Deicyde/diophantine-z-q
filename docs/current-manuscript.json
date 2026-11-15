@@ -3,15 +3,15 @@
   "version": 18,
   "tex": {
     "path": "manuscripts/quartic_v18.tex",
-    "sha256": "7004f12f00643ab83d9fad24d348009e31dfe56d48c162c58d702f9171f6a2c7"
+    "sha256": "0cb9c70baed00d736c88636243c4da96c38ce4f96090d029d0020ce459435a29"
   },
   "pdf": {
     "path": "manuscripts/quartic_v18.pdf",
-    "sha256": "311e9fdf1fd21ca222e2024521ab09a3ebb36e4d05a4e11bcebeb3b7474cd423"
+    "sha256": "e6fb5b6a7c5d3340db2c3b1f14e78fbb9c357f11544584c6a96ae2abc2c0579d"
   },
   "build_record": {
     "path": "research/version18/BUILD.json",
-    "sha256": "938d6a6d14f4f3220c236dacbf82af5d0d08a15eea96f6c75b18155d34b25d17"
+    "sha256": "a6ee35533cc17f1127bdde456e212347d999153031a766815b73621238d4dce2"
   },
   "required_tex_inputs": []
 }

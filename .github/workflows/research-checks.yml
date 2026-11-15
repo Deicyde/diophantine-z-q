@@ -164,6 +164,10 @@ jobs:
         run: |
           python -B scripts/test_precision_call_arguments.py
           python -B scripts/check_precision_call_arguments.py --report build/precision-call-arguments.json
+      - name: Test and certify the printed 214 to 204 predecessor transport
+        run: |
+          python -B scripts/test_v18_predecessor_transport.py
+          python -B scripts/check_v18_predecessor_transport.py --root . --report build/v18-predecessor-transport.json
       - run: python scripts/check_construction.py --report build/construction-checks.json
       - run: python -B docs/audit-history/issue3/replay_row_hash.py
       - run: python scripts/check_lean.py
@@ -174,6 +178,7 @@ jobs:
           path: |
             build/construction-checks.json
             build/precision-call-arguments.json
+            build/v18-predecessor-transport.json
 
   paper:
     name: Paper build

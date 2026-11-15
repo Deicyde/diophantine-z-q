@@ -362,9 +362,10 @@ The complete retained-coordinate weights and row division powers
 are in the pinned table, rather than inferred from these counts.
 The scalar equation $R_2=R^2$ is retained literally, not simplified
 away while other rows are divided. The input has weight zero.
-The finite identities in Section~\ref{q198:finite-certificate}
-verify every retained and changed row. The arguments below give
-their arithmetic interpretation.
+The two finite comparisons in Section~\ref{q198:finite-certificate}
+verify the 214-to-204 and 204-to-198 rows separately, including each
+retained and changed row. The arguments below give their arithmetic
+interpretation.
 
 \begin{lemma}[Compressed contact circuit]\label{q198:contact-circuit}
 Let
@@ -496,7 +497,7 @@ the chart, including its tangent cases.
 \end{lemma}
 \begin{proof}
 Since $DR^2\ne0$, the third equation forces $r\ne0$; the first
-two then force $p,W,U,V\ne0$. The three proposed abscissas have
+two then force $p,W,U,V\ne0$. The three reconstructed abscissas have
 sum $(M/R)^2$, pairwise sum $-(D+2Mr/R^2)$ and product $(r/R)^2$.
 For example the pairwise sum is
 $r(U+V+W)/R^2=-D-2Mr/R^2$. They are therefore exactly the roots,
@@ -1361,7 +1362,16 @@ Its expanded polynomial has SHA-256
 \end{center}
 These identities fix the table, component conventions, coordinate
 weights and primitive row normalizations used here.
-The exact reconstruction described in \cite{q198-FiniteReconstruction}
+For the first two predecessor steps, the accompanying checker
+\nolinkurl{scripts/check_v18_predecessor_transport.py} parses all 188
+printed 214 rows, constructs the 186 additive 212 rows from the contact
+and aggregate formulas, then constructs all 186 reciprocal 204 rows
+and compares them coefficient by coefficient with the pinned 204 table.
+It records the full intermediate rows, coordinate maps and powers of
+$R$ divided out. This is a finite identity check; the changed additive
+aggregate and nonvanishing of $R$ require the arithmetic arguments above.
+The separate 204-to-198 reconstruction described in
+\cite{q198-FiniteReconstruction}
 compares every retained row under the complete Laurent weight map,
 derives the twenty new inverse Vieta component rows directly from
 their displayed field equations, retains $R_2=R^2$ literally,
@@ -6815,15 +6825,14 @@ Parent $r$ & New $i$ & $s_R$ & $s_0$ & $s_1$ & $\eta_i$ \\
 \renewcommand{\theHsection}{q214.\arabic{section}}
 \part{The 214-variable construction and its arithmetic suppliers}
 \section{The theorem, conventions and reading order}\label{q214:main}
-\begin{theorem}[The proposed $214$-variable family]\label{q214:theorem}
+\begin{theorem}[The $214$-variable family]\label{q214:theorem}
 For an integer $N\ge1$ put $A_N=149^{2N+1}$.  In coordinates
 $X_1,\ldots,X_{214}$, let $r_{i,N}$ be the $188$ rows specified in
 Section~\ref{q214:rows}, and set
 \[
  P_N=\sum_{i=1}^{188}r_{i,N}^2\in\Z[X_1,\ldots,X_{214}].
 \]
-Subject to the exact source theorems and applications developed in this
-manuscript, there exists one fixed integer $N_0\ge1$ such that
+There exists one fixed integer $N_0\ge1$ such that
 \[
  \forall N\ge N_0\ \forall x\in\Q,\qquad
  x\in\Z\ \Longleftrightarrow\
@@ -6856,11 +6865,13 @@ Version~16 corrections, the Version~18 inverse-theorem replacement and their cur
 author packets about byte identity with Version~15 describe their earlier
 freeze; they do not assert that no later analytic correction is incorporated
 here.  Version~16 is the upstream foundation's edition, not a new numbered
-release of the proposed $214$ research manuscript.
+release of the $214$ research manuscript.
 
-The separate \href{https://github.com/elliotglazer/diophantine-z-q/blob/main/docs/research-review/version18-cleanup-status.md}{Version~18 source and incorporation record}
-preserves outstanding incorporation obligations and review limitations
-for this edition.
+The separate \href{https://github.com/elliotglazer/diophantine-z-q/blob/main/research/version18/dependencies/CURRENT-V18-INVENTORY.md}{current dependency inventory}
+identifies the selected source chain. The
+\href{https://github.com/elliotglazer/diophantine-z-q/blob/main/research/version18/dependencies/CURRENT-FOUNDATION-STATUS.md}{current source and incorporation record}
+distinguishes its H170 and H201 dispositions from the retained historical
+review limitations.
 
 \paragraph{Navigation to current foundation passages.}
 The retained source has direct links to the
@@ -8850,7 +8861,7 @@ For \(\Delta \ne 0\), \(|\Delta |\le 14B^{4}\) and \(k=3\) bound \(B\) uniformly
 
 \href{https://github.com/elliotglazer/diophantine-z-q/blob/110cf72565be326fd567cd1a64a3b2e00213dcd1/research/quartic214/proofs/uniform-existence.md}{\nolinkurl{uniform-existence.md}} P13--P20 fixes a single coefficient threshold \(N_{C}\) and constructs witnesses for every integer input and every \(N\ge N_{C}\). Scalar preparation precedes the nonzero Lucas labels and positive trace. The rational scale coefficients are cleared and merged with their incidence sets retained before the fixed-data prime theorem is applied. The CRT reference choice is compatible with all incidences. At selected primes the \textbf{changed factors} have the necessary positive depths; at opposite places their trace is a unit; at prepared finite primes and real embeddings their actual pole inputs satisfy the exact zero-preparation hypotheses. The RC theorem is applied to those fresh inputs' actual non-CM curves, with full Selmer corank before rank/finite-Sha consequences. Independent pole witnesses then supply the two detectors and all inverse weights.
 
-The labels, fixed-data prime sets, moduli, slope and final witnesses may depend on (N,x). Their existence imposes no further lower bound on \(N\). Reconstructing the removed cache values and applying the exact row identities gives a zero of \(P_{N}\). With the fixed soundness threshold \(N_{S}\), take \(N_{0}=\operatorname{max}(N_{S},N_{C})\). This proves the asserted \(\exists N_{0}\forall N\ge N_{0}\forall x\) form relative to the exact retained source theorems and the applications proposed here. \(N_{0}\) remains ineffective.
+The labels, fixed-data prime sets, moduli, slope and final witnesses may depend on (N,x). Their existence imposes no further lower bound on \(N\). Reconstructing the removed cache values and applying the exact row identities gives a zero of \(P_{N}\). With the fixed soundness threshold \(N_{S}\), take \(N_{0}=\operatorname{max}(N_{S},N_{C})\). This proves the asserted \(\exists N_{0}\forall N\ge N_{0}\forall x\) form, using the inputs proved in Sections~\ref{sec:model}, \ref{v15:base248:sec:scalar}, \ref{v15:dependencies} and~\ref{q214:source-aggregate-bridge}, together with Theorem~\ref{thm:v5-simultaneous-primes}. \(N_{0}\) remains ineffective.
 
 \subsection{Effectivity and finite checks}
 
@@ -8862,13 +8873,13 @@ The defining threshold remains ineffective, and no full numerical witness tuple 
 \section{Reciprocal clearing on the 224-coordinate predecessor: 214 and 218}\label{q214:existence}
 \noindent\textit{Source: }\nolinkurl{research/quartic214/proofs/existence.md}.\par
 
-\begin{quote}\footnotesize This section is conditional on the retained elliptic, scalar, prime-selection, pole and aggregate-trace inputs of the frozen Version 15 source. Its defining threshold remains ineffective. The 214 conclusion additionally uses the newly proved quadratic supplier in the sibling height packet; that theorem's inherited assumptions remain explicit.\end{quote}
+\begin{quote}\footnotesize The elliptic, scalar, prime-selection, pole and aggregate-trace inputs are proved in Sections~\ref{sec:model}, \ref{v15:base248:sec:scalar}, \ref{v15:dependencies} and~\ref{q214:source-aggregate-bridge}, together with Theorem~\ref{thm:v5-simultaneous-primes}. The defining threshold remains ineffective. The quadratic height supplier and its product-averaging argument are proved in Sections~\ref{q214:height-supplier} and~\ref{q214:height-averaging}.\end{quote}
 
 \subsection{Statement and exact objects}
 
 Let \(A_{N}=149^{2N+1}\), \(N\ge 1\). The portable builder starts with \nolinkurl{research/version15/quartics/quartic-222/provenance/shared-T-redundancy224-006/candidate224-ir.json}, the public shared-T-redundancy224-006 stage (224 variables,198 primitive quadratic rows), before the paired-root and trace-quotient steps. It produces a 214-variable family with 188 rows and a 218-variable control with 192 rows. Every polynomial is the sum of the squares of its displayed primitive integral rows. The complete tables and symbolic row identities are executable evidence, not a substitute for the arithmetic argument below.
 
-For each family there is a fixed \(N_{0}\) such that all \(N\ge N_{0}\) define \(Z\) by rational projection of input coordinate 1. This is the conditional conclusion established here. Its proof does not give an effective \(N_{0}\). The coefficient height equals \(149^{4N+2}+1\) for \(N\ge 53\); \(53\) is solely a coefficient threshold. The parameter \(A_{N}\) is never a quantified variable.
+For each family there is a fixed \(N_{0}\) such that all \(N\ge N_{0}\) define \(Z\) by rational projection of input coordinate 1. The proof below uses the source recovery in Section~\ref{q214:raw224-source} and the uniform soundness and completeness argument in Section~\ref{q214:uniform-existence}. Its proof does not give an effective \(N_{0}\). The coefficient height equals \(149^{4N+2}+1\) for \(N\ge 53\); \(53\) is solely a coefficient threshold. The parameter \(A_{N}\) is never a quantified variable.
 
 Use exactly \(K=Q(\sqrt{2})\), \(d=3-\sqrt{2}\), \(D=d^{2}\), \(E:y^{2}=x^{3}-Dx\) and the generator \(P\) in the frozen source. The raw 224 component bases, including the nonstandard \(W_{0}\) basis, are retained by literal rational component rows. The two actual weights are raw 224 coordinates 87 and 102. The physical arguments are \(\lambda \) and \(T\cdot \lambda \), with \(T=(1/4)\operatorname{Tr}(\sum _{i=1}^{4} x(Q_{i}))>0\). Reciprocal-scale and scalar-R rescalings are interpreted using their proved inverse maps, not by identifying a rescaled coordinate with an unscaled field value.
 
@@ -8972,7 +8983,7 @@ The finite checker proves exact component identities, complete row occurrence co
 
 \begin{quote}\footnotesize This argument concerns the existing 214 family, with its original hypotheses retained exactly. Source bindings and actual consumer passages are in \nolinkurl{SOURCE_USES.json} and \nolinkurl{CONTRACT.json}.\end{quote}
 
-[P01: exact theorem] Let the 214 family be exactly the family with 188 primitive integral quadratic residuals in the historical \nolinkurl{candidate214-brox} artifact at private source revision \nolinkurl{bfeb8400982c9a169e4fdd39fb68ec053621e8ed}. Section~\ref{q214:rows} prints the residuals used here; the revision identifies the historical artifact, not that later manuscript section. Its parameter is the fixed coefficient \(A_{N}=149^{2N+1}\), not an existential coordinate. Subject to the named full-family height and retained elliptic/rank interfaces below, the conclusion is
+[P01: exact theorem] Let the 214 family be exactly the family with 188 primitive integral quadratic residuals in the historical \nolinkurl{candidate214-brox} artifact at private source revision \nolinkurl{bfeb8400982c9a169e4fdd39fb68ec053621e8ed}. Section~\ref{q214:rows} prints the residuals used here; the revision identifies the historical artifact, not that later manuscript section. Its parameter is the fixed coefficient \(A_{N}=149^{2N+1}\), not an existential coordinate. The full-family height bound in Section~\ref{q214:height-supplier}, the product argument in Section~\ref{q214:height-averaging} and the elliptic results in Section~\ref{sec:model} give the inputs to the following conclusion
 
 \begin{gather*}
 \exists  N_{0} \in  Z_{\ge 1}, \text{ for }  \text{ every }  \text{ integer }  N\ge N_{0}, \text{ for }  \text{ every }  x \in  Q,\\
@@ -8981,7 +8992,7 @@ x \in  Z \Longleftrightarrow  \text{ there }  \exists  y \in  Q^{213} \text{ wit
 
 This is the same polynomial family. \(N_{0}\) is not computed. \(N\ge 53\) is a coefficient-height condition only; it need not be included in the arithmetic \(N_{0}\), and replacing \(N_{0}\) by \(\operatorname{max}(N_{0},53)\) is harmless. No \(N=53\) defining theorem or numerical defining member follows.
 
-[P02: scope of source carry] The entire latest PR26 manuscript at public checkout HEAD \nolinkurl{1a49013b5683f58d2f88bb018a07d13770354157} and the old 214 frozen \nolinkurl{existence/sources/quartic_v15.tex} have the identical \textbf{raw byte} SHA256 \nolinkurl{44ba3a8ec8521c29b81b26cfb9981cd6d5f3c76d54e7782438614842edb52c74} and 1924438 bytes. This is stronger than normalized-line identity. Thus no analytic, restricted-converse, aggregate, scalar or prime-selection manuscript repair is newly imported from PR26 here. The source statements are used at their stated domains and through the source-to-consumer maps. The application uses the source passages identified in \(\text{SOURCE}_{\text{USES}}\), including the sum-pole/graph argument, the prime theorem/obstruction-tail/fixed-field and diagonal statements, the CRT argument, scalar-S/four-contact preparation and zero-preparation proof. Their internal restricted-converse and analytic foundations remain separate prerequisites.
+[P02: scope of source carry] The entire latest PR26 manuscript at public checkout HEAD \nolinkurl{1a49013b5683f58d2f88bb018a07d13770354157} and the old 214 frozen \nolinkurl{existence/sources/quartic_v15.tex} have the identical \textbf{raw byte} SHA256 \nolinkurl{44ba3a8ec8521c29b81b26cfb9981cd6d5f3c76d54e7782438614842edb52c74} and 1924438 bytes. This is stronger than normalized-line identity. Thus no analytic, restricted-converse, aggregate, scalar or prime-selection manuscript repair is newly imported from PR26 here. The source statements are used at their stated domains and through the source-to-consumer maps. The application uses the source passages identified in \(\text{SOURCE}_{\text{USES}}\), including the sum-pole/graph argument, the prime theorem/obstruction-tail/fixed-field and diagonal statements, the CRT argument, scalar-S/four-contact preparation and zero-preparation proof. The restricted-converse foundation is proved in Section~\ref{sec:rc}; the analytic foundation is proved in Section~\ref{v15:gi-full} and Theorem~\ref{thm:v5-simultaneous-primes}.
 
 [P03: exact retained inputs] Use \(K=Q(\sqrt{2})\), \(d=3-\sqrt{2}\), \(E:y^{2}=x^{3}-d^{2}\) \(x\), and the same \(P=2(1+\sqrt{2},2\sqrt{2})\). The four nonzero integer labels are (n,a,t,b), \(c=|a|\) and \(B=\operatorname{max}(|n|,|a|,|t|,|b|)\), so \(B\ge c\). The physical scale is \(T=(1/4)\operatorname{Tr}(\sum _{i} x([n_{i}]P))>0\). The physical arguments are \(t_{0}=\lambda \) and \(t_{1}=T\) \(\lambda \). The contact set is \(\Theta _{2}=\Theta \cup(2-\Theta)\), \(\Theta =\{0,-1/2,-1,1/2399,-32/407\}\); \(\Sigma \) is the \(\text{primes}\le 76176\) together with 2029147. Each comparison radical \(M_{j}\) is the squarefree product of primes \(p\) outside \(\Sigma \) at a positive odd contact of \(t_{j}\). Do not substitute the sibling center-3/11 contact system or its input \(51(2X+1)^{2}+2504\). Here \(\beta =51x^{2}+2504\).
 
@@ -9013,7 +9024,7 @@ one has \(M_{j}^{3}\) | \(\Delta \) for each \(j\), and \(M_{j}\) | \(J\) when \
 
 [P09: family/normalization join] Apply final published Von Buhren 2017 Theorem 1.1, printed 308, to \(A=E_{0}^{8}\), parameter \(P^{1}\), and the integral projective graph closure of \(F_{+}=(d/2)\sum \) \(X_{i}+(d'/2)\sum \) \(X_{i}'\). The fixed finite-rank group is generated by \(P_{1}\) in each first-block coordinate and \(P_{2}\) in each second-block coordinate. Its points lie in the theorem's \(C(\Gamma ,\epsilon )\) by taking error point 0. Embed \(E_{0}\) by \(O(3O)\), and its product by Segre. Restriction of degree-n plane forms to a smooth plane cubic is surjective for all \(n\ge 1\) from \(0\to O(n-3)\to O(n)\to O_{E}(n)\to 0\) and \(H^{1}(P^{2},O(n-3))=0\). Tensoring and the Segre multiplication map provide the source's embedding condition (1.1) for the product. \(P^{1}\) uses \(O(1)\). The actual tuple avoids all coordinate poles since P1,P2 are nontorsion and labels nonzero. A translate in a projective graph fiber through this tuple would meet the function domain densely and make \(F_{+}\) constant there, contradicted by \(P_{08}\); graph boundary components do not change this. \(F_{+}(\text{tuple})=2T\). The fixed product canonical height is a positive multiple of the sum of all eight coordinate canonical heights, hence twice a multiple of the four original heights. Since \(h(2T)\le h(T)+\log 2\) and \(\widehat{h}([n_{i}]P)=n_{i}^{2}\) \(\widehat{h}(P)\), \(\widehat{h}(P)>0\), the theorem gives fixed \(M_{1}>0,M_{2}\ge 1\) with \(B^{2}\le M_{1}\) \(h(T)+M_{2}\) for every tuple. The constants are fixed before x,N or labels; the additive \(M_{2}\) is ineffective, exactly as in the published source. No full rank-one theorem is required for this aggregate step.
 
-[P10: height domain and maps] Retain the sibling full-family supplier \(h(u)\le C_{2}\) \(M_{S_{10}}(u)^{\alpha }\), \(\alpha =2103/1024<7/3\), on every rational argument avoiding its four finite contacts; the full geometric/modular/height chain supplying it remains a separate prerequisite. Put \(B_{\Sigma }=\prod \) of primes in \(\Sigma \) outside \(S_{10}\). Squarefreeness gives \(M_{S_{10}}\le B_{\Sigma }\) \(M_{\Sigma }\), even at deep contacts, so \(h(u)\le H\) \(M_{\Sigma }(u)^{7/3}\), \(H=C_{2}\) \(B_{\Sigma }^{\alpha }\) fixed. Apply this to \(u=2+1/t_{j}\) and \(u=2+1/(2-t_{j})\). Their excluded finite contacts correspond exactly to the ten excluded \(t_{j}\) contacts, and \(t_{j}=0,2\) are already excluded; the inverse projective row norms are 3 and 7. If \(h(t_{j})>\log 7\), multiply the two inequalities for \(h(t_{j})-\log 7\). Outside \(\Sigma \) the two block radicals are disjoint and their product is exactly \(M_{j}\), giving \(h(t_{j})\le H_{2}\) \(M_{j}^{7/6}\), \(H_{2}=\log 7+H\). If \(h(t_{j})\le \log 7\) it follows directly, including \(t_{j}=1\) with \(M_{j}=1\). Thus the argument covers the full rational solution domain, not a bounded example. Because \(t_{0}\ne 0\) and \(t_{1}=Tt_{0}\), \(h(T)\le h(t_{0})+h(t_{1})\). If \(M_{j}^{k}\) divides the same nonzero integer \(J_{0}\) separately for both \(j\), then
+[P10: height domain and maps] Retain the sibling full-family supplier \(h(u)\le C_{2}\) \(M_{S_{10}}(u)^{\alpha }\), \(\alpha =2103/1024<7/3\), on every rational argument avoiding its four finite contacts; the full geometric/modular/height chain supplying it is developed in Sections~\ref{q214:height-supplier} and~\ref{q214:height-averaging}, with the inherited interfaces stated there. Put \(B_{\Sigma }=\prod \) of primes in \(\Sigma \) outside \(S_{10}\). Squarefreeness gives \(M_{S_{10}}\le B_{\Sigma }\) \(M_{\Sigma }\), even at deep contacts, so \(h(u)\le H\) \(M_{\Sigma }(u)^{7/3}\), \(H=C_{2}\) \(B_{\Sigma }^{\alpha }\) fixed. Apply this to \(u=2+1/t_{j}\) and \(u=2+1/(2-t_{j})\). Their excluded finite contacts correspond exactly to the ten excluded \(t_{j}\) contacts, and \(t_{j}=0,2\) are already excluded; the inverse projective row norms are 3 and 7. If \(h(t_{j})>\log 7\), multiply the two inequalities for \(h(t_{j})-\log 7\). Outside \(\Sigma \) the two block radicals are disjoint and their product is exactly \(M_{j}\), giving \(h(t_{j})\le H_{2}\) \(M_{j}^{7/6}\), \(H_{2}=\log 7+H\). If \(h(t_{j})\le \log 7\) it follows directly, including \(t_{j}=1\) with \(M_{j}=1\). Thus the argument covers the full rational solution domain, not a bounded example. Because \(t_{0}\ne 0\) and \(t_{1}=Tt_{0}\), \(h(T)\le h(t_{0})+h(t_{1})\). If \(M_{j}^{k}\) divides the same nonzero integer \(J_{0}\) separately for both \(j\), then
 
 \begin{gather*}
 B^{2} \le  C |J_{0}|^{7/(6k)}+M_{2}, C=2 M_{1} H_{2}
@@ -9067,7 +9078,7 @@ Every non-prime factor here is a rational square, including \(a_{*}^{10}\) for a
 
 [P19: actual pole theorem and its curve domain] The input just constructed has square reduced \(\text{denominator},0<\mathfrak{b}<17\), local squares at 2,3,17 and depths 4,2,2, meeting the exact preparation-zero predicate Psi0 (source requires 3,1,2). In its proof set \(B_{\text{pole}}=17\mathfrak{b}\) and \(V_{\text{pole}}=B_{\text{pole}}^{2}(1-\mathfrak{b}/17)\). The positive squarefree representatives mu,theta have disjoint support avoiding 2,3, \(\mu =17\) \(\text{mod}24,\theta =1\) mod 24, mutual local squareness, and \(\theta \) may equal 1. The simultaneous-descent lemma constructs positive squarefree \(n_{\text{pole}},n_{\text{pole}}\) \(\theta \), both 11 mod 12 and with full 2-primary Selmer corank 1; this uses full Selmer corank, including divisible Sha, before any finiteness claim. The retained RC is for \(E_{l}:y^{2}=x(x-l)(x+3l)\), \(l>0\) \(\text{ squarefree } ,l=11\) mod 12. These curves have \(j=35152/9\), are non-CM, and are distinct from the CM index curve E/K. RC is applied separately to these exact two parameters; no constants uniform in them are required. The published forward analytic-rank-one input then gives rank 1 and finite Sha, and Kummer gives points with the required nonzero abscissa class. The zero-preparation proof explicitly rescales those two points to produce e,p,q,s for this actual new input. Distinct detector certificates have independent structural coordinates and can be chosen separately after both inputs are fixed. Zero auxiliary witnesses remain allowed, and the finite conic/support charts include those branches. The later CRT or prime choices are not revisited.
 
-[P20: final quantifiers and limitations] For every \(N\ge N_{C}\) and every integer \(x\), P14-P19 construct rational witnesses (existentially) in the original physical system, with the changed factors and nonzero inverse weights. Reconstruct deleted fourth powers and apply the exact raw 224 coordinate maps and Laurent row identities; this gives a rational zero of the fixed 214 residuals. That argument allows the labels, selected primes, finite moduli, slope, final \(h\) and pole certificates to depend on the given (N,x); it imposes no further lower bound on \(N\). Taking \(N_{0}=\operatorname{max}(N_{S},N_{C})\) combines this with P11-P12 for all larger \(N\) and every rational input, proving \(P_{01}\) relative to the explicitly retained interfaces. No full numerical 214 witness tuple is supplied, even for a sample input; no sample could establish universal completeness. No numerical defining threshold or Busy Beaver coefficient replacement is provided. The unchanged restricted-converse, analytic and height foundations remain separate prerequisites.
+[P20: final quantifiers and limitations] For every \(N\ge N_{C}\) and every integer \(x\), P14-P19 construct rational witnesses (existentially) in the original physical system, with the changed factors and nonzero inverse weights. Reconstruct deleted fourth powers and apply the exact raw 224 coordinate maps and Laurent row identities; this gives a rational zero of the fixed 214 residuals. That argument allows the labels, selected primes, finite moduli, slope, final \(h\) and pole certificates to depend on the given (N,x); it imposes no further lower bound on \(N\). Taking \(N_{0}=\operatorname{max}(N_{S},N_{C})\) combines this with P11-P12 for all larger \(N\) and every rational input, proving \(P_{01}\) using the retained interfaces identified above. No full numerical 214 witness tuple is supplied, even for a sample input; no sample could establish universal completeness. This retained 214-variable argument gives no numerical defining threshold. The Busy Beaver specialization of the new family is proved in Section~\ref{q198bb:specialization}. The restricted-converse argument is in Section~\ref{sec:rc}; the prime-pattern and height suppliers are Theorem~\ref{thm:v5-simultaneous-primes} and Sections~\ref{q214:height-supplier}--\ref{q214:height-averaging}.
 \clearpage
 % Source: research/quartic214/proofs/geometry-carry.md
 \section{\(H_{01}:\) the actual \(D_{210}\) geometry and the small \(S_{10}\) application}\label{q214:geometry-carry}
@@ -9089,11 +9100,11 @@ The historical foundation map identifies the discriminant-210 construction and c
 
 The complete CM854R proof is \(V_{14}\) lines8519--8654 and \(V_{15}\) lines8618--8753. Private/public \(V_{15}\) are byte-identical, raw SHA256 \nolinkurl{42732844c948b234ba3820d2915b205aa0f909b1bdd0bd3d4fe8959fb0575412}; the LF content is the same as private \(V_{14}\). The CM supplier excerpt used by public inherited transport has SHA256 \nolinkurl{9abb3c65609362383a43ccbb463b2fc7dd4a6487c38be4c413f20bb1ed1fb02b}, equal to the private \(V_{14}\) raw excerpt when its terminal newline is included. This connects the actual proof, not merely its final inequality.
 
-The retained source statements cover the \(D_{210}\) fiber field and geometric isogenies, the CM elliptic discriminant, CM height and GR2023 comparison, and Yuan's model, integral and metric applications. Their stated prerequisites remain required for the \(S_{10}\) application.
+The retained source statements cover the \(D_{210}\) fiber field and geometric isogenies, the CM elliptic discriminant, CM height and GR2023 comparison, and Yuan's model, integral and metric applications. The \(S_{10}\) application uses the proofs in Section~\ref{sec:h5-full-three-construction}, the CM calculation in the proof of Theorem~\ref{hyp:o8-height}, and the field and metric comparisons below.
 
 The \(D_{210}\) source proof constructs \(\text{Isom}_{O}(O/3O,A[3])\), proving the division-lattice assertion at ramified 3. It distinguishes stack marking degree 72, coarse degree 36 and normalizer order 576; proves trivial inertia on arbitrary bases; obtains projectivity by the component/genus/relative-ampleness sequence; and identifies the entire canonical Q-model, all multipliers and both half-planes. It checks Milne's full Hodge-orbit condition directly instead of using the corrected general 8.17 implication. Its integral statement is only over Z[1/210]. The metric proof uses Yuan's maximal stack at bad primes, not a smooth fine model there or the disputed coarse Lemma 2.1/Theorem 2.2.
 
-The source comparison establishes equality of the integrated proof text, without asserting byte equality for separately packaged files absent from the historical archive. The publicly retained \(D_{210}\) supplier has five source-prerequisite bundles. Those transitive prerequisites remain required; the index alone does not establish them.
+The source comparison establishes equality of the integrated proof text, without asserting byte equality for separately packaged files absent from the historical archive. The five input groups of the \(D_{210}\) supplier are proved in Section~\ref{sec:h5-full-three-construction} and the surrounding proof of Theorem~\ref{hyp:o8-height}; Section~\ref{q214:provider-scope-carry} identifies the individual published applications.
 
 \subsection{\(G_{2}\). Same cover, field, Hom and surface for every allowed a}
 
@@ -9163,7 +9174,7 @@ All objects and constants in that proof are identical to the actual public sourc
 
 The \(S_{10}\) cutoff/local-support bridge appears in private cutoff \S{}1. The comparison above includes its full contact cases, determinant equality and exact primary objects.
 
-H01's change of support introduces no additional mathematical hypothesis provided the retained \(D_{210}\) source statements hold at the scopes specified here. Their transitive source prerequisites remain required: neither the ten-determinant calculation nor the source index establishes those prerequisites or the full 214 argument.
+H01's change of support applies the \(D_{210}\) construction proved in Section~\ref{sec:h5-full-three-construction} and the CM and metric estimates in the proof of Theorem~\ref{hyp:o8-height}. The support and field comparisons above verify its use here; Section~\ref{q214:uniform-existence} assembles the full 214 argument.
 \clearpage
 % Source: research/quartic214/proofs/provider-scope-carry.md
 \section{Exact retained \(D_{210}\) provider and conductor scope}\label{q214:provider-scope-carry}
@@ -9271,7 +9282,7 @@ The new input to that unchanged theorem is the same kind of local finite Galois 
 
 For every rational \(a=u/v\) in the domain of \nolinkurl{height/PROOF.md} \(H_{0}\), retain its original full-three-marked normalizer surface \(A=A_{a}\), normal field \(L\), and B-linear conjugate isogenies \(\mu _{\sigma }\). In the non-CM case the geometric endomorphism algebra is the division quaternion algebra \(B\) of discriminant 210. All conjugate Hom groups are L-defined, \(\mu _{1}=1\), and the choices are inflated from Gal(L/Q). These are geometric input assertions, not consequences of the modularity theorem. Put \(T=\operatorname{supp}(R)\), \(R=B_{S}\) \(M_{S}(a)\), and \(U=\operatorname{max}(\{2\} \cup  \{2^{v_{2}(p-1)}: \text{odd} p|R\})\).
 
-The claims established below, conditional only on those exact geometric inputs and the source applications individually identified here, are: the new minimal-character lift gives genuine original representations \(r_{\ell }\); the same final normalized primitive weight-two \(f\) realizes \(r_{5}\) and \(r_{3}\); its actual level satisfies \(N\le 2^{68}\) \(3^{16}\) \(5^{16}\) \(7^{4}\) \(R^{2}\) and \(\operatorname{rad}(N)|R\); and the multiplicity and character estimates of H1--H2 hold over the actual \(L'\). The exact \(H_{01}\) geometric/metric/CM and retained conductor-source transport is supplied by \nolinkurl{GEOMETRY_CARRY.md} and \nolinkurl{PROVIDER_SCOPE_CARRY.md}. H3's R\'emond inequality and the full 214 assembly are separate.
+Using the geometric construction and source applications in Sections~\ref{q214:geometry-carry} and~\ref{q214:provider-scope-carry}, we prove: the new minimal-character lift gives genuine original representations \(r_{\ell }\); the same final normalized primitive weight-two \(f\) realizes \(r_{5}\) and \(r_{3}\); its actual level satisfies \(N\le 2^{68}\) \(3^{16}\) \(5^{16}\) \(7^{4}\) \(R^{2}\) and \(\operatorname{rad}(N)|R\); and the multiplicity and character estimates of H1--H2 hold over the actual \(L'\). The exact \(H_{01}\) geometric/metric/CM and retained conductor-source transport is supplied by \nolinkurl{GEOMETRY_CARRY.md} and \nolinkurl{PROVIDER_SCOPE_CARRY.md}. The product-height argument is in Section~\ref{q214:height-averaging}, and the full 214 assembly is in Section~\ref{q214:uniform-existence}.
 
 Use covariant rational Tate modules, arithmetic Frobenius, and \(HT(Q_{\ell }(1))=-1\). Added algebraic coefficients have trivial Galois action. The names \(\chi \), \(b\), \(\epsilon _{\text{sign}}\), \(\epsilon _{f}\), \(\delta \) and the cyclotomic character \(\kappa \) are distinct.
 
@@ -9429,7 +9440,7 @@ The normalized modularity, same-form companion and numerical conductor arguments
 
 \begin{quote}\footnotesize Frozen private repository: \nolinkurl{a81afd7996a20e6b7bb5e48670418541c036d7aa}. The exact target is Brox \(v_{17}\), lines 87--99, 117--209 and its consumer at 218--225. The retained public excerpt is \nolinkurl{research/quartic214/sources/evaluation-sections1-4.tex}. Whole-file and passage bindings are in \nolinkurl{SOURCE_USES.json} and \nolinkurl{CONTRACT.json}.\end{quote}
 
-The conclusion proposed here is exactly the integral map
+We prove the integral map
 
 \[
 H^0(\mathcal X,\omega_{\mathcal X/R})\longrightarrow C^\vee,
@@ -9561,7 +9572,7 @@ The output is the same integral map and same trace discriminant used at v17:218-
 
 \begin{quote}\footnotesize Frozen target: Brox \(v_{17}\) at private repository commit \nolinkurl{a81afd7996a20e6b7bb5e48670418541c036d7aa}, whole-file SHA-256 \nolinkurl{2ba5dd497276073d92db95f0119bede82d182997c66375e5be294157de6d9f7c}. The retained public excerpt is \nolinkurl{research/quartic214/sources/evaluation-sections1-4.tex}.\end{quote}
 
-The proposed conclusion is that Brox v17:274--328, 354--451 and 461--488 have the required different bounds, including at every imperfect-residue vertical generic DVR. The resulting bound is unchanged:
+We prove the different bounds used in Brox v17:274--328, 354--451 and 461--488, including at every imperfect-residue vertical generic DVR. The resulting bound is unchanged:
 
 \(\operatorname{log} \operatorname{Norm} \operatorname{disc}(C)/[K:Q] \le  d_{H} (\log 12 + \log N + 2\operatorname{log} d_{H})\).
 
@@ -9689,7 +9700,7 @@ The stable-height metric and the evaluation lattice are separate required inputs
 \section{Metric and archimedean evaluation bridge}\label{q214:height-metric}
 \noindent\textit{Source: }\nolinkurl{research/quartic214/proofs/height-metric.md}.\par
 
-\begin{quote}\footnotesize It supplies only Brox \(v_{17}\) lines 62--78 and 210--251, conditional on the exact integral map and trace-lattice bound specified below. Those algebraic inputs and the remaining arguments for the full 214 and 256 constructions are separate prerequisites. The immutable manuscript is private commit \nolinkurl{a81afd7996a20e6b7bb5e48670418541c036d7aa}; exact whole-file and passage bindings are in \nolinkurl{SOURCE_USES.json}.\end{quote}
+\begin{quote}\footnotesize This section proves the metric calculation used in Brox \(v_{17}\) lines 62--78 and 210--251. The integral map and trace-lattice bound are proved in Section~\ref{q214:height-evaluation}, the different bound in Section~\ref{q214:height-different}, and their modular-Jacobian application in Section~\ref{q214:height-assembly}. The immutable manuscript is private commit \nolinkurl{a81afd7996a20e6b7bb5e48670418541c036d7aa}; exact whole-file and passage bindings are in \nolinkurl{SOURCE_USES.json}.\end{quote}
 
 \subsection{1. Published normalization and actual Jacobian}
 
@@ -9745,7 +9756,7 @@ There is no large-level, torsion-free-congruence-subgroup, \(\text{genus}\ge 2\)
 
 \subsection{4. Scope and incorporation}
 
-The algebraic evaluation and different bounds remain separate inputs. The 214 existence and proposed 256 arguments use the same full-family height supplier; the proof here is not restricted to a distinguished parameter \(\beta \).
+The algebraic evaluation and different bounds are proved in Sections~\ref{q214:height-evaluation} and~\ref{q214:height-different}. The 214 existence argument and the 256-variable comparison use the same full-family height supplier in Section~\ref{q214:height-supplier}; the proof here is not restricted to a distinguished parameter \(\beta \).
 \clearpage
 % Source: research/quartic214/proofs/height-assembly.md
 \section{Assembly at the actual modular-Jacobian consumer}\label{q214:height-assembly}
@@ -9803,14 +9814,14 @@ The 214 construction remains an existence family with an ineffective threshold \
 
 \subsection{\(E\). Remaining dependencies}
 
-Argument A does not supply \(H_{0}\) geometry/CM bounds, normalized modularity and companion trace assembly, the entire analytic/restricted-converse chain, or every remaining final-publication/source qualification in the prior foundation map. In particular the final 2022 R\'emond body comparison remains a separate item. Those source applications remain separate prerequisites.
+The \(H_0\) geometry and CM bounds are proved in Section~\ref{q214:geometry-carry} and Theorem~\ref{hyp:o8-height}; normalized modularity and the companion trace assembly are proved in Section~\ref{q214:modularity}. The analytic and restricted-converse arguments are in Section~\ref{v15:gi-full}, Theorem~\ref{thm:v5-simultaneous-primes} and Section~\ref{sec:rc}. Section~\ref{q214:height-averaging} supplies the product-height argument from the published Gaudron--R\'emond construction and distinguishes it from the superseded quotient argument.
 \clearpage
 % Source: research/quartic214/proofs/height-supplier.md
 \section{Quadratic \(S_{10}\) contact supplier and its reflected effective consumers}\label{q214:height-supplier}
 \noindent\textit{Source: }\nolinkurl{research/quartic214/proofs/height-supplier.md}.\par
 \begin{quote}\small \textbf{Current application:} H0--H2 and H4 are consumed with the product averaging proof in Section~\ref{q214:height-averaging}.  The historical H3 quotient-filtration route is retained only as superseded evidence and is not used in this edition's 214 argument.\end{quote}
 
-\begin{quote}\footnotesize This selected H0--H4 text supplies the full-family height input for the 214 construction. Its scope is a complete connecting argument \textbf{relative to the inherited geometric, normalized modular-realization, modular-Jacobian height, root-height, scalar/anchor, rank and Lucas interfaces specified below}. The source qualifications of those inherited proofs remain required. Publication-version limitations are explicit in \nolinkurl{SOURCES.json} and \nolinkurl{FINDINGS.md}.\end{quote}
+\begin{quote}\footnotesize This H0--H4 argument supplies the full-family height input for the 214 construction. The geometric input is proved in Section~\ref{q214:geometry-carry}, normalized modular realization in Section~\ref{q214:modularity}, and the modular-Jacobian bound in Section~\ref{q214:height-assembly}. The elliptic rank and index-height results are proved in Section~\ref{sec:model} and equation~\eqref{eq:o8-indexheight}; the scalar, anchor and Lucas uses are derived in Section~\ref{q214:uniform-existence}. The product-height argument in Section~\ref{q214:height-averaging} supplies H3.1.\end{quote}
 
 All heights \(h\) are absolute logarithmic Weil heights. All \(\hF\) are original stable Faltings heights. Tate modules use arithmetic Frobenius and \(\operatorname{det}(r_{f})=\epsilon \cdot \chi _{\text{cyc}}\). Added algebraic scalar coefficients have trivial Galois action. Symbols for number fields, scalar characters and integer labels are kept distinct below.
 
@@ -10057,7 +10068,7 @@ Identity of the consumed object & The resulting \(W\), \(A_{a}^{r}\) and \(B_{0}
 Coefficient and normalization conventions & The initial comparison is rational \(Q_{5}\), with \(\overline{\mathbb Q}_{5}\) used only to identify simple constituents. Integral lattice equality is not claimed. No Faltings-height invariance under isogeny is inferred.\\
 Local conditions & The source theorems need no good-reduction or semistability hypothesis at every place. The good-place trace comparison is the separate \(H_{2}\) argument. \(\ell =5\) is a prime different from characteristic zero.\\
 Exceptional cases & Products have matching positive dimension. H0's non-CM absolute simplicity is required; the CM branch remains separate. The complement may have a finite kernel, which is sufficient.\\
-Downstream consumption & These identifications justify the L'-defined surfaces \(C_{i}\) in \(H_{3}\), conditional on its other inputs. The R\'emond averaging inequality, modular-Jacobian height bound and normalized modularity are not proved by this supplement.\\
+Downstream consumption & These identifications justify the L'-defined surfaces \(C_i\) in the product-height proof of Section~\ref{q214:height-averaging}. The modular-Jacobian bound and normalized modularity are proved in Sections~\ref{q214:height-assembly} and~\ref{q214:modularity}.\\
 \bottomrule
 \end{longtable}
 
@@ -10449,12 +10460,12 @@ The final published source is \(J\). Von Buhren, \emph{Borne de hauteur semi-eff
 \item 4. \textbf{Maps.} Use \(x=dX\), \(y=d\sqrt{d}Y\) and their conjugates; these are pointed isomorphisms. The squareclasses of d,d' are independent in \(K(i):\) neither is a square because its norm is 7, and \(dd'=7\) is not a square in \(K\). A positive square from \(K(i)\) would already be a square in the real field \(K\). The automorphism fixing \(\sqrt{d}\) and negating \(\sqrt{d'}\) fixes \(\operatorname{End}(E_{0})=Z[i]\), fixes \(P_{1}\) and negates \(P_{2}\). Applying it to a torsion relation proves independence over Z[i] modulo torsion. These are the actual two base points; no unrelated generic pair is substituted.
 \item 5. \textbf{Consumed object.} \(F_{+}(q)=(1/2)\operatorname{Tr}(\sum x([n_{i}]P))=2T\). Canonical heights are preserved by the pointed isomorphisms and absolute conjugation. The eight-coordinate canonical-height sum is twice the four-coordinate sum. The fixed \(O(3O)\) product height is a fixed positive multiple of this sum. Since \(h(2T)\le h(T)+\log 2\), the factor 2 is absorbed only into the fixed additive constant. The resulting \(T\) is the quarter-trace in the literal raw 224 recovery and existence proof.
 \item 6. \textbf{Conventions.} \(h\) is absolute logarithmic Weil height, and the elliptic canonical height is the normalization with \(2\widehat{h}(Q)=\text{lim}\) \(4^{-m}\) \(h(x([2^{m}]Q))\). Put \(hP=\widehat{h}(P)>0\). The family theorem gives \(\sum \widehat{h}([n_{i}]P)\le M\) \(h(2T)+M_{0}\) for fixed M,M0. Then \(hP\cdot B^{2}\le \sum \widehat{h}([n_{i}]P)\); division by hP and the preceding log 2 loss give exactly the required inequality. This also avoids using a sharper rank-height estimate merely to obtain existence of M1,M2. Replace \(M_{1}\) by a larger positive value and \(M_{2}\) by \(\operatorname{max}(1,M_{2})\) if necessary.
-\item 7. \textbf{Local conditions.} The source application is over algebraic number fields with absolute heights; no local integrality, splitting or coprimality condition is added. In the internal nonconstant-fiber proof, any nonzero abelian subgroup direction contains an elliptic direction \(E_{0}\to B\), obtained from a nonzero coordinate projection by duality and a polarization up to isogeny. Within one block, the common-pole leading coefficient is a nonzero tangent scalar times a sum of positive rational weights times \((n_{i}/n_{j})^{2}\). It cannot vanish. A pole cannot occur in both independent blocks. Thus \(F_{+}\) is nonconstant on every proposed positive-dimensional translate through \(q\).
+\item 7. \textbf{Local conditions.} The source application is over algebraic number fields with absolute heights; no local integrality, splitting or coprimality condition is added. In the internal nonconstant-fiber proof, any nonzero abelian subgroup direction contains an elliptic direction \(E_{0}\to B\), obtained from a nonzero coordinate projection by duality and a polarization up to isogeny. Within one block, the common-pole leading coefficient is a nonzero tangent scalar times a sum of positive rational weights times \((n_{i}/n_{j})^{2}\). It cannot vanish. A pole cannot occur in both independent blocks. Thus \(F_{+}\) is nonconstant on every positive-dimensional translate under consideration through \(q\).
 \item 8. \textbf{Exceptional cases.} Nonzero labels exclude all coordinate poles. Their signs and coincidences do not affect the positive-square coefficient. If a translate through \(q\) lay in a projective graph-closure fiber, its nonempty open intersection with the rational-function domain would force \(F_{+}\) to be constant there, contrary to the pole argument. Boundary components introduce no exception through \(q\). P's infinite order is independently established in the same source by its nonzero formal parameter at 2, lines31544--31568; full rank-one generation is unnecessary for this height step.
 \item 9. \textbf{Downstream consumption.} The same recovered labels and \(T\) occur in \nolinkurl{existence/PROOF.md:9,62--78}. The nonzero physical arguments \(t_{0}=\lambda \) and \(t_{1}=T\lambda \) give \(h(T)\le h(t_{0})+h(t_{1})\). Separate divisibilities of each radical suffice; no product divisibility is claimed. This yields the displayed exponent 7/(6k), hence \(14/9<2\) for the Lucas residual at \(k=3\). The additive constant remains fixed and ineffective, so it is absorbed only after choosing a sufficiently large uniform \(N_{0}\). No numerical defining threshold follows.
 \end{itemize}
 
-The aggregate bound is qualitative: no effective additive constant has been supplied, and none is needed for the ineffective theorem. The sum, graph and quarter-trace argument supplies the stated aggregate input. Rank and descent, modularity, prime patterns and pole realization remain separate prerequisites.
+The aggregate bound is qualitative: no effective additive constant has been supplied, and none is needed for the ineffective theorem. The sum, graph and quarter-trace argument supplies the stated aggregate input. Rank and descent are proved in Section~\ref{sec:model}, modularity in Section~\ref{q214:modularity}, prime patterns in Theorem~\ref{thm:v5-simultaneous-primes}, and pole realization in Section~\ref{v15:dependencies:sec:poles}.
 \section{Retained differential-evaluation proof}\label{q214:eval-source}
 \subsection{Conventions and the evaluation estimate}
 
@@ -12032,7 +12043,7 @@ integer index have distinct roles throughout.
 
 Theorem~\ref{thm:target} refutes Mazur's conjecture that the closure of
 the rational points of a variety in its real locus has finitely many
-connected components. Mazur proposed this in 1992
+connected components. Mazur formulated this in 1992
 \cite{mazur1992}; his observation that it obstructs a Diophantine
 definition of $\Z$ is recalled in \cite[p.~166]{mazur1995}.
 It also gives a universal rational Diophantine
@@ -13967,8 +13978,9 @@ The multiplication predicate conjoins it with the fixed scalar
 graphs and the inverse of the finite guard below.
 
 \begin{proposition}[Finite-box deduction]\label{prop:box}
-Assuming these local test identities and the height estimate for
-$S_{\rm mul}$ with constant $A_{\rm ht}$, every false triple accepted
+By the local test identities proved above and the height estimate of
+Theorem~\ref{thm:height}, with the constant $A_{\rm ht}$ specified in
+Section~\ref{sec:size} for $S_{\rm mul}$, every false triple accepted
 by the unguarded certificate has $\max_i|n_i|<T=(48A_{\rm ht})^{13}$.
 \end{proposition}
 \begin{proof}
@@ -17959,7 +17971,7 @@ Even if this scalar tends to zero, its generic localization is nonzero
 on an outer-large set. Exact switch preservation therefore keeps
 each inner determinant valuation. The new inner kernels again have
 primitive vectors. Thus their outer dimension remains at least one;
-a proposed drop to zero is already a contradiction.
+a putative drop to zero is already a contradiction.
 There can be only finitely many drops. For each fixed number of them
 (5.1) bounds the models; no bound uniform in an unbounded number of
 switches is needed.
@@ -18161,7 +18173,7 @@ Consequently a divisible localization creates no extra valuation,
 and all strict torsion factors remain present on both sides.
 
 Each new generic kernel has rank one and has a primitive integral
-vector, so its fiber dimension is at least one. A proposed drop
+vector, so its fiber dimension is at least one. A putative drop
 from dimension two to zero is therefore a contradiction; that
 configuration cannot occur. Whenever the dimension exceeds one,
 one or two switches give a strict drop by two. Thus finitely many
@@ -19101,7 +19113,7 @@ certifies this assertion on the saved circuit. Its induction starts with
 nonnegative constants and the declared natural variables, and closes under
 addition and multiplication; no power-call output is assumed nonnegative.
 It checks the three parameter expressions of every call, including the
-proposed result, independently of whether any private power block vanishes.
+result argument, independently of whether any private power block vanishes.
 
 At each primitive formula, equality is a difference, conjunction is
 a sum of squares, and disjunction is a product. A topological induction,
@@ -20655,7 +20667,7 @@ been established. In the five-contact application $R=B_*M(s)$, so
 the radical exponent is exactly $24$, as required.
 
 % Original 15671 architecture: independent CM branch, version 1.
-% This lemma is conditional on the separately audited field/ramification lemma.
+% The field and ramification bounds are proved above in the full-three construction.
 \paragraph{The CM height estimate over the same field}
 Let $A/L$ be an abelian surface of CM type, let $B$ be a quaternion
 division algebra over $\mathbb Q$ embedded in
@@ -21377,15 +21389,15 @@ $C(\mathbb Z_{(2)}\cap\mathbb Z_{(3)})^2$ in both directions.
 \subsubsection{The unchanged numerical cutoff}\label{subsec:o8-anchor-cutoff}
 In this calculation $H=H_*$ is the constant in Theorem~\ref{hyp:o8-height}.
 
-The anchor gives $|n|\ge3^{2^{23}-1}$. Conditional only on the separately
-stated original height bound $\log_2H<4783227$, it follows that
+The anchor gives $|n|\ge3^{2^{23}-1}$. Theorem~\ref{hyp:o8-height}
+proves the bound $\log_2H<4783227$, so
 $|n|>(20H)^2$. Indeed $\log_2 3>3/2$ and $\log_2 20<5$, and
 \[
  3(2^{23}-1)=25165821
  >19132928=4(5+4783227).
 \]
-Thus the original $24$ squarings suffice whenever that exact height
-input is established. This calculation does not replace the required
+Thus the original $24$ squarings suffice for the height constant in
+Theorem~\ref{hyp:o8-height}. This calculation does not replace the required
 five-contact height theorem by a six-contact theorem or by a larger
 constant. No part of this proof changes the saved polynomial.
 
@@ -24830,7 +24842,7 @@ anchor value is recovered. These maps fix $X_0$. The affine anchor
 change, certified eliminations and nonzero row normalizations preserve
 the same projection. Over $\Q$, \eqref{eq:v6-final-polynomial} vanishes
 exactly when all $919$ residuals vanish. This proves the projection
-statement, and Theorem~\ref{thm:v5-source-projection} gives its conditional
+statement, and Theorem~\ref{thm:v5-source-projection} gives its
 arithmetic interpretation.
 
 Independent exact convolution gives $55409$ distinct monomials.
@@ -31246,7 +31258,7 @@ progression $P\subseteq[N]$ of modulus at most $Q$,
 for mean-zero $F_0$, in a regime
 $\delta\geq N^{-\sigma_1}$ and $Q\leq\delta^{-a}$ with fixed
 $\sigma_1>0$. Constants may depend on $H_0,W$ and the fixed linear
-combination. In particular this applies to the proposed centering
+combination. In particular this applies to the stated centering
 \[
  w_N(n)=\frac{\varphi(W)}W\Lambda'_C(Wn+b)
              -\mu_C(b)\lambda_{b,W}(n),
@@ -35486,7 +35498,7 @@ $W=\tau w_a$. Its pullbacks are
 Thus every private anchor consumer is restored with its
 literal normalization, and all nonprivate coordinates are fixed.
 
-\subsection{Contact poles and their conditional domains}\label{subsec:v14-contact}
+\subsection{Contact poles and their local domains}\label{subsec:v14-contact}
 For each scale put
 \[
  R_j=F_5(A_j\lambda),\quad E_jR_j=1,\qquad
@@ -38591,7 +38603,7 @@ $N_j>1$. Replace $F_{\mathrm{sum}}$ by
 The same conclusion holds if every $n_{ji}$ is prime to $N_j$.
 \end{theorem}
 \begin{proof}
-Restrict to a nonzero homomorphism $E\to B$ in any proposed
+Restrict to a nonzero homomorphism $E\to B$ in any putative
 positive-dimensional subgroup $B$. Some block has a
 nonconstant coordinate. Within that block a pole survives
 by Lemma~\ref{v15:aggregate:lem:sum-poles}, or by
@@ -46767,7 +46779,7 @@ pp.~206--207, with valuation $\operatorname{ord}_3(\operatorname{nrd})/2$.
 Annals of Mathematics \textbf{183} (2016), 73--93.
 \href{https://doi.org/10.4007/annals.2016.183.1.2}{doi:10.4007/annals.2016.183.1.2}.
 
-% Proposed additions only. No existing bibliography entry is replaced.
+% Additional bibliography entries; existing entries are retained.
 \bibitem{GonzalezRotger2006} J. Gonz\'alez and V. Rotger,
 \emph{Non-elliptic Shimura curves of genus one},
 Journal of the Mathematical Society of Japan \textbf{58} (2006), 927--948,

@@ -17,8 +17,8 @@
     },
     "required_tex_inputs": []
   },
-  "candidate_source_sha256": "7004f12f00643ab83d9fad24d348009e31dfe56d48c162c58d702f9171f6a2c7",
-  "candidate_pdf_sha256": "311e9fdf1fd21ca222e2024521ab09a3ebb36e4d05a4e11bcebeb3b7474cd423",
+  "candidate_source_sha256": "0cb9c70baed00d736c88636243c4da96c38ce4f96090d029d0020ce459435a29",
+  "candidate_pdf_sha256": "e6fb5b6a7c5d3340db2c3b1f14e78fbb9c357f11544584c6a96ae2abc2c0579d",
   "mathematical_body_unchanged": false,
   "changes": [
     "Complete Conant198 parent arithmetic, all 184 parent rows and 2945-monomial parent table retained",
@@ -92,5 +92,17 @@
     "scope": "Exact author change inventory; not an independent mathematical verdict.",
     "cleanup_merge": "3808e8c4bc6cbabbab43ead171377abe7f4ac48d",
     "cleanup_acceptance": "Protected App success on four owner overrides; original model decisions remain changes_requested. See reviews/pr119-decision.json."
+  },
+  "pr120_repairs": {
+    "source_change_record": {
+      "path": "research/version18/integration/PR120-REPAIR-OPERATIONS.json",
+      "sha256": "38cc3f189b097c2c72012e14a3bb72b1a1158d4d7ae63fd5cfcba826fa267169"
+    },
+    "scope": "Owner-authorized removal of conditional exposition with existing proof references; added exact214/212/204 certificate and current196/BB dependency inventory; unchanged polynomial, counts, displayed equations and AI usage.",
+    "review_status": "Fresh local review requested; protected review must disposition every prior finding.",
+    "navigation": {
+      "path": "research/version18/dependencies/CURRENT-V18-LABELS.json",
+      "sha256": "73038f618486905be9dbccd9d465c7d5de05127812236d79ef1e457f7fea35c9"
+    }
   }
 }
