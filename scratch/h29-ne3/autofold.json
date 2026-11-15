@@ -1,0 +1,68 @@
+{
+ "name": "h29-ne3",
+ "imports": [
+  "ZInQKernel.Contrib.OneProof.TYZLemma29Mod2"
+ ],
+ "discharges": [
+  {
+   "field": "h29",
+   "proof": "_root_.ZInQ.Contrib.TYZDecomp.H29Split.tyzLemma29Mod2_of_sixLeaves {n}.legendreThreeSquares {n}.jonesPallX2Y2Z16 {n}.tyzTestVectorExists {n}.tyzLemma29PrintedNe3 {n}.tyzThm21At31 {n}.tyzProp23Printed",
+   "leaves": [
+    {
+     "name": "legendreThreeSquares",
+     "type": "_root_.ZInQ.Contrib.TYZDecomp.H29Split.LegendreThreeSquares",
+     "doc": "Legendre's three-square theorem (if direction): n not of the form 4^a(8b+7) is a sum of three integer squares; Legendre, Essai sur la theorie des nombres (1798); Gauss, Disquisitiones Arithmeticae (1801) art. 291-292 (article numbers UNVERIFIED); cited by TYZ L533",
+     "kind": "published",
+     "flag": "unread",
+     "flag_class": "unread,unverified-locator",
+     "source": "Legendre, Essai sur la theorie des nombres (1798); Gauss, Disquisitiones Arithmeticae (1801) art. 291-292 (article numbers UNVERIFIED); cited by TYZ arXiv:1411.4728v1 L533; not in Mathlib 4.35"
+    },
+    {
+     "name": "jonesPallX2Y2Z16",
+     "type": "_root_.ZInQ.Contrib.TYZDecomp.H29Split.JonesPallX2Y2Z16",
+     "doc": "x^2 + y^2 + 16 z^2 represents every squarefree n = 1 mod 8; cited by TYZ (arXiv:1411.4728v1 L533) as Jones-Pall, Regular and semi-regular positive ternary quadratic forms, Acta Math. 70 (1939) 165-191, Theorem 5 (not read)",
+     "kind": "published",
+     "flag": "restricted: squarefree n = 1 mod 8 (TYZ's standing assumption L499); unread",
+     "flag_class": "restricted,unread,unverified-locator",
+     "source": "TYZ arXiv:1411.4728v1 L533, citing Jones-Pall, Regular and semi-regular positive ternary quadratic forms, Acta Math. 70 (1939) 165-191, Theorem 5 (not read, no network); checked exhaustively to 10^6 (h29-fix regular_form.py)"
+    },
+    {
+     "name": "tyzTestVectorExists",
+     "type": "_root_.ZInQ.Contrib.TYZDecomp.H29Split.TYZTestVectorExists",
+     "doc": "Tian-Yuan-Zhang, arXiv:1411.4728v1 section 2.1 (L542-550) with Theorem 2.6 at chi = 1 (L809-840): pi_Z^{U_n} is free of rank one; stated as: a generator f_n exists and is nonzero; pi^U pinned by TYZ's printed description pi^U = A_0^U (Theorem 2.4(1) L615-623, L715-727, L760; Lemma 2.5 representatives 1 + 2x, L645-661)",
+     "kind": "published",
+     "flag": "restricted: existence of a nonzero generator (the print: free of rank one, L545-547), squarefree 1 < n = 1, 3 mod 8; pi_Z (L542) with pi^U = A_0^U as printed (Theorem 2.4(1) L615-623, L715-727, L760; Lemma 2.5 L645-661, uniform measure printed L654-661, proved L694-705); unread",
+     "flag_class": "restricted,unread",
+     "source": "Tian-Yuan-Zhang, Genus periods, genus points and congruent number problem, Asian J. Math. 21 (2017), arXiv:1411.4728v1 section 2.1 (L542-550), Lemma 2.5, Theorem 2.4(1), Theorem 2.6 at chi = 1 (L809-840)"
+    },
+    {
+     "name": "tyzLemma29PrintedNe3",
+     "type": "_root_.ZInQ.Contrib.TYZDecomp.H29Split.TYZLemma29PrintedNe3",
+     "doc": "Tian-Yuan-Zhang, Genus periods, genus points and congruent number problem, Asian J. Math. 21 (2017); arXiv:1411.4728v1 Lemma 2.9 (source L1062-1066) as printed, over the genuine test vector and genus period, squarefree 1 < n = 1, 3 mod 8, n != 3",
+     "kind": "published",
+     "flag": "restricted: printed Lemma 2.9 for squarefree 1 < n = 1, 3 mod 8, n != 3 (TYZ: n = 1, 2, 3; the print is false at n = 3, Q(3) = +-3 while L(3) = +-1, h29-fix brandt.py, lcal_small.py; for n != 3, w_K = 1 and the print agrees with its proof L1068-1077); unread",
+     "flag_class": "restricted,unread",
+     "source": "Tian-Yuan-Zhang, Genus periods, genus points and congruent number problem, Asian J. Math. 21 (2017), arXiv:1411.4728v1 Lemma 2.9 (L1062-1066)"
+    },
+    {
+     "name": "tyzThm21At31",
+     "type": "_root_.ZInQ.Contrib.TYZDecomp.H29Split.TYZThm21At31",
+     "doc": "Tian-Yuan-Zhang, arXiv:1411.4728v1 Theorem 2.1 (source L554-559) at (d1, d2) = (3, 1): the sum of f_3 over Cl(Q(sqrt -3)) is +- w_K L(3) L(1), w_K = torsionOrder (QNeg 3) / 2 (2 w_K = number of roots of unity, L558); the formula only",
+     "kind": "published",
+     "flag": "restricted: one instance of Theorem 2.1, (d1, d2) = (3, 1), chi_{3,1} = 1 (L510), k = a = 1; the displayed formula only, not the vanishing clause; w_K = torsionOrder (QNeg 3) / 2 (L558); unread",
+     "flag_class": "restricted,unread",
+     "source": "Tian-Yuan-Zhang, Genus periods, genus points and congruent number problem, Asian J. Math. 21 (2017), arXiv:1411.4728v1 Theorem 2.1 (L554-559)"
+    },
+    {
+     "name": "tyzProp23Printed",
+     "type": "_root_.ZInQ.Contrib.TYZDecomp.H29Split.TYZProp23Printed",
+     "doc": "Tian-Yuan-Zhang, arXiv:1411.4728v1 Proposition 2.3 (source L580-586), first assertion f_n((B^x)^2) in 1 + 2Z, printed form, squarefree 1 < n = 1, 3 mod 8",
+     "kind": "published",
+     "flag": "restricted: odd classes n = 1, 3 mod 8, n > 1 (TYZ: n = 1, 2, 3); not vacuous (tyzTestVectorExists gives a nonzero f_n); unread",
+     "flag_class": "restricted,unread",
+     "source": "Tian-Yuan-Zhang, Genus periods, genus points and congruent number problem, Asian J. Math. 21 (2017), arXiv:1411.4728v1 Proposition 2.3 (L580-586)"
+    }
+   ]
+  }
+ ]
+}

@@ -1,0 +1,46 @@
+'ZInQ.Contrib.TYZDecomp.H29Split.tyzLemma29Mod2_of_sixLeaves' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.TYZDecomp.H29Split.tyzLemma29Printed_of_ne3_thm21' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Contrib.TYZDecomp.H29Split.lemma29At_three' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.TYZDecomp.H29Split.torsionOrder_qNeg_three' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.TYZDecomp.H29Split.sqClasses_three' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.TYZDecomp.H29Split.pairIdx_three_eq' depends on axioms: [propext, Classical.choice, Quot.sound]
+'h29ne3_frozenTarget' depends on axioms: [propext, Classical.choice, Quot.sound]
+DISCHARGES [OpenResearchLeaves19.gonzalezRotgerProp56X6] by GRCountX6.prop56X6_of_r5fpCount
+  still assumes: [LeafQM.AV.R5fpCount]
+  axioms: [propext, Classical.choice, Quot.sound]
+DISCHARGES [OpenResearchLeaves19.neronBaseChangeStrictHenselization] by GapSHPair.neronBaseChangeStrictHenselization_of_unramified
+  still assumes: [ReductGlue.NeronBaseChangeUnramifiedDVR]
+  axioms: [propext, Classical.choice, Quot.sound]
+DISCHARGES [OpenResearchLeaves19.elkiesX6StarPrinted] by HDec.QMSplit.Moduli.ElkiesX6Star.elkiesX6StarPrinted_of_ab
+  still assumes: [HDec.QMSplit.Moduli.ElkiesEquationsX6Ab]
+  axioms: [propext, Classical.choice, Quot.sound]
+DISCHARGES [h29] by ZInQ.Contrib.TYZDecomp.H29Split.tyzLemma29Mod2_of_printedLeaves
+  still assumes: [ZInQ.Contrib.TYZDecomp.H29Split.TYZTauExists,
+ ZInQ.Contrib.TYZDecomp.H29Split.TYZTestVectorExists,
+ ZInQ.Contrib.TYZDecomp.H29Split.TYZLemma29Printed,
+ ZInQ.Contrib.TYZDecomp.H29Split.TYZProp23Printed]
+  axioms: [propext, Classical.choice, Quot.sound]
+DISCHARGES [h29] by ZInQ.Contrib.TYZDecomp.H29Split.tyzLemma29Mod2_of_printedLeaves_legendre
+  still assumes: [ZInQ.Contrib.TYZDecomp.H29Split.LegendreThreeSquares,
+ ZInQ.Contrib.TYZDecomp.H29Split.JonesPallX2Y2Z16,
+ ZInQ.Contrib.TYZDecomp.H29Split.TYZTestVectorExists,
+ ZInQ.Contrib.TYZDecomp.H29Split.TYZLemma29Printed,
+ ZInQ.Contrib.TYZDecomp.H29Split.TYZProp23Printed]
+  axioms: [propext, Classical.choice, Quot.sound]
+DISCHARGES [h29] by ZInQ.Contrib.TYZDecomp.H29Split.tyzLemma29Mod2_of_printedLeaves_threeSquares
+  still assumes: [ZInQ.Contrib.TYZDecomp.H29Split.LegendreJonesPall,
+ ZInQ.Contrib.TYZDecomp.H29Split.TYZTestVectorExists,
+ ZInQ.Contrib.TYZDecomp.H29Split.TYZLemma29Printed,
+ ZInQ.Contrib.TYZDecomp.H29Split.TYZProp23Printed]
+  axioms: [propext, Classical.choice, Quot.sound]
+DISCHARGES [h29] by ZInQ.Contrib.TYZDecomp.H29Split.tyzLemma29Mod2_of_sixLeaves
+  still assumes: [ZInQ.Contrib.TYZDecomp.H29Split.LegendreThreeSquares,
+ ZInQ.Contrib.TYZDecomp.H29Split.JonesPallX2Y2Z16,
+ ZInQ.Contrib.TYZDecomp.H29Split.TYZTestVectorExists,
+ ZInQ.Contrib.TYZDecomp.H29Split.TYZLemma29PrintedNe3,
+ ZInQ.Contrib.TYZDecomp.H29Split.TYZThm21At31,
+ ZInQ.Contrib.TYZDecomp.H29Split.TYZProp23Printed]
+  axioms: [propext, Classical.choice, Quot.sound]
+#discharges: 66 open hypotheses, 1307 theorems checked, 7 discharge one
