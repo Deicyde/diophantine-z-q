@@ -11,6 +11,7 @@ The action of `G` on `Γ(X, q⁻¹ V)`, the algebra structures over `Γ(S, U)`, 
 noncomputable section
 
 open CategoryTheory Limits AlgebraicGeometry
+open scoped TensorProduct
 
 namespace HDec.MCRGlue.TameQuotScheme
 
@@ -118,6 +119,73 @@ theorem invariant_setup (hq : IsGQuotient G q) (U : S.Opens) (V : Z.Opens) (hV :
       exact h2
     obtain ⟨a, ha⟩ := hmem
     exact ⟨a, ha⟩
+
+include hw hGX in
+/-- **Smoothness on an affine chart** (the algebra `smooth_of_invariants` at `V ⊆ Z` over `U ⊆ S`). -/
+theorem smooth_appLE (hRS : RegularSmoothPerfect) (hq : IsGQuotient G q) [Fintype G]
+    (U : S.Opens) (hU : IsAffineOpen U) (V : Z.Opens) (hV : IsAffineOpen V) (e : V ≤ fZ ⁻¹ᵁ U)
+    (hcard : IsUnit ((Fintype.card G : ℕ) : Γ(S, U))) [IsNoetherianRing Γ(S, U)]
+    (hperf : ∀ (I : Ideal Γ(S, U)) [I.IsPrime], PerfectField I.ResidueField)
+    [SmoothOfRelativeDimension 1 fX] [LocallyOfFiniteType fZ] :
+    (fZ.appLE U V e).hom.Smooth := by
+  letI : Algebra Γ(S, U) Γ(Z, V) := (fZ.appLE U V e).hom.toAlgebra
+  letI : Algebra Γ(S, U) Γ(X, q ⁻¹ᵁ V) :=
+    (fX.appLE U (q ⁻¹ᵁ V) (preimage_le q fX fZ hw U V e)).hom.toAlgebra
+  refine invariant_setup q fX fZ hw G hGX hq U V hV e _ ?_
+  intro ι _ _ hι hfix hinv
+  have : IsAffineHom q := hq.2.1
+  have hW : IsAffineOpen (q ⁻¹ᵁ V) := hV.preimage q
+  have hsm : (fX.appLE U (q ⁻¹ᵁ V) (preimage_le q fX fZ hw U V e)).hom.Smooth :=
+    HasRingHomProperty.appLE (P := @Smooth) fX (SmoothOfRelativeDimension.smooth 1 fX) ⟨U, hU⟩
+      ⟨q ⁻¹ᵁ V, hW⟩ _
+  have hft : (fZ.appLE U V e).hom.FiniteType :=
+    HasRingHomProperty.appLE (P := @LocallyOfFiniteType) fZ inferInstance ⟨U, hU⟩ ⟨V, hV⟩ e
+  have hsrd : SmoothOfRelativeDimension 1
+      (Spec.map (fX.appLE U (q ⁻¹ᵁ V) (preimage_le q fX fZ hw U V e))) :=
+    (HasRingHomProperty.Spec_iff (P := @SmoothOfRelativeDimension 1)).mpr
+      (HasRingHomProperty.appLE (P := @SmoothOfRelativeDimension 1) fX inferInstance ⟨U, hU⟩
+        ⟨q ⁻¹ᵁ V, hW⟩ _)
+  have : Algebra.Smooth Γ(S, U) Γ(X, q ⁻¹ᵁ V) := hsm
+  have : Algebra.FiniteType Γ(S, U) Γ(Z, V) := hft
+  exact smooth_of_invariants Γ(S, U) Γ(Z, V) Γ(X, q ⁻¹ᵁ V) ι hι G hfix hinv hcard hRS hperf
+    (fun I _ => ringKrullDim_tensor_le_one Γ(S, U) Γ(X, q ⁻¹ᵁ V) I.ResidueField)
+
+include hw hGX in
+/-- **The relative dimension of a standard smooth chart of `Z` is `1`.** -/
+theorem relDim_eq_one (hq : IsGQuotient G q) [Fintype G]
+    (U : S.Opens) (hU : IsAffineOpen U) (V : Z.Opens) (hV : IsAffineOpen V) (e : V ≤ fZ ⁻¹ᵁ U)
+    (hcard : IsUnit ((Fintype.card G : ℕ) : Γ(S, U))) [SmoothOfRelativeDimension 1 fX]
+    (z : Z) (hz : z ∈ V) (n : ℕ) (hn : (fZ.appLE U V e).hom.IsStandardSmoothOfRelativeDimension n) :
+    n = 1 := by
+  letI : Algebra Γ(S, U) Γ(Z, V) := (fZ.appLE U V e).hom.toAlgebra
+  letI : Algebra Γ(S, U) Γ(X, q ⁻¹ᵁ V) :=
+    (fX.appLE U (q ⁻¹ᵁ V) (preimage_le q fX fZ hw U V e)).hom.toAlgebra
+  refine invariant_setup q fX fZ hw G hGX hq U V hV e _ ?_
+  intro ι _ _ hι hfix hinv
+  have : IsAffineHom q := hq.2.1
+  have hW : IsAffineOpen (q ⁻¹ᵁ V) := hV.preimage q
+  have hsrd : SmoothOfRelativeDimension 1
+      (Spec.map (fX.appLE U (q ⁻¹ᵁ V) (preimage_le q fX fZ hw U V e))) :=
+    (HasRingHomProperty.Spec_iff (P := @SmoothOfRelativeDimension 1)).mpr
+      (HasRingHomProperty.appLE (P := @SmoothOfRelativeDimension 1) fX inferInstance ⟨U, hU⟩
+        ⟨q ⁻¹ᵁ V, hW⟩ _)
+  have hn' : Algebra.IsStandardSmoothOfRelativeDimension n Γ(S, U) Γ(Z, V) := hn
+  -- the prime of `z` and the fibre through it
+  let 𝔮 : PrimeSpectrum Γ(Z, V) := hV.primeIdealOf ⟨z, hz⟩
+  let 𝔭 : PrimeSpectrum Γ(S, U) := PrimeSpectrum.comap (algebraMap Γ(S, U) Γ(Z, V)) 𝔮
+  let k := 𝔭.asIdeal.ResidueField
+  have hne : Nonempty (PrimeSpectrum (𝔭.asIdeal.Fiber Γ(Z, V))) :=
+    ⟨PrimeSpectrum.preimageEquivFiber Γ(S, U) Γ(Z, V) 𝔭 ⟨𝔮, rfl⟩⟩
+  have : Nontrivial (k ⊗[Γ(S, U)] Γ(Z, V)) := PrimeSpectrum.nonempty_iff_nontrivial.mp hne
+  obtain ⟨hφinj, -, -⟩ := fibre_invariants Γ(S, U) Γ(Z, V) Γ(X, q ⁻¹ᵁ V) ι hι G hfix hinv hcard k
+  have : Nontrivial (k ⊗[Γ(S, U)] Γ(X, q ⁻¹ᵁ V)) := by
+    refine ⟨⟨0, 1, fun h => zero_ne_one (α := k ⊗[Γ(S, U)] Γ(Z, V)) (hφinj ?_)⟩⟩
+    rw [map_zero, map_one, h]
+  have h1 := ringKrullDim_of_isStandardSmoothOfRelativeDimension n k (k ⊗[Γ(S, U)] Γ(Z, V))
+  have h2 := ringKrullDim_fibre_eq Γ(S, U) Γ(Z, V) Γ(X, q ⁻¹ᵁ V) ι hι G hfix hinv hcard k
+  have h3 := ringKrullDim_tensor_eq_one Γ(S, U) Γ(X, q ⁻¹ᵁ V) k
+  rw [h2, h3] at h1
+  exact_mod_cast h1.symm
 
 end Setup
 
