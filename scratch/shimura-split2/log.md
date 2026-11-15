@@ -32,3 +32,9 @@ Task: split `RayClassCFT.ShimuraMainThmIDeligneY3AbU` (gt-rayclass composite) fa
   GAGAMorphism → MumfordTorsionAlgClosed → RayClassCMAb`; `shimuraFamilyAb_of_printed : ShimuraHolFamilyAb →
   ShimuraFamilyAb`. `#print axioms` (in-file run): [propext, Classical.choice, Quot.sound] for both and for the glue
   proofs and `tab_spec`. VERIFIED (compiled, `lake env lean`, 12 s).
+* 04:56 `lake build +ZInQKernel.OneProof.Main +ZInQKernel.OneProof.Discharges +ZInQKernel.Contrib.OneProof.ShimuraSplit2`:
+  `Build completed successfully (12981 jobs)`, 18 s (`build.txt`). VERIFIED.
+* 04:57 `#discharges` (`Discharges.lean`, output `discharges_output.txt`): `rayClassCMAb` by
+  `ShimuraSplit2.rayClassCMAb_of_printed`, still assumes [ShimuraHolFamilyAb, QMReciprocityL3, UniformizationLeafAll,
+  GAGAMorphism, MumfordTorsionAlgClosed]; `shimuraFamilyAb` by `shimuraFamilyAb_of_printed`, still assumes
+  [ShimuraHolFamilyAb]; axioms standard. `65 open hypotheses, 1558 theorems checked, 11 discharge one`. VERIFIED.
