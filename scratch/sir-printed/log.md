@@ -18,3 +18,13 @@
   the vendored Jacobian-Challenge Picard presheaf `AlgebraicGeometry.picardFunctorNormalized` (rigidified
   relative Pic, any base) and t09-pic's field-level `T09Pic` defs (Pic representability, Pic⁰, φ_L, ē_n over a
   field). No polarization, dual abelian scheme or Weil pairing over a base. VERIFIED (grep).
+
+## Lean step 1 (compiled)
+- `ZInQKernel/Contrib/OneProof/ShimuraIntegralModelUsed.lean` (namespace `SIRPrinted`): new leaf
+  `ShimuraIntegralModelUsed` (`ShimuraIntegralModelUsedAt p`: proper smooth `𝒴/ℤ_(p)`, `𝒜 : QMAbScheme 𝒴`,
+  ∃! classifying point over `Spec ℚ̄` for every `QMAbScheme (Spec ℚ̄)`, and `𝒴 ≅ 𝒴` pulling `𝒜` back to
+  `twistAb 𝒜 α` / `rightMulAb 𝒜 u`).
+- `shimuraIntegralModelUsed_of_rep : ShimuraIntegralModelRep → ShimuraIntegralModelUsed` COMPILED.
+- `shimuraGoodReductionNoGuard_of_used : ShimuraIntegralModelUsed → ShimuraGoodReductionNoGuard` COMPILED.
+- `lake build ZInQKernel.Contrib.OneProof.ShimuraIntegralModelUsed` 88 s; axioms of both: propext,
+  Classical.choice, Quot.sound (scratch/sir-printed/Check.lean). VERIFIED.
