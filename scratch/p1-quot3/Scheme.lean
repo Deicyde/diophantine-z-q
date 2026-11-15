@@ -15,7 +15,7 @@ open scoped TensorProduct
 
 namespace HDec.MCRGlue.TameQuotScheme
 
-open QuotientP1Proof.TameQuot
+open QuotientP1Proof.TameQuot VertWitness
 
 theorem appLE_comp_eq {X Y Z : Scheme.{0}} (f : X ⟶ Y) (g : Y ⟶ Z) (h : X ⟶ Z) (hfg : f ≫ g = h)
     (U V W e₁ e₂ e₃) : g.appLE U V e₁ ≫ f.appLE V W e₂ = h.appLE U W e₃ := by
@@ -188,5 +188,59 @@ theorem relDim_eq_one (hq : IsGQuotient G q) [Fintype G]
   exact_mod_cast h1.symm
 
 end Setup
+
+/-! ## The main theorem -/
+
+theorem isUnit_card_Zloc (p : ℕ) [Fact p.Prime] (n : ℕ) (hn : ¬ p ∣ n) : IsUnit ((n : ℕ) : Zloc p) := by
+  have hmem : (n : ℤ) ∈ (pIdeal p).primeCompl := by
+    intro h
+    apply hn
+    have := Ideal.mem_span_singleton.mp h
+    exact_mod_cast this
+  have := IsLocalization.map_units (Zloc p) (⟨(n : ℤ), hmem⟩ : (pIdeal p).primeCompl)
+  simpa using this
+
+/-- **`TameQuotientSmoothRelDim` from the chain's field `RegularSmoothPerfect`** (Stacks 00TV; no new leaf). -/
+theorem tameQuotientSmoothRelDim_of_regularSmoothPerfect (hRS : RegularSmoothPerfect) :
+    TameQuotientSmoothRelDim := by
+  intro p _ 𝒴 𝒵 q hP hS G hGf hpG hover hq hqf
+  haveI := hqf; haveI := hP; haveI := hS
+  letI : Fintype G := Fintype.ofFinite G
+  have hw : q.left ≫ 𝒵.hom = 𝒴.hom := Over.w q
+  haveI : IsNoetherianRing (Zloc p) :=
+    IsLocalization.isNoetherianRing (pIdeal p).primeCompl (Zloc p) inferInstance
+  have : IsAffineHom q.left := hq.2.1
+  haveI : LocallyOfFiniteType 𝒵.hom :=
+    QuotProper.locallyOfFiniteType_of_isGQuotient G q.left 𝒴.hom 𝒵.hom hw hq
+  have hunit : ∀ U : (Spec (CommRingCat.of (Zloc p))).Opens, IsUnit ((Fintype.card G : ℕ) : Γ(Spec (CommRingCat.of (Zloc p)), U)) := by
+    intro U
+    have h0 : IsUnit ((Fintype.card G : ℕ) : Zloc p) := by
+      apply isUnit_card_Zloc p
+      rwa [← Nat.card_eq_fintype_card]
+    have := h0.map ((Scheme.ΓSpecIso (CommRingCat.of (Zloc p))).inv ≫
+      (Spec (CommRingCat.of (Zloc p))).presheaf.map (homOfLE (le_top : U ≤ ⊤)).op).hom
+    rwa [map_natCast] at this
+  -- smoothness, on the affine opens of `𝒵` over `⊤`
+  have hsm : Smooth 𝒵.hom := by
+    have hU : IsAffineOpen (⊤ : (Spec (CommRingCat.of (Zloc p))).Opens) := isAffineOpen_top _
+    have : IsNoetherianRing Γ(Spec (CommRingCat.of (Zloc p)), ⊤) := IsLocallyNoetherian.component_noetherian ⟨⊤, hU⟩
+    have hperf : ∀ (I : Ideal Γ(Spec (CommRingCat.of (Zloc p)), ⊤)) [I.IsPrime], PerfectField I.ResidueField := fun I _ =>
+      perfectField_residueField (M := (pIdeal p).primeCompl) (R₀ := Zloc p)
+        (Scheme.ΓSpecIso (CommRingCat.of (Zloc p))).inv.hom
+        (Scheme.ΓSpecIso (CommRingCat.of (Zloc p))).commRingCatIsoToRingEquiv.symm.surjective I
+    refine HasRingHomProperty.of_iSup_eq_top (P := @Smooth) (fun V : 𝒵.left.affineOpens => V)
+      (iSup_affineOpens_eq_top 𝒵.left) (fun V => ?_)
+    exact smooth_appLE q.left 𝒴.hom 𝒵.hom hw G hover hRS hq ⊤ hU V.1 V.2 le_top (hunit ⊤) hperf
+  -- relative dimension `1`, on standard smooth charts
+  constructor
+  intro z
+  obtain ⟨U, hU, V, hV, hzV, e, hst⟩ := Smooth.exists_isStandardSmooth 𝒵.hom z
+  letI := (𝒵.hom.appLE U V e).hom.toAlgebra
+  have h' : Algebra.IsStandardSmooth Γ(Spec (CommRingCat.of (Zloc p)), U) Γ(𝒵.left, V) := hst
+  obtain ⟨ι, σ, _, _, ⟨P⟩⟩ := h'.out
+  have hP := P.isStandardSmoothOfRelativeDimension rfl
+  have hn : P.dimension = 1 :=
+    relDim_eq_one q.left 𝒴.hom 𝒵.hom hw G hover hq U hU V hV e (hunit U) z hzV P.dimension hP
+  exact ⟨U, hU, V, hV, hzV, e, hn ▸ hP⟩
 
 end HDec.MCRGlue.TameQuotScheme

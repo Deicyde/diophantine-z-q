@@ -24,3 +24,12 @@ Build tree: copy of ~/dzq-wt/p1-quot2/.lake/build and lean/.lake/build (19793c5d
   B smooth over R with fibres of dim <= 1, |G| invertible in R, A = B^G of finite type => A smooth over R; flat as a
   retract of B, fibres by base change of invariants via the Reynolds operator, Mathlib
   `Algebra.Smooth.of_formallySmooth_fiber`): compiles, 0 errors (VERIFIED).
+- Helper module ZInQKernel/Contrib/OneProof/QuotientP1/TameInvariants.lean generated from Invariants.lean (namespace
+  QuotientP1Proof.TameQuot): `lake build` OK (VERIFIED). Added `perfectField_residueField`, the dimension lemmas
+  `ringKrullDim_of_isStandardSmoothOfRelativeDimension`, `ringKrullDim_tensor_eq_one/le_one` (pullbackSpecIso and
+  Contrib/Dim), `fibre_invariants`, `ringKrullDim_fibre_eq`.
+- scratch/p1-quot3/Scheme.lean (imports TameInvariants and QuotProper): action of G on Γ(X, q⁻¹V) (`sect`, `action`),
+  `invariant_setup`, `smooth_appLE`, `relDim_eq_one`, and
+  `HDec.MCRGlue.TameQuotScheme.tameQuotientSmoothRelDim_of_regularSmoothPerfect : RegularSmoothPerfect →
+  TameQuotientSmoothRelDim`: 0 errors; axioms [propext, Classical.choice, Quot.sound] (VERIFIED).
+  => Task part (1) done: TameQuotientSmoothRelDim proved from the chain's textbook field regularSmoothPerfect, no new leaf.
