@@ -11,14 +11,17 @@ reference. **UNVERIFIED** marks a locator recalled from memory; there is no netw
 
 ## 1. Main result
 
-**Two of p1-quot's four strict GLUE inputs are gone.**
+**Two of p1-quot's four strict GLUE inputs are gone, and half of a third.**
 
 - mcr-glue's composite leaf L1 `ProperCurveAF` is replaced by one printed leaf, Lichtenbaum's projectivity theorem
   (`QuotientP1Proof.LichtenbaumProjective`). Every step from that print to what the proof uses is compiled.
 - The QM glue `CMStabObjWeak` is proved from cm-stab's `GapGlue.cmStabObj_of`, whose inputs are three textbook
   fields the chain already has.
-- What remains: mcr-glue's L3 `TameQuotientSmooth` (a composite) and L4 `SmoothModelOfP1` (a consequence). Neither
-  has a printed form I could find (§4).
+- mcr-glue's composite L3 `TameQuotientSmooth` is reduced to its smoothness half
+  `HDec.MCRGlue.TameQuotientSmoothRelDim`. The properness of an SGA 1 quotient with `q` finite is proved in Lean
+  (§3.3).
+- What remains: that smoothness half (a composite) and L4 `SmoothModelOfP1` (a consequence). Neither has a printed
+  form I could find (§4).
 
 Strict count of the fold:
 
@@ -31,10 +34,10 @@ The fold still does not pay: autofold refuses it without `--allow-rise`.
 
 ```lean
 -- ZInQKernel/Contrib/OneProof/QuotientP1Printed.lean
-theorem HDec.MCRQuot.quotientP1Coordinate_of_fields2
+theorem HDec.MCRQuot.quotientP1Coordinate_of_fields3
     (hL : QuotientP1Proof.LichtenbaumProjective)    -- NEW printed leaf (Lichtenbaum 1968 Thm 2.8; Liu Thm 8.3.16)
     (hQE : FiniteQuotientExists)                    -- mcr-glue L2 (published, special case)
-    (hTS : TameQuotientSmooth)                      -- mcr-glue L3 (composite)
+    (hTS : TameQuotientSmoothRelDim)                -- smoothness half of mcr-glue L3 (composite)
     (hP1 : SmoothModelOfP1)                         -- mcr-glue L4 (consequence)
     (hE : EdixhovenFixedSmooth2)                    -- p1-quot's printed leaf (Edixhoven 1992 Prop. 3.4)
     (hMT : AvSplit.MumfordTorsionAlgClosed)         -- textbook field
@@ -51,11 +54,11 @@ VERIFIED (compiled; outputs in `scratch/p1-quot2/`):
   `QuotientP1/Lichtenbaum.lean`, p1-quot's modules rebuilt against leaf-fold22, and cm-stab's `CMStab.lean`. There
   is no `sorry` and no `axiom`.
 - `#discharges` (`Discharges.lean`, output `discharges_out.txt`) prints
-  `DISCHARGES [OpenGlue7.quotientP1Coordinate] by HDec.MCRQuot.quotientP1Coordinate_of_fields2`. It still assumes
-  exactly the ten inputs above, with axioms `[propext, Classical.choice, Quot.sound]` (63 open hypotheses, 2141
-  theorems checked).
-- `topologicalKrullDim_eq_two`, `exists_affine_of_lichtenbaum` and `exists_isAffineOpen_superset_of_isClosedImmersion_spec`
-  depend on the standard axioms only (`l1_out.txt`).
+  `DISCHARGES [OpenGlue7.quotientP1Coordinate] by HDec.MCRQuot.quotientP1Coordinate_of_fields3`. It still assumes
+  exactly the ten inputs above, with axioms `[propext, Classical.choice, Quot.sound]` (63 open hypotheses, 2148
+  theorems checked). `quotientP1Coordinate_of_fields2` (with the whole L3) and `_printed2` are discharged too.
+- `topologicalKrullDim_eq_two`, `exists_affine_of_lichtenbaum`, `exists_isAffineOpen_superset_of_isClosedImmersion_spec`
+  (`l1_out.txt`) and `tameQuotientSmooth_of_relDim` (`Proper.lean`) depend on the standard axioms only.
 - The autofold spec `scratch/p1-quot2/autofold.json` was checked with `--dry-run --allow-rise`. With line 1
   stripped, the generated module (`FoldDry.lean`: `OpenGlue8`, `openGlue7_of_OpenGlue8`, `sixContactMin_of_open29`)
   compiles against TailZ34, and `sixContactMin_of_open29` has standard axioms.
@@ -134,6 +137,35 @@ In the composite (`quotientP1Coordinate_of_printed2`), the model `𝒴` is integ
 mcr-glue's L1 is stated for all proper smooth relative curves, not only integral ones. Only the integral case is
 used, so L1 itself is not proved and not needed.
 
+### 3.3 Step 3: the properness half of L3 (count unchanged)
+
+Helper `QuotientP1/QuotProper.lean` (namespace `HDec.MCRGlue.QuotProper`), generated from
+`scratch/p1-quot2/Proper.lean`. Everything in it is compiled with standard axioms. For `q : X → Z` with
+`IsGQuotient G q` (mcr-glue's SGA 1 quotient: affine, injective on sections over affines, image the invariants)
+and `q` finite:
+
+| Lean | statement | how |
+|---|---|---|
+| `surjective_of_isGQuotient` | `q` is surjective | on an affine `W ∋ z`, `Γ(W) → Γ(q⁻¹W)` is injective and integral. Lying over (`Ideal.exists_ideal_over_prime_of_isIntegral`), then `IsAffineOpen.SpecMap_appLE_fromSpec` |
+| `locallyOfFiniteType_of_isGQuotient` | `Z → S` is locally of finite type (`S` locally noetherian) | Artin–Tate (Mathlib `fg_of_fg_of_fg`) for `Γ(S,U) → Γ(Z,V) → Γ(X,q⁻¹V)` with the composite of finite type and the second map finite and injective (`finiteType_of_comp`) |
+| `isSeparated_of_isGQuotient` | `Z → S` is separated if `X → S` is | `range Δ_Z = m '' range Δ_X` with `m = q ×_S q`, which is universally closed (`MorphismProperty.pullbackMap`); then `IsClosedImmersion.of_isPreimmersion` |
+| `isProper_of_isGQuotient` | `Z → S` is proper if `X → S` is | the above plus `UniversallyClosed.of_comp_surjective` |
+| `tameQuotientSmooth_of_relDim` | `TameQuotientSmoothRelDim → TameQuotientSmooth` | properness from `isProper_of_isGQuotient` |
+
+The new residual, with the same binders as L3:
+
+```lean
+def HDec.MCRGlue.TameQuotientSmoothRelDim : Prop :=
+  ∀ (p : ℕ) [Fact p.Prime] (𝒴 𝒵 : Over (Spec (CommRingCat.of (Zloc p)))) (q : 𝒴 ⟶ 𝒵),
+    IsProper 𝒴.hom → SmoothOfRelativeDimension 1 𝒴.hom →
+    ∀ G : Subgroup (Aut 𝒴.left), Finite G → ¬ p ∣ Nat.card G →
+    (∀ g ∈ G, g.asIso.hom ≫ 𝒴.hom = 𝒴.hom) → IsGQuotient G q.left → IsFinite q.left →
+    SmoothOfRelativeDimension 1 𝒵.hom
+```
+
+It is a composite (rating unchanged from L3): tame base change, normal curves over perfect fields are smooth, and
+EGA IV 17.5.1. So the count is unchanged, but the residual is strictly smaller.
+
 ## 4. What remains: L3 and L4, with ratings
 
 | input | kind | printed form? | reason |
@@ -141,17 +173,14 @@ used, so L1 itself is not proved and not needed.
 | `LichtenbaumProjective` (new) | published | yes, special case | §3.1; flag **unread** |
 | L2 `FiniteQuotientExists` | published | yes, special case | SGA 1 Exp. V Prop. 1.8 with 1.1 (UNVERIFIED); mcr-glue's rating, unchanged |
 | `EdixhovenFixedSmooth2` | published | yes, special case | p1-quot's rating (Edixhoven 1992 Prop. 3.4, UNVERIFIED); flag **unread** |
-| L3 `TameQuotientSmooth` | composite | no | see below |
+| `TameQuotientSmoothRelDim` (smoothness half of L3) | composite | no | see below; the properness half is proved (§3.3) |
 | L4 `SmoothModelOfP1` | consequence | no | see below |
 | T5, `HeckeIrreducible`, `CMStabObjWeak` | supplied by the chain's fields | — | §2; p1-quot `FromFields.lean` |
 
 **L3** (`𝒴/G` is proper and smooth of relative dimension 1 for `p ∤ |G|`). Its parts and how far each can go
 (SPECULATIVE plan, not compiled):
 
-- **Universally closed.** `q` is surjective (integral and injective on sections, so lying over holds), then Mathlib
-  `UniversallyClosed.of_comp_surjective`. Lean-provable.
-- **Locally of finite type.** On an affine `W`, `Γ(W) ⊆ Γ(q⁻¹W)` is finite (`q` finite), and the larger ring is of
-  finite type over `ℤ_(p)`. Artin–Tate is Mathlib `Algebra.fg_of_fg_of_fg`. Lean-provable.
+- **Universally closed, locally of finite type, separated: proved** (§3.3).
 - **Flat.** A subring of a torsion-free `ℤ_(p)`-module is torsion-free, hence flat over the DVR. Lean-provable.
 - **Smooth fibres.**
   - Generic fibre: invariants of a normal ring are normal; a normal Noetherian local ring of dimension `≤ 1` is
@@ -161,12 +190,13 @@ used, so L1 itself is not proved and not needed.
     regularity steps, and `regularSmoothPerfect` over `𝔽_p`, the fibre is smooth.
   - Then Mathlib's EGA IV 17.5.1 (`Smooth.of_smooth_fiberToSpecResidueField`) gives `Smooth`.
   - The relative dimension 1 needs the rank of `Ω` along the fibres.
-- **Separated.** The standard argument: `𝒴 ×_S 𝒴 → 𝒵 ×_S 𝒵` is integral and surjective, and the preimage of the
-  diagonal is the union of the graphs. Lean-provable in principle, but long.
 
 So L3 needs no new printed leaf beyond `regularSmoothPerfect`, which the chain already has. But it is a long Lean
 project: by my estimate 1.5–2.5k lines of scheme plumbing (fibres of the quotient, invariant rings of non-domains,
-the rank of `Ω`). It was not attempted beyond this plan.
+the rank of `Ω`), beyond what was done in §3.3.
+
+If it were done, the fold would no longer raise the strict GLUE count (net 0, with L4 the only GLUE left), and
+autofold would accept it.
 
 I found no single printed statement "a tame quotient of a smooth proper relative curve over a DVR is smooth" that I
 can name with confidence. Candidates that are not checked: Katz–Mazur, *Arithmetic moduli of elliptic curves*,
@@ -201,13 +231,14 @@ reduction" and of the genus of `Y`, neither of which the chain has.
 ## 5. Deliverables and reproduction
 
 - `ZInQKernel/Contrib/OneProof/QuotientP1Printed.lean`: `cMStabObjWeak_of_fields`, `quotientP1Coordinate_of_printed2`,
-  `quotientP1Coordinate_of_fields2`. It imports p1-quot's `QuotientP1/FromFields` (which imports
+  `quotientP1Coordinate_of_fields2` and the final `quotientP1Coordinate_of_fields3`.
+- `ZInQKernel/Contrib/OneProof/QuotientP1/QuotProper.lean`: properness of quotients; `TameQuotientSmoothRelDim`. It imports p1-quot's `QuotientP1/FromFields` (which imports
   `QuotientP1Coordinate` and TailZ17), the new helper and cm-stab's `CMStab`. It never imports `Main`.
 - `ZInQKernel/Contrib/OneProof/QuotientP1/Lichtenbaum.lean`: the helper, generated from `scratch/p1-quot2/L1.lean`
   by `scratch/p1-quot2/gen_helper.py`. Namespace `QuotientP1Proof`. It imports Mathlib, CloudW07, Contrib/Dim and
   CloudW03 only.
 - `scratch/p1-quot2/autofold.json`: discharges `quotientP1Coordinate` with leaves `lichtenbaumProjective`
-  (published), `finiteQuotientExists` (published), `tameQuotientSmooth` (composite), `smoothModelOfP1`
+  (published), `finiteQuotientExists` (published), `tameQuotientSmoothRelDim` (composite), `smoothModelOfP1`
   (consequence) and `edixhovenFixedSmooth2` (published). Flags are left empty, so autofold marks the published ones
   "unread". It uses `{t}`, `{r}` and `{l}` for the five existing fields, so no hand edit is needed: p1-quot's
   fold-note problem is solved.
@@ -217,6 +248,7 @@ reduction" and of the genus of `Y`, neither of which the chain has.
 ```
 lake build +ZInQKernel.Contrib.OneProof.QuotientP1Printed
 lake env lean scratch/p1-quot2/L1.lean            # scratch copy of the helper with #print axioms (~45 s)
+lake env lean scratch/p1-quot2/Proper.lean        # scratch copy of QuotProper with #print axioms
 lake build +ZInQKernel.OneProof.Main +ZInQKernel.OneProof.Discharges
 lake env lean scratch/p1-quot2/Discharges.lean    # #discharges
 python3 scripts/one_proof/autofold.py scratch/p1-quot2/autofold.json --dry-run --allow-rise
