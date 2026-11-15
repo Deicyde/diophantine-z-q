@@ -52,7 +52,7 @@ in test mode. A green Actions job alone is not App acceptance.
 The job runs trusted default-branch code and instructions. It never checks out
 or executes the candidate PR. Both approved models receive pinned source reads
 and web tools. Reports record actual returned model IDs, source reads and usage.
-There is no fallback model. Unavailable sources, unfinished reviews and changed
+There is no fallback model. Unfinished reviews and changed
 heads do not pass.
 
 Automatic reviews run only for PR authors whose current GitHub permission is
@@ -425,3 +425,50 @@ review or find a lawful public primary-source copy. If the changed application
 still cannot be checked, identify the exact passage for a collaborator. Do not
 buy access or transmit restricted copies automatically; obtain any needed
 authorization separately. That application remains unchecked until addressed.
+
+
+## Review continuity and source-access limitations
+
+Elliot authorized these rules on November 14, 2026. This change does not alter
+the designated App, keys, ruleset, approved models, merge permissions or override
+permissions.
+
+An acceptance is retained for the exact head even if the other reviewer needs
+another round. The accepting model is not called again. The evidence must be a
+completed review by the exact approved model in the designated App's own check,
+bound to this PR. Bot comments only locate those checks. A later transport failure
+does not erase an earlier acceptance. Existing exact-head acceptances remain
+eligible across this policy update; there is no author-maintained compatibility
+file. Previously undispositioned findings still block.
+
+New reports also store a rebase binding: the complete diff, whole-file identities
+for the sources actually read at head or base and the mandatory policy inputs,
+and the results of file-discovery queries. Hunk line-number changes do not alter
+the diff identity. Changes to the diff, a read file or a discovery result require
+fresh review; unavailable or truncated evidence does not count as a match. This
+allows disjoint PRs to proceed together. Changes elsewhere in a file that was
+read are conservatively treated as dependency changes. Older reports without
+this binding can be reused at their original head, but not after a rebase.
+A complete negative verdict may carry across an unchanged rebase without
+repeating its cost; `/protocol-b review` asks the non-accepting reviewer to try
+again. Original head/run/attempt remain intact and `reused_for` records the new
+head. `review-reuse.json` records the source App check IDs. Current CI, head and
+protected-merge checks still run normally.
+
+Reviewers now give structured source checks and access limitations. An
+access-only finding is nonblocking only if every named source passage has a
+matching `verified` check from the other approved reviewer. That check attests
+both reading the exact passage and checking its application without objection.
+No keyword matching guesses that an older untyped objection was access-only.
+Missing arguments, mismatched hypotheses, missing review history, incomplete
+review and context exhaustion remain blocking. The original verdict and finding
+are retained; the check and artifact list the limitation and which reviewer
+verified its sources. This is not a collaborator override or a claim of unanimous
+source inspection. Both reviewers' findings must otherwise be resolved.
+
+The same-head and rebase paths do not use candidate code, credentials or
+candidate-supplied approval files. The offline continuity suite checks partial
+acceptance reuse, approvals from separate rounds, wrong App/PR/model rejection,
+changed diffs/dependencies, retained negative decisions, and matching versus
+mismatched source-access evidence. The standard/expanded profile controls are
+unchanged by this implementation.
