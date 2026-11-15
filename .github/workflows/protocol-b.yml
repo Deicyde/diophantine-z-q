@@ -661,6 +661,7 @@ jobs:
                   self.discovery = {}
                   self.binary_dependencies = set()
                   self.initial_files = files
+                  self.initial_packet = None
                   self.original_files_digest = hashlib.sha256(json.dumps(files, sort_keys=True).encode()).hexdigest()
                   self.input = {"repository": gh.repo, "pull_request": pr["number"], "head": pr["head"]["sha"],
                                 "base": pr["base"]["sha"], "change_class": change_class,
@@ -716,13 +717,22 @@ jobs:
                           item = {k: v for k, v in original.items() if k != 'patch'}
                           if 'patch' in original:
                               omitted.append(original['filename'])
-                              item['patch_omitted'] = 'Deferred from the initial packet; fetch both source revisions before judging this change.'
+                              item['patch_omitted'] = ('Deferred from the initial packet. Old hunk ranges refer to the PR merge base, '
+                                  'not necessarily the base tip served by read_file(base); new ranges refer to head. '
+                                  'Read affected sources and verify old-side identity before judging. If base has diverged '
+                                  'and the removed text cannot be verified, report the limitation; do not assume ranges match.')
                               item['patch_hunks'] = re.findall(r'^@@ -\d+(?:,\d+)? \+\d+(?:,\d+)? @@', original['patch'], re.M)
                           files.append(item)
                       self.input['files'] = files
                       self.initial_files = files
+                      if omitted:
+                          self.input['merge_base'] = reuse_refs(self.gh, self.pr, True)['merge_base']
                   conversation = [{"role": "user", "content": json.dumps(self.input)}]
                   after = context_estimate(self.family, self.instructions, conversation)
+                  self.initial_packet = {
+                      'patches_deferred': bool(omitted), 'deferred_patch_count': len(omitted),
+                      'changed_files': len(self.initial_files), 'merge_base': self.input.get('merge_base'),
+                      'read_evidence': 'Only displayed patch text and admitted source reads; deferred hunk ranges are not read evidence.'}
                   record(self.family + '-initial-packet.json', {
                       'before': before, 'after': after, 'deferred_patches': omitted,
                       'changed_files': len(self.initial_files),
@@ -1663,6 +1673,7 @@ jobs:
                                               "attempt": os.environ["GITHUB_RUN_ATTEMPT"], "review": value,
                                               "read_prerequisites_complete": bool(reviewers[family].history_read and reviewers[family].reads),
                                               "finished_early": reviewers[family].finish_now,
+                                              "initial_packet": reviewers[family].initial_packet,
                                               "complete": True, "policy_ref": os.environ['GITHUB_SHA'],
                                               "history_digest": passage_digest(sorted(history_coverage(discussion))) if reviewers[family].history_read else None,
                                               "reuse_binding": None}
@@ -1689,6 +1700,7 @@ jobs:
                                   problem = {"reviewer": family, "model": MODELS[family], "head": pr["head"]["sha"],
                                              "run": os.environ["GITHUB_RUN_ID"], "attempt": os.environ["GITHUB_RUN_ATTEMPT"],
                                              "complete": False, "policy_ref": os.environ['GITHUB_SHA'],
+                                             "initial_packet": reviewers[family].initial_packet,
                                              "review": {"decision": "changes_requested", "report": "Infrastructure failure, not a model verdict: " + str(error),
                                                         "findings": [], "prior_findings": []}}
                                   envelopes[family] = problem

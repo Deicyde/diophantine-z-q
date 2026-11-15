@@ -141,6 +141,27 @@ for fetched text, 16,000 for a search result block, and 128,000 for a binary
 fetch result. These estimates do not change the actual conversation sent to
 the provider. Unknown block types and repository text receive no discount.
 
+Before the first request, if its estimate would exhaust the output and recovery
+reserves, the gate defers inline patches from that unsent packet. Every changed
+file, all other file metadata and available hunk ranges remain. Reviewers must
+fetch the affected sources and necessary context; deferral does not reduce the
+review scope. Metadata that still exceeds the budget fails the existing hard
+guard. No earlier conversation or source read is removed. The durable report's
+`initial_packet` field records whether patches were deferred, their count and
+the total changed-file count, even if the optional reuse binding is omitted.
+The run artifact `<family>-initial-packet.json` also lists the deferred paths
+and before/after estimates. Historical reports without this field do not make
+a deferral assertion.
+
+Old-side hunk ranges use GitHub's PR merge base; `read_file(base)` instead serves
+the pinned current base tip. New-side ranges use head. The packet supplies the
+verified `merge_base` SHA when patches are deferred, also retained in the durable
+marker. The read tool still accepts only head/base revisions; the reviewer can
+retrieve the pinned merge-base source through web tools. On a diverged base, the reviewer must verify the
+old-side text independently or report the limitation, not assume the old range
+matches the current base. Deferred hunk ranges are navigation hints, not source
+text or evidence that the removed passage was read.
+
 After a response, the next estimate adds the larger of the new accounting
 growth or the reported output-token count to the request's input-token count.
 For Astra, the input count comes from reported usage. For Fable, it comes from
@@ -441,11 +462,16 @@ does not erase an earlier acceptance. Reuse requires the same trusted workflow a
 original review. Changed gate policy invalidates retained reviews; there is no
 author-maintained compatibility file. Previously undispositioned findings still block. The latest completed verdict from each reviewer supersedes its earlier verdicts across heads. If it cannot be reused, that reviewer must run again; an older acceptance cannot be revived. An incomplete or failed attempt does not erase a completed verdict.
 
-New reports store a rebase binding for the complete diff, the source passages
-actually returned at head or base, both sides of the initial diff hunks, and
-file-discovery results. Diff old-side passages use the pinned merge-base commit;
+New reports attempt to store an optional rebase binding for the complete diff,
+the source passages actually returned at head or base, both sides of diff hunks
+whose text was displayed in the initial packet, and file-discovery results.
+Deferred patches and their hunk ranges do not count as displayed or read text;
+subsequent admitted source reads still count. The complete original diff remains
+the change identity. Diff old-side passages use the pinned merge-base commit;
 an explicit `read_file(base)` still uses the pinned current base tip. Hunk text
-and counts must match those source revisions before a binding is made or reused.
+and counts of displayed hunks must match those source revisions before a binding
+is made or reused. A binding can also be omitted for output capacity; the durable
+`initial_packet` marker remains in the report independently of that binding.
 If the merge base or displayed passage identity cannot be established, rebase
 reuse is disabled. Older bindings without this distinction cannot authorize a
 new head. After a rebase, each exact passage must occur uniquely

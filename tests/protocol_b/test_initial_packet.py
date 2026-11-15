@@ -5,7 +5,7 @@ import tempfile
 import unittest
 from pathlib import Path
 from unittest.mock import patch
-from test_gate import gate, FakeGH, changed
+from test_gate import gate, FakeGH, changed, run_pipeline, report, envelope
 
 
 class InitialPacket(unittest.TestCase):
@@ -44,6 +44,48 @@ class InitialPacket(unittest.TestCase):
         self.prepare(review)
         self.assertEqual(before, review.input)
         self.assertIs(review.initial_files, files)
+        self.assertIs(review.initial_packet['patches_deferred'], False)
+        self.assertEqual(review.initial_packet['deferred_patch_count'], 0)
+
+    def test_deferred_packet_warns_about_merge_base_coordinates(self):
+        gh, review, _ = self.make()
+        gh.comparison['merge_base_commit']['sha'] = 'c' * 40
+        self.prepare(review)
+        self.assertEqual(review.input['merge_base'], 'c' * 40)
+        self.assertEqual(review.initial_packet['merge_base'], 'c' * 40)
+        for item in review.input['files']:
+            self.assertIn('Old hunk ranges refer to the PR merge base', item['patch_omitted'])
+            self.assertIn('not necessarily the base tip served by read_file(base)', item['patch_omitted'])
+            self.assertIn('report the limitation', item['patch_omitted'])
+        with patch.object(gh, 'text', return_value='shifted base text') as fetch:
+            review.tool('read_file', {'path':'p0.tex','revision':'base','start':1,'count':1})
+            fetch.assert_called_once_with('p0.tex', gh.pr['base']['sha'])
+
+    def test_deferral_marker_survives_durable_report_and_binding_omission(self):
+        gh, _, files = self.make()
+        pages = gh.pages
+        gh.pages = lambda path: files if path.endswith('/files') else pages(path)
+        gh.pr['changed_files'] = len(files)
+        def provider(review):
+            review.prepare_initial_input()
+            review.tool('read_history', {})
+            review.tool('read_file', {'path':'p0.tex','revision':'head','start':1,'count':1})
+            return report()
+        _, app, errors, state = run_pipeline(gh=gh, provider=provider)
+        self.assertEqual(errors, [])
+        published = json.loads(app.final['output']['text'])['reports']
+        for family in gate.MODELS:
+            marker = state['reports'][family]['initial_packet']
+            self.assertIs(marker['patches_deferred'], True)
+            self.assertEqual(marker['deferred_patch_count'], len(files))
+            self.assertEqual(published[family]['initial_packet'], marker)
+            self.assertTrue(any('"initial_packet"' in post['body'] and
+                                '"patches_deferred": true' in post['body'] for post in gh.posts))
+            large = envelope(family, initial_packet=marker, reuse_binding={'large':'x' * 61_000})
+            with patch.object(gate, 'record'):
+                compact = gate.bounded_report(large)
+            self.assertIsNone(compact['reuse_binding'])
+            self.assertEqual(compact['initial_packet'], marker)
 
     def test_originally_absent_patch_remains_listed_without_invented_hunks(self):
         _, review, files = self.make()
