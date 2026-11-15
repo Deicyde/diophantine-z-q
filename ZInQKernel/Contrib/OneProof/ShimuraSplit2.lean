@@ -117,7 +117,9 @@ commutative algebra `E = F ⊗ K` (`F ⊂ B` a maximal subfield with `F ⊗ K` a
 acts on it with `K` acting on `ℂ²` by the scalars `κ(k)` (`IsCMPoint`); its CM type is the set of extensions of `κ`,
 with reflex `(K, κ)` and reflex norm `s ↦ q̂(s)` (right multiplication). So `T(z, g)^σ` has `H₁ = L_g q̂(s)^{∓1} =
 B ∩ 𝒪̂(q̂(s)^{±1}g)⁻¹ = L_{q̂(s)^{±1} g}`, and the torsion points `[ι(x)(z,1)ᵀ/3]` move by `x ↦ x q̂(s)^{∓1}`, which is
-the level structure of `T(z, q̂(s)^{±1}g)`. The signs `ε`, `δ` absorb the normalization of the Artin map and `z`
+the level structure of `T(z, q̂(s)^{±1}g)`. The main theorem gives `θ'` that is only `E`-linear; it is unique (fixed
+on torsion by a formula not involving `F`), so it is `F`-linear for every real quadratic `F ⊂ B`, hence `B`-linear
+(`ℚ(i)`, `ℚ(k)` generate `B`). The signs `ε`, `δ` absorb the normalization of the Artin map and `z`
 versus `z̄`. No map `Ψ` and no fine witness occur, so the normalization problem of a "for every `Ψ`" reciprocity
 statement does not arise. -/
 def QMReciprocityL3 : Prop :=
@@ -800,8 +802,9 @@ with `R1fpPropsAb` (the fine moduli scheme `Y₃` of QM abelian surfaces with le
 is a holomorphic `τ ↦ y_τ ∈ Y(ℂ)` whose object at `y_τ` is, as a QM pair, `ℂ²/ι(𝒪)(τ, 1)ᵀ` (`IsShimuraHolFamily`).
 
 *Published statements* (UNVERIFIED locators): Shimura, Ann. of Math. 85 (1967), Main Theorem I and §§2-3 (the
-holomorphic `φ : ℍ → V(ℂ)`, `φ(τ)` the moduli point of `ℂ²/ι(𝒪)(τ, 1)ᵀ`); Deligne, Sém. Bourbaki 389 (1971), §4
-(the moduli scheme and its complex uniformization; analytic families). *Form*: one family on the component of
+holomorphic `φ : ℍ → V(ℂ)`, `φ(τ)` the moduli point of `ℂ²/ι(𝒪)(τ, 1)ᵀ`); Shimura, *On analytic families of
+polarized abelian varieties and automorphic functions*, Ann. of Math. 78 (1963) (analytic families); Deligne, Sém.
+Bourbaki 389 (1971), §4 (the moduli scheme and its complex uniformization). *Form*: one family on the component of
 `Y₃(ℂ)` through the points `[τ, 1]`; the moduli clause describes only the QM pair; no existence claim (it is
 equivalent, given one fine witness, to `ShimuraHolFamilyAb`, proved below). -/
 def ShimuraHolModAll : Prop :=

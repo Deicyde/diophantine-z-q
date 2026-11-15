@@ -12,4 +12,4 @@
     "leaves": [{"name": "shimuraHolModAll", "type": "_root_.ShimuraSplit2.ShimuraHolModAll",
                 "doc": "shimura-split2: Shimura's Main Theorem I, complex part, for every fine witness (Y, Phi) of R1fpPropsAb (no existence claim): a holomorphic tau -> y_tau in Y(C) whose object is, as a QM pair, C^2/iota(O)(tau,1)^T. Equivalent, given one fine witness, to the exists-form ShimuraHolFamilyAb (proved: shimuraHolModAll_of_hol, shimuraHolFamilyAb_of_all).",
                 "kind": "published", "flag": "pending reading: whether Shimura 1967 Main Theorem I (on V_S over Q(zeta_3)) with Deligne 1971 section 4 states the holomorphic moduli map on the fine moduli scheme Y3 over Q in this form",
-                "source": "Shimura, Ann. of Math. 85 (1967) Main Theorem I and sections 2-3; Deligne, Sem. Bourbaki 389 (1971) section 4 (locators UNVERIFIED)"}]}]}
+                "source": "Shimura, Ann. of Math. 85 (1967) Main Theorem I and sections 2-3; Shimura, Ann. of Math. 78 (1963) (analytic families); Deligne, Sem. Bourbaki 389 (1971) section 4 (locators UNVERIFIED)"}]}]}

@@ -49,3 +49,9 @@ Task: split `RayClassCFT.ShimuraMainThmIDeligneY3AbU` (gt-rayclass composite) fa
   flag `pending reading` (both GLUE until read). Fold module (`FoldCheck.lean`, line 1 stripped) compiles;
   `sixContactMin_of_open27` axioms [propext, Classical.choice, Quot.sound] (`foldcheck_output.txt`). VERIFIED.
 * 05:12 Report drafted (docs/research/shimura-split2.md). Independent model review of QMReciprocityL3/ShimuraHolModAll launched (adversarial, conventions).
+* 05:20 Independent model review (one agent, adversarial): QMReciprocityL3 true for some (ε, δ) (expected (+1, true),
+  UNVERIFIED), not stronger than the main theorem of CM, not vacuous; δ redundant (central idele N s acts trivially via
+  DCRel); ShimuraHolModAll OK; Lean definitions as intended. Gap in the paper derivation (θ' only F-linear) closed by
+  uniqueness of θ' with F real quadratic; added to the report §3.1 and the leaf docstring; citation Shimura 1963
+  (analytic families) added for ShimuraHolModAll. Rebuilt; dry run unchanged (45/13 -> 45/13); fold check compiles,
+  standard axioms. VERIFIED (compile).

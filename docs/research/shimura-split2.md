@@ -113,6 +113,21 @@ with `art(s) = σ|E*^ab`. Then for an `E`-linear uniformization `θ : ℂ^Φ/�
    which is the level structure of `T(z, q̂(s)^{±1}g)`.
 7. The signs `ε` and `δ` absorb the normalization of `art` and the choice of `κ` versus `κ̄`. The same conventions
    are existential in the composite's clause 4.
+8. **`ι`-compatibility of `θ'`** (gap found by the independent review, closed here). The main theorem gives `θ'`
+   that is only `E`-linear, hence only `F`-linear on the left, while `MIsAt P'` needs all of `ι(𝒪)`.
+   * `θ'` is unique: it is fixed on all torsion by `σθ(x) = θ'(x q̂(s)^{∓1})`, and that formula does not involve `F`.
+   * So the same `θ'` is `F`-linear for every admissible `F`.
+   * Take `F` real quadratic, `ℚ(i)` and `ℚ(k)` (`k² = 6`). These generate `B`, so `θ'` is `B`-linear.
+   * `F = ℚ(j)` would fail for `K = ℚ(√−3)`, since `F ⊗ K` is then not a field.
+
+**Independent review** (one model reviewer, adversarial; no human review). Verdict: true for some `(ε, δ)`, not
+stronger than the main theorem of CM, not vacuous, Lean definitions as intended. Its points:
+* `δ` is redundant. `q̂(s̄) = q̂(Ns)q̂(s)⁻¹` with `Ns` central in `𝔸_f^× = ℚ_{>0}ℤ̂^×`, and central elements act
+  trivially through `DCRel` (`γ = ±r`, `k = ±u ∈ K₃`). So `(ε, false)` is equivalent to `(−ε, true)`.
+* `g · q̂(s)` would be wrong: right multiplication changes the level, not the point.
+* The expected signs are `(ε, δ) = (+1, true)`, from Tau Ceti's arithmetic-Frobenius normalization and
+  `σ(ℂ/𝔞) = ℂ/s⁻¹𝔞` (UNVERIFIED, from memory).
+* Non-vacuity: `K = ℚ(√−6)` embeds in `B`, and the fixed point of `q(√−6)` is a CM point.
 
 The conventions are consistent with `DCRel`: `T(γτ, γgk) ≅ T(τ, g)` is proved in Lean (`dcRelTransport_proof`). It
 uses the same left action of `B^×` on `g` as the reciprocity law.
@@ -155,6 +170,11 @@ This is shimura-split's `ShimuraHolFamily`, with two changes:
 rather than on Shimura's `V_S` over `ℚ(ζ₃)`. The step from `V_S` to `Y₃` is Deligne 1971 §4 (UNVERIFIED). This is
 the "remaining link" that kinds.tsv names for `shimuraFamilyAb`. So it is entered as `published`, flagged pending
 reading.
+* The independent review points out that holomorphy of the classifying map amounts to "`Y₃^an` classifies analytic
+  families". That sits more naturally in Shimura, *On analytic families of polarized abelian varieties and
+  automorphic functions*, Ann. of Math. 78 (1963); in Deligne 1971 §4; and in Milne's comparison via Borel's
+  extension theorem (all UNVERIFIED). These are the pages to read.
+* The review also checks that the genuine `Y₃` satisfies `R1fpPropsAb`, with the family `τ ↦ [T(τ, 1)]`.
 
 ## 4. The glue (all proved; VERIFIED, compiled)
 
