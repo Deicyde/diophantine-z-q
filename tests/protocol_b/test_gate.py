@@ -21,6 +21,7 @@ block = workflow.split("<<'PROTOCOL_B_PYTHON'\n", 1)[1].split('          PROTOCO
 source = '\n'.join(line[10:] if line.startswith('          ') else line for line in block.splitlines()) + '\n'
 gate = types.ModuleType('protocol_b_under_test')
 exec(compile(source, '<embedded protocol-b program>', 'exec'), gate.__dict__)
+github_pages = gate.GitHub.pages
 HEAD, BASE, APP_ID = 'a' * 40, 'b' * 40, 123456
 
 
@@ -54,16 +55,44 @@ class FakeGH:
     repo = 'x/y'
 
     def __init__(self):
-        self.pr = {'number': 1, 'state': 'open', 'draft': False, 'head': {'sha': HEAD},
+        self.pr = {'number': 1, 'state': 'open', 'draft': False, 'merged': False, 'head': {'sha': HEAD},
                    'base': {'sha': BASE, 'ref': 'main'}, 'changed_files': 1,
-                   'title': 'Change', 'body': '', 'node_id': 'PR_1'}
+                   'title': 'Change', 'body': '', 'node_id': 'PR_1', 'user': {'login': 'author', 'type': 'User'}}
+        self.author_permission = 'write'
         self.comments, self.posts, self.edits = [], [], []
         self.permission, self.graphql = 'read', None
         self.required = gate.REQUIRED_COMPUTATIONS | {gate.CHECK}
         self.integration, self.allow_auto_merge, self.strict = APP_ID, True, True
         self.main_sha, self.race, self.pr_calls = BASE, False, 0
+        self.check_runs, self.statuses, self.merge_requests = [], [], []
+        self.check_page_size, self.after_check_read = 100, None
+        self.merge_result = {'merged': True, 'sha': 'd' * 40}
+        self.extra_rules, self.rule_pages, self.compare_requests = [], [], []
+        self.comparison = {'behind_by': 0}
+        self.dispatches = []
+        self.dispatched_runs = {}
+        self.dispatch_head = 'd' * 40
+        self.auto_result = {'data': {'enablePullRequestAutoMerge': {'pullRequest': {'id': 'PR_1'}}}}
+        self.auto_callback = None
+
+    def complete_merge(self):
+        self.pr.update(merged=True, state='closed', merge_commit_sha='d' * 40)
+
+    def dispatch_workflow(self, workflow, ref):
+        if self.pr.get('merged') is not True:
+            raise AssertionError('Dispatch occurred before confirmed merge')
+        self.dispatches.append((workflow, {'ref': ref}))
+        run_id = len(self.dispatches)
+        self.dispatched_runs[run_id] = {'id': run_id, 'head_sha': self.dispatch_head,
+            'head_branch': ref, 'event': 'workflow_dispatch', 'path': '.github/workflows/' + workflow,
+            'html_url': f'https://github.com/x/y/actions/runs/{run_id}', 'status': 'queued'}
+        return {'workflow_run_id': run_id}
 
     def pages(self, path):
+        if path.startswith('/rules/branches/'):
+            return github_pages(self, path)
+        if path.endswith('/statuses'):
+            return self.statuses
         if path.endswith('/files'):
             return [changed('p.tex')]
         if '/issues/' in path:
@@ -76,6 +105,23 @@ class FakeGH:
     def call(self, path, method='GET', data=None):
         if path == '':
             return {'default_branch': 'main', 'allow_auto_merge': self.allow_auto_merge}
+        if '/check-runs?' in path:
+            page = int(path.rsplit('=', 1)[1])
+            rows = self.check_runs[(page-1)*self.check_page_size:page*self.check_page_size]
+            if self.after_check_read:
+                self.after_check_read(self)
+            return {'total_count': len(self.check_runs), 'check_runs': copy.deepcopy(rows)}
+        if path == '/pulls/1/merge' and method == 'PUT':
+            self.merge_requests.append(data)
+            if self.merge_result.get('merged') is True:
+                self.complete_merge()
+            return self.merge_result
+        if path.startswith('/actions/runs/'):
+            return self.dispatched_runs.get(int(path.rsplit('/', 1)[1]),
+                                            {'event': 'issue_comment', 'path': gate.WORKFLOW})
+        if path.startswith('/compare/'):
+            self.compare_requests.append(path)
+            return self.comparison
         if path.startswith('/commits/'):
             return {'sha': self.main_sha}
         if path == '/pulls/1':
@@ -85,7 +131,7 @@ class FakeGH:
                 value['head']['sha'] = 'c' * 40
             return value
         if path.endswith('/permission'):
-            return {'permission': self.permission}
+            return {'permission': self.author_permission if '/author/' in path else self.permission}
         if path.endswith('/comments') and method == 'POST':
             self.posts.append(data)
             return {'id': len(self.posts) + 9}
@@ -93,16 +139,21 @@ class FakeGH:
             self.edits.append(data)
             return {}
         if path.startswith('/rules/branches/'):
-            return [{'type': 'required_status_checks', 'parameters': {
+            rules = [{'type': 'required_status_checks', 'parameters': {
                 'strict_required_status_checks_policy': self.strict,
                 'required_status_checks': [{'context': n, 'integration_id': self.integration if n == gate.CHECK else 15368}
-                                           for n in self.required]}}]
+                                           for n in self.required]}}] + self.extra_rules
+            page = int(path.rsplit('page=', 1)[1]) if '?per_page=' in path else 1
+            self.rule_pages.append(page)
+            return rules[(page-1)*100:page*100]
         raise AssertionError(('own-token unexpected operation', path, method))
 
     def api(self, path, method='GET', data=None):
         assert path == '/graphql'
         self.graphql = data
-        return {'data': {}}
+        if self.auto_callback:
+            self.auto_callback(self)
+        return self.auto_result
 
 
 class FakeApp:
@@ -116,18 +167,20 @@ class FakeApp:
             self.created.append(copy.deepcopy(value))
             return value
         if path.startswith('/commits/') and '/check-runs?' in path:
-            return {'check_runs': list(self.checks.values())}
-        if path == '/check-runs/20':
+            head = path.split('/')[2]
+            return {'check_runs': [c for c in self.checks.values() if c['head_sha'] == head]}
+        if path.startswith('/check-runs/'):
+            ident = int(path.rsplit('/', 1)[1])
             if method == 'GET':
-                return self.checks[20]
-            self.checks[20].update(copy.deepcopy(data))
+                return self.checks[ident]
+            self.checks[ident].update(copy.deepcopy(data))
             self.final = data
             return self.checks[20]
         raise AssertionError(('App-token unexpected operation', path, method))
 
     def prior(self, reports, app_id=APP_ID, ident=5):
         self.checks[ident] = {'id': ident, 'name': 'Protocol B / test review', 'head_sha': HEAD,
-            'app': {'id': app_id}, 'output': {'text': json.dumps({
+            'status': 'completed', 'app': {'id': app_id}, 'output': {'text': json.dumps({
                 'schema': 'protocol-b-decisions/v1', 'head': HEAD, 'reports': reports})}}
 
 
@@ -153,6 +206,8 @@ def run_pipeline(gh=None, app=None, mode='test', provider=None, event=None, fina
                 gate.main()
             except Exception as error:
                 errors.append(str(error))
+            # Keep spending-preflight reads separate from merge retry assertions.
+            gh.review_rule_pages, gh.rule_pages = list(gh.rule_pages), []
             if finalize:
                 try:
                     gate.publish()
@@ -164,6 +219,18 @@ def run_pipeline(gh=None, app=None, mode='test', provider=None, event=None, fina
 
 
 class Checks(unittest.TestCase):
+    def ready_gh(self):
+        gh = FakeGH()
+        gh.pr['mergeable_state'] = 'unstable'
+        gh.check_runs = [{'id': i, 'name': name, 'head_sha': HEAD, 'status': 'completed',
+                         'conclusion': 'success', 'app': {'id': APP_ID if name == gate.CHECK else 15368}}
+                        for i, name in enumerate(sorted(gh.required), 1)]
+        # The live failure occurred while this non-required job was still running.
+        gh.check_runs.append({'id': 1000, 'name': 'Run reviewers and publish App check',
+                             'head_sha': HEAD, 'status': 'in_progress', 'conclusion': None,
+                             'app': {'id': 15368}})
+        return gh
+
     def test_actions_job_is_distinct_from_app_check(self):
         self.assertIn('  run_reviewers:\n    name: Run reviewers and publish App check\n', workflow)
         self.assertNotIn('\n  review:\n', workflow)
@@ -280,15 +347,17 @@ class Checks(unittest.TestCase):
         self.assertIn('NOT outside reviewed', app.final['output']['summary'])
 
     def test_test_mode_never_merges_and_uses_distinct_tokens(self):
-        gh, app, errors, _ = run_pipeline()
+        gh, app, errors, _ = run_pipeline(self.ready_gh())
         self.assertEqual(errors, [])
         self.assertEqual(app.final['conclusion'], 'success')
         self.assertFalse(gh.graphql)
+        self.assertEqual(gh.merge_requests, [])
         self.assertEqual(app.created[0]['conclusion'], 'action_required')
 
     def test_unfinished_job_leaves_blocked_check(self):
         _, app, _, _ = run_pipeline(finalize=False)
-        self.assertIsNone(app.final)
+        # The round intent is saved before model calls; it must not accept the PR.
+        self.assertNotEqual(app.checks[20].get('conclusion'), 'success')
         self.assertEqual(app.checks[20]['conclusion'], 'action_required')
 
     def test_head_race_blocks(self):
@@ -316,7 +385,7 @@ class Checks(unittest.TestCase):
 
     def test_live_requires_computation_checks_and_specific_app(self):
         for edit in ['missing', 'wrong_app', 'not_strict', 'auto_merge_off']:
-            gh = FakeGH()
+            gh = self.ready_gh()
             if edit == 'missing': gh.required = {gate.CHECK}
             if edit == 'wrong_app': gh.integration = 15368
             if edit == 'not_strict': gh.strict = False
@@ -324,11 +393,182 @@ class Checks(unittest.TestCase):
             _, _, errors, _ = run_pipeline(gh, mode='live')
             self.assertTrue(errors, edit)
             self.assertFalse(gh.graphql, edit)
+            self.assertEqual(gh.merge_requests, [], edit)
 
     def test_live_requests_only_guarded_auto_merge(self):
         gh, _, errors, _ = run_pipeline(mode='live')
         self.assertEqual(errors, [])
         self.assertIn('enablePullRequestAutoMerge', gh.graphql['query'])
+        self.assertEqual(gh.merge_requests, [])
+
+    def test_live_merges_ready_head_despite_running_nonrequired_job(self):
+        gh = self.ready_gh()
+        with patch.object(gh, 'api', side_effect=AssertionError('Do not enable auto-merge for a ready PR')):
+            _, app, errors, _ = run_pipeline(gh, mode='live')
+        self.assertEqual(errors, [])
+        self.assertEqual(app.final['conclusion'], 'success')
+        self.assertEqual(gh.merge_requests, [{'sha': HEAD, 'merge_method': 'merge'}])
+
+    def test_live_checks_all_pages_and_extra_required_contexts(self):
+        gh = self.ready_gh()
+        gh.check_page_size = 3
+        gh.required.add('Extra required check')
+        gh.check_runs.append({'id': 1001, 'name': 'Extra required check', 'head_sha': HEAD,
+                             'status': 'completed', 'conclusion': 'success', 'app': {'id': 15368}})
+        _, _, errors, _ = run_pipeline(gh, mode='live')
+        self.assertEqual(errors, [])
+        self.assertEqual(len(gh.merge_requests), 1)
+
+    def test_later_rules_page_unsatisfied_context_prevents_direct_merge(self):
+        gh = self.ready_gh()
+        gh.extra_rules = [{'type': 'deletion'} for _ in range(99)] + [{
+            'type': 'required_status_checks', 'parameters': {
+                'required_status_checks': [{'context': 'Later required check', 'integration_id': 15368}]}}]
+        _, _, errors, _ = run_pipeline(gh, mode='live')
+        self.assertEqual(errors, [])
+        self.assertEqual(gh.rule_pages, [1, 2])
+        self.assertEqual(gh.merge_requests, [])
+        self.assertIn('enablePullRequestAutoMerge', gh.graphql['query'])
+
+    def test_no_app_check_does_not_match_pinned_or_unpinned_requirement(self):
+        for app in ['omitted', None, {}, {'id': None}]:
+            for integration in [APP_ID, None, -1]:
+                with self.subTest(app=app, integration=integration):
+                    gh = self.ready_gh()
+                    check = next(c for c in gh.check_runs if c['name'] == gate.CHECK)
+                    if app == 'omitted': check.pop('app')
+                    else: check['app'] = app
+                    self.assertFalse(gate.required_checks_passed(gh, HEAD, [
+                        {'context': gate.CHECK, 'integration_id': integration}]))
+
+    def test_direct_merge_requires_current_default_tip_in_reviewed_head(self):
+        for behind in [1, 5, None, '0', False, -1, 'omitted']:
+            with self.subTest(behind=behind):
+                gh = self.ready_gh()
+                gh.main_sha = 'c' * 40  # A newer base tip with the same policy.
+                gh.comparison = {} if behind == 'omitted' else {'behind_by': behind}
+                _, _, errors, _ = run_pipeline(gh, mode='live')
+                self.assertTrue(any('must contain the current default-branch tip' in e for e in errors))
+                self.assertEqual(gh.compare_requests, [f"/compare/{'c' * 40}...{HEAD}"])
+                self.assertEqual(gh.merge_requests, [])
+                self.assertFalse(gh.graphql)
+
+    def test_current_default_tip_in_reviewed_head_allows_direct_merge(self):
+        gh = self.ready_gh()
+        gh.main_sha = 'c' * 40
+        _, _, errors, _ = run_pipeline(gh, mode='live')
+        self.assertEqual(errors, [])
+        self.assertEqual(gh.compare_requests, [f"/compare/{'c' * 40}...{HEAD}",
+                                               f"/compare/{'d' * 40}...{'c' * 40}"])
+        self.assertEqual(gh.merge_requests, [{'sha': HEAD, 'merge_method': 'merge'}])
+
+    def test_failed_comparison_prevents_direct_merge(self):
+        gh = self.ready_gh()
+        original = gh.call
+        def fail_comparison(path, method='GET', data=None):
+            if path.startswith('/compare/'):
+                raise RuntimeError('Comparison unavailable')
+            return original(path, method, data)
+        gh.call = fail_comparison
+        _, _, errors, _ = run_pipeline(gh, mode='live')
+        self.assertIn('Comparison unavailable', errors)
+        self.assertEqual(gh.merge_requests, [])
+        self.assertFalse(gh.graphql)
+
+    def test_live_does_not_direct_merge_pending_failed_missing_or_wrong_app_checks(self):
+        for change in ['pending', 'failure', 'missing', 'wrong_app', 'neutral', 'legacy_failure']:
+            with self.subTest(change=change):
+                gh = self.ready_gh()
+                check = next(c for c in gh.check_runs if c['name'] == gate.CHECK)
+                if change == 'pending': check.update(status='in_progress', conclusion=None)
+                elif change in ('failure', 'neutral'): check['conclusion'] = change
+                elif change == 'missing': gh.check_runs.remove(check)
+                elif change == 'wrong_app': check['app']['id'] = 15368
+                else: gh.statuses = [{'id': 1, 'context': gate.CHECK, 'state': 'failure'}]
+                _, _, errors, _ = run_pipeline(gh, mode='live')
+                self.assertEqual(errors, [])
+                self.assertEqual(gh.merge_requests, [])
+                self.assertIn('enablePullRequestAutoMerge', gh.graphql['query'])
+
+    def test_legacy_context_case_variants_use_latest_result(self):
+        for order in ['oldest_first', 'newest_first']:
+            for latest in ['pending', 'failure', 'error', 'success']:
+                with self.subTest(order=order, latest=latest):
+                    gh = FakeGH()
+                    gh.statuses = [
+                        {'id': 1, 'context': 'ci/example', 'state': 'success' if latest != 'success' else 'failure'},
+                        {'id': 2, 'context': 'CI/EXAMPLE', 'state': latest}]
+                    if order == 'newest_first': gh.statuses.reverse()
+                    self.assertEqual(gate.required_checks_passed(gh, HEAD, [
+                        {'context': 'Ci/Example', 'integration_id': None}]), latest == 'success')
+
+    def test_successful_check_with_case_variant_legacy_failure_defers_merge(self):
+        for latest in ['pending', 'failure', 'error']:
+            with self.subTest(latest=latest):
+                gh = self.ready_gh()
+                gh.statuses = [
+                    {'id': 1, 'context': gate.CHECK, 'state': 'success'},
+                    {'id': 2, 'context': gate.CHECK.swapcase(), 'state': latest}]
+                _, _, errors, _ = run_pipeline(gh, mode='live')
+                self.assertEqual(errors, [])
+                self.assertEqual(gh.merge_requests, [])
+                self.assertIn('enablePullRequestAutoMerge', gh.graphql['query'])
+
+    def test_successful_check_with_newer_case_variant_legacy_success_can_merge(self):
+        gh = self.ready_gh()
+        gh.statuses = [
+            {'id': 2, 'context': gate.CHECK.swapcase(), 'state': 'success'},
+            {'id': 1, 'context': gate.CHECK, 'state': 'failure'}]
+        _, _, errors, _ = run_pipeline(gh, mode='live')
+        self.assertEqual(errors, [])
+        self.assertEqual(gh.merge_requests, [{'sha': HEAD, 'merge_method': 'merge'}])
+
+    def test_live_head_or_policy_change_after_check_reads_blocks_merge(self):
+        for change in ['head', 'policy', 'base', 'draft', 'closed']:
+            with self.subTest(change=change):
+                gh = self.ready_gh()
+                def race(client):
+                    if change == 'head': client.pr['head']['sha'] = 'c' * 40
+                    elif change == 'policy':
+                        client.main_sha = 'c' * 40
+                        client.text = lambda path, ref: ref
+                    elif change == 'base': client.pr['base']['ref'] = 'other'
+                    elif change == 'draft': client.pr['draft'] = True
+                    else: client.pr['state'] = 'closed'
+                gh.after_check_read = race
+                _, _, errors, _ = run_pipeline(gh, mode='live')
+                self.assertTrue(errors)
+                self.assertEqual(gh.merge_requests, [])
+                self.assertFalse(gh.graphql)
+
+    def test_live_never_claims_a_rejected_direct_merge_succeeded(self):
+        gh = self.ready_gh()
+        gh.merge_result = {'merged': False, 'message': 'Required check changed'}
+        _, _, errors, _ = run_pipeline(gh, mode='live')
+        self.assertTrue(any('Direct merge was not confirmed' in error for error in errors))
+        self.assertEqual(len(gh.merge_requests), 1)
+        self.assertFalse(gh.graphql)
+
+    def test_readiness_rejects_wrong_head_and_changing_pagination(self):
+        for change in ['wrong_head', 'duplicate', 'changed_total', 'missing_page']:
+            with self.subTest(change=change):
+                gh = self.ready_gh()
+                gh.check_page_size = 3
+                if change == 'wrong_head': gh.check_runs[0]['head_sha'] = 'c' * 40
+                elif change == 'duplicate': gh.check_runs[1]['id'] = gh.check_runs[0]['id']
+                else:
+                    original = gh.call
+                    def broken(path, method='GET', data=None):
+                        value = original(path, method, data)
+                        if '/check-runs?' in path and path.endswith('page=2'):
+                            if change == 'changed_total': value['total_count'] += 1
+                            else: value['check_runs'] = []
+                        return value
+                    gh.call = broken
+                _, _, errors, _ = run_pipeline(gh, mode='live')
+                self.assertTrue(errors)
+                self.assertEqual(gh.merge_requests, [])
+                self.assertFalse(gh.graphql)
 
     def test_transport_error_is_not_a_math_finding(self):
         def provider(review):
@@ -383,6 +623,77 @@ def anthropic_events(partial='', stop='tool_use'):
 
 
 class Transport(unittest.TestCase):
+    def test_low_context_finishes_with_unreviewed_list_after_own_output(self):
+        for family in gate.MODELS:
+            with self.subTest(family=family):
+                gh = FakeGH()
+                r = gate.Review(gh, gh.pr, [], [], {}, {}, 'trusted', family, 'local mathematical')
+                r.input['previous_review_material'] = 'x' * 230000
+                r.reads, r.history_read = [{'path': 'already-read.tex'}], True
+                decision = report(decision='changes_requested',
+                                  report='Checked the first lemma against its stated hypotheses. Not reviewed: the application to Theorem 2, so this review requests changes.',
+                                  findings=[{'id': 'BUDGET', 'location': 'Theorem 2',
+                                             'objection': 'The required application has not been reviewed.'}])
+                calls = []
+                def model(actual, instructions, conversation, **kwargs):
+                    calls.append(copy.deepcopy(conversation))
+                    if len(calls) == 1:
+                        self.assertNotIn(gate.FINISH_NOW_INSTRUCTION, instructions)
+                        text = 'Review notes: ' + 'x' * 50000
+                        output = ([{'type': 'message', 'content': [{'type': 'output_text', 'text': text}]}]
+                                  if family == 'astra' else [{'type': 'text', 'text': text}])
+                    else:
+                        self.assertEqual(instructions, 'trusted')
+                        self.assertIn(gate.FINISH_NOW_INSTRUCTION, conversation[-1]['content'])
+                        self.assertIn('Not reviewed', conversation[-1]['content'])
+                        output = ([{'type': 'function_call', 'name': 'finish_review', 'call_id': 'finish',
+                                    'arguments': json.dumps(decision)}] if family == 'astra' else
+                                  [{'type': 'tool_use', 'name': 'finish_review', 'id': 'finish', 'input': decision}])
+                    return output, gate.MODELS[actual], {}, 'fixture', 'completed' if family == 'astra' else 'end_turn'
+                with tempfile.TemporaryDirectory() as tmp, patch.object(gate, 'OUT', Path(tmp)), \
+                     patch.dict(os.environ, {'GITHUB_RUN_ID': '1', 'GITHUB_RUN_ATTEMPT': '1'}), \
+                     patch.object(gate, 'model_turn', side_effect=model):
+                    self.assertEqual(r.run(), decision)
+                    budget = json.loads((Path(tmp) / (family + '-context-budget.json')).read_text())
+                    self.assertLessEqual(budget['estimated_total'], 400000)
+                    self.assertTrue((Path(tmp) / (family + '-finish-now.json')).is_file())
+                self.assertEqual(len(calls), 2)
+                # Neither the original source input nor the reviewer's long output was truncated.
+                self.assertEqual(calls[0][0], calls[1][0])
+                self.assertIn('x' * 50000, json.dumps(calls[1]))
+
+    def test_read_projection_preserves_full_reviewer_output_reserve(self):
+        gh = FakeGH()
+        r = gate.Review(gh, gh.pr, [], [], {}, {}, 'trusted', 'fable', 'local mathematical')
+        r.input['previous_review_material'] = 'x' * 200000
+        seen = []
+        def model(family, instructions, conversation, **kwargs):
+            seen.append(copy.deepcopy(conversation))
+            if len(seen) == 2:
+                value = json.loads(conversation[-1]['content'][0]['content'])
+                self.assertIn('Read too large', value['error'])
+                self.assertGreaterEqual(value['remaining_context_tokens'], gate.REVIEWER_OUTPUT_RESERVE)
+                self.assertEqual(r.reads, [])
+                raise RuntimeError('end of reserve probe')
+            return ([{'type': 'tool_use', 'id': 'read', 'name': 'read_file',
+                      'input': {'path': 'large.tex', 'revision': 'head', 'start': 1, 'count': 1000}}],
+                    gate.MODELS[family], {}, 'fixture', 'tool_use')
+        with tempfile.TemporaryDirectory() as tmp, patch.object(gate, 'OUT', Path(tmp)), \
+             patch.object(gh, 'text', return_value=('x' * 80 + '\n') * 1000), \
+             patch.object(gate, 'model_turn', side_effect=model):
+            with self.assertRaisesRegex(RuntimeError, 'end of reserve probe'):
+                r.run()
+        self.assertEqual(len(seen), 2)
+
+    def test_budget_limits_and_web_caps_are_unchanged(self):
+        self.assertEqual(gate.CONTEXT_TOKEN_BUDGET, 400000)
+        self.assertEqual(gate.OUTPUT_TOKEN_BUDGET, 64000)
+        self.assertEqual(gate.REVIEWER_OUTPUT_RESERVE, 64000)
+        self.assertEqual(gate.WEB_MAX_USES, {'web_search': 3, 'web_fetch': 5})
+        self.assertEqual(gate.WEB_FETCH_MAX_CONTENT_TOKENS, 20000)
+        self.assertEqual(gate.WEB_SEARCH_RESULT_RESERVE, 16000)
+        self.assertEqual(gate.WEB_BINARY_RESULT_RESERVE, 128000)
+
     def test_parallel_large_reads_warn_then_smaller_read_can_finish(self):
         for family in gate.MODELS:
             with self.subTest(family=family):
@@ -392,7 +703,7 @@ class Transport(unittest.TestCase):
                 def call(name, args, ident):
                     return ({'type': 'function_call', 'name': name, 'arguments': json.dumps(args), 'call_id': ident}
                             if family == 'astra' else {'type': 'tool_use', 'name': name, 'input': args, 'id': ident})
-                def model(actual, instructions, conversation):
+                def model(actual, instructions, conversation, **kwargs):
                     seen.append(copy.deepcopy(conversation))
                     if len(seen) == 1:
                         output = [call('read_file', {'path': 'large.tex', 'revision': 'head', 'start': 1, 'count': 1000}, str(i)) for i in range(6)]
@@ -426,7 +737,7 @@ class Transport(unittest.TestCase):
             {'type': 'tool_use', 'id': 'history', 'name': 'read_history', 'input': {}},
         ]
         turns = 0
-        def model(family, instructions, conversation):
+        def model(family, instructions, conversation, **kwargs):
             nonlocal turns
             turns += 1
             if turns == 2:
@@ -443,6 +754,7 @@ class Transport(unittest.TestCase):
         tree = {'tree': [{'path': str(i) + 'x' * 500, 'type': 'blob'} for i in range(200)]}
         with tempfile.TemporaryDirectory() as tmp, patch.object(gate, 'OUT', Path(tmp)), \
              patch.object(gate, 'CONTEXT_TOKEN_BUDGET', 100000), \
+             patch.object(gate, 'failed_computation_checks', return_value=[]), \
              patch.object(gh, 'text', return_value=('x' * 65 + '\n') * 1000), \
              patch.object(gh, 'call', return_value=tree), patch.object(gate, 'model_turn', side_effect=model):
             with self.assertRaisesRegex(RuntimeError, 'end of budget-error probe'):
@@ -464,7 +776,7 @@ class Transport(unittest.TestCase):
                     if family == 'astra':
                         return {'type': 'function_call', 'name': name, 'arguments': json.dumps(args), 'call_id': ident}
                     return {'type': 'tool_use', 'name': name, 'input': args, 'id': ident}
-                def model(actual_family, instructions, conversation):
+                def model(actual_family, instructions, conversation, **kwargs):
                     seen.append(copy.deepcopy(conversation))
                     if len(seen) == 1:
                         output = [call('read_file', {'path': path, 'revision': 'base', 'start': 1, 'count': 10}, 'base')]
@@ -491,6 +803,7 @@ class Transport(unittest.TestCase):
                     return io.BytesIO(json.dumps(file_value).encode())
                 with tempfile.TemporaryDirectory() as tmp, patch.object(gate, 'OUT', Path(tmp)), \
                      patch.object(gate.urllib.request, 'urlopen', side_effect=urlopen) as fetch, \
+                     patch.object(gate, 'failed_computation_checks', return_value=[]), \
                      patch.object(gate, 'model_turn', side_effect=model):
                     self.assertEqual(r.run()['decision'], 'accept')
                     self.assertEqual(fetch.call_count, 2)
@@ -560,7 +873,7 @@ class Transport(unittest.TestCase):
                                'url': 'https://example.org/paper', 'encrypted_content': 'e' * 700000}]}
         original = copy.deepcopy([fetch, search])
         seen = []
-        def model(family, instructions, conversation):
+        def model(family, instructions, conversation, **kwargs):
             seen.append(copy.deepcopy(conversation))
             if len(seen) == 1:
                 output = [
@@ -692,7 +1005,7 @@ class Transport(unittest.TestCase):
         r.reads, r.history_read = [{'path': 'p'}], True
         paused = [{'type': 'text', 'text': 'Checking source.'}]
         seen = []
-        def model(family, instructions, conversation):
+        def model(family, instructions, conversation, **kwargs):
             seen.append(copy.deepcopy(conversation))
             output = paused if len(seen) == 1 else [{'type': 'tool_use', 'id': 'f', 'name': 'finish_review', 'input': report()}]
             return output, gate.MODELS[family], {}, 'm', 'pause_turn' if len(seen) == 1 else 'tool_use'

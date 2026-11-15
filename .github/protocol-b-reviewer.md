@@ -121,6 +121,13 @@ necessary check to fit the budget.
 
 ## Source access and records
 
+The gate reserves space for your own output as well as the next model request.
+If the trusted runtime instructions tell you to finish now because context is
+low, stop requesting sources and call `finish_review`. Include a **Not reviewed**
+list in the report, or **None** if all required review is complete. If a necessary
+check remains incomplete, request changes and identify it as an unresolved
+finding. Limited context never justifies accepting an unchecked claim.
+
 Use public primary-source copies or files already lawfully supplied in this
 repository. Do not purchase access, ask for credentials, or send a restricted
 article to another service. If a changed application needs an inaccessible

@@ -30,9 +30,9 @@ records agree after removing only the last record's elapsed-time field.
 [CERTIFICATE_COMPARISON.json](CERTIFICATE_COMPARISON.json) records an
 independent comparison. The final handoff suite has 65 negative cases;
 [HANDOFF_TESTS.json](HANDOFF_TESTS.json) and the
-[review addendum](reviews/handoff-certificate-comparison.md) cover this check.
+[review addendum](https://github.com/elliotglazer/diophantine-z-q/blob/005b17abfbefd8bee7b34f3bbe8f5aabf872eb1f/docs/quartic-9625/verification/reviews/handoff-certificate-comparison.md) cover this check.
 
-[Review records](reviews/) distinguish the arithmetic source review,
+[Review records](https://github.com/elliotglazer/diophantine-z-q/tree/005b17abfbefd8bee7b34f3bbe8f5aabf872eb1f/docs/quartic-9625/verification/reviews) distinguish the arithmetic source review,
 package review, inventory review and handoff review. The finite programs
 do not prove the arithmetic source theorem or complete the separate Lean
 formalization. The manuscript and current theorem inventory state the

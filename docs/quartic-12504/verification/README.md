@@ -25,7 +25,7 @@ reversing this formatting change reproduces the previously reviewed
 arithmetic snippet byte for byte. The source system, certificate, and
 coefficient table did not change.
 
-The arithmetic and compiler reviews are in [reviews](../reviews/) and
+The arithmetic and compiler reviews are in [reviews](https://github.com/elliotglazer/diophantine-z-q/tree/005b17abfbefd8bee7b34f3bbe8f5aabf872eb1f/docs/quartic-12504/reviews) and
 [release-checks](../release-checks/). These records distinguish mathematical
 review, finite computation, document compilation, and archive integrity.
 They do not claim a completed Lean proof or independent human peer review.

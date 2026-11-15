@@ -19,7 +19,7 @@ permissions:
   pull-requests: write
   issues: write
   checks: read
-  actions: read
+  actions: write
 
 concurrency:
   group: protocol-b-${{ github.event.pull_request.number || github.event.issue.number || inputs.pull_request }}
@@ -55,6 +55,7 @@ jobs:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
           MODE: ${{ vars.PROTOCOL_B_MODE }}
+          MANUSCRIPT_PROFILE: ${{ vars.PROTOCOL_B_MANUSCRIPT_PROFILE }}
           TEST_PR: ${{ vars.PROTOCOL_B_TEST_PR }}
         run: |
           cat > "$RUNNER_TEMP/protocol-b.py" <<'PROTOCOL_B_PYTHON'
@@ -63,6 +64,7 @@ jobs:
           import concurrent.futures
           import datetime
           import functools
+          import hashlib
           import json
           import math
           import os
@@ -80,16 +82,57 @@ jobs:
           INSTRUCTIONS = ".github/protocol-b-reviewer.md"
           WORKFLOW = ".github/workflows/protocol-b.yml"
           WORKING_MARKER = "<!-- protocol-b-working-v2 -->"
+          ROUND_MARKER = "<!-- protocol-b-automatic-round-v1 -->"
           CONTEXT_TOKEN_BUDGET = 400_000
+          TOOL_CHARACTER_BUDGET = 1_200_000
           OUTPUT_TOKEN_BUDGET = 64_000
           FORMAT_TOKEN_RESERVE = 8_192
           RECOVERY_TOKEN_RESERVE = 4_096
+          REVIEWER_OUTPUT_RESERVE = OUTPUT_TOKEN_BUDGET
+          FINISH_NOW_INSTRUCTION = (
+              'Review context is low. Finish now with finish_review; do not request more '
+              'file reads, searches, or web fetches. In the report, include a Not reviewed '
+              'list naming the relevant sources, claims, or checks you did not complete '
+              '(write None if all required review is complete). If any required check '
+              'remains incomplete, request changes and identify it as an unresolved '
+              'finding. A budget limit is not evidence of acceptance. Preserve and '
+              'disposition every earlier finding; do not claim to have read omitted material.'
+          )
           WEB_MAX_USES = {'web_search': 3, 'web_fetch': 5}
           WEB_FETCH_MAX_CONTENT_TOKENS = 20_000
           # Search has no content-token cap, and the fetch cap does not cover binary
           # PDFs. These are accounting reserves, not provider-enforced limits.
           WEB_SEARCH_RESULT_RESERVE = 16_000
           WEB_BINARY_RESULT_RESERVE = 128_000
+
+
+          def configure_budget(files):
+              """Choose one profile from the complete GitHub diff, before reviewers start.
+
+              Published windows: gpt-6-astra 1,050,000; claude-fable-5-2 1,000,000.
+              Both profiles include the output and formatting reserves within the cap.
+              """
+              global CONTEXT_TOKEN_BUDGET, TOOL_CHARACTER_BUDGET, WEB_MAX_USES, WEB_FETCH_MAX_CONTENT_TOKENS
+              configured = os.environ.get('MANUSCRIPT_PROFILE', '') or 'standard'
+              if configured not in {'standard', 'expanded'}:
+                  raise ValueError('MANUSCRIPT_PROFILE must be standard or expanded; no model call')
+              manuscript = any(path.startswith('manuscripts/') for file in files
+                               for path in (file['filename'], file.get('previous_filename', '')))
+              expanded = manuscript and configured == 'expanded'
+              CONTEXT_TOKEN_BUDGET = 900_000 if expanded else 400_000
+              TOOL_CHARACTER_BUDGET = 1_200_000 * CONTEXT_TOKEN_BUDGET // 400_000
+              WEB_MAX_USES = {'web_search': 10, 'web_fetch': 20} if expanded else {'web_search': 3, 'web_fetch': 5}
+              WEB_FETCH_MAX_CONTENT_TOKENS = 50_000 if expanded else 20_000
+              return {'profile': 'manuscript-expanded' if expanded else 'standard',
+                      'configured_manuscript_profile': configured, 'manuscript_changed': manuscript,
+                      'tool_character_budget': TOOL_CHARACTER_BUDGET,
+                      'context_token_budget': CONTEXT_TOKEN_BUDGET,
+                      'output_token_budget': OUTPUT_TOKEN_BUDGET,
+                      'reviewer_output_reserve': REVIEWER_OUTPUT_RESERVE,
+                      'fable_web_max_uses': dict(WEB_MAX_USES),
+                      'fable_web_fetch_max_content_tokens': WEB_FETCH_MAX_CONTENT_TOKENS}
+
+
           REQUIRED_COMPUTATIONS = {
               "Accepted Lean helpers and axiom audit", "Construction regeneration and finite checks",
               "Paper build", "Reconstructed quartic and Version 5 inventory",
@@ -122,11 +165,14 @@ jobs:
                   super().__init__(json.dumps(detail))
 
 
-          def request(url, headers, method="GET", data=None, stream=False):
+          def request(url, headers, method="GET", data=None, stream=False, before_retry=None):
               payload = None if data is None else json.dumps(data).encode()
               req = urllib.request.Request(url, data=payload, method=method,
                                            headers={"Content-Type": "application/json", **headers})
               for attempt in range(3):
+                # The initial guard runs in Review.run; repeat after every backoff.
+                if attempt and before_retry is not None:
+                    before_retry()
                 try:
                   response = urllib.request.urlopen(req, timeout=180)
                   break
@@ -183,6 +229,13 @@ jobs:
 
               def call(self, path, method="GET", data=None):
                   return self.api("/repos/" + self.repo + path, method, data)
+
+              def dispatch_workflow(self, workflow, ref):
+                  # This API version returns the exact new run ID, avoiding list-run races.
+                  return request('https://api.github.com/repos/' + self.repo +
+                                 '/actions/workflows/' + workflow + '/dispatches',
+                                 {**self.headers, 'X-GitHub-Api-Version': '2026-03-10'},
+                                 'POST', {'ref': ref})
 
               def pages(self, path):
                   result = []
@@ -280,7 +333,7 @@ jobs:
           ]
 
 
-          def validate_review(value, prior_ids, overrides):
+          def validate_review(value, prior_ids, overrides, allow_incomplete=False):
               if set(value) != set(FINISH_SCHEMA["required"]):
                   raise ValueError("Incomplete final report")
               if value["decision"] not in {"accept", "changes_requested"} or not isinstance(value["report"], str) or len(value["report"]) < 80:
@@ -288,7 +341,7 @@ jobs:
               for key in ("findings", "prior_findings", "sources_read", "not_outside_reviewed"):
                   if not isinstance(value[key], list):
                       raise ValueError("Expected report list: " + key)
-              if not value["sources_read"]:
+              if not value["sources_read"] and not (allow_incomplete and value['decision'] == 'changes_requested'):
                   raise ValueError("No sources read")
               ids = [x["id"] for x in value["findings"]]
               if len(ids) != len(set(ids)) or any(not re.fullmatch(r"[A-Za-z0-9_-]{1,40}", i) for i in ids):
@@ -340,7 +393,7 @@ jobs:
                       "tools": [{"name": t["name"], "description": t["description"], "input_schema": t["parameters"]} for t in TOOLS] + [
                           {"type": "web_search_20260318", "name": "web_search", "max_uses": WEB_MAX_USES['web_search']},
                           {"type": "web_fetch_20260318", "name": "web_fetch", "max_uses": WEB_MAX_USES['web_fetch'],
-                           "max_content_tokens": WEB_FETCH_MAX_CONTENT_TOKENS}]}
+                           "max_content_tokens": WEB_FETCH_MAX_CONTENT_TOKENS, "response_inclusion": "excluded"}]}
 
 
           def request_size(body):
@@ -405,6 +458,33 @@ jobs:
                                'Fetch text may be truncated by the provider; do not claim to have read omitted text.'}
 
 
+          def web_response_observation(output, usage, response_id, turn):
+              """Record transport metadata only, never document bodies or signed thinking."""
+              results = []
+              for block in output:
+                  if block.get('type') not in {'web_fetch_tool_result', 'web_search_tool_result'}:
+                      continue
+                  content = block.get('content')
+                  document = content.get('content', {}) if isinstance(content, dict) else {}
+                  source = document.get('source', {}) if isinstance(document, dict) else {}
+                  data = source.get('data') if isinstance(source, dict) else None
+                  results.append({'type': block['type'], 'tool_use_id': block.get('tool_use_id'),
+                                  'source_type': source.get('type') if isinstance(source, dict) else None,
+                                  'document_payload_present': isinstance(data, str),
+                                  'document_payload_bytes': len(data.encode('utf-8')) if isinstance(data, str) else 0,
+                                  'text_may_be_truncated': source.get('type') == 'text' if isinstance(source, dict) else False,
+                                  'result_bytes': request_size(block)})
+              reported = (usage or {}).get('server_tool_use') or {}
+              fetches = reported.get('web_fetch_requests')
+              returned = sum(r['type'] == 'web_fetch_tool_result' for r in results)
+              return {'turn': turn, 'response_id': response_id,
+                      'assistant_content_sha256': hashlib.sha256(json.dumps(output, ensure_ascii=False).encode()).hexdigest(),
+                      'reported_web_usage': reported, 'returned_results': results,
+                      'unreturned_reported_fetches': max(0, fetches - returned) if type(fetches) is int else None,
+                      'omission_note': 'When call/result pairs are omitted, their identities and success are not observable here. Counts alone do not prove omission worked.',
+                      'next_request': {'status': 'not sent; guard, final decision, or failure may end the review'}}
+
+
           def context_estimate(family, system, conversation, previous=None):
               """Preflight estimate from reported tokens plus conservative byte growth.
 
@@ -459,11 +539,11 @@ jobs:
               return observation
 
 
-          def model_turn(family, system, conversation):
+          def model_turn(family, system, conversation, before_retry=None):
               body = model_body(family, system, conversation)
               if family == "astra":
                   response = request("https://api.openai.com/v1/responses",
-                                     {"Authorization": "Bearer " + os.environ["OPENAI_API_KEY"]}, "POST", body, True)
+                                     {"Authorization": "Bearer " + os.environ["OPENAI_API_KEY"]}, "POST", body, True, before_retry=before_retry)
                   final = None
                   for event in sse(response):
                       if event.get("type") == "response.completed":
@@ -474,7 +554,7 @@ jobs:
                       raise RuntimeError("OpenAI stream ended without a completed response")
                   return final["output"], final.get("model"), final.get("usage"), final["id"], final["status"]
               response = request("https://api.anthropic.com/v1/messages",
-                                 {"x-api-key": os.environ["ANTHROPIC_API_KEY"], "anthropic-version": "2023-06-01"}, "POST", body, True)
+                                 {"x-api-key": os.environ["ANTHROPIC_API_KEY"], "anthropic-version": "2023-06-01"}, "POST", body, True, before_retry=before_retry)
               final, blocks, partial, stopped, initial_inputs = {}, {}, {}, False, None
               for event in sse(response):
                   kind = event.get("type")
@@ -550,6 +630,7 @@ jobs:
                   self.instructions = instructions
                   self.history_read, self.reads, self.tree, self.chars = False, [], None, 0
                   self.file_lines, self.working_comment, self.notes = {}, None, []
+                  self.finish_now = False
                   self.input = {"repository": gh.repo, "pull_request": pr["number"], "head": pr["head"]["sha"],
                                 "base": pr["base"]["sha"], "change_class": change_class,
                                 "untrusted_title": pr["title"], "untrusted_description": pr.get("body"), "files": files}
@@ -593,11 +674,47 @@ jobs:
               def run(self):
                   conversation = [{"role": "user", "content": json.dumps(self.input)}]
                   record(self.family + "-input.json", {"instructions": self.instructions, "input": self.input})
-                  turns, previous = [], None
+                  turns, previous, web_trace = [], None, []
+                  instructions, finish_sent = self.instructions, False
+                  def check_computations():
+                      failed = failed_computation_checks(self.gh, self.pr['head']['sha'], self.pr['base']['ref'])
+                      if failed:
+                          raise RuntimeError('fix failing checks first: ' + ', '.join(failed) + '; no further model call')
+                  finish_instruction = FINISH_NOW_INSTRUCTION + '\nPrior finding IDs: ' + json.dumps(sorted(self.prior)) + \
+                      '. If you could not review an earlier finding, disposition it as unresolved and explain that limitation.'
                   for turn in range(50):
                       log(f"{self.family}: model turn {turn+1}; {len(self.reads)} repository source reads")
-                      budget = context_budget(self.family, self.instructions, conversation, previous)
-                      output, served, usage, response_id, stop_reason = model_turn(self.family, self.instructions, conversation)
+                      projected = context_estimate(self.family, instructions, conversation, previous)
+                      if (CONTEXT_TOKEN_BUDGET - RECOVERY_TOKEN_RESERVE - projected['estimated_total']
+                              < REVIEWER_OUTPUT_RESERVE):
+                          self.finish_now = True
+                      if self.finish_now:
+                          # Keep system/tools and all earlier messages immutable: signed
+                          # thinking binds their exact prefix. Fable permits an appended
+                          # system message only after a user message (including tool results).
+                          # A paused assistant turn must be resumed unchanged first.
+                          if not finish_sent and (self.family != 'fable' or conversation[-1].get('role') == 'user'):
+                              conversation.append({'role': 'system' if self.family == 'fable' else 'developer',
+                                                   'content': finish_instruction})
+                              finish_sent = True
+                          record(self.family + '-finish-now.json', {'turn': turn + 1, 'reason': 'low context',
+                                 'projected': projected, 'reviewer_output_reserve': REVIEWER_OUTPUT_RESERVE})
+                      budget = context_budget(self.family, instructions, conversation, previous)
+                      check_computations()
+                      replay_hash = None
+                      if self.family == 'fable' and web_trace:
+                          last_assistant = next(m['content'] for m in reversed(conversation) if m.get('role') == 'assistant')
+                          replay_hash = hashlib.sha256(json.dumps(last_assistant, ensure_ascii=False).encode()).hexdigest()
+                      output, served, usage, response_id, stop_reason = model_turn(
+                          self.family, instructions, conversation, before_retry=check_computations)
+                      if self.family == 'fable':
+                          if web_trace:
+                              web_trace[-1]['next_request'] = {
+                                  'status': 'accepted response received', 'response_id': response_id,
+                                  'reported_input_tokens': (usage or {}).get('request_start_input_tokens'),
+                                  'assistant_replayed_unchanged': replay_hash == web_trace[-1]['assistant_content_sha256']}
+                          web_trace.append(web_response_observation(output, usage, response_id, turn + 1))
+                          record('fable-web-results.json', web_trace)
                       previous = {**budget, 'usage': usage,
                                   'server_tools': any(x.get('type') == 'server_tool_use' for x in output)}
                       if served != MODELS[self.family]:
@@ -640,10 +757,16 @@ jobs:
                       results = []
                       finish = [x for x in calls if x.get("name") == "finish_review"]
                       if finish:
-                          if len(calls) != 1 or not self.history_read or not self.reads:
+                          if len(calls) != 1:
                               raise ValueError("Final review requires prior source/history reads and no concurrent tool calls")
                           value = json.loads(finish[0]["arguments"]) if self.family == "astra" else finish[0]["input"]
-                          value = validate_review(value, set(self.prior), self.overrides)
+                          value = validate_review(value, set(self.prior), self.overrides, allow_incomplete=self.finish_now)
+                          if (not self.history_read or not self.reads) and not (self.finish_now and value['decision'] == 'changes_requested'):
+                              raise ValueError("Final review requires prior source/history reads and no concurrent tool calls")
+                          if not self.history_read:
+                              for item in value['prior_findings']:
+                                  item.update(resolution='unresolved', reason=
+                                              'Earlier finding history was not admitted to this review. Its disposition remains unresolved.')
                           record(self.family + "-source-reads.json", self.reads)
                           return value
                       if not calls and stop_reason != "pause_turn":
@@ -652,7 +775,8 @@ jobs:
                           conversation.append({"role": "user", "content": "Continue the review. When finished use finish_review; prose alone cannot pass the gate."})
                       # Reserve a small error result for every pending call before admitting
                       # large reads. Parallel calls share one next-request budget.
-                      notice = 'Estimated remaining allowance; use smaller reads or narrower searches. Repository reads are never truncated.'
+                      notice = ('Estimated remaining allowance; 64,000 tokens are reserved for the reviewer\'s own output. '
+                                'Use smaller reads or narrower searches. Repository reads are never truncated.')
                       web_remaining = web_allowance(self.family, conversation)
                       rejected = {'error': 'Read too large for the remaining review allowance. Request fewer lines or a narrower result.',
                                   'remaining_context_tokens': 0, 'remaining_tool_characters': 0,
@@ -669,7 +793,7 @@ jobs:
                                'content': json.dumps(v, ensure_ascii=False)} for c, v in zip(calls, proposed)]}]
 
                       def allowance(proposed):
-                          estimated = context_estimate(self.family, self.instructions,
+                          estimated = context_estimate(self.family, instructions,
                                                        next_conversation(proposed), previous)
                           # Leave space for allowance metadata and a recovery/decision turn.
                           return max(0, CONTEXT_TOKEN_BUDGET - RECOVERY_TOKEN_RESERVE - estimated['estimated_total'])
@@ -678,24 +802,32 @@ jobs:
                           args = json.loads(call["arguments"]) if self.family == "astra" else call["input"]
                           reads_before, history_before = len(self.reads), self.history_read
                           try:
+                              if self.finish_now:
+                                  raise ValueError('Read too large for the remaining review allowance. ' + FINISH_NOW_INSTRUCTION)
                               value = self.tool(call["name"], args)
                           except (ValueError, UnicodeError) as error:
                               value = {"error": str(error)}
                           value = {**value, 'remaining_context_tokens': 0,
                                    'remaining_tool_characters': 0, 'budget_notice': notice, 'web_uses_remaining': web_remaining}
                           values[call_index] = value
-                          estimated = context_estimate(self.family, self.instructions,
+                          estimated = context_estimate(self.family, instructions,
                                                        next_conversation(values), previous)
                           content = json.dumps(value, ensure_ascii=False)
-                          if (estimated['estimated_total'] > CONTEXT_TOKEN_BUDGET - RECOVERY_TOKEN_RESERVE
-                                  or self.chars + len(content) + 128 > 1_200_000):
+                          # In addition to the next request's output allowance, leave room
+                          # for that reply to enter the following request's input context.
+                          if (estimated['estimated_total'] > CONTEXT_TOKEN_BUDGET - RECOVERY_TOKEN_RESERVE - REVIEWER_OUTPUT_RESERVE
+                                  or self.chars + len(content) + 128 > TOOL_CHARACTER_BUDGET):
                               value = dict(rejected)
                               values[call_index] = value
                               # Fetching a source is not evidence that the reviewer saw it.
                               del self.reads[reads_before:]
                               self.history_read = history_before
                           value['remaining_context_tokens'] = max(0, allowance(values) - 128)
-                          value['remaining_tool_characters'] = max(0, 1_200_000 - self.chars - len(json.dumps(value, ensure_ascii=False)) - 128)
+                          if self.finish_now or value['remaining_context_tokens'] < REVIEWER_OUTPUT_RESERVE:
+                              self.finish_now = True
+                              value['finish_now'] = True
+                              value['budget_notice'] = FINISH_NOW_INSTRUCTION
+                          value['remaining_tool_characters'] = max(0, TOOL_CHARACTER_BUDGET - self.chars - len(json.dumps(value, ensure_ascii=False)) - 128)
                           content = json.dumps(value, ensure_ascii=False)
                           self.chars += len(content)
                           record(self.family + f"-tool-{turn}-{call_index}.json", {"name": call["name"], "arguments": args, "result": value})
@@ -762,6 +894,10 @@ jobs:
               for family, envelope in latest.items():
                   if not envelope.get('complete') or envelope.get('head') != head or envelope.get('model') != MODELS[family]:
                       raise ValueError("Override cannot replace an incomplete, stale or wrong-model review")
+                  # Historical completed envelopes predate this flag; their policy
+                  # required both reads and could not produce a no-read completion.
+                  if envelope.get('read_prerequisites_complete', True) is not True:
+                      raise ValueError('Override cannot replace missing source or history reads in a finish-now report')
                   value = envelope['review']
                   here = {finding_id(envelope, f['id']) for f in value['findings']}
                   here.update(f['id'] for f in value['prior_findings'] if f['resolution'] != 'resolved')
@@ -817,6 +953,105 @@ jobs:
               return gh, app
 
 
+          def collaborator(gh, user):
+              if user.get('type') != 'User' or not user.get('login'):
+                  return False
+              try:
+                  permission = gh.call('/collaborators/' + urllib.parse.quote(user['login'], safe='') + '/permission')
+              except RequestError as error:
+                  if error.status == 404:
+                      return False
+                  raise
+              return permission['permission'] in {'write', 'maintain', 'admin'}
+
+
+          def review_spend_history(gh, app, pr, name, policy):
+              """Comments only locate records; this App's check payload is authority.
+
+              Persisting check pointers in the PR keeps counts across force-pushes.
+              Old report comments also locate pre-counter reviews. A missing record
+              fails closed rather than silently resetting the spending count.
+              """
+              heads, pointers = {pr['head']['sha']}, set()
+              for comment in gh.pages(f"/issues/{pr['number']}/comments"):
+                  body = comment['body']
+                  if not own_comment(gh, comment) or not body.startswith((MARKER, ROUND_MARKER)):
+                      continue
+                  try:
+                      value = json.loads(body.split('```json\n', 1)[1].split('\n```', 1)[0])
+                  except (ValueError, IndexError):
+                      continue
+                  if body.startswith(ROUND_MARKER) and type(value.get('check')) is int:
+                      pointers.add(value['check'])
+                  elif re.fullmatch('[0-9a-f]{40}', str(value.get('head', ''))):
+                      heads.add(value['head'])
+              checks = {}
+              for head in sorted(heads):
+                  for page in range(1, 101):
+                      response = app.call(f'/commits/{head}/check-runs?filter=all&per_page=100&page={page}')
+                      for check in response['check_runs']:
+                          checks[check['id']] = check
+                      if len(response['check_runs']) < 100:
+                          break
+                  else:
+                      raise ValueError('Prior review check pagination incomplete; no model call')
+              for ident in sorted(pointers - checks.keys()):
+                  checks[ident] = app.call(f'/check-runs/{ident}')
+              rounds, completed = set(), []
+              for check in checks.values():
+                  if (check['name'] != name or (check.get('app') or {}).get('id') != int(os.environ['APP_ID'])):
+                      continue
+                  try:
+                      value = json.loads(check.get('output', {}).get('text') or '{}')
+                  except ValueError:
+                      continue
+                  if value.get('schema') != 'protocol-b-decisions/v1' or value.get('head') != check['head_sha']:
+                      continue
+                  marker = value.get('review_round') or {}
+                  if marker.get('number') == pr['number'] and marker.get('started') is True:
+                      if marker.get('trigger') == 'automatic':
+                          rounds.add((str(marker['run']), str(marker['attempt'])))
+                  reports = value.get('reports') or {}
+                  valid = (set(reports) == set(MODELS) and all(
+                      r.get('head') == check['head_sha'] and r.get('model') == MODELS[f]
+                      for f, r in reports.items()))
+                  if valid and not marker:
+                      identities = {(str(r['run']), str(r['attempt'])) for r in reports.values()}
+                      if len(identities) == 1:
+                          run, attempt = next(iter(identities))
+                          actual = gh.call(f'/actions/runs/{run}')
+                          if actual['event'] == 'pull_request_target' and actual['path'].split('@')[0] == WORKFLOW:
+                              rounds.add((run, attempt))
+                  if (valid and check['head_sha'] == pr['head']['sha'] and check.get('status') == 'completed'
+                          and all(r.get('complete') and same_policy(gh, r['policy_ref'], policy) for r in reports.values())):
+                      completed.append(check)
+              return {'automatic_rounds': len(rounds),
+                      'completed_check': max(completed, key=lambda c: c['id']) if completed else None}
+
+
+          def failed_computation_checks(gh, head, default):
+              rules = gh.pages('/rules/branches/' + urllib.parse.quote(default, safe=''))
+              requirements = [c for rule in rules if rule['type'] == 'required_status_checks'
+                              for c in rule['parameters']['required_status_checks'] if c['context'] != CHECK]
+              checks = head_checks(gh, head)
+              statuses = {}
+              for status in gh.pages(f'/commits/{head}/statuses'):
+                  key = status['context'].casefold()
+                  if key not in statuses or status['id'] > statuses[key]['id']:
+                      statuses[key] = status
+              failed = set()
+              for required in requirements:
+                  name, integration = required['context'], required.get('integration_id')
+                  matches = [c for c in checks if c['name'] == name and
+                             (integration in (None, -1) or (c.get('app') or {}).get('id') == integration)]
+                  if any(c['status'] == 'completed' and c.get('conclusion') in
+                         {'failure', 'cancelled', 'timed_out', 'action_required', 'startup_failure', 'stale'} for c in matches):
+                      failed.add(name)
+                  if statuses.get(name.casefold(), {}).get('state') in {'error', 'failure'}:
+                      failed.add(name)
+              return sorted(failed)
+
+
           def main():
               mode = os.environ.get("MODE", "off")
               if mode not in {"test", "live"}:
@@ -836,15 +1071,16 @@ jobs:
               if mode == "test" and number != int(os.environ.get("TEST_PR", "0")):
                   log("Test mode: this is not the designated throwaway PR; no action.")
                   return
-              override_command = False
+              override_command = review_command = False
               if "comment" in event:
                   command = event["comment"]["body"].strip()
-                  if not command.startswith(("/protocol-b review", "/protocol-b override ")):
+                  if command != '/protocol-b review' and not command.startswith('/protocol-b override '):
                       return
                   login = event["sender"]["login"]
-                  if gh.call("/collaborators/" + urllib.parse.quote(login, safe="") + "/permission")["permission"] not in {"write", "maintain", "admin"}:
+                  if event['comment']['user']['login'] != login or not collaborator(gh, event['comment']['user']):
                       return
                   override_command = command.startswith('/protocol-b override ')
+                  review_command = command == '/protocol-b review'
               pr = gh.call(f"/pulls/{number}")
               if pr["state"] != "open" or pr["draft"] or pr["base"]["ref"] != default:
                   return
@@ -854,6 +1090,13 @@ jobs:
               instructions = gh.text(INSTRUCTIONS, os.environ['GITHUB_SHA'])
               name = CHECK if mode == "live" else "Protocol B / test review"
               run_url = f"https://github.com/{gh.repo}/actions/runs/{os.environ['GITHUB_RUN_ID']}"
+              spend = review_spend_history(gh, app, pr, name, trusted_ref)
+              automatic = 'pull_request' in event and not review_command and not override_command
+              if automatic and spend['completed_check']:
+                  record('review-reused.json', {'check': spend['completed_check']['id'], 'head': pr['head']['sha'],
+                                               'automatic_rounds': spend['automatic_rounds'], 'model_calls': 0})
+                  log('This head already has a completed review under the same policy; no model call.')
+                  return
               # Start blocked rather than leaving an indefinitely pending check if this
               # runner is cancelled, times out, or is lost. Finalization replaces this.
               check = app.call("/check-runs", "POST", {"name": name, "head_sha": pr["head"]["sha"],
@@ -864,13 +1107,34 @@ jobs:
               conclusion, summary = "failure", "Review did not finish. See the workflow log."
               state = {'number': number, 'head': pr['head']['sha'], 'base': pr['base']['sha'], 'check': check['id'],
                        'name': name, 'mode': mode, 'policy_ref': os.environ['GITHUB_SHA'], 'default': default,
-                       'conclusion': conclusion, 'summary': summary, 'reports': {}}
+                       'conclusion': conclusion, 'summary': summary, 'reports': {},
+                       'automatic_rounds': spend['automatic_rounds']}
               record('decision.json', state)
               envelopes = {}
               try:
+                  # Do not spend model credits on an outside contributor's automatic
+                  # event or manual workflow dispatch. Each review needs a current
+                  # collaborator's explicit command; an override never calls models.
+                  if not override_command and not review_command and not collaborator(gh, pr['user']):
+                      state.update(conclusion='action_required', summary=
+                                   "Review blocked: awaiting a collaborator's /protocol-b review. No model was called.")
+                      record('decision.json', state)
+                      return
+                  if not override_command:
+                      failed = failed_computation_checks(gh, pr['head']['sha'], default)
+                      if failed:
+                          state.update(conclusion='action_required', summary='Review blocked: fix failing checks first: ' + ', '.join(failed) + '. No model was called.')
+                          record('decision.json', state)
+                          return
+                  if not override_command and not review_command and spend['automatic_rounds'] >= 4:
+                      state.update(conclusion='action_required', summary=
+                                   'Four automatic review rounds have run. A collaborator must comment /protocol-b review. No model was called.')
+                      record('decision.json', state)
+                      return
                   files = gh.pages(f"/pulls/{number}/files")
                   if len(files) != pr["changed_files"]:
                       raise ValueError("GitHub omitted changed files; cannot review an incomplete diff")
+                  record('budget-profile.json', configure_budget(files))
                   # Even missing patches remain listed so both reviewers must fetch sources.
                   declaration = "No mathematical content changed." in (pr.get("body") or "")
                   change_class = classify(files, declaration)
@@ -894,9 +1158,25 @@ jobs:
                       for key in ("OPENAI_API_KEY", "ANTHROPIC_API_KEY"):
                           if not os.environ.get(key):
                               raise ValueError("Missing protocol-b environment secret " + key)
+                      # Save the paid-round intent to the App and a discoverable PR
+                      # pointer before either worker starts. Interrupted rounds count.
+                      state['automatic_rounds'] += int(automatic)
+                      state['review_round'] = {'number': number, 'run': os.environ['GITHUB_RUN_ID'],
+                                               'attempt': os.environ['GITHUB_RUN_ATTEMPT'], 'started': True,
+                                               'trigger': 'automatic' if automatic else 'command'}
+                      record('decision.json', state)
+                      app.call(f"/check-runs/{check['id']}", 'PATCH', {'output': {
+                          'title': 'Review not yet accepted', 'summary': f"Review running. Automatic rounds: {state['automatic_rounds']}/4.",
+                          'text': json.dumps({'schema': 'protocol-b-decisions/v1', 'head': state['head'],
+                                              'reports': {}, 'review_round': state['review_round'],
+                                              'automatic_rounds': state['automatic_rounds']})}})
+                      gh.call(f'/issues/{number}/comments', 'POST', {'body': ROUND_MARKER + '\n```json\n' +
+                              json.dumps({'check': check['id']}) + '\n```'})
                       reviews, failures = {}, {}
                       with concurrent.futures.ThreadPoolExecutor(max_workers=2) as pool:
-                          futures = {pool.submit(Review(gh, pr, files, discussion, prior, overrides, instructions, family, change_class).run): family for family in MODELS}
+                          reviewers = {family: Review(gh, pr, files, discussion, prior, overrides, instructions, family, change_class)
+                                       for family in MODELS}
+                          futures = {pool.submit(reviewer.run): family for family, reviewer in reviewers.items()}
                           for future in concurrent.futures.as_completed(futures):
                               family = futures[future]
                               try:
@@ -904,6 +1184,8 @@ jobs:
                                   envelope = {"reviewer": family, "model": MODELS[family], "head": pr["head"]["sha"],
                                               "base": pr["base"]["sha"], "run": os.environ["GITHUB_RUN_ID"],
                                               "attempt": os.environ["GITHUB_RUN_ATTEMPT"], "review": value,
+                                              "read_prerequisites_complete": bool(reviewers[family].history_read and reviewers[family].reads),
+                                              "finished_early": reviewers[family].finish_now,
                                               "complete": True, "policy_ref": os.environ['GITHUB_SHA']}
                                   envelopes[family] = envelope
                                   record(family + "-report.json", envelope)
@@ -951,6 +1233,195 @@ jobs:
                   raise RuntimeError("Protocol B review is blocked")
 
 
+          def head_checks(gh, head):
+              """Read every current check, shared by spending and merge guards."""
+              checks, seen, total = [], set(), None
+              for page in range(1, 101):
+                  value = gh.call(f"/commits/{head}/check-runs?filter=latest&per_page=100&page={page}")
+                  if total is not None and value['total_count'] != total:
+                      raise ValueError('Check list changed during pagination; no merge requested')
+                  total = value['total_count']
+                  rows = value['check_runs']
+                  for check in rows:
+                      if check['id'] in seen or check['head_sha'] != head:
+                          raise ValueError('Duplicate or wrong-head check; no merge requested')
+                      seen.add(check['id'])
+                      checks.append(check)
+                  if len(checks) == total:
+                      break
+                  if not rows or len(checks) > total:
+                      raise ValueError('Incomplete check list; no merge requested')
+              else:
+                  raise ValueError('Check pagination limit reached; no merge requested')
+              return checks
+
+
+          def required_checks_passed(gh, head, requirements):
+              """Conservative readiness check; GitHub still enforces rules on merge."""
+              checks = head_checks(gh, head)
+              # A legacy status with the same name also has to pass. Statuses lack
+              # an App identity here, so they cannot satisfy an App-pinned rule.
+              statuses = {}
+              for status in gh.pages(f"/commits/{head}/statuses"):
+                  context = status['context'].casefold()
+                  prior = statuses.get(context)
+                  if prior is None or status['id'] > prior['id']:
+                      statuses[context] = status
+              for rule in requirements:
+                  name, integration = rule['context'], rule.get('integration_id')
+                  pinned = integration not in (None, -1)
+                  matches = [c for c in checks if c['name'] == name and
+                             (c.get('app') or {}).get('id') is not None and
+                             (not pinned or (c.get('app') or {}).get('id') == integration)]
+                  status = statuses.get(name.casefold())
+                  if status is not None and status['state'] != 'success':
+                      return False
+                  if not matches and (pinned or status is None):
+                      return False
+                  if any(c['status'] != 'completed' or c['conclusion'] != 'success' for c in matches):
+                      return False
+              return bool(requirements)
+
+
+          def merge_readiness(gh, state, record_name='merge-readiness.json'):
+              # Preserve the protected route for both immediate and deferred merges.
+              rules = gh.pages("/rules/branches/" + urllib.parse.quote(state['default'], safe=""))
+              required = {c["context"] for rule in rules if rule["type"] == "required_status_checks"
+                          for c in rule["parameters"]["required_status_checks"]}
+              if not ({CHECK} | REQUIRED_COMPUTATIONS) <= required:
+                  raise RuntimeError("Auto-merge withheld: the reviewer check or computation protections are not required")
+              if not any(c['context'] == CHECK and c.get('integration_id') == int(os.environ['APP_ID'])
+                         for rule in rules if rule['type'] == 'required_status_checks'
+                         for c in rule['parameters']['required_status_checks']):
+                  raise RuntimeError('Auto-merge withheld: required review check is not pinned to the dedicated App')
+              if not any(rule["type"] == "required_status_checks" and rule["parameters"].get("strict_required_status_checks_policy") for rule in rules):
+                  raise RuntimeError("Auto-merge withheld: require an up-to-date branch so changed base dependencies cannot bypass review")
+              if not gh.call('').get("allow_auto_merge"):
+                  raise RuntimeError("Review passed, but repository auto-merge is disabled; complete the owner-approved activation checklist")
+              requirements = [c for rule in rules if rule['type'] == 'required_status_checks'
+                              for c in rule['parameters']['required_status_checks']]
+              ready = required_checks_passed(gh, state['head'], requirements)
+              record(record_name, {'head': state['head'], 'requirements': requirements,
+                                             'all_required_checks_passed': ready})
+              current = gh.call(f"/pulls/{state['number']}")
+              if current["head"]["sha"] != state['head']:
+                  raise RuntimeError("Head changed before requesting merge")
+              if current['base']['ref'] != state['default'] or current['state'] != 'open' or current['draft']:
+                  raise RuntimeError('PR is no longer open and ready for the protected default branch')
+              latest_ref = gh.call('/commits/' + state['default'])['sha']
+              if not same_policy(gh, state['policy_ref'], latest_ref):
+                  raise RuntimeError('Review policy changed before requesting merge')
+              return ready, current, latest_ref
+
+
+          def direct_merge(gh, state, latest_ref):
+              comparison = gh.call(f"/compare/{latest_ref}...{state['head']}")
+              behind = comparison.get('behind_by')
+              record('merge-base-check.json', {'default_tip': latest_ref, 'head': state['head'], 'behind_by': behind})
+              if type(behind) is not int or behind != 0:
+                  raise RuntimeError('Direct merge withheld: reviewed head must contain the current default-branch tip')
+              # Deployment requires an empty ruleset bypass list; the SHA is atomic.
+              result = gh.call(f"/pulls/{state['number']}/merge", 'PUT', {'sha': state['head'], 'merge_method': 'merge'})
+              record('merge-result.json', result)
+              if result.get('merged') is not True:
+                  raise RuntimeError('Direct merge was not confirmed: ' + json.dumps(result))
+              return result['sha']
+
+
+          def confirm_and_dispatch(gh, state, expected_merge):
+              """Confirm a direct merge once, then dispatch both existing main workflows."""
+              pr = gh.call(f"/pulls/{state['number']}")
+              if pr['head']['sha'] != state['head'] or pr['base']['ref'] != 'main' or state['default'] != 'main':
+                  raise RuntimeError('PR head or destination changed before merge confirmation')
+              merge = pr.get('merge_commit_sha')
+              if (pr.get('merged') is not True or pr['state'] != 'closed' or
+                      not isinstance(merge, str) or not re.fullmatch(r'[0-9a-f]{40}', merge)):
+                  raise RuntimeError('Direct merge is not confirmed; no checks dispatched')
+              if merge != expected_merge:
+                  raise RuntimeError('Confirmed merge differs from the merge response')
+              tip = gh.call('/commits/main')['sha']
+              comparison = gh.call(f"/compare/{merge}...{tip}")
+              if type(comparison.get('behind_by')) is not int or comparison['behind_by'] != 0:
+                  raise RuntimeError('Merged commit is not contained in main')
+              record('merge-confirmation.json', {'number': state['number'], 'head': state['head'],
+                     'base': 'main', 'merge_commit_sha': merge, 'default_tip': tip,
+                     'merged_by': pr.get('merged_by'), 'merged_at': pr.get('merged_at')})
+              failures = []
+              for workflow in ('research-checks.yml', 'kernel-lean.yml'):
+                  receipt = {'workflow': workflow, 'request': {'ref': 'main'}, 'status': 'intent',
+                             'merge_commit_sha': merge}
+                  name = 'dispatch-' + workflow + '.json'
+                  record(name, receipt)
+                  try:
+                      # Never retry a write: a timeout can mean GitHub accepted it.
+                      result = gh.dispatch_workflow(workflow, 'main')
+                      receipt.update(status='accepted', response=result)
+                      record(name, receipt)
+                      run_id = (result or {}).get('workflow_run_id')
+                      if type(run_id) is not int or run_id <= 0:
+                          raise RuntimeError('Dispatch did not return a run ID; reconcile Actions before retrying')
+                      run = gh.call(f'/actions/runs/{run_id}')
+                      receipt['run'] = {k: run.get(k) for k in ('id', 'head_sha', 'head_branch', 'event', 'path', 'html_url', 'status')}
+                      sha = run.get('head_sha')
+                      if (run.get('id') != run_id or run.get('event') != 'workflow_dispatch' or
+                              run.get('head_branch') != 'main' or
+                              run.get('path') not in ('.github/workflows/' + workflow, '.github/workflows/' + workflow + '@main') or
+                              not isinstance(sha, str) or not re.fullmatch(r'[0-9a-f]{40}', sha)):
+                          raise RuntimeError('Unexpected dispatched run identity; reconcile Actions before retrying')
+                      receipt.update(status='run_confirmed', head_sha=sha, head_differs_from_merge=(sha != merge))
+                      record(name, receipt)
+                  except Exception as error:
+                      receipt['error'] = str(error)
+                      record(name, receipt)
+                      failures.append(workflow + ': ' + str(error))
+              if failures:
+                  raise RuntimeError('Post-merge dispatch needs reconciliation: ' + '; '.join(failures))
+              log('Confirmed direct merge ' + merge + '; dispatched both workflows on main. See receipts for their actual head SHAs.')
+              return merge
+
+
+          def merge_and_dispatch(gh, state):
+              ready, current, latest_ref = merge_readiness(gh, state)
+              expected_merge = None
+              if ready:
+                  expected_merge = direct_merge(gh, state, latest_ref)
+              elif not current.get('auto_merge'):
+                  # Only an explicit refusal permits the one readiness recheck. Transport
+                  # failures and ambiguous partial GraphQL success are never replayed.
+                  refusal = None
+                  try:
+                      result = gh.api('/graphql', 'POST', {'query': 'mutation($id:ID!){enablePullRequestAutoMerge(input:{pullRequestId:$id,mergeMethod:MERGE}){pullRequest{id}}}', 'variables': {'id': current['node_id']}})
+                      record('auto-merge-result.json', result)
+                      if result.get('errors'):
+                          # A null mutation result is not proof of no side effects.
+                          # Accept only the known explicit state refusals, never
+                          # generic/internal execution errors or mixed errors.
+                          errors = result['errors']
+                          if ((result.get('data') or {}).get('enablePullRequestAutoMerge') or
+                                  not isinstance(errors, list) or not all(
+                                      isinstance(e, dict) and e.get('type') == 'UNPROCESSABLE' and
+                                      isinstance(e.get('message'), str) and re.fullmatch(
+                                          r'Pull request (?:Pull request )?is in (?:clean|unstable) status', e['message'])
+                                      for e in errors)):
+                              raise RuntimeError('Ambiguous or unrecognized auto-merge error; reconcile before retrying')
+                          refusal = errors
+                  except RequestError as error:
+                      # HTTP status alone does not identify a state refusal.
+                      raise
+                  if refusal is not None:
+                      record('auto-merge-refusal.json', {'error': refusal})
+                      ready, current, latest_ref = merge_readiness(gh, state, 'merge-readiness-after-refusal.json')
+                      if not ready:
+                          raise RuntimeError('Auto-merge refused and required checks are not ready after the one recheck: ' + json.dumps(refusal))
+                      expected_merge = direct_merge(gh, state, latest_ref)
+              if expected_merge is None:
+                  record('post-merge-manual.json', {'number': state['number'], 'head': state['head'],
+                         'reason': 'Deferred auto-merge: maintainer must dispatch both workflows on main after confirming merge.'})
+                  log('Deferred auto-merge. After merge, a maintainer must start Research checks and Kernel Lean build on main. No polling.')
+                  return
+              return confirm_and_dispatch(gh, state, expected_merge)
+
+
           def publish():
               """Use a fresh official-action token after the potentially long review."""
               path = OUT / 'decision.json'
@@ -972,7 +1443,10 @@ jobs:
               for envelope in compact.values():
                   envelope['review'].pop('report', None)
                   envelope['review'].pop('sources_read', None)
-              text = json.dumps({'schema': 'protocol-b-decisions/v1', 'head': state['head'], 'reports': compact})
+              text = json.dumps({'schema': 'protocol-b-decisions/v1', 'head': state['head'], 'reports': compact,
+                                 'automatic_rounds': state.get('automatic_rounds', 0),
+                                 'review_round': state.get('review_round')})
+              state['summary'] += f"\nAutomatic review rounds: {state.get('automatic_rounds', 0)}/4."
               if len(text.encode()) > 60_000 or len(state['summary'].encode()) > 60_000:
                   raise ValueError('Check output exceeds capacity; remains blocked, never truncate findings')
               app.call(f"/check-runs/{state['check']}", 'PATCH', {'status': 'completed', 'conclusion': state['conclusion'],
@@ -980,28 +1454,7 @@ jobs:
               if state['conclusion'] != 'success':
                   raise RuntimeError('Protocol B review is blocked')
               if state['mode'] == 'live':
-                  # GitHub, rather than a polling service, waits for all required CI checks.
-                  rules = gh.call("/rules/branches/" + urllib.parse.quote(state['default'], safe=""))
-                  required = {c["context"] for rule in rules if rule["type"] == "required_status_checks"
-                              for c in rule["parameters"]["required_status_checks"]}
-                  if not ({CHECK} | REQUIRED_COMPUTATIONS) <= required:
-                      raise RuntimeError("Auto-merge withheld: the reviewer check or computation protections are not required")
-                  if not any(c['context'] == CHECK and c.get('integration_id') == int(os.environ['APP_ID'])
-                             for rule in rules if rule['type'] == 'required_status_checks'
-                             for c in rule['parameters']['required_status_checks']):
-                      raise RuntimeError('Auto-merge withheld: required review check is not pinned to the dedicated App')
-                  if not any(rule["type"] == "required_status_checks" and rule["parameters"].get("strict_required_status_checks_policy") for rule in rules):
-                      raise RuntimeError("Auto-merge withheld: require an up-to-date branch so changed base dependencies cannot bypass review")
-                  if not gh.call('').get("allow_auto_merge"):
-                      raise RuntimeError("Review passed, but repository auto-merge is disabled; complete the owner-approved activation checklist")
-                  current = gh.call(f"/pulls/{state['number']}")
-                  if current["head"]["sha"] != state['head']:
-                      raise RuntimeError("Head changed before enabling auto-merge")
-                  if not current.get("auto_merge"):
-                      result = gh.api("/graphql", "POST", {"query": "mutation($id:ID!){enablePullRequestAutoMerge(input:{pullRequestId:$id,mergeMethod:MERGE}){pullRequest{id}}}", "variables": {"id": current["node_id"]}})
-                      if result.get("errors"):
-                          raise RuntimeError(json.dumps(result["errors"]))
-                  log("Review accepted; GitHub auto-merge waits for the required computation checks.")
+                  merge_and_dispatch(gh, state)
               else:
                   log("Test accepted. Auto-merge is disabled in test mode.")
 
@@ -1018,7 +1471,7 @@ jobs:
           app-id: ${{ vars.PROTOCOL_B_APP_ID }}
           private-key: ${{ secrets.PROTOCOL_B_APP_PRIVATE_KEY }}
           permission-checks: write
-      - name: Finalize the App check and request protected auto-merge
+      - name: Finalize the App check and request a protected merge
         if: always() && steps.app_finish.outcome == 'success'
         shell: bash
         env:
