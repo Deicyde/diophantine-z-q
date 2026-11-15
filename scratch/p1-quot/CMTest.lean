@@ -180,6 +180,121 @@ theorem cmStab4_of (hT : ObjBridge.TorsionStructure) (hA : AutCM24) (P₂₄ : Q
     refine hsq (-1) (by noncomm_ring) ⟨_, congr_inv_of_congr (by noncomm_ring) hc (c' := c') ?_⟩
     rw [sub_neg_eq_add, hc']
 
+/-- Endomorphisms commute with base change of points. -/
+theorem endPt_bcPt (P : QML3 Qbar) (f : AbVar.End P.A) (y : P.A.Pt Qbar) :
+    endPt P.A (AlgebraicClosure Qbar) f
+        (Additive.ofMul (bcPt P.A y : P.A.Pt (AlgebraicClosure Qbar))) =
+      Additive.ofMul (bcPt P.A (Additive.toMul (endPt P.A Qbar f (Additive.ofMul y))) :
+        P.A.Pt (AlgebraicClosure Qbar)) := by
+  change Additive.ofMul ((toKbar Qbar ≫ y) ≫ f.hom) = Additive.ofMul (toKbar Qbar ≫ y ≫ f.hom)
+  rw [Category.assoc]
+
+/-- **A primitive sixth root of unity in the commutant does not act by `−1` on `A[3]`** (T5: with
+`χ = φ + 1`, `χ² = 3χ − 3`; `χ` kills `A[3]`; on a point `x` of order 9, `χ(x) ∈ A[3]` so `0 = χ²(x) = −3x`). -/
+theorem not_act_neg_one (hT : ObjBridge.TorsionStructure) (P : QML3 Qbar) (φ : AbVar.End P.A)
+    (hφ : φ * φ - φ + 1 = 0) (u₀ : O)
+    (hlin : ∀ a, endPt P.A Qbar φ (P.e.eta a) = P.e.eta (a * u₀))
+    (hu : ∃ c : O, u₀ + 1 = 3 * c) : False := by
+  obtain ⟨c, hc⟩ := hu
+  set χ : AbVar.End P.A := φ + 1 with hχ
+  have hφ' : φ * φ = φ - 1 := by
+    rw [← sub_eq_zero, ← hφ]; abel
+  have h3 : (3 : AbVar.End P.A) = 1 + 1 + 1 := by norm_num
+  have hχ2 : χ * χ = 3 * χ - 3 := by
+    rw [hχ, add_mul, mul_add, mul_add, hφ', _root_.mul_one, _root_.one_mul, _root_.mul_one, h3,
+      add_mul, add_mul, _root_.one_mul]
+    abel
+  -- `χ` kills the image of `η`
+  have hkill : ∀ a, endPt P.A Qbar χ (P.e.eta a) = 0 := by
+    intro a
+    rw [hχ, map_add, map_one]
+    change endPt P.A Qbar φ (P.e.eta a) + P.e.eta a = 0
+    rw [hlin, ← map_add, P.e.ker]
+    exact ⟨a * c, by
+      calc a * u₀ + a = a * (u₀ + 1) := by noncomm_ring
+        _ = a * (3 * c) := by rw [hc]
+        _ = 3 * (a * c) := by noncomm_ring⟩
+  -- `χ` kills `A(L)[3]`
+  have hkill3 : ∀ z : Additive (P.A.Pt (AlgebraicClosure Qbar)), (3 : ℕ) • z = 0 → endPt P.A (AlgebraicClosure Qbar) χ z = 0 := by
+    intro z hz
+    have hz1 : (Additive.toMul z) ^ 3 = (1 : P.A.Pt (AlgebraicClosure Qbar)) := by
+      rw [← toMul_nsmul, hz]; rfl
+    obtain ⟨a, ha⟩ := Level3.onto hT P (Additive.toMul z) hz1
+    have hz2 : z = Additive.ofMul (bcPt P.A (Additive.toMul (P.e.eta a)) :
+        P.A.Pt (AlgebraicClosure Qbar)) := by
+      apply Additive.toMul.injective; exact ha.symm
+    rw [hz2]
+    refine (endPt_bcPt P χ (Additive.toMul (P.e.eta a))).trans ?_
+    rw [ofMul_toMul, hkill]
+    change Additive.ofMul (toKbar Qbar ≫ (1 : P.A.Pt Qbar)) = 0
+    rw [MonObj.comp_one]; rfl
+  -- a point of order 9
+  have hdim : ObjBridge.dim (_root_.ObjBridge.toGrp P.A) = ((2 : ℕ) : WithBot ℕ∞) := by
+    change P.A.dim = _
+    rw [P.surface]; rfl
+  obtain ⟨e, he⟩ := hT Qbar (_root_.ObjBridge.toGrp P.A) 2 9 hdim (by norm_num) (Nat.cast_ne_zero.mpr (by norm_num))
+  set x := (e.symm (fun _ => 1)).1 with hxdef
+  have hx9 : x ^ 9 = 1 := (e.symm (fun _ => 1)).2
+  have he1 : e ⟨1, by simp [PkgI2.torsion]⟩ = 0 := by
+    have := he ⟨1, by simp [PkgI2.torsion]⟩ ⟨1, by simp [PkgI2.torsion]⟩
+      (by simp [PkgI2.torsion])
+    simp only [_root_.mul_one] at this
+    calc e ⟨1, _⟩ = (e ⟨1, _⟩ + e ⟨1, _⟩) - e ⟨1, _⟩ := by abel
+      _ = e ⟨1, _⟩ - e ⟨1, _⟩ := by rw [← this]
+      _ = 0 := sub_self _
+  have hx3 : x ^ 3 ≠ 1 := by
+    intro h3
+    have m1 : x * x ∈ PkgI2.torsion (_root_.ObjBridge.toGrp P.A) (AlgebraicClosure Qbar) 9 := by
+      simp only [PkgI2.torsion, Set.mem_ofPred_eq]; rw [mul_pow, hx9, _root_.one_mul]
+    have m2 : x * x * x ∈ PkgI2.torsion (_root_.ObjBridge.toGrp P.A) (AlgebraicClosure Qbar) 9 := by
+      simp only [PkgI2.torsion, Set.mem_ofPred_eq]; rw [mul_pow, mul_pow, hx9, _root_.one_mul,
+        _root_.one_mul]
+    have hxx := he (e.symm (fun _ => 1)) (e.symm (fun _ => 1)) m1
+    have hxxx := he ⟨x * x, m1⟩ (e.symm (fun _ => 1)) m2
+    rw [Equiv.apply_symm_apply] at hxx hxxx
+    rw [hxx] at hxxx
+    have h1 : (⟨x * x * x, m2⟩ : PkgI2.torsion (_root_.ObjBridge.toGrp P.A) (AlgebraicClosure Qbar) 9) = ⟨1, by simp [PkgI2.torsion]⟩ := by
+      apply Subtype.ext
+      show x * x * x = 1
+      rw [← h3, pow_succ, pow_two]
+    rw [h1, he1] at hxxx
+    have := congrFun hxxx 0
+    simp at this
+    exact absurd this (by decide)
+  -- the contradiction
+  set x' : P.A.Pt (AlgebraicClosure Qbar) := x with hx'
+  have hx9' : x' ^ 9 = 1 := hx9
+  have hx3' : x' ^ 3 ≠ 1 := hx3
+  set X : Additive (P.A.Pt (AlgebraicClosure Qbar)) := Additive.ofMul x' with hX
+  have hX9 : (9 : ℕ) • X = 0 := by rw [hX, ← ofMul_pow, hx9']; rfl
+  have hX3 : (3 : ℕ) • X ≠ 0 := by
+    rw [hX, ← ofMul_pow]; intro h; exact hx3' (Additive.ofMul.injective h)
+  have k1 : endPt P.A (AlgebraicClosure Qbar) χ ((3 : ℕ) • X) = 0 :=
+    hkill3 _ (by rw [← mul_nsmul']; exact hX9)
+  have k2 : endPt P.A (AlgebraicClosure Qbar) χ (endPt P.A (AlgebraicClosure Qbar) χ X) = 0 := by
+    apply hkill3
+    rw [← map_nsmul, k1]
+  have h3n : ∀ y : Additive (P.A.Pt (AlgebraicClosure Qbar)), (3 : ℕ) • y = y + y + y := by
+    intro y; rw [succ_nsmul, two_nsmul]
+  have hχ2' : χ * χ = χ + χ + χ - 1 - 1 - 1 := by
+    rw [hχ, add_mul, mul_add, mul_add, hφ', _root_.mul_one, _root_.one_mul, _root_.mul_one]
+    abel
+  clear_value χ
+  have k3 : endPt P.A (AlgebraicClosure Qbar) (χ * χ) X =
+      endPt P.A (AlgebraicClosure Qbar) χ X + endPt P.A (AlgebraicClosure Qbar) χ X +
+        endPt P.A (AlgebraicClosure Qbar) χ X - (X + X + X) := by
+    rw [hχ2', map_sub, map_sub, map_sub, map_add, map_add, map_one]
+    have e : ∀ (f : AddMonoid.End (Additive (P.A.Pt (AlgebraicClosure Qbar)))),
+        (f + f + f - 1 - 1 - 1) X = f X + f X + f X - (X + X + X) := by
+      intro f
+      show f X + f X + f X - X - X - X = _
+      abel
+    exact e _
+  rw [map_mul] at k3
+  change endPt P.A (AlgebraicClosure Qbar) χ (endPt P.A (AlgebraicClosure Qbar) χ X) = _ at k3
+  rw [k2, ← h3n, ← map_nsmul, k1, zero_sub, ← h3n] at k3
+  exact hX3 (neg_eq_zero.mp k3.symm)
+
 end MCRQuot
 
 end
