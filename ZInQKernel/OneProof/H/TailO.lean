@@ -2918,9 +2918,10 @@ theorem glue4_of_open6 (r : OpenResearchLeaves5) (t : OpenTextbookLeaves6) (l : 
 * `OpenGlue6`: 1 glue Prop (`ModelCoordinateResidue`).
 The table of every field is `docs/research/leaf-fold6.md` §2. -/
 theorem sixContactMin_of_open6 (r : OpenResearchLeaves5) (t : OpenTextbookLeaves6)
-    (l : OpenAddedLeaves6) (g : OpenGlue6) (h20 : G0Split.R20Lower) (hYu : QMLattice.YuB6Alg) : ZInQ.SixContactMin :=
+    (l : OpenAddedLeaves6) (g : OpenGlue6) (h20 : G0Split.R20Lower) (hYu : QMLattice.YuB6Alg)
+    (hθ : PkgI1.QMHauptmodul → G0Split.ThetaPt.ThetaSplit.ThetaRatiosAtQM) : ZInQ.SixContactMin :=
   sixContactMin_of_open4 (researchLeaves2_of_open5 r) (textbookLeaves4_of_open6 t l) (addedLeaves4_of_open6 r t l)
-    (glue4_of_open6 r t l g) h20 hYu
+    (glue4_of_open6 r t l g) h20 hYu hθ
 
 /-- leaf-fold5's added-leaves bundle from leaf-fold6's: the four fields leafq-check replaced are theorems from the
 new fields (and `r4`, `r1r2`, T5, T11(b)); the other 17 are the same fields. -/
@@ -2954,7 +2955,8 @@ end
 
 example : ∀ (_ : HDec.HSyn.OpenResearchLeaves5) (_ : HDec.HSyn.OpenTextbookLeaves6)
     (_ : HDec.HSyn.OpenAddedLeaves6) (_ : HDec.HSyn.OpenGlue6) (_ : HDec.HSyn.G0Split.R20Lower)
-    (_ : HDec.QMLattice.YuB6Alg), _root_.ZInQ.SixContactMin :=
+    (_ : HDec.QMLattice.YuB6Alg)
+    (_ : HDec.PkgI1.QMHauptmodul → HDec.HSyn.G0Split.ThetaPt.ThetaSplit.ThetaRatiosAtQM), _root_.ZInQ.SixContactMin :=
   HDec.HSyn.sixContactMin_of_open6
 
 #print axioms HDec.HSyn.t8_ofK6
