@@ -704,4 +704,118 @@ theorem span_two (κ : K →+* ℂ) (w : Fin 2 → ℂ) :
 
 end Helpers
 
+/-! ## §F `QMReciprocityL3` from the main theorem of CM -/
+
+section Derivation
+
+open Polynomial ShimuraSplit2
+
+theorem map_symm_map (F : (Fin 2 → ℂ) ≃ₗ[ℂ] (Fin 2 → ℂ)) (Λ : Submodule ℤ (Fin 2 → ℂ)) :
+    (Λ.map (F.toLinearMap.restrictScalars ℤ)).map (F.symm.toLinearMap.restrictScalars ℤ) = Λ := by
+  rw [← Submodule.map_comp]
+  convert Submodule.map_id Λ
+  ext v
+  simp
+
+theorem qmReciprocityL3_of_printed (hM : MainTheoremCM) (hC : ZInQ.HomUnify.HomLatticeCorr) :
+    QMReciprocityL3 := by
+  obtain ⟨ε, hMain⟩ := hM
+  refine ⟨ε, true, ?_⟩
+  intro K _ _ _ hK κ q z hz σ s hs g P P' hbc hP
+  simp only [if_true] at hz
+  haveI : Fact (Irreducible (X ^ 2 - C (2 : K))) := ⟨irr_fE hK⟩
+  obtain ⟨Φu, hU, hI, hL⟩ := hP
+  obtain ⟨g0, hpb, hιbc, hηbc⟩ := hbc
+  set Φ := PhiE κ with hΦ
+  set 𝔞 : AddSubgroup (EK K) := (latB g).comap (beta q).toAddMonoidHom with h𝔞
+  set u : BAQˣ := qHatU q s ^ (ε : ℤ) with hu
+  set t : AQ ⊗[ℚ] EK K := ((reflexNorm rhoK (IdeleGroup.toFiniteIdele (𝓞 K) K s) ^ (ε : ℤ) :
+      (AQ ⊗[ℚ] EK K)ˣ) : AQ ⊗[ℚ] EK K) with ht
+  have hβ : ∀ x : LeafQM.B, beta q ((betaE hK hz).symm x) = x := fun x => by
+    rw [← betaE_apply hK hz, LinearEquiv.apply_symm_apply]
+  -- `θ = Φ_u ∘ D_z`, uniformizing `A` by `Φ(𝔞)`
+  let θ : (Fin 2 → ℂ) → CPts P.A (RingHom.id ℂ) := fun w => Φu (Dz z w)
+  have hθ : ∀ e, θ (cmVec Φ e) = Φu ((iotaC (beta q e)).mulVec ![(z : ℂ), 1]) := fun e => by
+    rw [vec_beta' hz]
+  have hlat : cmLat Φ 𝔞 = (vecLat (z : ℂ) g).map ((Dz z).symm.toLinearMap.restrictScalars ℤ) := by
+    rw [← cmLat_map_Dz hK hz 𝔞 g (fun e => Iff.rfl), map_symm_map]
+  have hθU : IsUniformization (RingHom.id ℂ) (cmLat Φ 𝔞) θ := by
+    rw [hlat]
+    convert HDec.HSyn.G0Split.FibreQM.isUniformization_comp hU (Dz z).symm using 2
+    simp [θ]
+  -- `(A, θ)` is of type `(E, Φ)`
+  have hType : IsOfType Φ 𝔞 θ := by
+    intro e he
+    let M : (Fin 2 → ℂ) →ₗ[ℂ] (Fin 2 → ℂ) := Matrix.mulVecLin (Matrix.diagonal fun i => Φ i e)
+    have hMv : ∀ v, M v = fun i => Φ i e * v i := fun v => by
+      funext i; simp [M, Matrix.mulVec_diagonal]
+    have hMD : ∀ e', M (Dz z (cmVec Φ e')) = Dz z (cmVec Φ (e * e')) := fun e' => by
+      rw [hMv]; funext i; fin_cases i <;> simp [Dz_apply, cmVec] <;> ring
+    have hMΛ : ∀ v ∈ vecLat (z : ℂ) g, M v ∈ vecLat (z : ℂ) g := by
+      intro v hv
+      obtain ⟨x, hx, rfl⟩ := mem_vecLat.1 hv
+      obtain ⟨e', rfl⟩ := (betaE hK hz).surjective x
+      rw [betaE_apply, vec_beta' hz, hMD, ← vec_beta' hz]
+      exact mem_vecLat.2 ⟨_, he _ hx, rfl⟩
+    obtain ⟨f, hf, -⟩ := hC.2 P.A P.A 2 2 _ _ Φu Φu (dim_two P) (dim_two P) hU hU M hMΛ
+    refine ⟨f, fun w => ?_⟩
+    show Φu (Dz z (fun i => Φ i e * w i)) = Φu (Dz z w) ≫ f.hom
+    rw [← hf]
+    congr 1
+    rw [hMv]; funext i; fin_cases i <;> simp [Dz_apply] <;> ring
+  -- the identity sections correspond
+  have h1pt : (1 : CPts P'.A (RingHom.id ℂ)).left ≫ g0 =
+      Spec.map (CommRingCat.ofHom (σ : ℂ →+* ℂ)) ≫ (1 : CPts P.A (RingHom.id ℂ)).left := by
+    have e := hηbc 0
+    simp only [map_zero, toMul_zero] at e
+    exact e
+  -- apply the main theorem of CM
+  obtain ⟨θ', hθ'U, hrel⟩ := hMain (EK K) 2 Φ (by rw [finrank_EK hK]) (type_inj κ) K κ (reflex_eq κ)
+    1 rhoK (jK κ) (model hK κ) σ s hs P.A (dim_two P) 𝔞 θ hθU hType P'.A g0 hpb h1pt
+  rw [← ht] at hθ'U hrel
+  -- dictionary
+  have hbt : ∀ w, betaHat q (t * w) = betaHat q w * u := betaHat_t q s ε
+  have hact : ∀ e, e ∈ latAct t 𝔞 ↔ beta q e ∈ latB (u * g) := by
+    intro e
+    show t * (1 ⊗ₜ e) ∈ latHat 𝔞 ↔ bEmb (beta q e) * ((u * g : BAQˣ) : BAQ) ∈ OhatQ
+    rw [mem_latHat_iff hK hz g, hbt, betaHat_one_tmul, Units.val_mul, mul_assoc]
+  have hrelB : ∀ x y : EK K, (bEmb (beta q y) * u - bEmb (beta q x)) * g ∈ OhatQ →
+      (θ' (cmVec Φ y)).left ≫ g0 = Spec.map (CommRingCat.ofHom (σ : ℂ →+* ℂ)) ≫
+        (Φu ((iotaC (beta q x)).mulVec ![(z : ℂ), 1])).left := by
+    intro x y hxy
+    rw [← hθ x]
+    apply hrel x y
+    rw [mem_latHat_iff hK hz g, map_sub, hbt, betaHat_one_tmul, betaHat_one_tmul]
+    exact hxy
+  -- `Φ_u' = θ' ∘ D_z⁻¹`
+  let Φu' : (Fin 2 → ℂ) → CPts P'.A (RingHom.id ℂ) := fun v => θ' ((Dz z).symm v)
+  have hθ' : ∀ e, Φu' ((iotaC (beta q e)).mulVec ![(z : ℂ), 1]) = θ' (cmVec Φ e) := fun e => by
+    show θ' ((Dz z).symm _) = _
+    rw [vec_beta' hz, LinearEquiv.symm_apply_apply]
+  have hU' : IsUniformization (RingHom.id ℂ) (vecLat (z : ℂ) (u * g)) Φu' := by
+    rw [← cmLat_map_Dz hK hz (latAct t 𝔞) (u * g) hact]
+    exact HDec.HSyn.G0Split.FibreQM.isUniformization_comp hθ'U (Dz z)
+  -- the conjugate of `Φ_u(v_x)` is `Φ_u'(v_y)`
+  have hconj : ∀ x y : EK K, (bEmb (beta q y) * u - bEmb (beta q x)) * g ∈ OhatQ →
+      (Φu' ((iotaC (beta q y)).mulVec ![(z : ℂ), 1])).left ≫ g0 =
+        Spec.map (CommRingCat.ofHom (σ : ℂ →+* ℂ)) ≫
+          (Φu ((iotaC (beta q x)).mulVec ![(z : ℂ), 1])).left := by
+    intro x y hxy
+    rw [hθ']
+    exact hrelB x y hxy
+  have hexists : ∀ y : EK K, ∃ x : EK K, (bEmb (beta q y) * u - bEmb (beta q x)) * g ∈ OhatQ := by
+    intro y
+    obtain ⟨x0, hx0⟩ := exists_approx (bEmb (beta q y) * u) g
+    refine ⟨(betaE hK hz).symm x0, ?_⟩
+    rw [hβ]
+    have e : (bEmb (beta q y) * u - bEmb x0) * g = -((bEmb x0 - bEmb (beta q y) * u) * g) := by noncomm_ring
+    rw [e]; exact OhatQ_neg hx0
+  refine ⟨Φu', hU', ?_, ?_⟩
+  · -- `ι`-compatibility
+    sorry
+  · -- the level structure
+    sorry
+
+end Derivation
+
 end QMRecPrinted
