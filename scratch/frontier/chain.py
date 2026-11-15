@@ -4,8 +4,8 @@ Usage: python3 scratch/frontier/chain.py [A|F]   (default: both); `doc` compares
 compares the library theorem ZInQ.OneProof.frozenTarget with scenario A
 
 Scenario A ("compiled"): only theorems that compose in one Lean world today, i.e. the top chain (r3: atkin-li's
-C2 and tyz-chain's T0, kernel modules) and the compiled H assembly: leaf-fold11's `HDec.HSyn.sixContactMin_of_open15`
-(refresh r6; r5 leaf-fold9's `sixContactMin_of_open9`, r4 leaf-fold8's `sixContactMin_of_open8`, r3
+C2 and tyz-chain's T0, kernel modules) and the compiled H assembly: leaf-fold13's `HDec.HSyn.sixContactMin_of_open16`
+(refresh r7; r6 leaf-fold11's `sixContactMin_of_open15`, r5 leaf-fold9's `sixContactMin_of_open9`, r4 leaf-fold8's `sixContactMin_of_open8`, r3
 leaf-fold5's `sixContactMin_of_open5`, r2 leaf-fold4's `sixContactMin_of_open4`, before that assemble-port's
 `sixContactMin_of_leaves5`). Its open set is the hypothesis list of that composite.
 
@@ -33,13 +33,13 @@ B5 = ("93a1e33c", "scratch/cpts-transport/Bundle5.lean")
 AP = ("92a27877", "scratch/assemble-port/AssemblePort.lean")  # assemble-port final flat check (27 glue fields, 1126 s)
 LF4 = ("9dcf1ca8", "scratch/leaf-fold4/Leaves4.lean")  # leaf-fold4 final flat file (md5 6bbeb639, 1048 s, 26+19+20+1 fields)
 LF5 = ("5a7e03d1", "scratch/leaf-fold5/Leaves5.lean")  # leaf-fold5 final flat file (md5 5999e1db, flat run 2: 1570 s, 26+21+21+2)
-# r6: the H base is leaf-fold11 inside the library (ZInQKernel/OneProof/H/, on main since w63, over leaf-fold10 and
-# the prune of w61-w62; r5: leaf-fold9, since w60; r4: leaf-fold8, since w59). "OPH" is read as the text of all those
-# modules (OpenResearchLeaves12 is in TailZ19.lean, OpenTextbookLeaves10 in TailZ11.lean, OpenAddedLeaves11 in
-# TailZ18.lean, the glue bundle OpenGlue7 in TailX.lean; defcheck looks for the chain's copies anywhere in them).
-OPX = (MAIN, "ZInQKernel/OneProof/H/TailZ19.lean")
+# r7: the H base is leaf-fold13 inside the library (ZInQKernel/OneProof/H/, on main since w66: x6-fold over
+# leaf-fold11; r6: leaf-fold11, since w63, over leaf-fold10 and the prune of w61-w62; r5: leaf-fold9, since w60; r4:
+# leaf-fold8, since w59). "OPH" is read as the text of all those modules (OpenResearchLeaves13 and OpenAddedLeaves12
+# are in TailZ22.lean, OpenTextbookLeaves10 in TailZ11.lean, the glue bundle OpenGlue7 in TailX.lean; defcheck looks
+# for the chain's copies anywhere in them).
+OPX = (MAIN, "ZInQKernel/OneProof/H/TailZ22.lean")
 OPX11 = (MAIN, "ZInQKernel/OneProof/H/TailZ11.lean")
-OPX18 = (MAIN, "ZInQKernel/OneProof/H/TailZ18.lean")
 OPX7 = (MAIN, "ZInQKernel/OneProof/H/TailX.lean")
 OPH = ("OPH", "ZInQKernel/OneProof/H/")
 # qm-split's and qm-glue's files `import TailK`: leaf-fold4's chain, whose sources are in scratch/leaf-fold4/olean/.
@@ -172,8 +172,11 @@ edge("TYZThm35ReadingA", "tyzThm35ReadingA_of_leaves", MAIN, "ZInQKernel/Contrib
 #  cm-bridge's B1; it stays compiled there but is off the route)
 
 # --- H
-edge("SixContactMin", "sixContactMin_of_open15", *OPX,
-     ["OpenResearchLeaves12", "OpenTextbookLeaves10", "OpenAddedLeaves11", "OpenGlue7"])
+edge("SixContactMin", "sixContactMin_of_open16", *OPX,
+     ["OpenResearchLeaves13", "OpenTextbookLeaves10", "OpenAddedLeaves12", "OpenGlue7"])
+# (r6 at w63: leaf-fold11's sixContactMin_of_open15 in TailZ19.lean, bundles OpenResearchLeaves12,
+#  OpenTextbookLeaves10, OpenAddedLeaves11, OpenGlue7; leaf-fold13 (w66) folds x6-glue (x6-fold: r1r2Ab and
+#  x6ConicModel from five printed leaves on abelian schemes, geomConnOfAlgClosure and rayClassCMAb))
 # (r6 drafted at w62: leaf-fold10's sixContactMin_of_open12 in TailZ15.lean, bundles OpenResearchLeaves10,
 #  OpenTextbookLeaves10, OpenAddedLeaves9, OpenGlue7; leaf-fold11 (w63) folds genus-fold (genusX1Field removed),
 #  route-a-fold (four fields restated on abelian schemes, plus mumfordRigidityCore), cm24-value (igusaCMValue24
@@ -351,10 +354,38 @@ LQC = (MAIN, "scratch/leafq-check/CMDescendsGlue.lean")
 edge("CMDescends", "cmDescends_of", *LQC, ["STQM", "T11b_Rigidity", "TorsionDescends", "R1R2fpRep"], "F",
      "leafq-check; T11b_Rigidity from leaf-fold5's T11bExists through av-b2's edge")
 edge("TorsionDescends", "torsionDescends_of_t5", *LQC, ["TorsionStructure"], "F", "leafq-check")
+# --- r7 (w66): the reports merged in w66 that leaf-fold13 does not fold: reduct-b (the three SGA 7 IX DVR fields
+# from their strictly henselian forms), unipotent-b (SGA 7 IX 3.5 as printed), t09-pic (four printed leaves over the
+# vendored Picard functor) and igusa-alg (IgusaAlg 5-9 proved). First in the list, so they win over the older edges
+# below. Not taken: sh-route's `…0` theorems (their statements add `[CharZero K]` and a perfect residue field to the
+# fields' statements, and no compiled consumer takes them); shimura-cft's `shimuraFamilyAb_of_mainThmI` (its leaf
+# ShimuraMainThmIDeligneY3Ab implies ShimuraHolFamily, by `mainThmI_iff_ab`, `mainThmIY3_of_mainThmI` and
+# c-to-printed's `shimuraHolFamily_of_mainThmI`, so F keeps the weaker leaf); gap-triage's probe
+# `modelYIrreducible_of_open9` (it takes leaf-fold9's whole bundle OpenAddedLeaves9).
+RB = (MAIN, "scratch/reduct-b/ReductB.lean")  # reduct-glue's file (TailZ7 and TailZ14 verbatim) with reduct-b's Body
+edge("SemistableReductionDVR", "semistableReductionDVR_of_raynaud", *RB,
+     ["RaynaudSemistable", "MumfordTorsionAlgClosed", "MulEtaleAbelianScheme"], "F",
+     "reduct-b: K1, SGA 7 IX 3.6 over a DVR from Raynaud's criterion", deffile=RB[1])
+edge("RaynaudSemistable", "raynaudSemistable_of_SH_pair", *RB,
+     ["RaynaudSemistableSH", "StrictHenselizationPair", "MulEtaleAbelianScheme"], "F", "reduct-b", deffile=RB[1])
+edge("SemistablePersistsDVR", "semistablePersistsDVR_of_SH_pair", *RB,
+     ["SemistablePersistsSH", "StrictHenselizationPair"], "F", "reduct-b", deffile=RB[1])
+edge("SemistableUnipotent", "semistableUnipotent_of_printedGen", MAIN, "scratch/unipotent-b/UnipotentB.lean",
+     ["SemistableUnipotentPrintedGen", "SemiAbelianDescendsSepClosed", "MulEtaleAbelianScheme",
+      "StrictHenselizationInside"], "F", "unipotent-b: SGA 7 IX 3.5 as printed; the glue only for imperfect residue "
+     "fields")
+edge("T09_SymmIsogenyExists", "t09SymmIsogenyExists_of_four", MAIN, "scratch/t09-pic/Pic.lean",
+     ["PicRepresentableAbVar", "PicZeroAbVar", "PhiAmpleIsogeny", "WeilPairingMumford"], "F",
+     "t09-pic: over the vendored relative Picard functor")
+IA = (MAIN, "scratch/igusa-alg/IgusaAlg.lean")  # over OneProof's TailA, with theta-split's and theta-glue's files
+edge("QMThetaSymmetricCurve", "qmThetaSymmetricCurve_of_linYang", *IA, ["LinYangThetaCurve"], "F",
+     "igusa-alg: IgusaAlg 5-9 proved by one Kronecker evaluation in the kernel", deffile=IA[1])
 # --- r6 (w63): x6-glue's leaves for r1r2 and x6ConicModel, route A's transfers to the abelian-scheme fields,
 # c-to-printed2's Kato leaf, shimura-glue's printed forms, reduct-glue's printed bases, t5-glue and theta-glue
-# (branch heads where not on main). First in the list, so they win over the older edges below. theta-split replaces a
-# field at its consumer (BYPASS below).
+# (branch heads where not on main; r7: all merged in w66, files unchanged, so read at main). First in the list, so
+# they win over the older edges below. theta-split replaces a field at its consumer (BYPASS below). (r7: x6-glue's
+# two theorems and the transfer to R1R2fpRepAb are off the route: x6-fold proves r1r2Ab and x6ConicModel in the
+# library from the abelian-scheme forms of x6-glue's leaves.)
 X6G = ("685a56e1", "scratch/x6-glue/X6Glue.lean")  # x6-glue's branch head (after its report); imports OneProof's TailK
 edge("R1R2fpRep", "r1r2_of_published", *X6G,
      ["DeligneComponentsX6Printed", "GeomConnOfAlgClosure", "TorsionStructure", "BabaGranathRational", "RayClassCM",
@@ -370,7 +401,7 @@ edge("ShimuraFamilyAb", "shimuraFamily_iff_ab", *RA, ["ShimuraFamily", "MumfordR
      iff=True)
 edge("MumfordRigidity", "mumfordRigidity_of_core", MAIN, "ZInQKernel/OneProof/H/TailZ16.lean", ["MumfordRigidityCore"],
      "F", "r1univ-rigid (in the library since w63)")
-CT2 = ("dbeaecf7", "scratch/c-to-printed2/CToPrinted2.lean")  # c-to-printed2's branch head (after its report)
+CT2 = (MAIN, "scratch/c-to-printed2/CToPrinted2.lean")  # r6: c-to-printed2's branch head dbeaecf7 (merged in w66)
 edge("EigenformHTNew", "eigenformHTNew_of_printedSS", *CT2,
      ["KatoRealizationCohSS", "TateTwistInvariants", "AxSenTate"], "F", "c-to-printed2: HTDual proved")
 # (c-to-printed's shimuraFamily_of_mainThmI, ba24fa83 Shimura.lean, is not taken: its leaf ShimuraMainThmIY3 implies
@@ -403,18 +434,19 @@ for concl, imp, sh in [("SemistableUnipotent", "UnipotentFromSH", "SemistableUni
                        ("SemistablePersistsDVR", "PersistsFromSH", "SemistablePersistsSH"),
                        ("IdentityComponentBaseChangeDVR", "IdentityComponentFromSH", "IdentityComponentBaseChangeSH")]:
     edge(concl, imp, *Z14, [sh, imp], "F", "reduct-glue: modus ponens on the implication " + imp, mp=True)
-T5G = ("405763f6", "scratch/t5-glue/T5Glue.lean")  # t5-glue's branch head (after its report)
+T5G = (MAIN, "scratch/t5-glue/T5Glue.lean")  # r6: t5-glue's branch head 405763f6 (merged in w66)
 edge("CMModuli", "cmModuli_of_t5'", *T5G, ["ShimuraMainCM", "RingClassLattice"], "F",
      "t5-glue: AbsArtinSurjectiveQNeg and InvertibleColon proved (Tau Ceti)", deffile=T5G[1])
 edge("X0RatStructure", "x0RatStructure_of_leaf", *T5G, ["X0ModuliGalois"], "F", "t5-glue", deffile=T5G[1])
-TG = ("336ec1fd", "scratch/theta-glue/ThetaGlue.lean")  # theta-glue's branch head (log only, no report yet)
+TG = (MAIN, "scratch/theta-glue/ThetaGlue.lean")  # r6: theta-glue's branch head 336ec1fd (merged in w66)
 edge("ThetaEightSquare", "thetaEightSquare", *TG, [], "F", "theta-glue: duplication formula plus a degree-16 identity",
      deffile=TG[1])
 edge("QMThetaSymmetricCurve", "qmThetaSymmetricCurve_of_alg59", *TG, ["LinYangThetaCurve", "IgusaAlg"], "F",
      "theta-glue: IgusaAlg 3 and 4 proved; 5-9 closed polynomial identities, VERIFIED by exact expansion",
      deffile=TG[1])
-# (cm24-value's CM24.igusaCMValue24_field, d8d1363a: off the route since w63, where leaf-fold11 compiles it (TailZ18))
-edge("IgusaCMValue24", "CM24.igusaCMValue24_field", "d8d1363a", "scratch/cm24-value/CM24Kernel.lean", [], "F",
+# (cm24-value's CM24.igusaCMValue24_field (r6: d8d1363a; merged in w66): off the route since w63, where leaf-fold11
+#  compiles it (TailZ18))
+edge("IgusaCMValue24", "CM24.igusaCMValue24_field", MAIN, "scratch/cm24-value/CM24Kernel.lean", [], "F",
      "cm24-value: proved outright, no leaf", deffile="ZInQKernel/OneProof/H/TailZ3.lean")
 # --- r5 (w60): the splits of shimura-split, modular-split and reduct-split that leaf-fold9 did not fold (leaf-fold9
 # §5). First in the list, so they win over the older edges below.
@@ -621,14 +653,14 @@ edge("NeronMappingAbelianSchemeSurj", "NeronMappingAbelianSchemeSurj_proof", MAI
 
 # ---------------------------------------------------------------- bundles
 STRUCTS = {
-    "OpenResearchLeaves12": (OPX, "OpenResearchLeaves12"),
+    "OpenResearchLeaves13": (OPX, "OpenResearchLeaves13"),
     "OpenTextbookLeaves10": (OPX11, "OpenTextbookLeaves10"),
-    "OpenAddedLeaves11": (OPX18, "OpenAddedLeaves11"),
+    "OpenAddedLeaves12": (OPX, "OpenAddedLeaves12"),
     "OpenGlue7": (OPX7, "OpenGlue7"),
 }
 # fields the proof does not use: none (r6: the integrator's prune, merged in w62, removed r3, serreTateThm2 and t10,
 # the three that its fixed Lean scan, wip/prune-scan e3045e7d, found unused at w61; genus-fold (w63) removed
-# genusX1Field; leaf-fold11's PruneScan finds no unused field at w63)
+# genusX1Field; leaf-fold11's PruneScan finds no unused field at w63, x6-fold's none at w66)
 UNUSED = set()
 # (r5: {"r3", "t10", "serreTateThm2", "semistableReductionDVR", "semistableUnipotent", "neronSchemeModelExistsDVR"},
 #  never projected; leaf-fold9 proved r1rec and r5 from r1r2; reduct-split's four leaves entered only TailZ9's proofs
@@ -938,19 +970,20 @@ def _decls(txt, name):
                         r"(?:\S+\.)?%s\b" % re.escape(name), ln)]
 
 
-def _namespace_at(txt, line):
-    """The innermost `namespace` open at the first occurrence of `line` in txt."""
+def _in_verbatim(txt, line):
+    """Whether the first occurrence of `line` in txt is inside a `namespace …Verbatim` or a `section Verbatim` block
+    (r7: t09-pic's copy of its field is in a section), i.e. a copy kept for an `rfl` check."""
     stack = []
     for ln in txt.split("\n"):
         if ln == line:
-            return ".".join(stack)
-        m = re.match(r"^namespace (\S+)", ln)
+            return any(x.split(".")[-1] == "Verbatim" for x in stack)
+        m = re.match(r"^(?:namespace|section) (\S+)", ln)
         if m:
             stack.append(m.group(1))
         m = re.match(r"^end (\S+)", ln)
         if m and stack and stack[-1] == m.group(1):
             stack.pop()
-    return ""
+    return False
 
 
 def worldcheck():
@@ -959,7 +992,8 @@ def worldcheck():
     has no definition of that name and the module that defines it is in both the file's import closure and that of
     `ZInQKernel/OneProof/Main.lean`. defcheck skips these edges (no deffile). r6: the same for such a file at a branch
     head, which must also see the defining module's text of that constant as main has it; a definition of the name in
-    a namespace other than the constant's own (a `Verbatim` copy for an `rfl` check) is reported, not refused."""
+    a namespace other than the constant's own (a `Verbatim` copy for an `rfl` check) is reported, not refused (r7: at
+    main too, where c-to-printed2's file is since w66, and in a `section Verbatim`, as in t09-pic's file)."""
     kern = _files(MAIN, "ZInQKernel/")
     res = lambda mod: (lambda p: p if p in kern else None)(mod.replace(".", "/") + ".lean")
     base = set(_closure(["ZInQKernel/OneProof/Main.lean"], res))
@@ -974,7 +1008,7 @@ def worldcheck():
             continue
         name = c.short_of(e["concl"])
         own = [ln for ln in _decls(txt, name) if not ln.startswith("theorem") and not ln.startswith("lemma")]
-        if own and (e["rev"] == MAIN or any("Verbatim" not in _namespace_at(txt, ln) for ln in own)):
+        if own and not all(_in_verbatim(txt, ln) for ln in own):
             out.append((name, f"CHECK: {e['file']} has its own definition"))
             continue
         defs = [f for f in _closure([e["file"]], res, e["rev"]) if f != e["file"]
@@ -982,12 +1016,12 @@ def worldcheck():
         if not (defs and all(f in base for f in defs)):
             out.append((name, f"CHECK: defined in {defs or 'no imported file'} ({e['file']})"))
             continue
-        v = f"the library's own constant: no definition in {e['file']}, which imports {', '.join(defs)} (in " \
+        phrase = "only a `Verbatim` copy (for an `rfl` check) in" if own else "no definition in"
+        v = f"the library's own constant: {phrase} {e['file']}, which imports {', '.join(defs)} (in " \
             f"OneProof/Main's import closure)"
         if e["rev"] != MAIN:
             same = all(c.def_texts_all(c.show(e["rev"], f), name) == c.def_texts_all(_show(MAIN, f), name) for f in defs)
-            v = v.replace("no definition in", "at %s, " % e["rev"] + ("no definition in" if not own else
-                          "only a `Verbatim` copy (for an `rfl` check) in"), 1)
+            v = v.replace(phrase, "at %s, %s" % (e["rev"], phrase), 1)
             v += "; the definition there is %s at %s and at main" % ("the same" if same else "DIFFERENT", e["rev"])
             if not same:
                 v = "CHECK: " + v
@@ -1146,42 +1180,50 @@ def doc_check(path="docs/research/frontier.md"):
     print("  in doc, not in chain:", sorted(have - want))
 
 
-# the H base's field table (bundle, field, Lean type, form, ...). r6: leaf-fold11 has none of its own, so this report
-# keeps one: leaf-fold10's fields10.tsv less the removed fields, route A's restated fields with their old kinds, and the
-# new fields as leaf-fold11 §1 counts them (organize script make_fields11.py; the integrator's rulings are applied by
-# the report, not here)
-FIELDS_TSV = "scratch/frontier/fields11.tsv"
-PRUNED = set()  # rows of FIELDS_TSV that are not bundle fields (r6 at w62: the prune's r3, serreTateThm2, t10)
+# the H base's field table. r7: the integrator's docs/one-proof/kinds.tsv (bundle, field, kind, flag, strict, strictest,
+# source, rated_by; since w66), with the field types from the build's docs/one-proof/open-statements.json. (r6 kept
+# its own table, scratch/frontier/fields11.tsv, because leaf-fold11 had none; the report applies the integrator's
+# rulings, not this check.)
+FIELDS_TSV = "docs/one-proof/kinds.tsv"
+OPEN_JSON = "docs/one-proof/open-statements.json"
+TSV_BUNDLE = {"OpenResearchLeaves13": "research", "OpenTextbookLeaves10": "textbook", "OpenAddedLeaves12": "added",
+              "OpenGlue7": "glue"}
 
 
 def onep_check():
-    """r4: compare the library theorem `ZInQ.OneProof.frozenTarget` (main) with scenario A (its hypothesis heads), and
-    the H base's field table FIELDS_TSV (the source of the forms of its fields) with the bundles."""
+    """r4: compare the library theorem `ZInQ.OneProof.frozenTarget` (main) with scenario A (its hypothesis heads); r7:
+    and the bundles with the integrator's field table FIELDS_TSV (field names) and the build's OPEN_JSON (field names
+    and type heads; the hypotheses outside the bundles by head)."""
+    import json
     name = "_root_.ZInQ.OneProof.frozenTarget"
     sig = c.signature(c.show(MAIN, "ZInQKernel/OneProof/Main.lean"), name)
     hyps, concl = c.split_binders(sig, name)
     got = sorted(head_of_type(h) for h in hyps)
     open_, rows = expand("A")
-    want = sorted(list(STRUCTS) + [n for n, src in open_ if src == "root" or "." not in src])
+    tops = sorted(n for n, src in open_ if src == "root" or "." not in src)
+    want = sorted(list(STRUCTS) + tops)
     print("OneProof.frozenTarget: hypotheses vs scenario A's (its bundles and the open nodes outside them):",
           "equal" if got == want else f"DIFFERENT {got} vs {want}", "; conclusion", head_of_type(concl))
     tsv = {}
     for ln in c.show(MAIN, FIELDS_TSV).strip().split("\n")[1:]:
-        b, f, ty = ln.split("\t")[:3]
-        if f not in PRUNED:
-            tsv.setdefault(b, []).append((f, " ".join(ty.split())))
-    key = {"OpenResearchLeaves12": "R", "OpenTextbookLeaves10": "T", "OpenAddedLeaves11": "A", "OpenGlue7": "G"}
+        b, f = ln.split("\t")[:2]
+        tsv.setdefault(b, set()).add(f)
+    js = json.loads(c.show(MAIN, OPEN_JSON))
+    jb = {}
+    for h in js["hypotheses"]:
+        jb.setdefault(h["bundle"], []).append((h["field"], head_of_type(h["type"])))
     for sname, ((rev, path), short) in STRUCTS.items():
-        a = [(f, " ".join(t.split())) for f, t in c.structure_fields(c.show(rev, path), short)]
-        b = tsv.get(key[sname], [])
-        if a == b:
-            v = "same names and types"
-        elif [(f, head_of_type(t)) for f, t in a] == [(f, head_of_type(t)) for f, t in b]:
-            v = "same names and head constants (types abbreviated in the table: " + ", ".join(
-                f for (f, t), (_, u) in zip(a, b) if t != u) + ")"
-        else:
-            v = f"DIFFERENT {sorted(set(a) ^ set(b))}"
-        print(f"  {sname}: {len(a)} fields; {FIELDS_TSV.split('/')[-1]}: {len(b)} rows, {v}")
+        a = sorted((f, head_of_type(t)) for f, t in c.structure_fields(c.show(rev, path), short))
+        t = tsv.get(TSV_BUNDLE[sname], set())
+        j = sorted(jb.get(sname, []))
+        vt = "same names" if {f for f, _ in a} == t else f"DIFFERENT {sorted({f for f, _ in a} ^ t)}"
+        vj = "same names and type heads" if a == j else f"DIFFERENT {sorted(set(a) ^ set(j))}"
+        print(f"  {sname}: {len(a)} fields; {FIELDS_TSV.split('/')[-1]}: {len(t)} rows, {vt}; "
+              f"{OPEN_JSON.split('/')[-1]}: {len(j)} entries, {vj}")
+    rest = sorted(h for _, h in jb.get("frozenTarget", []))  # the theorem's own hypotheses (h11, h29, hS, h33, ...)
+    print(f"  outside the bundles: {OPEN_JSON.split('/')[-1]} {len(rest)} hypotheses,",
+          "same heads as scenario A's" if rest == tops else f"DIFFERENT {rest} vs {tops}",
+          f"; count field {js.get('count')}")
 
 
 if __name__ == "__main__" and "doc" in sys.argv:
