@@ -138,6 +138,114 @@ def Uc (z : 𝒵.left) : 𝒵.left.Opens := ⟨(closure {z})ᶜ, isClosed_closur
 
 theorem mem_Uc {z x : 𝒵.left} : x ∈ Uc 𝒵 z ↔ x ∉ closure {z} := Iff.rfl
 
+/-! ## Extending the coordinate across the special fibre -/
+
+/-- The chart coordinate as a section of the model over the image of the chart. -/
+def tU (σ : ToP1 (genFib 𝒵).left) : Γ(𝒵.left, jj 𝒵 ''ᵁ σ.U) := ((jj 𝒵).appIso σ.U).inv σ.f
+
+theorem appLE_tU (σ : ToP1 (genFib 𝒵).left) (h : σ.U ≤ jj 𝒵 ⁻¹ᵁ (jj 𝒵 ''ᵁ σ.U)) :
+    (jj 𝒵).appLE (jj 𝒵 ''ᵁ σ.U) σ.U h (tU 𝒵 σ) = σ.f := by
+  rw [tU, ← ConcreteCategory.comp_apply, Scheme.Hom.appIso_inv_appLE]
+  simp
+
+variable [IsIntegral 𝒵.left] [IsProper 𝒵.hom] [SmoothOfRelativeDimension 1 𝒵.hom]
+  [GeometricallyConnected 𝒵.hom]
+
+theorem normal_stalks (x : 𝒵.left) :
+    IsDomain (𝒵.left.presheaf.stalk x) ∧ IsIntegrallyClosed (𝒵.left.presheaf.stalk x) := by
+  haveI := zloc_isDVR' (p := p)
+  haveI : Smooth 𝒵.hom := SmoothOfRelativeDimension.smooth 1 _
+  exact ZInQ.Contrib.CloudW03NeronSurj.FLT.AlgebraicGeometry.Smooth.isDomain_and_isIntegrallyClosed_stalk_of_isDiscreteValuationRing
+    (Zloc p) 𝒵.hom x
+
+instance : IsLocallyNoetherian 𝒵.left := LocallyOfFiniteType.isLocallyNoetherian 𝒵.hom
+
+theorem genericPoint_mem_open (O : 𝒵.left.Opens) (hO : (O : Set 𝒵.left).Nonempty) :
+    genericPoint 𝒵.left ∈ O := by
+  obtain ⟨x, hx⟩ := hO
+  exact ((genericPoint_spec 𝒵.left).mem_open_set_iff O.isOpen).mpr ⟨x, trivial, hx⟩
+
+theorem image_nonempty (σ : ToP1 (genFib 𝒵).left) (hne : (σ.U : Set (genFib 𝒵).left).Nonempty) :
+    ((jj 𝒵 ''ᵁ σ.U : 𝒵.left.Opens) : Set 𝒵.left).Nonempty := by
+  obtain ⟨y, hy⟩ := hne
+  exact ⟨jj 𝒵 y, y, hy, rfl⟩
+
+/-- **The coordinate extends across the special fibre where it is regular at `ξ`.** If the chart coordinate `f`
+of `σ`, as an element of the function field, lies in the local ring at `ξ`, it extends to a section over the
+complement `U` of the closure of the pole. -/
+theorem extend_of_isInteger (σ : ToP1 (genFib 𝒵).left) (hσ : IsP1CoordinateQ (genFib 𝒵) σ)
+    (yinf : (genFib 𝒵).left) (hyinf : yinf ∉ σ.U)
+    (hclosed : ∀ x ∈ closure {jj 𝒵 yinf}, 𝒵.hom x ≠ s0 p → x = jj 𝒵 yinf)
+    (hξ : xi 𝒵 ∉ closure {jj 𝒵 yinf}) (hne : (σ.U : Set (genFib 𝒵).left).Nonempty)
+    (a : 𝒵.left.presheaf.stalk (xi 𝒵))
+    (ha : algebraMap _ 𝒵.left.functionField a =
+      𝒵.left.presheaf.germ (jj 𝒵 ''ᵁ σ.U) (genericPoint 𝒵.left)
+        (genericPoint_mem_open 𝒵 _ (image_nonempty 𝒵 σ hne)) (tU 𝒵 σ)) :
+    ∃ (f : Γ(𝒵.left, Uc 𝒵 (jj 𝒵 yinf))) (h : σ.U ≤ jj 𝒵 ⁻¹ᵁ Uc 𝒵 (jj 𝒵 yinf)),
+      (jj 𝒵).appLE _ σ.U h f = σ.f ∧ 𝒵.left.presheaf.germ _ (xi 𝒵) hξ f = a := by
+  set U := Uc 𝒵 (jj 𝒵 yinf) with hUdef
+  set O : 𝒵.left.Opens := jj 𝒵 ''ᵁ σ.U with hOdef
+  have hOU : O ≤ U := by
+    rintro _ ⟨y, hy, rfl⟩ hcl
+    have := hclosed _ hcl (hom_jj_ne 𝒵 y)
+    have hyy : y = yinf := (jj 𝒵).isOpenEmbedding.injective this
+    exact hyinf (hyy ▸ hy)
+  have hη := genericPoint_mem_open 𝒵 O (image_nonempty 𝒵 σ hne)
+  obtain ⟨N, hξN, k, hk⟩ := 𝒵.left.presheaf.germ_exist (x := xi 𝒵) a
+  set NU : 𝒵.left.Opens := N ⊓ U
+  have hξNU : xi 𝒵 ∈ NU := ⟨hξN, hξ⟩
+  have hηNU : genericPoint 𝒵.left ∈ NU := genericPoint_mem_open 𝒵 NU ⟨_, hξNU⟩
+  have hηW : genericPoint 𝒵.left ∈ O ⊓ NU := ⟨hη, hηNU⟩
+  -- the two sections agree on the overlap (same germ at the generic point)
+  have hagree : 𝒵.left.presheaf.map (homOfLE (inf_le_left : O ⊓ NU ≤ O)).op (tU 𝒵 σ) =
+      𝒵.left.presheaf.map (homOfLE (inf_le_right : O ⊓ NU ≤ NU)).op
+        (𝒵.left.presheaf.map (homOfLE (inf_le_left : NU ≤ N)).op k) := by
+    apply germ_injective_of_isIntegral 𝒵.left (genericPoint 𝒵.left) hηW
+    rw [TopCat.Presheaf.germ_res_apply, TopCat.Presheaf.germ_res_apply,
+      TopCat.Presheaf.germ_res_apply, ← ha]
+    have hsp : genericPoint 𝒵.left ⤳ xi 𝒵 := (genericPoint_spec 𝒵.left).specializes trivial
+    rw [← hk]
+    change 𝒵.left.presheaf.stalkSpecializes hsp (𝒵.left.presheaf.germ N (xi 𝒵) hξN k) = _
+    rw [TopCat.Presheaf.germ_stalkSpecializes_apply]
+  set s := (𝒵.left.sheaf.objSupIsoProdEqLocus O NU).inv
+    ⟨(tU 𝒵 σ, 𝒵.left.presheaf.map (homOfLE (inf_le_left : NU ≤ N)).op k), hagree⟩
+  have hsO : 𝒵.left.presheaf.map (homOfLE le_sup_left : O ⟶ O ⊔ NU).op s = tU 𝒵 σ := by
+    have := TopCat.Sheaf.objSupIsoProdEqLocus_inv_fst 𝒵.left.sheaf O NU
+      ⟨(tU 𝒵 σ, 𝒵.left.presheaf.map (homOfLE (inf_le_left : NU ≤ N)).op k), hagree⟩
+    exact this
+  have hsN : 𝒵.left.presheaf.map (homOfLE le_sup_right : NU ⟶ O ⊔ NU).op s =
+      𝒵.left.presheaf.map (homOfLE (inf_le_left : NU ≤ N)).op k := by
+    have := TopCat.Sheaf.objSupIsoProdEqLocus_inv_snd 𝒵.left.sheaf O NU
+      ⟨(tU 𝒵 σ, 𝒵.left.presheaf.map (homOfLE (inf_le_left : NU ≤ N)).op k), hagree⟩
+    exact this
+  -- extend across the points of codimension `≥ 2`
+  have hle : O ⊔ NU ≤ U := sup_le hOU inf_le_right
+  have hgen : ∃ y : 𝒵.left, 𝒵.hom y ≠ s0 p := by
+    obtain ⟨y, -⟩ := hne; exact ⟨jj 𝒵 y, hom_jj_ne 𝒵 y⟩
+  have hcod : ∀ x : 𝒵.left, x ∈ U → ringKrullDim (𝒵.left.presheaf.stalk x) ≤ 1 → x ∈ O ⊔ NU := by
+    intro x hxU hd
+    by_cases hx : 𝒵.hom x = s0 p
+    · have := eq_xi_of_ringKrullDim_le_one 𝒵 hgen x hx hd
+      exact Or.inr (this ▸ hξNU)
+    · obtain ⟨y, rfl⟩ := mem_range_jj 𝒵 hx
+      by_cases hyU : y ∈ σ.U
+      · exact Or.inl ⟨y, hyU, rfl⟩
+      · have := eq_of_notMem_U _ σ hσ hyU hyinf
+        subst this
+        exact absurd (subset_closure (Set.mem_singleton _)) hxU
+  obtain ⟨f, hf⟩ := extend_open (normal_stalks 𝒵) U (O ⊔ NU) hle hcod s
+  have hσU : σ.U ≤ jj 𝒵 ⁻¹ᵁ U := fun y hy => hOU ⟨y, hy, rfl⟩
+  refine ⟨f, hσU, ?_, ?_⟩
+  · have h1 : 𝒵.left.presheaf.map (homOfLE (le_sup_left.trans hle) : O ⟶ U).op f = tU 𝒵 σ := by
+      rw [← hsO, ← hf, Scheme.presheaf_map_map]
+    rw [← appLE_tU 𝒵 σ (fun y hy => ⟨y, hy, rfl⟩), ← h1, ← ConcreteCategory.comp_apply]
+    erw [Scheme.Hom.map_appLE]
+  · have h2 : 𝒵.left.presheaf.map (homOfLE (le_sup_right.trans hle) : NU ⟶ U).op f =
+        𝒵.left.presheaf.map (homOfLE (inf_le_left : NU ≤ N)).op k := by
+      rw [← hsN, ← hf, Scheme.presheaf_map_map]
+    rw [← TopCat.Presheaf.germ_res_apply _ (homOfLE (le_sup_right.trans hle) : NU ⟶ U) _ hξNU, h2,
+      TopCat.Presheaf.germ_res_apply, hk]
+
 end Model
 
 end HDec.MCRGlue.P1Model
