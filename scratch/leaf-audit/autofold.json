@@ -1,0 +1,31 @@
+{
+ "name": "leaf-audit",
+ "imports": [
+  "ZInQKernel.Contrib.OneProof.LinYangPrinted"
+ ],
+ "bypass_note": "Correction, not a discharge. theta-fold's added-leaf field linYangEx29All (OpenAddedLeaves18, ZInQKernel/OneProof/H/TailZ41.lean on wip/theta-fold) is FALSE as stated (leaf-audit, ZInQKernel/Contrib/OneProof/LeafAudit1115.lean: not_linYangEx29All, jtheta_real_of_leaves; numerics scratch/leaf-audit/py/jtheta_nonreal.py). No proof of the false field exists; the consumer is changed instead (by-hand fold, compiled dry run scratch/leaf-audit/FoldFix.lean): in TailZ41 replace the field `linYangEx29All : G0Split.ThetaPt.LinYangPrinted.LinYangEx29All` by `linYangEx29 : G0Split.ThetaPt.LinYangPrinted.LinYangEx29`, and in sixContactMin_of_open29 pass hθ := fun _ => G0Split.ThetaPt.IgusaAlgFinal.thetaRatiosAtQM_of_printed l.igusaThetaExpressions l.linYangEx29 (QMHauptmodul is no longer needed by this consumer). kinds.tsv/OPEN.md: rename the row linYangEx29All to linYangEx29 (same kind, LEAF), flag below. Integration note: theta-fold's chain edits (hθ threaded through sixContactMin_of_open4..open28) break leaf-fold25's TailZ35 (line 117), so theta-fold must be re-folded on top of leaf-fold25 in any case.",
+ "bypass": {
+  "removed_field": "linYangEx29All",
+  "from_bundle": "OpenAddedLeaves18 (wip/theta-fold TailZ41)",
+  "replacement_field": "linYangEx29",
+  "consumer": "sixContactMin_of_open28's argument hθ : PkgI1.QMHauptmodul → ThetaRatiosAtQM",
+  "proof": "fun _ => _root_.HDec.HSyn.G0Split.ThetaPt.IgusaAlgFinal.thetaRatiosAtQM_of_printed {n}.igusaThetaExpressions {n}.linYangEx29"
+ },
+ "discharges": [
+  {
+   "field": "linYangEx29All",
+   "proof": "(none: the field is false; replace it, see bypass_note)",
+   "leaves": [
+    {
+     "name": "linYangEx29",
+     "type": "_root_.HDec.HSyn.G0Split.ThetaPt.LinYangPrinted.LinYangEx29",
+     "doc": "Lin-Yang 2020, Example 29 (discriminant 6), existential form: there is a Hauptmodul j6 of Gamma*\\H (continuous, fibres the Gamma*-orbits, surjective, j6 = 0, infinity, -16/27 at the CM points of discriminants -4, -3, -24) with s3^2 = j6 s2^3, s5 = s2 s3, s6 = (j6 + 1) s2^3 along Omega(tau) wherever j6 is finite (s2 = psi4, s3 = psi6, s5 = 2^12 3^5 chi10, s6 = 2^12 3^6 chi12). Replaces theta-fold's linYangEx29All, which is false (it quantifies over every continuous j6 with these clauses, and conj o j6 is one of them). Numerically consistent with j6 = QMHauptmodul's j_theta to 1e-39 at three points (leaf-audit linyang_check.py).",
+     "kind": "published",
+     "flag": "pending review: Lin-Yang's display of Example 29 not re-read (arXiv:1807.00466v1 pp. 20-21; Math. Z. 295 (2020) 775-819); existence of the Hauptmodul is part of the leaf (genus 0, implicit in Lin-Yang); locators UNVERIFIED",
+     "flag_class": "pending-review,unverified-locator",
+     "source": "Y.-H. Lin, Y. Yang, Quaternionic loci in Siegel's modular threefold, Math. Z. 295 (2020), 775-819; arXiv:1807.00466v1 Example 29 (locator UNVERIFIED)"
+    }
+   ]
+  }
+ ]
+}
