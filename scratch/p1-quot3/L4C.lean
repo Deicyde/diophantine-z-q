@@ -370,6 +370,45 @@ theorem germ_mul_swap (σ : ToP1 (genFib 𝒵).left) (hne : ((σ.U ⊓ σ.V : (g
   erw [hinv]
   rw [map_one, map_one]
 
+/-- A point of the chart `U` with nonzero value lies in `V`, and the value of `g` there is the inverse. -/
+theorem third_swap (σ : ToP1 (genFib 𝒵).left) (c : Zloc p) (hc : IsUnit c) (yc : (genFib 𝒵).left)
+    (hycU : yc ∈ σ.U)
+    (hycv : yc ∉ (genFib 𝒵).left.basicOpen
+      (σ.f - baseToSectionsOver (CommRingCat.of ℚ) (genFib 𝒵) σ.U (zlocToRat p c))) :
+    yc ∈ σ.U ⊓ σ.V ∧ yc ∉ (genFib 𝒵).left.basicOpen ((swapP1 σ).f -
+      baseToSectionsOver (CommRingCat.of ℚ) (genFib 𝒵) (swapP1 σ).U (zlocToRat p ↑hc.unit⁻¹)) := by
+  set q := zlocToRat p c
+  set q' := zlocToRat p ↑hc.unit⁻¹
+  have hqq : q * q' = 1 := by rw [← map_mul, IsUnit.mul_val_inv, map_one]
+  have hW : yc ∈ σ.U ⊓ σ.V := by
+    rw [← σ.basicOpen_f]
+    have h1 := basicOpen_sub_le σ.f (σ.f - baseToSectionsOver (CommRingCat.of ℚ) (genFib 𝒵) σ.U q)
+    rw [sub_sub_cancel, Scheme.basicOpen_of_isUnit _ ((hc.map (zlocToRat p)).map _)] at h1
+    exact (h1 hycU).resolve_right hycv
+  refine ⟨hW, fun hx => hycv ?_⟩
+  set W := σ.U ⊓ σ.V
+  set a := (genFib 𝒵).left.presheaf.map (homOfLE (inf_le_left : W ≤ σ.U)).op σ.f
+  set b := (genFib 𝒵).left.presheaf.map (homOfLE (inf_le_right : W ≤ σ.V)).op σ.g
+  have hab : a * b = 1 := σ.inv
+  set κ := baseToSectionsOver (CommRingCat.of ℚ) (genFib 𝒵) W q
+  set κ' := baseToSectionsOver (CommRingCat.of ℚ) (genFib 𝒵) W q'
+  have hκ : κ * κ' = 1 := by rw [← map_mul, hqq, map_one]
+  have hres1 : (genFib 𝒵).left.presheaf.map (homOfLE (inf_le_left : W ≤ σ.U)).op
+      (σ.f - baseToSectionsOver (CommRingCat.of ℚ) (genFib 𝒵) σ.U q) = a - κ := by
+    rw [map_sub, baseToSectionsOver_res]
+  have hres2 : (genFib 𝒵).left.presheaf.map (homOfLE (inf_le_right : W ≤ σ.V)).op
+      (σ.g - baseToSectionsOver (CommRingCat.of ℚ) (genFib 𝒵) σ.V q') = b - κ' := by
+    rw [map_sub, baseToSectionsOver_res]
+  have hx' : yc ∈ (genFib 𝒵).left.basicOpen (b - κ') := by
+    rw [← hres2, Scheme.basicOpen_res]
+    exact ⟨hW, hx⟩
+  have hprod : b - κ' = (-κ') * b * (a - κ) := by
+    linear_combination κ' * hab - b * hκ
+  rw [hprod, Scheme.basicOpen_mul] at hx'
+  have : yc ∈ (genFib 𝒵).left.basicOpen (a - κ) := hx'.2
+  rw [← hres1, Scheme.basicOpen_res] at this
+  exact this.2
+
 end Model
 
 end HDec.MCRGlue.P1Model
