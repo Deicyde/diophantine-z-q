@@ -28,3 +28,12 @@
 - `shimuraGoodReductionNoGuard_of_used : ShimuraIntegralModelUsed → ShimuraGoodReductionNoGuard` COMPILED.
 - `lake build ZInQKernel.Contrib.OneProof.ShimuraIntegralModelUsed` 88 s; axioms of both: propext,
   Classical.choice, Quot.sound (scratch/sir-printed/Check.lean). VERIFIED.
+
+## Lean step 2 (compiled): PEL-datum algebra of the Hecke twists (scratch/sir-printed/TwistAlgebra.lean)
+Imports ZInQKernel.HDecomp.QM.Polar (rv-qm-polar). All standard axioms. VERIFIED (compiled):
+- `trd_map`: every ring automorphism α of 𝒪 preserves trd; `star_map`: α commutes with x ↦ x̄.
+- `v_mu_v`: α(μ) = μv ⇒ vμv = μ.
+- `rosati_twist`: (α b)† v = v α(b†)  (Rosati of λ∘ι(v) on ι∘α is †).
+- `E0_twist`: E₀(αx, v·αy) = E₀(x, y)  (α₃∘α is a similitude-level structure for λ∘ι(v), factor 1).
+- `trd_ne_zero_of_dag`: v† = v, nrd v = 1 ⇒ trd v ≠ 0 (sign ε defined; uses trd_mul_dag_pos).
+- `E0_rightMul`: E₀(xu, yu) = nrd(u) E₀(x, y)  (α₃∘r_u is a level structure for λ).
