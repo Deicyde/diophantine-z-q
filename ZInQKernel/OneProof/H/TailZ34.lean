@@ -115,7 +115,6 @@ theorem openResearchLeaves20_of_OpenResearchLeaves21 (n : OpenResearchLeaves21) 
 
 /-- `OpenAddedLeaves16` without `shimuraGoodReductionNoGuard`, with the leaves `shimuraIntegralModelRep` (leaf-fold22). -/
 structure OpenAddedLeaves17 : Prop where
-  thetaRatiosAlgebraic : G0Split.ThetaPt.ThetaRatiosAlgebraic
   tateTwistInvariants : _root_.ZInQ.Contrib.HodgeSplit.TateTwistInvariants
   axSenTate : _root_.ZInQ.Contrib.HodgeSplit.AxSenTate
   milneIsogenyQuasiInverse : _root_.AvSplit.MilneIsogenyQuasiInverse
@@ -153,7 +152,6 @@ structure OpenAddedLeaves17 : Prop where
 
 /-- `OpenAddedLeaves16` from `OpenAddedLeaves17`: `shimuraGoodReductionNoGuard` by the contributions. -/
 theorem openAddedLeaves16_of_OpenAddedLeaves17 (n : OpenAddedLeaves17) : OpenAddedLeaves16 where
-  thetaRatiosAlgebraic := n.thetaRatiosAlgebraic
   tateTwistInvariants := n.tateTwistInvariants
   axSenTate := n.axSenTate
   milneIsogenyQuasiInverse := n.milneIsogenyQuasiInverse
@@ -169,8 +167,9 @@ theorem openAddedLeaves16_of_OpenAddedLeaves17 (n : OpenAddedLeaves17) : OpenAdd
   weilPairingMumford := n.weilPairingMumford
 
 /-- **G0 with only the open leaves and the open glue** (leaf-fold22; generated). -/
-theorem sixContactMin_of_open28 (r : OpenResearchLeaves21) (t : OpenTextbookLeaves11) (l : OpenAddedLeaves17) (g : OpenGlue7) : ZInQ.SixContactMin :=
-  sixContactMin_of_open27 (openResearchLeaves20_of_OpenResearchLeaves21 r t) t (openAddedLeaves16_of_OpenAddedLeaves17 l) g
+theorem sixContactMin_of_open28 (r : OpenResearchLeaves21) (t : OpenTextbookLeaves11) (l : OpenAddedLeaves17) (g : OpenGlue7)
+    (hθ : PkgI1.QMHauptmodul → G0Split.ThetaPt.ThetaSplit.ThetaRatiosAtQM) : ZInQ.SixContactMin :=
+  sixContactMin_of_open27 (openResearchLeaves20_of_OpenResearchLeaves21 r t) t (openAddedLeaves16_of_OpenAddedLeaves17 l) g hθ
 
 end HSyn
 

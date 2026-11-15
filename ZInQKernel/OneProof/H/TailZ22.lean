@@ -230,7 +230,6 @@ structure OpenResearchLeaves13 : Prop where
 /-- **The added leaves still open** (x6-fold): leaf-fold12's `OpenAddedLeaves11` without `x6ConicModel` (proved by
 x6-glue's `x6ConicModel_of_published`), with two of its leaves added. 14 fields. -/
 structure OpenAddedLeaves12 : Prop where
-  thetaRatiosAlgebraic : G0Split.ThetaPt.ThetaRatiosAlgebraic
   qmCentralizerCMC : QMSplit.Aut.QMCentralizerCMC
   tateTwistInvariants : _root_.ZInQ.Contrib.HodgeSplit.TateTwistInvariants
   axSenTate : _root_.ZInQ.Contrib.HodgeSplit.AxSenTate
@@ -312,30 +311,6 @@ theorem researchLeaves12_of_open13 (r : OpenResearchLeaves13) (t : OpenTextbookL
   sga7_IX_3_3 := r.sga7_IX_3_3
   egaIV_8_10_5_openImm := r.egaIV_8_10_5_openImm
 
-/-- leaf-fold12's added-leaf bundle from x6-fold's: `x6ConicModel` from x6-glue's `x6ConicModel_of_published`. -/
-theorem addedLeaves11_of_open12 (r : OpenResearchLeaves13) (t : OpenTextbookLeaves10) (l : OpenAddedLeaves12) :
-    OpenAddedLeaves11 where
-  thetaRatiosAlgebraic := l.thetaRatiosAlgebraic
-  qmCentralizerCMC := l.qmCentralizerCMC
-  tateTwistInvariants := l.tateTwistInvariants
-  axSenTate := l.axSenTate
-  t09SymmIsogenyExists := l.t09SymmIsogenyExists
-  milneIsogenyQuasiInverse := l.milneIsogenyQuasiInverse
-  shimuraTaniyamaQbar := l.shimuraTaniyamaQbar
-  egaIV_8_10_5_xii := l.egaIV_8_10_5_xii
-  shimuraGoodReductionNoGuard := l.shimuraGoodReductionNoGuard
-  valenceFormulaCocompactEq := l.valenceFormulaCocompactEq
-  shimizuCovolumeO1 := l.shimizuCovolumeO1
-  deligneComponentsY3PrintedAb := l.deligneComponentsY3PrintedAb
-  x6ConicModel := (x6Rows_of_open13 r t l).2
-
-/-- **G0 with only the open leaves and the open glue** (x6-fold; no `sorry`, standard axioms).
-`ZInQ.SixContactMin` from `OpenResearchLeaves13` (35), `OpenTextbookLeaves10` (15), `OpenAddedLeaves12` (14) and
-`OpenGlue7` (1). -/
-theorem sixContactMin_of_open16 (r : OpenResearchLeaves13) (t : OpenTextbookLeaves10) (l : OpenAddedLeaves12)
-    (g : OpenGlue7) (hYu : QMLattice.YuB6Alg) : ZInQ.SixContactMin :=
-  sixContactMin_of_open15 (researchLeaves12_of_open13 r t l) t (addedLeaves11_of_open12 r t l) g hYu
-
 end HSyn
 
 end HDec
@@ -344,5 +319,3 @@ end HDec
 #print axioms HDec.QMSplit.Moduli.x6ConicModel_of_published
 #print axioms HDec.HSyn.x6Rows_of_open13
 #print axioms HDec.HSyn.researchLeaves12_of_open13
-#print axioms HDec.HSyn.addedLeaves11_of_open12
-#print axioms HDec.HSyn.sixContactMin_of_open16

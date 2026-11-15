@@ -119,8 +119,9 @@ theorem openResearchLeaves19_of_OpenResearchLeaves20 (n : OpenResearchLeaves20) 
   elkiesX6StarPrinted := n.elkiesX6StarPrinted
 
 /-- **G0 with only the open leaves and the open glue** (leaf-fold20; generated). -/
-theorem sixContactMin_of_open27 (r : OpenResearchLeaves20) (t : OpenTextbookLeaves11) (l : OpenAddedLeaves16) (g : OpenGlue7) : ZInQ.SixContactMin :=
-  sixContactMin_of_open26 (openResearchLeaves19_of_OpenResearchLeaves20 r t) t l g
+theorem sixContactMin_of_open27 (r : OpenResearchLeaves20) (t : OpenTextbookLeaves11) (l : OpenAddedLeaves16) (g : OpenGlue7)
+    (hθ : PkgI1.QMHauptmodul → G0Split.ThetaPt.ThetaSplit.ThetaRatiosAtQM) : ZInQ.SixContactMin :=
+  sixContactMin_of_open26 (openResearchLeaves19_of_OpenResearchLeaves20 r t) t l g hθ
 
 end HSyn
 

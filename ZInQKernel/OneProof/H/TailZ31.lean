@@ -12,7 +12,6 @@ namespace HSyn
 
 /-- `OpenAddedLeaves15` without `valenceFormulaCocompactEq` (leaf-fold18). -/
 structure OpenAddedLeaves16 : Prop where
-  thetaRatiosAlgebraic : G0Split.ThetaPt.ThetaRatiosAlgebraic
   tateTwistInvariants : _root_.ZInQ.Contrib.HodgeSplit.TateTwistInvariants
   axSenTate : _root_.ZInQ.Contrib.HodgeSplit.AxSenTate
   milneIsogenyQuasiInverse : _root_.AvSplit.MilneIsogenyQuasiInverse
@@ -49,7 +48,6 @@ structure OpenAddedLeaves16 : Prop where
 
 /-- `OpenAddedLeaves15` from `OpenAddedLeaves16`: `valenceFormulaCocompactEq` by the contributions. -/
 theorem openAddedLeaves15_of_OpenAddedLeaves16 (n : OpenAddedLeaves16) : OpenAddedLeaves15 where
-  thetaRatiosAlgebraic := n.thetaRatiosAlgebraic
   tateTwistInvariants := n.tateTwistInvariants
   axSenTate := n.axSenTate
   milneIsogenyQuasiInverse := n.milneIsogenyQuasiInverse
@@ -66,8 +64,9 @@ theorem openAddedLeaves15_of_OpenAddedLeaves16 (n : OpenAddedLeaves16) : OpenAdd
   weilPairingMumford := n.weilPairingMumford
 
 /-- **G0 with only the open leaves and the open glue** (leaf-fold18; generated). -/
-theorem sixContactMin_of_open25 (r : OpenResearchLeaves19) (t : OpenTextbookLeaves10) (l : OpenAddedLeaves16) (g : OpenGlue7) : ZInQ.SixContactMin :=
-  sixContactMin_of_open24 r t (openAddedLeaves15_of_OpenAddedLeaves16 l) g
+theorem sixContactMin_of_open25 (r : OpenResearchLeaves19) (t : OpenTextbookLeaves10) (l : OpenAddedLeaves16) (g : OpenGlue7)
+    (hθ : PkgI1.QMHauptmodul → G0Split.ThetaPt.ThetaSplit.ThetaRatiosAtQM) : ZInQ.SixContactMin :=
+  sixContactMin_of_open24 r t (openAddedLeaves15_of_OpenAddedLeaves16 l) g hθ
 
 end HSyn
 
