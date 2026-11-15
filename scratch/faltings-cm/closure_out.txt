@@ -1,0 +1,77 @@
+PkgI3.FaltingsSemisimple: true true
+PkgI3.FaltingsTate: true true
+HDec.FaltingsSemisimple: false false
+HDec.FaltingsTate: false false
+ObjBridge.FaltingsSemisimple: false true
+ObjBridge.FaltingsTate: false true
+TARGET PkgI3.FaltingsTate
+TARGET PkgI3.FaltingsSemisimple
+DEFVAL HDec.G0Galois.ConjTwistNontrivial
+DEFVAL HDec.G0Galois.G10Glue
+TYPE C9Rhof.c9_core proj=false kind=thm
+TYPE C9Rhof.rhoF_isSemisimpleModule proj=false kind=thm
+TYPE C9Rhof.rhoF_semisimple proj=false kind=thm
+TYPE E1Sub.homVK_surjective proj=false kind=thm
+TYPE E1Sub.rhoF_subrep_of_surj proj=false kind=thm
+TYPE E1Sub.vSurjOfSurjective proj=false kind=thm
+TYPE HDec.G0Galois.faltingsV proj=false kind=thm
+TYPE HDec.G0Galois.g10Out_of_conjTwist proj=false kind=thm
+TYPE HDec.G0Galois.g8 proj=false kind=thm
+TYPE HDec.G0Galois.g8_g11 proj=false kind=thm
+TYPE HDec.G0Galois.g8_g12 proj=false kind=thm
+TYPE HDec.G0ModNewform.NewformLeaves.mk proj=false kind=ctor
+TYPE HDec.G0ModNewform.NewformLeaves.r9a proj=true kind=thm
+TYPE HDec.G0ModNewform.NewformLeaves.r9b proj=true kind=thm
+TYPE HDec.G0ModNewform.commonConstituent_of_attached proj=false kind=thm
+TYPE HDec.G0ModNewform.g13 proj=false kind=thm
+TYPE HDec.G0ModNewform.jSide proj=false kind=thm
+TYPE HDec.HSyn.OpenResearchLeaves14.mk proj=false kind=ctor
+TYPE HDec.HSyn.OpenResearchLeaves14.r9a proj=true kind=thm
+TYPE HDec.HSyn.OpenResearchLeaves14.r9b proj=true kind=thm
+TYPE HDec.HSyn.OpenResearchLeaves15.mk proj=false kind=ctor
+TYPE HDec.HSyn.OpenResearchLeaves15.r9a proj=true kind=thm
+TYPE HDec.HSyn.OpenResearchLeaves15.r9b proj=true kind=thm
+TYPE HDec.HSyn.OpenResearchLeaves16.mk proj=false kind=ctor
+TYPE HDec.HSyn.OpenResearchLeaves16.r9a proj=true kind=thm
+TYPE HDec.HSyn.OpenResearchLeaves16.r9b proj=true kind=thm
+TYPE HDec.HSyn.OpenResearchLeaves17.mk proj=false kind=ctor
+TYPE HDec.HSyn.OpenResearchLeaves17.r9a proj=true kind=thm
+TYPE HDec.HSyn.OpenResearchLeaves17.r9b proj=true kind=thm
+TYPE HDec.HSyn.OpenResearchLeaves18.mk proj=false kind=ctor
+TYPE HDec.HSyn.OpenResearchLeaves18.r9a proj=true kind=thm
+TYPE HDec.HSyn.OpenResearchLeaves18.r9b proj=true kind=thm
+TYPE HDec.HSyn.OpenResearchLeaves19.mk proj=false kind=ctor
+TYPE HDec.HSyn.OpenResearchLeaves19.r9a proj=true kind=thm
+TYPE HDec.HSyn.OpenResearchLeaves19.r9b proj=true kind=thm
+TYPE HDec.HSyn.OpenResearchLeaves2.mk proj=false kind=ctor
+TYPE HDec.HSyn.OpenResearchLeaves2.r9a proj=true kind=thm
+TYPE HDec.HSyn.OpenResearchLeaves2.r9b proj=true kind=thm
+TYPE HDec.HSyn.OpenResearchLeaves20.mk proj=false kind=ctor
+TYPE HDec.HSyn.OpenResearchLeaves20.r9a proj=true kind=thm
+TYPE HDec.HSyn.OpenResearchLeaves20.r9b proj=true kind=thm
+TYPE HDec.HSyn.OpenResearchLeaves21.mk proj=false kind=ctor
+TYPE HDec.HSyn.OpenResearchLeaves21.r9a proj=true kind=thm
+TYPE HDec.HSyn.OpenResearchLeaves21.r9b proj=true kind=thm
+TYPE HDec.HSyn.OpenResearchLeaves22.r9a proj=true kind=thm
+TYPE HDec.HSyn.OpenResearchLeaves22.r9b proj=true kind=thm
+TYPE HDec.HSyn.OpenResearchLeaves5.mk proj=false kind=ctor
+TYPE HDec.HSyn.OpenResearchLeaves5.r9a proj=true kind=thm
+TYPE HDec.HSyn.OpenResearchLeaves5.r9b proj=true kind=thm
+TYPE HDec.HSyn.OpenResearchLeaves7.mk proj=false kind=ctor
+TYPE HDec.HSyn.OpenResearchLeaves7.r9a proj=true kind=thm
+TYPE HDec.HSyn.OpenResearchLeaves7.r9b proj=true kind=thm
+TYPE HDec.HSyn.OpenResearchLeaves8.mk proj=false kind=ctor
+TYPE HDec.HSyn.OpenResearchLeaves8.r9a proj=true kind=thm
+TYPE HDec.HSyn.OpenResearchLeaves8.r9b proj=true kind=thm
+TYPE HDec.HSyn.OpenResearchLeaves9.mk proj=false kind=ctor
+TYPE HDec.HSyn.OpenResearchLeaves9.r9a proj=true kind=thm
+TYPE HDec.HSyn.OpenResearchLeaves9.r9b proj=true kind=thm
+TYPE HDec.HSyn.ResearchLeaves3.mk proj=false kind=ctor
+TYPE HDec.HSyn.ResearchLeaves3.r9a proj=true kind=thm
+TYPE HDec.HSyn.ResearchLeaves3.r9b proj=true kind=thm
+TYPE HDec.HSyn.faltingsSemisimple_ofK5 proj=false kind=thm
+TYPE HDec.HSyn.faltingsTate_ofK5 proj=false kind=thm
+TYPE PkgI3.C2_absolutelyIrreducible proj=false kind=thm
+TYPE PkgI3.E1_exists_hom_ne_zero proj=false kind=thm
+TYPE PkgI3.exists_hom_ne_zero_of_equivariant proj=false kind=thm
+TYPE PkgI3.finrank_equivEnd proj=false kind=thm
