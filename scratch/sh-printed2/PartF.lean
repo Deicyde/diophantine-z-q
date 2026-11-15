@@ -7,6 +7,22 @@ import ShP
 `neronBaseChangeSH` added (33 fields). `researchLeaves11_of_open12SH` is leaf-fold12's
 `researchLeaves11_of_open12` with the two changed fields. -/
 
+namespace SHPrinted2
+
+/-- **Sanity check: the strict-henselization side is not vacuous at number fields.** Every discrete
+valuation ring of a number field has an extension `O₁` with `ShRoute.IsSHUnram O O₁ hO` (sh-route's
+`shExists0`, proved; the residue field is finite, hence perfect), so the right side of `BLR_1_2_4_SH`
+quantifies over a nonempty set of rings, and (with `shPair0`) the hypotheses of `SGA7_IX_3_3_SH` are met in
+every use. -/
+theorem shUnram_exists_numberField (L : Type) [Field L] [NumberField L] (O : ValuationSubring L)
+    [IsDiscreteValuationRing O] :
+    ∃ (K₁ : Type) (_ : Field K₁) (_ : Algebra L K₁) (O₁ : ValuationSubring K₁)
+      (hO : O₁.comap (algebraMap L K₁) = O), ShRoute.IsSHUnram O O₁ hO := by
+  haveI := perfectField_residueField O
+  exact ShRoute.shExists0 L O
+
+end SHPrinted2
+
 namespace HDec
 
 namespace HSyn
@@ -85,6 +101,10 @@ structure OpenResearchLeaves12SH : Prop where
   /-- c-to-printed, printed form: EGA IV 8.10.5, open immersions descend through limits (locator UNVERIFIED). -/
   egaIV_8_10_5_openImm : _root_.CToPrinted.EGAIV_8_10_5_openImm
 
+/-- route-a-fold's research bundle from the strictly henselian bundle: `neronLocalizesDVR` and
+`semistableNeronBaseChange` are theorems from `blr_1_2_4_SH`, `sga7_IX_3_3_SH`, `neronBaseChangeSH` and the
+leaves c-to-printed already used (`sga3_VIB_3_10`, `egaIV_8_10_5_openImm`, the textbook field
+`geomConnOfRationalPoint`). -/
 theorem researchLeaves11_of_open12SH (r : OpenResearchLeaves12SH) (t : OpenTextbookLeaves10) :
     OpenResearchLeaves11 where
   r1r2Ab := r.r1r2Ab
@@ -130,5 +150,6 @@ end HSyn
 
 end HDec
 
+#print axioms SHPrinted2.shUnram_exists_numberField
 #print axioms HDec.HSyn.researchLeaves11_of_open12SH
 #print axioms HDec.HSyn.sixContactMin_of_open15SH

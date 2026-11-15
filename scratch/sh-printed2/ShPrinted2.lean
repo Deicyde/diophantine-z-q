@@ -1592,3 +1592,940 @@ end ShRoute
 #print axioms ShRoute.neronBaseChangeSH_of_unramified
 #print axioms ShRoute.char0_of_general
 
+
+/-! # sh-printed2, Part B: the field `blr_1_2_4` from BLR 1.2 Prop. 4 over strict henselizations
+
+`CToPrinted.BLR_1_2_4` (field `blr_1_2_4` of `HDec.HSyn.OpenResearchLeaves12`) states BLR §1.2 Prop. 4
+with the localizations `𝒪_{S,s} = R_𝔭`. If the print uses the strict henselizations `𝒪^{sh}_{S,s}`, the
+published form is `BLR_1_2_4_SH` below, with the strict henselization of the discrete valuation ring
+`R_𝔭` expressed as sh-route's `ShRoute.IsSHUnram` (in characteristic 0 this characterizes `R_𝔭 → R_𝔭^{sh}`
+up to isomorphism, docs/research/sh-route.md §3). This part proves `BLR_1_2_4_0` (the field statement
+word for word with `[CharZero K]` added) from `BLR_1_2_4_SH` alone: the localization form is the
+strict-henselization form applied twice, once over `R` and once over the Dedekind domain `R_𝔭`, whose
+only closed point has the same strict henselization. No other leaf and no commutative algebra beyond
+localization of localizations is used. -/
+
+noncomputable section
+
+open CategoryTheory AlgebraicGeometry Limits
+open ReductSplit ReductGlue CToPrinted
+
+set_option linter.style.haveILetI false
+set_option linter.unusedSectionVars false
+
+namespace SHPrinted2
+
+/-- **LEAF `BLR_1_2_4_SH`** (Bosch–Lütkebohmert–Raynaud, *Néron models*, Ergebnisse 21 (1990), §1.2
+Prop. 4, in its strict-henselization reading; number and wording recalled, UNVERIFIED, no network).
+*Printed* (as recalled, the reading flagged by reduct-glue §5 and c-to-printed): `R` a Dedekind domain with
+field of fractions `K`, `X` a smooth, separated `R`-scheme of finite type; then `X` is a Néron model of
+its generic fibre if and only if, for every closed point `s` of `Spec R`, `X ⊗_R 𝒪^{sh}_{S,s}` is a Néron
+model of its generic fibre over the strict henselization `𝒪^{sh}_{S,s}`.
+
+*Lean form*: `K` of characteristic 0; `𝒪_{S,s} = R_𝔭` is a valuation subring `O` of `K` with
+`IsLocalization.AtPrime O 𝔭` (as in the field statement); `𝒪^{sh}_{S,s}` is any `O₁ ⊆ K₁` with
+`ShRoute.IsSHUnram O O₁ hO` (a strictly henselian DVR over `O`, `K₁/K` algebraic, ramification index 1,
+separable residue extension), which in characteristic 0 is `O → O^{sh}` up to isomorphism over `O`
+(sh-route §3, SPECULATIVE argument with STANDARD inputs; for a field `R` there is no such `O₁` and both
+sides hold). `X ⊗_R O₁` is the pullback along `R → O → O₁`. -/
+def BLR_1_2_4_SH : Prop :=
+  ∀ (R K : Type) [CommRing R] [IsDedekindDomain R] [Field K] [CharZero K] [Algebra R K]
+    [IsFractionRing R K] (X : Over (Spec (CommRingCat.of R))) [Smooth X.hom] [IsSeparated X.hom]
+    [QuasiCompact X.hom],
+    IsNeronModelOver R K X ↔
+      ∀ (𝔭 : Ideal R) [𝔭.IsMaximal] (O : ValuationSubring K) [Algebra R O]
+        [IsLocalization.AtPrime O 𝔭] [IsScalarTower R O K] (K₁ : Type) [Field K₁] [Algebra K K₁]
+        (O₁ : ValuationSubring K₁) (hO : O₁.comap (algebraMap K K₁) = O), ShRoute.IsSHUnram O O₁ hO →
+        IsNeronModelOver O₁ K₁ ((Over.pullback (Spec.map (CommRingCat.ofHom
+          ((comapHom hO).comp (algebraMap R O))))).obj X)
+
+/-- **`BLR_1_2_4` for fields of characteristic 0**: `CToPrinted.BLR_1_2_4` word for word with
+`[CharZero K]` added (its one use, `neronLocalizesDVR`, is at a number field). -/
+def BLR_1_2_4_0 : Prop :=
+  ∀ (R K : Type) [CommRing R] [IsDedekindDomain R] [Field K] [CharZero K] [Algebra R K]
+    [IsFractionRing R K] (X : Over (Spec (CommRingCat.of R))) [Smooth X.hom] [IsSeparated X.hom]
+    [QuasiCompact X.hom],
+    IsNeronModelOver R K X ↔
+      ∀ (𝔭 : Ideal R) [𝔭.IsMaximal] (R𝔭 : Type) [CommRing R𝔭] [Algebra R R𝔭]
+        [IsLocalization.AtPrime R𝔭 𝔭] [Algebra R𝔭 K] [IsScalarTower R R𝔭 K],
+        IsNeronModelOver R𝔭 K ((Over.pullback (Spec.map (CommRingCat.ofHom (algebraMap R R𝔭)))).obj X)
+
+/-- `BLR_1_2_4_0` is a specialization of the field's statement. -/
+theorem blr_1_2_4_0_of_field (h : BLR_1_2_4) : BLR_1_2_4_0 :=
+  fun R K _ _ _ _ _ _ X _ _ _ => h R K X
+
+section Transport
+
+/-- The Néron property of BLR §1.2 Def. 1 is invariant under isomorphism of `R`-schemes. -/
+theorem isNeronModelOver_of_iso {R K : Type} [CommRing R] [Field K] [Algebra R K]
+    {X X' : Over (Spec (CommRingCat.of R))} (e : X ≅ X') (h : IsNeronModelOver R K X) :
+    IsNeronModelOver R K X' := by
+  obtain ⟨h1, h2, h3, h4, h5⟩ := h
+  have hw : X'.hom = e.inv.left ≫ X.hom := (Over.w e.inv).symm
+  refine ⟨?_, ?_, ?_, ?_, fun Y _ => ?_⟩
+  · rw [hw]; infer_instance
+  · rw [hw]; infer_instance
+  · rw [hw]; infer_instance
+  · rw [hw]; infer_instance
+  let F := Over.pullback (Spec.map (CommRingCat.ofHom (algebraMap R K)))
+  have hb := h5 Y
+  have : (fun f : Y ⟶ X' => F.map f) =
+      (fun g => g ≫ F.map e.hom) ∘ (fun f : Y ⟶ X => F.map f) ∘ (fun f : Y ⟶ X' => f ≫ e.inv) := by
+    funext f
+    simp only [Function.comp_apply, ← Functor.map_comp, Category.assoc, Iso.inv_hom_id,
+      Category.comp_id]
+  show Function.Bijective (fun f : Y ⟶ X' => F.map f)
+  rw [this]
+  refine Function.Bijective.comp ?_ (Function.Bijective.comp hb ?_)
+  · exact ⟨fun a b hab => (cancel_mono (F.map e.hom)).mp hab,
+      fun c => ⟨c ≫ F.map e.inv, by simp [← Functor.map_comp]⟩⟩
+  · exact ⟨fun a b hab => (cancel_mono e.inv).mp hab, fun c => ⟨c ≫ e.hom, by simp⟩⟩
+
+/-- Pullback along a composite of ring maps is the composite of the pullbacks. -/
+theorem pb_comp_iso {R S T : Type} [CommRing R] [CommRing S] [CommRing T] (ψ : R →+* S)
+    (φ : S →+* T) (χ : R →+* T) (h : φ.comp ψ = χ) (X : Over (Spec (CommRingCat.of R))) :
+    Nonempty ((Over.pullback (Spec.map (CommRingCat.ofHom χ))).obj X ≅
+      (Over.pullback (Spec.map (CommRingCat.ofHom φ))).obj
+        ((Over.pullback (Spec.map (CommRingCat.ofHom ψ))).obj X)) := by
+  subst h
+  have hs : Spec.map (CommRingCat.ofHom (φ.comp ψ)) =
+      Spec.map (CommRingCat.ofHom φ) ≫ Spec.map (CommRingCat.ofHom ψ) := by
+    rw [← Spec.map_comp]; rfl
+  rw [hs]
+  exact ⟨(Over.pullbackComp _ _).app X⟩
+
+instance smooth_pb {R S : Type} [CommRing R] [CommRing S] (ψ : R →+* S)
+    (X : Over (Spec (CommRingCat.of R))) [Smooth X.hom] :
+    Smooth ((Over.pullback (Spec.map (CommRingCat.ofHom ψ))).obj X).hom := by
+  change Smooth (pullback.snd X.hom _); infer_instance
+
+instance isSeparated_pb {R S : Type} [CommRing R] [CommRing S] (ψ : R →+* S)
+    (X : Over (Spec (CommRingCat.of R))) [IsSeparated X.hom] :
+    IsSeparated ((Over.pullback (Spec.map (CommRingCat.ofHom ψ))).obj X).hom := by
+  change IsSeparated (pullback.snd X.hom _); infer_instance
+
+instance quasiCompact_pb {R S : Type} [CommRing R] [CommRing S] (ψ : R →+* S)
+    (X : Over (Spec (CommRingCat.of R))) [QuasiCompact X.hom] :
+    QuasiCompact ((Over.pullback (Spec.map (CommRingCat.ofHom ψ))).obj X).hom := by
+  change QuasiCompact (pullback.snd X.hom _); infer_instance
+
+end Transport
+
+/-- **The field's statement (characteristic 0) from the strict-henselization form.** -/
+theorem blr_1_2_4_0_of_SH (h : BLR_1_2_4_SH) : BLR_1_2_4_0 := by
+  intro R K _ _ _ _ _ _ X _ _ _
+  constructor
+  · -- `X` Néron over `R` ⟹ `X_{R𝔭}` Néron over `R𝔭`: the SH form over the Dedekind domain `R𝔭`
+    intro hX 𝔭 _ R𝔭 _ _ _ _ _
+    haveI : IsDomain R𝔭 := IsLocalization.isDomain_of_le_nonZeroDivisors R𝔭
+      (M := 𝔭.primeCompl) (Ideal.primeCompl_le_nonZeroDivisors 𝔭)
+    haveI : IsDedekindDomain R𝔭 :=
+      IsLocalization.isDedekindDomain R (Ideal.primeCompl_le_nonZeroDivisors 𝔭) R𝔭
+    haveI : IsFractionRing R𝔭 K :=
+      IsFractionRing.isFractionRing_of_isDomain_of_isLocalization (R := R) (M := 𝔭.primeCompl)
+        (S := R𝔭) (T := K)
+    refine (h R𝔭 K ((Over.pullback (Spec.map (CommRingCat.ofHom (algebraMap R R𝔭)))).obj X)).mpr ?_
+    intro 𝔮 _ O _ _ _ K₁ _ _ O₁ hO hU
+    letI : Algebra R O := ((algebraMap R𝔭 O).comp (algebraMap R R𝔭)).toAlgebra
+    haveI : IsScalarTower R R𝔭 O := IsScalarTower.of_algebraMap_eq (fun _ => rfl)
+    haveI : IsScalarTower R O K := IsScalarTower.of_algebraMap_eq (fun x => by
+      rw [IsScalarTower.algebraMap_apply R R𝔭 K, IsScalarTower.algebraMap_apply R𝔭 O K]; rfl)
+    haveI : IsLocalRing R𝔭 := IsLocalization.AtPrime.isLocalRing R𝔭 𝔭
+    have h𝔮 : 𝔮.comap (algebraMap R R𝔭) = 𝔭 := by
+      have : 𝔮 = IsLocalRing.maximalIdeal R𝔭 := IsLocalRing.eq_maximalIdeal ‹_›
+      rw [this]
+      exact IsLocalization.AtPrime.under_maximalIdeal R𝔭 𝔭
+    haveI : IsLocalization.AtPrime O 𝔭 := by
+      have := IsLocalization.isLocalization_isLocalization_atPrime_isLocalization 𝔭.primeCompl
+        (S := R𝔭) 𝔮 (T := O)
+      subst h𝔮
+      exact this
+    have h1 := (h R K X).mp hX 𝔭 O K₁ O₁ hO hU
+    obtain ⟨e⟩ := pb_comp_iso (algebraMap R R𝔭) ((comapHom hO).comp (algebraMap R𝔭 O))
+      ((comapHom hO).comp (algebraMap R O)) rfl X
+    exact isNeronModelOver_of_iso e h1
+  · -- localizations Néron ⟹ strict henselizations Néron (the SH form over `O = R𝔭`) ⟹ `X` Néron
+    intro hX
+    refine (h R K X).mpr ?_
+    intro 𝔭 _ O _ _ _ K₁ _ _ O₁ hO hU
+    have h1 := hX 𝔭 O
+    haveI : IsLocalization.AtPrime O (IsLocalRing.maximalIdeal O) :=
+      IsLocalization.of_le_isUnit (fun y hy => by
+        by_contra hu
+        exact hy ((IsLocalRing.mem_maximalIdeal y).mpr hu))
+    haveI : IsDedekindDomain O :=
+      IsLocalization.isDedekindDomain R (Ideal.primeCompl_le_nonZeroDivisors 𝔭) O
+    have h2 := (h O K ((Over.pullback (Spec.map (CommRingCat.ofHom (algebraMap R O)))).obj X)).mp h1
+      (IsLocalRing.maximalIdeal O) O K₁ O₁ hO hU
+    obtain ⟨e⟩ := pb_comp_iso (algebraMap R O) ((comapHom hO).comp (algebraMap O O))
+      ((comapHom hO).comp (algebraMap R O)) rfl X
+    exact isNeronModelOver_of_iso e.symm h2
+
+/-- **The field `neronLocalizesDVR` from `BLR_1_2_4_0`** (the proof of
+`CToPrinted.neronLocalizesDVR_of_printed`, verbatim apart from the hypothesis: the use is at a number
+field `L`, which has characteristic 0). -/
+theorem neronLocalizesDVR_of_printed0 (hB : BLR_1_2_4_0) : ReductGlue.NeronLocalizesDVR := by
+  intro K _ A L _ _ _ 𝒩 h𝒩 O _
+  haveI := ReductGlue.center_isMaximal O
+  letI := algOL O
+  haveI := isScalarTower_OL O
+  haveI := isLocalization_center O
+  have h1 := isNeronModelOver_of 𝒩 h𝒩
+  have h2 := ((hB (NumberField.RingOfIntegers L) L 𝒩.G).mp h1) (ReductGlue.center O) O
+  obtain ⟨_, _, _, _, h3⟩ := h2
+  have h4 : ∀ (Y : Over (Spec (CommRingCat.of O))) [Smooth Y.hom],
+      Function.Bijective fun f : Y ⟶ (ReductGlue.toO 𝒩 O).G => (Over.pullback (ReductSplit.jO O)).map f :=
+    h3
+  intro Y _
+  have hb := h4 Y
+  refine ⟨fun a b hab => hb.1 ?_, fun g => ?_⟩
+  · simp only at hab ⊢
+    exact (cancel_mono (ReductGlue.toO 𝒩 O).gen.hom).mp hab
+  · obtain ⟨f, hf⟩ := hb.2 (g ≫ (ReductGlue.toO 𝒩 O).gen.inv)
+    refine ⟨f, ?_⟩
+    simp only at hf ⊢
+    rw [hf]
+    simp
+
+/-- **The field `neronLocalizesDVR` from the strict-henselization form of BLR 1.2/4.** -/
+theorem neronLocalizesDVR_of_SH (h : BLR_1_2_4_SH) : ReductGlue.NeronLocalizesDVR :=
+  neronLocalizesDVR_of_printed0 (blr_1_2_4_0_of_SH h)
+
+end SHPrinted2
+
+#print axioms SHPrinted2.blr_1_2_4_0_of_SH
+#print axioms SHPrinted2.neronLocalizesDVR_of_SH
+
+
+/-! # sh-printed2, Part S: the field `sga7_IX_3_3` from SGA 7 IX 3.3 over strictly henselian traits
+
+`CToPrinted.SGA7_IX_3_3` (field `sga7_IX_3_3` of `HDec.HSyn.OpenResearchLeaves12`) states the second
+assertion of SGA 7 IX 3.3 over any pair of discrete valuation rings `O ⊆ O'` with `K'/K` finite. If the
+print is over strictly henselian traits only, the published form is `SGA7_IX_3_3_SH` below. This part proves
+`SGA7_IX_3_3_0` (the field statement word for word with `[CharZero K]` and `[PerfectField κ(O)]` added; the
+one use is at number fields) from `SGA7_IX_3_3_SH`, sh-route's Néron leaf `ShRoute.NeronBaseChangeSH`, and
+two leaves already in the bundles (`CToPrinted.SGA3_VIB_3_10`, `AVGlue.GeomConnOfRationalPoint`):
+* sh-route's `shPair0` (proved commutative algebra) gives strict henselizations `P ⊇ O`, `P' ⊇ O'` with
+  `P' ∩ E = P`, `E'/E` finite;
+* the Néron models base change to `P`, `P'` (`NeronBaseChangeSH`) and semistability passes to `P`
+  (reduct-glue's `isSemistable_bcDVR_iff`);
+* the SH form gives the open immersion with image `𝒩'⁰` over `P'`;
+* the open immersion descends along the faithfully flat `Spec P' → Spec O'` (Mathlib's fpqc descent of
+  open immersions, `IsOpenImmersion.DescendsAlong (Surjective ⊓ Flat ⊓ QuasiCompact)`), and the image
+  descends because the identity component commutes with base change (c-to-printed's `idComp_baseChange`,
+  from SGA 3 VI_B 3.10 and Stacks 04KV) and `Spec P' → Spec O'` is surjective. -/
+
+noncomputable section
+
+open CategoryTheory AlgebraicGeometry Limits MonoidalCategory CartesianMonoidalCategory MonObj
+open ReductSplit ReductGlue CToPrinted
+
+set_option linter.style.haveILetI false
+set_option linter.unusedSectionVars false
+
+namespace SHPrinted2
+
+/-! ## Statements -/
+
+/-- **LEAF `SGA7_IX_3_3_SH`** (Grothendieck, SGA 7 I, Exp. IX, Prop. 3.3, second assertion, over strictly
+henselian traits; number and wording recalled, UNVERIFIED, no network). The field statement
+`CToPrinted.SGA7_IX_3_3` with both discrete valuation rings strictly henselian (reduct-glue's
+`IsStrictlyHenselianDVR`: henselian with separably closed residue field) and `K` of characteristic 0.
+*Printed* (as recalled): `S' → S` a morphism of strictly henselian traits, `A_K` with semistable
+reduction, `N`, `N'` the Néron models of `A_K` over `S` and of `A_{K'}` over `S'`; then
+`N ×_S S' → N'` induces an isomorphism `N⁰ ×_S S' ≅ N'⁰`. The Lean conclusion is the field's: for the
+open `U = (N ×_O O')⁰`, `U → N'` is an open immersion with image `N'⁰`. It is a specialization of the
+field statement (`sga7_IX_3_3_SH_of_field`) and of the print. -/
+def SGA7_IX_3_3_SH : Prop :=
+  ∀ (K : Type) [Field K] [CharZero K] (O : ValuationSubring K) [IsDiscreteValuationRing O],
+    IsStrictlyHenselianDVR O →
+    ∀ (K' : Type) [Field K'] [Algebra K K'] [FiniteDimensional K K'] (O' : ValuationSubring K')
+    [IsDiscreteValuationRing O'], IsStrictlyHenselianDVR O' →
+    ∀ (hO : O'.comap (algebraMap K K') = O) (A : PkgI3.AbVar K),
+    HasSemistableReduction A O →
+    ∀ 𝒩 : GroupModelO A O, 𝒩.IsNeronModel →
+    ∀ 𝒩' : GroupModelO (A.baseChange K') O', 𝒩'.IsNeronModel →
+    letI : GrpObj (bcO hO 𝒩.G) := Functor.grpObjObj
+    ∀ c : bcO hO 𝒩.G ⟶ 𝒩'.G, IsMonHom c → IsIso ((Over.pullback (jO O')).map c) →
+    ∀ U : (bcO hO 𝒩.G).left.Opens, (U : Set (bcO hO 𝒩.G).left) = idCompSet (bcO hO 𝒩.G) →
+      IsOpenImmersion (U.ι ≫ c.left) ∧ Set.range (U.ι ≫ c.left).base = idCompSet 𝒩'.G
+
+/-- **`SGA7_IX_3_3` for characteristic 0 and a perfect residue field**: `CToPrinted.SGA7_IX_3_3` word for
+word with `[CharZero K]` and `[PerfectField (IsLocalRing.ResidueField O)]` added (its one use is at a
+number field, whose residue fields are finite). -/
+def SGA7_IX_3_3_0 : Prop :=
+  ∀ (K : Type) [Field K] [CharZero K] (O : ValuationSubring K) [IsDiscreteValuationRing O]
+    [PerfectField (IsLocalRing.ResidueField O)]
+    (K' : Type) [Field K'] [Algebra K K'] [FiniteDimensional K K'] (O' : ValuationSubring K')
+    [IsDiscreteValuationRing O'] (hO : O'.comap (algebraMap K K') = O) (A : PkgI3.AbVar K),
+    HasSemistableReduction A O →
+    ∀ 𝒩 : GroupModelO A O, 𝒩.IsNeronModel →
+    ∀ 𝒩' : GroupModelO (A.baseChange K') O', 𝒩'.IsNeronModel →
+    letI : GrpObj (bcO hO 𝒩.G) := Functor.grpObjObj
+    ∀ c : bcO hO 𝒩.G ⟶ 𝒩'.G, IsMonHom c → IsIso ((Over.pullback (jO O')).map c) →
+    ∀ U : (bcO hO 𝒩.G).left.Opens, (U : Set (bcO hO 𝒩.G).left) = idCompSet (bcO hO 𝒩.G) →
+      IsOpenImmersion (U.ι ≫ c.left) ∧ Set.range (U.ι ≫ c.left).base = idCompSet 𝒩'.G
+
+/-- Both new statements are specializations of the field's. -/
+theorem sga7_IX_3_3_SH_of_field (h : SGA7_IX_3_3) : SGA7_IX_3_3_SH :=
+  fun K _ _ O _ _ K' _ _ _ O' _ _ hO A => h K O K' O' hO A
+
+theorem sga7_IX_3_3_0_of_field (h : SGA7_IX_3_3) : SGA7_IX_3_3_0 :=
+  fun K _ _ O _ _ K' _ _ _ O' _ hO A => h K O K' O' hO A
+
+/-! ## Pullback bookkeeping -/
+
+section PB
+
+/-- The composite pullback comparison preserves the projection to the original object (copied from
+the vendored `CategoryTheory.Over.pullbackComp_hom_app_left_fst_fst`,
+ZInQKernel/Contrib/CloudW07JacobiansCurves/Jacobian/CategoryTheory/Comma/Over/Pullback.lean, Apache-2.0,
+Axel Delaval, Jie Xu, Shitan Xu; not imported by TailZ19). -/
+theorem pullbackComp_hom_app_left_fst_fst' {C : Type*} [Category C] [HasPullbacks C]
+    {base middle extension : C}
+    (firstMap : extension ⟶ middle) (secondMap : middle ⟶ base) (object : Over base) :
+    ((Over.pullbackComp firstMap secondMap).hom.app object).left ≫
+      pullback.fst (pullback.snd object.hom secondMap) firstMap ≫
+        pullback.fst object.hom secondMap =
+      pullback.fst object.hom (firstMap ≫ secondMap) := by
+  have comparison := conjugateEquiv_counit (Over.mapPullbackAdj (firstMap ≫ secondMap))
+    ((Over.mapPullbackAdj firstMap).comp (Over.mapPullbackAdj secondMap))
+    (Over.mapComp firstMap secondMap).inv object
+  rw [Adjunction.comp_counit_app] at comparison
+  have projection := congrArg (fun morphism ↦ morphism.left) comparison
+  simpa [Over.pullbackComp, conjugateIsoEquiv, Over.mapComp, Over.comp_left,
+    Over.mapPullbackAdj_counit_app, Category.assoc] using projection
+
+/-- `pbCompIso` preserves the projection to the original group scheme. -/
+theorem pbCompIso_fst {X Y Z : Scheme.{0}} (f : X ⟶ Y) (g : Y ⟶ Z) (h : X ⟶ Z) (hfg : f ≫ g = h)
+    (𝒢 : Grp (Over Z)) :
+    (isoX (pbCompIso f g h hfg 𝒢)).hom.left ≫ pullback.fst 𝒢.X.hom h =
+      pullback.fst (pullback.snd 𝒢.X.hom g) f ≫ pullback.fst 𝒢.X.hom g := by
+  subst hfg
+  have e := pullbackComp_hom_app_left_fst_fst' f g 𝒢.X
+  have hx : (isoX (pbCompIso f g (f ≫ g) rfl 𝒢)).hom =
+      𝟙 _ ≫ (Over.pullbackComp f g).inv.app 𝒢.X ≫ 𝟙 _ := by
+    rw [pbCompIso_eq]; rfl
+  rw [hx, Category.id_comp, Category.comp_id, ← e]
+  have h2 : ((Over.pullbackComp f g).inv.app 𝒢.X).left ≫ ((Over.pullbackComp f g).hom.app 𝒢.X).left =
+      𝟙 _ := by
+    rw [← Over.comp_left, ← NatTrans.comp_app, Iso.inv_hom_id]; rfl
+  calc _ = (((Over.pullbackComp f g).inv.app 𝒢.X).left ≫ ((Over.pullbackComp f g).hom.app 𝒢.X).left) ≫
+        pullback.fst (pullback.snd 𝒢.X.hom g) f ≫ pullback.fst 𝒢.X.hom g := by simp only [Category.assoc]; rfl
+    _ = _ := by rw [h2, Category.id_comp]
+
+theorem pbCompIso_inv_fst {X Y Z : Scheme.{0}} (f : X ⟶ Y) (g : Y ⟶ Z) (h : X ⟶ Z) (hfg : f ≫ g = h)
+    (𝒢 : Grp (Over Z)) :
+    (isoX (pbCompIso f g h hfg 𝒢)).inv.left ≫ pullback.fst (pullback.snd 𝒢.X.hom g) f ≫
+      pullback.fst 𝒢.X.hom g = pullback.fst 𝒢.X.hom h := by
+  have e := pbCompIso_fst f g h hfg 𝒢
+  have hi : (isoX (pbCompIso f g h hfg 𝒢)).inv.left ≫ (isoX (pbCompIso f g h hfg 𝒢)).hom.left = 𝟙 _ := by
+    rw [← Over.comp_left, Iso.inv_hom_id]; rfl
+  calc _ = (isoX (pbCompIso f g h hfg 𝒢)).inv.left ≫
+        ((isoX (pbCompIso f g h hfg 𝒢)).hom.left ≫ pullback.fst 𝒢.X.hom h) := by erw [e]; rfl
+    _ = _ := by erw [← Category.assoc, hi, Category.id_comp]
+
+end PB
+
+/-! ## `Spec O₁ → Spec O` is faithfully flat for an extension of valuation rings over a DVR -/
+
+section FF
+
+variable {K K₁ : Type} [Field K] [Field K₁] [Algebra K K₁] {O : ValuationSubring K}
+  {O₁ : ValuationSubring K₁}
+
+theorem comapHom_injective (hO : O₁.comap (algebraMap K K₁) = O) :
+    Function.Injective (comapHom hO) := by
+  intro a b h
+  apply Subtype.ext
+  have h' := congrArg (fun z : O₁ => (z : K₁)) h
+  exact (algebraMap K K₁).injective h'
+
+theorem flat_surjective_gD [IsDiscreteValuationRing O] (hO : O₁.comap (algebraMap K K₁) = O) :
+    Flat (gD hO) ∧ Surjective (gD hO) := by
+  rw [flat_and_surjective_SpecMap_iff]
+  letI : Algebra O O₁ := (comapHom hO).toAlgebra
+  show Module.FaithfullyFlat O O₁
+  haveI : IsLocalHom (algebraMap O O₁) := comapHom_isLocalHom hO
+  haveI : Module.Flat O O₁ := by
+    rw [Module.Flat.flat_iff_torsion_eq_bot_of_isBezout, eq_bot_iff]
+    rintro m ⟨⟨r, hr⟩, h⟩
+    have h1 : comapHom hO r * m = 0 := h
+    have h2 : comapHom hO r ≠ 0 := by
+      intro h0
+      apply nonZeroDivisors.coe_ne_zero ⟨r, hr⟩
+      exact comapHom_injective hO (by rw [h0, map_zero])
+    exact (mul_eq_zero.mp h1).resolve_left h2
+  exact Module.FaithfullyFlat.of_flat_of_isLocalHom
+
+end FF
+
+end SHPrinted2
+
+namespace SHPrinted2
+
+/-! ## Descent of an open immersion and its image along a faithfully flat base change -/
+
+section Descent
+
+/-- The base change of an `S`-morphism `c : Y → N` along `g : S' → S` is a pullback of `c`. -/
+theorem isPullback_bc {S S' : Scheme.{0}} (g : S' ⟶ S) {Y N : Over S} (c : Y ⟶ N) :
+    IsPullback ((Over.pullback g).map c).left (pullback.fst Y.hom g) (pullback.fst N.hom g) c.left := by
+  have t := (IsPullback.of_hasPullback N.hom g).flip
+  have s : IsPullback (((Over.pullback g).map c).left ≫ pullback.snd N.hom g) (pullback.fst Y.hom g) g
+      (c.left ≫ N.hom) := by
+    have e1 : ((Over.pullback g).map c).left ≫ pullback.snd N.hom g = pullback.snd Y.hom g :=
+      Over.w ((Over.pullback g).map c)
+    have e2 : c.left ≫ N.hom = Y.hom := Over.w c
+    rw [e1, e2]
+    exact (IsPullback.of_hasPullback Y.hom g).flip
+  refine IsPullback.of_right s ?_ t
+  simp [Over.pullback_map_left]
+
+/-- The same square with the corner replaced through an isomorphism. -/
+theorem isPullback_bc_iso {S S' : Scheme.{0}} (g : S' ⟶ S) {Y N : Over S} (c : Y ⟶ N) {Y₁ : Scheme.{0}}
+    (e : Y₁ ⟶ ((Over.pullback g).obj Y).left) [IsIso e] :
+    IsPullback (e ≫ ((Over.pullback g).map c).left) (e ≫ pullback.fst Y.hom g) (pullback.fst N.hom g)
+      c.left := by
+  have s : IsPullback e (e ≫ pullback.fst Y.hom g) (pullback.fst Y.hom g) (𝟙 _) :=
+    IsPullback.of_horiz_isIso ⟨by simp⟩
+  have := s.paste_horiz (isPullback_bc g c)
+  simpa using this
+
+/-- **Descent of an open immersion with prescribed image** along a surjective, flat, quasi-compact `p`
+(Mathlib's fpqc descent of open immersions, `IsOpenImmersion.DescendsAlong`). -/
+theorem descend_openImm {Y Y₁ N N₁ : Scheme.{0}} (U : Y.Opens) (c : Y ⟶ N) (c₁ : Y₁ ⟶ N₁)
+    (q : Y₁ ⟶ Y) (p : N₁ ⟶ N) (hsq : IsPullback c₁ q p c) [Surjective p] [Flat p] [QuasiCompact p]
+    (U₁ : Y₁.Opens) (hU₁ : (U₁ : Set Y₁) = q.base ⁻¹' U) (ho : IsOpenImmersion (U₁.ι ≫ c₁))
+    (T : Set N) (T₁ : Set N₁) (hT : p.base ⁻¹' T = T₁) (hr : Set.range (U₁.ι ≫ c₁).base = T₁) :
+    IsOpenImmersion (U.ι ≫ c) ∧ Set.range (U.ι ≫ c).base = T := by
+  have hU : U₁ = q ⁻¹ᵁ U := by
+    ext x
+    rw [hU₁]
+    rfl
+  subst hU
+  have sq := (isPullback_morphismRestrict q U).flip.paste_horiz hsq
+  have hQ : (@Surjective ⊓ @Flat ⊓ @QuasiCompact : MorphismProperty Scheme.{0}) p := ⟨⟨inferInstance, inferInstance⟩, inferInstance⟩
+  refine ⟨MorphismProperty.of_isPullback_of_descendsAlong (P := @IsOpenImmersion) sq hQ ho, ?_⟩
+  have hfst : (q ⁻¹ᵁ U).ι ≫ c₁ = sq.isoPullback.hom ≫ pullback.fst p (U.ι ≫ c) :=
+    (sq.isoPullback_hom_fst).symm
+  have hr' : Set.range ((q ⁻¹ᵁ U).ι ≫ c₁).base = p.base ⁻¹' Set.range (U.ι ≫ c).base := by
+    have hcomp : ⇑(sq.isoPullback.hom ≫ pullback.fst p (U.ι ≫ c)) =
+        ⇑(pullback.fst p (U.ι ≫ c)) ∘ ⇑sq.isoPullback.hom :=
+      funext (Scheme.Hom.comp_apply _ _)
+    change Set.range ⇑((q ⁻¹ᵁ U).ι ≫ c₁) = p ⁻¹' Set.range ⇑(U.ι ≫ c)
+    rw [hfst, hcomp, Function.Surjective.range_comp sq.isoPullback.hom.surjective,
+      Scheme.Pullback.range_fst]
+  rw [hr', ← hT] at hr
+  exact (Set.preimage_injective.mpr p.surjective) hr
+
+end Descent
+
+end SHPrinted2
+
+namespace SHPrinted2
+
+open ShRoute
+
+/-! ## The field statement from the strictly henselian one -/
+
+/-- **`SGA7_IX_3_3_0` from the strictly henselian form** (characteristic 0, perfect residue field), with
+sh-route's Néron leaf and the bundle leaves SGA 3 VI_B 3.10 and Stacks 04KV. -/
+theorem sga7_IX_3_3_0_of_SH (h7 : SGA7_IX_3_3_SH) (hN : NeronBaseChangeSH) (h3 : SGA3_VIB_3_10)
+    (hG : AVGlue.GeomConnOfRationalPoint) : SGA7_IX_3_3_0 := by
+  intro K _ _ O _ _ K' _ _ _ O' _ hO A hss 𝒩 h𝒩 𝒩' h𝒩' c hc hciso U hU
+  obtain ⟨E, E', _, _, _, _, _, _, _, _, _, P, P', hP, hP', hSHP, hSHP', hPP'⟩ :=
+    strictHenselizationPair0_final hN K O K' O' hO
+  haveI : CharZero E := charZero_of_injective_algebraMap (algebraMap K E).injective
+  haveI : IsDiscreteValuationRing P := hSHP.1.1
+  haveI : IsDiscreteValuationRing P' := hSHP'.1.1
+  -- the Néron models over `P` and `P'`
+  let 𝒩₁ := bcDVR hP 𝒩
+  have h𝒩₁ : 𝒩₁.IsNeronModel := hSHP.2.2 A 𝒩 h𝒩
+  have hss₁ : HasSemistableReduction (A.baseChange E) P := by
+    obtain ⟨𝒩₀, h𝒩₀, hs⟩ := hss
+    exact ⟨bcDVR hP 𝒩₀, hSHP.2.2 A 𝒩₀ h𝒩₀, (isSemistable_bcDVR_iff hP hSHP.2.1 𝒩₀).mp hs⟩
+  have he : IsMonHom (bcbcIso A E E' ≪≫ (bcbcIso A K' E').symm).hom := by
+    haveI := bcbcIso_isMonHom A E E'
+    have : IsMonHom (bcbcIso A K' E').inv := by
+      haveI := bcbcIso_isMonHom A K' E'
+      infer_instance
+    exact @instIsMonHomComp _ _ _ _ _ _ _ _ _ _ _ (bcbcIso_isMonHom A E E') this
+  let 𝒩'₁ : GroupModelO ((A.baseChange E).baseChange E') P' :=
+    (bcDVR hP' 𝒩').transport (bcbcIso A E E' ≪≫ (bcbcIso A K' E').symm) he
+  have h𝒩'₁ : 𝒩'₁.IsNeronModel :=
+    GroupModelO.transport_isNeronModel _ he _ (hSHP'.2.2 (A.baseChange K') 𝒩' h𝒩')
+  -- the square of bases `O → O' → P'`, `O → P → P'`
+  have sq : gD hP' ≫ gD hO = gD hPP' ≫ gD hP := by
+    rw [← Spec.map_comp, ← Spec.map_comp, ← CommRingCat.ofHom_comp, ← CommRingCat.ofHom_comp]
+    congr 2
+    ext x
+    show algebraMap K' E' (algebraMap K K' (x : K)) = algebraMap E E' (algebraMap K E (x : K))
+    rw [← IsScalarTower.algebraMap_apply, ← IsScalarTower.algebraMap_apply]
+  -- the comparison map over `P'`
+  let Y := bcO hO 𝒩.G
+  letI : GrpObj Y := Functor.grpObjObj
+  let Y₁ := bcO hPP' 𝒩₁.G
+  letI : GrpObj Y₁ := Functor.grpObjObj
+  haveI : Smooth Y₁.hom := by change Smooth (pullback.snd _ _); infer_instance
+  let eIG := pbCompIso (gD hPP') (gD hP) _ rfl (Grp.mk 𝒩.G) ≪≫
+    (pbCompIso (gD hP') (gD hO) _ sq (Grp.mk 𝒩.G)).symm
+  let eI : Y₁ ≅ (Over.pullback (gD hP')).obj Y := isoX eIG
+  let c₁ : Y₁ ⟶ 𝒩'₁.G := eI.hom ≫ (Over.pullback (gD hP')).map c
+  haveI := hc
+  haveI := hciso
+  letI : GrpObj ((Over.pullback (gD hP')).obj Y) := Functor.grpObjObj
+  letI : GrpObj ((Over.pullback (gD hP')).obj 𝒩'.G) := Functor.grpObjObj
+  have hc₁ : IsMonHom c₁ := by
+    have h1 : IsMonHom eI.hom := inferInstanceAs (IsMonHom (isoX eIG).hom)
+    have h2 : IsMonHom ((Over.pullback (gD hP')).map c) := inferInstance
+    exact @instIsMonHomComp _ _ _ _ _ _ _ _ _ _ _ h1 h2
+  have hiso₁ : IsIso ((Over.pullback (jO P')).map c₁) := by
+    have n1 := pbCompIso_natural' (jO P') (gD hP') _ (jO_gD hP') c
+    have n2 := pbCompIso_natural' (sKK (K := K') (K' := E')) (jO O') _ rfl c
+    haveI hA : IsIso ((Over.pullback (sKK (K := K') (K' := E') ≫ jO O')).map c) := by
+      have : IsIso ((Over.pullback (sKK (K := K') (K' := E'))).map ((Over.pullback (jO O')).map c) ≫
+          (isoX (pbCompIso (sKK (K := K') (K' := E')) (jO O') _ rfl (Grp.mk 𝒩'.G))).hom) := by
+        exact @IsIso.comp_isIso _ _ _ _ _ _ _ (Functor.map_isIso _ _) (Iso.isIso_hom _)
+      rw [n2] at this
+      exact @IsIso.of_isIso_comp_left _ _ _ _ _ _ _ (Iso.isIso_hom _) this
+    haveI : IsIso ((Over.pullback (jO P')).map ((Over.pullback (gD hP')).map c)) := by
+      have : IsIso ((isoX (pbCompIso (jO P') (gD hP') _ (jO_gD hP') (Grp.mk Y))).hom ≫
+          (Over.pullback (sKK (K := K') (K' := E') ≫ jO O')).map c) :=
+        @IsIso.comp_isIso _ _ _ _ _ _ _ (Iso.isIso_hom _) hA
+      rw [← n1] at this
+      exact @IsIso.of_isIso_comp_right _ _ _ _ _ _ _ (Iso.isIso_hom _) this
+    show IsIso ((Over.pullback (jO P')).map (eI.hom ≫ (Over.pullback (gD hP')).map c))
+    rw [Functor.map_comp]
+    exact @IsIso.comp_isIso _ _ _ _ _ _ _ (Functor.map_isIso _ eI.hom) inferInstance
+  let U₁ : Y₁.left.Opens := ⟨idCompSet Y₁, h3 _ Y₁⟩
+  obtain ⟨ho₁, hr₁⟩ := h7 E P hSHP.1 E' P' hSHP'.1 hPP' (A.baseChange E) hss₁ 𝒩₁ h𝒩₁ 𝒩'₁ h𝒩'₁ c₁
+    hc₁ hiso₁ U₁ rfl
+  -- descent along `Spec P' → Spec O'`
+  haveI := (flat_surjective_gD hP').1
+  haveI := (flat_surjective_gD hP').2
+  haveI : IsIso eI.hom.left := Functor.map_isIso (Over.forget _) eI.hom
+  let q : Y₁.left ⟶ Y.left := eI.hom.left ≫ pullback.fst Y.hom (gD hP')
+  let p : 𝒩'₁.G.left ⟶ 𝒩'.G.left := pullback.fst 𝒩'.G.hom (gD hP')
+  haveI : Surjective p := by show Surjective (pullback.fst _ _); infer_instance
+  haveI : Flat p := by show Flat (pullback.fst _ _); infer_instance
+  haveI : QuasiCompact p := by show QuasiCompact (pullback.fst _ _); infer_instance
+  have hsq : IsPullback c₁.left q p c.left := isPullback_bc_iso (gD hP') c eI.hom.left
+  have hq : q ≫ pullback.fst 𝒩.G.hom (gD hO) =
+      pullback.fst 𝒩₁.G.hom (gD hPP') ≫ pullback.fst 𝒩.G.hom (gD hP) := by
+    have e1 := pbCompIso_fst (gD hPP') (gD hP) _ rfl (Grp.mk 𝒩.G)
+    have e2 := pbCompIso_inv_fst (gD hP') (gD hO) _ sq (Grp.mk 𝒩.G)
+    have hE : eI.hom.left = (isoX (pbCompIso (gD hPP') (gD hP) _ rfl (Grp.mk 𝒩.G))).hom.left ≫
+        (isoX (pbCompIso (gD hP') (gD hO) _ sq (Grp.mk 𝒩.G))).inv.left := rfl
+    have e2' : (isoX (pbCompIso (gD hP') (gD hO) _ sq (Grp.mk 𝒩.G))).inv.left ≫
+        pullback.fst Y.hom (gD hP') ≫ pullback.fst 𝒩.G.hom (gD hO) =
+        pullback.fst 𝒩.G.hom (gD hPP' ≫ gD hP) := e2
+    show (eI.hom.left ≫ pullback.fst Y.hom (gD hP')) ≫ pullback.fst 𝒩.G.hom (gD hO) = _
+    rw [hE]
+    refine Eq.trans ?_ (Eq.trans (congrArg
+      ((isoX (pbCompIso (gD hPP') (gD hP) _ rfl (Grp.mk 𝒩.G))).hom.left ≫ ·) e2') e1)
+    exact (Category.assoc _ _ _).trans (Category.assoc _ _ _)
+  have hU₁ : (U₁ : Set Y₁.left) = q.base ⁻¹' U := by
+    have i1 : pullback.fst 𝒩.G.hom (gD hO) ⁻¹' idCompSet 𝒩.G = idCompSet Y :=
+      idComp_baseChange h3 hG (gD hO) 𝒩.G
+    have i2 : pullback.fst 𝒩.G.hom (gD hP) ⁻¹' idCompSet 𝒩.G = idCompSet 𝒩₁.G :=
+      idComp_baseChange h3 hG (gD hP) 𝒩.G
+    have i3 : pullback.fst 𝒩₁.G.hom (gD hPP') ⁻¹' idCompSet 𝒩₁.G = idCompSet Y₁ :=
+      idComp_baseChange h3 hG (gD hPP') 𝒩₁.G
+    show idCompSet Y₁ = q.base ⁻¹' (U : Set Y.left)
+    rw [hU, ← i1, ← i3, ← i2]
+    ext x
+    show (pullback.fst 𝒩.G.hom (gD hP)) ((pullback.fst 𝒩₁.G.hom (gD hPP')) x) ∈ idCompSet 𝒩.G ↔
+      (pullback.fst 𝒩.G.hom (gD hO)) (q x) ∈ idCompSet 𝒩.G
+    exact (Iff.of_eq (congrArg (fun f : Y₁.left ⟶ 𝒩.G.left => f x ∈ idCompSet 𝒩.G) hq)).symm
+  have hT : p.base ⁻¹' idCompSet 𝒩'.G = idCompSet 𝒩'₁.G := idComp_baseChange h3 hG (gD hP') 𝒩'.G
+  exact descend_openImm U c.left c₁.left q p hsq U₁ hU₁ ho₁ _ _ hT hr₁
+
+end SHPrinted2
+#print axioms SHPrinted2.sga7_IX_3_3_0_of_SH
+
+
+/-! # sh-printed2, Part U: the uses of the two fields, with the char-0 statements
+
+c-to-printed uses `BLR_1_2_4` once (`neronLocalizesDVR_of_printed`, at a number field) and `SGA7_IX_3_3` once
+(`identityComponentBaseChangeDVRRange_of`, whose result `IdentityComponentBaseChangeDVRRange` is used once,
+in `semistableNeronBaseChange_of_printed_full`, at a number field `L` and a discrete valuation ring `O` of `L`).
+The char-0 forms suffice: the two theorems are copied verbatim below (`…0`), the only changes being the
+hypotheses `BLR_1_2_4_0`, `SGA7_IX_3_3_0`, the intro pattern of the restricted Prop, and one `haveI` giving
+`PerfectField κ(O)` (the residue field of a DVR of a number field is finite). -/
+
+noncomputable section
+
+open CategoryTheory AlgebraicGeometry Limits MonoidalCategory CartesianMonoidalCategory MonObj
+open NumberField ReductSplit ReductGlue CToPrinted
+
+set_option linter.style.haveILetI false
+set_option linter.unusedSectionVars false
+
+namespace SHPrinted2
+
+/-- The residue field of a discrete valuation ring of a number field is finite (it is `𝓞_L/𝔭` for the
+center `𝔭`). -/
+theorem finite_residueField {L : Type} [Field L] [NumberField L] (O : ValuationSubring L)
+    [IsDiscreteValuationRing O] : Finite (IsLocalRing.ResidueField O) := by
+  haveI := center_isMaximal O
+  letI := algOL O
+  haveI := isLocalization_center O
+  let e : O ≃+* Localization.AtPrime (center O) :=
+    (IsLocalization.algEquiv (center O).primeCompl O (Localization.AtPrime (center O))).toRingEquiv
+  let e2 := IsLocalRing.ResidueField.mapEquiv e
+  let e3 := RingEquiv.ofBijective _ (center O).bijective_algebraMap_quotient_residueField
+  exact Finite.of_equiv _ (e3.trans e2.symm).toEquiv
+
+/-- ... hence perfect. -/
+theorem perfectField_residueField {L : Type} [Field L] [NumberField L] (O : ValuationSubring L)
+    [IsDiscreteValuationRing O] : PerfectField (IsLocalRing.ResidueField O) := by
+  haveI := finite_residueField O
+  infer_instance
+
+open ReductSplit in
+/-- reduct-split's local `IdentityComponentBaseChangeDVR` with the connectedness hypotheses on `U` replaced
+by `Set.range i = 𝒩⁰` (the form in which it is used below). -/
+def IdentityComponentBaseChangeDVRRange0 : Prop :=
+  ∀ (K : Type) [Field K] [CharZero K] (O : ValuationSubring K) [IsDiscreteValuationRing O]
+    [PerfectField (IsLocalRing.ResidueField O)]
+    (K' : Type) [Field K'] [Algebra K K'] [FiniteDimensional K K'] (O' : ValuationSubring K')
+    [IsDiscreteValuationRing O'] (hO : O'.comap (algebraMap K K') = O) (A : PkgI3.AbVar K),
+    HasSemistableReduction A O →
+    ∀ 𝒩 : GroupModelO A O, 𝒩.IsNeronModel →
+    ∀ 𝒩' : GroupModelO (A.baseChange K') O', 𝒩'.IsNeronModel →
+    ∀ (U : Over (Spec (CommRingCat.of O))) [GrpObj U] (i : U ⟶ 𝒩.G), IsOpenImmersion i.left →
+      IsMonHom i → Set.range i.left = idCompSet 𝒩.G →
+      ∃ j : (Over.pullback (Spec.map (CommRingCat.ofHom (comapHom hO)))).obj U ⟶ 𝒩'.G,
+        IsOpenImmersion j.left ∧
+        (letI : GrpObj ((Over.pullback (Spec.map (CommRingCat.ofHom (comapHom hO)))).obj U) :=
+          Functor.grpObjObj
+         IsMonHom j)
+
+open ReductSplit in
+/-- **`IdentityComponentBaseChangeDVRRange`, PROVED** from the printed SGA 3 VI_B 3.10, SGA 7 IX 3.3 and the
+bundle leaf `AVGlue.GeomConnOfRationalPoint` (the argument of `identityComponentFromPrinted_of`). -/
+theorem identityComponentBaseChangeDVRRange0_of (h3 : SGA3_VIB_3_10) (h7 : SGA7_IX_3_3_0)
+    (hG : AVGlue.GeomConnOfRationalPoint) : IdentityComponentBaseChangeDVRRange0 := by
+  intro K _ _ O _ _ K' _ _ _ O' _ hO A hss 𝒩 h𝒩 𝒩' h𝒩' U _ i hoi hmi hri
+  have gb := idCompBaseChangeDVR_of h3 hG
+  let N := ReductGlue.bcDVR hO 𝒩
+  haveI : Smooth (𝟙_ (Over (Spec (CommRingCat.of O')))).hom :=
+    ZInQ.Contrib.NeronC.smooth_tensorUnit _
+  haveI : Smooth (N.G ⊗ N.G).hom := ZInQ.Contrib.NeronC.smooth_tensor _ _ inferInstance inferInstance
+  obtain ⟨c, hc⟩ := (h𝒩' N.G).2 N.gen.hom
+  simp only at hc
+  have hcm : IsMonHom c :=
+    ReductGlue.isMonHom_of_ext (Over.pullback (jO O')) N.gen.hom 𝒩'.gen.hom N.gen_hom 𝒩'.gen_hom
+      (h𝒩' _).1 (h𝒩' _).1 c hc
+  have hciso : IsIso ((Over.pullback (jO O')).map c) := by
+    have : IsIso ((Over.pullback (jO O')).map c ≫ 𝒩'.gen.hom) := by
+      rw [hc]; exact Iso.isIso_hom N.gen
+    exact @IsIso.of_isIso_comp_right _ _ _ _ _ _ _ (Iso.isIso_hom 𝒩'.gen) this
+  letI : GrpObj (bcO hO 𝒩.G) := Functor.grpObjObj
+  have hW : IsOpen (idCompSet (bcO hO 𝒩.G)) := h3 _ (bcO hO 𝒩.G)
+  let W : (bcO hO 𝒩.G).left.Opens := ⟨idCompSet (bcO hO 𝒩.G), hW⟩
+  obtain ⟨hWo, -⟩ := h7 K O K' O' hO A hss 𝒩 h𝒩 𝒩' h𝒩' c hcm hciso W rfl
+  let g := Spec.map (CommRingCat.ofHom (comapHom hO))
+  let k := (Over.pullback g).map i
+  haveI : IsOpenImmersion i.left := hoi
+  haveI : IsOpenImmersion k.left := ZInQ.H5Glue.isOpenImmersion_pullback_map _ i
+  have hkmap : k.left = pullback.map U.hom g 𝒩.G.hom g i.left (𝟙 _) (𝟙 _) (by simp) (by simp) := by
+    apply pullback.hom_ext <;> simp [k, Over.pullback_map_left]
+  have hrk : Set.range k.left = Set.range W.ι := by
+    rw [Scheme.Opens.range_ι, hkmap, Scheme.Pullback.range_map]
+    have hga := hri
+    have hgb := gb K O K' O' hO 𝒩.G
+    have hid : Set.range ((𝟙 (Spec (CommRingCat.of O')) : Spec (CommRingCat.of O') ⟶ _) :
+        Spec (CommRingCat.of O') → Spec (CommRingCat.of O')) = Set.univ :=
+      Set.range_eq_univ.mpr (fun x => ⟨x, rfl⟩)
+    rw [hid, Set.preimage_univ, Set.inter_univ, hga]
+    exact hgb
+  refine ⟨k ≫ c, ?_, ?_⟩
+  · show IsOpenImmersion (k.left ≫ c.left)
+    have hfac := IsOpenImmersion.isoOfRangeEq_hom_fac k.left W.ι hrk
+    generalize IsOpenImmersion.isoOfRangeEq k.left W.ι hrk = eW at hfac
+    have e : k.left ≫ c.left = eW.hom ≫ (W.ι ≫ c.left) := by
+      rw [← hfac]
+      exact Category.assoc _ _ _
+    rw [e]
+    haveI := hWo
+    infer_instance
+  · letI : GrpObj ((Over.pullback g).obj U) := Functor.grpObjObj
+    have hk : IsMonHom k := inferInstance
+    exact @instIsMonHomComp _ _ _ _ _ _ _ _ _ _ _ hk hcm
+
+
+open ReductSplit ReductGlue ZInQ.HeightSplit ZInQ.DefFaltings in
+/-- **The field `semistableNeronBaseChange` (SS2) from published-form leaves alone** (compiled): BLR 1.2/4,
+SGA 3 VI_B 3.10, SGA 7 IX 3.3, EGA IV 8.10.5 (open immersions) and the bundle leaf
+`AVGlue.GeomConnOfRationalPoint` (Stacks 04KV). No glue Prop is left. -/
+theorem semistableNeronBaseChange_of_printed_full0 (hB : BLR_1_2_4_0) (h3 : SGA3_VIB_3_10)
+    (h7 : SGA7_IX_3_3_0) (hE : EGAIV_8_10_5_openImm) (hG : AVGlue.GeomConnOfRationalPoint) :
+    ZInQ.HeightSplit.SemistableNeronBaseChange := by
+  have hIC := identityComponentOLRange_of h3 hG
+  have h33 := identityComponentBaseChangeDVRRange0_of h3 h7 hG
+  have hOI := openImmersionLocalization hE
+  have hL := neronLocalizesDVR_of_printed0 hB
+  intro K _ _ A L _ _ _ 𝒩 h𝒩 hss L' _ _ _ _ _ 𝒩' h𝒩'
+  obtain ⟨𝒢₀, i, hoi, hmi, hri⟩ := hIC K A L 𝒩
+  haveI : FiniteDimensional L L' := Module.Finite.of_restrictScalars_finite ℚ L L'
+  let gLL : Spec (CommRingCat.of (𝓞 L')) ⟶ Spec (CommRingCat.of (𝓞 L)) :=
+    Spec.map (CommRingCat.ofHom (algebraMap (𝓞 L) (𝓞 L')))
+  let 𝒱 : GroupModel A L' := ZInQ.H5Glue.GroupModel.baseChange L L' 𝒩
+  let 𝒰 : GroupModel A L' := ZInQ.H5Glue.GroupModel.baseChange L L' 𝒢₀
+  let jL' : Spec (CommRingCat.of L') ⟶ Spec (CommRingCat.of (𝓞 L')) :=
+    Spec.map (CommRingCat.ofHom (algebraMap (𝓞 L') L'))
+  letI : GrpObj ((Over.pullback jL').obj 𝒰.G) := Functor.grpObjObj
+  letI : GrpObj ((Over.pullback jL').obj 𝒩'.G) := Functor.grpObjObj
+  obtain ⟨j, hj⟩ := (h𝒩' 𝒰.G).2 𝒰.gen.hom
+  simp only at hj
+  haveI : Smooth (𝟙_ (Over (Spec (CommRingCat.of (𝓞 L'))))).hom :=
+    ZInQ.Contrib.NeronC.smooth_tensorUnit _
+  haveI : Smooth (𝒰.G ⊗ 𝒰.G).hom := ZInQ.Contrib.NeronC.smooth_tensor _ _ inferInstance inferInstance
+  have hjm : IsMonHom j :=
+    isMonHom_of_ext (Over.pullback jL') 𝒰.gen.hom 𝒩'.gen.hom 𝒰.gen_hom 𝒩'.gen_hom
+      (h𝒩' _).1 (h𝒩' _).1 j hj
+  haveI := hmi
+  letI : GrpObj ((Over.pullback gLL).obj 𝒢₀.G) := Functor.grpObjObj
+  letI : GrpObj ((Over.pullback gLL).obj 𝒩.G) := Functor.grpObjObj
+  refine ⟨𝒰, 𝒱, ⟨Iso.refl _, (inferInstance : IsMonHom (𝟙 𝒱.G))⟩, ⟨j, ?_, hjm⟩,
+    ⟨(Over.pullback gLL).map i, ZInQ.H5Glue.isOpenImmersion_pullback_map _ i,
+      (inferInstance : IsMonHom ((Over.pullback gLL).map i))⟩⟩
+  -- `j` is an open immersion: check at every DVR `O'` of `L'`
+  refine hOI L' 𝒰.G 𝒩'.G j (fun O' _ => ?_)
+  let O : ValuationSubring L := O'.comap (algebraMap L L')
+  haveI : IsDiscreteValuationRing O := dvrComapFinite L L' O' inferInstance
+  haveI := center_isMaximal O
+  have hO : O'.comap (algebraMap L L') = O := rfl
+  have hssO : HasSemistableReduction (A.baseChange L) O :=
+    (semistableLocalGlobal_leaf hL K A L 𝒩 h𝒩).mp hss O inferInstance
+  let N := toO 𝒩' O'
+  have hN : N.IsNeronModel := hL K A L' 𝒩' h𝒩' O'
+  let N' := N.transport (bcbcIso A L L') (bcbcIso_isMonHom A L L')
+  have hN' : N'.IsNeronModel := N.transport_isNeronModel _ _ hN
+  let U := (Over.pullback (gO O)).obj 𝒢₀.G
+  letI : GrpObj U := Functor.grpObjObj
+  letI : GrpObj ((Over.pullback (gO O)).obj 𝒩.G) := Functor.grpObjObj
+  letI : GrpObj ((Over.pullback (gO O)).obj 𝒢₀.G) := Functor.grpObjObj
+  have hmiO : IsMonHom ((Over.pullback (gO O)).map i) := inferInstance
+  -- the image of `U` is the identity component of `𝒩 ×_{𝓞_L} O`
+  have hrange : Set.range ((Over.pullback (gO O)).map i).left =
+      CToPrinted.idCompSet ((Over.pullback (gO O)).obj 𝒩.G) := by
+    haveI : IsOpenImmersion i.left := hoi
+    have hkmap : ((Over.pullback (gO O)).map i).left = pullback.map 𝒢₀.G.hom (gO O) 𝒩.G.hom (gO O)
+        i.left (𝟙 _) (𝟙 _) (by simp) (by simp) := by
+      apply pullback.hom_ext <;> simp [Over.pullback_map_left]
+    rw [hkmap, Scheme.Pullback.range_map]
+    have hid : Set.range ((𝟙 (Spec (CommRingCat.of O)) : Spec (CommRingCat.of O) ⟶ _) :
+        Spec (CommRingCat.of O) → Spec (CommRingCat.of O)) = Set.univ :=
+      Set.range_eq_univ.mpr (fun x => ⟨x, rfl⟩)
+    rw [hid, Set.preimage_univ, Set.inter_univ, hri]
+    exact CToPrinted.idComp_baseChange h3 hG (gO O) 𝒩.G
+  haveI : PerfectField (IsLocalRing.ResidueField O) := perfectField_residueField O
+  obtain ⟨j', hj'o, hj'm⟩ := h33 L O L' O' hO (A.baseChange L) hssO (toO 𝒩 O)
+    (hL K A L 𝒩 h𝒩 O) N' hN' U ((Over.pullback (gO O)).map i)
+    (ZInQ.H5Glue.isOpenImmersion_pullback_map _ i) hmiO hrange
+  -- compare `T = 𝒰 ×_{𝓞_{L'}} O'` with `U ×_O O'`
+  have hsq : gO O' ≫ gLL = Spec.map (CommRingCat.ofHom (comapHom hO)) ≫ gO O := by
+    rw [← Spec.map_comp, ← Spec.map_comp]
+    rfl
+  let c := isoX (pbCompIso (gO O') gLL _ hsq (Grp.mk 𝒢₀.G)) ≪≫
+    (isoX (pbCompIso (Spec.map (CommRingCat.ofHom (comapHom hO))) (gO O) _ rfl (Grp.mk 𝒢₀.G))).symm
+  let T := (Over.pullback (gO O')).obj 𝒰.G
+  haveI : Smooth T.hom := by change Smooth (pullback.snd 𝒰.G.hom (gO O')); infer_instance
+  let j₂ : T ⟶ N.G := c.hom ≫ j'
+  haveI : IsOpenImmersion j₂.left := by
+    have h1 : IsOpenImmersion c.hom.left := by
+      haveI : IsIso c.hom.left := Functor.map_isIso (Over.forget _) c.hom
+      infer_instance
+    have h2 : IsOpenImmersion j'.left := hj'o
+    show IsOpenImmersion (c.hom.left ≫ j'.left)
+    exact @IsOpenImmersion.comp _ _ _ _ _ h1 h2
+  -- generic identification of `T`
+  let eT : (Over.pullback (jO O')).obj T ≅ (A.baseChange L').X :=
+    isoX (pbCompIso (jO O') (gO O') _ (jO_gO O') (Grp.mk 𝒰.G)) ≪≫ 𝒰.gen
+  have h₂ : IsIso ((Over.pullback (jO O')).map j₂) := by
+    haveI : IsOpenImmersion ((Over.pullback (jO O')).map j₂).left :=
+      ZInQ.H5Glue.isOpenImmersion_pullback_map _ j₂
+    exact isIso_of_openImmersion_of_iso (A.baseChange L') eT N.gen _
+  have hcomp := pbCompIso_natural' (jO O') (gO O') _ (jO_gO O') j
+  have hjL : IsIso ((Over.pullback (Spec.map (CommRingCat.ofHom (algebraMap (𝓞 L') L')))).map j) := by
+    have : IsIso ((Over.pullback (Spec.map (CommRingCat.ofHom (algebraMap (𝓞 L') L')))).map j ≫
+        𝒩'.gen.hom) := by
+      rw [hj]; exact Iso.isIso_hom 𝒰.gen
+    exact @IsIso.of_isIso_comp_right _ _ _ _ _ _ _ (Iso.isIso_hom 𝒩'.gen) this
+  have h₁ : IsIso ((Over.pullback (jO O')).map ((Over.pullback (gO O')).map j)) := by
+    have : IsIso ((Over.pullback (jO O')).map ((Over.pullback (gO O')).map j) ≫
+        (isoX (pbCompIso (jO O') (gO O') _ (jO_gO O') (Grp.mk 𝒩'.G))).hom) := by
+      rw [hcomp]
+      exact @IsIso.comp_isIso _ _ _ _ _ _ _ (Iso.isIso_hom _) hjL
+    exact @IsIso.of_isIso_comp_right _ _ _ _ _ _ _ (Iso.isIso_hom _) this
+  exact isOpenImmersion_of_neron N hN T ((Over.pullback (gO O')).map j) j₂ h₁ h₂
+
+
+/-- The restricted Prop is a specialization of c-to-printed's. -/
+theorem identityComponentBaseChangeDVRRange0_of_general (h : IdentityComponentBaseChangeDVRRange) :
+    IdentityComponentBaseChangeDVRRange0 :=
+  fun K _ _ O _ _ K' _ _ _ O' _ hO A => h K O K' O' hO A
+
+end SHPrinted2
+
+#print axioms SHPrinted2.identityComponentBaseChangeDVRRange0_of
+#print axioms SHPrinted2.semistableNeronBaseChange_of_printed_full0
+
+
+/-! # sh-printed2, Part F: the research bundle with the strictly henselian forms
+
+`OpenResearchLeaves12SH` is leaf-fold12's `OpenResearchLeaves12` (copied verbatim, 32 fields) with
+`blr_1_2_4` replaced by `blr_1_2_4_SH`, `sga7_IX_3_3` replaced by `sga7_IX_3_3_SH`, and sh-route's
+`neronBaseChangeSH` added (33 fields). `researchLeaves11_of_open12SH` is leaf-fold12's
+`researchLeaves11_of_open12` with the two changed fields. -/
+
+namespace SHPrinted2
+
+/-- **Sanity check: the strict-henselization side is not vacuous at number fields.** Every discrete
+valuation ring of a number field has an extension `O₁` with `ShRoute.IsSHUnram O O₁ hO` (sh-route's
+`shExists0`, proved; the residue field is finite, hence perfect), so the right side of `BLR_1_2_4_SH`
+quantifies over a nonempty set of rings, and (with `shPair0`) the hypotheses of `SGA7_IX_3_3_SH` are met in
+every use. -/
+theorem shUnram_exists_numberField (L : Type) [Field L] [NumberField L] (O : ValuationSubring L)
+    [IsDiscreteValuationRing O] :
+    ∃ (K₁ : Type) (_ : Field K₁) (_ : Algebra L K₁) (O₁ : ValuationSubring K₁)
+      (hO : O₁.comap (algebraMap L K₁) = O), ShRoute.IsSHUnram O O₁ hO := by
+  haveI := perfectField_residueField O
+  exact ShRoute.shExists0 L O
+
+end SHPrinted2
+
+namespace HDec
+
+namespace HSyn
+
+structure OpenResearchLeaves12SH : Prop where
+  /-- H-1 (`r1r2`), printed form: the fine moduli scheme `Y` of abelian schemes with `𝒪`-action and level 3
+  (`R1fpPropsAb`) with the coarse `X₆`, the Hecke, recognition and `π₀` clauses of `R1R2fpRep`. Replaces `r1r2`. -/
+  r1r2Ab : LeafAdopt.R1R2fpRepAb
+  /-- H-139, printed form: Shimura's family over the fine moduli scheme of abelian schemes. Replaces
+  `shimuraFamily`. -/
+  shimuraFamilyAb : QMSplit.Moduli.ShimuraFamilyAb
+  igusaPsi4 : QMSplit.Theta.IgusaPsi4
+  igusaChi10 : QMSplit.Theta.IgusaChi10
+  r7a : _root_.PkgI2.NeronOggShafarevich.{0}
+  r9a : _root_.PkgI3.FaltingsSemisimple
+  r9b : _root_.PkgI3.FaltingsTate
+  hodgeTateDecompAbVar : _root_.ZInQ.Contrib.HodgeSplit.HodgeTateDecompAbVar
+  deRhamH1AbVarT : _root_.ZInQ.Contrib.HodgeSplit.DeRhamH1AbVarT
+  r11r12 : PkgI4.PanBerger
+  eigenformHTNew : _root_.ZInQ.Contrib.HodgeSplit.EigenformHTNew
+  dsThm965 : _root_.ZInQ.Contrib.HodgeSplit.DSThm965
+  dsThm966 : _root_.ZInQ.Contrib.HodgeSplit.DSThm966
+  r16 : _root_.LeafModCurves.R16_EichlerShimuraJ1'
+  r17 : _root_.LadicCond.CarayolR17'
+  /-- height-split, H-17: Bost's lower bound `h_D(A) ≥ −(g/2) log 2π` (Sém. Bourbaki 795), replaces `r21`. -/
+  bostLowerBound : _root_.ZInQ.HeightSplit.BostLowerBound
+  /-- height-split, H-14: Javanpeykar 2014 Thm 1.1.1 for curves over `K` with a `K`-rational Belyi function,
+  replaces `r18`. -/
+  javanpeykarBound : _root_.ZInQ.HeightSplit.JavanpeykarBound
+  /-- height-split, H-18: the upper half of Pazuki 2012 Cor. 1.3(2), replaces `r22`. -/
+  pazukiCor13Upper : _root_.ZInQ.HeightSplit.PazukiCor13Upper
+  /-- height-split, H-15: Gaudron–Rémond 2014 Thm 1.4 over the published stable height, replaces `r19`. -/
+  gaudronRemondThm14 : _root_.ZInQ.HeightSplit.GaudronRemondThm14
+  /-- reduct-split, r8: SGA 7 IX Thm 3.6 over a DVR (semistable reduction after a finite extension, at every place
+  above `O`). -/
+  semistableReductionDVR : _root_.ReductSplit.SemistableReductionDVR
+  /-- reduct-split, r8: SGA 7 IX Prop. 3.5, "semistable ⇒ `(σ - 1)² = 0` on `T_ℓ`" (weakest reading). -/
+  semistableUnipotent : _root_.ReductSplit.SemistableUnipotent
+  /-- reduct-split, r8: BLR §1.4 Thm 3 over a DVR (scheme form). -/
+  neronSchemeModelExistsDVR : _root_.ReductSplit.NeronSchemeModelExistsDVR
+  /-- shimura-split, r5count, printed form: González–Rotger 2006 Prop. 5.6 at `(D, N) = (6, 1)` on the points of
+  one canonical coarse witness `X₆` of the fine moduli scheme of abelian schemes. Replaces
+  `gonzalezRotgerCountX6`. -/
+  gonzalezRotgerCountX6Ab : _root_.ShimuraSplit.GonzalezRotgerCountX6Ab
+  /-- reduct-split, r6: SGA 7 I Exp. IX Prop. 4.7 (Raynaud's criterion) over a DVR (published form pending the
+  base review). -/
+  raynaudSemistable : _root_.ReductSplit.RaynaudSemistable
+  /-- reduct-split, SS1/SS3: SGA 7 I Exp. IX 3.3, first assertion, over a DVR (published form pending the base
+  review). -/
+  semistablePersistsDVR : _root_.ReductSplit.SemistablePersistsDVR
+  /-- r1univ-rigid: **Mumford's rigidity over a base, printed core** (GIT Thm 6.14 on each connected component and
+  Cor. 6.4 over `S`; numbers UNVERIFIED): a proper smooth geometrically connected family over a locally noetherian
+  `S` with a section `e`, all of whose field fibres are abelian varieties with identity `e(s)`, is a group object in
+  `Over S` with identity `e`, and every `S`-endomorphism fixing `e` is a homomorphism. -/
+  mumfordRigidityCore : _root_.LeafQM.AV.R1UnivRigid.MumfordRigidityCore
+  /-- sh-printed2, printed form: Bosch–Lütkebohmert–Raynaud, *Néron models*, §1.2 Prop. 4 in the
+  strict-henselization reading (over a Dedekind domain with fraction field of characteristic 0, a smooth
+  separated model of finite type is a Néron model iff its base changes to the strict henselizations at the
+  closed points are; locator UNVERIFIED). Replaces c-to-printed's `blr_1_2_4`. -/
+  blr_1_2_4_SH : _root_.SHPrinted2.BLR_1_2_4_SH
+  /-- c-to-printed, printed form: Faltings 1983, Lemma 5 (the change of the Faltings height under an isogeny
+  through `log #s*Ω¹` of its kernel; locator UNVERIFIED). With `raynaudKernelBound` replaces `faltingsLemma5BC`. -/
+  faltingsLemma5Printed : _root_.CToPrinted.FaltingsLemma5Printed
+  /-- c-to-printed, printed form: Raynaud's bound on the kernel term in Faltings' Lemma 5 (locator UNVERIFIED). -/
+  raynaudKernelBound : _root_.CToPrinted.RaynaudKernelBound
+  /-- c-to-printed, printed form: SGA 3 VI_B 3.10 (the identity component `G⁰` of a smooth group scheme is open;
+  number UNVERIFIED). With the next two and `geomConnOfRationalPoint` replaces `semistableNeronBaseChange`. -/
+  sga3_VIB_3_10 : _root_.CToPrinted.SGA3_VIB_3_10
+  /-- sh-printed2, printed form: SGA 7 IX 3.3 over strictly henselian traits (`N⁰ ⊗ R' ≅ N'⁰` for
+  semistable reduction, characteristic 0; locator UNVERIFIED). Replaces c-to-printed's `sga7_IX_3_3`. -/
+  sga7_IX_3_3_SH : _root_.SHPrinted2.SGA7_IX_3_3_SH
+  /-- sh-route / sh-printed2, printed form: Bosch–Lütkebohmert–Raynaud, *Néron models*, §7.2 Thm. 1 / §1.2
+  Prop. 2 (Néron models commute with strict henselization, in characteristic 0; locator UNVERIFIED). With
+  `sga7_IX_3_3_SH` replaces `sga7_IX_3_3`. -/
+  neronBaseChangeSH : _root_.ShRoute.NeronBaseChangeSH
+  /-- c-to-printed, printed form: EGA IV 8.10.5, open immersions descend through limits (locator UNVERIFIED). -/
+  egaIV_8_10_5_openImm : _root_.CToPrinted.EGAIV_8_10_5_openImm
+
+/-- route-a-fold's research bundle from the strictly henselian bundle: `neronLocalizesDVR` and
+`semistableNeronBaseChange` are theorems from `blr_1_2_4_SH`, `sga7_IX_3_3_SH`, `neronBaseChangeSH` and the
+leaves c-to-printed already used (`sga3_VIB_3_10`, `egaIV_8_10_5_openImm`, the textbook field
+`geomConnOfRationalPoint`). -/
+theorem researchLeaves11_of_open12SH (r : OpenResearchLeaves12SH) (t : OpenTextbookLeaves10) :
+    OpenResearchLeaves11 where
+  r1r2Ab := r.r1r2Ab
+  shimuraFamilyAb := r.shimuraFamilyAb
+  igusaPsi4 := r.igusaPsi4
+  igusaChi10 := r.igusaChi10
+  r7a := r.r7a
+  r9a := r.r9a
+  r9b := r.r9b
+  hodgeTateDecompAbVar := r.hodgeTateDecompAbVar
+  deRhamH1AbVarT := r.deRhamH1AbVarT
+  r11r12 := r.r11r12
+  eigenformHTNew := r.eigenformHTNew
+  dsThm965 := r.dsThm965
+  dsThm966 := r.dsThm966
+  r16 := r.r16
+  r17 := r.r17
+  semistableNeronBaseChange := _root_.SHPrinted2.semistableNeronBaseChange_of_printed_full0
+    (_root_.SHPrinted2.blr_1_2_4_0_of_SH r.blr_1_2_4_SH) r.sga3_VIB_3_10
+    (_root_.SHPrinted2.sga7_IX_3_3_0_of_SH r.sga7_IX_3_3_SH r.neronBaseChangeSH r.sga3_VIB_3_10
+      t.geomConnOfRationalPoint) r.egaIV_8_10_5_openImm t.geomConnOfRationalPoint
+  bostLowerBound := r.bostLowerBound
+  javanpeykarBound := r.javanpeykarBound
+  faltingsLemma5BC := _root_.CToPrinted.faltingsLemma5BC_of_printed r.faltingsLemma5Printed r.raynaudKernelBound
+  pazukiCor13Upper := r.pazukiCor13Upper
+  gaudronRemondThm14 := r.gaudronRemondThm14
+  semistableReductionDVR := r.semistableReductionDVR
+  semistableUnipotent := r.semistableUnipotent
+  neronSchemeModelExistsDVR := r.neronSchemeModelExistsDVR
+  gonzalezRotgerCountX6Ab := r.gonzalezRotgerCountX6Ab
+  raynaudSemistable := r.raynaudSemistable
+  semistablePersistsDVR := r.semistablePersistsDVR
+  neronLocalizesDVR := _root_.SHPrinted2.neronLocalizesDVR_of_SH r.blr_1_2_4_SH
+  mumfordRigidityCore := r.mumfordRigidityCore
+
+/-- **G0 with the strictly henselian forms** (sh-printed2): `ZInQ.SixContactMin` from
+`OpenResearchLeaves12SH` (33), `OpenTextbookLeaves10` (15), `OpenAddedLeaves11` (13) and `OpenGlue7` (1). -/
+theorem sixContactMin_of_open15SH (r : OpenResearchLeaves12SH) (t : OpenTextbookLeaves10)
+    (l : OpenAddedLeaves11) (g : OpenGlue7) : ZInQ.SixContactMin :=
+  sixContactMin_of_open14 (researchLeaves11_of_open12SH r t) t l g
+
+end HSyn
+
+end HDec
+
+#print axioms SHPrinted2.shUnram_exists_numberField
+#print axioms HDec.HSyn.researchLeaves11_of_open12SH
+#print axioms HDec.HSyn.sixContactMin_of_open15SH
+
