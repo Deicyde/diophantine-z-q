@@ -1133,6 +1133,55 @@ theorem iota_comm_of_mem {A : AbVar Qbar} {q : QMStr A} {φ : AbVar.End A}
   rw [com, Subring.mem_centralizer_iff] at hφ
   exact (hφ _ ⟨a, rfl⟩).symm
 
+
+/-! ## §7 `αK` is the Atkin–Lehner twist `rep 3` (conjugation by `ij`) -/
+
+theorem uij_val : (((LeafQM.AV.Pin.NormO.ui * LeafQM.AV.Pin.NormO.uj : Bˣ)) : B) = ⟨0, 0, 0, 1⟩ := by
+  rw [Units.val_mul]
+  ext <;> simp [LeafQM.AV.Pin.NormO.ui, LeafQM.AV.Pin.NormO.uj, LeafQM.AV.Pin.NormO.ei,
+    LeafQM.AV.Pin.NormO.ej, ofInt]
+
+/-- The chain's representative `rep 3` of `Aut(𝒪)/Inn(𝒪^×)` (conjugation by `ij`) is `αK`. -/
+theorem rep3_eq_αK : HDec.LeafQM.AV.Pin.Exact.rep 3 = αK := by
+  apply RingEquiv.ext; intro a
+  apply Subtype.ext
+  rw [αK_coe]
+  show ((LeafQM.AV.Pin.NormO.ui * LeafQM.AV.Pin.NormO.uj : Bˣ) : B) * a *
+    (((LeafQM.AV.Pin.NormO.ui * LeafQM.AV.Pin.NormO.uj)⁻¹ : Bˣ) : B) = _
+  have h : ((LeafQM.AV.Pin.NormO.ui * LeafQM.AV.Pin.NormO.uj : Bˣ) : B) * (a : B) =
+      cK (a : B) * ((LeafQM.AV.Pin.NormO.ui * LeafQM.AV.Pin.NormO.uj : Bˣ) : B) := by
+    rw [uij_val]; generalize (a : B) = y; ext <;> simp [cK]
+  rw [h, _root_.mul_assoc, Units.mul_inv, _root_.mul_one]
+
+/-- **A `ℤ[√−6]` object is isomorphic to its `αK`-twist**: an `End`-element `g` with `g² = −1` and
+`g ι(αK a) = ι(a) g`, from the lattice model (`semilinear_unit` with `t = ij`). -/
+theorem exists_g24 (hU : BPAnalytic.Uniformization.UniformizationLeafAll)
+    (hG : ZInQ.HomLattice.GAGAMorphism) (hM : AvSplit.MumfordTorsionAlgClosed)
+    (A : AbVar Qbar) (hA : A.dim = 2) (q : QMStr A) (h24 : HasCM24 q) :
+    ∃ g : AbVar.End A, g * g = ((-1 : ℤ) : AbVar.End A) ∧ ∀ a, g * q.iota (αK a) = q.iota a * g := by
+  obtain ⟨φ, hφ, hφφ⟩ := h24
+  obtain ⟨τ, hτ, ρ, hρinj, hρι, hρrange⟩ := lat_model hU hG hM A hA q
+  have hss : φ * φ = ((-6 : ℤ) : AbVar.End A) := by rw [hφφ, Int.cast_neg, Int.cast_ofNat]
+  have hdiv6 : ∀ y : O, y * y = ((-6 : ℤ) : O) → ∃ e : O, y = ok * e :=
+    fun y hy => div_k y (by rw [hy, Int.cast_neg, Int.cast_ofNat])
+  have k1 : ∀ x : O, ((1 / 6 : ℚ) • (ok : B)) * x * ok = (αK x : B) := fun x => by
+    rw [αK_coe, ok_coe]; change _ = cK (x : B)
+    generalize (x : B) = y; ext <;> simp [cK] <;> ring
+  have k2 : ∀ a : O, ((1 / 6 : ℚ) • (ok : B)) * (αK a : B) = (a : B) * ((1 / 6 : ℚ) • (ok : B)) :=
+    fun a => by
+      rw [αK_coe, ok_coe]; change _ * cK (a : B) = _
+      generalize (a : B) = y; ext <;> simp [cK] <;> ring
+  have k3 : (ok : B) * ((1 / 6 : ℚ) • (ok : B)) = 1 := by
+    rw [ok_coe]; ext <;> simp [QuaternionAlgebra.re_ofNat, QuaternionAlgebra.imI_ofNat,
+      QuaternionAlgebra.imJ_ofNat, QuaternionAlgebra.imK_ofNat] <;> norm_num
+  have k4 : ((1 / 6 : ℚ) • (ok : B)) * ((1 / 6 : ℚ) • (ok : B)) * ((-6 : ℤ) : B) = ((-1 : ℤ) : B) := by
+    rw [ok_coe]; ext <;> simp [QuaternionAlgebra.re_ofNat, QuaternionAlgebra.imI_ofNat,
+      QuaternionAlgebra.imJ_ofNat, QuaternionAlgebra.imK_ofNat] <;> norm_num
+  obtain ⟨g, -, hgg, hg⟩ := semilinear_unit hρinj hρι hρrange hτ ok (1 / 6 : ℚ) αK _ _
+    k1 k2 k3 k4 hdiv6 φ hφ hss
+  exact ⟨g, hgg, hg⟩
+
+
 end GapGlue.CMStab
 
 namespace GapGlue
@@ -1253,5 +1302,58 @@ theorem cmStabObjWeak_of (hU : BPAnalytic.Uniformization.UniformizationLeafAll)
   intro P hP
   obtain ⟨α, u, h1, -, h3⟩ := cmStabObj_of hU hG hM hT P hP
   exact ⟨α, u, h1, h3⟩
+
+end GapGlue
+
+namespace HDec
+
+set_option linter.ambiguousOpen false
+
+namespace CMStabAL
+
+open Polynomial CategoryTheory AlgebraicGeometry Limits LeafQM LeafQM.AV VertWitness HeckeRestNV
+open G0ModField PropTSRed PropTSGlue ModelGlue MCRGlue LeafQM.AV.Pin PkgI3
+
+/- Copied verbatim from `ZInQKernel/Contrib/OneProof/QuotientP1/CMStab.lean`, lines 435-446 (branch
+`wip/p1-quot` at commit d984b2547, namespace `HDec.MCRQuot`; here in namespace `HDec.CMStabAL` so that
+`LeafQM.AV.Pin.Exact.rep` resolves to `HDec.LeafQM.AV.Pin.Exact.rep` as there). -/
+
+/-- **LEAF (fixed points of the Atkin–Lehner involution `w₆` on `X₆ = X₀⁶(1)`, the converse half).** A QM pair
+over `ℚ̄` with CM by `ℤ[√−6]` is isomorphic to its `w₆`-twist (the twist `rep 3`, conjugation by `ij` of reduced
+norm `−6`). This is the half of the fixed-point theorem not stated in the chain's `HeckeRest.ALFixedPoints` (which
+says that a pair isomorphic to its `w₆`-twist has CM by `ℤ[√−6]`): A. Ogg, *Real points on Shimura curves*,
+Arithmetic and Geometry I, Progr. Math. 35 (1983), the fixed points of `w_m` on `X₀^D(1)` are the CM points by
+orders containing `√−m` (for `m ≡ 1, 2 mod 4`); V. Rotger, *Modular Shimura varieties and forgetful maps*,
+Trans. AMS 356 (2004), §§2-4, `w_m` as `(A, ι) ↦ (A, ι ∘ conj(μ))`; locators UNVERIFIED (no network). The printed
+statement is on `X₀^D(1)(ℂ)`; this is its moduli form over `ℚ̄`, with the same reading as `ALFixedPoints`. -/
+def AtkinLehnerFixesCM24 : Prop :=
+  ∀ (A : AbVar Qbar), A.dim = 2 → ∀ q : QMStr A, HasCM24 q →
+    Nonempty (QMIso (q.twist (LeafQM.AV.Pin.Exact.rep 3)) q)
+
+
+end CMStabAL
+
+end HDec
+
+namespace GapGlue
+
+open LeafQM LeafQM.AV CMStab PkgI3
+
+/-- **p1-quot's leaf `AtkinLehnerFixesCM24` (the converse half of the fixed-point theorem for `w₆`) from the
+textbook fields `uniformizationLeafAll`, `gagaMorphism`, `mumfordTorsionAlgClosed`**: a QM pair over `ℚ̄`
+with CM by `ℤ[√−6]` is isomorphic to its `rep 3`-twist, through `g = ι(ij)⁻¹ φ` (`exists_g24`), with
+inverse `−g`. -/
+theorem atkinLehnerFixesCM24_of (hU : BPAnalytic.Uniformization.UniformizationLeafAll)
+    (hG : ZInQ.HomLattice.GAGAMorphism) (hM : AvSplit.MumfordTorsionAlgClosed) :
+    HDec.CMStabAL.AtkinLehnerFixesCM24 := by
+  intro A hA q h24
+  obtain ⟨g, hgg, hg⟩ := exists_g24 hU hG hM A hA q h24
+  have h1 : (-g) * g = 1 := by rw [neg_mul, hgg]; simp
+  have h2 : g * (-g) = 1 := by rw [mul_neg, hgg]; simp
+  rw [rep3_eq_αK]
+  exact ⟨{ φ := g, ψ := -g
+           left := congrArg AbVar.Hom.hom h1
+           right := congrArg AbVar.Hom.hom h2
+           equivariant := fun a => congrArg AbVar.Hom.hom (hg a) }⟩
 
 end GapGlue

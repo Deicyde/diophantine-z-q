@@ -18,3 +18,11 @@ GapGlue.cmStabObj_of : BPAnalytic.Uniformization.UniformizationLeafAll →
   ZInQ.HomLattice.GAGAMorphism → AvSplit.MumfordTorsionAlgClosed → ObjBridge.TorsionStructure → GapGlue.CMStabObj
 GapGlue.cmStabObjWeak_of : BPAnalytic.Uniformization.UniformizationLeafAll →
   ZInQ.HomLattice.GAGAMorphism → AvSplit.MumfordTorsionAlgClosed → ObjBridge.TorsionStructure → GapGlue.CMStabObjWeak
+def HDec.CMStabAL.AtkinLehnerFixesCM24 : Prop :=
+∀ (A : PkgI3.AbVar LeafQM.AV.Qbar),
+  A.dim = 2 →
+    ∀ (q : LeafQM.AV.QMStr A),
+      LeafQM.AV.HasCM24 q → Nonempty (LeafQM.AV.QMIso (q.twist (HDec.LeafQM.AV.Pin.Exact.rep 3)) q)
+'GapGlue.atkinLehnerFixesCM24_of' depends on axioms: [propext, Classical.choice, Quot.sound]
+GapGlue.atkinLehnerFixesCM24_of : BPAnalytic.Uniformization.UniformizationLeafAll →
+  ZInQ.HomLattice.GAGAMorphism → AvSplit.MumfordTorsionAlgClosed → HDec.CMStabAL.AtkinLehnerFixesCM24

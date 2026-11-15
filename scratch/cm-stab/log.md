@@ -30,3 +30,12 @@ Base: wip/cm-stab = 3782dac8e (leaf-fold18). Target: `CMStabObj` (scratch/mcr-qu
   (scratch/cm-stab/axioms.txt).
 - CMStabObj text: MCRQuot.lean L7639-7653 = MCRQuotB.lean L976-990 (wip/p1-quot 3ce73273, the def FixedDisjoint.lean
   uses through its import of MCRQuotB) = CMStab.lean L1145-1159 (md5/diff identical). VERIFIED.
+- Namespace check (scratch/cm-stab/NsCheck.lean, nscheck.txt): p1-quot's CMStabObjWeak text elaborated inside
+  `namespace HDec.MCRQuot` with their opens gives the same term as GapGlue.CMStabObjWeak (pp.fullNames print; `rfl`). VERIFIED.
+- Added `rep3_eq_αK` (chain's `HDec.LeafQM.AV.Pin.Exact.rep 3` = αK, both conjugation by ij = ok), `exists_g24`, and
+  `GapGlue.atkinLehnerFixesCM24_of (hU hG hM) : HDec.CMStabAL.AtkinLehnerFixesCM24` (verbatim copy of p1-quot's leaf
+  `AtkinLehnerFixesCM24`, QuotientP1/CMStab.lean L435-446 at d984b2547). Build OK; axioms standard. VERIFIED.
+  So p1-quot's leaf AtkinLehnerFixesCM24 is a theorem from the textbook fields (pitfall: `mul_assoc` resolves to
+  MonObj.mul_assoc under `open MonObj`; use `_root_.mul_assoc`).
+- #discharges (scratch/cm-stab/discharges.txt): 63 open hypotheses, 5 discharged, none by CMStab (expected: CMStabObj
+  is not a bundle field). VERIFIED.
