@@ -31,3 +31,7 @@ Task: hypothesis `hX = T5Glue.X0ModuliGalois` (ZInQKernel/Contrib/OneProof/RingC
 7. `autofold.json` written; `autofold.py --dry-run` refuses: `autofold: not a field of the current bundles: ['hX']`
    (hX is a plain argument of frozenTarget; a fold is a hand edit of Main.lean, as for hS in gt-ringclass).
    The split would raise the strict GLUE count (1 → 4), so it is not proposed as a fold.
+8. Independent statement review (AI subagent, read-only, 2026-11-15): WeierstrassGroupLaw TRUE, VeluCyclic TRUE
+   (constants rederived), X0ModuliGaloisNonIsolated TRUE and non-vacuous (N = 2, τ = i), no logical gaps;
+   attribution fix applied (Silverman III.2.3 is the general Weierstrass form; WW §20.3 / §20.311). After the
+   docstring edit: rebuilt, #discharges unchanged, standard axioms (VERIFIED).

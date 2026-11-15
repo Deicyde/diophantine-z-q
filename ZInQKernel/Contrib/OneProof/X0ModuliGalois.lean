@@ -158,9 +158,11 @@ That is: `z ↦ (℘(z), ℘'(z))` is an injective group homomorphism `ℂ/Λ �
 `E_Λ : y² = 4x³ − g₂x − g₃`, and the group law of `E_Λ` is the chord-and-tangent law.
 Sources (numbers UNVERIFIED, from memory): Silverman, *The arithmetic of elliptic curves*, GTM 106,
 Prop. VI.3.6(b) with the group law formulas III.2.3; Whittaker–Watson, *A course of modern
-analysis*, §20.3 (addition theorem) and §20.31 (duplication); Lang, *Elliptic functions*, Ch. 1.
-Kind: textbook, a consequence of the print (the print states (c), (d) for `y² = 4x³ − g₂x − g₃` in this
-normalization; (a), (b) are the injectivity of `ℂ/Λ → E_Λ(ℂ)` and the description of `E_Λ[2]`). -/
+analysis*, §20.3 (addition theorem) and §20.311 (duplication); Lang, *Elliptic functions*, Ch. 1.
+Kind: textbook, a consequence of the prints: Whittaker–Watson print the addition theorem for `℘(z + w)` in this
+normalization; Silverman III.2.3 states the group law for the general Weierstrass form, which gives (c), (d) after
+`y ↦ y/2`; the `℘'(z + w)` formula follows from collinearity; (a), (b) are the injectivity of `ℂ/Λ → E_Λ(ℂ)` and
+the description of `E_Λ[2]`. -/
 def WeierstrassGroupLaw : Prop :=
   ∀ (L : PeriodPair) (z w : ℂ), z ∉ L.lattice → w ∉ L.lattice →
     (L.weierstrassP z = L.weierstrassP w → z - w ∈ L.lattice ∨ z + w ∈ L.lattice) ∧

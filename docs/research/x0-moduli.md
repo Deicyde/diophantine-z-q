@@ -5,8 +5,8 @@ the contributor-kit file `ZInQKernel/Contrib/OneProof/X0ModuliGalois.lean` (the 
 `scratch/x0-moduli/Discharges.lean` (output `Discharges-output.txt`), autofold spec `scratch/x0-moduli/autofold.json`.
 Results log: `scratch/x0-moduli/log.md`.
 Marks: **VERIFIED** (compiled, computed, or read in a named source), **STANDARD** (published, exact reference),
-**SPECULATIVE**, **UNVERIFIED** (theorem numbers from memory; this host has no network). Model work; no human
-review, no independent model review.
+**SPECULATIVE**, **UNVERIFIED** (theorem numbers from memory; this host has no network). Model work; one independent model
+statement review (§7); no human review.
 
 ## 0. Verdict
 
@@ -34,7 +34,7 @@ review, no independent model review.
    through the kernel's existing Prop `RatX0Rep` (`ℚ(X₀(N)) = ℚ(j, j_N)` with a denominator that does not vanish
    at isolated points). The coarse-moduli content is left only at the points `τ` where the plane model
    `(j, j_N)` of `X₀(N)` is not isolated. Those points are CM points, finitely many on `Y₀(N)` for each `N`
-   (§3). They are not empty and the consumers need them (shimura-modfn §3: TYZ's class-7 forms at
+   (§3), though in `ℍ` they form whole `Γ₀(N)`-orbits. They are not empty and the consumers need them (shimura-modfn §3: TYZ's class-7 forms at
    `n = 7, 15, 47, …`).
 3. **Count.** The split does not lower the strict GLUE count; it raises it (one consequence row becomes four
    non-published rows: `WeierstrassGroupLaw` composite, `VeluCyclic` consequence, `RatX0Rep` composite,
@@ -55,7 +55,7 @@ T5Glue.X0ModuliGalois := rfl` compile (VERIFIED). In words: `N ≥ 1`, `g` with 
 
 | Prop | kind | statement (short) | source | why it is or is not the print |
 |---|---|---|---|---|
-| `X0Moduli.WeierstrassGroupLaw` | textbook; **composite** (strict GLUE) | for `z, w ∉ Λ`: (a) `℘z = ℘w ⇒ z ≡ ±w`; (b) `℘'z = 0 ⇒ 2z ∈ Λ`; (c) chord: `℘(z+w) = λ²/4 − ℘z − ℘w`, `℘'(z+w) = −(λ℘(z+w) + ν)` when `℘z ≠ ℘w`; (d) tangent with `λ = (6℘² − g₂/2)/℘'` when `2z ∉ Λ` | Silverman, *AEC*, GTM 106, Prop. VI.3.6(b) with the group-law formulas III.2.3; Whittaker–Watson §20.3, §20.311 (UNVERIFIED numbers) | the print says `z ↦ (℘, ℘')` is a group isomorphism `ℂ/Λ ≅ E_Λ(ℂ)` and gives the chord–tangent formulas for a general Weierstrass equation; (c), (d) are those formulas for `y² = 4x³ − g₂x − g₃`, (a), (b) are injectivity and `E[2]`. Four clauses from two prints: a consequence, not one print. Numerically checked (log 4). |
+| `X0Moduli.WeierstrassGroupLaw` | textbook; **composite** (strict GLUE) | for `z, w ∉ Λ`: (a) `℘z = ℘w ⇒ z ≡ ±w`; (b) `℘'z = 0 ⇒ 2z ∈ Λ`; (c) chord: `℘(z+w) = λ²/4 − ℘z − ℘w`, `℘'(z+w) = −(λ℘(z+w) + ν)` when `℘z ≠ ℘w`; (d) tangent with `λ = (6℘² − g₂/2)/℘'` when `2z ∉ Λ` | Silverman, *AEC*, GTM 106, Prop. VI.3.6(b) with the group-law formulas III.2.3; Whittaker–Watson §20.3, §20.311 (UNVERIFIED numbers) | Silverman VI.3.6(b) says `z ↦ (℘, ℘')` is a group isomorphism `ℂ/Λ ≅ E_Λ(ℂ)`; III.2.3 gives the chord–tangent formulas for the general Weierstrass form, so (c), (d) need `y ↦ y/2`; Whittaker–Watson print the `℘(z+w)` addition theorem in this normalization, and `℘'(z+w)` follows from collinearity; (a), (b) are injectivity and `E[2]`. Four clauses from two prints: a consequence, not one print. Numerically checked (log 4). |
 | `X0Moduli.VeluCyclic` | textbook; **consequence** (strict GLUE) | `N⁴g₂(⟨1,Nτ⟩) = g₂ + Σ_{m=1}^{N−1}(60℘_τ(m/N)² − 5g₂)`, `N⁶g₃(⟨1,Nτ⟩) = g₃ + Σ(140℘³ − 21g₂℘ − 14g₃)` | Vélu, C. R. Acad. Sci. Paris 273 (1971) 238–241; Washington, *Elliptic curves*, Thm. 12.16 (UNVERIFIED) | Vélu prints `A₄ = a₄ − 5t`, `A₆ = a₆ − 7w` algebraically; this is its analytic form for `⟨1/N⟩` (I derived it from Vélu's `t, w` and checked it numerically, log 4). It is also a lattice-sum identity that Mathlib could prove (`℘'' = 6Σ(z−ω)⁻⁴`, `℘'''' = 120Σ(z−ω)⁻⁶`), so it is better treated as glue to be proved. |
 | `ShimuraModFnTask.RatX0Rep` (existing, kernel `TYZChain/ModFn.lean`) | **composite** (strict GLUE) | `IsRatModFn N g ⇒ ∃ A, B ∈ ℚ[X,Y]`, `B(j, j_N)g = A(j, j_N)` on `ℍ`, `B(j(τ), j(Nτ)) ≠ 0` at isolated `τ` | Shimura 1971 Prop. 6.9 (`ℚ(X₀(N)) = ℚ(j, j_N)`, the `q`-expansion part); Cox Thm. 11.18 (`Φ_N`); Serre, *Local fields* III §6 (Euler's lemma) (UNVERIFIED) | combination of three textbook facts (shimura-modfn §2, reviewed TRUE there). The printed part is `ℚ(X₀(N)) = ℚ(j, j_N)`; the conductor bound is algebra. |
 | `X0Moduli.X0ModuliGaloisNonIsolated` | **consequence** (strict GLUE), same sources as `X0ModuliGalois` | `X0ModuliGalois` with the extra hypothesis `¬ IsIsolated N τ` | Shimura 1971 §6.7; Deligne–Rapoport VI–VII (UNVERIFIED) | a restriction of `X0ModuliGalois` to finitely many CM orbits; still the canonical model, not a print |
@@ -143,3 +143,24 @@ cosets of `Γ₀(N)` in `SL₂(ℤ)`) is a large Lean project.
 * `WeierstrassGroupLaw`: the addition theorem for `℘` is not in Mathlib (its `Weierstrass.lean` has `℘`, `℘'`,
   `℘'² = 4℘³ − g₂℘ − g₃`, periodicity and parity); provable by Liouville's theorem for elliptic functions, which
   Mathlib does not have yet.
+
+## 7. Review
+
+Independent statement review: an AI subagent, read-only, no Lean, 2026-11-15; no human review. It worked from
+Mathlib's definitions, not from the docstrings. Verdicts:
+
+1. `WeierstrassGroupLaw`: **TRUE**, all four clauses. The signs and the factor `1/4` are right. No clause divides
+   by zero: in (c), `℘z ≠ ℘w` already gives `z + w ∉ Λ`; in (d), `℘'z ≠ 0` follows from (b).
+2. `VeluCyclic`: **TRUE**. The reviewer rederived every constant from lattice sums (`℘'' = 6℘² − g₂/2`,
+   `℘'''' = 120℘³ − 18g₂℘ − 12g₃`) and matched the result with Vélu's `A₄ = a₄ − 5t`, `A₆ = a₆ − 7w`. The case
+   `N = 1` is fine.
+3. `X0ModuliGaloisNonIsolated`: **TRUE**. It is a verbatim restriction of `X0ModuliGalois` and is not vacuous:
+   `N = 2`, `τ = i`, `σ = id`, `k = 1` satisfy every hypothesis, since `j(i/2) = j(2i)`. The CM argument is
+   correct. "Finitely many" holds on `Y₀(N)`, not in `ℍ`; the docstring and report say `Y₀(N)`. The reviewer's
+   caveat: the remaining Prop is still the canonical model at CM points, so it is a restriction, not a change of
+   kind.
+4. Logical gaps: **none**. `IsIsolated` is used in the direction `RatX0Rep` supplies, and the nonvanishing at
+   `τ'` comes from `σ`.
+5. Attribution: **accurate as a consequence**, with one fix, now applied in both Lean files and in §2. Silverman
+   III.2.3 is for the general Weierstrass form, so (c) and (d) need `y ↦ y/2`. Whittaker–Watson §20.3 prints the
+   addition theorem in this normalization, and `℘'(z + w)` follows from collinearity. Duplication is §20.311.
