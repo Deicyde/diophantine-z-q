@@ -39,3 +39,8 @@ Imports ZInQKernel.HDecomp.QM.Polar (rv-qm-polar). All standard axioms. VERIFIED
 - `E0_rightMul`: E₀(xu, yu) = nrd(u) E₀(x, y)  (α₃∘r_u is a level structure for λ).
 - `twist_cocycle`: α(μ) = μv, α⁻¹(μ) = μv' ⇒ v·α(v') = 1 (T_{α⁻¹}∘T_α = id on PEL objects, no uniqueness of
   polarizations over a base needed). COMPILED.
+
+## Report
+- docs/research/sir-printed.md written (verdict: PEL functor not statable in Lean today; relative Lemma P and the
+  integral level comparison not needed: new leaf ShimuraIntegralModelUsed proved sufficient and weaker in Lean; its
+  derivation from Lan 1.4.1.11/5.3.3.1 uses Lemma P over Qbar only; Hecke-twist algebra compiled).
