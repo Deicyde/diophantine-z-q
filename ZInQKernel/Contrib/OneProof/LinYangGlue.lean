@@ -18,43 +18,12 @@ open Complex Matrix
 open _root_.ZInQ.LeafPush2 (IsSiegel)
 open Polynomial (C X aeval)
 
-/-! ## 0. Verbatim copies of theta-split's statements (scratch/theta-split/ThetaUse.lean) -/
+/-! ## 0. theta-split's statements
 
-/-- Verbatim copy of `ThetaSplit.thetaEight` (ThetaUse l.113). -/
-def thetaEight (Ω : Matrix (Fin 2) (Fin 2) ℂ) : Multiset ℂ :=
-  PkgI1.evenChars.val.map (fun m => PkgI1.thetaConst m Ω ^ 8)
+theta-glue copied `thetaEight`, `qmR`, `ThetaEightSquare` and `QMThetaSymmetricCurve` verbatim from theta-split;
+theta-fold uses theta-split's declarations (`LinYangSplit`) instead, under the same names. -/
 
-/-- Verbatim copy of `ThetaSplit.qmR` (ThetaUse l.224). -/
-def qmR : ℕ → Polynomial ℚ
-  | 0 => 1
-  | 1 => 1
-  | 2 => C (3 / 8)
-  | 3 => C (283 / 3888) + C (1 / 972) * X
-  | 4 => C (1529 / 186624) - C (1 / 1458) * X
-  | 5 => C (13 / 23328) + C (17 / 314928) * X
-  | 6 => C (521 / 22674816) + C (95 / 5668704) * X + C (1 / 2834352) * X ^ 2
-  | 7 => C (19 / 34012224) + C (313 / 272097792) * X - C (1 / 2834352) * X ^ 2
-  | 8 => C (1 / 136048896) + C (107 / 3673320192) * X + C (49 / 1836660096) * X ^ 2
-  | 9 => C (1 / 24794911296) * (1 + C (9 / 8) * X + C (1 / 4) * X ^ 2 + X ^ 3)
-  | 10 => C (1 / 14281868906496) * X ^ 2
-  | _ => 0
-
-/-- Verbatim copy of `ThetaSplit.ThetaEightSquare` (ThetaUse l.768). **GLUE (global Siegel identity
-in genus 2)**: for every `Ω ∈ 𝔥₂`, `Σ_{m even} θ_m(Ω)¹⁶ = (Σ_{m even} θ_m(Ω)⁸)²/4`. PROVED below
-(`thetaEightSquare`). -/
-def ThetaEightSquare : Prop :=
-  ∀ Ω : Matrix (Fin 2) (Fin 2) ℂ, IsSiegel Ω →
-    ∑ m ∈ PkgI1.evenChars, PkgI1.thetaConst m Ω ^ 16 =
-      (∑ m ∈ PkgI1.evenChars, PkgI1.thetaConst m Ω ^ 8) ^ 2 / 4
-
-/-- Verbatim copy of `ThetaSplit.QMThetaSymmetricCurve` (ThetaUse l.778). **GLUE (the QM-curve-specific
-part of the core)**: `QMThetaSymmetricCore` for `3 ≤ k ≤ 9`. Reduced below
-(`qmThetaSymmetricCurve_of`) to the LEAF `LinYangThetaCurve` and the GLUE `IgusaThetaSymmetric`. -/
-def QMThetaSymmetricCurve : Prop :=
-  ∀ τ : ℂ, 0 < τ.im → PkgI1.thetaSum8 (PkgI1.Omega τ) ≠ 0 → ∀ k, 3 ≤ k → k ≤ 9 →
-    (thetaEight (PkgI1.Omega τ)).esymm k =
-      Polynomial.aeval (PkgI1.jNum (PkgI1.Omega τ) / PkgI1.jDen (PkgI1.Omega τ)) (qmR k) *
-        PkgI1.thetaSum8 (PkgI1.Omega τ) ^ k
+export ThetaSplit (thetaEight qmR ThetaEightSquare QMThetaSymmetricCurve esymm_cons_succ)
 
 /-! ## 1. Absolute convergence and the duplication formula -/
 
@@ -178,10 +147,6 @@ theorem exists_qY_lower_two {Ω : Matrix (Fin 2) (Fin 2) ℂ} (hΩ : ZInQ.LeafPu
 
 
 /-! ## 2. The duplication formula -/
-
-theorem fin2_add_cast (x y : Fin 2) :
-    (((x + y : Fin 2) : ℕ) : ℝ) = ((x : ℕ) : ℝ) + ((y : ℕ) : ℝ) - 2 * ((x : ℕ) : ℝ) * ((y : ℕ) : ℝ) := by
-  fin_cases x <;> fin_cases y <;> norm_num
 
 theorem fin2_add_castC (x y : Fin 2) :
     (((x + y : Fin 2) : ℕ) : ℂ) = ((x : ℕ) : ℂ) + ((y : ℕ) : ℂ) - 2 * ((x : ℕ) : ℂ) * ((y : ℕ) : ℂ) := by
@@ -709,11 +674,6 @@ def esymmL : List ℂ → ℕ → ℂ
   | _, 0 => 1
   | [], _ + 1 => 0
   | a :: l, k + 1 => esymmL l (k + 1) + a * esymmL l k
-
-theorem esymm_cons_succ (a : ℂ) (s : Multiset ℂ) (n : ℕ) :
-    (a ::ₘ s).esymm (n + 1) = s.esymm (n + 1) + a * s.esymm n := by
-  simp only [Multiset.esymm, Multiset.powersetCard_cons, Multiset.map_add, Multiset.sum_add,
-    Multiset.map_map, Function.comp_def, Multiset.prod_cons, Multiset.sum_map_mul_left]
 
 theorem esymm_coe (l : List ℂ) (k : ℕ) : (l : Multiset ℂ).esymm k = esymmL l k := by
   induction l generalizing k with

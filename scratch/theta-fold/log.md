@@ -26,3 +26,11 @@
 - 06:05 step 2 (prune_edit.py; every deleted line in prune_edit_out.txt): 12 fields, 13 assignments, the element in
   openAddedLeaves4_of_Q5's anonymous constructor, 3 dead readers + #print lines. `lake build +ZInQKernel.OneProof.Main
   +ZInQKernel.OneProof.Discharges` OK (12992 jobs); frozenTarget axioms standard.
+- 06:25 DupScan.lean (same type hash, and for defs same value, against every constant of the environment): theta-glue's
+  §0 verbatim copies (thetaEight; qmR, ThetaEightSquare, QMThetaSymmetricCurve differ only through those) and
+  ThetaGlue.esymm_cons_succ duplicated theta-split's -> `export ThetaSplit (...)`; LinYangPrinted.SpMat = gt-theta's
+  GapTheta.Mat4 (Contrib) -> import ThetaModularityM46 and use Mat4; LinYangPrinted.countable_B = the chain's instance
+  (TailZ3) -> deleted. Rebuilt OK; DupScan again: no copies left (blkR0..3 in the engine are equal-valued by design).
+- 06:40 Dead.lean (closure of frozenTarget + the Route 1 theorems): theta-split §5-§6 (Route 2, CM nodes; 36 decls),
+  ThetaGlue.fin2_add_cast, LinYangPrinted.psi4Th_eq/chi10Th_eq unused -> removed. Rebuilt OK (Main + Discharges),
+  frozenTarget axioms standard. Module sizes: Kron 51 KB, Split 16 KB, Glue 64 KB, Printed 31 KB.

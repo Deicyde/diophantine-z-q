@@ -1,4 +1,5 @@
 import ZInQKernel.Contrib.OneProof.LinYangGlue
+import ZInQKernel.Contrib.OneProof.ThetaModularityM46
 
 /-! # theta-fold (4/4): the printed leaves `IgusaThetaExpressions`, `LinYangEx29All` and Route 1 from them
 
@@ -21,15 +22,12 @@ open HSyn.G0Split.FibreQM.PeriodMap (U isOpen_U thTerm qf quad_lower differentia
 
 /-! ## 1. Genuine definitions: Siegel Eisenstein series, Igusa's `χ₁₀`, `χ₁₂`, Lin–Yang's `s_k` -/
 
-/-- Integer `4 × 4` matrices in block form. -/
-abbrev SpMat := Matrix (Fin 2 ⊕ Fin 2) (Fin 2 ⊕ Fin 2) ℤ
-
 /-- Same coset of the Siegel parabolic `Γ_∞ = {M ∈ Sp₄(ℤ) : C = 0}`: the bottom block rows satisfy
 `(C_N, D_N) = U·(C_M, D_M)` for some `U ∈ GL₂(ℤ)`. -/
 def botRel (M N : Matrix.symplecticGroup (Fin 2) ℤ) : Prop :=
   ∃ U : GL (Fin 2) ℤ,
-    (N : SpMat).toBlocks₂₁ = (U : Matrix (Fin 2) (Fin 2) ℤ) * (M : SpMat).toBlocks₂₁ ∧
-    (N : SpMat).toBlocks₂₂ = (U : Matrix (Fin 2) (Fin 2) ℤ) * (M : SpMat).toBlocks₂₂
+    (N : GapTheta.Mat4).toBlocks₂₁ = (U : Matrix (Fin 2) (Fin 2) ℤ) * (M : GapTheta.Mat4).toBlocks₂₁ ∧
+    (N : GapTheta.Mat4).toBlocks₂₂ = (U : Matrix (Fin 2) (Fin 2) ℤ) * (M : GapTheta.Mat4).toBlocks₂₂
 
 theorem botRel_equiv : Equivalence botRel where
   refl M := ⟨1, by simp, by simp⟩
@@ -57,7 +55,7 @@ depend on the representative (`det U = ±1`); for `k ≥ 4` the series converges
 is the classical value. -/
 def siegelEis (k : ℕ) (Ω : Matrix (Fin 2) (Fin 2) ℂ) : ℂ :=
   ∑' c : SiegelCosets,
-    (PkgI1.spFactor ((Quotient.out c : Matrix.symplecticGroup (Fin 2) ℤ) : SpMat) Ω)⁻¹ ^ k
+    (PkgI1.spFactor ((Quotient.out c : Matrix.symplecticGroup (Fin 2) ℤ) : GapTheta.Mat4) Ω)⁻¹ ^ k
 
 /-- **Igusa's cusp form `χ₁₀`** (Igusa 1962, as a combination of Eisenstein series; constants recalled,
 UNVERIFIED as a citation, VERIFIED against the theta expression on 76 Fourier coefficients, py/fourier.py):
@@ -298,10 +296,8 @@ def Q12 (t : PkgI1.Char2 → ℂ) : ℂ :=
      + (t (![0, 0], ![0, 0]) * t (![0, 0], ![0, 1]) * t (![0, 0], ![1, 0]) * t (![0, 1], ![1, 0]) * t (![1, 0], ![0, 1]) * t (![1, 1], ![0, 0])) ^ 4
      + (t (![0, 0], ![0, 0]) * t (![0, 0], ![0, 1]) * t (![0, 0], ![1, 0]) * t (![0, 1], ![0, 0]) * t (![1, 0], ![0, 0]) * t (![1, 1], ![1, 1])) ^ 4)
 
-theorem psi4Th_eq (Ω : Matrix (Fin 2) (Fin 2) ℂ) : psi4Th Ω = Q4 (fun m => PkgI1.thetaConst m Ω) := rfl
 set_option maxRecDepth 100000 in
 theorem psi6Th_eq (Ω : Matrix (Fin 2) (Fin 2) ℂ) : psi6Th Ω = Q6 (fun m => PkgI1.thetaConst m Ω) := rfl
-theorem chi10Th_eq (Ω : Matrix (Fin 2) (Fin 2) ℂ) : chi10Th Ω = Q10 (fun m => PkgI1.thetaConst m Ω) := rfl
 set_option maxRecDepth 100000 in
 theorem chi12Th_eq (Ω : Matrix (Fin 2) (Fin 2) ℂ) : chi12Th Ω = Q12 (fun m => PkgI1.thetaConst m Ω) := rfl
 
@@ -327,8 +323,7 @@ theorem chi12_contOn : ContinuousOn (fun τ : ℂ => chi12Th (PkgI1.Omega τ)) U
     funext fun τ => chi12Th_eq _]
   exact contOn_comp continuous_Q12
 
-instance countable_B : Countable PkgI1.B :=
-  (QuaternionAlgebra.equivTuple (2 : ℚ) 0 (-3)).injective.countable
+-- `Countable PkgI1.B` is the chain's instance (TailZ3, `HDec.LeafQCheck.QMglue`).
 
 /-- `Γ*` is countable (its elements are `ι(x)`, `x ∈ B`). -/
 theorem gammaStar_countable : PkgI1.GammaStar.Countable := by
