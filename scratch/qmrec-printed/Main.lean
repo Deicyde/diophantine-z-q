@@ -504,4 +504,120 @@ theorem exists_approx (w v : BAQ) : ∃ y : LeafQM.B, (bEmb y - w) * v ∈ OhatQ
 
 end LatticeB
 
+section Transport
+
+open Polynomial ShimuraSplit2
+
+variable {K : Type} [Field K] [NumberField K] [Fact (Irreducible (X ^ 2 - C (2 : K)))]
+
+/-- `β̂ : 𝔸_f ⊗ E → B ⊗ 𝔸_f`, `a ⊗ e ↦ a β(e)`. -/
+def betaHat (q : K →ₐ[ℚ] LeafQM.B) : AQ ⊗[ℚ] EK K →ₗ[ℚ] BAQ :=
+  TensorProduct.lift (((LinearMap.mul ℚ BAQ).compl₂ (bEmb.toLinearMap ∘ₗ beta q)).comp
+    ((Algebra.linearMap AQ BAQ).restrictScalars ℚ))
+
+theorem betaHat_tmul (q : K →ₐ[ℚ] LeafQM.B) (a : AQ) (e : EK K) :
+    betaHat q (a ⊗ₜ e) = algebraMap AQ BAQ a * bEmb (beta q e) := by
+  simp [betaHat]
+
+theorem betaHat_one_tmul (q : K →ₐ[ℚ] LeafQM.B) (e : EK K) : betaHat q (1 ⊗ₜ e) = bEmb (beta q e) := by
+  rw [betaHat_tmul, map_one, one_mul]
+
+theorem inclA_tmul (a : AQ) (k : K) : inclA (a ⊗ₜ[ℚ] k) = a ⊗ₜ[ℚ] algebraMap K (EK K) k := by
+  simp [inclA]
+
+theorem qT_tmul (q : K →ₐ[ℚ] LeafQM.B) (a : AQ) (k : K) :
+    qT q (a ⊗ₜ[ℚ] k) = algebraMap AQ BAQ a * bEmb (q k) := by
+  simp [qT]
+
+/-- **`β̂` intertwines the reflex norm with `q̂`**: `β̂(u w) = β̂(w) q̂(u)`. -/
+theorem betaHat_inclA_mul (q : K →ₐ[ℚ] LeafQM.B) (u : AQ ⊗[ℚ] K) (w : AQ ⊗[ℚ] EK K) :
+    betaHat q (inclA u * w) = betaHat q w * qT q u := by
+  induction u using TensorProduct.induction_on with
+  | zero => simp
+  | add u₁ u₂ h₁ h₂ => rw [map_add, add_mul, map_add, h₁, h₂, map_add, mul_add]
+  | tmul a k =>
+    induction w using TensorProduct.induction_on with
+    | zero => simp
+    | add w₁ w₂ h₁ h₂ => rw [mul_add, map_add, h₁, h₂, map_add, add_mul]
+    | tmul c e =>
+      rw [inclA_tmul, Algebra.TensorProduct.tmul_mul_tmul, betaHat_tmul, betaHat_tmul,
+        beta_algebraMap_mul, qT_tmul, map_mul, map_mul]
+      have h1 : algebraMap AQ BAQ a * algebraMap AQ BAQ c = algebraMap AQ BAQ c * algebraMap AQ BAQ a := by
+        rw [← map_mul, mul_comm, map_mul]
+      rw [h1]
+      simp only [mul_assoc]
+      rw [← mul_assoc (algebraMap AQ BAQ a), Algebra.commutes a (bEmb (beta q e)), mul_assoc]
+
+/-- The standard basis `1, i, j, k` of `B`. -/
+def stdB : Fin 4 → LeafQM.B := ![1, ⟨0, 1, 0, 0⟩, ⟨0, 0, 1, 0⟩, ⟨0, 0, 0, 1⟩]
+
+theorem quat_decomp (y : LeafQM.B) :
+    y = y.re • stdB 0 + y.imI • stdB 1 + y.imJ • stdB 2 + y.imK • stdB 3 := by
+  ext <;> simp [stdB]
+
+/-- A left inverse of `β̂`. -/
+def Linv (eb : Fin 4 → EK K) : BAQ →+ AQ ⊗[ℚ] EK K where
+  toFun x := x.re ⊗ₜ eb 0 + x.imI ⊗ₜ eb 1 + x.imJ ⊗ₜ eb 2 + x.imK ⊗ₜ eb 3
+  map_zero' := by simp
+  map_add' x y := by simp only [QuaternionAlgebra.re_add, QuaternionAlgebra.imI_add,
+    QuaternionAlgebra.imJ_add, QuaternionAlgebra.imK_add, TensorProduct.add_tmul]; abel
+
+theorem mul_algebraMap_tmul (a : AQ) (r : ℚ) (e : EK K) :
+    (a * algebraMap ℚ AQ r) ⊗ₜ[ℚ] e = a ⊗ₜ[ℚ] (r • e) := by
+  rw [mul_comm, ← Algebra.smul_def, TensorProduct.smul_tmul]
+
+theorem Linv_betaHat {q : K →ₐ[ℚ] LeafQM.B} {κ : K →+* ℂ} {z : UpperHalfPlane} [IsTotallyComplex K]
+    (hK : Module.finrank ℚ K = 2) (hz : IsCMPoint q κ z) (w : AQ ⊗[ℚ] EK K) :
+    Linv (fun k => (betaE hK hz).symm (stdB k)) (betaHat q w) = w := by
+  induction w using TensorProduct.induction_on with
+  | zero => simp
+  | add w₁ w₂ h₁ h₂ => rw [map_add, map_add, h₁, h₂]
+  | tmul a e =>
+    rw [betaHat_tmul]
+    have hre : ∀ y : LeafQM.B, (algebraMap AQ BAQ a * bEmb y).re = a * algebraMap ℚ AQ y.re := fun y => by
+      simp [QuaternionAlgebra.algebraMap_eq, bEmb]
+    have hI : ∀ y : LeafQM.B, (algebraMap AQ BAQ a * bEmb y).imI = a * algebraMap ℚ AQ y.imI := fun y => by
+      simp [QuaternionAlgebra.algebraMap_eq, bEmb]
+    have hJ : ∀ y : LeafQM.B, (algebraMap AQ BAQ a * bEmb y).imJ = a * algebraMap ℚ AQ y.imJ := fun y => by
+      simp [QuaternionAlgebra.algebraMap_eq, bEmb]
+    have hK' : ∀ y : LeafQM.B, (algebraMap AQ BAQ a * bEmb y).imK = a * algebraMap ℚ AQ y.imK := fun y => by
+      simp [QuaternionAlgebra.algebraMap_eq, bEmb]
+    show (algebraMap AQ BAQ a * bEmb (beta q e)).re ⊗ₜ _ + _ + _ + _ = _
+    rw [hre, hI, hJ, hK', mul_algebraMap_tmul, mul_algebraMap_tmul, mul_algebraMap_tmul,
+      mul_algebraMap_tmul, ← TensorProduct.tmul_add, ← TensorProduct.tmul_add, ← TensorProduct.tmul_add,
+      ← map_smul, ← map_smul, ← map_smul, ← map_smul, ← map_add, ← map_add, ← map_add,
+      ← quat_decomp, ← betaE_apply hK hz, LinearEquiv.symm_apply_apply]
+
+theorem betaHat_injective {q : K →ₐ[ℚ] LeafQM.B} {κ : K →+* ℂ} {z : UpperHalfPlane} [IsTotallyComplex K]
+    (hK : Module.finrank ℚ K = 2) (hz : IsCMPoint q κ z) : Function.Injective (betaHat q) :=
+  Function.LeftInverse.injective (Linv_betaHat hK hz)
+
+/-- **`𝔞̂ = β̂⁻¹(𝒪̂ h⁻¹)`** for `𝔞 = β⁻¹(L_h)`: `w ∈ 𝔞̂ ↔ β̂(w) h ∈ 𝒪̂`. -/
+theorem mem_latHat_iff {q : K →ₐ[ℚ] LeafQM.B} {κ : K →+* ℂ} {z : UpperHalfPlane} [IsTotallyComplex K]
+    (hK : Module.finrank ℚ K = 2) (hz : IsCMPoint q κ z) (h : BAQˣ) (w : AQ ⊗[ℚ] EK K) :
+    w ∈ latHat ((latB h).comap (beta q).toAddMonoidHom) ↔ betaHat q w * h ∈ OhatQ := by
+  constructor
+  · intro hw
+    induction hw using AddSubgroup.closure_induction with
+    | mem x hx =>
+      obtain ⟨c, hc, e, he, rfl⟩ := hx
+      rw [betaHat_tmul, mul_assoc]
+      exact algebraMap_mul_mem hc he
+    | zero => rw [map_zero, zero_mul]; exact OhatQ_zero
+    | add x y _ _ hx hy => rw [map_add, add_mul]; exact OhatQ_add hx hy
+    | neg x _ hx => rw [map_neg, neg_mul]; exact OhatQ_neg hx
+  · intro hw
+    have hle : AddSubgroup.closure (genSet h) ≤
+        (latHat ((latB h).comap (beta q).toAddMonoidHom)).map (betaHat q).toAddMonoidHom := by
+      rw [AddSubgroup.closure_le]
+      rintro x ⟨c, hc, y, hy, rfl⟩
+      refine ⟨c ⊗ₜ (betaE hK hz).symm y, AddSubgroup.subset_closure ⟨c, hc, _, ?_, rfl⟩, ?_⟩
+      · show beta q ((betaE hK hz).symm y) ∈ latB h
+        rw [← betaE_apply hK hz, LinearEquiv.apply_symm_apply]; exact hy
+      · rw [LinearMap.toAddMonoidHom_coe, betaHat_tmul, ← betaE_apply hK hz, LinearEquiv.apply_symm_apply]
+    obtain ⟨w₀, hw₀, he⟩ := hle (lg h _ hw)
+    rwa [betaHat_injective hK hz he] at hw₀
+
+end Transport
+
 end QMRecPrinted
