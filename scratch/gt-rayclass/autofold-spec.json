@@ -1,0 +1,11 @@
+{"name": "gt-rayclass-fold",
+ "imports": ["ZInQKernel.Contrib.OneProof.RayClassShimura"],
+ "discharges": [
+   {"field": "rayClassCMAb",
+    "proof": "_root_.RayClassCFT.rayClassCMAb_of_leaves {n}.shimuraMainThmIDeligneY3AbU {t}.uniformizationLeafAll {t}.gagaMorphism",
+    "leaves": [{"name": "shimuraMainThmIDeligneY3AbU", "type": "_root_.RayClassCFT.ShimuraMainThmIDeligneY3AbU",
+                "doc": "gt-rayclass (shimura-cft, rayclass-cft), composite of printed theorems: Shimura's Main Theorem I for the level-3 group K3 of B = (2,-3|Q) in Deligne's adelic form on the fine moduli scheme Y3 of QM abelian surfaces (R1fpPropsAb): the uniformization B^x_+ \\ (H x (B (x) A_f)^x) / K3 = Y3(C), holomorphy in tau, the moduli clause at every u in O-hat^x (the object at Psi(tau,u) is C^2/iota(O)(tau,1)^T) and Shimura's reciprocity law at CM points. Replaces rayClassCMAb and shimuraFamilyAb.",
+                "kind": "composite", "flag": "",
+                "source": "Shimura, Ann. of Math. 85 (1967) Main Theorem I (reciprocity at CM points); Deligne, Sem. Bourbaki 389 (1971) sections 3-4 (adelic form, PEL moduli interpretation, canonical model); Milne, Introduction to Shimura varieties sections 12-14; fine moduli of QM abelian surfaces with level 3 (R1fpPropsAb, as for r1r2Ab); locators UNVERIFIED"}]},
+   {"field": "shimuraFamilyAb",
+    "proof": "_root_.RayClassCFT.shimuraFamilyAb_of_U {n}.shimuraMainThmIDeligneY3AbU"}]}

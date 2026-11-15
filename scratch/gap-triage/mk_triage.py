@@ -211,7 +211,7 @@ row("G01", "quotientP1Coordinate", "glue", "MCRGlue.QuotientP1Coordinate", D+"Ta
     "b: the smooth model of the canonical triple over ℤ_(p), p > 324, coordinate normalized at 0, ∞, −16/27",
     "mcr-quot: ModelCoordinateResidue from L1-L6, T5, CurveBijIso, P1SchemeQ, CMStabObj (CoverModelOfHeckeN NOT needed: ModelYIrreducible from deligneComponentsY3Printed)", "glue + leaves",
     "mcr-quot MCRQuot.lean (compiled on its scratch); CloudW07 projectiveLine/ProjectiveSpace API (probe); Mathlib Scheme.Cover.glueMorphisms",
-    "P1SchemeQ (T1), CMStabObj (T2), L1 ProperCurveAF, L3, L5, L6 (T3), L2 in flight", "T3 overall (T1 for P1SchemeQ + NV removal)", "reduce (mcr-quot) and prove the glue Props", "queued per leaf-fold11 §5 (cove-85); L2/L3 in flight (cloud)", "A3",
+    "P1SchemeQ (T1), CMStabObj (T2), L1 ProperCurveAF, L3, L5, L6 (T3), L2 in flight", "T3 overall (T1 for P1SchemeQ + NV removal)", "reduce (mcr-quot) and prove the glue Props", "queued per leaf-fold11 §5 (another project task); L2/L3 in flight (cloud)", "A3",
     "V: GlueProbe, MCRQuotNV (final10 without CoverModelOfHeckeN) compile; mcr-quot hCov uses read")
 
 # ---------------- top statements ----------------

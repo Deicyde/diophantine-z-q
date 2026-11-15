@@ -1,0 +1,10 @@
+{"name": "gt-sga7-fold",
+ "imports": ["ZInQKernel.Contrib.OneProof.SGA7PersistsNF"],
+ "discharges": [
+   {"field": "sga7_IX_3_3",
+    "proof": "_root_.SGA7PersistsNF.sga7_IX_3_3_of_SH {n}.sga7_IX_3_3_SH {n}.neronBaseChangeStrictHenselization {n}.sga3_VIB_3_10 {t}.geomConnOfRationalPoint",
+    "leaves": [{"name": "sga7_IX_3_3_SH", "type": "_root_.SGA7PersistsNF.SGA7_IX_3_3_SH",
+                "doc": "gt-sga7, printed form: SGA 7 I, Exp. IX, Prop. 3.3, second assertion (N0 x_S S' = N'0 for semistable reduction) over strictly henselian traits (number UNVERIFIED). With neronBaseChangeStrictHenselization, sga3_VIB_3_10 and geomConnOfRationalPoint replaces sga7_IX_3_3 (SGA7PersistsNF.sga7_IX_3_3_of_SH).",
+                "kind": "published",
+                "flag": "reading risk (gt-sga7 section 4, as for raynaudSemistableSH): the print may assume an algebraically closed residue field; the restricted form SGA7PersistsNF.SGA7_IX_3_3_SHcp is then the print",
+                "source": "SGA 7 I Exp. IX Prop. 3.3, second assertion, over strictly henselian traits: N0 x_S S' -> N'0 is an isomorphism for semistable reduction (number UNVERIFIED); with neronBaseChangeStrictHenselization (BLR 1.2/2) and fpqc descent gives the general-DVR field sga7_IX_3_3"}]}]}

@@ -120,8 +120,8 @@ theorem openResearchLeaves17_of_OpenResearchLeaves18 (n : OpenResearchLeaves18) 
   gonzalezRotgerProp56X6 := n.gonzalezRotgerProp56X6
 
 /-- **G0 with only the open leaves and the open glue** (leaf-fold18; generated). -/
-theorem sixContactMin_of_open22 (r : OpenResearchLeaves18) (t : OpenTextbookLeaves10) (l : OpenAddedLeaves14) (g : OpenGlue7) : ZInQ.SixContactMin :=
-  sixContactMin_of_open21 (openResearchLeaves17_of_OpenResearchLeaves18 r) t l g
+theorem sixContactMin_of_open22 (r : OpenResearchLeaves18) (t : OpenTextbookLeaves10) (l : OpenAddedLeaves14) (g : OpenGlue7) (hYu : QMLattice.YuB6Alg) : ZInQ.SixContactMin :=
+  sixContactMin_of_open21 (openResearchLeaves17_of_OpenResearchLeaves18 r) t l g hYu
 
 end HSyn
 

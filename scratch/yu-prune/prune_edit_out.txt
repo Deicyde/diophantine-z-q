@@ -1,0 +1,201 @@
+LPrefix:11675  [field TextbookLeaves.t27]    t27 : PkgI3.QMDichotomyYu
+LPrefix:13729  [assignment t27 in textbookLeaves_of_open]    t27 := t.t27
+TailA:1102  [dead reader yuB6Alg_of_qmDichotomyYu]  /-- (yu-prune) `QMLattice.YuB6Alg` from T27 (`PkgI3.QMDichotomyYu`): take `(a, b) = (2, −3)` and the embedding of
+TailA:1103  [dead reader yuB6Alg_of_qmDichotomyYu]  the QM structure. Used only by off-chain readers of the old bundles' `t27`. -/
+TailA:1104  [dead reader yuB6Alg_of_qmDichotomyYu]  theorem yuB6Alg_of_qmDichotomyYu (h : PkgI3.QMDichotomyYu) : QMLattice.YuB6Alg := by
+TailA:1105  [dead reader yuB6Alg_of_qmDichotomyYu]    intro k _ _ _ _ A hA q
+TailA:1106  [dead reader yuB6Alg_of_qmDichotomyYu]    exact PkgI3.qmDichotomy_B6 h k A hA B6_isUnit (qm_embeds_end0 q)
+TailA:1107  [dead reader yuB6Alg_of_qmDichotomyYu]  
+TailD:554  [dead reader fibreComTrivial_of_gp3]  /-- FS5 (NoCM on the fibre) from `GluePieces3` (fs5-nocm). -/
+TailD:555  [dead reader fibreComTrivial_of_gp3]  theorem fibreComTrivial_of_gp3 (r : ResearchLeaves3) (t : TextbookLeaves) (gp : GluePieces3) :
+TailD:556  [dead reader fibreComTrivial_of_gp3]      G0FibreSimple.FibreComTrivial :=
+TailD:557  [dead reader fibreComTrivial_of_gp3]    fibreComTrivial_of_full (FS5NoCM.fibreComTrivialFull_of_leaves'' (r1r2fpFull_of r)
+TailD:558  [dead reader fibreComTrivial_of_gp3]      (mobiusGlue_of_gp3 t gp) (G0FibreSimple.yuB6Alg_of_qmDichotomyYu t.t27) t.t6 gp.cmOptimalEmbedding gp.x6KummerFibre r.r5count)
+TailD:559  [dead reader fibreComTrivial_of_gp3]  
+TailD:560  [dead reader fibreSimple_of_gp3]  /-- `FibreSimple` from `GluePieces3` (fs1-descend, mul-rigidity, fs5-nocm). -/
+TailD:561  [dead reader fibreSimple_of_gp3]  theorem fibreSimple_of_gp3 (r : ResearchLeaves3) (t : TextbookLeaves) (gp : GluePieces3) :
+TailD:562  [dead reader fibreSimple_of_gp3]      G0Split.FibreSimple :=
+TailD:563  [dead reader fibreSimple_of_gp3]    G0FibreSimple.fibreSimple_of_leaves t (G0FibreSimple.yuB6Alg_of_qmDichotomyYu t.t27)
+TailD:564  [dead reader fibreSimple_of_gp3]      (MulRigidity.mulIsogeny_of_mulEtale gp.mulEtale) G0FibreSimple.rigidityHom
+TailD:565  [dead reader fibreSimple_of_gp3]      ⟨G0FibreSimple.finiteDescends_proof, fibreComTrivial_of_gp3 r t gp⟩
+TailD:566  [dead reader fibreSimple_of_gp3]  
+TailD:567  [dead reader gluePieces_of_gluePieces3]  /-- **`GluePieces` from `GluePieces3` and the leaf bundles** (g0-assemble2). -/
+TailD:568  [dead reader gluePieces_of_gluePieces3]  theorem gluePieces_of_gluePieces3 (r : ResearchLeaves3) (t : TextbookLeaves) (gp : GluePieces3) :
+TailD:569  [dead reader gluePieces_of_gluePieces3]      GluePieces where
+TailD:570  [dead reader gluePieces_of_gluePieces3]    dimFinite := G0Split.dimFinite
+TailD:571  [dead reader gluePieces_of_gluePieces3]    dimBaseChange := G0Split.dimBaseChange
+TailD:572  [dead reader gluePieces_of_gluePieces3]    fibreSimple := fibreSimple_of_gp3 r t gp
+TailD:573  [dead reader gluePieces_of_gluePieces3]    productModelHeight := ZInQ.ProductHeight.productModelHeight_of_splits gp.productUnifSplits
+TailD:574  [dead reader gluePieces_of_gluePieces3]      gp.productMetrizationOfProductUnif
+TailD:575  [dead reader gluePieces_of_gluePieces3]    stableHeightBaseChange := G0StableBC.stableHeightBaseChange_of_hodgeLine
+TailD:576  [dead reader gluePieces_of_gluePieces3]      (ZInQ.HeightBC.g0_hodgeLine_iff.mpr (ZInQ.HeightBC.hodgeLineBaseChange_of_glue4
+TailD:577  [dead reader gluePieces_of_gluePieces3]        gp.hodgeBCInjective gp.cotangentSpanBC gp.omegaBaseChange gp.uniformizationLiftAnalytic))
+TailD:578  [dead reader gluePieces_of_gluePieces3]    productExists := G0Product.productExists
+TailD:579  [dead reader gluePieces_of_gluePieces3]    reverseIsogeny := G0RevIsog.reverseIsogeny_of_leaves3 r G0Split.dimFinite
+TailD:580  [dead reader gluePieces_of_gluePieces3]    thetaPoint := G0Split.ThetaPt.thetaPointOfFibre_of_qm_ratios
+TailD:581  [dead reader gluePieces_of_gluePieces3]      (G0Split.FibreQM.fibreQMPeriod_main_rep r.r1r2 (mobiusGlue_of_gp3 t gp) gp.qmHauptmodul
+TailD:582  [dead reader gluePieces_of_gluePieces3]        t.t35 t.t11a gp.qmClassNumberOne (gp.r1bFamily r.r1r2) (gp.periodMapGlue r.r1r2)
+TailD:583  [dead reader gluePieces_of_gluePieces3]        gp.hauptmodulUnique gp.qmDenZeroCM3 gp.cPtsTransport)
+TailD:584  [dead reader gluePieces_of_gluePieces3]      gp.thetaRatiosAlgebraic
+TailD:585  [dead reader gluePieces_of_gluePieces3]    modularConstituent := modularConstituent_of_field t
+TailD:586  [dead reader gluePieces_of_gluePieces3]      (G0ModField.fibreCoverExists_of_propTSAll' t.t5 gp.propTSAll gp.unramifiedConjugates)
+TailD:587  [dead reader gluePieces_of_gluePieces3]      (G0ModField.KernelField.kernelFieldExists_of_split'' t.t6 r.r7a r.r6 t.t5 (G0FibreSimple.yuB6Alg_of_qmDichotomyYu t.t27)
+TailD:588  [dead reader gluePieces_of_gluePieces3]        (fibreComTrivial_of_gp3 r t gp) gp.oMaximal gp.endTransport gp.conjIsogMaps)
+TailD:589  [dead reader gluePieces_of_gluePieces3]      UnramTate.unramifiedSup_mf
+TailD:590  [dead reader gluePieces_of_gluePieces3]      (G0AssembleMod.afterG7_of3 r t
+TailD:591  [dead reader gluePieces_of_gluePieces3]        ⟨gp.burnsideAbsIrred, gp.r14Det,
+TailD:592  [dead reader gluePieces_of_gluePieces3]          ZInQ.Contrib.G9.g9Glue_of_abVarBaseChange gp.g9AbVarBaseChange gp.g9R10Weights,
+TailD:593  [dead reader gluePieces_of_gluePieces3]          G0Galois.g10Glue_of_conjTwist (G0Galois.conjTwistNontrivial_main t.t26 t.t35
+TailD:594  [dead reader gluePieces_of_gluePieces3]            gp.artinTorsionSurj gp.homLinearLift gp.conjUniformization),
+TailD:595  [dead reader gluePieces_of_gluePieces3]          G0Galois.g12Weight_of_senTwist gp.senTwist gp.finiteImageHT,
+TailD:596  [dead reader gluePieces_of_gluePieces3]          G0Galois.detTate_of_leaves gp.t09SymmIsogenyExists gp.isogenyQuasiInverse
+TailD:597  [dead reader gluePieces_of_gluePieces3]            gp.divisiblePoints t.t26,
+TailD:598  [dead reader gluePieces_of_gluePieces3]          G0AssembleMod.resQFiniteIndex⟩
+TailD:599  [dead reader gluePieces_of_gluePieces3]        (ZInQ.Contrib.G9.g9GlueNoT23_of_abVarBaseChange gp.g9AbVarBaseChange gp.g9R10Weights)
+TailD:600  [dead reader gluePieces_of_gluePieces3]        (G0ModNewform.dirichletOfFinite_of_t17 t.t17) gp.carayolR17
+TailD:601  [dead reader gluePieces_of_gluePieces3]        Swan.swanIndependent_proved Swan.swanIntegral_proved
+TailD:602  [dead reader gluePieces_of_gluePieces3]        Swan.adaptedExists_proved
+TailD:603  [dead reader gluePieces_of_gluePieces3]        (G0AssembleMod.modelG3G6_of (fibreSimple_of_gp3 r t gp)
+TailD:604  [dead reader gluePieces_of_gluePieces3]          (G0AssembleMod.modelNoncomm_of_mulIsogeny
+TailD:605  [dead reader gluePieces_of_gluePieces3]            (MulRigidity.mulIsogeny_of_mulEtale gp.mulEtale)) gp.modelG3)
+TailD:606  [dead reader gluePieces_of_gluePieces3]        (G0AssembleMod.linkedTateData_of_local t.t7 gp.linkedTateLocal))
+TailD:607  [dead reader gluePieces_of_gluePieces3]    heightCopies := G0HeightCopies.heightCopiesAgree
+TailD:608  [dead reader gluePieces_of_gluePieces3]  
+TailD:613  [#print of dead reader gluePieces_of_gluePieces3]  #print axioms HSyn.gluePieces_of_gluePieces3
+TailE:6506  [field OpenTextbookLeaves2.t27]    t27 : PkgI3.QMDichotomyYu
+TailE:6617  [assignment t27 in textbookLeaves_of_open2]    t27 := t.t27
+TailE:6624  [dead reader gluePieces_of_open2]  /-- **Leaves.lean's `GluePieces` from the open statements.** g0-assemble2's
+TailE:6625  [dead reader gluePieces_of_open2]  `gluePieces_of_gluePieces3`, with every proved field replaced by its proof (`mulIsogeny_proved` for
+TailE:6626  [dead reader gluePieces_of_open2]  `mulIsogeny_of_mulEtale gp.mulEtale`, the curve facts inside `mobiusGlue_of_t5'`, `oMaximal_proved`,
+TailE:6627  [dead reader gluePieces_of_open2]  `endTransport_proved`, `cotangentSpanBC_proved`, `uniformizationLiftAnalytic_proved`, G9 from
+TailE:6628  [dead reader gluePieces_of_open2]  `r.r10`, G10 from conj-twist's `conjTwistNontrivial_of_leaves`). -/
+TailE:6629  [dead reader gluePieces_of_open2]  theorem gluePieces_of_open2 (r : OpenResearchLeaves2) (t : OpenTextbookLeaves2)
+TailE:6630  [dead reader gluePieces_of_open2]      (l : OpenAddedLeaves2) (g : OpenGlue2) : GluePieces :=
+TailE:6631  [dead reader gluePieces_of_open2]    let r3 := researchLeaves3_of_open2 r
+TailE:6632  [dead reader gluePieces_of_open2]    let t3 := textbookLeaves_of_open2 t
+TailE:6633  [dead reader gluePieces_of_open2]    have hMob : LeafQM.AV.Pin.MobiusGlue := mobiusGlue_of_t5' t.t5
+TailE:6634  [dead reader gluePieces_of_open2]    have hFS5 : G0FibreSimple.FibreComTrivial :=
+TailE:6635  [dead reader gluePieces_of_open2]      fibreComTrivial_of_full (FS5NoCM.fibreComTrivialFull_of_leaves'' (r1r2fpFull_of r3)
+TailE:6636  [dead reader gluePieces_of_open2]        hMob (G0FibreSimple.yuB6Alg_of_qmDichotomyYu t.t27) t.t6 l.cmOptimalEmbedding (X6Kummer.x6KummerFibre_of_conic hMob l.x6ConicModel)
+TailE:6637  [dead reader gluePieces_of_open2]        r.r5count)
+TailE:6638  [dead reader gluePieces_of_open2]    have hFS : G0Split.FibreSimple :=
+TailE:6639  [dead reader gluePieces_of_open2]      G0FibreSimple.fibreSimple_of_leaves t3 (G0FibreSimple.yuB6Alg_of_qmDichotomyYu t3.t27) mulIsogeny_proved G0FibreSimple.rigidityHom
+TailE:6640  [dead reader gluePieces_of_open2]        ⟨G0FibreSimple.finiteDescends_proof, hFS5⟩
+TailE:6641  [dead reader gluePieces_of_open2]    { dimFinite := G0Split.dimFinite
+TailE:6642  [dead reader gluePieces_of_open2]      dimBaseChange := G0Split.dimBaseChange
+TailE:6643  [dead reader gluePieces_of_open2]      fibreSimple := hFS
+TailE:6644  [dead reader gluePieces_of_open2]      productModelHeight := ZInQ.ProductHeight.productModelHeight_of_splits productUnifSplits_proved
+TailE:6645  [dead reader gluePieces_of_open2]        (productMetrizationOfProductUnif_of_t35 t.t35)
+TailE:6646  [dead reader gluePieces_of_open2]      stableHeightBaseChange := G0StableBC.stableHeightBaseChange_of_hodgeLine
+TailE:6647  [dead reader gluePieces_of_open2]        (ZInQ.HeightBC.g0_hodgeLine_iff.mpr (ZInQ.HeightBC.hodgeLineBaseChange_of_glue4
+TailE:6648  [dead reader gluePieces_of_open2]          g.hodgeBCInjective cotangentSpanBC_proved g.omegaBaseChange
+TailE:6649  [dead reader gluePieces_of_open2]          uniformizationLiftAnalytic_proved))
+TailE:6650  [dead reader gluePieces_of_open2]      productExists := G0Product.productExists
+TailE:6651  [dead reader gluePieces_of_open2]      reverseIsogeny := G0RevIsog.reverseIsogeny_of_leaves3 r3 G0Split.dimFinite
+TailE:6652  [dead reader gluePieces_of_open2]      thetaPoint := G0Split.ThetaPt.thetaPointOfFibre_of_qm_ratios
+TailE:6653  [dead reader gluePieces_of_open2]        (G0Split.FibreQM.fibreQMPeriod_main_rep r.r1r2 hMob l.qmHauptmodul
+TailE:6654  [dead reader gluePieces_of_open2]          t.t35 t.t11a l.qmClassNumberOne (r.r1b r.r1r2) (g.periodMapGlue r.r1r2)
+TailE:6655  [dead reader gluePieces_of_open2]          g.hauptmodulUnique l.qmDenZeroCM3 g.cPtsTransport)
+TailE:6656  [dead reader gluePieces_of_open2]        l.thetaRatiosAlgebraic
+TailE:6657  [dead reader gluePieces_of_open2]      modularConstituent := modularConstituent_of_field t3
+TailE:6658  [dead reader gluePieces_of_open2]        (G0ModField.fibreCoverExists_of_propTSAll' t.t5 g.propTSAll unramifiedConjugates_proved)
+TailE:6659  [dead reader gluePieces_of_open2]        (G0ModField.KernelField.kernelFieldExists_of_split'' t.t6 r.r7a r.r6 t.t5 (G0FibreSimple.yuB6Alg_of_qmDichotomyYu t.t27)
+TailE:6660  [dead reader gluePieces_of_open2]          hFS5 G0ModField.KernelField.oMaximal endTransport_proved g.conjIsogMaps)
+TailE:6661  [dead reader gluePieces_of_open2]        UnramTate.unramifiedSup_mf
+TailE:6662  [dead reader gluePieces_of_open2]        (G0AssembleMod.afterG7_of3 r3 t3
+TailE:6663  [dead reader gluePieces_of_open2]          ⟨l.burnsideAbsIrred, r.r14,
+TailE:6664  [dead reader gluePieces_of_open2]            g9Glue_of_deRhamComparisonHT r.r10,
+TailE:6665  [dead reader gluePieces_of_open2]            G0Galois.g10Glue_of_conjTwist
+TailE:6666  [dead reader gluePieces_of_open2]              (G0Galois.conjTwistNontrivial_of_leaves t.t5 t.t26 t.t35 l.homLinearLift),
+TailE:6667  [dead reader gluePieces_of_open2]            G0Galois.g12Weight_of_senTwist l.senTwist l.finiteImageHT,
+TailE:6668  [dead reader gluePieces_of_open2]            G0Galois.detTate_of_leaves l.t09SymmIsogenyExists l.isogenyQuasiInverse
+TailE:6669  [dead reader gluePieces_of_open2]              l.divisiblePoints t.t26,
+TailE:6670  [dead reader gluePieces_of_open2]            G0AssembleMod.resQFiniteIndex⟩
+TailE:6671  [dead reader gluePieces_of_open2]          (g9GlueNoT23_of_deRhamComparisonHT r.r10)
+TailE:6672  [dead reader gluePieces_of_open2]          (G0ModNewform.dirichletOfFinite_of_t17 t17_proved) r.r17
+TailE:6673  [dead reader gluePieces_of_open2]          Swan.swanIndependent_proved Swan.swanIntegral_proved
+TailE:6674  [dead reader gluePieces_of_open2]          Swan.adaptedExists_proved
+TailE:6675  [dead reader gluePieces_of_open2]          (G0AssembleMod.modelG3G6_of hFS
+TailE:6676  [dead reader gluePieces_of_open2]            (G0AssembleMod.modelNoncomm_of_mulIsogeny mulIsogeny_proved) g.modelG3)
+TailE:6677  [dead reader gluePieces_of_open2]          (G0AssembleMod.linkedTateData_of_local t.t7 g.linkedTateLocal))
+TailE:6678  [dead reader gluePieces_of_open2]      heightCopies := G0HeightCopies.heightCopiesAgree }
+TailE:6679  [dead reader gluePieces_of_open2]  
+TailE:6709  [#print of dead reader gluePieces_of_open2]  #print axioms HSyn.gluePieces_of_open2
+TailI:140  [field OpenTextbookLeaves3.t27]    t27 : PkgI3.QMDichotomyYu
+TailI:213  [assignment t27 in textbookLeaves2_of_open3]    t27 := t.t27
+TailI:220  [dead reader gluePieces_of_open3]  /-- **Leaves.lean's `GluePieces` from the open statements** (leaf-fold2's `gluePieces_of_open2`
+TailI:221  [dead reader gluePieces_of_open3]  with the five closed glue fields replaced by their proofs, G3-G6 from linked-tate's route, and
+TailI:222  [dead reader gluePieces_of_open3]  Burnside and `HomLinearLift` from parts c10, c30). -/
+TailI:223  [dead reader gluePieces_of_open3]  theorem gluePieces_of_open3 (r : OpenResearchLeaves2) (t : OpenTextbookLeaves3)
+TailI:224  [dead reader gluePieces_of_open3]      (l : OpenAddedLeaves3) (g : OpenGlue3) : GluePieces :=
+TailI:225  [dead reader gluePieces_of_open3]    let t2 := textbookLeaves2_of_open3 t
+TailI:226  [dead reader gluePieces_of_open3]    let r3 := researchLeaves3_of_open2 r
+TailI:227  [dead reader gluePieces_of_open3]    let t3 := textbookLeaves_of_open2 t2
+TailI:228  [dead reader gluePieces_of_open3]    have hMob : LeafQM.AV.Pin.MobiusGlue := mobiusGlue_of_t5' t.t5
+TailI:229  [dead reader gluePieces_of_open3]    have hFS5 : G0FibreSimple.FibreComTrivial :=
+TailI:230  [dead reader gluePieces_of_open3]      fibreComTrivial_of_full (FS5NoCM.fibreComTrivialFull_of_leaves'' (r1r2fpFull_of r3)
+TailI:231  [dead reader gluePieces_of_open3]        hMob (G0FibreSimple.yuB6Alg_of_qmDichotomyYu t.t27) t.t6 l.cmOptimalEmbedding (X6Kummer.x6KummerFibre_of_conic hMob l.x6ConicModel)
+TailI:232  [dead reader gluePieces_of_open3]        r.r5count)
+TailI:233  [dead reader gluePieces_of_open3]    have hFS : G0Split.FibreSimple :=
+TailI:234  [dead reader gluePieces_of_open3]      G0FibreSimple.fibreSimple_of_leaves t3 (G0FibreSimple.yuB6Alg_of_qmDichotomyYu t3.t27) mulIsogeny_proved G0FibreSimple.rigidityHom
+TailI:235  [dead reader gluePieces_of_open3]        ⟨G0FibreSimple.finiteDescends_proof, hFS5⟩
+TailI:236  [dead reader gluePieces_of_open3]    { dimFinite := G0Split.dimFinite
+TailI:237  [dead reader gluePieces_of_open3]      dimBaseChange := G0Split.dimBaseChange
+TailI:238  [dead reader gluePieces_of_open3]      fibreSimple := hFS
+TailI:239  [dead reader gluePieces_of_open3]      productModelHeight := ZInQ.ProductHeight.productModelHeight_of_splits productUnifSplits_proved
+TailI:240  [dead reader gluePieces_of_open3]        (ZInQ.UnifDims.productMetrizationOfProductUnif_of_tangentDim t.t35 tangentDimAtOrigin_proved3)
+TailI:241  [dead reader gluePieces_of_open3]      stableHeightBaseChange := G0StableBC.stableHeightBaseChange_of_hodgeLine
+TailI:242  [dead reader gluePieces_of_open3]        (ZInQ.HeightBC.g0_hodgeLine_iff.mpr (ZInQ.HeightBC.hodgeLineBaseChange_of_glue4
+TailI:243  [dead reader gluePieces_of_open3]          hodgeBCInjective_proved3 cotangentSpanBC_proved omegaBaseChange_proved3
+TailI:244  [dead reader gluePieces_of_open3]          uniformizationLiftAnalytic_proved))
+TailI:245  [dead reader gluePieces_of_open3]      productExists := G0Product.productExists
+TailI:246  [dead reader gluePieces_of_open3]      reverseIsogeny := G0RevIsog.reverseIsogeny_of_leaves3 r3 G0Split.dimFinite
+TailI:247  [dead reader gluePieces_of_open3]      thetaPoint := G0Split.ThetaPt.thetaPointOfFibre_of_qm_ratios
+TailI:248  [dead reader gluePieces_of_open3]        (G0Split.FibreQM.fibreQMPeriod_main_rep r.r1r2 hMob l.qmHauptmodul
+TailI:249  [dead reader gluePieces_of_open3]          t.t35 t2.t11a l.qmClassNumberOne (r.r1b r.r1r2) (g.periodMapGlue r.r1r2)
+TailI:250  [dead reader gluePieces_of_open3]          g.hauptmodulUnique l.qmDenZeroCM3 cPtsTransport_proved3)
+TailI:251  [dead reader gluePieces_of_open3]        l.thetaRatiosAlgebraic
+TailI:252  [dead reader gluePieces_of_open3]      modularConstituent := modularConstituent_of_field t3
+TailI:253  [dead reader gluePieces_of_open3]        (G0ModField.fibreCoverExists_of_propTSAll' t.t5
+TailI:254  [dead reader gluePieces_of_open3]          (propTSAll_of_pieces3 r.r1r2 t.t5 l.y3Connected l.qmAutCard l.serreRigidity3 l.alFixedPoints
+TailI:255  [dead reader gluePieces_of_open3]            g.chartProper g.chartQuasiFinite g.heckeVertWitness) unramifiedConjugates_proved)
+TailI:256  [dead reader gluePieces_of_open3]        (G0ModField.KernelField.kernelFieldExists_of_split'' t.t6 r.r7a r.r6 t.t5 (G0FibreSimple.yuB6Alg_of_qmDichotomyYu t.t27)
+TailI:257  [dead reader gluePieces_of_open3]          hFS5 G0ModField.KernelField.oMaximal endTransport_proved conjIsogMaps_proved3)
+TailI:258  [dead reader gluePieces_of_open3]        UnramTate.unramifiedSup_mf
+TailI:259  [dead reader gluePieces_of_open3]        (G0AssembleMod.afterG7_of3 r3 t3
+TailI:260  [dead reader gluePieces_of_open3]          ⟨burnsideAbsIrred_proved3, r.r14,
+TailI:261  [dead reader gluePieces_of_open3]            g9Glue_of_deRhamComparisonHT r.r10,
+TailI:262  [dead reader gluePieces_of_open3]            G0Galois.g10Glue_of_conjTwist
+TailI:263  [dead reader gluePieces_of_open3]              (G0Galois.conjTwistNontrivial_of_leaves t.t5 t.t26 t.t35
+TailI:264  [dead reader gluePieces_of_open3]                (HomUnify.homLinearLift_of_corr t.homLatticeCorr)),
+TailI:265  [dead reader gluePieces_of_open3]            G0Galois.g12Weight_of_senTwist l.senTwist l.finiteImageHT,
+TailI:266  [dead reader gluePieces_of_open3]            G0Galois.detTate_of_leaves l.t09SymmIsogenyExists l.isogenyQuasiInverse
+TailI:267  [dead reader gluePieces_of_open3]              l.divisiblePoints t.t26,
+TailI:268  [dead reader gluePieces_of_open3]            G0AssembleMod.resQFiniteIndex⟩
+TailI:269  [dead reader gluePieces_of_open3]          (g9GlueNoT23_of_deRhamComparisonHT r.r10)
+TailI:270  [dead reader gluePieces_of_open3]          (G0ModNewform.dirichletOfFinite_of_t17 t17_proved) r.r17
+TailI:271  [dead reader gluePieces_of_open3]          Swan.swanIndependent_proved Swan.swanIntegral_proved
+TailI:272  [dead reader gluePieces_of_open3]          Swan.adaptedExists_proved
+TailI:273  [dead reader gluePieces_of_open3]          (modelG3G6_of_leaves3 hFS r.r7a r.r6 t.t5)
+TailI:274  [dead reader gluePieces_of_open3]          (G0AssembleMod.linkedTateData_of_local t.t7
+TailI:275  [dead reader gluePieces_of_open3]            (linkedTateLocal_of_leaves3 r.r6 t.t5 t.t26 g.abVarSpreadsOut l.properSmoothGenConnected
+TailI:276  [dead reader gluePieces_of_open3]              t.t4 t.t3 hFS t.t6 (G0FibreSimple.yuB6Alg_of_qmDichotomyYu t.t27))))
+TailI:277  [dead reader gluePieces_of_open3]      heightCopies := G0HeightCopies.heightCopiesAgree }
+TailI:278  [dead reader gluePieces_of_open3]  
+TailI:297  [#print of dead reader gluePieces_of_open3]  #print axioms HSyn.gluePieces_of_open3
+TailK:171  [field OpenTextbookLeaves4.t27]    t27 : PkgI3.QMDichotomyYu
+TailK:240  [assignment t27 in textbookLeaves3_of_open4]    t27 := t.t27
+TailN:223  [assignment t27 in textbookLeaves4_of_open5]    t27 := qmDichotomyYu_ofK5 t.t27
+TailO:2795  [field OpenTextbookLeaves6.t27]    t27 : _root_.PkgI3.QMDichotomyYu
+TailO:2864  [assignment t27 in textbookLeaves4_of_open6]    t27 := qmDichotomyYu_ofK5 t.t27
+TailX:138  [field OpenTextbookLeaves7.yuThm11]    /-- qm-split, H-35: Yu 2013 Thm 1.1 with its splitting clause (replaces `t27`). -/
+TailX:139  [field OpenTextbookLeaves7.yuThm11]    yuThm11 : QMSplit.Yu.YuThm11
+TailX:231  [assignment t27 in textbookLeaves6_of_open7]    t27 := QMSplit.Yu.qmDichotomyYu_of_yu t.yuThm11
+TailZ11:28  [field OpenTextbookLeaves10.yuThm11]    yuThm11 : QMSplit.Yu.YuThm11
+TailZ11:47  [assignment yuThm11 in textbookLeaves9_of_open10]    yuThm11 := t.yuThm11
+TailZ32:24  [field OpenTextbookLeaves11.yuThm11]    yuThm11 : QMSplit.Yu.YuThm11
+TailZ32:41  [assignment yuThm11 in openTextbookLeaves10_of_OpenTextbookLeaves11]    yuThm11 := n.yuThm11
+TailZ4:117  [field OpenTextbookLeaves8.yuThm11]    yuThm11 : QMSplit.Yu.YuThm11
+TailZ4:225  [assignment yuThm11 in textbookLeaves7_of_open8]    yuThm11 := t.yuThm11
+TailZ9:81  [field OpenTextbookLeaves9.yuThm11]    yuThm11 : QMSplit.Yu.YuThm11
+TailZ9:133  [assignment yuThm11 in textbookLeaves8_of_open9]    yuThm11 := t.yuThm11

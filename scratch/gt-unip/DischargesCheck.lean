@@ -1,0 +1,13 @@
+import ZInQKernel.OneProof.Main
+import ZInQKernel.OneProof.Discharges
+import ZInQKernel.Contrib.OneProof.UnipotentForward
+
+#discharges
+
+#print axioms UnipotentForward.semistableUnipotent_of_forwardGeom
+#print axioms UnipotentForward.semistableUnipotent_of_forward
+#print axioms UnipotentForward.strictHenselizationInside_of_neron
+#print axioms UnipotentForward.semistableUnipotentSH_of_forwardGeom
+#print axioms UnipotentForward.semiAbelianDescends_of_perfect
+#print axioms UnipotentForward.forward_of_forwardGeom
+#print axioms UnipotentForward.forwardGeom_of_forward

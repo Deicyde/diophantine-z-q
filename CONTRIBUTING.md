@@ -58,7 +58,7 @@ Run project commands from the repository root. `lean-toolchain` selects **Lean 4
 
 The root Lake project is the current `ZInQKernel` development tree. The separate `lean/` package is the byte-preserved accepted helper snapshot from the research archive; it is **not a replacement for building your new kernel contribution**.
 
-You do not need to build anything to contribute. For a pull request that only adds files under `ZInQKernel/Contrib/OneProof/`, the project runs the discharge check on the files it adds, built on top of the current `main`, in an isolated environment with no secrets and no access to project machines, and posts the result on the pull request; a pull request that changes anything else is out of scope for the automatic check. The automatic check is being set up: until the project has posted its first check, include your own `#discharges` output in the pull request. The automatic result is advisory, and a person reads every file before it is merged. The repository's default `lake build` does not compile `ZInQKernel/Contrib/OneProof`, so a green CI check says nothing about a contribution. If you want to build locally, the measured costs are in the build-cost table of [`docs/one-proof/CONTRIBUTING.md`](docs/one-proof/CONTRIBUTING.md#what-it-costs-to-build).
+You do not need to build anything to contribute. For a pull request into `main` that only adds files under `ZInQKernel/Contrib/OneProof/`, the discharge check runs on the files it adds, built on top of the current `main`, as the GitHub Actions check "discharge check" on a fresh hosted runner with no secrets and no access to project machines ([`scripts/one_proof/sandbox/README.md`](scripts/one_proof/sandbox/README.md)). The verdict is in the check's job summary, and the run may wait for a maintainer to approve it before it starts. A pull request that changes anything else is out of scope for the automatic check. The automatic check is being set up: until it has run on a first contribution, include your own `#discharges` output in the pull request. The automatic result is advisory; the project's agents check every pull request before it is merged. The other checks do not compile `ZInQKernel/Contrib/OneProof`, so their green marks say nothing about a contribution. If you want to build locally, the measured costs are in the build-cost table of [`docs/one-proof/CONTRIBUTING.md`](docs/one-proof/CONTRIBUTING.md#what-it-costs-to-build).
 
 ## Implement and reuse
 
@@ -102,13 +102,13 @@ lake build
 
 ## Open a focused PR
 
-Commit your contribution to your fork and open a pull request **against `Deicyde/diophantine-z-q` branch `main`**, naming the claimed hypothesis. The merge bar is in [`docs/one-proof/CONTRIBUTING.md`](docs/one-proof/CONTRIBUTING.md#how-to-check-it); Jack merges, and the integrator folds accepted results into the single assembly.
+Commit your contribution to your fork and open a pull request **against `Deicyde/diophantine-z-q` branch `main`**, naming the claimed hypothesis. The merge bar is in [`docs/one-proof/CONTRIBUTING.md`](docs/one-proof/CONTRIBUTING.md#how-to-check-it); the project's integrator merges a pull request that meets it and folds accepted results into the single assembly.
 
 Include:
 
 - the full Lean statement name, claim/issue link, and base and head commits;
 - the exact theorem and any genuinely remaining inputs, plus new dependency or source-port details;
-- commands actually run, compilation results, the `#discharges` lines (needed until the project has posted its first automatic check; afterwards, if you have them), the axiom output, and relevant source hashes/logs;
+- commands actually run, compilation results, the `#discharges` lines (needed until the automatic check has run on a first contribution; afterwards, if you have them), the axiom output, and relevant source hashes/logs;
 - what the checks establish and what they do not, especially for computations, audits or conditional wrappers;
 - upstream source revisions and preserved third-party notices for reused code;
 - the AI tools' contribution, and the independent verification or review performed.
@@ -138,7 +138,7 @@ Credit goes to the operator, marked AI-assisted. Good fits: reducing a GLUE hypo
 - [Blueprint Pages](.github/workflows/blueprint-pages.yml) builds the site on PRs; deployment follows a verified push to `main`, not a PR or manual site build.
 - [Lean WIP](.github/workflows/lean-wip.yml) is a manually dispatched build of the default target.
 
-None of these compiles `ZInQKernel/Contrib/OneProof`. A passing workflow proves only its stated checks passed on that commit. It is not independent human review or completion of the full theorem. For a contribution, the automatic result is the discharge check the project posts on the PR; it is advisory, and a person reads every file before it is merged.
+None of these compiles `ZInQKernel/Contrib/OneProof`. A passing workflow proves only its stated checks passed on that commit. It is not independent human review or completion of the full theorem. For a contribution, the automatic result is the check "discharge check" on the PR, with its verdict in the job summary; it is advisory, and the project's agents check every file before it is merged (no person reads every file).
 
 For optional local research-package checks, see [docs/building.md](docs/building.md). In particular, `python scripts/check_lean.py` is the archival source/quarantine check, while its `--build` mode checks that package's accepted helpers; neither substitutes for compiling your `ZInQKernel/Contrib/` module. Construction checks need Python 3.11+ and Node.js 22+ and establish finite cases, not the main theorem.
 

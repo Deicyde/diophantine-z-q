@@ -1,0 +1,21 @@
+DISCHARGES [OpenResearchLeaves19.gonzalezRotgerProp56X6] by GRCountX6.prop56X6_of_r5fpCount
+  still assumes: [LeafQM.AV.R5fpCount]
+  axioms: [propext, Classical.choice, Quot.sound]
+DISCHARGES [OpenResearchLeaves19.neronBaseChangeStrictHenselization] by GapSHPair.neronBaseChangeStrictHenselization_of_unramified
+  still assumes: [ReductGlue.NeronBaseChangeUnramifiedDVR]
+  axioms: [propext, Classical.choice, Quot.sound]
+DISCHARGES [OpenResearchLeaves19.elkiesX6StarPrinted] by HDec.QMSplit.Moduli.ElkiesX6Star.elkiesX6StarPrinted_of_ab
+  still assumes: [HDec.QMSplit.Moduli.ElkiesEquationsX6Ab]
+  axioms: [propext, Classical.choice, Quot.sound]
+DISCHARGES [OpenResearchLeaves19.sga7_IX_3_3] by SGA7PersistsNF.sga7_IX_3_3_of_SH
+  still assumes: [SGA7PersistsNF.SGA7_IX_3_3_SH,
+ GapSHPair.NeronBaseChangeStrictHenselization,
+ CToPrinted.SGA3_VIB_3_10,
+ AVGlue.GeomConnOfRationalPoint]
+  axioms: [propext, Classical.choice, Quot.sound]
+#discharges: 68 open hypotheses, 982 theorems checked, 4 discharge one
+'SGA7PersistsNF.sga7_IX_3_3_of_SH' depends on axioms: [propext, Classical.choice, Quot.sound]
+'SGA7PersistsNF.sga7_IX_3_3cp_of_SHcp' depends on axioms: [propext, Classical.choice, Quot.sound]
+'SGA7PersistsNF.semistableNeronBaseChange_of_printed_cp' depends on axioms: [propext, Classical.choice, Quot.sound]
+'SGA7PersistsNF.semistableNeronBaseChange_of_SHcp' depends on axioms: [propext, Classical.choice, Quot.sound]
+7.61 s 8863816 KB

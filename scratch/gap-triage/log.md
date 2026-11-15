@@ -13,7 +13,7 @@ Base e38375b3 (w62). Started 2026-11-14 17:46 PST. Deadline 11-15 06:00 PST.
 - VERIFIED (grep MCRQuot.lean): `hCov : CoverModelOfHeckeN` is used only via `modelYIrreducible_of_coverModelN hT hCov` (L7624, L7741); final5..final9 and heckeVertWitness_of_mcrQuot only pass it on. `modelCoordinateResidue_final4` already takes `hYI : ModelYIrreducible` instead.
 - VERIFIED (read): MCRQuot.ModelYIrreducible (L7336) body = HDec.PropTSGlue.HeckeIrreducible body (TailG L3919); chain has HDec.TSHecke.heckeIrreducible_of_connected : Y3Connected → HeckeIrreducible (TailG L8380); Y3Connected is filled from field deligneComponentsY3Printed (TailZ13 L55). ⇒ CoverModelOfHeckeN / Lemma NV not needed. Probe GlueProbe.lean written (pending compile).
 - VERIFIED (read): CloudW07 ProjectiveLine: projectiveLine (Proj), isProper_toSpec, smoothOfRelativeDimension_toSpec, chartSpecIso, isAffineOpen_chart, polyEquivChart; ProjectiveSpace.homOfSections, hom_ext, instIsProper; ProjectiveLine.normalized, normalized_eq_of_mul_eq_one. Mathlib Scheme.OpenCover.glueMorphisms (Gluing.lean L444).
-- leaf-fold11 §5 (w63) lists QuotientP1Coordinate as running or queued on "cove-85".
+- leaf-fold11 §5 (w63) lists QuotientP1Coordinate as running or queued on another project task.
 
 ## Agent reports received
 - agent-A2.md (Fuchsian/theta): ValenceFormulaGammaStarEq could replace valenceFormulaCocompactEq + shimizuCovolumeO1; ThetaModularityM46 (two explicit matrices) could replace igusaPsi4 + igusaChi10. To check.

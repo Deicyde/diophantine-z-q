@@ -1,0 +1,37 @@
+{
+ "name": "leaf-fold20",
+ "imports": [
+  "ZInQKernel.Contrib.OneProof.SGA7PersistsNF",
+  "ZInQKernel.Contrib.OneProof.UnipotentForward"
+ ],
+ "discharges": [
+  {
+   "field": "sga7_IX_3_3",
+   "proof": "_root_.SGA7PersistsNF.sga7_IX_3_3_of_SH {n}.sga7_IX_3_3_SH {n}.neronBaseChangeStrictHenselization {n}.sga3_VIB_3_10 {t}.geomConnOfRationalPoint",
+   "leaves": [
+    {
+     "name": "sga7_IX_3_3_SH",
+     "type": "_root_.SGA7PersistsNF.SGA7_IX_3_3_SH",
+     "doc": "gt-sga7, printed form: SGA 7 I, Exp. IX, Prop. 3.3, second assertion (N0 x_S S' = N'0 for semistable reduction) over strictly henselian traits (number UNVERIFIED). With neronBaseChangeStrictHenselization, sga3_VIB_3_10 and geomConnOfRationalPoint replaces sga7_IX_3_3 (SGA7PersistsNF.sga7_IX_3_3_of_SH).",
+     "kind": "published",
+     "flag": "pending review (statement review running); reading risk (gt-sga7 section 4, as for raynaudSemistableSH): the print may assume an algebraically closed residue field; the restricted form SGA7PersistsNF.SGA7_IX_3_3_SHcp is then the print",
+     "source": "SGA 7 I Exp. IX Prop. 3.3, second assertion, over strictly henselian traits: N0 x_S S' -> N'0 is an isomorphism for semistable reduction (number UNVERIFIED); with neronBaseChangeStrictHenselization (BLR 1.2/2) and fpqc descent gives the general-DVR field sga7_IX_3_3"
+    }
+   ]
+  },
+  {
+   "field": "semistableUnipotent",
+   "proof": "_root_.UnipotentForward.semistableUnipotent_of_forwardGeom {n}.sga7_IX_3_5_ForwardGeom _root_.ZInQ.Contrib.OneProof.MulEtale.mulEtaleAbelianScheme_proof {n}.neronBaseChangeStrictHenselization",
+   "leaves": [
+    {
+     "name": "sga7_IX_3_5_ForwardGeom",
+     "type": "_root_.UnipotentForward.SGA7_IX_3_5_ForwardGeom",
+     "doc": "gt-unip, printed form, strictly henselian base: SGA 7 I Exp. IX Prop. 3.5, direction semistable => (sigma-1)^2 = 0 on T_l = lim A(K^s)[l^n] for sigma in inertia, one sigma at a time (the print gives (sigma-1)(tau-1) = 0 and the converse); number UNVERIFIED. Semistability read on the geometric special fibre; reading risk: if the print reads it over k(s), this form exceeds the print by UnipotentForward.SemiAbelianDescendsSepClosed for imperfect residue fields only (the reading-robust variant is UnipotentForward.semistableUnipotent_of_forward). Replaces semistableUnipotent; StrictHenselizationInside and the K^s axis are proved.",
+     "kind": "published",
+     "flag": "pending review (statement review running); reading risk: SGA 7 IX may read semistability over k(s); then this form needs SemiAbelianDescendsSepClosed (imperfect residue fields only)",
+     "source": "SGA 7 I Exp. IX Prop. 3.5, forward direction at sigma = tau, over a strictly henselian DVR with K^s (number UNVERIFIED)"
+    }
+   ]
+  }
+ ]
+}

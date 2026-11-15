@@ -59,7 +59,7 @@ Check with `lake env lean scratch/g15-ram/G15Ram.lean`.
   1684-1690, 2037, 2448-2464) of `ModData`, `U0`, `LocalRamG`, `G15RamG`, and (from
   `scratch/g0-mod-galois/part_galois.lean` line 164) of `G0Galois.G11Out`.
 * §1. The named smaller Props (glue), each with its glue step and source.
-* §2. Local field: `upperBreakFix_of_hilbertSerre` (proved): Glazer's break bound
+* §2. Local field: `upperBreakFix_of_hilbertSerre` (proved): the manuscript's break bound
   `G_{ℚ_p}^t ⊆ G_F` for `t > 4a²` when `e(F/ℚ_p) ≤ a!`, at the level of `LadicCond`'s
   `upperAbs`, from the transport `HilbertSerreLadic` of T20 + T21 and the kernel's D1 arithmetic
   `GlueConductor.upper_break_le`.
@@ -3097,7 +3097,7 @@ theorem card_GL4_five :
 
 /-- **`TorsFixWildOdd` at every `p ≠ ℓ` (proved)** from the leaves R6, I2-Tors and the glue
 `DescentPts`: `torsFix_of_descent` with `M = L_v` and `q = 3` (`q = 5` if `p = 3`);
-`|GL₄(𝔽₃)| = 24261120 ≤ G₀` and `|GL₄(𝔽₅)| = G₀` (Glazer's `E = L_v(A_L[3])`, resp. `A_L[5]`). -/
+`|GL₄(𝔽₃)| = 24261120 ≤ G₀` and `|GL₄(𝔽₅)| = G₀` (the manuscript's `E = L_v(A_L[3])`, resp. `A_L[5]`). -/
 theorem torsFixWildOdd_of_descent (hR6 : ObjBridge.RaynaudCriterion)
     (hTors : ObjBridge.TorsionStructure) {A : PkgI3.AbVar K}
     {L : IntermediateField ℚ PkgI4.Qbar} [FiniteDimensional ℚ L] (hD : DescentPts A L)

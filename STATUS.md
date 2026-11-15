@@ -22,10 +22,10 @@ The open statements of the current proof (generated from docs/one-proof/OPEN.md;
 describe the fork main they name):
 
 <!-- open-count:begin -->
-**59 hypotheses of the H part** (in the bundles `OpenAddedLeaves16`, `OpenGlue7`, `OpenResearchLeaves19`, `OpenTextbookLeaves10`), plus 7 hypotheses of the Tian–Yuan–Zhang and Gross–Zagier parts listed at the end of docs/one-proof/OPEN.md.
+**56 hypotheses of the H part** (in the bundles `OpenAddedLeaves17`, `OpenGlue7`, `OpenResearchLeaves21`, `OpenTextbookLeaves11`), plus 7 hypotheses of the Tian–Yuan–Zhang and Gross–Zagier parts listed at the end of docs/one-proof/OPEN.md.
 
-* **Strict count: 45 published / 14 glue** (the strictest flagged reading; 46/13 without the one strictest-reading flag).
-* By kind: composite 4, consequence 7, project glue 1, published 47.
+* **Strict count: 45 published / 11 glue** (the strictest flagged reading; 46/10 without the one strictest-reading flag).
+* By kind: composite 4, consequence 4, project glue 1, published 47.
 * Generated from docs/one-proof/OPEN.md by scripts/one_proof/render_open.py.
 <!-- open-count:end -->
 
@@ -423,9 +423,9 @@ statements, some textbook theorems are proved, and the project's reductions add 
 
 ## How to help
 
-Start at https://github.com/Deicyde/diophantine-z-q/issues/14, which a coding agent can follow as written: pick an
-open statement nobody has claimed, claim it, prove exactly that Lean statement and open a pull request against the
-fork's main, where the proof is folded into `ZInQ.OneProof.frozenTarget`. docs/one-proof/OPEN.md lists every open
+Start at https://github.com/Deicyde/diophantine-z-q/issues/14, which a coding agent can follow as written to prove
+exactly the Lean statement of an open hypothesis and open a pull request against the fork's main, where the proof
+is folded into `ZInQ.OneProof.frozenTarget`. docs/one-proof/OPEN.md lists every open
 hypothesis of that theorem with its exact Lean statement, its kind, its source and who is working on it;
 CONTRIBUTING.md is the guide for contributors, and docs/one-proof/CONTRIBUTING.md the short contract for a proof,
 which `#discharges` checks.

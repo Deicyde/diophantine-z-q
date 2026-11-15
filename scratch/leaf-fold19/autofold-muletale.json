@@ -1,0 +1,5 @@
+{"name": "leaf-fold19",
+ "imports": ["ZInQKernel.Contrib.OneProof.MulEtale"],
+ "discharges": [
+   {"field": "mulEtaleAbelianScheme",
+    "proof": "_root_.ZInQ.Contrib.OneProof.MulEtale.mulEtaleAbelianScheme_proof"}]}

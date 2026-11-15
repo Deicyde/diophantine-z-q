@@ -1,6 +1,6 @@
 # Fact-check of the wave 22-24 notes at origin/wip/integrate-w34b = 01267822
 
-Read-only checkout (`.swarm-worktrees/zq-factcheck-w34b`, detached at 01267822). No Lean built; claims were checked with git grep and reading against the Lean at that commit. Six parallel readers covered the 13 notes. Items marked **[V]** I re-verified myself; the rest were checked by one reader only. Build times, `#print axioms` outputs, literature locators and model-review verdicts can't be checked from source and are not listed.
+Read-only checkout (detached at 01267822). No Lean built; claims were checked with git grep and reading against the Lean at that commit. Six parallel readers covered the 13 notes. Items marked **[V]** I re-verified myself; the rest were checked by one reader only. Build times, `#print axioms` outputs, literature locators and model-review verdicts can't be checked from source and are not listed.
 
 ## Priority checks
 

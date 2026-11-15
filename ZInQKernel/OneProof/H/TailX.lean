@@ -135,8 +135,6 @@ structure OpenTextbookLeaves7 : Prop where
   gagaMorphism : _root_.ZInQ.HomLattice.GAGAMorphism
   t11bExists : AVB2.T11bExists
   t24 : _root_.PkgI4.EigenformTwist
-  /-- qm-split, H-35: Yu 2013 Thm 1.1 with its splitting clause (replaces `t27`). -/
-  yuThm11 : QMSplit.Yu.YuThm11
   t33 : _root_.LeafModCurves.JacobianExists ℚ
   dimJacobianEqGenus : _root_.ZInQ.Contrib.CurvesG.DimJacobianEqGenus
   normalModelOfFunctionFieldQ : _root_.ZInQ.Contrib.CurvesG.NormalModelOfFunctionFieldQ
@@ -228,7 +226,6 @@ theorem textbookLeaves6_of_open7 (t : OpenTextbookLeaves7) (l : OpenAddedLeaves7
   homLatticeCorr := _root_.AvSplit.Final.h69 t.uniformizationLeafAll t.gagaMorphism
   t11bExists := t.t11bExists
   t24 := t.t24
-  t27 := QMSplit.Yu.qmDichotomyYu_of_yu t.yuThm11
   t33 := t.t33
   dimJacobianEqGenus := t.dimJacobianEqGenus
   t35 := _root_.AvSplit.Final.h38 t.uniformizationLeafAll t.mumfordTorsionAlgClosed
@@ -278,9 +275,9 @@ theorem glue6_of_open7 (g : OpenGlue7) : OpenGlue6 where
 `ZInQ.SixContactMin` follows from `OpenResearchLeaves7` (29), `OpenTextbookLeaves7` (23), `OpenAddedLeaves7` (16)
 and `OpenGlue7` (1, `QuotientP1Coordinate`). The table of every field is `docs/research/leaf-fold7.md` §2. -/
 theorem sixContactMin_of_open7 (r : OpenResearchLeaves7) (t : OpenTextbookLeaves7) (l : OpenAddedLeaves7)
-    (g : OpenGlue7) (h20 : G0Split.R20Lower) : ZInQ.SixContactMin :=
+    (g : OpenGlue7) (h20 : G0Split.R20Lower) (hYu : QMLattice.YuB6Alg) : ZInQ.SixContactMin :=
   sixContactMin_of_open6 (researchLeaves5_of_open7 r l) (textbookLeaves6_of_open7 t l) (addedLeaves6_of_open7 r t l)
-    (glue6_of_open7 g) h20
+    (glue6_of_open7 g) h20 hYu
 
 end HSyn
 

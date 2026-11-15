@@ -4,9 +4,10 @@ import ZInQKernel.OneProof.Discharges
 /-!
 # The discharge check's reporter
 
-Run it only in the sandbox, after the build. `discharge_check.sh` writes `.sandbox/Report.lean`: the imports of
-`ZInQKernel.OneProof.Main`, `ZInQKernel.OneProof.Discharges` and the contributed modules, then this file
-without its `import` lines, and runs `lake env lean .sandbox/Report.lean`.
+The discharge check workflow runs it after the build; never run it on a project machine with a contribution.
+`discharge_check.sh` writes `.sandbox/Report.lean`: the imports of `ZInQKernel.OneProof.Main`,
+`ZInQKernel.OneProof.Discharges` and the contributed modules, then this file without its `import` lines, and runs
+`lake env lean .sandbox/Report.lean`.
 
 `#discharges_json` repeats the matching of `#discharges` (`ZInQKernel/OneProof/Discharges.lean`): for each
 candidate theorem, the whole type, then the type with its non-dependent `Prop` hypotheses peeled one by one,

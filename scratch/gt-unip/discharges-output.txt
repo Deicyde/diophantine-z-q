@@ -1,0 +1,28 @@
+DISCHARGES [OpenResearchLeaves19.gonzalezRotgerProp56X6] by GRCountX6.prop56X6_of_r5fpCount
+  still assumes: [LeafQM.AV.R5fpCount]
+  axioms: [propext, Classical.choice, Quot.sound]
+DISCHARGES [OpenResearchLeaves19.neronBaseChangeStrictHenselization] by GapSHPair.neronBaseChangeStrictHenselization_of_unramified
+  still assumes: [ReductGlue.NeronBaseChangeUnramifiedDVR]
+  axioms: [propext, Classical.choice, Quot.sound]
+DISCHARGES [OpenResearchLeaves19.elkiesX6StarPrinted] by HDec.QMSplit.Moduli.ElkiesX6Star.elkiesX6StarPrinted_of_ab
+  still assumes: [HDec.QMSplit.Moduli.ElkiesEquationsX6Ab]
+  axioms: [propext, Classical.choice, Quot.sound]
+DISCHARGES [OpenResearchLeaves19.semistableUnipotent] by UnipotentForward.semistableUnipotent_of_forward
+  still assumes: [UnipotentForward.SGA7_IX_3_5_Forward,
+ UnipotentForward.SemiAbelianDescendsSepClosed,
+ AvSplit.T4.MulEtaleAbelianScheme,
+ GapSHPair.NeronBaseChangeStrictHenselization]
+  axioms: [propext, Classical.choice, Quot.sound]
+DISCHARGES [OpenResearchLeaves19.semistableUnipotent] by UnipotentForward.semistableUnipotent_of_forwardGeom
+  still assumes: [UnipotentForward.SGA7_IX_3_5_ForwardGeom,
+ AvSplit.T4.MulEtaleAbelianScheme,
+ GapSHPair.NeronBaseChangeStrictHenselization]
+  axioms: [propext, Classical.choice, Quot.sound]
+#discharges: 68 open hypotheses, 993 theorems checked, 5 discharge one
+'UnipotentForward.semistableUnipotent_of_forwardGeom' depends on axioms: [propext, Classical.choice, Quot.sound]
+'UnipotentForward.semistableUnipotent_of_forward' depends on axioms: [propext, Classical.choice, Quot.sound]
+'UnipotentForward.strictHenselizationInside_of_neron' depends on axioms: [propext, Classical.choice, Quot.sound]
+'UnipotentForward.semistableUnipotentSH_of_forwardGeom' depends on axioms: [propext, Classical.choice, Quot.sound]
+'UnipotentForward.semiAbelianDescends_of_perfect' depends on axioms: [propext, Classical.choice, Quot.sound]
+'UnipotentForward.forward_of_forwardGeom' depends on axioms: [propext, Classical.choice, Quot.sound]
+'UnipotentForward.forwardGeom_of_forward' depends on axioms: [propext, Classical.choice, Quot.sound]

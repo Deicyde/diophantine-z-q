@@ -1,22 +1,27 @@
 #!/usr/bin/env bash
-# The discharge check. Run it ONLY inside the sandbox (a GitHub-hosted runner of the throwaway sandbox
-# repository, or a disposable container), never on a project machine: it builds outside code, and Lean runs
-# code while it elaborates.
+# The discharge check. It runs in the fork's workflow .github/workflows/contrib-discharges.yml, on a
+# GitHub-hosted runner, at the root of the pull request's checkout; never run it on a project machine: it builds
+# outside code, and Lean runs code while it elaborates. See README.md in this directory.
 #
-# Usage: discharge_check.sh [build|report|all|measure]   (default: all)
+# Usage: discharge_check.sh scope BASE HEAD
+#        discharge_check.sh [build|report|all|measure]   (default: all)
 #
-# Runs at the root of a prepared commit (see prepare_commit.sh and README.md in this directory).
+#   scope    runs scan_contrib.py on BASE and HEAD (git objects only, before anything is built), writes
+#            .sandbox/out/scan.json and, in scope, .sandbox/manifest.json {base, head, added}. Exit status 0 in
+#            scope, 2 out of scope, 1 on error.
 #   build    reads .sandbox/manifest.json and builds +ZInQKernel.OneProof.Main, +ZInQKernel.OneProof.Discharges
 #            and each added module; writes .sandbox/out/build.log and the build's status and time.
 #   report   needs DISCHARGE_NONCE (the workflow sets it from a fresh random value in this step only). Runs
-#            `#discharges` from a generated .sandbox/Check.lean for display, with the nonce unset, then the
-#            trusted reporter DischargesJson.lean through a generated .sandbox/Report.lean, runs
-#            render_open.py --check for information, and writes .sandbox/out/check.log and
-#            .sandbox/out/result.json. Exit status 0 on pass, 1 on fail.
+#            `#discharges` from a generated .sandbox/Check.lean for display, with the nonce removed from its
+#            environment (its imports can still read it from this process), then the trusted reporter
+#            DischargesJson.lean through a generated .sandbox/Report.lean, runs render_open.py --check for
+#            information, and writes .sandbox/out/check.log and .sandbox/out/result.json. Exit status 0 on
+#            pass, 1 on fail.
 #   all      build, then report.
-#   measure  on a measurement commit (prepare_commit.sh --measure): builds +ZInQKernel.OneProof.Main alone
-#            under /usr/bin/time -v when GNU time is present, records df and free before and after, and
-#            writes .sandbox/out/result.json with the commit, wall-clock, peak memory and Lake job count.
+#   measure  with no contribution: builds +ZInQKernel.OneProof.Main alone under /usr/bin/time -v when GNU time
+#            is present, records df and free before and after, and writes .sandbox/out/result.json with the
+#            commit, wall-clock, peak memory and Lake job count.
+# A build stops after 270 minutes, inside the workflow's 300-minute job limit.
 set -uo pipefail
 
 mode="${1:-all}"
@@ -35,12 +40,37 @@ if /usr/bin/time -v true >/dev/null 2>&1; then
   timer=(/usr/bin/time -v -o "$out/time.txt")
 fi
 
-if [ "$mode" = measure ]; then
-  # Leave 15 minutes of the 360-minute job limit for the upload.
-  limit=()
-  if command -v timeout >/dev/null 2>&1; then
-    limit=(timeout 345m)
+# Leave 30 minutes of the job limit for the setup, the reporter, the summary and the upload.
+limit=()
+if command -v timeout >/dev/null 2>&1; then
+  limit=(timeout 270m)
+fi
+
+if [ "$mode" = scope ]; then
+  if [ $# -ne 3 ]; then
+    echo "usage: discharge_check.sh scope BASE HEAD" >&2
+    exit 1
   fi
+  rm -f "$manifest"
+  scan_status=0
+  python3 -I "$here/scan_contrib.py" "$2" "$3" --json "$out/scan.json" || scan_status=$?
+  if [ "$scan_status" -ne 0 ]; then
+    exit "$scan_status"
+  fi
+  python3 -I - "$out/scan.json" "$manifest" <<'PY'
+import json, sys
+scan = json.load(open(sys.argv[1]))
+if scan.get('scope_ok') is not True:
+    sys.exit('discharge_check: the scan does not report scope_ok')
+manifest = {'base': scan['base'], 'head': scan['head'], 'added': [f['path'] for f in scan['files']]}
+with open(sys.argv[2], 'w') as fh:
+    json.dump(manifest, fh, indent=2)
+    fh.write('\n')
+PY
+  exit $?
+fi
+
+if [ "$mode" = measure ]; then
   df -k / > "$out/df-before.txt" 2>&1
   free -k > "$out/free-before.txt" 2>&1
   start=$(date +%s)
@@ -58,11 +88,12 @@ fi
 
 case "$mode" in
   build|report|all) ;;
-  *) echo "usage: discharge_check.sh [build|report|all|measure]" >&2; exit 1 ;;
+  *) echo "usage: discharge_check.sh scope BASE HEAD | discharge_check.sh [build|report|all|measure]" >&2
+     exit 1 ;;
 esac
 
 if [ ! -f "$manifest" ]; then
-  echo "discharge_check: no $manifest; run this only on a prepared commit" >&2
+  echo "discharge_check: no $manifest; run discharge_check.sh scope first" >&2
   exit 1
 fi
 
@@ -92,7 +123,8 @@ if [ "$mode" != report ]; then
   date +%s > "$out/start"
   build_start=$(date +%s)
   # The nonce is never visible to the build.
-  env -u DISCHARGE_NONCE ${timer[@]+"${timer[@]}"} lake build $targets 2>&1 | tee "$out/build.log"
+  env -u DISCHARGE_NONCE ${limit[@]+"${limit[@]}"} ${timer[@]+"${timer[@]}"} lake build $targets 2>&1 \
+    | tee "$out/build.log"
   build_status=${PIPESTATUS[0]}
   echo "$build_status" > "$out/build.status"
   echo "$(( $(date +%s) - build_start ))" > "$out/build.seconds"

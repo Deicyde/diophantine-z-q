@@ -1,14 +1,14 @@
-"""Format the pull-request comment of the discharge check.
+"""Format the job summary of the discharge check.
 
 Usage: python3 discharge_comment.py --scan SCAN.json [--result RESULT.json] [--pr N] [--run-url URL]
        [--out FILE]
 
-SCAN.json is scan_contrib.py's output for the pull request, made on a project machine; RESULT.json is the
-sandbox run's .sandbox/out/result.json (absent when the pull request is out of scope, or when the run wrote
-none). The base and head come from SCAN.json and the pull request number from --pr, never from RESULT.json,
-which contributor code can rewrite. A RESULT.json that does not have the expected shape counts as no result.
-Every piece of text from the pull request or the sandbox is printed inside a code span. Prints the comment as
-Markdown, or writes it to FILE.
+SCAN.json is scan_contrib.py's output for the pull request, written by the scope step before anything is built;
+RESULT.json is the check's .sandbox/out/result.json (absent when the pull request is out of scope, or when the
+run wrote none). The base and head come from SCAN.json, never from RESULT.json. A RESULT.json that does not have
+the expected shape counts as no result. Every piece of text from the pull request or the run is printed inside a
+code span. Prints the summary as Markdown (the workflow appends it to $GITHUB_STEP_SUMMARY), or writes it to
+FILE.
 """
 import argparse
 import json
@@ -16,13 +16,11 @@ import re
 import sys
 
 PREFIX = 'ZInQKernel/Contrib/OneProof/'
-HIT_SENTENCE = ('This file has scan hits: it may contain code that runs at build time, so a person must read '
-                'it before this result counts.')
-ADVISORY = ('The result is advisory for every file: contributor code runs during the sandbox build and can '
-            'forge the result, and a clean scan does not rule that out.')
-REMINDER = 'A person reads every file before Jack merges it; this check does not replace that read.'
-ROLE = 'project discharge check.'
-FOOTER = 'Posted by Claude Code, at Jack\'s request.'
+HIT_SENTENCE = ('This file has scan hits: it may contain code that runs at build time. A file with scan hits is '
+                'not merged, and this result does not count while it has them.')
+ADVISORY = ('The result is advisory for every file: contributor code runs during the build, and again when the '
+            'reporter imports it, so it can forge the result, and a clean scan does not rule that out.')
+REMINDER = 'The project\'s agents also run the build, axiom and build-time-code checks before a merge; this check is one of them.'
 MAX_HITS = 50
 
 
@@ -133,7 +131,7 @@ def format_comment(scan, result=None, run_url=None, pr=None):
     else:
         verdict = 'pass' if result['passed'] else 'fail'
     if in_scope and flagged:
-        w('### Discharge check: %s, which does not count until a person has read every file with scan hits'
+        w('### Discharge check: %s, which does not count while a file has scan hits'
           % verdict)
     else:
         w('### Discharge check: %s' % verdict)
@@ -146,17 +144,17 @@ def format_comment(scan, result=None, run_url=None, pr=None):
         w('Run: %s' % run_url)
     w('')
     if not in_scope:
-        w('This pull request is out of scope for the automatic check, so nothing was built. The check builds '
-          'only pull requests that add new files under %s:' % code(PREFIX))
+        w('The automatic check covers only pull requests that add new files under %s and change nothing '
+          'else. This pull request is out of scope, so nothing was built:' % code(PREFIX))
         w('')
         for p in scan.get('scope_problems', []):
             w('- %s' % code(p))
         w('')
     elif result is None:
-        w('The sandbox run wrote no result; the run log says why.')
+        w('The check wrote no result; the run log says why.')
         w('')
     elif invalid:
-        w('The sandbox result does not have the expected shape (%s), so it counts as no result.' % invalid)
+        w('The result does not have the expected shape (%s), so it counts as no result.' % invalid)
         w('')
     else:
         if result.get('head') != scan.get('head') or result.get('base') != scan.get('base'):
@@ -224,14 +222,11 @@ def format_comment(scan, result=None, run_url=None, pr=None):
         w('')
     w(ADVISORY)
     w(REMINDER)
-    w('')
-    w(ROLE)
-    w(FOOTER)
     return '\n'.join(out) + '\n'
 
 
 def main(argv=None):
-    ap = argparse.ArgumentParser(description='Format the discharge check comment.')
+    ap = argparse.ArgumentParser(description='Format the discharge check job summary.')
     ap.add_argument('--scan', required=True)
     ap.add_argument('--result')
     ap.add_argument('--pr', type=int)

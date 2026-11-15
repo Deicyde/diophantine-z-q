@@ -9,7 +9,8 @@ Inputs (run from the repository root):
   request that links it, holds a hypothesis, and the project's own holds may point at a pushed branch; a project
   brief is shown as project interest, free to claim; a released claim shows as open);
 * docs/one-proof/reviews.tsv and credits.tsv, the ledgers of statement checks and credit;
-* docs/one-proof/issues.json, the claim issue, the statement-checks issue and the packet issues;
+* docs/one-proof/issues.json, the claim issue, the statement-checks issue, the packet issues and the issue that
+  logs folds and landings;
 * scratch/contrib-kit/DischargesTest-output.txt, the saved output of scratch/contrib-kit/DischargesTest.lean.
 
 Outputs: docs/one-proof/OPEN.md, docs/one-proof/pages-wanted.md, the worked example in
@@ -125,7 +126,8 @@ def issue_link(ref):
 def load():
     data = json.load(open(D + 'open-statements.json'))
     kinds_rows = read_tsv(D + 'kinds.tsv')
-    issues = {'claims_issue': 'Deicyde/diophantine-z-q#14', 'statement_checks_issue': '', 'packet_issues': {}}
+    issues = {'claims_issue': 'Deicyde/diophantine-z-q#14', 'statement_checks_issue': '', 'packet_issues': {},
+              'log_issue': 'Deicyde/diophantine-z-q#3'}
     if os.path.exists(ISSUES):
         issues.update(json.load(open(ISSUES)))
     return dict(
@@ -224,7 +226,8 @@ def validate(m):
         if r['kind'] not in CREDIT_KINDS:
             problems.append(f"credits.tsv: {r['item']}: unknown kind {r['kind']!r}")
     iss = m['issues']
-    refs = [iss.get('claims_issue', '')] + ([iss['statement_checks_issue']] if iss.get('statement_checks_issue') else []) \
+    refs = [iss.get('claims_issue', ''), iss.get('log_issue', '')] \
+        + ([iss['statement_checks_issue']] if iss.get('statement_checks_issue') else []) \
         + list(iss.get('packet_issues', {}).values())
     for ref in refs:
         if not ISSUE_REF.fullmatch(ref or ''):
@@ -330,6 +333,8 @@ def render(m):
     w('  [STATEMENT-CHECKS.md](STATEMENT-CHECKS.md). [pages-wanted.md](pages-wanted.md) lists the printed pages a')
     w('  reader can check.')
     w('* Tiers come from a model triage that no person has reviewed yet; treat them as a rough guide.')
+    log_ref = iss['log_issue']
+    w(f'* The project logs its folds and landings on [issue #{log_ref.split("#")[1]}]({issue_url(log_ref)}).')
     w('')
 
     w('## Good first targets')

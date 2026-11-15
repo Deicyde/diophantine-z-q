@@ -74,28 +74,28 @@ lake env lean <scratch file>
 For every theorem in your file it prints which open hypotheses it proves, the hypotheses it still assumes
 (your new leaves), and its axioms. A statement change does not match. A proof using `sorry` is flagged.
 
-You may not have to run it yourself. For a pull request that only adds files under
-`ZInQKernel/Contrib/OneProof/`, the project runs the same check on the files it adds, built on top of the current
-`main` (not on the rest of your branch), in a sandbox with no secrets
-and no access to project machines (`scripts/one_proof/sandbox/README.md`), and posts the result on the pull
-request. A pull request that changes anything else is out of scope for the automatic check. The automatic check
-is being set up: until the project has posted its first check, include your own `#discharges` output in the
-pull request. The repository's default `lake build` does not compile `ZInQKernel/Contrib/OneProof`, so a green
+You may not have to run it yourself. For a pull request into `main` that only adds files under
+`ZInQKernel/Contrib/OneProof/`, the same check runs on the files it adds, built on top of the current `main` (not
+on the rest of your branch), as the GitHub Actions check "discharge check" on a fresh hosted runner with no
+secrets and no access to project machines (`scripts/one_proof/sandbox/README.md`). The verdict is in the check's
+job summary, and the run may wait for a maintainer to approve it before it starts. A pull request that changes
+anything else is out of scope for the automatic check. The automatic check is being set up: until it has run on
+a first contribution, include your own `#discharges` output in the pull request. The repository's default `lake build` does not compile `ZInQKernel/Contrib/OneProof`, so a green
 CI check alone says nothing about a contribution.
 
-The automatic result is advisory, and a person reads every file before it is merged. If your file has code that
-runs at build time (`#eval`, `run_cmd`, `initialize`, new `syntax`, `notation`, macros or elaborators), the
-automatic result does not count until a person has read the file, since such code could print a forged result;
-say in the pull request why it is needed.
+The automatic result is advisory. The project's agents check every pull request before it is merged (the build,
+`#discharges`, the axioms, and the scan for code that runs at build time); no person reads every file. A file with
+code that runs at build time (`#eval`, `run_cmd`, `initialize`, new `syntax`, `notation`, macros or elaborators)
+is not merged, since such code could print a forged result; if you need it, ask on the issue first.
 
 The bar for merging:
 
 * the Lean compiles with only the standard axioms, and the discharge check shows the hypothesis proved (until
-  the project has posted its first automatic check: your own `#discharges` output, read by a person);
-* a person has read the file for code that runs at build time;
+  the automatic check has run on a first contribution: your own `#discharges` output, checked by the project's agents);
+* the file has no code that runs at build time;
 * each new printed leaf has a row in [`docs/research/locators.md`](../research/locators.md) and enters
   kinds.tsv flagged unread (or pending reading, if its print may say something weaker);
-* Jack merges.
+* the project's integrator merges it into the next fold (agent review: the checks above, run by the project's agents).
 
 Merges into this fork carry no Protocol B review (the original repository's review protocol); a result is
 reviewed again when it moves to the original repository. The integrator then folds it into the single proof: a
@@ -143,22 +143,28 @@ hypotheses. Its output (generated from `scratch/contrib-kit/DischargesTest-outpu
 <!-- worked-example:begin -->
 ```
 scratch/contrib-kit/DischargesTest.lean:13:8: warning: declaration uses `sorry`
-DISCHARGES [OpenResearchLeaves19.gonzalezRotgerProp56X6] by GRCountX6.prop56X6_of_r5fpCount
+DISCHARGES [OpenResearchLeaves21.gonzalezRotgerProp56X6] by GRCountX6.prop56X6_of_r5fpCount
   still assumes: [LeafQM.AV.R5fpCount]
   axioms: [propext, Classical.choice, Quot.sound]
-DISCHARGES [OpenResearchLeaves19.neronBaseChangeStrictHenselization] by GapSHPair.neronBaseChangeStrictHenselization_of_unramified
+DISCHARGES [OpenResearchLeaves21.neronBaseChangeStrictHenselization] by GapSHPair.neronBaseChangeStrictHenselization_of_unramified
   still assumes: [ReductGlue.NeronBaseChangeUnramifiedDVR]
   axioms: [propext, Classical.choice, Quot.sound]
-DISCHARGES [OpenResearchLeaves19.elkiesX6StarPrinted] by HDec.QMSplit.Moduli.ElkiesX6Star.elkiesX6StarPrinted_of_ab
+DISCHARGES [OpenResearchLeaves21.elkiesX6StarPrinted] by HDec.QMSplit.Moduli.ElkiesX6Star.elkiesX6StarPrinted_of_ab
   still assumes: [HDec.QMSplit.Moduli.ElkiesEquationsX6Ab]
+  axioms: [propext, Classical.choice, Quot.sound]
+DISCHARGES [OpenResearchLeaves21.sga7_IX_3_3_SH] by SGA7PersistsNF.sga7_IX_3_3_SH_of_field
+  still assumes: [CToPrinted.SGA7_IX_3_3]
+  axioms: [propext, Classical.choice, Quot.sound]
+DISCHARGES [OpenResearchLeaves21.sga7_IX_3_5_ForwardGeom] by UnipotentForward.forwardGeom_of_forward
+  still assumes: [UnipotentForward.SGA7_IX_3_5_Forward, UnipotentForward.SemiAbelianDescendsSepClosed]
   axioms: [propext, Classical.choice, Quot.sound]
 DISCHARGES [OpenGlue7.quotientP1Coordinate] by t1
   still assumes: [HDec.MCRGlue.QuotientP1Coordinate]
   axioms: [propext, Classical.choice, Quot.sound]
-DISCHARGES [OpenTextbookLeaves10.cartierSmooth] by t3 (uses sorry: not a proof)
+DISCHARGES [OpenTextbookLeaves11.cartierSmooth] by t3 (uses sorry: not a proof)
   still assumes: []
   axioms: [propext, sorryAx, Classical.choice, Quot.sound]
-#discharges: 66 open hypotheses, 1202 theorems checked, 5 discharge one
+#discharges: 63 open hypotheses, 1618 theorems checked, 7 discharge one
 ```
 <!-- worked-example:end -->
 
@@ -194,7 +200,8 @@ hypothesis left the list.
 * [STATEMENT-CHECKS.md](STATEMENT-CHECKS.md): checking a statement against its printed source, no Lean needed.
 * `scripts/one_proof/render_open.py`: regenerates OPEN.md (`--check` fails if a fold changed the hypotheses
   without updating kinds.tsv).
-* `scripts/one_proof/sandbox/`: the isolated discharge check the project runs on pull requests.
+* `scripts/one_proof/sandbox/`: the isolated discharge check the project runs on pull requests, through
+  `.github/workflows/contrib-discharges.yml`.
 * `scripts/claims/`: reads the claim lines and regenerates claims.tsv.
 * `docs/research/leaf-fold*.md`: the fold reports, with what each fold removed and added.
 
@@ -206,7 +213,9 @@ hypothesis left the list.
    replaces, and flags a published leaf with no flag as unread; add packet, label and tier where they apply.
 4. Update the ledgers: the folded rows' status in fold-queue.tsv, a credits.tsv row (with fold and commit) for
    each folded contribution, and any recorded readings in reviews.tsv.
-5. Run `scripts/one_proof/render_open.py`, then `scripts/one_proof/render_open.py --check`.
+5. Run `scripts/one_proof/render_open.py`, then `scripts/one_proof/render_open.py --check` with
+   `ONE_PROOF_HYGIENE_FILE` naming the file of site-specific patterns (see the comment above `HYGIENE` in the
+   script).
 
 ## Who answers
 

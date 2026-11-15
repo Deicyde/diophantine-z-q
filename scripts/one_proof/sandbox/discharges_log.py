@@ -371,7 +371,7 @@ def main(argv=None):
         'lean_status': a.lean_status, 'render_status': a.render_status, 'seconds': a.seconds,
     }
     write_json(a.result, result)
-    print('discharge check: %s (advisory: contributor code ran in this sandbox before this verdict)'
+    print('discharge check: %s (advisory: contributor code ran on this runner before this verdict)'
           % ('pass' if passed else 'fail'))
     for r in reasons:
         print('  ' + r)

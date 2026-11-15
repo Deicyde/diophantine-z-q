@@ -809,9 +809,9 @@ theorem researchLeaves9_of_open14 (r : OpenResearchLeaves14) (t : OpenTextbookLe
 `ZInQ.SixContactMin` from `OpenResearchLeaves14` (35), `OpenTextbookLeaves10` (15), `OpenAddedLeaves12` (14) and
 `OpenGlue7` (1). -/
 theorem sixContactMin_of_open17 (r : OpenResearchLeaves14) (t : OpenTextbookLeaves10) (l : OpenAddedLeaves12)
-    (g : OpenGlue7) : ZInQ.SixContactMin :=
+    (g : OpenGlue7) (hYu : QMLattice.YuB6Alg) : ZInQ.SixContactMin :=
   sixContactMin_of_open11 (researchLeaves9_of_open14 r t l) t (addedLeaves9_of_open14 r t l) g
-    (_root_.CToPrinted.faltingsLemma5BCLower_of_printed r.faltingsLemma5Printed)
+    (_root_.CToPrinted.faltingsLemma5BCLower_of_printed r.faltingsLemma5Printed) hYu
 
 end HSyn
 

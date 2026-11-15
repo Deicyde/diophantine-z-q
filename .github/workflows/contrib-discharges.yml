@@ -1,0 +1,152 @@
+# The discharge check of a contribution: builds the files a pull request adds under
+# ZInQKernel/Contrib/OneProof/ and runs the trusted reporter on them. It builds outside code, so it holds no
+# secrets, its token can only read, and checkout leaves no credentials in .git/config. A manual run measures
+# the cold build of +ZInQKernel.OneProof.Main instead, with no contribution. See
+# scripts/one_proof/sandbox/README.md.
+
+name: discharge check
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'ZInQKernel/Contrib/OneProof/**'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: discharge-check-${{ github.event.pull_request.number || github.run_id }}
+  cancel-in-progress: true
+
+jobs:
+  check:
+    name: discharge check
+    runs-on: ubuntu-latest
+    # Inside the 360-minute hosted limit; discharge_check.sh stops a build after 270 minutes.
+    timeout-minutes: 300
+    steps:
+      # Full history, so the scope gate can diff the merge base of BASE and HEAD against HEAD. GitHub checks
+      # out the merge commit.
+      - name: Check out project
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+          fetch-depth: 0
+
+      # On git objects only, before anything is built. BASE is the first parent of the checked-out merge commit,
+      # so the restore, the scan and the build all see one tree; its second parent must be the pull request's
+      # head. The check's scripts are restored from BASE first, so a pull request cannot change the scripts it
+      # is judged by; a pull request that edits this workflow can make it report anything (README.md, Limits).
+      - name: Scope gate and scan
+        id: scope
+        if: github.event_name == 'pull_request'
+        env:
+          HEAD: ${{ github.event.pull_request.head.sha }}
+        run: |
+          set -euo pipefail
+          no_result() {
+            { echo '### Discharge check: no result'; echo; echo "$1"; } >> "$GITHUB_STEP_SUMMARY"
+            echo "::error::$1"
+            exit 1
+          }
+          BASE="$(git rev-parse -q --verify 'HEAD^1^{commit}')" || no_result 'The checkout has no parent commit.'
+          second="$(git rev-parse -q --verify 'HEAD^2^{commit}')" || no_result 'The checkout is not a merge commit.'
+          if [ "$second" != "$HEAD" ]; then
+            no_result "The merge commit's second parent is not the pull request's head $HEAD."
+          fi
+          git checkout "$BASE" -- scripts/one_proof/sandbox
+          status=0
+          bash scripts/one_proof/sandbox/discharge_check.sh scope "$BASE" "$HEAD" || status=$?
+          if [ "$status" -eq 2 ]; then
+            python3 -I scripts/one_proof/sandbox/discharge_comment.py --scan .sandbox/out/scan.json \
+              >> "$GITHUB_STEP_SUMMARY"
+            echo "::error::Out of scope: the automatic check covers only pull requests that add new files under ZInQKernel/Contrib/OneProof/ and change nothing else."
+            exit 2
+          fi
+          if [ "$status" -ne 0 ]; then
+            no_result "The scope gate failed (exit status $status); the run log says why."
+          fi
+
+      - name: Free disk space and add swap
+        run: |
+          set -euo pipefail
+          df -h / /mnt || true
+          free -h
+          # Large preinstalled toolchains this job does not use.
+          sudo rm -rf /usr/local/lib/android /usr/share/dotnet /opt/ghc /usr/local/.ghcup \
+            /opt/hostedtoolcache/CodeQL
+          sudo swapoff -a
+          sudo rm -f /swapfile /mnt/swapfile
+          # Swap as large as the disk allows: on /mnt when the runner has a separate temporary disk,
+          # otherwise on / with 30 GB kept free for Mathlib and the build.
+          if mountpoint -q /mnt; then dir=/mnt; keep=2; else dir=; keep=30; fi
+          avail="$(df --output=avail -BG "${dir:-/}" | tail -n 1 | tr -dc '0-9')"
+          size=$((avail - keep))
+          if [ "$size" -ge 1 ]; then
+            sudo fallocate -l "${size}G" "$dir/swapfile"
+            sudo chmod 600 "$dir/swapfile"
+            sudo mkswap "$dir/swapfile"
+            sudo swapon "$dir/swapfile"
+          fi
+          free -h
+          df -h / /mnt || true
+
+      - name: Install elan
+        run: |
+          set -euo pipefail
+          curl -sSfL \
+            https://github.com/leanprover/elan/releases/download/v4.2.3/elan-x86_64-unknown-linux-gnu.tar.gz \
+            -o elan.tar.gz
+          echo "df0b2b3a439961ffcbb3985214365ffe40f49bc871df04dff268c7d8e21ca8b2  elan.tar.gz" \
+            | sha256sum --check --strict
+          tar xzf elan.tar.gz
+          ./elan-init -y --default-toolchain none
+          echo "$HOME/.elan/bin" >> "$GITHUB_PATH"
+
+      - name: Fetch the Mathlib build cache
+        run: lake exe cache get
+
+      - name: Measure the cold build of the OneProof target
+        if: github.event_name == 'workflow_dispatch'
+        run: |
+          set -euo pipefail
+          bash scripts/one_proof/sandbox/discharge_check.sh measure
+          {
+            echo '### Build measurement'
+            echo
+            echo '```json'
+            cat .sandbox/out/result.json
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Build the contribution
+        if: github.event_name == 'pull_request'
+        run: bash scripts/one_proof/sandbox/discharge_check.sh build
+
+      # The nonce is made here, after the build, and only this step sees it, so a line printed by build-time
+      # code cannot carry it. The step fails when the verdict is fail.
+      - name: Run the trusted reporter
+        if: ${{ !cancelled() && github.event_name == 'pull_request' && steps.scope.outcome == 'success' }}
+        timeout-minutes: 20
+        run: |
+          set -euo pipefail
+          DISCHARGE_NONCE="$(python3 -I -c 'import secrets; print(secrets.token_hex(16))')"
+          export DISCHARGE_NONCE
+          bash scripts/one_proof/sandbox/discharge_check.sh report
+
+      - name: Write the result to the job summary
+        if: ${{ !cancelled() && github.event_name == 'pull_request' && steps.scope.outcome == 'success' }}
+        run: |
+          python3 -I scripts/one_proof/sandbox/discharge_comment.py --scan .sandbox/out/scan.json \
+            --result .sandbox/out/result.json >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Upload the logs and the result
+        if: ${{ !cancelled() }}
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: discharge-check
+          path: .sandbox/out
+          include-hidden-files: true
+          if-no-files-found: warn

@@ -1,4 +1,4 @@
-"""Tests for scan_contrib.py and prepare_commit.sh, on temporary git repositories (no network).
+"""Tests for scan_contrib.py and discharge_check.sh scope, on temporary git repositories (no network).
 
 Run: python3 -I -m unittest discover -s scripts/one_proof/sandbox -p 'test_*.py'
 """
@@ -49,7 +49,6 @@ CLEAN = '''import ZInQKernel.OneProof.Main
 /-- A docstring. -/
 theorem foo_proof : True := trivial
 '''
-WORKFLOW = 'name: contrib check\n'
 
 
 class Repo:
@@ -96,7 +95,6 @@ def build_base(path):
     r.write('ZInQKernel/OneProof/Main.lean', 'theorem main : True := trivial\n')
     r.write(CONTRIB + 'Existing.lean', 'theorem existing : True := trivial\n')
     r.write('.github/workflows/ci.yml', 'name: ci\n')
-    r.write('scripts/one_proof/sandbox/contrib-check.yml', WORKFLOW)
     return r.commit('base')
 
 
@@ -462,97 +460,54 @@ class PatternTest(unittest.TestCase):
         self.assertTrue(any('150 KB' in n for n in res['files'][0]['notes']))
 
 
-class PrepareCommitTest(unittest.TestCase):
-    SCRIPT = os.path.join(HERE, 'prepare_commit.sh')
+class ScopeModeTest(unittest.TestCase):
+    """discharge_check.sh scope: the scan, then the manifest the build reads, in scope only."""
 
     def setUp(self):
         self.tmp = tempfile.TemporaryDirectory()
         self.repo, self.base = make_base(self.tmp.name)
+        sb = os.path.join(self.tmp.name, 'scripts', 'one_proof', 'sandbox')
+        os.makedirs(sb)
+        for name in ('discharge_check.sh', 'scan_contrib.py'):
+            shutil.copy(os.path.join(HERE, name), sb)
+        self.script = os.path.join(sb, 'discharge_check.sh')
+        self.manifest = os.path.join(self.tmp.name, '.sandbox', 'manifest.json')
 
     def tearDown(self):
         self.tmp.cleanup()
 
-    def run_script(self, *args):
-        return subprocess.run(['bash', self.SCRIPT] + list(args), cwd=self.tmp.name, stdout=subprocess.PIPE,
-                              stderr=subprocess.PIPE)
+    def run_scope(self, head):
+        return subprocess.run(['bash', self.script, 'scope', self.base, head], cwd=self.tmp.name,
+                              stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 
-    def test_prepared_tree(self):
-        self.repo.write(CONTRIB + 'Foo.lean', CLEAN)
-        self.repo.write(CONTRIB + 'Helper/README.md', 'helper\n')
-        head = self.repo.commit('add')
-        # BASE moves on after the pull request branched: the prepared tree takes BASE's files.
-        self.repo.git('checkout', '-q', '-b', 'later', self.base)
-        self.repo.write('README.md', 'base moved on\n')
-        base = self.repo.commit('later')
-        p = self.run_script(base, head, '42')
+    def scan_json(self):
+        with open(os.path.join(self.tmp.name, '.sandbox', 'out', 'scan.json')) as fh:
+            return json.load(fh)
+
+    def test_in_scope_writes_the_manifest(self):
+        head = self.repo.plumb_commit(self.base, {CONTRIB + 'Foo.lean': CLEAN, CONTRIB + 'Helper/README.md': 'h\n'})
+        p = self.run_scope(head)
         self.assertEqual(p.returncode, 0, p.stderr.decode())
-        sha = p.stdout.decode().strip()
-        files = set(self.repo.git('ls-tree', '-r', '--name-only', sha).split('\n'))
-        self.assertEqual(files, {
-            'README.md', 'ZInQKernel/OneProof/Main.lean', CONTRIB + 'Existing.lean',
-            'scripts/one_proof/sandbox/contrib-check.yml', CONTRIB + 'Foo.lean', CONTRIB + 'Helper/README.md',
-            '.github/workflows/contrib-check.yml', '.sandbox/manifest.json'})
-        self.assertEqual(self.repo.git('show', sha + ':README.md'), 'base moved on')
-        self.assertEqual(self.repo.git('show', sha + ':' + CONTRIB + 'Foo.lean'), CLEAN.strip())
-        self.assertEqual(self.repo.git('show', sha + ':.github/workflows/contrib-check.yml'), WORKFLOW.strip())
-        self.assertEqual(self.repo.git('ls-tree', '--name-only', sha + ':.github'), 'workflows')
-        manifest = json.loads(self.repo.git('show', sha + ':.sandbox/manifest.json'))
-        self.assertEqual(manifest, {'base': base, 'head': head, 'pr': 42,
-                                    'added': [CONTRIB + 'Foo.lean', CONTRIB + 'Helper/README.md']})
-        self.assertEqual(self.repo.git('rev-parse', sha + '^'), base)
-        self.assertEqual(self.repo.git('rev-list', '--parents', '-n', '1', sha).split(), [sha, base])
-        msg = self.repo.git('log', '-1', '--format=%B', sha)
-        for word in (base, head, '42'):
-            self.assertIn(word, msg)
-        # No checkout: the working tree and the real index are untouched.
-        self.assertEqual(self.repo.git('status', '--porcelain'), '')
-        self.assertEqual(self.repo.git('rev-parse', 'HEAD'), base)
+        self.assertTrue(self.scan_json()['scope_ok'])
+        with open(self.manifest) as fh:
+            self.assertEqual(json.load(fh), {'base': self.base, 'head': head,
+                                             'added': [CONTRIB + 'Foo.lean', CONTRIB + 'Helper/README.md']})
 
-    def test_refuses_out_of_scope(self):
-        self.repo.write(CONTRIB + 'Existing.lean', 'theorem existing : True := by trivial\n')
-        head = self.repo.commit('modify')
-        p = self.run_script(self.base, head)
-        self.assertNotEqual(p.returncode, 0)
-        self.assertEqual(p.stdout.decode().strip(), '')
-        self.assertIn('refused', p.stderr.decode())
+    def test_out_of_scope_writes_no_manifest(self):
+        os.makedirs(os.path.dirname(self.manifest))
+        with open(self.manifest, 'w') as fh:
+            fh.write('{"added": []}\n')
+        head = self.repo.plumb_commit(self.base, {CONTRIB + 'Foo.lean': CLEAN, 'README.md': 'changed\n'})
+        p = self.run_scope(head)
+        self.assertEqual(p.returncode, 2, p.stderr.decode())
+        self.assertFalse(self.scan_json()['scope_ok'])
+        self.assertFalse(os.path.exists(self.manifest))
 
-    def test_measure_commit(self):
-        p = self.run_script('--measure', self.base)
-        self.assertEqual(p.returncode, 0, p.stderr.decode())
-        sha = p.stdout.decode().strip()
-        files = set(self.repo.git('ls-tree', '-r', '--name-only', sha).split('\n'))
-        self.assertEqual(files, {
-            'README.md', 'ZInQKernel/OneProof/Main.lean', CONTRIB + 'Existing.lean',
-            'scripts/one_proof/sandbox/contrib-check.yml', '.github/workflows/contrib-check.yml',
-            '.sandbox/manifest.json'})
-        manifest = json.loads(self.repo.git('show', sha + ':.sandbox/manifest.json'))
-        self.assertEqual(manifest, {'base': self.base, 'measure': True, 'added': []})
-        self.assertEqual(self.repo.git('rev-list', '--parents', '-n', '1', sha).split(), [sha, self.base])
-
-    def test_sandbox_main(self):
-        p = self.run_script('--sandbox-main', self.base)
-        self.assertEqual(p.returncode, 0, p.stderr.decode())
-        first = p.stdout.decode().strip()
-        files = set(self.repo.git('ls-tree', '-r', '--name-only', first).split('\n'))
-        self.assertEqual(files, {'README.md', 'ZInQKernel/OneProof/Main.lean', CONTRIB + 'Existing.lean',
-                                 'scripts/one_proof/sandbox/contrib-check.yml'})
-        self.assertEqual(self.repo.git('rev-list', '--parents', '-n', '1', first).split(), [first, self.base])
-        # At a fold: the new main has both parents, so the push is a fast-forward.
-        self.repo.write('README.md', 'folded\n')
-        later = self.repo.commit('fold')
-        p = self.run_script('--sandbox-main', later, first)
-        self.assertEqual(p.returncode, 0, p.stderr.decode())
-        second = p.stdout.decode().strip()
-        self.assertEqual(self.repo.git('rev-list', '--parents', '-n', '1', second).split(), [second, first, later])
-        self.assertEqual(self.repo.git('show', second + ':README.md'), 'folded')
-        self.assertNotIn('.github', self.repo.git('ls-tree', '--name-only', second).split('\n'))
-
-    def test_refuses_bad_pr_number(self):
-        self.repo.write(CONTRIB + 'Foo.lean', CLEAN)
-        head = self.repo.commit('add')
-        p = self.run_script(self.base, head, '1;x')
-        self.assertNotEqual(p.returncode, 0)
-        self.assertEqual(p.stdout.decode().strip(), '')
+    def test_needs_base_and_head(self):
+        p = subprocess.run(['bash', self.script, 'scope', self.base], cwd=self.tmp.name, stdout=subprocess.PIPE,
+                           stderr=subprocess.PIPE)
+        self.assertEqual(p.returncode, 1)
+        self.assertIn('usage', p.stderr.decode())
 
 
 if __name__ == '__main__':

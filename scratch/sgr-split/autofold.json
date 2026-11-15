@@ -1,0 +1,22 @@
+{
+ "name": "sgr-split",
+ "imports": [
+  "ZInQKernel.Contrib.OneProof.ShimuraGoodReductionNoGuard"
+ ],
+ "discharges": [
+  {
+   "field": "shimuraGoodReductionNoGuard",
+   "proof": "_root_.SGRSplit.shimuraGoodReductionNoGuard_of_printed {n}.shimuraIntegralModelRep",
+   "leaves": [
+    {
+     "name": "shimuraIntegralModelRep",
+     "type": "_root_.SGRSplit.ShimuraIntegralModelRep",
+     "doc": "Representability over Z_(p), p > 324, of the moduli problem of QM abelian surfaces (disc 6) with full level 3, by a proper smooth curve (printed form on QMAbScheme): Kottwitz, J. AMS 5 (1992) 5; Buzzard, Duke 87 (1997) 1-4; Morita, Hokkaido 10 (1981); locators UNVERIFIED",
+     "kind": "published",
+     "flag": "pending reading: level 3 at 3 | D in Buzzard/Morita, and the polarization-free form versus Kottwitz's PEL form (relative Lemma P); locator UNVERIFIED",
+     "source": "Kottwitz, J. AMS 5 (1992) section 5; Buzzard, Duke Math. J. 87 (1997) sections 1-4; Morita, Hokkaido Math. J. 10 (1981); Carayol, Compositio 59 (1986) secondary (locators UNVERIFIED)"
+    }
+   ]
+  }
+ ]
+}

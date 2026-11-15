@@ -114,7 +114,6 @@ structure OpenTextbookLeaves8 : Prop where
   groupSchemeEquidim : _root_.AVGlue.GroupSchemeEquidim
   uniformizationLeafAll : _root_.BPAnalytic.Uniformization.UniformizationLeafAll
   gagaMorphism : _root_.ZInQ.HomLattice.GAGAMorphism
-  yuThm11 : QMSplit.Yu.YuThm11
   t33 : _root_.LeafModCurves.JacobianExists ℚ
   dimJacobianEqGenus : _root_.ZInQ.Contrib.CurvesG.DimJacobianEqGenus
   normalModelOfFunctionFieldQ : _root_.ZInQ.Contrib.CurvesG.NormalModelOfFunctionFieldQ
@@ -222,7 +221,6 @@ theorem textbookLeaves7_of_open8 (t : OpenTextbookLeaves8) : OpenTextbookLeaves7
   gagaMorphism := t.gagaMorphism
   t11bExists := t11bExists_lf8
   t24 := _root_.ZInQ.Contrib.CloudW08EigenformTwists.EigenformTwist_proof
-  yuThm11 := t.yuThm11
   t33 := t.t33
   dimJacobianEqGenus := t.dimJacobianEqGenus
   normalModelOfFunctionFieldQ := t.normalModelOfFunctionFieldQ
@@ -257,9 +255,9 @@ theorem addedLeaves7_of_open8 (r : OpenResearchLeaves8) (l : OpenAddedLeaves8) :
 and leaf-fold7's `OpenGlue7` (1, `QuotientP1Coordinate`). The table of every field is
 `docs/research/leaf-fold8.md` §2. -/
 theorem sixContactMin_of_open8 (r : OpenResearchLeaves8) (t : OpenTextbookLeaves8) (l : OpenAddedLeaves8)
-    (g : OpenGlue7) (hF5 : _root_.ZInQ.HeightSplit.FaltingsLemma5BCLower) : ZInQ.SixContactMin :=
+    (g : OpenGlue7) (hF5 : _root_.ZInQ.HeightSplit.FaltingsLemma5BCLower) (hYu : QMLattice.YuB6Alg) : ZInQ.SixContactMin :=
   sixContactMin_of_open7 (researchLeaves7_of_open8 r t) (textbookLeaves7_of_open8 t) (addedLeaves7_of_open8 r l) g
-    (r20Lower_of8 r t hF5)
+    (r20Lower_of8 r t hF5) hYu
 
 end HSyn
 

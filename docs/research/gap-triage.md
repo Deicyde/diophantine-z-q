@@ -95,7 +95,7 @@ Why this order:
 - A5–A11 are bounded library pieces, each worth one field. A12 pays only together with L1, L3, L5, L6.
 
 Conflicts and owners:
-- leaf-fold11 §5 lists `QuotientP1Coordinate` as "running or queued (cove-85)": **check with the lead before A3 and
+- leaf-fold11 §5 lists `QuotientP1Coordinate` as "running or queued (another project task)": **check with the lead before A3 and
   A12.**
 - A8 touches the consumers of fields under review (r6).
 - A9 should follow A5, since it shares A5's lattice set-up.
@@ -513,7 +513,7 @@ Summary (tier = the cheapest route found; owner as of 2026-11-14 evening):
 | shimizuCovolumeO1 | H-136 | pub | b (Γ*'s area) | T2 | prove `GammaStarCocompactArea` | **free: A6** |
 | igusaCMValue24 | H-144 | pub | b | — | — | done (cm24-value, w63) |
 | deligneComponentsY3Printed | — | pub/cand. | b (Y3 connected) | T4 | cite | free |
-| quotientP1Coordinate | glue | pg | b | T3 overall | mcr-quot + glue Props | queued (cove-85); **A3, A12** |
+| quotientP1Coordinate | glue | pg | b | T3 overall | mcr-quot + glue Props | queued (another project task); **A3, A12** |
 | h11 TYZThm11Integral | T-1 | pub | a | T4 | cite | in flight (cloud) |
 | h29 TYZLemma29Mod2 | T-3 | comp | a | T4 | cite | in flight (cloud) |
 | hS ShimuraReciprocityModFn | T-13, T-14 | comp | b (N = 32) | T2 glue / T4 leaves | reduce + prove glue | **free: A7** |

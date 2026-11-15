@@ -1,0 +1,7 @@
+PRUNE bundle HDec.HSyn.OpenResearchLeaves19: 30 fields, unused 0: []
+PRUNE bundle HDec.HSyn.OpenTextbookLeaves11: 13 fields, unused 0: []
+PRUNE bundle HDec.HSyn.OpenAddedLeaves16: 14 fields, unused 0: []
+PRUNE bundle HDec.HSyn.OpenGlue7: 1 fields, unused 0: []
+PRUNE total unused top-level fields: 0
+PRUNE bundles with unused fields: 49
+PRUNE prune set: 0 entries

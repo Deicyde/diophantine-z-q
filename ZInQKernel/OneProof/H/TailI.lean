@@ -58,9 +58,9 @@ theorem modelG3G6_of_leaves3 (hFS : G0Split.FibreSimple) (hNOS : PkgI2.NeronOggS
 
 /-- **`QMEndRank` from T6 and T27** (lt-goodred, part c75; not needed by the route below, since
 `LinkedTateLocal` stays a glue field; recorded). -/
-theorem qmEndRank_of_leaves3 (hM1 : PkgI3.HomFreeFinite) (hT27 : PkgI3.QMDichotomyYu) :
+theorem qmEndRank_of_leaves3 (hM1 : PkgI3.HomFreeFinite) (hYu : QMLattice.YuB6Alg) :
     HSyn.LinkedTate.QMEndRank :=
-  LTGoodRed.QM.qmEndRank_of_leaves hM1 hT27
+  LTGoodRed.QM.qmEndRank_of_leaves hM1 hYu
 
 /-- **`TangentDimAtOrigin` from the kernel's Contrib** (dim-contrib, `ZInQ.Contrib.Dim.tangentDimAtOrigin`,
 `ZInQKernel/Contrib/Dim/HodgeLattice.lean`, imported; through leaf-fold2's field map `toAbVarK`). It replaces
@@ -100,11 +100,11 @@ theorem linkedTateLocal_of_leaves3 (hR6 : PkgI2.RaynaudCriterion.{0}) (h5 : PkgI
     (hT : PkgI3.TateModuleFree) (hsp : FrobPiecesNeron.AbVarSpreadsOut)
     (hc : FrobPiecesNeron.ProperSmoothGenConnected) (hRed : PkgI2.ReductionTorsionBijective.{0})
     (hN : PkgI2.NeronMappingAbelianScheme.{0}) (hFS : G0Split.FibreSimple)
-    (h6 : PkgI3.HomFreeFinite) (h27 : PkgI3.QMDichotomyYu) : G0AssembleMod.LinkedTateLocal :=
+    (h6 : PkgI3.HomFreeFinite) (hYu : QMLattice.YuB6Alg) : G0AssembleMod.LinkedTateLocal :=
   LTLocal.linkedTateLocal_of_tateBridge35 (ObjBridge.raynaudCriterion_iff.mpr hR6)
     (ObjBridge.torsionStructure_iff.mpr h5) (@UnramRootsTask.unramRoots_all 2 _ 5 _)
     (@UnramRootsTask.unramRoots_all 2 _ 3 _)
-    (FrobPiecesGood.tateBridge35_of_neron_nmp hT hsp hc hRed hN) hFS (qmEndRank_of_leaves3 h6 h27)
+    (FrobPiecesGood.tateBridge35_of_neron_nmp hT hsp hc hRed hN) hFS (qmEndRank_of_leaves3 h6 hYu)
 
 /-! ### The open statements -/
 
@@ -137,7 +137,6 @@ structure OpenTextbookLeaves3 : Prop where
   t11b : ZInQ.LeafPush2.T11b_Rigidity
   t24 : EigenformTwist
   t26 : PkgI3.TateModuleFree
-  t27 : PkgI3.QMDichotomyYu
   t33 : LeafModCurves.JacobianExists ℚ
   t35 : ZInQ.LeafPush2.UniformizationExists
   t38 : X1Belyi.CurveOfFunctionFieldQ
@@ -210,71 +209,11 @@ theorem textbookLeaves2_of_open3 (t : OpenTextbookLeaves3) : OpenTextbookLeaves2
   t11b := t.t11b
   t24 := t.t24
   t26 := t.t26
-  t27 := t.t27
   t33 := t.t33
   t35 := t.t35
   t38 := t.t38
   t40 := t.t40
   t41 := t.t41
-
-/-- **Leaves.lean's `GluePieces` from the open statements** (leaf-fold2's `gluePieces_of_open2`
-with the five closed glue fields replaced by their proofs, G3-G6 from linked-tate's route, and
-Burnside and `HomLinearLift` from parts c10, c30). -/
-theorem gluePieces_of_open3 (r : OpenResearchLeaves2) (t : OpenTextbookLeaves3)
-    (l : OpenAddedLeaves3) (g : OpenGlue3) : GluePieces :=
-  let t2 := textbookLeaves2_of_open3 t
-  let r3 := researchLeaves3_of_open2 r
-  let t3 := textbookLeaves_of_open2 t2
-  have hMob : LeafQM.AV.Pin.MobiusGlue := mobiusGlue_of_t5' t.t5
-  have hFS5 : G0FibreSimple.FibreComTrivial :=
-    fibreComTrivial_of_full (FS5NoCM.fibreComTrivialFull_of_leaves'' (r1r2fpFull_of r3)
-      hMob t.t27 t.t6 l.cmOptimalEmbedding (X6Kummer.x6KummerFibre_of_conic hMob l.x6ConicModel)
-      r.r5count)
-  have hFS : G0Split.FibreSimple :=
-    G0FibreSimple.fibreSimple_of_leaves t3 mulIsogeny_proved G0FibreSimple.rigidityHom
-      ⟨G0FibreSimple.finiteDescends_proof, hFS5⟩
-  { dimFinite := G0Split.dimFinite
-    dimBaseChange := G0Split.dimBaseChange
-    fibreSimple := hFS
-    productModelHeight := ZInQ.ProductHeight.productModelHeight_of_splits productUnifSplits_proved
-      (ZInQ.UnifDims.productMetrizationOfProductUnif_of_tangentDim t.t35 tangentDimAtOrigin_proved3)
-    stableHeightBaseChange := G0StableBC.stableHeightBaseChange_of_hodgeLine
-      (ZInQ.HeightBC.g0_hodgeLine_iff.mpr (ZInQ.HeightBC.hodgeLineBaseChange_of_glue4
-        hodgeBCInjective_proved3 cotangentSpanBC_proved omegaBaseChange_proved3
-        uniformizationLiftAnalytic_proved))
-    productExists := G0Product.productExists
-    reverseIsogeny := G0RevIsog.reverseIsogeny_of_leaves3 r3 G0Split.dimFinite
-    thetaPoint := G0Split.ThetaPt.thetaPointOfFibre_of_qm_ratios
-      (G0Split.FibreQM.fibreQMPeriod_main_rep r.r1r2 hMob l.qmHauptmodul
-        t.t35 t2.t11a l.qmClassNumberOne (r.r1b r.r1r2) (g.periodMapGlue r.r1r2)
-        g.hauptmodulUnique l.qmDenZeroCM3 cPtsTransport_proved3)
-      l.thetaRatiosAlgebraic
-    modularConstituent := modularConstituent_of_field t3
-      (G0ModField.fibreCoverExists_of_propTSAll' t.t5
-        (propTSAll_of_pieces3 r.r1r2 t.t5 l.y3Connected l.qmAutCard l.serreRigidity3 l.alFixedPoints
-          g.chartProper g.chartQuasiFinite g.heckeVertWitness) unramifiedConjugates_proved)
-      (G0ModField.KernelField.kernelFieldExists_of_split'' t.t6 r.r7a r.r6 t.t5 t.t27
-        hFS5 G0ModField.KernelField.oMaximal endTransport_proved conjIsogMaps_proved3)
-      UnramTate.unramifiedSup_mf
-      (G0AssembleMod.afterG7_of3 r3 t3
-        ⟨burnsideAbsIrred_proved3, r.r14,
-          g9Glue_of_deRhamComparisonHT r.r10,
-          G0Galois.g10Glue_of_conjTwist
-            (G0Galois.conjTwistNontrivial_of_leaves t.t5 t.t26 t.t35
-              (HomUnify.homLinearLift_of_corr t.homLatticeCorr)),
-          G0Galois.g12Weight_of_senTwist l.senTwist l.finiteImageHT,
-          G0Galois.detTate_of_leaves l.t09SymmIsogenyExists l.isogenyQuasiInverse
-            l.divisiblePoints t.t26,
-          G0AssembleMod.resQFiniteIndex⟩
-        (g9GlueNoT23_of_deRhamComparisonHT r.r10)
-        (G0ModNewform.dirichletOfFinite_of_t17 t17_proved) r.r17
-        Swan.swanIndependent_proved Swan.swanIntegral_proved
-        Swan.adaptedExists_proved
-        (modelG3G6_of_leaves3 hFS r.r7a r.r6 t.t5)
-        (G0AssembleMod.linkedTateData_of_local t.t7
-          (linkedTateLocal_of_leaves3 r.r6 t.t5 t.t26 g.abVarSpreadsOut l.properSmoothGenConnected
-            t.t4 t.t3 hFS t.t6 t.t27)))
-    heightCopies := G0HeightCopies.heightCopiesAgree }
 
 end HSyn
 
@@ -294,7 +233,6 @@ end
 #print axioms HomUnify.homLinearLift_of_corr
 #print axioms HomUnify.t11a_riemannEnd_of_corr
 #print axioms HSyn.textbookLeaves2_of_open3
-#print axioms HSyn.gluePieces_of_open3
 
 end G0A2_d90_fold3
 

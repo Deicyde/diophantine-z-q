@@ -1,0 +1,37 @@
+DISCHARGES [OpenResearchLeaves19.gonzalezRotgerProp56X6] by GRCountX6.prop56X6_of_r5fpCount
+  still assumes: [LeafQM.AV.R5fpCount]
+  axioms: [propext, Classical.choice, Quot.sound]
+DISCHARGES [OpenResearchLeaves19.neronBaseChangeStrictHenselization] by GapSHPair.neronBaseChangeStrictHenselization_of_unramified
+  still assumes: [ReductGlue.NeronBaseChangeUnramifiedDVR]
+  axioms: [propext, Classical.choice, Quot.sound]
+DISCHARGES [OpenResearchLeaves19.elkiesX6StarPrinted] by HDec.QMSplit.Moduli.ElkiesX6Star.elkiesX6StarPrinted_of_ab
+  still assumes: [HDec.QMSplit.Moduli.ElkiesEquationsX6Ab]
+  axioms: [propext, Classical.choice, Quot.sound]
+DISCHARGES [OpenResearchLeaves19.rayClassCMAb] by RayClassCFT.rayClassCMAb_of
+  still assumes: [RayClassCFT.ShimuraMainThmIDeligneY3AbU, ZInQ.HomUnify.HomLinearLift]
+  axioms: [propext, Classical.choice, Quot.sound]
+DISCHARGES [OpenResearchLeaves19.rayClassCMAb] by RayClassCFT.rayClassCMAb_of_leaves
+  still assumes: [RayClassCFT.ShimuraMainThmIDeligneY3AbU,
+ BPAnalytic.Uniformization.UniformizationLeafAll,
+ ZInQ.HomLattice.GAGAMorphism]
+  axioms: [propext, Classical.choice, Quot.sound]
+DISCHARGES [OpenResearchLeaves19.shimuraFamilyAb] by RayClassCFT.shimuraFamilyAb_of_U
+  still assumes: [RayClassCFT.ShimuraMainThmIDeligneY3AbU]
+  axioms: [propext, Classical.choice, Quot.sound]
+DISCHARGES [OpenResearchLeaves19.shimuraFamilyAb] by ShimuraCFT.shimuraFamilyAb_of_mainThmI
+  still assumes: [ShimuraCFT.ShimuraMainThmIDeligneY3Ab]
+  axioms: [propext, Classical.choice, Quot.sound]
+#discharges: 65 open hypotheses, 1499 theorems checked, 7 discharge one
+'RayClassCFT.rayClassCMAb_of_leaves' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RayClassCFT.rayClassCMAb_of' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RayClassCFT.shimuraFamilyAb_of_U' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RayClassCFT.classNumberOneB_proof' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RayClassCFT.exists_int_approx' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RayClassCFT.exists_den' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RayClassCFT.ShimuraMainThmIDeligneY3AbU' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RayClassCFT.mainThmI_of_U' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ShimuraCFT.recip_hyp_nonempty' depends on axioms: [propext, Classical.choice, Quot.sound]
+
+real	0m7.737s
+user	0m4.662s
+sys	0m2.794s

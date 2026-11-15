@@ -21,8 +21,7 @@ comments and strings as this script's lexer reads them, and "possible" when it i
 (comments and strings included), so a disagreement with Lean's lexer can add hits but never hide one. An
 unterminated string, comment, escaped identifier or interpolation brace is a hit. Matching is by token and
 prefix, with Lean's identifier characters, and errs towards false positives. A clean scan does not show that
-a file is safe: every file gets a human read before merge. `import Lean` is a note, never a hit. Files over
-150 KB get a note.
+a file is safe. `import Lean` is a note, never a hit. Files over 150 KB get a note.
 
 Output: JSON {base, head, merge_base, scope_ok, scope_problems, files: [{path, bytes, hits: [{line, kind,
 level, text}], notes, ...}]} written to OUT ("-" for standard output), and a short text summary.
@@ -538,7 +537,7 @@ def summary(res):
             out.append('  line %d %s %s: %s' % (h['line'], h['level'], h['kind'], printable(h['text'])))
         for note in f['notes']:
             out.append('  note: ' + note)
-    out.append('The scan is advisory: every file gets a human read before merge.')
+    out.append('The scan is advisory: a clean scan does not show that a file is safe.')
     return '\n'.join(out)
 
 

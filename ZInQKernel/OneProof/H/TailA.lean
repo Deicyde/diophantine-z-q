@@ -994,6 +994,24 @@ stronger than NoCM for the true moduli data; see docs/research/g0-fibresimple.md
 
 noncomputable section
 
+namespace QMLattice
+
+open scoped Quaternion
+
+/-- **Yu's theorem (Thm 1.1) at `B = (2, −3)`, for the embedding `B → End⁰(A)` coming from a QM structure
+by the maximal order `𝒪`, over an algebraically closed field algebraic over `ℚ`** (gap-triage's `YuB6Alg`).
+A consequence of `YuThm11` (`yuB6Alg_of_yuThm11`), and exactly what the chain's four applications of
+`PkgI3.QMDichotomyYu` use (k = `AlgebraicClosure ℚ`, or `AlgebraicClosure L'` with `L'` finite over `ℚ`;
+`(a, b) = (2, −3)`; the embedding `qm_embeds_end0 P.q` / `quatEmbed A'' φ''` of a QM structure). -/
+def YuB6Alg : Prop :=
+  ∀ (k : Type) [Field k] [IsAlgClosed k] [CharZero k] [Algebra.IsAlgebraic ℚ k] (A : PkgI3.AbVar k),
+    A.dim = 2 → ∀ q : LeafQM.AV.QMStr A,
+      Nonempty (PkgI3.AbVar.End0 A ≃ₐ[ℚ] ℍ[ℚ, 2, -3]) ∨
+        ∃ d : ℚ, d < 0 ∧ Nonempty (PkgI3.AbVar.End0 A ≃ₐ[ℚ]
+          Matrix (Fin 2) (Fin 2) (AdjoinRoot (Polynomial.X ^ 2 - Polynomial.C d)))
+
+end QMLattice
+
 namespace G0FibreSimple
 
 open CategoryTheory AlgebraicGeometry Limits MonoidalCategory CartesianMonoidalCategory MonObj
@@ -1148,14 +1166,14 @@ def FibreComTrivial : Prop :=
 /-! ## §4 The piece, from T27 and FS1-FS5 -/
 
 /-- **`FibreSimple` (g0-split's missing piece 4), from the leaf T27 and the glue FS1-FS5.** -/
-theorem fibreSimple_of_pieces (t27 : PkgI3.QMDichotomyYu) (h1 : EndDivisionDescent)
+theorem fibreSimple_of_pieces (hYu : QMLattice.YuB6Alg) (h1 : EndDivisionDescent)
     (h2 : EndDivisionOfSchemeIso) (h3 : EndDivisionOfEnd0Division)
     (h4 : CentralizerOfMatrixEnd0) (h5 : FibreComTrivial) : FibreSimple := by
   intro Y Φ π hR1 hR2 u hu K A hF
   obtain ⟨emb, y, P, hP, hval, hiso⟩ := hF
   let _ : Algebra K.K LeafQM.AV.Qbar := emb.toAlgebra
   -- G5 (T27 at `B = (2,-3)`): `End⁰(P.A) ≅ B` or `≅ M₂(ℚ(√d))`.
-  have hY := PkgI3.qmDichotomy_B6 t27 LeafQM.AV.Qbar P.A P.surface B6_isUnit (qm_embeds_end0 P.q)
+  have hY := hYu LeafQM.AV.Qbar P.A P.surface P.q
   -- G6 (NoCM): the second case is excluded.
   have hB : Nonempty (PkgI3.AbVar.End0 P.A ≃ₐ[ℚ] ℍ[ℚ, 2, -3]) := by
     rcases hY with hB | ⟨d, hd, hM⟩
@@ -1247,10 +1265,10 @@ theorem centralizerOfMatrixEnd0_of_homFree (hHF : PkgI3.HomFreeFinite) :
           rw [h1, ← map_mul, div_eq_inv_mul]
 
 /-- `FibreSimple` from the two leaves T6, T27 and the four remaining glue pieces. -/
-theorem fibreSimple_of_pieces' (t6 : PkgI3.HomFreeFinite) (t27 : PkgI3.QMDichotomyYu)
+theorem fibreSimple_of_pieces' (t6 : PkgI3.HomFreeFinite) (hYu : QMLattice.YuB6Alg)
     (h1 : EndDivisionDescent) (h2 : EndDivisionOfSchemeIso) (h3 : EndDivisionOfEnd0Division)
     (h5 : FibreComTrivial) : FibreSimple :=
-  fibreSimple_of_pieces t27 h1 h2 h3 (centralizerOfMatrixEnd0_of_homFree t6) h5
+  fibreSimple_of_pieces hYu h1 h2 h3 (centralizerOfMatrixEnd0_of_homFree t6) h5
 
 
 /-! ## §4″ FS3 from T6 and the textbook leaf `MulIsogeny` -/
@@ -1313,10 +1331,10 @@ theorem end0Division_of_homFree (hHF : PkgI3.HomFreeFinite) (hMul : MulIsogeny) 
   exact ⟨IsFinite.of_comp f.hom.left g.hom.left, Surjective.of_comp g.hom.left f.hom.left⟩
 
 /-- `FibreSimple` from the leaves T6, T27, `MulIsogeny` and the three glue pieces FS1, FS2, FS5. -/
-theorem fibreSimple_of_pieces'' (t6 : PkgI3.HomFreeFinite) (t27 : PkgI3.QMDichotomyYu)
+theorem fibreSimple_of_pieces'' (t6 : PkgI3.HomFreeFinite) (hYu : QMLattice.YuB6Alg)
     (hMul : MulIsogeny) (h1 : EndDivisionDescent) (h2 : EndDivisionOfSchemeIso)
     (h5 : FibreComTrivial) : FibreSimple :=
-  fibreSimple_of_pieces' t6 t27 h1 h2 (end0Division_of_homFree t6 hMul) h5
+  fibreSimple_of_pieces' t6 hYu h1 h2 (end0Division_of_homFree t6 hMul) h5
 
 
 /-! ## §4‴ FS2 from the textbook leaf `RigidityHom` -/
@@ -1479,9 +1497,9 @@ structure FibreSimplePieces : Prop where
 `TextbookLeaves.t27` = Yu Thm 1.1), **the textbook leaves `MulIsogeny` (Mumford §4) and
 `RigidityHom` (Mumford §4 Cor. 1), and the glue pieces FS1b′ (finiteness descends along field
 extensions) and FS5 (NoCM on the fibre).** -/
-theorem fibreSimple_of_leaves (t : HSyn.TextbookLeaves) (hMul : MulIsogeny) (hRig : RigidityHom)
+theorem fibreSimple_of_leaves (t : HSyn.TextbookLeaves) (hYu : QMLattice.YuB6Alg) (hMul : MulIsogeny) (hRig : RigidityHom)
     (p : FibreSimplePieces) : FibreSimple :=
-  fibreSimple_of_pieces'' t.t6 t.t27 hMul
+  fibreSimple_of_pieces'' t.t6 hYu hMul
     (endDivisionDescent_of baseChangeFaithful_proof (isogenyDescends_of p.finiteDescends))
     (endDivisionOfSchemeIso_of_rigidity hRig) p.comTrivial
 
@@ -2017,7 +2035,7 @@ text were opaque placeholders, removed from `Leaves.lean` by leaf-adopt2; they a
 leaf-push2's concrete T11 leaves `T11a_RiemannEnd`, `T11b_Rigidity` (bundle fields `t11a`, `t11b`).
 T12 is glue since leaf-adopt2, so its content is part of what this glue Prop asserts.)
 (This is N5 L742-751's Betti argument; the rank/division/noncommutativity hypotheses are not
-needed by it but are kept, being true for Glazer's `A`.) -/
+needed by it but are kept, being true for the manuscript's `A`.) -/
 def G10Glue : Prop :=
   ZInQ.LeafPush2.T11a_RiemannEnd → ZInQ.LeafPush2.T11b_Rigidity → PkgI3.FaltingsTate →
   ∀ (K : Type) [Field K] [NumberField K] [IsGalois ℚ K] (A : PkgI3.AbVar K) (ℓ : ℕ)
@@ -3244,7 +3262,7 @@ def G12Out {L : Type} [Field L] [NumberField L] (A : AbVar L) : Prop :=
 
 /-- **Open part of G14 (glue, AV side; N5 L776-795).** At every arithmetic Frobenius `τ` above
 `p ∉ S`, the traces of `r₅` and `r₃` are the images of one algebraic number: if
-`tr r₅(τ) = ι₅(c)` then `tr r₃(τ) = ι₃(c)`. Glazer's proof: for `p ∉ T ∪ {3, 5}` a lift `σ` of
+`tr r₅(τ) = ι₅(c)` then `tr r₃(τ) = ι₃(c)`. The manuscript's proof: for `p ∉ T ∪ {3, 5}` a lift `σ` of
 Frobenius, the relative Frobenius of the reduction of `A` composed with `μ̄_σ` is an endomorphism
 of `Ā_v` whose characteristic polynomial on `V_ℓ` is independent of `ℓ` (T7, with T3, T4); half
 its trace times `β(σ)⁻¹a_σ` is the common value. It is a statement about the `r_ℓ` built in G8
@@ -3255,7 +3273,7 @@ def G14TraceCompat {L : Type} [Field L] [NumberField L] {A : AbVar L} (D : ModDa
     LiesOver v p → IsArithFrob τ v p → ∀ c : Qbar,
       (D.r5.mat τ).trace = D.ι5 c → (D.r3.mat τ).trace = D.ι3 c
 
-/-- Glazer's local bound for `r` at `p` (N5 L798-852), at a level `L_p` adapted to `r|G_{ℚ_p}`:
+/-- The manuscript's local bound for `r` at `p` (N5 L798-852), at a level `L_p` adapted to `r|G_{ℚ_p}`:
 the conductor exponent is `≤ E₀` if `p ≤ R` (`R = D`), `≤ 2` if `p > R`, and `0` if
 `p ∉ T = S ∪ supp M_S(u)`. -/
 def LocalBound (u : ℚ) (p : ℕ) [Fact p.Prime] {ℓ : ℕ} [Fact ℓ.Prime] (r : GaloisRep ℓ 2) :
@@ -3267,7 +3285,7 @@ def LocalBound (u : ℚ) (p : ℕ) [Fact p.Prime] {ℓ : ℕ} [Fact ℓ.Prime] (
     (p ∉ ZInQ.Mult.S_mul → ¬ p ∣ ZInQ.contactSupport ZInQ.Mult.S_mul u →
       LadicCond.condAt Lp (r.restrictLocal p) = 0)
 
-/-- **Open part of G15 (glue, D1-D4 on the actual `A`; N5 L796-852).** `r₅` satisfies Glazer's
+/-- **Open part of G15 (glue, D1-D4 on the actual `A`; N5 L796-852).** `r₅` satisfies the manuscript's
 local bound at every prime `p ≠ 5` and `r₃` at `p = 5`. The cores are proved over the kernel's
 finite-level objects (D1 `GlueConductor.D1_genuine`, D2 `PkgI2.D2_fixed_of_raynaud`, D3
 `GlueConductor.fourth_pow_mem`, D4 `PkgI6.artinConductor_le_of_upper`,
@@ -3576,7 +3594,7 @@ open LadicCond
 -- op-dedupe was: open PkgI4 (GQp)
 open _root_.PkgI4 (GQp) -- op-dedupe
 
-/-- Glazer's uniform bound for the last upper break, `U₀ = 4(DG₀)²` (N5 L826-830). -/
+/-- The manuscript's uniform bound for the last upper break, `U₀ = 4(DG₀)²` (N5 L826-830). -/
 def U0 : ℝ := 4 * ((ZInQ.heightD * ZInQ.heightG0 : ℕ) : ℝ) ^ 2
 
 /-- **The ramification of `r` at `p` that D1-D4 establish (N5 L819-852).** (i) for `p ≤ R`
@@ -4598,7 +4616,7 @@ at `ℓ = 5, 3` from one descent datum, with g0-mod-newform's `G14TraceCompat` a
 For every fibre context and G7 data: operator data at `ℓ = 5` and `ℓ = 3` satisfying
 g0-mod-galois' `G7Out`, such that for all `r₅`, `r₃` with G8's output on these data and all
 embeddings `i`, `ι_ℂ`, `ι₅`, some `ι₃` makes the traces compatible (`G14TraceCompat`, N5 L776-795)
-and `r₅`, `r₃` have Glazer's wild local ramification (`G15RamWild`: clauses (i)-(ii) of
+and `r₅`, `r₃` have the manuscript's wild local ramification (`G15RamWild`: clauses (i)-(ii) of
 g0-mod-newform's `G15RamG`, N5 L819-852; clause (iii) is proved from G11, `g15RamG_of_wild`). -/
 def LinkedTateData : Prop :=
   ∀ (Y : Over (Spec (CommRingCat.of ℚ))) (Φ : LeafQM.AV.PtEquiv Y) (π : LeafQM.AV.ToP1 Y.left)

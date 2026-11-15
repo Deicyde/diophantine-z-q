@@ -1,5 +1,6 @@
 {
   "claims_issue": "Deicyde/diophantine-z-q#14",
   "statement_checks_issue": "",
-  "packet_issues": {}
+  "packet_issues": {},
+  "log_issue": "Deicyde/diophantine-z-q#3"
 }
