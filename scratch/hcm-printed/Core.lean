@@ -1227,6 +1227,15 @@ theorem shimuraMainCM_of_printed (hM : MainTheoremCMArith) (hWU : WeierstrassUni
   rw [hcv, hcv] at hr
   exact hcoord (kappa m u) (kappa m v) hu hr
 
+
+/-- **`T5Glue.ShimuraMainCM` from printed leaves and the bundles' current textbook fields** (`HomLatticeCorr` from
+`uniformizationLeafAll` and `gagaMorphism` through the chain's `AvSplit.Final.h69`). -/
+theorem shimuraMainCM_of_textbook (hM : MainTheoremCMArith) (hWU : WeierstrassUniformization)
+    (hWP : WeierstrassParam) (hWA : WeierstrassAbVar)
+    (hUL : BPAnalytic.Uniformization.UniformizationLeafAll) (hG : ZInQ.HomLattice.GAGAMorphism) :
+    T5Glue.ShimuraMainCM :=
+  shimuraMainCM_of_printed hM hWU hWP hWA (AvSplit.Final.h69 hUL hG)
+
 end Final
 
 end HcmPrinted
