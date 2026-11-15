@@ -28,3 +28,4 @@ Build tree: copy of ~/dzq-wt/yu-prune-base/.lake/build (c2ad4181) + lean/.lake/b
 - Count after step 1 (CMStabObjWeak from fields): field −1 GLUE; L1, L3, L4 composite (3 GLUE), L2, Edixhoven LEAF: net +2.
 - Count after step 2 (L1 → LichtenbaumProjective, printed special case): L3, L4 (2 GLUE); L2, Edixhoven, Lichtenbaum
   (3 LEAF): net +1 strict GLUE.
+- #discharges (scratch/p1-quot2/Discharges.lean, after lake build +Main +Discharges, 2 min): quotientP1Coordinate_of_fields2 DISCHARGES OpenGlue7.quotientP1Coordinate, still assumes LichtenbaumProjective, L2, L3, L4, EdixhovenFixedSmooth2 + 5 existing fields; axioms standard (VERIFIED, discharges_out.txt; 63 open hypotheses, 2141 theorems checked).
