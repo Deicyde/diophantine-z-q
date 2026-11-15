@@ -78,6 +78,55 @@ theorem rightMul_fix_of_unit (hT : ObjBridge.TorsionStructure) (P : QML3 Qbar) (
           _ = a * (3 * c) := by rw [hc]
           _ = 3 * (a * c) := by noncomm_ring⟩ }⟩
 
+/-- An integer not divisible by 3 is not in `3𝒪`. -/
+theorem intCast_not_mem_three (k : ℤ) (hk : ¬ (3 : ℤ) ∣ k) : ¬ ∃ c : O, (k : O) = 3 * c := by
+  rintro ⟨c, hc⟩
+  obtain ⟨m, hm⟩ := c.2
+  have h := congrArg Subtype.val hc
+  have h33 : ((3 : O) : B) = 3 := map_ofNat O.subtype 3
+  simp only [Subring.coe_mul, h33] at h
+  rw [show ((c : O) : B) = ofInt m from hm, _root_.LeafQM.AV.three_mul_ofInt] at h
+  have hk' : ((k : O) : B) = (k : B) := map_intCast O.subtype k
+  rw [hk'] at h
+  have hJ := congrArg QuaternionAlgebra.imJ h
+  have hR := congrArg QuaternionAlgebra.re h
+  simp [ofInt] at hJ hR
+  apply hk
+  refine ⟨m 0, ?_⟩
+  have hm2 : (m 2 : ℚ) = 0 := by linarith
+  have : (k : ℚ) = 3 * m 0 := by rw [hR, hm2]; ring
+  exact_mod_cast this
+
+/-- **Glue (AutCM24): the automorphisms of a QM pair with CM by `ℤ[√−6]` are `±1`** (the units of an order in
+`ℚ(√−6)`; a consequence of the chain's `QMCentralizerCM`). -/
+def AutCM24 : Prop :=
+  ∀ (P : QML3 Qbar), HasCM24 P.q → ∀ c d : AbVar.End P.A, c ∈ com P.q → c * d = 1 → d * c = 1 →
+    c = 1 ∨ c = -1
+
+/-- **`rightMul u` moves the class of a `ℤ[√−6]` object unless `u ≡ ±1 mod 3𝒪`** (given `AutCM24`). -/
+theorem rightMul_moves_cm24 (hA : AutCM24) (P : QML3 Qbar) (hP : HasCM24 P.q) (u : Oˣ)
+    (h1 : ¬ ∃ c : O, (u : O) - 1 = 3 * c) (h2 : ¬ ∃ c : O, (u : O) + 1 = 3 * c) :
+    M3.rightMul u (M3.mk P) ≠ M3.mk P := by
+  intro h
+  obtain ⟨f⟩ : Nonempty ((P.rightMul u).Iso P) := Quotient.exact h
+  let c : AbVar.End P.A := f.φ
+  let d : AbVar.End P.A := f.ψ
+  have hc : c ∈ com P.q := by
+    rw [com, Subring.mem_centralizer_iff]
+    rintro _ ⟨a, rfl⟩
+    exact AbVar.Hom.ext' (f.equivariant a).symm
+  have hlev : ∀ a, endPt P.A Qbar c (P.e.eta (a * u)) = P.e.eta a := f.level
+  rcases hA P hP c d hc (AbVar.Hom.ext' f.right) (AbVar.Hom.ext' f.left) with he | he
+  · have := hlev 1
+    rw [he, map_one, _root_.one_mul] at this
+    exact h1 ((P.e.eq_iff _ _).1 this)
+  · have := hlev 1
+    rw [he, map_neg, map_one, _root_.one_mul] at this
+    change -P.e.eta (u : O) = P.e.eta 1 at this
+    rw [← map_neg] at this
+    obtain ⟨c, hc'⟩ := (P.e.eq_iff _ _).1 this
+    exact h2 ⟨-c, by rw [mul_neg, ← hc']; noncomm_ring⟩
+
 end MCRQuot
 
 end
