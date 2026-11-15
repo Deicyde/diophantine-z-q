@@ -29,3 +29,4 @@ Build tree: copy of ~/dzq-wt/yu-prune-base/.lake/build (c2ad4181) + lean/.lake/b
 - Count after step 2 (L1 → LichtenbaumProjective, printed special case): L3, L4 (2 GLUE); L2, Edixhoven, Lichtenbaum
   (3 LEAF): net +1 strict GLUE.
 - #discharges (scratch/p1-quot2/Discharges.lean, after lake build +Main +Discharges, 2 min): quotientP1Coordinate_of_fields2 DISCHARGES OpenGlue7.quotientP1Coordinate, still assumes LichtenbaumProjective, L2, L3, L4, EdixhovenFixedSmooth2 + 5 existing fields; axioms standard (VERIFIED, discharges_out.txt; 63 open hypotheses, 2141 theorems checked).
+- autofold.json: --dry-run reports strict 46/10 on 56 -> 49/11 on 60 (strictest 45/11 -> 48/12): refuses without --allow-rise (GLUE +1). With --allow-rise --dry-run the generated TailZ35 text (FoldDry.lean, line 1 stripped) compiles: sixContactMin_of_open29 axioms standard (VERIFIED).
