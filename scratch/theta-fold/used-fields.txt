@@ -45,8 +45,7 @@ USED   regularSmoothPerfect : CurveSplit.RegularSmoothPerfect
 USED   igusaGL2 : ZInQ.RLeaf.IgusaGL2
 USED   neronSchemeExtensionExists : ZInQ.Contrib.NeronC.NeronSchemeExtensionExists
 
-## HDec.HSyn.OpenAddedLeaves17
-USED   thetaRatiosAlgebraic : HDec.HSyn.G0Split.ThetaPt.ThetaRatiosAlgebraic
+## HDec.HSyn.OpenAddedLeaves18
 USED   tateTwistInvariants : ZInQ.Contrib.HodgeSplit.TateTwistInvariants
 USED   axSenTate : ZInQ.Contrib.HodgeSplit.AxSenTate
 USED   milneIsogenyQuasiInverse : AvSplit.MilneIsogenyQuasiInverse
@@ -60,6 +59,8 @@ USED   picZeroAbVar : T09Pic.PicZeroAbVar
 USED   phiAmpleIsogeny : T09Pic.PhiAmpleIsogeny
 USED   weilPairingMumford : T09Pic.WeilPairingMumford
 USED   shimuraIntegralModelRep : SGRSplit.ShimuraIntegralModelRep
+USED   igusaThetaExpressions : HDec.HSyn.G0Split.ThetaPt.LinYangPrinted.IgusaThetaExpressions
+USED   linYangEx29All : HDec.HSyn.G0Split.ThetaPt.LinYangPrinted.LinYangEx29All
 
 ## HDec.HSyn.OpenGlue7
 USED   quotientP1Coordinate : HDec.MCRGlue.QuotientP1Coordinate

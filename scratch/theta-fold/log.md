@@ -34,3 +34,11 @@
 - 06:40 Dead.lean (closure of frozenTarget + the Route 1 theorems): theta-split §5-§6 (Route 2, CM nodes; 36 decls),
   ThetaGlue.fin2_add_cast, LinYangPrinted.psi4Th_eq/chi10Th_eq unused -> removed. Rebuilt OK (Main + Discharges),
   frozenTarget axioms standard. Module sizes: Kron 51 KB, Split 16 KB, Glue 64 KB, Printed 31 KB.
+- 06:55 final checks on f016e90b: PruneScan OpenResearchLeaves21 29, OpenTextbookLeaves11 12, OpenAddedLeaves18 15,
+  OpenGlue7 1 = 57 fields, 0 unused, prune set empty. DumpCompact 13876 constants; cmp_hashes (cmp_hashes_out.txt):
+  removed 14 (11 pruned projections + 3 dead readers), new 29 (TailK 6: ThetaRatiosAtQM, Jmap_ne_zero + 3 _simp aux,
+  thetaPointOfFibre_of_qm_atQM; TailZ41 23: OpenAddedLeaves18 + generated, conversion, open29), changed 254 (216
+  generated auxiliaries/projections of the 11 edited bundles, 13 conversions value-only, 23 stack theorems type-only
+  (hθ), gluePieces_of_open4, frozenTarget type (l : OpenAddedLeaves18)). No `_proof_N` renumbering.
+  frozenTarget's printed type differs only in `OpenAddedLeaves17` -> `OpenAddedLeaves18`.
+  DischargesTest: same discharges and controls (t1, t3 flagged sorry), 64 open hypotheses (base 63).
