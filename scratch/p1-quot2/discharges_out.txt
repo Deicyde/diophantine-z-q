@@ -27,6 +27,18 @@ DISCHARGES [OpenGlue7.quotientP1Coordinate] by HDec.MCRQuot.quotientP1Coordinate
  BPAnalytic.Uniformization.UniformizationLeafAll,
  ZInQ.HomLattice.GAGAMorphism]
   axioms: [propext, Classical.choice, Quot.sound]
+DISCHARGES [OpenGlue7.quotientP1Coordinate] by HDec.MCRQuot.quotientP1Coordinate_of_fields3
+  still assumes: [QuotientP1Proof.LichtenbaumProjective,
+ HDec.MCRGlue.FiniteQuotientExists,
+ HDec.MCRGlue.TameQuotientSmoothRelDim,
+ HDec.MCRGlue.SmoothModelOfP1,
+ HDec.MCRQuot.EdixhovenFixedSmooth2,
+ AvSplit.MumfordTorsionAlgClosed,
+ LeafQM.AV.R1UnivRigid.MumfordRigidityCore,
+ ShimuraGlue.DeligneComponentsY3PrintedAb,
+ BPAnalytic.Uniformization.UniformizationLeafAll,
+ ZInQ.HomLattice.GAGAMorphism]
+  axioms: [propext, Classical.choice, Quot.sound]
 DISCHARGES [OpenGlue7.quotientP1Coordinate] by HDec.MCRQuot.quotientP1Coordinate_of_leaves'
   still assumes: [HDec.MCRGlue.ProperCurveAF,
  HDec.MCRGlue.FiniteQuotientExists,
@@ -68,4 +80,4 @@ DISCHARGES [OpenResearchLeaves21.sga7_IX_3_3_SH] by SGA7PersistsNF.sga7_IX_3_3_S
 DISCHARGES [OpenResearchLeaves21.sga7_IX_3_5_ForwardGeom] by UnipotentForward.forwardGeom_of_forward
   still assumes: [UnipotentForward.SGA7_IX_3_5_Forward, UnipotentForward.SemiAbelianDescendsSepClosed]
   axioms: [propext, Classical.choice, Quot.sound]
-#discharges: 63 open hypotheses, 2141 theorems checked, 10 discharge one
+#discharges: 63 open hypotheses, 2148 theorems checked, 11 discharge one

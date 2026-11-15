@@ -30,3 +30,11 @@ Build tree: copy of ~/dzq-wt/yu-prune-base/.lake/build (c2ad4181) + lean/.lake/b
   (3 LEAF): net +1 strict GLUE.
 - #discharges (scratch/p1-quot2/Discharges.lean, after lake build +Main +Discharges, 2 min): quotientP1Coordinate_of_fields2 DISCHARGES OpenGlue7.quotientP1Coordinate, still assumes LichtenbaumProjective, L2, L3, L4, EdixhovenFixedSmooth2 + 5 existing fields; axioms standard (VERIFIED, discharges_out.txt; 63 open hypotheses, 2141 theorems checked).
 - autofold.json: --dry-run reports strict 46/10 on 56 -> 49/11 on 60 (strictest 45/11 -> 48/12): refuses without --allow-rise (GLUE +1). With --allow-rise --dry-run the generated TailZ35 text (FoldDry.lean, line 1 stripped) compiles: sixContactMin_of_open29 axioms standard (VERIFIED).
+- scratch/p1-quot2/Proper.lean: surjective_of_isGQuotient, locallyOfFiniteType_of_isGQuotient (Artin–Tate),
+  isSeparated_of_isGQuotient, isProper_of_isGQuotient; TameQuotientSmoothRelDim and
+  tameQuotientSmooth_of_relDim : TameQuotientSmoothRelDim → TameQuotientSmooth, axioms standard (VERIFIED).
+- Contribution helper QuotientP1/QuotProper.lean (from Proper.lean) and quotientP1Coordinate_of_fields3 (L3 replaced by
+  TameQuotientSmoothRelDim): build OK; #discharges: DISCHARGES OpenGlue7.quotientP1Coordinate by
+  quotientP1Coordinate_of_fields3, axioms standard (VERIFIED). autofold.json switched to fields3; dry-run counts
+  unchanged (49/11), generated module compiles (VERIFIED).
+- Count after step 3 (L3's properness half proved): unchanged, +1 strict GLUE (L3-smooth composite, L4 consequence).

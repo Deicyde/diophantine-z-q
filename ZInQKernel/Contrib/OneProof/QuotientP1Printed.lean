@@ -1,6 +1,7 @@
 import ZInQKernel.Contrib.OneProof.QuotientP1.FromFields
 import ZInQKernel.Contrib.OneProof.QuotientP1.Lichtenbaum
 import ZInQKernel.Contrib.OneProof.CMStab
+import ZInQKernel.Contrib.OneProof.QuotientP1.QuotProper
 
 /-!
 # p1-quot2: `quotientP1Coordinate` without mcr-glue's leaf L1 and without the glue `CMStabObjWeak`
@@ -101,6 +102,18 @@ theorem quotientP1Coordinate_of_fields2 (hL : _root_.QuotientP1Proof.Lichtenbaum
         ((_root_.LeafQM.AV.R1UnivRigid.deligneComponentsY3Printed_iff_ab
           (_root_.LeafQM.AV.R1UnivRigid.mumfordRigidity_of_core hRC)).mpr hD))))
     (cMStabObjWeak_of_fields hU hG hMT)
+
+/-- **`QuotientP1Coordinate` with L3 replaced by its smoothness half** (`TameQuotientSmoothRelDim`; properness
+of the quotient proved in `QuotientP1/QuotProper.lean`). Inputs: Lichtenbaum's theorem, L2, the smoothness half
+of L3, L4, Edixhoven's theorem and the chain's fields. -/
+theorem quotientP1Coordinate_of_fields3 (hL : _root_.QuotientP1Proof.LichtenbaumProjective)
+    (hQE : FiniteQuotientExists) (hTS : TameQuotientSmoothRelDim) (hP1 : SmoothModelOfP1)
+    (hE : EdixhovenFixedSmooth2) (hMT : _root_.AvSplit.MumfordTorsionAlgClosed)
+    (hRC : _root_.LeafQM.AV.R1UnivRigid.MumfordRigidityCore)
+    (hD : _root_.ShimuraGlue.DeligneComponentsY3PrintedAb)
+    (hU : _root_.BPAnalytic.Uniformization.UniformizationLeafAll)
+    (hG : _root_.ZInQ.HomLattice.GAGAMorphism) : MCRGlue.QuotientP1Coordinate :=
+  quotientP1Coordinate_of_fields2 hL hQE (tameQuotientSmooth_of_relDim hTS) hP1 hE hMT hRC hD hU hG
 
 end MCRQuot
 
