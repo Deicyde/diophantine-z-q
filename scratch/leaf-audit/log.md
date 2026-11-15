@@ -62,3 +62,15 @@
   hypothesis of that frozenTarget (and an open LEAF row in theta-fold's OPEN.md, elliotglazer #86).
 - TYZ sanity: h29-fix's brandt.py re-run (pure Python): n = 3: Q(3) = f_3(1) = ±3 for all 8 tau, values {−3, 1};
   n = 11, 19: Q = ±1; matches 𝓛(3)^2 = 𝓛(11)^2 = 𝓛(19)^2 = 1 (lcalSq doc) with w_K(3) = 3, pairIdx 11 = pairIdx 19 = {1}.
+- Corrected LinYangEx29 numerics (scratch/leaf-audit/py/linyang_check.py, psi6Th (60 terms) and chi12Th (15 terms)
+  parsed from LinYangGlue.lean; VERIFIED): with j6 = j_theta, s3^2 = j s2^3, s5 = s2 s3, s6 = (j+1) s2^3 hold to
+  relative error < 2e-39 at tau = 0.3+1.1i, 0.1+0.9i, -0.4+1.3i (at the D = -4 point sqrt2+i, s3 = 0, degenerate).
+- GZ sanity (scratch/leaf-audit/py/gz_check.py, PARI 2.2.4 cypari2; VERIFIED): C_5 conductor 800, root number -1,
+  D = -31 (2, 5 split; fundamental): L'(C_5,1) = 2.22737, L(C_5^D,1) = 3.36974, L'(E/K,1) = 7.50566 > 0; PARI's
+  Heegner point [25/4, 75/8] in E(Q), height 1.89948 > 0: consistent with GrossZagierFormulaCd (kappa > 0) and
+  GrossConjugationCd (epsilon = -1: sigma y - y torsion, y in E(Q) up to torsion).
+- Elkies orientation (by hand, VERIFIED algebra): the chart cover {s^2 = -t, r^2 = 3(t-1)} is invariant under
+  t' = 1/t (s' = s/t, r' = rs/t: s'^2 = -t', r'^2 = 3(t'-1)), which swaps t = 0 and t = infinity and fixes t = 1. So
+  the leaf's truth does not depend on whether D = -24 or D = -3 sits at 0 (the unread 0/infinity orientation).
+  Fibre fields: t = 1 gives Q(i) (only D = -4 fits), t = 0 and t = infinity give Q(sqrt -3) (D = -24: field of
+  definition is the quadratic subfield of H_{-24} = Q(sqrt2, sqrt -3) other than K and Q(sqrt2); D = -3: Q(sqrt -3)).
