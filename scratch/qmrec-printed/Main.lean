@@ -307,4 +307,108 @@ theorem reflexNorm_rhoK (u : (FiniteAdeleRing (𝓞 K) K)ˣ) :
 
 end TypeE
 
+/-! ## §C `E` acting on `B`: `β(a + b√2) = q(a) + i q(b)`, so `ι(β(e))(z, 1)ᵀ = (z φ₁(e), φ₂(e))` -/
+
+section Beta
+
+open Polynomial ShimuraSplit2
+
+variable {K : Type} [Field K] [NumberField K] [Fact (Irreducible (X ^ 2 - C (2 : K)))]
+
+/-- `i ∈ B` (`i² = 2`). -/
+def iB : LeafQM.B := ⟨0, 1, 0, 0⟩
+
+theorem iotaC_iB : iotaC iB = !![((√2 : ℝ) : ℂ), 0; 0, -((√2 : ℝ) : ℂ)] := RayClassCFT.qmMat_oI
+
+/-- The `K`-coordinates of `E` in the basis `1, √2`, as `ℚ`-linear maps. -/
+def crd (i : Fin 2) : EK K →ₗ[ℚ] K :=
+  ((Finsupp.lapply i).comp (bK : Module.Basis (Fin 2) K (EK K)).repr.toLinearMap).restrictScalars ℚ
+
+theorem crd_apply (i : Fin 2) (e : EK K) : crd i e = bK.repr e i := rfl
+
+/-- `β : E → B`, `β(a + b√2) = q(a) + i q(b)` (`E` acts on `B` by `√2 ↦ i·` on the left and `K` through `q` on the
+right; `β(e) = e · 1`). -/
+def beta (q : K →ₐ[ℚ] LeafQM.B) : EK K →ₗ[ℚ] LeafQM.B :=
+  q.toLinearMap ∘ₗ crd 0 + (LinearMap.mulLeft ℚ iB) ∘ₗ q.toLinearMap ∘ₗ crd 1
+
+theorem beta_apply (q : K →ₐ[ℚ] LeafQM.B) (e : EK K) :
+    beta q e = q (bK.repr e 0) + iB * q (bK.repr e 1) := rfl
+
+/-- `β(k e) = β(e) q(k)`. -/
+theorem beta_algebraMap_mul (q : K →ₐ[ℚ] LeafQM.B) (k : K) (e : EK K) :
+    beta q (algebraMap K (EK K) k * e) = beta q e * q k := by
+  have h : ∀ i, bK.repr (algebraMap K (EK K) k * e) i = k * bK.repr e i := fun i => by
+    rw [← Algebra.smul_def, map_smul]; rfl
+  rw [beta_apply, beta_apply, h, h, add_mul, mul_assoc, mul_comm k, mul_comm k, map_mul, map_mul]
+
+theorem phi0_apply (κ : K →+* ℂ) (e : EK K) :
+    PhiE κ 0 e = κ (bK.repr e 0) + κ (bK.repr e 1) * ((√2 : ℝ) : ℂ) := phi_apply κ _ sqrt2_sq e
+
+theorem phi1_apply (κ : K →+* ℂ) (e : EK K) :
+    PhiE κ 1 e = κ (bK.repr e 0) + κ (bK.repr e 1) * -((√2 : ℝ) : ℂ) := phi_apply κ _ negsqrt2_sq e
+
+/-- **The period identity**: `ι(β(e))(z, 1)ᵀ = (z φ₁(e), φ₂(e))`. -/
+theorem vec_beta {q : K →ₐ[ℚ] LeafQM.B} {κ : K →+* ℂ} {z : UpperHalfPlane} (hz : IsCMPoint q κ z)
+    (e : EK K) : (iotaC (beta q e)).mulVec ![(z : ℂ), 1] = ![(z : ℂ) * PhiE κ 0 e, PhiE κ 1 e] := by
+  have h0 : (iotaC (q (bK.repr e 0))).mulVec ![(z : ℂ), 1] = κ (bK.repr e 0) • ![(z : ℂ), 1] := hz _
+  have h1 : (iotaC (q (bK.repr e 1))).mulVec ![(z : ℂ), 1] = κ (bK.repr e 1) • ![(z : ℂ), 1] := hz _
+  rw [beta_apply, map_add, map_mul, Matrix.add_mulVec, ← Matrix.mulVec_mulVec, h0, h1, iotaC_iB,
+    phi0_apply, phi1_apply]
+  funext i
+  fin_cases i <;> simp [Matrix.mulVec, dotProduct, Fin.sum_univ_two] <;> ring
+
+theorem beta_injective {q : K →ₐ[ℚ] LeafQM.B} {κ : K →+* ℂ} {z : UpperHalfPlane} (hz : IsCMPoint q κ z) :
+    Function.Injective (beta q) := by
+  rw [← LinearMap.ker_eq_bot, LinearMap.ker_eq_bot']
+  intro e he
+  have h := congrFun (vec_beta hz e) 1
+  rw [he, map_zero, Matrix.zero_mulVec] at h
+  simp only [Pi.zero_apply, Matrix.cons_val_one, Matrix.cons_val_zero] at h
+  exact (map_eq_zero _).1 h.symm
+
+theorem finrank_B : Module.finrank ℚ LeafQM.B = 4 := QuaternionAlgebra.finrank_eq_four _ _ _
+
+/-- `β` as a `ℚ`-linear isomorphism `E ≅ B`. -/
+def betaE {q : K →ₐ[ℚ] LeafQM.B} {κ : K →+* ℂ} {z : UpperHalfPlane} [IsTotallyComplex K]
+    (hK : Module.finrank ℚ K = 2) (hz : IsCMPoint q κ z) : EK K ≃ₗ[ℚ] LeafQM.B :=
+  LinearMap.linearEquivOfInjective (beta q) (beta_injective hz) (by rw [finrank_EK hK, finrank_B])
+
+theorem betaE_apply {q : K →ₐ[ℚ] LeafQM.B} {κ : K →+* ℂ} {z : UpperHalfPlane} [IsTotallyComplex K]
+    (hK : Module.finrank ℚ K = 2) (hz : IsCMPoint q κ z) (e : EK K) : betaE hK hz e = beta q e := rfl
+
+/-- `z ≠ 0`, and the diagonal map `D_z = diag(z, 1)`. -/
+def Dz (z : UpperHalfPlane) : (Fin 2 → ℂ) ≃ₗ[ℂ] (Fin 2 → ℂ) where
+  toFun w := ![(z : ℂ) * w 0, w 1]
+  invFun w := ![(z : ℂ)⁻¹ * w 0, w 1]
+  map_add' v w := by funext i; fin_cases i <;> simp [mul_add]
+  map_smul' c w := by funext i; fin_cases i <;> simp <;> ring
+  left_inv w := by
+    funext i; fin_cases i <;> simp [← mul_assoc, inv_mul_cancel₀ (UpperHalfPlane.ne_zero z)]
+  right_inv w := by
+    funext i; fin_cases i <;> simp [← mul_assoc, mul_inv_cancel₀ (UpperHalfPlane.ne_zero z)]
+
+theorem Dz_apply (z : UpperHalfPlane) (w : Fin 2 → ℂ) : Dz z w = ![(z : ℂ) * w 0, w 1] := rfl
+
+theorem vec_beta' {q : K →ₐ[ℚ] LeafQM.B} {κ : K →+* ℂ} {z : UpperHalfPlane} (hz : IsCMPoint q κ z)
+    (e : EK K) : (iotaC (beta q e)).mulVec ![(z : ℂ), 1] = Dz z (cmVec (PhiE κ) e) := by
+  rw [vec_beta hz, Dz_apply]; rfl
+
+/-- **The lattice of `T(z, h)` in the coordinates of `E`**: if `𝔟 = β⁻¹(L_h)` then `D_z Φ(𝔟) = ι(L_h)(z, 1)ᵀ`. -/
+theorem cmLat_map_Dz {q : K →ₐ[ℚ] LeafQM.B} {κ : K →+* ℂ} {z : UpperHalfPlane} [IsTotallyComplex K]
+    (hK : Module.finrank ℚ K = 2) (hz : IsCMPoint q κ z) (𝔟 : AddSubgroup (EK K)) (h : BAQˣ)
+    (h𝔟 : ∀ e, e ∈ 𝔟 ↔ beta q e ∈ latB h) :
+    (cmLat (PhiE κ) 𝔟).map ((Dz z).toLinearMap.restrictScalars ℤ) = vecLat (z : ℂ) h := by
+  ext v
+  rw [Submodule.mem_map, mem_vecLat]
+  constructor
+  · rintro ⟨w, hw, rfl⟩
+    obtain ⟨e, he, rfl⟩ := AddSubgroup.mem_map.1 hw
+    exact ⟨beta q e, (h𝔟 e).1 he, vec_beta' hz e⟩
+  · rintro ⟨x, hx, rfl⟩
+    obtain ⟨e, rfl⟩ := (betaE hK hz).surjective x
+    rw [betaE_apply] at hx ⊢
+    exact ⟨cmVec (PhiE κ) e, AddSubgroup.mem_map.2 ⟨e, (h𝔟 e).2 hx, rfl⟩, (vec_beta' hz e).symm⟩
+
+end Beta
+
 end QMRecPrinted
