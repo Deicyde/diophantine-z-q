@@ -924,4 +924,110 @@ theorem semilinear_unit (hρinj : Function.Injective ρ)
 
 end Lattice
 
+
+/-! ## §5 `T` is not the identity -/
+
+section NonId
+
+variable {K : Type} [Field K]
+
+theorem finA : ∀ U C : F9, ∀ e : ZMod 3, e * e = 1 → gm (cj U) U = (e, 0) →
+    gm U C = gm (cj C) U → gm (gm (gm (cj (gm (e, 0) U)) (cj (1, 1))) U) C ≠ (1, 1) := by
+  decide
+
+theorem red_intCast (n : ℤ) : red (n : O) = ((n : ZMod 3), 0) := by
+  rw [red, coords_intCast]; simp [redC]
+
+/-- **An isomorphism `T(m) ≅ m` for `m = rightMul w P`** gives `c = h g⁻¹ ∈ End_𝒪(A)` with residue `c₀` and
+`α(u) α(w) u₀ c₀ ≡ w (mod 3)`. -/
+theorem nonid_core (hT : ObjBridge.TorsionStructure) [CharZero K] (P : QML3 K) (α : O ≃+* O)
+    (hα : ∀ a, α (α a) = a) (g : AbVar.End P.A) (ε : ℤ) (hε : ε * ε = 1)
+    (hgg : g * g = (ε : AbVar.End P.A)) (hg : ∀ a, g * P.q.iota (α a) = P.q.iota a * g)
+    (u₀ : O) (hu₀ : ∀ x, endPt P.A K g (P.e.eta (α x)) = P.e.eta (x * u₀)) (u w : Oˣ)
+    (hTm : M3.twist α (M3.rightMul u (M3.mk (P.rightMul w)))  = M3.mk (P.rightMul w)) :
+    ∃ c ∈ com P.q, ∃ c₀ : O, (∀ x, endPt P.A K c (P.e.eta x) = P.e.eta (x * c₀)) ∧
+      π3 (α u * α w * u₀ * c₀) = π3 (w : O) := by
+  obtain ⟨h⟩ := Quotient.exact hTm
+  have h' : QML3.Iso (⟨P.A, P.surface, P.q.twist α, ((P.e.rightMul w).rightMul u).twist α⟩ : QML3 K)
+      ⟨P.A, P.surface, P.q, P.e.rightMul w⟩ := h
+  set H := h'.φ with hHdef
+  have heqH : ∀ a, H * P.q.iota (α a) = P.q.iota a * H := fun a => Iso.equiv_end h' a
+  have hgα : ∀ a, g * P.q.iota a = P.q.iota (α a) * g := by
+    intro a; have := hg (α a); rwa [hα] at this
+  set c : AbVar.End P.A := H * g * (ε : AbVar.End P.A) with hcdef
+  have hc : c ∈ com P.q := by
+    rw [com, Subring.mem_centralizer_iff]
+    rintro _ ⟨a, rfl⟩
+    show P.q.iota a * c = c * P.q.iota a
+    calc P.q.iota a * c = P.q.iota a * H * g * (ε : AbVar.End P.A) := by rw [hcdef]; noncomm_ring
+      _ = H * P.q.iota (α a) * g * (ε : AbVar.End P.A) := by rw [heqH]
+      _ = H * (g * P.q.iota a) * (ε : AbVar.End P.A) := by rw [hgα]; noncomm_ring
+      _ = H * g * ((ε : AbVar.End P.A) * P.q.iota a) := by
+          rw [(Int.cast_commute ε (P.q.iota a)).eq]; noncomm_ring
+      _ = c * P.q.iota a := by rw [hcdef]; noncomm_ring
+  have hcg : c * g = H := by
+    calc c * g = H * g * ((ε : AbVar.End P.A) * g) := by rw [hcdef]; noncomm_ring
+      _ = H * g * (g * (ε : AbVar.End P.A)) := by rw [(Int.cast_commute ε g).eq]
+      _ = H * (g * g) * (ε : AbVar.End P.A) := by noncomm_ring
+      _ = H := by rw [hgg, _root_.mul_assoc, ← Int.cast_mul, hε, Int.cast_one, _root_.mul_one]
+  obtain ⟨c₀, hc₀⟩ := residue_com hT P c hc
+  refine ⟨c, hc, c₀, hc₀, ?_⟩
+  have hl : endPt P.A K H (P.e.eta ((α 1 * u) * w)) = P.e.eta (1 * w) := Iso.level_end h' 1
+  rw [map_one, _root_.one_mul, _root_.one_mul,
+    show (u : O) * w = α (α u * α w) by rw [map_mul, hα, hα], ← hcg, map_mul] at hl
+  change endPt P.A K c (endPt P.A K g (P.e.eta (α (α u * α w)))) = _ at hl
+  rw [hu₀, hc₀] at hl
+  exact π3_of_eta_eq P.e hl
+
+/-- **`T ≠ id` in the cases `ℤ[ζ₃]` and `ℤ[√−6]`** (`α` conjugation by `t = j` or `k`, `s = ι(t) g ∈ End_𝒪(A)`):
+`T` moves the class of `rightMul (1 + i) P`. Modulo `𝔓₃`, `c₀` would be `(1+i)/(1−i) = i`, but commuting
+with `s̄ = t u₀` forces `c̄₀ = c̄₀^σ ∈ 𝔽₃`. -/
+theorem nonid_t (hT : ObjBridge.TorsionStructure) [CharZero K] (P : QML3 K) (α : O ≃+* O)
+    (hα : ∀ a, α (α a) = a) (t : O) (ht : ∀ z, t * α z = z * t)
+    (hredt : ∀ z, π3 (t * z) = 0 → red z = 0) (hredα : ∀ z, red (α z) = cj (red z))
+    (g : AbVar.End P.A) (ε : ℤ) (hε : ε * ε = 1)
+    (hgg : g * g = (ε : AbVar.End P.A)) (hg : ∀ a, g * P.q.iota (α a) = P.q.iota a * g)
+    (hcomm : ∀ c ∈ com P.q, c * (P.q.iota t * g) = (P.q.iota t * g) * c)
+    (u₀ : O) (hu₀ : ∀ x, endPt P.A K g (P.e.eta (α x)) = P.e.eta (x * u₀))
+    (hsq : π3 (α u₀) * π3 u₀ = (ε : Q3)) (u : Oˣ) (hu : π3 (u : O) = (ε : Q3) * π3 u₀) :
+    M3.twist α (M3.rightMul u (M3.mk (P.rightMul w1U))) ≠ M3.mk (P.rightMul w1U) := by
+  intro hTm
+  obtain ⟨c, hc, c₀, hc₀, heq⟩ := nonid_core hT P α hα g ε hε hgg hg u₀ hu₀ u w1U hTm
+  have hgy : ∀ y, endPt P.A K g (P.e.eta y) = P.e.eta (α y * u₀) := by
+    intro y; have := hu₀ (α y); rwa [hα] at this
+  have hs : ∀ z, endPt P.A K (P.q.iota t * g) (P.e.eta z) = P.e.eta (z * (t * u₀)) := by
+    intro z
+    rw [map_mul]
+    change endPt P.A K (P.q.iota t) (endPt P.A K g (P.e.eta z)) = _
+    rw [hgy, endPt_iota, ← P.e.linear, ← _root_.mul_assoc, ht, _root_.mul_assoc]
+  have hcs := hcomm c hc
+  have e1 : P.e.eta (t * u₀ * c₀) = P.e.eta (c₀ * (t * u₀)) := by
+    have := congrArg (fun f => endPt P.A K f (P.e.eta 1)) hcs
+    simp only [map_mul] at this
+    change endPt P.A K c (endPt P.A K (P.q.iota t * g) (P.e.eta 1)) =
+      endPt P.A K (P.q.iota t * g) (endPt P.A K c (P.e.eta 1)) at this
+    rwa [hs, hc₀, hc₀, hs, _root_.one_mul, _root_.one_mul] at this
+  have e2 : π3 (t * (u₀ * c₀ - α c₀ * u₀)) = 0 := by
+    have := π3_of_eta_eq P.e e1
+    rw [← _root_.mul_assoc c₀, ← ht c₀] at this
+    rw [mul_sub, map_sub, sub_eq_zero, ← _root_.mul_assoc, ← _root_.mul_assoc]
+    exact this
+  have hC := hredt _ e2
+  rw [red_sub, red_mul, red_mul, hredα, sub_eq_zero] at hC
+  have hW := red_congr heq
+  rw [red_mul, red_mul, red_mul, hredα, hredα] at hW
+  have hU : red (u : O) = gm ((ε : ZMod 3), 0) (red u₀) := by
+    have : π3 (u : O) = π3 ((ε : O) * u₀) := by rw [hu, map_mul, map_intCast]
+    rw [red_congr this, red_mul, red_intCast]
+  have hS : gm (cj (red u₀)) (red u₀) = ((ε : ZMod 3), 0) := by
+    have : π3 (α u₀ * u₀) = π3 (ε : O) := by rw [map_mul, hsq, map_intCast]
+    have h2 := red_congr this
+    rwa [red_mul, hredα, red_intCast] at h2
+  have he : ((ε : ZMod 3)) * (ε : ZMod 3) = 1 := by
+    have := congrArg (Int.cast : ℤ → ZMod 3) hε; push_cast at this; exact this
+  rw [hU, show red ((w1U : Oˣ) : O) = (1, 1) from red_w1] at hW
+  exact finA _ _ _ he hS hC hW
+
+end NonId
+
 end GapGlue.CMStab
