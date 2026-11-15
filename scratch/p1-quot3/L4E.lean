@@ -59,7 +59,7 @@ theorem map_divX' {A B : Type*} [CommRing A] [CommRing B] (φ : A →+* B) (h : 
     (h.divX).map φ = (h.map φ).divX := by
   ext n; simp [Polynomial.coeff_divX]
 
-variable [SmoothOfRelativeDimension 1 𝒵.hom] [GeometricallyConnected 𝒵.hom]
+variable [IsProper 𝒵.hom] [SmoothOfRelativeDimension 1 𝒵.hom] [GeometricallyConnected 𝒵.hom]
 
 /-- **The residue of the extended coordinate at `ξ` is transcendental over `𝔽_p`**: a polynomial with nonzero
 reduction mod `p` does not vanish at `ξ` when evaluated at the coordinate (it vanishes at the zero `x0` only through
@@ -117,6 +117,93 @@ theorem xi_mem_basicOpen_eval (ρ : ToP1 𝒵.left) (x0 : 𝒵.left) (hx0U : x0 
       rcases h1 h2 with h3 | h3
       · exact hx (by rw [hdec]; exact h3)
       · exact hu ((mem_basicOpen_cst_iff 𝒵 (h.coeff 0) ρ.U (xi 𝒵) hξU (xi_mem 𝒵)).1 h3)
+
+/-- **The chart ring is the polynomial ring in the extended coordinate.** -/
+theorem eval_bijective (σ : ToP1 (genFib 𝒵).left) (hσ : IsP1CoordinateQ (genFib 𝒵) σ)
+    (hne : (σ.U : Set (genFib 𝒵).left).Nonempty) (ρ : ToP1 𝒵.left) (hf : σ.U ≤ jj 𝒵 ⁻¹ᵁ ρ.U)
+    (hf1 : (jj 𝒵).appLE _ σ.U hf ρ.f = σ.f) (x0 : 𝒵.left) (hx0U : x0 ∈ ρ.U)
+    (hx0s : 𝒵.hom x0 = s0 p) (hx0f : x0 ∉ 𝒵.left.basicOpen ρ.f)
+    (hξf : xi 𝒵 ∈ 𝒵.left.basicOpen ρ.f) :
+    Function.Bijective (eval₂RingHom (baseToSectionsOver _ 𝒵 ρ.U) ρ.f) := by
+  haveI := zloc_isDVR' (p := p)
+  set ev := eval₂RingHom (baseToSectionsOver _ 𝒵 ρ.U) ρ.f
+  set res := ((jj 𝒵).appLE _ σ.U hf).hom
+  set evQ := eval₂RingHom (baseToSectionsOver (CommRingCat.of ℚ) (genFib 𝒵) σ.U) σ.f
+  have hres : Function.Injective res := appLE_injective 𝒵 σ hne _ hf
+  have hcomm : res.comp ev = evQ.comp (mapRingHom (zlocToRat p)) := by
+    refine Polynomial.ringHom_ext (fun c => ?_) ?_
+    · simp only [RingHom.comp_apply, ev, evQ, coe_eval₂RingHom, eval₂_C, coe_mapRingHom,
+        Polynomial.map_C, res]
+      exact appLE_cst 𝒵 c ρ.U σ.U hf
+    · simp only [RingHom.comp_apply, ev, evQ, coe_eval₂RingHom, eval₂_X, coe_mapRingHom,
+        Polynomial.map_X, res]
+      exact hf1
+  have hcomm' : ∀ q, res (ev q) = evQ (q.map (zlocToRat p)) := fun q =>
+    congrArg (fun φ => φ q) hcomm
+  have hmapinj : Function.Injective (Polynomial.map (zlocToRat p)) :=
+    Polynomial.map_injective _ (zlocToRat_injective p)
+  refine ⟨fun a b hab => hmapinj (hσ.2.2.1.1 ?_), fun s => ?_⟩
+  · rw [← hcomm', ← hcomm', hab]
+  -- surjectivity: clear the denominators of the polynomial representing `s` on the generic fibre
+  obtain ⟨Q, hQ⟩ := hσ.2.2.1.2 (res s)
+  letI : Algebra (Zloc p) ℚ := (zlocToRat p).toAlgebra
+  haveI := zloc_away p
+  obtain ⟨_, ⟨k, rfl⟩, hk⟩ := IsLocalization.integerNormalization_spec
+    (Submonoid.powers (p : Zloc p)) Q
+  have hp0 : (p : Zloc p) ∉ IsLocalRing.maximalIdeal (Zloc p) → False := fun h =>
+    h (by rw [maximalIdeal_Zloc]; exact Ideal.subset_span rfl)
+  have hpξ : xi 𝒵 ∉ 𝒵.left.basicOpen (cst 𝒵 (p : Zloc p) ρ.U) := fun h =>
+    hp0 fun hm => (IsLocalRing.mem_maximalIdeal _).1 hm
+      ((mem_basicOpen_cst_iff 𝒵 _ ρ.U (xi 𝒵) (𝒵.left.basicOpen_le _ hξf) (xi_mem 𝒵)).1 h)
+  suffices H : ∀ (k : ℕ) (h : (Zloc p)[X]), h.map (zlocToRat p) = ((p : Zloc p) ^ k) • Q →
+      ∃ a, ev a = s from H k _ hk
+  intro k
+  induction k with
+  | zero =>
+    intro h hh
+    refine ⟨h, hres ?_⟩
+    rw [hcomm', hh, pow_zero, one_smul]
+    exact hQ
+  | succ m ihm =>
+    intro h hh
+    -- `ev h = p^(m+1) s`
+    have hevh : ev h = cst 𝒵 (p : Zloc p) ρ.U ^ (m + 1) * s := by
+      apply hres
+      rw [hcomm', hh, map_mul, map_pow]
+      simp only [res]
+      rw [appLE_cst 𝒵 _ ρ.U σ.U hf, Algebra.smul_def, map_mul, ← hQ]
+      congr 1
+      rw [Polynomial.algebraMap_apply]
+      simp only [evQ, coe_eval₂RingHom, eval₂_C, map_pow]
+      rfl
+    by_cases hr : h.map (IsLocalRing.residue (Zloc p)) = 0
+    · -- all coefficients are divisible by `p`
+      have hcoef : ∀ n, h.coeff n ∈ Ideal.span {(p : Zloc p)} := by
+        intro n
+        rw [← maximalIdeal_Zloc, ← IsLocalRing.residue_eq_zero_iff]
+        have := congrArg (fun q => q.coeff n) hr
+        simpa [coeff_map] using this
+      have hmem : h ∈ Ideal.span {C (p : Zloc p)} := by
+        have : h ∈ Ideal.map (C : Zloc p →+* (Zloc p)[X]) (Ideal.span {(p : Zloc p)}) :=
+          (Ideal.mem_map_C_iff).2 hcoef
+        rwa [Ideal.map_span, Set.image_singleton] at this
+      obtain ⟨h', rfl⟩ := (Ideal.mem_span_singleton').1 hmem
+      refine ihm h' ?_
+      have hp0 : (C ((zlocToRat p) (p : Zloc p)) : ℚ[X]) ≠ 0 := by
+        rw [Ne, C_eq_zero, map_natCast]; exact_mod_cast (Fact.out : p.Prime).ne_zero
+      apply mul_right_cancel₀ hp0
+      rw [← Polynomial.map_C, ← Polynomial.map_mul, hh, Algebra.smul_def, Algebra.smul_def,
+        Polynomial.algebraMap_apply, Polynomial.algebraMap_apply]
+      simp only [map_pow, Polynomial.map_C, RingHom.algebraMap_toAlgebra]
+      ring
+    · exfalso
+      have h1 := xi_mem_basicOpen_eval 𝒵 ρ x0 hx0U hx0s hx0f hξf h hr
+      change xi 𝒵 ∈ 𝒵.left.basicOpen (ev h) at h1
+      rw [hevh, Scheme.basicOpen_mul] at h1
+      have hle : 𝒵.left.basicOpen (cst 𝒵 (p : Zloc p) ρ.U ^ (m + 1)) ≤
+          𝒵.left.basicOpen (cst 𝒵 (p : Zloc p) ρ.U) := by
+        rw [pow_succ, Scheme.basicOpen_mul]; exact inf_le_right
+      exact hpξ (hle h1.1)
 
 end Rings
 
