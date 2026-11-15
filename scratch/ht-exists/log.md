@@ -14,3 +14,14 @@ Base 16db7d60 (wip/ht-bypass, leaf-fold22; frozenTarget over OpenResearchLeaves2
   (Algebra.IsSeparable ℚ_[ℓ] E) in htDual_proof (instance drift under the TailX import, as c-to-printed2 noted).
 - 06:19 same with `set_option synthInstance.maxHeartbeats 400000 in` before htDual_proof: OK (17 s), VERIFIED.
   Warnings only: deprecated if_neg/if_pos in the verbatim copy of HTDual.lean.
+- 06:19 `lake build +ZInQKernel.OneProof.Main +ZInQKernel.OneProof.Discharges +ZInQKernel.Contrib.OneProof.EigenformHTExists`:
+  OK (12987 jobs, all replayed but the new file). VERIFIED.
+- 06:20 `lake env lean scratch/ht-exists/Discharges.lean` (output Discharges-output.txt), VERIFIED:
+  `DISCHARGES [OpenResearchLeaves21.eigenformHTNew] by EigenformHTExists.eigenformHTNew_of_katoHTExists`,
+  still assumes `[KatoHTExists, TateTwistInvariants, AxSenTate]` (the last two are LEAF fields of
+  OpenAddedLeaves17), axioms standard; `#discharges: 63 open hypotheses, 1702 theorems checked, 6 discharge one`
+  (the other five are the already-folded contributions). `#print axioms` standard for all 7 new theorems.
+- 06:20 `autofold.py scratch/ht-exists/autofold.json --dry-run`: `strict count: 46/10 on 56 -> 46/10 on 56;
+  strictest 45/11 -> 45/11` (neutral: the leaf is flagged pending reading, counts GLUE). VERIFIED.
+- 06:20 dry-run output minus line 1 = FoldDryRun.lean; `lake env lean`: OK, `sixContactMin_of_open29` standard
+  axioms (FoldDryRun-output.txt). VERIFIED.

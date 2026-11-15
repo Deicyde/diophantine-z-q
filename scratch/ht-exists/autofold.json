@@ -1,0 +1,22 @@
+{
+ "name": "ht-exists",
+ "imports": [
+  "ZInQKernel.Contrib.OneProof.EigenformHTExists"
+ ],
+ "discharges": [
+  {
+   "field": "eigenformHTNew",
+   "proof": "_root_.EigenformHTExists.eigenformHTNew_of_katoHTExists {n}.katoHTExists {l}.tateTwistInvariants {l}.axSenTate",
+   "leaves": [
+    {
+     "name": "katoHTExists",
+     "type": "_root_.EigenformHTExists.KatoHTExists",
+     "doc": "R13, existence form (ht-exists): for a newform f of weight k >= 2, level N and every l, iota_C, iota_L there is a semisimple continuous rho : G_Q -> GL_2(Qbar_l), unramified outside N l, whose geometric Frobenius at p not dividing N l has trace a_p(f), and whose restriction to G_{Q_l} is Hodge-Tate with weights {0, k - 1} (cyclotomic weight -1). Kato 2004 sections 9.2-9.4 and 11.3 for V_{F_lambda}(f) itself (cohomological normalization, every level); the dualization (HTDual, from Tate 1967) and the transport to every semisimple attached rho (Chebotarev, Brauer-Nesbitt, invariance of HT weights under conjugation) are proved in Lean. Replaces eigenformHTNew.",
+     "kind": "published",
+     "flag": "pending reading: Kato 2004 states de Rham-ness and the Hodge filtration (jumps 0 and k-1) for V_{F_lambda}(f) (sections 9.2-9.4, (9.2.2), pp. 187-188; 11.3, pp. 205-207); to read: the Frobenius normalization of V_{F_lambda}(f) (sections 6.3, 8.3, pp. 161-162, 181-182: geometric Frobenius trace a_p, not its complex conjugate or the arithmetic one), the sign convention of the filtration jumps against the kernel's htMult (cyclotomic weight -1), and the semisimplicity of the witness (Ribet 1977/1985, locators UNVERIFIED); wording UNVERIFIED",
+     "source": "Kato, Asterisque 295 (2004), sections 9.2-9.4 and (9.2.2), pp. 187-188; 11.3, pp. 205-207; 6.3 and 8.3, pp. 161-162 and 181-182 (pages read by the locator audit, row R13); alternatives Faltings, Math. Ann. 278 (1987), Scholl, Invent. Math. 100 (1990), Saito, Invent. Math. 129 (1997) (UNVERIFIED); semisimplicity Ribet 1977 / 1985 (UNVERIFIED)"
+    }
+   ]
+  }
+ ]
+}
