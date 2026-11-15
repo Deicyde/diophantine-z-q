@@ -43,3 +43,11 @@ Target: `HDec.MCRGlue.QuotientP1Coordinate` (ZInQKernel/OneProof/H/TailW.lean L2
   VERIFIED `DISCHARGES [OpenGlue7.quotientP1Coordinate] by HDec.MCRQuot.quotientP1Coordinate_of_printed`, still
   assumes L1-L6, PkgI2.TorsionStructure, HDec.PropTSGlue.HeckeIrreducible, HDec.MCRQuot.CMStabObj; axioms standard
   (discharges_out.txt).
+
+## L5 from Edixhoven (FixedTest.lean)
+- New leaf `HDec.MCRQuot.EdixhovenFixedSmooth` (Edixhoven 1992 Prop. 3.4, cyclic group, S = Spec ℤ_(p); fixed scheme
+  = equalizer of σ and id in Over S): `Smooth (equalizer (Over.homMk σ hσ) (𝟙 𝒴)).hom` for 𝒴 smooth, σ^n = 1, p ∤ n.
+- `tameFixedPointsDisjoint_of_edixhoven : EdixhovenFixedSmooth → TameFixedPointsDisjoint`: VERIFIED compiles,
+  [propext, Classical.choice, Quot.sound]. Uses the vendored FLT theorem
+  `Smooth.isDomain_and_isIntegrallyClosed_stalk_of_isDiscreteValuationRing` (CloudW03) for domain stalks of F,
+  `Scheme.range_fromSpecStalk` for the common generization, and `infinite_qbar_closure` (Jacobson generic fibre).
