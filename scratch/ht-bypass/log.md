@@ -33,3 +33,12 @@ Base 9a100aa7 (leaf-fold22). Field: `eigenformHTNew : ZInQ.Contrib.HodgeSplit.Ei
 - k = 2 (weight-2 newforms, the case r16 + DeRhamComparison could cover) is never used by the route.
 
 ## Compile log
+- 05:45 `lake build ZInQKernel.OneProof.H.TailX` OK (build tree copied from r17-bypass at the same base; TailA..TailX
+  recompiled, ~20 min).
+- 05:46 `lake env lean scratch/ht-bypass/HTBypass.lean`: OK, first try (7 s; one style warning `haveI`, from the verbatim
+  copy of `g12`, then changed to `have`). VERIFIED.
+- `scratch/ht-bypass/HTBypassAxioms.lean`: `eigenformHT5Ge3_of_ds`, `eigenformHTNew5Ge3_of_field`,
+  `g12WeightWeak_of_senTwist`, `g8_g12Weak`, `g12Weight_of_weak` depend on [propext, Classical.choice, Quot.sound].
+  VERIFIED.
+- Contribution file `ZInQKernel/Contrib/OneProof/EigenformHTWeak.lean` = HTBypass.lean (header changed).
+- `scratch/ht-bypass/autofold.json`: empty `discharges` with a note (the weak form cannot fill the field).
