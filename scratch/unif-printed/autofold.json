@@ -1,0 +1,22 @@
+{"name": "unif-printed",
+ "imports": ["ZInQKernel.Contrib.OneProof.UniformizationPrinted"],
+ "discharges": [
+   {"field": "uniformizationLeafAll",
+    "proof": "_root_.UnifPrinted.uniformizationLeafAll_of_printed {n}.mumfordComplexTorus {n}.smoothComplexManifold {n}.properCompact {n}.connectedConnected",
+    "leaves": [
+      {"name": "mumfordComplexTorus", "type": "_root_.UnifPrinted.MumfordComplexTorus",
+       "doc": "unif-printed: Mumford, Abelian varieties, section 1 (printed form over Mathlib's complex Lie groups): a compact connected complex Lie group of dimension g is biholomorphic and isomorphic to C^g / Lambda for a lattice Lambda (locator UNVERIFIED)",
+       "kind": "published", "flag": "unread: new printed leaf, no reading recorded; locator UNVERIFIED",
+       "source": "Mumford, Abelian varieties (1970/1974), section 1, theorem on compact connected complex Lie groups; Birkenhake-Lange, Complex abelian varieties, 1.1 (locators UNVERIFIED)"},
+      {"name": "smoothComplexManifold", "type": "_root_.UnifPrinted.SmoothComplexManifold",
+       "doc": "unif-printed: for X smooth, proper, irreducible over C, X(C) with its classical topology is a complex analytic manifold on which regular functions are holomorphic and give local coordinates (printed form, special case X proper; Shafarevich BAG 2, VII 1.1; SGA 1 XII 1.1, 3.1; locators UNVERIFIED)",
+       "kind": "published", "flag": "unread: new printed leaf, no reading recorded; locator UNVERIFIED",
+       "source": "Shafarevich, Basic algebraic geometry 2 (2nd ed.), Ch. VII 1.1; Serre, GAGA (1956) 2; SGA 1, Exp. XII, 1.1 and 3.1 (locators UNVERIFIED)"},
+      {"name": "properCompact", "type": "_root_.UnifPrinted.ProperCompact",
+       "doc": "unif-printed: X proper over C implies X(C) compact in the classical topology (printed form; Serre, GAGA 2 Prop. 6; SGA 1 XII 3.2; locators UNVERIFIED)",
+       "kind": "published", "flag": "unread: new printed leaf, no reading recorded; locator UNVERIFIED",
+       "source": "Serre, GAGA (1956), 2, Prop. 6; SGA 1, Exp. XII, Prop. 3.2 (locators UNVERIFIED)"},
+      {"name": "connectedConnected", "type": "_root_.UnifPrinted.ConnectedConnected",
+       "doc": "unif-printed: X proper and irreducible over C implies X(C) connected in the classical topology (printed form, special case; Shafarevich BAG 2, VII 2.1 Thm 1; SGA 1 XII 2.4; locators UNVERIFIED)",
+       "kind": "published", "flag": "unread: new printed leaf, no reading recorded; locator UNVERIFIED",
+       "source": "Shafarevich, Basic algebraic geometry 2 (2nd ed.), Ch. VII 2.1, Thm. 1; SGA 1, Exp. XII, Prop. 2.4 (locators UNVERIFIED)"}]}]}
