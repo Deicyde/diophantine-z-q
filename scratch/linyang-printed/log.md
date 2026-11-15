@@ -20,3 +20,10 @@
   (py/invariants.py there), this pins Igusa's printed normalizations: Eisenstein psi4 = 2^-2 sum theta^8,
   Eisenstein psi6 = theta-glue's signed syzygous sum, Igusa's chi10 = -2^-14 prod theta^2, chi12 = 2^-17 3^-1 sum_Goepel.
   In particular theta-glue's psi6 sign choice is the Eisenstein one (it equals psi_6, not -psi_6).
+- LinYangPrinted.lean (imports ZInQKernel.OneProof.H.TailJ) COMPILES (VERIFIED, `lake env lean`, 23 s, no errors,
+  no sorry). `#print axioms` = [propext, Classical.choice, Quot.sound] for
+  `LinYangPrinted.linYangThetaCurve_of_printed : IgusaThetaExpressions → LinYangEx29 → ThetaGlue.LinYangThetaCurve`
+  and `LinYangPrinted.qmHauptmodul_of_printed : IgusaThetaExpressions → LinYangEx29 → PkgI1.QMHauptmodul`.
+  §0 = theta-glue ThetaGlue.lean l.392-470, 534-551, 578-597 copied by `sed -n` (byte-identical), same namespace.
+  Glue proved in the file: analyticity of each θ_m∘Ω on ℍ (copy of TailJ's inner step), countability of Γ*
+  (B ≃ ℚ⁴), countable fibres of a Hauptmodul with orbit fibres, eqOn off a countable set (Set.Countable.dense_compl).
