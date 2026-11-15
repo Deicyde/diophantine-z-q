@@ -233,3 +233,28 @@ Notes on the GLUE fields (agent-Y; not proposed tasks):
 - `shimuraIntegralModelRep` is used only as `VertUnramWitness E p` for p > 324 (TailG:10216 → TailK:318). It becomes
   a LEAF by a reading of Buzzard 1997 §§1–4 (full level 3 with 3 | D allowed; UNVERIFIED). An alternative is a printed
   good-reduction theorem for tame covers (Beckmann 1989; UNVERIFIED), via a bypass to `heckeVertWitness`.
+
+## 2. Second pass: probes, corrections and per-statement details
+
+### 2.1 Probes (all compiled at the base, with `scratch/triage2/run.sh`)
+
+| probe | content | outcome |
+|---|---|---|
+| `Pi0Use.lean` (out3) | binder-use walk over the 244,035-constant closure of `frozenTarget` for `HDec.LeafAdopt.R1pi0Props` | only producers use it; VERIFIED prune (task 1) |
+| `ProbeC.lean` | `R1R2fpRepW`, `R1R2fpRepW_of_rep`, `R1R2fp_of_repW` (proof unchanged), `GeomConnX6W`, `geomConnX6W_of_gr` (witness from `GonzalezRotgerX6`); the list of live constants whose type mentions the affected statements | compiles; scope: `R1R2fpRep` appears in 41 live types (6 bundle structures OpenResearchLeaves2/5/7/8/9 and ResearchLeaves3, with fields `r1r2` and `r1b : ∀ h : R1R2fpRep, …`; about 25 theorems); `CanonicalCoarseX6` in 8, `GeomConnX6` in 4, `CoarseX6OfFine` in 3, `GeomConnOfAlgClosure` in 18 (bundle fields and 6 theorems) |
+| `ProbeA.lean` | task 2's target statement and #check list; fold check `ss1_ss3_of_persistsT2`, and an `example` over `(r : OpenResearchLeaves14) (t) (l)` that derives SS1 ∧ SS3 from `target r.sga3_VIB_3_10 r.sga7_IX_3_3 t.geomConnOfRationalPoint` | compiles: the fold is a plain field replacement with no new field |
+| `ProbeB.lean` | `babaGranathRationalAb_of_elkiesT2 : ElkiesEquationsX6Ab → CMPairsExistT2 → BabaGranathRationalAb`, **proved in full** (t₄ = 1, t₃ = ∞, t₂₄ = 0) | compiles: task 3's glue step is done; only `CMPairsExistT2` remains |
+
+### 2.2 Corrections to the first-pass ranking
+
+- **Task 2 risk lowered.** The chain already proves the hard template:
+  - `hasSemiAbelian_pullback` (TailZ14:1006) shows that base change along a field isomorphism preserves
+    `HasSemiAbelianIdentityComponent`. It includes the AbVar, flatness, surjectivity and functor-of-points torus
+    transport.
+  - `semiAbelianFieldIsoInvariant` (TailZ14:1055) is the iff, and `hasSemiAbelian_of_iso` (TailZ14:553) is iso
+    invariance.
+  - Task 2 needs the same lemma along an extension κ̄ → κ̄' of algebraically closed fields. The only new ingredient is
+    connectedness, which comes from `GeomConnOfRationalPoint`, plus the factorization through the identity component.
+  - Tier T2 (was T2, risk T3).
+- **Task 3 is now one statement.** The glue is compiled (ProbeB). What remains is `CMPairsExistT2` (see 2.3, task 3).
+- Task 1 stays first. ProbeC measures the rethreading: it is the size of the sem-prune task A1, so T2.
