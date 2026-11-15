@@ -660,6 +660,8 @@ jobs:
                   self.finish_now = False
                   self.discovery = {}
                   self.binary_dependencies = set()
+                  self.initial_files = files
+                  self.original_files_digest = hashlib.sha256(json.dumps(files, sort_keys=True).encode()).hexdigest()
                   self.input = {"repository": gh.repo, "pull_request": pr["number"], "head": pr["head"]["sha"],
                                 "base": pr["base"]["sha"], "change_class": change_class,
                                 "untrusted_title": pr["title"], "untrusted_description": pr.get("body"), "files": files}
@@ -702,7 +704,32 @@ jobs:
                       return {"total": len(matches), "paths": matches[offset:offset+200], "next_offset": offset+200 if offset+200 < len(matches) else None}
                   raise ValueError("Unknown tool")
 
+              def prepare_initial_input(self):
+                  """Defer oversized inline patches; never omit a changed file or prior turn."""
+                  conversation = [{"role": "user", "content": json.dumps(self.input)}]
+                  before = context_estimate(self.family, self.instructions, conversation)
+                  limit = CONTEXT_TOKEN_BUDGET - RECOVERY_TOKEN_RESERVE - REVIEWER_OUTPUT_RESERVE
+                  omitted = []
+                  if before['estimated_total'] > limit:
+                      files = []
+                      for original in self.input['files']:
+                          item = {k: v for k, v in original.items() if k != 'patch'}
+                          if 'patch' in original:
+                              omitted.append(original['filename'])
+                              item['patch_omitted'] = 'Deferred from the initial packet; fetch both source revisions before judging this change.'
+                              item['patch_hunks'] = re.findall(r'^@@ -\d+(?:,\d+)? \+\d+(?:,\d+)? @@', original['patch'], re.M)
+                          files.append(item)
+                      self.input['files'] = files
+                      self.initial_files = files
+                  conversation = [{"role": "user", "content": json.dumps(self.input)}]
+                  after = context_estimate(self.family, self.instructions, conversation)
+                  record(self.family + '-initial-packet.json', {
+                      'before': before, 'after': after, 'deferred_patches': omitted,
+                      'changed_files': len(self.initial_files),
+                      'scope': 'Only unsent inline patches were deferred. File metadata and hunk ranges remain. Deferred source is not read evidence; the existing hard guard still applies.'})
+
               def run(self):
+                  self.prepare_initial_input()
                   conversation = [{"role": "user", "content": json.dumps(self.input)}]
                   record(self.family + "-input.json", {"instructions": self.instructions, "input": self.input})
                   turns, previous, web_trace = [], None, []
@@ -1090,6 +1117,8 @@ jobs:
               identity = diff_identity(files)
               if identity is None:
                   raise ValueError('Cannot bind an incomplete PR diff')
+              if hashlib.sha256(json.dumps(files, sort_keys=True).encode()).hexdigest() != reviewer.original_files_digest:
+                  raise ValueError('PR diff changed after the reviewer input was prepared')
               refs = reuse_refs(gh, pr, any(f.get('patch') for f in files))
               texts = dict(reviewer.file_lines)
               passages, reads = [], []
@@ -1100,7 +1129,7 @@ jobs:
                   reads.append({**read, 'revision': side, 'ref': refs[side]})
               # The initial diff is also source material, even without a read_file
               # call. GitHub's old side is the merge base, not the current base tip.
-              reads.extend(displayed_hunk_reads(gh, files, refs, texts))
+              reads.extend(displayed_hunk_reads(gh, reviewer.initial_files, refs, texts))
               for r in reads:
                   side = r['revision']
                   if (r['path'], side) in whole:
