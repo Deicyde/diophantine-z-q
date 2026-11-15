@@ -74,3 +74,8 @@
   the leaf's truth does not depend on whether D = -24 or D = -3 sits at 0 (the unread 0/infinity orientation).
   Fibre fields: t = 1 gives Q(i) (only D = -4 fits), t = 0 and t = infinity give Q(sqrt -3) (D = -24: field of
   definition is the quadratic subfield of H_{-24} = Q(sqrt2, sqrt -3) other than K and Q(sqrt2); D = -3: Q(sqrt -3)).
+- IgusaThetaExpressions, theta side on the diagonal (scratch/leaf-audit/py/igusa_diag_check.py; VERIFIED): at
+  diag(0.1+1.2i, -0.3+0.9i) and diag(0.25+i, 0.4+1.5i): psi4Th = E4⊗E4 and psi6Th = E6⊗E6 (rel. err < 3e-30),
+  chi10Th = 0 (< 5e-69), chi12Th = Δ⊗Δ (< 1e-29). With theta-glue's modularity of the theta expressions and the
+  injectivity of the diagonal restriction on M_4, M_6, M_12 this pins psi4Th, psi6Th (sign pattern) and chi12Th;
+  chi10Th's constant is pinned only by theta-fold's Fourier check (script not in the repository; not re-run).
