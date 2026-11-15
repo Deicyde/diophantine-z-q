@@ -19,3 +19,23 @@
   `g₀ ∈ 𝒪̂^×`, all τ). Then: two families A_τ = y_τ, B_τ = y_τ ≫ e_c (c ∈ 𝒪^× from R1heckeProps, c ≡ (1+i+j)⁻¹
   mod 3); every ℂ-point is A or B (ComplexUnifL3 + dcy3 decomp3 + DCRelTransport + UnifDetermines); reciprocity
   at √2+i (QMReciprocityL3 ⇐ MainTheoremCM) sends A_z to B_z; clopen indicator constant.
+
+## 06:45 build tree
+- Copied ~/dzq-wt/p1-quot3/.lake/build and lean/.lake/build (p1-quot3 = same shared sources + dcy3-used; only
+  extra Contrib modules differ, VERIFIED git diff). `lake build ZInQKernel.Contrib.OneProof.QMRecPrinted
+  ZInQKernel.Contrib.OneProof.DeligneComponentsY3Used`: built ShimuraSplit2 (88 s), QMRecPrinted (14 s), rest
+  replayed; "Build completed successfully (12232 jobs)" (VERIFIED).
+
+## 06:55 CompositeOut.lean compiles (VERIFIED)
+- `ZInQKernel/Contrib/OneProof/CompositeOut.lean` (namespace CompositeOut), imports QMRecPrinted and
+  DeligneComponentsY3Used. `lake env lean`: 0 errors, ~7 s; output scratch/composite-out/compile1.txt.
+- New leaf `CompositeOut.ShimuraHolFamilyL3` (∃ fine witness, holomorphic y_τ, ∃ g₀ ∈ 𝒪̂^×, ∀ τ, object MIsAt τ g₀).
+- Proved, axioms [propext, Classical.choice, Quot.sound]:
+  - `y3ConnectedAb_of_L3 : ShimuraHolFamilyL3 → MainTheoremCM → UniformizationLeafAll → GAGAMorphism →
+     MumfordTorsionAlgClosed → MumfordGroupLaw → DCY3Used.Y3ConnectedAb`
+  - `y3Connected_of_L3` (chain form HDec.TSHecke.Y3Connected)
+  - `shimuraFamilyAb_of_L3 : ShimuraHolFamilyL3 → ShimuraFamilyAb`
+  - `rayClassCMAb_of_L3 : ShimuraHolFamilyL3 → MainTheoremCM → textbook ×3 → RayClassCMAb`
+  - `compositeUses_of_L3` (the three together)
+- Glue proved on the way: `mIsAt_rightMul` (rightMul u: T(τ,g) ↦ T(τ,g u⁻¹)), `dcRel_K3`, `exists_unitO`
+  (unit of 𝒪 ≡ g mod 3), `family_one` (normalize g₀ to 1 via a Hecke automorphism), `h4_K3`, `connected_of_family`.
