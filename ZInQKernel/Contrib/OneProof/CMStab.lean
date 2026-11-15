@@ -417,4 +417,99 @@ theorem red_αK (x : O) : red (αK x) = cj (red x) := by
   · simp only [Matrix.cons_val]
     linear_combination (-(coords x 3 : ZMod 3)) * z3
 
+
+theorem π3_map (α : O ≃+* O) {x y : O} (h : π3 x = π3 y) : π3 (α x) = π3 (α y) := by
+  obtain ⟨c, hc⟩ := π3_eq_iff.1 h
+  exact π3_eq_iff.2 ⟨α c, by rw [← map_sub, hc, map_mul, map_ofNat]⟩
+
+/-! ## §2 Level structures: residues of endomorphisms, isomorphisms of objects -/
+
+open CategoryTheory AlgebraicGeometry Limits MonoidalCategory CartesianMonoidalCategory MonObj
+open PkgI3
+
+section Objects
+
+variable {K : Type} [Field K]
+
+theorem eta_eq_of_π3 {A : AbVar K} {q : QMStr A} (e : Level3 q) {x y : O} (h : π3 x = π3 y) :
+    e.eta x = e.eta y := (e.eq_iff x y).2 (π3_eq_iff.1 h)
+
+theorem π3_of_eta_eq {A : AbVar K} {q : QMStr A} (e : Level3 q) {x y : O} (h : e.eta x = e.eta y) :
+    π3 x = π3 y := π3_eq_iff.2 ((e.eq_iff x y).1 h)
+
+theorem endPt_iota {A : AbVar K} (q : QMStr A) (a : O) (y : Additive (A.Pt K)) :
+    endPt A K (q.iota a) y = qmAct q K a y := rfl
+
+/-- `3`-torsion `K`-points are level points (given `TorsionStructure`). -/
+theorem torsion_eq_eta (hT : ObjBridge.TorsionStructure) [CharZero K] (P : QML3 K)
+    (y : Additive (P.A.Pt K)) (hy : (3 : ℕ) • y = 0) : ∃ b : O, y = P.e.eta b := by
+  have h1 : Additive.toMul y ^ 3 = 1 := by rw [← toMul_nsmul, hy]; rfl
+  have hx : bcPt P.A (Additive.toMul y) ^ 3 = 1 := by
+    rw [bcPt, ← MonObj.comp_pow, h1]; exact MonObj.comp_one _
+  obtain ⟨a, ha⟩ := Level3.onto hT P _ hx
+  exact ⟨a, (Additive.toMul.injective (bcPt_injective P.A ha)).symm⟩
+
+/-- **Residue of a `β`-semilinear endomorphism on the level points**: if `g ι(β a) = ι(a) g`, then
+`g(η(β x)) = η(x u₀)` for some `u₀ ∈ 𝒪` (`u₀` with `η(u₀) = g(η(1))`). -/
+theorem residue (hT : ObjBridge.TorsionStructure) [CharZero K] (P : QML3 K) (β : O →+* O)
+    (g : AbVar.End P.A) (hg : ∀ a, g * P.q.iota (β a) = P.q.iota a * g) :
+    ∃ u₀ : O, ∀ x, endPt P.A K g (P.e.eta (β x)) = P.e.eta (x * u₀) := by
+  have h3 : (3 : ℕ) • endPt P.A K g (P.e.eta 1) = 0 := by
+    rw [← map_nsmul, ← map_nsmul, P.e.ker _ |>.2 ⟨1, by simp⟩, map_zero]
+  obtain ⟨u₀, hu⟩ := torsion_eq_eta hT P _ h3
+  refine ⟨u₀, fun x => ?_⟩
+  have e1 : P.e.eta (β x) = qmAct P.q K (β x) (P.e.eta 1) := by
+    rw [← P.e.linear, _root_.mul_one]
+  rw [e1, ← endPt_iota]
+  calc endPt P.A K g (endPt P.A K (P.q.iota (β x)) (P.e.eta 1))
+      = endPt P.A K (g * P.q.iota (β x)) (P.e.eta 1) := by rw [map_mul]; rfl
+    _ = endPt P.A K (P.q.iota x * g) (P.e.eta 1) := by rw [hg]
+    _ = endPt P.A K (P.q.iota x) (endPt P.A K g (P.e.eta 1)) := by rw [map_mul]; rfl
+    _ = P.e.eta (x * u₀) := by rw [hu, endPt_iota, ← P.e.linear]
+
+/-- The same for an endomorphism commuting with `ι(𝒪)`. -/
+theorem residue_com (hT : ObjBridge.TorsionStructure) [CharZero K] (P : QML3 K)
+    (c : AbVar.End P.A) (hc : c ∈ com P.q) :
+    ∃ c₀ : O, ∀ x, endPt P.A K c (P.e.eta x) = P.e.eta (x * c₀) := by
+  have hg : ∀ a, c * P.q.iota (RingHom.id O a) = P.q.iota a * c := by
+    intro a
+    rw [com, Subring.mem_centralizer_iff] at hc
+    exact (hc _ ⟨a, rfl⟩).symm
+  exact residue hT P (RingHom.id O) c hg
+
+/-- An isomorphism of objects on the same abelian variety from a unit of `End(A)`. -/
+def isoMk (A : AbVar K) (s : A.dim = 2) {q q' : QMStr A} (e : Level3 q) (e' : Level3 q')
+    (φ ψ : AbVar.End A) (h1 : ψ * φ = 1) (h2 : φ * ψ = 1)
+    (heq : ∀ a, φ * q.iota a = q'.iota a * φ)
+    (hl : ∀ a, endPt A K φ (e.eta a) = e'.eta a) :
+    QML3.Iso (⟨A, s, q, e⟩ : QML3 K) ⟨A, s, q', e'⟩ where
+  φ := φ
+  ψ := ψ
+  left := congrArg AbVar.Hom.hom h1
+  right := congrArg AbVar.Hom.hom h2
+  equivariant a := congrArg AbVar.Hom.hom (heq a)
+  level a := hl a
+
+/-- The equivariance of an isomorphism, in `End(A)`. -/
+theorem Iso.equiv_end {A : AbVar K} {s : A.dim = 2} {q q' : QMStr A} {e : Level3 q} {e' : Level3 q'}
+    (f : QML3.Iso (⟨A, s, q, e⟩ : QML3 K) ⟨A, s, q', e'⟩) (a : O) :
+    f.φ * q.iota a = q'.iota a * f.φ := AbVar.Hom.ext' (f.equivariant a)
+
+theorem Iso.level_end {A : AbVar K} {s : A.dim = 2} {q q' : QMStr A} {e : Level3 q} {e' : Level3 q'}
+    (f : QML3.Iso (⟨A, s, q, e⟩ : QML3 K) ⟨A, s, q', e'⟩) (a : O) :
+    endPt A K f.φ (e.eta a) = e'.eta a := f.level a
+
+theorem Iso.left_end {A : AbVar K} {s : A.dim = 2} {q q' : QMStr A} {e : Level3 q} {e' : Level3 q'}
+    (f : QML3.Iso (⟨A, s, q, e⟩ : QML3 K) ⟨A, s, q', e'⟩) : f.ψ * f.φ = 1 := AbVar.Hom.ext' f.left
+
+theorem endPt_intCast (A : AbVar K) (n : ℤ) (y : Additive (A.Pt K)) :
+    endPt A K (n : AbVar.End A) y = n • y := by
+  rw [map_intCast, AddMonoid.End.intCast_apply]
+
+theorem eta_zsmul {A : AbVar K} {q : QMStr A} (e : Level3 q) (n : ℤ) (x : O) :
+    n • e.eta x = e.eta ((n : O) * x) := by
+  rw [← map_zsmul, zsmul_eq_mul]
+
+end Objects
+
 end GapGlue.CMStab
