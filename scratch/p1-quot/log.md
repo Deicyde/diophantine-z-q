@@ -85,3 +85,12 @@ Target: `HDec.MCRGlue.QuotientP1Coordinate` (ZInQKernel/OneProof/H/TailW.lean L2
   (h24 : CMStab24)`; `quotientP1Coordinate_of_fields` derives T5, HeckeIrreducible, QMAutCard from chain fields
   (mumfordTorsionAlgClosed, mumfordRigidityCore, deligneComponentsY3PrintedAb, uniformizationLeafAll,
   gagaMorphism; T11b proved). #discharges VERIFIED (discharges_out.txt), standard axioms.
+
+## HeckeIrreducible without Mumford's rigidity (HeckeIrrAb.lean → FromFields)
+- `QuotientP1Proof.DeligneAb.heckeIrreducible_of_ab : ShimuraGlue.DeligneComponentsY3PrintedAb →
+  HDec.PropTSGlue.HeckeIrreducible`: VERIFIED, standard axioms. Copies of the chain's orbit computation
+  (`y3Connected_of_deligne`, `deligneComponentsY3_of_printed`) and `phi_part` with the clause list cut to what they
+  use (a Q̄-point; proper, smooth, R1famProps), plus `r1famProps_of_r1famAbProps` (no rigidity).
+- `quotientP1Coordinate_of_fields` now assumes L1-L4, EdixhovenFixedSmooth2, mumfordTorsionAlgClosed,
+  deligneComponentsY3PrintedAb, uniformizationLeafAll, gagaMorphism, CMStab24 — no mumfordRigidityCore.
+  #discharges VERIFIED.
