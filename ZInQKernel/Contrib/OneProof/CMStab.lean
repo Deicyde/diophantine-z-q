@@ -779,4 +779,55 @@ theorem stab_core (hT : ObjBridge.TorsionStructure) [CharZero K] (P : QML3 K) (�
 
 end Stab
 
+
+/-! ## §4 The lattice model of `End(A)` over `ℚ̄` (gt-qm's `unif_conj`, transported as in `yuB6Emb_of`) -/
+
+open HDec.QMSplit.CNO (act act_mul act_one act_smul mem_qmOrbit_iff)
+
+/-- **`End(A)` for an abelian surface with QM over `ℚ̄`, as the ring of `ℂ`-linear maps preserving the
+lattice `ι(𝒪)(τ, 1)ᵀ`**: `ρ` is injective, `ρ(ι(a)) = ι(a)`, and its image is exactly the maps preserving
+the lattice. (gt-qm's `unif_conj` over `ℂ`, composed with `End(A) ≅ End(A_ℂ)` from T11(b), which the
+chain proves, along an embedding `ℚ̄ → ℂ`.) -/
+theorem lat_model (hU : BPAnalytic.Uniformization.UniformizationLeafAll)
+    (hG : ZInQ.HomLattice.GAGAMorphism) (hM : AvSplit.MumfordTorsionAlgClosed)
+    (A : AbVar (AlgebraicClosure ℚ)) (hA : A.dim = 2) (q : QMStr A) :
+    ∃ (τ : ℂ) (_ : 0 < τ.im) (ρ : AbVar.End A →+* Module.End ℂ (Fin 2 → ℂ)),
+      Function.Injective ρ ∧ (∀ a z, ρ (q.iota a) z = act (a : B) z) ∧
+      ∀ N : Module.End ℂ (Fin 2 → ℂ),
+        (∀ z ∈ HDec.FibreQMNorm.qmOrbit ![τ, 1], N z ∈ HDec.FibreQMNorm.qmOrbit ![τ, 1]) ↔
+          ∃ e, ρ e = N := by
+  have hR : ZInQ.LeafPush2.T11b_Rigidity := HDec.AVB2.t11b_of_exists HDec.HSyn.t11bExists_lf8
+  let σ : AlgebraicClosure ℚ →+* ℂ := (IsAlgClosed.lift : AlgebraicClosure ℚ →ₐ[ℚ] ℂ).toRingHom
+  letI : Algebra (AlgebraicClosure ℚ) ℂ := σ.toAlgebra
+  let e := HDec.G0ModField.KernelField.endBC A ℂ
+  have he : Function.Bijective e := by
+    refine ⟨HDec.G0ModField.KernelField.endBC_injective A ℂ, fun g => ?_⟩
+    obtain ⟨φ, ⟨hφ, hφe⟩, -⟩ := hR (AlgebraicClosure ℚ) ℂ A A g.hom inferInstance
+    exact ⟨AbVar.Hom.mk' φ, AbVar.Hom.ext' hφe⟩
+  let qC : QMStr (A.baseChange ℂ) := ⟨e.comp q.iota, he.1.comp q.injective⟩
+  have hdim : (A.baseChange ℂ).dim = 2 := by rw [AbVar.dim_baseChange]; exact hA
+  obtain ⟨τ, hτ, ρ, hρinj, hρι, hρrange⟩ := HDec.QMLattice.unif_conj hU hG hM (A.baseChange ℂ) hdim qC
+  refine ⟨τ, hτ, ρ.comp e, hρinj.comp he.1, fun a z => hρι a z, fun N => ?_⟩
+  rw [hρrange N]
+  constructor
+  · rintro ⟨g, hg⟩
+    obtain ⟨m, hm⟩ := he.2 g
+    exact ⟨m, by rw [RingHom.comp_apply, hm, hg]⟩
+  · rintro ⟨m, hm⟩
+    exact ⟨e m, hm⟩
+
+section Lattice
+
+variable {A : AbVar (AlgebraicClosure ℚ)} {q : QMStr A} {τ : ℂ}
+  {ρ : AbVar.End A →+* Module.End ℂ (Fin 2 → ℂ)}
+
+theorem rho_comm_act (hρι : ∀ a z, ρ (q.iota a) z = act (a : B) z) {s : AbVar.End A}
+    (hs : s ∈ com q) (x : O) (z : Fin 2 → ℂ) : ρ s (act (x : B) z) = act (x : B) (ρ s z) := by
+  have hc : s * q.iota x = q.iota x * s := by
+    rw [com, Subring.mem_centralizer_iff] at hs
+    exact (hs _ ⟨x, rfl⟩).symm
+  rw [← hρι, ← hρι, ← Module.End.mul_apply, ← map_mul, hc, map_mul, Module.End.mul_apply]
+
+end Lattice
+
 end GapGlue.CMStab
