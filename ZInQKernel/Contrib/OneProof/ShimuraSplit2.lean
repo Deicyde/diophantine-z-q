@@ -74,11 +74,11 @@ theorem mem_vecLat {τ : ℂ} {g : BAQˣ} {v : Fin 2 → ℂ} :
   rw [AddSubgroup.mem_map]
   rfl
 
-/-- **The level structure of `T(τ, g)`**: `η(a) = Φ(ι(x)(τ, 1)ᵀ / 3)` for every `x ∈ B` with
-`x g ∈ a + 3𝒪̂` (`x ≡ a g⁻¹ mod 3 L̂_g`). -/
+/-- **The level structure of `T(τ, g)`**: for every `a ∈ 𝒪`, `η(a) = Φ(ι(x)(τ, 1)ᵀ / 3)` for some `x ∈ B` with
+`x g ∈ a + 3𝒪̂` (`x ≡ a g⁻¹ mod 3 L̂_g`; all such `x` give the same point, since two of them differ by `3 L_g`). -/
 def LevelAt (P : QML3 ℂ) (Φu : (Fin 2 → ℂ) → CPts P.A (RingHom.id ℂ)) (τ : ℂ) (g : BAQˣ) : Prop :=
-  ∀ (a : LeafQM.O) (x : LeafQM.B),
-    (∃ y ∈ OhatQ, bEmb x * (g : BAQ) = bEmb (a : LeafQM.B) + 3 * y) →
+  ∀ a : LeafQM.O, ∃ x : LeafQM.B,
+    (∃ y ∈ OhatQ, bEmb x * (g : BAQ) = bEmb (a : LeafQM.B) + 3 * y) ∧
       Φu ((3 : ℂ)⁻¹ • (iotaC x).mulVec ![τ, 1]) = Additive.toMul (P.e.eta a)
 
 /-- **`P` is the object `T(τ, g)`**: an analytic uniformization `Φ : ℂ² → P.A(ℂ)` with kernel
@@ -340,5 +340,110 @@ theorem rayClassCMAb_of_split (hH : ShimuraHolFamilyAb) (hS : QMReciprocityL3) (
 theorem shimuraFamilyAb_of_hol (hH : ShimuraHolFamilyAb) : HDec.QMSplit.Moduli.ShimuraFamilyAb := by
   obtain ⟨Y, Φ, h1, yτ, hy⟩ := hH
   exact ⟨Y, Φ, h1, fun π => ⟨yτ, HDec.HSyn.G0Split.FibreQM.isR1bFamily_of_hol hy π⟩⟩
+
+/-! ## §7 Proof of `DCRelTransport` -/
+
+/-- The scaling `z ↦ j z` of `ℂ²`. -/
+def smulEquiv (j : ℂ) (hj : j ≠ 0) : (Fin 2 → ℂ) ≃ₗ[ℂ] (Fin 2 → ℂ) where
+  toFun z := j • z
+  invFun z := j⁻¹ • z
+  map_add' z w := smul_add j z w
+  map_smul' c z := smul_comm j c z
+  left_inv z := by simp [smul_smul, inv_mul_cancel₀ hj]
+  right_inv z := by simp [smul_smul, mul_inv_cancel₀ hj]
+
+/-- `ι(γ)(τ, 1)ᵀ = j(γ, τ)·(γτ, 1)ᵀ` for `nrd γ > 0`. -/
+theorem iotaC_mulVec_eq (γ : LeafQM.B) (M : GL (Fin 2) ℝ)
+    (hM : (M : Matrix (Fin 2) (Fin 2) ℝ) = BPAnalytic.QM.iota γ)
+    (hpos : 0 < ShimuraGlue.nrdQ ℚ γ) (τ : UpperHalfPlane) :
+    (iotaC γ).mulVec ![(τ : ℂ), 1] =
+      UpperHalfPlane.denom M τ • ![((M • τ : UpperHalfPlane) : ℂ), 1] := by
+  have hdet : 0 < (M : Matrix (Fin 2) (Fin 2) ℝ).det := by rw [hM, det_iota]; exact_mod_cast hpos
+  rw [UpperHalfPlane.coe_smul_of_det_pos
+    (by simpa [Matrix.GeneralLinearGroup.val_det_apply] using hdet)]
+  have hd := UpperHalfPlane.denom_ne_zero M τ
+  ext i; fin_cases i
+  · simp [iotaC_apply, ← hM, Matrix.mulVec, dotProduct, Fin.sum_univ_two]
+    rw [mul_div_cancel₀ _ hd]
+    simp [UpperHalfPlane.num]
+  · simp [iotaC_apply, ← hM, Matrix.mulVec, dotProduct, Fin.sum_univ_two, UpperHalfPlane.denom]
+
+/-- `k⁻¹ = 1 − 3 k⁻¹ y₀` for `k = 1 + 3 y₀`. -/
+theorem inv_eq_of_K3 {k : BAQˣ} {y₀ : BAQ} (hky : (k : BAQ) = 1 + 3 * y₀) :
+    ((k⁻¹ : BAQˣ) : BAQ) = 1 - 3 * (((k⁻¹ : BAQˣ) : BAQ) * y₀) := by
+  have h1 : ((k⁻¹ : BAQˣ) : BAQ) * (k : BAQ) = 1 := Units.inv_mul k
+  rw [hky] at h1
+  have h3 : ((k⁻¹ : BAQˣ) : BAQ) * 3 = 3 * ((k⁻¹ : BAQˣ) : BAQ) := (Commute.ofNat_right _ 3).eq
+  calc ((k⁻¹ : BAQˣ) : BAQ) = ((k⁻¹ : BAQˣ) : BAQ) * (1 + 3 * y₀) - (((k⁻¹ : BAQˣ) : BAQ) * 3) * y₀ := by
+        noncomm_ring
+    _ = 1 - 3 * (((k⁻¹ : BAQˣ) : BAQ) * y₀) := by rw [h1, h3]; noncomm_ring
+
+theorem dcRelTransport_proof : DCRelTransport := by
+  rintro P τ g τ' g' ⟨γ, hγ, ⟨M, hM, hMτ⟩, k, hk, hg'⟩ ⟨Φu', hU', hI', hL'⟩
+  obtain ⟨hk1, hk2, y₀, hy₀, hky⟩ := hk
+  have hj : UpperHalfPlane.denom M τ ≠ 0 := UpperHalfPlane.denom_ne_zero M τ
+  set j := UpperHalfPlane.denom M τ with hjdef
+  have hγb : γ * binv γ = 1 := mul_binv hγ.ne'
+  have hbγ : binv γ * γ = 1 := binv_mul hγ.ne'
+  have hvec : ∀ x : LeafQM.B, (iotaC x).mulVec ![(τ : ℂ), 1] =
+      j • (iotaC (x * binv γ)).mulVec ![(τ' : ℂ), 1] := by
+    intro x
+    have e := iotaC_mulVec_eq γ M hM hγ τ
+    rw [hMτ] at e
+    rw [← Matrix.mulVec_smul, ← e, Matrix.mulVec_mulVec, ← map_mul, mul_assoc, hbγ, mul_one]
+  have hmem : ∀ x : LeafQM.B, bEmb (x * binv γ) * (g' : BAQ) = bEmb x * (g : BAQ) * (k : BAQ) := by
+    intro x
+    rw [hg', map_mul]
+    calc bEmb x * bEmb (binv γ) * (bEmb γ * (g : BAQ) * (k : BAQ))
+        = bEmb x * (bEmb (binv γ) * bEmb γ) * (g : BAQ) * (k : BAQ) := by noncomm_ring
+      _ = bEmb x * (g : BAQ) * (k : BAQ) := by rw [← map_mul, hbγ, map_one, mul_one]
+  have hback : ∀ x' : LeafQM.B, bEmb (x' * γ) * (g : BAQ) =
+      bEmb x' * (g' : BAQ) * ((k⁻¹ : BAQˣ) : BAQ) := by
+    intro x'
+    have e := hmem (x' * γ)
+    rw [mul_assoc x' γ, hγb, mul_one] at e
+    rw [e, mul_assoc, Units.mul_inv, mul_one]
+  have hx'γ : ∀ x' : LeafQM.B, x' * γ * binv γ = x' := fun x' => by rw [mul_assoc, hγb, mul_one]
+  let F := smulEquiv j hj
+  have hFs : ∀ z, F.symm z = j⁻¹ • z := fun z => rfl
+  refine ⟨fun z => Φu' (F.symm z), ?_, ?_, ?_⟩
+  · have hlat : (vecLat (τ' : ℂ) g').map (F.toLinearMap.restrictScalars ℤ) = vecLat (τ : ℂ) g := by
+      ext v
+      rw [Submodule.mem_map, mem_vecLat]
+      constructor
+      · rintro ⟨w, hw, rfl⟩
+        obtain ⟨x', hx', rfl⟩ := mem_vecLat.1 hw
+        refine ⟨x' * γ, ?_, ?_⟩
+        · rw [hback]; exact OhatQ_mul hx' hk2
+        · rw [hvec, hx'γ]; rfl
+      · rintro ⟨x, hx, rfl⟩
+        refine ⟨(iotaC (x * binv γ)).mulVec ![(τ' : ℂ), 1], mem_vecLat.2 ⟨x * binv γ, ?_, rfl⟩, ?_⟩
+        · rw [hmem]; exact OhatQ_mul hx hk1
+        · rw [hvec x]; rfl
+    rw [← hlat]
+    exact HDec.HSyn.G0Split.FibreQM.isUniformization_comp hU' F
+  · intro a z
+    show Φu' (F.symm _) = Φu' (F.symm z) ≫ _
+    rw [hFs, hFs, ← Matrix.mulVec_smul]
+    exact hI' a _
+  · intro a
+    obtain ⟨x', ⟨y', hy', hx'⟩, hΦ'⟩ := hL' a
+    have hyO : y' * ((k⁻¹ : BAQˣ) : BAQ) - bEmb (a : LeafQM.B) * (((k⁻¹ : BAQˣ) : BAQ) * y₀) ∈ OhatQ := by
+      rw [sub_eq_add_neg]
+      exact OhatQ_add (OhatQ_mul hy' hk2)
+        (OhatQ_neg (OhatQ_mul (bEmb_mem_of_inO a.2) (OhatQ_mul hk2 hy₀)))
+    refine ⟨x' * γ, ⟨_, hyO, ?_⟩, ?_⟩
+    · rw [hback, hx', inv_eq_of_K3 hky]
+      have h3 : bEmb (a : LeafQM.B) * 3 = 3 * bEmb (a : LeafQM.B) := (Commute.ofNat_right _ 3).eq
+      have h3' : ∀ w : BAQ, w * 3 = 3 * w := fun w => (Commute.ofNat_right _ 3).eq
+      calc (bEmb (a : LeafQM.B) + 3 * y') * (1 - 3 * (((k⁻¹ : BAQˣ) : BAQ) * y₀))
+          = bEmb (a : LeafQM.B) + 3 * (y' * (1 - 3 * (((k⁻¹ : BAQˣ) : BAQ) * y₀)))
+            - (bEmb (a : LeafQM.B) * 3) * (((k⁻¹ : BAQˣ) : BAQ) * y₀) := by noncomm_ring
+        _ = _ := by
+          rw [h3, ← inv_eq_of_K3 hky]
+          noncomm_ring
+    · show Φu' (F.symm _) = _
+      rw [hFs, hvec, hx'γ, smul_comm (3 : ℂ)⁻¹ j, smul_smul, inv_mul_cancel₀ hj, one_smul]
+      exact hΦ'
 
 end ShimuraSplit2

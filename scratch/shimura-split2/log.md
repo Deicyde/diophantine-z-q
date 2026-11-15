@@ -22,3 +22,4 @@ Task: split `RayClassCFT.ShimuraMainThmIDeligneY3AbU` (gt-rayclass composite) fa
   `DCRelTransport`, `UnifDetermines`, `ComplexUnifL3`; proved `vecLat_unit` (`L_u = 𝒪`), `embed_core_obj`,
   `rayClassCMAb_of_split : ShimuraHolFamilyAb → QMReciprocityL3 → DCRelTransport → UnifDetermines → ComplexUnifL3 →
   HomLinearLift → RayClassCMAb`, `shimuraFamilyAb_of_hol : ShimuraHolFamilyAb → ShimuraFamilyAb`. VERIFIED (compiled).
+* 06:10 `dcRelTransport_proof : DCRelTransport` proved (LevelAt restated with ∃ representative x, equivalent since representatives differ by 3L_g). Compiles, 0 errors. VERIFIED.
