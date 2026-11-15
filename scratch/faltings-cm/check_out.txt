@@ -1,0 +1,5 @@
+ZInQ.Contrib.FaltingsCM.faltingsTate_of_surj : ZInQ.Contrib.FaltingsCM.FaltingsTateSurj →
+  ZInQ.Contrib.AVB1.HomFreeFiniteAlgClosed → PkgI3.FaltingsTate
+ZInQ.Contrib.FaltingsCM.faltingsTateSurj_of_faltingsTate : PkgI3.FaltingsTate → ZInQ.Contrib.FaltingsCM.FaltingsTateSurj
+'ZInQ.Contrib.FaltingsCM.faltingsTate_of_surj' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.FaltingsCM.faltingsTateSurj_of_faltingsTate' depends on axioms: [propext, Classical.choice, Quot.sound]
