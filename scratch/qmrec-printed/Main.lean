@@ -411,4 +411,97 @@ theorem cmLat_map_Dz {q : K →ₐ[ℚ] LeafQM.B} {κ : K →+* ℂ} {z : UpperH
 
 end Beta
 
+/-! ## §D Lattices in `B ⊗ 𝔸_f`: `ℤ̂ L_h = 𝒪̂ h⁻¹`, approximation, and the transport `β̂ : 𝔸_f ⊗ E ≅ B ⊗ 𝔸_f` -/
+
+section LatticeB
+
+open ShimuraSplit2
+
+theorem algebraMap_mul_ofQ (c : AQ) (v : Fin 4 → AQ) :
+    algebraMap AQ BAQ c * ShimuraGlue.ofQ v = ShimuraGlue.ofQ (fun i => c * v i) := by
+  ext <;> simp [ShimuraGlue.ofQ, QuaternionAlgebra.algebraMap_eq] <;> ring
+
+theorem natCast_comm (N : ℕ) (x : BAQ) : (N : BAQ) * x = x * N := (Nat.cast_commute N x)
+
+/-- `w = β(y) + N·ofQ(b)` with `b ∈ ℤ̂⁴`, for `D w ∈ 𝒪̂` (approximation of `ℤ̂` by `ℤ` modulo `DN`). -/
+theorem decompose (w : BAQ) {D : ℕ} (hD : 0 < D) (hDw : (D : BAQ) * w ∈ OhatQ) (N : ℕ) (hN : 0 < N) :
+    ∃ (y : LeafQM.B) (b : Fin 4 → AQ), (∀ i, b i ∈ ZhatQ) ∧ w = bEmb y + (N : BAQ) * ShimuraGlue.ofQ b := by
+  obtain ⟨n, hn, hw⟩ := hDw
+  choose m b hb hmb using fun i => exists_int_approx (hn i) (D * N) (by positivity)
+  refine ⟨((D : ℚ)⁻¹) • LeafQM.ofInt m, b, hb, ?_⟩
+  have hD0 : (D : ℚ) ≠ 0 := by exact_mod_cast hD.ne'
+  have hD' : (D : BAQ) * bEmb (((D : ℚ)⁻¹) • LeafQM.ofInt m) = bEmb (LeafQM.ofInt m) := by
+    rw [← bEmb_natSmul, smul_smul, mul_inv_cancel₀ hD0, one_smul]
+  have key : (D : BAQ) * w = (D : BAQ) * (bEmb (((D : ℚ)⁻¹) • LeafQM.ofInt m) +
+      (N : BAQ) * ShimuraGlue.ofQ b) := by
+    rw [hw, mul_add, hD', bEmb_ofInt, ← mul_assoc, ← Nat.cast_mul, natCast_mul_ofQ, ShimuraGlue.ofQ_add]
+    congr 1
+    funext i
+    rw [hmb i]
+    simp only [Pi.add_apply]
+    try (push_cast; ring)
+  have hu : algebraMap ℚ BAQ (D : ℚ)⁻¹ * (D : BAQ) = 1 := by
+    rw [← map_natCast (algebraMap ℚ BAQ), ← map_mul, inv_mul_cancel₀ hD0, map_one]
+  calc w = algebraMap ℚ BAQ (D : ℚ)⁻¹ * ((D : BAQ) * w) := by rw [← mul_assoc, hu, one_mul]
+    _ = _ := by rw [key, ← mul_assoc, hu, one_mul]
+
+/-- The generators `c β(y)` (`c ∈ ℤ̂`, `y ∈ L_h`) of `ℤ̂ L_h`. -/
+def genSet (h : BAQˣ) : Set BAQ := {x | ∃ c ∈ ZhatQ, ∃ y ∈ latB h, x = algebraMap AQ BAQ c * bEmb y}
+
+theorem ofQ_mem_closure (h : BAQˣ) {N : ℕ} (hNh : (N : BAQ) * h ∈ OhatQ) (b : Fin 4 → AQ)
+    (hb : ∀ i, b i ∈ ZhatQ) : (N : BAQ) * ShimuraGlue.ofQ b ∈ AddSubgroup.closure (genSet h) := by
+  have hgen : ∀ (k : Fin 4) (m : Fin 4 → ℤ), m = Pi.single k 1 →
+      (N : BAQ) * ShimuraGlue.ofQ (fun i => b k * ((m i : ℤ) : AQ)) ∈ AddSubgroup.closure (genSet h) := by
+    intro k m _
+    apply AddSubgroup.subset_closure
+    refine ⟨b k, hb k, (N : ℚ) • LeafQM.ofInt m, ?_, ?_⟩
+    · show bEmb _ * (h : BAQ) ∈ OhatQ
+      rw [bEmb_natSmul, natCast_comm, mul_assoc]
+      exact OhatQ_mul (bEmb_mem_of_inO ⟨m, rfl⟩) hNh
+    · rw [bEmb_natSmul, bEmb_ofInt, ← algebraMap_mul_ofQ, ← mul_assoc, ← mul_assoc, natCast_comm]
+  have hsplit : ShimuraGlue.ofQ b =
+      ShimuraGlue.ofQ (fun i => b 0 * (((Pi.single 0 1 : Fin 4 → ℤ) i : ℤ) : AQ)) +
+      ShimuraGlue.ofQ (fun i => b 1 * (((Pi.single 1 1 : Fin 4 → ℤ) i : ℤ) : AQ)) +
+      ShimuraGlue.ofQ (fun i => b 2 * (((Pi.single 2 1 : Fin 4 → ℤ) i : ℤ) : AQ)) +
+      ShimuraGlue.ofQ (fun i => b 3 * (((Pi.single 3 1 : Fin 4 → ℤ) i : ℤ) : AQ)) := by
+    rw [ShimuraGlue.ofQ_add, ShimuraGlue.ofQ_add, ShimuraGlue.ofQ_add]
+    congr 1
+    funext i
+    fin_cases i <;> simp [Pi.single_apply]
+  rw [hsplit, mul_add, mul_add, mul_add]
+  exact add_mem (add_mem (add_mem (hgen 0 _ rfl) (hgen 1 _ rfl)) (hgen 2 _ rfl)) (hgen 3 _ rfl)
+
+/-- **`𝒪̂ h⁻¹ ⊆ ℤ̂ L_h`** (with the easy converse, `𝒪̂ h⁻¹ = ℤ̂ (B ∩ 𝒪̂ h⁻¹)`). -/
+theorem lg (h : BAQˣ) (w : BAQ) (hw : w * h ∈ OhatQ) : w ∈ AddSubgroup.closure (genSet h) := by
+  obtain ⟨N, hN, hNh⟩ := exists_den_B (h : BAQ)
+  obtain ⟨M, hM, hMh⟩ := exists_den_B ((h⁻¹ : BAQˣ) : BAQ)
+  have hMw : (M : BAQ) * w ∈ OhatQ := by
+    have e : (M : BAQ) * w = (w * h) * ((M : BAQ) * ((h⁻¹ : BAQˣ) : BAQ)) := by
+      rw [mul_assoc w, ← mul_assoc (h : BAQ), ← natCast_comm M (h : BAQ), mul_assoc (M : BAQ),
+        Units.mul_inv, mul_one, natCast_comm]
+    rw [e]; exact OhatQ_mul hw hMh
+  obtain ⟨y, b, hb, hwy⟩ := decompose w hM hMw N hN
+  have hy : y ∈ latB h := by
+    show bEmb y * (h : BAQ) ∈ OhatQ
+    have e : bEmb y * (h : BAQ) = w * h + -(ShimuraGlue.ofQ b * ((N : BAQ) * h)) := by
+      rw [hwy, add_mul, natCast_comm N (ShimuraGlue.ofQ b), mul_assoc (ShimuraGlue.ofQ b)]; abel
+    rw [e]
+    exact OhatQ_add hw (OhatQ_neg (OhatQ_mul ⟨b, hb, rfl⟩ hNh))
+  rw [hwy]
+  exact add_mem (AddSubgroup.subset_closure ⟨1, ZhatS.one_mem, y, hy, by rw [map_one, one_mul]⟩)
+    (ofQ_mem_closure h hNh b hb)
+
+/-- **Approximation**: `B` is dense in `B ⊗ 𝔸_f`: for all `w, v` some `y ∈ B` has `(y − w) v ∈ 𝒪̂`. -/
+theorem exists_approx (w v : BAQ) : ∃ y : LeafQM.B, (bEmb y - w) * v ∈ OhatQ := by
+  obtain ⟨D, hD, hDw⟩ := exists_den_B w
+  obtain ⟨N, hN, hNv⟩ := exists_den_B v
+  obtain ⟨y, b, hb, hwy⟩ := decompose w hD hDw N hN
+  refine ⟨y, ?_⟩
+  have e : (bEmb y - w) * v = -(ShimuraGlue.ofQ b * ((N : BAQ) * v)) := by
+    rw [hwy, natCast_comm, ← mul_assoc, ← natCast_comm]; noncomm_ring
+  rw [e]
+  exact OhatQ_neg (OhatQ_mul ⟨b, hb, rfl⟩ hNv)
+
+end LatticeB
+
 end QMRecPrinted
