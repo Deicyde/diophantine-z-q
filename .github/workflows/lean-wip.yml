@@ -1,0 +1,95 @@
+# Scratch timing of the upstream PRs after #116, on the runner type of upstream's kernel job
+# (4 threads, upstream's extra 8 GiB swap). The tree is #114's (main + #91 + #105 + everything
+# OneProof needs) plus #116's three modules #114 lacks. Each step builds one group on top of the
+# previous ones, so its wall time is that group's incremental cost: main's own modules (cached in
+# upstream's kernel job), the Tau Ceti modules of the closure (not cached upstream: only
+# .lake/build is), #116 with the small packages, the CloudW packages, CloudW07, and OneProof.
+
+name: lean wip
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    name: build
+    runs-on: ubuntu-24.04
+    timeout-minutes: 355
+    env:
+      LEAN_NUM_THREADS: '4'
+    steps:
+      - name: Check out project
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: Install elan
+        run: |
+          set -euo pipefail
+          curl -sSfL \
+            https://github.com/leanprover/elan/releases/download/v4.2.3/elan-x86_64-unknown-linux-gnu.tar.gz \
+            -o elan.tar.gz
+          echo "df0b2b3a439961ffcbb3985214365ffe40f49bc871df04dff268c7d8e21ca8b2  elan.tar.gz" \
+            | sha256sum --check --strict
+          tar xzf elan.tar.gz
+          ./elan-init -y --default-toolchain none
+          echo "$HOME/.elan/bin" >> "$GITHUB_PATH"
+
+      - name: Add 8 GiB swap, as upstream's kernel job does
+        run: |
+          set -euo pipefail
+          swap_file=$(mktemp "$RUNNER_TEMP/swap.XXXXXX")
+          sudo fallocate -l 8G "$swap_file"
+          sudo chmod 600 "$swap_file"
+          sudo mkswap "$swap_file"
+          sudo swapon "$swap_file"
+          free -m; df -h .
+
+      - name: Fetch the Mathlib build cache
+        run: lake exe cache get
+
+      - name: "Group 0: main's ZInQKernel"
+        continue-on-error: true
+        run: |
+          set -o pipefail
+          /usr/bin/time -v lake build ZInQKernel 2>&1 | tee build-0-main.log | tail -25
+
+      - name: "Group 1: Tau Ceti modules of the closure (1,769)"
+        continue-on-error: true
+        run: |
+          set -o pipefail
+          /usr/bin/time -v lake build $(cat scratch-targets/tau.txt) 2>&1 | tee build-1-tau.log | tail -25
+
+      - name: "Group 2: #116 and the small packages (233)"
+        continue-on-error: true
+        run: |
+          set -o pipefail
+          /usr/bin/time -v lake build $(cat scratch-targets/small.txt) 2>&1 | tee build-2-small.log | tail -25
+
+      - name: "Group 3: CloudW01, 02, 03, 06, 08 (252)"
+        continue-on-error: true
+        run: |
+          set -o pipefail
+          /usr/bin/time -v lake build $(cat scratch-targets/cw.txt) 2>&1 | tee build-3-cw.log | tail -25
+
+      - name: "Group 4: CloudW07 (713)"
+        continue-on-error: true
+        run: |
+          set -o pipefail
+          /usr/bin/time -v lake build $(cat scratch-targets/cw7.txt) 2>&1 | tee build-4-cw7.log | tail -25
+
+      - name: "Group 5: OneProof (58)"
+        continue-on-error: true
+        run: |
+          set -o pipefail
+          /usr/bin/time -v lake build $(cat scratch-targets/op.txt) 2>&1 | tee build-5-op.log | tail -25
+
+      - name: Summary
+        if: always()
+        run: |
+          for f in build-*.log; do
+            echo "== $f"
+            grep -E 'Elapsed \(wall clock\)|Maximum resident|User time|Build completed|error:' "$f" | head -8
+          done
+          grep -n -A4 'depends on axioms' build-5-op.log | head -20; df -h .
