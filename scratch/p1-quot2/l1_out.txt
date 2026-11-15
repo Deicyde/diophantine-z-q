@@ -1,0 +1,5 @@
+'P1Quot2.topologicalKrullDim_eq_two' depends on axioms: [propext, Classical.choice, Quot.sound]
+'P1Quot2.exists_affine_of_lichtenbaum' depends on axioms: [propext, Classical.choice, Quot.sound]
+'P1Quot2.exists_isAffineOpen_superset_of_isClosedImmersion_spec' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]

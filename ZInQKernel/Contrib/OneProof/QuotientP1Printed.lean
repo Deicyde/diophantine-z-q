@@ -44,7 +44,8 @@ attribute [-instance] TauCeti.FinitePadicExtension.toAlgebra
 
 namespace MCRQuot
 
-open CategoryTheory AlgebraicGeometry Limits MCRGlue ModelGlue LeafQM LeafQM.AV
+open Polynomial CategoryTheory AlgebraicGeometry Limits LeafQM LeafQM.AV VertWitness HeckeRestNV
+open G0ModField PropTSRed PropTSGlue ModelGlue MCRGlue LeafQM.AV.Pin PkgI3
 
 /-- **`CMStabObjWeak` from the textbook fields** `uniformizationLeafAll`, `gagaMorphism`,
 `mumfordTorsionAlgClosed` (cm-stab's `GapGlue.cmStabObj_of`, with T5 from `mumfordTorsionAlgClosed`). -/
