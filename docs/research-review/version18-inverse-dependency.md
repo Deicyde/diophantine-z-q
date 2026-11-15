@@ -38,3 +38,14 @@ H170's original propagation obligation remains recorded in `version18-cleanup-st
 Elliot authorized this route and required Carbon's source/proof check and Fable's no-objection confirmation before a PR. Carbon's report of November 14 checked the author-v3 CS statements, the official Candela sources and the GTZ appendix facts against the note and retained linearization. Fable's November 15 UTC confirmation raised no objection, retained the unavailable print-edition comparison and requested the explicit metric convention and short explanations now included. These were model reviews of the precursor note and extracts. This integrated manuscript requires its own two-reviewer Protocol B run.
 
 The full candidate compiles in three LaTeX passes with no unresolved citations/references. Its validation PDF has 4482971 bytes, SHA256 `392a5969390f5aaad560aaf8303cc3c9b75a4563abd0579095074b377aaaa3bb`. Exact target and increment-theorem comparison, label/consumer checks and arithmetic preservation checks passed. These checks do not constitute formal verification or remove the stated source-edition limitation.
+
+
+## Journal-source comparison after inverse adoption
+
+PR118 merged at f7b803e3252fa955ab6dcdc2ac3e756a03fde184, with head 630a67ae874ceb28e50a686be0d811b780b8fb8b. The owner overrode four source-access findings after the local journal comparison and the already recorded Candela-source checks. App check 132948112036 succeeded. This was acceptance by owner override, not unanimous model acceptance.
+
+On November 15, 2026, the owner supplied the 42-page Candela-Szegedy journal edition, DOI 10.1515/crelle-2022-0016, PDF SHA256 89f308b0d1ac435f9e895b2ba79938d6e8b9c61c1ede2aa55e4caa18c6a25580. Astra compared the cited statements with the author version and their uses. Fable independently compared the printed journal statements with the PR118 uses and confirmed agreement. The comparison is [recorded on PR118](https://github.com/elliotglazer/diophantine-z-q/pull/118#issuecomment-6900813514). This did not re-audit every proof in the paper or certify the whole manuscript. The PDF stays outside the repository.
+
+The cited hypotheses and conclusions agree. The cleanup now uses the journal locators: Definitions 1.2 and 1.3, page 3; Definition 5.1, page 25; Theorem 5.2, page 28; Theorem 6.1 and equation (6.1), page 29; Proposition 6.3, page 30; Lemma A.5, page 36. It removes the now-obsolete inability-to-compare statement from the exposition and bibliography. These are source-edition and locator changes; no theorem statement, equation, construction or proof route changes.
+
+The earlier source-access record describes the evidence available when the inverse PR was prepared. This dated addition supplies the later comparison without rewriting that history or treating an owner override as an independent reviewer's acceptance.
