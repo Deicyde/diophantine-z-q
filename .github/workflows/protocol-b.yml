@@ -1031,6 +1031,55 @@ jobs:
               return hashlib.sha256(json.dumps(lines, ensure_ascii=False).encode()).hexdigest()
 
 
+          def reuse_refs(gh, pr, with_merge_base):
+              refs = {side: pr[side]['sha'] for side in ('base', 'head')}
+              if with_merge_base:
+                  comparison = gh.call('/compare/' + refs['base'] + '...' + refs['head'])
+                  merge_base = comparison.get('merge_base_commit', {}).get('sha', '')
+                  if not re.fullmatch('[0-9a-f]{40}', merge_base):
+                      raise ValueError('Cannot bind the PR diff merge base')
+                  refs['merge_base'] = merge_base
+              return refs
+
+
+          def displayed_hunk_reads(gh, files, refs, texts):
+              """Check displayed lines against their actual refs before caching them."""
+              reads = []
+              for file in files:
+                  patch = file.get('patch', '')
+                  hunks = list(re.finditer(r'^@@ -(\d+)(?:,(\d+))? \+(\d+)(?:,(\d+))? @@[^\n]*(?:\n|$)', patch, re.M))
+                  if patch and (not hunks or hunks[0].start() != 0):
+                      raise ValueError('Cannot identify every displayed diff hunk')
+                  for index, match in enumerate(hunks):
+                      end = hunks[index + 1].start() if index + 1 < len(hunks) else len(patch)
+                      sides = {'merge_base': [], 'head': []}
+                      for line in patch[match.end():end].splitlines():
+                          if line == '\\ No newline at end of file':
+                              continue
+                          if not line or line[0] not in ' +-':
+                              raise ValueError('Malformed displayed diff line')
+                          if line[0] in ' -':
+                              sides['merge_base'].append(line[1:])
+                          if line[0] in ' +':
+                              sides['head'].append(line[1:])
+                      for side, start, count in (('merge_base', int(match[1]), int(match[2] or 1)),
+                                                 ('head', int(match[3]), int(match[4] or 1))):
+                          value = sides[side]
+                          if len(value) != count or (count and start < 1):
+                              raise ValueError('Displayed hunk range does not match its lines')
+                          if not count:
+                              continue  # The absent side of an added/deleted file has no passage.
+                          path = file.get('previous_filename', file['filename']) if side == 'merge_base' else file['filename']
+                          key = (path, refs[side])
+                          if key not in texts:
+                              texts[key] = gh.text(*key).splitlines()
+                          if texts[key][start-1:start-1+count] != value:
+                              raise ValueError('Displayed hunk differs from its pinned source')
+                          reads.append({'path': path, 'revision': side, 'ref': refs[side],
+                                        'start': start, 'count': count})
+              return reads
+
+
           def make_reuse_binding(gh, pr, files, reviewer):
               # Text dependencies follow the exact returned passage across line movement.
               # Binary dependencies and trusted policy inputs require whole-file equality.
@@ -1038,22 +1087,25 @@ jobs:
               whole.update((p, 'base') for p in (WORKFLOW, INSTRUCTIONS, 'PROJECT.md', 'docs/research-review/README.md'))
               sources = [{'path': p, 'revision': side, 'sha': source_identity(gh, p, pr[side]['sha'])}
                          for p, side in sorted(whole)]
+              identity = diff_identity(files)
+              if identity is None:
+                  raise ValueError('Cannot bind an incomplete PR diff')
+              refs = reuse_refs(gh, pr, any(f.get('patch') for f in files))
               texts = dict(reviewer.file_lines)
-              passages = []
-              reads = list(reviewer.reads)
+              passages, reads = [], []
+              for read in reviewer.reads:
+                  side = next((s for s in ('base', 'head') if read['revision'] == refs[s]), None)
+                  if side is None:
+                      raise ValueError('Unrecognized repository read revision')
+                  reads.append({**read, 'revision': side, 'ref': refs[side]})
               # The initial diff is also source material, even without a read_file
-              # call. Bind both sides of every displayed hunk, including context.
-              for file in files:
-                  for match in re.finditer(r'^@@ -(\d+)(?:,(\d+))? \+(\d+)(?:,(\d+))? @@', file.get('patch', ''), re.M):
-                      for side, start, count in (('base', match[1], match[2]), ('head', match[3], match[4])):
-                          if int(count or 1):
-                              path = file.get('previous_filename', file['filename']) if side == 'base' else file['filename']
-                              reads.append({'path': path, 'revision': pr[side]['sha'], 'start': int(start), 'count': int(count or 1)})
+              # call. GitHub's old side is the merge base, not the current base tip.
+              reads.extend(displayed_hunk_reads(gh, files, refs, texts))
               for r in reads:
-                  side = 'base' if r['revision'] == pr['base']['sha'] else 'head'
+                  side = r['revision']
                   if (r['path'], side) in whole:
                       continue
-                  key = (r['path'], r['revision'])
+                  key = (r['path'], r['ref'])
                   if key not in texts:
                       texts[key] = gh.text(*key).splitlines()
                   lines = texts[key]
@@ -1061,11 +1113,12 @@ jobs:
                   if not value:
                       # An empty/out-of-range read cannot be relocated reliably.
                       sources.append({'path': r['path'], 'revision': side,
-                                      'sha': source_identity(gh, r['path'], r['revision'])})
+                                       'sha': source_identity(gh, r['path'], r['ref'])})
                   else:
-                      passages.append({'path': r['path'], 'revision': side, 'ref': r['revision'],
+                      passages.append({'path': r['path'], 'revision': side, 'ref': r['ref'],
                                        'start': r['start'], 'count': len(value), 'digest': passage_digest(value)})
-              return {'version': 2, 'number': pr['number'], 'diff': diff_identity(files), 'sources': sources,
+              return {'version': 3, 'number': pr['number'], 'diff': identity, 'sources': sources,
+                      'merge_base': refs.get('merge_base'),
                       'passages': passages, 'discovery': reviewer.discovery}
 
           def optional_reuse_binding(gh, pr, files, reviewer):
@@ -1084,7 +1137,7 @@ jobs:
               if not current or not previous or any(current.get(k) != previous.get(k)
                                                      for k in ('version', 'number', 'diff')):
                   return None
-              if current.get('version') != 2:
+              if current.get('version') != 3:
                   return None
               result = {**current}
               sources = {}
@@ -1128,6 +1181,17 @@ jobs:
               envelope['source_evidence_omitted'] = 'Output capacity; omitted attestations cannot authorize source-access relief.'
 
 
+          def omit_current_sources(envelope):
+              record(envelope['reviewer'] + '-omitted-current-source-checks.json', {
+                  'origin': {k: envelope[k] for k in ('reviewer', 'model', 'head', 'run', 'attempt', 'policy_ref')},
+                  'source_checks': envelope['review']['source_checks']})
+              envelope['review']['source_checks'] = []
+              # Removing a current withdrawal must not expose older verification.
+              if envelope.get('retained_source_evidence'):
+                  omit_retained_sources(envelope)
+              envelope['source_evidence_omitted'] = 'Output capacity; current attestations and their inherited evidence omitted; no source-access relief from them.'
+
+
           def effective_head(envelope):
               # Callers obtain these envelopes from this App's authenticated check.
               return envelope.get('reused_for', envelope.get('head'))
@@ -1137,18 +1201,21 @@ jobs:
               if any(f.get('resolution') == 'overridden' for f in envelope['review'].get('prior_findings', [])):
                   return False  # Overrides are authorized for one exact head only.
               binding = envelope.get('reuse_binding') or {}
-              if (binding.get('version') != 2 or binding.get('number') != pr['number'] or
+              if (binding.get('version') != 3 or binding.get('number') != pr['number'] or
                       not binding.get('diff') or binding['diff'] != diff_identity(files) or
                       not binding.get('sources')):
                   return False
               try:
                   texts = {}
+                  refs = reuse_refs(gh, pr, any(f.get('patch') for f in files) or any(
+                      p['revision'] == 'merge_base' for p in binding.get('passages', []) + binding['sources']))
+                  displayed_hunk_reads(gh, files, refs, texts)
                   def lines(path, ref):
                       if (path, ref) not in texts:
                           texts[path, ref] = gh.text(path, ref).splitlines()
                       return texts[path, ref]
                   for source in binding['sources']:
-                      if source_identity(gh, source['path'], pr[source['revision']]['sha']) != source['sha']:
+                      if source_identity(gh, source['path'], refs[source['revision']]) != source['sha']:
                           return False
                   for passage in binding.get('passages', []):
                       old = lines(passage['path'], passage['ref'])
@@ -1157,7 +1224,7 @@ jobs:
                           return False
                       if sum(old[i:i+len(value)] == value for i, line in enumerate(old) if line == value[0]) != 1:
                           return False  # A surviving duplicate cannot identify the originally read occurrence.
-                      new = lines(passage['path'], pr[passage['revision']]['sha'])
+                      new = lines(passage['path'], refs[passage['revision']])
                       matches = [i for i, line in enumerate(new) if line == value[0]
                                  and new[i:i+len(value)] == value]
                       if len(matches) != 1:
@@ -1242,6 +1309,8 @@ jobs:
                   envelope['reuse_binding_omitted'] = 'Comment capacity; rebase reuse disabled.'
               if len(json.dumps(envelope, ensure_ascii=False).encode()) > 60_000 and envelope.get('retained_source_evidence'):
                   omit_retained_sources(envelope)
+              if len(json.dumps(envelope, ensure_ascii=False).encode()) > 60_000 and envelope['review'].get('source_checks'):
+                  omit_current_sources(envelope)
               return envelope
 
 
@@ -1270,6 +1339,12 @@ jobs:
                   if e.get('retained_source_evidence'):
                       omit_retained_sources(e)
                       # Removing evidence can remove access relief, never create it.
+                      accepted, limits = combined_decision(envelopes, prior, discussion)
+              for e in sorted(envelopes.values(), key=lambda x: len(json.dumps(x['review'].get('source_checks', []))), reverse=True):
+                  if len(decision_text(state, envelopes, limits).encode()) <= 60_000:
+                      break
+                  if e['review'].get('source_checks'):
+                      omit_current_sources(e)
                       accepted, limits = combined_decision(envelopes, prior, discussion)
               return accepted, limits
 

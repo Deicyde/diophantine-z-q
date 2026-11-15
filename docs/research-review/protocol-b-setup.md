@@ -443,7 +443,12 @@ author-maintained compatibility file. Previously undispositioned findings still 
 
 New reports store a rebase binding for the complete diff, the source passages
 actually returned at head or base, both sides of the initial diff hunks, and
-file-discovery results. After a rebase, each exact passage must occur uniquely
+file-discovery results. Diff old-side passages use the pinned merge-base commit;
+an explicit `read_file(base)` still uses the pinned current base tip. Hunk text
+and counts must match those source revisions before a binding is made or reused.
+If the merge base or displayed passage identity cannot be established, rebase
+reuse is disabled. Older bindings without this distinction cannot authorize a
+new head. After a rebase, each exact passage must occur uniquely
 in both its original and its new file; movement of line numbers is allowed, edits inside the passage
 or an ambiguous duplicate require fresh review. Repository PDFs requested
 through read_file and mandatory policy inputs, including the workflow, retain
@@ -522,6 +527,9 @@ history tool use this evidence without claiming a fresh inspection occurred.
 Superseded attestations are removed from the inherited copy; surviving entries
 retain compact original provenance. If this evidence still exceeds output
 capacity, the full omitted data stays in the run artifact and cannot authorize
-source-access relief. The decision is recomputed before publication. Completed
+source-access relief. This also applies to current source checks when two valid
+fresh reports exceed the combined App payload limit. Omitting current checks
+also removes that report's inherited evidence, so a removed withdrawal cannot
+expose an older verification. The decision is recomputed before publication. Completed
 verdicts and findings remain, including a rejecting supplement; missing evidence
 does not revive an older acceptance or a withdrawn source verification.
