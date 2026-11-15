@@ -409,6 +409,67 @@ theorem third_swap (σ : ToP1 (genFib 𝒵).left) (c : Zloc p) (hc : IsUnit c) (
   rw [← hres1, Scheme.basicOpen_res] at this
   exact this.2
 
+theorem xi_notMem_closure {z : 𝒵.left} (yc : (genFib 𝒵).left)
+    (hd : Disjoint (closure {jj 𝒵 yc}) (closure {z})) : xi 𝒵 ∉ closure {z} := by
+  intro h
+  obtain ⟨xc, hxc, hxcs⟩ := exists_s0_mem_closure 𝒵 (jj 𝒵 yc)
+  have : xc ∈ closure {z} :=
+    closure_minimal (Set.singleton_subset_iff.2 h) isClosed_closure
+      (specializes_iff_mem_closure.mp (xi_specializes 𝒵 hxcs))
+  exact Set.disjoint_left.mp hd hxc this
+
+/-- **Both chart coordinates extend** (to the complements of the closures of the pole and of the zero), given
+three generic-fibre points (zero, pole, value `c`) with pairwise disjoint closures. -/
+theorem exists_extensions (σ : ToP1 (genFib 𝒵).left) (hσ : IsP1CoordinateQ (genFib 𝒵) σ)
+    (y0 yinf yc : (genFib 𝒵).left) (c : Zloc p) (hc : IsUnit c)
+    (hy0U : y0 ∈ σ.U) (hy0 : y0 ∉ (genFib 𝒵).left.basicOpen σ.f) (hyinf : yinf ∉ σ.U)
+    (hycU : yc ∈ σ.U)
+    (hycv : yc ∉ (genFib 𝒵).left.basicOpen
+      (σ.f - baseToSectionsOver (CommRingCat.of ℚ) (genFib 𝒵) σ.U (zlocToRat p c)))
+    (hcl0 : ∀ x ∈ closure {jj 𝒵 y0}, 𝒵.hom x ≠ s0 p → x = jj 𝒵 y0)
+    (hclinf : ∀ x ∈ closure {jj 𝒵 yinf}, 𝒵.hom x ≠ s0 p → x = jj 𝒵 yinf)
+    (d0c : Disjoint (closure {jj 𝒵 yc}) (closure {jj 𝒵 y0}))
+    (dinfc : Disjoint (closure {jj 𝒵 yc}) (closure {jj 𝒵 yinf})) :
+    ∃ (f : Γ(𝒵.left, Uc 𝒵 (jj 𝒵 yinf))) (g : Γ(𝒵.left, Uc 𝒵 (jj 𝒵 y0)))
+      (hf : σ.U ≤ jj 𝒵 ⁻¹ᵁ Uc 𝒵 (jj 𝒵 yinf)) (hg : σ.V ≤ jj 𝒵 ⁻¹ᵁ Uc 𝒵 (jj 𝒵 y0)),
+      (jj 𝒵).appLE _ σ.U hf f = σ.f ∧ (jj 𝒵).appLE _ σ.V hg g = σ.g := by
+  have hξinf := xi_notMem_closure 𝒵 yc dinfc
+  have hξ0 := xi_notMem_closure 𝒵 yc d0c
+  obtain ⟨hycW, hycv'⟩ := third_swap 𝒵 σ c hc yc hycU hycv
+  have hy0V : y0 ∉ σ.V := fun h => hy0 (by rw [σ.basicOpen_f]; exact ⟨hy0U, h⟩)
+  have hyinfV : yinf ∈ σ.V := by
+    have : yinf ∈ σ.U ⊔ σ.V := by rw [σ.cover]; trivial
+    exact this.resolve_left hyinf
+  have hneU : (σ.U : Set (genFib 𝒵).left).Nonempty := ⟨y0, hy0U⟩
+  have hneV : ((swapP1 σ).U : Set (genFib 𝒵).left).Nonempty := ⟨yinf, hyinfV⟩
+  have hσ' := isP1CoordinateQ_swap _ σ hσ
+  have h1 := genericPoint_mem_open 𝒵 _ (image_nonempty 𝒵 σ hneU)
+  have h2 := genericPoint_mem_open 𝒵 _ (image_nonempty 𝒵 (swapP1 σ) hneV)
+  have hmul := germ_mul_swap 𝒵 σ ⟨yc, hycW⟩ h1 h2
+  obtain ⟨_, hdvr⟩ := xi_isDVR 𝒵
+  set t := 𝒵.left.presheaf.germ _ (genericPoint 𝒵.left) h1 (tU 𝒵 σ)
+  set t' := 𝒵.left.presheaf.germ _ (genericPoint 𝒵.left) h2 (tU 𝒵 (swapP1 σ))
+  have ht : t ≠ 0 := left_ne_zero_of_mul_eq_one hmul
+  have ht' : t' = t⁻¹ := (eq_inv_of_mul_eq_one_right hmul)
+  rcases ValuationRing.isInteger_or_isInteger (𝒵.left.presheaf.stalk (xi 𝒵)) t with ⟨a, ha⟩ | ⟨b, hb⟩
+  · obtain ⟨f, hf, hf1, hf2⟩ := extend_of_isInteger 𝒵 σ hσ yinf hyinf hclinf hξinf hneU a ha
+    have hu : IsUnit a := hf2 ▸ isUnit_germ_of_third 𝒵 σ yinf hξinf c hc yc hycU hycv
+      (dinfc) f hf hf1
+    have ha' : algebraMap (𝒵.left.presheaf.stalk (xi 𝒵)) 𝒵.left.functionField
+        (↑(hu.unit⁻¹) : 𝒵.left.presheaf.stalk (xi 𝒵)) = t' := by
+      rw [map_units_inv, IsUnit.unit_spec, ha, ht']
+    obtain ⟨g, hg, hg1, -⟩ := extend_of_isInteger 𝒵 (swapP1 σ) hσ' y0 hy0V hcl0 hξ0 hneV _ ha'
+    exact ⟨f, g, hf, hg, hf1, hg1⟩
+  · have hb' : algebraMap _ 𝒵.left.functionField b = t' := by rw [ht', hb]
+    obtain ⟨g, hg, hg1, hg2⟩ := extend_of_isInteger 𝒵 (swapP1 σ) hσ' y0 hy0V hcl0 hξ0 hneV b hb'
+    have hu : IsUnit b := hg2 ▸ isUnit_germ_of_third 𝒵 (swapP1 σ) y0 hξ0 _ hc.unit⁻¹.isUnit yc
+      hycW.2 hycv' d0c g hg hg1
+    have ha' : algebraMap (𝒵.left.presheaf.stalk (xi 𝒵)) 𝒵.left.functionField
+        (↑(hu.unit⁻¹) : 𝒵.left.presheaf.stalk (xi 𝒵)) = t := by
+      rw [map_units_inv, IsUnit.unit_spec, hb', ht', inv_inv]
+    obtain ⟨f, hf, hf1, -⟩ := extend_of_isInteger 𝒵 σ hσ yinf hyinf hclinf hξinf hneU _ ha'
+    exact ⟨f, g, hf, hg, hf1, hg1⟩
+
 end Model
 
 end HDec.MCRGlue.P1Model
