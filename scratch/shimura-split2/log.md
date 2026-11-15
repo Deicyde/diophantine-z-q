@@ -38,3 +38,4 @@ Task: split `RayClassCFT.ShimuraMainThmIDeligneY3AbU` (gt-rayclass composite) fa
   `ShimuraSplit2.rayClassCMAb_of_printed`, still assumes [ShimuraHolFamilyAb, QMReciprocityL3, UniformizationLeafAll,
   GAGAMorphism, MumfordTorsionAlgClosed]; `shimuraFamilyAb` by `shimuraFamilyAb_of_printed`, still assumes
   [ShimuraHolFamilyAb]; axioms standard. `65 open hypotheses, 1558 theorems checked, 11 discharge one`. VERIFIED.
+* 05:20 §12: `ShimuraHolModAll` (∀ fine witness form, no existence claim); proved `regVal_comp`, `isHolFamily_comp`, `exists_map_of_r1fp` (maps between fine witnesses from R1univAbProps), `shimuraHolModAll_of_hol` (∃ form ⇒ ∀ form) and `shimuraHolFamilyAb_of_all`; fields from (R) of deligneComponentsX6PrintedAb: `rayClassCMAb_of_leaves2`, `shimuraFamilyAb_of_leaves2`. Compiles. VERIFIED.

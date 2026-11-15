@@ -299,13 +299,14 @@ theorem cm_at {P : QML3 Qbar} {Q : QML3 ℂ} (hbc : IsBaseChangeOf (ιC : Qbar �
 
 /-! ## §6 The two fields -/
 
-/-- **`RayClassCMAb` from the two leaves and the glue** (no map `Ψ`, no class-number argument: `ComplexUnifL3`
-gives a representative with `u ∈ 𝒪̂^×` directly). The witness is the one of `ShimuraHolFamilyAb` (any fine witness
-would do: the proof reads only `R1fpPropsAb`'s naturality clause and `Φ`). -/
-theorem rayClassCMAb_of_split (hH : ShimuraHolFamilyAb) (hS : QMReciprocityL3) (hT : DCRelTransport)
+/-- **`RayClassCMAb` from one fine witness, the leaf `QMReciprocityL3` and the glue** (no map `Ψ`, no class-number
+argument: `ComplexUnifL3` gives a representative with `u ∈ 𝒪̂^×` directly; the proof reads only `R1fpPropsAb`'s
+naturality clause and `Φ`, so any fine witness will do). -/
+theorem rayClassCMAb_of_witness (hW : ∃ (Y : Over (Spec (CommRingCat.of ℚ))) (Φ : PtEquiv Y),
+      LeafQM.AV.R1UnivRigid.R1fpPropsAb Y Φ) (hS : QMReciprocityL3) (hT : DCRelTransport)
     (hD : UnifDetermines) (hC : ComplexUnifL3) (hHL : ZInQ.HomUnify.HomLinearLift) :
     ShimuraGlue.Ray.RayClassCMAb := by
-  obtain ⟨Y, Φ, hAb, -⟩ := hH
+  obtain ⟨Y, Φ, hAb⟩ := hW
   have hA : CMAnalytic := cmAnalytic_of hHL
   refine ⟨Y, Φ, hAb, fun y P hP => ?_⟩
   have hnat := hAb.2.2.2.1
@@ -335,6 +336,13 @@ theorem rayClassCMAb_of_split (hH : ShimuraHolFamilyAb) (hS : QMReciprocityL3) (
         have := com_rel ρ hφ (P0 := 0) (Q0 := 6) (by rw [hφ2]; simp)
         simpa using this) lam heig
     exact embed_core_obj hAb hS hT hD K24 finrank_K24 (qHatIntegral K24) y Q hQ τ u hu hM q κ₀ hqO hcm
+
+/-- **`RayClassCMAb` from the two leaves and the glue**, with the witness of `ShimuraHolFamilyAb`. -/
+theorem rayClassCMAb_of_split (hH : ShimuraHolFamilyAb) (hS : QMReciprocityL3) (hT : DCRelTransport)
+    (hD : UnifDetermines) (hC : ComplexUnifL3) (hHL : ZInQ.HomUnify.HomLinearLift) :
+    ShimuraGlue.Ray.RayClassCMAb := by
+  obtain ⟨Y, Φ, hAb, -⟩ := hH
+  exact rayClassCMAb_of_witness ⟨Y, Φ, hAb⟩ hS hT hD hC hHL
 
 /-- **`ShimuraFamilyAb` from `ShimuraHolFamilyAb`** (shimura-split's `isR1bFamily_of_hol` for every `π`). -/
 theorem shimuraFamilyAb_of_hol (hH : ShimuraHolFamilyAb) : HDec.QMSplit.Moduli.ShimuraFamilyAb := by
@@ -770,5 +778,112 @@ theorem mIsAt_exists (hUL : BPAnalytic.Uniformization.UniformizationLeafAll) (hG
 theorem shimuraHolFamilyAb_of_composite (h : ShimuraMainThmIDeligneY3AbU) : ShimuraHolFamilyAb := by
   obtain ⟨Y, Φ, h1, Ψ, hb, -⟩ := h
   exact ⟨Y, Φ, h1, fun τ => Ψ τ 1, hb.2.2.2.1⟩
+
+/-! ## §12 The moduli leaf without its existence clause: `ShimuraHolModAll`
+
+`ShimuraHolFamilyAb` bundles the representability clause (R) (`∃ (Y, Φ)` with `R1fpPropsAb`) with the analytic
+statement. Following the bundle's convention for `gonzalezRotgerProp56X6` (a printed statement "for every witness,
+with no existence claim"), the analytic statement is stated here **for every fine witness**, and (R) is taken from a
+leaf the bundles already have (`deligneComponentsX6PrintedAb`). The two forms are equivalent given (R)
+(`shimuraHolModAll_of_hol`, `shimuraHolFamilyAb_of_all`): a fine witness `(Y', Φ')` maps to every other one by the
+universal property `R1univAbProps` (`exists_map_of_r1fp`), compatibly with the moduli bijections, and holomorphic
+families compose with morphisms of schemes (`isHolFamily_comp`). So the `∀` form is not stronger than the `∃` form. -/
+
+/-- **LEAF `ShimuraHolModAll` (Shimura's Main Theorem I, complex part, for every fine witness).** For every `(Y, Φ)`
+with `R1fpPropsAb` (the fine moduli scheme `Y₃` of QM abelian surfaces with level 3 and its moduli bijections) there
+is a holomorphic `τ ↦ y_τ ∈ Y(ℂ)` whose object at `y_τ` is, as a QM pair, `ℂ²/ι(𝒪)(τ, 1)ᵀ` (`IsShimuraHolFamily`).
+
+*Published statements* (UNVERIFIED locators): Shimura, Ann. of Math. 85 (1967), Main Theorem I and §§2-3 (the
+holomorphic `φ : ℍ → V(ℂ)`, `φ(τ)` the moduli point of `ℂ²/ι(𝒪)(τ, 1)ᵀ`); Deligne, Sém. Bourbaki 389 (1971), §4
+(the moduli scheme and its complex uniformization; analytic families). *Form*: one family on the component of
+`Y₃(ℂ)` through the points `[τ, 1]`; the moduli clause describes only the QM pair; no existence claim (it is
+equivalent, given one fine witness, to `ShimuraHolFamilyAb`, proved below). -/
+def ShimuraHolModAll : Prop :=
+  ∀ (Y : Over (Spec (CommRingCat.of ℚ))) (Φ : PtEquiv Y), LeafQM.AV.R1UnivRigid.R1fpPropsAb Y Φ →
+    ∃ yτ : UpperHalfPlane → (fieldPt ℂ ⟶ Y), HDec.HSyn.G0Split.FibreQM.IsShimuraHolFamily Y Φ yτ
+
+/-- The point of `y ≫ h` is the image of the point of `y`. -/
+theorem ptC_comp {X X' : Scheme.{0}} (h : X' ⟶ X) (y : Spec (CommRingCat.of ℂ) ⟶ X') :
+    ShimuraSplit.ptC (y ≫ h) = h.base (ShimuraSplit.ptC y) := rfl
+
+/-- Values of regular functions along `h`: `f(h(y)) = (h^* f)(y)`. -/
+theorem regVal_comp {X X' : Scheme.{0}} (h : X' ⟶ X) (U : X.Opens) (f : Γ(X, U))
+    (y : Spec (CommRingCat.of ℂ) ⟶ X') :
+    ShimuraSplit.regVal U f (y ≫ h) = ShimuraSplit.regVal (h ⁻¹ᵁ U) (h.app U f) y := by
+  unfold ShimuraSplit.regVal
+  by_cases hm : ShimuraSplit.ptC y ∈ h ⁻¹ᵁ U
+  · have hm' : ShimuraSplit.ptC (y ≫ h) ∈ U := by rw [ptC_comp]; exact hm
+    rw [dif_pos hm', dif_pos hm]
+    show (X.descResidueField (Scheme.stalkClosedPointTo (y ≫ h))).hom
+        (X.evaluation U (h.base (ShimuraSplit.ptC y)) hm f) =
+      (X'.descResidueField (Scheme.stalkClosedPointTo y)).hom
+        (X'.evaluation (h ⁻¹ᵁ U) (ShimuraSplit.ptC y) hm (h.app U f))
+    have key := Scheme.descResidueField_stalkClosedPointTo_comp (f := h) y
+    erw [key, CommRingCat.comp_apply, Scheme.evaluation_naturality_apply]
+    rfl
+  · have hm' : ¬ ShimuraSplit.ptC (y ≫ h) ∈ U := by rw [ptC_comp]; exact hm
+    rw [dif_neg hm', dif_neg hm]
+
+/-- **Holomorphic families compose with morphisms of schemes.** -/
+theorem isHolFamily_comp {X X' : Scheme.{0}} (h : X' ⟶ X)
+    {φ : UpperHalfPlane → (Spec (CommRingCat.of ℂ) ⟶ X')} (hφ : ShimuraSplit.IsHolFamily φ) :
+    ShimuraSplit.IsHolFamily (fun τ => φ τ ≫ h) := by
+  refine ⟨fun U => hφ.1 (h ⁻¹ᵁ U), fun U f τ hτ => ?_⟩
+  obtain ⟨g, hg, hev⟩ := hφ.2 (h ⁻¹ᵁ U) (h.app U f) τ hτ
+  refine ⟨g, hg, hev.mono fun z hz hz' => ?_⟩
+  rw [regVal_comp]
+  exact hz hz'
+
+/-- **Maps between fine witnesses**: for fine witnesses `(Y', Φ')`, `(Y, Φ)` there is `g : Y' → Y` with
+`Φ(s ≫ g) = Φ'(s)` at every field point (`R1univAbProps` of `Y` applied to the universal family of `Y'`). -/
+theorem exists_map_of_r1fp {Y Y' : Over (Spec (CommRingCat.of ℚ))} {Φ : PtEquiv Y} {Φ' : PtEquiv Y'}
+    (h : LeafQM.AV.R1UnivRigid.R1fpPropsAb Y Φ) (h' : LeafQM.AV.R1UnivRigid.R1fpPropsAb Y' Φ') :
+    ∃ g : Y' ⟶ Y, ∀ (K : Type) [Field K] [Algebra ℚ K] (s : fieldPt K ⟶ Y'), Φ K (s ≫ g) = Φ' K s := by
+  obtain ⟨hp', hs', -, -, ⟨𝒜', h𝒜'⟩, -⟩ := h'
+  have hfib : ∀ (K : Type) [Field K] [Algebra ℚ K] (s : fieldPt K ⟶ Y'), ∃ P : QML3 K,
+      IsFibreOf 𝒜'.toQMFamily s.left P := by
+    intro K _ _ s
+    obtain ⟨P, hP⟩ := Quotient.exists_rep (Φ' K s)
+    exact ⟨P, h𝒜' K s P hP.symm⟩
+  obtain ⟨g, hg⟩ := h.2.2.2.2.2 Y' hp' hs' 𝒜' hfib
+  refine ⟨g, fun K _ _ s => ?_⟩
+  obtain ⟨P, hP⟩ := Quotient.exists_rep (Φ' K s)
+  rw [hg K s P (h𝒜' K s P hP.symm), ← hP]
+  rfl
+
+/-- **The `∀` form from the `∃` form** (so `ShimuraHolModAll` is not stronger than `ShimuraHolFamilyAb`). -/
+theorem shimuraHolModAll_of_hol (hH : ShimuraHolFamilyAb) : ShimuraHolModAll := by
+  obtain ⟨Y', Φ', h1', yτ, hmod, hhol⟩ := hH
+  intro Y Φ h1
+  obtain ⟨g, hg⟩ := exists_map_of_r1fp h1 h1'
+  refine ⟨fun τ => yτ τ ≫ g, fun τ => ?_, isHolFamily_comp g.left hhol⟩
+  obtain ⟨P, hP, rest⟩ := hmod τ
+  exact ⟨P, (hg ℂ (yτ τ)).trans hP, rest⟩
+
+/-- **The `∃` form from the `∀` form and one fine witness.** -/
+theorem shimuraHolFamilyAb_of_all (hW : ∃ (Y : Over (Spec (CommRingCat.of ℚ))) (Φ : PtEquiv Y),
+    LeafQM.AV.R1UnivRigid.R1fpPropsAb Y Φ) (hH : ShimuraHolModAll) : ShimuraHolFamilyAb := by
+  obtain ⟨Y, Φ, h1⟩ := hW
+  exact ⟨Y, Φ, h1, hH Y Φ h1⟩
+
+/-- A fine witness from Deligne's `π₀` leaf on `X₆` (its clause (R)). -/
+theorem witness_of_x6 (h : ShimuraGlue.DeligneComponentsX6PrintedAb) :
+    ∃ (Y : Over (Spec (CommRingCat.of ℚ))) (Φ : PtEquiv Y), LeafQM.AV.R1UnivRigid.R1fpPropsAb Y Φ := by
+  obtain ⟨Y, Φ, -, -, -, h1, -⟩ := h
+  exact ⟨Y, Φ, h1⟩
+
+/-- **The field `rayClassCMAb`** from (R) of `deligneComponentsX6PrintedAb`, the leaf `QMReciprocityL3`, and the
+textbook fields `uniformizationLeafAll`, `gagaMorphism`, `mumfordTorsionAlgClosed`. No holomorphy is used. -/
+theorem rayClassCMAb_of_leaves2 (hR : ShimuraGlue.DeligneComponentsX6PrintedAb) (hS : QMReciprocityL3)
+    (hUL : BPAnalytic.Uniformization.UniformizationLeafAll) (hG : ZInQ.HomLattice.GAGAMorphism)
+    (hM : AvSplit.MumfordTorsionAlgClosed) : ShimuraGlue.Ray.RayClassCMAb :=
+  rayClassCMAb_of_witness (witness_of_x6 hR) hS dcRelTransport_proof
+    (unifDetermines_of (AvSplit.Final.h69 hUL hG)) (complexUnifL3_of_textbook hUL hG hM)
+    (ZInQ.HomUnify.homLinearLift_of_corr (AvSplit.Final.h69 hUL hG))
+
+/-- **The field `shimuraFamilyAb`** from (R) of `deligneComponentsX6PrintedAb` and the leaf `ShimuraHolModAll`. -/
+theorem shimuraFamilyAb_of_leaves2 (hR : ShimuraGlue.DeligneComponentsX6PrintedAb) (hH : ShimuraHolModAll) :
+    HDec.QMSplit.Moduli.ShimuraFamilyAb :=
+  shimuraFamilyAb_of_hol (shimuraHolFamilyAb_of_all (witness_of_x6 hR) hH)
 
 end ShimuraSplit2
