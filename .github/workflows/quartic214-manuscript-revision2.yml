@@ -27,7 +27,7 @@ jobs:
         run: python -B research/quartic214-manuscript-revision2/assemble.py --check
       - name: Rebuild the full PDF serially within its resource limits
         run: python -B research/quartic214-manuscript-revision2/build_pdf.py --check
-      - name: Check current receiving bindings and rejection controls
+      - name: Check archived receiving bindings and rejection controls
         run: |
           ulimit -v 524288
           python -B research/version17/ci-compatibility/run.py revision2-check

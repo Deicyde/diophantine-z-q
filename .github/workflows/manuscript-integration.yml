@@ -1,11 +1,11 @@
 # Historical replay only. Original evidence and source bindings are read from the archive.
-name: Current manuscript and quartic verification
+name: Historical manuscript and quartic verification
 
 on:
   workflow_dispatch:
     inputs:
       mode:
-        description: 'Validate the selected source and manuscript'
+        description: 'Replay the archived source and manuscript'
         type: choice
         options: [all, reproduction, paper, metadata]
         default: all
@@ -20,7 +20,7 @@ concurrency:
 jobs:
   quartic394:
     if: inputs.mode == 'all' || inputs.mode == 'reproduction' || inputs.mode == 'metadata'
-    name: Version 13 source and quartic replay (${{ matrix.os }})
+    name: Historical Version 13 source and quartic replay (${{ matrix.os }})
     runs-on: ${{ matrix.os }}
     timeout-minutes: 12
     strategy:
