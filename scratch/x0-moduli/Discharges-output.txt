@@ -1,0 +1,13 @@
+DISCHARGES [OpenResearchLeaves17.gonzalezRotgerProp56X6] by GRCountX6.prop56X6_of_r5fpCount
+  still assumes: [LeafQM.AV.R5fpCount]
+  axioms: [propext, Classical.choice, Quot.sound]
+DISCHARGES [hX] by X0Moduli.x0ModuliGalois_of_leaves
+  still assumes: [X0Moduli.WeierstrassGroupLaw,
+ X0Moduli.VeluCyclic,
+ ZInQ.Contrib.TYZGenus.ShimuraModFnTask.RatX0Rep,
+ X0Moduli.X0ModuliGaloisNonIsolated]
+  axioms: [propext, Classical.choice, Quot.sound]
+DISCHARGES [hX] by X0Moduli.x0ModuliGalois_of_split
+  still assumes: [ZInQ.Contrib.TYZGenus.ShimuraModFnTask.RatX0Rep, X0Moduli.JNConj, X0Moduli.X0ModuliGaloisNonIsolated]
+  axioms: [propext, Classical.choice, Quot.sound]
+#discharges: 68 open hypotheses, 951 theorems checked, 3 discharge one
