@@ -210,7 +210,7 @@ theorem g12Weak (hPB : PkgI4.PanBerger) (hR14 : HSyn.EigenformRepExists) (hR13 :
   obtain ⟨-, rfl⟩ := PkgI4.weight_match n k hk hn
   obtain ⟨H, hH, dr, εg, χc, hdet, hHsq, hε⟩ :=
     hD hR14 hT9 K A r e N χ g ψ ιC ιL S hdim hint hN hg hatt
-  haveI := hH
+  have := hH
   exact ⟨N, χ, g, ψ, ιC, ιL, S, hN, hg,
     GlueAssembly.twist_finite H dr εg χc ψ.toHom hdet hHsq hε, hatt⟩
 

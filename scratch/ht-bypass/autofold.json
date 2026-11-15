@@ -1,0 +1,6 @@
+{
+  "name": "ht-bypass",
+  "note": "No fold. The field eigenformHTNew is not discharged: its consumers need only EigenformHTNew5Ge3 (l = 5, k >= 3; ZInQ.Contrib.HodgeSplit.HTBypass, ZInQKernel/Contrib/OneProof/EigenformHTWeak.lean), which is weaker than the field, so autofold.py (which fills the field with a proof of its exact type) cannot apply it. A bypass fold would rebuild GluePieces with HDec.G0Galois.g8_g12Weak in place of g8_g12 (docs/research/ht-bypass.md section 5); the new field would be EigenformHTNew5Ge3, kind consequence, strict GLUE (not printed form: Kato's V_f is not definable), so no GLUE count changes.",
+  "imports": ["ZInQKernel.Contrib.OneProof.EigenformHTWeak"],
+  "discharges": []
+}
