@@ -207,4 +207,50 @@ theorem eval_bijective (σ : ToP1 (genFib 𝒵).left) (hσ : IsP1CoordinateQ (ge
 
 end Rings
 
+/-! ## Fibres of the map to `P¹` are finite -/
+
+section Topology
+
+variable {X Y : Type*} [TopologicalSpace X] [TopologicalSpace Y]
+
+/-- In an irreducible noetherian sober space without strict chains of length `2`, a continuous map sending closed
+points to closed points and not constant has finite fibres. -/
+theorem finite_preimage_of_dim_le_one [TopologicalSpace.NoetherianSpace X] [QuasiSober X] [IrreducibleSpace X]
+    [T0Space X]
+    (hchain : ∀ a b c : X, a ⤳ b → b ⤳ c → a ≠ b → b ≠ c → False)
+    (g : X → Y) (hg : Continuous g) (hcl : ∀ a, IsClosed ({a} : Set X) → IsClosed ({g a} : Set Y))
+    (hnc : ∃ a b, g a ≠ g b) (w : Y) : (g ⁻¹' {w}).Finite := by
+  set gen := genericPoint X
+  have hgen : ∀ a : X, gen ⤳ a := fun a => (genericPoint_spec X).specializes trivial
+  have hclosed : ∀ a : X, a ≠ gen → IsClosed ({a} : Set X) := by
+    intro a ha
+    refine closure_subset_iff_isClosed.1 fun b hb => ?_
+    have hab : a ⤳ b := specializes_iff_mem_closure.2 hb
+    by_contra hne
+    exact hchain gen a b (hgen a) hab (Ne.symm ha) (fun h => hne h.symm)
+  by_cases hw : IsClosed ({w} : Set Y)
+  · have hZ : IsClosed (g ⁻¹' {w}) := hw.preimage hg
+    by_cases hgZ : gen ∈ g ⁻¹' {w}
+    · exfalso
+      obtain ⟨a, b, hab⟩ := hnc
+      have ha : g a = w := (hgen a).mem_closed hZ hgZ
+      have hb : g b = w := (hgen b).mem_closed hZ hgZ
+      exact hab (ha.trans hb.symm)
+    · obtain ⟨S, hSf, hSc, hSi, hSeq⟩ := TopologicalSpace.NoetherianSpace.exists_finite_set_isClosed_irreducible hZ
+      rw [hSeq]
+      refine hSf.sUnion fun t ht => ?_
+      obtain ⟨gt, hgt⟩ := QuasiSober.sober (hSi t ht) (hSc t ht)
+      have hmem : gt ∈ g ⁻¹' {w} := by
+        rw [hSeq]; exact ⟨t, ht, hgt.mem⟩
+      have hne : gt ≠ gen := fun h => hgZ (h ▸ hmem)
+      have hc := hclosed _ hne
+      have : t = {gt} := by
+        rw [← hgt.def, hc.closure_eq]
+      rw [this]; exact Set.finite_singleton _
+  · refine (Set.finite_singleton gen).subset fun a ha => ?_
+    by_contra hne
+    exact hw (by rw [← ha]; exact hcl a (hclosed a hne))
+
+end Topology
+
 end HDec.MCRGlue.P1Model
