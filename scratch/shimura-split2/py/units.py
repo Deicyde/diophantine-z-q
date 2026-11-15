@@ -42,3 +42,22 @@ for n in tab:
 def lean(v): return "!["+", ".join(str(x) for x in v)+"]"
 print("TAB", "![" + ", ".join(lean(n) for n in tab) + "]")
 print("INV", "![" + ", ".join(lean(n) for n in inv) + "]")
+# nested tables indexed by residues (a,b,c,d) in {0,1,2}^4; non-units get the zero vector
+def nested(f):
+    out=[]
+    for a in range(3):
+        A=[]
+        for b in range(3):
+            Bl=[]
+            for c in range(3):
+                C=[]
+                for d in range(3):
+                    r=(a,b,c,d)
+                    C.append(lean(f(r)) if r in res and nrdZ(r)%3!=0 else lean((0,0,0,0)))
+                Bl.append("!["+", ".join(C)+"]")
+            A.append("!["+", ".join(Bl)+"]")
+        out.append("!["+",\n    ".join(A)+"]")
+    return "![" + ",\n  ".join(out) + "]"
+invd={r:tuple(nrdZ(res[r])*x for x in star(res[r])) for r in res}
+open("/home/jackmccarthy/dzq-wt/shimura-split2/scratch/shimura-split2/py/tabU.lean","w").write(nested(lambda r: res[r]))
+open("/home/jackmccarthy/dzq-wt/shimura-split2/scratch/shimura-split2/py/tabV.lean","w").write(nested(lambda r: invd[r]))

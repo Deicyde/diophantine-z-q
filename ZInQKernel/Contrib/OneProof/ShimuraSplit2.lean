@@ -466,6 +466,12 @@ theorem iotaC_smul_mulVec (r : ℚ) (x : LeafQM.B) (w : Fin 2 → ℂ) :
 theorem three_mul_eq_smul (z : BAQ) : (3 : BAQ) * z = (3 : ℚ) • z := by
   rw [Algebra.smul_def, map_ofNat]
 
+theorem three_mul_eq_smulB (z : LeafQM.B) : (3 : LeafQM.B) * z = (3 : ℚ) • z := by
+  rw [Algebra.smul_def, map_ofNat]
+
+theorem three_mul_eq_smulB' (z : LeafQM.B) : z * (3 : LeafQM.B) = (3 : ℚ) • z := by
+  rw [(Commute.ofNat_right z 3).eq, three_mul_eq_smulB]
+
 open scoped MonObj in
 /-- Two representatives of the level structure give the same point. -/
 theorem level_rep_eq {P : QML3 ℂ} {Φu : (Fin 2 → ℂ) → CPts P.A (RingHom.id ℂ)} {τ : ℂ} {g : BAQˣ}
@@ -542,5 +548,227 @@ theorem unifDetermines_of (hC : ZInQ.HomUnify.HomLatticeCorr) : UnifDetermines :
       exact h1
     rw [e]
     rfl
+
+/-! ## §9 Proof of `ComplexUnifL3` (from `QMComplexUnif`, proved in the chain from textbook leaves)
+
+The level structure `η` of an object uniformized by `Λ_τ` is `η(a) = [ι(ab)(τ,1)ᵀ/3]` for some `b ∈ 𝒪` with
+`nrd b ≢ 0 mod 3` (the kernel of `η` is `3𝒪`). The units of `𝒪` (reduced norm `±1`) reach every class of
+`(𝒪/3𝒪)^×` (72 classes; `𝒪 ⊗ ℤ₃` is the maximal order of the division algebra `B ⊗ ℚ₃`): the table `tabU`, with
+inverses `tabV`, was found by `scratch/shimura-split2/py/units.py` and is checked by `decide`. With `ε ≡ b`,
+`u = ε⁻¹ ∈ 𝒪^× ⊆ 𝒪̂^×` gives `L_u = 𝒪` and the level structure of `T(τ, u)`. -/
+
+/-- `nrd(ofInt m)`. -/
+def nrdZ (m : Fin 4 → ℤ) : ℤ :=
+  m 0 ^ 2 + m 0 * m 2 - 2 * m 1 ^ 2 - 2 * m 1 * m 3 + m 2 ^ 2 - 2 * m 3 ^ 2
+
+theorem star_mul_ofInt (m : Fin 4 → ℤ) :
+    star (LeafQM.ofInt m) * LeafQM.ofInt m = ((nrdZ m : ℤ) : ℚ) • (1 : LeafQM.B) := by
+  ext <;> simp [LeafQM.ofInt, nrdZ] <;> ring
+
+/-- Units of `𝒪` (coordinates of `ofInt`) indexed by their classes mod `3` (`0` at non-units). -/
+def tabU : Fin 3 → Fin 3 → Fin 3 → Fin 3 → Fin 4 → ℤ :=
+  ![![![![![0, 0, 0, 0], ![-3, 0, 0, -2], ![-3, 0, 0, 2]], ![![0, 0, 1, 0], ![0, 0, 1, 1], ![0, 0, 1, -1]], ![![0, 0, -1, 0], ![0, 0, -1, 1], ![0, 0, -1, -1]]],
+    ![![![-3, -2, 0, 0], ![0, 0, 0, 0], ![-3, -2, 0, 2]], ![![0, 1, 1, 0], ![-3, 1, 1, 1], ![0, 1, 1, -1]], ![![0, 1, -1, 0], ![3, 1, -1, 1], ![0, 1, -1, -1]]],
+    ![![![-3, 2, 0, 0], ![-3, 2, 0, -2], ![0, 0, 0, 0]], ![![0, -1, 1, 0], ![0, -1, 1, 1], ![-3, -1, 1, -1]], ![![0, -1, -1, 0], ![0, -1, -1, 1], ![3, -1, -1, -1]]]],
+  ![![![![1, 0, 0, 0], ![1, 0, 0, 1], ![1, 0, 0, -1]], ![![0, 0, 0, 0], ![1, 0, 1, 1], ![1, 0, 1, -1]], ![![1, 0, -1, 0], ![1, 0, -1, 1], ![1, 0, -1, -1]]],
+    ![![![1, 1, 0, 0], ![1, 1, -3, 1], ![1, 1, 0, -1]], ![![1, 1, 1, 0], ![0, 0, 0, 0], ![1, 1, 1, -1]], ![![1, 1, -1, 0], ![-2, 1, -1, 1], ![1, 1, -1, -1]]],
+    ![![![1, -1, 0, 0], ![1, -1, 0, 1], ![1, -1, -3, -1]], ![![1, -1, 1, 0], ![1, -1, 1, 1], ![0, 0, 0, 0]], ![![1, -1, -1, 0], ![1, -1, -1, 1], ![-2, -1, -1, -1]]]],
+  ![![![![-1, 0, 0, 0], ![-1, 0, 0, 1], ![-1, 0, 0, -1]], ![![-1, 0, 1, 0], ![-1, 0, 1, 1], ![-1, 0, 1, -1]], ![![0, 0, 0, 0], ![-1, 0, -1, 1], ![-1, 0, -1, -1]]],
+    ![![![-1, 1, 0, 0], ![-1, 1, 3, 1], ![-1, 1, 0, -1]], ![![-1, 1, 1, 0], ![-1, 1, -2, 1], ![-1, 1, 1, -1]], ![![-1, 1, -1, 0], ![0, 0, 0, 0], ![-1, 1, -1, -1]]],
+    ![![![-1, -1, 0, 0], ![-1, -1, 0, 1], ![-1, -1, 3, -1]], ![![-1, -1, 1, 0], ![-1, -1, 1, 1], ![-1, -1, -2, -1]], ![![-1, -1, -1, 0], ![-1, -1, -1, 1], ![0, 0, 0, 0]]]]]
+
+/-- Their inverses. -/
+def tabV : Fin 3 → Fin 3 → Fin 3 → Fin 3 → Fin 4 → ℤ :=
+  ![![![![![0, 0, 0, 0], ![-3, 0, 0, 2], ![-3, 0, 0, -2]], ![![1, 0, -1, 0], ![-1, 0, 1, 1], ![-1, 0, 1, -1]], ![![-1, 0, 1, 0], ![1, 0, -1, 1], ![1, 0, -1, -1]]],
+    ![![![-3, 2, 0, 0], ![0, 0, 0, 0], ![-3, 2, 0, -2]], ![![-1, 1, 1, 0], ![-2, -1, -1, -1], ![-1, 1, 1, -1]], ![![1, 1, -1, 0], ![2, -1, 1, -1], ![1, 1, -1, -1]]],
+    ![![![-3, -2, 0, 0], ![-3, -2, 0, 2], ![0, 0, 0, 0]], ![![-1, -1, 1, 0], ![-1, -1, 1, 1], ![-2, 1, -1, 1]], ![![1, -1, -1, 0], ![1, -1, -1, 1], ![2, 1, 1, 1]]]],
+  ![![![![1, 0, 0, 0], ![-1, 0, 0, 1], ![-1, 0, 0, -1]], ![![0, 0, 0, 0], ![2, 0, -1, -1], ![2, 0, -1, 1]], ![![0, 0, 1, 0], ![0, 0, -1, 1], ![0, 0, -1, -1]]],
+    ![![![-1, 1, 0, 0], ![-2, -1, 3, -1], ![-1, 1, 0, -1]], ![![2, -1, -1, 0], ![0, 0, 0, 0], ![2, -1, -1, 1]], ![![0, 1, -1, 0], ![-3, -1, 1, -1], ![0, 1, -1, -1]]],
+    ![![![-1, -1, 0, 0], ![-1, -1, 0, 1], ![-2, 1, 3, 1]], ![![2, 1, -1, 0], ![2, 1, -1, -1], ![0, 0, 0, 0]], ![![0, -1, -1, 0], ![0, -1, -1, 1], ![-3, 1, 1, 1]]]],
+  ![![![![-1, 0, 0, 0], ![1, 0, 0, 1], ![1, 0, 0, -1]], ![![0, 0, -1, 0], ![0, 0, 1, 1], ![0, 0, 1, -1]], ![![0, 0, 0, 0], ![-2, 0, 1, -1], ![-2, 0, 1, 1]]],
+    ![![![1, 1, 0, 0], ![2, -1, -3, -1], ![1, 1, 0, -1]], ![![0, 1, 1, 0], ![-3, -1, 2, -1], ![0, 1, 1, -1]], ![![-2, -1, 1, 0], ![0, 0, 0, 0], ![-2, -1, 1, 1]]],
+    ![![![1, -1, 0, 0], ![1, -1, 0, 1], ![2, 1, -3, 1]], ![![0, -1, 1, 0], ![0, -1, 1, 1], ![-3, 1, 2, 1]], ![![-2, 1, 1, 0], ![-2, 1, 1, -1], ![0, 0, 0, 0]]]]]
+
+theorem tab_spec : ∀ a b c d : ZMod 3,
+    a ^ 2 + a * c - 2 * b ^ 2 - 2 * b * d + c ^ 2 - 2 * d ^ 2 ≠ 0 →
+      (((tabU a b c d 0 : ℤ) : ZMod 3) = a ∧ ((tabU a b c d 1 : ℤ) : ZMod 3) = b ∧
+        ((tabU a b c d 2 : ℤ) : ZMod 3) = c ∧ ((tabU a b c d 3 : ℤ) : ZMod 3) = d) ∧
+      LeafQM.mulCoord (tabU a b c d) (tabV a b c d) = ![1, 0, 0, 0] ∧
+      LeafQM.mulCoord (tabV a b c d) (tabU a b c d) = ![1, 0, 0, 0] := by
+  decide +kernel
+
+/-- **A unit congruent to `b` mod `3`**: if `nrd b ≢ 0 mod 3` for `b = ofInt m ∈ 𝒪`, then `b = ε + 3d` with
+`ε ∈ 𝒪^×` (inverse `ε'`) and `d ∈ 𝒪`. -/
+theorem exists_unit_cong (m : Fin 4 → ℤ) (h : ¬ (3 : ℤ) ∣ nrdZ m) :
+    ∃ ε ε' d : LeafQM.B, InO ε ∧ InO ε' ∧ InO d ∧ ε * ε' = 1 ∧ ε' * ε = 1 ∧
+      LeafQM.ofInt m = ε + 3 * d := by
+  have hcond : ((m 0 : ℤ) : ZMod 3) ^ 2 + (m 0 : ZMod 3) * (m 2 : ZMod 3) - 2 * (m 1 : ZMod 3) ^ 2 -
+      2 * (m 1 : ZMod 3) * (m 3 : ZMod 3) + (m 2 : ZMod 3) ^ 2 - 2 * (m 3 : ZMod 3) ^ 2 ≠ 0 := by
+    intro h0
+    apply h
+    have h3 : ((3 : ℕ) : ℤ) ∣ nrdZ m :=
+      (ZMod.intCast_zmod_eq_zero_iff_dvd _ 3).1 (by push_cast [nrdZ]; exact h0)
+    exact_mod_cast h3
+  obtain ⟨⟨c0, c1, c2, c3⟩, h1, h2⟩ := tab_spec _ _ _ _ hcond
+  set t := tabU (m 0 : ZMod 3) (m 1 : ZMod 3) (m 2 : ZMod 3) (m 3 : ZMod 3) with ht
+  set t' := tabV (m 0 : ZMod 3) (m 1 : ZMod 3) (m 2 : ZMod 3) (m 3 : ZMod 3) with ht'
+  have hdvd : ∀ j, (3 : ℤ) ∣ m j - t j := by
+    intro j
+    have := (ZMod.intCast_eq_intCast_iff_dvd_sub (t j) (m j) 3)
+    push_cast at this
+    rw [← this]
+    fin_cases j
+    · exact c0
+    · exact c1
+    · exact c2
+    · exact c3
+  choose d hd using hdvd
+  refine ⟨LeafQM.ofInt t, LeafQM.ofInt t', LeafQM.ofInt d, ⟨t, rfl⟩, ⟨t', rfl⟩, ⟨d, rfl⟩, ?_, ?_, ?_⟩
+  · rw [LeafQM.ofInt_mul, h1, LeafQM.ofInt_one]
+  · rw [LeafQM.ofInt_mul, h2, LeafQM.ofInt_one]
+  · have hm : ∀ j, m j = t j + 3 * d j := fun j => by linarith [hd j]
+    rw [three_mul_eq_smulB]
+    ext <;> simp [LeafQM.ofInt, hm] <;> ring
+
+theorem one_ne_three_mul (c : LeafQM.O) : (1 : LeafQM.O) ≠ 3 * c := by
+  intro h
+  have h' := congrArg (fun x : LeafQM.O => (x : LeafQM.B)) h
+  simp only [Subring.coe_one, Subring.coe_mul] at h'
+  obtain ⟨n, hn⟩ := c.2
+  rw [show ((3 : LeafQM.O) : LeafQM.B) = 3 from rfl, hn, three_mul_eq_smulB] at h'
+  have hre := congrArg QuaternionAlgebra.re h'
+  have hj := congrArg QuaternionAlgebra.imJ h'
+  simp [LeafQM.ofInt] at hre hj
+  have hn2 : (n 2 : ℚ) = 0 := by exact_mod_cast hj
+  rw [hn2] at hre
+  have : (1 : ℤ) = 3 * n 0 := by exact_mod_cast (by linarith : (1 : ℚ) = 3 * n 0)
+  omega
+
+open scoped MonObj in
+/-- **`ComplexUnifL3` from `QMComplexUnif`** (the chain's `qmComplexUnif_of_textbook`). -/
+theorem complexUnifL3_of (hQ : HDec.HSyn.G0Split.FibreQM.QMComplexUnif) : ComplexUnifL3 := by
+  intro P
+  obtain ⟨τc, hτ, Φu, hU, hI⟩ := hQ P
+  let τ : UpperHalfPlane := ⟨τc, hτ⟩
+  have hU' : IsUniformization (RingHom.id ℂ) (BPAnalytic.QM.qmLattice τ.im_pos.ne') Φu := hU
+  obtain ⟨v, hv⟩ := hU.2.2.1 (Additive.toMul (P.e.eta 1))
+  have h3v : v + v + v ∈ BPAnalytic.QM.qmLattice hτ.ne' := by
+    rw [← hU.2.1, hU.1, hU.1, hv]
+    show Additive.toMul (P.e.eta 1 + P.e.eta 1 + P.e.eta 1) = _
+    rw [← map_add, ← map_add]
+    have e : (1 + 1 + 1 : LeafQM.O) = 3 * 1 := by norm_num
+    rw [e, (P.e.ker _).2 ⟨1, rfl⟩]
+    rfl
+  obtain ⟨b, hbO, hbv⟩ := exists_of_mem_qmLattice hτ.ne' h3v
+  have hv3 : v = (3 : ℂ)⁻¹ • (iotaC b).mulVec ![τc, 1] := by
+    rw [hbv]
+    ext i
+    simp only [Pi.smul_apply, Pi.add_apply, smul_eq_mul]
+    ring
+  have heta : ∀ a : LeafQM.O,
+      Φu ((3 : ℂ)⁻¹ • (iotaC ((a : LeafQM.B) * b)).mulVec ![τc, 1]) = Additive.toMul (P.e.eta a) := by
+    intro a
+    have e1 : P.e.eta a = P.e.eta (a * 1) := by rw [_root_.mul_one]
+    rw [e1, P.e.linear]
+    show _ = Additive.toMul (P.e.eta 1) ≫ (P.q.iota a).hom
+    have k1 := hI a v
+    have k2 : (3 : ℂ)⁻¹ • (iotaC ((a : LeafQM.B) * b)).mulVec ![τc, 1] =
+        (HDec.HSyn.G0Split.FibreQM.qmMat a).mulVec v := by
+      rw [hv3, Matrix.mulVec_smul, qmMat_eq, map_mul, ← Matrix.mulVec_mulVec]
+    rw [k2]
+    rw [hv] at k1
+    exact k1
+  obtain ⟨m, rfl⟩ := hbO
+  have hnd : ¬ (3 : ℤ) ∣ nrdZ m := by
+    rintro ⟨n, hn⟩
+    let sb : LeafQM.O := ⟨star (LeafQM.ofInt m), inO_star ⟨m, rfl⟩⟩
+    have h0 : P.e.eta sb = 0 := by
+      have h := heta sb
+      have hmem : (3 : ℂ)⁻¹ • (iotaC ((sb : LeafQM.B) * LeafQM.ofInt m)).mulVec ![τc, 1] ∈
+          BPAnalytic.QM.qmLattice hτ.ne' := by
+        have e : (3 : ℂ)⁻¹ • (iotaC ((sb : LeafQM.B) * LeafQM.ofInt m)).mulVec ![τc, 1] =
+            n • ![τc, 1] := by
+          show (3 : ℂ)⁻¹ • (iotaC (star (LeafQM.ofInt m) * LeafQM.ofInt m)).mulVec ![τc, 1] = _
+          rw [star_mul_ofInt, iotaC_smul_mulVec, map_one, Matrix.one_mulVec, hn, smul_smul,
+            ← Int.cast_smul_eq_zsmul ℂ]
+          congr 1
+          push_cast
+          ring
+        rw [e]
+        exact Submodule.smul_mem _ _ (qmVec0_mem hτ.ne')
+      have h1 := (hU.2.1 _).2 hmem
+      rw [h1] at h
+      exact (congrArg Additive.ofMul h).symm
+    obtain ⟨c, hc⟩ := (P.e.ker sb).1 h0
+    have hb3 : LeafQM.ofInt m = (3 : ℚ) • star (c : LeafQM.B) := by
+      have e := congrArg (fun x : LeafQM.O => star (x : LeafQM.B)) hc
+      simp only [sb, star_star, Subring.coe_mul] at e
+      have hs3 : star (3 : LeafQM.B) = 3 := by ext <;> simp
+      rw [e, show ((3 : LeafQM.O) : LeafQM.B) = 3 from rfl, star_mul, hs3, three_mul_eq_smulB']
+    have h1 : P.e.eta 1 = 0 := by
+      have hv' : v ∈ BPAnalytic.QM.qmLattice hτ.ne' := by
+        rw [hv3, hb3, iotaC_smul_mulVec, smul_smul,
+          show ((3 : ℂ)⁻¹ * ((3 : ℚ) : ℂ)) = 1 by norm_num, one_smul]
+        exact mem_qmLattice_of_inO hτ.ne' (inO_star c.2)
+      have h := (hU.2.1 v).2 hv'
+      rw [hv] at h
+      exact congrArg Additive.ofMul h
+    obtain ⟨c', hc'⟩ := (P.e.ker 1).1 h1
+    exact one_ne_three_mul c' hc'
+  obtain ⟨ε, ε', d, hε, hε', hd, h1, h2, hbe⟩ := exists_unit_cong m hnd
+  let u : BAQˣ := bUnit ε' ε h2 h1
+  have hu : u ∈ OhatU := ⟨bEmb_mem_of_inO hε', bEmb_mem_of_inO hε⟩
+  refine ⟨τ, u, hu, Φu, by rw [vecLat_unit hu τ]; exact hU', hI, fun a => ?_⟩
+  refine ⟨(a : LeafQM.B) * LeafQM.ofInt m, ⟨bEmb ((a : LeafQM.B) * (d * ε')),
+    bEmb_mem_of_inO (LeafQM.O.mul_mem a.2 (LeafQM.O.mul_mem hd hε')), ?_⟩, heta a⟩
+  show bEmb ((a : LeafQM.B) * LeafQM.ofInt m) * bEmb ε' = _
+  have e : (a : LeafQM.B) * LeafQM.ofInt m * ε' = (a : LeafQM.B) + 3 * ((a : LeafQM.B) * (d * ε')) := by
+    rw [hbe]
+    have h3 : (a : LeafQM.B) * 3 = 3 * (a : LeafQM.B) := (Commute.ofNat_right _ 3).eq
+    calc (a : LeafQM.B) * (ε + 3 * d) * ε' = (a : LeafQM.B) * (ε * ε') + ((a : LeafQM.B) * 3) * (d * ε') := by
+          noncomm_ring
+      _ = _ := by rw [h1, h3]; noncomm_ring
+  rw [← map_mul, e, map_add, map_mul, map_ofNat]
+
+/-- **`ComplexUnifL3` from the textbook fields** `uniformizationLeafAll`, `gagaMorphism`,
+`mumfordTorsionAlgClosed` (through the chain's `AvSplit.Final.h38`, `h69` and the proved `QMLatticeAlgebra`). -/
+theorem complexUnifL3_of_textbook (hUL : BPAnalytic.Uniformization.UniformizationLeafAll)
+    (hG : ZInQ.HomLattice.GAGAMorphism) (hM : AvSplit.MumfordTorsionAlgClosed) : ComplexUnifL3 :=
+  complexUnifL3_of (HDec.HSyn.G0Split.FibreQM.qmComplexUnif_of_textbook (AvSplit.Final.h38 hUL hM)
+    (ZInQ.HomUnify.t11a_riemannEnd_of_corr (AvSplit.Final.h69 hUL hG))
+    (HDec.HSyn.G0Split.FibreQM.qmLatticeAlgebra_of_free
+      (HDec.HSyn.G0Split.FibreQM.qmLatticeFree_of HDec.HSyn.G0Split.FibreQM.qmSkolemNoetherC_proof
+        HDec.QMSplit.CNO.qmClassNumberOne_proof)))
+
+/-! ## §10 The two fields from the two leaves and the kept textbook fields -/
+
+/-- **The field `rayClassCMAb`** from the two leaves `ShimuraHolFamilyAb` (only its witness `(Y, Φ)` with
+`R1fpPropsAb` is used) and `QMReciprocityL3`, and the textbook fields `uniformizationLeafAll`, `gagaMorphism`,
+`mumfordTorsionAlgClosed` that the bundles keep. All glue is proved: `DCRelTransport` (`dcRelTransport_proof`),
+`UnifDetermines` (from `HomLatticeCorr = AvSplit.Final.h69`), `ComplexUnifL3` (from the chain's `QMComplexUnif`),
+`HomLinearLift`, and rayclass-cft's `QHatIntegral`, `CMBaseChange`, `CMAnalytic`, `RingOfIntegersGen`. -/
+theorem rayClassCMAb_of_printed (hH : ShimuraHolFamilyAb) (hS : QMReciprocityL3)
+    (hUL : BPAnalytic.Uniformization.UniformizationLeafAll) (hG : ZInQ.HomLattice.GAGAMorphism)
+    (hM : AvSplit.MumfordTorsionAlgClosed) : ShimuraGlue.Ray.RayClassCMAb :=
+  rayClassCMAb_of_split hH hS dcRelTransport_proof (unifDetermines_of (AvSplit.Final.h69 hUL hG))
+    (complexUnifL3_of_textbook hUL hG hM) (ZInQ.HomUnify.homLinearLift_of_corr (AvSplit.Final.h69 hUL hG))
+
+/-- **The field `shimuraFamilyAb`** from the leaf `ShimuraHolFamilyAb` (the same theorem as `shimuraFamilyAb_of_hol`,
+under the name used in the report). -/
+theorem shimuraFamilyAb_of_printed (hH : ShimuraHolFamilyAb) : HDec.QMSplit.Moduli.ShimuraFamilyAb :=
+  shimuraFamilyAb_of_hol hH
+
+/-! ## §11 Non-vacuity checks -/
+
+/-- `MIsAt` is not vacuous: under the textbook fields every object over `ℂ` is some `T(τ, u)`. -/
+theorem mIsAt_exists (hUL : BPAnalytic.Uniformization.UniformizationLeafAll) (hG : ZInQ.HomLattice.GAGAMorphism)
+    (hM : AvSplit.MumfordTorsionAlgClosed) (P : QML3 ℂ) : ∃ (τ : UpperHalfPlane) (u : BAQˣ), MIsAt P τ u := by
+  obtain ⟨τ, u, -, h⟩ := complexUnifL3_of_textbook hUL hG hM P
+  exact ⟨τ, u, h⟩
+
+/-- `ShimuraHolFamilyAb` is gt-rayclass's composite with clauses 1, 2 (`g ≠ 1`), U and 4 dropped. -/
+theorem shimuraHolFamilyAb_of_composite (h : ShimuraMainThmIDeligneY3AbU) : ShimuraHolFamilyAb := by
+  obtain ⟨Y, Φ, h1, Ψ, hb, -⟩ := h
+  exact ⟨Y, Φ, h1, fun τ => Ψ τ 1, hb.2.2.2.1⟩
 
 end ShimuraSplit2
