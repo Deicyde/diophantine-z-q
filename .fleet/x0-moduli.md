@@ -19,7 +19,7 @@ X0ModuliGaloisNonIsolated → T5Glue.X0ModuliGalois` in `ZInQKernel/Contrib/OneP
 
 **Count.** The split raises the strict GLUE count (1 → 4: composite, consequence, composite, consequence), so it
 is a refinement, not a fold. `autofold.py` also refuses the spec because `hX` is a plain argument
-(`scratch/x0-moduli/autofold.json`). No statement was changed, and none was found false or vacuous.
+(`scratch/x0-moduli/autofold.json`). No statement was changed, and none was found false or vacuous. An independent model review of the new Props found all of them true and non-vacuous; its one attribution fix is applied.
 
 **Remains.** `X0ModuliGaloisNonIsolated`: a route through Fricke symmetric functions is sketched in report §4.
 `RatX0Rep` (no modular polynomials in Lean). `VeluCyclic` (a lattice-sum identity Mathlib could prove).
