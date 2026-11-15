@@ -46,3 +46,14 @@ Build tree: copy of ~/dzq-wt/p1-quot2/.lake/build and lean/.lake/build (19793c5d
   edixhovenFixedSmooth2): --dry-run WITHOUT --allow-rise accepted: "strict count: 46/10 on 56 -> 49/10 on 59;
   strictest 45/11 -> 48/11" (GLUE unchanged, net 0; p1-quot2 was +1). Generated module (FoldDry.lean, line 1
   stripped) compiles; sixContactMin_of_open30 axioms standard (VERIFIED).
+
+## L4 analysis
+- VERIFIED (read): `ZariskiConn.ZariskiConnectedness_proof : ZariskiConnectedness` is a theorem
+  (Contrib/CloudW02Connectedness/Basic.lean L47); `ZariskiConn.appTop_bijective_of_generic` (ZariskiConn/Basic.lean L65).
+- Code-search survey of Contrib/CloudW07JacobiansCurves (declarations read in source by the survey agent, not
+  compiled here): isLocallyConstant_eulerCharFiber, eulerChar_unit_eq_one_sub_genus, subsingleton_H_one_twist,
+  isRelativeEffectiveCartier_ker_of_section, nonempty_iso_dual_zeroLocus, zeroLocus_finrank,
+  hFiber_zero_eq_degree_add_one_sub_genus, isFiniteLocallyFreeInDegree_of_positive_fibres, homOfSections,
+  exists_hom_twistRestrict exist; missing: genus 0 + degree-1 pencil => iso to P^1, fibrewise iso criterion,
+  named arithmeticGenus(P^1) = 0.
+- L4 stays GLUE (consequence); no printed statement located (SPECULATIVE candidates in report §5.3).
