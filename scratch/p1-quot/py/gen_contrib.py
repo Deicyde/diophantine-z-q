@@ -57,10 +57,12 @@ docF = open(S + 'final_doc.md').read()
 F = ['import ZInQKernel.Contrib.OneProof.QuotientP1.MCRQuotB',
      'import ZInQKernel.Contrib.OneProof.QuotientP1.P1Scheme',
      'import ZInQKernel.OneProof.H.TailR', '', docF] + header_lines + [fin, 'end HDec', '']
+ff = open(S + 'FromFields.lean').read()
+ff = ff[:ff.index('#print axioms')].rstrip() + '\n'
 import os
 os.makedirs(D + 'QuotientP1', exist_ok=True)
 for name, L in [('QuotientP1/MCRQuotA.lean', A), ('QuotientP1/MCRQuotB.lean', B), ('QuotientP1/P1Scheme.lean', P),
-                ('QuotientP1Coordinate.lean', F)]:
+                ('QuotientP1Coordinate.lean', F), ('QuotientP1/FromFields.lean', ff.split('\n'))]:
     txt = '\n'.join(L).rstrip() + '\n'
     open(D + name, 'w').write(txt)
     print(name, len(txt.encode()))
