@@ -246,6 +246,77 @@ theorem extend_of_isInteger (σ : ToP1 (genFib 𝒵).left) (hσ : IsP1Coordinate
     rw [← TopCat.Presheaf.germ_res_apply _ (homOfLE (le_sup_right.trans hle) : NU ⟶ U) _ hξNU, h2,
       TopCat.Presheaf.germ_res_apply, hk]
 
+/-! ## The value at the third section forces a unit at `ξ` -/
+
+theorem basicOpen_sub_le {X : Scheme.{0}} {W : X.Opens} (a b : Γ(X, W)) :
+    X.basicOpen (a - b) ≤ X.basicOpen a ⊔ X.basicOpen b := by
+  have h := X.basicOpen_add_le a (-b)
+  have hneg : X.basicOpen (-b) = X.basicOpen b := by
+    rw [show -b = (-1) * b by ring, Scheme.basicOpen_mul,
+      Scheme.basicOpen_of_isUnit _ (isUnit_one.neg), inf_eq_right.2 (X.basicOpen_le b)]
+  rw [sub_eq_add_neg, ← hneg]
+  exact h
+
+/-- A constant of `ℤ_(p)` as a section. -/
+abbrev cst (c : Zloc p) (W : 𝒵.left.Opens) : Γ(𝒵.left, W) :=
+  baseToSectionsOver (CommRingCat.of (Zloc p)) 𝒵 W c
+
+theorem appLE_comp_apply' {X Y Z : Scheme.{0}} (f : X ⟶ Y) (g : Y ⟶ Z) (U V W e₁ e₂) (x) :
+    (f.appLE V W e₂) ((g.appLE U V e₁) x) =
+      (f ≫ g).appLE U W (e₂.trans ((TopologicalSpace.Opens.map f.base).map (homOfLE e₁)).le) x := by
+  rw [← ConcreteCategory.comp_apply, Scheme.Hom.appLE_comp_appLE]
+
+theorem baseToSectionsOver_eq_appLE (R : CommRingCat.{0}) (𝒴 : Over (Spec R)) (W : 𝒴.left.Opens) (c : R) :
+    baseToSectionsOver R 𝒴 W c = 𝒴.hom.appLE ⊤ W le_top ((Scheme.ΓSpecIso R).inv c) := rfl
+
+theorem appLE_cst (c : Zloc p) (W : 𝒵.left.Opens) (V : (genFib 𝒵).left.Opens) (e : V ≤ jj 𝒵 ⁻¹ᵁ W) :
+    (jj 𝒵).appLE W V e (cst 𝒵 c W) =
+      baseToSectionsOver (CommRingCat.of ℚ) (genFib 𝒵) V (zlocToRat p c) := by
+  rw [cst, baseToSectionsOver_eq_appLE, baseToSectionsOver_eq_appLE]
+  refine (appLE_comp_apply' (jj 𝒵) 𝒵.hom ⊤ W V _ e _).trans ?_
+  have hc : jj 𝒵 ≫ 𝒵.hom = (genFib 𝒵).hom ≫ specRatToZloc p := pullback.condition
+  rw [QuotientP1Proof.appLE_eq_of_eq' hc]
+  refine (appLE_comp_apply' (genFib 𝒵).hom (specRatToZloc p) ⊤ ⊤ V le_top le_top _).symm.trans ?_
+  congr 1
+  change (specRatToZloc p).appTop ((Scheme.ΓSpecIso (CommRingCat.of (Zloc p))).inv c) = _
+  rw [← ConcreteCategory.comp_apply, ← Scheme.ΓSpecIso_inv_naturality]
+  rfl
+
+
+/-- **The value `c` (a unit) at a third section with closure disjoint from the pole forces the extended coordinate
+to be a unit at `ξ`.** -/
+theorem isUnit_germ_of_third (σ : ToP1 (genFib 𝒵).left)
+    (yinf : (genFib 𝒵).left) (hξ : xi 𝒵 ∉ closure {jj 𝒵 yinf})
+    (c : Zloc p) (hc : IsUnit c) (yc : (genFib 𝒵).left) (hycU : yc ∈ σ.U)
+    (hycv : yc ∉ (genFib 𝒵).left.basicOpen
+      (σ.f - baseToSectionsOver (CommRingCat.of ℚ) (genFib 𝒵) σ.U (zlocToRat p c)))
+    (hdisj : Disjoint (closure {jj 𝒵 yc}) (closure {jj 𝒵 yinf}))
+    (f : Γ(𝒵.left, Uc 𝒵 (jj 𝒵 yinf))) (h : σ.U ≤ jj 𝒵 ⁻¹ᵁ Uc 𝒵 (jj 𝒵 yinf))
+    (hf : (jj 𝒵).appLE _ σ.U h f = σ.f) :
+    IsUnit (𝒵.left.presheaf.germ _ (xi 𝒵) hξ f) := by
+  by_contra hnu
+  obtain ⟨xc, hxc, hxcs⟩ := exists_s0_mem_closure 𝒵 (jj 𝒵 yc)
+  have hxcU : xc ∈ Uc 𝒵 (jj 𝒵 yinf) := fun h' => Set.disjoint_left.mp hdisj hxc h'
+  have h1 : xc ∉ 𝒵.left.basicOpen f := fun hx =>
+    hnu ((Scheme.mem_basicOpen _ _ _ hξ).mp
+      ((xi_specializes 𝒵 hxcs).mem_open (𝒵.left.basicOpen f).isOpen hx))
+  have hj : jj 𝒵 yc ∉ 𝒵.left.basicOpen (f - cst 𝒵 c (Uc 𝒵 (jj 𝒵 yinf))) := by
+    intro hx
+    apply hycv
+    have := Scheme.basicOpen_appLE (jj 𝒵) σ.U (Uc 𝒵 (jj 𝒵 yinf)) h (f - cst 𝒵 c (Uc 𝒵 (jj 𝒵 yinf)))
+    rw [map_sub, hf, appLE_cst] at this
+    rw [this]
+    exact ⟨hycU, hx⟩
+  have h2 : xc ∉ 𝒵.left.basicOpen (f - cst 𝒵 c (Uc 𝒵 (jj 𝒵 yinf))) := fun hx =>
+    hj ((specializes_iff_mem_closure.mpr hxc).mem_open (𝒵.left.basicOpen _).isOpen hx)
+  have h3 : 𝒵.left.basicOpen (cst 𝒵 c (Uc 𝒵 (jj 𝒵 yinf))) = Uc 𝒵 (jj 𝒵 yinf) :=
+    Scheme.basicOpen_of_isUnit _ (hc.map _)
+  have h4 := basicOpen_sub_le f (f - cst 𝒵 c (Uc 𝒵 (jj 𝒵 yinf)))
+  rw [sub_sub_cancel, h3] at h4
+  rcases h4 hxcU with h5 | h5
+  · exact h1 h5
+  · exact h2 h5
+
 end Model
 
 end HDec.MCRGlue.P1Model
