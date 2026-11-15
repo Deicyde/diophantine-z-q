@@ -686,4 +686,97 @@ theorem eta_zsmul {A : AbVar K} {q : QMStr A} (e : Level3 q) (n : ℤ) (x : O) :
 
 end Objects
 
+
+/-! ## §3 The operation `T = twist α ∘ rightMul u` from a semilinear unit `g` with `g² = ±1` -/
+
+theorem sign_cases {ε : ℤ} (hε : ε * ε = 1) : ε = 1 ∨ ε = -1 := by
+  rcases Int.eq_one_or_neg_one_of_mul_eq_one' hε with h | h
+  · exact Or.inl h.1
+  · exact Or.inr h.1
+
+theorem sgn1 {R : Type} [Ring R] {ε : ℤ} (hε : ε * ε = 1) (a p q : R) (h : p * q = ε) :
+    a * ((ε : R) * p) * q = a := by
+  rcases sign_cases hε with rfl | rfl <;> simp only [Int.cast_one, Int.cast_neg] at h ⊢
+  · calc a * (1 * p) * q = a * (p * q) := by noncomm_ring
+      _ = a := by rw [h, _root_.mul_one]
+  · calc a * (-1 * p) * q = -(a * (p * q)) := by noncomm_ring
+      _ = a := by rw [h]; noncomm_ring
+
+theorem sgn2 {R : Type} [Ring R] {ε : ℤ} (hε : ε * ε = 1) (a p q : R) (h : p * q = ε) :
+    (ε : R) * (a * ((ε : R) * p) * ((ε : R) * q)) = a := by
+  rcases sign_cases hε with rfl | rfl <;> simp only [Int.cast_one, Int.cast_neg] at h ⊢
+  · calc 1 * (a * (1 * p) * (1 * q)) = a * (p * q) := by noncomm_ring
+      _ = a := by rw [h, _root_.mul_one]
+  · calc -1 * (a * (-1 * p) * (-1 * q)) = -(a * (p * q)) := by noncomm_ring
+      _ = a := by rw [h]; noncomm_ring
+
+section Stab
+
+variable {K : Type} [Field K]
+
+/-- **The stabilizing involution.** Let `α` be an involution of `𝒪` and `g ∈ End(A)` with
+`g ι(α a) = ι(a) g` and `g² = ε = ±1`. Then `g(η(α x)) = η(x u₀)` with `α(u₀) u₀ ≡ ε (mod 3)`, and for a
+unit `u ≡ ε u₀ (mod 3)` the operation `T = twist α ∘ rightMul u` fixes the class of `P` (by `g`) and
+`T² = id` on all classes (`T² = rightMul(α(u) u)`, `α(u) u ≡ ε`, and `−1` acts trivially). -/
+theorem stab_core (hT : ObjBridge.TorsionStructure) [CharZero K] (P : QML3 K) (α : O ≃+* O)
+    (hα : ∀ a, α (α a) = a) (g : AbVar.End P.A) (ε : ℤ) (hε : ε * ε = 1)
+    (hgg : g * g = (ε : AbVar.End P.A)) (hg : ∀ a, g * P.q.iota (α a) = P.q.iota a * g) :
+    ∃ u₀ : O, (∀ x, endPt P.A K g (P.e.eta (α x)) = P.e.eta (x * u₀)) ∧
+      π3 (α u₀) * π3 u₀ = (ε : Q3) ∧
+      ∃ u : Oˣ, π3 (u : O) = (ε : Q3) * π3 u₀ ∧
+        M3.twist α (M3.rightMul u (M3.mk P)) = M3.mk P ∧
+        ∀ m : M3 K, M3.twist α (M3.rightMul u (M3.twist α (M3.rightMul u m))) = m := by
+  obtain ⟨u₀, hu₀⟩ := residue hT P α.toRingHom g (fun a => hg a)
+  have hu₀' : ∀ x, endPt P.A K g (P.e.eta (α x)) = P.e.eta (x * u₀) := hu₀
+  have hgy : ∀ y, endPt P.A K g (P.e.eta y) = P.e.eta (α y * u₀) := by
+    intro y; have := hu₀' (α y); rwa [hα] at this
+  have hsq : π3 (α u₀) * π3 u₀ = (ε : Q3) := by
+    have e1 : endPt P.A K (g * g) (P.e.eta 1) = P.e.eta (α u₀ * u₀) := by
+      rw [map_mul]
+      change endPt P.A K g (endPt P.A K g (P.e.eta 1)) = _
+      rw [hgy 1, map_one, _root_.one_mul, hgy]
+    have e2 : endPt P.A K (g * g) (P.e.eta 1) = P.e.eta (ε : O) := by
+      rw [hgg, endPt_intCast, eta_zsmul, _root_.mul_one]
+    have := π3_of_eta_eq P.e (e1.symm.trans e2)
+    rwa [map_mul, map_intCast] at this
+  have hinv : π3 (α u₀ * ((ε : O) * u₀)) = π3 1 := by
+    rw [map_mul, map_mul, map_intCast, map_one, ← _root_.mul_assoc, ← (Int.cast_commute ε _).eq,
+      _root_.mul_assoc, hsq, ← Int.cast_mul, hε, Int.cast_one]
+  obtain ⟨u, c, hc⟩ := exists_unit_congr ((ε : O) * u₀) (α u₀) (π3_eq_iff.1 hinv)
+  have hu : π3 (u : O) = (ε : Q3) * π3 u₀ := by
+    rw [π3_eq_iff.2 ⟨c, hc⟩, map_mul, map_intCast]
+  have hαu : π3 (α u) = (ε : Q3) * π3 (α u₀) := by
+    have := π3_map α (π3_eq_iff.2 ⟨c, hc⟩)
+    rw [this, map_mul, map_intCast, map_mul, map_intCast]
+  refine ⟨u₀, hu₀', hsq, u, hu, ?_, ?_⟩
+  · show M3.mk ((P.rightMul u).twist α) = M3.mk P
+    have h1 : ((ε : AbVar.End P.A) * g) * g = 1 := by
+      rw [_root_.mul_assoc, hgg, ← Int.cast_mul, hε, Int.cast_one]
+    have h2 : g * ((ε : AbVar.End P.A) * g) = 1 := by
+      rw [← _root_.mul_assoc, ← (Int.cast_commute ε g).eq, h1]
+    refine Quotient.sound ⟨isoMk P.A P.surface _ _ g ((ε : AbVar.End P.A) * g) h1 h2
+      (fun a => hg a) (fun a => ?_)⟩
+    change endPt P.A K g (P.e.eta (α a * u)) = P.e.eta a
+    rw [show α a * (u : O) = α (a * α u) by rw [map_mul, hα], hu₀']
+    apply eta_eq_of_π3
+    rw [map_mul, map_mul, hαu]
+    exact sgn1 hε _ _ _ hsq
+  · intro m
+    induction m using Quotient.inductionOn with
+    | h Q =>
+      show M3.mk ((((Q.rightMul u).twist α).rightMul u).twist α) = M3.mk Q
+      have h1 : (ε : AbVar.End Q.A) * (ε : AbVar.End Q.A) = 1 := by
+        rw [← Int.cast_mul, hε, Int.cast_one]
+      refine Quotient.sound ⟨isoMk Q.A Q.surface _ _ (ε : AbVar.End Q.A) (ε : AbVar.End Q.A) h1 h1
+        (fun a => ?_) (fun a => ?_)⟩
+      · change (ε : AbVar.End Q.A) * Q.q.iota (α (α a)) = Q.q.iota a * ε
+        rw [hα, (Int.cast_commute ε _).eq]
+      · change endPt Q.A K (ε : AbVar.End Q.A) (Q.e.eta (α (α a * u) * u)) = Q.e.eta a
+        rw [endPt_intCast, eta_zsmul, map_mul α, hα]
+        apply eta_eq_of_π3
+        rw [map_mul, map_mul, map_mul, map_intCast, hαu, hu]
+        exact sgn2 hε _ _ _ hsq
+
+end Stab
+
 end GapGlue.CMStab
