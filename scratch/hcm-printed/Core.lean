@@ -245,4 +245,548 @@ theorem eval_conj {X Y : Scheme} (h : X ⟶ Y) {a : Spec (CommRingCat.of ℂ) �
 
 end Conj
 
+/-! ## Glue LIN (verbatim from scratch/hcm-printed/Lin.lean) -/
+
+section LinSec
+open Filter Topology Metric Set
+section Lin
+
+variable (P' P'' : PeriodPair)
+
+theorem psi_nsmul (ψ₀ : ℂ → ℂ) (h0 : ψ₀ 0 ∈ P''.lattice)
+    (hadd : ∀ z w, ψ₀ (z + w) - ψ₀ z - ψ₀ w ∈ P''.lattice) :
+    ∀ (n : ℕ) (v : ℂ), ψ₀ (n * v) - n * ψ₀ v ∈ P''.lattice := by
+  intro n v
+  induction n with
+  | zero => simpa using h0
+  | succ n ih =>
+    have e : ψ₀ (((n + 1 : ℕ) : ℂ) * v) - ((n + 1 : ℕ) : ℂ) * ψ₀ v =
+        (ψ₀ (n * v + v) - ψ₀ (n * v) - ψ₀ v) + (ψ₀ (n * v) - n * ψ₀ v) := by
+      push_cast; ring_nf
+    rw [e]
+    exact add_mem (hadd _ _) ih
+
+theorem third_not_mem : P''.ω₁ / 3 ∉ P''.lattice := by
+  intro h
+  have : ((1 / 3 : ℚ) : ℂ) * P''.ω₁ + ((0 : ℚ) : ℂ) * P''.ω₂ ∈ P''.lattice := by
+    convert h using 1; push_cast; ring
+  rw [PeriodPair.mul_ω₁_add_mul_ω₂_mem_lattice] at this
+  exact absurd this.1 (by norm_num)
+
+theorem two_third_not_mem : P''.ω₁ / 3 - -(P''.ω₁ / 3) ∉ P''.lattice := by
+  intro h
+  have : ((2 / 3 : ℚ) : ℂ) * P''.ω₁ + ((0 : ℚ) : ℂ) * P''.ω₂ ∈ P''.lattice := by
+    convert h using 1; push_cast; ring
+  rw [PeriodPair.mul_ω₁_add_mul_ω₂_mem_lattice] at this
+  exact absurd this.1 (by norm_num)
+
+theorem neg_not_mem {w : ℂ} (hw : w ∉ P''.lattice) : -w ∉ P''.lattice := fun h =>
+  hw (by simpa using neg_mem h)
+
+theorem isOpen_compl_lattice (P : PeriodPair) : IsOpen ((P.lattice : Set ℂ)ᶜ) :=
+  P.isClosed_lattice.isOpen_compl
+
+/-- **LIN.** Let `ψ₀ : ℂ → ℂ` induce an injective, surjective homomorphism `ℂ/Λ' → ℂ/Λ''` whose
+Weierstrass coordinates `(℘_{Λ''}(ψ₀ z), ℘'_{Λ''}(ψ₀ z)) = (F z, G z)` are holomorphic (resp.
+continuous) off `Λ'`, where `(℘_{Λ''}, ℘'_{Λ''})` is injective on `(ℂ/Λ'') ∖ 0`. Then
+`ψ₀ z ≡ αz (mod Λ'')` for a constant `α`. -/
+theorem lin (ψ₀ F G : ℂ → ℂ)
+    (hinj : ∀ a b, a ∉ P''.lattice → b ∉ P''.lattice → P''.weierstrassP a = P''.weierstrassP b →
+      P''.derivWeierstrassP a = P''.derivWeierstrassP b → a - b ∈ P''.lattice)
+    (hadd : ∀ z w, ψ₀ (z + w) - ψ₀ z - ψ₀ w ∈ P''.lattice)
+    (hker : ∀ z, ψ₀ z ∈ P''.lattice ↔ z ∈ P'.lattice)
+    (hsurj : ∀ a, ∃ z, ψ₀ z - a ∈ P''.lattice)
+    (hF : ∀ z, z ∉ P'.lattice → P''.weierstrassP (ψ₀ z) = F z ∧ P''.derivWeierstrassP (ψ₀ z) = G z)
+    (hFd : DifferentiableOn ℂ F (P'.lattice : Set ℂ)ᶜ) (hGc : ContinuousOn G (P'.lattice : Set ℂ)ᶜ) :
+    ∃ α : ℂ, ∀ z, ψ₀ z - α * z ∈ P''.lattice := by
+  set L := P''.lattice with hL
+  set p := P''.weierstrassP with hp
+  set dp := P''.derivWeierstrassP with hdp
+  have hLo : IsOpen ((L : Set ℂ)ᶜ) := isOpen_compl_lattice P''
+  have hL'o : IsOpen ((P'.lattice : Set ℂ)ᶜ) := isOpen_compl_lattice P'
+  have hmem : ∀ z, z ∉ P'.lattice → (P'.lattice : Set ℂ)ᶜ ∈ 𝓝 z := fun z hz => hL'o.mem_nhds hz
+  -- step a: a point with `℘' ≠ 0`
+  set a₀ := P''.ω₁ / 3 with ha₀
+  have ha₀L : a₀ ∉ L := third_not_mem P''
+  have hda₀ : dp a₀ ≠ 0 := by
+    intro h0
+    refine two_third_not_mem P'' (hinj a₀ (-a₀) ha₀L (neg_not_mem P'' ha₀L) ?_ ?_)
+    · rw [hp, PeriodPair.weierstrassP_neg]
+    · rw [hdp, PeriodPair.derivWeierstrassP_neg, ← hdp, h0, neg_zero]
+  -- step b: `z₀` with `ψ₀ z₀ ≡ a₀`
+  obtain ⟨z₀, hz₀⟩ := hsurj a₀
+  set w₀ := ψ₀ z₀ with hw₀
+  have hw₀L : w₀ ∉ L := fun h => ha₀L (by simpa using sub_mem h hz₀)
+  have hz₀L : z₀ ∉ P'.lattice := fun h => hw₀L ((hker z₀).2 h)
+  have hdw₀ : dp w₀ ≠ 0 := by
+    have : w₀ = a₀ + ((⟨w₀ - a₀, hz₀⟩ : L) : ℂ) := by simp
+    rw [this, hdp, PeriodPair.derivWeierstrassP_add_coe]; exact hda₀
+  -- step c: the local inverse of `℘` at `w₀`
+  have hdiffp : ∀ w ∉ L, HasStrictDerivAt p (dp w) w := by
+    intro w hw
+    have h := (P''.analyticOnNhd_weierstrassP w hw).hasStrictDerivAt
+    rwa [PeriodPair.deriv_weierstrassP] at h
+  have hs := hdiffp w₀ hw₀L
+  set φ := (hs.hasStrictFDerivAt_equiv hdw₀).toOpenPartialHomeomorph p with hφ
+  have hφc : ∀ w, φ w = p w := fun w => rfl
+  have hw₀s : w₀ ∈ φ.source := (hs.hasStrictFDerivAt_equiv hdw₀).mem_toOpenPartialHomeomorph_source
+  have hpw₀t : p w₀ ∈ φ.target := (hs.hasStrictFDerivAt_equiv hdw₀).image_mem_toOpenPartialHomeomorph_target
+  set ψ : ℂ → ℂ := fun z => φ.symm (F z) with hψ
+  have hFz₀ : F z₀ = p w₀ := ((hF z₀ hz₀L).1).symm
+  have hGz₀ : G z₀ = dp w₀ := ((hF z₀ hz₀L).2).symm
+  have hψz₀ : ψ z₀ = w₀ := by
+    simp only [hψ, hFz₀]
+    rw [← hφc w₀]; exact φ.left_inv hw₀s
+  have hFc : ContinuousAt F z₀ := (hFd.differentiableAt (hmem z₀ hz₀L)).continuousAt
+  have hψc : ContinuousAt ψ z₀ := by
+    refine (φ.symm.continuousAt ?_).comp hFc
+    rw [hFz₀]; exact hpw₀t
+  -- the good set near `w₀`
+  set Good : Set ℂ := {w | w ∉ L ∧ dp w ≠ 0} with hGood
+  have hGoodo : IsOpen Good := by
+    have hc : ContinuousOn dp ((L : Set ℂ)ᶜ) :=
+      fun w hw => (P''.analyticOnNhd_derivWeierstrassP w hw).continuousAt.continuousWithinAt
+    exact hc.isOpen_inter_preimage hLo isOpen_compl_singleton
+  have hw₀G : w₀ ∈ Good := ⟨hw₀L, hdw₀⟩
+  have hdpc : ContinuousAt dp w₀ := (P''.analyticOnNhd_derivWeierstrassP w₀ hw₀L).continuousAt
+  have hGc0 : ContinuousAt G z₀ := hGc.continuousAt (hmem z₀ hz₀L)
+  have hsum : ContinuousAt (fun z => dp (ψ z) + G z) z₀ := by
+    refine ContinuousAt.add ?_ hGc0
+    refine ContinuousAt.comp (g := dp) ?_ hψc
+    rw [hψz₀]; exact hdpc
+  have hsum0 : dp (ψ z₀) + G z₀ ≠ 0 := by
+    rw [hψz₀, hGz₀, ← two_mul]; exact mul_ne_zero two_ne_zero hdw₀
+  -- eventually near `z₀`
+  have hev : ∀ᶠ z in 𝓝 z₀, z ∉ P'.lattice ∧ F z ∈ φ.target ∧ ψ z ∈ Good ∧
+      dp (ψ z) + G z ≠ 0 := by
+    have e1 : ∀ᶠ z in 𝓝 z₀, z ∉ P'.lattice := hmem z₀ hz₀L
+    have e2 : ∀ᶠ z in 𝓝 z₀, F z ∈ φ.target :=
+      hFc.preimage_mem_nhds (by rw [hFz₀]; exact φ.open_target.mem_nhds hpw₀t)
+    have e3 : ∀ᶠ z in 𝓝 z₀, ψ z ∈ Good :=
+      hψc.preimage_mem_nhds (by rw [hψz₀]; exact hGoodo.mem_nhds hw₀G)
+    have e4 : ∀ᶠ z in 𝓝 z₀, dp (ψ z) + G z ≠ 0 :=
+      hsum.preimage_mem_nhds (isOpen_compl_singleton.mem_nhds hsum0)
+    exact e1.and (e2.and (e3.and e4))
+  obtain ⟨r, hr, hball⟩ := Metric.eventually_nhds_iff_ball.1 hev
+  -- on the ball: `ψ₀ ≡ ψ`, `ψ` holomorphic
+  have hkey : ∀ z ∈ ball z₀ r, ψ₀ z - ψ z ∈ L ∧ HasDerivAt ψ (deriv ψ z) z ∧ ContinuousAt ψ z := by
+    intro z hz
+    obtain ⟨hzL, hFt, ⟨hψL, hdψ⟩, hne⟩ := hball z hz
+    have hpψ : p (ψ z) = F z := φ.right_inv hFt
+    obtain ⟨h1, h2⟩ := hF z hzL
+    have hψ₀L : ψ₀ z ∉ L := fun h => hzL ((hker z).1 h)
+    have hsq1 := P''.derivWeierstrassP_sq (ψ z) hψL
+    have hsq2 := P''.derivWeierstrassP_sq (ψ₀ z) hψ₀L
+    have hsq : (dp (ψ z) - G z) * (dp (ψ z) + G z) = 0 := by
+      have e1 : dp (ψ z) ^ 2 = 4 * F z ^ 3 - P''.g₂ * F z - P''.g₃ := by rw [← hpψ]; exact hsq1
+      have e2 : G z ^ 2 = 4 * F z ^ 3 - P''.g₂ * F z - P''.g₃ := by rw [← h1, ← h2]; exact hsq2
+      linear_combination e1 - e2
+    have hdeq : dp (ψ z) = G z := sub_eq_zero.1 ((mul_eq_zero.1 hsq).resolve_right hne)
+    refine ⟨hinj _ _ hψ₀L hψL (by rw [h1, hpψ]) (by rw [h2, hdeq]), ?_, ?_⟩
+    · have hFd' : HasDerivAt F (deriv F z) z :=
+        (hFd.differentiableAt (hmem z hzL)).hasDerivAt
+      have hsy : HasDerivAt φ.symm (dp (ψ z))⁻¹ (F z) := by
+        refine φ.hasDerivAt_symm hFt hdψ ?_
+        exact (hdiffp _ hψL).hasDerivAt
+      exact ((hsy.comp z hFd').differentiableAt).hasDerivAt
+    · exact (φ.symm.continuousAt hFt).comp
+        (hFd.differentiableAt (hmem z hzL)).continuousAt
+  -- local increments agree: for `z₁` near `z₀`, `ψ (z₁ + u) - ψ z₁ = ψ (z₀ + u) - ψ z₀`
+  have hr2 : (0 : ℝ) < r / 2 := half_pos hr
+  have hinc : ∀ z₁ ∈ ball z₀ (r / 2), ∀ u ∈ ball (0 : ℂ) (r / 2),
+      ψ (z₁ + u) - ψ z₁ - (ψ (z₀ + u) - ψ z₀) = 0 := by
+    intro z₁ hz₁ u hu
+    have mem : ∀ {z₂ v : ℂ}, z₂ ∈ ball z₀ (r / 2) → v ∈ ball (0 : ℂ) (r / 2) → z₂ + v ∈ ball z₀ r := by
+      intro z₂ v h1 h2
+      rw [mem_ball] at h1 h2 ⊢
+      rw [dist_zero_right] at h2
+      calc dist (z₂ + v) z₀ ≤ dist z₂ z₀ + ‖v‖ := by
+            rw [dist_eq_norm, dist_eq_norm, add_sub_right_comm]; exact norm_add_le _ _
+        _ < r / 2 + r / 2 := add_lt_add h1 h2
+        _ = r := by ring
+    have hz₀b : z₀ ∈ ball z₀ (r / 2) := mem_ball_self hr2
+    let D : ℂ → ℂ := fun v => ψ (z₁ + v) - ψ z₁ - (ψ (z₀ + v) - ψ z₀)
+    have hDL : MapsTo D (ball (0 : ℂ) (r / 2)) (L : Set ℂ) := by
+      intro v hv
+      have e : D v = (ψ₀ (z₀ + v) - ψ (z₀ + v)) - (ψ₀ (z₁ + v) - ψ (z₁ + v)) + (ψ₀ z₁ - ψ z₁)
+          - (ψ₀ z₀ - ψ z₀) + (ψ₀ (z₁ + v) - ψ₀ z₁ - ψ₀ v) - (ψ₀ (z₀ + v) - ψ₀ z₀ - ψ₀ v) := by
+        simp only [D]; ring
+      rw [SetLike.mem_coe, show D v = _ from e]
+      refine sub_mem (add_mem (sub_mem (add_mem (sub_mem ?_ ?_) ?_) ?_) (hadd _ _)) (hadd _ _)
+      · exact (hkey _ (mem hz₀b hv)).1
+      · exact (hkey _ (mem hz₁ hv)).1
+      · exact (hkey _ (by simpa using mem hz₁ (mem_ball_self hr2))).1
+      · exact (hkey _ (by simpa using mem hz₀b (mem_ball_self hr2))).1
+    have hDc : ContinuousOn D (ball (0 : ℂ) (r / 2)) := by
+      intro v hv
+      refine ContinuousAt.continuousWithinAt ?_
+      have c1 : ContinuousAt (fun v => ψ (z₁ + v)) v :=
+        ((hkey _ (mem hz₁ hv)).2.2).comp (continuous_const.add continuous_id).continuousAt
+      have c2 : ContinuousAt (fun v => ψ (z₀ + v)) v :=
+        ((hkey _ (mem hz₀b hv)).2.2).comp (continuous_const.add continuous_id).continuousAt
+      exact (c1.sub continuousAt_const).sub (c2.sub continuousAt_const)
+    have hdisc : IsDiscrete (L : Set ℂ) := by
+      rw [isDiscrete_iff_discreteTopology]; exact inferInstanceAs (DiscreteTopology L)
+    have := (convex_ball (0 : ℂ) (r / 2)).isPreconnected.constant_of_mapsTo hdisc hDc hDL hu
+      (mem_ball_self hr2)
+    simpa [D] using this
+  -- derivatives agree
+  have hderiv : ∀ z₁ ∈ ball z₀ (r / 2), deriv ψ z₁ = deriv ψ z₀ := by
+    intro z₁ hz₁
+    have hz₁r : z₁ ∈ ball z₀ r := ball_subset_ball (half_le_self hr.le) hz₁
+    have hz₀r : z₀ ∈ ball z₀ r := mem_ball_self hr
+    have h1 : HasDerivAt (fun u => ψ (z₁ + u)) (deriv ψ z₁) 0 := by
+      have := (hkey z₁ hz₁r).2.1
+      rw [← add_zero z₁] at this
+      simpa using this.comp_const_add z₁ 0
+    have h0 : HasDerivAt (fun u => ψ (z₀ + u) - ψ z₀ + ψ z₁) (deriv ψ z₀) 0 := by
+      have := (hkey z₀ hz₀r).2.1
+      rw [← add_zero z₀] at this
+      have h' := this.comp_const_add z₀ 0
+      simpa using (h'.sub_const (ψ z₀)).add_const (ψ z₁)
+    have heq : (fun u => ψ (z₁ + u)) =ᶠ[𝓝 0] (fun u => ψ (z₀ + u) - ψ z₀ + ψ z₁) := by
+      filter_upwards [ball_mem_nhds (0 : ℂ) hr2] with u hu
+      have := hinc z₁ hz₁ u hu
+      linear_combination this
+    exact (h1.congr_of_eventuallyEq heq.symm).unique h0 |>.symm ▸ rfl
+  -- `ψ` is affine near `z₀`
+  set α := deriv ψ z₀ with hα
+  have hdiffOn : DifferentiableOn ℂ ψ (ball z₀ (r / 2)) := fun z hz =>
+    (hkey z (ball_subset_ball (half_le_self hr.le) hz)).2.1.differentiableAt.differentiableWithinAt
+  obtain ⟨c, hc⟩ := (isOpen_ball (x := z₀) (ε := r / 2)).exists_eq_add_of_fderiv_eq
+    (convex_ball _ _).isPreconnected hdiffOn
+    ((differentiable_id.const_mul α).differentiableOn (s := ball z₀ (r / 2)))
+    (fun z hz => by
+      have h1 : HasDerivAt ψ α z := by
+        rw [← hderiv z hz]
+        exact (hkey z (ball_subset_ball (half_le_self hr.le) hz)).2.1
+      rw [h1.hasFDerivAt.fderiv, ((hasDerivAt_id z).const_mul α).hasFDerivAt.fderiv]
+      simp)
+  -- small `u`: `ψ₀ u ≡ α u`
+  have hsmall : ∀ u ∈ ball (0 : ℂ) (r / 2), ψ₀ u - α * u ∈ L := by
+    intro u hu
+    have hzu : z₀ + u ∈ ball z₀ (r / 2) := by
+      rw [mem_ball, dist_eq_norm]; simpa using hu
+    have e1 := hc hzu
+    have e0 := hc (mem_ball_self hr2)
+    simp only [id] at e1 e0
+    have hψu : ψ (z₀ + u) - ψ z₀ = α * u := by rw [e1, e0]; ring
+    have m1 := (hkey (z₀ + u) (ball_subset_ball (half_le_self hr.le) hzu)).1
+    have m0 := (hkey z₀ (mem_ball_self hr)).1
+    have e : ψ₀ u - α * u = (ψ₀ (z₀ + u) - ψ (z₀ + u)) - (ψ₀ z₀ - ψ z₀)
+        - (ψ₀ (z₀ + u) - ψ₀ z₀ - ψ₀ u) := by rw [← hψu]; ring
+    rw [e]
+    exact sub_mem (sub_mem m1 m0) (hadd _ _)
+  -- global
+  have h0 : ψ₀ 0 ∈ L := (hker 0).2 (zero_mem _)
+  refine ⟨α, fun z => ?_⟩
+  obtain ⟨n, hn⟩ := exists_nat_gt (‖z‖ / (r / 2))
+  have hn0 : (0 : ℝ) < n := lt_of_le_of_lt (div_nonneg (norm_nonneg _) hr2.le) hn
+  have hnC : (n : ℂ) ≠ 0 := by exact_mod_cast hn0.ne'
+  set v := z / n with hv
+  have hvb : v ∈ ball (0 : ℂ) (r / 2) := by
+    rw [mem_ball, dist_zero_right, hv, norm_div, Complex.norm_natCast, div_lt_iff₀ hn0]
+    rwa [div_lt_iff₀ hr2, mul_comm] at hn
+  have hz : z = n * v := by rw [hv]; field_simp
+  have e : ψ₀ z - α * z = (ψ₀ (n * v) - n * ψ₀ v) + n * (ψ₀ v - α * v) := by rw [hz]; ring
+  rw [e]
+  refine add_mem (psi_nsmul P'' ψ₀ h0 hadd n v) ?_
+  have := hsmall v hvb
+  rw [← nsmul_eq_mul]
+  exact L.nsmul_mem this n
+
+end Lin
+end LinSec
+
+/-! ## The textbook leaves -/
+
+/-- `Λ ⊂ ℂ` as a lattice in `ℂ¹ = Fin 1 → ℂ`. -/
+def lat1 (P : PeriodPair) : Submodule ℤ (Fin 1 → ℂ) :=
+  P.lattice.comap (LinearMap.proj (R := ℤ) (φ := fun _ : Fin 1 => ℂ) 0)
+
+theorem mem_lat1 (P : PeriodPair) (v : Fin 1 → ℂ) : v ∈ lat1 P ↔ v 0 ∈ P.lattice := Iff.rfl
+
+/-- **LEAF (textbook) `WeierstrassUniformization`.** For `a, b ∈ ℂ` with `a³ − 27b² ≠ 0` there is
+a lattice `L` with `g₂(L) = a`, `g₃(L) = b`. J. Silverman, *The Arithmetic of Elliptic Curves*
+(GTM 106, 2nd ed., 2009), Thm VI.5.1 (UNVERIFIED number); J.-P. Serre, *A Course in Arithmetic*,
+Ch. VII §3 (UNVERIFIED). Verbatim copy of gz-weil's `GrossZagierHeegner.WeierstrassUniformization`
+(origin/wip/gz-weil, `ZInQKernel/Contrib/OneProof/GrossZagierHeegner.lean`). -/
+def WeierstrassUniformization : Prop :=
+  ∀ a b : ℂ, a ^ 3 - 27 * b ^ 2 ≠ 0 → ∃ L : PeriodPair, L.g₂ = a ∧ L.g₃ = b
+
+/-- **LEAF (textbook) `WeierstrassParam`** (the Weierstrass parametrization). For every lattice
+`Λ`: `Δ(Λ) = g₂³ − 27g₃² ≠ 0`, and `z ↦ (℘(z), ℘'(z))` is a surjective group homomorphism
+`ℂ → E_Λ(ℂ)`, `E_Λ : y² = 4x³ − g₂x − g₃`, with kernel `Λ` (the points written in Mathlib's normal
+form `y² = x³ − (g₂/4)x − g₃/4`, i.e. `(℘(z), ℘'(z)/2)`, with Mathlib's group law on
+`WeierstrassCurve.Affine.Point`). J. Silverman, *The Arithmetic of Elliptic Curves* (GTM 106,
+2nd ed.), Prop. VI.3.6 (a) (`Δ ≠ 0`) and (b) (`ℂ/Λ → E(ℂ)`, `z ↦ [℘(z), ℘'(z), 1]`, is a complex
+analytic isomorphism of complex Lie groups); S. Lang, *Elliptic functions*, Ch. 1 §3; Serre,
+*A Course in Arithmetic*, Ch. VII §3.2 (numbers UNVERIFIED). Weaker than the print (the analytic
+clause is dropped). -/
+def WeierstrassParam : Prop :=
+  ∀ P : PeriodPair, T5Glue.discL P ≠ 0 ∧ ParamProps P (wc P.g₂ P.g₃)
+
+/-- **LEAF (textbook) `WeierstrassAbVar`** (the curve `E_Λ` as an abelian variety, with its
+Weierstrass coordinates). For every lattice `Λ` there is an abelian variety `A/ℂ` of dimension 1
+(the project's `PkgI3.AbVar`), an analytic uniformization `θ : ℂ¹/Λ ≅ A(ℂ)`
+(`ZInQ.LeafPush2.IsUniformization`), and regular functions `x, y` on a Zariski open `U ⊂ A` with
+`θ(z) ∈ U ↔ z ∉ Λ` and `x(θ(z)) = ℘(z)`, `y(θ(z)) = ℘'(z)` there: `A = E_Λ` is the projective cubic
+`y²z = 4x³ − g₂xz² − g₃z³` (an elliptic curve, Silverman III.3.1 and Prop. III.3.6 / Example
+III.1.? for the group law), `U = E_Λ ∖ {O}` its affine part with coordinates `x, y`, and `θ` the map
+`z ↦ [℘(z), ℘'(z), 1]` of Silverman, *The Arithmetic of Elliptic Curves*, Prop. VI.3.6 (b) (a
+complex analytic isomorphism of complex Lie groups `ℂ/Λ ≅ E_Λ(ℂ)`); regular functions on opens of
+`E_Λ` are rational functions in `x, y`, holomorphic along `θ` where defined. (Numbers UNVERIFIED.)
+The abelian variety is existential because Mathlib v4.35.0 cannot construct a projective group
+scheme (`PkgI3.AbVar.zero`'s docstring). -/
+def WeierstrassAbVar : Prop :=
+  ∀ P : PeriodPair, ∃ (A : PkgI3.AbVar ℂ) (θ : (Fin 1 → ℂ) → CPts A (RingHom.id ℂ))
+    (U : A.X.left.Opens) (x y : Γ(A.X.left, U)),
+    A.dim = ((1 : ℕ) : WithBot ℕ∞) ∧ IsUniformization (RingHom.id ℂ) (lat1 P) θ ∧
+    ∀ z : Fin 1 → ℂ, (⊤ ≤ (θ z).left ⁻¹ᵁ U ↔ z 0 ∉ P.lattice) ∧
+      (z 0 ∉ P.lattice → cEvalAt (θ z) U x = P.weierstrassP (z 0) ∧
+        cEvalAt (θ z) U y = P.derivWeierstrassP (z 0))
+
+/-! ## Helpers -/
+
+section Helpers
+
+theorem hom_sub {G : Type*} [Group G] {Φ : ℂ → G} (h : ∀ z w, Φ (z + w) = Φ z * Φ w) (a b : ℂ) :
+    Φ (a - b) = Φ a * (Φ b)⁻¹ := by
+  have := h (a - b) b
+  rw [sub_add_cancel] at this
+  rw [this, mul_inv_cancel_right]
+
+theorem hom_eq_iff {G : Type*} [Group G] {Φ : ℂ → G} {L : Submodule ℤ ℂ} (h : ∀ z w, Φ (z + w) = Φ z * Φ w)
+    (hk : ∀ z, Φ z = 1 ↔ z ∈ L) (a b : ℂ) : Φ a = Φ b ↔ a - b ∈ L := by
+  rw [← hk, hom_sub h, mul_inv_eq_one]
+
+theorem addHom_eq_iff {G : Type*} [AddGroup G] {Φ : ℂ → G} {L : Submodule ℤ ℂ}
+    (h : ∀ z w, Φ (z + w) = Φ z + Φ w) (hk : ∀ z, Φ z = 0 ↔ z ∈ L) (a b : ℂ) :
+    Φ a = Φ b ↔ a - b ∈ L := by
+  have hs : Φ (a - b) = Φ a - Φ b := by
+    have := h (a - b) b; rw [sub_add_cancel] at this; rw [this, add_sub_cancel_right]
+  rw [← hk, hs, sub_eq_zero]
+
+open Classical in
+theorem wPtW_of_not_mem {P : PeriodPair} {W : WeierstrassCurve ℂ} (hP : ParamProps P W) {z : ℂ}
+    (hz : z ∉ P.lattice) : ∃ h : W.toAffine.Nonsingular (P.weierstrassP z) (P.derivWeierstrassP z / 2),
+      wPtW P W z = .some _ _ h := by
+  have hne : wPtW P W z ≠ 0 := fun e => hz ((hP.2.1 z).1 e)
+  unfold wPtW at hne ⊢
+  by_cases hc : z ∉ P.lattice ∧ W.toAffine.Nonsingular (P.weierstrassP z) (P.derivWeierstrassP z / 2)
+  · exact ⟨hc.2, by rw [dif_pos hc]⟩
+  · rw [dif_neg hc] at hne; exact absurd rfl hne
+
+open Classical in
+theorem mapPt_surjective (W : WeierstrassCurve ℂ) (σ : ℂ ≃+* ℂ) :
+    Function.Surjective (mapPt W (σ : ℂ →+* ℂ)) := by
+  rintro (_ | ⟨x, y, h⟩)
+  · exact ⟨0, rfl⟩
+  · have h' : (W.map (σ : ℂ →+* ℂ)).toAffine.Nonsingular ((σ : ℂ →+* ℂ) (σ.symm x))
+        ((σ : ℂ →+* ℂ) (σ.symm y)) := by
+      simpa using h
+    have h0 := (W.toAffine.map_nonsingular (σ : ℂ →+* ℂ).injective (σ.symm x) (σ.symm y)).mp h'
+    refine ⟨.some _ _ h0, ?_⟩
+    rw [mapPt_some]
+    simp
+
+end Helpers
+
+/-! ## CORE: Weierstrass coordinates on `A^σ` -/
+
+section CoreSec
+
+open Classical
+
+/-- **CORE (glue, proved).** Let `A` be the curve of `WeierstrassAbVar` for `Λ = Λ_P` (with `θ`,
+`U`, `x`, `y`), `σ ∈ Aut(ℂ)`, and `θ'` an analytic uniformization of `A^σ = A ×_{ℂ,σ} ℂ` with
+kernel `Λ_{P'}`. Then there is `μ ∈ ℂˣ` with `σ(g₂(P)) = μ⁴g₂(P')`, `σ(g₃(P)) = μ⁶g₃(P')`, and
+whenever `θ'(z')` is the conjugate of `θ(z)` (`z ∉ Λ_P`): `σ(℘_P(z)) = μ²℘_{P'}(z')`,
+`σ(℘'_P(z)) = μ³℘'_{P'}(z')`. -/
+theorem core (hWP : WeierstrassParam) (hWU : WeierstrassUniformization) (σ : ℂ ≃+* ℂ)
+    (P P' : PeriodPair) (A : PkgI3.AbVar ℂ) (θ : (Fin 1 → ℂ) → CPts A (RingHom.id ℂ))
+    (U : A.X.left.Opens) (x y : Γ(A.X.left, U))
+    (hθ : IsUniformization (RingHom.id ℂ) (lat1 P) θ)
+    (hθU : ∀ z : Fin 1 → ℂ, (⊤ ≤ (θ z).left ⁻¹ᵁ U ↔ z 0 ∉ P.lattice) ∧
+      (z 0 ∉ P.lattice → cEvalAt (θ z) U x = P.weierstrassP (z 0) ∧
+        cEvalAt (θ z) U y = P.derivWeierstrassP (z 0)))
+    (θ' : (Fin 1 → ℂ) → CPts (bcC A (σ : ℂ →+* ℂ)) (RingHom.id ℂ))
+    (hθ' : IsUniformization (RingHom.id ℂ) (lat1 P') θ') :
+    ∃ ν : ℂ, T5Glue.IsConjModel (σ : ℂ →+* ℂ) P P' ν ∧
+      ∀ z z' : ℂ, z ∉ P.lattice →
+        pl (θ' (fun _ => z')) ≫ projC A (σ : ℂ →+* ℂ) = sp (σ : ℂ →+* ℂ) ≫ pl (θ (fun _ => z)) →
+        σ (P.weierstrassP z) = ν ^ 2 * P'.weierstrassP z' ∧
+        σ (P.derivWeierstrassP z) = ν ^ 3 * P'.derivWeierstrassP z' := by
+  set h := projC A (σ : ℂ →+* ℂ) with hh
+  set c : ℂ → (Fin 1 → ℂ) := fun z _ => z with hc
+  have hc_add : ∀ z w, c (z + w) = c z + c w := fun _ _ => rfl
+  have hc_surj : ∀ v : Fin 1 → ℂ, c (v 0) = v := fun v => funext fun i => by
+    rw [Subsingleton.elim i 0]
+  set Θ : ℂ → CPts A (RingHom.id ℂ) := fun z => θ (c z) with hΘ
+  set Θ' : ℂ → CPts (bcC A (σ : ℂ →+* ℂ)) (RingHom.id ℂ) := fun z => θ' (c z) with hΘ'
+  have hΘm : ∀ z w, Θ (z + w) = Θ z * Θ w := fun z w => by simp only [hΘ, hc_add]; exact hθ.1 _ _
+  have hΘ'm : ∀ z w, Θ' (z + w) = Θ' z * Θ' w := fun z w => by
+    simp only [hΘ', hc_add]; exact hθ'.1 _ _
+  have hΘk : ∀ z, Θ z = 1 ↔ z ∈ P.lattice := fun z => hθ.2.1 (c z)
+  have hΘ'k : ∀ z, Θ' z = 1 ↔ z ∈ P'.lattice := fun z => hθ'.2.1 (c z)
+  have hΘs : ∀ q, ∃ z, Θ z = q := fun q => by
+    obtain ⟨v, hv⟩ := hθ.2.2.1 q; exact ⟨v 0, by rw [hΘ]; simp only; rw [hc_surj]; exact hv⟩
+  have hΘ's : ∀ q, ∃ z, Θ' z = q := fun q => by
+    obtain ⟨v, hv⟩ := hθ'.2.2.1 q; exact ⟨v 0, by rw [hΘ']; simp only; rw [hc_surj]; exact hv⟩
+  have hΘeq := hom_eq_iff hΘm hΘk
+  -- the de-conjugated parameter `w`
+  choose w hw using fun z => hΘs (dd σ A (Θ' z))
+  have hw_add : ∀ z z', w (z + z') - (w z + w z') ∈ P.lattice := fun z z' => by
+    rw [← hΘeq, hΘm, hw, hw, hw, hΘ'm, dd_mul]
+  have hw_ker : ∀ z, w z ∈ P.lattice ↔ z ∈ P'.lattice := fun z => by
+    rw [← hΘk, hw, ← hΘ'k, ← dd_one σ A]
+    exact (dd_injective σ A).eq_iff
+  have hw_surj : ∀ a, ∃ z, w z - a ∈ P.lattice := fun a => by
+    obtain ⟨p, hp⟩ := dd_surjective σ A (Θ a)
+    obtain ⟨z, hz⟩ := hΘ's p
+    exact ⟨z, by rw [← hΘeq, hw, hz, hp]⟩
+  have hw_rel : ∀ z, pl (Θ' z) ≫ h = sp (σ : ℂ →+* ℂ) ≫ pl (Θ (w z)) := fun z => by
+    rw [hw]; exact dd_key σ A _
+  -- coordinates on `A^σ`
+  set F : ℂ → ℂ := fun z => evS (pl (Θ' z)) (h ⁻¹ᵁ U) (h.app U x) with hF
+  set G : ℂ → ℂ := fun z => evS (pl (Θ' z)) (h ⁻¹ᵁ U) (h.app U y) with hG
+  have hwmem : ∀ z, z ∉ P'.lattice → ⊤ ≤ pl (Θ (w z)) ⁻¹ᵁ U := fun z hz =>
+    ((hθU (c (w z))).1).2 (fun hm => hz ((hw_ker z).1 hm))
+  have hFval : ∀ z, z ∉ P'.lattice →
+      F z = σ (P.weierstrassP (w z)) ∧ G z = σ (P.derivWeierstrassP (w z)) := fun z hz => by
+    have hv := (hθU (c (w z))).2 (fun hm => hz ((hw_ker z).1 hm))
+    refine ⟨?_, ?_⟩
+    · rw [hF]; simp only
+      rw [(eval_conj σ h (hw_rel z) U x).2 (hwmem z hz)]
+      rw [← cEvalAt_eq, hv.1]
+    · rw [hG]; simp only
+      rw [(eval_conj σ h (hw_rel z) U y).2 (hwmem z hz)]
+      rw [← cEvalAt_eq, hv.2]
+  have hdom : Set.MapsTo c ((P'.lattice : Set ℂ)ᶜ) (cDom θ' (h ⁻¹ᵁ U)) := fun z hz =>
+    ((eval_conj σ h (hw_rel z) U x).1).2 (hwmem z hz)
+  have hcd : DifferentiableOn ℂ c ((P'.lattice : Set ℂ)ᶜ) :=
+    (differentiable_pi.2 fun _ => differentiable_id).differentiableOn
+  have hFd : DifferentiableOn ℂ F ((P'.lattice : Set ℂ)ᶜ) :=
+    (hθ'.2.2.2.2 (h ⁻¹ᵁ U) (h.app U x)).comp hcd hdom
+  have hGc : ContinuousOn G ((P'.lattice : Set ℂ)ᶜ) :=
+    ((hθ'.2.2.2.2 (h ⁻¹ᵁ U) (h.app U y)).comp hcd hdom).continuousOn
+  -- the auxiliary lattice `Λ''` of `E_P^σ`
+  obtain ⟨hΔ, hpar⟩ := hWP P
+  have hΔσ : σ P.g₂ ^ 3 - 27 * σ P.g₃ ^ 2 ≠ 0 := by
+    have := (map_ne_zero (σ : ℂ →+* ℂ)).2 hΔ
+    simpa [T5Glue.discL, map_sub, map_mul, map_pow, map_ofNat] using this
+  obtain ⟨P'', h2, h3⟩ := hWU _ _ hΔσ
+  set W'' := (wc P.g₂ P.g₃).map (σ : ℂ →+* ℂ) with hW''
+  have hW : W'' = wc P''.g₂ P''.g₃ := by rw [hW'', map_wc, h2, h3]; rfl
+  have hpar'' : ParamProps P'' W'' := by rw [hW]; exact (hWP P'').2
+  set PP : ℂ → W''.toAffine.Point := fun z => mapPt (wc P.g₂ P.g₃) (σ : ℂ →+* ℂ) (wPt P (w z)) with hPP
+  choose ψ₀ hψ₀ using fun z => hpar''.2.2 (PP z)
+  have hPeq := addHom_eq_iff hpar.1 hpar.2.1
+  have hP''eq := addHom_eq_iff hpar''.1 hpar''.2.1
+  -- the hypotheses of LIN
+  have l_inj : ∀ a b, a ∉ P''.lattice → b ∉ P''.lattice →
+      P''.weierstrassP a = P''.weierstrassP b →
+      P''.derivWeierstrassP a = P''.derivWeierstrassP b → a - b ∈ P''.lattice := by
+    intro a b ha hb e1 e2
+    rw [← hP''eq]
+    obtain ⟨ha', hA⟩ := wPtW_of_not_mem hpar'' ha
+    obtain ⟨hb', hB⟩ := wPtW_of_not_mem hpar'' hb
+    rw [hA, hB]
+    simp only [WeierstrassCurve.Affine.Point.some.injEq]
+    exact ⟨e1, by rw [e2]⟩
+  have l_add : ∀ z z', ψ₀ (z + z') - ψ₀ z - ψ₀ z' ∈ P''.lattice := by
+    intro z z'
+    rw [sub_sub, ← hP''eq, hpar''.1, hψ₀, hψ₀, hψ₀, hPP]
+    simp only
+    rw [← map_add]
+    congr 1
+    show wPtW P _ _ = wPtW P _ _ + wPtW P _ _
+    rw [← hpar.1]
+    exact (hPeq _ _).2 (hw_add z z')
+  have l_ker : ∀ z, ψ₀ z ∈ P''.lattice ↔ z ∈ P'.lattice := by
+    intro z
+    rw [← hpar''.2.1, hψ₀, hPP]
+    simp only
+    rw [← hw_ker, ← hpar.2.1, ← map_zero (mapPt (wc P.g₂ P.g₃) (σ : ℂ →+* ℂ))]
+    exact (mapPt_injective _ _).eq_iff
+  have l_surj : ∀ a, ∃ z, ψ₀ z - a ∈ P''.lattice := by
+    intro a
+    obtain ⟨Q, hQ⟩ := mapPt_surjective (wc P.g₂ P.g₃) σ (wPtW P'' W'' a)
+    obtain ⟨b, hb⟩ := hpar.2.2 Q
+    obtain ⟨z, hz⟩ := hw_surj b
+    refine ⟨z, ?_⟩
+    rw [← hP''eq, hψ₀, ← hQ, ← hb, hPP]
+    simp only
+    congr 1
+    exact (hPeq _ _).2 hz
+  have l_F : ∀ z, z ∉ P'.lattice →
+      P''.weierstrassP (ψ₀ z) = F z ∧ P''.derivWeierstrassP (ψ₀ z) = G z := by
+    intro z hz
+    have hwz : w z ∉ P.lattice := fun hm => hz ((hw_ker z).1 hm)
+    have hψz : ψ₀ z ∉ P''.lattice := fun hm => hz ((l_ker z).1 hm)
+    obtain ⟨h1, e1⟩ := wPtW_of_not_mem hpar hwz
+    obtain ⟨h2', e2⟩ := wPtW_of_not_mem hpar'' hψz
+    have := hψ₀ z
+    rw [e2, hPP] at this
+    simp only [wPt] at this
+    rw [e1, mapPt_some] at this
+    simp only [WeierstrassCurve.Affine.Point.some.injEq] at this
+    obtain ⟨a1, a2⟩ := this
+    simp only [RingEquiv.coe_toRingHom] at a1 a2
+    rw [(hFval z hz).1, (hFval z hz).2, a1]
+    refine ⟨rfl, ?_⟩
+    rw [map_div₀, map_ofNat] at a2
+    linear_combination 2 * a2
+  -- LIN
+  obtain ⟨α, hα⟩ := lin P' P'' ψ₀ F G l_inj l_add l_ker l_surj l_F hFd hGc
+  have hα_iff : ∀ z, α * z ∈ P''.lattice ↔ z ∈ P'.lattice := fun z => by
+    rw [← l_ker]
+    constructor
+    · intro hm; simpa using add_mem (hα z) hm
+    · intro hm; simpa using sub_mem hm (hα z)
+  have hα0 : α ≠ 0 := by
+    intro h0
+    have := (hα_iff (P'.ω₁ / 2)).1 (by rw [h0, zero_mul]; exact zero_mem _)
+    exact P'.ω₁_div_two_notMem_lattice this
+  have hscale : T5Glue.IsScale P'' P' α := by
+    refine ⟨hα0, ?_⟩
+    ext t
+    simp only [SetLike.mem_coe, Set.mem_smul_set, smul_eq_mul]
+    constructor
+    · intro ht
+      refine ⟨t / α, ?_, by field_simp⟩
+      rw [← hα_iff]; field_simp; exact ht
+    · rintro ⟨u, hu, rfl⟩
+      exact (hα_iff u).2 hu
+  refine ⟨α⁻¹, ⟨inv_ne_zero hα0, ?_, ?_⟩, ?_⟩
+  · show σ P.g₂ = α⁻¹ ^ 4 * P'.g₂
+    rw [← h2, hscale.g₂, inv_pow]
+  · show σ P.g₃ = α⁻¹ ^ 6 * P'.g₃
+    rw [← h3, hscale.g₃, inv_pow]
+  · intro z z' hz hrel
+    have hD' : dd σ A (Θ' z') = Θ z := dd_unique σ A hrel
+    have hzz : w z' - z ∈ P.lattice := by rw [← hΘeq, hw]; exact hD'
+    have hz' : z' ∉ P'.lattice := by
+      intro hm
+      have h1 : Θ' z' = 1 := (hΘ'k z').2 hm
+      rw [h1, dd_one] at hD'
+      exact hz ((hΘk z).1 hD'.symm)
+    have hper : P.weierstrassP (w z') = P.weierstrassP z ∧
+        P.derivWeierstrassP (w z') = P.derivWeierstrassP z := by
+      have e : w z' = z + ((⟨w z' - z, hzz⟩ : P.lattice) : ℂ) := by simp
+      rw [e, PeriodPair.weierstrassP_add_coe, PeriodPair.derivWeierstrassP_add_coe]
+      exact ⟨rfl, rfl⟩
+    have hper'' : P''.weierstrassP (ψ₀ z') = P''.weierstrassP (α * z') ∧
+        P''.derivWeierstrassP (ψ₀ z') = P''.derivWeierstrassP (α * z') := by
+      have e : ψ₀ z' = α * z' + ((⟨ψ₀ z' - α * z', hα z'⟩ : P''.lattice) : ℂ) := by simp
+      rw [e, PeriodPair.weierstrassP_add_coe, PeriodPair.derivWeierstrassP_add_coe]
+      exact ⟨rfl, rfl⟩
+    obtain ⟨f1, f2⟩ := l_F z' hz'
+    obtain ⟨v1, v2⟩ := hFval z' hz'
+    refine ⟨?_, ?_⟩
+    · rw [← hper.1, ← v1, ← f1, hper''.1, hscale.weierstrassP, inv_pow]
+    · rw [← hper.2, ← v2, ← f2, hper''.2, hscale.derivWeierstrassP, inv_pow]
+
+end CoreSec
+
 end HcmPrinted
