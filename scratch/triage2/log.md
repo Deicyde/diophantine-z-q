@@ -27,3 +27,11 @@
   chain Main.lean:67 → shimuraReciprocityModFn_of_printed (:3352) → _of_t5''/_of_t5'/_of_t5 (:2762/2754/2741).
   MainTheoremCMj is itself a def (TYZChain/ModFn.lean:105), not proved. Uses span all squarefree n ≡ 5,7 mod 8: no finite
   specialization. Optional T1 hygiene narrowings only (agent-T.md).
+- agent-W (GR x2): both read only in nocm_on_witness (TailC.lean:1371-1456, VERIFIED by me: h5 at :1390, hC at :1403).
+  Prop56X6 enters only via r5count (TailZ27:110 → TailZ9:96 → TailK:294). Bypass (T3, SPECULATIVE): identify R ∈ {ℤ[i], ℤ[√−6]}
+  by elementary norm-form arguments, contradiction via HasCM4/HasCM24 + J(u) ∉ {0,−16/27}; drops r5count. X6Ab: T4 keep.
+- agent-X: deligneComponentsX6PrintedAb (and geomConnOfAlgClosure) only feed R1pi0Props, last conjunct of R1R2fpRep
+  (LPrefix:5223); R1R2fp_of_rep (LPrefix:5229) discards it (VERIFIED by me, read). Other readers to be checked by probe
+  Pi0Use.lean. babaGranathRationalAb ⇐ ElkiesEquationsX6Ab (derived) ∧ CMPairsExist (SPECULATIVE plan via
+  shimuraMainThmIDeligneY3AbU ModuliAtUnits + HomLatticeCorr + descend_main copy).
+- NOTE geomConnOfAlgClosure is held (claims.tsv: cloud batch 2): a prune would make that task moot; flag to the lead.
