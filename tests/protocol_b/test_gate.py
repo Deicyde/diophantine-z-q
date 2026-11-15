@@ -68,7 +68,7 @@ class FakeGH:
         self.check_page_size, self.after_check_read = 100, None
         self.merge_result = {'merged': True, 'sha': 'd' * 40}
         self.extra_rules, self.rule_pages, self.compare_requests = [], [], []
-        self.comparison = {'behind_by': 0}
+        self.comparison = {'behind_by': 0, 'merge_base_commit': {'sha': BASE}}
         self.dispatches = []
         self.dispatched_runs = {}
         self.dispatch_head = 'd' * 40
@@ -100,6 +100,8 @@ class FakeGH:
         return []
 
     def text(self, path, ref):
+        if path == 'p.tex':
+            return 'alpha  ' if ref == BASE else 'alpha'
         return 'Review carefully. This is a test fixture, not a live provider call.'
 
     def call(self, path, method='GET', data=None):
@@ -210,6 +212,7 @@ def run_pipeline(gh=None, app=None, mode='test', provider=None, event=None, fina
                 errors.append(str(error))
             # Keep spending-preflight reads separate from merge retry assertions.
             gh.review_rule_pages, gh.rule_pages = list(gh.rule_pages), []
+            gh.review_compare_requests, gh.compare_requests = list(gh.compare_requests), []
             if finalize:
                 try:
                     gate.publish()

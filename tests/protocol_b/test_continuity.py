@@ -151,10 +151,10 @@ class Continuity(unittest.TestCase):
 
     def test_initial_diff_hunks_are_bound_without_explicit_reads(self):
         gh = FakeGH()
-        gh.text = lambda path,ref: 'one\ntwo\nthree'
+        gh.text = lambda path,ref: 'one\ntwo\nthree' if ref == BASE else 'one\nTWO\nthree'
         reviewer = gate.Review(gh, gh.pr, [], [], {}, {}, 'instructions', 'astra', 'local mathematical')
         binding = gate.make_reuse_binding(gh, gh.pr, [changed('p.tex','@@ -2 +2 @@\n-two\n+TWO')], reviewer)
-        self.assertEqual({p['revision'] for p in binding['passages']}, {'head','base'})
+        self.assertEqual({p['revision'] for p in binding['passages']}, {'head','merge_base'})
         self.assertTrue(all(p['start']==2 and p['count']==1 for p in binding['passages']))
 
     def test_peer_source_ids_are_visible_in_history(self):
