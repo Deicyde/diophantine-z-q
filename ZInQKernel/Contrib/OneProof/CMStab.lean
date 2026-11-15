@@ -225,4 +225,196 @@ theorem fin_red : ∀ a b c d : ZMod 3,
     a - c = 0 → b - d = 0 → mcp ![2, 0, 2, 0] ![a, b, c, d] = 0 := by
   decide
 
+
+theorem vec4 {R : Type} (f : Fin 4 → R) : f = ![f 0, f 1, f 2, f 3] := by
+  funext i; fin_cases i <;> rfl
+
+theorem coords_intCast (N : ℤ) : coords (N : O) = ![N, 0, 0, 0] := by
+  apply coords_eq
+  rw [show ((N : O) : B) = (N : B) by simp]
+  ext <;> simp [ofInt]
+
+theorem dvd_of_cast {p : ℕ} [NeZero p] {x : ℤ} (h : ((x : ℤ) : ZMod p) = 0) : (p : ℤ) ∣ x :=
+  (ZMod.intCast_zmod_eq_zero_iff_dvd x p).1 h
+
+/-- `mcp v v = 0` modulo `p` when `y * y` is an integer divisible by `p`. -/
+theorem mcp_sq_zero {p : ℕ} (y : O) (N : ℤ) (hy : y * y = (N : O)) (hp : ((N : ℤ) : ZMod p) = 0) :
+    mcp ![((coords y 0 : ℤ) : ZMod p), ↑(coords y 1), ↑(coords y 2), ↑(coords y 3)]
+      ![((coords y 0 : ℤ) : ZMod p), ↑(coords y 1), ↑(coords y 2), ↑(coords y 3)] = 0 := by
+  rw [← vec4 (fun i => ((coords y i : ℤ) : ZMod p))]
+  funext i
+  rw [← cast_mulCoord, ← coords_mul, hy, coords_intCast]
+  fin_cases i <;> simp [hp]
+
+/-- `y² = −3` gives `y ∈ j𝒪`. -/
+theorem div_j (y : O) (hy : y * y = -3) : ∃ d : O, y = oj * d := by
+  have hy' : y * y = ((-3 : ℤ) : O) := by rw [hy]; push_cast; rfl
+  refine left_div oj y 3 (-1) (by norm_num) (by rw [AV.oj_mul_oj]; norm_num)
+    (by norm_num) fun i => ?_
+  have h2 := fin_j3 _ _ _ _ (mcp_sq_zero (p := 3) y (-3) hy' (by decide))
+  have hj : (fun i => ((coords oj i : ℤ) : ZMod 3)) = ![2, 0, 2, 0] := by
+    rw [oj_eq, coords_mkO]; funext i; fin_cases i <;> decide
+  have := dvd_of_cast (p := 3) (x := coords (oj * y) i) (by
+    rw [coords_mul, cast_mulCoord, hj, vec4 (fun i => ((coords y i : ℤ) : ZMod 3))]
+    exact congrFun h2 i)
+  exact_mod_cast this
+
+/-- `y² = −6` gives `y ∈ k𝒪`. -/
+theorem div_k (y : O) (hy : y * y = -6) : ∃ d : O, y = ok * d := by
+  have hy' : y * y = ((-6 : ℤ) : O) := by rw [hy]; push_cast; rfl
+  refine left_div ok y 6 1 (by norm_num) (by rw [ok_mul_ok]; norm_num)
+    (by norm_num) fun i => ?_
+  have h3 := fin_k3 _ _ _ _ (mcp_sq_zero (p := 3) y (-6) hy' (by decide))
+  have h2 := fin_k2 _ _ _ _ (mcp_sq_zero (p := 2) y (-6) hy' (by decide))
+  have hk3 : (fun i => ((coords ok i : ℤ) : ZMod 3)) = ![0, 2, 0, 2] := by
+    rw [ok, coords_mkO]; funext i; fin_cases i <;> decide
+  have hk2 : (fun i => ((coords ok i : ℤ) : ZMod 2)) = ![0, 1, 0, 0] := by
+    rw [ok, coords_mkO]; funext i; fin_cases i <;> decide
+  have d3 := dvd_of_cast (p := 3) (x := coords (ok * y) i) (by
+    rw [coords_mul, cast_mulCoord, hk3, vec4 (fun i => ((coords y i : ℤ) : ZMod 3))]
+    exact congrFun h3 i)
+  have d2 := dvd_of_cast (p := 2) (x := coords (ok * y) i) (by
+    rw [coords_mul, cast_mulCoord, hk2, vec4 (fun i => ((coords y i : ℤ) : ZMod 2))]
+    exact congrFun h2 i)
+  push_cast at d3 d2
+  omega
+
+/-- `red z = 0` gives `z ∈ j𝒪` (the kernel of `red` is `𝔓₃ = j𝒪`). -/
+theorem div_j_of_red (z : O) (hz : red z = 0) : ∃ d : O, z = oj * d := by
+  refine left_div oj z 3 (-1) (by norm_num) (by rw [AV.oj_mul_oj]; norm_num)
+    (by norm_num) fun i => ?_
+  have h0 : ((coords z 0 - coords z 2 : ℤ) : ZMod 3) = 0 := congrArg Prod.fst hz
+  have h1 : ((coords z 1 - coords z 3 : ℤ) : ZMod 3) = 0 := congrArg Prod.snd hz
+  push_cast at h0 h1
+  have h2 := fin_red _ _ _ _ h0 h1
+  have hj : (fun i => ((coords oj i : ℤ) : ZMod 3)) = ![2, 0, 2, 0] := by
+    rw [oj_eq, coords_mkO]; funext i; fin_cases i <;> decide
+  have := dvd_of_cast (p := 3) (x := coords (oj * z) i) (by
+    rw [coords_mul, cast_mulCoord, hj, vec4 (fun i => ((coords z i : ℤ) : ZMod 3))]
+    exact congrFun h2 i)
+  exact_mod_cast this
+
+theorem three_eq_intCast : (3 : O) = ((3 : ℤ) : O) := by push_cast; rfl
+
+/-- `j z ≡ 0 (mod 3)` gives `red z = 0`. -/
+theorem red_of_j_mul (z : O) (h : π3 (oj * z) = 0) : red z = 0 := by
+  obtain ⟨c, hc⟩ := π3_eq_iff.1 (h.trans (map_zero π3).symm)
+  rw [sub_zero] at hc
+  have e : ((3 : ℤ) : O) * (z + oj * c) = 0 := by
+    have h1 : oj * (oj * z) = oj * (3 * c) := by rw [hc]
+    rw [← _root_.mul_assoc, AV.oj_mul_oj] at h1
+    rw [← three_eq_intCast, mul_add]
+    calc 3 * z + 3 * (oj * c) = 3 * z + oj * (3 * c) := by noncomm_ring
+      _ = 3 * z + -3 * z := by rw [← h1]
+      _ = 0 := by noncomm_ring
+  have e2 := eq_zero_of_intCast_mul (by norm_num) e
+  rw [show z = -(oj * c) from eq_neg_of_add_eq_zero_left e2, red_neg, red_mul, red_oj]
+  simp [gm]
+
+/-- `k z ≡ 0 (mod 3)` gives `red z = 0`. -/
+theorem red_of_k_mul (z : O) (h : π3 (ok * z) = 0) : red z = 0 := by
+  obtain ⟨c, hc⟩ := π3_eq_iff.1 (h.trans (map_zero π3).symm)
+  rw [sub_zero] at hc
+  have e : ((3 : ℤ) : O) * ((z + z) - ok * c) = 0 := by
+    have h1 : ok * (ok * z) = ok * (3 * c) := by rw [hc]
+    rw [← _root_.mul_assoc, ok_mul_ok] at h1
+    rw [← three_eq_intCast]
+    calc 3 * ((z + z) - ok * c) = 6 * z - ok * (3 * c) := by noncomm_ring
+      _ = 0 := by rw [← h1]; noncomm_ring
+  have e2 := sub_eq_zero.1 (eq_zero_of_intCast_mul (by norm_num) e)
+  have e3 := congrArg red e2
+  rw [red_add, red_mul, red_ok] at e3
+  have e4 : red z + red z = 0 := by rw [e3]; simp [gm]
+  revert e4
+  generalize red z = r
+  revert r
+  decide
+
+
+/-! ### The involutions `α_j` and `α_k` of `𝒪` (conjugation by `j` and by `k = ij`) -/
+
+/-- Conjugation by `j` on `B`: `i ↦ −i`, `j ↦ j`. -/
+def cJ : B →+* B where
+  toFun x := ⟨x.re, -x.imI, x.imJ, -x.imK⟩
+  map_one' := by ext <;> simp
+  map_mul' x y := by ext <;> simp <;> ring
+  map_zero' := by ext <;> simp
+  map_add' x y := by ext <;> simp <;> ring
+
+/-- Conjugation by `k` on `B`: `i ↦ −i`, `j ↦ −j`. -/
+def cK : B →+* B where
+  toFun x := ⟨x.re, -x.imI, -x.imJ, x.imK⟩
+  map_one' := by ext <;> simp
+  map_mul' x y := by ext <;> simp <;> ring
+  map_zero' := by ext <;> simp
+  map_add' x y := by ext <;> simp <;> ring
+
+theorem cJ_ofInt (n : Fin 4 → ℤ) : cJ (ofInt n) = ofInt ![n 0, -n 1, n 2, -n 3] := by
+  ext <;> simp [cJ, ofInt] <;> ring
+
+theorem cK_ofInt (n : Fin 4 → ℤ) : cK (ofInt n) = ofInt ![n 0 + n 2, -n 1 - n 3, -n 2, n 3] := by
+  ext <;> simp [cK, ofInt] <;> ring
+
+theorem cJ_cJ (x : B) : cJ (cJ x) = x := by ext <;> simp [cJ]
+theorem cK_cK (x : B) : cK (cK x) = x := by ext <;> simp [cK]
+
+theorem cJ_mem {x : B} (hx : x ∈ O) : cJ x ∈ O := by
+  obtain ⟨n, rfl⟩ := hx; exact ⟨_, cJ_ofInt n⟩
+theorem cK_mem {x : B} (hx : x ∈ O) : cK x ∈ O := by
+  obtain ⟨n, rfl⟩ := hx; exact ⟨_, cK_ofInt n⟩
+
+/-- A ring involution of `B` preserving `𝒪`, as an automorphism of `𝒪`. -/
+def invEquiv (f : B →+* B) (hf : ∀ x, f (f x) = x) (hO : ∀ x : B, x ∈ O → f x ∈ O) :
+    O ≃+* O where
+  toFun x := ⟨f x, hO x x.2⟩
+  invFun x := ⟨f x, hO x x.2⟩
+  left_inv x := Subtype.ext (hf x)
+  right_inv x := Subtype.ext (hf x)
+  map_mul' x y := Subtype.ext (by simp)
+  map_add' x y := Subtype.ext (by simp)
+
+def αJ : O ≃+* O := invEquiv cJ cJ_cJ (fun _ h => cJ_mem h)
+def αK : O ≃+* O := invEquiv cK cK_cK (fun _ h => cK_mem h)
+
+theorem αJ_coe (x : O) : ((αJ x : O) : B) = cJ x := rfl
+theorem αK_coe (x : O) : ((αK x : O) : B) = cK x := rfl
+
+theorem αJ_αJ (x : O) : αJ (αJ x) = x := Subtype.ext (cJ_cJ _)
+theorem αK_αK (x : O) : αK (αK x) = x := Subtype.ext (cK_cK _)
+
+/-- `j α_j(z) = z j`. -/
+theorem oj_mul_αJ (z : O) : oj * αJ z = z * oj := by
+  apply Subtype.ext
+  rw [MulMemClass.coe_mul, MulMemClass.coe_mul, αJ_coe]
+  change ofInt ![-1, 0, 2, 0] * cJ z = z * ofInt ![-1, 0, 2, 0]
+  ext <;> simp [cJ, ofInt] <;> ring
+
+/-- `k α_k(z) = z k`. -/
+theorem ok_mul_αK (z : O) : ok * αK z = z * ok := by
+  apply Subtype.ext
+  rw [MulMemClass.coe_mul, MulMemClass.coe_mul, αK_coe]
+  change ofInt ![0, -1, 0, 2] * cK z = z * ofInt ![0, -1, 0, 2]
+  ext <;> simp [cK, ofInt] <;> ring
+
+theorem red_αJ (x : O) : red (αJ x) = cj (red x) := by
+  have : coords (αJ x) = ![coords x 0, -coords x 1, coords x 2, -coords x 3] := by
+    apply coords_eq; rw [αJ_coe, coords_spec x, cJ_ofInt]
+  rw [red, this, red]
+  simp only [redC, cj]
+  push_cast
+  ext <;> simp <;> ring
+
+theorem red_αK (x : O) : red (αK x) = cj (red x) := by
+  have : coords (αK x) = ![coords x 0 + coords x 2, -coords x 1 - coords x 3, -coords x 2,
+      coords x 3] := by
+    apply coords_eq; rw [αK_coe, coords_spec x, cK_ofInt]
+  rw [red, this, red]
+  simp only [redC, cj]
+  push_cast
+  ext
+  · simp only [Matrix.cons_val]
+    linear_combination (coords x 2 : ZMod 3) * z3
+  · simp only [Matrix.cons_val]
+    linear_combination (-(coords x 3 : ZMod 3)) * z3
+
 end GapGlue.CMStab
