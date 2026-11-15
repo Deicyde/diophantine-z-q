@@ -1,0 +1,56 @@
+# Scratch compile check of the self-contained OneProof draft, on the runner type of upstream's
+# kernel job (4 threads, upstream's extra 8 GiB swap). Builds every OneProof module, which covers
+# every file the draft adds, and greps the axioms of ZInQ.OneProof.frozenTarget.
+
+name: lean wip
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    name: build
+    runs-on: ubuntu-24.04
+    timeout-minutes: 350
+    env:
+      LEAN_NUM_THREADS: '4'
+    steps:
+      - name: Check out project
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: Install elan
+        run: |
+          set -euo pipefail
+          curl -sSfL \
+            https://github.com/leanprover/elan/releases/download/v4.2.3/elan-x86_64-unknown-linux-gnu.tar.gz \
+            -o elan.tar.gz
+          echo "df0b2b3a439961ffcbb3985214365ffe40f49bc871df04dff268c7d8e21ca8b2  elan.tar.gz" \
+            | sha256sum --check --strict
+          tar xzf elan.tar.gz
+          ./elan-init -y --default-toolchain none
+          echo "$HOME/.elan/bin" >> "$GITHUB_PATH"
+
+      - name: Add 8 GiB swap, as upstream's kernel job does
+        run: |
+          set -euo pipefail
+          swap_file=$(mktemp "$RUNNER_TEMP/swap.XXXXXX")
+          sudo fallocate -l 8G "$swap_file"
+          sudo chmod 600 "$swap_file"
+          sudo mkswap "$swap_file"
+          sudo swapon "$swap_file"
+          free -m; df -h .
+
+      - name: Fetch the Mathlib build cache
+        run: lake exe cache get
+
+      - name: Build every OneProof module
+        run: |
+          set -o pipefail
+          /usr/bin/time -v lake build ZInQKernel.Contrib.OneProof.Genus.Bridge ZInQKernel.Contrib.OneProof.Genus.DimJac ZInQKernel.Contrib.OneProof.Genus.GenusBound ZInQKernel.Contrib.OneProof.Genus.LocalDer ZInQKernel.Contrib.OneProof.H.LF2SmoothDim ZInQKernel.Contrib.OneProof.H.LF2Stalks ZInQKernel.Contrib.OneProof.H.LF2UnifRoot ZInQKernel.Contrib.OneProof.H.LF2UnramConj ZInQKernel.Contrib.OneProof.H.LF3Cot ZInQKernel.Contrib.OneProof.H.LF4T5 ZInQKernel.Contrib.OneProof.H.LPrefix ZInQKernel.Contrib.OneProof.H.TailA ZInQKernel.Contrib.OneProof.H.TailB ZInQKernel.Contrib.OneProof.H.TailC ZInQKernel.Contrib.OneProof.H.TailD ZInQKernel.Contrib.OneProof.H.TailE ZInQKernel.Contrib.OneProof.H.TailF ZInQKernel.Contrib.OneProof.H.TailG ZInQKernel.Contrib.OneProof.H.TailH ZInQKernel.Contrib.OneProof.H.TailI ZInQKernel.Contrib.OneProof.H.TailJ ZInQKernel.Contrib.OneProof.H.TailK ZInQKernel.Contrib.OneProof.H.TailL ZInQKernel.Contrib.OneProof.H.TailM ZInQKernel.Contrib.OneProof.H.TailN ZInQKernel.Contrib.OneProof.H.TailO ZInQKernel.Contrib.OneProof.H.TailP ZInQKernel.Contrib.OneProof.H.TailQ ZInQKernel.Contrib.OneProof.H.TailR ZInQKernel.Contrib.OneProof.H.TailS ZInQKernel.Contrib.OneProof.H.TailT ZInQKernel.Contrib.OneProof.H.TailU ZInQKernel.Contrib.OneProof.H.TailV ZInQKernel.Contrib.OneProof.H.TailW ZInQKernel.Contrib.OneProof.H.TailX ZInQKernel.Contrib.OneProof.H.TailY ZInQKernel.Contrib.OneProof.H.TailZ ZInQKernel.Contrib.OneProof.H.TailZ10 ZInQKernel.Contrib.OneProof.H.TailZ11 ZInQKernel.Contrib.OneProof.H.TailZ12 ZInQKernel.Contrib.OneProof.H.TailZ13 ZInQKernel.Contrib.OneProof.H.TailZ14 ZInQKernel.Contrib.OneProof.H.TailZ15 ZInQKernel.Contrib.OneProof.H.TailZ16 ZInQKernel.Contrib.OneProof.H.TailZ17 ZInQKernel.Contrib.OneProof.H.TailZ18 ZInQKernel.Contrib.OneProof.H.TailZ19 ZInQKernel.Contrib.OneProof.H.TailZ2 ZInQKernel.Contrib.OneProof.H.TailZ3 ZInQKernel.Contrib.OneProof.H.TailZ4 ZInQKernel.Contrib.OneProof.H.TailZ5 ZInQKernel.Contrib.OneProof.H.TailZ6 ZInQKernel.Contrib.OneProof.H.TailZ7 ZInQKernel.Contrib.OneProof.H.TailZ8 ZInQKernel.Contrib.OneProof.H.TailZ9 ZInQKernel.Contrib.OneProof.Main ZInQKernel.Contrib.OneProof.TYZSplit ZInQKernel.Contrib.OneProof.TopChain  2>&1 | tee build.log | tail -60
+
+      - name: Axioms of the frozen target
+        if: always()
+        run: grep -n -A4 'depends on axioms' build.log | head -40; df -h .
