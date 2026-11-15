@@ -12251,6 +12251,15 @@ disjoint private blocks of seventy-nine variables. No parent variable
 node accesses a private coordinate. Replacing each block by its
 private power-value call therefore preserves the full existential
 assignment. Only the final parent root is equated to the identity.
+The three arguments of every power call are polynomials with nonnegative
+integer coefficients in the source natural variables, hence are
+natural-valued on every natural assignment.
+The accompanying \href{https://github.com/elliotglazer/diophantine-z-q/blob/6292f2e205ea9a3d098160392b09adc2b036ab4a/scripts/check_precision_call_arguments.py}{finite argument check}
+certifies this assertion on the saved circuit. Its induction starts with
+nonnegative constants and the declared natural variables, and closes under
+addition and multiplication; no power-call output is assumed nonnegative.
+It checks the three parameter expressions of every call, including the
+proposed result, independently of whether any private power block vanishes.
 
 At each primitive formula, equality is a difference, conjunction is
 a sum of squares, and disjunction is a product. A topological induction,
@@ -22274,9 +22283,14 @@ $K\cap\mathbf Q(i,\sqrt\ell)=\mathbf Q$.  The corresponding
 quadratic residue classes are therefore nonempty and Dirichlet's
 theorem supplies infinitely many such primes.  Since $k$ is a
 square modulo $p$, the reductions of $E^{(k)}$ and $E_\ell$ are
-isomorphic.  A half of a nonzero two-torsion point with root $e_i$
-on a split cubic requires both differences $e_i-e_j$ to be
-squares.  For the roots $0,\ell,-3\ell$, one of these required
+isomorphic. A half of a nonzero two-torsion point $(e_i,0)$ on a split cubic
+requires both differences $e_i-e_j$, $j\ne i$, to be squares.
+Indeed, if $2P=(e_i,0)$ with $P=(u,v)$ and tangent line $Y=l(X)$,
+the chord-and-tangent law gives
+$\prod_{a=1}^3(X-e_a)-l(X)^2=(X-u)^2(X-e_i)$.
+Here $v\ne0$ and $u\ne e_j$, so evaluation at $X=e_j$ gives
+$e_i-e_j=(l(e_j)/(e_j-u))^2$.
+For the roots $0,\ell,-3\ell$, one of these required
 differences is, respectively, $-\ell,\ell,-4\ell$.  All three are
 nonsquares under the chosen conditions.  Thus none of the three
 nonzero points of order two has a half over $\mathbf F_p$.
