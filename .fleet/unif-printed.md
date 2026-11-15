@@ -21,3 +21,9 @@ neighbourhoods; regular maps holomorphic; holomorphic right inverse via implicit
 group law of A(ℂ) holomorphic via (A×A)(ℂ) ≅ A(ℂ)×A(ℂ).
 
 Deliverables: docs/research/unif-printed.md, scratch/unif-printed/ (stage files, log.md, autofold.json, dry run).
+
+Checks (VERIFIED): `lake build +ZInQKernel.OneProof.Main +ZInQKernel.OneProof.Discharges` succeeded; `#discharges`
+reports `DISCHARGES [OpenTextbookLeaves11.uniformizationLeafAll] by UnifPrinted.uniformizationLeafAll_of_printed`,
+still assuming exactly the four leaves, standard axioms; the autofold dry-run module (sixContactMin_of_open30)
+compiles. Remaining: statement checks of the four leaves against the prints (no source read; locators UNVERIFIED);
+the identification of `classicalTopology` with the print's analytic topology is standard but not formalized.
