@@ -1,0 +1,38 @@
+
+/-! ## Lichtenbaum's theorem and finite sets in affine opens -/
+
+namespace P1Quot2
+
+open CategoryTheory Limits AlgebraicGeometry
+
+/-- **Leaf: Lichtenbaum's projectivity theorem** (published; special case `S = Spec R`, `R` a DVR).
+S. Lichtenbaum, *Curves over discrete valuation rings*, Amer. J. Math. 90 (1968), 380–405, Thm. 2.8; Q. Liu,
+*Algebraic Geometry and Arithmetic Curves* (Oxford, 2002), Thm. 8.3.16 (locators UNVERIFIED, no network):
+let `S` be a Dedekind scheme of dimension 1 and `X → S` a proper flat morphism with `X` integral, regular, of
+dimension 2; then `X → S` is projective. "Projective" is Liu's Def. 5.3.? / EGA II 5.5.2 in the form of a
+closed immersion into `ℙⁿ_S` over `S` (vendored Jacobian-Challenge `ℙ(Fin (n+1); S)`, the base change of
+`Proj ℤ[X₀,…,Xₙ]`); "regular" is Mathlib's `IsRegularLocalRing` at every stalk; "dimension" is the Krull
+dimension of the underlying space. -/
+def LichtenbaumProjective : Prop :=
+  ∀ (R : Type) [CommRing R] [IsDomain R] [IsDiscreteValuationRing R] (X : Scheme.{0})
+    (f : X ⟶ Spec (CommRingCat.of R)), IsIntegral X → IsProper f → Flat f →
+    (∀ x : X, IsRegularLocalRing (X.presheaf.stalk x)) → topologicalKrullDim X = 2 →
+    ∃ (n : ℕ) (i : X ⟶ ℙ(Fin (n + 1); Spec (CommRingCat.of R))),
+      IsClosedImmersion i ∧ i ≫ ℙ(Fin (n + 1); Spec (CommRingCat.of R)) ↘ Spec (CommRingCat.of R) = f
+
+/-- **Finite sets of points of an integral proper smooth relative curve over a DVR lie in an affine open**,
+from Lichtenbaum's theorem: `X` is flat, regular (vendored FLT, smooth over a DVR), of dimension 2
+(`topologicalKrullDim_eq_two`), so projective; then EGA II 4.5.4 (`exists_isAffineOpen_superset_of_isClosedImmersion_spec`). -/
+theorem exists_affine_of_lichtenbaum (hL : LichtenbaumProjective) {R : Type} [CommRing R] [IsDomain R]
+    [IsDiscreteValuationRing R] {X : Scheme.{0}} (f : X ⟶ Spec (CommRingCat.of R)) [IsIntegral X]
+    [IsProper f] [SmoothOfRelativeDimension 1 f] (s : Finset X) :
+    ∃ W : X.Opens, IsAffineOpen W ∧ ∀ x ∈ s, x ∈ W := by
+  haveI : Smooth f := SmoothOfRelativeDimension.smooth 1 f
+  obtain ⟨n, i, hi, -⟩ := hL R X f inferInstance inferInstance inferInstance
+    (fun x => ZInQ.Contrib.CloudW03NeronSurj.FLT.AlgebraicGeometry.Smooth.isRegularLocalRing_stalk_of_isDiscreteValuationRing
+      R f x) (topologicalKrullDim_eq_two f)
+  haveI := hi
+  obtain ⟨W, hW, hsW⟩ := exists_isAffineOpen_superset_of_isClosedImmersion_spec i (s : Set X) s.finite_toSet
+  exact ⟨W, hW, fun x hx => hsW hx⟩
+
+end P1Quot2
