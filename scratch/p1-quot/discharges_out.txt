@@ -9,12 +9,11 @@ DISCHARGES [OpenGlue7.quotientP1Coordinate] by HDec.MCRQuot.quotientP1Coordinate
  HDec.MCRGlue.FiniteQuotientExists,
  HDec.MCRGlue.TameQuotientSmooth,
  HDec.MCRGlue.SmoothModelOfP1,
- HDec.MCRQuot.EdixhovenFixedSmooth,
- HDec.MCRGlue.TameInertiaCyclic,
+ HDec.MCRQuot.EdixhovenFixedSmooth2,
  AvSplit.MumfordTorsionAlgClosed,
  LeafQM.AV.R1UnivRigid.MumfordRigidityCore,
  ShimuraGlue.DeligneComponentsY3PrintedAb,
- HDec.MCRQuot.CMStabObj]
+ HDec.MCRQuot.CMStabObjWeak]
   axioms: [propext, Classical.choice, Quot.sound]
 DISCHARGES [OpenGlue7.quotientP1Coordinate] by HDec.MCRQuot.quotientP1Coordinate_of_leaves'
   still assumes: [HDec.MCRGlue.ProperCurveAF,
@@ -33,13 +32,12 @@ DISCHARGES [OpenGlue7.quotientP1Coordinate] by HDec.MCRQuot.quotientP1Coordinate
  HDec.MCRGlue.FiniteQuotientExists,
  HDec.MCRGlue.TameQuotientSmooth,
  HDec.MCRGlue.SmoothModelOfP1,
- HDec.MCRQuot.EdixhovenFixedSmooth,
- HDec.MCRGlue.TameInertiaCyclic,
+ HDec.MCRQuot.EdixhovenFixedSmooth2,
  PkgI2.TorsionStructure,
  HDec.PropTSGlue.HeckeIrreducible,
- HDec.MCRQuot.CMStabObj]
+ HDec.MCRQuot.CMStabObjWeak]
   axioms: [propext, Classical.choice, Quot.sound]
 DISCHARGES [OpenResearchLeaves19.elkiesX6StarPrinted] by HDec.QMSplit.Moduli.ElkiesX6Star.elkiesX6StarPrinted_of_ab
   still assumes: [HDec.QMSplit.Moduli.ElkiesEquationsX6Ab]
   axioms: [propext, Classical.choice, Quot.sound]
-#discharges: 65 open hypotheses, 1522 theorems checked, 6 discharge one
+#discharges: 65 open hypotheses, 1546 theorems checked, 6 discharge one

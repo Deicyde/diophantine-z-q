@@ -1,9 +1,10 @@
 /-! ════════════════════════════════════════════════════════════════════════════════════════════
 # p1-quot: `QuotientP1Coordinate` from printed leaves and `CMStabObj`
 
-`P1SchemeQ` is proved (`QuotientP1Proof.p1SchemeQ_body`, `QuotientP1/P1Scheme.lean`); L5 is proved from
-Edixhoven's theorem (`tameFixedPointsDisjoint_of_edixhoven`, `QuotientP1/FixedDisjoint.lean`); `CurveBijIso` is
-curve-split's theorem; `ModelYIrreducible` is the chain's `PropTSGlue.HeckeIrreducible` (same body, `rfl`).
+`P1SchemeQ` is proved (`QuotientP1Proof.p1SchemeQ_body`, `QuotientP1/P1Scheme.lean`); glue C1 is proved from
+Edixhoven's theorem for two generators without L5, L6 or involutions (`cMSectionsDisjoint'_of`,
+`QuotientP1/FixedDisjoint.lean`); `CurveBijIso` is curve-split's theorem; `ModelYIrreducible` is the chain's
+`PropTSGlue.HeckeIrreducible` (same body, `rfl`).
 ════════════════════════════════════════════════════════════════════════════════════════════ -/
 
 namespace MCRQuot
@@ -29,13 +30,30 @@ theorem quotientP1Coordinate_of_leaves' (hAF : ProperCurveAF) (hQE : FiniteQuoti
     (MCRGlue.coordinateNormalization_of (cMSectionsDisjoint_of'' gA hfix (cMStabInvolution_of hC hYI hO))
       (coordinateFromSections_of'' gA hT))
 
-/-- **`QuotientP1Coordinate` from the leaves L1-L4, L6, Edixhoven's fixed-point theorem, T5, `HeckeIrreducible`
-and the glue `CMStabObj`** (L5 from Edixhoven; `CurveBijIso` is curve-split's `_root_.CurveSplit.curveBijIso`). -/
+/-- **`QuotientP1Coordinate` from the leaves L1-L4, Edixhoven's tame fixed-point theorem, T5,
+`HeckeIrreducible` and the glue `CMStabObjWeak`** (no L5, no L6: C1 from `cMSectionsDisjoint'_of`; `CurveBijIso` is
+curve-split's `_root_.CurveSplit.curveBijIso`). The plumbing is `MCRGlue.quotientP1Coordinate_of_leaves` with C1
+replaced: L1 + L2 give the quotient by `fibreAut` (finite by A), L3 makes it smooth and proper, B and L4 make it
+`P¹_{ℤ_(p)}`, C2 with C1' normalizes the coordinate. -/
 theorem quotientP1Coordinate_of_printed (hAF : ProperCurveAF) (hQE : FiniteQuotientExists)
-    (hTS : TameQuotientSmooth) (hP1 : SmoothModelOfP1) (hE : EdixhovenFixedSmooth)
-    (hCyc : TameInertiaCyclic) (hT : PkgI2.TorsionStructure.{0})
-    (hYI : PropTSGlue.HeckeIrreducible) (hO : CMStabObj) : MCRGlue.QuotientP1Coordinate :=
-  quotientP1Coordinate_of_leaves' hAF hQE hTS hP1 (tameFixedPointsDisjoint_of_edixhoven hE) hCyc hT
-    _root_.CurveSplit.curveBijIso hYI hO
+    (hTS : TameQuotientSmooth) (hP1 : SmoothModelOfP1) (hE : EdixhovenFixedSmooth2)
+    (hT : PkgI2.TorsionStructure.{0}) (hYI : PropTSGlue.HeckeIrreducible) (hO : CMStabObjWeak) :
+    MCRGlue.QuotientP1Coordinate := by
+  intro p _ hp 𝒴 𝒜 hM hCM Y Φ π h1 hh h2
+  have hC : CurveBijIso := _root_.CurveSplit.curveBijIso
+  have hfix : FibreAutFixFinite := fibreAutFixFinite_of' hC hYI
+  have gA : FibreAutTame := fibreAutTame_of' hT hfix
+  obtain ⟨hfin, hnd⟩ := gA p hp 𝒴 𝒜 hM hCM Y Φ π h1 hh h2
+  have hover := fibreAut_over 𝒴 𝒜
+  obtain ⟨𝒵, q, hq, hqf⟩ :=
+    hQE p 𝒴 hM.1 (hAF p 𝒴 hM.1 hM.2.1) (fibreAut 𝒴 𝒜) hfin hover
+  obtain ⟨hZp, hZs⟩ := hTS p 𝒴 𝒵 q hM.1 hM.2.1 _ hfin hnd hover hq hqf
+  obtain ⟨σ₀, hσ₀⟩ := genericQuotientP1_of'' gA hT hTS hC p1SchemeQ p hp 𝒴 𝒜 hM hCM Y Φ π h1 hh h2
+    𝒵 q hq hqf
+  obtain ⟨ρ'₀, hρ'₀⟩ := hP1 p 𝒵 hZp hZs σ₀ hσ₀
+  obtain ⟨ρ', hρ', hCF⟩ := coordinateFromSections_of'' gA hT p hp 𝒴 𝒜 hM hCM Y Φ π h1 hh h2 𝒵 q hq hqf
+    hZp hZs (cMSectionsDisjoint'_of hE gA hfix gQuotientPointOrbits (cMStabNontrivial_of hO)
+      qbarPointsConjugate p hp 𝒴 𝒜 hM hCM Y Φ π h1 hh h2 𝒵 q hq hqf) ρ'₀ hρ'₀
+  exact ⟨𝒵, q, ρ', hqf, hρ', hCF⟩
 
 end MCRQuot

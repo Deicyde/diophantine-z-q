@@ -16,11 +16,11 @@ open MCRGlue
 
 theorem quotientP1Coordinate_of_fields (hAF : ProperCurveAF) (hQE : FiniteQuotientExists)
     (hTS : TameQuotientSmooth) (hP1 : SmoothModelOfP1)
-    (hE : EdixhovenFixedSmooth) (hCyc : TameInertiaCyclic) (hMT : _root_.AvSplit.MumfordTorsionAlgClosed)
+    (hE : EdixhovenFixedSmooth2) (hMT : _root_.AvSplit.MumfordTorsionAlgClosed)
     (hRC : _root_.LeafQM.AV.R1UnivRigid.MumfordRigidityCore)
-    (hD : _root_.ShimuraGlue.DeligneComponentsY3PrintedAb) (hO : CMStabObj) :
+    (hD : _root_.ShimuraGlue.DeligneComponentsY3PrintedAb) (hO : CMStabObjWeak) :
     MCRGlue.QuotientP1Coordinate :=
-  quotientP1Coordinate_of_printed hAF hQE hTS hP1 hE hCyc
+  quotientP1Coordinate_of_printed hAF hQE hTS hP1 hE
     (_root_.AvSplit.torsionStructure_of_mumford hMT)
     (TSHecke.heckeIrreducible_of_connected (_root_.ShimuraSplit.y3Connected_of_deligne
       (_root_.ShimuraGlue.deligneComponentsY3_of_printed

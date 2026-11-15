@@ -51,3 +51,21 @@ Target: `HDec.MCRGlue.QuotientP1Coordinate` (ZInQKernel/OneProof/H/TailW.lean L2
   [propext, Classical.choice, Quot.sound]. Uses the vendored FLT theorem
   `Smooth.isDomain_and_isIntegrallyClosed_stalk_of_isDiscreteValuationRing` (CloudW03) for domain stalks of F,
   `Scheme.range_fromSpecStalk` for the common generization, and `infinite_qbar_closure` (Jacobson generic fibre).
+
+## C1 without L5, L6 (FixedTest2.lean → FixedAll.lean → QuotientP1/FixedDisjoint.lean)
+- Leaf `EdixhovenFixedSmooth2` (Edixhoven Prop. 3.4 for G = ⟨σ, τ⟩ finite, p ∤ |G|, S = Spec ℤ_(p); X^G = fibre
+  product over X of the two equalizers): `Smooth (pullback.fst ι_σ ι_τ ≫ ι_σ ≫ 𝒴.hom)`.
+- `isClosed_ptOf_of_qbar` (point of a Q̄-point of a ℚ-scheme LFT is closed: kernel of R → Q̄ maximal, Jacobson),
+  `eq_of_specializes_generic`, `fixed_smooth_of_two` (τ = σ: pullback of a mono with itself),
+  `fixed_generization`, `disjoint_closure_of_two` (VERIFIED, standard axioms):
+  distinct Q̄-points fixed by σ, τ (finitely many fixed points each, ⟨σ,τ⟩ finite tame) have disjoint closures.
+  Proof: common point z ∈ X^G; X^G smooth ⇒ flat ⇒ generalizing ⇒ ζ ⤳ z over the generic point of Spec ℤ_(p);
+  in X^σ (domain stalks) the point of y generizes ζ, same for y'; specializations of the point of a Q̄-point
+  inside the generic fibre are trivial.
+- `tameFixedPointsDisjoint_of_edixhoven2 : EdixhovenFixedSmooth2 → TameFixedPointsDisjoint` (L5 as corollary).
+- `cMSectionsDisjoint'_of (hE) (gA) (A-fix) (C1a) (CMStabNontrivial) (C1d) : CMSectionsDisjoint'` (C1 without the
+  premises L5, L6; no StabFixesClosure, no involutions). `cMStabNontrivial_of : CMStabObjWeak → CMStabNontrivial`
+  (needs neither CurveBijIso nor ModelYIrreducible). All VERIFIED, standard axioms.
+- Final `quotientP1Coordinate_of_printed (L1 L2 L3 L4) (hE : EdixhovenFixedSmooth2) (hT) (hYI) (hO : CMStabObjWeak)`:
+  VERIFIED (module compiled), #discharges: DISCHARGES [OpenGlue7.quotientP1Coordinate], still assumes L1-L4,
+  EdixhovenFixedSmooth2, PkgI2.TorsionStructure, HeckeIrreducible, CMStabObjWeak; standard axioms.

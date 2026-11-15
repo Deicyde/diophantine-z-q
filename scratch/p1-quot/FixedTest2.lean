@@ -438,7 +438,65 @@ theorem cMSectionsDisjoint'_of (hE : EdixhovenFixedSmooth2) (hA : FibreAutTame)
     y y'' hιy hι''y hne
   exact Set.disjoint_left.mp hdisj hw hw''
 
+
+/-- **Glue (C1b-obj-weak): a CM object is fixed by a Hecke operation on classes that is not the identity**
+(mcr-quot's `CMStabObj` without the involution clause `T ∘ T = id`). -/
+def CMStabObjWeak : Prop :=
+  ∀ P : QML3 Qbar, (HasCM4 P.q ∨ HasCM3 P.q ∨ HasCM24 P.q) →
+    ∃ (α : LeafQM.O ≃+* LeafQM.O) (u : (LeafQM.O)ˣ),
+      M3.twist α (M3.rightMul u (M3.mk P)) = M3.mk P ∧
+      ∃ m : M3 Qbar, M3.twist α (M3.rightMul u m) ≠ m
+
+/-- `CMStabObj` implies `CMStabObjWeak`. -/
+theorem cMStabObjWeak_of (h : CMStabObj) : CMStabObjWeak := by
+  intro P hP
+  obtain ⟨α, u, h1, -, h3⟩ := h P hP
+  exact ⟨α, u, h1, h3⟩
+
+/-- **`CMStabNontrivial` from `CMStabObjWeak`** (mcr-quot's `cMStabInvolution_of` without the involution
+part, which was the only use of `CurveBijIso` and `ModelYIrreducible` there). -/
+theorem cMStabNontrivial_of (hO : CMStabObjWeak) : CMStabNontrivial := by
+  intro p _ hp 𝒴 𝒜 hM Y Φ π h1 hh h2 y P hP hCM
+  obtain ⟨α, u, hfixP, m0, hm0⟩ := hO P hCM
+  obtain ⟨htw, hru⟩ := hecke_mem_fibreAut hM
+  obtain ⟨ga, hgaG, hga⟩ := htw α
+  obtain ⟨gu, hguG, hgu⟩ := hru u
+  obtain ⟨g, hg, -⟩ := exists_genFib_to_Y hM h1
+  have huniq : ∀ (y : Spec (CommRingCat.of Qbar) ⟶ 𝒴.left) (P P' : QML3 Qbar),
+      IsFibreOf 𝒜 y P → IsFibreOf 𝒜 y P' → M3.mk P = M3.mk P' := by
+    intro y P P' hP hP'
+    obtain ⟨s, hs⟩ := genFib_pt 𝒴 y
+    rw [← hg Qbar s P ((congrArg (fun t => IsFibreOf 𝒜 t _) hs).mpr hP),
+      ← hg Qbar s P' ((congrArg (fun t => IsFibreOf 𝒜 t _) hs).mpr hP')]
+  set ι : Aut 𝒴.left := ga * gu with hιdef
+  have hιG : ι ∈ fibreAut 𝒴 𝒜 := Subgroup.mul_mem _ hgaG hguG
+  have hιhom : ι.asIso.hom = gu.asIso.hom ≫ ga.asIso.hom := rfl
+  have hact : ∀ (z : Spec (CommRingCat.of Qbar) ⟶ 𝒴.left) (Q Q' : QML3 Qbar), IsFibreOf 𝒜 z Q →
+      IsFibreOf 𝒜 (z ≫ ι.asIso.hom) Q' →
+        M3.mk Q' = M3.twist α (M3.rightMul u (M3.mk Q)) := by
+    intro z Q Q' hQ hQ'
+    obtain ⟨Q1, hQ1⟩ := hM.2.2.1 Qbar (z ≫ gu.asIso.hom)
+    have e1 := hgu z Q Q1 hQ hQ1
+    rw [hιhom, ← Category.assoc] at hQ'
+    have e2 := hga _ Q1 Q' hQ1 hQ'
+    rw [e2, e1]
+  refine ⟨ι, hιG, ?_, ?_⟩
+  · intro hι1
+    obtain ⟨Q, rfl⟩ : ∃ Q : QML3 Qbar, M3.mk Q = m0 := Quotient.exists_rep m0
+    obtain ⟨z, hz⟩ := hM.2.2.2.2.1 Q
+    obtain ⟨Q1, hQ1⟩ := hM.2.2.1 Qbar (z ≫ ι.asIso.hom)
+    have e1 := hact z Q Q1 hz hQ1
+    have hz1 : z ≫ ι.asIso.hom = z := by rw [hι1]; simp
+    rw [hz1] at hQ1
+    apply hm0
+    have e2 := huniq z Q1 Q hQ1 hz
+    rw [← e1]
+    exact e2
+  · obtain ⟨P1, hP1⟩ := hM.2.2.1 Qbar (y ≫ ι.asIso.hom)
+    have e := hact y P P1 hP hP1
+    rw [hfixP] at e
+    exact hM.2.2.2.1 _ y P1 P hP1 hP e
+
 end MCRQuot
 
-#print axioms HDec.MCRQuot.cMSectionsDisjoint'_of
-#print axioms HDec.MCRQuot.tameFixedPointsDisjoint_of_edixhoven2
+#print axioms HDec.MCRQuot.cMStabNontrivial_of
