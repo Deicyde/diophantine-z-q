@@ -19,3 +19,5 @@ Base: wip/cm-stab = 3782dac8e (leaf-fold18). Target: `CMStabObj` (scratch/mcr-qu
 
 ## Compile log
 - lake build ZInQKernel.Contrib.OneProof.QMLattice: OK (already built, 14 s).
+- CMStab.lean §1-§5 (arith mod 3, involutions αJ/αK, residues, isoMk, stab_core, lat_model, com_comm,
+  semilinear_unit, nonid_core, nonid_t): `lake env lean` exit 0, ~16 s, no sorry (VERIFIED, 03:28→~05:30 run).
