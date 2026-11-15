@@ -21,3 +21,8 @@ Target: `T5Glue.ShimuraMainCM` (hCM of `ZInQ.OneProof.frozenTarget`, RingClassLa
   (reflex norm = 𝔸_{K,f} ≅ 𝔸_f ⊗ K), adelic (𝔞 ⊗ ℤ̂ ↔ closure 𝔞̂, by compactness of ℤ̂ and Tau Ceti's strong
   approximation), cmLat_eq, isOfType_of_corr (CM endomorphisms from HomLatticeCorr), core, lin.
 - `mainTheoremCM_iff : QMRecPrinted.MainTheoremCM ↔ ∃ ε, MainTheoremCMSign ε := Iff.rfl` (verbatim copy checked).
+- VERIFIED: Contrib file `ZInQKernel/Contrib/OneProof/ShimuraMainCMPrinted.lean` (66 KB) builds (lake, 12997 jobs, on a
+  copy of r16-used's build tree); `#discharges`: DISCHARGES [hCM] by shimuraMainCM_of_printed and
+  shimuraMainCM_of_textbook, standard axioms (discharges_output.txt). Build logs trimmed to their tails.
+- autofold.py --dry-run: "not a field of the current bundles: ['hCM']" (hCM is a frozenTarget argument; manual fold).
+  FoldCheck.lean: frozenTarget with hCM replaced by the four leaves compiles, standard axioms.

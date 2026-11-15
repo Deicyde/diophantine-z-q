@@ -84,4 +84,49 @@ count drops by one.
 
 ## 5. Build, `#discharges`, autofold
 
-(filled in below after the runs)
+The checks ran on a copy of the r16-used build tree (main plus one unrelated Contrib file) in this worktree. All of
+the following are VERIFIED.
+
+* `lake build +ZInQKernel.OneProof.Main +ZInQKernel.OneProof.Discharges +ZInQKernel.Contrib.OneProof.ShimuraMainCMPrinted`:
+  "Build completed successfully (12997 jobs)" (`scratch/hcm-printed/build1.txt`). After `shimuraMainCM_of_textbook`
+  was added, rebuilding the file gave 12230 jobs, successful (`build2.txt`).
+* `#discharges` (`scratch/hcm-printed/Discharges.lean`, output `discharges_output.txt`):
+
+```
+DISCHARGES [hCM] by HcmPrinted.shimuraMainCM_of_printed
+  still assumes: [HcmPrinted.MainTheoremCMArith,
+ HcmPrinted.WeierstrassUniformization,
+ HcmPrinted.WeierstrassParam,
+ HcmPrinted.WeierstrassAbVar,
+ ZInQ.HomUnify.HomLatticeCorr]
+  axioms: [propext, Classical.choice, Quot.sound]
+DISCHARGES [hCM] by HcmPrinted.shimuraMainCM_of_textbook
+  still assumes: [HcmPrinted.MainTheoremCMArith,
+ HcmPrinted.WeierstrassUniformization,
+ HcmPrinted.WeierstrassParam,
+ HcmPrinted.WeierstrassAbVar,
+ BPAnalytic.Uniformization.UniformizationLeafAll,
+ ZInQ.HomLattice.GAGAMorphism]
+  axioms: [propext, Classical.choice, Quot.sound]
+#discharges: 63 open hypotheses, 2141 theorems checked, 9 discharge one
+```
+
+  The other seven discharges come from the merged qmrec-printed and shimura-split2 files.
+* **Autofold.** The spec is `scratch/hcm-printed/autofold.json`: field `hCM`, proof `shimuraMainCM_of_textbook` with the
+  four new leaves and `{t}.uniformizationLeafAll`, `{t}.gagaMorphism`; each leaf has its kind and flag. `autofold.py
+  --dry-run` refuses it: "not a field of the current bundles: ['hCM']". `hCM` is a direct argument of `frozenTarget`,
+  not a bundle field, and the script folds only bundle fields. The fold is therefore manual, as leaf-fold25 did when it
+  replaced `hS` by `hCM` and `hX`. `scratch/hcm-printed/FoldCheck.lean` proves `frozenTarget_hcmPrinted`, which is
+  `frozenTarget` with `hCM` replaced by the four leaves. It compiles with axioms `[propext, Classical.choice,
+  Quot.sound]` (`foldcheck_output.txt`).
+* Rows for `docs/research/locators.md` and `kinds.tsv`, for the integrator; this task does not edit shared notes. They
+  are the four leaf entries of `autofold.json`: kind `published`, with the flags of section 3.
+
+## 6. What remains
+
+* A reading of Shimura 1971 §5.2 for the normalization of `[s, K]`. The same reading clears `ShimuraMainCM`'s own
+  sign claim.
+* A reviewer's ruling on `WeierstrassAbVar` as printed form. It is the only new leaf stated over the project's
+  abelian-variety layer and not over Mathlib's elliptic functions alone.
+* Order of integration: this branch contains qmrec-printed (which contains shimura-split2), and the Contrib file
+  imports `QMRecPrinted`, so those two files must reach main first or together.
