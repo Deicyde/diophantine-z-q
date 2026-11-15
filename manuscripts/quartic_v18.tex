@@ -3196,7 +3196,7 @@ The original \(H_{3}\) applies the stable subvariety/quotient inequality in Rém
 
 There is an existing alternative argument in the current public Version 15, \nolinkurl{v15:height:lem:surface}, especially lines 30617--30636. \(I\) read that argument and its recorded source-route disposition. It consumes the construction in the published proof of Gaudron--Rémond, \emph{Nouveaux théorèmes d'isogénie}, Mémoires SMF 176 (2023), Lemma 16.2(1), printed pp. 97--98. \(I\) independently downloaded the final publisher PDF, SHA256 \nolinkurl{b1e2e32bec626cf6d27fb7d6d8702b5c707e0c3dc002d979088e62d8cda514a4}, and read the text and image of printed \(p\). 98. The source constructs, over its given number field, an isogenous abelian variety of no larger original stable Faltings height which is a product of simple abelian varieties over that field. Its factors are explicitly allowed to repeat.
 
-This published proof uses Rémond 2022, Corollary 1.3, and Rémond 2017, Theorem 1.6 \cite{v15-height-Remond,remond2017-maximal}. They remain indirect dependencies. The present route does not assert that the inaccessible final 2022 text was read, and does not re-prove the published product supplier. It uses that construction at its exact stated scope. Public Version 15's accepted single-surface application is historical support for the route, not approval of the new multiplicity application below.
+This published proof uses Rémond 2022, Corollary 1.3, and Rémond 2017, Theorem 1.6. They remain indirect dependencies. The present route does not assert that the inaccessible final 2022 text was read, and does not re-prove the published product supplier. It uses that construction at its exact stated scope. Public Version 15's accepted single-surface application is historical support for the route, not approval of the new multiplicity application below.
 
 \subsection{Fixed-field product and multiplicity}
 
@@ -5417,9 +5417,8 @@ For $m\ge2$, put $L=f_{m+2}f_m^3$, $R=f_{m-1}f_{m+1}^3$, and
 $D_0=16(x^3+Ax)^2$. Then $f_{2m+1}=D_0L-R$ for even $m$ and
 $L-D_0R$ for odd $m$. Negative indices satisfy $\psi_{-n}=-\psi_n$.
 This is a terminating recursion. These are the short-Weierstrass
-normalizations of \cite[Exercise III.3.7]{silverman}, with the numerator
-correction in \cite[entry for pp.~105--106, Exercise~3.7]{silverman-aec-errata2015}.
-In this convention,
+normalizations of \cite[\S\S5.5--5.6, Lemmas 5.20 and 5.24, Theorem 5.21]{sutherland}.
+In its Jacobian-coordinate convention,
 $x([n]P)=\phi_n(P)/\psi_n(P)^2$ and
 $y([n]P)=\omega_n(P)/\psi_n(P)^3$.
 The numerator formula has a minus sign:
@@ -5763,8 +5762,7 @@ then
 Since $k\geq2$, comparison of the larger entries and then the smaller
 entries gives $m=0$ and $k=2$.
 To prove that the twist is finite, put $\alpha=\det(r_5)/\epsilon_5$.
-The polarization pairing on $V_5(A)$
-\cite[\S16]{milne1986-abelian} gives
+The polarization pairing on $V_5(A)$ gives
 $\det V_5(A)=\epsilon_5^2$, so $\alpha^2=1$ on $G_F$.
 Its image on all of $G_\Q$ is consequently finite. The determinant
 formula just proved now gives $\delta^2=\alpha/\varepsilon_f$.
@@ -5789,19 +5787,27 @@ $a\mapsto aD^2\pmod r$. The weighted sum therefore transforms
 with character $\varepsilon_f\chi^2$ and remains cuspidal.
 The Hecke coefficient formula gives
 $T_\ell h=\chi(\ell)a_\ell(f)h$ for $\ell\nmid rM$.
-\paragraph{Primitive-form extraction.}
-For the $214$ application, use the Deligne--Serre extraction in Part~I, M3
-(Section~\ref{q214:modularity}), based on
-\cite[\S\S1.6--1.9, pp.~509--510]{deligne-serre1974}.
+\paragraph{Operative primitive-form supplier for this receiving revision.}
+For the current $214$ application, the existence assertion in the next
+historical Li attribution is supplied instead by the explicit
+Deligne--Serre extraction in Part~I, M3
+(Section~\ref{q214:modularity}), using \cite[\S\S1.6--1.9, pp.~509--510]{deligne-serre1974}.
 The nonzero cusp eigenform $h$ has a nonzero primitive constituent;
 good-prime Hecke operators commute with its oldform degeneracy maps,
 and uniqueness of that decomposition passes the same eigenvalues to it.
 Normalize its first coefficient to $1$. Here the twisting character is
-primitive of conductor $r$ as chosen above; in the Part~I Milne argument,
+primitive of conductor $r$ as chosen above; in the Part~I Milne route,
 take $r=\operatorname{cond}(\eta)$, the least modulus, with the same
-Galois character and controlled field. Its Tate representation is
-$U_f\otimes\delta$ by Chebotarev and semisimplicity, hence is the original
-$r_5$. Li's uniqueness and Fricke statements are used separately.
+Galois character and controlled field. The application is bound explicitly
+in \nolinkurl{research/quartic214-protocol-d-progress/CURRENT_NATIVE_PRIMITIVE_APPLICATION.json}.
+Li's uniqueness and Fricke uses remain separate. The following original
+wording is retained as historical source evidence, qualified by this
+operative supplier; no existence claim rests on Li's Theorem~5 alone.
+Li's old/new decomposition
+\cite[p.~294 and Theorem 5, p.~298]{li-newforms}
+supplies a primitive weight-two newform with these good-prime
+eigenvalues. Its Tate representation is $U_f\otimes\delta$ by
+Chebotarev and semisimplicity, hence is the original $r_5$.
 No conductor bound is inferred from this qualitative twisting step.
 \end{proof}
 
@@ -5815,15 +5821,7 @@ Hu--Tan ring calculations are distinct from the global Hu--Tan
 support argument. The separate GL2-type and Serre weight-transfer
 reconstructions are not inputs to the present lemma.
 
-Allen--Newton--Thorne \cite[\S3.1, Proposition~3.1]{allen-newton-thorne2020}
-correct the generic-reducedness assertion for the trivial-character local
-ring in Thorne's argument: the corrected assertion concerns its nilreduction.
-The project supplement \cite{pan-local-rings-project} separately supplies the
-integral flatness step needed for the distinct-character local ring and
-records its source hypotheses. The other local and auxiliary applications
-are given in \cite{pan-p5-sw99-project,pan-utility-project}; these supplements
-do not replace the published modularity statement used here.
-The source-to-object and dependency map is given in
+The exact source-to-object and historical-dependency map is given in
 \cite{direct-p5-modularity-project}.
 
 \begin{theorem}[Six-contact estimate]\label{thm:height}
@@ -6606,8 +6604,8 @@ ${}^\sigma A$ at $v$. The actual isogeny $\mu_\sigma$ extends over
  the local abelian schemes. Composing its reduction with this Frobenius
  gives an endomorphism $u_p$ of $\overline A_v$.
 Its rational Tate trace $t_p$ is independent of the coefficient prime
-different from $p$ \cite[Proposition~12.9]{milne1986-abelian}.
-Functorial specialization and the two-copy decomposition give
+ different from $p$. Functorial specialization and the two-copy
+ decomposition give
 \[
  \operatorname{tr}r_\ell(\sigma)
  =\iota_\ell\bigl(a_\sigma\beta(\sigma)^{-1}t_p/2\bigr).
@@ -6655,13 +6653,10 @@ groups above $U_0=4(DG_0)^2$ act trivially on that Tate module.
 On these groups $a_\sigma\mu_\sigma=1$ because they lie in $G_L$.
 For odd $p$, the character $\beta|_{G_F}$ is trivial on wild
 inertia: its square is the tame character $\chi|_{G_F}$, and a
-pro-$p$ group has no quotient of order two. At $p=2$, norm functoriality
-of local reciprocity \cite[\S2.4, p.~141]{serrelocal} identifies the
-restriction of $\chi$ to $F^\times$ with its composition with
-$N_{F/\mathbb Q_2}$. The norm carries units to $\mathbb Z_2^\times$,
-and the $2$-primary local factor of $\chi$, of conductor at most four,
-is quadratic there. Since $\beta^2=\chi|_{G_F}$, this gives $\beta^4=1$
-on the units of $F$. If $e=v_F(2)\le D$, the logarithm for $\widehat{\mathbf G}_m$ identifies
+pro-$p$ group has no quotient of order two. At $p=2$, local
+reciprocity and the norm map give $\beta^4=1$ on the units of
+$F$, since the $2$-primary local factor of $\chi$ has conductor
+at most four. If $e=v_F(2)\le D$, the logarithm for $\widehat{\mathbf G}_m$ identifies
 $U_F^{e+1}$ with $\mathfrak m_F^{e+1}$ since $e+1>e$
 \cite[IV.6.4, p.~132]{silverman}. Multiplication by four gives
 $(U_F^{e+1})^4=U_F^{3e+1}$. Thus the relative upper break of
@@ -8900,8 +8895,7 @@ and different from $\mathbf Q(i)$ and $\mathbf Q(\sqrt{-3})$.
 The conductor $f$ below is prime to $2ND_K$; it may contain all the
 active primes in a finite binary family and the moving prime.
 Write $H_f$ for the ring-class field of the order
-$\mathcal O_f=\mathbf Z+f\mathcal O_K$; we use the class-field
-correspondence in \cite[\S\S7,9]{cox1989}.
+$\mathcal O_f=\mathbf Z+f\mathcal O_K$.
 
 Let $I$ be any finite set of good inert primes outside $6fND_K$,
 and put $n_I=\prod_{\ell\in I}\ell$ and $M_I=H_{fn_I}$.
@@ -8948,8 +8942,7 @@ For an actual complex conjugation $\tau$ set
 \]
 The element $g^2$ fixes every quadratic field. Its image in the
 abelian group $\operatorname{Gal}(H_d/K)$ is inverted by $\tau$,
-for every $d$ and every allowed $K$
-\cite[Lemma~9.3]{cox1989}. Thus $z$ fixes every such
+for every $d$ and every allowed $K$. Thus $z$ fixes every such
 $H_d$, while $\rho_T(z)=u^4I$. If $P\in E(H_d)[2^\infty]$,
 then $(u^4-1)P=0$, so
 \[
@@ -9002,10 +8995,7 @@ Manin--Drinfeld \cite[p.~59, Theorem]{elkik}.
 Fix $C_\pi\geq1$ annihilating $\varphi(\mathcal C_N)$.
 This single integer depends only on $N,\pi$.
 For an Atkin--Lehner involution $W$ acting on $f$ by $w$, the exact
-formula is $\pi(Wx)=[w]\pi(x)+\pi(W\infty)$: the two maps have the
-same differential, and their difference is evaluated at $\infty$.
-The operator $W$ permutes the cusps
-\cite[p.~138, Lemma~8]{atkin-lehner1970}, so the final constant
+formula is $\pi(Wx)=[w]\pi(x)+\pi(W\infty)$; the final constant
 lies in $\varphi(\mathcal C_N)$ and vanishes after multiplication
 by $C_\pi$.
 
@@ -9107,9 +9097,6 @@ $\operatorname{Pic}(\mathcal O_{fn_I})\to
       {(\mathbf Z/\ell\mathbf Z)^\times}
        \simeq\prod_{\ell\in I}C_{\ell+1}.               \tag{H5}
 \]
-This relative version follows by comparing the two idelic quotients.
-For the order-to-maximal-order sequence, see
-\cite[Proposition~7.22 and the proof of Theorem~7.24]{cox1989}.
 There is no additional quotient by units: the only global units
 are $\pm1$ and already belong to the denominator at every factor.
 This proves (H5) without choosing a splitting of the full class
@@ -9171,13 +9158,8 @@ nonarchimedean local fields and $B/F$ is an elliptic curve, then
  c_B H^1(\operatorname{Gal}(F'/F),B(F'))=0,             \tag{H10}
 \]
 where $c_B=\#\Phi_B(\overline{k}_F)$ is the geometric component
-group order. Choose a minimal integral Weierstrass equation over $F$;
-it remains minimal over the unramified extension $F'$. The groups $B_0$
-and $B_1$ are its smooth-reduction and formal subgroups, with reduction
-sequence and formal-group identification as in
-\cite[VII.2.1--VII.2.2]{silverman}. To prove the first assertion, reduce a
-cocycle to the connected smooth special fiber. Lang's theorem
-\cite[Theorem~1 and its corollary]{lang1956} makes its
+group order. To prove the first assertion, reduce a cocycle to
+the connected smooth special fiber. Lang's theorem \cite[Theorem~1 and its corollary]{lang1956} makes its
 $H^1$ over the finite residue field zero; inflation--restriction
 then makes its $H^1$ for the finite residue extension zero.
 Lift the resulting coboundary through the smooth reduction map.
@@ -9237,8 +9219,7 @@ $I\cup\{\ell\}$. Apply the other derivatives first, writing
 \]
 The $K$-prime $(\ell)$ splits completely in $H_{fn_I}$:
 it is prime to the conductor and is a rational principal ideal
-in the ring-class Artin map \cite[Proposition~7.22 and \S9]{cox1989}.
-Thus its residue field is
+in the ring-class Artin map. Thus its residue field is
 $\mathbf F_{\ell^2}$, and
 \[
  F^2\overline X=\overline X,\qquad
@@ -9693,16 +9674,14 @@ Consequently $2^n$ divides $\sum_ab_am_j^{(a)}$ at each such prime,
 and hence divides $\sum_{a,j}b_am_j^{(a)}w_j$. The dyadic primes
 have weight zero. This tests all multiplicative relations, including
 those involving units; it does not assume independence of the
-radicands. The perfect Kummer pairing
-\cite[pp.~11--13, Lemma~1.20 and Theorem~1.22]{guillot2018}
-therefore gives the specified automorphism of the finite abelian extension
+radicands. Kummer theory therefore gives the specified automorphism
+of the finite abelian extension
 \[
  L_\infty=F_\infty(\alpha_a^{1/2^n}:a)/F_\infty.
 \]
 
 Here is why these are precisely the extension conditions for $\xi$.
-For a split $r$ avoiding the chosen primes, the order class-group sequence
-\cite[Proposition~7.22 and the proof of Theorem~7.24]{cox1989} is
+For a split $r$ avoiding the chosen primes, the ring-class sequence is
 \[
  1\longrightarrow\mathbf F_r^\times
  \longrightarrow\operatorname{Pic}(\Z+r\mathcal O_K)
@@ -12275,7 +12254,7 @@ assignment. Only the final parent root is equated to the identity.
 The three arguments of every power call are polynomials with nonnegative
 integer coefficients in the source natural variables, hence are
 natural-valued on every natural assignment.
-The accompanying \href{https://github.com/elliotglazer/diophantine-z-q/blob/main/scripts/check_precision_call_arguments.py}{finite argument check}
+The accompanying \href{https://github.com/elliotglazer/diophantine-z-q/blob/6292f2e205ea9a3d098160392b09adc2b036ab4a/scripts/check_precision_call_arguments.py}{finite argument check}
 certifies this assertion on the saved circuit. Its induction starts with
 nonnegative constants and the declared natural variables, and closes under
 addition and multiplication; no power-call output is assumed nonnegative.
@@ -13490,8 +13469,8 @@ torsion factor has precisely this obstruction, while the valuation
 and principal-unit factors admit character square roots.
 Thus the boundary of $\chi$ equals $[\varepsilon]$ at every finite
 place. Brauer reciprocity and the global-to-local injection give
-equality globally \cite[I.1.6(b) and the proof of II.2.1, p.~164]{milne}.
-A pointwise square root, corrected by a sign cochain, gives
+equality globally. A pointwise square root, corrected by a sign
+cochain, gives
 \[
  b:G_{\mathbb Q}\longrightarrow\mu_{2m},\qquad
  b^2=\chi,\qquad\delta b=\varepsilon.
@@ -18238,7 +18217,7 @@ identifiers; parity, construction and uniformity supplements appear
 separately. The released construction files and their exact identities
 are recorded in \nolinkurl{construction/SOURCE_MANIFEST.json}.
 Current proof-source selection and versioned supporting arguments are
-indexed in \href{https://github.com/elliotglazer/diophantine-z-q/blob/review-archive-v17/research/version14/SUPPORTING-NOTES.md}{the supporting-note index}.
+indexed in \nolinkurl{research/version14/SUPPORTING-NOTES.md}.
 \begin{longtable}{p{.07\textwidth}p{.58\textwidth}p{.25\textwidth}}
 \toprule ID & Source basename & Use\\\midrule\endhead
 S01 & \texttt{ordinary-integer-polynomial.js.txt} & Outer construction\\
@@ -18544,7 +18523,7 @@ estimate.\\\bottomrule
 The released specification, natural precision polynomial and construction
 files are identified in \nolinkurl{construction/SOURCE_MANIFEST.json}.
 For the selected supporting proof arguments, see
-\href{https://github.com/elliotglazer/diophantine-z-q/blob/review-archive-v17/research/version14/SUPPORTING-NOTES.md}{the supporting-note index}. A source identity is not a proof verdict.
+\nolinkurl{research/version14/SUPPORTING-NOTES.md}. A source identity is not a proof verdict.
 
 % End 06-literal-construction.tex
 
@@ -18890,8 +18869,7 @@ period choice, exactly
 \]
 The signed integer $h$ is odd, so $h^{-1}$ has valuation zero.
 This computation also explains the usual Gauss-basis description:
-for the primitive character, $\tau(\chi)^2=\Delta_h$
-\cite[p.~300, Theorem~9.17]{montgomery-vaughan2006}, and
+for the primitive character, $\tau(\chi)^2=\Delta_h$ and
 $\tau(\chi)e_\chi$ is invariant; replacing it by $\sqrt h e_\chi$
 costs the fixed dyadic factor $\sqrt{\Delta_h/h}$. It does not cost
 $\varphi(D)$ or any power of the number of prime divisors of $h$.
@@ -18923,8 +18901,7 @@ Consequently
 \]
 with the same fixed period comparison. This proves the signed
 factor in (K14), not only its valuation. For a primitive quadratic
-character, $\tau(\chi)^2=\Delta_h$
-\cite[p.~300, Theorem~9.17]{montgomery-vaughan2006}, and
+character, $\tau(\chi)^2=\Delta_h$ and
 $\tau(\chi)/\sqrt h$ equals a fixed choice of
 $\sqrt{\Delta_h/h}$. Changing from its Gauss basis to the displayed
 invariant basis multiplies the coordinate by this ratio, which
@@ -19134,29 +19111,13 @@ would in general be false.
 Choose a fixed integral $F_2$ divisible over $A$ by the
 characteristic elements of $\mathbf H^2_{\rm loc}(T\chi)$
 for the finitely many allowed local types at two and finite
-sign components. To check its central value, regard each rational
-sign component as local Iwasawa cohomology for the real cyclotomic
-$\mathbf Z_2$-extension, with the fixed quadratic sign character
-included in $\chi$, and write $M_\chi$ for its degree-two module.
-It is finitely generated and torsion over $A$ after inverting two,
-by \cite[(12.2.3), p.~220]{kato}.
-The lattice $T\chi$ is a continuous finite free $\mathbf Z_2$-module,
-so \cite[Corollary~8.4.8.2(i), p.~215]{nekovar}, with
-$G=G_{\mathbf Q_2}$ and $\Gamma\simeq\mathbf Z_2$, gives
-\[
- (M_\chi/tM_\chi)[1/2]\hookrightarrow
- H^2(\mathbf Q_2,V\chi),\qquad t=\gamma-1.
-\]
-The inverse deck convention gives the same augmentation ideal.
-The Weil pairing and $\chi^2=1$ identify
-$(V\chi)^*(1)$ with $V\chi$. By local Tate duality the target
-is dual to $H^0(\mathbf Q_2,V\chi)$, which vanishes: after a
-finite extension trivializing $\chi$, it injects into the rational
-Tate-module invariants of an elliptic curve over a local field,
-whose torsion group is finite. Nakayama's lemma over $A_{(t)}$
-therefore gives $M_\chi[1/2]_{(t)}=0$. Its characteristic element
-has no factor $t$. Taking the finite product and clearing fixed
-scalar denominators consequently gives $F_2(0)\ne0$.
+sign components. Its central value can be chosen nonzero:
+derived local control, and the absence of local Iwasawa $H^3$,
+identify its rational central $H^2$ with $H^2(\mathbf Q_2,V\chi)=0$.
+The last equality follows from local duality and finiteness of
+local elliptic torsion. Hence the characteristic elements have
+no factor $t$. Kato (12.2.3), p.~220, gives the required finiteness
+and torsion of this local Iwasawa module.
 
 At the finitely many old bad primes, choose stable lattices in
 the $W_q$ and multiply all the determinants $D_q$ for the finitely
@@ -19205,13 +19166,12 @@ extra fixed constant for each active prime.
 
 For completeness, nonvanishing at the center of the fixed
 correction factors follows before multiplying over local types.
-At two, the specialization injection and local-duality argument
-above give $(M_\chi/tM_\chi)[1/2]=0$ for every fixed local type
-and finite sign twist. Since $M_\chi[1/2]$ is finitely generated
-over $A$, Nakayama's lemma at $(t)$ gives
-$M_\chi[1/2]_{(t)}=0$. Thus its characteristic element has no
-factor $t$; no assertion about the next Iwasawa cohomology group
-is needed for this conclusion.
+Local derived control and $H^3_{\rm Iw}=0$ identify
+$\mathbf H^2_{\rm loc}/t\mathbf H^2_{\rm loc}$ rationally with
+$H^2(\mathbf Q_2,V\chi)$. Local duality identifies the latter
+with the dual of $H^0(\mathbf Q_2,V\chi)$, which is zero because
+local elliptic torsion is finite. Nakayama at $(t)$ therefore
+excludes a factor $t$ from its characteristic element.
 At an old odd prime the cokernel of
 $1-\operatorname{Fr}_{W_q}$ is $H^2(\mathbf Q_q,V\chi)=0$,
 by the same duality. Its determinant at $t=0$ is nonzero.
@@ -19701,11 +19661,9 @@ with the preceding one. The nonvanishing and the local identification
 are the content of Waldspurger's global theta theorem and its
 Fourier-functional calculation
 \cite[Theorem~1 and Proposition~1]{waldspurgerICM}
-and \cite[Proposition~17 and its proof, pp.~461--465;
-Proposition~18 and its proof, pp.~466--476]{waldspurger}.
-The positive real frequency selects the holomorphic member of lowest
-weight $3/2$ \cite[Lemma~41 and its proof, p.~476]{waldspurger}.
-The lift is in the unary-orthogonal cuspidal spectrum.
+and \cite[Proposition~18 and its proof, pp.~466--467]{waldspurger}. The positive real frequency selects the
+holomorphic member of lowest weight $3/2$. The lift is in the
+unary-orthogonal cuspidal spectrum.
 
 Here is a local construction of a scalar type that retains the
 reference functional. At $p\in S_0$, write $\ell=\ell_{D_0}$ and
@@ -20470,13 +20428,6 @@ For the last equality, $m\equiv3\pmod4$ and the first product is
 $w(E^{h_*})=+1$.  More explicitly,
 $w(E)=-\prod w_{p^e}$ and, since $(h_*,N)=1$,
 $w(E^{h_*})=w(E)\chi_{h_*}(-N)$.
-The sign convention follows from the product formula for the
-Atkin--Lehner operators and their newform eigenvalues
-\cite[p.~139, Lemma~9; p.~147, Theorem~3(iii)]{atkin-lehner1970}:
-at weight two the Mellin transform contributes the factor $i^2=-1$.
-Since $h_*$ is odd fundamental, the twist formula follows by
-successive Legendre twists from
-\cite[p.~156, Lemma~33(iii); p.~157, the converse in Theorem~6]{atkin-lehner1970}.
 The latter twist formula also follows by multiplying the local
 unramified-twist factors $\chi_{h_*}(p)^{v_pN}$ at $p\mid N$
 and the factors $(-1/p)$ at the newly ramified good primes.
@@ -22496,9 +22447,8 @@ column at terminal $a$, the degree-zero and degree-one terms are
                     \partial_{ab}.
 \]
 All other terms have difference degree at least two.  The displayed
-coefficients are the rooted-forest minors, by the all-minors matrix-tree
-identity \cite{chaiken1982}, or Cauchy--Binet on the incidence matrix.
-They are polynomial identities, so apply to
+coefficients are the rooted-forest minors, by Cauchy--Binet on the
+incidence matrix.  They are polynomial identities, so apply to
 singular $Q$ as well.  Distinct networks have no edges between their
 auxiliary vertices.  Their operators multiply: expanding both
 forests gives their union, and unions containing a terminal cycle
@@ -35734,11 +35684,11 @@ Complex uniformization and its CM refinement (Silverman VI.4.1, VI.4.1.1, VI.5.1
 \[\mathbf C/\Lambda\longrightarrow\mathbf C/\mathfrak a^{-1}\Lambda;\]
 its kernel is $A[\mathfrak a]$ and its degree is $\mathrm N\mathfrak a$. For $\mathfrak a$ prime to $N$, it transports the specified level subgroup. Every ideal class has a representative prime to any prescribed finite set: choose an integral ideal $I$ in the inverse class and, by the ideal Chinese remainder theorem, an $x\in I$ with $v_{\mathfrak p}(x)=v_{\mathfrak p}(I)$ at that set. Then $(x)I^{-1}$ is integral and prime to the set.
 
-The order class polynomial is monic integral (Fowler, \S2.1, pp.~612--613; Silverman C.11.2(a)), so all these $j$-invariants are algebraic integers. Silverman C.11.2(c),(d) gives the Hilbert class field $H=F(j(\Lambda))$. The Frobenius formula in C.11.4, with Frobenius in Silverman's printed convention, at primes where the chosen models have good reduction, is
+The order class polynomial is monic integral (Fowler, \S2.1, pp.~612--613; Silverman C.11.2(a)), so all these $j$-invariants are algebraic integers. Silverman C.11.2(c),(d) gives the Hilbert class field $H=F(j(\Lambda))$. The Frobenius formula in C.11.4, at primes where the chosen models have good reduction, is
 \[j(\Lambda)^{\operatorname{Frob}_{\mathfrak p}}=j(\Lambda\mathfrak p^{-1}).\]
 To use it for all ideal classes, choose $H$-models for each of the finitely many $j$-values (Silverman III.1.4(c)) and exclude the ideal primes below every bad prime of these models, together with the primes dividing $Nq$. Choose class representatives prime to this enlarged set and factor them into prime ideals. Iterating the formula gives the class action. This does not assert good reduction at $q$ yet. An equality of $j$-invariants lifts to an isomorphism of the curves (Silverman III.1.4(b)); because the Galois action fixes $F$ and hence the CM type, faithfulness of the tangent character in complex uniformization makes it an $\mathcal O$-linear isomorphism. The selected level subgroup is then preserved. This asserts invariance of labelled isomorphism classes, not that arbitrary choices of isomorphisms are defined over $H$.
 
-In the convention of Cai--Shu--Tian, the point indexed by $\mathfrak b$ is the isogeny $\mathbf C/\mathfrak b\to\mathbf C/(\mathfrak b\mathfrak n^{-1})$. Thus it is $[\mathfrak b^{-1}]$ times the reference point in the preceding convention. Their Artin compatibility (pp.~2524, 2527 and 2531) agrees after this one global inversion of class indices. Quadratic characters are unchanged by that inversion. All reductions below take place at one chosen place. The forward CM reduction criterion of Gross--Zagier, pp.~198--199 \cite{gross-zagier-singular-moduli-1985}, gives supersingularity when $(\operatorname{disc}(F)/q)=-1$, including $q=3$; no converse lifting theorem is needed.
+In the convention of Cai--Shu--Tian, the point indexed by $\mathfrak b$ is the isogeny $\mathbf C/\mathfrak b\to\mathbf C/(\mathfrak b\mathfrak n^{-1})$. Thus it is $[\mathfrak b^{-1}]$ times the reference point in the preceding convention. Their Artin compatibility (pp.~2524, 2527 and 2531) agrees after this one global inversion of class indices. Quadratic characters are unchanged by that inversion. All reductions below take place at one chosen place. The forward CM reduction criterion of Gross--Zagier, pp.~198--199 \cite{gz}, gives supersingularity when $(\operatorname{disc}(F)/q)=-1$, including $q=3$; no converse lifting theorem is needed.
 
 \subsection{A simultaneous good model}
 Consider the finite diagram of curves, order actions, selected level groups and ideal isogenies needed in the class sum, with isogeny degrees prime to $qN$. The integral $j$-invariants and Silverman VII.5.5 give potentially good reduction for each curve. A common finite extension gives all good models over one complete DVR $R$ of residue characteristic $q$, and defines the finitely many maps and order generators. These elliptic schemes are Neron models (BLR \S1.4, Proposition 2, p.~19). The Neron mapping property, BLR \S1.2, Definition 1 and Proposition 8, pp.~12,15, extends every generic morphism. Uniqueness extends all composition and order-action identities.
@@ -36260,8 +36210,7 @@ when $\dim E>0$, and $\hF(E)=0$ when $\dim E=0$;
 see \cite[\S2.3 and Corollary~8.4]{gr-periods2014}.
 The direct supplier for the product construction is the published
 2023 proof just cited; that proof in turn uses R\'emond's 2022
-height results \cite{v15-height-Remond} and his 2017 Theorem~1.6
-\cite{remond2017-maximal}.
+height results \cite{v15-height-Remond} and his 2017 results.
 This use does not remove those underlying dependencies.
 
 Apply \cite[Theorem~1.9(1)]{v15-height-GaudronRemond} with source $B$
@@ -44884,7 +44833,7 @@ scheme-descent arguments with their separately stated inputs.
 \bibitem{Deligne1971} P. Deligne, \emph{Travaux de Shimura},
 Seminaire Bourbaki, expose 389 (1970--1971),
 Proposition 1.15, Theorems 4.7 and 4.21,
-\S\S4.8--4.17, Corollaries 5.5 and 5.7, and Example 5.8.
+\S\S4.9--4.17, Corollaries 5.5 and 5.7, and Example 5.8.
 \bibitem{stacks-h5-fine} The Stacks Project,
 Tags 03YR, 0ADD, 0A18, 0E83, 0D3A, 0D32 and 0B45,
 official statements retrieved November 8, 2026.
@@ -44899,30 +44848,6 @@ curves}, Duke Mathematical Journal \textbf{87} (1997), 591--612,
 \bibitem{linyang} Y.-H. Lin and Y. Yang, \emph{Quaternionic loci in
 Siegel's modular threefold}, Mathematische Zeitschrift \textbf{295} (2020),
 775--819. \url{https://doi.org/10.1007/s00209-019-02372-z}.
-\bibitem{chaiken1982} S. Chaiken,
-\emph{A combinatorial proof of the all minors matrix tree theorem},
-SIAM Journal on Algebraic and Discrete Methods \textbf{3} (1982), no.~3,
-319--329. \url{https://doi.org/10.1137/0603033}.
-
-\bibitem{allen-newton-thorne2020} P. B. Allen, J. Newton and J. A. Thorne,
-\emph{Automorphy lifting for residually reducible $l$-adic Galois
-representations, II}, Compositio Mathematica \textbf{156} (2020), 2399--2422.
-\url{https://doi.org/10.1112/S0010437X20007484}.
-
-\bibitem{cox1989} D. A. Cox,
-\emph{Primes of the form $x^2+ny^2$: Fermat, class field theory, and
-complex multiplication}, John Wiley \& Sons, New York, 1989.
-
-\bibitem{remond2017-maximal} G. R\'emond,
-\emph{Vari\'et\'es ab\'eliennes et ordres maximaux},
-Revista Matem\'atica Iberoamericana \textbf{33} (2017), no.~4, 1173--1195.
-\url{https://doi.org/10.4171/rmi/967}.
-
-\bibitem{silverman-aec-errata2015} J. H. Silverman,
-\emph{Errata and corrections to The Arithmetic of Elliptic Curves},
-2015 list, entry for pp.~105--106, Exercise~3.7.
-\url{https://www.math.brown.edu/johsilve/AEC/AECErrata2015.pdf}.
-
 \bibitem{berger2002} L. Berger, \emph{Repr\'esentations $p$-adiques et
 \'equations diff\'erentielles}, Inventiones Mathematicae 148 (2002),
 219--284, $p$-adic monodromy theorem.
@@ -45536,32 +45461,6 @@ the accompanying application record.
 Lemma 37.44.1, and
 \href{https://stacks.math.columbia.edu/tag/039E}{Tag 039E},
 Lemma 37.16.4, accessed November 14, 2026.
-\bibitem{atkin-lehner1970}
-A. O. L. Atkin and J. Lehner,
-\emph{Hecke operators on $\Gamma_0(m)$},
-Mathematische Annalen \textbf{185} (1970), 134--160.
-\url{https://doi.org/10.1007/BF01359701}.
-
-\bibitem{montgomery-vaughan2006}
-H. L. Montgomery and R. C. Vaughan,
-\emph{Multiplicative Number Theory I: Classical Theory},
-Cambridge Studies in Advanced Mathematics \textbf{97},
-Cambridge University Press, 2006.
-\url{https://doi.org/10.1017/CBO9780511618314}.
-
-\bibitem{guillot2018}
-P. Guillot,
-\emph{A Gentle Course in Local Class Field Theory:
-Local Number Fields, Brauer Groups, Galois Cohomology},
-Cambridge University Press, 2018.
-\url{https://doi.org/10.1017/9781108377751}.
-
-\bibitem{gross-zagier-singular-moduli-1985}
-B. H. Gross and D. B. Zagier,
-\emph{On singular moduli}, Journal f\"ur die reine und angewandte Mathematik
-\textbf{355} (1985), 191--220.
-\url{https://doi.org/10.1515/crll.1985.355.191}.
-
 \end{thebibliography}
 
 % End references.tex
