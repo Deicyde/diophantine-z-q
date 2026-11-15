@@ -79,3 +79,6 @@
   chi10Th = 0 (< 5e-69), chi12Th = Δ⊗Δ (< 1e-29). With theta-glue's modularity of the theta expressions and the
   injectivity of the diagonal restriction on M_4, M_6, M_12 this pins psi4Th, psi6Th (sign pattern) and chi12Th;
   chi10Th's constant is pinned only by theta-fold's Fourier check (script not in the repository; not re-run).
+
+## Final (2026-11-15)
+- Report docs/research/leaf-audit.md, fleet note .fleet/leaf-audit.md. Deliverables committed.
