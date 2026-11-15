@@ -55,3 +55,4 @@
 - ProbeC.lean COMPILED: R1R2fpRepW, R1R2fp_of_repW (proof unchanged), geomConnX6W_of_gr. Rethreading scope: 41 live constants
   mention R1R2fpRep in their type (6 bundle structures r1r2/r1b fields: OpenResearchLeaves2/5/7/8/9, ResearchLeaves3; ~25
   theorems); CanonicalCoarseX6 8, GeomConnX6 4, CoarseX6OfFine 3; GeomConnOfAlgClosure 18 (bundle fields + 6 theorems).
+- ProbeA extended: SemiAbelianBaseChangeAlgClosedT2 (the one new transport lemma) elaborates; #check hasSemiAbelian_pullback (TailZ14:1006), semiAbelianFieldIsoInvariant, hasSemiAbelian_of_iso, idComp_baseChange OK. COMPILED.

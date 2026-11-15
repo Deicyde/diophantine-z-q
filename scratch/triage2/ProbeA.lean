@@ -47,3 +47,16 @@ example (target : CToPrinted.SGA3_VIB_3_10 → CToPrinted.SGA7_IX_3_3 → AVGlue
     (semistableReductionDVR_of14 r t) r.neronSchemeModelExistsDVR
     (_root_.ReductGlue.semistableLocalGlobal_leaf (_root_.CToPrinted.neronLocalizesDVR_of_printed r.blr_1_2_4))
     (semistableAlmostAll_of10 (addedLeaves9_of_open14 r t l))
+
+-- task 2, step 5: the one new transport lemma (template: `hasSemiAbelian_pullback`, TailZ14:1006, for field isos)
+def SemiAbelianBaseChangeAlgClosedT2 : Prop :=
+  ∀ (k k' : Type) [Field k] [Field k'] [IsAlgClosed k] [IsAlgClosed k'] (σ : k →+* k')
+    (G : Over (Spec (CommRingCat.of k))) [GrpObj G], LocallyOfFiniteType G.hom → QuasiCompact G.hom →
+    ZInQ.HeightSplit.HasSemiAbelianIdentityComponent G →
+      (letI : GrpObj ((Over.pullback (Spec.map (CommRingCat.ofHom σ))).obj G) := Functor.grpObjObj
+       ZInQ.HeightSplit.HasSemiAbelianIdentityComponent ((Over.pullback (Spec.map (CommRingCat.ofHom σ))).obj G))
+
+#check @ReductGlue.hasSemiAbelian_pullback
+#check @ReductGlue.semiAbelianFieldIsoInvariant
+#check @ReductGlue.hasSemiAbelian_of_iso
+#check @CToPrinted.idComp_baseChange
