@@ -253,4 +253,98 @@ theorem finite_preimage_of_dim_le_one [TopologicalSpace.NoetherianSpace X] [Quas
 
 end Topology
 
+section FiniteMap
+
+variable {p : ℕ} [Fact p.Prime] (𝒵 : Over (Spec (CommRingCat.of (Zloc p))))
+  [IsIntegral 𝒵.left] [IsProper 𝒵.hom] [SmoothOfRelativeDimension 1 𝒵.hom]
+  [GeometricallyConnected 𝒵.hom]
+  (φ : 𝒵.left ⟶ PR.LR (Zloc p)) (hφ : φ ≫ (PR.LR (Zloc p) ↘ PR.SR (Zloc p)) = 𝒵.hom)
+
+/-- The map on fibres over a point of `Spec ℤ_(p)`. -/
+def phiFib (s : Spec (CommRingCat.of (Zloc p))) :
+    𝒵.hom.fiber s ⟶ (PR.LR (Zloc p) ↘ PR.SR (Zloc p)).fiber s :=
+  pullback.map _ _ _ _ φ (𝟙 _) (𝟙 _) (by rw [Category.comp_id, hφ]) (by simp)
+
+include hφ in
+theorem phiFib_ι (s : Spec (CommRingCat.of (Zloc p))) :
+    phiFib 𝒵 φ hφ s ≫ (PR.LR (Zloc p) ↘ PR.SR (Zloc p)).fiberι s = 𝒵.hom.fiberι s ≫ φ :=
+  pullback.lift_fst _ _ _
+
+include hφ in
+theorem phiFib_toSpec (s : Spec (CommRingCat.of (Zloc p))) :
+    phiFib 𝒵 φ hφ s ≫ (PR.LR (Zloc p) ↘ PR.SR (Zloc p)).fiberToSpecResidueField s =
+      𝒵.hom.fiberToSpecResidueField s := by
+  exact (pullback.lift_snd _ _ _).trans (Category.comp_id _)
+
+include hφ in
+/-- **The fibres of `φ` are finite** if on each fibre of the model two points have different images. -/
+theorem preimage_finite (hpts : ∀ s, ∃ a b : 𝒵.left, 𝒵.hom a = s ∧ 𝒵.hom b = s ∧ φ a ≠ φ b)
+    (w : PR.LR (Zloc p)) : (φ ⁻¹' {w}).Finite := by
+  set s := (PR.LR (Zloc p) ↘ PR.SR (Zloc p)) w
+  obtain ⟨a, b, ha, hb, hab⟩ := hpts s
+  haveI : Nonempty (𝒵.hom.fiber s) := ⟨(𝒵.hom.fiberHomeo s).symm ⟨a, ha⟩⟩
+  haveI := isIntegral_fiber 𝒵 s
+  haveI : IsNoetherian 𝒵.left :=
+    { toCompactSpace := (quasiCompact_iff_compactSpace 𝒵.hom).mp inferInstance }
+  haveI : TopologicalSpace.NoetherianSpace (𝒵.hom.fiber s) :=
+    (TopologicalSpace.noetherianSpace_iff_of_homeomorph (𝒵.hom.fiberHomeo s)).mpr inferInstance
+  have hlft : LocallyOfFiniteType (phiFib 𝒵 φ hφ s ≫
+      (PR.LR (Zloc p) ↘ PR.SR (Zloc p)).fiberToSpecResidueField s) := by
+    rw [phiFib_toSpec]
+    exact MorphismProperty.IsStableUnderBaseChange.of_isPullback (P := @LocallyOfFiniteType)
+      (IsPullback.of_hasPullback 𝒵.hom _) inferInstance
+  haveI := hlft
+  haveI := locallyOfFiniteType_of_comp (phiFib 𝒵 φ hφ s)
+    ((PR.LR (Zloc p) ↘ PR.SR (Zloc p)).fiberToSpecResidueField s)
+  have hchain : ∀ x y z : 𝒵.hom.fiber s, x ⤳ y → y ⤳ z → x ≠ y → y ≠ z → False := by
+    intro x y z hxy hyz hne1 hne2
+    haveI := zloc_isDVR' (p := p)
+    have h1 : z < y := lt_of_le_not_ge (Scheme.le_iff_specializes.2 hyz)
+      (fun h => hne2 (hyz.antisymm (Scheme.le_iff_specializes.1 h)).eq)
+    have h2 : y < x := lt_of_le_not_ge (Scheme.le_iff_specializes.2 hxy)
+      (fun h => hne1 (hxy.antisymm (Scheme.le_iff_specializes.1 h)).eq)
+    have hd := QuotientP1Proof.topologicalKrullDim_fiber_le (R := Zloc p) 𝒵.hom s
+    rw [QuotientP1Proof.topologicalKrullDim_eq_krullDim] at hd
+    have hl := Order.LTSeries.length_le_krullDim (QuotientP1Proof.lt3 h1 h2)
+    rw [QuotientP1Proof.lt3_length] at hl
+    have : ((2 : ℕ) : WithBot ℕ∞) ≤ 1 := hl.trans hd
+    exact absurd this (by decide)
+  have hcl : ∀ x : 𝒵.hom.fiber s, IsClosed ({x} : Set _) →
+      IsClosed ({phiFib 𝒵 φ hφ s x} : Set _) := fun x hx =>
+    (phiFib 𝒵 φ hφ s).closedPoints_subset_preimage_closedPoints hx
+  have hι : ∀ x : 𝒵.hom.fiber s,
+      (PR.LR (Zloc p) ↘ PR.SR (Zloc p)).fiberι s (phiFib 𝒵 φ hφ s x) = φ (𝒵.hom.fiberι s x) := by
+    intro x
+    rw [← Scheme.Hom.comp_apply, phiFib_ι, Scheme.Hom.comp_apply]
+  have hnc : ∃ x y : 𝒵.hom.fiber s, phiFib 𝒵 φ hφ s x ≠ phiFib 𝒵 φ hφ s y := by
+    refine ⟨(𝒵.hom.fiberHomeo s).symm ⟨a, ha⟩, (𝒵.hom.fiberHomeo s).symm ⟨b, hb⟩, fun h => hab ?_⟩
+    have := congrArg ((PR.LR (Zloc p) ↘ PR.SR (Zloc p)).fiberι s) h
+    rwa [hι, hι, Scheme.Hom.fiberι_fiberHomeo_symm, Scheme.Hom.fiberι_fiberHomeo_symm] at this
+  obtain ⟨w', hw'⟩ : w ∈ Set.range ((PR.LR (Zloc p) ↘ PR.SR (Zloc p)).fiberι s) := by
+    rw [Scheme.Hom.range_fiberι]; rfl
+  have hfin := finite_preimage_of_dim_le_one hchain (phiFib 𝒵 φ hφ s)
+    (phiFib 𝒵 φ hφ s).continuous hcl hnc w'
+  refine (hfin.image (𝒵.hom.fiberι s)).subset fun x hx => ?_
+  have hxs : 𝒵.hom x = s := by
+    rw [← hφ, Scheme.Hom.comp_apply]
+    rw [Set.mem_preimage, Set.mem_singleton_iff] at hx
+    rw [hx]
+  refine ⟨(𝒵.hom.fiberHomeo s).symm ⟨x, hxs⟩, ?_, Scheme.Hom.fiberι_fiberHomeo_symm _ _ _⟩
+  apply ((PR.LR (Zloc p) ↘ PR.SR (Zloc p)).fiberι s).isEmbedding.injective
+  rw [hι, Scheme.Hom.fiberι_fiberHomeo_symm, hw']
+  exact hx
+
+include hφ in
+/-- **The map to `P¹` is finite.** -/
+theorem isFinite_phi (hpts : ∀ s, ∃ a b : 𝒵.left, 𝒵.hom a = s ∧ 𝒵.hom b = s ∧ φ a ≠ φ b) :
+    IsFinite φ := by
+  haveI : IsProper (φ ≫ (PR.LR (Zloc p) ↘ PR.SR (Zloc p))) := by rw [hφ]; infer_instance
+  haveI : IsProper φ := IsProper.of_comp φ (PR.LR (Zloc p) ↘ PR.SR (Zloc p))
+  haveI : LocallyOfFiniteType φ := locallyOfFiniteType_of_comp φ (PR.LR (Zloc p) ↘ PR.SR (Zloc p))
+  haveI : LocallyQuasiFinite φ :=
+    LocallyQuasiFinite.of_finite_preimage_singleton φ (preimage_finite 𝒵 φ hφ hpts)
+  exact IsFinite.of_isProper_of_locallyQuasiFinite φ
+
+end FiniteMap
+
 end HDec.MCRGlue.P1Model
