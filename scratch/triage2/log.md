@@ -56,3 +56,11 @@
   mention R1R2fpRep in their type (6 bundle structures r1r2/r1b fields: OpenResearchLeaves2/5/7/8/9, ResearchLeaves3; ~25
   theorems); CanonicalCoarseX6 8, GeomConnX6 4, CoarseX6OfFine 3; GeomConnOfAlgClosure 18 (bundle fields + 6 theorems).
 - ProbeA extended: SemiAbelianBaseChangeAlgClosedT2 (the one new transport lemma) elaborates; #check hasSemiAbelian_pullback (TailZ14:1006), semiAbelianFieldIsoInvariant, hasSemiAbelian_of_iso, idComp_baseChange OK. COMPILED.
+- agent-CM: ℂ-side CM already proved (cmFixedHasCM_of TailJ:1270; cm4/cm3/cm24_exists TailJ:255-275); descend_main uses
+  hTD/hRep only for the level structure / R1fp naturality.
+- ProbeD.lean COMPILED (0 errors): cmComplexT2 (HasCM4/3/24 objects over ℂ from shimuraMainThmIDeligneY3AbU +
+  uniformizationLeafAll + gagaMorphism); pairOfT2 (truncated descend_main, no TorsionDescends, no R1R2fpRep);
+  cmPairsExistT2_of; and `babaGranathRationalAb_of_open28T2 (n : OpenResearchLeaves21) (t : OpenTextbookLeaves11)
+  (l : OpenAddedLeaves17) : BabaGranathRationalAb` — axioms [propext, Classical.choice, Quot.sound]. VERIFIED:
+  the field babaGranathRationalAb is derivable from the other top-bundle fields (elkiesX6StarPrinted,
+  shimuraMainThmIDeligneY3AbU, uniformizationLeafAll, gagaMorphism, shimuraTaniyamaQbar). Task 3 → T1 (fold only).

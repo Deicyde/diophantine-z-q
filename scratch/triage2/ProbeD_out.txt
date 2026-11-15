@@ -1,0 +1,31 @@
+PeriodMapH.LeafQCheck.descend_main : PeriodMapH.LeafQCheck.STQM →
+  ZInQ.LeafPush2.T11b_Rigidity →
+    PeriodMapH.LeafQCheck.TorsionDescends →
+      HDec.LeafAdopt.R1R2fpRep →
+        ∀ (Q : LeafQM.AV.QML3 ℂ),
+          LeafQM.AV.HasCM4 Q.q ∨ LeafQM.AV.HasCM3 Q.q ∨ LeafQM.AV.HasCM24 Q.q →
+            ∃ ιe P Q' κ,
+              LeafQM.AV.IsBaseChangeOf ιe P Q' ∧
+                Nonempty (LeafQM.AV.QMIso Q.q Q'.q) ∧ ∀ (a : ↥LeafQM.O), κ (Q.q.iota a) = P.q.iota a
+PeriodMapH.LeafQCheck.cmDescends_of : PeriodMapH.LeafQCheck.STQM →
+  ZInQ.LeafPush2.T11b_Rigidity →
+    PeriodMapH.LeafQCheck.TorsionDescends → HDec.LeafAdopt.R1R2fpRep → PeriodMapH.CMDescends
+PeriodMapH.LeafQCheck.STQM : Prop
+HDec.QMSplit.Moduli.ElkiesX6Star.elkiesEquationsX6Ab_of_printed : HDec.QMSplit.Moduli.ElkiesX6Star.ElkiesX6StarPrinted →
+  HDec.QMSplit.Moduli.ElkiesEquationsX6Ab
+scratch/triage2/ProbeD.lean:32:5: warning: Ambiguous namespace `LeafQM.AV`: it is interpreted as `_root_.HDec.LeafQM.AV` because this `open` occurs inside `namespace HDec.HSyn.G0Split.FibreQM.PeriodMapH.LeafQCheck`, while `_root_.LeafQM.AV` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.LeafQM.AV`. The warning can sometimes also be addressed by moving the `open` out
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+PeriodMapH.QMSplitSTQM.stqm_of : PeriodMapH.QMSplitSTQM.ShimuraTaniyamaQbar → PeriodMapH.QMSplitSTQM.STQM
+HDec.HSyn.t11b_of_exists5 : HDec.AVB2.T11bExists → ZInQ.LeafPush2.T11b_Rigidity
+HDec.HSyn.t11bExists_lf8 : HDec.AVB2.T11bExists
+'HDec.HSyn.G0Split.FibreQM.PeriodMapH.LeafQCheck.cmPairsExistT2_of' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+scratch/triage2/ProbeD.lean:83:5: warning: Ambiguous namespace `LeafQM`: it is interpreted as `_root_.HDec.LeafQM` because this `open` occurs inside `namespace HDec.QMSplit.Moduli`, while `_root_.LeafQM` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.LeafQM`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/triage2/ProbeD.lean:83:12: warning: Ambiguous namespace `LeafQM.AV`: it is interpreted as `_root_.HDec.LeafQM.AV` because this `open` occurs inside `namespace HDec.QMSplit.Moduli`, while `_root_.LeafQM.AV` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.LeafQM.AV`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `na
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+'babaGranathRationalAb_of_open28T2' depends on axioms: [propext, Classical.choice, Quot.sound]
