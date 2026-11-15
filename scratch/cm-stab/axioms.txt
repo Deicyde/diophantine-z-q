@@ -26,3 +26,9 @@ def HDec.CMStabAL.AtkinLehnerFixesCM24 : Prop :=
 'GapGlue.atkinLehnerFixesCM24_of' depends on axioms: [propext, Classical.choice, Quot.sound]
 GapGlue.atkinLehnerFixesCM24_of : BPAnalytic.Uniformization.UniformizationLeafAll →
   ZInQ.HomLattice.GAGAMorphism → AvSplit.MumfordTorsionAlgClosed → HDec.CMStabAL.AtkinLehnerFixesCM24
+'GapGlue.cmStabObj_of_textbook' depends on axioms: [propext, Classical.choice, Quot.sound]
+'GapGlue.cmStabObjWeak_of_textbook' depends on axioms: [propext, Classical.choice, Quot.sound]
+GapGlue.cmStabObj_of_textbook : BPAnalytic.Uniformization.UniformizationLeafAll →
+  ZInQ.HomLattice.GAGAMorphism → AvSplit.MumfordTorsionAlgClosed → GapGlue.CMStabObj
+GapGlue.cmStabObjWeak_of_textbook : BPAnalytic.Uniformization.UniformizationLeafAll →
+  ZInQ.HomLattice.GAGAMorphism → AvSplit.MumfordTorsionAlgClosed → GapGlue.CMStabObjWeak

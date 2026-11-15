@@ -1303,6 +1303,19 @@ theorem cmStabObjWeak_of (hU : BPAnalytic.Uniformization.UniformizationLeafAll)
   obtain ⟨α, u, h1, -, h3⟩ := cmStabObj_of hU hG hM hT P hP
   exact ⟨α, u, h1, h3⟩
 
+
+/-- **`CMStabObj` from the three textbook fields `uniformizationLeafAll`, `gagaMorphism`,
+`mumfordTorsionAlgClosed` of `OpenTextbookLeaves11`** (T5 from `mumfordTorsionAlgClosed` by the kernel's
+`AvSplit.torsionStructure_of_mumford`). -/
+theorem cmStabObj_of_textbook (hU : BPAnalytic.Uniformization.UniformizationLeafAll)
+    (hG : ZInQ.HomLattice.GAGAMorphism) (hM : AvSplit.MumfordTorsionAlgClosed) : CMStabObj :=
+  cmStabObj_of hU hG hM (AvSplit.torsionStructure_of_mumford hM)
+
+/-- **`CMStabObjWeak` from the three textbook fields** (as `cmStabObj_of_textbook`). -/
+theorem cmStabObjWeak_of_textbook (hU : BPAnalytic.Uniformization.UniformizationLeafAll)
+    (hG : ZInQ.HomLattice.GAGAMorphism) (hM : AvSplit.MumfordTorsionAlgClosed) : CMStabObjWeak :=
+  cmStabObjWeak_of hU hG hM (AvSplit.torsionStructure_of_mumford hM)
+
 end GapGlue
 
 namespace HDec
