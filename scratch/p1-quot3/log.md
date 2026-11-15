@@ -18,3 +18,9 @@ Build tree: copy of ~/dzq-wt/p1-quot2/.lake/build and lean/.lake/build (19793c5d
 - scratch/p1-quot3/Invariants.lean (Mathlib only): `exists_algebraMap_mem_notMem` (norm trick), `localRingHom_injective`,
   `dvd_of_dvd_atPrime`, `isDomain_isIntegrallyClosed_atPrime` (normality of all localizations descends from C to
   D = C^G, finite G, no condition on |G|): compiles, 0 errors (VERIFIED).
+- Invariants.lean extended: `smooth_of_invariants_field` (perfect field, C smooth of dim <= 1, D = C^G finite type
+  => D smooth; uses the copied RegularSmoothPerfect and the vendored FLT normality of smooth algebras),
+  `reynolds`, `exists_retraction`, `tensorAut`, `smooth_of_invariants` (R noetherian with perfect residue fields,
+  B smooth over R with fibres of dim <= 1, |G| invertible in R, A = B^G of finite type => A smooth over R; flat as a
+  retract of B, fibres by base change of invariants via the Reynolds operator, Mathlib
+  `Algebra.Smooth.of_formallySmooth_fiber`): compiles, 0 errors (VERIFIED).

@@ -365,4 +365,139 @@ theorem smooth_of_invariants_field (hRS : RegularSmoothPerfect) (k : Type) [Fiel
     exact (Algebra.basicOpen_subset_smoothLocus_iff_smooth (f := g)).mpr hsm hg
   exact ⟨Algebra.smoothLocus_eq_univ_iff.mp hloc, inferInstance⟩
 
+/-! ## Base change of invariants (Reynolds operator) -/
+
+section BaseChange
+
+open TensorProduct
+
+variable (R : Type) [CommRing R] (A B : Type) [CommRing A] [CommRing B] [Algebra R A] [Algebra R B]
+  (ι : A →ₐ[R] B) (hι : Function.Injective ι)
+  (G : Type) [Group G] [Fintype G] [MulSemiringAction G B] [SMulCommClass G R B]
+  (hfix : ∀ (g : G) (a : A), g • ι a = ι a)
+  (hinv : ∀ b : B, (∀ g : G, g • b = b) → ∃ a, ι a = b)
+  (hG : IsUnit (Fintype.card G : R))
+
+/-- The Reynolds operator `b ↦ |G|⁻¹ Σ g • b`. -/
+noncomputable def reynolds : B →ₗ[R] B :=
+  (↑(hG.unit⁻¹) : R) • ∑ g : G, (MulSemiringAction.toAlgHom R B g).toLinearMap
+
+theorem reynolds_apply (b : B) :
+    reynolds R B G hG b = (↑(hG.unit⁻¹) : R) • ∑ g : G, g • b := by
+  simp [reynolds, LinearMap.sum_apply]
+
+theorem reynolds_invariant (b : B) (h : G) : h • reynolds R B G hG b = reynolds R B G hG b := by
+  rw [reynolds_apply, smul_comm, Finset.smul_sum]
+  congr 1
+  simp_rw [← mul_smul]
+  exact Fintype.sum_bijective (h * ·) (Group.mulLeft_bijective h) _ _ (fun _ => rfl)
+
+theorem reynolds_of_invariant (b : B) (hb : ∀ g : G, g • b = b) : reynolds R B G hG b = b := by
+  rw [reynolds_apply]
+  simp_rw [hb, Finset.sum_const, Finset.card_univ]
+  rw [← Nat.cast_smul_eq_nsmul R, smul_smul, hG.val_inv_mul, one_smul]
+
+include hι hinv hfix in
+/-- The retraction `r : B → A` with `ι ∘ r = reynolds`. -/
+theorem exists_retraction : ∃ r : B →ₗ[R] A, (∀ b, ι (r b) = reynolds R B G hG b) ∧
+    r.comp ι.toLinearMap = LinearMap.id := by
+  let ιₗ := ι.toLinearMap
+  let e := LinearEquiv.ofInjective ιₗ hι
+  let ρ' : B →ₗ[R] LinearMap.range ιₗ := (reynolds R B G hG).codRestrict (LinearMap.range ιₗ)
+    (fun b => by
+      obtain ⟨a, ha⟩ := hinv _ (reynolds_invariant R B G hG b)
+      exact ⟨a, ha⟩)
+  refine ⟨e.symm.toLinearMap.comp ρ', fun b => ?_, ?_⟩
+  · have h := LinearEquiv.ofInjective_apply (f := ιₗ) (h := hι) (e.symm (ρ' b))
+    rw [LinearEquiv.apply_symm_apply] at h
+    exact h.symm
+  · ext a
+    apply hι
+    have h := LinearEquiv.ofInjective_apply (f := ιₗ) (h := hι) (e.symm (ρ' (ι a)))
+    rw [LinearEquiv.apply_symm_apply] at h
+    have h2 : (ρ' (ι a) : B) = ι a := by
+      obtain ⟨a', ha'⟩ : ∃ a', ι a' = ι a := ⟨a, rfl⟩
+      simp only [ρ', LinearMap.codRestrict_apply]
+      exact reynolds_of_invariant R B G hG _ (fun g => hfix g a)
+    simp only [LinearMap.coe_comp, Function.comp_apply, LinearMap.id_coe, id_eq]
+    rw [← h2]
+    exact h.symm
+
+variable (k : Type) [CommRing k] [Algebra R k]
+
+/-- `G` acting on `k ⊗[R] B` through the second factor. -/
+noncomputable def tensorAut : G →* (k ⊗[R] B ≃ₐ[k] k ⊗[R] B) where
+  toFun g := Algebra.TensorProduct.congr AlgEquiv.refl (MulSemiringAction.toAlgEquiv R B g)
+  map_one' := by
+    ext x
+    induction x using TensorProduct.induction_on with
+    | zero => simp
+    | tmul c b => simp
+    | add x y hx hy => simp_all
+  map_mul' g h := by
+    ext x
+    induction x using TensorProduct.induction_on with
+    | zero => simp
+    | tmul c b => simp [mul_smul]
+    | add x y hx hy => simp_all
+
+include hι hfix hinv hG in
+/-- **Invariants of a smooth algebra with fibres of dimension `≤ 1`, by a group of invertible order, are
+smooth**, if the residue fields of the (noetherian) base are perfect. -/
+theorem smooth_of_invariants (hRS : RegularSmoothPerfect) [IsNoetherianRing R] [Algebra.Smooth R B]
+    [Algebra.FiniteType R A]
+    (hperf : ∀ (I : Ideal R) [I.IsPrime], PerfectField I.ResidueField)
+    (hdim : ∀ (I : Ideal R) [I.IsPrime], ringKrullDim (I.Fiber B) ≤ 1) : Algebra.Smooth R A := by
+  obtain ⟨r, hr, hri⟩ := exists_retraction R A B ι hι G hfix hinv hG
+  have : Module.Flat R A := Module.Flat.of_retract ι.toLinearMap r hri
+  have : Algebra.FinitePresentation R A := Algebra.FinitePresentation.of_finiteType.mp ‹_›
+  refine Algebra.Smooth.of_formallySmooth_fiber (fun I _ => ?_)
+  have := hperf I
+  set k := I.ResidueField
+  let φ : k ⊗[R] A →ₐ[k] k ⊗[R] B := Algebra.TensorProduct.map (AlgHom.id k k) ι
+  letI : MulSemiringAction G (k ⊗[R] B) := MulSemiringAction.compHom _ (tensorAut R B G k)
+  have hsmul : ∀ (g : G) (c : k) (b : B), g • (c ⊗ₜ[R] b) = c ⊗ₜ[R] (g • b) := fun _ _ _ => rfl
+  let rk : k ⊗[R] B →ₗ[k] k ⊗[R] A := LinearMap.baseChange k r
+  have hφinj : Function.Injective φ := by
+    refine Function.LeftInverse.injective (g := rk) (fun x => ?_)
+    induction x using TensorProduct.induction_on with
+    | zero => simp
+    | tmul c a =>
+      simp only [φ, rk, Algebra.TensorProduct.map_tmul, AlgHom.coe_id, id_eq, LinearMap.baseChange_tmul]
+      congr 1
+      exact LinearMap.congr_fun hri a
+    | add x y hx hy => rw [map_add, map_add, hx, hy]
+  have hfix' : ∀ (g : G) (x : k ⊗[R] A), g • φ x = φ x := by
+    intro g x
+    induction x using TensorProduct.induction_on with
+    | zero => rw [map_zero, smul_zero]
+    | tmul c a =>
+      simp only [φ, Algebra.TensorProduct.map_tmul, AlgHom.coe_id, id_eq]
+      rw [hsmul, hfix]
+    | add x y hx hy => rw [map_add, smul_add, hx, hy]
+  have hinv' : ∀ x : k ⊗[R] B, (∀ g : G, g • x = x) → ∃ y, φ y = x := by
+    intro x hx
+    let ρk : k ⊗[R] B → k ⊗[R] B := fun x => (↑(hG.unit⁻¹) : R) • ∑ g : G, g • x
+    have h1 : ρk x = x := by
+      simp only [ρk]
+      simp_rw [hx, Finset.sum_const, Finset.card_univ]
+      rw [← Nat.cast_smul_eq_nsmul R, smul_smul, hG.val_inv_mul, one_smul]
+    have h2 : ∀ y, ρk y = φ (rk y) := by
+      intro y
+      induction y using TensorProduct.induction_on with
+      | zero => simp [ρk]
+      | tmul c b =>
+        simp only [ρk, φ, rk, LinearMap.baseChange_tmul, Algebra.TensorProduct.map_tmul, AlgHom.coe_id,
+          id_eq, hsmul]
+        rw [← TensorProduct.tmul_sum, ← TensorProduct.tmul_smul, hr, reynolds_apply]
+      | add y z hy hz =>
+        simp only [ρk] at hy hz ⊢
+        rw [map_add, map_add, ← hy, ← hz]
+        simp only [smul_add, Finset.sum_add_distrib]
+    exact ⟨rk x, (h2 x).symm.trans h1⟩
+  have := smooth_of_invariants_field hRS k (k ⊗[R] B) (k ⊗[R] A) φ hφinj G hfix' hinv' (hdim I)
+  infer_instance
+
+end BaseChange
+
 end P1Quot3
