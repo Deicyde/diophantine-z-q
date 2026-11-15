@@ -217,4 +217,146 @@ theorem spAct_mem {M : SpMat} (hM : M ∈ Matrix.symplecticGroup (Fin 2) ℤ)
     rw [e']
     exact qIm_pos hΩ hv
 
+/-! ### The cocycle `det(C_{NM}Ω + D_{NM}) = det(C_N(MΩ) + D_N)·det(C_MΩ + D_M)` -/
+
+theorem toBlocks₂₁_mul' {R : Type*} [CommRing R] (P Q : Matrix (Fin 2 ⊕ Fin 2) (Fin 2 ⊕ Fin 2) R) :
+    (P * Q).toBlocks₂₁ = P.toBlocks₂₁ * Q.toBlocks₁₁ + P.toBlocks₂₂ * Q.toBlocks₂₁ := by
+  ext i j
+  simp [Matrix.toBlocks₂₁, Matrix.toBlocks₁₁, Matrix.toBlocks₂₂, Matrix.mul_apply, Fintype.sum_sum_type]
+
+theorem toBlocks₂₂_mul' {R : Type*} [CommRing R] (P Q : Matrix (Fin 2 ⊕ Fin 2) (Fin 2 ⊕ Fin 2) R) :
+    (P * Q).toBlocks₂₂ = P.toBlocks₂₁ * Q.toBlocks₁₂ + P.toBlocks₂₂ * Q.toBlocks₂₂ := by
+  ext i j
+  simp [Matrix.toBlocks₂₁, Matrix.toBlocks₁₂, Matrix.toBlocks₂₂, Matrix.mul_apply, Fintype.sum_sum_type]
+
+theorem cocycle_aux (P Q W X : Matrix (Fin 2) (Fin 2) ℂ) (hX : X⁻¹ * X = 1) :
+    (P * (W * X⁻¹) + Q) * X = P * W + Q * X := by
+  rw [Matrix.add_mul, Matrix.mul_assoc P, Matrix.mul_assoc W, hX, Matrix.mul_one]
+
+/-- **The automorphy cocycle (proved).** -/
+theorem spFactor_mul (N : SpMat) {M : SpMat} (hM : M ∈ Matrix.symplecticGroup (Fin 2) ℤ)
+    {Ω : Matrix (Fin 2) (Fin 2) ℂ} (hΩ : Ω ∈ PkgI1.SiegelH2) :
+    PkgI1.spFactor (N * M) Ω = PkgI1.spFactor N (PkgI1.spAct M Ω) * PkgI1.spFactor M Ω := by
+  have hX := isUnit_Xm hM hΩ
+  have hX' : (Xm M Ω)⁻¹ * Xm M Ω = 1 := Matrix.nonsing_inv_mul _ hX
+  rw [spFactor_eq, spFactor_eq, spFactor_eq, spAct_eq, ← Matrix.det_mul]
+  congr 1
+  rw [show Xm N (Wm M Ω * (Xm M Ω)⁻¹) = (cM N).toBlocks₂₁ * (Wm M Ω * (Xm M Ω)⁻¹) + (cM N).toBlocks₂₂ from rfl,
+    cocycle_aux _ _ _ _ hX']
+  simp only [Xm, Wm, cM_mul, toBlocks₂₁_mul', toBlocks₂₂_mul']
+  noncomm_ring
+
+/-! ### Right multiplication on `Γ_∞\Sp₄(ℤ)` -/
+
+/-- Same coset of the Siegel parabolic `Γ_∞ = {M ∈ Sp₄(ℤ) : C = 0}`. -/
+def botRel (M N : Matrix.symplecticGroup (Fin 2) ℤ) : Prop :=
+  ∃ U : GL (Fin 2) ℤ,
+    (N : SpMat).toBlocks₂₁ = (U : Matrix (Fin 2) (Fin 2) ℤ) * (M : SpMat).toBlocks₂₁ ∧
+    (N : SpMat).toBlocks₂₂ = (U : Matrix (Fin 2) (Fin 2) ℤ) * (M : SpMat).toBlocks₂₂
+
+theorem botRel_equiv : Equivalence botRel where
+  refl M := ⟨1, by simp, by simp⟩
+  symm := by
+    rintro M N ⟨U, h1, h2⟩
+    refine ⟨U⁻¹, ?_, ?_⟩
+    · rw [h1, ← Matrix.mul_assoc, Units.inv_mul, Matrix.one_mul]
+    · rw [h2, ← Matrix.mul_assoc, Units.inv_mul, Matrix.one_mul]
+  trans := by
+    rintro M N P ⟨U, h1, h2⟩ ⟨V, h3, h4⟩
+    refine ⟨V * U, ?_, ?_⟩
+    · rw [h3, h1, Units.val_mul, Matrix.mul_assoc]
+    · rw [h4, h2, Units.val_mul, Matrix.mul_assoc]
+
+def botSetoid : Setoid (Matrix.symplecticGroup (Fin 2) ℤ) := ⟨botRel, botRel_equiv⟩
+
+abbrev SiegelCosets := Quotient botSetoid
+
+def siegelEis (k : ℕ) (Ω : Matrix (Fin 2) (Fin 2) ℂ) : ℂ :=
+  ∑' c : SiegelCosets,
+    (PkgI1.spFactor ((Quotient.out c : Matrix.symplecticGroup (Fin 2) ℤ) : SpMat) Ω)⁻¹ ^ k
+
+theorem botRel_mul {N N' : Matrix.symplecticGroup (Fin 2) ℤ} (h : botRel N N')
+    (M : Matrix.symplecticGroup (Fin 2) ℤ) : botRel (N * M) (N' * M) := by
+  obtain ⟨U, h1, h2⟩ := h
+  refine ⟨U, ?_, ?_⟩
+  · show ((N' : SpMat) * (M : SpMat)).toBlocks₂₁ = _ * ((N : SpMat) * (M : SpMat)).toBlocks₂₁
+    rw [toBlocks₂₁_mul', toBlocks₂₁_mul', h1, h2, Matrix.mul_add, Matrix.mul_assoc, Matrix.mul_assoc]
+  · show ((N' : SpMat) * (M : SpMat)).toBlocks₂₂ = _ * ((N : SpMat) * (M : SpMat)).toBlocks₂₂
+    rw [toBlocks₂₂_mul', toBlocks₂₂_mul', h1, h2, Matrix.mul_add, Matrix.mul_assoc, Matrix.mul_assoc]
+
+def rightAct (M : Matrix.symplecticGroup (Fin 2) ℤ) : SiegelCosets → SiegelCosets :=
+  Quotient.map (fun N => N * M) (fun _ _ h => botRel_mul h M)
+
+theorem rightAct_mk (M N : Matrix.symplecticGroup (Fin 2) ℤ) :
+    rightAct M (Quotient.mk botSetoid N) = Quotient.mk botSetoid (N * M) := rfl
+
+def rightEquiv (M : Matrix.symplecticGroup (Fin 2) ℤ) : SiegelCosets ≃ SiegelCosets where
+  toFun := rightAct M
+  invFun := rightAct M⁻¹
+  left_inv c := by
+    induction c using Quotient.inductionOn with
+    | h N => rw [rightAct_mk, rightAct_mk, mul_inv_cancel_right]
+  right_inv c := by
+    induction c using Quotient.inductionOn with
+    | h N => rw [rightAct_mk, rightAct_mk, inv_mul_cancel_right]
+
+/-- The summand does not depend on the coset representative (even weight). -/
+theorem spFactor_botRel {N N' : Matrix.symplecticGroup (Fin 2) ℤ} (h : botRel N N')
+    (Ω : Matrix (Fin 2) (Fin 2) ℂ) {k : ℕ} (hk : Even k) :
+    (PkgI1.spFactor (N' : SpMat) Ω)⁻¹ ^ k = (PkgI1.spFactor (N : SpMat) Ω)⁻¹ ^ k := by
+  obtain ⟨U, h1, h2⟩ := h
+  have hc : ∀ P : Matrix (Fin 2) (Fin 2) ℤ, (((U : Matrix (Fin 2) (Fin 2) ℤ) * P).map (Int.cast : ℤ → ℂ)) =
+      (U : Matrix (Fin 2) (Fin 2) ℤ).map (Int.cast : ℤ → ℂ) * P.map (Int.cast : ℤ → ℂ) := by
+    intro P
+    have := Matrix.map_mul (f := Int.castRingHom ℂ) (L := (U : Matrix (Fin 2) (Fin 2) ℤ)) (M := P)
+    simpa using this
+  have hX : Xm (N' : SpMat) Ω = (U : Matrix (Fin 2) (Fin 2) ℤ).map (Int.cast : ℤ → ℂ) * Xm (N : SpMat) Ω := by
+    have e1 : (cM (N' : SpMat)).toBlocks₂₁ = ((N' : SpMat).toBlocks₂₁).map (Int.cast : ℤ → ℂ) := rfl
+    have e2 : (cM (N' : SpMat)).toBlocks₂₂ = ((N' : SpMat).toBlocks₂₂).map (Int.cast : ℤ → ℂ) := rfl
+    have e3 : (cM (N : SpMat)).toBlocks₂₁ = ((N : SpMat).toBlocks₂₁).map (Int.cast : ℤ → ℂ) := rfl
+    have e4 : (cM (N : SpMat)).toBlocks₂₂ = ((N : SpMat).toBlocks₂₂).map (Int.cast : ℤ → ℂ) := rfl
+    simp only [Xm, e1, e2, e3, e4, h1, h2, hc, Matrix.mul_add, Matrix.mul_assoc]
+  have hdet : ((U : Matrix (Fin 2) (Fin 2) ℤ).map (Int.cast : ℤ → ℂ)).det =
+      (((U : Matrix (Fin 2) (Fin 2) ℤ).det : ℤ) : ℂ) := by
+    have := (Int.castRingHom ℂ).map_det (U : Matrix (Fin 2) (Fin 2) ℤ)
+    simpa using this.symm
+  have hu : IsUnit (U : Matrix (Fin 2) (Fin 2) ℤ).det :=
+    (Matrix.isUnit_iff_isUnit_det _).mp U.isUnit
+  rw [spFactor_eq, spFactor_eq, hX, Matrix.det_mul, hdet, mul_inv, mul_pow]
+  rcases Int.isUnit_iff.mp hu with h | h <;> rw [h] <;> simp [hk.neg_one_pow]
+
+/-- **Modularity of the Siegel Eisenstein series (proved, no convergence needed).** For `M ∈ Sp₄(ℤ)`, `Ω ∈ 𝔥₂` and
+even `k`: `ψ_k(M·Ω) = det(CΩ + D)^k ψ_k(Ω)`. The proof reindexes the `tsum` by the bijection `c ↦ c·M` of
+`Γ_∞\Sp₄(ℤ)` and uses the cocycle; it holds for the `tsum` whether or not the series converges. -/
+theorem siegelEis_modular {M : SpMat} (hM : M ∈ Matrix.symplecticGroup (Fin 2) ℤ)
+    {Ω : Matrix (Fin 2) (Fin 2) ℂ} (hΩ : Ω ∈ PkgI1.SiegelH2) {k : ℕ} (hk : Even k) :
+    siegelEis k (PkgI1.spAct M Ω) = PkgI1.spFactor M Ω ^ k * siegelEis k Ω := by
+  set Ms : Matrix.symplecticGroup (Fin 2) ℤ := ⟨M, hM⟩
+  have hj : PkgI1.spFactor M Ω ≠ 0 := spFactor_ne_zero hM hΩ
+  have step : ∀ c : SiegelCosets,
+      (PkgI1.spFactor ((Quotient.out c : Matrix.symplecticGroup (Fin 2) ℤ) : SpMat) (PkgI1.spAct M Ω))⁻¹ ^ k =
+        PkgI1.spFactor M Ω ^ k *
+          (PkgI1.spFactor ((Quotient.out (rightEquiv Ms c) : Matrix.symplecticGroup (Fin 2) ℤ) : SpMat) Ω)⁻¹ ^ k := by
+    intro c
+    have h1 : PkgI1.spFactor (((Quotient.out c * Ms : Matrix.symplecticGroup (Fin 2) ℤ)) : SpMat) Ω =
+        PkgI1.spFactor ((Quotient.out c : Matrix.symplecticGroup (Fin 2) ℤ) : SpMat) (PkgI1.spAct M Ω) *
+          PkgI1.spFactor M Ω :=
+      spFactor_mul _ hM hΩ
+    have hrel : botRel (Quotient.out (rightEquiv Ms c)) (Quotient.out c * Ms) := by
+      have e : rightEquiv Ms c = Quotient.mk botSetoid (Quotient.out c * Ms) := by
+        conv_lhs => rw [← Quotient.out_eq c]
+        rfl
+      rw [e]
+      exact Quotient.mk_out (s := botSetoid) _
+    rw [← spFactor_botRel hrel Ω hk, h1, mul_inv, mul_pow, inv_pow (PkgI1.spFactor M Ω)]
+    field_simp
+  unfold siegelEis
+  rw [tsum_congr step, tsum_mul_left]
+  congr 1
+  exact (rightEquiv Ms).tsum_eq
+    (fun c => (PkgI1.spFactor ((Quotient.out c : Matrix.symplecticGroup (Fin 2) ℤ) : SpMat) Ω)⁻¹ ^ k)
+
 end HDec.HSyn.G0Split.ThetaPt.LinYangPrinted
+
+#print axioms HDec.HSyn.G0Split.ThetaPt.LinYangPrinted.siegelEis_modular
+#print axioms HDec.HSyn.G0Split.ThetaPt.LinYangPrinted.spAct_mem
