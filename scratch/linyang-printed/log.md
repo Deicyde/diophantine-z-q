@@ -54,3 +54,4 @@
   Route 1 as theta-split/igusa-alg stated it (LinYangThetaCurve) does NOT remove them (FibreQMPeriod still needs
   qmHauptmodul and qmDenZeroCM3, which use r4). With the printed leaves they become theorems
   (igusaPsi4_of_printed, igusaChi10_of_printed), for all M ∈ Sp4(ℤ), not just M4, M6.
+- jTuple_of_sForm (s-form relations + Igusa/Lin-Yang conversion (13)-(14) ⇒ R3's LinYangTuple J-tuple with t = −s3/(12 j s2), j ≠ 0, s2 ≠ 0) PROVED in both files (VERIFIED compile: LinYangPrinted.out 8 axiom lines, LinYangPrintedChain.out 10, all standard).

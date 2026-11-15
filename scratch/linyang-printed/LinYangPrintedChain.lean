@@ -620,6 +620,37 @@ theorem qmHauptmodul_of_printed (hI : IgusaThetaExpressions) (hL : LinYangEx29) 
     field_simp
     ring
 
+/-! ## 5b. Cross-check with R3's `J`-tuple (proved)
+
+At a point where `j₆ = j ≠ 0` and `s₂ ≠ 0`, the `s`-form relations of `LinYangEx29`, with Igusa's conversion as restated
+by Lin–Yang eqs. (13)-(14) (`J₂ = −3χ₁₂/χ₁₀`, `J₄ = (J₂² − ψ₄)/24`, `J₆ = (−J₂³ + 36J₂J₄ + ψ₆)/216`, `J₁₀ = −4χ₁₀`;
+scratch/h-v14/igusa_check.py), give exactly the weighted tuple `[12(j+1) : 6(j²+j+1) : 4(j³−2j²+1) : j³]` of
+`ZInQ.LeafPush2.LinYangTuple` (R3, Baba–Granath Prop. 3.6), with scale `t = −s₃/(12 j s₂)`. So the two printed forms
+used by the project agree. -/
+
+/-- **The `s`-form gives R3's `J`-tuple.** -/
+theorem jTuple_of_sForm {j s2 s3 s5 s6 : ℂ} (hj : j ≠ 0) (h2 : s2 ≠ 0) (h1 : s3 ^ 2 = j * s2 ^ 3)
+    (h5 : s5 = s2 * s3) (h6 : s6 = (j + 1) * s2 ^ 3) :
+    ∃ t : ℂ, t ≠ 0 ∧
+      -3 * (s6 / (2 ^ 12 * 3 ^ 6)) / (s5 / (2 ^ 12 * 3 ^ 5)) = t * (12 * (j + 1)) ∧
+      ((-3 * (s6 / (2 ^ 12 * 3 ^ 6)) / (s5 / (2 ^ 12 * 3 ^ 5))) ^ 2 - s2) / 24 = t ^ 2 * (6 * (j ^ 2 + j + 1)) ∧
+      (-(-3 * (s6 / (2 ^ 12 * 3 ^ 6)) / (s5 / (2 ^ 12 * 3 ^ 5))) ^ 3 +
+          36 * (-3 * (s6 / (2 ^ 12 * 3 ^ 6)) / (s5 / (2 ^ 12 * 3 ^ 5))) *
+            (((-3 * (s6 / (2 ^ 12 * 3 ^ 6)) / (s5 / (2 ^ 12 * 3 ^ 5))) ^ 2 - s2) / 24) + s3) / 216 =
+        t ^ 3 * (4 * (j ^ 3 - 2 * j ^ 2 + 1)) ∧
+      -4 * (s5 / (2 ^ 12 * 3 ^ 5)) = t ^ 5 * j ^ 3 := by
+  have hs3 : s3 ≠ 0 := by
+    intro h; rw [h] at h1; simp at h1; rcases h1 with h | h
+    · exact hj h
+    · exact h2 h
+  obtain ⟨u, hu, rfl, rfl⟩ : ∃ u : ℂ, u ≠ 0 ∧ s2 = u ^ 2 / j ∧ s3 = u ^ 3 / j := by
+    refine ⟨s3 / s2, div_ne_zero hs3 h2, ?_, ?_⟩
+    · field_simp; linear_combination (-1 : ℂ) * h1
+    · field_simp; linear_combination (-1 : ℂ) * h1
+  subst h5 h6
+  refine ⟨-u / (12 * j), div_ne_zero (neg_ne_zero.mpr hu) (mul_ne_zero (by norm_num) hj), ?_, ?_, ?_, ?_⟩ <;>
+    field_simp <;> ring
+
 /-! ## 6. Modularity of the Siegel Eisenstein series (proved) -/
 
 /-! ### Positivity of the imaginary part on complex vectors -/
@@ -1111,6 +1142,7 @@ end
 
 #print axioms HDec.HSyn.G0Split.ThetaPt.LinYangPrinted.linYangThetaCurve_of_printed
 #print axioms HDec.HSyn.G0Split.ThetaPt.LinYangPrinted.qmHauptmodul_of_printed
+#print axioms HDec.HSyn.G0Split.ThetaPt.LinYangPrinted.jTuple_of_sForm
 #print axioms HDec.HSyn.G0Split.ThetaPt.LinYangPrinted.siegelEis_modular
 #print axioms HDec.HSyn.G0Split.ThetaPt.LinYangPrinted.spAct_mem
 #print axioms HDec.HSyn.G0Split.ThetaPt.LinYangPrinted.igusaPsi4_of_printed
