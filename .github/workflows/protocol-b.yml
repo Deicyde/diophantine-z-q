@@ -1042,6 +1042,8 @@ jobs:
 
 
           def reusable_on_rebase(gh, pr, files, envelope):
+              if any(f.get('resolution') == 'overridden' for f in envelope['review'].get('prior_findings', [])):
+                  return False  # Overrides are authorized for one exact head only.
               binding = envelope.get('reuse_binding') or {}
               if (binding.get('version') != 1 or binding.get('number') != pr['number'] or
                       not binding.get('diff') or binding['diff'] != diff_identity(files) or
@@ -1065,7 +1067,7 @@ jobs:
                   return False
 
 
-          def reusable_reports(gh, pr, files, candidates, explicit_review=False):
+          def reusable_reports(gh, pr, files, candidates, explicit_review=False, overrides=None):
               selected = {}
               # Prefer an acceptance even if a subsequent redundant round failed.
               for check_id, reports in sorted(candidates):
@@ -1073,6 +1075,9 @@ jobs:
                       if (family not in MODELS or envelope.get('reviewer') != family or
                               envelope.get('model') != MODELS[family] or not envelope.get('complete') or
                               envelope.get('read_prerequisites_complete') is False):
+                          continue
+                      if any(f.get('resolution') == 'overridden' and f['id'] not in (overrides or {})
+                             for f in envelope['review'].get('prior_findings', [])):
                           continue
                       accepted = envelope['review']['decision'] == 'accept'
                       if not accepted and (explicit_review or envelope.get('head') == pr['head']['sha']):
@@ -1291,11 +1296,6 @@ jobs:
                           state.update(conclusion='action_required', summary='Review blocked: fix failing checks first: ' + ', '.join(failed) + '. No model was called.')
                           record('decision.json', state)
                           return
-                  if not override_command and not review_command and spend['automatic_rounds'] >= 4:
-                      state.update(conclusion='action_required', summary=
-                                   'Four automatic review rounds have run. A collaborator must comment /protocol-b review. No model was called.')
-                      record('decision.json', state)
-                      return
                   files = gh.pages(f"/pulls/{number}/files")
                   if len(files) != pr["changed_files"]:
                       raise ValueError("GitHub omitted changed files; cannot review an incomplete diff")
@@ -1320,10 +1320,15 @@ jobs:
                   elif change_class == "editorial" and not prior:
                       conclusion, summary = "success", "Editorial change under the path/diff rule; author declared no mathematical change. No model review."
                   else:
-                      envelopes = reusable_reports(gh, pr, files, spend['candidates'], explicit_review=review_command)
+                      envelopes = reusable_reports(gh, pr, files, spend['candidates'], explicit_review=review_command, overrides=overrides)
                       record('review-reuse.json', {f: {'original_head': e['head'], 'effective_head': pr['head']['sha'],
                               'check': e['reuse_check'], 'run': e['run'], 'attempt': e['attempt']} for f, e in envelopes.items()})
                       missing = set(MODELS) - set(envelopes)
+                      if missing and not review_command and spend['automatic_rounds'] >= 4:
+                          state.update(conclusion='action_required', summary=
+                                       'Four automatic review rounds have run. A collaborator must comment /protocol-b review. No model was called.')
+                          record('decision.json', state)
+                          return
                       for family in missing:
                           key = 'OPENAI_API_KEY' if family == 'astra' else 'ANTHROPIC_API_KEY'
                           if not os.environ.get(key):

@@ -454,6 +454,9 @@ repeating its cost; `/protocol-b review` asks the non-accepting reviewer to try
 again. Original head/run/attempt remain intact and `reused_for` records the new
 head. `review-reuse.json` records the source App check IDs. Current CI, head and
 protected-merge checks still run normally.
+An override remains bound to its original head and current authorization; a
+conditional acceptance does not carry that override across a rebase. Reuse-only
+runs do not consume or exceed the four-paid-automatic-round limit.
 
 Reviewers now give structured source checks and access limitations. An
 access-only finding is nonblocking only if every named source passage has a

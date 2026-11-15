@@ -105,6 +105,36 @@ class Continuity(unittest.TestCase):
         self.assertEqual(state['reports']['astra']['reused_for'], HEAD)
         self.assertEqual(app.final['conclusion'], 'success')
 
+    def test_reuse_does_not_spend_a_fifth_automatic_round(self):
+        gh, app = self.rebased()
+        original = gate.review_spend_history
+        def spent(*args):
+            value = original(*args)
+            value['automatic_rounds'] = 4
+            return value
+        provider = Mock(side_effect=AssertionError('No model'))
+        with patch.object(gate, 'review_spend_history', side_effect=spent):
+            _, _, errors, state = run_pipeline(gh, app, provider=provider)
+        provider.assert_not_called()
+        self.assertEqual(errors, [])
+        self.assertEqual(state['automatic_rounds'], 4)
+
+    def test_conditional_acceptance_cannot_carry_override_to_another_head(self):
+        gh, app = self.rebased()
+        value = json.loads(app.checks[5]['output']['text'])
+        e = value['reports']['astra']
+        e['review']['prior_findings'] = [{'id': 'old-F1', 'resolution': 'overridden', 'reason': 'owner'}]
+        app.checks[5]['output']['text'] = json.dumps(value)
+        with patch.dict(os.environ, {'APP_ID': str(APP_ID)}):
+            candidates = gate.review_spend_history(gh, app, gh.pr, 'Protocol B / test review', BASE)['candidates']
+            selected = gate.reusable_reports(gh, gh.pr, [changed('p.tex')], candidates, overrides={'old-F1': {}})
+        self.assertNotIn('astra', selected)
+        e['head'] = HEAD
+        selected = gate.reusable_reports(gh, gh.pr, [changed('p.tex')], [(5, {'astra': e})])
+        self.assertNotIn('astra', selected)
+        selected = gate.reusable_reports(gh, gh.pr, [changed('p.tex')], [(5, {'astra': e})], overrides={'old-F1': {}})
+        self.assertIn('astra', selected)
+
     def test_changed_diff_or_reviewed_dependency_requires_fresh_reviews(self):
         for mutation in ['diff', 'dependency']:
             gh, app = self.rebased()
