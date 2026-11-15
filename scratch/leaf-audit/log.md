@@ -35,3 +35,10 @@
   j_theta(0.3+1.1i) = 4.27317158561753 - 0.683139858455891 i, |jDen| = 3.1e5; j_theta(0.1+0.9i) = -0.8183 + 0.7624 i;
   j_theta(-0.4+1.3i) = -10.628 + 16.718 i. Validation: j_theta(sqrt2+i) = 0 (1e-162), j_theta(i sqrt(9+6 sqrt2)) =
   -0.592592592592593 = -16/27, pole at i sqrt3 (|jDen| = 3e-197), matching pkg-I1's values.
+- COMPILED (scratch/leaf-audit/T1.lean, lake env lean, standard axioms):
+  `linYangEx29All_conj` (leaf applied to j6 and conjOP ∘ j6 gives (z - conj z) * lyS2(Ω τ)^3 = 0),
+  `jtheta_real_of_leaves : IgusaThetaExpressions → LinYangEx29All → QMHauptmodul → ∀ τ, jDen(Ωτ) ≠ 0 → im(jNum/jDen) = 0`,
+  `not_linYangEx29All : IgusaThetaExpressions → QMHauptmodul → (∃ τ, jDen ≠ 0 ∧ im(jNum/jDen) ≠ 0) → ¬ LinYangEx29All`.
+  The existential `LinYangEx29` feeds the consumer directly: `IgusaAlgFinal.thetaRatiosAtQM_of_printed hI hL` (checked).
+  VERDICT LinYangEx29All: FALSE as stated (missing holomorphy of j6). Correction: use the existential `LinYangEx29`
+  (theta-fold's own def) or add a premise pinning j6 (e.g. holomorphy where finite).
