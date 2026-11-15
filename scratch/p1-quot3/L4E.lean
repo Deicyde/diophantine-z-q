@@ -347,4 +347,100 @@ theorem isFinite_phi (hpts : ∀ s, ∃ a b : 𝒵.left, 𝒵.hom a = s ∧ 𝒵
 
 end FiniteMap
 
+/-! ## The model is `P¹_{ℤ_(p)}` -/
+
+section Main
+
+variable {p : ℕ} [Fact p.Prime] (𝒵 : Over (Spec (CommRingCat.of (Zloc p))))
+  [IsIntegral 𝒵.left] [IsProper 𝒵.hom] [SmoothOfRelativeDimension 1 𝒵.hom]
+
+theorem hom_eq_of_ne_s0 {s t : Spec (CommRingCat.of (Zloc p))} (hs : s ≠ s0 p) (ht : t ≠ s0 p) :
+    s = t := by
+  haveI := zloc_isDVR' (p := p)
+  exact PrimeSpectrum.ext ((QuotientP1Proof.asIdeal_eq_bot_of_ne_closedPoint _ _ hs).trans
+    (QuotientP1Proof.asIdeal_eq_bot_of_ne_closedPoint _ _ ht).symm)
+
+/-- **A smooth proper model of `P¹_ℚ` over `ℤ_(p)` with three generic points (zero, pole, unit value) whose closures
+are pairwise disjoint is `P¹_{ℤ_(p)}`, in a coordinate extending the generic one.** -/
+theorem exists_p1Coordinate (σ : ToP1 (genFib 𝒵).left) (hσ : IsP1CoordinateQ (genFib 𝒵) σ)
+    (y0 yinf yc : (genFib 𝒵).left) (c : Zloc p) (hc : IsUnit c)
+    (hy0U : y0 ∈ σ.U) (hy0 : y0 ∉ (genFib 𝒵).left.basicOpen σ.f) (hyinf : yinf ∉ σ.U)
+    (hycU : yc ∈ σ.U)
+    (hycv : yc ∉ (genFib 𝒵).left.basicOpen
+      (σ.f - baseToSectionsOver (CommRingCat.of ℚ) (genFib 𝒵) σ.U (zlocToRat p c)))
+    (hcl0 : ∀ x ∈ closure {jj 𝒵 y0}, 𝒵.hom x ≠ s0 p → x = jj 𝒵 y0)
+    (hclinf : ∀ x ∈ closure {jj 𝒵 yinf}, 𝒵.hom x ≠ s0 p → x = jj 𝒵 yinf)
+    (d0inf : Disjoint (closure {jj 𝒵 y0}) (closure {jj 𝒵 yinf}))
+    (d0c : Disjoint (closure {jj 𝒵 yc}) (closure {jj 𝒵 y0}))
+    (dinfc : Disjoint (closure {jj 𝒵 yc}) (closure {jj 𝒵 yinf})) :
+    ∃ ρ : ToP1 𝒵.left, IsP1Coordinate 𝒵 ρ ∧
+      ∀ (K : Type) [Field K] (z : Spec (CommRingCat.of K) ⟶ (genFib 𝒵).left),
+        ρ.val (z ≫ jj 𝒵) = σ.val z := by
+  haveI : Smooth 𝒵.hom := SmoothOfRelativeDimension.smooth 1 _
+  haveI : GeometricallyConnected 𝒵.hom := geometricallyConnected 𝒵 σ hσ
+  obtain ⟨ρ, hU, hV, hf, hg, hf1, hg1⟩ := exists_toP1 𝒵 σ hσ y0 yinf yc c hc hy0U hy0 hyinf hycU
+    hycv hcl0 hclinf d0inf d0c dinfc
+  have hyinfV : yinf ∈ σ.V := by
+    have : yinf ∈ σ.U ⊔ σ.V := by rw [σ.cover]; trivial
+    exact this.resolve_left hyinf
+  -- the special points
+  obtain ⟨x0, hx0, hx0s⟩ := exists_s0_mem_closure 𝒵 (jj 𝒵 y0)
+  obtain ⟨xi', hxi', hxi's⟩ := exists_s0_mem_closure 𝒵 (jj 𝒵 yinf)
+  have hξinf := xi_notMem_closure 𝒵 yc dinfc
+  have hξ0 := xi_notMem_closure 𝒵 yc d0c
+  have hx0U : x0 ∈ ρ.U := by rw [hU]; exact fun h => Set.disjoint_left.mp d0inf hx0 h
+  have hx0V : x0 ∉ ρ.V := by rw [hV]; exact fun h => h hx0
+  have hxiV : xi' ∈ ρ.V := by rw [hV]; exact fun h => Set.disjoint_left.mp d0inf h hxi'
+  have hxiU : xi' ∉ ρ.U := by rw [hU]; exact fun h => h hxi'
+  have hξU : xi 𝒵 ∈ ρ.U := by rw [hU]; exact hξinf
+  have hξV : xi 𝒵 ∈ ρ.V := by rw [hV]; exact hξ0
+  have hξf : xi 𝒵 ∈ 𝒵.left.basicOpen ρ.f := by rw [ρ.basicOpen_f]; exact ⟨hξU, hξV⟩
+  have hξg : xi 𝒵 ∈ 𝒵.left.basicOpen ρ.g := by rw [ρ.basicOpen_g]; exact ⟨hξU, hξV⟩
+  have hx0f : x0 ∉ 𝒵.left.basicOpen ρ.f := by rw [ρ.basicOpen_f]; exact fun h => hx0V h.2
+  have hxig : xi' ∉ 𝒵.left.basicOpen ρ.g := by rw [ρ.basicOpen_g]; exact fun h => hxiU h.1
+  -- the map to `P¹_{ℤ_(p)}` is finite
+  set φ := PR.zHom (Zloc p) ρ 𝒵.hom
+  have hφ : φ ≫ (PR.LR (Zloc p) ↘ PR.SR (Zloc p)) = 𝒵.hom := PR.zHom_over (Zloc p) ρ 𝒵.hom
+  have hpre0 : φ ⁻¹ᵁ PR.stdR (Zloc p) QuotientP1Proof.i0 = ρ.U := PR.zHom_preimage0 (Zloc p) ρ 𝒵.hom
+  have hpre1 : φ ⁻¹ᵁ PR.stdR (Zloc p) QuotientP1Proof.i1 = ρ.V := PR.zHom_preimage1 (Zloc p) ρ 𝒵.hom
+  have hsep : ∀ a b : 𝒵.left, a ∈ ρ.U → b ∉ ρ.U → φ a ≠ φ b := by
+    intro a b ha hb hab
+    apply hb
+    rw [← hpre0] at ha ⊢
+    change φ b ∈ PR.stdR (Zloc p) QuotientP1Proof.i0
+    rw [← hab]; exact ha
+  have hpts : ∀ s, ∃ a b : 𝒵.left, 𝒵.hom a = s ∧ 𝒵.hom b = s ∧ φ a ≠ φ b := by
+    intro s
+    by_cases hs : s = s0 p
+    · exact ⟨x0, xi', hx0s.trans hs.symm, hxi's.trans hs.symm, hsep _ _ hx0U hxiU⟩
+    · refine ⟨jj 𝒵 y0, jj 𝒵 yinf, hom_eq_of_ne_s0 (hom_jj_ne 𝒵 y0) hs,
+        hom_eq_of_ne_s0 (hom_jj_ne 𝒵 yinf) hs, hsep _ _ ?_ ?_⟩
+      · rw [hU]; exact fun h => Set.disjoint_left.mp d0inf (subset_closure rfl) h
+      · rw [hU]; exact fun h => h (subset_closure rfl)
+  haveI := isFinite_phi 𝒵 φ hφ hpts
+  have hUa : IsAffineOpen ρ.U := by
+    rw [← hpre0]; exact (AlgebraicGeometry.ProjectiveSpace.isAffineOpen_standardOpen _ _ _).preimage φ
+  have hVa : IsAffineOpen ρ.V := by
+    rw [← hpre1]; exact (AlgebraicGeometry.ProjectiveSpace.isAffineOpen_standardOpen _ _ _).preimage φ
+  refine ⟨ρ, ⟨hUa, hVa, ?_, ?_⟩, ?_⟩
+  · exact eval_bijective 𝒵 σ hσ ⟨y0, hy0U⟩ ρ hf hf1 x0 hx0U hx0s hx0f hξf
+  · exact eval_bijective 𝒵 (swapP1 σ) (isP1CoordinateQ_swap _ σ hσ) ⟨yinf, hyinfV⟩ (swapP1 ρ) hg
+      hg1 xi' hxiV hxi's hxig hξg
+  · intro K _ z
+    rw [← ToP1.val_comp_right]
+    have hpre : jj 𝒵 ⁻¹ᵁ ρ.U = σ.U := by
+      refine le_antisymm (fun y hy => ?_) hf
+      by_contra hyU
+      have := eq_of_notMem_U _ σ hσ hyU hyinf
+      subst this
+      have hy' : jj 𝒵 y ∈ ρ.U := hy
+      rw [hU] at hy'
+      exact hy' (subset_closure rfl)
+    refine val_eq_of_res (ρ.comp (jj 𝒵)) σ hpre ?_ z
+    rw [← hf1]
+    simp only [ToP1.comp, Scheme.Hom.appLE]
+    rfl
+
+end Main
+
 end HDec.MCRGlue.P1Model
